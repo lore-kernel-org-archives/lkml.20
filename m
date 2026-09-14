@@ -1,37 +1,37 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4842447607C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48207476076;
 	Mon, 14 Sep 2026 13:47:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393629; cv=none; b=Rf8Y3FMX9Gg5Oaw+3vm5ny8Yqvym1lXkd/sJWpXyeKe/eqJLIHZZuWpQf9MimkmF1xqq9XH89It5pM9GVFGQwrViAn5ow+XIo4Z4RZR9RAZAnPDVtkrisDmlBL28pd6qnj+0qfgRVKGWPQSM4qGDPecpODpoVfu/BPTDxK7udzE=
+	t=1789393630; cv=none; b=EH4melYmWPfMJFBSd9sg43HzZ7hjQDZ01Y0SwTK4FOXn40CqFe8Iu8v0Dlb2I+E+LzshEJIkY/Bz8xCKmdNbx8KqOYU24fuDi/1++o5qRptqMvjU5+DKvJlmkRy0UGrWu8Qob1b9F+uk8aYrNYqAdOLlgRI2/Zt/rO7eeY5yW44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393629; c=relaxed/simple;
-	bh=qXuPQtQK/tzbYDqUo7i3Yoiv3UQY/plhMcQleYglgm8=;
+	s=arc-20240116; t=1789393630; c=relaxed/simple;
+	bh=/Vg9lWTqi4wnFHLehh9gX4MNk7C0M9tMBtmIJXznjpk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qv51ctYwGHInzeI0NWHovcm/xZLT5mzjXo290lHLHPv4agb8bmY6Wx3n2Js1sDHRSti/zzeQVKly62U69b+z/dvN9x4GDFudPgtLvXe1j7yJo7foybRUaYiXGS9Xp2PYXV77djcqcWKFZSlUv2GvQAt/RjMlSwajwIfAJSABgXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=kJGA+2WC; arc=none smtp.client-ip=116.203.77.234
+	 In-Reply-To:To:Cc; b=E8+A1TUQweBQ0TVqmXcd3A8ZAQqcQbOzmr+fI+jZqLH82EoWHImgNyzMLjraHfxqK4Ey+LIsnPP03C6NrBKYp6J9XKxRwzxvknyTNyLUADvceQZ+YwwMECUg/uNFgYdgEZSYxfZeCM9NhHykc48AK/xEKGrJsjFN9KNgo8/Hm34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=zJ3WQd4B; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="kJGA+2WC"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="zJ3WQd4B"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1789393613;
+	t=1789393612;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JTEthrAA6LwUJ539D4ECKjt7zqyGUxoBnrgaPMytwWY=;
-	b=kJGA+2WCG8Tyubro58MiFXcW/L0kOB7gRGAmuW2V7+MQ9uoo0xeg5W3EBTVz3290LP1NV2
-	KcdyobPXmr7d6WoQ5d6wi490729dh+wQPKiwEvGX33Idnlpm0u5p+M4pj0LZU+3Y82qkz/
-	CO2+BTPDASsPtuDhX1lGaIpDgABJIYFiESF9tM1p7QBHFzxdWqW9BZXoOPIA7H5IXhpgn/
-	LrkM5fKNvb4JXh/3WuL/mwr1QrZljJ8Mo1V1bY8UeY+UN+FHEnFJ3jFStX6M7PKUzdeUet
-	FINGRCyMbZ83toypKmXCOhGrPZM6509k1d5EwIIilbSRW2aHUzQr93ThdBI1FQ==
-Date: Mon, 14 Sep 2026 15:46:17 +0200
-Subject: [PATCH v2 9/9] arm64: dts: imx8mp-kontron: Fix LVDS clock
- frequency for DL device
+	bh=gQ7tlYQD+juZcuDPbtM9CSBLnEhqYupQN8u5lqSsZ7w=;
+	b=zJ3WQd4BojjBu4MLb+PcK05XjdaFNC84dAqOfGejoq24Omo9guDmGVIUOhNej7YBincm9z
+	sNHsZRFIe7qHJdvbKUD9DCFBRReI/yacvRJlqrG0/y6Uw1z8+dFMQ7T6RMdJRmJxahc4SB
+	4G4m9uFiT+d44YGdrPq+8YmYP3gkMI+YVzZCVjeI2ohuPwSTdKHrvAhkheAZbyosJ55YPC
+	kYk2ebYP0JkFRyywKKTk2VYa67bUkk7M2qOqqlX90rKlyCa9737m8PXcTU0oZ3/jNHMN4s
+	siMEGF57C91Y7RXaz2Hiowto9ArPkYusQiSd4KY7FZlaP7WMA0yaZxFiIW1Sdg==
+Date: Mon, 14 Sep 2026 15:46:15 +0200
+Subject: [PATCH v2 7/9] arm64: dts: imx8mm-kontron: Add GPIO labels and
+ comments
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-9-8e12bc5f1f10@kontron.de>
+Message-Id: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-7-8e12bc5f1f10@kontron.de>
 References: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-0-8e12bc5f1f10@kontron.de>
 In-Reply-To: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-0-8e12bc5f1f10@kontron.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -53,60 +53,238 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Oualid Derouiche <oualid.derouiche@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1721;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6947;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=JflSEapFC6tCDik1Iz5jWuT+Z2BejGAThr2/ZivZJV0=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWv5r1OHzvCa3wswrbacv1oglFW+j8HEivPg4eDvHzMNj
- x/qEH7QUcrCIMbFICumyCLFb/Ha1izWR/5YdRTMHFYmkCEMXJwCMBGXBkaGO5E8fidFrxrOd1px
- /XRsxLXAHHWph8VZm3p0uB8whp19w8hwbeuSF2szmQOcJ7XOEPaYk+KS9Jd94zxt39NKTyMOXRX
- mAwA=
+ bh=tLR/ApaxeJaUnZcSY/lBN9zmpG+rQxYFy6C/HB1ebwY=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWv5r1NbP7WoGizrE+XfOsntsOApd+sPG+YuZNngmPnZ+
+ fKtL5l7O0pZGMS4GGTFFFmk+C1e25rF+sgfq46CmcPKBDKEgYtTACbCvIaRYd55VZaflt9nXBT+
+ bT1DjuvV0YhnnypuuS76veq/xfuNL84xMnyU3Fn8Nk5GaItZZbh51Xm+TdILD/ncn7K/+/NT59f
+ Fz9kB
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
 From: Oualid Derouiche <oualid.derouiche@kontron.de>
 
-The panel needs a pixel clock of 50 MHz, which means the LDB
-serializer has to run at 50 MHz * 7 = 350 MHz. The LDB rate itself
-is set by the fsl-ldb driver, but VIDEO_PLL1 needs to be pinned to
-700 MHz, so that both the LDB clock (/2) and the pixel clock (/14)
-can be derived from it exactly.
+Describe the GPIOs and their purpose using labels and comments.
 
-Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
 Signed-off-by: Oualid Derouiche <oualid.derouiche@kontron.de>
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../arm64/boot/dts/freescale/imx8mm-kontron-bl.dts | 81 +++++++++++++++-------
+ 1 file changed, 55 insertions(+), 26 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso b/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-index 41a2bb74f156..88b30ca66adf 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-@@ -6,6 +6,7 @@
- /dts-v1/;
- /plugin/;
- 
-+#include <dt-bindings/clock/imx8mp-clock.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include "imx8mp-pinfunc.h"
-@@ -99,6 +100,16 @@ &ldb_lvds_ch0 {
- 
- &lvds_bridge {
- 	status = "okay";
-+	/*
-+	 * The video PLL clock frequency needs to be configured manually.
-+	 * The panel needs a LVDS clock of 50 MHz * 7 = 350 MHz.
-+	 * IMX8MP_CLK_MEDIA_LDB = IMX8MP_CLK_MEDIA_DISP2_PIX * 7
-+	 * IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_LDB * 2
-+	 */
-+	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-+			  <&clk IMX8MP_VIDEO_PLL1>;
-+	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-+	assigned-clock-rates = <0>, <700000000>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts b/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
+index 1f3d0577f10c..72588af057d2 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
+@@ -97,6 +97,7 @@ reg_vdd_5v: regulator-5v {
+ 	};
  };
  
- /* redefine to remove touch controller GPIOs */
++/* CAN */
+ &ecspi2 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_ecspi2>;
+@@ -124,6 +125,7 @@ &ecspi3 {
+ 	status = "okay";
+ };
+ 
++/* ETH0 */
+ &fec1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_enet>;
+@@ -163,9 +165,24 @@ led@1 {
+ 	};
+ };
+ 
++/* DIO */
++&gpio1 {
++	gpio-line-names = "", "", "", "DOUT1",
++			  "", "", "DIN1", "DOUT2",
++			  "DIN2", "DOUT3", "DIN3", "DOUT4";
++};
++
+ &gpio4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_gpio4>;
++	gpio-line-names = "", "CAN_ADR0", "", "",
++			  "CAN_ADR1", "CAN_ADR2", "CAN_ADR3", "LED6",
++			  "LED4", "LED5", "", "",
++			  "", "", "DSI_MUX_SEL", "DSI_MUX_OE",
++			  "HDMI_IRQ", "LED1", "LED3", "LED2",
++			  "", "", "", "",
++			  "", "ETH_IRQ", "LVDS_EN", "PHY_RST",
++			  "CAN_IRQ", "UART2_RTS";
+ 
+ 	dsi_mux_sel_hdmi: dsi-mux-sel-hdmi-hog {
+ 		gpio-hog;
+@@ -190,6 +207,10 @@ dsi-mux-oe-hog {
+ 	};
+ };
+ 
++&gpio5 {
++	gpio-line-names = "", "", "DIN4";
++};
++
+ &i2c3 {
+ 	clock-frequency = <400000>;
+ 	pinctrl-names = "default";
+@@ -274,6 +295,7 @@ &pwm2 {
+ 	status = "okay";
+ };
+ 
++/* RS232 */
+ &uart1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart1>;
+@@ -281,6 +303,7 @@ &uart1 {
+ 	status = "okay";
+ };
+ 
++/* RS485 */
+ &uart2 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart2>;
+@@ -324,6 +347,7 @@ usbnet: ethernet@1 {
+ 	};
+ };
+ 
++/* SD-card */
+ &usdhc2 {
+ 	pinctrl-names = "default", "state_100mhz", "state_200mhz";
+ 	pinctrl-0 = <&pinctrl_usdhc2>;
+@@ -341,13 +365,13 @@ &iomuxc {
+ 
+ 	pinctrl_adv7535: adv7535grp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_SAI1_TXD4_GPIO4_IO16		0x19
++			MX8MM_IOMUXC_SAI1_TXD4_GPIO4_IO16		0x19 /* HDMI_IRQ */
+ 		>;
+ 	};
+ 
+ 	pinctrl_can: cangrp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_SAI3_RXFS_GPIO4_IO28		0x19
++			MX8MM_IOMUXC_SAI3_RXFS_GPIO4_IO28		0x19 /* CAN_IRQ */
+ 		>;
+ 	};
+ 
+@@ -356,7 +380,7 @@ pinctrl_ecspi2: ecspi2grp {
+ 			MX8MM_IOMUXC_ECSPI2_MISO_ECSPI2_MISO		0x82
+ 			MX8MM_IOMUXC_ECSPI2_MOSI_ECSPI2_MOSI		0x82
+ 			MX8MM_IOMUXC_ECSPI2_SCLK_ECSPI2_SCLK		0x82
+-			MX8MM_IOMUXC_ECSPI2_SS0_GPIO5_IO13		0x19
++			MX8MM_IOMUXC_ECSPI2_SS0_GPIO5_IO13		0x19 /* ECSPI2_CS1 */
+ 		>;
+ 	};
+ 
+@@ -365,7 +389,7 @@ pinctrl_ecspi3: ecspi3grp {
+ 			MX8MM_IOMUXC_UART2_RXD_ECSPI3_MISO		0x82
+ 			MX8MM_IOMUXC_UART1_TXD_ECSPI3_MOSI		0x82
+ 			MX8MM_IOMUXC_UART1_RXD_ECSPI3_SCLK		0x82
+-			MX8MM_IOMUXC_UART2_TXD_GPIO5_IO25		0x19
++			MX8MM_IOMUXC_UART2_TXD_GPIO5_IO25		0x19 /* ECSPI3_CS1 */
+ 		>;
+ 	};
+ 
+@@ -385,40 +409,45 @@ MX8MM_IOMUXC_ENET_TXC_ENET1_RGMII_TXC		0x1f
+ 			MX8MM_IOMUXC_ENET_RXC_ENET1_RGMII_RXC		0x91
+ 			MX8MM_IOMUXC_ENET_RX_CTL_ENET1_RGMII_RX_CTL	0x91
+ 			MX8MM_IOMUXC_ENET_TX_CTL_ENET1_RGMII_TX_CTL	0x1f
+-			MX8MM_IOMUXC_SAI2_MCLK_GPIO4_IO27		0x19 /* PHY RST */
+-			MX8MM_IOMUXC_SAI2_TXC_GPIO4_IO25		0x19 /* ETH IRQ */
++			MX8MM_IOMUXC_SAI2_MCLK_GPIO4_IO27		0x19 /* PHY_RST */
++			MX8MM_IOMUXC_SAI2_TXC_GPIO4_IO25		0x19 /* ETH_IRQ */
+ 		>;
+ 	};
+ 
+ 	pinctrl_gpio_led: gpioledgrp {
+ 		fsl,pins = <
+ 			MX8MM_IOMUXC_NAND_READY_B_GPIO3_IO16		0x19
+-			MX8MM_IOMUXC_SAI1_RXD5_GPIO4_IO7		0x19
+-			MX8MM_IOMUXC_SAI1_RXD6_GPIO4_IO8		0x19
+-			MX8MM_IOMUXC_SAI1_RXD7_GPIO4_IO9		0x19
+-			MX8MM_IOMUXC_SAI1_TXD5_GPIO4_IO17		0x19
+-			MX8MM_IOMUXC_SAI1_TXD6_GPIO4_IO18		0x19
+-			MX8MM_IOMUXC_SAI1_TXD7_GPIO4_IO19		0x19
++			MX8MM_IOMUXC_SAI1_RXD5_GPIO4_IO7		0x19 /* LED6 */
++			MX8MM_IOMUXC_SAI1_RXD6_GPIO4_IO8		0x19 /* LED4 */
++			MX8MM_IOMUXC_SAI1_RXD7_GPIO4_IO9		0x19 /* LED5 */
++			MX8MM_IOMUXC_SAI1_TXD5_GPIO4_IO17		0x19 /* LED1 */
++			MX8MM_IOMUXC_SAI1_TXD6_GPIO4_IO18		0x19 /* LED3 */
++			MX8MM_IOMUXC_SAI1_TXD7_GPIO4_IO19		0x19 /* LED2 */
+ 		>;
+ 	};
+ 
+ 	pinctrl_gpio: gpiogrp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x19
+-			MX8MM_IOMUXC_GPIO1_IO07_GPIO1_IO7		0x19
+-			MX8MM_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x19
+-			MX8MM_IOMUXC_GPIO1_IO11_GPIO1_IO11		0x19
+-			MX8MM_IOMUXC_GPIO1_IO06_GPIO1_IO6		0x19
+-			MX8MM_IOMUXC_GPIO1_IO08_GPIO1_IO8		0x19
+-			MX8MM_IOMUXC_GPIO1_IO10_GPIO1_IO10		0x19
+-			MX8MM_IOMUXC_SAI3_MCLK_GPIO5_IO2		0x19
++			MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x19 /* DOUT1 */
++			MX8MM_IOMUXC_GPIO1_IO06_GPIO1_IO6		0x19 /* DIN1 */
++			MX8MM_IOMUXC_GPIO1_IO07_GPIO1_IO7		0x19 /* DOUT2 */
++			MX8MM_IOMUXC_GPIO1_IO08_GPIO1_IO8		0x19 /* DIN2 */
++			MX8MM_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x19 /* DOUT3 */
++			MX8MM_IOMUXC_GPIO1_IO10_GPIO1_IO10		0x19 /* DIN3 */
++			MX8MM_IOMUXC_GPIO1_IO11_GPIO1_IO11		0x19 /* DOUT4 */
++			MX8MM_IOMUXC_SAI3_MCLK_GPIO5_IO2		0x19 /* DIN4 */
+ 		>;
+ 	};
+ 
+ 	pinctrl_gpio4: gpio4grp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_SAI1_TXD2_GPIO4_IO14		0x19
+-			MX8MM_IOMUXC_SAI1_TXD3_GPIO4_IO15		0x19
++			/* CAN address DIP switches 1-4 */
++			MX8MM_IOMUXC_SAI1_RXC_GPIO4_IO1			0x19 /* CAN_ADR0 */
++			MX8MM_IOMUXC_SAI1_RXD2_GPIO4_IO4		0x19 /* CAN_ADR1 */
++			MX8MM_IOMUXC_SAI1_RXD3_GPIO4_IO5		0x19 /* CAN_ADR2 */
++			MX8MM_IOMUXC_SAI1_RXD4_GPIO4_IO6		0x19 /* CAN_ADR3 */
++			MX8MM_IOMUXC_SAI1_TXD2_GPIO4_IO14		0x19 /* DSI_MUX_SEL */
++			MX8MM_IOMUXC_SAI1_TXD3_GPIO4_IO15		0x19 /* DSI_MUX_OE */
+ 		>;
+ 	};
+ 
+@@ -444,7 +473,7 @@ MX8MM_IOMUXC_SPDIF_RX_PWM2_OUT			0x19
+ 
+ 	pinctrl_sn65dsi84: sn65dsi84grp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_SAI2_TXD0_GPIO4_IO26		0x19
++			MX8MM_IOMUXC_SAI2_TXD0_GPIO4_IO26		0x19 /* LVDS_EN */
+ 			MX8MM_IOMUXC_SD2_WP_GPIO2_IO20			0x19
+ 		>;
+ 	};
+@@ -463,13 +492,13 @@ pinctrl_uart2: uart2grp {
+ 			MX8MM_IOMUXC_SAI3_TXFS_UART2_DCE_RX		0x0
+ 			MX8MM_IOMUXC_SAI3_TXC_UART2_DCE_TX		0x0
+ 			MX8MM_IOMUXC_SAI3_RXD_UART2_DCE_RTS_B		0x0
+-			MX8MM_IOMUXC_SAI3_RXC_GPIO4_IO29		0x19
++			MX8MM_IOMUXC_SAI3_RXC_GPIO4_IO29		0x19 /* UART2_RTS */
+ 		>;
+ 	};
+ 
+ 	pinctrl_usb_eth2: usbeth2grp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_NAND_CE1_B_GPIO3_IO2		0x19
++			MX8MM_IOMUXC_NAND_CE1_B_GPIO3_IO2		0x19 /* ETH_RST */
+ 		>;
+ 	};
+ 
+@@ -481,7 +510,7 @@ MX8MM_IOMUXC_SD2_DATA0_USDHC2_DATA0		0x1d0
+ 			MX8MM_IOMUXC_SD2_DATA1_USDHC2_DATA1		0x1d0
+ 			MX8MM_IOMUXC_SD2_DATA2_USDHC2_DATA2		0x1d0
+ 			MX8MM_IOMUXC_SD2_DATA3_USDHC2_DATA3		0x1d0
+-			MX8MM_IOMUXC_SD2_CD_B_GPIO2_IO12		0x19
++			MX8MM_IOMUXC_SD2_CD_B_GPIO2_IO12		0x19 /* SD2_CD */
+ 			MX8MM_IOMUXC_GPIO1_IO04_USDHC2_VSELECT		0xd0
+ 		>;
+ 	};
 
 -- 
 2.55.0
