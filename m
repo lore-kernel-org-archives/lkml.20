@@ -1,93 +1,62 @@
-Received: from mta0.migadu.com (out-30.mta0.migadu.com [91.218.175.30])
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15B322A7F6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA2130498E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367545; cv=none; b=aYFxAFZoXNOzcEeAa/GxzPy5dLMonXAhUzyIT9tGcXaKIiHfadqgtXFB52PYeg/3vf9EtKi+VODiGjL4/AqrxgkMXPopC598PtmSI2/28adBodDIABMMf28P1cRSwfo2w4NMyN0dpu5+0Ze7A5D0IUcBXkMXuGMasmeglCh+9PQ=
+	t=1789367567; cv=none; b=NFX7L089yMxXvY8ghdS1/0oot7fxXzMjGdrK0xAeqwxnkFjkJSeZWaajeQrtV8k1AyMtL5jt5PSlEGTwLGMzD7sgXE5Jr4n9aBOSyQX/8ufqAK7LA/0uPceASs8jsNA28h5Ze4kyoQX1K3/MLkYchPYN+ueJh+6nGo674ZbPrSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367545; c=relaxed/simple;
-	bh=u0xDEdzgIvp1jXjtMCIvp5g1TCOxOf/z9+CMM5yvNJ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u9dikFxNZvRGkTcG/3Jc/ttIurs333UA0sYm8/yhpUerPFkE8rkLUh1k/jxWLlDvVceN4eNq7xU9VJDlxQRbIvExa29owyDofpV3SmE2p4OJf5sXR+zJKxPRUdSgzb94IyhVILFSZ1/lexqsAjKBWhRrMOJZLgFm5aZ+dY1PKaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=naG/VH1I; arc=none smtp.client-ip=91.218.175.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="naG/VH1I"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u0xDEdzgIvp1jXjtMCIvp5g1TCOxOf/z9+CMM5yvNJ0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789367541; v=1; x=1789972341;
- b=naG/VH1IheAzPheUGvqYVFPCMELPtRNGNhvuSfF8Bac/PzsBfsgBBsH/BV0PcXlOrlh8BWey
- v/3ykVE6glR8btsjm6swnGieDx1V/tzxaohENf+vKd2uW2wEffgPXHWIQ990W0iWL7G7nCbHFwN
- SNG8MHfkVsAXWM51mm2H/pe4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5cc6e3e4d0ef2ad9;
-	Mon, 14 Sep 2026 06:32:21 +0000
-X-Mizu-Trace-ID: 5cc6e3e4d0ef2ad9
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so4978e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:32:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxMN1IHhEviAAdZIBsa4JOAvzq++HJpdPWg5IgckJFFuhEullvtAuFj+HQAtAC2m99bMF3F1F7/wG77+n4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkT7ZcXMrPzgG70mGoQIx/B2Kcj1Tzlcro3tmufRwQVWqfTtAY
-	t+qF5X8/PvgS5i9xKXFmDQKhb/ck41Er9OOj311tw6ahELt5M4U9/8xbD6447jEP9L6Tn/PcB8X
-	M4GqQ8OybgiPFR9iy/iBcatWT8TpKqc1qU4WnlmEH
-X-Received: by 2002:a05:6512:3e0e:b0:5b8:9e63:dfb9 with SMTP id
- 2adb3069b0e04-5b8ae42ae97mr21520e87.0.1789367538566; Sun, 13 Sep 2026
- 23:32:18 -0700 (PDT)
+	s=arc-20240116; t=1789367567; c=relaxed/simple;
+	bh=cQ/RQYYKGuz8z6k06jG3/QsGEu3DTlXGa69+o+M7jAw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=IM7AHtYxhTK7RPMQh1CvyZciVyp4I284oI2sJfyRziA0Ao887lNgcZrAbUGlG496+PI1UceHbjrsSdagk4o+fU1DTaKFcAeD+fgVmKfNOoA4JXdZhHuaiaY5xwu0REtX6bRHCO13MyNGoe8Oqe4a9BLUi6MdJBF3QQOToCqTs14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-804e6c7acb6so3021772a34.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:32:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789367565; x=1789972365;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cQ/RQYYKGuz8z6k06jG3/QsGEu3DTlXGa69+o+M7jAw=;
+        b=VZTgtFVk4SV/WEBzvS25VF1E76Ye3Kte1NTa2nSsUDDbLh6UU46M2Gmw4XBj0yT5K/
+         RwdKbSLUoVdeW74XWS1f1fTzx7sknd42qh65I2Iykn0ecI7XBDp7kYMs71nL1CU5JQwt
+         v2gc/HgNGwYkqr47Jct28nWC2Yw4TnXgtc/7j2jUtNqSqPTx/SZ3rnfEKaUzvMapOf3k
+         VFWCR/a1Sj4O6uNe5gkyXeJAkY2WvTGIGT5DwwzncRKKbDW5Ot90BIZ0y9wrlo0CMY43
+         ldI0PH56UmD14PHc8MKIkrSCkkKI8VFO2WyVzuPVYFaK9wEhMBElttg9fOLbIhpAkWpw
+         9/Zg==
+X-Gm-Message-State: AFuF++l1lhb38o1TyUEOwy3GgqkhJPagHI6/Z6gGbbM6TluxjRs6RFWr
+	P3aZYcyup0bpk2FqOd3FV2B7Phjf2PkBGMEvY96g8STaXSyopzWwnda/dnDHiwINotpauy3yAa9
+	GvfoRFpMZuU8oY/s0e6Ul/dwB1HUOOCn3BU5fecdNrjaI7mfwXZ0fFF14zts=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
- <20260907070002.3333525-15-fuad.tabba@linux.dev> <86jyos6j2o.wl-maz@kernel.org>
-In-Reply-To: <86jyos6j2o.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 14 Sep 2026 07:32:00 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwL4dUC6_ok+OE=zhFK_Dhosc1Nji4Vp4hr+HYibF6cgQ@mail.gmail.com>
-X-Gm-Features: AcwNN1V3-IRZLy4EhuEzKp1SiumXuAoMIBvvNz1M8aC8VCuBKY3hnZnOfpboMkk
-Message-ID: <CA+EHjTwL4dUC6_ok+OE=zhFK_Dhosc1Nji4Vp4hr+HYibF6cgQ@mail.gmail.com>
-Subject: Re: [PATCH v2 14/17] KVM: arm64: Reject host access to protected VM
- private state
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Vincent Donnefort <vdonnefort@google.com>, Quentin Perret <qperret@google.com>
+X-Received: by 2002:a05:6820:4def:b0:6be:1570:73b6 with SMTP id
+ 006d021491bc7-6c541c4afcdmr820261eaf.20.1789367565034; Sun, 13 Sep 2026
+ 23:32:45 -0700 (PDT)
+Date: Sun, 13 Sep 2026 23:32:45 -0700
+In-Reply-To: <6a6d4178.13bfb6d0.1ecdd5.0256.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7950d.a211d2ce.1a5198.028b.GAE@google.com>
+Subject: Forwarded: [PATCH] UBSAN: array-index-out-of-bounds in uea_bind
+From: syzbot <syzbot+92f5bf49bf4ac75223ca@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Marc,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-On Fri, 11 Sept 2026 at 13:58, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> Why can't these be moved to the ioctl callback? Something like:
->
-[...]
-> +static long pkvm_filter_vcpu_ioctl(struct kvm_vcpu *vcpu, unsigned int ioctl)
-[...]
+***
 
-Much nicer, I'll move the three has-run checks into that filter for
-v3. I think we need the other two where they are, though: the
-ext_dabt_pending check reads the payload, and KVM_SET_GUEST_DEBUG has
-its own case in kvm_vcpu_ioctl(), so it never gets as far as
-kvm_arch_vcpu_ioctl().
+Subject: [PATCH] UBSAN: array-index-out-of-bounds in uea_bind
+Author: jchuang26@m.fudan.edu.cn
 
-> Where is KVM_CAP_ARM_INJECT_EXT_DABT rejected?
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 762137ff748fa0c920f82ce718163691cb02f907
 
-In kvm_pkvm_ext_allowed(): on a protected VM it returns false for any
-capability it doesn't list, and patch 16 doesn't add this one, so
-KVM_CHECK_EXTENSION on the VM fd returns 0 for it (and for
-KVM_CAP_SET_GUEST_DEBUG). I'd keep the ioctl check too, for the VMM
-that doesn't ask, since userspace has been known to act silly. I'll
-say so in the commit message and in pkvm.rst (maybe not the silly
-part).
-
-Thanks,
-/fuad
