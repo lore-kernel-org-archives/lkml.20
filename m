@@ -1,97 +1,84 @@
-Received: from mail-vs2-f26.google.com (mail-vs2-f26.google.com [74.125.227.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B9F48380E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAF23E7BC6;
+	Mon, 14 Sep 2026 16:54:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789404832; cv=none; b=XNlJBAmQSxe7KH95Mow1I5cWp1zt7g+Uji2szvk80z6UMyMTKHkldf9htXQR4vc1p6n8L3Ubqph3L7UkqfvIhgdA2jSwZc1I7lybdUYBv9dGApW8Lc8RaF18fmYRlKJu87HuiaJX3N8RUx+OoZ9rZqdI1KMocj+BsTBTKD5Uq6o=
+	t=1789404850; cv=none; b=E+iJEyEjfDdnVV+zyET673T/s99YoWptsla9Eqk9WsL6QQwdKjvGQ4vVhebXTPtPd/4QuVYAjyLkjZTuVYgNuCZ3d9VFufLXSGqP1yUM+VQ26obi+3UIoWscz+qF65LODK7JWcdMXzd+gMZyb2OfCkfGDQMclD/nHg6BT3hLcMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789404832; c=relaxed/simple;
-	bh=Mh6gEpsA9iJQYd2BVSlqJWoSIMsA9HSAvPlTaQn8dqM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rNxfNCMI7ImxbnZ875Pbw67xj4x+BD3hHsTkKIBXKqQuU/Xvvc6ON/gPY4oc7Y7WtoPRXnD9ExhlFbIdKOqXc/qMiMCf0Lc3Q/Zv/G7cuhQffF9L9VG9KrjvFJ5lzoWNH/0yGS1wtDy701CZOAB/HSTBIJv3LCb0BlaALowg/w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f26.google.com with SMTP id 71dfb90a1353d-5c67e529da9so759266e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789404829; x=1790009629;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BQG/EJqnowJv9xXbgTYVxf8rMoXWD6yF3WQVjoo8UXA=;
-        b=H0NGGlDLx2avTOATqI1k0lQhq1Ag90SouAWM3TTcDDHHCZjSGR7Byd3zil66qoXKTg
-         OVktN+Zt8H0HF6E7urpIHr8RStKEpyxeBsoZ4FhSq/uM8vtzy6QaS1+cS4O8lA2gk3Wl
-         oUWn5cSaJVo1T6dbElAMYbNDPfqGrA2Z2YFBBHl+1IcKsQixwrNQ1+3ZMVYFp79qWJpN
-         tyqrbPE6ClJgmARWdlFvfbggun4dTlqjcB4hE9yW2yinX1eTKiyyjU3poIswJDGP+rIC
-         7ErIbmNVM5ounAsZWOBg2w2TLFl8/p2HjW68XWhtHignS+Nbzc/VV1OgTRgAH4Mi9XWO
-         iyUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxH3+a5tN0Co7bOGAMdPIz7PuXmSpKy0s6rPQCTebFBjt+Ja/v75vUPm/JWfUV/w8jgA8QLmIpqZdAkELA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJLgqlAY0Yb7uailTIywiYWGibWkHDiiSQPvTLUmqAgy513UP+
-	quJyl+dRCQVuew3lQd7JLa+NWBTYDv2obRm7yeDd8KkoILobCkEYYaWnXx8kE3E+
-X-Gm-Gg: AYBFou0iJ/sFGCQAHUlOLS9lsOsQIfMPjAp9nku5PmYlZvoNYXogX6d7nhwuUPBHcrv
-	yM0eE9qE3cyp2x23tx7ifqMSpm0bPBKUOPJ94Qm+P9Qp0M9zn3W3mCxSQ1a4gCm8yVD5UXSVGAQ
-	2JdTZiZXZNxBiJ9llLmzOZa2euTuxDCB6b1wMZnc2+qEAKKY56Uw7vy0iu8lGxiImlin6o9qbSd
-	iS8cbpNC8oMbzA3V/GUDOSmc+GQdvEdH207DffW+A7yGXyEC6nEONY9ZnVfnwnCyNZPRdY1LQrE
-	bkUV+8EHy1hGbULk1wmhBtCu0HfXKeeiP+2I8ta1bdcRmknsljlpijwaCA34VL+DctukgzwCyBK
-	HttizAetZ2BQe0GuI+YpHUVGVXjIe/StSagiGwP2UZLEfAJ+ZHMVf8GPRwkQf2BUMln4czcgdnm
-	tszHNBSQL8iHGgT43KWW/fN/asgISsTuxtMF93rChV4hy4clSAwppPn06sLJFFc08kDD9wqp2k4
-	fqM2X86KSIcPUsFiaJkdx0CMj+jAVDDrOzBMhTZduqoQprp
-X-Received: by 2002:a05:6122:e213:b0:5c9:67f9:652b with SMTP id 71dfb90a1353d-5c981d87f0bmr1995324e0c.5.1789404829201;
-        Mon, 14 Sep 2026 09:53:49 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c847154825sm12099811e0c.17.2026.09.14.09.53.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 09:53:48 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e9af41731so450922241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz4p3uifls//yqM5UJM8o7AQVQ2TgBfb36Icg5bfue+VNzBhpftuVmzcnTyw5BZ0cn5URw9/wt6Q/KRpTw=@vger.kernel.org
-X-Received: by 2002:a05:6102:160b:b0:799:e1cb:d690 with SMTP id
- ada2fe7eead31-79b56df9c48mr1219613137.1.1789404828557; Mon, 14 Sep 2026
- 09:53:48 -0700 (PDT)
+	s=arc-20240116; t=1789404850; c=relaxed/simple;
+	bh=ut5HCh/KD5+YXQ4y1JCalbQ4vsSeHz9aZjPvGryhHK8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LcgxOFMitbb97kc2oyYlo2RuAm8lOaQIoTxwLAIP8iJ42SFHokLwMc64IDvv1RL0Nf+wIoJFApe+8h+P6a4OpbScxcIakOAYYOQmPJprnwMryU5kO5I+vRG7xOiXR/nEdirHm8HwefFunqy9S2uuSrAB5RByvDJfO9Ap3qAz/B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=oMZHL/CY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="oMZHL/CY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=c8qx/n3bAQtpTa5yG5DIesMaxep0tMIz6CFEJ1CkwWg=; b=oMZHL/CY0iFEwS9FsU2TaRn3df
+	yWPbvYbuo+hT5jitUImF89l1A3yM47+A16SYjIe3eXjUOyiXW7t5Eqf5iauzmBySkIEdV4IEdYs2j
+	f8jIXrDYpoeuD6Zp4v7YScvGXLEiTxaCRiiZV+NK67nwPkDe+RCrFQ3FHlzk3C+Eq2mk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x69wL-0057Dd-4j; Mon, 14 Sep 2026 18:53:57 +0200
+Date: Mon, 14 Sep 2026 18:53:57 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Birger Koblitz <mail@birger-koblitz.de>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>, linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Jianhui Xu <neuromoments@gmail.com>
+Subject: Re: [PATCH net-next v11 06/15] ax88179_178a: Add HW support for
+ AX179A-based chips
+Message-ID: <3103b046-fa19-4b59-af4a-f326783eda4f@lunn.ch>
+References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
+ <20260914-ax88179a-v11-6-5ea7a925ba6d@birger-koblitz.de>
+ <18c931ca985a82a044c9269743fb4fb7@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913195654.3371385-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260913195654.3371385-6-cosmin-gabriel.tanislav.xa@renesas.com>
-In-Reply-To: <20260913195654.3371385-6-cosmin-gabriel.tanislav.xa@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Sep 2026 18:53:37 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW8bsr7-nrQeNdrhT3Ohmbf+ODv-JOGEREMqRd378YYNw@mail.gmail.com>
-X-Gm-Features: AcwNN1VcbIN-WIOpxXaGvhcx7QEKLAAdG5tqWb6e4fPVkeaziyHmblEewpvcoBk
-Message-ID: <CAMuHMdW8bsr7-nrQeNdrhT3Ohmbf+ODv-JOGEREMqRd378YYNw@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] pinctrl: renesas: rzt2h: add a helper for reading PFC
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <18c931ca985a82a044c9269743fb4fb7@tipi-net.de>
 
-On Sun, 13 Sept 2026 at 21:58, Cosmin Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> Introduce a rzt2h_pin_read_pfc() helper and replace the open-coded
-> implementation inside rzt2h_gpio_get_direction() to simplify the code.
->
-> While at it, use field_get() with PFC_PIN_MASK to avoid the manual shift
-> and mask.
->
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> > +static const struct net_device_ops ax88179a_netdev_ops = {
+> > +	.ndo_open		= usbnet_open,
+> > +	.ndo_stop		= usbnet_stop,
+> > +	.ndo_start_xmit		= usbnet_start_xmit,
+> > +	.ndo_tx_timeout		= usbnet_tx_timeout,
+> > +	.ndo_get_stats64	= dev_get_tstats64,
+> > +	.ndo_change_mtu		= ax88179_change_mtu,
+> > +	.ndo_set_mac_address	= ax88179_set_mac_addr,
+> > +	.ndo_validate_addr	= eth_validate_addr,
+> > +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
+> 
+> dev->mii.mdio_read is never initialized for ax88179a, so
+> dev->mii.mdio_read()
+> through usbnet_mii_ioctl() is a NULL function pointer.
+> 
+> Something like:
+> 
+>   static int ax88179a_mii_ioctl(...)
+>   {
+>   	struct ax88179_data *data = netdev2data(net);
+>   	return phylink_mii_ioctl(data->phylink, ifr, cmd);
+>   }
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-pinctrl for v7.4.
+Is this transitory? Does a later patch fix this up?
+The aim is to remove all dev->mii accesses.
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+	Andrew
