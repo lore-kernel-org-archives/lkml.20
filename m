@@ -1,201 +1,138 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E26367B8E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789357410; cv=pass; b=bsuxjx0R09P3AIGBnV9VE7iL5vnn3aa6DWzIRs6C+czOHcv+L1VGJ7q50bfgavwQU9StVvWBbPeQ3a6446UzZkomedxYbrG6laIuiflglgNflrCnZc39qVF5KzODdMHJIe71f9JbSr4qVul1xTRXSlEEqol+2mWJj5WWU4ITaJM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789357410; c=relaxed/simple;
-	bh=NzSme+R0yXt6U9+wDpheCojyCfR6mbpdED9/ML2VO6A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I+iQST4hDWD6fENAOGtVQdHs3rRRaikCgLQFNZ0n3Jy40sNjxRLNKmmfDlBP3K3ehzkCkJ+ehpqI7Q5sfmsrWZz38gyjeQ5r7ztkps+5hTuvXpfvDTJmld0vIyx7KKDkg/Jkb6pITjWiuLw9sjcm0FkHvXQB6PhI2nuVIeczvGk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=K+/ekxUU; arc=pass smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702A0364EB1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789357523; cv=none; b=uGDKsiNRMjVEMP5oDTBymI2m5yzKoHVwc1Ue4EyevtlpYJbWexihgZewx2WgP5EyPA7Ot5uB/v2x0/pRiJwQJKRbk67hwwlJTfYS3gsoO70BKc12xHSMYq55v/NXDUshJjcB0obx9XEL9EVE54nVmVbIOfWyCYU3en+mr3ZN5UQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789357523; c=relaxed/simple;
+	bh=nEQvniAYjY06dN8L1spstzHJeZhroLN3mj4n6Tpd8Ks=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rwAUI6JTMEQRVCFpCvAl/pCk9gpgjEH/BDpmXbLtrpdnFksXr7jpGdNps9tBvCi5YwGwK/wDqqPc0zMC+srZuhNn7Jm8RIOkLNGMHj+c9fAnE/Oe6Frsx+WV4nDsL57Zn56pdbNzpVf8oe6t9q7DKhNqFP82EuLUYlZ1gkHHZYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZvPQeMVE; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="K+/ekxUU"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a499a6d02cso20816541fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:43:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789357406; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Juoq6P+HTU/tOSvZ8y+2I3q1S+DstyQuCkZV6L2CQ7GYUEq7CTkliO+2JBphB8aj82
-         3soteVUaaRtZPZ7kkhXPZ92XZwd1+9aZC3Vyu5wz0XYxKk/xaRUe2ebgYK+8p/3URkos
-         AbxJg5uChiNOPNFdGCEpL1rx4YwCm++fA0MjUTsprd1lv7Q0JQI1UoE6RPgUsVVtvezZ
-         vgu7tscGw07TXV3wRDKrg56GnBY288q4nlww22bUmM8R876T68gf+ay0jAaka6xIH/IN
-         dguurD2ock9V5ydGE/rk1sn1BOTBxcjEY1IkXIfMv70aNCrXZ83SQcrvpKXPK05EmC3I
-         jT/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MbVBeRgR/r9NT4m1jsSZaQ9G2ade0FNigfquN4F7Tl4=;
-        fh=ejI8O0gOZpR75ClGo6dPotJXYE8zNgslJXMgetMCIz0=;
-        b=VDtE5GEy4MGhVPZAt89auZ/JVizRkDtQ/O/cXmN86h5La5yaMu5yt95MoG5W9RmXkp
-         4ptYJ0QuHan+SuOfnobv3trrGFd92cxCHOfltGmBj3Idq2AYINdmNV8J/slNHbtbnp8l
-         mWGrek8m2lGkTKyJ72JFtrw8aW1aaFG4/6suadJD3XV9erllESToI9zIisGDwo3ii8AF
-         PltV3Q9roFueiuDMIzph6GqWZaxbI6GwAKTdJ9TKl32E0RFEJpsm8HgOSQ0p6SE2FJS1
-         SJ7XEwpFFwNIs1b+Ljts/Ch3iUblSVbxsOsK68nKoa8Jia57XYcmvkPNRp/VweKM/S58
-         DCrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZvPQeMVE"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93a0f3f7031so51981885a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:45:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1789357406; x=1789962206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789357519; x=1789962319; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MbVBeRgR/r9NT4m1jsSZaQ9G2ade0FNigfquN4F7Tl4=;
-        b=K+/ekxUUM4NaJkHP2HQb0ysQPlHiCW/Og4gnuiujo51Qc4VNuXIkV+rzZ4tVy548mG
-         VsmJy05INWOk6FFM4T04Z7Cdpidl8g7h0Bk0yB8WBIO7Ut5YhXc1L0R+ifIIUaAxDUAP
-         vvtPy5Kfx/mHF1Gs9fFqENMl4/aASwBH0OqduIGjM8FzlybBEoc73JUMHu5KKSkmzGNZ
-         xpt5LrdQQsU8g5KmjgcP64AVc1WawXnIMn4YUP7wxZBbpehqymWsnQ9BnAmMKqzTkauZ
-         sIivi5T+3ZIdbkcdIfiBKnM01sKGRtkJ1uRGz+wDWArR3+LrRV0psxVWrYF7nnezC5SY
-         V5eQ==
+        bh=Hx4IFiiUO6XLO/s3kNZnWsmhsivyvUzhEVkE3MQOHQ0=;
+        b=ZvPQeMVE8DjMEOHmkhr9iHf4i78JMcq/FTl0nn/tWK8ZtQMWzCskRffu44RTt+Lfyk
+         ktZQ0EGiAuAadgkoK7mBPRn1PxklCksCyuuH3fboyKDGHdOrU5Q/RJhPiVIKOnRDZ+OY
+         nqnpNh35W76+PM+O/+2XcPkCjjS28IMaiOVQG2imlAoQ6Rj6jqvAHesGJyGNHvQNPiJJ
+         8b8OqpDg2iEt6l7q0Bg7HfXIU5+hyqnZyL/RKIKaKHAJN7Vq07154DhgWFQaAWQUwSkf
+         adSJDykU8UeQthHdZs7vxIwZLyAA4fJrL2Yit8bfbbefhsA2xErkVetz0nVAtkvOm+Xk
+         ZOsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789357406; x=1789962206;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789357519; x=1789962319;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MbVBeRgR/r9NT4m1jsSZaQ9G2ade0FNigfquN4F7Tl4=;
-        b=n61s9yRvDkbs4zVFK/v3dZEC10jZD1jNgpW7Mv3daG2WmsRWXpUq2FUrZBTVoT1uxQ
-         ptgI3FbF8EaC7Y4G0+MCcf7bnkWVo0eD7n5UKik4aI4Zq2phY4SzAdb53eR+MJoPGzOl
-         q+Y2Y+FBPcdpFr+5ZNoHt1gMj7kOate5WofAFn5W5c2JZR1aiqoOSBkpoYYAdx4VKLrh
-         PoeFzWp/6E69vK74vDF4MoWbugYKqY0HS71wEutF5JXwuiv8ph9l8DTP2bXzrQiNaU/7
-         xBtMvYqF3n0p2Q9lD7+FvAF/R2izCmw2sgjC6li9UkiAjRz7R9TVs1FahvMt1/1wAbMv
-         cNww==
-X-Forwarded-Encrypted: i=1; AKwUvBx/i+exDPsrNb1IodbaFli7otqVx8WZkfxTFX+UT6bpUC6/vivwibz1MMAM5eE9Hgz1LQlt1RVDw7NAQeY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCCjoyzr5D2mYqYt3M9p88orGjBV8+FFbqPRUrOs0PX3gMyejl
-	dI8PhRwuSFotsd3Lo+vqMU65DEgnWPQTsTbfALHl+56RM90MzT/jL+PkPhaWptZpp0h/xSojI96
-	1P+QABWZUVC8/1JHal1pmEyfF7wdSz4RaF4KG9OtFPdI=
-X-Gm-Gg: AYBFou2mj5VW091HN5XMFCpxYa26BNF95b8TVTvYfVAR4TFQYjDNRmW3u5D/l8tPxx2
-	2qMaoi5rL7KiqakChIJ9QB+2rAMHls9PBlFkJ3EJsHsbOTbK+X4kCh5pI87Ni+I8NM6iCe6izo/
-	ACTN8dcPOg6BpvO0SziI+B8FBxzGo9qshjx+au43S5gaUK9M4jUV5zLnwG3zpq0Ev3xIfY/Jdx0
-	bjIq/fcY5fmzEkffvZF/o1hHM2MASqPph9d2RXhfkdkQNqGkfKVORTF0I7Dch1mPV1Wj4SM4/Va
-	l6tYfyCro/jtkYCc2+Qos4zEl6Uvyf1M4vo2uqDoqK/YzzlNfAHcgQ2mLQxlOc1Qf0Ff2pHQ3yy
-	zBx6zfVdt6kA3KhYQ+Mkm
-X-Received: by 2002:a05:651c:15c1:10b0:3a3:7681:6d5b with SMTP id
- 38308e7fff4ca-3a5c896638bmr440071fa.19.1789357405821; Sun, 13 Sep 2026
- 20:43:25 -0700 (PDT)
+        bh=Hx4IFiiUO6XLO/s3kNZnWsmhsivyvUzhEVkE3MQOHQ0=;
+        b=S0Bb2TULFIw8YaeTj6TFsAnUvfbpeFeWSzZ7gUaTjrWdLkLE5gcMEvxxuDLClDxpGB
+         /pJgG5SGkXxl8ugx2vl3REWulQhZoTynP234GiRi47WlO9XcmR5Wt8u/t5IaVGyB3BaE
+         5MkNmLabU59TSsfFgzVFPNwib/IdX7AN93Fq26rqJCGKRh1Zx8krd2zvdL2HcKFiLY2Q
+         qFn92Srpu93fxqr4WDBJ0RrKkQjqKBv2yEy9bYP2hsXH6YkHEGtfawWIcExJlE6FVwGM
+         QlONtgO0YlCkzXGu9/WWa4gIf19f3BH1p4+woGJcS5UaK4k1YOkmPusoBgKhATeMRn4c
+         NsnA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3g3coZutDydFN4WQw+3B4KosuEUPPkQ+IbnxqjINglGxixHoLxWgWZaoTU2hrWb6Iwy+nnnc0yALFixU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4QKmGRn2BO5ykESnWcVtFeCL91Sty+cC+jzFY9G9/zRAsZXWr
+	A+v56Royh1LCNFRrYL2kxo6eYb6I5O9/y+ZXQUH/0bZOVAWlQWdLBUru
+X-Gm-Gg: AYBFou1khtEN7i+UueOvvyeyD8oHF9qhlBCr/cqIOmC6DFwdYmfCu9X/b65fY+Vcez8
+	4ULGbiT7vYWMFvMBSbh57wjHqacUbpebNA9miB074Gr2L4hAy9D4CJgRhfOO8WyFeM5wDkTHbhQ
+	k2FIhg6m8T/m2neOVyeC15lxSroXy6p4zlhoh1uX4bRTTf+mG+xaOQ/8K5udlDmHDwIiYTM3gKv
+	86Rwt4DKyKppT65u39GPGEiJn0W18cRhX3RbzGYSApgP/YTMyLcSZ+fQBVh+dG9dEe3wO1Mtl1z
+	jV/RYajTbnSzMi8QaLkzioX3OY9WzwwiN54cH768q4HG/zrwg3qBnExD2+bJE8nJWBeXO0lkkVF
+	3XjGZgj3iBCLpG6sSXmU2wxqhHclf4aWN5m5Xax8DcQ4v0/nGhgLn7g0tILSmsTAAeGpHnr8XN6
+	ukgHbzgyU98PtJUk4bIZVlAd1surj6to51GPZhaJIqYyE2TOYsk4suNT5hi2TX0lBG6mUa5nq0E
+	r8Hhvg6OfqJUe7vVYRpgQUGRHVb
+X-Received: by 2002:a05:620a:31a0:b0:939:2d77:d6a8 with SMTP id af79cd13be357-93a299eaab1mr121544585a.34.1789357519511;
+        Sun, 13 Sep 2026 20:45:19 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a26921baesm104710585a.24.2026.09.13.20.45.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 20:45:19 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] iio: adc: ti-ads112c14: add continuous mode support
+Date: Sun, 13 Sep 2026 23:44:23 -0400
+Message-ID: <20260914034428.2165528-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901025147.583b3f61@jic23-huawei>
+References: <20260901025147.583b3f61@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789302084.git.zihanx@nebusec.ai> <a4f108b00c7d3c0997bfcee84a9e7e481c07ad5b.1789302084.git.zihanx@nebusec.ai>
- <willemdebruijn.kernel.57ad3a4d0955@gmail.com> <CANn89i+QqU5sw=WPrcki8W=-HoyNLpHGj2C568VHDU1CyZgodQ@mail.gmail.com>
-In-Reply-To: <CANn89i+QqU5sw=WPrcki8W=-HoyNLpHGj2C568VHDU1CyZgodQ@mail.gmail.com>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 14 Sep 2026 11:43:12 +0800
-X-Gm-Features: AcwNN1Vzegn2UprCAGHFpd-fO9Lbw1c64hwiit7IoJ9FqdyY9q9AMmeI6XAJD9Q
-Message-ID: <CAANe3eR+zoRupQ0nZREKyqABCV_VwRotK+OLHa_TMzgOOvQQPA@mail.gmail.com>
-Subject: Re: [PATCH net 1/1] net: gso: limit recursive IP-in-IP segmentation
-To: Eric Dumazet <edumazet@google.com>
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org, idosch@nvidia.com, 
-	willemb@google.com, kuniyu@google.com, kees@kernel.org, 
-	richardbgobert@gmail.com, jiayuan.chen@linux.dev, stable@vger.kernel.org, 
-	Vega <vega@nebusec.ai>, Luxing Yin <root@tr0jan.top>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 7:08=E2=80=AFAM Eric Dumazet <edumazet@google.com> =
-wrote:
->
-> On Sun, Sep 13, 2026 at 3:46=E2=80=AFPM Willem de Bruijn
-> <willemdebruijn.kernel@gmail.com> wrote:
-> >
-> > Zihan Xi wrote:
-> > > IPIP GSO/TSO support makes IP-in-IP GSO dispatch re-enter
-> > > inet_gso_segment() or ipv6_gso_segment() for every nested IP header. =
-The
-> > > only state that tracks this nesting is encap_level, which records hea=
-der
-> > > bytes and has no recursion bound. A sufficiently deep chain can consu=
-me the
-> > > kernel stack before a transport GSO callback is reached.
-> > >
-> > > The unbounded callback nesting was introduced when inet_gso_segment()=
- was
-> > > made stackable by "ipv4: gso: make inet_gso_segment() stackable". GRE=
- GSO
-> > > support predated that change, and IP-in-IP GSO/TSO support later made=
- the
-> > > affected path reachable.
-> > >
-> > > Track the number of IP GSO callbacks in skb_gso_cb and reject the 15t=
-h
-> > > callback entry. Thus 14 callback entries are allowed to complete;
-> > > GSO_RECURSION_LIMIT is the rejection threshold, not the number of
-> > > successful callbacks. Initialize the counter for each top-level GSO
-> > > operation and check it in both IPv4 and IPv6 handlers so mixed IP-in-=
-IP
-> > > nesting is bounded.
-> > >
-> > > Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
-> > > Cc: stable@vger.kernel.org
-> > > Reported-by: Vega <vega@nebusec.ai>
-> > > Assisted-by: LLM
-> > > Co-developed-by: Luxing Yin <root@tr0jan.top>
-> > > Signed-off-by: Luxing Yin <root@tr0jan.top>
-> > > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> > > ---
-> > >  include/net/gso.h      | 9 +++++++++
-> > >  net/core/gso.c         | 1 +
-> > >  net/ipv4/af_inet.c     | 3 +++
-> > >  net/ipv6/ip6_offload.c | 3 +++
-> > >  4 files changed, 16 insertions(+)
-> > >
-> > > diff --git a/include/net/gso.h b/include/net/gso.h
-> > > index 29975440cad5..2665acbb9205 100644
-> > > --- a/include/net/gso.h
-> > > +++ b/include/net/gso.h
-> > > @@ -19,10 +19,19 @@ struct skb_gso_cb {
-> > >       int     encap_level;
-> > >       __wsum  csum;
-> > >       __u16   csum_start;
-> > > +     /* Number of GSO callbacks this packet already went through. */
-> > > +     u8      recursion_counter;
-> > >  };
-> > >  #define SKB_GSO_CB_OFFSET    32
-> > >  #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_C=
-B_OFFSET))
-> > >
-> > > +#define GSO_RECURSION_LIMIT  15      /* First callback depth to reje=
-ct. */
-> > > +static inline int gso_recursion_inc_test(struct sk_buff *skb)
-> >
-> > What is 15 based on? Is that where in your test stack overflow occurs?
-> >
-> > A realistic practical limit would likely already be smaller.
->
-> An alternative would be to limit total header sizes (nhoff) to 256 bytes =
-or so.
+Hi Jonathan,
 
-Thanks for the feedback.
+I took another look at current_trigger_store() following your comment
+about the possible TOCTOU there. There may also be a trigger lifetime
+issue in the attach path.
 
-> What is 15 based on? Is that where in your test stack overflow occurs?
+I checked mainline commit
+fd73f4a6659897191fa0d40695fe370925dd3780 (Linux 7.3-rc3).
 
-No. The reproducer uses a much deeper header chain, and the test did not
-establish 15 as a meaningful boundary. It was an arbitrary callback-depth
-limit in the initial version, so I have removed that approach.
+The reference acquired by current_trigger_store() becomes the reference
+held by indio_dev->trig, while iio_trigger_attach_poll_func() does not
+take an additional device reference to the trigger.
 
-> An alternative would be to limit total header sizes (nhoff) to 256 bytes =
-or so.
+For example, hi8435 uses INDIO_EVENT_TRIGGERED and allows changing its
+trigger, so these stores reach attach/detach. Assume the consumer stays
+registered, initially has no trigger, and T is a sysfs trigger with no
+other users. No one writes trigger_now.
 
-Following this suggestion, I changed the fix to bound the cumulative nhoff
-in both inet_gso_segment() and ipv6_gso_segment(). If nhoff exceeds 256
-bytes, the existing -EINVAL path is used.
+With two independently opened current_trigger files, the stores can run
+concurrently because kernfs only serializes each open file:
 
-This bounds recursive IP GSO by cumulative header size rather than by an
-assumed callback count, without adding state to skb_gso_cb. The 256-byte
-value is a practical upper bound on the cumulative header offset, not a
-measured stack-budget threshold.
+  A: select T via current_trigger_store()
+       acquire reference; indio_dev->trig = T
+       iio_trigger_attach_poll_func(T, pollfunc_event)
+         allocate pf->irq; request_threaded_irq() succeeds and returns
+         <preempt before reading trig->ops>
 
-I am rebuilding this revision and will rerun the reproducer against both
-the fixed and unpatched kernels before sending the next version.
+  B: remove T via iio-trig-sysfs's remove_trigger
+       iio_trigger_unregister(T)
+       irq_work_sync(&t->work)
+       iio_trigger_free(T)
+     clear current_trigger with "\n"
+       oldtrig = T; indio_dev->trig = NULL
+       iio_trigger_detach_poll_func(T, pollfunc_event)
+       iio_trigger_put(T) -> iio_trig_release() -> kfree(T)
 
-Thanks,
-Zihan
+  A: resume in iio_trigger_attach_poll_func()
+       if (trig->ops && trig->ops->set_trigger_state && notinuse)
+           ^ possible UAF
+
+The consumer reference keeps T alive after removal, but B's clearing
+store can drop the last reference while A is still in attach.
+
+At the pause point the IRQ is installed, so B can detach it. T->ops is
+NULL, and free_irq() does not wait for the enclosing attach call.
+
+I have only checked this by source review and do not have a reproducer
+or KASAN trace.
+
+Does this race look possible to you?
+
+Best,
+Shuangpeng
