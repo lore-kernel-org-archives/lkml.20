@@ -1,310 +1,245 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBC648643C;
-	Mon, 14 Sep 2026 16:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403048; cv=none; b=S43BAIgcolFC3PYPlRCSlDUqgYFH68uLb4UXk/uGWL7mmvcDGsuseJocmmkiESgXLmaHCyTEF77vfttBqGaWjPEcjYs1Kotk3PpI2++hASCwhNw6FXqq1QGm05Uu48zeWJoGzi8DHyuIjmTB7QS4BKkje2tA0vDWrOJ2cxvYw8o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789403048; c=relaxed/simple;
-	bh=+NdozowMdphetA0zQFAJRhWplAmxKijy+gb2jeGjyPg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AsQGg32jQbJTDKA7EhFwuEA7150sNNRG0WCQBc3KQzJa+1tmbYC1PvtcSyco2+7RxEP5/5wfWU+NkVvSzjR6I6FvxAOe2oDtUPTbmc9R+15b1x9rhkVSDOEVs9yTtPfohJ9PSHb7nIZDeJrzlBtZlWIje/00rIaLO+6N5OCaWBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tFbQgBrS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2buZGqmm; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YmN6irtK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YBDS0iPB; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E169480DF7;
+	Mon, 14 Sep 2026 16:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789403104; cv=fail; b=rIFBbMkuXfVWvqctU3N35L8lk2zX8FpLArW99cTToOEp9OnIcfc2aAN/8wEi4l75/6TVwL3BRqERoTLvewhMxgaTG7Ccrm73qlV8i4CLnPUzcdMKzb2e/ViUjuoEyrZGQRypiFuaIpiLFvbKP5VYhZNikENNPb2GCsAsTZScscw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789403104; c=relaxed/simple;
+	bh=H2NyFLcikGO6P5r3us6HvN4mRoT635VkFhdXvqnTBLw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=FK8+osKI+mKkcpleVfzzVRw484r9A3BTf1QzfnlTxXrarU9xuVEnX+DmI7BRjbpy3RHK39KSTTBOYWOiPiaGiCkSN6gutFqbyCCLJKBLO7JUKUaRqhiVN+CnjTbbxxkIQL5gmVGrUla7NYx+qzS5RW4LMqaQ5VYV9LJKB+oWfj0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=jtZw3E+m; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=HRWOFgZ5; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tFbQgBrS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2buZGqmm";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YmN6irtK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YBDS0iPB"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E3A8C21A05;
-	Mon, 14 Sep 2026 16:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789403041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
-	b=tFbQgBrSAspIeJ4HQklfUHzgOxEsGs6s7odgea4+EClvDnOQNtFZs2GDM/xy0JalbF1mzL
-	3ERClIUUdvWm/BndhdolcBUWKF+b1SqJcXxUqi/V/sxu6NGw7peLSf+GLav6wWCWybdHlu
-	lkKPXD/rwDYOXdIa5tiXbnRKRldUKCQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789403041;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
-	b=2buZGqmmENbdoBC2LFh49mFNEe2YBjHe5+pA4RghO0LTulAnW+6CkjRLhc36fExrPV5JDm
-	CjOVdIhi+eebkpBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789403036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
-	b=YmN6irtKjlA2JzWDLSdG5Jt33G5Qhd7m5Ubh+PhI+ltDoWO8MqSZO81VTbBOO9PnTfeSop
-	KM0EyHCYdfKR6eh+CGFrrYE2xixG8u5kNYQqtagtyY2z6246hDo30VHZ3KYIeo/K01cEWb
-	v6SwWjNNJEd9+BRmKEfdQS8ePktmRKE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789403036;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
-	b=YBDS0iPB/eCBGn3X/n4i/9gYikja6SUXgRQc+wpQn9q46mcayZX+fwZTpu2E/n2k95r1lT
-	KekQaL8alUdJcDCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C12D13515;
-	Mon, 14 Sep 2026 16:23:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id O0TiJJwfqGr1JgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 14 Sep 2026 16:23:56 +0000
-Date: Mon, 14 Sep 2026 18:23:56 +0200
-Message-ID: <871pavol7n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rithvik Vibhu <rithvikvibhu@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix Acer Nitro 5 AN515-57 mic resume
-In-Reply-To: <20260904231545.33505-1-rithvikvibhu@gmail.com>
-References: <20260904231545.33505-1-rithvikvibhu@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="jtZw3E+m";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="HRWOFgZ5"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68ED0jN43343233;
+	Mon, 14 Sep 2026 11:24:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=9hCMJ85fFz73N4dDQCzGJwHbsVhFBknXEcqaSVR2R
+	bs=; b=jtZw3E+mIIxjPFmgdD/7KrbCMh1XFNK/hzeiUnPth2cG8cVhMkXMqhUzb
+	Sxx90jhzNOiYtLm3+58Z1ihqhaq8/Q1rtSPGnswNLgKHv2T0UgUzdP8U86s1YMKW
+	3cyQ5kf6YXpsQkUCHFjlzeu5185B7AEA2o/dgh4ps9suoI3FtLVp/PxLbSfKjPME
+	sjRynahlWWyzf7dnvA/B2g6yM57aYX/a6tuqU9sd0AsM+3Bsecf5hS0oHHIH5RUS
+	nhZapO4uBjhRTGG1OlL+/ZgZ/CzeXVd9+73jjThSMwF7npYRewcXO9byV9eQmyY2
+	FRjbirx2EN2EmD8pS9Z8H2OzukFXQ==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012061.outbound.protection.outlook.com [40.93.195.61])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gnrpng117-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 11:24:25 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r1c3330DvpK3MfC1lPWUIsD/Awo0FjWD9y/0GX3iKxrAILJbA+MR6tyKPjYYStZg4wFthRCi0aWlBXmVeKgmwrjk02N+NWRWyFZ2+jjLcHYHteOYuHc5yIHQC5q+akvX+7GOIvcHZRf6LdG3lF6wf3OU7cFABvgitVQxnmD8eGOa7CgKZVjtGhFdHTLyZDedK1gsRR7dp0mAaHYntBjCSS6yXdO9K/GuGAaTWUXdQfKkhUZVlCvcGaU3g2BSr3i/Ojybp8cx2WG5Cz5hFC8RFLshYeC+Bb8W3fP0H/o3dZAC1OSOWkm2ludzWWfrwGNHmM5WGYkSIUA8JD9hyw3uCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9hCMJ85fFz73N4dDQCzGJwHbsVhFBknXEcqaSVR2Rbs=;
+ b=aQdcF2x4CVGlqTg3mSKLL7KYOqjQP8E8+FbpQqUJA21OdKsyBlAd6+lyCc+jHbolPBgBHhWeg0VtOzDn+3wxd3KvuRrZPwRFoPG6k/lAf013+F4g7y9jcjNjaZvQBsqE0X6uHIgikKSGYHqzvKMYfKB12Ph42QPRs+i6RCz30ENOndJPPGHpjSjvrNnjMQ2WqlSgsc+jhrYFKEF/0KbpimWIxW6e8BYmSBW5/R15gvydOm2RhfcRhLtMlvQS16zho/WbXnknzp6uDyIYR6YzGgNeCeGs3X0Fn+9JV/pjfAoQSl8odaI44mKaw8Wii8G0UsefN4lkOrkR+kuIi7MYoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9hCMJ85fFz73N4dDQCzGJwHbsVhFBknXEcqaSVR2Rbs=;
+ b=HRWOFgZ50JTUjbU7KxjppHVl1jel8iiBiT5fFwKaqp3hyku4dNqH/gt+R2wh/hEeXkyrtZQnwpdImeGvk14YTnQLMUO5BdiDn9wVtcekktm45nuTdDZwyosL0JelU7aS85l59NCA9uAp/DpbUPluuMTTeoDQwJIrKXryLYQL1H4=
+Received: from SJ0PR03CA0042.namprd03.prod.outlook.com (2603:10b6:a03:33e::17)
+ by IA1PR10MB7114.namprd10.prod.outlook.com (2603:10b6:208:3fd::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.8; Mon, 14 Sep
+ 2026 16:24:20 +0000
+Received: from BY1PEPF0001AE1C.namprd04.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::5f) by SJ0PR03CA0042.outlook.office365.com
+ (2603:10b6:a03:33e::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
+ 14 Sep 2026 16:24:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BY1PEPF0001AE1C.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 16:24:19 +0000
+Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 14 Sep
+ 2026 11:23:57 -0500
+Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE201.ent.ti.com
+ (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 14 Sep
+ 2026 11:23:57 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 14 Sep 2026 11:23:57 -0500
+Received: from [10.249.135.178] ([10.249.135.178])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68EGNqbJ2498962;
+	Mon, 14 Sep 2026 11:23:52 -0500
+Message-ID: <d96034c5-7c21-48f8-880f-9f335dc50939@ti.com>
+Date: Mon, 14 Sep 2026 21:53:51 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/15] arm64: dts: ti: k3-am62a: Fix MMC0_CLK register
+ address
+To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>
+CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Garrett
+ Giordano" <ggiordano@phytec.com>,
+        Wadim Egorov <w.egorov@phytec.de>,
+        "Robert
+ Nelson" <robertcnelson@gmail.com>,
+        Tony Lindgren <tony@atomide.com>,
+        "Nora
+ Schiffer" <nora.schiffer@ew.tq-group.com>,
+        Stefano Radaelli
+	<stefano.r@variscite.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Moteen Shah
+	<m-shah@ti.com>,
+        <u-kumar1@ti.com>
+References: <20260909214743.899477-1-jm@ti.com>
+ <20260909214743.899477-2-jm@ti.com>
+ <9a1146e9-0c00-4348-b1a5-31be7c597eea@ti.com>
+ <134505de-78e1-418e-8cd0-855697633696@ti.com>
+Content-Language: en-US
+From: "Kumar, Udit" <u-kumar1@ti.com>
+In-Reply-To: <134505de-78e1-418e-8cd0-855697633696@ti.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1C:EE_|IA1PR10MB7114:EE_
+X-MS-Office365-Filtering-Correlation-Id: c10f04d8-7d1f-428e-a96c-08df127ca125
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|82310400026|376014|36860700016|6133799003|22082099003|18002099003|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	f2nJeiUl6jJsvTAYkUODI8+2b15mtFry8nk+cqn1uumMT4Vi2KgENXKK4hH/ffaXqomcJkHOVEhI9OIpOkAHyhYqUWwJao4z5fTTCHaETxXKgkNXe3oANvV7Gzz/f/Rcxzmq1J1hzQCvhEC6fUBDUHBFXsZk03HB8izZCkB5FM6iEzWJXy/kDz7BG8tc1kca1igrXbxKbVnKNEonHgY2Q5/n6AWt1BJMzUTwH7czFzoOM9BhyENRN7FxzMUL+brRvaNraqdct72/75a3isy49aPOu6i+toLwL9MERHxgX3yWw1zsS6BI98zKOgSHmRmZ1p/W0vbFyTBLVI/Hzh3k34CHB3F+ysWXkzl2rQlXEJ3IbB/dBFcKj7bb/hN0mlEs4+zBmQJwR9xZvPk4RIDVzlFacfLEW3qEpNXBcJA7hHAZv2EGiOKFg9XpEfgvrR3COyGJqLB0whgri+hRABOfv55R035sTt+/3pmmdPTRR9z8d/VnJsss6jWzcmfEGquyFYsRlLljOQQtpYMbWgRhc3Vg+iXR0EePYx7FhXcwvcMF7/MRdagbLSDeTwkNa74Plfmp8nx3nf1Bwm2sLdm5egEK6OQ655mX9izhxYN5jA4IrDy9gDCGFKe7885rRsvNoaccSb+HtieyUzZ8uf00NCmyr7qc1YueQw+3nhX6S+yfbWt78FYSvxh63Qnwm+N1Blvgz5myDSl+BmZ7UF32AQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(82310400026)(376014)(36860700016)(6133799003)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bOJQ0fwiYK+x+Z3XnOqMJ9gKdERW7SxhMCKI/RxtENDtVM8DAoCxhVBzh7izh4KRQqsKhY5dypFnCz5OFj9JvMOnkoxbqmoDz3mjQir0ys5v/RZqkQaqMjg4nukhNU+Gt+iUsdbB4GjCGV7X9Uda2+wsmFe1p+GnKd4mp2xZjekkAFsmxTLBLfO4vdEQkcQ76Kr9MUC8aR2eYDzZbRfjknFabH9fhPbz0fYwphPGP1DFVX7HzVbuF2HgGBjUDjrHEwbEquxMABFPROsWYdepfyaA/YTpiXqUKNs9+UK8KfcgkXSQa1icAm7MmZ3xK1INR6XtXJx+0hezZbLQLuB+q5vcFVXgkhGmhbxxSwnCd7Dp8/yRedjrcFbd4CzhAXI3euKEPcz+iF7VulSeGvog/kl+/4O0X+xCP6lpddA6h1wtE8A8BTH/Ukvl2NNwguyk
+X-Exchange-RoutingPolicyChecked:
+	wq4w706i3j8qb/wunRDkZEWLupSVuGapHRobNAKaILjciTiE9WEuq2j8UUIVCtTMM71gVOmYD0caCNt53e4zUOqW69folOgirCAj3JpTQ7xLO5hnephis2jq5xcO9afjmG6kIaflxHUExw0RgiBImpO4ioNzTR+jW5NQbRufeKeRAn0XgMi8Z+ZTIjAS+39J4AafGxbP9dsjRwR8V6vBn7rDD+LiC4CQSLYbC4LsqFlT9F6C40iSBZlEU3KjpWimU8oRkZWRf8XNzqibIGt6RzttIZ9Bd8ssUmxYdh4Yw9wXfRIRNbOuJ/bkDjjN40JRbiqEu7sCK6266bmYIOqdFA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 16:24:19.7345
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c10f04d8-7d1f-428e-a96c-08df127ca125
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE1C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB7114
+X-Authority-Analysis: v=2.4 cv=GfOCDgXL c=1 sm=1 tr=0 ts=6aa81fb9 cx=c_pps
+ a=N7UEZcGu6nKKiVkixTDHSg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
+ a=VwQbUJbxAAAA:8 a=IsMucyyhDqdeddx0T-MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: SkTJr9HK9wFkaGG2euZh4k9yBQeWqaOI
+X-Proofpoint-ORIG-GUID: SkTJr9HK9wFkaGG2euZh4k9yBQeWqaOI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIzNCBTYWx0ZWRfX+drNSpu+JekC
+ jDdNmexedQxxhnh0KWVgYLtqwc1BGid/icAo1IWBKjZHU+t2g8dgX/FBiKktwheZrpB+2AQ43Zv
+ gFE8909INOBtL9efZ1hINZwVLGNx3AY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIzNCBTYWx0ZWRfX7A2P1rz+VtY2
+ V6UQPh67CNrms0Sq3W5QdderxM5CwcWuU+kH6laBSTIeJ6tCaRpUvj2VBlu9ZTb1CXyrTm2niIc
+ 20nvw24RSchSCBTiyWiXvjdbzaFmHD7U+RWJ5VXE7zo3hl8ejfVd4aaBl9Lq9AGRE5TRyN4VPgm
+ ASXDu/aU9kZoGVlToj3u73GeCWfQCjGrEB2iG3kawmqjwB6kJi+oyj63WaMJZpQyA116RkUUQnW
+ ZDTTtjasBcVaB9LSfJSBXCCglc7a2LZnkIGroocN2Lh9v8AN6H4RWWqFk3YWc9gnktcBAyDeRQv
+ oQRlbIs2zX7YYLLtWdOsDz6X6nCZEgyt5xKH+wtsKnPcaW32A+OvKytPXs+wA+x7XDJDEPfqolK
+ Lfb2IjwO9TdC3ABM4N8vkje7MC29Dv/uVbkOBT2k4NCZZQiYlnjCa2xW1IMi7IZBTuBNw9ANdzv
+ Vbct4X+Fvhev5ZIRpLw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0 bulkscore=0
+ priorityscore=1501 spamscore=0 suspectscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140234
 
-On Sat, 05 Sep 2026 01:15:45 +0200,
-Rithvik Vibhu wrote:
-> 
-> The existing pin-configuration quirk exposes headset mic pin 0x19, but
-> the ALC295 loses the correct combo-jack state across suspend-to-RAM
-> (S3). After resume, pin 0x19 can remain falsely present after unplug and
-> the capture mixer can remain routed away from the internal mic on pin
-> 0x12. The failure occurs on both 6.12 and v7.2-rc7.
-> 
-> Give subsystem 1025:1539 a model-specific fixup which initializes the
-> Acer combo-jack coefficients, enables the full Realtek CTIA/OMTP
-> headset state machine, gates the headset mic with the reliable
-> headphone pin 0x21, and feeds the corrected cached jack state through
-> generic HDA mic autoswitching. This keeps the actual capture mux
-> synchronized across boot, hotplug, unplug and S3 resume.
-> 
-> Apply the correction from both the headphone and microphone callback
-> paths. A direct event from mic pin 0x19 otherwise bypasses the headphone
-> hook and can restore the unreliable raw pin sense. Invalidate and
-> refetch pin 0x21 when handling such an event before deriving the
-> corrected microphone state.
-> 
-> Pin 0x21 indicates that a combo-jack plug is present but cannot
-> distinguish three-pole headphones from a four-pole headset.
-> Consequently, as with other headphone-gated mic configurations, a
-> three-pole plug is exposed as a headset mic.
-> 
-> Tested with cold boot and repeated S3 cycles in the unplugged and
-> four-pole-headset states, including unplug and reinsert after resume.
-> 
-> Fixes: 51db05283f7c ("ALSA: hda/realtek: Enable headset mic for Acer Nitro 5")
-> Cc: stable@vger.kernel.org # 6.12+
-> Assisted-by: LLM
-> Signed-off-by: Rithvik Vibhu <rithvikvibhu@gmail.com>
+Thanks Judith
 
-Thanks for the patch.
-
-I guess I understand most of the intentions in your code, but it looks
-a bit too complex and handling things unnaturally.  After all, there
-is no similar code there, which already appearing suspicious.
-
-Can this be handled better with the gating stuff in
-sound/hda/common/jack.c, instead?
-
-
-Takashi
-
-
-> ---
-> The 6.12.y backport requires adaptation because the Realtek codec code
-> is located in sound/pci/hda/patch_realtek.c there.
+On 9/11/2026 10:24 PM, Judith Mendez wrote:
+> Hi Udit,
 > 
-> base-commit: 3b26ceef88c110f4d188387cffa0df78657be904
+> On 9/11/26 2:57 AM, Kumar, Udit wrote:
+>>
+>>
+>> On 9/10/2026 3:17 AM, Judith Mendez wrote:
+>>> MMC0_CLKLB and MMC0_CLK have incorrectly swapped register addresses
+>>> as per datasheet [0]. Set the correct MMC0_CLK address and drop the
+>>> unneeded MMC0_CLKLB pin configuration.
+>>>
+>>> [0] https://www.ti.com/lit/gpn/am62a7 Rev. E: Table 5-1. Pin Attributes
+>>>
+>>> Fixes: e041ec6e86e7 ("arm64: dts: ti: k3-am62a7-sk: Enable eMMC
+>>> support")
+>>> Cc: <stable@vger.kernel.org>
+>>> Signed-off-by: Judith Mendez <jm@ti.com>
+>>> Reviewed-by: Moteen Shah <m-shah@ti.com>
+>>> ---
+>>>   arch/arm64/boot/dts/ti/k3-am62a7-sk.dts | 3 +--
+>>>   1 file changed, 1 insertion(+), 2 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/
+>>> boot/dts/ti/k3-am62a7-sk.dts
+>>> index d3b3675e7a8fc..b04636cab71c7 100644
+>>> --- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+>>> +++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+>>> @@ -328,8 +328,7 @@ AM62AX_IOPAD(0x0b4, PIN_INPUT_PULLUP, 1) /* (K24)
+>>> GPMC0_CSn3.I2C2_SDA */
+>>>       main_mmc0_pins_default: main-mmc0-default-pins {
+>>>           pinctrl-single,pins = <
+>>>               AM62AX_IOPAD(0x220, PIN_INPUT, 0) /* (Y3) MMC0_CMD */
+>>> -            AM62AX_IOPAD(0x218, PIN_INPUT, 0) /* (AB1) MMC0_CLKLB */
+>>> -            AM62AX_IOPAD(0x21c, PIN_INPUT, 0) /* (AB1) MMC0_CLK */
+>>> +            AM62AX_IOPAD(0x218, PIN_INPUT, 0) /* (AB1) MMC0_CLK */
+>>
+>> Shouldn't be MMC0_CLK be o/p, instead of  PIN_INPUT
+>> Similar to patch [0]
+>> [0] https://lore.kernel.org/all/20260909214743.899477-4-jm@ti.com/
 > 
->  sound/hda/codecs/realtek/alc269.c | 105 +++++++++++++++++++++++++++++-
->  1 file changed, 104 insertions(+), 1 deletion(-)
+> Yes it should, and it is in the same series as  you pointed out. This
+> current patch only fixes register address as per commit description. (:
 > 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 95b40a177..f1a83908e 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -3740,6 +3740,103 @@ static void alc2xx_fixup_headset_mic(struct hda_codec *codec,
->  	}
->  }
->  
-> +static void alc295_acer_nitro_mic_autoswitch(struct hda_codec *codec,
-> +					     struct hda_jack_callback *jack)
-> +{
-> +	struct alc_spec *spec = codec->spec;
-> +	struct hda_jack_tbl *hp_jack, *mic_jack;
-> +	hda_nid_t hp_pin = alc_get_hp_pin(spec);
-> +	bool auto_mic = spec->gen.auto_mic;
-> +	bool hp_present;
-> +
-> +	hp_jack = snd_hda_jack_tbl_get(codec, hp_pin);
-> +	mic_jack = snd_hda_jack_tbl_get(codec, 0x19);
-> +	if (!hp_jack || !mic_jack) {
-> +		codec_warn(codec, "failed to find Acer Nitro combo-jack entries\n");
-> +		return;
-> +	}
-> +
-> +	/* A mic callback must not reuse a possibly stale cached HP sense. */
-> +	if (jack && jack->nid == 0x19)
-> +		hp_jack->jack_dirty = 1;
-> +	hp_present = snd_hda_jack_detect(codec, hp_pin);
-> +
-> +	/*
-> +	 * The codec reports a stale or inverted presence state for mic pin 0x19
-> +	 * after S3.  Pin 0x21 continues to track the shared combo jack reliably,
-> +	 * so use it as the presence source for 0x19.  Leave the entry clean so
-> +	 * the normal report pass does not immediately replace this value with a
-> +	 * broken raw pin-sense read.
-> +	 */
-> +	mic_jack->pin_sense &= ~AC_PINSENSE_PRESENCE;
-> +	if (hp_present)
-> +		mic_jack->pin_sense |= AC_PINSENSE_PRESENCE;
-> +	mic_jack->jack_dirty = 0;
-> +
-> +	/* Route the actual capture mux from the corrected jack state. */
-> +	spec->gen.auto_mic = 1;
-> +	snd_hda_gen_mic_autoswitch(codec, jack);
-> +	spec->gen.auto_mic = auto_mic;
-> +}
-> +
-> +static void alc295_acer_nitro_hp_automute(struct hda_codec *codec,
-> +					  struct hda_jack_callback *jack)
-> +{
-> +	/* Refresh the reliable HP jack and the Realtek headset mode first. */
-> +	alc_update_headset_jack_cb(codec, jack);
-> +	alc295_acer_nitro_mic_autoswitch(codec, jack);
-> +}
-> +
-> +static void alc295_fixup_acer_nitro_headset_mode(struct hda_codec *codec,
-> +						 const struct hda_fixup *fix,
-> +						 int action)
-> +{
-> +	struct alc_spec *spec = codec->spec;
-> +	static const struct hda_pintbl pincfgs[] = {
-> +		{ 0x19, 0x03a1103c },
-> +		{ }
-> +	};
-> +
-> +	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
-> +		snd_hda_apply_pincfgs(codec, pincfgs);
-> +		alc_update_coef_idx(codec, 0x45, 0xf << 12 | 1 << 10, 5 << 12);
-> +		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
-> +	}
-> +
-> +	alc271_hp_gate_mic_jack(codec, fix, action);
-> +	alc_fixup_headset_mode_no_hp_mic(codec, fix, action);
-> +
-> +	if (action == HDA_FIXUP_ACT_PROBE) {
-> +		int int_mic_idx = -1, headset_mic_idx = -1;
-> +		int i;
-> +
-> +		for (i = 0; i < spec->gen.input_mux.num_items; i++) {
-> +			if (spec->gen.imux_pins[i] == 0x12)
-> +				int_mic_idx = i;
-> +			else if (spec->gen.imux_pins[i] == 0x19)
-> +				headset_mic_idx = i;
-> +		}
-> +		if (int_mic_idx < 0 || headset_mic_idx < 0) {
-> +			codec_warn(codec,
-> +				   "failed to find Acer Nitro mic mux entries\n");
-> +			return;
-> +		}
-> +
-> +		spec->gen.am_num_entries = 2;
-> +		spec->gen.am_entry[0] = (struct automic_entry) {
-> +			.pin = 0x12,
-> +			.idx = int_mic_idx,
-> +		};
-> +		spec->gen.am_entry[1] = (struct automic_entry) {
-> +			.pin = 0x19,
-> +			.idx = headset_mic_idx,
-> +		};
-> +		spec->gen.hp_automute_hook = alc295_acer_nitro_hp_automute;
-> +		spec->gen.mic_autoswitch_hook =
-> +			alc295_acer_nitro_mic_autoswitch;
-> +	}
-> +}
-> +
->  static void alc245_fixup_hp_spectre_x360_eu0xxx(struct hda_codec *codec,
->  					  const struct hda_fixup *fix, int action)
->  {
-> @@ -4335,6 +4432,7 @@ enum {
->  	ALC287_FIXUP_THINKPAD_I2S_SPK,
->  	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
->  	ALC2XX_FIXUP_HEADSET_MIC,
-> +	ALC295_FIXUP_ACER_NITRO_HEADSET_MODE,
->  	ALC289_FIXUP_DELL_CS35L41_SPI_2,
->  	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
->  	ALC256_FIXUP_HEADPHONE_AMP_VOL,
-> @@ -6854,6 +6952,10 @@ static const struct hda_fixup alc269_fixups[] = {
->  		.type = HDA_FIXUP_FUNC,
->  		.v.func = alc2xx_fixup_headset_mic,
->  	},
-> +	[ALC295_FIXUP_ACER_NITRO_HEADSET_MODE] = {
-> +		.type = HDA_FIXUP_FUNC,
-> +		.v.func = alc295_fixup_acer_nitro_headset_mode,
-> +	},
->  	[ALC289_FIXUP_DELL_CS35L41_SPI_2] = {
->  		.type = HDA_FIXUP_FUNC,
->  		.v.func = cs35l41_fixup_spi_two,
-> @@ -7177,7 +7279,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
->  	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
->  	SND_PCI_QUIRK(0x1025, 0x1534, "Acer Predator PH315-54", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
-> -	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57", ALC2XX_FIXUP_HEADSET_MIC),
-> +	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57",
-> +		      ALC295_FIXUP_ACER_NITRO_HEADSET_MODE),
->  	SND_PCI_QUIRK(0x1025, 0x159c, "Acer Nitro 5 AN515-58", ALC287_FIXUP_ACER_MICMUTE_LED),
->  	SND_PCI_QUIRK(0x1025, 0x1597, "Acer Nitro 5 AN517-55", ALC2XX_FIXUP_HEADSET_MIC),
->  	SND_PCI_QUIRK(0x1025, 0x159e, "Acer Nitro 5 AN515-46", ALC2XX_FIXUP_HEADSET_MIC),
-> -- 
-> 2.55.0
+
+I see. These can be merged into one patch,
+Anyway,
+Acked-by: Udit Kumar <u-kumar1@ti.com> (for fixing offset)
+
+> ~ Judith
+> 
+>>
+>>
+>>
+>>>               AM62AX_IOPAD(0x214, PIN_INPUT, 0) /* (AA2) MMC0_DAT0 */
+>>>               AM62AX_IOPAD(0x210, PIN_INPUT_PULLUP, 0) /* (AA1)
+>>> MMC0_DAT1 */
+>>>               AM62AX_IOPAD(0x20c, PIN_INPUT_PULLUP, 0) /* (AA3)
+>>> MMC0_DAT2 */
+>>
+> 
+
