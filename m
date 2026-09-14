@@ -1,109 +1,171 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE0A42048D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CF93B42F9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379585; cv=none; b=MZum11FgtCXfQdLaonnvU7VTLsJTn6rYsmaGFatlKvjfAvSTlx8sYSPZ1rz54ScnzT7s0qcAYswxkED8aatMyRbJgVPy/qQ+z5oySea4ri5loFIgN17MuAiCRWWuePAxejzp35C1s8JD4lQeaKyKplCdXGxT/pUJiCmk6clVHe0=
+	t=1789379623; cv=none; b=UBQjloTwGK78RFS2cLua2cQ4E09dRnFCLeQnSbjOZtlBkZBJproqj/16SnFUo+0ZNFov+YTlJcEijyM81OhD5ebGB9cdwOq3ODmWxbx8+IUyYJLwtePwar8hXror2sdiEo5wLbBN4ZOZSsV2+eTovGOd7iSWCSMrtxLiAaLC9GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379585; c=relaxed/simple;
-	bh=bbJxaZw0nqbXoP9Gq36ywZ6uqMw8KPddc4gTbU2zp5k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=azJRcDE0saHpNs2OQn8fEFTghRLi9wBP93UKhiQForjwQOMUrkewoO32W/SudniZ6P4GnHLF3moc1NAIF2OX0F+48hwwwoOBaEytrGlvlk0tnx5pBxW7Q321VwtoiaPTSrx0+9GUwwSC8rBg9+nixfa7a7GyhH7MmbGLFO9Fj84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UOES9j3l; arc=none smtp.client-ip=209.85.215.175
+	s=arc-20240116; t=1789379623; c=relaxed/simple;
+	bh=Y123/ADqj+NfnYObaRo+ZrAYC6ThuSe4AzOCr0fuZfE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VM259fuvCeEPWNc3oF1fhk0rKzh7wya+QFH2u39zyxVQyOXYuYPwpk6j5TCQl0nqJ6abs7pBJkr59I1ngF3X9kUIJKTAn0XQ4i1RfKQSIkfSWbYtJ0ShqTVCyfPQ8QXnW9Hl6vRZwAjD4fMzjLZAdyai1EjEH0bw1bavlAgtviQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAI5N7wd; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UOES9j3l"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so3658893a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:53:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAI5N7wd"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so938614f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:53:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789379583; x=1789984383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Aj1vcWXrcKSXfio8K4yMPUPDskRmlK7J40zfCx4DedU=;
-        b=UOES9j3lTK6hBJMf4IP8dPkvqtNWowWe/CSkhDEDr8RwGWsYwwjP7xjufXetmnGs1N
-         fAMeZyFo2Rpt5XM4InSjc2uJ50TyKw2qHwwhHy2uN5BnqB4iy/JWv7x9mP1jRocqt+Zy
-         HIjb88pKswIdKcMi/idkZm29j03PQbKX+B/k6VILcQp5DHyePPMavyVCGeskwKIUVdhO
-         Y3gZ15D/Hyf2K3btZctZkRMkGz3lh9JbBUDa9jz1iFqoozQvITQPUZGXVxb/AtKDdX/s
-         g9XV0cF9j0U6H1rYk8nh1vnTzJKPpwwFDC/u2RTw4MYmvPqNmr+CuMP0aRN+dB/mjhfx
-         OvZw==
+        d=gmail.com; s=20251104; t=1789379619; x=1789984419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=da6ePMIYm/aVtrZu1tTn2uNa2Ehq+6YGaT6o8m85P1A=;
+        b=MAI5N7wdEw2NKr+KvPhwnblqTg62x7VBik4xZeOpN7g1agZ4no0wFovNNHlX7x1DUG
+         0ZsXmZ3xWNaf7Psicqv4P1/+c7Guc9mOf3zkSlI/cCZX8fa+kym7HNz2QC4KHAvsA81h
+         2zETe9RRhVzGN+b+RoFgYjxkIb3vIs/EQXUbm6h+tmg93ZkpHOElGYb9ysDSUP1L6Wis
+         FMOR12r6uLhGfDFJ47/JpMpDmqjLK+Mt4b3+5GJyPvTp2NItLO3RHJxyrn5ZdnALjU17
+         hsHB2+Fy6v8I2zYsjA1UhYh7pLSUK+1NJ8BJGuXF/lgTLSgBXOX6XiGpjIy2YvJ6ybKl
+         3PXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789379583; x=1789984383;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Aj1vcWXrcKSXfio8K4yMPUPDskRmlK7J40zfCx4DedU=;
-        b=nVC4KotKRJuwQCKdeEc0Oh4PkmcwvN73GLok4FpBUpOsXdGeXjoEeMkBqOhmQ4h3rr
-         DIQNz8l7c9dQC3zPokFxU0+4jan/+2PU+uCcWT/CTPLAGSBZtn1fstrUjvOB1VqBtlha
-         1bjnevqI0MlxHVGnOYcgPPoAzjOX3iAt1FSIedMM0tZORWgn5XB+aEPmQYWnQlXnK1Rq
-         Xstkc9oDD0DnsyL3tEoB4sZs0rDAa4xA7JEim5ZKP7yhOfckm74ZPSBPS59BU7YSy1dC
-         +2NSviVAYvi75hid14qTlkfiOL+R4MGMQvD1CYbFSL+l6TIGBEffFr6oep9YWswJLdlX
-         sH3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwXa8OZX1cJDWjFnFKolY1xO96Tczxg8nmbPDQ2bPlqHveABAI/XrjLK1awtjoU1CDf42zp/XKNd6DNsBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQadlEqs22H4X1QlmGW90kehod5AwLYAz+3dyHRH+O69D4erFo
-	K8N6H7dvEFrV0oBYBiOQlVWbW9PrpjDCkXZlbKm3MjxJGYy2rjhiWGnO/qctHg==
-X-Gm-Gg: AYBFou3L3uafWyYbdJQjXt2dEDaPGhwUfodGr9BH2rDWDHzJVPlc8G4yMlI8V6oEoJz
-	f8NV+mWbqBcnrUC4GaKQCZM+2tDzxXVNKZnVYG0qzNgu+5lit26mjUqK7KMQFJSHXCaK1KUspz1
-	CDDOrFJboeWsFXABZbwwHWGqPbPEwNGdoonHLk7qohIdbnIjkOf/sXLfxIzCedizJfqAnQHnYRV
-	P/SlddjzBk5RVsWzdAu9/eTjGTMZM6uYysZ7TUKDAFH1+hQZZ9acyMZUPyJGb8lgTF9vh3mluh+
-	GSJDwoTUvB1N9kYqKanMkKM/XZglmGWaw9er51E9GjZpPDghBlPIVKgu6iuFS6uWFtzmg0W9sd/
-	5aCGapel/9q6JX+xlhk9VcuKObdQdigyp+qbufXZHQ5Od4NVL5sVX/QjNgnykpPnxCigu2id4uB
-	t4T94YO/AoeIrTkQ57hPc4tQhSjwUzOTuM4GAuDd+XH0qGbeQRg20OuUjB2Z2FfOy0DD5nU/vJV
-	OEAn1RbblGaVjbh3WrElxaB48+bl4SzGNKMIF9o3KG9SjUyyz2rHB22inNlwHdRi+bvILnwwZWg
-	7TLeZNtqAjzlxDAv
-X-Received: by 2002:a17:90b:1b01:b0:39d:e213:9dd3 with SMTP id 98e67ed59e1d1-39debf6cf03mr3857903a91.1.1789379583175;
-        Mon, 14 Sep 2026 02:53:03 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95091214sm21129174a91.3.2026.09.14.02.53.00
+        d=1e100.net; s=20251104; t=1789379619; x=1789984419;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=da6ePMIYm/aVtrZu1tTn2uNa2Ehq+6YGaT6o8m85P1A=;
+        b=Snuz4Wzx/adZk8uc6uEW8CCNgvBFSAVpH8sHiuHj+aPZv5pasD0VY5OI2Sdfc6waRU
+         u4Lt4qqD3IqueaRYJwHk1hf5E/U0TUSepKhoToqtQ2px8yV0ZHhy5H8p4R6r7n886hLU
+         1uz37K0PkTqqY/Cvl4KyWHIjRwCgZ3pe7ckPrXNJcpAXyJS5pkni+KWr7NOCMoKEz8dl
+         zlWVPjqCHe3iBc5DKqje3ar46u0e06gIcmB446rJTmO5K+19T8v7YMWv3LdDO06FGXyR
+         VBNYK/qKgjmxchoOPD+J6g27PbQ1Q+9OP3MbMse4sGxAOezZUkbR4GgELaLUEE6P86WC
+         qxdA==
+X-Forwarded-Encrypted: i=1; AKwUvBy8R1MpokDms3fNiaFjKZjWvs5vReimyNGd90iMENNrmzxne8QJvQaWYZXJNm/R8L5oiYO+vPmRvusrudQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+OIvhaYm6h0NASCX2R7YukzR0oLbkOMc9vcPdCeha+XTthX2x
+	tKXM4lpoYz75nWHDqAMBVam4KNsNOISI4Jg8LAsZ1Y+ELAI6lzK9uGoE
+X-Gm-Gg: AYBFou32XAFpoTzbBmz0rvdBeVUJpl9vhocGCNHinnJ0vfsOLiCZdRJmKHFwsugggLJ
+	7tqu2hHjGsyLzngtWvTnG4yOKTlOrD/1PfVll8FnmRdvz7MUJcvTcO1x1QWk2kRDxPGETEa3M+9
+	m4p/kmf8S5+B9IZEuM0BOHpd47MARyq+IiJh0YjLElk3U8vEBKoVO+v1C/uQ7LsmXntGraxy2yZ
+	GdANOESR/sFKrJq6TmvdOOu7mAfdOJ8WAcj0LCkGThry4anGNvfaPE7FZmxz5LHoa821bkZU6eN
+	m0JNmWWSNNvflzqQ+xNbtEUAZC7KNAthJl0G+/F2Jqe4FpqWujd7ILB4cszOBb5jpa7K4tGr8HB
+	/xH6XXuUXKTC5oiHwEfuvG4YxmDOd1dQxpbaU3tGbgNfYz7ACIZzCULvEeLZHj8hLrsHhz4uuod
+	45ohwHCMufbT3Nai2QjOYzYG83isoW9lkX0+94RTGWg5otJrd+9rDbkOgmHbFfysW/gs4eh+j5m
+	BZqKv/fx89xKFt0e7iElNwFoj9dL//lZAvM
+X-Received: by 2002:a05:600c:4ecc:b0:49e:6be6:d783 with SMTP id 5b1f17b1804b1-49e7a5f419amr39457415e9.0.1789379619381;
+        Mon, 14 Sep 2026 02:53:39 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e71e300f3sm208874455e9.7.2026.09.14.02.53.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:53:02 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	cassiogabrielcontato@gmail.com,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>,
-	Yilin Zhang <yilinzhang@moonshot.ai>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH] ALSA: pcm: Simplify success check in snd_pcm_open_file()
-Date: Mon, 14 Sep 2026 16:52:48 +0700
-Message-ID: <20260914095248.33391-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 14 Sep 2026 02:53:39 -0700 (PDT)
+Date: Mon, 14 Sep 2026 10:53:37 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Waiman Long <longman@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ linux-kernel@vger.kernel.org, Davidlohr Bueso <dave@stgolabs.net>, Haakon
+ Bugge <haakon.bugge@oracle.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
+ Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH] locking/osq_lock: Ensure proper locking semantics for
+ osq_lock/osq_unlock()
+Message-ID: <20260914105337.576bab34@pumpkin>
+In-Reply-To: <20260910141908.592414-1-longman@redhat.com>
+References: <20260910141908.592414-1-longman@redhat.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Thu, 10 Sep 2026 10:19:08 -0400
+Waiman Long <longman@redhat.com> wrote:
 
-snd_pcm_open_file() returns zero on success and a negative error code
-on failure. Use !err to check for a successful return instead of
-checking for a non-negative value.
+> The osq_lock is special in the sense that lock transfer from one CPU to
+> the next can happen either over the common optimistic_spin_queue.tail
+> value with uncontended lock or over a lock waiter's own percpu
+> optimistic_spin_node.locked flag when the lock is contended.
+>=20
+> To ensure proper lock synchronization, we need to provide
+> the acquire/release semantics for the osq_lock/osq_unlock()
+> functions in both cases. This is currently the case for the
+> common optimistic_spin_queue.tail value, but not for the percpu
+> optimistic_spin_node.locked flag as the proper barriers are missing in
+> some places. Fix that by adding the needed barriers in those places.
+>=20
+> Note that the two percpu optimistic_spin_node.locked setting in
+> osq_unlock() are proceeded by a full barrier xchg() call, but the
+> contended cachelines are different. This should probably work in most
+> cases except in some exotic architectures where the barrier semantics
+> may be cacheline specific. Nevertheless a release barrier is still added
+> for safety reason as we may opt to relax the xchg() calls in the future.
+>=20
+> The "node->locked" read in osq_lock() was relaxed by commit 036cc30c6b6a
+> ("locking/osq: No need for load/acquire when acquire-polling") a while
+> ago as the smp_load_acquire() loop was causing a performance hit due to
+> the repeated acquire barriers in the loop and it argued that an earlier
+> atomic_xchg() call could provide the needed barrier. That may not be
+> enough especially if we have to loop for a while before the lock is
+> released. Now with the new smp_cond_load_acquire() helper, only one
+> acquire barrier is added at the end of the loop. So it shouldn't have
+> the performance hit noted in that commit.
+>=20
+> Currently osq_lock is used only by mutex and rw_semaphore code for queuing
+> purpose. As a result, the imperfect lock synchronization support does
+> not cause harmful consequence as the new osq_lock owner of a contended
+> osq_lock will still have to wait for the real mutex and rwsem lock to
+> be released by the pervious osq_lock owner before it can acquire it and
+> go into its critical section. For correctness, we still have to fix it
+> in case it is used elsewhere which doesn't have this inherent protection.
+>=20
+> Fixes: 036cc30c6b6a ("locking/osq: No need for load/acquire when acquire-=
+polling")
+> Tested-by: H=C3=A5kon Bugge <haakon.bugge@oracle.com>
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/locking/osq_lock.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
+> index b4233dc2c2b0..ef1bbd914917 100644
+> --- a/kernel/locking/osq_lock.c
+> +++ b/kernel/locking/osq_lock.c
+> @@ -143,7 +143,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+>  	 * is implemented with a monitor-wait. vcpu_is_preempted() relies on
+>  	 * polling, be careful.
+>  	 */
+> -	if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() ||
+> +	if (smp_cond_load_acquire(&node->locked, VAL || need_resched() ||
+>  				  vcpu_is_preempted(node_cpu(node->prev))))
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/core/pcm_native.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The comment above needs changing to match.
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 62324282fcae..000e926a1e6a 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2930,7 +2930,7 @@ static int snd_pcm_open(struct file *file, struct snd_pcm *pcm, int stream)
- 	mutex_lock(&pcm->open_mutex);
- 	while (1) {
- 		err = snd_pcm_open_file(file, pcm, stream);
--		if (err >= 0)
-+		if (!err)
- 			break;
- 		if (err == -EAGAIN) {
- 			if (file->f_flags & O_NONBLOCK) {
--- 
-2.43.0
+David
+
+>  		return true;
+> =20
+> @@ -224,11 +224,14 @@ void osq_unlock(struct optimistic_spin_queue *lock)
+>  	node =3D this_cpu_ptr(&osq_node);
+>  	next =3D xchg(&node->next, NULL);
+>  	if (next) {
+> -		WRITE_ONCE(next->locked, 1);
+> +		/* Provide release barrier for unlock */
+> +		smp_store_release(&next->locked, 1);
+>  		return;
+>  	}
+> =20
+>  	next =3D osq_wait_next(lock, node, OSQ_UNLOCKED_VAL);
+> -	if (next)
+> -		WRITE_ONCE(next->locked, 1);
+> +	if (next) {
+> +		/* Provide release barrier for unlock */
+> +		smp_store_release(&next->locked, 1);
+> +	}
+>  }
 
