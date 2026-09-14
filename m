@@ -1,177 +1,227 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010043.outbound.protection.outlook.com [40.93.198.43])
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CB13AFB1C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE397332EA2
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.153.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372252; cv=fail; b=UKlxsyOG9tCRtb9h2NxZbJwXSmtt6bqtdiFIACojmmToB7mcNX2j9YtXS//LVismYL691m5xXoY2LLCQecuZ3kQ2cwDm8r1plwXxa4lgj7Qe7QzuCnQ3oNvnTQ3HOWJcm1B1TIk4CadsQy3EV41wc6SpQKaCn7KVVgOT/XMir2Q=
+	t=1789372259; cv=fail; b=WYJhWFDn+5DKcVlUWTnxtKrDCZtGYYU1Lx1O4U29P5OoGfpg/uHXN/XAF3swUtQJZPxAJxMudgMjePQjl2pDGMgsQEZEif4wlP2uZbX2BiUJS5ngldRK3zNp5cCpTU49tb4UHBiKfVFGtbkDCmNLKnSZ+Bt/X6hv6YOLAfdKKFk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372252; c=relaxed/simple;
-	bh=4XLk+N/zsiIteLPIszblBhSORJJtRLNWgbuT7OPKUQI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CKowxMbTCSzKRaf1zCN5DopmT6L/ZlIFjslf6X7UNMbTpa5zWU/xIeo1cbLm8/IK/tqqIeraTE/n+Z+yM7NDEHU/MH8nJ5sTXzNgSdirDW8SHp5ReBpD2D61F1JPx7JbZ+3hLR715SuHwpKV9Ocq21GTdBB40zP+FsfYEzy5nq8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UfyKHQJX; arc=fail smtp.client-ip=40.93.198.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789372259; c=relaxed/simple;
+	bh=ja06hZRWozrjKmrBxPlahys/wkv+PRDbW4qJDRTZi8k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sfdCkHQb7BFOFsUQe802rKxp4uvTG6VQG1PH9Ktj9iL1lKutFsaLt7E9l66A2hKiPfBOGSPApELF0CR+mboQCzIdlfYbzXZ1mx7QjDCn6sXe2wYiVjYUk3MWwA5KzvFa1izxOuZIqxuDgoJJpu3iUFMEjxHV+zQq/QLYts3r4jY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=WCFguKN3; arc=fail smtp.client-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UfyKHQJX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZjDuB5/Fz5GxHfFkAVTarmy72ys0J8nd2pYDuMV+yI/8fQmMlm/MdSOcKjcFHI15NONSasIID8kcLnl7sotD2m4R1cPa6LxiEWBnWAoly5kmU3pSERWHPD1W4w+Yc4TuV3W1FieOUUh9tQo3NHfRmkfnnz3efUGukRPMgIvYjfkPOCY7hge/hXlnSBeul81pBGt4OGamwd3YTD5s2rJUzmMcOqRcCFt2ZTzCULmEKxIFK7WL+vL3qQj3iR1pYkevOv9ayQHvZO6o48cYkLPzNbaiADLdHkzsEGo4lt5oW9fkg6c4Ynop1Bg5XkRH9oWwGnZpOEoveA1qdC5JxTyE3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2sR5DfVOlU8Ib/I7w2xfmirMsgTD7B4vL/zoEebFIyg=;
- b=oRZFlC1Luk08sjbiKvZeB6pGLp1kcnn6asZVJ2iWGID6YuvLfmGtJnbLLfVXI9DHG/j/wru2OWgK2xElDtlAf6XyHn1b7zkEnCL8BrvLgAjv/saMYIg2M+imin0Mhd5LnCcVHtXg3pzHSu4FyC3M6iwfmCmBwA/5NLeyhCpyusqgZLF+07ylh+8fie3siy4cu9CgQ3htKfbJD/jIeD9NQRHLC6R2EaZRO1Kc9+iiHrRlP+EIC/1AYZEPuYME53SapdDyCW5wver6TaBSNN82XyZxj3wvC72LQ9N6IRYg5XAbu7hqhi5fAA4HoGfW+rma5GX1ztXSg2BPfolWGk1G6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2sR5DfVOlU8Ib/I7w2xfmirMsgTD7B4vL/zoEebFIyg=;
- b=UfyKHQJXgo37/bRVol3mQG1LVVFbrDc48QaRebyw3DwEvtflSE+X/wqjHXU6lv7Prp9OKhyhKc1vVvc3CbmZ36AVqwdY8gNxZTInTbG8nsdovfk3RLiH7/HVJAV0cyqS8932QL4FjU8mkgg6GHw7/Hqj3uCfu2UYmPw2AyZ23KcO7zsr2KTRdULEHmVvsEL2Y//1fJZRVeyuray43HhGY1RzlCBLln4jpBPvb66b54L27IaYUTDPLMs+litiwmhNA6VC340UAURWrt2RPa8RjCjCUh9G9JG/kDW3jLTkWCSwf8MmOLwLbGL5YP4+wJmvSc8vGQ2s2NHyiG8qDKpSfw==
-Received: from BN9PR03CA0563.namprd03.prod.outlook.com (2603:10b6:408:138::28)
- by CY8PR12MB8265.namprd12.prod.outlook.com (2603:10b6:930:72::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 07:50:43 +0000
-Received: from BN1PEPF00018546.namprd05.prod.outlook.com
- (2603:10b6:408:138:cafe::87) by BN9PR03CA0563.outlook.office365.com
- (2603:10b6:408:138::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 14 Sep 2026 07:50:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN1PEPF00018546.mail.protection.outlook.com (10.167.248.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 07:50:43 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
- 2026 00:50:27 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
- 2026 00:50:26 -0700
-Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
- with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Mon, 14
- Sep 2026 00:50:18 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
-	<zhiw@nvidia.com>
-Subject: [PATCH v2 08/32] gpu: nova-core: vgpu: reserve the 48-VM WPR2 heap
-Date: Mon, 14 Sep 2026 10:48:43 +0300
-Message-ID: <20260914074907.1399629-9-zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914074907.1399629-1-zhiw@nvidia.com>
-References: <20260914074907.1399629-1-zhiw@nvidia.com>
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="WCFguKN3"
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5iEUw800276
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:56 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=NDOIHgRCA92fBXr4xcQP2Sz2dW6sDDwTFYVMg
+	oMYlcs=; b=WCFguKN3aEEwflv8ror5uZKo6cmU7rFOYUyrhkHaXhwbfgu/10bre
+	/RIqLx6XQ+UfkHiamM4+KrEiC1lluU6TZHEe2VjYHcoaHewvVPaqDqon4tUihXRf
+	DzKB4y/+twXTjzgrGKbAihp11yQ2bDHSASDcjU/v4pNk2XUQz8a1R5jkXJzefoeD
+	7/DL8aTU7Uqc4PO15WwNgw72HZVFuBGWWDBixr6v6R0NIADx0h4A00KlL4dZEoR6
+	PtDTyRr/V+9mKFbdX687c2fMWBJWhVVmg+yiQXPlJrpXIfi9KxmKWFqu0FP6N3of
+	7J3S/+7uEydaQ6N+VnHXGaFVFF0Hc2/Sg==
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gn48br1c9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:56 -0700 (PDT)
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c25edb54d22so57852466b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789372255; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rnDrkCEunNR2avntl5UiNoyySnwEshOKbjRWQGfEWm3sZX7KHn+MgRy2+9hpBqfwNp
+         ip5cZqCclraAPXGKfx/eBIzLKsAjbssISOwoVGA2mJs/3quNw7C16On53hxuS7Kdog2h
+         qvFvNubAXn2MjoD3V3NOyJitQmnXP24lgSPHX1B1o8oXgOw/zf7Otcegd0ZT4Lb3b7+a
+         wB26t48eG7iut27tciMA0ZBMTDy95ZoArWAjZqjS2Xbx31bOGXGxsRkVKrIq/2OTDiWw
+         nKhg5B0May6Feci7Ik4/HR2MHVZG7hepMNZ6SQlOKbF6+Bh7UgvJSdOF6NeQLtO/t/ht
+         X54w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=b5IHm3fbXcJn7XNfv0FO+D+UbV/ZMp7hfv/7cooIizg=;
+        fh=qirJlND8u9MQXVNUYZn7zYkYaOlMQKezEhHb1Bs0rqs=;
+        b=aEG2EJXF0QtxjoJ1XG2Dv6LfOTwVb2XSz1txNOaX01Sg7PnacnyfBFB8f5LuE5Xa7j
+         IybCqyPKeJYZNrl3oVfwxSbjr//WedYf3mNqDgur/83Xp8PTmqfpOoIbFZ3694aaco6I
+         64k3CEiNrWDDhNE7ORI7vU0NLNmXUzntWX46lNJKbqTVwfjolLoTnL9jSGgzMkCNG6AG
+         r2HoBRG8RLX9EFo4KtjY1j/Ry4vA5g82JzyEK+kpWk9iUbnLElbAEvqck77mOTnIoxcI
+         mNiJn3L41XvD1073/BajEJs/728/BM8goLPYBJ72qFFghxTW18hadV5jCS9DlhdbsRmo
+         IKSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789372255; x=1789977055;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b5IHm3fbXcJn7XNfv0FO+D+UbV/ZMp7hfv/7cooIizg=;
+        b=BgM8JlS6wnmqCjePkfaoDTORRZjnuRglVtyzlVH1ijvYdxDHPztRg7Xfau/tZy7Yvd
+         Ry7ibSnng+peOie18KRbKZiHYFEY8/leCeHUP4ZUsNOt+tynUBbgmolNFrYMoOee9/eL
+         mN5S+VenTZ5Qe6V7gBicYsYaVTpxuq3QfuUB+E7nowqWnauA4jhxQMRrOt2vR0Y+O9j5
+         VGOAQMrM3Cs1h8HhzoLP4ETksS9ZX/ANqxewm/J/8gERJT0MKhL4P/mxbH9VCRRuFi4I
+         vttf8DTPCVdiCRzXyH6awy2XLfFehT6gtWVcUHHAUKfzRXqVY2UATHiqnxCWD5cXh1G9
+         gBPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwiYPfb88CztJQ0zOgJH4hZ00hGm4NKVZsNVhGIoiK+iI8bpfhTIZ5e3bJt4ZnwYaEQTAajD7dKuaj0QYg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkqswHNitDV3IrZBS9xerLaoc74AhkKc5yZCRZrXU0fYmg19Iy
+	+WRKP1yC1Qmfqv7jvdJiBl/tQhiVl2VOkLwV3Dw7DDcoPa5hukgcupQaUyY/bysXoB6heiJTSYY
+	u/UNAuXE8h5wpLBa3VOZ99vcHjWSeLGt5Hv0Z2/ReQCF94Fktic5ovOTo+XO5y9K+ePnqBATvV6
+	qAOFFneOFaF46Xwj24sYi+hZxM+YRfs0V9N3B8rTw=
+X-Gm-Gg: AYBFou3sB4+c8hIoAQgcEnQOSkWf/P4TtqaFof0HVIKBO6Ke282szNicj5GHIC5joic
+	uFAt6ob7EiCzKQ+bn1VDh2yv5VylUGQ+peJMvqm6f9Higritl1vLcULonRQH40l1eewTH6izo3V
+	kjx7Gcm6hRmJGsc+QZVdaCbjlZOof8v2tiFBIt+IR2GyGMrvP9AZMBLMGr4JpbVuoMPf4Fr6y2j
+	4POts+5DLyQ5pmrnQ==
+X-Received: by 2002:a17:907:c18:b0:c25:8e53:45ca with SMTP id a640c23a62f3a-c29b87655b6mr140823766b.21.1789372255326;
+        Mon, 14 Sep 2026 00:50:55 -0700 (PDT)
+X-Received: by 2002:a17:907:c18:b0:c25:8e53:45ca with SMTP id
+ a640c23a62f3a-c29b87655b6mr140819366b.21.1789372254932; Mon, 14 Sep 2026
+ 00:50:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018546:EE_|CY8PR12MB8265:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab734036-8ea1-43b7-4279-08df1234e12b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|7416014|56012099006|11063799006|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	GQjvdz9PvUyEFShBg2posUHRNsHYh5y2oyl8eaIHyOW6HjgTz7JmdW++pupWMkame+8lnNSI91hCWZvbTAJbBtYyfxp0f0HAypHuP4e+HbHW12bqlYqXBSxUdIPAPIcs+uaZdM/+pYhAimnbfG1srnwCPLN4PKM3INRnFXLt1S1K81UEuEtSKER5NNzrZkjnZ184C0kY0NbTeiT+AE8nWHlOEyw8NFBzNK07ubPEZPD5Zogr7qCVeV7uLStyWGHmJe9yO2Jkj/a8KVQdZElUCYsHzXacF8VjCawDyiQOxRQ19qcMbhJtV+scfQUfmTZiPpe+BwpqsA12D8uwql5Tfr3C5Gzr2NqvTBTZcZykX07E7pYfoHSPp80gSkNEkfh4kyKkKuDnFIjrq7IZ8kcFqVuNP/fh8WqTOOan5vRupnYSCm8CI2wI3uyZk2DctNgYfJkvHKezINvqnWWutDST8StC20hSJdOCLwwVEj9j3Gd+5PIA4l4niairEPM+YQm1NxaT8C15Fcz0IaJkqaSVxLsiK4VganCwVSN+7eBb0WlyufEiok0z9IuDwvMnxB7Qr/G+QzgkNuzs9lZbEmtIyVp/w2KInQL3wEgsbNoqdN9vktqnOcacriY5eqzu98CGB9bItrmM7j/379h4gVUrsnjMa0Sh4bR2BMZwGMslDtOqo9srebOSYJzpzpFR7oMScfSWDFBjUsAmqTbGZTveYw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(7416014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	f6NOPrLLuQWQyLU7Ol11bvJakpqoOAyir35+58xXm687QFK4z2cP/gxJW1Z34kWUWgtwhHkAmVU9etdrptWv04upyjixqtQVnJu48sWoaq9lo0gKqq+tyYDSJAqJBeyPsA+1yBUE0p/cpKlzzAILi0Dgg1pMfowAIGexx+cK1AsIlak9iQ/qLkVZOqX9fzzy34aZZVO9onhaqCLfaga2OhBf3vAFcyPiiRSR9nhySzvTaBJxxa16REy6Ud1SApJHmYrrRLb8PIWUHxPs72TRWk0H8/GAweU/OWnhQ5601pXAqCvQ/LLtmqfKp6C+4r+s0vDVnUD71AgzH2BimSnRNpOy+JOIyVOzEWbNVm2cmtyo/g5+YGayeFQjA4McdzzZeimhGM6VkjY8skrBtqSEFAmNe+6FxWPz91vygMl5N4v5wa6VveeErOtX9U2XsKTy
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:50:43.3327
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab734036-8ea1-43b7-4279-08df1234e12b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018546.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8265
+References: <20260911121341.178028-1-alex@ghiti.fr> <20260911121341.178028-3-alex@ghiti.fr>
+ <CAGsJ_4z3bSfMTKvkXsKAz=+dzhmdGOerSfL33t2RkN0CXZV-hw@mail.gmail.com>
+In-Reply-To: <CAGsJ_4z3bSfMTKvkXsKAz=+dzhmdGOerSfL33t2RkN0CXZV-hw@mail.gmail.com>
+From: Alexandre Ghiti <alexghiti@meta.com>
+Date: Mon, 14 Sep 2026 09:50:43 +0200
+X-Gm-Features: AcwNN1U5dS5EtcARkFGKnblzleHf1kNpbwhWpFFrqeypIiGrF-7Hdyx4M88AHOc
+Message-ID: <CAEmasaX64UPFX=OTQ6pC_XqjMqiuj+fD76-7TFWBaZFE+LODew@mail.gmail.com>
+Subject: Re: [PATCH v5 2/3] mm: swap: drop dropbehind swap cache folios on
+ writeback completion
+To: Barry Song <baohua@kernel.org>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Johannes Weiner <hannes@cmpxchg.org>,
+        Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+        Kairui Song <ryncsn@gmail.com>,
+        Chengming Zhou <chengming.zhou@linux.dev>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Jan Kara <jack@suse.cz>, Kemeng Shi <shikemeng@huaweicloud.com>,
+        Baoquan He <baoquan.he@linux.dev>,
+        Youngjun Park <youngjun.park@lge.com>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <brauner@kernel.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        Michal Hocko <mhocko@kernel.org>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+        Wei Xu <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>,
+        Kunwu Chan <kunwu.chan@gmail.com>, Tal Zussman <tz2294@columbia.edu>,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=JMCuIMKb c=1 sm=1 tr=0 ts=6aa7a760 cx=c_pps
+ a=D+UBI74RbQA8i2EYnbuvxw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=JnKecZnUtZousrUlYMGU:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=ufHFDILaAAAA:8 a=TYz18Bk7nizorY65d84A:9
+ a=QEXdDO2ut3YA:10 a=PsfoTyiJ_72bb7xyA04f:22 a=ZmIg1sZ3JBWsdXgziEIF:22
+X-Proofpoint-GUID: _Y3LFU0RRBAtpmfukGgKa_ZhogSCc_-Q
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfX/baODt+z7ahb
+ 1t0fmtP+Wy0erXFiL/2DxdCHcggZBIf2eJ3Zg6rykCkvXVYNxqBgD31iogrOgKIjMGA1hqvBlLY
+ LTi6eDRYXtXta5W1LPeG7n/IgNQNjlE=
+X-Proofpoint-ORIG-GUID: _Y3LFU0RRBAtpmfukGgKa_ZhogSCc_-Q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfXy8glQ9Wc/hJY
+ /oBc6kH5vhdzbSrFPntME7dsaZK1iNaZ6HMcMfKVw+541mVc0kCGEfWIgXfC0xQxVtR6dlJOFnq
+ 1kxhe5DFmpDh1fxZ7VJ704Y7as7k9J2Qlxj9KDy+DFaet2+TQlGpo5UExjqxuoraVtorZ7+/M5f
+ KrHOGY76nXeY7Qu26EHJMi91tI2F7MJCoILGFi+FpH7eOGOqIBLSeJeTeZSEF32DFE+NQ0ixnup
+ nRAmh3ObyzN5aPv5KQ8eYhu0IS9Catz4gc2G+T5g5tdDHwqdFe602kBnZEY3tVQQJjcea1Mhlc2
+ g6Q8EGYE7tkIPSAI5D/KwQJ73W7m59OPYHOfqXcj4Wmz9SYINONkp60tqOVTDtOALLLySjXE6GU
+ t+q7aneetDcWIDVXfk3XVW5feHBgwDSJGniCNdjAeVu1K7CRjcA/XhWzuuLo4V7lmeT7ew5g1Z7
+ 0xKmwS6oqpQUMJTTd+g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
 
-GSP-RM needs the larger r000 vGPU WPR2 heap on devices that
-advertise more than 32 VFs. The default heap is too small for the 48-VF
-GB202 configuration and GSP-RM fails to start.
+Hi Barry,
 
-Select the firmware-defined 48-VM size from the detected VF count while
-retaining the default size for configurations with 2 through 32 VFs.
+On Mon, Sep 14, 2026 at 1:01=E2=80=AFAM Barry Song <baohua@kernel.org> wrot=
+e:
+>
+> >
+> On Fri, Sep 11, 2026 at 8:16=E2=80=AFPM Alexandre Ghiti <alex@ghiti.fr> w=
+rote:
+> >
+> > A PG_dropbehind folio is dropped from its cache once writeback completes
+> > rather than left for reclaim to find later; this is implemented for file
+> > folios in folio_end_dropbehind(). Extend it to swap cache folios.
+> >
+> > The drop takes the folio and swap cluster locks and may sleep, so it
+> > cannot run in interrupt context. Set BIO_COMPLETE_IN_TASK on the write,
+> > as the file dropbehind paths do, and drop the folio directly from
+> > folio_end_writeback().
+> >
+> > Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> > Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> > ---
+> [...]
+>
+> > diff --git a/mm/page_io.c b/mm/page_io.c
+> > index 88962571cb93..52eae99de6e3 100644
+> > --- a/mm/page_io.c
+> > +++ b/mm/page_io.c
+> > @@ -602,6 +602,15 @@ static void swap_bdev_submit_write(struct swap_io_=
+ctx *ctx)
+> >                 submit_bio_wait(bio);
+> >                 end_swap_bio_write(bio);
+> >         } else {
+> > +               int p;
+> > +
+> > +               for (p =3D 0; p < sio->nr_bvecs; p++) {
+> > +                       if (folio_test_dropbehind(bvec_folio(&sio->bvec=
+s[p]))) {
+> > +                               bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+>
+> Thanks very much, Alexandre. I find the code is really much,
+> much better, but I=E2=80=99m still struggling to understand why we need a
+> sleepable context after Wenjian=E2=80=99s commit:
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/commit/?id=3D=
+848d2ce2fce15fbdc083fbf9691bfa72911033c4
+>
+> With this question:
+>
+> https://lore.kernel.org/linux-mm/CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz=
+-cHaDWLkxaQ@mail.gmail.com/T/#u
+>
+> In short, it still feels a little strange to me that we need a
+> sleepable context, especially now that we no longer call
+> `folio_unmap_invalidate()` for unmapped folios.
 
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
----
- drivers/gpu/nova-core/fb.rs                      | 2 +-
- drivers/gpu/nova-core/gsp/fw.rs                  | 7 +++++--
- drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs | 1 +
- 3 files changed, 7 insertions(+), 3 deletions(-)
+The thing is the zswap writeback folios are not on lru: that's because
+if we put them on lru at allocation, the perpcu lru cache holds a
+reference and it prevents remove_mapping() from freeing the folio (I
+measured that with on-lru folios, the freed rate collapses from 99.9%
+to ~3%).
 
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index 882827bcfd3a..ba68a812b095 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -302,7 +302,7 @@ fn wpr2_heap_params(ctx: &gsp::GspBootContext<'_, '_>, fb_size: u64) -> Result<(
-         ),
-         VgpuState::Enabled { total_vfs } => (
-             u8::try_from(total_vfs.get()).map_err(|_| EINVAL)?,
--            gsp::LibosParams::vgpu_wpr_heap_size(),
-+            gsp::LibosParams::vgpu_wpr_heap_size(total_vfs.get()),
-         ),
-     })
- }
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 77a66f77f4b2..309f9296ebc8 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -129,8 +129,11 @@ pub(crate) fn from_chipset(chipset: Chipset) -> &'static LibosParams {
-     }
- 
-     /// Returns the WPR heap size to reserve when vGPU is enabled.
--    pub(crate) fn vgpu_wpr_heap_size() -> u64 {
--        u64::from(bindings::GSP_FW_HEAP_SIZE_VGPU_DEFAULT)
-+    pub(crate) fn vgpu_wpr_heap_size(total_vfs: u16) -> u64 {
-+        u64::from(match total_vfs {
-+            2..=32 => bindings::GSP_FW_HEAP_SIZE_VGPU_DEFAULT,
-+            _ => r000_00::GSP_FW_HEAP_SIZE_VGPU_48VMS,
-+        })
-     }
- 
-     /// Returns the amount of memory (in bytes) to allocate for the WPR heap for a framebuffer size
-diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-index 454d0ea9360f..fa17d3e2edf6 100644
---- a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-@@ -84,6 +84,7 @@ impl<T> ::core::cmp::Eq for __BindgenUnionField<T> {}
- pub const GSP_FW_HEAP_PARAM_SIZE_PER_GB: u32 = 98304;
- pub const GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE: u32 = 100663296;
- pub const GSP_FW_HEAP_SIZE_VGPU_DEFAULT: u32 = 609222656;
-+pub const GSP_FW_HEAP_SIZE_VGPU_48VMS: u32 = 1436549120;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB: u32 = 64;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB: u32 = 256;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB: u32 = 88;
+So if we use the folio_trylock() approach, we'd need to put the folio
+back on lru otherwise it would be "lost". But I don't think we can do
+that while someone else holds the folio lock.
+
+That's why I use folio_lock() which can sleep and then needs the
+sleepable context.
+
+What do you think?
+
+Thanks,
+
+Alex
+
+>
+> Best Regards
+> Barry
+>
