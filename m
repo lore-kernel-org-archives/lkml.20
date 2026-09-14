@@ -1,234 +1,191 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com [67.231.154.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9F242902E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789427159; cv=none; b=IdeEqh/ufHcFzI0rwaKQPoZ/w3YpKtJwKGjs0YppGGTVBx65DesD9bcfewvuox6GyQA8vvM2I2r34i+f/Ftf+xXbed2xCqS8zP5y2nmDmpPmDvl1i5ixZfAZUn8anovdOjPbjy5zeFszzlHWL+O9AEBT9so2pnnEQcxcGhONM54=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789427159; c=relaxed/simple;
-	bh=LL9/CFfn7brpN4GoNpkA5AZ4Gnfvk9onVtuLOpwNb0c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LLda13yT2euIlKXYAZbwC1UHidAyQUKykpkm05ZAmNZTjHBQHbOuhNUJKIz5TtjZd/9a3B9HDJN4rZ//SiCIUhYUyM70xub2Gih25jvw/yJ1EApzefcFlu+S9Cq3rlELjq+XzaNnCIwD+EzANYVaiBVyiVQOonS7gNthJPMTL04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pdFvL0qE; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B83A9639;
+	Mon, 14 Sep 2026 23:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.154.164
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789427161; cv=fail; b=l8/j38FrqtJHdCPBrQhE+bnJLe1IYGBmAA9O6Y+poVBnoTOOebmsruIaVxM3dDFiXqNCpXKfQ9MtVWGxFHKNV7OfMcdQuQtpl/RLiEr9hCfFmisgvDmh+8NTBTzpmDSWBoP5Ktc3KS4kE9giAvrsBH6GZkPkWFcF497DJcwX+OQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789427161; c=relaxed/simple;
+	bh=IbIAevLmgpwgQlvCljyaZOhUiBVwVFl0TILNweDCxbE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=htwZeg/0bUYncGK32zm+WNlxDBf4QoUJiRyinY9pbV+iuNDc012PIKOMyRU1PnCN+AL+0K9gOKx3z5r06xSljrbm1Cy2+5TFkg8+fy2LIog8bRy8NAh1aSERzpGFSZYz36pTW2ufHeEXAyWsR2TC937oco5vkP6tJ5FicTjxmjo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com; spf=pass smtp.mailfrom=sitime.com; dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b=liXpwO7B; dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b=zjz4OhUd; arc=fail smtp.client-ip=67.231.154.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sitime.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pdFvL0qE"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so1154402f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:05:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b="liXpwO7B";
+	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b="zjz4OhUd"
+Received: from dispatch1-us1.ppe-hosted.com (ip6-localhost [127.0.0.1])
+	by dispatch1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTP id 031851C6257;
+	Mon, 14 Sep 2026 23:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitime.com;
+ h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:content-type:date:date:from:from:in-reply-to:in-reply-to:message-id:message-id:mime-version:mime-version:references:references:subject:subject:to:to;
+ s=mail; bh=nWGPdbyJr76o7WFn3S+RW2abYlTblrtiAOFT7X9Cx4w=;
+ b=liXpwO7BBOecMLxDp8S4IUTcy4IT6sqbn0FoYFnT3OnWhUIjUtPXtoMvJ0/iscv2vX6qz3Qoy7tefSTSOKQzvNv/snZdD0R0KJfgHBNFjSJ1zV1Qxu8ZJwLlUUJjKrHp10YJ68x2Ad2RcVymGmk0PefiWpt1vokH4KY0TiEuvaaa0QOetcVcbjA9nqo4HvY8kil3C1ocBgdpWDVSB2cO7VIZl7lANgOIcie5yk+Si4j1G03lviYtAph7W3ehs0vJlva71bGqITV0HXVpwC9uuw7lAcayXVXZvLMXth57caMfW6Y8Rb9+WNFGIjd9pfmkve3NC+yn1eIHEyauqlTiBw==
+X-Virus-Scanned: Proofpoint Essentials engine
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11021086.outbound.protection.outlook.com [52.101.52.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id C1631940095;
+	Mon, 14 Sep 2026 23:00:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RQoFflPTB2odh5jTJZdmpkPLZquhmZha0ISRR2uKjEWUqcj3aspQ2wArBGPj4kahYceJ7KZL62bJwdBfHmjgMVnlWygrzEE4N04JxRWUsoCPKp0XrgfIP+xPu8dIF25svY3HvSDCwPVDn6wCVYQgM3OVEGmDi/pa952utUaCb5/Wdp6Vo2wbFHt1EjiGQrU8P1QoGl1wGIxPS5dAD+fJu2kaY1m1PJ/1RD/t4CiYAat9Fmm5fRaZO0EpAQGkbgrwUjLKwM/yBdIvcZQ0UHidmyVo6N/KfCwcX2iOJ5NVnoCabjDYFBMKnX21iyzRHU4pU04sWHBW8DWSog6yUD+/Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nWGPdbyJr76o7WFn3S+RW2abYlTblrtiAOFT7X9Cx4w=;
+ b=JnKMZjQRYTJpFwHMqhS0eSv/pj6F0CYu4nsweUgCXWuBNMnyZDaHjYKlZX/TynYrDsZF4jen1ErhDWfbzyr79Ktnf44yu4oFYSbCTNyztZD5JWBPzYmacLcCxyeg/0xflTm9k59Rv5X5m3HX9LHm36ESJ07UAsj1Fgsjs4W/Y+Utxb73Gcj0/VkjUfMCmwgm7ABKRxoGD1+O58+5r7/KrAaLndVILkYABJFbHOfSVOlu5uv+ZQIzr5EVXtJ8iYRN6StJnIqJMPcPDEu7ArxdDfdFimhKHpk97/FJACMrxGjg5iu9dT3KJvUg2dmmMiYwMHK56h4YrJ04qIs+frUlew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sitime.com; dmarc=pass action=none header.from=sitime.com;
+ dkim=pass header.d=sitime.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789427155; x=1790031955; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CzV23OsQcR796zildVLZdcKUHcQM8u6Rrj7Y41au9L0=;
-        b=pdFvL0qEKuFqOG1EQ6XsIo1HIO1tTf4PvjyRqpEcAgzDTPmDnzwUxSGccnQ0rb10ZJ
-         qaKfRd00uMJG6hioUkde2OAm3xKUCZ9LLMLpQXbI+8Kw064OHi5wf2Ey/PQBLtjURLfc
-         RUrRpvOkdgZO3J6bgWMrWYPkt21RSdgAElcXTydpFfglf7lR1nVhfJF9WW663PwXHBIj
-         8qG3qjs5S936lghS6uCF+It6hR7VsMKa+TAUEoL4uvCODNvkwLSmVIXJXTs/aUfTb8fu
-         eZLQo9gVMoYNjLlROanHpIHyFbi6O+YdvVgyW4ec9nRRqu3T3YmYkBO6omhTk6FM0/s0
-         fMAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789427155; x=1790031955;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CzV23OsQcR796zildVLZdcKUHcQM8u6Rrj7Y41au9L0=;
-        b=ZtGoxIHMuRi4Xi120PWu9PAFoWw+et5lzB3/E+HpsHx+qTFKAp3DBO68EN/GFWEtEa
-         KrW28ExiWu25+QRi0PjqJXiQu0uZdUShxd+xMekBYes5v+OeOwAXKLrPzrCB0kelSb22
-         8RDS5jE+07fXuXOUpbc4wN/4Qy9RYEFdxB8/psy8aeT+uGITjBiXA6JFyyucVsB1yXXH
-         Rj8l/TzO2Vr/J6DpnTWd3Q7Rw26MBPVyRMInEpTQz97G/JwFsno9PFMbXQOlPkKLRBNm
-         Sl5z6a/G5Ns7kA2yhriP1kh6fRV2oXtqWQeyeF4E4/GIiPzrknDUZzpX56urpUasdREn
-         LZJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBraZErx9bmrOvqhs4i+21CCGMfGvYi77lHwcjEBjTO6NdO3uBP31ZyNRBcc/a7+hlcAHwPrgWW0Bqn6M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kg9o4Rh6EheKO3TSDNSYHeeJrc3+AVzpscEavFn1rZ9Npq98m0
-	4Yt4VMQckRQfpO68ygS5/Xhi4Ka88oyDY6kOtB4ysJGUoK1H/n09KO1BomO42lxbInU=
-X-Gm-Gg: AYBFou3uYsXspSxGloVRz2n7nMrrQ9NRtWAAxKKQX1+pcBf8CM9k/dOINbw+86n0unH
-	ctf7fXupBW/iZmj8NabIkMW9rP6/5Co6rOuP7+1e7VFMuOcOavmExgWHjGbY3zZUaW2XeZNWf/q
-	o947KIRT0rL1pI1osXrtV+q9bpVnl5CIaZrBY/rNYiZr7ExdoXaqd8yIOvbNtBKWSBXxP+CTKAz
-	cdmgdrcLqOsJTp8k4ZOWXXqlNU9QMougxmhk/YZ2tftqxRM61aQEj2JDRrdPGcqcU8IPRFDcHOy
-	++L0BAv368AP8fBwmwD5Jfiq5R17bfPo/yxVhNgc7VyKpwSkwFLScyX3Xp5T/Pbb+i7RTwAKDO5
-	vzbjG3IvjmISe2K6RgAgiRbFbd4y8D4vVKmxZozCwiFy/XOo9w9vrghoOOLL9JNvytM8dhf/jMp
-	b4rpuW+ctuMlXDLvxBpnIiEg1d5JOs47AZLee2un3pHEcMFpYJKgllnrRaWnfWhEAsP660DofEB
-	eHdXlacSPpXVws11+M6ayebN2pivi/DJIBs+Z+eGxkzJ0DDC463qV8WZoiinwE=
-X-Received: by 2002:a05:6000:5ca:b0:487:24e:27fb with SMTP id ffacd0b85a97d-48702b139dcmr5406922f8f.38.1789427155095;
-        Mon, 14 Sep 2026 16:05:55 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d5f1sm32098817f8f.12.2026.09.14.16.05.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 16:05:54 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Tue, 15 Sep 2026 00:05:44 +0100
-Subject: [PATCH v2 2/2] clk: samsung: acpm: add Exynos850 support
+ d=Sitime.onmicrosoft.com; s=selector1-Sitime-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nWGPdbyJr76o7WFn3S+RW2abYlTblrtiAOFT7X9Cx4w=;
+ b=zjz4OhUdtoO5YK0RiZ6S6aeLSUszjc7e6TwPbLEMqYGAC+UGLvGyM0axvC6Gj1gjf06yElAGd4sJv6DTDqyEalCPJdHvmNKTIC4agvKicxTKyDmqmSfztRVw8LxzV8O6WGOHIWujIzP6cJ+IK1qIkr/GwLCKq1SmhAj1jefiksW30kLY+vsGQRvkKVV1r7XigZRPcxf7OMIVCVrYExRYkomYqpEubetBu3KIfhnuw76T4JqALMDDz8a7lOJHkcVZ1yR/kd/L9NlC9hLN88Qk6inE6wqN1w06VpoZ6ddpD/cj6WbUlxPL2KZPCvhjY0DNCNgs+jJjpE/+3tFHdwyBeg==
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ (2603:10b6:408:3bf::16) by MW6PR20MB6839.namprd20.prod.outlook.com
+ (2603:10b6:303:23e::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
+ 2026 23:00:35 +0000
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01]) by LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 23:00:34 +0000
+From: Ali Rouhi <arouhi@sitime.com>
+To: "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+CC: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>,
+	"vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
+	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+	"ivecera@redhat.com" <ivecera@redhat.com>, "robh@kernel.org"
+	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cjubran@nvidia.com"
+	<cjubran@nvidia.com>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v8 02/15] dt-bindings: dpll: add SiTime SiT95316
+ clock generator
+Thread-Topic: [PATCH net-next v8 02/15] dt-bindings: dpll: add SiTime SiT95316
+ clock generator
+Thread-Index: AQHdOyOuGzNhwr/bM0uX+E4HTMfYqbbEqX6AgAoZ3AA=
+Date: Mon, 14 Sep 2026 23:00:34 +0000
+Message-ID: <20260914230034.63861-1-arouhi@sitime.com>
+References: <178887151142.219967.9831378889406001382@kernel.org>
+In-Reply-To: <178887151142.219967.9831378889406001382@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sitime.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LVWPR20MB994915:EE_|MW6PR20MB6839:EE_
+x-ms-office365-filtering-correlation-id: 48e2a41e-c15c-4062-3ca0-08df12b3fc32
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|38070700021|10067099003|56012099006|3023799007|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ kXOndVIYIRHEtFG1n1XatM3ppF28Xq6xmGNWgyl3g2UBRBlQT6PciTSIS+CPjIlLm7DR0J46KhD/iOUALT+33kNRiWW3xWkYL9K0MXGhUz7+4E8nox+n+LonCMTZair/BX4c0H+FOW1YcS0tLKruqNCs6cTdjngSnabuh+fZBLbCMLpmz7Qv89UEmD8zP+skSgyBYNvF1wXzkx1EQBHgzYOyS0lxqnkcT/9nEOt2s4ou4Rb3WZ/X4WXDkMXs0SLWe7S90vn/nsuN/w6wL8zcgVPj4FrKGgXJQuPwTD1bd2hASQajIvo6TRqNzfoeOA/WpARC3voXzxyrEglAtXOpx3gh82C2kqV8UZzGQtE2ZZUG4fBe8Zht75E0h6UTYO/3v85cjOytNvlX0vZAaZtNI04TDPfZWBON3Umo3cP6v2g6ZqnrDoqvuEITMvtCf8SUvQaCh3Mkqfu0Am4cpu14LNKMQHWdjkKtJFjn1jkrn3gpbBL9twLrGpF34B/OLoi4K/StOxzKVf2Fi76CvDh6REBtruiSACMzZb6L/xPrhR+0voJ+vj3naXqfQSNp7f/D/4PLWKn8SlVUKGDKu/ZUc2ubkSficMPiX3IejAFn6bQEszo4KTDiNNgKB0XI/QnXxtfI9DniBBIxZ7L0n8Q6Ivynf2i8Ym0t9A+c0cWz/g1PtHdS+ytkJ+JlyTHxbN70fPuRXoWTwNmkA2SCeMII+e5r/kvC/j/STc3BkXlIZpI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(38070700021)(10067099003)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?m5E0UH1H+vGCzcxamw+ADD4yhVQL5Ubh+dEhha6ExvFFRnXnLCJHrAXGwA?=
+ =?iso-8859-1?Q?ElMJn2qihEiIQIOllrdSA2b6mtqkU54HfcWfxaXRm9YtIH0hKOqBiUGx8G?=
+ =?iso-8859-1?Q?K+kwxKZ86Hee4vf3KiPdEBwYdTTDvaNnxxE254Jn9J9/+yj9kTAUhIbuDw?=
+ =?iso-8859-1?Q?yjGko5YL1oaaCi2RQsRvmY/d72UKocG9Cx0tkqYS/MR1eb3M9GQC5tPWcS?=
+ =?iso-8859-1?Q?MMoHYkjUJYB4zNY8+oVlBc56K/CP0Z7AoUpqF/LE2anH0ihCVuFinHG+cK?=
+ =?iso-8859-1?Q?/ErC0YAFwrgxixpJlk3zLyA8Z5EAaiimbln54CJP3hNx8hb5TKdGrtMqsw?=
+ =?iso-8859-1?Q?ZzTnRgNE2PYLKMYNHzFg4/lKd2BFcG1CoGe4cOrkVR37BA++Cs+QfNIU62?=
+ =?iso-8859-1?Q?SZ6ygU8AMY0Fh8JKazN5Q3588oR8AVDTax7JaBDnxF/qNShvJlVFIQU1vr?=
+ =?iso-8859-1?Q?gHLKf59iye0m3xJSiddFabCQULnGLzRuaZYZbKamKVJn5M2DVLkttM6Ckt?=
+ =?iso-8859-1?Q?U8RBvFx5nRMgRiHMeq5z9sm+Rffurq3hl/XSMXsxROoUe1n7UYpCNNihtF?=
+ =?iso-8859-1?Q?fzE0v0PN7l2ZfQtHJRngf5s2hUbDbOrqmwHy5+Ru4dSKQdFpB9Tfd4FJds?=
+ =?iso-8859-1?Q?dEPCedOJWcHJxFfvBvM3QVQO1bxvStnggxXQ9vahidCr4mP8t8TY8D6X96?=
+ =?iso-8859-1?Q?KoNR7/CkLNx1woppitlXz+vWjti5SI1Ci/1Div+XqQgQZl4YUX8+DEuqBc?=
+ =?iso-8859-1?Q?xOw4gaFpNg1wM8tl6azm8Wr4dwMwW6+lQ1dwhRkvlSuWSczfGKihbMVW3r?=
+ =?iso-8859-1?Q?Q4j063ycO7Nudig5kx+ej7EpooDcmw40OtcQSpcGX29GnG14PgQmcW061H?=
+ =?iso-8859-1?Q?JTSnN5wO9phEFkmh/XRBgbOnitsiuSixqYyu4jQkQfmQiyysUi/lBK47Rj?=
+ =?iso-8859-1?Q?fnsrQRluEyzfbQOY7RMWXuzwrc8csfKS3pJNL2QizsLwgKBz8VAQls7hrx?=
+ =?iso-8859-1?Q?yVAUzQgKG3zpxmuK6TXA2GAmBNbsl1zvfyK4tQSZyO/1FAOJ2yoTKFVYWa?=
+ =?iso-8859-1?Q?OzclahMG2GzvSsPK05VRHL1aiapfyG3d9eDF7NtQZVOwhX/8bYPJckLDg6?=
+ =?iso-8859-1?Q?u/Qi1pJMSYRxcaSmu3YVongpR07JTr7cd1EjarFaNRWQKUENKaqnHE88gg?=
+ =?iso-8859-1?Q?n/W0COePtfjqXEFjZ3YUEE0x6E/NtFDUNjcGoz0DEmadwppQz+SdLpIfOD?=
+ =?iso-8859-1?Q?MgUL6OhgTXhrCpUdDqwOR3v7SPgchbPTnAyd/XslLrNDYtq5+1VTbFJpTW?=
+ =?iso-8859-1?Q?QaST3j9ExkwNVnEd3rued98J6GZcbXhNWqUxIj92oOXGyKKnKs3AL01icJ?=
+ =?iso-8859-1?Q?vX2oCOFtDHYJ993V6/SZXnd2OzG6ufBYabUDjmb14AnPWHHeiMvJXZptH1?=
+ =?iso-8859-1?Q?CP2QIht0GZtRhz6yYss97PWzex6rcEViffU1Y7hIN8qRibsUTJxbNSX3aX?=
+ =?iso-8859-1?Q?2tOCKTxnsArC4AG0lo5lzWhHBgmc3y6ATMMx/qfvZ/BOKM/lxmGOghwnBj?=
+ =?iso-8859-1?Q?hqxFOqSvTSDw1hE1jopTDAwhYxlhmc0udPiqzP7YXnzdk3zx+Ir3knNoqN?=
+ =?iso-8859-1?Q?XYUpWq7vLOP3VNmHIm9C8l5fCAQPs9cqdgSLppZjBfbg4FRSk8BWM70W7y?=
+ =?iso-8859-1?Q?bBeWFFGcs5ci8P6rW0Cz7ykLWIBOpBBhF9ttbUftsTCjNPcZT3Xh78Xmnm?=
+ =?iso-8859-1?Q?hDsEgTIchk8/Zg06fk7/R9VhVLFbzInLUHf4W0DHa9HoAm?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-exynos850-acpm-clk-v2-2-ffad4a6b3fb1@linaro.org>
-References: <20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org>
-In-Reply-To: <20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org>
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
+X-Exchange-RoutingPolicyChecked:
+	qV8wqHqPtWDK0u17dRUPTpboYjJvYFGVV7DBBJu+4/CaaUjkjinsnI+dwkMxWsdp3eF7iV4amkurhQMN/5jeqOucz2PoOXRmleWUa/I/JE+2cmtvKv421gBdvMuUUj8N4sfy/KKQfJ2S7l3lqYNG7gDQ/vaW4OCLrvzvCmBF/0HigmkdH3Po6k7tqzGCbDyJOqKoXTEojeuzmTiup+otMO29K3zwVjNJPI5bs50dftrODz0RMJCDv/Q7lgSHxwSQCi1UfLWacEQe3uoNyabXZ6jlhr+hF1t0FN4P/lp0SCryY5HauzZFcpuY9WXByrvzQp3FXXUNLwzR1E+/qDdqfw==
+X-OriginatorOrg: sitime.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LVWPR20MB994915.namprd20.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48e2a41e-c15c-4062-3ca0-08df12b3fc32
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2026 23:00:34.9029
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8fb55916-cf10-4b0d-96f4-cf3952657263
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Wjl+EPNpHAJWZQn+DvL8Phc7PfRc13yHHXpR91Apd0Cl01UiaXzi1kxMrnTrAgq7oQYYZk1lB7uiIxulA9UKHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR20MB6839
+X-MDID: 1789426841-l5USAGoGVk_z
+X-PPE-STACK: {"stack":"us1"}
+X-MDID-O:
+ us1;at1;1789426841;l5USAGoGVk_z;<arouhi@sitime.com>;ee4c095510f4a2bc549243be2f087a38
+X-PPE-TRUSTED: V=1;DIR=OUT;
 
-The Exynos850 SoC utilizes the APM co-processor for clock management
-via ACPM, similar to the GS101 SoC.
-
-Add the Exynos850-specific clock variant array (including mif, int,
-cpucl0, cpucl1, g3d, aud, cam, disp, and cp) and wire it up to the
-driver data infrastructure. Add the "exynos850-acpm-clk" device ID
-to enable dynamic instantiation of these clocks during probe().
-
-Unlike GS101, the ACPM firmware on Exynos850 does not implement a
-dynamic rate read call over ACPM IPC. To return sane clock rate in
-->recalc_rate introduce a SoC-specific ->get_rate() driver data
-callback. For Exynos850, this falls back to reading the upstream parent
-CMU clock rate.
-When ->get_rate() is set, populate pdata.fw_name during clock registration
-to let clock framework to link the parent clock.
-
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
- drivers/clk/samsung/clk-acpm.c | 46 ++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 44 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clk/samsung/clk-acpm.c b/drivers/clk/samsung/clk-acpm.c
-index 4b68b44fe615..9f46fbdd999d 100644
---- a/drivers/clk/samsung/clk-acpm.c
-+++ b/drivers/clk/samsung/clk-acpm.c
-@@ -22,6 +22,7 @@ struct acpm_clk {
- 	struct clk_hw hw;
- 	unsigned int mbox_chan_id;
- 	struct acpm_handle *handle;
-+	const struct acpm_clk_driver_data *drv_data;
- };
- 
- struct acpm_clk_variant {
-@@ -32,6 +33,8 @@ struct acpm_clk_driver_data {
- 	const struct acpm_clk_variant *clks;
- 	unsigned int nr_clks;
- 	unsigned int mbox_chan_id;
-+	/* For SoCs where ACPM firmware doesn't implement get_rate call */
-+	unsigned long (*get_rate)(struct clk_hw *clk, unsigned long parent_rate);
- };
- 
- #define to_acpm_clk(clk) container_of(clk, struct acpm_clk, hw)
-@@ -41,6 +44,18 @@ struct acpm_clk_driver_data {
- 		.name		= cname,		\
- 	}
- 
-+static const struct acpm_clk_variant exynos850_acpm_clks[] = {
-+	ACPM_CLK("mif"),
-+	ACPM_CLK("int"),
-+	ACPM_CLK("cpucl0"),
-+	ACPM_CLK("cpucl1"),
-+	ACPM_CLK("g3d"),
-+	ACPM_CLK("aud"),
-+	ACPM_CLK("cam"),
-+	ACPM_CLK("disp"),
-+	ACPM_CLK("cp"),
-+};
-+
- static const struct acpm_clk_variant gs101_acpm_clks[] = {
- 	ACPM_CLK("mif"),
- 	ACPM_CLK("int"),
-@@ -58,6 +73,19 @@ static const struct acpm_clk_variant gs101_acpm_clks[] = {
- 	ACPM_CLK("bo"),
- };
- 
-+static unsigned long bypass_acpm_exynos850_get_rate(struct clk_hw *hw,
-+						    unsigned long parent_rate)
-+{
-+	return parent_rate;
-+}
-+
-+static const struct acpm_clk_driver_data acpm_clk_exynos850 = {
-+	.clks = exynos850_acpm_clks,
-+	.nr_clks = ARRAY_SIZE(exynos850_acpm_clks),
-+	.mbox_chan_id = 0,
-+	.get_rate = bypass_acpm_exynos850_get_rate,
-+};
-+
- static const struct acpm_clk_driver_data acpm_clk_gs101 = {
- 	.clks = gs101_acpm_clks,
- 	.nr_clks = ARRAY_SIZE(gs101_acpm_clks),
-@@ -69,6 +97,9 @@ static unsigned long acpm_clk_recalc_rate(struct clk_hw *hw,
- {
- 	struct acpm_clk *clk = to_acpm_clk(hw);
- 
-+	if (clk->drv_data->get_rate)
-+		return clk->drv_data->get_rate(hw, parent_rate);
-+
- 	return clk->handle->ops->dvfs.get_rate(clk->handle, clk->mbox_chan_id,
- 					       clk->id);
- }
-@@ -89,14 +120,23 @@ static const struct clk_ops acpm_clk_ops = {
- };
- 
- static int acpm_clk_register(struct device *dev, struct acpm_clk *aclk,
--			     const char *name)
-+			     const char *name, const struct acpm_clk_driver_data *drv_data)
- {
- 	struct clk_init_data init = {};
-+	struct clk_parent_data pdata = {};
- 
- 	init.name = name;
- 	init.ops = &acpm_clk_ops;
- 	aclk->hw.init = &init;
- 
-+	/* If get_rate is set, the SoC relies on parent topology */
-+	if (drv_data->get_rate) {
-+		pdata.fw_name = name;
-+		init.parent_data = &pdata;
-+		init.num_parents = 1;
-+		init.flags = CLK_GET_RATE_NOCACHE;
-+	}
-+
- 	return devm_clk_hw_register(dev, &aclk->hw);
- }
- 
-@@ -145,13 +185,14 @@ static int acpm_clk_probe(struct platform_device *pdev)
- 		 * The code assumes the clock IDs start from zero,
- 		 * are sequential and do not have gaps.
- 		 */
-+		aclk->drv_data = drv_data;
- 		aclk->id = i;
- 		aclk->handle = acpm_handle;
- 		aclk->mbox_chan_id = mbox_chan_id;
- 
- 		hws[i] = &aclk->hw;
- 
--		err = acpm_clk_register(dev, aclk, drv_data->clks[i].name);
-+		err = acpm_clk_register(dev, aclk, drv_data->clks[i].name, drv_data);
- 		if (err)
- 			return dev_err_probe(dev, err,
- 					     "Failed to register clock\n");
-@@ -162,6 +203,7 @@ static int acpm_clk_probe(struct platform_device *pdev)
- }
- 
- static const struct platform_device_id acpm_clk_id[] = {
-+	{ .name = "exynos850-acpm-clk", (kernel_ulong_t)&acpm_clk_exynos850 },
- 	{ .name = "gs101-acpm-clk", (kernel_ulong_t)&acpm_clk_gs101 },
- 	{ }
- };
-
--- 
-2.51.0
-
+Reply inline.=0A=
+=0A=
+> Is the statement that "every valid value exceeds the 32 bits '-hz' allows=
+"=0A=
+> correct?  A "-hz" property can carry 64-bit values, so the stated reason =
+for=0A=
+> dropping the unit suffix does not seem to hold. [...] could the property =
+be=0A=
+> named sitime,pll-fvco-hz while keeping=0A=
+> $ref: /schemas/types.yaml#/definitions/uint64-array [...]=0A=
+=0A=
+The description's 32-bit rationale was wrong and is corrected in v9.=0A=
+The rename itself, however, does not pass dt_binding_check.=0A=
+=0A=
+dtschema types unit-suffix properties centrally: property-units.yaml maps t=
+he=0A=
+"-hz" suffix to uint32-matrix (only "opp-hz" is defined as 64-bit), and the=
+=0A=
+meta-schema rejects a type $ref on any property matching a unit-suffix patt=
+ern=0A=
+("Standard unit suffix properties don't need a type $ref").  So=0A=
+"sitime,pll-fvco-hz" with an explicit uint64-array $ref fails validation, a=
+nd=0A=
+without the $ref the values are typed as 32-bit cells, which cannot carry a=
+=0A=
+VCO frequency (4.9-7.8 GHz).  Verified with dt-doc-validate (dtschema 2026.=
+6):=0A=
+the renamed property produces exactly those two errors.=0A=
+=0A=
+The examples cited work because they are not new vendor properties:=0A=
+"supported-frequencies-hz" is typed 64-bit by the dpll-pin.yaml schema itse=
+lf=0A=
+and "opp-hz" by property-units.yaml.  A new vendor property has no such hoo=
+k,=0A=
+so the name stays suffix-less with the explicit uint64-array $ref, and the =
+v9=0A=
+description now states this real constraint instead of the 32-bit claim.=0A=
