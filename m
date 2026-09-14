@@ -1,76 +1,146 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B77440A36
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EE8457E55;
+	Mon, 14 Sep 2026 11:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386526; cv=none; b=PCDkh/o6bvNiuZaoNDunkDbk5g7fVRtCqr2hSL4fTmoXMmLRCxLUF2QWc+WrwYJQY8M2gu8gx5MfGsNXDGeQHA6JqT8IDQA29kauBjSKegp6rNcXpUQsODKvPI4EUp/B8Egkco25cAWUjQN5TaUEOl3hAuYy0CbBMKVNwgBlE1M=
+	t=1789386529; cv=none; b=KhUtfh8T1D1V3yZII2drVpibt2IwvDJqZbgHtwlE9Fi+VP1uQ/GQFkkaFDA6DG/l9MrtCznTaAjAgGZJNUMLwWv936h+fZtld0NkM87XSyZ6Gk7/yqyxYJVuSk8fxETQv5si80nwTVJlW8yWlQnIETO1/QLZGbZ0EYFK8hEugkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386526; c=relaxed/simple;
-	bh=yyQGZwHw5haqEcdliPr3jUJtPGxgDDPJVLcrxxibLKI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rwih364UM3U9SplRQyh3vyHQctKUYiW+LX9BZ8XfqCIBAOTTCif7JYq+LuL27mQ4bnkaJyB7YcEujV9R+5zNBYjw4VLGp0/n4H0Yt1EfssKCLjBpcL1nQTxt/VO/S+KFSolYFe9JWdFtdTiTOGauF/j4SQer9t+TxlbxO00MQ1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BUmaY14v; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789386529; c=relaxed/simple;
+	bh=CCAqzLFwS0BOIKoTb5f68QH0X3E02aNX4wj4ufaM16w=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=hczZt6q3UE1DV5h7VXziOVYZ6bqf8QrsOt1/xFY+PU4XHDWKqDhbwnxL6eRa4nwH2shUfJiIuhFn+Fru8kPYdr9NKBdB+LSUSboU+BFiUZis3UW8EQROLCeWObyBxo/8rCz05UDuCOWEr87lcLXf+4O5w/vsDeZiFTNCHhNnDmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G44hERQU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BUmaY14v"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hk3MF2VgTzMlNS;
-	Mon, 14 Sep 2026 13:48:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789386521; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yyQGZwHw5haqEcdliPr3jUJtPGxgDDPJVLcrxxibLKI=;
-	b=BUmaY14vGqvHklakfOVznqaLLpeDC4S5klzU3amm/Zg5B/Dho9QOD3ny9ZzjdBUuiVzEDw
-	Ft8r5P3aNopIZSadl4Sf91DwQw/ISqkgKXtDlQzMciqnscyrU8LymddoL33isnCzcl04Jb
-	+a4hxncL/RmppPk3huRSd5DHkjkBRPGN9MwsPQvHVdSFaJiG8ipnuxeYJAr8AlRhiB2TQq
-	KBvHuKARHy0MXZnI3ls5sfrUPI7X89+jaF0erLupBuvKZQQaZk40kO24il3JGVu9mRvagk
-	8W64/xmILO3pdBPQKGUsdLbE8oOKfEMZ3AputS27zHOU6J+Sx1+ihO+gQoPEng==
-Message-ID: <26926372f9d375e1741b16abd2a910f3754a0410.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished
- timeout when CONFIG_HZ=100
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Gow
- <david@davidgow.net>
-Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo
- Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner	 <phasta@kernel.org>, Pierre-Eric Pelloux-Prayer	
- <pierre-eric.pelloux-prayer@amd.com>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
- kunit-dev@googlegroups.com
-Date: Mon, 14 Sep 2026 13:48:36 +0200
-In-Reply-To: <f570ea7f-164c-4232-85d8-14604baca607@igalia.com>
-References: <20260913084155.520015-2-david@davidgow.net>
-	 <b4f017cc-3dbf-416c-b456-0c19d2f0647a@igalia.com>
-	 <0ce1883f-7de3-4a16-82f0-c8950459163e@davidgow.net>
-	 <f570ea7f-164c-4232-85d8-14604baca607@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G44hERQU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9451F000FF;
+	Mon, 14 Sep 2026 11:48:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789386527;
+	bh=BvOJq3PLLRpLiCq6GJnNna28TuE+pSOPNvTesECUD0s=;
+	h=Date:From:To:Cc:Subject;
+	b=G44hERQUBVPlO4DQfLXB6XfWF2eA2fw6zOHWCuelvX40g8PJsYJuDNg79g1+Yr8oh
+	 A1iMNyjNCuJSUjNHtTXmub2OLl1nDHEA+hnUeLSRCuTxfcEBFiDqMByoFiHYgmfygw
+	 qn/D7NwJY1cOLsrnh2GYR2SLQZ90n75bxQhW4BO4QlMh6NRy1WlGIR8VtvqRiRRHjQ
+	 wDx+Dhv60RJD0JLwgXbiNIpAdNSkZBT2IC2qAaZgRJx8761XGP4EpxTY/r6Yt7xGpK
+	 Ygst8kBKmS/Tvfhjf0iY9UPqlKPB9YNkJJQ4ye2R0MD23/fNF+VvZWAKnvxDIIDayI
+	 wZBW8x1N2MrIA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 8EE541AC52F1; Mon, 14 Sep 2026 12:48:44 +0100 (BST)
+Date: Mon, 14 Sep 2026 12:48:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Daan De Meyer <daan@amutable.com>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the security tree with the vfs-brauner
+ tree
+Message-ID: <aqffHOsZaT92Fkg_@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 0caeec876783032458d
-X-MBO-RS-META: cpfqec6bmbydshw5zw9myphmmthryz7d
-
-On Mon, 2026-09-14 at 12:21 +0100, Tvrtko Ursulin wrote:
-> It's not a loss really to
-> skip the scheduling quality tests on more platforms than strictly=20
-> required so I'd say lets go with that.
-
-Does that mean you agree with my idea of having two options for
-building the tests, one for sanity and one for performance-ish things?
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SuTPdbK0t3hE/F4d"
+Content-Disposition: inline
 
 
-P.
+--SuTPdbK0t3hE/F4d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+Today's linux-next merge of the security tree got a conflict in:
+
+  fs/namei.c
+
+between commit:
+
+  449c7265d60d4 ("vfs: add O_CREAT|O_DIRECTORY to open*(2)")
+
+=66rom the vfs-brauner tree and commit:
+
+  16959c469f232 ("lsm: expose mount idmaps to inode hooks")
+
+=66rom the security tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc fs/namei.c
+index ca4f5e3be99ac,99f894f3f7e13..0000000000000
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@@ -4227,11 -4188,16 +4227,11 @@@ int vfs_create(struct mnt_idmap *idmap
+  		return -EACCES;	/* shouldn't it be ENOSYS? */
+ =20
+  	mode =3D vfs_prepare_mode(idmap, dir, mode, S_IALLUGO, S_IFREG);
+- 	error =3D security_inode_create(dir, dentry, mode);
++ 	error =3D security_inode_create(idmap, dir, dentry, mode);
+  	if (error)
+  		return error;
+ -	error =3D try_break_deleg(dir, LEASE_BREAK_DIR_CREATE, di);
+ -	if (error)
+ -		return error;
+ -	error =3D dir->i_op->create(idmap, dir, dentry, mode);
+ -	if (!error)
+ -		fsnotify_create(dir, dentry);
+ -	return error;
+ +
+ +	return vfs_create_no_perm(idmap, dentry, mode, di);
+  }
+  EXPORT_SYMBOL(vfs_create);
+ =20
+@@@ -4368,21 -4328,7 +4368,21 @@@ static int may_o_create(struct mnt_idma
+  	if (error)
+  		return error;
+ =20
+ -	return security_inode_create(idmap, dir->dentry->d_inode, dentry, mode);
+ +	if (create_dir)
+- 		error =3D security_inode_mkdir(dir_inode, dentry, mode);
+++		error =3D security_inode_mkdir(idmap, dir_inode, dentry, mode);
+ +	else
+- 		error =3D security_inode_create(dir_inode, dentry, mode);
+++		error =3D security_inode_create(idmap, dir_inode, dentry, mode);
+ +
+ +	return error;
+ +}
+ +
+ +static inline umode_t o_create_mode(struct mnt_idmap *idmap,
+ +		const struct inode *dir, int open_flag, umode_t mode)
+ +{
+ +	if (O_IS_MKDIR(open_flag))
+ +		return vfs_prepare_mode(idmap, dir, mode, S_IRWXUGO | S_ISVTX, S_IFDIR);
+ +	else
+ +		return vfs_prepare_mode(idmap, dir, mode, S_IALLUGO, S_IFREG);
+  }
+ =20
+  /**
+
+--SuTPdbK0t3hE/F4d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqn3xsACgkQJNaLcl1U
+h9BNpQf7BRnXDuELUc1uGkGnxgNUjVl4hUzqBdQ1BfLpcIpwCYS3uzYw6obNQ6/8
+0wwtnLLORYp30g9Erv/jD/nKDVnwPRq7QYaT5lv/XHGWWGsKn6uP/yKcjvxJNQdX
+9XfW6NuuDxeEVmHBlAoghrD31T07XwVMu0K7SNkjLMfwf1x5MBIYo/OPSSFaTxs3
+Lj5m4DBSo7QHTy84dc4ziGbEU5JrZ8/2VRGceVjJhj74FlzOTuFnUWbmeH7OBGMh
+EvqW0NWrhRGz0hZ9QYi6XWAfiy7XdyxUCoLFiJHBVhuEOZQnlCSWa8cr65Lew+cl
+BBxKBqVVEYDZmJYYdQppMKxUkBgLmQ==
+=bE0B
+-----END PGP SIGNATURE-----
+
+--SuTPdbK0t3hE/F4d--
