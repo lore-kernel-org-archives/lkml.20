@@ -1,174 +1,300 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3592A4A8A3A;
-	Mon, 14 Sep 2026 15:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6C04A8FCD
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398882; cv=none; b=SNqGIPveXdWHd5SfEFJRtwKZgS3H9O4LJoZ0z/G1jvIGzEeoD5jMx9KQYyj+uQMIrMpYpEQRHF5CNqN3CteeXNZcDoyOSFC8OqqqWDCkYtt4zWdupF5/B9Qx59SfjignGWaMT9Za0cu41FYvU/1cR6EeIsOb0asdUOfz8UqaTPM=
+	t=1789398882; cv=none; b=VM+eqJ0SXHb2cotGDHXB9ffj0uok+YKKw+Ld/7VF6dH4LZNjIQCa3E8dXj1+B1pA/CE2pDacMGGyzidvR25Ep0PKqlBcxIKc89vTVEyYcvsCVpQk/jEFbEMhisROEmCxgCrTjlItbODwcY7d+4RIYa9e7RMNEbgnqpJgdRiyNpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789398882; c=relaxed/simple;
-	bh=73C/rtzFa+0ZWXqoblfAsIR57zB38R+k6a/jXJhy+os=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kSonoIMSLUW9ysgjf3mejCfrAZIrrGYuWwrTFf2K8RPgHIjyYRHT8tSYeW8MKDgb4Cie7cwE2kl37bXXhmRqT4IjWxXBQaSjNKcIEFCfkRN+aqtCaLHEOR9kD86tcF31UVrTr6bMUje8fc646yr+R8ZAoPPh5RW9XlaX8CkZtu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmNN6RDd; arc=none smtp.client-ip=100.103.45.18
+	bh=dxHFbm5ZYJZ7zev3sJQdS85KbgO1FWu8tpH3DpETNMQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QLZzpmwlHMEXL26iQ+yGaNEH4H0QunPW+BoBJat/1aiNDr/gnIu3NI5Op0KSihDgfWhyT9+KwmmIrWqXPf8TghOsxoewwjb4ctrZ8tm8edU2Oej7Voe7ADX5qC7txFyonTUyDUo6WhrGcl/zPu3OD3Pm5OzpiDduZLCs5/w1dUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LqfTdLbQ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmNN6RDd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561D31F000FF;
-	Mon, 14 Sep 2026 15:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789398879;
-	bh=Q7igvapfDwrm+6txgQcyn+RMKEShI1bTZhFDIgbQAbI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LmNN6RDdl3OcQfn8BQ+xntQhwL6LNv57jORy8fPYj5F3Tw4d+J4Gv/urFCS1HPduv
-	 9ga8gb8IS9Nb/Ri8aU5npchcY54I1jT0dihVMpK7TsTa6iVXCXEE/e90D6Alpyf3oD
-	 nUxAaLD6ui73ipxcnnE4PaxYOmYSQ0ckxQNI9wpfq/zaipTE9ex+dQxiHxuaQVI6lQ
-	 wWBBDhlhRX6OW9pBVgkPf8NAVf/hz7F7FHcLQ0iSVUrZtrfkvnkgGZoOQbMZcy6iK3
-	 pIkNxaTA0MlSECXaa4UzJfWxeIUc9OSfpLcws1hNxglEKAY0qeQTM7P+e1kk9P91bD
-	 H7071teIJBfYQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:53 +0100
-Subject: [PATCH v2 33/40] mm/madvise: use predicates for madvise(...,
- MADV_DOFORK)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LqfTdLbQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789398879;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UeMvGpSmLxbGdrY4BRF/xvcUp4vFc+5CNvOggcrFyAU=;
+	b=LqfTdLbQTMU+oao7CEewJL+vKYmDKQIUsGfmbEz8/qOl18wi/thABn3H4aAAzHiv44HIj3
+	ni4otYj38LuS+J6fkr8phac7ezXX+qrscwu+mYv2YC8GZffeuRovIr+MELIZIEbAFDlEPk
+	fWP/yapihizX/oNmZScuI1JXrPhfsDk=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-464-XUZKcn-1N_qJf-p2xjRI1Q-1; Mon,
+ 14 Sep 2026 11:14:35 -0400
+X-MC-Unique: XUZKcn-1N_qJf-p2xjRI1Q-1
+X-Mimecast-MFC-AGG-ID: XUZKcn-1N_qJf-p2xjRI1Q_1789398874
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2330618333E2;
+	Mon, 14 Sep 2026 15:14:34 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 11B8C40E;
+	Mon, 14 Sep 2026 15:14:30 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: netdev@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org
+Subject: [PATCH net v10 09/14] rxrpc: Fix generation of notifications after call completion
+Date: Mon, 14 Sep 2026 16:13:33 +0100
+Message-ID: <20260914151340.3227501-10-dhowells@redhat.com>
+In-Reply-To: <20260914151340.3227501-1-dhowells@redhat.com>
+References: <20260914151340.3227501-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-33-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1318; i=ljs@kernel.org;
- h=from:subject:message-id; bh=73C/rtzFa+0ZWXqoblfAsIR57zB38R+k6a/jXJhy+os=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG8+vjHgcrw8f3fW07Wfj1QxRP/ycbZSLhQpuLxxe
- +huBUH/jlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEykKJ7hf9jpecrcvEZFSdM3
- mHbmvdg35YBXV/5s9dTuXWfer/38XpyRYYKUS+2ulWxlWmuuG6c3V2k2Lry76n6ekfzEDq/vFVn
- ZrAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Make it clear what we're blocking in MADV_DOFORK. Previously we simply
-disallowed VM_SPECIAL i.e. kernel-owned mappings, fixed mappings and
-VMA_IO_BIT.
+AF_RXRPC may generate a notification to the application after a call has
+completed because it generates one notification when
+rxrpc_input_split_jumbo() queues the final packet and completes the call
+and then generates another when rxrpc_input_split_jumbo() does the
+aggregated data receive notification at the end of the function.
 
-Now the invariant is established that only kernel-owned mappings can set
-VMA_IO_BIT, the VMA_IO_BIT check is redundant.
+This might cause the AFS filesystem to malfunction because it tries to
+queue the afs_call for processing an extra time.  Most of the time this
+happens quickly enough that the second queue_work skips, but sometimes this
+means that the call work may happen a second time with implications for
+afs_call lifetime management.
 
-The rest is equivalent to testing for a kernel-owned or fixed mapping,
-i.e. exactly the same check as whether the VMA is permitted to be merged.
+Fix this by:
 
-This was established by commit 0b2758f48f22 ("Require (reasonably) normal
-mappings for MADV_DOFORK") containing my hands-down favourite call out of
-all time.
+ (1) Create a lighter version of rxrpc_notify_socket() that's just used to
+     requeue a call for rxrpc_recvmsg() without creating another
+     notification.
 
-Express the same thing differently - if we wouldn't be allowed to merge it,
-then we aren't allowed to manipulate CoW behaviour on fork.
+ (2) Move rxrpc_notify_socket() to call_state.c and rename it to
+     __rxrpc_notify_socket().
 
-No functional change intended.
+ (3) Create a wrapper called rxrpc_notify_socket() that skips the
+     notification if a call is completed.
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+ (4) Make rxrpc_set_call_completion() call __rxrpc_notify_socket() to avoid
+     the skip-if-completed check.
+
+Also remove the comment on rxrpc_notify_socket() that said it added the
+call to a dummy queue to prevent further notification.
+
+Fixes: 2d1faf7a0ca3 ("rxrpc: Simplify skbuff accounting in receive path")
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@kernel.org
 ---
- mm/madvise.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/trace/events/rxrpc.h |  1 +
+ net/rxrpc/ar-internal.h      |  2 +-
+ net/rxrpc/call_state.c       | 57 +++++++++++++++++++++++++++++++++++-
+ net/rxrpc/recvmsg.c          | 45 ++++++++++------------------
+ 4 files changed, 74 insertions(+), 31 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index e15973292f94..1af82b044d23 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1565,7 +1565,7 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
- 		new_flags |= VM_DONTCOPY;
- 		break;
- 	case MADV_DOFORK:
--		if (new_flags & VM_SPECIAL)
-+		if (!vma_can_merge(vma))
- 			return -EINVAL;
- 		new_flags &= ~VM_DONTCOPY;
- 		break;
-
--- 
-2.55.0
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index a5c92592d8f9..52f8718cf725 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -343,6 +343,7 @@
+ 	EM(rxrpc_call_see_distribute_error,	"SEE dist-err") \
+ 	EM(rxrpc_call_see_input,		"SEE input   ") \
+ 	EM(rxrpc_call_see_notify_released,	"SEE nfy-rlsd") \
++	EM(rxrpc_call_see_notify_skipped,	"SEE nfy-skip") \
+ 	EM(rxrpc_call_see_recvmsg,		"SEE recvmsg ") \
+ 	EM(rxrpc_call_see_recvmsg_requeue,	"SEE recv-rqu") \
+ 	EM(rxrpc_call_see_recvmsg_requeue_first, "SEE recv-rqF") \
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index a6f830c1621f..cb36a709f540 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -1110,6 +1110,7 @@ static inline bool rxrpc_is_client_call(const struct rxrpc_call *call)
+ /*
+  * call_state.c
+  */
++void rxrpc_notify_socket(struct rxrpc_call *call);
+ bool rxrpc_set_call_completion(struct rxrpc_call *call,
+ 			       enum rxrpc_call_completion compl,
+ 			       u32 abort_code,
+@@ -1442,7 +1443,6 @@ extern const struct seq_operations rxrpc_local_seq_ops;
+ /*
+  * recvmsg.c
+  */
+-void rxrpc_notify_socket(struct rxrpc_call *);
+ int rxrpc_recvmsg(struct socket *, struct msghdr *, size_t, int);
+ 
+ /*
+diff --git a/net/rxrpc/call_state.c b/net/rxrpc/call_state.c
+index 6afb54373ebb..52465e88a044 100644
+--- a/net/rxrpc/call_state.c
++++ b/net/rxrpc/call_state.c
+@@ -7,6 +7,61 @@
+ 
+ #include "ar-internal.h"
+ 
++/*
++ * Post a call for attention by the socket or kernel service.
++ */
++static void __rxrpc_notify_socket(struct rxrpc_call *call)
++{
++	struct rxrpc_sock *rx;
++	struct sock *sk;
++	unsigned long flags;
++
++	if (test_bit(RXRPC_CALL_RELEASED, &call->flags)) {
++		rxrpc_see_call(call, rxrpc_call_see_notify_released);
++		return;
++	}
++
++	rcu_read_lock();
++
++	rx = rcu_dereference(call->socket);
++	sk = &rx->sk;
++	if (rx && sk->sk_state < RXRPC_CLOSE) {
++		if (call->notify_rx) {
++			spin_lock_irqsave(&call->notify_lock, flags);
++			call->notify_rx(sk, call, call->user_call_ID);
++			spin_unlock_irqrestore(&call->notify_lock, flags);
++		} else {
++			spin_lock_irqsave(&rx->recvmsg_lock, flags);
++			if (list_empty(&call->recvmsg_link)) {
++				rxrpc_get_call(call, rxrpc_call_get_notify_socket);
++				list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
++			}
++			spin_unlock_irqrestore(&rx->recvmsg_lock, flags);
++
++			if (!sock_flag(sk, SOCK_DEAD)) {
++				_debug("call %ps", sk->sk_data_ready);
++				sk->sk_data_ready(sk);
++			}
++		}
++	}
++
++	rcu_read_unlock();
++}
++
++/*
++ * Post a call for attention by the socket or kernel service if the call isn't
++ * already complete.
++ */
++void rxrpc_notify_socket(struct rxrpc_call *call)
++{
++	if (rxrpc_call_is_complete(call)) {
++		rxrpc_see_call(call, rxrpc_call_see_notify_skipped);
++		return;
++	}
++
++	__rxrpc_notify_socket(call);
++}
++
+ /*
+  * Transition a call to the complete state.
+  */
+@@ -25,7 +80,7 @@ bool rxrpc_set_call_completion(struct rxrpc_call *call,
+ 	rxrpc_set_call_state(call, RXRPC_CALL_COMPLETE);
+ 	trace_rxrpc_call_complete(call);
+ 	wake_up(&call->waitq);
+-	rxrpc_notify_socket(call);
++	__rxrpc_notify_socket(call);
+ 	return true;
+ }
+ 
+diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
+index 56fa324d0962..22afc71ea474 100644
+--- a/net/rxrpc/recvmsg.c
++++ b/net/rxrpc/recvmsg.c
+@@ -17,14 +17,14 @@
+ #include "ar-internal.h"
+ 
+ /*
+- * Post a call for attention by the socket or kernel service.  Further
+- * notifications are suppressed by putting recvmsg_link on a dummy queue.
++ * Requeue a call for recvmsg() to pick up.  We ignore RXRPC_CLOSE, allowing
++ * recvmsg() to continue picking up calls that are already on the queue if it
++ * wants to, but no new calls will get added.
+  */
+-void rxrpc_notify_socket(struct rxrpc_call *call)
++static void rxrpc_requeue_call(struct socket *sock, struct rxrpc_call *call)
+ {
+-	struct rxrpc_sock *rx;
+-	struct sock *sk;
+-	unsigned long flags;
++	struct rxrpc_sock *rx = rxrpc_sk(sock->sk);
++	struct sock *sk = &rx->sk;
+ 
+ 	_enter("%d", call->debug_id);
+ 
+@@ -33,31 +33,18 @@ void rxrpc_notify_socket(struct rxrpc_call *call)
+ 		return;
+ 	}
+ 
+-	rcu_read_lock();
+-
+-	rx = rcu_dereference(call->socket);
+-	sk = &rx->sk;
+-	if (rx && sk->sk_state < RXRPC_CLOSE) {
+-		if (call->notify_rx) {
+-			spin_lock_irqsave(&call->notify_lock, flags);
+-			call->notify_rx(sk, call, call->user_call_ID);
+-			spin_unlock_irqrestore(&call->notify_lock, flags);
+-		} else {
+-			spin_lock_irqsave(&rx->recvmsg_lock, flags);
+-			if (list_empty(&call->recvmsg_link)) {
+-				rxrpc_get_call(call, rxrpc_call_get_notify_socket);
+-				list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
+-			}
+-			spin_unlock_irqrestore(&rx->recvmsg_lock, flags);
++	spin_lock_irq(&rx->recvmsg_lock);
++	if (list_empty(&call->recvmsg_link)) {
++		rxrpc_get_call(call, rxrpc_call_get_notify_socket);
++		list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
++	}
++	spin_unlock_irq(&rx->recvmsg_lock);
+ 
+-			if (!sock_flag(sk, SOCK_DEAD)) {
+-				_debug("call %ps", sk->sk_data_ready);
+-				sk->sk_data_ready(sk);
+-			}
+-		}
++	if (!sock_flag(sk, SOCK_DEAD)) {
++		_debug("call %ps", sk->sk_data_ready);
++		sk->sk_data_ready(sk);
+ 	}
+ 
+-	rcu_read_unlock();
+ 	_leave("");
+ }
+ 
+@@ -562,7 +549,7 @@ int rxrpc_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+ 
+ 	if (!(flags & MSG_PEEK) &&
+ 	    !skb_queue_empty(&call->recvmsg_queue))
+-		rxrpc_notify_socket(call);
++		rxrpc_requeue_call(sock, call);
+ 	goto not_yet_complete;
+ 
+ call_failed:
 
