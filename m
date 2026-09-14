@@ -1,88 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A22D328B7B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B453043DC
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:47:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789354064; cv=none; b=LTIo59NeWx6+Z/WiYWnZyyBud4wRyH8r5LrvA7qbeBzRFzWOu2deG/+96ow2+1rhBiG7/oQINxd6Ev6SK9+BDWhdxsL/YJSe0S6Er8RXpvWZA8WPfmsWipav6tbTGLBueekDCj6mNw/KzH+PbCqI95b8gInlAcD17kFvoz8rwzc=
+	t=1789354065; cv=none; b=WBVoXMBa3f27HZRH9DdF5YOfCtzFltAtG0v0WbcO3vqHq5SRep4UicncOfQBcWri4MSb61LSZ4Nii/UlaIzErRJCEq2ZnCVnxESDa3UaH52c7tPpbZrcSzHnGGvYXX+WA5phKJ/uYdImP9sRUPKe4wIhTXbwNd5+PYuNYCE2yNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789354064; c=relaxed/simple;
-	bh=3QuQQakF3Zi22G3iYl7aYfWmFHhSS6FeB684lImThr8=;
+	s=arc-20240116; t=1789354065; c=relaxed/simple;
+	bh=TH5vzca/DE4IuRYl8j+UF5OPl0hEyeQJ+vZNfQPGOzQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pWnNbC+V7SYAD/TIjydAOa2Xfh5PX6teK8+F1DH9yYQZdYqz+4zbPXdlVFho8q35B9+uVE0PJDR+EX4bC38HYJbWbIyjDLLEYJbmKAfw6H62Eq+2sJjtYzKmgDHDRJIfUiyHccqAs4T5bnx7QFa51dLTJyqt9e6PJ/rmZlp7skI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ilELR7Qo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EVRu/BKV; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=dxNpADmm+cKakVsp7Y8RombV1syQviW8yktAgfa14gtrbiczix5D1nZaVM0UKacMz/dkbUkNedLGmdhApKhsi1+V11XxejtYWdDEIXbOq+XSF55fIbE2iXnWI1q28vD/hy9yK5SD4/fQwgII3qRsxBpgGSwxBaYoClAZhcVNl1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BGZFiSx5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UgYu8ePr; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ilELR7Qo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EVRu/BKV"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E2eL192742532
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BGZFiSx5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UgYu8ePr"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E2eOcD3670984
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:47:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+Brs4thZkb+ADUJ9KGOCW0Dja/RM97Wj6zvjTE185qk=; b=ilELR7QoBtWmhACI
-	z+k4LYQ7h+N3oD/TRwLnOTDOhTtrnwm9qlhRqnjO02jr4dNZZWWn2T1fkJFcXx5A
-	7itXooZXVpoaKUJHpyiwtZ4PctluAfISd7i1XU+zCN31le5fiqeEh6qb06fwta8n
-	3Pp9eIuw1eXdB6k4nEFdZHWqazn01/yjPjViJGx5u6LLzarJWPEC3B7c/QNwDv89
-	C0/amaa6Cyc2H8tX8QklzcyJ/1X2p3nruQqhDTA6+t2ZIYMlqH8JNv8OkzOujLyM
-	kEdOWGxHzrPexbwcUGeukszsAI2vPVPADpklL00ENLcCr+90Kvxe9zUbsdY3qmyZ
-	6n4tdg==
+	wbT1Cc1NciLh6CzE4VxkkwHzDMNo9OI1Hd3+UmFrYNQ=; b=BGZFiSx5ip9NnQ+t
+	qzGrMdXzxQIqfyID3f9pS5Ib8p0zGyYzKs3UXVCCc/GYrYTINHlHWjK9ZmsYC+Wi
+	DrGwZgaVKjP6c7j/pFwLCrUMVwDoGWmRC6rXlivED1z+UADJe6heMzj6LJAswYTj
+	+pWq0JPsr2YmnoDX5MAm9Z7uJHxZEDrW2KekcJxRtZ85ySeKRQLfDoWGoyxsAIMK
+	nfbMIj/vk/EAYGoVefHztjc8gnRN/dZuMNgagRO9BMD95bbjETI2B8wVVcK70Brf
+	9Uv1jUttAOIH8z4+HR3CvpeoQI4jhySP9NSjXdldHqKb80zJF5pW3uKeKRkyotM3
+	0K4adQ==
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gn018mm6a-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hsrjx3-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:47:42 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39af306c795so729218a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:47:42 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:47:41 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39af306c795so729215a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:47:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789354062; x=1789958862; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789354061; x=1789958861; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+Brs4thZkb+ADUJ9KGOCW0Dja/RM97Wj6zvjTE185qk=;
-        b=EVRu/BKVZQrCdhCFI90Bmhr5BdzouuMwPExSgexS7uctG0D8SI8BlcceZoDyDVd8Kf
-         /7Q16vZOwt4I+b2u02bKOMzxFs9ycXP/MqDAgR8AClvOg3udBsDutm87sTeu6ZC4d6Ru
-         lMzm1+0o8IZm22863dbiKevwPhVmHRTyoUjwkckA4CnCkN7VSoHu+c8Qo3ZzrJGc5wrh
-         WLxT6f7NuM9XzsW7vuoC5rX8C+1CJzYDsQrQbcfaVnKPZRkomobP99k/c4Zl4D6TnYqK
-         irkwTEzvMmgFc5kBEtGO/lVJGY8iTbkD+MakqGDRxNVq+9THXVj53JyV8pDhiqDwVLFo
-         6vVQ==
+        bh=wbT1Cc1NciLh6CzE4VxkkwHzDMNo9OI1Hd3+UmFrYNQ=;
+        b=UgYu8ePrv6mhG869iO+CHqJun78wX9SlsayFuYwn1665z3H/BKB2UjTiLT0ueQfL8K
+         SiKwKU33sJjiIzzPg0LJHgXlwiio5bfKFL15U/FoVYA30pPY5C8s8qE+IVieP24fuRjW
+         G7NTcZIfmI1aLf0BbA5RY5l5pLClnubfGVZcqM2IGlFZe2b8kQGGRaOXGUuBKVL7TNqf
+         gNUpu73j/qhxe9EGo5DyP/Kgmf3DqJviMsx8/vR4XwmQjjlgXEJxgW1Ixyt60aa8txQn
+         nxsVILr3XWGrm/fMc6T7DJ+Fxl0Pl5JipEh03z6N7hleYrqtDwf8r9Z6c0yFD7eWJqow
+         uhzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789354062; x=1789958862;
+        d=1e100.net; s=20251104; t=1789354061; x=1789958861;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+Brs4thZkb+ADUJ9KGOCW0Dja/RM97Wj6zvjTE185qk=;
-        b=HUr2DCZY4+y+//JWmVZjguOE12+433cKu7zScT95060uuh5sGC7q//aFPPyBSpusqi
-         pcXSKBNdKo0LCEWQS6jS00j0fTNhv6aA0vv0Ofi1TmPdUzp+NBUiOC1T2IgRoUsG5WFL
-         C1xqOLTxpUaRumYy/aXVUX1lAnY6RBdlnhy4sWTLjMgJAwdj4byXWWpRpD1b5JtuqHwd
-         Lj4AP8BoERV06JZhPhF+5B1q0D3gipiAdUgZ6GQfnMTPrmMS5HL+/VVzvKUSLFw0EIbr
-         SWH1iWTliKc7zqjrmeD2jBtPWF0d6UMFgE1eAZh+3AC2h9h4gOjbmteBEokIaLLOuMEw
-         Z+ng==
-X-Forwarded-Encrypted: i=1; AKwUvBxn23n7L0s19HJOVGtQtN+09TNp26KshZvHZTK9vJUmP/CLAoax5EyLR0WFs5FAPAflta1Gh9oaO2/6nPk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kScPzj+cSrSAZaBnmAUjhvons3Uk8kQAXhd7sb3XoNgwS50lcC
-	sJ4txVdUl2pyDCWKFxO/igrXj0AB5RFP7NWGftjrTBdHT4UAo8BmgHZGQ2+SE5iqBUqQcJlZQQy
-	x+5vI/F/p/ZrtPMbxNCR1mlfjspv5aDRE5b+nHYoDb2QT/vdt7ipkCfvXQN1ATRDizyQ=
-X-Gm-Gg: AYBFou3MbjgesNbsxePkPazakcJeVwbe7VGj/sBr3FSMrzDXvmtF6Yjd+cEKEB/Gs97
-	1pGmhoHL0CKnekB2Q7Vl9d8fYACmmd6wmsE200ndNlazh3X/RJ1LA0d4Dhm7OcMnCiUddqt+yZQ
-	CDyxPXkSCEANcMctdEdmcFtB/t4vw0Mgt5ygEgMCgnQJJWocJmSQ6GkMviZBfVVsn1Dk6X4a0BL
-	VyGkVdhffCjEBzXULAPCAEaLVNtR8j7ghSmbvA05rHzm2UxNuwQGuF31kBJYzWtshuRBYVeW/yS
-	NLT72wSpoEsHdYoEfSlEEQwD8u2WTU5HQlg8v0o9vBdrckg3tec9RRynn9OZbY0o6unUypSo/19
-	jMuUxjjWNxz4/RS96/r3L00I69PNT/Lp3qKp+52ySasnKqW4=
-X-Received: by 2002:a17:90b:2885:b0:39d:e75d:97ee with SMTP id 98e67ed59e1d1-39dec20812bmr943300a91.5.1789354061726;
-        Sun, 13 Sep 2026 19:47:41 -0700 (PDT)
-X-Received: by 2002:a17:90b:2885:b0:39d:e75d:97ee with SMTP id 98e67ed59e1d1-39dec20812bmr943262a91.5.1789354061241;
-        Sun, 13 Sep 2026 19:47:41 -0700 (PDT)
-Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed295esm25945014eec.15.2026.09.13.19.47.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=wbT1Cc1NciLh6CzE4VxkkwHzDMNo9OI1Hd3+UmFrYNQ=;
+        b=gdP3E9jKjgXK/P99bxdztq0K1K0iJGzdjsmM79fV5Bw7K3Vu0KAv7DIFbodtLWzAVt
+         x/4LYB+/tgz1Ca6WsIdE2rYz2jts5nhT9z473boYwoiZ294iBQniE7vQku8kD3HbO4Iq
+         aje3CD/bINO1gVB3vDeiL3kVuZoMYiWsG2GSumv8SbeT8JoYi3MPX1dOqgUU+UhFDE96
+         EOe5Kcl5C7C/6fRrBxFoYSD/SA3WGEWjWRh0a1WhsMwIz91SdO9kbtBjSuO8CYtz703R
+         D0mUceBzcKrHGxxrecOch1QFSrAQfq70fQIAjoTn9bGwRbN3l0TSG19Mj4eV7P4z5T3g
+         BquQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzk0LcglnXEgnvbuXgLChj78PUZXeSnkyhSCr+nZjc27eAuvahPabCRr5EdJ9cD7CeqsIcd5h8h9akPuKY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZQ01HlUOinVQXXsrxSDPBuTebuIy4oTIiMaF2CnfJk2nHFlg2
+	aViMRrstsPLepZO6FBGYpDPnldgtJI2xuRgWl2EXVAPj+6m+Gf5V3JvjwNDZ0WG5uKrx9QlbPwM
+	4r95fhZ30PcAQZ8n1u+NXTtdIgEg1FtJbTRDg9mwLJsQM5KLQ7pHyQl6ooOI1udL4dmI=
+X-Gm-Gg: AYBFou3s3T0akWISNHbYoFUmCPGe8k16q0DVdcfPPf8o/Qw4pbY6bV8vrNy1H5jqBdL
+	IMJLhIDkF8/NndR3yjjQoU+a/iaJCrZJF8oaQmZ3VzuhJomwYvcbOLYd07q/snRumOAXbm3rvyx
+	rtyt8HEeforzDgaLidu3MZbeFuj0DdBEte/FpTbsvrvnfbMe+eJ4sTHWjaN00P9VBICEGx9szOr
+	jAsA5pkUaHB+2VffUmqIuysEQbHSC7UMIcSfrpZNDUdtEuzwJksCgKgqc/2cwcVkb/geBz+fXrc
+	jA9D+NyU4/uzLrKwp8lTn+7q0W4Cih0x3BP0yeAcaXkBbozgoELegaScG7Ff9r/OzuTZQzcII+Q
+	m6bavhVcFLdGapXrabUsLdSWPamB835R0eQgQ2LEuUgWSICw=
+X-Received: by 2002:a17:90b:4f:b0:398:bada:832b with SMTP id 98e67ed59e1d1-39dec251bf8mr895721a91.6.1789354060833;
         Sun, 13 Sep 2026 19:47:40 -0700 (PDT)
+X-Received: by 2002:a17:90b:4f:b0:398:bada:832b with SMTP id 98e67ed59e1d1-39dec251bf8mr895695a91.6.1789354060327;
+        Sun, 13 Sep 2026 19:47:40 -0700 (PDT)
+Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed295esm25945014eec.15.2026.09.13.19.47.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 19:47:39 -0700 (PDT)
 From: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Date: Sun, 13 Sep 2026 19:46:45 -0700
-Subject: [PATCH v6 3/4] Bluetooth: btusb: Build the driver from multiple
- source files
+Date: Sun, 13 Sep 2026 19:46:44 -0700
+Subject: [PATCH v6 2/4] Bluetooth: Add generic support for vendor packets
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +90,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-btusb_qcc2072-v6-3-137898715844@oss.qualcomm.com>
+Message-Id: <20260913-btusb_qcc2072-v6-2-137898715844@oss.qualcomm.com>
 References: <20260913-btusb_qcc2072-v6-0-137898715844@oss.qualcomm.com>
 In-Reply-To: <20260913-btusb_qcc2072-v6-0-137898715844@oss.qualcomm.com>
 To: Marcel Holtmann <marcel@holtmann.org>,
@@ -100,67 +99,331 @@ To: Marcel Holtmann <marcel@holtmann.org>,
 Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
         linux-kernel@vger.kernel.org, Zijun Hu <zijun.hu@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=c4g+0h9l c=1 sm=1 tr=0 ts=6aa7604e cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAzNSBTYWx0ZWRfX8UoAAM/Jaot+
+ SCQBbHvVpKhE27uFnWRDI5klNi2OntoSDYouTpAyJdAZT36zxuuo63pMPq8p5HD7aCt1BcLWl5/
+ nVtrPNNd6AUPZ8vUFSKDvk2HojoO9uYh2brCUjy8qPwiFTEeK9a6T5XmnZ+AxrQqF0Y4lUnAyyK
+ a0VYQ9J+2K1+U18M7lMwXTXyJJ4/4yZGJYRMyVQd/4yv2463g9cv/QcPQbyBE3A/6nAbE3ojixt
+ TGt1vcVrmjFlp7olJ/JWBoTQTQ6jLZYIAbzt7A4MW+h5LY9eBo1VY/XvZL1dKPCoCxFUmIl/fms
+ 11OkJX8o1gJtr/Egs/9YXTWasc4GXlWprWMCLhyaC9M59odeRJv8Qu6nQRjuL+qeDd55iDajTKm
+ RDbf4QQOwoajCDOmMvBauEXauRIijSNz6IV5ZvikgCB6Idz7vR2wFVu704TbFKQyBiBIB1hUFUc
+ gNpLCcugZer85EeECdA==
+X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa7604e cx=c_pps
  a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=4J4qWk0Wo-fRNhQ-KTgA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=rupOQ6kNMCESZWuvRX8A:9 a=QEXdDO2ut3YA:10
  a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAzNSBTYWx0ZWRfX0pVfhE4vQqEa
- 5rqkpFmC/hnMS408VZF0ezQrEidG1FoMOMfFgtqr8yAN2IT0C3DcdMrzm36fctJGn7SNXf8kiHk
- YLtGxYTxddmzyyhKIeKgwYkL9ciy30I=
-X-Proofpoint-GUID: vhHTNRtwn8UNLpIyqOpkdnbtXLt_ER7X
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAzNSBTYWx0ZWRfX8C+SScVIae3W
- x5cC2/5Gn4BEGmrSgCPKMah+zSVGd4nzPKunOCrul092vyAiQWI6ATUJ5vE1o+H1T7c69U/odAc
- rkBwCryq58ZkZ5yQKvTIDsbhxMPW956MDDIHopo50spKI4KY2774KbRAQ5/z1/cXFyCukt/I2iZ
- PG0i3OrNHDntTLcLoPDAjTKXl1BnFT58wCRlQWu/9TQE1UL+1wHjwOGJPaNEF6Qtn+zQrtjqWyk
- R2HDki25JwAM7KeT8tlY5eJI07MG02xO6MjrPCg7FDvRmqGJ9fP60YV3jwxuVWRvrkdTeGRnASd
- g65IufMV2vf8hS5MNcqK/sogjXEJjfo6LjGkhcyBFqL92HHp2JQOw0VLcXIBQOlPFXFUTjCsHe6
- W0I1uI+r3WoCxTmGaVnab7q9TrOh6nr8AIvpSfnmQv0cx9f8LXJzTzrWKVVsffjy9sXnMcYm6gH
- IJTr4mQLnm5IvTrvDhQ==
-X-Proofpoint-ORIG-GUID: vhHTNRtwn8UNLpIyqOpkdnbtXLt_ER7X
+X-Proofpoint-GUID: WhUDdb1y9LP98FZfa6IANyScsvokEsdu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAzNSBTYWx0ZWRfXw6i+u/A3NCK5
+ r7/b5D+036FSLkJDDPXE/H9YHXboDsvP7X88K/C9K66ge1NPleYLh4fzjDJqXsP2039gsb4l5WS
+ k4zS/zmcwhRnIHG0u5+mcmitlcoTvX0=
+X-Proofpoint-ORIG-GUID: WhUDdb1y9LP98FZfa6IANyScsvokEsdu
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_01,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 bulkscore=0 impostorscore=0
- malwarescore=0 phishscore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140035
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140035
 
-Allow the driver to include vendor USB-transport-specific source files by:
-- renaming btusb.c to btusb_main.c
-- making btusb.o a composite object
+The virtual HCI_VENDOR_PKT (0xff) has been defined but never used by
+the BT core. Now, there is a requirement to implement it, as follows:
 
-Used by Qualcomm QCC2072 support.
+For Qualcomm multi-subsystem BT chips, the transport wire carries both
+BT-HCI and PERI-HCI packets, where PERI is a subsystem in the chip, take
+the upcoming QCC2072 as an example:
+
+    Packet type                 BT-HCI indicator   PERI-HCI indicator
+    -----------------------------------------------------------------
+    CMD (Host -> Controller)    0x01               0x31
+    ACL Data (bidirectional)    0x02               0x32
+    EVENT (Controller -> Host)  0x04               0x34
+
+There are also BT ACL packets with vendor-reserved handles found in
+existing device drivers, as shown below:
+
++--------+--------+---------------------------+
+| Vendor | Handle | Purpose                   |
++--------+--------+---------------------------+
+| QCOM   | 0xEDD  | Firmware coredump         |
+|        | 0xEDC  | Firmware enhanced logging |
++--------+--------+---------------------------+
+| MTK    | 0xFC6F | Firmware coredump         |
+|        | 0x05FF | Firmware debug logging 1  |
+|        | 0x05FE | Firmware debug logging 2  |
++--------+--------+---------------------------+
+| NXP    | 0xFFF  | Firmware coredump         |
++--------+--------+---------------------------+
+
+Implement HCI_VENDOR_PKT to generically support such vendor packets,
+which don't follow BT SIG's vendor-extension framework:
+
+- Log them in btmon as they appear on the wire.
+- Add hdev->recv_vendor_pkt() to handle them in hci_rx_work().
+- Add hci_send_vendor_frame() to send them to the device driver.
+- Allow them to flow over HCI_CHANNEL_USER, nested inside HCI_VENDOR_PKT.
+
+Also solve the same issues that the commit below fixes for
+HCI_EV_VENDOR, which follows BT SIG's vendor-extension framework:
+
+commit 0bd606b31d40 ("Bluetooth: hci_event: Introduce
+handle_ev_vendor() for HCI_EV_VENDOR")
 
 Signed-off-by: Zijun Hu <zijun.hu@oss.qualcomm.com>
 ---
- drivers/bluetooth/Makefile                  | 2 ++
- drivers/bluetooth/{btusb.c => btusb_main.c} | 0
- 2 files changed, 2 insertions(+)
+ include/net/bluetooth/hci_core.h |  5 +++++
+ include/net/bluetooth/hci_mon.h  |  2 ++
+ net/bluetooth/hci_core.c         | 45 ++++++++++++++++++++++++++++++++++++++++
+ net/bluetooth/hci_sock.c         |  8 +++++++
+ 4 files changed, 60 insertions(+)
 
-diff --git a/drivers/bluetooth/Makefile b/drivers/bluetooth/Makefile
-index e6b1c1180d1d..8b436c6de8b7 100644
---- a/drivers/bluetooth/Makefile
-+++ b/drivers/bluetooth/Makefile
-@@ -46,9 +46,11 @@ hci_uart-$(CONFIG_BT_HCIUART_3WIRE)	+= hci_h5.o
- hci_uart-$(CONFIG_BT_HCIUART_INTEL)	+= hci_intel.o
- hci_uart-$(CONFIG_BT_HCIUART_BCM)	+= hci_bcm.o
- hci_uart-$(CONFIG_BT_HCIUART_QCA)	+= hci_qca.o
- hci_uart-$(CONFIG_BT_HCIUART_AG6XX)	+= hci_ag6xx.o
- hci_uart-$(CONFIG_BT_HCIUART_MRVL)	+= hci_mrvl.o
- hci_uart-$(CONFIG_BT_HCIUART_AML)	+= hci_aml.o
- hci_uart-objs				:= $(hci_uart-y)
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index c12cd6873f65..b26004a05368 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -23,16 +23,17 @@
+ #ifndef __HCI_CORE_H
+ #define __HCI_CORE_H
  
-+btusb-y				:= btusb_main.o
+ #include <linux/idr.h>
+ #include <linux/leds.h>
+ #include <linux/rculist.h>
+ #include <linux/spinlock.h>
+ #include <linux/srcu.h>
++#include <linux/uio.h>
+ 
+ #include <net/bluetooth/hci.h>
+ #include <net/bluetooth/hci_drv.h>
+ #include <net/bluetooth/hci_sync.h>
+ #include <net/bluetooth/hci_sock.h>
+ #include <net/bluetooth/coredump.h>
+ 
+ /* HCI priority */
+@@ -641,16 +642,18 @@ struct hci_dev {
+ #endif
+ 
+ 	int (*open)(struct hci_dev *hdev);
+ 	int (*close)(struct hci_dev *hdev);
+ 	int (*flush)(struct hci_dev *hdev);
+ 	int (*setup)(struct hci_dev *hdev);
+ 	int (*shutdown)(struct hci_dev *hdev);
+ 	int (*send)(struct hci_dev *hdev, struct sk_buff *skb);
++	/* Receive HCI_VENDOR_PKT */
++	void (*recv_vendor_pkt)(struct hci_dev *hdev, struct sk_buff *skb);
+ 	/* Handle HCI_EV_VENDOR; return true if handled, false otherwise */
+ 	bool (*handle_ev_vendor)(struct hci_dev *hdev, struct sk_buff *skb);
+ 	void (*notify)(struct hci_dev *hdev, unsigned int evt);
+ 	void (*hw_error)(struct hci_dev *hdev, u8 code);
+ 	int (*post_init)(struct hci_dev *hdev);
+ 	int (*set_diag)(struct hci_dev *hdev, bool enable);
+ 	int (*set_bdaddr)(struct hci_dev *hdev, const bdaddr_t *bdaddr);
+ 	void (*reset)(struct hci_dev *hdev);
+@@ -2395,16 +2398,18 @@ static inline int hci_check_conn_params(u16 min, u16 max, u16 latency,
+ 	}
+ 
+ 	return 0;
+ }
+ 
+ int hci_register_cb(struct hci_cb *hcb);
+ int hci_unregister_cb(struct hci_cb *hcb);
+ 
++int hci_send_vendor_frame(struct hci_dev *hdev, struct iov_iter *iter);
 +
- CONTEXT_ANALYSIS := y
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb_main.c
-similarity index 100%
-rename from drivers/bluetooth/btusb.c
-rename to drivers/bluetooth/btusb_main.c
+ int __hci_cmd_send(struct hci_dev *hdev, u16 opcode, u32 plen,
+ 		   const void *param);
+ 
+ int hci_send_cmd(struct hci_dev *hdev, __u16 opcode, __u32 plen,
+ 		 const void *param);
+ void hci_send_acl(struct hci_chan *chan, struct sk_buff *skb, __u16 flags);
+ void hci_send_sco(struct hci_conn *conn, struct sk_buff *skb);
+ void hci_send_iso(struct hci_conn *conn, struct sk_buff *skb);
+diff --git a/include/net/bluetooth/hci_mon.h b/include/net/bluetooth/hci_mon.h
+index 4b2a0af4ed58..7710688c0d30 100644
+--- a/include/net/bluetooth/hci_mon.h
++++ b/include/net/bluetooth/hci_mon.h
+@@ -45,16 +45,18 @@ struct hci_mon_hdr {
+ #define HCI_MON_CTRL_OPEN	14
+ #define HCI_MON_CTRL_CLOSE	15
+ #define HCI_MON_CTRL_COMMAND	16
+ #define HCI_MON_CTRL_EVENT	17
+ #define HCI_MON_ISO_TX_PKT	18
+ #define HCI_MON_ISO_RX_PKT	19
+ #define HCI_MON_DRV_TX_PKT	20
+ #define HCI_MON_DRV_RX_PKT	21
++#define HCI_MON_VENDOR_TX_PKT	22
++#define HCI_MON_VENDOR_RX_PKT	23
+ 
+ struct hci_mon_new_index {
+ 	__u8		type;
+ 	__u8		bus;
+ 	bdaddr_t	bdaddr;
+ 	char		name[8] __nonstring;
+ } __packed;
+ #define HCI_MON_NEW_INDEX_SIZE 16
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 46453bc4ca25..c71c1e7e1f37 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -2912,16 +2912,18 @@ int hci_recv_frame(struct hci_dev *hdev, struct sk_buff *skb)
+ 			    type == PA_LINK)
+ 				hci_skb_pkt_type(skb) = HCI_ISODATA_PKT;
+ 		}
+ 		break;
+ 	case HCI_SCODATA_PKT:
+ 		break;
+ 	case HCI_ISODATA_PKT:
+ 		break;
++	case HCI_VENDOR_PKT:
++		break;
+ 	case HCI_DRV_PKT:
+ 		break;
+ 	default:
+ 		kfree_skb(skb);
+ 		return -EINVAL;
+ 	}
+ 
+ 	/* Incoming skb */
+@@ -3048,16 +3050,51 @@ static int hci_send_frame(struct hci_dev *hdev, struct sk_buff *skb)
+ 
+ static int hci_send_conn_frame(struct hci_dev *hdev, struct hci_conn *conn,
+ 			       struct sk_buff *skb)
+ {
+ 	hci_conn_tx_queue(conn, skb);
+ 	return hci_send_frame(hdev, skb);
+ }
+ 
++/**
++ * hci_send_vendor_frame - Send an HCI_VENDOR_PKT frame to the HCI driver
++ * @hdev: The HCI device
++ * @iter: iov_iter carrying the frame
++ *
++ * Return: 0 on success, or a negative errno on failure.
++ */
++int hci_send_vendor_frame(struct hci_dev *hdev, struct iov_iter *iter)
++{
++	struct sk_buff *skb;
++	unsigned int len;
++
++	if (WARN_ON(!iov_iter_is_kvec(iter)))
++		return -EINVAL;
++
++	/* Vendor frames are opaque, the caller guarantees the size. */
++	len = (unsigned int)iov_iter_count(iter);
++	if (!len)
++		return -EINVAL;
++
++	skb = bt_skb_alloc(len, GFP_KERNEL);
++	if (!skb)
++		return -ENOMEM;
++
++	if (!copy_from_iter_full(skb_put(skb, len), len, iter)) {
++		kfree_skb(skb);
++		return -EFAULT;
++	}
++
++	hci_skb_pkt_type(skb) = HCI_VENDOR_PKT;
++
++	return hci_send_frame(hdev, skb);
++}
++EXPORT_SYMBOL(hci_send_vendor_frame);
++
+ /* Send HCI command */
+ int hci_send_cmd(struct hci_dev *hdev, __u16 opcode, __u32 plen,
+ 		 const void *param)
+ {
+ 	struct sk_buff *skb;
+ 
+ 	BT_DBG("%s opcode 0x%4.4x plen %d", hdev->name, opcode, plen);
+ 
+@@ -4063,16 +4100,24 @@ static void hci_rx_work(struct work_struct *work)
+ 			hci_scodata_packet(hdev, skb);
+ 			break;
+ 
+ 		case HCI_ISODATA_PKT:
+ 			BT_DBG("%s ISO data packet", hdev->name);
+ 			hci_isodata_packet(hdev, skb);
+ 			break;
+ 
++		case HCI_VENDOR_PKT:
++			BT_DBG("%s Vendor packet", hdev->name);
++			if (hdev->recv_vendor_pkt)
++				hdev->recv_vendor_pkt(hdev, skb);
++			else
++				kfree_skb(skb);
++			break;
++
+ 		default:
+ 			kfree_skb(skb);
+ 			break;
+ 		}
+ 	}
+ }
+ 
+ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
+diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
+index 070ca388f9ac..406b70ecaf33 100644
+--- a/net/bluetooth/hci_sock.c
++++ b/net/bluetooth/hci_sock.c
+@@ -228,16 +228,17 @@ void hci_send_to_sock(struct hci_dev *hdev, struct sk_buff *skb)
+ 				continue;
+ 		} else if (hci_pi(sk)->channel == HCI_CHANNEL_USER) {
+ 			if (!bt_cb(skb)->incoming)
+ 				continue;
+ 			if (hci_skb_pkt_type(skb) != HCI_EVENT_PKT &&
+ 			    hci_skb_pkt_type(skb) != HCI_ACLDATA_PKT &&
+ 			    hci_skb_pkt_type(skb) != HCI_SCODATA_PKT &&
+ 			    hci_skb_pkt_type(skb) != HCI_ISODATA_PKT &&
++			    hci_skb_pkt_type(skb) != HCI_VENDOR_PKT &&
+ 			    hci_skb_pkt_type(skb) != HCI_DRV_PKT)
+ 				continue;
+ 		} else {
+ 			/* Don't send frame to other channel types */
+ 			continue;
+ 		}
+ 
+ 		if (!skb_copy) {
+@@ -385,16 +386,22 @@ void hci_send_to_monitor(struct hci_dev *hdev, struct sk_buff *skb)
+ 			opcode = cpu_to_le16(HCI_MON_SCO_TX_PKT);
+ 		break;
+ 	case HCI_ISODATA_PKT:
+ 		if (bt_cb(skb)->incoming)
+ 			opcode = cpu_to_le16(HCI_MON_ISO_RX_PKT);
+ 		else
+ 			opcode = cpu_to_le16(HCI_MON_ISO_TX_PKT);
+ 		break;
++	case HCI_VENDOR_PKT:
++		if (bt_cb(skb)->incoming)
++			opcode = cpu_to_le16(HCI_MON_VENDOR_RX_PKT);
++		else
++			opcode = cpu_to_le16(HCI_MON_VENDOR_TX_PKT);
++		break;
+ 	case HCI_DRV_PKT:
+ 		if (bt_cb(skb)->incoming)
+ 			opcode = cpu_to_le16(HCI_MON_DRV_RX_PKT);
+ 		else
+ 			opcode = cpu_to_le16(HCI_MON_DRV_TX_PKT);
+ 		break;
+ 	case HCI_DIAG_PKT:
+ 		opcode = cpu_to_le16(HCI_MON_VENDOR_DIAG);
+@@ -1863,16 +1870,17 @@ static int hci_sock_sendmsg(struct socket *sock, struct msghdr *msg,
+ 		 * since that gets enforced when binding the socket.
+ 		 *
+ 		 * However check that the packet type is valid.
+ 		 */
+ 		if (hci_skb_pkt_type(skb) != HCI_COMMAND_PKT &&
+ 		    hci_skb_pkt_type(skb) != HCI_ACLDATA_PKT &&
+ 		    hci_skb_pkt_type(skb) != HCI_SCODATA_PKT &&
+ 		    hci_skb_pkt_type(skb) != HCI_ISODATA_PKT &&
++		    hci_skb_pkt_type(skb) != HCI_VENDOR_PKT &&
+ 		    hci_skb_pkt_type(skb) != HCI_DRV_PKT) {
+ 			err = -EINVAL;
+ 			goto drop;
+ 		}
+ 
+ 		skb_queue_tail(&hdev->raw_q, skb);
+ 		queue_work(hdev->workqueue, &hdev->tx_work);
+ 	} else if (hci_skb_pkt_type(skb) == HCI_COMMAND_PKT) {
 
 -- 
 2.34.1
