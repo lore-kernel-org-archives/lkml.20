@@ -1,225 +1,176 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010005.outbound.protection.outlook.com [52.101.69.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4C547ECF6;
-	Mon, 14 Sep 2026 14:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395126; cv=fail; b=PES8Poa6LSzZ7edmZ+mhZ4iPSic8Liis6CG7LNTXwGtO/MNFCJIWanX/JkYzXw04gTatUemsBkRoMpXAXsp2RFOwfBzC34T6wO8Nk8DUe7UmtyZ233p5Wp9GJ8ZhA/LE9sI069IDRZaDcDgjizTrwTBFaT0R39ABNqgaks5tl/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395126; c=relaxed/simple;
-	bh=vsKaUQMCunSlmWeYEPnMWmm9qCmWNh5oGRkVrreCRJw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=B+wJ6meBaqZXbnustm34MRf94EAhODMtXWgczh9vl6ZwZJqr5y1sR2zHbXKxyw6pUHaHpLRTwDkmNe1XpvKx0XrbhlBcZD65FBl+XkGkHxtZZ6RIH34uf85WYQfZU3v11iHF3/ylXd4u3jvcnWU/sIi2K/gZWQDWhrMXDbH3Umc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YdWmylpj; arc=fail smtp.client-ip=52.101.69.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAD047F2E7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:12:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789395134; cv=none; b=so6KR8WisVG3aeMJrz91QbvVI2NCV32BNHQEt05LU0nFHoOJqCg8qJm+numRbWVPd+yIKpKVUf5ze4mwGPMYg2GOPQyLVndCxqTJARsLuhTi76dPNHZBVFolGtfJceosVnrsSY9lqNoPBvHnAeCtWfY5heS6D5TGnZqxkfZnsgs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789395134; c=relaxed/simple;
+	bh=FYgE/qMDYyeMl2lVwY7dAtgyDXOfNxxwb4+vbhAhdRk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BnX9vlutgtqGe2Chm/QsIWpEXSBIuqDk/oMsKSrzbKs13YdaIH5VVBVsZRreDfk8Bwy24NdEPKqBebhL3cvFUON8pRc9R/DV7yd0cnRqhdc5YnsWjSYG4aZsKFYRprw1fWGCUNQD0XzH/5Pu610sK2w/LfzJj+/p+KhVE5WCz8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C4MnOGfA; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YdWmylpj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PkUmWu4fP/rQeFbaRIcIDKyyiiR/JMTOjvmudZbwzoQh+wXqsuchvSANx8TNL+jUA4I9g+wwx3kB8QN4R95H2cwF3nU5UL6EOguP0JULfxlVF50KNRlN20s3Wmlnbi6yUfVrYXB463ssNQ8nfMN5mjEh5vmm7tAu2cVN9xn2U3U0izJBkomIhjAQ4QdZmyLLcuKT3jTVD3XWCJUROVDpUZaqZG9Z3Wf+AC1nmu1wjlTlNhfNcRM/uEU0VfOXCEY2ym7ZZZ0nD9lyA3t11c6f64whhLGRZ8C/YUAI/GtaFa4wk8PPhCTUbVo2L/wbEyYnDxu/K+PLPmvotN8oJsT3Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=777BBndEZWN0pQ0+ExXhYlFGeXGjovNqwjmxa9SC7PY=;
- b=g/b7+ZP58XnY1q8mwNEjmGqYndFGBNnPaf2bQOuwdGulwBAXyxFk4MSOvGoKolG3IJiYduNbcwnInDB80o7AQpTGHzLzMqbAsvib8Ds8qpp0cQ/py+VitEH4QdgVp/XQvsbgn3Eu84mi+qyhI7gH3ZOsOSkcreo5v0N/NA8T7vIL9itfDXVNmkHT0tE2Ir2Mg9Opu0LNF7njhRcLGY7Il8Qr/MtJRmwWWrb+aYFf3Bhxs7HB5wUtPjs25TMfv9apor/FN5MDQbdWII26OMwcTqP8V86whjJ59qEe01lEgkSS8dyIXAwNGt6NIMC99UgoFZkxaPK56L/LrgubfjQvIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=777BBndEZWN0pQ0+ExXhYlFGeXGjovNqwjmxa9SC7PY=;
- b=YdWmylpjZ9qgf5ipU5kQGikIQfhYhRdiNEXo8bdFhLCnXkP6T2H4KcI6lgGDvqCkSS4v5/GLoDQgYgKUn4leK58UpS+NhcOgxfZg43W5Q/hSF3XsQcpfhMz7Eq3bl5TfwIpzpXj3z28bG/cy6RCE7+8yY/pWW608WXzhynyBTTl0K+1vDbV54riJw0vEIW4vd8axjVRD/s9YurBI9eSdwGQffFPJTBMMbs6aYbicuKnlp4ZuIBuJqOiOv45Iog909HfyjzLuvNtNP/aCNSBIhwM0qWplHqW8g8s3OExICqVvh22azgNt1tq88l5LRBMc8AQc7B1ZySpx2K8s8Tnxuw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
- by AM9PR04MB8618.eurprd04.prod.outlook.com (2603:10a6:20b:439::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 14:11:19 +0000
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c%3]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 14:11:19 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Tue, 15 Sep 2026 01:10:04 +0530
-Subject: [PATCH v51 7/7] arm64: dts: imx8ulp: add reserved memory for
- EdgeLock Enclave
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-imx-se-if-v51-7-4a7dac612cb5@nxp.com>
-References: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
-In-Reply-To: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789414820; l=2500;
- i=pankaj.gupta@nxp.com; s=20260817; h=from:subject:message-id;
- bh=LA5pZ8YRZFeVk56nd//uP0RHiwT4E6voL97vzkkh9tk=;
- b=KVWgMDZfM9mLR1M6Pt+nqxQ/woC1r7hcmjT+tyv2qJ8o8pm1aFOta5dv08X4IHaq9fQV9F8eA
- ciE097xvaxtAff0qyGHFVnAipoEGu/oPO9HVu4QZ/BNGJVhs1Ud1BFD
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=g4ZgzIWbpXnSxRsoH+l6PWLP78a+Mzpl8e6RQe74d5Y=
-X-ClientProxiedBy: MA5P287CA0294.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:221::18) To AM9PR04MB8469.eurprd04.prod.outlook.com
- (2603:10a6:20b:414::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C4MnOGfA"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso12021675e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:12:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789395119; x=1789999919; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ucveROnBiD9Bvg19k0xNDw/2fESh5irWztcJl/INm4w=;
+        b=C4MnOGfA6THW2WjLmuyh2Z/iXY739+lEku8tmirxGv3aBFMQYNwL7hao5ZkcHr18p8
+         Y1ep3K8Z1r26osoboxiApt2P93B8yYJTl9PsXTTe9XJIlTHhVXYpQDtJYXFa5T1R70uG
+         P+w06A5E3mx1tUEB99v8++Vfrp1xmZbZEQEiKuksJF2u+bXdT/87I+bhiCDh/zc6sAXV
+         J6zZWwX/9KpH3bM+LFIHs8rAbAVkDE2F+rAMDK5se3kPJ2wLyc/VMoI8AaasHVLvJHK9
+         pfu7f9PearY403xsBDJnQzsjht5ETXVm9/LNnRZHlyo9jI8kkKCNLRu4MgMlwOhgiKnf
+         KwSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789395119; x=1789999919;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ucveROnBiD9Bvg19k0xNDw/2fESh5irWztcJl/INm4w=;
+        b=ENwTRfzMDHUiY2hl1Y7040qE6w1lN/otmvjgYrFGqO5ybxjS1oFGd7p9b0tZn3/kLj
+         y5JeF3Jdzef/X5sIGC72zAh4VYzxmeKM3Ox4im6KTfEP7m0xBS8+0SOP2qYQypAbJWSj
+         bZT/XgGHXlsZwZUHBq9Sm+B6TM9J7jLcpwiCwYJ55dEfl5jFwitvtDPlB1svXKDDCr4q
+         ipwEVQXPwR0Rn+CI1OTreB+i5igd8CBpLf19BHbqQ6GauBR0+lX0H4wNcK/qZyl59ZQm
+         V9Qc2aagyy3bO20a5/N+tbhYv89TXjWm+QoOqWBeYXW7planFgR4x/4qf2Hf2vNLXKdt
+         14HQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzc+e3noFbXxk2gbPnKR5X8sUVJ1Co0CBYc+2U9pLMvPTvgVzmLmw0LZi/fCnPW3f5KQpnmnGw4emHmEM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIT27okcOUywoDn81yVvyei0gckUenwhy6oPhpKIxR2ju7grCA
+	v6lx72ZWh/lcZM8UV9C90VbrUsMYOPgraH7LlGYRiC8Te4N0fOuCgxOf
+X-Gm-Gg: AYBFou2CSXRUpLqa0FQKD+Z/u5S1osSBpfDsTjNiwhpWjo5+7w8wpjOTA6cNbOv9cwB
+	+mppLdrMh7zZjkSya9SKap9edY2Yjmgvtzry44L7xxts7rBdsMKECIXsCp0Y8iDyUAvA8++EycT
+	b3i71/r9SIoCjRSq4Irj0ioc3+mzFSriihhjtS0yy8Oj1M14FbqWIVzse5zLKdZ4i5m0oQiHIAP
+	dxibb2HJmIY4HUdLLlR1iEJh8zaYMCsvExk+fssAH5Xab7ISr6z6PX7DsXk06k8YZOxjSZ3xXC9
+	4Cl6KowXldYvp9wypiH28myqLWbrMdNJiVfvVcJVe88u8sCroPeBrdZ+jOe72rz6LmKZXweJnG6
+	yQC5zX0S44pboBYbOSv/XkpLZK1jLoPdELnrBzjQnWGzlGZR9tGnJs6jAkOdB760wF10im+DLSc
+	kce5xnuHaxc1FVVlx7Zge/bEMK67G5P+1kj8YitYMg2DxBy9I6Xzk2O08UKHCqgDkDqsvMjuk9I
+	ErktsqU7zs=
+X-Received: by 2002:a05:600c:3b9a:b0:49c:ffde:45ff with SMTP id 5b1f17b1804b1-49e7a66b656mr33565995e9.17.1789395118802;
+        Mon, 14 Sep 2026 07:11:58 -0700 (PDT)
+Received: from penguin-ubuntu.lan ([2a00:23c6:6405:9301:838b:b854:bb11:52b5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e63c9a7c9sm535965175e9.13.2026.09.14.07.11.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:11:58 -0700 (PDT)
+From: Oxana Kharitonova <webprosto@gmail.com>
+To: gnoack3000@gmail.com
+Cc: gnoack@google.com,
+	jmorris@namei.or,
+	landlock@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	mic@digikod.net,
+	oxana@cloudflare.com,
+	paul@paul-moore.com,
+	serge@hallyn.com,
+	wangyan01@kylinos.cn,
+	webprosto@gmail.com
+Subject: Re: [PATCH 0/6] landlock: Add POSIX message queue scoping
+Date: Mon, 14 Sep 2026 15:10:23 +0100
+Message-ID: <20260914141156.258282-1-webprosto@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260821.d42cd4b82f91@gnoack.org>
+References: <20260821.d42cd4b82f91@gnoack.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|AM9PR04MB8618:EE_
-X-MS-Office365-Filtering-Correlation-Id: b35eaf02-7f4a-4067-d460-08df126a0c3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|19092799006|921020|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	oxgdThyx4t4oaEpLhvQ9MjG6PptDJG5pHvCRp3c+QVMMF8Hhe3WIxLXH44vbYkgU19wRLomgDGwxxWxJSQYYGQBDQHbpqIyxqvyGCfGisi/XbZoJlK2Zoik53tKCxxkxCMpblR/QVRMmZAbk99tXzhZ1O0R5rFqSbZ6z6bmOuAOr49OftZJRQI3tZ01Mnr3UoTqmfP5yUSqBTaNRpX/cN9JiB8a9xNL+tmviA9G69N/IHsIgNVIUiXg6jCV3vRtVxtvXMqvglE1SCLhcdKCvS1x7o1zr5R2qlU12Fkqxgv9B7U62QeT/7zLRlxOItp6JrWtzjHqxZizkGb3qkZ4BIJ2yko9jirbBjZhzRVdG1ItbPFcC2UmkBpiJSBx3G3VFRtNVc1hnCFsTg1qFA1YusLj4u2EMT92ldxhcxQlrMILHTR/YNo7IdmpnhxWHsgrMvjD0++M+ZVyQr4l+VNo06ansuiH2PdSXLBuSqH+3CErmOx04pFp45gfHRznT/WCHNjsJfw7gkK8WKoAfYZvdX7iKp633LV0MHoAWkGfOEPlQW+k8ZyWUzL3KGTY1DddjQ3z1Ooz+0lznPnsUZDkx5jDrLmgnTtwB6Mn+iQIe87CVAwh/WxQ71pAxHESKypNVPWweZlPeklt3AvNLBn0V3DWxXMankv6tPxCb18vhauaQJ5BBu2kcB+hpZ7SSOLQP/Gxe/SaWqzbM/ek3+k9/fw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(19092799006)(921020)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MmpBdXlRUVFzc1c1RFg2Zkk0V25yUUdxcWNBb3Z3ZDZPbUJMWWFMalN2elIv?=
- =?utf-8?B?OWVQK3UwZFNMQjZybG52Q2FjeHZ0djZmd0VrMFZOMjdWazBjZE5iZE5hM0FW?=
- =?utf-8?B?MnQ0VFVzUFY3Y2NqK3pwZUZGSmFiOVZvWGhBZlpqNUhBQ2VVSHpKZStsbmdN?=
- =?utf-8?B?K1hsK0lPeVVpOHdkVThKTVVSZjRKUUtTZHB5c1lMMXFyTExvQkJoSWRIeGZm?=
- =?utf-8?B?WnlZQjRnSkRVWXIxSWVDYktjVGZuSHdtZU5qTkcyR0JCRmt4Q1RjcmhwbWlV?=
- =?utf-8?B?WGlLM25Za0wvZzN2Z2Urb2hhSjNwYnBkQlIySzY0SDNNMUErMU5vbExIMU5M?=
- =?utf-8?B?eWE4ejF5U3dEcGk0RGtDanJJbFA0WjNyOXAwUjB4R2pMN3k2b3VMZ0ZCS25q?=
- =?utf-8?B?YXk2dG5uV096T3NLMjR3NGFsb2E3OE5EOTRydFU4TGFYcXRHMjI0SHZOZUdB?=
- =?utf-8?B?a0FodTRqYkE5NVl4Wms1NXFpTm90N054cGdzS2s2TUFabEx0QVBJVm9mWUgx?=
- =?utf-8?B?VXhUODFjQU9zclZOTzFsYmplYVA2TnUzV0RTTXA5T0ZaT042MUYyTmVUc0NB?=
- =?utf-8?B?MFBMbXRMU2NTQ0RCUTBGZ3ZKU3YrOXBOeUgzaWx3aVJaSVJGU2xCNnZRVG41?=
- =?utf-8?B?TGZIODI2ZWR2SnNmbkdaN2JOdGZtQ2txRmNNMklvZ29iRFFYeVpFNDl6bzli?=
- =?utf-8?B?cmJKdjdHWThQZzlsZkU4WnRkZEZYZUttdGlsblRlbkVSK0lnZDU1TGVRR2VV?=
- =?utf-8?B?T2tpVktvb1lrVDBSOUpTVHlqdVY1QnRnekxyeHpMUlN3UzZkOGRNMk02ZHNC?=
- =?utf-8?B?MCs2TVZQa3paVzNVUnd1Q1A5VnFuSlozanZjdEZlQ3FndCtIbTZiMUEreXdB?=
- =?utf-8?B?WUdKUlZJYUFtQTZyQURldCtsZTFTbFdQS1Ywb1hWTlM0R2JLQWlsaUhvbDE1?=
- =?utf-8?B?VnF2d0dsMjNhRFJxbFBBbWhpbXBVdmRoLzloYVcxRkhBSjNqeEFNQzhUWUFL?=
- =?utf-8?B?eVp5aWVQSGliaHBCZk9XNjRkZmlHNG1wVkt0cXZRQ0M3NzRuYVZMQlF0Q0lL?=
- =?utf-8?B?WkhUb3RnaDVvcXc0VTFoR3kwcDdHdnNIa0dlOUJrYWVEVjNwcllKcm5TRzZK?=
- =?utf-8?B?NGlkSjZ1RGFvLzBDNG1xV3FrYkM0OFJFdWRiT252L3FyL3BQRWJPODlXaG0z?=
- =?utf-8?B?U0lZN1dzdmVZdVZFcEg4WnlSeU5KZ3VpcU1wZWk4MzZIeCtMNS9UVzFXZmUz?=
- =?utf-8?B?UHZtWTU0OGN4UXVwZ21payt1SXl1TUdIMGFxOVhweDkxbHlYbTJ4ak1DZWV2?=
- =?utf-8?B?Z09BMUdkQ0JZc2NwVXNTS1c1WkVCVGFwTDJnUWhsb0dWZU9aWmx1NVJWZ3pN?=
- =?utf-8?B?S2lsZFVWUTRoQ1VFcFRiejgzVXlOL2NhOTdraTBXV25LTkNBMzlXdWN6MkVp?=
- =?utf-8?B?bmg1R05scEtyR2pGQ1B2dEhVWGNaSWY3aDAwQTA3ZGY0S2VuTUtkVFBvZFAx?=
- =?utf-8?B?bndiM2wwQ21LbmFJZmRLRmQyS2U4ZWVpSHBod1RNZ1NVNEFMMHRNQWR0enpE?=
- =?utf-8?B?MXIzZUdia2dpMUQ0cE52bTYrdTBzZHo2YTd3UnZWaW5nSVpXaThtTTc5RXJL?=
- =?utf-8?B?cDVyT1JoV1RrSHJPYUZ1QVZmMU5FajE5RTFKTXQ2ZmM5bDNBbmo5QlQwYXBL?=
- =?utf-8?B?RW04UndLaWtMOHBKRnlIaVVFQ0FxUTJINkdYYmtodkhQNzdrU0Y0ZjBGZVFG?=
- =?utf-8?B?Q0dMS1d5OUQxZitUYTZFd3NQQjB6ZWhkT0tRMUxoWUlpUjducXNSYzg0Y0xD?=
- =?utf-8?B?VVpNRy9vTllYc1BITTNYWmhpNnNGalpCNHQrdlhEM0UzSjIyWkVpelQrblp1?=
- =?utf-8?B?T1lMR0ZoQXkwMmM4STlqOXhIVFQ2MnZPaFdlNkZneFRDYlZuTmVqTmFQVzZM?=
- =?utf-8?B?M0RpQ21HZzRJT3RGYncreFJmZzZ5R3FUN1oyVm1MUjIxTHdjQThPMUszY2tk?=
- =?utf-8?B?L1ZLL0tZMGd2eDBvUDA3N0ZRb0RlaEpha3hyVVhwTzRaamxDdERnaUFaRUdr?=
- =?utf-8?B?cExnOU84SHhiQVRiN0JzQU1XMHBiZy9OVW9TS29GV3hXNmE1NDN0d1JGaUlm?=
- =?utf-8?B?YldkeUxNWVlPZlJwMzFtaytXczVLSTZUTy9zVTZNU1pCcnAxTnpTRlRtTWRw?=
- =?utf-8?B?NlovZWFBU2tTdnRoVXZtQ3hvQVB3SUxIQ1ZERmRoOEZ0ekFBWTcxdG1pOERP?=
- =?utf-8?B?YWxBY0VPdE9uMENUbm1sc0h5TkNjb2ZTUlBnTThxSnNSdWdnZVlrK1U4N0FY?=
- =?utf-8?B?QjY0QnFCVG5wT2lwbm85UzJrdGsxSXM0ZWJ0clV6YjNReCtyZXdzMEhDWDAv?=
- =?utf-8?Q?eVkTSuDWL3NCo1T8RKGE4K/v3gui3RQn8vq9w?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b35eaf02-7f4a-4067-d460-08df126a0c3e
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:11:19.3661
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dEFn147VpPSh0oXP95aC49Ed8M8ikqymEDo4qrnbfpqEfnZx1AsDMhnTKrPCZMl/PzDkYK45nmNFNeGN1FIrMEAOvfglvddLpmxg1HN4Xm5Io3qb7VRMUopQiKh/apVb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8618
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+Hi Günther!
 
-Reserve 1MB of DDR for the EdgeLock Enclave. The enclave hardware can only
-access DDR in the 0x80000000 - 0xafffffff window, so constrain the pool to
-that range with alloc-ranges and let the kernel choose the placement rather
-than hardcoding an address.
+Apologies for the delayed reply. I took some break. 
 
-Provide this as a shared imx8ulp-firmware.dtsi that also enables the hsm0
-node and wires up its memory-region, so every i.MX8ULP board can bring up
-the enclave with a single include instead of duplicating the reserved
-memory node. Include it from imx8ulp-evk.
+Thank you very much for the detailed explanation and for the 
+test program.
 
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8ulp-evk.dts      |  3 ++-
- .../arm64/boot/dts/freescale/imx8ulp-firmware.dtsi | 31 ++++++++++++++++++++++
- 2 files changed, 33 insertions(+), 1 deletion(-)
+On 21/08/2026 09:46, GÃ¼nther Noack wrote:
+> Thank you for sending this!
+> 
+> I have a high level question about this patch set:
+> 
+> You are adding a check to hook_file_open(), but the existing
+> hook_file_open() can already prevent mq_open().
+> 
+> The following experiment illustrates this:
+> * Restrict LANDLOCK_ACCESS_FS_READ_FILE and LANDLOCK_ACCESS_FS_WRITE_FILE
+> * Try to run mq_open("/foobar", O_CREAT...)
+> 
+> Depending on the installed PATH_BENEATH rules, you now see differing behaviour:
+> 
+> * If we allow READ_FILE and WRITE_FILE on nothing, mq_open() is *DENIED*.
+> * If we allow READ_FILE and WRITE_FILE on /, mq_open() is *DENIED*.
+> * If we allow READ_FILE and WRITE_FILE on a mounted /dev/mqueue, mq_open() is *ALLOWED*.
+> 
+> So it seems that the existing file system restrictions are already
+> preventing POSIX message queues from being opened?  And not only that
+> -- since such Landlock policies are already quite common, it seems
+> likely that many existing landlocked programs are already restricting
+> opening of POSIX message queues today.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-index 4b925832bb66..5fe58a025cfd 100644
---- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-@@ -1,12 +1,13 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
- /*
-- * Copyright 2021 NXP
-+ * Copyright 2021, 2025 NXP
-  */
- 
- /dts-v1/;
- 
- #include <dt-bindings/input/input.h>
- #include "imx8ulp.dtsi"
-+#include "imx8ulp-firmware.dtsi"
- 
- / {
- 	model = "NXP i.MX8ULP EVK";
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-new file mode 100644
-index 000000000000..e4bc352f68af
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2025 NXP
-+ *
-+ * Default reserved memory and EdgeLock Enclave (ELE) enablement shared by
-+ * i.MX8ULP boards. Include this from a board dts to bring up the secure
-+ * enclave without having to duplicate the reserved-memory node. The ELE
-+ * hardware can only access DDR in the 0x80000000 - 0xafffffff window, so the
-+ * pool is constrained to that range with alloc-ranges and the kernel is left
-+ * to place the 1 MiB region.
-+ */
-+
-+/ {
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ele_reserved: ele-reserved {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0 0x80000000 0 0x30000000>;
-+			size = <0 0x100000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&hsm0 {
-+	memory-region = <&ele_reserved>;
-+	status = "okay";
-+};
+The additional check in hook_file_open() adds a restriction for two sibling domains
+created under the same parent. If both siblings share filesystem
+access, but must not communicate with each other through POSIX message
+queues, the scope check prevents one sibling from opening a queue created
+by the other. 
 
--- 
-2.43.0
+Although I can't say how practical this use case is. I see that it adds 
+additional overhead for non-mqeuee files too, but it doesn't seem significant 
+as it only checks the inode type and mqueuefs superblock magic.
+
+If you think it's not worth it, I'm happy to remove it.
+
+> So, to clarify:
+> 
+> * What your patch set is adding is only that we are now additionally
+>    taking the Landlock domain scope into account?
+> * This distinction only makes a difference for landlocked programs
+>    that do not restrict READ_FILE/WRITE_FILE or that do restrict it and
+>    then allow-list READ_FILE/WRITE_FILE on a previously mounted
+>    /dev/mqueue.
+> 
+> Maybe this would be interesting to clarify a bit more prominently in
+> the cover letter, because it reduces the applicability of this
+> patchset?
+
+Agree, I'll add more details in the cover letter. 
+
+> Attached below is a LLM-generated (but double checked) test program
+> which you can use to try out the creation of mqueues.  (As first
+> argument, use "-", "/" or "/dev/mqueue".)
+> 
+> What *might* still be interesting to restrict though: While mq_open()
+> checks the READ_FILE and WRITE_FILE rights, it checks none of the
+> LANDLOCK_ACCESS_FS_MAKE_* rights -- the message queue gets still
+> created, even when the mq_open() is denied and returns with an error.
+> 
+> To expand on Justin's comment in [1] -- it feels that there are maybe
+> still some gaps in the "lifecycle management" of these message queues
+> that might be worth thinking systematically about, because both
+> mq_unlink() and the creation of the message queue entries are
+> currently apparently not restrictable yet?  It makes me wonder whether
+> hijacking of message queue names (creating same-named queues in other
+> Landlock domains) is a problem then?  Do you have thoughts on this?
+
+I need to think about it more and check how the mq_unlink works, taking 
+into account the comment from Justin and Mickaël. 
+I'll follow up with a more complete answer.
+
+> 
+> Thanks,
+> –Günther
+> 
+> [1] https://lore.kernel.org/all/amKDYoOSvHMzVbKX@suesslenovo/
+
 
