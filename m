@@ -1,125 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f98.google.com (mail-ua1-f98.google.com [209.85.222.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3190388869;
-	Mon, 14 Sep 2026 20:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B9F389107
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416117; cv=none; b=ZIl/gEFzCFhkTSY1WLzMIAg6/89vc2vsFT57F5KdvDYyPDFIhdVHO4p5zExP7dBASSzehvWksg6LSXv4uFl/LEaGDQ9KIS0MkHXR8cuvE46u6JRCEoXNOZPuOE4fumKuDuwxbgh8h1T+qmuO6PfW3cvFy0uvnO4i5W0Iw4h8zb4=
+	t=1789416224; cv=none; b=aSRGGMduv5cns4QhoYg67ptVqjoTZ6wkzyVp/WSiSuWQip86tAnmf8gPc/eJIWFYAtdpVW06o491qEQoBX2mhJERCFS+eaHcHqOYKp2V904y+LM/gnKvDl3+3RDrQj8muobh4oKWndI37coehy7ejHu13tcI1VPY1kfh1zVN5mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416117; c=relaxed/simple;
-	bh=xtoi8dIfejEkTWAeLPXGFp5RGWcZItculWCvd0h11Gs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d+4gGdbFakPc77857lPcrDzdIgWyXhI3pYk7Oc+GzC15j1u0LnHW4nqpvH0rW7DM4RnBEUaeIoK78GU2tkbsSm67uML12MDgHe6s6nEPbMgwPB24xePP/Lr+m+OG160s9PM2fruiHAfKCGEwrTrXZiIR2qyjca8u+3fY3MxXXjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HpcG01qh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789416224; c=relaxed/simple;
+	bh=iGHNNVQOC0D0YNnZ4vMitSMlVZq1IOKF4aTaBo1p2b0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EoVTugzXQQZs9KOJomtZkDu1csM9zChxxnJ5INi3iRcrXxZY7xZdex7lAuTVN5GSXPYxcOeMGPVygteTS1ehD1uGm7w2Uns8Lmi/5/yp8Zx5Qd8T7/+LnJGer1iGg3+X9KnkDAB/HeSg0ia0WCavacZD4EX3kXWA+lYeWqujdKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=NmIshWD7; arc=none smtp.client-ip=209.85.222.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HpcG01qh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD33F1F000FF;
-	Mon, 14 Sep 2026 20:01:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789416116;
-	bh=xtoi8dIfejEkTWAeLPXGFp5RGWcZItculWCvd0h11Gs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HpcG01qh0ETOkXmq1v11dalFnT4xwAp1eOggjgCwDfxnZXKZ+NRTmoRNj5zvAvoqG
-	 WXGLeIR9w3pXYrd/6TIAWCvum6Qbx14YMnuMAjIffvfhhVzjO4VA47qRf0NZ+jsb9D
-	 FI5iGyoo9s1fWXLi4LxEjWnxdtwdf2Nuebt/9mq4cxmoPEXItrxQrMtKHb7H7htMoY
-	 PmskMiUBlZE6r5V5hluiuxOPEIRdpEpzSqfnhPpInONfoagWMJoHTRu7P8rdXn9WgK
-	 hlbmEJ7nc0tLCG2BUlCJvVbuc4G0BfuTbrMK9KlktC7dH9e9Y2KnSL68OpIPtxBNzT
-	 5Y0A2hx99EwSA==
-Message-ID: <37e36f29e22c1354a18c9ec75ee55ed51d1a49d2.camel@kernel.org>
-Subject: Re: [PATCH v3 0/4] tracing: Fix NULL dereference when copying keys
- for a field variable
-From: Tom Zanussi <zanussi@kernel.org>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Steven Rostedt
-	 <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 14 Sep 2026 15:01:54 -0500
-In-Reply-To: <20260914053443.981201-1-donggeunyoo.kernel@gmail.com>
-References: <20260914053443.981201-1-donggeunyoo.kernel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="NmIshWD7"
+Received: by mail-ua1-f98.google.com with SMTP id a1e0cc1a2514c-9828b5b20eeso2254995241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:03:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789416222; x=1790021022;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P+2cvsudH7ftH8jFsjvcC49I+38SHnXJ8HERpOnIBgE=;
+        b=hrbQye6ujEnPKx61V1XM6OkpAs/fzt8EpwleYKDw+cIV0r9Ch2OlLVs8yZUlgvb4Vy
+         kM9qBP1kDughc0eXanMP/vY9nDGCz5mYQu5Py1pssdTbubGk50LNZu009Q5zpUR6gC9y
+         h1WBPrquThbrTxN+84arhWTzAdR0hCUAERIk6pq/VgONXMtGE4TomOBC7zzaZ/NR7Nut
+         8WXaqj2U5GtCswdTv0YHzMXrupJOa/JkElq4nMmUQf7XcuHbNUPRJyTxH08lTNJ+2LAs
+         rMv32xYaxMDJao+QN7YRLeNETYAGs/JP09f/qCorsH26W/GQ9E38QbbKb9t/wlnBHENz
+         CjtA==
+X-Forwarded-Encrypted: i=1; AKwUvBzWQ7tT0irsaYxKY1yHD3dg6jEbZXDXdaMLvih+rfgsnOG25on4BuuPtKdU3eaTFN1FJb6J2BzmxcP+Xqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nD1xDT4rkSJuYRslMv4bjP0Gxdkwh5WBV0Og14sSkyNsMKwaUg
+	K+SxT4mrZL5cpkzkeghnLzJ2uzIQHdE3lmTUbxK9JvDAwCcAUrsrw4vLUW06GRtDsRm1WBjRoZh
+	cwnT1qeihsrIVKPsVECI/V4OK74s8jqUhizjzi+ZdfgzIfX0J8Ug56N8ttf9F6XToQ5pmRubrgf
+	3lDi5fFWDQzfeoLkZJc0ak3X4nf2PvwreC8r/Vy3/4MAzNC72Xj3v5vllyA6xM+gl7KTeOQCWCt
+	/1OGjCUPVEqG2S/bWyqZb8K+g==
+X-Gm-Gg: AYBFou0JKcaTBTqynmhsiEGhBYXgJG9+EasIiP7+kuRORyZLPgM409PEKMP5I1Mc9nn
+	oyLpIzrJj5M3XKBKP8lyEpHdmmpioDYIw+hfLXEkI8mLFbWsW+PkXZcE5dhlI1OQ4UtkxiN/pGh
+	g8Av1ieMfomgHs1rK8iAMt9bV8N+T5bTVUCgxYTIioUx+nI/IjVCs4dd/ucmQ49yt0iT6EKIMLM
+	s0KVWwSJDWk5HWvuufZK81OgusecQoUa7b7wVdPcW42sUT1hspIjAFkEtBXtGbui/sVaH7u9L6b
+	TZd8VKx0cOXwxtJTeQJp+ntAbxtv/AxZdwvvKeMSiut/r9fi9b5ucIEBF99pk8TDrIx+z0vR0fh
+	DxBM7QJnbrPOLNCPwPjDzL6ofA5D5sFuB3NMwKyGcNT53TJPr/+sLFelaryIRBI4AoawnHh0Yg2
+	0lAPz0VaiwU58yfz0BZDbo1i1u1JIsoHG+iBzGZZM=
+X-Received: by 2002:a05:6122:21a9:b0:5c2:c0b2:9880 with SMTP id 71dfb90a1353d-5c981adc33fmr5551902e0c.1.1789416221643;
+        Mon, 14 Sep 2026 13:03:41 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-9120f21cfbdsm1379156d6.2.2026.09.14.13.03.41
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 14 Sep 2026 13:03:41 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90cddf4f59eso75984696d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:03:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789416221; x=1790021021; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P+2cvsudH7ftH8jFsjvcC49I+38SHnXJ8HERpOnIBgE=;
+        b=NmIshWD7q+L/mPmx/iBb5DNwEM+i1HSjempw8DL9+fg70BlHVPoLUkOS9M9Q4b+a2e
+         qHOkbPuj8x9zjqLDyuWus5TSEiKtPeJUsDz3IjCZdpxx+Ay7fND1EqOpR4HAec2Q/seh
+         HjLcG3gwMyYKvhy/BST9rqJ6gMH18wy2GQMcE=
+X-Forwarded-Encrypted: i=1; AKwUvBw6fT42G0wmmRA51Bu7RxWGFaLEkmWPMgWDd5q8yLCtyRSjU2ewlMe/w0uMy8a/ZmFBteaIn8qCNAmTfG8=@vger.kernel.org
+X-Received: by 2002:ad4:4ea8:0:b0:910:4da6:8354 with SMTP id 6a1803df08f44-9122e55cf24mr59329376d6.17.1789416220692;
+        Mon, 14 Sep 2026 13:03:40 -0700 (PDT)
+X-Received: by 2002:ad4:4ea8:0:b0:910:4da6:8354 with SMTP id 6a1803df08f44-9122e55cf24mr59328966d6.17.1789416220205;
+        Mon, 14 Sep 2026 13:03:40 -0700 (PDT)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f477d42sm103209166d6.18.2026.09.14.13.03.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 13:03:39 -0700 (PDT)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: brcmfmac: bound NVRAM comment parsing
+Date: Mon, 14 Sep 2026 22:03:36 +0200
+Message-ID: <20260914200336.1742565-1-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260830135328.12321-1-pengpeng@iscas.ac.cn>
+References: <20260830135328.12321-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-SGksCgpPbiBNb24sIDIwMjYtMDktMTQgYXQgMTQ6MzQgKzA5MDAsIERvbmdnZXVuIFlvbyB3cm90
-ZToKPiBBIGhpc3QgdHJpZ2dlciB3aXRoIGFuIG9ubWF0Y2goKSBhY3Rpb24gY29waWVzIHRoZSBr
-ZXkgbGlzdCBvZiB0aGUKPiBjb21wYXRpYmxlIGhpc3RvZ3JhbSBpdCBmaW5kcyBvbiB0aGUgbWF0
-Y2hlZCBldmVudC7CoCBSZWFkaW5nIGVhY2gga2V5J3MKPiBuYW1lIHN0cmFpZ2h0IG91dCBvZiBr
-ZXlfZmllbGQtPmZpZWxkLT5uYW1lIGZhdWx0cyBvbiBhbnkgcHNldWRvLWZpZWxkCj4ga2V5LsKg
-IDQvNCByZW5kZXJzIHRoZSBrZXkgd2l0aCBleHByX2ZpZWxkX3N0cigpIGluc3RlYWQuwqAgVGhl
-IHRocmVlIGJlZm9yZQo+IGl0IG1ha2UgdGhhdCByZW5kZXJlciBwcm9kdWNlIHNvbWV0aGluZyBw
-YXJzZV9maWVsZCgpIGFjY2VwdHMuCj4gCj4gTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-bGludXgtdHJhY2Uta2VybmVsLzIwMjYwOTEzMjAzMTI5Ljk0MTI3MC0xLWRvbmdnZXVueW9vLmtl
-cm5lbEBnbWFpbC5jb20vCj4gCj4gQ2hhbmdlcyBzaW5jZSB2MjoKPiDCoC0gUmViYXNlZCBvbnRv
-IHY3LjMtcmM0LsKgIHYyIHdhcyBidWlsdCBvbiAyZjBjMWNmNzJmNDYsIGJlZm9yZSB0aGUgdHJh
-Y2luZwo+IMKgwqAgZml4ZXMgbWVyZ2VkLCBhbmQgdGhhdCB0dXJucyBvdXQgdG8gbWF0dGVyIC0t
-IHNlZSB0aGUgbmV4dCBlbnRyeS4KPiDCoC0gUmVpbnN0YXRlZCB0aGUgc3RhY2t0cmFjZSBwYXRj
-aCwgbm93IDMvNC7CoCB2MiBkcm9wcGVkIGl0IGFmdGVyIG1lYXN1cmluZwo+IMKgwqAgdGhhdCBj
-b21tb25fc3RhY2t0cmFjZS5zdGFja3RyYWNlIHBhcnNlZCBmaW5lLsKgIFRoYXQgd2FzIHRydWUg
-b2YKPiDCoMKgIDJmMGMxY2Y3MmY0NiBhbmQgaXMgbm8gbG9uZ2VyIHRydWU6IGE1ZTcwYmE4N2Nh
-OCBub3cgcmVmdXNlcyB0aGUKPiDCoMKgIG1vZGlmaWVyIHVubGVzcyB0aGUgZmllbGQgaXMgYSBy
-ZWFsIG9uZSB3aXRoIEZJTFRFUl9TVEFDS1RSQUNFLCBzbwo+IMKgwqAgd2l0aG91dCAzLzQgYSBj
-b21tb25fc3RhY2t0cmFjZSBrZXkgcmVuZGVycyBpbnRvIGEgY29tbWFuZCB0aGF0IGlzCj4gwqDC
-oCByZWplY3RlZC4KPiDCoC0gMS80IGlzIG5ldzogaGlzdF9maWVsZF9wcmludCgpIHByaW50cyB0
-aGUgYnVja2V0IHNpemUgd2l0aCAlbGQsIHNvIGEKPiDCoMKgIHNpemUgYWJvdmUgTE9OR19NQVgg
-cmVhZHMgYmFjayBuZWdhdGl2ZS7CoCBSZXBvcnRlZCBieSBzYXNoaWtvLWJvdC4KPiDCoC0gMi80
-IHVzZXMgJWx1IGZvciB0aGUgc2FtZSByZWFzb24uCj4gCj4gUGF0Y2hlcyAxLzQgdGhyb3VnaCAz
-LzQgaGF2ZSBubyBlZmZlY3Qgb24gdGhlaXIgb3duIC0tIG5vdGhpbmcgcmVhY2hlcwo+IGV4cHJf
-ZmllbGRfc3RyKCkgd2l0aCBhIGJ1Y2tldGVkIG9yIHN0YWNrdHJhY2UgZmllbGQgdW50aWwgNC80
-IHJlbmRlcnMga2V5cwo+IHdpdGggaXQgLS0gYnV0IGVhY2ggaXMgbmVlZGVkIGJlZm9yZSA0LzQs
-IGFuZCBpbiB0aGlzIG9yZGVyIG5vIGJpc2VjdGlvbgo+IHBvaW50IHJlZ3Jlc3Nlcy4KPiAKPiBU
-aGUgY29tbWFuZCBjcmVhdGVfZmllbGRfdmFyX2hpc3QoKSBnZW5lcmF0ZXMsIGZvciBlYWNoIGtp
-bmQgb2Yga2V5IHRoZQo+IGNvcGllZCBoaXN0b2dyYW0gY2FuIGNhcnJ5Ogo+IAo+IMKgIFdLIGtl
-ecKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5wYXRjaGVkwqDCoCBwYXRjaGVk
-Cj4gwqAgcGlkwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBrZXlzPXBp
-ZMKgwqDCoCBrZXlzPXBpZAo+IMKgIHBpZC5sb2cywqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGtleXM9cGlkwqDCoMKgIGtleXM9cGlkLmxvZzIKPiDCoCBwaWQuYnVja2V0cz0xMMKgwqDC
-oMKgwqDCoMKgwqDCoCBrZXlzPXBpZMKgwqDCoCBrZXlzPXBpZC5idWNrZXRzPTEwCj4gwqAgY29t
-bW9uX2NwdcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG9vcHPCoMKgwqDCoMKgwqDCoCBrZXlz
-PWNvbW1vbl9jcHUKPiDCoCBjb21tb25fY29tbcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBvb3Bz
-wqDCoMKgwqDCoMKgwqAga2V5cz1jb21tb25fY29tbQo+IMKgIGNvbW1vbl90aW1lc3RhbXDCoMKg
-wqDCoMKgwqDCoCBvb3BzwqDCoMKgwqDCoMKgwqAga2V5cz1jb21tb25fdGltZXN0YW1wCj4gwqAg
-Y29tbW9uX3RpbWVzdGFtcC51c2Vjc8KgIG9vcHPCoMKgwqDCoMKgwqDCoCBrZXlzPWNvbW1vbl90
-aW1lc3RhbXAudXNlY3MKPiDCoCBjb21tb25fc3RhY2t0cmFjZcKgwqDCoMKgwqDCoCBvb3BzwqDC
-oMKgwqDCoMKgwqAga2V5cz1jb21tb25fc3RhY2t0cmFjZQo+IMKgIGhpdGNvdW50wqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIG9vcHPCoMKgwqDCoMKgwqDCoCBrZXlzPWhpdGNvdW50Cj4g
-Cj4gVW5wYXRjaGVkLCB0aGUgLmxvZzIgYW5kIC5idWNrZXRzIHJvd3MgZHJvcCB0aGVpciBtb2Rp
-Zmllciwgc28gdGhlCj4gZ2VuZXJhdGVkIGhpc3RvZ3JhbSBkb2VzIG5vdCBidWNrZXQgdGhlIHdh
-eSB0aGUgb25lIGl0IG1pcnJvcnMgZG9lcy7CoCBFYWNoCj4gb29wcyBpcyBhIG51bGwtcHRyLWRl
-cmVmIGF0IGNyZWF0ZV9maWVsZF92YXJfaGlzdCsweDc3MSwgdGFrZW4gaW4gaXRzIG93bgo+IGJv
-b3Q7IHRoZSB0aHJlZSByZWFsLWZpZWxkIHJvd3MgcnVuIHRoZSBzYW1lIGxvb3AgdG8gY29tcGxl
-dGlvbiB3aXRob3V0Cj4gZmF1bHRpbmcsIHNvIHRoZSBzaXggYXJlIHRoZSBsb29wIHJlYWNoaW5n
-IHRoZSBmYXVsdGluZyBsaW5lIHJhdGhlciB0aGFuIGEKPiBib290IGZhaWx1cmUuCj4gCj4gQW5k
-IHRoZSBidWNrZXQgc2l6ZSBhIGtleSBjYW4gY2FycnksIHJlYWQgYmFjayBmcm9tIHRoZSB0cmln
-Z2VyOgo+IAo+IMKgIC5idWNrZXRzPcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgdW5wYXRjaGVkwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBhdGNoZWQKPiDC
-oCAwwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmVqZWN0ZWTCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWplY3RlZAo+IMKg
-IC01wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHJlamVjdGVkwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVqZWN0ZWQKPiDCoCAx
-ODQ0Njc0NDA3MzcwOTU1MTYxNsKgwqDCoMKgwqDCoMKgwqDCoCByZWplY3RlZMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlamVjdGVkCj4gwqAgOTIyMzM3MjAzNjg1NDc3NTgwN8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgIDkyMjMzNzIwMzY4NTQ3NzU4MDfCoMKgwqDCoMKgIDkyMjMzNzIw
-MzY4NTQ3NzU4MDcKPiDCoCA5MjIzMzcyMDM2ODU0Nzc1ODA4wqDCoMKgwqDCoMKgwqDCoMKgwqAg
-LTkyMjMzNzIwMzY4NTQ3NzU4MDjCoMKgwqDCoCA5MjIzMzcyMDM2ODU0Nzc1ODA4Cj4gwqAgMTg0
-NDY3NDQwNzM3MDk1NTE2MTXCoMKgwqDCoMKgwqDCoMKgwqAgLTHCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAxODQ0Njc0NDA3MzcwOTU1MTYxNQo+IAo+IHg4Nl82
-NCB1bmRlciBRRU1VLCBDT05GSUdfS0FTQU49eSwgNCBDUFVzLCBiYXNlIDcwNDM0MGYxY2QwZC7C
-oCBBIGNvbXBhdGlibGUKPiBoaXN0b2dyYW0gb24gc2NoZWRfd2FraW5nIGtleWVkIG9uIFdLLCBh
-biBvbm1hdGNoKCkgdGFyZ2V0IG9uIHNjaGVkX3N3aXRjaAo+IGtleWVkIG9uIFNLLCBteV9zeW50
-aCgkd2FrZXVwX2xhdCxwcmlvKSBmb3JjaW5nIGEgZmllbGQgdmFyaWFibGUuCj4gCj4gRG9uZ2dl
-dW4gWW9vICg0KToKPiDCoCB0cmFjaW5nOiBQcmludCB0aGUgYnVja2V0IHNpemUgYXMgdW5zaWdu
-ZWQKPiDCoCB0cmFjaW5nOiBBZGQgdGhlIGJ1Y2tldCBzaXplIHRvIGV4cHJfZmllbGRfc3RyKCkK
-PiDCoCB0cmFjaW5nOiBPbmx5IHJlcG9ydCB0aGUgc3RhY2t0cmFjZSBtb2RpZmllciBvbiBhIHJl
-YWwgZmllbGQKPiDCoCB0cmFjaW5nOiBGaXggTlVMTCBkZXJlZmVyZW5jZSB3aGVuIGNvcHlpbmcg
-a2V5cyBmb3IgYSBmaWVsZCB2YXJpYWJsZQo+IAo+IMKga2VybmVsL3RyYWNlL3RyYWNlX2V2ZW50
-c19oaXN0LmMgfCA5ICsrKysrKy0tLQo+IMKgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygr
-KSwgMyBkZWxldGlvbnMoLSkKPiAKClRoZXNlIGxvb2sgZmluZSB0byBtZSwgdGhhbmtzLiBGb3Ig
-dGhlIHNldCwKCkFja2VkLWJ5OiBUb20gWmFudXNzaSA8emFudXNzaUBrZXJuZWwub3JnPgoKCg==
+On Sun, 30 Aug 2026 21:53:28 +0800, Pengpeng Hou wrote:
+> The NVRAM parser tracks a length-bounded firmware blob but its comment
+> handler uses unbounded strchr() calls. A comment without a newline or NUL
+> inside the remaining blob can make the search read beyond the current
+> input.
+> 
+> Store the bounded input length and use memchr() for comment terminators.
 
+Please add:
+Cc: stable@vger.kernel.org
+
+> Fixes: 3e99b08ab53c ("brcmfmac: enhance nvram processing")
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+
+[...]
+
+> @@ -215,6 +220,7 @@ static int brcmf_init_nvram_parser(struct nvram_parser *nvp,
+>  		size = BRCMF_FW_MAX_NVRAM_SIZE;
+>  	else
+>  		size = data_len;
+> +	nvp->data_len = size;
+>  	/* Add space for properties we may add */
+>  	size += strlen(BRCMF_FW_DEFAULT_BOARDREV) + 1;
+>  	size += BRCMF_FW_MACADDR_LEN + 1;
+
+size is capped at BRCMF_FW_MAX_NVRAM_SIZE to allocate the output buffer,
+as some NVRAM files can be larger than 64KB due to comments. Setting
+nvp->data_len to size will prematurely truncate parsing of those files.
+This should be:
+
+	nvp->data_len = data_len;
+
+Regards,
+Arend
