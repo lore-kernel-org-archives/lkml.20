@@ -1,226 +1,185 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF5944605B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DD5442B2F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:50:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386618; cv=none; b=GKkSPPwxu5L1RNFQaaZqppogHgBGPSlQ3IreYi4e2CS4CiV5ddnk1LqNuqT6Q5LETuTXpFpWqqMIWYqqObEZ508KwNz18xCUcNed9ox4X/oPSoGpipkLisMuzsflFiRO0lE/FJMzYJErpQdSvoPkE2EKpsB05T7GtGppCzadBGE=
+	t=1789386644; cv=none; b=TI2oFuulsiVPCaeIz8hy5Z2bDFul/+xqAXde/79ZnGVIG1aPSsXGdgMa9SoyWfULLRa4B+2lscxzpCdbXRhs/mvUQVFYOIKDdaw7fIEIVoRx//jXaQip/w9AX7PrYC3xGzvgFwXe8fI85Wi6bo4+DQCDmwDyQLoVsKsepFXvNlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386618; c=relaxed/simple;
-	bh=Q8ksi+xZgxIagv9+QQVvkuR0wfKZoHt0nu/3YJrwAf8=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BBrp3oxZ1MJYkqea0iV5UA+A7LJ8M7sUcboi7S2iSmfR1tIlN2+aRSqpxP9bA9PZP2kqIBlGHsM0iB3C5N9V+PppIapPZ6ElstyiBx5MKpfZ+b/w73CM1ENDmRV+mKxmHVMJ+loN5rkhtP9BB7yylSIwHvuwMhiHisSqMndwonI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=X3W0IJr9; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789386644; c=relaxed/simple;
+	bh=ChNWu4SF6NGhwjGjf6K8AWy5RuCiogwQwkyEnV0Sbbs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZHIuXtZrjVgHN6AIJQydqYZKH3iuk0i/rDFvtB3hPS96ljplmxQJSm3apgDUHVi6FyxerJjJxs94aMmtBxciU+M4QhL4EfkBHWsJHa57znDrQ9Jgiyrw0qlUFlmVb4+G5cUu3CMPgfmU0LwII8jkh3C0r70OLfaD14c8aIua5po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tIK/NQHS; arc=none smtp.client-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="X3W0IJr9"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c1so250841866b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:50:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tIK/NQHS"
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4a451915d8aso3063630b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:50:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789386614; x=1789991414; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b3d/NyVwn33xRXNwAVXKr9GMiiFtUoOWjxTC/8TNYXw=;
-        b=X3W0IJr9hBeZ4qGivj24+Ul+Des8dIPbzdBUI0Q3HKkT75wJXHtgj54KOm+hxQ/KqR
-         fyqkuVBubWlibJlw9IbMg8vMBwpNfU1BdYlbUEMzUXJw6nZR+Sl8LKghIo/Czi2oglzR
-         ko059MNsVA6Xug/DpswvQdsMreHPygok49yraiBKD/RtX0mgU3wy6ojGiWrnGqbjlr3Z
-         207qdc90W5EDJdfiZBlD699pqxU/usdleueoL8FGYku2aewzCsDD8BhgaSGfwh5VL47f
-         Ze2PqngAgaDxwJPk8wxa/ZSZpp9OA2IxHIXunHn0hqsPx4fc+K2h/IbT3Westz4XGr8t
-         oMHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789386614; x=1789991414;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1789386641; x=1789991441; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=b3d/NyVwn33xRXNwAVXKr9GMiiFtUoOWjxTC/8TNYXw=;
-        b=rCRkjO5z9usiCvrYaMlRhBbLICCSBNHLUL5K9gQyMiEV2rxiq9wKNJH+Cqn6kyJXnE
-         LpRJdQMV8VTnUGj3EDDtgT19gXPxyiZMdFPvmbZ7JZv7Nu4uEZVYTbDCPBlltpfQb4b2
-         c+CWG2dWQVgjUmsAC0bDEm3WP1wHLH+N4qf8zCs4SezBexyoUfmb1EJ/ZwfggYsJ0FfU
-         14H6RNGQRQSc39C1HeO5+2EblE9TsB2S16OKySzJA/JHNMWiPksABoMjb3lHdkw2iMar
-         akyqdXBXUr/2D1O1zsE2sawMfJfDXQDT51VLock4ToGUtA9hdGQYKnGXX+I5poIu629E
-         ecJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzrVRcV9YMqfAUOiTFmH3/11STYJbrQ5sZ0qO8ID9UAs38r9AGeDTqYtAVzzK612b9OWVDWUQIRUGNExt4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqayGyeTUK24bBBkCzOIFnmvtu90wYmYzGOERLfjTrR4I9nAlR
-	kAOLM1PTK6SPU5nu13U2eRTfGHL6ZbMK9yNzNaP8NyjvRamOCg8qGxnbyz22DY4ZV8iJm5pgW7p
-	bhwhG4Qw=
-X-Gm-Gg: AYBFou1W4n9aDPgu5HSMt+97Va0d6hxCI6MOrjqvmbeRdV84gfz/rTRoAgs0L38UySU
-	1QwA9Ysal0FNG5QqBW7YPLOIkHqqCFnw8Ykr7HwreVLN1xHlwpIcFqJBxTBqd7JNNlIcjv5JMo9
-	XhCJtIX3kk2hYOJfI69iVXdWBsYXkx8B1uGwlImK+qhy7t/uK/+LLn1ZKk11AIt2d+U3Aw07eGc
-	bt6u0t60L+6DqE/dUeI1gz57yJiuomx9e4d9p2pBWRjGmVmdikZkW7/EBB6SAq2XNx1hJzd2Y2G
-	+8/PZL+9uZrpsFsvfwlqyX70NaTr0qvU8pDorvecMtfEBw5rfVxYGmgv+ZgJxfFTZKQvaZQj9sx
-	OFjp97rdesMhvce4tNc5McXRxivf3UzpS/SY7qfyXLccsZZZADS7kjWCF90a7XGyvSc4xLjkiFY
-	KGCt7GyNHd6XFQrnikBGBgk9oz3Eh7BPDSlQHo4bU/dbw4vH5hbIN/Saa8UReyy3FvoIM=
-X-Received: by 2002:a17:907:3e07:b0:c25:8c05:902f with SMTP id a640c23a62f3a-c29b86b7559mr277818766b.13.1789386614302;
-        Mon, 14 Sep 2026 04:50:14 -0700 (PDT)
-Received: from localhost ([82.145.119.8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4dfc7sm415116366b.4.2026.09.14.04.50.13
+        bh=MaqTH9IlSFyz/AkXyftEm+wBLkaCkpRXZW0c+BfqTAY=;
+        b=tIK/NQHSBAmP7RSxz+6cJVzVArk+IF9OaELzQI5MHOyrC1YPPp8EB0NKAKbho5v2lT
+         ZsuSA1d3quKF0WJVlYrEGvchK0I4VIWWQyXqSl5gmAnjut+LBU8ZBtST3H+VYxAJtCDD
+         tTi4kskmhoXjwQdQQQI4E9betsCkAoK+eOYT6hd12XulPhyk4qbGNil+1+Tjw/ATB8w8
+         4ZCHrVhYmsXGdwrdKl9K+OIobSw2eMxbGEE21zG3a0KI2wRQVehBcvaAs5ZhjV0SWfe8
+         W52CHr3skm2TkC54qerVPNQAHWJut70mNmWCQ2jZIrFOaOZKHnt6uQVEa4G8BSZnVfmr
+         pQYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789386641; x=1789991441;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=MaqTH9IlSFyz/AkXyftEm+wBLkaCkpRXZW0c+BfqTAY=;
+        b=TwLLnFtZi9NsnBTifKfbrkgZ3gIq1LdjysUyOr5ZGLl0WrxYbU9lNqyyGdUNsijiYB
+         up7UV4FGl1JkDAl2To0BpA3c1PJyoTwK9zbaD83Aphq7CNSmOhTY7i0yNJzAI3i5Sp6X
+         Qn2rc34oq5byfeH/46H2QxN7q+RO9mFXkHROVcZt7NFsfMf57P1JPLTvL30ip1XhnUw0
+         xXfW3E/Kgs9UApyvJagOqaTaHnQfPIFM1/LTmP7w6V9s69nY2pPRHK6iAZDg8GIPKJyT
+         ty4vLtQeus10sKT5kSM7YaZh+6CiZ6VTIZUnDQ7ebSHGrTN64A7bNIJSvxXG/DKKuR4/
+         P/PA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7wYeGHKnvsP8hRjgzPts17xLlvbwmiy1C1ZEuy4aLXCFAi9yhU4lrmSO8GcEbtq8YrQw0soVQk0rFeuI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kH3TRLRkvVCjIiWID4X8SncpHFj9AZANP3c7s3+xymk/LDVGiB
+	sD5Uz04gNQMXAywrPzf/WdfMeS0d43X5kSwXHDIXz3L3fu13mReQ1Jil
+X-Gm-Gg: AYBFou3WrTS/cwLcqZ+XwcgGstMxpQewg9qtplk7K318qqtPKZO3PggBpyozs5nULB0
+	S69epjbaeC4sdMeW+/bH2pXTjwCAJ1H1/JZUp+6vDFE50h5LYn0Ua82ioJUeVwX0CpZllllYx00
+	VIVm/nxNsTyvflBFnWymG+E/mDV69tDQkKpVAjcYpm7ArCblm1qEoxvGBUkX7PJEMJuIChE0gaQ
+	F1pDJNCCrBalBtTTgZG3aJP40pT9nb4xT0W+TvvoFBvOLUZSsXcRwvCqrEtwzeAm/kDgA6cSah0
+	al01eSdn+I6mk3+agqhXl4Cfo72jDZViWnIr6dtzTkcfFa1+Y/E/8hJX5hvpKuZdi8GXCUyxoFJ
+	TtsrxByZp3+4Q0KL6q7fCM5CqqfBRZT21k+oQC167YQONiO3BGY5AyXjcLUbvzicV0Saba98Xg4
+	GxGVKQrJu/g5Z98YnFoEwYp9adqYLh/D7dobiQoHtwBS79YBrx9YTdZrBf9s78aPzWdI3Wwj8xp
+	Ik=
+X-Received: by 2002:a05:6808:244c:b0:4b9:e65b:8c31 with SMTP id 5614622812f47-4c7b48b3bd7mr1603457b6e.31.1789386641298;
+        Mon, 14 Sep 2026 04:50:41 -0700 (PDT)
+Received: from [127.0.1.1] ([201.162.69.22])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c3314b17d0sm9904432b6e.8.2026.09.14.04.50.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:50:13 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Mon, 14 Sep 2026 13:53:53 +0200
-To: Angel J <iamanaws@httpd.dev>
-Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
-	"helgaas@kernel.org" <helgaas@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"andrea.porta@suse.com" <andrea.porta@suse.com>,
-	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
- bridge configuration
-Message-ID: <aqfgUUkZYZg6ZABF@apocalypse>
-References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
- <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
+        Mon, 14 Sep 2026 04:50:40 -0700 (PDT)
+From: Luis Vieira <luisflavieira@gmail.com>
+Date: Mon, 14 Sep 2026 08:50:31 -0300
+Subject: [PATCH bpf] libbpf: Fix program log buffer size validation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-libbpf-log-buf-fix-v1-1-f592caffcc71@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIbfp2oC/x2MSwqAMAwFryJZG2j9oV5FXLSa1kCp0qII4t0NL
+ ucxbx7IlJgyjMUDiS7OvEcBXRawbCZ6Ql6FoVJVpwZdY2BrD4dh92hPh45vbAbXqrpfjGlXkOO
+ RSOY/OoHIML/vBwCA4vppAAAA
+X-Change-ID: 20260913-libbpf-log-buf-fix-49f5038caa5d
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Luis Vieira <luisflavieira@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789386635; l=2747;
+ i=luisflavieira@gmail.com; s=20260913; h=from:subject:message-id;
+ bh=ChNWu4SF6NGhwjGjf6K8AWy5RuCiogwQwkyEnV0Sbbs=;
+ b=+BXvKW5XIp+uDGQQdXyt3rRGzNHUx/tWoYxQaix3CUebltrheNoWY5mGbtM9eRw81unJKmOjJ
+ ro5a4w4mBlcCM58XPDG+ywgA/kE9F486ggCw81a1k4FN90xIlRpn/Q8
+X-Developer-Key: i=luisflavieira@gmail.com; a=ed25519;
+ pk=98MeC/NdrC6ah7zYpPnkWiQIoyj62iUP/rNuV3esCW4=
 
-Hi Angel,
+bpf_program__set_log_buf() intends to reject log buffer sizes larger
+than UINT_MAX.
 
-On 23:01 Fri 11 Sep     , Angel J wrote:
-> Hi Andrea, Hervé, Bjorn, Thorsten,
-> 
-> Thanks for the guidance, it was very useful. I went back through the tests
-> and got some more insight into the hang.
-> 
-> Andrea wrote:
-> > Angel, could you please provide the following output:
-> >
-> > lspci -nn
-> > setpci -s 00:00.0 HEADER_TYPE
-> >
-> > from a running (i.e. with CONFIG_PCI_DYNAMIC_OF_NODES=n) system?
-> 
-> On Linux 6.12.109, with CONFIG_PCI_DYNAMIC_OF_NODES disabled, the relevant
-> output is:
-> 
->   $ lspci -nn
->   00:00.0 PCI bridge [0604]: Intel Corporation Device [8086:4c43] (rev 01)
-> 
->   $ setpci -s 00:00.0 HEADER_TYPE
->   01
-> 
->   $ setpci -s 00:00.0 PRIMARY_BUS SECONDARY_BUS SUBORDINATE_BUS
->   ff
->   ff
->   ff
+However, the function checks the existing prog->log_size instead of
+the incoming log_size argument. As a result, an oversized value can
+be accepted.
 
-So it seems that a device which is reported as a PCI bridge does not manage any
-bus underneath.
+Validate the supplied log_size instead.
 
-> 
-> The device is bound to icl_uncore. I get the same values on the patched
-> kernel with CONFIG_PCI_DYNAMIC_OF_NODES=y.
-> 
-> Hervé wrote:
-> > Is this PCI logs reported with PCI_DYNAMIC_OF_NODES=y or PCI_DYNAMIC_OF_NODES=n
-> > or always whatever the PCI_DYNAMIC_OF_NODES Kconfig value ?
-> 
-> The messages appear on successful boots with either setting:
-> 
->   pci 0000:00:00.0: [8086:4c43] type 01 class 0x060400 conventional PCI bridge
->   pci 0000:00:00.0: bridge configuration invalid ([bus ff-ff]), reconfiguring
-> 
-> I confirmed this on 6.12.107 with the option disabled and 6.12.108 with it
-> enabled. They also appear on the patched 6.18.44 kernel.
-> 
-> Bjorn wrote:
-> > I don't think 49d63971f963 ("misc: rp1: RaspberryPi RP1 misc driver")
-> > is a likely culprit by itself because there's just nothing there that
-> > looks like it would relate to a Dell XPS 8940.
-> 
-> That change exposed the problem by enabling PCI_DYNAMIC_OF_NODES in my
-> configuration. I bisected again with the option enabled throughout and
-> found an earlier boundary:
-> 
->   3dc8adeeefa0  PCI: of_property: Constify parameter in of_pci_get_addr_flags()
->   1f340724419e  PCI: of: Create device tree PCI host bridge node
-> 
-> The first is the direct parent of the second. I boot-tested both without
-> any guard, changing only the source commit; their generated kernel
-> configurations are identical.
-> 
-> All of these tests have CONFIG_PCI_DYNAMIC_OF_NODES=y:
-> 
->   Source         Change             Result
->   3dc8adeeefa0    None               Boots
->   1f340724419e    None               Hangs
->   1f340724419e    Subordinate guard  Boots
->   6.18.44        None               Hangs
->   6.18.44        Subordinate guard  Boots
-> 
-> Hervé wrote:
-> > Maybe the test done at [1] should be improved to detect those wrong bridges.
-> > and skip the of_pci_make_dev_node() call when a wrong bridge is detected.
-> 
-> I added logging to the first bad commit to check the bridge scan. It shows
-> that 00:00.0 has no subordinate bus after either pass, despite satisfying
-> pci_is_bridge():
-> 
->   pci 0000:00:00.0: PCI OF debug: scan pass 0, buses ff/ff/ff
->   pci 0000:00:00.0: PCI OF debug: scan pass 0 done, subordinate bus absent
->   pci 0000:00:00.0: PCI OF debug: scan pass 1, buses ff/ff/ff
->   pci 0000:00:00.0: PCI OF debug: scan pass 1 done, subordinate bus absent
+Add a regression test that verifies that values larger than UINT_MAX
+are rejected with -EINVAL on platforms where size_t can represent
+such values.
 
-This is confirmed by the BIOS/fw not filling the bus range and by the kernel
-failing to reallocate the bus since the range registers are probably read-only.
-Apparently this is not a bridge, it should be at most a host controller.
+Fixes: b3ce90795035 ("libbpf: Add per-program log buffer setter and getter")
+Signed-off-by: Luis Vieira <luisflavieira@gmail.com>
+---
+ tools/lib/bpf/libbpf.c                           |  2 +-
+ tools/testing/selftests/bpf/prog_tests/log_buf.c | 25 ++++++++++++++++++++++++
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
-> 
-> of_pci_prop_bus_range() dereferences pdev->subordinate without checking it.
-> of_pci_prop_intr_map() also uses that pointer. Before 1f340724419e,
-> of_pci_make_dev_node() returns because the parent OF node is missing on
-> this ACPI system. That commit creates the parent node, allowing property
-> generation to reach the unchecked access.
-> 
-> My earlier report overstated the device_type="pci" result. The minimal-node
-> test that hung added device_type, bus-range and interrupt-map together;
-> I haven't confirmed a hang with device_type alone.
-> 
-> I tested this guard in of_pci_make_dev_node(), before node creation:
-> 
->   if (pci_is_bridge(pdev) && !pdev->subordinate)
->           return;
+diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+index b749c01742ee..e1fed7735614 100644
+--- a/tools/lib/bpf/libbpf.c
++++ b/tools/lib/bpf/libbpf.c
+@@ -9955,7 +9955,7 @@ int bpf_program__set_log_buf(struct bpf_program *prog, char *log_buf, size_t log
+ {
+ 	if (log_size && !log_buf)
+ 		return libbpf_err(-EINVAL);
+-	if (prog->log_size > UINT_MAX)
++	if (log_size > UINT_MAX)
+ 		return libbpf_err(-EINVAL);
+ 	if (prog->obj->state >= OBJ_LOADED)
+ 		return libbpf_err(-EBUSY);
+diff --git a/tools/testing/selftests/bpf/prog_tests/log_buf.c b/tools/testing/selftests/bpf/prog_tests/log_buf.c
+index d6f14a232002..31c842d27fb4 100644
+--- a/tools/testing/selftests/bpf/prog_tests/log_buf.c
++++ b/tools/testing/selftests/bpf/prog_tests/log_buf.c
+@@ -3,6 +3,8 @@
+ 
+ #include <test_progs.h>
+ #include <bpf/btf.h>
++#include <limits.h>
++#include <stdint.h>
+ 
+ #include "test_log_buf.skel.h"
+ #include "bpf_util.h"
+@@ -267,6 +269,27 @@ static void bpf_btf_load_log_buf(void)
+ 	btf__free(btf);
+ }
+ 
++static void prog_log_buf_size_limit(void)
++{
++#if SIZE_MAX > UINT_MAX
++	struct test_log_buf *skel;
++	char log_buf[1];
++	int err;
++
++	skel = test_log_buf__open();
++	if (!ASSERT_OK_PTR(skel, "skel_open"))
++		return;
++
++	err = bpf_program__set_log_buf(skel->progs.good_prog, log_buf,
++				       (size_t)UINT_MAX + 1);
++	ASSERT_EQ(err, -EINVAL, "set_log_buf_too_big");
++
++	test_log_buf__destroy(skel);
++#else
++	test__skip();
++#endif
++}
++
+ void test_log_buf(void)
+ {
+ 	if (test__start_subtest("obj_load_log_buf"))
+@@ -275,4 +298,6 @@ void test_log_buf(void)
+ 		bpf_prog_load_log_buf();
+ 	if (test__start_subtest("bpf_btf_load_log_buf"))
+ 		bpf_btf_load_log_buf();
++	if (test__start_subtest("prog_log_buf_size_limit"))
++		prog_log_buf_size_limit();
+ }
 
-Not sure, maybe can it be considered a hw bug? If this is the case, we can maybe
-add a quirk for this device. Could you please test adding a quirk as PCI_FIXUP_HEADER
-in which you downgrade the class from 0604 to 0600 and see it works even without
-your proposed check in of_pci_make_dev_node()?
+---
+base-commit: ee363e055895364039bf28348ff13c615afad4ba
+change-id: 20260913-libbpf-log-buf-fix-49f5038caa5d
 
-If this works, maybe we can just turn the body of your conditional into just an error
-log plus fast exit, because a bridge must have valid subordinate.
-
-Many thanks,
-Andrea
-
-> Both the first bad commit and 6.18.44 boot with it. The 6.18.44 test uses
-> only the guard, without diagnostic logging. The host OF node and the nodes
-> for bridges 00:01.0 and 00:1c.0 are still created; 00:00.0 is skipped.
-> 
-> This points to the NULL subordinate pointer as the cause of the hang,
-> although I still don't have a crash trace from an unguarded boot. I'll
-> send the patch as a reply to this email. Is of_pci_make_dev_node() the
-> right place for this check?
-> 
-> #regzbot introduced: 1f340724419eda8ab07a20edcaf5ec8f70134231
-> 
-> Thanks,
-> Angel J
-
-
+Best regards,
+--  
+Luis Vieira <luisflavieira@gmail.com>
 
