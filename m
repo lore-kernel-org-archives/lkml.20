@@ -1,276 +1,321 @@
-Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011051.outbound.protection.outlook.com [52.101.52.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4561D3F1050
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372325; cv=none; b=UITd/BScOf1ekYH97ohfgJJCbqAkzyvaFLCQ6XBtFYEP1SIgzoeyKYtl97OLrZ7BJgtz8XExXYyRyLOxTDnaf+Bn5GN9xj2sLn3V8wHLAFjTFmd+Al5PL9edIF0GDnQv/CRt2qTcLrY2Y0N638DeP5t68FRabmyfyYBHzz3pqi0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372325; c=relaxed/simple;
-	bh=nXlIXZyzZAmUaaXn6/AG1Qoa90qlZRNpDV2IZ5Xt6I8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=V4aI0Uv/u1tUymd8AQcB7FrXIpAU7b1Q7K0BdjVd+QXsw47fxy66asVGjWNZYfs/UzpX4wcaaL4VQwGvW9jjnBZNnKFPsMcQAuElgJh2cj+QPm0AdVL3+Ny8le1Ssb04ACIboas/XSyK4beG82vvaMbd/G4uk4vHXZIWe2zXVNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BwcSvFdE; arc=none smtp.client-ip=91.218.175.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A113F58E1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789372330; cv=fail; b=Ld0t5+Q6IsXrJWXWri6vEm8x2538q30R94mq0+6G3ohRnUIuAIDTIA15D/lxmx+Cj9CpwFPpcSw1t9WU2xwV32nG0MElV+KkxqA4UTFMGXRJhDcb5ZqocZJDuqVF6slCmNR4urHPNxYRrdhI+4rzLjLxMWlB6eg24BrX0bPYIMI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789372330; c=relaxed/simple;
+	bh=aF2L/7TZRD620MqGYxi6nydePm24Jhhns/xELnDi2dU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MzzT4Y08t5qmnk7UuG7tDSHHtcHEbexwtpFLCvjMe8vMBcz0ZAvbjY9Oc94VpXVAlJ7ERRqABoI4YSBTnuuVSwy8iNixSHMLfefcWf6Ms2TA6UdzZMuLJmiXrIBnh17FkINCvad6xQffgiXq+n1OxqbC5Y0nqR/wdW3+T5hdm9k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JLI/kp5o; arc=fail smtp.client-ip=52.101.52.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BwcSvFdE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nXlIXZyzZAmUaaXn6/AG1Qoa90qlZRNpDV2IZ5Xt6I8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789372317; v=1; x=1789977117;
- b=BwcSvFdElIUHCrFEATDcx/wtsn0aU0ZDfA152keO1eLQwSqs7cgfZjS6XOj/O2ewQoTZk+NR
- vu0Rr6gGGPGWkmw1sN4Cz1OpiABBGEKw4wxU4B61n5wXki9xHdFycd2PvCiIAM/OllaDj3VeFwh
- tI56Kt+FFaGgM9I1Cu4XAT8Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 7f6bbc8e5bf97846;
-	Mon, 14 Sep 2026 07:51:57 +0000
-X-Mizu-Trace-ID: 7f6bbc8e5bf97846
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JLI/kp5o"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QCn3sPZ3cX+b1wdr4VY+SW+MCQG0DEww+ywD6hoqRXwXsjlB+jRzFVUImyAADWrL/D9XDU2e5newjeSLGKs1QIhc1JZZiTRi+kBEr8KzasY0Xhz/y4p8jQ5wx5iah2dBsj3uMYdMOiFMeK7uCfnfV7/1A8TmYyjaPbrYJJ4WT2k9IVyZ7BXdZr7um3fxv/Ovn22nZPZaUW3aQKM+4RUYzsi+Fh5iKKEw3kjGU9NDrGuY/6BV6I2vqtzzmQobSe9bVBTVe8HaR0fZ6YtLflTaD9z+r8W+4/vGQEtsKAcvnEJ/cR7GY9YqTiwAAvJmyH+oViUEqYZ8CQR88DNigxVtqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uK0janomBS4FDi2NSVODdZmbtMIEOcYHuBGwhyozNlA=;
+ b=sGOM9cLYSBnxTOtUDX8SI6r9cBnO2aDCRd7KIZvivEHqWrC/qE7xKpHjzgE2qwVilgfJLvYfW2IEYOjDLwleS0qB0qfzqnwhaQA3F3kUN6FX9TYHKH8O5NMZzVGxXa5VCL2JtLCptuKdI/cgAgL1eOKdjQNo5ScCr5MJAWeiQNCpqMhODW+w0ytJSsoP/4VZ9fdumcppIRDfCPV3Hi/EOnwYKAEWIrLuzDP8nZD67LNZmBXj5KMuBUiOrzFiJnFaaSIsI5ya6tL+xCbsB6e0fGZ7mwqMHqfesVG6GrzA/m+0IGbvENZDHgGRM2Ax141GcYY9RF0dniBKzxCLSd7O6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uK0janomBS4FDi2NSVODdZmbtMIEOcYHuBGwhyozNlA=;
+ b=JLI/kp5oRqJQgRdt9h0oWVCHR8R0DUIfOLlgnmoUNtG5bxINNyh/Ra5OE9Z1Xo9LIrkq/YRjd9SxTJ4KvelcvinP+R5aWSJkOoZhf+5A7LnmFP6h6scixMz6LqO44rTY2TrRChHph2tnpC1+qZVGwgL+CMtBTai0fytVXci7BRhN50oxjQeJ/YncrkXSCcW3zLKuriFs0HFntlQQO0TjLB3P94DXiXVkG74XhleBBVmXBqJc57QFRthMYvkBlmMiLfxMuz6RkPJOagxbyd5FJyulW4FP7FwRMPIU8divqXXFzXkZulLEGBz+o4X3D+QaloIK6Wg804x9esQa1HIQjA==
+Received: from BL1PR13CA0152.namprd13.prod.outlook.com (2603:10b6:208:2bd::7)
+ by DS0PR12MB8766.namprd12.prod.outlook.com (2603:10b6:8:14e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 07:52:01 +0000
+Received: from BN2PEPF0000A88F.namprd04.prod.outlook.com
+ (2603:10b6:208:2bd:cafe::a2) by BL1PR13CA0152.outlook.office365.com
+ (2603:10b6:208:2bd::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Mon, 14
+ Sep 2026 07:52:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF0000A88F.mail.protection.outlook.com (10.167.248.181) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 07:52:01 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 00:51:43 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
+ 2026 00:51:42 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Mon, 14
+ Sep 2026 00:51:34 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+	<zhiw@nvidia.com>
+Subject: [PATCH v2 17/32] gpu: nova-core: vgpu: add r000 plugin bindings
+Date: Mon, 14 Sep 2026 10:48:52 +0300
+Message-ID: <20260914074907.1399629-18-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914074907.1399629-1-zhiw@nvidia.com>
+References: <20260914074907.1399629-1-zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH v3 01/11] mm/sparse-vmemmap: introduce
- CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <178937209455.4188640.17761540933640972197.b4-review@b4>
-Date: Mon, 14 Sep 2026 15:51:40 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org,
- linux-doc@vger.kernel.org,
- Lorenzo Stoakes <ljs@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <42F502DE-9DEE-447B-9323-0CBB2300FAFE@linux.dev>
-References: <20260911050228.58884-1-songmuchun@bytedance.com>
- <20260911050228.58884-2-songmuchun@bytedance.com>
- <178937209455.4188640.17761540933640972197.b4-review@b4>
-To: Mike Rapoport <rppt@kernel.org>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A88F:EE_|DS0PR12MB8766:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7f3003e-e23e-41b5-50d6-08df12350f85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|7416014|376014|6133799003|10067099003|56012099006|11063799006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	TIlqzuJKOc2np2whxNqqKWE6JL3w1T2D4+9piCwmsPzGy/JW2zpWmoWtIAUUHarwn6pzp1z9zEZK4MY/B9B7WE+Db2M6Pq6DXFg8beXIcRGSH6blXWULQjI8e7K8mkj5s7zbdWjM7fgasa3MipGqRLxxDrFzMBMzbmTfelYuSutPYgF1d/5P6On/H3aklvDWafMadvZeGBoVDQqShJjrzAD7crBJ3VZKWs/XsOHZ2Fg3PI6vejqjzb7p3Hhy1wBdQhV4/Oqu7FXiaS14jaZhqAsczlzZhQ+SNY2qHaOYoFYUwDSy71Z6ACKxlKYnXYBQVDM1zwCTYanEyCFxl9W8ehe9g6L8rb/mXcmOQVxIXMm59Co6wXYBH2ASGTikWmulbPnhrfLQvH/Z28qvF/z20EvNf9vpqkPdmHJ+2S1RWZ5XN79TF8NWitodFpyNCDUzZi4QzhWeHzOkRga3rNbZPlcVmaDGyxr6oALW2cnik1oJTTA347fDVHDTOn4Eb5EEmQbT7jid2VVT7RaDM+ROI1t1aza0jt6tqsdfBIuowCOvncQixrwvPtacG7vVxqxE8P9as0quRc6iPqWxzli+gfuznugaflqfRpkr6Dc602ly6wOVaauG/C6/OK3OsJR4kp0nmX9BIyjCPsRNGuRd21FF4+9fHEnV++sL1Lvlu0TSV+uy3R5cxaFUCcqx56nvFJWjfS/28mVlH65YangYyQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(7416014)(376014)(6133799003)(10067099003)(56012099006)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yxL8raFUKDWOoIYzJrO7vJVtsFTNNKHUo+SF6NVmrkKuszTeeSkCmsMDMXu1x0E85wWYPyABvXmlxSbvAEr1U5iL/vmPdMDYKdYfC9UrFVu85zad70O0mq7uvS4UbZ4TNc1KE0MGcRPI9n/uPTJd4C3JJBnbmgm0C4SVr4XzQXVyIMBvWxmWr+cJMrq+5orYpgG9OQmIkWaIRT7bW0Y3G7IMZ5yxa/hb6AmNsg7e9ea0sHaLjEGYJHbxIA+kAN5NV1fLtrRDcgDit8zel0OpksDjtVU3c6dN9c55rvvC9uxlkcsHR4V+ChxXxoJ4dmc5vWBaDmVRMof70B/TgDuVxwE39lymwUuZa+mkKSYDT6+7dQjPz2I+tA64LMZKcDkL7A7UMnldzcFgxog6e4qR4icWoUz8AI6F8cVaJM5wA2gWf1gG/wYHzopUjUzV6bXG
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:52:01.1034
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7f3003e-e23e-41b5-50d6-08df12350f85
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A88F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8766
 
+The GSP plugin communication area and RPC protocol are defined by the r000
+firmware interface. Keeping local copies of that ABI risks letting the vGPU
+manager drift from the firmware layout.
 
+Extend the existing r000 binding set with the nova-core subset of
+dev_vgpu_gsp_shared.h. The bindings expose the control and response
+region types, message IDs, and firmware-defined region sizes. Keep the
+raw declarations private and expose only the symbols needed by the GSP
+plugin communication layer.
 
-> On Sep 14, 2026, at 15:48, Mike Rapoport <rppt@kernel.org> wrote:
->=20
-> Hi,
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ .../gpu/nova-core/gsp/fw/r000_00/bindings.rs  | 173 ++++++++++++++++++
+ 1 file changed, 173 insertions(+)
 
-Hi,
-
->=20
->> The section-based vmemmap optimization infrastructure is still =
-guarded by
->> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP, but it also can be used by =
-device
->> DAX. Introduce CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION as a common =
-config
->=20
-> CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION is a bit mouthful :)
->=20
-> I think that dropping _SPARSEMEM won't hurt readability.
-
-Yes, I'll simplify it in v4.
-
->=20
->> for the shared infrastructure.
->>=20
->> Select the new option from HUGETLB_PAGE_OPTIMIZE_VMEMMAP and from
->> DEV_DAX when the architecture opts in to DAX vmemmap optimization, =
-and
->> use it to guard the generic sparse-vmemmap state and helpers.
->>=20
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Acked-by: Qi Zheng <qi.zheng@linux.dev>
->>=20
->> diff --git a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h =
-b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
->> index bc3e549795c3f..5f8424eade2bd 100644
->> --- a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
->> +++ b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
->> @@ -11,7 +11,7 @@
->> #undef CONFIG_PGTABLE_LEVELS
->> #undef CONFIG_ILLEGAL_POINTER_VALUE
->> #undef CONFIG_SPARSEMEM_VMEMMAP
->> -#undef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
->> +#undef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
->> #undef CONFIG_NR_CPUS
->> #undef CONFIG_PARAVIRT_XXL
->>=20
->> diff --git a/drivers/dax/Kconfig b/drivers/dax/Kconfig
->> index 602f9a0839a91..6250954b0fa7a 100644
->> --- a/drivers/dax/Kconfig
->> +++ b/drivers/dax/Kconfig
->> @@ -8,6 +8,8 @@ if DAX
->> config DEV_DAX
->> tristate "Device DAX: direct access mapping device"
->> depends on TRANSPARENT_HUGEPAGE
->> + depends on ZONE_DEVICE
->> + select SPARSEMEM_VMEMMAP_OPTIMIZATION if =
-ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
->> help
->>  Support raw access to differentiated (persistence, bandwidth,
->>  latency...) memory via an mmap(2) capable character
->> diff --git a/fs/Kconfig b/fs/Kconfig
->> index d1c210c6508f0..9b32ce79cc805 100644
->> --- a/fs/Kconfig
->> +++ b/fs/Kconfig
->> @@ -278,6 +278,7 @@ config HUGETLB_PAGE_OPTIMIZE_VMEMMAP
->> def_bool HUGETLB_PAGE
->> depends on ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP
->> depends on SPARSEMEM_VMEMMAP
->> + select SPARSEMEM_VMEMMAP_OPTIMIZATION
->>=20
->> config HUGETLB_PMD_PAGE_TABLE_SHARING
->> def_bool HUGETLB_PAGE
->> diff --git a/include/linux/mm.h b/include/linux/mm.h
->> index c49ef99b4413b..a2ebe87e76546 100644
->> --- a/include/linux/mm.h
->> +++ b/include/linux/mm.h
->> @@ -5175,6 +5175,9 @@ static inline bool =
-__vmemmap_can_optimize(struct vmem_altmap *altmap,
->> unsigned long nr_pages;
->> unsigned long nr_vmemmap_pages;
->>=20
->> + if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
->> + return false;
->> +
->> if (!pgmap || !is_power_of_2(sizeof(struct page)))
->> return false;
->>=20
->> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
->> index acd94cecc0d39..97511f651ebc0 100644
->> --- a/include/linux/mmzone.h
->> +++ b/include/linux/mmzone.h
->> @@ -102,9 +102,9 @@
->>  *
->>  * HVO which is only active if the size of struct page is a power of =
-2.
->>  */
->> -#define MAX_FOLIO_VMEMMAP_ALIGN \
->> - (IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP) && \
->> - is_power_of_2(sizeof(struct page)) ? \
->> +#define MAX_FOLIO_VMEMMAP_ALIGN \
->> + (IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION) && \
->> + is_power_of_2(sizeof(struct page)) ? \
->> MAX_FOLIO_NR_PAGES * sizeof(struct page) : 0)
->>=20
->> /* The number of retained vmemmap pages with HVO enabled. */
->> @@ -116,7 +116,8 @@
->> #define __VMEMMAP_OPTIMIZATION_NR_ORDERS \
->> (MAX_FOLIO_ORDER - VMEMMAP_OPTIMIZATION_MIN_ORDER + 1)
->> #define VMEMMAP_OPTIMIZATION_NR_ORDERS \
->> - (__VMEMMAP_OPTIMIZATION_NR_ORDERS > 0 ? =
-__VMEMMAP_OPTIMIZATION_NR_ORDERS : 0)
->> + ((__VMEMMAP_OPTIMIZATION_NR_ORDERS > 0 && \
->> +  IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION)) ? =
-__VMEMMAP_OPTIMIZATION_NR_ORDERS : 0)
->>=20
->> enum migratetype {
->> MIGRATE_UNMOVABLE,
->> @@ -1155,7 +1156,7 @@ struct zone {
->> /* Zone statistics */
->> atomic_long_t vm_stat[NR_VM_ZONE_STAT_ITEMS];
->> atomic_long_t vm_numa_event[NR_VM_NUMA_EVENT_ITEMS];
->> -#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
->> +#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
->> struct page *vmemmap_tails[VMEMMAP_OPTIMIZATION_NR_ORDERS];
->> #endif
->> } ____cacheline_internodealigned_in_smp;
->> @@ -2019,7 +2020,7 @@ struct mem_section {
->> unsigned long section_mem_map;
->>=20
->> struct mem_section_usage *usage;
->> -#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
->> +#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
->> /*
->> * Normally, sections hold regular (order-0) pages. However, for
->> * sections with HVO enabled, this tracks the compound page order
->> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
->> index 86dd0470da117..462e89e055485 100644
->> --- a/include/linux/page-flags.h
->> +++ b/include/linux/page-flags.h
->> @@ -208,14 +208,13 @@ enum pageflags {
->> static __always_inline bool compound_info_has_mask(void)
->> {
->> /*
->> - * Limit mask usage to HugeTLB vmemmap optimization (HVO) where it
->> - * makes a difference.
->> + * Limit mask usage to HVO where it makes a difference.
->> *
->> * The approach with mask would work in the wider set of conditions,
->> * but it requires validating that struct pages are naturally aligned
->> * for all orders up to the MAX_FOLIO_ORDER, which can be tricky.
->> */
->> - if (!IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP))
->> + if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
->> return false;
->>=20
->> return is_power_of_2(sizeof(struct page));
->> diff --git a/mm/Kconfig b/mm/Kconfig
->> index bc7befafb47b5..c180d40cd6712 100644
->> --- a/mm/Kconfig
->> +++ b/mm/Kconfig
->> @@ -461,6 +461,10 @@ config SPARSEMEM_VMEMMAP
->>  pfn_to_page and page_to_pfn operations.  This is the most
->>  efficient option when sufficient kernel resources are available.
->>=20
->> +config SPARSEMEM_VMEMMAP_OPTIMIZATION
->> + bool
->> + depends on SPARSEMEM_VMEMMAP
->> +
->> #
->> # Select this config option from the architecture Kconfig, if it is =
-preferred
->> # to enable the feature of HugeTLB/dev_dax vmemmap optimization.
->> diff --git a/mm/sparse.h b/mm/sparse.h
->> index d3a71ef4fad0f..3151d4db75753 100644
->> --- a/mm/sparse.h
->> +++ b/mm/sparse.h
->> @@ -10,7 +10,7 @@
->>=20
->> #include <linux/mmzone.h>
->>=20
->> -#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
->> +#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
->> static inline unsigned int section_compound_order(const struct =
-mem_section *section)
->> {
->> return section->compound_page_order;
->> @@ -75,7 +75,7 @@ static inline bool vmemmap_optimizable_pfn(unsigned =
-long pfn)
->>=20
->> static inline bool vmemmap_optimizable_order(unsigned int order)
->> {
->> - if (!IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP))
->> + if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
->> return false;
->>=20
->> if (!is_power_of_2(sizeof(struct page)))
->=20
-> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-
-Thank you Mike.
-
->=20
-> --=20
-> Sincerely yours,
-> Mike.
->=20
-
+diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
+index fa17d3e2edf6..3cc718bb2ab8 100644
+--- a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
++++ b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
+@@ -1,4 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
+ #[repr(C)]
+ #[derive(Default)]
+@@ -850,3 +851,175 @@ fn default() -> Self {
+         }
+     }
+ }
++pub const GSP_PLUGIN_BOOTLOADED: u32 = 1315261039;
++pub const VGPU_CPU_GSP_CTRL_BUFF_VERSION: u32 = 2;
++pub const VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE: u32 = 2097152;
++pub const VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE: u32 = 131072;
++pub const VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE: u32 = 262144;
++pub const VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE: u32 = 65536;
++pub const VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE: u32 = 65536;
++pub const VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE: u32 = 2637824;
++pub type VGPU_CPU_GSP_BOOL = u32_;
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_VGX_VERSION {
++    pub major_number: u32_,
++    pub minor_number: u32_,
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_GUEST_INFO {
++    pub vgx_version: VGPU_CPU_GSP_VGX_VERSION,
++    pub guest_driver_version_buffer_length: u32_,
++    pub guest_version_buffer_length: u32_,
++    pub guest_title_buffer_length: u32_,
++    pub guest_changelist_number: u32_,
++    pub guest_driver_version_buffer: [ffi::c_char; 256usize],
++    pub guest_version_buffer: [ffi::c_char; 256usize],
++    pub guest_title_buffer: [ffi::c_char; 256usize],
++    pub guest_branch_buffer: [ffi::c_char; 256usize],
++}
++impl Default for VGPU_CPU_GSP_GUEST_INFO {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++#[repr(C)]
++#[derive(Copy, Clone, MaybeZeroable)]
++pub union VGPU_CPU_GSP_CTRL_BUFF_REGION {
++    pub buf: [u8_; 4096usize],
++    pub __bindgen_anon_1: VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1,
++}
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1 {
++    pub version: u32_,
++    pub message_type: u32_,
++    pub message_seq_num: u32_,
++    pub __bindgen_padding_0: [u8; 4usize],
++    pub response_buff_offset: u64_,
++    pub message_buff_offset: u64_,
++    pub migration_buff_offset: u64_,
++    pub error_buff_offset: u64_,
++    pub guest_rpc_trace_buff_offset: u64_,
++    pub migration_buf_cpu_access_offset: u32_,
++    pub is_migration_in_progress: u8_,
++    pub __bindgen_padding_1: [u8; 3usize],
++    pub error_buff_cpu_get_idx: u32_,
++    pub guest_rpc_trace_buff_cpu_get_idx: u32_,
++    pub attached_vgpu_count: u32_,
++    pub is_gr_init_done: u8_,
++    pub __bindgen_padding_2: [u8; 3usize],
++    pub host_info: [VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1__bindgen_ty_1; 16usize],
++}
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1__bindgen_ty_1 {
++    pub vgpu_type_id: u32_,
++    pub host_gpu_pci_id: u32_,
++    pub pci_dev_id: u32_,
++    pub vgpu_uuid: [u8_; 16usize],
++}
++impl Default for VGPU_CPU_GSP_CTRL_BUFF_REGION {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_VERSION_NEGOTIATION: MESSAGE = 1;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_SETUP_CONFIG_PARAMS_AND_INIT: MESSAGE = 2;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_RESET: MESSAGE = 3;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_STOP_WORK: MESSAGE = 4;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_CANCEL_STOP: MESSAGE = 5;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_SAVE_STATE: MESSAGE = 6;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_CANCEL_SAVE: MESSAGE = 7;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_RESTORE_STATE: MESSAGE = 8;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_RESTORE_DEFERRED_STATE: MESSAGE = 9;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_RESUME_WORK: MESSAGE = 10;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_CONSOLE_VNC_STATE: MESSAGE = 11;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_VF_BAR0_REG_ACCESS: MESSAGE = 12;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_UPDATE_BME_STATE: MESSAGE = 13;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_RESET_MIGRATION_BUFFER_PTR: MESSAGE = 14;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_RELEASE_CLIENT_DATABASE: MESSAGE = 15;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_CHECK_IS_ALIVE: MESSAGE = 16;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_SEND_STATIC_INFO: MESSAGE = 17;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MAX: MESSAGE = 18;
++pub type MESSAGE = ffi::c_uint;
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_DISPLAYLESS_SURFACE {
++    pub sequence_update_start: u64_,
++    pub sequence_update_end: u64_,
++    pub effective_fb_page_size: u32_,
++    pub rect_width: u32_,
++    pub rect_height: u32_,
++    pub surface_width: u32_,
++    pub surface_height: u32_,
++    pub surface_size: u32_,
++    pub surface_offset: u32_,
++    pub surface_format: u32_,
++    pub surface_kind: u32_,
++    pub surface_pitch: u32_,
++    pub surface_type: u32_,
++    pub surface_block_height: u8_,
++    pub __bindgen_padding_0: [u8; 3usize],
++    pub is_blanking_enabled: VGPU_CPU_GSP_BOOL,
++    pub is_flip_pending: VGPU_CPU_GSP_BOOL,
++    pub is_free_pending: VGPU_CPU_GSP_BOOL,
++    pub is_memory_blocklinear: VGPU_CPU_GSP_BOOL,
++}
++#[repr(C)]
++#[derive(Copy, Clone, MaybeZeroable)]
++pub union VGPU_CPU_GSP_RESPONSE_BUFF_REGION {
++    pub buf: [u8_; 4096usize],
++    pub __bindgen_anon_1: VGPU_CPU_GSP_RESPONSE_BUFF_REGION__bindgen_ty_1,
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_RESPONSE_BUFF_REGION__bindgen_ty_1 {
++    pub message_seq_num_received: u32_,
++    pub message_seq_num_processed: u32_,
++    pub result_code: u32_,
++    pub guest_rpc_version: u32_,
++    pub migration_buf_gsp_access_offset: u32_,
++    pub migration_state_save_complete: u32_,
++    pub is_migration_allowed: VGPU_CPU_GSP_BOOL,
++    pub __bindgen_padding_0: [u8; 4usize],
++    pub surface: [VGPU_CPU_GSP_DISPLAYLESS_SURFACE; 4usize],
++    pub error_buff_gsp_put_idx: u32_,
++    pub grid_license_state: u32_,
++    pub guest_os_type: u32_,
++    pub frl_config: u32_,
++    pub guest_info: VGPU_CPU_GSP_GUEST_INFO,
++    pub is_guest_info_populated: VGPU_CPU_GSP_BOOL,
++    pub guest_rpc_trace_buff_gsp_put_idx: u32_,
++}
++impl Default for VGPU_CPU_GSP_RESPONSE_BUFF_REGION__bindgen_ty_1 {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++impl Default for VGPU_CPU_GSP_RESPONSE_BUFF_REGION {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
