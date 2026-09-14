@@ -1,112 +1,162 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E88F3E557A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789424081; cv=none; b=sWix3/uLtBMMWO56b4Mw1dvF0uro8uS0QB+TAXnP+7MHMP72al1J96EQhOY6/z6DUVjybrP+V9RUtyer9IExZ3Bpa3Ob98NKyhEH8OFT8xxqofFXeLmLTLieUeETj67EmLcEH/k01zdXpUaC35JK7Qmd7NIUKQwgKNLeyHDMo3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789424081; c=relaxed/simple;
-	bh=FOuoZH2gZJQGYCPIpJVPnR+e2agxceKBRqtlWRxeB8w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R+YqGqt5T5PXesniQ1+O/LDDRLb/bjJOz9H5kRh68ybW0McLVVHpNeMA0Y/5uJnZdX1EvglFQ60GvgMZmt1zXdP44V6DMyJHmPDdmTSSIqaDVz986DI/I5l+vmvnUJdghRAu+2Q0j4UX2RBz2RPqI72gG2aiNqNhIy404/zoT1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=UVv6oJdi; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=f8ze+nVf; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8FE3546FF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789424223; cv=pass; b=i6++TXW2AtnAt5WmK7shRny29lyDoO4ry9LqYGb8h4fd4wxgudtbP3BCQr7Ko+o06OkCWZOrR9lEPTYAUmn7PHJqhyXIRCBvKnFRhoaexQm4LWyERve3oYquKh1ESw7hMYjyVPJ970d85Xti2c/dTpS0jXxy/fwL0nlGKVXLXpU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789424223; c=relaxed/simple;
+	bh=F26XusL349fj/POvj6KSDmCxhPlIXdg95qDIGU2tpFU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gIU9LDCaKYelpG+afLr0D5I7N/iMLICOwunecd2fla4n+nRoI1rPLx1R9Nw4RCzfhyTf0XdAAwlks8Lx+4iFX0IP2EATqhV+1VX58N+DDQi7pvs+Ppy47ScaZBcc2HXrFKMCJcqDnytioJsoQIv6jJzrX8rcvoTKm3NrEH64Wc4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JF4Lg3bg; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="UVv6oJdi";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="f8ze+nVf"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 73C547A00BF;
-	Mon, 14 Sep 2026 18:14:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Mon, 14 Sep 2026 18:14:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm1; t=1789424078; x=1789510478; bh=1QD9IBLRvN
-	SRRmK+XaJ2HlFMI5oVRFqPhTcMYdmMNIg=; b=UVv6oJdiaX+wMqJrO7m1rmKkGE
-	gtFef1g38hTTYNePbnLv1jGaoNb8mJe7BPOWvgiXXGTXT21MjUkjphQferwqVKbB
-	q0gYNZ7s/jJ0lw9SZMCXP5LeyvhADDQ0eLaAp6AZiXB32mZfXNXM4fdSnjwHQefl
-	sgVagKxYmOtSS4hEpbfgdsmNh3lZkgtCiq+H2YzOUxL+G1YmfrZojxse3odWXppu
-	ivd23ElRue4RQsQsRv6OGgBF7J+Dn/EC8zyThOrOhGsIJ0U7tp7t6bhuvx53y8hI
-	kSxmsR/1M5jHQTTRi3MsRW9Bka3NAI1QVhHo3QPlvv/9S98hnbLgUivN6RGQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789424078; x=1789510478; bh=1QD9IBLRvNSRRmK+XaJ2HlFMI5oVRFqPhTc
-	MYdmMNIg=; b=f8ze+nVfQd6xDz8znpQ2fHivz9qKK8wNeFrmLgO59juxeko44GH
-	Bcwam8PCO4Sk/4EVBAYjol43iTkS3GEw6lxCG7z3s8++eTcdSj0BWUe8repm4c1d
-	+Zs+egMaKxPX6lr5AKHjvQZpWwxG1pGs60GwkmfiZaHoc7vkiQ0VqughQJ4zgnNh
-	VV4cKnPYhZMNr4ni+2ArNS9jOr8YGkQ5HGUmF0ciLniMQozDQSbpeWSyHISZ5Vlb
-	JdxcmIWjpqMoxrbeRSGiY2yd+fcvT/FEK0uvNIhH4AD8Cv5NJ2GltudcKiCHsNTz
-	DfMeS5xYet7eua2e0ywx363VTLP2cit0mkg==
-X-ME-Sender: <xms:znGoanh4ibl-cNhn36-aeTt4wrHfNs6MMRx4qiE8DQlwwrgOVqbJlw>
-    <xme:znGoah9kPsj2VfhEWiXYjt3i8jyQHtH2dALTcl6yywVw4ExvD9xmg-JMldekLN3LZ
-    NfqqRrHFpbhKiO61mrkhHkHkuam9KJE6wt6i796nzzxumGlWVCqJXjO>
-X-ME-Received: <xmr:znGoaur43mh9LfraU0qA48MbfbFoTNOqs4jBvkXsAz1_8T4pegCmlmGg7gdXUC8vxgDIGRRgknlHhivuLFdDu5zlRNhoTju2ClXzA16c01scIA>
-X-ME-Proxy-Cause: dmFkZTFc5SjZ0csUI1XI6h2Wm2EedIZ46G2WFow4gQUqloHln9GGTRoWeAflue2OWXEn2U
-    NNZGLd58M6uSBvKVHr3Lhrg715TbsQ4Rsjz9OWF2nJEpoZYEAWC7lkVmtukdjJG5tGaK95
-    ljF8YU8cN3dZvr2KFRPU6owprsbkEqJivS7kUuywEIq1AlQbt9IOSoCiM1hbAa1YaRoW/C
-    RvIYR+kbUIIDoHHUkHp5psznxOYOfX7voAP/mqKi6MIF3COqEPWTnWpgQU6MAfUQXAn+xx
-    mZbfh9QCzEdQB9G2l8z2/cHKgsJOs5gDTVO9iZpwsuUvOsR4j5N+cYixhv2YgmIjyTv6Q8
-    HX2qEr4uYdpF+mnZv+MPOqYZq9jQycGo1G5OcZhdf8qpNlcB0ioJ+3ybeA8NnU5xxlTl+i
-    hCXAOtAYizvWjyloBn2wqYD3QQk+n5u3tQGKEMuuEXJGrmMBpJeAvnsRbllIk2DwFEACYQ
-    0RjIXo/GsSsVOYbliDcgUke1Yh5E1w4shp0tzimabE5FpSweQoODwi7F9/Dgt3OYxTDMin
-    tVdYkgz2+H9oElvRPlB8pX3U3YtTUtXMjhINkHaSCxECU/YZPDGrYOnb/Q7PGPObtjw5hx
-    RqZz6Y6e46PLfI7JB0oR3YCWRIJBKzDLufAVKZHopbs7wHQwSs38guJLJ7GQ
-X-ME-Proxy: <xmx:znGoag8j4vtjGKl4sw9r3KzP8iyE2x4mWIicfUpkkruiJeQvkpWOiA>
-    <xmx:znGoaiUaMZoOj9JAd8uoKyCMF0KIITnJMxJR3VjrIy6k2GQU9rlZkQ>
-    <xmx:znGoamBXU6ZbeztjpgaN2XX1gi1GizBSKSVs4CLvdnXEO2lDZ9S7UQ>
-    <xmx:znGoajx8-rI_yALo5JJWIYT6Ok13rjRPizhmrOVeizGmYyrbYklZfw>
-    <xmx:znGoatV-YPaVi5yOrIGNpennkYFJ8Eh9saE-l2EUNSyJtxtn02FORNTs>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Sep 2026 18:14:37 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: core: correct comment about execution context
-Date: Tue, 15 Sep 2026 07:14:34 +0900
-Message-ID: <20260914221434.213633-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JF4Lg3bg"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso3514979a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:17:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789424220; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XsnoPLHZFQxWT7rzjZZwHmwyxhkuTcySg7Ug/yM5/r7l+L44XrT4jsfXKuc5XF0bOi
+         rhX57hpPyjZbyhfu2OXbzk23cqD7P6c5je5wImXEmUAaIVtGrehCQol4j4YBi/8A0Ugs
+         7sjMdCPFCP7RK+6RSPojm/7q9lmuUOYXTKJ92kwCMMOJra9InXdYeWL17RcJZR410QxS
+         5OZM0bCGLwve6UFMrSp7VQ3S0Dd1jOMmknZu/U9uOZnsRe0hIbocKwzYq6Eqh9ePzwnx
+         2Ea6fH4gfUBgFLN//OawaR7gqySXXhrBGYRpwkH8BGt0oBNLO4y2OBj8NvfLG3bTr5Tv
+         MHNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5811usFaNJpGkrxjrcQnbMmTE8twHwPG+c7GaruR6FI=;
+        fh=8R91REZTeWJ+DQnaxOYPuJXaf6b2n/c/YDUapYesN6E=;
+        b=LNCcNrzD9JiO9DRhdYVzMXPkH/t9puyTUs/4U81RltLy2e16krgz5DamWq0/O6hOuw
+         Pm9RJmBpJpivcMIz2SYLwcmcFbCFp8Kh/LZ3cNvXUw6CgDu/2JnfN7AguzBv3IdhAizT
+         g/zsk9u7u2VLmUowzKcOAPksQ3OkGw1lO2ZwjIscjwO0qOhvLkIony/143c0dWlpOUYq
+         KZKaozCei9+q6sOjh9hoGrh7yEjdpjXa0noxLUb67OQUtfyZODt4RChOBpu9OTXf0FNF
+         9IDKchIV1BLN2MtOWnn+qLw9xO4Qh3QXuCBg8XXNhBCVHe0VKoBgdzuGWXGEs4dWgTCv
+         oGow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789424220; x=1790029020; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5811usFaNJpGkrxjrcQnbMmTE8twHwPG+c7GaruR6FI=;
+        b=JF4Lg3bg1ulIQ8qM8049az39jQMI3l0Kj1ZCq9qy4ckmBw2tpCCDDCT8W4HYVRWqEk
+         I2QMf00irDAWucGI1UdhWsMfKEvRib4n+XnFT15XQdL1AcY/YvX5EznJ7y7fPT6ZRyxZ
+         NF9iX8ubbfxdeLHRz8yNsoRCnvPClc6g7b0J+EqRyVoDp9R2JRUWLVlfPJabLOz9+mvn
+         7UgRYtVVj38hE9/E264xoRNnidFRj33pjRXlZNvZMJWsW8BTvIYYJbhGZVaP/H7iKvIC
+         CcXlsrav8nDAfKEks2sUMfxfWmt/ApPPO3QgPjIxSgGbsGNnFfGgqBs2EDzD7mTvVYMd
+         ksdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789424220; x=1790029020;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5811usFaNJpGkrxjrcQnbMmTE8twHwPG+c7GaruR6FI=;
+        b=Nma2X1Ly5NDRAgKj2DB1WihUS4TSeE7GjHqt8ij5Xwcsmq3Ot9iIan40ZlvDfjBWmi
+         yV8O2VNUhvM3P4RVnQE9jAmqCU21gVUDHOiqYcSw1fIW1QCXO6Xyv6PgPkI+Ow9ljQy+
+         i2nPBlCnD0iCaAvFiB6wkMxHEkLfnAIWWOWBuSAv5oymmrkKUjvJbDfgA8DV/ZFiOTSy
+         ZBE667jwM3GHvkZy31dPc6VF820zyLu9ohwetHqi9fAsCT5/l13WSYyzdNpWVnzZNg+7
+         h9auTPg9QiSlqUWGD6eN4xSIR0mSX2TYd1DANYjeIOJZ7AbpidpghK3heUCuFKJUfraF
+         bNug==
+X-Forwarded-Encrypted: i=1; AKwUvBwGx2R4IQklqf7TA+Ar4hg5l1nU8bx/TMdGmBPR0uykxVb2mPFPDWhDjZP3hJ3IvTtT4n+OZ0/rl7lLqZg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgjT/CALgSNdU35iCUR2z2xHtPH0nU6uGPdPP7EoogRdZUkPS+
+	+ytHV4ge5g59iRvradVYIYKbN6gVhcqhh5qU9It6G0dtTqcuYy0m0onwlzmLnFgLqUD3H23oszT
+	l6j48DaxbNfOnfHDaCuoYx/b5nyQ/bg==
+X-Gm-Gg: AYBFou3RxShOi1itVBG9LTL9Os3efvGyA3DfD+4SsekVcJ42SHwuoDmfTRS74zSYiUh
+	8nA4JGea4SYcsa1+8mOJfg2CT3qsZpt0THHPrpDkIlSmekzV6vc0FTdHbJ0Gv4vVccWms9tKFxw
+	e0lnZLGur3RY1i5QNDc8oeejnECYZL+gQ4lkBbOkJdavKg9fR/Ks7pS3eFxSsMYcMp6IWizJ2+N
+	RI3HlVW79ZYbeaY71wMH3Qb5ZVuJ6lVNMSgc+0PaPlXvXvjTA2roZgyDyG3/yyEZJpzhO/Ms+Wz
+	jApSBO0dlK4dgH/aQqdOZG7NvPIB/dv5S2ekkcKZ5xBrSPr3Fm2994uq4qp3jX6IFaKdpHFIndN
+	noMAIa/kwGjUGrJHeYgL4dAPd1sa808g59n89fkXea98KkEzHDbdsjsTn1zEYSuT4knACbQ==
+X-Received: by 2002:a05:6402:2350:b0:6a9:b51c:9d49 with SMTP id
+ 4fb4d7f45d1cf-6a9f623840bmr2755096a12.10.1789424219581; Mon, 14 Sep 2026
+ 15:16:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260913013615.22615-1-mhun512@gmail.com> <aqexMdHnHHq_l0Y3@ashevche-desk.local>
+In-Reply-To: <aqexMdHnHHq_l0Y3@ashevche-desk.local>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 14 Sep 2026 18:16:47 -0400
+X-Gm-Features: AcwNN1Wfuc2widyYkZuQibIG_V-Tt3xzJgrCwnfkF6XrA53w0ESfy3a1GYYfxJs
+Message-ID: <CAGEsz8GnHrwmmU9-mLcj8gita4Gh+fBinyV=1WsXzj6TRvCN1g@mail.gmail.com>
+Subject: Re: [PATCH] mfd: intel_soc_pmic_crc: balance IRQ wake enable
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The comment for fw_address_callback_t describes the execution context,
-but the callback has not been called from RCU read-side critical section
-since v6.17.
+Hello Andy,
 
-Fixes: e884a8a0c573 ("firewire: core: call FCP address handlers outside RCU read-side critical section")
-Fixes: e8cf6875005b ("firewire: core: call handler for exclusive regions outside RCU read-side critical section")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- include/linux/firewire.h | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Thanks for the review. I'll address these in v2, including releasing
+the wake-disable action at shutdown only if it was registered.
 
-diff --git a/include/linux/firewire.h b/include/linux/firewire.h
-index a1e0cb4526c9..cbe59a18162e 100644
---- a/include/linux/firewire.h
-+++ b/include/linux/firewire.h
-@@ -299,8 +299,9 @@ union fw_transaction_callback {
- };
- 
- /*
-- * This callback handles an inbound request subaction.  It is called in
-- * RCU read-side context, therefore must not sleep.
-+ * This callback handles an inbound request subaction. If the request subaction is initiated from
-+ * the local node (e.g. by unit driver), the execution context depends on the initiator and is
-+ * unspecified. Otherwise, it runs in workqueue context.
-  *
-  * The callback should not initiate outbound request subactions directly.
-  * Otherwise there is a danger of recursion of inbound and outbound
--- 
-2.53.0
+Best regards,
+Myeonghun Pak
 
+2026=EB=85=84 9=EC=9B=94 14=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 4:32, A=
+ndy Shevchenko <andriy.shevchenko@intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
+=84=B1:
+>
+> On Sat, Sep 12, 2026 at 09:36:15PM -0400, Myeonghun Pak wrote:
+> > The INT33FD Crystal Cove driver enables the parent IRQ as a wake source
+> > after registering its regmap IRQ chip.  When that succeeds, a later
+> > mfd_add_devices() failure or driver removal leaves the wake enable
+> > unbalanced.
+> >
+> > Register a managed action only after enable_irq_wake() succeeds.  Since
+> > the action is registered after the managed regmap IRQ chip, reverse dev=
+res
+> > order disables IRQ wake before tearing down the IRQ chip.  Keep warning=
+ and
+> > continuing when enable_irq_wake() itself fails.
+> >
+> > This is limited to the Bay Trail and Cherry Trail Crystal Cove PMIC
+> > variants using the INT33FD ACPI ID.
+> >
+> > This issue was identified during our ongoing static-analysis research w=
+hile
+> > reviewing kernel code.
+>
+> ...
+>
+> > Assisted-by: OpenAI:GPT-5.6
+>
+> Assisted-by: LLM
+>
+> ...
+>
+> >       ret =3D enable_irq_wake(pmic->irq);
+> > -     if (ret)
+> > +     if (ret) {
+> >               dev_warn(dev, "Can't enable IRQ as wake source: %d\n", re=
+t);
+> > +     } else {
+> > +             ret =3D devm_add_action_or_reset(dev,
+> > +                                            crystal_cove_disable_irq_w=
+ake, pmic);
+>
+> Make it a single line.
+>
+> > +             if (ret)
+> > +                     return ret;
+> > +     }
+>
+>
+> Shouldn't disable_irq_wake() be called at .shutdown() as well?
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
