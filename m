@@ -1,179 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD0B446058;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D7045C6FD;
 	Mon, 14 Sep 2026 12:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388822; cv=none; b=DmUN2tB3Y8BD6fyT1ceQElrs3ebz5bbfVKiHlGySC0jmtycGZQ54Ul5ETPQpIhieKIwaOTD8/EJYGBeY4szJSt3D7gBd1D1PofB2vtkGIOFSNY17pnaDxWvqv4HMFNY1KDoprVOaelyCmQWSOvdb5NqCwdEnd3gs375aA3Extbo=
+	t=1789388822; cv=none; b=B37n8cBmM0piROKSB42ZAsgUnQ8FiQDJtaWV/IvLf/AJc+ASacfwLMoL/C5qjODWCkGxyTDvxxaNlbfKlpYMW6yuvwyhTBwopB9kgVnqghtsiUHmge+r4mLEagF46jHMk2hZWt6oVcdS2jDo3Ii/5m0nZgoLyYiP4UIML2I57Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789388822; c=relaxed/simple;
-	bh=dG6C64QjhNHNdOgwg9m9mJcfl3nv/5lgtPr2u+2vsyE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DvDg9fhOjXg4Ha5H4shzwsWqI/w6L6orkHQMuKKG+jL20E9QG0kunXdysIicJVtGxbcBvQ6Q8YV4jRL7oZAMGZlX0xRfsEaAfEzOi6cxwQCvrjU2bMwTRMnZDGhlXWZc7ZFYqGiHCDaasQE/qH6dxLqJYWevs7V1KBSgEAoR5DQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8yHPw03; arc=none smtp.client-ip=100.103.45.18
+	bh=v95ZmSPumV8ibyUBT0j9UCF+T9DTnRVBKW2JB3IbtqQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZhC2IzMTOLRF8ImLvquL9Mo3Fvu+vsL3i9UvndJmIFTLZvQF3P1JLmZcvBqxNwF21jbLIGRGmpCIpDJ0cjROFqMnm9Ptt3QNUuomlT5oRCYH+ctFDz3v+IzvKE2ii6fvyznGUUbwtRSs6UzqJSirCKwRAiblWFWJCu+hWjQVgnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M3a09khj; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8yHPw03"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899831F000FF;
-	Mon, 14 Sep 2026 12:26:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789388819;
-	bh=C4NpQb5XhJVGlGt5CTl/rUdz6rEZJtjDW0HpeqsCBQw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=b8yHPw03mHxs/ro3lqxKEetFolYD0ty8BA68mqW2d5zb/aKhpnTcu028vS8Q8vke6
-	 PBZ+E29kBe14CGJ06DU15BG+S2lsHMxta8WBgfYI42LLRgcvpiJ0/1a2FletnEY9Lq
-	 94g70uHUquT+X09JP9YGXdjQ2g+US4o1ow6/7lggt/puQu2V2HRepTtSwg7bpbzsP0
-	 ntccvKeWIT/0D2His1/PWxkGQ21TnXtq60uasaaFshrYHEviFKS5QhdYITMaOdCbFA
-	 J2Dh0QWqKQwPh1WMCho70dg8HjJZwrcEUlf9MkSw8eOykaeddF3bx87CZgD7UIEKEr
-	 hFpsMjZtqQSLA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 13:26:15 +0100
-Subject: [PATCH v2 04/13] KVM: arm64: Propagate and use mmu in s2fd when
- handling guest aborts
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M3a09khj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789388820; x=1820924820;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=v95ZmSPumV8ibyUBT0j9UCF+T9DTnRVBKW2JB3IbtqQ=;
+  b=M3a09khj2JiOvtsk7/+s74S6VQCBU1ad+Hk58Lhn+2MMIgwFOwyrrvbH
+   bg3fR8k/qWaM9EE6mN2/7MEUBAEVuh+J71L8ycg3q/xd8kegvaonGIrkh
+   ycdHqZ7Ttbbmlcd0MQzsJ1bqby1lYUoPqHFXG8zTLriZez0kTZyVqLBu4
+   oTy1ruymTy4XsMr6xIB3/QPXmMRqRhQwafzUctuAeTAHws1ukSQccDmlY
+   O9Jk03wzu2jxFLeFjVCNfagyU3gZ6mam/wX1q4WtNP2bwSIfNn4DE8AgT
+   r0dVqxqlc9Lq33cUw0KmKv3i8yKJBfALgDKfWBnCuD/7gqx6LpaHXVKpu
+   Q==;
+X-CSE-ConnectionGUID: G6/AjCM+QsmBJPrXZdVUdg==
+X-CSE-MsgGUID: r5CIG05hQEOGRP6sj53DWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100399737"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="100399737"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 05:26:59 -0700
+X-CSE-ConnectionGUID: 7bTCkECrQAigMLQe4BdiQg==
+X-CSE-MsgGUID: Mgpae/WrTn6LlCkj1GzK1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="296122000"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.245.60]) ([10.245.245.60])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 05:26:57 -0700
+Message-ID: <852003c6-317c-4004-ba2c-d6c4b0bd31e6@linux.intel.com>
+Date: Mon, 14 Sep 2026 15:26:34 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-kvm-arm-prefault-v2-4-26fb47f74b73@kernel.org>
-References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
-In-Reply-To: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
- Jack Thomson <jackabt.amazon@gmail.com>, 
- Alexandru Elisei <alexandru.elisei@arm.com>, 
- Vincent Donnefort <vdonnefort@google.com>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Sean Christopherson <seanjc@google.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Leo Soares Passos <Leo.Bras@arm.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3977; i=ljs@kernel.org;
- h=from:subject:message-id; bh=dG6C64QjhNHNdOgwg9m9mJcfl3nv/5lgtPr2u+2vsyE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKWP//6qmgZi8tfPZ2A9beXxt2ZfDYiklHmpfwRHk2Om
- Yffq1UGdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAih9Yz/LP2l1Da9SKXqT3R
- e0PLptU1nXH/Kvgrk3Z5TuM+V3xwuy7DX7FNkvPW3dkSdK3mhIHzhpDr+ZVcbtI5+TqvLZla7t5
- U5QcA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xhci: sideband: check vdev liveness before removing
+ endpoints on unregister
+To: Michal Pecio <michal.pecio@gmail.com>, =?UTF-8?B?6IOh6L+e5Yuk?=
+ <hulianqin@vivo.com>
+Cc: Selvarasu Ganesan <selvarasu.g@samsung.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "quic_wcheng@quicinc.com" <quic_wcheng@quicinc.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "cpgs@samsung.com" <cpgs@samsung.com>,
+ "alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+ "thiagu.r@samsung.com" <thiagu.r@samsung.com>
+References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
+ <CGME20260910101324epcas5p1faf6f82de85c9468f42f6f9b2f13e99b@epcas5p1.samsung.com>
+ <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
+ <360067785.01789039502721.JavaMail.epsvc@epcpadp1new>
+ <TYUPR06MB62172308C897F81F7DAFF557D2BF2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+ <750468423.101789103583573.JavaMail.epsvc@epcpadp2new>
+ <TYUPR06MB6217F0788C14DD89D237C807D2BE2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+ <937773018.41789116303608.JavaMail.epsvc@epcpadp1new>
+ <191ee5d5-d93d-4fa3-9654-b3735d344118@linux.intel.com>
+ <20260912141837.06b2f3cf.michal.pecio@gmail.com>
+ <TYUPR06MB62174110FB101AD6B7B069EBD2BB2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+ <20260914110949.38a46596.michal.pecio@gmail.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <20260914110949.38a46596.michal.pecio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-kvm_handle_guest_abort() establishes a kvm_s2_fault_desc data structure,
-s2fd, to store and propagate state to either pkvm_mem_abort(), gmem_abort()
-or user_mem_abort() handlers.
+On 9/14/26 12:09, Michal Pecio wrote:
+> On Mon, 14 Sep 2026 07:04:17 +0000, 胡连勤 wrote:
+>>> It doesn't cover hub_port_reset() called by port_event() for
+>>> SuperSpeed devices, not sure what that is and whether it's
+>>> dangerous. I noted that the original patch talks about hub_event(),
+>>> but maybe it's a mistake?
+>>
+>> Thanks for the analysis. A clarification on the hub_event() reference
+>> in my patch:
+>>
+>> The crash trace shows hub_event() at the top because that's the actual
+>> crash call stack from the failing device. The full sequence is:
+>>
+>>    hub_event()
+>>      -> port_event()                           [hub.c:5966]
+>>         -> usb_reset_device(udev)              [hub.c:5875]
+>>            -> usb_reset_and_verify_device()    [hub.c:6183]
+>>               -> hub_port_init()               [hub.c:6228]
+>>                  -> hcd->driver->address_device()  [hub.c:4781]
+>>                     -> xhci_setup_device()     <-- COMP_USB_TRANSACTION_ERROR
+>>                        -> xhci_disable_and_free_slot()  [xhci.c:4438]
+>>                           -> xhci_free_virt_device()   <-- frees vdev here
+> 
+> So not a mistake and this is indeed a dangerous case. And AFAICT, in
+> this path udev's pre_reset() routine isn't called and therefore can't
+> be used to fix your issue, unless USB core is patched to call it.
+> 
+> But xhci_discover_or_reset_device() is called: before hub_port_init()
+> calls problematic hub_enable_device() / hub_address_device() functions,
+> it calls hub_port_reset(), which calls hcd->driver->reset_device().
 
-Each of these, however, examines the state of the stage 2 MMU via
-vcpu->arch.hw_mmu.
+To me it looks like both drv->pre_reset and xhci_discover_or_reset_device()
+are called in this path.
 
-Introduce an s2fd->mmu field to abstract this and propagate it to callers.
+hub_event()
+   port_event()
+     usb_reset_device(udev)
+       if (config) //and for each interface in this config: , for each interface)
+         if (cintf->dev.driver) {
+           drv = to_usb_driver(cintf->dev.driver);
+           if (drv->pre_reset && drv->post_reset)
+           unbind = (drv->pre_reset)(cintf);
 
-Similar to adding the esr field, this allows injection of synthetic faults
-with the ultimate intention of implementing stage 2 page table
-pre-faulting.
 
-No functional change intended.
+Any chance you could trace the whole call path in more details and see exactly which path
+is staken before the crash.
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- arch/arm64/kvm/mmu.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+port_event() should only call usb_reset_device() for usb3 devices with link stuck in
+ss.inactive for longer than ~100ms.  Is this really a usb3 audio device?
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 8303121e3332..f402481e8a4e 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1604,6 +1604,7 @@ struct kvm_s2_fault_desc {
- 	struct kvm_memory_slot	*memslot;
- 	unsigned long		hva;
- 	unsigned long		esr;
-+	struct kvm_s2_mmu	*mmu;
- };
- 
- static bool kvm_s2_fault_is_perm(const struct kvm_s2_fault_desc *s2fd)
-@@ -1637,7 +1638,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
- 	bool perm_fault = kvm_s2_fault_is_perm(s2fd);
- 	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
- 	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_R;
--	struct kvm_pgtable *pgt = s2fd->vcpu->arch.hw_mmu->pgt;
-+	struct kvm_pgtable *pgt = s2fd->mmu->pgt;
- 	unsigned long mmu_seq;
- 	struct page *page;
- 	struct kvm *kvm = s2fd->vcpu->kvm;
-@@ -1735,7 +1736,7 @@ static int pkvm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
- {
- 	unsigned int flags = FOLL_HWPOISON | FOLL_LONGTERM | FOLL_WRITE;
- 	struct kvm_vcpu *vcpu = s2fd->vcpu;
--	struct kvm_pgtable *pgt = vcpu->arch.hw_mmu->pgt;
-+	struct kvm_pgtable *pgt = s2fd->mmu->pgt;
- 	struct mm_struct *mm = current->mm;
- 	struct kvm *kvm = vcpu->kvm;
- 	void *hyp_memcache;
-@@ -2050,7 +2051,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
- 	int ret;
- 
- 	kvm_fault_lock(kvm);
--	pgt = s2fd->vcpu->arch.hw_mmu->pgt;
-+	pgt = s2fd->mmu->pgt;
- 	ret = -EAGAIN;
- 	if (mmu_invalidate_retry(kvm, s2vi->mmu_seq))
- 		goto out_unlock;
-@@ -2271,6 +2272,7 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_s2_trans nested_trans, *nested = NULL;
- 	unsigned long esr = kvm_vcpu_get_esr(vcpu);
-+	struct kvm_s2_mmu *mmu = vcpu->arch.hw_mmu;
- 	phys_addr_t fault_ipa; /* The address we faulted on */
- 	phys_addr_t ipa; /* Always the IPA in the L1 guest phys space */
- 	struct kvm_memory_slot *memslot;
-@@ -2300,7 +2302,7 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
- 		}
- 
- 		/* Falls between the IPA range and the PARange? */
--		if (fault_ipa >= BIT_ULL(VTCR_EL2_IPA(vcpu->arch.hw_mmu->vtcr))) {
-+		if (fault_ipa >= BIT_ULL(VTCR_EL2_IPA(mmu->vtcr))) {
- 			fault_ipa |= FAR_TO_FIPA_OFFSET(kvm_vcpu_get_hfar(vcpu));
- 
- 			return kvm_inject_sea(vcpu, is_iabt, fault_ipa);
-@@ -2337,8 +2339,8 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
- 	 * nothing to walk and we treat it as a 1:1 before going through the
- 	 * canonical translation.
- 	 */
--	if (kvm_is_nested_s2_mmu(vcpu->kvm,vcpu->arch.hw_mmu) &&
--	    vcpu->arch.hw_mmu->nested_stage2_enabled) {
-+	if (kvm_is_nested_s2_mmu(vcpu->kvm, mmu) &&
-+	    mmu->nested_stage2_enabled) {
- 		u32 esr;
- 
- 		ret = kvm_walk_nested_s2(vcpu, fault_ipa, &nested_trans);
-@@ -2413,7 +2415,7 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
- 	}
- 
- 	/* Userspace should not be able to register out-of-bounds IPAs */
--	VM_BUG_ON(ipa >= kvm_phys_size(vcpu->arch.hw_mmu));
-+	VM_BUG_ON(ipa >= kvm_phys_size(mmu));
- 
- 	if (esr_fsc_is_access_flag_fault(esr)) {
- 		handle_access_fault(vcpu, fault_ipa);
-@@ -2428,6 +2430,7 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
- 		.memslot	= memslot,
- 		.hva		= hva,
- 		.esr		= esr,
-+		.mmu		= mmu,
- 	};
- 
- 	if (kvm_vm_is_protected(vcpu->kvm)) {
-
--- 
-2.55.0
-
+Thanks
+Mathias
