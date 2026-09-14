@@ -1,52 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C580347ECDC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD4946AEFE;
 	Mon, 14 Sep 2026 14:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395611; cv=none; b=X8VXVRauwyLeSg4M6bitMH8W/RvEU/p1Fgx2XElhmcBJ2aJSBwqEqvHBwVe2JaaE2Z+Jq0Wyg/T98Vm5F1BFkDSG2xj0IbJQ8QIeUJzJh14apuz34YEjo+lNgleWrBkynoHrd59PKiMpiX4gIKzhfqfZG74qmjzpll4XJy+Tv3Q=
+	t=1789395608; cv=none; b=Bk4t03je4M9XD8bL4t3c950QynJGX5gdMQC0vPatgYMiHMRZtXr/pzfnBcM/k4+o87XfIw7qaEA7/+3KLVIP00Q9kTPCEofMArXLSBsLO/HLuJMi7/yqjO16ZvQY6MTS02Z0PWWcXuk1QKYRUSr5moVtNkoHZzvrAyz7iVIojrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395611; c=relaxed/simple;
-	bh=oWpASUYUf1MQMHW4bMHsGYFavW7vYaxsR0F3qU5hKqo=;
+	s=arc-20240116; t=1789395608; c=relaxed/simple;
+	bh=YkUGaOGxAboONSlOCUlrI0V3DUz26aswBLoll6hE1Hw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QsZl9xziwKFm3WiSC2Tnzu1PXU+pSdq6SaIo8xo7iVFT5+410ci0KB+LptDz8VMTUGSEX/5uKNvrFBCk+w3ntRjhx4uYf3QZqaOBnV5nJT8g0meGYtvkM13C/9ox/tgTllFurGp7yL8D+CCIxCwrJv6s5EW3wck0hMpvtFrqES8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LLAJKd3P; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EKYGmvJVbyO9wSZPsiSw26HFt6EXOWym7ez4eK9PS5GP3oWKJSLzXFqN0pg5fQsEhMLsr6SpD4I3/1+vss+d/GSSbMU82VzvLyM2WPp1XGqqzeaPfpNbaMS7+2anQJLi/RFiyUuRZ3B4lV2mJJOt0wo6zZHykrz7YE0shJEsz0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJpoxhar; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LLAJKd3P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA581F0089C;
-	Mon, 14 Sep 2026 14:20:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJpoxhar"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F381F0089A;
+	Mon, 14 Sep 2026 14:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789395603;
-	bh=dgI5/uHVhGU/u/lFuomzDRYuBHWw9s688+WF+gpTSJY=;
+	s=k20260515; t=1789395602;
+	bh=iMSM+RY05r6OH+v1CtMIxEVXYlWKzTDj5y/6JWGPvKc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LLAJKd3PZfZJLA2mghR2o10iU2ZFbouGRqCNO/Ce//Yu5KWtT1Fb38VyB0L08FCuA
-	 ncSquZ0pmtNWj09L9+9wH2JgvSpzPbs7SgODgo6YgH3GSKvF/qjQlYeTePa6G5siUg
-	 Bdkg6gHk7rP4yAUkljf3cR/u0FwM7Cj2fwmJgMDjiFuBju+cdwiJREDEMEH9yQgYbO
-	 ET0CLVkg/JmOcmT9J9rFgy34S3fSuxjIQ0YUeeiTvpQJ9720JaTYJ+mHvdGA6WdHWp
-	 90jegwteY51FeTim7QjFIXDEhCh7EoyJQSAdw/7FXomE+LQsrBn3qMa+PV60IZjwTR
-	 9hmHyPPPeai3g==
+	b=QJpoxhar5EcAr9Tj32UEKCjB7ygUKbu+YQU2MwEULu89BluCAJAvbiz8D9aLFe3YG
+	 m4O61hGCSQ0UYdO8yIgUDixQlB/et1Zirheejfmo2ktwuCi9r78kzt8BPtFgRqgAaK
+	 +V13J3DqhduxvjoE1QY0FHOAfyKFB+Pz/Ig249foADiDCtx+eEA3yPQT2WcsNgafrD
+	 OoAJudEDwKaYMoCTZQ44t5loXVYBMqre193GtpoUpCzRikHp8b7PTkneOrR/PF55Cr
+	 eRw7wbeExZ967wBmO1MYstDrdkz3rC5DwnrmueWTUku27UgrfALTFxxvXDiCtCobf3
+	 dzdsJmnzyR7Fw==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Liew Rui Yan <aethernet65535@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
+Cc: Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
 	SJ Park <sj@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
 	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 5/6] Docs/mm/damon/design: clarify when qt_exceeds increases
-Date: Mon, 14 Sep 2026 07:19:50 -0700
-Message-ID: <20260914141952.91465-6-sj@kernel.org>
+Subject: [PATCH 3/6] selftests/damon: add script dir to sys.path for PYTHONSAFEPATH compatibility
+Date: Mon, 14 Sep 2026 07:19:48 -0700
+Message-ID: <20260914141952.91465-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260914141952.91465-1-sj@kernel.org>
 References: <20260914141952.91465-1-sj@kernel.org>
@@ -58,49 +49,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Liew Rui Yan <aethernet65535@gmail.com>
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 
-qt_exceeds counts how many times a scheme's quota has been exceeded.
+Running these tests under Python's safe path mode, either with -P on the
+interpreter command line or with PYTHONSAFEPATH set in the environment,
+stops the script's own directory being prepended to sys.path. Some
+distributions (RHEL, for example) build the tests with -P in the shebang.
 
-When using the temporal auto-tuning algorithm, the effective size quota
-becomes zero once the goal is [over-]achieved.  In this case, the quotas
-are still set, so qt_exceeds keeps increasing once per quota reset
-interval while the goal stays achieved.
+This breaks all 7 DAMON Python selftests that import the _damon_sysfs
+helper module located in the same directory:
 
-Clarify this behavior in the design document.
+  ModuleNotFoundError: No module named '_damon_sysfs'
 
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+Fix this by explicitly adding the script's directory to sys.path before
+importing _damon_sysfs, following the same pattern used in commit
+c3b3eb565bd7 ("tools: ynl: add script dir to sys.path") which fixed the
+identical issue for the YNL tools.
+
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 Reviewed-by: SJ Park <sj@kernel.org>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
 Changes from v1
-- v1: https://lore.kernel.org/20260910112255.157012-1-aethernet65535@gmail.com
-- Collect R-b: From SJ.
+- v1: https://lore.kernel.org/20260908214238.2680324-1-eva.kurchatova@virtuozzo.com
+- Collect R-b: from SJ.
 - Rebase to latest mm-new.
-Changes from RFC v1
-- RFC v1: https://lore.kernel.org/damon/20260908175105.42558-2-aethernet65535@gmail.com
-- Simplify the explanation.  Do not provide a complete definition of
-  qt_exceeds, but rather explain only the increment condition when using
-  temporal auto-tuning algorithm, simply to prevent users from becoming
-  confused and being unable to find any explanation.
 
- Documentation/mm/damon/design.rst | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ tools/testing/selftests/damon/damon_nr_regions.py              | 3 +++
+ tools/testing/selftests/damon/damos_apply_interval.py          | 3 +++
+ tools/testing/selftests/damon/damos_quota.py                   | 3 +++
+ tools/testing/selftests/damon/damos_quota_goal.py              | 3 +++
+ tools/testing/selftests/damon/damos_tried_regions.py           | 3 +++
+ .../selftests/damon/sysfs_update_schemes_tried_regions_hang.py | 3 +++
+ .../damon/sysfs_update_schemes_tried_regions_wss_estimation.py | 3 +++
+ 7 files changed, 21 insertions(+)
 
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index cb116a82ff20b..ad09416dfb21a 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -696,7 +696,9 @@ There are two such tuning algorithms that users can select as they need.
-   fast as possible, using maximum allowed quota, but only for a temporal short
-   time.  When the quota is under-achieved, this algorithm keeps tuning quota to
-   a maximum allowed one.  Once the quota is [over]-achieved, this sets the
--  quota zero.  Useful for deterministic control required environments.
-+  quota zero.  Useful for deterministic control required environments.  Note
-+  that the zero quota is a valid quota, and therefore ``qt_exceeds`` :ref:`stat
-+  <damon_design_damos_stat>` will keep increasing in this case.
+diff --git a/tools/testing/selftests/damon/damon_nr_regions.py b/tools/testing/selftests/damon/damon_nr_regions.py
+index 58f3291fed12a..e55239813c654 100755
+--- a/tools/testing/selftests/damon/damon_nr_regions.py
++++ b/tools/testing/selftests/damon/damon_nr_regions.py
+@@ -1,9 +1,12 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
  
- The goal can be specified with five parameters, namely ``target_metric``,
- ``target_value``, ``current_value``, ``nid`` and ``path``.  The auto-tuning
++import os
+ import subprocess
++import sys
+ import time
+ 
++sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+ import _damon_sysfs
+ 
+ def test_nr_regions(real_nr_regions, min_nr_regions, max_nr_regions):
+diff --git a/tools/testing/selftests/damon/damos_apply_interval.py b/tools/testing/selftests/damon/damos_apply_interval.py
+index 0f2f36584e48c..0bf7768b2006a 100755
+--- a/tools/testing/selftests/damon/damos_apply_interval.py
++++ b/tools/testing/selftests/damon/damos_apply_interval.py
+@@ -1,9 +1,12 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
++import os
+ import subprocess
++import sys
+ import time
+ 
++sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+ import _damon_sysfs
+ 
+ def main():
+diff --git a/tools/testing/selftests/damon/damos_quota.py b/tools/testing/selftests/damon/damos_quota.py
+index 57c4937aaed28..879115a499bf8 100755
+--- a/tools/testing/selftests/damon/damos_quota.py
++++ b/tools/testing/selftests/damon/damos_quota.py
+@@ -1,9 +1,12 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
++import os
+ import subprocess
++import sys
+ import time
+ 
++sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+ import _damon_sysfs
+ 
+ def main():
+diff --git a/tools/testing/selftests/damon/damos_quota_goal.py b/tools/testing/selftests/damon/damos_quota_goal.py
+index 661e4ba4765ae..fed033a0afdf9 100755
+--- a/tools/testing/selftests/damon/damos_quota_goal.py
++++ b/tools/testing/selftests/damon/damos_quota_goal.py
+@@ -1,9 +1,12 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
++import os
+ import subprocess
++import sys
+ import time
+ 
++sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+ import _damon_sysfs
+ 
+ def main():
+diff --git a/tools/testing/selftests/damon/damos_tried_regions.py b/tools/testing/selftests/damon/damos_tried_regions.py
+index d6472e6a6e082..6941f87c10b1c 100755
+--- a/tools/testing/selftests/damon/damos_tried_regions.py
++++ b/tools/testing/selftests/damon/damos_tried_regions.py
+@@ -1,9 +1,12 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
++import os
+ import subprocess
++import sys
+ import time
+ 
++sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+ import _damon_sysfs
+ 
+ def main():
+diff --git a/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py b/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py
+index 28c887a0108fd..625761c243b58 100755
+--- a/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py
++++ b/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py
+@@ -1,9 +1,12 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
++import os
+ import subprocess
++import sys
+ import time
+ 
++sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+ import _damon_sysfs
+ 
+ def main():
+diff --git a/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_wss_estimation.py b/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_wss_estimation.py
+index 16fdc6e7fc566..36e7ae5f826d8 100755
+--- a/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_wss_estimation.py
++++ b/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_wss_estimation.py
+@@ -1,9 +1,12 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
++import os
+ import subprocess
++import sys
+ import time
+ 
++sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+ import _damon_sysfs
+ 
+ def pass_wss_estimation(sz_region):
 -- 
 2.47.3
