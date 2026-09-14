@@ -1,133 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5B743A7F2;
-	Mon, 14 Sep 2026 14:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CA130F958;
+	Mon, 14 Sep 2026 14:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395326; cv=none; b=JufxhXhQXZjLQMDcgiw34+xlEOLzCs9Rw1o4br2pcVgdc1rdwNPFkbXY1bXW9uUfAi8GxEN5zSbkniBL2q1/29MaTJlpAb99wj5Yd1pg6VFYtXJP+t0/ZFo+5M71gO0uUx2kNGu89ndsHWftyzTTolqBm+ttVJk7sfWT28aDE7o=
+	t=1789395346; cv=none; b=kNb+Hql8+rItqel696CoWlLo1MBnAF0wTLtUNE1bWZsjydzD47cM0/mQ1TZhIhPPbTs5aK0TvKiZTNf4thEvCgJGkkVPJbvHTJnqubazef9MAZvDO01xyZau7GzoDj10pw9IDbsgCqV/FciI0cH0d+/8ejwQGmIovonfC5arCnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395326; c=relaxed/simple;
-	bh=LLp7SRJCJil3jKQyBrx5kqLbpNRcXwIPNhCIaK9/AqQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hZsOfZpGRgwITL6xZPOTkdybstMeYWB5BMmAn89Wi9WHva3I46ATRfTFjDn7aJKYoqgly24QDhDH8Vg2tBQaAEoijCPRaaDT7TA1ZZWIgGL/rUa4yZed8lsjQOGxUlx7yYaLsMMQu5SiPLk5WM/QTRYc6oQ5v74evpxOYAuIZtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cfsEWMQD; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cfsEWMQD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40FD1F000FF;
-	Mon, 14 Sep 2026 14:15:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789395324;
-	bh=NKqcjGct+eUYDqDO+z5tPRvHdSbBaPD9daayrfidjpI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cfsEWMQDZmt9/TaeWAwAvlJc2N8UhUGXWjB2MqRq5a02Y1zqJOTbdJtIXLpbfBjLr
-	 EbD0eJtCPuytMu3rE5xMhLFYo3CrOoEENR+j43PR5Z751Qbf2me44reBICcHe6co8G
-	 op5xnCMqzUSHr0as8quDCLy+ayH88qYzSgQui7fQloN+OeqKKE97XniCGpe9KtyvO8
-	 WV6Dmvt1tSAcP4QUCh647X695Gyi3UyS6DkgpHytTPPBGoAGrMWa+tgaxO02N6ePim
-	 HEaO4+08lVMqhE8VPXLpI2oc+/YzZB2xhErRXhBhCKLwaULDfL8J2R5GBFCsFu1enL
-	 FJiJpAbhvZ9Jw==
-Message-ID: <85e04f9e-e326-4fcc-90ad-3b23c988c6b6@kernel.org>
-Date: Mon, 14 Sep 2026 09:15:22 -0500
+	s=arc-20240116; t=1789395346; c=relaxed/simple;
+	bh=kDySIegLRkdndFjX2B6UpfkU7N+6pCXIjxLUZrvMop0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iFg99oLRlJs+gDgMFCgKQyYEOPxAkbF2RmQHEwjiZqBim63ngnFGggPO+JCLRtD2UkDrLGeWAqksSpFrcwuDXW3RF0uo7vbLzlPVX59FZAzCHRQb8uqeoH1FUxoF+lJ5xORYlhqxyrD3T1EAOZyUIo3HAIZ90M78PgEld9KnDpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A0193200009;
+	Mon, 14 Sep 2026 16:15:42 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 69BF0200007;
+	Mon, 14 Sep 2026 16:15:42 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 3A1E21800068;
+	Mon, 14 Sep 2026 22:15:41 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: alexandre.belloni@bootlin.com,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: pankit.garg@nxp.com,
+	vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v10 1/2] dt-bindings: rtc: Add pcf85053 support
+Date: Mon, 14 Sep 2026 19:45:36 +0530
+Message-Id: <20260914141537.3881890-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/9] mmc: sdhci-cadence: add SD6HC support and Agilex5
- enablement
-Content-Language: en-US
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-Cc: linux-mmc@vger.kernel.org, ulfh@kernel.org, adrian.hunter@intel.com,
- krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- p.zabel@pengutronix.de, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
- <CAPx+jO_6bH8i5BV=64i=dLdi2CVwiu1wceXcqWB14ux3FuX9Bw@mail.gmail.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <CAPx+jO_6bH8i5BV=64i=dLdi2CVwiu1wceXcqWB14ux3FuX9Bw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
+Add device tree bindings for NXP PCF85053 RTC chip.
 
+Signed-off-by: Pankit Garg <pankit.garg@nxp.com>
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+---
+V9 -> V10: - Add description for the active-low level alarm interrupt.
+	   - Move the PCF85053 MAINTAINERS entry to the driver patch.
+V8 -> V9: - Document optional CLKOUT clock provider and add it to the example.
+	  - Disallow interrupts and nxp,write-access on the secondary interface.
+	  - Describe the alarm interrupt as active-low level triggered.
+	  - Use 'const' for the single compatible string.
+V7 -> V8: - Use 'unevaluatedProperties: false' instead of 'additionalProperties:
+	    false'.
+	  - Fix typo in 'nxp,interface' description ("ready only" -> "read only").
+V6 -> V7: - no changes
+	  - Added Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+V5 -> V6: - Dropped driver-specific commentary from property descriptions.
+	  - Simplified and clarified descriptions for better readability.
+V4 -> V5: - Updated schema validation logic to enforce correct combinations of
+            'nxp,interface' and 'nxp,write-access' using oneOf clauses.
+          - Refined property descriptions for clarity and hardware alignment.
+V3 -> V4: Add dedicated nxp,pcf85053.yaml.
+          Remove entry from trivial-rtc.yaml.
+V2 -> V3: Moved MAINTAINERS file changes to the driver patch
+V1 -> V2: Handled dt-bindings by trivial-rtc.yaml
 
-On 9/11/26 10:40, Ulf Hansson wrote:
-> On Tue, Sep 1, 2026 at 8:49 PM Tanmay Kathpalia
-> <tanmay.kathpalia@altera.com> wrote:
->>
->> This series adds support for the Cadence SD6HC (sixth-generation) SDHCI
->> controller and enables it on Altera Agilex5 SoCs.
->>
->> The SD6HC PHY architecture differs substantially from the SD4HC: it
->> requires dedicated per-speed-mode IO cell timing parameters and a
->> DLL-based delay line to achieve correct signal margins across all speed
->> grades from Default Speed through HS400. These are programmed through a
->> new sdhci-cadence-phy-v6.c file; shared driver infrastructure lives in
->> sdhci-cadence-core.c.
->>
->> Note: this series depends on commit ab45ecfab540 ("dt-bindings: reset:
->> altr: add COMBOPHY_RESET for Agilex5"), which is already in mainline via
->> the reset tree. It is not yet in mmc/next; apply or merge that commit
->> when building/testing this series on top of mmc/next. The previous v1/v2
->> reset binding patch is therefore omitted from this series.
->>
->> Board DTS files do not enable the SMMU; that is provided by commit
->> 10cf797f3f8a ("arm64: dts: socfpga: agilex5: Enable the SMMU") in the
->> SoC DT tree. It is not yet in mmc/next. Apply or merge that commit when
->> building/testing this series on top of mmc/next, otherwise the SMMU
->> stays disabled in socfpga_agilex5.dtsi.
->>
->> Patch 1: DT binding
->>    Adds a dedicated cdns,sd6hc.yaml binding with SD6HC compatible strings,
->>    clock/reset/IOMMU constraints, and PHY timing properties.
->>
->> Patches 2-5: Device tree
->>    Patch 2 adds the SD6HC controller node to the Agilex5 SoC DTSI as
->>    sdmmc, left disabled.
->>    Patch 3 enables SD card operation (4-bit, SDR104, 200 MHz) on the
->>    SOCDK OOBE board with GPIO-switched IO-voltage regulation.
->>    Patch 4 registers the intel,socfpga-agilex5-socdk-emmc board variant
->>    in the arm/altera binding.
->>    Patch 5 adds socfpga_agilex5_socdk_emmc.dts for eMMC-only operation
->>    (8-bit, HS200/HS400, 1.8 V IO, 200 MHz).
->>
->> Patches 6-9: Driver
->>    Patch 6 renames SD4HC-specific functions and structures with a "cdns4"
->>    prefix to separate them from shared driver paths.
->>    Patch 7 encapsulates SD4HC PHY probing in sdhci_cdns4_phy_probe() and
->>    makes every of_device_id entry carry explicit platform data, removing
->>    the silent fallback.
->>    Patch 8 introduces the SD6HC PHY driver (sdhci-cadence-phy-v6.c): DLL
->>    lock/bypass, per-speed-mode IO cell timing, tuning, and HW reset. The
->>    common driver core selects between v4 and v6 PHY operations based on
->>    the SDHCI specification version reported by the controller, and
->>    reprograms the PHY from set_clock and set_uhs_signaling. SD6HC clocks
->>    are requested by name ("ciu" and "biu").
->>    Patch 9 adds the Agilex5 platform overlay under altr,agilex5-sd6hc:
->>    40-bit DMA mask for the SMMU address space, quirks for
->>    CAP_CLOCK_BASE_BROKEN, PRESET_VALUE_BROKEN, ACMD23_BROKEN and
->>    MULTIBLOCK_READ_ACMD12, .get_max_clock set to
->>    sdhci_pltfm_clk_get_max_clock, and an init hook that asserts and
->>    deasserts the three named resets together, keeping exclusive ownership
->>    via devm so they stay deasserted for the life of the device.
->>
->> Tested on Agilex5 SOCDK:
->>    - SD card: Default Speed, High Speed, SDR25, SDR50, SDR104
->>    - eMMC daughter board: HS200, HS400
->>
->> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
->>
->> ---
->> Changes in v7:
->>
-> 
-> [...]
-> 
-> Patch 1 and 6-9 from the v7 series, applied for next, thanks!
-> 
-Patch 2,3,4,5 appled for next.
+ .../devicetree/bindings/rtc/nxp,pcf85053.yaml | 132 ++++++++++++++++++
+ 1 file changed, 132 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
 
-Thanks,
-Dinh
+diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
+new file mode 100644
+index 000000000000..960f871b6334
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
+@@ -0,0 +1,132 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025-2026 NXP
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/nxp,pcf85053.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP PCF85053 Real Time Clock
++
++maintainers:
++  - Pankit Garg <pankit.garg@nxp.com>
++  - Lakshay Piplani <lakshay.piplani@nxp.com>
++
++properties:
++  compatible:
++    const: nxp,pcf85053
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++    description: |
++      Alarm interrupt output. The ALRT pin is active-low and should be
++      configured as a level-low interrupt.
++
++  "#clock-cells":
++    const: 0
++    description: |
++      Present when the CLKOUT pin is exposed as a clock provider. In a
++      dual-host configuration, only one PCF85053 interface node should
++      expose CLKOUT as a clock provider.
++
++  clock-output-names:
++    maxItems: 1
++
++  nxp,interface:
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [ primary, secondary ]
++    description: |
++      Identifies this host's logical role in a multi-host topology for the
++      PCF85053 RTC. The device exposes a "TWO" ownership bit in the CTRL
++      register that gates which host may write the time registers.
++        - "primary": Designated host that *may* claim write ownership (set
++          CTRL.TWO=1) **if** write-access is explicitly requested.
++        - "secondary": Peer host that writes only when CTRL.TWO=0 (default).
++
++      This property determines the intended role of the host in relation to
++      the write ownership.
++
++      The actual role depends on whether 'nxp,write-access' is also specified.
++      Supported configurations are:
++        1. Primary with 'nxp,write-access' -> primary claims write ownership.
++        2. Primary without 'nxp,write-access' -> secondary owns time-register writes.
++        3. Secondary (must not specify 'nxp,write-access') -> secondary may write
++           the time registers when CTRL.TWO=0.
++
++  nxp,write-access:
++    type: boolean
++    description: |
++      Indicates that write ownership of the PCF85053 RTC should be claimed by setting
++      CTRL.TWO=1. This property is only valid when acting as the primary interface
++      (nxp,interface="primary").
++
++required:
++  - compatible
++  - reg
++  - nxp,interface
++
++unevaluatedProperties: false
++
++allOf:
++  - $ref: rtc.yaml#
++  - if:
++      properties:
++        nxp,interface:
++          const: secondary
++    then:
++      properties:
++        # The secondary interface has read-only access to the control and
++        # status registers, so it cannot service or clear the alarm IRQ and
++        # cannot claim write ownership.
++        interrupts: false
++        nxp,write-access: false
++
++examples:
++  # Single host example.
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@6f {
++        compatible = "nxp,pcf85053";
++        reg = <0x6f>;
++        nxp,interface = "primary";
++        nxp,write-access;
++        #clock-cells = <0>;
++        clock-output-names = "pcf85053-clkout";
++        interrupt-parent = <&gpio2>;
++        interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
++      };
++    };
++
++  # Dual-host example: one primary that claims writes; one secondary that never claims writes.
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c0 {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@6f {
++        compatible = "nxp,pcf85053";
++        reg = <0x6f>;
++        nxp,interface = "primary";
++        nxp,write-access;
++        interrupt-parent = <&gpio2>;
++        interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
++      };
++    };
++
++    i2c1 {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@6f {
++        compatible = "nxp,pcf85053";
++        reg = <0x6f>;
++        nxp,interface = "secondary";
++      };
++    };
+-- 
+2.25.1
+
