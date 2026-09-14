@@ -1,158 +1,505 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A6B43F085
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9988F43F4B5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382729; cv=none; b=j+5SnuSF7SJls9S5N1rxBCwd7sYZ3loJAG1U4H92PT9qehbiDNQCw0jJH6Bw63eTk/jC9rmVu0Bs5N8b5Z+6Quotfxkk6PKjOaQzmWKU2a8wCRWpt/j2tLYokYRJ4JDk9ROLkENxpLgugMPU6L/imaGngx2jgPS90PNJwV+LZpA=
+	t=1789382727; cv=none; b=bKrhEEjm/+mssTXQJO+YCGL9OZDtc5gY7WbWJFq77PzDSUyOYPvN5D1AEU2X9ql8gQmARoDnIT/05xoV5gxnQJz5cs2BxZf/Yr3SyTsij0ub2XUhbSno5HGCf0BJjJKBwj2ayBm3KBGTRrYyS37Ny3bZbtzH5IEOIXNnGN/tEE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382729; c=relaxed/simple;
-	bh=eyaOqajrrwEoNmASdlj24V+fmIkqbU1OG/65Abo8pj0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GuROm6kKMCjMCLk3fXPdqgYSkW67Opzn8sF6x7fe+fgH/DYt0yFV/lBfKSi1imNDwm5hco7rA++yQKdyVtwlZGvS/3DDmtkuOBqwOS9USEING+JhBdDqEP9pKGOUCPZvhwMydZql9kYXZvyfnGgxwmlxzgxjq1qWigrgnPLDjAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kLhDkpKk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wf4wDVf7; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1789382727; c=relaxed/simple;
+	bh=XdpO3Z2xUmJdFM+ZdRqhq/fEc5b7IdIWAfq0+PyGKa8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nxlFC2R/w4Huv1Yk9wZzCa6EZ6DWE52COXjF0s1Nzx3SDSXpmd3TUbax+5Cr2zgd8ySOZtYMDJ/pStNq0UV/28wQ5bN39UVZRvpVxk5GO+trkmDCMIbelMjMkhFw47PCL5ms/JntmbdYuDBes+uVwgd5cWPLFC9FfJwHiUOOpFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iS9LE7Nf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P9b7P4cp; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kLhDkpKk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wf4wDVf7"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9neJ0401796
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:20 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iS9LE7Nf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P9b7P4cp"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nnFF085548
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Oln3IkACQoy8k2yOA9M9clhi5W3pr4OikQviEiaDc5U=; b=kLhDkpKknrnvHjkv
-	9tjdBeiJ14iXmL4hZWnaIlGbn817I7U3ZqFh4xo2Zh7anZu2UUcAnz8Ti+iVBycC
-	kEuu9YkY0IzuxNrmOIJFDsTW5OkGxYiN7LqGgkrCuulQ4SP5YYDwKQTrQjrofocR
-	xpw0Y7xVZNCuMUh+lAqDfXHLEf1XD2AMMb4YzrqNz0uMQzdqMg9bEvbJA6jD1TCD
-	tdMd/Y/lXs+qrmf3O2+nyOLqOi+cgcqO+5zo/0Wy+7agu7Wys9uwfN0VEwtK9+uW
-	6pg9lgAs9AEspXTAJtcHOIo7LgxJX6qWAp28PufNxHvjLC6oq0BedRYuewPwOqk7
-	nPQNbg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hst0c9-1
+	QkOdbvW+Q0lsaHaJYviFKORWfLA9pndfUSMwld9SLqM=; b=iS9LE7NfHk3YnP3p
+	TReSIzayqNlr3CRnohwYIQdiAIM+TDfA3EKVmmbCz2DdgwOS0hNCQE8muOLJQLq8
+	Aryjc6RjrEShwJZxCmBUHujRoEVcvzeV8BcXD+PGbIF2CNYRl2qLwgQHrh4z4yqT
+	mU3ZZpj9OKeVTXPHuS6cwa5uJCBzkwZDbSWB5kbi7pHbVLyu9AHaqBN2/3DGUIp8
+	ydZQ9IPlyduDdTJzXalV4VWX76AeUbpBiDEZya2FGqiwhRy0dxoZBVgeiuIK2PXI
+	2GDhf6quBTNHK/3ZLwSZyWQVDTc2zEeXkjnZzmPK1vuOemomHQk4z/bZvWE/Mxuq
+	6pspaw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9de6tb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:19 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a18b457bcso42258685a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:45:19 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:15 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0b66ecd9so200653185a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:45:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789382719; x=1789987519; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Oln3IkACQoy8k2yOA9M9clhi5W3pr4OikQviEiaDc5U=;
-        b=Wf4wDVf7jK/4RNjLyTe3sjmsQz0+rAb0OOcBadKSwOP3nWVF6xq85Dq12vR2Iia/T/
-         GRy98AiqYzn63S+HSk+JCyQK2+wiivpjzBhVVLvwgMl+2UXUlcLzJnh00eoqQaBb5yIS
-         lIgayr6FgzRPt1CZEHtRBbjy4Z3q8eGdYx8TTkrE+15BjZzjklDALWFz3HLFoS0st+D9
-         qnpzPWYzg1h+2tZAWTIGQdfyKwk2b8Lm/xsdxuO0rv06fu2WrvQJmzKVws4N96HgXqkl
-         zPDHTN7X6y+0LgBz+gK/m208mtlvjgiiiaUBWVatzl0aagou6juRkk5tSTZ6YoqmzoU7
-         Y3pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789382719; x=1789987519;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1789382715; x=1789987515; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Oln3IkACQoy8k2yOA9M9clhi5W3pr4OikQviEiaDc5U=;
-        b=h0/WKvHCUAtWa8/rnodaTW0sBqgnROqasCAwr6AycF1sfsTjyfYYJYsSX929vFPsql
-         B15kDmHdSwegDlTj/Sa2Cqyh3ehAWD4yA7eEKMhMT1D8w42jvq6Pu1WOIJ8dRNXItaCZ
-         kd+JAdhk4ThICWUmPK6UTuZCzU14ApNhILyctYpuUoXk8Qqxx/9W5wJ7wrGgjJiEEI37
-         NfD+eGYit72Hf9nq8Mln1FQcH3OWOQwm1hspBrNGKAhfoHV42Anq7Cxg+t88cu4vRtEH
-         Zf+gdU4DB+oTXrmC84NH6eE28vawYgsy5fLAFxo5sidhv+m0PxhKDc2ZNt5J7UZoF0Sk
-         5dFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPiLD124EtSmRg66UNKP3mFro7a1zC9cMo6em3xXWcSOx1GbpMjPISyiAYeER8oFHJb8VTwsuwC8YDm5c=@vger.kernel.org
-X-Gm-Message-State: AFuF++noAa99TkVUwpLmq5Php072HYYXwOM7oT0bxQn7gFDwIa5vuhsN
-	8DbsFAm8BB6PWS1w/ICPTevmJX3omAdyKGst5ZbSXCO7NRL7vPXcaauLsBiQ3J1xLIUTbARojnx
-	KU5PmadEa8CQS6Nv6PTVryrumKFBK+szNyOhtsy8aGN6/TBgyqh45YgGek+G7VOBCRH4=
-X-Gm-Gg: AYBFou1NQi9fgSU0++9gG357NXyA4/QjX7T0DJ2PO0dtYXxQzVqHWWfpBR2EImZ6fbi
-	vc5kmCAuhWGAgFlntmfPXdTYuvHiIdalIALHduaii0GkjRvtCQc6x/WHZJMJp3A91Dzzx3qaaSM
-	6ArpyoRg8I9mY+6Zw+AXmw2lJHFwql7L27gNFOiNm7qzFrccKVkw547IpJmKBcOpgTvapoYK7nY
-	r2aoZcwlsqIFwWOU1Xa0gf6T6L0TOLrIE3kqTZDGXNS3PMQmd/HdOn1fIr42blPBGKSKwA7zIDK
-	HytWVe8qaxxlDBPrXzncgb3T3G0aMLtcfa9fnGmpHanpb8+8eMEFW0rO9w2M/7rjPnEPZWt7RPm
-	ZSxbzSkQoO4MuC5gXfemLeg==
-X-Received: by 2002:a05:620a:2b9c:b0:931:23a:83ca with SMTP id af79cd13be357-93a29a3892fmr207718285a.4.1789382714416;
-        Mon, 14 Sep 2026 03:45:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b9c:b0:931:23a:83ca with SMTP id af79cd13be357-93a29a3892fmr207713785a.4.1789382713879;
-        Mon, 14 Sep 2026 03:45:13 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b58f8528sm4027243a12.5.2026.09.14.03.45.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 03:45:13 -0700 (PDT)
-Message-ID: <67557983-fb7b-456a-828b-d9c73ce1eada@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 12:45:11 +0200
+        bh=QkOdbvW+Q0lsaHaJYviFKORWfLA9pndfUSMwld9SLqM=;
+        b=P9b7P4cp7CLv89yuWcelbWibuRuoSz6wiWWB8YN4rLL+noLXGiX1dWmXiiWmOzdpEx
+         oLV3Fpxuy2FsLM9SCwQypSx9TjovIAbmKSYNHzFJYLExAl1+RSCqbyRev6JR7UCz4U7B
+         9RFm9UnpaDxQcDWAvQzvgzGvQ3hc896ltAkuWmIVdZ0PryAGxRIvtkAhcV/cT8iG1rWF
+         3TwNy/Ilj2Y9NIlp3ASR8jddsUMizifUdyb7/lWRxjWyNhp6Tj+PNIjU3NuV0CB46Uzm
+         gPZrymSAq58FEJapPWPxaa4YjEx7qupislObYJdnKgDGjzpxLWqZU7ZTOw2IzcPDOtvr
+         DQmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789382715; x=1789987515;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QkOdbvW+Q0lsaHaJYviFKORWfLA9pndfUSMwld9SLqM=;
+        b=jlLlMOjwHkJ1JDWlsNmVu8CHOc8Rx3NpBae72WjwsMkvy3RqBY0cfykFbKiyqbuV9Z
+         OS5wVs8Eo7/c59PcIPKRkrDDtv3ThjWPgmJbVhMQpjbYDfpc3W8p9iil7CPjOxiGkYhn
+         CHlPOA0jwfny/9TrjeE331zSLTnBaJnAeNV24f+0sZXmjI+eEZEEJhPiJgrYCuWkz/Zv
+         RFObNtKGDJvuJRp334gg/3tAR4mG5Cho1wMt/FO5/mPOspPyEl64lb+BjHqKozM6qisk
+         KCutfq6D/GljISKsP+Vvat1ngyPr/jU75+kpjKs5BeBB4QmUFX7M1NNwtc3dIlKM2Cp+
+         Wc+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxzThy+AT7qNGBgtWZ0cGsaF8gYvwRiGdmlbBPH02Qj8ugezu+0YMWo0/dmYbIcqMy4M77DVQ/zjLu0awM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXXOylYCt9eluHeL7J3kFkSENgsVVHae7C82xNp1JhSLQ+XxZM
+	Hy+SbEmDPumwVQrSRHARiIHjrYvHodhPdM2kjeS92AgQHqxKpe3xY3riIkMOfP7dnIhkODj58YL
+	Wla27GaoTSg5skOInZoHiFPD1G3cJv3PmjGwwyp6gEXA0vwtpZpqcun14E5kEONlGPZk=
+X-Gm-Gg: AYBFou2JZI/jpgp2r6Ay7e2s64FeTwPCdvLKOeGWi1vtA/omkS/7L0vKPgoe/C+Hicw
+	7Wa/wYJgPKRckP0TpBSAUHMlD5w9F18/Uo4MfkWRixw3LxXbubW3KzBCzp4d2cmXWBE3i/ErOS8
+	XtlNTA3ot43wRo//tEI1RLRarrJWY5DUyZwOXkqFPOr1UkMi+KuwXwvu2KQ2K0HMI+Nm+NmjXcD
+	wmwGYCONOxoTFBQlkx5FvuCDyptm/G/6ljoTH0qV/j+vTKHEtlXQlWx6NXYC2fOREqkNaK3jUjN
+	Jzu12kbQ2RX0SmUJQTtIBSvyxQRleQu5X+668sQIsgzyGj9BRP0ONLSb+YOsUsKsFXgmqjAs9aM
+	dN14GHvOY
+X-Received: by 2002:a05:620a:2547:b0:930:9585:e08e with SMTP id af79cd13be357-93a2976663emr238506085a.10.1789382710071;
+        Mon, 14 Sep 2026 03:45:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:2547:b0:930:9585:e08e with SMTP id af79cd13be357-93a2976663emr238499385a.10.1789382709451;
+        Mon, 14 Sep 2026 03:45:09 -0700 (PDT)
+Received: from [127.0.1.1] ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee8bsm26335926f8f.15.2026.09.14.03.45.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 03:45:08 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 13:44:49 +0300
+Subject: [PATCH 2/5] arm64: dts: qcom: eliza-cqs-evk: Move sound card
+ support to Eliza EVK generic
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] arm64: dts: qcom: nord-ride-embedded: Add WCN7850
- WLAN support
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Yu Zhang <yu.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260914071944.164217-1-shengchao.guo@oss.qualcomm.com>
- <20260914071944.164217-5-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914071944.164217-5-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfX1UXnSqKRHzL6
- OjzdsR7KkejwwDolWLzTTfEkMF5aZkRbM7xGEfeqAIt6TCA5VIMvtH6TCnH9b85vmSWOwYxjV4s
- RwpJsLq8ACcPi1xtDAlW1wcvBeh7Pr94xrdF46Ny9y6krntecFcifwWc2F6jIP2Ir+zL+p7K/S5
- /d0qlu36Ju3E3fJgFaaLDj7c2F+j4Oap4gpipc5CWoWjeppBkl8Q4oeIbRyqJCAgI71idU6/DEz
- pf6EbXZQ+VJ6rqirHlVjHUsM5QHa0sHUsY/P7DFsgpWwzJz5lycajuSCuPO6w55rncqvSoruPM5
- xz/i3c/I1YLiPuscdLMugzgpoxUR3LYZP9ekNQ/CwkOPm/NVMJ6nGbJqRWzYFYxMN7yL6O/0nwi
- rjayMopF/b243AxZUTyPH41mTW3dIsxtJADmuRYiqR2sZonPUQY+hqE0yyudq6A7Lulwdjuq+ca
- 4nunxElCVW2rEbSVWrA==
-X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa7d03f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+Message-Id: <20260914-dts-qcom-eliza-add-ufs-variant-v1-2-78b3249eae61@oss.qualcomm.com>
+References: <20260914-dts-qcom-eliza-add-ufs-variant-v1-0-78b3249eae61@oss.qualcomm.com>
+In-Reply-To: <20260914-dts-qcom-eliza-add-ufs-variant-v1-0-78b3249eae61@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-0e65f
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9155;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=XdpO3Z2xUmJdFM+ZdRqhq/fEc5b7IdIWAfq0+PyGKa8=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqp9Arn5qnvDskgtnt6xiIQ6hH0I1dPqXcm9aDS
+ +Mxylawk3aJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaqfQKwAKCRAbX0TJAJUV
+ Vk8iEACdz5rNSpF8tzeFYMldzQAaHUu/d7IF5TfC+y0Htxshjsi34sZGknthY1fZxjGrXY7gfIK
+ WPbxsQgyHv7zu4aehrDi6seDCQbIkThU/CbMiyXRK7G/Xmyy7cjoEp5/4TzK7g1kge1qsuwb03e
+ 6AJ906ony0Tif3KnVc5WjfDQcpK+bMhzJFUzAxtWddGBT9JGT1N+d0IgR475XqOW1+GhjeYtbNm
+ uBqGROZRbsctkhkzZnCqjcnfPG/uJhpSIsdZKEaHBl61TzJgMirs8Uu47oXjsHg3iHoIyPIQdCj
+ H+jyx9HWPbK0IDXrCqQq9VwKC9+4WOwjkMtVp5wH2tmB3yXdr8J4LgBfvc5OTtZFRITqgDz7Q3G
+ 8Btnd+zAIzOA47qMf6LJ4h2V5xQ9PI2ECP5xC9Q1S9MgYzYTyBVn9RWJby2kr5F97eqDAAdfmho
+ S6Wc/4FQGD7D+dag3qQRgdFneCMuixqCl1gj4W9mpbl+6yTClT1LSML+VaqGG+x1PHv3diL6CR2
+ 6DzBLW05xMAuVFhqJlShQgw3sJS4tFLXouXodV3vj+sjbtYmdZe+25ipf8Eo8VYotkAh4hA+lnl
+ JDiqUnDTrtGJdjGj8YsadSFkMhWtqjf0VCuB9jbUwvgcM3Sq935ueigOn905JZ2kZycD2j3eRPq
+ m/acXwVq/xnSIFQ==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfX2qTqhK8KwxKW
+ TFaphA4JsRBCHQqd7hgphfEd9KJX8DQktrcwstuB8QWASs9rlCQGXRRAZWAe+LJ1P1S8X1Zessz
+ PwEehYRDG1vQVhaFxB6UmGoNJUR74AWg/fbJYgtQP/WAcC0Mt9LMCrL9YJsxlNuuBN/8UKLhGKy
+ gd1jXSbQstISLpw5KGnoFK3QY1oacOQsz4h3LRy4Q/1ZBY0bLxcWrEXbaWvzo/1T7Y1mNMVbIXY
+ duyNqfyuHk+t5MN+g/twG7L0cpbLOhbJ9P2/ilTZS8l8Mff/XxBpXZjSMQGijmnf24k4iILzR8F
+ VDMBex34q5KB0aK2zyaO3Me4uSH9GslT7+OlqazyGykJMuWGJbqij7+4lpD5qlqcohrh66IoYXL
+ btJMUTpqMCHslRSV9cgmBC0YPmahn6RD6aI35mTrTMtjRr2D1Nj0x3sW7oBTmz5EFy8UPubO04Z
+ HtnaDrmAwx7ymM+EWxQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfX82Y/uLhUgB+V
+ dQCywABfInqB9SVzVEcPmGHV7H9Sfy2sLNDpFPf0yaHahMgmcOaSo0bTIgEWp2wFwhOK1nDd6gt
+ VrdFx97T+Ap8ORdaM8yo2YMSePOENB0=
+X-Proofpoint-GUID: kzKmaJsEtnrNiyo4m06-m1kE0RssHEoO
+X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa7d03b cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=QryoO0P2UFxYqXaw9vcA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: 89gMcHRJtHHXC7lqIhTv5B13zppJkVv1
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfXz8v6hMRY8nMZ
- vKgD1eZZnB2zHiJxyn1F+ne+qKNQREmmw1pT5jT4YyqUgB6LGl/DitFmjcrcb6P8yTag39JwIWv
- Ylf46q5cFlVvorMcWGoHCdwUHqG2SGk=
-X-Proofpoint-ORIG-GUID: 89gMcHRJtHHXC7lqIhTv5B13zppJkVv1
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=igo63PMTUtHa8Wayq9QA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: kzKmaJsEtnrNiyo4m06-m1kE0RssHEoO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140154
 
-On 9/14/26 9:19 AM, Shawn Guo wrote:
-> From: "Yu Zhang(Yuriy)" <yu.zhang@oss.qualcomm.com>
-> 
-> The Nord Ride Embedded board carries a QCA6797AQ (WCN7850) LGA module on
-> a connectivity adapter card hanging off PCIe2.  Two PMIC GPIOs gate the
-> module supplies: PWR_CORE (pmau0102_e GPIO6) enables the DBU_CORE_VL,
-> DBU_CORE_VM and DBU_CORE_VH regulators feeding VDD_CORE_VL/VM/VH, and
-> PWR_CTRL1 (pmau0102_e GPIO8) enables DBU4, which produces the 3.3 V rail.
-> PWR_CTRL2 drives DBU3, which is not populated, so it is left alone.
-> 
-> Describe those rails, the WCN7850 PMU that derives the chip supplies from
-> them, and the PCIe endpoint node consuming the PMU outputs.
-> 
-> Signed-off-by: Yu Zhang(Yuriy) <yu.zhang@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+The sound card support is the same across all variants of the Eliza
+EVK. That means we can reuse it even for Eliza CQM EVK later.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+So move the sound related nodes from Eliza CQS EVK to Eliza EVK generic
+implementation.
 
-Konrad
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts | 141 -----------------------------
+ arch/arm64/boot/dts/qcom/eliza-evk.dtsi    | 139 ++++++++++++++++++++++++++++
+ 2 files changed, 139 insertions(+), 141 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts b/arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts
+index 5e4175291f05..43d428a4ed2d 100644
+--- a/arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts
++++ b/arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts
+@@ -5,151 +5,10 @@
+ 
+ /dts-v1/;
+ 
+-#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+-
+ #include "eliza-cqs-som.dtsi"
+ #include "eliza-evk.dtsi"
+ 
+ / {
+ 	model = "Qualcomm Technologies, Inc. Eliza CQS EVK";
+ 	compatible = "qcom,eliza-cqs-evk", "qcom,eliza-cqs-som", "qcom,eliza";
+-
+-	sound {
+-		compatible = "qcom,eliza-sndcard", "qcom,sm8450-sndcard";
+-		model = "eliza-cqs-evk";
+-
+-		audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
+-				"SpkrRight IN", "WSA_SPK2 OUT",
+-				"VA DMIC0", "vdd-micb",
+-				"VA DMIC1", "vdd-micb",
+-				"VA DMIC2", "vdd-micb",
+-				"VA DMIC3", "vdd-micb",
+-				"VA DMIC4", "vdd-micb",
+-				"VA DMIC5", "vdd-micb",
+-				"VA DMIC6", "vdd-micb",
+-				"VA DMIC7", "vdd-micb";
+-
+-		va-dai-link {
+-			link-name = "VA Capture";
+-
+-			codec {
+-				sound-dai = <&lpass_vamacro 0>;
+-			};
+-
+-			cpu {
+-				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
+-			};
+-
+-			platform {
+-				sound-dai = <&q6apm>;
+-			};
+-		};
+-
+-		wsa-dai-link {
+-			link-name = "WSA Playback";
+-
+-			codec {
+-				sound-dai = <&left_spkr>, <&right_spkr>,
+-					    <&swr0 0>, <&lpass_wsamacro 0>;
+-			};
+-
+-			cpu {
+-				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
+-			};
+-
+-			platform {
+-				sound-dai = <&q6apm>;
+-			};
+-		};
+-	};
+-
+-	dmic_eldo: regulator-dmic-eldo {
+-		compatible = "regulator-fixed";
+-		regulator-name = "dmic-eldo";
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-		gpio = <&pm7550_gpios 8 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		vin-supply = <&vreg_bob>;
+-	};
+-};
+-
+-&lpass_vamacro {
+-	pinctrl-0 = <&dmic01_default>, <&dmic23_default>,
+-		    <&dmic45_default>, <&dmic67_default>;
+-	pinctrl-names = "default";
+-
+-	vdd-micb-supply = <&dmic_eldo>;
+-	qcom,dmic-sample-rate = <4800000>;
+-};
+-
+-&swr0 {
+-	pinctrl-0 = <&wsa_swr_active>;
+-	pinctrl-names = "default";
+-
+-	status = "okay";
+-
+-	/* WSA8845, Speaker Left */
+-	left_spkr: speaker@0,0 {
+-		compatible = "sdw20217020400";
+-		reg = <0 0>;
+-		pinctrl-0 = <&spkr_1_sd_n_active>;
+-		pinctrl-names = "default";
+-		powerdown-gpios = <&tlmm 59 GPIO_ACTIVE_LOW>;
+-		vdd-1p8-supply = <&vreg_l7b>;
+-		vdd-io-supply = <&vreg_l7b>;
+-
+-		#sound-dai-cells = <0>;
+-		sound-name-prefix = "SpkrLeft";
+-
+-		/*
+-		 * WSA8845 Port 1 (DAC)     <=> SWR0 Port 1  (SPKR_L)
+-		 * WSA8845 Port 2 (COMP)    <=> SWR0 Port 2  (SPKR_L_COMP)
+-		 * WSA8845 Port 3 (BOOST)   <=> SWR0 Port 3  (SPKR_L_BOOST)
+-		 * WSA8845 Port 4 (PBR)     <=> SWR0 Port 7  (PBR)
+-		 * WSA8845 Port 5 (VISENSE) <=> SWR0 Port 10 (SPKR_L_VI)
+-		 * WSA8845 Port 6 (CPS)     <=> SWR0 Port 13 (CPS)
+-		 */
+-		qcom,port-mapping = <1 2 3 7 10 13>;
+-	};
+-
+-	/* WSA8845, Speaker Right */
+-	right_spkr: speaker@0,1 {
+-		compatible = "sdw20217020400";
+-		reg = <0 1>;
+-		pinctrl-0 = <&spkr_2_sd_n_active>;
+-		pinctrl-names = "default";
+-		powerdown-gpios = <&tlmm 79 GPIO_ACTIVE_LOW>;
+-		vdd-1p8-supply = <&vreg_l7b>;
+-		vdd-io-supply = <&vreg_l7b>;
+-
+-		#sound-dai-cells = <0>;
+-		sound-name-prefix = "SpkrRight";
+-
+-		/*
+-		 * WSA8845 Port 1 (DAC)     <=> SWR0 Port 4  (SPKR_R)
+-		 * WSA8845 Port 2 (COMP)    <=> SWR0 Port 5  (SPKR_R_COMP)
+-		 * WSA8845 Port 3 (BOOST)   <=> SWR0 Port 6  (SPKR_R_BOOST)
+-		 * WSA8845 Port 4 (PBR)     <=> SWR0 Port 7  (PBR)
+-		 * WSA8845 Port 5 (VISENSE) <=> SWR0 Port 11 (SPKR_R_VI)
+-		 * WSA8845 Port 6 (CPS)     <=> SWR0 Port 13 (CPS)
+-		 */
+-		qcom,port-mapping = <4 5 6 7 11 13>;
+-	};
+-};
+-
+-&tlmm {
+-	spkr_1_sd_n_active: spkr-1-sd-n-active-state {
+-		pins = "gpio59";
+-		function = "gpio";
+-		drive-strength = <16>;
+-		bias-disable;
+-	};
+-
+-	spkr_2_sd_n_active: spkr-2-sd-n-active-state {
+-		pins = "gpio79";
+-		function = "gpio";
+-		drive-strength = <16>;
+-		bias-disable;
+-	};
+ };
+diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+index 6c5cc47a183e..726fd8dd6c0d 100644
+--- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
++++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+@@ -3,6 +3,8 @@
+  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
+ 
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++
+ / {
+ 	aliases {
+ 		serial0 = &uart13;
+@@ -63,6 +65,55 @@ pmic_glink_ss_in: endpoint {
+ 		};
+ 	};
+ 
++	sound {
++		compatible = "qcom,eliza-sndcard", "qcom,sm8450-sndcard";
++		model = "eliza-cqs-evk";
++
++		audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
++				"SpkrRight IN", "WSA_SPK2 OUT",
++				"VA DMIC0", "vdd-micb",
++				"VA DMIC1", "vdd-micb",
++				"VA DMIC2", "vdd-micb",
++				"VA DMIC3", "vdd-micb",
++				"VA DMIC4", "vdd-micb",
++				"VA DMIC5", "vdd-micb",
++				"VA DMIC6", "vdd-micb",
++				"VA DMIC7", "vdd-micb";
++
++		va-dai-link {
++			link-name = "VA Capture";
++
++			codec {
++				sound-dai = <&lpass_vamacro 0>;
++			};
++
++			cpu {
++				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
++		wsa-dai-link {
++			link-name = "WSA Playback";
++
++			codec {
++				sound-dai = <&left_spkr>, <&right_spkr>,
++					    <&swr0 0>, <&lpass_wsamacro 0>;
++			};
++
++			cpu {
++				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++	};
++
+ 	vreg_0p9: regulator-0v9 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VREG_0P9";
+@@ -94,6 +145,16 @@ vreg_pcie_m_3p3: regulator-3p3 {
+ 		enable-active-high;
+ 	};
+ 
++	dmic_eldo: regulator-dmic-eldo {
++		compatible = "regulator-fixed";
++		regulator-name = "dmic-eldo";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		gpio = <&pm7550_gpios 8 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vreg_bob>;
++	};
++
+ 	connector-0 {
+ 		compatible = "pcie-m2-e-connector";
+ 		vpcie3v3-supply = <&vreg_pcie_m_3p3>;
+@@ -148,6 +209,15 @@ gpio_expander1: gpio@3c {
+ 	};
+ };
+ 
++&lpass_vamacro {
++	pinctrl-0 = <&dmic01_default>, <&dmic23_default>,
++		    <&dmic45_default>, <&dmic67_default>;
++	pinctrl-names = "default";
++
++	vdd-micb-supply = <&dmic_eldo>;
++	qcom,dmic-sample-rate = <4800000>;
++};
++
+ &pcie0 {
+ 	status = "okay";
+ };
+@@ -197,12 +267,81 @@ &sdhc_2 {
+ 	status = "okay";
+ };
+ 
++&swr0 {
++	pinctrl-0 = <&wsa_swr_active>;
++	pinctrl-names = "default";
++
++	status = "okay";
++
++	/* WSA8845, Speaker Left */
++	left_spkr: speaker@0,0 {
++		compatible = "sdw20217020400";
++		reg = <0 0>;
++		pinctrl-0 = <&spkr_1_sd_n_active>;
++		pinctrl-names = "default";
++		powerdown-gpios = <&tlmm 59 GPIO_ACTIVE_LOW>;
++		vdd-1p8-supply = <&vreg_l7b>;
++		vdd-io-supply = <&vreg_l7b>;
++
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "SpkrLeft";
++
++		/*
++		 * WSA8845 Port 1 (DAC)     <=> SWR0 Port 1  (SPKR_L)
++		 * WSA8845 Port 2 (COMP)    <=> SWR0 Port 2  (SPKR_L_COMP)
++		 * WSA8845 Port 3 (BOOST)   <=> SWR0 Port 3  (SPKR_L_BOOST)
++		 * WSA8845 Port 4 (PBR)     <=> SWR0 Port 7  (PBR)
++		 * WSA8845 Port 5 (VISENSE) <=> SWR0 Port 10 (SPKR_L_VI)
++		 * WSA8845 Port 6 (CPS)     <=> SWR0 Port 13 (CPS)
++		 */
++		qcom,port-mapping = <1 2 3 7 10 13>;
++	};
++
++	/* WSA8845, Speaker Right */
++	right_spkr: speaker@0,1 {
++		compatible = "sdw20217020400";
++		reg = <0 1>;
++		pinctrl-0 = <&spkr_2_sd_n_active>;
++		pinctrl-names = "default";
++		powerdown-gpios = <&tlmm 79 GPIO_ACTIVE_LOW>;
++		vdd-1p8-supply = <&vreg_l7b>;
++		vdd-io-supply = <&vreg_l7b>;
++
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "SpkrRight";
++
++		/*
++		 * WSA8845 Port 1 (DAC)     <=> SWR0 Port 4  (SPKR_R)
++		 * WSA8845 Port 2 (COMP)    <=> SWR0 Port 5  (SPKR_R_COMP)
++		 * WSA8845 Port 3 (BOOST)   <=> SWR0 Port 6  (SPKR_R_BOOST)
++		 * WSA8845 Port 4 (PBR)     <=> SWR0 Port 7  (PBR)
++		 * WSA8845 Port 5 (VISENSE) <=> SWR0 Port 11 (SPKR_R_VI)
++		 * WSA8845 Port 6 (CPS)     <=> SWR0 Port 13 (CPS)
++		 */
++		qcom,port-mapping = <4 5 6 7 11 13>;
++	};
++};
++
+ &tlmm {
+ 	sd_cd: sd-cd-state {
+ 		pins = "gpio58";
+ 		function = "gpio";
+ 		bias-pull-up;
+ 	};
++
++	spkr_1_sd_n_active: spkr-1-sd-n-active-state {
++		pins = "gpio59";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-disable;
++	};
++
++	spkr_2_sd_n_active: spkr-2-sd-n-active-state {
++		pins = "gpio79";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-disable;
++	};
+ };
+ 
+ &pcie1 {
+
+-- 
+2.54.0
+
