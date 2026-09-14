@@ -1,148 +1,157 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6AE47987A;
-	Mon, 14 Sep 2026 13:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE4047987A;
+	Mon, 14 Sep 2026 13:12:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391526; cv=none; b=iY4nZ0FQp+S109amlQ4veMWXFUHGZMRuOnuQ+hKJvfk6K2fEktHMbbKxiOcT/R2btdlQJ1+1kYxKBKGzf1WpdmjpiErSpunJSmH2PtNIA5bsl94N0x3d2CPkvVWyamtpis4htn5dGAD5oQ5xcbGLFmEh9ICuMz2Y6VWWMZu8Qu0=
+	t=1789391542; cv=none; b=Ui1N0YyNv4uF6WvjCEqpG6yt+u++AwpPYrCtWFglFjZLQ7a4ltC+fHBCG7I7cVDJu8O8xqD2fcPd9+kt5aGFjziNTnrt7RESp2fT9QWea3lNGgHg33/SSsbGUF4ni6FPibKSuRUgUZ/4hyAoaKlrdMPi6fxddvObZiqwDExPokk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391526; c=relaxed/simple;
-	bh=4G3SaqO+1BMr5Z0g/yjtCGRAiVe2JVP7BnPbOx7Lhuk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lNu+m/UWFSpX2rU6f7h+zefztvpgIGPXEQD+y5rq1UuavX6AIWxY7EwDK5D4ePOt2nfwEeiox+5X5C10aEdnhWjI6nTwSscFH2lrcgrFLeE8Ru0n1S+eeXBaN0APaxzC8lZWMSTuhqlELBnGdlsj7RNHuIlGhnee0ufbXKfrXWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=FhqNyucE; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789391542; c=relaxed/simple;
+	bh=oxbFhAvr6JSfGzP5RlSIkIiQp3K9ZHr1MCwoENtbehI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KjUSpIa9tuRdTlomwu0+/ciIg7mEovaqliNBvl4xU8gfZLUTZa0UJ8wC/8V6PF4WBRPRn7PpelZiqjjAAuxphqmkZtyl8Ds5v5w6kj7+JSupXOgIl4PnwqddUWfMVDGIFuVp7SgKw5ws8qtG/eCsG9/cM4nU2nSM/91cbxdYILY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mPBSdDIB; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="FhqNyucE"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789391520; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=SFehRpd2rZ3Hk+RSfjBKOtJNx6as9iMcZitFgLIojdU=;
-	b=FhqNyucElqjE14qpzZQdQN9VANka1/nIDmpSFXFB7MrZLGnwtHMzY7tBZvVz5VZKMIFzzfp32f0K/gbZSNdLKEuBV3FRJdda91lzA4n66uMr7i1ZwJxPEi10+16ntlxgv484WG9S+urkdIl/TDvXCUKQ9BBEQ0+Wkm8+XbJN1fM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XAxUaA9_1789391505;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XAxUaA9_1789391505 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 14 Sep 2026 21:11:58 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	mgorman@techsingularity.net,
-	linux-mm@kvack.org
-Cc: surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>,
-	stable@vger.kernel.org,
-	Henry Willard <henry.willard@oracle.com>,
-	David Hildenbrand <david@kernel.org>
-Subject: [PATCH] mm/page_alloc: do not boost watermarks in kdump capture kernels
-Date: Mon, 14 Sep 2026 21:11:42 +0800
-Message-ID: <20260914131142.2984623-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mPBSdDIB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789391540; x=1820927540;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oxbFhAvr6JSfGzP5RlSIkIiQp3K9ZHr1MCwoENtbehI=;
+  b=mPBSdDIBFWF1SQT+VjfdPVHFSXjrs7TKpab9zSYV7DhyBmM5w2Wtw6dT
+   2UdNib5PFjRQAqsRcOUDE6NqsX2fRRFY0MLLyxux6YJcK+unCC+TiRpRH
+   KJJeP9f+9LUl5XOMJwM7jw+z3GjaqNOFj02qCz9k2s6OxBf4EvlTfxzVU
+   xBV3vN9GM1pNC0ceeooFCvEi8XIEr+dMfxe0ZGDngzkq/3xvIKuAPZVs5
+   SCnZLeB98dvGp4R4Tjw3aW7f4HuPmGltyqJ0jpnTWB/rwEHUpxgG9XqvL
+   wG6fSP48xcL+vUtzzOTCc/jPZ30gOLRacuwX9Ck0ZkN3t56sL0k7Bb0wr
+   A==;
+X-CSE-ConnectionGUID: CpZ6BkesRhyQu0FT0WTvAg==
+X-CSE-MsgGUID: znMlWhcfQgyVx4W/Jmnmqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="112511240"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="112511240"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:12:19 -0700
+X-CSE-ConnectionGUID: K5cBbZILTeK5caqNakas1g==
+X-CSE-MsgGUID: YqxQpIzbRh2TnzGxHNT0cQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="270832192"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa006.jf.intel.com with ESMTP; 14 Sep 2026 06:12:15 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 5371A99; Mon, 14 Sep 2026 15:12:14 +0200 (CEST)
+Date: Mon, 14 Sep 2026 15:12:14 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Subasri S <subasris1210@gmail.com>
+Cc: Peter Chen <peter.chen@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Duncan Sands <duncan.sands@free.fr>,
+	Chas Williams <3chas3@gmail.com>,
+	Minas Harutyunyan <hminas@synopsys.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Badhri Jagan Sridharan <badhri@google.com>,
+	linux-usb@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] usb: typec: Use %pe to print error pointers
+Message-ID: <aqfyrs6Hdjc_ywZG@black.igk.intel.com>
+References: <20260801-usb-ptr_err_patchset-v2-0-1698e298c1e3@gmail.com>
+ <20260801-usb-ptr_err_patchset-v2-3-1698e298c1e3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801-usb-ptr_err_patchset-v2-3-1698e298c1e3@gmail.com>
 
-A watermark boost is not confined to one watermark: wmark_pages() adds
-it to min, low and high alike, so every watermark check sees it,
-including should_reclaim_retry() and the last ditch ALLOC_WMARK_HIGH
-attempt in __alloc_pages_may_oom().  Once the boost exceeds the memory
-still free the allocator gives up and invokes the OOM killer, and a
-capture kernel that is still booting has nothing to kill: the boot
-panics and the vmcore is lost.
+On Sat, Aug 01, 2026 at 05:59:52PM +0530, Subasri S wrote:
+> Use the %pe format specifier instead of %ld with PTR_ERR() for printing
+> error pointers in various typec drivers. This prints symbolic
+> error names (e.g.-ENOMEM) instead of errno numbers (e.g. -12),
+> making error logs more readable.
+> 
+> Fix coccinelle reported warning:
+> WARNING: Consider using %pe to print PTR_ERR()
+> 
+> Compile tested only.
+> 
+> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
+> Signed-off-by: Subasri S <subasris1210@gmail.com>
 
-Seen on an arm64 machine with 64K pages, CONFIG_PAGE_BLOCK_MAX_ORDER=10
-(pageblock = 64M) and crashkernel=512M, running a distribution kernel
-based on 7.0.14.  A high order UNMOVABLE allocation fell back to a
-MOVABLE pageblock while the capture kernel was still in do_initcalls():
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-  Node 0 DMA free:68096kB boost:65536kB min:68160kB
-  low:68800kB high:69440kB managed:479168kB
-  Out of memory and no killable processes...
-  Kernel panic - not syncing: System is deadlocked on memory
+> ---
+>  drivers/usb/typec/mux/pi3usb30532.c | 6 ++----
+>  drivers/usb/typec/tcpm/tcpm.c       | 2 +-
+>  drivers/usb/typec/wusb3801.c        | 4 ++--
+>  3 files changed, 5 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/mux/pi3usb30532.c b/drivers/usb/typec/mux/pi3usb30532.c
+> index 985683fe49e9..b32f4c433de9 100644
+> --- a/drivers/usb/typec/mux/pi3usb30532.c
+> +++ b/drivers/usb/typec/mux/pi3usb30532.c
+> @@ -139,8 +139,7 @@ static int pi3usb30532_probe(struct i2c_client *client)
+>  
+>  	pi->sw = typec_switch_register(dev, &sw_desc);
+>  	if (IS_ERR(pi->sw)) {
+> -		dev_err(dev, "Error registering typec switch: %ld\n",
+> -			PTR_ERR(pi->sw));
+> +		dev_err(dev, "Error registering typec switch: %pe\n", pi->sw);
+>  		return PTR_ERR(pi->sw);
+>  	}
+>  
+> @@ -151,8 +150,7 @@ static int pi3usb30532_probe(struct i2c_client *client)
+>  	pi->mux = typec_mux_register(dev, &mux_desc);
+>  	if (IS_ERR(pi->mux)) {
+>  		typec_switch_unregister(pi->sw);
+> -		dev_err(dev, "Error registering typec mux: %ld\n",
+> -			PTR_ERR(pi->mux));
+> +		dev_err(dev, "Error registering typec mux: %pe\n", pi->mux);
+>  		return PTR_ERR(pi->mux);
+>  	}
+>  
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index 89eec20a2064..ad10470ea73b 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -4796,7 +4796,7 @@ static void tcpm_typec_connect(struct tcpm_port *port)
+>  			port->partner_desc.accessory = TYPEC_ACCESSORY_NONE;
+>  		partner = typec_register_partner(port->typec_port, &port->partner_desc);
+>  		if (IS_ERR(partner)) {
+> -			dev_err(port->dev, "Failed to register partner (%ld)\n", PTR_ERR(partner));
+> +			dev_err(port->dev, "Failed to register partner (%pe)\n", partner);
+>  			return;
+>  		}
+>  
+> diff --git a/drivers/usb/typec/wusb3801.c b/drivers/usb/typec/wusb3801.c
+> index 6062875fb04a..86d13ab41670 100644
+> --- a/drivers/usb/typec/wusb3801.c
+> +++ b/drivers/usb/typec/wusb3801.c
+> @@ -277,8 +277,8 @@ static void wusb3801_hw_update(struct wusb3801 *wusb3801)
+>  		if (partner_type != WUSB3801_STAT_PARTNER_STANDBY) {
+>  			wusb3801->partner = typec_register_partner(port, &desc);
+>  			if (IS_ERR(wusb3801->partner))
+> -				dev_err(dev, "Failed to register partner: %ld\n",
+> -					PTR_ERR(wusb3801->partner));
+> +				dev_err(dev, "Failed to register partner: %pe\n",
+> +					wusb3801->partner);
+>  		}
+>  
+>  		data_role = pwr_role == TYPEC_SOURCE ? TYPEC_HOST : TYPEC_DEVICE;
+> 
+> -- 
+> 2.43.0
 
-The zone was not short of memory.  Subtracting the boost gives
-min:2624kB low:3264kB high:3904kB, so the 68096kB still free sat 17
-times above the high watermark and the allocator would not even have
-entered its slow path.  The boost supplied 65536kB of the 68160kB min
-and by itself put the zone 64kB under water.  It is that large because
-boost_watermark() clamps it with max(pageblock_nr_pages, max_boost);
-watermark_boost_factor alone would have allowed 5824kB.
-
-Commit 14f69140ff9c ("mm: limit boost_watermark on small zones") already
-tried to protect capture kernels, but it infers them from the zone size
-and skips the boost only below four pageblocks.  arm64 64K pageblocks
-were 512M then, so the guard reached zones up to 2G;
-CONFIG_PAGE_BLOCK_MAX_ORDER can cap them at 64M, which shrinks the guard
-to zones under 256M and lets this 468M zone through.
-
-kdump is a property of the kernel, not of the zone, so test for it
-directly.  A capture kernel exits within seconds and never uses the
-fragmentation avoidance the boost buys.  Normal kernels are unaffected:
-the size based check still covers their genuinely tiny zones.
-
-Passing sysctl.vm.watermark_boost_factor=0 to the capture kernel does
-not cover this window: sysctl.* parameters are written through procfs
-by do_sysctl_args(), which runs after do_initcalls() where the panic
-above happened, and watermark_boost_factor has no early_param of its
-own.
-
-Fixes: 1c30844d2dfe ("mm: reclaim small amounts of memory when an external fragmentation event occurs")
-Cc: stable@vger.kernel.org # v5.0
-Cc: Henry Willard <henry.willard@oracle.com>
-Cc: David Hildenbrand <david@kernel.org>
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
----
-Build tested with CONFIG_CRASH_DUMP=y and =n.
-
-Tested on the affected machine with the original crashkernel=512M and
-capture kernel command line.  Without this patch both capture boots
-panicked at 7.9s inside do_initcalls() with a 64M boost in place.  With
-it, and with boost_watermark() instrumented, every call was suppressed -
-including those inside do_initcalls(), where the panics happened - free
-memory came down to within 64kB of the min watermark, where a single
-boost would have put it 65472kB under, and the dump completed.
----
- mm/page_alloc.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..276fa7169b99 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -37,6 +37,7 @@
- #include <linux/vmstat.h>
- #include <linux/fault-inject.h>
- #include <linux/compaction.h>
-+#include <linux/crash_dump.h>
- #include <trace/events/kmem.h>
- #include <trace/events/oom.h>
- #include <linux/prefetch.h>
-@@ -2178,6 +2179,14 @@ static inline bool boost_watermark(struct zone *zone)
- 
- 	if (!watermark_boost_factor)
- 		return false;
-+
-+	/*
-+	 * A kdump capture kernel exits before a boost can pay off, while
-+	 * the raised watermark can exceed the memory left for the dump.
-+	 */
-+	if (is_kdump_kernel())
-+		return false;
-+
- 	/*
- 	 * Don't bother in zones that are unlikely to produce results.
- 	 * On small machines, including kdump capture kernels running
-
-base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
 -- 
-2.43.7
-
+heikki
