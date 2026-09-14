@@ -1,86 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2A849F130;
-	Mon, 14 Sep 2026 20:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC0D49F10D;
+	Mon, 14 Sep 2026 20:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789418532; cv=none; b=aRDZ427fo/RJGY5TXD3DgXZtIXhIxfbzyEGWnXlTdbUZQCO92WM8ZsT6Pc5SSZMe+6dy2MgP6wQYVjB0z/ftQgWc9A/JuQ5PobAU2e6TLmkX6S88iSJ9Mkk16mS/Bqf2pjx3Kt2s9M1X7QGSKXD1PgJ9++JO97cDC+cYeASW0sE=
+	t=1789418630; cv=none; b=KqtJu/wcDI9aWYv1kkkInGPAQKAveMQpnGn3enYfDNrgkTzlgE9XAGRCdrKWcXdWGZGy3Mjfpp4PiJQz8mvOfacipc+r1EY0p8VLAZ+Z7Raa7bmQRhii1rRVnOiHO6KBzqo1PDtljXF8e9cYe/98IU3dTR1h1PULJBSSRNywFi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789418532; c=relaxed/simple;
-	bh=eOOIv/OsmlSmYxEqa3qRxMsZ4HZj8ii6y1dUDWYfC4U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nB1CFA1dPB2P+qtFd9wVtwqNKNCWT58PfdYGN5N3UbTj3TzE0DIWs4yiSbucju19pGJejPJcdNLnqwt9sGnJwZjp/YuYCKDXAxBcxrATZ2TyFMmPz3Ih1Wps0B5JCKiXphkCqjOiRXHtithyVjjPXZMU6vebQXWGT4jAnWjGy2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzEcW3jJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789418630; c=relaxed/simple;
+	bh=K5R3t4nArzou5yu/s8rQQCeK9FyDGSzVntYeFiSAI2o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KV5SgSyH4d5kW//75co9VeEaRB7QWUSbvWd3g5H2tKaWgTVLuXw/UwYO0K9h2HnZ150u3yCOsJJT3d6rf9tCgn2vaZdkPFXrbo9Gg47Ah8kA2X5Nj28H0YRpRbJdKXNqsUrcHvRBw/Y+RGVm4pYvJpVy6kS+FKnIZit3EcTRvII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=FQen1kuU; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzEcW3jJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1005E1F00893;
-	Mon, 14 Sep 2026 20:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789418529;
-	bh=7GB2jjMKZ5j4wNAac9G1bk23M1GI2bDlsfoiz1Mb/hM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VzEcW3jJ80fYPea7giJ57hO/tuRvn/RbSjfDfRVZiC1K5bG0tm7nNfPr8ccWmx2Fy
-	 8H+GIiSR6I1zsUi5rGYQlgTYuxgbtt9COvjLKfI2MkZI5Ks6AvwCzP5xY7UjFXu8H+
-	 4mnMGxnuBj6JNX9WxEZnkQLy1jVbNkL4Snxt6logVQFLKiWpIjlE7Fb6nxhQfqJlmZ
-	 solWrBjGsHZmksezt7xi7gVtfjt2t0WRMVladPfnelX50RQmSL7Gtwk0MVJfHXts7Z
-	 1wYudx/B1CpLCwrWv8GTI08GKVoDuVdcq/Y0uwh2WboNt3IJblZsELID9tIwS0E4Y5
-	 O7YnEQor8cTHA==
-Date: Mon, 14 Sep 2026 13:42:07 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Tengda Wu <wutengda@huaweicloud.com>, Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org, Zecheng Li <zli94@ncsu.edu>,
-	Yanbo Zhao <yzhao62@ncsu.edu>,
-	Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: Re: [PATCH v2 1/4] perf annotate-data: Convert type histogram to
- hashmap
-Message-ID: <aqhcH3wzXfyL7_8V@google.com>
-References: <20260914064535.1671939-1-namhyung@kernel.org>
- <20260914064535.1671939-2-namhyung@kernel.org>
- <201cf528-d07c-4052-b0b0-11e5f9de97e4@huaweicloud.com>
- <aqhDYxJ9qf_gE5KC@x2>
- <aqhJjtWljIoMKfI_@x2>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="FQen1kuU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=8jZ3v4zlXMIKKSMaqhUDS52aesYjvtgRSCo5R9N/PW4=; b=FQen1kuU1i0rx3GB+BVZjX6Ho6
+	NIwzT0028EUsxCBZPlE2pttAUy8YddSN9gW9GqnsQcdZcj4EpVO/LfRoZPWlCf7+AGaPeCDkvqiBz
+	T/fUgUR5N7DoaHI5bL81sPFwtx2RR2EHnGIR0P8g315hFRYhu/t4Aih96A34H/SQ09qV3vQC/we5E
+	GbDcA1fAQMYZebXtIMtv1q6JgMG0/bRz6705pI5Z0YbsoyLhQ3QxmNRWNGTny6v/rTtO85KonX1tL
+	0+rWZLkNB3kb5yBOscpN98cus38pXFIET4yEIvEl26x+dM0Jk9giPscbbnskD4LgNHjxeBZFsxgl7
+	UW7zNIiQ==;
+Received: from [151.115.150.205] (port=60600 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x6DWf-00000000zwI-0vyN;
+	Mon, 14 Sep 2026 22:43:40 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] NFS: filelayout: calculate dense stripe width in 64 bits
+Date: Mon, 14 Sep 2026 20:42:38 +0000
+Message-ID: <20260914204237.2442333-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqhJjtWljIoMKfI_@x2>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Mon, Sep 14, 2026 at 04:22:54PM -0300, Arnaldo Carvalho de Melo wrote:
-> On Mon, Sep 14, 2026 at 03:56:35PM -0300, Arnaldo Carvalho de Melo wrote:
-> > On Mon, Sep 14, 2026 at 08:22:06PM +0800, Tengda Wu wrote:
-> > > On 2026/9/14 14:45, Namhyung Kim wrote:
-> > > > The type histogram maintains sample counts and periods per offset.  Use
-> > > > a hashmap instead of an array to reduce the memory overhead.
-> > 
-> > > > No functional changes intended.
-> > <SNIP>
-> > > > -	struct type_hist **histograms;
-> > > > +	struct type_hist *histograms;
-> > > >  };
-> >  
-> > > >  extern struct annotated_data_type unknown_type;
-> >  
-> > > Reviewed-by: Tengda Wu <wutengda@huaweicloud.com>
-> > 
-> > I'm cherry picking this first patch, as I'll need to rebase my branch on
-> > top of it and thus testing it as I go developing it, sashiko found no
-> > problems and Tengda reviewed it.
-> 
-> It is now in tmp.perf-tools-next, will do the usual set of containerized
-> build tests and push,
+filelayout_get_dense_offset() calculates the stripe width from the
+stripe unit and count, where both values are provided by the server.
+Their product is stored on 32 bits, and can wrap to zero despite
+passing individual checks. For example, a 1 GiB stripe unit (0x40000000)
+and four stripes (4) cause the following div_u64() to raise a divide
+error during the first read through the dense layout.
 
-Thanks a lot, Arnaldo!
+Update u32 to u64 and use div64_u64() instead of div_u64().
+stripe_unit is a u32 and stripe_count is limited to 4096, so the
+product cannot overflow a u64.
 
-Namhyung
+Fixes: cfe7f4120f8b ("NFSv4.1: filelayout i/o helpers")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ fs/nfs/filelayout/filelayout.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/fs/nfs/filelayout/filelayout.c b/fs/nfs/filelayout/filelayout.c
+index 72e20b56fbc7..a15fca123069 100644
+--- a/fs/nfs/filelayout/filelayout.c
++++ b/fs/nfs/filelayout/filelayout.c
+@@ -55,12 +55,13 @@ static loff_t
+ filelayout_get_dense_offset(struct nfs4_filelayout_segment *flseg,
+ 			    loff_t offset)
+ {
+-	u32 stripe_width = flseg->stripe_unit * flseg->dsaddr->stripe_count;
++	u64 stripe_width = (u64)flseg->stripe_unit *
++			   flseg->dsaddr->stripe_count;
+ 	u64 stripe_no;
+ 	u32 rem;
+ 
+ 	offset -= flseg->pattern_offset;
+-	stripe_no = div_u64(offset, stripe_width);
++	stripe_no = div64_u64(offset, stripe_width);
+ 	div_u64_rem(offset, flseg->stripe_unit, &rem);
+ 
+ 	return stripe_no * flseg->stripe_unit + rem;
+-- 
+2.47.3
