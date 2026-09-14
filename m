@@ -1,62 +1,64 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CBB1F4176
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EF9393DF5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789426391; cv=none; b=fSAIIcVIVfXk7c5quCBtQS4XAQakNyqblRYb0kRPg8AJ8cVLmTn5XuKGX0Tvfym9gg4fsaVdp9ncjfIh6f7VpkdU3gAmpmr0FVY80c4WFEOEqKYw+zN8hihTSgNN5SBotnUYY+rbo/vl6noyesRuVghRDh/nmR6WbwohEDATtZ8=
+	t=1789426392; cv=none; b=lBz0gqT3QtkZOKlzjlqi6NqkkDuJuL2ORUZZ9sE9djV97MBhd51OnuhgYtzOmAvQP9k9SN9FBYAyMIx1QSDLtscN2z1mvYk2geKlX3HoMsM0Ufy7weV+rnWgK94rwxXstKqs2srVikKpgyRJAbk949mWQ3246J4plxEfyrsR0EA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789426391; c=relaxed/simple;
-	bh=KlxV2Pj0K5nL5vnXASHLfOrdYtgNJknFNJmAfAcO8Ws=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=smD/D05b3mxre6G2UibO8OBdBrC/wkZmGPb/VG5iHcKBsNzhgvsIIROpcuF3D5IJZBi8T19s6XytSTJl3fq9Ua9aE2iiRMpNi7o4A7/e0lcUauq5gbAZVsw3/ubPxdEkWqjbdqeUYJIYPamEiojHnd355ULgm5NbYNHf01nLXgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mu/LWdBk; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789426392; c=relaxed/simple;
+	bh=B5NcsJqiM6ca6zoKCCSiRnmiGiK51EUO/f+42QeBqzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PNKsjMWR+Ap+VsSXwOog+WAF0TOH+2wZSJ17UeW+cm4uGuvZ6AmdNij6/5OussXJyNrY2+iLg5IQG7yRUh6JU0Vwzk03ARMcBWO9GQ9ADPrkY4Z4f//uENmtfn9ysJ8xM18Nrxi1dZxek5f9n9fyAdXKmi9upIjl6FxyrfyMtg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fPRZmjAZ; arc=none smtp.client-ip=209.85.215.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mu/LWdBk"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1943940a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:53:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fPRZmjAZ"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc147d86bebso420442a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789426389; x=1790031189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jhhKoo70grDYRK8Pz7Zy3Z2uy/lwES5xu5hc5Ox6dio=;
-        b=Mu/LWdBkrqSdDnYbgqMxcUDYuXO0B9969fWjTLrUu2VPS7Ex/eWo8SilBeWRpYe9Ta
-         6zjWtzZWKuJY5e4gZLg0zu2H/Ox1TqRwMIW+CArybIyEkCMgE36pBi2NTBYHLz785mFs
-         w+7zxZUyofXt4muDlsrZvvxr/DO63OIJRfOZj67NJQPBo4EXas6p3rg22KlPzj0CI7gq
-         lQM26g+9P1QuU1TFztDTYdvGLupaYO+MK4tCZsm/GI95drYM303BxMApEofpXtqV/pP8
-         Jj1fT35SD63YSbrciabGneWgaf3laZpP7bkwUVEoUvcfHTB2Jr06Voa8b8tPrLL2Cndo
-         lPHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789426389; x=1790031189;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789426390; x=1790031190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jhhKoo70grDYRK8Pz7Zy3Z2uy/lwES5xu5hc5Ox6dio=;
-        b=YEh4bKB2MKUh5r0okznbqyavbJwOoQMhGMWvkEWg+EfbU1xypIdY1YMiDYKyxbVPeC
-         Lu+Q11uNdE4W6gLdDo3ETSLQ9a15vZdhtbrUs2CA8ooSnhsXbDuSsqql2Q/PRA8gDMwR
-         EH3xDDBtyPYddY5yz9p4eTQhv5VcCXhwAu661zNRXvAdPcJtQ4urS0XnZTeLLVGFi4i6
-         F+ir55nA626GbTuUE4X7+WVigs0WGwYqat5+PKI/Ik3VSFdH9H7Az3g3RebNcaS8iXht
-         Et3m17qDiOR+lwqQt95VLyFLUCrA1ob9PQDFa1AUIjOOhH74OF+VqiFXMIcpnP4PeB+3
-         BvZg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+fhfzYwqkXhNmls5iORjv40cHtUuYKRD2lHo6NbZQ02DtXS0V1dEXHgEtdK10JwcgHOHMZfq95SjQOZ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHW+hU/WHkBn8j2H5wCUH8f2V6c3A9zs27S/NXJkVzrYWNMu3J
-	SrAuY58Vr5+2BqLKrTMq42U2G7jLiKp1JBkXebKBGbdSqTVSLc8cfoJB
-X-Gm-Gg: AYBFou0tOyz/nQT66T+o8rGmq01n4bizfKxPqlpmrNxiz6on78VLHzLKZI3wLm3nZXv
-	n5LyMELJUVoQrpFeckhy+udYNyzSpLGSza/Hw0kKmB01K6GWmxtjhmNbeoWME2oH0YxrqA713Kl
-	yA2cNtJsUwfm24FT4vCCACuyjPm4/jgN2kfEDoD7GfJ7xL0g7CbmDKLzc816ZYtCloVfWhc2T2o
-	xOLhCx0fn0M+pNhTfkF1fDPKXaB0UvBDiPlKNJ32OaL4puv90P7KJVqsbVuPBR6GtZOisXRp6xR
-	WqN37jD5oMZ1AIBXyL7vnaT9S0t/mlhWaELfrl+oisrLtpqJG0gQUJuTbjK/HW1XOk6EgbUPh70
-	+7djpW2myAx6UKJhNd3iXvY/e1CtqD2wPVWdqZvbc5Re2Wmw2x9Kn75vtsTcJb3H73yc0FgfK3G
-	G85hkf/k0Hx4tieoL0InJxhvkW6YHCp+qgj+EZRyZjXblptMcmdo+G9Ad4gWVDTVKGTpqBDOsXO
-	3HVcpTI/PdVV4JJkIDhMzoYby5d7DbFfYDMqWFi5JNeZFAt6rs2
-X-Received: by 2002:a17:90b:35ca:b0:39d:fb87:569f with SMTP id 98e67ed59e1d1-39dfb8757a9mr4035491a91.12.1789426389288;
+        bh=cket7DPZv1j5YnyOIveBa4NpPNYaScJjvnuFzxjWh88=;
+        b=fPRZmjAZsPsmNpwQY3WlqF6D4LWwNE4X1Z3K4VbTZwv/KOC1Gh2wqMK9IE8jVWZTaV
+         izthCVBd9+kVlO+nuylxmOYUxuZkWX//HIAs/pJpXAXHXy6VnuGJ1MM8i4g+tzrelmv0
+         2natDsx+Dl2kL8YdNhVmxvGVt8uSHFIgDVT3OPKT2iO15alDvYNhPZSoInE0vG+66V0m
+         lBCIChItBTP4CzfG4mBO87o/3H85VHNjXxkxTnBtpPy1mhxOp1c1hZIzXaC7ACKQGRZt
+         aurg6TgmvfDG7U7z/a5C6Z4qCHCBtbmicep1LOXimuaoCyO9MAoPvFKkNYvhEQO9I9tR
+         rcBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789426390; x=1790031190;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cket7DPZv1j5YnyOIveBa4NpPNYaScJjvnuFzxjWh88=;
+        b=iIKIsCE12Bol/VB5fcrE3kutosToRpQT9bzKeKgzQrd6z+Ij81X1KzQfkpVLam05uY
+         5MrMsPT2BXWaWB1leQXNOzsFRR88r7EHRnQOHZMHz6s139PQkjGCCdtpJAD+GrUOUhmS
+         yArM7RxQHkdde7SyFS7xTKVEBZlV8u7ScjtMKXn6tUse/nbteASSe9FGx7HgUbO5lJ7g
+         SzM7LQAQh7aH1JHW6hRn99rHjbwGejgp4hTP7m6G4UlqLpG3vtB31BaN9kmKpvFy+s17
+         95fGIdLh+sNrJOarKVHVqibZK3IoEm1qXCtfqdoxer3LLuNBRRCMm7wqc4swmjjpR9mu
+         JDvg==
+X-Forwarded-Encrypted: i=1; AKwUvByR5OicpFQfXGmqjIGijhqi97MjvjgRpzvcHOLhaqySF+TPgA3BWAxKTZTe/Kauzmj/G2rJMU91pMAweGE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m08EHw3FfEmUCRqKpd+ZWq36zYkQBZEE+F6S+iLiKyUEkXh/ii
+	SZUoYp95KeiaV0wxGwvyXfJ+my6pf0dIWGb+nVBYGJn51ofJW4Xkdc3t
+X-Gm-Gg: AYBFou1VYReeRhiL3uoxpzoFek8946LfTuJwAtpE2T2JInC+5Z4ivdUoDt8C7ExLud5
+	yiCnKyAoblGA+pZ9dX0GgRaY9hEF5KZljDFxtTob0HR5S/Faz29tGf7JGRmY6huYv6pAXBc+Twy
+	5cjTrsBE3QHZsvDNAk0Q5Zdphie/AguBiw3RWnxp8H9TEX24k1TgSCtUzCG+R6kLxzyGLi5cAGv
+	0zbWcN45sdJTkdcehGqGRf8VEJpAjdPz7d7RGxBjVvaS6VDnjVFi5EO4yRJHcyQAtbw9BtCyyg5
+	UAPZBDXcqUf6ngB8W3jA1ktl42lW+pc8xlUjZEeuOB+DDC4PBNyGzL2/6K/I7Hq6uIllrwo43Kl
+	VATaNZQYksWhi6S+lA4Cjm4gekOI/zqEUu3S6tlkU2enYBLfDjR0POaHTjHSS3lTNzZO6X+ZwOx
+	uGUWuLIWymkAgGsL1ynWIBZNDsQ3p8p1fuRZ9Yu2neR3Vd25U/6vQKaf6YwvUE64OHmB1jko0t3
+	Zme57gDVujduECM8JuDIup1qXhFIkSd5xEiAE0Aok5w48rYZSaa
+X-Received: by 2002:a05:6a20:4310:b0:3d3:aed2:6f20 with SMTP id adf61e73a8af0-3db50019fa8mr1791026637.20.1789426389991;
         Mon, 14 Sep 2026 15:53:09 -0700 (PDT)
 Received: from lappy (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bbeb053a5sm14924296eec.27.2026.09.14.15.53.08
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bbeb053a5sm14924296eec.27.2026.09.14.15.53.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 15:53:08 -0700 (PDT)
+        Mon, 14 Sep 2026 15:53:09 -0700 (PDT)
 From: "Derek J. Clark" <derekjohn.clark@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -64,11 +66,14 @@ Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
 	"Derek J . Clark" <derekjohn.clark@gmail.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kernel@lists.opengamingcollective.org
-Subject: [PATCH 00/10] HID: hid-lenovo-go-s: Fix various bugs
-Date: Mon, 14 Sep 2026 15:52:53 -0700
-Message-ID: <20260914225303.868569-1-derekjohn.clark@gmail.com>
+	kernel@lists.opengamingcollective.org,
+	stable@vger.kernel.org
+Subject: [PATCH 01/10] HID: hid-lenovo-go-s: Return ret instead of 0 in mcu_property_out()
+Date: Mon, 14 Sep 2026 15:52:54 -0700
+Message-ID: <20260914225303.868569-2-derekjohn.clark@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260914225303.868569-1-derekjohn.clark@gmail.com>
+References: <20260914225303.868569-1-derekjohn.clark@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,54 +82,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes various bugs in the hid-lenovo-go-s driver
+Currently mcu_property_out() blanket returns 0, discarding the ret
+value and any errors with it. Wait completion returns a positive value
+when it is not timed out, which would error on all successes, so if it
+is positive return the ret value from the raw event handler. Only if
+it is 0 set it to -EBUSY, otherwise pass the actual error.
 
-Patch 1 fixes a dropped error on return from mcu_property_out()
-
-Patch 2 creates a mechanism to ignore stale responses if they timed out
-in the previous command.
-
-Patch 3 fixes a deadlock if the device is removed while cfg_setup() is
-running.
-
-Patch 4 adds missing pm_ptr to the reset_resume function pointer.
-
-Patch 5 adds a kobject_uevent notify during reset-resume to ensure the
-os_mode return is caught by udev.
-
-Patch 6 adds a suspend callback to cancel delayed work and re-queue the
-cfg_setup if the device was suspended prior to or during the work.
-
-Patch 7 moves attribute init to the end of cfg_setup, ensuring the
-attributes can only be used once the MCU is ready.
-
-Patch 8 reorganizes hid_gos_cfg and renamed it to gos_cfg_drvdata in
-preparation for later fixes.
-
-Patch 9 moves the static led_classdev to become a member of the drvdata
-struct.
-
-Patch 10 moved drvdata from a static global to a device allocated
-struct.
-
+Fixes: a23f3497bf208c59ad ("HID: hid-lenovo-go-s: Add Lenovo Legion Go S Series HID Driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
+---
+ drivers/hid/hid-lenovo-go-s.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Derek J. Clark (10):
-  HID: hid-lenovo-go-s: Return ret instead of 0 in mcu_property_out()
-  HID: hid-lenovo-go-s: Bound stale reply window before reusing
-    send_cmd_complete
-  HID: hid-lenovo-go-s: Prevent deadlock if device removed during setup
-  HID: hid-lenovo-go-s: Use pm_ptr for reset_resume callback
-  HID: hid-lenovo-go-s: Add kobject_uevent notify during reset-resume
-  HID: hid-lenovo-go-s: Add suspend function and gate access under bool.
-  HID: hid-lenovo-go-s: Move attribute init to after device query
-  HID: hid-lenovo-go-s: Reorganize and rename hid_gos_cfg
-  HID: hid-lenovo-go-s: Move static led_classdev_mc to drvdata struct
-  HID: hid-lenovo-go-s: Use devm_kzalloc for drvdata
-
- drivers/hid/hid-lenovo-go-s.c | 655 ++++++++++++++++++++++++----------
- 1 file changed, 473 insertions(+), 182 deletions(-)
-
+diff --git a/drivers/hid/hid-lenovo-go-s.c b/drivers/hid/hid-lenovo-go-s.c
+index a72f7f748cb5..68301d4c762a 100644
+--- a/drivers/hid/hid-lenovo-go-s.c
++++ b/drivers/hid/hid-lenovo-go-s.c
+@@ -38,6 +38,7 @@ static struct hid_gos_cfg {
+ 	struct led_classdev *led_cdev;
+ 	struct hid_device *hdev;
+ 	struct mutex cfg_mutex; /*ensure single synchronous output report*/
++	int cmd_status;
+ 	u8 gp_auto_sleep_time;
+ 	u8 gp_dpad_mode;
+ 	u8 gp_mode;
+@@ -435,7 +436,9 @@ static int hid_gos_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	dev_dbg(&hdev->dev, "Rx data as raw input report: [%*ph]\n",
+ 		GO_S_PACKET_SIZE, data);
+ 
++	drvdata.cmd_status = ret;
+ 	complete(&drvdata.send_cmd_complete);
++
+ 	return ret;
+ }
+ 
+@@ -474,12 +477,10 @@ static int mcu_property_out(struct hid_device *hdev, u8 command, u8 index,
+ 	timeout = (command == GET_PL_TEST) ? 200 : 5;
+ 	ret = wait_for_completion_interruptible_timeout(&drvdata.send_cmd_complete,
+ 							msecs_to_jiffies(timeout));
+-
+-	if (ret == 0) /* timeout occurred */
+-		ret = -EBUSY;
++	ret = ret > 0 ? drvdata.cmd_status : ret ?: -EBUSY;
+ 
+ 	reinit_completion(&drvdata.send_cmd_complete);
+-	return 0;
++	return ret;
+ }
+ 
+ static ssize_t gamepad_property_store(struct device *dev,
 -- 
 2.55.0
 
