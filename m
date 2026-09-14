@@ -1,86 +1,41 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDB9242D65
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1798F242D65;
+	Mon, 14 Sep 2026 06:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367565; cv=none; b=rd7qYZ5NujWrOnrG4bPVVS1f65dpDPh6IaA+2t0HhIALsZ7sJ4mRhpFibCsIMV/QHN28o+3nJTllUYSoTR8wxMgASJWaN8eVKex9zlOvUerFXzGgQCbkN73pJjBJCNUuMzcusd25CWTUysAxz8FzgN5UqtoHAkNVulV7kFh3k8Q=
+	t=1789367576; cv=none; b=olj5tzhuHdfzK7pVhUx7jFnJlViLDSUIAh2T9DLRTYCbIcxW2fIv8XpT1TDIsTaHTVQi8l0ywH16fFgFUiRen5WNpr5yibB/n0Nda9nvmIv0odM8UOmZrXYFcc7G2gFc7AhG0eon4PE2UXZSDdxWj76docoP4Enld6/V/1hx6mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367565; c=relaxed/simple;
-	bh=8P8agGseUBV/hQkxI7eBNwnlBJEbrU4dhhrXvN8aPPc=;
+	s=arc-20240116; t=1789367576; c=relaxed/simple;
+	bh=kc6pQGkEGwd0CMKTAYQ+AdBctix3FOQwJdv/43wTVV8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NiYdKCiji2iFY8is2/P9UP9cSCuURUIK7VxTc8d2lrMz9kZtACkltp3/Zr/0d5gRY79WaU0vRG+jx/2GvxDn8l10n2nOWem1fbeISMIy9KLGlTVHjDCzp7IeG+onwWl+m9i16S2wiIrYbzHbnkmz22SLjYNYBA0BHCuwFkM/6xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H6IzJbIy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K5/xNmHe; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=WxbxfSVlDj+jY7O43Hbcj9o5WZ0L1cMmcLeJObvUaY8Hh16FJHgMCcfHILxeQv4eYgpbSooW2W9Ebnoynqolk9+RwB8GfUx0XHYVwDIHlE/2Cw9Sdr51sPFCXtYr63zo7CsTGpP9QAQMlZfWB9U4IDgUoob+YKxhC/4+WeHgefU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b=RI0R0Kj5; arc=none smtp.client-ip=212.227.17.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H6IzJbIy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K5/xNmHe"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5is6X4058214
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:32:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Yxpww4PsWrQfLBdJ0//BJx7bMEXgGPZ3hXMqdr6a/8Q=; b=H6IzJbIyyEs2fDiW
-	czjRwtavp+EgRixByOuyThU185VwMjb9guaErkjcMXQvPxn8MB/wrboXUuK9+UnG
-	FhvKyaEcP300I9o/JMzR0GTjEUIvHCs1Ph2pdrM4zXVjjFZLqnPBxoj4Cgk0iyas
-	K6sKbahwGAm10tJLHnHrgR4r1I3o1z0Ge5D9afzZ/U97f0x8oQvm4gDzgOJ/ltt2
-	gifOJpQ50wjsCC1KyBdbawizsrGETzDgEejWvTQFzp+djvRUDoKAoZmVvsBadMlA
-	oKjSJYKQWZ7QWrwBRPpW/2WNHZDtheGpbqbi6XQxX3szETXcLDyiizNWCn+oY+a9
-	OpwIjQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hss5ex-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:32:42 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so3585930a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:32:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789367562; x=1789972362; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yxpww4PsWrQfLBdJ0//BJx7bMEXgGPZ3hXMqdr6a/8Q=;
-        b=K5/xNmHeFbr3D78ddnY51WmRmnytBI/wgAOxZz1q35RgzUn5gYo1gZT8SpkhVS+8Dj
-         9hzXNd6NkjJhrJteLDTsCXlkvcPJUiazBnyu3KY9vnHzpTKTOK2NtUdLb2dehzDtXW/q
-         oe1Yd1LtqSi9TDMljhMYqWruJbbkmTpMD9uRzzED9PzVlLs2hY0BZ2sYnLWTq7EGa/sV
-         CNHrRZ9GEUwr+n95yzZKOOEck0D3UO8ide8DdtusXeRD+jsNZyxj1nJEjrED0U2s3lqu
-         8LFPHvTBjHrs0bKRy7Nrb42lhgdzts9WrRIP+0TxoXUHrjpihicd0P8QlNn+3Psafr5s
-         J/qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789367562; x=1789972362;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yxpww4PsWrQfLBdJ0//BJx7bMEXgGPZ3hXMqdr6a/8Q=;
-        b=gbvB3DBKM6bqPLY7Y+DWhseh9AtjE6dAVnSkQIPMBEh35nYZC7MSOASKsG3USYZAdw
-         UP4OKVK26rsr/5n+b8WKAqa0MmiNiX5xdVvnsnMQE9MhEj8PVF/YWS004zTjmToNvFuh
-         3Dtq6zs46EGRGsYj67Q7wAJl1kHxivfKN9LT9e06hWec4Lhb2gUOs04EEBFDdq6L8C4s
-         pci/hxFiwcps5ENaMdkPYaxkxfdwXo/jCBCckgCK7PE2OTfHHtsz4n+Ufv++kPu7ryf9
-         ukDacCWTizW43M8HFWnRzgJgJEp0yZ318mgrtt/k0e241++KBVEQ67rr6tmeLhuz1INl
-         NRsA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Z714OVYCGwL/FvEMfmBNRMmeBfBpPUqSkP3iN2twZ22jtgS61nKGctEjsaiEChXI2YqERBKfnQcrHnw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOmhPimb6wHFgEPvRFDQ9ta2O2vHIBHm2HUiR66vhzQDHV/ABB
-	pFQpFezy3yIv/AQSnwu0UdFuoGcDKB/ATdVrstcLVEGc31WtuBOsKKxB7hWpYusH92Gb4kTq8xR
-	dHoSIcLV3b3/rLh/AeKQrxhRozUWEj5TUHraD/r+RaJ6apvRvnmNLZejQnNABEsqCd1Q=
-X-Gm-Gg: AYBFou0BnA6BZWxsWjFPPwYYhcGkMITBRr4Rkh1CBogZJ4GxyQ/2kMvLNbwh2y8dPGB
-	xPlAmo7OWmFNzHiqPdptBvQuGdGL7Uk1oklPWs0jpQ/ElOPtFLCplPaq6wI6ElFNBZh7FyJAflo
-	kmDcAqZSkUabUja0VutuWqRKHbNL/oEOhBZ2K88bn+SGAfFbwITNNmfz0XEd4UYluJ4/YBAuXu7
-	RIQUS8JA3c98gQhypkTo3YNzZFEap7C0Cyi4cG2EdO3U0s5MX1k3vk4zowojtH4XpKjDdayG1W4
-	0kKInAQCQWj/R72H5NTAvTvpH2V29GRauJTNwT0Nodh0I7+UHnqX022ESwswzVR78TFEo+lDn9p
-	iw1N5OjMXvClApYsVzxc3FNoi1r2splcrw+7hQJPOMAaUfQbtx1VSvP4y85oT/DXwomiiuwZo
-X-Received: by 2002:a17:90b:35d1:b0:39d:f189:48d6 with SMTP id 98e67ed59e1d1-39df1894982mr783854a91.4.1789367561873;
-        Sun, 13 Sep 2026 23:32:41 -0700 (PDT)
-X-Received: by 2002:a17:90b:35d1:b0:39d:f189:48d6 with SMTP id 98e67ed59e1d1-39df1894982mr783801a91.4.1789367561416;
-        Sun, 13 Sep 2026 23:32:41 -0700 (PDT)
-Received: from [10.133.33.62] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dada5c76asm17463531a91.12.2026.09.13.23.32.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 23:32:41 -0700 (PDT)
-Message-ID: <dd342f3d-36d3-4a85-95ca-6cacb7b834ad@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 14:32:37 +0800
+	dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="RI0R0Kj5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1789367568; x=1789972368; i=quwenruo.btrfs@gmx.com;
+	bh=o1rcAZIuPZLuOOhUOSTdIn85cxJC6r1J7wO4UsUMFsI=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=RI0R0Kj5aQwEPdc4LxX4gMuhMbeXC9oc0aozU2y2Mv/mXh4nZZDIek5+Hku3I0pu
+	 HnGfcraKk6zPkXet2ojE3OhuyQ2B3nDnm+bztyMECl698oMJtKag8c4d6m7KdJhe6
+	 HGGVTV0SyxYKWuUvyjtOmoRqBPByUgyGPIPUq6xmsmR3gzTWUubg0+EeIEN4WdVcE
+	 sb5MBsNJnq83o4hXdWDSd+ffx+CjMwTaa9yYIjtJt2fadc/DBq7iSN93tKfYoyhyt
+	 ln2IXLFM2+NxQYkyhN0plCn7h8Ay2ukq7wSPDhsdnqBRwvs0gnuNY9ZvkQjajNKos
+	 Kbtr5ngKA6/u9Loz9w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MWRRT-1xKfn21N4l-00Mi04; Mon, 14
+ Sep 2026 08:32:48 +0200
+Message-ID: <2107e9f8-2bc6-42e5-98e2-30e25be016dd@gmx.com>
+Date: Mon, 14 Sep 2026 16:02:42 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,148 +43,222 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next v2 2/2] wifi: ath11k: disable interrupts during
- firmware crash recovery
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-        Julius Bairaktaris <julius@bairaktaris.de>, jjohnson@kernel.org
-Cc: ath11k@lists.infradead.org, linux-wireless@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        vasanthakumar.thiagarajan@oss.qualcomm.com,
-        rameshkumar.sundaram@oss.qualcomm.com
-References: <20260726221908.104873-1-julius@bairaktaris.de>
- <20260726221908.104873-3-julius@bairaktaris.de>
- <CGME20260911075315eucas1p1b4ffb1f57ef187e0a055072ccc0983e3@eucas1p1.samsung.com>
- <a068a857-a549-4cc2-ae0f-3ef119d3a859@samsung.com>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Subject: Re: [PATCH] btrfs: don't force the filesystem read-only on
+ EDQUOT/ENOSPC verity rollback
+To: Daniel Linjama <daniel@dev.linjama.com>, linux-btrfs@vger.kernel.org
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+ linux-kernel@vger.kernel.org
+References: <20260914062459.3889313-1-daniel@dev.linjama.com>
 Content-Language: en-US
-In-Reply-To: <a068a857-a549-4cc2-ae0f-3ef119d3a859@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDA5MCBTYWx0ZWRfX3uLCrV17uH0p
- X7JtqO+JGkno09Yd1OZyqGkNsC4a5+zMU4Y0ogWHMMNmKxz80iPUsrm0TB7QJ+NxUP/rBphYfE2
- 4niKLCajBkJnus3QI6A2y5uP7I7mQI2qfu6EMGWxLf5amzhqUTLgNKkcyCBXYCPZUO1QnGOdBR8
- pTIOZyS6tddxx7e35HaWkJrhmDvHYdanH0ljMKZiqLDlv/OdIzIu8wfwf53BfwTXWCH3/mA9YTW
- 4P1sNQSq3vXvstmNo6BPUMktr37RT7av/Y3756gDTBIMFI14BWpxqTGLxqKPPplLlNixeMmBhvw
- cpy5NZbPtjFhczMzMOIVJNSOEq5rGQuVG7RZpVsdsPCnQs8ITeBp2gmoJ7ro80TUKsjRXb2/IzK
- eK4MePro2OIPfbggIig5Mq489Hu2782BIYNdglesrBgrLKPwXIaqen6JesioGhhOD2o2KYbOvR4
- UX+rcA0+668m7E/1Xng==
-X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa7950a cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=KAfsIobKxm3l_v_usUoA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: OZ4v3GTdcH_r5ts5gLdlYoKI69Vb1pd5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDA5MCBTYWx0ZWRfXwlZZwcAFQMwd
- KqYhPkE215py5u0FThEksZe+OZ9wEJREgJHXobKI1Lg5ok2NOQH/MB+/JHgy3GYgXnNYGekxfXH
- +fdmh/U7PLbgNDVrLhgYGlgiaeaxhyw=
-X-Proofpoint-ORIG-GUID: OZ4v3GTdcH_r5ts5gLdlYoKI69Vb1pd5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140090
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
+ BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1YAUJEP5a
+ sQAKCRDCPZHzoSX+qF+mB/9gXu9C3BV0omDZBDWevJHxpWpOwQ8DxZEbk9b9LcrQlWdhFhyn
+ xi+l5lRziV9ZGyYXp7N35a9t7GQJndMCFUWYoEa+1NCuxDs6bslfrCaGEGG/+wd6oIPb85xo
+ naxnQ+SQtYLUFbU77WkUPaaIU8hH2BAfn9ZSDX9lIxheQE8ZYGGmo4wYpnN7/hSXALD7+oun
+ tZljjGNT1o+/B8WVZtw/YZuCuHgZeaFdhcV2jsz7+iGb+LsqzHuznrXqbyUQgQT9kn8ZYFNW
+ 7tf+LNxXuwedzRag4fxtR+5GVvJ41Oh/eygp8VqiMAtnFYaSlb9sjia1Mh+m+OBFeuXjgGlG
+ VvQFzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
+ CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
+ /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
+ GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
+ q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
+ ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1gQUJEP5a0gAK
+ CRDCPZHzoSX+qHGpB/kB8A7M7KGL5qzat+jBRoLwB0Y3Zax0QWuANVdZM3eJDlKJKJ4HKzjo
+ B2Pcn4JXL2apSan2uJftaMbNQbwotvabLXkE7cPpnppnBq7iovmBw++/d8zQjLQLWInQ5kNq
+ Vmi36kmq8o5c0f97QVjMryHlmSlEZ2Wwc1kURAe4lsRG2dNeAd4CAqmTw0cMIrR6R/Dpt3ma
+ +8oGXJOmwWuDFKNV4G2XLKcghqrtcRf2zAGNogg3KulCykHHripG3kPKsb7fYVcSQtlt5R6v
+ HZStaZBzw4PcDiaAF3pPDBd+0fIKS6BlpeNRSFG94RYrt84Qw77JWDOAZsyNfEIEE0J6LSR/
+In-Reply-To: <20260914062459.3889313-1-daniel@dev.linjama.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:JKXr1w1Ut0fePJxpFJemJq8wmbl0JedDU6cjFun+Jw6X46ag8zQ
+ dEYhukeUZ2wDZJIqoHVqVQZNhUg8ayShTBi+o05nAh8CTV4/0KflsREXo1i4UzfilNacW5I
+ LchkRgTVMbkslu6zd+0P6tDqzz7qSeopTCY1IeSsaBBj+bx7mP+bUeq6qh5pPkPpP4nKd12
+ aMJtzHl471PW4BpDPfd2Q==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:mbMfne6zBxE=;hUrAGf0eR6Dkg0i2x1ILto4SW5s
+ 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
+ f5wxUUF/23OX9+N0h416T5
 
 
 
-On 9/11/2026 3:53 PM, Marek Szyprowski wrote:
-> On 27.07.2026 00:19, Julius Bairaktaris wrote:
->> On IPQ8074 a firmware assert reboots the SoC:
->>
->>   Unable to handle kernel read from unreadable memory at virtual address 0
->>   pc : ath11k_hal_srng_access_begin+0xc/0x60 [ath11k]
->>   lr : ath11k_dp_rx_process_mon_status+0x15c/0xd84 [ath11k]
->>   Call trace:
->>    ath11k_hal_srng_access_begin+0xc/0x60 [ath11k]
->>    ath11k_dp_rx_process_mon_rings+0xa0/0x5d4 [ath11k]
->>    ath11k_dp_service_srng+0x1f4/0x348 [ath11k]
->>    ath11k_ahb_ext_grp_napi_poll+0x34/0xd4 [ath11k_ahb]
->>    __napi_poll+0x38/0x188
->>    net_rx_action+0x120/0x2c0
->>
->> ath11k_core_reconfigure_on_crash() tears the data path down with
->> ath11k_dp_pdev_free(), ath11k_dp_free() and ath11k_hal_srng_clear(),
->> which memsets the ring list. The DP NAPI is still running while that
->> happens, so it services a ring whose address pointer has just been
->> cleared.
->>
->> That function used to disable the interrupts first, until
->> commit d455e805de70 ("wifi: ath11k: rearrange IRQ enable/disable in reset path")
->> moved the disable into ath11k_core_reset(). reset_work is only queued
->> from mhi.c and from the debugfs hw-restart handler, so AHB parts never
->> run it on a real firmware crash. Their recovery goes QMI server exit ->
->> restart_work -> ath11k_core_reconfigure_on_crash() ->
->> ath11k_core_qmi_firmware_ready(), and nothing disables the interrupts
->> anywhere along it.
->>
->> Disable them again on the crash path. The reset path has already done
->> so by the time it gets here, hence the ab->is_reset check.
->>
->> This is also why the debugfs hw-restart trigger never showed the
->> problem: it goes through ath11k_core_reset(), the one path that still
->> had the disable.
->>
->> Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.12-01460-QCAHKSWPL_SILICONZ-1
->>
->> Fixes: d455e805de70 ("wifi: ath11k: rearrange IRQ enable/disable in reset path")
->> Assisted-by: Claude:claude-opus-5
->> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
-> 
-> 
-> This patch landed recently in linux-next as commit f7a74e131d3f ("wifi: ath11k:
-> disable interrupts during firmware crash recovery"). In my tests I found that it
-> causes a regression on QCOM RB5 board during system suspend/resume cycle
-> (s2idle):
+=E5=9C=A8 2026/9/14 15:54, Daniel Linjama =E5=86=99=E9=81=93:
+> When enable_verity() hits the qgroup limit, rollback_verity() needs its
+> own metadata reservation. When the qgroup limit refuses the rollback,
+> the whole filesystem is forced read-only even though the qgroup limit
+> was for one subvolume only.
+>=20
+> Skip btrfs_handle_fs_error() for -EDQUOT/-ENOSPC and just return the
+> error. The verity orphan item is left in place but the orphan cleanup
+> from commit 705242538ff3 ("btrfs: verity metadata orphan items") will
+> remove it at the next mount. fsverity enable still correctly fails but
+> the filesystem is not forced read-only.
+>=20
+> Fixes: 146054090b08 ("btrfs: initial fsverity support")
+> Signed-off-by: Daniel Linjama <daniel@dev.linjama.com>
+> ---
+> Verified on a virtual machine with a mainline kernel (08df884136f1) and
+> a loop-mounted btrfs, with either a qgroup limit on a subvolume or a
+> full filesystem. On the unpatched kernel the whole filesystem was forced
+> read-only. On the patched kernel fsverity enable returns -EDQUOT/-ENOSPC
+> and the filesystem stays read-write.
 
-Hi @Marek, can you please try if below diff can fix this regression? Also, @Julis, can you
-please also confirm if it can address your original issue as well?
+Please also submit a fstests case for it.
 
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index d2ed6a0ea7e3..1ad0a47653de 100644
---- a/drivers/net/wireless/ath/ath11k/core.c
-+++ b/drivers/net/wireless/ath/ath11k/core.c
-@@ -1275,9 +1275,6 @@ int ath11k_core_suspend_late(struct ath11k_base *ab)
- 	if (ab->actual_pm_policy == ATH11K_PM_WOW)
- 		return 0;
+>=20
+>   fs/btrfs/verity.c | 22 ++++++++++++++++++----
+>   1 file changed, 18 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
+> index 4e0ab5842274..8d0f9eea4c39 100644
+> --- a/fs/btrfs/verity.c
+> +++ b/fs/btrfs/verity.c
+> @@ -441,7 +441,9 @@ static int del_orphan(struct btrfs_trans_handle *tra=
+ns, struct btrfs_inode *inod
+>    *
+>    * We try to handle recoverable errors while enabling verity by rollin=
+g it back
+>    * and just failing the operation, rather than having an fs level erro=
+r no
+> - * matter what. However, any error in rollback is unrecoverable.
+> + * matter what. Failing to delete the verity items for lack of space is
+> + * tolerated, the orphan item ensures they are removed on the next moun=
+t.
+> + * Any other error in rollback is unrecoverable.
+>    *
+>    * Returns 0 on success, negative error code on failure.
+>    */
+> @@ -456,9 +458,21 @@ static int rollback_verity(struct btrfs_inode *inod=
+e)
+>   	clear_bit(BTRFS_INODE_VERITY_IN_PROGRESS, &inode->runtime_flags);
+>   	ret =3D btrfs_drop_verity_items(inode);
+>   	if (ret) {
+> -		btrfs_handle_fs_error(root->fs_info, ret,
+> -				"failed to drop verity items in rollback %llu",
+> -				inode->vfs_inode.i_ino);
+> +		/*
+> +		 * -EDQUOT and -ENOSPC mean we could not reserve metadata to
+> +		 * delete the verity items. That is not a consistency problem,
+> +		 * so don't turn the filesystem read-only. Leave the items and
+> +		 * the orphan in place, orphan cleanup on the next mount will
+> +		 * remove them.
+> +		 */
 
--	ath11k_hif_irq_disable(ab);
--	ath11k_hif_ce_irq_disable(ab);
--
- 	ath11k_hif_power_down(ab, true);
+EDQUOT is fine, but I'm not sure if ENOSPC is really recoverable.
 
- 	return 0;
-@@ -2333,17 +2330,9 @@ static int ath11k_core_reconfigure_on_crash(struct ath11k_base *ab)
- 	int ret;
+Even if we ignore ENOSPC for now, we may have really exhausted the=20
+metadata, and the next transaction may be aborted anyway.
 
- 	mutex_lock(&ab->core_lock);
-+	ath11k_hif_irq_disable(ab);
-+	ath11k_hif_ce_irq_disable(ab);
- 	ath11k_thermal_unregister(ab);
--
--	/*
--	 * ath11k_core_reset() already disabled the interrupts on the reset
--	 * path; only the firmware crash path reaches here with them live.
--	 */
--	if (!ab->is_reset) {
--		ath11k_hif_irq_disable(ab);
--		ath11k_hif_ce_irq_disable(ab);
--	}
--
- 	ath11k_dp_pdev_free(ab);
- 	ath11k_cfr_deinit(ab);
- 	ath11k_spectral_deinit(ab);
-@@ -2605,9 +2594,6 @@ static void ath11k_core_reset(struct work_struct *work)
- 	time_left = wait_for_completion_timeout(&ab->recovery_start,
- 						ATH11K_RECOVER_START_TIMEOUT_HZ);
+I believe your test case is only utilizing qgroup limit, or did you hit=20
+a case where btrfs_drop_verity_items() returns -ENOSPC and the fs still=20
+works fine?
 
--	ath11k_hif_irq_disable(ab);
--	ath11k_hif_ce_irq_disable(ab);
--
- 	ath11k_hif_power_down(ab, false);
- 	ath11k_hif_power_up(ab);
+Otherwise the idea looks good to me.
 
--- 
-2.34.1
+Thanks,
+Qu
+> +		if (ret !=3D -EDQUOT && ret !=3D -ENOSPC)
+> +			btrfs_handle_fs_error(root->fs_info, ret,
+> +					      "failed to drop verity items in rollback %llu",
+> +					      inode->vfs_inode.i_ino);
+> +		else
+> +			btrfs_warn(root->fs_info,
+> +				   "failed to drop verity items in rollback %llu: %pe",
+> +				   inode->vfs_inode.i_ino, ERR_PTR(ret));
+>   		goto out;
+>   	}
+>  =20
 
