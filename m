@@ -1,64 +1,64 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCF73EC822
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0822429013
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789426395; cv=none; b=Q/d2HvtZpWhHFDvDG2eOoCEZeCYJPZGGOY3iBryt2CCi8d7M+Jb3mP3dQkTCAdNK4+aeE3yU3kSssAYGaAAXuned9ViE2AVUcmbmgZZ0RmLUDZt9tdZvvB2mZMf5s/mDndTwv88FWkq92vDJlQwhsgkMXRQUu3CYQ9IwmXxp+Bc=
+	t=1789426400; cv=none; b=nvVw3/Rqnbia7rT/ZqPLEldDOREf1Q6SF7UHGUA7v+2i3joou59YvllZ+MLwOoPh2XMTjnlcRiJJhui2Lx0VJnHSltsm9k5MpBto/9J3xa4Fo/6MsYFCP06WgmQqd9MeJSRjVqNRPr1tc8AgKGouvobK7DUN0Z5F19apgOXOX0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789426395; c=relaxed/simple;
-	bh=v9W246k4i5nC9ZdyWZi1OCDWQVULW5oh4JWWhuxaeuo=;
+	s=arc-20240116; t=1789426400; c=relaxed/simple;
+	bh=0jdbcgi1ucObaWyrq260b9mGv8DVXuvEllXpVv7pX28=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P9D7wYiled6QWJ6+w/2I/b8BtuAZEJ6BCn08vgvH5HGuiU1b0C/R1P0N6mviFDWuRyzsAAkQ1TixH8YPwvZNELvISuXRyDutQhaQGo+iAxBEE2NEaWhTS9OPyDWFqW1boOoLeVWouiTXDSmpFeMQMPsjxYX9DpcfvAwB6R3mKTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dohM/q/L; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=ZSfNB5ScCUqPq+BwB+RX5Fn7RZGgMNWQbbbedl1gZ8Fvki8bTj0F1GfFBIafiOrHW5DceLo9lKDm8pMYetvGbz9nbMXYFBcwtWNMPaW6buQI0tDqpoBeydw/7MTjU1hmqrII9wdf6WUbK/tbKB5xqhXJsocegvzYppMJ8UnDygg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mvOA9TOK; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dohM/q/L"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso1665294a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:53:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mvOA9TOK"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c08393b0so1885235a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:53:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789426393; x=1790031193; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789426396; x=1790031196; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BN8kNGGOstdu3D+3MzZhZpT0mSPpKY6fG+DlEioFUuE=;
-        b=dohM/q/LJrug23wvrlKE9g6q5ylcIts8vsVeDy+4lQjcALywDDRVvFZxop2mzLr6vK
-         o6nCS15ea0aMk+8b1ONVpHUFGtT9ef2Pzwr/0te32027H27PXL8j3PERSyY3LJvGgGvJ
-         evAzZWdrGBk/Bp2y5zCeS5RO7T0shNFkoH8/0Rwo+W3rMsfXdSknhKIOulHxp7M4p8sG
-         xh8hdt58+HON/OTWKwtvsRCwEZ+6M34bDA/XWqUlAyteHMTDTQ0XZ9i1T0Eu+s4cP7t4
-         d0/8/a3K8q83fr0qhRpscYfT7XNaQQYY1GwI7Dzxd7Vo54c3mCvD62E4FGitCAU24jfd
-         aVwg==
+        bh=nkBmBi2M3bokC0woUyxYsBDQw2qjDISAFTNktCCOhv4=;
+        b=mvOA9TOKWN3eiYeqor4FiDATUPvX0/ncCeigFm4H8jYfCAthYQwQ1ZhYK8M/32UlYz
+         Xf4TzMmVHt/EEolpPmyN2eVM8dfuvTXkYUb5IL8zFQyF61vN2X559SjcnyW5fymO0tYd
+         8o/q+42chTrVI+Rm1t+V3WRXw1hszJlkYozVhP7VO+Cira3GekGWC4mmz/DIly3MkswX
+         K41QyMPbM8VVQp0yAeN/fqNGj4Ufljd3wx4t14Y+WSHbeiv+XcAc7gKiU0K10kIrVMvG
+         TK4YaoIlhxF9qe9d2ZWwjc0aoOBvcoO8pvoegvHSnQZSZy1//ti607n9T1M2u46DOM2r
+         VlIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789426393; x=1790031193;
+        d=1e100.net; s=20260707; t=1789426396; x=1790031196;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BN8kNGGOstdu3D+3MzZhZpT0mSPpKY6fG+DlEioFUuE=;
-        b=lmqeuqj1dYQ/fJkCAvRULvXUWlNXU7QzVcWsbwAlNzWSLJkRd6fViVB1XPGIXvij0F
-         2Ddy+UuAeRRgppSjQoK2QwJ9/ldG5oko3Y+X5lY5nOy4lMWvFOcuYvIGt+KUPSSCyTjU
-         hNy9eq/92aCLThliqKeJGNlhasj+I6bBQpm9vf6FIsMd//KMXQMZvvnoSdNuJq6iP7wZ
-         xNXGL0WZjZmDp8ePTd1gBBki8NNoF7FUn19rjyGkB4ikUlOrSlJYYX/gGpCNoVAntxMw
-         Cr6y0OlIgYZqDJXUuxyqKMmUDCWMOmzJ7XpFAgB+Xp+fHG99CwLx7LNrOB9PLRGR5q+H
-         NPpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxRF5AIKTRYvM+FirugvS9OKXLfisp0lRqAYA6g34dcbp16jlOPwLHaSXfkfIDBM8TioGai3qL8OhkPuCg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lthn0v7m//5J8uDZ8N8Rm6Pt7pZxma+Ygm88uRzKNH1dsM7hnZ
-	nP2znh0U4/xak0dx2NyS+VvZiM4SP9NykVddQrFPH8a1Q0/BFRnIGrdW
-X-Gm-Gg: AYBFou1Rww+6Ftd2Uups6Euy+SW0zQ5WGJS3oBfNSIsG6tgQRRN2/Z66HxeFZEl5vvS
-	7mOj9sKmKi8sdKYKJIG0rzHdLNb68QmOhZwjGaQhKrWSgRzWjxUrtvHd0ZxTUDK6dqtBZkiPah3
-	oMxVGJ/Lx9rD+Wkit6Dxq99FpfGvQCL7tnYvNmxT5+aq6EyjlepqLYL6noH8THSfV64ivxeNm8H
-	7V8gMhWYBuJOSLHf6KjmNUOKlcVCgkqhR2YO2xYs9gJENducau0AWy/8E3bdWHLvEPglBcai3eA
-	QmEsYmWGD4rUjQqHOrBXMWBDSYxeRVbmvnnu/VExAla/lN2sloQmJxjKqYnbGoHcKkbMHCimPQf
-	aCUPevuxy9KQePrh3DEBRVxh69WP1+1F0dtQGgMmaRWH013InQCG+IJUYCwhwUzKglVznr34EEC
-	FVgW3fzhZDHGwlD4dhQ0B8xMULYavihSEN4SUBY0qtkuHZrRuEreMK4JtBzmL4m5xXupRFqGin0
-	2l2t5QQoZmQFFwhPPebETL0i+s3B5WX6t7z0vnjV7BO+zdoRuCo
-X-Received: by 2002:a17:90a:1056:b0:39d:ec9a:8f8e with SMTP id 98e67ed59e1d1-39dec9a90b5mr6114824a91.8.1789426393321;
-        Mon, 14 Sep 2026 15:53:13 -0700 (PDT)
+        bh=nkBmBi2M3bokC0woUyxYsBDQw2qjDISAFTNktCCOhv4=;
+        b=nWAGQJKrxQyMlcSRZu0RkUDkI6Tp6/hWTJLB2CQU22uS/m0aj+T71Euq8NnO/0SsAu
+         Boy40x9dGpo6VpoYRqeYIpGz9P1578vsI4cafaaILwUG9q6izqnAh7T2+b6JU6aagGlB
+         rd9Hjw9yGxPG/MFxouAtBy2oiAk6kqU6jw3/QSN8QEi/L2APXJDpH9tPYRs3mhx3xPZH
+         YKN/KZo4m/pOaFpgffGZ0FpKYxOomnP2zhFEKW8nY8o5tGPLpZv3jOENqozvZfPsVQGz
+         VCkC45NP6TsU6SGJ9GvLS6RY7Azlv46skObhuXstSGKx8icjoqIYAL/pnhzyXVKn4/aP
+         IjPQ==
+X-Forwarded-Encrypted: i=1; AKwUvByGyroufKLK5DHgSM0ecCVZtUGNGSTHsvDfqtURoOg0Y1++4DHn4iIGjx7dA83715hIZHI43zBkp7J17TQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ln/46x87Bq1jEOUK3sURL+/ELAF1euK6+mYJ+Ty94LAhMyCyE8
+	vpVNHb34m0Pn2FAlaNSFtwYs5fQEbKdXl20LXPCjpxIc7dMTurideV5M
+X-Gm-Gg: AYBFou1UVT7SQb3k0gcJhCG0BLt296kYOhse/lYqxiaqLy+YDd2T7ttyuQeHv5xH53A
+	/msfHgtwNlzdZgPTD19sOGHaWFE0EggwseHqsFN5b4A4RgS15pvgH/PmrbtmNlb65hgBcNKvzgy
+	1xeDO1NDA/AryF22n697t7/j+/qRNjYWuX15FlZDeWclLqTBOmu7hGBz8D1rwMVsf8wbOoFLVmM
+	W/yQAQ2fb2ImmecNXjNtoWYaTGPqJV7utxNs+InxU+4fZOJOhC5RT65HR9NZXaR8M1PQmYrlsfV
+	xfEssHOiL1HyLcjRp4LCJSjgyYCV0UYMInNnyzmztTTBMJAl4IdXkmBIfCoykEFMzQsETOPwT0X
+	bKwVVQaGrxHQsWIZFdHlU6PKDBa36PrOJTU1VW4b89DQhOAQDDrAw8OAm49OyzSYJE7PF/qQy7k
+	CUtoi5Qbws/6gOJ32jFFocQuE0zL+bamQ1Gsu5KXzuebAmVbTb6SF1pGdFZjb8F2mlDHj8RExeJ
+	yQLpgDDXai0rVVwO3RNAS8NDdY+3xw+hyXzYLkp3gM/eaGW/ZqF
+X-Received: by 2002:a05:6a20:72a6:b0:3d3:ae40:51e4 with SMTP id adf61e73a8af0-3db405e637fmr8959185637.24.1789426396151;
+        Mon, 14 Sep 2026 15:53:16 -0700 (PDT)
 Received: from lappy (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bbeb053a5sm14924296eec.27.2026.09.14.15.53.12
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bbeb053a5sm14924296eec.27.2026.09.14.15.53.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 15:53:12 -0700 (PDT)
+        Mon, 14 Sep 2026 15:53:15 -0700 (PDT)
 From: "Derek J. Clark" <derekjohn.clark@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -68,9 +68,9 @@ Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
 	linux-kernel@vger.kernel.org,
 	kernel@lists.opengamingcollective.org,
 	stable@vger.kernel.org
-Subject: [PATCH 05/10] HID: hid-lenovo-go-s: Add kobject_uevent notify during reset-resume
-Date: Mon, 14 Sep 2026 15:52:58 -0700
-Message-ID: <20260914225303.868569-6-derekjohn.clark@gmail.com>
+Subject: [PATCH 08/10] HID: hid-lenovo-go-s: Reorganize and rename hid_gos_cfg
+Date: Mon, 14 Sep 2026 15:53:01 -0700
+Message-ID: <20260914225303.868569-9-derekjohn.clark@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914225303.868569-1-derekjohn.clark@gmail.com>
 References: <20260914225303.868569-1-derekjohn.clark@gmail.com>
@@ -82,27 +82,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Adds kobject_uevent notification after setting os_mode attribute on resume.
+Renames hid_gos_cfg struct to gos_cfg_drvdata in preparation for later
+fixes.
 
-Fixes: 3524900cc571bd922a ("HID: hid-lenovo-go-s: restore OS_TYPE after resume from s2idle")
+This is a prerequisite for later fixes. No functional change intended.
+
+Fixes: a23f3497bf208c59ad ("HID: hid-lenovo-go-s: Add Lenovo Legion Go S Series HID Driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
 ---
- drivers/hid/hid-lenovo-go-s.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hid/hid-lenovo-go-s.c | 39 ++++++++++++++++++++---------------
+ 1 file changed, 22 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/hid/hid-lenovo-go-s.c b/drivers/hid/hid-lenovo-go-s.c
-index b6850cf2c029..712823e22bea 100644
+index f1a0bcfcdb71..e5c4104a3adb 100644
 --- a/drivers/hid/hid-lenovo-go-s.c
 +++ b/drivers/hid/hid-lenovo-go-s.c
-@@ -1467,6 +1467,7 @@ static int hid_gos_cfg_reset_resume(struct hid_device *hdev)
- 	if (drvdata.os_mode != os_mode)
- 		return -ENODEV;
+@@ -32,36 +32,41 @@
+ #define GO_S_CFG_INTF_IN	0x84
+ #define GO_S_PACKET_SIZE	64
  
-+	kobject_uevent(&drvdata.hdev->dev.kobj, KOBJ_CHANGE);
- 	return 0;
- }
+-static struct hid_gos_cfg {
+-	struct delayed_work gos_cfg_setup;
++static struct gos_cfg_drvdata {
++	/* MCU General Variables */
+ 	struct completion send_cmd_complete;
+-	struct led_classdev *led_cdev;
++	struct delayed_work gos_cfg_setup;
+ 	struct hid_device *hdev;
+ 	bool orphan_ack_pending;
+ 	struct mutex cfg_mutex; /*ensure single synchronous output report*/
+-	bool gp_registered;
+-	bool rgb_registered;
+ 	int cmd_status;
++
++	/* Gamepad Variables */
+ 	u8 gp_auto_sleep_time;
+-	u8 gp_dpad_mode;
+-	u8 gp_mode;
+-	u8 gp_poll_rate;
+-	u8 imu_bypass_en;
+ 	u8 imu_manufacturer;
++	bool gp_registered;
++	u8 tp_windows_mode;
++	u8 tp_manufacturer;
++	u8 tp_linux_mode;
++	u8 imu_bypass_en;
+ 	u8 imu_sensor_en;
++	u8 gp_dpad_mode;
++	u8 gp_poll_rate;
+ 	u8 mcu_id[12];
+ 	u8 mouse_step;
++	u8 tp_version;
++	u8 gp_mode;
+ 	u8 os_mode;
+-	u8 rgb_effect;
+-	u8 rgb_en;
+-	u8 rgb_mode;
++	u8 tp_en;
++
++	/* RGB Variables */
++	struct led_classdev *led_cdev;
++	bool rgb_registered;
+ 	u8 rgb_profile;
++	u8 rgb_effect;
+ 	u8 rgb_speed;
+-	u8 tp_en;
+-	u8 tp_linux_mode;
+-	u8 tp_windows_mode;
+-	u8 tp_version;
+-	u8 tp_manufacturer;
++	u8 rgb_mode;
++	u8 rgb_en;
+ } drvdata;
  
+ struct gos_cfg_attr {
 -- 
 2.55.0
 
