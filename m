@@ -1,232 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1113A59A8;
-	Mon, 14 Sep 2026 22:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CFF457E75
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789423722; cv=none; b=fzaprYsvYj5ravtU8roAmGswtOlOuLpZRb8zvco6x6rDhToQ83OGkAwwHG/VRL22PgGyInXLfIc9Av6EHJqTgjKVYCS05U9T92MyKFQi1ThUwJDvdVpAdMVXsS8BDNz8qqfI+Mpn7yOLLzXt9mvr8t3LFO5OOl8sgmw/wQfwVaY=
+	t=1789423830; cv=none; b=CvLiMKxV8pxBLOQziVxYSCaWciwq6bO20yplXmLNGxCV61RRz7NIZhvy4JmxUDyy90u6wlX1l/n1Mu/N/VQHSw5OGIslZqG/iH5ips1yOe78MuYwEUl4+v+WNrd+W0/oiYkM/h8L74jW6G5DsSO5aTDL7+iGBltDpE3x5NhH6Qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789423722; c=relaxed/simple;
-	bh=DZRPTkmyJbI0p++5yHjIu5NP6zl1kWU0f0ya3X2kpqU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TG+hHA6J3uXs8sywSBqt3i6al2ggit+piQ5kC/hntNiCmHGVFMpw94CD+dTxFErmTkafnsqRBCRjl16S/L/p1N0zj9OVUD58qF53zi0bA/RkA12um+vQ/4MQddC5rByeclt56M5cBkZXYEgG3SK6iyhcV5nDd+BN04gtCIn6O6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=opxJIJiA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789423830; c=relaxed/simple;
+	bh=gLzjztUBh8eUXFB5ZGRmFKOT+KaN6m6lVeXdcVVl7OY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TPRwnPO/chCb21Qxw6FmrNO2vZl9QXIJcmRZKth1jcHSZGyANVaiRcOpBLl54+iKQ6sIJiYyCjZpPUcfSxeCq4LppggkzBlWYH+aXdmUJ92WOLejuhB4bTlHQIMlyzQ5RP7D7r6awuoX1eBL6sZ67RoHEy/Oec6s6imAXwJWR5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=MrNn2ABe; arc=none smtp.client-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="opxJIJiA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC901F00893;
-	Mon, 14 Sep 2026 22:08:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789423721;
-	bh=2D8MduI9NE1LwI9v9L0sH33MnpUkEkIXfPNIfZ+r5lo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=opxJIJiAwscBcfrKM2vn0gkAYEErmdOFi7AUXYjElqS0Sp9NhPPWlxyYBLKxKaT6B
-	 XUwPAEmoFcv1rUMmNliRlachmGmEPQzW+fNCetAHiz6WH6X2hxfLMBxkTuCsenfIxG
-	 ieVQb2jPnxHfg2n8KInfjdZxAZMAd7WxWy2Ty6lr0nni5B9dyWzayFqmoNzNqP59xT
-	 tMOOY+Ne8UJ+Rv/z24lYrlLuwzPBXk0KYR2fNOueERVXrpi1Ya0JTJZIo6Fp1LZErd
-	 J2AgdVEQD3sM5krK+IeqoDfM1+X3XhzBsF9fy1Uo2WZzilddiIlrUfanQGulCic3G1
-	 WIxSB2eVRAIew==
-Message-ID: <170bcc15-38fc-47cb-89f5-8fe7411111aa@kernel.org>
-Date: Mon, 14 Sep 2026 23:08:36 +0100
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="MrNn2ABe"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-90e9e042ee1so44516106d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:10:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789423827; x=1790028627; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J3XZNUGEs58um27ogp+l/DHH3zgdwh/5Gz7nOI7x+eE=;
+        b=MrNn2ABeVBBLD/psDiK3m8CL12AHXAedKA09BStuiTLavMSh2zkru9FcuKOt20Zbjd
+         MPuKWICMDaDu/HrKe+osLXQuiOHKgIz3nULbZlBumSaVQJhTLkdnV6i9qHniuVqW7zyW
+         VUq1B9Bp84J9Rmxq5H3BEM/2OYugq9xo+DVbdYSYrhWZIL6yPubVIh9tyoadKkW6MJcV
+         wsph/3jwQHxIFMT19YoinBg6KV86GUOZkG3sd6wCFOt9ngTtwh4QitLZn8CBgXRZnGDj
+         Uy/1BXjUOwpbZcfnryQr4uQtx5ZAYZ3K1fuuA9VhOBVPQzJQz323ALZB/IaHz9C4sT0n
+         44LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789423827; x=1790028627;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=J3XZNUGEs58um27ogp+l/DHH3zgdwh/5Gz7nOI7x+eE=;
+        b=fAIxiBKLtz3S1sGshEEukL9df2xEVTJ/lEskaHr7pa2hHpqkHe87JQMbn257p034xo
+         MR3ESRlvsbH/5V8R1r683A3Al9YiAPC8q2wF0Vl1u/oXSpZHKM7sBwAoCacxl2rsFoHa
+         P2hId4dLa5/moMR1G8duDTaXoDQsZ/sZ3qcbGVzuyyWYERd5VlQb7iIFr88oqQRbPZ93
+         14M4INTU/DSgY6LDZnZKhaKSI1U7Z+d6nYjKMJp0vVvHtD3qtorEH3Zt43KYdROew+cM
+         qRu2LoXUI1wRiC1yKv+RCkH7nLqN0YPeusU5YxvZ1X2c4GhRlK8K9VXCWPppuJnNydrW
+         v//Q==
+X-Forwarded-Encrypted: i=1; AKwUvByXFu4UJhGj41af9r+l5CnL6mZSGWs//eYUrSbbTXEQrcZp2bt26+2K4SIMw1dnPQgCLh5bj85Cgyt7wQ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mY7LVyAgCmCuSdc4hoX5TbZ2QZu1NbzPxog1AwAh0SgVTIEW9B
+	D2dkUFIYFXZtm7vDxoYqEpzQswIipxnRoe1SgoQf0HMVIajVEVx/ID4oFaJ995xBk0g=
+X-Gm-Gg: AYBFou1eqolwd887fRAW1itZrImZnQMrhaV/BAj7z0VFar62TW8GRjxU3uoKPNzyXIX
+	tk//1ofiQ9sg6Jn0JIKyJ4q/vSKNeo7IJq8ONSfNeHiv/niB4HUZRO/62EitNJdOd4vk1S/9DnQ
+	ZaRUCx1yBknDfwICZe+fGOiO1Hp2Xx/cPzb0HgPq2nBeqSleYS02Z5COOh57Sn8pMgty8NDWNpJ
+	wCAIVI7Pk7Xryi6G3fb7ggi69Obag7E1U0c1BagLBmGwe7lkFKShBdyuNWhuX/wDiVmHf32CATS
+	nxnARMwVX9a7v5lqxle11tCve1FTYLKr7zdh5j1XaQw7yZwhHBhEAE4EJ5/x4oywri3DGa0mFxo
+	Y+We+g9VRd/prB/+fYH3H6Zj0Yd1jDtcGR36vdD17LFnqKbD4T5BORkmR+owH4+mm1ntgaUAc+j
+	zZpDZKJ/x7zm1+WtwU7ueOQJPAMP9EMVi8ValmpQkVXiuJPlgfpD7Kyg125F5RKxN+aYotK3Wuz
+	RQ0qHzqUtMqRHFdSfFVM19QKXuEEZ6Sm8GkRKvA/nCPyVdcmoQf/Ayf8M7Zua3GNQ4=
+X-Received: by 2002:a05:6214:2243:b0:90e:9ac5:bfc6 with SMTP id 6a1803df08f44-9122e52dcdamr78819906d6.24.1789423827222;
+        Mon, 14 Sep 2026 15:10:27 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45ab7csm105588756d6.15.2026.09.14.15.10.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 15:10:26 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x6Esb-00000002Idd-3vnk;
+	Mon, 14 Sep 2026 19:10:25 -0300
+Date: Mon, 14 Sep 2026 19:10:25 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH v6 17/18] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260914221025.GA3196566@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-17-5ef07ec9ef06@nvidia.com>
+ <d3fb7ea0-019f-4311-bf0f-00d25bdebda0@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] nvmem: add mt6323 PMIC EFUSE driver
-To: rva333@protonmail.com, Sen Chu <sen.chu@mediatek.com>,
- Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
- Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Ben Grisdale <bengris32@protonmail.ch>
-References: <20260911-mt6323-nvmem-v4-0-626dd17531dc@protonmail.com>
- <20260911-mt6323-nvmem-v4-2-626dd17531dc@protonmail.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260911-mt6323-nvmem-v4-2-626dd17531dc@protonmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d3fb7ea0-019f-4311-bf0f-00d25bdebda0@amd.com>
 
+On Mon, Sep 14, 2026 at 04:27:00PM +0200, Christian König wrote:
 
-
-On 9/11/26 7:33 AM, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
+> > +enum pci_p2pdma_map_type
+> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
+> > +			unsigned int tlp_flags)
+> > +{
+> > +	struct dma_buf *dmabuf = attach->dmabuf;
+> > +	struct p2pdma_provider *provider;
+> > +
+> > +	if (!dmabuf->ops->p2pdma_provider)
+> > +		return PCI_P2PDMA_MAP_NONE;
+> > +
+> > +	provider = dmabuf->ops->p2pdma_provider(dmabuf);
+> > +	if (!provider)
+> > +		return PCI_P2PDMA_MAP_NONE;
+> > +
+> > +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
 > 
-> Add support for the EFUSE controller found in the Mediatek MT6323 PMIC.
-> The MT6323 EFUSE stores 24 bytes of hardware-related data, such as
-> thermal sensor calibration values.
-> 
-> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
-> Reviewed-by: Andy Shevchenko <andy@kernel.org>
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> ---
->  MAINTAINERS                  |  5 +++
->  drivers/nvmem/Kconfig        | 11 ++++++
->  drivers/nvmem/Makefile       |  2 ++
->  drivers/nvmem/mt6323-efuse.c | 84 ++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 102 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3a19da74d00c..6ec0ed61260c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -16718,6 +16718,11 @@ S:	Maintained
->  F:	drivers/iio/adc/mt6323-auxadc.c
->  F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
->  
-> +MEDIATEK MT6323 PMIC NVMEM DRIVER
-> +M:	Roman Vivchar <rva333@protonmail.com>
-> +S:	Maintained
-> +F:	drivers/nvmem/mt6323-efuse.c
+> Calling PCI subsystem functions from dma-buf is a hard NO-GO.
 
-placement is in wrong order, same in make file too.
-> +
->  MEDIATEK MT6735 CLOCK & RESET DRIVERS
->  M:	Yassine Oudjana <y.oudjana@protonmail.com>
->  L:	linux-clk@vger.kernel.org
-> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-> index c36c2a4c2a0b..5115c46beb97 100644
-> --- a/drivers/nvmem/Kconfig
-> +++ b/drivers/nvmem/Kconfig
-> @@ -328,6 +328,17 @@ config NVMEM_MTK_EFUSE
->  	  This driver can also be built as a module. If so, the module
->  	  will be called efuse-mtk.
->  
-> +config NVMEM_MT6323_EFUSE
-> +	tristate "MediaTek MT6323 PMIC EFUSE support"
-> +	depends on ARCH_MEDIATEK || COMPILE_TEST
-> +	depends on MFD_MT6397
-> +	help
-> +	  This is a driver to access hardware related data like sensor
-> +	  calibration, etc.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called efuse-mt6323.
-> +
->  config NVMEM_MXS_OCOTP
->  	tristate "Freescale MXS On-Chip OTP Memory Support"
->  	depends on ARCH_MXS || COMPILE_TEST
-> diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
-> index 2bbfb9ff1885..626936e4dfdd 100644
-> --- a/drivers/nvmem/Makefile
-> +++ b/drivers/nvmem/Makefile
-> @@ -55,6 +55,8 @@ obj-$(CONFIG_NVMEM_MICROCHIP_OTPC)	+= nvmem-microchip-otpc.o
->  nvmem-microchip-otpc-y			:= microchip-otpc.o
->  obj-$(CONFIG_NVMEM_MTK_EFUSE)		+= nvmem_mtk-efuse.o
->  nvmem_mtk-efuse-y			:= mtk-efuse.o
-> +obj-$(CONFIG_NVMEM_MT6323_EFUSE)		+= nvmem_mt6323-efuse.o
-> +nvmem_mt6323-efuse-y			:= mt6323-efuse.o
->  obj-$(CONFIG_NVMEM_MXS_OCOTP)		+= nvmem-mxs-ocotp.o
->  nvmem-mxs-ocotp-y			:= mxs-ocotp.o
->  obj-$(CONFIG_NVMEM_NINTENDO_OTP)	+= nvmem-nintendo-otp.o
-> diff --git a/drivers/nvmem/mt6323-efuse.c b/drivers/nvmem/mt6323-efuse.c
-> new file mode 100644
-> index 000000000000..6f6f1cdc2f38
-> --- /dev/null
-> +++ b/drivers/nvmem/mt6323-efuse.c
-> @@ -0,0 +1,84 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright (c) 2026 Roman Vivchar <rva333@protonmail.com>
-> + */
-> +
-> +#include <linux/err.h>
-> +#include <linux/module.h>
-> +#include <linux/nvmem-provider.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
-> +
-> +#include <linux/mfd/mt6323/registers.h>
-> +
-> +#define MT6323_EFUSE_DOUT_BASE	MT6323_EFUSE_DOUT_0_15
-> +#define MT6323_EFUSE_SIZE	24
-> +
-> +static int mt6323_efuse_read(void *context, unsigned int offset, void *val,
-> +			     size_t bytes)
-> +{
-> +	struct regmap *map = context;
-> +	u16 *buf = val;
-> +	u32 tmp;
-> +	int ret;
-> +
-> +	/*
-> +	 * A manual loop using regmap_read is required because PWRAP is not
-> +	 * a continuous MMIO space, but rather a FSM that doesn't implement the
-> +	 * necessary read callback for the regmap_read_raw and regmap_read_bulk
-> +	 * functions.
-> +	 */
-> +	for (size_t i = 0; i < bytes; i += sizeof(*buf)) {
-> +		ret = regmap_read(map, MT6323_EFUSE_DOUT_BASE + offset + i, &tmp);
-> +		if (ret)
-> +			return ret;
-> +
-> +		*buf++ = tmp;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt6323_efuse_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct nvmem_config config = {
-> +		.name = "mt6323-efuse",
-> +		.stride = 2,
-> +		.word_size = 2,
-> +		.size = MT6323_EFUSE_SIZE,
-> +		.reg_read = mt6323_efuse_read,
-> +	};
-> +	struct nvmem_device *nvmem;
-> +	struct regmap *regmap;
-> +
-> +	/* efuse -> mfd -> pwrap */
-> +	regmap = dev_get_regmap(dev->parent->parent, NULL);
-> +	if (!regmap)
-> +		return dev_err_probe(dev, -ENODEV, "failed to get regmap\n");
+This is why I had the mapping type arrangement able to know if a PCI
+path was involved so it could activate PCI support for that path. In
+an extendable way so other interconnects could also provide their
+unique knowledge too.
 
-can we be more consistent here,
+> I shouldn't have allowed the mapping functions to be added to
+> DMA-buf in the first place, all of this belongs either into the DMA
+> layer or the exporter.
 
-how about
-	struct mt6397_chip *mt6323 = dev_get_drvdata(pdev->dev.parent);
+DMA layer is not the place to form dmabuf's corrupted
+scatterlist. This must only be done in dmabuf.
 
-and use mt6323->regmap
+We don't want to open code this common logic in every exporter, it
+needs a helper. If you have a better place where to put the thing that
+makes the dmabuf unique broken scatterlist, then I'm open :) HCH isn't
+going to accept anything like that outside stuff hard wired to dmabuf.
 
-like how mt6323_regulators driver does it.
+> We should probably have a single callback the exporter provides to
+> fill in a structure with PCI specific information for a mapping.
 
+Yeah, that is where I was going.
 
-> +
-> +	config.dev = dev;
-> +	config.priv = regmap;
-> +
-> +	nvmem = devm_nvmem_register(dev, &config);
-> +	return PTR_ERR_OR_ZERO(nvmem);
-> +}
-> +
-> +static const struct of_device_id mt6323_efuse_of_match[] = {
-> +	{ .compatible = "mediatek,mt6323-efuse" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, mt6323_efuse_of_match);
-> +
-> +static struct platform_driver mt6323_efuse_driver = {
-> +	.probe = mt6323_efuse_probe,
-> +	.driver = {
-> +		.name = "mt6323-efuse",
-> +		.of_match_table = mt6323_efuse_of_match,
-> +	},
-> +};
-> +module_platform_driver(mt6323_efuse_driver);
-> +
-> +MODULE_DESCRIPTION("MediaTek MT6323 PMIC EFUSE driver");
-> +MODULE_LICENSE("GPL");
-> 
+I'm really sorry I haven't been able to come back to that mapping type
+series. Were you feeling positive about that? Maybe Leon or someone
+can pick it up from me. I was optimistic about scaling back to just
+the maping type negotiation as a first step
 
+Jason
