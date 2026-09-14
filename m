@@ -1,318 +1,197 @@
-Received: from mta0.migadu.com (out-63.mta0.migadu.com [91.218.175.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022081.outbound.protection.outlook.com [52.101.96.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69ECA266581
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.63
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385608; cv=none; b=gvj1E57stq4tDXpfMLsePXd4rLMtQDh9fjQUBjpubupiwMoNP6dkezY6J1QaGpiTZTRO9qvGmuxlNNmAW8omsgZh2sFPrhaHgQZYwWbPiusX6/t9j0il3i6yL65vHHwrEEi/8yUu0rqA4FF4SmJfDCb//jiFEDZmcaohJPy1G/U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385608; c=relaxed/simple;
-	bh=6vJl8E8y2Jv1Fd46pBnggwUF5zwldxFjzqu7KY7Cla4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Owjy8GnOlJFLGSYKO8+e1WA8fWY4lC5h5tl83nVUXM0bkDgilFtkczD64Gx2JjfdLB4sASujukJ1SJt+AEHplWhQsCLv5zerClNNuLa+yKmJ4t//2XlmPm1L28/ykuytQ0xjEyDiGJ0ufSSfLS6uN6fRurMelGUeLm0W1UrRhQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=W/3cWXol; arc=none smtp.client-ip=91.218.175.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3F73D9527;
+	Mon, 14 Sep 2026 11:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.81
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789385618; cv=fail; b=IDs2tCoQa6LUtn9N3yyy3uxZ1FFOsx6LsxbVNetl4H8i0qE4apm3M/omLeRT3KQBWSJ+kzUpHOac0X2kRshOcZSj510dWouwkt8K2oud/Pn6SagkgiEtW65INV2HNQkKtzEA+Rodl4mUVaI4udjRIlxFpPeHRDtfVSqs3SVkOiE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789385618; c=relaxed/simple;
+	bh=knKG6MZG3+yLUQf6gyPehktKmPvc8UpthHhgmuQWynI=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=TvMP1e5xi0jKqAbSVRDMhxhMESC6lg3S/qVmMX5r1oyuB7oqtbiqhDmRvtK4sXV+TQmcX6M5NK8lndCcHNlshCGsuntARIFPv7QRuxaUyizdGun/ahKgy3rD86AXSIEVR+0oNs5/gVXtSbKvS35SUJ77hKxB4gknuFu6p2bQRuI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=FEjQL2x9; arc=fail smtp.client-ip=52.101.96.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="W/3cWXol"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6vJl8E8y2Jv1Fd46pBnggwUF5zwldxFjzqu7KY7Cla4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789385591; v=1; x=1789990391;
- b=W/3cWXoljk6HqwBRMslSn1lRHJ8BlEwm+xx4Glw7zoywDCvj0RAr53+fqawOc/LaT4d+UuZQ
- 0cMaXLkLC7U4A1snIgqSYPDYR/5MqFF2NHSeuXNMv0tN5apHvP2mg6JuDVLcS3z1TK7s7qVpaxv
- KNLxm7as1tVK4kBedZgvxj0U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 545ecb2aac1ba300;
-	Mon, 14 Sep 2026 11:33:01 +0000
-X-Mizu-Trace-ID: 545ecb2aac1ba300
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: linux-mm@kvack.org
-Cc: Jiayuan Chen <jiayuan.chen@shopee.com>,
-	Zhou Yingfu <yingfu.zhou@shopee.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	David Rientjes <rientjes@google.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/oom_kill: fix hung tasks queued on mmap_lock behind a long reap
-Date: Mon, 14 Sep 2026 19:32:37 +0800
-Message-ID: <20260914113239.367200-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="FEjQL2x9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e/4Q2zxm7Dr1Z0Kt7av3+/JMRg7HSDCrCACWGU9ltIq6YTydvH2dQBgq7F/mGy8+5gKcb/WBfsVIpZjDtPGfyhJfx1LVfrUSzmlRhdaQE73hUxEGUjbQX4PF47Up1xIDOewNUMO3Ou88ctM0l4g+NQzHtPbQ/+RFrjLi3u6/rZDB366chXBDcLQDQ2tbkYg1PZ/NwGw0U8gbmhGAGDSbIY6Bn1cL0aKwmSJGWIpDWTplhu8+OFrnq/72f+7u4EtqGiLYoHJHxLtVneSALzYn0pV1bRfRPPZrKdvlAhNNJYK0jTIgj1VlfcZ0ZU1Wp4cIzFKY6MtV0sKbaHy+V8m9eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QOJoWc0NADFJoqZ7Jq4t7XYV7QIuzI3q+aLqXOOFQss=;
+ b=HUpbk8kCwG2RkV98leGX0YqqeePCGKHyHoe/2nBCNvLHdrfNOiw3ZgvbTiI04T0a7s+IX8JCIM87q/fDyGwWWfmz51iT41jk0Cz4Y2keqzFHxBZQOQynIzoerVUtfdqLy5CAaqtUXFxNlu+dA7gDcA8LOay27WS7Q71L33NzzbCwuVAXJLVVo0UqPY7Dvw8rHjWoaUOvB9MvxN7RQPMzDcRseKcEY7eKJgkMpynuAKP2ReSAZAFrngA6v/t+6SBRII/Fkis7fG51Jvh19C+j4fLKuEz6aXa9JleP4PO2AszYn7m60Z2uuUGLV8Ay6ZRdBgo51LLAyr0uIJzWRotb+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QOJoWc0NADFJoqZ7Jq4t7XYV7QIuzI3q+aLqXOOFQss=;
+ b=FEjQL2x9GgQsRWsGKWtRlMwMf1YPPLC4fvOxjcwN20XyvdN4I46iZoccYRRnboDqFQtGzWBxxJ5wv5DKq+Z/G8XarDSn3E3ftRNz+IfrDC07UT3Sl+FyoRS1kbV1Q23S5f1zVQ43Pr/tChWd/hfdbwczZFo4uJJNJuUue+bV7WM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO4P265MB6604.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2f6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 11:33:32 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 11:33:32 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 12:33:32 +0100
+Message-Id: <DLF09DXIHB6X.1U9MWU2V1T29W@garyguo.net>
+Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "Mohamad Alsadhan" <mo@sdhn.cc>
+Subject: Re: [PATCH 0/4] rust: pin-init: support tuple structs
+From: "Gary Guo" <gary@garyguo.net>
+To: "Gary Guo" <gary@garyguo.net>, "Benno Lossin" <lossin@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: aerc 0.22.0
+References: <20260904-tuple-struct-v1-0-72c50bd037fd@garyguo.net>
+In-Reply-To: <20260904-tuple-struct-v1-0-72c50bd037fd@garyguo.net>
+X-ClientProxiedBy: LO4P265CA0127.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6604:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20e17b3e-a6ff-4c05-d2a2-08df125401bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|376014|7416014|23010399003|1800799024|366016|921020|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	cLVbd3leaQAUDwYe9Fub4AlKAw1vxm/36Tk1/sbaKHtSx57xonBaXjHv5BDNlFRz2gcz61yCSPbKOYFNeCoJwsAmFyAYgwSA7Dt/KdiTa2mrKVlVv3wRQWJHRx6qzDYRnYOvx74n4XV+41VQtaanBbFpDScg83A2zpTJiDsx1EiD73iyogklWATX9WieMHPF6q54bI60DSMZULxnUDdLawBOv1anqpDyqWtibRbg+LUHCMEjd42BgyYXC9WFzZGfbE044U409j4ws06zx1pQybMYnjMrysS6N4BZ8DErket379JnVILOhsWxZyaEmG1WIpx4UpE38p9iUrCf8JONNnwJTaKO/5l7EcPPhUCPqYfPYyPpGbkMUbSXbLWNXuysIy92g1KIxwlp8bsTtBS4w9KM2zUV6p0VV27p8SUQ4ms8txpOPa/Ncy+Xl/yXT28zfzGk1bYxjR5njITR25MYkGAhUUZVv995fXzqTglOuKNC7tCz5o6jj2s/1/0Y2qQ5Oieyj1RsT1NHH28/RP8Bw38olFggH0b4lX4+qwpmvNnUcBVPlD+0x+PV9m0p6YIkdMPdoaIBihPAS7aw6J9KCBpuGUNXuTWZYpUL/truE4gQS6Z5ZbZPhjBpO9INOkMamok6vMG0DNqPTWEzl4aFl92KMDTkXDFSr50wkiALg2JSgrcEqZWBAtDbrb4thtoHu2uITp5jRwXy2sYDyIZ84w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(1800799024)(366016)(921020)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T3NZRm8zd3RlNVRrSWxmWTJNM3lISWNYR3Q1Tjh4S0V2dkV3c2licmUvOEdj?=
+ =?utf-8?B?cnpSQjA5VklNaEtzSk5yYk0vMG1hZGxnTGd6cHkwZFFTaEw0a2ZHRk52ZkVy?=
+ =?utf-8?B?YjhGdDFFa0hvSm81SnhlT2hiUlhrSERXVjc0UitNQlpnU3hpQml5LzhoWTZ0?=
+ =?utf-8?B?anZPL0Jqb1MyY2RiT3NIRkdZMkRkVEdmdEZManpZUGNWMUpZLyt2U3VYMHow?=
+ =?utf-8?B?U0dDQ0dhOXFHRVRPZVB0Y3VCZWJ6RGpjL2JRUG8wOEczK1NKTFkySXEwc1Jk?=
+ =?utf-8?B?VHA5bGU5ZEJ0MS9yRmEzZFJ6aVNtazZwb0dXVEF0SVk1azkwdDcwdEJnRGtY?=
+ =?utf-8?B?enpZcThXTjFpS2Z3ZzZ6SlppckRxc2NvOG5uVTV6ZDQvY2wxa01sMWt5dEFa?=
+ =?utf-8?B?NG1kOWRSY1VZdGdaZEYvTHJKZ1BpTmlRMld2ZjErUUxtNzBKYmdvaGI4anJD?=
+ =?utf-8?B?SmRzYzRmcWFldzhmV3Q4VGwxdVJaT2ZiQ1Z3TzRqd1J1YS9iKzFuTDVSeW83?=
+ =?utf-8?B?dFFaajdUalpZM3pjdHhFU1BNWm5xS0lyRTdsUzhoSDgvT1pGaWFSQk5TQ2Nm?=
+ =?utf-8?B?aVRWYWtWbmdxS1IyRjl0cDUzc1lqTkRjeFpkbld1cDN2RUZTRzJvMW1JN1Bo?=
+ =?utf-8?B?VVR3OGppSTU1SS9DWkpCUDdXNTZ4bFBoVXkxMWwwSzZOanQwSkM2ZEJ2YkNM?=
+ =?utf-8?B?QTY4anJNd01SY09kNmFVbFFvWVcyNVcra2ZvWEJTNFdwRkVHY3ZZcEpXdDNO?=
+ =?utf-8?B?eUw5NjBtaEtBOTg0ODYzTi95VUtDb0t6MHFJZFZYd1RwTktLT1JoMGVLd1Rl?=
+ =?utf-8?B?T0lKcUVtdXpDM0tBWG0yTEhxeXBKd21KK21nZzgrY0g3elVyUi9QdEI0SlZk?=
+ =?utf-8?B?NnFVc2lib1ZGU21NRDFOK1JBbDZobmlCcFZxR08vZUtId3FsM3crK3JNeHpU?=
+ =?utf-8?B?eG4yc3lhMVFXeWZzNHR5Y2wrUzBFekZLMG1QUFA2bkxOWVY0L214Sm0zTzBH?=
+ =?utf-8?B?cVJXTlErZkgwcVVuZmJ3alpEMzNVL1diUGJKazVwQ2psNWdDOUhXS1ZBMmpK?=
+ =?utf-8?B?R1QxT0hmbTJLSmpFK3QrSStaVm9XWlptZ3pEbkFlMlNHM0lJUU41cnBMckVL?=
+ =?utf-8?B?NVp6aVkwT05uS25ldGxHdlNpK3hJblRyTWhyUmVzbFF3RDNNTFBqZTNOVHNV?=
+ =?utf-8?B?aDRuZlgwZUFFK1JFNEU4RkU0VFFhbyt3NmFRdzVtSFJGMFd0ZHhSUWRjVzdS?=
+ =?utf-8?B?Q0VOcmlnNCtHcFFEQmN4dXhwSlRSZVpENEpCdThRU0FienBBNVRneFdkcGQ0?=
+ =?utf-8?B?UXNvbzdLeFUyY2J6cDVaWjl6dHlDWGJqdytOQlpna2VRbW1maGVoeHpiZWdY?=
+ =?utf-8?B?aUlMZXV0LzdVL09VQnVHSWRlbUx6Q0l5ektkdm5xdnhUcUtoNkdkQTNnei9y?=
+ =?utf-8?B?c3M3Vk9Xd0UyeDBsVENTVWhjRnJjMHVQamtUZkt4dmh0VFQyRStpTFdHVG9j?=
+ =?utf-8?B?amlHUUJ0d0VGTlZGQ1oyQ2E0RDVhYS93eEtFNnhYUlJXK1pCaE1na2xGUTFu?=
+ =?utf-8?B?M1h4YnBoZHdKdm9sZE41V0lJdXlUTi9LeFU1T3J3RnMvNDZFUGxSTkxxY24r?=
+ =?utf-8?B?WW1zWVFpa1JiWXNqYzRwYVZNRDg5SzVVOXFpWUZuNFkxQThyeTFONlZMTnN1?=
+ =?utf-8?B?clBEUmpSR2tFdkFnYjJPTUNBYzRndkozOWdmUDV2MjVtWExCRmE2ampmVGRY?=
+ =?utf-8?B?NE1yU3JhY1NyVDJGSHBUNUdkQWVLYXozOEptWDd4aHJaVG5RSlZwTGYwTStK?=
+ =?utf-8?B?MGVQUkJJdVM0UDhRVk96NDduekUvY0lyZkFMeTBrdXo3Mk9CUGZWK0RPMlB0?=
+ =?utf-8?B?ZllxTnBkNHR5cDliQTJOSWcxSy9nTkF2Vlp0YkVzK0o5UXd1U0NFaUJBd2Jp?=
+ =?utf-8?B?UnIzWUJ3eThxK05zNW1xeGh1c1Bic3k5ZDhhVG9lV0tZV0VabTJMWWVEeFlp?=
+ =?utf-8?B?VzByU2FzNmUxYU5QWldlY1pOazhwazdJQUFvS21yOWVHVVd0eExWSmQxUW5u?=
+ =?utf-8?B?Zi9YalF2WlhGTVVHZDV6R1p4YWFScGZQM1FKRFNqSmwzanVZVHRQL2lkZ0Jp?=
+ =?utf-8?B?Z25nbkxhTG9OOVBBWG5ETkk5MG0zak5lWDdSejMrYWQ2ZmtySGorMUllLzd1?=
+ =?utf-8?B?VFhqbXFJNkpwR3BKUjUvVVNFanh5YUdreTNSNjB2NWxPQnB1VWpMbk51cktQ?=
+ =?utf-8?B?eVEzNFV0Z2lhZExaYW5QUk9SU3RCT2pvQVlLTzZPKy9vekpxbEdoUHMyczJs?=
+ =?utf-8?B?ME5BOGhlOUZTVWJYQzZHWDVxSm1UcTVnZkc4ZzcwOVhQd2doT2R4QT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20e17b3e-a6ff-4c05-d2a2-08df125401bd
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 11:33:32.7370
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8jXaDK5ZqX+l5LVTo81tQlR141AViDCqQ6PNqtl4gRgv4CRcD7TH8mg7KHeV+3MyINnhcF+kkFx6kHq7JGuXyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6604
 
-From: Jiayuan Chen <jiayuan.chen@shopee.com>
+On Fri Sep 4, 2026 at 3:12 PM BST, Gary Guo wrote:
+> This is a long requested feature to support tuple structs. There are a fe=
+w
+> cases that structs have to be converted to become normal structs so
+> pin-init can be used.
+>
+> This series add tuple struct support as you'd expect to work. A caveat is
+> that pinned initialization syntax (`<-`) only works with struct expressio=
+n
+> initializers. So
+>
+>     #[pin_data]
+>     struct Foo<T>(#[pin] T, usize)
+>
+> would need
+>
+>     pin_init!(Foo {
+>         0 <- expr,
+>         1: 0
+>     })
+>
+> This is to avoid introducing new syntax.
+>
+> The upstream pull request for this series is
+> https://github.com/Rust-for-Linux/pin-init/pull/155
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> Gary Guo (1):
+>       rust: pin-init: internal: extract utility code to new module
+>
+> Mohamad Alsadhan (3):
+>       rust: pin-init: internal: pin_data: support tuple struct projection=
+s
+>       rust: pin-init: internal: init: support tuple structs in `[pin_]ini=
+t!`
+>       rust: pin-init: internal: init: support tuple struct constructor sy=
+ntax
 
-The oom reaper holds mmap_lock for read while it unmaps the whole
-victim.  Anyone who wants that lock for write in the meantime sits in D
-state until the reap is over.
+Applied to pin-init-next.
 
-With swap enabled the victim can be several times the size of RAM and
-the reap runs for minutes.  LTP oom01 trips hung_task that way for the
-victim and for ksmd, on 6.6 LTS and on 7.3.0-rc1:
+Best,
+Gary
 
-Call Trace:
- <TASK>
- __schedule+0x487/0x1870
- schedule+0x28/0xb0
- schedule_preempt_disabled+0x16/0x30
- rwsem_down_write_slowpath+0x1d4/0x750
- down_write+0x60/0x70
- __ksm_exit+0xb4/0x230
- __mmput+0x12c/0x150
- mmput+0x1e/0x30
- do_exit+0x283/0xa30
- do_group_exit+0x34/0x90
- get_signal+0x952/0x960
- arch_do_signal_or_restart+0x41/0x250
- exit_to_user_mode_loop+0xd3/0x560
- do_syscall_64+0x385/0x470
- </TASK>
+>
+>  rust/pin-init/internal/src/init.rs     | 494 +++++++++++++++++++++++++++=
++-----
+>  rust/pin-init/internal/src/lib.rs      |  12 +-
+>  rust/pin-init/internal/src/pin_data.rs | 129 ++++++---
+>  rust/pin-init/internal/src/util.rs     |  54 ++++
+>  rust/pin-init/src/lib.rs               |  71 ++++-
+>  5 files changed, 638 insertions(+), 122 deletions(-)
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260904-tuple-struct-5b5b6e6a75f9
+>
+> Best regards,
+> -- =20
+> Gary Guo <gary@garyguo.net>
 
-KSM is just the one LTP happened to hit: __khugepaged_exit() has the
-same write lock cycle ahead of exit_mmap().
-
-Backing off between vmas would not help either: the victim's memory is
-a handful of huge vmas, LTP's mmap(3G) chunks merge into one, and
-zap_vma_for_reaping() zaps a whole vma in one go.
-
-So:
-
-1. zap_vma_for_reaping() takes a range, and __oom_reap_task_mm() zaps
-   each vma in 1G chunks.
-
-2. After a chunk, if a writer is queued on mmap_lock, drop the lock and
-   return -EAGAIN.  The caller retakes it with a trylock, checks
-   MMF_OOM_SKIP as it always did, and starts over; what was reaped
-   already is empty pagetables and walks fast.
-
-3. A hand-over is not a failed attempt.  Only a failed trylock counts
-   against MAX_OOM_REAP_RETRIES, so the reaper still never blocks on
-   mmap_lock.
-
-4. process_mrelease() shares __oom_reap_task_mm(): on -EAGAIN it takes
-   the lock again and carries on, still reaping the whole mm in one
-   call.  Passing the -EAGAIN up to userspace instead would be the
-   smaller change, if that is preferred.
-
-__ksm_exit() and __khugepaged_exit() now wait for one chunk at most
-instead of the whole reap.  And the exit path stops waiting for the
-reaper altogether: once __ksm_exit() has had its turn, exit_mmap() runs
-alongside the reaper and the two of them free the victim together, up
-to twice the freeing rate and close to it in practice with LTP oom01,
-so the machine gets its memory back that much sooner after an OOM kill.
-
-The chunk is a fixed 1G rather than PUD_SIZE, which is 4T with 64K
-pages on arm64.  Each chunk finishes its own mmu_gather; that is the
-price of being able to drop the lock.
-
-Reported-by: Zhou Yingfu <yingfu.zhou@shopee.com>
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
----
- mm/internal.h |  3 ++-
- mm/memory.c   | 13 ++++++----
- mm/oom_kill.c | 69 ++++++++++++++++++++++++++++++++++++++-------------
- 3 files changed, 62 insertions(+), 23 deletions(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 05179c4b2090..7ac1728a57c2 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -593,7 +593,8 @@ struct zap_details;
- void zap_vma_range_batched(struct mmu_gather *tlb,
- 		struct vm_area_struct *vma, unsigned long addr,
- 		unsigned long size, struct zap_details *details);
--int zap_vma_for_reaping(struct vm_area_struct *vma);
-+int zap_vma_for_reaping(struct vm_area_struct *vma, unsigned long start,
-+			unsigned long end);
- int folio_unmap_invalidate(struct address_space *mapping, struct folio *folio,
- 			   gfp_t gfp);
- 
-diff --git a/mm/memory.c b/mm/memory.c
-index 926276d41920..25c35a28a39d 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2207,15 +2207,18 @@ static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
- }
- 
- /**
-- * zap_vma_for_reaping - zap all page table entries in the vma without blocking
-+ * zap_vma_for_reaping - zap a range of the vma without blocking
-  * @vma: The vma to zap.
-+ * @start: The first address to zap.
-+ * @end: One past the last address to zap.
-  *
-- * Zap all page table entries in the vma without blocking for use by the oom
-- * killer. Hugetlb vmas are not supported.
-+ * Zap the page table entries in [@start, @end) of the vma without blocking
-+ * for use by the oom killer. Hugetlb vmas are not supported.
-  *
-  * Returns: 0 on success, -EBUSY if we would have to block.
-  */
--int zap_vma_for_reaping(struct vm_area_struct *vma)
-+int zap_vma_for_reaping(struct vm_area_struct *vma, unsigned long start,
-+			unsigned long end)
- {
- 	struct zap_details details = {
- 		.reaping = true,
-@@ -2224,7 +2227,7 @@ int zap_vma_for_reaping(struct vm_area_struct *vma)
- 	struct mmu_gather tlb;
- 
- 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
--				vma->vm_start, vma->vm_end);
-+				start, end);
- 	tlb_gather_mmu(&tlb, vma->vm_mm);
- 	if (mmu_notifier_invalidate_range_start_nonblock(&range)) {
- 		tlb_finish_mmu(&tlb);
-diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-index 5d48bd862c27..cee0a0f7b4f2 100644
---- a/mm/oom_kill.c
-+++ b/mm/oom_kill.c
-@@ -503,10 +503,17 @@ static DECLARE_WAIT_QUEUE_HEAD(oom_reaper_wait);
- static struct task_struct *oom_reaper_list;
- static DEFINE_SPINLOCK(oom_reaper_lock);
- 
--static bool __oom_reap_task_mm(struct mm_struct *mm)
-+/*
-+ * Called with mmap_lock held for read.  Returns with it still held on 0
-+ * (done) or -EBUSY (part could not be reaped, try again later), and drops
-+ * it only on -EAGAIN, when it was handed over to a queued writer and the
-+ * caller should retake it and start over.
-+ */
-+static int __oom_reap_task_mm(struct mm_struct *mm)
- {
- 	struct vm_area_struct *vma;
--	bool ret = true;
-+	unsigned long addr, end;
-+	int ret = 0;
- 	MA_STATE(mas, &mm->mm_mt, ULONG_MAX, ULONG_MAX);
- 
- 	/*
-@@ -538,8 +545,25 @@ static bool __oom_reap_task_mm(struct mm_struct *mm)
- 		 * count elevated without a good reason.
- 		 */
- 		if (vma_is_anonymous(vma) || !(vma->vm_flags & VM_SHARED)) {
--			if (zap_vma_for_reaping(vma))
--				ret = false;
-+			/*
-+			 * Zap in 1G chunks and hand mmap_lock over whenever a
-+			 * writer is queued on it, so it does not wait for the
-+			 * whole reap.
-+			 */
-+			end = vma->vm_end;
-+			while (end > vma->vm_start) {
-+				addr = max(vma->vm_start, ALIGN_DOWN(end - 1, SZ_1G));
-+				if (zap_vma_for_reaping(vma, addr, end)) {
-+					ret = -EBUSY;
-+					break;
-+				}
-+				end = addr;
-+				if (!mmap_lock_is_contended(mm))
-+					continue;
-+
-+				mmap_read_unlock(mm);
-+				return -EAGAIN;
-+			}
- 		}
- 	}
- 
-@@ -549,16 +573,17 @@ static bool __oom_reap_task_mm(struct mm_struct *mm)
- /*
-  * Reaps the address space of the given task.
-  *
-- * Returns true on success and false if none or part of the address space
-- * has been reclaimed and the caller should retry later.
-+ * Returns 0 when done, -EAGAIN if mmap_lock was handed over to a writer
-+ * and the caller should start over, and -EBUSY if none or part of the
-+ * address space has been reclaimed and the caller should retry later.
-  */
--static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
-+static int oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
- {
--	bool ret = true;
-+	int ret = 0;
- 
- 	if (!mmap_read_trylock(mm)) {
- 		trace_skip_task_reaping(tsk->pid);
--		return false;
-+		return -EBUSY;
- 	}
- 
- 	/*
-@@ -576,7 +601,9 @@ static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
- 
- 	/* failed to reap part of the address space. Try again later */
- 	ret = __oom_reap_task_mm(mm);
--	if (!ret)
-+	if (ret == -EAGAIN)	/* handed the lock over, already dropped */
-+		return ret;
-+	if (ret)
- 		goto out_finish;
- 
- 	pr_info("oom_reaper: reaped process %d (%s), now anon-rss:%lukB, file-rss:%lukB, shmem-rss:%lukB\n",
-@@ -595,15 +622,15 @@ static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
- #define MAX_OOM_REAP_RETRIES 10
- static void oom_reap_task(struct task_struct *tsk)
- {
--	int attempts = 0;
-+	int attempts = 0, ret;
- 	struct mm_struct *mm = tsk->signal->oom_mm;
- 
--	/* Retry the mmap_read_trylock(mm) a few times */
--	while (attempts++ < MAX_OOM_REAP_RETRIES && !oom_reap_task_mm(tsk, mm))
-+	/* Retry the mmap_read_trylock(mm) a few times; handing the lock over is not an attempt */
-+	while ((ret = oom_reap_task_mm(tsk, mm)) &&
-+	       (ret == -EAGAIN || ++attempts < MAX_OOM_REAP_RETRIES))
- 		schedule_timeout_idle(HZ/10);
- 
--	if (attempts <= MAX_OOM_REAP_RETRIES ||
--	    mm_flags_test(MMF_OOM_SKIP, mm))
-+	if (!ret || mm_flags_test(MMF_OOM_SKIP, mm))
- 		goto done;
- 
- 	pr_info("oom_reaper: unable to reap pid:%d (%s)\n",
-@@ -1227,6 +1254,7 @@ SYSCALL_DEFINE2(process_mrelease, int, pidfd, unsigned int, flags)
- 	if (!reap)
- 		goto drop_mm;
- 
-+again:
- 	if (mmap_read_lock_killable(mm)) {
- 		ret = -EINTR;
- 		goto drop_mm;
-@@ -1235,8 +1263,15 @@ SYSCALL_DEFINE2(process_mrelease, int, pidfd, unsigned int, flags)
- 	 * Check MMF_OOM_SKIP again under mmap_read_lock protection to ensure
- 	 * possible change in exit_mmap is seen
- 	 */
--	if (!mm_flags_test(MMF_OOM_SKIP, mm) && !__oom_reap_task_mm(mm))
--		ret = -EAGAIN;
-+	if (!mm_flags_test(MMF_OOM_SKIP, mm)) {
-+		ret = __oom_reap_task_mm(mm);
-+		if (ret == -EAGAIN) {	/* a writer got the lock, queue up again */
-+			ret = 0;
-+			goto again;
-+		}
-+		if (ret == -EBUSY)
-+			ret = -EAGAIN;
-+	}
- 	mmap_read_unlock(mm);
- 
- drop_mm:
--- 
-2.43.0
 
