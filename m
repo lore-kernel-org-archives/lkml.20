@@ -1,92 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAE6265620
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE95941F375;
+	Mon, 14 Sep 2026 09:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377987; cv=none; b=YOGCUjrt0aCAYqmI4wD0tcWNho7iIVocfKrGPBOUrQe7gjcZUrg1I0XnWsD1XeYbt9RLYgH6IL53jC6TNvtmBuHfFqVwS5G5f//9i06Kdc7BsP1umf/qfsYXV/ZrFh3kc6LUOiwTQRtbdmYI6jzWD5kgWaiZ6XcxmRPv5YiTGPQ=
+	t=1789378023; cv=none; b=aRcaXRixPLtBU5SlC4m/UcdfYz35MsDK5A5b2/jiOnFoB9l7JLSiQJm8ajB1d70ZUvBwh/hY9mN6uWKN3FA+5/4QXrwABRJxUsKbRfvQNfFHeFZFQIjb6eDyrM/N37t+LB7H7L5n2nDdRy5lunUhe/WLOv7hblJoxw25q7zInTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377987; c=relaxed/simple;
-	bh=7KT/WGQF6Xo8jF6l+kHuBuDgwW4DUz6Hjn6foeSO28s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LZQnEMvkVRy2bAH/x15mBmID6urtLNG17tGsnBd4dmuoX5HLZZqqScaM6Ijz2rIdxmv3T2kMGY+ARe8pzqO2SAYoRK1poEk4+b6kHEeu3nPy3Ku+05Xdt9olNudNA/vTIe4G8Bddw+ZIAs1GVTO0LWJk9fQmsc7pv87KCtDUlS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j29ORYVN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789378023; c=relaxed/simple;
+	bh=ps2OuDZrxXJjM0qRGCt2VxBUZ2GkNMrAMVJaEuGI6Hk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Z4ng4dMUzG5lqJIAR+QmW5BmPgkTQuzp/MPlQoC102tQE2wcbXnIZC3bexj+tjChDNmeI8rLFsOOEQ+Y7/Lbp375KdlItN4GD6b9GOFzImZmqwq1s5tcDQskVHHFWfJ4MT6TMYKMf/4YyzhT0LSZWrM1vprMA3tCHsd34NISXEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=odbYtClV; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j29ORYVN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DD01F008A5
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:26:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377983;
-	bh=7nr8zTPRJR4XCNAzMSPXRD1SAJbdWdrTlMg9PBTC1Fg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=j29ORYVNgYfPyoi1mUmgmGMXRptKlY2PArjQNYQKeL9SIIYLNoHlrhq3OlOTn2I1y
-	 rHGz+U3aCycNndYevETtnc9I1aR0YqmXhqgUSCRNzVB3Ey18ksVreDiajzRLr96vbb
-	 6akXDHwObu5CBEP/Yp0dOSp1q6taxQ4S9zWtC/PxTNdwyEdXb5hTURVeoAH3VyCS/y
-	 FcDIoY9rpBNa/bjjIjISj23IyEpFWEjw+9CrTcgvxAZ991X/zXaVhYMH05vQeaLN5r
-	 zP7zXeUU4VlA75UqBvXemetxOldkiQnJ/By/Vh3i0jesmX/olKXyGlLax2DnKAoBav
-	 lo7b7/Nb7njVA==
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93a0fb2f9efso83805985a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:26:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzbfrW5+Xgm9mLlJG+z/eHEzVVnMdQ2admrglthC9QBbQvllkHcguZ6Es/AR6quCeLLCuZ1BP65Z4JeAPs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mezpxgt0JMqcrmathMBHtmtLVtHZMpCOj6P/7MiSz9O/Qd/13t
-	28GdpgSvN3JU7pw6ssEdRK91Jmd0x0mXz9LtWmJHyAdNzL1aUMtJozOSzvgxjPCp3p7rk2upGNk
-	3L6YOLW+SrPqBnVkHSYcHA82b1+ttqBU=
-X-Received: by 2002:a05:620a:2708:b0:93a:133a:310b with SMTP id
- af79cd13be357-93a1870eb4amr541774985a.26.1789377982735; Mon, 14 Sep 2026
- 02:26:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="odbYtClV"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789378013; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=P8sYn4OtnNWo+w2hJIg0kIU0ugjITLBiiIHDjl7eYks=;
+	b=odbYtClVXrsFIzs2aUvmmmGYlpcgatdh7tPjlLOBOup0YNl8bZDc4ApFuY/EPeb48izp8F4ccRv1fGqOHRFxs3nMHC82Ht8uMRR8EYU1iBJ/WiPxZ8N5tvxH5ZjiQ8bsClItuFOZsznJcLR03vR7r+dZVQscin1yZPZ/nDmnPo4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=34;SR=0;TI=SMTPD_---0XAuO-lA_1789378009;
+Received: from localhost.localdomain(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XAuO-lA_1789378009 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 14 Sep 2026 17:26:51 +0800
+From: Shuai Xue <xueshuai@linux.alibaba.com>
+To: palmer@dabbelt.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	oleg@redhat.com,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mark.rutland@arm.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	jpoimboe@kernel.org,
+	jikos@kernel.org,
+	mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	shuah@kernel.org,
+	mpdesouza@suse.com,
+	oliver.yang@linux.alibaba.com,
+	zhuo.song@linux.alibaba.com,
+	xueshuai@linux.alibaba.com,
+	jkchen@linux.alibaba.com,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	live-patching@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v6 0/7] riscv: Add reliable stack unwinding for livepatch
+Date: Mon, 14 Sep 2026 17:26:41 +0800
+Message-Id: <20260914092648.51254-1-xueshuai@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <9214e36bf738fcfba86acc8cea85dff4010f66b0.1788918714.git.baolin.wang@linux.alibaba.com>
- <CAMgjq7DdF_fi_MserE_P_AbKR23mrqPLZ-VD71eXH6iv1ncdzQ@mail.gmail.com>
- <b5263014-23b7-4e8c-9bd9-18198409d0f1@linux.alibaba.com> <CAMgjq7CcPfOnAjh1EVRu8-YtCaWjCfx=07Q4RLxF1yV-bj2NPg@mail.gmail.com>
-In-Reply-To: <CAMgjq7CcPfOnAjh1EVRu8-YtCaWjCfx=07Q4RLxF1yV-bj2NPg@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 14 Sep 2026 17:26:11 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zLdOmwsOum8waP8MGSZX=MbuJfjXmR-NRoUOmND5+Zhg@mail.gmail.com>
-X-Gm-Features: AcwNN1VghK2xzQNbqn1Q95Fi6KZsPMwLyabikwvKm465uZ60Jog_NueleFhaFLk
-Message-ID: <CAGsJ_4zLdOmwsOum8waP8MGSZX=MbuJfjXmR-NRoUOmND5+Zhg@mail.gmail.com>
-Subject: Re: [PATCH mm-new v2] mm: mglru: clear the reference counter for
- rejected folios
-To: Kairui Song <ryncsn@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, ljs@kernel.org, 
-	ridong.chen@linux.dev, baoquan.he@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 4:51=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
->
-[...]
-> >
-> > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > index c2eb8fa9d5e5..a1ead7c61054 100644
-> > --- a/mm/vmscan.c
-> > +++ b/mm/vmscan.c
-> > @@ -5071,10 +5071,13 @@ static int evict_folios(unsigned long
-> > nr_to_scan, struct lruvec *lruvec,
-> >                          continue;
-> >                  }
-> >
-> > -               /* See the comments on LRU_REFS_FLAGS */
-> > +               /*
-> > +                * See the comments on LRU_REFS_FLAGS.
-> > +                *
-> > +                * The rejected folios are never added to the oldest
-> > generation,
-> > +                * so this effectively promotes them by at least one
-> > generation.
-> > +                */
->
-> It looks good to me, thanks!
+Hi,
 
-+1, with the above change,
+This is v6 of the RISC-V reliable stack unwinding series for livepatch.
+Wang Han has left our team, so I am taking over this series from now on.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+The series adds explicit frame-record metadata, preserves the frame
+pointer through dynamic ftrace, and replaces the open-coded stack walker
+with a conservative frame-pointer based unwinder. It then enables the
+RISC-V livepatch capability and adds the syscall-wrapper selftest prefix.
+
+Changes since v5:
+* Rebase onto the current riscv/for-next; no functional changes.
+* Fold in the tags collected from the v5 thread:
+  - Reviewed-by: Shuai Xue on 2/7, 3/7, 4/7 and 6/7
+  - Acked-by: Miroslav Benes on 7/7
+* Add my sign-off as the new sender.
+
+Since the patches are otherwise identical to v5, the v5 validation
+results still apply. For reference, from the v5 cover letter:
+* Built Linux 7.2.0-rc6 with riscv64-unknown-linux-gnu-gcc 15.2.0
+  and binutils 2.46.
+* Standard livepatch configuration built successfully, including
+  Image, vmlinux, modules, compile_commands.json and GDB scripts.
+* CONFIG_IRQ_STACKS=n variant linked successfully with GCC.
+* QEMU 8.2.2, 1 CPU: livepatch selftests PASS: 7, SKIP: 1,
+  FAIL: 0; ftrace function graph 3 passed, 0 failed, 3 unsupported.
+* QEMU 8.2.2, 4 CPUs: livepatch selftests PASS: 7, SKIP: 1,
+  FAIL: 0; ftrace function graph 3 passed, 0 failed, 3 unsupported.
+* No BUG, WARNING, Oops, panic, unreliable stack or Call Trace found
+  by the validation log scans. Expected negative livepatch errors are
+  part of the selftests.
+
+v5 was posted in early August and has been quiet since then. I would
+appreciate it if the series could be considered for the upcoming merge
+window. Happy to address any remaining feedback.
+
+Base:
+riscv/for-next 77ae27fd98f3 ("Merge tag 'printk-for-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux")
+
+Previous versions:
+v5: https://lore.kernel.org/r/20260804103626.2803112-1-wanghan@linux.alibaba.com
+v4 RESEND: https://lore.kernel.org/r/20260629072713.3273743-1-wanghan@linux.alibaba.com
+v3: https://lore.kernel.org/r/cover.194d76e3a15b.v3.riscv-livepatch.wanghan@linux.alibaba.com
+v2: https://lore.kernel.org/r/20260528082310.1994388-1-wanghan@linux.alibaba.com
+v1: https://lore.kernel.org/r/20260527123530.2593918-1-wanghan@linux.alibaba.com
+
+Assisted-by: Qoder:Qwen-3.8-MAX-Preview
+
+Wang Han (7):
+  riscv: stacktrace: Add frame record metadata
+  riscv: stacktrace: disable KASAN and KCOV instrumentation for
+    stacktrace.o
+  riscv: ftrace: always preserve s0 in dynamic ftrace register frame
+  riscv: stacktrace: introduce stack-bound tracking helpers
+  riscv: stacktrace: switch to frame-pointer based unwinder
+  riscv: Kconfig: enable HAVE_RELIABLE_STACKTRACE and HAVE_LIVEPATCH
+  selftests/livepatch: Add RISC-V syscall wrapper prefix
+
+ arch/riscv/Kconfig                            |   4 +
+ arch/riscv/include/asm/ptrace.h               |   9 +
+ arch/riscv/include/asm/stacktrace.h           |  67 ++-
+ arch/riscv/include/asm/stacktrace/common.h    | 159 +++++
+ arch/riscv/include/asm/stacktrace/frame.h     |  53 ++
+ arch/riscv/kernel/Makefile                    |   6 +
+ arch/riscv/kernel/asm-offsets.c               |   6 +
+ arch/riscv/kernel/entry.S                     |  39 +-
+ arch/riscv/kernel/ftrace.c                    |   6 +-
+ arch/riscv/kernel/head.S                      |  23 +
+ arch/riscv/kernel/mcount-dyn.S                |   4 -
+ arch/riscv/kernel/perf_callchain.c            |   2 +-
+ arch/riscv/kernel/process.c                   |  33 +-
+ arch/riscv/kernel/stacktrace.c                | 561 +++++++++++++++---
+ .../livepatch/test_modules/test_klp_syscall.c |   2 +
+ 15 files changed, 868 insertions(+), 106 deletions(-)
+ create mode 100644 arch/riscv/include/asm/stacktrace/common.h
+ create mode 100644 arch/riscv/include/asm/stacktrace/frame.h
+
+base-commit: 77ae27fd98f3b9ab376239051ec7f9ee34c2c072
+-- 
+2.39.3
+
