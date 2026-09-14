@@ -1,212 +1,154 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B2C468C19
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=91.207.212.86
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390484; cv=fail; b=oAWc30eHYwhNfEdvfs171347afqywgT011Ivtsf/TVzMdVFIY3fiSS7VqK+zYZqTxqmcRDpvQEfzuG1/536E5/yCpK8nRhi5RI/+UdNZGNaEqxL7hLG0qBJ0nM11IDrRLa2ayj4pDVBaInUc0yHveEwlr55K+q7EonurIfSwYec=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390484; c=relaxed/simple;
-	bh=W/UWjVUKAfznBpWtAQ/kJezRMJws29z1lRwNkSbC7xI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=j1wm+tLWXx3oErOj8qZ5fNlEXLwhzcGm6L0VkgeyVq9cpK+ePe19ART/88axR7N+6LkAD03o82o0x4x0RQ9C0iI34p7utiUo7u2PN5QHuZUxy3Svbr3WKJjrHkvhhMqpgj0c06VkubqNq6QgPE5uY3/3xilaMfuRhvy70+E518s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=L1UNYf3U; dkim=pass (1024-bit key) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b=GtF6bHrl; arc=fail smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5565471CEC
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789390490; cv=none; b=ZFcLaCAP7hjPUy+w/qAcZYtUoT4tzhYWRuWAxDHLa2f36fuQafUGjMGjqeTiKHo8vPfG8+Zu+zgdjNpjytGQl4In+dIxiR8CHbRuzAIG/TfzitFHIvlUYXjMFH99RBxpV/qqXWifZ6VoKuaqhWaB6Vq6dTGi8jIK8Nr9cX0z8+I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789390490; c=relaxed/simple;
+	bh=Y/IqC182WWLahsOjzKJeqQE9UR1C2wq8AS8LUBth8hI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CKyaveu+i/ySv/b/6W7rf/hkcO5hHfexSFqhsni7cfe+NyQhcQLMvx882JH+30VtdsEXfgsn51XYNu+W97ddGXAWAabQhy8cbQfoLZAJcGppQTkiBj/CgJ7Wrepnqj6JZajxt+9nvoDslDd8CxO/S5pbJJIhBZxB+MON8uNXHTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=XScFTxA+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=npZ75TKF; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="L1UNYf3U";
-	dkim=pass (1024-bit key) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="GtF6bHrl"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9o2Wt939577;
-	Mon, 14 Sep 2026 13:54:05 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	dk201812; bh=W/UWjVUKAfznBpWtAQ/kJezRMJws29z1lRwNkSbC7xI=; b=L1U
-	NYf3UdcZyBEyBMUZfb0D3OcViBxT88716rQSaAGCljOdifXyPlvxpjxYofSyjm5L
-	wrT53EsxNK8MFc/Xc4ZLs6c5IzJFqWzZhXY2s0yGH+IdN65b3A7NztX/h4H4gEcL
-	mleLG0em76oEtJWQt0wqAQFeb6t1+JOMBEF+j02Q6cW8u5JVhNRjuHlBtGG0Z3sn
-	ben5PdK9CuyAF9KLAJSMoOd8Mv7OuynA7h/nWbdG3DFyDt0biskGM5ugcLWHcj3/
-	Ck3dgQXNl8KZuzhSWp/rXgwNWS0Zp7RrbhV05XMfy7uxz90Y8w8li01xNTLV/pSk
-	bKInlSRmVNB9Onw7YFw==
-Received: from cwxp265cu009.outbound.protection.outlook.com (mail-ukwestazon11021142.outbound.protection.outlook.com [52.101.100.142])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q1exa-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 13:54:05 +0100 (BST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uh0OQiY1hcrjMccD4en+Zt72CdNHQeFwQJkH2BqsfHZUC4c5L501Tjq3c+N/OZ0Xs5Wyf9Y2G48OsAwX5qGpIbN+YbboxN+bPVhAjAhQTfrykfRQIfqxaorAcztUZ0JQW+d9yD0ReDTa9Xv6eoIdSpaOGi1uQsuagzuNUXSqnHdgo7UY8M4hcsHY4teK8dt7Sf1eRwsIjV8yZd82Yj7cZ7r5A0WUqYRosvzIwsr6x+725qoQPr3Wugvz71AXipCGmb8g1ayxtE6J8ylw0zsQ9SNTrvGzYfSMaxMieYwrpOqJd8yjjR5CJ6JGIcjWbEQ3XWRcFZFTkDkzshmNUB35/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W/UWjVUKAfznBpWtAQ/kJezRMJws29z1lRwNkSbC7xI=;
- b=hbo5Gm08GWjnVjQbO0Zxa5urCWNezfTMsv6U5Zf4y8l0Y5Y1bRbukiopQ4td4hy44/YxDQxXT56Ju3f3a7DeobK2WZLxW6t3zC2HtsaaoxuOJeL7e36FoS21Tvpg+pKhG+fGdQDpVrOeCCGrNJRNBFz4qaTp13cZnw4SD64quPSPdzfdEHCeAVahElglkaM0vIH1GUB495AQjNo5kf9v1v99rAO3lF5lnM7AXBigyXF+NZ6WoM969yLUxExiaVjDWEbv2KFNkGv8IfamzEru7gMltlTRP34e1o85SLb7Om/IhAeBjnHwEGkuxai5mj/cm8+SBRMHCyZ07KSc5QvYwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
- dkim=pass header.d=imgtec.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W/UWjVUKAfznBpWtAQ/kJezRMJws29z1lRwNkSbC7xI=;
- b=GtF6bHrlBmOd3jd2UnTLp4w/v8GXh9NGmvdSoZSscKbjXE7ADjnZ3y6ZzBx/tP01CuJBjLhb03nzPJCUOf2elbdnG9JwOpLlH0EAakZq954vHOn7iekkDW/jjxS78Wu2oduwooAjhi9ravMUMt4zHz0kkiKmlyqIXl+hhsaz9Fo=
-Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
- by LO2P265MB5679.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:26a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 12:54:03 +0000
-Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
- ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
- ([fe80::3ee9:8c49:ba94:4237%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 12:54:02 +0000
-From: Alessio Belle <Alessio.Belle@imgtec.com>
-To: Alexandru Dadu <Alexandru.Dadu@imgtec.com>
-CC: Luigi Santivetti <Luigi.Santivetti@imgtec.com>,
-        "opensource@mtcoster.net"
-	<opensource@mtcoster.net>,
-        "imagination@lists.freedesktop.org"
-	<imagination@lists.freedesktop.org>,
-        "tzimmermann@suse.de"
-	<tzimmermann@suse.de>,
-        "simona@ffwll.ch" <simona@ffwll.ch>,
-        "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "airlied@gmail.com" <airlied@gmail.com>,
-        "maarten.lankhorst@linux.intel.com"
-	<maarten.lankhorst@linux.intel.com>,
-        "mripard@kernel.org"
-	<mripard@kernel.org>
-Subject: Re: [PATCH v2 0/2] Unify repeated register definitions and move
- FWCORE macros
-Thread-Topic: [PATCH v2 0/2] Unify repeated register definitions and move
- FWCORE macros
-Thread-Index: AQHdKKM/1yUWRQINX0mqkwMjp/P/8LbOPvSA
-Date: Mon, 14 Sep 2026 12:54:02 +0000
-Message-ID: <a1589d06d8ffaef00ce7569951939c2028817cbe.camel@imgtec.com>
-References:
- <20260810-b4-unify-repeated-reg-defs-and-move-fwcore-macros-v2-0-991ae813fd88@imgtec.com>
-In-Reply-To:
- <20260810-b4-unify-repeated-reg-defs-and-move-fwcore-macros-v2-0-991ae813fd88@imgtec.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LO0P265MB7076:EE_|LO2P265MB5679:EE_
-x-ms-office365-filtering-correlation-id: 2c9962a3-5bb0-4169-93b2-08df125f4076
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|38070700021|56012099006|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- rP2TDVDe4Iinv52hqxSALO2u21TIRf/Y3TPziKCeK4C87v7pBqY+SbtQqddXLvWrLli1CC/OVkKAQFK40JGm7kXMejUUxRIZwxqmNVtIs7RA0OgJ0A/8nlcBdLQsHUg6JOIwaVZHTFzyXFy95vQQqpo7lmsNIfMxqWQI6sNxtYqitKJv6EuU2crqBAPXzgRRyb2bgnUroSGwh8WjkIdRn2tGApGHK9rxVhpOPRfowBKB91Km2OsJWkcgVRQU8QDAK90xOUjWvu8/uazlUOSuBhr8I9RCme33z3y1eaxP8a8lucynmCjVY50fWA5iM0Jul9vcyJdoSWf3cvVEcWlTJSYgsWkCaOSAN+XkgLZ2ZcvYNIElSI/aujI84hwwyvDuc/ns3b3lgmdBuwKuZxR7iNVvtDGhtc6KN+ebl76CfTehOx4D7wW7An2T0CHx5t4rJMVtmGcqix3Do/mV6IZE7asFAXIl+ZWo8YKzQP/0w5ik2vmSN065Px6XbR7p/169ahdE4YGYNeV/T4wwkDf5anwD7TNHkkxiRnrhoTD6rd32uHGTdK7fi2yUetbNrobi9fTefxU1r1N6L3n9W/bP1g4I7MemCWjLyPVPB0HHUSDjC0K5fp1jYhz8qlcz3NynKHxtUGlbMSppkCNwrFcVY2erqJ5kKCi9CdpLuqfJF0A=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?U2N3UTI0OE44NnMrV2N4NGRZeEk1d1Z1QzRodTcyVlZ6Q1ZZc0NJdkZDL2xU?=
- =?utf-8?B?NzY2MDVPK0pRSW4vQVU2a0dXeWw2cXdKV280Qk8vNzZGQ0VBWG1sMkhybDlS?=
- =?utf-8?B?RnNTN0p6aFkwWlV0OVJzTXdrclR2S1c4SnQrMC9RbWFSa2E5WlBrRHBXS1ly?=
- =?utf-8?B?aHhlRC9WSEN2ZHpjWGh1UXA5MWwwMm5Va3BqczlBMUFMQmNiRzMvMUxTSDFq?=
- =?utf-8?B?aVNWMUJLZi9mQXFIR3JBNWJ6VmF4aSswNXU4d3lUY1lNM1d0UEdTNEZ2OVcx?=
- =?utf-8?B?K3dxRnNUeHhpU2JFYnY0SzNtWlYvejBrQzZQTDMvejEzZFpSTlZMUkNseHNH?=
- =?utf-8?B?c2V3dktsaWxkeHV6RGRGYVVqbG5ocC9vQ0xqVjF1M0NvczFMa1NWWHNublB5?=
- =?utf-8?B?TEJWbWgwUG9LZVdPUGtSTEt5RWY2R2tnRjIzNGd2c1dRYUlWNUlGUiszVVZH?=
- =?utf-8?B?MDluQVNnWGEwMXdKYzRmdWVNOVJXV3ZtQXFSMFhMK1BOMEllb29iNlVWbHZx?=
- =?utf-8?B?eU1PK3lyOFo0L1RrWExQMHJRNlVoZXRtU1ZOMmJRM3VxTkRia3djSE5SZldq?=
- =?utf-8?B?aW1RdnMvbzdiNnhVZnZERFVLSld4OFMwb1JieVVMMDdtaGVPdjhjdXp4NXJP?=
- =?utf-8?B?NDg2WjRBVDJ6MzBCdWRJN0lJNW1mN2tXT3A1K0ZNWHFiT1ZrN1hiMEMxMk5n?=
- =?utf-8?B?bVJCS3JPL3dNdml5aXBrbkl2aHowRlVMbS9VQ0dTRWRJRWJISUliL05XTUZZ?=
- =?utf-8?B?Z3doYnBDZ1RGVWwzY3hrMUZyaGVEeVVUbnM1TExaM1N0aUdRWndMRGFYRHda?=
- =?utf-8?B?RndDWWlua1lOMHlOQWpNUklKa3RDYjBwZWNIRXg2WkFuZXNIUFc3SXhSRVVs?=
- =?utf-8?B?ZnB0bjViM1B1ak5wSXVsZEJDbDJaMmhvRUN6UWJkc0puanFmZHVRMnN0Vloz?=
- =?utf-8?B?dVR3WkJNcFhuMTZUcXdtcEMxbWVSL2xYbHd6UmhJbFFtZ1o2L0RqTWFXdVl0?=
- =?utf-8?B?ZWp5Y1Y1aXhBaTMrYThadmMrbmZJSHVJTElqUFRnNGdMNDFxTjJwRXhJMXhs?=
- =?utf-8?B?RmNWWCtMSFFnb3NOY2N2QWdjWXRRTXJzRHo2a3pXZE1BbThoZ2lQM2g1TVlw?=
- =?utf-8?B?b0oxL1kzWDVnT1dROXpNN2o1NzVldUJocnJiWHFQZElJTlZtSVd0M25pUmFw?=
- =?utf-8?B?ejRIUStLYWNGVFd5cU12c21ZZDhLRDgyVGtDS2EzZk9jd21zcVZzdDdGWm1K?=
- =?utf-8?B?TmNpMHhlYUpxMDlTZzJsMkd5aGxkcVRwWlNSMTIxWDl6blV5b0p2QTVlbWJi?=
- =?utf-8?B?SWFzUzFFczRZODF2L1NHRkNZOVlURCs3a2VkWXU5YXNPUitCQlJQNHk3eG81?=
- =?utf-8?B?WXBWdS9OdERPdERjSnY5TlNXYW9FaG5JWW53aHhINmtnZlBOYUkzeUdlWWlu?=
- =?utf-8?B?QkpsakMzRkNBRzJBWmZXd1ZlblF5V2dXa1ZWdVh4cVV3cEZiTTVFWWg3MU4x?=
- =?utf-8?B?TExuaTRVcFR1Nzh3UGJDUkJXRjZjV2dnbHQ3WG0rWWQySzNOZG12MU05M05s?=
- =?utf-8?B?OFJJZHdJbjVOay91c1NsbGYyV2JaRVk0RFRzclhPbmVQTkpKYkRVOFZJUkVj?=
- =?utf-8?B?RWEzaUxjeXJ1YWRJN2ZKTXhIa0xiTy9rdjdhZHdhNm15VGlGNEwvckdtVjBk?=
- =?utf-8?B?MlREZEt0ekY0ZnI0YkQweWFJb1diQ2F5eWNZT0NhNkpONGgzbUZLSEo5WWI4?=
- =?utf-8?B?bG83cU1EYjI4ZHRHa0I0Tk1WV0xGa3Q1QnFENDMxekVUL0x4T3Vwc05lUkVW?=
- =?utf-8?B?K1lLT3puWVpqZVY2b2FlWVh4NVNORlhlb0Y2QTN2cXVza1o4SzdwaDNXUm9t?=
- =?utf-8?B?UVo5blNwZnBLdkllellKdFNGbWlUR0RXWmxmWGhWU0dJNURoSzJNWjdpNVhY?=
- =?utf-8?B?akNveENDK1pBYng4N0FxZlZWcDhUY3I5OWhhRTVpN0s1Y3VqL3ZWeFRwaTBC?=
- =?utf-8?B?OUw2L1FyZENLT1hVVEhZUFRtZDBVT1JYQnJvUHhVZEtpQWFrcDAxV0ZScjdj?=
- =?utf-8?B?R0FuV2gvbjNxNEs4c1h6TUM4WEVDK1BuSDNDN203Ni9YVGFycXBISzBESnd4?=
- =?utf-8?B?cmt4c1Q2NlV1aStXamsxYjBBTHVzeHpKWlFOOGNmT1VxY01Wdjh2dHdGUFNp?=
- =?utf-8?B?RjRsZW5RL1pNTUFRbVk1WCthUGZleTdBejdIVEVRZnlQalRpUEZsd0gwd1Mw?=
- =?utf-8?B?SFBncVZ0UGlxRXNTYVlobDJDTVowbG9uWEhkdTJhTHBOb3NMU24rVTN4a1o0?=
- =?utf-8?B?N2prZmhJdXdJMmV6eFhkVUNMSGpuVVJrVHExK1QybXpqeXVRUjV6bzJuL1BX?=
- =?utf-8?Q?LoPTG+XxQ3+EOZDM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <8263F0724444DA4DA7AA7D30D74707C9@GBRP265.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="XScFTxA+";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="npZ75TKF"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 1BE2C1D000B9;
+	Mon, 14 Sep 2026 08:54:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 14 Sep 2026 08:54:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1789390486; x=
+	1789476886; bh=58HuI72UzzufVKEgM4X9pABwg/YtbZfRPL8mqB0t9wA=; b=X
+	ScFTxA+nYqYAWWciwS/wfXDPt7L+2Olxix7oQAXauU32RuY+7dlJC7w8hURyOWth
+	u1pSeS8IOglcXUpmXYI0nRNKHY/o6QTBYevLz9mbhxVbMWSekbVzYfLUR5BQMGnV
+	LoXZtdrlA8xKY4vtZ/7B6vN7+KgVa7T+UUl1Poe0IdPsQbpEKMGUoI+q8i6ytpgU
+	JWyg0f6vcNsljTXG4xf7srS2NW7v6OsgbLjNVOt7JO3wpC3jYFmtSI7qqpUz8X2e
+	qkD4RToP507RmUoagWp2kqAh/F3w7QDOExCGYChgTKBLAlpACfv/7oWG0B4wuBe7
+	n9TM/1+fGnO3mcob7C1UA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789390486; x=1789476886; bh=58HuI72UzzufVKEgM4X9pABwg/YtbZfRPL8
+	mqB0t9wA=; b=npZ75TKFZODpvLZX6x5yyyX8XY8g17pNRzf0tIImPa6pJRZeuIG
+	0YVY1oRTGg8df7Z6eIxxz0hIehtWFzSCOyd2TKADDLSPG3xjy49rr34MAAq+29Lt
+	savhmUQk7zpP9o7PGIAheQncdL63JHKvXoPR7ngNZ1VWPOYKU6q1kaJF26KGUjae
+	3iwDzLwQOK0UIl3dHwsLRLvBenIf11Eu3hJd7t/gd2CPCxdPVTPiswBi3K//VqhY
+	Co3le7+a2n7ezI0egPQUHNZhXpgn8YuJwpkkk/T4ZDlMDq9+UHIAKTKWpLjqvbs5
+	WQAiyxvTL+vG9Dk3LqgfUn6TFZNG6wZCZQw==
+X-ME-Sender: <xms:lu6narPmfpVnstfOzbIhkoHnmNmU8V-Yia576STa6PIzz4ULuY8yIw>
+    <xme:lu6najnH8N71sB91W2CZKvfXFMbgineqYsj8SBzzr3zaiSK5tEN05uEWLPGfWFKO3
+    zl2M1cpMlOAPbqaKPW6Q7G-c57zFeCBib59DkzOBlqWCWemr5yLNOcs>
+X-ME-Received: <xmr:lu6nahqbRiVkSbF9kIwbaxBklQwRUrzD7QibUn9qEJIdPnjdBbyryYpq_nk>
+X-ME-Proxy-Cause: dmFkZTEkuE1qsOgHWNd2OJi/yEsB/yNWtkH7YkkdilSZOyWVcpUr7C3FIxlP6mcCehLd48
+    KR9hpUt45AE5XRP4aAPuDU9kUileQnSl0/RWstJYNZsUBN3hRAQe3TEpT73wY3cRQ8sG6D
+    ZVA+IIhiR21cGIsbwsWUrYJ0grwFLMNYvsvuKwT0L6ql+b5ba1DO7cP2Xz7pVKcNwle5j7
+    psSwiANkuSb/y/u9Hr3hLrrVW/pdrXIzE9pfy/yW4ltMw8Yjol9bLoBNYjEv/PKK/qPfFL
+    2KJ7pqjxHaFgfPIhMCdBUc1bKT7acJdP3SvNAyfzszQLtU2vMgGXZ6qLjIkn6SPRotbICZ
+    hQPH4wCikJyTznNwi7vj5rg5GzLyM9OK1v9ErJClkMQb28ZjgVSboC8IjUJj0LcgEZ0g0+
+    mNf/bU6/dEECgqV1eaEkAYDMUHuqDCNku4lVWzRxqvZXdhNTiHKCrSjQaCQcxmxH0zNLxz
+    u+pSpaOMhdtP0IzwoXAXTheThWUJ/GqXxE6pxpeZd4u2urZBsLQx9BYySVqZsJQrd2xODK
+    2y4l+0xyeknr1coDbB3Btmt9XsX7lbej3PVXDseaNO+Ykqa4uQSc1J3Cr+PZ6GTSjRECa/
+    a4u/32yakCAgtWL9DC1RvLUtuk4znNtBYEQYAlG8hUJVEcgzA5eIgVVIOLQg
+X-ME-Proxy: <xmx:lu6nan4yiahtUA2GFEJiAgxMP4K-obqDV-RcDXY35niJ-917y_3aiA>
+    <xmx:lu6narJr199QHvXRtGDCVBgz3pbLpa0A8xhr40YnEY0Y9QN46eqjrw>
+    <xmx:lu6narlHImFxT_2QDLgB29nrLHa5R0mPp1LDND_zD4YPdVsQ-pD_6Q>
+    <xmx:lu6naq8Kc79BrM53WoVjOURv-gHn3iL0XwBJEIe8hA-VXB6lxpoAOw>
+    <xmx:lu6nancwZbD0qRsRrjf3k0D3eiyVYxmB17rxaSWLekbER7RGtVu1VHGg>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 14 Sep 2026 08:54:45 -0400 (EDT)
+Date: Mon, 14 Sep 2026 13:54:44 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, "Liam R . Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>
+Subject: Re: [PATCH v2 11/12] mm/collapse: declare the collapse interface in
+ collapse.h
+Message-ID: <aqfuZ09c2-yHRUdG@thinkstation>
+References: <20260910120238.2529819-1-kirill@shutemov.name>
+ <20260910120238.2529819-12-kirill@shutemov.name>
+ <DLCPXEXM5YQ3.GPN2LX0UL19T@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	28sLr6GAWhCtA+FOy9BXW4ZT7JNrK64JkO8bzJUi6oVSzoDkd4guT60gsEqzeW+Aj710NOT9OMeQo8aajRKs+Wv2a096KjxIQ5dNSp3gYJ9RNXhMtntJknbNvPweZMUhcKFIC/tqVF6/Ijfz03+Vf/3WlaSYwqcgE+cSzgpVSyPWpYixQdJwft0Nk4IUgh77ozBkaZYvpXG/ApEOpJfaBUUwCVdbF4lCxL7uTkI5qhvgaarY/4QzrjaPYs866L7Wsn6vIwV3IiA+0yXPh7l8uOv6Khw7o5n4NGe6JddiaIlYYytgCG16s8BgBRbpql5NnNwQLf8/rBaPMwRRs7WBLw==
-X-OriginatorOrg: imgtec.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c9962a3-5bb0-4169-93b2-08df125f4076
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2026 12:54:02.2339
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4dgXbJC5vzOCT2FWWl+ORdIVepdfKyrdg9nuSb5oQTI6PQHABHzGKpUQJAaqp4PxHwulhTarlA7MlOqQa8Qnr35Yqn8/TQr88wAQ16G0ykE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5679
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE4NCBTYWx0ZWRfX1bvGEb9hyP2B
- OlOhWusAchrisy96i16HwAtZA5QL2H6Sgw/LZvkiOv1+4KgdLSIlv5LEZ40XCNBX1dqtQkAOP+u
- YDUQOBkAFzlKc8CCUsdIbj6+XL6hJ46uur52+TN7nLm3YFlq+B7vF6RlJwtIa6AT2HM72U/WJWq
- t2CCKpT1i929/HTkHh9FZvR3jZ4z1WSoAyywuLK4qyHzAPS7iNJXRN5vnGO74WBymGtus71jb0H
- +UW90+orTBY4V/QAS9yEYwnzJ0JrpkbHcyO0hn//fuLFq1lRgymJ7RenKVcC9aJ4SKAzyP1Bu91
- xY0K93BQ01RPKK09DEux0sjYhqCh8jVB5/LTcTnXa73NMimwjM8z5M29hx3ysWeqB/mN3LMYV8d
- 9lOk0Cv1WEK9Ghdor6+qmzETZsqJ4dHnn7X3Ch59c+E/GYHmiUDSEL+4Ga+XDs4iOCZArbk2SFm
- dE1/GKryS8cHAbnPbyQ==
-X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa7ee6d cx=c_pps
- a=Th1s/XLkANpcY0nFEWz4xA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=bC-a23v3AAAA:8
- a=r_1tXGB3AAAA:8 a=SacHO6KXJhmD5DbGwbQA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: 7wgmEZs6o_vkcBKzzz--z5U7CjsWgkO4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE4NCBTYWx0ZWRfX2jGpWHcyzGFm
- lRxIQx2vd1zkBTUJpVVd9lr9VKsqHusd4RqcwqEkqv0kogveS088oXDLRv3ITn1W3I0cKswcYe5
- q0AKeIsabODfq3IU0muwYWZfXbOH7rQ=
-X-Proofpoint-GUID: 7wgmEZs6o_vkcBKzzz--z5U7CjsWgkO4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLCPXEXM5YQ3.GPN2LX0UL19T@nvidia.com>
 
-T24gTW9uLCAyMDI2LTA4LTEwIGF0IDExOjM1ICswMzAwLCBBbGV4YW5kcnUgRGFkdSB3cm90ZToN
-Cj4gUmVmYWN0b3IgcmVwZWF0ZWQgcmVnaXN0ZXIgZGVmaW5pdGlvbnMgaW50byBiYXNlL29mZnNl
-dCBwYWlyLg0KPiBNb3ZlIEZXQ09SRV8qIG1hY3JvcyB0byBwdnJfcm9ndWVfY3JfZGVmcy5oLg0K
-PiANCj4gU2lnbmVkLW9mZi1ieTogQWxleGFuZHJ1IERhZHUgPGFsZXhhbmRydS5kYWR1QGltZ3Rl
-Yy5jb20+DQoNCkZvciB0aGUgc2VyaWVzLA0KDQpSZXZpZXdlZC1ieTogQWxlc3NpbyBCZWxsZSA8
-YWxlc3Npby5iZWxsZUBpbWd0ZWMuY29tPg0KDQpUaGFua3MsDQpBbGVzc2lvDQoNCj4gLS0tDQo+
-IENoYW5nZXMgaW4gdjI6DQo+IC0gQ29tbWl0IGRlc2NyaXB0aW9uIHVwZGF0ZSBmb3IgdGhlIDJu
-ZCBjb21taXQgb2YgdGhlIHNlcmllcy4gDQo+IC0gTGluayB0byB2MTogaHR0cHM6Ly9wYXRjaC5t
-c2dpZC5saW5rLzIwMjYwODA3LWI0LXVuaWZ5LXJlcGVhdGVkLXJlZy1kZWZzLWFuZC1tb3ZlLWZ3
-Y29yZS1tYWNyb3MtdjEtMC0zNzUyMDhmYmI1NzlAaW1ndGVjLmNvbQ0KPiANCj4gLS0tDQo+IE1h
-dHQgQ29zdGVyICgyKToNCj4gICAgICAgZHJtL2ltYWdpbmF0aW9uOiBVbmlmeSByZXBlYXRlZCBy
-ZWdpc3RlciBkZWZpbmVzDQo+ICAgICAgIGRybS9pbWFnaW5hdGlvbjogTW92ZSBGV0NPUkVfKiBt
-YWNyb3MgdG8gcmVnaXN0ZXIgZGVmaW5lcw0KPiANCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFnaW5h
-dGlvbi9wdnJfZndfcmlzY3YuYyAgICAgIHwgIDI4ICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vaW1h
-Z2luYXRpb24vcHZyX2Z3X3N0YXJ0c3RvcC5jICB8ICAyNCArLQ0KPiAgZHJpdmVycy9ncHUvZHJt
-L2ltYWdpbmF0aW9uL3B2cl9yb2d1ZV9jcl9kZWZzLmggfCA5MjAgKysrKy0tLS0tLS0tLS0tLS0t
-LS0tLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX3JvZ3VlX2RlZnMuaCAg
-ICB8ICAyMiArLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9yb2d1ZV9yaXNj
-di5oICAgfCAgIDIgLQ0KPiAgNSBmaWxlcyBjaGFuZ2VkLCAxNTUgaW5zZXJ0aW9ucygrKSwgODQx
-IGRlbGV0aW9ucygtKQ0KPiAtLS0NCj4gYmFzZS1jb21taXQ6IGU1NWZlYWQyMmZmOWVlMDQ3YWI5
-ZjE5MDM4NjBjNGI0MzA0MzUxNGUNCj4gY2hhbmdlLWlkOiAyMDI2MDgwNi1iNC11bmlmeS1yZXBl
-YXRlZC1yZWctZGVmcy1hbmQtbW92ZS1md2NvcmUtbWFjcm9zLTczN2YwMGRlOGJmNg0KPiANCj4g
-QmVzdCByZWdhcmRzLA0KPiAtLSAgDQo+IEFsZXhhbmRydSBEYWR1IDxhbGV4YW5kcnUuZGFkdUBp
-bWd0ZWMuY29tPg0KPiANCg0K
+On Fri, Sep 11, 2026 at 03:02:22PM -0400, Zi Yan wrote:
+> On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
+> > diff --git a/mm/collapse.h b/mm/collapse.h
+> > index 346859a2184f..1ebbbf63fb25 100644
+> > --- a/mm/collapse.h
+> > +++ b/mm/collapse.h
+> > @@ -106,4 +106,48 @@ struct collapse_control {
+> >  	bool scan_retract_only;
+> >  };
+> >  
+> > +/* Which orders a VMA may collapse to, zero when it may not collapse at all */
+> > +unsigned long collapse_possible_orders(struct vm_area_struct *vma,
+> > +		vm_flags_t vm_flags, enum tva_type tva_flags);
+> > +
+> > +/*
+> > + * A caller states what it allows in cc->policy and then hands over one PTE
+> > + * table's worth of a VMA at a time:
+> > + *
+> > + *     collapse_control_init(cc)         once, before the first table
+> > + *     collapse_scan_pmd(vma, addr, ...) per table
+> > + *     collapse_run_pmd(mm, addr, cc)    when a scan found work
+> > + *     collapse_control_release(cc)      once, when done with the control
+> 
+> This is a good overview of the workflow.
+> 
+> > + *
+> > + * The caller holds mmap_lock for reading over the scan and passes an address
+> > + * within @vma, aligned to the PTE table the scan is to judge.
+> > + *
+> > + * The scan returns with that lock still held.  It only reads, and almost every
+> > + * table it is offered has nothing to collapse, so a caller walks a whole VMA
+> > + * under the one lock it took to get there.  SCAN_SUCCEED means there is
+> > + * something to collapse; anything else is why there is not.
+> > + *
+> > + * The run is called without the lock and returns without it, taking what it
+> > + * needs in between: what it does -- allocate, isolate, copy, flush -- is slow
+> > + * enough that a writer would wait behind it.  The caller gives the lock up
+> > + * first, and with it @vma and anything derived under it, so a caller carrying
+> > + * on has to look up again with collapse_vma_revalidate().  The run revalidates
+> > + * for itself rather than trusting what the scan saw.
+> > + *
+> > + * A scan that found something has to be run: the file side takes a reference on
+> > + * the file while it still has the VMA to take it from, and the run is what
+> > + * gives it back.
+> > + */
+> 
+> It might be better to document each function individually about the
+> requirements and what each does instead of putting everything above.
+
+I will add a comment to each function at its definition: what it needs,
+what it does, and what state the lock is in on entry and exit.
+
+The overview stays. Per-function comments tell you about one call at a
+time; the overview is what ties the four together and says in which
+order they are made and who holds the lock in between.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
