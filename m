@@ -1,107 +1,153 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0FA4A207B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4771C3BFE52
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399394; cv=none; b=FLTTQIsLjInWT777Q0XHaBbsf9HDeKV0WnGoFma3rVx8ysVoHcVk6mCq0dca5lg6LpOqJikX3EqfXqXgED9gmS2wGoZ0SV3QjN3d3HcXjmPe6ouffZInqSjjnLL9u3SrIhkmH/VEImi8T60dATIj16T7UyjRy8snYju4xmXO4dA=
+	t=1789399443; cv=none; b=TsjcdOE2a4sA3SC0Kkfv/6QF89gRs1OUoJMFbSvV7vxAqn2dmqnXRc/UycGq/vADfCkUNWKbUQr4w3GeL3sONx7FbNt/JRK9c0+/Eo4yRX13FQfagQ6TEm8dHjY245o3i38i9d2N/mUXSm8lULzEEtk9enSuKtvNZSmwrgCZkAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399394; c=relaxed/simple;
-	bh=mGj/Stj8K3Ly3kqIusqXMbha7ae3v/sekGPhJYB4iro=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F2F/XalLQzxOhZ0XofRBCn8JTVHQZ3CTJ72crBjP5Gzi52RETO48cSm6O2Jc0skhuuPAWuHE679ktQbkUE/rqvqzIA/ss5QLXxP43f1iKZri8nARYwJgzHD5W29Ik11loVQybC8q/iHVz2j4Kd8GxaZBdT9bt6oH3HysIHPdrzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jEcCvUhy; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789399443; c=relaxed/simple;
+	bh=Dp1r9+b5Hs9Uh3OVe9GcXcWDzCu2xvMsVrqQUoo0b6k=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=EoD5/ieryi9ZmHeVIroT6/XASUM+0/cVXFRcXOG0QmOl6QhexkKjDt64mUH+SP2Xb9Q1YvmUUpAcx1Op/oRUY+f1S3Z4IfgvXjMDDfSINvP2P8jy+5FyK/IUmsNVuRHPg9Z/8r5OQMBzbRj/RV6zxaXGp+p8ulTaFbtxIHrtc14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rSgclG00; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jEcCvUhy"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so766740a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:23:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rSgclG00"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86a0dc7f26cso5165468b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:24:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789399392; x=1790004192; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+        d=google.com; s=20251104; t=1789399440; x=1790004240; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=ztuGSF+PDwQIAlTtGQea9d1yEzizsRF7saPQJxLq9mM=;
-        b=jEcCvUhyjSFEwYFKdX12WSyztXAubvqy7nLzNmneeLglUcE+zOmrWjcekuOh8KhgZO
-         RmQ1tM0ejA62CPbIhl44JnhuOzhoJOSSxt1E9WyPW6VIo5+56MnQfeN7tHqDJJE6qAHR
-         LvCTm2/TOd/PJxJBq/tXdQYRdCVOHX+g2sQRjwxIc4pCtNWYweSqPLe8r9/Fl5dicXfn
-         3CCycS4bOmQdpuvSGHJmP1N3pSgY6bfgerpMhVuTqbTVXEKptgqMgK+0Voplshx9n34t
-         crpk6KSAwQHRqOVktBhYYEzLOW5En5gVc79EBaJAL3e9uJM2Kdnuo7YSazJ7Vd1F1YCV
-         9J3g==
+        bh=PBy5/r8Ty8ZUvAoaRhMuHW5wuQOXtAxIcP8jqfHdgR8=;
+        b=rSgclG00ZsR0FrRm5TmrmODSdbg2tgsyxnzBA9N04AlBVkBR4cqdMC6VTQocHYjDwK
+         LIfGkKKIKnBUEg0gLVWsH5Qy9LsBy0zBBIRoQ7vAj1O8MK7mHcxn4Y7XyBkbO2diL0MB
+         4TMRbLzrQhHNIL+THKaF3F2YkWfl9fkibi9XL9iJAj6ETHKpDKii5XoYN7eqRlHTEQD2
+         AntXot+C9m/A4pdIyWqJ6rGP/PrHci7TiPEax3l7ZpGI8RV2Te+aQwr4Orb+a2myb8Q2
+         wP3MiArneieywivkDqceVKdbB9NwPe3iBDBnvRGxh4Htn8QHhThEaT99zJX+gxIcIY3U
+         G9qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789399392; x=1790004192;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+        d=1e100.net; s=20251104; t=1789399440; x=1790004240;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ztuGSF+PDwQIAlTtGQea9d1yEzizsRF7saPQJxLq9mM=;
-        b=hEujlcDO6Mwog492mWWI9nvqSlTBRjniotQ8tFYtGICAQ/rUlN+rvMx1Od7qFbwE2i
-         KLtkg5prMnS06KegAHfsXnmHeEbFc2VDgatMI0WyukxesJxhTIpXVPBNGCd7MSDWR4wW
-         5iVNTpolfcpFZWD965xiOHqavfPybyP/1pm/RpObNt1UaqQPomSlHybQlOHn94WotMzW
-         ZaOZN6HMK3NZmyUtxuxfHQyluR6I2OsUo5bac/kK68gJDEU10yOFX61jN22THVw+oVLo
-         qviLSCeBAi0x7NtfnAJ9FEbqzAQBVeRT32mBqDxz1fkoXzauWUZLCAY5hu2gMGwx6Nez
-         h5Qw==
-X-Forwarded-Encrypted: i=1; AKwUvByITObiMrVScgDS5/Kkk9jt4WbirqV5V8Y4M3vJwXEajrNUIsLNbXXfy6aJZbtyyuVyMUlrGeJC3O9/e80=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSI5WjuyUtg+VOoP109rhAHJN3mtvm8CICPsxoBnfIZR2GP6vn
-	z2LikNPPyoTuFMHI7GoDfWmCGMlJlZNYndgptU5QaOOqgUIZm7j8sG50
-X-Gm-Gg: AYBFou1OFg56GzOV+KrRUurnPp4IJ0YUyG9ZwggQGt+drgfK9RGLnnEkJQXaKQ+HChL
-	+zo+RiheMmZPh7g/t3oDR24gNmIh59KPFkhBXnTESmmjy7JmTVQrJxEpt4VE2WDJAlbjl3ZMtep
-	TN6Go5n8mshwnh1wADBflykuVEtGcVrUSdmCYZvE7KdsioQ4y7qKUtjP1J/spJfTlzBZ1+WHmKh
-	vRMYi5kGq1avgTuNdMj8aoapf9fEmIiCkEJWi2n43euSWcSYSjVGZyQMaSSWpS3kCzrvCNaiwNs
-	+QxV0fJAIDE0aKoHt9FYt9JYrqyOfEnF8cMWMTLjYOtxWTr1GxWEMBXerzuW33yDYzrTwVsHGh/
-	IvUyYDczmt5t3nw21bjI31Excq2wZpWw4qjoW5eLMZcazvuOsh/dOQdZQUv2hYcxuSAWUHvKlGj
-	Wj9ZupvUCBvCuzM85gsfFjMB05QcoPmVfJoL6TjPa4uAxbb4u5XsO46AEngebS3aoLnLrk0nE8d
-	h5yZQPIJbh9
-X-Received: by 2002:a17:90b:57c4:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-39dec375390mr3341232a91.2.1789399391514;
-        Mon, 14 Sep 2026 08:23:11 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9540fd76sm24274448a91.9.2026.09.14.08.23.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 08:23:10 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 14 Sep 2026 08:23:09 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: tze.yee.ng@altera.com
-Cc: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: (socfpga) add Agilex 5 channel mapping
-Message-ID: <0cac6379-d89c-4ca4-bb8f-9fcfc6086f9d@roeck-us.net>
-References: <41bb317cbfb6f4e2711581f2ccb22071db17b19e.1789373027.git.tze.yee.ng@altera.com>
+        bh=PBy5/r8Ty8ZUvAoaRhMuHW5wuQOXtAxIcP8jqfHdgR8=;
+        b=h4KEO/6FXXO1vkP73HxexcxzSxb19ixvtLEZLKTanIYYNMPatjVIZbxbKB7GOdp1aS
+         ZZHSNVw3Ptdl8C/ZSI+xl2PE+hv1ER5Phh2XxTjO+d7oyuebDFXBKnOjW5rL9pz/AjP3
+         xKMmUgTOATpU+vpvdTGtQM3gbDTYCcHKWnv/Bkh2tWLvFjRyiuVqRdinkx3mf3p8KE3X
+         dyahkRjjff6uU8FIoy1Afr04AhgD6VNUsVH2Qe51HAAFxthX7WrxRW+fOOpoIp2G9Q09
+         HUahwLPgtA20+N+6AIXbVwkrQc4lDmRN/WMacqSDSWhavgM2dyVGEvs7p1WCkjBcGRL6
+         SE6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxy8VjdaqCF6RmG36YQtVpCzbUCc95JgHplttgMU5sJqhIZZStKTwiFaWwbwmQOGpdypzxqWLjmh5uWdPs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nM/q+dkDeBg2Yia3nK9ELZw6brlG5zQgUus4+8EDo18+Wc7DHV
+	GJqiZOUlvdQ8T9uK5bFTMrVhBm5+ScnIuLwlQIYDtD69kPnACiBkvB+vgDgNcTKITtsd0oFgfBS
+	PJUNmmQ==
+X-Received: from pfgf9-n1.prod.google.com ([2002:a05:6a00:c589:10b0:84a:3ba8:3bf2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1791:b0:86b:43f6:67b7
+ with SMTP id d2e1a72fcca58-86f82e5c9admr5856724b3a.4.1789399440212; Mon, 14
+ Sep 2026 08:24:00 -0700 (PDT)
+Date: Mon, 14 Sep 2026 08:23:59 -0700
+In-Reply-To: <20260914143702.915401-3-aharivel@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <41bb317cbfb6f4e2711581f2ccb22071db17b19e.1789373027.git.tze.yee.ng@altera.com>
+Mime-Version: 1.0
+References: <20260914143702.915401-1-aharivel@redhat.com> <20260914143702.915401-3-aharivel@redhat.com>
+Message-ID: <aqgRj7mfDhCUqWw4@google.com>
+Subject: Re: [PATCH RFC v3 2/3] KVM: x86: add KVM_CAP_CSTATE_POLICY for per-VM
+ C-state enforcement
+From: Sean Christopherson <seanjc@google.com>
+To: Anthony Harivel <aharivel@redhat.com>
+Cc: kvm@vger.kernel.org, pbonzini@redhat.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 05:13:35PM +0800, tze.yee.ng@altera.com wrote:
-> From: Tze Yee Ng <tze.yee.ng@altera.com>
-> 
-> Add temperature channel mapping for Agilex 5 and bind it to the
-> "intel,agilex5-svc" compatible string. Reuse the Agilex voltage channels.
-> Agilex 5 omits temperature channel 2 (top-left corner) because that
-> sensor is not present; remaining sensors keep Agilex channel numbers.
-> 
-> The "intel,agilex5-svc" compatible is added to the stratix10-svc match
-> table by a separate patch [1]. Without that change the service layer does
-> not bind on Agilex 5, so the socfpga-hwmon device is never created; this
-> patch depends on it.
-> 
-> Update the socfpga-hwmon documentation to list Agilex 5, the matching
-> compatible string, and the SDM temperature/voltage channel tables.
-> 
-> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
-> Link: https://lore.kernel.org/all/20260907082203.2639395-4-adrian.ho.yin.ng@altera.com/ [1]
+On Mon, Sep 14, 2026, Anthony Harivel wrote:
+> Add a new VM-scoped capability that allows userspace to set a maximum
+> C-state ceiling for host cpuidle when vCPUs halt.
+>=20
+> When a vCPU enters kvm_vcpu_block(), KVM temporarily disables cpuidle
+> states deeper than max_cstate on the current pCPU using the existing
+> states_usage[].disable mechanism (CPUIDLE_STATE_DISABLED_BY_DRIVER).
+> After wakeup, the original disable flags are restored.
+>=20
+> The capability follows the same pattern as KVM_CAP_HALT_POLL:
+>   - VM-scoped ioctl via KVM_ENABLE_CAP
+>   - args[0] =3D max_cstate (-1 to 6, -1 disables the policy)
+>   - Re-callable at runtime without VM restart
+>   - Memory ordering via smp_wmb/rmb
+>=20
+> This fills an operational gap for NFV and latency-sensitive deployments
+> where the host operator needs per-VM control over idle depth without
+> requiring guest cooperation. The enforcement is scoped to pinned-core
+> configurations where the disable flags do not race with other tasks.
 
-Applied.
+Sorry, NAK, this doesn't belong in KVM.  Given that the only way this can w=
+ork
+is if vCPU are pinned 1:1 to pCPUs, then it should be very doable for the c=
+puidle
+subystem to provide an interface to let (privileged?) userspace restrict th=
+e
+maximum C-state on a per-CPU basis.
 
-Thanks,
-Guenter
+My apologies for not responding to v1 or v2, I am guilty of Jim's axiom tha=
+t
+upstream doesn't respond to RFCs without code.
+
+Pulling in the other options here:
+
++    The enforcement point is kvm_vcpu_halt() =E2=86=92 kvm_vcpu_block() =
+=E2=86=92
++    schedule() =E2=86=92 cpuidle. The problem: cpuidle has no per-task
++    C-state constraint. states_usage[].disable is per-CPU, and
++    forced_idle_latency_limit_ns is also per-CPU.
+
+I don't understand why per-CPU controls are a bad thing.  A task-based sche=
+me can
+really only work if vCPUs are pinned to pCPUs, i.e. you effectively need pe=
+r-CPU
+controls anyways.  And explicit per-CPU controls would allow for more relax=
+ed
+scheduling too, e.g. would allow affining vCPUs to a set of pCPUs without n=
+eeding
+to have strict 1:1 pinning.
+
++
++    Three options I see:
++
++      Option A: Temporarily toggle states_usage[i].disable on the
++      pinned pCPU before/after kvm_vcpu_block(). Set
++      CPUIDLE_STATE_DISABLED_BY_DRIVER for states > max_cstate,
++      restore after wakeup. Simple, works with existing API, but
++      only correct with dedicated pinning =E2=80=94 overcommit with mixed
++      policies would race on the disable flags.
++
++      Option B: Use forced_idle_latency_limit_ns on the pCPU.
++      Same per-CPU limitation, and latency-based rather than
++      state-index-based =E2=80=94 less precise.
+
+Conceptually, (b) seems like the right approach.  Per-task will be a mess b=
+ecause
+similar to a KVM-based interface, it can probably only work if tasks are pi=
+nned
+to pCPUs.
+
+And isn't abstracting away the exact C-state via forced_idle_latency_limit_=
+ns a
+*good* thing?  Without that, userspace will need to tune its configuration =
+for
+each individual uarch based on the properties of various C-states for a giv=
+en CPU.
+
++
++      Option C: Propose a new cpuidle API for per-task idle
++      constraints (e.g. a per-task_struct annotation checked by
++      the governor during select()). Correct for all cases, but
++      bigger scope and needs cpuidle maintainer buy-in.
