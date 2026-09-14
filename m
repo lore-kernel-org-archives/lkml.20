@@ -1,174 +1,153 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5558A47ACCA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:57:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394262; cv=pass; b=PT+8JMBvd3oLkJoK10UhgMbf7SsnNxvZx3s0aiZMsDTPopxeSG3MtYOTL99f+fmq7FQI+6X91nE3wG9Ykdj3rUH1FXMG8MW59QO1gAxjehedbXjCDxrrG8yP5eA5zVeGQqoSfcyQ4b1HdeNrDG+8jxKKWVkOfoFQd1s6SmjpXrQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394262; c=relaxed/simple;
-	bh=lJVGF2MrIGJ6/Msnkutl7Ct5nsmA8aoi6v75pv+4DMM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hk3nNyU+NheQW57fXRDfB03r+XV+tBA1WbZMqkucFus0daho25i8krrFFkqA1wQO4XGwjKPBFbEmxm4khf8LO02gnRk3vPb02cXW9gFwGBt1zFO2z6HQIpLfai/+jGcgFdcFCd+H1yz5S+JPOQOlf4o3768L3kbVJgT+ve8lybQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GR5DFjcL; arc=pass smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB6B4772A3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789394271; cv=none; b=ZuiSMcBuGPnyALkAwIstmYEFHWKnzwi7pr+lt4gga618J4fNZ7FlX7acpbTRs24hmN2RH+MKvVI+tmkSa4UtU1zS5+BYR6fncA6DZZr9ohpzWfxA1lTBmnBlk2GF1jjo/XFmGgV4CdP8Xs2mRSB15UdCoSjVxcQpquD++7I6E6E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789394271; c=relaxed/simple;
+	bh=duDW4MTgv9us/ONwJoTNsNlJr2TmZ9c/C+zVNu8JAhs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BWJ2QzcqusIHBhU3iEcFhdK0GwtVizRU8W4MTBx/LUlTwUYaoV1QyrF3JCy+HgY0x293elNC7VqzceM636UTHebGbL8Bj+JkCPqjFLyYv71x+QnN8bUc2X03kEYix99xgDfhZLnycIHrd5GFVTCbIUVmKzrFYDVmoSQu1wti/8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T5hLORXQ; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GR5DFjcL"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab19125so1798013d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:57:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789394259; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fd3zcCFDinXjCZcvFqSSjnTIl4lkrzRya3I+SEBQyNCXlHoF01vcVPtE2X/znj7zjS
-         o1Ci2ApPPY63SEXDVmhUoHQsqA3DtVcbir4I6euMwejF51/dxkg5MVc4aA93osPvUcYO
-         I0cEVpPdu+5nAFqT1Yp2geIp1lU3GxOJTmZ9KixPWx3W5u3yjiXETJR8skKclqL03spe
-         B9X9zPCibtS7icCBPNk3PToeBKKTC8gBcqCIu2fo19UtssS+T4dqRe3SOmiIMartr9Dj
-         CKM8eDFOoJBk0NSA9Mx11NxOnMEwIkpoE0pcX287nI4swYFQIZ8T4j5XCryTg0s8kzYm
-         gDTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ngouuzk5nO0PMiFaSO3Ww6fwWjCxaG/P3WaLVlqRSMY=;
-        fh=TDJELKGRBeKvENy2m8KxSbUiWmy071OJXyxC/u/4jUY=;
-        b=h1EQX53iSgtlnUEXMFYrE1kUHrD62t3IIqecExaslsifOjbm2tcDvBquqLHa8Aoupk
-         oFi+tUSfR9mRuiUmEehphXZv4RwmcQng2C66rhJzBKuK5VwqdD4+m7hYUyxARaGmc07l
-         P5ZDqDVabXfGbeh99NS+SFO0vFHSHeVvyQeFUKf6A3oQV0VWI7PkFtKBoud3mbcYDJnj
-         FA//cat912IJJObTeG1ySHzUCQSbwVjATKfd//SP172KEAMxtd47eNW8hzgI9T/9fNDm
-         MnKVWkZdLr923jG6P6lavezFoI4QLeMcpLp9D4zC7khPnMePLee1ShTSpSxDKDnITz9t
-         hHZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T5hLORXQ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b965f447cso15614765e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:57:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789394259; x=1789999059; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ngouuzk5nO0PMiFaSO3Ww6fwWjCxaG/P3WaLVlqRSMY=;
-        b=GR5DFjcLwn+Z2Y3Yx4nSLtFkwK5akafc1wS5yfDLCq9YHk8Ze5AUVZGy34hMfoKrhy
-         exjw0Fpu2LIkEDHEfcSQZVir79wjexW5HexNaJiHqDYyD8hcW+zO/0/9gwUr430v10zZ
-         3i+G/8b3Zt8WF31PYUPrS4LLcg6u5uKVBkGQriB9FqIeRE9Lnp69YiqGMvOLgkXRzGwg
-         sFxutF9ku2F1iHAA8aCowTI8ExVCYGGuVYulhvNBF4/Dg+mamia6vnPeVHwd89b5X3A3
-         C/EiHdBBrq4FBpr3r9O82xY8XMDs5dGItC0fNPxWVbou9EBsuBHFcH6rv34FjUs+aKwT
-         Tudw==
+        d=gmail.com; s=20251104; t=1789394267; x=1789999067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pm6FQW4GbFGly5zHN646NB+7TgBYiGFIis+XHe7PrJM=;
+        b=T5hLORXQMV27+KYjDJ4nrfR4bnw7BkRi9ENZmKcpM/m+BtRo3Q3MrSR2rmgEosIG6D
+         kF0MO3TUSZsFjIIS/TB1gXyBirrNVvfsZ2IZ+n5NdrMcUFeSP080+GGNLc+VXRniHwZR
+         XZqYcUalEuNMPLlsE30DIvfvGWYZuYpHk+d/08YHT6u84c0i/GHyklNgRHy2SHYXe45E
+         9p8UrfBRIUsWNU7N6QI6NddeNFOzpK0yWwsng/zuokNmshOnegkXi2/q0vzJleiePvTv
+         /TE0aimoXTAsxPXul1hFF3SjFjWfDm9ADsc2V4ogDJUqEJJyA3yV7dLmdkdO8gKnZbXV
+         lxQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789394259; x=1789999059;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ngouuzk5nO0PMiFaSO3Ww6fwWjCxaG/P3WaLVlqRSMY=;
-        b=avNKOiKyvPgNZh8Km6CnqcQw7ZGTw3SDoiAjZly++npU2/hARqux02G7ujvFlYHaXy
-         InvfVI3U+xee9AeGIK/XhqNYoc8Kxcpeny1RsezqX9BQUHTFJSggIbyVEj4RA3+9Xr5X
-         5VZK2G/SiClwJ+GJq4NHtgqQoxwhA6wEY/S6eyYIzHZaWHecYNdA7t97qJS3/bk5nBlk
-         AX+0Rj5PCzuIIfwW7ybk7NXym5lnMlABcxD0zT864eTbtWuoi+13n03lwKBumYkrOCyX
-         hIZcKS9Uhk6Jci0azIOiuWJ5Gp+shWBRbWV892G0xc08eElZayXPkJwN7HXh+JkVhi3Y
-         8WsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzp6dWiDFmhpfBUWLDpmGvwmJM1mY2atu4nH507OYKjZ9JGDnYUFUhv/oi4Y366MISXLLEZ/HyqhTQ6rj0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktN10euIeL+3VGpl2QH6CcyTyh19qjC7K5FlEyV7b86HVmYQpp
-	4u5XReaKpYTOl9WQfSkQj+VUk2HY5cGjVCbU9MaIlfY6cpg+ySciFhT3T2AF77PxXTOwd7LEps9
-	f9wQWSOnvI/xIdjyHklVa4L8ZTSTOTxA=
-X-Gm-Gg: AYBFou0pNy04zuKdvhU1bf6fux4liEcikldkbS3VC3JoA6aBwLVz4mLpNVBjVIIs8uo
-	xXOlesKZe3cCT017ndUmWqzrSsPpcV6/F8nksRQIi0KfvyEu19UhkE//3Tze133av+1gTvdW5NU
-	x4A1eXEILltynpVA89FjgXmf+EkVI/3jGt3lUWTs2hFB1EDOtPlgREGDtPDCDwSf4fWO6cou33h
-	LQ8Bt+GOtetDaUTN78NOV5tbRRphYb2rx4ULOYMUufLPbkHK81vnQhySmqL6wHA8yGH/ICgpIqH
-	R7yuUyRoceZI1PrtywooImuudWFgCtD5pHnv6jaMk1QBg9yNCFdgh8aTpHTk0nIsYN70t7XKwSw
-	AGkpR9A0ZPmsZxcxV9QEmnjWDmN1qz+HcXgP1bzD3dvrEdOTNC/nr
-X-Received: by 2002:a05:690e:1183:b0:671:61a:eafc with SMTP id
- 956f58d0204a3-6714dfc990amr984009d50.2.1789394259157; Mon, 14 Sep 2026
- 06:57:39 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789394267; x=1789999067;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pm6FQW4GbFGly5zHN646NB+7TgBYiGFIis+XHe7PrJM=;
+        b=C/dltLnVtVvjXisTKIA3GDDgpNjVo7z4bboQ0+5bQ9LpHfMWwf++iZKZpFl109WMER
+         VbYE14mJFaG0XZiUfxkcqGGSfhisITqJa5zdTUbWXzY1dGY3AgYgD3xKVNwCzdZfueN9
+         FZToUK2/nNhRtXIoraGCoh0b9kgYnpCxaOZKrRqg+VtN09WnAxiEZjSg77Ll2npIYzMS
+         pmr4h7P8ngGKHG6N2o/Y8I6+UPSaiUjNsAz3lbJaKpNy/VqgTnxF2eWYK+XYoCxXPTZ9
+         Js4bD/noGwRhBVLzSWBzvFLJkMxiAfgNIs4NvnR2phSXGj/HqCXgEvVjFfbJcaVk2xLd
+         LxcA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVbXNkVS20qwSp6L4SCe9y083cmvYa3QTvMGii9JL5EPucyMAYNCPwjRMiRE9gu72a/mneQjQWT+rB5WQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOjncrLeJ+fjLWOKzfsb5cKnQH3HGxNlpNn8ueDG3+kB6r2/Au
+	B6Wa+wQgdYoeRnPEvCHilGZs97x/tbn2p0TLUCpYfCIXbzz9Qsar/ub9
+X-Gm-Gg: AYBFou0NbSiOQ6NsZiA8kMwukL2n3cLLKg/I72/QwFzQdB+iNOc+PsdS0ZMfwrltvZq
+	ssCHX6/hZ4M/XEZBrBxdaEaaV+a1tH9f4+qCRTJtGhxTcq9Kvi4zJofZ06bazjnFvBcWOE/dz4J
+	uSOfbr8xxYwdygMEzFWzlZjzGUki2ToCNe3CGqSqb2VmSkTWtTKJyN6xHv8QYC9BoAGvjj5E0Pv
+	cX4iAqAry/IFBgxe6y4j4bUVL7HHBj4WXly270klEKGyjahqgd1cfBv5/wpfe6aNnFAUSkqW+AJ
+	QIzZgDXOEucStTPi+mSsX2gFSbnXdhGIFu4k5ew2YavTWVCy9fFhOGiHsN5B3c9ptzHm6/cqbJE
+	dHvhwF7n/XLlEIPx9dSwjmWeGLXOgsPGPI25M+jM9dUUFwWW3KB1kSitAGbo1xXtzvgUkK/K1wO
+	8etDXuWeR+x26R9DHLZPy5vry8LsRNQd7F+4ZC7pHwWgNgruhHfNHQXbUSkjz2670VbkQ=
+X-Received: by 2002:a05:600c:4f81:b0:49e:6683:d23c with SMTP id 5b1f17b1804b1-49e7a5edd99mr31944155e9.0.1789394266695;
+        Mon, 14 Sep 2026 06:57:46 -0700 (PDT)
+Received: from zephyr ([2407:d000:508:1732:c5ca:107f:bc81:7575])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bc5fsm382832675e9.3.2026.09.14.06.57.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:57:45 -0700 (PDT)
+From: Muhammad Israr <7israr.work@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Muhammad Israr <7israr.work@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: add braces on all arms of if/else in rtw_mlme_ext.c
+Date: Mon, 14 Sep 2026 18:56:39 +0500
+Message-ID: <20260914135639.28269-1-7israr.work@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913-misc_fix-v1-0-558c1e4028b9@oss.qualcomm.com> <20260913-misc_fix-v1-1-558c1e4028b9@oss.qualcomm.com>
-In-Reply-To: <20260913-misc_fix-v1-1-558c1e4028b9@oss.qualcomm.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 14 Sep 2026 09:57:28 -0400
-X-Gm-Features: AcwNN1UlvJrqDr-FHzd6LRUOZnDSIpfdPmPIufIaHT4FMUT4Dsw_TxMkpXL_CEM
-Message-ID: <CABBYNZ+ZUXkSO6ybT03vRCE_1Mwzm1hkbHqrndm2qL0mTLh0dg@mail.gmail.com>
-Subject: Re: [PATCH 1/4] Bluetooth: coredump: Fix skb leak in
- hci_devcd_append() stub
-To: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, 
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Manish Mandlik <mmandlik@google.com>, 
-	Zijun Hu <zijun_hu@icloud.com>, Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Zijun,
+Fix checkpatch CHECKs: braces {} should be used on all arms of this
+statement, and Unbalanced braces around else statement.
 
-On Sun, Sep 13, 2026 at 11:43=E2=80=AFPM Zijun Hu <zijun.hu@oss.qualcomm.co=
-m> wrote:
->
-> For hci_devcd_append(hdev, skb):
-> it consumes the skb when CONFIG_DEV_COREDUMP=3Dy, but its stub does not f=
-ree
-> the skb. this inconsistency causes skb leak when CONFIG_DEV_COREDUMP=3Dn.
->
-> NXP btuart device driver encounters this leak:
->
-> btnxpuart.c:
-> nxp_process_fw_dump(hdev, skb)
-> {
->         ...
->         // the skb_clone() is leaked.
->         err =3D hci_devcd_append(hdev, skb_clone(skb, GFP_ATOMIC));
->         if (err < 0)
->                 goto free_skb;
->         ...
-> free_skb:
->         kfree_skb(skb);         /* frees the original, not the clone */
->         return 0;
-> }
->
-> Fix by freeing the skb in the stub to keep consistent behavior.
->
-> Fixes: 9695ef876fd1 ("Bluetooth: Add support for hci devcoredump")
-> Signed-off-by: Zijun Hu <zijun.hu@oss.qualcomm.com>
-> ---
->  include/net/bluetooth/coredump.h | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/include/net/bluetooth/coredump.h b/include/net/bluetooth/cor=
-edump.h
-> index acc1849f66c0..07940a1d5dd4 100644
-> --- a/include/net/bluetooth/coredump.h
-> +++ b/include/net/bluetooth/coredump.h
-> @@ -103,16 +103,17 @@ static inline int hci_devcd_register(struct hci_dev=
- *hdev, coredump_t coredump,
->
->  static inline int hci_devcd_init(struct hci_dev *hdev, u32 dump_size)
->  {
->         return -EOPNOTSUPP;
->  }
->
->  static inline int hci_devcd_append(struct hci_dev *hdev, struct sk_buff =
-*skb)
->  {
-> +       kfree_skb(skb);
+i checked the kernel CodingStyle, when one branch of an if/else
+requires braces, both branches should use braces.
 
-I don't think freeing it here is a good idea; in fact I think the bug
-must be fixed in the caller so it properly frees all clones, etc,
-actually it may need to check if hci_devcd_init fails and stops
-cloning and calling hci_devcd_append as a result.
+did not change any functionality
 
->         return -EOPNOTSUPP;
->  }
->
->  static inline int hci_devcd_append_pattern(struct hci_dev *hdev,
->                                            u8 pattern, u32 len)
->  {
->         return -EOPNOTSUPP;
->  }
->
-> --
-> 2.34.1
->
+Signed-off-by: Muhammad Israr <7israr.work@gmail.com>
+---
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index c39fb142302e..e60b2c825162 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -356,9 +356,9 @@ static u8 init_channel_set(struct adapter *padapter, u8 ChannelPlan, struct rt_c
+ 					channel_set[chanset_size].scan_type = SCAN_ACTIVE;
+ 				else
+ 					channel_set[chanset_size].scan_type = SCAN_PASSIVE;
+-			} else
++			} else {
+ 				channel_set[chanset_size].scan_type = SCAN_ACTIVE;
+-
++			}
+ 			chanset_size++;
+ 		}
+ 	}
+@@ -1221,8 +1221,9 @@ unsigned int OnAssocReq(struct adapter *padapter, union recv_frame *precv_frame)
+ 
+ 		memcpy(&pstat->htpriv.ht_cap, elems.ht_capabilities, sizeof(struct ieee80211_ht_cap));
+ 
+-	} else
++	} else {
+ 		pstat->flags &= ~WLAN_STA_HT;
++	}
+ 
+ 	if (!pmlmepriv->htpriv.ht_option && (pstat->flags & WLAN_STA_HT)) {
+ 		status = WLAN_STATUS_CHALLENGE_FAIL;
+@@ -2838,9 +2839,9 @@ void issue_assocreq(struct adapter *padapter)
+ 	if (bssrate_len > 8) {
+ 		pframe = rtw_set_ie(pframe, WLAN_EID_SUPP_RATES, 8, bssrate, &(pattrib->pktlen));
+ 		pframe = rtw_set_ie(pframe, WLAN_EID_EXT_SUPP_RATES, (bssrate_len - 8), (bssrate + 8), &(pattrib->pktlen));
+-	} else
++	} else {
+ 		pframe = rtw_set_ie(pframe, WLAN_EID_SUPP_RATES, bssrate_len, bssrate, &(pattrib->pktlen));
+-
++	}
+ 	/* vendor specific IE, such as WPA, WMM, WPS */
+ 	for (i = sizeof(struct ndis_802_11_fix_ie); i < pmlmeinfo->network.ie_length;) {
+ 		if (i + sizeof(*pIE) > pmlmeinfo->network.ie_length)
+@@ -3848,9 +3849,9 @@ u8 collect_bss_info(struct adapter *padapter, union recv_frame *precv_frame, str
+ 
+ 		memcpy(bssid->ssid.ssid, (p + 2), *(p + 1));
+ 		bssid->ssid.ssid_length = *(p + 1);
+-	} else
++	} else {
+ 		bssid->ssid.ssid_length = 0;
+-
++	}
+ 	memset(bssid->supported_rates, 0, NDIS_802_11_LENGTH_RATES_EX);
+ 
+ 	/* checking rate info... */
+@@ -3928,8 +3929,9 @@ u8 collect_bss_info(struct adapter *padapter, union recv_frame *precv_frame, str
+ 
+ 			if (le16_to_cpu(pHT_caps->u.HT_cap_element.HT_caps_info) & BIT(14))
+ 				pmlmepriv->num_FortyMHzIntolerant++;
+-		} else
++		} else {
+ 			pmlmepriv->num_sta_no_ht++;
++		}
+ 	}
+ 
+ 	/*  mark bss info receiving from nearby channel as signal_quality 101 */
+-- 
+2.55.0
 
---=20
-Luiz Augusto von Dentz
