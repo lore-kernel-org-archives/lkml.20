@@ -1,133 +1,162 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2487F476CD6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E72484237
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403907; cv=none; b=YlP5ERJikURAR45hbMbAWln4Lfgadqn8R0FQoJYTv4hICGhShTH9xeMLqyyLlJvNPvnuYJyrl/FQv5DJjXYqAPTAkozPH20zDoGd/DBUxQV+41He669iDG1itjY8rGY9hbpdU6DTt0jhxtJ+j4XJBZNshowLOiPOsO6ASRAORS8=
+	t=1789403908; cv=none; b=KY0obyhxUco9OIPCRcdY+CvPVqXTerFxJKxgOXUzLB9ossxVmZL9ioGv8M11199W5YZ1TLxdR3fAT+kJ/vezfTBDxpF5/lJLVA88TS+q0NFnog7Zeu5oSNzppEpe7QO3DEIqM/iCe88Arp6DH6k5SKJu1S21q/ePiTCPgmm1YRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789403907; c=relaxed/simple;
-	bh=x6SqZ9Bnlp7yK7hFGhAkybXar8lsgtKvbSy4K/3aM7o=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bTxPWHEcavw1fW/YOgrCLy7Ibk5INoVCV1zPYSQOMGxvpLDeB87xkdSVDDSsPE9x6Of0obMAtkUF/t0Xd92D1wfKHWKrDujFIVenIkzfFEK1RZoi1Css+l9AYDdDpDVdfr43XgEKpYVkCq0CuL0n3ZyX7Md17YngIROCluEq0uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
+	s=arc-20240116; t=1789403908; c=relaxed/simple;
+	bh=23d7+x2zm6cvtYou9WH/kKCprswvTWnpYnPNRkmpps0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=n+wYW3BaZXiMVqFoAlzuTMwnJYH0c3mnA/2zVHLehb2iE1XVoGDAiT3XHZdwg/Gfjms1bhzjU+dsnXR4bQJ4bZVsC6eFsiHhWPMt0gllvgewUAcy7G/MDpzTLTqqTBHRwWSVeLhWBl+2016AGA3gcrGxkWxQqr9QdsklfWCaKys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-7f4ddb9adf4so1444318a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:38:25 -0700 (PDT)
+Received: by mail-oo2-f7.google.com with SMTP id 46e09a7af769-804d58d09e9so664536a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:38:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789403905; x=1790008705;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=12sDc1dvbHhFyr+KZsnVGB1XgTrOLqUuU3x0ZaD5uXk=;
-        b=iXzWVAEHuDdMdiJ23d6HJJURb8itwhA2qrI7bkbewLulcdS05kZY5YBy2nUjG0TuFt
-         sLcrw8UfMuLFRTk6sK3GIeLQ6+eX7r3j5Rz07yp5RIZVp8y6Y4MjcDJXECAtpDnGzrl4
-         MPuPRoqTFyj4Ux0focB+/89T7TqtryuJWteY7rIRCRBDQRLzO5qYxDhOKQ878Ldrm1ru
-         WcMnNTEzHRJuJu60meUjaiDVQCIYkAMfRdYh/yGCqH8pP58lqG7XbspJyRFAwc9+nS6h
-         9aNhgSp7iRyKlFzEhPIJ/bUqlnUPy+l9DWSNMF99I6FhZz3ooGHYO7zH8VCyNpP06n0v
-         a0bw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbIkliOR4ZLywwpp222K4621IxMrDAildBbBEx54gtR1hsuryHP/dPaewzPhx1cc1Rmo7U+0nLMU1x24I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUSHo76yYWOFBIG00sPBo4C38t13k7X2UOjGeOlcDrPl27NI4k
-	riJg08h76mxeA98Hat6FDRtRwpTbPuNHteYVC2gU4fA3PD7G8cYZjNkAS7cPytncD1/BrM06S8w
-	luO0JQtjzTNATEeNLx/rqnsDVUV0zlUYgzoRXzCkwAUUI5bSwGrzsdsMOYig=
+        bh=YU7qZKeyKs8K9w4inWh1hQOv9aWTGkQRcwK+vaqSvlo=;
+        b=HHyqB12hzcFC5Tkq1hxsiG6ss0pSHJz2in4wee5wPmb6wQkG2R7Vb1rjZML04FbafX
+         trmVdWZX4HSOnFwScYBBcUDsawGaDR2OrSwPWA3K+zLEhm+rXtHC+lCVRBzGUmMF0Hs6
+         Q85szwil59FVbm8JHV+0Dwk+dX0aR0SA+y1EGmZXDXjifn6PyCgOl99QkaRIVJIRd+hP
+         g/goaeifHwL/SXyIXRFNEnWdJ/0DeAg15kI+UtuVuIP0iUGNGNn60U9fwhLxeA4VqxaS
+         fG3gCKDiwox4wrrnGt1OmXwSp9/cxcJJ1dJJr0FqRX+zkGL1O/s+lxRuUdP1P3gjyK2o
+         5kKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxfvjMRN/fPT/CTOJlY9N0KOLCmUnimu1L2ALjHfyTpHZCBpPxRALTNyO9S0lWwXfoJVRqMaVzrt3faebo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l259HmglPBRmPoUzF8HhIZPfd+KLqe3dmm/gbZLEy8c/Augcvw
+	qGTlye3fPziT2xpVY6RaqSO1Ki3BHAUcKVdLGXKJf+7Qxn3xi5+lwzHed9LhK3IY8dwf1lW0oXg
+	C8/sXsH3SEhFnFeiKcGAicIcrLECQqqtmmQsa5vPYUVNdjPWcxpNtvkiYabc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f013:b0:6c1:d6a4:9268 with SMTP id
- 006d021491bc7-6c54214b30cmr1842072eaf.5.1789403905073; Mon, 14 Sep 2026
+X-Received: by 2002:a05:6820:4c05:b0:6bd:f333:7b83 with SMTP id
+ 006d021491bc7-6c53f97770emr1996125eaf.16.1789403905366; Mon, 14 Sep 2026
  09:38:25 -0700 (PDT)
 Date: Mon, 14 Sep 2026 09:38:25 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa82301.a211d2ce.1a5198.0296.GAE@google.com>
-Subject: [syzbot] [kernel?] KASAN: global-out-of-bounds Read in bus_uevent_store
-From: syzbot <syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com>
-To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6aa82301.a211d2ce.1a5198.0297.GAE@google.com>
+Subject: [syzbot] [ext4?] KASAN: use-after-free Read in ext4_read_inline_data (2)
+From: syzbot <syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com>
+To: adilger.kernel@dilger.ca, jack@suse.cz, libaokun@linux.alibaba.com, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ojaswin@linux.ibm.com, ritesh.list@gmail.com, syzkaller-bugs@googlegroups.com, 
+	tytso@mit.edu, yi.zhang@huawei.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+HEAD commit:    2f0c1cf72f46 Merge tag 's390-7.3-3' of git://git.kernel.or..
 git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15489c8e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=9a321aea9d851b299486
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17de9905580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11f042d1580000
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=14fcc115580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=085a394c92518a04fd09
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=151135f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12fcc115580000
 
 Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
+disk image: https://storage.googleapis.com/syzbot-assets/2ceccb470aef/disk-2f0c1cf7.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/66118825dd52/vmlinux-2f0c1cf7.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ab86c4814e1b/bzImage-2f0c1cf7.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/2b7927e0529e/mount_0.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=1188e925580000)
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+Reported-by: syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com
 
+=========
 ==================================================================
-BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
-BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
-Read of size 1 at addr ffffffff8d72559f by task syz.0.17/5917
+BUG: KASAN: use-after-free in ext4_read_inline_data+0x1c9/0x2b0 fs/ext4/inline.c:213
+Read of size 68 at addr ffff8880723bf51a by task syz-executor313/5649
 
-CPU: 2 UID: 0 PID: 5917 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+CPU: 1 UID: 0 PID: 5649 Comm: syz-executor313 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
 Call Trace:
  <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- kobject_action_type lib/kobject_uevent.c:86 [inline]
- kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
- bus_uevent_store+0x3d/0x90 drivers/base/bus.c:917
- bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf702efec
-Code: Unable to access opcode bytes at 0xf702efc2.
-RSP: 002b:00000000ffa3eb5c EFLAGS: 00000296 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000080000280
-RDX: 000000000000ff0a RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
+ ext4_read_inline_data+0x1c9/0x2b0 fs/ext4/inline.c:213
+ ext4_read_inline_dir+0x320/0xc20 fs/ext4/inline.c:1422
+ ext4_readdir+0x46c/0x4250 fs/ext4/dir.c:164
+ iterate_dir+0x2e2/0x4d0 fs/readdir.c:110
+ __do_sys_getdents64 fs/readdir.c:399 [inline]
+ __se_sys_getdents64+0xf1/0x280 fs/readdir.c:384
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f74cc073df3
+Code: 48 0f 45 c2 48 83 c4 08 5b 5d c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 ff ff ff 7f 48 39 c2 48 0f 47 d0 b8 d9 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 05 c3 0f 1f 40 00 48 c7 c2 d0 ff ff ff f7 d8
+RSP: 002b:00007fff22d6b888 EFLAGS: 00000293 ORIG_RAX: 00000000000000d9
+RAX: ffffffffffffffda RBX: 0000555562e4b9d0 RCX: 00007f74cc073df3
+RDX: 0000000000008000 RSI: 0000555562e4ba00 RDI: 0000000000000005
+RBP: 0000555562e4ba00 R08: 00007f74cc0e35a0 R09: 0000000000000001
+R10: 0000000000000000 R11: 0000000000000293 R12: 0000555562e4b9d4
+R13: ffffffffffffffd0 R14: 0000000000000016 R15: 431bde82d7b634db
  </TASK>
 
-The buggy address belongs to the variable:
- kobject_actions+0xdff/0x4e80
-
 The buggy address belongs to the physical page:
-page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xd725
-flags: 0xfff00000002000(reserved|node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000002000 ffffea000035c948 ffffea000035c948 0000000000000000
-raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x723bf
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+raw: 00fff00000000000 ffffea0001c86008 ffffea0001c8ef88 0000000000000000
+raw: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
 page dumped because: kasan: bad access detected
-page_owner info is not present (never set?)
+page_owner tracks the page as freed
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0x500cc2(GFP_HIGHUSER|__GFP_ACCOUNT), pid 5495, tgid 5495 (sshd-session), ts 69474537754
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_pages_mpol+0x21e/0x390 mm/mempolicy.c:2486
+ alloc_frozen_pages_noprof mm/mempolicy.c:2557 [inline]
+ alloc_pages_noprof+0xb1/0x2b0 mm/mempolicy.c:2577
+ anon_pipe_prefill_and_lock fs/pipe.c:158 [inline]
+ anon_pipe_write+0x21b/0x1a30 fs/pipe.c:534
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+page last free pid 5499 tgid 5499 ts 69475806887 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
+ __folio_put+0x4b3/0x590 mm/folio.c:105
+ folio_put include/linux/mm.h:2160 [inline]
+ put_page include/linux/mm.h:2229 [inline]
+ anon_pipe_trim_and_unlock+0x3e2/0x520 fs/pipe.c:191
+ anon_pipe_read+0xf1c/0x10c0 fs/pipe.c:472
+ new_sync_read fs/read_write.c:493 [inline]
+ vfs_read+0x595/0xa80 fs/read_write.c:574
+ ksys_read+0x150/0x270 fs/read_write.c:716
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
 Memory state around the buggy address:
- ffffffff8d725480: f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9 00 06 f9 f9
- ffffffff8d725500: f9 f9 f9 f9 00 00 01 f9 f9 f9 f9 f9 00 00 02 f9
->ffffffff8d725580: f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9 00 07 f9 f9
+ ffff8880723bf400: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff8880723bf480: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+>ffff8880723bf500: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
                             ^
- ffffffff8d725600: f9 f9 f9 f9 00 00 06 f9 f9 f9 f9 f9 00 04 f9 f9
- ffffffff8d725680: f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9 00 05 f9 f9
+ ffff8880723bf580: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff8880723bf600: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 ==================================================================
 
 
