@@ -1,345 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1723214A84;
-	Mon, 14 Sep 2026 09:22:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7A3426D0A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377766; cv=none; b=twLX2thTEXI3Si7qdhS2on6hncv45UIxs/gueaio11bcOsgLpfLEjCgQMFf4yuTtvahek1l10DExKh83hgkRmelHewdrMzvjf2ACDkPZhB96GAAhsYZ5n2qvcgKdpU776udRRHb8D5+BzzVhVvotjWbsgPxS31zSRRDdsc38e04=
+	t=1789377769; cv=none; b=rB7zyOAJilkMfj42UDdImBQLn5R30u5uI158mAAmxQSn8nGxyZc5YZ6rLP2M6zquI6sBQNsT9pRa0NzZN6nuWs4ua8XxweYGUjjyGQNi7imLww/FuZjmhsNIXnasvYKDMB40kWica/pM4tKhQNSgq70P223B0MOq5eVZvx37cCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377766; c=relaxed/simple;
-	bh=wBHd4SBkMFh4Wp/AlupHBf4nVlJ8vBqhljfsRCdgEuk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MDtsW0qDhD8fkfftaKVDolVAfF7fhmD7GT9wt0ckQtZ9Y536S027oWYNnu2RiRICnOELl2kgK5cr9pfEOz2eWgLKZTL9sXZ5ielg8CIffOqs6eO7eVnRkcfEf+JvZKWoCJiyw2jp6j+kHuOj3PmRlPIPG/5jM30A6RcvSsDj7o0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSnD7E6n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377769; c=relaxed/simple;
+	bh=73QlnaQCsgvzVtuZ6QGUlkNWbrbjwtABy1D5uYWfio0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RTT8YAVnpnYe8j0ouhm3Gzc+lBTX4Gwwc0tHEW6iXeF7E+YXlQ9LF3nbN+1jUSzPYOoQ7NoeLUIJb0/W1m12YMFZ601zY46g+6woCNm5fP8iZljgKCEFKrRJWOBXhuncoveneNRGJVq/sD7QLi//CysEbtzJhDeLGVW6FZTFlA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ff098847; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSnD7E6n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00A51F00893;
-	Mon, 14 Sep 2026 09:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377764;
-	bh=YV4wu9p7wOWGW2ofObz/mtiD3pkaku+erivxUCzfdl0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=OSnD7E6nPfp1Yl37RIT5X/RO9YbhPwDGqSzhR8PEWfy80GHlH1+KRrZ3gPMwxM5Qg
-	 jcvliQ5GsGtpyve7psCCMuOTcMzjTxOmE4u7NdTWVNiHIcefxLNH/U4zWifefqEtn1
-	 ZZ0IwGm3VBfyOBWBTCJDbOYYWH+Lh8fOBYbSFpzIJn+Aqmzzuzp4V3NkXOHKLh/kVh
-	 JApO5r4F4ZhLHVMSnvCcAx5Qi0JqXPruxmJ3vVoje7MK7SDtAOv4AzCZlMS7XaE4uU
-	 M4i1MmCZNRDvT7oWvEuu5RnLn8gs3UMPjdT9dis04lcf1J/h4QsNCt91kvwSEbz3PL
-	 g0PN7kyoK+H1Q==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 10:22:02 +0100
-Subject: [PATCH v2 03/21] kallsyms: output binary data to speed output and
- kallsyms assembly
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ff098847"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789377765;
+	bh=73QlnaQCsgvzVtuZ6QGUlkNWbrbjwtABy1D5uYWfio0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ff098847j/8HbpgD0osP+HPAStE6yHiEhULC7sg5g3vg5GfaHoDsAwWNwjF1e2s5j
+	 pdv+LDFs/wkcEtV+8n0EdYdFUWC3QxTVm9OErLgm8HRHxyD1mHpzY0Qd6LqtZxkXR+
+	 f3SP8Dq9rlWufRWBEyRuWV/AMvVsA6uS5OJNZaZtGo7OxUXYCIfaVRJYD0Gg4x730t
+	 e9Jp/A3JXk7wKXxBMQkloQnNpmYfIDhTQzfT01f29ycg9hpDOTz1FrC/1wPpxTgFU6
+	 1pCxDe+a/AmVK1L41Rg6ELqYpMFDWmBApSPg8uuIPLthuFBn+UmA45UWICeOnI6Eb7
+	 q5t/IJodMfn+g==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8248817E020C;
+	Mon, 14 Sep 2026 11:22:44 +0200 (CEST)
+Date: Mon, 14 Sep 2026 11:22:37 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 06/16] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+Message-ID: <20260914112237.70dedb9c@fedora-21.home>
+In-Reply-To: <20260912-claude-fixes-v9-6-e588feaa61ef@collabora.com>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+	<20260912-claude-fixes-v9-6-e588feaa61ef@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-build-speedup-v2-3-39817ec5db23@kernel.org>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
-In-Reply-To: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8693; i=ljs@kernel.org;
- h=from:subject:message-id; bh=wBHd4SBkMFh4Wp/AlupHBf4nVlJ8vBqhljfsRCdgEuk=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKW79mf8mr31u2sBzYrTCmy+2y+NHzBW8d9kXXVsXsd5
- j9++GtBb0cpC4MYF4OsmCLL8y/i+4NEwuZ1XvB3g5nDygQyhIGLUwAmopPC8Feo311o7b9Dam8C
- Ei8Yc7RK56/lPvwskMVuYvK8aetWvl7N8N+pYYnVw+xzn5a/3nNd6eJihsTWpw5LHu7YUxOxZU1
- fmBMbAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-kallsyms generates an assembly file that consists mostly of .byte entries
-containing compressed names, token strings and name-sorted sequence
-numbers.
+On Sat, 12 Sep 2026 00:28:07 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-For an x86-64 build with 158k symbols that is a 37 MiB .S file which takes
-0.57s to assemble each of the two to three times it is built over a kernel
-build.
+> During device probe(), failure to do a PM get() will leave the usage_count
+> set to 0, which is the value assigned at device creation time. That means
+> when the autosuspend delay expires, runtime suspend callback won't be
+> invoked, so the device will remain powered on forever.
+>=20
+> On top of that, failure to call PM put() during device unplug means
+> Panfrost device's PM usage_count increases monotonically for every new
+> module reload.
+>=20
+> The outcome of both of the above meant that:
+>=20
+> - Devfreq OPP transition notifications would be printed all the time,
+>   even when no jobs are being submitted. This quickly fills the kernel
+>   ring buffer with junk.
+> - Because MMU interrupts are only enabled when the device is reset,
+>   the very first job targeting the tiler heap BO after device probe()
+>   would always time out, since the driver's PM runtime resume callback
+>   would not be invoked.
+>=20
+> To fix the above:
+> - Manually adjust the PM refcnt at device probe and removal time.
+> - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
+> - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
+> - Move pm_runtime_set_suspended() before panfrost_device_fini() so that
+>   resource unwinding happens in the opposite order as initialisation.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
+> Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_drv.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 55fc22e8d4d4..a3eff77add55 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -854,6 +854,7 @@ static int panfrost_probe(struct platform_device *pde=
+v)
+> =20
+>  	pm_runtime_set_active(pfdev->base.dev);
+>  	pm_runtime_mark_last_busy(pfdev->base.dev);
+> +	pm_runtime_get_noresume(pfdev->base.dev);
+>  	pm_runtime_enable(pfdev->base.dev);
+>  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+>  	pm_runtime_use_autosuspend(pfdev->base.dev);
+> @@ -866,13 +867,16 @@ static int panfrost_probe(struct platform_device *p=
+dev)
+>  	if (err < 0)
+>  		goto err_out1;
+> =20
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> =20
+>  	return 0;
+> =20
+>  err_out1:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> -	panfrost_device_fini(pfdev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> +	panfrost_device_fini(pfdev);
 
-Each time it is generated it also takes kallsyms a similar amount of time
-to output it.
+Not an issue per-se, because put_noidle() is a NOP, but I think it'd be
+easier to reason about with this order:
 
-Avoid this overhead by instead outputting this data as binary and importing
-it into the assembly using the .incbin directive.
+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+  	pm_runtime_disable(pfdev->base.dev);
+	panfrost_device_fini(pfdev);
+  	pm_runtime_set_suspended(pfdev->base.dev);
+	pm_runtime_put_noidle(pfdev->base.dev);
 
-Tables that are wider than a byte remain part of the assembly to ensure
-endianness and relative relocations are performed correctly.
+This makes it clear that panfrost_device_fini() assumes the device is
+resumed when it's called and suspended when it returns.
 
-With this change, the output assembly file shrinks from 37 MiB to 9.8 MiB,
-with a 2.6 MiB binary data file alongside it, and the object remains
-identical.
+>  err_out0:
+>  	return err;
+>  }
+> @@ -884,9 +888,11 @@ static void panfrost_remove(struct platform_device *=
+pdev)
+>  	drm_dev_unregister(&pfdev->base);
+> =20
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
 
-The generated binary file is deleted correctly on build clean along with
-all other ephemeral data.
+Let's keep the order consistent with the probe path:
 
-On an x86-64 system with CONFIG_KALLSYMS_ALL set:
+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+	pm_runtime_disable(pfdev->base.dev);
+	panfrost_device_fini(pfdev);
+	pm_runtime_set_suspended(pfdev->base.dev);
+	pm_runtime_put_noidle(pfdev->base.dev);
 
-                       before   after    delta
-  scripts/kallsyms     0.24s    0.18s    0.06s
-  assemble             0.57s    0.16s    0.41s
+I also think this deserves comments to explain the noresume/noidle
+dance (device_init/fini take care of clks internally, and when they
+return the device is resumed/suspended, so all we have to is update the
+state, and acquire a ref).
 
-Per kallsyms invocation/assembly, for a total of 0.47s time saving upon
-invocation.
-
-An incremental build on the same system was reduced from 11.15s to 9.65s,
-indicating a total of 1.5 seconds saved over the build.
-
-The kallsyms runs and their assembly are on the serial tail of every build
-that links vmlinux, no-op builds are unchanged.
-
-Whole build, 128-thread Threadripper 9980X, best of N runs:
-
-                                         before   after     delta
-                                         -------------------------------
-  x86 defconfig, touch mm/vma.c, gcc       10.6s     9.7s    -0.89s (-8%)
-  x86 defconfig, touch mm/vma.c, clang     10.5s     9.3s     -1.2s (-11%)
-  x86 defconfig, clean, gcc                31.3s    30.3s     -1.0s (-3%)
-  x86 defconfig, clean, clang              33.3s    31.7s     -1.6s (-5%)
-  x86 allmodconfig, touch mm/vma.c, gcc    38.7s    37.2s     -1.4s (-4%)
-  x86 allmodconfig, touch mm/vma.c, clang  39.1s    36.4s     -2.6s (-7%)
-
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- scripts/kallsyms.c      | 84 ++++++++++++++++++++++++++++++++++++-------------
- scripts/link-vmlinux.sh |  2 +-
- 2 files changed, 64 insertions(+), 22 deletions(-)
-
-diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index 350d118c3b9e..89f5207f74d2 100644
---- a/scripts/kallsyms.c
-+++ b/scripts/kallsyms.c
-@@ -5,7 +5,10 @@
-  * This software may be used and distributed according to the terms
-  * of the GNU General Public License, incorporated herein by reference.
-  *
-- * Usage: kallsyms [--all-symbols] in.map > out.S
-+ * Usage: kallsyms [--all-symbols] [--pc-relative] in.map out.bin > out.S
-+ *
-+ *      The byte tables go to out.bin and are pulled into out.S with .incbin;
-+ *  wider tables stay assembler source for endianness and relocations.
-  *
-  *      Table compression uses all the unused char codes on the symbols and
-  *  maps these to the most used substrings (tokens). For instance, it might
-@@ -102,7 +105,7 @@ static void sym_arr_free(struct sym_arr *arr)
- 
- static void usage(void)
- {
--	fprintf(stderr, "Usage: kallsyms [--all-symbols] in.map > out.S\n");
-+	fprintf(stderr, "Usage: kallsyms [--all-symbols] [--pc-relative] in.map out.bin > out.S\n");
- 	exit(1);
- }
- 
-@@ -319,6 +322,26 @@ static void output_label(const char *label)
- 	printf("%s:\n", label);
- }
- 
-+static long bin_pos(FILE *file)
-+{
-+	const long pos = ftell(file);
-+
-+	if (pos < 0) {
-+		perror("kallsyms: ftell");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	return pos;
-+}
-+
-+static void write_incbin(const char *filename, long start, long end)
-+{
-+	if (start >= end)
-+		return;
-+
-+	printf("\t.incbin \"%s\", %ld, %ld\n", filename, start, end - start);
-+}
-+
- /* uncompress a compressed symbol. When this function is called, the best table
-  * might still be compressed itself, so the function needs to be recursive */
- static int expand_symbol(const unsigned char *data, int len, char *result)
-@@ -371,11 +394,12 @@ static void sort_symbols_by_name(void)
- 	qsort(table, table_cnt, sizeof(table[0]), compare_names);
- }
- 
--static void write_src(void)
-+static void write_src(FILE *out_bin_file, const char *out_bin_name)
- {
--	unsigned int i, k, off;
-+	unsigned int i, off;
- 	unsigned int best_idx[256];
- 	unsigned int *markers, markers_cnt;
-+	long bin_start;
- 	char buf[KSYM_NAME_LEN];
- 
- 	printf("\t.section .rodata, \"a\"\n");
-@@ -390,6 +414,7 @@ static void write_src(void)
- 	markers = xmalloc(sizeof(*markers) * markers_cnt);
- 
- 	output_label("kallsyms_names");
-+	bin_start = bin_pos(out_bin_file);
- 	off = 0;
- 	for (i = 0; i < table_cnt; i++) {
- 		if ((i & 0xFF) == 0)
-@@ -413,26 +438,24 @@ static void write_src(void)
- 		/* Encode length with ULEB128. */
- 		if (table[i]->len <= 0x7F) {
- 			/* Most symbols use a single byte for the length. */
--			printf("\t.byte 0x%02x", table[i]->len);
-+			fputc(table[i]->len, out_bin_file);
- 			off += table[i]->len + 1;
- 		} else {
- 			/* "Big" symbols use two bytes. */
--			printf("\t.byte 0x%02x, 0x%02x",
--				(table[i]->len & 0x7F) | 0x80,
--				(table[i]->len >> 7) & 0x7F);
-+			fputc((table[i]->len & 0x7F) | 0x80, out_bin_file);
-+			fputc((table[i]->len >> 7) & 0x7F, out_bin_file);
- 			off += table[i]->len + 2;
- 		}
--		for (k = 0; k < table[i]->len; k++)
--			printf(", 0x%02x", table[i]->sym[k]);
-+		fwrite(table[i]->sym, 1, table[i]->len, out_bin_file);
- 
- 		/*
- 		 * Now that we wrote out the compressed symbol name, restore the
--		 * original name and print it in the comment.
-+		 * original name for the comments below.
- 		 */
- 		expand_symbol(table[i]->sym, table[i]->len, buf);
- 		strcpy((char *)table[i]->sym, buf);
--		printf("\t/* %s */\n", table[i]->sym);
- 	}
-+	write_incbin(out_bin_name, bin_start, bin_pos(out_bin_file));
- 	printf(".size kallsyms_names, . - kallsyms_names\n");
- 	printf("\n");
- 
-@@ -445,13 +468,15 @@ static void write_src(void)
- 	free(markers);
- 
- 	output_label("kallsyms_token_table");
-+	bin_start = bin_pos(out_bin_file);
- 	off = 0;
- 	for (i = 0; i < 256; i++) {
- 		best_idx[i] = off;
- 		expand_symbol(best_table[i], best_table_len[i], buf);
--		printf("\t.asciz\t\"%s\"\n", buf);
-+		fwrite(buf, 1, strlen(buf) + 1, out_bin_file);
- 		off += strlen(buf) + 1;
- 	}
-+	write_incbin(out_bin_name, bin_start, bin_pos(out_bin_file));
- 	printf(".size kallsyms_token_table, . - kallsyms_token_table\n");
- 	printf("\n");
- 
-@@ -484,12 +509,13 @@ static void write_src(void)
- 
- 	sort_symbols_by_name();
- 	output_label("kallsyms_seqs_of_names");
--	for (i = 0; i < table_cnt; i++)
--		printf("\t.byte 0x%02x, 0x%02x, 0x%02x\t/* %s */\n",
--			(unsigned char)(table[i]->seq >> 16),
--			(unsigned char)(table[i]->seq >> 8),
--			(unsigned char)(table[i]->seq >> 0),
--		       table[i]->sym);
-+	bin_start = bin_pos(out_bin_file);
-+	for (i = 0; i < table_cnt; i++) {
-+		fputc(table[i]->seq >> 16, out_bin_file);
-+		fputc(table[i]->seq >> 8, out_bin_file);
-+		fputc(table[i]->seq >> 0, out_bin_file);
-+	}
-+	write_incbin(out_bin_name, bin_start, bin_pos(out_bin_file));
- 	printf("\n");
- }
- 
-@@ -798,6 +824,9 @@ static void sort_symbols(void)
- 
- int main(int argc, char **argv)
- {
-+	const char *out_bin_name;
-+	FILE *out_bin_file;
-+
- 	while (1) {
- 		static const struct option long_options[] = {
- 			{"all-symbols",     no_argument, &all_symbols,     1},
-@@ -813,14 +842,27 @@ int main(int argc, char **argv)
- 			usage();
- 	}
- 
--	if (optind >= argc)
-+	if (optind + 2 != argc)
- 		usage();
- 
-+	out_bin_name = argv[optind + 1];
-+	out_bin_file = fopen(out_bin_name, "w");
-+	if (!out_bin_file) {
-+		perror(out_bin_name);
-+		exit(EXIT_FAILURE);
-+	}
-+
- 	read_map(argv[optind]);
- 	shrink_table();
- 	sort_symbols();
- 	optimize_token_table();
--	write_src();
-+	write_src(out_bin_file, out_bin_name);
-+
-+	/* Write errors are latched in the stream, so one check at the end covers them all. */
-+	if (ferror(out_bin_file) || fclose(out_bin_file)) {
-+		perror(out_bin_name);
-+		exit(EXIT_FAILURE);
-+	}
- 
- 	return 0;
- }
-diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index ab0b8125c8cb..e88604150d2c 100755
---- a/scripts/link-vmlinux.sh
-+++ b/scripts/link-vmlinux.sh
-@@ -132,7 +132,7 @@ kallsyms()
- 	fi
- 
- 	info KSYMS "${2}.S"
--	scripts/kallsyms ${kallsymopt} "${1}" > "${2}.S"
-+	scripts/kallsyms ${kallsymopt} "${1}" "${2}.bin" > "${2}.S"
- 
- 	info AS "${2}.o"
- 	${CC} ${NOSTDINC_FLAGS} ${LINUXINCLUDE} ${KBUILD_CPPFLAGS} \
-
--- 
-2.55.0
+> -	panfrost_device_fini(pfdev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> +	panfrost_device_fini(pfdev);
+>  }
+> =20
+>  static ssize_t profiling_show(struct device *dev,
+>=20
 
