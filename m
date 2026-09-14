@@ -1,40 +1,37 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CD147A87B;
-	Mon, 14 Sep 2026 13:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72544718D3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394313; cv=none; b=Sfn3rhRKAijks/LBGJfmfxBDkhAVmTPEgsgo0/rWf1A10LVMIeKrWtEc1BMsRT+5mPdHXtYWyIPDUVbbziLedQYAwg06TSGb7DdBBtagOpwDgXVYBtYpxheonO3s7MRK9LXSJdb53M4qM3MO361Vl2NFyAI9aGpdw44Uhj6gkXQ=
+	t=1789394328; cv=none; b=fQB+IvNdCBiwCATlQfM9jlEn1Mc/GyCJFlr5n5MRZFvQA3VeD667zmcoH7cLNZFXMWGiGVE3SUivmsOdJWB4p6jtcUUttNPh5IIvH5I0ZNdWsVcNJp0a71BgCSdjSp3aUFTkZNhZpTl3ParxgE9wXTdS8XkarCCsRkgmCt6l7ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394313; c=relaxed/simple;
-	bh=5PRno6bDN7rPaMhefe1EXNUdAJWaB7rxNicPHWb0KnI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W9s455G/HYdN/kOaWwyi8hBrK3TwE6sgQPYpQNGn7IWV/NacfCuQyk6Ajza0Ge6t+HZAAhPRE9Em/MVBPq6493aocBM7P7TDiaV/pY30LXrtplT74/Twphfz4fzrmVdyzz8eksL3QSxO3CH2wtPYiOI25sL9bmeHGekSwAnB2fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=II0/Ohlb; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789394328; c=relaxed/simple;
+	bh=NQRM5g0/53tAv1iqwShCI936uIqBuRyttBy/9nZrp14=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:Cc:
+	 In-Reply-To:Content-Type; b=ZnctnX6LStQG+qpy4H2nj1VfiYAO0TU1vh5rxlsek+TVliOD0vC6pb+QQskKGJrp2goofh0dK9eHZ1+hex0HW32B4iXWLDJExyKdW9hcSN+cUSpHFOI+5/QSaN0EsvmXNDH5FihVstP1gVcBe5a5AtCeL7tJz0ZV5oH2J8ymq5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=PQIrtQp9; arc=none smtp.client-ip=212.27.42.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="II0/Ohlb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789394309;
-	bh=5PRno6bDN7rPaMhefe1EXNUdAJWaB7rxNicPHWb0KnI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=II0/Ohlbjh/tfLR/rkI11YDxsqnSLpLp+L9XW6BiNCOzRWEC3mRcQEVoLdXNtXCcA
-	 JTYgYVwNw031zm8hW0Bfk8I59I6BPT/8j86ie4Mgo4jzi7DcK6m3NejaDjdZ6MMM1p
-	 XzWmDJDt/qAdomZoyDki5Kldwq9LGkpcGdj5Ao5iCVE7yn8vJYi66/1AHibngIeZUh
-	 QA64XxXu3Pl4ZP6Wxy5Ul3VP8gpUxzwcfcMZpb0duA2dxuvw+FlmG5s1V4cPcSdf5d
-	 CCVKZdP5gTiY7bPzYpgRrKvLCHk+y6B+Dw79gkN0R15OU/pD37PGw7hcNhzxYS8B7Z
-	 ZKdnLoN1eCrkw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E739917E0700;
-	Mon, 14 Sep 2026 15:58:28 +0200 (CEST)
-Message-ID: <8f1ea5c4-d85a-43eb-8b10-3f80f8343b27@collabora.com>
-Date: Mon, 14 Sep 2026 15:58:28 +0200
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="PQIrtQp9"
+Received: from [IPV6:2a01:cb08:8a81:6d00:2cdf:9e8f:ec02:2a70] (unknown [IPv6:2a01:cb08:8a81:6d00:2cdf:9e8f:ec02:2a70])
+	(Authenticated sender: eric.valette@free.fr)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id DAC0F13F88F;
+	Mon, 14 Sep 2026 15:58:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1789394316;
+	bh=NQRM5g0/53tAv1iqwShCI936uIqBuRyttBy/9nZrp14=;
+	h=Date:Reply-To:Subject:From:To:References:Cc:In-Reply-To:From;
+	b=PQIrtQp92QYsingjjkrsd+1iiC3hfDdH8mHrS0Tj8kq6XTiZkYKJnoVgpnJnKF43Y
+	 RsF0wyDVsboPv+RxLrqwA7WVuPMqHRqCXrbXtyDfm+/wdGDC3G3T6QsJCCUkF7TaYv
+	 /+Yg7vQEaYLV9sCr4reQRVstz8gkyh1B3OWqOlkxQO7LLAZXGgHxJbu7Zaac93ba8U
+	 wGbq/9evRLD3jQtt/FE0u4rSpJnhrCQ1yQq8f6u635I9ie45Ch6yM/dJcMydIDQT3p
+	 DR88LMu+2k9jsZc4nWcDVyd/FhLnr/1IVd44U+ELfUzhyPSyrz5SR8BTTLwGgNabSx
+	 HkeiOFMWRtp1g==
+Message-ID: <09971794-ca3f-483b-a048-3a66f77d86c2@free.fr>
+Date: Mon, 14 Sep 2026 15:58:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,57 +39,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/13] ASoC: mediatek: mt8189: Propagate APLL enable
- errors
-To: Mark Brown <broonie@kernel.org>
-Cc: phucduc.bui@gmail.com, Liam Girdwood <lgirdwood@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
- Cyril Chao <Cyril.Chao@mediatek.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Dan Carpenter <error27@gmail.com>, cassiogabrielcontato@gmail.com,
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260914072842.24420-1-phucduc.bui@gmail.com>
- <20260914072842.24420-3-phucduc.bui@gmail.com>
- <07add31d-5622-40eb-9bcf-f7cb2396fee3@collabora.com>
- <aqf7B_E7_Gv5iK2A@sirena.co.uk>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <aqf7B_E7_Gv5iK2A@sirena.co.uk>
+Reply-To: eric.valette@free.fr
+Subject: Re: New rtc boot error error in 6.18.51 probably due to recent change
+ in rtc.c
+From: Eric Valette <eric.valette@free.fr>
+To: LKML <linux-kernel@vger.kernel.org>
+References: <da773f12-3e6a-49f7-a138-76ba0f11c72a@free.fr>
+Content-Language: fr
+Cc: eric.valette@free.fr
+Autocrypt: addr=eric.valette@free.fr; keydata=
+ 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
+ wycNoa755G2xgOMORgXEMg==
+Organization: HOME
+In-Reply-To: <da773f12-3e6a-49f7-a138-76ba0f11c72a@free.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
 
-On 9/14/26 15:47, Mark Brown wrote:
-> On Mon, Sep 14, 2026 at 03:22:21PM +0200, AngeloGioacchino Del Regno wrote:
->> On 9/14/26 09:28, phucduc.bui@gmail.com wrote:
-> 
->>> +	ret = regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG,
->>
->> Well, this is a bit of defensive programming here.
->>
->> The regmap pointer is already checked by the previous function call, and this is
->> a regmap over MMIO... and MMIO writes can't fail.
-> 
-> Oh, you sweet summer child :) .
-
-lmao
-
->  Though practically speaking the error
-> handling ends up being the same as if they couldn't fail since if
-> something goes wrong it's generally catastrophic stuff like locking the
-> core up completely so the end result is the same.
-
-That was also an implicit point (that should've been explicit from me): if anything
-goes horribly wrong here, it means that it already went horribly wrong "some
-function calls ago", and the platform likely already locked up as you suggested.
-
-In any case, I'm not against doing error checking, it's just about not doing it
-when it's really useless (I'm sure you understand my reasons), and I believe this
-specific case is one of those.
-
-That said, should you prefer having error checks in such places... it's not a
-performance path, so I don't really have strong opinions really.
-
-Cheers!
-Angelo
+T24gOS8xMy8yNiAxMjozOCwgRXJpYyBWYWxldHRlIHdyb3RlOg0KPiBIaSwNCj4gDQo+IEkg
+bm90aWNlZCB0aGFuIHdoZW4gYm9vdGluZyA2LjE4LjUxIEkgaGF2ZSBzeXN0ZW1hdGljYWxs
+eSB0aGlzIGVycm9yOg0KPiANCj4gW8KgwqDCoCAwLjQ2MjM0N10gcnRjX2Ntb3MgUE5QMEIw
+MDowMDogZXJyb3IgLUVOWElPOiBJUlEgaW5kZXggMCBub3QgZm91bmQuIA0KDQpJIHRlc3Rl
+ZCBvbiBhIHNlY29uZCBjb21wdXRlcjogc2FtZSB0cmFjZS4gSSB0ZXN0ZWQgd2l0aCA2LjE4
+LjUyIHNhbWUgDQp0cmFjZSAobm9ybWFsIGFzIHRoZSBmaXggd2FzIG5vdCByZXZlcnRlZC9j
+b21wbGV0ZWQpLg0KDQoNCg0KLS0gDQpFcmljIFZhbGV0dGUNCg==
