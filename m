@@ -1,86 +1,86 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507D7448D0E;
-	Mon, 14 Sep 2026 12:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE5F468C2C;
+	Mon, 14 Sep 2026 12:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387344; cv=none; b=e9M/frUK2aerrvpMwQesqbfKt876rbqFm8y2HlyejwHzg6rPsFiUz1xYmmpSpU6mgeD7kJoHLHMNL2jHgwUh7vRWhQrGUlSfVzDDh6AT8qE0R9LPExKE7Gj30INqgSbLtVV1Gh7MBeR7DH+DGzb8bZMLRCMvGSIo349LPSfumnU=
+	t=1789387357; cv=none; b=timnqVYi6QCTGwtZQzxXTMzFoC9kObjvNBCvP+0cB5d2i3S/+OuXV8UcKQFZsnDQuGPyxdpB/2SymnxkxMlf1OliMEgaovA8CEdhuethilbBrajgpkeKwP247mA04EB2dYhd9rGCj8ktCy5k13p7JE4BEYx+HVIs5qrViS6oWx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387344; c=relaxed/simple;
-	bh=nrwqPCZkQIimnka60MFra6BC5Jik31pbN2PY4QrlaYo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=brAl/O1nmqJ7XZA5g8YOG8jr49lN1uyORv9ZsVOVCeVtFggJpiZTMioYtQ3UUMyx8KeoVHMdr8nW09xyq19oVutYcsp4EkeNgihJt32EJOMaIAEE7kXIl408eO6YZ3/lBDSDeWeLpjo7OR3fJZhNnVzPEyCYZ2mdIIPgySkDR6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=h5KI1TJ/; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789387357; c=relaxed/simple;
+	bh=4V5rSgGj157OCe/vOVZ02Pgdai5ynI4WZu3FI0WUwv0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FRlvldlsRJrq/brvc9DpMyZzgsGf7XPnxsw5nNZ+FMoEc3rcdxgk4vR2KdtJECoE92wE5vffZ0eGYNaVEGy4Zr/O7Ak5ro4h4PmHyFW314Y2QKO0BBLGDa7QVA74LZbrobCP5JT48fez1iYj+FLOPhVf3xCd46SxGJu0gQ2fzNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=L8K44j2N; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="h5KI1TJ/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789387338;
-	bh=nrwqPCZkQIimnka60MFra6BC5Jik31pbN2PY4QrlaYo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h5KI1TJ/E/gcDBfB4bNFcKVP9n8rcAPff+fNsd457fjS+8MhM3chYQW3ynEEhuBva
-	 bsZS0djpQLU/cus5BHLBN8hYMyewO77dkBWzGHQtSqdP2iumHZLK0w/dQgtR+35mC6
-	 D0+Y1QJJ1HKxDDyFN84rqiIb47XJUCisltvqUGvvNsDiD0rhOnietbTSig7ULNzmRn
-	 yKMI8o5YbKuG1GDq8sEfasXOgSAgHrV/qQshWPRiFTQjbuD9YNIp9f/de8rTVdQW6K
-	 9cLXKzLNSSmMXUaY1S3pEd7Lh0mUMxT83tC/u7JaOywePC3gRDj0MK3Sa//PHL4Jls
-	 YlFva8qS8akZw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E959E17E0074;
-	Mon, 14 Sep 2026 14:02:16 +0200 (CEST)
-Message-ID: <ca3ec44c-710b-4812-9d22-c70003a136d3@collabora.com>
-Date: Mon, 14 Sep 2026 14:02:16 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="L8K44j2N"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=qLAzhKsUxTEy3WyscyUgfZmNUubzBcet9DIGHn5TpLk=; b=L8
+	K44j2NVTUPMiCH9VjA+7dm9CoQuf6fxcIFjIgMb5n22ygkq+eWaOP0PMdTbt44rwpVShsQfAoisCd
+	s5TLASYsJeKdL6yE8S7HQntQSemzEn7fk7w1Xo+XsMJu5an06kkv8LhKesJW6L0/27NVmxqhFPJvG
+	n6MjgswPA8P9dNg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x65Nk-0054Xh-Tz; Mon, 14 Sep 2026 14:01:56 +0200
+Date: Mon, 14 Sep 2026 14:01:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: netdev@vger.kernel.org, daniel@makrotopia.org, dqfext@gmail.com,
+	SkyLake.Huang@mediatek.com, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH v3 net-next] net: phy: mediatek: support MT7530 PHYs on
+ EN71221 MCM
+Message-ID: <a6e1bb7f-e395-434e-8e9b-992141969d74@lunn.ch>
+References: <20260911120646.4123877-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 08/24] scsi: ufs: mediatek: Add dual 0.9V supply
- support
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Peter Wang <peter.wang@mediatek.com>,
- Chaotian Jing <chaotian.jing@mediatek.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
- <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Stanley Jhu <chu.stanley@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
- <20260914-mt8196-ufs-v12-8-9279d7ef814d@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260914-mt8196-ufs-v12-8-9279d7ef814d@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260911120646.4123877-1-cjd@cjdns.fr>
 
-On 9/14/26 13:38, Louis-Alexis Eyraud wrote:
-> The MT8196 SoC has an additional pin in comparison of the MT8183 SoC,
-> that is used to feed the host controller with a 0.9V supply.
-> 
-> In preparation of this SoC support, add in platform data and
-> driver the management a second optional 0.9V regulator named
-> "avdd09-1".
-> 
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> + * The EcoNet EN751221 "G" multi-chip module MT7530 requires additional PHY
+> + * configuration.
+> + */
+> +static int en751221_mcm_phy_config_init(struct phy_device *phydev)
+> +{
+> +	int ret;
+> +
+> +	ret = genphy_soft_reset(phydev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Master/Slave negotiation does not work reliably */
+> +	ret = phy_write(phydev, MII_CTRL1000, ADVERTISE_1000FULL |
+> +			CTL1000_ENABLE_MASTER | CTL1000_PREFER_MASTER |
+> +			CTL1000_AS_MASTER);
 
+Is it sufficiently broken that we should stop the user changing it?
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+     ethtool     -s     devname    [speed N]    [lanes N]    [duplex half|full]
+            [port tp|aui|bnc|mii] [mdix auto|on|off]  [autoneg on|off]  [adver‐
+            tise N[/M]  |  advertise mode  on|off  ...]  [phyad N] [xcvr inter‐
+            nal|external]        [wol N[/M]         | wol p|u|m|b|a|g|s|f|d...]
+            [sopass xx:yy:zz:aa:bb:cc]      [master-slave preferred-master|pre‐
+            ferred-slave|forced-master|forced-slave]   [msglvl   N[/M] |    ms‐
+            glvl type on|off ...]
 
+You don't appear to have a config_aneg, so genphy_config_aneg() will
+be used, which calls genphy_setup_master_slave. 
+
+   Andrew
