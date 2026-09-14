@@ -1,35 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCD0483BE1;
-	Mon, 14 Sep 2026 14:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D523C3C00
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397999; cv=none; b=cS5RbszWmoePuAk74yOF4fnqUGLlRGNbVs0hxAeq10SF1OmLjxMRw+SlQrxYL3ll397MqigR0kLS414P9UYkUsg8S7uzff/ZLamOH3i+6zzTXoHYYej2eTcJSnP7Rp9eR2OCkgdyrOvbl4IVSthB6oyKfhxnh/wBpxlvaGo5f+Y=
+	t=1789398009; cv=none; b=gDQDKQ19Zi3lstsK+ObQ93u9ukFCt6az9nD1P4GSvjnJkzcliL+58bBzvSIzjAnWtptnrWJybw2oY2RdomPRbU26HGAsPb/ulJu7wOay5bdsRQI3xS3NISiZNukambv1HjGj9Hm55SXuBUm5ZN9vl+cDER8qu+KHVGRt4xpBdig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397999; c=relaxed/simple;
-	bh=4yp7BsZu3CgBi+wzXgbyuSQeObOnQL+E7WfwicYJ0TI=;
+	s=arc-20240116; t=1789398009; c=relaxed/simple;
+	bh=FOu15IfVscVgR29NkFHFBNDuZD58sPfHqAtlXoQpgqw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OXaUCSOUOz5K+P3MNLzjVWkZeTt8cB1qCR696j3BkVkPW5Sk3jjnxtWY22kHIB9v6UyR3QkxQ/UbebgOUBREu3+72Q3az0ijF1bMr+5JphIjY+Ao6bEHSS9xnzgFtWPLdq3z6aQKP5NinPUNcPpQsDoqQ3My22lUr9rNaLLzCqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dy5XhP6y; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=obtUTisiZzPP1Mqopav2FwzK80TyXjcD/njzmlwlxf13dwhXJHlTYHP+HyPlKdVOeDDZ4HFYaSqne3hyW2/SWfKgC9Wu/ouF8NpSvQmqBc6CXHwzPTw14D546iIzEPspzVvrZDvQjSR+UAAIvoIwofh1RageAILVEl3SN4YTvu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=blqUaSU/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UKEY85x+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dy5XhP6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0581F008A7;
-	Mon, 14 Sep 2026 14:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789397996;
-	bh=c7lvZWHF45BLk2nULsRrXMqDsfJN+uyHFP8jlbR2Auk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dy5XhP6y8dXr+8ojo8Ufl96AGLd+w5X33MUvMQ1VIg330J+1vzAlSodls0yVZL6h8
-	 9umBQgb3yvjSm1pEmZ8yn0oRA/LpuCfPvl6eYFLDlRid/Cd874jeGc+7u+5fj3Cbxm
-	 7f7XnF9tneW7HNNtIgEbhzAn//MPgU14hyENVLl8FQ5Xfk0a6FD8p2plNzHVNOcINA
-	 a36DQ3EipM9iXNSUvnkX86+FpWZ41OROfJwIPubaH69f3V9biVWy7fTE6Bu96RqQL4
-	 Z528hSCG3Zm20Jel04/18h14CvzIO5VaKJ1Zv0qtOmkyR01DSWBhhJuhfmmq4V1OqX
-	 ppCQ2eX8biOfw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:21 +0100
-Subject: [PATCH v2 01/40] mm/vma: fix mmap_prepare file handling, remove
- file_doesnt_need_get
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="blqUaSU/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UKEY85x+"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0QoS674430
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:00:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EzX6Y8Q0nJrzC5BWWNN7/NXu0LvfGsQ9qXt/GZGOImI=; b=blqUaSU/AByAjmRF
+	3/KxVrVmmy2+UIwo9MJkrozlcxMh8I/dRjVhjcqOc+hwWPo9Dpo0szw9L+F9CiIw
+	Rde8hKoMf7sN/7c/w80bl7DYgFYY2avc/obz4t1WyDD1fUm6QeSu1Xv1nzMEBJCx
+	WW09M6pqd1ddBksaBovxdrvWkK7Dcdvsgqg5tFCHInQuTMfN6r2QIkcPFkdmR+qi
+	GTB02Y6jTgvYp9wquYeMOnDycwBq9WzkHZ2MkipalMfAy8azPQ3HocQnEhWczN0J
+	2NPfkZNUi3dyPKuph2wCUGkobdBg+RamG9iPlg6TdDFDcisnZics85ryx35ER40M
+	5SOThQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpecs99nm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:00:04 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dc92350888so56829245ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:00:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789398003; x=1790002803; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EzX6Y8Q0nJrzC5BWWNN7/NXu0LvfGsQ9qXt/GZGOImI=;
+        b=UKEY85x+Y16kuUyvHZ7YH3+xsp69wkMDgc6XcRFZ3yrYp+MqsyBFHO65OZNido8DhG
+         kKA1mB7RxBs6NIO6KXJ1cMhpJf52sxAtgPge3ZraC2YBmcPVAKSBFN1GNaB8XZkqpoFD
+         oldQpD856dhG+f7e31RsZdBl3jAPhmgKq7qNlyLZyP4HbQJBH1eT1OXuew5+3zbaq7ft
+         1XWli+2EaY8EsgjnCcMxMCRD7SVcIuEde9kysqKh+qJAl3tXToGI/WjfS5NDgXbdvD34
+         FuvBxAUUHgiEPkqFNCG0goGgFPhaxPKM1cBYI5xceocS200yOqHuDHo1Q6cLKRwL0XFb
+         u/Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789398003; x=1790002803;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EzX6Y8Q0nJrzC5BWWNN7/NXu0LvfGsQ9qXt/GZGOImI=;
+        b=VYhsispFvIgbWj8n84a1xx+liH6MxSDx76ZVM/4sLhQ8L09TIp8iF2Aa+upheBlrxs
+         JfkbELAAfayax6o8tbJfFQHtCuVh5z74hGMUMKYZc7he8FKWgvQWNQP4YMv9pnl3mGzy
+         Mhvuz5RRc2jHw3kMLuFPqF79Tu3pUGNeZBFkHt42OdYMdnFa+8FWi3o/8eBaXGh1banY
+         QG0IC9BOmHsygt3TLR7arytbYMx64lPf0IzBqLBTcRgDqOkrokM8SvZpRx1IrNVKlJnk
+         TJMVPa9BL76ZiODX/sA6cdBJXNmu/Q9dJwz5kI0/HoN8r6qsI9EsKMH3L3qn5v/2F0ZJ
+         +uvA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwArySuBnhXueYYw6ZlsakCMz8au2a/B4GIfbenYrQtGBromfXPWBKXwTQx01Wad/l+NQZN0GFTT8o2r8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5zHa47GmQWwaukQLHz5RTB1fAJg5iwGZWcR6HimFeOWsZN9s3
+	4xL4v6r5RH4JVM2No2QNE3Qm6Z11VJC+T5yo3WyZsdAoZdVAaGIuAlGe62S8LmFa7/xu2UhUS10
+	uWEEEgIXgNRYouDY9MKzXLeGi/mOOMbR2O02IkjxPB883XVKl/WME3fvRKV3tENf5KaM=
+X-Gm-Gg: AYBFou315nwEpDv5pZLli7mLCY9XHUfJL61deEm/mb/Z7X51C34kX+2xN4oZSaPWIFY
+	ia3fgXuei91KtQUBLu8rn0UA+TvNtDrVCdzhT2HjMp6hf6z+LGK2GjRJWl8B1470nG/+Eb4Sqo+
+	CMOL3mEDpSRzR3Eht3ekjfgkwRCUkp2zd96YTFmRdZQxP3fdGF6mmi5U6Jt9shVv/tvZBrAJh6Y
+	7SYtVnU4bk0Dq95TaAHM7chXsfvG4UEnsTWyOD4jWPGnMDHNHo0xZGoystH+o7oRvTPedJFAvtu
+	xqtzftSwwlvCsIGDBOuVXIfZDt8ocCUfjq8lP1c74CdrrZ2p4SqOLaA6VIb/mG34iKg9YHTeVYF
+	VyRmRnTp8xfuwsfTSByQpmeQMHE2/toGjYBne
+X-Received: by 2002:a17:903:f87:b0:2d6:fee6:65ae with SMTP id d9443c01a7336-2dd6c5b16famr61615065ad.4.1789398003386;
+        Mon, 14 Sep 2026 08:00:03 -0700 (PDT)
+X-Received: by 2002:a17:903:f87:b0:2d6:fee6:65ae with SMTP id d9443c01a7336-2dd6c5b16famr61613975ad.4.1789398002807;
+        Mon, 14 Sep 2026 08:00:02 -0700 (PDT)
+Received: from hu-spratap-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd4007bd4dsm42943345ad.4.2026.09.14.07.59.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 08:00:02 -0700 (PDT)
+From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 20:29:08 +0530
+Subject: [PATCH v25 04/10] firmware: psci: Add support for PSCI auxiliary
+ devices
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,446 +91,277 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-1-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11359; i=ljs@kernel.org;
- h=from:subject:message-id; bh=4yp7BsZu3CgBi+wzXgbyuSQeObOnQL+E7WfwicYJ0TI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK/131rk/Zsr6+iCmwahbGrHJpVE2lmszj3xcILbV
- M2zpuwvO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRe1EM/3OOR08t3Tjpu/VV
- 6+5KBwa3xLyr+RU32ma4X/5zUW7a4ckM/9Qfx1esL9nY+yOa/XHvsvU39LaLpr+47jZ5/7eGIJE
- tNxkA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-Id: <20260914-arm-psci-system_reset2-vendor-reboots-v25-4-4aaf5c09b5c2@oss.qualcomm.com>
+References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
+In-Reply-To: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Andy Yan <andy.yan@rock-chips.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, mfd@lists.linux.dev,
+        Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789397948; l=6657;
+ i=shivendra.pratap@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
+ bh=FOu15IfVscVgR29NkFHFBNDuZD58sPfHqAtlXoQpgqw=;
+ b=K6Xup1/+JMH4iBlOks405xptv03xSmRxdRpOFG8uwredQE2Y6VwEQ0H5O5UdKrsn7FCn47XNr
+ +fU2rVjd4lHAx1eJNJQoD6tG8t2Xqsg9Fftyx5RyenNhZsPc+k8Sy60
+X-Developer-Key: i=shivendra.pratap@oss.qualcomm.com; a=ed25519;
+ pk=ssWsJFX3OM9pkdoe4+guOfGPaulHOFt0GVnVlB6on+s=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfX+3RxTTfFziMr
+ O9KAiIJZG/4jb9kxrzbvHFX/b5ZEzofnR80rCZs2c676bIcdlfKo6tDdQLHhANyukg1gmTjGylQ
+ OO2r6lE1XBgwQ6Ygf556kS/YwfdHd4I=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfX+wrb0xhisJI4
+ QRpT11/vhEyOpsn1dpK3ZtJ5IbkbamyMtyB2vPn0K2C8+i0o/CECMSpuvQtq9uacBaWzVLplZOt
+ cL5JLHID0mIi9SRo+5Qs7vMCXxPCIZksc7d4scLmm00Yhb/AHrivfOWw5BP6BNwqwLs/HBEe7g8
+ f59GU7pYHF6oORbnQ5xLQLguT8/E4fpJsC5gNlxzPr+KVKknjzxjC3abLRrMa7nM27CqVBkM5LD
+ upLV4YKLV4dawKZ6r50gjI9s4xipYIM2xpnzzEtg255aWhKl5VgLnqbVrhZbANqWokfUWctNWoe
+ 2cfW1ptXoV0J7cZUweMWBjB6K6M3oaYNsk+SpjiqkfUPs6IG5yJeCajRFwC4QlWkc+7J11vwjbZ
+ vqnF3HU2cSocsM4/J6Q3saY+MBwC98n98xm6ePWiT6ajw2SzBaF5mvY91uC8rHsqDcpBAD0otXS
+ Jc2I6CAk43wjy/zAJeg==
+X-Proofpoint-GUID: aLtg1HbMEgjIPpS2dIBYW0z_GXbBrNDY
+X-Authority-Analysis: v=2.4 cv=b/cncdGx c=1 sm=1 tr=0 ts=6aa80bf4 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=eg3YruLvm9Mffrp2VfYA:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: aLtg1HbMEgjIPpS2dIBYW0z_GXbBrNDY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140215
 
-The map->file_doesnt_need_get flag is confusing and the existing
-implementation has holes.
+PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
+Currently, both the PSCI core driver and cpuidle-psci-domain bind
+directly to the same PSCI node "arm,psci-1.0". Additional consumers, if
+introduced, would also need to bind in the same way, leading to multiple
+drivers attached to a single device node.
 
-Drivers are permitted to change the owning file of a mapping. If they do
-so, they are required to take a reference on that file.
+Introduce a PSCI auxiliary-device provider that binds to "arm,psci-1.0"
+and registers PSCI child devices on the auxiliary bus. As the first
+user, register cpuidle-psci-domain as an auxiliary device.
 
-The mmap() operation which ultimately invokes __mmap_region() is guaranteed
-to drop the refcount for the original file the mapping was made under, but
-this is not true for the replaced file.
+Update cpuidle-psci-domain to probe as an auxiliary driver and use
+the PSCI device node for power-domain traversal.
 
-This has been addressed so far by tracking map->file_doesnt_need_get, which
-is rather poorly named and unfortunately fails to correctly track whether
-or not an additional put were needed in a number of cases.
-
-Make life easier by removing this flag, and instead drop the reference for
-both mmap_prepare and the deprecated mmap callback in a new function
-put_map().
-
-Track whether this needs to be done by aligning mmap_state with
-vm_area_desc and store the original file in the map->file field, keeping
-the updated file in map->vm_file.
-
-In order to have the same behaviour for both types of hooks, only drop the
-reference __mmap_new_file_vma() itself took in its error path, deferring
-the replaced file's reference to put_map().
-
-To make this work correctly, map->vm_file has to be updated before any
-error handling, so update __mmap_new_file_vma() and call_mmap_prepare() to
-set this field first.
-
-Also when mmap_prepare() changes the file and is then merged, the reference
-count also must be decremented, so update the logic to call put_map() in
-this case too.
-
-Also update __compat_vma_mmap() to manually perform this step for stacked
-file systems using the compatibility layer, and update
-compat_set_vma_from_desc() to replace vma_set_file() with a correct
-refcount/file update.
-
-No in-tree driver is impacted by the incorrect implementation of this
-currently (no driver that does this is mergeable for one), so this does not
-need to be a fix.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Suggested-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Suggested-by: Lee Jones <lee@kernel.org>
+Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 ---
- mm/internal.h |  1 +
- mm/util.c     |  5 +++-
- mm/vma.c      | 95 ++++++++++++++++++++++++++++++++++-------------------------
- mm/vma.h      |  6 ++--
- 4 files changed, 64 insertions(+), 43 deletions(-)
+ MAINTAINERS                           |  1 +
+ drivers/cpuidle/Kconfig.arm           |  1 +
+ drivers/cpuidle/cpuidle-psci-domain.c | 31 +++++++++++++++-----------
+ drivers/firmware/psci/Kconfig         | 14 ++++++++++++
+ drivers/firmware/psci/Makefile        |  1 +
+ drivers/firmware/psci/psci-devices.c  | 41 +++++++++++++++++++++++++++++++++++
+ 6 files changed, 76 insertions(+), 13 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 0dca33db068f..fe576d468af4 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -7,6 +7,7 @@
- #ifndef __MM_INTERNAL_H
- #define __MM_INTERNAL_H
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 207a6e2db70c..9c0334ee2ed2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21932,6 +21932,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/arm/psci.yaml
+ F:	drivers/firmware/psci/
++F:	drivers/firmware/psci/psci-devices.c
+ F:	include/linux/psci.h
+ F:	include/uapi/linux/psci.h
  
-+#include <linux/file.h>
- #include <linux/fs.h>
- #include <linux/khugepaged.h>
- #include <linux/mm.h>
-diff --git a/mm/util.c b/mm/util.c
-index bf0513d1d3d0..016932780925 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1228,8 +1228,11 @@ int __compat_vma_mmap(struct vm_area_desc *desc,
+diff --git a/drivers/cpuidle/Kconfig.arm b/drivers/cpuidle/Kconfig.arm
+index b88b01aa5829..f22e18b05053 100644
+--- a/drivers/cpuidle/Kconfig.arm
++++ b/drivers/cpuidle/Kconfig.arm
+@@ -36,6 +36,7 @@ config ARM_PSCI_CPUIDLE_DOMAIN
+ 	bool "PSCI CPU idle Domain"
+ 	depends on ARM_PSCI_CPUIDLE
+ 	depends on PM_GENERIC_DOMAINS_OF
++	depends on ARM_PSCI_DEVICES
+ 	select DT_IDLE_GENPD
+ 	default y
+ 	help
+diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
+index b9e4ad7d43a3..0ce6a83f6588 100644
+--- a/drivers/cpuidle/cpuidle-psci-domain.c
++++ b/drivers/cpuidle/cpuidle-psci-domain.c
+@@ -9,10 +9,11 @@
  
- 	/* Perform any preparatory tasks for mmap action. */
- 	err = mmap_action_prepare(desc);
--	if (err)
-+	if (err) {
-+		if (desc->vm_file != vma->vm_file)
-+			fput(desc->vm_file);
- 		return err;
-+	}
- 	/* Update the VMA from the descriptor. */
- 	compat_set_vma_from_desc(vma, desc);
- 	/* Complete any specified mmap actions. */
-diff --git a/mm/vma.c b/mm/vma.c
-index 55917d097933..a319a9fc2f29 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -24,7 +24,8 @@ struct mmap_state {
- 		vm_flags_t vm_flags;
- 		vma_flags_t vma_flags;
- 	};
--	struct file *file;
-+	struct file *file;	/* mmap()-specified file. */
-+	struct file *vm_file;	/* May be updated by mmap_prepare. */
- 	pgprot_t page_prot;
+ #define pr_fmt(fmt) "CPUidle PSCI: " fmt
  
- 	/* User-defined fields, perhaps updated by .mmap_prepare(). */
-@@ -43,8 +44,6 @@ struct mmap_state {
++#include <linux/auxiliary_bus.h>
+ #include <linux/cpu.h>
+ #include <linux/device.h>
+ #include <linux/kernel.h>
+-#include <linux/platform_device.h>
++#include <linux/module.h>
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/psci.h>
+@@ -122,14 +123,10 @@ static void psci_pd_remove(void)
+ 	}
+ }
  
- 	/* Determine if we can check KSM flags early in mmap() logic. */
- 	bool check_ksm_early :1;
--	/* If .mmap_prepare changed the file, we don't need to pin. */
--	bool file_doesnt_need_get :1;
+-static const struct of_device_id psci_of_match[] = {
+-	{ .compatible = "arm,psci-1.0" },
+-	{}
+-};
+-
+-static int psci_cpuidle_domain_probe(struct platform_device *pdev)
++static int psci_cpuidle_domain_probe(struct auxiliary_device *auxdev,
++				     const struct auxiliary_device_id *id)
+ {
+-	struct device_node *np = pdev->dev.of_node;
++	struct device_node *np = auxdev->dev.of_node;
+ 	bool use_osi = psci_has_osi_support();
+ 	int ret = 0, pd_count = 0;
+ 
+@@ -177,16 +174,24 @@ static int psci_cpuidle_domain_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static struct platform_driver psci_cpuidle_domain_driver = {
+-	.probe  = psci_cpuidle_domain_probe,
++static const struct auxiliary_device_id psci_cpuidle_domain_id_table[] = {
++	{ .name = "arm-psci.psci-cpuidle-domain" },
++	{ }
++};
++MODULE_DEVICE_TABLE(auxiliary, psci_cpuidle_domain_id_table);
++
++static struct auxiliary_driver psci_cpuidle_domain_driver = {
++	.probe = psci_cpuidle_domain_probe,
+ 	.driver = {
+-		.name = "psci-cpuidle-domain",
+-		.of_match_table = psci_of_match,
++		.suppress_bind_attrs = true,
+ 	},
++	.id_table = psci_cpuidle_domain_id_table,
  };
  
- #define MMAP_STATE(name, mm_, vmi_, addr_, len_, pgoff_, anon_pgoff_, vma_flags_, file_) \
-@@ -58,6 +57,7 @@ struct mmap_state {
- 		.pglen = PHYS_PFN(len_),				\
- 		.vma_flags = vma_flags_,				\
- 		.file = file_,						\
-+		.vm_file = file_,					\
- 		.page_prot = vma_flags_to_page_prot(vma_flags_),	\
- 	}
- 
-@@ -70,7 +70,7 @@ struct mmap_state {
- 		.vma_flags = (map_)->vma_flags,				\
- 		.pgoff = (map_)->pgoff,					\
- 		.anon_pgoff = (map_)->anon_pgoff,			\
--		.file = (map_)->file,					\
-+		.file = (map_)->vm_file,				\
- 		.prev = (map_)->prev,					\
- 		.middle = vma_,						\
- 		.next = (vma_) ? NULL : (map_)->next,			\
-@@ -2447,7 +2447,7 @@ void mm_drop_all_locks(struct mm_struct *mm)
-  */
- static bool accountable_mapping(struct mmap_state *map)
+ static int __init psci_idle_init_domains(void)
  {
--	const struct file *file = map->file;
-+	const struct file *file = map->vm_file;
- 
- 	/*
- 	 * hugetlb has its own accounting separate from the core VM
-@@ -2496,7 +2496,7 @@ static void vms_abort_munmap_vmas(struct vma_munmap_struct *vms,
- 
- static void update_ksm_flags(struct mmap_state *map)
- {
--	map->vma_flags = ksm_vma_flags(map->mm, map->file, map->vma_flags);
-+	map->vma_flags = ksm_vma_flags(map->mm, map->vm_file, map->vma_flags);
+-	return platform_driver_register(&psci_cpuidle_domain_driver);
++	return __auxiliary_driver_register(&psci_cpuidle_domain_driver,
++					   THIS_MODULE,
++					   "psci-cpuidle-domain");
  }
+ core_initcall(psci_idle_init_domains);
+diff --git a/drivers/firmware/psci/Kconfig b/drivers/firmware/psci/Kconfig
+index 97944168b5e6..68e381f1a618 100644
+--- a/drivers/firmware/psci/Kconfig
++++ b/drivers/firmware/psci/Kconfig
+@@ -2,6 +2,20 @@
+ config ARM_PSCI_FW
+ 	bool
  
- static void set_desc_from_map(struct vm_area_desc *desc,
-@@ -2506,7 +2506,7 @@ static void set_desc_from_map(struct vm_area_desc *desc,
- 	desc->end = map->end;
- 
- 	desc->pgoff = map->pgoff;
--	desc->vm_file = map->file;
-+	desc->vm_file = map->vm_file;
- 	desc->vma_flags = map->vma_flags;
- 	desc->page_prot = map->page_prot;
- }
-@@ -2586,6 +2586,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 	return 0;
- }
- 
-+static bool map_same_file(struct mmap_state *map)
++config ARM_PSCI_DEVICES
++	bool "PSCI auxiliary device support"
++	depends on ARM_PSCI_FW
++	depends on OF
++	select AUXILIARY_BUS
++	default y
++	help
++	  Say Y here to enable auxiliary device support for PSCI.
++
++	  This creates auxiliary devices for PSCI functionality implemented
++	  outside the core PSCI firmware driver. These devices allow PSCI
++	  child drivers to bind through the auxiliary bus while sharing the
++	  PSCI firmware device as their parent.
++
+ config ARM_PSCI_CHECKER
+ 	bool "ARM PSCI checker"
+ 	depends on ARM_PSCI_FW && HOTPLUG_CPU && CPU_IDLE && !TORTURE_TEST
+diff --git a/drivers/firmware/psci/Makefile b/drivers/firmware/psci/Makefile
+index 1956b882470f..8e75a0ed6f74 100644
+--- a/drivers/firmware/psci/Makefile
++++ b/drivers/firmware/psci/Makefile
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ obj-$(CONFIG_ARM_PSCI_FW)	+= psci.o
++obj-$(CONFIG_ARM_PSCI_DEVICES)	+= psci-devices.o
+ obj-$(CONFIG_ARM_PSCI_CHECKER)	+= psci_checker.o
+diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci/psci-devices.c
+new file mode 100644
+index 000000000000..f1eca61e3269
+--- /dev/null
++++ b/drivers/firmware/psci/psci-devices.c
+@@ -0,0 +1,41 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include <linux/auxiliary_bus.h>
++#include <linux/init.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++
++static int arm_psci_probe(struct platform_device *pdev)
 +{
-+	return map->vm_file == map->file;
-+}
- 
- static int __mmap_new_file_vma(struct mmap_state *map,
- 			       struct vm_area_struct *vma)
-@@ -2593,20 +2597,23 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 	struct vma_iterator *vmi = map->vmi;
- 	int error;
- 
--	vma->vm_file = map->file;
--	if (!map->file_doesnt_need_get)
--		get_file(map->file);
-+	vma->vm_file = map->vm_file;
-+	if (map_same_file(map))
-+		get_file(map->vm_file);
- 
--	if (!map->file->f_op->mmap)
-+	if (!map->vm_file->f_op->mmap)
- 		return 0;
- 
- 	error = mmap_file(vma->vm_file, vma);
-+	map->vm_file = vma->vm_file;
++	struct auxiliary_device *auxdev;
 +
- 	if (error) {
- 		UNMAP_STATE(unmap, vmi, vma, vma->vm_start, vma->vm_end,
- 			    map->prev, map->next);
--		fput(vma->vm_file);
--		vma->vm_file = NULL;
-+		if (map_same_file(map))
-+			fput(map->vm_file);
- 
-+		vma->vm_file = NULL;
- 		vma_iter_set(vmi, vma->vm_end);
- 		/* Undo any partial mapping done by a device driver. */
- 		unmap_region(&unmap);
-@@ -2623,7 +2630,6 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 			!vma_flags_test(&map->vma_flags, VMA_MAYWRITE_BIT) &&
- 			vma_test(vma, VMA_MAYWRITE_BIT));
- 
--	map->file = vma->vm_file;
- 	map->vma_flags = vma->flags;
- 
- 	return 0;
-@@ -2631,7 +2637,7 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 
- static void map_set_anon(struct mmap_state *map)
- {
--	map->file = NULL;
-+	map->vm_file = NULL;
- 	map->vm_ops = NULL;
- 	map->pgoff = map->addr >> PAGE_SHIFT;
- }
-@@ -2643,7 +2649,7 @@ static bool map_is_private(const struct mmap_state *map)
- 
- static bool map_is_anon(const struct mmap_state *map)
- {
--	return map_is_private(map) && !map->file;
-+	return map_is_private(map) && !map->vm_file;
- }
- 
- /*
-@@ -2688,7 +2694,7 @@ static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
- 	}
- 
- 	/* Invoke callbacks. */
--	if (map->file)
-+	if (map->vm_file)
- 		error = __mmap_new_file_vma(map, vma);
- 	else if (!is_anon)
- 		error = shmem_zero_setup(vma);
-@@ -2797,36 +2803,34 @@ static int call_mmap_prepare(struct mmap_state *map,
- 	int err;
- 
- 	/* Invoke the hook. */
--	err = vfs_mmap_prepare(map->file, desc);
--	if (err)
--		return err;
--
--	/* It's invalid for mmap_preprare hooks to clear vm_ops. */
--	if (!desc->vm_ops)
--		return -EINVAL;
--
--	err = call_action_prepare(map, desc);
-+	err = vfs_mmap_prepare(map->vm_file, desc);
- 	if (err)
- 		return err;
- 
- 	/* Update fields permitted to be changed. */
- 	map->pgoff = desc->pgoff;
--	if (desc->vm_file != map->file) {
--		map->file_doesnt_need_get = true;
--		map->file = desc->vm_file;
--	}
-+	if (desc->vm_file != map->vm_file)
-+		map->vm_file = desc->vm_file;
- 	map->vma_flags = desc->vma_flags;
- 	map->page_prot = desc->page_prot;
- 	/* User-defined fields. */
- 	map->vm_ops = desc->vm_ops;
- 	map->vm_private_data = desc->private_data;
- 
-+	/* It's invalid for mmap_prepare hooks to clear vm_ops. */
-+	if (!desc->vm_ops)
-+		return -EINVAL;
++	auxdev = __devm_auxiliary_device_create(&pdev->dev, "arm-psci",
++						"psci-cpuidle-domain", NULL, 0);
++	if (!auxdev)
++		return -ENOMEM;
 +
-+	err = call_action_prepare(map, desc);
-+	if (err)
-+		return err;
-+
- 	/*
- 	 * MAP_PRIVATE-/dev/zero mappings are an ancient way of getting
- 	 * anonymous mappings. Rather than allowing these mappings to be odd
- 	 * outliers, simply make them truly anonymous.
- 	 */
--	if (map_is_private(map) && file_is_dev_zero(map->file))
-+	if (map_is_private(map) && file_is_dev_zero(map->vm_file))
- 		map_set_anon(map);
- 
- 	return 0;
-@@ -2845,7 +2849,7 @@ static void set_vma_user_defined_fields(struct vm_area_struct *vma,
-  */
- static bool can_set_ksm_flags_early(struct mmap_state *map)
- {
--	struct file *file = map->file;
-+	struct file *file = map->vm_file;
- 
- 	/* Anonymous mappings have no driver which can change them. */
- 	if (!file)
-@@ -2868,6 +2872,20 @@ static bool can_set_ksm_flags_early(struct mmap_state *map)
- 	return false;
- }
- 
-+static void put_map(struct mmap_state *map)
-+{
-+	/*
-+	 * An error occurred or the VMA was merged.
-+	 *
-+	 * If the file was changed by the driver (which is required to increment
-+	 * the replacement file's reference count), drop its reference count.
-+	 *
-+	 * On error, the caller always drops the original file regardless.
-+	 */
-+	if (map->vm_file && !map_same_file(map))
-+		fput(map->vm_file);
++	return 0;
 +}
 +
- static unsigned long __mmap_region(struct file *file, unsigned long addr,
- 		unsigned long len, vma_flags_t vma_flags,
- 		unsigned long pgoff, struct list_head *uf)
-@@ -2922,7 +2940,10 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
- 
- 	__mmap_complete(&map, vma);
- 
--	if (have_mmap_prepare && allocated_new) {
-+	if (!allocated_new) {
-+		/* Merged, so need to drop refcount. */
-+		put_map(&map);
-+	} else if (have_mmap_prepare) {
- 		error = mmap_action_complete(vma, &desc.action,
- 					     /*is_compat=*/false);
- 		if (error)
-@@ -2936,13 +2957,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
- 	if (map.charged)
- 		vm_unacct_memory(map.charged);
- abort_munmap:
--	/*
--	 * This indicates that .mmap_prepare has set a new file, differing from
--	 * desc->vm_file. But since we're aborting the operation, only the
--	 * original file will be cleaned up. Ensure we clean up both.
--	 */
--	if (map.file_doesnt_need_get)
--		fput(map.file);
-+	put_map(&map);
- 	vms_abort_munmap_vmas(&map.vms, &map.mas_detach);
- 	return error;
- }
-diff --git a/mm/vma.h b/mm/vma.h
-index e97bd2dfa786..f15faa83f3d6 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -394,8 +394,10 @@ static inline void compat_set_vma_from_desc(struct vm_area_struct *vma,
- 
- 	/* Mutable fields. Populated with initial state. */
- 	vma_set_pgoff(vma, desc->pgoff);
--	if (desc->vm_file != vma->vm_file)
--		vma_set_file(vma, desc->vm_file);
-+	if (desc->vm_file != vma->vm_file) {
-+		fput(vma->vm_file);
-+		vma->vm_file = desc->vm_file;
-+	}
- 	vma->flags = desc->vma_flags;
- 	vma->vm_page_prot = desc->page_prot;
- 
++static const struct of_device_id arm_psci_of_match[] = {
++	{ .compatible = "arm,psci-1.0" },
++	{ }
++};
++
++static struct platform_driver arm_psci_driver = {
++	.probe = arm_psci_probe,
++	.driver = {
++		.name = "arm-psci",
++		.of_match_table = arm_psci_of_match,
++		.suppress_bind_attrs = true,
++	},
++};
++
++static int __init arm_psci_init(void)
++{
++	return platform_driver_register(&arm_psci_driver);
++}
++core_initcall(arm_psci_init);
 
 -- 
-2.55.0
+2.34.1
 
