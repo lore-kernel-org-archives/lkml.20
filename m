@@ -1,201 +1,116 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE9838F230
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789427840; cv=pass; b=Ez/vUZrSyccgMI+7m3etsHO8t0K/FOtlKL3kKCsyZ/Vr1ig/o2CLbvAUWpEjcDNVA6eKXPsdqqpO0Chuwj+Tpf3DyqgXZIJ5IpaF4ceh3rkNrpNk4DtiYdPn30qmdokNlvmOJjtm/5UcoqOzgK4VXgXf2lHLL4zGH6XeYuasHD0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789427840; c=relaxed/simple;
-	bh=RZ7AYDpwif8OjK59BGFRZwWIVN2HIHDHT/0jIXTGwRk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qOo71f01BDsgseUuvCOTOH3Jk6uaolFr+GfzgkKru+cRty5GeA+VMmbwg6LNhB5I8CtZPSOp7UIKr+QzWekDxCZAvrqErokn1z+35Dcv7u2+0qy03wDRJbRUeN2ANHrG4qxshfD149qJtLgugQ618+BFa16m12+Di1nn7hy8Is4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=l2kFqhsP; arc=pass smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF4E223DD4;
+	Mon, 14 Sep 2026 23:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789427980; cv=none; b=s+GEy3osXalDDRQGgGm8qkwCgIuLx4/rhhf3YZ+1hrA9rbVXBgjX/CSrj+dp0xp3DBmVS3be1Gr0zzbqu+emWQMENaxw/KfJ5RcMuCYSfpJ+qEj6qXWy/xzge/kx3msn8A2fSZahqRc3GLeMaUwY9OEL9bOxJ+IFJSL8k17pth8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789427980; c=relaxed/simple;
+	bh=13xsjcdozLewXmjZiS22lpIIaGJfZOHuzLKmqdrpxAo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxSJ4I3bfxrAdFTwSyGYgUVDQnsFvEG3L2TknAGrB710SUHx8dg9vwxDId0rrzsMNFk86/4ISTwki6XoOQySW90uM65hF0Uk87f9H8WAJiiHfmCwHX1W2MOSkjRjrCbj1IaY43L6JcrOSHYg0NZVECU5Cub4KH0g/Krkcx3l7Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ctx3DaKF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="l2kFqhsP"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66fca0709caso3747856d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:17:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789427835; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p4UKhssv/dXCawC23ueyzheqOPTHFAUhkflW6rW/cW/IPHzJblMKNMdCjWi2dAp8k5
-         4zP1zw8eIgqEfalz7PF+h2nKefdptWSOUc6R9BXBIrdR9vhojecNKaJA6HWYxkJqdmoR
-         UShvkrbZ/9hyoD1Zd1fiE0EdvUkSMLIwEZUrLZKAz+nBSDJGdz7NWPyc6YIN0B8cZZ5P
-         6gpIc9QyroNFq3jHX/nVtsylDLVc0ycsXIpg0c8xl1nDGckQdbLXlfl/biztZrsrNPmt
-         GvZl5Aym4/9xrIMqY6m17LXcVHYg8wvNPhKigWNIdFKKHGZEyFRNMOf8Esos4abyYn5X
-         gH+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rPKM73fBOFsSjy59aqqxc7UWTKxXfj0ZC9NrA+w1XGc=;
-        fh=01nEyt+gKkchofnWjJoZzUQlSmwPsXJmTzYt8jnwJC8=;
-        b=YWIZ3pscgnb8X+1fLt0RCPEyONeRq0h+nLBXWtOJk1rZzHf6olvOMOS48Qxh+UgfjX
-         VIM2VGoU9okgd9N8LiGcWaSt9xBkfHKxW79b9KCD2VzZhY4hkVQsgLvT4Xj0Y+7n/FPx
-         9ZbPQeFu9uOeRU5919jKCntr+S1oA5Pnafk2iveUPv20JCYVybzLxNtyQYTKTmf3e+X8
-         SKLC5SHySkmAn5FcOQVxDe4P8bzP8IZyTukVMPrwOjpVERAfcYS2j/f1M/jyKIwDTqUg
-         1WkCPJlY+Qpgrcya0sTuwYj6/TNJF9pdOKJwQIBSkRYT/ZvTNgg1dz3Zil1Ia0thp07D
-         3UIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1789427835; x=1790032635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rPKM73fBOFsSjy59aqqxc7UWTKxXfj0ZC9NrA+w1XGc=;
-        b=l2kFqhsPWgDIWu+XPDYhyJxexBhwOUk+x9rHFkIoAaA8mHrGKU427uoulyg8NDLaMB
-         BHLxEbwk17ESJ/z84reeELq1wvXnKL+gBgCCyKy9tYaakKPIlNE6iO+2LG++SLP5cUTX
-         DgHEDHSiWATwnLQ/yef+Q12ZSEhLs1nQIN0jypCW/glMf+4TsKnfnMiLf6Vmf1sw7f8h
-         94aUOjf9o1lcb5B5JsLfVc9qV+WV7JyT7Mwr2Mp3DxYriHupK0PRV0UL7NN3mCoB6Y+W
-         ofO3yqLep79rWzxEjzb+ZePijbMSnq8pJHUebmWtExeTBdh1Gei+zVjkPlatAR9r4PWv
-         6xqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789427835; x=1790032635;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rPKM73fBOFsSjy59aqqxc7UWTKxXfj0ZC9NrA+w1XGc=;
-        b=1b0LnOz4osyJ3eO/mkoGM9KB31XqSbg1srWzrErCk7tSyaJ8PNuWq1WWC8+PHU6KHX
-         FrLG8Q0yfu7Mp9slF8eeiutGoDtuPeeJtEvSZjz/NLe91z4dmK4tjDpLmqMvhTkxDij8
-         Gm5I6DQ8+TKB73Khx2rDDQQyMeWV5HePHhszGfRDoziKhyI1x5eWbVmBFfjcVNMoG+mU
-         Bx2o4FkctTmRe24RflLyIc9jMPf5B8wEyJxbdp3IBzYsn1Lt9UdUJRdtMUHOudxEvs4h
-         c1CelUh8ayrnCjisPHCmei6wnVhUx6/MVqpFghgULVLIWUuRCoWiC+2cEqqlipdluusX
-         3pyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0KjJwlORObK4iQXbPa3X5Bk/yRuGeKXz8qZtKXYkRLx1+8e3/djYeQYFhqSGe1Vz72PDsQeHWpdjaan4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqOf1h2VlxhUcj2wsAdkEEjnBisxpsYr8Ctk9S4SgDsLVU7YnF
-	TBblT7MWA1kVFnfO8MEAvRNz1zpyylreQJgEltgXE0S++PMpP+u0vqnEtDoA5jAP5UJyzI6nuYA
-	2VpebCthRJNhrNsgiM0DIuO2M16+jezEbR9PD24ytvQ==
-X-Gm-Gg: AYBFou3xzkyPtAOWeTuf4k4KpfuAozPsWa6ux7HP2CjO1qdLSkSkt+IWLz191NljM3e
-	Te7RaJ17XxO9DFm5HHxc4AWMkgdRP5GcdlwEcLab3sYrivpiyYSNrcWWi7cqbFI7jTSDgYLH+1M
-	pNDJPpssVtXZqOMXkGzESMudf15SrOovvvl8ZiZfjlWew0ol71MKyD1MlrwcpbJdKwbutMwr+Em
-	x2Ca4C5Hp/AxysK7KFW3opcGg5liWjVqFEglwIizWxTY09Zamew3rsHv8L+Rr0+RmysaqEy72wS
-	LHlXqG9EWBonVR05Oq2hjta54l+FYBCoeCL9udlSM7UpsIan2UJSx0A=
-X-Received: by 2002:a05:690e:d0a:b0:671:2382:d57b with SMTP id
- 956f58d0204a3-6714e00a7efmr1347187d50.44.1789427834988; Mon, 14 Sep 2026
- 16:17:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ctx3DaKF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686AF1F000FF;
+	Mon, 14 Sep 2026 23:19:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789427979;
+	bh=YOjd27heIbJDSbRLAfsWtlZE2YYS5VFzyfn4RD7p3TA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ctx3DaKFBY83dpDfeZbhNnjBIOZeLo3ngmFLg9va7QMoGkOK/DGtmuOkPIJuyUaWN
+	 mw9vM9eigqwTFdCAcpc1vkzNWbc5lAPXgaXpgI9nK928a0ipsRLg1Ew/m6V/v4Gu/j
+	 1esRXqJa16J4H/yficCDkwKT/+qYZNt4+DR5xhGGDG7dberp+O7dbEmtrSqXPoFgj/
+	 AiGlugmq4Vw4lBkO/fwH7QjsPC+sbStTV/myiKhRtnhw83GdGNZsGM2LAcnffpb/kc
+	 nrS057SmpvEX+2Na4FSLNok9qRN7tXXg+FexDckk86h0wMhgKrfO/3NRIoXjcX3Tba
+	 3UNpBqYD2tCEA==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 4ED161010AA3; Tue, 15 Sep 2026 00:19:36 +0100 (BST)
+Date: Tue, 15 Sep 2026 00:19:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Mario Limonciello <superm1@kernel.org>,
+	Alex Deucher <alexdeucher@gmail.com>,
+	Alex Huang <Alex.Huang2@amd.com>, Alex Hung <alex.hung@amd.com>,
+	Alvin Lee <Alvin.Lee2@amd.com>,
+	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+	Dillon Varone <Dillon.Varone@amd.com>,
+	"Dr. David Alan Gilbert" <linux@treblig.org>,
+	Fangzhi Zuo <jerry.zuo@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Ivan Lipski <ivan.lipski@amd.com>, James Lin <pinglei.lin@amd.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+	Ray Wu <ray.wu@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Satyajit Roy <sroy14@alum.utk.edu>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+	Tomasz =?utf-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+	Tom Chung <chiahsuan.chung@amd.com>,
+	Wenjing Liu <wenjing.liu@amd.com>,
+	YiPeng Chai <YiPeng.Chai@amd.com>
+Subject: Re: linux-next: manual merge of the amdgpu tree with the
+ drm-misc,drm-fixes tree
+Message-ID: <aqiBCCgXCnahDcT7@sirena.org.uk>
+References: <aqQBUuTVpgnTkQ8k@sirena.org.uk>
+ <20260914230828.GA331288@ax162>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914-b4-mmap-prepare-vma-flag-sanify-v2-14-7d9781ed5361@kernel.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-14-7d9781ed5361@kernel.org>
-From: Emil Tsalapatis <linux-lists@etsalapatis.com>
-Date: Mon, 14 Sep 2026 23:17:04 +0000
-X-Gm-Features: AcwNN1UnQs5y9ap_T4Dsaa6llmYZN4_govFYy7UyV78s5E1rt3VhMagl8qfkC_o
-Message-ID: <CABFh=a7Sa0zMKssts1TVZ+u_x3roWcYVSmJF34K-W++oHEsbEA@mail.gmail.com>
-Subject: Re: [PATCH v2 14/40] bpf: arena: mark arena_map_mmap() mappings VM_MIXEDMAP
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Paul Moore <paul@paul-moore.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Peter Xu <peterx@redhat.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Michal Hocko <mhocko@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-arch@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sBsTvPY3UJ6lou0h"
+Content-Disposition: inline
+In-Reply-To: <20260914230828.GA331288@ax162>
+X-Cookie: Orders subject to approval.
 
-On Mon, Sep 14, 2026 at 3:21=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set =
-to
-> one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
-> or arena_map_mmap().
->
-> It is convention in mm to mark mappings whose pages the kernel manages
-> itself with VM_MIXEDMAP, so the core mm knows not to treat them as ordina=
-ry
-> page cache or anonymous memory.
->
-> The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user(=
-)
-> use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and =
-so
-> marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
-> explicitly.
->
-> However, the exception to this is arena_map_mmap(), which doesn't set the
-> flag.
->
-> This patch corrects this and updates the comment to reflect it.
->
-> The pages are refcounted and vm_normal_page() finds them regardless of th=
-e
-> flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
-> thus unmergeable). The one effect is that NUMA balancing now skips these
-> VMAs, as it already does for the other bpf map mappings, which is the
-> reason array_map_mmap() gives for setting the flag.
->
-> The intent of this patch is to be able to establish the invariant that on=
-ly
-> PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
-> in bpf_map_mmap().
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+--sBsTvPY3UJ6lou0h
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Dropped some CC's as Gmail is refusing to retain them in the response.
+On Mon, Sep 14, 2026 at 04:08:28PM -0700, Nathan Chancellor wrote:
 
->  kernel/bpf/arena.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-> index 7b6847200b43..b69fe5e34339 100644
-> --- a/kernel/bpf/arena.c
-> +++ b/kernel/bpf/arena.c
-> @@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct=
- vm_area_struct *vma)
->          * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
->          * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
->          * being copied into the child process on fork.
-> +        * This is a kernel page so set VM_MIXEDMAP.
->          */
-> -       vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
-> +       vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
->         vma->vm_ops =3D &arena_vm_ops;
->         return 0;
->  }
->
-> --
-> 2.55.0
->
->
+> f65198b3d0738 removed the use of parse_edid_cea() in
+> amdgpu_dm_connector.c but it looks like Mark put these functions back
+> into place to keep everything building and working for 0412b1064a3bd
+> when the two are merged together.
+
+To be clear my current merge is junk, it's one of those occasional ones
+where the constant stream of noisy conflicts caused issues when there
+was actually something meaningful and I was fixing up later after rerere
+had stored a badly broken resolution.  I was hoping the AMD people would
+merge up the conflicting branch or give me a fixup so we had a proper
+resolution in -next, I haven't had any input from them.
+
+> Given f65198b3d0738, it seems like 0412b1064a3bd is pointless and could
+> be reverted entirely to try and avoid this conflict altogether? I tested
+> the following diff and it seems to build cleanly for me.
+
+That does look sensible to me, I might try that next time this conflict
+recurs.
+
+--sBsTvPY3UJ6lou0h
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqogQcACgkQJNaLcl1U
+h9CcEAf/dD9DzH4/38pED8MLRoYL5TpPHnOPQR9hyL7llxAJeTKltRbgylHcOXDx
+l6HAS2FQ5rriuwIw4qMBPuNEHMb9dKASjkE/uycgAQRpB+8kigRIiURb2LFtOYPu
+kpB9TcsCLKKJR5wBVvB3f3kCMbay/6yh6DH++746N8qt/QXPTUsOam+fFt3dk/ht
+88WyBtZMmq1zXJdd6FXvlGk0Zj/Yx9MSTCfdgeqecscV4Vu2v+86krH4Y31dJc7R
+9kYKscox5S4lEW2rzBj5+ayVE8xgytQvMV6wZijb5r4L0WBcsyQXCbvf1kzf5l+A
+F6CxLb6XuPjrYOaICR0blTXiiYtKPw==
+=x5A2
+-----END PGP SIGNATURE-----
+
+--sBsTvPY3UJ6lou0h--
