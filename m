@@ -1,221 +1,281 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4329D3939B1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789413464; cv=pass; b=FowpxU2w9nnsIt3jqWKcIwypnM5BiidT/SWtyY7F1JNW0Xe+N16mvpTwrgduDLJMvCw6N5fZQWVagiNNbNJuFIvxgaS3EdIjFMLycwB1xSmqJFg4BGkoZmcQIb9yjP3JeQQTUra0gVvJphx7NVtOz1pMnkY3fKJiSQqXpHHBbfg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789413464; c=relaxed/simple;
-	bh=I70R/0YWeF0y09zlTpACQii1qrXFuiFewaTsH+8kBNo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P8Z87c6DpegdUOJKn1PoTM2xZDtb1OOr1rEsNtu/Ulvj9VLU07TrysURdlZmFCdr16Zt0VUuPBw2wqP4Nm0iDBici3QdLETTTwGPmCYeaGxMIxT3mfh82VSeBVMeK+RiO99nhUxTeUNfP+O4D+/yg6naGlKgl6TCciHBwYLL3AI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T0axpJWS; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C38F39CD00
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789413471; cv=none; b=lBnsl1rEG1FRZsktjXRxaQwIgOs94mIlIwB6F8CQkFO5Y70LLIY0G2bKeeOW2V7jwkZXkbNMz5MhmILRAxfslse1qZtki4NAiwAHngIszRGKdC/qvtB4+Tk+aYrAkLVqE3ojBPdePh7l9+nxKncto660nIEIe8adYw+JfT156Aw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789413471; c=relaxed/simple;
+	bh=5SUTE8qp6k7+32nEPQx9429Ow3NBQiRxhs/7Q97fP6U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e5WKVsQl55MXsCi7ecslBz2AfVlUAbi3ZSTbh/ufbFzB5oYjvzZ3lCbizr4zjtmQ6il/l2VeTUueTdefqsaNix8Jhe4sU+HjtVRXfclFRQstcWLRwnRxys0sj4hVOmCm7Mg9JilDnFxuTWRlPRJZlTZxLjY0Qq/uS/rzvJ2o604=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IY9nZjn3; arc=none smtp.client-ip=74.125.228.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T0axpJWS"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6141a61c0so16521a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:17:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789413460; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K4B/3DNET8K5j138Jm7f6ay6XakukME4comUyzm00v9ZxCButv+11L9lQnWTng7lBL
-         mb0HmycBZDKgM26OJP7c2yf9z5ah6aYnuyW54LZSCNGUBpSFD6VLaU/ERCOZqOf8eB1/
-         AQNGQXbiOIGvai04YXRwbjdYgCdEcbIuvJePBqSHEkyKSFHcM/2AZ7PRHEkFXfGtK7hi
-         dEAq70lncq0mYiH5umLQsC9n2mJVGFqN/+QOFO5XQIBUcvincdLpyYd4FBZWOPnQnCM0
-         NIx8yLPWeNbBBM12B4fFXZAe4Pn1/VdfV6TCxHKy62P3bQHLbFpweGbXj653b0f9EVTC
-         oWxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=myrSaQTa4vHBu2omtc5agr+BkgMWLQGN5WekDwWEnao=;
-        fh=A8617mOUaHvTd2uI5U6FazLh9qF+FqJ5ONWHdvmPD4Y=;
-        b=p0T4ADNyaRDX9LXhVb8YQa9E/1+YumC3qRaClWt/as/MGuxtlmxYfhWLnjrWyRGPpv
-         rEMz+AKZLJTmTk8o2TYQYhh0NxTHvJghldX83vD5Xe8ZdZ4ZX0xIi7LuAKHglbZzBmrH
-         508kRk6aU3mYV6CumtAXKoN6kF+7rc6FUkTD7b5z+QaBrSMUt7ezWAcYoP+GSGkXb3PA
-         R4m4JgjpnAQkL0xOEaQn7vDW2UwVRRJXPNgx13yu+Lal1rbyXhI7nj3ujyrHTFcdU7+K
-         lmtNLaXOD33eAvSdXeSFKerAeMoJmivfSV6cM3vbnGktkfjwpHRvnRnJbois37LtI3ik
-         8PLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IY9nZjn3"
+Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6aa053900f5so107228a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:17:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789413460; x=1790018260; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=myrSaQTa4vHBu2omtc5agr+BkgMWLQGN5WekDwWEnao=;
-        b=T0axpJWSk2XvqBX5ng9MHBtx3WjHmA3UjvcoCp+HbbWqSyB50puhUo2gV2ZVzeAyxJ
-         DP0PvhpBPkDSWLKQlTa6sP7Tv2JBpMhvUc+p6TY62u91BI0qtBEsb16n93WXxkD6UzZq
-         3ikdC062nh/5V346G2IQc2WBQPyOEhwAmi0fcQlvAS9d+TGVSFLONyzrrHVXiMrTWiQk
-         +aXu0QQAEjtFWC8zYmY7PvA0QKnH6bz31c4UVYPv6NZOlitG2fH/5/We22EWehU4uKP/
-         d+zmoKnT9aCMeZe58dNdVf+hEX4MSqozpzZs3WptX3a1XBl6ZGqjwjEgvyi/yfWhl8wO
-         y1Zg==
+        d=linaro.org; s=google; t=1789413466; x=1790018266; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r/muLWOYcfAyaz1JP5LCp+4a6qwT2hZ9wZwIq9gz8jc=;
+        b=IY9nZjn3JRMy57Ul/0am2tTlNwdaqll9QPj3BA9z8N06/tVirxFKa9hwfUtYpyU58D
+         o+JIbNmRrZNJnTRrHAsk7ncjzkxRIvGdVyN7d0XfEiuWHEbx4Kkw6pLTaqkqyUEUzVit
+         cWKV/yAEYCXZmGMf5AP+t50+SLgyjNO6Ud/J0SDqVc53oKkfO0be4RuthxYrXsQblIXo
+         MIbZnglc3m+z/Sa7INxZOcdkk4qFMNsVPiFBgx68oFqIjBroWt31lTpr4mrwZEreCjp2
+         YmgV7N/3pf9ujuOQWQK3+VS0Ce07q66QYpmB7OI6nlIXVfQI0uyhHhMLnCCiwXbj1vJG
+         +YIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789413460; x=1790018260;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=myrSaQTa4vHBu2omtc5agr+BkgMWLQGN5WekDwWEnao=;
-        b=sXthxbIkxov3u9oDlraPoOVIL5VGNFUTfNWJUpOAa7M1auxbS8EJM8ahBbiqT7cgSE
-         ZA4n7nxenay/nK6hWg7pDXq5xtJ7iXct+aHQJ//VaINWzFnhY3+p5v2FyRyumojP0tzo
-         tWHgpJg+hBHuV/SuZ5s60hzds3xZpxpDhnyDIuuKS/AodYsK3hjt6RNu/JEfNB7OYE7g
-         V+lHO5k6vWUNugjeRaz9AgSh3ka45DgO9MDZu2biTMKzKf0OPIWPekw1cP73a6uPyle1
-         j807yZS1igxQkR48LGoltmLdvFT3KWmqwxIDXazA2wb5ksuVGQa+svbikH239olima2V
-         /BKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztJiqUrqMkGBRK+WjULT9Sddy9yyS1gXazuGqE0FzDvBuLK9msFcnfp4N8FhrmFbj20v5gM9eGivGC79g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpEBWVVAh6pBPu7tL1f4ClDVg0uYqhVn6nKKKqz2buTbac9I2k
-	FRYlZ6qGjMmi1JwyXgO5pvy1ADs4D/n/JFQDTqreDg95IznYcy75/JFfH0HgnDo02KMk6Y8Bsbg
-	F/Xhb/vIsgga1VHb/QqlZ4qVYvUv3mpmkzvXt7PRJ
-X-Gm-Gg: AYBFou3Wnfq3N4BQ0BI+b7He3aQHSZCxig6IjQME1udJcvcwT7BR9/OtFEqjiF5fh/i
-	YpSDo1TyPhObq9GeWOkchEp73Nezh6weWo6B9gHPhUPeSHW7ydz3+ndzJLlH5GAPAsI8aUv07U9
-	dFLneNFm7hJ14MY756XRVYQfhGmQAfyEyDsS9lf9SaxUJ8vkTUAmYe2U51s0iOnM7ATnSPV4UmD
-	6tMewijMKFBf26IK8mzyREibIJoqkNh7bZrIYnny/U5v07meCd29Tve1v3bS2cROa6QZOoC0mH9
-	4ouFBcPea47++IUC5o3bi97HDiWZQherqEnlWZxk0xAkTjn6LfWYp1W1XoDKm3leAA==
-X-Received: by 2002:aa7:cd18:0:b0:6a4:abe:b08c with SMTP id
- 4fb4d7f45d1cf-6aa043d1f1fmr13883a12.12.1789413459616; Mon, 14 Sep 2026
- 12:17:39 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789413466; x=1790018266;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r/muLWOYcfAyaz1JP5LCp+4a6qwT2hZ9wZwIq9gz8jc=;
+        b=Jg/vvgjGmj5uhjbysJJhv1Acqnv+o3QAAoBkZn7bErUDkqJVZe28dbZPse6R3RcOEO
+         TEqh41ECts70i8VFxaqR4Lgx12Ag7qzIP35VwJrzpBL22cD+8626MZOwOBB/4Wf9Mh+i
+         NNyvEVLNFHICcRBgYqNUkCF0plNG/ckaiWgDYsaJeq6BQ0PdoYPSh1nXVsLweV9hf9+I
+         uB/iO9wQjG37oTsQnRxobwW+q9AfuGk8aiR6arGAjm/WF6E9VTNDYTj3P1NPb5EyVmbf
+         /Bsmqm25uXpEPp37tvt3E/+jkIb2ka0wYKb6TBD2rOntGgMF/hX+BSKaNJZ0/vG6CcYq
+         fOnA==
+X-Forwarded-Encrypted: i=1; AKwUvBxE0qljY3LIohlINAV6mjzg/z82Db1V+voq5OPA/0HsG4caEuLnnJjeQpBiWgwN/+taMj1rAOOb7FGAO3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksSbEQR6zqn/H71QtELdj++Ac4CYLPQxEv5tuDLq+v/oaztWqR
+	5d1eCSokMSZQ93uohl34x4F42BRR14daNHdgkhZs2Q237LiuaV9EZB6O0bVes6UEukQ=
+X-Gm-Gg: AYBFou1lRHnQ1WtccVZEpcenE12+K6Ca5qIa8FJKwUOeAimmfh+fk8L93nW1ul5o0ix
+	pvHVhdKChAn15ZT+Qh9S80tWveq4BZNnrlDLgeiiw3vK9vNyIqlPVo5pLSViLaN1nlxTB/fL8A1
+	sRY5RizIi3zJHozxq95ZuhH6sWxq8BQQShRSAFzpCx4E2XRvB8bNaG2R1HB/KR0vyUmWfHNtROC
+	B/meibKH6K2HB1dMd7VKeykMZrOI7U3RnAu0mZWVdZFkSjW3drKR5aflAEplQK/uE2DpMF8e97f
+	XdmSqNP4vEIIfpI90plukyuRJ+y+yX70ijPmcs/thoUugs8ovH3hpKwr+DOtAEHXoOKPXcfRuzP
+	WbhEYLPuCnimCBbt9vf62wQD/17YrrMxLVqx5j8kTX+XNZC9gj2Vvpe2TpNDZOt0781C2lfp/d8
+	dc095YZ61FwClhWg88waw3xTBPJZ7SfcmwfC81mgmYjqtaINu9SyEt5VQXCJDsKPUOeNDd+0+6q
+	5vS/NawAOPcXdN5+oKPZw==
+X-Received: by 2002:a05:6402:a01c:b0:6a9:a6fa:8b7e with SMTP id 4fb4d7f45d1cf-6a9f6252c3fmr1899372a12.18.1789413466219;
+        Mon, 14 Sep 2026 12:17:46 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.248.34])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b594e462sm4818328a12.24.2026.09.14.12.17.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 12:17:45 -0700 (PDT)
+Message-ID: <524369e3-9783-431b-88c3-a367d9631ec0@linaro.org>
+Date: Mon, 14 Sep 2026 20:17:43 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789281096.git.zhang_wei@open-hieco.net> <37a1f336c303c78bbf942b1babcde828899968f6.1789281096.git.zhang_wei@open-hieco.net>
-In-Reply-To: <37a1f336c303c78bbf942b1babcde828899968f6.1789281096.git.zhang_wei@open-hieco.net>
-From: Jim Mattson <jmattson@google.com>
-Date: Mon, 14 Sep 2026 12:17:27 -0700
-X-Gm-Features: AcwNN1VzS9Vin9kOzYrPdaEV4UDdLP1p-qtdqTYgtpYlaZGFsre3kVUF8nVDPxU
-Message-ID: <CALMp9eQbk4i3jMz4U7cTy_CNKCs6FfU+2fMLW4WDj612YdDfCA@mail.gmail.com>
-Subject: Re: [PATCH v6 3/8] KVM: nSVM: Track valid hardware DecodeAssist bytes
-To: Tina Zhang <zhang_wei@open-hieco.net>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 8/8] media: qcom: camss: enable only the stream of the
+ pipeline's virtual channel
+To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ravi@ebytelogic.com
+References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
+ <20260914133416.1030231-9-hitesh@ebytelogic.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260914133416.1030231-9-hitesh@ebytelogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 12, 2026 at 11:44=E2=80=AFPM Tina Zhang <zhang_wei@open-hieco.n=
-et> wrote:
->
-> VMCB02 instruction bytes are valid only for the hardware VM-Exit that
-> populated them.  Track whether VMCB02 contains instruction bytes for the
-> data #PF or #NPF currently being reflected to L1 so that stale bytes are
-> not copied to VMCB12.
->
-> Invalidate VMCB02's instruction-byte state when preparing VMCB02,
-> normally in response to an emulated VMRUN.  Mark the bytes as valid only
-> when the current VMCB02 exit is a data #PF or #NPF.  Opcode exits and
-> instruction-fetch faults are excluded by inspecting the exit state.
->
-> A subsequent change will use this state when propagating hardware
-> DecodeAssist instruction bytes to VMCB12.
->
-> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+On 14/09/2026 14:34, Hitesh Patel wrote:
+> When a streams-aware transmitter is found at the head of the
+> pipeline, every stream routed to the source pad the pipeline arrived
+> through is enabled at start and disabled at stop.
+> 
+> That is right for a transmitter driving one camera per output pad,
+> but not when it aggregates several cameras onto one output. A GMSL
+> deserializer can send two cameras on a single CSI-2 port as two
+> virtual channels, which the CSID demultiplexes to two RDIs and thus
+> two pipelines. Both pipelines then reach the same source pad, and
+> each of them enables and, worse, disables both cameras' streams:
+> stopping one video node stops the other camera as well, and
+> starting the second one has nothing left to enable.
+> 
+> Identify the stream a pipeline owns from the CSID it went through:
+> CSID source pad MSM_CSID_PAD_FIRST_SRC + n carries virtual channel n.
+> Remember that virtual channel while walking upstream, ask the
+> transmitter for the frame descriptor of its source pad, and only
+> enable or disable the stream(s) it reports on that virtual channel.
+> 
+> A pipeline that did not pass through a CSID source pad, or a
+> transmitter without a CSI-2 frame descriptor, keeps enabling every
+> stream of the pad as before.
+> 
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 > ---
->  arch/x86/kvm/svm/nested.c | 38 +++++++++++++++++++++++++++++++++++++-
->  arch/x86/kvm/svm/svm.h    |  3 +++
->  2 files changed, 40 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-> index 73f37b050d0a..1cc3af8247f2 100644
-> --- a/arch/x86/kvm/svm/nested.c
-> +++ b/arch/x86/kvm/svm/nested.c
-> @@ -35,6 +35,35 @@
->
->  #define CC KVM_NESTED_VMENTER_CONSISTENCY_CHECK
->
-> +static void nested_svm_invalidate_insn_bytes(struct vmcb *vmcb)
+>   .../media/platform/qcom/camss/camss-video.c   | 45 +++++++++++++++++--
+>   drivers/media/platform/qcom/camss/camss.c     | 30 +++++++++++++
+>   drivers/media/platform/qcom/camss/camss.h     |  2 +
+>   3 files changed, 74 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+> index 90f22ce76..a261f7692 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -253,14 +253,39 @@ static int video_prepare_streaming(struct vb2_queue *q)
+>    * video_source_pad_streams - Streams routed to a subdev source pad
+>    * @sd: Streams-aware subdevice
+>    * @pad: Source pad index on @sd
+> + * @vc: Virtual channel of the pipeline, or -1 if unknown
+> + *
+> + * When a transmitter aggregates several cameras onto one output, that pad
+> + * carries one stream per camera and each of them is a separate pipeline here.
+> + * Enabling or disabling the whole pad would start or stop every camera at
+> + * once, so pick out the single stream this pipeline owns: the one the frame
+> + * descriptor reports on the virtual channel the CSID demultiplexed it from.
+> + * With @vc unknown, or without a frame descriptor to map it, the whole pad is
+> + * returned, which is the case for a transmitter driving one camera per output
+> + * pad.
+>    *
+>    * Return the mask of streams of the active routes ending on @pad.
+>    */
+> -static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad)
+> +static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad, int vc)
+>   {
+>   	struct v4l2_subdev_state *state;
+>   	struct v4l2_subdev_route *route;
+> +	struct v4l2_mbus_frame_desc fd;
+> +	u64 vc_mask = ~0ULL;
+>   	u64 mask = 0;
+> +	int ret;
+> +
+> +	if (vc >= 0) {
+> +		ret = v4l2_subdev_call(sd, pad, get_frame_desc, pad, &fd);
+> +		if (!ret && fd.type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+> +			unsigned int i;
+> +
+> +			vc_mask = 0;
+> +			for (i = 0; i < fd.num_entries; i++)
+> +				if (fd.entry[i].bus.csi2.vc == vc)
+> +					vc_mask |= BIT_ULL(fd.entry[i].stream);
+> +		}
+> +	}
+>   
+>   	state = v4l2_subdev_lock_and_get_active_state(sd);
+>   	if (!state)
+> @@ -270,6 +295,8 @@ static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad)
+>   		if (route->source_pad == pad)
+>   			mask |= BIT_ULL(route->source_stream);
+>   
+> +	mask &= vc_mask;
+> +
+>   	v4l2_subdev_unlock_state(state);
+>   
+>   	return mask;
+> @@ -325,6 +352,7 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+>   	struct media_entity *entity;
+>   	struct media_pad *pad;
+>   	struct v4l2_subdev *subdev;
+> +	int vc = -1;
+>   	int ret;
+>   
+>   	ret = video_device_pipeline_alloc_start(vdev);
+> @@ -350,8 +378,13 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+>   		entity = pad->entity;
+>   		subdev = media_entity_to_v4l2_subdev(entity);
+>   
+> +		if (vc < 0)
+> +			vc = camss_csid_source_vc(video->camss, subdev,
+> +						  pad->index);
+> +
+>   		if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
+> -			u64 mask = video_source_pad_streams(subdev, pad->index);
+> +			u64 mask = video_source_pad_streams(subdev, pad->index,
+> +							    vc);
+>   
+>   			if (!mask)
+>   				break;
+> @@ -387,6 +420,7 @@ static void video_stop_streaming(struct vb2_queue *q)
+>   	struct media_entity *entity;
+>   	struct media_pad *pad;
+>   	struct v4l2_subdev *subdev;
+> +	int vc = -1;
+>   	int ret;
+>   
+>   	entity = &vdev->entity;
+> @@ -402,8 +436,13 @@ static void video_stop_streaming(struct vb2_queue *q)
+>   		entity = pad->entity;
+>   		subdev = media_entity_to_v4l2_subdev(entity);
+>   
+> +		if (vc < 0)
+> +			vc = camss_csid_source_vc(video->camss, subdev,
+> +						  pad->index);
+> +
+>   		if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
+> -			u64 mask = video_source_pad_streams(subdev, pad->index);
+> +			u64 mask = video_source_pad_streams(subdev, pad->index,
+> +							    vc);
+>   
+>   			if (!mask)
+>   				break;
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index ca8101c2d..63cc81570 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4655,6 +4655,36 @@ static bool camss_is_receiver_subdev(struct camss *camss,
+>   	return camss_subdev_stream_users(camss, sd);
+>   }
+>   
+> +/*
+> + * camss_csid_source_vc - Virtual channel behind a CSID source pad
+> + * @camss: CAMSS device
+> + * @sd: Subdevice to test
+> + * @pad: Source pad index on @sd
+> + *
+> + * The CSID demultiplexes virtual channels to its source pads, source pad
+> + * MSM_CSID_PAD_FIRST_SRC + n carrying virtual channel n (see the en_vc mask
+> + * maintained by csid_link_setup()). Walking a pipeline upstream, this tells
+> + * which virtual channel, and so which stream of a shared transmitter, the
+> + * pipeline belongs to.
+> + *
+> + * Return the virtual channel, or -1 if @sd is not a CSID of @camss or @pad is
+> + * not one of its source pads.
+> + */
+> +int camss_csid_source_vc(struct camss *camss, struct v4l2_subdev *sd,
+> +			 unsigned int pad)
 > +{
-> +       vmcb->control.insn_len =3D 0;
+> +	unsigned int i;
+> +
+> +	if (pad < MSM_CSID_PAD_FIRST_SRC)
+> +		return -1;
+> +
+> +	for (i = 0; i < camss->res->csid_num; i++)
+> +		if (sd == &camss->csid[i].subdev)
+> +			return pad - MSM_CSID_PAD_FIRST_SRC;
+> +
+> +	return -1;
 > +}
 > +
-> +static bool nested_svm_vmexit_supports_insn_bytes(const struct vmcb *vmc=
-b)
-> +{
-> +       u64 exit_code =3D vmcb->control.exit_code;
-> +
-> +       if (exit_code !=3D SVM_EXIT_NPF &&
-> +           exit_code !=3D SVM_EXIT_EXCP_BASE + PF_VECTOR)
-> +               return false;
-> +
-> +       return !(vmcb->control.exit_info_1 & PFERR_FETCH_MASK);
-> +}
-> +
-> +static void nested_svm_set_vmcb02_insn_bytes_valid(struct vcpu_svm *svm)
-> +{
-> +       svm->nested.vmcb02_insn_bytes_valid =3D
-> +               static_cpu_has(X86_FEATURE_DECODEASSISTS) &&
-> +               nested_svm_vmexit_supports_insn_bytes(svm->nested.vmcb02.=
-ptr);
-> +}
-> +
-> +static void nested_svm_invalidate_vmcb02_insn_bytes(struct vcpu_svm *svm=
-)
-> +{
-> +       nested_svm_invalidate_insn_bytes(svm->nested.vmcb02.ptr);
-> +       svm->nested.vmcb02_insn_bytes_valid =3D false;
-> +}
-> +
->  static void nested_svm_inject_npf_exit(struct kvm_vcpu *vcpu,
->                                        struct x86_exception *fault,
->                                        bool from_hardware)
-> @@ -68,6 +97,10 @@ static void nested_svm_inject_npf_exit(struct kvm_vcpu=
- *vcpu,
->                                     (fault->error_code & ~PFERR_GUEST_FAU=
-LT_STAGE_MASK);
->         vmcb->control.exit_info_2 =3D fault->address;
->
-> +       if (from_hardware)
-> +               nested_svm_set_vmcb02_insn_bytes_valid(svm);
-> +       else
-> +               svm->nested.vmcb02_insn_bytes_valid =3D false;
+>   /*
+>    * camss_find_transmitter_pad - Find the pad of the CSI-2 transmitter
+>    * @camss: CAMSS device
+> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+> index 00b8d5304..14a7c737e 100644
+> --- a/drivers/media/platform/qcom/camss/camss.h
+> +++ b/drivers/media/platform/qcom/camss/camss.h
+> @@ -169,6 +169,8 @@ int camss_enable_clocks(int nclocks, struct camss_clock *clock,
+>   void camss_disable_clocks(int nclocks, struct camss_clock *clock);
+>   unsigned int *camss_subdev_stream_users(struct camss *camss,
+>   					struct v4l2_subdev *sd);
+> +int camss_csid_source_vc(struct camss *camss, struct v4l2_subdev *sd,
+> +			 unsigned int pad);
+>   struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
+>   s64 camss_get_link_freq(struct camss *camss, struct media_entity *entity,
+>   			unsigned int bpp, unsigned int lanes);
 
-For consistency, should the line above be:
+Instinctively I like that there is less code here than in the other series.
 
-nested_svm_invalidate_vmcb02_insn_bytes(svm);
+OTOH there is less code here than in the other series.
 
->         nested_svm_vmexit(svm);
->  }
->
-> @@ -869,6 +902,7 @@ static void nested_vmcb02_prepare_control(struct vcpu=
-_svm *svm)
->          * Filled at exit: exit_code, exit_info_1, exit_info_2, exit_int_=
-info,
->          * exit_int_info_err, next_rip, insn_len, insn_bytes.
->          */
-> +       nested_svm_invalidate_vmcb02_insn_bytes(svm);
->
->         if (guest_cpu_cap_has(vcpu, X86_FEATURE_VGIF) &&
->             (vmcb12_ctrl->int_ctl & V_GIF_ENABLE_MASK))
-> @@ -1649,8 +1683,10 @@ int nested_svm_exit_handled(struct vcpu_svm *svm)
->
->         vmexit =3D nested_svm_intercept(svm);
->
-> -       if (vmexit =3D=3D NESTED_EXIT_DONE)
-> +       if (vmexit =3D=3D NESTED_EXIT_DONE) {
-> +               nested_svm_set_vmcb02_insn_bytes_valid(svm);
->                 nested_svm_vmexit(svm);
-> +       }
->
->         return vmexit;
->  }
-> diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-> index e958943b8162..1e12ef1105c0 100644
-> --- a/arch/x86/kvm/svm/svm.h
-> +++ b/arch/x86/kvm/svm/svm.h
-> @@ -243,6 +243,9 @@ struct svm_nested_state {
->          * on its side.
->          */
->         bool force_msr_bitmap_recalc;
-> +
-> +       /* True if VMCB02 has instruction bytes for the current nested ex=
-it. */
-> +       bool vmcb02_insn_bytes_valid;
->  };
->
->  struct vcpu_sev_es_state {
-> --
-> 2.43.7
->
+It'd be great if you and Gjorgji could cross-review each other's 
+contributions.
+
+---
+bod
