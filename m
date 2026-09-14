@@ -1,97 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C55417BC3
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CB54119F7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376437; cv=none; b=I1iKPn/wQkDZdp5uWDA8l2F9ARyqq6Ap9aeYjSUaYSVu4dMjpQz017Od1Qnge2dYa7GAxm+dRESjnZ29ymlDF25aG7XAHvi0iOOVCNUXttxt0kSyfRX9V6v8Z8TA1oIxK5rUA0ocIj+KyaOpPKIrz1npoWsBzngW8YVhr5d353Q=
+	t=1789376435; cv=none; b=tC91SNBEs50cJBzunb/EpFQJuHQBzhAfhsD2BjJCoTuE8g04MqnM30WxexcamsLm1OrHUc56kH/LnRZ8FqVD9QFY+KIHO/7G+oLn/Wm13+jpJRlI8GDb/bEBUMvUBG9JeiGUuz0j0TT8wYXPSC5x4a7Bhb/eLH8uwDF8GngZ5tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376437; c=relaxed/simple;
-	bh=Sp6yCaNOU6D36IYfo4LZXO9ayD+FqlfUmdMqZKlPKAQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gw5haCvWmOvuf0AzWsk5DUxoy0pknaxmic315dVPVHjD0GgV+AiMqgetQ9TjGIwfbwAQjsEpVLm2p5X61O9xtorgd1kLaP/F5WbzI+CQg/TN5YAz3m/sSCVwvP7bSqCL39EtymPvZWITQYAj1qWDfJ4//VyUtN0620x6FZTB/Cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmiFeC57; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789376435; c=relaxed/simple;
+	bh=yyET+MmmYD+WyLCEXc1+I3yQ2jnZot7dAuEkT2NMzjA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e/S2qF1W2Wcvk2QycpPW/0YWY0IeYufqquIDfYidy9PrCwEeBgEUsC8owEzLmfD9IQS9PJlUKEgW1zjLDWeTrcAdKoKBMgwqf/DWn5jvDg4ntDw7czeJw0eL3C104G3rQSVpL+qknwqSA+OMuNQPga+M4P/ua5RznfeKab0OXp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WILlPdQx; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmiFeC57"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575BE1F00899
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789376429;
-	bh=B4ztkW1Okj1yGPF8RnnaTFZyUekE6CEG7rfr7FQh/R8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lmiFeC57Qlcphe+dLmol+E1ble8uqPT7WC3Nw43acN6MEDWBJ5GtI5Y8eNcOp64YB
-	 xeNn/qqojOacSCYyhb1zPNdTCt/8vfE4F3BNgnSJgADMOj4xgkvkYsKdp7hUv5eksF
-	 TumSRArpae4UWysWYpjm8an9Q4Fj3eAkMMEMThwzkKRNeQaivGyRUFsedXEiTo/rSD
-	 NDtdjss4/Sdo9nI2Yrxfz09iKk3NOc1OktQCi/aeee+HvNbc46ScmXoytrfg2Q7d1t
-	 HNRM8kkCCZSlrRHSnOQdrWZHZEsUofNiEqmkMquyX71T41nYBQjMEgaVRB539iPtNN
-	 zvV80bH9lxBVg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1979066e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:00:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx/OMPJJRp+tcbcMqUkZXOsXuApGFyuysayJzTzdzkzYRClSni0gB4zBrb8PeMz6QhYZrPlsRoVggR92R4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQ4FyGq7EaUhhODwOFLTHpG8JWtRLtAM641MjDml+MsVRHnP4I
-	H7wAQ1wrweyDrsLXIjab6qV7NoRp0T7mhmSG0bP10s1YduIrQEHjdZiZ633eRQnCpxpvYL7E9MN
-	uSjKxjfj/ewSzzzvOtPABp9OIYJXoKwk=
-X-Received: by 2002:ac2:51c3:0:b0:5b4:ac1b:89bc with SMTP id
- 2adb3069b0e04-5b8ae66c59amr467116e87.24.1789376428079; Mon, 14 Sep 2026
- 02:00:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WILlPdQx"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso15917205e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:00:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789376423; x=1789981223; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rzH1SlhYJo44ZT//ESye8TSMbGDxpawi+vZSdaQIq4M=;
+        b=WILlPdQxNbllY4DE00lAN6aoxWrOkO/TDLiFnhtcwH9vG/K6asoqWJ+lvkTRH3xAso
+         M9skKncG9HdTbw84eu+auEHJu4RQ2ypRIP8iisiKLEUzU+Vs9Kv2grkipQ6InGEA2OA4
+         VMA3uKnDAx0IfxA1GXxlre6V3kTAF0y563YBKcpawTWYohKiafh0oFHFkjE48+tEXlwZ
+         DUhXt88Dg7r4X4dQ9seDuEEemfMn3C6wM/U1w8iGU+0EKIRm+/fJOwj/gNP8dNcs44py
+         fyhPoG3sscFiB39rMMHwXMG/+ozXlbefR1lpD5I0wCCpheeUc6LOgLpHp2Xl5NoInaW3
+         r3HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789376423; x=1789981223;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rzH1SlhYJo44ZT//ESye8TSMbGDxpawi+vZSdaQIq4M=;
+        b=XPf4sTHmiGEoj5Ss3kgEVN00USXbS3xvG0VDziznL6yAQZ2lSfLq6FH/iLTNY+KmBr
+         bDQFzSwEiMIUFdF0/WUSJu3VdjdymFA3wgM+OKNwyjNfjxhKOsCm5AJaTh0eRe84f2lT
+         gkewgVbvOrdyj8oMXkUE6rCzIEtmSdkDDo0hzM461UUF551p2lQI36eRbMS8WxBMrEjk
+         D799NS46bPP3YWsbheOdkSxOytp/tPUDUuggsLR7c+t2US1l2mWyB9G3YyUhebGzvjF7
+         Dbdxp8Wb3StfHqR3kZlIsn6Of9mtx6RgnkbGQ9M8RHTKpcvOArk+B0qqn70DQIhfBGpJ
+         X5gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDE7IKIP/F60kQ5kvQ6oGpVsRVZhzSh0Wv2gsQ3bTWRg1Wvv5t5/UhsvtuFH3qBx4Am1J9xrXloA3fVvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8vnklNa2Tu8qdbSReg15oMhWa1+DikhGs+S2tMrVfyptbbV1i
+	d+hLTyWAmFot1ee6F1qdPjIzLhqQyz1ZcWl23PrJGdrFhJIATlA+dNFV
+X-Gm-Gg: AYBFou3UT6dyujDL2LgRu+xQC8jMgAlFSJAZJW28mwqtlS7zDet2wfuUM3RkxFQPG7A
+	6M7zE7pyVKgSxZBQMo2T9LoZb8Jaw4NKa7OzBTLcWPnqgVyQMx+dBsiUjPRsr1K+zcWurqQFRG7
+	S27JGKK9FBJsd3vTTdhRBXb2rQeJUMN7c6IpjCMdB8RSOaVHrJwLjYKxo+n3RZ6kvUxQtoHSa0R
+	D/MhO1/HRPcDcblCNus8xIItTrKeBwL/ijJnm8AjIoaxNf+TY0apGJaPTCAPqwYIHfrvv0rABUc
+	LGmN1XLcbhq6VGKXddUazEApW5lIGey8guV/+1+u1DBi0+MeOcf5h8iqHR4yQwl1eLd40TQpIer
+	yAIMK0nW8ng57v48by8Giyqjo0BN1+XUQ6PpSSnGf/Nv6siPqzZouHgCGaK+HyfP0eb8LFhflkK
+	AbxjCLynf0Z6THA/0QwtRD2Za7PtMAbLSfpbdV8OtnxAQxLyTsmZMk8iQrKjZLYQKLkP6ud98Q5
+	oE36rDWAaj1
+X-Received: by 2002:a05:600c:4ecc:b0:499:7219:122f with SMTP id 5b1f17b1804b1-49e7a662f2emr17392085e9.4.1789376422333;
+        Mon, 14 Sep 2026 02:00:22 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:9cc4:c200:33d8:8ea2:e077:ebe1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm25245851f8f.9.2026.09.14.02.00.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:00:21 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: javierm@redhat.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: andriy.shevchenko@intel.com,
+	holofermes@gmail.com,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	amit.barzilai22@gmail.com
+Subject: [PATCH v6 3/6] drm/ssd130x: Constify ssd130x_write_data() 'values' parameter
+Date: Mon, 14 Sep 2026 11:59:28 +0300
+Message-ID: <20260914085931.66857-4-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260914085931.66857-1-amit.barzilai22@gmail.com>
+References: <20260914085931.66857-1-amit.barzilai22@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828155820.4002492-1-sarah.emery@canonical.com>
-In-Reply-To: <20260828155820.4002492-1-sarah.emery@canonical.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 11:00:14 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmi8q1xduxj_y3hq=8s_0533VPhCknzewBN=w9FmoZKxQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WNB9oxZwGTAu8hR8E4yJHjKHse8FPgibB3-3nuDSKB-nChRVnEc8wW69k
-Message-ID: <CAD++jLmi8q1xduxj_y3hq=8s_0533VPhCknzewBN=w9FmoZKxQ@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: generic: serialise pinctrl_generic_dt_node_to_map()
-To: Sarah Emery <sarah.emery@canonical.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, 
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Yixun Lan <dlan@kernel.org>, 
-	Jia Wang <wangjia@ultrarisc.com>, Emil Renner Berthing <kernel@esmil.dk>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 5:58=E2=80=AFPM Sarah Emery <sarah.emery@canonical.=
-com> wrote:
+At no point does ssd130x_write_data() change the bytes it receives via
+the 'values' parameter. Constify the parameter so const-qualified
+buffers pass through without casting away const.
 
-> pinctrl_generic_add_group() documents that the caller must take care of
-> locking, and pinmux_generic_add_function() needs it too, but
-> pinctrl_generic_dt_node_to_map() calls them without holding
-> pctldev->mutex, and the core caller in create_pinctrl() does not take it
-> either.
->
-> The driver core calls pinctrl_bind_pins() before probing a device, so
-> two devices that reference the same pin controller can run
-> pinctrl_generic_dt_node_to_map() on one pctldev at the same time.
->
-> Both `add` functions take the new selector from pctldev->num_groups or
-> pctldev->num_functions, and radix_tree_insert() at that index.
-> Two racing callers can read the same selector before either
-> has inserted, so the second insert collides and fails:
->
->   k1-pinctrl d401e000.pinctrl:
->   error -EEXIST: error adding function pcie2-0-cfg
->   k1-pinctrl d401e000.pinctrl:
->   does not have pin group pcie0-0-cfg.pcie0-0-pins
->
-> leaving one consumer without its pin configuration.
->
-> This was hit on a SpacemiT K3 board, where PCIe devices probe in parallel
-> against the single shared pin controller.
->
-> Take pctldev->mutex across the whole function, so that the groups and the
-> function referring are in a single critical section.
->
-> Fixes: 43722575e5cd ("pinctrl: add generic functions + pins mapper")
-> Signed-off-by: Sarah Emery <sarah.emery@canonical.com>
+Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+---
+ drivers/gpu/drm/solomon/ssd130x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patch applied for fixes, sorry for taking so long to respond.
+diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
+index cbf77a74c4fa..1d834be6243b 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.c
++++ b/drivers/gpu/drm/solomon/ssd130x.c
+@@ -252,7 +252,7 @@ static inline struct ssd130x_device *drm_to_ssd130x(struct drm_device *drm)
+ /*
+  * Helper to write data (SSD13XX_DATA) to the device.
+  */
+-static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
++static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
+ {
+ 	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
+ }
+-- 
+2.55.0
 
-Yours,
-Linus Walleij
