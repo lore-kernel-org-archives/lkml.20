@@ -1,102 +1,72 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDA7331A63;
-	Mon, 14 Sep 2026 04:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C77F35DA64
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789360371; cv=none; b=B3blfh8HFLoL8aRqvVPdeET/qH+zdb5OCn35ve5XcCWPECRMa8XAw5RXZ+hBlxRJPZqRXVJdkfCGE+bSLE4ZgUPoFdNQvFM/K6J+mhQhkrvO+kLHjMr0FVqOqpCAxHo2NKzgUn1rCv1qrR5wiig/65jI+PE5K5Xm2QkRvFhglog=
+	t=1789360386; cv=none; b=nWWqEYJHkSQxAfcnoXNEHklniXjIE2fSiEQMFMYrZtr+m0Wu+DkyG8xY4erwcPbWFQCbVvDAp05egolnNaolzQ8Bzqa8+YMUZA/wQW48A/Ec6+B87yt/0XF18HNNSw4K0TWOmKZDz7CjIr6VW/3wmhapOPpMWa/tYRetuj976Q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789360371; c=relaxed/simple;
-	bh=ebUzZYfqJvoaNtUcw2lFtwe2BilMy5OTQtpgRT6xJJE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ksRcxrLjBdiDYifjCKCHabqyEWuW+GJKC0/lZoKjZagcgIwHP1arJHOgklE2z85ebhZXkeSrC7Wm7Ib+YWWO0UiAqn7hxa6+J6VMqRlcByMp4D4DFMXTSW+Vb8ivA1+Rv6yJYseEc7OFVLRaEgk06JYKC8yMPE2d7WK9O+9nqKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=KN315nW/; arc=none smtp.client-ip=188.68.63.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="KN315nW/"
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjshG0gsNz6NYq;
-	Mon, 14 Sep 2026 06:32:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789360366;
-	bh=ebUzZYfqJvoaNtUcw2lFtwe2BilMy5OTQtpgRT6xJJE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KN315nW/zI9iny0dGLRHIPaCnoGcpgMzqClCQoqexzsWQQ8QIXZg0mYVnbx5Ld4uK
-	 ICxaswFt1xID/f67P/MVJP8ssVrRDeBUjMelxF00g4hUqKv+QRLkBeT3Y8IoEk1jZ9
-	 U6ijuIpUVzQ8HXzrlbRwFjUr1mL9t2wgeDHXFF1ScW8gsueaF42lxux8S4/wKvAk2W
-	 9ZeEjFn57ijuLYnmOohBHesTTOT5Pk2HJHefAiFI11WCQvYlZB32illDN6TMGMwt8a
-	 xQmaf1863JjeFhtL+ouWYYyWAoIaziuLt/Y5XxwSDdYlCW890cwYv6OKkPcJdDv/SN
-	 xWxbITgnYhw3Q==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjshF74NZz4xjV;
-	Mon, 14 Sep 2026 06:32:45 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hjshD66Fcz8svG;
-	Mon, 14 Sep 2026 06:32:44 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C4EF75F9F0;
-	Mon, 14 Sep 2026 06:32:43 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <bf269f69-2b22-4b31-8ef0-48fbd8d19865@leemhuis.info>
-Date: Mon, 14 Sep 2026 06:32:41 +0200
+	s=arc-20240116; t=1789360386; c=relaxed/simple;
+	bh=2M/3GCkX91N+ScnuhIq6B/hBjxb9H5P3POPSvc5adqw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=DE5MU+neOALoqm+5bFH53k7S3P4BKlGT/q+5dC06P13FK9NOpWb2c1r7F4/wNQKtX37DwAivjHHNVZILdZpAACsrhD00fotcDTdqjS64hy8OWeOu84hHgPuLaQooM0m31QXNrjXLqVnO9LRhtxVP0ohzhoi6ABcaBxzf93doguM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f8931a803cso2428954a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:33:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789360383; x=1789965183;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SFJZ0yj59lnVZu5t2HLQNsKQ2pkaGc6TBnSwU16hD0I=;
+        b=NGWnhM8qyphIPYt0WiRjN23Yz11XS+jA8J3vuwesGhFrRCuPWvaOPaEoTdnR7MZ0w4
+         B8PHPqGUB+yIMqhDb406Wo7sE9qT7GNb1PTBqF7g++ZuhUFtnMJHI0T/in+br1XMRqZh
+         lJkvveQbXUsNkPK6KgZ4UH/NdVBFDD6XsgrkeNuLyooqaujcmdYAiG01xcG2HjpeIgd4
+         M9ncmwhTEdvpXbe8VZ42v1scw8USJke4DmwuUs13KnNOsNzikBVfPXwcWApYA318Xos5
+         h3mmUpY/o0JZdZcrmH1N/QXZFDIREOPqhZTmIrFZLyBQLIkfrbt3yMYVi6rIicF8kJGC
+         s7sQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNQX+ClLev5sAvru5p6ZmSSm2ba01g1ZexO0Flf1fnU1UWseZ4s5cZuU0DBbpzRjd4VfFyWFpwKfaeO4o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmZoYcY6JEvGFtx2D6+jy7nuipuO9A2F5Wuc0juAqAzjlHlrTs
+	QBVzCHTTA1CWa7n6aANluovFwa0QGfMhl5th5S567rxq0EeMUBba/A1xJOJHgoLK7aE3lVX50Vr
+	fPU3+OoGFT4YDUwJJ/q1rGP+7AEX4oTLZIF1EIlJa5x13dqRl10MUZG+CdVk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] media: ipu-bridge: do not use the CVS device lookup
- for IVSC
-To: Sergey Zagursky <gvozdoder@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Miguel Vadillo <miguel.vadillo@intel.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, stable@vger.kernel.org
-References: <20260902211524.5572-1-gvozdoder@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260902211524.5572-1-gvozdoder@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178936036425.723339.344260528783743414@mxe9fb.netcup.net>
-X-NC-CID: OA7hWtdI5LV0t/nSGqSMt6ZGfUpw2n9bcbNdbzcs9WFZG2xEIQU=
+X-Received: by 2002:a05:6820:16a1:b0:6bd:ea89:56d4 with SMTP id
+ 006d021491bc7-6c53ea5c4bcmr355499eaf.9.1789360382867; Sun, 13 Sep 2026
+ 21:33:02 -0700 (PDT)
+Date: Sun, 13 Sep 2026 21:33:02 -0700
+In-Reply-To: <6aa775d6.2e7c7dfd.df720.5565SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa778fe.4c28b7d0.c1bba.0010.GAE@google.com>
+Subject: Re: [syzbot] [block?] UBSAN: shift-out-of-bounds in null_process_zoned_cmd
+From: syzbot <syzbot+abd6a8dca0f2b7726060@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/2/26 23:15, Sergey Zagursky wrote:
-> Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
-> bridge driver") the internal camera no longer works on laptops where the
-> sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
-> INTC10CF, ov02c10):
-> 
->   intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
->   intel-ipu6 0000:00:05.0: Connected 1 cameras
->   ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
->       without device fwnode!
-> 
-> No sensor subdevice is registered, the media graph has no sensor entity
-> and userspace finds no camera at all.
+Hello,
 
-For the record: Linus pulled this directly from the list into mainline
-yesterday after I pointed to this patch in a small regression report, as
-I had seen multiple people reporting a regression who confirmed that
-this patch fixed things for them.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Bypassing subsystems like this has obvious downsides and risks; hence,
-if that got something on the wrong track, please speak up -- or ideally
-send patches to set things straight again in mainline.
+Reported-by: syzbot+abd6a8dca0f2b7726060@syzkaller.appspotmail.com
+Tested-by: syzbot+abd6a8dca0f2b7726060@syzkaller.appspotmail.com
 
-https://git.kernel.org/torvalds/c/856c562c94964a74f63c6d5f38a1509a59a2357d
-/
-856c562c94964a ("media: ipu-bridge: do not use the CVS device lookup for
-IVSC") [v7.3-rc3]
+Tested on:
 
-Ciao, Thorsten
+commit:         069f4aad Merge tag 'md-7.3-20260809' of https://git.ke..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17d6e925580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=acc0a882b963ae23
+dashboard link: https://syzkaller.appspot.com/bug?extid=abd6a8dca0f2b7726060
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=150e0df9580000
+
+Note: testing is done by a robot and is best-effort only.
