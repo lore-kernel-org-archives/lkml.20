@@ -1,121 +1,140 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E162D73A0
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97330410D06
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375499; cv=none; b=vAnkFnX24iM/8aKv/gdk+hgmmu/fOPqDhY4WX14P53D0woR8jnAdfw6iy/AuxzVuQTRbBVbhw+lGX3jeSWaDwp9dbcGW5vjd6pYayloDsmn7EqADHqdLsqSpKvQ5Z9LD6SwQw59V07XPbW+RAeqYSEQQwcbI3AMSGDhCiuXwk+Q=
+	t=1789375512; cv=none; b=Rwijant4yCeuhMtYlKwjHsycCROoJc+T5IVEePACuaNTqtuLl7P5EQz7EVnkanAlDneKIcsU3iuQKaTlKw3q/oX2b2LJsok0E6BCl2KBL7sUdoTzIi//TQ4VmJlm1TS/wFjtF4fIxQVy+ZkB+93idopxPyyzWQNBjjWn2UrY4t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375499; c=relaxed/simple;
-	bh=yxzwj7kj/0mVkRV9upaErvtPrafiX8Fq4udSHZDZcZM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pv4NzrYCmXxr/CwWbI4xPj5LsEFZLg6UScsPlp2P0bnwn59qgi9Z2qGrZIWVnw7AMiz/W+JBUQXpFRpKNw0uIF680t0kUU5uWIahOWTYi3g92cUc5smUVn5yKUW7FHIwGO8e/KjJqjuHmKAuELd5pNO3tloqkpZAmjh10DryekA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbOPq4Cx; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789375512; c=relaxed/simple;
+	bh=5t35/AD2DIV9TZyDKY+TCxkdh48h02qUWokLl3mkgzI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fatjPI5yTT+t3bepR4Ug7I20TtL7Sx5s4U3IpBwsPftNejaazIgcJIMQqk0PTzS4wfMtgilkqgavIgDGCJCb39pmSBp606GAQ3lDynCH5PoKotDD8M20J5f8u4G5JiKhtsM40zGZgjB7aLjAoc9IWPeEgZGWH9KGtRw3rAgdG+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=An/ke5PO; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbOPq4Cx"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4d03f95dfso1660014a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:44:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789375497; x=1789980297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OR7fP4bd0gC35uG1gm8oegHQErfRKha3ncQTYMaVg3c=;
-        b=XbOPq4CxpPYcacml93pPafPbrCtIKrSkRj0qD4kM/FhTG1JQbppkJW+yopKYbk3xN6
-         lDu25M+TFbtr0e5LGGey2CdpT1GfN/CTS30UYsG+bup2uE1EivZAlYmqjSm3yeEc05kb
-         vlTAeilAe3qmQ7o0cQA+GYokuhHdAspQQ5EV7c00/myyYvL1OznpkQ1Hqb5kpu5VuMez
-         qlYh89Px92UfFyOD9ExkQ6IOLIQ/e7GOwMaprO+22RLVaip4ZXc/1vWDOob2btNeC653
-         xavopw2XjaxnxtOs5fwficnxTRmoIJn1vgNrFVbYG9mTdZEnIj0JklRaV6emMKxcRtjq
-         Oipg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789375497; x=1789980297;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OR7fP4bd0gC35uG1gm8oegHQErfRKha3ncQTYMaVg3c=;
-        b=YmhiuvC7ElPVTgEbE985FJt90rR9B8RHlvH56TLYUcWLAnUeREJYAo7WcfnViMUQnf
-         2cPo+GkzPdDpjmafIKoFQGjOLivoORmxuNLPcQQbNw5F1Yiv4Gy/ncVf7c4wFvygB0nf
-         MNREK3CzQFnOsxRrevhUSg4TLeOAKbVukmbIXf8nAeq2ES9xgVbAI+M2NIaBlY95V3G5
-         WG+hh0x2+8/d9AwsSdOAbRpfZoRKs1diVqkd5uY0yPGXnxhuLQGcbL7OmJBrvzpaQjxX
-         bcnlf7hMujAl81Dlbq7ovP8yBisW4HDR+v7r8JcS7p02drC/X9rqUxFJ5/uu2Crkg+dq
-         a0vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/13JetgDd87Zm7NWdqqDViQ+aSKGGeThHOqGTxJMgQfug2nbrmo30ure2tvHyBV/hji46rJ9MG5/cGoA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhwkqPFFQ9OxGzjE/BnsfmWIXzRqonAAov5lS0IFZLe+23Fto6
-	4vLWkj/ZmjMc/Ju1a0y3bRYQ+XPMVf1ATPEUMOcseONtR3HMxScXSnIV
-X-Gm-Gg: AYBFou11NBu6+UGs0I60a/n4Hhpc/P8MydjPSzE2HNOBDEKC5fAf6j5pCUGBpfESMO9
-	jacabWD3OUYGj9c49PD3ZLWBWg1ir/bRa7qv0QEf8/tvmgYjq2/cPHawBHAEHzPq0Pq+AJS9xf6
-	CVezniokzVb63+dA+yov52R7OHQLNre9l0i/1N62o6lPMh2fFQi4kLXTnP+LSq3Wa3R6Vb/gTD9
-	3IRz3X5aL4fS27FmowhontSfanECY1Dveewo0ZzRLlIUSNutBoxahPU7PkQqTqZ5l8qJcS3bFDK
-	6+GqsDBw7mz3G32cgmLO5HGdXCUbwrUAUxwksAdbVS4bel99cYFIXVKmoiAZpp5aO/p0CGP/CsY
-	4w1UKEACZxZMPYE/Y8MGvTRSda5elgvKX0WQFDYdbDtYvSFKdWv930CP4rMjlVtVa63TMr358vi
-	CtzyvWr8fgrt99irRLCmiZHcsa/V4qAp7LJbs1a1Z29Py1PHiMG+GLyg==
-X-Received: by 2002:a17:90a:d2cf:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-39debf86d29mr3926198a91.2.1789375496577;
-        Mon, 14 Sep 2026 01:44:56 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d99531b16sm21128646a91.14.2026.09.14.01.44.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:44:55 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Eddie James <eajames@linux.ibm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Wolfram Sang <wsa@kernel.org>,
-	"Oliver O'Halloran" <oohall@gmail.com>,
-	linux-i2c@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: fsi: fix device node reference leak on remove
-Date: Mon, 14 Sep 2026 16:44:43 +0800
-Message-ID: <20260914084443.1664635-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="An/ke5PO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789375506;
+	bh=5t35/AD2DIV9TZyDKY+TCxkdh48h02qUWokLl3mkgzI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=An/ke5POqqfzDoq3Y3bRXllc9/2dKU4cpNMKg89B20Xm0rd6CBnKIpFjIKecEVNoe
+	 u1hj3fQY+SziIjtFyO8cx/Dj+VICwe9bFyq97cWuXLHGloV84IjXkexU9DyFypgWO3
+	 3ewudQUVUfJgzt7c3MX46FYNcndsonm6P5spbm0tpULeOR6LktP8W0o8amnDuH1kj3
+	 W0R/3Cvv/aj6FCITzc+C0JdsggwS9SlbaIlgxSKEKPiS3+KvUGM8Vo/zFJ96az0OoO
+	 Di3xAa6TnlF0EMnJkTWFPKFWrPC0cvjrZcaqE9wp07MtOvDTwSWv3wx29FrkOi4kKO
+	 KSpqfnOBc7nyg==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1C0B117E020C;
+	Mon, 14 Sep 2026 10:45:06 +0200 (CEST)
+Date: Mon, 14 Sep 2026 10:45:00 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 05/16] drm/panfrost: Consolidate device clock
+ management and reset
+Message-ID: <20260914104500.6e32c6cd@fedora-21.home>
+In-Reply-To: <20260912-claude-fixes-v9-5-e588feaa61ef@collabora.com>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+	<20260912-claude-fixes-v9-5-e588feaa61ef@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-fsi_i2c_find_port_of_node() returns a referenced device_node for each
-port. When an adapter is registered successfully, the node is stored in
-port->adapter.dev.of_node and the reference remains held for the
-lifetime of the port.
+On Sat, 12 Sep 2026 00:28:06 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-fsi_i2c_remove() deletes the adapter and frees the port, but does not
-drop this device_node reference. As a result, each registered port
-leaks a device_node reference when the driver is removed.
+> Gather all clock enables and disables into a single function to avoid
+> repetitions between driver init/fini and device resume/suspend, since
+> these clocks are always handled in bulk.
+>=20
+> Also do clk (un)prepares and dis/enables at the same time, since the
+> clk_prepare_* family of functions can simply increase the refcnt of
+> an already prepared clock.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-Save the node pointer before calling i2c_del_adapter(), since
-i2c_del_adapter() clears the adapter device structure, and release the
-reference with of_node_put() afterwards.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-This issue was found by manual code inspection.
+Two nits below.
 
-Fixes: 095561f476ab ("i2c: fsi: Create busses for all ports")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/i2c/busses/i2c-fsi.c | 3 +++
- 1 file changed, 3 insertions(+)
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 118 +++++++++++++----------=
+------
+>  1 file changed, 52 insertions(+), 66 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index b3a53504bd01..2fcbd223204c 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -34,10 +34,46 @@ static void panfrost_reset_fini(struct panfrost_devic=
+e *pfdev)
+>  	reset_control_assert(pfdev->rstc);
+>  }
+> =20
+> -static int panfrost_clk_init(struct panfrost_device *pfdev)
+> +static int panfrost_clk_enable(struct panfrost_device *pfdev, bool enabl=
+e_ace_clock)
 
-diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-index b2dc5ae1d0e4..0c022e79ddbf 100644
---- a/drivers/i2c/busses/i2c-fsi.c
-+++ b/drivers/i2c/busses/i2c-fsi.c
-@@ -748,8 +748,11 @@ static void fsi_i2c_remove(struct fsi_device *fsi_dev)
- 	struct fsi_i2c_port *port, *tmp;
- 
- 	list_for_each_entry_safe(port, tmp, &i2c->ports, list) {
-+		struct device_node *np = port->adapter.dev.of_node;
-+
- 		list_del(&port->list);
- 		i2c_del_adapter(&port->adapter);
-+		of_node_put(np);
- 		kfree(port);
- 	}
- }
--- 
-2.43.0
+I don't want to have a flag added for each new clock we decide to keep
+enabled on RPM suspend, so how about s/enable_ace_clock/on_resume/?
+Also, since it's enabling more than one clk, I'd go
+s/panfrost_clk_enable/panfrost_clks_enable/.
+
+>  {
+>  	int err;
+> +
+> +	err =3D clk_prepare_enable(pfdev->clock);
+> +	if (err)
+> +		return err;
+> +
+> +	err =3D clk_prepare_enable(pfdev->bus_clock);
+> +	if (err)
+> +		goto disable_clock;
+> +
+> +	if (enable_ace_clock) {
+> +		err =3D clk_prepare_enable(pfdev->bus_ace_clock);
+> +		if (err)
+> +			goto disable_bus_clock;
+> +	}
+> +
+> +	return 0;
+> +
+> +disable_bus_clock:
+> +	clk_disable_unprepare(pfdev->bus_clock);
+> +disable_clock:
+> +	clk_disable_unprepare(pfdev->clock);
+> +
+> +	return err;
+> +}
+> +
+> +static void panfrost_clk_disable(struct panfrost_device *pfdev, bool dis=
+able_ace_clock)
+
+Similarly, I'd go s/disable_ace_clock/on_suspend/ and
+s/panfrost_clk_disable/panfrost_clks_disable/.
 
