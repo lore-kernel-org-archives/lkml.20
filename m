@@ -1,37 +1,38 @@
-Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
+Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9711123B61B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3047532B989
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.253
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789356854; cv=none; b=G+XOz45KMxZMU28/JRnjG/DTnJTPLIbYmYJ6U/jfIK1t4Ra5s3AUDMV8Bo7PrP3LuQ37GtsZs/0ON/JSemjUNoudFaOuJjvsK7o6mETf6NLHNOfFmRgDnzjOhO4eBEcfaG8fjlbvBCEX65Wpt8ZG8GecmjucQbgmUnKI87ye4eA=
+	t=1789356855; cv=none; b=WYE42QuaHnZmyAlg073YFsgMWGzKyOX2SV+x8tQcImkGkO69xDKWIJGqb3/W+aFspt9XH9bp4S2s70XKET1xrhb4Q5Z1CpL4NSB97K/bRtuI2NPqkn0qbNvLcfp3zlS5wACSwopt/FFa0NX17kWN79hIXzYwnYOBIRVVoChZq8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789356854; c=relaxed/simple;
-	bh=1JX6OxGw6Fen5q/U+UOj7/291svvQ/6DqcLx9AxyrxE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=naG5CsstNctj7ZuKYgj/4pp4l48F3JmHhA1M0NshQdU37lEt+TUe4o0UjteRGXpvKrf5Zs8KIirh+NntqRte4POONnxkFSwxf/NMaWCmP+bIwXfVrbHNin+Jv5fWegZWht6Yazfm2FCbJDUvgCzvMlXpVhFwW6sjXz723IsGf6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pk0/Pa+r; arc=none smtp.client-ip=91.218.175.250
+	s=arc-20240116; t=1789356855; c=relaxed/simple;
+	bh=0ZUsP0LswRkkip9tShGsyYFmjM0FkrhaBvJDLod4oH4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QEZ6I9Bvy/ALu2E7aUm5E6BIbEn2bchRlkoXWitZyo+MFv8XuwzP/DcSLuAIv8UrlIttTRGnrwQjkR2wOnCc5yX+zJwsND6pymGzutUc3y96ae3UQ086VQP5qPIvihNM/1u4LTPhNKiFPVnWXdjt012ehrxvnjlIYR9poJG58EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=frhkQO5L; arc=none smtp.client-ip=91.218.175.253
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pk0/Pa+r"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="frhkQO5L"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1JX6OxGw6Fen5q/U+UOj7/291svvQ/6DqcLx9AxyrxE=;
+DKIM-Signature: a=rsa-sha256; bh=0ZUsP0LswRkkip9tShGsyYFmjM0FkrhaBvJDLod4oH4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789356850; v=1; x=1789961650;
- b=pk0/Pa+r9mOLiQQBK7V0hbCUvySlkwAqzNzUrObbc7GDWkGBCzm800KqmKT3ooULSdjR4ee2
- Mpcg/Fn5r92bk0Lk+7jLdJGWuhFPiGvIBd/z60aKIAzHwhYrOinUnMTTCIP3kBOkVYPLBSa5KQl
- QPPXaz4t44ohfzJiT8HCX1NI=
+ t=1789356851; v=1; x=1789961651;
+ b=frhkQO5LtdWunzsKyZlnoLMs62oBHjdMfCTPAklKUW5P9QGe1PVHKCnRQ3OpsYzBIJIX3VT3
+ 1SHlrmu4hxM7kWsm1SwvExnH9b4UderxbW9qC/bHHvrByOJnXBVEQ/5oQsBurL1fJI6OYtz96qN
+ 2Ik8uet51XreKvmvdSPAwpNI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 135d90a541b7fc0b;
-	Mon, 14 Sep 2026 03:34:10 +0000
-X-Mizu-Trace-ID: 135d90a541b7fc0b
+Received: by smtp.migadu.com with ESMTPS id 57ee228aeb5f01e7;
+	Mon, 14 Sep 2026 03:34:11 +0000
+X-Mizu-Trace-ID: 57ee228aeb5f01e7
 X-Migadu-Flow: FLOW_OUT
 From: Ye Liu <ye.liu@linux.dev>
-Subject: [PATCH 0/3] mm/vmalloc: minor cleanups
-Date: Mon, 14 Sep 2026 11:33:59 +0800
-Message-Id: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
+Date: Mon, 14 Sep 2026 11:34:00 +0800
+Subject: [PATCH 1/3] mm/vmalloc: group xa_init with vbq field
+ initializations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,43 +41,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACdrp2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0MT3bLcxJyc/OT44pLSlErdJOO0VPNkc2OLNKNEJaCegqLUtMwKsHn
- RsbW1ABo2iYlfAAAA
-X-Change-ID: 20260914-vmalloc_study-b3fe7c738f2a
+Message-Id: <20260914-vmalloc_study-v1-1-526f68559706@linux.dev>
+References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
+In-Reply-To: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Uladzislau Rezki <urezki@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  Ye Liu <liuye@kylinos.cn>
 X-Mailer: b4 0.14.3
 
-Small cleanup series for mm/vmalloc.c, no functional changes:
+From: Ye Liu <liuye@kylinos.cn>
 
-- Group xa_init() with the other vmap_block_queue field initializations
-  in vmalloc_init(), instead of after the unrelated vfree_deferred setup.
-
-- Extract vmap_insert_free_area() helper to deduplicate the allocate-
-  and-insert pattern that appeared both inside the loop body and after
-  the loop in vmap_init_free_space().
-
-- Extract show_busy_info() from vmalloc_info_show(), mirroring the
-  existing show_purge_info() pattern, so the top-level show function
-  only orchestrates the two data sources.
+Move xa_init() next to the other vbq field initializations instead of
+after the unrelated vfree_deferred setup.
 
 Signed-off-by: Ye Liu <liuye@kylinos.cn>
 ---
-Ye Liu (3):
-      mm/vmalloc: group xa_init with vbq field initializations
-      mm/vmalloc: extract vmap_insert_free_area helper
-      mm/vmalloc: extract show_busy_info from vmalloc_info_show
+ mm/vmalloc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- mm/vmalloc.c | 58 ++++++++++++++++++++++++++++++----------------------------
- 1 file changed, 30 insertions(+), 28 deletions(-)
----
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-change-id: 20260914-vmalloc_study-b3fe7c738f2a
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 859e6d2d57a3..117483dd048c 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -5585,10 +5585,11 @@ void __init vmalloc_init(void)
+ 		vbq = &per_cpu(vmap_block_queue, i);
+ 		spin_lock_init(&vbq->lock);
+ 		INIT_LIST_HEAD(&vbq->free);
++		xa_init(&vbq->vmap_blocks);
++
+ 		p = &per_cpu(vfree_deferred, i);
+ 		init_llist_head(&p->list);
+ 		INIT_WORK(&p->wq, delayed_vfree_work);
+-		xa_init(&vbq->vmap_blocks);
+ 	}
+ 
+ 	/*
 
-Best regards,
 -- 
-Ye Liu <ye.liu@linux.dev>
+2.25.1
 
