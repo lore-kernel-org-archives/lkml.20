@@ -1,114 +1,150 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011034.outbound.protection.outlook.com [40.107.74.34])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B1A199EAD
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416959; cv=fail; b=eBkb0Gy4/Bl6W9KaP/H9SPKrHdBeW6vbVqhMXLT+F7sxXajSpobG4k0IGCwXg3XG/FTon1hRTM3dvlHAisUb7EZp0caNMvFTpO+EwGKoOU2iZpR+XDe/yfITHA3eoHBIxUflv2QlvnO0ZZWLGwZtsVafgmXLCU2Sy2KBkmpdSyA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416959; c=relaxed/simple;
-	bh=TM50yrCnKlHFecFBMzVpi6N8+EQUrNtJ4JKdDSDcJDw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bAk+Zbe2AIxXv/JDHl0ctW06U1HQdBehwJyj1x7mKEc16p3ziuvvuOlrsnPaNapjK/6y0yfS8EDiQqbvV5YRZVc+Rft8v3QtmyAbsP25j6YhjMllA9uBZCwpiQxGFvU4UvS5swnh0e/nwj34IZ4MbJJYQcx5gKfpXyO+8YfOwkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=nSNN61BU; arc=fail smtp.client-ip=40.107.74.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4F249E14F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789416961; cv=none; b=QPPxwY9PXxs9gHWkojbsTZCJhBKGP65M07qsrY1G1soxHwGFv2Y6YybQlPFdvHEr2oAod5mReM3WvBDohZCbJ42ChzC9buAAxxSKR9utRipL9Kot72FB2hyxHsNAbGX3D7lBFwu1jOZWfry10Pmtz8ZBdyhBu7+xr975zmuZjRw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789416961; c=relaxed/simple;
+	bh=rAq94N9EKURM8V6jEL9q+TlWH6FB1vYHg6ypBlLasSY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PRhnpncK8sTvLRFJWPRFEyMiGXa1NbsU2bAaooW4Q/aVA+OI8YrG19oM6h3T4Orx8NHCyz9cxqJj46FYjL2djXTmZ+6Kk5Q+MBZo7nZujj7WLFOfq5cTqlEI7yNMbDz+xPIbkgnmzTzdB7h3GN24Lbts/wQwITrLhyPSqUie0Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Jfmiw9JE; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="nSNN61BU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XPKn0XxVV2dn3UlhYO2N0NKsWcAFkJFEo8VvBBx+a7EJZ3iM3L98cnJDV30Xl2EIHXmReOmVknysrwzZ0euvKby+7mm2GEYSH9v1VyuT5opk++7T7DDuG/y7wBLt2gheG533gX0vnVCsH4xSCk7A2re0n1/A+emlqHAnX+ryWbBn4wBqFKwfJ0H4r9U8+jpobXN8X4xFagYr/cGrc5JslyNduCcDauAmMaZFcN3q7EHig+BmW+MZM4OccZFzZc/4ypU9pw2dDP0RIW8MEeMtWwIgCnIQy3A10E4xi9lNTrse71XHLOqkE3pxLVd1nrejdo4RZ+fhS/cV8GKJYheWag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SMHEFDimhdn0MCy/mD6AMOzqNMlFO4fVV2BvvIBmzM4=;
- b=izgAJr4BlDERZzS6cB7K3yvdfp43JTpnfpusKrW2RaUJDESCelXs2u79L/DKH/JYDQ8JncewTyuFztr2BimcVvuRDwbKK8eEVxKd14+P/9+UEMIfXnG8jVQqOIbHEgZgcfNPISs92frsGEmo6IavzoyRQ9XjARt2q+aNrUFHfgQSSozL1nmj2+5BSenUG8a0920z5gZNxxp522JEaJatgPaDFBJlJUIEgp7X0KEURFZsB9IXAxIdgDgeT0thvMvspwJZAo9cfSAucbfgIz3qDwabgoQUlgbpfeFnSEwzqdaiW1X6VVkiyU6PVFGj0rddtRoFANUyBw6ddFQ+6yOCUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=kernel.org smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SMHEFDimhdn0MCy/mD6AMOzqNMlFO4fVV2BvvIBmzM4=;
- b=nSNN61BU6xzTu67IjSZ/9x0y9xugN1Op4T7Ea/RJLfWtMPD9rFpERvjDmoqJXtAm5VcojQGXhiTGDpXCj4+tWJ9WvCIg9I7ObGf2y0aNUmHnyaIfNNc4zWDH0XX6TLheR8cgnhVK32XTD7vjFJDbWyuskWIBcSZUcrBfEsz7/58=
-Received: from OS0PR01CA0030.jpnprd01.prod.outlook.com (2603:1096:604:25::17)
- by TYCPR01MB11374.jpnprd01.prod.outlook.com (2603:1096:400:3c2::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 20:15:54 +0000
-Received: from OS3PEPF0000003E.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:25:cafe::50) by OS0PR01CA0030.outlook.office365.com
- (2603:1096:604:25::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 20:15:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
- smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
-Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
- OS3PEPF0000003E.mail.protection.outlook.com (10.167.240.7) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
- via Frontend Transport; Mon, 14 Sep 2026 20:15:54 +0000
-Received: from demon-pc.localdomain (unknown [10.226.93.156])
-	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id BDD33300026E;
-	Tue, 15 Sep 2026 05:15:52 +0900 (JST)
-From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Subject: [PATCH 0/3] MTU3 MFD improvements
-Date: Mon, 14 Sep 2026 23:14:53 +0300
-Message-ID: <20260914201456.2018403-1-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Jfmiw9JE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789416959;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EK5UeQp0tqmVZcyZlllhzwtRO998nODIDBt3oW5fefc=;
+	b=Jfmiw9JEpDtercliOeseopBizI0yTXsx2QLfvuFb4B5mDYdYVs04/usZsjJu3+5Hb01x0c
+	MUWSx0Bcc4dTCHTFouiVse3DplmMmM+A/IMQWBEBrsYyCB0XVTHfZWgN22nXTLIhsTN1ea
+	VUlgti8LFY7RDDHSsIqXEtH6VOxA/sY=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-161-ReeQhifjMy-nYm7Erd0zZg-1; Mon,
+ 14 Sep 2026 16:15:55 -0400
+X-MC-Unique: ReeQhifjMy-nYm7Erd0zZg-1
+X-Mimecast-MFC-AGG-ID: ReeQhifjMy-nYm7Erd0zZg_1789416954
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C1E651944B09;
+	Mon, 14 Sep 2026 20:15:53 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9ADCA1956095;
+	Mon, 14 Sep 2026 20:15:51 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Haakon Bugge <haakon.bugge@oracle.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH v2] locking/osq_lock: Ensure proper locking semantics for osq_lock/osq_unlock()
+Date: Mon, 14 Sep 2026 16:15:36 -0400
+Message-ID: <20260914201536.550415-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PEPF0000003E:EE_|TYCPR01MB11374:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: ed4e706e-3199-4a27-371f-08df129cfae9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Xd8GDZBIRJCl5dgY9xDRgbEFNuBLWFBsa/2LHOIGKShYOpK82rW8v3YnAjtiHK4QmG/7SSNiW+o0G+Px3LOlusD9e2ifu9SUATE+ABjuOH87WWvd/tTJVaoqGdFvINCCPNAGuHy5WZ3M5joAzxfdKv431IYiFSpbtgk32WhgCtOTqhLJab1Te2Op3yk/hQ1qqzHBMrxkx7qoLnX98cTP9XDaifR9EH0cgX8pQNevbl4bKqxOJeNhrrt9X2GUU7D17ar4MpKosT0jrg8hIxZQwBf5JFGuLWnaJt2HggLVHPOPr+gdJhXkhvUcXn49OKXA7YgG2NigxUXLOQ16TvtjTMO1jAfqdEHxLy0Q99tmVDuNxJk5vHxyABH1chBIJUt/ERFzkgBRHUch1fZ94YVCUIxvdxJP/nWIAYMzI5MoWVyYelyp/DMsj9mRKELQPFnl12IpK7C/OceKsg6ECVmNS4L5H61zJPGi8wRAUXGwWWGv2dlP4xtwZ0VKt/EZiTjDOM3lxVk+AvEOnFRgg5keX1OPBperDaC1xfyanjqRhbpvOp3nGpdWagJGS4RQQwBhSg36sdkIt9IlOWin56q/b4dpLzf2vv3zF0s054cTpZxHbY6t5jo5YigZBla3jsowWhHtX9PRabKvdU/x1ph3+oJrsAOIPJ9yflKFaqN+pWt7MS4zMsMBw/pczI214PbOGqNTewHQUzoJ39c/XN4L8g==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Kkw6vnMCFJcff0OcLRpciL3bmvzLd6sjbQWm4Zrmtwn1N7OywOMiowUjk2XG5SNeJWJ8BBEwF9UJPvEpkDmF1v5KXQWfj1siIlcZ+HWguMl3nB4iiIoiKqqwXFHLCu7+iuQ+TMM+xK6mU/tz8sEPzVL5WQ0R0QCgkpbieOgZERhU9EM8z4RSl/6Oi4fpFQxapK3uEakGMLmBqfOEtw07FjX5k1tBMI3Txb7GdBCrXLUGFCH1fgm1BLdpxblmyZBsCaFln5Pq2Qtey/KrVKoJDEqV/yx87tHwXVhx+tpbdfo8ct5oluRgMHJEC5o2ycQ6GfOv8W3brTwtOrg02pHWHN592U2CjKJ3iYUsqeUk6muj82zR3o0SP7iqk784+VjRs+1ysj4Z8aHYSVq6P4eLuANPh/0GrhfDr/e06XvcuORZ1g5ow+YkP3bh/2bXc6gH
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 20:15:54.3061
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed4e706e-3199-4a27-371f-08df129cfae9
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS3PEPF0000003E.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11374
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-This series does some code quality improvements to the MTU3 MFD driver,
-and enables runtime PM to allow simplifications in the sub-drivers by
-relying on PM domains rather than open-coding clock handling.
+The osq_lock is special in the sense that lock transfer from one CPU to
+the next can happen either over the common optimistic_spin_queue.tail
+value with uncontended lock or over a lock waiter's own percpu
+optimistic_spin_node.locked flag when the lock is contended.
 
-Cosmin Tanislav (3):
-  mfd: rz-mtu3: do not use struct rz_mtu3_channel::dev
-  mfd: rz-mtu3: reuse shared_reg_update_bit() in start_stop_ch()
-  mfd: rz-mtu3: enable runtime PM
+To ensure proper lock synchronization, we need to provide
+the acquire/release semantics for the osq_lock/osq_unlock()
+functions in both cases. This is currently the case for the
+common optimistic_spin_queue.tail value, but not for the percpu
+optimistic_spin_node.locked flag as the proper barriers can be missing.
 
- drivers/mfd/rz-mtu3.c | 71 ++++++++++++++++++-------------------------
- 1 file changed, 30 insertions(+), 41 deletions(-)
+The "node->locked" read in osq_lock() was relaxed by commit 036cc30c6b6a
+("locking/osq: No need for load/acquire when acquire-polling") a while
+ago as the smp_load_acquire() loop was causing a performance hit due to
+the repeated acquire barriers in the loop and it argued that an earlier
+atomic_xchg() call could provide the needed barrier and reordering
+wasn't a problem in the way osq_lock is being used by mutex and rwsem
+for queuing purpose only. That atomic_xchg() barrier does not work
+as a proper acquire barrier for osq_lock() if the lock hasn't been
+acquired or isn't ready to be acquired when the barrier ends. So an
+acquire barrier is still needed in order to have proper locking semantics.
 
+The performance impact stated in that patch is due to repeated issuance
+of acquire barrier which can be expensive depending on the architectures
+and the actual processor used. It was not clear what machine and what
+benchmark was being used to produce the performance data. Anyway, with
+the new smp_cond_load_acquire() helper, only one acquire barrier is
+issued at the end of the loop. So even if there is a performance impact,
+it should be less than a repeating one.
+
+As for the two percpu optimistic_spin_node.locked setting in osq_unlock(),
+they are currently preceded by a full barrier xchg() call which can
+provide the needed release barrier. Add comments saying that a release
+barrier is needed for the proper functioning of the unlock operation
+to alert people from accidentally remove the barrier when the code is
+updated.
+
+Fixes: 036cc30c6b6a ("locking/osq: No need for load/acquire when acquire-polling")
+Tested-by: Håkon Bugge <haakon.bugge@oracle.com>
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/locking/osq_lock.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+[v2] Reword the commit log and keep the WRITE_ONCE() in osq_unlock()
+     with comments.
+
+diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
+index b4233dc2c2b0..4fb63197f699 100644
+--- a/kernel/locking/osq_lock.c
++++ b/kernel/locking/osq_lock.c
+@@ -143,7 +143,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+ 	 * is implemented with a monitor-wait. vcpu_is_preempted() relies on
+ 	 * polling, be careful.
+ 	 */
+-	if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() ||
++	if (smp_cond_load_acquire(&node->locked, VAL || need_resched() ||
+ 				  vcpu_is_preempted(node_cpu(node->prev))))
+ 		return true;
+ 
+@@ -224,11 +224,17 @@ void osq_unlock(struct optimistic_spin_queue *lock)
+ 	node = this_cpu_ptr(&osq_node);
+ 	next = xchg(&node->next, NULL);
+ 	if (next) {
++		/* The xchg() call above provides the release barrier */
+ 		WRITE_ONCE(next->locked, 1);
+ 		return;
+ 	}
+ 
+ 	next = osq_wait_next(lock, node, OSQ_UNLOCKED_VAL);
+-	if (next)
++	if (next) {
++		/*
++		 * The xchg() call in osq_wait_next() before a non-NULL return
++		 * provides the release barrier.
++		 */
+ 		WRITE_ONCE(next->locked, 1);
++	}
+ }
 -- 
 2.55.0
 
