@@ -1,513 +1,205 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2026B4749CB;
-	Mon, 14 Sep 2026 13:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CF247AF5D;
+	Mon, 14 Sep 2026 13:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394238; cv=none; b=I+aVlC6N4NVJbtlWbAoaExzIv1CTymL8NTpGn1ztpicYm9OJMg0ftOv8jevB2NuNZgweq+fKaMhCHPKh7IUerQFILd7tMBajSeDDebKWH9Y8rOqZK4ZkJzEsPU7I20cWj+Vb7hj2vszDDP9tjwRHrcpBAzrCXIVF4F7fj0gl09E=
+	t=1789394256; cv=none; b=st3AHx3GfNte40RHjuIZ04j7tuFK5fLcHgCejnw5xUfYwoyKHWMMK5r33t+yKcAYhqC2NFfX5nwaa0EVP3ou3PeBkWjfm4+vESNh1nqbm+hVpkL/6NdeSX889R7CUxO59wvIZjj0wCAFoSo88JYe3RiOkrZEcf52GXWsPEYDzyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394238; c=relaxed/simple;
-	bh=PSFZPbHmEp1JTVcXB+enU0TPAw31ETrksc4lM4YVn70=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H4OSpNz8vB3u+c2YVL8FPJ7R0uaYzSnqy0QBqHAwaFKY+c/9qrg29qHX3v9QThuMjHIUZCY3N4X2O29ex4q0oafQoF6HJxlI1p++ON420y5ER2HUJjixPtoIw89DfQN701EfkrHvx6WxX5bUaQ6edH2rL+R7piTPQAs1lz/dcVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=RUFFm6TO; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789394256; c=relaxed/simple;
+	bh=lbfR6UTbGje8kTS7uXKfuCIKbDAp15t0ygJfzZX74VQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=YPYTGEQlBWK6K4fNJ1CBdKOFZpdP9U/yVuQ3S4mjXKgMiJXYUv7ilN5zQttxXq4qJzdVxkPea3wDYopv5UrDlv0BVZZRnJbPBjd0k6iGGCe1Zh2THkoBC7YF/EjR9UTSwq3Z2nt/AnJpuDz6+hPy3kzLz/izbvILmO53mX4uqzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbijN69z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="RUFFm6TO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789394236; x=1820930236;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=PSFZPbHmEp1JTVcXB+enU0TPAw31ETrksc4lM4YVn70=;
-  b=RUFFm6TOn1j5KMxg94qtbFffEsnIP3qnIiaaqSYp0xMggb65kMG3Z+cy
-   NSz89yhEIsLCsOvUUxY1HdwuXvBJS5hQE6SewOvXBxNBhyQnn/HfjMgnu
-   6OoyWpj4iEoHlL3EeLPaZ53kuGdcb6A0j6U3aXhULt9S/WgjEvyY3HmqY
-   HxmQIzOIGNV+FM8mFYlQLgW/KeSPKDTpZ/fBAEXd9CCuI7d7mo8zH+Izi
-   9ov90enS/OM09uoXF0yrim5expBmUUcP6o72Z+NKcva/91MDkhoec4mlQ
-   BM0aWEVHX/eG/ADWMlTf9iBfP/cOz7hhukAJFHRy56pQF6pEFAc6yxHje
-   g==;
-X-CSE-ConnectionGUID: F4jQQy5jT+KnjqObTby7AQ==
-X-CSE-MsgGUID: Q+CcJsvATBOz3WLg2gOmCg==
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="63567291"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 14 Sep 2026 06:57:14 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 14 Sep 2026 06:57:14 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 14 Sep 2026 06:57:10 -0700
-Date: Mon, 14 Sep 2026 15:57:09 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
-	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
-	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
-	<richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH net-next v6 03/14] net: microchip: fdma: add PCIe ATU
- support
-Message-ID: <20260914135709.tgwmxocq2a6masm3@DEN-DL-M70577>
-References: <20260909-lan966x-pci-fdma-v6-3-6f48dab9d671@microchip.com>
- <178904554204.219967.17805291259175904857@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbijN69z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881E01F000FF;
+	Mon, 14 Sep 2026 13:57:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789394253;
+	bh=hWQfMjTwrhS/wEak3lQlYZWJXa+nrsd9RSvMVNpNwAY=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=PbijN69zCRfEB+alm6uXogzEaz9s2BRnelOZWna8gydWoSEci7YrJjkbOhNJEWnZo
+	 MtmEE5UYbXR961euWsi0jvDmgHVf0rZdgb+vk/K0jB+DQ7NLjXK3ydMY512gxEtfHo
+	 coL8g+XJONkwIr5azr9son0ok5LpRHsn2J2hJTwse41koUTTxb+irWE4UO2SzX7UkE
+	 JFg3ZBcnVloIa4vLixpg9T3NzQn298tcSxWgHRZoPUZJuHzftzNchk6A7nBmOAcfRe
+	 Oscetkf+QV+1YJWZJDCqsqDYL4QwN1OwdeWOP2gHJwExNAxWJz/6xPchz1QquNpb58
+	 swUFTXsR2v+fQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178904554204.219967.17805291259175904857@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 15:57:29 +0200
+Message-Id: <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
+ segment size
+Cc: "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Matteo Kloiber" <kernel@matt3o12.de>,
+ <aliceryhl@google.com>, <ojeda@kernel.org>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <a.hindborg@kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260831233215.287881-1-kernel@matt3o12.de>
+ <20260831233215.287881-3-kernel@matt3o12.de>
+ <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
+ <20260913210806.125589-1-kernel@matt3o12.de>
+ <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
+ <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
+ <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
+ <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
+ <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
+In-Reply-To: <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
 
-> Thank you for your contribution! Sashiko AI review found 6 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 3 · Low: 3
-> 
-> - [Medium] fdma_pci_atu_region_map() (EXPORT_SYMBOL_GPL) is the primitive
->   that programs the ATU limit register (region->limit_addr =…
-> - [Medium] fdma_pci_atu_region_enable() writes the region enable bit
->   (BIT(31) at offset 0x4) and returns immediately, and…
-> - [Medium] fdma_pci_atu_configure_translation() programs lower/upper base
->   (0x8/0xc), limit (0x10), lower/upper target (0x14/0x18) and the enable…
-> - [Low] The commit message says the patch "effectively add[s] support for
->   PCIe FDMA", but at this commit nothing in the tree calls…
-> - [Low] fdma_pci_atu_init() is the designated initializer of struct
->   fdma_pci_atu (it even programs hardware, disabling all six outbound…
-> - [Low] fdma_pci_atu_translate_addr() reads region->base_addr and
->   region->target_addr with no lock, no READ_ONCE() and no in_use…
-> 
-> --
-> 
-> net: microchip: fdma: add PCIe ATU support
-> 
-> This adds a new fdma_pci.c/fdma_pci.h library that carves the PCIe endpoint
-> outbound address space (0x10000000-0x1fffffff) into six equally sized ATU
-> regions, and adds fdma_alloc_coherent_and_map()/fdma_free_coherent_and_unmap()
-> helpers that pair a coherent DMA allocation with an ATU region mapping.
-> 
-> A few questions below.
-> 
-> >     Add the required functions and helpers that combine the DMA allocation
-> >     with the ATU region mapping, effectively adding support for PCIe FDMA.
-> 
-> [Severity: Low]
-> Is "effectively adding support for PCIe FDMA" the right wording for this
-> patch on its own?
-> 
-> At this commit nothing in the tree calls fdma_pci_atu_init(),
-> fdma_pci_atu_region_map(), fdma_pci_atu_translate_addr(),
-> fdma_alloc_coherent_and_map() or fdma_free_coherent_and_unmap(), and
-> FDMA_PCI_DB_ALIGN/FDMA_PCI_DB_SIZE() have no user either.
-> 
-> The wiring appears later in the series, in "net: lan966x: add PCIe FDMA
-> support" and its follow-ups (lan966x_fdma_pci.c calls fdma_pci_atu_init(),
-> fdma_alloc_coherent_and_map(), fdma_free_coherent_and_unmap(),
-> fdma_pci_atu_translate_addr() and FDMA_PCI_DB_SIZE()).
-> 
-> Would "add the infrastructure for PCIe FDMA" describe this patch more
-> accurately?
+On Mon Sep 14, 2026 at 3:17 PM CEST, Gary Guo wrote:
+> On Mon Sep 14, 2026 at 1:17 PM BST, Robin Murphy wrote:
+>> On 14/09/2026 11:22 am, Gary Guo wrote:
+>>> On Mon Sep 14, 2026 at 10:58 AM BST, Danilo Krummrich wrote:
+>>>> On Mon Sep 14, 2026 at 2:45 AM CEST, Alexandre Courbot wrote:
+>>>>> On Mon Sep 14, 2026 at 6:08 AM JST, Matteo Kloiber wrote:
+>>>>>> On Mon Sep 7, 2026 at 11:43 AM JST, Alexandre Courbot wrote:
+>>>>>>> It also means that without patch 1, nova-core would split the firmw=
+are
+>>>>>>> into hundreds of 64KB SG entries, which is not breaking but still
+>>>>>>> something we want to avoid. The correct fix is to make sure that
+>>>>>>> `dma_set_max_seg_size` is called by the driver, and while we are at=
+ it
+>>>>>>> we also want every driver to call `dma_set_mask_and_coherent`. Idea=
+lly
+>>>>>>> we would use the type system to make sure that both functions are c=
+alled
+>>>>>>> before any DMA operation can take place (using a safe interface), b=
+ut
+>>>>>>> I'm not quite sure yet how we can do this.
+>>>>>>
+>>>>>> This sounds sensible indeed. Should I open a thread regarding that o=
+n Zulip?
+>>>>>
+>>>>> Probably not necessary, the mailing-list has a larger audience and is
+>>>>> the right place for this. I expect people will jump in here with thei=
+r
+>>>>> thoughts.
+>>>>
+>>>> The problem with those is not that they must strictly be called before
+>>>> allocating DMA memory, but they must not be called concurrently with o=
+ther DMA
+>>>> operations, such as allocating DMA memory, as it would technically be =
+a data
+>>>> race.
+>>>=20
+>>> Do they really have to be called *before* allocating DMA memory, not do=
+ they
+>>> just need not be called *concurrent* to DMA memory allocation?
+>>
+>> Similar to DMA masks, the segment parameters should be set appropriately=
+=20
+>> before any dma_map_sg() operation. Plus since they likely influence=20
+>> scatterlist geometry, that means typically they're also going to need to=
+=20
+>> be set before building the scatterlist to be mapped in the first place.
+>
+> Right, in that case I think we have the following options:
+>
+> 1.  Have setters these being unsafe, with precondition that they must be =
+done
+>     before creation of DMA mappings.
 
-Wording. The subject is "add PCIe ATU support" and patch 10/14 is "net: lan966x:
-add PCIe FDMA support"; side by side, I think its clear. Can reword if a respin
-is required.
+As mentioned, I don't think the safety requirement has to be before using o=
+ther
+DMA APIs, but just requiring to not do it concurrently. Not doing it would =
+be a
+semantic bug, but it shouldn't have any safety implications.
 
-> 
-> > diff --git a/drivers/net/ethernet/microchip/fdma/fdma_api.c b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> > index e78c3590da9e..a3c9e3097c5c 100644
-> > --- a/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> > +++ b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> > @@ -127,6 +127,50 @@ void fdma_free_phys(struct fdma *fdma)
-> >  }
-> >  EXPORT_SYMBOL_GPL(fdma_free_phys);
-> >
-> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
-> > +/* Allocate coherent DMA memory and map it in the ATU. */
-> > +int fdma_alloc_coherent_and_map(struct device *dev, struct fdma *fdma,
-> > +                             struct fdma_pci_atu *atu)
-> > +{
-> > +     struct fdma_pci_atu_region *region;
-> > +     int err;
-> > +
-> > +     if (WARN_ON(fdma->atu_region))
-> > +             return -EBUSY;
-> > +
-> > +     /* The ATU cannot express a limit finer than the region granularity, so
-> > +      * the hardware widens the programmed limit to that boundary. Pad the
-> > +      * allocation to match, or the outbound window would extend past the
-> > +      * memory we own.
-> > +      */
-> > +     fdma->size = ALIGN(fdma->size, FDMA_PCI_ATU_REGION_ALIGN);
-> > +
-> > +     err = fdma_alloc_coherent(dev, fdma);
-> > +     if (err)
-> > +             return err;
-> > +
-> > +     region = fdma_pci_atu_region_map(atu, fdma->dma, fdma->size);
-> > +     if (IS_ERR(region)) {
-> > +             fdma_free_coherent(dev, fdma);
-> > +             return PTR_ERR(region);
-> > +     }
-> 
-> [ ... ]
-> 
-> > diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.c b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
-> > new file mode 100644
-> > index 000000000000..bbfd3c67e03b
-> > --- /dev/null
-> > +++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
-> > @@ -0,0 +1,203 @@
-> 
-> [ ... ]
-> 
-> > +#define FDMA_PCI_ATU_ADDR            0x300000
-> > +#define FDMA_PCI_ATU_IDX_SIZE        0x200
-> > +#define FDMA_PCI_ATU_ENA_REG         0x4
-> > +#define FDMA_PCI_ATU_ENA_BIT         BIT(31)
-> > +#define FDMA_PCI_ATU_LWR_BASE_ADDR   0x8
-> > +#define FDMA_PCI_ATU_UPP_BASE_ADDR   0xc
-> > +#define FDMA_PCI_ATU_LIMIT_ADDR      0x10
-> > +#define FDMA_PCI_ATU_LWR_TARGET_ADDR 0x14
-> > +#define FDMA_PCI_ATU_UPP_TARGET_ADDR 0x18
-> 
-> [ ... ]
-> 
-> > +static void fdma_pci_atu_region_enable(struct fdma_pci_atu_region *region)
-> > +{
-> > +     writel(FDMA_PCI_ATU_ENA_BIT,
-> > +            fdma_pci_atu_addr_get(region->atu->addr, FDMA_PCI_ATU_ENA_REG,
-> > +                                  region->idx));
-> > +}
-> 
-> [Severity: Medium]
-> Does the enable bit take effect by the time this writel() retires?
-> 
-> The register block looks like the DesignWare unrolled iATU: the 0x300000
-> base matches DEFAULT_DBI_ATU_OFFSET, the 0x200 stride matches
-> PCIE_ATU_UNROLL_BASE(dir, index) = index << 9, and 0x0/0x4/0x8/0xc/0x10/
-> 0x14/0x18 match PCIE_ATU_UNR_REGION_CTRL1/CTRL2/LOWER_BASE/UPPER_BASE/
-> LOWER_LIMIT/LOWER_TARGET/UPPER_TARGET with PCIE_ATU_ENABLE = BIT(31) in
-> CTRL2.
-> 
-> For that IP, dw_pcie_prog_outbound_atu() in
-> drivers/pci/controller/dwc/pcie-designware.c polls until the enable bit
-> reads back:
-> 
->         for (retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++) {
->                 val = dw_pcie_readl_atu(pci, dir, index, PCIE_ATU_REGION_CTRL2);
->                 if (val & PCIE_ATU_ENABLE)
->                         return 0;
-> 
->                 mdelay(LINK_WAIT_IATU);
->         }
-> 
->         dev_err(pci->dev, "Outbound iATU is not being enabled\n");
-> 
->         return -ETIMEDOUT;
-> 
-> with the comment "Make sure ATU enable takes effect before any subsequent
-> config and I/O accesses".
-> 
-> Here fdma_pci_atu_region_map() returns the region as usable right after
-> this write, and the caller programs FDMA descriptors with
-> region->base_addr. Should the enable be read back (and a failure to arm
-> reported to the caller) instead of being fire-and-forget?
-> 
+> 2.  Have a `dma_info()` method like Danilo mentioned. However, we cannot =
+expose
+>     `&Device<Core<'_>>` inside such callbacks, because otherwise driver w=
+ould be
+>     able create DMA mappings. This however is too restrictive to be the o=
+nly way
+>     of setting DMA masks, because Nova needs to access the bar before set=
+ting the
+>     DMA masks.
 
-dw_pcie_prog_outbound_atu() polls because it programs the *local* iATU and then
-immediately transacts through the window it armed. We program the *endpoint's*
-iATU and never transact through it: the only consumer is the FDMA engine, which
-cannot start before FDMA_CH_ACTIVATE, with four readl()s of the same BAR in
-between.
+Just to clarify, I mentioned this to be something we could do in addition t=
+o (1)
+for drivers where those values are statically known.
 
-> > +/* Configure the address translation in the ATU. */
-> > +static void
-> > +fdma_pci_atu_configure_translation(struct fdma_pci_atu_region *region)
-> > +{
-> > +     struct fdma_pci_atu *atu = region->atu;
-> > +     int idx = region->idx;
-> > +
-> > +     writel(lower_32_bits(region->base_addr),
-> > +            fdma_pci_atu_addr_get(atu->addr,
-> > +                                  FDMA_PCI_ATU_LWR_BASE_ADDR, idx));
-> > +
-> > +     writel(upper_32_bits(region->base_addr),
-> > +            fdma_pci_atu_addr_get(atu->addr,
-> > +                                  FDMA_PCI_ATU_UPP_BASE_ADDR, idx));
-> > +
-> > +     /* Upper limit register only needed with REGION_SIZE > 4GB. */
-> > +     writel(region->limit_addr,
-> > +            fdma_pci_atu_addr_get(atu->addr, FDMA_PCI_ATU_LIMIT_ADDR, idx));
-> 
-> [Severity: Medium]
-> Should region control 1 (offset 0x0) be programmed here too?
-> 
-> Everything except CTRL1 is written: base, limit, target and the enable bit
-> in CTRL2. On the DWC unrolled iATU, CTRL1 holds the outbound TLP TYPE (MEM
-> = 0), TD, PCIE_ATU_FUNC_NUM(pf) and PCIE_ATU_INCREASE_REGION_SIZE
-> (BIT(13)). dw_pcie_prog_outbound_atu() always writes CTRL1 before enabling
-> CTRL2:
-> 
->         val = type | PCIE_ATU_FUNC_NUM(func_no);
->         ...
->         dw_pcie_writel_atu(pci, dir, index, PCIE_ATU_REGION_CTRL1, val);
->         dw_pcie_writel_atu(pci, dir, index, PCIE_ATU_REGION_CTRL2,
->                            PCIE_ATU_ENABLE);
-> 
-> There is no define for offset 0x0 in this file, and fdma_pci_atu_init()
-> only clears the enable bit, so each window is armed with whatever CTRL1
-> value reset, the endpoint bootloader, or a previous OS instance left in
-> place. With a residual TYPE the FDMA writes go out as the wrong TLP type,
-> with a stale FUNC_NUM they carry the wrong requester, and with a stale
-> INCREASE_REGION_SIZE the window end is taken from a register this code
-> never writes.
+> 3.  Use wrapper type instead of generics for typestate. Then, we can expr=
+ess the
+>     pattern of typestate transformation (generics cannot do this because =
+we
+>     always place it behind a reference).
+>
+>     For example, we can have `Device` to mean `Device<Normal>`, and then =
+have
+>     `Bound<Device>` to mean `Device<Bound>` (both of which are behind a s=
+hared
+>     reference, like today, and `Bound<D>` can deref to `&D`).
+>
+>     Then, for `Core` typestate, we can instead have
+>
+>         struct Core<'a, D>(&'a Bound<Device>);
+>
+>     where it's passed by value. We can then define the DMA setters method=
+s to
+>     operate on `Core` like we did today, but safely. Instead of providing=
+ a
+>     `Deref` impl that turns `&Core<'_, D>` to `&Bound<D>`, we only implem=
+ent
+>     forwarding functions for APIs that can work without DMA configured (e=
+.g. PCI
+>     bar).
+>
+>     Then, provide a `into_bound()` method which *consumes* `Core<'a, D>` =
+and
+>     give out `&'a Bound<Device>` (this is why typestate generics cannot w=
+ork,
+>     because `&'a Device<Core<'_>>` is Copy and we cannot represent the ow=
+nership
+>     consumption).
 
-The datasheet does not describe programming region CTRL1 as part of setting up an
-outbound window, and no side effect from leaving it alone has ever been
-observed.
+Yeah, we had this discussion in the past with similar ideas; it is the kind=
+ of
+complication that we concluded not to be worth it and that I mentioned in m=
+y
+initial reply.
 
-> 
-> Related, is the comment "Upper limit register only needed with REGION_SIZE
-> > 4GB" accurate here? That mode is selected by CTRL1 BIT(13), which is
-> neither set nor cleared, and the upper limit register is never written.
+The only safety relevant issue should really be the data race of the primit=
+ives
+values being set, which is more on the theoretical side of things.
 
-The comment (tries) to clarify why the upper half is not written, which is when
-the region size is > 4GB. I'd say its fine. And yes, in the case of >4GB,
-BIT(13) needs to be set.
+>> I don't think there's any expectation that they would ever change=20
+>> *between* different mappings - especially given the underlying hardware=
+=20
+>> properties they represent - so while that might technically be possible=
+=20
+>> in the C API if the caller can enforce sufficient ordering, it should be=
+=20
+>> fine to rule it out in the Rust abstraction if that makes things easier=
+=20
+>> to reason about.
+>>
+>>> If it's the former, we can require these to require mutable reference i=
+nstead,
+>
+> Correction: this should say "latter".
+>
+>>> so the probe takes `Pin<&'bound mut Device<Core<'_>>>` which still dere=
+fs to
+>>> `&'bound Device<Bound>`, but Rust will require the shared reference to =
+not
+>>> co-exist with the mutable reference.
 
-> 
-> [ ... ]
-> 
-> > +/* Find an unused ATU region. */
-> > +static struct fdma_pci_atu_region *
-> > +fdma_pci_atu_region_get_free(struct fdma_pci_atu *atu)
-> > +{
-> > +     struct fdma_pci_atu_region *regions = atu->regions;
-> > +
-> > +     for (int i = 0; i < FDMA_PCI_ATU_REGION_MAX; i++) {
-> > +             if (regions[i].in_use)
-> > +                     continue;
-> > +
-> > +             return &regions[i];
-> > +     }
-> > +
-> > +     return ERR_PTR(-ENOSPC);
-> > +}
-> 
-> [ ... ]
-> 
-> > +/* Map a host DMA address into a free outbound region. */
-> > +struct fdma_pci_atu_region *
-> > +fdma_pci_atu_region_map(struct fdma_pci_atu *atu, u64 target_addr, int size)
-> > +{
-> > +     struct fdma_pci_atu_region *region;
-> > +
-> > +     if (!atu)
-> > +             return ERR_PTR(-EINVAL);
-> > +
-> > +     if (size <= 0)
-> > +             return ERR_PTR(-EINVAL);
-> > +
-> > +     if (size > fdma_pci_atu_region_size())
-> > +             return ERR_PTR(-ERANGE);
-> > +
-> > +     /* The ATU region base is only ever aligned to FDMA_PCI_ATU_REGION_ALIGN;
-> > +      * require the same alignment of the host target address, since the ATU
-> > +      * translates addr - target_addr + base_addr and any misalignment here
-> > +      * would shift every translated address by the same amount.
-> > +      */
-> > +     if (!IS_ALIGNED(target_addr, FDMA_PCI_ATU_REGION_ALIGN))
-> > +             return ERR_PTR(-EINVAL);
-> 
-> [Severity: Medium]
-> Should this validation block also reject a size that is not a multiple of
-> FDMA_PCI_ATU_REGION_ALIGN?
-
-Hardening: it cannot be reached: the only in-tree caller is
-fdma_alloc_coherent_and_map(), which does fdma->size = ALIGN(fdma->size,
-FDMA_PCI_ATU_REGION_ALIGN.
-
-> 
-> fdma_pci.h states the rule for both halves:
-> 
->         /* Outbound regions are 64KB granular (datasheet section 3.24.7.4.1), so both
->          * the region base and the mapped size must be aligned to this.
->          */
->         #define FDMA_PCI_ATU_REGION_ALIGN BIT(16)
-> 
-> and the commit message names the consequence of not honouring it: "the
-> outbound window would extend past the memory the host allocated for DMA".
-> 
-> The size given here becomes the programmed limit:
-> 
->         region->limit_addr = region->base_addr + size - 1;
-> 
-> so with, say, a PAGE_SIZE-aligned 0x21000 from fdma_get_size() the hardware
-> widens the limit to the next 64KB boundary and the enabled outbound window
-> covers up to 64KB-1 of host memory beyond the buffer, which the FDMA engine
-> can then write into.
-> 
-> The 64KB padding is only done in the convenience wrapper
-> fdma_alloc_coherent_and_map(), not in this exported primitive that
-> programs the register, and the commit message advertises the primitive for
-> reuse by lan969x. Would an IS_ALIGNED(size, FDMA_PCI_ATU_REGION_ALIGN)
-> check (or rounding here) be better placed alongside the target_addr check?
-> 
-> Also, the header comment for fdma_pci_atu_region_map() is just "Map a host
-> DMA address into a free ATU region", with no mention that a target_addr
-> that is not 64KB aligned is rejected with -EINVAL. Could that requirement
-> be documented at the prototype?
-
-Yes, I will document that if a respin is required.
-
-> 
-> > +
-> > +     mutex_lock(&atu->lock);
-> > +
-> > +     region = fdma_pci_atu_region_get_free(atu);
-> > +     if (IS_ERR(region)) {
-> > +             mutex_unlock(&atu->lock);
-> > +             return region;
-> > +     }
-> > +
-> > +     region->target_addr = target_addr;
-> > +     region->limit_addr = region->base_addr + size - 1;
-> > +     region->in_use = true;
-> > +
-> > +     fdma_pci_atu_configure_translation(region);
-> > +     fdma_pci_atu_region_enable(region);
-> > +
-> > +     mutex_unlock(&atu->lock);
-> > +
-> > +     return region;
-> > +}
-> > +EXPORT_SYMBOL_GPL(fdma_pci_atu_region_map);
-> > +
-> > +/* Translate a host DMA address to the corresponding OB address. */
-> > +u64 fdma_pci_atu_translate_addr(struct fdma_pci_atu_region *region, u64 addr)
-> > +{
-> > +     return region->base_addr + (addr - region->target_addr);
-> > +}
-> > +EXPORT_SYMBOL_GPL(fdma_pci_atu_translate_addr);
-> 
-> [Severity: Low]
-> What serializes these reads against the writers?
-> 
-> fdma_pci_atu_region_map() and fdma_pci_atu_region_unmap() mutate
-> target_addr/in_use and the hardware window under the sleeping atu->lock,
-> while this helper reads base_addr/target_addr with no lock, no READ_ONCE()
-> and no in_use check. Its intended callers are descriptor callbacks
-> (lan966x_fdma_pci_dataptr_cb()/nextptr_cb(), reached from NAPI poll and
-> from lan966x_fdma_pci_xmit()), which cannot take a mutex.
-> 
-> Looking at the end of the series, the writers are
-> lan966x_fdma_pci_reload() and lan966x_fdma_pci_deinit(), both of which
-> first do napi_disable() and lan966x_fdma_tx_disable_netdev() (netif_tx_disable()
-> drains in-flight ndo_start_xmit callers), and both are under rtnl, so there
-> does not seem to be a reachable race today.
-> 
-> Given that, would it help to document at the prototype that the caller must
-> quiesce DMA and the descriptor paths before unmapping a region, since this
-> is an exported helper?
-> 
-
-Yes, I will document that if a respin is required.
-
-> > +
-> > +/* Initialize ATU, dividing the OB space into equally sized regions. */
-> > +void fdma_pci_atu_init(struct fdma_pci_atu *atu, void __iomem *addr)
-> > +{
-> > +     struct fdma_pci_atu_region *regions = atu->regions;
-> > +     u32 region_size = fdma_pci_atu_region_size();
-> > +
-> > +     atu->addr = addr;
-> > +     mutex_init(&atu->lock);
-> > +
-> > +     for (int i = 0; i < FDMA_PCI_ATU_REGION_MAX; i++) {
-> > +             regions[i].base_addr =
-> > +                     FDMA_PCI_ATU_OB_START + (i * region_size);
-> > +             regions[i].idx = i;
-> > +             regions[i].atu = atu;
-> > +
-> > +             fdma_pci_atu_region_disable(&regions[i]);
-> > +     }
-> > +}
-> > +EXPORT_SYMBOL_GPL(fdma_pci_atu_init);
-> 
-> [Severity: Low]
-> Should this also initialize in_use, target_addr and limit_addr?
-> 
-> This is the designated initializer for struct fdma_pci_atu and it even
-> touches hardware (disabling all six windows), but it only sets base_addr,
-> idx and atu. The allocation state that fdma_pci_atu_region_get_free()
-> consumes is in_use, which is never assigned here, so the helper silently
-> depends on the embedding structure having been zeroed. If in_use held
-> garbage, every region would look busy and mapping would fail with -ENOSPC.
-> 
-> The only in-tree caller later in the series passes &lan966x->atu, and
-> lan966x comes from devm_kzalloc() in lan966x_probe(), so it works today.
-> Would it be worth clearing the per-region software state here (or noting
-> the "caller must zero the struct" precondition at the prototype)?
-
-I think this is a false positive: The struct is zeroed by design rather
-than by luck: struct fdma_pci_atu is embedded in struct lan966x, which is
-devm_kzalloc()'d, so in_use is already false when fdma_pci_atu_init() runs. It
-is also the only one of the three that is read before it is written - it has a
-single reader, fdma_pci_atu_region_get_free().  target_addr and limit_addr are
-assigned by fdma_pci_atu_region_map() under the lock, and a region pointer only
-ever reaches a caller as that function's return value, so neither can be read
-first.
-
-> 
-> There is also no counterpart to this function: nothing resets the software
-> state, unmaps still-mapped regions, or calls mutex_destroy(). Is a
-> fdma_pci_atu_deinit() wanted for symmetry?
-> 
-
-Maybe. This version deliberately leaves the ATU reigions alone, and rely on the
-fdma_pci_atu_init, to reinitialize the regions on probe. No issues have been
-observed so far.
-
-> > diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.h b/drivers/net/ethernet/microchip/fdma/fdma_pci.h
-> > new file mode 100644
-> > index 000000000000..60aa2d2a9af3
-> > --- /dev/null
-> > +++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.h
-> > @@ -0,0 +1,52 @@
-> 
-> [ ... ]
-> 
-> > +/* Outbound regions are 64KB granular (datasheet section 3.24.7.4.1), so both
-> > + * the region base and the mapped size must be aligned to this.
-> > + */
-> > +#define FDMA_PCI_ATU_REGION_ALIGN BIT(16)
-> 
-> [ ... ]
-> 
-> > +/* Initialize ATU, dividing OB space into regions. */
-> > +void fdma_pci_atu_init(struct fdma_pci_atu *atu, void __iomem *addr);
-> > +
-> > +/* Unmap an ATU region, clearing its translation and disabling it. */
-> > +void fdma_pci_atu_region_unmap(struct fdma_pci_atu_region *region);
-> > +
-> > +/* Map a host DMA address into a free ATU region. */
-> > +struct fdma_pci_atu_region *fdma_pci_atu_region_map(struct fdma_pci_atu *atu,
-> > +                                                 u64 target_addr,
-> > +                                                 int size);
-> 
-> [ ... ]
-> 
-> --
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-lan966x-pci-fdma-v6-0-6f48dab9d671%40microchip.com
+I think that doesn't work, there are drivers that need to perform MMIO befo=
+re
+knowing e.g. the DMA mask, i.e. we can't have Pin<&'bound mut Device<Core<'=
+_>>>
+at the same time as e.g. pci::Bar<'_>, which borrows a &Device<Bound>.
