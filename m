@@ -1,170 +1,161 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A230636606A;
-	Mon, 14 Sep 2026 08:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C7F419303
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376228; cv=none; b=ZnuNgGxVz++O3NrUFxrIi6+apXABNCunUSVSDpX6KVTXS1Wf38Raz2kJdQBo14kIFeMwQCdlId4TPbfODYN72zv+zhZYZUpaYGnVn55CocTMgKZ1xod7QCenalRFN3T0dAVh0/ZgPhSnWPbJORAz0Tthb09fV09WKo/KOX17IuQ=
+	t=1789376247; cv=none; b=hPHHt7bJnPdBmr0RbmPmjDSkxrWhioiHIzQr51JKaSIRzMYuaJnXYm6tbOaQQXFEWOtVTqwM/ZwwY992ztyr6R7xInYp5AYmpB00OLB8mwjRC2mh7f9vMj3whcL4iBHpw4YW+8TkQEjtd8M/RI82k/NhC1tTHMQwwgIKUEAUcRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376228; c=relaxed/simple;
-	bh=J4WSmnOksRwBCmfc6I0bWG6/1EEqrqO0K+BBI+cCwp4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZluRwGjtoUl01YcHNP6bVI8+4mTa3BUvuIimArvX0sn+tra2iXX2CkjcYuBMWG+rLjPbXJcEiwZDKkFzW2WHi/61Yuw2Jdqg6LroMU1OS1ZyUZt/3RqmvhFhHnlK0i0XbNXwIHWe5ourIfTQ9MCwPjPf5leabZ5ahkg4ySUsZhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wKtqzwRI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CUnZTxSq; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vC0ieGZQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=EzpCZ3Ld; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1789376247; c=relaxed/simple;
+	bh=JCvFHGCA4rHUgkn8fPq4I3sbSzAZ4NWsrmGMQGr7b3g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bnw+UvF4YulgNy3YrWYg/BKJb4Vmk7+BNYhAE8pIkYvHcdDG5xw1wfKr5CwQtrWC4EbMZahCiYBoYMn6t3m1skBDeAHwVFUETlUTQzJ1BPoFbW5IOPngXw7WQnQwYGAPq7bHgUS8+H9GJWeJTf0nVnmZbrzr9tgLhkYPmypHO0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIuB5y36; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wKtqzwRI";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CUnZTxSq";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vC0ieGZQ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="EzpCZ3Ld"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5C2CC1F38D;
-	Mon, 14 Sep 2026 08:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789376215; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YGrsKBDCYygO26F0zTaCL4mzIKYcG4BnzRtitvCGKeg=;
-	b=wKtqzwRIDPiPtwlZG642cvH79huuYOaE6eTlnzc/IBOf+ZbKBDG69zpPyPqs88lwVN/S/N
-	IQNqxjoX9Ecsjw0YzBRWLhpVzlZHDXuoVuJTno3W9MvbbOPb/8GC5wlXmHTgQnutPzjdgr
-	ugoAbmc843WGnnsY34e7Jhrce+1hXdc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789376215;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YGrsKBDCYygO26F0zTaCL4mzIKYcG4BnzRtitvCGKeg=;
-	b=CUnZTxSq/fFV/56cZTrtrJuMwo2EpugZNlj1TFxriNL3fKE4AD7b6ZGnp//ra1Z+D/CeDQ
-	ZPkpAnZ6eD+InBCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=vC0ieGZQ;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=EzpCZ3Ld
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789376211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YGrsKBDCYygO26F0zTaCL4mzIKYcG4BnzRtitvCGKeg=;
-	b=vC0ieGZQAGGnyO7iBv4JeFpYBTjECmzn3EzuXcmpNimYQSdtIDNLxHRDXugdEhm6egKFqm
-	uMSdP2aBtYOMasjHtenahTkvmfbYlqS/zaxp6HgyuafdUEYeTcNwh/vWK9DX9JffKWMQZT
-	t+IrL69bYmhul1cidYacAGvpZn7aecE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789376211;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YGrsKBDCYygO26F0zTaCL4mzIKYcG4BnzRtitvCGKeg=;
-	b=EzpCZ3Ld5XjdQlfjbX67tq1cV7MnPiH1+Z99i2HjvluNIsxk4tqqlzNIN0beHBifzGmXNf
-	FZYh2/Cfm0lB9XDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 354481368C;
-	Mon, 14 Sep 2026 08:56:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BA3/DNK2p2pWMgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 08:56:50 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id B5DD7A12E4; Mon, 14 Sep 2026 10:56:49 +0200 (CEST)
-Date: Mon, 14 Sep 2026 10:56:49 +0200
-From: Jan Kara <jack@suse.cz>
-To: Mateusz Guzik <mjguzik@gmail.com>
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 04/10] fs: use path_clone() and path_move() in vfs_open*
-Message-ID: <nyrvahdkedtar25wx4kc4tekn4ywj2tzrbyzpyc5iauuxw2n4x@47mgvg6guhf5>
-References: <20260913144918.1606123-1-mjguzik@gmail.com>
- <20260913144918.1606123-5-mjguzik@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIuB5y36"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD221F00893
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:57:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789376237;
+	bh=xKdkdtTMOIdPI1/d4Upir9+jkNvwkE+aa7zOe3c/KSU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aIuB5y36Tax6rIEyx6gsawh+nmQi+CfR7FHrKZuLBVJ4edweefoGKhuMVg5N3UqNj
+	 w8WPgPnmc6SnBOWB/RoqfAFiNTtkcDcqqluau4qWXwkvQejYkikrsevok8AeItp24r
+	 w0NOEcSf13yoJ2z5Izs7lRKIHTY19wMhPVvqFYbRrR/skINOBT2ElFCdNrfHv7CZYD
+	 cBf8v/VGY/WFbjHPjlmFdEGdxzLGcUvOnyNI7DAZfPtF75ROZI9XIHTqQgZ5MT+tEC
+	 Eg9x1EkAZ0Uzc+gabb3oL2Xea10cpHDZIq9Vvp9rfnkzUvPOW06wQB24AMnMPSJV/B
+	 B8xN1hI9PqiNQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b4ae0b3308so2168437e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:57:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw/0IT76cNuJUpwF6Y09mk/HU0yMWlq+jjl5XqTNQna4MalzGDfwaMe6p5ffzpYfq4drqlCP3lRxMt3RgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktbkii3fgzsWIIkxyVNpNv/V/0aaqOulrfyvB3znY48Uk3XNHg
+	mYlUDtSDLXDP10Yk+K4i8DzMTxXNSCuK6WR2AtO43FkpaYSrkWPS9qKtMmd9STFFs46RDfsg9/U
+	KQKzVTN406vq9Sd6xNfUYfTZ4QX8bzAo=
+X-Received: by 2002:a05:6512:1293:b0:5b6:1a7c:aa12 with SMTP id
+ 2adb3069b0e04-5b8ae6acc3dmr443850e87.42.1789376236013; Mon, 14 Sep 2026
+ 01:57:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913144918.1606123-5-mjguzik@gmail.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 5C2CC1F38D
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+References: <CAD++jLnKXqbV0xB3wvTF9Ri7g1MuWV6csO0MGzCtv5LBwmSr4g@mail.gmail.com>
+ <20260827220805.23112-1-michael.zaidman@gmail.com>
+In-Reply-To: <20260827220805.23112-1-michael.zaidman@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 10:57:03 +0200
+X-Gmail-Original-Message-ID: <CAD++jLksAPyfZz6d--n7a1KhPackigEucQJqbYiA-e9S835seA@mail.gmail.com>
+X-Gm-Features: AcwNN1W0b8mgLF0Lz5Bd-fzU0UbPDLmwUn7TUmgZbPxFYpvvpI8bzXM8UFvEfRo
+Message-ID: <CAD++jLksAPyfZz6d--n7a1KhPackigEucQJqbYiA-e9S835seA@mail.gmail.com>
+Subject: Re: [PATCH 08/13] HID: ft260: uart: add modem pins control via ioctl
+To: Michael Zaidman <michael.zaidman@gmail.com>
+Cc: jikos@kernel.org, bentiss@kernel.org, brgl@kernel.org, 
+	germain.hebert@ca.abb.com, rio@r26.me, brunoceg1@gmail.com, 
+	contact@christina-quast.de, daniel.beer@igorinstitute.com, 
+	gregkh@linuxfoundation.org, jirislaby@kernel.org, 
+	linux-serial@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun 13-09-26 16:49:11, Mateusz Guzik wrote:
-> No functional changes.
-> 
-> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+Hi Michael,
 
-Looks good. Feel free to add:
+On Fri, Aug 28, 2026 at 12:08=E2=80=AFAM Michael Zaidman
+<michael.zaidman@gmail.com> wrote:
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+[Me]
+> > On Kconfig, so that gpiolib is always available and you can use
+> > the generic modem control helpers for modem control over GPIO.
+>
+> I looked into this, and it does not work for the FT260 without
+> changing serial_mctrl_gpio.c first. Three blockers:
+>
+> - Every GPIO access on this chip is a USB transfer, so the
+>   gpiochip has can_sleep =3D true. mctrl_gpio_set() calls
+>   gpiod_set_array_value() and mctrl_gpio_get() calls
+>   gpiod_get_value(), and gpiolib does WARN_ON(can_sleep) in both,
+>   so every TIOCMGET/TIOCMSET would give a WARN backtrace.
 
-								Honza
+Can't you just patch mctrl to use gpiod_set_array_value_cansleep()
+and gpiod_get_value_cansleep()?
 
-> ---
->  fs/open.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/open.c b/fs/open.c
-> index a84b55301719..e11d1342ff74 100644
-> --- a/fs/open.c
-> +++ b/fs/open.c
-> @@ -1102,8 +1102,7 @@ int vfs_open(const struct path *path, struct file *file)
->  {
->  	int ret;
->  
-> -	file->__f_path = *path;
-> -	path_get(&file->f_path);
-> +	path_clone(path, &file->__f_path);
->  	ret = do_dentry_open(file, NULL);
->  	if (!ret) {
->  		/*
-> @@ -1125,9 +1124,7 @@ int vfs_open_consume(struct path *path, struct file *file)
->  {
->  	int ret;
->  
-> -	file->__f_path = *path;
-> -	path->mnt = NULL;
-> -	path->dentry = NULL;
-> +	path_move(path, &file->__f_path);
->  	ret = do_dentry_open(file, NULL);
->  	if (!ret) {
->  		fsnotify_open(file);
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+I don't think any of the users depend on call thing this
+in atomic context.
+
+> - mctrl_gpio_init() takes a struct uart_port and its IRQ handler
+>   needs it: uart_port_lock_irqsave(), uart_handle_dcd_change(),
+>   port->icount, delta_msr_wait. This UART is a plain tty_driver
+>   with a tty_port, so only mctrl_gpio_init_noauto() is left - and
+>   the FT260 GPIO lines have no interrupts anyway.
+
+I don't understand this :D
+But hopefully the TTY/serial maintainer does.
+
+> - mctrl_gpio_init_noauto() only picks up lines that exist as
+>   firmware properties: device_property_present(dev, "cts-gpios")
+>   and friends. A gpiod_add_lookup_table() table is the machine
+>   lookup path, so every line would be skipped, all descriptors
+>   would stay NULL and both helpers would silently do nothing.
+>   Software nodes could satisfy that check, but there is no
+>   PROPERTY_ENTRY_GPIO in the tree to build them with.
+
+Using software nodes is the way to go I think,
+<linux/gpio/property.h> contains PROPERTY_ENTRY_GPIO.
+
+> serial_mctrl_gpio.h is also private to drivers/tty/serial - all
+> eleven users are serial_core drivers in that directory.
+
+Well having serial drivers in drivers/hid and having all kinds
+of misc drivers in drivers/hid has made it a dumping ground
+for anything HID.
+
+> Registering a uart_port instead was tried for this device and
+> turned down. Daniel Beer's 2022 FT260 UART patch was built on
+> serial_core and called uart_add_one_port(); Greg asked for
+> usb-serial, and Johan Hovold answered that "neither USB-serial or
+> serial (core) is a good fit for such a HID device", pointing at
+> Christina Quast's tty driver as the right approach - which patch
+> 1 of this series is a port of.
+>
+>   https://lore.kernel.org/lkml/638c51a2.170a0220.3af16.18f8@mx.google.com=
+/
+>   https://lore.kernel.org/lkml/Y6WNl6+ySy8zcSyg@hovoldconsulting.com/
+
+Well if it absolutely has to live in drivers/hid then do the
+ugly thing and
+
+include "../tty/serial/serial_mctrl_gpio.h"
+
+It's perhaps the lesser evil then?
+
+Otherwise we just bite the bullet and move
+drivers/tty/serial/serial_mctrl_gpio.h
+to
+include/linux/serial_mctrl_gpio.h
+?
+
+(Unless Greg want some new subdir such as
+include/linux/serial/serial_mctrl_gpio.h)
+
+> > The core idea is that the serial modem control should look
+> > up the GPIOs from its own gpiochip and use the MCTRL
+> > library helpers, then this should result in very little and
+> > compact code that is easy to read.
+>
+> No argument with the goal - I would rather have that than my own
+> TIOCM handling. But making it usable here means work inside the
+> serial helpers: cansleep set/get, a path that does not require a
+> uart_port, a lookup that works without firmware properties, and
+> the header moved to include/linux. That is a serial subsystem
+> series to agree with Greg and Jiri Slaby, so I propose keeping
+> the ioctl implementation in this series and doing the conversion
+> as a follow-up.
+
+These things have a tendency to never happen and it's
+not like we have a shortage of technical debt.
+
+Yours,
+Linus Walleij
