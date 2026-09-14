@@ -1,91 +1,104 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D2F38F255
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE83041A51B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:09:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376937; cv=none; b=YidjUgt6DpBqX6s7mKZzm41OD6IZTBIkh+ylQkxFwneT0eZvowbGlzqpQLnu220zTJL887wiwC5REfs/VZngm9Yg/jsEHmqYJRmEf4zTdhIzq+plHntDNccOZ35itSByKPHWZ1pjEXzzYoY+Iak+cf+he+cqoi3VIZ2hL+Qy/gQ=
+	t=1789376944; cv=none; b=ppEmMIXZwmsBT2Bz82jxo26gLQ2+2HVVdjkt3zimW5LeDgCBG9vsmVOoNiBGkUGfbbS/xV9eZ9c8Ort8qBWYc+6yDX+oC4r7qFuzAoRz3WZ8KMGR45AOd0sbPLFbZTu9R08rndEBc6ZnqBv/tkY2CG+Lbp9jhmvcdyv6GakHAIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376937; c=relaxed/simple;
-	bh=SjGs3SF4885RJWqLclTH9OVUr04eLBGfU33c2dnnlsI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P77Rd7Cz7yAUptYxFSs/nXNwzGKSfbt9WYvq7R46wxKC31Jn9BALKJQS/3vLZPubPgYxXLHeACPdjql65qKySg4As1E6K64t26sdCc8lgqgKxJcUvU++BpMB4MpMqYGOpWRVJeV81HZlQTw8F6LhPuUqtzpsbjzhr4okG5DYkg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQ4cxgnS; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789376944; c=relaxed/simple;
+	bh=7K5PVATLsabQRhhBZXhEErR/D14fgI88SUwcddvdxdM=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=SizU2YANRRMqyENPuActhta9YqNFVwBcxCogTeKJw65bI+06ECU54y5JlqB2c/JoLTrB+ugzt11VCZedipJDHjbVDsbZiV6cSYIJ6ZQN8jhq1mK8jhR6C5VmmaAxQF7bYK4X778FDlUJYkNOUL238CSwKZMNgcOPuDR4TbkEMcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dqEM6apm; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQ4cxgnS"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f0135fso15370715ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:08:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789376934; x=1789981734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gJQtgcoFrhEVPWWCr25rEos1Thppun+lK6sg8RjAs5E=;
-        b=WQ4cxgnS9ZOJMxjCyLqvg9c476BbI4GQERjsBa33M1uZSNgj6bTDsKkccAaGRcon3M
-         Dz980q2hPE9JzA2saKMKoIlfk01lhqZV/2io5hHZjGA+A7MKmjOfe8+JJR4fEL3pLd+G
-         IN2CyEuzIBIxUdSLQD1p7zyHwCEodspeufL2PSuzYy8fbYQk5US8EyqtE3fIRyItSWKW
-         T6AAqN911xj9IJOJg96TjBToAJx3xsRVBsmr8JevUkysNxv1QyPWw/Ryb/6CSNs6chEP
-         e4kxxBgBDDlFb7qg2qhMd8TNY691vci03/ijUOyLiUy4gehe3QDdvtqi9KuYYk2xsyxB
-         HZFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789376934; x=1789981734;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gJQtgcoFrhEVPWWCr25rEos1Thppun+lK6sg8RjAs5E=;
-        b=DVrV5bhku7r78+0LS8++ENXOfkYYLG2CRV8HdeU/EFp8Wqonm6jYcUtv7nlTbq+VBg
-         0rRUAC0XVdhvAEie2aYCxJarMgH5ttdW0TBRF8kc0aSyH4cQNi96pRgnZaE5QwaBwtHs
-         es3LfptNk1YvH1lVVpoobQxItlc/j9DiZqBG8vYV9ihLXr9hrytqUOFZBtVN4c/2YCur
-         QKwa/4daL4rT1rQEkB2hTgPlrwtN0VwxpJSTviIvz6Hv2EpJJUK5PEbcUrXLEZGuc/mg
-         LobZhYXYpCMScORYAbNb+ybiEe0or/f1Dhpl5UZ3K1ccGbpWQrrmdisOg2nUCkas2DDr
-         GT8g==
-X-Gm-Message-State: AFuF++kEzwLLEn6u9Qpt/o1Jyoq5cyppSy9ipY2RABA2cczOwLD5qCj8
-	B0JPsUSXuWyOeokdDOP1G1j6P5xRX3B7Cs4dwkYNSdk7vnsxr1weuPU=
-X-Gm-Gg: AYBFou2eyWevdo36g9kYHMBVrXHXFQPigs16GY8C/oi2y4MrtyK5kbQr6T9JFTI7QCF
-	tNRc4rMBAWNQLT6Mffa1Fk4m47dynlltAAjtctm+n/MOL5df9DKche2/Ry9lP3naG1bpOsTvow+
-	MOt8uHORegbZEHUUJBacA/RauCOP1FPCi7rFBQb1AIz4nIzOavOHD5tZ7Q0hC46iaqNM8NseXB+
-	Ke8yEtrJLJUlKl6Py1AwnqMAu+EWvC7OQgmp8mejWb8/56OBVHzb5kkQjNXzeR5/q9lvHQpv/5T
-	yc9ddCJLHbwnWTeo9bsSt8kGpbmFNm7M++JvpBr/haG3lflICkPKlNMj8KCBZg0hxksg9MDWDaL
-	yD1A0yL48ykffam8/o13SMf0b5EFcN78y7sxA38ImZ50LAYfjl/uimuOXfucebmugyjG/ddpsNP
-	W29nM8sBxbok2u1KHkXwJ0AzLXLwQ8ZG+0AtBTNgI5OZiIlsEu9+i81s0E1ORIoUF8z80B0f6On
-	lKWYpAN+jH+7iQUefwSlvE=
-X-Received: by 2002:a17:903:1b50:b0:2db:8ae7:a5d2 with SMTP id d9443c01a7336-2dd6c5f39camr39121085ad.9.1789376934032;
-        Mon, 14 Sep 2026 02:08:54 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([103.63.104.162])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ceb7720sm44951065ad.37.2026.09.14.02.08.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:08:53 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: radu@rendec.net
-Cc: linux-kernel@vger.kernel.org,
-	tglx@kernel.org,
-	triet.hoang.dev@gmail.com
-Subject: Re: [PATCH] irqchip: st: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
-Date: Mon, 14 Sep 2026 16:08:50 +0700
-Message-ID: <20260914090850.897017-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <f2acee4027dfc48515091bc75422d52494ec7547.camel@rendec.net>
-References: <f2acee4027dfc48515091bc75422d52494ec7547.camel@rendec.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dqEM6apm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789376940; x=1820912940;
+  h=date:from:to:cc:subject:message-id;
+  bh=7K5PVATLsabQRhhBZXhEErR/D14fgI88SUwcddvdxdM=;
+  b=dqEM6apmu3RrAmV09wBmcQNXyLb2b1IUbgpViK1IAe2EfFPigNqFvSTH
+   C/RuHXAdlQFbF8ItK6j/CcYd/gkpHXr2sAYrcvyoHGFlA/Er3bojxp6/f
+   eYYKIuDjuuMzaInJ60ZAJT90/iLtdeP2juG1tbqDbH3egOFQXYQ1KhlRJ
+   hxutIH8foDbMsQLhy18pJzlNesrt7cR+5ljiHQEq5LcjYgF2ot4Ae16+d
+   k0qtZmgwVyZZXG57Di1K+MhVhVsGtGPFz0kyaVBPdc6sNeCd33w1VSHds
+   hUPaO1zGOhS+EKpfeHoyZxnm4RU+y1DPi1+M7jYfIi06RXCmwcXG2Pf/o
+   Q==;
+X-CSE-ConnectionGUID: tYy2jEagRaad7KT5uUhp1Q==
+X-CSE-MsgGUID: 6eJ7BnGJSkWwTqpdAe8KbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="77288693"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="77288693"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:08:59 -0700
+X-CSE-ConnectionGUID: A5rFdM3iTQKJrxZnam9j1g==
+X-CSE-MsgGUID: rofYqVmFTmGCDyrk2W7hNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="989743"
+Received: from igk-lkp-server01.igk.intel.com (HELO 71151d66d536) ([10.211.93.152])
+  by fmviesa013.fm.intel.com with ESMTP; 14 Sep 2026 02:08:58 -0700
+Received: from kbuild by 71151d66d536 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x62gK-00000000085-1Opn;
+	Mon, 14 Sep 2026 09:08:56 +0000
+Date: Mon, 14 Sep 2026 11:08:31 +0200
+From: kernel test robot <lkp@intel.com>
+To: Amery Hung <ameryhung@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alexei Starovoitov <ast@kernel.org>
+Subject: kernel/bpf/verifier.c:794:5-12: Unneeded variable:
+ "ref_cnt". Return "0" on line 805
+Message-ID: <202609141124.zR9pQCyK-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Sat, 29 Aug 2026 15:40:50 -0400 Radu Rendec wrote:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+commit: 2eee6fe8ac2cd21e931c009d475e5a8407d42d76 bpf: Fix dynptr ref counting to scan all call frames
+date:   3 months ago
+config: hexagon-randconfig-r054-20260914 (https://download.01.org/0day-ci/archive/20260914/202609141124.zR9pQCyK-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 707c032dae3bee24eae29c6f4c459a6d6dc6556d)
 
-> Thanks for the patch! The patch itself (the code change part) looks
-> good to me. You can improve a little bit on the commit message format:
->  * Please realign the text to a 72 characters line width.
->  * Please avoid using the first person in the second paragraph. For
->    example, something like "This allows dropping the..." is better.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 2eee6fe8ac2c ("bpf: Fix dynptr ref counting to scan all call frames")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609141124.zR9pQCyK-lkp@intel.com/
 
-Thanks for your review! Should I send the v2 to improve this?
+cocci warnings: (new ones prefixed by >>)
+>> kernel/bpf/verifier.c:794:5-12: Unneeded variable: "ref_cnt". Return "0" on line 805
 
-Regards,
-Triet
+vim +794 kernel/bpf/verifier.c
+
+   788	
+   789	static int dynptr_ref_cnt(struct bpf_verifier_env *env, int v_parent_id)
+   790	{
+   791		struct bpf_stack_state *stack;
+   792		struct bpf_func_state *state;
+   793		struct bpf_reg_state *reg;
+ > 794		int ref_cnt = 0;
+   795	
+   796		bpf_for_each_reg_in_vstate_mask(env->cur_state, state, reg, stack, 1 << STACK_DYNPTR, ({
+   797			if (!stack || stack->slot_type[0] != STACK_DYNPTR)
+   798				continue;
+   799			if (!stack->spilled_ptr.dynptr.first_slot)
+   800				continue;
+   801			if (stack->spilled_ptr.parent_id == v_parent_id)
+   802				ref_cnt++;
+   803		}));
+   804	
+ > 805		return ref_cnt;
+   806	}
+   807	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
