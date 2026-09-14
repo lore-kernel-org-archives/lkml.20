@@ -1,141 +1,172 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060D72F290A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985633D5C05;
+	Mon, 14 Sep 2026 16:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789402088; cv=none; b=hiWd85Bn9C6y2LZ+Gsz+oFpt7n0+tb/YBc+VMehOs8tt4p7fV1QGDZwHxcxZ6jA1CTqQzfL7BBrdDEVfWmGC5RuUN3TScONZwBhCSg865zdumN2Tkce1mvb2BA++VVXlTFP4w5uWx1CmSnvhq+wptwCXVao14fs+A+tpyglqKJg=
+	t=1789402133; cv=none; b=RoqIHa6GYxALjNmqJfxcifZIk5shUxr3r+1P5egIsCptID6CSpqYw4wPVY4e9KD7c5nxbPsdV+ggiAJPyNBb/wO3eqJmf9kKXcFQMZr0F+S6ACYerljceLfr+rnZXOGwE638wWawAhXP6ENqRxoAaZM41A0kPS6CW+Sa7PGMGH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789402088; c=relaxed/simple;
-	bh=4JpqBF0U8ok2c1bU1R2ZgN0dtcOkgvd6/IXu/350qDk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UKEsfi0ECfyKjDQUPa6kWNV7KHGwVHAweS1F1K4Ph04wxfmHdI7EUmGY5zVooGKho3gxAlCVBttw3i5ijBn2uVhywmy6A2/IYaDUnvOQV+q08VGkmP1JCgah+aP7H8BO81QvhyH7xA/qAp4mc/yGgeg3zK6iro2T1hbWHBMhbLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HDPwWLLp; arc=none smtp.client-ip=74.125.231.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789402133; c=relaxed/simple;
+	bh=HKY52jKpb2U52c2dS7+hBLFBvpuDcJCIssi8KzriE3w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Di996GRj8fOv6OjX7f9+rMu4bo+1UrFYJwnusRvnktgZlHoP6dawn8VzuEcKTT9+fxkeDjaIj4j1bg0hce7x4UEFRhFSYlgSsUwEZkXb+LU+3pz77SzyDKpAnxIwxDfiq4ubfjLilppvCxk/oWWNgyJQSE96680T0qCpXtHDooM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oJsBxZHG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7ePFS6Dm; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gqpf7rjy; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=4qnvxuY+; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HDPwWLLp"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b1ae6f5fc5so1175565eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789402085; x=1790006885; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hhBnpIqJR8cSwH8SLHGlHrOYOv2zJDR1Rl7Ewp9l8a8=;
-        b=HDPwWLLpGuYZ2na7MhghRHTLBi1EVyb9huFu2Q1Bu9Uw54EfNn78S/40m8nMU8QlWL
-         TAKnhn2aJrnzwCEXuSdO0mmPh9K5I5uFcGQ6tCYcXZEwoXD1Z5YDIgtet9agxZYOn7Sq
-         4oTNossulTMss2sU1BqlSsfuQVGh/l55kbFoMzH6N8J2A6oekdgZqcCyCFijqfdQNFyF
-         HKYIn89clAHd6tbE1n2mAaqCKiQmlYjp1z2KN418wtS6HBsSJmB+BLEgLIEo3YSqhIDp
-         dSi5pRE/n0MCzJiUL2Q5DIGa9b6xSuyftQ7GtnrZBCm5+EM85U0ccGVB34leabNXf28i
-         6/og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789402085; x=1790006885;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hhBnpIqJR8cSwH8SLHGlHrOYOv2zJDR1Rl7Ewp9l8a8=;
-        b=i4BWLNHmGPBOLakbWQkRi7W/2XBN1FMJtglhzBHx3wepsKIYByt7pLsEuutvE21Knm
-         GYgeWzhx4mdhVmkr/MDvw705J9tPXoz+DldkiIplrz2OIrEzLt2Oo9p6LaNnBgxN5YUk
-         tqO9kMfHLuUCxa0mYV2Qd8vLJOETzvRXMjtJfuz9cJheZjfZ01FQL+Gp96v0sT3TX/xI
-         5a+N3xvJhpNG09VMoaHbPnu4cPiTb7iy4wCpN2Pt4a832iWqLdPmfc+6Wd4WGlEQhq0e
-         SAY+FSqPaPHQy6pd78mtDF609KM5g4UEWtabYYU/lrXt1x+GJJvLSxNTA3bQ71rM1DF9
-         fnXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjOSpzpG4KrQDCEeEhQAVP3b67cr75P1g8p7W0x/+gYEo/fPKDTjGfjH7fKyTL3q2BmA7TrxZd17IYrzo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6hy7AfAlE/XCkEhOpj3kDxxACBVNeZvVtiSi4/iLS4OIQwKDU
-	Tb4UxGnLPyMMMem07pUYzIVmPuYt2G00U5AsWfhOngqxEEcUbsjEU6yTtLWoWKC1RRQ=
-X-Gm-Gg: AYBFou0jK+s/Bs3jZZb5YIuAsi4JZ0KVKvrZdD8OkDsrr1qEL6e5mX3wfUbeeJjbrX4
-	do+ZoOOZiHBLoz22Yy317x4JOjrkgm+hmc0vcc3bxN6nGghS7GS5JmVzFU8Yry/EK1Dpxp51BIS
-	aTE5g9MDbiK4QEb/T+LzOGysmjJa46wwsBTHdetKnHhMMWyjFCAgGZCqR9fOzV44T/yXpt97k2F
-	s1Xn6QGnfghFko7LbiD8983tyUypv2OE33kNbSQYz4fi11cVPQtu6Rmri6sSZRJOyWor+TMEHLP
-	xlzSlsLiXqKD3C7mz98Dw+RvkWwNxR700BulE75hYiezmghi1XqXD9CRWKgh4m2no4376YQ7CGa
-	iWEaNBXZ+TcQDtBBIDwEuOn26m63BrvyIfpGEu8tchEUIQoCiZ7s1cJT8mLcHa6VBV9pdKbl/vt
-	6JRiDyB2JoXhl2zqk5KTacLsjtjbfeOEhWXnoHIm6AUQjLGZOqmWIBC/Mis6MV/rOEmxweoNEEe
-	8WgusQ4pB/EOl3XCdEVkvxxiiOofHQFzgZx3mR+DAUBb9evLg==
-X-Received: by 2002:a05:6820:1988:b0:6c1:fd93:5292 with SMTP id 006d021491bc7-6c541d3ff08mr3216204eaf.17.1789402084949;
-        Mon, 14 Sep 2026 09:08:04 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:d8f9:ae1c:d229:aec1? ([2600:8803:e7e4:500:d8f9:ae1c:d229:aec1])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c342ec1ff5sm6543816eaf.14.2026.09.14.09.08.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 09:08:04 -0700 (PDT)
-Message-ID: <feea59da-055e-4faf-999a-c275f42a99a6@baylibre.com>
-Date: Mon, 14 Sep 2026 11:08:03 -0500
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oJsBxZHG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7ePFS6Dm";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gqpf7rjy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4qnvxuY+"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 34CF71F893;
+	Mon, 14 Sep 2026 16:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789402125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OFz8ohKQNPvuZo7ItrkkkBBy/UFIGtCsj3BWGvoA1nw=;
+	b=oJsBxZHGNB/+TU69TIeJcnHQ7NH2b7Zl6vO8Q4C40lpNg/Nn6TW54BYNbW2O4WLDjjV7Y+
+	Rwfx5fC5hUXw1cgI94Nk8TKRVLfE6BoqD982Z7xsMG9cK2TT0IcsDMX2agfiWNZp40Uod/
+	PIYwKmlsje+Y878SRrbG8+lEoJvKE4M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789402125;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OFz8ohKQNPvuZo7ItrkkkBBy/UFIGtCsj3BWGvoA1nw=;
+	b=7ePFS6DmMKQOobXodeemLB6RTNUxVZu876vmVrRhmUOi1wfI16P47lXP6wpMeOGLwsM1w0
+	fgXKQ8trT1fq3WBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789402121; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OFz8ohKQNPvuZo7ItrkkkBBy/UFIGtCsj3BWGvoA1nw=;
+	b=gqpf7rjyXlfNPdVieJGWwHUZGRprMGcQY1nyA3yWZcd5hnic6y5T238+JFpC5NzY+nv/t/
+	bPt627PAMvxrE6n/LgzxkXygjrpSTD6XK9wRsJVrsxQ7GnygaiJ61UuVRXMFdsFk3Pkenl
+	M/xcRvQoPuTIEGIGl1DVutvdXLW3cgw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789402121;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OFz8ohKQNPvuZo7ItrkkkBBy/UFIGtCsj3BWGvoA1nw=;
+	b=4qnvxuY+7AfDm00LThcfzHKS8WlRgfrB5TLhsb9Sa9u2IGu4W3t4cZepsGM0KtxoI/PQcW
+	xKzF8+gSfPm+eOBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D7B3713693;
+	Mon, 14 Sep 2026 16:08:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1C9yMwgcqGpsFgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 14 Sep 2026 16:08:40 +0000
+Date: Mon, 14 Sep 2026 18:08:40 +0200
+Message-ID: <877bknolx3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: fix typos in comments
+In-Reply-To: <20260907063202.20577-1-hemanth.selam@gmail.com>
+References: <20260907063202.20577-1-hemanth.selam@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: dummy: free software device on configfs release
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Kees Cook <kees@kernel.org>, Daniel Baluta <daniel.baluta@intel.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260914115404.1691763-1-lgs201920130244@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260914115404.1691763-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-On 9/14/26 6:54 AM, Guangshuo Li wrote:
-> iio_dummy_probe() allocates struct iio_sw_device with kzalloc_obj().
-> The error paths free it, but after successful registration the normal
-> removal path only frees the contained IIO device, leaving the software
-> device allocation behind.
+On Mon, 07 Sep 2026 08:32:02 +0200,
+Hemanth Selam wrote:
 > 
-> The software device embeds a config_group. device_drop_group() calls
-> iio_sw_device_destroy() and then drops the config_item reference with
-> config_item_put(). Therefore, freeing the software device directly from
-> iio_dummy_remove() would free the embedded config_item before that
-> final put.
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
 > 
-> Configfs requires dynamically allocated config_items to provide a
-> release callback which frees the containing object when the reference
-> count reaches zero.
-> 
-> Add a release callback to iio_dummy_type and free the software device
-> there.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 3d85fb6f8104 ("iio: dummy: Convert IIO dummy to configfs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 > ---
->  drivers/iio/dummy/iio_simple_dummy.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
-> index 19fcdbbc11c6..7d2ff1d4a06e 100644
-> --- a/drivers/iio/dummy/iio_simple_dummy.c
-> +++ b/drivers/iio/dummy/iio_simple_dummy.c
-> @@ -23,7 +23,19 @@
->  #include <linux/iio/sw_device.h>
->  #include "iio_simple_dummy.h"
->  
-> +static void iio_dummy_release(struct config_item *item)
-> +{
-> +	struct iio_sw_device *swd = to_iio_sw_device(item);
-> +
-> +	kfree(swd);
-> +}
-> +
-> +static const struct configfs_item_operations iio_dummy_item_ops = {
-> +	.release = iio_dummy_release,
-> +};
-> +
->  static const struct config_item_type iio_dummy_type = {
-> +	.ct_item_ops = &iio_dummy_item_ops,
->  	.ct_owner = THIS_MODULE,
->  };
->  
+>  include/sound/emu10k1.h             | 4 ++--
+>  include/sound/emux_legacy.h         | 2 +-
+>  sound/core/seq/oss/seq_oss_init.c   | 2 +-
+>  sound/firewire/bebob/bebob_hwdep.c  | 2 +-
+>  sound/hda/codecs/hdmi/hdmi.c        | 2 +-
+>  sound/hda/codecs/realtek/alc882.c   | 2 +-
+>  sound/hda/codecs/sigmatel.c         | 6 +++---
+>  sound/hda/common/codec.c            | 2 +-
+>  sound/i2c/other/ak4113.c            | 2 +-
+>  sound/i2c/other/ak4114.c            | 2 +-
+>  sound/i2c/other/ak4xxx-adda.c       | 2 +-
+>  sound/isa/opti9xx/opti92x-ad1848.c  | 2 +-
+>  sound/mips/hal2.c                   | 4 ++--
+>  sound/pci/ac97/ac97_codec.c         | 2 +-
+>  sound/pci/ac97/ac97_patch.c         | 2 +-
+>  sound/pci/au88x0/au88x0.h           | 2 +-
+>  sound/pci/au88x0/au88x0_mpu401.c    | 2 +-
+>  sound/pci/aw2/aw2-saa7146.c         | 4 ++--
+>  sound/pci/cs4281.c                  | 2 +-
+>  sound/pci/cs46xx/cs46xx_lib.c       | 6 +++---
+>  sound/pci/cs46xx/dsp_spos_scb_lib.c | 8 ++++----
+>  sound/pci/echoaudio/echoaudio.c     | 4 ++--
+>  sound/pci/echoaudio/echoaudio.h     | 4 ++--
+>  sound/pci/lx6464es/lx_core.c        | 2 +-
+>  sound/pci/lx6464es/lx_defs.h        | 2 +-
+>  sound/pci/pcxhr/pcxhr_core.c        | 4 ++--
+>  sound/pci/riptide/riptide.c         | 4 ++--
+>  sound/pci/rme32.c                   | 2 +-
+>  sound/pci/rme9652/hdsp.c            | 2 +-
+>  sound/pci/trident/trident_memory.c  | 2 +-
+>  sound/pci/vx222/vx222_ops.c         | 2 +-
+>  sound/pcmcia/vx/vxp_ops.c           | 2 +-
+>  sound/ppc/tumbler.c                 | 2 +-
+>  sound/usb/mixer.c                   | 4 ++--
+>  sound/usb/mixer_us16x08.h           | 2 +-
 
-Should we switch the alloc to a devm_ function instead to keep it
-simpler?
+That's way too spanned than wished.  Could you try to split a bit
+more?  Not necessarily one by one, but the current form is too coarse,
+and it can be problematic when backporting a fix patch in future, too.
+
+
+thanks,
+
+Takashi
