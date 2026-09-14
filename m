@@ -1,462 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A21F383C8F;
-	Mon, 14 Sep 2026 18:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EB439A06D;
+	Mon, 14 Sep 2026 18:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410899; cv=none; b=XN6pWYzpVP9sJSmvCEOLuKAu8PuwBZV9NTGQZ7lCTAFvntC3+zu3IxSyx2lMOfiUp5ey/wQPB3TXRTZxGGfS7z68obRrT+A8haAa8Rl/q626RKMRHtEdDr2U0X2h3+RPQR7MJ6qH0Fq2JuIOz2I5ekxEVnUQyeSc99vECgotjOk=
+	t=1789410902; cv=none; b=ZKYZGmWHlqy6v3uzInCj8Aq59odcSgww8o7wgLVhbRgtQtAZI0jqfBKXlVyphf4CoC18VWenH/v6mRyJnMM+hEEOgn6X9wiPSfcgohjDC5KicurxbdjuqKBfS/LnB5SBsAREKKLLfwoOAKZiHnZjhgRs4XWPV1dpyFRP2znkGvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410899; c=relaxed/simple;
-	bh=3lIXPtDUgBXRidsf49KK0oHbEjfSUCrSXk7ZgvF4kIY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hbRF+M8dOndrxwZ0fahqmr79uBJKISOVk8yaDwdXxQ7AEz12WDVG7fZd2mCPTb8A+1Mu0ts69eCK+KlRaU0mrMF6QD5bJHDbmHkGGJqIPo0GGlG+mQSF5s3OHVKAa98Ey+tMsR39wvHjXeW62lCiAlIDbtuAuAsE8AWegA1KXIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAxcNaWe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789410902; c=relaxed/simple;
+	bh=B/KhOE/cPA5wuGhVuSxvGslGu9BTJq+GgxVblXAqPlo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hf7n//lRkXh11j2x7KunQH0dGBNTUpqhmpT0T/4bPLlIub9iFNsL5pNYDA+h+3pKXyGp+wvWzQozr9+Z7ol/6J8Z1iQ8Eeh46JdkJwPlguVlcR/ZYN3cG/1uQjMXCAQrIsQEH2L2mUhuRQOYgto4BAIzyuGYkPGH/PA4eholUlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=etFSTt+8; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAxcNaWe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DCDA1F000FF;
-	Mon, 14 Sep 2026 18:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789410895;
-	bh=fT9VbBQtyj7Ran4uSvsCEacPj44k52lVpIGpJDb2jeU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VAxcNaWeNvyPyNFhW32Y/QqV11W5Hozjb9AglAQpjUZlbpiNlk+12giJGgg5cAXbi
-	 kXSJA4mFxCSuqJXRewPbJWdboSP7HErNKNH0vbzLXgzfQy7Njiy8cnkDxbPLOlslQ/
-	 JSdJA/R6i3zG4V91Y6QrNMpiTnNmO2xMCk0Xp/2AS792ROnRDhy4rX/MAdNeWvCbRQ
-	 idgSXeOed55SkafoM6pdMWwV6dJf8ib/QQ2zTnm899uL3Xvy7EQNNrArM1LNyT/YIX
-	 EmLq5Q6i40RphacFGnIHUtubqv601PMfeSe1yg1jO0zhGGMwli7ZWxVuzWLmu4MggM
-	 PCy6mpTtiuSQg==
-Subject:
- Re: [PATCH net-next v15 3/6] driver core: add device_schedule_reprobe()
-From: netdev-bot+sashiko@kernel.org
-To: daniel@makrotopia.org
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
- rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- netdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
-Date: Mon, 14 Sep 2026 18:34:53 +0000
-Message-ID: <178941089370.22033.284426349094277915@kernel.org>
-In-Reply-To: =?utf-8?q?=3C9dc69bcb070cd955a831d709fe280f8d98f98a86=2E1789175?=
- =?utf-8?q?618=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-References: =?utf-8?q?=3C9dc69bcb070cd955a831d709fe280f8d98f98a86=2E17891756?=
- =?utf-8?q?18=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="etFSTt+8"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id D55435340313;
+	Mon, 14 Sep 2026 20:34:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789410889;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=eSQ1KHTYxMqP644PbBgyA/dOPDLer74IQYxGcMnJfUA=;
+	b=etFSTt+8ptYo4K+cR2gJYnXD8B4G3ZuMtll5cEaDNDktWBL3s5VSOPK2USP1SW3NFlkRWq
+	SF/FUFcs4EyVMUigZfyLJ1iyNm0M85UDjLpXIruQrRTF9sWi15FhMLZI7Mqp4MpiV43bjC
+	1/l/pb1SDjvbRLD0KisEGP34f4Lu50M=
+Message-ID: <9ada2cc5-1f2e-48fa-a170-052fe33dff29@ixit.cz>
+Date: Mon, 14 Sep 2026 20:34:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider:
-
-Critical: 0 · High: 1 · Medium: 4 · Low: 2
-
-- [High] The '!defer_all_probes' test in device_reprobe_work_fn()
-  (drivers/base/dd.c:1473) does not serialize the deferred detach…
-- [Medium] The commit message justifies the new helper entirely with live
-  bugs in three named in-tree drivers (iwlwifi iwl_trans_reprobe_wk(),…
-- [Medium] device_schedule_reprobe() acquires device_lock(dev)
-  synchronously in the caller's context (drivers/base/dd.c:1539) to…
-- [Medium] device_schedule_reprobe() snapshots dev->parent and pins it
-  under the device lock (drivers/base/dd.c:1540-1550), relying on the…
-- [Medium] The deferred detach checks defer_all_probes only once
-  (drivers/base/dd.c:1473), but __device_release_driver() transiently…
-- [Low] device_schedule_reprobe() records the bound driver as a raw
-  pointer (rp->drv = dev->driver, drivers/base/dd.c:1551) and…
-- [Low] The kernel-doc states 'In particular a device left unbound by an
-  administrative unbind stays unbound', but device_reprobe_work_fn()…
-
---
-
-driver core: add device_schedule_reprobe()
-
-This adds a driver core helper that schedules a delayed detach and
-re-probe of a device on system_freezable_wq, recording the bound driver
-and parent under the device lock at scheduling time.  It also changes
-__device_release_driver() to report whether it was the caller that
-released the driver.
-
-A few questions below.
-
-The first one is about the commit message rather than the diff.
-
-[Severity: Medium]
-
-The message opens with three named in-tree drivers:
-
-  "Three in-tree drivers schedule a deferred re-probe of their own device
-   from a work item whose work function lives in module text: iwlwifi
-   [...] hci_h5 (h5_btrtl_resume(), ...) and btintel_pcie ..."
-
-and then concludes:
-
-  "Both classes disappear when the driver core owns the deferred work."
-
-None of the three drivers is converted here, and there is no Fixes: tag,
-so both bug classes remain live in the tree at this commit.  In
-drivers/bluetooth/hci_h5.c the reprobe worker still ends with
-
-    put_device(reprobe->dev);
-    kfree(reprobe);
-    module_put(THIS_MODULE);
-
-and btintel_pcie still calls device_reprobe() synchronously from its own
-reset work.
-
-Can the last two actually use the new helper as written?  h5_btrtl_resume()
-is reached from the serdev ->resume callback, which the PM core invokes
-with device_lock(dev) held (device_resume() in
-drivers/base/power/main.c), while device_schedule_reprobe() takes
-device_lock(dev) itself.  btintel_pcie needs the detach to have completed
-by the time its FLR path returns, which a fire-and-forget delayed work
-with no completion or result cannot express.
-
-Could the rationale be reworded to describe what this patch actually
-changes, or the conversions be included?
-
-Also, the actual user of the new export is not named anywhere above the
-line; it arrives later in the series as "net: dsa: mxl862xx: add devlink
-flash_update and info_get", so the no-in-tree-caller half of this is
-resolved there.  Only the overstated motivation is at issue here.
-
-> diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-> index f6525a7ee8c54..aa1f278d0ee29 100644
-> --- a/drivers/base/dd.c
-> +++ b/drivers/base/dd.c
-> @@ -1315,7 +1315,7 @@ EXPORT_SYMBOL_GPL(driver_attach);
->   * __device_release_driver() must be called with @dev lock held.
->   * When called for a USB interface, @dev->parent lock must be held as well.
->   */
-> -static void __device_release_driver(struct device *dev, struct device *parent)
-> +static bool __device_release_driver(struct device *dev, struct device *parent)
->  {
->  	struct device_driver *drv;
->  
-> @@ -1336,7 +1336,7 @@ static void __device_release_driver(struct device *dev, struct device *parent)
->  			 */
->  			if (dev->driver != drv) {
->  				pm_runtime_put(dev);
-> -				return;
-> +				return false;
->  			}
->  		}
-
-[Severity: Medium]
-
-The loop this return sits in drops both locks and, on re-acquisition,
-only re-validates dev->driver:
-
-drivers/base/dd.c:__device_release_driver() {
-	while (device_links_busy(dev)) {
-		__device_driver_unlock(dev, parent);
-		device_links_unbind_consumers(dev);
-		__device_driver_lock(dev, parent);
-		if (dev->driver != drv) {
-			pm_runtime_put(dev);
-			return false;
-		}
-	}
-
-The new caller checks defer_all_probes exactly once, before entering
-here.  Can device_shutdown() take device_lock(parent)/device_lock(dev) in
-that unlocked window and run ->shutdown()?  ->shutdown() does not change
-dev->driver, so the release then resumes and calls device_remove(), i.e.
-->remove() against already-quiesced state.
-
-For the driver class the commit message names, "drivers which clear their
-drvdata in ->shutdown() so that a subsequent ->remove() becomes a no-op",
-that is the use-after-free of driver state the helper is introduced to
-prevent.
-
-The message describes this window as pre-existing and
-
-  "not made worse by this helper."
-
-Is that accurate?  Every pre-existing unbind path with this window needs
-an administrator action, whereas this helper turns an asynchronous
-in-kernel event (firmware crash recovery, a devlink flash) into an unbind
-that can coincide with an unattended reboot.  Would re-checking
-defer_all_probes after the device links loop re-acquires the locks close
-it?
-
-[ ... ]
-
-> @@ -1436,3 +1439,122 @@ void driver_detach(const struct device_driver *drv)
->  		put_device(dev);
->  	}
->  }
-> +
-> +struct device_reprobe {
-> +	struct delayed_work work;
-> +	struct device *dev;
-> +	struct device *parent;
-> +	const struct device_driver *drv;
-> +	bool parent_lock;
-> +};
-> +
-> +static void device_reprobe_work_fn(struct work_struct *work)
-> +{
-> +	struct device_reprobe *rp = container_of(work, struct device_reprobe,
-> +						 work.work);
-> +	struct device *parent = rp->parent;
-> +	struct device *dev = rp->dev;
-> +	bool detached = false;
-> +	int ret;
-> +
-> +	/*
-> +	 * A device unregistered before the work runs may have outlived the
-> +	 * module providing its bus type, so dev->bus is not read until the
-> +	 * device is known to be live.
-> +	 */
-> +	if (rp->parent_lock)
-> +		device_lock(parent);
-> +	device_lock(dev);
-> +	/*
-> +	 * rp->drv is only ever compared, never dereferenced: the driver it
-> +	 * points to may have been unregistered and freed by now.
-> +	 * device_shutdown() blocks probing before its walk reaches @dev.
-> +	 */
-> +	if (!defer_all_probes && !dev->p->dead && dev->driver == rp->drv)
-> +		detached = __device_release_driver(dev, parent);
-
-[Severity: High]
-
-Is this plain read of defer_all_probes enough to order the deferred
-detach against device_shutdown()?  Nothing registers, cancels, flushes or
-waits for this delayed work, and device_shutdown() only does:
-
-drivers/base/core.c:device_shutdown() {
-	wait_for_device_probe();
-	device_block_probing();
-
-wait_for_device_probe() waits on deferred_probe_work, probe_count and
-async probes, none of which covers this work item.  So:
-
-CPU0 device_reprobe_work_fn()
-	device_lock(dev);
-	/* reads defer_all_probes == false */
-
-CPU1 device_shutdown()
-	wait_for_device_probe();	/* does not see this work */
-	device_block_probing();		/* defer_all_probes = true */
-	/* walk reaches dev, blocks on device_lock(dev) */
-
-CPU0 continues
-	__device_release_driver(dev, parent);	/* ->remove(), driver = NULL */
-	device_unlock(dev);
-
-CPU1 then finds dev->driver == NULL, so neither dev->bus->shutdown nor
-dev->driver->shutdown is invoked for this device, and CPU0's subsequent
-device_attach() returns -EPROBE_DEFER from really_probe() because
-defer_all_probes is now set, which the error filter below drops silently.
-
-Does that leave the device neither shut down nor bound, which is the
-class 2 behaviour the message says is closed:
-
-  "The detach half is skipped while probing is blocked, which
-   device_shutdown() does before its walk reaches any device. A re-probe
-   firing during shutdown therefore leaves the device bound, and its
-   ->shutdown() callback still runs."
-
-The freezable workqueue does not help on this path: kernel_restart() and
-kernel_power_off() reach device_shutdown() without freezing processes or
-workqueues, unlike dpm_prepare().
-
-> +	device_unlock(dev);
-> +	if (rp->parent_lock)
-> +		device_unlock(parent);
-> +
-> +	if (detached) {
-> +		/*
-> +		 * device_attach() must run with the parent locked on buses
-> +		 * that require it, mirroring bus_rescan_devices_helper().
-> +		 */
-> +		if (rp->parent_lock)
-> +			device_lock(parent);
-> +		ret = device_attach(dev);
-
-[Severity: Low]
-
-The kernel-doc below promises "In particular a device left unbound by an
-administrative unbind stays unbound", but the device and parent locks are
-dropped between the detach above and this device_attach().  Can an unbind
-landing in that gap be silently undone?
-
-drivers/base/bus.c:unbind_store() {
-	if (dev && dev->driver == drv) {
-		device_driver_detach(dev);
-		err = count;
-	}
-
-The dev->driver == drv test runs without the device lock, so if it passes
-just before the work detaches, device_driver_detach() ->
-device_release_driver_internal() finds dev->driver == NULL,
-__device_release_driver() returns false, unbind_store() still returns
-count, and this device_attach() re-binds the device.  In-kernel callers of
-device_release_driver() see the same no-op.
-
-The new __device_release_driver() return value covers the narrower race
-inside the device_links_busy() loop, where the competing unbinder did
-perform the release; it cannot detect an unbind that released nothing
-because the work got there first.
-
-> +		if (ret < 0 && ret != -EPROBE_DEFER)
-> +			dev_err_probe(dev, ret,
-> +				      "re-probe failed, device left unbound\n");
-> +		if (rp->parent_lock)
-> +			device_unlock(parent);
-> +	}
-> +
-> +	put_device(dev);
-> +	put_device(parent);
-> +	kfree(rp);
-> +}
-> +
-> +/**
-> + * device_schedule_reprobe - schedule a deferred detach and re-probe
-> + * @dev: device to detach and re-probe
-> + * @delay_ms: delay in milliseconds before the re-probe runs
-> + *
-> + * Schedule a detach and re-probe of @dev after @delay_ms milliseconds.
-> + * The re-probe is skipped if, by the time the scheduled work runs, the
-> + * device has been removed, probing has been blocked for a system
-> + * shutdown, or @dev is no longer bound to the driver that was bound at
-> + * scheduling time. In particular a device left unbound by an
-> + * administrative unbind stays unbound.
-> + *
-> + * The work function is built-in text, so the bound driver may call this
-> + * from its own code without holding a module reference. If the driver
-> + * module is unloaded before the work runs, driver unregistration unbinds
-> + * @dev first and the scheduled work does nothing.
-> + *
-
-[ ... ]
-
-> + * The work is freezable: a re-probe pending across system suspend runs
-> + * once the system has resumed.
-> + *
-> + * May only be called from process context, and not from @dev's own
-> + * ->probe(), which is called with the device lock held.
-> + *
-> + * Returns: 0 on success, -EINVAL if @dev is not a registered device
-> + * bound to a driver, -ENOMEM on allocation failure.
-> + */
-> +int device_schedule_reprobe(struct device *dev, unsigned int delay_ms)
-> +{
-> +	struct device_reprobe *rp;
-> +	struct device *parent;
-> +
-> +	rp = kzalloc_obj(*rp);
-> +	if (!rp)
-> +		return -ENOMEM;
-> +
-> +	/* device_del() drops @dev's own reference to the parent. */
-> +	device_lock(dev);
-
-[Severity: Medium]
-
-device_lock() is a plain mutex_lock(&dev->mutex) and is not recursive, so
-does this hang any caller that already holds @dev's lock, rather than
-just the ->probe() case the kernel-doc mentions?
-
-The PM core holds the device lock across the driver sleep callbacks:
-
-drivers/base/power/main.c:device_resume() {
-	device_lock(dev);
-	...
-	error = dpm_run_callback(callback, dev, state, info);
-
-	device_unlock(dev);
-}
-
-The same applies to ->suspend, ->prepare and ->complete, and to ->remove
-via __device_release_driver() and ->shutdown via device_shutdown().
-
-One of the three call sites this helper is written to replace is exactly
-such a context: h5_btrtl_resume() is reached from h5_serdev_resume(), the
-serdev ->resume, and it defers device_reprobe() into its own work item
-because the device lock is held there.  Would moving the validation and
-snapshot into the work function, as those drivers do, avoid this?  If not,
-could the documented contract name the PM callbacks, ->remove() and
-->shutdown() as well?
-
-> +	parent = dev->parent;
-> +	if (!dev->bus || !dev->p || dev->p->dead ||
-> +	    !device_is_registered(dev) || !dev->driver) {
-> +		device_unlock(dev);
-> +		kfree(rp);
-> +		return -EINVAL;
-> +	}
-> +
-> +	rp->dev = get_device(dev);
-> +	rp->parent = get_device(parent);
-
-[Severity: Medium]
-
-The comment above says device_del() takes the device lock before dropping
-@dev's reference to the parent, but device_move() also reassigns
-dev->parent while holding only device_pm_lock():
-
-drivers/base/core.c:device_move() {
-	old_parent = dev->parent;
-	dev->parent = new_parent;
-	...
-	put_device(old_parent);
-}
-
-It never takes device_lock(dev), and the device stays registered and
-non-dead throughout, so all the checks just above pass.
-
-Can that put_device(old_parent) free the parent between the read of
-dev->parent and this get_device(parent) when the child held the last
-reference, making the get_device() a kobject_get() on freed memory and
-the later device_lock()/device_unlock()/put_device() in
-device_reprobe_work_fn() operate on it too?
-
-And even when the old parent survives, rp->parent is stale for the
-lifetime of the work, so the work pins and locks a device that is no
-longer dev->parent on buses that set need_parent_lock.
-
-No in-tree caller combines the two today: the user added later in this
-series operates on an mdio_device, and the device_move() callers (ccw,
-dasd, rfcomm, pvrusb2, u_ether, hci_sysfs) do not use this helper.
-
-> +	rp->parent_lock = parent && dev->bus->need_parent_lock;
-> +	rp->drv = dev->driver;
-
-[Severity: Low]
-
-Since rp->drv is a raw pointer used only for address equality in the
-work, and the comment there accepts that it may point to freed module
-data, can address reuse make the comparison match a different driver?
-
-If the driver module is unloaded and another module is loaded during the
-caller-chosen delay, a new struct device_driver can land at the same
-address; if the pinned device is then bound to that driver (driver_override
-or a matching bus id), dev->driver == rp->drv passes and the work unbinds
-and re-probes a device the administrator deliberately bound elsewhere.
-
-That contradicts the kernel-doc statements that the work is skipped when
-@dev "is no longer bound to the driver that was bound at scheduling time"
-and that "a device left unbound by an administrative unbind stays
-unbound".  Would a generation counter, or additionally comparing the
-driver name, close it?
-
-> +	device_unlock(dev);
-> +
-> +	INIT_DELAYED_WORK(&rp->work, device_reprobe_work_fn);
-> +	queue_delayed_work(system_freezable_wq, &rp->work,
-> +			   msecs_to_jiffies(delay_ms));
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(device_schedule_reprobe);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1789175618.git.daniel%40makrotopia.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] backlight: qcom-wled: Fix NULL pointer dereference
+ in PM callbacks
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Kiran Gunda <quic_kgunda@quicinc.com>,
+ Marco Mattiolo <marco.mattiolo@hotmail.it>,
+ =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Joel Selvaraj <foss@joelselvaraj.com>, stable@vger.kernel.org
+References: <20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz>
+ <20260914-qcom-wled-backlight-v3-1-d69fe9843841@ixit.cz>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260914-qcom-wled-backlight-v3-1-d69fe9843841@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 14/09/2026 20:14, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> wled_probe() doesn't set the driver data for the platform device.
+> As a result, dev_get_drvdata() in wled_remove() will return NULL,
+> leading to a NULL pointer dereference afterward.
+> 
+> Set the platform device driver data in wled_probe().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: feeab87b3072 ("backlight: qcom-wled: Add support for short circuit handling")
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>   drivers/video/backlight/qcom-wled.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+Please ignore this [1/4] patch, so at least the rest get fixed.
+In next series, I'll omit this one (I thought it's easy drop in fix for 
+critical, but seems not).
+
+David
