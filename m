@@ -1,140 +1,104 @@
-Received: from mail-oa2-f11.google.com (mail-oa2-f11.google.com [74.125.231.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C283313E2C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E640D2E7165
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351822; cv=none; b=iTn3bxqA25sbHddwxZx1kCldkfD6Y5F4xWJGPxg4KSDgZPpJV0NVO8ZFU5jxnIsibJYCywkUyU98eDqUXBiwuE9KD/eaAYvNtKgbSj1pm2/8lYvmujrPYnGQmgDhtbmlzSERo039bDHzxtjGONUr8eAsRQff0Lwws92eGghQ0UU=
+	t=1789351982; cv=none; b=hUK9htYeohI9Nn2sO81GV0ZW+K9dOuU9oMlvvu215FKSbNTXPCjToaN7pDQOJ22UoI/KY2LnfQQAeqz88hzbqjeTtFv4KKHy2XEh8yxPWEzki2jhR5u0XrBU+VjdZt6tkseykptvOJovqy/ir35uBvIzTVX+gF82FQTyILkyXqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351822; c=relaxed/simple;
-	bh=bPg7ibmMjA3YZEMkxh8P9EgsDt2Ehcjuozj55lALu8k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ldgvj/Vu88uxfhfjRDGzZ5OaSu8fbvwk8gCGw5uNHBceLlhi6atL8ihKyeQ3d3Y25BU+A1+sNddT2L7KPzdgWzqlMstgh4AAUF6TN4IwMaGRoao3ksokGC7Lcn7yPu7GeMpKz3OrCTBArbCOxrZlrBhTGVy2Ck4R1UJG8MQOnW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3D7XFKf; arc=none smtp.client-ip=74.125.231.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789351982; c=relaxed/simple;
+	bh=V2rsfeLZpm8xn3VH7t1leM24nu/j5im0/EZzhCY1pew=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i3oZbRc3JQRwACOKP0rWq0+DHz53v/qQNmbOgWEr7CdXt0eM9U/Lje+cqoGzaYbpHUcTu5viJktnl/KpfXZykUN1FXd7uTt8PhBI+uUrLxTw2xj0ijrxaRjaD8A7B3Frpw2JtfnxWLbYVtpYwxTy8oD76FquV9Hjk3PVzROvwNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=QjQww+gx; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3D7XFKf"
-Received: by mail-oa2-f11.google.com with SMTP id 586e51a60fabf-457e289483bso396103fac.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:10:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789351819; x=1789956619; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
-        b=b3D7XFKfHqsLVfQKG2TiPW+iYSKzigASyTdAkcdaMF3XMANEb9JnI46WHKcdKmz3MG
-         LSUOcGfj8n2omjKwEesuQS4f6VGSfFs4ISrrHxUDh4iGXWR8q0zocORJvM3tvgtZs8Fq
-         YNRaaoC1w0yN2QxVGHSWCfLynhRhyIGe3n5lmswRR7YYlErSHETPxhRFkHe3/oHqC7Ke
-         ZyhcD15nC4ickp3eWKrE3g+xPkcDeHGCzRpU2fk+R0sYt3tEI6UpOldlGNv7rKGzMT/e
-         tMI+C15lDe1mbL9NXJJfZrXQjC0q5ZyHIpfXFwcSZKFqsgfC3hICYYoZLNfkIt5FKZ8v
-         Qieg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789351819; x=1789956619;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
-        b=pL2JeltUvqDhpxM7bP8GPLvZBP8fXbtz7n/vvyTp0G3nSvbrby1VHzQPvJbxvwo5Nm
-         xC7vDrCWtS2d4LurRCdp5rrZRtTtAgOS9TPLYdMTdSxtON8kSyGrMOcKWJ+vOUP0sC80
-         z51YPtVlGQPXiZS6pHbqi2PofElfm453HatEtg0XZyY4mZjVKhAaf97DZ/zhKe2I4GtC
-         qIWVGr4iBteIbjeE7aGru4WqjqjmqMgTSCtetEhXfyTCpexXlwVxfKOu/en9t3eGnR7A
-         oGtGo+9xOoQbH32ZUVBPJkd0PO3Kdzq7HwMKT8CGF6R3zsYRf/nROVhHb64Sy/CVKtEp
-         2WKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKtbtg93vRLIVeAy2z3HU6CIFUeqz05UxZl3mSOmjCW3g1qqJfIJnBwGovexTHwp1pN5flmTVbnqc3gAM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsiaCu0ghQPsBIr7yVjGkObh/PCmQ5AYRw0goWN49EmlYxrNYu
-	Sae3nXs2XZKjWxQnkeXAG58nGp0pwweyuaDWC1on46wbewDl+3xpAHKG
-X-Gm-Gg: AYBFou0FOiVZhAGRBY4/hf9ruBkufBxgPIWtju7ODmSoa1BOrChZSSrleyHpV3DriZj
-	9slqrAbssvxvI7tqCi8jiXLc0sswL2AKBG/gLx5h1hmeQYpiT+AyBeHHgoMFTb/63mGBKaKMATk
-	hEbuShmzfOeaqJ+5HMd5jjUhY/4yfNFHNgLyY8eYS5vbyblZkUlYw8ir1bspyt2YfPoDmekyJNS
-	U1Mfpzj5ck1qojHirbLDxFVnC+kIoQSc5Rc+QKREEvPOsx2j39XIjAqxIFNjFh1RmTJWGmOQFmk
-	MtV4d1P8NPyb08w6AkxjdueVnHjsijtOmousK0+zwh4UHW95DCk4tPubXg8mC5w26N9mv5Tc6R8
-	R9nlPUuGurKQom52/Bk01LdiMDJNJjDcJwmGwugmBK4EMB3zxc7xYoyWSqyI4icMwQTpExXQGQr
-	z9AklLlMHy8PZa6s6WDM/ncCm8sSaCIAHMK0OJ2kOJUTNXJvmyf+xqsbXPZpvC80yGKxg=
-X-Received: by 2002:a05:6830:6f81:b0:7dc:e78b:158 with SMTP id 46e09a7af769-808846c49d6mr223406a34.4.1789351819296;
-        Sun, 13 Sep 2026 19:10:19 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 19:10:18 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sun, 13 Sep 2026 21:09:55 -0500
-Subject: [PATCH v3 4/4] drm/imagination: suspend the GPU for system sleep,
- not just runtime PM
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QjQww+gx"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789351969; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=AapbX71K+AOCTga7+D27TAlEiW7241CrDMio+nr39S0=;
+	b=QjQww+gxD2MuKINETfD3syMfOWfqUuIi1SgYFWNdxC1TK1dzrEvDyNuI9YT81xtKorwuM1gnLu8qAoXByaR29c00p66z1wALrqgDxTkNNypa2/msXn0y0zjsonnzpJKXSW2o57Q5oVNU94jkTtydZ2DbtxB4xehBMYiwTHYh7GQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XAq.rRE_1789351968;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAq.rRE_1789351968 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 14 Sep 2026 10:12:49 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	hughd@google.com,
+	david@kernel.org
+Cc: ziy@nvidia.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	ljs@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mm: shmem: ignore sysfs configs for shmem forced collapse
+Date: Mon, 14 Sep 2026 10:12:41 +0800
+Message-ID: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-4-674b907d0652@gmail.com>
-References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
-In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=2092;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=bPg7ibmMjA3YZEMkxh8P9EgsDt2Ehcjuozj55lALu8k=;
- b=sogxAc49G5Crj4suR69BUpnafPaK3iEZJ21gP+/t5/X1rHiNPL/wGtJylh4kP0QilF0ofUwbs
- zFmkUpjGYCjBpyiOvH7tdGZx1THU442gXZOr+oZFMppu9B+n33ZMqen
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Content-Transfer-Encoding: 8bit
 
-pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for
-system suspend. That works only while it happens to be runtime-suspended
-when the system goes down. If it is runtime-active, genpd counts it as
-suspended anyway and turns the power domain off. After resume the driver
-still believes its firmware is running, the first firmware operation
-times out, and pvr_power_reset() is entered from inside an ioctl's
-drm_dev_enter() section, where its drm_dev_unplug() waits for that very
-section: the caller is left in an unkillable D state and the GPU is dead
-until reboot. On mt8173 it is deterministic:
+According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected to
+ignore any THP or mTHP interface settings.
 
-  echo on > /sys/devices/platform/soc/13000000.gpu/power/control
-  echo mem > /sys/power/state          # wakes on an RTC alarm
-  vulkaninfo --summary                 # hangs in D state, every time
+However, after commit 26c7d8413aaf ("mm: thp: support "THPeligible" semantics
+for mTHP with anonymous shmem"), performing MADV_COLLAPSE on shmem will
+depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "inherit"
+(although that is the default), which can cause MADV_COLLAPSE to fail
+unexpectedly.
 
-With the default 50ms autosuspend delay the same bug is intermittent in
-ordinary use, depending only on whether the GPU was idle at the instant
-of suspend.
+Fix this by returning the result of shmem_huge_global_enabled() directly
+when MADV_COLLAPSE is requested, allowing PMD-order collapse while ignoring
+shmem THP/mTHP settings.
 
-pvr_power_device_suspend() already disables the firmware and powers the
-GPU off and pvr_power_device_resume() is its inverse, so drive both for
-system sleep with the force helpers. The reset-path deadlock is a
-separate bug; this only stops the system-sleep path from reaching it.
-
-Fixes: 727538a4bbff ("drm/imagination: Implement power management")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Fixes: 26c7d8413aaf ("mm: thp: support "THPeligible" semantics for mTHP with anonymous shmem")
+Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shutemov.name/
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 ---
- drivers/gpu/drm/imagination/pvr_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes from v1:
+ - Use the correct fixes tag (per Kiryl).
+ - Collect reviewed tags from Kiryl, Zi and Lance. Thanks.
+---
+ mm/shmem.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 20b27a468327..b7931f75832f 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1527,6 +1527,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index c92ed17dbc4a..b572c60f2af8 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -2049,8 +2049,11 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
  
- static const struct dev_pm_ops pvr_pm_ops = {
- 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- };
+ 	global_orders = shmem_huge_global_enabled(inode, index, write_end,
+ 						  shmem_huge_force, vma, vm_flags);
+-	/* Tmpfs huge pages allocation */
+-	if (!vma || !vma_is_anon_shmem(vma))
++	/*
++	 * Tmpfs huge pages allocation or forced collapse ignores
++	 * sysfs configs.
++	 */
++	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
+ 		return global_orders;
  
- static struct platform_driver pvr_driver = {
-
+ 	/*
 -- 
-2.55.0
+2.47.3
 
