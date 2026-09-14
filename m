@@ -1,75 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CEB384245;
-	Mon, 14 Sep 2026 18:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DB437F73E;
+	Mon, 14 Sep 2026 18:20:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409983; cv=none; b=hCZooqgUYK+3w1G2JeZQ8ZsEAlKCNNrwTaHl9TrwcFTI34i4wF6K8Txchcd3bH10gxw3dwmM24bEHqc5C3A3EBgv9q0QzAHwv6eznAv/B+UdzdahX1ZI799jXrTeDSWiLhA7lKk6fC9PBILq3MP4OrOb2QHKgG9e/eh7Q2+AXrI=
+	t=1789410039; cv=none; b=XLQSudMG/1YHupmi6hi+0UKUFnJecPJf9DW4Pnz7VabcUfKNfpLHG+dcfCYF16tA2sE8BiVlqVlaFIQTez9zC+m02SxrmKnbWRxVqwIbTL/E6S50psQtMuX6QP0H52PFoj5VPpPxIcATvfU3FozpWN8Ro9Uq6IIjgXzwJ3NS3XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409983; c=relaxed/simple;
-	bh=G0mIIrJvt2wcv6ID4m2Trh4N74dGIV1/R1kU7vWY/zE=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=kRWByUkX+IRyOJuDtJPcCQzCLj62rm5RSJwV9O1yMve8rlNqnd0DGUgiuIbNkB9j3haRaiMsP+9PBxiI+S/NBzrVc9hx4/l1u1fK/tzA5xhUCkDTswYMlYiVS2nYdNZ1J0Co3dh4k2+1t64RKh6Tex3qXJ3iLIj8J8LEtc5lHko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1AbA6KGu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789410039; c=relaxed/simple;
+	bh=MEaXe9dupgJ0dG2A4T12VxNnwmrUzDtVuI12PJzSipA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fY0r2LZLz3OajUNOe1Nsg6fDB17Yvsw+UjnQxHxnR9pjsxiIOk5hwlS+aYAINIWQOuiRQgkb1fIhVpqf4XpMoOC6Vnoe2vHEOOOa4gey4Oedf441eH1PKwy8sTfY0SwFwkswDtq7oOCXQTbaRuE9fmAIkmzxRTcr51vEP+jfZ+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvldngbW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1AbA6KGu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1621F000FF;
-	Mon, 14 Sep 2026 18:19:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789409980;
-	bh=VsN3qekiQiOy09Vr8Cs8x5ZTMlfTLINzP6aEinGBmkQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=1AbA6KGuVDMishj6sWpf+J0Yo8lpG41mjxhzMvhE4n/2vzd6pSMPclU1hqG7IBrEj
-	 wFwinYN1rKC+IPUWW4zmpuNC75nrU+ShelM6YUViiCar2Mr6EUTbekti8s1lj0Ibz5
-	 lf05BQ8f4aek3KJ/cqOmZg1bvjb79gPZha2U3Ouc=
-Date: Mon, 14 Sep 2026 11:19:40 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, surenb@google.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge
- zero PMDs
-Message-Id: <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
-In-Reply-To: <f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
-References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
-	<20260913072312.52111-1-lance.yang@linux.dev>
-	<aqfRCPheDYTgTdAk@thinkstation>
-	<f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvldngbW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7981E1F00893;
+	Mon, 14 Sep 2026 18:20:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789410037;
+	bh=X5/3wKCFByuy6e88F7rJyETuzHjSkMYrTqWcd9TEpQ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bvldngbWosfU/oHiD8GXR3NP8txBLkmvDyR35wKlhJg+vzFmj3e7GATldnngsX08t
+	 oRUkhLRYqRHhKT1VXPRELWKtThYQ4sClvZMhzkuquvXfjtMbrRSDyAIVxSKroZPP37
+	 9UUlco+kYFfTJDzvlDruBR7Lqyc+gQH+HCHCZT13MiObRuC5PPDF6dnD91+8ai9DOd
+	 3O+/4AfL73gs8zMBf1t8sTrzSja6GUM2z1mdK+2uzYKpeUo2fR+7bSz6QCmIqb4EmS
+	 Bv5yAYn0TNBiyVoGZNQUiZPKKvV1k+xmTw/SJ7i7XarsjfMwhBisfmrUenRJgmLD44
+	 bvfiJnF+AUgag==
+Date: Mon, 14 Sep 2026 11:20:37 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 17/21] objtool: decode instructions and resolve branch
+ targets in parallel
+Message-ID: <202609141112.F8983EE9C@keescook>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-17-39817ec5db23@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-build-speedup-v2-17-39817ec5db23@kernel.org>
 
-On Mon, 14 Sep 2026 16:29:00 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Mon, Sep 14, 2026 at 10:22:16AM +0100, Lorenzo Stoakes (ARM) wrote:
+> Threads are only created for objects with 8 MiB or more of text, meaning
+> that runs involving smaller objects remain unaffected.
+> [...]
+> objtool on vmlinux.o is on the serial tail of every build that links
+> vmlinux, no-op builds are unchanged.
 
-> On 9/14/26 12:59, Kiryl Shutsemau wrote:
-> > On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
-> >>
-> >> On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
-> >>>
-> >>>
-> >>> That's the sort of thing we'd prefer to avoid.
-> >>>
-> >>>
-> >>> How real is this?  Is there a reported-by:?  Do you have a reproducer? 
-> >>
-> >> Yes, I reproduced it on x86 with a small test module. It sets
-> >> VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
-> >> huge_zero_pfn, without touching the page tables directly. A full-PMD
-> >> munmap() crashes before the split series[1] as well.
-> > 
-> > Ah. So there's no real bug upstream, right?
-> 
-> Matches my understanding.
+This isn't limited to vmlinux.o, though? With CONFIG_X86_KERNEL_IBT
+(default y on x86_64), delay-objtool is set in scripts/Makefile.lib, and
+objtool then runs on every multi-object module, in the middle of the
+parallel part of the build. In an x86_64 allmodconfig build here,
+amdgpu.o has 46.2 MiB of executable text and i915.o has 10.2 MiB, so
+each of those objtool runs gets 16 threads on top of the -jN jobs that
+are already running.
 
-Thanks.  I'll remove cc:stable, move this into mm-unstable as a
-next-merge-window thing.
+Any parallelism added need to be handled by the make jobserver, not
+hard-coded anyway.
+
+> [...]
+> +/* Only an object this large, e.g. vmlinux.o, is decoded on several threads. */
+> +#define DECODE_THREADED_MIN_TEXT	SZ_8M
+> +/* Only decoding and the branch passes are threaded, so more gains nothing. */
+> +#define DECODE_MAX_THREADS		16
+> +#define DECODE_RANGES_PER_THREAD	4
+
+I just don't think a size-based approach is going to work. And any max
+parallelism needs a rationale.
+
+> +static unsigned int decode_threads(unsigned long text_size)
+> +{
+> +	const long nr_cpus = sysconf(_SC_NPROCESSORS_ONLN);
+> +
+> +	if (text_size < DECODE_THREADED_MIN_TEXT || nr_cpus < 2)
+> +		return 1;
+> +
+> +	return min_t(unsigned int, nr_cpus, DECODE_MAX_THREADS);
+> +}
+
+No, anything using _SC_NPROCESSORS_ONLN internally is wrong, whether its
+pigz or objtool.
+
+> [...]
+> +static int add_jump_destinations(struct objtool_file *file)
+> +{
+> +	return run_insn_ranges(file, add_jump_destinations_range);
+> +}
+
+I haven't examined this myself yet, but my LLM doesn't like this,
+saying:
+
+  For an internal sibling call, add_jump_destination() calls
+  add_call_dest(file, insn, dest_sym, true), and add_call_dest() calls
+  annotate_call_site(), which for --hack-noinstr profiling calls, and for
+  __fentry__ calls with --mcount --mnop, does set_reloc_type() and
+  elf_write_insn() on file->elf. The per-range shadow gives each thread
+  its own lists, but the struct elf is shared, and both helpers write to
+  the section and mark it changed without any locking.
+  add_call_destinations() is kept serial because "annotating a call site
+  rewrites instructions the dead end walks read", so it looks like this
+  path needs the same care: a lock, or deferring those writes until the
+  threads have been joined. This is from reading the code; I haven't hit
+  a failure. Was the thread sanitizer run mentioned in the cover letter
+  done with those objtool options enabled?
+
+So, take it with a grain of salt. ;)
+
+-Kees
+
+-- 
+Kees Cook
