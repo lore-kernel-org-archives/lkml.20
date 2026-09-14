@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D323E4113;
-	Mon, 14 Sep 2026 07:48:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014123E6DF5;
+	Mon, 14 Sep 2026 07:48:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372107; cv=none; b=c8pYfllXzpm+5iUJw3Q+ayYFaDr5xTxnpVbcCY+ZSoG7XjyyTbb3mYeJhyWUCMAtQ99FldbEVTCtzjWhHsFXpazU2GTa1o9JZ6fyobn1xGc02uf0Fu1gsvgvvrBEwoNhbEGeQArF4MdnVLesKt3AAzvXrDKPr8FLztVHhyldNZw=
+	t=1789372112; cv=none; b=oX42PUNnxaDlwWcmfGAUU7KH6zH+qVstjKFvdLb11P/YNPkTtwfoIVaJuSV587JNc9Ti31QYnqJfsfvdFC0JAnttUPqFuycZ9ImkN/NmiqolDFrK4u+qscwS24MgmAwcczpy9kVLdUxkWr5v6zrUANuhOBon/6cZu/f3SL7Jt2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372107; c=relaxed/simple;
-	bh=4fXomTUjLLc8GcAWZXuJxuDub+KGI7QKZdS1HcaX80c=;
+	s=arc-20240116; t=1789372112; c=relaxed/simple;
+	bh=zF4EYt/XlL1lzmM4JaV80Ba4IrqNPNrKdcvoxUVoiNk=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=T4o3ZuxH9pZkS6yrrPxAN+ABll6JmcIsDHTHX3vo06Ba5rssMQ1nCRBrs9AdB/pK94yjh4w4fBuzxonGM/bhXOePVkYQWqHmkhFOjFhUA0RrNUohAUkOhF7fNODybZQNGwsEdGeD5jA/bWbXAzoEfCNhEM4JlOL41UW+8gBqRE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLdtUM3z; arc=none smtp.client-ip=100.103.45.18
+	 References:Date:Message-Id; b=CRPJdcbheAkPjjZt29ecWKvzn4dmVualw+aqRcInJQ8V2v7mKF8y1VPVAXPoD+WX0WvjPrJOulDarzhFUWALrRitoSTPVJPwT+kmBSBIVbcwtEnkQoocbgsmPzXF0z+UL9Wa7va0IAAmrxpiHr2S/ZRYjk1u5jL8CsEaI+5wDS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OPB4CoCS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLdtUM3z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9971F000FF;
-	Mon, 14 Sep 2026 07:48:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OPB4CoCS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDDD1F00893;
+	Mon, 14 Sep 2026 07:48:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789372106;
-	bh=KClFb1VkJGLkCtI9WH4c0jXlSTsGRG9fGPGrsgOGFto=;
+	s=k20260515; t=1789372110;
+	bh=RESuNQUKZgqmJNMbknpLT8POXLSUN+8DRhun9jrOVhk=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=nLdtUM3zSn5yjHCXAQDEJt8zxWnibA6ikmvc29vVbrh8Ln3dybfNcrz11rsuUPiEH
-	 5KCUQOuV4EQE90HKBkr0a/v+1VvUJVsxbcvjzjVApP+WrhsacfI9YY0VRuBkLu+Kkd
-	 YgXkpu7rtKeyGbBpMQNP3XsuLaw0F4vuiQDXNJ3EwNQGpZveLv6/xNAJ/IOU19I/sb
-	 2qFdKNiExZ6B71Cb1V/gYrS7EqO5zgaBEJVicA5k/tU5oGlQwEcpu0XBDijLiv9kai
-	 mSqrIdhSOo41skGmUtaFAPfB32scbc46USqILXRyS8XI2lgF+Rpg/5cvUro+uG/+rf
-	 0ps/oyP1ttzlw==
+	b=OPB4CoCSQXQMwjc4/kQbLp9oJw/ADZnF4xQX7WylqQDRXdOGfX6dzStIDgj3Sozsx
+	 rwh3/JTdFukyIkZ/GTiHky3kVpGnxI3RsscJy9NPdEh5DqHzBn6BdodBmDWeVmfgv8
+	 rnU8kAg1ifc7mk/ljWmNOoBt3mEn2qCV97Ww4fCOOqWWytl2DM4x02daXvgHof7TPZ
+	 ZNU5WpkiVc8BliAonk+xAyWj9otZ3Hd8aP/wxVOEEqc9SOWf/1xC7Oy7TxyOb2do8Q
+	 6XPx+f55fVSXQoS8wDI6jEbXM2ia1SwN41WnZ5oc2eA6/469ulUmlsPAsIgzmxOqFb
+	 0oV+hP5RxrSQw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,8 +34,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 02/11] mm/sparse-vmemmap: factor out shared vmemmap
- tail page allocation
+Subject: Re: [PATCH v3 03/11] mm/sparse-vmemmap: open-code
+ init_compound_tail()
 From: Mike Rapoport <rppt@kernel.org>
 To: Muchun Song <songmuchun@bytedance.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -48,20 +48,21 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
  Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, 
  Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260911050228.58884-3-songmuchun@bytedance.com>
+In-Reply-To: <20260911050228.58884-4-songmuchun@bytedance.com>
 References: <20260911050228.58884-1-songmuchun@bytedance.com>
- <20260911050228.58884-3-songmuchun@bytedance.com>
+ <20260911050228.58884-4-songmuchun@bytedance.com>
 Date: Mon, 14 Sep 2026 10:48:14 +0300
-Message-Id: <178937209456.4188640.108482640666201896.b4-review@b4>
+Message-Id: <178937209456.4188640.17384001721839433827.b4-review@b4>
 X-Mailer: b4 0.17-dev
 
-On Fri, 11 Sep 2026 13:02:19 +0800, Muchun Song <songmuchun@bytedance.com> wrote:
-> HugeTLB and sparse-vmemmap each have their own helper to allocate the
-> shared vmemmap tail page used by vmemmap optimization.
+On Fri, 11 Sep 2026 13:02:20 +0800, Muchun Song <songmuchun@bytedance.com> wrote:
+> init_compound_tail() is only used by vmemmap_shared_tail_page(), where
+> the shared tail page setup intentionally passes NULL as the compound head.
 > 
-> Factor that logic into a common vmemmap_shared_tail_page() helper. It
-> allocates the page through vmemmap_alloc_block(), and uses cmpxchg()
-> to install the per-zone shared page.
+> Keeping this helper in mm/internal.h exposes that special case to the rest
+> of the MM code and can make the NULL head argument look generally valid.
+> Open-code the initialization at the only call site so the special-case use
+> stays local to sparse vmemmap optimization.
 > 
 > [...]
 
