@@ -1,77 +1,78 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7721B469856
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F23C3093CF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392236; cv=none; b=rdeTa5IdD4VJgfjbE4RAsNFYE+AYGS16EQ8hmDNC4in1lLr6sNfD6+3VKrPSU9amv8Xdv0oPF3u//60yQvysbL11eWV16FMJ1HOL9YX7ZxRq0NFL3oVbsyEydpUwrIR0ipAcrNHra0GZukLxrrpYmCqclVasKGq0hUg3Xza8RK0=
+	t=1789392246; cv=none; b=dP2zFSu4gZX9yNRxkQAfn0hf5IrNQUQKZqht8xk+Kdj+0nSlO38XE2KFF9qffhR5KjTZFnrgQVDc5kVb7LOKcHLjrvS1jAiS2eWx+j7Ll1zys6wEJv8VHAwCm5bamTu3hbrQnoKe5cAtqa7tWF9Kuekaz0fej0jJkrHdc3wZW3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392236; c=relaxed/simple;
-	bh=OuTIZeT/AghyPafQp3fT5mJjsC+pfQMeOe4QJeL3G+Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UON5LFCl/LxbeB/YxVjkEIat4sEm3fp3NmwH9YD0BebDQ91uyoki7Oh212NyVoWH8Czc+IP6Ra6nsrgFaCTohIS5Ej7nCYZGtqKnH/NuGOx4xMkQE1EIpa8dFvY9zh0PvuAj6RSMAv6X6G6ratDNkABMtHw2hAneQhk8i4nzEZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I9E8vfHp; arc=none smtp.client-ip=209.85.215.173
+	s=arc-20240116; t=1789392246; c=relaxed/simple;
+	bh=G0Du4BFPQbVTw82fdXa3WVWJk3Z63x/Ilv5OfimAoA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A60/ZneHJN/5aFC8733eGUvElrt3478yUq8Sq9VvvxSQYVkvWE4K96+HN2ZE1zFQ7asIUNR+RkI19PKcLtwUgIQc7teK1ARZaKQ3WvRY4NRXBIzmZgWozu3ib7YcOIHwysDah4NvRQOenY8iLNvDKaQQ19vzVShiGkH2T/STCAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GqpbaRuM; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I9E8vfHp"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4d03f95dfso1851978a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:23:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GqpbaRuM"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4aa0f1a94so1333521a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:24:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392235; x=1789997035; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M7vTzUhnMyED4pEMC1tFaqZHzEKwfASC7IbldcQj558=;
-        b=I9E8vfHpJzpnAqcqGDdNr8ASaWbC5FlcExp55dTp4FC5KQaGVPZmEVi4a6YDJ1yOXj
-         /lKpLuY1olOxiXAGjKFmQ2mb86PRi2yNW1hQRVdk1fgOaSrmbvd/IuIkysJIxtuMSqKt
-         FyhGlX0Eh53RuVyyw58eBgAXGeVq5uC+F1ACZUmcIwWUFFGN+NpAZezV4LTPNlxamyRC
-         4fXjoD58OoZWc1okDcIojYJ812dAep/Ibi9t69pn4z42Jsdk4r5LmG4XMgv7b/pIONM9
-         SlalsBBGD3m1qUMFlhrFyKDS32TUqBwVsqFNUbE3gFRUKgjuLu8USn1XIAMtxT2kkdCo
-         j9PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392235; x=1789997035;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789392244; x=1789997044; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M7vTzUhnMyED4pEMC1tFaqZHzEKwfASC7IbldcQj558=;
-        b=jpAdcFptzeWNpGDpJSXeCk7Q49VF+P9L8J5dNNvywoOmnrbch7F/9UlzgnJWCvG1qw
-         dTsALgKjFJanY5DxVoOAAcR6AVLxvLSHapLZS0I6m2sfbcrVsPrtM0Uqh9Mp8ncsFesL
-         pq6EJDz5jtsQZYaHWY2a5l3eWQOdDYCw8dUFfTYZSNw/ympPJvbA8ig8Mw5jwrOBgJDE
-         I1lUeGfB8gquPCaff1IpRuApYkMrPigsoOXdhiVnQQ2LjB3xIO8buyBQjD/u0WGlherv
-         N2dEs3I7tmbYQ1NQmuGSZJbqX11e9uQ/kKkowibJTZwnclsqsB+57C2jCcJtNcPiuQGo
-         x3CA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFOZr9E49UCAfCMsql5JQl/QQEUxlUA7GI9FNt/KEtxeGhcwM8xqq9jeNVsSv+Nq5cIYksaOQPwzPCT6s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZErFG76n+D7prSz6zswxXJ+NuVEG7ApzUoLtYT3pcvNePXAmM
-	d0iL0GifP6jDvEgRlrR00zjaA5XeeUXCGno67oOTh5cSc2nB153xrTg=
-X-Gm-Gg: AYBFou0iqc9MYvYdsS4elET5+c+ZzKSINJWJCVNZJYM+xM+WiZylP+1Ppmp+y/DVWhe
-	VyMFW2FwVfqcU3w9xImMMtMMIYfGz5/CDnM3VM+MCwh7D0mhFNxviUVy2q5vnOWYc1qWShiFRou
-	PfAFW7lOnpNi/pf36iKJySW0O0Qpz7RquEPp2qnifMOazk0IlDnMN3pnyxN2GxCfCgjj8soVGPN
-	bW7sjInevklopYTCIqRM+KRDSa8KE9NAuI3S0im2uNjr/a2dUAOqklGNrjBhMmw0hwOV1ZeARSx
-	TYXYDTQtTmVxs/kslHDIxCJF94zVLx4qYosspQtQg6eBvH/7Zg7Z4RaZTDhyczkIKRXI74vSEi6
-	UdOUNECLrYYt4/Lk/3UoksBu+jEL3bjcr+3ZUXwa9ha6IYinQcjL3pT1F/B9Er4xZXSSH5nunBJ
-	laD+2xdc80TzgnmTCo/7vpVsrpg50X4H0/gY5SDuSKELDO4NFPRcTqD08gYDRj71vNzZmnaP4JK
-	c1FHhEU0GhhLuYvKioNnbdVBvU=
-X-Received: by 2002:a17:902:d4cd:b0:2d8:df44:a5c2 with SMTP id d9443c01a7336-2dd6c76c7f8mr50088735ad.20.1789392234581;
-        Mon, 14 Sep 2026 06:23:54 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:3b80:bc61:4619:5346])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd5650198csm26768095ad.84.2026.09.14.06.23.48
+        bh=fgRiOcxuYT/a5YlmbXURlfn299Pxo8srZQixNKFp+fc=;
+        b=GqpbaRuMzhOWylvAk5M//2j2VhuovW+L7upwUua5pQZmFEf+NpB/MglGT78sPf9PEn
+         0IuNmdAPMmXXhBXA74vWEpFhepT+fGg1so7EkTLmeiQqvWkEMMps1cctzQmL/sCYu/XM
+         odBkZt7fk+RT1O9OeDIbV7tuQxYrM5/LBsL3PJBvRiYF8OUYItJreKcfcGMxhsEmY7cv
+         +2I2l5DIC6X292bqfQUywLHQC6tZN1stRj1FPxfbKmr9W/Wey1IZTmRUMXZg7d1SDcss
+         meN7EEHU+yskuAJN6H6U9UajzpLj5SQ0zBM/4lOW3nwROOOLrVvNpO2EcKwZzkbMhe5C
+         JZmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789392244; x=1789997044;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fgRiOcxuYT/a5YlmbXURlfn299Pxo8srZQixNKFp+fc=;
+        b=MxVs4rXg/D4plvhfjV9vZRJu3KsU6Qn2KAwUXtOObWlSyLPzlp4jZuQuCG1audX0LJ
+         h3qT05rfsn9vuDxWBHZa56+5xXhgflOhL7bn3xjCHh2whI2DCDjqU2PR7GIE8j7PuvE2
+         vwW/Lsr2OUP9iqoTooZuiOioETfPLFpRvHUrAUSQ/t/aioBQ2bfi7HT47cWao05VBaPU
+         1jZxv5Yn53uyxWlOzxGaz15uHW0IaJnbiQCRZh3ve+fidnl8iIgdxqRdv1t8GOiLt4sp
+         vILeMf+FSUGLjPZK1UCwHnRj53wuqheLYs/i0c6xJgzS/aryC9ivnU8pNn6ai3tVATf2
+         OIJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxawmH1zE9EBvl8Oe3HWu97+tUL+bETha4YrF/RPvmopbBHt8549/iOWf8tdMsVumYmAgbiq3R1ZB1QbR8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyA+eraCyTuRZkRr5w2vWDqsHeVFa4zkh6cMWEAS0nSm/CsL9Y
+	64qowCcPNVv6/leLkH6u0Jhm7G7VEzrWBZa96r6DUVrNYUH9s+2aWzC/
+X-Gm-Gg: AYBFou2qZOXafxRuv+OJsjwSAv/iH7ObNFrRZl7P46V/AoNOPafddMDJl86bxYWNTRa
+	lBSaJpbYOUONAqxccdhgnRXtbK6NGiA2FLd4lE+t1QJZcgX5MgaGATyr3oGRMHDFYg0McQrZtgy
+	Uy4BZaQ7OwBEk4HIhpX37XJp8jRdPrgyq4lUycSAPiZPkHIzviCm0UTsZE274iE8OnWbzdZpTX4
+	0G6owhQVF0eEy4WTZX4Vvc/o+bJ0ib+BcAgqOyaGe6aId/+t38CklQVr/gfo/wHp8fm49VOmupj
+	orRtuLxA0O2xHfXhwOs6CEhRZcAcSIkYbwdNoyCHK6qnxm/7+M8etdLMoXzyApuaLcZjxpEBl8Y
+	pu6BRC84dtMlEUNftxN8GuA8hDZMmaYTvMYA2xVEjJliXO1AWWYvV4blZNMWu6NZtQeKDQcdsxc
+	WD8x4TgrMq0SD4p/5FZFPS2T3X/l+88SHkxE9PM7y1jUAHYI8yZa7Uo8ZoOO/pTxnaWmaY3X09G
+	cdD56muAYDE7Q==
+X-Received: by 2002:a05:6a20:7d9d:b0:3cd:9bb1:c6f5 with SMTP id adf61e73a8af0-3db40452773mr4994899637.10.1789392243791;
+        Mon, 14 Sep 2026 06:24:03 -0700 (PDT)
+Received: from arang.localdomain ([14.47.12.38])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6596265sm4938853a12.27.2026.09.14.06.24.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:23:53 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	zanussi@kernel.org,
-	namhyung@kernel.org,
-	corbet@lwn.net,
-	linux-doc@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH] tracing: Clamp the printed end of a histogram bucket at U64_MAX
-Date: Mon, 14 Sep 2026 22:23:46 +0900
-Message-ID: <20260914132346.2234731-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 14 Sep 2026 06:24:03 -0700 (PDT)
+From: Jaewook You <jaewook376@gmail.com>
+To: Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>
+Cc: David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johan Hovold <johan@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] mm/hugetlb: preserve mremap address delta when skipping page tables
+Date: Mon, 14 Sep 2026 22:23:52 +0900
+Message-ID: <20260914132352.472-1-jaewook376@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260911182408.75821-1-jaewook376@gmail.com>
+References: <20260911182408.75821-1-jaewook376@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,86 +81,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A key with the ".buckets=N" modifier is stored as the start of its bucket,
-and hist_trigger_print_key() prints the range it covers as start to
-start + N - 1. That addition overflows once the start is within N of
-U64_MAX:
+move_hugetlb_page_tables() optimizes mremap() by advancing to the last
+entry in the page table when the source page table does not exist, either
+initially or after unsharing a PMD table.  The common loop increment then
+steps to the first entry in the next page table.
 
-  # echo 'hist:keys=offset.buckets=10' >> \
-      events/syscalls/sys_enter_lseek/trigger
-  # ./seeker 5 -1                      # lseek(0, 5) and lseek(0, -1)
-  # cat events/syscalls/sys_enter_lseek/hist
-  ...
-  { offset: ~ 18446744073709551610-3 } hitcount:          1
-  { offset: ~ 0-9 } hitcount:          1
-  ...
+However, the code advances both the source and destination addresses to
+the last entries in their respective page tables, which is wrong.  The
+destination address must be advanced only by the same amount as the source
+address.
 
-18446744073709551610 + 10 - 1 does not fit in 64 bits, so the range ends
-below where it starts.
+If the source and destination offsets within their page tables differ, the
+destination address can be advanced too far, causing follow-up issues.  Fix
+this by advancing the destination address by the source advance distance.
 
-The bucket does end at U64_MAX: it holds every value hist_field_bucket()
-maps onto its start, and there is no value above U64_MAX. Clamp the printed
-end there. Printed honestly the group is shorter than the size asked for,
-which histogram.rst does not mention, so say it there.
+With a reproducer, we were able to trigger a kernel panic on x86-64.  With
+this fix in place, we can no longer reproduce the issue.
 
-Fixes: de9a48a360b7 ("tracing: Add linear buckets to histogram logic")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
+Fixes: e95a9851787b ("hugetlb: skip to end of PT page mapping when pte not present")
+Fixes: 4ddb4d91b82f ("hugetlb: do not update address in huge_pmd_unshare")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jaewook You <jaewook376@gmail.com>
 ---
-Tested under QEMU/KVM on 704340f1cd0d, x86_64, unfixed arm first.  Keys come
-from lseek(2) offsets.
+Changes in v3:
+- Clarify that the optimization advances to the last entry in the current
+  page table before the common loop increment steps to the next entry.
+- Rename remaining_size to offset_to_last_entry as suggested by David.
 
-Nine cases over buckets=1, 10 and 16.  One printed range differs:
+v2: https://lore.kernel.org/20260911182408.75821-1-jaewook376@gmail.com/
 
-  buckets=10, key 18446744073709551610
-    before  ~ 18446744073709551610-3
-    after   ~ 18446744073709551610-18446744073709551615
+ mm/hugetlb.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-The other eight are identical on both arms.
-
-ftracetest test.d/trigger: 42 pass, 2 xfail, 1 fail, per-test verdicts
-identical on both arms.  The failure is trigger-synthetic-event-dynstring.tc,
-which needs a ping(8) that is not a busybox applet.  No case in the suite
-uses .buckets.
-
- Documentation/trace/histogram.rst | 3 +++
- kernel/trace/trace_events_hist.c  | 7 ++++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/trace/histogram.rst b/Documentation/trace/histogram.rst
-index 340bcb5099e7..97b67f05f5ea 100644
---- a/Documentation/trace/histogram.rst
-+++ b/Documentation/trace/histogram.rst
-@@ -1943,6 +1943,9 @@ the ".buckets" modifier and specify a size (in this case groups of 10)::
-       Entries: 16
-       Dropped: 0
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4f6f58bf3db6c..5749f6270fb1f 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5161,18 +5161,21 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 	hugetlb_vma_lock_write(vma);
+ 	i_mmap_lock_write(mapping);
+ 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
++		const unsigned long offset_to_last_entry =
++			(old_addr | last_addr_mask) - old_addr;
++
+ 		src_pte = hugetlb_walk(vma, old_addr, sz);
+ 		if (!src_pte) {
+-			old_addr |= last_addr_mask;
+-			new_addr |= last_addr_mask;
++			old_addr += offset_to_last_entry;
++			new_addr += offset_to_last_entry;
+ 			continue;
+ 		}
+ 		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
+ 			continue;
  
-+Keys are 64-bit, so the group holding the largest values is truncated where
-+that range ends and can be smaller than the size asked for.
-+
- To save stacktraces, create a synthetic event with a field of type "unsigned long[]"
- or even just "long[]". For example, to see how long a task is blocked in an
- uninterruptible state::
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 8af97fd4ee2d..86df1a29d8d5 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -5560,9 +5560,14 @@ static void hist_trigger_print_key(struct seq_file *m,
- 				   *(u64 *)(key + key_field->offset));
- 		} else if (key_field->flags & HIST_FIELD_FL_BUCKET) {
- 			unsigned long buckets = key_field->buckets;
-+			u64 end;
-+
- 			uval = *(u64 *)(key + key_field->offset);
-+			end = uval + buckets - 1;
-+			if (end < uval)
-+				end = U64_MAX;
- 			seq_printf(m, "%s: ~ %llu-%llu", field_name,
--				   uval, uval + buckets -1);
-+				   uval, end);
- 		} else if (key_field->flags & HIST_FIELD_FL_STRING) {
- 			seq_printf(m, "%s: %-50s", field_name,
- 				   (char *)(key + key_field->offset));
+ 		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
+-			old_addr |= last_addr_mask;
+-			new_addr |= last_addr_mask;
++			old_addr += offset_to_last_entry;
++			new_addr += offset_to_last_entry;
+ 			continue;
+ 		}
+ 
+
+base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
 -- 
-2.53.0
+2.43.0
 
