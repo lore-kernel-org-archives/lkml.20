@@ -1,298 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604D2470E8C;
-	Mon, 14 Sep 2026 12:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAB3471421
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388863; cv=none; b=p4k+UMV9jxzrv+lXLzLbg3K1VYnip8hR4UzfaheAAyJBSV/1pZsmYwJ2GTtzoDDHM6Puo8X9zYb8TTcy8pNvBIPjdWQSjYv6BOBY07p3/4gBINfMhagl6XPvtHnplW5BYc5PtjKCe/h2BRQjeEkKR/ud0CM17raBOaC4bWC/2rA=
+	t=1789388867; cv=none; b=imE5w2cn+oNFj1hrAw9aEtaTFdLMI1pFfc1vtH4WvQqCpUAZZB3GDOgq2oUAN2VOoYCRsuUYspHo8bLnAL3eMPsJh9k3rmc8YX1HQjMIRwQGEh8c63j3Ma7dbVeXsoVqGBHNE7LylYv0rVZf5BqjUDhAwG3cq8v8CAc8kGz13Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388863; c=relaxed/simple;
-	bh=lju0lzTKzNyWSKs8GRO52l6iJlWI1BbQuWoQ53C5IBE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o/4qAoPSHE5EnklmHkrvmEG8uOUzDWI1Nn8ohiZLErj9YkLw5JTu0I9jjaV5OcNHbZRd5cQdjbXAIM6EMNnNC1uGG+UyWcYwiCxFTDGbnnF3G3KgPJhvEhLqbX14wwL3ZaSBzS4n2rC11CKPptJ2RA2Rwk3Purd16Z6tpxD8BhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ie+StPTt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789388867; c=relaxed/simple;
+	bh=V7li5Dw9nmkHeY7iCABC8exOwEM/gxkTUPUJ2FR2iOI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fiTVBTQbSC/UiZ3e+WEoDL/Zf4YcxfyfTDQ2qmiBc45V9wT0ppuK8PnR/6LlnTVhbnmgL0UGhH+pYmBDklJvGeL94G98JBkxqWEJbNKZHOT/3jra08paXeufI1YjsG2/bkWf6RFyaiHKh7bZYrLjBoM0egZt/WlE/5kha0A8Gu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jqYAtlnf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XR/HHADZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ie+StPTt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C011F00893;
-	Mon, 14 Sep 2026 12:27:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789388861;
-	bh=ONUv8GT7AVuvGju01vgoySPFvTxbOCj9Mi71RpZ8izg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ie+StPTtBIv3Ciy7sijRl5nzJHeTn5uylXDoVvlecy7G9HGj7G6siPKQGQboFc3vA
-	 nxp1iNScQ+mMos67Hhykm5ojwguOvIwasE9qzPhVy2kxCeXHdMkyaONAnuAPUo98Ci
-	 NNxFke+UjHiO1DdzEnftHveme3N3G7rou57YmqdaD1PUFoORtOzN9hIZ3NECMs30wH
-	 A+pJbEsc/iMz5siRQTGq5IaGhOHMbUQULYIAbS9wQqmGIoNlurIyJtgvj8QvPFh7Cp
-	 TF41hT3+YsWXrzL//wzjE0qWTbGv2slRT+HRYBkJRcDO2j4TphK0ZR7cXbXGupOKVw
-	 vKduC/vcqRFxw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 13:26:22 +0100
-Subject: [PATCH v2 11/13] KVM: selftests: Enable pre_fault_memory_test for
- arm64
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jqYAtlnf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XR/HHADZ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAm1sc727573
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:27:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jiFJ73bnfwYbpydUm5rz06+aMTJCWc5/QgNe5wl8U14=; b=jqYAtlnf6v6d+eKP
+	80uKAgparEQeqgBKuxMPK/F4Fo6O3Wzk4pacDYlRx7KJkWJ25leVo0s8/otxiiaa
+	ZCrjK7km7HcEtsxbknIoBPvdMDqjjld6k8J6XTRDpuIs9L0kLEbjn6wa0ZYBzmJl
+	6nWq7Hc8xotMOCy4TW9lbJv0b1mwN+dJENq8OsyGdJ2Mb+MkFbbCkBoZxaY58v9u
+	b2fBrAj4Q5igD+HVs1VQk1h2JpEM3EnhbdPU9sVPqNymT8/i/p+iqnCLCfuEh2ga
+	SJWriJYN0B5SD/KUPy68YjMEgxsnhPqjSWRhvq56FZ/lSRwrsFU6dyKa7l0VKesk
+	IU8qpA==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdb5rvb8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:27:44 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c8383e6a13so56830e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:27:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789388864; x=1789993664; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jiFJ73bnfwYbpydUm5rz06+aMTJCWc5/QgNe5wl8U14=;
+        b=XR/HHADZRqyssLV3qfdSX/TrKobxZcfTIaf+6Nyb7T5UUslaTJ8LZCxfkFcT/6ON6P
+         trVLJoNUM5L77W5HU/jG8tImF7xZUUNcx0PUza+fluthhd11BGqjEKenLJhYvNnUJk3f
+         lLCKOTUI4iac9WF8Of9jNlgOGy5wGMukxJ5cmzTLxzvKhjpNo7D2tt4ERBggD9UXDjbM
+         OtLeB+ASf9laeNC5Pn5dclV9Eo+esd3FUJsVZjzUnPJkn0+wklgxfRB56kEkbX/6v5JK
+         v4t5ruyKL+j4ZGSea92ZIsXLUqdjGl320JF/lj2HKm6AQ4R1j2FydpRm/inCwSv/+nXO
+         Iq1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789388864; x=1789993664;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jiFJ73bnfwYbpydUm5rz06+aMTJCWc5/QgNe5wl8U14=;
+        b=XsaGSp5gVqtQFLOsivFungPWRtknmMjBYx6BNZs1d9G23EE8B6iMlfYHTnWxwGi3Cz
+         exDGuJ7e6Q/4d2l1eI+Tlz8Lh5oYiFSPr9BKCjUynHP1OqNQXh6ZmMtDlVKSTqAXE2po
+         q2nF7xfD/HiXYxVpTLlmsbKQGx9YX4Eul5RK8J67qO1Mo+w35KnvtLb1zHji56Pplbhu
+         VYLarG8JrAt7UFMu4eMQ8tw3BWDLGzsmpUpQuSgPGmQfmuagof2+dTUQTlQo51cxhqEc
+         ZMycmsmqaXqTd12xInZik9HHwSoDzyS2siztv/0k2fE0haZCRvy1gBhI5gdkvrHR82iJ
+         wFFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwFUu/gBzmptiH45/Pq/p5xozIfzWKDbYc+/RVozq0t505xLTByfogpsgAIxY85LTtn7i623cRri3605W8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kR/AjwikwIeNa52BQqksOcVf6S8u6ipuztqRaamZtXAx3EcdMg
+	i3UcJ/XpEm0FW3YneFt/OXCpvL67Lkk1a5lay+mVDu/gGUKBQILOZDc53SHbGc4TQVgPFL37d6k
+	kvOuqud9gv70LB2A2e9tAcNLL3yOx+ENVmQbMd5+yPMVVam2nC3OouqdY2Hj4U3cGto47slNMp2
+	E=
+X-Gm-Gg: AYBFou1Rja1BpzSu7HuEnudVFDOYdZOla2p1MLorECW41+i+t8ldjaq/aGbSAi5ZCYW
+	qjHVEwLOi/BSZ23HEZSp3ebfNoZANFFf2YHvdVBvV7WsBRnrG5aCozzmjSb84ClGChkYBscIRWm
+	UljL0m5qVTNG+BfztGqXy19pYXFALqQO3+c/WcLABu90/LQxwv5o8GVH1DbbttGl5PIv767eSoZ
+	7ZXS7c3XxD+Jc50rJyi3mTiwzCXUXZf7O4g53f3x+fYtotWUQsHwx/vIRuqMjLXdeu7nwTRz0y1
+	92VDhsxOYBBpD+SNa1oBHjGQ/4NaEER1N97IUCA7py2VTNqjuLbJPKKz5io2CE+id6DB+9nMWdo
+	IKEz+3pIUu+Y5ovVFeoHYxQ==
+X-Received: by 2002:a05:6122:4a52:20b0:5c8:356d:c872 with SMTP id 71dfb90a1353d-5c981ebdb36mr358392e0c.3.1789388864069;
+        Mon, 14 Sep 2026 05:27:44 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a52:20b0:5c8:356d:c872 with SMTP id 71dfb90a1353d-5c981ebdb36mr358369e0c.3.1789388863619;
+        Mon, 14 Sep 2026 05:27:43 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047aa12sm2432030e87.74.2026.09.14.05.27.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 05:27:42 -0700 (PDT)
+Message-ID: <d6b04f9b-f51a-41bc-895c-f5fb5cee62fd@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 14:27:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 23/31] arm64: dts: qcom: msm8916: Add domain idle state
+ names
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260914-b4-idle-state-name-v1-0-660c31187819@oss.qualcomm.com>
+ <20260914-b4-idle-state-name-v1-23-660c31187819@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260914-b4-idle-state-name-v1-23-660c31187819@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-kvm-arm-prefault-v2-11-26fb47f74b73@kernel.org>
-References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
-In-Reply-To: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
- Jack Thomson <jackabt.amazon@gmail.com>, 
- Alexandru Elisei <alexandru.elisei@arm.com>, 
- Vincent Donnefort <vdonnefort@google.com>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Sean Christopherson <seanjc@google.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Leo Soares Passos <Leo.Bras@arm.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7583; i=ljs@kernel.org;
- h=from:subject:message-id; bh=PtJ+fDCz2VxcBAFjDOIHMBfVyg3lZYR9z7edtkLP/hI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKWP/+W31/ZocwXYa75UX+LgOujdeInP5tEyta+Sprqf
- rd94l63jlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEwkn5eRYaMq68aPuRW7Fy43
- ydpXab7p8XcNPrX/fpyFGyMUlXujmxkZbibc2L4t8eOrjER7xesyETy1KSun2FTEtD3bfPXOqUs
- 8fAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE3NyBTYWx0ZWRfX8EzKdptE6YBp
+ 1bITnaOA7dLQvw3YpcfZ5QB6XBicqHk5x0pYt/uwC1HcAEQcsTe2QSpg/6fS1II0S3pAXILEX0A
+ WPRUOmpLZC973Feno2k4ANGSvym79jI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE3NyBTYWx0ZWRfXyh/xTpNAUuP3
+ EA58NYNxdxrpMS8SZ2b93BOkBCga5Jm8SEDV6xbVNiQl4pfNLlwhHQSlPEGMD/afjOT3BLNli3H
+ vaTi2BCZNU6nrnOClSFAqJFVMdMlW6+9ZHj1uxsI5zLwxfnlugxD6XqaiSMdKpcF70q3gEqF3lJ
+ uKzvV23WTQp8wCyxzWF+LFczkO8qBXqzIBNxxln2Y8J9UHUufcyf6rdInafqZexWccXg4q+qOAh
+ avWBY/prRNOB02K1zHqd/98rYc4frq/jeDWn+31wuYTzesWuoQmItnSs6xrxD9tOm2Jg0hz+P/r
+ R0NEG4gExanILY3i+OyYl3GyXgmQkAAVTpw58gCWVXi3oTKm1cSOxGp+rd2/VxBrLfgdGiNdNZk
+ unfBlKQGFVW2NVpvaS46Wb6jGsTL5zR+47isZiMKC8Il7tbb3UwSdtGxl+PLxutHzo2PnlpyTp9
+ A5Rj/W+Iyt0lDd8Kn8A==
+X-Proofpoint-GUID: rKTXinX4ff4CrJuZNU414taJdBrzX6IB
+X-Authority-Analysis: v=2.4 cv=Ie4Symqa c=1 sm=1 tr=0 ts=6aa7e840 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=HAnpKfeiUU4SruykqnYA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: rKTXinX4ff4CrJuZNU414taJdBrzX6IB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
+ malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140177
 
-From: Jack Thomson <jackabt@amazon.com>
+On 9/14/26 8:59 AM, Maulik Shah wrote:
+> Add the idle-state-name property for the domain idle state so low power
+> modes are described consistently and its name is printed in pmdomain
+> debugfs.
+> 
+> While at it, update CPU idle state names to match the low power modes
+> they describe.
+> 
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> ---
 
-Enable the pre_fault_memory_test to run on arm64 by making it work with
-different guest page sizes and testing multiple guest configurations.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Add an assert on the exit reason, comparing against UCALL_EXIT_REASON so
-the check is portable, as arm64 exits with KVM_EXIT_MMIO while x86 uses
-KVM_EXIT_IO.
-
-Signed-off-by: Jack Thomson <jackabt@amazon.com>
-[ljs: merge conflict resolution with commit c847704619da, commit message
- accuracy fixup]
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- tools/testing/selftests/kvm/Makefile.kvm           |   1 +
- .../testing/selftests/kvm/pre_fault_memory_test.c  | 117 +++++++++++++++++----
- 2 files changed, 96 insertions(+), 22 deletions(-)
-
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 5f8d17ee5f67..66a9a4e62888 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -199,6 +199,7 @@ TEST_GEN_PROGS_arm64 += guest_memfd_test
- TEST_GEN_PROGS_arm64 += mmu_stress_test
- TEST_GEN_PROGS_arm64 += rseq_test
- TEST_GEN_PROGS_arm64 += steal_time
-+TEST_GEN_PROGS_arm64 += pre_fault_memory_test
- 
- TEST_GEN_PROGS_s390 = $(TEST_GEN_PROGS_COMMON)
- TEST_GEN_PROGS_s390 += s390/memop
-diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
-index a0fcae3cb7a8..ee77c51cc566 100644
---- a/tools/testing/selftests/kvm/pre_fault_memory_test.c
-+++ b/tools/testing/selftests/kvm/pre_fault_memory_test.c
-@@ -12,19 +12,29 @@
- #include <processor.h>
- #include <pthread.h>
- #include <ucall_common.h>
-+#include <guest_modes.h>
- 
- /* Arbitrarily chosen values */
--#define TEST_SIZE		(SZ_2M + PAGE_SIZE)
--#define TEST_NPAGES		(TEST_SIZE / PAGE_SIZE)
-+#define TEST_BASE_SIZE		SZ_2M
- #define TEST_SLOT		10
- 
-+/* Storage of test info to share with guest code */
-+struct test_config {
-+	u64 page_size;
-+	u64 test_size;
-+	u64 test_num_pages;
-+};
-+
-+static struct test_config test_config;
-+
- static void guest_code(u64 base_gva)
- {
- 	volatile u64 val __used;
-+	struct test_config *config = &test_config;
- 	int i;
- 
--	for (i = 0; i < TEST_NPAGES; i++) {
--		u64 *src = (u64 *)(base_gva + i * PAGE_SIZE);
-+	for (i = 0; i < config->test_num_pages; i++) {
-+		u64 *src = (u64 *)(base_gva + i * config->page_size);
- 
- 		val = *src;
- 	}
-@@ -57,7 +67,7 @@ static void *delete_slot_worker(void *__data)
- 		cpu_relax();
- 
- 	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, data->gpa,
--				    TEST_SLOT, TEST_NPAGES, data->flags);
-+				    TEST_SLOT, test_config.test_num_pages, data->flags);
- 
- 	return NULL;
- }
-@@ -150,8 +160,8 @@ static void pre_fault_memory(struct kvm_vcpu *vcpu, u64 base_gpa, u64 offset,
- 	/*
- 	 * Assert success if prefaulting the entire range should succeed, i.e.
- 	 * complete with no bytes remaining.  Otherwise prefaulting should have
--	 * failed due to ENOENT (due to RET_PF_EMULATE for emulated MMIO when
--	 * no memslot exists).
-+	 * failed due to ENOENT (no memslot exists for the GPA; on x86 this
-+	 * surfaces via RET_PF_EMULATE).
- 	 */
- 	if (!expected_left)
- 		TEST_ASSERT_VM_VCPU_IOCTL(!ret, KVM_PRE_FAULT_MEMORY, ret, vcpu->vm);
-@@ -160,39 +170,72 @@ static void pre_fault_memory(struct kvm_vcpu *vcpu, u64 base_gpa, u64 offset,
- 					  KVM_PRE_FAULT_MEMORY, ret, vcpu->vm);
- }
- 
--static void __test_pre_fault_memory(unsigned long vm_type, bool private)
-+struct test_params {
-+	unsigned long vm_type;
-+	bool private;
-+};
-+
-+static void __test_pre_fault_memory(enum vm_guest_mode guest_mode, void *arg)
- {
--	gpa_t gpa, gva, alignment, guest_page_size;
-+	gpa_t gpa, gva, alignment, guest_page_size, host_page_size;
-+	struct test_params *p = arg;
- 	const struct vm_shape shape = {
--		.mode = VM_MODE_DEFAULT,
--		.type = vm_type,
-+		.mode = guest_mode,
-+		.type = p->vm_type,
- 	};
- 	struct kvm_vcpu *vcpu;
-+	struct kvm_run *run;
- 	struct kvm_vm *vm;
- 	struct ucall uc;
- 
-+	pr_info("Testing guest mode: %s\n", vm_guest_mode_string(guest_mode));
-+
- 	vm = vm_create_shape_with_one_vcpu(shape, &vcpu, guest_code);
- 
--	alignment = guest_page_size = vm_guest_mode_params[VM_MODE_DEFAULT].page_size;
--	gpa = (vm->max_gfn - TEST_NPAGES) * guest_page_size;
-+	guest_page_size = vm_guest_mode_params[guest_mode].page_size;
-+	host_page_size = getpagesize();
-+
-+	test_config.page_size = guest_page_size;
-+	test_config.test_size = align_up(TEST_BASE_SIZE + test_config.page_size,
-+					 host_page_size);
-+	test_config.test_num_pages = vm_calc_num_guest_pages(vm->mode, test_config.test_size);
-+
-+	gpa = (vm->max_gfn - test_config.test_num_pages) * test_config.page_size;
- 	alignment = SZ_2M;
-+	alignment = max(alignment, host_page_size);
- 	gpa = align_down(gpa, alignment);
- 	gva = gpa & ((1ULL << (vm->va_bits - 1)) - 1);
- 
--	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, gpa, TEST_SLOT,
--				    TEST_NPAGES, private ? KVM_MEM_GUEST_MEMFD : 0);
--	virt_map(vm, gva, gpa, TEST_NPAGES);
-+	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
-+				    gpa, TEST_SLOT, test_config.test_num_pages,
-+				    p->private ? KVM_MEM_GUEST_MEMFD : 0);
-+	virt_map(vm, gva, gpa, test_config.test_num_pages);
- 
--	if (private)
--		vm_mem_set_private(vm, gpa, TEST_SIZE);
-+	if (p->private)
-+		vm_mem_set_private(vm, gpa, test_config.test_size);
- 
--	pre_fault_memory(vcpu, gpa, 0, SZ_2M, 0, private);
--	pre_fault_memory(vcpu, gpa, SZ_2M, PAGE_SIZE * 2, PAGE_SIZE, private);
--	pre_fault_memory(vcpu, gpa, TEST_SIZE, PAGE_SIZE, PAGE_SIZE, private);
-+	pre_fault_memory(vcpu, gpa, 0, test_config.test_size, 0, p->private);
-+	/* Retry the same range after the first prefault attempt. */
-+	pre_fault_memory(vcpu, gpa, 0, test_config.test_size, 0, p->private);
-+	pre_fault_memory(vcpu, gpa,
-+			 test_config.test_size - host_page_size,
-+			 host_page_size * 2, host_page_size, p->private);
-+	pre_fault_memory(vcpu, gpa, test_config.test_size,
-+			 host_page_size, host_page_size, p->private);
- 
- 	vcpu_args_set(vcpu, 1, gva);
-+
-+	/* Export the shared variables to the guest. */
-+	sync_global_to_guest(vm, test_config);
-+
- 	vcpu_run(vcpu);
- 
-+	run = vcpu->run;
-+	TEST_ASSERT(run->exit_reason == UCALL_EXIT_REASON,
-+		    "Wanted %s, got exit reason: %u (%s)",
-+		    exit_reason_str(UCALL_EXIT_REASON),
-+		    run->exit_reason, exit_reason_str(run->exit_reason));
-+
- 	switch (get_ucall(vcpu, &uc)) {
- 	case UCALL_ABORT:
- 		REPORT_GUEST_ASSERT(uc);
-@@ -209,16 +252,46 @@ static void __test_pre_fault_memory(unsigned long vm_type, bool private)
- 
- static void test_pre_fault_memory(unsigned long vm_type, bool private)
- {
-+	struct test_params p = {
-+		.vm_type = vm_type,
-+		.private = private,
-+	};
-+
- 	if (vm_type && !(kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(vm_type))) {
- 		pr_info("Skipping tests for vm_type 0x%lx\n", vm_type);
- 		return;
- 	}
- 
--	__test_pre_fault_memory(vm_type, private);
-+	for_each_guest_mode(__test_pre_fault_memory, &p);
-+}
-+
-+static void help(char *name)
-+{
-+	puts("");
-+	printf("usage: %s [-h] [-m mode]\n", name);
-+	puts("");
-+	guest_modes_help();
-+	puts("");
- }
- 
- int main(int argc, char *argv[])
- {
-+	int opt;
-+
-+	guest_modes_append_default();
-+
-+	while ((opt = getopt(argc, argv, "hm:")) != -1) {
-+		switch (opt) {
-+		case 'm':
-+			guest_modes_cmdline(optarg);
-+			break;
-+		case 'h':
-+		default:
-+			help(argv[0]);
-+			exit(0);
-+		}
-+	}
-+
- 	TEST_REQUIRE(kvm_check_cap(KVM_CAP_PRE_FAULT_MEMORY));
- 
- 	test_pre_fault_memory(0, false);
-
--- 
-2.55.0
-
+Konrad
