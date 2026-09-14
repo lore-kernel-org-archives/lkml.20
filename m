@@ -1,136 +1,225 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2391E7C02
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E898240611;
+	Mon, 14 Sep 2026 00:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789347099; cv=none; b=ShF4guMZ8Gfzp6svRoQPedUX6V0GnuobB0ZbOnDYQodkUQe17HQpNCbl1xcMPPy0VtlFUR63fsmGjD3y7mpAy/GVvY3Y0WCjGDq15xchbpi1fQRNctlhCn91pjceqw1HzYH/HCNWtlJ0UaWtYUa+EdfFh/TbA987ui5B9k4+iB8=
+	t=1789347208; cv=none; b=lJF+CKlEy1HhH0ahR2Ew9id2C3jXtvz6GPRx5Jo4HDPiMh9aBotry8W+5/KFbXhphdQ8pUB9tkw4J3cX7BxbL9Qlh8ITgjv5rXL7Nv/wD9WgY9omi9Q9KCpoQv2Z/HoaQBI05uaqODD3mp9tBHR9e8iSudT2+BLufbClqf4JDL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789347099; c=relaxed/simple;
-	bh=m6nUZw1xxBl7JKkg6qshdJPFvlUEzfRiCrxUD3kuwrA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HQIxdWubuGLDFY1jHouMGfEvU4rUqKAFB/4XkrnHp5VVzUlmgj0aO38fyJWIZq7GOjY8chfPSkiosH6iAEkryQisfHPnnb4Rainv4o68UnrB+yuEt+HWQuxzjq2y6RYn3mPfhhTXuarQvlLkGy6p0fQbmi+6AEbPY6gNWy/rSgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V/uhjk4N; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789347208; c=relaxed/simple;
+	bh=2mfU6bJobFGVctSPpt34UIixLUKf6QvBFPBOSv6+4gk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QFw/W3Wz8PRqvrrxYYJLg/Vs9YS8Mhawbe+Xt1YAXcGfDPhtoxytwcV3NC3ygbmgFPhCEvK0DPtcK7JNDxYsqokKNSzQlm2RqdFIG2kdwnlCCcDvNk+MRMyhS8xC+oIWvFxQTBJb9tlzLKe3P/IemSGmMdMcWXKRoBNTjwRf0RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YNoGhSul; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V/uhjk4N"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so1846373a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:51:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789347098; x=1789951898; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sThmSBuZMUkb8DDGUqicKukOQFBAznEQKWcs9Ox5tcc=;
-        b=V/uhjk4NwVQVIx1l96czB4eNzQaGPj6RKu+bOeTr1FpD12bpHIAze0NSzo1AoZa1Wt
-         08Xz7UzQ/rXyOItt7SMDB9gQCAv4bKdq90Nf5vAveWK56IDionKm4eahJwxKSQaR3Rcp
-         0UdH7DvLTLdYJn/XluSZEF+Ii8T3uu57XLKpqBLXhwBmljP3+nFsdDwPayMNUhTbNB4U
-         KyE2e36VKcltyC4HtJnl7hGUKVIlRLEAz3UclpANVzz0e54AGrUTF6etCqH2/3Vk6PPJ
-         2R+6+A1aZ51Z6Ro23toxsw2C4cOt9yGOCgtLIQzCqtCS19M/s25sYT9p6Edl0Nr/K8Lb
-         rwXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789347098; x=1789951898;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sThmSBuZMUkb8DDGUqicKukOQFBAznEQKWcs9Ox5tcc=;
-        b=O9cvi+DOlmaEuWbF57iOrYi40Ww/IQPzdt9uQdCtauLVdGnaXc7xvzsABDAvmCJ7R9
-         tpwEUEsswC73KexiSNkIChz76Sg4Uhgsh0mQe01UxXaezfi/c+hGgF0WF7gzx54GfqpO
-         MwPW2y4201VIAaK6QqxJet3fQgum7i8YGKmplJL4Cqefhk4loktPGrAi29wncbxXSdHs
-         bOBnYwYg8n9MX7Q+AFREjOoxE9a9kVGvGq9j0BE+3IiP6Oqp2kxGkStq+1h9S78vH26Z
-         4iwEGxNxO0kVmFL+PjiTKKc17xAwlYdY8DacoQYIjKLXN72i7rApbR27BqvnaNK52xiW
-         3Fog==
-X-Forwarded-Encrypted: i=1; AKwUvBwk1vmb+rlrFgZJCbU8UkEf6x58jzGRImkj5TdW15uZvEGO9P7t5dsZzMdT8VyIHhRF69Ly0lw8+24eNpE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDhlOXR/ZJEehKBxIR6QkkIOSXu/Qle7ho9Hkz1tDmvy2PXQc7
-	FSZjaJV+Hndm4qlbKNqDel1NInW1NGUatuEojh+eRgHH2twWFFKvmPPe
-X-Gm-Gg: AYBFou1rSTm/O46jfvSkY51TbRnb2VO/cAivL7JNP1rMNxGZe0bbK/v51iJQ6C0u96+
-	mC5oDhxJdjXwxrwsPOiY4F5lih4yr68I9LPZGSRUx3of8t6VoZPQY8ros6FRE73zDRZjNa3IEft
-	nAq1e+hW9jLNqR2GVA1YjkTi/OjUZMYurCFTB2zZ34tC4Qa+Pdt6q1TsEIrHL/tVi/Usqgw087j
-	W9hFIcmR7mXI6xMlbyMkRsR5/VL/+QAlHjaUVOd9Vd5GELsCSMwa5Ni96KC4kNsg5JmapUm1vx5
-	tzduslnKfUuX4IPGeTGLkOH2UZ0RJRo04hEuf4qX6cs/rscMmzUvkrV4eyRP0ARgKOq+1cfWFmm
-	BBK1/aU2lETwuSslmVXRXmhoNt6DxpV3T1jV7mfed/k/uoEwrkLRY2NmkV4N5Qsrb0u/iXCDWrS
-	eg1tQFiGADMdkE19j1V7LCSu3/hRFBKe207z+YX7fvMff7Mf3a882VqJEEWX0STy75C5dKBJGF6
-	+13K2c7dgo9+N9EWfvsAdyYDrIhb67iYlgr5tO3NEG8rmQwHRI=
-X-Received: by 2002:a05:6a20:e292:b0:3cd:9dea:2be1 with SMTP id adf61e73a8af0-3db3ff581abmr339027637.0.1789347097663;
-        Sun, 13 Sep 2026 17:51:37 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:a739:376c:7eb4:ea2d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365a598aasm20689137c88.1.2026.09.13.17.51.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 17:51:37 -0700 (PDT)
-Date: Sun, 13 Sep 2026 17:51:34 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Yogesh Gaur <yogeshgaur.83@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Christopher Heiny <cheiny@synaptics.com>, Andrew Duggan <aduggan@synaptics.com>, 
-	syzbot+09103639e39c989e3ed3@syzkaller.appspotmail.com
-Subject: Re: [PATCH] Input: synaptics-rmi4 - fix NULL dereference in the PM
- callbacks
-Message-ID: <aqdE6RLeWCo7Fngr@google.com>
-References: <20260908165925.2030-1-yogeshgaur.83@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YNoGhSul"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1523F1F000FF;
+	Mon, 14 Sep 2026 00:53:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789347207;
+	bh=EvdBU/BPGdCJ9O4rwkTZNCIxxcIP/v4mYKhQ5OdYXs0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YNoGhSulG1LdunF2VNjNoyLfQqwFH3GDnJfmP3MSFh3SMRiYujIFdvRyQGGMD8G8M
+	 KMGwnrF9fveRbedhmxgBr5OuXTFiRUaxFr4fAzY4Fqb/kiU33KRHjZy9le1IZMsWO6
+	 v96G2oynRwnEFzrcpNHLshQ7fdVJzCY1gkrlaWykdRPeG+wohG068i4DRjCcxt/llj
+	 eqQUuBOp3r+SISWS0KtoT+y7LO8cBah56KoBmVenC56+F7XbksmNPgwssaXgAZbRZz
+	 U/O3nwuvAdTxAi+B4Mb0l8fpBBqw4JjA2gKwJb/oRWpDh7UGNLIG4E675FVKoswSbE
+	 O5VBOWCnsngNA==
+Date: Mon, 14 Sep 2026 01:53:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: nuno.sa@analog.com, Michael.Hennerich@analog.com, dlechner@baylibre.com,
+ andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ gregkh@linuxfoundation.org, linux@analog.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] iio: accel: adis16201: prepare driver to support
+ additional parts
+Message-ID: <20260914015321.7a660ab5@jic23-hlaptop>
+In-Reply-To: <20260913085307.13846-4-shehryar.amd@gmail.com>
+References: <20260913085307.13846-1-shehryar.amd@gmail.com>
+	<20260913085307.13846-4-shehryar.amd@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908165925.2030-1-yogeshgaur.83@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Yogesh,
+On Sun, 13 Sep 2026 13:53:04 +0500
+Shehryar Ahmad <shehryar.amd@gmail.com> wrote:
 
-On Tue, Sep 08, 2026 at 10:29:25PM +0530, Yogesh Gaur wrote:
-> rmi_driver_suspend() and rmi_driver_resume() are exported for the
-> transport drivers; hid-rmi calls them straight from its ->suspend and
-> ->resume. Both reach code that dereferences the driver data right away:
+> Introduce adis16201_chip_info to hold per chip data and adis16201_state
+> to wrap struct adis. Move adis16201 to this infrastructure. This
+> prepares the driver to support additional chip variants by keeping
+> chip-specific parameters in adis16201_chip_info. Additionally,
+> adis16201_write_raw applies mask directly on value.
 > 
-> 	static int rmi_suspend_functions(struct rmi_device *rmi_dev)
-> 	{
-> 		struct rmi_driver_data *data = dev_get_drvdata(&rmi_dev->dev);
-> 		...
-> 		list_for_each_entry(entry, &data->function_list, node) {
-> 
-> That data is installed by rmi_driver_probe(), which binds only after the
-> transport driver has already published rmi_dev via
-> rmi_register_transport_device(). A runtime PM suspend of the underlying
-> USB interface in that window dereferences NULL:
-> 
-> 	KASAN: null-ptr-deref in range [0x0000000000000078-0x000000000000007f]
-> 	RIP: 0010:dev_get_drvdata include/linux/device.h:989 [inline]
-> 	RIP: 0010:rmi_suspend_functions drivers/input/rmi4/rmi_driver.c:283 [inline]
-> 	RIP: 0010:rmi_driver_suspend+0x30/0x180 drivers/input/rmi4/rmi_driver.c:994
-> 	Call Trace:
-> 	 <TASK>
-> 	 rmi_suspend+0xa7/0xf0 drivers/hid/hid-rmi.c:448
-> 	 hid_suspend+0x4a3/0x530 drivers/hid/usbhid/hid-core.c:1618
-> 	 usb_suspend_interface drivers/usb/core/driver.c:1323 [inline]
-> 	 usb_suspend_both+0x285/0x1040 drivers/usb/core/driver.c:1446
-> 	 usb_runtime_suspend+0x58/0x110 drivers/usb/core/driver.c:2000
-> 	 rpm_callback drivers/base/power/runtime.c:460 [inline]
-> 	 rpm_suspend+0x8a0/0x17a0 drivers/base/power/runtime.c:698
-> 	 pm_runtime_work+0x132/0x1b0 drivers/base/power/runtime.c
-> 	 </TASK>
-> 
-> rmi_disable_irq() and rmi_enable_irq(), reached a few lines further on,
-> look the driver data up the same way and then take
-> &data->enabled_mutex, so they would fault too.
-> 
-> There is nothing to suspend or resume before the driver has bound, so
-> return success early while the driver data is not there yet.
-> 
-> Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
-> Reported-by: syzbot+09103639e39c989e3ed3@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=09103639e39c989e3ed3
-> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+> Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
 
-Thank you for the patch, but I already have a fix for this:
+Sashiko spotted what seems to be an interesting bug..  Seems
+the adis_buffer library code relies on channel ordering matching
+scan_index ordering and that isn't true in this driver.
+https://sashiko.dev/#/patchset/20260913085307.13846-1-shehryar.amd%40gmail.com
 
-https://patch.msgid.link/anQe8UiyUR4x0flD@google.com
+There should be no negative side effects reordering the
+channels so I think that would makes sense to do.
 
-Thanks.
+The buffered data will be in a different order but that will at least
+be the order the sysfs interface claims it is in!  If you don't
+mind doing that as a precursor to this series that would be great.
 
--- 
-Dmitry
+See the spi transaction building in adis_update_scan_modes() for
+where it is going wrong.
+
+One small review comment inline that means making one more thing const
+to simplify the code a little.
+
+Thanks,
+
+Jonathan
+
+> ---
+>  drivers/iio/accel/adis16201.c | 78 ++++++++++++++++++++++++-----------
+>  1 file changed, 55 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/iio/accel/adis16201.c b/drivers/iio/accel/adis16201.c
+> index 2ce5c409b..e0bf7df50 100644
+> --- a/drivers/iio/accel/adis16201.c
+> +++ b/drivers/iio/accel/adis16201.c
+> @@ -87,6 +87,22 @@ enum adis16201_scan {
+>  	ADIS16201_SCAN_TEMP,
+>  };
+>  
+> +struct adis16201_chip_info {
+> +	const char *name;
+> +	const struct iio_chan_spec *arr_channels;
+> +	unsigned int incli_scale_val2;
+> +	u16 write_mask_incli;
+> +	u16 diag_stat_mask;
+> +	unsigned int read_bits_incli;
+> +	unsigned int num_channels;
+As mentioned below add:
+	const struct adis_data *data;
+> +};
+> +
+> +struct adis16201_state {
+> +	struct adis adis;
+> +	const struct adis16201_chip_info *info;
+> +	struct adis_data data;
+ and drop this.
+> +};
+
+>  
+>  static const struct iio_chan_spec adis16201_channels[] = {
+> @@ -217,6 +232,20 @@ static const struct iio_chan_spec adis16201_channels[] = {
+>  	IIO_CHAN_SOFT_TIMESTAMP(7)
+>  };
+>  
+> +static const struct adis16201_chip_info adis16201_chip_data = {
+> +	.arr_channels = adis16201_channels,
+> +	.incli_scale_val2 = 100000,
+> +	.write_mask_incli = GENMASK(8, 0),
+> +	.diag_stat_mask =
+> +		BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
+> +		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
+> +		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
+> +		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
+> +	.read_bits_incli = 9,
+> +	.num_channels = ARRAY_SIZE(adis16201_channels),
+> +	.name = "adis16201",
+> +};
+> +
+>  static const struct iio_info adis16201_info = {
+>  	.read_raw = adis16201_read_raw,
+>  	.write_raw = adis16201_write_raw,
+> @@ -248,16 +277,12 @@ static const struct adis_data adis16201_data = {
+>  	.timeouts = &adis16201_timeouts,
+>  
+>  	.status_error_msgs = adis16201_status_error_msgs,
+> -	.status_error_mask = BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
+> -		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
+> -		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
+> -		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
+
+As below, leave this here. Just look to access this whole structure
+via info.
+
+>  };
+>  
+>  static int adis16201_probe(struct spi_device *spi)
+>  {
+>  	struct iio_dev *indio_dev;
+> -	struct adis *st;
+> +	struct adis16201_state *st;
+>  	int ret;
+>  
+>  	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*st));
+> @@ -266,22 +291,29 @@ static int adis16201_probe(struct spi_device *spi)
+>  
+>  	st = iio_priv(indio_dev);
+>  
+> -	indio_dev->name = spi->dev.driver->name;
+> +	st->info = spi_get_device_match_data(spi);
+> +	if (!st->info)
+> +		return -ENODATA;
+> +
+> +	indio_dev->name = st->info->name;
+>  	indio_dev->info = &adis16201_info;
+>  
+> -	indio_dev->channels = adis16201_channels;
+> -	indio_dev->num_channels = ARRAY_SIZE(adis16201_channels);
+> +	indio_dev->channels = st->info->arr_channels;
+> +	indio_dev->num_channels = st->info->num_channels;
+>  	indio_dev->modes = INDIO_DIRECT_MODE;
+>  
+> -	ret = adis_init(st, indio_dev, spi, &adis16201_data);
+> +	st->data = adis16201_data;
+> +	st->data.status_error_mask = st->info->diag_stat_mask;
+Given we don't have too many variants, I think rather than
+this copy and update pattern I'd just have multiple instances
+of the structure type of adis16201_data. Then put a pointer
+to the relevant one in the info structure and just pass
+in to adis_init() st->info->data.
+Then you won't need the diag_stat_mask element.
+
+Costs a little more static const data but simplifies the code
+and I think that is the right trade off to make.
+
+> +
+> +	ret = adis_init(&st->adis, indio_dev, spi, &st->data);
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = devm_adis_setup_buffer_and_trigger(st, indio_dev, NULL);
+> +	ret = devm_adis_setup_buffer_and_trigger(&st->adis, indio_dev, NULL);
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = __adis_initial_startup(st);
+> +	ret = __adis_initial_startup(&st->adis);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -289,14 +321,14 @@ static int adis16201_probe(struct spi_device *spi)
+>  }
+>  
+>  static const struct of_device_id adis16201_of_match[] = {
+> -	{ .compatible = "adi,adis16201" },
+> +	{ .compatible = "adi,adis16201", .data = &adis16201_chip_data },
+>  	{ },
+>  };
+>  
+>  MODULE_DEVICE_TABLE(of, adis16201_of_match);
+>  
+>  static const struct spi_device_id adis16201_ids[] = {
+> -	{ .name = "adis16201", 0 },
+> +	{ .name = "adis16201", .driver_data = (kernel_ulong_t)&adis16201_chip_data },
+>  	{ },
+>  };
+>  
+
