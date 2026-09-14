@@ -1,381 +1,206 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EF5363C53
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:12:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416727; cv=none; b=tsB7ZNNvT4AkDXs0VSxsCbW7Uoqx3Lq0RBVv4btvNjIoRntZ36IeiVNhaKsgxXwg98UeyhHy70pimwvSm6Fn6+NnkCCaA7DmQRyW9dbQ+32t7EwSLM+8v1rDgk4/fI08PL2k5D5O+IvhA3qtIWi/XDK0uO/QTRu3tA8sKwPnCno=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416727; c=relaxed/simple;
-	bh=xZNf63J/YIRdgkjMJha77Ndz/TJo8Kyy5wkhd7RrUFw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gOyM/f/+uGL+xWfs8Fg3KfWn/BMAXPbRmhkqYPdx5Cgb0IgPIx0rs40hAWCl37VwObJRvvMtURUeDTzQMXRQHvISdCze51UG/Npc/vNauTIcRCW7NPTXsFo9ZbqiLhXjkAVGRyjcRZp1VijK1iEUQg5AaRamLTvpIZhfxO+nPd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=irVtmJOb; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E834749DA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:14:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789416861; cv=pass; b=Xz7rxoJbBOggGIrgjk7X+OMTW69I/+QKK2qsSEDpK5wjhWnOqCuw3YsvLY3SuxwYpFghEw4ePxQ3RM9dKpohYpssWeAMIkyjujMtjuv5dudit6CKglIAvFZInevcY5/syFZXUE5mZvIXMpBwb5LwFpHARZ4n9JaM22osysEiRJU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789416861; c=relaxed/simple;
+	bh=3E353mGHA+YwmiJRDMPPzi71eHpkdVopb+a6X25hXhA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TGG9B3y6m+rsdUKS7hVdb/kEpplG731VcZSmhSbho0GkARCqcIqLEkb8X+JSkIz5VjoeOuQ8TbYlBi0GnHAQudUm0oNgrU3FoS6HT/r45SqH13Aerq7d4rwkPwjU4lARcrvfO1oQeiObSIZeELwH8T/J3QSzeOX1Pq3ZDysFxMU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=a1UGwMTY; arc=pass smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="irVtmJOb"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43da99easo24634177b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:12:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="a1UGwMTY"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66de7e0bc85so3116410d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:14:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789416859; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rCyBgk0HMDl033MPHcNmMu2twAsQCTI9iCSuGH6MltJGMvdM8n3cSXozY6I9CS58Dr
+         ebHvtx3EHMz/pNx0jdJmzytKa0O685TGMuKQmtOGmf0zJOwos8MKQFth44Fhe8wOnn8T
+         wGCj4mjhT/uc7tvwgiWHU/tpHOS35kOStq5c7CT1hhY+UNDl92NavcWVJY2AGownZCG6
+         GfEGrMwTUGFawFVF7b9uqcZqaxgBA2sn4JmYVb7G/GGZFjvtUdnxAU4AHxG9+VussYZd
+         dt9uFkdvd5NpKgQNEtgA7WV3jVyf/shcKJYsA5Hk/aI5GDDXpKNRp4VakpsNwp4uNHs5
+         KQQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Rga6UFelgth5DpOvahkhCJaR+CNVuGoZ+4Q+hPI7j+g=;
+        fh=w7mgbrUTcOXEJxz3IkIkTvn4o6OkBwSiccQ+8YKrnO4=;
+        b=kSNw71wln7fvfhExQvhvfCSFvKuCouHOxFNZZY0rzXCCAfhf/oK8XkHVJQRiaAnpCU
+         +cEZy3MqqX+mSRXWYslMrZYGQE2x996lqYeJTPtCAzcAZkLx7TaBOrxmXOo6e4WELDum
+         vPNCq0PLsnhsCcdlBG7qi40vxXNCBlYGyTlqOHtceFkDImVvX/EA+6ci7fEXBfV+d1MI
+         6U5v/l7K52PrTMShwg0DwsXr/OED8FNaDUtzhZtnya9OKAHHNoa7YZG2MD6wLkKroGUo
+         CBVDyUShJ1VQJJhdt98PyAdEcr1VtSanexyK6tOdmAxbN2NgsiyWi0X/6azbo4YyMBWB
+         qNDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789416725; x=1790021525; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0PjxwrCOziiYu8uSkEPm22c3tupxZ4SMu/g885xA93c=;
-        b=irVtmJObt4MezZ/1/WePXXjhbd4D2pT96gHHXA99xzSCa359x830wUaZYrwCNgp/M2
-         dn/3BVc9s7eckLg0/NlwUqyX1Wpd/c74O48vliR79IhmtaPO3lVR/F/pNl9crPs54Ivl
-         8uJNBzkHsWJS0jRDI053xBhOtBQ9a48JCfZirFVFUfI3MW2EL+CqtkOODLOJ9OSH06nm
-         AOmiB7lSo5N8du6zlty/uCVvV7oZWyJKBOUh3EGPK5zDg3qrvkBVX4Dmc4Kvz8yLS/cH
-         RjN4+qLKcIRbpp34pTp0N7NWikf40wfb24jIaqeLU56d507m0RGqJfAbXsNPNab45mUR
-         9EzQ==
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1789416859; x=1790021659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rga6UFelgth5DpOvahkhCJaR+CNVuGoZ+4Q+hPI7j+g=;
+        b=a1UGwMTY2EcbpMOgq6x9QI2NgGYwRm7FwK1R85iNGnMq20v8d4GqpjJ21XfDMXMUxL
+         8MKjQTXjGZROkZtWOP2PvF2NlyNPbpdPCYjQm3Wc9yMKqVHX1uK9GheeBRifFKVNTuq5
+         CwQ5Ot4ebIkb90fxImlJeUnAujf6NkomcCoCzgTz7PyiAx6UEuvcHE+nmyg7L6HLs84d
+         +Ysd1/ICZeMRySzlwg/aKRd9Dz+Yr0Shs2dcQFC2XSCRlIM+Os8Dh0HBDRfkvXdxhayJ
+         LcidJxTzX2s+xOZU93OPhzU8GUIk/MuDiq2ImXRnUaedkV155hw2nIb1XOk4YbOahbJB
+         Hg8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789416725; x=1790021525;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0PjxwrCOziiYu8uSkEPm22c3tupxZ4SMu/g885xA93c=;
-        b=CorbXl2YC9vynxQqN4gYjHJ6YyFJVqXlL25rHzngfFmlnKeO+IaXne01jBs6yhtuOk
-         z2/Q80EsXa3ytgt7ZXZPrHRIxLN8YgodLJJeIQ8wP6KuZoqw2F0o9z5fbzUJ+viLvthM
-         jkCco4dHYi+65oL4w/H+du3YNvJZ7sgdYztbeCU1NX5sk7oeNcg3sLhXgForw/ZNaQhy
-         VbXMli23QEAebRb/kLIQnMxO4/RkH2iEkJZZjcJdyAvEPyqwHFANmGd+hYlnbt9hFTTp
-         4F2IgEl+t3nThGd+YyE7biDXbysliGdzuGFegMgKxmEAY23CbOhSDuRCZMgFL/oGORqE
-         w/tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFeWnS2QPqbRzNOOKUQxt1zkvbzxBRPL6HwzJ6a8ahqFjI9HZp8vbG1JBMGaEdHf4d4WTofUuMpfhRRY8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJLF7xUZjvifjxD3aYfrUj5R64rBQIbWR6A7flPqS+G3RV/72j
-	xntxteM2jFKMRGOd9/OkN5pOolqZdUcp+gurD4+hKsSfDzqCLgYseWUDd8P7OjJZQurjmCbHlLa
-	6wQVVR/Hfcw==
-X-Gm-Gg: AYBFou1YTaIYBTRK2qJWeet5ljP2u81Dxk5kOUwXYBfBNdbBccqgTnu7QIibm/GwQv3
-	4EsedftloC7Gmjj10FQmHJzncjxdF+7zOKW3PC3zptfrYtuA7MnyHhmdkKavmk88eXPo7kyULiZ
-	b6MUdx1utjWJZ9FVH1LfP+zT3+G5HAluhe1bKgqw7Ipojsajapp/IMf3A0YLBqtPDeia5rnLtDO
-	v+XqSbGOTSby1c01FTOOcA8BDwdRu/4sB9NuzK7LvWRqD8X1LEPIc5qMzcG/r6RsHncAvmsBJBj
-	zITYbb7T75bXMunyJu9UaJ+UAChmCUwaM9q02zYsbb+l53Em2TRDU7/6OF5aCxRN3xfCxq8HWhj
-	3/BtaaZH7Uj3oZ3WSyt9LOIn+G5hzHYBddWiUYaqvj+m/rMvt2Q+tEGJv+9VozAR1nDveNnAFoz
-	wh2jJvQ9P2SjRXpfnLHDc4AyxD56F9SGzdCYzZBl+ehq+MYhyFoxqfbd/8HlPOdMRWh4jc5+zfp
-	+GusTjDK2aBp2ZpINpK07eJJ9CkxCP0fyqh+EAGxVNQNL4/pDxahzLK+gZfSBBtVnhjG2ADi5W5
-	5qe2Hf848oIkaAdASJNv+fEcTXeWgw0rTGG2N5M=
-X-Received: by 2002:a05:690c:c6c2:b0:873:5bd1:98d1 with SMTP id 00721157ae682-88d24c2f9e5mr11127667b3.67.1789416724795;
-        Mon, 14 Sep 2026 13:12:04 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:df87:8743:655b:3824])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-884894fd624sm40394117b3.46.2026.09.14.13.12.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 13:12:03 -0700 (PDT)
-Message-ID: <cbc98010b9f6657e162cfcc6ac5ba6032e7b729d.camel@dubeyko.com>
-Subject: Re: [PATCH v4 2/2] hfsplus: validate b-tree fork extents at mount
- time
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Date: Mon, 14 Sep 2026 13:12:01 -0700
-In-Reply-To: <20260912132407.16856-3-ngocthang2710.1999@gmail.com>
-References: <c6b841becc5b1709a9f54a1c0efd0a14f02ad97b.camel@dubeyko.com>
-	 <20260912132407.16856-1-ngocthang2710.1999@gmail.com>
-	 <20260912132407.16856-3-ngocthang2710.1999@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1789416859; x=1790021659;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rga6UFelgth5DpOvahkhCJaR+CNVuGoZ+4Q+hPI7j+g=;
+        b=m4ewEm/afT4qJjSQypOUeLvoALcXoDB1DvTsGAT2n/zZ+G8xO/BbiE3PFH5Gf79vQt
+         uKhUvbdaL3pQq2AKC5Z6dzQy/7qssv6zWG4jiFGSQqWyCu7GunaC8xwju2oN13vxuJRL
+         m5eFhnjOtq9vEHTWNEvtgOTk8ClG9A8gNKYcZ+ybXNwar3z8zZfb74Z60JKv2Je7JaFa
+         HcximbgSyCfAkHNbVCzclR154rhwtih4EsD1u2oOHr+ro4s4EGYHeAOomxlTzIgw8Mfd
+         B6w5azKib5lwdXScxCpahCuRkwqMcSdSC7lhp/8jHyYNPM86D4QyEbwGScRWqxqe7CoV
+         6o+g==
+X-Forwarded-Encrypted: i=1; AKwUvBx4lwpkmAMRemKh+MEbOL2aHJXNptT80u6YEtgQZXtMIMhoOdUC37OeMnKDd2HJMdNLr4lNoveUfzm2q2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDM8KDMHLsRGc1D54tE4lGYCyBF+rg/i9JCTLcH40MZpktqq2e
+	DfYY2vQtPkLMP13yjvOUMQ6ePjLOx9Fl1T70PGlOFNBdA2HsKwh2hINsF3KuDkCd+R6ZyxOW28r
+	8OiDPWgU0AA+BzZayqW1ReWS/QF7mUN9RPyq7E1U8vA==
+X-Gm-Gg: AYBFou1SP3DuNqKC93UXneFUUgS4XNPUfl5dBljOMfZ5V0iieH+E5urf8p75Gu3+WyR
+	bQLx8g1S+hGCBo8OM+eqDzTO+7N5SkRE3/fH2mJs0XLWp2rl2jWg8vNTVHsrOHOA/5b2P5pbjtS
+	6lT6ozzo19kHB1/D6A951G4XpZspc7gmNbQb6GfebccCTxWCz83/0/Dgc4MXHatY2F0+wQk8GcI
+	Hns1P3w8tGbiWE5dnMJD42zMhJ/Yj7C3LDjGcSJeQYrzJdnid2Xj9W8Ut+lrKDyoFzWL1Hi4lrj
+	Bndfd/grnlcdny7pURZr5YKGoxBO2Az89yk3eRw0smh5RDbTFdr0Zl0=
+X-Received: by 2002:a05:690e:480d:b0:66f:c24c:98bf with SMTP id
+ 956f58d0204a3-6714e1897a6mr796397d50.46.1789416858935; Mon, 14 Sep 2026
+ 13:14:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260907015003.65087-2-sanghyun.park.cnu@gmail.com>
+ <514a0c26ff5e0322fe0442d07142cafc7dda338a3ce2c5b7e9437dd994cb0ba1@mail.kernel.org>
+ <a44630a1-4965-4020-afb9-ba5b1a7848e6@linux.dev>
+In-Reply-To: <a44630a1-4965-4020-afb9-ba5b1a7848e6@linux.dev>
+From: Emil Tsalapatis <emil@etsalapatis.com>
+Date: Mon, 14 Sep 2026 20:14:08 +0000
+X-Gm-Features: AcwNN1Us3YmXWxVK-pYM5PFNdwZh0QfaSO2LkPIk5GAO4E22Ex_DUjXIGjOz0BY
+Message-ID: <CABFh=a4449ssX-jj+5So9_3UMgLGnaioYgQooKibZCbzxAxKyw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v6 1/2] bpf: Validate program attach type during
+ link update
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: bot+bpf-ci@kernel.org, sanghyun.park.cnu@gmail.com, ast@kernel.org, 
+	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, 
+	bpf@vger.kernel.org, john.fastabend@gmail.com, martin.lau@linux.dev, 
+	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
+	ihor.solodrai@linux.dev, shuah@kernel.org, sdf@fomichev.me, 
+	pulehui@huawei.com, suchitkarunakaran@gmail.com, xukuohai@huawei.com, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	martin.lau@kernel.org, mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-09-12 at 20:24 +0700, Nguyen Ngoc Thang wrote:
-> A hfsplus_check_fork() pass over a special file's eight fork extents,
-> called from hfs_btree_open() for the extents, catalog and attributes
-> trees:
->=20
-> =C2=A0- block_count =3D=3D 0 but start_block !=3D 0: garbage left in a sl=
-ot that
-> =C2=A0=C2=A0 should be blank (this is what the syzbot-reported image has =
-in the
-> =C2=A0=C2=A0 extents overflow file's fork, slots 3 and 6);
-> =C2=A0- start_block + block_count > sbi->total_blocks: an extent pointing
-> =C2=A0=C2=A0 past the end of the volume;
-> =C2=A0- a non-zero extent following a zero one: a hole in the used range.
->=20
-> If the first extent itself fails these checks, the b-tree's location
-> on disk is unknown and there is nothing to recover, so
-> hfs_btree_open()
-> fails as it already does for the other structural checks in that
-> function, and the mount fails.
->=20
-> If only a later extent is affected, the tree can still be opened (its
-> first extent, and hence its root node, is fine); mark it corrupt and
-> let the caller decide. hfsplus_fill_super() forces the volume
-> read-only in that case, and hfsplus_reconfigure() checks the same
-> per-tree flag on remount instead of re-deriving it, refusing to go
-> back to read-write. attr_tree may be NULL (volumes without an
-> attributes fork), so both checks guard for that.
->=20
-> This also gives the previous patch's hfsplus_file_extend() fix a
-> mount-time backstop: a fuzzed or damaged extents overflow fork like
-> the one in the syzbot report is caught here before any write ever
-> reaches it.
->=20
-> Reported-by: syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+On Mon, Sep 7, 2026 at 3:08=E2=80=AFPM Leon Hwang <leon.hwang@linux.dev> wr=
+ote:
+>
+> On 2026/9/7 10:36, bot+bpf-ci@kernel.org wrote:
+> >> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> >> index c7bc9ba9b331..b394a37eecb4 100644
+> >> --- a/kernel/bpf/syscall.c
+> >> +++ b/kernel/bpf/syscall.c
+> >> @@ -4481,14 +4481,9 @@ static int bpf_prog_attach_check_attach_type(co=
+nst struct bpf_prog *prog,
+> >>      case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+> >>      case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+> >>      case BPF_PROG_TYPE_SK_LOOKUP:
+> >> +    case BPF_PROG_TYPE_LSM:
+> >>              return attach_type =3D=3D prog->expected_attach_type ? 0 =
+: -EINVAL;
+> >
+> > Does adding BPF_PROG_TYPE_LSM to this arm also relax the check on the
+> > BPF_LINK_CREATE path?
+> >
+> > Before this patch, BPF_PROG_TYPE_LSM fell into the default arm:
+> >
+> >       default:
+> >               ptype =3D attach_type_to_prog_type(attach_type);
+> >               if (ptype =3D=3D BPF_PROG_TYPE_UNSPEC || ptype !=3D prog-=
+>type)
+> >                       return -EINVAL;
+> >               return 0;
+> >
+> > Since attach_type_to_prog_type() returns BPF_PROG_TYPE_LSM only for
+> > BPF_LSM_MAC and BPF_LSM_CGROUP (kernel/bpf/syscall.c:4457, 4463), an LS=
+M
+> > program could only ever be accepted for those two attach types.
+> >
+> > The new arm drops that constraint and accepts any attach_type as long a=
+s it
+> > equals prog->expected_attach_type. The other members of that arm are sa=
+fe
+> > because bpf_prog_load_check_attach() restricts their expected_attach_ty=
+pe
+> > to a set that all maps back to the same prog type. BPF_PROG_TYPE_LSM is=
+ the
+> > one type in that arm with no such restriction: bpf_prog_load_check_atta=
+ch()
+> > (kernel/bpf/syscall.c:2766 onwards) has no LSM case and falls into
+> > `default: return 0`, so prog->expected_attach_type is entirely
+> > userspace-controlled for LSM programs.
+>
+>
+> Good catch.
+>
+> Since there's no expected_attach_type check for lsm prog, a lsm prog can
+> have BPF_TRACE_ITER expected_attach_type, and creates a lsm link via
+> BPF_LINK_CREATE with this patch. Such lsm prog cannot create a lsm link
+> via BPF_LINK_CREATE without this patch.
+>
+> The new case BPF_PROG_TYPE_LSM in bpf_prog_attach_check_attach_type()
+> relaxes the prog->type check when adding expected_attach_type check.
+>
+> I think we can add expected_attach_type check for lsm prog in
+> bpf_prog_load_check_attach(). See below diff. The diff will restrict a
+> lsm prog with these two expected_attach_type, BPF_LSM_MAC and
+> BPF_LSM_CGROUP.
+>
+
++1, skipping LSM progs in bpf_prog_load_check_attach() is counterintuitive
+and the reason why we missed this edge case in the first place. It's
+better to add
+the missing checks than adjust the refactoring.
+
+pw-bot: cr
+
+> Thanks,
+> Leon
+>
 > ---
-> =C2=A0fs/hfsplus/btree.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++++++++
-> =C2=A0fs/hfsplus/extents.c=C2=A0=C2=A0=C2=A0 | 37 +++++++++++++++++++++++=
-++++++++++++++
-> =C2=A0fs/hfsplus/hfsplus_fs.h |=C2=A0 4 ++++
-> =C2=A0fs/hfsplus/super.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 ++++++++=
-+
-> =C2=A04 files changed, 62 insertions(+)
->=20
-> diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-> index 2ea8cd5658e1..0a05ade53070 100644
-> --- a/fs/hfsplus/btree.c
-> +++ b/fs/hfsplus/btree.c
-> @@ -293,6 +293,18 @@ struct hfs_btree *hfs_btree_open(struct
-> super_block *sb, u32 id)
-> =C2=A0		goto free_inode;
-> =C2=A0	}
-> =C2=A0
-> +	switch (hfsplus_check_fork(sb, HFSPLUS_I(tree->inode)-
-> >first_extents)) {
-
-If we return error code for corrupted fork (that makes more sense),
-then we don't need in switch here.
-
-> +	case -EIO:
-> +		pr_err("%s (cnid 0x%x) fork's first extent is
-> corrupt\n",
-> +			hfs_btree_name(id), id);
-> +		goto free_inode;
-> +	case 1:
-
-I don't see the point returning 1 from the function. It should be error
-code.
-
-> +		pr_warn("%s (cnid 0x%x) fork has corrupt extents,
-> forcing read-only.\n",
-> +			hfs_btree_name(id), id);
-> +		tree->corrupt =3D true;
-> +		break;
-> +	}
-> +
-> =C2=A0	mapping =3D tree->inode->i_mapping;
-> =C2=A0	page =3D read_mapping_page(mapping, 0, NULL);
-> =C2=A0	if (IS_ERR(page))
-> diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-> index 236f2d9a7a2d..a9303ce5bf8f 100644
-> --- a/fs/hfsplus/extents.c
-> +++ b/fs/hfsplus/extents.c
-> @@ -95,6 +95,43 @@ static bool hfsplus_ext_fork_full(struct
-> hfsplus_extent *ext)
-> =C2=A0	return true;
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * Check a fork's eight extents for the corruption a fuzzed or
-> damaged
-> + * volume header can contain: garbage in a slot that should be
-> unused,
-> + * an extent that runs past the end of the volume, or a used extent
-> + * following an unused one.
-> + *
-> + * Returns 0 if the fork is fully consistent, 1 if only extents
-> after
-> + * the first are affected (the b-tree can still be located, so it's
-> + * safe to mount read-only), or -EIO if the first extent itself is
-> + * unusable.
-> + */
-> +int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent
-> *ext)
-
-Why not struct hfsplus_fork_raw here for check?
-
-> +{
-> +	struct hfsplus_sb_info *sbi =3D HFSPLUS_SB(sb);
-> +	bool seen_hole =3D false;
-> +	int i;
-> +
-> +	for (i =3D 0; i < 8; i++, ext++) {
-
-Ditto. Related to hardcoded value.
-
-> +		u32 start =3D be32_to_cpu(ext->start_block);
-> +		u32 count =3D be32_to_cpu(ext->block_count);
-> +		bool bad;
-> +
-> +		if (!count) {
-> +			bad =3D start !=3D 0;
-> +			seen_hole =3D true;
-> +		} else {
-> +			bad =3D seen_hole || start + count < start ||
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 start + count > sbi->total_blocks;
-> +		}
-
-I think that current logic of check looks complicated. And I think not
-all possible cases are checked. For example, fork cannot be completely
-empty. Could we rework the logic to be more clear? Maybe, we need to
-introduce the function for extent check, function for checking the
-extents are logically contiguous?
-
-Also, the fork contains more details to check:
-
-struct hfsplus_fork_raw {
-	__be64 total_size;
-	__be32 clump_size;
-	__be32 total_blocks;
-	hfsplus_extent_rec extents;
-} __packed;
-
-Why are we not check the fork itself?
-
-> +
-> +		if (bad)
-> +			return i ? 1 : -EIO;
-
-Ditto. Related to 1. I prefer to have error code instead.
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> =C2=A0static int __hfsplus_ext_write_extent(struct inode *inode,
-> =C2=A0		struct hfs_find_data *fd)
-> =C2=A0{
-> diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-> index 1e5b58e6a13f..8d47219e67d3 100644
-> --- a/fs/hfsplus/hfsplus_fs.h
-> +++ b/fs/hfsplus/hfsplus_fs.h
-> @@ -56,6 +56,9 @@ struct hfs_btree {
-> =C2=A0	unsigned int max_key_len;
-> =C2=A0	unsigned int depth;
-> =C2=A0
-> +	/* fork extents past the first were found corrupt at open
-> time */
-> +	bool corrupt;
-> +
-
-I don't want to say that this direction is wrong. However, we have
-flags:
-
-#define HFSPLUS_I_CAT_DIRTY	1	/* has changes in the catalog
-tree */
-#define HFSPLUS_I_EXT_DIRTY	2	/* has changes in the extent
-tree */
-#define HFSPLUS_I_ALLOC_DIRTY	3	/* has changes in the
-allocation file */
-#define HFSPLUS_I_ATTR_DIRTY	4	/* has changes in the
-attributes tree */
-
-And we are using inode's flag to track the dirty state of the tree.
-Potentially, we can introduce the HFSPLUS_I_CORRUPT_TREE. And I think
-one flags for all b-tree will be enough because inode is dedicated for
-a particular tree. What do you think?
-
-> =C2=A0	struct mutex tree_lock;
-> =C2=A0
-> =C2=A0	unsigned int pages_per_bnode;
-> @@ -440,6 +443,7 @@ int hfsplus_free_fork(struct super_block *sb, u32
-> cnid,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct hfsplus_fork_raw *fork, int=
- type);
-> =C2=A0int hfsplus_file_extend(struct inode *inode, bool zeroout);
-> =C2=A0void hfsplus_file_truncate(struct inode *inode);
-> +int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent
-> *ext);
-> =C2=A0
-> =C2=A0/* inode.c */
-> =C2=A0extern const struct address_space_operations hfsplus_aops;
-> diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-> index ff7d6b3336a6..b65edb8ee589 100644
-> --- a/fs/hfsplus/super.c
-> +++ b/fs/hfsplus/super.c
-> @@ -400,6 +400,11 @@ static int hfsplus_reconfigure(struct fs_context
-> *fc)
-> =C2=A0			pr_warn("filesystem is marked journaled,
-> leaving read-only.\n");
-> =C2=A0			sb->s_flags |=3D SB_RDONLY;
-> =C2=A0			fc->sb_flags |=3D SB_RDONLY;
-> +		} else if (sbi->ext_tree->corrupt || sbi->cat_tree-
-> >corrupt ||
-> +				(sbi->attr_tree && sbi->attr_tree-
-> >corrupt)) {
-
-Currently, only hfsplus_fill_super() can detect the b-tree corruption.
-Why do we have the check here? Do you mean that xattr b-tree can be
-created and to be corrupted?
-
-> +			pr_warn("a b-tree fork was corrupt at mount
-> time, leaving read-only.\n");
-> +			sb->s_flags |=3D SB_RDONLY;
-> +			fc->sb_flags |=3D SB_RDONLY;
-> =C2=A0		}
-> =C2=A0	}
-> =C2=A0	return 0;
-> @@ -564,6 +569,10 @@ static int hfsplus_fill_super(struct super_block
-> *sb, struct fs_context *fc)
-> =C2=A0	}
-> =C2=A0	sb->s_xattr =3D hfsplus_xattr_handlers;
-> =C2=A0
-> +	if (sbi->ext_tree->corrupt || sbi->cat_tree->corrupt ||
-> +	=C2=A0=C2=A0=C2=A0 (sbi->attr_tree && sbi->attr_tree->corrupt))
-> +		sb->s_flags |=3D SB_RDONLY;
-
-If we fail to check any b-tree, then logic should stop. Why haven't we
-checked the error code of hfs_btree_open()?
-
-Thanks,
-Slava.
-
-> +
-> =C2=A0	inode =3D hfsplus_iget(sb, HFSPLUS_ALLOC_CNID);
-> =C2=A0	if (IS_ERR(inode)) {
-> =C2=A0		pr_err("failed to load allocation file\n");
+>
+> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> index 6874ba1424af..4b56e82ff3b9 100644
+> --- a/kernel/bpf/syscall.c
+> +++ b/kernel/bpf/syscall.c
+> @@ -2830,6 +2830,16 @@ bpf_prog_load_check_attach(enum bpf_prog_type
+> prog_type,
+>                 if (expected_attach_type =3D=3D BPF_NETFILTER)
+>                         return 0;
+>                 return -EINVAL;
+> +       case BPF_PROG_TYPE_LSM:
+> +               switch (expected_attach_type) {
+> +               case BPF_LSM_MAC:
+> +               case BPF_LSM_CGROUP:
+> +                       return 0;
+> +               default:
+> +                       return -EINVAL;
+> +               }
+>         case BPF_PROG_TYPE_SYSCALL:
+>         case BPF_PROG_TYPE_EXT:
+>                 if (expected_attach_type)
+>
+> > [...]
+>
