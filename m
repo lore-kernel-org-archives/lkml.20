@@ -1,133 +1,147 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAE93E95B1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02E53E5ED5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371815; cv=none; b=GvVcvz77TM2IJWtiEV0LP0+JQHyBzwCJfnCP3IJVQYpQBQUHf7hq9zoEJDTggGZSt4nQsmkybzyLG+IjxqYH2gSKUXtAgm4oaTzZUnWJZYjL8ze4eqI5UJ2y1DAFeFWHwSBxmyqlcvR5gMV8yFMETmkAQFGVkUST/esXgkGTNW8=
+	t=1789371851; cv=none; b=aJwl5N9Ck53huKIKSvLJDigyt5Z5/PH/FwOfjPqV81qQmETiMCRgOyI9GuzYf6xnEl9ldCPtZnXN7HZ0q9+mjO1Ruh13QCHvH13wKf3jnL4QevPVsmQ5+DAhAvt3uo6cMuxlNb8FYWop4F5C/2jwUmxIOJBSNCN6QxheW/XzEsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371815; c=relaxed/simple;
-	bh=fBmxLV6HXxFNCdbssUFGk+HfbStZpc+fHwBbY31qTEw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kqY0Qd9wRG0Vvz7nS3o9ALqFhl25xI+i38NGKjK9KTSUpLT7hzR2gMM6qnwByQYoh62ej8qH2iMeLKa+AIF1JdSLzO2ymN4YOK3LZ23DIYXL3pOK0Cwt7Z72u+6a3+yQK+CEflpEOxS7S//uPg1NMg2mhmaZceaE08eOHLB/+xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ffW/W1ar; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789371851; c=relaxed/simple;
+	bh=6E7eD5i46s7Y77mhiBVLdDFbZv58IH6wFPqFdJ++ZsU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NHn+ayKi2l04yoGlkl7IRV2cvLJ1Zwa3P29NkDMsNP7AjtHgKYZTYib0TVwIby3VRReQvaOJBZNFxRfDUT+kAMAqtC+TWaT6MqNcWbHOwm02D5G6K6qVtR6If3HRp/9AR0rr8UndzU7klfcGt0J2LIUeTnQICbL4igwZkvDLCZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i7OC17Qk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D9SC9jes; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ffW/W1ar"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b35611so775590b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:43:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i7OC17Qk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D9SC9jes"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5jMBR794261
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:44:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=IIRDghMKdS7lTK7Oj9uzZshr
+	yaDadoJKytPnTqaUWgQ=; b=i7OC17Qksnj32zlP30KCMJWsmzza6njv5lntn5dG
+	re2alAt6Il0m4EajDEyI0gg+QIHp9EhM+SgnPhXyQYqUDyJIpL7Z+rol9Z8Wi3v0
+	/cX+OIBunjvq424/ZT62eT5Kc3G3I39tIxRawS25lVaiJFGDgiG3/KrT2EUNGIIF
+	LH+cdFO1Rl6Xqh4bmsnalhzi9zAEtiSz776w/N0j5K35VLPGFQ9lipYcHtmdId12
+	/EluztG7NMNckUJ5SC/qHjmX1unNsdZiLHQOAowX9ofyyWb98WlytgO0sPeYyGU8
+	M9pWj7XSoTeHfWzZsKbgVYcyKD0FAXAOLHL8zJLkMbcLSg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cnhur-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:44:08 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91219341db7so51474576d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:44:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789371814; x=1789976614; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nYJD7VTts/AH4L8FmbbSGUiWjAUaPCR6VveqwEnLy7U=;
-        b=ffW/W1ardLkAqFhf8jmapRsAmUOA78R6fUv2M53ajoAzJ7XBoBL6pmj4/20Uqcoud4
-         pazvA9NX2uqpTz9jDRaK7YBZYzcaMx8IZbzPL/vqqbwgKqSqfT58kocfv6RYr7PUxs99
-         fkwdESK/eLEkMy6EoQzkBXmoi6zlqINOXntDheU/gHSzPxdAe1fAm4SHA7pOWltM9ov+
-         Xqkzj3C+GsBQvuwdiFx25qub+I92PPTsrOMwbOFEqtxGq6w0mkU27WsjxKXbKmSqWnsa
-         NGHcN9EHwNDQYvdMqySbnNg+47jKU5bqYy3wY2G2v5ztLKcD9nh7f4QQorITYFPOuK+/
-         zOaQ==
+        d=oss.qualcomm.com; s=google; t=1789371847; x=1789976647; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IIRDghMKdS7lTK7Oj9uzZshryaDadoJKytPnTqaUWgQ=;
+        b=D9SC9jesXaLykcir4Y9wyY3QHECt86NUIiWMAaon6ThNYLoj4r93EYKus6JRUFNtJU
+         DSZ9/El8P6rN8wm2LCQUImZjB7NTpDZjMgtcQ3Eb1ktxv8iJB0SefIbBGlg30NBK5SgQ
+         KAEO9+6Qjkz5dsfmHnwaHDnybGWv3YIPeVL+jdUaNtlOXLT6g5VHNoJQYzkd35fTPkVU
+         is+VN7Ua8FOHL2dZ5nlwSH+xL0xcj0qpRW5nJ5YdWR27B+FB7xTfmDYSIq2fENLuBHbc
+         GjtwB+4hTizz3QdL2wIQ1Ia3n2g7yrisPAFpADSs75twPEeT1EoG6eesB4NNXEQ0Kxs/
+         py8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371814; x=1789976614;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nYJD7VTts/AH4L8FmbbSGUiWjAUaPCR6VveqwEnLy7U=;
-        b=cKW2qSBaiMop6PG2CxG8f1nJCkV3o1DEBNpEq85XlyVxnbnsIPxFMb55T2JGfqo2ic
-         MUQRhPVvjCFszSYyDWqbhqhMZIl/rFoOYAeVfTtQO1+t+0dk9or+bR4erNC6TS6rqfEf
-         fgaEO1ELF29iY2T3IZQLpznUa/ogE3Ly9K0QM9itBMjPjugBqtE0qPiMEfzp9RF5ry1U
-         T32A8uYSZKpJ4nXt6GUjhk2ssKNyc9jgyt3stImxedg0qE1FpmLmEW9201/HGSrTeu4x
-         vCOtYNRFSnAZQSl5eJbH9dw5ktT4ojrzz5UIT2noGQRYXLgcUUEiGYscgpkQJOpaGCmV
-         3+uA==
-X-Forwarded-Encrypted: i=1; AKwUvBx2il4GVPRwePdl7ohWurI7pWbZsn5tyui1gHS2fAA1hlc+0QhUz8DjO1OMtaZr2BdX/RDM+mDGDNOnbeA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMaP2lj8sYDQKuoZzP/7CJ60qnsL7bgwds20ahmJtUcOo10ELu
-	Jg2korZPIjqi1o6YOak6GGTbhLHwKyQK7mgNbIw4bunsjso3oJa5eq9R
-X-Gm-Gg: AYBFou3IHLuAENXWeemBDerhg04nLXqjBqbtKCdBtR767FIRF5wXGOwKO1XhS2tvj0K
-	dOQxsbniH8iQWSIKrMpTlaUKtP5gFPDDTcFxgxoMmOPHxfjMDafFd92z+TJ5Vz1fiGEEDAfnN8Y
-	fkCZT9TpWNX4NDAUHNfTE/JjE+nOwBp8TQQ0NjrzfI10ZWIzJeJoyc49aFy/RNaLJ2dpz8LM/f2
-	r75sHgvujlViviJ7kwzJru7WiajG8AgtjIFuzD1B+1FAcINVkYttAx8LVdDhWxvBjXrvcA2H8pD
-	XPJKyLLPmW0YmEJLZjWVJ32X0Ee23wq2Kh8WHkblzXF9FSOvbVolpGsI+giqQbaIn9Wh569uOLi
-	k4itgk+YU6cetWLQdQAMVhu35npPraMPDvLAKDxnZM4NSGNPtQMZV9P/V6RXXGuMSxPcPeGHG/W
-	lU151wIVclAc/7LfomDXd/Z7F1IIQ3LlqtJDhrIuglruUj0q+xgs4ErTjEeCZhyMelki59M5QNw
-	q/tb1FRz/RFlt2bsz0esFt9DJqNetzSX8yaEI0=
-X-Received: by 2002:a05:6a00:4c9c:b0:85f:b00b:8760 with SMTP id d2e1a72fcca58-86f82a5efbamr3533434b3a.5.1789371813846;
-        Mon, 14 Sep 2026 00:43:33 -0700 (PDT)
-Received: from a317-tower1.tail2eac45.ts.net ([59.72.109.34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250c544bsm4088751b3a.1.2026.09.14.00.43.30
+        d=1e100.net; s=20251104; t=1789371847; x=1789976647;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IIRDghMKdS7lTK7Oj9uzZshryaDadoJKytPnTqaUWgQ=;
+        b=MhTmFLF93BtgRgq/Mg3HNkvs8j6LzOHKHb9WKgTG+zg1dpNU8obbeAcITmqihS+yks
+         5od0yTcisdqAFwH9l9jtpq/kMjSkCADDWHb+h5sP6h3ehoiOmz3080vXcGMcNIaJS2pX
+         wu4elJ/vJmPznHH948+Tfrsb1pOiWzaZwRZOKnD2uatsK6E7/aGhOZCVKF1qSAUFJxAF
+         92HdvTjlgHrgnOjtyKEBGknVnV8yDYtaD8RHtz9eg54bgzFwHrtI+ONKIXZfin2Ijxkt
+         O2wrweO4hiszYQGsjgg0gRr/3+ze5krrpMQTvd1c1CBtc7/W8G+bG9GPXgQkthnQV7Jt
+         bjvA==
+X-Forwarded-Encrypted: i=1; AKwUvBwzQ2+4j2xFOyiQv2MP/14vLuFBIf6q5/0MJ+lDlT/AM827wjVCWD7AVzOD01u3fX4VUqwA+woTkztLFuw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m034teKTF8ZyPIsCJjLX2Qmptp4i3y3GZvD2WfQcuDpQUj/nk4
+	MUdTgFGYGJkcMjYJ3rb3RBfrBHbuPDIG9mH2Qjx0HX4+MeTJIOt7TPDygenYOEN6xiEKCIef0x8
+	j8UYPsxunbwo7XqjcoSwDyCL5eOwHditDYitvgTbaT5+ey4nR2xsRz2Ao142kNj4ya/Y=
+X-Gm-Gg: AYBFou0s8NfCGDgAUKQvkjNKn0gWjw0zf5T+RxoRetxR6rN/m9oQUYHnZDgPuCFtJe9
+	hGcQxNWIgpvP6UeXzGUSw/zA2MEt0C/EPQS6s02oaeQ4ciIDaNB0/pSKFPwCOpohcjPsvfqgusS
+	b4qKU+Lykkhq2zrJ/jDbJULbZlvaywPY2KopC+HtYR0s+AmTJ57aEdNdfSpgKcNBr0ap9WAyok8
+	piI42oOkRx77GX0DTwhPg7eeGc+F2zv4lxcGAWtGyBSDOVAY85rLSJX2T3bz2GGZukxOHbquDOB
+	Kn4wfn8Z2ECkgPHMWZytcUrTjViEM72dOa5mH6LR9E0ccnthdx/IyTa4GREjnF6FrrmlHgR1zL/
+	c7ig22HvaybDDG28=
+X-Received: by 2002:a05:620a:2548:b0:939:78ab:3c5f with SMTP id af79cd13be357-93a297c8d1cmr209146085a.9.1789371847249;
+        Mon, 14 Sep 2026 00:44:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:2548:b0:939:78ab:3c5f with SMTP id af79cd13be357-93a297c8d1cmr209142785a.9.1789371846698;
+        Mon, 14 Sep 2026 00:44:06 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f353sm24005162f8f.26.2026.09.14.00.44.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:43:32 -0700 (PDT)
-From: "Zimo.Lu" <louis2665573906@gmail.com>
-To: Gregory Price <gourry@gourry.net>
-Cc: David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] mm/memory_hotplug: use public nodes for migration targets
-Date: Mon, 14 Sep 2026 15:43:22 +0800
-Message-ID: <20260914074323.3567923-1-louis2665573906@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        Mon, 14 Sep 2026 00:44:05 -0700 (PDT)
+Date: Mon, 14 Sep 2026 10:44:03 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 30/31] arm64: dts: qcom: sc7180: Add domain idle state
+ names
+Message-ID: <skntn7i6iecjzufijj25zvalg2xcaxwqa5aresahychjhrlt5q@ginodspziu73>
+References: <20260914-b4-idle-state-name-v1-0-660c31187819@oss.qualcomm.com>
+ <20260914-b4-idle-state-name-v1-30-660c31187819@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-b4-idle-state-name-v1-30-660c31187819@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfX4RV8wdBlp/62
+ 3IghUeQpoY3JU1Qyuo2vvkOD+LzO3P5jYHWpHOqKtT/GBUdn+smSMS1fi8YoNCa6t8gPYfG7Q3l
+ sEVU5TW92qpm2n3ZyQCh8atJBeyaTV3VptHGERyWaAfsjkk7PoZDbhWgXSmmaBocy+gQHLXROLA
+ 6FlkQTbJKtvrcm9OI9gCY83pyU4puQ0Ik32HmGHsiSjtEkACVb+Y/bhDm9fXoOgf3kI7JlVIoD7
+ sYHjZspr04NHmcDcC5/1ZXStCQxuzYlswN5Jkn7VwitK9sxVmq8mFXKG9ndqWecjoF9ItoEW1eA
+ mXbkWqwIjC2rX+c1DDGtzd35V4rSQZneFuvm60cUGCJDTH2iw0Y1cKPJmW0NbAqKql1fqIzb6W1
+ OiklUyrs/UQ1vUbFWfdOi6s46X1IrVhlGuFK14hMP6RyQWgGjwEMtwMaUXxic7EKUHByTApKTQu
+ vG66ax1sYRUtkC2K3+A==
+X-Authority-Analysis: v=2.4 cv=EMyTQFZC c=1 sm=1 tr=0 ts=6aa7a5c8 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=HAnpKfeiUU4SruykqnYA:9 a=CjuIK1q_8ugA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfX8Ft7J7S2xi89
+ r2O+NeUr/mungToRzPpfcz8XaYrqsA4uIqK+6gK0rRS6pnz0tfFg4RtYjTEG//WJf7bdzoOD081
+ YQNKd4UEO45OR/xUHhgy1EKhSmf9P0E=
+X-Proofpoint-GUID: vnOYqpZqypE5r7q2J4QuwYTWCIpXfqr2
+X-Proofpoint-ORIG-GUID: vnOYqpZqypE5r7q2J4QuwYTWCIpXfqr2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 bulkscore=0 clxscore=1015 malwarescore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140109
 
-do_migrate_range() excludes the source node from node_states[N_MEMORY]
-and adds it back only when the nmask is empty. With private nodes in
-N_MEMORY, this can leave a nonempty nmask containing only private nodes,
-when the system has only one public node and others are private nodes.
-Ordinary migration allocations use the public fallback zonelist, so none
-of those nodes can satisfy the allocation.
+On 26-09-14 12:30:02, Maulik Shah wrote:
+> Add the idle-state-name property for the domain idle state so low power
+> modes are described consistently and its name is printed in pmdomain
+> debugfs.
+> 
+> While at it, update CPU idle state names to match the low power modes
+> they describe.
+> 
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 
-Build the nmask from N_MEMORY_PUBLIC so that private nodes do not prevent
-this fallback.
-
-For HugeTLB migration during memory offlining, this also excludes other
-private nodes from the nmask when the source node is private and public
-nodes are present.
-
-Signed-off-by: Zimo.Lu <louis2665573906@gmail.com>
-Assisted-by: LLM
----
-Should we use public targets for private-source HugeTLB migration during
-memory offlining as well, or should this fix be limited to the same-node
-fallback problem on a public source node?
-
-Based on the author's node_features_v6 WIP snapshot (base below).
-This is not a patch against mainline or the posted v5 series.
-Private-source HugeTLB migration has not been tested.
-
- mm/memory_hotplug.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 22d20ee96bb1..8a95ba26552d 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -1937,7 +1937,7 @@ put_folio:
- 		folio_put(folio);
- 	}
- 	if (!list_empty(&source)) {
--		nodemask_t nmask = node_states[N_MEMORY];
-+		nodemask_t nmask = node_states[N_MEMORY_PUBLIC];
- 		struct migration_target_control mtc = {
- 			.nmask = &nmask,
- 			.gfp_mask = GFP_KERNEL | __GFP_MOVABLE | __GFP_RETRY_MAYFAIL,
-@@ -1953,8 +1953,8 @@ put_folio:
- 
- 		/*
- 		 * try to allocate from a different node but reuse this node
--		 * if there are no other online nodes to be used (e.g. we are
--		 * offlining a part of the only existing node)
-+		 * if there are no other public nodes to be used (e.g. we are
-+		 * offlining a part of the only public node)
- 		 */
- 		node_clear(mtc.nid, nmask);
- 		if (nodes_empty(nmask))
-
-base-commit: 38c7f48162aa282dc6a9edfb7011378594057c10
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
