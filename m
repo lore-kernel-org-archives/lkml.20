@@ -1,53 +1,88 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BBB47AF5F;
-	Mon, 14 Sep 2026 14:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A5A48033C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396794; cv=none; b=QDd6SXcVkPYC/x5Kf1hIqnOGkJduPzDCBnOArRqCxmDCw48K3WJIQs8pEVO/6Z1Vg82SbvpVWez4+yO6D1jgt0GlU7fq6emz5Xec9VT/8+G19ZY1TwdR75Idp+DQHLUS5jSgwhLYlp/oID4DOVcK5iXmTY0WoNzdwnUeibxAxns=
+	t=1789396802; cv=none; b=PpbriAx815PEdTYzN9RmnNxWBxa4CZGhZ0txFhDEciRrdO8/owX85A77pQ1XRbFDOCZKJxlpe5G+wTirwZrZabcgR+jBZUACikvST2QiYgjGA/V0pvXPn1QQ9vblmYD7gxdi8fGYINHx4hyxTk5sDN1ZfxR4hpD5FDYZ5qViZ6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396794; c=relaxed/simple;
-	bh=Tf/OcllJ2Yb63WJf1blzFMdyNwJao/wBuYAaItBcEfg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FTn7CltV2ncfkg74vMG0rCFAZiGuXBfyzMT/6Zwb3PZ7rrxQ/sab05wm82h1YnVMJ/UhmAczfkfsCZUjKfixAgqmzLohZ71BbIpTI38UYAZZKVWmbZ84JKii2v/bBoksbAPqEzJT71cLFostG2KiWQvi8iItlzxAhqLaMlZu4DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eaFyewLk; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789396802; c=relaxed/simple;
+	bh=k5pbw3gWXkD+2lSDgyawLTDWIcAys0OeL71nHG/+9K0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u9kj/7lZJo4/RsrMHGtjuChvDs+677XuaNw6Q9cwkxsHm2oKXCWC3PEmFZdb60XukjKiVBHBFStesUU+1kkkI5tTKr34fu6i7tJt3SPF1lXvTfrfVl+Iabzc14/Dy8rlZh8SMEeoG4olps31NzgQzWKkAdwtUwBQIs/ADfK2/qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e4667YEZ; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eaFyewLk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Tf
-	/OcllJ2Yb63WJf1blzFMdyNwJao/wBuYAaItBcEfg=; b=eaFyewLkH4TIDXFqvX
-	5ksgDwOzYVORHyaVLJ0nbPS7QTIQM58s+fp30uLaV3i7ItBdgb5Vu8DV5/R7jXM0
-	hVm13d+lB+c8kXP4qibPqVbrl9B5LrKn8+JVEcRJAhSjQgL41eYW2CatJKSuDGjy
-	XHTKjrM1IvkoTHcWqWbYZ8EiM=
-Received: from hpl-VMware-Virtual-Platform.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXBL3qBqhqmNCpAg--.22384S2;
-	Mon, 14 Sep 2026 22:38:35 +0800 (CST)
-From: peilinhe2020@163.com
-To: he.peilin@zte.com.cn,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: alexandre.torgue@foss.st.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	jiang.kun2@zte.com.cn,
-	kuba@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4667YEZ"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so2823101b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:39:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789396798; x=1790001598; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q7je+QGWbrv106IbpMWADgcAusdkekcf43RbJ56qmHI=;
+        b=e4667YEZxcRS9doRa/bZ3tm6gfoQOg9hsnYwQfQlgc1bAHPbTID3GJEWtblQKpadSs
+         ytMMOsmjDNSvr2xlYNOyRtBrHeoNAsK77VB/WNH8gaoa/NynfsrnOxE2ZkmrYnWgWI5D
+         oBXgtfYqw15EtjIE+FE9I0jdbt0mkHPdDgy6TTIIhMJZrFhNz/VePPuKbJE2kdVM4HvP
+         ajy62iQlY3k3DgjC0F5RWNgiHwxJA6UozoKpzP3sp7e8I9aFt/BqANvgyxbeCSxsphR6
+         +V2zqvvjek6vhIX9ux4bwgkrN1dmhrBEUWrGQctlxQs4gteXOneufNRPxyfw4Y7NJN5X
+         OTJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789396798; x=1790001598;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q7je+QGWbrv106IbpMWADgcAusdkekcf43RbJ56qmHI=;
+        b=R0YqkfZubJyydV8Re9bbGoj9pOoDtifsHdv3uZ2+7b6rgwy6Rlho2wialOOZ0ehwWe
+         nZ/rGxAw6jw0tVVVs3M7LNul5/GpSOgndJLEUCpK/h92Q0JY6xy7UbJIYfKDq9QtWsh/
+         Dnbpc2PYEq3pWfmpI6lPO4KEzShIy7yC+3yRZhmPpFCR4kOZRonYaVaT7Wvgu/wTA4YJ
+         kJzJJnSZgla2IUiLYUaSGPl334BFshWQO16bBupRY0s5fenTgGB0UJuN8bCYI8VFR1T5
+         MiGAxU9Z2JKFzu5rBp/p79Tv+R/51vPnUp8JeGODvwgROxHubLvBJWQ/+8YSC4HGCYjZ
+         yl1A==
+X-Forwarded-Encrypted: i=1; AKwUvByVPW+GxcgLfVdf+taU0Q+I/Z/l/eAlGaZa9F/8zv3P/QE2ggruZC8h+qF0akla1nLLRIQX0NrCpsz2dz4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMzIEK5O5SCAAmrV7mysRYYFzGe/Loe03NvrmxBl0eQoed1Yod
+	gukhsiT65jGD+r7OrjL6AVfRUgNJQbctQsdkm+jWGsASg9F0334hlRBW
+X-Gm-Gg: AYBFou2IWF+xukx27PSnarD47B/xhEnRt/MNvPHbMIjZ8XrgxQeDY2c7h5uskr5tecc
+	qViJVMDqcAvhJLhftB5VAzrXBAItCcDn/ColEw4PhipPpRj98nbyswgcgOKyMjTR4xyTUbm1H5i
+	egHksxS9vYTgjmI+iFWPV3dB8DJMTpCfGJygdK1s/HOkzSvuyVEdnqmUCFwhO96rrCStL34BQFJ
+	akZM5D4e2Ko4iO7Bs2TyrAIsXMitDF1k5stQQNDPp/QE2xfyV1uShFLljKhuvbx4SI9V7jIZutH
+	Wu8XX81Ajds2JwtAv0fgS1Q6s4WGzo/UPP/VbLKE4EuUoXdApiiYUXITsrEvYNp2tbPXe4yMWsF
+	RZuaU/VATCigsiMIu/KZi6+2IJlu6Z4rcD1A61Kbqfh7Yh4ZTZ+9VRRKfxyOtZreQV1LHhJjt8g
+	y8l8KeAJp5n00XD0e9+adr0lar5ua8ks51lFZbqLrJrLm/atI7STPykHLen4YYx4cjJ6T4Ns2TR
+	X6tMzrt/0xmudJnew==
+X-Received: by 2002:a05:6a21:3383:b0:3d3:adad:f176 with SMTP id adf61e73a8af0-3db40733007mr7430953637.24.1789396798408;
+        Mon, 14 Sep 2026 07:39:58 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6572ecasm5149444a12.22.2026.09.14.07.39.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:39:57 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	corbet@lwn.net,
+	akiyks@gmail.com,
+	luc.maranget@inria.fr,
+	j.alglave@ucl.ac.uk,
+	dhowells@redhat.com,
+	npiggin@gmail.com,
+	boqun@kernel.org,
+	peterz@infradead.org,
+	will@kernel.org,
+	parri.andrea@gmail.com,
+	stern@rowland.harvard.edu
+Cc: linux-doc@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-arch@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	mcoquelin.stm32@gmail.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	vbridgers2013@gmail.com,
-	xu.xin16@zte.com.cn
-Subject: Re: [PATCH net v6] net: stmmac: remove software VLAN tag stripping
-Date: Mon, 14 Sep 2026 22:38:34 +0800
-Message-ID: <20260914143834.5828-1-peilinhe2020@163.com>
+	rdunlap@infradead.org,
+	skhan@linuxfoundation.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v3 0/2] Documentation/litmus-tests: Add SRCU fastpath litmus tests
+Date: Mon, 14 Sep 2026 22:39:40 +0800
+Message-ID: <20260914143943.1503066-1-kunwu.chan@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <7d72b99f-ca65-4ad4-954c-b3f9d07de523@bootlin.com>
-References: <20260911141126.10592-1-peilinhe2020@163.com> <7d72b99f-ca65-4ad4-954c-b3f9d07de523@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,37 +90,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXBL3qBqhqmNCpAg--.22384S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZrW7GrW8GFW5Gw15uF4Uurg_yoW3CwcEk3
-	yDAr98W3y8AF1q9F10yF1YqFnYgay7X34fKrZ8Xw17try8JF4Fgan5WryI9F4fGayFvF9F
-	yrnxtFW8t34jgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_GYLtUUUUU==
-X-CM-SenderInfo: xshlzxhqkhjiisq6il2tof0z/xtbC8guAMmqoBuuG-gAA3c
 
-From: Peilin He <he.peilin@zte.com.cn>
+This series moves the SRCU fastpath litmus tests from
+tools/memory-model/litmus-tests/ to Documentation/litmus-tests/srcu/,
+as suggested by Paul McKenney.
 
-Hi Maxime,
+This series splits the two litmus-test patches from the earlier
+[PATCH 00/13] srcu: Round out atomic SRCU support series:
+https://lore.kernel.org/rcu/20260907075829.2073224-1-kunwu.chan@linux.dev/
 
-Thanks for the review and for the detailed debugging.
+The two tests verify the memory ordering required by the reader-free
+synchronize_srcu_atomic() fastpath: the grace-period anchor must be
+ordered before the per-CPU lock-counter scan.
 
-> Eaxh patch should be an independent thread, not a reply to the previous
-> one.
+Patch 1 verifies that the anchor-before-scan ordering forbids a reader
+from being missed by the scan, while patch 2 shows that reversing the
+ordering permits the problematic outcome.
 
-Ack. I'll send v7 as a new series instead of a reply to the previous one.
+Changes in v3:
+- Add a critical-section write after the smp_mb() in P1 of both
+  litmus tests, so the barrier properly models the lock-increment
+  to critical-section ordering in __srcu_read_lock().  The smp_mb()
+  was previously vacuous because P1 had no subsequent memory access.
+  Suggested by Akira Yokosawa.
+- Adjust indentation of the SRCU entries in litmus-tests/README.
+-v2: https://lore.kernel.org/all/20260912024225.2872265-1-kunwu.chan@gmail.com/
 
-> So this patch breaks all the stmmac selftests on some dwmac1000, e.g. on
-> dwmac-meson8b :
-> ...
-> Can you add the following patch to your series, as patch number 1 so
-> that ethtool selftests still work during bisect ? I've tested it on
-> the board who'se selftest failed with this patch and it works :)
+Changes in v2:
+- Use a filter for the P0 scan result, as suggested by Paul McKenney.
 
-Thanks for the analysis and for testing the fix. I'll add your selftests
-fix as patch 1/2, keeping your authorship, followed by the software VLAN
-stripping removal as patch 2/2.
+Tested with herd7 7.58 using linux-kernel.cfg.
+ 
+Kunwu Chan (2):
+  Documentation/litmus-tests: Add SRCU fastpath anchor-before-scan test
+  Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
 
-I'll send the v7 series as a new thread shortly.
+ Documentation/litmus-tests/README             | 21 +++++++
+ .../SRCU-fastpath-anchor-before-scan.litmus   | 58 +++++++++++++++++++
+ .../SRCU-fastpath-scan-before-anchor.litmus   | 56 ++++++++++++++++++
+ 3 files changed, 135 insertions(+)
+ create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+ create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
 
-Thanks,
-Peilin
+-- 
+2.43.0
 
