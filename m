@@ -1,89 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED6A1E7660;
-	Mon, 14 Sep 2026 02:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789353981; cv=none; b=tyiZadT6JyrAkBcLpumxBTC7ZekOTUMy2GjjJALDOtW6kjHtepnVKfQ35vaFb2qm/y+QcpXNrb4BzI3AVAZJjpUm0VuoHkH2M4Doavar29YFGLhAnmQH81JjF00NpjGO7fJyEMQWQd3yw4AOCuR+rJrgr67EWxg9k1uHssWzYas=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789353981; c=relaxed/simple;
-	bh=Ggv7iiKSnJ//YXcRsLNIhsICt70COz7t+5Va241/BH8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=VVhDnSikIK5h1KVB0TWkEx6y9ph2n3MaryDeG6sW4BWG5/V0RmRTkYQ7IosV3+J8qfEw+v7CnnhR4i0wbkQpe5P+KU48tCJhVudZq4wH6lPjDn5eRyR/P7ZtMudyifgavzoyQ+tVG78GdxfgevGCjhjgoSveYZ706lZAN79CmHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vjTonrjZ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BF0329E44
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789353984; cv=pass; b=QRRDungA5x1E6jYZM5esQSHBilbGOEpX+lNNNME50kEW716J6bKdZDHuBTUxSDz7BHAlRph5ffPaZ/Vbw7WKCzVCgCU+0NWqIU0soeD/apSkw9V7pyKwTtVS9OrWQ67Nxl2sXW8gqRDYsB+2K6lSyJXY0/Ah86QoV+YkU7v9qsY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789353984; c=relaxed/simple;
+	bh=pdLJmeXyTQ9rHJgZF5UazEIfFtz1igLOQKfDmJfXugw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GhzNWB5F6dFMrsjbTTLAjJqwy8FMIxwx4Qq4JfTv3unChCfddeT823dzLkyTV5RoN0Z5tu86l+j9kY1lg5j734VhjDWQwz5SLKBqP8eYb1ilD9bGIjuDJiLSc22BNdAkHPOKg+OHAPkh4V7aVFkN3FLIfjrWIG/e76UGiCPsCSw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lHRNT0YN; arc=pass smtp.client-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vjTonrjZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FC11F000FF;
-	Mon, 14 Sep 2026 02:46:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lHRNT0YN"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a20367cf82so22176231fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:46:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789353981; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NfJpSGtS/aWQ7aMu4nxzvseuF617a9amZ1am5xQ351C/HlT+yGWjVYPuMgmZZQjcYw
+         CRiZmSBCIAgjCzQnOCoTJEZhFw36XoBotC7jj6XsbLAze0XAmT5X47Yz16lOuLSTJ4kE
+         j4XFz2CFBc8R2w+HZvv5JK/N4bxcrijo/JSlIZH+r6v+oXWkfi//K4ds8vApIyiJ7ifh
+         fqnsMjDwHfNDRr2Gl/SwlOdLF5Oy2utQY4+gbS9z/0EUqNGjpZhqDcAchCaiYUjfDhNn
+         oUc3xaL4QiI/Rc+ejPX8YXY4nmF2G29BMlT9URwVPd7Xc8De+OGS39fs4KwrHjtmuAXP
+         21jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1FuJzn/2R5Scc5m2lJpVpNzaSeSlPcbk/PD0ZHGJTnI=;
+        fh=OiAi+amVT+lj9SIzdbnDDFrkKh6Zq+aDkzztaaR+Vzk=;
+        b=FXFeqxEI+CX0FPIPeCike+SWv8gFTUbyzkMkm7CECApcYmREAXgzbiHk0BhEy8KTid
+         Rox0pqFS2zMUOdpywV5p5Rom92S2xvDa+BSN3/Scl5XRX7PB8Ku8+T+sZ2eidoIAEA7I
+         6n3azsAUsnxNaoY2W9xcOIghXtBIqvcGSaBqz7uUxuQ55uhcX+gzfVrUZti6Rz5uTv/P
+         rG5pe2Z8zzZVhH4tn6IIVmhYwzbHerA2Wr2HxtT/4qlBCnIqb+oTOLL0RxWtaXpdlNh1
+         AGTw9z6MSI3nOfLMJ5ezgZj7gjMZwBjAjAvy5y9bZ7uCIo/J6+Ia9ujLepLxc40QfgOA
+         qDhw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789353979;
-	bh=yv+aHnaOZ2/MmPPiwQdl4d3Iiw3sTv+0+gOwBC8ojuA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=vjTonrjZGHAtABmztdeAkNyp2YCTSg1hcvPpxl2hGbuavMFxABpIw2SS42ROp4V+P
-	 b/fM0/GPmW3vPLG7clxQaYRx1foWn4CkDoCAm4Bt9O5fnCMTZ2ZZSqHUiRi/si4cch
-	 HEvHwkjxFWqLMoTC+cbr8q7OC1mRnKG65s/GpCBA=
-Date: Sun, 13 Sep 2026 19:46:19 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Matt Turner <mattst88@gmail.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Alain Knaff <alain@knaff.lu>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] lib/decompress_bunzip2: fix off-by-one in run-length
- bounds check
-Message-Id: <20260913194619.f495704b6d28bf67a50570cd@linux-foundation.org>
-In-Reply-To: <CAEdQ38HY2wYptnqo_yF=GX9PsY7akUVB2z64HbErATOF=R5vKg@mail.gmail.com>
-References: <20260912-b4-bunzip2-blocksize-fix-v1-1-c7384bbfc954@gmail.com>
-	<20260913190707.413136686f78887287764f0a@linux-foundation.org>
-	<CAEdQ38HY2wYptnqo_yF=GX9PsY7akUVB2z64HbErATOF=R5vKg@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1789353981; x=1789958781; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1FuJzn/2R5Scc5m2lJpVpNzaSeSlPcbk/PD0ZHGJTnI=;
+        b=lHRNT0YN1yxjkrlAM1lPdc2WLMf399E6idNIwxJWsrTL6PTkAVQcvlyPCvl5nFYBK3
+         AcyPn13QqKVVRrL1zipwxIuzpUn+hZQyrfLwU8vfxMlO1Sg+/Wc/b8ssKZIBikPTpW3o
+         Qfhv5VYeyTDS4rgr3Y1crm9tbApDt3VgOUSmg4HGowYFcg2iQD6Atwm+T8mrtuzpDzdI
+         FplW7jJahMK8c5NcaherFUGtK7yxNILDMASgehGniR15Q0fSqZ94oqBaNSuxDJMRDdPq
+         P/0+TRgkg5jJVzXDicJjiIXLH2dlZUYYr2nDCwskIOBgCIztS2v9Y18IRTjj+Bd2PmH6
+         vHAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789353981; x=1789958781;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1FuJzn/2R5Scc5m2lJpVpNzaSeSlPcbk/PD0ZHGJTnI=;
+        b=DLG8ReifWRtwrnqGGFScfVhTpLXdZHVTvWNt7bbHzL8IqFrAYN1fgtyuQVsa9bGyzi
+         P16Dp48wM7wFbwX9Owclz6cuMY2nnbiFhXpMRxluVD+9oweP0ZErlRc+ftLfxsP4C4hO
+         tzb8u/6KA1X8aWECA55WrqkJjt2M1PRkdnsWnkI65KxR9aHtPBMFjexWZS6H7TWm21k/
+         sRf2rz7QF3dmAgKaJDGXvTlKWzCCWW/sVvdyENNAgPId6KCuaEDu8Wk9Zz+SxxcVHt60
+         ukGRVHhZzDAAduajWzM6EquA5K+lFGOIuJAbDsUOvQXZ4Je7o4sHprH6DQyWaa3rL9vo
+         CUVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzmsKbq9V5T2iD5Nj5qt9KuQ62cUImyA19GYDEOfTDjLqbSvg5AZc9wNI6cE/c1uEU7YseZcy84fy8nBVY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGRXgaJwqyIxTNfVCTzKohnWvCyqPqOvvSbrgGnb9zCXTCoyS8
+	XNO6PCIW+SV5nd+f8PcCeRoA51Y5901mWjzTAVR+61JuOsYXHJQ3QffXhRne7VCA5YVuLirBWg2
+	m0wmbp9uPhr9OA11gzx3Fh/AJ8F92wNA=
+X-Gm-Gg: AYBFou2wmDiJWWtEsnOucKLWb17RPaXzizABFdD4wrCLg1hHGE653bPtLCJRiqo7uZ4
+	HyJTml8qMmEQW0+/8pVCh4QICS7oXLiPCwEshF+3PHRkD4N/IEGZXz42ZbF1h27A0cwqW6FIRAM
+	563SmNjqrLum/aqtIKJ/xzWhhUN6W/m6l1Q5yYUJ+VDqQTaZ4Ct9lzG6OR67MFRGhFneOLDLE4n
+	2KoluaAk5yUHrTjZHZ2AY1Kwit2vvucfj/y89LNnFJEJzkUw8AJtfAbNs8FKk8ucYToP7jEQqPP
+	EQc8zenqarDbqm8hQ3TlY2UsOEv6bxre7ungkEPjPjmfqREuR3xrRhb6zqyMftA7aFba2Req7RM
+	zuEWgdiMajMSLBoimlVvlj3LigRnqp0l5R8Pe+lHlbg==
+X-Received: by 2002:a05:6512:3042:b0:5b6:1a7c:59cc with SMTP id
+ 2adb3069b0e04-5b8ae69c885mr78058e87.38.1789353980592; Sun, 13 Sep 2026
+ 19:46:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+References: <20260715-pwm-loongson-fix-v3-0-0aab2847eaa7@gmail.com>
+ <20260715-pwm-loongson-fix-v3-2-0aab2847eaa7@gmail.com> <ap6Ciw_sMALvlROd@monoceros>
+ <CAJhJPsULo0S5c6GKQvRqLtVx3nixZLuqRrh7hi5yJ7C5BuwLUQ@mail.gmail.com> <aqK2R9HodI399ehb@monoceros>
+In-Reply-To: <aqK2R9HodI399ehb@monoceros>
+From: Keguang Zhang <keguang.zhang@gmail.com>
+Date: Mon, 14 Sep 2026 10:45:43 +0800
+X-Gm-Features: AcwNN1UbS5KoKs3oMsJvuOYqiNKtHepxzTF7RNhGPEaA55gBaJPAbm_T3WS7wqQ
+Message-ID: <CAJhJPsUpefK7CQjHY+e9BQt90jQoTEf4ki258z4f--G-ATjKkw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] pwm: loongson: Reload PWM configuration through
+ counter reset
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, linux-pwm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 13 Sep 2026 22:16:16 -0400 Matt Turner <mattst88@gmail.com> wrote:
-
-> On Sun, Sep 13, 2026 at 10:07 PM Andrew Morton
-> <akpm@linux-foundation.org> wrote:
-> >
-> > On Sat, 12 Sep 2026 14:17:35 -0400 Matt Turner <mattst88@gmail.com> wrote:
-> >
-> > > The run-length path rejects a block when dbufCount+t equals dbufSize,
-> > > but the loop that follows writes exactly t bytes starting at dbufCount,
-> > > so a block that fills the buffer exactly is legal. bzip2 allows it too:
-> > > its decompressor bounds a block at 100000 * blockSize100k and checks
-> > > that limit per byte appended. Use > instead of >=.
+On Thu, Sep 10, 2026 at 9:54=E2=80=AFPM Uwe Kleine-K=C3=B6nig <ukleinek@ker=
+nel.org> wrote:
+>
+> Hello,
+>
+> On Thu, Sep 10, 2026 at 07:58:12PM +0800, Keguang Zhang wrote:
+> > On Mon, Sep 7, 2026 at 5:33=E2=80=AFPM Uwe Kleine-K=C3=B6nig <ukleinek@=
+kernel.org> wrote:
+> > > [...] I wonder if the fix is incomplete. If at driver bind time
+> > > LOONGSON_PWM_CTRL_REG_RST isn't set and there are still wrong values =
+in
+> > > the shadowed LOW and PERIOD registers the first period will be wrong.
 > > >
-> > > bzip2's encoder stops filling a block 19 bytes early, so nothing it
-> > > produces ever reaches the limit and the bug stays hidden. Compressors
-> > > that use the full block size do reach it: an lbzip2 -9 image whose block
-> > > ends on a run fails to decode, and a self-extracting kernel built that
-> > > way does not boot.
+> > > This would need:
 > > >
-> > > This code came from busybox, which fixed the same line in 2013 in commit
-> > > 932e233a491b ("bunzip2: fix off-by-one check").
+> > >         val =3D pwm_loongson_readl(ddata, LOONGSON_PWM_REG_CTRL);
+> > > +
+> > > +       /*
+> > > +        * Ensure that the values of LOW and PERIOD are sampled into
+> > > +        * the shadow register when the hardware starts running.
+> > > +        */
+> > > +       if (!(val & LOONGSON_PWM_CTRL_REG_RST))
+> > > +               pwm_loongson_writel(ddata, val | LOONGSON_PWM_CTRL_RE=
+G_RST, LOONGSON_PWM_REG_CTRL);
+> > > +
+> > >         val &=3D ~LOONGSON_PWM_CTRL_REG_RST;
+> > >         val |=3D LOONGSON_PWM_CTRL_REG_EN;
+> > >         pwm_loongson_writel(ddata, val, LOONGSON_PWM_REG_CTRL);
+> > >
+> > > I think.
 > >
-> > Thanks.
-> >
-> > > Fixes: bc22c17e12c1 ("bzip2/lzma: library support for gzip, bzip2 and lzma decompression")
-> > > Cc: stable@vger.kernel.org
-> >
-> > Why is a backport proposed?  Hopefully because downstream users need
-> > this change, but the changelog doesn't tell anyone the reasons why.
-> 
-> I ran into this because my system uses lbzip2 as /bin/bzip2 -- a
-> common thing on Gentoo I believe. As far as I can tell, anyone using
-> lbzip2 as their system bzip2 would run into this and it's only because
-> it's very uncommon these days to compress a kernel with bzip2 that no
-> one has noticed. I only noticed because I was adding support for
-> various compression formats on alpha.
+> > You are right that this patch doesn't handle the initial hardware
+> > state when the driver binds.
+> > Would you prefer that I submit a follow-up patch to address this, or
+> > are you planning to fix it yourself?
+>
+> I don't have the hardware, so if you do that and test it, that's very
+> appreciated.
+>
+Sure. I'll add this fix in the next version.
 
-OK, thanks.  A real-world i-hit-this is compelling.
+> Best regards
+> Uwe
 
-> No strong preference for a backport from me. Just thought it would be desirable.
 
-np, I;ll retain the cc:stable.
+
+--=20
+Best regards,
+
+Keguang Zhang
