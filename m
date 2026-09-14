@@ -1,118 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667D247F2DD;
-	Mon, 14 Sep 2026 14:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F6C46D57E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396055; cv=none; b=MTDv3+ASKCy9qp8BCFcuvHgIcMfgAVUSz7yY2OhQuY/r16zK5SpV/qbwzdXfVzeOoizx4FRongjDrzsmpiiZWn9xQLO0nAlLtKpCDgIodP/tDPpmWmfzVQuEVx9pB0EyMEzckEJlaWxtHh6ay3HVcoWGv3Bly3x1dPzU+7cwD1M=
+	t=1789396075; cv=none; b=bLr7NZEYVY9RABHQOfMrTHCSjJLt6kAl0TZDzimqYKTIeG0xUQfPOi7CoZYROCYEc2MXkWjrZh26WqUi0mXY/NkzSrc1J/6/a6VDaxTFizzIrIRVvaeb5lz10mRMl7wpNvdXKpRBEPt8lV1VJ7eIS6Y2rScsf4Q85lOSTVPOxGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396055; c=relaxed/simple;
-	bh=swvKZdKeKTW3RjsxpBakFJKw47629EQkRgg+kyo6zE4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YIWCM5ruynPQbrTrNAj5ycM1I5a9koJtvVPK9XVDSZiqDNSFqcCaD4kgEPf4qvTtneaXGSXB9hZ1vHxZjFsEfVm+5/9h4EibZim2oWq4/N4OsGO/lf0LpOSVfT1y1lPBz4w0TInqdWDQFSKHgj0jHU8Rs0xTDG1/ZyrAyF++Pkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGxPcdJI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789396075; c=relaxed/simple;
+	bh=fy3Rh4q8a1r9xtb4tWcgqXVOtfZZF7KxfLcuT6TCc+o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZeDQT9gNxIbYILlaeVnquCAlcIoGp+w2UfeCPueFjybDla4/dXaXSAbov3Hc9nM80afGRzpX7BMScKVSjmlN6D+OwqAYOK3/Mu9FBUsBY3S3v5umOo9c7xJMCX1OXrqs18B2xMQDQXGoo6xy/QW5IeGSC13xT6ydf2mWMUFhYIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kAYzvl34; arc=none smtp.client-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGxPcdJI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7501E1F00893;
-	Mon, 14 Sep 2026 14:27:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789396053;
-	bh=eufZ+ASnYJyxNHhoWXf4wfzOU/TuE1+5JzkzXKdwlfw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EGxPcdJIgOssQEo0tzrSTwkEyUomMpmdg9u3TDfpxTQ2aaKynjVOPP95OoRNaMjK6
-	 oz+iwBn8DWpUXme+Rzn6y/SZqjLgbvwRzsAawM2fznuutVD1x65tgqNcNuAXo2s2fx
-	 8BJ2lpHKrwO3E7w9ziopxFfvdD7FTXnaMu/BUluyB/YnMLGpZO++qvx3LMdxlIUCax
-	 EsqaVnunCK6ujBp040prnEiNo69vamvyVHWW+UfV/KHsuEySwjSYlXiJRoNSKcY8S9
-	 y1KtHQIUY8EkkaJZ+rSW4hD6hDy8hP6GYu9gJPMs6O26VrpW/pwVwXEyAThOsPK5RI
-	 NKHcn22skIEUQ==
-Date: Mon, 14 Sep 2026 15:27:23 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Mark Rutland <mark.rutland@arm.com>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Marc Zyngier <maz@kernel.org>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	"David S. Miller" <davem@davemloft.net>, Alexander Viro <viro@zeniv.linux.org.uk>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: Re: [PATCH 27/39] mm: rename is_vm_hugetlb_page() to vma_is_hugetlb()
-Message-ID: <aqgDqUuxX-7l8j5e@gremlin>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-27-dacf19cce22b@kernel.org>
- <20260909130141.2c5d250d@p-imbrenda>
- <aqFDKJlj76O1hR2R@gremlin>
- <20260909152055.475f053c@p-imbrenda>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kAYzvl34"
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so3942520e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:27:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789396072; x=1790000872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fy3Rh4q8a1r9xtb4tWcgqXVOtfZZF7KxfLcuT6TCc+o=;
+        b=kAYzvl34xvMITzwkVi5KFNqFmp1aPyTG2uzUg1HFQ98jDZz7yJI9zzLHzC+Ip0Dgy7
+         s/+lLf4FtgU0JVHhgwM0s+GbgHlhy4l/KkIQRHlyv+xLRRQnBLBFKN8YLNM8AHwQJnWl
+         xbazWxkk03SicAr73djJkJu9vwLSOMo24TY/JGxDLoQJW7frHwNtm4Xvrd2q4Gn9UyWQ
+         3V4gGiGxGCsoLab9NSgFKkjIoB5tOO6HjSLea9KCulftaDJEwmH5wjFMBSf0gAjeab1r
+         DL2CwEA5+o4qL8D3Akx8PBfEVoCb3sfOoyJkVs0J/DrfH6pV9Rh93/ei0uoi7rB+sjXY
+         EAqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789396072; x=1790000872;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fy3Rh4q8a1r9xtb4tWcgqXVOtfZZF7KxfLcuT6TCc+o=;
+        b=XPeT1QwEInz9yXIPe6t+vq074OeVG2Qhi9aL0f2M+BoZ+hvUcA8R01UD8zIDzOZnhJ
+         7tEjz3O0ZMjmTUUhilCeRFDSs6mUbNZ3lof2a1Ke9HkC4S7kugVnmuJlUjkfB/S3MiuI
+         UT6Ku7TGtpfF2DFsOFcMTLJ2bvvNbBW5wFMGKvIJtQrE4eW/8UtccCuCoYOPRjcQawTx
+         ZByOuOaoIxjEOCox6CNVFKgZSRzESJV7Hhy83EIUtMWVbTwlF700et+imJtfEaND4SWL
+         zK36wgWid+lrgd1jP/U44+p93EUJBCTraQFtEOOMDTy8B3CYLzH02Rb4UafgMUEX+W2b
+         bu3g==
+X-Forwarded-Encrypted: i=1; AKwUvByGxnX7V1Fd99bM7SpHAkn21utONX3zsb5vwiHN0qTLY1yPse0Mt3U6SaK324YEObK5Z/1sYFGhcrqdGco=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHmASXZveAvS9XKR/+rWf2iu9YrP+y3BAyh6yWJPXGLIorLekT
+	C50CaLQBaJ++jKSI4G659GENCvUWBBTCLyMRk/8Q7Lz6CmxUFiC8Lh4=
+X-Gm-Gg: AYBFou2+DNeR4TbNvQqSsg5CaTK86oVu35M3RviO8iz+rabONj9cNDDjc97KAOORVEd
+	2xl0qBSSQhgvxywIzpimsGoPwi9LGU1Kf30lOeTEhZXBCBEofsfoN6c0jH91510fAduefvZPayO
+	xVe6nXV8ZLgXsgxUw0agFkHaT65GVeg+mxZsAPi5t+eSua/a+yuN5KlZEznfa6GM9NLlig5ic7J
+	VMyDABvPFpx5bJ0nmnGhiEGZUEmyAkQMEiooXq5y0guBM+OBOYQHIe+8XQvhODl8CeEWY5C91iu
+	GdCEz95xmnjOvXspw1HXl2eyEn4XaQPWcmrRXbq7iuOceHCULn39WliORliRnFhY6wMyG+YrMRo
+	tb/YC6YIfnIHjjaQ0cFYMan1TFrVrWduY6qx/XmyOtAEfbuQ8bRNN6msCAsj1FYh8asgjZ2rmVz
+	8sBHaeAeSOTgiscgAuJJ1Thisfsw2tU1dZsssZfRigG3CXX1GpoacRaZP+mbB8THr0136vcDunb
+	AlUm+DfkPpFgJ6OPhB4u4Wuw/wmchPacrHQ1ttP4PuDIdQT
+X-Received: by 2002:a05:6512:15a8:b0:5b6:1783:f0f2 with SMTP id 2adb3069b0e04-5b8ae66304dmr705721e87.13.1789396071748;
+        Mon, 14 Sep 2026 07:27:51 -0700 (PDT)
+Received: from localhost.localdomain (sekoohaka.ddns.net. [151.243.208.241])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a03a7cb8sm2544114e87.11.2026.09.14.07.27.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:27:51 -0700 (PDT)
+From: Maria Lisina <sekoohaka.sarisan@gmail.com>
+To: andriy.shevchenko@linux.intel.com
+Cc: lee@kernel.org,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	sekoohaka.sarisan@gmail.com
+Subject: Re: [PATCH v4] mfd: intel-lpss: Prevent DebugFS messages if it is not initialized
+Date: Mon, 14 Sep 2026 19:27:37 +0500
+Message-ID: <20260914142737.603133-1-sekoohaka.sarisan@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <aqftQrjT5RtIn-Ax@ashevche-desk.local>
+References: <aqftQrjT5RtIn-Ax@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909152055.475f053c@p-imbrenda>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 03:20:55PM +0200, Claudio Imbrenda wrote:
-> On Wed, 9 Sep 2026 12:30:45 +0100
-> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
->
-> > On Wed, Sep 09, 2026 at 01:22:07PM +0200, Claudio Imbrenda wrote:
-> > > On Tue, 08 Sep 2026 21:01:31 +0100
-> > > "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> > >
-> > > [please note that I had to prune the CC list quite aggressively because
-> > > my SMTP server was not happy]
-> >
-> > Yeah sorry about that, I already pruned the list a LOT from what b4 wanted, and
-> > still ended up with a ton of people (I consider maintainers for stuff I touch
-> > the minimum cc, but also added mm reviewers).
->
-> yeah I did not mean to fault you, I understand why the list was so
-> long. mine was just a courtesy warning in case people reply to this
->
-> [...]
->
-> > > > @@ -247,7 +247,7 @@ static int __gmap_helper_unshare_zeropages(struct mm_struct *mm)
-> > > >  		 * proof to catch unexpected zeropages in other mappings and
-> > > >  		 * fail.
-> > > >  		 */
-> > > > -		if ((vma->vm_flags & VM_PFNMAP) || is_vm_hugetlb_page(vma))
-> > > > +		if ((vma->vm_flags & VM_PFNMAP) || vma_is_hugetlb(vma))
-> > >
-> > > Would it be possible to replace this ^ with !vma_can_gup() ?
-> > >
-> > > (obviously not in this patch, since vma_can_gup() is only introduced at
-> > > the end of the series)
-> >
-> > Sure, I could squash that into the 'use and apply vma_can_gup()' patch. Will do
-> > on next respin!
->
-> excellent, thanks!
+I'm sorry, I didn't notice the part about commit description.
 
-Actually this isn't quite vma_can_gup(), as that will wrongly exclude VMAs with
-VMA_IO_BIT set, and I think VMA_IO_BIT mappings can map the shared zeropage.
-
-Maybe one to reassess on follow up?
-
->
-> >
-> > >
-> > > >  			continue;
-> > > >  		addr = vma->vm_start;
-> > > >
-> > >
-> > > [...]
-> >
-> > --
-> > Cheers, Lorenzo
->
-
---
-Cheers, Lorenzo
+Also I don't really get it how is this dmesg message mandatory
+when DebugFS is completely disabled. It makes no sense to me.
+If user needs these LTR values for debugging purposes they should
+know about DebugFS. In other cases when DebugFS is disabled these
+messages shouldn't even appear as these LTR values stored in DebugFS
+don't do anything, at least if I remember correctly they aren't used
+for any purpose other than debugging while being exposed in DebugFS.
