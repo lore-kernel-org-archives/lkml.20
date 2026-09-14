@@ -1,96 +1,125 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A421247ACDC;
-	Mon, 14 Sep 2026 14:17:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A4747ACCC;
+	Mon, 14 Sep 2026 14:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395449; cv=none; b=pYfduXaPuKpSvFuVuJd/hEwZK/lfCU/+q4+ab0hakwjLU45Du89wrIzcaEbSCCFdyurgA2yihuhXl6pWHGCO+xutTz+FuL+mG5NVP8ZWfoXDIuGfZAvy/iDn43XxgYRuMtIVhVZfZmdFxDau0YlUgJUYh7fm5n0iz3ux8ZTnNFA=
+	t=1789395472; cv=none; b=DSzyn57jFvCaS8d+4rMfCzlA+FRjhsSKOdaR9cSMFqq/Cb4A1hqwlJ87bEnDg0bKb5wq91WcwLsYrTbCsdk1Uoir38qAJujKSFSwTSGVYJcpE7ODZMcXZBk343UQHA7UeDJQEd2WRK9ov57nDabLwAjWVER+zUKbFrBOHXyOsrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395449; c=relaxed/simple;
-	bh=gUo/IdWaPu9nQusKu1+E8rmx9Fxho7Ts4vI0ss/2V1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TOvLWEU77nafYGpSqukde6Ao5Lb1gzKx4et+u8kjZB3cqRv6fhNI0d87AMfQI0gQwa/WjNf3DORsCNwS1/PMo7uI/ImGpICr9/A6Wf/nwYuJGMBft8K8laY932Mx2O85y3JfYi3soTf2vbzSTuIlJmxmjznkX19XPZHzf7+eCJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=gizC4To7; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789395472; c=relaxed/simple;
+	bh=SDqAZti/BCotUVGV4wz0wJY55FTzMyO0+5R5FdBHTJA=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=tm2n6ZJQdYYRIBHOiYSut9VhlUUsbLjGLe7sOT8kyG+Qmoif3WgBq8Qk/NP0lGjsz/lqsFpq5Zdid4JSEmvKULTYCtOkH7xCE4u4vOcGLFhBJ4FNqWMbvV2DN6wKCZNK47nQ/OeGD88ha4fjbZzA5HXYqudJpauhIZZbwzU46NE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=2fotui9Y; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gizC4To7"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5BCD1512;
-	Mon, 14 Sep 2026 16:15:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789395344;
-	bh=gUo/IdWaPu9nQusKu1+E8rmx9Fxho7Ts4vI0ss/2V1Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gizC4To7RSNTRkB9DJvVFkw4/o91eJ94+S+KSgM3cUefrJAl7fSrXm3EgMnOwgXLJ
-	 tdKqiJxJn5AD7J97wSjDYap73rnxyaQu5BJRXm/UrEa/XXGIp1PzqlIrX2h2c+OEKt
-	 w1UYXSZUPBFsqrib7ILDwza1Llx2HIoNTO2vINzc=
-Date: Mon, 14 Sep 2026 17:17:22 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jonathan Cameron <jic23@kernel.org>, Luca Weiss <luca@lucaweiss.eu>,
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] leds: flash: sgm3140: fix child node reference leak
-Message-ID: <20260914141722.GD2522202@killaraus.ideasonboard.com>
-References: <20260914135723.1741327-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="2fotui9Y"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 95983A91DB;
+	Mon, 14 Sep 2026 16:17:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789395467; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=//gKRI6vJSt4tiZ77db84KWCpaV85uXVckkTDkSP5og=;
+	b=2fotui9Y6irYr6DzUhfTUYI2wQDd/7FxAw3DALcVwZsSXBF+kP9pbUDJHG09AH0RkOFbaw
+	D20Ljfmxmgfzm+qidEu20PpuixJeJWviA3/dBO4qdyJky67/I2a3SjUM0V+516cNZumNCz
+	9xvPoHtvfnf2E3Qur/mgSO3gvm26unWVu237iqsrZ3jPi/f0HmFsypg1Y2j1lfy0VdqCC4
+	Jzy2u0FT+qPFjKmGroVjkpW9xJrlBcLFhGh0pnNwYQRBYiwdC1/0hIC2oFksaQIf4HHxBi
+	U7PNpldO9zyCpK85FvgPc+6sjb2Vd/MZbqxFa6WG59kIZzWWvtokt2w1nOwVBw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914135723.1741327-1-lgs201920130244@gmail.com>
+Date: Mon, 14 Sep 2026 16:17:47 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Birger Koblitz <mail@birger-koblitz.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
+ <hkallweit1@gmail.com>, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
+Subject: Re: [PATCH net-next v11 08/15] ax88179_178a: Add EEE configuration
+ support for AX88179A PHYs
+In-Reply-To: <20260914-ax88179a-v11-8-5ea7a925ba6d@birger-koblitz.de>
+References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
+ <20260914-ax88179a-v11-8-5ea7a925ba6d@birger-koblitz.de>
+Message-ID: <9217e516e7725ee9b5f982af380eae87@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 14, 2026 at 09:57:23PM +0800, Guangshuo Li wrote:
-> sgm3140_probe() obtains a reference to the LED child node with
-> device_get_next_child_node(). The probe error path correctly drops this
-> reference with fwnode_handle_put(), but the successful probe path
-> returns without releasing it.
+On 14.9.2026 14:46, Birger Koblitz wrote:
+> Configure phylink to work with the PHYs in the AX88197A controllers
+> and provide ethtool get/set eee operations calling into phylink.
 > 
-> v4l2_flash_init() takes its own reference to the supplied fwnode and
-> v4l2_flash_release() drops that reference during device removal.
-
-How about devm_led_classdev_flash_register_ext() ?
-
-> Therefore, the reference acquired by sgm3140_probe() is only needed
-> during probe and can be released once initialization has completed.
-> 
-> Drop the child node reference before returning successfully from probe.
-> 
-> This issue was found by manual code inspection.
-
-I wonder what prompted you to manual inspect that code.
-
-> Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 > ---
->  drivers/leds/flash/leds-sgm3140.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/net/usb/ax88179a_devices.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 > 
-> diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
-> index dc6840357370..51e31fdb78e5 100644
-> --- a/drivers/leds/flash/leds-sgm3140.c
-> +++ b/drivers/leds/flash/leds-sgm3140.c
-> @@ -273,7 +273,9 @@ static int sgm3140_probe(struct platform_device *pdev)
->  		goto err;
->  	}
->  
-> -	return ret;
-> +	fwnode_handle_put(child_node);
+> diff --git a/drivers/net/usb/ax88179a_devices.c 
+> b/drivers/net/usb/ax88179a_devices.c
+> index 
+> 80cabe3557cdef8267c365fccc0bc379936bb241..97aad545daee1dd1f5c4d63a1276523589c9617f 
+> 100644
+> --- a/drivers/net/usb/ax88179a_devices.c
+> +++ b/drivers/net/usb/ax88179a_devices.c
+> @@ -206,6 +206,20 @@ static int ax88179a_get_eeprom_len(struct 
+> net_device *net)
+>  		return AX88179A_EEPROM_LEN;
+>  }
+> 
+> +static int ax88179a_get_eee(struct net_device *net, struct 
+> ethtool_keee *edata)
+> +{
+> +	struct ax88179_data *ax179_data = netdev2data(net);
 > +
-> +	return 0;
->  
->  err:
->  	fwnode_handle_put(child_node);
+> +	return phylink_ethtool_get_eee(ax179_data->phylink, edata);
+> +}
+> +
+> +static int ax88179a_set_eee(struct net_device *net, struct 
+> ethtool_keee *edata)
+> +{
+> +	struct ax88179_data *ax179_data = netdev2data(net);
+> +
+> +	return phylink_ethtool_set_eee(ax179_data->phylink, edata);
+> +}
+> +
+>  static const struct ethtool_ops ax88179a_ethtool_ops = {
+>  	.get_link		= ethtool_op_get_link,
+>  	.get_msglevel		= usbnet_get_msglevel,
+> @@ -215,6 +229,8 @@ static const struct ethtool_ops 
+> ax88179a_ethtool_ops = {
+>  	.get_eeprom_len		= ax88179a_get_eeprom_len,
+>  	.get_eeprom		= ax88179_get_eeprom,
+>  	.set_eeprom		= ax88179_set_eeprom,
+> +	.get_eee		= ax88179a_get_eee,
+> +	.set_eee		= ax88179a_set_eee,
+>  	.nway_reset		= usbnet_nway_reset,
+>  	.get_link_ksettings	= phy_ethtool_get_link_ksettings,
+>  	.set_link_ksettings	= phy_ethtool_set_link_ksettings,
+> @@ -440,6 +456,10 @@ static int ax88179a_phylink_setup(struct usbnet 
+> *dev)
+>  		phy_if_mode = PHY_INTERFACE_MODE_SGMII;
+>  	}
+> 
+> +	memcpy(data->phylink_config.lpi_interfaces,
+> +	       data->phylink_config.supported_interfaces,
+> +	       sizeof(data->phylink_config.lpi_interfaces));
+> +
+>  	phylink = phylink_create(&data->phylink_config, dev->net->dev.fwnode,
+>  				 phy_if_mode, &ax88179a_phylink_mac_ops);
+>  	if (IS_ERR(phylink))
 
--- 
-Regards,
 
-Laurent Pinchart
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+
+Thanks,
+Nicolai
