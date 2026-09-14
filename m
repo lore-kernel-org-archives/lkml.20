@@ -1,240 +1,300 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A5B36C0C8;
-	Mon, 14 Sep 2026 15:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6CF4A2052
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398827; cv=none; b=ewd/d/unzITk+7PegSO+NgSkDV4EvdmaQAKDxFUYKqF62yAyG0DbTbXRxn612Bix0Y5NDll9hKkr49/ZcGWerC7IiYpvCHxZ3Ang80cnWrURI9zxo8aOYO7k32s/MyXdnXmq6ZN9RIo7N+q1t1LWm5+PrTN5ims/XwUmxYR8xdI=
+	t=1789398841; cv=none; b=MqrQBheQ9KkrYwItYB40Xb2TFHVvD54tZRA09WAv7mED55BefvncW4c+VqPmYIjaGDN2GM8ziGHdNdQwkmyOaD9dFOCXa1qqoMx9VHHMdKobXbMQEmHgH4x203edroD4VDiUJmwI/fjMJdSAprlNJX1Q7Bo/S7gVHy98MGG3tOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789398827; c=relaxed/simple;
-	bh=g+DP477oZGptEtdcgQ46pNPCZKGp7Qm9RMjCOcTExak=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=C6wyPK8vRcdsYsj5JoAlBRDLSMuq9PnHa8kl6m7m0/GAYwAIyMXZuZalgrh++noxeiV0wxTultwKNxryQG8BjxSBV5x3OIcnKnZOutnj+O/F/sXZPlaCMwTZB5jluPwWPav+z1tGU111oa6zNdX6DfnuUTOZE65Uevt3nqqKgXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCxKcU1+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789398841; c=relaxed/simple;
+	bh=dCLrLzGxwCqaGfZh56kYijfTb4kpt+8llNj1BU5gtig=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MYrUXKA6xANeD3Vj3Qz6v8r6WDnaQ9JODvFWSJe1XAnq9IEsxXMYPR4sKtv3o+k923OAdO/ufcZGs52X8is0T09JfYvKxEZOmuzPFWnvWfGkWNb5eoExld03CVBxfUfAxUaE/cPuBwk3JctE1AtbMEk961Q4UsbDejAa2jSwBbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gBaXpz8s; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCxKcU1+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA611F000FF;
-	Mon, 14 Sep 2026 15:13:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789398824;
-	bh=lLYk3o3B0/wt5kKG7m+ibDGyo2yi3t47XmKybZiJ1Rs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=OCxKcU1+iK7/VpwiCjQsfNTyLHXprYAfmjBTJYjRXOqSDbjChS9a8UNWWai1dvAvc
-	 LIfatKmb7N324OjNPygUEBox7bMevCjzeSSuDsi2zo2gQV1Ch4rMdfyF2YwhWGS3lr
-	 mpzUli8fzWIJhtFi5+YHpAYOWyN/jkakLNHYxhkIn0hGO8FueA/PbeqVLU3sNzh8kG
-	 tasN7UGKUrwoUktzW8P94NZIU1a77PHfaA1s+GCbww/WCsxnkXLSH7cR3ehb48gVPf
-	 Fubs33Mx1iVz8PhSbmXgoSeIcWefLZFQUci+t3J8RTXMiJP+VHzSPoJTGPDnXZiwd8
-	 +nOVg4gC8GBtA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:51 +0100
-Subject: [PATCH v2 31/40] mm/vma: introduce vma[_flags]_is_persistent()
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gBaXpz8s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789398837;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L0rxafblLK8f4qTe6lPuie/QPs+2crTJHKrvKFcaEZA=;
+	b=gBaXpz8sjk6z5T0/LAoCi42C1eYNE26QduQMlGwx51M8bb9KEzXhOYrvkyFuPFJ6fwfpPj
+	Qrw5iJTO2tt8B9QDgWWc7cQBo/qveNfFpnaF1SM707yiXD59odkTGGKNsuOCOEbRpKKZwX
+	V7AGAqdcj3f0Y7A/+/Z1b1CYuXn9WK0=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-692-HDhq3wvhMoKdcYoyBOD_VA-1; Mon,
+ 14 Sep 2026 11:13:56 -0400
+X-MC-Unique: HDhq3wvhMoKdcYoyBOD_VA-1
+X-Mimecast-MFC-AGG-ID: HDhq3wvhMoKdcYoyBOD_VA_1789398834
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A1D5E19540FE;
+	Mon, 14 Sep 2026 15:13:54 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2C2E5180057E;
+	Mon, 14 Sep 2026 15:13:50 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: netdev@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	David Laight <david.laight.linux@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v10 01/14] rxrpc: Fix lack of short-send handling in rxrpc_kernel_send_data()
+Date: Mon, 14 Sep 2026 16:13:25 +0100
+Message-ID: <20260914151340.3227501-2-dhowells@redhat.com>
+In-Reply-To: <20260914151340.3227501-1-dhowells@redhat.com>
+References: <20260914151340.3227501-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-31-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3843; i=ljs@kernel.org;
- h=from:subject:message-id; bh=g+DP477oZGptEtdcgQ46pNPCZKGp7Qm9RMjCOcTExak=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG/2/cAr06Se1Z6oeyNo1uIpW3/LZP3oLp+5ibet/
- 1rNzn+fO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRwm6G/4mn72lnsnPnfDI1
- f+xlZ1mTPzf8Q97GdUwHP9dFzno7I4Phnx1H56oJh/InyuxULtwcU5l59dZs6bsXT/Uu3mC+3KF
- vBicA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Introduce vma[_flags]_is_persistent() for the purposes of identifying
-mappings that are persistent in the sense that bytes to the mapping stay
-there, and bytes read from the mapping are the same unless changed by
-actions taken by userland.
+Fix rxrpc_kernel_send_data() to loop around if it detects a short send.
+David Laight suggested doing it here rather than wrapping all the calls in
+loops.  Further, remove the len argument and use the iterator count instead
+and return 0 on success, not the amount copied.
 
-Kernel-owned mappings do not fall into this category, as their owner may
-change the contents without the user having initiated it, and nor of course
-does memory-mapped I/O.
+Note this is also a prerequisite for changing the way rxrpc_send_data()
+works to return a short send rather than an error if some data was
+buffered.
 
-We exclude fixed mappings as these are singled out as being unmergeable and
-so cannot be guaranteed to persist user data.
-
-hugetlb mappings are fixed mappings, but their contents are entirely the
-user's, so they are explicitly carved out as persistent, as the MADV_DODUMP
-check already does.
-
-It excludes droppable mappings, which by their nature are ephemeral.
-
-Use this functionality to update the madvise MADV_DODUMP check to test for
-persistence rather than open-coding this.
-
-This replaces the VM_SPECIAL check which means it no longer checks for
-VMA_IO_BIT, however this is safe as we have established the invariant that
-only kernel-owned mappings may set VMA_IO_BIT, so we implicitly include
-these.
-
-No functional change intended.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 651350d10f93 ("[AF_RXRPC]: Add an interface to the AF_RXRPC module for the AFS filesystem to use")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
 ---
- include/linux/mm.h | 44 ++++++++++++++++++++++++++++++++++++++++++++
- mm/madvise.c       |  4 ++--
- 2 files changed, 46 insertions(+), 2 deletions(-)
+ Documentation/networking/rxrpc.rst |  6 ++++--
+ fs/afs/rxrpc.c                     | 28 ++++++++++----------------
+ include/net/af_rxrpc.h             |  5 ++---
+ net/rxrpc/rxperf.c                 | 11 +++-------
+ net/rxrpc/sendmsg.c                | 32 ++++++++++++++++++++----------
+ 5 files changed, 42 insertions(+), 40 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 154fc25c9efa..0579e6afb19f 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1741,6 +1741,50 @@ static inline bool vma_can_merge(const struct vm_area_struct *vma)
- 	return vma_flags_can_merge(&vma->flags);
+diff --git a/Documentation/networking/rxrpc.rst b/Documentation/networking/rxrpc.rst
+index 8926dab8e2e6..01ad12fdf305 100644
+--- a/Documentation/networking/rxrpc.rst
++++ b/Documentation/networking/rxrpc.rst
+@@ -870,7 +870,6 @@ The kernel interface functions are as follows:
+ 	int rxrpc_kernel_send_data(struct socket *sock,
+ 				   struct rxrpc_call *call,
+ 				   struct msghdr *msg,
+-				   size_t len,
+ 				   rxrpc_notify_end_tx_t notify_end_rx);
+ 
+      This is used to supply either the request part of a client call or the
+@@ -880,13 +879,16 @@ The kernel interface functions are as follows:
+      MSG_MORE if there will be subsequent data sends for this call.
+ 
+      The msg must not specify a destination address, control data or any flags
+-     other than MSG_MORE.  len is the total amount of data to transmit.
++     other than MSG_MORE.
+ 
+      notify_end_rx can be NULL or it can be used to specify a function to be
+      called when the call changes state to end the Tx phase.  This function is
+      called with a spinlock held to prevent the last DATA packet from being
+      transmitted until the function returns.
+ 
++     It returns 0 if all the data is queued and a negative error code on
++     failure.
++
+  (#) Receive data from a call::
+ 
+ 	int rxrpc_kernel_recv_data(struct socket *sock,
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index d82916657a3d..09d9da92a1be 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -412,8 +412,7 @@ void afs_make_call(struct afs_call *call, gfp_t gfp)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= MSG_WAITALL | (call->write_iter ? MSG_MORE : 0);
+ 
+-	ret = rxrpc_kernel_send_data(call->net->socket, rxcall,
+-				     &msg, call->request_size,
++	ret = rxrpc_kernel_send_data(call->net->socket, rxcall, &msg,
+ 				     afs_notify_end_request_tx);
+ 	if (ret < 0)
+ 		goto error_do_abort;
+@@ -425,7 +424,6 @@ void afs_make_call(struct afs_call *call, gfp_t gfp)
+ 
+ 		ret = rxrpc_kernel_send_data(call->net->socket,
+ 					     call->rxcall, &msg,
+-					     iov_iter_count(&msg.msg_iter),
+ 					     afs_notify_end_request_tx);
+ 		*call->write_iter = msg.msg_iter;
+ 
+@@ -871,7 +869,7 @@ void afs_send_empty_reply(struct afs_call *call)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= 0;
+ 
+-	switch (rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, 0,
++	switch (rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
+ 				       afs_notify_end_reply_tx)) {
+ 	case 0:
+ 		_leave(" [replied]");
+@@ -912,21 +910,17 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= 0;
+ 
+-	n = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, len,
++	n = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
+ 				   afs_notify_end_reply_tx);
+-	if (n >= 0) {
+-		/* Success */
+-		_leave(" [replied]");
+-		return;
+-	}
+-
+-	if (n == -ENOMEM) {
+-		_debug("oom");
+-		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM,
+-					afs_abort_oom);
++	if (n < 0) {
++		if (n == -ENOMEM) {
++			_debug("oom");
++			rxrpc_kernel_abort_call(net->socket, call->rxcall,
++						RXGEN_SS_MARSHAL, -ENOMEM,
++						afs_abort_oom);
++		}
++		_leave(" [error]");
+ 	}
+-	_leave(" [error]");
  }
  
-+/**
-+ * vma_flags_is_persistent() - Do the specified VMA flags imply that the VMA
-+ * contains persistent data?
-+ * @flags: The VMA flags to test.
-+ *
-+ * Persistent in the sense that - if you write bytes to the mapping - do they
-+ * stay written?
-+ *
-+ * If the kernel or a device could write to the memory independently of
-+ * userland, or the kernel could arbitrarily discard it, then it is not
-+ * persistent.
-+ *
-+ * Returns: true if the flags imply this VMA is persistent, otherwise false.
-+ */
-+static inline bool vma_flags_is_persistent(const vma_flags_t *flags)
-+{
-+	/* hugetlb is a fixed mapping, but its contents are the user's own. */
-+	if (vma_flags_is_hugetlb(flags))
-+		return true;
-+	/*
-+	 * MMIO mappings may not store what is written and may be changed by the
-+	 * device. Kernel-owned and fixed mappings may be changed by their owner
-+	 * without the user having initiated it.
-+	 */
-+	if (vma_flags_is_kernel_owned(flags) ||
-+	    vma_flags_is_fixed_mapping(flags))
-+		return false;
-+	/* Droppable memory is discardable by definition. */
-+	return !vma_flags_test_single_mask(flags, VMA_DROPPABLE);
-+}
+ /*
+diff --git a/include/net/af_rxrpc.h b/include/net/af_rxrpc.h
+index 0fb4c41c9bbf..f3980348ed34 100644
+--- a/include/net/af_rxrpc.h
++++ b/include/net/af_rxrpc.h
+@@ -64,9 +64,8 @@ struct rxrpc_call *rxrpc_kernel_begin_call(struct socket *sock,
+ 					   bool upgrade,
+ 					   enum rxrpc_interruptibility interruptibility,
+ 					   unsigned int debug_id);
+-int rxrpc_kernel_send_data(struct socket *, struct rxrpc_call *,
+-			   struct msghdr *, size_t,
+-			   rxrpc_notify_end_tx_t);
++int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
++			   struct msghdr *msg, rxrpc_notify_end_tx_t notify_end_tx);
+ int rxrpc_kernel_recv_data(struct socket *, struct rxrpc_call *,
+ 			   struct iov_iter *, size_t *, bool, u32 *, u16 *);
+ bool rxrpc_kernel_abort_call(struct socket *, struct rxrpc_call *,
+diff --git a/net/rxrpc/rxperf.c b/net/rxrpc/rxperf.c
+index b8df6d22314d..dad04062213f 100644
+--- a/net/rxrpc/rxperf.c
++++ b/net/rxrpc/rxperf.c
+@@ -525,12 +525,10 @@ static int rxperf_process_call(struct rxperf_call *call)
+ 		iov_iter_bvec(&msg.msg_iter, WRITE, &bv, 1, len);
+ 		msg.msg_flags = MSG_MORE;
+ 		n = rxrpc_kernel_send_data(rxperf_socket, call->rxcall, &msg,
+-					   len, rxperf_notify_end_reply_tx);
++					   rxperf_notify_end_reply_tx);
+ 		if (n < 0)
+ 			return n;
+-		if (n == 0)
+-			return -EIO;
+-		reply_len -= n;
++		reply_len -= len;
+ 	}
+ 
+ 	len = sizeof(rxperf_magic_cookie);
+@@ -538,11 +536,8 @@ static int rxperf_process_call(struct rxperf_call *call)
+ 	iov[0].iov_len	= len;
+ 	iov_iter_kvec(&msg.msg_iter, WRITE, iov, 1, len);
+ 	msg.msg_flags = 0;
+-	n = rxrpc_kernel_send_data(rxperf_socket, call->rxcall, &msg, len,
++	n = rxrpc_kernel_send_data(rxperf_socket, call->rxcall, &msg,
+ 				   rxperf_notify_end_reply_tx);
+-	if (n >= 0)
+-		return 0; /* Success */
+-
+ 	if (n == -ENOMEM)
+ 		rxrpc_kernel_abort_call(rxperf_socket, call->rxcall,
+ 					RXGEN_SS_MARSHAL, -ENOMEM,
+diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+index ed2c9a51005a..34aae8e789a4 100644
+--- a/net/rxrpc/sendmsg.c
++++ b/net/rxrpc/sendmsg.c
+@@ -794,7 +794,6 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+  * @sock: The socket the call is on
+  * @call: The call to send data through
+  * @msg: The data to send
+- * @len: The amount of data to send
+  * @notify_end_tx: Notification that the last packet is queued.
+  *
+  * Allow a kernel service to send data on a call.  The call must be in an state
+@@ -805,8 +804,7 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+  * Return: %0 if successful and a negative error code otherwise.
+  */
+ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+-			   struct msghdr *msg, size_t len,
+-			   rxrpc_notify_end_tx_t notify_end_tx)
++			   struct msghdr *msg, rxrpc_notify_end_tx_t notify_end_tx)
+ {
+ 	bool dropped_lock = false;
+ 	int ret;
+@@ -816,15 +814,29 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 	ASSERTCMP(msg->msg_name, ==, NULL);
+ 	ASSERTCMP(msg->msg_control, ==, NULL);
+ 
+-	mutex_lock(&call->user_mutex);
++	for (;;) {
++		mutex_lock(&call->user_mutex);
+ 
+-	ret = rxrpc_send_data(rxrpc_sk(sock->sk), call, msg, len,
+-			      notify_end_tx, &dropped_lock);
+-	if (ret == -ESHUTDOWN)
+-		ret = call->error;
++		ret = rxrpc_send_data(rxrpc_sk(sock->sk), call, msg,
++				      msg_data_left(msg),
++				      notify_end_tx, &dropped_lock);
++		if (ret == -ESHUTDOWN)
++			ret = call->error;
 +
-+/**
-+ * vma_is_persistent() - Does the VMA contain persistent data?
-+ * @vma: The VMA to test.
-+ *
-+ * See vma_flags_is_persistent() for details.
-+ *
-+ * Returns: true if the VMA is persistent, otherwise false.
-+ */
-+static inline bool vma_is_persistent(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_persistent(&vma->flags);
-+}
-+
- /**
-  * vma_kernel_pagesize - Default page size granularity for this VMA.
-  * @vma: The user mapping.
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 0922d5f07a12..e15973292f94 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1584,8 +1584,8 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
- 		new_flags |= VM_DONTDUMP;
- 		break;
- 	case MADV_DODUMP:
--		if ((!vma_is_hugetlb(vma) && (new_flags & VM_SPECIAL)) ||
--		    (new_flags & VM_DROPPABLE))
-+		/* Non-persistent memory cannot be dumped. */
-+		if (!vma_is_persistent(vma))
- 			return -EINVAL;
- 		new_flags &= ~VM_DONTDUMP;
- 		break;
-
--- 
-2.55.0
++		if (!dropped_lock)
++			mutex_unlock(&call->user_mutex);
++		if (ret < 0)
++			break;
++		if (msg_data_left(msg) == 0) {
++			ret = 0;
++			break;
++		}
++		if (ret == 0) {
++			ret = -EIO;
++			break;
++		}
++	}
+ 
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
+ 	_leave(" = %d", ret);
+ 	return ret;
+ }
 
