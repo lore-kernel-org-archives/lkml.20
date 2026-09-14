@@ -1,365 +1,156 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011012.outbound.protection.outlook.com [52.101.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E321B3A6B71
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:04:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46F0175A64;
+	Mon, 14 Sep 2026 19:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789412660; cv=pass; b=JGzGnea0zPFD7bwckxt4nfC/dzub/u2DqhSDaJTuJQC8SbP240CE9jcFrngFx3bdDHRdbymkrOMzI4+7/MsSuWZubO61HWGXpRpzOx4v8VPwz1sTMLaN2XvEV2NmPzf0cOHNQuHv68X85H4rcCb36Xi5BFAizx/6m5nv3l8wJqw=
+	t=1789412709; cv=fail; b=of1jnmVRJKL8UEtNfEocHu0IJUK8LMmXYveGQ3CDgXoNLbnfWthyCXrKF7L+Gh+lClwtlFS9m11+elrmRe7QqiAKzvkOiMWf1twDCq5pjR4CI9ehJF1Xt25PUxtXCzzs8V08uRxr0xwIZltvgyyZ0kahFjW03LbuIO9exdSzN00=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789412660; c=relaxed/simple;
-	bh=aTBPcv6Dkvt33DiB7XT4nK3JRy2GUpNHwW7ZRA7gmNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J24Wd1SF1pxwKuSmU6EX/ZdeeobJOtSyGmVB99KD+BIe8c6YIMK+/BZApt3OmKO1IBmNp0JMChoPzmY4DVmYOw/UUwarMNX+0bEDsUDlqVKepU2vullrDSgi9IHqgHbVcj3KOVp38Ytc/Z1IZZVV20U9gJu4ENMSICf2GVBZ8Gc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ERWW5aN7; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789412709; c=relaxed/simple;
+	bh=molWFZQOkQdZb1uYrLrrhx4iqXTL3xM0/J9AuUJGrSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CGVCm9BTSpae1q+vjvdlGgTEb95mMOu0JQXiiF9iNZsmloIHWuA6WFrnafGaxxzBxeiiXiuM3GJ5c5F5Z+GhL18rSow1LuicewcYg04mKwuQscIxoEL7dadJqqxdUMoI7zMoemlm9NZjGkrmwIG21aCATMJQDAtWZvfrkbm8QDc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=S7pX2nYD; arc=fail smtp.client-ip=52.101.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ERWW5aN7"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae45so5072624a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:04:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789412653; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bBeMvrIUrGA2ANmgBAtC80bHsLX/adDoMBX8c4oUK/pbq9r+Cfn0cPlBDS9CncJQFU
-         v/lIUoiekaEeUbjpKrqgNfCgNGRQVWiF2A/1bNNoOzTn9UVpdBC8bx+kWpWou02LDTuf
-         rULzFgI5t8bQyRgaK09WqW0CH6eoCWoMGwz/suk3xiy7GgRfAFXbbs4ObsRX4IQd9KyK
-         6gPk8k7lGIf0h1kQGA9Ct7mti/Dj/etfVFz5tQyRPT1j+lBZNxkGSCGpZ41k4dB0OaTM
-         GbrlCz9NBWA5HCVRcMIbytxC6ne8BoxKS9dZEuOZq8odYGiUNriP+oQ/Boc6djm1S7uh
-         Kzbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Gk8XD7mC27/atdnmgwYfSpXmmY1UfdWq597q70KYjTQ=;
-        fh=AFUY5kJEnUjSefTNSmWfkjOwLGokNwgogpsecgZUVds=;
-        b=XipyaVx1W0AfIhrjyxCqUCEhFey6FqZGV4A01590btPC2CY2Zn1++fCaXl1mclpr1k
-         nknm3UP/XR6gop1gjuT4Jo+SniOZQDRyJ9tKG2uW/TENfvwW0LOdXO9lfFcr2JQCIu7X
-         U4x3Uqz2iigAWiQc3rmbHdSt7kmAsh/+dwLsSPqxTJQSyYTv8PfuAp88KF2Gj6blJK83
-         3BKoENRbwZ6tFNUqFFeW5tzxj47+H7pM+mjgjZCvtVNfrzDM7jYod9Wfsuv4wiuVXgzK
-         Ih7OzCg7R4zvW4q28hThn3cSwgr+wDBdD/IQuDRRXpMzo+yg6NrgW6xEhk1OAnOQM2af
-         sTAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789412653; x=1790017453; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gk8XD7mC27/atdnmgwYfSpXmmY1UfdWq597q70KYjTQ=;
-        b=ERWW5aN7rw6dy/+W3YPZDAa+39UJ6kcxxttCrnshQtPqV9+fm8GKWaWVVhizplkc9s
-         JDoCEPa6KEJWKw9735C4xC4hCNGrehcdk4JZ4qyBjw76YHJ1HqTiQWMQY7PMim07SBUK
-         tNygkZKBR0bF7pmtPLJNuFyi5/YiCHPRhLvPvD1WSc2sKc57XUQ7bxLHz9K2FJzizNPB
-         rHVy8jVb8F2ahdBjWH7uh8hlFxJsssvxVHwfwmWlxHV58vt356w2Stwh6zYdmZdXE8+Y
-         Rgo1wR601qmokZwZdZrSJ84Ohw+glaeoLvljcmDtV9OQ6tZfGKd7dox9VGt28GC6fuaG
-         PWwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789412653; x=1790017453;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gk8XD7mC27/atdnmgwYfSpXmmY1UfdWq597q70KYjTQ=;
-        b=RcELGt8bcQBaymFAbnlhPKuewo2Sv24bRiqna6aqEhlaP+PCLLb9d9vJwb1dzAcwK/
-         jt0ZFQ3uKWV7D+r2n73hw7BdPUprsPEOzkTY+CqZ2HS42m1Old1UkNeq/YG+ygIrd094
-         XdPIgTiPvXeiL9tSAxKjUOtO3yxCr82KjlZCaa2+WS4Qy8vkVadn0vgc38s3flN7D3l3
-         19qpM/UMvvpJn5DOLWCcjS7SqUlE7ptJXyirE5G/BoCOR7q4jETbA0DpAPbJS9XS+Jqh
-         QKuG1DByiXzMSsa0jNRDWc+iz4hwA9FX5CQSAScAJwYKj99/xlkju5IhY/1fGodDDLFe
-         lDJw==
-X-Forwarded-Encrypted: i=1; AKwUvByE6AT+e5wiifN7qkDTyQdJ5qxms0KxbiUj38GfFdVDPO3Sd8BZPOcaAzYRWpNpLEx3uFBg1ZcUpAUC0DE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXYyZnF69/euWDXPCbrvmScHOUBfK/yRlwpgdSNEvZoUIhf75x
-	nqDtMkEdxMNrPCp2ksExGmw/CSl4SSwt4/TNLu/oxqSBAYAf457xSiC7xlqFZ2X7IkBb4HxrIV7
-	vGIKdyc6aUKXmN0QUBlRlqr8MGGavroTgUBiegTQ9Wu5Q5PrSAYakDjpG
-X-Gm-Gg: AYBFou2qdZNF3/Bn9nJYVj+AJP5NCjH5DM2/f0FSW5tGIRPpCId583u99m0lQE+9Lo6
-	l24ActMmYvn2KgwX0I5G5zWwEw83DT3p860wtKfue7l4PUYV7qIS6eUPwGH17HF3NA24WpX6ah6
-	/4r0mn+wdD8DGWvkGTvW4j8zE36ft0c+dbwy1s1b1t+FPGru3xUXVMdASMZMDQUV15eUl3J8ck9
-	x8s3S4Vvpl3ftp4aeUmMv3PqEGLmiFbeKbLHfeCf5Oj1DT8UzGpMvCvVLvVkpgpsh+UE5mt71cc
-	JRtoSZTYuxAYxSBNo1peNDicRXxUoWoT/R7PpMBm9np8vK0CfwGW42cQEYfSNjqPqHVIgeMlgyU
-	lohA8qb6cJjP0mlK/Dbv8s28T5cH+UhvyFLxozEnAmHBbeyYmD3KpqDZk+7deIl5f9Ym+9HG7wc
-	juM1A3nWzdP0jIXhQ4RyDLNzjf
-X-Received: by 2002:a05:6402:52cf:b0:6a3:ff14:ebc9 with SMTP id
- 4fb4d7f45d1cf-6a9f625e963mr5489056a12.11.1789412652348; Mon, 14 Sep 2026
- 12:04:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="S7pX2nYD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XvIA1UMKR4I1K+1Ekltg/rlLC7CuhvdBLVcI/XdGYdXWSOIJYpTwtDncF9muCrgQJSsM3eOLN1bbLny7AnYRavzgUOrs2ZCHG0LdNVWrTAwSIiB0ZfZrrAuCmqxPJa6Hf7qFjDLQ5FiPMwdvu+bML8loNoHBkn5qb5yeW5iFLWbtYhtQHrBo9u0PJqhrArvl+l0+P9FAqKlpOUgrgiAmHFLJ0YHwN6rUBqFlcH1HL8tTulUmp3yjUFTBJNlR1l8M1sOxk+I2Jt6ncL5yGKa+bDU4Ba0ertR1L6nrmNGpipF0ko9qlPwS5mn4g54UKqC1FFZDxaH4MoHCeYuZEugYtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AygJfCxqcXkFU6xgOK5RFdn3VR5CywuEGQMZOddh6hs=;
+ b=pqj8al1O7smzv1MqT7qXNeshCjDWk/DgzPKFJd3hf+AlYjo2OL4FIpsjD2bCtA1XxfwKetFLhwEh5s/otULMRBSVuHuEDQjuBBFByAbvyVcgDv4jYqouDlVfV8gGRJehPM0LgKtcol27yr3bg7FjGyekULuXk779VN3DSnGKe5KbwgQUz+TXDpNhpDUUJvA6zhATcVtL806L78zznrQwajj27VQqAfAnQxRWEMVk23CJgZwrjT218uD5ypZ6YaK5JGXgDk6OS3maZZA6uCmj+FQMJ1aEuSLikEemqzvR522j4HFZIKlcmZ1/xtvYig0DDpXf8FD7gr6aRCf5cZqbpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AygJfCxqcXkFU6xgOK5RFdn3VR5CywuEGQMZOddh6hs=;
+ b=S7pX2nYDPhMGkXTFx4Tpvfl7IqHkA4Sy4Hp21wiUgtrbFnUZBeXsFS5N8nNnCo1/ozAZnOkHDLn+Le0uZmcbRf+FUW7+p3EiI1p3aUoA3Tpnk9PZG0Grfqs0KFOb+wqmz+u1d7w3e41CV76pO0fHyQzI7PlQrJvXcsPq7As5048L63NJdAcbbtpCLe3KqdRRTteTJGXVITnfpXVoNV9ml0bOTx5pvNR7KGQcdt1l0w31wy/AjdHRQFlL2Lqz/cQewHohVqfD7M4fN4+YD9aAx5Q74+DEPor1z7Mz1vyZ9cfegVjHMcophUQ+5SIXLcAok71zbiyfJaiNoDm68/bUJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB8426.eurprd04.prod.outlook.com (2603:10a6:102:1ca::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 19:05:03 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 19:05:02 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-arm-kernel@lists.infradead.org,
+	Marek Vasut <marex@nabladev.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
+Date: Mon, 14 Sep 2026 15:04:55 -0400
+Message-ID: <178941267526.1802075.4598519730328631464.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908223005.38536-1-marex@nabladev.com>
+References: <20260908223005.38536-1-marex@nabladev.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7PR13CA0005.namprd13.prod.outlook.com
+ (2603:10b6:510:174::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914175912.3338133-1-jmattson@google.com>
-In-Reply-To: <20260914175912.3338133-1-jmattson@google.com>
-From: James Houghton <jthoughton@google.com>
-Date: Mon, 14 Sep 2026 12:03:34 -0700
-X-Gm-Features: AcwNN1UTzfwAILDgSHTXXHPKsjPhnwPSlyCHFd_RMgW7gPpHII0xLX8NbvSLaaU
-Message-ID: <CADrL8HWeu+MH5YZmKBJbStsqUSi30ydncKM=bHt-pRJji3Xi_A@mail.gmail.com>
-Subject: Re: [PATCH] Documentation: KVM: x86: document KVM_GET_*/KVM_SET_* ordering
-To: Jim Mattson <jmattson@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7eb14299-9357-4ead-6f72-08df129314ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|19092799006|1800799024|7416014|10067099003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	w1RlFZz6oIf3WyR+/+m28L8Cc9lBxn7d4LPtKODcoKlaoN5bv42zTkp0fxCv38ojMTg02Ct6muXNiz3JUAPD/p/1ZSEzliScWOP6xBehEYKe6UCjs4NUIRWrbGabklhBMw5muVvE3UsAKz/SVoyLnoVgtHLmDqwRI+8A8ChrC7qAzL5+4/SUd6txNrgs7j1cBUvVrRqu0ljdscLF3NWmLSX7iYLHn01orkpwkhzCN4mgjxYmjCHTyZcixf6Gnvww8SCsXk4NAL9DxN+OZOKMyKmWxwaDJfgKflAxWjchneJjzdi8R4sBbkOMHWr7D/B9pb9orRBEXDyaLjnviUny3x3V17ZI8ulT3lW7PlZUNnHxVsxmiCh2Xh8j8IkquMazi5+EQBbh232g2YGoXGQfNGQDfbMe7cuWNeZ42E0inBldo3fPkaN00UlCT1vOezBafs2Mct57ULBG0Xly/SqbCeiBoRIWaf3jaECJ7l+POaAAoPhfpNsLtENSVtW9YakbLtGiaBNrJ8A/4eVvEmA4CB5T3m41/l5ld7LFctYr42SpZl4tcnrh+PnRqG9MLcbK2CNpXU4EyPL7qa8VctqvgI0eqrOn8YeeHBSYuMULWIlv7Hp/bGo5xDEGY5BeLAjJa3OermvfsKzh91dkCX0LnwaNpbWJBtqS2CL6EJ315Mo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(19092799006)(1800799024)(7416014)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YjhBZi9uQlZYb2p5WGRmckVBVUltcndsTUF1bzRVcEpBVENMcG0vTWV2UzZw?=
+ =?utf-8?B?WElkay9YOEhPeEUxeU8xZ29oOThmSktCK3ByRlhVNkNmblpSckRXZ1hYcVlH?=
+ =?utf-8?B?aWJWQmVnekYvaG0xdW53MTMzdGhaOHpoQWpNVXViR1lyV1pEeTVGZW5TcHg0?=
+ =?utf-8?B?eDN4SDZNMTlscWlTL1VSRW5SUXFjNVZtUTRMYllENlkxWEZqT0FWNDFhY1BV?=
+ =?utf-8?B?NVNQUnVsM3JWbVRiT3lhQ2FSdjAwTGZpRFhKTDRWOS9rZ0JZcFViYWtBamNK?=
+ =?utf-8?B?ejRRNDIrdG5RTnBDSm5XSGZ2S0R6QmsvR1c0RTl6T2NTb2ZoOTRhSUo0WVNm?=
+ =?utf-8?B?TFlhTVRkRnJkZkpLUXlTZzU0NWhIRHMveEJwYndMT0x6WWx6SU9mRkhtNFA1?=
+ =?utf-8?B?aGhiZFJML1d3eVhLR0Y5MTFuK2d5UkRLU1JDeVB1c2xpK2I0YXVScVFXWWUx?=
+ =?utf-8?B?dDZMalJXcExsKzREeVNBbEN3OTZ0Y3gwUS9hQm9iZHJMUUt3K3dLQVVuaE56?=
+ =?utf-8?B?Z25WNW5ybGdKcktON3ZJZitPRHR3eUtiNnptSXNPZzc4b1djU01GeDJkclJX?=
+ =?utf-8?B?UDlRVVoreVRhQmZzNEdIZU45c0RSZW55bFgydUEyL1ZyNHJ4bWVDRkZhUGZL?=
+ =?utf-8?B?NzJkZEFlZlpKTlJGYVZXM3kraHJxRHRUbWRDV2tadFFtTEpTYmVidXhQT2Fz?=
+ =?utf-8?B?eGRnM1luckNsK0Z4YmFMekhxcHp0RUdDVXFueVZ6d0tNcHFQbzRhcW5IRzZr?=
+ =?utf-8?B?QjFxcjhmWGsrQnBScVYrWUhLZHgrZXdJSlc4Nm9ucm55MnJlekJ4VTh0N2NS?=
+ =?utf-8?B?aHRLYjFMYlZ1Mm54TkI3V0hSR0xGN3d0NVJaZXpQckpycm1xNXUzc2tDb1dH?=
+ =?utf-8?B?cS9CdkI1TGJVL3pVeUZTeEtEOEwwNzBzWjRUM0lSYzFyRjdkZDFheXpRWFVB?=
+ =?utf-8?B?d2pEOTdnWGpYU2twdllUcnNkdnpjeTVpT0dxYTc2U0E5STNvRDFvdmNzRzhP?=
+ =?utf-8?B?NmY5RGV2Sjluem8yNGQzN3JUMWdFTzFQRERsN3FsUzd5cE55dElFNFVUTEl2?=
+ =?utf-8?B?QmYvYThyMXpYa2R4KzcxeG45dFJjbVdUdW9ISnNvZW5FQTJvTWs5N1Z0a2Nx?=
+ =?utf-8?B?dDhiRXhxZ2tNZU9Gbko4ZEtNSG1lalZWZWN1VVVjeGxmWU5WTkhubm1mcytt?=
+ =?utf-8?B?YkdmZnVVemJCb3NtUEJzQkEvTWhUVHovSjRyWk5hOWNqcitkUGhUUlpPUklZ?=
+ =?utf-8?B?dW5HdlRiVFNsMElYdTEwM3VmM3ppM0crSitQM2ZUUVhTUEZrRGp0amgrNDR3?=
+ =?utf-8?B?eUsxTG8rRE9IMTFHcmZPZGdTc0hDYnF0UUV2di83b0JkYUhocWsrSUNzcCs4?=
+ =?utf-8?B?MGhidC96cjZBdmxISEk1ZVQ5bUJEQWcyY2FLdkhuZHk5TFRRM3Z4TUtFRjRB?=
+ =?utf-8?B?WkJDeTUxY2daVjlad0c0VUk2ZFNiMnVPVVFGZEI5Y0ZqNjBWR29jUzBsYnQ3?=
+ =?utf-8?B?cEpnNEtSei9Ebll3c0hDQUFIcmp0eWd4WXdmQk5NOWduaUhBU0REN0YvaG5i?=
+ =?utf-8?B?bEM0dXU3dk1OZnNxekxqMHNWeGY1YmhyYk54WW1NbUgzenVMQ0d2KzFJL0RQ?=
+ =?utf-8?B?QS9INEE0YmtheXNRWVQ1ZzZZMFI3OEdpK3hwWnRLbG1ROVp4aUN5aVRZNmlF?=
+ =?utf-8?B?elREaExPL2U3WVFPK1hoOFNTc0tFVDlMWWt0MDhQWnZVMUh0TXNzRmVuNkFu?=
+ =?utf-8?B?N2VGNXpxdWZEcDdRbGJ5VE80bHN0U21FalZEYTJsanR3SlE3R3VmYWNnVEVH?=
+ =?utf-8?B?RGNTSEhRc0ZhbVV1azZLM1lOYWZEbkNnREpmR2VVcG9qRS94OWdBa2sxekU1?=
+ =?utf-8?B?bjBhM2NZMWt1U2JOSjZ4VCtIRWptaWxnNERXZUJlcGhXOVpsRCtsczFUelFW?=
+ =?utf-8?B?YVRSV0N4Ry9yQUY5akhEZyt5Vy9TSnVMK2gyV09WZzZJanE1VnFxQ3ZkMU00?=
+ =?utf-8?B?SmpsenRUY1ViRy9xUlBZZW9IaFp3UjVlamN6cEJuYkljMnRDb1BlRm05SFRk?=
+ =?utf-8?B?UEUwS1czdGk3NThGWEpQVkcrblVmZXI0dXZkRmoydlNsZ3BOeWpCUzFZVjJj?=
+ =?utf-8?B?VWJ2MW0xVzFXTE1QQlk3ZEcrTDFTY21IdHdiWGVvZ0IzZncvRXQrc3QxL2Uy?=
+ =?utf-8?B?aDF0LytoVStOY1hXak8zYko1WWZVenh4R0U4cmwzc0hqVDErdXlFSjFYdkxR?=
+ =?utf-8?B?OCtjaGkzQUsxclJkMnRHMnVVNkFmdGJKNzYxMDJXN1Y0TVA5OGRoTkZrcU0v?=
+ =?utf-8?B?bnRlcFM2aGc0RGFvalBtNmNoVHJQVnZ3Nmt6czR6bmNlS0N0WlVTbWZWQits?=
+ =?utf-8?Q?zMAc0M2E3lCuqju2Awlae7yf52PdmEwvHwKI8?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7eb14299-9357-4ead-6f72-08df129314ba
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 19:05:02.8859
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iODpe72Pavvs3hHBXE+hUIhg2WC6wJHi9uiqRyjXOei6K7LzJX986cSAI5PB7m4fLSxo/0SByGDgVYOYlIpsPMnpYQJo3cXTbRirowM4gTyQSk11Tin1ePkTyOJKDA3v
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8426
 
-On Mon, Sep 14, 2026 at 11:11=E2=80=AFAM Jim Mattson <jmattson@google.com> =
-wrote:
->
-> KVM does not define a total order for the ioctls that save and restore
-> guest state, but the ioctls are not fully independent either.  On the
-> save path, some getters perturb state that another getter reports.  On
-> the restore path, some setters validate their input against state that
-> another setter installs, and some setters overwrite state that another
-> setter has already written.  One pair of restore constraints is a
-> cycle, which forces userspace to issue KVM_SET_MSRS twice.
->
-> Replace the TBD in the x86 section of "Known KVM API problems" with the
-> partial order that is known to matter, and with the reason for each
-> constraint.  Note that a misordered getter fails silently, while a
-> misordered setter usually fails with -EINVAL.
+From: Frank Li <Frank.Li@nxp.com>
 
-THANK YOU!!! I'm getting kind of fed up with save/restore ordering
-issues, as I am sure you are as well. :)
 
-I wonder if Vanadium (Google's VMM) or QEMU 100% abide by the
-restrictions listed here. A statement in the changelog confirming that
-QEMU abides by these constraints would put me at ease.
+On Wed, 09 Sep 2026 00:29:42 +0200, Marek Vasut wrote:
+> Describe ID EEPROM nWP GPIO, label and nvmem layout. The i.MX8MM eDM SBC
+> and i.MX8MP eDM SBC nvmem layout is almost identical, except for length
+> of product-name@32 field, which is 19 Bytes on the Mini and 24 Bytes on
+> the Plus.
 
-Some suggestions/questions below.
+Applied, thanks!
 
->
-> Assisted-by: LLM
-> Signed-off-by: Jim Mattson <jmattson@google.com>
-> ---
->  Documentation/virt/kvm/api.rst | 179 ++++++++++++++++++++++++++++++++-
->  1 file changed, 178 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.=
-rst
-> index e0430cc750c9..9181dfcd7251 100644
-> --- a/Documentation/virt/kvm/api.rst
-> +++ b/Documentation/virt/kvm/api.rst
-> @@ -9659,4 +9659,181 @@ available.
->  Ordering of KVM_GET_*/KVM_SET_* ioctls
->  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->
-> -TBD
-> +KVM does not define a total order for the ioctls that save and restore
-> +guest state, and most pairs of them really are independent.  A few are
-> +not.  When saving, some getters modify state that another getter
-> +reports.  When restoring, some setters validate their input against
-> +state that another setter installs, and some setters overwrite state
-> +that another setter has already written.
-> +
-> +The constraints below are the ones that are known to matter on x86.
-> +They form a partial order, so any topological sort of them will do.
-> +One pair of restore constraints points in both directions, and forces
-> +userspace to issue ``KVM_SET_MSRS`` twice.
-> +
-> +Note the difference in failure mode.  A getter that runs too late
-> +silently returns perturbed state, and the damage is only visible in the
-> +restored guest.  A setter that runs too early usually fails outright
-> +with ``-EINVAL``.
-> +
-> +Saving state
-> +~~~~~~~~~~~~
-> +
-> +* **Get the MP state before any other vCPU state.**
-> +  ``KVM_GET_MP_STATE`` calls ``kvm_apic_accept_events()``, which latches
-> +  a pending INIT or SIPI.  Completing an INIT resets the vCPU, and
-> +  completing a SIPI sets CS and RIP.  Either can also trigger a nested
-> +  VM-exit, which overwrites most of the vCPU state.  On Intel, both an
-> +  INIT and a SIPI can exit, and the VM-exit MSR-store list also writes
-> +  guest memory.  On AMD, only an INIT can exit.  Every other vCPU
-> +  getter must therefore run after ``KVM_GET_MP_STATE``.
-> +
-> +* **Get the irqchip state before the local APIC state.**
-> +  ``KVM_GET_IRQCHIP`` clears from the reported I/O APIC IRR every
-> +  edge-triggered IRQ that KVM has already delivered to a local APIC, on
-> +  the assumption that ``KVM_GET_LAPIC`` will pick it up.  If the local
-> +  APIC is read first, an IRQ delivered between the two reads appears in
-> +  neither snapshot and is lost.  The opposite order can at worst
-> +  duplicate such an IRQ, which is the safer failure.  The constraint
-> +  applies only to a full in-kernel irqchip, because ``KVM_GET_IRQCHIP``
-> +  returns ``-ENXIO`` in split-irqchip mode.
-> +
-> +* **Get the local APIC state last among the vCPU getters.**
-> +  On Intel, ``KVM_GET_LAPIC`` drains the posted-interrupt requests into
-> +  the IRR, so it reports the most complete view of pending interrupts.
-> +  Any source of interrupts that is still live when it runs can add to
-> +  the IRR afterwards, and that addition is not saved.
-> +
-> +* **Get all vCPU state before the final pass over guest memory.**
+[1/1] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
+      commit: a66939a238f9cd5f023eaa9e7cdb3078eaff640d
 
-This assumes the presence pre-copy live migration; this is not
-necessarily the case. I think something more general should be
-written, like:
-
-   Getting some vCPU state may modify guest memory.
-
-> +  On Intel, a nested VM-exit out of ``KVM_GET_MP_STATE`` writes guest
-> +  memory through the VM-exit MSR-store list.  A guest page copied
-> +  before that write is stale.
-> +
-> +Two constraints that older userspace still carries no longer apply:
-> +
-> +* ``KVM_GET_MSRS`` no longer has to precede ``KVM_GET_LAPIC``.  Before
-> +  commit e800decd9c0a ("KVM: x86: Only reset TSC Deadline Timer in
-> +  apic_timer_expired on KVM_RUN"), a ``vcpu_load()`` on a vCPU with
-> +  APICv and the VMX preemption timer could restart the hv timer, find
-> +  the deadline expired, inject the interrupt, and zero
-> +  ``MSR_IA32_TSCDEADLINE``.  A ``vcpu_load()`` between the two getters
-> +  therefore lost the interrupt and the deadline together.
-> +
-> +* ``KVM_GET_VCPU_EVENTS`` no longer has to precede ``KVM_GET_SREGS``,
-> +  ``KVM_GET_SREGS2`` or ``KVM_GET_DEBUGREGS``.  When
-> +  ``KVM_CAP_EXCEPTION_PAYLOAD`` is disabled, KVM delivers the payload of
-> +  a pending #PF or #DB into CR2 or DR6 before it reports the exception,
-> +  because userspace might not preserve the payload across a migration.
-> +  Before commit d0ad1b05bbe6 ("KVM: x86: Defer non-architectural deliver
-> +  of exception payload to userspace read"), only ``KVM_GET_VCPU_EVENTS``
-> +  delivered it, so a CR2 or DR6 read first was stale.  All four getters
-> +  now deliver it, and therefore agree in any order.
-> +
-> +Userspace that runs on older kernels should keep both orders.  Enabling
-> +``KVM_CAP_EXCEPTION_PAYLOAD`` is worthwhile in any case, because it
-> +stops KVM from delivering the payload early at all.
-> +
-> +One more hazard is not an ordering constraint, because it depends on
-> +elapsed time rather than on sequence.  ``KVM_GET_CLOCK`` and a read of
-> +``MSR_IA32_TSC`` describe the same instant only if little time passes
-> +between them.  Userspace that needs a time-invariant value should
-> +prefer the ``KVM_VCPU_TSC_OFFSET`` attribute of ``KVM_VCPU_TSC_CTRL``
-> +over ``MSR_IA32_TSC``.
-> +
-> +Restoring state
-> +~~~~~~~~~~~~~~~
-> +
-> +* **Set CPUID and the feature MSRs first.**  KVM freezes the virtual CPU
-> +  model once the vCPU has run or once it is in guest mode.  After that,
-> +  ``KVM_SET_CPUID2`` and writes to the immutable feature MSRs, which
-> +  include the ``MSR_IA32_VMX_*`` MSRs, only succeed if they do not
-> +  change anything.  Because ``KVM_SET_NESTED_STATE`` can put the vCPU
-> +  into guest mode, userspace that writes the VMX capability MSRs after
-> +  restoring nested state will fail to restore an L2 guest.  CPUID also
-> +  gates the validation performed by ``KVM_SET_SREGS``,
-> +  ``KVM_SET_XCRS``, ``KVM_SET_NESTED_STATE`` and the ``MSR_IA32_APICBASE=
-``
-> +  and ``MSR_IA32_XFD`` writes.
-> +
-> +* **Set the TSC frequency before the TSC.**  A host write of
-> +  ``MSR_IA32_TSC`` computes a TSC offset, and a scaling ratio if TSC
-> +  scaling is in use, from the current guest TSC frequency.
-> +
-> +* **Set MSR_IA32_FEATURE_CONTROL before the rest of the vCPU state.**  A
-> +  host write of zero to this MSR forces the vCPU out of VMX operation.
-> +  That discards the nested state, and replaces the register state with
-> +  the L1 host state if the vCPU was running L2.  Only a write of zero
-> +  has this effect; clearing individual bits, including the VMXON bits,
-> +  does not.  The hazard therefore belongs to userspace that resets a
-> +  vCPU before it restores one.
-
-This paragraph kind of confuses me because it's saying that this
-ordering should be explicit, but the explanation why requires
-userspace to do something odd: restore zero into
-MSR_IA32_FEATURE_CONTROL *after* restoring other state into the vCPU.
-(This is strange, right?) Maybe there should just be a paragraph about
-generally avoiding resetting/zeroing some vCPU state after restoring
-some other non-trivial vCPU state.
-
-Then I *think* this paragraph/constraint can be removed. Does
-MSR_IA32_FEATURE_CONTROL need to be restored first for any other
-reason?
-
-> +
-> +* **Set the special registers before the nested state.**  This
-> +  constraint is specific to SVM, where the live register state is the L2
-> +  state.  ``KVM_SET_NESTED_STATE`` rejects a saved guest mode unless
-> +  EFER.SVME is already set, it validates the live CR0, and it reloads
-> +  the CR3 that ``KVM_SET_SREGS`` installed.  On VMX the L2 control
-> +  registers come from the VMCS12 instead.
-> +
-> +* **Set the APIC base and the special registers before the local APIC
-> +  state.**  Changing the APIC enable or x2APIC bit resets the APIC ID,
-> +  which would clobber the ID restored by ``KVM_SET_LAPIC``.  Separately,
-> +  the CR8 field of ``KVM_SET_SREGS`` carries only bits 7:4 of the task
-> +  priority register, so a CR8 write after ``KVM_SET_LAPIC`` clears TPR
-> +  bits 3:0.
-> +
-> +* **Set the irqchip state before the local APIC state.**
-> +  ``KVM_SET_IRQCHIP`` re-injects the restored I/O APIC IRR into the
-> +  local APICs.  ``KVM_SET_LAPIC`` must run afterwards so that it
-> +  overwrites the IRR wholesale; otherwise those interrupts are
-> +  delivered twice.
-> +
-> +* **Set the XSAVE state before MSR_IA32_XFD.**  ``KVM_SET_XSAVE`` clears
-> +  from the incoming header every state component that the current XFD
-> +  value disables.  Writing XFD first therefore discards the state of
-> +  those components.
-> +
-> +* **Set the special registers before the MP state.**  ``KVM_SET_SREGS``
-> +  forces a boot-strap processor whose incoming state looks like a reset
-> +  state back to ``KVM_MP_STATE_RUNNABLE``.
-> +
-> +* **Set the clock last.**  ``KVM_SET_CLOCK`` establishes the kvmclock
-> +  epoch, and should run as close as possible to the moment the vCPUs
-> +  resume.  The per-vCPU ``MSR_KVM_SYSTEM_TIME`` and
-> +  ``MSR_KVM_WALL_CLOCK`` writes only record the guest page address, so
-> +  they must precede it.
-> +
-> +* **Place KVM_SET_VCPU_EVENTS on the correct side of the nested
-> +  state.**  For a vCPU in guest mode it has to run afterwards, on both
-> +  vendors, because it writes the interrupt shadow and the NMI mask into
-> +  the VMCS or the VMCB that is currently loaded, and the nested one
-> +  becomes current only once ``KVM_SET_NESTED_STATE`` has entered guest
-> +  mode.
-
-The grammar here seems a little broken; reading more carefully leaves
-me more confused (might just be me).
-
-> A vCPU in SMM needs the opposite order, but on Intel only:
-> +  ``KVM_SET_NESTED_STATE`` rejects the saved ``smm.flags`` unless the
-> +  vCPU is already in SMM, and only ``KVM_SET_VCPU_EVENTS`` puts it
-> +  there.  The AMD nested state has no equivalent field, because SMM
-> +  saves and restores the nested state through SMRAM instead.  The two
-> +  cases never coincide, because SMM temporarily disables VMX operation,
-> +  so a single call always suffices.
-
-Putting my QEMU/Vanadium hat on, I'm struggling to interpret this
-constraint. What exactly does this constraint mean for how the code
-must be written?
-
-I'm also kind of confused why this constraint is written after the one
-that is to be done last (KVM_SET_CLOCK).
-
-> +
-> +The vendors disagree about the registers.  On SVM the live register
-> +state *is* the L2 state, so ``KVM_SET_REGS`` and ``KVM_SET_SREGS`` have
-> +to run before ``KVM_SET_NESTED_STATE``.  On VMX the L2 RIP and RSP come
-> +from the VMCS12, which ``KVM_SET_NESTED_STATE`` reloads, so
-> +``KVM_SET_REGS`` is better issued afterwards.  Portable userspace can
-> +write the registers on both sides of ``KVM_SET_NESTED_STATE``.
-> +
-> +KVM_SET_MSRS has to be issued twice
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +``KVM_SET_LAPIC`` sits between two MSR writes that cannot be combined
-> +into one call.
-> +
-> +``MSR_IA32_APICBASE`` has to precede it.  Changing the APIC enable bit
-> +or the x2APIC bit resets the APIC ID, which would discard the ID that
-> +``KVM_SET_LAPIC`` restored.
-> +
-> +``MSR_IA32_TSCDEADLINE`` has to follow it.  A write to that MSR is
-> +dropped unless the LVT timer is already in TSC-deadline mode, and only
-> +``KVM_SET_LAPIC`` establishes the mode.  In the other direction,
-> +``KVM_SET_LAPIC`` cancels the timer and zeroes any deadline that is
-> +already armed.
-
-"In the other direction" -> "In the reserve, incorrect order"
-
-> The deadline is an absolute guest TSC value, so
-> +``MSR_IA32_TSC`` has to be restored before it as well.
->
-> base-commit: 827751b699b79a6e569983359c02dce67f81b94c
-> --
-> 2.55.0.1032.g73a4cd73de-goog
->
->
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
