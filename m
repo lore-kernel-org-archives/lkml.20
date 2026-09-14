@@ -1,103 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33405400DE2;
-	Mon, 14 Sep 2026 11:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C5D258EF9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384670; cv=none; b=MiywaZiOtkw4tEYWs9mfEjb7KPO3ehXjK2OdB2qMr3u+URbm1egxERwR6y0xA1qnDmF/C6uc0d7D6NPVBdqx/6w6ERRwpacieUXVNGc5ENwG4CrDNdg2A8wM7KY/kHYHjGQqUAM+uGugKjOC7Rend7vCRBykeeKMd8Wk3jAMGYI=
+	t=1789384675; cv=none; b=ktSaWjhVsjqlWxyUATXy4wlHnF55qSICFLun841Kh9o60I2PFEKVIsV5QWo8zi65DELFH8X3XTPZBmH0mDABmRmEzYlJZfrSb0TbWyF7I0eaDI1q/fc6jqzu+ks6D03qxozUJF/zsv9z7tKyIxRy4pxbjtDY6HJ/p8/s3/3Hdsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384670; c=relaxed/simple;
-	bh=77boNCe4QcHNaZznY3tNscoqXOV4aM836eZT2R5ie9s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mpqVe7QcNhtNu3u5DnWlXbMf+bNei4vd2Itj2OERgv0Ez5eyP02GCNEKDJJLRUa+PBRoh77dN66g55UfRnyIc2xRS/DqHFH8NQr9kAGNGVEtZOCQB3vCXA4VPNLKs8RN6IEcLgRyXuRyaFGhvUOZRb99BbF+/fUzhWjtt9VTyPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okQVDAHi; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okQVDAHi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A06B1F00893;
-	Mon, 14 Sep 2026 11:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789384668;
-	bh=HKZPATLBOD75vX0HIDgrKuKrxajG+GHW7KZeSn5i2h8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=okQVDAHioY+gpCl/7iWCM7P65IIELg0y29z3PuOQsO2Gy9Z/cTVpKqTF7/jx5ebKq
-	 rP7NWUdwq163cf+CE4eIosXADJRUm8QTifKfGOh14xCI6JbGdX1AGoXYaT1n+YMyRv
-	 xQ39eLBQ/yJ9SoNHKCIeMHpC7FuqfCEijjdJQo57s2+/Lkh44vG71JRNYCYn+oaVuX
-	 v0O8gGIWPvKzf9od0L+4/oi7/uInah4rT1EDn5NwI3A94vubxhKr8CNOQHCxsNxlPF
-	 s83DDvN5g858flKSeTgrC2j3yejMHQdGKy++vMkYPn6C0EfNvh7z6rCRQLngB19w9A
-	 mYZa73BnQoQhg==
-Date: Mon, 14 Sep 2026 12:17:41 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Fuad Tabba <tabba@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>
-Subject: Re: [PATCH 6/8] KVM: selftests: Enable pre_fault_memory_test for
- arm64
-Message-ID: <aqfXUTCCefQPKJ4a@gremlin>
-References: <20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org>
- <20260825-kvm-arm-prefault-v1-6-befe8947702e@kernel.org>
- <CA+EHjTzOKHNrf=0n2c_E+vbt=pGquz6qzBpJ+eLJ5hjK_nyJMA@mail.gmail.com>
+	s=arc-20240116; t=1789384675; c=relaxed/simple;
+	bh=F0LU4dKftkAMtyCZikrm2OSiLfnTZG2MynzIoMZYl78=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=pN60qZ93hZd9V0/VSwtogbiv6xRX90XL85a6WmYFrzRYccW9KY0n/tTQ/f0f0txzFDhn1Nn4QQjPhO4hGXLsJAIfR5TZrhl+Pn0/pe19z8mM/t7/eKacpKfygx3C3KBIjsh+ehve2elRH+sIVt9UGq3m4K7qG1Iq+z2riH6XGSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b3962f71e7so4390043b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:17:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789384673; x=1789989473;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=F0LU4dKftkAMtyCZikrm2OSiLfnTZG2MynzIoMZYl78=;
+        b=MusRU5Jkbp2aPXKScI6QWjquoLT4tzkliX88sHFO3VSL3FK0oVMV5T/wvJ2Luww30x
+         ehE4maWT+469jkbxYqU86zJECgPhUQKzI6pgmQ1n5gI2jF9jvCwuXCaR/qmrx9dN8pTt
+         7tAB/OtO4d6qgDTqcGXIZnjPuZKwv8EIXwRmYKM3sdHi0JmrwGe3JDHPs+3NVFUGX/kl
+         uA7id7RTIbiXmsxmbtsm3AiPwdUp7t0Ea9PlDIsDkpNr3Id4KkDHpaEpoSMs+C+5mIkf
+         uE049fye+wsLgfAQS4FpAMD3plcC7QpFh+EQLL9Ua35Q26QRSwNIHmHN0fxAujf/q28u
+         us/w==
+X-Gm-Message-State: AFuF++lcsA/QpexufEOvVwFlHSELTEqlDJJUxTEFfLlFwRmb0e/6UbVs
+	8BAssy2HoZijtgTKZuc88a45/ODnk0fWc0BUm7uM0Gg5W/HPTuD9hvijiGAENQVuoGV9AVGbkRD
+	Ux5oXNov3oV4Gwtt+7Rpk8MrFI8tfcofCJyoaw7I9+sYDjOrpm/meYgJd9EU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTzOKHNrf=0n2c_E+vbt=pGquz6qzBpJ+eLJ5hjK_nyJMA@mail.gmail.com>
+X-Received: by 2002:a05:6808:3c45:b0:4b1:b9f1:e893 with SMTP id
+ 5614622812f47-4c7b33dffdamr1069433b6e.3.1789384672882; Mon, 14 Sep 2026
+ 04:17:52 -0700 (PDT)
+Date: Mon, 14 Sep 2026 04:17:52 -0700
+In-Reply-To: <6a8fd9c8.50659fcc.60cd.000e.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7d7e0.4c28b7d0.c1bba.001a.GAE@google.com>
+Subject: Forwarded: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+ 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+From: syzbot <syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 10, 2026 at 07:52:35PM +0100, Fuad Tabba wrote:
-> On Tue, 25 Aug 2026 at 17:01, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > From: Jack Thomson <jackabt@amazon.com>
-> >
-> > Enable the pre_fault_memory_test to run on arm64 by making it work with
-> > different guest page sizes and testing multiple guest configurations.
-> >
-> > Update the test_assert to compare against the UCALL_EXIT_REASON, for
-> > portability, as arm64 exits with KVM_EXIT_MMIO while x86 uses
-> > KVM_EXIT_IO.
->
-> The message says this updates the test_assert for portability, but the
-> parent has no exit-reason assert and no struct kvm_run; this patch
-> adds both, so there was no hardcoded KVM_EXIT_IO to make portable.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Ack will fix up for v2 thanks!
+***
 
->
-> ...
->
-> >  int main(int argc, char *argv[])
-> >  {
-> ...
-> > +
-> >         TEST_REQUIRE(kvm_check_cap(KVM_CAP_PRE_FAULT_MEMORY));
-> >
-> >         test_pre_fault_memory(0, false);
->
-> Would it be worth adding an arm64 case for gmem_abort()'s pre-fault path?
+Subject: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+Author: dmantipov@yandex.ru
 
-I think doing this would be quite a bit of work, I think perhaps one for a
-follow-up?
-
->
-> Cheers,
-> /fuad
->
-> >
-> > --
-> > 2.55.0
-> >
-
---
-Cheers, Lorenzo
+#syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
