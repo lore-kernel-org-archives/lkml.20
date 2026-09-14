@@ -1,103 +1,121 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EBC46AF00
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E3248CD4A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789404795; cv=none; b=DuSfTP1XXuT6MpeTFmiQA0Q/Ahpr2wrf1exlJ8+jiwElf2XWL/P0uDAdzZ9iFlSQ836og+NGLDkxiKveNUaO9gTcOTLjyJVn7p8UBjp3WJCmKgi1xV7Ah5KMYDfmaYjozOMkQbb1LO7P8vwsxm6SODjRMEQivEUQ2lGZ+CW5Jbk=
+	t=1789404805; cv=none; b=ZnIOHxFFN5b2dDOpRCAG9wvVvXtEhIMpsvy4HhdoEaIgx6Bs7esylun7yZk/6WOMvEkSCUKy/lGtKuHxwdbXM6Ab54aROXF2rCpQOD7BU8OIbEOnSpLRICxGu1+jQ7FGTYWkDEnACPVtbwb/YB733a+uM96Yn6ItsMyhmLhzkDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789404795; c=relaxed/simple;
-	bh=MHRL5BbXVh3Yy4fuiiJxCc1O6s3ax5adZDowYCUDKEo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qXMYzBExbxM/0R/NOu/7mq/UAPLY1OqMALiiJCZ6iE0MYWm5EW3HTP6s57CEOabvDGSuXxRezPK1QDO4sYEn82p6KgHUAbTDXugPwz9LitqpQpPg11tOQhIHcZknzmo2BFK4enz32HgvCYfyMC1oS+Hq/hhmYAF7lZSs1ddnNbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5059faso566086e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:13 -0700 (PDT)
+	s=arc-20240116; t=1789404805; c=relaxed/simple;
+	bh=6TMcO2Y5Kw0EVrvk20oE12w5dXKJk7zNaPDpg06x4co=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EwHGqJeeknuQOuRwVGzFDkENIMlkigq7C46CpOs+RgdHlCI+6oFuK+E5RLPmTvFbzT6L8hU6uGvi290j7JaSi7kZgAZ7rs2l572JgKrvSp5Jbrj9guwkM1/udEMp6XGc6WFTRrUm24/8CL1o73hPrh0aUGCepBa3gkjYPZDwymM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=tmAPQT97; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="tmAPQT97"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c29c6a3930bso29842066b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1789404802; x=1790009602; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lumnmvwB9uVaRviDsmnKgFO+t5iIy+oIBHk/e0BQmpM=;
+        b=tmAPQT97RXipwx22SVY7eilw11ufAShLltIZBxzpdRu+Rb6Vx4ql15HQftqIgUzmR/
+         AogICVciFlY4KDFhNP9bsNreAJvnLfIVyUD/0GnABbD+fznHAIHwnP6GXfBRrWqRWh6f
+         seLuNzPcZxmSd6ecEhjUwnYLlpvnT2jIPkATA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789404793; x=1790009593;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NfxIiMuQDiqgQaAeq2yHqZdFbQc/UNrumMADff4NP9I=;
-        b=THRfr2OdSsp3g7wf4S0yRiRWXRPZoGeG/BEybhLZ/4uMm5vcm49wPRIWBhIG/p2EcH
-         evwbF/OYSqqDBwgyBxBl/LcVHgbCURJ+uGf1d03Tg2DfsFVCJzbYRwzStujrisvo1eOe
-         j1hs1n5pAbcfClkYbv1sLSb/k6fyrsjYZxjV5K1ixu4Q7z8r1IBRHarq72tTANm0n1qF
-         YXbnsvTXf240Yk4mUdQ5HRmAiOjrZfx4KKnpdV/atfQ+Hj45j160A3lUbV/Od4kuwg42
-         0/PEaEhKKwU7iMI7B3U+sUexbDHc3RFpG4fIITyBM5vKmL8f0TomcnUdFwoT548nPxwp
-         drPA==
-X-Forwarded-Encrypted: i=1; AKwUvBz1VTIzA/8YkiN9IsNASFwUFlktkejcHXM/E7uRN/fP3K32s/DZLGuDjA9KWjOnYy4cDsdT9BrumEcmqVY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzur//UnyxqjsQyoBik89iJc3ueu3XYnRZ3yEX54wz77kB9Gis
-	ocEoHV1SEM4K85Nt+4Mf0M2mR6tuBqNskdyOMx1j0xE0Me0xWBu/eAxjfA814UJG
-X-Gm-Gg: AYBFou2sCLbDZ6comcyu0PHuGr+0NNmfL8pQzdkT/ndr6Yz5a4j4k6NDFo/KcYx9GQm
-	31BorFLXX/MaO4i3ntjOYtQI16fFgRULsM+ujEQfopoZGMq2itEV4jvwSZKJoLb7IBUo9vuY3+G
-	YusmXbEIGU4hXvg/goFxTbaGo26cBdlvA26SQFgRQplC2j6mlWSnW69LXL53Efjm4tO/khkyJLU
-	VlxdD9B9k3xlYk1d1H6A1LBZFNzEvSslCPL3lxbu3Lvh73Ub4fp6vxoFnbC7OSfiwrt0VeeG5YF
-	PK/be9Wm3Ed1/sFjsG7bwLM+PV1jC3mm20KFqPHV1jLCrL33caLWk+U3f5P0UNvL4h6Em+15S7t
-	vcAzFzwgIoQtEjf7+TGogNB9GfTA11uT3dIJEAOGFxYDKhdXXDSLLJe2oBl8gOFcVtAZJjRRbWZ
-	Mi5g66vOL+RyveuVI/2a3S9spYHy9/8Ry0PemkBvLwLKDfjed1bv/1TRrJqtzAl1CwdWBkH4Y8i
-	nmdeCY+H414+YdIoRDRCJpqufkOMaHPaiks
-X-Received: by 2002:a05:6122:616b:b0:5c6:5daf:52ea with SMTP id 71dfb90a1353d-5c9820dac02mr4351582e0c.6.1789404792626;
-        Mon, 14 Sep 2026 09:53:12 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c846e05523sm13544012e0c.0.2026.09.14.09.53.11
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 09:53:12 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5059faso566073e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByXMUh9ZOa3ErCDfLP6RYaIfe4D3siThjCjBk7a6vcOqeofxKPixsIwCIfbK/ZYzuqWZfV+sk97oHQCLKw=@vger.kernel.org
-X-Received: by 2002:a05:6122:d21:b0:5c8:2dc9:f8d2 with SMTP id
- 71dfb90a1353d-5c981898b18mr4839334e0c.0.1789404791699; Mon, 14 Sep 2026
- 09:53:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789404802; x=1790009602;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lumnmvwB9uVaRviDsmnKgFO+t5iIy+oIBHk/e0BQmpM=;
+        b=bcrWVSDNhEYUaR5VlUuoy21/rT0k1f1ei/luZTtQmor5gA1j84d6SqG5t6qsNTDFR6
+         aj0SxVuAwuCXeuhmDNvAVMwRUAznFSEQNSONrGwtMePtma7gMdRfaZ/8o2URmB2flCqp
+         LsKVsbNuBezf24WQ954sVsLRKDTYMXounlbR698ZJTDI8iAUNkVkPJNenF9hzgjSN0cx
+         ngGu9acv8Q+/gd0Dj41c2mbROxZkZHxez6KvDLRQFM6wPcbI5NA+Ge3PZbNR9b8d2Zg6
+         bnKFH8Q+aiZyMNhjm6T4HinnWvx1I3Y7HwEER6kqHfk7ZFMyrchmBKiMGUW4a05UDS1l
+         e7hg==
+X-Gm-Message-State: AFuF++k44YGDvM2usWc2/iv9IKVHzhwm+uCOBQKeAHgdyQezmcn8XDEy
+	DTdBFbH/sBuVuhPzN6GMZbmQpLuJ7K1G7syvJXznl7N+5+gaZ77R0LAGyAjU76dN8i1eezf9NIo
+	s8A8Q
+X-Gm-Gg: AYBFou2iyLO3B7l4BTMgIMnfqJ47m0CQcrlM5OjS7wDosGGMxLCtYAGV7onJ7e7QTRC
+	ZCAwOCDDY+ajlKkq5P1LVqh2B5UoeAiDFSZsQ1rH04zgtUnTUUjrHSvNLmHHmbSPU+PJrfkDVBQ
+	kXrF4QuU6oiWCA3veXpbP6L55+9uV1UTHOTDv5tB6l7oXafwZwpyAjbyvSvBxJHYCYKFgtN0U3p
+	EE+6sIz7fQ9y0b4uBvtc0FS4gSzmY+V6H1/BjqX1oyb9oH5kHWh9hbit6uED86rCLD2PPJHzycL
+	wuv84V/FikC+tpqLhhI315LGToUMRbZx8kMNmr9XbwCZAFJT95XTfPk3BJip4Fq9Pq+P8GVfVjL
+	i4rZscnohOzJP6wLAyFM4NMihcLWT17suZBvzuyhKXI06Gk2AGmPM7qk9lsoPsTQ8o70bfKkAAI
+	thxTSOK6Zl4+JuvZMVf+FabJqL6zfqfdUIBlJbCTp6ywo4UoVi0FFVFdEdTWUjSxwKX1Sj/tHB5
+	1tSWNwJRg8RE311IQ==
+X-Received: by 2002:a17:907:9616:b0:c29:349e:7c1d with SMTP id a640c23a62f3a-c29b879a34fmr217563666b.49.1789404801836;
+        Mon, 14 Sep 2026 09:53:21 -0700 (PDT)
+Received: from cabron.k.g ([95.111.117.177])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e8a1sm467264566b.6.2026.09.14.09.53.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 09:53:19 -0700 (PDT)
+Date: Mon, 14 Sep 2026 19:53:18 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dinguyen@kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: arm: altera: add Draeger M48 Module
+Message-ID: <20260914165318.GA10966@cabron.k.g>
+References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
+ <20260911150755.2803736-3-petko.manolov@konsulko.com>
+ <20260913-perky-resolute-badger-6c5e96@quoll>
+ <20260913133214.GF20345@cabron.k.g>
+ <565e4f26-69c3-4129-b4f1-29d67c381591@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913195654.3371385-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260913195654.3371385-5-cosmin-gabriel.tanislav.xa@renesas.com>
-In-Reply-To: <20260913195654.3371385-5-cosmin-gabriel.tanislav.xa@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Sep 2026 18:52:59 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW8oHnOZtaZEhT6ARw4jv8E8TCW1oj3=-st=H5DGYP0Qg@mail.gmail.com>
-X-Gm-Features: AcwNN1VTw_3ezXn2Sdyot4rz-bUBb_2ZP2fpOPg3aubUSTj19P58---m_IGsxkg
-Message-ID: <CAMuHMdW8oHnOZtaZEhT6ARw4jv8E8TCW1oj3=-st=H5DGYP0Qg@mail.gmail.com>
-Subject: Re: [PATCH v3 4/5] pinctrl: renesas: rzt2h: reuse helpers
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <565e4f26-69c3-4129-b4f1-29d67c381591@kernel.org>
 
-On Sun, 13 Sept 2026 at 21:58, Cosmin Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> The PMCm peripheral-mode test, the PINm input read, the PMm write, and
-> the PMm read are open-coded in several places.
->
-> Reuse the already existing helpers.
->
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-> ---
->
-> V3:
->  * move the PFC read helper reusal to a later patch
->
-> V2:
->  * pick up Geert's Reviewed-by
+On 26-09-13 16:20:54, Krzysztof Kozlowski wrote:
+> On 13/09/2026 15:32, Petko Manolov wrote:
+> > On 26-09-13 11:18:16, Krzysztof Kozlowski wrote:
+> >> On Fri, Sep 11, 2026 at 06:07:53PM +0300, Petko Manolov wrote:
+> >>> Add DT compatible string for Draeger's M48 CPU Module, an i.MX6
+> >>> based board.
+> >>
+> >> Sashiko comment is valid.
+> > 
+> > Sashiko doesn't know that this is indeed an i.MX6q board with the Altera FPGA as
+> > a separate module, that is secondary to the NXP SoC.
+> > 
+> > What do you want me to put in the commit message so that everyone is happy?
+> 
+> Your commit msgs for bindings and DTS should explain the hardware and with the
+> current explanation this is just so incomplete that basically wrong. i.mx6 is
 
-Thanks, will queue in renesas-pinctrl for v7.4.
+Incomplete - yes, but who cares.  The only consumer is Draeger and they know
+better than anyone else what the board looks like and what it is for.
 
-Gr{oetje,eeting}s,
+Wrong - how?
 
-                        Geert
+> completely different vendor. Altera FPGA does not make it Altera SoCFPGA,
+> these are two different things. If Linux runs on iMX6, then what are you
+> describing here? DTS which never is going to be loaded because there is no
+> SocFPGA?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+I'm no Draeger employee, but i've been told that both the i.MX6 and the FPGA are
+running Linux (both chips are on the same physical board) and are monitoring
+each other's health.  Apart from doing whatever whatever their primary task is.
+Whichever fails, the other guy takes over on the fly. This is a medical device
+so full redundancy is a must.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+So, again and in order to save everyone's time, please elaborate (preferably
+with an existing example) whatever it is that you expect to see in the cover
+letter and the commit messages.
+
+
+		Petko
