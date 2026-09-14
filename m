@@ -1,33 +1,32 @@
-Received: from mta0.migadu.com (out-25.mta0.migadu.com [91.218.175.25])
+Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A14472F8D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A0E4734FB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390717; cv=none; b=DtvvTepmq18PmXj9nLG9swoP7IBQvo/BNmErrtGnLtyuZ+i8YL2UcqLNZZ/PLCokj+C5GJmS4Bm1XG4xCLeCTPjyFkQ40AxuSkl6FCe+ncnqsIAdBCYlZ9KbfHs46mZJrf0GkAkUpwfWY1mA/sZmOuyJFuHXldnHbt1TseC8qXw=
+	t=1789390722; cv=none; b=h96tBZ7x3rXvfYIm1MGq5C7yWjFpb2vBT4SE8xAGzGiD2OBo+jlzypWJ0XLNGMXajxc2P41jBprWVhx2BordJZALcS8pftNjMTMxdYjIFRUl2jsbo8mCwdUCcm3PwlArCvnmN0d3oPVOK+rmk08jRvSNNNfDP4rr5dpYQ0wf6tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390717; c=relaxed/simple;
-	bh=vVA+BcQVTE6b1DspVs3rDyX78CT3oRsosEdsCjY+fSM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iWYrj1VAzZVMGgxi5A8U1U2EmqRT51ED7ArnorAagj9aqcZ/SqmbipEQfRd4v0oSA0j/pvW5L5+W1vyS2oHUFy/1w4dLNyX+5cSx5+Ommnln+gud4Vo33EOGOrIuYdB2tNY6Qjwq0IbHB3/+Xm8MAQRZsnKYMCe7TOjnOJ9+Ubs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bMm8RZpy; arc=none smtp.client-ip=91.218.175.25
+	s=arc-20240116; t=1789390722; c=relaxed/simple;
+	bh=cr2R0muZQJAbH/2zo0/ZBnfmxN5tuFxhYming9+hGcc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YTBzw3O+x1ynJKbcYtViJV6QvRi7ZvCK5J0vaBxwApjfyeUbWABo70UTXkKWLy8FXrNRdoZ1X/Ah4lDLQQE2czn2FRDrc0LFGxFdg33XUAiB3BA5NqNp5TUuwmqi9gKWXWjRe3HOJssOZOcDaPJKoQrcc3evEyfTX+Z64vtX4c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JDRQ+09b; arc=none smtp.client-ip=91.218.175.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bMm8RZpy"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JDRQ+09b"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vVA+BcQVTE6b1DspVs3rDyX78CT3oRsosEdsCjY+fSM=;
+DKIM-Signature: a=rsa-sha256; bh=cr2R0muZQJAbH/2zo0/ZBnfmxN5tuFxhYming9+hGcc=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789390712; v=1; x=1789995512;
- b=bMm8RZpyG5HUw2c0hDDsEwsGZp89eesx3rT4XUViMWRnGGz7GGJ9ihYTya34RMCfImzJ8GIp
- AmRSO2vYapdunMSFkNGnyw4L2sWKyhyZbdpD4N1NmYzYQGXbD0+6aC6hzXeNtvu0O9CDCSNAjmI
- wL/v0KyVzbZZoj8Jy2Ja7+m8=
+ t=1789390718; v=1; x=1789995518;
+ b=JDRQ+09bRJUJGjJZsL1xZ6JLy+LM+HvBswowUWJwMIT/lQS5gbdSXgPewQs2AH9PqVxT5gRr
+ 3L/H44i0d58+6rQ8PzNAJ1pNRSjAFFOx1zS/vwxXbsIUk4yENJNm2VHOxCkWXvY4AnGXv9h+ap7
+ zy/6ZzTPEqZr5m4MuQYbvKb4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fe0470a03d8b6acf;
-	Mon, 14 Sep 2026 12:58:32 +0000
-X-Mizu-Trace-ID: fe0470a03d8b6acf
+Received: by smtp.migadu.com with ESMTPS id 89023a9896b98e15;
+	Mon, 14 Sep 2026 12:58:28 +0000
+X-Mizu-Trace-ID: 89023a9896b98e15
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -44,12 +43,10 @@ Cc: Fuad Tabba <fuad.tabba@linux.dev>,
 	linux-arm-kernel@lists.infradead.org,
 	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] KVM: arm64: selftests: Check the mandatory SMCCC_ARCH_FEATURES queries
-Date: Mon, 14 Sep 2026 13:58:27 +0100
-Message-Id: <20260914125827.1645980-2-fuad.tabba@linux.dev>
+Subject: [PATCH 1/2] KVM: arm64: Report SMCCC_VERSION and SMCCC_ARCH_FEATURES as implemented
+Date: Mon, 14 Sep 2026 13:58:26 +0100
+Message-Id: <20260914125827.1645980-1-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260914125827.1645980-1-fuad.tabba@linux.dev>
-References: <20260914125827.1645980-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,82 +55,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tools/testing/selftests/kvm/arm64/hypercalls.c checks SMCCC_ARCH_FEATURES
-with two expectations: hvc_info[] expects NOT_SUPPORTED with the
-pseudo-firmware bitmaps cleared and something else with them set, and
-false_hvc_info[] expects NOT_SUPPORTED for mismatched pairs. DEN0028H
-7.3.6 mandates SUCCESS for arch_func_id SMCCC_VERSION and
-SMCCC_ARCH_FEATURES itself, whatever the bitmaps hold, which neither
-expectation allows.
+KVM reports SMCCC v1.1 to guests, which makes SMCCC_VERSION and
+SMCCC_ARCH_FEATURES mandatory, and DEN0028H 7.3.6 requires
+SMCCC_ARCH_FEATURES to return SUCCESS for both function ids: "This
+function must return SUCCESS when arch_func_id is the SMCCC_VERSION or
+SMCCC_ARCH_FEATURES function id." With arch_func_id set to either, KVM's
+guest handler returns NOT_SUPPORTED. Return SUCCESS.
 
-Check those two in the feature-disabled and feature-enabled stages, so
-the answer is asserted with the bitmaps cleared and again at their reset
-values. They pass only with the preceding patch applied.
+A Linux guest is unaffected: it discovers SMCCC_VERSION through
+PSCI_FEATURES, and issues SMCCC_ARCH_FEATURES only with arch_func_id set
+to ARCH_SOC_ID, the ARCH_WORKAROUND_* ids or HV_PV_TIME_FEATURES.
 
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- .../testing/selftests/kvm/arm64/hypercalls.c  | 27 ++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ arch/arm64/kvm/hypercalls.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/arm64/hypercalls.c b/tools/testing/selftests/kvm/arm64/hypercalls.c
-index 5d96cdf382c47..e74410cef0fe0 100644
---- a/tools/testing/selftests/kvm/arm64/hypercalls.c
-+++ b/tools/testing/selftests/kvm/arm64/hypercalls.c
-@@ -6,7 +6,8 @@
-  * via the psuedo-firmware bitmap register. This includes the registers'
-  * read/write behavior before and after the VM has started, and if the
-  * hypercalls are properly masked or unmasked to the guest when disabled or
-- * enabled from the KVM userspace, respectively.
-+ * enabled from the KVM userspace, respectively. It also checks the two
-+ * SMCCC_ARCH_FEATURES queries whose answer SMCCC pins to SUCCESS.
-  */
- #include <errno.h>
- #include <linux/arm-smccc.h>
-@@ -97,6 +98,12 @@ static const struct test_hvc_info false_hvc_info[] = {
- 	TEST_HVC_INFO(ARM_SMCCC_HV_PV_TIME_FEATURES, ARM_SMCCC_TRNG_RND64),
- };
- 
-+/* SMCCC pins the answer to SUCCESS, whatever the bitmaps hold. */
-+static const struct test_hvc_info always_hvc_info[] = {
-+	TEST_HVC_INFO(ARM_SMCCC_ARCH_FEATURES_FUNC_ID, ARM_SMCCC_VERSION_FUNC_ID),
-+	TEST_HVC_INFO(ARM_SMCCC_ARCH_FEATURES_FUNC_ID, ARM_SMCCC_ARCH_FEATURES_FUNC_ID),
-+};
-+
- static void guest_test_hvc(const struct test_hvc_info *hc_info)
- {
- 	unsigned int i;
-@@ -128,6 +135,23 @@ static void guest_test_hvc(const struct test_hvc_info *hc_info)
- 	}
- }
- 
-+static void guest_test_always_hvc(void)
-+{
-+	struct arm_smccc_res res;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(always_hvc_info); i++) {
-+		memset(&res, 0, sizeof(res));
-+		do_smccc(always_hvc_info[i].func_id, always_hvc_info[i].arg1,
-+			 0, 0, 0, 0, 0, 0, &res);
-+
-+		__GUEST_ASSERT(res.a0 == SMCCC_RET_SUCCESS,
-+			       "a0 = 0x%lx, func_id = 0x%x, arg1 = 0x%lx, stage = %u",
-+			       res.a0, always_hvc_info[i].func_id,
-+			       always_hvc_info[i].arg1, stage);
-+	}
-+}
-+
- static void guest_code(void)
- {
- 	while (stage != TEST_STAGE_END) {
-@@ -137,6 +161,7 @@ static void guest_code(void)
- 		case TEST_STAGE_HVC_IFACE_FEAT_DISABLED:
- 		case TEST_STAGE_HVC_IFACE_FEAT_ENABLED:
- 			guest_test_hvc(hvc_info);
-+			guest_test_always_hvc();
- 			break;
- 		case TEST_STAGE_HVC_IFACE_FALSE_INFO:
- 			guest_test_hvc(false_hvc_info);
+diff --git a/arch/arm64/kvm/hypercalls.c b/arch/arm64/kvm/hypercalls.c
+index b11b8821c9fbc..66f16bf9a8ea7 100644
+--- a/arch/arm64/kvm/hypercalls.c
++++ b/arch/arm64/kvm/hypercalls.c
+@@ -293,6 +293,10 @@ int kvm_smccc_call_handler(struct kvm_vcpu *vcpu)
+ 	case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
+ 		feature = smccc_get_arg1(vcpu);
+ 		switch (feature) {
++		case ARM_SMCCC_VERSION_FUNC_ID:
++		case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
++			val[0] = SMCCC_RET_SUCCESS;
++			break;
+ 		case ARM_SMCCC_ARCH_WORKAROUND_1:
+ 			switch (arm64_get_spectre_v2_state()) {
+ 			case SPECTRE_VULNERABLE:
 -- 
 2.39.5
 
