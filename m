@@ -1,176 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D2A1D435F;
-	Mon, 14 Sep 2026 01:31:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B483209F43;
+	Mon, 14 Sep 2026 01:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789349471; cv=none; b=VR076DOkFCctc7xJj8EsIAOBQ3BiEFyEWaucTIpRtmB9h6Xua5ogKrUckoCCDtVd++WJkveJCreeyuQuwHp0jQqdBLwJzTRjvLgvYhwBB/l/it7gLfZEIDj11ZAGXB9M/dcGfeCS1k76f3S/EY2pznw/4eFDj2XUlXmTfS2gAV4=
+	t=1789349508; cv=none; b=H+SNsPHLg+rp9VU/LtlWIg9Ryg21rMZ4WbvEpGpLTSRjgXlKar3dGzjNQ6DXpnqeDxkgUPNzBIvL0UtRKjWZ3jhjnnZ7v/fN08nIy1jsUe2A/yZsQmfhKHau7P2E3hWsqOrO//cu3TmQjdJBiMLz/fxhCUTxfuk2AHQMYEiilCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789349471; c=relaxed/simple;
-	bh=gWVeFVlAKTKcweOwPOImfgNVQyZ1l+8DtB1SnjfHfmY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MKqCW2Lyuogrk+RZFIxLW7+T97l8nDBPRfXv11OEs2qQQ2VtxkqrWE7sRHd+/Aj5z1bmzreFoIAGD1PjqnygpY2QNFxdFbiyDXCWPF4YuMn2ZYyt2i9UusLsOfLJvEqHAV0F5/yJg6P+cOmc9Hg3hNd3xj2NT0VEQHx1czyqvhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bf3WpViw; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bf3WpViw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B479B1F000FF;
-	Mon, 14 Sep 2026 01:31:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789349470;
-	bh=Nc5c8UWQIlOUsS9yEKIrI3enYPLq2wcsLXxA3ky3j0s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bf3WpViwi3Mgq/28u/ohKcwNiBgLVYqSRbCj0NoQ4Cp8QeImsm54TK2uPvt4wFhSu
-	 lDigTpR+rNL/4BKpv6AW8eMGEX90KQ4z+/UGlVSulzsX8jFc5wuF0EuBOzSMBbRzX+
-	 oCtXnaKCvHT8Bd3x2AIzhXHpMaQHZnMNaq/orokwoYczc1mroYbziPGcsqtOCqVTrU
-	 VLh9nMOSZW/cmbbI2z7hXPwNtoTm7R7cjFLzPDc6Z0QC4bgaU4bn4wck26TPup7Dji
-	 M6RE53llxQXUc22yBRXkL/xt1+/SUBpGFxYW4w66Sa+Nu8lYRyQQyqnK6KpNCOlHkH
-	 wEUIH9vLRUb7A==
-Date: Sun, 13 Sep 2026 18:31:08 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 1/8] perf test: Skip data_type_profiling when the PMU
- cannot record memory events
-Message-ID: <aqdOXOH6KaBTT_b_@google.com>
-References: <20260913222821.3353-1-acme@kernel.org>
- <20260913222821.3353-2-acme@kernel.org>
+	s=arc-20240116; t=1789349508; c=relaxed/simple;
+	bh=E0aep8HBXW8cl1fp89k4p7f6SKVYtvIUk8Flj86kDoE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qPYQRNhQgysxcnR1lADZ7urCV54+g7gp6Ul9/7+OW8Bt2qwLGIJsgIBMrPoGgSCcAESQnfPqdhP9pJMA3/B/IacZMXB9C9V8dz/vTOKGDl08NSKllgt3G26EAUZ6us1I/zShn7UaqyzCWYY2mzz9CTeDqSACm+quZUG6OWTGt08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com; spf=pass smtp.mailfrom=mucse.com; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: esmtpsz10t1789349427t50064802
+X-QQ-Originating-IP: pDXu7/7UhCvwxMkPZqC1VwGIxIFA1y0TKfCzmNh/u48=
+Received: from nic-Precision-5820-Tower ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 14 Sep 2026 09:30:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13930663857834570154
+EX-QQ-RecipientCnt: 11
+From: Dong Yibo <dong100@mucse.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	vadim.fedorenko@linux.dev,
+	u.kleine-koenig@baylibre.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dong100@mucse.com,
+	yaojun@mucse.com
+Subject: [PATCH net-next v12 0/5] net: rnpgbe: Add TX/RX and link status support
+Date: Mon, 14 Sep 2026 09:30:19 +0800
+Message-ID: <64BE41C2D2C0836A+20260914013019.2262317-1-dong100@mucse.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260913222821.3353-2-acme@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: ODrcV9y+CMiQB+wpSrAELauEjOo+Kcqya5lT77/gibKZzbwujTUSVHEY
+	uYzUQH3rwFYgYYzLw6CwE/S86kqO+/yDtX38oF7qY+SgKnwKgYGo9Y/YE0AXedRkwA7rJ0p
+	zB8WjudEVlbfXNbUDTu+ivQXfyD7hySme6/iqRHtQbJpCQV4aRbowRj44LDZXqMrvroeac3
+	x5x1/TTIvFYEf5/gjdABhEc3+j3CO0k5eyv357fwG277X9TiFr4CEwx3Yfl36FGLqMSghMI
+	BU54jTwc/fxeZzpksev6afUGybIyJ0t4GxJzTpDzfoomg88pKtI23YUKbyQWYVJl6ysT7Th
+	0Ry50QReV8eqA32uYsxlx6B/ZnupdUJSPfiyTktk7GIJ2CINXTW5BjEaNTvL28etQEbTFmr
+	MacGvh1cQDazDH2gcLUXgNHySvU4tJLTlx/o4V97z+QKEGeekdr0H1KxrDVgPvNzTPo7UBJ
+	wg/RoQhkVpJsdnFZKEf9eyRqTLUtURQGm8ow0TRlP3FG8wQJkMp+zjmUB0su+GgmKo8MHJg
+	i/7JjTSs1zV1EPTEyr/14cbxrjj8ClLHut31sEwsxp5mbm7vcWGmc7flSSr+vZ7fMs+DZZz
+	+btDfZpwAkpu+CMBynANOyMGjUqAvfghLL94zGULuJ0MyjaMzLdy1DeQqp1zV2Co438zXad
+	Bc6skd1KMqVpO+ZqYb+KDLl2c7S0Q2JhnFeTo84WbddsEnB8cvgHB6RSToIvd+/sbL6qfdF
+	7lYCfdaPiOpGI00WW9kmFhtQJBFrdsI3w8xdYBGJas5QyuZTz1U4Y2Q2WxaK/M52rWRcyng
+	C+QY5tegdwltpI71KCtGC2rp2F9RK5sS1U4uL3iWpWsrGC8lxsA+xIaloTQRuOfy1wQa/b+
+	nPEKShD5BfaK2VqchjZ8/FoxRzw8pd563f4LqJJAfh6XWbfeKXt0hGS667NBEHU+aPNBOgF
+	MGoc+ByQ8hSMMYS2nHy2NrivXFaHu5IlHr8uLITL6VfzHXu6E1Oe8SkpLd8DWYXihYPXqgV
+	xOEzJ/L0xEng1IDmqJkzWMEsscgMnZx5iDqd7E8zPaDu1o9vpwVlGo3F7+UtE=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On Sun, Sep 13, 2026 at 07:28:13PM -0300, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> The test records with 'perf mem record' in per-thread mode and its only
-> guard matches one specific message:
-> 
->   perf mem record -o /dev/null -- true 2>&1 | \
->         grep -q "failed: no PMU supports the memory events" && exit 2
-> 
-> A PMU that has memory events but refuses them per-thread falls through
-> it, and AMD IBS does:
-> 
->   $ perf mem record -o /dev/null -- true
->   Error:
->   Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
->   Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
->   Error:
->   Failure to open any events for recording.
+Hi maintainers,
 
-Maybe we need to add a fallback logic to add 'swfilt' term for ibs_op.
+This patch series adds the packet transmission, reception, and link status
+management features to the RNPGBE driver, building upon the previously
+introduced mailbox communication and basic driver infrastructure.
 
-> 
-> What follows is not a skip either.  The script runs under 'set -e', so
-> the bare 'perf mem record' in test_basic_annotate() aborts it through the
-> EXIT trap, which reports a signal that never happened and exits 1:
-> 
->   Basic Rust perf annotate test
->   Unexpected signal in test_basic_annotate
-> 
-> so 'perf test' turns "this PMU cannot record these events" into a test
-> failure:
-> 
->   $ perf test "data type profiling"
->    87: perf data type profiling tests             : FAILED!
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+The series introduces:
+- MSI-X interrupt handling with NAPI support
+- TX path with scatter-gather DMA and completion handling
+- RX path with page pool buffer management
+- unicast/multicast filter.
+- Firmware link-event processing and carrier management
 
-Acked-by: Namhyung Kim <namhyung@kernel.org>
+These changes enable the RNPGBE driver to support basic TX/RX
+network operations.
 
-Thanks,
-Namhyung
+---
+Changelog:
+v11 -> v12:
+1. resend with correct In-Reply-To thread.
 
-> ---
->  tools/perf/tests/shell/data_type_profiling.sh | 46 +++++++++++++++----
->  1 file changed, 36 insertions(+), 10 deletions(-)
-> 
-> diff --git a/tools/perf/tests/shell/data_type_profiling.sh b/tools/perf/tests/shell/data_type_profiling.sh
-> index eca694600a0478d2..a916c410274aa888 100755
-> --- a/tools/perf/tests/shell/data_type_profiling.sh
-> +++ b/tools/perf/tests/shell/data_type_profiling.sh
-> @@ -19,6 +19,15 @@ perfout=$(mktemp /tmp/__perf_test.perf.out.XXXXX)
->  perf mem record -o /dev/null -- true  2>&1 | \
->    		grep -q "failed: no PMU supports the memory events" && exit 2
->  
-> +# Skip if per-thread mem record is not supported on this PMU (e.g. AMD IBS
-> +# needs system-wide '-a'): it is what the test records with below, and a
-> +# failing record must not be reported as a test failure.
-> +if ! perf mem record -o /dev/null -- true 2>/dev/null
-> +then
-> +  echo "Skip: cannot record memory events on this PMU"
-> +  exit 2
-> +fi
-> +
->  cleanup() {
->    rm -rf "${perfdata}" "${perfout}"
->    rm -rf "${perfdata}".old
-> @@ -52,25 +61,42 @@ test_basic_annotate() {
->      index=1 ;;
->    esac
->  
-> +  # Under 'set -e' a bare failing command aborts the script through the EXIT
-> +  # trap, so the commands that report a failure have to be the condition of
-> +  # an 'if' for that reporting to ever happen.
->    if [ "x${mode}" == "xBasic" ]
->    then
-> -    perf mem record -o "${perfdata}" ${testprogs[$index]} 2> /dev/null
-> +    if ! perf mem record -o "${perfdata}" ${testprogs[$index]} 2> /dev/null
-> +    then
-> +      echo "${mode} annotate [Failed: perf record]"
-> +      err=1
-> +      return
-> +    fi
->    else
-> -    perf mem record -o - ${testprogs[$index]} 2> /dev/null > "${perfdata}"
-> -  fi
-> -  if [ "x$?" != "x0" ]
-> -  then
-> -    echo "${mode} annotate [Failed: perf record]"
-> -    err=1
-> -    return
-> +    if ! perf mem record -o - ${testprogs[$index]} 2> /dev/null > "${perfdata}"
-> +    then
-> +      echo "${mode} annotate [Failed: perf record]"
-> +      err=1
-> +      return
-> +    fi
->    fi
->  
->    # Generate the annotated output file
->    if [ "x${mode}" == "xBasic" ]
->    then
-> -    perf annotate --code-with-type -i "${perfdata}" --stdio --percent-limit 1 2> /dev/null > "${perfout}"
-> +    if ! perf annotate --code-with-type -i "${perfdata}" --stdio --percent-limit 1 2> /dev/null > "${perfout}"
-> +    then
-> +      echo "${mode} annotate [Failed: perf annotate]"
-> +      err=1
-> +      return
-> +    fi
->    else
-> -    perf annotate --code-with-type -i - --stdio 2> /dev/null --percent-limit 1 < "${perfdata}" > "${perfout}"
-> +    if ! perf annotate --code-with-type -i - --stdio 2> /dev/null --percent-limit 1 < "${perfdata}" > "${perfout}"
-> +    then
-> +      echo "${mode} annotate [Failed: perf annotate]"
-> +      err=1
-> +      return
-> +    fi
->    fi
->  
->    # check if it has the target data type
-> -- 
-> 2.55.0
-> 
+v10 -> v11:
+[patch 1/5]:
+1. Drop MSI and single-vector MSI-X support. Require at least two MSI-X
+   vectors, reserving vector 0 for mailbox events and using the remaining
+   vectors for the data path. (Jakub Kicinski)
+2. Prevent NAPI from re-enabling queue interrupts after the device is down.
+3. Set the real Tx/Rx queue counts before registering the netdev.
+4. Preserve the configured Tx/Rx queue counts when tearing down q_vectors.
+[patch 2/5]:
+1. Treat a Tx DMA timeout as a terminal AXI fault for the current driver
+   instance, and document why Tx cleanup ignores the repeated idle-wait error
+   after the fault is recorded.
+2. Free q_vectors after an RCU grace period, matching the RCU-protected
+   statistics collection path.
+[patch 3/5]:
+1. Arm Rx allocation retry timers only after NAPI has been enabled.
+2. Mask queue interrupts again after disabling NAPI and calling
+   synchronize_net(), preventing a completed poll from re-enabling them
+   during device shutdown.
+3. Clarify the hardware guarantee for the first RX descriptor length.
+[patch 4/5]:
+1. Advertise unicast address filtering support to the networking core.
+2. Program receive filters under the netdev address lock before enabling Rx,
+   and clarify the hardware multicast hash calculation.
+3. Clear the RAR valid bit before changing an address, and set it only after
+   the complete new address has been written.
+[patch 5/5]:
+1. Quiesce Tx DMA before notifying firmware that the port is down.
+2. Remove the stale mailbox-event boolean return value and document why a
+   failed mailbox read is not retried as transient lock contention.
+3. Document the firmware link-event retry rate and mailbox ACK protocol.
+
+Links:
+v1:  https://lore.kernel.org/netdev/20260325091204.94015-1-dong100@mucse.com/
+v2:  https://lore.kernel.org/netdev/20260403025713.527841-1-dong100@mucse.com/
+v3:  https://lore.kernel.org/netdev/20260507081539.171844-1-dong100@mucse.com/
+v4:  https://lore.kernel.org/netdev/20260526033539.164061-1-dong100@mucse.com/
+v5:  https://lore.kernel.org/netdev/20260528023150.239532-1-dong100@mucse.com/
+v6:  https://lore.kernel.org/netdev/20260604112750.769215-1-dong100@mucse.com/
+v7:  https://lore.kernel.org/netdev/20260611100036.36370-1-dong100@mucse.com/
+v8:  https://lore.kernel.org/netdev/20260731120322.895955-1-dong100@mucse.com/
+v9:  https://lore.kernel.org/netdev/20260814111317.1741087-1-dong100@mucse.com/
+v10: https://lore.kernel.org/netdev/F44E6669E6C9E7C4+20260831073608.401988-2-dong100@mucse.com/
+v11: https://lore.kernel.org/netdev/745DADAC2A5786BD+20260911112416.2142101-1-dong100@mucse.com/
+
+---
+
+Dong Yibo (5):
+  net: rnpgbe: Add interrupt handling
+  net: rnpgbe: Add basic TX packet transmission support
+  net: rnpgbe: Add RX packet reception support
+  net: rnpgbe: Add receive mode support
+  net: rnpgbe: Add link status handling support
+
+ drivers/net/ethernet/mucse/Kconfig            |    1 +
+ drivers/net/ethernet/mucse/rnpgbe/Makefile    |    3 +-
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h    |  201 +-
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_chip.c   |  118 +-
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h |   43 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_lib.c    | 2248 +++++++++++++++++
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_lib.h    |   84 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_main.c   |  158 +-
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c    |   32 +-
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx.h    |    1 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c |  235 ++
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.h |   43 +
+ 12 files changed, 3138 insertions(+), 29 deletions(-)
+ create mode 100644 drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
+ create mode 100644 drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.h
+
+-- 
+2.50.1
+
