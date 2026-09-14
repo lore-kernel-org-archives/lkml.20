@@ -1,77 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67B2331A65
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCAF3F8257;
+	Mon, 14 Sep 2026 08:30:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374614; cv=none; b=sdu5BBGKR+ULNYbkY1DdxIrX8ZnlH1PQZyKoCsheROapdagpYKlGJTkwp77EVqZjUkyI79hDOsv0T93E5RmQ8hDGd9kusmmGUigGtE18+0QrPMkfs6ZUC/VBgaJV+tc9So8Dhg6oGwez7JsepC4YAEqMU1kr9uOEuYOALTjszT4=
+	t=1789374659; cv=none; b=JsnhKfsKifP+ez5S3ER7PuVf9MbTn7zLDFxf3u4z1/5Vo1GVgqnXjAhbB5Eu7abMwDAHmx8m8EVvg9niTT1xAx2gshHwmKsD7XszTmHwncF5JjA8Ep2LBXegbjOZlZXkHK/lcDNIY9EWov9sieM00Ee++DmVo4b+tzmaLZd2lOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374614; c=relaxed/simple;
-	bh=BtB7+CNVALHL1cBw/t7zuipwO3nSDX2SfGMp29Go2JQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jnaqAvSudpwyQxMvSezk44SD73jQfmXZXLIBth3IBioTRa28XuJjMVsyxOLFk5ifbe6CR8YAHTjruEmIW492mrpDaI2oxzGWbvyMJGeTn8beEu5a1mIIiN9qTuVGCifkJjSo0OyGwX6DgIqexTe/68JMAE0ZLanlne8PX6EEJpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xm1KGjGu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789374659; c=relaxed/simple;
+	bh=jPWIkYLvL3CPASC+m6PbmIW37aCIkbWkYoBLvhavZ3Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VbtuCvRRwHJ1sMQzJo6xqvuwrjeflmTbZgDt2FF6DvNFUR5kul6xIODt9n+LL6BfoXentK9eDSkBaNXEGfgdNbnMUjv0EJdB6VaLQ++cvaIOwj64nSPdL+ZA2B7du174SWj3IXV8yaCTvz3GiXktqQ93Z3lSaqzMTET2Vj+RqQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8r+8lXZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xm1KGjGu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5CD1F0089D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:30:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8r+8lXZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F6B1F000FF;
+	Mon, 14 Sep 2026 08:30:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789374613;
-	bh=BtB7+CNVALHL1cBw/t7zuipwO3nSDX2SfGMp29Go2JQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Xm1KGjGuvhzkkQFou5uy3P7IfpsXtKBGxJlQKkw2tRRzxaOopnmG5nhgl7U281ODU
-	 Ay8I7V164UaAJUDJ2f10EcLvIgWE77cXAmaZymbjxSFQ1ZfPcRrSpBTFi4iCq9IWTA
-	 lFpFJQzQXDtEsH+oePDx65QRgjzUReIim20BLPjMsp2ygo/Ngcnxkzwlnyk1oubD8W
-	 ofwfIebUt2mfjcexofaItoM+0saOyVgyraJmwokRDFHiaNxFGIwE5rx8TKdplhdEG3
-	 sKy9UTvFtzY+kV+m3vF0cbMYCwaHt9Wqgc3NgawfmLL30EaBlEHMAhTs7x7lj31FOY
-	 ZG8mh9mnIOTqQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1e419so585335e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:30:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxmFA0tex9NbhRgurhiqIshbf9nVjZYwSKGZ0hdkVQe6TcJJLrkKBwEkSfYa3vCMRU4zPOlfLK6w3Io5nc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhHOFyES9mUZjq10tC+pk+/VELY83OjfocFpFCBKley4vI26tz
-	iPTs79DWnK7bFExImpH1hW/0V/dt4wnXjjwoNSiyf4Ixmh7+2/K3I7C6mQZPm8N6pQNdase7Ic1
-	F+3pY75egmOsTJDH7m3uhgSgOukO8dMA=
-X-Received: by 2002:a05:6512:b90:b0:5b4:5854:77f2 with SMTP id
- 2adb3069b0e04-5b8ae613d00mr362002e87.3.1789374612343; Mon, 14 Sep 2026
- 01:30:12 -0700 (PDT)
+	s=k20260515; t=1789374658;
+	bh=6ibHar/AX28bkkoClufcFVZ+t/sQVv+pp5sGp/+SErU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W8r+8lXZZ3xW2+zjal8D15frgt1TGkG41Fbtl3qTID46a1iLFLhqKDkmNVWBsfUiw
+	 sonR5wJYEuRP0w3yqxMC8rXRegkBNZtfGtOye+wiDq4WOnjwt+7Tkk1YF1k9CUtDTa
+	 QXQocPQu9fM21N9hQoL7AhImwPR1W1dqoB8WmOt5IYAAGe7d4C9IIsL4gQdHAX2S6X
+	 3ICn2kHqKC/Mm4BTxv4bCsL3zSsdW2+3danOj6WcpiijviXhSTij9Yr5oGfN3afJ2O
+	 9Dg/d4om250OTEuG83m2s+5YYs+5OXQORqpaxXhToGrVy2tNjOjNyCP61T6MjTO6uT
+	 iy4uwSzOxyjsQ==
+Date: Mon, 14 Sep 2026 09:30:53 +0100
+From: Simon Horman <horms@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Jiawen Wu <jiawenwu@trustnetic.com>,
+	Mengyuan Lou <mengyuanlou@net-swift.com>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, linux@armlinux.org.uk, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ae878000@gmail.com
+Subject: Re: [PATCH net] net: txgbe: free the fixed-rate clock on cleanup
+Message-ID: <20260914083053.GM48209@horms.kernel.org>
+References: <20260911155318.88857-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824074427.3226457-1-andriy.shevchenko@linux.intel.com> <20260824074427.3226457-4-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20260824074427.3226457-4-andriy.shevchenko@linux.intel.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 10:30:00 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkykrzxwWzWxJWsDWf8MomXt89GsAFzWV9kT08oPQ_gWA@mail.gmail.com>
-X-Gm-Features: AcwNN1VcmtqzjQdF-ZFjxAf-sA_kNQrMzRdHTrQ0dq75GLL5ft5m5c4JgWyJOJA
-Message-ID: <CAD++jLkykrzxwWzWxJWsDWf8MomXt89GsAFzWV9kT08oPQ_gWA@mail.gmail.com>
-Subject: Re: [PATCH v1 3/4] pinctrl: ma35: Replace open coded fwnode_is_gpiochip()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jacky Huang <ychuang3@nuvoton.com>, 
-	Shan-Chun Hung <schung@nuvoton.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911155318.88857-1-mhun512@gmail.com>
 
-Hi Andy,
+On Fri, Sep 11, 2026 at 11:53:18AM -0400, Myeonghun Pak wrote:
+> The fixed-rate clock is registered with clk_register_fixed_rate(), but
+> its error and removal paths use clk_unregister(). That unregisters the
+> clock without freeing the fixed-rate provider allocation.
+> 
+> Use clk_unregister_fixed_rate() on lookup creation failure, later PHY
+> initialization failure and removal to release the provider allocation as
+> well. Keep the existing clock registration and lookup cleanup ordering.
+> 
+> This issue was identified during our ongoing static-analysis research while
+> reviewing kernel code.
+> 
+> Fixes: b63f20485e43 ("net: txgbe: Register fixed rate clock")
+> Assisted-by: OpenAI:GPT-5.6
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 
-sorry for late review :(
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-On Mon, Aug 24, 2026 at 9:46=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
-
-> Since GPIOLIB provides a helper, no need to open code it, hence
-> replace that piece by fwnode_is_gpiochip().
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-I guess this needs to go in with the rest of the patches?
-
-Yours,
-Linus Walleij
