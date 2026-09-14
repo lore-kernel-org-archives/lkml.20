@@ -1,95 +1,310 @@
-Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB08A368D78
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBC648643C;
+	Mon, 14 Sep 2026 16:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403044; cv=none; b=Fo18YsE45ll4krVCS6U22/UXvYpxXNjGvXogmONrJ6wMEKUfPqC5S59sEV0+qZCMb/BZ68K46dYN1Z3F9KU2kJcUJweDxrlUZBgeADzHq6aO5ZZG7Ce8n+tdXUywxbl0IfM7ZP2aYhZ947PU1Np4CWn6K8nD7goZAfAHOI4e7a8=
+	t=1789403048; cv=none; b=S43BAIgcolFC3PYPlRCSlDUqgYFH68uLb4UXk/uGWL7mmvcDGsuseJocmmkiESgXLmaHCyTEF77vfttBqGaWjPEcjYs1Kotk3PpI2++hASCwhNw6FXqq1QGm05Uu48zeWJoGzi8DHyuIjmTB7QS4BKkje2tA0vDWrOJ2cxvYw8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789403044; c=relaxed/simple;
-	bh=+462xxdyeMC1GN/R2WQFu0vf/hv5y4sjHsNqOzNci58=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BLAfvcHuE2yHj8DffQVcJANQ5edFu+WrsNqQoDpQ5K7mTQWt4NWf0qXpBjVh7b5LbIfxwCU+1zY1rYzg2r3YfXZdA98SNTuW4qptl0FmFC/FnL/dIY/rXU2uBg24R0WRlJmuTgaisGqxCHxd88X1OpssXTqfIZ/va3lWf3cI/cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oe7gz2ci; arc=none smtp.client-ip=91.218.175.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789403048; c=relaxed/simple;
+	bh=+NdozowMdphetA0zQFAJRhWplAmxKijy+gb2jeGjyPg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AsQGg32jQbJTDKA7EhFwuEA7150sNNRG0WCQBc3KQzJa+1tmbYC1PvtcSyco2+7RxEP5/5wfWU+NkVvSzjR6I6FvxAOe2oDtUPTbmc9R+15b1x9rhkVSDOEVs9yTtPfohJ9PSHb7nIZDeJrzlBtZlWIje/00rIaLO+6N5OCaWBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tFbQgBrS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2buZGqmm; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YmN6irtK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YBDS0iPB; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oe7gz2ci"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+462xxdyeMC1GN/R2WQFu0vf/hv5y4sjHsNqOzNci58=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789403039; v=1; x=1790007839;
- b=oe7gz2ciVZ5J8J95kYbNWlDOjOSfHOS8mhdQOoES7D+5McntjCentV44g+PqmR+sKlEXLOwt
- fG9T/xw+x7bdS614oGGSyUkOH/YDrvtSNWuyqWWcr8jVFiuqYYxk7TYkU37mL0heLnBPl6NLFLA
- nohrd1lQIzykq/ShgaN5xr4w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b07efce25a4caaa7;
-	Mon, 14 Sep 2026 16:23:59 +0000
-X-Mizu-Trace-ID: b07efce25a4caaa7
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so9518e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:23:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwgv+VrEDA75xYYcvhgYpSTJQzpzms8QFfcUuHEDdKpA2ExOVnBxX0Az4XPdVKyEZD1++piwVUBCy6EP2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDHs0QiV5ZWTQGSYcTfslTAllYwUSdrnAAC/56R2M6iwF3WFSG
-	30eSghx0LAAYfkNETXbW4VcqN3NCsBm7rvSW9xaflzm7kcO0gr+JTlTKm13WGI07PisiWCUXZK7
-	wf4SYx+wdUOAD5SPGbIlbGPxVymBSfavfy2PSwXvX
-X-Received: by 2002:ac2:5681:0:b0:5ae:b1b3:145a with SMTP id
- 2adb3069b0e04-5b8ae4c4829mr98689e87.6.1789403036316; Mon, 14 Sep 2026
- 09:23:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tFbQgBrS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2buZGqmm";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YmN6irtK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YBDS0iPB"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E3A8C21A05;
+	Mon, 14 Sep 2026 16:23:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789403041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
+	b=tFbQgBrSAspIeJ4HQklfUHzgOxEsGs6s7odgea4+EClvDnOQNtFZs2GDM/xy0JalbF1mzL
+	3ERClIUUdvWm/BndhdolcBUWKF+b1SqJcXxUqi/V/sxu6NGw7peLSf+GLav6wWCWybdHlu
+	lkKPXD/rwDYOXdIa5tiXbnRKRldUKCQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789403041;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
+	b=2buZGqmmENbdoBC2LFh49mFNEe2YBjHe5+pA4RghO0LTulAnW+6CkjRLhc36fExrPV5JDm
+	CjOVdIhi+eebkpBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789403036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
+	b=YmN6irtKjlA2JzWDLSdG5Jt33G5Qhd7m5Ubh+PhI+ltDoWO8MqSZO81VTbBOO9PnTfeSop
+	KM0EyHCYdfKR6eh+CGFrrYE2xixG8u5kNYQqtagtyY2z6246hDo30VHZ3KYIeo/K01cEWb
+	v6SwWjNNJEd9+BRmKEfdQS8ePktmRKE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789403036;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W6lqfpXTVo+dnwW2VxAaJ5wF0ATAmAFT8iz2ps6p218=;
+	b=YBDS0iPB/eCBGn3X/n4i/9gYikja6SUXgRQc+wpQn9q46mcayZX+fwZTpu2E/n2k95r1lT
+	KekQaL8alUdJcDCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C12D13515;
+	Mon, 14 Sep 2026 16:23:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id O0TiJJwfqGr1JgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 14 Sep 2026 16:23:56 +0000
+Date: Mon, 14 Sep 2026 18:23:56 +0200
+Message-ID: <871pavol7n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rithvik Vibhu <rithvikvibhu@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix Acer Nitro 5 AN515-57 mic resume
+In-Reply-To: <20260904231545.33505-1-rithvikvibhu@gmail.com>
+References: <20260904231545.33505-1-rithvikvibhu@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260830-host-direct-messages-v7-0-45f6e6db72c2@google.com> <20260830-host-direct-messages-v7-1-45f6e6db72c2@google.com>
-In-Reply-To: <20260830-host-direct-messages-v7-1-45f6e6db72c2@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 14 Sep 2026 17:23:19 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTx54xunFQxmAo_Ub+C4ZhhPvhixdkenfWV4rkF0jPCNsA@mail.gmail.com>
-X-Gm-Features: AcwNN1X2uetrRmFIoGYENcfcuU7e1BdSXNmH8r5ZduL9wOubCa5NrjEj-eVtpTM
-Message-ID: <CA+EHjTx54xunFQxmAo_Ub+C4ZhhPvhixdkenfWV4rkF0jPCNsA@mail.gmail.com>
-Subject: Re: [PATCH v7 1/3] KVM: arm64: Block host-initiated FF-A direct responses
-To: perlarsen@google.com
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Yeoreum Yun <yeoreum.yun@arm.com>, Ben Horgan <ben.horgan@arm.com>, 
-	Oliver Upton <oupton@kernel.org>, Sebastien Ene <sebastianene@google.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-Hi Per,
+On Sat, 05 Sep 2026 01:15:45 +0200,
+Rithvik Vibhu wrote:
+> 
+> The existing pin-configuration quirk exposes headset mic pin 0x19, but
+> the ALC295 loses the correct combo-jack state across suspend-to-RAM
+> (S3). After resume, pin 0x19 can remain falsely present after unplug and
+> the capture mixer can remain routed away from the internal mic on pin
+> 0x12. The failure occurs on both 6.12 and v7.2-rc7.
+> 
+> Give subsystem 1025:1539 a model-specific fixup which initializes the
+> Acer combo-jack coefficients, enables the full Realtek CTIA/OMTP
+> headset state machine, gates the headset mic with the reliable
+> headphone pin 0x21, and feeds the corrected cached jack state through
+> generic HDA mic autoswitching. This keeps the actual capture mux
+> synchronized across boot, hotplug, unplug and S3 resume.
+> 
+> Apply the correction from both the headphone and microphone callback
+> paths. A direct event from mic pin 0x19 otherwise bypasses the headphone
+> hook and can restore the unreliable raw pin sense. Invalidate and
+> refetch pin 0x21 when handling such an event before deriving the
+> corrected microphone state.
+> 
+> Pin 0x21 indicates that a combo-jack plug is present but cannot
+> distinguish three-pole headphones from a four-pole headset.
+> Consequently, as with other headphone-gated mic configurations, a
+> three-pole plug is exposed as a headset mic.
+> 
+> Tested with cold boot and repeated S3 cycles in the unplugged and
+> four-pole-headset states, including unplug and reinsert after resume.
+> 
+> Fixes: 51db05283f7c ("ALSA: hda/realtek: Enable headset mic for Acer Nitro 5")
+> Cc: stable@vger.kernel.org # 6.12+
+> Assisted-by: LLM
+> Signed-off-by: Rithvik Vibhu <rithvikvibhu@gmail.com>
 
-On Mon, 31 Aug 2026 at 00:08, Per Larsen via B4 Relay
-<devnull+perlarsen.google.com@kernel.org> wrote:
-...
-> @@ -686,8 +686,10 @@ static bool ffa_call_supported(u64 func_id)
->   case FFA_MSG_SEND:
->   case FFA_MSG_POLL:
->   case FFA_MSG_WAIT:
-> - /* 32-bit variants of 64-bit calls */
-> + /* The host is never the target of a direct request */
->   case FFA_MSG_SEND_DIRECT_RESP:
-> + case FFA_FN64_MSG_SEND_DIRECT_RESP:
-> + /* 32-bit variants of 64-bit calls */
->   case FFA_RXTX_MAP:
->   case FFA_MEM_DONATE:
->   case FFA_MEM_RETRIEVE_REQ:
+Thanks for the patch.
 
-Sashiko asked whether the interfaces it listed should be added to the
-blocklist too. For FFA_FN64_NOTIFICATION_INFO_GET the answer looks
-like yes: FFA_FN_NATIVE() is FFA_FN64_##name on arm64, and
-ffa_notification_info_get() is the only in-tree caller, so the 32-bit
-entry a few lines below never matches what the host sends. Could you
-add it here?
+I guess I understand most of the intentions in your code, but it looks
+a bit too complex and handling things unnaturally.  After all, there
+is no similar code there, which already appearing suspicious.
 
-The other three aren't the same case. FFA_RX_RELEASE has to keep going
-through, since the host's release is what frees the hypervisor's RX
-buffer after do_ffa_part_get().
+Can this be handled better with the gating stuff in
+sound/hda/common/jack.c, instead?
 
-Cheers,
-/fuad
+
+Takashi
+
+
+> ---
+> The 6.12.y backport requires adaptation because the Realtek codec code
+> is located in sound/pci/hda/patch_realtek.c there.
+> 
+> base-commit: 3b26ceef88c110f4d188387cffa0df78657be904
+> 
+>  sound/hda/codecs/realtek/alc269.c | 105 +++++++++++++++++++++++++++++-
+>  1 file changed, 104 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+> index 95b40a177..f1a83908e 100644
+> --- a/sound/hda/codecs/realtek/alc269.c
+> +++ b/sound/hda/codecs/realtek/alc269.c
+> @@ -3740,6 +3740,103 @@ static void alc2xx_fixup_headset_mic(struct hda_codec *codec,
+>  	}
+>  }
+>  
+> +static void alc295_acer_nitro_mic_autoswitch(struct hda_codec *codec,
+> +					     struct hda_jack_callback *jack)
+> +{
+> +	struct alc_spec *spec = codec->spec;
+> +	struct hda_jack_tbl *hp_jack, *mic_jack;
+> +	hda_nid_t hp_pin = alc_get_hp_pin(spec);
+> +	bool auto_mic = spec->gen.auto_mic;
+> +	bool hp_present;
+> +
+> +	hp_jack = snd_hda_jack_tbl_get(codec, hp_pin);
+> +	mic_jack = snd_hda_jack_tbl_get(codec, 0x19);
+> +	if (!hp_jack || !mic_jack) {
+> +		codec_warn(codec, "failed to find Acer Nitro combo-jack entries\n");
+> +		return;
+> +	}
+> +
+> +	/* A mic callback must not reuse a possibly stale cached HP sense. */
+> +	if (jack && jack->nid == 0x19)
+> +		hp_jack->jack_dirty = 1;
+> +	hp_present = snd_hda_jack_detect(codec, hp_pin);
+> +
+> +	/*
+> +	 * The codec reports a stale or inverted presence state for mic pin 0x19
+> +	 * after S3.  Pin 0x21 continues to track the shared combo jack reliably,
+> +	 * so use it as the presence source for 0x19.  Leave the entry clean so
+> +	 * the normal report pass does not immediately replace this value with a
+> +	 * broken raw pin-sense read.
+> +	 */
+> +	mic_jack->pin_sense &= ~AC_PINSENSE_PRESENCE;
+> +	if (hp_present)
+> +		mic_jack->pin_sense |= AC_PINSENSE_PRESENCE;
+> +	mic_jack->jack_dirty = 0;
+> +
+> +	/* Route the actual capture mux from the corrected jack state. */
+> +	spec->gen.auto_mic = 1;
+> +	snd_hda_gen_mic_autoswitch(codec, jack);
+> +	spec->gen.auto_mic = auto_mic;
+> +}
+> +
+> +static void alc295_acer_nitro_hp_automute(struct hda_codec *codec,
+> +					  struct hda_jack_callback *jack)
+> +{
+> +	/* Refresh the reliable HP jack and the Realtek headset mode first. */
+> +	alc_update_headset_jack_cb(codec, jack);
+> +	alc295_acer_nitro_mic_autoswitch(codec, jack);
+> +}
+> +
+> +static void alc295_fixup_acer_nitro_headset_mode(struct hda_codec *codec,
+> +						 const struct hda_fixup *fix,
+> +						 int action)
+> +{
+> +	struct alc_spec *spec = codec->spec;
+> +	static const struct hda_pintbl pincfgs[] = {
+> +		{ 0x19, 0x03a1103c },
+> +		{ }
+> +	};
+> +
+> +	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
+> +		snd_hda_apply_pincfgs(codec, pincfgs);
+> +		alc_update_coef_idx(codec, 0x45, 0xf << 12 | 1 << 10, 5 << 12);
+> +		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
+> +	}
+> +
+> +	alc271_hp_gate_mic_jack(codec, fix, action);
+> +	alc_fixup_headset_mode_no_hp_mic(codec, fix, action);
+> +
+> +	if (action == HDA_FIXUP_ACT_PROBE) {
+> +		int int_mic_idx = -1, headset_mic_idx = -1;
+> +		int i;
+> +
+> +		for (i = 0; i < spec->gen.input_mux.num_items; i++) {
+> +			if (spec->gen.imux_pins[i] == 0x12)
+> +				int_mic_idx = i;
+> +			else if (spec->gen.imux_pins[i] == 0x19)
+> +				headset_mic_idx = i;
+> +		}
+> +		if (int_mic_idx < 0 || headset_mic_idx < 0) {
+> +			codec_warn(codec,
+> +				   "failed to find Acer Nitro mic mux entries\n");
+> +			return;
+> +		}
+> +
+> +		spec->gen.am_num_entries = 2;
+> +		spec->gen.am_entry[0] = (struct automic_entry) {
+> +			.pin = 0x12,
+> +			.idx = int_mic_idx,
+> +		};
+> +		spec->gen.am_entry[1] = (struct automic_entry) {
+> +			.pin = 0x19,
+> +			.idx = headset_mic_idx,
+> +		};
+> +		spec->gen.hp_automute_hook = alc295_acer_nitro_hp_automute;
+> +		spec->gen.mic_autoswitch_hook =
+> +			alc295_acer_nitro_mic_autoswitch;
+> +	}
+> +}
+> +
+>  static void alc245_fixup_hp_spectre_x360_eu0xxx(struct hda_codec *codec,
+>  					  const struct hda_fixup *fix, int action)
+>  {
+> @@ -4335,6 +4432,7 @@ enum {
+>  	ALC287_FIXUP_THINKPAD_I2S_SPK,
+>  	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
+>  	ALC2XX_FIXUP_HEADSET_MIC,
+> +	ALC295_FIXUP_ACER_NITRO_HEADSET_MODE,
+>  	ALC289_FIXUP_DELL_CS35L41_SPI_2,
+>  	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
+>  	ALC256_FIXUP_HEADPHONE_AMP_VOL,
+> @@ -6854,6 +6952,10 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.type = HDA_FIXUP_FUNC,
+>  		.v.func = alc2xx_fixup_headset_mic,
+>  	},
+> +	[ALC295_FIXUP_ACER_NITRO_HEADSET_MODE] = {
+> +		.type = HDA_FIXUP_FUNC,
+> +		.v.func = alc295_fixup_acer_nitro_headset_mode,
+> +	},
+>  	[ALC289_FIXUP_DELL_CS35L41_SPI_2] = {
+>  		.type = HDA_FIXUP_FUNC,
+>  		.v.func = cs35l41_fixup_spi_two,
+> @@ -7177,7 +7279,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+>  	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
+>  	SND_PCI_QUIRK(0x1025, 0x1534, "Acer Predator PH315-54", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+> -	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57", ALC2XX_FIXUP_HEADSET_MIC),
+> +	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57",
+> +		      ALC295_FIXUP_ACER_NITRO_HEADSET_MODE),
+>  	SND_PCI_QUIRK(0x1025, 0x159c, "Acer Nitro 5 AN515-58", ALC287_FIXUP_ACER_MICMUTE_LED),
+>  	SND_PCI_QUIRK(0x1025, 0x1597, "Acer Nitro 5 AN517-55", ALC2XX_FIXUP_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x1025, 0x159e, "Acer Nitro 5 AN515-46", ALC2XX_FIXUP_HEADSET_MIC),
+> -- 
+> 2.55.0
