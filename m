@@ -1,206 +1,247 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D6E3B19B5
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373296; cv=none; b=W0M9YNDz2Elr4TAt+X4jIsQLkMUCSmyIpLYCxR5hOXyKRwSmCqkKCHq4XhepjU/7kdAKs2RY27klFIkHtPuigqcGkUkEoSUMBIRNF40pe/VsSOGfEkXzATICR6r1RDO1DOfhnvmiD8V6gNVoCFM0wO6cAKSAQWbsbLNZ47nAoMA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373296; c=relaxed/simple;
-	bh=oI7VifzfMn1zpU+IkOS28i03E+y/fe9j1/M0UgR7+Lk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PJ0BWrmJwaopP4WAr514JZLRpVrUBuy6CbTzh6Y7M3/+fwtbBIcr4XeBbkFO9hJ6UHRyJDmrYSRVO91cnp2EzheDlJqfu3KHumS6cA4Lg4UxDBbdC6g284kz4ss2xUsO6VBGoSPGXsqTpE/tPnhyEHsJxrvUu+Z/FRw4vITGg5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=imN5fpI9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OwPAjXb2; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA552331EC7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789373319; cv=pass; b=b0JRxmYFzEq+0uEW+1YodmZ63jNZFQLdKMyTUGyfmhA3ugq2O0ctATYAi8ovLA5GcFWyPaS7DmD8yNL+q/G+jzkl7dp4PNHUK01uPaNi6lzg5uqhStnmnaEqAE7XjzrO0K9EL5qAnxonGOHLjJYMBbIMmmdu0CxFLs3NmjHZ8Tw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789373319; c=relaxed/simple;
+	bh=DUAXh/D37ePrGStHIvqH/FD63oPvTaNzwYIYhmyhXtM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OZb+0YLyIP5P251wLFg8rH56yujEiZZCARpBQ1HOBeMEszuid4zetr4iwbMvqbwcMAsv5nSzXW57Sl0JhTE17ndjCZiRgbaFlwE+4LN+n/cjOSfGYzVwEtf+pzbkme72gxE0pynp0tWd0ic04pLn4MjmKVuOthOJ3XCqyxP3p68=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eg3hzoOk; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="imN5fpI9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OwPAjXb2"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5jQZQ3842847
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:08:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LrqX32EnO3d4Uq7N4G8r4oWD6xf4vvdnOcV1PMGcjmU=; b=imN5fpI9OinQuYhs
-	Zm681p87GeCmBBbnNrsmV+rIMI3TIs9DAG63YrWCk4+cv0xplTeOssEsSTDfC3gf
-	FCNFkRpVuiiMue+2+16QSY29pGduwe4c/flZYQiz319NL316w0em1y4KIKl06OL/
-	u2MXHvKc5c56927lq1UFY9JfkW6h+5Y+Z0U3tTjODp0iBg3MFfp6HGTpyanRduDA
-	i3eyhMEZ8GiqvjdxD6f8NIqJOlbILvDpmPHlps9/YS8PZiZtAVCBD+s+XXO1GUHs
-	xh3zfbtYP708s+YalzI0KsFeFwZirB9r+Hw/RW+tNtajftA+MONIeBeMqbQgbWRN
-	B6AEvA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c5npf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:08:13 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9103df70f2fso6512636d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:08:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eg3hzoOk"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20bdfe60so205757d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:08:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789373317; cv=none;
+        d=google.com; s=arc-20260327;
+        b=njynarYJAF3itgl3Ft5zkx/dStVerZjvogdWHEIIGypCAxvq3G5w8hxkHeEwLYCCea
+         jCudOLtuSY874354rdUSSWOgF9xzrcxRAgYuZJYkvp5tQra1Hx/g5gbbCmPApRCh5/2I
+         wXENJEQudQicaTx6YavP0XktSTSZlhVhDK8WoFQz7IEMvOZ8p1BNhEng+2h9HtwKx1KP
+         zsbxDfgc9umowqp/pn8J8SOqOwI5A7/8m4tzZJR7NdItBER0mm2xpzwtGv9acCdwola9
+         KFiPYAF7R7Phc84Q64ucvmfYMvTMRrv9hmw5gmwWUe+WTDiujbfN7gYTHn6DrjcREGxq
+         LIpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ID6c9sfqkpTqIRSRF0HKDo0hSdWLeIijg8HL/+8GapQ=;
+        fh=FNqh637a8obn2nD/DEN9IRs0fg/0dhgV45mSQfQmgmY=;
+        b=TYfjQnjGtx3z9HDOu4oapI2U9j3pSbqDBcKn6rSpvDm5mhnaUGMK3jvB+SfWRbdajk
+         ei83j3Q0nFrkGs4fWn/MMccST+uRpcVE2UC+FtHjMFrxDxezFSHaaqt29XjVG8GednMt
+         14HVc4VqXKbfgE6G2l/WG/G/hlfHU17FmtxGL7dpf2T2ZkgsrZiotDbdc1FVfjAdGsAb
+         Rx7KHed1g6B1vn1BqLFMrCGmIu4kYyjzqLuFTCRF7k2aoiqk/WocpXM451UudD8W8fXt
+         YCXE0pdBJGi3+HDcvbX9W03Ycc2IV10Qiu/5wHyTrhA4ABoqAYK02mk5mafrNWedILkn
+         mkYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789373293; x=1789978093; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789373317; x=1789978117; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LrqX32EnO3d4Uq7N4G8r4oWD6xf4vvdnOcV1PMGcjmU=;
-        b=OwPAjXb2A4xP9gygAdxqJ/Ng21PoaCCP0MOK/+uEThWHgxbCl2jw4rS5vvpVbrITf5
-         3RXB1XfqswCnstgHJft8RY6HlZaD4VvUMGbEcoehbX9XX7irSQzl7IpRfXk71opK2H73
-         K1p5dmHX68mCtw4cmAZjxfVSScJrhv65orH0Pla9OS7aBjjY6kgs+BVSeyA2d4N+5DyG
-         ijOS1XwmwEyBLp93Sch/ujJGn6zdFAh1439S1FSK6nOEoXjaHwUTmYrr9EUAyZ8b6qyH
-         EOCQ/u/C5zqm9qniPhosZh2w1zZ1chbdURPI2Km6APjSvWRgu0Kfow5XEj73dkXYCcAv
-         88bA==
+        bh=ID6c9sfqkpTqIRSRF0HKDo0hSdWLeIijg8HL/+8GapQ=;
+        b=eg3hzoOkTh4UfTGwsal+c7V22RGeVMDywxhLIxmDQAEQ3b1sgm51qjv/x4oJacm/w3
+         kSDowTXKvWOqLtVy5hE6TWhRCryf8U8J6q3DniUBqZnO/S9K2QtQvPWZ0CJ9jhCf0Tst
+         Gl7z1JeEv3F4WlBsFGkVa5G8t6FrTiyoWvGVIksMn+w6HULYpMpTaRB4PVWOEvziQwD+
+         hXvI1tXGpuxAbw/jlxGgCjVKwmgNwDCh15YHzohb009/UKV7O/dkL+Ma3Fc5kd5ggl8x
+         8K6hhHCsGcNsFLChVV1KLp/XJsY1RJqvytYxg/sX9IkuDeQBYFizNrznmWeXyRX0IiaG
+         8iNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373293; x=1789978093;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LrqX32EnO3d4Uq7N4G8r4oWD6xf4vvdnOcV1PMGcjmU=;
-        b=mLAisHgYSm7zseYT9tXGU7PlF/yNfXEJMZBLVi7KlS9+CKVgPVhL1fgW25SkyWhXmb
-         Wi2b/tdzQrtLjVbuKiqAWK4rookpkSziyVLOs/HM8/0bQ6D/ZdSx8rFKo2wylPzNW4ss
-         FSfbc64OPm5jadJKsetU+iknRDekOSLsr9XYG6Q9BhEqQGCMvj0gl/6255NnRRQ2guB9
-         C8+qOOodh+DDHEM0+iCtbwhgiR23/W7vBvD6HBEdWS63h/fuwdAOjojc7jViY4wOqh6K
-         1tEin36mrxjVdAlCtdM9bCO6R/XbmAtb8M7HUwil2BQMKhBBiOI8U1pa68BxweWdVAfB
-         HluA==
-X-Forwarded-Encrypted: i=1; AKwUvBxw0T0Y2jLAx2G2AB2g18dg303lX+fC0+8O6+J5YT+taHnbtNoFq+vNVDR66talMcY33Y8KYIi4MDYW0x0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kC1t3Eb6A476oD2li8Pt76QssFA8EkeNXgGvT8pQlpP3qCBK6b
-	RW6NQquIirubryFQ/xcP+GB9XxyrodbtV+hJy0+q+xAKocxLl7ZzoqhSvqTQIV4IZkxxrsBxnqP
-	e2OKm0aXkVp4h4GJQhDYEbsIysBAROE9nAhHll5ZxNljHpvYqq/NNOc2mwJbr2FL2cl0=
-X-Gm-Gg: AYBFou0FRv9vaAgRWQTOELt2dDosI4tgVhQbPhtQAwRu1vDZFYsysbsE+GmftE6hlio
-	mh5Xbqx+2E0XG5S6OPbfIUR4sIrCpAQ9o8ufyhcnqAseJVoQQRxKnE/UnBlPhiJkFVAwNsdKPP5
-	ebmtUIBuM6l132uY+qxTqNBb8A7/aWnYtbrxIoBVxSuoiY1nwUwmOTPJNoLbeTZzZW/wHArpMjn
-	hpKgCYH53EDa4550z5bFzeiPr1pbqXfWkId3k7hV/MU4K+QysSzSoyRpOiGSskjW5rujwNgztpl
-	J38QB0TPA9MmRqUP6/AzsZQ709J91kb8DrifPgdipLmvK7mYfpfMv+eZAxcZh42ssRisWVbX8Oy
-	zPpat61ldYzIBA+A15Wergw==
-X-Received: by 2002:a05:6214:410b:b0:90e:9616:d7ac with SMTP id 6a1803df08f44-9122e67e91dmr18605646d6.4.1789373292971;
-        Mon, 14 Sep 2026 01:08:12 -0700 (PDT)
-X-Received: by 2002:a05:6214:410b:b0:90e:9616:d7ac with SMTP id 6a1803df08f44-9122e67e91dmr18605436d6.4.1789373292507;
-        Mon, 14 Sep 2026 01:08:12 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966067345sm391067666b.32.2026.09.14.01.08.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 01:08:11 -0700 (PDT)
-Message-ID: <d9671bb6-9924-4b37-bd7c-de9e343e6f4e@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 10:08:07 +0200
+        d=1e100.net; s=20251104; t=1789373317; x=1789978117;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ID6c9sfqkpTqIRSRF0HKDo0hSdWLeIijg8HL/+8GapQ=;
+        b=Wdk5G2MoGevRnWbl0V8OT+O2Y13qpty1KvyNBd50i7RjLMIxiD0dfdNjAShnGVvbF+
+         1YZtWuT7WkN3F8bzZNIrBRwhTJa1JsFAxVyq32dL6jlZQuR+awydsZE4nvsuwiLbh66f
+         2rVOM9xddphZ23QooyNswfI2MBx6+NooaVkX/kEN8d1eNgTmIGDo563Gr4BxmX2kCO6x
+         GQPvWGntUEIyLViCenZbDKQ2iCH5TADKAM5gg0q9sX6xnMsoDOlDbR76bkKboSjRXtMP
+         Si/USMHi5V/ZiepMINyqlJGrrVputpRBI+RzYMWx96/HV/e79IIc1Tw9JN1meTQ5PBso
+         LmZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzFDiyxpLKDePPb87nLOjDMYArpLXS/L3j231iEIMO7twoa0g50bHyoUBzOpeJuv0tAVV7xhngu1Wf9HYY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3G1fVIIGhv9XKzGTUPkHHiAAAKlLHrpcrrVAnVUiZGZwkESAl
+	svBmnp6QNNfBBGVB+KLSu9V4sbLaTAPhJw5l4aIneezVdHwJCfYS9rb2JJVPQTREVQUf7k22Tw7
+	kzOwcFdxWeqr45DunCCwNwdw6e5exIx0=
+X-Gm-Gg: AYBFou258BMT3oEPKZoo9v/JiMT+ETpLYgIfGgeFVXug4Q/5wIVI98aj3tkWkVT8nHG
+	hQOmTRfspTtK9FOBnDPDLsQSIkKXx46PIXekvx92AJ+tllHqHJ/QiC45e7T8yHdRXHPGGk0IOdH
+	u/l9EAWNlbNgxojLfH2Iu7Famp1vXhkFjNXnkzQ0p+wmwnTj2rrpvDjpr6V3/q/S5G8RE4yaYt+
+	xT86PKPirNH91clAFlRl4nUgy6DqARj6OSzGIfXfsr0XtNKlbDUT9LHVmix9hGCFhi+y5EgA+oU
+	t8MgSkclYBBvm3luNcHdLR2s/crmHUYZ7/ZRBWXLccofw7Gzn8Y+IMHx
+X-Received: by 2002:a05:690c:630e:b0:870:48aa:473e with SMTP id
+ 00721157ae682-88d19058869mr5623377b3.0.1789373312213; Mon, 14 Sep 2026
+ 01:08:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/17] phy: qcom: edp: Add Nord PHY power-on and reset
- state-machine callbacks
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>, Vinod Koul
- <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-11-e25c073cf1b6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260911-nord-drv-dt-v1-11-e25c073cf1b6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: aawMJBLsSwhdLsf9zNLzgmlzdZK2OZPt
-X-Proofpoint-GUID: aawMJBLsSwhdLsf9zNLzgmlzdZK2OZPt
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa7ab6d cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=vbpSL41SLP_TpwptBaYA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExNCBTYWx0ZWRfX3zYIXdJj3bmu
- lezFO9f1nNcXJHOnZD8SAPlvOyMUXKnPG2Z+MM6TqVpF04v9AGpqxPNeL5rti23KvwWGFIcfXaw
- PTmW4Q5/V1yVDLvKHik/uwEaD7umgg8WUBqNenu0NwYdvG8XYEQwDiX3jW0ChV8y2mO2syyP/8c
- z+/FpfDlg89U8//zr1LjiKcvRryFhi9mkvRtmlbGDZ0ZG5Iu3NPhr6lRNgKwBaHiCedphWPmGtc
- cYdrvB2uF1Zto6yNhiYfZO61vgLbi4ToDo3u3hnHKv34WihEb1pxSXopbIUZUbc4eboE0w2+tHq
- HIyNLBxbz7UhIbJxKm+cn5tqmRMGTcQ+aM7NsKQAYTcFK0b/xvBpBsU7g5RMbUv+REbC7W0g1mI
- k9z4jxoV/VDJ4LiEY3sy/ilNOp6Jrj2BRT4cPfFkjQkbY5uvuol6XCmBnff4EeSXZohoOPgyuS4
- KfCQZdOZZsx9l9p7rcw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExNCBTYWx0ZWRfXyWMFcfhfqN8+
- zmAzmUoZ70qKfkcfhPmS/aGwFt48XKStqY0BtdT5gR24HPN/zb7kb51QCTkk2J5UzRvrdhBAlHh
- 5bMcFrS4R2LK760Mt3DyS5Kw05VVljE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140114
+References: <20260910184452.895485-1-itai.handler@gmail.com>
+ <20260910184452.895485-2-itai.handler@gmail.com> <20260910190139.BF6231F000FF@smtp.kernel.org>
+In-Reply-To: <20260910190139.BF6231F000FF@smtp.kernel.org>
+From: Itai Handler <itai.handler@gmail.com>
+Date: Mon, 14 Sep 2026 11:08:20 +0300
+X-Gm-Features: AcwNN1XT_uCY5gQVeYwBYOZOBIgOpq3-Jnpwf4sQfFYZU8aFfdkLrzHjDiS4GQQ
+Message-ID: <CAFpOueRqaQ=C3u+br6AsCDPeeFwqVUmCG6JSCu90noowVCfd=Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] mtd: spi-nor: take the flash lock in spi_nor_shutdown()
+To: sashiko-reviews@lists.linux.dev
+Cc: mwalle@kernel.org, pratyush@kernel.org, linux-kernel@vger.kernel.org, 
+	takahiro.kuwano@infineon.com, richard@nod.at, stable@vger.kernel.org, 
+	miquel.raynal@bootlin.com, linux-mtd@lists.infradead.org, vigneshr@ti.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/11/26 5:36 PM, Nabige Aala wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> 
-> Nord relocates the QSERDES COM CMN_STATUS and C_READY_STATUS registers
-> so the generic sequences cannot be reused.  Add
-> qcom_edp_phy_power_on_nord() which powers down all lanes and polls
-> CMN_STATUS_NORD (0x1d0), and qcom_edp_phy_com_resetsm_cntrl_nord()
-> which triggers the reset SM and polls C_READY_STATUS_NORD (0x1f8).
-> 
-> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  drivers/phy/qualcomm/phy-qcom-edp.c | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-> index 64878398f43c..6cac4b55b66f 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -1612,6 +1612,31 @@ static const struct qcom_edp_swing_pre_emph_cfg nord_dp_swing_pre_emph_cfg = {
->  };
->  
->  
-> +static int qcom_edp_phy_power_on_nord(const struct qcom_edp *edp)
+Thanks for the review. Taking the three points in turn: the first is
+unreachable, but checking it turned up a real bug next to it that this
+series has to fix first; the second cannot arise on the path this patch
+serves; and the third is correct and is already stated in the commit
+message.
 
-This commit introduces compile warnings (-Wunused-function)
-> +{
-> +	u32 val;
-> +
-> +	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
-> +	       DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
-> +	       DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
-> +	       edp->edp + DP_PHY_PD_CTL);
-> +	writel(0xfc, edp->edp + DP_PHY_MODE);
-> +
-> +	return readl_poll_timeout(edp->pll + DP_QSERDES_V8_COM_CMN_STATUS_NORD,
-> +				 val, val & BIT(7), 5, 200);
-> +}
-> +
-> +static int qcom_edp_phy_com_resetsm_cntrl_nord(const struct qcom_edp *edp)
-> +{
-> +	u32 val;
-> +
-> +	writel(0x20, edp->pll + DP_QSERDES_V8_COM_RESETSM_CNTRL);
-> +
-> +	return readl_poll_timeout(edp->pll + DP_QSERDES_V8_COM_C_READY_STATUS_NORD,
-> +				 val, val & BIT(0), 500, 10000);
-> +}
-> +
-> +
+> [Severity: High]
+> This is a pre-existing issue, but does spi_nor_prep_and_lock() leak device
+> preparation resources if interrupted by a fatal signal?
+>
+> If a process is killed while waiting on wait_event_killable() inside
+> spi_nor_prep_and_lock(), it returns -ERESTARTSYS but fails to invoke
+> spi_nor_unprep() to roll back the earlier spi_nor_prep() call.
 
-Double \n
+The asymmetry in the code is real, but the leak is not: the two halves
+are mutually exclusive, so there is never anything to roll back.
 
-Konrad
+spi_nor_prep() only does something when the flash has controller_ops:
+
+        static int spi_nor_prep(struct spi_nor *nor)
+        {
+                int ret = 0;
+
+                if (nor->controller_ops && nor->controller_ops->prepare)
+                        ret = nor->controller_ops->prepare(nor);
+
+                return ret;
+        }
+
+and the wait_event_killable() is reached only on the parallel-locking
+branch, i.e. only when SNOR_F_RWW is set. That flag is set in
+spi_nor_late_init_params() (core.c:2981):
+
+        if (flags & SPI_NOR_RWW && nor->params->n_banks > 1 &&
+            !nor->controller_ops)
+                nor->flags |= SNOR_F_RWW;
+
+Note the !nor->controller_ops. A flash that can reach the killable wait
+by definition has no controller_ops, so spi_nor_prep() was a no-op and
+spi_nor_unprep() would be one too. RWW and controller_ops cannot coexist.
+
+> Does this
+> also apply to the other locking helpers like spi_nor_prep_and_lock_pe() and
+> spi_nor_prep_and_lock_rd()?
+
+Those two have the same shape and so the same answer: same
+spi_nor_prep(), same wait_event_killable() on the same SNOR_F_RWW
+branch, so there is nothing to unprep there either.
+
+One correction as well: on that branch spi_nor_prep_and_lock() does not
+take nor->lock at all, so the error return cannot deadlock the mutex in
+the way described.
+
+That said, the neighbouring code is not fine, and I would not have
+looked without this comment.
+
+spi_nor_rww_start_exclusive() returns with nor->lock held, on both
+paths:
+
+        static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
+        {
+                struct spi_nor_rww *rww = &nor->rww;
+
+                mutex_lock(&nor->lock);
+
+                if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
+                        return false;
+                ...
+                return true;
+        }
+
+It is the only one of the ten spi_nor_rww_{start,end}_* helpers that
+still uses a bare mutex_lock(); the other nine all use
+guard(mutex)(&nor->lock). Commit 03e7bb864d9a ("mtd: spi-nor: use
+scope-based mutex cleanup helpers") replaced its "goto busy" with a
+plain "return false" and deleted the busy: label that did the
+mutex_unlock(), but did not add the guard() that the others got. Before
+that commit the function always released the lock.
+
+So on an RWW flash:
+
+ - if the flash is idle, it returns true with nor->lock held, and the
+   matching spi_nor_unlock_and_unprep() calls
+   spi_nor_rww_end_exclusive(), which does guard(mutex)(&nor->lock) and
+   self-deadlocks on a non-recursive mutex;
+
+ - if it is busy, it returns false with nor->lock held and
+   wait_event_killable() then sleeps holding it, so nothing can ever
+   clear ongoing_*.
+
+That has been the case since v6.15. Nothing hits it today: the only
+flash with SPI_NOR_RWW is the MX25UW51245G, which has neither OTP nor
+locking ops, so none of the existing spi_nor_prep_and_lock() callers in
+otp.c, swp.c and sst.c apply to it. That is exactly what this patch
+changes - spi_nor_shutdown() did not take the flash lock before, so an
+RWW part never reached the exclusive path, and with my patch every
+reboot would. v2 therefore leads with the guard(mutex) fix as patch 1/3
+rather than building on top of it.
+
+> [Severity: High]
+> If a fatal signal is pending during the reboot process, such as from the OOM
+> killer or a manual SIGKILL, wait_event_killable() in spi_nor_prep_and_lock()
+> will immediately return -ERESTARTSYS.
+>
+> Will this early return skip the spi_nor_restore() hardware state reset?
+
+Only on an RWW flash, for the same reason as above: the non-parallel
+branch uses mutex_lock(), which is uninterruptible and cannot fail, and
+spi_nor_prep() cannot fail on the spi-mem path because controller_ops is
+NULL there. So on everything else spi_nor_prep_and_lock() returns 0.
+
+Where it can happen, skipping the restore is exactly what the code does
+today when the restore fails, and spi_nor_restore() is best-effort by
+design - it ignores the error from spi_nor_set_4byte_addr_mode() and
+only logs it, "in the hope that the flash will default to the 3-byte
+address mode after the software reset". The patch does not make that
+outcome more likely; the unlocked restore it replaces reports success
+while leaving the flash in 4-byte mode, which is the failure being
+fixed.
+
+> [Severity: Critical]
+> This is a pre-existing issue, but could releasing the lock while the MTD
+> device remains active expose the flash's modified 3-byte addressing state
+> to concurrent operations?
+
+Yes, and this is the right thing to have flagged. It is in the commit
+message:
+
+        This narrows the race without closing it. The restore still runs
+        while MTD users are attached, so an operation that starts after
+        it has completed will address a chip that is now in 3-byte mode
+        while nor->addr_nbytes is still 4. Closing that as well would
+        mean having MTD stop accepting operations before ->shutdown
+        runs, which is a larger change; serialising against the
+        operations already in flight is what keeps the restore itself
+        from being issued into a busy chip.
+
+The mechanism as described is right: a page program issued in that state
+sends four address bytes to a chip expecting three, so the fourth is
+consumed as the first data byte and the write lands shifted.
+
+It is not introduced here, and it cannot be fixed here. The window
+exists because ->shutdown runs with userspace still running and MTD
+still accepting operations; the only real fix is at the MTD layer, and
+it is a separate discussion I am happy to have. What this patch removes
+is the strictly worse case where the restore is issued into a flash that
+is mid-erase and silently discards it.
+
+Thanks,
+Itai
