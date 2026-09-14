@@ -1,121 +1,151 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AE83C3C00
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF097493639
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789405040; cv=none; b=mXyN6x1E/wFfqFUZejk5A89zSr61zotfpqpEo4LCMt/mbqHJlfnWeUe4T+Pu1jS/M0DWAmGeBvX5XD5Fau+/SUiG2GRMbC1B82JylOUnuMquSHWH9tLeyvR5ooTf6Th3Q6g4v0SDXSqL2MdFnq0WPaA55HhEIal6OnnRJCdD0Bc=
+	t=1789405045; cv=none; b=OnqXw+b4elsI0kB612UarZQlT/L8qe2ZMQll/q5SpIokAH8vDoEGEXxiDylSGJkBoEJ0vGi/5Dw5YUFwBzXqCJy2c66ilqQrjuHzDTzxYYT4wv4UdpRFo+6k0CIb5Z4m//FgTZw7LZOzx9T880UlfE2zUc5BEEoXnra9oWbTOb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789405040; c=relaxed/simple;
-	bh=T8CHS58wpAB55b0sN7HVbodxUTD9QQ7f93n3iq9zyFc=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BKyk7mbOp9bJaWnoKMKwBAlU5CxCE3pF/1YPjsMSOy2Xso5Z3mnlSORad3bAhi7vcG1P1Knjq3ypwsEZSvdQa4Uq/z/hs82oiW4VMjXI2tjDcSs7LzDG0RUA/+/OvCSxAC/uCx3iturBsDm/BDhu/ED05HXM/KJUQ4MKqK5DED4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jaeuZXpO; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789405045; c=relaxed/simple;
+	bh=uVw9vIxjDeVFEUcpIkDbKMJ3BRJ2DCL3fmL5T+0sdyo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XcfQtYji95D7Hpd9I49dbc8RuBw/JhffjyjQdzIWb27kaiy7oEhXEM7oKLaSIGdZjwMlL0y9hadstSMkhtQDEJ7Saoz38lhb+d7T6lVPJEv37F3S0yoLA2Y4BTRc4trd7aA4Ru7BIsoRCsqxt1X1VoKheP9tFOnTbH36UH+gGHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=byNSo4NK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cZ9hIzcQ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jaeuZXpO"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c20ce3c118aso4768966b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:57:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="byNSo4NK";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cZ9hIzcQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789405041;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/S8qRxofUNMQ9OSgKE55n+W3yA4LSkLugFr32CACvBY=;
+	b=byNSo4NKVpFxhJCf2Aqg5A1MVyWjex2PMUqZ+ciLIVtuiE7SCa3PP5nwWH8294jE1aDP1r
+	sXoQnQbpBeKlrSx3go/+6k8fQMSeJ36apuDmZvnVhOtw8rhZMZlJ9ffN8vJCpygUbndm7x
+	7n+1yWWxhyXgNWHo1wKhlfrrrz/DaOM=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-695-PbHEuH5FPUi8gMx1SIrRTw-1; Mon, 14 Sep 2026 12:57:20 -0400
+X-MC-Unique: PbHEuH5FPUi8gMx1SIrRTw-1
+X-Mimecast-MFC-AGG-ID: PbHEuH5FPUi8gMx1SIrRTw_1789405040
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9390a2c895bso810290185a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:57:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789405037; x=1790009837; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QL8RwUf/cYtMAICbILIWEvYNZJnqZvkmMoFZxOMHTyE=;
-        b=jaeuZXpOrL598WLXXdYh2AwvezXvbcKNx8QixOJKQqB3Ugnh2kgg7/7b7M3v/hrwTs
-         LfJmq1mZXBXatULsHSNisgTBjN5V0b3pg7JP4i8tNZLPT3u8HlwdtMVtv8cxng6TBg5Y
-         22rPIJu0KPOC95VomvnsQbOHlDpc3DjiClGCFQc8tevQED+qGlzAZ7WU7PjN40Ba1hY4
-         sCUmDOw5zH2dgovEsGkpapzNSq7XY91KP2v+JJ1iTT5iUP58Ncb2QhO3T+XWcJhAxwPn
-         gYor6WyWWVLdm0A/hU7ETCiq7QRwHvyTgDWc4WBUGYBmOZxtwJWEgBIy2yDvlinFAc18
-         Y/AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789405037; x=1790009837;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1789405040; x=1790009840; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QL8RwUf/cYtMAICbILIWEvYNZJnqZvkmMoFZxOMHTyE=;
-        b=K8IIDmeZCX9pKPuXwor8ox0Ej1GH8RfGSr/kIHmpYS77L3L9RlCBdf2xp3FVqBSdw8
-         6B3+aJ7ECiTUGn7pAvyGeQrVnwVJI1nvFJXpw7YwJcvRal/0RpaXHpqVLzqwMM+WWU1K
-         uuziJ3eGU7xXKi7MlGHO8kMODY7naguecc8EVBJLVtaBXltwslBA822wE4Sl83YF+UC7
-         j9GqlrjSQRjXsUX8kZlhqcU9Y2JMWDiF4UZy1jSn6btvAAPjIFdco63ZhGmlT8OnRHPT
-         OebZNtTMFP0Mm+1m7ce63GsYsQRwJ1G5WK2sMhI3k+VbeO1HpSRxVJdyXKCnyjX9Mo7X
-         W/Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBzaybkAT+1a7RJw8Fu71IN5J6fcNtu1L4e3NY4rTWuDv1p+xI7krK6wMOOt3X5PPeRePvzfxi8v/4hZEZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDoT50ek7MsZh4u1izsO5DMxPC5eXw6Wp3YiL0taInJTI+BU1/
-	J8phlNxvEtcrLEamC9UDohEJz4OvzdU94DaAm8x87wR38IEHXHzK3mIT
-X-Gm-Gg: AYBFou36vs6ffaPCqX8PUcXpQ3XCDwVYQlom/FhuDeozwLBakYnYFXZWucRcM1xa65Z
-	Br1BRHat8ihmWxg0C3b+82VpjY0/01nnkVguxfveX2bWCYlaucfc/vpfZtU+Q+K1zkeQaYJYPfM
-	L/UfdQylJvADq+V+vt2QhXNFBjn+J1lJhniTFbS0ICOTq3LISKCk8jI1Qqwos8knkFa8oAwJ5Ks
-	n5uPcqru0ochVLoRPrEtv5YgpOPDFJcPv4Jtjzxa3DbArNAHjKKRmISMm7/7PD+Oa3H0EGNmTXt
-	+iKD+2FKUTjv2zNgOuvu6x+a+d0vHatxcs8Tv7A2dfttty2YUEsLGcA19YRJF0uRZLxkjJSKd1W
-	n47nCK2/okY6RWUCiKLli2waW9hjdJuggpD6RqygicEwWiQYhJnwycOUK3pZnbVYFoURBnpdPrv
-	czW5nWyqHzbqvBZFA00d/Amb59LMTgqG0XFxLQAp1Ld70j52E=
-X-Received: by 2002:a17:907:3fa3:b0:c29:3d25:15fc with SMTP id a640c23a62f3a-c29c8b91192mr20436766b.18.1789405036895;
-        Mon, 14 Sep 2026 09:57:16 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296605c2bbsm452079766b.24.2026.09.14.09.57.15
+        bh=/S8qRxofUNMQ9OSgKE55n+W3yA4LSkLugFr32CACvBY=;
+        b=cZ9hIzcQZJSVKN+cSh+lRPy7U/fyCiTT2te8KWy9k6biJcTIzbFj33P41KrRNr6IQE
+         QSz0XBMNdfU1m041VDDMdNe7mQEW+IKgRWtcmL/XCAFgT6GAFmyVNc576nv/+M1XxmEx
+         LOb4EFxWjMipTr0dyflE0zRPv1/boSjVC9+gV/SK7CrzeGTyrTjZcSapQlzaEZ3xgdVd
+         7xTL5JOfMAqHk4K5IO9ZswFPYgTGbPrHEjSWWdJW+y6ogpH0aTHeN3gKeF1mFjeuLHsm
+         Nop24QSmkaSvZw+4mxVl5XoQr+M8V/eGfcZfVhhQD8w8NtK12KCxpJpVFOc1rBUo0+fz
+         Nb9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789405040; x=1790009840;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/S8qRxofUNMQ9OSgKE55n+W3yA4LSkLugFr32CACvBY=;
+        b=YNlr1bQhDsuGBXdsyMO216R8vDY499hUP2s/ULSDgD5KBFsmoN5YH/+5Tl2f1pPS2g
+         fQg3hJ02O6RoDxg1uejoftpbKSxrL+TTBgdJE/fN5AIJPf1Ndpu+DnvHN0Q0p5L3WRJG
+         2VWkN/di7D6oJh613i1oqpfpClPAtVZJ7xPqVs2PfG3zrdY0T+sCGHdzDTi+LFYL4iD/
+         O0ctbeoK6dt6PFi0nHppIK+pTdo4y17qGir3GllzO204OoqJ5Ne7wX4Ac2N5qMNgJQLt
+         6AjWd/evdET9cKJn/hDigaxdu2KKpRlcOprlpUCglXc5oa4sWK6HvvCHYPVd7eSx1vbW
+         EjFg==
+X-Forwarded-Encrypted: i=1; AKwUvBxXyoEoCdB7rnC/x2OnFDTqrSlD7jiUEV07xpe1rzb7J3wML3Jk864QGdLeAwrWNbXWuGguUQYP9nc3Nfo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM6hM8LiJxn9Q7hermjPWzbPV5g79EXGkSm0uQifgGjsgnwYFJ
+	w7LMQwGlRG2pCeqC5cUCn3vn2V95EmdWAlWaBxWgB6YVa+uSmshfX7Z5c+rLMIZJaftjebFtfQZ
+	Ia0WfmTTwnMqP7MBIymcoEzbReWJCCWzQt/EQoyI347VgwJh0EoSNu4fp2XF/eJFUFg==
+X-Gm-Gg: AYBFou1iEkMOolUtxpKJ4fTi3Jn+uq69dsUzNe6WR2aRzuczc5UhAp4kLGAIIDgzeCD
+	3uuS2xfcCYpyNqgewG+xLCO6Dpu/jpqmK2A7G+O5UCXNuwOov2UnBj9a19Iz45lxXzynGiv5NZz
+	986UjYMwhw2b4ml6oTYjY4S53YJyAm3YdnmHcqmnPvR4QDO2s+aF749rbYPFTR98R40DD4AwkYi
+	MS8pg/o25a4vLT0zenhtw7vj9ZpEIyfZFKvfzt3cLXaWv4S0zdvGAXWHZq/0G2n26dCv9KkvsU2
+	OmPNlLvHAfEkADvqw3H4F008N0F735HNWf1lC1JHCimaOJwrAe/kdl3iuMNBexi/xhmGhmZy/Sd
+	Z8cvflfvMP793j4HWF0adphElDx6h42pt2QM=
+X-Received: by 2002:a05:620a:4802:b0:937:7836:1501 with SMTP id af79cd13be357-93a2973a2c7mr527199785a.10.1789405039649;
+        Mon, 14 Sep 2026 09:57:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:4802:b0:937:7836:1501 with SMTP id af79cd13be357-93a2973a2c7mr527194085a.10.1789405039208;
+        Mon, 14 Sep 2026 09:57:19 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7f19291sm1072082885a.10.2026.09.14.09.57.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 09:57:16 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Mon, 14 Sep 2026 18:57:14 +0200
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Ye Liu <liuye@kylinos.cn>
-Subject: Re: [PATCH 1/3] mm/vmalloc: group xa_init with vbq field
- initializations
-Message-ID: <aqgnahEAk7GAGi-g@milan>
-References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
- <20260914-vmalloc_study-v1-1-526f68559706@linux.dev>
+        Mon, 14 Sep 2026 09:57:18 -0700 (PDT)
+Date: Mon, 14 Sep 2026 12:57:16 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] clk: eyeq: Use devm_platform_ioremap_resource()
+Message-ID: <aqgnbA_yMRXczyao@redhat.com>
+References: <20260914-clk-eyeq-res-v2-0-687e5de3aba7@bootlin.com>
+ <20260914-clk-eyeq-res-v2-1-687e5de3aba7@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260914-vmalloc_study-v1-1-526f68559706@linux.dev>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260914-clk-eyeq-res-v2-1-687e5de3aba7@bootlin.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Mon, Sep 14, 2026 at 11:34:00AM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
+Hi Benoît,
+
+On Mon, Sep 14, 2026 at 02:16:44PM +0200, Benoît Monin wrote:
+> Convert eqc_probe() from the open-coded platform_get_resource() +
+> ioremap() sequence to devm_platform_ioremap_resource(). Besides less
+> code, this requests the memory region so the OLB registers are properly
+> reserved in the iomem_resource tree.
 > 
-> Move xa_init() next to the other vbq field initializations instead of
-> after the unrelated vfree_deferred setup.
+> Move devm_platform_ioremap_resource() before checking for device match
+> data, so OLBs bound without match data also get their memory region
+> mapped and reserved.
 > 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> Suggested-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
 > ---
->  mm/vmalloc.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/clk/clk-eyeq.c | 15 +++++----------
+>  1 file changed, 5 insertions(+), 10 deletions(-)
 > 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 859e6d2d57a3..117483dd048c 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -5585,10 +5585,11 @@ void __init vmalloc_init(void)
->  		vbq = &per_cpu(vmap_block_queue, i);
->  		spin_lock_init(&vbq->lock);
->  		INIT_LIST_HEAD(&vbq->free);
-> +		xa_init(&vbq->vmap_blocks);
-> +
->  		p = &per_cpu(vfree_deferred, i);
->  		init_llist_head(&p->list);
->  		INIT_WORK(&p->wq, delayed_vfree_work);
-> -		xa_init(&vbq->vmap_blocks);
->  	}
+> diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
+> index cf37feccc734..3662e6990bf7 100644
+> --- a/drivers/clk/clk-eyeq.c
+> +++ b/drivers/clk/clk-eyeq.c
+> @@ -513,21 +513,16 @@ static int eqc_probe(struct platform_device *pdev)
+>  	const struct eqc_match_data *data;
+>  	struct clk_hw_onecell_data *cells;
+>  	unsigned int i, clk_count;
+> -	struct resource *res;
+>  	void __iomem *base;
+>  	int ret;
 >  
->  	/*
-> 
-> -- 
-> 2.25.1
-> 
-LGTM:
+> +	base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+As Sashiko pointed out, it would probably make sense to just convert the
+rest of the driver over to use the devm_ variants where available (like
+of_clk_add_hw_provider).
 
---
-Uladzislau Rezki
+Brian
+
