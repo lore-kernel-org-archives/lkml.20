@@ -1,81 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD8837998B;
-	Mon, 14 Sep 2026 04:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC20374A19
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789361942; cv=none; b=O7wBpyQGpfYtswPZFG9PM52XM0QL2hGVkBr8UfM8zAfNOIn8vCpqjtaCujGaHmSqPObFV4nCk9gjMs6j5zB8O2i+5WSzBpHDtwUlGq4xxtKlUxAfClWWfi+/MpOaLjWA4ZNNntdWUDRBagWGAHcRzMbEN+Zk2s03oNt31b672sY=
+	t=1789362005; cv=none; b=poxBrESdkcsocx6Kxi1n0XxjnDV/duMKkYRImb1u5kqWzjIVkfexuBooQVuVigeBNVCT6fYtAo8VrhyQCYFY1k5tWg1YNoPPf4zQc3c/h1NcKlTSqOesnFL0ia8OE26kxTBGdbdU0ZXb1G3oLn4jQ9aMwjd4GQce7icPSkcOob8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789361942; c=relaxed/simple;
-	bh=dDN8cyCrIHgwtPl4Bhh29mpe/OB/GWOUd8rkjyuZSiw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CIHdpTKS27moihgA1GnLok3OW3Q0cXTz5zVMXDUk8orKUVhzA/7duClJI69M2ZtbIaSnwpp/AbhlCaDqadY8rnjGKffB+3oRV8nR4vh8rkw9jQ6Eu/ZISJTeBbvjcKYPbnEuFVf2wFOzwkmjWZMxxcuwEhFDkybm+JK2jVkDAQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C6+wS4+R; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C6+wS4+R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0481F000FF;
-	Mon, 14 Sep 2026 04:58:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789361941;
-	bh=cffVxMuNpZFzKhqi8Pf68Bzqc3VjfeVJjBu3q3skr5o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C6+wS4+RvCHJRWAplyqxpIEX6biiQAdA0qvyK8tsH66p9gg45DMr6sVuCeToEhK7W
-	 RBHUApWoCTKIgbh6hamulqLfSY82nwkB15OS45ItdTEjbtR4nOdF7jqEiJg8cakAdH
-	 3GPja4i26hj6c2379+op/2TrU8F4NgJLlE7nCAsFTreOC7TgBvdN1TbBolAdC9/Ppy
-	 4lZ5fhKElDApkg56AE+wS2CRX9YfgyhZHPp2NPcDArEJ2ONbBUNhu/NRxDdAtICWeI
-	 OTkX/VOGBVGfnXNFr4SH7zlCD1+5dydTRBpxf4DBwa0Y5mVpC9dA2bjMMPSCstrdRD
-	 p07nw4aqd0H1w==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
-Date: Mon, 14 Sep 2026 06:58:45 +0200
-Message-ID: <20260914045845.8257-1-ojeda@kernel.org>
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
+	s=arc-20240116; t=1789362005; c=relaxed/simple;
+	bh=+qGTfXQ72hDo8KqgYPLQqvXC3eoa9t6/GitKkY9mfdg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=F+4iCDZl5TeZ9E+Ff7eGDDBlmGxRYMfvHT1jHuk+BkJhmtO4WvtR6AbtrrKXc2vTg07lt0oqvoQ5Yz+MjBjdns63QmydPMjvL0QJyXQTzaK//Yovfi6/qmGs/i+3B7iWoiuWDd/kK66hw5ukqQXJSR1amD+5X+VqPM/2iyH/PKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1a3f01d2aso4153719eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:00:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789362003; x=1789966803;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uvyyp8aT5OPXZOMgHgLe47YDfIPubbSxWbK2VVUgQeQ=;
+        b=nEz6cSFCN4ampY97xGHGGAS9c+OJAqPNZ85qVFtNmzYMRzVPNOTstNrtPAMbxia9FP
+         zoXngPgs9JvrezJGeVtC3pAOFhRccvzXMTQhTc2ZtbahKTi3ZwiPe70YttWQkzN+bpmP
+         wOJ7tPNmYcTBCHzaWtifvDYTUjnGvt1CLZ9abGxTK+Byz/yMK6QZmWEs4SCWxu8LVtib
+         XQST6o4/rmdo1SxEcUiAXxCeWhQINt9le8i7Y06sxHhpSs1/zef+SU5ydX12XEdw01Ek
+         PEhgBptYR4mJfUxjRLkcQbJ9DrIJyhWuTDym6Xcnm8mohakXdN/G5g4D7Mn+dUwXPfTB
+         uAWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxnsaRiWfK6J3UALY1jpNEw0D6fFPWp0/dhJ+z8FgeOgopFp72D8rIuNLyCOkAlMXro1hxANx67iFyRdS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPUTMmQJEmtf8h2YvC0sTcb8KqoGIW3WqMf2m3h+htv0I1trN6
+	DY5PivBs5ZyS7FNUHuWMx4T+rJyoJsLWE7rvzEyDAUEKly960T80QIoTGOzlem6uzaqVRm21y45
+	Pn2rsA1m3JW4Ex5fzc5taZSy2obtdENJ7+kLnrOUPjQ/S17II54NmSgj2oWY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a4a:e847:0:b0:6be:19a6:fe60 with SMTP id
+ 006d021491bc7-6c54203f16amr445662eaf.41.1789362003142; Sun, 13 Sep 2026
+ 22:00:03 -0700 (PDT)
+Date: Sun, 13 Sep 2026 22:00:03 -0700
+In-Reply-To: <20260914042236.27687-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa77f53.f81106d8.2ab401.003b.GAE@google.com>
+Subject: Re: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
+From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 12 Sep 2026 08:45:28 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 6.1.188 release.
-> There are 1191 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
+Hello,
 
-Boot-tested under QEMU for Rust x86_64:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+Tested-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
 
-Thanks!
+Tested on:
 
-Cheers,
-Miguel
+commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=177e0df9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=154735f9580000
+
+Note: testing is done by a robot and is best-effort only.
