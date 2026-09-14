@@ -1,150 +1,334 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B83477298;
-	Mon, 14 Sep 2026 15:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FFD48167E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789401009; cv=none; b=lanGvPy9P0fdQtrBfaRYNs/+3T4WoA/vO+n3H59vba/L/5oBKj42HuJyosSJyusaD2agx7ApPRYIPy77XCGhUZ8xhbuTIh2nMgb96ii1Z6A0I6QnN4cLfVEOPxAnqxPMMwQMP8TJCVH49LkTJrORkihxwvxRP3k/9lSE+UWCDQQ=
+	t=1789401082; cv=none; b=XxN4cTyTQjKCW7Jp7oHieIb253cb1HGqYkP12/zgYP0l3aZowYOG7Yyj85/r1sM4t5oOPPdylUquVapQ+D4lqR0wot2c2p8M2uVgR8ChZ+EdPOp40zltevhyef6mGBMml8n+/k67WYXwZ3/+9RYak7pNPwBslZN87XcrgTAg4iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789401009; c=relaxed/simple;
-	bh=SdaWG6OzI3umLas1wsEUFHL4V3TyZ9z5PPs2HbT/OBk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=ZqBC0Ag0uBlTh93P36EI6+FMtu8tQC5OhHWb1ObqA2IlakZBRzbPJKB2o0raVEDCYvasSn5koVzYVovYFwNqz7s+dEVP5R7mnJzwdf+6Sc336fKEAzsqM/hLiZXxllbdbmJ7UYVtL4ZxR7zyD9Y2Jw9ISpfnZJWlgr9SqlrDC8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=B0aPZ9sm; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789401082; c=relaxed/simple;
+	bh=7ts6rmsKFRF/BDM3sQ/AwqSVWbdl6ZxDU7zNSDBdw/0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lRJA1HygM5LlV9NVrF17y+/mlaneiAsUbHoLXicA/KxmrdzRrHJAkN+wyBak3GhxLGigLQxxopR/9v1klm7rGYhDoiX9sVMUGbMVWeNKCd38bnTLSSc77JCa4XVSnggqplbey7sTGocX7zCeRRMY2P8aWoGK8Bcy8BgyaQ2ttgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LQvX3CUh; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="B0aPZ9sm"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260914155005euoutp024857e7c81b11d5fa43dd19719ba10c24~VOrvnkiwZ2332323323euoutp02q;
-	Mon, 14 Sep 2026 15:50:05 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260914155005euoutp024857e7c81b11d5fa43dd19719ba10c24~VOrvnkiwZ2332323323euoutp02q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789401005;
-	bh=PG34NheEGUUklmbyGFWYH3mof2VB5KJYIWGOux9Ay9A=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=B0aPZ9smvU/W3vvxmV5yAM2Ch3FcHIHY/3mfNFpS9oQ99QhxWXbYADiggA+iaBKMX
-	 fwhPEzKL7GeEg9ncES+hJrw4lapRIImw5Q7M1TBAKBr+qQfLiMhaaBMFYW5Q3887Ok
-	 Gu6F9PZ9ipRUXQfKhJM8CbHNPb8Wb0Ut3yRW0p/A=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260914155004eucas1p298df2ff60a38fa5dc11e23802962b7f3~VOru0bBrZ2376623766eucas1p29;
-	Mon, 14 Sep 2026 15:50:04 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260914155002eusmtip115f5f2e6e07eb44713898bdf244ca8e7~VOrsrfT6w0990109901eusmtip1F;
-	Mon, 14 Sep 2026 15:50:02 +0000 (GMT)
-Message-ID: <4ba79aa9-6a21-41f6-a088-98207d32a098@samsung.com>
-Date: Mon, 14 Sep 2026 17:50:02 +0200
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LQvX3CUh"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-939109f067cso196295585a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789401078; x=1790005878; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eU9VXoF1KJeJ9qFFfIMdTfngvLjdefOLFWals6AtDzc=;
+        b=LQvX3CUhY71b0n85KhNs20YTPoL2HOmSMG/mSoG2FUBP+q39aSD1tqhaKoRwm5DiFz
+         yxNJve6KITm2eSAHQtFU02kSO+2XrvgFh5UzKlr2Ldm3H6RYUWo9yL5X5qpA6tqkZehC
+         3a7E6dWY69DZORhCgWZq5ZIoIzkXhEX3Ct+H7ovXG/lLt29nWXkOq2+F5wO5pbsb096p
+         8hQNrAzkI6IHDEhRbHlX5n1pUyZ82l/PG6gHveNe1UsaIWS793nj6YKXuJvHQhFlExuY
+         g4J3+X2gKcNllbWbl343YwDPJ2clxTHWcNruAqzWhnSBvpH6AGP7vAY4d2OMtluBOUPn
+         XXOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789401078; x=1790005878;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eU9VXoF1KJeJ9qFFfIMdTfngvLjdefOLFWals6AtDzc=;
+        b=Hhf2DVp7ec8PJUbqKFnIlODN17z2niWZ+SdE1BjMJZ+fVzHBYH4oSw/AfMS8R8bpWt
+         jyQs6rV3c3U3JqJRrHnxb5Sr87+gYO1U+gVGgfuRMevkIWwktA7Mf/GiNLTfb0D5l5Tx
+         XEn+JwoKdZtb2YJq5cGxz3Dwr8NIjpZb+1Pf6c3O6wERA8+pygA2RD7Zc2QS2LY5etB7
+         spnAzGA32R/Aff/hd1ot/ng3rBlUukNVkUf6N1+ZaDf7o0/PleWU2Zf3DaaChb5GuEn6
+         FC2/dOVZVnoRk3l1aQ7POT8cSggABqbvfU5apcoFPWprdWPGxpd4vWYLH4jXG7w+UeIQ
+         Z8Og==
+X-Gm-Message-State: AFuF++nauOCXY4CPJ/OEWWGwfUggiMLGnmO8N8hfzA/D1AwvCxun2eTD
+	wKKXvu1mktFUVWXmUra7yo6Gn6odLtj65xKvgd63etNR6JeFq2S4PQHoHHfeoTQ2MbHixlGXOc9
+	gbY7c
+X-Gm-Gg: AYBFou2pppYgNoyb94JYswcoDWoPAHKWT7U9RztTqzQKpjp15Tl+c5MIkcqiwzihvDy
+	hJIQZ8BjynUwcRHn7lZ/AWpTuoW5bLnQyIg8rfzTNtInUGYgm2NQnpI+1vusV+w59EuHFdd5PhP
+	jVWxkA6DQjN4c5M90PxUfhAvYUGlZCn4ontjYtkDMw0LeA82rqDuAAxmUs4n61fE7L62rNK48Ja
+	YKbpOLmjK1sSHkdNpP5Z3LSRUt6X8+wBcoqUnC+EAv9Pm3NUenfIpSSQ64cRuRXAvki+grdaI6o
+	8IvA5ThUXWGqoZtS9JtRYqI6tvvApJoVkn8Wqj8Xny0vf8SEExHngJnox1HK7qYE0P2tyLPjP4Z
+	ATM1/FFjgmd2gl8MtGMsTdiJDiWpowcT23E1e0kJdwASBvyyoL/vx2MxAirqpfi3I48KMrzXlng
+	Fkjga7hWLa/YN5E7aWs0WVZAVop8V2IiDHs8OXGkQbCbXfac+sVVHZD8whkKldbrDjQHTBg/IeU
+	8NrgR99P7+UX3Z6YwF+p1fZNxXAEG7SaeCVMfCLmHdyZMPG4SqxZBFe9WaWWyzyt1Z5Qs8=
+X-Received: by 2002:a05:620a:4626:b0:939:e6a7:dc with SMTP id af79cd13be357-93a29bfd291mr439988785a.52.1789401078460;
+        Mon, 14 Sep 2026 08:51:18 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a2d4514c7sm155963085a.28.2026.09.14.08.51.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 08:51:18 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com
+Subject: [PATCH] mm/page_alloc: let the bulk and folio allocators carry alloc_flags
+Date: Mon, 14 Sep 2026 11:51:14 -0400
+Message-ID: <20260914155115.439742-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display
- subsystem
-To: Dominique Belhachemi <domibel@debian.org>, Maud Spierings
-	<maud_spierings@murena.io>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
-	Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
-	Feng <hal.feng@starfivetech.com>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
-	<bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley
-	<conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
-	<jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Andy
-	Yan <andyshrk@163.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Graham
-	Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <CAAvaLCzU_-JdPHSSQS2HxGnrkRk+u_QOZ91SmxcC+nouubCtXA@mail.gmail.com>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260914155004eucas1p298df2ff60a38fa5dc11e23802962b7f3
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
-References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
-	<20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-	<ea529e06-2eab-4e3b-92af-ba17de44091c@murena.io>
-	<CAAvaLCzU_-JdPHSSQS2HxGnrkRk+u_QOZ91SmxcC+nouubCtXA@mail.gmail.com>
 
+__alloc_pages_noprof() takes an explicit alloc_flags, but the bulk and
+folio entry points do not, so callers cannot select allocator behaviour
+(e.g. an alternate zonelist) through them.
 
+Thread alloc_flags through both, matching __alloc_pages_noprof(), and
+keep the flag-carrying primitives mm-internal (page_alloc.h) so the
+public gfp.h wrappers stay flag-free:
 
-On 9/6/26 05:55, Dominique Belhachemi wrote:
-> On Sat, Sep 5, 2026 at 1:21 AM Maud Spierings <maud_spierings@murena.io>
-> wrote:
-> 
->> Hello Michal,
->>
->> This new version added some more issues on my fml13v01 board, this time
->> 2 registers in the VOUT_CRG are misconfigured that were correct in v2,
->> namely:
->>
->> 0x295c0004 was 0x00000004 on the previous version but is now 0x00000006
->> 0x295c001c was 0x81000000 on the previous version but is now 0x80000000
->>
->> xx04 sets a slightly different clock divider, but it doesn't seem to
->> matter, display also works with this changed value.
->>
->> xx1c seems to select the wrong clock mux?
->>
->> After correcting 0x295c001c (and the ones that I mentioned before in the
->> hdmitx block), the display comes to life again.
->>
->> Not sure why these are changed.
->>
->> Same here on a VisionFive 2. The dc8200_pix0 mux register (0x295c001c)
-> comes up 0x80000000 instead of 0x81000000 (which selects hdmitx0_pixelclk
-> from the PHY).
-> 
-> v3 added CLK_SET_RATE_NO_REPARENT to stop clk_set_rate() from silently
-> switching which clock feeds the display, but nothing then assigns the
-> parent,
-> so it is left on whatever the bootloader selected.
-> 
-> You could pin the two pixel-clock muxes to the HDMI PHY, is that acceptable?
-> 
-> dc8200: display@29400000 {
->   +                             assigned-clocks = <&voutcrg
-> JH7110_VOUTCLK_DC8200_PIX0>,
->   +                                               <&voutcrg
-> JH7110_VOUTCLK_DC8200_PIX1>;
->   +                             assigned-clock-parents = <&hdmi_phy>,
-> <&hdmi_phy>;
-> };
-> 
-> I tested this on the vf2.
+ - add __alloc_pages_bulk_noprof(gfp, ..., alloc_flags) in page_alloc.h
+   alloc_pages_bulk_noprof() becomes a wrapper passing ALLOC_DEFAULT
 
-Thank you Maud and Dominique,
+ - give __folio_alloc_noprof() an alloc_flags parameter and moves
+   __folio_alloc_node_noprof() moves into page_alloc.h
+   __folio_alloc_noprof() is no longer exported
 
+No functional change: every caller passes ALLOC_DEFAULT.
 
-I've tested this as well and it does seem like a good fix, will include
-this in a v4.
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Signed-off-by: Gregory Price <gourry@gourry.net>
+---
 
-> 
-> Best
-> -Dominique
-> 
+Brendan this will conflict mildly with your ALLOC_UNMAPPED work,
+because you add an init_alloc_flags call in alloc_pages_bulk_noprof :
+https://lore.kernel.org/linux-mm/20260726-page_alloc-unmapped-v3-20-6f5729aa9832@google.com/
 
-Best regards,
+I wanted to pull this out ahead to try to deal with the conflict.
+
+ include/linux/gfp.h | 13 +------------
+ mm/khugepaged.c     |  2 +-
+ mm/migrate.c        |  2 +-
+ mm/page_alloc.c     | 46 ++++++++++++++++++++++++++++++---------------
+ mm/page_alloc.h     |  8 ++++++++
+ 5 files changed, 42 insertions(+), 29 deletions(-)
+
+diff --git a/include/linux/gfp.h b/include/linux/gfp.h
+index 872bc53f32ec..a327e58c313f 100644
+--- a/include/linux/gfp.h
++++ b/include/linux/gfp.h
+@@ -204,10 +204,6 @@ static inline void arch_free_page(struct page *page, int order) { }
+ static inline void arch_alloc_page(struct page *page, int order) { }
+ #endif
+ 
+-struct folio *__folio_alloc_noprof(gfp_t gfp, unsigned int order, int preferred_nid,
+-		nodemask_t *nodemask);
+-#define __folio_alloc(...)			alloc_hooks(__folio_alloc_noprof(__VA_ARGS__))
+-
+ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 				nodemask_t *nodemask, int nr_pages,
+ 				struct page **page_array);
+@@ -252,14 +248,7 @@ static inline void warn_if_node_offline(int this_node, gfp_t gfp_mask)
+ 	dump_stack();
+ }
+ 
+-static inline
+-struct folio *__folio_alloc_node_noprof(gfp_t gfp, unsigned int order, int nid)
+-{
+-	warn_if_node_offline(nid, gfp);
+-
+-	return __folio_alloc_noprof(gfp, order, nid, NULL);
+-}
+-
++struct folio *__folio_alloc_node_noprof(gfp_t gfp, unsigned int order, int nid);
+ #define  __folio_alloc_node(...)		alloc_hooks(__folio_alloc_node_noprof(__VA_ARGS__))
+ 
+ /*
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 0d8cd44b14c5..431c2e610b39 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1193,7 +1193,7 @@ static enum scan_result alloc_charge_folio(struct folio **foliop, struct mm_stru
+ 	int node = collapse_find_target_node(cc);
+ 	struct folio *folio;
+ 
+-	folio = __folio_alloc(gfp, order, node, &cc->alloc_nmask);
++	folio = __folio_alloc(gfp, order, node, &cc->alloc_nmask, ALLOC_DEFAULT);
+ 	if (!folio) {
+ 		*foliop = NULL;
+ 		count_collapse_event(order, THP_COLLAPSE_ALLOC_FAILED,
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 7e3a81f06974..8e1c25a6f750 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2229,7 +2229,7 @@ struct folio *alloc_migration_target(struct folio *src, unsigned long private)
+ 	if (is_highmem_idx(zidx) || zidx == ZONE_MOVABLE)
+ 		gfp_mask |= __GFP_HIGHMEM;
+ 
+-	return __folio_alloc(gfp_mask, order, nid, mtc->nmask);
++	return __folio_alloc(gfp_mask, order, nid, mtc->nmask, ALLOC_DEFAULT);
+ }
+ 
+ #ifdef CONFIG_NUMA_MIGRATION
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index d977b8bf7245..f4ceec8cf77e 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -5151,8 +5151,8 @@ static inline bool prepare_alloc_pages(gfp_t gfp_mask, unsigned int order,
+  * @page_array were set to %NULL on entry, the slots from 0 to the return value
+  * - 1 will be filled.
+  */
+-unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+-			nodemask_t *nodemask, int nr_pages,
++unsigned long __alloc_pages_bulk_noprof(gfp_t gfp, unsigned int alloc_flags,
++			int preferred_nid, nodemask_t *nodemask, int nr_pages,
+ 			struct page **page_array)
+ {
+ 	struct page *page;
+@@ -5160,8 +5160,8 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 	struct zoneref *z;
+ 	struct per_cpu_pages *pcp;
+ 	struct list_head *pcp_list;
+-	struct alloc_context ac;
+-	unsigned int alloc_flags = ALLOC_WMARK_LOW;
++	struct alloc_context ac = { .alloc_flags = alloc_flags };
++	unsigned int fastpath_alloc_flags = alloc_flags | ALLOC_WMARK_LOW;
+ 	int nr_populated = 0, nr_account = 0;
+ 
+ 	/*
+@@ -5202,7 +5202,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
+ 	gfp &= gfp_allowed_mask;
+ 	gfp = current_gfp_context(gfp);
+-	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
++	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &fastpath_alloc_flags))
+ 		goto out;
+ 
+ 	/* Find an allowed local zone that meets the low watermark. */
+@@ -5210,7 +5210,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 	for_next_zone_zonelist_nodemask(zone, z, ac.highest_zoneidx, ac.nodemask) {
+ 		unsigned long mark;
+ 
+-		if (cpusets_enabled() && (alloc_flags & ALLOC_CPUSET) &&
++		if (cpusets_enabled() && (fastpath_alloc_flags & ALLOC_CPUSET) &&
+ 		    !__cpuset_zone_allowed(zone, gfp)) {
+ 			continue;
+ 		}
+@@ -5220,16 +5220,17 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 			goto failed;
+ 		}
+ 
+-		cond_accept_memory(zone, 0, alloc_flags);
++		cond_accept_memory(zone, 0, fastpath_alloc_flags);
+ retry_this_zone:
+-		mark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK) + nr_pages - nr_populated;
++		mark = wmark_pages(zone, fastpath_alloc_flags & ALLOC_WMARK_MASK) +
++		       nr_pages - nr_populated;
+ 		if (zone_watermark_fast(zone, 0,  mark,
+ 				zonelist_zone_idx(ac.preferred_zoneref),
+-				alloc_flags, gfp)) {
++				fastpath_alloc_flags, gfp)) {
+ 			break;
+ 		}
+ 
+-		if (cond_accept_memory(zone, 0, alloc_flags))
++		if (cond_accept_memory(zone, 0, fastpath_alloc_flags))
+ 			goto retry_this_zone;
+ 
+ 		/* Try again if zone has deferred pages */
+@@ -5261,7 +5262,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 			continue;
+ 		}
+ 
+-		page = __rmqueue_pcplist(zone, 0, ac.migratetype, alloc_flags,
++		page = __rmqueue_pcplist(zone, 0, ac.migratetype, fastpath_alloc_flags,
+ 								pcp, pcp_list);
+ 		if (unlikely(!page)) {
+ 			/* Try and allocate at least one page */
+@@ -5289,11 +5290,19 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 	return nr_populated;
+ 
+ failed:
+-	page = __alloc_pages_noprof(gfp, 0, preferred_nid, nodemask, ALLOC_DEFAULT);
++	page = __alloc_pages_noprof(gfp, 0, preferred_nid, nodemask, alloc_flags);
+ 	if (page)
+ 		page_array[nr_populated++] = page;
+ 	goto out;
+ }
++
++unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
++			nodemask_t *nodemask, int nr_pages,
++			struct page **page_array)
++{
++	return __alloc_pages_bulk_noprof(gfp, ALLOC_DEFAULT, preferred_nid,
++					 nodemask, nr_pages, page_array);
++}
+ EXPORT_SYMBOL_GPL(alloc_pages_bulk_noprof);
+ 
+ /*
+@@ -5484,13 +5493,20 @@ struct page *alloc_pages_node_noprof(int nid, gfp_t gfp_mask, unsigned int order
+ EXPORT_SYMBOL(alloc_pages_node_noprof);
+ 
+ struct folio *__folio_alloc_noprof(gfp_t gfp, unsigned int order, int preferred_nid,
+-		nodemask_t *nodemask)
++		nodemask_t *nodemask, unsigned int alloc_flags)
+ {
+ 	struct page *page = __alloc_pages_noprof(gfp | __GFP_COMP, order,
+-					preferred_nid, nodemask, ALLOC_DEFAULT);
++					preferred_nid, nodemask, alloc_flags);
+ 	return page_rmappable_folio(page);
+ }
+-EXPORT_SYMBOL(__folio_alloc_noprof);
++
++struct folio *__folio_alloc_node_noprof(gfp_t gfp, unsigned int order, int nid)
++{
++	warn_if_node_offline(nid, gfp);
++
++	return __folio_alloc_noprof(gfp, order, nid, NULL, ALLOC_DEFAULT);
++}
++EXPORT_SYMBOL(__folio_alloc_node_noprof);
+ 
+ /*
+  * Common helper functions. Never use with __GFP_HIGHMEM because the returned
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index b9259deddb59..23fc79ce97b6 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -258,6 +258,14 @@ struct page *__alloc_pages_noprof(gfp_t gfp, unsigned int order, int preferred_n
+ 		nodemask_t *nodemask, unsigned int alloc_flags);
+ #define __alloc_pages(...)			alloc_hooks(__alloc_pages_noprof(__VA_ARGS__))
+ 
++struct folio *__folio_alloc_noprof(gfp_t gfp, unsigned int order, int preferred_nid,
++		nodemask_t *nodemask, unsigned int alloc_flags);
++#define __folio_alloc(...)			alloc_hooks(__folio_alloc_noprof(__VA_ARGS__))
++
++unsigned long __alloc_pages_bulk_noprof(gfp_t gfp, unsigned int alloc_flags,
++		int preferred_nid, nodemask_t *nodemask, int nr_pages,
++		struct page **page_array);
++
+ extern void zone_pcp_reset(struct zone *zone);
+ extern void zone_pcp_disable(struct zone *zone);
+ extern void zone_pcp_enable(struct zone *zone);
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.55.0
+
