@@ -1,70 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEF62EEE75
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EC11E7660;
+	Mon, 14 Sep 2026 02:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789353809; cv=none; b=afEeyrGHnEOXGypaKEX+VwJ8gA6okHbiFYrPnx3c//85U1e+VJ+IpqoCFcuO/1tkau2LoOW9NJfuMsqhzdStFZHeoiC4dexAHsGcDzdsoS+rnqwvGV+A5ijXWAEoi05JywyrhZQ60XUGKGFHzrdWN8V9EsN6Ybm979qpX8ygRtA=
+	t=1789353966; cv=none; b=Ygxt/epW+TMuaZa7cnNl20jRwwZKP/h/teSpLMj/oJ0h8HF4ZOIwWPDtAo1QolRxc2U7RggyBN1COJpTDD9txrBf7eSVvo4jL31RRyYNt474iDXCNQMfjUJl5IQRLpt89KqifeAn6TXGqIuOarANCr8qfqNIIrVO/gvxZThx0XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789353809; c=relaxed/simple;
-	bh=Ly1tX6a/BiOq+G71holJtfrb8RdWu7WLKrWpabKfoHM=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=PlzD8e+cb3MJRCmBIbZtgO82yGGRD3ee6bPlUbxcE0Lttd5ND4vFWU3mgxuJIz9MJI+ziqjpg2iKCGQksu8xudwZG3WXAIj//xXsP5YRPkfq0N873t7okyGxeBMJyVPcgjuxlvGJOZfRVOd7OPiA4Ufb038gf6jNWGWMlqVwxfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=mZGrVUx3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="mZGrVUx3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CCA1F000FF;
-	Mon, 14 Sep 2026 02:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789353808;
-	bh=GPlyuX4J8yVFynRki86eS8wk2g+3emdQ6rxuxVS462s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mZGrVUx3DEBnxNLMA2Y+MW04SIp2tP/blTyUA/uLcUt4gRgO2HXiwHIwtT7CAV1wd
-	 JcNAjtANaSLbKoycdA2J/acacoXg0TXN8MxrqEgjdbq86A+KsrIW3YxOgJUxADMdXz
-	 08Ssf3Vulb9ZpmV5GeHKclrnsPhxNGuiSs8Qqr6A=
-Date: Sun, 13 Sep 2026 19:43:27 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: hughd@google.com, david@kernel.org, ziy@nvidia.com, liam@infradead.org,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, ljs@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm: shmem: ignore sysfs configs for shmem forced
- collapse
-Message-Id: <20260913194327.019b3db96ea9b0719fc147f7@linux-foundation.org>
-In-Reply-To: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
-References: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1789353966; c=relaxed/simple;
+	bh=qK+5lPCa8HUX5/ezxo8mKK0h5kxCv4PDkQne1qYc3z8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=vBQc925poUT7jvO2gvf1NQcTnEsuRgEE0Z0cWQ36jyOM8/KgbzVKsbARPjpSCEuDBcaDi6TZ8QkenBc9A5O04iJtzWoTMvZKA2A4h6DTGC6C6p1Hmybok9qCvXLzRdl1W8BKo/iJVZCHqRUD1jFwEwTUKeuAhl0TN5NTSp2Yirk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6ad32522afe611f19a56ed5b684f684d-20260914
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:bbe0c4a3-3b29-4f5b-9302-20e446aab4f0,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:828b17566f75bd7eb8976c8866957840,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
+	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6ad32522afe611f19a56ed5b684f684d-20260914
+X-User: liuqiqi@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liuqiqi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1935826873; Mon, 14 Sep 2026 10:45:59 +0800
+From: Qiqi Liu <liuqiqi@kylinos.cn>
+To: akpm@linux-foundation.org,
+	vbabka@kernel.org
+Cc: surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qiqi Liu <liuqiqi@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/page_alloc: apply per-task GFP context in bulk allocator
+Date: Mon, 14 Sep 2026 10:45:55 +0800
+Message-Id: <20260914024555.138125-1-liuqiqi@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 14 Sep 2026 10:12:41 +0800 Baolin Wang <baolin.wang@linux.alibaba.com> wrote:
+alloc_pages_bulk_noprof() does not call current_gfp_context(), so
+per-task scoped allocation constraints (PF_MEMALLOC_NOIO,
+PF_MEMALLOC_NOFS, PF_MEMALLOC_PIN) are not applied on the bulk fast
+path.
 
-> According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected to
-> ignore any THP or mTHP interface settings.
-> 
-> However, after commit 26c7d8413aaf ("mm: thp: support "THPeligible" semantics
-> for mTHP with anonymous shmem"), performing MADV_COLLAPSE on shmem will
-> depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "inherit"
-> (although that is the default), which can cause MADV_COLLAPSE to fail
-> unexpectedly.
+The most direct consequence is PF_MEMALLOC_PIN: without clearing
+__GFP_MOVABLE, prepare_alloc_pages() selects MIGRATE_MOVABLE for the
+PCP list, and a task under memalloc_pin_save() receives movable
+pages from the bulk allocator.
 
-Userspace-visible runtime regression?
+Fixes: 387ba26fb1cb ("mm/page_alloc: add a bulk page allocator")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
+---
+ mm/page_alloc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> Fix this by returning the result of shmem_huge_global_enabled() directly
-> when MADV_COLLAPSE is requested, allowing PMD-order collapse while ignoring
-> shmem THP/mTHP settings.
-> 
-> Fixes: 26c7d8413aaf ("mm: thp: support "THPeligible" semantics for mTHP with anonymous shmem")
-
-Should we backport?
-
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 12fac9084c48..3be7288a1aa7 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -5207,6 +5207,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 
+ 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
+ 	gfp &= gfp_allowed_mask;
++	gfp = current_gfp_context(gfp);
+ 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
+ 		goto out;
+ 
+-- 
+2.25.1
 
