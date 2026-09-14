@@ -1,1255 +1,294 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973179.qiye.163.com (mail-m1973179.qiye.163.com [220.197.31.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319E536F8F1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:57:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836141A9B58;
+	Mon, 14 Sep 2026 04:00:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789358252; cv=none; b=Iyv0AOjpk9UUlil6lXMMCyRikf5p7XVkUuKVrWlgrvAd1+9V4CR1MqhqEO78rRsSbEXHtK9l7F1gD8JHrx9XHXf4o7pUrIbVZrSO7BQAEHrRNK0g1r54kQvfv6WsQyZTydqxMaM45wTNbthhf5hhhQoXeB6FrBut6h5tlINP6nY=
+	t=1789358450; cv=none; b=F6QwmR2ChEBuTbhVXCvxMfS0qNXGaiTFzMwae/ZGQ5GRJnc0VND3iiozlW/mjuUs6246JeLpALEPqQBQG8/n1LMuRI+/cwU3X2B4OxUq/qkF2eQBHu+k0MZ5A6ss/hiP83qRRtkyVMCIQpOgm4NKFCFyNcptLfBAS3Q/vGrFSSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789358252; c=relaxed/simple;
-	bh=Bflp7iKzQAithUh9QRZ0+BoxK24LgLxpOytO24//7nM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tUsuDbQQnfQDNbV3BKHmFDnfGfTRuNRetCGbjf/ZtHr+lEFchd+hQKCqZRkZ0YKRRufq2AlDMCQAhJlVgP8VzOAF08LzT6EAUJxoA87z/mnGJy4IdlC+l1/PCJUVd0Uh2UesIaenb35vq9IauPD3NK6U/iumtv7U14klsSpLa6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=HKQ1a5iQ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="HKQ1a5iQ"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so1543656a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:57:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1789358248; x=1789963048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jfSnCrU6Ge/ehPYT/Z5kPSKkM+9igoVHJRKssjwj9jY=;
-        b=HKQ1a5iQ+XASTjeEWFkGSeVvllkyLlwhkULGO1EwZlGKYlQbwAsSHv2SOb0Q9lrb7N
-         kaz4GUNQJnS/ph0gRFD3IFeF1lDTyBmgo/pdBwGI95rswdIh7DdYaGLfZsSmHPsr4m1x
-         H+1hltzRYgTdBad9H7IyhsEDU8rGPG7UfgzG2PbfCOWV1TIAs8ii3D2Jb+gk5JKmGXVT
-         y+ht8M7jjWNZaPfPSImzxQQAjPeXa+WEJ4BetYCC1JLgioDq1hx61gaGYBEeH1YC6TDS
-         HI6oBvHN+RUsV5zaz9myoz+jcp5r6wSkWlo7qnvOg/zqkIW5EBgHUW7VM7X+xbC/K60i
-         0jbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789358248; x=1789963048;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jfSnCrU6Ge/ehPYT/Z5kPSKkM+9igoVHJRKssjwj9jY=;
-        b=VWohxgFiM0fFBfiqNFupSiATlZYQeQNqfNmLNlizb2aXoIjEHxwiIpOwudhm+toQor
-         jxumf8R11pY5nRJgmC9PiMjyBwIzkEVFP2+a87dP0PalM3Obnn4FJ4ooqgP/UGhaJ+HW
-         P2O85fCpaZOKl4v4pjrxus88ADQchOWzlOG4mmprkHgHcZU+d7rx3kRrjcc9IPR0Zwh/
-         3OTuiejsZPE5N8oYZdMCP8TlQnSN4zdWQZPkpag5NwIPflG96QaaH7oEqbK5fpVgIi0A
-         /3WOlkAQz8MO76s2RDahAcWYp6uKCl+z5Ys5+5UyhaPwZ58TS1+UwmQDA1FLTzw5mJHB
-         lLSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwz7Y/e0LQ+85YM7fxRkqo/0TF5iJubmdtIRXF3iI+ZKzRaqXynH5HmfrOXFOZi3eD5EbrM/JzTw+cToM0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUPU+98/ap9b+DN/NytJjW55FOffRiJdg0IhcQOFubnG0Rxlx0
-	34IsuiRA5AQD3A0qoSFbq0f9YPXxYguKCk4tKZ6zDLPzIIL1+4LvnRPdqYuA6ETrtq0=
-X-Gm-Gg: AYBFou3HDixoYbRxWXQsrUaVfE04zY9JQpmDayVhEOn3pJY1tPDWTN1ro7vRAnQQcKq
-	Gd+qvVSRT4eHA4mzUo6a5LWElqDMqykeAJjPcUlUqLUa9Gwl8NYU7iMIdPrVOLz6sSGdDwNCy97
-	Kj8jOmG5iC6gRwrMElYbtJTiMAjOLJzEVn+vt5MVxHUJhzfKqg//zuYQGZWc1p1U3IWo5UAXd3T
-	ne5/b6SogMZCQgFNiJVgxxqCeu4Pr/vhhANZxgHAaXFh/o/68S2ddCSkTiuUwmbexcjl4aZyO0r
-	3kIw/mMSUMSIOJuhnFKz9Tm9P242Dez/8KYBWTzWk1vEnQL9n737PvVEypFXM/QmP3l+qVLG4v7
-	y4JKkP7GI23RXOzLDKA6c+u7x71uxrahypeylS9IjE30dzM+tnqaizomlCzxrvCH4A7paCgX4Oy
-	ERptgug/Xf9VBYIHZ8dg7GttDpigBle7cZstPBGfEme9XYml2KUNz7dxdxMtvM3uE+9MTewC0qo
-	7tev7lPpoc=
-X-Received: by 2002:a17:90b:50cc:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-39dec1c2074mr2257949a91.16.1789358248242;
-        Sun, 13 Sep 2026 20:57:28 -0700 (PDT)
-Received: from sw04.internal.sifive.com ([4.53.31.132])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a3casm22862554eec.12.2026.09.13.20.57.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 20:57:27 -0700 (PDT)
-From: Zong Li <zong.li@sifive.com>
-To: tomasz.jeznach@linux.dev,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	mark.rutland@arm.com,
-	andrew.jones@oss.qualcomm.com,
-	guoren@kernel.org,
-	david.laight.linux@gmail.com,
-	zhangzhanpeng.jasper@bytedance.com,
-	yang.yicong@picoheart.com,
-	nutty.liu@hotmail.com,
-	iommu@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Cc: Zong Li <zong.li@sifive.com>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	Fangyu Yu <fangyu.yu@linux.alibaba.com>
-Subject: [PATCH v11 1/2] drivers/perf: riscv-iommu: add risc-v iommu pmu driver
-Date: Sun, 13 Sep 2026 20:57:21 -0700
-Message-ID: <20260914035723.2922057-2-zong.li@sifive.com>
-X-Mailer: git-send-email @GIT_VERSION@
-In-Reply-To: <20260914035723.2922057-1-zong.li@sifive.com>
-References: <20260914035723.2922057-1-zong.li@sifive.com>
+	s=arc-20240116; t=1789358450; c=relaxed/simple;
+	bh=yJxY6tAi79wkEath/wY7xuuxbI31eN05Op/biPEm3Fg=;
+	h=Content-Type:Message-ID:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:From:Date; b=kgd7ciVoPQ0jRORAc9f4Pec70xC72dmJWdHrS5j3Jz4yWnBE5sPYymE2TrFNbm0sStbo3w1/q9u1p6/SkiKXrXNDTQkH5IlneiLy4rvI2X/GcveHpGvLw+meMZt+6t8vLI6hKSh/XyjRLFYDw81k3UglbZw+n6/AWnDk8xMOpls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com; spf=pass smtp.mailfrom=resnics.com; arc=none smtp.client-ip=220.197.31.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnics.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <ALEAgADLK*8PQ9EP1o*6jqoG.3.1789356306483.Hmail.zhouruizhe@resnics.com>
+To: Frank Li <Frank.li@oss.nxp.com>, 
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Vinod Koul <vkoul@kernel.org>, Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
+	Logan Gunthorpe <logang@deltatee.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Frank Li <Frank.Li@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>, 
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?UTF-8?B?UmU6UmU6IFJlOiBbUEFUQ0ggMS8zXSBkbWFlbmdpbmU6IHB0ZG1hOiBSZW1vdmUgb2Jzb2xldGUgMzItYml0IERNQSBtYXNrIGZhbGxiYWNr?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+In-Reply-To: <aqSCtL2kr6xczuB_@lizhi-Precision-Tower-5810>
+References: <20260903115441.912500-1-zhouruizhe@resnics.com> <20260903115441.912500-2-zhouruizhe@resnics.com> <apnJ7MtNw59x-qWh@SMW015318> <AEEA1wBuK97oyrSN8q4l4KpK.3.1788520536000.Hmail.zhouruizhe@resnics.com> <aqSCtL2kr6xczuB_@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from zhouruizhe@resnics.com( [183.158.73.171] ) by ajax-webmail ( [127.0.0.1] ) ; Mon, 14 Sep 2026 11:25:06 +0800 (GMT+08:00)
+From: Ruizhe Zhou <zhouruizhe@resnics.com>
+Date: Mon, 14 Sep 2026 11:25:06 +0800 (GMT+08:00)
+X-HM-Tid: 0aa09de68a5c02eekunm7bd486b81e54a
+X-HM-MType: 1
+X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMdz8H/g99eSjsmp79ug4TtUOfceK239+6Wx8rS
+	Mt4AmfBcwCFqZ+1IZEb/P4yrJDw4cWOTfBeuHJwNHIGJ+6lwx7CASExtLwSUCcudtiee8MwZeDz3
+	RMGrfjD8WrQoCqeFTzFSv8udIpgXCdlgZf5Ec=
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHR1IVkgYQk0ZHkkYSEhLH1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSk5DVUxIVUpMSllXWRYaDxIVHRRZQVlPS0hVQk
+	JJTktVSktLVUpCS0JZBg++
 
-Add a new driver to support the RISC-V IOMMU PMU. This is an auxiliary
-device driver created by the parent RISC-V IOMMU driver.
-
-The performance monitor provides counters with filtering support to
-collect events for specific device ID/process ID, or GSCID/PSCID.
-
-The RISC-V IOMMU PMU separates the cycle counter from the event counters.
-The cycle counter is not associated with iohpmevt0, so a software-defined
-cycle event is required for the perf subsystem.
-
-The number and width of the counters are hardware-implemented and must
-be detected at runtime.
-
-Leave out all the dead cleanup code (i.e. .remove() operation) if the
-PMU driver is tied to the IOMMU driver and can never realistically be
-removed.
-
-PMU-related definitions are moved into the perf driver, where they are
-used exclusively.
-
-According to RISC-V IOMMU specification Chapter 6:
-Whether an 8 byte access to an IOMMU register is single-copy atomic is
-UNSPECIFIED. Use two separate 4 byte accesses for hardware
-compatibility.
-
-Use raw spin lock to avoid CPU hotplug race and IRQCHIP_MOVE_DEFERRED
-
- - CPU hotplug race: serialises used_counters/events[]/IOCOUNTINH against
-   riscv_iommu_pmu_offline_cpu()'s perf_pmu_migrate_context()
- - PCI MSI/MSI-X on IMSIC sets IRQCHIP_MOVE_DEFERRED, so
-   irq_set_affinity() reports success while only recording the request
-   and the move is applied later, in interrupt context. Until then the
-   interrupt is still routed to the CPU the irqchip picked initially,
-   which is not the CPU the events are bound to.
-
-Tested-by: Chen Pei <cp0613@linux.alibaba.com>
-Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
-Reviewed-by: Guo Ren (Alibaba DAMO Academy) <guoren@kernel.org>
-Reviewed-by: Yicong Yang <yang.yicong@picoheart.com>
-Suggested-by: David Laight <david.laight.linux@gmail.com>
-Suggested-by: Guo Ren <guoren@kernel.org>
-Link: https://lore.kernel.org/linux-riscv/20260618143634.7f3dd6c5@pumpkin/
-Signed-off-by: Zong Li <zong.li@sifive.com>
----
- drivers/iommu/riscv/iommu-bits.h |  61 --
- drivers/perf/Kconfig             |  12 +
- drivers/perf/Makefile            |   1 +
- drivers/perf/riscv_iommu_pmu.c   | 987 +++++++++++++++++++++++++++++++
- 4 files changed, 1000 insertions(+), 61 deletions(-)
- create mode 100644 drivers/perf/riscv_iommu_pmu.c
-
-diff --git a/drivers/iommu/riscv/iommu-bits.h b/drivers/iommu/riscv/iommu-bits.h
-index f2ef9bd3cde9..6b5de913a032 100644
---- a/drivers/iommu/riscv/iommu-bits.h
-+++ b/drivers/iommu/riscv/iommu-bits.h
-@@ -192,67 +192,6 @@ enum riscv_iommu_ddtp_modes {
- #define RISCV_IOMMU_IPSR_PMIP		BIT(RISCV_IOMMU_INTR_PM)
- #define RISCV_IOMMU_IPSR_PIP		BIT(RISCV_IOMMU_INTR_PQ)
- 
--/* 5.19 Performance monitoring counter overflow status (32bits) */
--#define RISCV_IOMMU_REG_IOCOUNTOVF	0x0058
--#define RISCV_IOMMU_IOCOUNTOVF_CY	BIT(0)
--#define RISCV_IOMMU_IOCOUNTOVF_HPM	GENMASK_ULL(31, 1)
--
--/* 5.20 Performance monitoring counter inhibits (32bits) */
--#define RISCV_IOMMU_REG_IOCOUNTINH	0x005C
--#define RISCV_IOMMU_IOCOUNTINH_CY	BIT(0)
--#define RISCV_IOMMU_IOCOUNTINH_HPM	GENMASK(31, 1)
--
--/* 5.21 Performance monitoring cycles counter (64bits) */
--#define RISCV_IOMMU_REG_IOHPMCYCLES     0x0060
--#define RISCV_IOMMU_IOHPMCYCLES_COUNTER	GENMASK_ULL(62, 0)
--#define RISCV_IOMMU_IOHPMCYCLES_OF	BIT_ULL(63)
--
--/* 5.22 Performance monitoring event counters (31 * 64bits) */
--#define RISCV_IOMMU_REG_IOHPMCTR_BASE	0x0068
--#define RISCV_IOMMU_REG_IOHPMCTR(_n)	(RISCV_IOMMU_REG_IOHPMCTR_BASE + ((_n) * 0x8))
--
--/* 5.23 Performance monitoring event selectors (31 * 64bits) */
--#define RISCV_IOMMU_REG_IOHPMEVT_BASE	0x0160
--#define RISCV_IOMMU_REG_IOHPMEVT(_n)	(RISCV_IOMMU_REG_IOHPMEVT_BASE + ((_n) * 0x8))
--#define RISCV_IOMMU_IOHPMEVT_EVENTID	GENMASK_ULL(14, 0)
--#define RISCV_IOMMU_IOHPMEVT_DMASK	BIT_ULL(15)
--#define RISCV_IOMMU_IOHPMEVT_PID_PSCID	GENMASK_ULL(35, 16)
--#define RISCV_IOMMU_IOHPMEVT_DID_GSCID	GENMASK_ULL(59, 36)
--#define RISCV_IOMMU_IOHPMEVT_PV_PSCV	BIT_ULL(60)
--#define RISCV_IOMMU_IOHPMEVT_DV_GSCV	BIT_ULL(61)
--#define RISCV_IOMMU_IOHPMEVT_IDT	BIT_ULL(62)
--#define RISCV_IOMMU_IOHPMEVT_OF		BIT_ULL(63)
--
--/* Number of defined performance-monitoring event selectors */
--#define RISCV_IOMMU_IOHPMEVT_CNT	31
--
--/**
-- * enum riscv_iommu_hpmevent_id - Performance-monitoring event identifier
-- *
-- * @RISCV_IOMMU_HPMEVENT_INVALID: Invalid event, do not count
-- * @RISCV_IOMMU_HPMEVENT_URQ: Untranslated requests
-- * @RISCV_IOMMU_HPMEVENT_TRQ: Translated requests
-- * @RISCV_IOMMU_HPMEVENT_ATS_RQ: ATS translation requests
-- * @RISCV_IOMMU_HPMEVENT_TLB_MISS: TLB misses
-- * @RISCV_IOMMU_HPMEVENT_DD_WALK: Device directory walks
-- * @RISCV_IOMMU_HPMEVENT_PD_WALK: Process directory walks
-- * @RISCV_IOMMU_HPMEVENT_S_VS_WALKS: First-stage page table walks
-- * @RISCV_IOMMU_HPMEVENT_G_WALKS: Second-stage page table walks
-- * @RISCV_IOMMU_HPMEVENT_MAX: Value to denote maximum Event IDs
-- */
--enum riscv_iommu_hpmevent_id {
--	RISCV_IOMMU_HPMEVENT_INVALID    = 0,
--	RISCV_IOMMU_HPMEVENT_URQ        = 1,
--	RISCV_IOMMU_HPMEVENT_TRQ        = 2,
--	RISCV_IOMMU_HPMEVENT_ATS_RQ     = 3,
--	RISCV_IOMMU_HPMEVENT_TLB_MISS   = 4,
--	RISCV_IOMMU_HPMEVENT_DD_WALK    = 5,
--	RISCV_IOMMU_HPMEVENT_PD_WALK    = 6,
--	RISCV_IOMMU_HPMEVENT_S_VS_WALKS = 7,
--	RISCV_IOMMU_HPMEVENT_G_WALKS    = 8,
--	RISCV_IOMMU_HPMEVENT_MAX        = 9
--};
--
- /* 5.24 Translation request IOVA (64bits) */
- #define RISCV_IOMMU_REG_TR_REQ_IOVA     0x0258
- #define RISCV_IOMMU_TR_REQ_IOVA_VPN	GENMASK_ULL(63, 12)
-diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
-index 245e7bb763b9..8cce6c2ea626 100644
---- a/drivers/perf/Kconfig
-+++ b/drivers/perf/Kconfig
-@@ -105,6 +105,18 @@ config RISCV_PMU_SBI
- 	  full perf feature support i.e. counter overflow, privilege mode
- 	  filtering, counter configuration.
- 
-+config RISCV_IOMMU_PMU
-+	depends on RISCV || COMPILE_TEST
-+	depends on RISCV_IOMMU
-+	bool "RISC-V IOMMU Hardware Performance Monitor"
-+	default y
-+	help
-+	  Say Y if you want to use the RISC-V IOMMU performance monitor
-+	  implementation. The performance monitor is an optional hardware
-+	  feature, and whether it is actually enabled depends on IOMMU
-+	  hardware support. If the underlying hardware does not implement
-+	  the PMU, this option will have no effect.
-+
- config STARFIVE_STARLINK_PMU
- 	depends on ARCH_STARFIVE || COMPILE_TEST
- 	depends on 64BIT
-diff --git a/drivers/perf/Makefile b/drivers/perf/Makefile
-index eb8a022dad9a..90c75f3c0ac1 100644
---- a/drivers/perf/Makefile
-+++ b/drivers/perf/Makefile
-@@ -20,6 +20,7 @@ obj-$(CONFIG_QCOM_L3_PMU) += qcom_l3_pmu.o
- obj-$(CONFIG_RISCV_PMU) += riscv_pmu.o
- obj-$(CONFIG_RISCV_PMU_LEGACY) += riscv_pmu_legacy.o
- obj-$(CONFIG_RISCV_PMU_SBI) += riscv_pmu_sbi.o
-+obj-$(CONFIG_RISCV_IOMMU_PMU) += riscv_iommu_pmu.o
- obj-$(CONFIG_STARFIVE_STARLINK_PMU) += starfive_starlink_pmu.o
- obj-$(CONFIG_THUNDERX2_PMU) += thunderx2_pmu.o
- obj-$(CONFIG_XGENE_PMU) += xgene_pmu.o
-diff --git a/drivers/perf/riscv_iommu_pmu.c b/drivers/perf/riscv_iommu_pmu.c
-new file mode 100644
-index 000000000000..b4906c44d2a0
---- /dev/null
-+++ b/drivers/perf/riscv_iommu_pmu.c
-@@ -0,0 +1,987 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 SiFive
-+ *
-+ * Authors
-+ *	Zong Li <zong.li@sifive.com>
-+ */
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/cpu.h>
-+#include <linux/cpumask.h>
-+#include <linux/io-64-nonatomic-hi-lo.h>
-+#include <linux/perf_event.h>
-+
-+#include "../iommu/riscv/iommu.h"
-+
-+/* 5.19 Performance monitoring counter overflow status (32bits) */
-+#define RISCV_IOMMU_REG_IOCOUNTOVF	0x0058
-+#define RISCV_IOMMU_IOCOUNTOVF_CY	BIT(0)
-+#define RISCV_IOMMU_IOCOUNTOVF_HPM	GENMASK_ULL(31, 1)
-+
-+/* 5.20 Performance monitoring counter inhibits (32bits) */
-+#define RISCV_IOMMU_REG_IOCOUNTINH	0x005C
-+#define RISCV_IOMMU_IOCOUNTINH_CY	BIT(0)
-+#define RISCV_IOMMU_IOCOUNTINH_HPM	GENMASK(31, 0)
-+
-+/* 5.21 Performance monitoring cycles counter (64bits) */
-+#define RISCV_IOMMU_REG_IOHPMCYCLES	0x0060
-+#define RISCV_IOMMU_IOHPMCYCLES_COUNTER	GENMASK_ULL(62, 0)
-+#define RISCV_IOMMU_IOHPMCYCLES_OF	BIT_ULL(63)
-+#define RISCV_IOMMU_REG_IOHPMCTR(_n)	(RISCV_IOMMU_REG_IOHPMCYCLES + ((_n) * 0x8))
-+
-+/* 5.22 Performance monitoring event counters (31 * 64bits) */
-+#define RISCV_IOMMU_REG_IOHPMCTR_BASE	0x0068
-+#define RISCV_IOMMU_IOHPMCTR_COUNTER	GENMASK_ULL(63, 0)
-+
-+/* 5.23 Performance monitoring event selectors (31 * 64bits) */
-+#define RISCV_IOMMU_REG_IOHPMEVT_BASE	0x0160
-+#define RISCV_IOMMU_REG_IOHPMEVT(_n)	(RISCV_IOMMU_REG_IOHPMEVT_BASE + ((_n) * 0x8))
-+#define RISCV_IOMMU_IOHPMEVT_EVENTID	GENMASK_ULL(14, 0)
-+#define RISCV_IOMMU_IOHPMEVT_DMASK	BIT_ULL(15)
-+#define RISCV_IOMMU_IOHPMEVT_PID_PSCID	GENMASK_ULL(35, 16)
-+#define RISCV_IOMMU_IOHPMEVT_DID_GSCID	GENMASK_ULL(59, 36)
-+#define RISCV_IOMMU_IOHPMEVT_PV_PSCV	BIT_ULL(60)
-+#define RISCV_IOMMU_IOHPMEVT_DV_GSCV	BIT_ULL(61)
-+#define RISCV_IOMMU_IOHPMEVT_IDT	BIT_ULL(62)
-+#define RISCV_IOMMU_IOHPMEVT_OF		BIT_ULL(63)
-+#define RISCV_IOMMU_IOHPMEVT_EVENT	GENMASK_ULL(62, 0)
-+
-+/* The total number of counters is 31 event counters plus 1 cycle counter */
-+#define RISCV_IOMMU_HPM_COUNTER_NUM	32
-+
-+/* Counter index 0 is the cycle counter, the event counters start at index 1 */
-+#define RISCV_IOMMU_HPM_CYCLE_IDX	0
-+
-+static int cpuhp_state;
-+
-+/**
-+ * enum riscv_iommu_hpmevent_id - Performance-monitoring event identifier
-+ *
-+ * @RISCV_IOMMU_HPMEVENT_CYCLE: Clock cycle counter
-+ * @RISCV_IOMMU_HPMEVENT_URQ: Untranslated requests
-+ * @RISCV_IOMMU_HPMEVENT_TRQ: Translated requests
-+ * @RISCV_IOMMU_HPMEVENT_ATS_RQ: ATS translation requests
-+ * @RISCV_IOMMU_HPMEVENT_TLB_MISS: TLB misses
-+ * @RISCV_IOMMU_HPMEVENT_DD_WALK: Device directory walks
-+ * @RISCV_IOMMU_HPMEVENT_PD_WALK: Process directory walks
-+ * @RISCV_IOMMU_HPMEVENT_S_VS_WALKS: First-stage page table walks
-+ * @RISCV_IOMMU_HPMEVENT_G_WALKS: Second-stage page table walks
-+ * @RISCV_IOMMU_HPMEVENT_MAX: Value to denote maximum Event IDs
-+ *
-+ * The specification does not define an event ID for counting the
-+ * number of clock cycles, meaning there is no associated 'iohpmevt0'.
-+ * Event ID 0 is an invalid event and does not overlap with any valid
-+ * event ID. Let's repurpose ID 0 as the cycle for perf, the cycle
-+ * event is not actually written into any register, it serves solely
-+ * as an identifier.
-+ */
-+enum riscv_iommu_hpmevent_id {
-+	RISCV_IOMMU_HPMEVENT_CYCLE	= 0,
-+	RISCV_IOMMU_HPMEVENT_URQ        = 1,
-+	RISCV_IOMMU_HPMEVENT_TRQ        = 2,
-+	RISCV_IOMMU_HPMEVENT_ATS_RQ     = 3,
-+	RISCV_IOMMU_HPMEVENT_TLB_MISS   = 4,
-+	RISCV_IOMMU_HPMEVENT_DD_WALK    = 5,
-+	RISCV_IOMMU_HPMEVENT_PD_WALK    = 6,
-+	RISCV_IOMMU_HPMEVENT_S_VS_WALKS = 7,
-+	RISCV_IOMMU_HPMEVENT_G_WALKS    = 8,
-+	RISCV_IOMMU_HPMEVENT_MAX        = 9
-+};
-+
-+struct riscv_iommu_pmu {
-+	struct pmu pmu;
-+	struct hlist_node node;
-+	void __iomem *reg;
-+	int on_cpu;
-+	unsigned int irq;
-+	int numa_node;
-+	unsigned int num_counters;
-+	u64 cycle_cntr_mask;
-+	u64 event_cntr_mask;
-+	struct perf_event *events[RISCV_IOMMU_HPM_COUNTER_NUM];
-+	DECLARE_BITMAP(used_counters, RISCV_IOMMU_HPM_COUNTER_NUM);
-+	/*
-+	 * Serialises used_counters/events[]/IOCOUNTINH for
-+	 * CPU hotplug race and IRQCHIP_MOVE_DEFERRED (PCI MSI/MSI-X on IMSIC)
-+	 */
-+	raw_spinlock_t lock;
-+};
-+
-+#define to_riscv_iommu_pmu(p) (container_of(p, struct riscv_iommu_pmu, pmu))
-+
-+#define RISCV_IOMMU_PMU_ATTR_EXTRACTOR(_name, _mask)			\
-+	static inline u32 get_##_name(struct perf_event *event)		\
-+	{								\
-+		return FIELD_GET(_mask, event->attr.config);		\
-+	}								\
-+
-+RISCV_IOMMU_PMU_ATTR_EXTRACTOR(event, RISCV_IOMMU_IOHPMEVT_EVENTID);
-+RISCV_IOMMU_PMU_ATTR_EXTRACTOR(partial_matching, RISCV_IOMMU_IOHPMEVT_DMASK);
-+RISCV_IOMMU_PMU_ATTR_EXTRACTOR(pid_pscid, RISCV_IOMMU_IOHPMEVT_PID_PSCID);
-+RISCV_IOMMU_PMU_ATTR_EXTRACTOR(did_gscid, RISCV_IOMMU_IOHPMEVT_DID_GSCID);
-+RISCV_IOMMU_PMU_ATTR_EXTRACTOR(filter_pid_pscid, RISCV_IOMMU_IOHPMEVT_PV_PSCV);
-+RISCV_IOMMU_PMU_ATTR_EXTRACTOR(filter_did_gscid, RISCV_IOMMU_IOHPMEVT_DV_GSCV);
-+RISCV_IOMMU_PMU_ATTR_EXTRACTOR(filter_id_type, RISCV_IOMMU_IOHPMEVT_IDT);
-+
-+/* Formats */
-+PMU_FORMAT_ATTR(event,            "config:0-14");
-+PMU_FORMAT_ATTR(partial_matching, "config:15");
-+PMU_FORMAT_ATTR(pid_pscid,        "config:16-35");
-+PMU_FORMAT_ATTR(did_gscid,        "config:36-59");
-+PMU_FORMAT_ATTR(filter_pid_pscid, "config:60");
-+PMU_FORMAT_ATTR(filter_did_gscid, "config:61");
-+PMU_FORMAT_ATTR(filter_id_type,   "config:62");
-+
-+static struct attribute *riscv_iommu_pmu_formats[] = {
-+	&format_attr_event.attr,
-+	&format_attr_partial_matching.attr,
-+	&format_attr_pid_pscid.attr,
-+	&format_attr_did_gscid.attr,
-+	&format_attr_filter_pid_pscid.attr,
-+	&format_attr_filter_did_gscid.attr,
-+	&format_attr_filter_id_type.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group riscv_iommu_pmu_format_group = {
-+	.name = "format",
-+	.attrs = riscv_iommu_pmu_formats,
-+};
-+
-+/* Events */
-+static ssize_t riscv_iommu_pmu_event_show(struct device *dev,
-+					  struct device_attribute *attr,
-+					  char *page)
-+{
-+	struct perf_pmu_events_attr *pmu_attr;
-+
-+	pmu_attr = container_of(attr, struct perf_pmu_events_attr, attr);
-+
-+	return sysfs_emit(page, "event=0x%02llx\n", pmu_attr->id);
-+}
-+
-+#define RISCV_IOMMU_PMU_EVENT_ATTR(name, id)			\
-+	PMU_EVENT_ATTR_ID(name, riscv_iommu_pmu_event_show, id)
-+
-+static struct attribute *riscv_iommu_pmu_events[] = {
-+	RISCV_IOMMU_PMU_EVENT_ATTR(cycle, RISCV_IOMMU_HPMEVENT_CYCLE),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(untranslated_req, RISCV_IOMMU_HPMEVENT_URQ),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(translated_req, RISCV_IOMMU_HPMEVENT_TRQ),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(ats_trans_req, RISCV_IOMMU_HPMEVENT_ATS_RQ),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(tlb_miss, RISCV_IOMMU_HPMEVENT_TLB_MISS),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(ddt_walks, RISCV_IOMMU_HPMEVENT_DD_WALK),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(pdt_walks, RISCV_IOMMU_HPMEVENT_PD_WALK),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(s_vs_pt_walks, RISCV_IOMMU_HPMEVENT_S_VS_WALKS),
-+	RISCV_IOMMU_PMU_EVENT_ATTR(g_pt_walks, RISCV_IOMMU_HPMEVENT_G_WALKS),
-+	NULL,
-+};
-+
-+static const struct attribute_group riscv_iommu_pmu_events_group = {
-+	.name = "events",
-+	.attrs = riscv_iommu_pmu_events,
-+};
-+
-+/* cpumask */
-+static ssize_t riscv_iommu_cpumask_show(struct device *dev,
-+					struct device_attribute *attr,
-+					char *buf)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(dev_get_drvdata(dev));
-+	int on_cpu = pmu->on_cpu;
-+
-+	/*
-+	 * riscv_iommu_pmu_offline_cpu() leaves on_cpu at -1 when it cannot
-+	 * find another online CPU to migrate to. Report an empty mask rather
-+	 * than feeding -1 to cpumask_of(), which indexes out of bounds.
-+	 */
-+	if (on_cpu < 0)
-+		return sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpu_none_mask));
-+
-+	return sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpumask_of(on_cpu)));
-+}
-+
-+static struct device_attribute riscv_iommu_cpumask_attr =
-+	__ATTR(cpumask, 0444, riscv_iommu_cpumask_show, NULL);
-+
-+static struct attribute *riscv_iommu_cpumask_attrs[] = {
-+	&riscv_iommu_cpumask_attr.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group riscv_iommu_pmu_cpumask_group = {
-+	.attrs = riscv_iommu_cpumask_attrs,
-+};
-+
-+static const struct attribute_group *riscv_iommu_pmu_attr_grps[] = {
-+	&riscv_iommu_pmu_cpumask_group,
-+	&riscv_iommu_pmu_format_group,
-+	&riscv_iommu_pmu_events_group,
-+	NULL,
-+};
-+
-+/*
-+ * Register access wrapper
-+ *
-+ * According to RISC-V IOMMU specification Chapter 6:
-+ * A 4 byte access to an IOMMU register must be single-copy atomic.
-+ * Whether an 8 byte access to an IOMMU register is single-copy atomic is UNSPECIFIED
-+ *
-+ * Use two separate 4 byte accesses for hardware compatibility
-+ */
-+static u64 riscv_iommu_pmu_readq(void __iomem *addr)
-+{
-+	return hi_lo_readq(addr);
-+}
-+
-+static void riscv_iommu_pmu_writeq(u64 value, void __iomem *addr)
-+{
-+	hi_lo_writeq(value, addr);
-+}
-+
-+/* PMU Operations */
-+static void riscv_iommu_pmu_set_counter(struct riscv_iommu_pmu *pmu, u32 idx,
-+					u64 value)
-+{
-+	u64 counter_mask = idx ? pmu->event_cntr_mask : pmu->cycle_cntr_mask;
-+
-+	riscv_iommu_pmu_writeq(value & counter_mask, pmu->reg + RISCV_IOMMU_REG_IOHPMCTR(idx));
-+}
-+
-+/*
-+ * As stated in the RISC-V IOMMU Specification, Chapter 6:
-+ * Whether an 8 byte access to an IOMMU register is single-copy atomic
-+ * is UNSPECIFIED, and such an access may appear, internally to the
-+ * IOMMU, as if two separate 4 byte accesses - first to the high half
-+ * and second to the low half - were performed
-+ *
-+ * To make sure the driver works correctly on different hardware,
-+ * the software will always use two 4-byte access for the counter.
-+ *
-+ * This function implements the hi-lo-hi pattern to detect and handle
-+ * wraparound during the read operation:
-+ *   1. Read high half (hi)
-+ *   2. Read low half (lo)
-+ *   3. Read high half again (hi_again)
-+ *
-+ * If both reads of the high half agree, then the low half did not carry
-+ * into the high half in between, so the two halves belong together. If
-+ * they differ, the low half wrapped during the read and the whole
-+ * sequence is retried. A single re-read of the low half is not enough:
-+ * if the caller (or a hypervisor running it) is preempted for long enough,
-+ * the counter may wrap again before that re-read completes, pairing a
-+ * stale high half with a low half from yet another wrap. Retrying the
-+ * full hi/lo/hi sequence until two consecutive high-half reads agree
-+ * converges on a consistent pair regardless of how long the preemption
-+ * lasts.
-+ */
-+static u64 riscv_iommu_pmu_get_counter(struct riscv_iommu_pmu *pmu, u32 idx)
-+{
-+	void __iomem *addr = pmu->reg + RISCV_IOMMU_REG_IOHPMCTR(idx);
-+	u64 value, counter_mask = idx ? pmu->event_cntr_mask : pmu->cycle_cntr_mask;
-+	u32 hi, lo, hi_again;
-+
-+	do {
-+		hi = readl(addr + 4);
-+		lo = readl(addr);
-+		hi_again = readl(addr + 4);
-+	} while (hi_again != hi);
-+
-+	value = (((u64)hi << 32) | lo) & counter_mask;
-+
-+	/* The bit 63 of cycle counter (i.e., idx == 0) is OF bit */
-+	return idx ? value : (value & ~RISCV_IOMMU_IOHPMCYCLES_OF);
-+}
-+
-+static bool is_cycle_event(u64 event)
-+{
-+	return FIELD_GET(RISCV_IOMMU_IOHPMEVT_EVENTID, event) ==
-+	       RISCV_IOMMU_HPMEVENT_CYCLE;
-+}
-+
-+static void riscv_iommu_pmu_set_event(struct riscv_iommu_pmu *pmu, u32 idx,
-+				      u64 value)
-+{
-+	/* There is no associated IOHPMEVT0 for IOHPMCYCLES */
-+	if (is_cycle_event(value))
-+		return;
-+
-+	/* Event counter start from idx 1 */
-+	riscv_iommu_pmu_writeq(FIELD_GET(RISCV_IOMMU_IOHPMEVT_EVENT, value),
-+			       pmu->reg + RISCV_IOMMU_REG_IOHPMEVT(idx - 1));
-+}
-+
-+static void riscv_iommu_pmu_enable_counter(struct riscv_iommu_pmu *pmu, u32 idx)
-+{
-+	void __iomem *addr = pmu->reg + RISCV_IOMMU_REG_IOCOUNTINH;
-+	u32 value = readl(addr);
-+
-+	writel(value & ~BIT(idx), addr);
-+}
-+
-+static void riscv_iommu_pmu_disable_counter(struct riscv_iommu_pmu *pmu, u32 idx)
-+{
-+	void __iomem *addr = pmu->reg + RISCV_IOMMU_REG_IOCOUNTINH;
-+	u32 value = readl(addr);
-+
-+	writel(value | BIT(idx), addr);
-+}
-+
-+static void riscv_iommu_pmu_clear_ovf(struct riscv_iommu_pmu *pmu, u32 idx)
-+{
-+	u64 value;
-+
-+	/* Counter is disabled here, making it safe to read and write registers */
-+	if (idx == RISCV_IOMMU_HPM_CYCLE_IDX) {
-+		value = riscv_iommu_pmu_readq(pmu->reg + RISCV_IOMMU_REG_IOHPMCYCLES) &
-+					      ~RISCV_IOMMU_IOHPMCYCLES_OF;
-+		riscv_iommu_pmu_writeq(value, pmu->reg + RISCV_IOMMU_REG_IOHPMCYCLES);
-+	} else {
-+		/* Event counter start from idx 1 */
-+		value = riscv_iommu_pmu_readq(pmu->reg + RISCV_IOMMU_REG_IOHPMEVT(idx - 1)) &
-+					      ~RISCV_IOMMU_IOHPMEVT_OF;
-+		riscv_iommu_pmu_writeq(value, pmu->reg + RISCV_IOMMU_REG_IOHPMEVT(idx - 1));
-+	}
-+}
-+
-+static void riscv_iommu_pmu_start_all(struct riscv_iommu_pmu *pmu, u32 inhibit)
-+{
-+	writel(inhibit, pmu->reg + RISCV_IOMMU_REG_IOCOUNTINH);
-+}
-+
-+/* Returns the inhibit state prior to stopping, so callers can restore it later */
-+static u32 riscv_iommu_pmu_stop_all(struct riscv_iommu_pmu *pmu)
-+{
-+	void __iomem *addr = pmu->reg + RISCV_IOMMU_REG_IOCOUNTINH;
-+	u32 inhibit = readl(addr);
-+
-+	writel(GENMASK_U32(pmu->num_counters - 1, 0), addr);
-+
-+	return inhibit;
-+}
-+
-+/* PMU APIs */
-+static void riscv_iommu_pmu_set_period(struct perf_event *event)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	struct hw_perf_event *hwc = &event->hw;
-+	u64 counter_mask = hwc->idx ? pmu->event_cntr_mask : pmu->cycle_cntr_mask;
-+	u64 period;
-+
-+	/*
-+	 * Limit the maximum period to prevent the counter value
-+	 * from overtaking the one we are about to program.
-+	 * In effect we are reducing max_period to account for
-+	 * interrupt latency (and we are being very conservative).
-+	 */
-+	period = counter_mask >> 1;
-+	riscv_iommu_pmu_set_counter(pmu, hwc->idx, period);
-+	local64_set(&hwc->prev_count, period);
-+}
-+
-+/*
-+ * Tally @config against what the hardware implements: one cycle counter plus
-+ * pmu->num_counters - 1 event counters. Returns false once the group would need
-+ * more of either than exist, so that groups which could never be scheduled are
-+ * rejected in ->event_init() instead of failing with -EAGAIN in ->add() forever.
-+ */
-+static bool riscv_iommu_pmu_claim_counter(struct riscv_iommu_pmu *pmu, u64 config,
-+					  unsigned int *nr_cycles,
-+					  unsigned int *nr_events)
-+{
-+	if (is_cycle_event(config))
-+		return ++(*nr_cycles) <= 1;
-+
-+	return ++(*nr_events) <= pmu->num_counters - 1;
-+}
-+
-+static int riscv_iommu_pmu_event_init(struct perf_event *event)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	struct hw_perf_event *hwc = &event->hw;
-+	struct perf_event *sibling;
-+	unsigned int nr_cycles = 0;
-+	unsigned int nr_events = 0;
-+	int on_cpu;
-+
-+	if (event->attr.type != event->pmu->type)
-+		return -ENOENT;
-+
-+	if (is_sampling_event(event))
-+		return -EOPNOTSUPP;
-+
-+	if (event->cpu < 0)
-+		return -EOPNOTSUPP;
-+
-+	/*
-+	 * Reject event IDs this driver does not know about. Programming one
-+	 * into IOHPMEVT would be accepted by the hardware but would never
-+	 * count anything, which is indistinguishable from an idle counter.
-+	 */
-+	if (get_event(event) >= RISCV_IOMMU_HPMEVENT_MAX)
-+		return -EINVAL;
-+
-+	/*
-+	 * There is no IOHPMEVT register associated with IOHPMCYCLES, so none
-+	 * of the filtering fields can be programmed for the cycle event.
-+	 * Reject them here instead of counting unfiltered cycles behind the
-+	 * user's back.
-+	 */
-+	if (is_cycle_event(event->attr.config) &&
-+	    (event->attr.config & ~RISCV_IOMMU_IOHPMEVT_EVENTID))
-+		return -EINVAL;
-+
-+	/*
-+	 * All events are bound to the CPU the interrupt is affine to. That
-+	 * CPU is unset while no online CPU could be found for this PMU, and
-+	 * assigning -1 here would turn this into a task bound event, which is
-+	 * not something this PMU can serve.
-+	 */
-+	on_cpu = pmu->on_cpu;
-+	if (on_cpu < 0)
-+		return -ENODEV;
-+
-+	event->cpu = on_cpu;
-+
-+	hwc->idx = -1;
-+	hwc->config = event->attr.config;
-+
-+	/*
-+	 * Account for this event itself first. It has to be done before the
-+	 * check below, otherwise an event which is on its own would never be
-+	 * matched against the number of counters the hardware implements.
-+	 */
-+	if (!riscv_iommu_pmu_claim_counter(pmu, event->attr.config,
-+					   &nr_cycles, &nr_events))
-+		return -EINVAL;
-+
-+	/* On its own, so there is no group to validate */
-+	if (event->group_leader == event)
-+		return 0;
-+
-+	/*
-+	 * Software events never occupy a hardware counter, so they do not have
-+	 * to sit on this pmu and do not consume any of its budget. Anything
-+	 * else in the group does, starting with the leader.
-+	 */
-+	if (!is_software_event(event->group_leader)) {
-+		/* A hardware leader has to share this pmu's counters */
-+		if (event->group_leader->pmu != event->pmu)
-+			return -EINVAL;
-+
-+		if (!riscv_iommu_pmu_claim_counter(pmu,
-+						   event->group_leader->attr.config,
-+						   &nr_cycles, &nr_events))
-+			return -EINVAL;
-+	}
-+
-+	/*
-+	 * Then the rest of the group. This walks group_leader->sibling_list,
-+	 * which does not contain the event being initialised yet - hence
-+	 * accounting for it separately above.
-+	 */
-+	for_each_sibling_event(sibling, event->group_leader) {
-+		if (is_software_event(sibling))
-+			continue;
-+
-+		if (sibling->pmu != event->pmu)
-+			return -EINVAL;
-+
-+		if (!riscv_iommu_pmu_claim_counter(pmu, sibling->attr.config,
-+						   &nr_cycles, &nr_events))
-+			return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static void riscv_iommu_pmu_update(struct perf_event *event)
-+{
-+	struct hw_perf_event *hwc = &event->hw;
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	u64 delta, prev, now;
-+	u32 idx = hwc->idx;
-+	u64 counter_mask = idx ? pmu->event_cntr_mask : pmu->cycle_cntr_mask;
-+
-+	do {
-+		prev = local64_read(&hwc->prev_count);
-+		now = riscv_iommu_pmu_get_counter(pmu, idx);
-+	} while (local64_cmpxchg(&hwc->prev_count, prev, now) != prev);
-+
-+	delta = (now - prev) & counter_mask;
-+	local64_add(delta, &event->count);
-+}
-+
-+static void riscv_iommu_pmu_start(struct perf_event *event, int flags)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	struct hw_perf_event *hwc = &event->hw;
-+	unsigned long irqflags;
-+
-+	if (WARN_ON_ONCE(!(event->hw.state & PERF_HES_STOPPED)))
-+		return;
-+
-+	if (flags & PERF_EF_RELOAD)
-+		WARN_ON_ONCE(!(event->hw.state & PERF_HES_UPTODATE));
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+	hwc->state = 0;
-+	riscv_iommu_pmu_set_period(event);
-+	riscv_iommu_pmu_set_event(pmu, hwc->idx, hwc->config);
-+	riscv_iommu_pmu_enable_counter(pmu, hwc->idx);
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+
-+	perf_event_update_userpage(event);
-+}
-+
-+static void riscv_iommu_pmu_stop(struct perf_event *event, int flags)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	struct hw_perf_event *hwc = &event->hw;
-+	unsigned long irqflags;
-+	int idx = hwc->idx;
-+
-+	if (hwc->state & PERF_HES_STOPPED)
-+		return;
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+	riscv_iommu_pmu_disable_counter(pmu, idx);
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+
-+	if ((flags & PERF_EF_UPDATE) && !(hwc->state & PERF_HES_UPTODATE))
-+		riscv_iommu_pmu_update(event);
-+
-+	hwc->state |= PERF_HES_STOPPED | PERF_HES_UPTODATE;
-+}
-+
-+static int riscv_iommu_pmu_add(struct perf_event *event, int flags)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	struct hw_perf_event *hwc = &event->hw;
-+	unsigned int num_counters = pmu->num_counters;
-+	unsigned long irqflags;
-+	unsigned int idx;
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+
-+	/* Reserve index zero for iohpmcycles */
-+	if (is_cycle_event(event->attr.config))
-+		idx = RISCV_IOMMU_HPM_CYCLE_IDX;
-+	else
-+		idx = find_next_zero_bit(pmu->used_counters, num_counters, 1);
-+
-+	/* All event counters or cycle counter are in use */
-+	if (idx == num_counters || pmu->events[idx]) {
-+		raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+		return -EAGAIN;
-+	}
-+
-+	set_bit(idx, pmu->used_counters);
-+
-+	pmu->events[idx] = event;
-+	hwc->idx = idx;
-+	hwc->state = PERF_HES_STOPPED | PERF_HES_UPTODATE;
-+	local64_set(&hwc->prev_count, 0);
-+
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+
-+	if (flags & PERF_EF_START)
-+		riscv_iommu_pmu_start(event, flags);
-+
-+	/* Propagate changes to the userspace mapping. */
-+	perf_event_update_userpage(event);
-+
-+	return 0;
-+}
-+
-+static void riscv_iommu_pmu_read(struct perf_event *event)
-+{
-+	riscv_iommu_pmu_update(event);
-+}
-+
-+static void riscv_iommu_pmu_del(struct perf_event *event, int flags)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	struct hw_perf_event *hwc = &event->hw;
-+	unsigned long irqflags;
-+	int idx = hwc->idx;
-+
-+	riscv_iommu_pmu_stop(event, PERF_EF_UPDATE);
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+	pmu->events[idx] = NULL;
-+	clear_bit(idx, pmu->used_counters);
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+
-+	perf_event_update_userpage(event);
-+}
-+
-+/*
-+ * Pick the CPU perf assigns these events to: riscv_iommu_pmu_event_init()
-+ * sets event->cpu to pmu->on_cpu, and perf_pmu_migrate_context() moves
-+ * already-installed events to a new on_cpu when this changes. This has no
-+ * bearing on which CPU riscv_iommu_pmu_irq_handler() itself runs on -
-+ * pmu->lock serialises the two regardless of that, rather than requiring
-+ * them to run on the same CPU. Only consider CPUs which the irqchip
-+ * actually accepts - committing on_cpu to a CPU which irq_set_affinity()
-+ * then rejects would leave events bound to a CPU whose interrupt the
-+ * irqchip refuses to deliver.
-+ *
-+ * cpumask_local_spread() walks the online CPUs in order of NUMA distance from
-+ * the iommu, so the closest usable one wins.
-+ *
-+ * Returns the chosen CPU, or nr_cpu_ids if none could be used.
-+ */
-+static unsigned int riscv_iommu_pmu_bind_cpu(struct riscv_iommu_pmu *pmu,
-+					     unsigned int skip_cpu)
-+{
-+	unsigned int cpu, i;
-+
-+	for (i = 0; i < num_online_cpus(); i++) {
-+		cpu = cpumask_local_spread(i, pmu->numa_node);
-+		if (cpu == skip_cpu)
-+			continue;
-+		if (!irq_set_affinity(pmu->irq, cpumask_of(cpu)))
-+			return cpu;
-+	}
-+
-+	return nr_cpu_ids;
-+}
-+
-+static int riscv_iommu_pmu_online_cpu(unsigned int cpu, struct hlist_node *node)
-+{
-+	struct riscv_iommu_pmu *iommu_pmu;
-+	unsigned int target_cpu;
-+
-+	iommu_pmu = hlist_entry_safe(node, struct riscv_iommu_pmu, node);
-+
-+	if (READ_ONCE(iommu_pmu->on_cpu) != -1)
-+		return 0;
-+
-+	target_cpu = riscv_iommu_pmu_bind_cpu(iommu_pmu, nr_cpu_ids);
-+	if (target_cpu >= nr_cpu_ids) {
-+		/* on_cpu stays unset, so a later callback tries again */
-+		pr_debug("failed to point irq %u at any online cpu\n",
-+			 iommu_pmu->irq);
-+		return 0;
-+	}
-+
-+	WRITE_ONCE(iommu_pmu->on_cpu, target_cpu);
-+
-+	return 0;
-+}
-+
-+static int riscv_iommu_pmu_offline_cpu(unsigned int cpu, struct hlist_node *node)
-+{
-+	struct riscv_iommu_pmu *iommu_pmu;
-+	unsigned int target_cpu;
-+
-+	iommu_pmu = hlist_entry_safe(node, struct riscv_iommu_pmu, node);
-+
-+	if (READ_ONCE(iommu_pmu->on_cpu) != (int)cpu)
-+		return 0;
-+
-+	/*
-+	 * The last online CPU cannot be taken offline, and this callback runs
-+	 * before __cpu_disable() clears the outgoing CPU from cpu_online_mask,
-+	 * so there is always another online CPU to move to.
-+	 *
-+	 * Should that ever fail, unset on_cpu rather than leaving it pointing at
-+	 * the CPU which is going away. That keeps events from being bound to a
-+	 * dead CPU and lets riscv_iommu_pmu_online_cpu() pick again once a CPU
-+	 * comes back.
-+	 */
-+	target_cpu = riscv_iommu_pmu_bind_cpu(iommu_pmu, cpu);
-+	if (WARN_ON_ONCE(target_cpu >= nr_cpu_ids)) {
-+		WRITE_ONCE(iommu_pmu->on_cpu, -1);
-+	} else {
-+		WRITE_ONCE(iommu_pmu->on_cpu, target_cpu);
-+		/*
-+		 * perf_pmu_migrate_context() runs ->del() on cpu and ->add()
-+		 * on target_cpu with a synchronize_rcu() gap in between.
-+		 * riscv_iommu_pmu_irq_handler() can run concurrently with
-+		 * either step, on whichever CPU the interrupt physically
-+		 * lands on - pmu->lock serialises it against them instead of
-+		 * racing.
-+		 */
-+		perf_pmu_migrate_context(&iommu_pmu->pmu, cpu, target_cpu);
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * pmu->lock serialises this against ->add()/->del()/->start()/->stop(),
-+ * which can run on a different CPU than this while
-+ * riscv_iommu_pmu_offline_cpu() is migrating events across a
-+ * perf_pmu_migrate_context() call.
-+ */
-+static irqreturn_t riscv_iommu_pmu_irq_handler(int irq, void *dev_id)
-+{
-+	struct riscv_iommu_pmu *pmu = (struct riscv_iommu_pmu *)dev_id;
-+	DECLARE_BITMAP(ovf_bitmap, BITS_PER_TYPE(u64));
-+	unsigned long irqflags;
-+	u32 ovf, idx, inhibit;
-+
-+	/* Check whether this interrupt is for PMU */
-+	if (!(readl_relaxed(pmu->reg + RISCV_IOMMU_REG_IPSR) & RISCV_IOMMU_IPSR_PMIP))
-+		return IRQ_NONE;
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+
-+	inhibit = riscv_iommu_pmu_stop_all(pmu);
-+
-+	ovf = readl(pmu->reg + RISCV_IOMMU_REG_IOCOUNTOVF);
-+	if (ovf) {
-+		bitmap_from_u64(ovf_bitmap, ovf);
-+		for_each_set_bit(idx, ovf_bitmap, pmu->num_counters) {
-+			struct perf_event *event = pmu->events[idx];
-+
-+			/*
-+			 * pmu->events[idx] only means the counter is allocated,
-+			 * not that it is counting. A counter which has not been
-+			 * started has no valid prev_count to compute a delta
-+			 * against, and one which has been stopped must not be
-+			 * reprogrammed here. The overflow bit still has to be
-+			 * cleared below in either case, including when the event
-+			 * was already removed by riscv_iommu_pmu_del(),
-+			 * otherwise the interrupt would stay pending forever.
-+			 */
-+			if (event && !(event->hw.state & PERF_HES_STOPPED)) {
-+				riscv_iommu_pmu_update(event);
-+				riscv_iommu_pmu_set_period(event);
-+			}
-+
-+			riscv_iommu_pmu_clear_ovf(pmu, idx);
-+		}
-+	}
-+
-+	/* Clear performance monitoring interrupt pending bit */
-+	writel_relaxed(RISCV_IOMMU_IPSR_PMIP, pmu->reg + RISCV_IOMMU_REG_IPSR);
-+
-+	riscv_iommu_pmu_start_all(pmu, inhibit);
-+
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static unsigned int riscv_iommu_pmu_get_irq_num(struct riscv_iommu_device *iommu)
-+{
-+	/* Reuse ICVEC.CIV mask for all interrupt vectors mapping */
-+	int vec = (iommu->icvec >> (RISCV_IOMMU_INTR_PM * 4)) & RISCV_IOMMU_ICVEC_CIV;
-+
-+	return iommu->irqs[vec];
-+}
-+
-+static int riscv_iommu_pmu_request_irq(struct auxiliary_device *auxdev,
-+				       struct riscv_iommu_device *iommu,
-+				       struct riscv_iommu_pmu *pmu)
-+{
-+	/*
-+	 * Bind the handler to the auxiliary device, which is the same devres
-+	 * scope that frees @pmu. Requesting it on the parent iommu device
-+	 * would keep the handler registered with a dangling dev_id once @pmu
-+	 * is freed, either on a later probe failure or on device removal.
-+	 *
-+	 * IRQF_SHARED is required because ICVEC maps the performance
-+	 * monitoring source onto one of the vectors the iommu driver already
-+	 * requested for its queues whenever fewer than RISCV_IOMMU_INTR_COUNT
-+	 * vectors are available. Both requesters have to agree on sharing, or
-+	 * this one is rejected with -EBUSY. IRQF_ONESHOT does not have to be
-+	 * matched by hand: devm_request_irq() adds IRQF_COND_ONESHOT, so this
-+	 * handler adopts whatever the first requester picked.
-+	 */
-+	return devm_request_irq(&auxdev->dev, pmu->irq, riscv_iommu_pmu_irq_handler,
-+				IRQF_SHARED | IRQF_NOBALANCING,
-+				dev_name(iommu->dev), pmu);
-+}
-+
-+static void riscv_iommu_pmu_remove_cpuhp_instance(void *data)
-+{
-+	struct riscv_iommu_pmu *pmu = data;
-+
-+	cpuhp_state_remove_instance_nocalls(cpuhp_state, &pmu->node);
-+}
-+
-+static void riscv_iommu_pmu_do_unregister(void *data)
-+{
-+	struct riscv_iommu_pmu *pmu = data;
-+
-+	perf_pmu_unregister(&pmu->pmu);
-+}
-+
-+static int riscv_iommu_pmu_probe(struct auxiliary_device *auxdev,
-+				 const struct auxiliary_device_id *id)
-+{
-+	struct riscv_iommu_device *iommu_dev = dev_get_platdata(&auxdev->dev);
-+	struct riscv_iommu_pmu *iommu_pmu;
-+	void __iomem *addr;
-+	char *name;
-+	int ret;
-+
-+	iommu_pmu = devm_kzalloc(&auxdev->dev, sizeof(*iommu_pmu), GFP_KERNEL);
-+	if (!iommu_pmu)
-+		return -ENOMEM;
-+
-+	iommu_pmu->reg = iommu_dev->reg;
-+
-+	raw_spin_lock_init(&iommu_pmu->lock);
-+
-+	/*
-+	 * Counter number and width are hardware-implemented, detect them by
-+	 * writing 1s and reading back which bits stuck.
-+	 *
-+	 * The specification requires a minimum of one programmable event
-+	 * counter besides the cycles counter when capabilities.HPM is 1,
-+	 * which is the condition under which this device is created. So a
-+	 * compliant implementation always reports at least two counters, and
-+	 * both IOHPMCYCLES and the first IOHPMCTR are always present. A
-+	 * readback which says otherwise is non-compliant hardware and is
-+	 * rejected rather than worked around.
-+	 *
-+	 * The implemented counters are assumed to be consecutive, so that
-+	 * hweight32() of the IOCOUNTINH readback can be used as the bound on
-+	 * valid counter indices.
-+	 *
-+	 * The counter masks are also assumed to be a contiguous run of bits
-+	 * starting at bit 0, which is what riscv_iommu_pmu_update() relies on
-+	 * when it masks the difference of two samples to handle wraparound.
-+	 */
-+	addr = iommu_pmu->reg + RISCV_IOMMU_REG_IOCOUNTINH;
-+	writel(RISCV_IOMMU_IOCOUNTINH_HPM, addr);
-+	iommu_pmu->num_counters = hweight32(readl(addr));
-+	if (iommu_pmu->num_counters < 2) {
-+		dev_err(&auxdev->dev, "hardware reports %u counter(s)\n",
-+			iommu_pmu->num_counters);
-+		return -ENODEV;
-+	}
-+
-+	/* Bit 63 of IOHPMCYCLES is the OF bit, not part of the counter */
-+	addr = iommu_pmu->reg + RISCV_IOMMU_REG_IOHPMCYCLES;
-+	riscv_iommu_pmu_writeq(RISCV_IOMMU_IOHPMCYCLES_COUNTER, addr);
-+	iommu_pmu->cycle_cntr_mask = riscv_iommu_pmu_readq(addr) &
-+				     RISCV_IOMMU_IOHPMCYCLES_COUNTER;
-+	if (!iommu_pmu->cycle_cntr_mask) {
-+		dev_err(&auxdev->dev, "cycles counter is not implemented\n");
-+		return -ENODEV;
-+	}
-+
-+	/* Assume the width of all event counters are the same */
-+	addr = iommu_pmu->reg + RISCV_IOMMU_REG_IOHPMCTR_BASE;
-+	riscv_iommu_pmu_writeq(RISCV_IOMMU_IOHPMCTR_COUNTER, addr);
-+	iommu_pmu->event_cntr_mask = riscv_iommu_pmu_readq(addr);
-+	if (!iommu_pmu->event_cntr_mask) {
-+		dev_err(&auxdev->dev, "event counter is not implemented\n");
-+		return -ENODEV;
-+	}
-+
-+	iommu_pmu->pmu = (struct pmu) {
-+		.module		= THIS_MODULE,
-+		.parent		= &auxdev->dev,
-+		.task_ctx_nr	= perf_invalid_context,
-+		.event_init	= riscv_iommu_pmu_event_init,
-+		.add		= riscv_iommu_pmu_add,
-+		.del		= riscv_iommu_pmu_del,
-+		.start		= riscv_iommu_pmu_start,
-+		.stop		= riscv_iommu_pmu_stop,
-+		.read		= riscv_iommu_pmu_read,
-+		.attr_groups	= riscv_iommu_pmu_attr_grps,
-+		.capabilities	= PERF_PMU_CAP_NO_EXCLUDE,
-+	};
-+
-+	auxiliary_set_drvdata(auxdev, iommu_pmu);
-+
-+	name = devm_kasprintf(&auxdev->dev, GFP_KERNEL,
-+			      "riscv_iommu_pmu_%u", auxdev->id);
-+	if (!name) {
-+		dev_err(&auxdev->dev, "Failed to create name riscv_iommu_pmu_%u\n",
-+			auxdev->id);
-+		return -ENOMEM;
-+	}
-+
-+	iommu_pmu->numa_node = dev_to_node(iommu_dev->dev);
-+	iommu_pmu->irq = riscv_iommu_pmu_get_irq_num(iommu_dev);
-+
-+	ret = riscv_iommu_pmu_request_irq(auxdev, iommu_dev, iommu_pmu);
-+	if (ret) {
-+		dev_err(&auxdev->dev, "Failed to request irq %s: %d\n", name, ret);
-+		return ret;
-+	}
-+
-+	/*
-+	 * Bind all events to the same cpu context to avoid race enabling.
-+	 * riscv_iommu_pmu_online_cpu() picks the CPU and sets the irq
-+	 * affinity for us once the instance is registered below.
-+	 */
-+	iommu_pmu->on_cpu = -1;
-+
-+	ret = cpuhp_state_add_instance(cpuhp_state, &iommu_pmu->node);
-+	if (ret) {
-+		dev_err(&auxdev->dev, "Failed to register hotplug %s: %d\n", name, ret);
-+		return ret;
-+	}
-+
-+	ret = devm_add_action_or_reset(&auxdev->dev,
-+				       riscv_iommu_pmu_remove_cpuhp_instance,
-+				       iommu_pmu);
-+	if (ret)
-+		return ret;
-+
-+	ret = perf_pmu_register(&iommu_pmu->pmu, name, -1);
-+	if (ret) {
-+		dev_err(&auxdev->dev, "Failed to register %s: %d\n", name, ret);
-+		return ret;
-+	}
-+
-+	ret = devm_add_action_or_reset(&auxdev->dev,
-+				       riscv_iommu_pmu_do_unregister,
-+				       iommu_pmu);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * The PMU name only carries the aux dev id, not the iommu dev name, so
-+	 * find the iommu dev name here to map this PMU back to its iommu dev.
-+	 */
-+	dev_info(&auxdev->dev, "%s: Registered with %u counters (iommu %s)\n",
-+		 name, iommu_pmu->num_counters, dev_name(iommu_dev->dev));
-+
-+	return 0;
-+}
-+
-+static const struct auxiliary_device_id riscv_iommu_pmu_id_table[] = {
-+	{ .name = "riscv-iommu.pmu" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(auxiliary, riscv_iommu_pmu_id_table);
-+
-+static struct auxiliary_driver iommu_pmu_driver = {
-+	.driver = {
-+		.suppress_bind_attrs = true,
-+	},
-+	.probe		= riscv_iommu_pmu_probe,
-+	.id_table	= riscv_iommu_pmu_id_table,
-+};
-+
-+static int __init riscv_iommu_pmu_init(void)
-+{
-+	int ret;
-+
-+	cpuhp_state = cpuhp_setup_state_multi(CPUHP_AP_ONLINE_DYN,
-+					      "perf/riscv/iommu:online",
-+					      riscv_iommu_pmu_online_cpu,
-+					      riscv_iommu_pmu_offline_cpu);
-+	if (cpuhp_state < 0)
-+		return cpuhp_state;
-+
-+	ret = auxiliary_driver_register(&iommu_pmu_driver);
-+	if (ret)
-+		cpuhp_remove_multi_state(cpuhp_state);
-+
-+	return ret;
-+}
-+module_init(riscv_iommu_pmu_init);
-+
-+MODULE_DESCRIPTION("RISC-V IOMMU PMU");
-+MODULE_LICENSE("GPL");
--- 
-2.43.7
-
+Cj4+IEhpIEZyYW5rLAo+Pgo+Pgo+PiBGcm9tOiBGcmFuayBMaSA8RnJhbmsubGlAb3NzLm54cC5j
+b20+Cj4+IERhdGU6IDIwMjYtMDktMDQgMDM6MjY6MzYKPj4gVG86ICBSdWl6aGUgWmhvdSA8emhv
+dXJ1aXpoZUByZXNuaWNzLmNvbT4KPj4gQ2M6ICBWaW5vZCBLb3VsIDx2a291bEBrZXJuZWwub3Jn
+PixCYXNhdmFyYWogTmF0aWthciA8QmFzYXZhcmFqLk5hdGlrYXJAYW1kLmNvbT4sTG9nYW4gR3Vu
+dGhvcnBlIDxsb2dhbmdAZGVsdGF0ZWUuY29tPixPcnNvbiBaaGFpIDxvcnNvbnpoYWlAZ21haWwu
+Y29tPixCYW9saW4gV2FuZyA8YmFvbGluLndhbmdAbGludXguYWxpYmFiYS5jb20+LEZyYW5rIExp
+IDxGcmFuay5MaUBrZXJuZWwub3JnPixDaHVueWFuIFpoYW5nIDx6aGFuZy5seXJhQGdtYWlsLmNv
+bT4sZG1hZW5naW5lQHZnZXIua2VybmVsLm9yZyxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3Jn
+Cj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8zXSBkbWFlbmdpbmU6IHB0ZG1hOiBSZW1vdmUgb2Jz
+b2xldGUgMzItYml0IERNQSBtYXNrIGZhbGxiYWNrPk9uIFRodSwgU2VwIDAzLCAyMDI2IGF0IDA3
+OjU0OjM5UE0gKzA4MDAsIFJ1aXpoZSBaaG91IHdyb3RlOgo+PiA+PiBbWW91IGRvbid0IG9mdGVu
+IGdldCBlbWFpbCBmcm9tIHpob3VydWl6aGVAcmVzbmljcy5jb20uIExlYXJuIHdoeSB0aGlzIGlz
+IGltcG9ydGFudCBhdCBodHRwczovL2FrYS5tcy9MZWFybkFib3V0U2VuZGVySWRlbnRpZmljYXRp
+b24gXQo+PiA+Pgo+PiA+PiBUaGUgRE1BIEFQSSBndWFyYW50ZWVzIHN1cHBvcnQgZm9yIG1hc2tz
+IG9mIDMyIGJpdHMgb3Igd2lkZXIgYW5kCj4+ID4+IGV4cGxpY2l0bHkgaWRlbnRpZmllcyByZXRy
+eWluZyBhIDMyLWJpdCBtYXNrIGFmdGVyIGEgd2lkZXIgcmVxdWVzdCBhcwo+PiA+PiBpbmNvcnJl
+Y3Q6Cj4+ID4+IGh0dHBzOi8vZG9jcy5rZXJuZWwub3JnL2NvcmUtYXBpL2RtYS1hcGktaG93dG8u
+aHRtbCNkbWEtYWRkcmVzc2luZy1jYXBhYmlsaXRpZXMKPj4gPj4KPj4gPj4gUmVtb3ZlIHRoZSBv
+YnNvbGV0ZSBmYWxsYmFjayB3aGlsZSByZXRhaW5pbmcgdGhlIGVycm9yIGNoZWNrIHNvIHRoYXQg
+YQo+PiA+PiBnZW51aW5lIERNQSBzZXR1cCBmYWlsdXJlIGlzIHN0aWxsIHJlcG9ydGVkIGFuZCBh
+Ym9ydHMgaW5pdGlhbGl6YXRpb24uCj4+ID4+Cj4+ID4+IFNpZ25lZC1vZmYtYnk6IFJ1aXpoZSBa
+aG91IDx6aG91cnVpemhlQHJlc25pY3MuY29tPgo+PiA+PiAtLS0KPj4gPj4gIGRyaXZlcnMvZG1h
+L2FtZC9wdGRtYS9wdGRtYS1wY2kuYyB8IDggKystLS0tLS0KPj4gPj4gIDEgZmlsZSBjaGFuZ2Vk
+LCAyIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4+ID4+Cj4+ID4+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2RtYS9hbWQvcHRkbWEvcHRkbWEtcGNpLmMgYi9kcml2ZXJzL2RtYS9hbWQvcHRk
+bWEvcHRkbWEtcGNpLmMKPj4gPj4gaW5kZXggMjI3MzlmZjBjM2M1Li5kMzZiYjljNjczMjUgMTAw
+NjQ0Cj4+ID4+IC0tLSBhL2RyaXZlcnMvZG1hL2FtZC9wdGRtYS9wdGRtYS1wY2kuYwo+PiA+PiAr
+KysgYi9kcml2ZXJzL2RtYS9hbWQvcHRkbWEvcHRkbWEtcGNpLmMKPj4gPj4gQEAgLTE3OCwxMiAr
+MTc4LDggQEAgc3RhdGljIGludCBwdF9wY2lfcHJvYmUoc3RydWN0IHBjaV9kZXYgKnBkZXYsIGNv
+bnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkICppZCkKPj4gPj4KPj4gPj4gICAgICAgICByZXQgPSBk
+bWFfc2V0X21hc2tfYW5kX2NvaGVyZW50KGRldiwgRE1BX0JJVF9NQVNLKDQ4KSk7Cj4+ID4+ICAg
+ICAgICAgaWYgKHJldCkgewo+PiA+PiAtICAgICAgICAgICAgICAgcmV0ID0gZG1hX3NldF9tYXNr
+X2FuZF9jb2hlcmVudChkZXYsIERNQV9CSVRfTUFTSygzMikpOwo+PiA+PiAtICAgICAgICAgICAg
+ICAgaWYgKHJldCkgewo+PiA+PiAtICAgICAgICAgICAgICAgICAgICAgICBkZXZfZXJyKGRldiwg
+ImRtYV9zZXRfbWFza19hbmRfY29oZXJlbnQgZmFpbGVkICglZClcbiIsCj4+ID4+IC0gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcmV0KTsKPj4gPj4gLSAgICAgICAgICAgICAgICAgICAg
+ICAgZ290byBlX2VycjsKPj4gPj4gLSAgICAgICAgICAgICAgIH0KPj4gPj4gKyAgICAgICAgICAg
+ICAgIGRldl9lcnIoZGV2LCAiZG1hX3NldF9tYXNrX2FuZF9jb2hlcmVudCBmYWlsZWQgKCVkKVxu
+IiwgcmV0KTsKPj4gPj4gKyAgICAgICAgICAgICAgIGdvdG8gZV9lcnI7Cj4+ID4KPj4gPmFsc28g
+bmVlZG4ndCBjaGVjayByZXR1cm4gdmFsdWUsIGl0IGFsd2F5cyByZXR1cm4gc3VjY2VzcyBpZiBt
+YXNrID49IDMyLgo+Cj5BZGQgQ2hyaXN0b3BoZSBKQUlMTEVUIGFuZCBDaHJpc3RvcGggSGVsbHdp
+Zwo+Cj5odHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvNmE0ZGYzZTBhMDg0OWYxNzlmOTc0N2Y0
+N2I5YzhjYWU1M2IyOWI1OS4xNjQxNzUyNjkyLmdpdC5jaHJpc3RvcGhlLmphaWxsZXRAd2FuYWRv
+by5mci8KPgo+RnJhbmsKCkhpIENocmlzdG9waGUsCgpJIGR1ZyB1cCB5b3VyIGF1ZGl0IGJhY2sg
+aW4gMjAyMiwgYW5kIGl0IHNlZW1zIHRoYXQgeW91IGRpZCBhIHNpbWlsYXIgaW52ZXN0aWdhdGlv
+bjogCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC85N2VmMWI3My1hOWE0LTYwMTgtZDUyYy00
+MTA4ZmY5ZGU3Y2FAd2FuYWRvby5mci8KTWluZCBzaGFyaW5nIHlvdXIgdGhvdWdodHMgb24gdGhp
+cyBtYXR0ZXI/IEFzIGFwcGFyZW50bHkgbXkgYXVkaXQgdGVsbHMgbWUgdGhhdCAKNjQtYml0IG1h
+c2sgbWF5IGZhaWwgb24gY2VydGFpbiBhcmNoLCBzbyB0aGUgcmV0dXJuIGNoZWNrIGlzIG5lZWRl
+ZCBldmVuIGluIHRoYXQgY2FzZS4KCkFsc28sIEZyYW5rLCBJIHNlbnQgdGhpcyB0byBIZWxsd2ln
+LCBhbmQgaGUgc3VnZ2VzdHMgbWUgdG8gZml4IHRob3NlIGJhY2tlbmRzOgpodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9hbGwvMjAyNjA5MDcwNTQ3MzMuR0EzMTQ4MUBsc3QuZGUvCkJ1dCBvbmNlIGFn
+YWluLCBJIGFtIG5vdCB3ZWxsLWluZm9ybWVkIG9uIHRob3NlIHBhcnRpY3VsYXIgYmFja2VuZHMg
+YW5kIHRoZWlyIEhXIHJlcXVpcmVtZW50cywKc28gSSdtIG5vdCBzdXJlIHdoYXQgZXhhY3RseSBz
+aG91bGQgYmUgZG9uZSBoZXJlLiBNYXliZSBjYyB0aGUgcGVvcGxlIHdobyBtYWludGFpbiB0aGVz
+ZT8KCkJlc3QsClJ1aXpoZQo+Cj4+Cj4+IEkgZGlkIHNvbWUgbW9yZSBjaGVja2luZyBhZnRlciB5
+b3VyIHJlcGx5IHRvIG1ha2Ugc3VyZSBJIHVuZGVyc3RhbmQKPj4gd2hldGhlciBkbWFfc2V0X21h
+c2tfYW5kX2NvaGVyZW50KCkgY2FuIGFjdHVhbGx5IGZhaWwgZm9yIGEgbWFzayB3aWRlcgo+PiB0
+aGFuIDMyIGJpdHMsIGFuZCB3aGV0aGVyIGtlZXBpbmcgdGhlIHJldHVybi12YWx1ZSBjaGVjayBp
+cyBuZWNlc3NhcnkuCj4+Cj4+IEkgYWxzbyByZWFkIHlvdXIgQXVndXN0IGRpc2N1c3Npb24gd2l0
+aCBNaWNoYWwgUGVjaW8gb24gdGhlIHNhbWUKPj4gcXVlc3Rpb246Cj4+Cj4+IGh0dHBzOi8vbG9y
+ZS5rZXJuZWwub3JnL2FsbC9hb010eTlEdnQyYm5XbTc0QFNNVzAxNTMxOC8KPj4KPj4gSW4gdGhh
+dCBkaXNjdXNzaW9uIHlvdSBwb2ludGVkIG91dCB0aGF0IGRldi0+ZG1hX21hc2sgc2hvdWxkIGFs
+cmVhZHkgYmUKPj4gaW5pdGlhbGl6ZWQgYnkgdGhlIGJ1cyBiZWZvcmUgZHJpdmVyIHByb2JlLCBh
+bmQgYXNrZWQgd2hldGhlciB0aGVyZSBhcmUKPj4gYW55IGRtYV9zdXBwb3J0ZWQoKSBpbXBsZW1l
+bnRhdGlvbnMgd2hpY2ggY2FuIGFjdHVhbGx5IHJlamVjdCBzdWNoIGEKPj4gbWFzay4KPj4KPj4g
+SSBhZ3JlZSB0aGF0ICFkZXYtPmRtYV9tYXNrIGRvZXMgbm90IGxvb2sgbGlrZSBhbiBpbnRlcmVz
+dGluZyBmYWlsdXJlCj4+IGNhc2UgZm9yIGEgbm9ybWFsbHkgcHJvYmVkIGRldmljZS4gSG93ZXZl
+ciwgYWZ0ZXIgZ29pbmcgdGhyb3VnaCB0aGUKPj4gY3VycmVudCBkbWFfc3VwcG9ydGVkKCkgcGF0
+aHMgYW5kIHRoZSBpbi10cmVlIC5kbWFfc3VwcG9ydGVkIGNhbGxiYWNrcywKPj4gSSBmb3VuZCBz
+ZXZlcmFsIG90aGVyIGNhc2VzIHdoaWNoIGFwcGVhciB0byBtYWtlIHRoZSBzdHJvbmdlciAiY2Fu
+bm90Cj4+IGZhaWwgZm9yID4zMiBiaXRzIiBzdGF0ZW1lbnQgaW5jb3JyZWN0Lgo+Pgo+PiBUaGUg
+Y3VycmVudCBwYXRoIGluIGtlcm5lbC9kbWEvbWFwcGluZy5jIGlzOgo+Pgo+PiBzdGF0aWMgaW50
+IGRtYV9zdXBwb3J0ZWQoc3RydWN0IGRldmljZSAqZGV2LCB1NjQgbWFzaykKPj4gewo+PiAgICAg
+ICAgIGNvbnN0IHN0cnVjdCBkbWFfbWFwX29wcyAqb3BzID0gZ2V0X2RtYV9vcHMoZGV2KTsKPj4K
+Pj4gICAgICAgICBpZiAodXNlX2RtYV9pb21tdShkZXYpKSB7Cj4+ICAgICAgICAgICAgICAgICBp
+ZiAoV0FSTl9PTihvcHMpKQo+PiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7
+Cj4+ICAgICAgICAgICAgICAgICByZXR1cm4gdHJ1ZTsKPj4gICAgICAgICB9Cj4+Cj4+ICAgICAg
+ICAgaWYgKG9wcykgewo+PiAgICAgICAgICAgICAgICAgaWYgKCFvcHMtPmRtYV9zdXBwb3J0ZWQp
+Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiB0cnVlOwo+PiAgICAgICAgICAgICAg
+ICAgcmV0dXJuIG9wcy0+ZG1hX3N1cHBvcnRlZChkZXYsIG1hc2spOwo+PiAgICAgICAgIH0KPj4K
+Pj4gICAgICAgICByZXR1cm4gZG1hX2RpcmVjdF9zdXBwb3J0ZWQoZGV2LCBtYXNrKTsKPj4gfQo+
+Pgo+PiBhbmQgZG1hX3NldF9tYXNrKCkgZG9lczoKPj4KPj4gaWYgKCFkZXYtPmRtYV9tYXNrIHx8
+ICFkbWFfc3VwcG9ydGVkKGRldiwgbWFzaykpCj4+ICAgICAgICAgcmV0dXJuIC1FSU87Cj4+Cj4+
+IEZvciB0aGUgZ2VuZXJpYyBkaXJlY3QtRE1BIHBhdGgsIHRoZSBzaXR1YXRpb24gaXMgY2xlYXI6
+Cj4+Cj4+IGludCBkbWFfZGlyZWN0X3N1cHBvcnRlZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHU2NCBt
+YXNrKQo+PiB7Cj4+ICAgICAgICAgLi4uCj4+Cj4+ICAgICAgICAgaWYgKG1hc2sgPj0gRE1BX0JJ
+VF9NQVNLKDMyKSkKPj4gICAgICAgICAgICAgICAgIHJldHVybiAxOwo+Pgo+PiAgICAgICAgIC4u
+Lgo+PiB9Cj4+Cj4+IFNvIGRtYV9kaXJlY3Rfc3VwcG9ydGVkKCkgaXRzZWxmIGNhbm5vdCByZWpl
+Y3QgYSA+PTMyLWJpdCBtYXNrLgo+Pgo+PiBIb3dldmVyLCB0aGlzIGRvZXMgbm90IGFwcGVhciB0
+byBiZSB0cnVlIGZvciBldmVyeSBwYXRoIHRocm91Z2gKPj4gZG1hX3N1cHBvcnRlZCgpLgo+Pgo+
+PiBNeSBhdWRpdCBvZiB0aGUgcmVsZXZhbnQgY3VycmVudCBjYWxsYmFja3MgbG9va3Mgcm91Z2hs
+eSBsaWtlIHRoaXM6Cj4+Cj4+ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKy0tLS0tLS0t
+LS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKPj4gfCBCYWNrZW5kIC8gY2Fs
+bGJhY2sgICAgICAgICAgICB8ID4zMiBjYW4gZmFpbD8gICAgICAgICAgIHwgNjQgY2FuIGZhaWw/
+ICAgICAgICAgICAgICAgIHwKPj4gKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwo+PiB8IGRtYV9kaXJlY3Rf
+c3VwcG9ydGVkKCkgICAgICAgIHwgTm8gICAgICAgICAgICAgICAgICAgICAgICAgIHwgTm8gICAg
+ICAgICAgICAgICAgICAgICAgICAgIHwKPj4gfCBkZWZhdWx0IGRtYS1pb21tdSAgICAgICAgICAg
+ICAgfCBZZXMsIGNvbmZsaWN0aW5nICAgICAgIHwgWWVzLCBjb25mbGljdGluZyAgICAgICB8Cj4+
+IHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IGRtYV9v
+cHMgc3RhdGUgICAgICAgfCBkbWFfb3BzIHN0YXRlICAgICAgICB8Cj4+IHwgaWJtZWJ1c19kbWFf
+c3VwcG9ydGVkKCkgICAgfCBZZXMsICE9NjQgZmFpbHMgICAgICAgICB8IE5vICAgICAgICAgICAg
+ICAgICAgICAgICAgICB8Cj4+IHwgeGVuX2dyYW50X2RtYV9zdXBwb3J0ZWQoKSAgfCBZZXMsICE9
+NjQgZmFpbHMgICAgICAgICB8IE5vICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4+IHwgeGVu
+X3N3aW90bGJfZG1hX3N1cHBvcnRlZCB8IFllcywgdGhyZXNob2xkICAgICAgICAgfCBOb3QgZHVl
+IHRvIHdpZHRoICAgfAo+PiB8IHBwYyBkbWFfaW9tbXVfc3VwcG9ydGVkKCkgIHwgWWVzICAgICAg
+ICAgICAgICAgICAgICAgICB8IFllcywgaWYgbm8gdGFibGUgICAgICAgIHwKPj4gfCBwYXJpc2Mg
+c2JhX2RtYV9zdXBwb3J0ZWQoKSAgfCBZZXMgICAgICAgICAgICAgICAgICAgICAgICAgfCBZZXMs
+IGlmIG5vIElPQyAgICAgICAgICAgfAo+PiB8IHBhcmlzYyBjY2lvX3N1cHBvcnRlZCgpICAgICAg
+ICAgfCBObyBmb3IgPj0zMiAgICAgICAgICB8IE5vIGZvciB2YWxpZCBkZXYgICAgICAgfAo+PiB8
+IGFscGhhX3BjaV9zdXBwb3J0ZWQoKSAgICAgICAgICAgfCBZZXMsIHRocmVzaG9sZCAvICAgICB8
+IENhbiBmYWlsIGlmIG5vICAgICAgICAgICAgIHwKPj4gfCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHwgbWFwcGluZyBkZXBlbmRlbnQgICB8IHVzYWJsZSBE
+TUEgcGF0aHwKPj4gfCBkbWFfZHVtbXlfc3VwcG9ydGVkKCkgICAgICB8IFllcywgYWx3YXlzICAg
+ICAgICAgICB8IFllcywgYWx3YXlzICAgICAgICAgICAgICAgIHwKPj4gKy0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tKwo+Pgo+PiBUaGVyZSBzZWVtIHRvIGJlIHR3byBzZXBhcmF0ZSBpc3N1ZXMgaGVyZS4KPj4K
+Pj4gRmlyc3QsICJhbnkgbWFzayB3aWRlciB0aGFuIDMyIGJpdHMgY2Fubm90IGZhaWwiIGhhcyBk
+aXJlY3QKPj4gY291bnRlcmV4YW1wbGVzLgo+Pgo+PiBGb3IgZXhhbXBsZSwgYXJjaC9wb3dlcnBj
+L3BsYXRmb3Jtcy9wc2VyaWVzL2libWVidXMuYyBjb250YWluczoKPj4KPj4gc3RhdGljIGludCBp
+Ym1lYnVzX2RtYV9zdXBwb3J0ZWQoc3RydWN0IGRldmljZSAqZGV2LCB1NjQgbWFzaykKPj4gewo+
+PiAgICAgICAgIHJldHVybiBtYXNrID09IERNQV9CSVRfTUFTSyg2NCk7Cj4+IH0KPj4KPj4gYW5k
+IGluc3RhbGxzIGl0IGluIGlibWVidXNfZG1hX29wcy4KPj4KPj4gVGhlcmVmb3JlIGEgY2FsbCBz
+dWNoIGFzOgo+Pgo+PiBkbWFfc2V0X21hc2soZGV2LCBETUFfQklUX01BU0soNDApKQo+Pgo+PiB3
+aWxsIGZhaWwgZXZlbiB0aG91Z2ggdGhlIG1hc2sgaXMgd2lkZXIgdGhhbiAzMiBiaXRzLgo+Pgo+
+PiBkcml2ZXJzL3hlbi9ncmFudC1kbWEtb3BzLmMgaGFzIHRoZSBzYW1lIHJ1bGU6Cj4+Cj4+IHN0
+YXRpYyBpbnQgeGVuX2dyYW50X2RtYV9zdXBwb3J0ZWQoc3RydWN0IGRldmljZSAqZGV2LCB1NjQg
+bWFzaykKPj4gewo+PiAgICAgICAgIHJldHVybiBtYXNrID09IERNQV9CSVRfTUFTSyg2NCk7Cj4+
+IH0KPj4KPj4gYW5kIHhlbl9ncmFudF9kbWFfb3BzIGluc3RhbGxzIHRoaXMgYXMgLmRtYV9zdXBw
+b3J0ZWQuCj4+Cj4+IFNvLCBmb3IgdGhhdCBiYWNrZW5kIGFzIHdlbGwsIERNQV9CSVRfTUFTSyg0
+MCksIGZvciBleGFtcGxlLCBpcwo+PiByZWplY3RlZC4KPj4KPj4gVGhlc2UgdHdvIGNhc2VzIHNl
+ZW0gdG8gZGlyZWN0bHkgY29udHJhZGljdCB0aGUgbW9yZSBnZW5lcmFsIHN0YXRlbWVudAo+PiB0
+aGF0IGRtYV9zZXRfbWFza19hbmRfY29oZXJlbnQoKSBjYW5ub3QgZmFpbCBmb3IgYSBtYXNrIHdp
+ZGVyIHRoYW4KPj4gMzIgYml0cy4KPj4KPj4gVGhlcmUgYXJlIGFsc28gY2FzZXMgd2hlcmUgZXZl
+biBETUFfQklUX01BU0soNjQpIGNhbiBmYWlsLgo+Pgo+PiBPbmUgZXhhbXBsZSBpcyB0aGUgUG93
+ZXJQQyBsZWdhY3kgSU9NTVUgYmFja2VuZCBpbgo+PiBhcmNoL3Bvd2VycGMva2VybmVsL2RtYS1p
+b21tdS5jOgo+Pgo+PiBpbnQgZG1hX2lvbW11X2RtYV9zdXBwb3J0ZWQoc3RydWN0IGRldmljZSAq
+ZGV2LCB1NjQgbWFzaykKPj4gewo+PiAgICAgICAgIHN0cnVjdCBpb21tdV90YWJsZSAqdGJsOwo+
+Pgo+PiAgICAgICAgIC4uLgo+Pgo+PiAgICAgICAgIHRibCA9IGdldF9pb21tdV90YWJsZV9iYXNl
+KGRldik7Cj4+Cj4+ICAgICAgICAgaWYgKCF0YmwpIHsKPj4gICAgICAgICAgICAgICAgIGRldl9l
+cnIoZGV2LAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAiV2FybmluZzogSU9NTVUgZG1hIG5v
+dCBzdXBwb3J0ZWQ6ICIKPj4gICAgICAgICAgICAgICAgICAgICAgICAgIm1hc2sgMHglMDhsbHgs
+IHRhYmxlIHVuYXZhaWxhYmxlXG4iLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICBtYXNrKTsK
+Pj4gICAgICAgICAgICAgICAgIHJldHVybiAwOwo+PiAgICAgICAgIH0KPj4KPj4gICAgICAgICBp
+ZiAodGJsLT5pdF9vZmZzZXQgPgo+PiAgICAgICAgICAgICAobWFzayA+PiB0YmwtPml0X3BhZ2Vf
+c2hpZnQpKSB7Cj4+ICAgICAgICAgICAgICAgICAuLi4KPj4gICAgICAgICAgICAgICAgIHJldHVy
+biAwOwo+PiAgICAgICAgIH0KPj4KPj4gICAgICAgICByZXR1cm4gMTsKPj4gfQo+Pgo+PiBJZiBn
+ZXRfaW9tbXVfdGFibGVfYmFzZSgpIHJldHVybnMgTlVMTCwgdGhlIGNhbGxiYWNrIHJlamVjdHMg
+dGhlIG1hc2sKPj4gcmVnYXJkbGVzcyBvZiB3aGV0aGVyIGl0IGlzIDMyLCA0MCwgb3IgNjQgYml0
+cy4KPj4KPj4gSSB1bmRlcnN0YW5kIHRoYXQgYW4gdW5hdmFpbGFibGUgSU9NTVUgdGFibGUgbWF5
+IHJlcHJlc2VudCBhbgo+PiB1bmV4cGVjdGVkIG9yIHVudXNhYmxlIERNQSBjb25maWd1cmF0aW9u
+IHJhdGhlciB0aGFuIGFuIG9yZGluYXJ5Cj4+IGFkZHJlc3Mtd2lkdGggbGltaXRhdGlvbiwgYnV0
+IHRoYXQgc2VlbXMgZXhhY3RseSBsaWtlIGEgcmVhc29uIGZvciB0aGUKPj4gZHJpdmVyIHRvIHJl
+dGFpbiB0aGUgZXJyb3IgY2hlY2sgYW5kIGFib3J0IHByb2JlIGluc3RlYWQgb2YgcHJvY2VlZGlu
+Zwo+PiBhcyBpZiBETUEgc2V0dXAgc3VjY2VlZGVkLgo+Pgo+PiBUaGVyZSBpcyBhIHNpbWlsYXIg
+c3RhdGUtZGVwZW5kZW50IGZhaWx1cmUgaW4KPj4gZHJpdmVycy9wYXJpc2Mvc2JhX2lvbW11LmM6
+Cj4+Cj4+IGlvYyA9IEdFVF9JT0MoZGV2KTsKPj4gaWYgKCFpb2MpCj4+ICAgICAgICAgcmV0dXJu
+IDA7Cj4+Cj4+IC8qCj4+ICAqIFRoZSBtYXggSU8gVmlydCBhZGRyZXNzIHdpbGwgKmFsd2F5cyog
+PCAzMCBiaXRzLgo+PiAgKi8KPj4gcmV0dXJuIG1hc2sgPj0gLi4uOwo+Pgo+PiBGb3IgYSB2YWxp
+ZCBJT0MgdGhlIHJlcXVpcmVkIGFkZHJlc3MgcmFuZ2UgaXMgYmVsb3cgMzIgYml0cywgc28gYQo+
+PiA2NC1iaXQgbWFzayB3b3Jrcy4gQnV0IGlmIEdFVF9JT0MoZGV2KSBmYWlscywgRE1BX0JJVF9N
+QVNLKDY0KSBpcyBzdGlsbAo+PiByZWplY3RlZC4KPj4KPj4gVGhlIGRlZmF1bHQgZG1hLWlvbW11
+IHBhdGggYWxzbyBhcHBlYXJzIHRvIGNvbnRhaW4gYW4gaW50ZW50aW9uYWwKPj4gZmFpbHVyZSBj
+b25kaXRpb246Cj4+Cj4+IGlmICh1c2VfZG1hX2lvbW11KGRldikpIHsKPj4gICAgICAgICBpZiAo
+V0FSTl9PTihvcHMpKQo+PiAgICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwo+PiAgICAgICAg
+IHJldHVybiB0cnVlOwo+PiB9Cj4+Cj4+IFRoZSBpbnRlbmRlZCBzdGF0ZSBpczoKPj4KPj4gdXNl
+X2RtYV9pb21tdShkZXYpID09IHRydWUKPj4gZ2V0X2RtYV9vcHMoZGV2KSAgID09IE5VTEwKPj4K
+Pj4gYmVjYXVzZSB0aGUgZGVmYXVsdCBJT01NVSBETUEgaW1wbGVtZW50YXRpb24gZG9lcyBub3Qg
+cmVseSBvbiBhCj4+IGRtYV9tYXBfb3BzIGluc3RhbmNlLgo+Pgo+PiBIb3dldmVyLCBpZiB1c2Vf
+ZG1hX2lvbW11KGRldikgaXMgdHJ1ZSBhbmQgZ2V0X2RtYV9vcHMoZGV2KSBpcwo+PiBub24tTlVM
+TCwgZG1hX3N1cHBvcnRlZCgpIGRlbGliZXJhdGVseSByZXR1cm5zIGZhbHNlLCBpbmRlcGVuZGVu
+dCBvZgo+PiBtYXNrIHdpZHRoLgo+Pgo+PiBUaGlzIGxvb2tzIHBhcnRpY3VsYXJseSBzaWduaWZp
+Y2FudCBiZWNhdXNlIHRoaXMgd2FzIGV4cGxpY2l0bHkKPj4gZGlzY3Vzc2VkIHdoZW4gdGhlIGRl
+ZmF1bHQgZG1hLWlvbW11IGltcGxlbWVudGF0aW9uIHdhcyBjaGFuZ2VkIGZyb20KPj4gZG1hX29w
+cyBpbmRpcmVjdCBjYWxscyB0byBkaXJlY3QgY2FsbHMuCj4+Cj4+IENocmlzdG9waCBzdWdnZXN0
+ZWQgbW92aW5nIHRoZSBjb25zaXN0ZW5jeSBjaGVjayBvdXQgb2YgdGhlIGZhc3QgcGF0aAo+PiBh
+bmQgZG9pbmcgaXQgaW4gZG1hX3NldF9tYXNrKCksICJBbmQgZmFpbCB0aGUgY2FsbCB3aGlsZSB3
+ZSdyZSBhdCBpdC4iCj4+IExlb24gcmVwbGllZCB0aGF0IGhlIHdvdWxkIGFkZCBpdCB0byBkbWFf
+c3VwcG9ydGVkKCk6Cj4+Cj4+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI0MDcxODA3
+MDQwNi5HSzU2MzBAdW5yZWFsLwo+Pgo+PiBUaGUgc2FtZSBkaXNjdXNzaW9uIGFsc28gc2F5cyB0
+aGF0IHRoZSBkZWZhdWx0LUlPTU1VIHN0YXRlIGltcGxpZXMKPj4gIW9wcy4KPj4KPj4gU28gdGhl
+IHJlc3VsdGluZyBXQVJOX09OKG9wcykgcGF0aCBhcHBlYXJzIHRvIGJlIGFuIGludGVudGlvbmFs
+IHJlYXNvbgo+PiBmb3IgZG1hX3NldF9tYXNrKCkgdG8gcmV0dXJuIGFuIGVycm9yIHdoZW4gdGhl
+IERNQSBiYWNrZW5kIHN0YXRlIGlzCj4+IGluY29uc2lzdGVudCwgaW5jbHVkaW5nIHdoZW4gbWFz
+ayA9PSBETUFfQklUX01BU0soNjQpLgo+Pgo+PiBBbm90aGVyIGNvbmNyZXRlIGNhc2UgaXMgZG1h
+X2R1bW15X29wcy4KPj4KPj4ga2VybmVsL2RtYS9kdW1teS5jIGhhczoKPj4KPj4gc3RhdGljIGlu
+dCBkbWFfZHVtbXlfc3VwcG9ydGVkKHN0cnVjdCBkZXZpY2UgKmh3ZGV2LCB1NjQgbWFzaykKPj4g
+ewo+PiAgICAgICAgIHJldHVybiAwOwo+PiB9Cj4+Cj4+IHNvIGRtYV9zZXRfbWFzaygpIGZhaWxz
+IGZvciBldmVyeSBtYXNrLCBpbmNsdWRpbmcgRE1BX0JJVF9NQVNLKDY0KS4KPj4KPj4gSSBpbml0
+aWFsbHkgd29uZGVyZWQgd2hldGhlciB0aGlzIHdhcyBvbmx5IGEgdGhlb3JldGljYWwgc2VudGlu
+ZWwgdGhhdAo+PiBjb3VsZCBuZXZlciBiZSBzZWVuIGJ5IGEgZHJpdmVyIHByb2JlLCBidXQgdGhl
+cmUgaXMgYSByZWFsIHNldHVwIHBhdGgKPj4gZm9yIGl0LiBhY3BpX2RtYV9jb25maWd1cmVfaWQo
+KSBkb2VzOgo+Pgo+PiBpZiAoYXR0ciA9PSBERVZfRE1BX05PVF9TVVBQT1JURUQpIHsKPj4gICAg
+ICAgICBzZXRfZG1hX29wcyhkZXYsICZkbWFfZHVtbXlfb3BzKTsKPj4gICAgICAgICByZXR1cm4g
+MDsKPj4gfQo+Pgo+PiBTaW5jZSB0aGlzIHJldHVybnMgMCBmcm9tIERNQSBjb25maWd1cmF0aW9u
+IGFmdGVyIGluc3RhbGxpbmcKPj4gZG1hX2R1bW15X29wcywgdGhlIGRldmljZSBjYW4gY29udGlu
+dWUgdGhyb3VnaCB0aGUgZHJpdmVyLWNvcmUgc2V0dXAKPj4gd2l0aCBETUEgZGVsaWJlcmF0ZWx5
+IG1hcmtlZCB1bnN1cHBvcnRlZC4gSWYgc3VjaCBhIERNQS11c2luZyBkcml2ZXIKPj4gdGhlbiBj
+YWxscyBkbWFfc2V0X21hc2tfYW5kX2NvaGVyZW50KCksIHRoZSByZXR1cm4tdmFsdWUgY2hlY2sg
+aXMgd2hhdAo+PiBwcmV2ZW50cyBpdCBmcm9tIGNvbnRpbnVpbmcgd2l0aCBhbiB1bnVzYWJsZSBE
+TUEgYmFja2VuZC4KPj4KPj4gSSBhZ3JlZSB0aGlzIGlzIG5vdCByZXByZXNlbnRhdGl2ZSBvZiB0
+aGUgbm9ybWFsIGNhc2UgZm9yIGEgaGVhbHRoeQo+PiBQQ0kgZGV2aWNlLCBidXQgaXQgZG9lcyBz
+ZWVtIHRvIGRlbW9uc3RyYXRlIHRoYXQgYSA2NC1iaXQgbWFzayBpcyBub3QgYW4KPj4gdW5jb25k
+aXRpb25hbCBzdWNjZXNzIGd1YXJhbnRlZSBvZiB0aGUgRE1BIEFQSSBpdHNlbGYuCj4+Cj4+IFRo
+ZSBmb3JtYWwgRE1BIEFQSSBkb2N1bWVudGF0aW9uIGFsc28gc2VlbXMgdG8gcmVmbGVjdCB0aGlz
+LiBJbgo+PiBEb2N1bWVudGF0aW9uL2NvcmUtYXBpL2RtYS1hcGkucnN0LCB1bmRlciAiRE1BIGFk
+ZHJlc3NpbmcKPj4gbGltaXRhdGlvbnMiLCBpdCBzYXlzOgo+Pgo+PiBBbGwgdGhlIGJlbG93IGZ1
+bmN0aW9ucyB3aGljaCBzZXQgYSBETUEgbWFzayBtYXkgZmFpbCBpZiB0aGUKPj4gcmVxdWVzdGVk
+IG1hc2sgY2Fubm90IGJlIHVzZWQgd2l0aCB0aGUgZGV2aWNlLCBvciBpZiB0aGUgZGV2aWNlIGlz
+Cj4+IG5vdCBjYXBhYmxlIG9mIGRvaW5nIERNQS4KPj4KPj4gYW5kIGRtYV9zZXRfbWFza19hbmRf
+Y29oZXJlbnQoKSBpcyBkb2N1bWVudGVkIGFzIHJldHVybmluZyB6ZXJvIG9uCj4+IHN1Y2Nlc3Mg
+YW5kIGEgbmVnYXRpdmUgZXJyb3Igb24gZmFpbHVyZS4KPj4KPj4gU28gSSB0aGluayB0aGVyZSBh
+cmUgdHdvIGRpZmZlcmVudCBzdGF0ZW1lbnRzIGhlcmU6Cj4+Cj4+IDEuIEZvciBhIG5vcm1hbGx5
+IGNvbmZpZ3VyZWQgRE1BLWNhcGFibGUgZGV2aWNlLCBhIDY0LWJpdCBETUEgbWFzawo+PiAgICBz
+aG91bGQgYmUgc3VwcG9ydGFibGUuCj4+Cj4+IDIuIGRtYV9zZXRfbWFza19hbmRfY29oZXJlbnQo
+ZGV2LCBETUFfQklUX01BU0soNjQpKSBjYW5ub3QgcmV0dXJuCj4+ICAgIGFuIGVycm9yLCBzbyBj
+aGVja2luZyBpdHMgcmV0dXJuIHZhbHVlIGlzIHVubmVjZXNzYXJ5Lgo+Pgo+PiBUaGUgZmlyc3Qg
+bG9va3MgbGlrZSB0aGUgaW50ZW5kZWQgbm9ybWFsLWNhc2UgaW52YXJpYW50LCBidXQgSSBkbyBu
+b3QKPj4gc2VlIGhvdyB0aGUgc2Vjb25kIGZvbGxvd3MgZ2l2ZW4gdGhlIGN1cnJlbnQgZG1hX3N1
+cHBvcnRlZCgpIHBhdGhzCj4+IGFib3ZlLgo+Pgo+PiBJbiBwYXJ0aWN1bGFyLCB0aGUgUG93ZXJQ
+QyBJT01NVSB0YWJsZSBmYWlsdXJlLCB0aGUKPj4gdXNlX2RtYV9pb21tdShkZXYpICYmIG9wcyBj
+b25zaXN0ZW5jeSBjaGVjaywgYW5kIGRtYV9kdW1teV9vcHMgYXJlIGFsbAo+PiBwYXRocyB3aGVy
+ZSB0aGUgbWFzayB3aWR0aCBpdHNlbGYgaXMgbm90IHRoZSBwcm9ibGVtIGJ1dAo+PiBkbWFfc2V0
+X21hc2tfYW5kX2NvaGVyZW50KC4uLiwgRE1BX0JJVF9NQVNLKDY0KSkgY2FuIG5ldmVydGhlbGVz
+cwo+PiByZXBvcnQgZmFpbHVyZS4KPj4KPj4gVGhhdCBpcyB3aHkgSSBjdXJyZW50bHkgdGhpbmsg
+Y29kZSBsaWtlOgo+Pgo+PiByZXQgPSBkbWFfc2V0X21hc2tfYW5kX2NvaGVyZW50KGRldiwgRE1B
+X0JJVF9NQVNLKDY0KSk7Cj4+IGlmIChyZXQpCj4+ICAgICAgICAgcmV0dXJuIHJldDsKPj4KPj4g
+c3RpbGwgaGFzIHZhbHVlOiB0aGUgY2hlY2sgaXMgbm90IHByb2Jpbmcgd2hldGhlciA2NC1iaXQg
+RE1BCj4+IGFkZHJlc3NpbmcgaXMgc3VwcG9ydGVkIHZlcnN1cyBzb21lIG5hcnJvd2VyIGFkZHJl
+c3Mgd2lkdGguIEl0IGlzCj4+IGNoZWNraW5nIHdoZXRoZXIgdGhlIERNQSBzZXR1cCBhcyBhIHdo
+b2xlIHN1Y2NlZWRlZCBiZWZvcmUgdGhlIGRyaXZlcgo+PiBzdGFydHMgdXNpbmcgRE1BLgo+Pgo+
+PiBBZ2FpbiwgSSBkbyBub3Qgd29yayB3aXRoaW4gdGhlIERNQSBzdWJzeXN0ZW0sIGFuZCB0aGVy
+ZWZvcmUgSSB3b24ndCBleGFjdGx5Cj4+IGNsYWltIG15c2VsZiB0byBiZSBhbiBleHBlcnQgb24g
+dGhpcy4gVGhlIGFib3ZlIGFyZSBzb21lIGZpbmRpbmdzIGFmdGVyIHNvbWUKPj4gZGlnZ2luZy4g
+U28gY29ycmVjdCBtZSBpZiBJIGFtIHdyb25nLgo+Pgo+PiBBbSBJIG1pc3NpbmcgYW4gaW52YXJp
+YW50IHdoaWNoIG1ha2VzIHRoZXNlIGZhaWx1cmUgcGF0aHMgdW5yZWFjaGFibGUKPj4gZm9yIGEg
+ZHJpdmVyIGNhbGxpbmcgZG1hX3NldF9tYXNrX2FuZF9jb2hlcmVudCgpPyBJZiBub3QsIHRoZW4g
+SSBiZWxpZXZlIHRoZSByZXR1cm4KPj4gdmFsdWUgY2hlY2sgaXMgbmVlZGVkLCBhbmQgdGhlIERN
+QSBIT1dUTyBkb2N1bWVudCBtaWdodCBuZWVkIHRvIG1lbnRpb24gdGhhdC4KPj4KPj4gVGhhbmtz
+LAo+PiBSdWl6aGUKPj4KPj4KPj4KPj4KPj4gPgo+PiA+RnJhbmsKPj4gPj4gICAgICAgICB9Cj4+
+ID4+Cj4+ID4+ICAgICAgICAgZGV2X3NldF9kcnZkYXRhKGRldiwgcHQpOwo+PiA+PiAtLQo+PiA+
+PiAyLjI3LjAKPj4gPj4KPj4gPgo+Cg==
