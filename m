@@ -1,160 +1,213 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013049.outbound.protection.outlook.com [40.107.162.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1402368968;
-	Mon, 14 Sep 2026 16:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8FE369985
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789401830; cv=fail; b=sFoFfpgE2b0M60p5/y0V6GLkAr8/L0suQ96MWBt57csOEZgsreKbk8nx71Gg8ajPfOFQFl92n/A0ANzanUjZQ9m3V+PZs6l0Slm1EGSc8Kw58vXXMxNwlkc7T1NZBm0lbXsAx9k/CfoXbyn+HX31KF6FXdNnSrFnKZgS8foX6rU=
+	t=1789401833; cv=pass; b=me6zMYW7aBHegE++0Ud4V1aaAG+7ZR3KNIvVycIyJBSpnh8GbbT8xEZvanSv0fJLH78iTPAsa/sAi0VkJZOuYucRTQ46hjZZAGu3VfMjjZx2BT09WunX10Gn432dpf5uWY9MDoNsQS18dd+y35CXo1Uei0f1Jy+25PMOnAmJ9O8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789401830; c=relaxed/simple;
-	bh=ZyoYas9NP/I4xBYeNkT05hNV3Jmy6VvWZqwJr7q8Nu4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nPvQWM7lM74IrHsJTwfkQPT0E7nApRQP8s4x8ZYvGuiQJQCfvhe39Wujl2CNJLMeKIxL6ERCTjbQgRwpUfWa3aDR6zzVv0eGjo98yeZlfVWPfLIFS+6VEfJMCC1XHdSfA5rFFWfokAqDWPw8/bRIlHugtdHW2GBLEVtrEK0mqyw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=rfS+AgGt; arc=fail smtp.client-ip=40.107.162.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789401833; c=relaxed/simple;
+	bh=FByMlc/emSXGXV9S7XSFRcqt0CPXtzEIwlSZLpyOX+0=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jh31AigXVVGWHW7P5h9+b1IXfcZmtCyIi/NAhBpVvdBdIE5AXxrZqHmDtmk6edqiYcXNpaWukvjHhSWP/xm+1f22wzrV7DwMs4PQBEQGyWSMTWcWr/4GgzwvwMsn4Hrd9JJC1wdSrRUouqNhYXS+M+xnUENraSsQc/SLqAs7GGo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G8BCyd5F; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="rfS+AgGt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V1Was8yWFYcq8O8x/x1ppcLaOfLCYXrojCw85r2sKj6KqR5OBF6FT5VouQ/jtlm094Majy27tcKURkuQlz/YYP0qxEfoJmuq4Vsfz0y9/QUPXhuYafZvPfNcVyowMLkhaT2kRzqrvo7IY2dc+QM0x3OOdreYtbgNLaCCr/sLv3iUFlrAJXVzveKaIgRLPi86VK78fsjG9hGJPViwqrabODcx/yBDO5Ywvav0pM4KQ+gaCjysuXj8lFOJ0sRMmXhIR2wPxJYmSVsQtYEDdxC63Pwu6CIbjkpK/65mxr2Q+GL8U1y6WVxXvUG7kEYKdE2OLkoit1aW6Yz6feBE1tnHEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5i89+Rn7heCJo0+r2T0HE47oEfZweyoOqEOOXvw1e3s=;
- b=In9wB/O8m0lCtB4mdnn2MOyU8yllg+vqhzP6oFIHa/FgZZFl3euTm56I6FhkXguWmHMciorrrXlFy3mwA7KWyt2AxWcZvZAOJZisCZu+pA9LR3+9QdgqG8CJENU8sUTsOyoJPTMlBzQkAVLUfH+0cffr62qAf7I5sJ75Id+nqSiftnSUSMA3xO6edQV5coH3goXsFkdP9Vv1kWv+NaC55mBOtChvzwgkN3J9Sp+3iZuGjPhEDBTda7PqAGob0FbGcTh6AF9C6/QNL3huWQDAUqAmRHJQ/KLM7FkqPzXXwjPVg1t2FjcOX4Gyi02dJnnvVqmOSySnEal67UbX91y02g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5i89+Rn7heCJo0+r2T0HE47oEfZweyoOqEOOXvw1e3s=;
- b=rfS+AgGtgNyFuYyjylqmD9WJ/Jyz9AQa1QZBbrUwRavlF67cxixXi0BVDnVeD14c+S1PGUswjx45JNcPQVxx7UaOSi4G3pnYvoAUZH/uyp7xOIw3il8HHXjJLU/E4vkCvNsfFGqcP3mLbeWlOUNQTsahzaPV45pnI8OpW8OckxfCcb8zvsITOkitcNc5cjdC6fV4tUJErXBMalkoOGZ9HIncVP/46jG38SeHuk6OI9+p+fCi9WIKA7Q5CYaKTj0KrPgyNZzbx27bG0lhp9nF1KPNklsdVpkcwRPMg9YP0wwWZ+fz9yQcwkrhh5D6TJOmP1n88NkGqhiQ9ZkBzI/abw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by ZR6PR04MB587880.eurprd04.prod.outlook.com (2603:10a6:910:e5::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 16:03:46 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 16:03:45 +0000
-Date: Mon, 14 Sep 2026 11:03:37 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv3] dmaengine: bestcomm: gen_bd: fix out-of-bounds access
- in PSC parameter lookup
-Message-ID: <aqga2QY7UyRQuold@SMW015318>
-References: <20260911213747.132694-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911213747.132694-1-rosenp@gmail.com>
-X-ClientProxiedBy: CY8PR12CA0042.namprd12.prod.outlook.com
- (2603:10b6:930:49::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G8BCyd5F"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9106feddbdfso27671426d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:03:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789401830; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZXtIdKjlo3ke9Z4yvmcsRYgCByIFONhMfeU5xI3Ar5B578ufSmYTFIteFMWMqp8iqo
+         tOOKTGJhp6rE/c5HJIVMFw2LDTI4iAlnORRLRylW4Fb+XjnlFiHGSH6dr2psbc3ffQof
+         ElbP0At44cLzrI/fhrqpPP6V9kI4iophzSEVi1hqWWOyig7D/3s/JqrYYDv6gSJoBEEB
+         Mw5grCOs//lPh05Svx+dUY6pRJUVTirD4SW8m97Ot/JpjMEygPOPYQiBE5adenh0dDPl
+         gYyBAqbNUcbyDXCEUNrbSBc1UuTeEpAXcG5sTVtnRkwibxMOeINRqlgdHBjy5aflqC/R
+         xlsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=Lykhn1ziLcNrm34dqlEZxk1CMrWoLDAjyXD14b56Sf8=;
+        fh=iHsrWgQr/8P/P4qUp2yuwMdHEvxVHZBAdDglnbaqXM8=;
+        b=LO4uJtn5Mz9SOy5sQf1212LxlVZcOq3eM0IcPEoxSz0FGGe/lroQCJ6DbbQ7JwfwQr
+         FE+dlAg9GFGmZP7ICiTzcMGM2ANJeNG45PRo6rzOZMnfbXK3r6OFloOf5b64cW4GIZcV
+         jFkNqZbxODnhkc34c/XaTTBZwg1t3trLbon/GB1oMw1IoosFkWsBaocGw/mm4B3D6RWy
+         dnKr07oroYPpt+/4jKnvvvZmFQlIBoP9+cBjgfibedocrMjB0VKQ8vVYu9zCjPFK0bmZ
+         jp3Mmlw7C2tyutu4D4KlJSa5aqUf4Vvv+p/OIwtsDFVEKU1xoFWl8zm3V4ysAO+ksnwR
+         QF8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789401830; x=1790006630; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lykhn1ziLcNrm34dqlEZxk1CMrWoLDAjyXD14b56Sf8=;
+        b=G8BCyd5F3tfqasY7zLpFUXdHyXp2Ou0tGvhdOOxMSCztu4/VrqfDAg/64B/O07OV0K
+         IP31OD4j9SFUhaV+3lXVaJX8ZugwUMK6EgPAfEKBQnDeIKNPuYcpJsoN91cWvBPtb/ve
+         iDkHqzWqSht78XWwwwNPRaJ+2YLBpnjRcHY8HQ2DD4TVBKgdm1BlZG4eM8zswOQ93Ykw
+         ddggY9nhHzTQEaPLAEG5NeZW+tQ4OCuBNFjaoIFcIxdM+KPvu7AZ5gKhPmNH70HaziEY
+         9xmrRbHF38WIP47ETV1DOOC26MjbQp3t/Lv8yqB6lc0Hu+aNBrPirrI73xtN9loy31gG
+         mnCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789401830; x=1790006630;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lykhn1ziLcNrm34dqlEZxk1CMrWoLDAjyXD14b56Sf8=;
+        b=rDX4CcUGldz7oHOjV9oVlVH74tPOhgfIunt+ciqwMV++168XgczxKo+FzSAj5kMUv5
+         aDAg+CjEQuFF3t4x+wyTcDEXzjqbliwhJEw9HHykSOGwDs0hUywTLCAFWL57dQpKiYSv
+         pwIitG2yp1h8IsoS0tsrV1rOSI6j97Q6gxwsCqltatRpfDk3k7ajiHIEmRZ941bleDL5
+         6vdOlKXkGWoqXx8OvbzNFaNfpVYQMAT5TWk46gxotxG4uA3EJXYq0pQiIi0+SEJWsJHh
+         Q/ZJsJuCMb1uSIQhAbCjSvxzhEkjSqSSifqU7e8UHEQqH8T6SGN1O5wL5zsgGh4QYKv7
+         xqzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztSkDwR8O13hy4k7WdMp2I4TURiFoiWGXWr3FIfpy+gu04Ho4+rCqvcLwQOamFrqRz0D/LMBLq5qKXu7M=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3KhMORI3BsVfjDy9eAvhMCNXFterhtZFVSM9aHpLPuRMXH2Ke
+	6Azz2lMbx5wybrbMcDSPXOkjLsRI/lN0scoCUXzWkVOcLQu8d/oaW1wrVjCEQFs2VhPRQTGaA0B
+	sMqjmx7kfmpDlG5cg8KL7K9GfBJ77mUGpbWhRBhx7
+X-Gm-Gg: AYBFou1d/AUiH3DsaU/ebx1649BBCZAfimn7eE43DQ2dY5vkD/WSmB36PWmucsD3FER
+	RefQxnd+lM9GCxSuYgjJrlxeYu0DkN8YWAmJLE2WAmgMSPAgHdYSEejmh6MyHWyGwfBhaHa94qe
+	THODbI+UYirRmCEouI81B+6Vtuv264LBIk2RtVMC4mnxmSzdqEmKHS0dkWxFsOB0mR6kqUQfQnh
+	TNtqUZJg747U85cGN1ptrR5CMzWDPL3ptdcL0RnTn04863J28FEn0rtHK6nraQXXN9niHyRs5uS
+	LeUXGL0g1441lSuMPUYhej+c42xzYw52moikqFnTsIVuKsF3zsYmnAYQc3FvFeP1HsYVd6ZZJf/
+	J6tF8DGA1/T8uc0j3lLb/
+X-Received: by 2002:a05:6214:e88:b0:912:1fca:531d with SMTP id
+ 6a1803df08f44-9122e4cf515mr54297366d6.2.1789401828963; Mon, 14 Sep 2026
+ 09:03:48 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 14 Sep 2026 09:03:48 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 14 Sep 2026 09:03:47 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260911145000.3881046-1-joshua.hahnjy@gmail.com>
+References: <20260911145000.3881046-1-joshua.hahnjy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|ZR6PR04MB587880:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77ae9f1a-7f57-4226-7af5-08df1279c142
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|23010399003|376014|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	2eXtT7bCA2Vddb6xz6trQUkY6T5f5NUMLS8CWQGw1dKjcTD6nbLPHG0Vr1muDYBESY6wSQn6LIuPjsYRT0tEOetA0duLnRFyQzeYMCiZTA9s6yYE30y24FYh8FvhGWMvCsgsqVyQ62LWK3XjFmPOie1vPLNjx8bBpUip97ODFcYJ3gwoAQDSI5yayK4Q10EbQRZ50I52/C0tZxZ8LTTHsA02VlYm05Zxp9eQAwDx9VGiJP9Ldt1sIK6osU5sjaFNrAxgE0WzOSXosYjvSac2J6QOp6UumBTZQOZUrcu98QfpdOQnia+WjOI7uP9oCTa31hXZUQWLPkATrpxSGiZeIgXnOQPkfv+00wTbCEJNuyEQJFreV/hJqOJIo+ICTfFDa+jzaTvhnyd00UCqbqkQ0iQ6lkQdhCmvkNDBeFAAHQ7zx9v+0RZZGKGJsNToQCyf35eSixmImLRLFET6m+riynbWKdnLTO0HJriXqAClEis2uPD7q723Pf4jQ/m6fSSg0oPumuUDc+UQpkd1Sb2RV9sFAApC9ni8PEEjtdHIUCXpJvBEF5CqsVZbZJ4s1+qz/WhIEtGKZ29qtFTyHGm+bfqxTRjByUaH9iC5XnqhKkUhgkweSlWUgHusF0Q5qjjFrbZRq4ShOMmW6X/ZG4rAdap9PytAejsRumajCzagfhE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?p2AS8L7R6cm2TFAR6h6QVOC+hKLLf48YNI5g8DiHmXteg0FqmBj5xLqk1CDy?=
- =?us-ascii?Q?ce8Bc0ATDlOBC91AeqW8c+vn/QbmtWQt/lwzbthmJuMXISbmNfc8rdiHbTzN?=
- =?us-ascii?Q?RLRAuG0UPhK9hivtl9ndE+Rzt6swmaEval5gOQpWAPhiHxNAwCBTASRRl/52?=
- =?us-ascii?Q?DnQUwRfna4gboE2AWtR1NomLEuiQRhf87zxCu7Mdda3zRH+l8+6npBwh/2km?=
- =?us-ascii?Q?eVc7XHJ+Wi8CnzTY19fgX6afNV1k9E2S5xv3+g1yhdU7qzvhgKPTk1kAm43M?=
- =?us-ascii?Q?2Ue4Gf+VSoZqGPmsVHAI1RCMTlW9XClJvLr9z13r+0bPY8reYMI+RnF3bG1E?=
- =?us-ascii?Q?qw4OMhB/c79OuGut75cNj1ZJDXZTWPyNm5DWnM/Qcb2CERQ4jWRn+zYKW4DC?=
- =?us-ascii?Q?oYuERbbtBpDn+KfTWgSgiW4xwt8VQCY4F2B2qOeuBMSLG9vk23VPyRHMJIeD?=
- =?us-ascii?Q?TDpdyP34GndFUF+EaqqMh8GjF3xAJuxJ9PvA9gDlaoDszgLJA6LAIb79YwMP?=
- =?us-ascii?Q?HXWA+Kglcpv8A8Ptr/a7Pds+E3htfqd8xF76bXhOdneNwLnxp8olcm8TGY42?=
- =?us-ascii?Q?fnuv+sLM1ne7YPRJ2GrP2ePBVYNFJnxBWMk5QsrmGmjwMHruQ1bdDO40QY0g?=
- =?us-ascii?Q?h+VhOY22lubYbfuepwCeAWJt3Puh2twrS1uWMI34tAot+IIcCEY6xggMD98q?=
- =?us-ascii?Q?YKaorjJlfAAmkHAFJh/YJiPhOnJfNU/CU7aLplEoO5sbpy00KOyPyVQB1xvw?=
- =?us-ascii?Q?HbquTRgk32byPqOd24UkObhfrOvwhQQzeztEwqaA6Ev7MAdVUdSlT0kyskQj?=
- =?us-ascii?Q?WMDmghlo7/Y3DGvvZ1oRFUEWByqJt4N+//s6sNeVpbCcgxyIHNcJP7dOe39r?=
- =?us-ascii?Q?djpSFcmrsNNQu8Qgd3Tap62tITLJLGH1baRvtC5ZDjWTt8WBgFM3Jv2j6RBI?=
- =?us-ascii?Q?1RQohe2yCD6LemWxiHed8nEF1ZPjypUFPgEY4C3kknyYqtqdqC3xTJ1BtLlj?=
- =?us-ascii?Q?/vPJ8Foyv4VqMY0tD1V3aD2ZXHOxiGaIt3cyQwAL5BkWIHzGx2oxQsq6DrtK?=
- =?us-ascii?Q?LTRtz1raEbPuYPxh/IMdr9aN+XC1Y/4AEUug2vij2k2ji5T7jL2fukVstqUU?=
- =?us-ascii?Q?biyngAgAg3CrtNVxw0X6vUKrShVsAr4mRNrPI/QOYLnrMaEdMaEPSNXz4LWQ?=
- =?us-ascii?Q?6SJooI4JWPwnnv7qUPinWDaiYOgHDGQ7JdEBrTfmTjPZuZXBkQxf3gIcuh2/?=
- =?us-ascii?Q?8YangDTb0kKmXo4oifdK6rEaD/1O62wNbAbCnafsA1a39eQYvYdc6PpbIB9v?=
- =?us-ascii?Q?B5nigkJjhMu5kN/kE4TpHpovNODxS1FsJkBBySbzcqVy17mg8BZuRdmdPDCv?=
- =?us-ascii?Q?QW3+1Sen1chbZl9Zz3irSlSWyCBAYV7W5OpFjWI047KXI4igLgCTQWyOnLJ+?=
- =?us-ascii?Q?1cp6lb/l1mVPEBZImeVPBzM+wKJGN6YzBeeWC8yXKDIj4HcEHrm5jGtmlh/X?=
- =?us-ascii?Q?/qNkzZL9S/eO3AiUYoLMsOc8WacH9ze6hpMnLaZSVl5K/9FQ5Vyel1ppR42e?=
- =?us-ascii?Q?DMBohPIFwIsPZUX7nloO0YnAWRA0js8lyNAUC7To2f0VsMY5eF6iPdEIUdcu?=
- =?us-ascii?Q?6S4jBNcgiE3KHWNvwmsQYyizAHBnkqY6aMSrJ/XvB2RIqp9mrH0iMjwPQpxn?=
- =?us-ascii?Q?/C3dsb5+JugL4+90A/MqGOHk56qTM8byp1RhX0UAdNKD5vE6V8NXPWNA58DI?=
- =?us-ascii?Q?usvV1jYbMhfeYp51IRFg991Vbo1gxfPF4zeAukWSu4NgeeHaQ08Z?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77ae9f1a-7f57-4226-7af5-08df1279c142
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 16:03:45.6035
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZCwcmIuFJEFARG5PXQekQLsgts1TUsmTk7wm8vIEwYGJhA7KDTf2eI1Bq1imUL/OFeT7qjY1EIFkuQ4tcYIfaeD+izTDlKOU+S1ivqCG1HZwBSR6U46vnZESSrmOMGvJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB587880
+Date: Mon, 14 Sep 2026 09:03:47 -0700
+X-Gm-Features: AcwNN1WkNy6DDp-4PGpy28TjQCRTCMJrc6530qqWtllOnWQcoumOeBgfLZrmLZs
+Message-ID: <CAEvNRgF7-zY5CRaUHfswRW-31v147SbTHRzMKGdV4e+Gd3Uy8Q@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] mm: hugetlb: Avoid re-allocating global
+ reservations on region add failure
+To: Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+	Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
+	rientjes@google.com, vannapurve@google.com, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 11, 2026 at 02:37:47PM -0700, Rosen Penev wrote:
-> The bcom_psc_params[] array has 6 entries (indices 0-5), but
-> bcom_psc_gen_bd_rx_init() checked against MPC52xx_PSC_MAXNUM which can
-> be 12 when CONFIG_PPC_MPC512x is set, allowing indices 6-11 to pass
-> and read past the array.
->
-> A malformed device tree with a large cell-index could therefore trigger
-> an out-of-bounds read. The garbage initiator and ipr values would then
-> be used for MMIO writes via out_8(&bcom_eng->regs->ipr[...], ...),
-> potentially causing out-of-bounds MMIO accesses.
->
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v3: reduce bounds check to single function. It's not used anywhere anyway.
->  v2: fix title
->  drivers/dma/bestcomm/gen_bd.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/bestcomm/gen_bd.c b/drivers/dma/bestcomm/gen_bd.c
-> index 61b5746e1a97..208340ecd2b7 100644
-> --- a/drivers/dma/bestcomm/gen_bd.c
-> +++ b/drivers/dma/bestcomm/gen_bd.c
-> @@ -321,7 +321,7 @@ static const struct bcom_psc_params bcom_psc_params[] = {
->  struct bcom_task * bcom_psc_gen_bd_rx_init(unsigned psc_num, int queue_len,
->  					   phys_addr_t fifo, int maxbufsize)
->  {
-> -	if (psc_num >= MPC52xx_PSC_MAXNUM)
-> +	if (psc_num >= ARRAY_SIZE(bcom_psc_params))
+Joshua Hahn <joshua.hahnjy@gmail.com> writes:
 
-why bcom_psc_gen_bd_tx_init() do't check it
+> On Wed, 09 Sep 2026 14:49:29 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+>> From: Ackerley Tng <ackerleytng@google.com>
+>>
+>> When reserving huge pages for a shared mapping, reservations are first
+>> requested from the subpool, and any remainder is accounted in global
+>> reservations. When adding the file region entries fails later in the
+>> process, the reservation attempt must be rolled back.
+>>
+>> Previously, this error path explicitly dropped the global reservations
+>> that were just acquired before jumping to the cleanup label. The cleanup
+>> label then returned the pages to the subpool. If concurrent activity in
+>> the subpool allowed the subpool to absorb more reservations upon return
+>> than it supplied initially, the cleanup label calculated a positive
+>> difference and attempted to allocate new global reservations from scratch.
+>>
+>> This premature release was completely unnecessary because all requested
+>> pages were already backed globally: partly by the mount guarantee and
+>> partly by the global reservations just acquired. Prematurely dissolving
+>> those reservations forced the cleanup path to attempt fresh buddy
+>> allocations that could fail under memory pressure.
+>>
+>> Instead, track the number of global reservations actually accounted so
+>> far. In the cleanup label, subtract the already-accounted amount from the
+>> difference between requested and returned reservations. This ensures
+>> that when global reservations were already acquired, the adjustment is
+>> purely non-positive, dropping excess reservations without ever attempting
+>> fresh allocations.
+>>
+>> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+>> ---
+>>  mm/hugetlb.c | 8 +++++---
+>>  1 file changed, 5 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>> index 652cfb55c6e6e..1151ad959ffd5 100644
+>> --- a/mm/hugetlb.c
+>> +++ b/mm/hugetlb.c
+>> @@ -6678,6 +6678,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+>>  	struct hugepage_subpool *spool = subpool_inode(inode);
+>>  	struct resv_map *resv_map;
+>>  	struct hugetlb_cgroup *h_cg = NULL;
+>> +	long gbl_resv_accted = 0;
+>
+> Sorry, I think I have a hard time with this variable name ;p (I know,
+> even though the function is called huetlb_acct_memory) I get a little
+> bit confused because I can't tell if it's meant to be "accepted"
+> or "accounted".
+>
 
-Frank
->  		return NULL;
+Haha, didn't make the link between accted and accepted! In the next
+revision I'll use gbl_resv_accounted instead.
+
+> I know it puts the line below at 81 columns :p but maybe we can just
+> split it across 2 lines?
 >
->  	return bcom_gen_bd_rx_init(queue_len, fifo,
-> --
-> 2.55.0
->
+
+I think this counts as an exception (more readable) so 1 line is okay?
+Either way line wrapping shouldn't be a reason for using accted. I just
+didn't make the connection between accted and accepted.
+
+Thanks for reviewing!
+
+>>  	long regions_needed = 0;
+>>  	long gbl_resv_get;
+>>  	long gbl_resv_put;
+>> @@ -6768,6 +6769,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+>>  	err = hugetlb_acct_memory(h, gbl_resv_get);
+>>  	if (err < 0)
+>>  		goto out_put_pages;
+>> +	gbl_resv_accted = gbl_resv_get;
+>>
+>>  	/*
+>>  	 * Account for the reservations made. Shared mappings record regions
+>> @@ -6784,7 +6786,6 @@ long hugetlb_reserve_pages(struct inode *inode,
+>>  		add = region_add(resv_map, from, to, regions_needed, h, h_cg);
+>>
+>>  		if (unlikely(add < 0)) {
+>> -			hugetlb_acct_memory(h, -gbl_resv_get);
+>>  			err = add;
+>>  			goto out_put_pages;
+>>  		} else if (unlikely(chg > add)) {
+>> @@ -6831,9 +6832,10 @@ long hugetlb_reserve_pages(struct inode *inode,
+>>  	 * There may be a difference between the number of
+>>  	 * reservations to consume and the number to restore now if
+>>  	 * there are multiple threads interacting with the subpool -
+>> -	 * restore the difference.
+>> +	 * restore the difference, taking into account any global
+>> +	 * reservations already acquired.
+>>  	 */
+>> -	hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
+>> +	hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put - gbl_resv_accted);
+>>
+>>  out_uncharge_cgroup:
+>>  	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
+>>
+>> --
+>> 2.55.0.1007.g17ff1f9808-goog
