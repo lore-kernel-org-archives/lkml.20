@@ -1,49 +1,37 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993704582CA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64ADD48CD4F;
+	Mon, 14 Sep 2026 17:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789406419; cv=none; b=uHxg5P/URiRJHdgCuJ5CAptdynGsgxbthqkpkEjRpiq1vDShpHD0xO7KLhagC8Vd72uYxtguf/A4j1k2kHj8Re8EDA9M9Oia19ApTBf2rUzXPteiOIyz/REtlDmqN0kmpZVkxzdLIGh9kFqAwuuDMWkXrHJQClCp0gllkrAWrP0=
+	t=1789406429; cv=none; b=K+rHaeGeewgD7SMCX4+stxK6AtLzGcb5Jo41u8baCDdNhbgfZlQbUcu5kaZ613PLlR8ZkieUfpThXpjNBBke2ZTepGK8RTyU63wZFdqJKXn1eLMMVWL5ZvdqkqL6ALN4JTIugUosqvYteDpIg91GytLCq9IlA2MPC+hTkv8FFzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789406419; c=relaxed/simple;
-	bh=higuyYlVWIbyA9rDGoD06b63THlS2q2sR6HApTR+254=;
+	s=arc-20240116; t=1789406429; c=relaxed/simple;
+	bh=5nzw9uzObyDsq9yJ4Z7C0pJdSZ8HKRz4pWorgXDpW/A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WqLXkaScEX/vfH5ZgwwgPyzMXUQxPwxT36K1BtO1OOUnrY6p5/JrmpcHYVZSVE3ZOOh+uwPAz9gmFD8o0rHTJNcw8uN48IdaM7rDhOcv/stXRLoauAdNFdNYR31fexW63SxHo+u9lDxY1vY7L3zTQ3EzbK/gXFpdnnIH7p4fbiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=itaLqfOQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=O4m8QzmbLTHJUJtO5pa7HSeW+kTouFHcYrE5f6SEQaRE8Z8LKnBF6tI/PE2qsUM6cdWVzxkVhbxazs6ZdC9m3POodXkU1uAv21G6TRvKg+hM5j5QMDZx7bpC/f3Ujt8Y41KhttjOF6sPah7TpF/0L+g4esFZBv0aUOt63jrHi2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OpsBZS61; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="itaLqfOQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789406416;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2NFH5ct2UNvKSVNzgd3MUI7pwdGPIQhAUeNw4o7aaDk=;
-	b=itaLqfOQXc1j+UcxijR7plGgWFthOyKFtzr5e4PVG3i0YBSMdXaPGmDT94lTOwyI6vNT4J
-	f0T4XlGZJuYzACZqeOHDqdYP8v1wqNwPt/+aPRBh5N5aAwKfmvSh6NwgLuVg6ANnJmxpXp
-	iIKKqkTJHOUoqvc2aJiI9ESfXCgM9PY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-505-pXZaAtwbPieQvyQTLHK9xg-1; Mon,
- 14 Sep 2026 13:20:13 -0400
-X-MC-Unique: pXZaAtwbPieQvyQTLHK9xg-1
-X-Mimecast-MFC-AGG-ID: pXZaAtwbPieQvyQTLHK9xg_1789406412
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 001BB19541BA;
-	Mon, 14 Sep 2026 17:20:12 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A5AB41956089;
-	Mon, 14 Sep 2026 17:20:10 +0000 (UTC)
-Message-ID: <d582de03-b483-42ef-8ae0-f8d94fbccc58@redhat.com>
-Date: Mon, 14 Sep 2026 13:20:09 -0400
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OpsBZS61"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=L/2mUsKjcaJbKckiFuEIeCMG6ptMUuWX6YPpy3IoNEs=; b=OpsBZS61aw1SaUDg1JECT10lRR
+	7wjk8hOeJnrPD+ZvOy7EXBIZE/iyXuK9Kx1gHRShkHOg/mIkkXl0hS2jPJIDTnLfqBDAgOZVQT9BG
+	93kYvhSCLxLz5pagot2GizELuh3MTt6MUtfRn+MbsSnAqqKGdwsEMMIwEmxTqthfla4lH/4hScEX8
+	Ps+XUXY1RLW098CyZEuMsGB0KvmlTMuqsmOJIWlee4zu82AiCgAy9/HySu891fhLd72/uBWE7f8ic
+	speuhGdMDRsTen5IHsaNmiYF6zYJ7bnWbrgchGBZyZyc8a6zx2Iv6lUz6yLxjC0eMQxZKnQ595SB+
+	87pjLtGQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6ALw-00000004NCH-0U2g;
+	Mon, 14 Sep 2026 17:20:24 +0000
+Message-ID: <63af51ab-8adc-474b-b59e-fe6ba8a7033f@infradead.org>
+Date: Mon, 14 Sep 2026 10:20:23 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,94 +39,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] locking/rtmutex: Handle empty waiters tree in
- try_to_take_rt_mutex()
-To: Quchaosheng <quchaosheng000406@163.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-References: <20260914120941.63968-1-quchaosheng000406@163.com>
+Subject: Re: [PATCH] docs: kdoc: fix struct_group_tagged() parsing regression
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, mchehab@kernel.org,
+ aleksander.lobakin@intel.com, aleksandr.loktionov@intel.com,
+ tudor.ambarus@linaro.org, bvanassche@acm.org
+References: <20260914155127.21515-1-emmaonana18@gmail.com>
 Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260914120941.63968-1-quchaosheng000406@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260914155127.21515-1-emmaonana18@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
 
-On 9/14/26 8:09 AM, Quchaosheng wrote:
-> The waiter branch of try_to_take_rt_mutex() reads the top waiter from the
-> lock waiters tree and passes it to rt_mutex_steal() without checking that
-> the tree still has waiters.
->
-> rt_mutex_slowlock_block() calls try_to_take_rt_mutex() in a loop with a
-> waiter that was enqueued before the loop.  The loop drops wait_lock around
-> rt_mutex_schedule(), so another task can acquire and release the lock and
-> dequeue the waiter in the meantime.  The loop then calls
-> try_to_take_rt_mutex() again with a waiter that is no longer part of the
-> waiters tree.
->
-> With an empty waiters tree, rt_mutex_top_waiter() returns NULL, so
-> rt_mutex_steal() dereferences a NULL rt_waiter_node and reads tree.prio at
-> offset 0x18.  syzbot reports this as a general protection fault in
-> try_to_take_rt_mutex on PREEMPT_RT:
->
->    general protection fault, probably for non-canonical address
->    0xdffffc0000000003
->    KASAN: null-ptr-deref in range [0x18-0x1f]
->    RIP: 0010:try_to_take_rt_mutex+0x177/0xac0 kernel/locking/rtmutex.c:1138
->    Call Trace:
->     __rt_mutex_slowlock_locked+0x1fe5/0x25b0
->     __rwbase_read_lock+0xc3/0x190
->     down_read+0x132/0x200
->     inode_lock_shared
->     lookup_slow+0x46/0x70
->     link_path_walk+0xd2a/0x1910
->     path_openat+0x1ce/0x1d60
->
-> Take the lock and skip the steal attempt when the waiters tree is empty.
-> rt_mutex_owner() was already checked above, so the lock is free and the
-> waiter is the only candidate.  rt_mutex_dequeue() already returns early for
-> a waiter that is not queued, so the skipped call is a no-op, and
-> rt_mutex_set_owner() clears the transient RT_MUTEX_HAS_WAITERS state.  The
-> waiter == NULL branch handles an empty tree the same way.
->
-> Reported-by: syzbot+917245f59371bf1d27f7@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=917245f59371bf1d27f7
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+
+On 9/14/26 8:51 AM, Omokefe Emmanuel Onanaroghene wrote:
+> kernel-doc reports struct_group_tagged() members as excess because
+> the macro transformation rewrites it to an anonymous struct and drops their
+> member names.
+> 
+> Keep the tag and member name when transforming struct_group_tagged(). The
+> nested members are then recorded as names such as fast.order; accept the
+> existing unqualified @order documentation tag during validation.
+> 
+> Add a regression test based on struct page_pool_params.
+> 
+> Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> Link: https://lore.kernel.org/all/0cf8ea5f-418f-45f0-907c-3d1ed4f03e9f@infradead.org/
+> Fixes: 2f07ddbd5793 ("docs: xforms_lists: better evaluate struct_group macros")
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+
+Thanks.
+
 > ---
->   kernel/locking/rtmutex.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
->
-> diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-> index 4728631ae..d6c4a8377 100644
-> --- a/kernel/locking/rtmutex.c
-> +++ b/kernel/locking/rtmutex.c
-> @@ -1131,6 +1131,16 @@ try_to_take_rt_mutex(struct rt_mutex_base *lock, struct task_struct *task,
->   	if (waiter) {
->   		struct rt_mutex_waiter *top_waiter = rt_mutex_top_waiter(lock);
->   
-> +		/*
-> +		 * The waiter can have been dequeued while the lock was
-
-"can have been" is a term that is not commonly used. It should be "could 
-have been". Also why the same 2 patches are sent out twice?
-
-Other than that, this patch looks good to me.
-
-Cheers,
-Longman
-
-> +		 * dropped. In that case the waiters tree is empty and
-> +		 * top_waiter is NULL, so there is nothing to steal from.
-> +		 * Take the lock and leave the transient state to
-> +		 * rt_mutex_set_owner() below.
-> +		 */
-> +		if (!top_waiter)
-> +			goto takeit;
+>  tools/lib/python/kdoc/kdoc_parser.py  |  4 ++-
+>  tools/lib/python/kdoc/xforms_lists.py |  2 +-
+>  tools/unittests/test_kdoc_parser.py   | 37 +++++++++++++++++++++++++++
+>  3 files changed, 41 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
+> index d9ad1ddc87dd..ced09504f3d7 100644
+> --- a/tools/lib/python/kdoc/kdoc_parser.py
+> +++ b/tools/lib/python/kdoc/kdoc_parser.py
+> @@ -635,7 +635,9 @@ class KernelDoc:
+>                  continue
+>              if param_name.startswith("{unnamed_"):
+>                  continue
+> -            if param_name in self.entry.parameterlist:
+> +            if param_name in self.entry.parameterlist or \
+> +               any(actual.endswith('.' + param_name)
+> +                   for actual in self.entry.parameterlist):
+>                  continue
+>  
+>              hint = self.get_suggestions_hint(param_name, self.entry.parameterlist)
+> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+> index e3dda2fe8a53..9e8b3a6b1da1 100644
+> --- a/tools/lib/python/kdoc/xforms_lists.py
+> +++ b/tools/lib/python/kdoc/xforms_lists.py
+> @@ -60,7 +60,7 @@ class CTransforms:
+>          #
+>          (CMatch("struct_group"), r"struct { \2+ };"),
+>          (CMatch("struct_group_attr"), r"struct { \3+ };"),
+> -        (CMatch("struct_group_tagged"), r"struct { \3+ };"),
+> +        (CMatch("struct_group_tagged"), r"struct \1 { \3+ } \2;"),
+>          (CMatch("__struct_group"), r"struct { \4+ };"),
+>      ]
+>  
+> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+> index c4a76ed13dbc..1a8287e99f2e 100755
+> --- a/tools/unittests/test_kdoc_parser.py
+> +++ b/tools/unittests/test_kdoc_parser.py
+> @@ -418,6 +418,43 @@ class TestSelfValidate(GenerateKdocItem):
+>          """
+>          self.run_test(self.SOURCE, [self.DEFAULT.copy()], self.EXPORTS)
+>  
 > +
->   		/*
->   		 * If waiter is the highest priority waiter of @lock,
->   		 * or allowed to steal it, take it over.
->
+> +class TestStructGroupTagged(GenerateKdocItem):
+> +    def test_nested_struct_group_tagged_members(self):
+> +        source = """
+> +            /**
+> +             * struct page_pool_params - page pool parameters
+> +             * @fast: Fast path parameters.
+> +             * @order: Order of pages.
+> +             * @pool_size: Number of pages.
+> +             * @slow: Slow path parameters.
+> +             * @netdev: Net device pointer.
+> +             * @queue_idx: Queue index.
+> +             * @flags: Flags.
+> +             */
+> +            struct page_pool_params {
+> +                struct_group_tagged(page_pool_params_fast, fast,
+> +                                    unsigned int order;
+> +                                    unsigned int pool_size;
+> +                );
+> +                struct_group_tagged(page_pool_params_slow, slow,
+> +                                    struct net_device *netdev;
+> +                                    unsigned int queue_idx;
+> +                                    unsigned int flags;
+> +                );
+> +            };
+> +        """
+> +
+> +        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
+> +        patcher = patch('builtins.open', new_callable=mock_open,
+> +                        read_data=dedent(source))
+> +        with patcher:
+> +            _, entries = kernel_doc.parse_kdoc()
+> +
+> +        self.assertEqual(len(entries), 1)
+> +        self.assertEqual(entries[0].warnings, [])
+> +
+> +
+>  #
+>  # Class and logic to create dynamic tests from YAML
+>  #
 
+-- 
+~Randy
