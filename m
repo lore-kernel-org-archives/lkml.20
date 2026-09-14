@@ -1,76 +1,49 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D55247C11A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6253C3E0245;
+	Mon, 14 Sep 2026 17:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789405844; cv=none; b=Nhp0rgcAD6wdq4flYfFX1hkMSYO2eQ0SZXGvAyhsesNV2Dm5hA55KC10mZruVk8mj64UAALZO3xvdzK+RUzdQDmNiTctSv0QiiZUdcEKDX2K2JijYTK+gPWFJi8FynRXg+k4ooKgU+qmkrQMeRBJWygXjdPsHe/wAQWnFkhDT3s=
+	t=1789405997; cv=none; b=f3KrTqrFlf8sml4omc5hTkr4l7jNfxYzUiaGSIPKaozRfIy1FwtbaffGvZ9AxGV5ZR9fVfJIU5nDNWYGaoh0mjFwKWgTLB6uLvrckGaFnvKvZJJ1TcD8Ybeqo9kYN+f9OBhn2N8PwAvm6rD5aXVzSXE6GKp9GOHw+cXUD06fQBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789405844; c=relaxed/simple;
-	bh=kDPTjFrg6wBIbxiAjuUNocFOT2xMrWbirHryM1SZfV0=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ga1Ub8hWcZotsW4sGxbD181VL6W++mXf1hrTqtRftfC66uRoNO33yI09U+69CEiVEktKyXqcYJ6RU16ip+aTsY1UNqwGXA+ENlzRT0G4w3A6AKuNpAGkW0NO6zTh+ROzjJsSQmZ3n686A1sZ0XAsECdmanrrSRK2kLL6Wl9yddA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mswa0AhP; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789405997; c=relaxed/simple;
+	bh=7w3ga8RDZTZh9nq0nX1AMJzLMMuPYHm6vv1VKLt9I+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MctNmu6WqRaIhIXnMagbKXaDaFRk+1EVKkp7fzLSfqwkHGh/dOv378CPgpy0cfxyZ3kxQU8z/PfPBkWNNk2ldBGK8Ej4lBoyRJPYYRSZuwCqbVsy6IYEARyZai8qOtyraec5+1JURxqAL0UA9bSskgfJgWfihwRhSKhd3LNkfd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=yMUzUgG8; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mswa0AhP"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a9983162dcso4522249a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:10:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789405840; x=1790010640; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s10O26OyymXqv9mIGwISr+cwCeJfHQLeL7WGGnIH+sE=;
-        b=mswa0AhPdhyRKZJzogwQh91sieAnk93VZ2Bc7ZSomHRsPHZnr4P7eAcBXJ8o1kAM+T
-         4gAuzhIZkWSDNnbsFwIoluSP9+E4fbL/Ep00iyMo9l2nb84TMFwf/ACC40jAMEtSy+6d
-         Uos+5JYFykrsQD2vwktVz8Ii5D6s1ePokkkJ652I+FsUgpbQk94jf4QUpNIUt2Zo7bLr
-         0Vrsmr5X+DEct+5Ha+gMaUmKu6qa7Gl35kS+IPmqmmEpCdDGZ/fqi7pglv6rFWpW3zAc
-         X1uz1v5Dnrm9nkzZndJLLz3lXAkHWFrrhFZzMQyOU03WCpZFH1ypj3yKEuOJNo5TwBBs
-         24HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789405840; x=1790010640;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s10O26OyymXqv9mIGwISr+cwCeJfHQLeL7WGGnIH+sE=;
-        b=PfohXKeyvKXNZE6SaHs7+xaKxQd7h7ywE7fOjRKWPzBaeQaqdgk9xWalRAG2ZwFlh8
-         XMZBEC8ve8gWtuFX3jpG552KOiHbTD+zgHhvWXd09bkU/rqwx54yJc23nuAEBmD6K10y
-         aFUqdQo/nfUuUe6OW2EBiul1dPZdt+8zlMNjxknopam9ThqbIVCNSSKlM3CPLZPjIMAg
-         Q/vrORgsDGSu9BhETt7JeVJDgJTxlQWRfxeDtJladQ2UcfQjlLlpgV0TWT1eBlPaYH36
-         wq3IjDEOa88nNOpSUBm3eFobvIHlrTk2zqXxChvT0MXkX560cm9FganDSTVxC4njXQk7
-         FfOw==
-X-Forwarded-Encrypted: i=1; AKwUvBwP2ptQ1V7/RQx84eOurUU8f+Zg5C8+Ln1i2vy3sF/mtnKxnqjOGhcYu623ggalH10xa1nIQ9QpCn3jEC8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYEDY33VCOqpcpVWd61G+c69e/83mVR6X+2RK69nC/3Ey4o2s9
-	U1BrZ76emcLRT82Wicejnh3RhVf19FAuTy+i/3W11Mh6ynDkgHcExAJNaW3aFYrG
-X-Gm-Gg: AYBFou26NgJduOiOC8Jrmx99SDl1s/ThO6wgwy3rqRtBtgM0ntDWPuDcCuppbN+R/lw
-	84RUFjviERL9AWpozBd1i/8CrbaVpqb3GjYG9HNResiodqpFdrj/yVo+Q5j08K9IuKHaGuVG9li
-	M5boKPR57vIBohw+Os6X/VPkfNb34n+qhtZ9kCugiBYIE3CxQV92EkR+vH7/Wbu/uToF/znlYwR
-	zR4CNJfcvolf0xzkVxtb/v2bSlIh3/reITLztgc5jSeQcOUrLRH1Fg1NGyMKaR61cDEOu2MPmi2
-	cLiEfncotO9bVJRROrsTKhsjMwCwMt2Q3KzVR0HOWxh7DpsqNNZTCSPEBsNX/b+BpTYFuhP1XH+
-	Vq/hUStos9G1MwS42KOFZC3fIdqXxSX6WfA80Ak00fAvbxQ/jrPxLqWmLoUwSDs83wr1eeHaUMQ
-	m60D0v3RbtbV6IvaVjaYpyDFtdvaL8NdZhsB/s
-X-Received: by 2002:a05:6402:4615:b0:6a6:4004:4ae6 with SMTP id 4fb4d7f45d1cf-6a9f62132bcmr2007106a12.5.1789405840183;
-        Mon, 14 Sep 2026 10:10:40 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5920f4asm4474021a12.16.2026.09.14.10.10.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 10:10:39 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Mon, 14 Sep 2026 19:10:37 +0200
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Ye Liu <liuye@kylinos.cn>
-Subject: Re: [PATCH 3/3] mm/vmalloc: extract show_busy_info from
- vmalloc_info_show
-Message-ID: <aqgqjRJ8qpYmx04v@milan>
-References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
- <20260914-vmalloc_study-v1-3-526f68559706@linux.dev>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="yMUzUgG8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=2OrWTkDAaq2ZS60WCcmaZJ0cvaeS8WVVM5bplKuJDVY=; b=yMUzUgG8tNvmakPvYdwEQ4BzK/
+	8XqyWcvzgRMHYg1JEyXFnniP2Y74PrFk/S2oYAgPjBCzIAdDnlMsALIFm3BTiK4vrQUJ8UpZBoSd2
+	tYgE7SWQzvI7P66plpJi6Vmw0I8F3n4yuV/6qvj0lMNLhD/5gnwIgE6ClnP8vIy6D9nE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6AEr-0057LP-Fg; Mon, 14 Sep 2026 19:13:05 +0200
+Date: Mon, 14 Sep 2026 19:13:05 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: khendry@reliablecontrols.com
+Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] net: pcs: rzn1-miic: Fix config array
+ initialization
+Message-ID: <c2f3de30-4dea-458c-b9db-ce45aa3d1bbe@lunn.ch>
+References: <20260914-rzn1-miic-fix-array-v4-0-069112feec86@reliablecontrols.com>
+ <20260914-rzn1-miic-fix-array-v4-1-069112feec86@reliablecontrols.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,41 +52,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914-vmalloc_study-v1-3-526f68559706@linux.dev>
+In-Reply-To: <20260914-rzn1-miic-fix-array-v4-1-069112feec86@reliablecontrols.com>
 
-On Mon, Sep 14, 2026 at 11:34:02AM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
+On Mon, Sep 14, 2026 at 09:41:00AM -0700, Kyle Hendry via B4 Relay wrote:
+> From: Kyle Hendry <khendry@reliablecontrols.com>
 > 
-> Extract the busy vmap area iteration into show_busy_info, mirroring
-> the existing show_purge_info pattern.
+> Fix memset parameters to initialize the entire DT value array
 > 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> ---
->  mm/vmalloc.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 797933ba9451..7638845377f5 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -5345,12 +5345,12 @@ static void show_purge_info(struct seq_file *m)
->  	}
->  }
->  
-> -static int vmalloc_info_show(struct seq_file *m, void *p)
-> +static void show_busy_info(struct seq_file *m)
->  {
->  	struct vmap_node *vn;
->  	struct vmap_area *va;
->  	struct vm_struct *v;
-> -	unsigned int *counters;
-> +	unsigned int *counters = NULL;
->
-Is setting counters setting to NULL odd here?
+> Fixes: f39e968dc168a7bd ("net: pcs: rzn1-miic: Move configuration data to SoC-specific struct")
+> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
 
-Other than that, LGTM:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-
---
-Uladzislau Rezki
+    Andrew
