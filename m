@@ -1,54 +1,54 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012053.outbound.protection.outlook.com [40.93.195.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CB7319601
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043A2311C1B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789352685; cv=fail; b=TqEYjgLWPEFU9wZJD6g1pK7Hixi4cnXSArIRFrwg9vQYY677ZGXAzAhHghgfnqMECQnPIu8UbTSFtKdrc+fRtGs5rc+C88bRyZTQzhomhA/br5vSPeRmYCLnUGMnNNqcnOF2r5IooS5FW0zwLvxn6YVEM3E4Y4zRQKTV64sJS2E=
+	t=1789352692; cv=fail; b=Ow+vf+EUgPhtEqhoPFziXkWUEPcaiVQCm5vTLh7AGhNLD55smEf9rS4LP8r++aOkaaxLxSfP1jimCk6dfvlefJmDURjDfuyz+5PZHme0+xYIJvey1Mu28NSEuoqGU1k4BO7aT/cJUUJ2SLn4WfKw9Yc+ROrawF/swpWHhoaUoKg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789352685; c=relaxed/simple;
-	bh=tcubcgE9SIPpXF+UI3w6egkHYa+A5zPe+n5JMu0rUJQ=;
+	s=arc-20240116; t=1789352692; c=relaxed/simple;
+	bh=DXnlObOK4S2W/X9o5/38a8yPz6iGlj3k0nH503Wbvfw=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=W7JJBEhrhCU1zcjJ/7Yz6oIcz2agokfhCKsPmqEnFeJDO9wgseh75TSRG1A0vXAzeTOvu9kPDgt/YDuDc75fBeMbtPM5cHLqjvM9qfDgFfshd5BTv0p5WZfkVDDiYHqBF3eDfhCNOAzG8+dhDrMNr/rzqeYkcFS1QYGXv6FqfuY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZeGN1PiF; arc=fail smtp.client-ip=52.101.85.31
+	 To:Cc:MIME-Version; b=DPQmbCk4tdmhp3KK+T8tQF+lDRpz1HRAqVdrrFf9mxMOZ8B67H8HwDAW1TSEkanqL897UsCAU1g4WtUNKQI2asfLkvJO3usi1svT6zM2pGXTy9h+04VUQ9z1l1beHPuvyzKSvYDgzvZfj3MFdhvz0dv0H4/acVbUtB2HppGN4rc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HHAKigUw; arc=fail smtp.client-ip=40.93.195.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZeGN1PiF"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HHAKigUw"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HyeUyT24uaoa6vhNMRnp19Q+DjDQYkx8+vKwcJyXEIOjzOjIWXxvSJq0scmoWoo40n224tcSsYvu282BQF0y6g5lqYQ8cOZrl/+DX4wdXDU8zt8HYn39BtlVa+K+54Xuuh9vquqlH0ncHakQ9d1vNAbztxuGF0Py6IAfB2TRTG87gMYcvv1qN8tsXArUy3nrJXVPdcBFYDddAxuRAzkrzMN+GdDI5K/KKYQwjkFRx5QWY6rP3fLUis4wzUhBh0Hhk1WJHDPcgJPjEFjk3H4KdcGvf2Jqqfw4gBwzyYHVHHSuGBRe+c+SpuQeueii4veyJL3msLCuqoM5234wDubX3A==
+ b=pRZmuEgehrC1cz41bokAttP2SMJ60Zp+62B3kcdZ0ORilhcWfmzVyqY1Q/Z5aeqydB1YItreEmbLCCwBd20bDmB0ZigYCInqWek8lGl4nizGhMKlUgxRhZILeVwlI0Bqp22VpU4/wogUUD5eY0Ow9XAvsDDBKujRDD2ZTT8i2OmT39Ibb7UZ9IpTQq1gIfhufd0zvX2wMD7DA8C2pOGdrCFMBBqwqmlZOHt2SKem4swrJDmkNogtUHGPmBtVSm91L9tNT6ajif5rhDI7JAmPu/cyzTR7wM8QBTk98AYEP4zlOdtcMJPky5qAfls7v320QU3XTz+3GtnBo1yfCq7u3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KmJueOys4162YTP727zQmwKPUht4GWCKnV6YwC01lf4=;
- b=x1OstSI4vBfoh86AUdUo4MSY2UKlX47pNESipU/y8c3Ord6w38us0EoFaXhj1JO2PuuEH/8phmztqxwqvQKl19Qbg6XKScMfTaRZmceh3ddu3ym/4Sq3PCpOhx9SEesT3a7EB/V9BVBdThvzSwQU/IvfAcmslIJLY7EjODoA4WHDON+NxzVB6eHOF9g42bMPjwhiGNuppFeY2b98+rRu3oNuNmMbqRbVUZYvUKAGIhLp77jMjF/GSEUyCG2GrvhMsbyp+G1Kvz3rKgrXiRnK+occ1g1C4A0LWdo3+3l+XOr6LjOoiGBv04wOoybXvnfhmlltzqHh66InQzNsGPIyrg==
+ bh=5oQkgIZB8g4TSzZHu0Etfeypilmex6FsVP2ICiojaz8=;
+ b=SIUmOOUjp9reMiWY4nCq7sAHMjs0IYOK78WI+hOp/QP9lClx4oFkawNsQpFUfZj/AINBiHsI+RmQGvEduc4hV5+Ov5myTb4d0bMx8JGY35gJHuQ18dp0Vs8uUeNfMqwhOSjkqgrdQMBCr6vvHLj4PMe8SQAeo9wz4wRiQ8Ut0Vxt8LB70JKGdg491cVBzKT2DhUxDCF9GJqXG/3Bf8j0HS5yLAV/FBiTbn/5h8TvJ0P7Hoim/O7LDlYtHdSzqTjdT0DITb639IDfM5pDzfK5FKl/QyMl/e/7wuoUbpCx0wJFphX5YoH9RZzVZtQiAexwAsCwJVr0U9qRfyfz4q5Bgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KmJueOys4162YTP727zQmwKPUht4GWCKnV6YwC01lf4=;
- b=ZeGN1PiF9BgyQCXrKhajxbSwPIijlIF6f0+kaqX5Ahm05kOf7WJdDtiyNG4b7VqQ3lrjbnTbdpUV6C7/5g1XkfnP+2kyQ9ZjjWOh+XkbNYLn2m2gpilbu7BwXNvKTOrbld0NHXx9ddBpN25ejJbT77GFUoZDmQfjgI2IV1rVrwFG4DtLd8eZjHTRKix8AtjmWv7mh2e+gqRd6njTsc52u46T6mrM1CKPUqtqS5c/eCbQ8htK2TWwkHp/4g8Q2HgDwrpa3xz1Ufxd68P9XcPhEaaMPKJPqI/OTZOZ0bMLhClnUBtw1G8c0Num1HY1EMVXPBjZYE2/aaHmRgu1oRmNPg==
+ bh=5oQkgIZB8g4TSzZHu0Etfeypilmex6FsVP2ICiojaz8=;
+ b=HHAKigUwf2NyRqa5aM2Ij4bUzjLKHdvyH6PlKC0MraWmcNba5UHCEcEbXpOSRVDybXMgdJZ5UU8868qs+BMt3U/rDUbIe9l4MKBYMZniPKticDc/BoHRLc8KZUCuWpJUhK/iVjGvrgZhlTmIQqJZQvKWo5uOFKcX3+h7uHtSAGln8ywbhunNHb9SuA9DPKA8xyvWS/DZsNc8owuHilMDoVXl8TaNf4ZtjKH0ffaF2jcDsN/FpXu2NakBb9Aea64mq1cx/7FC9Bb/R3k4gR601dJaLq87IWEPGETEfpwov6x6BaOOyNT51GLNXuicneVWwsL9YwGdyLfloDvwdoiEPA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
  by DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 02:24:20 +0000
+ 2026 02:24:22 +0000
 Received: from IA0PR12MB8374.namprd12.prod.outlook.com
  ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
  ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 02:24:20 +0000
+ 02:24:22 +0000
 From: Zi Yan <ziy@nvidia.com>
-Date: Sun, 13 Sep 2026 22:24:05 -0400
-Subject: [PATCH v4 07/16] f2fs: convert the ->private flag helpers to
- folio-only
+Date: Sun, 13 Sep 2026 22:24:07 -0400
+Subject: [PATCH v4 09/16] erofs: use folio_attach/detach_private() instead
+ of direct assignment
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-remove-pg_private-v4-7-848550f7574e@nvidia.com>
+Message-Id: <20260913-remove-pg_private-v4-9-848550f7574e@nvidia.com>
 References: <20260913-remove-pg_private-v4-0-848550f7574e@nvidia.com>
 In-Reply-To: <20260913-remove-pg_private-v4-0-848550f7574e@nvidia.com>
 To: David Hildenbrand <david@kernel.org>, 
@@ -67,12 +67,14 @@ To: David Hildenbrand <david@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
  Kairui Song <kasong@tencent.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Zi Yan <ziy@nvidia.com>, Tal Zussman <tz2294@columbia.edu>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
- linux-f2fs-devel@lists.sourceforge.net
+ Zi Yan <ziy@nvidia.com>, Gao Xiang <xiang@kernel.org>, 
+ Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>, 
+ Jeffle Xu <jefflexu@linux.alibaba.com>, 
+ Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, 
+ Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: MN0PR05CA0025.namprd05.prod.outlook.com
- (2603:10b6:208:52c::13) To IA0PR12MB8374.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1P223CA0016.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c4::21) To IA0PR12MB8374.namprd12.prod.outlook.com
  (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,373 +84,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB6486:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c12b514-a3ba-4eea-979a-08df120748b3
+X-MS-Office365-Filtering-Correlation-Id: 6b5d5a0f-e1a6-4725-199e-08df120749c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|22082099003|18002099003|921020|10067099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	cpMkaUZNJ466GAw45De0V+gsLJuf5jEyB0VOkKILYIA/a5D5sYlllWFG/PwTfSkdFAMxNc0GibU1ryLsZcaw3VM+AoEnHYhB1w3gU13NPn6jxJ2FncUtUB5qstaMJXxfvXybdb/LIvMWx52/dfomvfBefuauSFYzF+j3SWMg0sYE+p8xXQlCawA76fmKk301Hbetso05ZDz1QuhFxDNN0V+wn6paE2ZgAIkypLYYqwqgjI0TcGleyQjlVTOAPKBg56IWYjYmT2GMpO0aqthDB2IUquzBf/uJMNgnp5kt143dC8Ynw/4edjTppQZrARBH0tRbMNX696NZQqQZjQo4MMPFTWID7UUcpH1jYjhYke0mjM9HJsZ7PcuygvwiMZJpKiQBO6ty+Zz5OWY5k+jCm5jO9EqZkK32wK3G2KubHulgSh+FOCOTG5pVNjHOGU/wiCZ+nLKuvufYuGu5t0Mcj5lADiEljyxdfy4lDA9dwsBj0wZxQW5XstGJkuzX+BTB5+pbvQ76exl3vr+O++AiU/cTQNghs+be3EDB7+yqarfZrXYZ86GeInKtxGd8EoZSSfYvfBuINnOoIjkpjN675xsIAGm9Z3M6piUE6VmmR8rPl5NBIy/lWOHkxLvzMWaX1sgW6nobcbHxWDDGdatG9X7G0P0TFyVMycd1VWrgaBQolThpv2rPY7QeL1fdz6G0oFUCw0QWt8fW1i6cGzChsQ==
+	gsz+V3hty8/wfORFNw/Zm9vNNPQXcgwUtyW0zE9q+Nmb9u31IIi6lf7avr93nI85wg87rO6z0gIu2FzNx85urfiBMoQkKlSYZjI+65H8mw/f3pRM1Zw0W50DAw1VjLSUN3wggIXSTFKiveobpiZqiWcWaAJIK9AjfyAaRMVcalIrGeJUn2++mrAnsDASVUvrtKKTVfaYUFXEVtp1uzMWUHmuzb2wmtZRirUNT8T4jk6xU7crQTzFNE3gO7dCl5yXGhYLJVlmpbA74Crppog+ZO0VEnyiCb0QXuJN1oXWjzZcbr2ffH+x83ePPU+KICfRTorjau2IGSvTc9TrP+ty4KfgY6WHRSqJZLIVutSx8haCONhH2OP8T9Wl4g2USyI+La2gu3bVHmpRjCwbKrWuQ3tpJqYJV8yDWn/eT8pq0QCqlbEVAE+XGVYd3OnveFJxF5ctc57lHLI5gokiHYP9v2SdD8IoJTmvdWemBYtoB1SkjaW0HMYhcjfNHjaB8iKgSpx0NYycFWjyR0TVXO67/JOhjNvx0Ob+kIt7AzVaD95RdjQNMxAgqFMXvlL+gMss9qRUiCWXF7jJbrOn2Fx94LhwmpaZF/Ve/RXN9b5GlREyndzmraThIMipFSAuqjLvFSPW7eEePqqI8hVQIJXtGfTGP9Jw47cwfStApnJcdT10xdnjF1xccxjc86HY55E+2AarSYqCMaG0TAa1ve0H6w==
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(22082099003)(18002099003)(921020)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RjBKNm1FSTlyZ2JBNG5xSGt0VlZyODdxMjlSUHZCbVRUTCt1Y2JoN0hidXhI?=
- =?utf-8?B?aWQ0cUpUdzBiNXNJN2NNMHgvU3V6Mk9BdXBVZjBRWWExNGpKb2pFc0hMejVV?=
- =?utf-8?B?dXpzcm5nZ3BaY1BxVFZQdDBmS3pxSm1oZ1RmbnBsL1JNU3k3THAwWTc1emNq?=
- =?utf-8?B?TjdSV3V4RzB2aURqQkhpcWhIUkhoS2UydnRDVmNHR1JPQUFaYjdaUVZad1gy?=
- =?utf-8?B?cWZEMEtwcTE0UURpMm0xMTVGQlpaYzR5ZmtLRUZkb1QyYVNJbTQ2S09VbnFz?=
- =?utf-8?B?aTFSaUhoV1pSdlp3RUlxRDhLalU4bWVFVkxEOVFDMDhFblNJT01nblpHK3Nq?=
- =?utf-8?B?MVdFa0xWSlNDS2M4L25JWFJPQXk3M1R1OE5meHdpVkxpd1JndXgrUEpTR1Fz?=
- =?utf-8?B?UmdZaTFNYitLN014ZWdFaUdLTWtlWjhYckJ1M29DOEZwK2wzTDIwMUNqc3BV?=
- =?utf-8?B?Zlk3bGhqYlA2dFEzOHhWQ3V5N1ZXRllTK0RaL2Ewc2FJeFByR2YxZFR2RFVI?=
- =?utf-8?B?aWRyOUpEK1dGL3FKbFl3dEIvSHdUVVFsNklrbUtYYWIzZ3NrbXBXclE4SnJ5?=
- =?utf-8?B?cDMrVEcxOUtqNlEyWmszcjdBTk84blNNT3E3MFJRcE83aGZ4RVNmY0dKRzN5?=
- =?utf-8?B?WXhJekhQMFpRMWQrc2haeFVqbk1XaHR4VHRXOWpxTlBKNWtTMlJyVGMwVEdT?=
- =?utf-8?B?bCt1dUtsa003S3JyV2tWL3MxUU5ldktlRGt3VytxRkVtWHNSUDJqV3RhMndN?=
- =?utf-8?B?Z1laNG9hYUpGWTlDVWR2QWFOYWI2c2tmTFh5ckltajRvTDNmTCt4K3FSNWpE?=
- =?utf-8?B?ZVJRRXkwem5HRVl3a2Q1QUlqeG1FTFNsa2daS3ZuMUJXYnk2ckV4M3M5MzZ2?=
- =?utf-8?B?QVVwQllhbmZ3SFJmOVpvSEh0QWZqQVVNcXJiMHRqUmczV0JxWjhGMXlPNDda?=
- =?utf-8?B?RXhTWXFYdkQzZkJ5SFhsRHdOOWFiVnpHK3k3cnpwYjJLSXJpTXhBMlpDM0dM?=
- =?utf-8?B?TTlmdDJTeVV4UldjT0QwRGxjYjFTZkxXVGJXaERxKzRHYyswbElDdi9XSzVR?=
- =?utf-8?B?SktzY1N3b0FjK3pYbks1d3hYOG1nNzNKZ2hWSGFYaGFNbThnR3BXU3YrMjdF?=
- =?utf-8?B?VWNFT0RvcEVqS2xOQXptaURYUWhJMnMvTjJlTWxZUWswdVZvbFhpbzZGaGYw?=
- =?utf-8?B?eW05aHoxRjNoQnV3VlVuTUlleFQzM0kva1Vmd2EvVWhTTURIa1d3ODVBRzAw?=
- =?utf-8?B?QVBGS1owQ3JKV1A3a0JCNS9KR2s1aC8rNEtIUXZ2enl1a1owUGhILzZON3hz?=
- =?utf-8?B?dzQxYmhRbCs4RHlQUDRRZWlxemliMXcybGNzSmtoNGlDRmVWcnlQWUlYLzdI?=
- =?utf-8?B?SnkxRjhuTlVCdDZncWdHY29JMXhZVk9WMjhLZlk3UCtidU9oY1NiNnhESEJP?=
- =?utf-8?B?NXVyQThGYXZ4MGs3dUNzTzFRK0lJc2xkTXYyZ0pjL3hkM3pFdHBtM0Vwenpi?=
- =?utf-8?B?ZERjU3lmUGFZcTlINkFmWEZjMDlHVDExVC9LaEtoK09MbWFyL3pEdmFKTitO?=
- =?utf-8?B?bkN1aWdNWjFoRi9hSTVkRHc5QzVxQmV4UmZKZjV1MG5qTkZjc05vQjlPdWVR?=
- =?utf-8?B?OHBBc2VKQ254TmE2REVvRFhNN3Z3TC8yVmpUTXMwcGE1TEtuVzUwQ3RpOVo1?=
- =?utf-8?B?MmFBV2pIUzVKazM2Y3lKTENBaTQ1L29BWUlNWFNxQnRVYUYzaDBhQ01pTm50?=
- =?utf-8?B?bGxwdlFrbytzeUhnOThwK0dCSklqZGNUSFJDZVRWYVRzYjlsdVBlZGFMV1ZD?=
- =?utf-8?B?OTdCc0NBZksrZVJUNWd5Z21JQ3htaENnVmVaUWQ1NGl5SVBWRUNDMjdjRjVs?=
- =?utf-8?B?SjNXNk9Xa0lUK1czRmdySjk0L1kwUlI4UG0xVTNoZnhZTEs1MXRGMkZXVkU1?=
- =?utf-8?B?bnZ3V0V2QkIrU0xnWkFhS0xPYU5ySEFYM1B5bjRYdCt3TzFIOXJnMXROR21y?=
- =?utf-8?B?UVZ4cE5ZRXhmNEFpNjFKenlYTEFEMjVaaTlHaUkwdHgwUS9wSHppeUI2K0NX?=
- =?utf-8?B?ckhJZStpdzhhbG9kUEJWOEE4WU9TcS8wUHJQVlhudmcxZ3Fha1JLT0VnSzZ3?=
- =?utf-8?B?bVM3cGpzeGpDd2k5dHpPY1g0R2xQTXM3eVRJcEZkd2pLc1VOY1BnM0NNUGY2?=
- =?utf-8?B?ZlJwOFRkekZUWDdrWkRuSjZvWkd5dWZZVHg4T1hmQ3ZsUGNOSDROZ1A3dEQy?=
- =?utf-8?B?VDlPcG5kS1ZLazN6eE53VWtuKzlUQnFqRk9PVHhZOTBLUUN0UEhiUnJyWEtN?=
- =?utf-8?Q?SyYbQVsUglvuogXEUo?=
+	=?utf-8?B?VWREUFdFQzljSVAzMWJ5OE8wbGFVTzFkZmtyeldiQjhPN2xhTmJxZlhTOGV5?=
+ =?utf-8?B?enlaQ3Vhby9hbjRkQmJaU1UwbW5nb2lEODJIRkpHZzZIcU84NW1iaHZhZTFl?=
+ =?utf-8?B?UkJmRmNEcDBNWDNWWmhkSHdEOERPRlg4Wmxoa0NIeCtpMFl5bzBFUm9SaHBW?=
+ =?utf-8?B?aWNPSjNibEhGd1Y0dFBlSDFOSnZNSnEyZDBCYzJDbEJaUjA4WlUrY1REem02?=
+ =?utf-8?B?RGtSNDlUU1AxOHRwaHBJTkVTRDNSTVRvczk5R3dXN0FjQ0ZCelRmL0Y4Ynht?=
+ =?utf-8?B?bTc1NVlOTWMyS3hXMk1DNkowNmtzQTgvckFvZys5T25sOWtxMWh1UFFpOUpq?=
+ =?utf-8?B?cytzUWwzYTE0QUJ2N2FPb28xNjJBWGptVXg0YWl0dHZtelB6YXZSWGxsUGZY?=
+ =?utf-8?B?b0RTOS95Qm14NFpjUHJBeW9RS0c5UFFqcnpxT0xUNTVjWDdhSytaV2NVQTRO?=
+ =?utf-8?B?UEltTVdHWG0vcDFaUU9yOG9qWHl3T003OGljdy85WllKM0ZESFByS1VRNGJk?=
+ =?utf-8?B?TWp0RU5wcncvV2Z2anowcDI5a2xMQzJzL25mSmwwaCs3WHUwNGVvL0JXUWtH?=
+ =?utf-8?B?L2JTYUJWVGJHZnRaU0VIdnl1TUN5cVFCOWluSG1LeXEyWWhVOHBUWjBmWlhv?=
+ =?utf-8?B?TW1GWTBLdDFRajhaeEEvNjdqUWVJaWI1Ym9vWjAzeTlibHB6NzRaN2ZKdWl2?=
+ =?utf-8?B?cmVwL0s0bkNSSXE1clhZM3FvWm83dnNqNEsyUGZKaWlRbEpJLzRTOUQ2QWJw?=
+ =?utf-8?B?TWVzV1RpZVlkVTZEalluUjZuOEpXRmxMTC80RXZleDFOYTgvaTFVUzkwWnhs?=
+ =?utf-8?B?azhCVjRnMkFkSE5yUENqY1V4ZjVaNm1XS2R1TEVnYU10VnlLZlhVaTJpS3hB?=
+ =?utf-8?B?RE9WTnNScGlZMklpVUNmVlJtQ014cDhsMW1MbVkyeDZQQVB2S04yZVN0VW5l?=
+ =?utf-8?B?U1VyYmJ1MHg0WTNIQ2ZWaWNhS2hCcXQybC9RWllHRHdJYWo1K1BZdHBBOXBT?=
+ =?utf-8?B?aC94TWRteDUwQTNka1NtcTA2K0VybzBXOUt5SCtEZTN5bWJBbll1MjdCbzl1?=
+ =?utf-8?B?WktNUm1yblNycFg3SjFGb1ZoWHRCa05sS0lUcXp4bnZReHhuQVlyYkFJYXFn?=
+ =?utf-8?B?aXg5Z2lybEtZcWk2SWRRajlCSHhHTW83YkZnTEtIcG9icDNpeS9WdWZlL3Qw?=
+ =?utf-8?B?ekVBemUwUHEyU20rd1cwamNhQVk2OElmRndnOEV4akhNSnZydVgwZVRIa0p0?=
+ =?utf-8?B?aHhSNlUzY1JIRnJZOXF1Z0xmNmZlTVR0c29zK0dEampETThESzVvWU9hRWVI?=
+ =?utf-8?B?eERJd1huQTVzRmMyRFBUeFdoQ0V1ZFc3bzF0SExuRlBIRktiYXlGR28rRE83?=
+ =?utf-8?B?cGdPL0hXNUJrQTJJRG9WRnRpVnlFcFZqYVdUSWp1OTdwTExLWlMrVnUvOFRp?=
+ =?utf-8?B?VnYyeExnZjMyYjhGY1ZLbW1KSDJWeUlrS1NCenE4OVJOY0tXMDBhaklTTWkr?=
+ =?utf-8?B?blZ1THhTVWoxWExyZXdlbU1VREdLS0toSlQzdm1PY0txaE4vSERYMjNZL1FD?=
+ =?utf-8?B?S21sdER3dXFBNFpJZWZJWWVnUTZEYVkvS0JKL2s0N1ZKbG5ucmhnbnBCQmVB?=
+ =?utf-8?B?UXNjYnNxUkNTTDhOeTlQUUIrODkwbnFMZEVLaVJuUEptSjJNL3k0RXQ5cnpZ?=
+ =?utf-8?B?SjhndkJzWVJFb1IyV0FHQjlsU1o4cVJOUkI5NmYxRUpzbVp6R2FJNzB6OGgz?=
+ =?utf-8?B?dzB3a3c4RzdiYjdjVURhdGRRQlVJTG5YOHdYaCtEaTRsMm9EMnp0SEJnWUF2?=
+ =?utf-8?B?cEdEc0pGNlV2ODJ3UkVaOGhDMUVsU3FSZVBNMFJFNWZGb3JabmQ0b0R2OGZr?=
+ =?utf-8?B?Sm4vQ3ZESUwyeXJyNjV5dmlRUDZ5WXdyUlFSYm9VWUxza2tLUDFCenh2TjdH?=
+ =?utf-8?B?NStoN1J0eVUwcW5UZXI4Uy9RNnVrdlQ2aEJZUUptUEVXbzlDSy9MOU05bzZX?=
+ =?utf-8?B?T2NsVGROSDZ6Q253ci9JWUVDNFBteC9yUTBpbmpsall2Zm9iZTV0b3JLSksv?=
+ =?utf-8?B?YktmT0U1WHdXSzRydU15MmFEN0tSM2pUSkMxUktaNExTOTlPQjlWWDJKa1Ru?=
+ =?utf-8?B?bHZXMlFjOCtxQS90VTRDb1lKd3ZqWnFzSStGbTFhSmFXTVplZTZ2STkyRTZG?=
+ =?utf-8?B?R05TNEtqdmQ4cU1PTTMwVDdSRUtNK1cxWldyTnQrNHVKK25kNXh5OE8yV0l3?=
+ =?utf-8?B?N2F4aWVXRk1aR3ZpbG1qeDlvaXFJdXVmOFVaTjRJUmEzempDQlhkeUo5Ykhm?=
+ =?utf-8?Q?ZEpmxUiT47cUJVjHlm?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c12b514-a3ba-4eea-979a-08df120748b3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b5d5a0f-e1a6-4725-199e-08df120749c7
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 02:24:20.4722
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 02:24:22.2746
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HKsvlYwX6onBWxi3rfWuJ7rRMzPsLuzNJldGgPOSrAsNOodFbjLLiFWqx7+naphA
+X-MS-Exchange-CrossTenant-UserPrincipalName: /x3fAVW9z31WTZwfJpYVgtLQ2SIugzlsh32Y/pLrrZnUi5RgbwPVxJlzmOzRrcUz
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6486
 
-page-based ->private flag helpers are used in the compression path, where
-large folios are not enabled. They can use folio versions with
-page_folio(). The two remaining users in data.c and segment.c can use
-fio->folio instead of fio->page (two are in a union).
+erofs_onlinefolio_init/split/end() use folio->private without setting
+PG_private or increasing folio refcount and it works. But after PG_private
+is replaced by checking folio->private in a future commit, it can break
+folio_expected_ref_count(), since the folio has private data without
+elevated refcount. Change them to use folio_attach/detach_private().
+Folios during this process are locked as they are in the process of
+readahead, so no parallel migration/folio split can happen.
 
-Drop page-based helpers after the conversion and rename
-PAGE_PRIVATE_{GET,SET,CLEAR}_FUNC() and the PAGE_PRIVATE_* flags to
-F2FS_FOLIO_PRIVATE_* to match. Convert the folio/page union from
-f2fs_io_info union to folio only, since no page user is left.
+Furthermore, because folio->private is used to store in-flight I/O counter
+and the counter reaches 0 when all I/O completes successfully without error
+or being dirty, ->private=0 causes folio_detach_private() to not drop the
+elevated folio refcount. Solve this issue by using bias=1 for the counter,
+so that ->private stays non NULL throughout every attach-to-detach process.
+Add a macro EROFS_ONLINEFOLIO_BIAS=1. While at it, fix the comment about
+->private bit layout and add EROFS_ONLINEFOLIO_COUNT_MASK.
 
-The folio helpers do a plain read-modify-write where the page ones used
-set_bit()/clear_bit(). It is fine because the converted code either holds
-folio lock or, in f2fs_compress_write_end_io(), matches what the
-non-compressed code does in f2fs_write_end_bio().
+It prepares for a future commit that removes PG_private.
 
 Assisted-by: LLM
-Suggested-by: Tal Zussman <tz2294@columbia.edu>
-Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-To: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Gao Xiang <xiang@kernel.org>
 To: Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net
+Cc: Yue Hu <zbestahu@gmail.com>
+Cc: Jeffle Xu <jefflexu@linux.alibaba.com>
+Cc: Sandeep Dhavale <dhavale@google.com>
+Cc: Hongbo Li <hongbohbli@tencent.com>
+Cc: Chunhai Guo <guochunhai@vivo.com>
+Cc: linux-erofs@lists.ozlabs.org
 Cc: linux-kernel@vger.kernel.org
-Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+Reviewed-by: Gao Xiang <xiang@kernel.org>
 Signed-off-by: Zi Yan <ziy@nvidia.com>
 ---
- fs/f2fs/compress.c | 35 ++++++++++++-------
- fs/f2fs/data.c     |  2 +-
- fs/f2fs/f2fs.h     | 99 +++++++++++++++++++++---------------------------------
- fs/f2fs/segment.c  |  2 +-
- 4 files changed, 63 insertions(+), 75 deletions(-)
+ fs/erofs/data.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-index ce88092d9ce26..09d9b8d0fdcce 100644
---- a/fs/f2fs/compress.c
-+++ b/fs/f2fs/compress.c
-@@ -1064,13 +1064,15 @@ static void cancel_cluster_writeback(struct compress_ctx *cc,
- 
- 	/* Cancel writeback and stay locked. */
- 	for (i = 0; i < cc->cluster_size; i++) {
-+		struct folio *folio = page_folio(cc->rpages[i]);
-+
- 		if (i < submitted) {
- 			inode_inc_dirty_pages(cc->inode);
--			lock_page(cc->rpages[i]);
-+			folio_lock(folio);
- 		}
--		clear_page_private_gcing(cc->rpages[i]);
--		if (folio_test_writeback(page_folio(cc->rpages[i])))
--			end_page_writeback(cc->rpages[i]);
-+		folio_clear_f2fs_gcing(folio);
-+		if (folio_test_writeback(folio))
-+			folio_end_writeback(folio);
- 	}
- }
- 
-@@ -1078,11 +1080,15 @@ static void set_cluster_dirty(struct compress_ctx *cc)
- {
- 	int i;
- 
--	for (i = 0; i < cc->cluster_size; i++)
--		if (cc->rpages[i]) {
--			set_page_dirty(cc->rpages[i]);
--			set_page_private_gcing(cc->rpages[i]);
--		}
-+	for (i = 0; i < cc->cluster_size; i++) {
-+		struct folio *folio;
-+
-+		if (!cc->rpages[i])
-+			continue;
-+		folio = page_folio(cc->rpages[i]);
-+		folio_mark_dirty(folio);
-+		folio_set_f2fs_gcing(folio);
-+	}
- }
- 
- static int prepare_compress_overwrite(struct compress_ctx *cc,
-@@ -1281,7 +1287,7 @@ static int f2fs_write_compressed_pages(struct compress_ctx *cc,
- 		.op = REQ_OP_WRITE,
- 		.op_flags = wbc_to_write_flags(wbc),
- 		.old_blkaddr = NEW_ADDR,
--		.page = NULL,
-+		.folio = NULL,
- 		.encrypted_page = NULL,
- 		.compressed_page = NULL,
- 		.io_type = io_type,
-@@ -1370,7 +1376,7 @@ static int f2fs_write_compressed_pages(struct compress_ctx *cc,
- 		block_t blkaddr;
- 
- 		blkaddr = f2fs_data_blkaddr(&dn);
--		fio.page = cc->rpages[i];
-+		fio.folio = page_folio(cc->rpages[i]);
- 		fio.old_blkaddr = blkaddr;
- 
- 		/* cluster header */
-@@ -1476,9 +1482,12 @@ void f2fs_compress_write_end_io(struct bio *bio, struct folio *folio)
- 	}
- 
- 	for (i = 0; i < cic->nr_rpages; i++) {
-+		struct folio *rfolio;
-+
- 		WARN_ON(!cic->rpages[i]);
--		clear_page_private_gcing(cic->rpages[i]);
--		end_page_writeback(cic->rpages[i]);
-+		rfolio = page_folio(cic->rpages[i]);
-+		folio_clear_f2fs_gcing(rfolio);
-+		folio_end_writeback(rfolio);
- 	}
- 
- 	page_array_free(sbi, cic->rpages, cic->nr_rpages);
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 21f396ebe22ca..ca8232a9095f8 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2923,7 +2923,7 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
- 		return true;
- 
- 	if (fio) {
--		if (page_private_gcing(fio->page))
-+		if (folio_test_f2fs_gcing(fio->folio))
- 			return true;
- 		if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED) &&
- 			f2fs_is_checkpointed_data(sbi, fio->old_blkaddr)))
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 2f7ab5888b078..85937de3d7016 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -1357,10 +1357,7 @@ struct f2fs_io_info {
- 	blk_opf_t op_flags;	/* req_flag_bits */
- 	block_t new_blkaddr;	/* new block address to be written */
- 	block_t old_blkaddr;	/* old block address before Cow */
--	union {
--		struct page *page;	/* page to be written */
--		struct folio *folio;
--	};
-+	struct folio *folio;	/* folio to be written */
- 	struct page *encrypted_page;	/* encrypted page */
- 	struct page *compressed_page;	/* compressed page */
- 	struct list_head list;		/* serialize IOs */
-@@ -1613,27 +1610,27 @@ static inline void f2fs_set_bit(unsigned int nr, char *addr);
- static inline void f2fs_clear_bit(unsigned int nr, char *addr);
- 
+diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+index 0885b1f2fc925..f71c7b51bb720 100644
+--- a/fs/erofs/data.c
++++ b/fs/erofs/data.c
+@@ -239,19 +239,23 @@ int erofs_map_dev(struct super_block *sb, struct erofs_map_dev *map)
  /*
-- * Layout of f2fs page.private:
-+ * Layout of f2fs folio->private:
-  *
-  * Layout A: lowest bit should be 1
-  * | bit0 = 1 | bit1 | bit2 | ... | bit MAX | private data .... |
-- * bit 0	PAGE_PRIVATE_NOT_POINTER
-- * bit 1	PAGE_PRIVATE_ONGOING_MIGRATION
-- * bit 2	PAGE_PRIVATE_INLINE_INODE
-- * bit 3	PAGE_PRIVATE_REF_RESOURCE
-- * bit 4	PAGE_PRIVATE_ATOMIC_WRITE
-+ * bit 0	F2FS_FOLIO_PRIVATE_NOT_POINTER
-+ * bit 1	F2FS_FOLIO_PRIVATE_ONGOING_MIGRATION
-+ * bit 2	F2FS_FOLIO_PRIVATE_INLINE_INODE
-+ * bit 3	F2FS_FOLIO_PRIVATE_REF_RESOURCE
-+ * bit 4	F2FS_FOLIO_PRIVATE_ATOMIC_WRITE
-  * bit 5-	f2fs private data
-  *
-  * Layout B: lowest bit should be 0
-- * page.private is a wrapped pointer.
-+ * folio->private is a wrapped pointer.
+  * bit 30: I/O error occurred on this folio
+  * bit 29: CPU has dirty data in D-cache (needs aliasing handling);
+- * bit 0 - 29: remaining parts to complete this folio
++ * bit 0 - 28: remaining parts to complete this folio, biased by 1 so that
++ *	       ->private stays non-NULL while the folio is attached
   */
- enum {
--	PAGE_PRIVATE_NOT_POINTER,		/* private contains non-pointer data */
--	PAGE_PRIVATE_ONGOING_MIGRATION,		/* data page which is on-going migrating */
--	PAGE_PRIVATE_INLINE_INODE,		/* inode page contains inline data */
--	PAGE_PRIVATE_REF_RESOURCE,		/* dirty page has referenced resources */
--	PAGE_PRIVATE_ATOMIC_WRITE,		/* data page from atomic write path */
--	PAGE_PRIVATE_MAX
-+	F2FS_FOLIO_PRIVATE_NOT_POINTER,		/* private contains non-pointer data */
-+	F2FS_FOLIO_PRIVATE_ONGOING_MIGRATION,		/* data page which is on-going migrating */
-+	F2FS_FOLIO_PRIVATE_INLINE_INODE,		/* inode page contains inline data */
-+	F2FS_FOLIO_PRIVATE_REF_RESOURCE,		/* dirty page has referenced resources */
-+	F2FS_FOLIO_PRIVATE_ATOMIC_WRITE,		/* data page from atomic write path */
-+	F2FS_FOLIO_PRIVATE_MAX
- };
+ #define EROFS_ONLINEFOLIO_EIO		30
+ #define EROFS_ONLINEFOLIO_DIRTY		29
++#define EROFS_ONLINEFOLIO_COUNT_MASK	(BIT(EROFS_ONLINEFOLIO_DIRTY) - 1)
++#define EROFS_ONLINEFOLIO_BIAS		1
  
- /* For compression */
-@@ -2681,86 +2678,68 @@ static inline int inc_valid_block_count(struct f2fs_sb_info *sbi,
- 	return -ENOSPC;
- }
- 
--#define PAGE_PRIVATE_GET_FUNC(name, flagname) \
-+#define F2FS_FOLIO_PRIVATE_GET_FUNC(name, flagname) \
- static inline bool folio_test_f2fs_##name(const struct folio *folio)	\
- {									\
- 	unsigned long priv = (unsigned long)folio->private;		\
--	unsigned long v = (1UL << PAGE_PRIVATE_NOT_POINTER) |		\
--			     (1UL << PAGE_PRIVATE_##flagname);		\
-+	unsigned long v = (1UL << F2FS_FOLIO_PRIVATE_NOT_POINTER) |	\
-+			     (1UL << F2FS_FOLIO_PRIVATE_##flagname);	\
- 	return (priv & v) == v;						\
--}									\
--static inline bool page_private_##name(struct page *page) \
--{ \
--	return page_private(page) && \
--		test_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)) && \
--		test_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
- }
- 
--#define PAGE_PRIVATE_SET_FUNC(name, flagname) \
-+#define F2FS_FOLIO_PRIVATE_SET_FUNC(name, flagname) \
- static inline void folio_set_f2fs_##name(struct folio *folio)		\
- {									\
--	unsigned long v = (1UL << PAGE_PRIVATE_NOT_POINTER) |		\
--			     (1UL << PAGE_PRIVATE_##flagname);		\
-+	unsigned long v = (1UL << F2FS_FOLIO_PRIVATE_NOT_POINTER) |	\
-+			     (1UL << F2FS_FOLIO_PRIVATE_##flagname);	\
- 	if (!folio->private)						\
- 		folio_attach_private(folio, (void *)v);			\
- 	else {								\
- 		v |= (unsigned long)folio->private;			\
- 		folio->private = (void *)v;				\
- 	}								\
--}									\
--static inline void set_page_private_##name(struct page *page) \
--{ \
--	if (!page_private(page)) \
--		attach_page_private(page, \
--				(void *)BIT(PAGE_PRIVATE_NOT_POINTER)); \
--	set_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
- }
- 
--#define PAGE_PRIVATE_CLEAR_FUNC(name, flagname) \
-+#define F2FS_FOLIO_PRIVATE_CLEAR_FUNC(name, flagname) \
- static inline void folio_clear_f2fs_##name(struct folio *folio)		\
- {									\
- 	unsigned long v = (unsigned long)folio->private;		\
- 									\
--	v &= ~(1UL << PAGE_PRIVATE_##flagname);				\
--	if (v == (1UL << PAGE_PRIVATE_NOT_POINTER))			\
-+	v &= ~(1UL << F2FS_FOLIO_PRIVATE_##flagname);			\
-+	if (v == (1UL << F2FS_FOLIO_PRIVATE_NOT_POINTER))		\
- 		folio_detach_private(folio);				\
- 	else								\
- 		folio->private = (void *)v;				\
--}									\
--static inline void clear_page_private_##name(struct page *page) \
--{ \
--	clear_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
--	if (page_private(page) == BIT(PAGE_PRIVATE_NOT_POINTER)) \
--		detach_page_private(page); \
- }
- 
--PAGE_PRIVATE_GET_FUNC(nonpointer, NOT_POINTER);
--PAGE_PRIVATE_GET_FUNC(inline, INLINE_INODE);
--PAGE_PRIVATE_GET_FUNC(gcing, ONGOING_MIGRATION);
--PAGE_PRIVATE_GET_FUNC(atomic, ATOMIC_WRITE);
-+F2FS_FOLIO_PRIVATE_GET_FUNC(nonpointer, NOT_POINTER);
-+F2FS_FOLIO_PRIVATE_GET_FUNC(inline, INLINE_INODE);
-+F2FS_FOLIO_PRIVATE_GET_FUNC(gcing, ONGOING_MIGRATION);
-+F2FS_FOLIO_PRIVATE_GET_FUNC(atomic, ATOMIC_WRITE);
- 
--PAGE_PRIVATE_SET_FUNC(reference, REF_RESOURCE);
--PAGE_PRIVATE_SET_FUNC(inline, INLINE_INODE);
--PAGE_PRIVATE_SET_FUNC(gcing, ONGOING_MIGRATION);
--PAGE_PRIVATE_SET_FUNC(atomic, ATOMIC_WRITE);
-+F2FS_FOLIO_PRIVATE_SET_FUNC(reference, REF_RESOURCE);
-+F2FS_FOLIO_PRIVATE_SET_FUNC(inline, INLINE_INODE);
-+F2FS_FOLIO_PRIVATE_SET_FUNC(gcing, ONGOING_MIGRATION);
-+F2FS_FOLIO_PRIVATE_SET_FUNC(atomic, ATOMIC_WRITE);
- 
--PAGE_PRIVATE_CLEAR_FUNC(reference, REF_RESOURCE);
--PAGE_PRIVATE_CLEAR_FUNC(inline, INLINE_INODE);
--PAGE_PRIVATE_CLEAR_FUNC(gcing, ONGOING_MIGRATION);
--PAGE_PRIVATE_CLEAR_FUNC(atomic, ATOMIC_WRITE);
-+F2FS_FOLIO_PRIVATE_CLEAR_FUNC(reference, REF_RESOURCE);
-+F2FS_FOLIO_PRIVATE_CLEAR_FUNC(inline, INLINE_INODE);
-+F2FS_FOLIO_PRIVATE_CLEAR_FUNC(gcing, ONGOING_MIGRATION);
-+F2FS_FOLIO_PRIVATE_CLEAR_FUNC(atomic, ATOMIC_WRITE);
- 
- static inline unsigned long folio_get_f2fs_data(struct folio *folio)
+ void erofs_onlinefolio_init(struct folio *folio)
  {
- 	unsigned long data = (unsigned long)folio->private;
+ 	union {
+ 		atomic_t o;
+ 		void *v;
+-	} u = { .o = ATOMIC_INIT(1) };
++	} u = { .o = ATOMIC_INIT(1 + EROFS_ONLINEFOLIO_BIAS) };
  
--	if (!test_bit(PAGE_PRIVATE_NOT_POINTER, &data))
-+	if (!test_bit(F2FS_FOLIO_PRIVATE_NOT_POINTER, &data))
- 		return 0;
--	return data >> PAGE_PRIVATE_MAX;
-+	return data >> F2FS_FOLIO_PRIVATE_MAX;
+-	folio->private = u.v;	/* valid only if file-backed folio is locked */
++	/* valid only if file-backed folio is locked */
++	folio_attach_private(folio, u.v);
  }
  
- static inline void folio_set_f2fs_data(struct folio *folio, unsigned long data)
- {
--	data = (1UL << PAGE_PRIVATE_NOT_POINTER) | (data << PAGE_PRIVATE_MAX);
-+	data = (1UL << F2FS_FOLIO_PRIVATE_NOT_POINTER) |
-+	       (data << F2FS_FOLIO_PRIVATE_MAX);
+ void erofs_onlinefolio_split(struct folio *folio)
+@@ -265,14 +269,14 @@ void erofs_onlinefolio_end(struct folio *folio, int err, bool dirty)
  
- 	if (!folio_test_private(folio))
- 		folio_attach_private(folio, (void *)data);
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 63b712d3d599e..8c156e1fd37d0 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3803,7 +3803,7 @@ static int __get_segment_type_6(struct f2fs_io_info *fio)
- 		if (is_inode_flag_set(inode, FI_ALIGNED_WRITE))
- 			return CURSEG_COLD_DATA_PINNED;
+ 	do {
+ 		orig = atomic_read((atomic_t *)&folio->private);
+-		DBG_BUGON(orig <= 0);
++		DBG_BUGON((orig & EROFS_ONLINEFOLIO_COUNT_MASK) <= EROFS_ONLINEFOLIO_BIAS);
+ 		v = dirty << EROFS_ONLINEFOLIO_DIRTY;
+ 		v |= (orig - 1) | (!!err << EROFS_ONLINEFOLIO_EIO);
+ 	} while (atomic_cmpxchg((atomic_t *)&folio->private, orig, v) != orig);
  
--		if (page_private_gcing(fio->page)) {
-+		if (folio_test_f2fs_gcing(fio->folio)) {
- 			if (fio->sbi->am.atgc_enabled &&
- 				(fio->io_type == FS_DATA_IO) &&
- 				(fio->sbi->gc_mode != GC_URGENT_HIGH) &&
+-	if (v & (BIT(EROFS_ONLINEFOLIO_DIRTY) - 1))
++	if ((v & EROFS_ONLINEFOLIO_COUNT_MASK) != EROFS_ONLINEFOLIO_BIAS)
+ 		return;
+-	folio->private = 0;
++	folio_detach_private(folio);
+ 	if (v & BIT(EROFS_ONLINEFOLIO_DIRTY))
+ 		flush_dcache_folio(folio);
+ 	folio_end_read(folio, !(v & BIT(EROFS_ONLINEFOLIO_EIO)));
 
 -- 
 2.53.0
