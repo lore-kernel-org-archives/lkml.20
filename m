@@ -1,129 +1,97 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mta0.migadu.com (out-242.mta0.migadu.com [91.218.175.242])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FE048C41F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8209A489FAE
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.242
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403579; cv=none; b=h0Kt0gg7/rWTi8+eUW5MupKXhpBJR5PM62ZnhjFU52GYaK9r30zNClFr+R820v3WOfBlJxPHHddVsgwsQzMulfAVgAJoPilSYxZA3RVFg/HMfuDOPnQDD99tT193l931XoPF0SMdLPxfw3nLSs+jKmPQVMQZ19r25ya7I70Pgac=
+	t=1789403597; cv=none; b=e2IMcte4tXIHHYR6l/K5ebwmwDtB1yMEQ3gmjEAqfCdXKjxMLZFC/7uP5lL5HwfWyqcvhEYiHybZZxD2oG+zQgF+M5Xzv+t8CreWGTmUezH9OdRbrrytex/NW1pXDrn0prp98yNiWgkUAocq7VampBIo5R87rFeziQvUTs6hHf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789403579; c=relaxed/simple;
-	bh=u3ip+RRXt4HMU6c7yGbkOPs35P2CelDhQnnshfbNVW4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W6cwWTMIwBkv8LVqkT0Q32y9gJzPshw18/L03YUj3v1knLQogEAKdY7SRX9c+L+o5WbpHkjbZLnbhSioT62C7zA7sEz/zU8rEMece2svA17dbxvS6QeSC3U/4UGRHYQT5eXHZ2z31NR4goofdt8hEyz3YWn+m0vr+VUfNk0L3Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xSrOcZcL; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789403597; c=relaxed/simple;
+	bh=W5+NjNc2Yvil7nhmREpSKhaOG865kOQghRODVtnSokk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CN9Y8JP+J3ze0jQJM7WptTuLefOonI5dibDj/GGQKduNYBgrjvBDGjhPKYPLf0zPU09HhoMF18rdw37lEmCycvskj6SGPUy7st4f2x4nOaMDxttHhTQPNhn9BuqBSdGc4frJFHeULbuZQq1/Mycy9ON3oz4BpU6c2GHfsZybM5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ruf4cirM; arc=none smtp.client-ip=91.218.175.242
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xSrOcZcL"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so26017025e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:32:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789403576; x=1790008376; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GVoptFjQoPJzZR3oa46rPkqQ9t2mgiZ9r55mFPnK2Qs=;
-        b=xSrOcZcLQ3MJJgmmv6k2ziMsycCZHwzbN0QTjzQc6ebO/m+9SShRaov3wVnWIA5KPz
-         5+CXNMQTQ7Nd4OxcNl/I7kKPZWlRV8KNYz/D9Ig0Bv4ZdFrckswpvDpn2TGFACydAwzv
-         QqlSo766z3CzZ9qiebVJA0G/UswqejvyshFG2/wWrf/yCdOwjcFhc2eTNRujN8vh/Rs+
-         /g16BLdSTjTdmNu8+gkCGdajo/sbiJvtaRRjZsp1DGCV8dTsJK2ZXnuFmR9EWCJ38A/t
-         vQH2hkbMWaJayivFk3/0kzcXyLlyGdSWO/Kp/aI/gxKk7iianH+DibSDwLbM+DHoND9G
-         ADvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789403576; x=1790008376;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GVoptFjQoPJzZR3oa46rPkqQ9t2mgiZ9r55mFPnK2Qs=;
-        b=CUGtzIdib8Ec5om2H7zCZrQJsUZNJZmfSJCRDDT6EhYhu94Y8eBd9cAtzM9VFF0Bmc
-         YqpzSSQWGT5sN4dgM2QdaFWgruWw+rByHso/4ugFxUvoV9Fy7sVuYk727Ew2t97FW+nj
-         V5i9kPpsnNhl/qA/CYpcRoqAx+BNHiNx+m6xjulwMKXuKqCzfmnMXtsuO3zDTBOkWKpQ
-         k4C0KJtFj5szTrEogKY3BA80chR4RGmnuwo2umloAJjacycp28mVqPynT6+kMUkgo2OJ
-         Mk8SILFB5f3J9NvFAiG5r/dKveR4Xu4K/wEGI/T2NBRc2kJQ6ePBnyhf234PbsfST1JL
-         XRzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkY6mMpDJJgqAuOTrFvT9tZF7m7OXVFl4dGinGuqUinelO8b9gzawzD8nu5N7mPTAnKqnun351jru4E1U=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKezOruyg19Qg3P7XqC/p1/MHDa3oeRiOpvTp8g3fDG0GM2wD+
-	CTIpaiBK15YIfXabfnB8htm92yggftgZ79QHlNd4IuBEPOo4+tWtyoYMQXsjsVlErr4tzCyfsqX
-	GmXDDsMA=
-X-Gm-Gg: AYBFou2N4nPRTw7xhEr1jOhY35tDjOzMfRBLk7gBVe31iOecRV+XQMnJckzoWQFahVH
-	iEBveWcPlQEjUsTGhd3/cU0LmLUYucdVRgD2BpUWpz2qSM3MbTLG0T4mRPWAl6U6hqf8wKx+1Tc
-	z0uMKiVF2FET9v/GG5x5mipO33vDleBZJ3E2g3nXQYX9WR6NrWBugP+2zVdKJPmn3Y69o3ZXl2I
-	mjkBz1g9j1eF+jXb/tXsOQsi+Nxx98KMjTK5ftFiD6gXjNhBLiWHWHiZilvMsWE7+2ENy/GVUpK
-	lbpoPfrOlX1pCxgg/1J26x+/D93JMj5cLZdGKCTsduIgaAyydcCfo56fWRTC0R0rrTJIS/8f7vy
-	5mzbA9a3jc47IFBgH95mh2JfHlPK0rg3lwD7Z9SRK4jp85kdVcshYT29sNB9ZksPrhbMDPjvbON
-	I27j//11st+vmrte+gXKy58MVXBLZwhLXe1dDCH9J1aHHD9Lny7s3CchjfCdoMKUJa1dOGAYB+U
-	kKTzARhtYCHIu6KVRG9/DXVu85mqn9Mi5Hwia0YoOFCZvUtwuOnfbHvc7LO3OU=
-X-Received: by 2002:a05:600c:6383:b0:49e:74c6:d973 with SMTP id 5b1f17b1804b1-49e7a67e2d4mr40537305e9.31.1789403575710;
-        Mon, 14 Sep 2026 09:32:55 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d284a7bsm25431815e9.3.2026.09.14.09.32.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 09:32:55 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Mon, 14 Sep 2026 17:32:45 +0100
-Subject: [PATCH RESEND v2] arm64: dts: exynos850: Add ap2apm mailbox
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ruf4cirM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W5+NjNc2Yvil7nhmREpSKhaOG865kOQghRODVtnSokk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789403593; v=1; x=1790008393;
+ b=ruf4cirMhfrpIUPaA4863REr632ynvxVUqNUGn/qcWO47Ji7fRKpjt+cPZFmaTiBLCv9XHI0
+ 9bce9WVGRXLLYKM7zM/pnTJrXLj5pLtxXaJz/fRSHTMf1oxRfyRB+tFfena+nDq2876wc+sQHQS
+ jpH/FIeNJt/b7xpjj4vpdPo8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e3c99df1de7f9083;
+	Mon, 14 Sep 2026 16:33:13 +0000
+X-Mizu-Trace-ID: e3c99df1de7f9083
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so10015e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:33:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzeIHOJ+wkoml8PrcIDdm+r7Oc0bK+A4Di+VsWiekv1YmoFKAcKXxKu1dkfSRiCq/WTB1YrasOyMQVoqiI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4EUW6DnFsbTWsCmmd/zJrGk+QZeNRt4DfdcoezVcGhrrauo3l
+	LYFrBsnr22+LT/psFdNSxEeH/iflJUGp9B0JVOyoLzu36BQCKvcSJplnII2vaH4m4aJBomDEK6A
+	fDtN2C3kUuq6Z8ynVWXCI5EZNsWC933PEkdTIluzt
+X-Received: by 2002:a05:6512:b2a:b0:5b1:4fd9:ac with SMTP id
+ 2adb3069b0e04-5b8af7a5112mr81906e87.3.1789403588069; Mon, 14 Sep 2026
+ 09:33:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-exynos850-mbox-dts-v2-1-798585c8f1ba@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAK0hqGoC/32OMQ+CMBSE/4p5s8+0pYI4OcjqoKNhAPqAJtpqi
- wRC+O9W2B3vLt/dTeDJafJw3EzgqNdeWxOE2G6gagvTEGoVNAgmYiZFijSMxvrDnuGztAOqzmO
- VliklURRzySCAL0e1HpbSO1yzW3Y5Q776jt6fsNGt4c9ste+sG5cDPV+Qf1s9R45JHRVKJKRkL
- U8PbQpnd9Y1kM/z/AVG1q3P0gAAAA==
-X-Change-ID: 20260429-exynos850-mbox-dts-c9b9e7336140
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, 
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
+References: <20260830-host-direct-messages-v7-0-45f6e6db72c2@google.com> <20260830-host-direct-messages-v7-2-45f6e6db72c2@google.com>
+In-Reply-To: <20260830-host-direct-messages-v7-2-45f6e6db72c2@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 14 Sep 2026 17:32:31 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwCrh3SXggD4p9BD0A4tUe0Xc9bPREw94uAwrEizgygeA@mail.gmail.com>
+X-Gm-Features: AcwNN1U-PrGVaJ7CGsoLsa0purDu4_JoU58bTFRJLLpJ0ZCVxT7qQm_pkVz-m_s
+Message-ID: <CA+EHjTwCrh3SXggD4p9BD0A4tUe0Xc9bPREw94uAwrEizgygeA@mail.gmail.com>
+Subject: Re: [PATCH v7 2/3] KVM: arm64: Support FFA_MSG_SEND_DIRECT_REQ in
+ host handler
+To: perlarsen@google.com
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Yeoreum Yun <yeoreum.yun@arm.com>, Ben Horgan <ben.horgan@arm.com>, 
+	Oliver Upton <oupton@kernel.org>, Sebastien Ene <sebastianene@google.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add mailbox node that describes AP-to-APM mailbox, that can be
-used for communicating with APM co-processor on Exynos850 SoCs.
+Hi Per, Seb,
 
-Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
-Changes in v2:
-- basically no updates, dependencies were merged so just re-sending;
-- Link to v1: https://lore.kernel.org/r/20260429-exynos850-mbox-dts-v1-1-7f3ad27ed4f4@linaro.org
----
- arch/arm64/boot/dts/exynos/exynos850.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On Mon, 31 Aug 2026 at 00:08, Per Larsen via B4 Relay
+<devnull+perlarsen.google.com@kernel.org> wrote:
+[...]
+> Allow direct messages to be forwarded from the host. The host should
+> not be sending framework messages so they are filtered out.
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-index 911643008b9f..bdf177d08ea2 100644
---- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-@@ -319,6 +319,15 @@ cmu_apm: clock-controller@11800000 {
- 			clock-names = "oscclk", "dout_clkcmu_apm_bus";
- 		};
- 
-+		ap2apm_mailbox: mailbox@11900000 {
-+			compatible = "samsung,exynos850-mbox";
-+			reg = <0x11900000 0x1000>;
-+			clocks = <&cmu_apm CLK_GOUT_MAILBOX_APM_AP_PCLK>;
-+			clock-names = "pclk";
-+			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
-+			#mbox-cells = <0>;
-+		};
-+
- 		cmu_cmgp: clock-controller@11c00000 {
- 			compatible = "samsung,exynos850-cmu-cmgp";
- 			reg = <0x11c00000 0x8000>;
+The patch also rejects a sender ID that isn't HOST_FFA_ID, which the
+message doesn't mention. Could you add a line for it?
 
----
-base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
-change-id: 20260429-exynos850-mbox-dts-c9b9e7336140
+[...]
 
-Best regards,
--- 
-Alexey Klimov <alexey.klimov@linaro.org>
+> + if (upper_32_bits(endp) ||
+> +    FIELD_GET(FFA_SRC_ENDPOINT_MASK, endp) != HOST_FFA_ID) {
 
+Rejecting a non-zero high half of x1 makes sense to me, since EL2
+checks bits 31:16 and then forwards the whole register to EL3, and
+handle_host_smc() already does the same for x0. x3 to x17 reach EL3 as
+the host wrote them though. Was the intent to stop at the registers
+this function reads?
+
+[...]
+
+> + struct arm_smccc_1_2_regs *args = (void *)&ctxt->regs.regs[0];
+
+This relies on struct arm_smccc_1_2_regs fitting in the 31 entries of
+regs[], which holds today at 18. Could it take a BUILD_BUG_ON, like
+do_ffa_mem_xfer() has for its fids?
+
+Cheers,
+/fuad
