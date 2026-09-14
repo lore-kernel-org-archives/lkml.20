@@ -1,21 +1,21 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F524734D0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15D7473C64;
 	Mon, 14 Sep 2026 13:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393623; cv=none; b=HqoTxTjJB6nk2DxLeHNF+ssWlrvFLctTbRH6ol8FYKB1nXVbP5gVk7OGD6xJSCI3rKAprp4SmUh0ZXa2Wyn2PaIhgrYhIWCMcLCD3BptuM0+alY3oEIB7Yz+/z0bAGjUsja9QkQbe/X+dtsntQCXKdLroGBUzlCXUvkJPQv37YU=
+	t=1789393624; cv=none; b=t/IoDjf7ou1gN/SYXDwB4TgDur7tlfu4t7umZj96f50UIOUMLrYXnf7ffaKVpWJvXzS1sxa5YNS5m1Gg81zqhjcRwtPIO9E/SwqHJ1/6MTfqal4Gl69gU0WMsSOX60MXG4SS23A+9bPm5K8lC4F5IwVnb7LE7rK5dONSP1xmey4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393623; c=relaxed/simple;
-	bh=jD0cM7p+54y67H5BoqsAB8Z8ZP1xOOXL1QBUpmp5eqc=;
+	s=arc-20240116; t=1789393624; c=relaxed/simple;
+	bh=7ic4GctefoqLbsA/3ehMeZa39KRVKG5KRpWO8ZCeWZE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MabgsPV/q9ZZEY3p29RBbXkhgbl+83sYT0mgsPboRYaBPSqzCzkxK+WPiSiV56rUuN2/b+ZJzEMiERarhqjo2IXfrnk/Td/m/cFZsXgaSaP2QHrCe1B478beUTSZAl6Qsm5FP2zeyigQUL0lD6kx/Et13/gxZAqNDnu0CSwNbXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=MBcdRlbY; arc=none smtp.client-ip=116.203.77.234
+	 In-Reply-To:To:Cc; b=Y7/ghiFfdSOctJJ3RLeNd30Y+AS7MBVmvxFoCwXSM3MPwZZ08oQkfdkWTKng4BuD8oOaJ/7b3Mjn+8MT6f5GnFcWX9LIf1R6CoOL8hHuDBCmdNlb5lycx6G4bRziOZ/DzYYIfQfuSeHKU7gfEnEs963Nn8vzN7C4857pTFXs+3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=tt1cIA6L; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="MBcdRlbY"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="tt1cIA6L"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
 	t=1789393612;
@@ -23,15 +23,14 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=W6S6dPizeTTA5G9J/3AscJ1/w+xNcAj+7ZW10z8lG2o=;
-	b=MBcdRlbYG94TxOJvM03IV9Rx1AzOLQtvx+o4ZzORZe0cMXTKNYqBHc5QsQZHP40q7k+4z0
-	tJmADmcPamyLoa4xtWv0nAIDSkaLOvpwB1w7WYn7JzxB4kfcFEb4MRIW1bvKO2Ky7Spt2C
-	NAT/H3AsA/BLXBsVyiJIiBTG5+fBqfLWe0xkT0Va9nX+yw/Zrnbv37DNZlhrn+dvyyH8L7
-	GTowi+ytAdZF3VgNX+LBJ9eGFHIN0NIK9Z+NH125Nw9l6bgN0U8rvTzoj4OFtiMmdISBk7
-	sfelGb1H2OSDH1RVxDnT258vPxo7+8p7t7Ds5/VVwbbDbubKJgoelNjU18eClw==
-Date: Mon, 14 Sep 2026 15:46:11 +0200
-Subject: [PATCH v2 3/9] ARM: dts: imx6ul-kontron-bl-common: Fix USB OTG1 ID
- pin configuration
+	bh=c+qgtzY6MaCxcO3ICUhFFV0vpVhq609X5qyt6lhvn+I=;
+	b=tt1cIA6L1NI0lx1LP9GjDCxbkc/j8IVjuNnI5DHTDtEgSxUYrHT4TU11T8GfN5MV1yy9r1
+	QqsGp0LZVZ2d/tTENBDt0FauCApiBFFX//LHvCE8Y46JcUNdvMYEafX/oyRtgRVxRVR+xi
+	ZHRXwhtQ+aWAroTw8BeZT3dMZJPoNF7CGv4DxumF0OYp5LIxb7SN9VVJe87kpE2C2v7DLr
+	09WkgHi9FeGswpK/MEK4rKGbLkAllm0kH/4V2OThtIvhveejty72awrE9lcHxs90ZQVT6B
+	L1bXpt++QcCv62egaaM1DUTvNAzRlCrIcxwWzpCTjDSaCLxIwOa8iecvgTmlug==
+Date: Mon, 14 Sep 2026 15:46:12 +0200
+Subject: [PATCH v2 4/9] arm64: dts: imx93-kontron: Adjust GPIO4_IO29 usage
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +39,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-3-8e12bc5f1f10@kontron.de>
+Message-Id: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-4-8e12bc5f1f10@kontron.de>
 References: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-0-8e12bc5f1f10@kontron.de>
 In-Reply-To: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-0-8e12bc5f1f10@kontron.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -51,41 +50,92 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Frieder Schrempf <frieder.schrempf@kontron.de>, 
  Shawn Guo <shawnguo@kernel.org>
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Oualid Derouiche <oualid.derouiche@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=902;
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2266;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=iCuZlno55Yjn0MkpffeLuEkr+4wHGhog/vQ/6EFeyBM=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWv5r1OnpKPPyzKmXI8oLHS73lnIPdfooPFJ5o/7s1dZ/
- r61RLOzo4SFQYyLQVZMkUWK3+K1rVmsj/yx6iiYOaxMIEMYuDgFYCJXuxh+3NLXru56vOLGRCXF
- nFmrLoaWqX75VGv6SuXehQlLPyz5wsjw0Exmp9y8jqIch4yr+dZaJ41yxJdrHW59YOBw5VXE0T5
- GAA==
+ bh=MMVzO63V/8fkJV9PzRy2jq7KDqxZ4OTRvgqObIY0heI=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWv5r1O/k0vFA+felbev5PLWjlE1+SLs7VesK729YHbhl
+ 71zL9h0lLIwiHExyIopskjxW7y2NYv1kT9WHQUzh5UJZAgDF6cATOTOU0aGHilPxjj/M08fHL38
+ v0+19aSm9rRb+o1LXeLE80XY53LPYvhnqfBQ0DTm0StRxQoV9oeHeMNNXNtuHb2+Sdvgpci9ax4
+ cAA==
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-From: Oualid Derouiche <oualid.derouiche@kontron.de>
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-Add the missing MX6UL_PAD_GPIO1_IO00__ANATOP_OTG1_ID pinmux entry so
-the USB OTG ID pin is correctly routed and OTG can be used.
+Early prototypes had GPIO4_IO29 control the CARRIER_PWR_EN signal.
+This is now controlled by hardware and the GPIO4_IO29 is routed to
+the GPIO_B_2 OSM pad.
 
-Signed-off-by: Oualid Derouiche <oualid.derouiche@kontron.de>
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ .../boot/dts/freescale/imx93-kontron-osm-s.dtsi    | 32 ++--------------------
+ 1 file changed, 2 insertions(+), 30 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
-index 65c5f4450c36..0658584c9f11 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
-@@ -357,6 +357,7 @@ MX6UL_PAD_UART4_RX_DATA__UART4_DCE_RX	0x1b0b1
+diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
+index f881912cde46..36548d918169 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
+@@ -34,29 +34,6 @@ reg_usdhc2_vcc: regulator-usdhc2-vcc {
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-name = "VCC_SDIO_A";
+ 	};
+-
+-	reg_vdd_carrier: regulator-vdd-carrier {
+-		compatible = "regulator-fixed";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_reg_vdd_carrier>;
+-		gpio = <&gpio4 29 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		regulator-always-on;
+-		regulator-boot-on;
+-		regulator-name = "VDD_CARRIER";
+-
+-		regulator-state-standby {
+-			regulator-on-in-suspend;
+-		};
+-
+-		regulator-state-mem {
+-			regulator-off-in-suspend;
+-		};
+-
+-		regulator-state-disk {
+-			regulator-off-in-suspend;
+-		};
+-	};
+ };
  
- 	pinctrl_usbotg1: usbotg1grp {
+ &flexcan1 { /* OSM-S CAN_A */
+@@ -113,7 +90,7 @@ &gpio4 {
+ 			  "ETH_A_TXD3", "ETH_A_TXD2", "ETH_A_TXD1", "ETH_A_TXD0",
+ 			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "ETH_A_RX_CTL", "ETH_A_RX_CLK",
+ 			  "ETH_A_RXD0", "ETH_A_RXD1", "ETH_A_RXD2", "ETH_A_RXD3",
+-			  "GPIO_B_0", "CARRIER_PWR_EN";
++			  "GPIO_B_0", "GPIO_B_2";
+ };
+ 
+ &lpi2c1 {
+@@ -385,6 +362,7 @@ MX93_PAD_CCM_CLKO2__GPIO3_IO27			0x31e /* GPIO_A_7 */
+ 	pinctrl_gpio4: gpio4grp {
  		fsl,pins = <
-+			MX6UL_PAD_GPIO1_IO00__ANATOP_OTG1_ID	0x17059
- 			MX6UL_PAD_GPIO1_IO04__GPIO1_IO04	0x1b0b0
+ 			MX93_PAD_CCM_CLKO3__GPIO4_IO28			0x31e /* GPIO_B_0 */
++			MX93_PAD_CCM_CLKO4__GPIO4_IO29			0x31e /* GPIO_B_2 */
  		>;
  	};
+ 
+@@ -465,12 +443,6 @@ MX93_PAD_SD2_RESET_B__GPIO3_IO07		0x31e /* SDIO_A_PWR_EN */
+ 		>;
+ 	};
+ 
+-	pinctrl_reg_vdd_carrier: regvddcarriergrp {
+-		fsl,pins = <
+-			MX93_PAD_CCM_CLKO4__GPIO4_IO29			0x31e /* CARRIER_PWR_EN */
+-		>;
+-	};
+-
+ 	pinctrl_rtc: rtcgrp {
+ 		fsl,pins = <
+ 			MX93_PAD_SD2_VSELECT__GPIO3_IO19		0x31e
 
 -- 
 2.55.0
