@@ -1,147 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18B137B023;
-	Mon, 14 Sep 2026 23:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA013B8D5C;
+	Mon, 14 Sep 2026 23:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789429255; cv=none; b=T2RNk3NSSCCJbF4aunoKJDhp72fOITwO8IKmY67ovrhFDyE0YNgFbJtH47z3RHs6qlCBMZh/uNA4hzf/U7psB+YK44px+OqZxMQKybwjMsnWtjMxkaFD9bDbeoNX6SQFBmt1jn5svCToEGyyiyDhYVZaGSOBCqTdPTtL5mvAK54=
+	t=1789429283; cv=none; b=dB9Jevy107feOxg6hGmHPssCxdCVQRljqkd7T/IbV1ZFfcmLYOAb/I+xC3ShmD9aLc8SkgiUvAdPpFn+usYk8AI7ryfs1t7dwG2RSln4jGrvRJ+WCdU1ufGGq/JZGb5P8dshTrRbiMp3afnLzPdEwtNkYfc7tznlHbueQ/zpcJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789429255; c=relaxed/simple;
-	bh=7Mzqi6Dmzx/3/4S+rwfwIrCui/T9Q8lNTXPNMtNBjTg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=kJ0LGRwRKFQrklR50Mj/Qek2fzB3kBucSBXQw87hRl5gA6Bu1ZDkCW8jhIeT4iRLijc1niAQJgmEBNHfSBUrhCQvQIxCrcQHy9VQ5RXSDUDm23kc9uRcqW/cZ6mkjWeMonkwPGRvyhh1JLg1rwb9Ot1r/yn1ll7IQUyKm4Fwr4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXlFhEPS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789429283; c=relaxed/simple;
+	bh=ldLIC9PLx84Iio5D6KygoEfhgB4B7q9k56a/4V8IiMg=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
+	 References:Date:Message-id; b=aNY6sXnvvbBBqs5OFyBw7tCga9BLJr8DkIE25HuNRjUYBi2OnPMk46EG7pu58NZpcIT0+M7fcaNbA+oZMlQc7l93VrVPrTbXW1w/MR4EIBXC1z6QC/uhBxUNgUb6S7d2drHjaVVd6H6Y6JWYYw4KLJXyGRqzH4W6xRBzmF3ZIYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=Vyo6KM3X; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lYA17SpC; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXlFhEPS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6A11F000FF;
-	Mon, 14 Sep 2026 23:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789429254;
-	bh=aw46U3wJ2ufDjF1KO179Fs2BK2L18v6SBaLKoViV+pg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LXlFhEPSSbm/FPsh6NAj8AqboK1ucsn4kKerDxHCXgh+oJ1yEDJ3aVqZxig80aTli
-	 V05P/QsM3HiO/B0WndwXx1jDZ06VhUVqiCTLPGNVvfwluu1CddDNBDRGdQQx9Tuzk5
-	 5zk63uzA57s4x0oeo+wDuHMmlF1v5BVglEmh6AzVqsk3W8E+xYeIv09nUzzbzs6XeE
-	 RLDAroX9JrRxRRHiRjHUu4N6vLse4x89sq7Fy7W2PqJOzdAWBKTgOARkfnlU3qYhfN
-	 HQOmZ9bxVCX+OzGVxeutcngOISlHStaZ479IuUwWtXkgqKExsMESN8dRm1kb20k5sk
-	 nMpCFGEhxwPTQ==
-Date: Tue, 15 Sep 2026 08:40:48 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Ian Rogers
- <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>, Adrian Hunter
- <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, Peter
- Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, LKML
- <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org, Zecheng
- Li <zli94@ncsu.edu>, Yanbo Zhao <yzhao62@ncsu.edu>, Tengda Wu
- <wutengda@huaweicloud.com>, Shuai Xue <xueshuai@linux.alibaba.com>, Masami
- Hiramatsu <mhiramat@kernel.org>
-Subject: Re: [PATCH v2 2/4] perf dwarf-aux: Add die_has_flex_array() helper
-Message-Id: <20260915084048.5779ad90647c116806822df5@kernel.org>
-In-Reply-To: <20260914064535.1671939-3-namhyung@kernel.org>
-References: <20260914064535.1671939-1-namhyung@kernel.org>
-	<20260914064535.1671939-3-namhyung@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="Vyo6KM3X";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lYA17SpC"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E6D8B7A0101;
+	Mon, 14 Sep 2026 19:41:14 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Mon, 14 Sep 2026 19:41:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
+	1789429274; x=1789515674; bh=Du6YtYnd/w6uKCQVlaLgeQqqw0haiKlnwIJ
+	ANr+/fyg=; b=Vyo6KM3XAb12CQdtU7ZX74uCYiu/pdydLEWDYaJh1m1SoCUMWeP
+	flkmU8n2S7J3UDJmFuPK2FDLtg2RyC0GDSzvawZYA93qW8icFjtzgWICzRLWiWW2
+	eWIUTA2gO1vUZ6ZLEu1cRcPgk+tvKbvluR+s/IM+s3zsg5wn8s39J4Km+x/WZlCP
+	+78lf1CYv3a23GwxFJ1UBNpQP+HW9ABBT1u9OyQ7hxhWzYDs+OVEUAugsqvgP/zx
+	SV8hLp+JPzIxSoc03kFmX4BTI9O58Z6to61kUlRAe6oY9RqS+ru0hFun9XJtflmc
+	+STlQocjgEUDGKQ1c2xfjmNRnc0P7PV5myg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789429274; x=
+	1789515674; bh=Du6YtYnd/w6uKCQVlaLgeQqqw0haiKlnwIJANr+/fyg=; b=l
+	YA17SpCkWBEYGC/H3B+fEa9oh4NGT4X9hjvyDQNOXDkeXY/J9azB+whKGdSFJvOv
+	TLQXgYgcsqjkIH3hPXHUJ/uonS1oufU4hz5d8fpxlwjjeyc0LZyIyD2K1VB57ItY
+	S99IErsMy4jjQ59SZSCYhW6OvBsRpn9dlfiZ35TECH0/KKH1KXNeSroSU2iSSD5w
+	ReJ6jXapyQGq/8zh/JU5xwLTd/k3F+KL7DTi2AfRjC5ElUD7VQ99+DktjdWNTNmh
+	jEesOVpJsxDKh4Fz++6NNuTTJlJBE1UiEZjV6owHnU4tLj9dHHP3XMEB1h5NvGwJ
+	iwbKjGixcYHcRnZXNvlVA==
+X-ME-Sender: <xms:GoaoaqFKKT7cXRfuB0vIXcNhjcW5Ue222O3pnHMxf8mnn8L38a3-Xg>
+    <xme:Goaoatlw2_lHgg2XLhgnlKcShavWjwa1Bp9blUhb-ZV6quBeRgMXoe8e6JITodVQR
+    Z_lP_9XiB8nopLEL0iiiwxmHN_abl3ieyBo5jNGxUxnCw4cHOA>
+X-ME-Received: <xmr:GoaoambeIauqeeqFFLZIgJFfJe4sOPPyb7fZ-FK-V8p6wmDb3rjZau5JsEk6Qla8L79nPMUUnDiu5adCI3D8PQmf4gysrQQ>
+X-ME-Proxy-Cause: dmFkZTGSrU8YE2+ca+nm9+sgcNX54zkCP2VqB6GhrlxbfqRYaToullAsHIKHO1Z4Am5IKj
+    BZ7Go4ui0prXUXWyhqoDFYOq/KPdwnUj0ixWp95a8rrsQbG8MfcBEW6GM0Vh2AFaeNG39d
+    9MqVnVsTxmkXrFWx9qGd5vUdRKHRH0Dxbp43YcO/hv9rLURWWM+1fvDrB3nfXdw84zOv0P
+    FVNlI5tccPpqZlJCmW4yGkTBVX3eguxJIVEQgMHCULTpkaKF2JilkYIBtH0H7ABHBXDb2n
+    CEjKE2fhFuuUULt01gAvqtOnr8WWIiksfN4JtbXppz4Su+JDoyYGMgDWA5oAPYgy19kFo+
+    6SMYb9BwPW3fPUp4Fi5qG8BCg0P2hW1afoVaZi6PnN4y4yjZGMLEJb14xpzx2AKKHIwrG3
+    tPeqMgfPXpg1IX17oLNqYIgRcXt0CfOm2lLez7AqNoV+TGMIEpt8DMAaL+RnjPlRK0F7wG
+    NbCpVEbRW23VV+287V7Hd1vPTZh2HrVghzTeeNTSyBf3PL6D8K47tYe2noU84LeuuR6xxx
+    VQJye+w2V8gNdGmNaM3HCPEMcvLhP07imAGGmFvqhf0tTyPdzXFmRjM1QjxJeqFXh8pYn6
+    mja0umXb4OA3+3Vj5m+PDdyfleWHrcDhCe1aTLiqU3Z2CQkcZT0jACjgLZlg
+X-ME-Proxy: <xmx:GoaoaqHD8lPEWNdKzLUPK-ZWswM08JO0bEhbj0uPqv5OJ6NlEDVyMA>
+    <xmx:GoaoavLFQBgJS1RYwH38tCgBaiTbQi1o4rHjiFICg4Zv9sCSK_JNiQ>
+    <xmx:GoaoatMT0S7xrPK7RHnlAKpGcOhs0o6R5AgFpTyXeXHsl7t2UJbucA>
+    <xmx:GoaoanleM3uyqhuPpdJbDDPtN-wtAJlBVSZH9Z6oAGG-TL5bwsUx4w>
+    <xmx:Goaoaq90mr6I8wNfGpD-egCpHsdSgjTwe8JUZmwKBVtmi-Vb-ULZ4tAK>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 14 Sep 2026 19:41:12 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+From: NeilBrown <neilb@ownmail.net>
+To: "Mateusz Guzik" <mjguzik@gmail.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ "Mateusz Guzik" <mjguzik@gmail.com>
+Subject: Re: [PATCH 01/10] fs: unexport backing_file_set_user_path() and make
+ it take the ref on its own
+In-reply-to: <20260913144918.1606123-2-mjguzik@gmail.com>
+References: <20260913144918.1606123-1-mjguzik@gmail.com>
+  <20260913144918.1606123-2-mjguzik@gmail.com>
+Date: Tue, 15 Sep 2026 09:41:10 +1000
+Message-id: <178942927008.207413.8922017151367199344@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-On Sun, 13 Sep 2026 23:45:33 -0700
-Namhyung Kim <namhyung@kernel.org> wrote:
+On Mon, 14 Sep 2026, Mateusz Guzik wrote:
+> Prep for path_* API changes, which will force the ref change.
+>=20
+> There are likely no users outside of the tree, but should there be some they
+> will no longer be caught by surprise.
 
-> The die_has_flex_array() returns true when the given type is a compound
-> type and contains an array at the end.  To prevent an infinite recursion
-> add a depth field to the internal function.
+It is encouraged to update Documentation/filesystems/porting.rst which
+making externally visible changed to the VFS api.
 
-Hi, thanks for this nice extension!
-BTW, I have a comment on this implementation.
+It really looks like backing_file_set_user_path() should never have been
+exported, and your change is a clear win.
 
-> 
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Thanks,
+NeilBrown
+
+
+>=20
+> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
 > ---
->  tools/perf/util/dwarf-aux.c | 77 +++++++++++++++++++++++++++++++++++++
->  tools/perf/util/dwarf-aux.h |  3 ++
->  2 files changed, 80 insertions(+)
-> 
-> diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-> index d7160f87ac7d7ab3..465824e6513eb0ac 100644
-> --- a/tools/perf/util/dwarf-aux.c
-> +++ b/tools/perf/util/dwarf-aux.c
-> @@ -2180,3 +2180,80 @@ Dwarf_Die *die_deref_ptr_type(Dwarf_Die *ptr_die, int offset,
->  
->  	return die_get_member_type(&type_die, offset, die_mem);
+>  fs/backing-file.c | 2 --
+>  fs/file_table.c   | 2 +-
+>  2 files changed, 1 insertion(+), 3 deletions(-)
+>=20
+> diff --git a/fs/backing-file.c b/fs/backing-file.c
+> index cc101143f921..e92410a27982 100644
+> --- a/fs/backing-file.c
+> +++ b/fs/backing-file.c
+> @@ -43,7 +43,6 @@ struct file *backing_file_open(const struct file *user_fi=
+le, int flags,
+>  	if (IS_ERR(f))
+>  		return f;
+> =20
+> -	path_get(user_path);
+>  	backing_file_set_user_path(f, user_path);
+>  	error =3D vfs_open(real_path, f);
+>  	if (error) {
+> @@ -68,7 +67,6 @@ struct file *backing_tmpfile_open(const struct file *user=
+_file, int flags,
+>  	if (IS_ERR(f))
+>  		return f;
+> =20
+> -	path_get(user_path);
+>  	backing_file_set_user_path(f, user_path);
+>  	error =3D vfs_tmpfile(real_idmap, real_parentpath, f, mode);
+>  	if (error) {
+> diff --git a/fs/file_table.c b/fs/file_table.c
+> index 8dcd213c0251..f9d1b5edd6ae 100644
+> --- a/fs/file_table.c
+> +++ b/fs/file_table.c
+> @@ -71,8 +71,8 @@ EXPORT_SYMBOL_GPL(backing_file_user_path);
+>  void backing_file_set_user_path(struct file *f, const struct path *path)
+>  {
+>  	backing_file(f)->user_path =3D *path;
+> +	path_get(path);
 >  }
-> +
-> +static bool is_flex_array_member(Dwarf_Die *mb_die)
-> +{
-> +	Dwarf_Die type_die;
-> +	Dwarf_Word size;
-> +
-> +	/* get the type of the member */
-> +	if (die_get_real_type(mb_die, &type_die) == NULL)
-> +		return false;
-> +
-> +	if (dwarf_tag(&type_die) != DW_TAG_array_type)
-> +		return false;
-> +
-> +	return dwarf_aggregate_size(&type_die, &size) < 0 || size == 0;
-> +}
-> +
-> +#define MAX_FLEX_ARRAY_RECURSION  256  /* arbitrary */
-> +
-> +static bool die_has_flex_array_recurse(Dwarf_Die *parent_die, int depth)
-> +{
-> +	Dwarf_Die die_mem, last_mb;
-> +	int tag = dwarf_tag(parent_die);
-> +
-> +	if (tag != DW_TAG_structure_type && tag != DW_TAG_union_type)
-> +		return false;
+> -EXPORT_SYMBOL_GPL(backing_file_set_user_path);
+> =20
+>  #ifdef CONFIG_SECURITY
+>  void *backing_file_security(const struct file *f)
+> --=20
+> 2.53.0
+>=20
+>=20
+>=20
 
-What happen if the parent_die is "typedef struct {..." ?
-I think you need to use die_get_real_type() here. ;)
-
-> +
-> +	/* prevent infinite recursion */
-> +	if (depth > MAX_FLEX_ARRAY_RECURSION)
-> +		return false;
-> +
-> +	if (dwarf_child(parent_die, &die_mem))
-> +		return false;
-> +
-> +	do {
-> +		if (dwarf_tag(&die_mem) != DW_TAG_member)
-> +			continue;
-
-If the member is a "const" member, you may have to use
-die_get_real_type() to get the actual type.
-(in this case, you need a cursor DIE for dwarf_siblingof()) 
-
-> +
-> +		if (tag == DW_TAG_union_type) {
-> +			if (is_flex_array_member(&die_mem))
-> +				return true;
-> +
-> +			if (die_get_real_type(&die_mem, &last_mb) &&
-> +			    die_has_flex_array_recurse(&last_mb, depth + 1))
-> +				return true;
-> +		}
-> +
-> +		if (tag == DW_TAG_structure_type)
-> +			memcpy(&last_mb, &die_mem, sizeof(last_mb));
-
-To find the last member, I think you'd better check the
-DW_AT_data_member_location and DW_AT_decl_line to ensure the
-DIE is the last member.
-
-Thank you,
-
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
