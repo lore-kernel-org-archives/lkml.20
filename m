@@ -1,181 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA06046E019;
-	Mon, 14 Sep 2026 13:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F86D4749C2
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393785; cv=none; b=bIT7kKj8Ou24VotcHt3XiRSW1a0w/biAIfThc0hx4tx3goFD2j7X8awSNnvr9VL/Orw3xLRGYh11t9PIey3SXxrCRm9d5RZS1cob4o0RoMUOjybkypLcm8yAlTMPlyTwO0/RxEVAC2tFXQUCgJMUnk4KCTFOAonYQ9PHRJLCHfM=
+	t=1789393787; cv=none; b=XfUNYb5jcPS24F4RGlm9R5XRhunc94+CszX9A8kOk8OyyzppSx4wlxUpVXY+qq2NY/Qwi+BeE2VZUcwjr5izzYJzkV9aF2mvi2wjMewcGjvw/BN92SFXvf1dTyZ+Rh6U+/z+i9cvQ2gNLNNo7YMYWzv5vQwMY39reWDaAYLj1MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393785; c=relaxed/simple;
-	bh=PQsRjkbtS3bGSyGoCVk5IXnmbVOziKcboJ8bfEmHExo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gA2BgD+FoXOhfTtr8HB+i2KGUBdSS2UvthzVGvj73dhCjJyEw3by0lzFj4cHROvA5rtJyz+Zv6QyWNA3isxUchaALwe/IctzTmMHCVDai1kCE5yPZcYrn/BjvDVtC46PLdtHzPz1BOFtz6h5JYHEpGCqbMLlP9hUxgkKwD0T5PI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0e13BoI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789393787; c=relaxed/simple;
+	bh=6AHLyVE4QuyvdlTlYMJyx2H1xgqwD8Xf4hHWGOe7I/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C11/406iv+YvdjkBPRq4K/TsayrCPe9mnEgdaofGZ/CfpqYKSAQW33knQaKXuR+JOWxlTI0P4JPD/IfpACKkehQgswIrRBUyK6qFUulQZhmMlttWRgoDeiO//M5zya030rjWXJ8yjH7wvRpcUR80bMZzMHr2jrfWY0poPMPSNNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Olnp8RNG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R6hymXN4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0e13BoI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D308F1F000FF;
-	Mon, 14 Sep 2026 13:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789393783;
-	bh=PHXVki05iLaDnULABNT+AN8hkm5YZP+M5u9nks4OR7I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=a0e13BoIBDlNZjL6FHOjrws63c8kT6Nked4A38J8ximDVpkdQ4W6jV0LEaqzd5FnO
-	 U+yWxM1lJ2xW32yEzGLFb3Yvlf6gejZ9MlUH5HIgZ/fylewbJbmNztWq2SulC0M+L8
-	 GKu5/cWrk+/QBT6A5qmj5DXd9ON4qsz0MvlTWU56xZlD3BbLyMuSLWF3qIrek0KS6A
-	 puiG3CdHkMJRVgDI3wf4cwHL1nu0NwmnXoPoXxKzKZP1uGjJXsqbyiW75j8vo3ec31
-	 Dkn4ag0eZJDdhEHjG9bmpXy0JAYc4xLx/J8wuUBPmLlYjxLMERskn4TQtBgL4Xx/DX
-	 UBFwT7eYVHb9Q==
-Subject: Re: [PATCH] bonding: alb: Fix overflow in TLB gap calculation
-From: netdev-bot+sashiko@kernel.org
-To: lirongqing@baidu.com
-Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, jiri@resnulli.us,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 14 Sep 2026 13:49:42 +0000
-Message-ID: <178939378242.22033.14019495121039776230@kernel.org>
-In-Reply-To: <20260913125859.2349-1-lirongqing@baidu.com>
-References: <20260913125859.2349-1-lirongqing@baidu.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Olnp8RNG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R6hymXN4"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0SXc607551
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:49:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=66Ilw/BhdQorwglPgrPXKGQ8
+	DdohrA6wrNblbndAVK0=; b=Olnp8RNGiwifM5mM/xgV2jCyyElqj0zcVQokDg8c
+	P6hKbRv7fyRwyujvR0UdL8jQxHQQ+bQGjNbW3F+KWwvqRz+mwiaDmde+3s0Z+Eoh
+	AClPlboLXcnsfIjo8yKI3GZ+rV4mhu+XPWO2lw4CW3NtyafDiX5zn4R7J1sB8OJN
+	0LSKd5kzzRuX2ZvMcrKd1U2fpvm1Nh6p2SjjonD9LdAvLwoT7wZgpI4yH+EJ8Pxv
+	/9nWdHC2c5OniYVArfCyOAgwaAS1izZVvKd/D0AShqUVFyWyNMx/0zgnMBvVNjmp
+	dX1MLXKTheYHcpunhVnyetTT8w09jP/Ui/Nd6MOyLc6Uow==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpg2krfnv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:49:45 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c82c2e9761so777795e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:49:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789393784; x=1789998584; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=66Ilw/BhdQorwglPgrPXKGQ8DdohrA6wrNblbndAVK0=;
+        b=R6hymXN44MAuDUIwyKqbMbzdzyBAs7VtVobx4KJmMXjxpIm7kdRdN5M8B83/z5eKPu
+         LkpNy6H3SEXgN0kEu+5sHpgVnAtCGjsxul1k0dNZHhilE+EmnWoY4wf/F8EP51nHDxdn
+         3PGt6PG+l5v3K8qJlfeMGG5X/BV+zPe9scA6Hmm4RAU65TxsNU0nINXt6oZO8nJm0yg2
+         zDzSgJjVH18bS9EFZV/i/bzy1/HVbkuaZ9tGpwTi50gJxIQn2SBK/YfbKHFWYXnZY8W+
+         X3MY7uEYQOZ6TI9NQ002WR38p+5Q698eaIVWKJTxk/ZEAt62L4tOXN6qf6HYKZtolXgl
+         VjwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789393784; x=1789998584;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=66Ilw/BhdQorwglPgrPXKGQ8DdohrA6wrNblbndAVK0=;
+        b=qOk+91TtVzKqKtsfklcglm43LUXIrFjx/ldpwb97Nrvyu0C4VcaUVeOzXRmPbTUtlw
+         1942WAfUhD9fXNWccaccPTx4P/zWbK9EIao6Yugmf6HbqKJicAAB9sk8D/KefkQ2oANa
+         GgbBEWP0E9zDJ0eDnfbFXANJcdg8qDnUBXu6xCSKca8p6eBAZ64mxWdJzIVe8xlYLtSA
+         nOZF6cCP9i0RH4SCECrZZIlfinGhhGgjY9KGu406Rpb2YIlWIGJxf/jhc5iJVVVAsq41
+         aMoYokUtttA7aN3b/zVZDZhrc6Bt5q9CTsjlMB8i6+uOfvUoNiTVlGa0h2kFc4k6lY+r
+         dmhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywwUoSrxMHEozw1ND6eHRYB8ZM9XDnhacM7/WcyVFrWirwLoyRSdSqwyCjSwT2xb+DGjNGoTrRr5N+ous=@vger.kernel.org
+X-Gm-Message-State: AFuF++kd82lNT92818iwGYuUZOkQbzqHG2airYueICAcXmZV37we6cOG
+	ktJEsOaiX0gLfZkLuZlcLB0KJ+q+V4qSQ6ZDqdW6Nq58YPpfit7kOMUKdw6rCtHBF5lNxUaqZ8v
+	kYBSs7Bhq4rJOIo7A/ZIjxMTPOooz+4gTaHAvDuPywYQPydx1MqlJpp01NjFpDm1uTdBhocJ3BO
+	A=
+X-Gm-Gg: AYBFou0Ly3HUkFg61PQ1LIT7F7cKR2qr1l5nt2V92Iswo0r1c3O3kbmI4vwNgUQYrm9
+	Dnm1+em/6kKY2OAcMjrNrWmneiz/H5WTIWDQI/NcRCUnyq4d8uER+j9RGVg6whbK7ghobx1eWIi
+	FdKe6tbGwNi55GtSyaCPR7g9FH1jJJbDCRpLxRNKKaviivsc0CFxJzU9V9kp/KKvg3Jlh7gMEO9
+	7wJ5Fgs6TufJEkcDW1IZKsli1EbLyAfBJWCm4GDtx8Ya/GpenpAfV+gGxq2FiO9jePgOmtsyN1K
+	a8Fk+1EpoBo+E+G5e61agVpZ5JW2svT5Qo4C6cToZEQ3TrwLEoiM+HS8TQguD1bLmot40EEm4UI
+	xGRRnmdVNhoOZ1Cg=
+X-Received: by 2002:a05:6122:4895:b0:5c8:46e3:ec57 with SMTP id 71dfb90a1353d-5c981aa9b09mr2352264e0c.1.1789393784365;
+        Mon, 14 Sep 2026 06:49:44 -0700 (PDT)
+X-Received: by 2002:a05:6122:4895:b0:5c8:46e3:ec57 with SMTP id 71dfb90a1353d-5c981aa9b09mr2352119e0c.1.1789393783803;
+        Mon, 14 Sep 2026 06:49:43 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fc02sm26132106f8f.16.2026.09.14.06.49.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:49:42 -0700 (PDT)
+Date: Mon, 14 Sep 2026 16:49:41 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] arm64: dts: qcom: nord-ride-embedded: Add WCN7850
+ WLAN support
+Message-ID: <fdt6ma52b4ljob67egrfpai5m5uuejqab2hj5jbu4nmro2osg4@uhqloj4mptw6>
+References: <20260914071944.164217-1-shengchao.guo@oss.qualcomm.com>
+ <20260914071944.164217-5-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914071944.164217-5-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: T32v-I0U2lJaChsaFsTOdwlSvlBpMnmY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE5OCBTYWx0ZWRfXz5E8b0iIjhu6
+ 2FACRZvetdrJjlu4t7/4PCqW1yYjBJIoBOAGFp9K0jjOBiKOHcyOSiymT6p37QNNaeImfvBf2qc
+ BOSeiwnOUQEet5QZbfTtdQOyeF3rs30r4LoUWggmasAg0Z5udAbLBNs3Dkl3zghHWVZ0MZGJVne
+ LG4WKmTRMQiQdjBqOxtwkNdYWRXcPRllyuU2+tn9DpUV9/WXT5QH0m8IYFSBQm12s7QCILM+cGq
+ dixzvQDNG+lU0ni7skV5fUB75rt61RqiciLi/uWmh0qNHX6xwmeg/HUusGk7YHsn8aG2FZoU/8n
+ WaPcti9IM2/qXDBFsLjOBbun+/pv3As2BqgHWSg9bzg8mKwG2oCOvNcU/G/MKAgPzHfoRzZjti4
+ M5iTtBte7VVATbDg3mlQAZ3oz7BpWO75F/X0L1e8mRiaj5z0YhP9nY0lWAW6jtNFUms6EbAwlum
+ A5np/+CWzp44DCxLrkg==
+X-Proofpoint-GUID: T32v-I0U2lJaChsaFsTOdwlSvlBpMnmY
+X-Authority-Analysis: v=2.4 cv=M7TYuCws c=1 sm=1 tr=0 ts=6aa7fb79 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=QryoO0P2UFxYqXaw9vcA:9 a=CjuIK1q_8ugA:10 a=zgiPjhLxNE0A:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE5OCBTYWx0ZWRfXx3bKQQ6kKNAE
+ 242k8SaRHPKSfa+GPRqsqrqzs6HkBexwjMSfGDAVOgBISOYxxMQrz8Urd8p0N83/p6XHlI9mDmP
+ HfznrDReLoXUCdJIMNZbDqX+We+R+Pw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140198
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On 26-09-14 15:19:43, Shawn Guo wrote:
+> From: "Yu Zhang(Yuriy)" <yu.zhang@oss.qualcomm.com>
+> 
+> The Nord Ride Embedded board carries a QCA6797AQ (WCN7850) LGA module on
+> a connectivity adapter card hanging off PCIe2.  Two PMIC GPIOs gate the
+> module supplies: PWR_CORE (pmau0102_e GPIO6) enables the DBU_CORE_VL,
+> DBU_CORE_VM and DBU_CORE_VH regulators feeding VDD_CORE_VL/VM/VH, and
+> PWR_CTRL1 (pmau0102_e GPIO8) enables DBU4, which produces the 3.3 V rail.
+> PWR_CTRL2 drives DBU3, which is not populated, so it is left alone.
+> 
+> Describe those rails, the WCN7850 PMU that derives the chip supplies from
+> them, and the PCIe endpoint node consuming the PMU outputs.
+> 
+> Signed-off-by: Yu Zhang(Yuriy) <yu.zhang@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
-
-- [High] compute_gap() (drivers/net/bonding/bond_alb.c:163) now widens
-  slave->speed to 64 bits before shifting, but slave->speed is a u32…
-
-Pre-existing issues:
-- [Low] The comment retained on the rewritten line, `/* Convert to
-  Megabit per sec */` (drivers/net/bonding/bond_alb.c:163), mislabels…
-
---
-
-bonding: alb: Fix overflow in TLB gap calculation
-
-This changes compute_gap() in the TLB/ALB balancer so that slave->speed and
-the per-slave TLB load are cast to s64 before being shifted, rather than
-being shifted in 32-bit width and cast afterwards. The stated goal is to
-avoid overflow of the gap value on high speed devices.
-
-> diff --git a/drivers/net/bonding/bond_alb.c b/drivers/net/bonding/bond_alb.c
-> index 43ac8e28e4182..b52004030a4b0 100644
-> --- a/drivers/net/bonding/bond_alb.c
-> +++ b/drivers/net/bonding/bond_alb.c
-> @@ -160,8 +160,8 @@ static void tlb_deinitialize(struct bonding *bond)
->  
->  static long long compute_gap(struct slave *slave)
->  {
-> -	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
-> -	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
-> +	return ((s64)slave->speed << 20) - /* Convert to Megabit per sec */
-
-[Severity: High]
-What happens here when slave->speed holds SPEED_UNKNOWN?
-
-slave->speed is a u32, and bond_update_speed_duplex() in bond_main.c stores
-the sentinel on its failure path:
-
-drivers/net/bonding/bond_main.c:bond_update_speed_duplex() {
-	...
-speed_duplex_unknown:
-	slave->speed = SPEED_UNKNOWN;
-	slave->duplex = DUPLEX_UNKNOWN;
-}
-
-That is (u32)-1, so after the new pre-shift cast the first term becomes
-((s64)0xFFFFFFFF << 20), roughly 4.5e15. The load term can never offset
-that: ((s64)U32_MAX << 3) is only about 3.4e10, and even a real 100 Gbit/s
-slave reaches only about 1.05e11.
-
-Does that make tlb_get_least_loaded_slave() pick the unknown-speed slave
-permanently?
-
-	bond_for_each_slave_rcu(bond, slave, iter) {
-		if (bond_slave_can_tx(slave)) {
-			long long gap = compute_gap(slave);
-
-			if (max_gap < gap) {
-				least_loaded = slave;
-				max_gap = gap;
-			}
-		}
-	}
-
-bond_slave_can_tx() in include/net/bonding.h only checks up/link/active and
-never looks at speed:
-
-	return bond_slave_is_up(slave) && slave->link == BOND_LINK_UP &&
-	       bond_is_active_slave(slave);
-
-so the sentinel reaches the comparison and every newly hashed TLB client
-lands on that slave. Since the periodic rebalance clears assignments, would
-this end up steering effectively all clients onto it?
-
-Before this change the sentinel was shifted in 32-bit width, giving
-0xFFFFFFFF << 20 == 0xFFF00000 (about 4.29e9), which the load term could
-grow past, so the imbalance corrected itself. Does widening the arithmetic
-remove that accidental cap and make it permanent?
-
-Some paths where a tx-eligible TLB slave can carry SPEED_UNKNOWN:
-
-- bond_enslave() sets new_slave->link = BOND_LINK_DOWN when the speed query
-  fails and bond_needs_speed_duplex(), but a few lines later does
-  new_slave->link = BOND_LINK_NOCHANGE, and the final else branch sets
-  BOND_LINK_UP when both miimon and arp_interval are 0.
-- bond_slave_netdev_event() on NETDEV_UP/NETDEV_CHANGE only forces a
-  down/fail state for BOND_MODE_8023AD:
-
-	if (bond_update_speed_duplex(slave) &&
-	    BOND_MODE(bond) == BOND_MODE_8023AD) {
-
-- bond_ethtool_get_link_ksettings() re-runs bond_update_speed_duplex() on an
-  already tx-capable slave and can latch SPEED_UNKNOWN without touching
-  slave->link:
-
-	bond_update_speed_duplex(slave);
-	netdev_unlock_ops(slave->dev);
-	if (slave->speed != SPEED_UNKNOWN) {
-
-Would it make sense to also clamp or skip SPEED_UNKNOWN in compute_gap()
-(treat it as 0, or exclude the slave) alongside the widening?
-
-> +	       ((s64)SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
->  }
->  
->  static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but since the line is being
-rewritten anyway: is the retained comment /* Convert to Megabit per sec */
-accurate?
-
-slave->speed is already in Mbit/s. It is copied straight from ethtool in
-bond_update_speed_duplex():
-
-	slave->speed = ecmd.base.speed;
-
-and bond_procfs.c prints it as:
-
-		seq_printf(seq, "Speed: %d Mbps\n", slave->speed);
-
-So the << 20 goes from Mbit/s to bit/s, matching the second term whose
-comment already says /* Bytes to bits */ (load_history is documented in
-include/net/bond_alb.h as being in Bps). As written, a reader auditing units
-would conclude the two subtracted terms are in different units. Would
-something like /* Mbit/s to bit/s */ be clearer?
-
-Also, << 20 scales by 1048576 while a megabit is 10^6 bits, about a 4.9%
-bias. Presumably that is intentional, but nothing in the code says so.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913125859.2349-1-lirongqing%40baidu.com
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
