@@ -1,80 +1,62 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC40541E6CE
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CFD41E6D6;
+	Mon, 14 Sep 2026 09:34:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378494; cv=none; b=eGkG1C9ViIYEYOnVuwYsLVrENkPGTgmoIqsiyVLuw1qM5B61nUP76sgzgaxSZ0fT7yRBv6DhEzwmqp+XLaKzZbjiFLDrrmE7SSbohUcBYuL58BvHyoQz7df/q5LEB5oLyfIzSYAd09nRVDLIoP7A0nWgeXxawnRl34iMrw8+u0s=
+	t=1789378498; cv=none; b=s7BGV9bFd0IpZpKN5anShLx3MUQGVj3S7NVhn3jQiwZG302UaZyDpsNZFBC/DP7mt4PwhA3XlVnbdNJj3w/O+J30hhv63ViEfGMSKLdzI0/8S3ufP2TyDJEd6U0ktzTJKDnu3Wh9K8LYJ2hrn7sFjpg2vBmsRVVSAAu93CkvgwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378494; c=relaxed/simple;
-	bh=hLszDS3dQvGRDwX9LIEkBFevGqoODhAvW3lcutrJxzw=;
+	s=arc-20240116; t=1789378498; c=relaxed/simple;
+	bh=I0/YcWacnfBTryVuJqe6e5KjjUML5m9WWY0xez8S3bM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SYYLsqj+M9rS7lN8DTMmSM2t/Zgc0oH8C57Pde59extv+OPDe60G5L/Z0dvj9LirSjaN7rwJI8poiYHfAhc7r4Z15k6JtcM+/DlJ1/bnbpi4MCxn+EdZu1VBi0SlnyuuMlsl0Zze5uUTuSjLojWzhznLdWZE5kS9OxnyOUwQXPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qqtDK+iE; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=Xek99Ic3shU2rZlO+U6ewnN1nYcKSA77MMyvGrl99u5gJVSySU02BFCk0o+zvcRgkNnrsDt5IxWVKO9gtHQzCfUxo7gf9VEeHCUcrKKWhpqCGE1SeDcwLXDS5HiKED2cAeNC2Ld9HNhWAhgX9eWi0Z+bqV55LAwQn0XecM54/UI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O1QMiUft; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qqtDK+iE"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd53691be5so15379635ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:34:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789378492; x=1789983292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iLgVCUWBW6raNqfUrqpJZy+OR3PZ3ZnJ+vGI+hldboE=;
-        b=qqtDK+iE3AkLqMBILWgpaHBHMkt9ydCWRKIjCV+B/tuBuEsiAo5QS1LwEB8QqQ80NX
-         weHriKNg0JFeXea7RceQvl1f9GtW91r1Ty+9AjRd7K3kIYwrR5nkl15QXAzFdVZbdwfa
-         A17a9Hn7sXoJvXIc1CHPj2ouoKTHdoFC5GSm3GAaxT6x/KcEgMns7MBr008yJvtKVBlE
-         FkTbXAGoVKpVpnYbsoqBkR8sC5puPReW+2RzJggTgUFJWYZPbnDDRXeg5Fwj8YIUDxeY
-         5XpxrN5DWif7RmjL4ZEOvJ11LieJMqzGOyNkiNIWHfpxXRlEDVsu/3XA+WzdFC2KLYAm
-         g8eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789378492; x=1789983292;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iLgVCUWBW6raNqfUrqpJZy+OR3PZ3ZnJ+vGI+hldboE=;
-        b=SL1e/C03l6iIVIeL5DYT/0jWqtOPnb6nWQbIRt+TxBR4G0yGJkK5+4jUPeVHMgIzqn
-         FCtS8+4ZfYVtwH+4GuSPsrTYBzkgDoAWV0pzQJ4Y1tCmK+WynRhk2QBMK8dElULlsQmA
-         J4/d+pQTJ7O2nohaGquhK0e/6vlKY/czuY1NW3qP8UjFxQUcAVOmhw55FT2vojtfHJ69
-         MVBDSuxDqYpORHK0I0+B7sdync0MQIl6rI6hW6ZeI6kzAiws42qEtGaStqMHOAkXQKp+
-         5ZfEMl6OxFJuxdS1KI6RO6P+oilDTxIVlqCA7cLSzuVK7JU5NtxdxB/xibCIAms/csqO
-         QGcQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJQDVBfCMq0kidZw3Hpj6Al9lPpZPgOmkH2MLqUv8BCy00QZ0gheAykhQ99v+4Df4MT6cCE/Y+fsYmVMw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4Kj/fajos0oO1vjVIydbaudqfFXXRVRWXsl19FvryjxbCiP01
-	+ePvtB/bIAoyPVYbGuMPbQ1S8oOCpKeuLsOyhrYzYcpI3dDbuJmC6Cmh
-X-Gm-Gg: AYBFou0BksWPopeB/9OsNZj4xD01VXsticP/gz17USmMmaIktC6IzXXpwXH94ED8/tY
-	v1d3sCYsY1s6QFL0hj0uFF0plvHxRO+M4Dm2FRcio72ezvCulCw5oPS9M4wuSI7i3WkdxPDgP7x
-	X9QcRoxfNZ00fGc1+HM+QFvr12lMtpmmzb5kUocDW8qCqmzye6vogBAM7sY6rtZzH5OivFkj4ed
-	JzRyo1RsGsBEDoSU52jPGu3onf5VRpfr8uezRObFTUNC13YnVn35eqf/vViXBD5yC9XNXAtD5dV
-	+q+qhZIDQaeP0wqhryPI9wb2wtEJMQqeHgOZ8xMCnP+Vd1q27YSI5etc4UZzdiKOsL6ridL5vJ3
-	05/ic0kY5OMTGO7wI4Lrubv8YPmpwbL5BKnCZVK/AZC3nFco+93iZRoulmrQ6kMAa1pBgO9fSkN
-	Z9FPPSoH64vnTYm70wGikZ7j2h/dSCociZUKYEA6OeNTPS83XH2UtGHCBQT+dm/eQSBr2apEipT
-	bOePQT5t4zy5EX1Yg==
-X-Received: by 2002:a17:903:2c07:b0:2d5:e3ce:3988 with SMTP id d9443c01a7336-2dd6c6e9b11mr38703905ad.11.1789378491934;
-        Mon, 14 Sep 2026 02:34:51 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc2d3bsm46109865ad.48.2026.09.14.02.34.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:34:51 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: jiangshanlai@gmail.com,
-	paulmck@kernel.org
-Cc: josh@joshtriplett.org,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>
-Subject: [PATCH 1/5] rcutorture: Add atomic SRCU lockdep support
-Date: Mon, 14 Sep 2026 17:34:15 +0800
-Message-ID: <20260914093419.1474829-2-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O1QMiUft"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789378496; x=1820914496;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=I0/YcWacnfBTryVuJqe6e5KjjUML5m9WWY0xez8S3bM=;
+  b=O1QMiUfteaPI5w+sQGqLK2xJx3D/d+DBHy/dDg/G6oPUZrxWqDA6LwuC
+   zbhNmhWF7jEs1TXcxdZTdod0FX/wowVdK/oF3+rvLhX3QAeICsK7+aNPV
+   HDfveQafdxkenLsxyM9ZEWTtScuFRlXn7wRp7cY/CnZGGcD8WjSUtPgnF
+   AoO3ZqXxaDQsaC325c+YmeNE7o62+cAFzv82LArG8j0srzf6yK6btcI9n
+   ZL++W73a6OApsiZc8uOl7VZKOJfBizwsOybAXZqcABcHW42tG8h5N0VsH
+   JtBPuXohPIX0k2H5u+zoIs0xYbcDCk+43Bxpvjzjke0YLIJr6XhTbmtkY
+   g==;
+X-CSE-ConnectionGUID: GWbP2lHFSSqWpStGcGBxTA==
+X-CSE-MsgGUID: 6wy7YuKrQPCksWtrz7O2EQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89604400"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89604400"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:34:56 -0700
+X-CSE-ConnectionGUID: T+lUrQ0QQY2SY/1WHvNoPQ==
+X-CSE-MsgGUID: qIHd5XIPSMGH0sqW6AeteA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="266381043"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:34:53 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Manuel Knitza <manuel.knitza@googlemail.com>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
+Date: Mon, 14 Sep 2026 17:34:34 +0800
+Message-ID: <20260914093434.639537-1-junjie.cao@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914093419.1474829-1-kunwu.chan@gmail.com>
-References: <20260914093419.1474829-1-kunwu.chan@gmail.com>
+In-Reply-To: <20260914075354.38975-1-manuel.knitza@googlemail.com>
+References: <20260914075354.38975-1-manuel.knitza@googlemail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,139 +65,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add three testtypes covering atomic SRCU lockdep behavior:
+On Mon, 14 Sep 2026 09:50:43 +0200, Manuel Knitza wrote:
+> Tested-by: Manuel Knitza <manuel.knitza@googlemail.com>
 
-  testtype 4: atomic SRCU same-type deadlock
-  testtype 5: atomic SRCU + raw spinlock dependency cycle
-  testtype 6: synchronize_srcu_atomic() inside rcu_read_lock()
+Thanks for testing! The link I gave predates v2, which
+carries the same code, so the tag landed one thread too
+early ;)
 
-Co-developed-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- kernel/rcu/rcutorture.c | 84 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 83 insertions(+), 1 deletion(-)
+https://lore.kernel.org/r/20260913133017.624919-1-junjie.cao@intel.com
 
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index d795e07a12ad..ac9c726cb391 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -4662,6 +4662,17 @@ static DECLARE_RWSEM(rwsem7);
- static DECLARE_RWSEM(rwsem8);
- static DECLARE_RWSEM(rwsem9);
- 
-+static DEFINE_RAW_SPINLOCK(spin0);
-+static DEFINE_RAW_SPINLOCK(spin1);
-+static DEFINE_RAW_SPINLOCK(spin2);
-+static DEFINE_RAW_SPINLOCK(spin3);
-+static DEFINE_RAW_SPINLOCK(spin4);
-+static DEFINE_RAW_SPINLOCK(spin5);
-+static DEFINE_RAW_SPINLOCK(spin6);
-+static DEFINE_RAW_SPINLOCK(spin7);
-+static DEFINE_RAW_SPINLOCK(spin8);
-+static DEFINE_RAW_SPINLOCK(spin9);
-+
- DEFINE_STATIC_SRCU(srcu0);
- DEFINE_STATIC_SRCU(srcu1);
- DEFINE_STATIC_SRCU(srcu2);
-@@ -4673,6 +4684,17 @@ DEFINE_STATIC_SRCU(srcu7);
- DEFINE_STATIC_SRCU(srcu8);
- DEFINE_STATIC_SRCU(srcu9);
- 
-+DEFINE_STATIC_SRCU_ATOMIC(srcu0_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu1_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu2_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu3_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu4_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu5_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu6_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu7_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu8_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu9_atomic);
-+
- static int srcu_lockdep_next(const char *f, const char *fl, const char *fs, const char *fu, int i,
- 			     int cyclelen, int deadlock)
- {
-@@ -4702,6 +4724,12 @@ static void rcu_torture_init_srcu_lockdep(void)
- 					  &rwsem5, &rwsem6, &rwsem7, &rwsem8, &rwsem9 };
- 	struct srcu_struct *srcus[] = { &srcu0, &srcu1, &srcu2, &srcu3, &srcu4,
- 					&srcu5, &srcu6, &srcu7, &srcu8, &srcu9 };
-+	raw_spinlock_t *spins[] = { &spin0, &spin1, &spin2, &spin3, &spin4,
-+				    &spin5, &spin6, &spin7, &spin8, &spin9 };
-+	struct srcu_struct *srcus_atomic[] = { &srcu0_atomic, &srcu1_atomic, &srcu2_atomic,
-+					       &srcu3_atomic, &srcu4_atomic, &srcu5_atomic,
-+					       &srcu6_atomic, &srcu7_atomic, &srcu8_atomic,
-+					       &srcu9_atomic };
- 	int testtype;
- 
- 	if (!test_srcu_lockdep)
-@@ -4812,11 +4840,65 @@ static void rcu_torture_init_srcu_lockdep(void)
- 	}
- #endif // #ifdef CONFIG_TASKS_TRACE_RCU
- 
-+	if (testtype == 4) {
-+		pr_info("%s: test_srcu_lockdep = %05d: SRCU_ATOMIC %d-way %sdeadlock.\n",
-+			__func__, test_srcu_lockdep, cyclelen, deadlock ? "" : "non-");
-+		if (deadlock && cyclelen == 1)
-+			pr_info("%s: Expect hang.\n", __func__);
-+		for (i = 0; i < cyclelen; i++) {
-+			j = srcu_lockdep_next(__func__, "srcu_read_lock_atomic",
-+					      "synchronize_srcu_atomic",
-+					      "srcu_read_unlock_atomic", i,
-+					      cyclelen, deadlock);
-+			idx = srcu_read_lock_atomic(srcus_atomic[i]);
-+			if (j >= 0)
-+				synchronize_srcu_atomic(srcus_atomic[j]);
-+			srcu_read_unlock_atomic(srcus_atomic[i], idx);
-+		}
-+		return;
-+	}
-+
-+	if (testtype == 5) {
-+		pr_info("%s: test_srcu_lockdep = %05d: SRCU_ATOMIC/raw_spinlock %d-way %sdeadlock.\n",
-+			__func__, test_srcu_lockdep, cyclelen, deadlock ? "" : "non-");
-+		for (i = 0; i < cyclelen; i++) {
-+			pr_info("%s: srcu_read_lock_atomic(%d), raw_spin_lock(%d), raw_spin_unlock(%d), srcu_read_unlock_atomic(%d)\n",
-+				__func__, i, i, i, i);
-+			idx = srcu_read_lock_atomic(srcus_atomic[i]);
-+			raw_spin_lock(spins[i]);
-+			raw_spin_unlock(spins[i]);
-+			srcu_read_unlock_atomic(srcus_atomic[i], idx);
-+
-+			j = srcu_lockdep_next(__func__, "raw_spin_lock",
-+					      "synchronize_srcu_atomic",
-+					      "raw_spin_unlock", i, cyclelen,
-+					      deadlock);
-+			raw_spin_lock(spins[i]);
-+			if (j >= 0)
-+				synchronize_srcu_atomic(srcus_atomic[j]);
-+			raw_spin_unlock(spins[i]);
-+		}
-+		return;
-+	}
-+
-+	if (testtype == 6) {
-+		pr_info("%s: test_srcu_lockdep = %05d: synchronize_srcu_atomic() inside rcu_read_lock() %d-way.\n",
-+			__func__, test_srcu_lockdep, cyclelen);
-+		for (i = 0; i < cyclelen; i++) {
-+			rcu_read_lock();
-+			synchronize_srcu_atomic(srcus_atomic[i]);
-+			rcu_read_unlock();
-+		}
-+		return;
-+	}
-+
- err_out:
- 	pr_info("%s: test_srcu_lockdep = %05d does nothing.\n", __func__, test_srcu_lockdep);
- 	pr_info("%s: test_srcu_lockdep = DNNL.\n", __func__);
- 	pr_info("%s: D: Deadlock if nonzero.\n", __func__);
--	pr_info("%s: NN: Test number, 0=SRCU, 1=SRCU/mutex, 2=SRCU/rwsem, 3=SRCU/Tasks Trace RCU.\n", __func__);
-+	pr_info("%s: NN: Test number, 0=SRCU, 1=SRCU/mutex, 2=SRCU/rwsem, 3=SRCU/Tasks Trace RCU, 4=SRCU_ATOMIC, ",
-+		__func__);
-+	pr_cont("5=SRCU_ATOMIC/raw_spinlock, 6=synchronize_srcu_atomic inside rcu_read_lock.\n");
- 	pr_info("%s: L: Cycle length.\n", __func__);
- 	if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU))
- 		pr_info("%s: NN=3 disallowed because kernel is built with CONFIG_TASKS_TRACE_RCU=n\n", __func__);
--- 
-2.43.0
-
+Would you mind resending it there so it gets picked up
+with v2?
