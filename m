@@ -1,145 +1,365 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20ED38DC6B;
-	Mon, 14 Sep 2026 19:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789412584; cv=none; b=VkXI/PgGT4UlfdsoubSS8y/HUF+CHNxPubFNzfLtbWxc+aldjC+eFzaP0U6vbCVbOLRUIC5eL+GB0JdUj0JuGIQ/DnVfyu7xdAMp5k9bceSXy4aNqwrSpGgu1sZXJRpbJF5hLzEf5RoCBy2UILp3UCejN5o18hs6xkpxp11O/R4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789412584; c=relaxed/simple;
-	bh=cKvZAxvHC6FIhO4+9Aod3FGIQm2LD23nRIJ2Drau/Ls=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CcfbD8MST4nnOOX6Evxqcepo1ItOaHdQVbH7Z74v18d1j+FnVZWbdpo/DseHoLunMr1rt5EqpmhwHOU5KLTuocXDyqZOu+id6UvLnHtA/BIElNVjEstoOXjVXtxt1PqpbaHzbg0gwOz3No/WGBAEskMahJZFrEhXtreNbhR52Ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKp1hdhr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E321B3A6B71
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789412660; cv=pass; b=JGzGnea0zPFD7bwckxt4nfC/dzub/u2DqhSDaJTuJQC8SbP240CE9jcFrngFx3bdDHRdbymkrOMzI4+7/MsSuWZubO61HWGXpRpzOx4v8VPwz1sTMLaN2XvEV2NmPzf0cOHNQuHv68X85H4rcCb36Xi5BFAizx/6m5nv3l8wJqw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789412660; c=relaxed/simple;
+	bh=aTBPcv6Dkvt33DiB7XT4nK3JRy2GUpNHwW7ZRA7gmNc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J24Wd1SF1pxwKuSmU6EX/ZdeeobJOtSyGmVB99KD+BIe8c6YIMK+/BZApt3OmKO1IBmNp0JMChoPzmY4DVmYOw/UUwarMNX+0bEDsUDlqVKepU2vullrDSgi9IHqgHbVcj3KOVp38Ytc/Z1IZZVV20U9gJu4ENMSICf2GVBZ8Gc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ERWW5aN7; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKp1hdhr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366ED1F000FF;
-	Mon, 14 Sep 2026 19:02:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789412579;
-	bh=YfHmhyOIHhUpmUhjLuRNQqTVcQKi4a198mseVnLlZ74=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GKp1hdhrC3X4+OjgfwqOcw7B6qZEJjCYzrCX/DGpdGfd2YVbUzd1vfiOcr66ozJYK
-	 4HZtudA0JKeR4cKG1R+JnE1qpbXsQSnuXl3Mc5YG9X2gfaY36Kj2sShkg/q9s960R2
-	 BZkmZsq9ox3FDtEnz6n7PJJQkBaNYbWnwq+CMpW7pFnpGKtcasDJbc1DWKII47oUjX
-	 N+L9Nb3eCdWV56WFZoyd09bbGCD9RKikJHzY7ZTfjxUBBChYe9XKIsdX3zb/Gl+FGZ
-	 tfxUeU9ZXVC17owZGda/iYhhXuLU2ZuJJs7bmZvlTOKMzvtRXTXAmTmiGDYpogH3ez
-	 H7YYHkRlkjjsA==
-Subject: Re: [PATCH net] net: bcmgenet: restore the hardware filters on open
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: netdev@vger.kernel.org, opendmb@gmail.com, florian.fainelli@broadcom.com,
- justin.chen@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
-Date: Mon, 14 Sep 2026 19:02:58 +0000
-Message-ID: <178941257876.22033.16482190060523760551@kernel.org>
-In-Reply-To: <20260913190052.939955-1-nb@tipi-net.de>
-References: <20260913190052.939955-1-nb@tipi-net.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ERWW5aN7"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae45so5072624a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:04:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789412653; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bBeMvrIUrGA2ANmgBAtC80bHsLX/adDoMBX8c4oUK/pbq9r+Cfn0cPlBDS9CncJQFU
+         v/lIUoiekaEeUbjpKrqgNfCgNGRQVWiF2A/1bNNoOzTn9UVpdBC8bx+kWpWou02LDTuf
+         rULzFgI5t8bQyRgaK09WqW0CH6eoCWoMGwz/suk3xiy7GgRfAFXbbs4ObsRX4IQd9KyK
+         6gPk8k7lGIf0h1kQGA9Ct7mti/Dj/etfVFz5tQyRPT1j+lBZNxkGSCGpZ41k4dB0OaTM
+         GbrlCz9NBWA5HCVRcMIbytxC6ne8BoxKS9dZEuOZq8odYGiUNriP+oQ/Boc6djm1S7uh
+         Kzbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Gk8XD7mC27/atdnmgwYfSpXmmY1UfdWq597q70KYjTQ=;
+        fh=AFUY5kJEnUjSefTNSmWfkjOwLGokNwgogpsecgZUVds=;
+        b=XipyaVx1W0AfIhrjyxCqUCEhFey6FqZGV4A01590btPC2CY2Zn1++fCaXl1mclpr1k
+         nknm3UP/XR6gop1gjuT4Jo+SniOZQDRyJ9tKG2uW/TENfvwW0LOdXO9lfFcr2JQCIu7X
+         U4x3Uqz2iigAWiQc3rmbHdSt7kmAsh/+dwLsSPqxTJQSyYTv8PfuAp88KF2Gj6blJK83
+         3BKoENRbwZ6tFNUqFFeW5tzxj47+H7pM+mjgjZCvtVNfrzDM7jYod9Wfsuv4wiuVXgzK
+         Ih7OzCg7R4zvW4q28hThn3cSwgr+wDBdD/IQuDRRXpMzo+yg6NrgW6xEhk1OAnOQM2af
+         sTAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789412653; x=1790017453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Gk8XD7mC27/atdnmgwYfSpXmmY1UfdWq597q70KYjTQ=;
+        b=ERWW5aN7rw6dy/+W3YPZDAa+39UJ6kcxxttCrnshQtPqV9+fm8GKWaWVVhizplkc9s
+         JDoCEPa6KEJWKw9735C4xC4hCNGrehcdk4JZ4qyBjw76YHJ1HqTiQWMQY7PMim07SBUK
+         tNygkZKBR0bF7pmtPLJNuFyi5/YiCHPRhLvPvD1WSc2sKc57XUQ7bxLHz9K2FJzizNPB
+         rHVy8jVb8F2ahdBjWH7uh8hlFxJsssvxVHwfwmWlxHV58vt356w2Stwh6zYdmZdXE8+Y
+         Rgo1wR601qmokZwZdZrSJ84Ohw+glaeoLvljcmDtV9OQ6tZfGKd7dox9VGt28GC6fuaG
+         PWwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789412653; x=1790017453;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gk8XD7mC27/atdnmgwYfSpXmmY1UfdWq597q70KYjTQ=;
+        b=RcELGt8bcQBaymFAbnlhPKuewo2Sv24bRiqna6aqEhlaP+PCLLb9d9vJwb1dzAcwK/
+         jt0ZFQ3uKWV7D+r2n73hw7BdPUprsPEOzkTY+CqZ2HS42m1Old1UkNeq/YG+ygIrd094
+         XdPIgTiPvXeiL9tSAxKjUOtO3yxCr82KjlZCaa2+WS4Qy8vkVadn0vgc38s3flN7D3l3
+         19qpM/UMvvpJn5DOLWCcjS7SqUlE7ptJXyirE5G/BoCOR7q4jETbA0DpAPbJS9XS+Jqh
+         QKuG1DByiXzMSsa0jNRDWc+iz4hwA9FX5CQSAScAJwYKj99/xlkju5IhY/1fGodDDLFe
+         lDJw==
+X-Forwarded-Encrypted: i=1; AKwUvByE6AT+e5wiifN7qkDTyQdJ5qxms0KxbiUj38GfFdVDPO3Sd8BZPOcaAzYRWpNpLEx3uFBg1ZcUpAUC0DE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXYyZnF69/euWDXPCbrvmScHOUBfK/yRlwpgdSNEvZoUIhf75x
+	nqDtMkEdxMNrPCp2ksExGmw/CSl4SSwt4/TNLu/oxqSBAYAf457xSiC7xlqFZ2X7IkBb4HxrIV7
+	vGIKdyc6aUKXmN0QUBlRlqr8MGGavroTgUBiegTQ9Wu5Q5PrSAYakDjpG
+X-Gm-Gg: AYBFou2qdZNF3/Bn9nJYVj+AJP5NCjH5DM2/f0FSW5tGIRPpCId583u99m0lQE+9Lo6
+	l24ActMmYvn2KgwX0I5G5zWwEw83DT3p860wtKfue7l4PUYV7qIS6eUPwGH17HF3NA24WpX6ah6
+	/4r0mn+wdD8DGWvkGTvW4j8zE36ft0c+dbwy1s1b1t+FPGru3xUXVMdASMZMDQUV15eUl3J8ck9
+	x8s3S4Vvpl3ftp4aeUmMv3PqEGLmiFbeKbLHfeCf5Oj1DT8UzGpMvCvVLvVkpgpsh+UE5mt71cc
+	JRtoSZTYuxAYxSBNo1peNDicRXxUoWoT/R7PpMBm9np8vK0CfwGW42cQEYfSNjqPqHVIgeMlgyU
+	lohA8qb6cJjP0mlK/Dbv8s28T5cH+UhvyFLxozEnAmHBbeyYmD3KpqDZk+7deIl5f9Ym+9HG7wc
+	juM1A3nWzdP0jIXhQ4RyDLNzjf
+X-Received: by 2002:a05:6402:52cf:b0:6a3:ff14:ebc9 with SMTP id
+ 4fb4d7f45d1cf-6a9f625e963mr5489056a12.11.1789412652348; Mon, 14 Sep 2026
+ 12:04:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260914175912.3338133-1-jmattson@google.com>
+In-Reply-To: <20260914175912.3338133-1-jmattson@google.com>
+From: James Houghton <jthoughton@google.com>
+Date: Mon, 14 Sep 2026 12:03:34 -0700
+X-Gm-Features: AcwNN1UTzfwAILDgSHTXXHPKsjPhnwPSlyCHFd_RMgW7gPpHII0xLX8NbvSLaaU
+Message-ID: <CADrL8HWeu+MH5YZmKBJbStsqUSi30ydncKM=bHt-pRJji3Xi_A@mail.gmail.com>
+Subject: Re: [PATCH] Documentation: KVM: x86: document KVM_GET_*/KVM_SET_* ordering
+To: Jim Mattson <jmattson@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Mon, Sep 14, 2026 at 11:11=E2=80=AFAM Jim Mattson <jmattson@google.com> =
+wrote:
+>
+> KVM does not define a total order for the ioctls that save and restore
+> guest state, but the ioctls are not fully independent either.  On the
+> save path, some getters perturb state that another getter reports.  On
+> the restore path, some setters validate their input against state that
+> another setter installs, and some setters overwrite state that another
+> setter has already written.  One pair of restore constraints is a
+> cycle, which forces userspace to issue KVM_SET_MSRS twice.
+>
+> Replace the TBD in the x86 section of "Known KVM API problems" with the
+> partial order that is known to matter, and with the reason for each
+> constraint.  Note that a misordered getter fails silently, while a
+> misordered setter usually fails with -EINVAL.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+THANK YOU!!! I'm getting kind of fed up with save/restore ordering
+issues, as I am sure you are as well. :)
 
-- [Medium] The commit message of "net: bcmgenet: restore the hardware
-  filters on open" describes only the loss of user-configured rxnfc…
+I wonder if Vanadium (Google's VMM) or QEMU 100% abide by the
+restrictions listed here. A statement in the changelog confirming that
+QEMU abides by these constraints would put me at ease.
 
---
+Some suggestions/questions below.
 
-net: bcmgenet: restore the hardware filters on open
+>
+> Assisted-by: LLM
+> Signed-off-by: Jim Mattson <jmattson@google.com>
+> ---
+>  Documentation/virt/kvm/api.rst | 179 ++++++++++++++++++++++++++++++++-
+>  1 file changed, 178 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.=
+rst
+> index e0430cc750c9..9181dfcd7251 100644
+> --- a/Documentation/virt/kvm/api.rst
+> +++ b/Documentation/virt/kvm/api.rst
+> @@ -9659,4 +9659,181 @@ available.
+>  Ordering of KVM_GET_*/KVM_SET_* ioctls
+>  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>
+> -TBD
+> +KVM does not define a total order for the ioctls that save and restore
+> +guest state, and most pairs of them really are independent.  A few are
+> +not.  When saving, some getters modify state that another getter
+> +reports.  When restoring, some setters validate their input against
+> +state that another setter installs, and some setters overwrite state
+> +that another setter has already written.
+> +
+> +The constraints below are the ones that are known to matter on x86.
+> +They form a partial order, so any topological sort of them will do.
+> +One pair of restore constraints points in both directions, and forces
+> +userspace to issue ``KVM_SET_MSRS`` twice.
+> +
+> +Note the difference in failure mode.  A getter that runs too late
+> +silently returns perturbed state, and the damage is only visible in the
+> +restored guest.  A setter that runs too early usually fails outright
+> +with ``-EINVAL``.
+> +
+> +Saving state
+> +~~~~~~~~~~~~
+> +
+> +* **Get the MP state before any other vCPU state.**
+> +  ``KVM_GET_MP_STATE`` calls ``kvm_apic_accept_events()``, which latches
+> +  a pending INIT or SIPI.  Completing an INIT resets the vCPU, and
+> +  completing a SIPI sets CS and RIP.  Either can also trigger a nested
+> +  VM-exit, which overwrites most of the vCPU state.  On Intel, both an
+> +  INIT and a SIPI can exit, and the VM-exit MSR-store list also writes
+> +  guest memory.  On AMD, only an INIT can exit.  Every other vCPU
+> +  getter must therefore run after ``KVM_GET_MP_STATE``.
+> +
+> +* **Get the irqchip state before the local APIC state.**
+> +  ``KVM_GET_IRQCHIP`` clears from the reported I/O APIC IRR every
+> +  edge-triggered IRQ that KVM has already delivered to a local APIC, on
+> +  the assumption that ``KVM_GET_LAPIC`` will pick it up.  If the local
+> +  APIC is read first, an IRQ delivered between the two reads appears in
+> +  neither snapshot and is lost.  The opposite order can at worst
+> +  duplicate such an IRQ, which is the safer failure.  The constraint
+> +  applies only to a full in-kernel irqchip, because ``KVM_GET_IRQCHIP``
+> +  returns ``-ENXIO`` in split-irqchip mode.
+> +
+> +* **Get the local APIC state last among the vCPU getters.**
+> +  On Intel, ``KVM_GET_LAPIC`` drains the posted-interrupt requests into
+> +  the IRR, so it reports the most complete view of pending interrupts.
+> +  Any source of interrupts that is still live when it runs can add to
+> +  the IRR afterwards, and that addition is not saved.
+> +
+> +* **Get all vCPU state before the final pass over guest memory.**
 
-The patch splits bcmgenet_hfb_init() into a list-initialisation part that
-now runs once from bcmgenet_probe(), and a new bcmgenet_hfb_restore() that
-clears the hardware filter block and re-programs the configured rxnfc
-rules.  bcmgenet_open() and bcmgenet_resume() both call the restore helper.
+This assumes the presence pre-copy live migration; this is not
+necessarily the case. I think something more general should be
+written, like:
 
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index a2305e6428d1f..b916080f4ff17 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+   Getting some vCPU state may modify guest memory.
 
-[ ... ]
+> +  On Intel, a nested VM-exit out of ``KVM_GET_MP_STATE`` writes guest
+> +  memory through the VM-exit MSR-store list.  A guest page copied
+> +  before that write is stale.
+> +
+> +Two constraints that older userspace still carries no longer apply:
+> +
+> +* ``KVM_GET_MSRS`` no longer has to precede ``KVM_GET_LAPIC``.  Before
+> +  commit e800decd9c0a ("KVM: x86: Only reset TSC Deadline Timer in
+> +  apic_timer_expired on KVM_RUN"), a ``vcpu_load()`` on a vCPU with
+> +  APICv and the VMX preemption timer could restart the hv timer, find
+> +  the deadline expired, inject the interrupt, and zero
+> +  ``MSR_IA32_TSCDEADLINE``.  A ``vcpu_load()`` between the two getters
+> +  therefore lost the interrupt and the deadline together.
+> +
+> +* ``KVM_GET_VCPU_EVENTS`` no longer has to precede ``KVM_GET_SREGS``,
+> +  ``KVM_GET_SREGS2`` or ``KVM_GET_DEBUGREGS``.  When
+> +  ``KVM_CAP_EXCEPTION_PAYLOAD`` is disabled, KVM delivers the payload of
+> +  a pending #PF or #DB into CR2 or DR6 before it reports the exception,
+> +  because userspace might not preserve the payload across a migration.
+> +  Before commit d0ad1b05bbe6 ("KVM: x86: Defer non-architectural deliver
+> +  of exception payload to userspace read"), only ``KVM_GET_VCPU_EVENTS``
+> +  delivered it, so a CR2 or DR6 read first was stale.  All four getters
+> +  now deliver it, and therefore agree in any order.
+> +
+> +Userspace that runs on older kernels should keep both orders.  Enabling
+> +``KVM_CAP_EXCEPTION_PAYLOAD`` is worthwhile in any case, because it
+> +stops KVM from delivering the payload early at all.
+> +
+> +One more hazard is not an ordering constraint, because it depends on
+> +elapsed time rather than on sequence.  ``KVM_GET_CLOCK`` and a read of
+> +``MSR_IA32_TSC`` describe the same instant only if little time passes
+> +between them.  Userspace that needs a time-invariant value should
+> +prefer the ``KVM_VCPU_TSC_OFFSET`` attribute of ``KVM_VCPU_TSC_CTRL``
+> +over ``MSR_IA32_TSC``.
+> +
+> +Restoring state
+> +~~~~~~~~~~~~~~~
+> +
+> +* **Set CPUID and the feature MSRs first.**  KVM freezes the virtual CPU
+> +  model once the vCPU has run or once it is in guest mode.  After that,
+> +  ``KVM_SET_CPUID2`` and writes to the immutable feature MSRs, which
+> +  include the ``MSR_IA32_VMX_*`` MSRs, only succeed if they do not
+> +  change anything.  Because ``KVM_SET_NESTED_STATE`` can put the vCPU
+> +  into guest mode, userspace that writes the VMX capability MSRs after
+> +  restoring nested state will fail to restore an L2 guest.  CPUID also
+> +  gates the validation performed by ``KVM_SET_SREGS``,
+> +  ``KVM_SET_XCRS``, ``KVM_SET_NESTED_STATE`` and the ``MSR_IA32_APICBASE=
+``
+> +  and ``MSR_IA32_XFD`` writes.
+> +
+> +* **Set the TSC frequency before the TSC.**  A host write of
+> +  ``MSR_IA32_TSC`` computes a TSC offset, and a scaling ratio if TSC
+> +  scaling is in use, from the current guest TSC frequency.
+> +
+> +* **Set MSR_IA32_FEATURE_CONTROL before the rest of the vCPU state.**  A
+> +  host write of zero to this MSR forces the vCPU out of VMX operation.
+> +  That discards the nested state, and replaces the register state with
+> +  the L1 host state if the vCPU was running L2.  Only a write of zero
+> +  has this effect; clearing individual bits, including the VMXON bits,
+> +  does not.  The hazard therefore belongs to userspace that resets a
+> +  vCPU before it restores one.
 
-> @@ -4075,6 +4084,7 @@ static int bcmgenet_probe(struct platform_device *pdev)
->  
->  	/* Mii wait queue */
->  	init_waitqueue_head(&priv->wq);
-> +	bcmgenet_hfb_init(priv);
->  	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
+This paragraph kind of confuses me because it's saying that this
+ordering should be explicit, but the explanation why requires
+userspace to do something odd: restore zero into
+MSR_IA32_FEATURE_CONTROL *after* restoring other state into the vCPU.
+(This is strange, right?) Maybe there should just be a paragraph about
+generally avoiding resetting/zeroing some vCPU state after restoring
+some other non-trivial vCPU state.
 
-[Severity: Medium]
-Does this hunk also fix a NULL pointer dereference that the changelog does
-not mention?
+Then I *think* this paragraph/constraint can be removed. Does
+MSR_IA32_FEATURE_CONTROL need to be restored first for any other
+reason?
 
-Before this change, priv->rxnfc_list was only initialised from
-bcmgenet_open(), and alloc_etherdev_mqs() hands back zeroed private data,
-so between register_netdev() and the first ifup the list head is
-{NULL, NULL}.
+> +
+> +* **Set the special registers before the nested state.**  This
+> +  constraint is specific to SVM, where the live register state is the L2
+> +  state.  ``KVM_SET_NESTED_STATE`` rejects a saved guest mode unless
+> +  EFER.SVME is already set, it validates the live CR0, and it reloads
+> +  the CR3 that ``KVM_SET_SREGS`` installed.  On VMX the L2 control
+> +  registers come from the VMCS12 instead.
+> +
+> +* **Set the APIC base and the special registers before the local APIC
+> +  state.**  Changing the APIC enable or x2APIC bit resets the APIC ID,
+> +  which would clobber the ID restored by ``KVM_SET_LAPIC``.  Separately,
+> +  the CR8 field of ``KVM_SET_SREGS`` carries only bits 7:4 of the task
+> +  priority register, so a CR8 write after ``KVM_SET_LAPIC`` clears TPR
+> +  bits 3:0.
+> +
+> +* **Set the irqchip state before the local APIC state.**
+> +  ``KVM_SET_IRQCHIP`` re-injects the restored I/O APIC IRR into the
+> +  local APICs.  ``KVM_SET_LAPIC`` must run afterwards so that it
+> +  overwrites the IRR wholesale; otherwise those interrupts are
+> +  delivered twice.
+> +
+> +* **Set the XSAVE state before MSR_IA32_XFD.**  ``KVM_SET_XSAVE`` clears
+> +  from the incoming header every state component that the current XFD
+> +  value disables.  Writing XFD first therefore discards the state of
+> +  those components.
+> +
+> +* **Set the special registers before the MP state.**  ``KVM_SET_SREGS``
+> +  forces a boot-strap processor whose incoming state looks like a reset
+> +  state back to ``KVM_MP_STATE_RUNNABLE``.
+> +
+> +* **Set the clock last.**  ``KVM_SET_CLOCK`` establishes the kvmclock
+> +  epoch, and should run as close as possible to the moment the vCPUs
+> +  resume.  The per-vCPU ``MSR_KVM_SYSTEM_TIME`` and
+> +  ``MSR_KVM_WALL_CLOCK`` writes only record the guest page address, so
+> +  they must precede it.
+> +
+> +* **Place KVM_SET_VCPU_EVENTS on the correct side of the nested
+> +  state.**  For a vCPU in guest mode it has to run afterwards, on both
+> +  vendors, because it writes the interrupt shadow and the NMI mask into
+> +  the VMCS or the VMCB that is currently loaded, and the nested one
+> +  becomes current only once ``KVM_SET_NESTED_STATE`` has entered guest
+> +  mode.
 
-The ethtool rxnfc getters have no netif_running() gate; bcmgenet_begin()
-only enables the clock:
+The grammar here seems a little broken; reading more carefully leaves
+me more confused (might just be me).
 
-drivers/net/ethernet/broadcom/genet/bcmgenet.c:bcmgenet_begin() {
-	struct bcmgenet_priv *priv = netdev_priv(dev);
+> A vCPU in SMM needs the opposite order, but on Intel only:
+> +  ``KVM_SET_NESTED_STATE`` rejects the saved ``smm.flags`` unless the
+> +  vCPU is already in SMM, and only ``KVM_SET_VCPU_EVENTS`` puts it
+> +  there.  The AMD nested state has no equivalent field, because SMM
+> +  saves and restores the nested state through SMRAM instead.  The two
+> +  cases never coincide, because SMM temporarily disables VMX operation,
+> +  so a single call always suffices.
 
-	/* Turn on the clock */
-	return clk_prepare_enable(priv->clk);
-}
+Putting my QEMU/Vanadium hat on, I'm struggling to interpret this
+constraint. What exactly does this constraint mean for how the code
+must be written?
 
-so ETHTOOL_GRXCLSRLCNT reaches bcmgenet_get_rxnfc() ->
-bcmgenet_get_num_flows():
+I'm also kind of confused why this constraint is written after the one
+that is to be done last (KVM_SET_CLOCK).
 
-drivers/net/ethernet/broadcom/genet/bcmgenet.c:bcmgenet_get_num_flows() {
-	struct list_head *pos;
-	int res = 0;
+> +
+> +The vendors disagree about the registers.  On SVM the live register
+> +state *is* the L2 state, so ``KVM_SET_REGS`` and ``KVM_SET_SREGS`` have
+> +to run before ``KVM_SET_NESTED_STATE``.  On VMX the L2 RIP and RSP come
+> +from the VMCS12, which ``KVM_SET_NESTED_STATE`` reloads, so
+> +``KVM_SET_REGS`` is better issued afterwards.  Portable userspace can
+> +write the registers on both sides of ``KVM_SET_NESTED_STATE``.
+> +
+> +KVM_SET_MSRS has to be issued twice
+> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> +
+> +``KVM_SET_LAPIC`` sits between two MSR writes that cannot be combined
+> +into one call.
+> +
+> +``MSR_IA32_APICBASE`` has to precede it.  Changing the APIC enable bit
+> +or the x2APIC bit resets the APIC ID, which would discard the ID that
+> +``KVM_SET_LAPIC`` restored.
+> +
+> +``MSR_IA32_TSCDEADLINE`` has to follow it.  A write to that MSR is
+> +dropped unless the LVT timer is already in TSC-deadline mode, and only
+> +``KVM_SET_LAPIC`` establishes the mode.  In the other direction,
+> +``KVM_SET_LAPIC`` cancels the timer and zeroes any deadline that is
+> +already armed.
 
-	list_for_each(pos, &priv->rxnfc_list)
-		res++;
-	...
-}
+"In the other direction" -> "In the reserve, incorrect order"
 
-with pos = head->next == NULL, the list_is_head() test does not match the
-head, and pos->next is then dereferenced.
-
-ETHTOOL_GRXCLSRLCNT, ETHTOOL_GRXCLSRULE and ETHTOOL_GRXCLSRLALL are
-exempted from the ns_capable(CAP_NET_ADMIN) check in dev_ethtool():
-
-net/ethtool/ioctl.c:dev_ethtool() {
-	case ETHTOOL_GRXCLSRLCNT:
-	case ETHTOOL_GRXCLSRULE:
-	case ETHTOOL_GRXCLSRLALL:
-		break;
-	default:
-		if (!ns_capable(net->user_ns, CAP_NET_ADMIN))
-			return -EPERM;
-	...
-}
-
-so an unprivileged local user running "ethtool -n eth0" on a bcmgenet
-interface that was never brought up could hit this.
-
-The changelog only describes the lost rules:
-
-	Every rule the user configured is silently lost
-
-	Initialise the lists once at probe and restore the rules on open, as
-	bcmgenet_resume() already does.
-
-Could the changelog also mention this crash, since it affects how the
-patch is triaged for stable?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913190052.939955-1-nb%40tipi-net.de
+> The deadline is an absolute guest TSC value, so
+> +``MSR_IA32_TSC`` has to be restored before it as well.
+>
+> base-commit: 827751b699b79a6e569983359c02dce67f81b94c
+> --
+> 2.55.0.1032.g73a4cd73de-goog
+>
+>
