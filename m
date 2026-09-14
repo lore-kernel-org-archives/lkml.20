@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A12A496D36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A9F4582CA
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789406154; cv=none; b=V6hGz9xAD6txz5f5fffR/yRUXP8w1d3kmUv6Zq3iIq4wy+Gi371ZkBgrOd/WEqby3HwlmLz8QIyZ3VbC7Hwt7AWkSUZ+kUMJVpnmceyyEbvSXO0pb7HGl7ykpSD7WhlM42lk0Fep3VTb9krGhVN32WS65IZpbfuuCuHjH+5cXRU=
+	t=1789406154; cv=none; b=leiStNL5CMZN8J8o76JRfMirsmWJoW48jUnpdyZaZeSh3yCTUzTGpyYsP9hItgg1eNJZeKZ9Z94Tk5gM5/4GhRKAfFEimBulKlxuPOWBia7Y5HB+Pd0dv5pRJFi66c2o0eTWgasCTT4UgZBHV+mTj+Pc/8qXiXAvlSfRIaxgxzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789406154; c=relaxed/simple;
-	bh=XXmFu8FHxp+9q0wq8evTBl08FOOinwleYwb02Vqvh8c=;
+	bh=QtZr5PnzpwtK3QMP+hirTKj5BWjg8s77EwEdpYTWNpw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vCG/MNkuT6E53/sLxpxHZ3cmcokNZcwJbtfZ+6SaBKn6dbP9oll9JojH3v26o0QrBesrR9UiDuvuRhTEIvcFtUTheDWg/Qh05PyuTfhFFUw/QM2c2EH45RygZifxWzhqYo/W5xOdQcoSaRyMHZpPLFYiYYsRZ4G+DDweYQZ5D6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hau6a+Ux; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=qvwprS5w0UkU7SQLPeL1VLqCvNWx7A3WTHekm0tJD6zB3jLFZ1KPZhdy2NpELEybTjMNd3PQbCrlyQVplvrooucYqzcUw2YrRZL0oNwe+iFGRHCUVJDobPv5OgVkk36n9eG7wbSt1bZFo2/ZOs6Oy9rJ8taq32mKDqcTQ8HGzRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcwlezMF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hau6a+Ux"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1BC3FC2BCFF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcwlezMF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 32150C2BCB8;
 	Mon, 14 Sep 2026 17:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789406154;
-	bh=XXmFu8FHxp+9q0wq8evTBl08FOOinwleYwb02Vqvh8c=;
+	bh=QtZr5PnzpwtK3QMP+hirTKj5BWjg8s77EwEdpYTWNpw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Hau6a+UxEHuh7Utut+giSkDOd/tl6AStxx++hPJqNL3YyNLC9NVRWGGboJoqUkZ33
-	 Lv3cm8vTFMTyLZgOMns5//blIRuxsmM9f0MUvQXMKqeyb4AAIPlIIrCJsM6ZYjsJyG
-	 XXlWxQsfM3uRLTPtIRLswK3dXDhE1GewK5OwfGETMw5bjTjuElSYhnvqsJlHOVuZM5
-	 ElKEEYOp8kgif894YCujkdPD8SL+6zqshKEVr01E5kPbocTqgZtqNLsofa80Ysxzo6
-	 MroXN+7I4xyaatuRdc+z5IyLW2oku/vjQuhBX1XmZJjvt8SZyPxCINRWP0tIDIP3ip
-	 NZPCnjh4Et7kA==
+	b=FcwlezMF8xsDt0tIYvhPwruzAp2WOjlDRU5FMG2DvTxwef1Iaw6adY4BkcOlXcdvm
+	 d8VYjZ4rBl8uhoasBlJJD3Y8uUKQrsv4RBit/yYjP47hFtl1kaCALsiOtDw15vf9ul
+	 LFShhqUSB9nPhALhJ+Y7Y+cm/l/PrexG74Etx56yVCwYFVAn2tp3p2+W26TiqyzXxG
+	 xdakkBZ/DbWIdrDZk9uteCnX8SKYU5n8gNY9H7Xy5/iaSDKnWNUJH8swWRT2K6ezrG
+	 3wMBGSqiP5yJ3JIAbk4y63ooORdTsiUE050OPNqNmiDMFbd8m+AEQ0KMnRhEO2GFbw
+	 LAjIXcvywuAcw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09F79C88E73;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DC8DC88E78;
 	Mon, 14 Sep 2026 17:15:54 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Tue, 15 Sep 2026 01:14:48 +0800
-Subject: [PATCH v5 07/17] mm/huge_memory: move EOF trimming into the file
- split helper
+Date: Tue, 15 Sep 2026 01:14:49 +0800
+Subject: [PATCH v5 08/17] mm/huge_memory: move unmap and remap into the
+ split helpers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-swap-thp-cleanup-v5-7-39878b37dfb0@tencent.com>
+Message-Id: <20260915-swap-thp-cleanup-v5-8-39878b37dfb0@tencent.com>
 References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
 In-Reply-To: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
 To: linux-mm@kvack.org
@@ -61,11 +61,11 @@ Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
  Kairui Song <ryncsn@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789406149; l=4114;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789406149; l=3825;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=Ts7bWTM2eMacGjQUWD5NIu7YG58EfZYRRZU/elImP5I=;
- b=vrfo2CDuxED+xLqydKpyoRBo7l5Fjn42gdwXH3C3ECxIr3CfRa3G1kpC+7HTZ8AW5SaXirZ3j
- z03Qj9W9sWSDi5TLZB7e8xwv+WCGq66Nfl5ni651f8fOrmh8l9KIfFp
+ bh=1AepHMPhtQhcirQKIFtuSgKsIjuLHdIJpzp6kOWU4PE=;
+ b=lHpDt8hux/TpdAKSrD8AgwYlgPrsCYAm5NsJFwkw3s3EQTUfy23K+R3Bagt1JACVz0WPUWYCl
+ mtOhIVUKypvCswC3oDduF78iBvKXj35nfiqHt6wz3f91m+WWyjS1goI
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -75,118 +75,124 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-Instead of receiving @end and @nr_shmem_dropped from the caller, the
-file split helper now computes the EOF boundary and trims pages beyond
-it itself, as this is only needed for file split.  This drops the
-redundant parameter passing and sanity check.
+To prepare for further cleanup, move the unmap/remap handling from
+__folio_split() into the split helpers.  Only anon folios need to
+be remapped, so remap_page() is now only called for anon splits and
+the anon check in remap_page() is redundant and can be removed.
 
 Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 41 +++++++++++++++++++----------------------
- 1 file changed, 19 insertions(+), 22 deletions(-)
+ mm/huge_memory.c | 36 ++++++++++++++++++++++--------------
+ 1 file changed, 22 insertions(+), 14 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index d0e2f1801d6f..5ba3bcdfc42d 100644
+index 5ba3bcdfc42d..1749905ade6a 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -4083,16 +4083,29 @@ static int __folio_freeze_split_file(struct folio *folio,
- 		unsigned int new_order, struct page *split_at,
- 		struct xa_state *xas, struct address_space *mapping,
- 		bool do_lru, struct list_head *list,
--		enum split_type split_type, pgoff_t end, int *nr_shmem_dropped)
-+		enum split_type split_type)
+@@ -3641,9 +3641,6 @@ static void remap_page(struct folio *folio, unsigned long nr, int flags)
+ {
+ 	int i = 0;
+ 
+-	/* If unmap_folio() uses try_to_migrate() on file, remove this check */
+-	if (!folio_test_anon(folio))
+-		return;
+ 	for (;;) {
+ 		remove_migration_ptes(folio, folio, TTU_RMAP_LOCKED | flags);
+ 		i += folio_nr_pages(folio);
+@@ -4017,15 +4014,23 @@ static int __folio_freeze_split_anon(struct folio *folio,
  {
  	struct folio *end_folio = folio_next(folio);
+ 	struct swap_cluster_info *ci = NULL;
++	int old_order = folio_order(folio);
  	struct folio *new_folio, *next;
-+	int nr_shmem_dropped = 0;
++	enum ttu_flags ttu_flags = 0;
  	struct lruvec *lruvec;
-+	pgoff_t end;
- 	int ret;
++	bool need_remap = false;
+ 	int ret = 0;
  
- 	/* Currently device private folios can only back anonymous memory. */
- 	VM_WARN_ON_ONCE_FOLIO(folio_is_device_private(folio), folio);
++	if (folio_mapped(folio)) {
++		need_remap = true;
++		unmap_folio(folio);
++	}
++
+ 	local_irq_disable();
  
-+	/*
-+	 * The loop below may need to trim off pages beyond
-+	 * EOF: but on 32-bit, i_size_read() takes an irq-unsafe
-+	 * seqlock, which cannot be nested inside the page tree lock.
-+	 * So note end now: i_size itself may be changed at any moment,
-+	 * but folio lock is good enough to serialize the trimming.
-+	 */
-+	end = DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE);
-+	if (shmem_mapping(mapping))
-+		end = shmem_fallocend(mapping->host, end);
+ 	if (!folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
+-		local_irq_enable();
+-		return -EAGAIN;
++		ret = -EAGAIN;
++		goto out_no_split;
+ 	}
+ 
+ 	/* Take off the deferred split queue while frozen and memcg set */
+@@ -4074,7 +4079,13 @@ static int __folio_freeze_split_anon(struct folio *folio,
+ 		lruvec_unlock(lruvec);
+ 	if (ci)
+ 		swap_cluster_unlock(ci);
++out_no_split:
+ 	local_irq_enable();
++	if (need_remap) {
++		if (!ret && !folio_is_device_private(folio))
++			ttu_flags = TTU_USE_SHARED_ZEROPAGE;
++		remap_page(folio, 1 << old_order, ttu_flags);
++	}
+ 
+ 	return ret;
+ }
+@@ -4106,6 +4117,8 @@ static int __folio_freeze_split_file(struct folio *folio,
+ 	if (shmem_mapping(mapping))
+ 		end = shmem_fallocend(mapping->host, end);
+ 
++	unmap_folio(folio);
 +
  	xas_lock_irq(xas);
  
  	/*
-@@ -4157,10 +4170,9 @@ static int __folio_freeze_split_file(struct folio *folio,
- 			continue;
- 		}
+@@ -4190,8 +4203,11 @@ static int __folio_freeze_split_file(struct folio *folio,
  
--		VM_WARN_ON_ONCE(!nr_shmem_dropped);
- 		/* Drop folio beyond EOF: ->index >= end */
--		if (shmem_mapping(mapping) && nr_shmem_dropped)
--			*nr_shmem_dropped += nr_pages;
-+		if (shmem_mapping(mapping))
-+			nr_shmem_dropped += nr_pages;
- 		else if (folio_test_clear_dirty(new_folio))
- 			folio_account_cleaned(
- 				new_folio, inode_to_wb(mapping->host));
-@@ -4181,6 +4193,8 @@ static int __folio_freeze_split_file(struct folio *folio,
- 
+ 	if (do_lru)
+ 		lruvec_unlock(lruvec);
+-
  fail:
++	/*
++	 * If we want to use try_to_migrate() on file in unmap_folio,
++	 * remember to add remap_page() and adapt it.
++	 */
  	xas_unlock_irq(xas);
-+	if (nr_shmem_dropped)
-+		shmem_uncharge(mapping->host, nr_shmem_dropped);
- 	return ret;
- }
- 
-@@ -4217,9 +4231,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	if (nr_shmem_dropped)
+ 		shmem_uncharge(mapping->host, nr_shmem_dropped);
+@@ -4231,7 +4247,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
  	struct anon_vma *anon_vma = NULL;
  	int old_order = folio_order(folio);
  	struct folio *new_folio, *next;
--	int nr_shmem_dropped = 0;
- 	enum ttu_flags ttu_flags = 0;
--	pgoff_t end = 0;
+-	enum ttu_flags ttu_flags = 0;
  	int ret;
  
  	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-@@ -4296,17 +4308,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 
- 		anon_vma = NULL;
- 		i_mmap_lock_read(mapping);
--
--		/*
--		 * __split_frozen_folio() may need to trim off pages beyond
--		 * EOF: but on 32-bit, i_size_read() takes an irq-unsafe
--		 * seqlock, which cannot be nested inside the page tree lock.
--		 * So note end now: i_size itself may be changed at any moment,
--		 * but folio lock is good enough to serialize the trimming.
--		 */
--		end = DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE);
--		if (shmem_mapping(mapping))
--			end = shmem_fallocend(mapping->host, end);
+@@ -4319,8 +4334,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		goto out_unlock;
  	}
  
- 	/*
-@@ -4325,11 +4326,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 						true, list, split_type);
- 	else
- 		ret = __folio_freeze_split_file(folio, new_order, split_at, &xas, mapping,
--						true, list, split_type, end,
--						&nr_shmem_dropped);
+-	unmap_folio(folio);
 -
--	if (nr_shmem_dropped)
--		shmem_uncharge(mapping->host, nr_shmem_dropped);
-+						true, list, split_type);
+ 	if (is_anon)
+ 		ret = __folio_freeze_split_anon(folio, new_order, split_at,
+ 						true, list, split_type);
+@@ -4328,11 +4341,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		ret = __folio_freeze_split_file(folio, new_order, split_at, &xas, mapping,
+ 						true, list, split_type);
  
- 	if (!ret && is_anon && !folio_is_device_private(folio))
- 		ttu_flags = TTU_USE_SHARED_ZEROPAGE;
+-	if (!ret && is_anon && !folio_is_device_private(folio))
+-		ttu_flags = TTU_USE_SHARED_ZEROPAGE;
+-
+-	remap_page(folio, 1 << old_order, ttu_flags);
+-
+ 	/*
+ 	 * Drop the mapping while the inode is still pinned. @folio stays
+ 	 * locked and present in the page cache until the loop below, so
 
 -- 
 2.55.0
