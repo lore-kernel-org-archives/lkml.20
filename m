@@ -1,138 +1,129 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C866361668
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789362315; cv=pass; b=d6ALYML0GAxps0RDk0ArzgN7HJQWIDC81N9c6hFt06ZmB4jhqBfZi6rj6N6yLuGAmFl9SsoOKhd6tL642iLJn31SznfKNTrD1bONX728/+0Ls9pjVhKRJuhd0K+r8scFGiAse+BbRCSB0S3uARvzZQsVy25qipsqJFpEO98NkoM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789362315; c=relaxed/simple;
-	bh=3/NGhGUhliQp1YZrkIH7Rm4z6KPJQjJZGZasUOJhwDA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pJv2Ts47NEFZ9uv7JbZnxUWISj2Mb+PENO3mt8xex+1TnjH4SR+5uSlcr/0Fk4tjcEph2UQfjn7CN5K5eg7Jz/j9J9UgjYo6dOde75FYBNDqXcjEVoB5ddp04TZfMbPOmPHr1HLEmyr6VZvcGm2QOG7mhFHU8QYmW3YA99sZvqg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=Wg9JnYZ+; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ADC36E484
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789362393; cv=none; b=Zdzuxq/XxRzLQABRDBu3rQFelINymx9P9z0Ti+789pcxblBLAViy5rNe1I8IiAPaOHdaG/YO3TaQYE/IiNAYQEWyjIIJq2Cp+FQA26imbSbXajZZAKP+oS732HIQV17rI8Xle+FON98GUOS0Bgi+gzH8IAUD1N2z/BfCGzgVyBM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789362393; c=relaxed/simple;
+	bh=E9cc/135TTwNgjmAOrXJSDfGY3OksbkbWgtTU95PGtw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cOsvqPP57ABpfKNU4ds2QOTrYhH/wVBn5Iur/b3p/0fnVZZZu1iNUbahTSQJknrY+6mCu4CS1VXJnhsZ7cHBQyuTqaJamSkIYdDz+FQLg/47vlu6Moer1Ru9ML2pz8kFhilO2v2Blaa5IgkEkX/CwssoOw0WBmT0MRJJ6lHBLvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=asX0I/fM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jONv2xl3; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="Wg9JnYZ+"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633cd80so567717f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:05:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789362311; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ATsiFBp0yrNIDBVI2pNUMhz1cNiFFvsTUBrj3LS98gYv1TaxiyrSt4H+cx+kmbTdDS
-         KU7IxNqgGHs0fV/oFcugj9HUrCA29wRV4IXDq0zqaydCYqBb28F+QSjhJhbwGLBq7u6p
-         u3excNke94sheC6zLRihi+r0efnrvkqrHtn5tD52dw3+9D3Mo0+yZn9eMyD3/A5K98ef
-         Zc+kCIQOwzxae7EqK/X7vF9wQvrdRjJGKgedH87vNHQA0pRl0klKQNdIrxDdn6dyUJBp
-         OonyL7cHONi0RDStHVeNbGqR900QQgAXmXBLVp7tFPUvMjhMj83gtGnpYEaveCTYV7HX
-         O42w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2lFbqmyGf2+vEHGBSIgu/0dJXwPUBsUwy+yR+CvMM8g=;
-        fh=y5LkfNpSLUFcr6tzm4fMtgVm9RTzepCj36UY9VRFmO8=;
-        b=PQ5tCiyBBstDikBvPtE6PkgmlleBC3kzP/g05ujk4hGmPUWWQfU71FFLvSYPMFGt0s
-         jZ+uxlcDy4BHmND31/Eb5YBlAeDb8HiVs38DKZ7Vkb4K0yfCQWwzL4gzM4O5IjrAsneq
-         roVEEhG4s2lpEiOQac+dH/nNhYvmIqqjlyymzWe1i31P4MUQA9o4wSHQqI7KFcsFLcgs
-         xasEhZD/vIdV2l3WzaXoj9Isoy/T9IQI6q+0tjDcFdYuE+VqOYd4AiLSUxBqkfmMAcVE
-         Zk4frIYniX8GyaARanKvP4iihJT00Dv9xkuA6QOlnzKMQC6uoQYxo4v/tyKwPdvJbh8I
-         qElw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="asX0I/fM";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jONv2xl3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789362391;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CTGrNcFkd0r7wvxM+LayJdDhB/Bf4MUfRoY837NnKYo=;
+	b=asX0I/fMVUQdNmYhX32KyOmmVo8kXfRf9336BGRAtfIQHZMUJers4hDF1aY622baNQhh86
+	OeZxPPB1znQRn550oJIWMKYOhfIi5TQdLBUXD0F4vylEVb73xSyaMOeLuQBe84qdoIciD4
+	3w0OGGYIGs5OpTbWdK2IGJuPOQRQhyU=
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-614-W3lWV-SpM4GDa-Wz9HtygA-1; Mon, 14 Sep 2026 01:06:30 -0400
+X-MC-Unique: W3lWV-SpM4GDa-Wz9HtygA-1
+X-Mimecast-MFC-AGG-ID: W3lWV-SpM4GDa-Wz9HtygA_1789362389
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4b524ce78so2240378a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:06:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1789362311; x=1789967111; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2lFbqmyGf2+vEHGBSIgu/0dJXwPUBsUwy+yR+CvMM8g=;
-        b=Wg9JnYZ+Ep+njDyjBhs2LCy/x2FnoqgIBuORrgzV01Rul7hBESWyGCCkQCFJk+mzck
-         jIrjP5nQEhl5o95O0QwMxZ0vc9ONgXpqvIx3o2YKkczgbrJLgYi5o7+EVlelR/INpKD9
-         qeZoC3a2zEd60XAsw6WxWSP0Vt2gXsG9B5SPkxE6AHgdNauvS5uTEGrTqd6mZWTjvhXd
-         ByUbygPNwf6W4yK274A2CXi93kTLPgmcKmMB6zwW8DOZubRltDK7Pr0ZESMZk4II9WBR
-         oSRB4MwsqsK1h4WFM1YFwGA08WBaD4tObTWP2fgO6Lwuv1ocqSxo3PLsfMUsNBo61nG4
-         Wyog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789362311; x=1789967111;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1789362389; x=1789967189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2lFbqmyGf2+vEHGBSIgu/0dJXwPUBsUwy+yR+CvMM8g=;
-        b=LuqAaZRIyqyL4M5kJQHXbimrMXmoupIChi63MBKK75Y7XDGrYPsOw3J85O7jT99RHd
-         yXVo2Laaue/IG0jkUTpeWOQFBXJQRleVmM9YTIl/Ld0t7nY42o8SNmo5SgT5CcAhaVUW
-         6fXvkyF7V9L1k79Xa02FEFyVJbJfP7KyGQQSDvT7K3lkoyLwLH//bDP2AK7wSNUI8Y0r
-         JjznUTsv6Yq2TwPuT9KK6P8WzbkvxDOQLr7PeE3BfD1kF6DGKgVjxs5QEDRSFXdlkGLc
-         cG2VPSJR1ubd9YaaKzkhtzkdloUUMghoFNnAFITCCzJY7fU2p2Uw1UoC/9C02DwzTE9C
-         ohQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiWC5e0uGODSnH8FGlWLsXXtHTMhBIdIwqWI2DfkR2QOfrjiQxXCPRSTg/ExOiPaK9M6cT1+2J8ClscVs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJ6oBYP6XrW75YTZ0MWaiB3+238pxUt20jMe4tCVIMZYmN5uuI
-	ch8gBKPonCoD5HGiOCm6Z/XyCeh5qg2kAm1b4Oy2RoOi/hCEcvx7noxgQP8NHoWDdNqgtjZeXwE
-	Tikm5Zo6Z9+qUqn35QcijZ+ELu4PB6ETUGs1ZGeEaTA==
-X-Gm-Gg: AYBFou2JIjoykwRSOyfMcWV8n8bDjJtqrLwLt3meZYFYPfGJd5Jki09I2KxPgpzmK3i
-	wyTvxIlmRXPZgzu/NB03JA0hiCxw309N2src4bOt6iAhmHqCqEPOk329vwaA0w06p8eUIf+xEix
-	levdeBFJpKJjL60gWLeE55p9OnzazZYWnxqmzX2GW6HsXyE3ug4sSc76HZ8fgZxZbk5tVzdEZsP
-	95d20Vcvs8dzGed1xnvsbm2SnbUirwl/lXuUOKH5HaNoTWMR3+9uIn2PWU2V0dOMtLoeOb9hZb1
-	TuWglIryq/vLbDP9jvX+NXYB+pRn7zuEjiZsWvAGHD7ZfPOXGW+jjyynzdq7SPD6R4fByYmPDTK
-	yEGZdx56NN8PcbITF8Vc0aYQvdpBJYEm96hf7YVUpuXOw5fkn0HsQp8wXn9nrRtImnZG7VDkTzg
-	==
-X-Received: by 2002:a05:6000:2891:b0:487:212:a412 with SMTP id
- ffacd0b85a97d-48702ae4de6mr759634f8f.9.1789362311187; Sun, 13 Sep 2026
- 22:05:11 -0700 (PDT)
+        bh=CTGrNcFkd0r7wvxM+LayJdDhB/Bf4MUfRoY837NnKYo=;
+        b=jONv2xl35EG2/+qy0VdG3Q/3pfknoJI6h2Sh6K+TjGumlrdNc/oe/ryUIbSioqvm3a
+         ukZIuXlEtHDAw/yf1JAa4zgsHCkUt4NPiUXl9ti+EqZU4qlUmrRVuCIS57le6C5k6bx6
+         d6ywc2fcqOZoNMWJy2PSI13c8a7h4HbFYEIaQcBRKBTifiuuVAmlV8Q/VSoJDLrgVLcq
+         9CTsY0kEJloK3smmaWxFHg/CVnTfzktQxT2xfZdtzioeKLwoRrQmTT78CARSRq/MKwdL
+         UD4qBtnXDmw0efmmecXIC5ac897s20/3VpwJao6HgY7gRKD7CG+zSxI4IKb27ZmPE0Es
+         B9gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789362389; x=1789967189;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CTGrNcFkd0r7wvxM+LayJdDhB/Bf4MUfRoY837NnKYo=;
+        b=Apfq+6yHlf37yTACY905NsRl4e6v6Bn6I1BTeH0//v6/ceTzipfc6rvgCRgf2TVm0D
+         2JJ1NSV858ku5FXJlOOQ4G6KuCSdSWZ1ZxCJg5OZNypHWnzMlZvgQqUzqzaq0LWY4ktR
+         rngAWTcdh749D+lgHOKthUiIRx0ORAFpZP3KbKd8YkvOWdgoiqb0AQthghRcciSdiSFS
+         GHDCh5R5+zShERzXkr0tlQ4U7+xKjRi60W71RU2lNCXvfa31E/rOFgeoB6Y8cN9wNdPR
+         6JeKX31YJDiGgJkjoVI9Rd4ghRE3+a+nt1CRMddxa40szV2iuVmEZvruCCNNFTLC5foB
+         Eetw==
+X-Forwarded-Encrypted: i=1; AKwUvByGtAR8xxvyjdl1brtuf142VWLMir8DjBoR0fCvY+Td73mv63gtmwyrKVbv4ZdyWL8ScLW/objYDfI5PVs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lz62VckvjPeor0E5A8ozS6kmZceUT2tLFmeV73piVotvQ8FrRA
+	+AZBAutHtXDzQqFhe9CyLz6VA6pP+LJr67287DBZGH45+RH50aqRNBaorvbaJdrZzICH2GUy/U9
+	C2FlfPv+xfHaeVnP5WtfJbQMULSKlLc/0B5rZhMQ2DmEDVp2qnUoTRjSD8DUNMLnQaQ==
+X-Gm-Gg: AYBFou2NVvWWPo0UCfS4FiMkQjfS6+aSv1qcZZ1k4EVjc0zOKUo3k5NbA2x4CQSeMrH
+	Nyi89R6wUwRTad08WD9+zxtT5/ED8ndIzIRDMxPfcYdtuOs9yMZ3b5kc2gdy3VaX/2BE47tfg+7
+	R6BcQO60Yw8l4YNHrOuWuUT9O2bIkrllFKC6KPMKVMWenS8//Oaa/O+UBwtjOVRrKCrJuIZ1Pea
+	OoX2dx+vJe+Pk6fwcGJ2MKdDylhRXITwSs36fxjBQZnmpBJvhY5qc8WHWkr2V2o+rXlhroWMvoX
+	DAF5hBqh/mEEsVvEQstzs/lHlYs+poozs/NZhiFoRXKvuxiy7ccpsEyD6J9HEhyXz3SFBq5ZbgQ
+	G9ePMN2nd5pmpc1An1nslbhhtf9A3RA12j2jBnaE4fQ==
+X-Received: by 2002:a05:6a20:7290:b0:3d1:2dc5:7d37 with SMTP id adf61e73a8af0-3db4039c82cmr2007604637.3.1789362388792;
+        Sun, 13 Sep 2026 22:06:28 -0700 (PDT)
+X-Received: by 2002:a05:6a20:7290:b0:3d1:2dc5:7d37 with SMTP id adf61e73a8af0-3db4039c82cmr2007526637.3.1789362388369;
+        Sun, 13 Sep 2026 22:06:28 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c654b5b0sm4167221a12.13.2026.09.13.22.06.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 22:06:27 -0700 (PDT)
+Message-ID: <e15dff15-74d5-459c-98ed-0473a7761c69@redhat.com>
+Date: Mon, 14 Sep 2026 15:06:15 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825083719.643970-1-suunj1331@gmail.com>
-In-Reply-To: <20260825083719.643970-1-suunj1331@gmail.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Mon, 14 Sep 2026 10:34:59 +0530
-X-Gm-Features: AcwNN1UE_9mObcL_0yUCsop8W1hIdGl2EPgpfLQFtwqx2oRTCfP20KwRbzdJA5Y
-Message-ID: <CAAhSdy33LqjYrozd0X7c6kLGz=bHgOuPAk+r6Je2R9a5Nh_-VA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/3] RISC-V: KVM: Fix PMU counter handling issues
-To: SeungJu Cheon <suunj1331@gmail.com>
-Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Andrew Jones <ajones@ventanamicro.com>, kvm@vger.kernel.org, 
-	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux-kernel-mentees@lists.linux.dev, me@brighamcampbell.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 5/7] firmware: arm_rmm: Activate the RMM
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-6-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260912083611.2513845-6-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 25, 2026 at 2:07=E2=80=AFPM SeungJu Cheon <suunj1331@gmail.com>=
- wrote:
->
-> This series fixes three issues in the KVM RISC-V PMU implementation:
->
-> - preserve firmware counter values across stop/start;
-> - report failures when writing snapshot data to guest memory; and
-> - fix perf-backed counter accounting across read and stop.
->
-> The changes were tested with the existing KVM RISC-V SBI PMU selftests
-> and additional tests covering the affected stop/start, snapshot failure,
-> and repeated read paths.
->
-> SeungJu Cheon (3):
->   RISC-V: KVM: Preserve firmware counter value across stop/start
->   RISC-V: KVM: Report snapshot write failure to the guest
->   RISC-V: KVM: Fix perf-backed counter accounting across stop and read
->
->  arch/riscv/kvm/vcpu_pmu.c | 33 +++++++++++++++++----------------
->  1 file changed, 17 insertions(+), 16 deletions(-)
->
->
-> base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
-> --
-> 2.52.0
->
+On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> Activate the RMM after the basic configuration. This is a memory transferring,
+> stateful operation.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> Changes since v17:
+>   * Inline RMM_ACTIVATE command and remove the definitions from arm-rmi-cmds.h
+>   * Use scope-based cleanup to free sro object
+> Changes since v16:
+>   * Split into a new patch
+> ---
+>   drivers/firmware/arm_rmm/rmi.c | 14 +++++++++++++-
+>   1 file changed, 13 insertions(+), 1 deletion(-)
+> 
 
-LGTM.
+Reviewed-by: Gavin Shan <gshan@redhat.com>
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
-
-Queued these patches as fixes for Linux-7.3-rcX
-
-Thanks,
-Anup
