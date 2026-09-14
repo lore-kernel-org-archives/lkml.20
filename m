@@ -1,111 +1,201 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A633A1CEA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789419552; cv=pass; b=Nk7fWgnvAlKDI2NxPBcuVW7Ld39YYs7yuJIW++4HqEdc4SGZ8P3PBHEDmsHX6u+2r72wREfa29k+WQcYtSg1Q7G+4LjzcR9iqVoqGqotT/A/5myZfmaLCRXahvXwzc0OL5qkC5A2Oabr5jQ9H13SIx9w3ZJX8Q4p2aPOu7CORSA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789419552; c=relaxed/simple;
-	bh=zXHIkXlSRZsfmNsjhNyw93di5/lnalEzLNTnyiY0Yks=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Eu2b/tmLdVqgQ1G6ZHIeY6lBQnWRyNSvqfcu2Fy+WNQEgT0LYh28DkSeM7BaQj0MNgRmlhQ2kH9oaxIexr8va0RJ8qw/ykWlGt+EEotO9gXcvTTAIKbbX7NbofQ19KTjHnUWJdKjJJulJ27t7NVTdtd6o49BePDr1Plp0j7Z8ZE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g3XrSp+8; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482833A1CEA;
+	Mon, 14 Sep 2026 20:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789419577; cv=none; b=BRC/h2k4CJ+bfXSBtnbXN94R1Y9CAapptK1ciBqT4poirM5J59PEu5FUNN+ICnAT5uIx7uomF3VS2TBJZB15PleZ5lRp2p3Ah+s3/6bH77tpW5rCvl9ueFQ87/mCy2mDJ3++nf1Fm5LixMifUsSLI7b7vS0uTma27PUDUzQht70=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789419577; c=relaxed/simple;
+	bh=ub2+Hm7NQoFfUGhn6xa753QOFttvV9gSxDIjg6K22yw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MuAY96NymDhXDJoDjoYMt20bQ4lGDF84F5v+tcapDQdpZmoE8wsDmvKVuk19ojGZ0vtaZuDxrODcnwsioq+OzT9+9Bg9M3fyt4bqzjlfC0x/coi9JesZ4dTxHoP1ud/lyyGQ5tfrPylE01VbkNs8uA1gASqJCzXd+8p+ukHhQV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3FzvsI7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g3XrSp+8"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aae3149so2002954d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:59:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789419550; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BCVN8AOxjtyeHpnvNAPhzEQowU6Gb1Bpc8IHRhl8b7U/hbR/L5CBfTZT8bVrtbmfSg
-         Ef9Q29OAY39C6OEgcjG1eI19FwSL+Vj19VNTNZy+fZK6cXFHWz4GBLr7FCdRRQzIM4a1
-         a4euf+bgK/881SXJjxd7TEOw+zl5K7iSHY2PKS7zpyuDbqB5WrzHuy54A+R6xnyym3eP
-         7Pw/0zyU4nJidIvloWu1Ga8GzepxZ8UtIIFODJylZLADSxlDZiUmR5Q7f6cWcqYE1e6y
-         95qbj3h3DWR3IhLeSC/r5y7QdKVcoXaRWWR/zAU2CHVbQYqNF7AXJyFokuqmul0hSYdB
-         HOqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=zXHIkXlSRZsfmNsjhNyw93di5/lnalEzLNTnyiY0Yks=;
-        fh=rLu9GsszKBI6jrVHUhRa5MSnGhkVNjxMrbiX+djVaYo=;
-        b=GdqrlhbGuigOPD4Eqm+CeRZYKDzsECp7VEXzqyhKIrJPKc68ggV9Wu8YH9MtUu40r0
-         YJw6fHEWOP7gjoTMO5Xt8R4DwD2nqbRhSR9RIYCvx9PuQ7FUi6d9yaT6g5ADm63KgvAY
-         L2dNHTeYR+KebTqMc27v4g8aKjYaklapbmOQtaGUkEOTjIFwBCRT+hjtQpWiercd9QEt
-         W6pog3iggieZyz2mOZlGSrfG5RKh8Oxq4dAFH7IEqfKCpmoBXdpFh519VOT4rdPg98AG
-         4WIY382gnEXZAZKl4u3+aXsCpagSCwch1vKMDQgV4BBYqyuqzajhbdWiB7W1NEiQZ0kw
-         Kieg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789419550; x=1790024350; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zXHIkXlSRZsfmNsjhNyw93di5/lnalEzLNTnyiY0Yks=;
-        b=g3XrSp+8DSd77bP69afDy0iJxFL9G6zyuH3HfnTrOJDIIBei15UTajbQnqvl3AeBO/
-         zQr6Z2KxpDek92UjKGTDOUNCX1jlhIPtYJDvxf3p85y3w/oP2eYMTt9YvyAyawmlHPBK
-         1U8tQ02XNjtxd4c/EQZ4UFf9BF+/51bbHtiaDsWEKmVCUj7OQNDK1IPEJtaWdmgaXXYA
-         ZH7Q6zoqyTqDIKiPrbO360GAIBhAxqkdc+DfIXFs7nmGhIaLfdKUWVo0XMreXigk3D79
-         GBMRcIayRrmL/D3rSK2jBQIjR/J4JuqrqVOad8Tof467r9EWZ8lgPKMhig9heXI4cgQq
-         AUUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789419550; x=1790024350;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zXHIkXlSRZsfmNsjhNyw93di5/lnalEzLNTnyiY0Yks=;
-        b=0+R9UUaerHXlWh+XzmadRYAXiVw1O0ELInAjSZ7ZbnYO7b4lDb/UDKjMom11ehmEG6
-         ZtPXX0D5qpwCDQGT4l4NjY30bVuPnSmVaAbEZBUkqujylrgleMq50Ydg3YKh915y7gpK
-         Dt7U4DEd/1Baqya6ppOgPVd8it8aTF+61AaxVZirrMC6mUtlfp38LJoMA3uEX1e3wN4H
-         oT3objEV9YMPck40cXRpIIdSJADTtEYdgwVR2cqwkVMyk0SOb5e2WVSgnpowmvEd77LU
-         wzjT6vQKuCHoFR8Bjv6FhaYRJDf8jFnqUOs+LyX2S+fta3FTDbUt6B6UInlt7LdXqJxo
-         jHeg==
-X-Forwarded-Encrypted: i=1; AKwUvByi8GxUrANwieU29CSojdUAnuywqYHKqNUK/hg10NBgYNNRGgvk90hHA197ezRLwEtjxPsG/yUDhVufGY4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDqw3GgzjYdzjcCAN5TBQp4LZYlvDqBtmNqfKto4JVvyx6Zdsl
-	y70AAs+JEyBATa7dNBthiFgkO4nm53pPD3snICgPvpnnxWB71Ej++z2fy501MQ3I27DZUUbIOUc
-	NIQxpdoNzwu6O4nhMtwOViRjk4qp7uz52cE1INe8SsLg2p7uNsqsvEeKKPSU=
-X-Gm-Gg: AYBFou2ZJZoGVPszXiKB1Kgr40IdNy0J8QlYTxGeyNOHNXmy7TCGHzWtPbHPsoimtvQ
-	DARD3cMGNDMKKUlNPs3Ly3/0J4hxiSo6owRMy0fFp+w4s3CuBaqrNKt/mRkASWEzCqNGdwJgTBo
-	reAyavAwZG/JpQtp6FnKCf4URl1MKhQU7bc24dC9Y9sXPt2YBaVElJ8TFryXAq3nuvIZ+V1vesf
-	x+Vz30PUt2FmiYsP9xspU1OG2NwM8ry+P1LxtVgk5ns7wDqArIykDpRVvxF0YI7/mQQ55ZRVm4z
-	fVpsYNa6Y0pHWL/gX9HzQbPDqv2vpUP8J5wzRYP9XI4a9VbkaXg2Ae33xepxY0pzfhmQMc8E9CB
-	pmKk9Mhww/Q==
-X-Received: by 2002:a05:690e:4106:b0:66f:c206:ce5c with SMTP id
- 956f58d0204a3-6714e065236mr1515465d50.25.1789419549739; Mon, 14 Sep 2026
- 13:59:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3FzvsI7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7350F1F000FF;
+	Mon, 14 Sep 2026 20:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789419575;
+	bh=pkkLWKr1D8KWgFHCKH+kgMuajHVOlrAuKOwzqdqLDNc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=H3FzvsI7F0pTD37gbT750WQa7XRagij5r1buklT7T+xpoMAhS6EsuzL1e8ZWCYx0N
+	 PpFJm3uJ9+HSUeR2bW2owo/vdVx4ogTdTCpqSAgjTSJFZlK5kNeFzupT54y4DEbBjW
+	 PmlTUMBalZp06IdZCBhPgKmkhp+5e4YshRQdKzfS1vS/Y0ylX/SpWYH86hNDFEkFln
+	 iT4Nw+CqCt+TuSSFeppcgr6zVzG7xyEZrLHdWlbB/zXyZ2hPzIXmzNC2ZZxFHrIgSa
+	 1IfZ6LpI5n8tO2bd47+BfRflnzwdP1tXgyVQTTJmZoMKAU5J2+pSENQd6Rb7eThfsd
+	 UNH++eCrUSJvQ==
+Subject: Re: [PATCH net-next] net: phy: marvell: undo WoL setup when
+ Wake-on-LAN is disabled
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
+Date: Mon, 14 Sep 2026 20:59:35 +0000
+Message-ID: <178941957502.22033.16832742571502760649@kernel.org>
+In-Reply-To: <20260913205751.81163-1-rosenp@gmail.com>
+References: <20260913205751.81163-1-rosenp@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906202747.4041389-1-samagazaryan@google.com> <aqUzq9MIS8hBFDtD@ninjato>
-In-Reply-To: <aqUzq9MIS8hBFDtD@ninjato>
-From: Sam Agazaryan <samagazaryan@google.com>
-Date: Mon, 14 Sep 2026 13:58:58 -0700
-X-Gm-Features: AcwNN1XF8K5ytkkhsSc9MQM1N7ybF0zeDQt7mDN5z5dkxKGPpd2y9acjgqdJRV0
-Message-ID: <CAHreonGf47y5_fjSWeXOZ4XswQwyfozTCww8=cKUrJoB_Jf0XQ@mail.gmail.com>
-Subject: Re: [PATCH v4 0/3] i3c: Introduce i3c device userspace interface
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-i3c@lists.infradead.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Vitor Soares <vitor.soares@toradex.com>, 
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-> An idea: because this project only contains 'i3ctransfer' at the moment,
-> it probably makes sense to provide this tool with the Kernel, placed in
-> the 'tools' directory? We can seperate it again if it becomes too big or
-> we want its own community there. But for now, I think it could make
-> sense unless you want to maintain this repo as well?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-I think this is pretty reasonable. I can incorporate i3c-tools in a
-new revision of this changeset as well (Given all the input, a new
-revision will surely be coming).
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-Thanks,
-Sam
+- [High] The new 'undo' block in m88e1318_set_wol()
+  (drivers/net/phy/marvell.c:2094-2103) unconditionally rewrites the…
+- [Low] The patch presents itself as a fix for released behaviour
+  (CSIER.WOL_EIE left set and LED[2] left muxed as INTn after a full…
+
+--
+
+net: phy: marvell: undo WoL setup when Wake-on-LAN is disabled
+
+When all WoL options are cleared, m88e1318_set_wol() now clears
+CSIER.WOL_EIE on the copper page and rewrites the LED[2]/INTn pin control
+bits in page 3 register 0x12 (MII_88E1318S_PHY_LED_TCR), setting
+INTn_ENABLE and INT_ACTIVE_LOW when phy_interrupt_is_valid() is true and
+clearing them otherwise.  FORCE_INT is always cleared.
+
+Two questions below, one about the LED_TCR rewrite and one about missing
+provenance metadata.
+
+[Severity: Low]
+
+>     Fully disabling Wake-on-LAN on the 88E1318S/88E1510 used to leave
+>     the WoL interrupt enable bit (CSIER.WOL_EIE) set and LED[2]
+>     configured as the INTn pin. A magic packet arriving after "wol d"
+>     would still assert INTn, and a later "wol g" re-enabled WoL from a
+>     dirty register state.
+
+This describes a defect in released behaviour, but there is no Fixes: tag.
+
+The leftover state comes from the original 88E1318S WoL support, commit
+3871c3876f80 ("mv643xx_eth with 88E1318S: support Wake on LAN"), which
+added m88e1318_set_wol() with the CSIER.WOL_EIE and LED[2]-as-INTn setup
+and no matching teardown in the disable branch.  m88e1318_set_wol() is the
+.set_wol callback for both the 88E1318S and the 88E1510 entries.
+
+Would it make sense to add:
+
+  Fixes: 3871c3876f80 ("mv643xx_eth with 88E1318S: support Wake on LAN")
+
+or, if no backport is wanted, to state in the changelog that the residual
+register state is cosmetic?
+
+> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+> index f71cffa884062..6f7c190880f2e 100644
+> --- a/drivers/net/phy/marvell.c
+> +++ b/drivers/net/phy/marvell.c
+> @@ -2074,6 +2074,35 @@ static int m88e1318_set_wol(struct phy_device *phydev,
+>  			goto error;
+>  	}
+>  
+> +	if (!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY))) {
+> +		/* Fully disabled: undo the WoL interrupt setup done above,
+> +		 * so a later re-enable starts from a clean state.
+> +		 */
+> +		err = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
+> +		if (err < 0)
+> +			goto error;
+> +
+> +		err = __phy_clear_bits(phydev, MII_88E1318S_PHY_CSIER,
+> +				       MII_88E1318S_PHY_CSIER_WOL_EIE);
+> +		if (err < 0)
+> +			goto error;
+> +
+> +		err = marvell_write_page(phydev, MII_MARVELL_LED_PAGE);
+> +		if (err < 0)
+> +			goto error;
+> +
+> +		err = __phy_modify(phydev, MII_88E1318S_PHY_LED_TCR,
+> +				   MII_88E1318S_PHY_LED_TCR_FORCE_INT |
+> +				   MII_88E1318S_PHY_LED_TCR_INTn_ENABLE |
+> +				   MII_88E1318S_PHY_LED_TCR_INT_ACTIVE_LOW,
+> +				   phy_interrupt_is_valid(phydev) ?
+> +					MII_88E1318S_PHY_LED_TCR_INTn_ENABLE |
+> +					MII_88E1318S_PHY_LED_TCR_INT_ACTIVE_LOW :
+> +					0);
+> +		if (err < 0)
+> +			goto error;
+> +	}
+
+[Severity: High]
+
+Can this de-mux an INTn pin that is still in use on PHY_MAC_INTERRUPT
+devices?
+
+phy_interrupt_is_valid() in include/linux/phy.h is false for both PHY_POLL
+and PHY_MAC_INTERRUPT:
+
+  static inline bool phy_interrupt_is_valid(struct phy_device *phydev)
+  {
+	  return phydev->irq != PHY_POLL && phydev->irq != PHY_MAC_INTERRUPT;
+  }
+
+For PHY_MAC_INTERRUPT the PHY does drive its interrupt output, it is just
+serviced by the MAC driver rather than by phylib.  In that case this
+__phy_modify() clears INTn_ENABLE (the LED[2] pin mux) and INT_ACTIVE_LOW
+(the polarity), so the pin stops being the interrupt output.
+
+Does anything put those bits back afterwards?  m88e1318_config_init(),
+which the 88E1510 reaches through m88e1510_config_init(), programs them
+only in the interrupt-valid case:
+
+  static int m88e1318_config_init(struct phy_device *phydev)
+  {
+	  if (phy_interrupt_is_valid(phydev)) {
+		  int err = phy_modify_paged(
+			  phydev, MII_MARVELL_LED_PAGE,
+			  MII_88E1318S_PHY_LED_TCR,
+			  MII_88E1318S_PHY_LED_TCR_FORCE_INT,
+			  MII_88E1318S_PHY_LED_TCR_INTn_ENABLE |
+			  MII_88E1318S_PHY_LED_TCR_INT_ACTIVE_LOW);
+  ...
+
+And PHY_MAC_INTERRUPT is not polled either, since marvell.c defines no
+.update_stats and phy_polling_mode() then only returns true for PHY_POLL.
+So link state changes would be neither interrupt-delivered nor polled
+until the next config_init or hardware reset.
+
+The block also runs for calls that never armed WoL at all, for example a
+plain "ethtool -s ethX wol d" on a fresh interface, or a MAC driver
+passing wolopts == 0 on shutdown or resume:
+
+  ethtool_set_wol() -> MAC .set_wol -> phy_ethtool_set_wol() ->
+  m88e1318_set_wol(wolopts == 0)
+
+so the pin function can be changed on a device where this driver never
+touched LED_TCR.  The same applies to a LED_TCR value set by strap or
+bootloader, or by the DT "marvell,reg-init" property, which
+marvell_of_reg_init() applies as arbitrary <page reg mask value> tuples and
+can legitimately target page 3 register 0x12.
+
+Related to that, the changelog says the patch will "restore LED[2] to its
+prior use", but the enable path only does:
+
+  /* Setup LED[2] as interrupt pin (active low) */
+  err = __phy_modify(phydev, MII_88E1318S_PHY_LED_TCR,
+		     MII_88E1318S_PHY_LED_TCR_FORCE_INT,
+		     MII_88E1318S_PHY_LED_TCR_INTn_ENABLE |
+		     MII_88E1318S_PHY_LED_TCR_INT_ACTIVE_LOW);
+
+with no read of the previous value, so the undo path writes an assumed
+value rather than the prior one.
+
+Would it work to read and save the INTn_ENABLE/INT_ACTIVE_LOW bits when
+WoL is armed and write those saved bits back here, or alternatively to
+restrict the undo to the bits this driver itself set?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913205751.81163-1-rosenp%40gmail.com
