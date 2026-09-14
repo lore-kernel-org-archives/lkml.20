@@ -1,135 +1,142 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158FD46D544;
-	Mon, 14 Sep 2026 16:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82CB0470457
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789402267; cv=none; b=gT2yeFPMONmekJLXVrCzex/+vPB/cI8ZmhjePX4yFF87oHE/97vmx6O6vV3QepC0NkMFJ2+vFQXRESDCYjFURtosp9wucxxuLjOVRzBeXnnk4LHQCQmNhi7NqvFrrfOZO4k9e4bo38LDNplSHIpWCVZR+jIVxknOLNOX+u0l8vY=
+	t=1789402270; cv=none; b=YGT52/xWOo66ZPPDuLfHF4zYRHu/201twGSJ2eIrMUg7kRIeJ6JnyTkZlBwJZycsnN/Mh6R4Df3vUjKWBm71+bGcUOBdgJQlL7H2ABqaGsNPEuMaUWSd2F7naVSqL0P9HMWiFmeSWW4iYRUo3fq4muvqvTIZ+2ETYQQw1x0/jLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789402267; c=relaxed/simple;
-	bh=5RRBavUJ0timaMaKS+k0GzMYIX4BOSFvHZqhaqqS0BE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ae5jtYirguZptY1pEmFVkho1k8EVNzdyIzD107V8gcoiXGhWIhPUuG/wn3WKZUVODaTPhQPO+e1j0qqUOpo0MvR0nw4oUwi73Diaicr7CAkxjge2fJRC1pZElGwG8WTdRgf0nWS7jc2wKRkKHW17AW7G7wLQY6/a2Mxf300Ro0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SX1Kqvig; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6FAzZJAh; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=i534KoYg; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=4/oOpJ7c; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789402270; c=relaxed/simple;
+	bh=5bDDncVTuIQ3/y7kgAm8DlF4dJ4tTwsaEm4bIaA/vq0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Dntzsxz9YMa+fLDh52FAxgA+uHZTvMu8VCiamLHgxzWARWR45fHCzsQAZYzyv6YSrP0ankPchCX3RT6obXFh2ir2jwEnrUKSp2b9IPexG8W0P/ck8O5LkwEA51lIWK1oQzlBBQti1apV9AReP6svg24+bAPe2NMQSrKRIcmHMPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iSBAPkX/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SX1Kqvig";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6FAzZJAh";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="i534KoYg";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4/oOpJ7c"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D55271F7CC;
-	Mon, 14 Sep 2026 16:10:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789402259; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Of+XjyFzsQp3zOI6qt6xqGznyLfZ7lRUc9EZVS0rrIc=;
-	b=SX1Kqvig/CSp7UczvAmedWDajnTXlFgCtMgku8tnu+PPM9c6oRiHWtVqUdQ+r8YsfjdtnO
-	1K90gU+jjvHYFh3b7Nl2ebd01NUnntXl4EHPyisiYeYSuYsYRGhJJ7HvDjLy9Uq1n9RktW
-	xkyGXuWUTz7R54m2ryeTo563/fP5M/A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789402259;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Of+XjyFzsQp3zOI6qt6xqGznyLfZ7lRUc9EZVS0rrIc=;
-	b=6FAzZJAh4q0/u0TVZyH8NrrIGDsUa97EhiMtoHJd2HnVqmm2Wn39WN3nvuBMO8fJd3mWOK
-	wtmWsVB3wOBi92DQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789402255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Of+XjyFzsQp3zOI6qt6xqGznyLfZ7lRUc9EZVS0rrIc=;
-	b=i534KoYgJQR/GFe5sMSlCpp++VWu3izw/b9vfJxGqUGPWKXLqe2IwcV8xnowDVNRYUxlkd
-	POicrELnRzN3zbev/apGqJMvSINv1DAXYkf0Pp1X6CKqR+YqLKy5nbpw4YT0vs/CcLVV4f
-	Jf4GeC47hdHCxXJighGXDcGz5FQRG+0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789402255;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Of+XjyFzsQp3zOI6qt6xqGznyLfZ7lRUc9EZVS0rrIc=;
-	b=4/oOpJ7cfV+u31O3SMuDa/yoq1YE+03UzijlPP9aqaYYoNtK0qsD7x9b4fz/a4INap6v6U
-	Qas48yfey1piKGAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 87C1E13515;
-	Mon, 14 Sep 2026 16:10:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Wlu1H48cqGouGQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 14 Sep 2026 16:10:55 +0000
-Date: Mon, 14 Sep 2026 18:10:55 +0200
-Message-ID: <875x07oltc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Slavin Liu <bolin.liu@seu.edu.cn>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: trace PCM open only after assigning a stream
-In-Reply-To: <20260913125154.109944-1-bolin.liu@seu.edu.cn>
-References: <20260913125154.109944-1-bolin.liu@seu.edu.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iSBAPkX/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EC266152B;
+	Mon, 14 Sep 2026 09:11:02 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 61E713F86F;
+	Mon, 14 Sep 2026 09:11:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789402266; bh=5bDDncVTuIQ3/y7kgAm8DlF4dJ4tTwsaEm4bIaA/vq0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iSBAPkX/xPbvyOphzRefa8zokZzrVGhnxREfSd2JuYZrtkfDKP2KLWWCTlgBXFJy0
+	 Q07GbFiCHpfS8dR7CghzldruRZnseiUzK/eGfNqUDoXfdGIk3K7y9Zg7izgzITQ0X9
+	 KZAPYBfj4Azz8kWx77a4v6TD7ShqqCXWRO4n26ro=
+Message-ID: <3571430b-15b5-4451-97e4-455f9fd46f01@arm.com>
+Date: Mon, 14 Sep 2026 17:11:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,seu.edu.cn:email]
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] arm_mpam: resctrl: Separate MPAM domains
+To: Reinette Chatre <reinette.chatre@intel.com>, james.morse@arm.com,
+ Dave.Martin@arm.com, fenghuay@nvidia.com
+Cc: tony.luck@intel.com, babu.moger@amd.com, yu.c.chen@intel.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev
+References: <85ca29e89eacf12cfa7071249419e7cadb8f0691.1788220029.git.reinette.chatre@intel.com>
+ <0b0eef2d-ce3b-48c8-af08-5889e7396e4f@arm.com>
+ <a492ffb3-c12e-4986-8f36-c907382c67e5@intel.com>
+ <96eda554-64a1-4f1e-9608-98cd106b00da@arm.com>
+ <a3cf9362-007d-4c6c-8f6f-1c9b8b41b1b9@intel.com>
+ <ad1f8ed5-266a-4d79-91ef-ad8ab3febfb8@arm.com>
+ <26e294a0-76a6-4ec0-9df8-021a76bf8ed9@intel.com>
+ <86603611-b20d-4a0a-a247-8cebb11b3432@arm.com>
+ <071d3dc6-6c18-4287-af26-719b89304058@intel.com>
+ <d403b92c-aae8-499f-8c73-933a2d757fba@arm.com>
+ <3595fe1b-0621-4599-b94d-a027336a2ce4@intel.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <3595fe1b-0621-4599-b94d-a027336a2ce4@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 13 Sep 2026 14:51:54 +0200,
-Slavin Liu wrote:
+Hi Reinette,
+
+On 14/09/2026 16:16, Reinette Chatre wrote:
+> Hi Ben,
 > 
-> Stream assignment can fail when hardware streams are exhausted.
-> Move the tracepoint after the NULL check because its payload accesses
-> the assigned stream tag.
+> On 9/11/26 1:56 AM, Ben Horgan wrote:
+>> On 10/09/2026 19:10, Reinette Chatre wrote:
 > 
-> Detected by static analysis and reviewed with AI-assisted source auditing.
+>>>
+>>> Do (admittedly crude) guardrails like below capture the existing driver requirements?
+>>>
+>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+>>> index 9d223057953a..dbd06371890c 100644
+>>> --- a/drivers/resctrl/mpam_resctrl.c
+>>> +++ b/drivers/resctrl/mpam_resctrl.c
+>>> @@ -1681,11 +1681,18 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>>>  				continue;       // dummy resource
+>>>  
+>>>  			mon_comp = find_component(mon->class, cpu);
+>>> +			if (!mon_comp) {
+>>> +				WARN_ON_ONCE(0);
+>>> +				err = -EFAULT;
+>>> +				goto offline_ctrl_domain;
+>>> +			}
+>>>  			dom->mon_comp[eventid] = mon_comp;
+>>> -			if (mon_comp)
+>>> -				any_mon_comp = mon_comp;
+>>> +			any_mon_comp = mon_comp;
+>>
+>> This first part which ensures that if there is a class for the monitor then a component can always
+>> be found for the given CPU.
+>>
+>>>  		}
+>>> -		if (!any_mon_comp) {
+>>
+>> The any_mon_comp check could still be useful to confirm that if r->mon_capable then there is a
+>> component for at least one of the events.
 > 
-> Fixes: 184865085b88 ("ALSA: hda - rename hda_intel_trace.h to hda_controller_trace.h")
-> Assisted-by: LLM
-> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
+> resctrl fs does not handle such scenario. r->mon_capable guides whether the resource
+> supports monitoring and if it is then all domains belonging to the resource is expected to
+> support all monitoring events associated with the resource. resctrl fs will expose all the
+> monitoring event files based on r->mon_capable and which monitoring events are enabled, there
+> is no finer grained support to expose/hide events per domain.
 
-Applied now.
+Yes. I wasn't intending to suggest anything different. If r->mon_capable then the MPAM driver does
+support all enabled events. Maybe I would would have been more to correct to just say if
+r->mon_capable is true we confirm that we can do some monitoring.
 
-I think I wanted to track the error state, too, and that's likely the
-reason the code was put there.  But, judging from the current code,
-better to move as in this patch in the end.
+> 
+> If any_mon_comp is true while one of the mon_comp is NULL then resctrl will still expose the
+> event to user space and pass attempts to read the data to MPAM driver.
+> 
+> Is this a scenario that the MPAM driver needs to support? That is, users will see event files
+> but reading the data will succeed in some domains but fail in others? 
 
+No, we don't expect the MPAM driver to support any features inconsistently across resctrl domains.
+If the hardware did happen to be mismatched then we sanitize it, in __class_props_mismatch() we
+ensure the class only exposes the features that are common to all the child components.
 
-thanks,
+Thanks,
 
-Takashi
+Ben
+
+>>> +
+>>> +		/* hack */
+>>> +		if (!cpumask_equal(&dom->mon_comp[QOS_L3_OCCUP_EVENT_ID]->affinity,
+>>> +				   &dom->mon_comp[QOS_L3_MBM_TOTAL_EVENT_ID]->affinity)) {
+>>
+>> There doesn't necessary need to be a monitoring class associated with any particular event. If there
+>> are classes and so components for each of the two supported events then this check looks correct.
+>> You could ensure that by checking existence:
+>>
+>> if (dom->mon_comp[QOS_L3_OCCUP_EVENT_ID] && dom->mon_comp[QOS_L3_MBM_TOTAL_EVENT_ID] &&
+>>     !cpumask_equal(&dom->mon_comp[QOS_L3_OCCUP_EVENT_ID]->affinity,
+>> 	           &dom->mon_comp[QOS_L3_MBM_TOTAL_EVENT_ID]->affinity))
+> 
+> Right thanks, this needs to be more robust. Essentially this is the finer grained check that
+> ensures that if the domain supports both events then the backing components have the same "shape".
+> 
+> Reinette
+> 
+
