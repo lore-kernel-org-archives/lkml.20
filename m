@@ -1,247 +1,199 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA552331EC7
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EAB3EF0C2
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373319; cv=pass; b=b0JRxmYFzEq+0uEW+1YodmZ63jNZFQLdKMyTUGyfmhA3ugq2O0ctATYAi8ovLA5GcFWyPaS7DmD8yNL+q/G+jzkl7dp4PNHUK01uPaNi6lzg5uqhStnmnaEqAE7XjzrO0K9EL5qAnxonGOHLjJYMBbIMmmdu0CxFLs3NmjHZ8Tw=
+	t=1789373418; cv=pass; b=fZNyNCzbIKUgOyFcWpHs0+PaItM5hOrGRb9aVpuYG7tN6GtnNjCKXMinP9E5jLu1rPmxgrgGEnO20IexywB5EGavNOykW1UTiBhHBKu/UwpR4vMQ57GclplQAT8bk8GPq5kKClhdjXhWelmcjK/FJer35/nQ4MEQ3gfWBqzcmCU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373319; c=relaxed/simple;
-	bh=DUAXh/D37ePrGStHIvqH/FD63oPvTaNzwYIYhmyhXtM=;
+	s=arc-20240116; t=1789373418; c=relaxed/simple;
+	bh=h0s8XF6Ov7W7pfoDrabYaERETdJXiADVfJTEQ7GF5hE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OZb+0YLyIP5P251wLFg8rH56yujEiZZCARpBQ1HOBeMEszuid4zetr4iwbMvqbwcMAsv5nSzXW57Sl0JhTE17ndjCZiRgbaFlwE+4LN+n/cjOSfGYzVwEtf+pzbkme72gxE0pynp0tWd0ic04pLn4MjmKVuOthOJ3XCqyxP3p68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eg3hzoOk; arc=pass smtp.client-ip=74.125.224.140
+	 To:Cc:Content-Type; b=OxYgOvQfsBttutCFAxI80qy/AkWbVGqM+MytFrRb5/IyvViIuT3e2+iHgyZpG6k5qKk4xYCO3e0F85xbdI7n4mXxPP4U5N+rZTjZWDkMQdX0SlCw5GhW/6FyIakxF2tUYPkFd3/TSuE1ocypQQowmHtwHq2HsM5VhVwJXtYa40E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f5wI7Ugl; arc=pass smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eg3hzoOk"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20bdfe60so205757d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:08:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789373317; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f5wI7Ugl"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f705536so421590066b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:10:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789373414; cv=none;
         d=google.com; s=arc-20260327;
-        b=njynarYJAF3itgl3Ft5zkx/dStVerZjvogdWHEIIGypCAxvq3G5w8hxkHeEwLYCCea
-         jCudOLtuSY874354rdUSSWOgF9xzrcxRAgYuZJYkvp5tQra1Hx/g5gbbCmPApRCh5/2I
-         wXENJEQudQicaTx6YavP0XktSTSZlhVhDK8WoFQz7IEMvOZ8p1BNhEng+2h9HtwKx1KP
-         zsbxDfgc9umowqp/pn8J8SOqOwI5A7/8m4tzZJR7NdItBER0mm2xpzwtGv9acCdwola9
-         KFiPYAF7R7Phc84Q64ucvmfYMvTMRrv9hmw5gmwWUe+WTDiujbfN7gYTHn6DrjcREGxq
-         LIpQ==
+        b=ZCERjHx2yhHdyEq77X5TxR59Cq3CPzMrmVmfwOJSqDUsd5W7vUx5et7ZuyDll27AbM
+         lk/f3ie3hcnd/YNccfwEpARhi9o/WZFcN9iiZ/M8D68ay6MiBE6jZp1WTJzY+ta2u7Bs
+         fsQCQTyWWorkG4Mw52W9h6yx4ZbujHu4trLCKnBUZDBxWYFv3y1QDws2zs6T6dYWvf6Q
+         S76W9MTpuYjcbVqSqKrBi5RtjTMjpXuHho/rO57+watLT/P1vx93qmyce4+wk8gYG/bg
+         SbN43rwTnS48N7cHJ3H4k2l5yndUpuocWOgJbRaH5TNqdLovCU4BVCLjkd2a6NhUbsPM
+         mcrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ID6c9sfqkpTqIRSRF0HKDo0hSdWLeIijg8HL/+8GapQ=;
-        fh=FNqh637a8obn2nD/DEN9IRs0fg/0dhgV45mSQfQmgmY=;
-        b=TYfjQnjGtx3z9HDOu4oapI2U9j3pSbqDBcKn6rSpvDm5mhnaUGMK3jvB+SfWRbdajk
-         ei83j3Q0nFrkGs4fWn/MMccST+uRpcVE2UC+FtHjMFrxDxezFSHaaqt29XjVG8GednMt
-         14HVc4VqXKbfgE6G2l/WG/G/hlfHU17FmtxGL7dpf2T2ZkgsrZiotDbdc1FVfjAdGsAb
-         Rx7KHed1g6B1vn1BqLFMrCGmIu4kYyjzqLuFTCRF7k2aoiqk/WocpXM451UudD8W8fXt
-         YCXE0pdBJGi3+HDcvbX9W03Ycc2IV10Qiu/5wHyTrhA4ABoqAYK02mk5mafrNWedILkn
-         mkYQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gbupapCaPX6GqH+Zj6CPFJqNq2nMbywMNp0mnaUzXz4=;
+        fh=qEK07X52i4Ia2on3CWm26id9Um7CjPCmw2iyCyVGsAs=;
+        b=Yl0qtwfUDu0ZoEtrLC84+q8xWV5hbdaFwdROfZZs3FkFIa9Hvn3w9uZm+4xE4CgSKC
+         fLoLarmBWmrQq0y9+1x4MFArdyCVAR1eAGowpUcev9xdrF+VbZy46goNFgdcegoQ4xeO
+         Ly5wlVroZS75dCD2oWsjyy7JuLl+3j4FTrRPBkw8d8uUS1pj5yFVNS/V+ZRcYy7cjFvU
+         JIqboNef780KxqlCIXf01b2OTSejJKtZC3YqWgvpHYcTZW9CcX2+JMVwYyDZmYmT4YJn
+         DhvjlVImlYWTKqvj72eeK906F2QtR7RkujAjF/i3lNovs9I/EXrpvF5/2UQt1Z/NJ18M
+         Vc9Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373317; x=1789978117; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ID6c9sfqkpTqIRSRF0HKDo0hSdWLeIijg8HL/+8GapQ=;
-        b=eg3hzoOkTh4UfTGwsal+c7V22RGeVMDywxhLIxmDQAEQ3b1sgm51qjv/x4oJacm/w3
-         kSDowTXKvWOqLtVy5hE6TWhRCryf8U8J6q3DniUBqZnO/S9K2QtQvPWZ0CJ9jhCf0Tst
-         Gl7z1JeEv3F4WlBsFGkVa5G8t6FrTiyoWvGVIksMn+w6HULYpMpTaRB4PVWOEvziQwD+
-         hXvI1tXGpuxAbw/jlxGgCjVKwmgNwDCh15YHzohb009/UKV7O/dkL+Ma3Fc5kd5ggl8x
-         8K6hhHCsGcNsFLChVV1KLp/XJsY1RJqvytYxg/sX9IkuDeQBYFizNrznmWeXyRX0IiaG
-         8iNg==
+        d=gmail.com; s=20251104; t=1789373414; x=1789978214; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gbupapCaPX6GqH+Zj6CPFJqNq2nMbywMNp0mnaUzXz4=;
+        b=f5wI7Ugl8OylVaVatdO2z46fBxuxCAxC/jx9xgyKr4YePLnud3tPz5c5q7Avg0u6tX
+         jnQH4adlDnJAdLExG/F9+r5n/gtxSv4q6mI5O0vH1oqJDT3XrkzkbPIwCoX/1bV1UXS3
+         xB0tg3Ke84Xw8butEtl8v8aCyZVa8CwRnXRvDQrGWi5IFKsHzw9rG0gfJ2ZXHR5GODJK
+         29Ux4Nzy0GlyyPkyQtUWw0g1IZryiS5aXAJe4I70KTofOBJlpuUSYjs5jPkom+Unwxul
+         0NR4yabE2Tmw1LmtlZXUmUuIwhVb9SDsf87kgxJfjjz14OJroDcHkpgto3YoxTdCyhPI
+         6QkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373317; x=1789978117;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ID6c9sfqkpTqIRSRF0HKDo0hSdWLeIijg8HL/+8GapQ=;
-        b=Wdk5G2MoGevRnWbl0V8OT+O2Y13qpty1KvyNBd50i7RjLMIxiD0dfdNjAShnGVvbF+
-         1YZtWuT7WkN3F8bzZNIrBRwhTJa1JsFAxVyq32dL6jlZQuR+awydsZE4nvsuwiLbh66f
-         2rVOM9xddphZ23QooyNswfI2MBx6+NooaVkX/kEN8d1eNgTmIGDo563Gr4BxmX2kCO6x
-         GQPvWGntUEIyLViCenZbDKQ2iCH5TADKAM5gg0q9sX6xnMsoDOlDbR76bkKboSjRXtMP
-         Si/USMHi5V/ZiepMINyqlJGrrVputpRBI+RzYMWx96/HV/e79IIc1Tw9JN1meTQ5PBso
-         LmZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFDiyxpLKDePPb87nLOjDMYArpLXS/L3j231iEIMO7twoa0g50bHyoUBzOpeJuv0tAVV7xhngu1Wf9HYY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3G1fVIIGhv9XKzGTUPkHHiAAAKlLHrpcrrVAnVUiZGZwkESAl
-	svBmnp6QNNfBBGVB+KLSu9V4sbLaTAPhJw5l4aIneezVdHwJCfYS9rb2JJVPQTREVQUf7k22Tw7
-	kzOwcFdxWeqr45DunCCwNwdw6e5exIx0=
-X-Gm-Gg: AYBFou258BMT3oEPKZoo9v/JiMT+ETpLYgIfGgeFVXug4Q/5wIVI98aj3tkWkVT8nHG
-	hQOmTRfspTtK9FOBnDPDLsQSIkKXx46PIXekvx92AJ+tllHqHJ/QiC45e7T8yHdRXHPGGk0IOdH
-	u/l9EAWNlbNgxojLfH2Iu7Famp1vXhkFjNXnkzQ0p+wmwnTj2rrpvDjpr6V3/q/S5G8RE4yaYt+
-	xT86PKPirNH91clAFlRl4nUgy6DqARj6OSzGIfXfsr0XtNKlbDUT9LHVmix9hGCFhi+y5EgA+oU
-	t8MgSkclYBBvm3luNcHdLR2s/crmHUYZ7/ZRBWXLccofw7Gzn8Y+IMHx
-X-Received: by 2002:a05:690c:630e:b0:870:48aa:473e with SMTP id
- 00721157ae682-88d19058869mr5623377b3.0.1789373312213; Mon, 14 Sep 2026
- 01:08:32 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789373414; x=1789978214;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gbupapCaPX6GqH+Zj6CPFJqNq2nMbywMNp0mnaUzXz4=;
+        b=d3QDg5iUR7+oZR7TethGix+dcDSgcOeYvIfb9BrAvZ3kR+8pWZy2HJavczwZTFuIWE
+         sbDWPWrKMDybTX1Ewee5aS2Dhmlpmg26krUJ/Vaye9nJNjI1YHap8NxKEDQS11+g4Knw
+         irDK9zrCqio/h98hsotYMRS2DBZV2x9XByd48RWBR5ZmJdFCQOd/qV+TSUToMH/jojQ3
+         +efslm5oKmy5ywRe7ckewsKVVBMbdBjam919qM82CY+oEulULTOFBYiU7MdFy0P3QA19
+         guxTp0axGIcigEZR73TAX3uHJ/gjNE2AGE7WawOr68xf9r1bWTQ6VrCaG/ARN9bLtuTP
+         sfgg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9N69JHWzQE/ztlH+E5XggOiHawNRzxIGddiZa63vnefx6eFKRqeEOiEE8eV5gBla2HDqEYfgW9ARdr2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfy6+JAKCVlP3W1zoW47mF207O+4IMjh5LLh3tG25cJ31CWQ61
+	7klVIrdFUD+ALIl7fN2NulGLEAovA5oxtSrw25l3y5Sw3Ucex0YGyQP2UAxY+c+2ewtLiA22jsn
+	1qMDxL1F1M/Y3m8RJW034/O95Bv/nGiY=
+X-Gm-Gg: AYBFou1cgrB5CkXiixLnmzcddWPExEmeiPFxXvthqpbxou57ikD7T90mCSSnxyHq4G9
+	LJihJDIxfchbtrhjXJME7BWjMcF+23U2cbrTu6fb09VsQnX9sFY7y750c9y0GvjTLY/T8AulnwM
+	nfBAtjXBU+yYcPRT8WX03yG36idGmLEwrYCrdkxdtijA1lQzJdrfqLbCoysMVpH26K3w3nwgVqG
+	3HXczKDUEo+NrWW+kt88XOc10Np6grTbQ2JvYu8DgJqpfzGk5C5sZwtP84c8W2tHMVjY1INNzPq
+	Qf5w4V2p5Cp1o/OLI9UBwwXbYa+YDmcqj2zdUdwDBZzrsC1F1N+0RxUT6Bfq0OcuwbyAqI5w8Eg
+	ZxoZzzFkyfwqaEg==
+X-Received: by 2002:a17:907:9619:b0:c26:1648:a074 with SMTP id
+ a640c23a62f3a-c29b87d8a8fmr90164466b.47.1789373414434; Mon, 14 Sep 2026
+ 01:10:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910184452.895485-1-itai.handler@gmail.com>
- <20260910184452.895485-2-itai.handler@gmail.com> <20260910190139.BF6231F000FF@smtp.kernel.org>
-In-Reply-To: <20260910190139.BF6231F000FF@smtp.kernel.org>
-From: Itai Handler <itai.handler@gmail.com>
-Date: Mon, 14 Sep 2026 11:08:20 +0300
-X-Gm-Features: AcwNN1XT_uCY5gQVeYwBYOZOBIgOpq3-Jnpwf4sQfFYZU8aFfdkLrzHjDiS4GQQ
-Message-ID: <CAFpOueRqaQ=C3u+br6AsCDPeeFwqVUmCG6JSCu90noowVCfd=Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mtd: spi-nor: take the flash lock in spi_nor_shutdown()
-To: sashiko-reviews@lists.linux.dev
-Cc: mwalle@kernel.org, pratyush@kernel.org, linux-kernel@vger.kernel.org, 
-	takahiro.kuwano@infineon.com, richard@nod.at, stable@vger.kernel.org, 
-	miquel.raynal@bootlin.com, linux-mtd@lists.infradead.org, vigneshr@ti.com
+References: <9214e36bf738fcfba86acc8cea85dff4010f66b0.1788918714.git.baolin.wang@linux.alibaba.com>
+In-Reply-To: <9214e36bf738fcfba86acc8cea85dff4010f66b0.1788918714.git.baolin.wang@linux.alibaba.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Mon, 14 Sep 2026 16:09:37 +0800
+X-Gm-Features: AcwNN1VSUYAraBKk949cUbwQn07C_1-qFVIQEVtt3AUC_LCdeRgMe-Y0Soko7Zo
+Message-ID: <CAMgjq7DdF_fi_MserE_P_AbKR23mrqPLZ-VD71eXH6iv1ncdzQ@mail.gmail.com>
+Subject: Re: [PATCH mm-new v2] mm: mglru: clear the reference counter for
+ rejected folios
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, 
+	ljs@kernel.org, ridong.chen@linux.dev, baoquan.he@linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the review. Taking the three points in turn: the first is
-unreachable, but checking it turned up a real bug next to it that this
-series has to fix first; the second cannot arise on the path this patch
-serves; and the third is correct and is already stated in the commit
-message.
-
-> [Severity: High]
-> This is a pre-existing issue, but does spi_nor_prep_and_lock() leak device
-> preparation resources if interrupted by a fatal signal?
+On Wed, Sep 9, 2026 at 9:57=E2=80=AFAM Baolin Wang
+<baolin.wang@linux.alibaba.com> wrote:
 >
-> If a process is killed while waiting on wait_event_killable() inside
-> spi_nor_prep_and_lock(), it returns -ERESTARTSYS but fails to invoke
-> spi_nor_unprep() to roll back the earlier spi_nor_prep() call.
-
-The asymmetry in the code is real, but the leak is not: the two halves
-are mutually exclusive, so there is never anything to roll back.
-
-spi_nor_prep() only does something when the flash has controller_ops:
-
-        static int spi_nor_prep(struct spi_nor *nor)
-        {
-                int ret = 0;
-
-                if (nor->controller_ops && nor->controller_ops->prepare)
-                        ret = nor->controller_ops->prepare(nor);
-
-                return ret;
-        }
-
-and the wait_event_killable() is reached only on the parallel-locking
-branch, i.e. only when SNOR_F_RWW is set. That flag is set in
-spi_nor_late_init_params() (core.c:2981):
-
-        if (flags & SPI_NOR_RWW && nor->params->n_banks > 1 &&
-            !nor->controller_ops)
-                nor->flags |= SNOR_F_RWW;
-
-Note the !nor->controller_ops. A flash that can reach the killable wait
-by definition has no controller_ops, so spi_nor_prep() was a no-op and
-spi_nor_unprep() would be one too. RWW and controller_ops cannot coexist.
-
-> Does this
-> also apply to the other locking helpers like spi_nor_prep_and_lock_pe() and
-> spi_nor_prep_and_lock_rd()?
-
-Those two have the same shape and so the same answer: same
-spi_nor_prep(), same wait_event_killable() on the same SNOR_F_RWW
-branch, so there is nothing to unprep there either.
-
-One correction as well: on that branch spi_nor_prep_and_lock() does not
-take nor->lock at all, so the error return cannot deadlock the mutex in
-the way described.
-
-That said, the neighbouring code is not fine, and I would not have
-looked without this comment.
-
-spi_nor_rww_start_exclusive() returns with nor->lock held, on both
-paths:
-
-        static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
-        {
-                struct spi_nor_rww *rww = &nor->rww;
-
-                mutex_lock(&nor->lock);
-
-                if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
-                        return false;
-                ...
-                return true;
-        }
-
-It is the only one of the ten spi_nor_rww_{start,end}_* helpers that
-still uses a bare mutex_lock(); the other nine all use
-guard(mutex)(&nor->lock). Commit 03e7bb864d9a ("mtd: spi-nor: use
-scope-based mutex cleanup helpers") replaced its "goto busy" with a
-plain "return false" and deleted the busy: label that did the
-mutex_unlock(), but did not add the guard() that the others got. Before
-that commit the function always released the lock.
-
-So on an RWW flash:
-
- - if the flash is idle, it returns true with nor->lock held, and the
-   matching spi_nor_unlock_and_unprep() calls
-   spi_nor_rww_end_exclusive(), which does guard(mutex)(&nor->lock) and
-   self-deadlocks on a non-recursive mutex;
-
- - if it is busy, it returns false with nor->lock held and
-   wait_event_killable() then sleeps holding it, so nothing can ever
-   clear ongoing_*.
-
-That has been the case since v6.15. Nothing hits it today: the only
-flash with SPI_NOR_RWW is the MX25UW51245G, which has neither OTP nor
-locking ops, so none of the existing spi_nor_prep_and_lock() callers in
-otp.c, swp.c and sst.c apply to it. That is exactly what this patch
-changes - spi_nor_shutdown() did not take the flash lock before, so an
-RWW part never reached the exclusive path, and with my patch every
-reboot would. v2 therefore leads with the guard(mutex) fix as patch 1/3
-rather than building on top of it.
-
-> [Severity: High]
-> If a fatal signal is pending during the reboot process, such as from the OOM
-> killer or a manual SIGKILL, wait_event_killable() in spi_nor_prep_and_lock()
-> will immediately return -ERESTARTSYS.
+> As per the comment on LRU_REFS_FLAGS, when accessed folios are promoted t=
+o
+> a new generation, LRU_REFS_FLAGS should be cleared so that the reference
+> counter can start over.
 >
-> Will this early return skip the spi_nor_restore() hardware state reset?
+> For folios rejected by shrink_folio_list(), we clear LRU_REFS_FLAGS and
+> set the PG_active flag when lru_gen_folio_seq() would place them in the
+> oldest generation. That's fine.
+>
+> But for rejected folios where lru_gen_folio_seq() returns a generation
+> other than the oldest one (which can be treated as a promotion), we do
+> not clear LRU_REFS_FLAGS. This can violate the promotion mechanism. And
+> this means the rejected folio enters the new generation with stale, infla=
+ted
+> tier bits, which can inflate reference counts and distort eviction
+> statistics for these rejected folios.
+>
+> Fix this by clearing LRU_REFS_FLAGS for rejected folios. Of course, I nee=
+d
+> to evaluate the impact of the changes, which mainly falls into 3 cases:
+> 1. When lru_gen_folio_seq() returns the oldest generation for rejected fo=
+lios,
+> there are no logic changes, and they will be put back into the 2nd younge=
+st
+> generation.
+> 2. For rejected folios with PG_active set by shrink_folio_list(), we only
+> clear the LRU_REFS_FLAGS and do not change the generation.
+> 3. For rejected folios with PG_referenced set, the original code would pu=
+t
+> them back into the 2nd oldest generation. After this patch, we will put t=
+hem
+> back into the 2nd youngest generation.
+>
+> I think case 3 is also reasonable, before commmit 6cbdd9726fb5 ("mm/mglru=
+:
+> use folio_mark_accessed to replace folio_set_active"), a rejected referen=
+ced
+> folio was also put back to the 2nd youngest gen. Meanwhile, I didn't see
+> any noticeable performance impact on my 32-core Arm machine when running
+> 'make -j32' to build the kernel inside a 3G-limited memcg with either zra=
+m
+> or NVMe swap.
+>
+> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> ---
+> Changes from v1:
+>  - Update the commit message.
+>  - Clear LRU_REFS_FLAGS earlier.
+> ---
+>  mm/vmscan.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 40d3f1b48a74..1557679aadb1 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -5020,11 +5020,12 @@ static int evict_folios(unsigned long nr_to_scan,=
+ struct lruvec *lruvec,
+>                         continue;
+>                 }
+>
+> +               /* See the comments on LRU_REFS_FLAGS */
+> +               folio_set_lru_refs(folio, 0);
+> +
 
-Only on an RWW flash, for the same reason as above: the non-parallel
-branch uses mutex_lock(), which is uninterruptible and cannot fail, and
-spi_nor_prep() cannot fail on the spi-mem path because controller_ops is
-NULL there. So on everything else spi_nor_prep_and_lock() returns 0.
+Will it be better to mention that we never add the folio to the oldest
+gen (since `folio_set_active` below prevents that) so this is
+effectively promotes the folio by at least one generation? Maybe can
+be combined with the comment below.
 
-Where it can happen, skipping the restore is exactly what the code does
-today when the restore fails, and spi_nor_restore() is best-effort by
-design - it ignores the error from spi_nor_set_4byte_addr_mode() and
-only logs it, "in the hope that the flash will default to the 3-byte
-address mode after the software reset". The patch does not make that
-outcome more likely; the unlocked restore it replaces reports success
-while leaving the flash in 4-byte mode, which is the failure being
-fixed.
+>                 /* don't add rejected folios to the oldest generation */
+> -               if (lru_gen_folio_seq(lruvec, folio, false) =3D=3D min_se=
+q[type]) {
+> -                       folio_set_lru_refs(folio, 0);
+> +               if (lru_gen_folio_seq(lruvec, folio, false) =3D=3D min_se=
+q[type])
+>                         folio_set_active(folio);
+> -               }
+>         }
+>
+>         move_folios_to_lru(&list);
+> --
+> 2.47.3
 
-> [Severity: Critical]
-> This is a pre-existing issue, but could releasing the lock while the MTD
-> device remains active expose the flash's modified 3-byte addressing state
-> to concurrent operations?
+I tested this, and also tested with MGLRU-FG on top (the posted
+version is on top of this):
+https://lore.kernel.org/linux-mm/20260911-mglru-fg-v2-4-f26e5cb26da7@tencen=
+t.com/
 
-Yes, and this is the right thing to have flagged. It is in the commit
-message:
+Both cases looked good with no performance regression observed from
+this patch with a few quick tests. It also has no conflict with
+further changes. Nothing surprising was observed, so:
 
-        This narrows the race without closing it. The restore still runs
-        while MTD users are attached, so an operation that starts after
-        it has completed will address a chip that is now in 3-byte mode
-        while nor->addr_nbytes is still 4. Closing that as well would
-        mean having MTD stop accepting operations before ->shutdown
-        runs, which is a larger change; serialising against the
-        operations already in flight is what keeps the restore itself
-        from being issued into a busy chip.
-
-The mechanism as described is right: a page program issued in that state
-sends four address bytes to a chip expecting three, so the fourth is
-consumed as the first data byte and the write lands shifted.
-
-It is not introduced here, and it cannot be fixed here. The window
-exists because ->shutdown runs with userspace still running and MTD
-still accepting operations; the only real fix is at the MTD layer, and
-it is a separate discussion I am happy to have. What this patch removes
-is the strictly worse case where the restore is issued into a flash that
-is mid-erase and silently discards it.
-
-Thanks,
-Itai
+Reviewed-by: Kairui Song <kasong@tencent.com>
