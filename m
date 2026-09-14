@@ -1,206 +1,140 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E834749DA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416861; cv=pass; b=Xz7rxoJbBOggGIrgjk7X+OMTW69I/+QKK2qsSEDpK5wjhWnOqCuw3YsvLY3SuxwYpFghEw4ePxQ3RM9dKpohYpssWeAMIkyjujMtjuv5dudit6CKglIAvFZInevcY5/syFZXUE5mZvIXMpBwb5LwFpHARZ4n9JaM22osysEiRJU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416861; c=relaxed/simple;
-	bh=3E353mGHA+YwmiJRDMPPzi71eHpkdVopb+a6X25hXhA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TGG9B3y6m+rsdUKS7hVdb/kEpplG731VcZSmhSbho0GkARCqcIqLEkb8X+JSkIz5VjoeOuQ8TbYlBi0GnHAQudUm0oNgrU3FoS6HT/r45SqH13Aerq7d4rwkPwjU4lARcrvfO1oQeiObSIZeELwH8T/J3QSzeOX1Pq3ZDysFxMU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=a1UGwMTY; arc=pass smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38316480DCA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789416930; cv=none; b=fCTfRpeq1jcPV1sPvzLoRS/MTzayyh0hW80cyO0D+UfH3sxXBEnaVsJvtcEmGz/Ia+hRDZcTNueaLS4+tLFz0nVoBqcBp6ineFnnkvjO3HrOxueoOq9CqHyMqkHDRmH5O9hsMuElV9b/v/DEIXq1m6ULKeumYInz0DSqq2KTc9s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789416930; c=relaxed/simple;
+	bh=GykgSnZ4kWqbaJjn/9T0vyH9n/iK2VhkIfkcUJdlBuk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nbvh6X27fROKN/LShJQ8ZuTgcJUCav1/fYkN85Rg1WfrPO2eEp3mFfkYXqX19BJZBRkwcMOXZ+RD+RwBMjmy7A041OQVuzRCLlXL9yjN1RcRlcX07pAjBx9QfiHxfhb2gO7KI/5nfJAA7ZWFLYNx8afMyA25E5N+vu7ki33jO/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bMZZDctY; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="a1UGwMTY"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66de7e0bc85so3116410d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:14:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789416859; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rCyBgk0HMDl033MPHcNmMu2twAsQCTI9iCSuGH6MltJGMvdM8n3cSXozY6I9CS58Dr
-         ebHvtx3EHMz/pNx0jdJmzytKa0O685TGMuKQmtOGmf0zJOwos8MKQFth44Fhe8wOnn8T
-         wGCj4mjhT/uc7tvwgiWHU/tpHOS35kOStq5c7CT1hhY+UNDl92NavcWVJY2AGownZCG6
-         GfEGrMwTUGFawFVF7b9uqcZqaxgBA2sn4JmYVb7G/GGZFjvtUdnxAU4AHxG9+VussYZd
-         dt9uFkdvd5NpKgQNEtgA7WV3jVyf/shcKJYsA5Hk/aI5GDDXpKNRp4VakpsNwp4uNHs5
-         KQQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Rga6UFelgth5DpOvahkhCJaR+CNVuGoZ+4Q+hPI7j+g=;
-        fh=w7mgbrUTcOXEJxz3IkIkTvn4o6OkBwSiccQ+8YKrnO4=;
-        b=kSNw71wln7fvfhExQvhvfCSFvKuCouHOxFNZZY0rzXCCAfhf/oK8XkHVJQRiaAnpCU
-         +cEZy3MqqX+mSRXWYslMrZYGQE2x996lqYeJTPtCAzcAZkLx7TaBOrxmXOo6e4WELDum
-         vPNCq0PLsnhsCcdlBG7qi40vxXNCBlYGyTlqOHtceFkDImVvX/EA+6ci7fEXBfV+d1MI
-         6U5v/l7K52PrTMShwg0DwsXr/OED8FNaDUtzhZtnya9OKAHHNoa7YZG2MD6wLkKroGUo
-         CBVDyUShJ1VQJJhdt98PyAdEcr1VtSanexyK6tOdmAxbN2NgsiyWi0X/6azbo4YyMBWB
-         qNDQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bMZZDctY"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a985799954so368792a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:15:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1789416859; x=1790021659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Rga6UFelgth5DpOvahkhCJaR+CNVuGoZ+4Q+hPI7j+g=;
-        b=a1UGwMTY2EcbpMOgq6x9QI2NgGYwRm7FwK1R85iNGnMq20v8d4GqpjJ21XfDMXMUxL
-         8MKjQTXjGZROkZtWOP2PvF2NlyNPbpdPCYjQm3Wc9yMKqVHX1uK9GheeBRifFKVNTuq5
-         CwQ5Ot4ebIkb90fxImlJeUnAujf6NkomcCoCzgTz7PyiAx6UEuvcHE+nmyg7L6HLs84d
-         +Ysd1/ICZeMRySzlwg/aKRd9Dz+Yr0Shs2dcQFC2XSCRlIM+Os8Dh0HBDRfkvXdxhayJ
-         LcidJxTzX2s+xOZU93OPhzU8GUIk/MuDiq2ImXRnUaedkV155hw2nIb1XOk4YbOahbJB
-         Hg8A==
+        d=linaro.org; s=google; t=1789416926; x=1790021726; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K7ypREDUbgOotRmXNI3oJlTg66vvpyevfxzia1IXsPA=;
+        b=bMZZDctYnf21WxAkfoqiCg9XxwZLGTkmzQt8JZ45r39/go9xGReDPVtHVcK3Bs6EYU
+         bEfOyNxykmx7gPfJAs44CUDF3S5HEcYaWIo50S37e9b4mYlvZE30G0juDcqNds1VYU+J
+         6gT7B+KTl8FpHeUfv0S62eoly12FlbZvGTt9xkMG1PYShuDCP57/bYD4zn+m4USqhpCk
+         GxeY+AGznjb9+s/dnCm/66lD2i+b7hJU0aQpmfrTziqskXsVfCIEhba8OYac8UNVHg7x
+         Xklv9+HRxzWMWSFTrrafknvLXUH9LNjDIJ4Nkg5JRNLDzQp4EAYPsiR9I3soTYl0VJ6r
+         VfvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789416859; x=1790021659;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rga6UFelgth5DpOvahkhCJaR+CNVuGoZ+4Q+hPI7j+g=;
-        b=m4ewEm/afT4qJjSQypOUeLvoALcXoDB1DvTsGAT2n/zZ+G8xO/BbiE3PFH5Gf79vQt
-         uKhUvbdaL3pQq2AKC5Z6dzQy/7qssv6zWG4jiFGSQqWyCu7GunaC8xwju2oN13vxuJRL
-         m5eFhnjOtq9vEHTWNEvtgOTk8ClG9A8gNKYcZ+ybXNwar3z8zZfb74Z60JKv2Je7JaFa
-         HcximbgSyCfAkHNbVCzclR154rhwtih4EsD1u2oOHr+ro4s4EGYHeAOomxlTzIgw8Mfd
-         B6w5azKib5lwdXScxCpahCuRkwqMcSdSC7lhp/8jHyYNPM86D4QyEbwGScRWqxqe7CoV
-         6o+g==
-X-Forwarded-Encrypted: i=1; AKwUvBx4lwpkmAMRemKh+MEbOL2aHJXNptT80u6YEtgQZXtMIMhoOdUC37OeMnKDd2HJMdNLr4lNoveUfzm2q2I=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDM8KDMHLsRGc1D54tE4lGYCyBF+rg/i9JCTLcH40MZpktqq2e
-	DfYY2vQtPkLMP13yjvOUMQ6ePjLOx9Fl1T70PGlOFNBdA2HsKwh2hINsF3KuDkCd+R6ZyxOW28r
-	8OiDPWgU0AA+BzZayqW1ReWS/QF7mUN9RPyq7E1U8vA==
-X-Gm-Gg: AYBFou1SP3DuNqKC93UXneFUUgS4XNPUfl5dBljOMfZ5V0iieH+E5urf8p75Gu3+WyR
-	bQLx8g1S+hGCBo8OM+eqDzTO+7N5SkRE3/fH2mJs0XLWp2rl2jWg8vNTVHsrOHOA/5b2P5pbjtS
-	6lT6ozzo19kHB1/D6A951G4XpZspc7gmNbQb6GfebccCTxWCz83/0/Dgc4MXHatY2F0+wQk8GcI
-	Hns1P3w8tGbiWE5dnMJD42zMhJ/Yj7C3LDjGcSJeQYrzJdnid2Xj9W8Ut+lrKDyoFzWL1Hi4lrj
-	Bndfd/grnlcdny7pURZr5YKGoxBO2Az89yk3eRw0smh5RDbTFdr0Zl0=
-X-Received: by 2002:a05:690e:480d:b0:66f:c24c:98bf with SMTP id
- 956f58d0204a3-6714e1897a6mr796397d50.46.1789416858935; Mon, 14 Sep 2026
- 13:14:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789416926; x=1790021726;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K7ypREDUbgOotRmXNI3oJlTg66vvpyevfxzia1IXsPA=;
+        b=KU/yy8pdEw2TvYguU0ZAm8wiUaoEBwtSiWVfSYvabA9AlJAwFntbbyatsmSX2zUYaw
+         R1SD2sw/L3MC5/e/GSUxtjqKy4hUrv6p99LIyD9srTQmJpWHKCvmS86voh6YBRNYm4LQ
+         cFDX3ciZJFgVBYSAopCN+IbphsbCyATDUfKjsTlAQzXdhlrO3uOobu2njn9TZsC1USYw
+         syvsYSt5nv9yfMt7INREJx3QwYT+xYMALkyLNZZoXMTsO7Wb8mwKF4HBOJ75rMWbvrdS
+         hJyGxd7eetYYlDHLQ86ECY7OQo5RdRCKer2XJ69U6p3SHfR8pjy988hfcYOOArrmFrhe
+         GUWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzrJ1gmcG6cN34SadWM3KNSp+spFYqnOt1uGn9H8CI/w2yQFu8HNuBoIiVslrTvpqKoUeuQPBZnRbtGXXY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nS92BH5AE4puakHUUB4qqY2oIONsMPsnsFjQSPSPqeZ2SYJwck
+	aCNLQYVuwJ2yMKXQd/xkUESf3HXtziCZHwtR4n9wdcMy5VIZ7k1NQT99UwWgwnZTcCE=
+X-Gm-Gg: AYBFou03U9bs0G5LPjtJOeFUVGoSDfTVsQkScMijeuRbjAowYoyRv4p+u1CGfjl+/1m
+	g9Prtbs/0MIt4jQxnEpayEbDpe9fXcq71WDc7J0+t11iCx82uBTu6GR5MRn+LoZDUAkqvYytzLx
+	U7f3B+W1BdlRj5vCXW65BwG4a/R9GvQw+lOzvByylrmhHIt6xYjZrtrGFfxtxHEi4b/BYi2tIQt
+	JgnbgoJUSeA/FGxT1yQr3vkO2oNQq7A24Q+zqIkoMNNvSUbe0v937On9wVYh9u9fFLdpRPFddOa
+	wM4DtydO7RaKHyA7cozHEU9sQDBGQbL8TguMUw+NP7fDkoe9unMXAllEcaPP/APjxKsUtbSvPIk
+	jLF9AaEUR3MJaCWtafwnErunu6gLhl+m4fxpyhF5x6KI2SZCAAEQSRsumeg/YXQh8tECRnpe0J0
+	0g8a+pD7HUWhXMzYouDjRAYA7azIMOoTwO453ZHvMzWDWw+mHrCa9SBpG+gvFbxmjQ1Az+DUyYv
+	nMtHaMudA==
+X-Received: by 2002:a05:6402:b86:b0:6a6:75b7:4ff6 with SMTP id 4fb4d7f45d1cf-6aa03f7ab4cmr403420a12.8.1789416926406;
+        Mon, 14 Sep 2026 13:15:26 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.248.34])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b594e462sm4859796a12.24.2026.09.14.13.15.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 13:15:25 -0700 (PDT)
+Message-ID: <cd7d3d8d-f629-4fa4-9417-98bbef3230d4@linaro.org>
+Date: Mon, 14 Sep 2026 21:15:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907015003.65087-2-sanghyun.park.cnu@gmail.com>
- <514a0c26ff5e0322fe0442d07142cafc7dda338a3ce2c5b7e9437dd994cb0ba1@mail.kernel.org>
- <a44630a1-4965-4020-afb9-ba5b1a7848e6@linux.dev>
-In-Reply-To: <a44630a1-4965-4020-afb9-ba5b1a7848e6@linux.dev>
-From: Emil Tsalapatis <emil@etsalapatis.com>
-Date: Mon, 14 Sep 2026 20:14:08 +0000
-X-Gm-Features: AcwNN1Us3YmXWxVK-pYM5PFNdwZh0QfaSO2LkPIk5GAO4E22Ex_DUjXIGjOz0BY
-Message-ID: <CABFh=a4449ssX-jj+5So9_3UMgLGnaioYgQooKibZCbzxAxKyw@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v6 1/2] bpf: Validate program attach type during
- link update
-To: Leon Hwang <leon.hwang@linux.dev>
-Cc: bot+bpf-ci@kernel.org, sanghyun.park.cnu@gmail.com, ast@kernel.org, 
-	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, 
-	bpf@vger.kernel.org, john.fastabend@gmail.com, martin.lau@linux.dev, 
-	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
-	ihor.solodrai@linux.dev, shuah@kernel.org, sdf@fomichev.me, 
-	pulehui@huawei.com, suchitkarunakaran@gmail.com, xukuohai@huawei.com, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	martin.lau@kernel.org, mason@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: Fix touchscreen address on Dell
+ Inspiron 7441
+To: avalon.vargas.centeno@est.una.ac.cr,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Val Packett <val@packett.cool>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 7, 2026 at 3:08=E2=80=AFPM Leon Hwang <leon.hwang@linux.dev> wr=
-ote:
->
-> On 2026/9/7 10:36, bot+bpf-ci@kernel.org wrote:
-> >> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-> >> index c7bc9ba9b331..b394a37eecb4 100644
-> >> --- a/kernel/bpf/syscall.c
-> >> +++ b/kernel/bpf/syscall.c
-> >> @@ -4481,14 +4481,9 @@ static int bpf_prog_attach_check_attach_type(co=
-nst struct bpf_prog *prog,
-> >>      case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
-> >>      case BPF_PROG_TYPE_CGROUP_SOCKOPT:
-> >>      case BPF_PROG_TYPE_SK_LOOKUP:
-> >> +    case BPF_PROG_TYPE_LSM:
-> >>              return attach_type =3D=3D prog->expected_attach_type ? 0 =
-: -EINVAL;
-> >
-> > Does adding BPF_PROG_TYPE_LSM to this arm also relax the check on the
-> > BPF_LINK_CREATE path?
-> >
-> > Before this patch, BPF_PROG_TYPE_LSM fell into the default arm:
-> >
-> >       default:
-> >               ptype =3D attach_type_to_prog_type(attach_type);
-> >               if (ptype =3D=3D BPF_PROG_TYPE_UNSPEC || ptype !=3D prog-=
->type)
-> >                       return -EINVAL;
-> >               return 0;
-> >
-> > Since attach_type_to_prog_type() returns BPF_PROG_TYPE_LSM only for
-> > BPF_LSM_MAC and BPF_LSM_CGROUP (kernel/bpf/syscall.c:4457, 4463), an LS=
-M
-> > program could only ever be accepted for those two attach types.
-> >
-> > The new arm drops that constraint and accepts any attach_type as long a=
-s it
-> > equals prog->expected_attach_type. The other members of that arm are sa=
-fe
-> > because bpf_prog_load_check_attach() restricts their expected_attach_ty=
-pe
-> > to a set that all maps back to the same prog type. BPF_PROG_TYPE_LSM is=
- the
-> > one type in that arm with no such restriction: bpf_prog_load_check_atta=
-ch()
-> > (kernel/bpf/syscall.c:2766 onwards) has no LSM case and falls into
-> > `default: return 0`, so prog->expected_attach_type is entirely
-> > userspace-controlled for LSM programs.
->
->
-> Good catch.
->
-> Since there's no expected_attach_type check for lsm prog, a lsm prog can
-> have BPF_TRACE_ITER expected_attach_type, and creates a lsm link via
-> BPF_LINK_CREATE with this patch. Such lsm prog cannot create a lsm link
-> via BPF_LINK_CREATE without this patch.
->
-> The new case BPF_PROG_TYPE_LSM in bpf_prog_attach_check_attach_type()
-> relaxes the prog->type check when adding expected_attach_type check.
->
-> I think we can add expected_attach_type check for lsm prog in
-> bpf_prog_load_check_attach(). See below diff. The diff will restrict a
-> lsm prog with these two expected_attach_type, BPF_LSM_MAC and
-> BPF_LSM_CGROUP.
->
-
-+1, skipping LSM progs in bpf_prog_load_check_attach() is counterintuitive
-and the reason why we missed this edge case in the first place. It's
-better to add
-the missing checks than adjust the refactoring.
-
-pw-bot: cr
-
-> Thanks,
-> Leon
->
+On 14/09/2026 14:30, Avalon Vargas via B4 Relay wrote:
+> From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+> 
+> The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
+> responds at I2C address 0x09, while the device tree specifies 0x10.
+> Probing the latter fails with -ENXIO and no touchscreen input device
+> is registered.
+> 
+> Use address 0x09, matching the LXST2021 configuration on the related
+> Dell Latitude 7455. With this address, the controller identifies as
+> 29BD:1103 and binds to hid-multitouch. Touch input and suspend/resume
+> have been verified on the affected Inspiron using Linux 7.2.4 with
+> the equivalent device-tree overlay.
+> 
+> Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
 > ---
->
-> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-> index 6874ba1424af..4b56e82ff3b9 100644
-> --- a/kernel/bpf/syscall.c
-> +++ b/kernel/bpf/syscall.c
-> @@ -2830,6 +2830,16 @@ bpf_prog_load_check_attach(enum bpf_prog_type
-> prog_type,
->                 if (expected_attach_type =3D=3D BPF_NETFILTER)
->                         return 0;
->                 return -EINVAL;
-> +       case BPF_PROG_TYPE_LSM:
-> +               switch (expected_attach_type) {
-> +               case BPF_LSM_MAC:
-> +               case BPF_LSM_CGROUP:
-> +                       return 0;
-> +               default:
-> +                       return -EINVAL;
-> +               }
->         case BPF_PROG_TYPE_SYSCALL:
->         case BPF_PROG_TYPE_EXT:
->                 if (expected_attach_type)
->
-> > [...]
->
+> This replaces the earlier report-plus-diff with a patch submission.
+> Only one unit has been tested. I have no evidence of double-sourcing
+> or a working Inspiron touchscreen at 0x10; a typo remains possible.
+> 
+> touch input and suspend/resume. The native upstream patch has not yet
+> undergone a full kernel DTB build or dtbs_check.
+> 
+> Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
+> ---
+>   arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> index 75e10d9..0cf5716 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> @@ -25,9 +25,10 @@ &gpu_zap_shader {
+>   };
+>   
+>   &i2c8 {
+> -	touchscreen@10 {
+> +	/* LXST2021 */
+> +	touchscreen@9 {
+>   		compatible = "hid-over-i2c";
+> -		reg = <0x10>;
+> +		reg = <0x09>;
+>   
+>   		hid-descr-addr = <0x1>;
+>   		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
+Nice.
+
+A Fix should have a
+
+Fixes: tag
+Cc: stable@vger.kernel.org
+
+---
+bod
