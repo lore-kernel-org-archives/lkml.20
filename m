@@ -1,46 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60E441DEE5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34874248B2;
 	Mon, 14 Sep 2026 09:23:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377832; cv=none; b=MlvCGxXA+EojMy/zkQWezCsV84nMDLVU70DO4NYLO4Sr8x8TDlnlZi8L6wIa0vo+UST8cbYeXo+ZEseDT8PD9wnv+P6uyVhF3Slgcu7UYW1ZnYCn5IfTvYBRzhTh3fvJQScWIuz60913VFn+j6S2FqcP2oFlE0Y4aCqJ+GukvmQ=
+	t=1789377835; cv=none; b=Q+xT0n7u0p9cWjRfyQ+sD+TOrjEsJJ1Gm4c6L800RNW3QEKs9CiAFNlF8agHZYzedcDlPUUDAlN8AqYT6Ra7WV3TFqixvJYdxMwJiJWHGLc18gYiJsFr1aYStwgRCgOOTwfvVL78IG8a6oyVPoG1sU9Nh70Ds/VMO4mUiFizuPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377832; c=relaxed/simple;
-	bh=GiEgc+HONCIOXNi/2k+PHumsrQ/y82kzXcHyvmihvDo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DQnvU1s/MtizpvVP6Z5v0hEbvKP9LBPwTJ1RROV5yJlzqp07cJ9A16e5CGrq3RK1FwMYc5FoP/Dck1F6sXdnKQxBDQyJQBGCw/S15kniekVBm6xZUPNCt/JPviz0u5g494tUagzq9hBlgv7SX3x8vNoByGglqT4ypKKGojG/up4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRDUXwvJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377835; c=relaxed/simple;
+	bh=I4N/QGvfiqwISRNIr8XvyiUONyrL6kJU9dfDNPImVZI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=M9cdSnO/L6IgSJ2LEr8AHoHw3S+Tdmi8VxBzKT1h3jCi2YM5SDnggqGfRXk65R38ybFLmPK5UcyidLx69YemRXpd5pEooAi2HSMQwXURuxwtzKOIJPJ0/n3tpGBuTfO1b3p2TPcA8EHrmh8SOj9yH8CxIXyJrXo6fuBWbuQVhEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6CZ8IQt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRDUXwvJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD711F00898;
-	Mon, 14 Sep 2026 09:23:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6CZ8IQt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B681F00893;
+	Mon, 14 Sep 2026 09:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377825;
-	bh=f/IIVhIpDUMez81w+c/uq+PdXNlb7xJjoOy0dmVdS8E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=NRDUXwvJHEwA9ElVkndpfSDt1WgWGEy869lxK50oGZ9TX/GJ3UNLttjZlaFug4xD4
-	 GmqzeZyEyetgkGyu3lgT7kypzgJuHdMg3zZDvwx9eReQP2NvadiaE2D/GGx9WwlV8W
-	 dd0CS3X7CwtRXbTlgkpB/OaAwriW6eeq9O0AjOAnWFFLh7J2/ln5AMp1vitR3QCqDl
-	 rKqY+WfdYdLNDgBi/UPYSfKv1V0xPbhBLFYYsm5Op5gmwR1Rdo5LqTSf7+/gYmCMU2
-	 1tVU4y2vvuqaj3c0zrPmR+5ub6XgeN1LiqCLBi4HT3nk+S+k88RDT4/qNPC22LJZOG
-	 cCREPgV20KohQ==
-From: Mark Brown <broonie@kernel.org>
-To: cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com, 
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com, 
- kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.dev, 
- perex@perex.cz, tiwai@suse.com, kuninori.morimoto.gx@renesas.com, 
- tgaraev653@gmail.com, ckeepax@opensource.cirrus.com, 
- balamurugan.c@intel.com, marco.crivellari@suse.com, 
- Ai Chao <aichao@kylinos.cn>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260911081932.2605407-1-aichao@kylinos.cn>
-References: <20260911081932.2605407-1-aichao@kylinos.cn>
-Subject: Re: [PATCH] ASoC: Intel: sof_es8336: Add a quirk for Huawei
- Matebook B3-420
-Message-Id: <178934278902.1239410.8386174882176684705.b4-ty@b4>
-Date: Mon, 14 Sep 2026 00:39:49 +0100
+	s=k20260515; t=1789377824;
+	bh=kyV9tLD58BJ1dnw177aZoGUZ0P4tXoiPTGjshBkWPJc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=N6CZ8IQtNzAm3MOeHsBzVU3OHCfZSB2aFpjOGqPt0kCf+gJ9XY8ZBD8pbAUh1SRny
+	 qJs1K+ul6ytmQx/QvBshZDW9jFG/dXkOttQh61WygMJSRhvKnAE36QEjUwjpC5rL3R
+	 4kSPJijHTqaPPJlAKV6TwdwkRbOcsAFTn9xchkby4N2/OtiPQ86BJS99DW2vR2ZXSz
+	 JYcw/vp1cUYWwMwv2wzAzTrezB0P3ZJnvlK4iKXaN4dDdQYsQX19mgCOgeg6lGO13r
+	 dKuzneutadx12/JYtwshlJF0wqtpwOjnEJ1thPpM2BzpSEWkWe5DqW6Npv5RlSNThZ
+	 Lfd1dyVWpfxnA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 14 Sep 2026 10:22:09 +0100
+Subject: [PATCH v2 10/21] kbuild: move the toolchain checks into
+ init/Kconfig.toolchain
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,47 +38,480 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1139; i=broonie@kernel.org;
- h=from:subject:message-id; bh=GiEgc+HONCIOXNi/2k+PHumsrQ/y82kzXcHyvmihvDo=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqp70bNU9mxGN4nWvYx6VnKYrDMWh0CrCdLQFka
- 24ug9NoPz+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqe9GwAKCRAk1otyXVSH
- 0Go0B/9grWcmSQh5Xi5RkR8jz51T8NqTKbHWnlb60RjPZGgT3HgzL+o7A5c9syiIzfu9DI/rsAJ
- WNGf+ognumWYpuAhNdbCQnD6nKCPLUG6QrlpJhqvH82y1PERzBldyVvSlDgDA+Bz/8vwqklhehG
- /YhEeMeujYrxN47Az19SDhL8HLoQYMsiAtXtn0w7WuGCrIbW908HZ7UHIZ/J7XLzq+bXHLkn48Q
- LbaEgeWm0z4qs1EHya2ChPAq1HG7xMhfg/k59M5bcG6WKtp7ITK2rDzvI+/OYLwN07b1dn9bnao
- qGhcMexK9EDgz78dgkAp5Nok4m0Lm6+tD3Odzgj7bvXqdimo
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-Id: <20260914-build-speedup-v2-10-39817ec5db23@kernel.org>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+In-Reply-To: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14277; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=I4N/QGvfiqwISRNIr8XvyiUONyrL6kJU9dfDNPImVZI=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKW7zmQmMV3odw2PubvrmO2kk9tvLfrrfhSs7P71FIfU
+ 8fdd5WiOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARDilGhlMTH07ezXtKRDvu
+ 6J7VDhP6466Lq927m6r0f2fTry8r/kxj+Gf2hJtheZXciTmtMrdO9K7J/Wcv/ELsp/+6X0fbxZX
+ 7uVkB
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Fri, 11 Sep 2026 16:19:32 +0800, Ai Chao wrote:
-> ASoC: Intel: sof_es8336: Add a quirk for Huawei Matebook B3-420
+init/Kconfig opens with two hundred lines identifying the compiler,
+assembler, linker and rustc and probing which options they support, none of
+it to do with init.
 
-Applied to
+Move them into their own file, sourced from the top of init/Kconfig, so
+that the next commit can add to them without growing init/Kconfig further.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+No functional change.
 
-Thanks!
+Assisted-by: LLM
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ init/Kconfig           | 197 +-----------------------------------------------
+ init/Kconfig.toolchain | 198 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 199 insertions(+), 196 deletions(-)
 
-[1/1] ASoC: Intel: sof_es8336: Add a quirk for Huawei Matebook B3-420
-      https://git.kernel.org/broonie/sound/c/576725ded009
+diff --git a/init/Kconfig b/init/Kconfig
+index 8583d9f06c52..b44a9482cdc9 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -1,201 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-config CC_VERSION_TEXT
+-	string
+-	default "$(CC_VERSION_TEXT)"
+-	help
+-	  This is used in unclear ways:
+-
+-	  - Re-run Kconfig when the compiler is updated
+-	    The 'default' property references the environment variable,
+-	    CC_VERSION_TEXT so it is recorded in include/config/auto.conf.cmd.
+-	    When the compiler is updated, Kconfig will be invoked.
+-
+-	  - Ensure full rebuild when the compiler is updated
+-	    include/linux/compiler-version.h contains this option in the comment
+-	    line so fixdep adds include/config/CC_VERSION_TEXT into the
+-	    auto-generated dependency. When the compiler is updated, syncconfig
+-	    will touch it and then every file will be rebuilt.
+-
+-config CC_IS_GCC
+-	def_bool $(success,test "$(cc-name)" = GCC)
+-
+-config GCC_VERSION
+-	int
+-	default $(cc-version) if CC_IS_GCC
+-	default 0
+-
+-config CC_IS_CLANG
+-	def_bool $(success,test "$(cc-name)" = Clang)
+-
+-config CLANG_VERSION
+-	int
+-	default $(cc-version) if CC_IS_CLANG
+-	default 0
+-
+-config AS_IS_GNU
+-	def_bool $(success,test "$(as-name)" = GNU)
+-
+-config AS_IS_LLVM
+-	def_bool $(success,test "$(as-name)" = LLVM)
+-
+-config AS_VERSION
+-	int
+-	# Use clang version if this is the integrated assembler
+-	default CLANG_VERSION if AS_IS_LLVM
+-	default $(as-version)
+-
+-config LD_IS_BFD
+-	def_bool $(success,test "$(ld-name)" = BFD)
+-
+-config LD_VERSION
+-	int
+-	default $(ld-version) if LD_IS_BFD
+-	default 0
+-
+-config LD_IS_LLD
+-	def_bool $(success,test "$(ld-name)" = LLD)
+-
+-config LLD_VERSION
+-	int
+-	default $(ld-version) if LD_IS_LLD
+-	default 0
+-
+-config RUSTC_VERSION
+-	int
+-	default $(rustc-version)
+-	help
+-	  It does not depend on `RUST` since that one may need to use the version
+-	  in a `depends on`.
+-
+-config RUST_IS_AVAILABLE
+-	def_bool $(success,$(srctree)/scripts/rust_is_available.sh)
+-	help
+-	  This shows whether a suitable Rust toolchain is available (found).
+-
+-	  Please see Documentation/rust/quick-start.rst for instructions on how
+-	  to satisfy the build requirements of Rust support.
+-
+-	  In particular, the Makefile target 'rustavailable' is useful to check
+-	  why the Rust toolchain is not being detected.
+-
+-config RUSTC_LLVM_VERSION
+-	int
+-	default $(rustc-llvm-version)
+-
+-config RUSTC_LLVM_MAJOR_VERSION
+-	int
+-	default $(shell,expr $(rustc-llvm-version) / 10000)
+ 
+-config RUSTC_CLANG_LLVM_COMPATIBLE
+-	bool
+-	default y if CC_IS_CLANG && RUSTC_LLVM_MAJOR_VERSION = $(shell,expr $(cc-version) / 10000)
+-	help
+-	  This indicates whether Rust and Clang use LLVM of the same major
+-	  version.
+-
+-	  Operations involving handling LLVM IR or bitcode (e.g. cross-language
+-	  LTO) require the same LLVM major version to work properly. For best
+-	  compatibility it is recommended that the exact same LLVM is used.
+-
+-config ARCH_HAS_CC_CAN_LINK
+-	bool
+-
+-config CC_CAN_LINK
+-	bool
+-	default ARCH_CC_CAN_LINK if ARCH_HAS_CC_CAN_LINK
+-	default $(cc_can_link_user,$(m64-flag)) if 64BIT
+-	default $(cc_can_link_user,$(m32-flag))
+-
+-# Fixed in GCC 14, 13.3, 12.4 and 11.5
+-# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113921
+-config GCC_ASM_GOTO_OUTPUT_BROKEN
+-	bool
+-	depends on CC_IS_GCC
+-	default y if GCC_VERSION < 110500
+-	default y if GCC_VERSION >= 120000 && GCC_VERSION < 120400
+-	default y if GCC_VERSION >= 130000 && GCC_VERSION < 130300
+-
+-config CC_HAS_ASM_GOTO_OUTPUT
+-	def_bool y
+-	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
+-	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
+-
+-config CC_HAS_ASM_GOTO_TIED_OUTPUT
+-	depends on CC_HAS_ASM_GOTO_OUTPUT
+-	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
+-	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
+-
+-config TOOLS_SUPPORT_RELR
+-	def_bool $(success,env "CC=$(CC)" "LD=$(LD)" "NM=$(NM)" "OBJCOPY=$(OBJCOPY)" $(srctree)/scripts/tools-support-relr.sh)
+-
+-config CC_HAS_ASM_INLINE
+-	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
+-
+-config CC_HAS_ASSUME
+-	bool
+-	# clang needs to be at least 19.1.0 since the meaning of the assume
+-	# attribute changed:
+-	# https://github.com/llvm/llvm-project/commit/c44fa3e8a9a44c2e9a575768a3c185354b9f6c17
+-	default y if CC_IS_CLANG && CLANG_VERSION >= 190100
+-	# supported since gcc 13.1.0
+-	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106654
+-	default y if CC_IS_GCC && GCC_VERSION >= 130100
+-
+-config CC_HAS_NO_PROFILE_FN_ATTR
+-	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
+-
+-config CC_HAS_COUNTED_BY
+-	bool
+-	# clang needs to be at least 20.1.0 to avoid potential crashes
+-	# when building structures that contain __counted_by
+-	# https://github.com/ClangBuiltLinux/linux/issues/2114
+-	# https://github.com/llvm/llvm-project/commit/160fb1121cdf703c3ef5e61fb26c5659eb581489
+-	default y if CC_IS_CLANG && CLANG_VERSION >= 200100
+-	# supported since gcc 15.1.0
+-	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
+-	default y if CC_IS_GCC && GCC_VERSION >= 150100
+-
+-config CC_HAS_COUNTED_BY_PTR
+-	bool
+-	# supported since clang 22
+-	default y if CC_IS_CLANG && CLANG_VERSION >= 220100
+-	# supported since gcc 16.0.0
+-	default y if CC_IS_GCC && GCC_VERSION >= 160000
+-
+-config CC_HAS_BROKEN_COUNTED_BY_REF
+-	bool
+-	# https://github.com/llvm/llvm-project/issues/182575
+-	default y if CC_IS_CLANG && CLANG_VERSION < 220100
+-
+-config CC_HAS_ALLOC_TOKEN
+-	def_bool $(cc-option,-falloc-token-max=123)
+-
+-config CC_HAS_MULTIDIMENSIONAL_NONSTRING
+-	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
+-
+-config LD_CAN_USE_KEEP_IN_OVERLAY
+-	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
+-	# https://github.com/llvm/llvm-project/pull/130661
+-	def_bool LD_IS_BFD || LLD_VERSION >= 210000
+-
+-config RUSTC_HAS_SPAN_FILE
+-	def_bool RUSTC_VERSION >= 108800
+-
+-config RUSTC_HAS_UNNECESSARY_TRANSMUTES
+-	def_bool RUSTC_VERSION >= 108800
+-
+-config RUSTC_HAS_FILE_WITH_NUL
+-	def_bool RUSTC_VERSION >= 108900
+-
+-config RUSTC_HAS_FILE_AS_C_STR
+-	def_bool RUSTC_VERSION >= 109100
+-
+-config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
+-	def_bool RUSTC_VERSION >= 109800
+-
+-config PAHOLE_VERSION
+-	int
+-	default "$(PAHOLE_VERSION)"
++source "init/Kconfig.toolchain"
+ 
+ config CONSTRUCTORS
+ 	bool
+diff --git a/init/Kconfig.toolchain b/init/Kconfig.toolchain
+new file mode 100644
+index 000000000000..fac36246451f
+--- /dev/null
++++ b/init/Kconfig.toolchain
+@@ -0,0 +1,198 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config CC_VERSION_TEXT
++	string
++	default "$(CC_VERSION_TEXT)"
++	help
++	  This is used in unclear ways:
++
++	  - Re-run Kconfig when the compiler is updated
++	    The 'default' property references the environment variable,
++	    CC_VERSION_TEXT so it is recorded in include/config/auto.conf.cmd.
++	    When the compiler is updated, Kconfig will be invoked.
++
++	  - Ensure full rebuild when the compiler is updated
++	    include/linux/compiler-version.h contains this option in the comment
++	    line so fixdep adds include/config/CC_VERSION_TEXT into the
++	    auto-generated dependency. When the compiler is updated, syncconfig
++	    will touch it and then every file will be rebuilt.
++
++config CC_IS_GCC
++	def_bool $(success,test "$(cc-name)" = GCC)
++
++config GCC_VERSION
++	int
++	default $(cc-version) if CC_IS_GCC
++	default 0
++
++config CC_IS_CLANG
++	def_bool $(success,test "$(cc-name)" = Clang)
++
++config CLANG_VERSION
++	int
++	default $(cc-version) if CC_IS_CLANG
++	default 0
++
++config AS_IS_GNU
++	def_bool $(success,test "$(as-name)" = GNU)
++
++config AS_IS_LLVM
++	def_bool $(success,test "$(as-name)" = LLVM)
++
++config AS_VERSION
++	int
++	# Use clang version if this is the integrated assembler
++	default CLANG_VERSION if AS_IS_LLVM
++	default $(as-version)
++
++config LD_IS_BFD
++	def_bool $(success,test "$(ld-name)" = BFD)
++
++config LD_VERSION
++	int
++	default $(ld-version) if LD_IS_BFD
++	default 0
++
++config LD_IS_LLD
++	def_bool $(success,test "$(ld-name)" = LLD)
++
++config LLD_VERSION
++	int
++	default $(ld-version) if LD_IS_LLD
++	default 0
++
++config RUSTC_VERSION
++	int
++	default $(rustc-version)
++	help
++	  It does not depend on `RUST` since that one may need to use the version
++	  in a `depends on`.
++
++config RUST_IS_AVAILABLE
++	def_bool $(success,$(srctree)/scripts/rust_is_available.sh)
++	help
++	  This shows whether a suitable Rust toolchain is available (found).
++
++	  Please see Documentation/rust/quick-start.rst for instructions on how
++	  to satisfy the build requirements of Rust support.
++
++	  In particular, the Makefile target 'rustavailable' is useful to check
++	  why the Rust toolchain is not being detected.
++
++config RUSTC_LLVM_VERSION
++	int
++	default $(rustc-llvm-version)
++
++config RUSTC_LLVM_MAJOR_VERSION
++	int
++	default $(shell,expr $(rustc-llvm-version) / 10000)
++
++config RUSTC_CLANG_LLVM_COMPATIBLE
++	bool
++	default y if CC_IS_CLANG && RUSTC_LLVM_MAJOR_VERSION = $(shell,expr $(cc-version) / 10000)
++	help
++	  This indicates whether Rust and Clang use LLVM of the same major
++	  version.
++
++	  Operations involving handling LLVM IR or bitcode (e.g. cross-language
++	  LTO) require the same LLVM major version to work properly. For best
++	  compatibility it is recommended that the exact same LLVM is used.
++
++config ARCH_HAS_CC_CAN_LINK
++	bool
++
++config CC_CAN_LINK
++	bool
++	default ARCH_CC_CAN_LINK if ARCH_HAS_CC_CAN_LINK
++	default $(cc_can_link_user,$(m64-flag)) if 64BIT
++	default $(cc_can_link_user,$(m32-flag))
++
++# Fixed in GCC 14, 13.3, 12.4 and 11.5
++# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113921
++config GCC_ASM_GOTO_OUTPUT_BROKEN
++	bool
++	depends on CC_IS_GCC
++	default y if GCC_VERSION < 110500
++	default y if GCC_VERSION >= 120000 && GCC_VERSION < 120400
++	default y if GCC_VERSION >= 130000 && GCC_VERSION < 130300
++
++config CC_HAS_ASM_GOTO_OUTPUT
++	def_bool y
++	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
++	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
++
++config CC_HAS_ASM_GOTO_TIED_OUTPUT
++	depends on CC_HAS_ASM_GOTO_OUTPUT
++	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
++	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
++
++config TOOLS_SUPPORT_RELR
++	def_bool $(success,env "CC=$(CC)" "LD=$(LD)" "NM=$(NM)" "OBJCOPY=$(OBJCOPY)" $(srctree)/scripts/tools-support-relr.sh)
++
++config CC_HAS_ASM_INLINE
++	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
++
++config CC_HAS_ASSUME
++	bool
++	# clang needs to be at least 19.1.0 since the meaning of the assume
++	# attribute changed:
++	# https://github.com/llvm/llvm-project/commit/c44fa3e8a9a44c2e9a575768a3c185354b9f6c17
++	default y if CC_IS_CLANG && CLANG_VERSION >= 190100
++	# supported since gcc 13.1.0
++	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106654
++	default y if CC_IS_GCC && GCC_VERSION >= 130100
++
++config CC_HAS_NO_PROFILE_FN_ATTR
++	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
++
++config CC_HAS_COUNTED_BY
++	bool
++	# clang needs to be at least 20.1.0 to avoid potential crashes
++	# when building structures that contain __counted_by
++	# https://github.com/ClangBuiltLinux/linux/issues/2114
++	# https://github.com/llvm/llvm-project/commit/160fb1121cdf703c3ef5e61fb26c5659eb581489
++	default y if CC_IS_CLANG && CLANG_VERSION >= 200100
++	# supported since gcc 15.1.0
++	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
++	default y if CC_IS_GCC && GCC_VERSION >= 150100
++
++config CC_HAS_COUNTED_BY_PTR
++	bool
++	# supported since clang 22
++	default y if CC_IS_CLANG && CLANG_VERSION >= 220100
++	# supported since gcc 16.0.0
++	default y if CC_IS_GCC && GCC_VERSION >= 160000
++
++config CC_HAS_BROKEN_COUNTED_BY_REF
++	bool
++	# https://github.com/llvm/llvm-project/issues/182575
++	default y if CC_IS_CLANG && CLANG_VERSION < 220100
++
++config CC_HAS_ALLOC_TOKEN
++	def_bool $(cc-option,-falloc-token-max=123)
++
++config CC_HAS_MULTIDIMENSIONAL_NONSTRING
++	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
++
++config LD_CAN_USE_KEEP_IN_OVERLAY
++	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
++	# https://github.com/llvm/llvm-project/pull/130661
++	def_bool LD_IS_BFD || LLD_VERSION >= 210000
++
++config RUSTC_HAS_SPAN_FILE
++	def_bool RUSTC_VERSION >= 108800
++
++config RUSTC_HAS_UNNECESSARY_TRANSMUTES
++	def_bool RUSTC_VERSION >= 108800
++
++config RUSTC_HAS_FILE_WITH_NUL
++	def_bool RUSTC_VERSION >= 108900
++
++config RUSTC_HAS_FILE_AS_C_STR
++	def_bool RUSTC_VERSION >= 109100
++
++config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
++	def_bool RUSTC_VERSION >= 109800
++
++config PAHOLE_VERSION
++	int
++	default "$(PAHOLE_VERSION)"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.55.0
 
