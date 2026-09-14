@@ -1,104 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE83041A51B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD1141B8DC;
+	Mon, 14 Sep 2026 09:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376944; cv=none; b=ppEmMIXZwmsBT2Bz82jxo26gLQ2+2HVVdjkt3zimW5LeDgCBG9vsmVOoNiBGkUGfbbS/xV9eZ9c8Ort8qBWYc+6yDX+oC4r7qFuzAoRz3WZ8KMGR45AOd0sbPLFbZTu9R08rndEBc6ZnqBv/tkY2CG+Lbp9jhmvcdyv6GakHAIc=
+	t=1789376953; cv=none; b=BW8RbHXpK0eY5ZCh350xCF4NbJIacuZD1VKLl0RGkGPvW2em8X6VjRaZPZlpmVosHYHSJr5IGg7wUYjvMmbi+jsWDYFdfs1qCx7Aqtg0mxnWRPmOShQYMZorM0yXj8joP1LTv9GC8qXrJv2brcCgmn7o6vvwJRLwNwicPBrFzqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376944; c=relaxed/simple;
-	bh=7K5PVATLsabQRhhBZXhEErR/D14fgI88SUwcddvdxdM=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=SizU2YANRRMqyENPuActhta9YqNFVwBcxCogTeKJw65bI+06ECU54y5JlqB2c/JoLTrB+ugzt11VCZedipJDHjbVDsbZiV6cSYIJ6ZQN8jhq1mK8jhR6C5VmmaAxQF7bYK4X778FDlUJYkNOUL238CSwKZMNgcOPuDR4TbkEMcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dqEM6apm; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789376953; c=relaxed/simple;
+	bh=ajsEAEFVhYkei0ULQCPMvG1Rjbuwpj3uhTVR2PEtLjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uPYTcetZIAWqP76ySlS65VzabR4+Jq9XNQ1kzORRyx5zAevYI3SNOD6xGV9qsbrieNvUJHodmRo7lo10i+n0FBeJCRNNoBP4cYvsDJEvX4eF10NMi1+XBmoUdW9XEYoiMVaFQ3Wipxs7BnMcgmvILNoag4cGIN9MB6DHqYV234s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=evpk+TvI; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dqEM6apm"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="evpk+TvI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789376940; x=1820912940;
-  h=date:from:to:cc:subject:message-id;
-  bh=7K5PVATLsabQRhhBZXhEErR/D14fgI88SUwcddvdxdM=;
-  b=dqEM6apmu3RrAmV09wBmcQNXyLb2b1IUbgpViK1IAe2EfFPigNqFvSTH
-   C/RuHXAdlQFbF8ItK6j/CcYd/gkpHXr2sAYrcvyoHGFlA/Er3bojxp6/f
-   eYYKIuDjuuMzaInJ60ZAJT90/iLtdeP2juG1tbqDbH3egOFQXYQ1KhlRJ
-   hxutIH8foDbMsQLhy18pJzlNesrt7cR+5ljiHQEq5LcjYgF2ot4Ae16+d
-   k0qtZmgwVyZZXG57Di1K+MhVhVsGtGPFz0kyaVBPdc6sNeCd33w1VSHds
-   hUPaO1zGOhS+EKpfeHoyZxnm4RU+y1DPi1+M7jYfIi06RXCmwcXG2Pf/o
+  t=1789376950; x=1820912950;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ajsEAEFVhYkei0ULQCPMvG1Rjbuwpj3uhTVR2PEtLjk=;
+  b=evpk+TvIi+5wBXjrspa2+5JmCjhPYJXaxqXnJdFZXJtiENFyat4k7Z1k
+   rGGCym1KsfRJuKHLUMmCwzT2y/s11YVtndY5CosT4eaJcMnkI7nb2wdZh
+   Wd3Zy8Oih7a1sAPm8nrZ1kfMX3BlS34NaRH6Ya6wERpC5IyjcgAryHp3p
+   vKeIDupvQsk8ISBVG6W8/aCYwoy1pq06WZ84H8nMdGPxGmZTUR39DNmtN
+   UVMAfsb/r3B9UdxDJ5h42O2lH6pGsMr4vBPL0l0DyO4bkMmPx7xw7N991
+   d3EXataz1AT5herxXIvwmvK7CkXcFI8Oep57qcIKnxb5ilyMn9PQYXBl+
    Q==;
-X-CSE-ConnectionGUID: tYy2jEagRaad7KT5uUhp1Q==
-X-CSE-MsgGUID: 6eJ7BnGJSkWwTqpdAe8KbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="77288693"
+X-CSE-ConnectionGUID: O0PMClS7QI+SjAZW0cn1Yw==
+X-CSE-MsgGUID: hFnek7NrTnmhoFhUzJY9Ug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="88667310"
 X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="77288693"
+   d="scan'208";a="88667310"
 Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:08:59 -0700
-X-CSE-ConnectionGUID: A5rFdM3iTQKJrxZnam9j1g==
-X-CSE-MsgGUID: rofYqVmFTmGCDyrk2W7hNw==
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:09:08 -0700
+X-CSE-ConnectionGUID: iB80/MQiQEOUXB5GAPl9LA==
+X-CSE-MsgGUID: UYLwprqfQ02uvaG76GQ8xA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="989743"
-Received: from igk-lkp-server01.igk.intel.com (HELO 71151d66d536) ([10.211.93.152])
-  by fmviesa013.fm.intel.com with ESMTP; 14 Sep 2026 02:08:58 -0700
-Received: from kbuild by 71151d66d536 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x62gK-00000000085-1Opn;
-	Mon, 14 Sep 2026 09:08:56 +0000
-Date: Mon, 14 Sep 2026 11:08:31 +0200
-From: kernel test robot <lkp@intel.com>
-To: Amery Hung <ameryhung@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alexei Starovoitov <ast@kernel.org>
-Subject: kernel/bpf/verifier.c:794:5-12: Unneeded variable:
- "ref_cnt". Return "0" on line 805
-Message-ID: <202609141124.zR9pQCyK-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+   d="scan'208";a="989778"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa013.fm.intel.com with ESMTP; 14 Sep 2026 02:09:07 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 5FBA799; Mon, 14 Sep 2026 11:09:06 +0200 (CEST)
+Date: Mon, 14 Sep 2026 11:09:06 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: CJ <firefly0158@163.com>
+Cc: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] thunderbolt: page fault on ioread32 in nhi_probe
+Message-ID: <20260914090906.GD106095@black.igk.intel.com>
+References: <6947b53a.8863.1a09f2784a6.Coremail.firefly0158@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <6947b53a.8863.1a09f2784a6.Coremail.firefly0158@163.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
-commit: 2eee6fe8ac2cd21e931c009d475e5a8407d42d76 bpf: Fix dynptr ref counting to scan all call frames
-date:   3 months ago
-config: hexagon-randconfig-r054-20260914 (https://download.01.org/0day-ci/archive/20260914/202609141124.zR9pQCyK-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 707c032dae3bee24eae29c6f4c459a6d6dc6556d)
+Hi,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 2eee6fe8ac2c ("bpf: Fix dynptr ref counting to scan all call frames")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609141124.zR9pQCyK-lkp@intel.com/
+On Mon, Sep 14, 2026 at 05:02:42PM +0800, CJ wrote:
+> 
+> Hi,
+> 
+> 
+> I am reporting a page fault in the Thunderbolt NHI probe path, triggered by a
+> syzkaller reproducer.  The issue is reproducible with HEAD commit
+> cee9395acd8043be0644b25c34bfa86623f2b935 (v7.3-rc1, Linux 7.3.0-rc1).
+> 
+> 
+> The reproducer mounts sysfs, unbinds PCI device 0000:00:03.0, writes
+> "thunderbolt" to its driver_override attribute, and then writes the device name
+> to the thunderbolt driver's bind attribute, forcing the driver onto a device
+> that is not a Thunderbolt controller.
+> 
+> 
+> The console shows "BUG: unable to handle page fault for address:
+> 00000000000556c0" with a supervisor read access, RIP in ioread32 (readl
+> inlined), reached from nhi_probe and nhi_pci_probe through local_pci_probe.  The
+> faulting address is a low MMIO-style address, which indicates a register access
+> at an offset from a base that was never mapped for this device.
 
-cocci warnings: (new ones prefixed by >>)
->> kernel/bpf/verifier.c:794:5-12: Unneeded variable: "ref_cnt". Return "0" on line 805
-
-vim +794 kernel/bpf/verifier.c
-
-   788	
-   789	static int dynptr_ref_cnt(struct bpf_verifier_env *env, int v_parent_id)
-   790	{
-   791		struct bpf_stack_state *stack;
-   792		struct bpf_func_state *state;
-   793		struct bpf_reg_state *reg;
- > 794		int ref_cnt = 0;
-   795	
-   796		bpf_for_each_reg_in_vstate_mask(env->cur_state, state, reg, stack, 1 << STACK_DYNPTR, ({
-   797			if (!stack || stack->slot_type[0] != STACK_DYNPTR)
-   798				continue;
-   799			if (!stack->spilled_ptr.dynptr.first_slot)
-   800				continue;
-   801			if (stack->spilled_ptr.parent_id == v_parent_id)
-   802				ref_cnt++;
-   803		}));
-   804	
- > 805		return ref_cnt;
-   806	}
-   807	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Yes if you bind it to a random device you get what you asked for. Don't do
+that. I think syzkaller recently got fixed not to do that.
