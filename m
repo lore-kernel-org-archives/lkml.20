@@ -1,117 +1,164 @@
-Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AE4472555
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.89
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB4F8471D0B;
+	Mon, 14 Sep 2026 12:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389140; cv=none; b=BYyjLJg2IGzh2EcT532Mh2ts6L6+9CAzLUFbmX6CRCrjFE5c5v/MOCsGHohS7SPqwDo+VLtjXdmO0cNBqspEqtFLY3vJThXpKzJK/ejjIvrixy9yM2h06Rfsp746rxlNHpWmXl5JizJ+wYlbiF54AG2iB7SOYp5vYlir0X89sks=
+	t=1789389148; cv=none; b=T+B/0DbXFo53JBx7tT0ae/Yfxjk6eLzNamm7oIyBjteSxSHjMoCqn7Hfo5j5jQwhTJzCO8QwLMT1S/Q7SnZeaZlbebMlOk4k8FQ6flllHzG+lL9/bghqkpG2szqRMHmkSiC0+DbEu9cZ1szvKPjz2AVwFR6GyWrTGYunwW+veGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389140; c=relaxed/simple;
-	bh=qHCwemBvEHnl6RrkodLgJVOAA4pYdgV5Aeyu0ypk9I0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YaMzLvP4RW7pl+zKAX9lZfbJHXI8hnBwi8ttzJ3QB13saVz5gFvElNsbgkEWO779Iiz5lpfhLWpfiz1e2qss12eGuCZXtAoTmFjD7J+ker1h0TMHIQTpLUCKPRnIGP55BHzy/NHlOO+aWYc/hVpYq6FW2r9yOuk0DduIxMZAZGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=khIxBPYu; arc=none smtp.client-ip=91.218.175.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789389148; c=relaxed/simple;
+	bh=//mVfT+cS6bsEEtaMcIXiUoj03Wbk2JdXzrCu9QKdyU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UiNPQwfsKcX3r4VWmy08mn0veu4D6MEfOP9sb/14DWJU0rNqiPUjNlCxpETJXnmk6wQx6oRvWXU1/mEFLAuvgjPEmyP2XBS7fp2VtDF196MMUh6fSSLNb0z7vQG0xSOZJEMdfqcktT51cr8xDTTfr5/9VTKdGndaB6xwIJxkqJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vzKnHSdK; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="khIxBPYu"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qHCwemBvEHnl6RrkodLgJVOAA4pYdgV5Aeyu0ypk9I0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789389130; v=1; x=1789993930;
- b=khIxBPYuAg5FmSdTIET+iSz+77DhfXdHs772s08vMSFKGBywDQZueERFl7DI7CK0If9efImv
- ZPyIUvWxC3N4VWON4a0G6fU74Zo7yq5wwEhIb49oMvcRbfDpYnQ7CQPzYcTGKLaeJq2Ee+1xr9Y
- 7YdPKV8nQQ+GGW7CdnRoxiTk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e967df5ce3b87961;
-	Mon, 14 Sep 2026 12:32:10 +0000
-X-Mizu-Trace-ID: e967df5ce3b87961
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com,
-	Baoquan He <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	Liam R. Howlett <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [RESEND v7 26/29] mm: don't PTE-batch a swap-in over a hardware-poisoned subpage
-Date: Mon, 14 Sep 2026 05:28:16 -0700
-Message-ID: <20260914122950.3283997-27-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914122950.3283997-1-usama.arif@linux.dev>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vzKnHSdK"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 856191570;
+	Mon, 14 Sep 2026 05:32:18 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBC8D3F86F;
+	Mon, 14 Sep 2026 05:32:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789389142; bh=//mVfT+cS6bsEEtaMcIXiUoj03Wbk2JdXzrCu9QKdyU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vzKnHSdKbin0VxCTUDozy936CXwnZ/R6yHiNneZhuEooJRckC2b3b/3cDvQz6g7NQ
+	 EDbJ4v+G1Disjqeycfm076iot2cIQi216QhEGxfBgTwPMeZPQww1CDLP4/uTNYKQ3/
+	 9uIii6KCKAS7CGPMY9JU2rgfVNqlhesVxcszDx6M=
+Message-ID: <fe22fb3d-77dd-4b34-9dd8-aafe11f36988@arm.com>
+Date: Mon, 14 Sep 2026 13:32:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu: arm-smmu-qcom: Skip fault-info reads when
+ suspended
+To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260912-priv_call_runtime_handlers-v1-1-fc0c3a17523f@oss.qualcomm.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260912-priv_call_runtime_handlers-v1-1-fc0c3a17523f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-do_swap_page() checks PageHWPoison() on the faulting page, but the
-large-folio batching path then maps the rest of the folio without looking
-at the other subpages. A poisoned subpage that is not the one being faulted
-gets mapped anyway, and the fault that would have reported it never
-happens.
+On 11/09/2026 11:25 pm, Bibek Kumar Patro wrote:
+> qcom_adreno_smmu_get_fault_info() accesses SMMU registers without
+> holding a runtime PM reference. A fault is raised while the SMMU is
+> active, but the GPU may drop its power vote before the threaded fault
+> handler reaches the callback, allowing the SMMU to runtime suspend.
+> 
+> Accessing the SMMU registers after suspend has started is unsafe and
+> may cause subsequent register accesses during runtime resume to fail
+> with a NoC error and an asynchronous SError.
 
-Skip batching for such a folio and let each page take its own fault, where
-the existing check catches it. Test every subpage rather than the
-folio-level PG_has_hwpoisoned: memory_failure() sets PageHWPoison() on the
-subpage before it acquires the folio lock, which we hold here.
+But hang on, if I'm following the code correctly, the callchain would be:
 
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- mm/memory.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+arm_smmu_context_fault
+   report_iommu_fault
+     msm_gpu_fault_handler
+      qcom_adreno_smmu_get_fault_info
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 84e1e1c22bffa..aa1f67b378587 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5020,7 +5020,14 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
- 	page_idx = 0;
- 	address = vmf->address;
- 	ptep = vmf->pte;
--	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
-+	/*
-+	 * Scan every subpage rather than testing the folio-level
-+	 * PG_has_hwpoisoned: memory_failure() sets PageHWPoison on the subpage
-+	 * before it takes the folio lock, and we hold that lock, so the
-+	 * folio-level flag can still be clear here.
-+	 */
-+	if (folio_test_large(folio) && folio_test_swapcache(folio) &&
-+	    !folio_has_hwpoisoned_subpage(folio)) {
- 		int nr = folio_nr_pages(folio);
- 		unsigned long idx = folio_page_idx(folio, page);
- 		unsigned long folio_start = address - idx * PAGE_SIZE;
--- 
-2.53.0-Meta
+and from here we still need to return to arm_smmu_context_fault() to 
+clear the FSR, so surely that still has the same problem in itself?
+
+Thanks,
+Robin.
+
+> Use pm_runtime_get_if_active() to keep the SMMU active while collecting
+> the fault information, and skip the register reads if suspend has
+> already started.
+> 
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> ---
+> qcom_adreno_smmu_get_fault_info() accesses SMMU registers without
+> holding a runtime PM reference. A fault is raised while the SMMU is
+> active, but the GPU may drop its power vote before the threaded fault
+> handler reaches the callback, allowing the SMMU to runtime suspend.
+> 
+> The failure sequence:
+> 
+>    GPU context fault
+>            |
+>            v
+>    qcom_adreno_smmu_get_fault_info()
+>            |
+>            | GPU drops its power vote
+>            | SMMU starts runtime suspend
+>            v
+>    SMMU register access without an active RPM reference
+>            |
+>            v
+>    later Adreno PRR private-interface operation
+>            |
+>            v
+>    pm_runtime_resume_and_get()
+>            |
+>            v
+>    arm_smmu_runtime_resume()
+>            |
+>            v
+>    arm_smmu_device_reset()
+>            |
+>            v
+>    SMMU register access
+>            |
+>            v
+>    NoC error / asynchronous SError
+> 
+> Use pm_runtime_get_if_active() to keep the SMMU active while collecting
+> the fault information. If suspend has already started, skip the register
+> reads instead of accessing the SMMU while it is being powered down.
+> ---
+>   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 14 ++++++++++++++
+>   1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> index 795e8ec7e8fa..b1787a4ba0d3 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> @@ -129,6 +129,18 @@ static void qcom_adreno_smmu_get_fault_info(const void *cookie,
+>   	struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
+>   	struct arm_smmu_device *smmu = smmu_domain->smmu;
+>   
+> +	/*
+> +	 * A fault can only fire while the SMMU is active (GPU is issuing
+> +	 * transactions). Use get_if_active so that if by a rare race the
+> +	 * device has already suspended, we skip the register reads rather
+> +	 * than triggering a cold resume which would call device_reset and
+> +	 * destroy the fault state we are trying to capture.
+> +	 */
+> +	if (pm_runtime_get_if_active(smmu->dev) <= 0) {
+> +		dev_warn(smmu->dev, "get_fault_info: device not active, skipping\n");
+> +		return;
+> +	}
+> +
+>   	info->fsr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSR);
+>   	info->fsynr0 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR0);
+>   	info->fsynr1 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR1);
+> @@ -136,6 +148,8 @@ static void qcom_adreno_smmu_get_fault_info(const void *cookie,
+>   	info->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(cfg->cbndx));
+>   	info->ttbr0 = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
+>   	info->contextidr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_CONTEXTIDR);
+> +
+> +	pm_runtime_put_autosuspend(smmu->dev);
+>   }
+>   
+>   static void qcom_adreno_smmu_set_stall(const void *cookie, bool enabled)
+> 
+> ---
+> base-commit: f61bb3920fa8cb44b84d32e0fa9fbaab4eb00c80
+> change-id: 20260912-priv_call_runtime_handlers-7f3547544040
+> 
+> Best regards,
+> --
+> Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> 
 
