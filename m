@@ -1,92 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E5341A4FB;
-	Mon, 14 Sep 2026 09:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFA7331A65;
+	Mon, 14 Sep 2026 09:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378686; cv=none; b=d0n1P7k/CkJaYs+IIJBAqCyLhS/roY2xam5kyj20CTgrdssG8Pxij9CZK578Okt86dC8S8dxqKduKIpb2gY198JMuE25mHLxGk5nAhoaC45cnis+RUhBEOtWIHllkAATKD5nt+J/By3+bQkfxwS6k/hJQuzZpzt26+kA3r9tqSQ=
+	t=1789378700; cv=none; b=qf7lC/yHvabwZjqDF5hPc94OY454xVEaFmLgdGhEGT4HtON0mcthfGwpdRebMrYzKfbsE/k/lpH2aaSlmQGBWMbrVeyHEMm4Azd3lki1WW1EFiOfGgu4ZMDS0gkxziVjhcrdt8Ws8tj1OTY6Gy/SVzqmkU/11lINVUvFg740WJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378686; c=relaxed/simple;
-	bh=TfcFfDZDrk0DqAZBBL4h6OR44UPkg7B0FARbEJfC+KQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ennok9DrRI3XYMNAaRyPbrR+NpbOIQhiNbXMZdHFcagqutkbtOoTC8WjVKSuYOXhZ6ZwZ97zvZXbqLSOD3525I4BdcZvwqM+SmPnxrKpOEmLqEFN/JIs8vMtQbf5M5AKS60irh/98DaQgWxtRcQoalGpulEwhR97YPu00DW6cFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wd93u+cc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789378700; c=relaxed/simple;
+	bh=fAuoBfBSXVu8qGEJhcGZWXyYVreFrZS4nXbHeXHaaV4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tm2o4juQBNvda3Sl2aCanCBYdeaSvOUFXIQBkk1LBQfvtiSrLgoe1l5pwuLNHJ1Co6a3AvJEn0IyEyuKJoWy51/tFaYGNzhyo37omJEsmF4JtQOdyxrykZECJVTRCjR2b87xlHUMj7AQ94SI8eY3/RyekZqlwA4I0rb/LdQ0XX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Zo7bWvrk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wd93u+cc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AEB1CC2BCB8;
-	Mon, 14 Sep 2026 09:38:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789378685;
-	bh=TfcFfDZDrk0DqAZBBL4h6OR44UPkg7B0FARbEJfC+KQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Wd93u+cc0ud7+gFdVc7bTxr4LSYSOqfn/lnwBKlCuwcPSCogsYKR3bFhJ8m4UQDIK
-	 Ncl57vCAvykacDFcp0DaClkX/1LtSsC24OMNZ5cGuHAC+c/cypRmp7X888w806xaS2
-	 yki+/YQ2AfmGgSIsOBCQknjSwFuZWqOpaZzrLWMcv4qyaZsLXqV1O7tpeAnhEKq+fS
-	 FG+XZ6fJCMRS7ZyqmDtjjnmmLZg0kWJURoX3NB6p0pEVrrk/BnnDmqGYi98/5oT8h2
-	 uDOyYrSXzsWIDjtVNYFYSRB2GxSAFCNarUtsXzsV26w8CJLM7Hv4p/F104DgcbhG9b
-	 uYdYbVuYR5Afg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BF95C88E50;
-	Mon, 14 Sep 2026 09:38:05 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Mon, 14 Sep 2026 04:37:24 -0500
-Subject: [PATCH RESEND] Bluetooth: btbcm: Add entry for BCM4356A3 UART
- bluetooth
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Zo7bWvrk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BA501F00893;
+	Mon, 14 Sep 2026 09:38:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789378699;
+	bh=UCTO2o4zNe6jB1gcf/7XmEqrf9Chx3zJ9uwM/TQdr10=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zo7bWvrkKp7+V6n6Ik/2vP2RvNrQ+00D2T3+TQO+1tMRqhI+dfawHoIEtkWXf+Y//
+	 ejyR0t76I83r6HirabV42vTYEd7NauUNY6y/Hx0wZ3m3WHXLQm84pgnyre1aVI4eur
+	 hB6hhXM5s56UyZHAYc6k/977Jo2hhvx3OWXSc5Sk=
+Date: Mon, 14 Sep 2026 11:38:09 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Wentao Guan <guanwentao@uniontech.com>
+Cc: pschneider1968@googlemail.com, achill@achill.org,
+	akpm@linux-foundation.org, broonie@kernel.org, conor@kernel.org,
+	f.fainelli@gmail.com, hargar@microsoft.com, jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org, linux@roeck-us.net,
+	lkft-triage@lists.linaro.org, patches@kernelci.org,
+	patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de,
+	shuah@kernel.org, sr@sladewatkins.com, stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com, torvalds@linux-foundation.org
+Subject: Re: [PATCH 6.18 0000/1518] 6.18.52-rc1 review
+Message-ID: <2026091451-gauging-grumbly-41dc@gregkh>
+References: <ef6ea817-371a-4038-a73d-274fece32f4b@googlemail.com>
+ <20260912220531.858986-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-bcm4356a3-bt-v1-1-ce44d0abb5db@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789378684; l=1010;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=bQ6WFjUIqP2rPELTYAWoRuAn5MAUJ18Jq8ZRipAGP0w=;
- b=8OUptnnuLKHDleCzLZRrCt5VceNmOhOqslfjCD1QV3P3xw5xezfea/Gb5tV7OY71WWvIh9qgj
- hKCW0VMIp/EDwAVDMyp2Vp52VDxGpukgEr36a0uCFu0T/e4MEjn/xi5
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912220531.858986-1-guanwentao@uniontech.com>
 
-From: Aaron Kling <webgeek1234@gmail.com>
+On Sun, Sep 13, 2026 at 06:05:31AM +0800, Wentao Guan wrote:
+> Hi,
+> 
+> > Am 12.09.2026 um 08:36 schrieb Greg Kroah-Hartman:
+> > > This is the start of the stable review cycle for the 6.18.52 release.
+> > > There are 1518 patches in this series, all will be posted as a response
+> > > to this one.  If anyone has any issues with these being applied, please
+> > > let me know.
+> > 
+> > Builds, boots and seems to works on my 2-socket Ivy Bridge Xeon E5-2697v2 server.
+> > However, I do see the same strange dmesg warnings that I see in 6.12.110-rc1:
+> > 
+> > [    2.397237] Driver 'sr' needs updating - please use bus_type methods
+> > ...
+> > [   84.031323] Driver 'ses' needs updating - please use bus_type methods
+> >
+> > And again, these warning are new in this rc, they did not appear in 6.18.51.
+> 
+> Thanks for your report, i see the warning is related to the commit series:
+> ("scsi: core: sysfs: Make use of bus callbacks")
+> ... As it message describe ...
+>     .probe(), .remove() and .shutdown() to eventually remove these. Until
+>     all SCSI drivers are converted, this results in a runtime warning about
+>     the drivers needing an update because there is a bus probe function and
+>     a driver probe function. The in-tree drivers are fixed by the following
+>     commits.
+> ...
 
-This patch adds the device ID for the bluetooth chip used in the
-Nvidia specific Broadcom BCM4356 PCI-E WiFi / UART BT chip.
+Yeah, that's a mess, I'll go drop this from 6.18 and 6.12 queues for
+now, thanks for the review!
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- drivers/bluetooth/btbcm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-index 463d59890befe..14acea7325478 100644
---- a/drivers/bluetooth/btbcm.c
-+++ b/drivers/bluetooth/btbcm.c
-@@ -506,6 +506,7 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
- 	{ 0x6606, "BCM4345C5"	},	/* 003.006.006 */
- 	{ 0x230f, "BCM4356A2"	},	/* 001.003.015 */
- 	{ 0x2310, "BCM4343A2"	},	/* 001.003.016 */
-+	{ 0x2409, "BCM4356A3"	},	/* 001.004.009 */
- 	{ 0x220e, "BCM20702A1"  },	/* 001.002.014 */
- 	{ 0x420d, "BCM4349B1"	},	/* 002.002.013 */
- 	{ 0x420e, "BCM4349B1"	},	/* 002.002.014 */
-
----
-base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
-change-id: 20260717-bcm4356a3-bt-cd78cc0f42e8
-
-Best regards,
--- 
-Aaron Kling <webgeek1234@gmail.com>
-
-
+greg k-h
