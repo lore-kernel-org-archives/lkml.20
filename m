@@ -1,185 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C7B420897;
-	Mon, 14 Sep 2026 09:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574F2421240
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377749; cv=none; b=r6d6UF7IYv0cvMpTdzm/PSobmPh7nKw5YIp/i9YnrniWWpdXNWUTF9zaQuwAr6N80ITUtbfwvGBR+yVY49xnICY9xHTdEHUSv2GPLUKsiBrO0ijJycQNJ2LdT+7yIgo+H4if6S2GaLGMjKQLdHUeSw1SUQ6ZRenaamsv8D7+4So=
+	t=1789377754; cv=none; b=QpcFexlhL5PdZqWSEWzo5071jOiwLIp+gzVYGHbvHghJzlqomXN9ystn8w+69bLni6wV2FsZVBCPRgfCFjSy+oETTcDwdtXsLfYyU2vkzvU+PUOa5PDuQVCOA+Nq86X9bSV8ZPzyx8amKT8oeoiPX64PForJK8JAd3IspErW3fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377749; c=relaxed/simple;
-	bh=l1vzsOfhsFZq93BiP7aFzUsiv0IMtDncs4AVYzcTaZE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZM5kJJF5suvy0Irz7xzborz44Ng1ScpshdBn7YYhU52TdgHygigrADlGW3xuIwXaKcrDq0tiP2ouUkFIw9uT5k+WjCogD8V5+2SqipGPwfR6UXtb6ACj5Vj6RxjiUysmVRUDC/Iy2sDVcvSPKoRh/mR7VE/spRL17ppjmDYum3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/q9/7+g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377754; c=relaxed/simple;
+	bh=OAtE7yv4CVC89kyKndNvZWLG7CJ1s2yNKuYX9cqpjyU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gzx21H8apJjeVMWaLTnjK0TIwxBKuPaJGvRsTgRnpctrKsiOQefVpx1wb7WeilVpk4HXrNSx6p1G/2Sjw0dSPHcFFFIQuY0lJ13gU1/VNuvTh9fHoEyFytaZZedAMGetwhYoDs0nN1R/lHJ93F1/2Jq5Z5vJ7jFQ7y+dDugbzxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LBaLd3mW; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/q9/7+g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04D81F00898;
-	Mon, 14 Sep 2026 09:22:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377747;
-	bh=uki1B8//a8y/AGrwtR+zPRw8RRYXCi63rXRxRzPghWk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=B/q9/7+gFTFhtmGHio65Z1lr1T0aniQW7+V5KkGCIpOnfYp2DDzANQ2Yr1/C/Mo8D
-	 JqzDf2qIPZWxaiKcADAeKEAA8oA6EPXRge6i+lbMHWFkeqdjmIRA9tCgNpH8SIcKZf
-	 XYBqgC6C4rjQ7O2mIzgrO+PBF62oQmp/fSBkbB9fEykj9vD5vXFYkLKJWtRdmoJilA
-	 /RhTAnfgkcQLlMCLm9ESA6ZWpXaHsHctGl22pJ28StRSk2J5pJS/a9//dVemOHemnO
-	 Cn0m+0kuToiklAGjiUr8ZmY5ML+T0/SnAi59g/EyVbtrio3di0Xp30s2h5YxwnkSzi
-	 X/wdy+csDFksw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 10:22:00 +0100
-Subject: [PATCH v2 01/21] kbuild: do not allocate .modinfo in vmlinux
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LBaLd3mW"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4838dbf1bbeso239809f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:22:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789377749; x=1789982549; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ehvTkg5zaOtR52PQwJqvfqf51Pp2JzX0vbba6WO6QU=;
+        b=LBaLd3mWo/3F7zdSrCSjrjJ0EIqyyNMEwJw82La4QFCgKEZ6OXmAA56jVz9XdCCi9j
+         pTpu3YnLP3Uc0rou6moVB7j+lEO5LyHc4cdJpjujo6LDeXs01N+oqh910LtxHN86HZeK
+         mCOSHGsbKN/Hqbb/D3KPCcD/y2+J5NakLfT9etnLnG4Df1EPsf0G6vHg53S5IyWnwb+h
+         fo7fso3KwUCfBEsodqf43zxKQ1kc3kSEiL8tl/h4mPtc3iQlNCsPY4sADq8yL13QyQme
+         CyqpKe6aWjtMJp5GVKNpNPUWJb7aLaziD8MjcLzkl5RRaI9yQUfI4ZdJpH7HeqzFLPSZ
+         nUtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789377749; x=1789982549;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2ehvTkg5zaOtR52PQwJqvfqf51Pp2JzX0vbba6WO6QU=;
+        b=at6K2FliLkQwvggSl57A/eGnUiSKTlwOBHoUnOnzAi9+ydtPRi7pd1kU3laXdxcPPk
+         q2owBQYGicjLreeKSW1Uh3y5OYeNaSG+QAOTKXTDak6zw4dIQSdsr/8gihY2BIC5z1x8
+         xf91hnZJnvXhnlyojaG2Yw25FGQRLD1o059jlXrhcE1JNQ0Pl1PfDNd9p9kw6CvcrB/v
+         3olAEBwduIHLpQzXolNTyS8l2NeKzVgaGV+DMkWxEzeGe2UKgJ9s9qTuuW+dkhBo1XEg
+         Q6ECsCL7o6JM9XHBtJfi1bp1YSCIV/Qyg3Ko3Gvholsthyk8pURMCklYydKrBd0cIrUd
+         Vrrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwzJpeZ1HX4pbYevGCEanmRqQZrMWxfMVPWn5zvYyjsigRljY1v0jcKTn+uL6fp5MESunb9EIxGHt10/s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kn05bYdR/9Hj727p8Po1cgOYJt0IUGgSxJyn6s3Rzg064Khbqs
+	+q6eSDAvxPPZfyMEwfnjKIQhVcF3L8Y3OJ4ojSGnO33/8tPFnsDwxf2C
+X-Gm-Gg: AYBFou3WNd9ij2UgL+MmXzol+sELZ6wK9VsccGtGXho70ofk1DO7io+i/gwycJ4pIWc
+	pFHB+1nPyaKgNJbXsQ7LueBKKBcemRudTMfO3yE/WU7aWD1BmUo/HEbhLtE+YmCxf/gI7c0ZECE
+	AFGHFi0vuw98bBniVPwCger6c+G/6+dPACiPI4N4Rz5qvEyFSLyceNI6b75RrTyBT/Jb5B+A3rZ
+	wvdRkB0Kn6lKrKdfvzrzAxKhYuvyNw6p+p6PLvPVDVh/vveILkI7Edagm3g3Be2rYxOgVZ26U1W
+	d7z85m/7yYUx5X1pEQCmg0KBhH2iEzAMegEWh6iWxIaHAw9hvRYzjZdsasCsg8YA6Bol5N7T74J
+	KgozE1OlXu/GmkD/LI18z3VewlJGsJuvRIB9gkiXtwrUH8OiAhKezQALg60GrjZi2t6engQDLJo
+	v1dGplHoPnjEvz+gEl2KMidLJvZXG5BUlkcBn3nFJ+K5zLFW8I11FgmExhSsHZbb0/suR0uu16p
+	oPVDrwq57atK832LIo35yFkwdya5rZnyCk1Z6o/LA==
+X-Received: by 2002:a05:6000:46c5:b0:487:403:84ee with SMTP id ffacd0b85a97d-487040385d9mr429203f8f.0.1789377749303;
+        Mon, 14 Sep 2026 02:22:29 -0700 (PDT)
+Received: from [128.93.83.149] (wifi-pro-83-149.paris.inria.fr. [128.93.83.149])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35c071sm25530637f8f.33.2026.09.14.02.22.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 02:22:28 -0700 (PDT)
+Message-ID: <2fbaf498-bec4-4f83-8fba-daa57ddef5fd@gmail.com>
+Date: Mon, 14 Sep 2026 11:22:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-build-speedup-v2-1-39817ec5db23@kernel.org>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
-In-Reply-To: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4498; i=ljs@kernel.org;
- h=from:subject:message-id; bh=l1vzsOfhsFZq93BiP7aFzUsiv0IMtDncs4AVYzcTaZE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKW79lfuEmqJ1P2d9sOF0aJnatYutPNu6/s8KrbfKvqx
- tWS1xu8O0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR404Mf4Wcwmz+ntDJlS+b
- tSTiz2aOJxesX3k0h57kaX9x8/jkmycZ/hdwT4reL3PLJL3WafbuU8+mKswLdmSzW2Ce/HaiQ28
- ZGysA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] wifi: ath9k: Fix potential spin_lock() before
+ spin_lock_init()
+To: =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: Kalle Valo <kvalo@kernel.org>,
+ "open list:QUALCOMM ATHEROS ATH9K WIRELESS DRIVER"
+ <linux-wireless@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+References: <20260804080913.67985-2-fourier.thomas@gmail.com>
+ <87pkyof636.fsf@toke.dk>
+Content-Language: en-US
+From: Thomas Fourier <fourier.thomas@gmail.com>
+In-Reply-To: <87pkyof636.fsf@toke.dk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Commit 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-placed MODULE_INFO() strings in the .modinfo section in vmlinux.unstripped,
-however it left the section allocatable, so it gets assigned an address and
-on arm64, arm and riscv, the section is tagged as PT_LOAD.
 
-This is useless as the data is ultimately stripped anyway.
 
-Doing this results in a lot of unnecessary work - each pass copies the
-whole file, 450 MIB with relocations for an x86 allmodconfig build and 250
-MiB for an arm64 allmodconfig build.
+On 08/09/2026 11:25, Toke Høiland-Jørgensen wrote:
+> Thomas Fourier <fourier.thomas@gmail.com> writes:
+> 
+>> The function ath9k_init_wmi() initializes wmi->wmi_lock. It is called in
+>> ath9k_htc_probe_device(), and the priv->initialized flag is set.
+>> However, the ath9k_wmi_event_tasklet takes the lock before checking the
+>> priv->initialized flag, so the lock may not be initialized before
+>> being taken.  This could be the case, for example, if the spin_lock_init()
+>> is reordered with tasklet_setup() in ath9k_init_wmi() by the compiler or
+>> CPU.
+>>
+>> There is a write memory barrier before setting the priv->initialized,
+>> but no corresponding read memory barrier is used after checking the
+>> flag.
+>>
+>> Move priv->initialized at the start of ath9k_wmi_event_tasklet() and
+>> add a corresponding read memory barrier.
+>>
+>> Fixes: 24355fcb0d4c ("wifi: ath9k: delay all of ath9k_wmi_event_tasklet() until init is complete")
+>> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+>> ---
+>>   drivers/net/wireless/ath/ath9k/wmi.c | 15 +++++++++------
+>>   1 file changed, 9 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
+>> index 284e8c13b043..df4a3a625536 100644
+>> --- a/drivers/net/wireless/ath/ath9k/wmi.c
+>> +++ b/drivers/net/wireless/ath/ath9k/wmi.c
+>> @@ -146,6 +146,15 @@ void ath9k_wmi_event_tasklet(struct tasklet_struct *t)
+>>   	unsigned long flags;
+>>   	u16 cmd_id;
+>>   
+>> +	/* Check if ath9k_htc_probe_device() completed. */
+>> +	if (!data_race(priv->initialized))
+>> +		return;
+> 
+> Moving this out of the loop changes behaviour: Before, the loop would
+> keep spinning waiting for initialisation, now we just exit. I don't see
+> any guarantee that we'll come back here, so this has the risk of
+> stalling things. We'll need to re-schedule the tasklet before returning
+> if we're moving the check here.
+Thank you for your comment.
 
-This adds ~0.7s on the serial tail of every build for arm64 and ~0.2s for
-x86 (the tail is single-threaded work done after parallel work has
-finished).
+I'm not sure that I agree that the tasklet needs to be rescheduled. 
+Yes, the behavior is changed, as you described, but when a packet is 
+dequeued, in normal operations, the function ends (either with a return 
+or break statement). This means that the function is scheduled regularly.
 
-Nothing requires .modinfo to exist at an address, so fix this by using
---dump-section which prevents the allocation.
+To not change the behavior while still fixing the potential lock on 
+uninitialized lock (and the missing memory barrier), we could move the 
+initialization check at the very start of the loop like so:
 
-Image, bzImage, System.map and modules.builtin.modinfo are unchanged and
-the stripped vmlinux differs only in its program headers.
+diff --git a/drivers/net/wireless/ath/ath9k/wmi.c 
+b/drivers/net/wireless/ath/ath9k/wmi.c
+index 284e8c13b043..a21c438e5b61 100644
+--- a/drivers/net/wireless/ath/ath9k/wmi.c
++++ b/drivers/net/wireless/ath/ath9k/wmi.c
+@@ -147,6 +147,17 @@ void ath9k_wmi_event_tasklet(struct tasklet_struct *t)
+         u16 cmd_id;
 
-The objcopy passes are on the serial tail of every build that links
-vmlinux, no-op builds are unchanged.
+         do {
++               /* Check if ath9k_htc_probe_device() completed. */
++               if (!data_race(priv->initialized)) {
++                       kfree_skb(skb);
++                       continue;
++               }
++               /*
++                * Make sure ath9k_htc_probe_device() initialization is
++                * committed to memory before processing skb.
++                */
++               smp_rmb();
++
+                 spin_lock_irqsave(&wmi->wmi_lock, flags);
+                 skb = __skb_dequeue(&wmi->wmi_event_queue);
+                 if (!skb) {
+@@ -155,12 +166,6 @@ void ath9k_wmi_event_tasklet(struct tasklet_struct *t)
+                 }
+                 spin_unlock_irqrestore(&wmi->wmi_lock, flags);
 
-Whole build, 128-thread Threadripper 9980X, best of N runs:
-
-                                         before   after     delta
-                                         -------------------------------
-  x86 defconfig, touch mm/vma.c, gcc       11.2s    11.1s    -0.15s (-1%)
-  x86 defconfig, touch mm/vma.c, clang     11.3s    11.1s    -0.19s (-2%)
-  x86 defconfig, clean, gcc                32.5s    32.3s    -0.16s (-1%)
-  x86 defconfig, clean, clang              34.5s    34.2s    -0.26s (-1%)
-  x86 allmodconfig, touch mm/vma.c, gcc    40.1s    39.7s    -0.44s (-1%)
-
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/asm-generic/vmlinux.lds.h |  2 +-
- scripts/Makefile.vmlinux          | 22 ++++------------------
- 2 files changed, 5 insertions(+), 19 deletions(-)
-
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b2988aa12f66..7be9e0321867 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -855,7 +855,7 @@
- 		KLP_SYMID
- 
- #define MODINFO								\
--		.modinfo : { *(.modinfo) . = ALIGN(8); }
-+		.modinfo (INFO) : { *(.modinfo) . = ALIGN(8); }
- 
- #ifdef CONFIG_GENERIC_BUG
- #define BUG_TABLE							\
-diff --git a/scripts/Makefile.vmlinux b/scripts/Makefile.vmlinux
-index fcae1e432d9a..88881826335c 100644
---- a/scripts/Makefile.vmlinux
-+++ b/scripts/Makefile.vmlinux
-@@ -89,11 +89,8 @@ remove-section-$(CONFIG_ARCH_VMLINUX_NEEDS_RELOCS) += '.rel.*'
- 
- remove-symbols := -w --strip-unneeded-symbol='__mod_device_table__*'
- 
--# To avoid warnings: "empty loadable segment detected at ..." from GNU objcopy,
--# it is necessary to remove the PT_LOAD flag from the segment.
- quiet_cmd_strip_relocs = OBJCOPY $@
--      cmd_strip_relocs = $(OBJCOPY) $(patsubst %,--set-section-flags %=noload,$(remove-section-y)) $< $@; \
--                         $(OBJCOPY) $(addprefix --remove-section=,$(remove-section-y)) $(remove-symbols) $@
-+      cmd_strip_relocs = $(OBJCOPY) $(addprefix --remove-section=,$(remove-section-y)) $(remove-symbols) $< $@
- 
- targets += vmlinux
- vmlinux: vmlinux.unstripped FORCE
-@@ -102,21 +99,10 @@ vmlinux: vmlinux.unstripped FORCE
- # modules.builtin.modinfo
- # ---------------------------------------------------------------------------
- 
--# .modinfo in vmlinux.unstripped is aligned to 8 bytes for compatibility with
--# tools that expect vmlinux to have sufficiently aligned sections but the
--# additional bytes used for padding .modinfo to satisfy this requirement break
--# certain versions of kmod with
--#
--#   depmod: ERROR: kmod_builtin_iter_next: unexpected string without modname prefix
--#
--# Strip the trailing padding bytes after extracting .modinfo to comply with
--# what kmod expects to parse.
- quiet_cmd_modules_builtin_modinfo = GEN     $@
--      cmd_modules_builtin_modinfo = $(cmd_objcopy); \
--                                    sed -i 's/\x00\+$$/\x00/g' $@; \
--                                    chmod -x $@
+-               /* Check if ath9k_htc_probe_device() completed. */
+-               if (!data_race(priv->initialized)) {
+-                       kfree_skb(skb);
+-                       continue;
+-               }
 -
--OBJCOPYFLAGS_modules.builtin.modinfo := -j .modinfo -O binary
-+      cmd_modules_builtin_modinfo = $(OBJCOPY) -O binary -j .modinfo --dump-section .modinfo=$@ $< $@.tmp; \
-+                                    rm -f $@.tmp; \
-+                                    sed -i 's/\x00\+$$/\x00/g' $@
- 
- targets += modules.builtin.modinfo
- modules.builtin.modinfo: vmlinux.unstripped FORCE
+                 hdr = (struct wmi_cmd_hdr *) skb->data;
+                 cmd_id = be16_to_cpu(hdr->command_id);
+                 wmi_event = skb_pull(skb, sizeof(struct wmi_cmd_hdr));
 
--- 
-2.55.0
+---
+
+Maybe that would be better?
+
+Best,
+Thomas>
+> -Toke
 
