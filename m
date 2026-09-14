@@ -1,115 +1,152 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CF448F82C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA3049F110;
+	Mon, 14 Sep 2026 15:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398431; cv=none; b=Mq0JMkeHtPHRAC8SzllCNrpQU5qor19CbV2yEqYCncmtb+babHAg7ubm5En5nAjw0WkBCiZbdlKPJhOjsMZEA6GNsHe28WKQd9ZaMGKs6dWHBD+W/dDJ+F4RSB+6r4eIGbxhWxIioJfSRURlwybgs+pH8PzEcEbdQnPIHFbdKG4=
+	t=1789398439; cv=none; b=Tqd9+IOwts+Xoixa2LbkjmRVWsV3DV79/353FMofCYB6lSz+lTF5mJz/Cjv6YREiQ+1ojDttEYQewB8aWRAT8lds7iZDY+LPt9lOxaKbIFWpmz0vX37EnDEAaNhO/FoCfbMfe3JfADAbqf9q4E7tbXwukIP914Y8opMpbSUz7Jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789398431; c=relaxed/simple;
-	bh=FCXiZlqccnOhYUcAQVW7/WcCqqPmBSKFOKi8hDqggKk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bC6FitnLau624zExH/cgKGcd1goqhhSJ7gjulj6E0L5ipPI7xsZciHbwK2wgv+2X5G1kizEb59OApDtkMVhulJ0ClPKlC+x8UKgC/vRO1GCrsna04mycc+OKYiuehskF2tLpmawV9oziEDY7Z/lW5+xzBUAw5BR++Hy1L7tahnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UK/Sjr8k; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789398439; c=relaxed/simple;
+	bh=vJkUpC8pMzanCVN0b+dgLn8IQPxP5EU3npOWwvqvzWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pMCOXShi1m4vkY4nFCJTHzqFhvvabadQEiAYcUk8gxx8Lx4u2xuGFrNkYhWiTMcOBi5X9zv4nhqBZOHGIK7B7DXAjqvn7btY00osy7iCBIFluyHzIKVdtE4m3yTCKJx8AAqOCJhl5kGpxuvX0al72t/SCOi+2tASzCGWIxrjJuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IfUTewxe; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UK/Sjr8k"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a58so235554366b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:07:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789398427; x=1790003227; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3h5ea7IOf0EVQAaE0ptSbBKWXAx2/t/WtJvk1q8hIhk=;
-        b=UK/Sjr8kFUFcUApvsJ+UgvnebPDhTxht+mM3Arje2JZYp0ku4z8zxKsHKKsUzsV6gS
-         ZgorhyDIGaUDTOKE6rHnvFgY6vULTp3iFZOUrTmiAq2kQ17HVX/KbZZEpsNd0X/kKpqg
-         IKz3eTS4GpFXt8v4NaXRjfjaCbTcR+Hl797MzcjI5nXt0bX//9Y/lWcY9KmMSZcGnA/W
-         BaL5hrSyMkSqDJVhD55+nrpbI8zA/6Q0qa1J10gA4zT/JvGh4/4bE3cpjp5ULwE2HZu7
-         ttVH4L+Nvhtn9+IFrmus6DAV604GguhoQqXcObXFW7HnNP4udYjlUto8vCx6oVbQF21T
-         CQ5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789398427; x=1790003227;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3h5ea7IOf0EVQAaE0ptSbBKWXAx2/t/WtJvk1q8hIhk=;
-        b=prsYahX8iyUuqIyC9zWlKpXorUMKFTt8CZRPqKwbC8lNAGABVWFrQqLSFksepfjkD0
-         kiznNmAVIcM88F8i237YIHUsU9elYOhUMILpsJ4+8LO5mCzW+Z8HA4H4xAYTqKwI5mz7
-         FrlRhcS82GDD6Z1On/jEuMfXo8p6xmtBktc+SJ0FiiQ9hkkzvOPRzp81kzfsGgEmJS1P
-         jogGYi17cUCdbhQyzGCgzEe9XlF4NvkR+9aShQ5wuDZwlBFGksXdNBPs2X+FJ5FMk8fk
-         8y0skqNMRlR0ntFIJaXTavQfx9se24AJlpVvcpMT2+HNqtQ4FYENnLrH6RZcL12NhPj6
-         OLWA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+frKCpjPCIXq9OSxbdxeneKSf/rNZicA4vSVpQ74ceDlcRz7wvC3pmE7N/r42CSC46IGbzmP+5CBDloY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nncFD2uXae2ZxvSjsMxDttQVW4TXO9EglkjucXXRod1JyJXAB1
-	k98Zjvd1bIWXanzAh7pKfrH4dmt/svTkJGHoemwTO/FuXEgp6jc3QLIMHj9pjxGII8I=
-X-Gm-Gg: AYBFou2mJzfBdtUNALfEqR9RkSHncQWVwS9cIsKTSUhSwR2A3qhST71ZqocVOLDUV6D
-	wujo2s9dXy903EhH190Hqs6BkxbLpspexKJdZju3D8Ftxf1OA+R8I4WnQQ8jgD527yXft+WlX75
-	A14bWOM7WoCcC/9WUVQlzR/SFEp1Ye5LAvChSPbS5YS71KMcvWD+wO2O1mt1BlRwntAv0IU46uI
-	YMlfFGF7A+QDknhFWCryZS6nJAaBUoATWrPBvuBIYC+DANyeom/fJuxPiZKqq6W0dk2eSALipHY
-	5vqLv5jZZLabWRmXN9qkzkgAKCUt0px/iyiahAiJWua+Uw5wXOzC9L/QelG/BQ0dv+FHmmCIyqj
-	dQ/Lh2boIPqh3abjNoUZhL1QhF6lrHKVcz6gyZ1HsOEdiArYDq7R25RpVSAkEWesrFWt3uhuTre
-	xpGK9Nbb4RzF39ssHRhWi1HNyVtnNsDuo/0uv9+xVFeygvYdMxcDqFClskBD+fCh0wijUSZmRUC
-	IXUw156psk=
-X-Received: by 2002:a17:906:c106:b0:c25:8fb2:5e24 with SMTP id a640c23a62f3a-c29b8605e46mr206316666b.15.1789398427031;
-        Mon, 14 Sep 2026 08:07:07 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.248.34])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966125543sm443442466b.55.2026.09.14.08.07.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 08:07:05 -0700 (PDT)
-Message-ID: <81fc2514-151c-4305-9a3f-4d2774c7c5ce@linaro.org>
-Date: Mon, 14 Sep 2026 16:07:01 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IfUTewxe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3z
+	dokcfPvG6aJZ9T1Ug1bQ5p7UlokNGesYVjy160PgU=; b=IfUTewxeg9PRQvmh8S
+	XEtdkgdKAKeBMLaKE28v3n9oKamJhHt1qNVrproWGM+cVwfcWK/q/nhMvC6+/RLW
+	u17NtrMSahpFDmb6ljDtpreHEeNiNrnHIh32G3m6Va2HvyI6tg8DuASAeUyFO17C
+	lRzdFs8jJp0XZ3m/D2CfMVebk=
+Received: from hpl-VMware-Virtual-Platform.. (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDn_3pkDahqCSeIAg--.42971S4;
+	Mon, 14 Sep 2026 23:06:14 +0800 (CST)
+From: peilinhe2020@163.com
+To: netdev@vger.kernel.org
+Cc: alexandre.torgue@foss.st.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	he.peilin@zte.com.cn,
+	jiang.kun2@zte.com.cn,
+	kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	maxime.chevallier@bootlin.com,
+	mcoquelin.stm32@gmail.com,
+	pabeni@redhat.com,
+	vbridgers2013@gmail.com,
+	xu.xin16@zte.com.cn
+Subject: [PATCH net v7 2/2] net: stmmac: remove software VLAN tag stripping
+Date: Mon, 14 Sep 2026 23:06:12 +0800
+Message-ID: <20260914150612.9798-3-peilinhe2020@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914150612.9798-1-peilinhe2020@163.com>
+References: <20260914150612.9798-1-peilinhe2020@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] media: qcom: camss: create the source to CSIPHY link
- per endpoint
-To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, ravi@ebytelogic.com
-References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
- <20260914133416.1030231-3-hitesh@ebytelogic.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260914133416.1030231-3-hitesh@ebytelogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDn_3pkDahqCSeIAg--.42971S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWw13WF4DJr15Cw1rKFykXwb_yoW5KFyrpa
+	y7Aa4DCr4kArnrZa1Utw48ZFy3Aa45tayUJasYyw4Iqa1qkr9IqrnagFZxAFW8trZ3uw13
+	G3yqvayUC3WDWrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UNL0OUUUUU=
+X-CM-SenderInfo: xshlzxhqkhjiisq6il2tof0z/xtbC0AYh0mqoDWaQmwAA3H
 
-On 14/09/2026 14:34, Hitesh Patel wrote:
-> The link from the external CSI-2 transmitter to the CSIPHY is created
-> in the notifier .complete() callback by walking every registered
-> subdev, reading the CSIPHY it was bound to from sd->host_priv and
-> linking the subdev's first source pad to that CSIPHY.
-> 
-> This assumes one transmitter feeds exactly one CSIPHY. A GMSL
-> deserializer such as the MAX9296A has two independent CSI-2 output
-> ports which, on the RB3 Gen2 vision mezzanine, are wired to two
-> different SoC CSIPHYs. The same subdev is then bound once per CAMSS
-> port endpoint, the second .bound() overwrites host_priv, and
-> .complete() creates a single link from source pad 0 to the last
-> CSIPHY. The second output port is left with no link at all, so a
-> second camera can never be routed to the SoC.
-> 
-> Move the link creation into .bound(), where both the endpoint and
-> the CSIPHY are known, and resolve the transmitter's source pad from
-> the endpoint fwnode with media_entity_get_fwnode_pad(). Each
-> endpoint then gets its own link between the right source pad and
-> the right CSIPHY.
-> 
-> For a subdev that does not implement .get_fwnode_pad,
-> media_entity_get_fwnode_pad() falls back to the first pad matching
-> the requested direction, which is exactly what the .complete() loop
-> did, so ordinary single-output sensors keep the same link as before.
-> 
-> Signed-off-by: Hitesh Patel<hitesh@ebytelogic.com>
+From: Peilin He <he.peilin@zte.com.cn>
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+The software VLAN stripping logic in stmmac_rx_vlan() was originally
+introduced in 2014 by commit b93819854d6e ("stmmac: Add vlan rx for
+better GRO performance.") as a workaround to improve GRO performance,
+since at that time GRO could not handle frames with VLAN tags. However,
+this limitation was resolved in 2015 by commit 66e5133f19e9 ("vlan: Add
+GRO support for non hardware accelerated vlan"), which added GRO support
+for non-hardware-accelerated VLAN frames. Keeping a software fallback
+path for VLAN stripping is no longer necessary and only adds complexity.
+
+Fixes: b93819854d6e ("stmmac: Add vlan rx for better GRO performance.")
+Signed-off-by: Peilin He <he.peilin@zte.com.cn>
+Maxime Chevallier <maxime.chevallier@bootlin.com>
+Reviewed-by: xu xin <xu.xin16@zte.com.cn>
+Reviewed-by: Jiang Kun <jiang.kun2@zte.com.cn>
+---
+Changes in v7:
+- Resend as part of a series after adding Maxime's selftests fix as patch 1/2.
+- No code change.
+
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 28 ++-----------------
+ 1 file changed, 2 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 9c9e95d66b09..854b488611b4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5032,24 +5032,6 @@ static netdev_features_t stmmac_features_check(struct sk_buff *skb,
+ 	return vlan_features_check(skb, features);
+ }
+ 
+-static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
+-{
+-	struct vlan_ethhdr *veth = skb_vlan_eth_hdr(skb);
+-	__be16 vlan_proto = veth->h_vlan_proto;
+-	u16 vlanid;
+-
+-	if ((vlan_proto == htons(ETH_P_8021Q) &&
+-	     dev->features & NETIF_F_HW_VLAN_CTAG_RX) ||
+-	    (vlan_proto == htons(ETH_P_8021AD) &&
+-	     dev->features & NETIF_F_HW_VLAN_STAG_RX)) {
+-		/* pop the vlan tag */
+-		vlanid = ntohs(veth->h_vlan_TCI);
+-		memmove(skb->data + VLAN_HLEN, veth, ETH_ALEN * 2);
+-		skb_pull(skb, VLAN_HLEN);
+-		__vlan_hwaccel_put_tag(skb, vlan_proto, vlanid);
+-	}
+-}
+-
+ /**
+  * stmmac_rx_refill - refill used skb preallocated buffers
+  * @priv: driver private structure
+@@ -5418,9 +5400,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+ 	if (priv->hw->hw_vlan_en)
+ 		/* MAC level stripping. */
+ 		stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+-	else
+-		/* Driver level stripping. */
+-		stmmac_rx_vlan(priv->dev, skb);
++
+ 	skb->protocol = eth_type_trans(skb, priv->dev);
+ 
+ 	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
+@@ -5912,9 +5892,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		if (priv->hw->hw_vlan_en)
+ 			/* MAC level stripping. */
+ 			stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+-		else
+-			/* Driver level stripping. */
+-			stmmac_rx_vlan(priv->dev, skb);
+ 
+ 		skb->protocol = eth_type_trans(skb, priv->dev);
+ 
+@@ -7995,9 +7972,8 @@ static int __stmmac_dvr_probe(struct device *device,
+ 	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
+ 	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
+ #ifdef STMMAC_VLAN_TAG_USED
+-	/* Both mac100 and gmac support receive VLAN tag detection */
+-	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
+ 	if (dwmac_is_xmac(priv->plat->core_type)) {
++		ndev->features |= NETIF_F_HW_VLAN_CTAG_RX;
+ 		ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
+ 		priv->hw->hw_vlan_en = true;
+ 	}
+-- 
+2.43.0
+
