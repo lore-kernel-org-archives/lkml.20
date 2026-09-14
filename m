@@ -1,30 +1,87 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96321451982;
-	Mon, 14 Sep 2026 12:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9C6459AD6
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388533; cv=none; b=T8tJ0CyoLy1dhyWEVf3DErnQb55dppMIID6vMLyXqZrmqMx0g1+t9OxuxzJfkliOcq6YSM274/mzKMbnKMgcwpwQfqS4GakQxfbYREPsalO5XH/bynm3KaF5QGLFGRvgN+TlcwsMUtpYG3No/QDg3WgP8kSk5j+eu8ezulqfQo8=
+	t=1789388536; cv=none; b=hFUMXRZCYZjIK1Vxy72bJFs/+w7dO3sibBg9Whb3lzFtVZeHtfs1T/mPdVa1fN695R7KG8nZfmJSuCfN6atCwxB46Bc/MUsXb/a7yZG4A6EvN1sp0e1CkBDt/dC3s1PPle9G4WRssW6Rzsb37Ooy/azEYSobUy1bExXEs8bgiDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388533; c=relaxed/simple;
-	bh=1F8yY9IfgsAw7fwZv1pTkLriFGURz2R89iXVfn4xP+k=;
+	s=arc-20240116; t=1789388536; c=relaxed/simple;
+	bh=V7li5Dw9nmkHeY7iCABC8exOwEM/gxkTUPUJ2FR2iOI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dB6/LWa8eyOxo6Yx99Pb0UjWwRJzNuxRRNuwTCkMqKcuXQCoZz6zpqK3ZxwIhq//UK77FC1X4OiEVtoLYRh7CT7V62ChQxuYeuvYIcAs2O9cDsV/y5BYqgHeS5MfkLDMG6LkzBmhPHgmvK1NMP4Fh92k+yBZXpVWy6VS6Xp3s80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hk45c386wzKHMWL;
-	Mon, 14 Sep 2026 20:21:56 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 8664040561;
-	Mon, 14 Sep 2026 20:22:07 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgAHyW3u5qdqovgSAQ--.55345S2;
-	Mon, 14 Sep 2026 20:22:07 +0800 (CST)
-Message-ID: <201cf528-d07c-4052-b0b0-11e5f9de97e4@huaweicloud.com>
-Date: Mon, 14 Sep 2026 20:22:06 +0800
+	 In-Reply-To:Content-Type; b=bNS/Pfl3YQGovgiUB/ov/wvw4tHd5j6yQ1ifk8qZk40n5mN2wYTM5wMy6bm8qfYyLqj3r8K1ZalOwLuIpV0EqlcVwyygpAxRRpWCzSvaT1/Oc0rG85Gb8zRxa37wu3kqqtslWU8/ghj/OOrNtVj4ypcJJz5AVtef4utRpsMwyEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dVa4gdRy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=STNDUwEd; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dVa4gdRy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="STNDUwEd"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAlwAQ3860391
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:22:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jiFJ73bnfwYbpydUm5rz06+aMTJCWc5/QgNe5wl8U14=; b=dVa4gdRyQPwlvKG5
+	+UIyh/ogItCToVnPUkSE/evxRGDqC+Fyh0obLk9UglNDzlCfPWZ9I0lxsnoNGVhc
+	EaQG2mucCqt0iiZpexSde3HhP6pW44RhIUCJ6CvlGGg2+RennqV5idTnx3ii8CET
+	taeqyWAR69vWH/4QFEkLXJACqC/yNJwF5LKAbxVdA3vJvmAXBpT68zqI8vPdcc8q
+	pxMADc69k6roQu7+jhgv5jTCr6oRqc0MEXiUPyX3T9DO4g7R8FXx5+/uedzObf7x
+	8RMHOr48hRws/Hnmh/mfqLpQjOjytGcemF2CKEdwPub05hn9Hf/AQQF4CjZJQi94
+	MDTOnA==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpd1f0xg3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:22:11 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c83098d1e0so50041e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:22:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789388531; x=1789993331; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jiFJ73bnfwYbpydUm5rz06+aMTJCWc5/QgNe5wl8U14=;
+        b=STNDUwEdGSLp6TJN980yWMv32uwN6+fB9WWzo8Tvxb+lYxHhOF0cwCMnVXKll0ZHIr
+         mlnt/zG7ZwdqafdBZIFc69RkT9mFMOFEilsXTGUBUtRQVpuaIsIVw9GEIiKG7zHUivEJ
+         JQYLa2pyKc3+RIb5xEhQLAKU7LOjzqPnkXcp1xEINn+h8eY9T3roFszQaiTX4YkJrLUD
+         lPP2tekek2QKE/yJpx5k9ClVHTehpqI8az6IeeylXK/DSdg6xPFOMvvfOnK+N/NhmXWr
+         LAdDkwMqYvbQyGJ5UcyDcknvx+cXBLvVYSLCJssHIFCeySYdoTBWLy1f0+7E5s3VAYX/
+         c6Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789388531; x=1789993331;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jiFJ73bnfwYbpydUm5rz06+aMTJCWc5/QgNe5wl8U14=;
+        b=pkSr15Fi1Mqm2mS3QBkOSJA0gQVoZ9BaLE1AKzRKAPKwLDQh5WnaeygZ34LaSi/UaZ
+         IS1R95fRZpbA8nK2skZQn51mNSxoOrTPenLchomDQn7HToiuyY5rXRrUl7lcA4R4VU6N
+         /bl4eW3d1z+VOLCt+Eae8NvX+X/ofeiryOQ/m/557H4fq6F2SiSIH6VA13u9v1zX88wm
+         OvG+btzWVMTl5dDTPPJ25Gq2BdJXIjr3bIqAEh7QGkcYHtmjxdQIFzG8lQUbMfaC/Rgg
+         8LB+UmU6CLsJEapIlfMZCxIFU3Q3f7zhliZfkdsu+ZUm7DdgyJA/QNblLnxy6UQtqMT0
+         8KIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRpr9Zwa0BiD53RyEvqvWOrTzbwY4lGI62Ip9/No9VOEJQlLYeko4fA4M/rZQj5vq/fv5/MfglczSr+To=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvSntsO1xYbQZxHwY82KGDnqybT0Gp85+lKdA84gbxux+TLGvZ
+	j1yXwHIUx+5r70ObTzua78ktYpaRWWxBW7wLGcqZtgC7MH5DjAxW0vjJfGpARxm90q8w9QWdRwt
+	4vcTYfmPhYMnxqtSFNGvWKFMcu3S9cZUJkz2zZi7wiBy/YCef++sOaQYoQpdA4ZNxzng=
+X-Gm-Gg: AYBFou2evbzSYMHZxFEOkVH4r2c3xiSMX3E++Xp3Dwwd3RaCkRvBjsg5OJ6WGZ5tKX+
+	+HCE1lHCm86bpN5dzawS7CowfISZJDygA/lOmrF83t6w5Kt088mGkvBtZAhLS1OYlMJu2q0ZxYo
+	S/7Z1/TLWJS3MdKWO4QQOLa2nzLoaB/T6sjAy5ZrkV2XqZF3fOGA3c5dbJwIgqQ76kmBHYPW3mt
+	C9QGPTccj/g7zMa+ytFIAr6Dx1vuWHFtL/pdhG77dpTMWqMYiRXI76vZzvQr3ql8w1t9vmqPMkE
+	B74fSQknPASk2MXVvvNUhi3AgF0yCAV1xJq1dWiIIYmm3tiZQq8T2tg+iNjK6gzXdMR7PO9+Krq
+	tbi6rgvEAnRTexhQYPEPW7Q==
+X-Received: by 2002:ac5:c8a4:0:b0:5c8:369e:a493 with SMTP id 71dfb90a1353d-5c981a821aemr376375e0c.1.1789388531037;
+        Mon, 14 Sep 2026 05:22:11 -0700 (PDT)
+X-Received: by 2002:ac5:c8a4:0:b0:5c8:369e:a493 with SMTP id 71dfb90a1353d-5c981a821aemr376367e0c.1.1789388530626;
+        Mon, 14 Sep 2026 05:22:10 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0471b6esm2391714e87.59.2026.09.14.05.22.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 05:22:08 -0700 (PDT)
+Message-ID: <c21c5275-db7c-4606-81c8-87832a2f8104@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 14:22:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,266 +89,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] perf annotate-data: Convert type histogram to
- hashmap
-To: Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- linux-perf-users@vger.kernel.org, Zecheng Li <zli94@ncsu.edu>,
- Yanbo Zhao <yzhao62@ncsu.edu>, Shuai Xue <xueshuai@linux.alibaba.com>
-References: <20260914064535.1671939-1-namhyung@kernel.org>
- <20260914064535.1671939-2-namhyung@kernel.org>
+Subject: Re: [PATCH 03/31] arm64: dts: qcom: kaanapali: Add domain idle state
+ names
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260914-b4-idle-state-name-v1-0-660c31187819@oss.qualcomm.com>
+ <20260914-b4-idle-state-name-v1-3-660c31187819@oss.qualcomm.com>
 Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <20260914064535.1671939-2-namhyung@kernel.org>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260914-b4-idle-state-name-v1-3-660c31187819@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_Ch0CgAHyW3u5qdqovgSAQ--.55345S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuFykGr1fZF4rAryrtFykAFb_yoWxKw43pa
-	17W34UJry5Xr4IgwnxtFWfXFyS9ws7XF15u34Ygw4FkF1avrn7Jr4vgry0kFZYkrn8Kr47
-	tF4DtryUK39rGrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
-	0PfPUUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+X-Proofpoint-ORIG-GUID: Fk2mt1I_H2ETTXUO06domYdOZjx2nGPy
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE3NCBTYWx0ZWRfXxzIUSJhNn7sU
+ FxKjOzwma5XQ32+vJbcNjGlhjHvruLm8Mo+OmH+Z1C8ymv4nj0IlMAhG4kFbVJaahiOlk3nfdFK
+ oeTDRNKTzl409Lf7B+WnichCe5hxM9w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE3NCBTYWx0ZWRfX6t8p3jVUnH45
+ +lG8JBe7OLVR1frXwhbPbAdJgPK146/2PnCG54MEYz6Xzj4gObYaIJ/5RrwMKZnhOrOd8IvtFQ9
+ Uq89eAQe2m6UrgYKgBvvgokLqGoh3dhBm9Hx/Ei4brYrvQ2cV3tSl8aOA2TsBJP4oMPvoXjYSo4
+ SEZDJmhKz16CoI2Yd8ipa54+TWY0hlWGNQKnrPEdm5XKyQczCs9dKMqaKeApl+8Bw8GgmLTgK2A
+ p1LkzouG0A8QE+/JnxYm0XVi9JC15Q4xuq5JfvY9FbBDOJqhIkCJUtvtHpo+SkwwSg7o/tsOgp3
+ M8ezb5ubynMChMdLMeQZ9YwYTBTrIREtFOs27varfphKMiG3gPbIwGLk15rvR9AJwUGtRxW5WAu
+ GWu09a0vuu5yDpixatmH4Whwhb1RnsJv9viefUFL5jcaNS2afUAl/SWYIji3lWK4+O4Rfh+LG9p
+ GNSjJD8J+/ziMRWAOjA==
+X-Authority-Analysis: v=2.4 cv=XKel2ghE c=1 sm=1 tr=0 ts=6aa7e6f3 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=HAnpKfeiUU4SruykqnYA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-GUID: Fk2mt1I_H2ETTXUO06domYdOZjx2nGPy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140174
 
-
-
-On 2026/9/14 14:45, Namhyung Kim wrote:
-> The type histogram maintains sample counts and periods per offset.  Use
-> a hashmap instead of an array to reduce the memory overhead.
+On 9/14/26 8:59 AM, Maulik Shah wrote:
+> Add the idle-state-name property for the domain idle state so low power
+> modes are described consistently and its name is printed in pmdomain
+> debugfs.
 > 
-> No functional changes intended.
+> While at it, update CPU idle state names to match the low power modes
+> they describe.
 > 
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 > ---
->  tools/perf/ui/browsers/annotate-data.c | 10 ++--
->  tools/perf/util/annotate-data.c        | 72 ++++++++++++++++----------
->  tools/perf/util/annotate-data.h        |  8 +--
->  3 files changed, 57 insertions(+), 33 deletions(-)
-> 
-> diff --git a/tools/perf/ui/browsers/annotate-data.c b/tools/perf/ui/browsers/annotate-data.c
-> index aa8c89fe2e82c1c5..c6e07a9b64089ab5 100644
-> --- a/tools/perf/ui/browsers/annotate-data.c
-> +++ b/tools/perf/ui/browsers/annotate-data.c
-> @@ -62,12 +62,16 @@ static int get_member_overhead(struct annotated_data_type *adt,
->  
->  		k = 0;
->  		for_each_group_evsel(evsel, leader) {
-> +			struct type_hist_entry *hist;
-> +
->  			if (symbol_conf.skip_empty &&
->  			    evsel__hists(evsel)->stats.nr_samples == 0)
->  				continue;
->  
-> -			h = adt->histograms[evsel->core.idx];
-> -			update_hist_entry(&entry->hists[k++], &h->addr[offset]);
-> +			h = &adt->histograms[evsel->core.idx];
-> +			if (hashmap__find(&h->samples, offset, &hist))
-> +				update_hist_entry(&entry->hists[k], hist);
-> +			k++;
->  		}
->  	}
->  	return 0;
-> @@ -416,7 +420,7 @@ static void browser__write(struct ui_browser *uib, void *entry, int row)
->  
->  	/* print the number */
->  	for_each_group_evsel(evsel, leader) {
-> -		struct type_hist *h = adt->histograms[evsel->core.idx];
-> +		struct type_hist *h = &adt->histograms[evsel->core.idx];
->  
->  		if (symbol_conf.skip_empty &&
->  		    evsel__hists(evsel)->stats.nr_samples == 0)
-> diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-> index 4e4c587640823c81..aff60a630fd05b01 100644
-> --- a/tools/perf/util/annotate-data.c
-> +++ b/tools/perf/util/annotate-data.c
-> @@ -1750,42 +1750,45 @@ struct annotated_data_type *find_data_type(struct data_loc_info *dloc)
->  	return dso__findnew_data_type(dso, &type_die);
->  }
->  
-> +static size_t data_type_hash(long key, void *ctx __maybe_unused)
-> +{
-> +	return key;
-> +}
-> +
-> +static bool data_type_equal(long key1, long key2, void *ctx __maybe_unused)
-> +{
-> +	return key1 == key2;
-> +}
-> +
->  static int alloc_data_type_histograms(struct annotated_data_type *adt, int nr_entries)
->  {
->  	int i;
-> -	size_t sz = sizeof(struct type_hist);
->  
-> -	sz += sizeof(struct type_hist_entry) * adt->self.size;
-> -
-> -	/* Allocate a table of pointers for each event */
-> +	/* Allocate a histogram for each event */
->  	adt->histograms = calloc(nr_entries, sizeof(*adt->histograms));
->  	if (adt->histograms == NULL)
->  		return -ENOMEM;
->  
-> -	/*
-> -	 * Each histogram is allocated for the whole size of the type.
-> -	 * TODO: Probably we can move the histogram to members.
-> -	 */
->  	for (i = 0; i < nr_entries; i++) {
-> -		adt->histograms[i] = zalloc(sz);
-> -		if (adt->histograms[i] == NULL)
-> -			goto err;
-> +		hashmap__init(&adt->histograms[i].samples, data_type_hash,
-> +			      data_type_equal, /*ctx=*/NULL);
->  	}
->  
->  	adt->nr_histograms = nr_entries;
->  	return 0;
-> -
-> -err:
-> -	while (--i >= 0)
-> -		zfree(&(adt->histograms[i]));
-> -	zfree(&adt->histograms);
-> -	return -ENOMEM;
->  }
->  
->  static void delete_data_type_histograms(struct annotated_data_type *adt)
->  {
-> -	for (int i = 0; i < adt->nr_histograms; i++)
-> -		zfree(&(adt->histograms[i]));
-> +	for (int i = 0; i < adt->nr_histograms; i++) {
-> +		struct hashmap *map = &adt->histograms[i].samples;
-> +		struct hashmap_entry *pos, *tmp;
-> +		size_t bkt;
-> +
-> +		hashmap__for_each_entry_safe(map, pos, tmp, bkt)
-> +			free(pos->pvalue);
-> +		hashmap__clear(map);
-> +	}
->  
->  	zfree(&adt->histograms);
->  	adt->nr_histograms = 0;
-> @@ -1824,6 +1827,7 @@ int annotated_data_type__update_samples(struct annotated_data_type *adt,
->  					int nr_samples, u64 period)
->  {
->  	struct type_hist *h;
-> +	struct type_hist_entry *entry;
->  
->  	if (adt == NULL)
->  		return 0;
-> @@ -1838,12 +1842,23 @@ int annotated_data_type__update_samples(struct annotated_data_type *adt,
->  	if (offset < 0 || offset >= adt->self.size)
->  		return -1;
->  
-> -	h = adt->histograms[evsel->core.idx];
-> +	h = &adt->histograms[evsel->core.idx];
->  
->  	h->nr_samples += nr_samples;
-> -	h->addr[offset].nr_samples += nr_samples;
->  	h->period += period;
-> -	h->addr[offset].period += period;
-> +
-> +	if (!hashmap__find(&h->samples, offset, &entry)) {
-> +		entry = zalloc(sizeof(*entry));
-> +		if (entry == NULL)
-> +			return -1;
-> +
-> +		if (hashmap__append(&h->samples, offset, entry) < 0) {
-> +			free(entry);
-> +			return -1;
-> +		}
-> +	}
-> +	entry->nr_samples += nr_samples;
-> +	entry->period += period;
->  	return 0;
->  }
->  
-> @@ -1911,14 +1926,14 @@ static void print_annotated_data_type(struct annotated_data_type *mem_type,
->  				      struct evsel *evsel, int indent)
->  {
->  	struct annotated_member *child;
-> -	struct type_hist *h = mem_type->histograms[evsel->core.idx];
-> +	struct type_hist *h;
->  	int i, nr_events = 0, samples = 0;
->  	u64 period = 0;
->  	int width = symbol_conf.show_total_period ? 11 : 7;
->  	struct evsel *pos;
->  
->  	for_each_group_evsel(pos, evsel) {
-> -		h = mem_type->histograms[pos->core.idx];
-> +		h = &mem_type->histograms[pos->core.idx];
->  
->  		if (symbol_conf.skip_empty &&
->  		    evsel__hists(pos)->stats.nr_samples == 0)
-> @@ -1927,8 +1942,13 @@ static void print_annotated_data_type(struct annotated_data_type *mem_type,
->  		samples = 0;
->  		period = 0;
->  		for (i = 0; i < member->size; i++) {
-> -			samples += h->addr[member->offset + i].nr_samples;
-> -			period += h->addr[member->offset + i].period;
-> +			struct type_hist_entry *entry;
-> +
-> +			if (!hashmap__find(&h->samples, member->offset + i, &entry))
-> +				continue;
-> +
-> +			samples += entry->nr_samples;
-> +			period += entry->period;
->  		}
->  		print_annotated_data_value(h, period, samples);
->  		nr_events++;
-> diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
-> index c26130744260955f..ca2096a9ee62cbfe 100644
-> --- a/tools/perf/util/annotate-data.h
-> +++ b/tools/perf/util/annotate-data.h
-> @@ -73,12 +73,12 @@ struct type_hist_entry {
->   * struct type_hist - Type histogram for each event
->   * @nr_samples: Total number of samples in this data type
->   * @period: Total count of the event in this data type
-> - * @offset: Array of histogram entry
-> + * @samples: Hashmap of (offset, type_hist_entry)
->   */
->  struct type_hist {
->  	u64			nr_samples;
->  	u64			period;
-> -	struct type_hist_entry	addr[];
-> +	struct hashmap		samples;
->  };
->  
->  /**
-> @@ -86,7 +86,7 @@ struct type_hist {
->   * @node: RB-tree node for dso->type_tree
->   * @self: Actual type information
->   * @nr_histogram: Number of histogram entries
-> - * @histograms: An array of pointers to histograms
-> + * @histograms: An array of histograms
->   *
->   * This represents a data type accessed by samples in the profile data.
->   */
-> @@ -94,7 +94,7 @@ struct annotated_data_type {
->  	struct rb_node node;
->  	struct annotated_member self;
->  	int nr_histograms;
-> -	struct type_hist **histograms;
-> +	struct type_hist *histograms;
->  };
->  
->  extern struct annotated_data_type unknown_type;
 
-Reviewed-by: Tengda Wu <wutengda@huaweicloud.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Thanks,
-Tengda
-
+Konrad
