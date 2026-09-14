@@ -1,76 +1,69 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011066.outbound.protection.outlook.com [40.93.194.66])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020111.outbound.protection.outlook.com [52.101.84.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A432441BA69;
-	Mon, 14 Sep 2026 09:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D1D418A28;
+	Mon, 14 Sep 2026 09:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.111
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376974; cv=fail; b=Eotkwb+8ET3FWWOOQKEYRUlQBujaC9RQ6La+fEW8/3fhFDFs886ag7Rbc2ar2Y1zWHuuD7HxQ0rYQqAvBBxcLKBeQ+j+xBBfDr38SKMU97fWeIaFVXXcF9/ETiXJY0X9tAguHtBshTjYlI1H1piZziVDY41dpJisUrJfzcic3Zc=
+	t=1789376985; cv=fail; b=cXy3+X0op2s+vPF+dnhelF9h8SErbmsXthZOtj993ijLs7tW/o7M+AM8f9dtYMxARx2kcfrD3fvDT7qq+Oo+y1Dqq+rY1zLkSFBFnNn3OS6aWlbTZdAwRWt/JNjbPGw7ASzsLP8tXCJXeg7KxsOOkiiI6VDjXZimiHyqr7RbiuY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376974; c=relaxed/simple;
-	bh=YiQfVrBcA3EoCQEcbG/oRGYmlhaVxOWVz1vDAvUTFHY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WNb7S2Zn4gn7Ys3Qo3PJuPgRJDRvYPMhxWN+YqdLAWqxRrxVdUj9n8/tVT3vlMiRYzauuABHvrP8aytncxYiml05CHIsTn0pfhqRbVOhI7OwMRaNIsDVKPudx3h7jbXNCexLxaT0I4F8yb1cqS915I7y+VIFK51kwk/Em3DWakc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=j0nr16P8; arc=fail smtp.client-ip=40.93.194.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789376985; c=relaxed/simple;
+	bh=7g91hpexYY8p3HOXvm0qQ7jCeIyztxC3EHHATB77uys=;
+	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=cMIyk5L675uhzvWZ/u56Hyjo0AbIO6qA85/ofnOmd5toYVH5302V06cAd9g4FMQfdEveWRT/UiSWLddWpezn5n6c5qjJ9Lr3H91mrdfpY0x/2wks32T/1pRnfNezmPAunEmppUNB5HVZ9cY0oGbdas40MfPNEp3CyQ8nbAFTCig=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=v2Iio+bu; arc=fail smtp.client-ip=52.101.84.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="j0nr16P8"
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="v2Iio+bu"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KIerDU3CZrzEcUUQYTQ04bu8ApbIS158UI02ZBhenmunb7zcm9tj5ALjkeQUxUnDq1pjVkFiQI/2E35oVUP9q624Y/DhzbJm5iaXyBkPRoxaDPQmTTRrtlFvsxUVFA3V25nqfLjTw3BbQssgOvhm/zMyK3CzFy4J0lrxPsXreM4x6lCXmZTz99Ct4TAMFCrPw33pTojNKzkUjG9W43C9AtNE1pl1CyP89Hrjh98OtxUCCFWOb/nnJdgKE9nrULcKVVLQ78DzrJxcDDZC8ax8ryYxWT0ejFsDiM312aYbcCl45O5Dy0WCQJEsgaMKtpB/gU67TkXdGFycsOsdCX+FjA==
+ b=MsY6c1M3Vj5HfuKwxAfZroO12VvTAl8/mk0W6kTLC1E5bM7nfnMnJyRJ8igswdPtvhW9Iot/mqhq1Yt0eIoIOdoLdMoJoAbk7Dn7E3SEDtpyzJX8NtTmiNSLrokv2PRfuZtzRWpACSkzqb5Xrpd4KDJu5sbmhBx3uBOx+Jq1SZkgf7H/h+Hu7EBmwred0A/TuVuCZ2DoPGMB/MVQ3ggWfCXopIVU9m2xr39YYLVqATJIOeMh7agzM4KO8dclclotqBK6AmgavqTmI1XEyxJ6t4ZRa9V3P4I2TmMWBWGGhX2MqSM9gMPt3Ti2nuC9a4CNuM+MUw6lLQ+Buto1Csd52g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HQk1NGdsSHBpQZweoaJpg5lzZMTygxT/6t1+3GZX5dI=;
- b=e4pBju4qkPJ79YADvjz6GoYSQYTG78Y5l6b+76t8n9BMjv9ObUBiqRE2P6tRszRgKHOaeftw0ZoKGMtRpNvsXUwdAjBpHuD5IB8BHO0oKd2TLldH/8YqNok2PgUjv3y/fVgEQPpKMwTBOpXytZj6FEDjyb4QEqIdcu8IuEN4CaXXm3J6XQd7Aw54PbjiS4waiGVgVwcLmfgfycqksLONSU6o/m/+DISMExJLXTHQL46DN1XsRY8NAtS1WU+4dWqQ1Iy2hdrajlliMjgh1Q+KitpLGo0l0d16M9CtqDMobNvFgfQ5XigukqFaxgHHsfIPV+qms4SgHNg3VkDpMH2EkA==
+ bh=AjBbYrREW9PrsATP8b1WZ3ZEp8OSqeUVYJXR5ChDgsQ=;
+ b=Ij3XzaBComYEcj3YKicda5URWvpyoPFLW8A3HC+0CAowLOqoI320DqsIxZoe9vHVd8VqlixiW6Y+NF7UszBuCIMlA9QDVXZ+XmnpQr3RaiU5SI5SzMlnH5PQMUlV1+zqGc3fPUOQM+b/3U4zCB/0C9xwlWM1HTEiU2k/Ec10pHuT/VUFoYwYoQCYfZlQP98Az+CpFv1uwYqBx09HO5wFh/SnyI5oY44ooBd3g8EOGosdPuRvgYpoiJgO8xtV+RBcVEghA0ELvsqDV8bVuK550MkfhJLf3zlI/pQnGdJ99NaXhdJOKewi129ocq4PgS+tYBIzVcOJEw/+ISzuyjx9Dg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HQk1NGdsSHBpQZweoaJpg5lzZMTygxT/6t1+3GZX5dI=;
- b=j0nr16P8jgZOnP4oVUxIjFsGirEKotJ9aaXc4TMvOHB4h6e2AiVX/o9g1ppsviegdJwzBuzw+4XZ9NavfzsODgyqcR9pwI/ls9N2TTCfeyiEhzwqU8GpB5GZTI84ywhejBpEZQUaz6xf9KcA5YPH1yGny6xvCi8iqCAZUi1HdiIiy/Os9ohIqk3toJAX88mabRSmN8yvqdsQUK86ukmoSVNU9NQp0TAGIdfug30aj5NBsoEnzUHuuIGEX/CUVQ2Qat4pHrGRMN1ozHkDSXcqz5ahR94n76VHb4LUXWVa7g7HlvuWkgp3dx/GUhdkmC40g98lazwJCZC8xzdWCOtBKQ==
+ bh=AjBbYrREW9PrsATP8b1WZ3ZEp8OSqeUVYJXR5ChDgsQ=;
+ b=v2Iio+buqwLgeEGuXbMdhAmyyK4wGRkX7wxP7Rtx8L5W1yDVUjDTUbYwraDLL1afJwi0B5kSgyr2i1rjzJVmzmzpjdYHgnYy9vrNfeSWsgKg4mGxNkC9Bc18nqfsifD4EzrxJfuSqFe3TrmRwi60z7Y5Q8t4Ifl7GvwmNeHhTNCvlpOXTgYpzmoI9j/SmSyub6AMOXvvytt1FC7R7NgCKS4qwr/pDnxONQZSAketF2tLWABRVdrqF52fpagAeSFCBC+wu/hRzjzmoo3H/DCA5KUwO2D4i4Dnoj4ysQgCyZU5/FINZa/fgIhMB65tIcwix3JIVkIXUI36dQHUCsotvw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by SA3PR12MB7952.namprd12.prod.outlook.com (2603:10b6:806:316::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 09:09:28 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 09:09:28 +0000
-From: Richard Cheng <icheng@nvidia.com>
-To: jic23@kernel.org,
-	dave@stgolabs.net,
-	dave.jiang@intel.com,
-	vishal.l.verma@intel.com,
-	alison.schofield@intel.com
-Cc: iweiny@kernel.org,
-	ming.li@zohomail.com,
-	kaihengf@nvidia.com,
-	kobak@nvidia.com,
-	vaslot@nvidia.com,
-	newtonl@nvidia.com,
-	mochs@nvidia.com,
-	kristinc@nvidia.com,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Richard Cheng <icheng@nvidia.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Subject: [PATCH v10 3/3] tools/testing/cxl: Enable zero sized decoders under hb0
-Date: Mon, 14 Sep 2026 17:08:58 +0800
-Message-ID: <20260914090858.19181-4-icheng@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260914090858.19181-1-icheng@nvidia.com>
-References: <20260914090858.19181-1-icheng@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: KUZPR04CA0005.apcprd04.prod.outlook.com
- (2603:1096:d10:32::13) To BL0PR12MB2370.namprd12.prod.outlook.com
- (2603:10b6:207:47::27)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from VI0PR08MB10656.eurprd08.prod.outlook.com
+ (2603:10a6:800:20a::12) by GVXPR08MB11716.eurprd08.prod.outlook.com
+ (2603:10a6:150:316::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.7; Mon, 14 Sep
+ 2026 09:09:37 +0000
+Received: from VI0PR08MB10656.eurprd08.prod.outlook.com
+ ([fe80::4e37:b189:ddcd:3dd8]) by VI0PR08MB10656.eurprd08.prod.outlook.com
+ ([fe80::4e37:b189:ddcd:3dd8%7]) with mapi id 15.21.0428.004; Mon, 14 Sep 2026
+ 09:09:37 +0000
+Message-ID: <ea805767-9e3f-455a-a4d6-828063aaf2f4@virtuozzo.com>
+Date: Mon, 14 Sep 2026 12:09:35 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/5] vhost/vsock: add support for VHOST_RESET_OWNER and
+ CPR migration
+From: Andrey Drobyshev <andrey.drobyshev@virtuozzo.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, netdev@vger.kernel.org, sgarzare@redhat.com,
+ stefanha@redhat.com, dongli.zhang@oracle.com, maciej.szmigiero@oracle.com,
+ bchaney@akamai.com, mark.kanda@oracle.com, ptikhomirov@virtuozzo.com,
+ den@openvz.org
+References: <20260724114542.734623-1-andrey.drobyshev@virtuozzo.com>
+ <20260730194858-mutt-send-email-mst@kernel.org>
+ <f8646e25-7e81-4f19-aecc-a040caac1103@virtuozzo.com>
+Content-Language: en-US
+In-Reply-To: <f8646e25-7e81-4f19-aecc-a040caac1103@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0088.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::13) To VI0PR08MB10656.eurprd08.prod.outlook.com
+ (2603:10a6:800:20a::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,278 +71,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|SA3PR12MB7952:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80b290be-ba89-4195-12a3-08df123fe161
+X-MS-TrafficTypeDiagnostic: VI0PR08MB10656:EE_|GVXPR08MB11716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4285dd62-d162-43fe-b717-08df123fe67b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|6133799003|22082099003|18002099003|3023799007|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	0+nwEf633LygwScX5Hnf3ktPBldojK57yC3W3AUTUbS9r/N/Vc0iluflp2r8OtWr6hxu6sByOhDzkTwZbj1Wg7WY7/rtp7W1MdaQNQ+e85nUwrMfIJppZqtCMgzI4wZu9S7s/g+bbYBbx1aLM4PS+6QW2RESBRaPTOHZcIHMyOz1awjcsDt7OpAR45c9KMJ/OwYyYPiWBCYxHSpa6JvsX1CsknTKTAZ8XK9mZI2PBe255Kp/pQtiu7cdkDO2gX1NhsQBJ0xYMRf9utDulvavsbSXzddGHqT2evM5gm0nPWzgFBlSZz4ZMf+bG4KeEZoLTvcaA5w05/teVBEGAf6T5su47pmeoqYF7IH33Yqn/qIJZwxiPDY5laQ9fGphNoZFyWDC3SrAZfjPShJL/9cqOMAUuEIIWPr4PxRH7h4uUkoZKh+RS1YimkghoIL2mqx6ZjCU1cFR6PlQYqYWJlQeU7ykVlLy2ObVDaHJIQb48KTU2g6SHOV2ObR3O81METHeb86plcsjGlYo4tSFFqROVkVR9Ct5p6HL/+WCl6QN03JHPo89P+Ul8YOVm29CcYx5YzQkqsaxYMRvVD1dsalRaZew0Jfc6E6IxT3iX/je9slX4nIG/lRSyZONkxt9Uk8A8Bj7FklU6R1umHOmPyt+6tUqPLQgDTKWm/SkvDVpKKU=
+	5vZmZ+nxFc0/w4pkobR4eQKBsP6JTYx1bICloLA+njwD0iWla1GmWawiDZcvxgUqqLlLPKXZqBwdJiE4G5r2ud+mqhoj6obnEYZTyK9Ly3+8Kx3s1yvanItpdB1Zn8cFmcUYRhnCqJfIHgX8mWjaC9Peza+AAIliDVT55j4UILZxx7+UafjLHi05EpTavKOTlM1Vhci7bf0vLpilV6dlJoAtMotBWqGy2nWX1zLam9K+q0C0YeRZV1u/SVXc45amz+vIOapaSf786QF+KFcMQsWnsT3lc2Mbu7OqWE2CH/vpGpuLYKRDsfRo4WSRZHbGBGTipfUaegv/KFndICzYafemZEbo7dFyGu1+tO7CWRWjNn2hWO7GGMCLXE0c0DA/xX2RoxMHZDnb6e3Q13534hU9MUE95BL9QolkPfQl4esJBQRJrGcM4x706tLMNWMhJ32xSUCSGFHGj3FRX3c3rrmVWQcJ+341fa/DuzUMnjhkiU6N+EmA+TuP+UokpvpNylnxvVnyy3wlRW77ThJXHowvuFDY7tKCcL3xGGYHVkxrrLS23uPM7WyN2q9HFEKMEG6q3+irg/wkz61ikG/9QhbXU0B1DCZDWHLzyEXFpS+v0pXqr7XWE6EAXRxn3VeoOjMWVvscPYwhLaMx/yvdx/u3BZYwS2aS/7OJqGKr2WA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR08MB10656.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yZLxTAjL9hgrLFaEnstQTuEDMTSYx+WsBB64DiEwKrVRoEOGjcrH1r8eau/d?=
- =?us-ascii?Q?1mXDzBxtAKXipc+Madf8PUa0OiJLQWSskHXppqwmQXNJcJNZH3ySL+OcKUWn?=
- =?us-ascii?Q?P3El9jrCYVddriS2/j/SkyIsC1GkmCcrLaihO7vZEiMRALZlj6MiWlifpXkx?=
- =?us-ascii?Q?HBu3W41JQ3hPZwaTGGXxDAT643wm+jTG94qA4Ko/2XzDh4ZcC7n33d6l/sch?=
- =?us-ascii?Q?vtlsUujGXwPi9zdfIPkJtNEhyUnuqOuV5D46jIJA7YO2CHpzrHKD3bGB9m/l?=
- =?us-ascii?Q?9ubnLQcHHUB9Oz2Sr7zR0lJITi8egyzUo3EyTPLXBnwJ21JNadqRyh7pxwab?=
- =?us-ascii?Q?fJaT2192HW2iVJb7aO+wF8oDC5jmPbucY+RcCgXErftcFy3XHIXNn7/M/mpL?=
- =?us-ascii?Q?ORMPtwTJ0cA3AggdCS6iRFan6YVgx/PyEjZZowMH2CHNy2pWaOwLU+kUcqbi?=
- =?us-ascii?Q?+u3saT861BVr88pmhNeimBxIh5Zsn4QI5EsdNRdwqJDI9JJMBUpMmBWaJm7o?=
- =?us-ascii?Q?MsO4QV7I1V/s9Nr/k817O1SCV60GND45s6VjyWGK61elOHmc6z+vppuSsRen?=
- =?us-ascii?Q?T61XEhWp45JvQ3EMwTcm5wC8Ft9wXfFuMC270I0O2SanuqKfbL9Lvk9gL7Fa?=
- =?us-ascii?Q?OFPSuwQ8/29wf9W2mFaqglYRLf7ifgtEsNeUzTQ01bI083i/YqGeJtOGEu5U?=
- =?us-ascii?Q?ANVZs+5K4V9Izx8zyNimJBFwkp6oRe1vyqJHfg5uPYr7X8lcN6Knkd7FOAAS?=
- =?us-ascii?Q?QhLRS42+an2coK7+XB4gcSp7uL+k9L9FQ/Ji3pIjwAFkrWZMhHvtXP4o+s4Q?=
- =?us-ascii?Q?nuacuICr0OMnP5fhAfgDXqfMwAo3p2yuana6c0hs60YY8E0IAKB7XeY2kwt8?=
- =?us-ascii?Q?SZoAJ8Vu0t2ZF65oJQGllDYCGNDRjuFLi1spgkBPw+sC9q7cQWsEwFzlxGF9?=
- =?us-ascii?Q?4zW20GqRWAVZtbNzbBKWLN1pAuhp54CbEagKb+21A9BcA1buvtpFI0C2rDa6?=
- =?us-ascii?Q?q6VG7Nj53+najt4hQe5cFFYCNCfZIPy9d0goHHZ8RijlwWhAWvbTted4DtdB?=
- =?us-ascii?Q?zzgDwUiz+Q9VtBfTZqwunjzYmnWGYguWLTqwIyJEKPQs83ZSiSp8Mrd8+gT8?=
- =?us-ascii?Q?uIU0Jlhkzp23yyqj1CYIQynGyaaqKszC6vjYkHhbZdw+wI67Lsgq/LrbzeKX?=
- =?us-ascii?Q?U6gfojXHdj5hvsmw7+ML/KnmLYTd3tH2/kG+SDYn7JWRkk1VLNJkSK1Y+E5Q?=
- =?us-ascii?Q?r/3mmDMfaETLhWOff/uP2UnOBF69XL2phH7rv1pIW8C1IhH7/hxX5tdaSK25?=
- =?us-ascii?Q?XRNI3L6J1i/WOxundTdz8Zd+YKxvu+ACqyF7TJtnd0NYxM3WKcSRkld26DuX?=
- =?us-ascii?Q?eGqPLZlS/nvaII902rx/pwtDDLCe8tDoWWRsYQFVZGDpdZnKvZvoA4Zuomx4?=
- =?us-ascii?Q?cQNJj0XaHo+HHvLMVePsramroICe+KD+YbP8ThIOZpdubyxFaeHFyHErUkH6?=
- =?us-ascii?Q?rtY47aamosGrF61AP9uHtwb2NubAOmXZ6aVtV+nwyQpDbZnacftp8quhp+Hn?=
- =?us-ascii?Q?FfuH/hnCag4e0kqQfLfBckT58mJdhLMAt9ClgjP5PQoKSnsPtuqRr860We7O?=
- =?us-ascii?Q?SX7IIkuuKb2LRi4BMYpFJ9uWXNI+o1ktJd8JWz1pkh2fOJJ0dYTVH8Rsk/ic?=
- =?us-ascii?Q?vl/17DNmgmq0IkT3qSJLQiuH1SpPZ+s+db5mwhSVq6qe39axiODTuqtvxXyG?=
- =?us-ascii?Q?1SqQNKNCgA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80b290be-ba89-4195-12a3-08df123fe161
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+	=?utf-8?B?dzRyQUlXZUkza2hXRFhZMGdvYVQvSlhXcFJOSTRHQnRUMjMrSC9BTGdXQUd5?=
+ =?utf-8?B?N3dvaWphQmpTeHBVOE4xMVU4dU5GUjI1V05SNlZXK3dGRmRwYXI5Smt5U2dT?=
+ =?utf-8?B?UzZFYys1M3ZpY2VIRDFqcWJOdzhlb3NuY1I5NjNqRlFRaEJhK3I1bnFZMi9v?=
+ =?utf-8?B?U2Z3d3RkWGtKdXE2QkV3RFhMbEhLT3NCN3R3cGpYNlFaSUVCK1FTc0NRRGtt?=
+ =?utf-8?B?VjZrelF5b3RhNjg2TnRGQitITjZQKzRUejFJWGV2ZnlQRFZtWTArRk95MXZK?=
+ =?utf-8?B?dE55OTBjcE9zaXFMb1hXS0lQOElPSHRJd0pjaTlyS1BpRWFRYldGbEMwTlhL?=
+ =?utf-8?B?VzVVTk1wWlRpTnk5QUp5d0RUNXQ2SmMrY0NFZDl3VFBkR2NRZmRIbVNZMGd2?=
+ =?utf-8?B?enpzTDdtc3B3QWpPbEhnNmlyRFlNRTJPMk9tcU5Kb082Z0NqaGdKZFNjZE9V?=
+ =?utf-8?B?OW1GTVBTVlQrQ3BMQW42SUM5d3Z3RmlPMDVMb3FJZyt4R2Z1VzJwcnVRd2Yz?=
+ =?utf-8?B?b3RoWklKVjRsbENmbERIMFNoWkh6eHZYQzQ2NDJ4YXA2eHRra3pXak1LMDZU?=
+ =?utf-8?B?NjUvL250Q05sWUJJWEltZEVkMVNvVVRWVTFWcXBZUVpRejIwQ1d6bHZ6V3Vu?=
+ =?utf-8?B?KzBqTytLdklGaS9VSmZ4ZkdZL3VSaFlqZXRhZ3BuYVNJeW9PdXZrU1l2QlFl?=
+ =?utf-8?B?UDVLOWhSSUZIT2tHOGlrUDVkNWYzZ3BYNVJSOU1NL0UxSm1oMEhhMDVXRWxP?=
+ =?utf-8?B?ZTVXMnM4ckkySWozcmI0b1JBbXhleU5oa3libXZaSWh2dm43RGRjUHJUckUz?=
+ =?utf-8?B?Yncrd01yZGw0TkR6WGdQRkZaUkswYjFaYmtpK2JremZ5WHFTRTZYYkorVVZT?=
+ =?utf-8?B?bHlJeHVKMm9YSm5VQ3NhN1V4S1cvZGQzNE81anJuVW53dTA4Um0vdnVmQ1dN?=
+ =?utf-8?B?LzBJT1VPUnNBRGVYZHIycW5XM0RQaXNDRU9wZFZEaGErOTZXY1Fwd3cxUmhP?=
+ =?utf-8?B?MWYyUStTc2J5Q0IxWkVwL0o1MDJ3TkE3Q3pIVXBFbjg3dDhyRVZlaDZJSkFr?=
+ =?utf-8?B?ak9iZVQ2VEFRQWFRak5tdnc2ZlIwcEZCMWFaaUtsWjVIcnFEV1VrMkNIR1M0?=
+ =?utf-8?B?eWwvMXJaalRlY3grck5uU3VwR09YNUF0ck9yYVQzOEdaMzdUTDVkdGFnM0pn?=
+ =?utf-8?B?Qkp3ckw4czcrNXBGOWY5RGVWZ1hleXdlV01PSFpycEFHbVlRWk5UM3hkbml4?=
+ =?utf-8?B?WmY5bnV3c2J6cm83alR4QlFCa2hBT280STlPTGpmekI5cy9NK29qN21ONm5j?=
+ =?utf-8?B?NWgyb3I5MFNRRVNTRklhdTNTQThIQVZaTnpBYnc0R0J0YlR5SWt1MUlUYmpK?=
+ =?utf-8?B?dHVEUkpYTGVyQlU0Y1FZZTJoSFNaQlJJMGVCeXdFWGZvR3YxYmpmdEJLVzFt?=
+ =?utf-8?B?UXVZVzdzRUhwOHptc0RTNjZnd1Rpc3VoRHlZRU9Dd3dhSEx1WVJFKytHT2Vt?=
+ =?utf-8?B?OVlqeWNiVmhtY2s4TTRLdGNHbFd0M2Zmb2V2d0gyRHh6NlRGT2RvM05ySHNT?=
+ =?utf-8?B?b3I4UGhTZ3JjZ0NCbElqRFN0NzhlMmhiSzZXWG4vY3hVaGpFa1VRRGVFalFU?=
+ =?utf-8?B?eEZYWXQrWk5lV3JOODdDdHAyV1BYeEpTaFJLQ0xQU0s3Q0trenQ3QkdBR1NM?=
+ =?utf-8?B?Rlp0WGlwUUVVWFZUbWhjd3JDeTJ5ZURiZnZIUnQ0bkFvZ3dJN0xCak9TWEtO?=
+ =?utf-8?B?bmpPamZiNDczeVk0eU42WEcvRW5DTUFya3VNbnhmbVpCalh1YkxWa2ZHUjBE?=
+ =?utf-8?B?SHVEWjMrQ2N0TVFjOHRwTldybmFSYy9VS1ptQ3dxZWdoUUp5aUEvN0JNaTha?=
+ =?utf-8?B?WmRRTVJtMmFuOXVpNGYyM0VRMGNwb3N5a0VoY3FqNFhxTktuSEY0akN3YTd3?=
+ =?utf-8?B?OS9sbE5hV0FXTFpyeUluZ2ZUNGViL0dCNUhGdVI5Q0tlUzlTeHIxbTN5SW0v?=
+ =?utf-8?B?a3NYN0E5WUNwWmVHLzhwd05WbHc4Y3VFRUJsS3ZPaklvVTZUSmlXQlpZNWZZ?=
+ =?utf-8?B?NVExeVp0QUtScktsaXJScndBY0IwNnFaajVmZW5tZTlaeTZkT3FaQUZFV1ZO?=
+ =?utf-8?B?QVN1UUFpWmpEU1lQd2RrS3B1TEJNVGVhZVFSOHFDTTY3TnUvTHlQYkhxdGJE?=
+ =?utf-8?B?dHNxZnpkdXNmeDRvS2pLUkNsSEtwOVN0bkxFMDZTQU84Vjl6KzUreEY3TEZv?=
+ =?utf-8?B?UHl5NmZFRDFsQksvQzJvd1FtVkJLMUpNclRzM0VkYmwzV2htT3Ywc3J4Q0Fi?=
+ =?utf-8?B?bjZVVUVYeUlOQVI0THpMblJGeG9mK2RWczVWUGlsK2VIb0p1OWo0dnovWHNv?=
+ =?utf-8?Q?x4ob2+LHlFsb2ric=3D?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4285dd62-d162-43fe-b717-08df123fe67b
+X-MS-Exchange-CrossTenant-AuthSource: VI0PR08MB10656.eurprd08.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 09:09:28.6395
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 09:09:37.0232
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xKluTTsPo0pXvsZvHwPeVxWdyR0Em6e+qIpbXwgKiQLVyLyKgU/WgO2fBczetERUsYmzU3ZwgTi8AxSj76FrNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7952
+X-MS-Exchange-CrossTenant-UserPrincipalName: FJrLB2tBFxO6yCI2T8ZMKCVMgHQrcl4a+sEro2wZrKeC2V6SuyP8Vam5k5aCDYuohvYa/cocVqCVOMUYj4NMUQpyIKorrfMCPm0Mvfp2Glc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11716
 
-The kernel now allows committed zero-size HDM decoders so BIOS can lock
-empty decoders; cxl_test needs to exercise that path.
+On 7/31/26 11:31 AM, Andrey Drobyshev wrote:
+> On 7/31/26 2:49 AM, Michael S. Tsirkin wrote:
+>> On Fri, Jul 24, 2026 at 02:45:37PM +0300, Andrey Drobyshev wrote:
+>>> v5 -> v6:
+>>>
+>>>   * Patch 4:
+>>>     - make sync+flush conditional by adding a bool 'sync' param to the
+>>>       chain, as suggested by Michael:
+>>>         vhost_dev_reset_owner()
+>>>           vhost_dev_cleanup()
+>>>             vhost_workers_free()
+>>>
+>>>     - reword commit message and comment;
+>>>     - drop Fixes;
+>>>
+>>>   * Patch 5:
+>>>     - add 'sync' param to vhost_dev_reset_owner() call.
+>>>
+>>> v5: https://lore.kernel.org/virtualization/20260720102241.371610-1-andrey.drobyshev@virtuozzo.com
+>>
+>> does not apply for me is this for net next?
+>> in that case
+>>
+>> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+>>
+> 
+> The series is based on tag v7.2-rc1.  However I think the reason it
+> doesn't apply is you already have v5 of this series queued in
+> mst/linux-next, commits ddb0918e36c4^..ad5b642c84d0, with your S-o-b.
+> 
+> So you might roll it back and take v6 instead (only commits 4 and 5
+> differ), or leave v5 in the tree, or I can send you v5->v6 difference
+> separately.  Whichever you prefer.
 
-Add a mock_zero_size_decoders module parameter (default off). When set,
-the special endpoints under host-bridge0 (cxl_mem.0 and cxl_mem.4)
-commit decoders 1 and 2 as zero-size + locked above the decoder[0]
-auto-region, mirrored on the parent switch and host bridge. The mocks
-take a real zero-size DPA reservation, like enumeration of real
-hardware, so commit_end lands on a zero-size decoder and the
-reservation, poison-by-endpoint, and teardown paths all run.
+Friendly ping.
 
-Signed-off-by: Vishal Aslot <vaslot@nvidia.com>
-Signed-off-by: Richard Cheng <icheng@nvidia.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Reviewed-by: Alison Schofield <alison.schofield@intel.com>
----
- tools/testing/cxl/test/cxl.c | 109 ++++++++++++++++++++++++++++++-----
- 1 file changed, 94 insertions(+), 15 deletions(-)
+I noticed that these patches were queued in your linux-next tree, but
+got dropped afterwards and never made it to your last PR (used to be
+ddb0918e36c4^..ad5b642c84d0).  To be clear: the series targets your
+vhost tree, not net-next tree.  Since it applies cleanly on your current
+vhost branch - please let me know if it's ready or there's smth else
+that should be fixed.
 
-diff --git a/tools/testing/cxl/test/cxl.c b/tools/testing/cxl/test/cxl.c
-index 221be4addb0e..3eb1051b1ee8 100644
---- a/tools/testing/cxl/test/cxl.c
-+++ b/tools/testing/cxl/test/cxl.c
-@@ -18,6 +18,7 @@ static int interleave_arithmetic;
- static bool extended_linear_cache;
- static bool fail_autoassemble;
- static bool type2_test;
-+static bool mock_zero_size_decoders;
- 
- #define FAKE_QTG_ID	42
- 
-@@ -872,14 +873,13 @@ static int cxld_registry_restore(struct cxl_decoder *cxld,
- 		cxld_copy(cxld, &td->cxled.cxld);
- 		cxled->state = td->cxled.state;
- 		cxled->skip = td->cxled.skip;
--		if (range_len(&td->dpa_range)) {
--			rc = devm_cxl_dpa_reserve(cxled, td->dpa_range.start,
--						  range_len(&td->dpa_range),
--						  td->cxled.skip);
--			if (rc) {
--				init_disabled_mock_decoder(cxld);
--				return rc;
--			}
-+		/* enabled endpoint decoders hold a reservation, sized or not */
-+		rc = devm_cxl_dpa_reserve(cxled, td->dpa_range.start,
-+					  range_len(&td->dpa_range),
-+					  td->cxled.skip);
-+		if (rc) {
-+			init_disabled_mock_decoder(cxld);
-+			return rc;
- 		}
- 		port->commit_end = cxld->id;
- 	}
-@@ -1072,16 +1072,49 @@ static void default_mock_decoder(struct cxl_decoder *cxld)
- 	WARN_ON_ONCE(!cxld_registry_new(cxld));
- }
- 
--static int first_decoder(struct device *dev, const void *data)
-+static int match_decoder_by_index(struct device *dev, const void *data)
- {
-+	int target_id = *(const int *)data;
- 	struct cxl_decoder *cxld;
- 
- 	if (!is_switch_decoder(dev))
- 		return 0;
- 	cxld = to_cxl_decoder(dev);
--	if (cxld->id == 0)
--		return 1;
--	return 0;
-+	return cxld->id == target_id;
-+}
-+
-+/*
-+ * Mock a committed, locked, empty decoder
-+ * (CXL r4.0 8.2.4.20.12). Gated by the mock_zero_size_decoders module
-+ * param so the default cxl_test topology, shared by the region test
-+ * suite, is left undisturbed.
-+ */
-+static void size_zero_mock_decoder_ep(struct cxl_decoder *cxld, u64 base)
-+{
-+	struct cxl_endpoint_decoder *cxled = to_cxl_endpoint_decoder(&cxld->dev);
-+
-+	cxld->hpa_range = DEFINE_RANGE(base, base - 1);
-+	cxld->interleave_ways = 2;
-+	cxld->interleave_granularity = 4096;
-+	cxld->target_type = CXL_DECODER_HOSTONLYMEM;
-+	cxld->flags = CXL_DECODER_F_ENABLE | CXL_DECODER_F_LOCK;
-+	cxled->state = CXL_DECODER_STATE_AUTO;
-+	/* decoder[0] reserved [0, size/2), empty decoders sit at that watermark */
-+	devm_cxl_dpa_reserve(cxled, mock_auto_region_size / 2, 0, 0);
-+	cxld->commit = mock_decoder_commit;
-+	cxld->reset = mock_decoder_reset;
-+}
-+
-+static void size_zero_mock_decoder_sw(struct cxl_decoder *cxld, u64 base,
-+				      int level)
-+{
-+	cxld->flags = CXL_DECODER_F_ENABLE | CXL_DECODER_F_LOCK;
-+	cxld->target_type = CXL_DECODER_HOSTONLYMEM;
-+	cxld->interleave_ways = level == 0 ? 2 : 1;
-+	cxld->interleave_granularity = 4096;
-+	cxld->hpa_range = DEFINE_RANGE(base, base - 1);
-+	cxld->commit = mock_decoder_commit;
-+	cxld->reset = mock_decoder_reset;
- }
- 
- enum cxld_init_type {
-@@ -1114,7 +1147,7 @@ static enum cxld_init_type get_decoder_init_type(struct cxl_decoder *cxld,
- 	 * See 'cxl list -BMPu -m cxl_mem.0,cxl_mem.4'
- 	 */
- 	if (!is_endpoint_decoder(&cxld->dev) || !hb0 || pdev->id % 4 ||
--	    pdev->id > 4 || cxld->id > 0)
-+	    pdev->id > 4 || cxld->id > (mock_zero_size_decoders ? 2 : 0))
- 		return MOCK_DECODER_INIT_DEFAULT;
- 
- 	return type2_test ? MOCK_DECODER_INIT_TYPE2_AUTO :
-@@ -1147,6 +1180,7 @@ static void mock_init_hdm_type2_cxled(struct cxl_endpoint_decoder *cxled,
- 	struct cxl_port *root_port;
- 	struct device *dev;
- 	u64 base;
-+	int id = 0;
- 
- 	base = window->base_hpa;
- 	cxld->hpa_range = (struct range) {
-@@ -1172,7 +1206,7 @@ static void mock_init_hdm_type2_cxled(struct cxl_endpoint_decoder *cxled,
- 	 */
- 	dport = port->parent_dport;
- 	root_port = dport->port;
--	dev = device_find_child(&root_port->dev, NULL, first_decoder);
-+	dev = device_find_child(&root_port->dev, &id, match_decoder_by_index);
- 	/*
- 	 * Ancestor ports are guaranteed to be enumerated before
- 	 * @port, and all ports have at least one decoder.
-@@ -1232,6 +1266,20 @@ static void mock_init_hdm_type3_cxled(struct cxl_endpoint_decoder *cxled,
- 	base = window->base_hpa;
- 	if (extended_linear_cache)
- 		base += mock_auto_region_size;
-+
-+	/*
-+	 * With mock_zero_size_decoders, decoders 1 and 2 of the special
-+	 * endpoints mock committed, locked, empty decoders above the
-+	 * decoder[0] auto-region (CXL r4.0 8.2.4.20.12). commit_end then
-+	 * points at a zero-size decoder, exercising the zero-size
-+	 * reservation and poison-by-endpoint code paths.
-+	 */
-+	if (cxld->id == 1 || cxld->id == 2) {
-+		size_zero_mock_decoder_ep(cxld, base);
-+		port->commit_end = cxld->id;
-+		WARN_ON_ONCE(!cxld_registry_new(cxld));
-+		return;
-+	}
- 	cxld->hpa_range = (struct range) {
- 		.start = base,
- 		.end = base + mock_auto_region_size - 1,
-@@ -1255,9 +1303,11 @@ static void mock_init_hdm_type3_cxled(struct cxl_endpoint_decoder *cxled,
- 	 */
- 	iter = port;
- 	for (i = 0; i < 2; i++) {
-+		int id = 0;
-+
- 		dport = iter->parent_dport;
- 		iter = dport->port;
--		dev = device_find_child(&iter->dev, NULL, first_decoder);
-+		dev = device_find_child(&iter->dev, &id, match_decoder_by_index);
- 		/*
- 		 * Ancestor ports are guaranteed to be enumerated before
- 		 * @port, and all ports have at least one decoder.
-@@ -1307,6 +1357,26 @@ static void mock_init_hdm_type3_cxled(struct cxl_endpoint_decoder *cxled,
- 
- 		cxld_registry_update(cxld);
- 		put_device(dev);
-+
-+		if (!mock_zero_size_decoders)
-+			continue;
-+
-+		/*
-+		 * Mirror the endpoint: commit the next two switch decoders
-+		 * as zero-size + locked so the empty-decoder layout extends
-+		 * end-to-end through the switch and host bridge.
-+		 */
-+		for (id = 1; id <= 2; id++) {
-+			dev = device_find_child(&iter->dev, &id,
-+						match_decoder_by_index);
-+			if (WARN_ON(!dev))
-+				continue;
-+			cxld = to_cxl_decoder(dev);
-+			size_zero_mock_decoder_sw(cxld, base, i);
-+			iter->commit_end = id;
-+			cxld_registry_update(cxld);
-+			put_device(dev);
-+		}
- 	}
- }
- 
-@@ -2076,6 +2146,12 @@ static bool __init have_multiple_modparms(void)
- 		count++;
- 	if (type2_test)
- 		count++;
-+	if (mock_zero_size_decoders)
-+		count++;
-+
-+	/* Zero-size decoders require decoder[0] to preserve commit order. */
-+	if (fail_autoassemble && mock_zero_size_decoders)
-+		return true;
- 
- 	return count > 1;
- }
-@@ -2484,6 +2560,9 @@ module_param(fail_autoassemble, bool, 0444);
- MODULE_PARM_DESC(fail_autoassemble, "Simulate missing member of an auto-region");
- module_param(type2_test, bool, 0444);
- MODULE_PARM_DESC(type2_test, "Enable type 2 support testing");
-+module_param(mock_zero_size_decoders, bool, 0444);
-+MODULE_PARM_DESC(mock_zero_size_decoders,
-+		 "Mock committed, locked, empty decoders under host-bridge0");
- module_init(cxl_test_init);
- module_exit(cxl_test_exit);
- MODULE_LICENSE("GPL v2");
--- 
-2.43.0
-
+Thanks,
+Andrey
