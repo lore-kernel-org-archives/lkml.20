@@ -1,154 +1,121 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C743E557E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFD73EDE57
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371405; cv=none; b=fVQZuKStSS/VJj6Tv+IQbaWVM1ZQt8T6pkX7zeCP7V6ZDxb7T4vre8o0KqLtMtDZTioq9RToG9RB8N3VDQB5XNkeDGrWs0AdpQZ5A+Nni0Hv4dGFqnTHs+/aNUeL0XZ30RjoulXW4ri7U7fMMWRZixiFzIEFAu60/hrA04xPRv8=
+	t=1789371412; cv=none; b=bxyz7WDUtkzYCipxhT8m/e5hPnwVuk9iABM/vj9Xebkby5Q4cUy/Sswb7LxctWJZ/fb0nx4LUK5bD1hdWlgx7Lv2IJjJnvPa455Bvn1glkDf0nL0ad1JmzYEOKAU3ezufcycWYVvTycTU0lq+9rgB+Atf/FCml3nA4/6b7A2Ph8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371405; c=relaxed/simple;
-	bh=+O3epdP0hNt8bWCh+m7fHo3yvg6cawjfYlW1RkLSlg0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QV7Dyx6YyrcCgh7ebwVK20xANxsfJNA5YRUW4Zi6rnw4GmdxzUR/4Eo1Z2cTVTKFIXjPAHlGk3k9Iu4WipAPtYH5mezrH7p79q/FOno+0n3BysE9wfIq/Kf3QzCGt6iJRaMhFGsFy+/hIjEbPLVi5mAWCyFdZBJ6sBbGKIVRNQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1789371412; c=relaxed/simple;
+	bh=43eSICE1JFCHbUysIojzxY8vifR5XctKj84YnjLrDo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VZpcE08/mfeA1DtjwkUV8UXmWcc2i2ZDKo8uCamuv+4MlGmjh01PGmACwxx2oX/HKgfJO8kmO8jKxN4kqMw9SJ0CB7uJXUAaLlOti7zXzHxsP/hlX9MtXu2nPsRnh+7Fnem4+oAyQX7k/cMUUqMumNFbtty3/ncTxdA00IZA7Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DlUc9Cay; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f42.google.com with SMTP id ada2fe7eead31-79028ca939aso1316980137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:36:43 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DlUc9Cay"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1563462a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:36:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789371409; x=1789976209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Zs5RXec5ahUX7Llb9LiQLgtyAF4x1ZaNDold6Hb9HRg=;
+        b=DlUc9CayapBhnz0xNIZhbbaeGZX+YLmkBUwihPws8llhzf6+vYqjMXR6T9dZ4702AZ
+         o5egEuu3JjZbcTPCqS80ly+Vwwh1brO+iohquJd46hWPKC9LJhNaFE1/GD0ErRh2aBY4
+         4fkr2gJr4FG0NtBdGnLouoWtYrEFRT32iJanUkNFitPZSEZR2dhX+q1KqJHW1iUAMzsr
+         ibecJ7LmjIDYjFokSSH9CWB1WG2y93GZPHgqFdg5Yj2hzLIf1MHRZYJ5br8ma6D+X0bS
+         xnkGz+YnsdL/L5/c9mkRqhy7ymCBmt5br6MUVovOvAXJIhDeKsxWOgtUlwLsDn50itWK
+         ebSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371402; x=1789976202;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MdZ0sJe93gFmfPqzjpCmLFmphoDkWj4ooGAcaz6b51Y=;
-        b=mWwPV1T5i0V2LoW8ktb7JgW8jA25+HpFQ4sAx2+TkCM+j3Ipq5SMg6f6UjLBxRUldd
-         XOkzid03Czo+ghuQ4c1v9wc6LDFz/WYhCWvSyYAGFtNEErrtUIgSNxLBz+mMytHT2NZL
-         y1Cbo46pZWSxytsrJAJo6UyXAqL79lYWgm2GDNtqK3Veq3Vz+pOdKCKGh7i1lfm+puQA
-         qAOs0FmFKLUX+7JiY5JmET1V2LA3SXCYq5gdu8yJJ41BHuCnVB5lkjbBr+853v0MCKrl
-         9JvJ2W+Sz+f9/wNo9rJNJP0wPpXw7fgpQ516HugamhHm8bv/3JNFy3diguz41Ca2Jevj
-         Korw==
-X-Forwarded-Encrypted: i=1; AKwUvBztOK/Tm8gPZjGJLb2TYvc67i2x6vhqTFBXzDvjTFFnBrw1MyyKJEdQYGXcGGY1O1zgo1cl8PAnfuJ2Kr8=@vger.kernel.org
-X-Gm-Message-State: AFuF++luq7d7SMRDbAZimTdDjqphgBkPw/0PM/2+MmKSnEEWsp2ACQsE
-	4LcruZpLzlAUCMS5BL6KRt61xbyjaKTHGLzytqoTjtlLLtng+p37H6HhVFeeWFFI
-X-Gm-Gg: AYBFou1mmV97VUdewNRD3U6YnArxCviurwdI2FoDMHZsnrmwQS20/8YPo9j5/19cZOw
-	zpXx0UAubNCAk9jijajjr33Wi5uw3k8kGfure85nr8IqUe0CMxh1wMHI8ZjXeYOrz0xnQFnCoyZ
-	ZcWvgcjDgPFwiz4GfBxJYP5QqvRKxYAnogwVO7uIHVgB02nYKsp9EUc06lYB1kSznmY9sa0n45p
-	n+M92WrhbILoK7Yf45NnPe6iCxTBHm7DJp+Uvy9+DoBg/7aVPQ+nJ3c2x4yUAldXZDG81qghy1B
-	Jzo5EbiEyytXH1H4pfqYm1CvrelG3jInixABL+Rf9eGNxdqF5vOOUKg+bi2G0Wi+Vj8VNIDe9JU
-	PPv7h322Rt7iiVbwumUC+/zASpLByOsxxsPzdl195ZO0JiQ2xefcBGiZ0FZS4oUcOP7JVlYEPbO
-	77XzVV1ogLLoXXb+LGgncD0S/RLdGYp2B6mHyZZ+zGWMheFezTdcslVjTZBe6RtycHnKjlukVPr
-	mrwi5mEwnH4/83JHvN8+lH89b/8U/TZ+WzXxgNylz7cZXI=
-X-Received: by 2002:a05:6102:918:b0:786:dfa:c5ea with SMTP id ada2fe7eead31-79b57cb42f6mr638634137.5.1789371402002;
-        Mon, 14 Sep 2026 00:36:42 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982b9ed9257sm10387004241.5.2026.09.14.00.36.41
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 00:36:41 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c83be8db39so1575110e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:36:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzYQL05Ll1rSAbjSo7tpm4Mym86KPfRSdHDG2+z2xlpeFxqz2XjB4Ie/7roaxFgVT1h8yr4VkQcZOAX6Nw=@vger.kernel.org
-X-Received: by 2002:a05:6122:4697:b0:5c7:fb4e:2cee with SMTP id
- 71dfb90a1353d-5c981a874d4mr600982e0c.1.1789371396752; Mon, 14 Sep 2026
- 00:36:36 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789371409; x=1789976209;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Zs5RXec5ahUX7Llb9LiQLgtyAF4x1ZaNDold6Hb9HRg=;
+        b=j0SpXh2JoiMZQxTdmnvm76Q/6zmnsm8ShH8RDcscgb7Z4W4U5mA2qD6GYk2HMG9BjJ
+         WvbAN2fzOS3ysbW9mL9ha7kscwCB5WXa6X7jC/f1ktskBsBG/+TvmKvUsyzCuYfCMoeG
+         8oGJ3TC/MDFN4E3zmky1jh9UG8w1vQBNOkEvpxFvX0TtnRYipI1An559xwUleD4MUaJJ
+         poNovsY3HqUhHOkXzmmNa8/F0rM4Hgp9NIXc6ENaiRDTMRl2r474tO8VZXfXrnlW4xUz
+         0oRJOUkWRIHxtG3LKI5Qe60hxKC9c5Sg5CF8Nv8D9jxXrggffPvRRQgBYKJoTOcUBXIi
+         a4OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxp8+9DzgyUs7eiF9cTHtjEU3uvLtYEzPm7SKPxUkrgCt+TwEEO7kHfX30HtH7vURyAM5ofcGfdZKTyFto=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkjrroLEPKNGHnnegdVM2A1US/TK2b0FxIzcxhalRn6VB7AuYg
+	5LgK57Bu27vuSZWdvfFJ8Af8gZg52CEX/63Q8GlDI+TXdvs7p8YeD8AL
+X-Gm-Gg: AYBFou37w9iBLo+hN1dweCNLmkrWxQzxcKDyaQqFrcpyDbUtKbew4vkN3cFAIVBGzip
+	UtlemjCHy296lTFF7PD/0JiCECMH9tE4YBfeVYFlWour7yB5eD1SAA2sBiDgnjawBOVE+bdxow4
+	w0KXKyApDJX8IEwM9y46WrzUqk3LGVuuuAhdJlul9GITZ5+S5Kx865RayWe+vrA9ZBolpv57j+A
+	wAWS9fSwyF38X1eRDqwz4u85TdYxeyijBfZ/sbczqtSdx8md7N6We9Gpgrv9W+gXzvD/b+5JFZS
+	zmc+tJ0mFDsO+mMb00iW7g55m9fjcgbTkFeBEyWGi69S5aT3ryTxHgXN7yduS1dGzx5E1rWiT6P
+	R5gMaFaxKMCnnAWfhNBUEGkwnUct9vllSjmIfVZFB3itBdT0QBEHRjVxx1eh3dH2QGFI21X+Wda
+	2anotS7cRSGequy5dv2ucpqCZEsP7/9F0J2II4kz009bTxdigrsKXWBA==
+X-Received: by 2002:a17:90b:2c88:b0:398:e969:87ef with SMTP id 98e67ed59e1d1-39dec0f773fmr3230664a91.24.1789371408788;
+        Mon, 14 Sep 2026 00:36:48 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dada5c76asm17870870a91.12.2026.09.14.00.36.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 00:36:48 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Rudolf Marek <r.marek@assembler.cz>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sven Anders <anders@anduras.de>,
+	Jean Delvare <khali@linux-fr.org>,
+	Hans de Goede <hansg@kernel.org>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hwmon: (w83793) release probe data through kref
+Date: Mon, 14 Sep 2026 15:36:38 +0800
+Message-ID: <20260914073638.1662500-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913173049.1168963-1-sashal@kernel.org>
-In-Reply-To: <20260913173049.1168963-1-sashal@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Sep 2026 09:36:25 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVVpAzuUDMn2zQmbOaLxiroyBGeyD9wZWe83dweoVPVqg@mail.gmail.com>
-X-Gm-Features: AcwNN1XOZqE79DMSk78qvmSH-H90kBGDh0g78DMpY4SxMOMYafpm345WSAqwPF0
-Message-ID: <CAMuHMdVVpAzuUDMn2zQmbOaLxiroyBGeyD9wZWe83dweoVPVqg@mail.gmail.com>
-Subject: Re: [PATCH] firmware: qcom: scm: Hide QCOM_SCM instead of depending
- on ARCH_QCOM
-To: Sasha Levin <sashal@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Sumit Garg <sumit.garg@oss.qualcomm.com>, kernel test robot <lkp@intel.com>, 
-	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+w83793_probe() initializes data->kref to manage the lifetime of the
+driver data. The normal remove path drops the driver-owned reference
+with kref_put(), while watchdog users take and release additional
+references through the same kref.
 
-On Sun, 13 Sept 2026 at 19:30, Sasha Levin <sashal@kernel.org> wrote:
-> imx_v6_v7_defconfig fails to link:
->
->   arm-linux-gnueabihf-ld: drivers/firmware/qcom/qcom_scm.o: in function
->   `qcom_scm_pas_init_image':
->   qcom_scm.c:(.text+0xecc): undefined reference to `qcom_tzmem_alloc'
->   qcom_scm.c:(.text+0x2b0): undefined reference to `qcom_tzmem_free'
->   qcom_scm.c:(.text+0x1514): undefined reference to `qcom_tzmem_to_phys'
->
-> QCOM_SCM gained a "depends on ARCH_QCOM || COMPILE_TEST", but it is
-> selected from 20 places in the tree and several of those are reachable
-> without ARCH_QCOM. DRM_MSM is one of them, via SOC_IMX5, which is how
-> imx_v6_v7_defconfig ends up here:
->
->   WARNING: unmet direct dependencies detected for QCOM_SCM
->     Depends on [n]: ARCH_QCOM [=n] || COMPILE_TEST [=n]
->     Selected by [y]:
->     - DRM_MSM [=y] && ... && (ARCH_QCOM [=n] || SOC_IMX5 [=y] ||
->       COMPILE_TEST [=n]) && ...
->
-> kconfig still honours the select and sets QCOM_SCM=y, but it does not
-> propagate the selects of a symbol whose own dependencies are unmet, so
-> QCOM_TZMEM is left unset, qcom_tzmem.c is not built, and the
-> unconditional qcom_tzmem_*() calls in qcom_scm.c and qcom_scm-smc.c
-> have nothing to bind to.
->
-> The point of the dependency was only to stop asking the user about
-> Qualcomm firmware interfaces when configuring a non-Qualcomm kernel.
-> Express that as a prompt condition, which is what the same commit
-> already did for QCOM_PAS: the symbol stays invisible, but it no longer
-> carries a dependency that silently drops its selects.
->
-> Found by KernelCI builds of the linus-next tree.
+However, the probe error path still frees data directly with kfree().
+This bypasses the kref-managed lifetime and discards the initial
+reference without a matching kref_put(), leaving the reference
+accounting unbalanced.
 
-linux-next
+Drop the probe-owned reference with kref_put() instead and let
+w83793_release_resources() perform the final free, matching the normal
+remove path.
 
->
-> Fixes: 8fecd3194de3 ("firmware: QCOM interfaces should depend on ARCH_QCOM")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609120634.g0HMAp3g-lkp@intel.com/
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+This issue was found by manual code inspection.
 
-Thanks for your patch!
+Fixes: 5852f9609d21 ("hwmon: (w83793) Add watchdog functionality")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/hwmon/w83793.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> --- a/drivers/firmware/qcom/Kconfig
-> +++ b/drivers/firmware/qcom/Kconfig
-> @@ -26,8 +26,7 @@ config QCOM_PAS_TEE
->           by the firmware TEE implementation as the backend.
->
->  config QCOM_SCM
-> -       tristate "Qualcomm PAS SCM interface driver"
-> -       depends on ARCH_QCOM || COMPILE_TEST
-> +       tristate "Qualcomm PAS SCM interface driver" if ARCH_QCOM || COMPILE_TEST
->         select QCOM_PAS
->         select QCOM_TZMEM
->         default y if ARCH_QCOM
-
-LGTM for now, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-As the MSM driver is used on non-QCOM platforms, too, in the long run,
-the "select QCOM_SCM" and "select QCOM_PAS" for DRM_MSM should probably
-gain dependencies on ARCH_QCOM (like "select QCOM_UBWC_CONFIG if
-ARCH_QCOM" already has), and the various qcom_*() should gain dummies.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/drivers/hwmon/w83793.c b/drivers/hwmon/w83793.c
+index a548586369e1..c6ef04c69856 100644
+--- a/drivers/hwmon/w83793.c
++++ b/drivers/hwmon/w83793.c
+@@ -1928,7 +1928,9 @@ static int w83793_probe(struct i2c_client *client)
+ 	for (i = 0; i < ARRAY_SIZE(w83793_temp); i++)
+ 		device_remove_file(dev, &w83793_temp[i].dev_attr);
+ free_mem:
+-	kfree(data);
++	mutex_lock(&watchdog_data_mutex);
++	kref_put(&data->kref, w83793_release_resources);
++	mutex_unlock(&watchdog_data_mutex);
+ exit:
+ 	return err;
+ }
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.43.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
