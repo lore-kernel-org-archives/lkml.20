@@ -1,863 +1,269 @@
-Received: from mta0.migadu.com (out-60.mta0.migadu.com [91.218.175.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B763F65EB
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.60
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374021; cv=none; b=XPcu1KV3irRkAvmWy4K1VDvK7sJPEDd7sLNza9wDlqZ8r7QQgCi98MN9ndVwcEZ2+ZerRCW0CJNb/uDhVVfqbIE2nhdSCzNkHYhKyN1cfWUwU8ZbDGpjSs8YwFyGAowB5/WfJrbwpakBVsxfA1IHCu/RWiWi1I5Xq6HLFoVi6hI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374021; c=relaxed/simple;
-	bh=Fu+f52O/wrXCrz8WHJYsmzN7htM4LImd93h1cyHMk5U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 In-Reply-To:References; b=fMIvW/SSMwwb8b1X7zrpcKpz0DRrEcFIdh1HrUIDjOZ2c6ys0qx2592zHT+03YdtbDIdYBHt0cRQ/5BqrguArpRUDbhXvsTcHC0mOI1/ZZkTtq0IGbw2eMPIaJNEAOXQgT/5IGFdWuywN2JDXcxH7TmicWgN8qEDjww7StYi42A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xLyLhcfT; arc=none smtp.client-ip=91.218.175.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08743F4DD7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789374024; cv=fail; b=RUBESy2JlTE5TBNNNieP/WtNY8tttfLfZRSSu4Zp5FPU2cnSlmocXnw4ub4c85MMwIXG/ldk2nWfkHwphLTjPuOYWZScpINIat0t8k9uInLocZk8qf7S026eyABs1YcCBp20+FI9rJBaKdxb9FQLzdFlCtWIXz2Pjo0ezcpNxYU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789374024; c=relaxed/simple;
+	bh=v3V0//NPmKC98CwsKKgQ1wZJN528tltkO1KeoiDVYVw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=RwphOVc6mXfAe6qAlweEJm+TWNOo1kaEySw9XkAIwma7gXsahOAsRJagF/FYdCdyD42Tb7i9m7TopJBT9gzr/GqeLTNPwESKp0X/CcxzRv6ncueZ60d4Y23FXri/VsEuHzdJRD93CcTPUDWMhGc4HrvUf3BNAI6XTkLSONfkk4Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=0CA44B/v; arc=fail smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xLyLhcfT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Fu+f52O/wrXCrz8WHJYsmzN7htM4LImd93h1cyHMk5U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789374016; v=1; x=1789978816;
- b=xLyLhcfT30rPY6N7FF381QOlmtB/WPeMNxeev5nFAAXwvLeHQIeUuzoIH+L9rZz423vv0H8T
- GDnamVvlyTPRQH5mmwnDAO1rLXcjpQ/6LSFfInrJwTEd31QiIiNJbHmwHwD8cUTfBL0Jl+/VSOn
- rNkTZebO8Ls5eFQmnga7E4iI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 7374cd9c41a5a8ad;
-	Mon, 14 Sep 2026 08:20:03 +0000
-X-Mizu-Trace-ID: 7374cd9c41a5a8ad
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Mon, 14 Sep 2026 16:18:04 +0800
-Subject: [PATCH v5 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="0CA44B/v"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5gTFa490114;
+	Mon, 14 Sep 2026 04:19:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=9zmJt
+	XGDXviIsog1njE7/9e4dqU/ESSG8d94aZUxNwI=; b=0CA44B/vGbT1wAfUq877S
+	MX8LT/wWO/1uEn8VPTK6xQlRLLNPUD4/6RXw3d292HRaVz3uNDgMR07ghWonMlvR
+	1YiHR+OB98B9kZ0JhYozJ71IuqUy6dfHekBCfzF0zFC3imj/EXVA+DLDk9BdGmTV
+	onz1Tzwg73SBu83uSErUjEHmHncblgVqAz9xLkxJrC7BO6YfbyM+I/RENgMNkuJu
+	YjlpJ3F1m2mYDS3t1nLlZXB5Mv6Z2W7hVS8maGqPq+h6TQRPV1HWXviJS09XNXuM
+	NRxP73foGS1iWTgrSnQubNMZdxUXovaHdVoM71q2UDRNVE2oyHK48PgWtqMltIfS
+	Q==
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013012.outbound.protection.outlook.com [40.93.196.12])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gnn2ccrab-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 04:19:53 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZbsR/SwR+mIh4LpPqFjTb50OVTH345eQ2oGo+8/jC61/norynaYfA5FN3dPHGRnu5/eb44f0yUivX4M8wLe7CUUzzR8oCgzzP37hnyT+sKTXC7suNtOSlJhHV7ZwSECbZYrtCrTykQyoECtskjDtd/LgN2Db+wNHeaIC2FLmfBV7qd5RR465z+yBD5a2QirgC5yxMi3YSnUDDXDrsRFCCBOS8uvl2D134poJs28ToWSiBsh8EPmI0W0ldouq6EiNxW7xrd3IouACwZMxvbtFyjpjwl2Z+oiNfp7d0Dm+XTXbvxQq/qiqYwYSoLV2rKAZw+QeouYrN69st8XD6ib35g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9zmJtXGDXviIsog1njE7/9e4dqU/ESSG8d94aZUxNwI=;
+ b=dMj4zIdw1WONRN4dflPBbt4p6F5kyYurePIyneTyg7UWq/5C6YeuKGbRtZKNulINptZ8SMQYK2LJVc7TsUAzBggfB9SQ1CS+YROxOJvKJE9LC6p4QysVMwmNS1LHGNnk0greDosTXyP1nzU4PxqQ9sj/wu1cMHmfKUyV683W+0iPmwpeSjgsH2+QVWIKXYaK2YZSip66b1uVHpRykBVZsbA2FdPKs5MRuHbe/ofZKxL/uG/WK0CxxPIqGepPL42ISIZNponiaQVg+n5DOAC2DqjAQVxpgsehB8w4snO8SUCHCIx9oWO1/u5veRNbV+rRXvKHAT+9hbg21L9mLzjz5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
+ by SN4PR03MB989382.namprd03.prod.outlook.com (2603:10b6:806:212::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 08:19:50 +0000
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 08:19:50 +0000
+Date: Mon, 14 Sep 2026 09:20:56 +0100
+From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
+To: Michael Walle <mwalle@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Pratyush Yadav <pratyush@kernel.org>,
+        Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+        Miquel Raynal <miquel.raynal@bootlin.com>,
+        Richard Weinberger <richard@nod.at>,
+        Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [PATCH 2/2] mtd: spi-nor: issi: Add support for is25wx01g
+Message-ID: <aqetgODkt3MhNndd@nsa>
+References: <20260911-mtd-spi-nor-new-issi-chip-v1-0-c54615f8c30f@analog.com>
+ <20260911-mtd-spi-nor-new-issi-chip-v1-2-c54615f8c30f@analog.com>
+ <DLETRRVRUWEP.1VU1EHARD3MSH@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DLETRRVRUWEP.1VU1EHARD3MSH@kernel.org>
+X-ClientProxiedBy: ZR1PEPF000077F7.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:918::444) To SJ0PR03MB5469.namprd03.prod.outlook.com
+ (2603:10b6:a03:28a::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ctl2301-v5-4-522def70acb4@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org, Jean Delvare <jdelvare@suse.de>
-X-Mailer: b4 0.15.2
-In-Reply-To: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=26278;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=Fu+f52O/wrXCrz8WHJYsmzN7htM4LImd93h1cyHMk5U=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFnL1x72FvtYeP7tIQWtp2/mOtvvb1UvaN0ufZfxQnqrJ
- 8dlTwurjlIWBjEuBlkxRZbuBzzbCnyibAsECn1h5rAygQxh4OIUgIm4iTP8D7t1N16yfbmPPOeK
- R7M1v3RtuTYz735fmmGHZCxfpkzcM4b/2cbbo5MFLiaGFil4X0yyfTmTc+UBZufN5lMOZCb7atX
- zAAA=
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|SN4PR03MB989382:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdc37aa0-2129-451e-0157-08df1238f21f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Mb7QTPeZB8PQ9ONnP5mlJZNU+nJxor00qCJ1OwEZmVT6r0I5lA86Fg4XRiR0YkYVO1M5U4G8piainpLUvLkX8oeJ6ef2pcPAFZlinK56Vy2ZNaA0flLUXTA9M/KywINw8lVpr3BkVUAXyK0nQ2jwFR7AGktUZNftL+pax+Ssdexw5YyaSaHuUe6ji/ZvIL9EH0Q5yro3SQGb4E04TRrX+O8T6pPYn4uoEI5cJEzfX3uO3/nkfNV7KUgTG/HrOMwtctPnl2nSrmxSZjccMmhPNxh4ckQyah29SyVAg010IuGwP4NnYlaPZN0qQVWWg9XFqvgkhXaUE0OpZhAQyuBB9q1VUBi4lneI1pf0xZiDv2OHsMdQWX5a79rvdoukmOJnPpZWeBfeKwOxKupRgzBGfH5dP0SHgJEZmL+S12iOMXmOC+KOvnP11Xta/8Un0aVX6/bPIAGRSGXx76bnRYYsaOtsvckG6Xr3cblZqgoyavfo3nDzczfM8pPIBzigJ/gzFASlVTDIR3mdUdov8pscUxoe/GBXEdr0hdhMo8+A3+JXSAIRZHXYc35HrTqPQoVruDfOrSpubFq04i6TwXCV/ssHT7dmBcdE/Yx3Qe3ylObBxKbmkgEzyyGnSWmtvSyX
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aXJLTmtvVzV0cUxhc29CTEFRTFhLcXluTUxrcmcwdTErMnZ0NmtsNnJsTVFF?=
+ =?utf-8?B?RjA4RnlBRGs4bFdjaFdqUlpVSFBuZHp6OVFpNkRzR1pJMEZiWC8raUZtVGxp?=
+ =?utf-8?B?c3NORjY5SUFEcUJxa2M3RUY4cVg3QjJ6N2FFQ1dRZUpWM3A2Y3lheWtNSldV?=
+ =?utf-8?B?bUdEOEVqR2V4ZW9keVZMOFhVWnZGOXdPTGdZSm9NOXRtV2o1OXVaV1QwSVFU?=
+ =?utf-8?B?RkNpaEF3WXFtRVBLU0xOZVgxQ2R0RlI0aWdNQUp2N29jK01RNDFUUkhpNnFQ?=
+ =?utf-8?B?dkVRRlpkY2FtMkZpVWVFVUlPS1BCQXRDYWdzRDZTdnhwTzlvaE5mSm54SGpq?=
+ =?utf-8?B?OXErQkpNTG0wZmRBTnRIendBUmFPZGI2SXhZYThzZldUUE02YlFJNHBpd2c5?=
+ =?utf-8?B?SEJLWXdMQWtLVjdteW5IUy9WWkhIT2w3a2FLZDcvakZCSXBrZGlTOGhxak9D?=
+ =?utf-8?B?eVZ3eS9qZEtMVnIzZHlQbk9pUVZidTJIa2ZTZDRUZzUyVHZtOW50MGxTRFZG?=
+ =?utf-8?B?RGZ0djZqUGVMcE1xMVJVNnEySGViUGVjZGpsSkQ0TTRMckY5RFJPK3Z4VjVV?=
+ =?utf-8?B?VTlqVHo4L29HUmtGdVljc3B3cUZ3SVJIeTNoYVVaUDVwNXJ5Wm5ncXZLNWkw?=
+ =?utf-8?B?WkUxZGpMemVpWnQxbUZNSXU4ckFhTGtwa1ozZXRDV0RSeUtaM0IvdEpDRTB1?=
+ =?utf-8?B?Rk5aZm5ET3Vkd0VVazRSUEJwWVhpNG9sK1BpL0tFSFZJRHBwT1k0TEVjaWFI?=
+ =?utf-8?B?K1NMbGpTR25EanhJejJEUi8wS1R3OHp3UEdyQjFEaE02dS9mVnllU1hQdFR0?=
+ =?utf-8?B?M0tRcVdhSGpheGp6NFU5U1c3K29RZjRLelI1RFAzQ0hVWHJTMHRIQ2p5TE9m?=
+ =?utf-8?B?NnkzYXVKaUFaaytLV3JQVGFGbWhmcjRtNGZiNzZZWm91L0c3K0xRQlhFQ0FU?=
+ =?utf-8?B?Zmd2ZzQ3Snk3TkhQeHNQaWowcE0vRTYrL3JOYlo2VFp0NllwSjRIRFcrMDBE?=
+ =?utf-8?B?MW1UQ3FueFhZa2xIZVJOOCtrci9ydi85aHJqdjl2VVB5b0xrdDNmV1lMek16?=
+ =?utf-8?B?OHRpdUQ0NkdtVUgweWpWRGIzNXo1ZElRUHdMVDU1NytvWWExMy9sckVHZGRJ?=
+ =?utf-8?B?SUN1cjdaZEovWXBxK2tuZ0k2ajlUT3M5OENwZWRmTlY2SGRnVi9CdmtWS1Y4?=
+ =?utf-8?B?UG13S2RDM2lBazVyOTlZRGtsb2FHazV6Vm9sdWtlN2RIaXhUdFE3UjZ1SVpm?=
+ =?utf-8?B?RTllb1BhZE9nWm1hWHFtNnAxakcwNHpQRTc4QVRNMENwZUF4MXJPaW4yMmll?=
+ =?utf-8?B?WWFSWHNOaW9iVmRYYi9JaHh5OFRkeXk0a1JWaUI2RGg0VFlta1FPM05sYlM1?=
+ =?utf-8?B?QkswSHZLaStRUmIvK3BSanZJYzF5eGU4eW5STFFEeGFWK2g1c29lSldlM2NF?=
+ =?utf-8?B?NFpYSzJGZmF6Y1J6QlcreThwbFNwTDJoSUU3NGFGMiszdDIrNGNFU05JaXhp?=
+ =?utf-8?B?WDNsZjBveStZRUg0bm1yT09mRE1pQStwdk5KeWpwdHRKdE1FU0dyMkNDN3VD?=
+ =?utf-8?B?WmdZcytLMlJUUVg3UGUzY3dGSnM0bEFYSDc3V3pPZERLbTVNWTlKZ1ZoSU5q?=
+ =?utf-8?B?VkV5WW1QVGhOZ3pRYi9zSkRiMW9jZXY5cVRSMUZPditkejNRM0Fkb2FpMUJW?=
+ =?utf-8?B?b0huSmpGdDVPNlgvOEFEZTJya3JtdHd4dW5YWFA0Qi9OUG1mWUpXbkliNjB5?=
+ =?utf-8?B?Mm5oTWFpcDU4Q3U0dG9DcVp2QjEzL2NVa3hGN0FKbFVvZS9ZZU5RTHV0ZEtj?=
+ =?utf-8?B?Q1dRa0xWc0JDbTZxZjF2cENrL2t2c2pJVkZCNS96UHdjckZPOFdEWnhMb21H?=
+ =?utf-8?B?QndBUW5kY3FEa3NFc2U4dURNQlk0aDBlU3BqOEFGdTVmTEorVHVwVEV6REV6?=
+ =?utf-8?B?aCsrUlJ3QkRLMm1sMW51SGdKbWFiVGZjT1dLWUFpeEZMN0JWNjNDN3ptUDlJ?=
+ =?utf-8?B?YVpSQWNXeXVpNFl4S3prRlRVU3RiMEJ5QzVkd0FneUcxaEsrUVk0RVFGN0pr?=
+ =?utf-8?B?U3cvd0xzandPZkcrcFFlcDB4NmUwc3RBdUVsNVYzbTlldE5OYnJ5NVpNTzgw?=
+ =?utf-8?B?WElOc3JrcXowdlNWVytmemVBSXI0QjB4b1FmS3RBQTM0RTRMbitpTGY3cWxD?=
+ =?utf-8?B?VVJDWUp0Z1dPSVNQZjdaQUNoYzNEblA5QVQzTlpPOFpQYWdKdDVBaFE4Mmpq?=
+ =?utf-8?B?SDNrSUEyYnlWL0xoa2l1T2k3QVJZTUxPc3QxSWhtL0VFOFIzVzF3clE4cEE4?=
+ =?utf-8?B?NCtjajVIZm1TZGlGWG5jL3RpL1RMS2FqNVZuMldIdFc0bFZHZFhoQT09?=
+X-Exchange-RoutingPolicyChecked:
+	Gf/LjTwEmDP7fk4iZJTkO2bl5dMWrWRWOSB00Qt946INV5BjdA//Miol0BCw+oUWCceARjekDFm5Dz7n1JyvLsQwGBCplIMfb8Dyc/719/NKqYDMp5AZm5pkXvq+8ohWpPobr7YH5Tl/KhbxtfXOgmIpHmZsNMxkmN8dv5L9wTou1XgRQ17iET7MacCrEmzU7Au2xtPZtP0NUbYHfL/P7ozql2KqNB3UA70mSAUcZghz8ZzUQdEM7DBlS88bHxWJ4FglsMw8LvEgaz1XtONogONOFfw58JbMxSqBV20r42iFqy80CldPPZhpxIif4Fq5BSeTNkp5pwp0ToQmz5ZnEg==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdc37aa0-2129-451e-0157-08df1238f21f
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 08:19:50.4593
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nKXSORCc9yjK5ibxxtKolvOzQIzofypjq/cmLZ6qLm/5s3AzbYx4SA/KZKeo+3WpmNhdTvOND+UuGu1nMA/V2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR03MB989382
+X-Proofpoint-GUID: kr0ai2ZvfjUd4kOMTmBDuPzwWVW1naRT
+X-Proofpoint-ORIG-GUID: kr0ai2ZvfjUd4kOMTmBDuPzwWVW1naRT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExNyBTYWx0ZWRfX19RaOpPuIRam
+ oSjNKByrOiHAr0erMJgRkSm5WN0rBUtUr1Wva8Uwc+SPf90NTvDen8rt04qQ3KraJLTUCAj7Zw8
+ Rg9aX9BRX+tzTacg89lOaqb70u++3mj56RaC2Xs34lm/OiEEc2ULI0N2wNI4nsjp3iloaqqkDyu
+ cxXdsKvkrObMi5jJnVYICX6waUW3dntmYlewkP9y+6ysTYXDqNK4D4ouVNuUxY7BWDxTSZXjyh/
+ VmJD9BeC1kvmAAFX9t3ymBLMsnKftSgdBpPdw3Ukg9Qhs5WfUAgmzrplmx3jMZNuGH0YPBpQTMh
+ HHhR2DGwteG8Aat3XVfzZrr6hq2s4ItgoNcX3KN9aALUwirZlGWcNLJn2wBb2oQ87SfRX5AnIWv
+ 2QiPvweDHvDF9R6BVSeeCB1JX6TXVBIuHO759RLISi/TUvqXC3YRn+6gG+vvDuyzZUu9/B1+7Co
+ REn7yyMbNXq6bsZjNdQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExNyBTYWx0ZWRfX6LmnU+Sb8V9i
+ 9RCQfnwuJuE2T6pYBXPE23ZgUaDr52KcB95yOXbTBFA/vHK3KYXBqM8xdSBlUM/BLfr2y0LRLih
+ pvttKteibNn71qfJfsoRhAV27vuQxDna+iuDwe/boNB/DcJscKqe
+X-Authority-Analysis: v=2.4 cv=bcH+w+PB c=1 sm=1 tr=0 ts=6aa7ae29 cx=c_pps
+ a=ck9HhUZGATh9INII0mabYg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22
+ a=DUnRZS7UAAAA:8 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=gAnH3GRIAAAA:8
+ a=N1QdOQQhsQYuR7NFzBcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=cDzw7mrAGmWHSR5u0tpu:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ suspectscore=0 phishscore=0 adultscore=0 spamscore=0 malwarescore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140117
 
-Add Sensylink CTF2301 support to the LM63 driver. CTF2301 follows
-the LM63-style temperature, tachometer, and PWM register layout,
-while using a 12-bit local temperature register and requiring the
-ALERT/TACH pin to be configured for tachometer input.
+On Mon, Sep 14, 2026 at 08:28:25AM +0200, Michael Walle wrote:
+> Hi,
+> 
+> On Fri Sep 11, 2026 at 5:36 PM CEST, Nuno Sá wrote:
+> > Add support for the ISSI IS25WX01G, a 1 Gbit octal NOR flash. The part
+> > is fully described by SFDP, so only the flash ID and two BFPT fixups are
+> > needed.
+> 
+> Adding a new flash involves minimum testing and an SFDP dump, see
+> [1].
+> 
+> Also please keep the following Link: tag in your next version:
+> 
+> Link: https://www.issi.com/WW/pdf/25LX-WX01GB.pdf
+> 
+> > The flash has no Status Register 2 and does not implement the 35h Read
+> > Configuration Register command, so the default assumption of a 16-bit
+> > Write Status command does not hold. Additionally, its BFPT Quad Enable
+> > Requirement field carries a reserved value, which makes
+> > spi_nor_parse_bfpt() keep the manufacturer default quad enable method;
+> > clear it, since this is an octal-only part with no quad mode at all.
+> >
+> > Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+> > ---
+> >  drivers/mtd/spi-nor/issi.c | 27 +++++++++++++++++++++++++++
+> >  1 file changed, 27 insertions(+)
+> >
+> > diff --git a/drivers/mtd/spi-nor/issi.c b/drivers/mtd/spi-nor/issi.c
+> > index 2f057d731df2..aac9d19b90fc 100644
+> > --- a/drivers/mtd/spi-nor/issi.c
+> > +++ b/drivers/mtd/spi-nor/issi.c
+> > @@ -29,6 +29,29 @@ static const struct spi_nor_fixups is25lp256_fixups = {
+> >  	.post_bfpt = is25lp256_post_bfpt_fixups,
+> >  };
+> >  
+> > +static int is25wx01g_post_bfpt_fixups(struct spi_nor *nor,
+> > +				      const struct sfdp_parameter_header *bfpt_header,
+> > +				      const struct sfdp_bfpt *bfpt)
+> > +{
+> > +	/*
+> > +	 * There is no Status Register 2 and no 35h command. And WRITE STATUS
+> > +	 * REGISTER takes a single data byte.
+> > +	 */
+> > +	nor->flags &= ~SNOR_F_HAS_16BIT_SR;
+> > +
+> > +	/*
+> > +	 * The BFPT Quad Enable Requirement field is set to a reserved value, so
+> > +	 * spi_nor_parse_bfpt() leaves the quad enable method at its default.
+> > +	 * Make sure we disable it as there is no quad mode anyway.
+> > +	 */
+> > +	nor->params->quad_enable = NULL;
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct spi_nor_fixups is25wx01g_fixups = {
+> > +	.post_bfpt = is25wx01g_post_bfpt_fixups,
+> > +};
+> > +
+> >  static int pm25lv_nor_late_init(struct spi_nor *nor)
+> >  {
+> >  	struct spi_nor_erase_map *map = &nor->params->erase_map;
+> > @@ -120,6 +143,10 @@ static const struct flash_info issi_nor_parts[] = {
+> >  		.id = SNOR_ID(0x9d, 0x70, 0x19),
+> >  		.name = "is25wp256",
+> >  		.flags = SPI_NOR_QUAD_PP,
+> > +	}, {
+> > +		.id = SNOR_ID(0x9d, 0x5b, 0x1b),
+> > +		.name = "is25wx01g",
+> No .name please.
 
-Register an optional thermal cooling device when the device tree
-node provides #cooling-cells, allowing thermal zones to control
-the fan through the existing PWM path without changing behavior
-for existing LM63-family users.
+Yes! I realize now it's obsolete.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
- Documentation/hwmon/lm63.rst |  22 +++
- drivers/hwmon/Kconfig        |   8 +-
- drivers/hwmon/lm63.c         | 426 +++++++++++++++++++++++++++++++++++--------
- 3 files changed, 377 insertions(+), 79 deletions(-)
+> 
+> -michael
+> 
+> [1] https://docs.kernel.org/driver-api/mtd/spi-nor.html
+> 
 
-diff --git a/Documentation/hwmon/lm63.rst b/Documentation/hwmon/lm63.rst
-index 9e27367d74058..c40bd0dfe591c 100644
---- a/Documentation/hwmon/lm63.rst
-+++ b/Documentation/hwmon/lm63.rst
-@@ -33,6 +33,16 @@ Supported chips:
- 
- 	       http://www.national.com/pf/LM/LM96163.html
- 
-+  * Sensylink CTF2301
-+
-+    Prefix: 'ctf2301'
-+
-+    Addresses scanned: none
-+
-+    Datasheet: https://www.sensylink.com/upload/1/net.sensylink.portal/1689557281035.pdf
-+
-+    Register description: https://github.com/TroyMitchell911/ctf2301-datasheet
-+
- 
- Author: Jean Delvare <jdelvare@suse.de>
- 
-@@ -62,6 +72,8 @@ value have to be masked out. The value is still 16 bit in width.
- 
- All temperature values are given in degrees Celsius. Resolution is 1.0
- degree for the local temperature, 0.125 degree for the remote temperature.
-+The CTF2301 local temperature input and limit have a resolution of 0.0625
-+degree.
- 
- The fan speed is measured using a tachometer. Contrary to most chips which
- store the value in an 8-bit register and have a selectable clock divider
-@@ -93,3 +105,13 @@ support these GPIO lines at present.
- The LM96163 is an enhanced version of LM63 with improved temperature accuracy
- and better PWM resolution. For LM96163, the external temperature sensor type is
- configurable as CPU embedded diode(1) or 3904 transistor(2).
-+
-+The CTF2301 is register-compatible with the LM63 family and provides 12 fan
-+control lookup table entries. It supports 8-bit PWM resolution when configured
-+for a 22.5 kHz PWM frequency.
-+
-+Device tree nodes may declare ``#cooling-cells`` to register the fan controller
-+with the thermal framework. The cooling state is mapped to the existing
-+``pwm1`` range from 0 to 255. The driver keeps the current automatic or manual
-+fan control mode during probe and switches to manual control when the thermal
-+framework first requests a cooling state.
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index fecff8610ea8b..5d87ad3e7a201 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1521,10 +1521,10 @@ config SENSORS_LM63
- 	depends on I2C
- 	help
- 	  If you say yes here you get support for the National
--	  Semiconductor LM63, LM64, and LM96163 remote diode digital temperature
--	  sensors with integrated fan control.  Such chips are found
--	  on the Tyan S4882 (Thunder K8QS Pro) motherboard, among
--	  others.
-+	  Semiconductor LM63, LM64, LM96163, and Sensylink CTF2301
-+	  remote diode digital temperature sensors with integrated fan
-+	  control. Such chips are found on the Tyan S4882 (Thunder K8QS
-+	  Pro) motherboard, among others.
- 
- 	  This driver can also be built as a module. If so, the module
- 	  will be called lm63.
-diff --git a/drivers/hwmon/lm63.c b/drivers/hwmon/lm63.c
-index da09770c05e7c..607758bf7c58c 100644
---- a/drivers/hwmon/lm63.c
-+++ b/drivers/hwmon/lm63.c
-@@ -35,13 +35,14 @@
- #include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/sysfs.h>
-+#include <linux/thermal.h>
- #include <linux/types.h>
- 
- /*
-  * Addresses to scan
-  * Address is fully defined internally and cannot be changed except for
-  * LM64 which has one pin dedicated to address selection.
-- * LM63 and LM96163 have address 0x4c.
-+ * LM63, LM96163, and CTF2301 have address 0x4c.
-  * LM64 can have address 0x18 or 0x4e.
-  */
- 
-@@ -70,6 +71,9 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- #define LM63_REG_LOCAL_TEMP		0x00
- #define LM63_REG_LOCAL_HIGH		0x05
- 
-+#define CTF2301_REG_LOCAL_TEMP_LSB	0x15
-+#define CTF2301_REG_LOCAL_HIGH_LSB	0x06
-+
- #define LM63_REG_REMOTE_TEMP_MSB	0x01
- #define LM63_REG_REMOTE_TEMP_LSB	0x10
- #define LM63_REG_REMOTE_OFFSET_MSB	0x11
-@@ -94,6 +98,7 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- 
- #define LM63_PWM_BASE_FAST_HZ		180000
- #define LM63_PWM_BASE_SLOW_HZ		700
-+#define LM63_MAX_PWM			255
- 
- #define LM63_MAX_CONVRATE		9
- 
-@@ -121,6 +126,9 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- 							    127000), 1000)
- #define TEMP8U_TO_REG(val)	DIV_ROUND_CLOSEST(clamp_val((val), 0, \
- 							    255000), 1000)
-+#define TEMP12_FROM_REG(reg)	DIV_ROUND_CLOSEST((s16)(reg) * 1000, 256)
-+#define TEMP12_TO_REG(val)	(DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
-+							     127937) * 16, 1000) * 16)
- #define TEMP11_FROM_REG(reg)	((reg) / 32 * 125)
- #define TEMP11_TO_REG(val)	(DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
- 							     127875), 125) * 32)
-@@ -132,7 +140,11 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- #define UPDATE_INTERVAL(max, rate) \
- 			((1000 << (LM63_MAX_CONVRATE - (rate))) / (max))
- 
--enum chips { lm63, lm64, lm96163 };
-+enum chips { ctf2301, lm63, lm64, lm96163 };
-+
-+static const unsigned int ctf2301_update_intervals[] = {
-+	20000, 10000, 4902, 2463, 1000, 615, 307, 154, 107
-+};
- 
- /*
-  * Client data (each client gets its own)
-@@ -164,6 +176,8 @@ struct lm63_data {
- 			   1: local high limit
- 			   2: remote critical limit
- 			   3-14: lookup table */
-+	s16 temp1_input; /* local input for chips with extended resolution */
-+	s16 temp1_max; /* local limit for chips with extended resolution */
- 	s16 temp11[4];	/* 0: remote input
- 			   1: remote low limit
- 			   2: remote high limit
-@@ -229,6 +243,7 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 	struct lm63_data *data = dev_get_drvdata(dev);
- 	struct i2c_client *client = data->client;
- 	unsigned long next_update;
-+	int msb, lsb;
- 
- 	mutex_lock(&data->update_lock);
- 
-@@ -253,10 +268,26 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 		data->pwm1[0] = i2c_smbus_read_byte_data(client,
- 				LM63_REG_PWM_VALUE);
- 
--		data->temp8[0] = i2c_smbus_read_byte_data(client,
--				 LM63_REG_LOCAL_TEMP);
--		data->temp8[1] = i2c_smbus_read_byte_data(client,
--				 LM63_REG_LOCAL_HIGH);
-+		if (data->kind == ctf2301) {
-+			msb = i2c_smbus_read_byte_data(client,
-+						       LM63_REG_LOCAL_TEMP);
-+			lsb = i2c_smbus_read_byte_data(client,
-+						       CTF2301_REG_LOCAL_TEMP_LSB);
-+			if (msb >= 0 && lsb >= 0)
-+				data->temp1_input = ((u16)(u8)msb << 8) | lsb;
-+
-+			msb = i2c_smbus_read_byte_data(client,
-+						       LM63_REG_LOCAL_HIGH);
-+			lsb = i2c_smbus_read_byte_data(client,
-+						       CTF2301_REG_LOCAL_HIGH_LSB);
-+			if (msb >= 0 && lsb >= 0)
-+				data->temp1_max = ((u16)(u8)msb << 8) | lsb;
-+		} else {
-+			data->temp8[0] = i2c_smbus_read_byte_data(client,
-+								  LM63_REG_LOCAL_TEMP);
-+			data->temp8[1] = i2c_smbus_read_byte_data(client,
-+								  LM63_REG_LOCAL_HIGH);
-+		}
- 
- 		/* order matters for temp2_input */
- 		data->temp11[0] = i2c_smbus_read_byte_data(client,
-@@ -276,7 +307,7 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 				| i2c_smbus_read_byte_data(client,
- 				  LM63_REG_REMOTE_OFFSET_LSB);
- 
--		if (data->kind == lm96163)
-+		if (data->kind == lm96163 || data->kind == ctf2301)
- 			data->temp11u = (i2c_smbus_read_byte_data(client,
- 					LM96163_REG_REMOTE_TEMP_U_MSB) << 8)
- 				      | i2c_smbus_read_byte_data(client,
-@@ -366,6 +397,49 @@ static ssize_t set_fan(struct device *dev, struct device_attribute *dummy,
- 	return count;
- }
- 
-+static int lm63_pwm_from_reg(struct lm63_data *data, u8 reg)
-+{
-+	if (data->pwm_highres)
-+		return reg;
-+
-+	return reg >= 2 * data->pwm1_freq ?
-+	       LM63_MAX_PWM :
-+	       (reg * LM63_MAX_PWM + data->pwm1_freq) / (2 * data->pwm1_freq);
-+}
-+
-+static u8 lm63_pwm_to_reg(struct lm63_data *data, unsigned long val)
-+{
-+	val = clamp_val(val, 0, LM63_MAX_PWM);
-+
-+	if (data->pwm_highres)
-+		return val;
-+
-+	return (val * data->pwm1_freq * 2 + LM63_MAX_PWM / 2) / LM63_MAX_PWM;
-+}
-+
-+static void lm63_update_pwm_highres(struct lm63_data *data,
-+				    int config_enhanced)
-+{
-+	data->pwm_highres = !(data->config_fan & 0x08) &&
-+			     data->pwm1_freq == 8 &&
-+			     (config_enhanced & 0x10);
-+}
-+
-+static int lm63_write_pwm(struct lm63_data *data, int nr, unsigned long val)
-+{
-+	struct i2c_client *client = data->client;
-+	u8 reg = nr ? LM63_REG_LUT_PWM(nr - 1) : LM63_REG_PWM_VALUE;
-+	u8 regval = lm63_pwm_to_reg(data, val);
-+	int ret;
-+
-+	ret = i2c_smbus_write_byte_data(client, reg, regval);
-+	if (ret)
-+		return ret;
-+	data->pwm1[nr] = regval;
-+
-+	return 0;
-+}
-+
- static ssize_t show_pwm1(struct device *dev, struct device_attribute *devattr,
- 			 char *buf)
- {
-@@ -375,12 +449,7 @@ static ssize_t show_pwm1(struct device *dev, struct device_attribute *devattr,
- 	int pwm;
- 
- 	mutex_lock(&data->update_lock);
--	if (data->pwm_highres)
--		pwm = data->pwm1[nr];
--	else
--		pwm = data->pwm1[nr] >= 2 * data->pwm1_freq ?
--		       255 : (data->pwm1[nr] * 255 + data->pwm1_freq) /
--		       (2 * data->pwm1_freq);
-+	pwm = lm63_pwm_from_reg(data, data->pwm1[nr]);
- 	mutex_unlock(&data->update_lock);
- 
- 	return sprintf(buf, "%d\n", pwm);
-@@ -391,11 +460,9 @@ static ssize_t set_pwm1(struct device *dev, struct device_attribute *devattr,
- {
- 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 	struct lm63_data *data = dev_get_drvdata(dev);
--	struct i2c_client *client = data->client;
- 	int nr = attr->index;
- 	unsigned long val;
- 	int err;
--	u8 reg;
- 
- 	if (!(data->config_fan & 0x20)) /* register is read-only */
- 		return -EPERM;
-@@ -404,15 +471,11 @@ static ssize_t set_pwm1(struct device *dev, struct device_attribute *devattr,
- 	if (err)
- 		return err;
- 
--	reg = nr ? LM63_REG_LUT_PWM(nr - 1) : LM63_REG_PWM_VALUE;
--	val = clamp_val(val, 0, 255);
--
- 	mutex_lock(&data->update_lock);
--	data->pwm1[nr] = data->pwm_highres ? val :
--			(val * data->pwm1_freq * 2 + 127) / 255;
--	i2c_smbus_write_byte_data(client, reg, data->pwm1[nr]);
-+	err = lm63_write_pwm(data, nr, val);
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return err ? err : count;
- }
- 
- static ssize_t pwm1_enable_show(struct device *dev,
-@@ -485,7 +548,9 @@ static ssize_t pwm1_freq_store(struct device *dev,
- 	struct lm63_data *data = dev_get_drvdata(dev);
- 	struct i2c_client *client = data->client;
- 	unsigned long val, pfr_fast, pfr_slow, err_fast, err_slow, pfr;
-+	u8 config_fan;
- 	bool slow_clock;
-+	int config_enhanced = 0;
- 	int ret;
- 
- 	ret = kstrtoul(buf, 10, &val);
-@@ -511,35 +576,58 @@ static ssize_t pwm1_freq_store(struct device *dev,
- 
- 	mutex_lock(&data->update_lock);
- 	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG_FAN);
--	if (ret < 0) {
--		mutex_unlock(&data->update_lock);
--		return ret;
--	}
--	data->config_fan = ret;
-+	if (ret < 0)
-+		goto unlock;
-+	config_fan = ret;
-+	data->config_fan = config_fan;
- 
--	if (!(data->config_fan & 0x20)) { /* register is read-only */
--		mutex_unlock(&data->update_lock);
--		return -EPERM;
-+	if (!(config_fan & 0x20)) { /* register is read-only */
-+		ret = -EPERM;
-+		goto unlock;
- 	}
- 
--	if (data->kind == lm96163) {
--		ret = i2c_smbus_read_byte_data(client, LM96163_REG_CONFIG_ENHANCED);
--		if (ret < 0) {
--			mutex_unlock(&data->update_lock);
--			return ret;
-+	if (data->kind == lm96163 || data->kind == ctf2301) {
-+		ret = i2c_smbus_read_byte_data(client,
-+					       LM96163_REG_CONFIG_ENHANCED);
-+		if (ret < 0)
-+			goto unlock;
-+		config_enhanced = ret;
-+		lm63_update_pwm_highres(data, config_enhanced);
-+
-+		if (data->kind == ctf2301) {
-+			if (!slow_clock && pfr == 8)
-+				config_enhanced |= 0x10;
-+			else
-+				config_enhanced &= ~0x10;
-+			ret = i2c_smbus_write_byte_data(client,
-+							LM96163_REG_CONFIG_ENHANCED,
-+							config_enhanced);
-+			if (ret)
-+				goto unlock;
-+			lm63_update_pwm_highres(data, config_enhanced);
- 		}
--		data->pwm_highres = !slow_clock && pfr == 8 && (ret & 0x10);
- 	}
- 
- 	if (slow_clock)
--		data->config_fan |= 0x08;
-+		config_fan |= 0x08;
- 	else
--		data->config_fan &= ~0x08;
--	i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN, data->config_fan);
--	i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-+		config_fan &= ~0x08;
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-+	if (ret)
-+		goto unlock;
- 	data->pwm1_freq = pfr;
-+	lm63_update_pwm_highres(data, config_enhanced);
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN,
-+					config_fan);
-+	if (ret)
-+		goto unlock;
-+
-+	data->config_fan = config_fan;
-+	lm63_update_pwm_highres(data, config_enhanced);
-+unlock:
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return ret ? ret : count;
- }
- 
- /*
-@@ -554,7 +642,17 @@ static ssize_t show_local_temp8(struct device *dev,
- {
- 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 	struct lm63_data *data = lm63_update_device(dev);
--	return sprintf(buf, "%d\n", TEMP8_FROM_REG(data->temp8[attr->index]));
-+	int temp;
-+
-+	mutex_lock(&data->update_lock);
-+	if (data->kind == ctf2301)
-+		temp = TEMP12_FROM_REG(attr->index ? data->temp1_max :
-+				       data->temp1_input);
-+	else
-+		temp = TEMP8_FROM_REG(data->temp8[attr->index]);
-+	mutex_unlock(&data->update_lock);
-+
-+	return sprintf(buf, "%d\n", temp);
- }
- 
- static ssize_t show_remote_temp8(struct device *dev,
-@@ -594,6 +692,21 @@ static ssize_t set_temp8(struct device *dev, struct device_attribute *devattr,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
-+	if (data->kind == ctf2301 && nr == 1) {
-+		temp = TEMP12_TO_REG(val);
-+		err = i2c_smbus_write_byte_data(client, LM63_REG_LOCAL_HIGH,
-+						temp >> 8);
-+		if (!err)
-+			err = i2c_smbus_write_byte_data(client,
-+							CTF2301_REG_LOCAL_HIGH_LSB,
-+							temp & 0xf0);
-+		if (!err)
-+			data->temp1_max = temp;
-+		mutex_unlock(&data->update_lock);
-+
-+		return err ? err : count;
-+	}
-+
- 	switch (nr) {
- 	case 2:
- 		reg = LM63_REG_REMOTE_TCRIT;
-@@ -610,10 +723,12 @@ static ssize_t set_temp8(struct device *dev, struct device_attribute *devattr,
- 		reg = LM63_REG_LUT_TEMP(nr - 3);
- 		temp = lut_temp_to_reg(data, val);
- 	}
--	data->temp8[nr] = temp;
--	i2c_smbus_write_byte_data(client, reg, temp);
-+	err = i2c_smbus_write_byte_data(client, reg, temp);
-+	if (!err)
-+		data->temp8[nr] = temp;
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return err ? err : count;
- }
- 
- static ssize_t show_temp11(struct device *dev, struct device_attribute *devattr,
-@@ -787,11 +902,40 @@ static ssize_t temp2_crit_hyst_store(struct device *dev,
-  * Set conversion rate.
-  * client->update_lock must be held when calling this function.
-  */
--static void lm63_set_convrate(struct lm63_data *data, unsigned int interval)
-+static unsigned int lm63_update_interval(struct lm63_data *data, u8 rate)
-+{
-+	if (data->kind == ctf2301)
-+		return ctf2301_update_intervals[min_t(unsigned int, rate,
-+					ARRAY_SIZE(ctf2301_update_intervals) - 1)];
-+
-+	return UPDATE_INTERVAL(data->max_convrate_hz, rate);
-+}
-+
-+static int lm63_set_convrate(struct lm63_data *data, unsigned int interval)
- {
- 	struct i2c_client *client = data->client;
--	unsigned int update_interval;
--	int i;
-+	unsigned int update_interval, error, best_error = ~0U;
-+	unsigned int best = 0;
-+	unsigned int i;
-+	int ret;
-+
-+	if (data->kind == ctf2301) {
-+		for (i = 0; i < ARRAY_SIZE(ctf2301_update_intervals); i++) {
-+			error = abs_diff(interval, ctf2301_update_intervals[i]);
-+			if (error < best_error) {
-+				best_error = error;
-+				best = i;
-+			}
-+		}
-+
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE,
-+						best);
-+		if (ret)
-+			return ret;
-+		data->update_interval = ctf2301_update_intervals[best];
-+
-+		return 0;
-+	}
- 
- 	/* Shift calculations to avoid rounding errors */
- 	interval <<= 6;
-@@ -803,8 +947,12 @@ static void lm63_set_convrate(struct lm63_data *data, unsigned int interval)
- 		if (interval >= update_interval * 3 / 4)
- 			break;
- 
--	i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE, i);
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE, i);
-+	if (ret)
-+		return ret;
- 	data->update_interval = UPDATE_INTERVAL(data->max_convrate_hz, i);
-+
-+	return 0;
- }
- 
- static ssize_t update_interval_show(struct device *dev,
-@@ -828,10 +976,10 @@ static ssize_t update_interval_store(struct device *dev,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
--	lm63_set_convrate(data, clamp_val(val, 0, 100000));
-+	err = lm63_set_convrate(data, clamp_val(val, 0, 100000));
- 	mutex_unlock(&data->update_lock);
- 
--	return count;
-+	return err ? err : count;
- }
- 
- static ssize_t temp2_type_show(struct device *dev,
-@@ -996,6 +1144,75 @@ static DEVICE_ATTR_RO(alarms);
- 
- static DEVICE_ATTR_RW(update_interval);
- 
-+static int lm63_get_max_state(struct thermal_cooling_device *cdev,
-+			      unsigned long *state)
-+{
-+	*state = LM63_MAX_PWM;
-+
-+	return 0;
-+}
-+
-+static int lm63_get_cur_state(struct thermal_cooling_device *cdev,
-+			      unsigned long *state)
-+{
-+	struct lm63_data *data = cdev->devdata;
-+	int ret;
-+
-+	mutex_lock(&data->update_lock);
-+	ret = i2c_smbus_read_byte_data(data->client, LM63_REG_PWM_VALUE);
-+	if (ret < 0)
-+		goto unlock;
-+
-+	data->pwm1[0] = ret;
-+	*state = lm63_pwm_from_reg(data, data->pwm1[0]);
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static int lm63_set_cur_state(struct thermal_cooling_device *cdev,
-+			      unsigned long state)
-+{
-+	struct lm63_data *data = cdev->devdata;
-+	int config_fan;
-+	int ret;
-+
-+	if (state > LM63_MAX_PWM)
-+		return -EINVAL;
-+
-+	mutex_lock(&data->update_lock);
-+	config_fan = i2c_smbus_read_byte_data(data->client,
-+					      LM63_REG_CONFIG_FAN);
-+	if (config_fan < 0) {
-+		ret = config_fan;
-+		goto unlock;
-+	}
-+	data->config_fan = config_fan;
-+
-+	if (!(config_fan & 0x20)) {
-+		config_fan |= 0x20;
-+		ret = i2c_smbus_write_byte_data(data->client,
-+						LM63_REG_CONFIG_FAN,
-+						config_fan);
-+		if (ret)
-+			goto unlock;
-+		data->config_fan = config_fan;
-+	}
-+
-+	ret = lm63_write_pwm(data, 0, state);
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+
-+	return ret;
-+}
-+
-+static const struct thermal_cooling_device_ops lm63_cooling_ops = {
-+	.get_max_state = lm63_get_max_state,
-+	.get_cur_state = lm63_get_cur_state,
-+	.set_cur_state = lm63_set_cur_state,
-+};
-+
- static struct attribute *lm63_attributes[] = {
- 	&sensor_dev_attr_pwm1.dev_attr.attr,
- 	&dev_attr_pwm1_enable.attr,
-@@ -1078,8 +1295,8 @@ static const struct attribute_group lm63_group_extra_lut = {
-  * On LM63, temp2_crit can be set only once, which should be job
-  * of the bootloader.
-  * On LM64, temp2_crit can always be set.
-- * On LM96163, temp2_crit can be set if bit 1 of the configuration
-- * register is true.
-+ * On LM96163 and CTF2301, temp2_crit can be set if bit 1 of the
-+ * configuration register is true.
-  */
- static umode_t lm63_attribute_mode(struct kobject *kobj,
- 				   struct attribute *attr, int index)
-@@ -1089,7 +1306,8 @@ static umode_t lm63_attribute_mode(struct kobject *kobj,
- 
- 	if (attr == &sensor_dev_attr_temp2_crit.dev_attr.attr
- 	    && (data->kind == lm64 ||
--		(data->kind == lm96163 && (data->config & 0x02))))
-+		((data->kind == lm96163 || data->kind == ctf2301) &&
-+		 (data->config & 0x02))))
- 		return attr->mode | S_IWUSR;
- 
- 	return attr->mode;
-@@ -1164,29 +1382,48 @@ static int lm63_detect(struct i2c_client *client,
-  * Ideally we shouldn't have to initialize anything, since the BIOS
-  * should have taken care of everything
-  */
--static void lm63_init_client(struct lm63_data *data)
-+static int lm63_init_client(struct lm63_data *data)
- {
- 	struct i2c_client *client = data->client;
- 	struct device *dev = &client->dev;
- 	u8 convrate;
-+	int ret;
- 
--	data->config = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG1);
--	data->config_fan = i2c_smbus_read_byte_data(client,
--						    LM63_REG_CONFIG_FAN);
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG1);
-+	if (ret < 0)
-+		return ret;
-+	data->config = ret;
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG_FAN);
-+	if (ret < 0)
-+		return ret;
-+	data->config_fan = ret;
- 
- 	/* Start converting if needed */
- 	if (data->config & 0x40) { /* standby */
- 		dev_dbg(dev, "Switching to operational mode\n");
- 		data->config &= 0xA7;
--		i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
--					  data->config);
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
-+						data->config);
-+		if (ret)
-+			return ret;
- 	}
- 	/* Tachometer is always enabled on LM64 */
- 	if (data->kind == lm64)
- 		data->config |= 0x04;
-+	if (data->kind == ctf2301 && !client->irq && !(data->config & 0x04)) {
-+		dev_dbg(dev, "Configuring ALERT/TACH pin for tachometer input\n");
-+		data->config |= 0x04;
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
-+						data->config);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/* We may need pwm1_freq before ever updating the client data */
--	data->pwm1_freq = i2c_smbus_read_byte_data(client, LM63_REG_PWM_FREQ) & 0x1f;
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_PWM_FREQ);
-+	if (ret < 0)
-+		return ret;
-+	data->pwm1_freq = ret & 0x1f;
- 	if (data->pwm1_freq == 0)
- 		data->pwm1_freq = 1;
- 
-@@ -1199,25 +1436,38 @@ static void lm63_init_client(struct lm63_data *data)
- 	case lm96163:
- 		data->max_convrate_hz = LM96163_MAX_CONVRATE_HZ;
- 		data->lut_size = 12;
--		data->trutherm
--		  = i2c_smbus_read_byte_data(client,
--					     LM96163_REG_TRUTHERM) & 0x02;
-+		ret = i2c_smbus_read_byte_data(client, LM96163_REG_TRUTHERM);
-+		if (ret < 0)
-+			return ret;
-+		data->trutherm = ret & 0x02;
-+		break;
-+	case ctf2301:
-+		data->lut_size = 12;
- 		break;
- 	}
--	convrate = i2c_smbus_read_byte_data(client, LM63_REG_CONVRATE);
--	if (unlikely(convrate > LM63_MAX_CONVRATE))
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONVRATE);
-+	if (ret < 0)
-+		return ret;
-+	convrate = ret;
-+	if (data->kind == ctf2301 &&
-+	    convrate >= ARRAY_SIZE(ctf2301_update_intervals))
-+		convrate = ARRAY_SIZE(ctf2301_update_intervals) - 1;
-+	else if (unlikely(convrate > LM63_MAX_CONVRATE))
- 		convrate = LM63_MAX_CONVRATE;
--	data->update_interval = UPDATE_INTERVAL(data->max_convrate_hz,
--						convrate);
-+	data->update_interval = lm63_update_interval(data, convrate);
- 
- 	/*
--	 * For LM96163, check if high resolution PWM
-+	 * For LM96163 and CTF2301, check if high resolution PWM
- 	 * and unsigned temperature format is enabled.
- 	 */
--	if (data->kind == lm96163) {
--		u8 config_enhanced
--		  = i2c_smbus_read_byte_data(client,
--					     LM96163_REG_CONFIG_ENHANCED);
-+	if (data->kind == lm96163 || data->kind == ctf2301) {
-+		u8 config_enhanced;
-+
-+		ret = i2c_smbus_read_byte_data(client,
-+					       LM96163_REG_CONFIG_ENHANCED);
-+		if (ret < 0)
-+			return ret;
-+		config_enhanced = ret;
- 		if (config_enhanced & 0x20)
- 			data->lut_temp_highres = true;
- 		if ((config_enhanced & 0x10)
-@@ -1238,6 +1488,8 @@ static void lm63_init_client(struct lm63_data *data)
- 	dev_dbg(dev, "PWM output active %s, %s mode\n",
- 		(data->config_fan & 0x10) ? "low" : "high",
- 		(data->config_fan & 0x20) ? "manual" : "auto");
-+
-+	return 0;
- }
- 
- static const struct i2c_device_id lm63_id[];
-@@ -1245,9 +1497,11 @@ static const struct i2c_device_id lm63_id[];
- static int lm63_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-+	struct thermal_cooling_device *cdev;
- 	struct device *hwmon_dev;
- 	struct lm63_data *data;
- 	int groups = 0;
-+	int ret;
- 
- 	data = devm_kzalloc(dev, sizeof(struct lm63_data), GFP_KERNEL);
- 	if (!data)
-@@ -1262,7 +1516,9 @@ static int lm63_probe(struct i2c_client *client)
- 		data->temp2_offset = 16000;
- 
- 	/* Initialize chip */
--	lm63_init_client(data);
-+	ret = lm63_init_client(data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize device\n");
- 
- 	/* Register sysfs hooks */
- 	data->groups[groups++] = &lm63_group;
-@@ -1272,11 +1528,26 @@ static int lm63_probe(struct i2c_client *client)
- 	if (data->kind == lm96163) {
- 		data->groups[groups++] = &lm63_group_temp2_type;
- 		data->groups[groups++] = &lm63_group_extra_lut;
-+	} else if (data->kind == ctf2301) {
-+		data->groups[groups++] = &lm63_group_extra_lut;
- 	}
- 
- 	hwmon_dev = devm_hwmon_device_register_with_groups(dev, client->name,
- 							   data, data->groups);
--	return PTR_ERR_OR_ZERO(hwmon_dev);
-+	if (IS_ERR(hwmon_dev))
-+		return PTR_ERR(hwmon_dev);
-+
-+	if (IS_ENABLED(CONFIG_THERMAL_OF) &&
-+	    of_property_present(dev->of_node, "#cooling-cells")) {
-+		cdev = devm_thermal_of_cooling_device_register(dev, 0,
-+							       client->name,
-+							       data,
-+							       &lm63_cooling_ops);
-+		if (IS_ERR(cdev))
-+			return PTR_ERR(cdev);
-+	}
-+
-+	return 0;
- }
- 
- /*
-@@ -1287,6 +1558,7 @@ static const struct i2c_device_id lm63_id[] = {
- 	{ .name = "lm63", .driver_data = lm63 },
- 	{ .name = "lm64", .driver_data = lm64 },
- 	{ .name = "lm96163", .driver_data = lm96163 },
-+	{ .name = "ctf2301", .driver_data = ctf2301 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, lm63_id);
-@@ -1304,6 +1576,10 @@ static const struct of_device_id __maybe_unused lm63_of_match[] = {
- 		.compatible = "national,lm96163",
- 		.data = (void *)lm96163
- 	},
-+	{
-+		.compatible = "sensylink,ctf2301",
-+		.data = (void *)ctf2301
-+	},
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, lm63_of_match);
+Will do! Sorry for the mess! I over-confidently assumed everything was
+the same between 6.18 and spi-nor/next!
 
--- 
-2.55.0
+- Nuno Sá
 
+> > +		.fixups = &is25wx01g_fixups,
+> >  	}
+> >  };
+> >  
+> 
+> 
+> ______________________________________________________
+> Linux MTD discussion mailing list
+> http://lists.infradead.org/mailman/listinfo/linux-mtd/
