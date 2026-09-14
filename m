@@ -1,125 +1,165 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D632385D68
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410342; cv=pass; b=AxbQlrJ3ugMtU7qPZfJXk3Jo/V3+V1xbWG9n6mlEDdus7jqEcbJY2R5AtgPR8xf2GAU7dI8NAD4A+Aep4UGeB0WP5T/bkiKR+uwHaLBKDHpfLyCt9fprlFUGQuSOPyfwz/uTVhNbrx77RBTJX8NQpi5OWCJ+WMnZsc2cVQC7EW4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410342; c=relaxed/simple;
-	bh=M05cKKzyMe6gEci7W/N5xN6B2lG87e4rRXDr2YH4Gn0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=syS0HJ2V4Gq8xTt7dO9hrXs3hFJ5UJh01eJQh62OC6WXkaQq+1nhMNRaQtFcT3glVcasmMg+E0CRWl098iK8CJwVdsOsc+yiZUJjanepUhPsBCSIG+Dm608VtZLeU0fO9Zr/pm9GbtiRpA1EiiT3Lf+YoLuxqnKyilNfQf+nhx8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lhRwOt5L; arc=pass smtp.client-ip=74.125.231.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3415381AEC;
+	Mon, 14 Sep 2026 18:25:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789410344; cv=none; b=cASfl/RnAbWlFqAUKQLEj+9EtSPsN6E1FE2vSlze2F7R6OLvmOO5J7uewQP1//DVGpX098ox5QPdhWEeMo2QnDNV7PUC4vHyibogWPIjiWleS5TPTq9sSL6e+P3ktQhfgnsrrkKIOGqxqbyYaMD/4xiexOaZnKNeBad/CQv3fO4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789410344; c=relaxed/simple;
+	bh=MSUBVHA6SYh17/zAEeD87cDOzMUOc+7X634FG+Ct7Z4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mr198+unIVqkt+iTymd+8GHCnCR6QFycFjMOfG53mBwhYyaqUtFYU2NMK0cKnVMdU69JVhJPF/9ol/YbcXznbOsqBrlwfKYLMTIF35P11eiRj1HyEOO7JBNaMYm04eClg+IMOewZe9CxyVwrIwtcPMctGOjyY9/1Miw/cL4ukRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2dDa3GW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lhRwOt5L"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4f0c89e35so1582859a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:25:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789410340; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XuJvEXgjDBeSmbDWklZtP/EiLGWpd/8+ne1x1ngTm6wcS2fX8T1HNLewlGNMcnxHO4
-         ajGaHaw13ph7URmC4F8dtcyG1GypUzkLNi8rOEplK5Bx7MJVS3oy0Q1BeCdS2P2leg1/
-         6ciZkG/A1SezGZRvjfJMcUbssCWyMx7Q5Fuc4ov+UiiRZb0sxQnPezYCch72r4zrIz8p
-         p35dPaPgUOCiBGisZv68c0hHMC4BCXA8sM6uJxKD5ziZVzFQxZAXvKQu4ueR/fq4nYWO
-         /ROLnNKZFgXXnaB8hxM4RPt//fx/D0ZufjS0QkQ4aKh0CIZ3l85rXLwPY1R0M4MSyJV+
-         q3gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=U651fx6dEYbgcs9HadXqwVgaBN2uUjOTpkPkaj2tUlo=;
-        fh=xaf5q9eqbbhLyunJyjw58E/aeOqM+KmCPQNu0r6PxZU=;
-        b=VYP7rKB6HYgE5IiRW09CJOuSuzl/+6hb1xvCsu+pLc/tRtqW+YKHLVuvz6dyQP1hT2
-         vHDMk+jKtSgUrPQpfnTUnggekCfGlbzZqzV0wMGQF/1RpbXl6gN8LXmeEUOVZS6c9USB
-         PlIJZTP9R9klIkYxx89II4bBsQ2HsIEow6YcDFKbvMckkQzxoG1fxl2qAm4SJAbQ00al
-         9gZam0HxA3AZwG4BFod46KM5zig/bzjbivFff4zxZfyV0eBhSrPnndwBT/cjvsVajUYo
-         T9KrUJYaAnLlOrX5x4n9gp0DXr7ugaMFNwChnjAIQwvDAvSYk0iBuPbG2Yz6gSduM+9Z
-         sndw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789410340; x=1790015140; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U651fx6dEYbgcs9HadXqwVgaBN2uUjOTpkPkaj2tUlo=;
-        b=lhRwOt5LcPQwCa23RxJjpcmFP5PNada84hRS1iRL67lMg7oGzS9VrD8XU+P5YhNfpN
-         kVKGwa6dNvlSj4PxxZfhzG9IunzlkJ31g1C8og2Jxiw1o/dsKzZKe8tLqxIURssaZi0b
-         uWl9mu6gAInzTgOJ80IUgCqsuY1TVBeBJMVTKmWnmfVPgPLYg8pFqU77nWy1jvwRPvs6
-         EfN+bh/wZlT5W3C30hOHBIB1M/8whF5vf2V24xsVSgQgjkC3xPC1Nve1d+qn7J/C1eiO
-         LIDt9qg8AUeHD7ojQ34+3TJK1W8gn/wHDafrq8RY3bjqpnro1DHFJ/nm6ENioRA1DaZk
-         t9yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789410340; x=1790015140;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U651fx6dEYbgcs9HadXqwVgaBN2uUjOTpkPkaj2tUlo=;
-        b=HW1WibBLDMzbDhVllJi+FVKNhNIEgL9G8cFMBOLXKx7VqPDNjSE7SRsRfOP2pvY6/T
-         xpnkxx88NHNGjZbPabDOYejk8J5neNT//lNi3Fk81DHkVrfu2jgT3DxfL0mPobztSuF/
-         dsOuloVkr8qxKn87/3DphUC+OjRPtEV6fHrqwOjc8U3EhfR9FsD/4tM2/2zGbkX7308u
-         8OZ21CV7s8nyVdIa2u443jxQ6xu/BQ52rQx61At/sLfrQ6N8mkubQFIbuYzknn154vdF
-         8nXT/ff2XXr8k2g6aGKkKaTHpRPfH+YB+GNLcxu7D06FCKiy56QPPmwCCtSAYC4ADir6
-         12GA==
-X-Forwarded-Encrypted: i=1; AKwUvBymzmVtUegl8qkthLtCTYcr8jkbEh0lvLAHyD7r6XjN6zzqOENmzJZ+3c0G8c9/fiUH9jfxrcURSSDY6qc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6S3eERRRnXNeZKx4EZV5ZiLZTU1kDhfyDxWg/Jtrhvvzg5W/O
-	DHdV/OL06ncT7Zw82Cpn0gX9aVPpSkzhTv1K3tdsnNKN6l8BI75bzlcmibck579/bYPLwcqeiL5
-	ZSgyOwM3KFZ2pWjbEwKJ8iK4giEerLPw=
-X-Gm-Gg: AYBFou3TBh3IDVnL0YEE6S9tPAkEtCVDv4NqEPvI4eoo4ZwFcx8DZdlbVQmAQbOQNjb
-	ZLz3QmGHRWp31gtw1pyVtjU4+g1ERxep294oyQnT5Sp3gzaTrC0PQ+6rXB+H6zzVQheE2vHkp8v
-	zke3VQejA3FzcFYu7Ihj9xOnZJ8McNpsRO/xPRqw2fZI0OVpfFT7yNlAkM2Hsyn+31p58+Tv/61
-	xLHsweBVjMwViLTtxyYVYSePNj1eEb43svsUF+nRiBQd0M6IMcHZvqdRXCW0zrsfsBLMt3FOMka
-	XLikDNQ5ijo/mttyR/kKYm2sw++fNrPUVmzUFGzqCBMtTM8OaYsej/5kHA==
-X-Received: by 2002:a05:6820:2213:b0:6b7:46fa:16aa with SMTP id
- 006d021491bc7-6c54292a26fmr2212816eaf.63.1789410340130; Mon, 14 Sep 2026
- 11:25:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2dDa3GW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B441F000FF;
+	Mon, 14 Sep 2026 18:25:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789410342;
+	bh=9IjIObR5k7PGYTYmWhdlK+kKKQoR6O9Er2obIa/1gz4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k2dDa3GWuYsEUnYiCf2cNfMemYcH7gF3w4RpJHc2SMwIB5QPObhfRBuDl1VaCDzjL
+	 BxXofrG6qAndbrAnP95A3BGbc1OISuGgaajL6XQ62mHcCgCY9EOWv3admkl0lwU+vL
+	 hpyp4zxo4Wje0UrueF070IivC/uHeW+s1/HsvLFQarY26cIjMucKYU6kpouAmy3Y6c
+	 HuCxDzF4jbAYEqCbEATfP88AL4mkR/cw02/lnYKsbxBYFPEoqheJPHlxRGw4831Eht
+	 /lw/vvJEoS92HnR1Lk1Cp/C5yeN9G1gNVIwr1aqddQzN3MSGyo+7UmY1bfcT68b6Go
+	 8XUQstSyQmoUA==
+Date: Mon, 14 Sep 2026 19:25:28 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 00/21] kbuild: significantly speed up kernel builds
+Message-ID: <aqg5nvRy9nuvC78L@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <202609140833.88C0E16E50@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-libbpf-log-buf-fix-v1-1-f592caffcc71@gmail.com> <05221557-59b5-4d93-ac55-d9e372d0862b@gmail.com>
-In-Reply-To: <05221557-59b5-4d93-ac55-d9e372d0862b@gmail.com>
-From: =?UTF-8?B?THXDrXMgVmllaXJh?= <luisflavieira@gmail.com>
-Date: Mon, 14 Sep 2026 15:25:27 -0300
-X-Gm-Features: AcwNN1WpiCNo8BkMZsFY2qQC5nwNASs0EdBNHmV87IALQDdz9LKh29qKxXvtpoQ
-Message-ID: <CAFTBxmixD6bHH0Rn+Tr432tbgfzbKcrMd98s7_NTTF-Mibqh2Q@mail.gmail.com>
-Subject: Re: [PATCH bpf] libbpf: Fix program log buffer size validation
-To: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202609140833.88C0E16E50@keescook>
 
-On Mon, Sep 14, 2026 at 10:22=E2=80=AFAM Mykyta Yatsenko
-<mykyta.yatsenko5@gmail.com> wrote:
-> The change looks correct, few questions:
->  * Do we really need a unit test for this? We are not testing those error
-> conditions now.
+On Mon, Sep 14, 2026 at 08:41:39AM -0700, Kees Cook wrote:
+> On Mon, Sep 14, 2026 at 10:21:59AM +0100, Lorenzo Stoakes (ARM) wrote:
+> > This series makes allmodconfig builds up to 36% faster, ...
+>
+> This is very nice!
 
-Agreed. I'll drop the selftest in v2.
+Thanks :)
 
->  * While here should we rewrite the first check as (!!log_buf !=3D !!log_=
-size), to
-> cover the case when log_size =3D=3D 0 but log_buf is nonnull (we check it=
- later in
-> bpf_prog_load()) (AI)
+>
+> > incremental builds
+> > up to ~70% faster, and noop builds up to ~90% faster.
+>
+> Some of the changes for this seem to add complexity that I'm not sure
+> is balanced against the gain? I am still looking through the series,
+> though, maybe I'll change my opinion. ;)
 
-Makes sense. I'll update the setter to validate the buffer/size pair
-consistently with bpf_prog_load().
+Well, I aggressively stripped all the commits that had a bad RoI on that.
 
->  * Fixes tag is probably not needed, because this is libbpf, target bpf-n=
-ext.
+And a lot of these are additive over 21 commits.
 
-Agreed. I'll retarget v2 to bpf-next and drop the Fixes tag.
+So, unfortunately, hacking away at what seem like low cost commits will eat
+away at the overall result.
 
-Thanks for the review.
+I really did work hard to cut the fat where I could, believe me going
+through what remained and a. figuring out what it did, b. rewriting a lot
+of the code and c. rewriting commit messages (ahem ;) was NOT fun :)
+
+So I was happy to swing the axe as it saved me in terms of what little
+sanity remains ;)
+
+>
+> > 		== allmodconfig FULL build ==
+>
+> Did you try Clang CONFIG_LTO=y builds?
+
+I tried a CONFIG_LTO_CLANG_THIN in order to check that the *.mod.S stuff
+worked correctly, all working correctly.
+
+I can try to get some profiling numbers for thin and full if you want?
+
+>
+> > 			== LLM usage ==
+> > [...]
+> > I extensively audited and rewrote a lot of it, and heavily edited commit
+> > messages, the cover letter and comments.
+>
+> I feel like the commit logs still need a lot of work. The LLM verbosity
+> problem appears in many of them, for example spending 80% of the commit
+
+Well I rewrote the majority of them, so this is a stinging critique of my
+commit message writing I guess :)
+
+> log describing every step of some process as background before getting
+> to the actual change. I think a human writing this would be much more
+> terse about the background. I have, however, been known to be too terse
+> in my own commit logs. :P
+
+I mean no, I did write nearly all of them. So I guess err... yeah :)
+
+The testing results and perf numbers are generated and maybe I missed some
+bits but generally this is so.
+
+Anyway, I am known to be critical on-list on occasion, so if you dish it
+out you have to take it - if you point out specific commit messages that
+need work then I can try to put commit msgs on a diet :)
+
+(N.B. I have had feedback like that on a fair few human-written commit
+messages of mine lately so there might be some validity to that ;)
+
+>
+> > [...]
+> > Nothing too controversial was included. There are further improvements that
+> > could be made, but they would either by very invasive (large scale C header
+> > changes) or generate diminishing returns.
+>
+> One area I think might solved via an LLM is the 3-pass kallsyms stuff.
+> If we could get a deterministic kallsyms build in 1 pass, that would be
+> very nice. A lot of people have tried, but it has eluded upstreaming.
+
+"going from three passes to one would save around 8s on an allmodconfig
+build and 2 to 3s on defconfig, out of tails that are currently roughly 25s
+and 8s." says the LLM :) so that actually does seem worthwhile.
+
+But I think best as a follow up?
+
+I'd like to land the really low-hanging fruit before maybe digging in to
+what else we can cut out :)
+
+>
+> -Kees
+>
+> --
+> Kees Cook
+
+--
+Cheers, Lorenzo
