@@ -1,205 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CF247AF5D;
-	Mon, 14 Sep 2026 13:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E556447ACFF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394256; cv=none; b=st3AHx3GfNte40RHjuIZ04j7tuFK5fLcHgCejnw5xUfYwoyKHWMMK5r33t+yKcAYhqC2NFfX5nwaa0EVP3ou3PeBkWjfm4+vESNh1nqbm+hVpkL/6NdeSX889R7CUxO59wvIZjj0wCAFoSo88JYe3RiOkrZEcf52GXWsPEYDzyE=
+	t=1789394257; cv=none; b=ijF4Twnqs9vtyEDgIKU9+R9HoSkAR/DCitGJHaeQ9JXdxsvCD1gkIX3ekcN2gE6Z+DB4pkyddswDVwbz5VGpHIh64YwedvUSj3aUHq2VY4D1r3AqsQo3GR6w10WbVzMj/wQbaBwoYiFSeOug50OhVYD64RPO7DbNeGVGCZ464X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394256; c=relaxed/simple;
-	bh=lbfR6UTbGje8kTS7uXKfuCIKbDAp15t0ygJfzZX74VQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=YPYTGEQlBWK6K4fNJ1CBdKOFZpdP9U/yVuQ3S4mjXKgMiJXYUv7ilN5zQttxXq4qJzdVxkPea3wDYopv5UrDlv0BVZZRnJbPBjd0k6iGGCe1Zh2THkoBC7YF/EjR9UTSwq3Z2nt/AnJpuDz6+hPy3kzLz/izbvILmO53mX4uqzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbijN69z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789394257; c=relaxed/simple;
+	bh=4C8oUlW/K8pKlkOLxMwWsCa9VAC3cTK/vHmn35fjaPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KXrBHd1cAJdZseYtFeB1Go8IZ9rgVqP2k+pHY9WY15gD8PyA1paQVTHg50WQg3p7XM7NCZ2Zu41354HMvvQAOVyG3ZzpWP97/gDIT/nWk0j3/zXpbcMO/w9/+/cXfbMuCy5wrXIP9HaJTSa/S/R/uBHISE4X14K935CgK/sjZK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c2utLZvu; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbijN69z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881E01F000FF;
-	Mon, 14 Sep 2026 13:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789394253;
-	bh=hWQfMjTwrhS/wEak3lQlYZWJXa+nrsd9RSvMVNpNwAY=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=PbijN69zCRfEB+alm6uXogzEaz9s2BRnelOZWna8gydWoSEci7YrJjkbOhNJEWnZo
-	 MtmEE5UYbXR961euWsi0jvDmgHVf0rZdgb+vk/K0jB+DQ7NLjXK3ydMY512gxEtfHo
-	 coL8g+XJONkwIr5azr9son0ok5LpRHsn2J2hJTwse41koUTTxb+irWE4UO2SzX7UkE
-	 JFg3ZBcnVloIa4vLixpg9T3NzQn298tcSxWgHRZoPUZJuHzftzNchk6A7nBmOAcfRe
-	 Oscetkf+QV+1YJWZJDCqsqDYL4QwN1OwdeWOP2gHJwExNAxWJz/6xPchz1QquNpb58
-	 swUFTXsR2v+fQ==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c2utLZvu"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db710396ffso35454925ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:57:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789394253; x=1789999053; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qaak+sKiArxa7mKTlQvl1SbE11tdZGIRrd8OTw4JELM=;
+        b=c2utLZvuS2Yyt/JHyr6bc9kW4ekQE2B3ViaOdP9gR100gAoCMVwd5152py2B+EKSjn
+         lBYF29FRcg0kDNeQ+yCkmRMHF4N0HWfKxxAtH3TkM/w6dbuMmTFy9oS6c5qRzxQ+POMi
+         ooBmxomaXFopx2xMv9v8lzvPTpPiRw8e/AGe2pNV2B/QFuymR+EbasQaF2NV2AddS4du
+         SvPepfxWQjqgEBi/oL5myebi/d62aOcP96D6BC2xwsQXiLFYRR4+kC/pw0hvJbitOjoD
+         pxGkLg7svnrUFJsTd6k+4MkKDdAh5LggEBR3TcTulFSg0PVWhTosbpgDwKz5SiZ2yrCu
+         zfnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789394253; x=1789999053;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qaak+sKiArxa7mKTlQvl1SbE11tdZGIRrd8OTw4JELM=;
+        b=e8g+0TBOlLP7irWUzMoPrKiLl/8a/S1QLHTc9/ZuvvACNq92RcW82yR0jzj/+EqpQG
+         7GTsNzm4gqwN0/VH71m9mv0aOxPm0YjQR9f68IqzRJSqwCz5CRqHqOdjjoEde9dKD7yX
+         2ZCo3LMga2oICSix2o4FS8LHvC/5oLomOINY4GvUS83VL/HSSt8xBqBGstuka/dxG7gW
+         ZQNDQ5jOxUStWUH+DpHzAaBZO93UUSRNV+E536Z925yPosQ6Lvwd3ln8mYUbOrwhbiEv
+         cJx6UOfV+GvzNOSqN6QLCGLeFvcb8d7M8QxO1BUcAb2RoUZ71ye6GehSWp3emMRGKb51
+         1o5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxOTz5p1SaNh7PrbFYjTQFBJ5BebkymzpvLEVG7aMP/a0UHlAZrRS8261bJ1iNMxmiCUEwChkO7F/Gh2r4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVX5oStMDt+0PvD/jQwGPq0KiMp3sXfuDJ+QQnbw7+8nuGaI/R
+	t5vhDgj12z9Pq6HD1v6FVC+ApF+EM38rNsaQvUvQa/wGZJSxrUR6awXA
+X-Gm-Gg: AYBFou14pw+d+aI9ErAoqg376bdR3CAJ1sDq7Kth+setGK3yn2Qrc0tYJQcckGMz0W+
+	fR2qGMFcx1RMfZJBlYtr+yKvGiUKtZuY7AFzCQIPGKurAdFFnDtW+UAXOiFVCw5f6QKLRLOT+CN
+	F1nRHRfJuB+XoUIsXNCWi7LbOCEERE+QnvX+DIrHsEdVsNwaCS18i+0RgOkF04SYMPx+vIuiju/
+	BiAoe92O8iMp4IN4ZMoVnKXRc6clNFR3UTdqDqIi8jV3Qy50nJOG03c8Sunr8KYNBJ7seFPpW0w
+	I4VlLqUUU1jCeFH27rtaWPPo0lLdd1PzYL7u0Y8FjcZk3XYTMBUlRevDZOV4VRZl7WT4lTfTZhR
+	6rsvVvQXVnF5rpj5w/3hFyM0FOb1vrw7Lj/LhX+ZuZFNns3RdHmM7SokUcPpdxKC7CilvajL39r
+	u5ME7o63rerwv1NtITbe6VEnzl+oR8NFs5YezR5bbL2v4CSZ7Ft9dmZQ==
+X-Received: by 2002:a17:902:8d8e:b0:2dd:6a63:4476 with SMTP id d9443c01a7336-2dd6a6344c1mr28308675ad.10.1789394253055;
+        Mon, 14 Sep 2026 06:57:33 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff297esm49156425ad.73.2026.09.14.06.57.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:57:32 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Luca Weiss <luca@lucaweiss.eu>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] leds: flash: sgm3140: fix child node reference leak
+Date: Mon, 14 Sep 2026 21:57:23 +0800
+Message-ID: <20260914135723.1741327-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 15:57:29 +0200
-Message-Id: <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-Cc: "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Matteo Kloiber" <kernel@matt3o12.de>,
- <aliceryhl@google.com>, <ojeda@kernel.org>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
- <daniel.almeida@collabora.com>, <a.hindborg@kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
- <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
- <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
- <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
- <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
-In-Reply-To: <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon Sep 14, 2026 at 3:17 PM CEST, Gary Guo wrote:
-> On Mon Sep 14, 2026 at 1:17 PM BST, Robin Murphy wrote:
->> On 14/09/2026 11:22 am, Gary Guo wrote:
->>> On Mon Sep 14, 2026 at 10:58 AM BST, Danilo Krummrich wrote:
->>>> On Mon Sep 14, 2026 at 2:45 AM CEST, Alexandre Courbot wrote:
->>>>> On Mon Sep 14, 2026 at 6:08 AM JST, Matteo Kloiber wrote:
->>>>>> On Mon Sep 7, 2026 at 11:43 AM JST, Alexandre Courbot wrote:
->>>>>>> It also means that without patch 1, nova-core would split the firmw=
-are
->>>>>>> into hundreds of 64KB SG entries, which is not breaking but still
->>>>>>> something we want to avoid. The correct fix is to make sure that
->>>>>>> `dma_set_max_seg_size` is called by the driver, and while we are at=
- it
->>>>>>> we also want every driver to call `dma_set_mask_and_coherent`. Idea=
-lly
->>>>>>> we would use the type system to make sure that both functions are c=
-alled
->>>>>>> before any DMA operation can take place (using a safe interface), b=
-ut
->>>>>>> I'm not quite sure yet how we can do this.
->>>>>>
->>>>>> This sounds sensible indeed. Should I open a thread regarding that o=
-n Zulip?
->>>>>
->>>>> Probably not necessary, the mailing-list has a larger audience and is
->>>>> the right place for this. I expect people will jump in here with thei=
-r
->>>>> thoughts.
->>>>
->>>> The problem with those is not that they must strictly be called before
->>>> allocating DMA memory, but they must not be called concurrently with o=
-ther DMA
->>>> operations, such as allocating DMA memory, as it would technically be =
-a data
->>>> race.
->>>=20
->>> Do they really have to be called *before* allocating DMA memory, not do=
- they
->>> just need not be called *concurrent* to DMA memory allocation?
->>
->> Similar to DMA masks, the segment parameters should be set appropriately=
-=20
->> before any dma_map_sg() operation. Plus since they likely influence=20
->> scatterlist geometry, that means typically they're also going to need to=
-=20
->> be set before building the scatterlist to be mapped in the first place.
->
-> Right, in that case I think we have the following options:
->
-> 1.  Have setters these being unsafe, with precondition that they must be =
-done
->     before creation of DMA mappings.
+sgm3140_probe() obtains a reference to the LED child node with
+device_get_next_child_node(). The probe error path correctly drops this
+reference with fwnode_handle_put(), but the successful probe path
+returns without releasing it.
 
-As mentioned, I don't think the safety requirement has to be before using o=
-ther
-DMA APIs, but just requiring to not do it concurrently. Not doing it would =
-be a
-semantic bug, but it shouldn't have any safety implications.
+v4l2_flash_init() takes its own reference to the supplied fwnode and
+v4l2_flash_release() drops that reference during device removal.
+Therefore, the reference acquired by sgm3140_probe() is only needed
+during probe and can be released once initialization has completed.
 
-> 2.  Have a `dma_info()` method like Danilo mentioned. However, we cannot =
-expose
->     `&Device<Core<'_>>` inside such callbacks, because otherwise driver w=
-ould be
->     able create DMA mappings. This however is too restrictive to be the o=
-nly way
->     of setting DMA masks, because Nova needs to access the bar before set=
-ting the
->     DMA masks.
+Drop the child node reference before returning successfully from probe.
 
-Just to clarify, I mentioned this to be something we could do in addition t=
-o (1)
-for drivers where those values are statically known.
+This issue was found by manual code inspection.
 
-> 3.  Use wrapper type instead of generics for typestate. Then, we can expr=
-ess the
->     pattern of typestate transformation (generics cannot do this because =
-we
->     always place it behind a reference).
->
->     For example, we can have `Device` to mean `Device<Normal>`, and then =
-have
->     `Bound<Device>` to mean `Device<Bound>` (both of which are behind a s=
-hared
->     reference, like today, and `Bound<D>` can deref to `&D`).
->
->     Then, for `Core` typestate, we can instead have
->
->         struct Core<'a, D>(&'a Bound<Device>);
->
->     where it's passed by value. We can then define the DMA setters method=
-s to
->     operate on `Core` like we did today, but safely. Instead of providing=
- a
->     `Deref` impl that turns `&Core<'_, D>` to `&Bound<D>`, we only implem=
-ent
->     forwarding functions for APIs that can work without DMA configured (e=
-.g. PCI
->     bar).
->
->     Then, provide a `into_bound()` method which *consumes* `Core<'a, D>` =
-and
->     give out `&'a Bound<Device>` (this is why typestate generics cannot w=
-ork,
->     because `&'a Device<Core<'_>>` is Copy and we cannot represent the ow=
-nership
->     consumption).
+Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/leds/flash/leds-sgm3140.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Yeah, we had this discussion in the past with similar ideas; it is the kind=
- of
-complication that we concluded not to be worth it and that I mentioned in m=
-y
-initial reply.
+diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
+index dc6840357370..51e31fdb78e5 100644
+--- a/drivers/leds/flash/leds-sgm3140.c
++++ b/drivers/leds/flash/leds-sgm3140.c
+@@ -273,7 +273,9 @@ static int sgm3140_probe(struct platform_device *pdev)
+ 		goto err;
+ 	}
+ 
+-	return ret;
++	fwnode_handle_put(child_node);
++
++	return 0;
+ 
+ err:
+ 	fwnode_handle_put(child_node);
+-- 
+2.43.0
 
-The only safety relevant issue should really be the data race of the primit=
-ives
-values being set, which is more on the theoretical side of things.
-
->> I don't think there's any expectation that they would ever change=20
->> *between* different mappings - especially given the underlying hardware=
-=20
->> properties they represent - so while that might technically be possible=
-=20
->> in the C API if the caller can enforce sufficient ordering, it should be=
-=20
->> fine to rule it out in the Rust abstraction if that makes things easier=
-=20
->> to reason about.
->>
->>> If it's the former, we can require these to require mutable reference i=
-nstead,
->
-> Correction: this should say "latter".
->
->>> so the probe takes `Pin<&'bound mut Device<Core<'_>>>` which still dere=
-fs to
->>> `&'bound Device<Bound>`, but Rust will require the shared reference to =
-not
->>> co-exist with the mutable reference.
-
-I think that doesn't work, there are drivers that need to perform MMIO befo=
-re
-knowing e.g. the DMA mask, i.e. we can't have Pin<&'bound mut Device<Core<'=
-_>>>
-at the same time as e.g. pci::Bar<'_>, which borrows a &Device<Bound>.
