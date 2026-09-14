@@ -1,149 +1,120 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BE845D939;
-	Mon, 14 Sep 2026 11:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0D83D9DB1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385997; cv=none; b=pdmke0WXfjtsLK2barMEZpltLpg669s5HRFKolk3ZC7zUnVl+XpBbpI4e20S0YldhQUQMP+9hkBXayL8p+WFgaShmC12Vptoalt9zN06K4bSAHoDXFymnc7e/mEQppQvjP0bFGBWUVLvEez5IsMa8TpCDr/BpNZ/upKfftW0ozE=
+	t=1789386064; cv=none; b=Ga5cIFsuhMyAcwh/6rp2Xz6N7aPIyNXSSRW/yR1Ndn10Yr5c92x6zPNGuy3m4mp5yeErLtDhAa0pdlHZ8EbIZUVzr+BZaGvq8sD5uUx67PfX0GRq/er+24ZOgQMoP3TEPLL475jJRFQmh+w2Hq8NWvOCIvTBTLcOAfv+IwjdXdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385997; c=relaxed/simple;
-	bh=Rk+y0O0ztk10nHrAfu6DVPjZqIhRtbfOCG9WXu/Vfrk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FxbLc0DyaREuRxl919GSbLGqu2Dy5fQWzPCbT89kUJClqMb8zc5C6zArlMKPYCTReNxkI/MS8ARNmxF4U7xrg2M2MdqLTTRBP425F1TTyRlpb9kYUOyvp06eHoSpzMRruQqOHu4y86k7dlYJZjYcMuVOA3fpRr9O4ok5mcQR+pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oDr5cx+x; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789386064; c=relaxed/simple;
+	bh=tvFm3qPzUXxNI68nIHtT5wsYj5MfD0Kyc9eMvCZexD4=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=E/T5rCdltmcwBMeWVd25jGLtmUsUY020NSVONYS0t6IcKkTePeCtMi+tGMONno6VCodJxp0M6vAU1p/yeEFfCNkjJasoQ8N9lCMufIwvVkwEnfccEAGEmG/Af4LBkJUwLa1spc2GropFm1mK+DgOtJ54u+ZdmT38yJVbK8GwluY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=JzJ232aV; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oDr5cx+x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789385993;
-	bh=Rk+y0O0ztk10nHrAfu6DVPjZqIhRtbfOCG9WXu/Vfrk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oDr5cx+x8MoFMeFr9Ih3ZVzT4cDBxqSFADj7ASDGTCrTjpxCPOZg4qOXENN8bGnFB
-	 JjRHv4EbJgIYSWucAWqtbw3hm/0MTXc1zgIeXDS3DeZbmEu9l4UoEPN9AmGjYjwBen
-	 gm2lomRg3UY2U4vQ2Pa+L7YjfOiHfZMkhApGG7EKIB8ut8q34qvwjX5Zrvy4gH/cFp
-	 VP5av91MuRBCRxWWS2WrkD8geAnlflNLQRrDmqDIbf/nc1dv0mU5YJvvuAnvSrw6zU
-	 1AuvS1T0tut4ToepehArRKsR5zcEBnn8Z9axhA0Xx6zs5TuHLHbVVMIEbXUMCgZKy1
-	 Y/AAd/rEcMp7A==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 22FB917E0C7E;
-	Mon, 14 Sep 2026 13:39:52 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Mon, 14 Sep 2026 13:39:10 +0200
-Subject: [PATCH v12 24/24] scsi: ufs: mediatek: Add MT8196 compatible,
- update copyright
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="JzJ232aV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
+	:From:Date:MIME-Version:From:Reply-To;
+	bh=9CFOHjBOf3yPy/DhHAL3D16IeilqUND+JE3cSijaXso=; b=JzJ232aVCAQkvfcw/WMghan5vq
+	08b52hWMOrx42r7WC3jSHoFS1yHhbqL9lKT9J/QPQhqelN2/is/ODfaXEBRdK8XPwz4yTApOZKbZN
+	BiUpi0ocDJOOmelexgUaly7bAyOBGChwGSQGNjvK969Z7lJqV6pPyaLef+6Uuf3nmAa2gxtDZ1A7T
+	WbAeG6OnHTwb0k8wpO91bY68H49ewXJqnKlHqChvO+zFKagBuk+UfOVXHPirjzmlnZJ5UcBSpJoaM
+	unHkgbvEsQ35c3YMnzHFvPUcVGmQ0b8RSWU3EYJ7shFJRnpR9LqH9hBtetoiaLqWP1WjrxmbKiAQb
+	Zw5BBrWQ==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+	by fanzine2.igalia.com with esmtps 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x653A-001rT0-6p; Mon, 14 Sep 2026 13:40:39 +0200
+Received: from webmail.service.igalia.com ([192.168.21.45])
+	by mail.igalia.com with esmtp (Exim)
+	id 1x6539-005UIG-0y; Mon, 14 Sep 2026 13:40:39 +0200
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
+	(envelope-from <mfo@igalia.com>)
+	id 1x6539-00000001lUT-0Hp4;
+	Mon, 14 Sep 2026 13:40:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Mon, 14 Sep 2026 08:40:38 -0300
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave
+ Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
+ <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
+ Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+ kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 5/5] x86/pvh: fix unbootable VMs by really inlining
+ memset() in xen_prepare_pvh()
+In-Reply-To: <20260911043947.GIaqOGE9DFCHWwc6Ys@fat_crate.local>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-5-e70ef3b75b6a@igalia.com>
+ <20260911043947.GIaqOGE9DFCHWwc6Ys@fat_crate.local>
+Message-ID: <bdd7ad774e121d5621ad64f9c7147e45@igalia.com>
+X-Sender: mfo@igalia.com
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-mt8196-ufs-v12-24-9279d7ef814d@collabora.com>
-References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
-In-Reply-To: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Peter Wang <peter.wang@mediatek.com>, 
- Chaotian Jing <chaotian.jing@mediatek.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
- Stanley Jhu <chu.stanley@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789385943; l=2479;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=3kB+rZO2gAajRWpXhYF+u/1sOlmTFkMxKH7qtYej5DE=;
- b=xgcy9S5vLD0IJ2FqTQSUJTUdevhMq9VwtCLGC5u9SsFgIwrjvt+IA7rGNq5/MBnsxNq9DtmPr
- ImMNBTi/mQiDuHkrhHH2OmPptTcQjLUdWmIydcvjKVziFSPz/nB5WA2
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
+X-Spam-Score: -20
+X-Spam-Bar: --
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+On 2026-09-11 01:39, Borislav Petkov wrote:
+> On Sat, Aug 22, 2026 at 03:33:21PM -0300, Mauricio Faria de Oliveira wrote:
+>> Even with __builtin the compiler may decide to use the out of line function
+>> instead of the inline implementation.
+>> 
+>> This particular one (still) generated the inline implementation as expected
+>> (at least in these compiler versions) but this is not guaranteed to remain.
+>> 
+>> Switch the builtin to the inline implementation to address it.
+>> 
+>> Fixes: fbe5a6dfe492 ("xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()")
+>> Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+>> Reviewed-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>  arch/x86/platform/pvh/enlighten.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
+>> index f2053cbe9b0ce3d2178938269607c652ae8f528e..cb442cbd9d828619421babb281bfe9759edbca8a 100644
+>> --- a/arch/x86/platform/pvh/enlighten.c
+>> +++ b/arch/x86/platform/pvh/enlighten.c
+>> @@ -8,6 +8,7 @@
+>>  #include <asm/hypervisor.h>
+>>  #include <asm/e820/api.h>
+>>  #include <asm/x86_init.h>
+>> +#include <asm/string.h>
+>> 
+>>  #include <asm/xen/interface.h>
+>> 
+>> @@ -129,7 +130,7 @@ void __init xen_prepare_pvh(void)
+>>  	 * This must not compile to "call memset" because memset() may be
+>>  	 * instrumented.
+>>  	 */
+>> -	__builtin_memset(&pvh_bootparams, 0, sizeof(pvh_bootparams));
+>> +	__inline_memset(&pvh_bootparams, 0, sizeof(pvh_bootparams));
+>> 
+>>  	hypervisor_specific_init(xen_guest);
+>> 
+>> 
+>> --
+> 
+> Why is this a separate patch from 4/5 if it is fixing the same thing?
 
-THe MT8196's UFS controller has a new compatible. Add the necessary
-struct definitions to support it.
+Due to scope and review purposes (4/5 is more generic, 5/5 is specific
+to PVH). If there's a strong preference to combine these, please just
+let me know.
 
-Also update the copyrights and authors, without tabs following spaces to
-avoid checkpatch errors, to list myself as having contributed to this
-driver after the preceding rework patches.
-
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/ufs/host/ufs-mediatek.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index ef8924704c90..ceb52c40d266 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -1,9 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-  * Copyright (C) 2019 MediaTek Inc.
-+ * Copyright (C) 2026 Collabora Ltd.
-  * Authors:
-- *	Stanley Chu <stanley.chu@mediatek.com>
-- *	Peter Wang <peter.wang@mediatek.com>
-+ *      Stanley Chu <stanley.chu@mediatek.com>
-+ *      Peter Wang <peter.wang@mediatek.com>
-+ *      Nicolas Frattaroli <nicolas.frattaroli@collabora.com> (Major cleanups)
-  */
- 
- #include <linux/arm-smccc.h>
-@@ -2252,6 +2254,10 @@ static const char *const ufs_mtk_regs_avdd12_ckbuf_avdd18[] = {
- 	"avdd12", "avdd12-ckbuf", "avdd18"
- };
- 
-+static const char *const ufs_mtk_regs_avdd12_ckbuf[] = {
-+	"avdd12", "avdd12-ckbuf"
-+};
-+
- static const struct ufs_mtk_soc_data mt8183_data = {
- 	.has_avdd09 = true,
- 	.reg_names = ufs_mtk_regs_avdd12_avdd18,
-@@ -2264,10 +2270,18 @@ static const struct ufs_mtk_soc_data mt8192_8195_data = {
- 	.num_reg_names = ARRAY_SIZE(ufs_mtk_regs_avdd12_ckbuf_avdd18),
- };
- 
-+static const struct ufs_mtk_soc_data mt8196_data = {
-+	.has_avdd09 = true,
-+	.has_avdd09_1 = true,
-+	.reg_names = ufs_mtk_regs_avdd12_ckbuf,
-+	.num_reg_names = ARRAY_SIZE(ufs_mtk_regs_avdd12_ckbuf),
-+};
-+
- static const struct of_device_id ufs_mtk_of_match[] = {
- 	{ .compatible = "mediatek,mt8183-ufshci", .data = &mt8183_data },
- 	{ .compatible = "mediatek,mt8192-ufshci", .data = &mt8192_8195_data },
- 	{ .compatible = "mediatek,mt8195-ufshci", .data = &mt8192_8195_data },
-+	{ .compatible = "mediatek,mt8196-ufshci", .data = &mt8196_data },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, ufs_mtk_of_match);
+Thanks,
 
 -- 
-2.55.0
-
+Mauricio
