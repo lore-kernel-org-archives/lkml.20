@@ -1,75 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652823659FD;
-	Mon, 14 Sep 2026 09:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FBE41F379;
+	Mon, 14 Sep 2026 09:47:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379253; cv=none; b=ROzeaEosrm8pWStgFQkS/6ZdnMDjP9wTDi3dBD41E8pOafCI4ZJ4+Q1ujYLccr6Oi675t/oHsRQE7NZzqnszEk1+ezdiX2YiDHnYmSl9qfabdEcTqTVhU4MNXiw5D8ZLOuldDp3YQavkoiwdu/3yLpx0r45plaxLdm/cnjIlMII=
+	t=1789379255; cv=none; b=IcxO7TWhC3t7+jDLytbY864MEmtbYfRDzp+ZrpoaBAsYV+DU9oYf2i3QG8lIlPVYLtgqL7hTtqtGAZ0EcwjtFxcwsOR70Vn4sLfq3tb7TtI5LXQPTpbczAmhnLSN2ZdfZvBu2jhysJl5H8PfwYO5UipPzC8xNsaPZxlTwkY6ZkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379253; c=relaxed/simple;
-	bh=irNNsT8iKCdzudLKleyMornqIv1Z90Ab8V9lrVpvlP8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZLU3mG6G8XL2w6ypl2m3xdMHQrMXIJtdQwrbkOG93i5U1vVW7/NyVRXyVN6XE7847U6jcMHRoqoIw5qNH/3o5aYS+hmLJMr10EEB5Coe6aGBwVaYHJCBbG1tZrtug2cyn77a6v6ISVIuItwnV/cC3ZlfWzMHb4EVx29eSHCd2/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1lfV1fiT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789379255; c=relaxed/simple;
+	bh=MEqs3p0DVOvh19W5pBdtXGmxhDlmoDSDCgFKQD1EI6g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WqQu1QTZ3f1vGpuQuOoqoVHtCQRQtT1qn//dGMxkSTTZ4jtairbyL2siuaqNdMBMRnlhAe6sqFn6ABl24amZA10fjOkGgHubQXZNd0rBxAhonxzc4DVEuVXb45F434+hp48BW93Y1x/MftgGL0irhOqFbcsqsqO5jJkki8WFIp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=VrtCmVZV; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1lfV1fiT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B8D1F00893;
-	Mon, 14 Sep 2026 09:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789379252;
-	bh=7dtvjOSlcTcT7bJyUrCOWXgHk0cz7zz4GmfHdeVHrGE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=1lfV1fiTowEAx28pjC0cUZdFBI77m5iTURGxOPRAZ5ujGu0xQH4+IcuEaRRR4aoAb
-	 5Y8hN6B/BycYyKvwA2hgJ2zEOOMTJ2u2pzW9gV+IUREG3ByKOGdgRLlbKe39uvUIMe
-	 vOoPy2QEgsBBdKjXLyou0T8L48RM4gMr4H63bDVI=
-Date: Mon, 14 Sep 2026 11:47:22 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Pavel Machek <pavel@nabladev.com>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
-Message-ID: <2026091413-drizzly-guy-9d8e@gregkh>
-References: <20260912065607.535295758@linuxfoundation.org>
- <aqWnzsSIMkyM46NV@duo.ucw.cz>
- <f8e1fe51-03f1-4158-80cd-2b462624da3a@nvidia.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="VrtCmVZV"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6A999A47BC;
+	Mon, 14 Sep 2026 11:47:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789379247; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=fwLF0QDbZ26CN9mks5XhzjeG+MelCcwE9NL21pmcHPI=;
+	b=VrtCmVZVG7SQy+aYd7VqdVPx8gj8BchqIpT63YWzDxd9Kb0sfMLdjplQaWadMWvMhJ1LOP
+	fQ8oMxC4zql7mlPlE71EH4ruonmbhHzKXuBX0dwA6w1P5vUVXlkBLe99I0jr2YOWDLaJdG
+	UsvCiaajolCH35mrETKgNCm3slkB3E13g/pnfkLP7MxzQRUAbwCjmMkVKL53z7ut186xg1
+	xhg6hBL7ZF2kAbEviRya/mZZ8YHjm/iC0LFZPF2xEKh9i5VIxYhHskV3gYizxQaMfhqzRL
+	zPSkoikMATo83W/aWIS58QnOIYaE9Q5su4MZZK/UQQK02F2Lgne/8DwrZrAkjA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Justin Chen <justin.chen@broadcom.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: phy: broadcom: enable jumbo frames on BCM54xx
+Date: Mon, 14 Sep 2026 11:47:02 +0200
+Message-ID: <20260914094703.1093504-1-nb@tipi-net.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f8e1fe51-03f1-4158-80cd-2b462624da3a@nvidia.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Sep 13, 2026 at 12:59:10PM +0100, Jon Hunter wrote:
-> 
-> On 12/09/2026 20:28, Pavel Machek wrote:
-> > Hi!
-> > 
-> > > This is the start of the stable review cycle for the 6.12.110 release.
-> > > There are 1376 patches in this series, all will be posted as a response
-> > > to this one.  If anyone has any issues with these being applied, please
-> > > let me know.
-> > 
-> > We get build errors in -cip testing:
-> > 
-> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2842911949
-> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/16461797877
-> > 
-> > drivers/soc/ti/knav_qmss_queue.c: In function 'knav_queue_probe':
-> > drivers/soc/ti/knav_qmss_queue.c:1874:9: error: 'knav_qdev' undeclared (first use in this function); did you mean 'knav_queue'?
-> I am seeing the same for 6.12 and 6.18. Appears to be this commit ...
-> 
-> # first bad commit: [4e91398b6ae1dde1824bcf3d19b4237773f31e68] soc: ti: knav_qmss: Remove debugfs file on teardown
+Jumbo packets need two bits that default to off, extended packet length in
+the auxiliary control register and PCS transmit FIFO elasticity in the
+extended control register. The latter raises the transmit limit from 4.5
+KB to 9 KB at the cost of 16 ns of 1000BASE-T transmit latency, and the
+two together take copper mode to 10 KB.
 
-Sasha fixed this up, thanks.
+Without them such frames are lost on a 100M link while the same frames
+pass at 1G. On a Raspberry Pi CM5, which uses a BCM54210PE, 9142 byte
+frames at 100M are lost 20 out of 20 with the MAC counting every one
+as transmitted. The same frames over the same path at 1G arrive intact.
 
-greg k-h
+Set both, which bcm_phy_enable_jumbo() already does for bcm7xxx. The
+frames then arrive and the payloads check out byte for byte.
+
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+ drivers/net/phy/broadcom.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/net/phy/broadcom.c b/drivers/net/phy/broadcom.c
+index d1a4edb34ad2..b515e3875504 100644
+--- a/drivers/net/phy/broadcom.c
++++ b/drivers/net/phy/broadcom.c
+@@ -537,6 +537,13 @@ static int bcm54xx_config_init(struct phy_device *phydev)
+ 
+ 	bcm54xx_ptp_config_init(phydev);
+ 
++	/* Transmit is limited to 4.5 KB without it, see the BCM54210PE
++	 * datasheet section 5.4.12.14.
++	 */
++	err = bcm_phy_enable_jumbo(phydev);
++	if (err < 0)
++		return err;
++
+ 	/* Acknowledge any left over interrupt and charge the device for
+ 	 * wake-up.
+ 	 */
+-- 
+2.53.0
+
