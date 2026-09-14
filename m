@@ -1,199 +1,137 @@
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256654534BB;
-	Mon, 14 Sep 2026 11:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6301396D36
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386492; cv=none; b=tXzJpp/KiiFMdKazr4oquf/XQqapH5U14EnsjZVVadJu1PxfyfgrQ2WreimGZiq5294+Dkxdlo2KzElH1p20pAbXxS+kKIxMEoXcx/E4K8vZKe9MI2h3ophmCH7l9fs4P7nu6Geb8gLNsqlDNshd+uzChOTRGSzRoj7jn4v6dv0=
+	t=1789386508; cv=none; b=cTTVT3ZJmPO1Vf57Z2PnxkpQsrFyWn2BaQH6LxXpIJBCdKJco9RwbGmDuLHgBalbzFnA9obxcAJ+aHdcdhknQkt7CA1COH6kLaZewXli8QmiTEpHBTvLFU/233xzqS8UtGiGQ4xeVbMCQ1dBgx6RUIbaH4JgmZ7J3Ki54v0RxGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386492; c=relaxed/simple;
-	bh=ySVw3BtQ8VdlSvwcAcvu2VldK45kYaHXHC6yP9WKKsg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Z3tYZIM+bKN5mT0NembYb10YdwI/OdHfKiC4SsISiydeP9+NKiqH77xmjROyFGk8Sj89w/DGxi/TnyU/mmpVG7kqIiW+bOQiPWHlFlOj56ik3JYLCEruACfYGNF5ybnsnvBINk/aeoe12y2wysgVQiuPvdapRfynMhcbZd7ZSCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=SXuEO2sa; arc=none smtp.client-ip=49.212.243.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
+	s=arc-20240116; t=1789386508; c=relaxed/simple;
+	bh=0Guj2iAM9rWN/CLvhnq0IsQtN2pWPAV51fgIeanD29o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lQszHO9FHt2+r1ePl3gK4vsmlF68gu9Na3M9IiQlTEGurnK5ms9RdWn8JiobkV3nOAQDQHITTrePxXVigjB0vcbAnc5kZ3BRzWhDPfGtmRt5ysrBXGK2T1z7DTiWISh/DYmjK5D6YpSJS6hHsErPo+KU9ocYEFf1hsVaFhtcS3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OBkbEDhY; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="SXuEO2sa"
-Received: from h183.csg.ci.i.u-tokyo.ac.jp (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
-	(authenticated bits=0)
-	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68EBfjsJ084060
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Mon, 14 Sep 2026 20:41:57 +0900 (JST)
-	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=iW6paRDU1WuHVvPa2Tan4+ENXAFGhAHh39Stpx/lGEU=;
-        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
-        h=From:Message-Id:To:Subject:Date;
-        s=rs20250326; t=1789386117; v=1;
-        b=SXuEO2saKk20YD2hI4Bd3B6I1m3y39IXjKSDYVMyTHJVPMTQG/DWMsTfg5ROC63a
-         jQn/hizniPKxQGoa4QtbRLVEU85+E7s2+daO7YVK9mG9QtCn58S1tOauNKKtiSV2
-         rgA9ixQDTlU1/m0K8LG0USQ6+PyjRjdGcSGYV1qGyESosnCt3e+dw6Ii5Bv8hD/0
-         e19rtNxCti9KLIb+3XRWxOaN7rt0DXQJs+t1yWxfjNxqRebhgPZGzMpvOugpvHoi
-         RSX+sNZyTMEjUyAPfeRllhhiUhdOq0z8rIfdEgfUVkAEW7O39oHByZAhKO/t0Tnu
-         QykA1SOKzEoWPoyc1NtBKQ==
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Date: Mon, 14 Sep 2026 20:40:56 +0900
-Subject: [PATCH v10 17/20] KVM: arm64: PMU: Pass the target CPU to
- kvm_pmu_probe_armpmu()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OBkbEDhY"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a9e35826baso1669215a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789386505; x=1789991305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tq7uzj3Nuht/sUsnSMR7xKzenitos6XuGY/rnGcdmdg=;
+        b=OBkbEDhYGyvH0mBBv8biu1quzB5LC89sEKXsC6GmpP7yEp99ea6ENr2WhWAI0uLDF5
+         I+SCUNX7e4qDurDNx11cGZSVVNCGykyrfx41IjTEWO83ChFpx/HN/ER/jv4qu2GsE+G9
+         G+OdRD18aLe4UQaiQ+67JC5KYyJ+mkW3koPZGur3bsGpweV+f8TpPwSwpk+CxV21l5N/
+         MdrDPLIB+JYad+TdLGI8YhwktPl0Oep13IeR6Ck52bBm/iM/alZMnuBl5c89uzeD+j76
+         ll+1HCtE2v4iar6W5rYbmJ9D1owwS5FLoRirFk8b9jiu+j4yaUtQVr/l+VEMH9In00LI
+         r69w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789386505; x=1789991305;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tq7uzj3Nuht/sUsnSMR7xKzenitos6XuGY/rnGcdmdg=;
+        b=rbyRyxJGrbEQgqRxP5yOOwx/ysbWtQAIE3E3HTI104WLAP4JsjJfs9Nc5jrqBWBntp
+         4FGaYXfqS7dsJ0+QVarw3+fAesQqsEosCpqP2fH7W6Hy8CZBPSbDlhWxotTTV+0PyuUd
+         tW0n8CcsRGK2/ASbPfcucAEN6lsp0bbybdEvSCSKYNM2vVJsE85Y9dREFwy8r38OXGFs
+         3c/2Zz99DdPfKpGSYJM9bwBQtJ3BBO8x5hoVUOwWWZdCEHVI8KJGPxWR5TKLeSKChEp7
+         d9hQKJzySMcx7pBZs620Pu1tLzSTuwzuE2FNAaGsMkWXMZTnDrKk/Fhiahft+x4dZXip
+         DRKQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEJEn3YHYvNvM+lJhe7aB2Y5IovCmlE/+AqE0p4PLcfPS0pEFN9LgZNXEJwTBhEwQJxz3SsNLmd0wFZ0g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDBH5Diz8c/ADztJxXrKM5Dia89bbCSN6RRZ+P01gaC1WrYu1m
+	aRSCag6rx6fzPw6i4RMGhPHWxf51ahuv/sedspERhYVRoteTAKKEG3UZ
+X-Gm-Gg: AYBFou2G0jWea6RfbnpOYtvpy8WUWoKXcOUT2bY2Fmr+EpAHy+EpiIzn0sfu89SxYy1
+	WuOHKN5IeB3NA9spMrlCP7wpy0ECytGGHeAC6SbdgCGlhoVBmvzSgtdTjMBM6PmsTOxBHBcPooY
+	xh2haXZ+o7nJ+Gu4wLFcnKMEZFaM0GAdroWI7/NJXomdUnrnXZFsKSll3Z3fyFkXLkjyOEIVUFL
+	By3D0su0qFyRV1gzteBkQj0Hc9aaeJesRmRLm0UYzlFrYqjhZpnQJoIUJfvnpe12ElkrzcWyjnu
+	Bcv5C4bGa6t7Pr7pZboU5EJlYy/5fBQZe5D0t0yG7LccuOE4HTPRlPg9XsHJlbGUSULdhiT4gnx
+	JA+0dy3iOBBkt+QMVC9g5ubjylpblve7KiBNtLCDIZ9n1m2Y4NvG9omsulUdIRBQGAOy8gz1m1N
+	Y4rr71enK7hWEPOPSTux8qhHQC1wvLdeOfB8TDy53+lF6UVI8reVJaNMtVo+7FbR7zK+is6mv7p
+	+aPZmjqItsmKaY3pO6H6VcozqpnCUzr4VR9mytk
+X-Received: by 2002:a05:6402:249f:b0:6a9:9894:e4b4 with SMTP id 4fb4d7f45d1cf-6a9f63cd9ffmr1264857a12.34.1789386504591;
+        Mon, 14 Sep 2026 04:48:24 -0700 (PDT)
+Received: from fedora-tap.advaoptical.com ([82.166.23.19])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b59644f2sm3749062a12.29.2026.09.14.04.48.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 04:48:23 -0700 (PDT)
+From: Sagi Maimon <maimon.sagi@gmail.com>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	netdev@vger.kernel.org
+Cc: Robert Hancock <robert.hancock@calian.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: axienet: bound TX completion cleanup by the NAPI budget
+Date: Mon, 14 Sep 2026 14:48:21 +0300
+Message-ID: <20260914114821.55503-1-maimon.sagi@gmail.com>
+X-Mailer: git-send-email 2.47.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-hybrid-v10-17-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
-References: <20260914-hybrid-v10-0-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260914-hybrid-v10-0-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Joey Gouly <joey.gouly@arm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
-        Yury Norov <yury.norov@gmail.com>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Steffen Eiden <seiden@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Shannon Zhao <shannon.zhao@linaro.org>,
-        Andrew Jones <drjones@redhat.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kselftest@vger.kernel.org,
-        Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
-        Fuad Tabba <fuad.tabba@linux.dev>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4142;
- i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
- bh=ySVw3BtQ8VdlSvwcAcvu2VldK45kYaHXHC6yP9WKKsg=;
- b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ9byu2U355cuY5z6LYFNdSLDjY2nWNJbHYwqTMv2haonR
- tcq65h3lLIwiHExyIopsqQU7ebWiK79VJgQ3wIzh5UJZAgDF6cATGRWH8M/bSkpMyOu3ZuiUyKv
- s+34fcnmwj2ftH1hDPOTZrcb/JjQwciwrdDrxrf1b/cXzY3MPyxivDqlxUfFsIJ1b3pkRcrOA5O
- 5AQ==
-X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
- fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
+Content-Transfer-Encoding: 8bit
 
-kvm_pmu_probe_armpmu() currently samples the current CPU internally,
-which ties the helper to default PMU selection.
+axienet_tx_poll() passes lp->tx_bd_num to axienet_free_tx_chain() as
+@nr_bds, and @budget is only forwarded to napi_consume_skb() as its
+bulk-free hint.  Nothing limits the cleanup loop to the NAPI budget, so
+the number of packets returned is bounded by the TX ring size rather
+than by the budget, and the poll can report more work than it was
+given:
 
-Move that policy to kvm_arm_set_default_pmu() by passing
-raw_smp_processor_id() from the caller, and make the helper search for
-the pPMU covering an explicit CPU. Move the helper above
-kvm_pmu_create_perf_event() so later code can reuse it when creating
-PMU events for a VCPU's current pCPU.
+  eth0: NAPI poll function axienet_tx_poll+0x0/0x180 [xilinx_emac]
+        returned 96, exceeding its budget of 64.
 
-This preserves the existing default PMU selection behavior while
-preparing fixed-counters-only mode to select a pPMU at runtime.
+Returning more than the budget breaks the NAPI contract.  It also makes
+the "packets < budget" test in axienet_tx_poll() false, so
+napi_complete_done() is skipped and TX completion interrupts are not
+re-enabled on that pass.  NAPI reschedules the poll, so this recovers,
+but the accounting is wrong either way.
 
-Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+In steady state fewer descriptors complete per poll than the budget
+allows, which is why this is rarely observed.  Triggering it needs more
+than @budget completions outstanding at once - for example when TX
+completion interrupts have not been taken for a while and a full ring is
+reclaimed in one go.
+
+Stop the loop once the budget is spent.  cur_p->skb is only set on a
+packet's last descriptor, so breaking there never leaves a packet
+half-freed.  The check is skipped on the @force path, which cleans up
+after a DMA mapping failure with a @budget of 0.
+
+Fixes: 9e2bc267e780 ("net: axienet: Use NAPI for TX completion path")
+Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
 ---
- arch/arm64/kvm/pmu-emul.c | 72 +++++++++++++++++++++++------------------------
- 1 file changed, 35 insertions(+), 37 deletions(-)
+ drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
-index 05b48be05abd..ccd268d76235 100644
---- a/arch/arm64/kvm/pmu-emul.c
-+++ b/arch/arm64/kvm/pmu-emul.c
-@@ -694,6 +694,23 @@ static int kvm_map_pmu_event(struct arm_pmu *pmu, unsigned int eventsel)
- 	return eventsel;
- }
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 782f903d318f..37309fa355ab 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -788,6 +788,13 @@ static int axienet_free_tx_chain(struct axienet_local *lp, u32 first_bd,
+ 	dma_addr_t phys;
  
-+static struct arm_pmu *kvm_pmu_probe_armpmu(int cpu)
-+{
-+	struct arm_pmu_entry *entry;
-+	struct arm_pmu *pmu;
+ 	for (i = 0; i < nr_bds; i++) {
++		/* A NAPI poll must not return more than its budget.  Stop on a
++		 * packet boundary once it is spent - cur_p->skb is only set on
++		 * a packet's last descriptor, so no packet is left half-freed.
++		 */
++		if (!force && packets >= budget)
++			break;
 +
-+	guard(rcu)();
-+
-+	list_for_each_entry_rcu(entry, &arm_pmus, entry) {
-+		pmu = entry->arm_pmu;
-+
-+		if (cpumask_test_cpu(cpu, &pmu->supported_cpus))
-+			return pmu;
-+	}
-+
-+	return NULL;
-+}
-+
- /**
-  * kvm_pmu_create_perf_event - create a perf event for a counter
-  * @pmc: Counter context
-@@ -823,42 +840,6 @@ void kvm_host_pmu_init(struct arm_pmu *pmu)
- 	list_add_tail_rcu(&entry->entry, &arm_pmus);
- }
+ 		cur_p = &lp->tx_bd_v[(first_bd + i) % lp->tx_bd_num];
+ 		status = cur_p->status;
  
--static struct arm_pmu *kvm_pmu_probe_armpmu(void)
--{
--	struct arm_pmu_entry *entry;
--	struct arm_pmu *pmu;
--	int cpu;
--
--	guard(rcu)();
--
--	/*
--	 * It is safe to use a stale cpu to iterate the list of PMUs so long as
--	 * the same value is used for the entirety of the loop. Given this, and
--	 * the fact that no percpu data is used for the lookup there is no need
--	 * to disable preemption.
--	 *
--	 * It is still necessary to get a valid cpu, though, to probe for the
--	 * default PMU instance as userspace is not required to specify a PMU
--	 * type. In order to uphold the preexisting behavior KVM selects the
--	 * PMU instance for the core during vcpu init. A dependent use
--	 * case would be a user with disdain of all things big.LITTLE that
--	 * affines the VMM to a particular cluster of cores.
--	 *
--	 * In any case, userspace should just do the sane thing and use the UAPI
--	 * to select a PMU type directly. But, be wary of the baggage being
--	 * carried here.
--	 */
--	cpu = raw_smp_processor_id();
--	list_for_each_entry_rcu(entry, &arm_pmus, entry) {
--		pmu = entry->arm_pmu;
--
--		if (cpumask_test_cpu(cpu, &pmu->supported_cpus))
--			return pmu;
--	}
--
--	return NULL;
--}
--
- static u64 __compute_pmceid(struct arm_pmu *pmu, bool pmceid1)
- {
- 	u32 hi[2], lo[2];
-@@ -1098,7 +1079,24 @@ static void kvm_arm_set_pmu(struct kvm *kvm, struct arm_pmu *arm_pmu)
-  */
- int kvm_arm_set_default_pmu(struct kvm *kvm)
- {
--	struct arm_pmu *arm_pmu = kvm_pmu_probe_armpmu();
-+	/*
-+	 * It is safe to use a stale cpu to iterate the list of PMUs so long as
-+	 * the same value is used for the entirety of the loop. Given this, and
-+	 * the fact that no percpu data is used for the lookup there is no need
-+	 * to disable preemption.
-+	 *
-+	 * It is still necessary to get a valid cpu, though, to probe for the
-+	 * default PMU instance as userspace is not required to specify a PMU
-+	 * type. In order to uphold the preexisting behavior KVM selects the
-+	 * PMU instance for the core during vcpu init. A dependent use
-+	 * case would be a user with disdain of all things big.LITTLE that
-+	 * affines the VMM to a particular cluster of cores.
-+	 *
-+	 * In any case, userspace should just do the sane thing and use the UAPI
-+	 * to select a PMU type directly. But, be wary of the baggage being
-+	 * carried here.
-+	 */
-+	struct arm_pmu *arm_pmu = kvm_pmu_probe_armpmu(raw_smp_processor_id());
- 
- 	if (!arm_pmu)
- 		return -ENODEV;
-
 -- 
-2.55.0
+2.47.0
 
