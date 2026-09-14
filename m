@@ -1,132 +1,76 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0360741F349
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF444398F2
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.116.240.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378116; cv=none; b=LiZPEkQ0MQg6G+6TNPSwFaNnZa1+csNc8U8U8Oc0Qcy0sYvKWRr+G46lScvBGQ9qZQfq9xv3TWNX/T6neh8zt0ftWWyrmkPeXqYoOjFRtbH7VtmJfL6gTIMnqSfFtK9wkXt9/4jHgyFWCUMcYblYckf22+q9rZcv8F4RmiGlBlA=
+	t=1789378121; cv=none; b=Uiew5IXeaE9wSinltDhKirfSeg5FUUbPdebXgTCIwWaRWgXwMOXPf960MHgjfgmUrSzZVNRrWtTxlANsiNJTc+g9O3z5q6o+pEyiX1OqQiCXTNcFD/nj77A8nv4DGLCQPtaJ2o3hhXmw7vqnNgWcD3YiT5Y+W2d01FOnYnmt4os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378116; c=relaxed/simple;
-	bh=aOoRiF5ZcIqkBQech3uSRQ8qZjtxOqi4FHTB7U3fCc4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uYvoT3yC79kykO7RvyTYr2yWjXwigvi91ZdpGiigX2RPgYsp8G6BDB6PwUFZ8/5DyvnTNJ8LIIJI4+FfITMkzjbmoeVWL5IjoLghnH1aRJ94FmHpwIduaBPUdHXXVgJpGZTDatqcD9Mhhw/ZH8WbbyaiCFirzZPEwiy1cojkbE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=mk+DFCC8; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	s=arc-20240116; t=1789378121; c=relaxed/simple;
+	bh=B3Z+znTM9B8bpncXq8heSxOsMWGGrWDybfw7VJSgOxw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:
+	 References:In-Reply-To; b=OQhv7BOqxIT5+T2L716EmQBc9K/Da1xsGff/cVgOPqmGzBFet7zENj19CyNFF4y7QEUhmMEhRc2KdA0YkHYqoPRJDE6QtFVImjn5Zj0h41iQnIlouZ0i3Fn5OgdjHc7H914zXj2/ZH5I1OtoWhX+Vh6k62LRmdrhV8SeVOfxBxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu; spf=pass smtp.mailfrom=arkamax.eu; dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b=hG1dbGCJ; arc=none smtp.client-ip=128.116.240.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="mk+DFCC8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-e1b5cab7be; t=1789378113;
- bh=mewteUdeB+vh/ROowqyMXpJPpjRCsZe73lQbBQU5dyg=;
- b=mk+DFCC8Qpde+98HYbY9GEi6/LaM8jntiy+C6HDbqk5wldpPyE74SdWlhus6jQjDZCcSS98ET
- sKudZDU/hL5AjQplmZtuBnNO1t6iCaQ9VDLjQpaIRPK48QQTNEPMZ4iHTyntm+kMYiz8Fqeyaxv
- jDNNI1/uvbXFu5YyQrL817sVpK4275JDnAmJtmES+ULLQ9xD/cUrpH8V3UOI3uasL9DjDik3FZD
- zpgC4QMjdImY9+VjgNOM/s1k8PY7NnOGFJEXWoVv7NkrFWgt6pXEOXj4gTwj0GwRcAOnPgtDsCK
- /pZ04KqbRkpZ5HISXw8w+0DEnqsNGDkz/9+xe5zwx3DA==
-X-Forward-Email-ID: 6aa7be39469f56687e0fbce3
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <1074c834-1d64-4bda-b6d5-599755324dcd@kwiboo.se>
-Date: Mon, 14 Sep 2026 11:28:19 +0200
+	dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b="hG1dbGCJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=B3Z+znTM9B8bpn
+	cXq8heSxOsMWGGrWDybfw7VJSgOxw=; h=in-reply-to:references:to:from:
+	subject:date; d=arkamax.eu; b=hG1dbGCJHx1Llgjb8O3BZ0QTkf/24M/v7KSaTsMw
+	9/80PwPgHK2Ia4OlUdgoxlB0CBpZ6rp/ecw2QA1GpoiE8gMCs8w5wSK/WIMPt32xbIOFdT
+	DG4H0mjDHIc9lzSYg89VJCz9sBaaQISKHHctL4B1PZOoOn4wjfHFJLcHwh9p+t9FjtTCIh
+	VjRmW75j++Gn+leHnZoOstWTf3UXsDNWQqIL6sIU5IgXyQUptkrzBYwndJUc1R9Kfre4Rp
+	d4oSKom03LaclW3MIlxRVuK0/F/19+4O1eQbQErzuke0nsKuWOuA9RuZv63uwydNnBl9N3
+	jhYDT5UwOv1LoRGFcBol3w==
+Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	by arkamax.eu (OpenSMTPD) with ESMTPSA id 82239975 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Mon, 14 Sep 2026 11:21:55 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] arm64: dts: rockchip: Split out the common NanoPi
- RK3528 parts
-To: HystericalDragons@proton.me
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>,
- Andrey Korshunov <razor1702@gmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>
-References: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me>
- <20260914-r28s-upstream-v5-2-7409c498e8dc@proton.me>
-Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <20260914-r28s-upstream-v5-2-7409c498e8dc@proton.me>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 14 Sep 2026 11:21:55 +0200
+Message-Id: <DLEXGM8VZOW9.1J9A20FEP43RM@arkamax.eu>
+Subject: Re: [syzbot] [nvme?] WARNING in nvme_loop_reset_ctrl_work
+From: "Maurizio Lombardi" <mlombard@arkamax.eu>
+To: "syzbot" <syzbot+4a1d521d19d6321f5aad@syzkaller.appspotmail.com>,
+ <hch@lst.de>, <kch@nvidia.com>, <linux-kernel@vger.kernel.org>,
+ <linux-nvme@lists.infradead.org>, <sagi@grimberg.me>,
+ <syzkaller-bugs@googlegroups.com>
+X-Mailer: aerc 0.22.0
+References: <6a9ed559.6e6c5f9e.240462.0003.GAE@google.com>
+ <6aa6c282.4c28b7d0.c1bba.000d.GAE@google.com>
+In-Reply-To: <6aa6c282.4c28b7d0.c1bba.000d.GAE@google.com>
 
-Hi,
+On Sun Sep 13, 2026 at 5:34 PM CEST, syzbot wrote:
+> syzbot has found a reproducer for the following issue on:
+>
+> HEAD commit:    2f0c1cf72f46 Merge tag 's390-7.3-3' of git://git.kernel.o=
+r..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/li=
+nux.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=3D159b19f958000=
+0
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=3D8c5c3949d762a=
+91f
+> dashboard link: https://syzkaller.appspot.com/bug?extid=3D4a1d521d19d6321=
+f5aad
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for D=
+ebian) 2.44
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D1074f61558000=
+0
 
-On 9/14/2026 10:24 AM, 安容 via B4 Relay wrote:
-> From: 安容 <HystericalDragons@proton.me>
-> 
-> The FriendlyElec NanoPi Zero2 and the NanoPi R28S share their power
-> tree, storage, RGMII Ethernet, RTC, SYS LED and debug console. Move
-> those parts into rk3528-nanopi.dtsi so the NanoPi R28S can reuse them,
-> and leave only the board specific nodes in the NanoPi Zero2 devicetree.
-> 
-> Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
-> Signed-off-by: 安容 <HystericalDragons@proton.me>
-> ---
->  .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 307 +--------------------
->  arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 304 ++++++++++++++++++++
->  2 files changed, 313 insertions(+), 298 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-> index 97d85124d2..a8d99f983f 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
 
-[snip]
+It seems that a reset operation is enqueued before the controller
+initialization is completed.
 
-> -
->  &usb_host0_ehci {
->  	status = "okay";
->  };
-> @@ -347,23 +74,7 @@ &usb_host0_ohci {
->  	status = "okay";
->  };
->  
-> -&usb_host0_xhci {
-> -	extcon = <&usb2phy>;
-> -	maximum-speed = "high-speed";
-> -	phys = <&usb2phy_otg>;
-> -	phy-names = "usb2-phy";
-> -	status = "okay";
-> -};
+when the nvme_loop_reset_ctrl_work() finally runs, it will find the
+controller in LIVE state, thus hitting the WARN_ON().
 
-I suggest you keep all USB nodes in the device board files, NEO3 Plus
-have USB 3.0 support and uses different configuration. So it will be
-easier to get an overview if USB nodes are kept in the board DT.
-
-Else most of this split matches what I played around with for U-Boot at
-[1] a few weeks ago. I plan to send out the NEO3 Plus DT based on this
-series later.
-
-[1] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/commit/40382468ba7ce9aa2e7dcde0e59003fd0d220b43
-
-Regards,
-Jonas
-
-> -
-> -&usb2phy {
-> -	status = "okay";
-> -};
-> -
->  &usb2phy_host {
->  	phy-supply = <&usb2_host_5v>;
->  	status = "okay";
->  };
-> -
-> -&usb2phy_otg {
-> -	status = "okay";
-> -};
-
-[snip]
-
+Maurizio
