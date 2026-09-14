@@ -1,186 +1,232 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E72484237
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D67948D89A;
+	Mon, 14 Sep 2026 16:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403908; cv=none; b=KY0obyhxUco9OIPCRcdY+CvPVqXTerFxJKxgOXUzLB9ossxVmZL9ioGv8M11199W5YZ1TLxdR3fAT+kJ/vezfTBDxpF5/lJLVA88TS+q0NFnog7Zeu5oSNzppEpe7QO3DEIqM/iCe88Arp6DH6k5SKJu1S21q/ePiTCPgmm1YRk=
+	t=1789403962; cv=none; b=XkRZWoCvogHRgyt2eCMcbRDE/y0mziBF8Og6uPnWAk+VTbVKOvFOhW5OQWZ3FbLCHckZYayUbLK4jkxKUrjUT7W8cvPyQhMEKUWi2d2nqCA0qyJRVnWzR81YpimHuHS7E3ZLcnsfgcIVqSEoHGpbvXIjDKUfIHMs8OTXiLICQBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789403908; c=relaxed/simple;
-	bh=23d7+x2zm6cvtYou9WH/kKCprswvTWnpYnPNRkmpps0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=n+wYW3BaZXiMVqFoAlzuTMwnJYH0c3mnA/2zVHLehb2iE1XVoGDAiT3XHZdwg/Gfjms1bhzjU+dsnXR4bQJ4bZVsC6eFsiHhWPMt0gllvgewUAcy7G/MDpzTLTqqTBHRwWSVeLhWBl+2016AGA3gcrGxkWxQqr9QdsklfWCaKys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f7.google.com with SMTP id 46e09a7af769-804d58d09e9so664536a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:38:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789403905; x=1790008705;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YU7qZKeyKs8K9w4inWh1hQOv9aWTGkQRcwK+vaqSvlo=;
-        b=HHyqB12hzcFC5Tkq1hxsiG6ss0pSHJz2in4wee5wPmb6wQkG2R7Vb1rjZML04FbafX
-         trmVdWZX4HSOnFwScYBBcUDsawGaDR2OrSwPWA3K+zLEhm+rXtHC+lCVRBzGUmMF0Hs6
-         Q85szwil59FVbm8JHV+0Dwk+dX0aR0SA+y1EGmZXDXjifn6PyCgOl99QkaRIVJIRd+hP
-         g/goaeifHwL/SXyIXRFNEnWdJ/0DeAg15kI+UtuVuIP0iUGNGNn60U9fwhLxeA4VqxaS
-         fG3gCKDiwox4wrrnGt1OmXwSp9/cxcJJ1dJJr0FqRX+zkGL1O/s+lxRuUdP1P3gjyK2o
-         5kKg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfvjMRN/fPT/CTOJlY9N0KOLCmUnimu1L2ALjHfyTpHZCBpPxRALTNyO9S0lWwXfoJVRqMaVzrt3faebo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l259HmglPBRmPoUzF8HhIZPfd+KLqe3dmm/gbZLEy8c/Augcvw
-	qGTlye3fPziT2xpVY6RaqSO1Ki3BHAUcKVdLGXKJf+7Qxn3xi5+lwzHed9LhK3IY8dwf1lW0oXg
-	C8/sXsH3SEhFnFeiKcGAicIcrLECQqqtmmQsa5vPYUVNdjPWcxpNtvkiYabc=
+	s=arc-20240116; t=1789403962; c=relaxed/simple;
+	bh=3iJa6UiJVurypI3MREb6fZRy2nSWCRDjqB3HHOfRuRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jr1Bxoo6KpB/3JlKzENpN7wOk8lvUtr4moHY/ewWQd0D2DMeSZqzlEekMMxuII15QccMmAzQfXnPqcpE6M25k5ELYukkKl/IEhxE3lR8OFV8NWK6xuK5B/fe04L1fQQ6sM/NbkB7cNWcK06Z3wjdM3tqSsrH7+YSk3LKtbwbr3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R+rUjGKa; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+rUjGKa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0BA1F00893;
+	Mon, 14 Sep 2026 16:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789403947;
+	bh=6HknANauAYpVcDvBFdOVBRdba2wd0Jbv9VXA9ZYdWMI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R+rUjGKaNHhSbqlLKdbClzYWSNwn1aEsQuvVk58BCumZX6GbEWMaIx5uiDdhiDJk0
+	 CD8l4tUwyV0dfl7lYL/pp8M2/85iWUUrATBrPwvdN98jny/BsxFlUDHmd6RVkKbA8c
+	 rHT0ej6apJWOsPBsmxukBs9nofdf/DXyMUVvKecCAtXFzCAxBU+RflJPLgxINonQg1
+	 qvXyn5f6Egdss0OEP8YDQ8eTTzxMIDEylhOixJFUjLsODvG79PX6X/zTv8nDo4erjB
+	 wT94jYd9C3CoJzIoOYyYCWa1cKK05r6F9hCnpeFnOkm4QaEqaCij52+70o31wKbG2p
+	 nMZUUzm/z2qDQ==
+Date: Mon, 14 Sep 2026 09:39:07 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 21/21] kbuild: use pigz for gzip compression if
+ available
+Message-ID: <202609140844.FA7E848A@keescook>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-21-39817ec5db23@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4c05:b0:6bd:f333:7b83 with SMTP id
- 006d021491bc7-6c53f97770emr1996125eaf.16.1789403905366; Mon, 14 Sep 2026
- 09:38:25 -0700 (PDT)
-Date: Mon, 14 Sep 2026 09:38:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa82301.a211d2ce.1a5198.0297.GAE@google.com>
-Subject: [syzbot] [ext4?] KASAN: use-after-free Read in ext4_read_inline_data (2)
-From: syzbot <syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com>
-To: adilger.kernel@dilger.ca, jack@suse.cz, libaokun@linux.alibaba.com, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ojaswin@linux.ibm.com, ritesh.list@gmail.com, syzkaller-bugs@googlegroups.com, 
-	tytso@mit.edu, yi.zhang@huawei.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260914-build-speedup-v2-21-39817ec5db23@kernel.org>
 
-Hello,
+On Mon, Sep 14, 2026 at 10:22:20AM +0100, Lorenzo Stoakes (ARM) wrote:
+> On a 128-core Threadripper, gzip -9 of a 36 MiB x86-64 vmlinux.bin takes
+> 1.6s, and with pigz it takes 0.09s, so the performance increase is
+> significant.
 
-syzbot found the following issue on:
+Neat! I wanna go learn how pigz accomplishes this -- I thought the
+problem with gzip was a common lookup table. Anyway...
 
-HEAD commit:    2f0c1cf72f46 Merge tag 's390-7.3-3' of git://git.kernel.or..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=14fcc115580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=085a394c92518a04fd09
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=151135f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12fcc115580000
+> --- a/Documentation/kbuild/reproducible-builds.rst
+> +++ b/Documentation/kbuild/reproducible-builds.rst
+> @@ -76,6 +76,22 @@ include generated files.  You should ensure the source tree is
+>  pristine by running ``make mrproper`` or ``git clean -d -f -x`` before
+>  building a source package.
+>  
+> +Compression tools
+> +-----------------
+> +
+> +The compressed kernel image, compressed modules and packages are produced
+> +using the program named by the make variable ``KGZIP`` (described in
+> +Documentation/kbuild/kbuild.rst).
+> +
+> +It defaults to ``pigz`` if installed (a parallel implementation of gzip),
+> +or ``gzip`` otherwise.
+> +
+> +The generated output between two invocations of identical builds with
+> +either of the default tools will be byte-for-byte equivalent.
+> +
+> +However, for reproducible builds, ensure the same tool is used on all build
+> +hosts, as different tools may generate different output from one another.
+> +
+>  Module signing
+>  --------------
+>  
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/2ceccb470aef/disk-2f0c1cf7.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/66118825dd52/vmlinux-2f0c1cf7.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ab86c4814e1b/bzImage-2f0c1cf7.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/2b7927e0529e/mount_0.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=1188e925580000)
+This doc update seems totally unneeded? Having the same build tools for RB
+is already a known requirement. I don't think anything new is added here?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com
+> diff --git a/Makefile b/Makefile
+> index 790ef23c5e8a..38c0cdc9f591 100644
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -561,7 +561,7 @@ PERL		= perl
+>  PYTHON3		= python3
+>  CHECK		= sparse
+>  BASH		= bash
+> -KGZIP		= gzip
+> +KGZIP		:= $(if $(shell command -v pigz 2>/dev/null),pigz,gzip)
 
-=========
-==================================================================
-BUG: KASAN: use-after-free in ext4_read_inline_data+0x1c9/0x2b0 fs/ext4/inline.c:213
-Read of size 68 at addr ffff8880723bf51a by task syz-executor313/5649
+I think the more idiomatic way to do this is:
 
-CPU: 1 UID: 0 PID: 5649 Comm: syz-executor313 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
- ext4_read_inline_data+0x1c9/0x2b0 fs/ext4/inline.c:213
- ext4_read_inline_dir+0x320/0xc20 fs/ext4/inline.c:1422
- ext4_readdir+0x46c/0x4250 fs/ext4/dir.c:164
- iterate_dir+0x2e2/0x4d0 fs/readdir.c:110
- __do_sys_getdents64 fs/readdir.c:399 [inline]
- __se_sys_getdents64+0xf1/0x280 fs/readdir.c:384
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f74cc073df3
-Code: 48 0f 45 c2 48 83 c4 08 5b 5d c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 ff ff ff 7f 48 39 c2 48 0f 47 d0 b8 d9 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 05 c3 0f 1f 40 00 48 c7 c2 d0 ff ff ff f7 d8
-RSP: 002b:00007fff22d6b888 EFLAGS: 00000293 ORIG_RAX: 00000000000000d9
-RAX: ffffffffffffffda RBX: 0000555562e4b9d0 RCX: 00007f74cc073df3
-RDX: 0000000000008000 RSI: 0000555562e4ba00 RDI: 0000000000000005
-RBP: 0000555562e4ba00 R08: 00007f74cc0e35a0 R09: 0000000000000001
-R10: 0000000000000000 R11: 0000000000000293 R12: 0000555562e4b9d4
-R13: ffffffffffffffd0 R14: 0000000000000016 R15: 431bde82d7b634db
- </TASK>
+KGZIP := $(call try-run,command -v pigz,pigz,gzip)
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x723bf
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000000000 ffffea0001c86008 ffffea0001c8ef88 0000000000000000
-raw: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as freed
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0x500cc2(GFP_HIGHUSER|__GFP_ACCOUNT), pid 5495, tgid 5495 (sshd-session), ts 69474537754
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_pages_mpol+0x21e/0x390 mm/mempolicy.c:2486
- alloc_frozen_pages_noprof mm/mempolicy.c:2557 [inline]
- alloc_pages_noprof+0xb1/0x2b0 mm/mempolicy.c:2577
- anon_pipe_prefill_and_lock fs/pipe.c:158 [inline]
- anon_pipe_write+0x21b/0x1a30 fs/pipe.c:534
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 5499 tgid 5499 ts 69475806887 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- __folio_put+0x4b3/0x590 mm/folio.c:105
- folio_put include/linux/mm.h:2160 [inline]
- put_page include/linux/mm.h:2229 [inline]
- anon_pipe_trim_and_unlock+0x3e2/0x520 fs/pipe.c:191
- anon_pipe_read+0xf1c/0x10c0 fs/pipe.c:472
- new_sync_read fs/read_write.c:493 [inline]
- vfs_read+0x595/0xa80 fs/read_write.c:574
- ksys_read+0x150/0x270 fs/read_write.c:716
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+However, parallelism needs to be set. We can't let it eat all CPUs: it
+needs to respect the -j make option (and make its CPU reservation known
+to "make"), which we already have a solution for in
+scripts/jobserver-exec.
 
-Memory state around the buggy address:
- ffff8880723bf400: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff8880723bf480: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff8880723bf500: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                            ^
- ffff8880723bf580: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff8880723bf600: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
+However, I would actually argue that given such an improvement we should just
+make pigz explicitly required and not optional. It is packaged everywhere:
 
+  │ Debian / Ubuntu              │ ✅          │ pigz (main)
+  │ Fedora                       │ ✅          │ pigz 2.8 (current)
+  │ RHEL / CentOS / Rocky / Alma │ ✅ via EPEL │ pigz — not in base/AppStream
+  │ openSUSE / SLE               │ ✅          │ pigz
+  │ Arch Linux                   │ ✅          │ pigz (extra)
+  │ Alpine                       │ ✅          │ pigz
+  │ Gentoo                       │ ✅          │ app-arch/pigz 2.8
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Only RHEL appears a little glitchy, but likely they would trivially move
+it to base since it's already packaged, but off in EPEL.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+So, I would say that pigz would be best run as something like:
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+  KGZIP := $(PYTHON3) $(abs_srctree)/scripts/jobserver-exec $(abs_srctree)/scripts/parallel-pigz
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+with scripts/parallel-pigz being something like:
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+	#!/bin/sh
+	exec pigz -p ${PARALLELISM:-1} "$@"
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+> --- a/scripts/Makefile.modinst
+> +++ b/scripts/Makefile.modinst
+> @@ -145,8 +145,10 @@ endif
+>  #
+>  # Compression
+>  #
+> +# Modules are compressed in parallel by make itself, so keep the compressor
+> +# single-threaded when it is pigz.
+>  quiet_cmd_gzip = GZIP    $@
+> -      cmd_gzip = $(KGZIP) -n -f $<
+> +      cmd_gzip = $(KGZIP) $(if $(filter pigz,$(notdir $(firstword $(KGZIP)))),-p 1) -n -f $<
+>  quiet_cmd_xz = XZ      $@
 
-If you want to undo deduplication, reply with:
-#syz undup
+Then this could be:
+
+	cmd_gzip = SINGLE_THREADED=1 $(KGZIP) -n -f $<
+
+and we patch scripts/jobserver-exec:
+
+diff --git a/scripts/jobserver-exec b/scripts/jobserver-exec
+index 21b319e6c9a5..8b953148ee9f 100755
+--- a/scripts/jobserver-exec
++++ b/scripts/jobserver-exec
+@@ -5,6 +5,7 @@
+ Determines how many parallel tasks "make" is expecting, as it is
+ not exposed via any special variables, reserves them all, runs a subprocess
+ with PARALLELISM environment variable set, and releases the jobs back again.
++If SINGLE_THREADED is set, nothing is reserved and PARALLELISM is 1.
+ 
+ See:
+     https://www.gnu.org/software/make/manual/html_node/POSIX-Jobserver.html#POSIX-Jobserver
+diff --git a/tools/lib/python/jobserver.py b/tools/lib/python/jobserver.py
+index 0b1ffdf9f7a3..fc38c5020b22 100755
+--- a/tools/lib/python/jobserver.py
++++ b/tools/lib/python/jobserver.py
+@@ -29,6 +29,11 @@ $claim child to do the actual work.
+ The end goal here is to keep the total number of build tasks under the
+ limit established by the initial ``make -j$n_proc`` call.
+ 
++Setting the ``SINGLE_THREADED`` environment variable skips the reservation
++entirely and runs the command with ``PARALLELISM=1``. This is meant for callers
++that run many short commands in parallel themselves, where each one should use
++only the job slot it already holds.
++
+ See:
+     https://www.gnu.org/software/make/manual/html_node/POSIX-Jobserver.html#POSIX-Jobserver
+ """
+@@ -68,6 +73,13 @@ class JobserverExec:
+         self.is_open = True  # We only try once
+         self.claim = None
+         #
++        # SINGLE_THREADED asks for no reservation at all: the command runs
++        # with PARALLELISM=1, using only the slot its caller already holds.
++        #
++        if os.environ.get('SINGLE_THREADED'):
++            self.claim = 1
++            return
++        #
+         # Check the make flags for "--jobserver=R,W"
+         # Note that GNU Make has used --jobserver-fds and --jobserver-auth
+         # so this handles all of them.
+
+-- 
+Kees Cook
