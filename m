@@ -1,45 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAD54A205F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:13:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4888F4A5EB9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:14:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398841; cv=none; b=cFIcDV3YnCL9Tu0MfffeBjCf1yL+98gmgIAbQp06XrkoT3Xin+lQTZ6wzQK7WEC7bl6JOe9fbNNZNe2aF/YtI6FZievHE11TIVl6q27M6DH9ssOeGbVoNvLpaHRUKvY85epXMAw8h9GeLXR607mZSgX8K/3HHI7kvgyTZmyLPiY=
+	t=1789398848; cv=none; b=Q7j8egWSYZSnh1N6MT6q8StyKo+xO4rp23bISLidsthRMECeSuoNzMLRUe/qo7o8dm/GLJa6pZ5cyJya4e5VRMXUlGr+6n8SIfUAF9ITQPn5+2Y2NJzJpCc4DVP03m+WU7a5hSzT7qw4EpkR+svQRbMZDpRohM+OjjOnOMmxffE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789398841; c=relaxed/simple;
-	bh=xt7NvntcpUv3JUn8Zr6VK0s3Zcp905okstRNRWmd1E4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DFo+KhGkP0+GXPzzRsHbm7bRNdKGEzpSFnuygTQtyJvJNN2EC0WyURs3eqd8NqkEqDhZVwiJmk5lmlYo/HdD8j21EnipFSMUVEUPHSLTc8IUWh6OmTeKyMpHjoyPjKULlZToC684xLY26R1RxFYBeobiQ7M/67z6eXrbdIdEySg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JEgkCtpr; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1789398848; c=relaxed/simple;
+	bh=qu1a4D3n3eMBQyrcOyOOdCePdmonXSrT6Fdpl/F0JcU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ScMgSJRgDliN5Sy+0k2wVKq/cqOwXKVvkQF8HIn4Couom8hrHiuBd6dqO0IiAFm/ZkBQ76nxdT+AZ4CPTYkxaEm06FmxU119KrxktKwH1eZqcQe5KMoJWJBiM/jrlXV3ttELm20KTRfvgsmZ5OjMwzxnNUXOechIxpG1V6wl03g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SwIoKBw+; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JEgkCtpr"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SwIoKBw+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789398838;
+	s=mimecast20190719; t=1789398845;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=F0bl73kxtTw5xT7Wr7dIANwxn2e4qsXa/81gAETi2cs=;
-	b=JEgkCtprX6FW4bzZJNB+T8lb6vMj6sCDHa9Dm4JDrU8cux3xJJeIrh9dDiZhEKxqp6obtn
-	j1bBX8RGu38f/o+fP3H9kEda4g+vdpQlV7sstPwYoEN/U84SxxIn/qM16nQphlu87pdrc4
-	YBc1LMiMqAJOyFnNLZ4c0T5NW2/KnJY=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bxfU28vY4jGpIFbJ5It3kleVAPLwHORiApFBN+rAZFQ=;
+	b=SwIoKBw+N/rwRLC3EOrzhF7wDilLPJxrhS8xeJD/ckFvPBC7c4ZESc6utSz9Sxo650A5qK
+	lHEHVZ5wGydWViRJ4Nup5ceoSmYAj4loSGZ8lXOD6fBC9wOPv0zrGIgBxlmSJhsBxuVuaC
+	nV1Xa1uA3Xqg2rNzfdPRLULZ2ykZ1d4=
 Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-411-HqsJ054oMKGo2sG6XMi-bQ-1; Mon,
- 14 Sep 2026 11:13:51 -0400
-X-MC-Unique: HqsJ054oMKGo2sG6XMi-bQ-1
-X-Mimecast-MFC-AGG-ID: HqsJ054oMKGo2sG6XMi-bQ_1789398830
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-163-wsStrZxBPK6hNFa3vlztqg-1; Mon,
+ 14 Sep 2026 11:14:01 -0400
+X-MC-Unique: wsStrZxBPK6hNFa3vlztqg-1
+X-Mimecast-MFC-AGG-ID: wsStrZxBPK6hNFa3vlztqg_1789398840
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9C2431954121;
-	Mon, 14 Sep 2026 15:13:49 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A4CAB1955DA3;
+	Mon, 14 Sep 2026 15:13:59 +0000 (UTC)
 Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4C8A21800345;
-	Mon, 14 Sep 2026 15:13:46 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 49BAF1955F74;
+	Mon, 14 Sep 2026 15:13:56 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: netdev@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
@@ -50,10 +52,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v10 00/14] rxrpc: Miscellaneous fixes
-Date: Mon, 14 Sep 2026 16:13:24 +0100
-Message-ID: <20260914151340.3227501-1-dhowells@redhat.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v10 02/14] afs: Fix afs to abort the rxrpc call on send error
+Date: Mon, 14 Sep 2026 16:13:26 +0100
+Message-ID: <20260914151340.3227501-3-dhowells@redhat.com>
+In-Reply-To: <20260914151340.3227501-1-dhowells@redhat.com>
+References: <20260914151340.3227501-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,295 +66,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-(This has been split from "rxrpc: Fix CHALLENGE packet handling")
+Fix afs_send_empty_reply() and afs_send_simple_reply() to always try to
+abort the rxrpc call rather than just aborting on -ENOMEM and otherwise
+abandoning it.  If the call is already complete due to network failure or a
+received abort, this will do nothing.
 
-Here's a set of  miscellaneous patches, mostly found by sashiko.  Note that
-a number of the patches have been reworked and reordered after the last
-sashiko round[10].
+Also make afs_make_call() always abort on send error; again, it does
+nothing if the rxrpc call is already dead.
 
- (1) Fix rxrpc_kernel_send_data() to loop around on a short write.
+Fixes: 08e0e7c82eea ("[AF_RXRPC]: Make the in-kernel AFS filesystem use AF_RXRPC.")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+---
+ fs/afs/rxrpc.c               | 36 +++++++++++-------------------------
+ include/trace/events/rxrpc.h |  2 +-
+ 2 files changed, 12 insertions(+), 26 deletions(-)
 
- (2) In AFS, fix various callers of rxrpc_kernel_send_data() to abort the
-     call on send error.
-
- (3) As (2) but for the rxperf test server.
-
- (4) Fix the use of len vs msg->msg_iter.count in rxrpc_send_data().
-
- (5) Fix the update of call->tx_pending in rxrpc_send_data() in paths when
-     the call lock has been dropped.
-
- (6) Fix the way rxrpc_send_data() and thus rxrpc_sendmsg() handles a
-     variety of error conditions:
-
-     - If it queued the last packet, then no error is returned, only how
-       much data is returned.
-
-     - Otherwise, if one of a number of errors occur that mean that going
-       on with a call is futile, just return that error.  If the call was
-       terminated, -ESHUTDOWN is returned, no matter the reason, and
-       recvmsg() will fetch the reason.
-
-     - Otherwise, if some bytes were copied in, return that.
-
-     - Otherwise, return an error.
-
- (7) Fix error handling in rxrpc_send_data() for if ->secure_packet()
-     returns an error.
-
- (8) Fix double IRQ enablement in __rxrpc_notify_socket() when called
-     indirectly from rxrpc_end_rx_phase().
-
- (9) Fix the generation of notifications from rxrpc after call completion.
-
-(10) Fix the rxrpc key parser to check that the enctype is supported in an
-     RxGK key.
-
-(11) Fix AFS to correctly size the YFS CM token.
-
-(12) Fix AFS to set call->server when making a call, in particular
-     FS.InlineBulkStatus.
-
-(13) Fix AFS to clear op->call after freeing the call to avoid further
-     access.
-
-(14) Fix rxrpc_poke_conn() to only queue the conn if the refcount hasn't
-     yet hit 0.
-
-David
-
-The patches can be found here also:
-
-	http://git.kernel.org/cgit/linux/kernel/git/dhowells/linux-fs.git/log/?h=rxrpc-fixes
-
-Changes
-=======
-ver #10)
-- Rebased on latest net/main.
-- Implemented David Laight's suggestion to loop around inside
-  rxrpc_kernel_send_data() rather than in its callers.
-- Changed rxrpc_kernel_send_data() to return 0 on success, not the amount
-  buffered.
-- Fixes rxperf to not double-abort on ENOMEM.
-- Fixed more Sashiko-reported bugs[10]:
-  - Removed extra blank line.
-  - Fixed potential infinite loop in rxperf.
-  - Rearranged the patches to deal with the sendmsg len vs msg_iov.count
-    potential discrepency first and then deal with the missing locking
-    around ->tx_pending - and then other rxrpc_send_data() changes.
-  - Changed rxrpc_send_data() to move the txb variable into the main loop
-    and otherwise always leave the current txbuf attached to
-    call->tx_pending.
-  - Described the return value from rxrpc_send_data() in various situations
-    in a comment and adjust the code to match, in particular:
-    - Always using -ESHUTDOWN to indicate that the call has been completed
-      already and that recvmsg() needs to be used to find the reason.
-    - Better handling of a sendmsg/sendmsg race where one side fills up the
-      buffer whilst the other side is waiting.
-  - Fixed afs and rxperf to check for -ESHUTDOWN and then receive the error
-    value.
-  - Fixed rxrpc_send_data() to rewind by the last amount copied rather than
-    trying to calculate this in case we waited and another thread copied
-    some data in.
-  - Added comment on why rxrpc_requeue_call() doesn't check RXRPC_CLOSE
-    (rxrpc_recvmsg() doesn't check it either).
-  - Fixed the RxGK key parsing stuff to be conditional on CONFIG_RXGK=y so
-    that checking the key type doesn't fail to compile.
-  - Added a key length check when parsing an RxGK key since the enctype
-    check makes the enctype description available.
-  - Added a patch to fix afs_wait_for_operation() to clear op->call before
-    rotation can happen.
-  - Drop the patch to fix a data race for the moment whilst I consider if
-    the barriering points brought up by sashiko affectit.
-
-ver #9)
-- Rebased on latest net/main.
-- Fixed more Sashiko-reported bugs[9]:
-  - Changed Fixes line for "rxrpc: Fix sendmsg to not return an error if
-    last packet queued".
-  - Split the change to call rxrpc_kernel_send_data() in a loop in afs into
-    its own patch and put that first.
-  - In AFS, always abort a call if rxrpc_kernel_send_data() gives an error.
-  - Added a patch to make the rxperf server loop around when sending the
-    magic cookie.
-  - Fix rxrpc_send_data() to only return -EPROTO or -EIO only in the case
-    that no data was copied if TX_NO_MORE or TX_ERROR are set.
-  - Fix commit message to say call->user_mutex, not call->lock.
-  - Removed comment on rxrpc_notify_socket() about putting recvmsg_link on
-    a dummy queue.
-  - Added a patch to check that the RxGK enctype is supported in an rxrpc
-    key.
-  - Move the check for net->fs_cm_token_key being valid from
-    afs_create_yfs_rxgk_cm_appdata() to its caller and just return okay if
-    it is NULL (it should've been created during module load).
-  - Added a patch to fix the calculation of the RxGK CM token in AFS, even
-    though the code is then deleted by a later patch.
-  - Made rxrpc_kernel_query_key() pick the first token with a supported
-    security index, rather than just picking the first token.
-  - Fix the docs for RXRPC_RESPONSE_APPDATA.
-  - Split the setting of call->server in afs_make_op_call() out into its
-    own patch as a separate fix.
-- Split the OOB-Challenge fixes out for the moment.
-- Imported a patch to fix rxrpc_poke_con() to avoid queuing a dead conn.
-- Imported a patch to fix a data race when initialising an RxGK conn.
-
-ver #8)
-- Rebased on latest net/main.
-- Fixed more Sashiko-reported bugs[8]:
-  - Fixed the kerneldoc on rxrpc_kernel_send_data() as this returns the
-    number of bytes buffered on success.
-  - Fixed rxrpc_send_data() to break out of the loop if either len or
-    msg_iter's count becomes 0 and to limit the amount per copy to the
-    msg_iter count also.
-  - Fixed the docs for rxrpc_kernel_send_data()'s return value.
-  - In afs_make_call(), remove duplicate error check and make sure the
-    afs_sent_data tracepoint gets called on the error path.
-  - In rxrpc_send_data() remove setting of the already-NULL txb and
-    tx_pending to NULL.
-  - Added a patch to fix __rxrpc_notify_socket() to save the old IRQ state
-    when disabling it as the call chain may have it disabled.
-  - Removed comment on __rxrpc_notify_socket() about putting recvmsg_link
-    on a dummy queue.
-  - Moved rxrpc_notify_socket()'s declaration to the right file section in
-    ar-internal.h.
-  - Updated the comment on the user_key_payload struct.
-  - Updated the comment on put_user_key_payload().
-  - In afs_open_socket(), fixed a missing ref cleanup on error.
-  - Updated the docs for rxrpc_kernel_begin_call().
-  - Added docs for RXRPC_RESPONSE_APPDATA cmsg.
-  - Fixed rxrpc_sendmsg_cmsg() to require that the appdata key have its
-    description prefixed by "rxrpc-appdata:" to prevent the reading out of
-    arbitrary keys through a fake filemanager.
-  - Dropped the use of logon keys for appdata.
-  - Removed rxrpc_abort_response_sendmsg.
-  - Removed struct rxrpc_challenge and struct rxgk_challenge.
-  - Removed the RXRPC_MANAGE_RESPONSE constant and its rxrpc_setsockopt()
-    stub.
-
-ver #7)
-- Rebased on latest net/main.
-- Added a patch to change rxrpc_send_data() to use len rather than msg_iter
-  count to be consistent about the amount to send so as to do the LAST flag
-  determination correctly.
-- Fixed more Sashiko-reported bugs[7]:
-  - Made the loops in afs_make_call() that call rxrpc_kernel_send_data()
-    pass the amount left in the iterator rather than an unreducing size.
-  - Made the second loop in afs_make_call() check to see if
-    rxrpc_kernel_send_data() returned an error.
-  - Removed yet more OOB references, two in linux/af_rxrpc.h and one in
-    rxrpc.rst.
-
-ver #6)
-- Rebased on latest net/main.
-- Fixed more Sashiko-reported bugs[6]:
-  - Fixed rxrpc_send_data() to redo the RXRPC_CALL_TX_ERROR and the
-    RXRPC_CALL_TX_NO_MORE checks after having dropped the call mutex.
-  - Altered rxrpc_send_data(), as discussed with Paulo Abeni, to rewind as
-    much as possible on retryable crypto error (e.g. ENOMEM) rather than
-    rewinding just one byte.
-  - Fixed afs_make_call() to keep trying rxrpc_kernel_send_data() until the
-    iterator is drained unless an error occurs.
-  - Fixed afs_create_yfs_rxgk_cm_appdata() to use kfree_sensitive().
-  - Removed remaining OOB trace constants.
-
-ver #5)
-- Rebased on latest net/main.
-- Fixed more Sashiko-reported bugs[5]:
-  - Removed dropped_lock from rxrpc_do_sendmsg() as it's now always false.
-  - Fix rxrpc_send_data() to not leak a txbuf from the "maybe_error:" path
-    by reattaching it to call->tx_pending.
-  - Increased the size of the rxrpc_abort_reason enum value by removing the
-    __mode(byte) specifier.
-
-ver #4)
-- Rebased on latest net/main.
-- Split out non-relevant AFS patches.
-- Allow logon-type key as well as user-type key as they're basically the
-  same thing internally.
-- Fixed more Sashiko-reported bugs[4]:
-  - Fixed rxrpc_send_data() to wind the transmitted data back by 1 byte if
-    ENOMEM is hit when encrypting the final packet so that the caller can
-    retry.
-  - Fixed afs_create_yfs_rxgk_cm_appdata() to add the 4 bytes for the level
-    into toksize.
-  - Changed bundle code to include the appdata key as part of the client
-    connection bundle lookup criteria (don't share connections with
-    different appdata keys).
-  - Fixed rxrpc_sendmsg_cmsg() to allow only, not disallow user-type keys
-    for RXRPC_RESPONSE_APPDATA.
-  - Reversed the removal of the rejection of MSG_OOB passed to
-    rxrpc_recvmsg().
-  - Fixed rxgk_construct_response() to use xdr_object_len() to calculate
-    the space needed for the appdata and also the space needed for the
-    token and the authenticator.
-  - Added a check into rxgk_respond_to_challenge() to make sure the key
-    type is user or login before we access its payload.
-  - Remove ->sendmsg_respond_to_challenge() too.
-
-ver #3)
-- Rebased on latest net/main.
-  - Removed two obsoleted patches.
-
-ver #2)
-- Split the CHALLENGE/RESPONSE fix into smaller patches.
-- Fixed more Sashiko-reported bugs[2][3]:
-  - Added some more patches to fix some more bugs.
-  - Get rid of the AFS_SERVER_FL_APPDATA flag and check the pointer to the
-    appdata instead.
-  - Rename the appdata key pointer in the AFS_SERVER to reflect this one is
-    only for the YFS-RxGK security class.
-  - Use barriers when reading or writing the server appdata key pointer.
-  - Ignore the appdata for RxNULL, RxKAD and OpenAFS's RxGK for now.
-  - Check that sendmsg() with RXRPC_RESPONSE_APPDATA is passed a user key.
-  - Check that the appdata key's payload isn't NULL, for instance if it
-    gets revoked.
-  - Add some error path key_put()s in rxrpc_do_sendmsg().
-
-[1] https://sashiko.dev/#/patchset/20260624163819.3017002-1-dhowells%40redhat.com
-[2] https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
-[3] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
-[4] https://sashiko.dev/#/patchset/20260713081022.2186481-1-dhowells%40redhat.com
-[5] https://sashiko.dev/#/patchset/20260723100309.530157-1-dhowells%40redhat.com
-[6] https://sashiko.dev/#/patchset/20260729160108.2031453-1-dhowells%40redhat.com
-[7] https://sashiko.dev/#/patchset/20260804172639.2844491-1-dhowells%40redhat.com
-[8] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260812110129.979970-6-dhowells@redhat.com
-[9] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
-[10] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
-
-David Howells (13):
-  rxrpc: Fix lack of short-send handling in rxrpc_kernel_send_data()
-  afs: Fix afs to abort the rxrpc call on send error
-  rxrpc: Fix aborting in rxperf test server
-  rxrpc: Fix sendmsg length
-  rxrpc: Fix update of call->tx_pending without holding lock
-  rxrpc: Fix error handling in rxrpc_send_data()
-  rxrpc: Fix packet encryption error handling
-  rxrpc: Fix double IRQ enablement
-  rxrpc: Fix generation of notifications after call completion
-  rxrpc: Fix RxGK key parser to check enctype is supported
-  afs: Fix creation of RxGK CM channel token to have right size
-  afs: Fix lack of setting call->server when doing FS.InlineBulkStatus
-  afs: Fix uncleared op->call pointer
-
-Seungwon Bae (1):
-  rxrpc: fix use-after-free in rxrpc_poke_conn()
-
- Documentation/networking/rxrpc.rst |  10 +-
- fs/afs/cm_security.c               |   2 +-
- fs/afs/fs_operation.c              |   1 +
- fs/afs/internal.h                  |  33 ++---
- fs/afs/rxrpc.c                     |  59 +++-----
- include/net/af_rxrpc.h             |   5 +-
- include/trace/events/afs.h         |   1 +
- include/trace/events/rxrpc.h       |   6 +-
- net/rxrpc/ar-internal.h            |   3 +-
- net/rxrpc/call_state.c             |  57 +++++++-
- net/rxrpc/conn_object.c            |   5 +-
- net/rxrpc/key.c                    |  27 +++-
- net/rxrpc/recvmsg.c                |  44 +++---
- net/rxrpc/rxperf.c                 |  51 ++++---
- net/rxrpc/sendmsg.c                | 221 ++++++++++++++++++++---------
- 15 files changed, 342 insertions(+), 183 deletions(-)
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index 09d9da92a1be..2b241716dae7 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -441,10 +441,8 @@ void afs_make_call(struct afs_call *call, gfp_t gfp)
+ 	return;
+ 
+ error_do_abort:
+-	if (ret != -ECONNABORTED)
+-		rxrpc_kernel_abort_call(call->net->socket, rxcall,
+-					RX_USER_ABORT, ret,
+-					afs_abort_send_data_error);
++	rxrpc_kernel_abort_call(call->net->socket, rxcall,
++				RX_USER_ABORT, ret, afs_abort_send_data_error);
+ 	if (call->async) {
+ 		afs_see_call(call, afs_call_trace_async_abort);
+ 		return;
+@@ -857,6 +855,7 @@ void afs_send_empty_reply(struct afs_call *call)
+ {
+ 	struct afs_net *net = call->net;
+ 	struct msghdr msg;
++	int ret;
+ 
+ 	_enter("");
+ 
+@@ -869,22 +868,12 @@ void afs_send_empty_reply(struct afs_call *call)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= 0;
+ 
+-	switch (rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
+-				       afs_notify_end_reply_tx)) {
+-	case 0:
+-		_leave(" [replied]");
+-		return;
+-
+-	case -ENOMEM:
+-		_debug("oom");
++	ret = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
++				     afs_notify_end_reply_tx);
++	if (ret < 0)
+ 		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM,
+-					afs_abort_oom);
+-		fallthrough;
+-	default:
+-		_leave(" [error]");
+-		return;
+-	}
++					RXGEN_SS_MARSHAL, ret,
++					afs_abort_send_error);
+ }
+ 
+ /*
+@@ -913,12 +902,9 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
+ 	n = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
+ 				   afs_notify_end_reply_tx);
+ 	if (n < 0) {
+-		if (n == -ENOMEM) {
+-			_debug("oom");
+-			rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-						RXGEN_SS_MARSHAL, -ENOMEM,
+-						afs_abort_oom);
+-		}
++		rxrpc_kernel_abort_call(net->socket, call->rxcall,
++					RXGEN_SS_MARSHAL, n,
++					afs_abort_send_error);
+ 		_leave(" [error]");
+ 	}
+ }
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index 704a10de6670..554dfb777b93 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -20,10 +20,10 @@
+ 	/* AFS errors */						\
+ 	EM(afs_abort_general_error,		"afs-error")		\
+ 	EM(afs_abort_interrupted,		"afs-intr")		\
+-	EM(afs_abort_oom,			"afs-oom")		\
+ 	EM(afs_abort_op_not_supported,		"afs-op-notsupp")	\
+ 	EM(afs_abort_probeuuid_negative,	"afs-probeuuid-neg")	\
+ 	EM(afs_abort_send_data_error,		"afs-send-data")	\
++	EM(afs_abort_send_error,		"afs-send-error")	\
+ 	EM(afs_abort_unmarshal_error,		"afs-unmarshal")	\
+ 	EM(afs_abort_unsupported_sec_class,	"afs-unsup-sec-class")	\
+ 	/* rxperf errors */						\
 
