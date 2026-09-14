@@ -1,145 +1,115 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B57335AC24
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0BA35CB7C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789401669; cv=none; b=uOedhb52oGKbV3q+tGC8yrziPjhowtX5zbSbG577I71PLYve5BsUPuiVyWDD1xMbYsxHlN75J1FEA6RQciMndeKIaf8rJ3ckAUS+Rxg00kzKq+Y9NRgnOTyJ4pdf7bj9ZA8wZcCUbWtaqF2mp3Jew1F6DGgXapgaEZL/C09St5A=
+	t=1789401670; cv=none; b=hrXnAkNFSvxyU0XBcOWngWue8cwxh3FeaYCE8gKC+09/oyCQw73ONMYG3S3xH1N2aR76bUNmYXFgqNs8Q5gosrxrJT+6DVAE3Aku3ZQdHsnJ3QXyT7Iwo/kfA/oG+lB1toi85D3aGZtCCcphE9yGxASibQpGuk68lR8yVh53zXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789401669; c=relaxed/simple;
-	bh=CbP2Yc6QOC1TaqWXpk9VKHDdPov5UCKmBGqZZE0al8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=egVarMujyaiCeRz3EjFWUNeegjPB17qKsG/f7TYrsr2FqAB/AZDfMR4IxQESou82xuFCWvL95z9qt4wgXGIp528tKUqm+hsiVoF/fxI/sWHoF3ac3LwRy6R+VhlHAkBpFr6JOa44xH7bzBE8vIL+UDtPsha7Md9Y3OVERK0vs6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=vSGiwET2; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="vSGiwET2"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c13f2685f2so1461701b6e.1
+	s=arc-20240116; t=1789401670; c=relaxed/simple;
+	bh=tidAyrhvNd18w/RMQ3ixTcc1CJXXLRgvNSZKkAY+9zI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CIxDTw2eR075X+gE3nj9vzKzzxzUOsYJBwIVk5GlRE+kqnEZZO1nU2FUem4Q9aQOllfw/G4zMVKo0CfGkaXvpDVzALc+jH3AFF5b9goMNQzpqUkloAjQ/qffaqYHO79oBs1o6azdAbA9h8aODDHBh/qqfCQvcVLsDo5U1WPGmpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-785643199c4so627783137.2
         for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:01:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789401666; x=1790006466; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iBllaTOuazudRqgAdFSA/MXIeDVbKXR+ECVpXkcNDSM=;
-        b=vSGiwET2fUu4tZIrwbrvjd1XfIol48xkbKwSmnIaYR6TIGf748zgIy1ek7Evjfk2MO
-         tL2uZPMFSU0yvwjg1Z+1kln/umFBmrtYAV8XRSsfocvdCjHMONWUMGtAwtxXxpZbtOHt
-         90+coEUKXcKam3xymzy0s8nI6pfAk7VwWvfdsmbP92qZrcde5H1OCjLJbberfpom+hxh
-         lMz1WzVODDguEvgJaguke0y6H12WJOHi9rzq09ejLbEulMUzx/gN0CrNi11oIEXz6jdd
-         Z2WuuRCoLu5o/tjKM1zY6I1xqRBIPL/JE6uru9lcsa1rJgy+qATJxtI+x/Yv2bqGkxm8
-         x+Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789401666; x=1790006466;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iBllaTOuazudRqgAdFSA/MXIeDVbKXR+ECVpXkcNDSM=;
-        b=mLLG1PKr5Mnw1DwtUw9w5yC05qygptHinWpv3ptAKGzGroNYHLZP4/KnAFsiUaAGpj
-         hVnSxp16GVFISmKG2WFZ1Hbj6aD+ps0fHe1EsCtKL93jB7U8X1KyPglAD7qJR+fVtQgk
-         fpSxa3orHY+UT1yUOG+Madt2348IrulKwJQ/HIA27IaaZw9OIsncyLzgwXnUnev0bTk9
-         Mujs74v4A9e4IMfLf2pK+t2XBi7YCb6JglHDNimO9AwtiTmJpJvt6M0C3noybJsLFbbN
-         XV4w0G9JyuiUL+wbEusq51K3dzfuaOPUQSPSYrIWJGtciuRHAfNs6imVDS2dUyCz1NQu
-         MunA==
-X-Forwarded-Encrypted: i=1; AKwUvBz1uXVQ9mCX/b6d/hYheZ+yDpF+ancM/ajV294w14UM1PLHnoWLZPkfZ+/RaHHN+nHhHMTZs1gJmVz+vj4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxpC3Lisg18c7IHSs3ZdGUj1YH1m8JUE24bAMZQq4xC50fcaZq
-	no5BKJdwZxDXLdgQdwynS/OPH52IGjgtFiyn2/gvM1xFQgMj1d/jvoPzMC11q5jnc87mbOBSLr8
-	BqxavQA==
-X-Gm-Gg: AYBFou1K/Z7cSoPcdATiL3nS+uQVv0tco9v3eDmse55vSmvUHmaX8JjGaoyaWS77wNq
-	xZMBmIl2L3jVTxlYWjGhNpsGzvCEsBFemkrUq8vv1F5VUexyBCbxIGf24EERmhW08y0f4n40mvt
-	P5mDwuZjTXXrHH5wU3Ee7MUu37AvGUDkXOSFtLayRPot9JY2xlqzKVKfJls1pLceZBF4B0gXQ/x
-	oLbeSV9McruD0PpcUm7HsTiGYxcLGzX97XfGDXonUrsY964wjr9JxryaEYqhA4TSP4JvZV+5Lwi
-	sFHRaFndjhv5ZTpMCSO2H/74ZunYxQ43wmj8wmFA/qP3nqiY8vIFaE0F/dqbKlnaxrrtt1d6kvI
-	ldO5rk4b3FuBl9eawvdI5Y6s/zldjV+DZLuZUhAjooMidjKmpLfMgpY/I4/vDicBZEdlngYwBl0
-	ynIop3S+pPDq+laeTgVVPEtU+xE+FGaKpLReVhRdZCLuXWsgZULAdNTN+B2WkojTavRJEZflw8y
-	MWvVfeWFNk=
-X-Received: by 2002:a05:622a:1786:b0:530:b2e2:903b with SMTP id d75a77b69052e-5310d0bc66emr40415231cf.59.1789401655453;
-        Mon, 14 Sep 2026 09:00:55 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca3098easm102330871cf.3.2026.09.14.09.00.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 09:00:54 -0700 (PDT)
-Date: Mon, 14 Sep 2026 12:00:51 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Minseo Kim <neck3922@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
- in ep_aio_cancel()
-Message-ID: <f42b44ef-b083-4976-bf06-f2a21098474b@rowland.harvard.edu>
-References: <fb56064c-6481-44b3-88e5-8e5ff7b85703@rowland.harvard.edu>
- <CAFmvuTXWxQJUZfAAC=vs5QM=myDLE-o0jZZ8OXdqiGioPkRwfA@mail.gmail.com>
- <f928b74b-ce57-4454-bdd4-511b823bf742@rowland.harvard.edu>
- <CAFmvuTXwUiap39-FHv6aqGbJVzORRx8tV1QfN0BDjJaPsbfKHg@mail.gmail.com>
- <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
- <CAFmvuTUwGr-=joWrsYMu-Ra3XpHTe_HFhaY5inJnhg=e5b=1PA@mail.gmail.com>
- <1a93bb26-9ded-4b71-b409-62896a2681a6@rowland.harvard.edu>
- <CAFmvuTUogd8MyQM02VpM7iHaopzrOoex+X-McQE28X1fgb_AeQ@mail.gmail.com>
- <0b6b13ff-789e-4ba4-9765-1052a154ef27@rowland.harvard.edu>
- <CAFmvuTXeg2LykJa060WUYAhhQpdwGV74VFkMb6Wu5zjyqWzxmw@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1789401667; x=1790006467;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qykkjFNFoMY5mcORIRq6zXUVDXiXOh0EpjPHb+vO+UU=;
+        b=f+o3luBa+Z9DHk8BFvdRjveP32lfsCK6gQNkejIUX2AoJAHfzhaVxbyt5JjcXuP9fQ
+         F4gGG+RMOYpImdxn90gopQMeJaZuvQcpPxIIAV3lO0TWiADg10X68tOLRMA1IphAk4oI
+         qeUzF3Ch4e4d5iELfG+15BywBdoVqSUmCZ2wKvk6Sh2kbc8deFuPB9QYfuonOkf46dDn
+         a24BzVBu7CnklVR+Pn4I4rVRizooGdq1/DxjYMzL+NdINV4kfE/v9b6MQVETfGPwJEov
+         iIUPNN5vXecXcw2dpR6WuryzzOiUtEwMN6maCL4O1lzhvFe5/yNYenDnZnu6/niPAY54
+         K+vA==
+X-Forwarded-Encrypted: i=1; AKwUvBxqLzFSg/x+xojxQ2xtjUK0IVC9F6ONTpT3zBEtamhOhCQ+1F5c0u7V+v9VcYLoQqW9hK4gT3efFTdMOQI=@vger.kernel.org
+X-Gm-Message-State: AFuF++npiaH8/YH3KVXQO64edKFq6BsQ6kkK63xH2MD2iIJvMDYsBoD8
+	gWGIR8ziMT/ZBQzHe3wuVjyqkZ919fMDOIGxZaMJyxyyAcirhalYPixz8myHa+Jp
+X-Gm-Gg: AYBFou3pMRkVMp08yoc39Vn98x1tVzMe1v8Q75eQdlJuAxHuBYnFqIBLQ6NwlOFhvVJ
+	7gQucqmmxACwV3jsy4q1QFGh0OBVoboVUKsGFCBjlfS5a7vhS1YC57DnwJgywM9d8C6G59HjG4n
+	gsO1hJYGbepvsdlXVYZo2rah16VIWrsqQWvt9x/zkKiyJQkliZiac9KU6xjoyoIeI1Z6E8U7Oew
+	pIRC+YfZzn4WllncDK0DCgomW6IuyZopgPeNo2jCH53R+QWAeLhNuYHDqbHgjdugv0kdkewgIqm
+	/GMN6L+C50r464BdeShvDJ0JRVpJab0PsaAjVehBAw2jCNOn7ILHsXMruWyodus9MQpa0JXfC8I
+	SSfIaiC4bSKdYmEXweS0zg/FOoJiJIkHKLVUWMnClTiENH1eQrMujqsOQpu4A7aeE3Vod1q8ZmP
+	jdp4ppt7O4HRZSXFnnkkRTzsqp9SQ32/agx/dQvoTiW1TXezKZHwI1UQHkoScqY03l0rsta26NM
+	T5wUmB/fINCLph0/Y2LQM06BKbPYscFhcPdhg==
+X-Received: by 2002:a05:6102:41a2:b0:785:c643:a415 with SMTP id ada2fe7eead31-79b5bc499e2mr3298174137.12.1789401666578;
+        Mon, 14 Sep 2026 09:01:06 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7927cbdf149sm10712083137.4.2026.09.14.09.01.05
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 09:01:05 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c62dde2so680939241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:01:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByOjRWPSMZiNRKLrbUJpaW56zK5TEzjTRbbY+8fbJwQk4vc7jbUI6y3+fV6f7JVYgBCF6CEc7xkqkspcWY=@vger.kernel.org
+X-Received: by 2002:a05:6122:e266:b0:5c8:4409:602a with SMTP id
+ 71dfb90a1353d-5c981e978a6mr3949153e0c.8.1789401664780; Mon, 14 Sep 2026
+ 09:01:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFmvuTXeg2LykJa060WUYAhhQpdwGV74VFkMb6Wu5zjyqWzxmw@mail.gmail.com>
+References: <20260913195654.3371385-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260913195654.3371385-2-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260913195654.3371385-2-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 18:00:52 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUa+v+dU3rYbo94ncntsi_O5jxTYz+R05Tiw5ugvbgCDg@mail.gmail.com>
+X-Gm-Features: AcwNN1UsCcmNqwTW55VDblIRDqEUqSmSDNxHTD-MZM3Vsk3F4Hbvpn5nqDQZKcw
+Message-ID: <CAMuHMdUa+v+dU3rYbo94ncntsi_O5jxTYz+R05Tiw5ugvbgCDg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] pinctrl: renesas: rzt2h: restore correct pin mode
+ on IRQ free
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 14, 2026 at 11:00:00PM +0900, Minseo Kim wrote:
-> Hi Alan,
-> 
-> Thank you for the revised patch.
-> 
-> Following your explanation, I focused this round of testing on how the
-> revised patch handles module lifetime.
-> 
-> I applied your first patch followed by this revised second patch to
-> upstream v7.2-rc1, commit
-> dc59e4fea9d83f03bad6bddf3fa2e52491777482, using
-> CONFIG_USB_GADGETFS=m for the runtime tests.
+On Sun, 13 Sept 2026 at 21:58, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> rzt2h_gpio_irq_domain_free() calls rzt2h_pinctrl_set_gpio_en() with
+> false leaving the pin in interrupt function instead of returning it to
+> GPIO mode.
+>
+> Pass true to rzt2h_pinctrl_set_gpio_en() to take the pin out of
+> interrupt function after we're done using it as an IRQ.
+>
+> rzt2h_pinctrl_set_pfc_mode() switches the pin to Hi-Z, losing the
+> previous PM value.
+>
+> Save the PM value before switching to Hi-Z, and restore it after the
+> IRQ is freed.
+>
+> Cc: stable@kernel.org
+> Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to handle interrupts")
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> ---
+>
+> V3:
+>  * no changes
+>
+> V2:
+>  * switch pm parameter in rzt2h_pin_write_pm() to unsigned int and
+>    remove the u16 cast
 
-...
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.4.
 
-> I also held ep_aio_complete() immediately after iocb->ki_complete() on
-> the PWRITE path that does not queue copy_work. In two runs, each starting
-> from a fresh boot, after the reproducer consumed the AIO completion event
-> and closed all GadgetFS descriptors, unmount remained pending, at least
-> one concurrent delete_module() attempt failed with errno set to
-> EWOULDBLOCK, and gadgetfs_cleanup() did not begin while the callback tail
-> was held. After I released the gate, the callback returned, unmount
-> completed, and module removal succeeded.
+Gr{oetje,eeting}s,
 
-Hmmm.  Do you know where the unmount operation was getting stuck?  Was 
-it the usb_gadget_unregister_driver() call inside dev_release()?  I just 
-want to be sure about this.
+                        Geert
 
-> In another cancellation test, both unlink_work and copy_work were
-> outstanding on gadgetfs_wq when rmmod entered destroy_workqueue().
-> Releasing unlink_work alone did not allow cleanup to return; it returned
-> only after I released copy_work.
-> 
-> Using the GadgetFS source with both patches applied and without the
-> diagnostic gates or markers, I reran the original NULL pointer dereference
-> and UAF reproducers and the relevant AIO cancellation, payload, teardown,
-> CPU hotplug, rebind, module reload, and partial read stress tests. All
-> completed with the expected results and without a KASAN report, Oops, or
-> LOCKDEP warning.
-> 
-> In these x86-64 QEMU and dummy_hcd tests, module cleanup did not begin while
-> a callback still had work to publish, and destroy_workqueue() waited for the
-> remaining GadgetFS AIO work once module cleanup began. I did not find a new
-> failure attributable to the revised second patch in these tests.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-That all sounds very good.
-
-> Thank you for examining this issue with such care and for the time and 
-> effort you have devoted to it.
-
-And the same to you.
-
-Alan Stern
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
