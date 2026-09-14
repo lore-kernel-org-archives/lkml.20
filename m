@@ -1,137 +1,108 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED9A443A89
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C917440A16;
+	Mon, 14 Sep 2026 11:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386897; cv=none; b=cu6p4jOsKYeepyKiy/rC847hAqKNWdVj43ZoDMrLkAlCGEy7WXFEjLvJmJohOhCwXwQLOfwUEsTl22bod8nRVaM5Rb7X+NKECwtO+Sftlowpg3G7VteKQBKBTzsKL8ZdWBe+8gk5W/bZuVph9ClMEVwwElWrPL6eUwMYjd0xvQo=
+	t=1789386900; cv=none; b=hc8f+kJ+5IOsRIJRxF2z98L8kIVu5WRg9qVu86gBLIAozZ87WQfjKPJravIwrCik54lrKMH/MNsR3bo0RmisxS6ZaZeZ81n2s/kvRZeix3r5m0lrfVxEy+4HGOezUwkRl4iTHKXamixePG82au2QlT27AvLerUhjvMXrMQWEUwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386897; c=relaxed/simple;
-	bh=3uWLS0zXi8hbzN1pQ7fg4WKf5YdWAavl/C0SrqFsdwc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kptwLV3Qv1QSjwkjn+BVXazol17dbtdF2smtr6AQpj+vs4c5ewFdUNpLxstzf1ueCmhaAdWGBmfuzRRfydl72mVV8Il3Hehc2xeHC0Z9WaFJcOPowYDM4iej9ddXdcK9Gs+2bGSCCDOvhPx4W2NM4gXdl0EbQ/gG4xo4eM1pVYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtDFJXqA; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789386900; c=relaxed/simple;
+	bh=frX//QIduH8kMIeCT3Ozdj2L7RcSLwxZOIDPR2NunME=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uGP/DkZ2SOxGmfd+ZALPWxXlIkTRKNP/ayZTPppikBl57xroLWPriyt9UrSkv21ZdOJ0u39vXMDJDLVN18WOB1MMXF7wArUpPOTvkyu1GD/pJtU9fuzPKNqqY5ZvH9EOC2HdnNj01LOOuxFEw7bcGxxAMiM86IgIhuTXshGOKEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7wNU7Iw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtDFJXqA"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86868f7707dso596120b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:54:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789386895; x=1789991695; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xz1oPaQal4obx4wv+mUPfBXv881JUQVzx0KD6p2In74=;
-        b=RtDFJXqAAFrXir1v0Kh8V4WaZraUQrGnH6QvzOu1plXMa255tGCbcQBeaEqygkj91I
-         Kbmsj8iEiHvZZVaqgT8s+mNbaD2EX+PPeKrIvMl8brEsx87dLOr+xLboLM4sR3htvn7i
-         mzQq88e45+yyZ1NXFEnNmHqASQNvrAQfajCuxyThvL0FbIMWa6QmDJSSJOzi7q+vrk4/
-         BdG/uudI1FV+tzAD+lIjjpD6MCX9qCkovW72wcm8Y/iZCIhFYd6dgOoTnIoGWHv8xZJv
-         7B4li6XahmlKxmC5i8rtm8SciXIma8PdB0mOcXZutGiZTKu1TXVjYCccCTBOgojOVBgB
-         0DAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789386895; x=1789991695;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xz1oPaQal4obx4wv+mUPfBXv881JUQVzx0KD6p2In74=;
-        b=a5RT8IEMMhO5clq7W4Njj7buhYLmggYLJHUSInI4FhYMKYz32p1G3HPF3epGzynAoR
-         RcjPsFjyOh91dsU40hQ9ksYZK7Cb1bswE9xd1In9i9dABzxWZwWWmHXvQY6OcTtbcdll
-         SpDMkgF014Zo4BFE4skDSjHPPJ/v6UMFcFjH3vchLxoQb6ukh2fInJkLOp5epTqiWh5i
-         9wB9uqA9LjoaIN1/dcl4rM5T9Q0iDQm6yc2rXvI+JyJ/2H5A0vHdaCElYp1u8iXcE0aI
-         0lqKeWXvnD5ps3y1pi1l296FSduHd2+t9MrCDGKe6j4FUCZ/xVjTk+EsaLSjctrSz1Ew
-         UdLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzeFSALU4zfPQT1g+34FIlPk4zsSm5qDDvnXKrHRRFmBZCNHI2s9+dd5+IWJmcwW/VcYHvMUqnmPwRcj3k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l97tPCPFxVw+TUce3wj9kNpvbmDm1ABEumJ5+8/Vew30kERmrh
-	AvIffjPUewo5JSnHERzBJ6Hvx1XbxsbgXBR+fBmGVCEhOHrz6rPcSKZK
-X-Gm-Gg: AYBFou2R9oxOUW8+DYnGdheQtXhNMpvPAZD+AetiXp33TtklkLYZ3/QNvw827tVH74u
-	NbRs0Qp52EJ9H7rOQ9WIv/Vg6e1FCg7E2HG/wOwTBJNM9SgcdiSYvE59CBkjJVGqK6XBRSpdz0A
-	bQkvbAu85RrHJqiqKhUIUMm3PWgOpQZ0EJER++LI43IIft9zZDrq9AhQzmSxYqxTAoTepvJ71ry
-	bLFZ45jUFRBr4BYyewCYXg4W1U+3ys4eVrAoAKaVQLLk/y00BygYo/4aiy4pDCl4UCz0TdHyGlI
-	zuOk4CkDzcx/lBHfDnxX+4qHkB2FtRYWuitLnHsGYMqO3cGzvGIBS78eqSHgjIYOsb/BX2Pja2e
-	UZKVnvwgWV/Nex1YLkhXHwv6kXT70MAnGi1quJNQ1UjieA2esYgUWNeblk5WTHDSV1GU9dILd+T
-	T1Jkgkwp8w91jhyxsOJGiEqrIQ8NhFJeMG52vK7wYCUOuPb56srr7jM2bZBmkGLqXg+QnGmfHc9
-	Jn49YXSyh9e6yCKCA==
-X-Received: by 2002:a05:6a00:2444:b0:857:7337:5dba with SMTP id d2e1a72fcca58-86f862c48a6mr4632403b3a.24.1789386894733;
-        Mon, 14 Sep 2026 04:54:54 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29bb9ff4sm4565342b3a.44.2026.09.14.04.54.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:54:54 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Simon Guinot <sguinot@lacie.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwmon: (gpio-fan) fix use-after-free of alarm_work on unbind
-Date: Mon, 14 Sep 2026 18:54:48 +0700
-Message-Id: <20260914115448.2039438-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7wNU7Iw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773C61F00898;
+	Mon, 14 Sep 2026 11:54:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789386899;
+	bh=mzslbS9s57kHQk5KhGmaTOWstnEBnslT4LYp80HR5nQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M7wNU7Iw1O/OBF9URQRc/i9iZNutJqNfPaElMBTKqIKZPckpJAmhf7f0gLTCu1HMt
+	 tMF7nnZqUHw7m4Q6qqhICroNBaY486sD0k/9xXK+kQZKWIf03oC5NPZb6udvbFfXAx
+	 uH9dQsLagA9St5ZWmgflKNogNNb7bUoyJMV2Na1k3ecddBe1ghAx8IqK9DNNEyT59z
+	 vBhTwYPX12IMLAPO4zDprisBauaJ/Yl8+H2rZ+89XAnU99qBmV8unZn7HZ+ufwajJQ
+	 YvybuH36cRfFJdBuDgjwQMkMRrTa3ZlgAOlnxPSTxnWtid0iAU8HJx9IoK7U2P4fUQ
+	 S3w2vJ3Nt0ulA==
+Date: Mon, 14 Sep 2026 14:54:56 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+	Alex Mastro <amastro@fb.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Longfang Liu <liulongfang@huawei.com>,
+	Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+Message-ID: <20260914115456.GY13683@unreal>
+References: <20260911214200.33793-1-matt@ozlabs.org>
+ <20260911214200.33793-10-matt@ozlabs.org>
+ <20260913165244.GW13683@unreal>
+ <20260914113647.GL3968357@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914113647.GL3968357@nvidia.com>
 
-fan_alarm_irq_handler() schedules alarm_work, but nothing ever cancels
-it. free_irq() (via devm) only waits for an in-progress IRQ handler,
-not queued work -- a pending alarm_work can run after fan_data is
-devm-freed, dereferencing it in fan_alarm_notify().
+On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
+> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
+> > On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
+> > > Expand the VFIO DMABUF revocation state to three states:
+> > > Not revoked, temporarily revoked, and permanently revoked.
+> > 
+> > The thing is that "temporarily revoked" is actually the standard
+> > invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
+> > for VFIO.
+> 
+> I think temporarily revokes here means it is revoked from a dmabuf
+> perspective
 
-Cancel it via a devm action registered before devm_request_irq(), so
-teardown frees the IRQ first, then cancels whatever's already queued.
+My guess is that this is more of a "change owner" operation than a
+revoke operation.
 
-Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260830152150.27F5F1F000E9@smtp.kernel.org
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
- drivers/hwmon/gpio-fan.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+The main issue here is that we have to guess the semantics instead of
+having a properly named and documented operation. As Christian pointed
+out, the patches describe what they are doing well, but they do not
+explain why they are doing it.
 
-diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
-index 084828e1e281..b1b57bb63a33 100644
---- a/drivers/hwmon/gpio-fan.c
-+++ b/drivers/hwmon/gpio-fan.c
-@@ -81,9 +81,16 @@ static ssize_t fan1_alarm_show(struct device *dev,
- 
- static DEVICE_ATTR_RO(fan1_alarm);
- 
-+static void gpio_fan_cancel_alarm_work(void *data)
-+{
-+	struct gpio_fan_data *fan_data = data;
-+
-+	cancel_work_sync(&fan_data->alarm_work);
-+}
-+
- static int fan_alarm_init(struct gpio_fan_data *fan_data)
- {
--	int alarm_irq;
-+	int alarm_irq, err;
- 	struct device *dev = fan_data->dev;
- 
- 	/*
-@@ -95,6 +102,17 @@ static int fan_alarm_init(struct gpio_fan_data *fan_data)
- 		return 0;
- 
- 	INIT_WORK(&fan_data->alarm_work, fan_alarm_notify);
-+
-+	/*
-+	 * Register before devm_request_irq() below: LIFO teardown must free
-+	 * the IRQ (stopping new schedule_work() calls) before this cancels
-+	 * whatever alarm_work is already queued or running.
-+	 */
-+	err = devm_add_action_or_reset(dev, gpio_fan_cancel_alarm_work,
-+					fan_data);
-+	if (err)
-+		return err;
-+
- 	irq_set_irq_type(alarm_irq, IRQ_TYPE_EDGE_BOTH);
- 	return devm_request_irq(dev, alarm_irq, fan_alarm_irq_handler,
- 				IRQF_SHARED, "GPIO fan alarm", fan_data);
--- 
-2.25.1
+> 
+> Just that VFIO can make it's internal dmabuf work again, there won't
+> be a notification to any importer or an expectation that something
+> like iommufd will re-establish mapping automatically.
+> 
+> This is principally a kernel self protection mechanism where the
+> userspace was expected to have removed the dmabuf before issuing a
+> reset/etc. If they didn't then the kernel plonks it and userspace gets
+> a mess to clean up.
 
+Revoke/invalidate means that the importer should stop accessing the
+buffer provided by the exporter. It does not specify what the exporter
+should do afterwards.
+
+So I still think that "temporarily revoked" is closer to
+invalidate_mappings, with some additional dma-buf documentation to lose
+the expectation that the buffer will become available again.
+
+Thanks
+
+> 
+> Jason
