@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D3246AA80;
-	Mon, 14 Sep 2026 12:56:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66873469847;
+	Mon, 14 Sep 2026 12:57:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390587; cv=none; b=iGgvaL9Wz7h/3f3OiEKK1CEkr6PSYHP/BbMdia0yVj2hNRg4OX0T/Vo64JdDHoIO4lsItf5iMMsUNCZGH3fsw4mnGDDCQ7GE0ems+bPoEJsA2tmGxndYU70oK18j0rKXPcptCz6A8TZvKzUZZzPJz3ooerdytnXvn5EuzKKfZL0=
+	t=1789390661; cv=none; b=hkseH3tvZwZD5Q9Z41SBd2q+3IS5ubTF1Zr8n+ixcTP3OwPKoZ/yOjEnKb34pipCGcWNwYd/0QFCpf3zNsO25MbQX+1DtFiZ1m+zr0+ISb3kZMUxEBuwdDkQt2JyMBaTuU54y6okWEbYr57MxFhZNLvPbwoOCViwAaHziAXRDJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390587; c=relaxed/simple;
-	bh=LtG6Z0UcKIE+I7QFa4TbKDRJH9Pd+VynmqlW6aEZDIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ELg7flMjzan50nCRnQbXpQKsmThaD4wARmajk5RFmio/GEt9ZOcq8eF/qZTma3qUjP4Mqg0ESCTV84ikPfU197KMALy5GXmu3VxKNcCFcMLgxrvHJSYQjB2SsJr3xkyn3IxsPH3UR7hTlAoVtuebITQHBanoJVP7dQ31rhz8PWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wt8hIwbS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789390661; c=relaxed/simple;
+	bh=o6xZ4qp5cjwHrSyG5iTMapiGJhW82l8AkeYHejPXGjc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=A1xKLtEtY1fxzIJhUcEs0cBpXHC3KFbZ+m3ts/LAOO9M4hqR+V4xLCvBJ0qcew9FWTvEakh18i4YzfJPrzeiICx/+zbXkApxERST7HmGOyq+YfnD9OShB8mSYdLybNerZ5bJZZLUFSnVz/A+b7N8SPfsfdkLvD1eQiWbXeCCy8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=InbmALLi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wt8hIwbS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60931F000FF;
-	Mon, 14 Sep 2026 12:56:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="InbmALLi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1FA61F000FF;
+	Mon, 14 Sep 2026 12:57:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789390585;
-	bh=y2hnxf2Keo0PBOeAUaEZlu8CdfyWCrVmr9eIS7X4hYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wt8hIwbSZus+fvs8CtHzY7u8+16zlmJ2Oj62kQykSFjqiiYwtLng3EQJBmO0D+gR0
-	 JhxnSPLOOVHR8h4p/kjK1E6A5EkPm34ySsAmka2nksNin1AA7tR8qPzGlsWUGJK1bt
-	 xf9snNxZZiP2FlnEXJv6ZoZcO2tZVcg4Kkk37aazt/yzm9Zi53GsKGDVfSiqRjBhb3
-	 PkhI/M+PABgd0mCFtLgnez2X6hmIv5cxODVHTuoJSTqy2nyACtGqGvByZbEw0NO10g
-	 4hhtCgBi+R0uZHTMf4OAAdOP2j+mf/8+wro5die7C4AYW1ygb1PLab5xOO5xA/m4nT
-	 XdqGPnCKeCh7w==
-Date: Mon, 14 Sep 2026 14:56:21 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: astian <astian@memeware.net>
-Cc: linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org, 
-	Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: ioperm(2): confusing terminology
-Message-ID: <aqfsMbQWdqq_TG_b@devuan>
-References: <DLDOCNQUCW9N.3GGL01BMV0HNG@memeware.net>
- <aqXOgqne-v4GtglY@devuan>
- <DLDZ6A0QS5NY.E0Y1TPNME1IN@memeware.net>
+	s=k20260515; t=1789390660;
+	bh=IpLjXJxZ9W0XIGvK7WoCkmK87VUijJonkDdh/G0UZUM=;
+	h=Date:From:To:Cc:Subject;
+	b=InbmALLiKwaM2hIhsea+zHGINniiYwz/Gx5BApezQjwV7f2H5JOj31ORvJZhPEPIf
+	 kNsvDYA82qHsYm2D7hwzitNu9ZnrRQPV323HWjVd7A4CrhW2IcD2j6XsI7ZMm/JBqY
+	 TdI3ssvRyAJKXSDuOVug57EBAXaIRb+e1tdZBzKXfvgQkpDR6kSMVAyKE13ZwxZdfm
+	 fRhYsZTrazh7alJFcOxZfNsHlJtLCAR1ciuN+C8lWJz76DGfP761nHakNhd5OMAyl6
+	 2Zs7aIg/j3s+mQwEKXF6J2ZyVuoIWJHFQpevyhBmO/6lIlnhUkmGm7OHKYvR7UkHpC
+	 qr7Qg9OOpSGBw==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 712FA1AC52F1; Mon, 14 Sep 2026 13:57:36 +0100 (BST)
+Date: Mon, 14 Sep 2026 13:57:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Tom Chung <chiahsuan.chung@amd.com>
+Subject: linux-next: manual merge of the amdgpu tree with the drm-misc tree
+Message-ID: <aqfvQDZ288iSPpR0@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,218 +46,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vbxhj5n7tlefdqq5"
+	protocol="application/pgp-signature"; boundary="aguZEfv3VuFbuoCC"
 Content-Disposition: inline
-In-Reply-To: <DLDZ6A0QS5NY.E0Y1TPNME1IN@memeware.net>
 
 
---vbxhj5n7tlefdqq5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--aguZEfv3VuFbuoCC
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: astian <astian@memeware.net>
-Cc: linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org, 
-	Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: ioperm(2): confusing terminology
-Message-ID: <aqfsMbQWdqq_TG_b@devuan>
-References: <DLDOCNQUCW9N.3GGL01BMV0HNG@memeware.net>
- <aqXOgqne-v4GtglY@devuan>
- <DLDZ6A0QS5NY.E0Y1TPNME1IN@memeware.net>
-MIME-Version: 1.0
-In-Reply-To: <DLDZ6A0QS5NY.E0Y1TPNME1IN@memeware.net>
 
-Hi astian,
+Hi all,
 
-> Date: 2026-09-13 06:29:43+0000
-> From: astian <astian@memeware.net>
->
-> On 13 Sep 2026 00:24 +0200, Alejandro Colomar wrote:
-> >> Date: 2026-09-12 22:00:57+0000
-> >> From: astian <astian@memeware.net>
-> >>
-> >> ioperm(2) says:
-> >>
-> >>   int ioperm(unsigned long from, unsigned long num, int turn_on);
-> >>
-> >>   ioperm() sets the port access permission bits for the calling thread
-> >>   for num bits starting from port address from.  If turn_on is nonzero,
-> >>   then permission for the specified bits is enabled; otherwise it is
-> >>   disabled. [...]
-> >>
-> >> The use of "bits" here is confusing/sloppy.
-> >>
-> >> ioperm is supposed to enable or disable permission to access IO ports
-> >> for the calling thread.  In this API, the "permission bit" (singular) =
-is
-> >> really "turn_on": 0 to disable access, non-zero to enable.  However th=
-is
-> >> description refers also "num bits starting from port address from" and
-> >> "the specified bits".  That seems to suggest that IO ports somehow ref=
-er
-> >> to "bits" and this API controls access permission to them, which is
-> >> bewildering.
-> >>
-> >> Searching around I have seen that other versions of this manpage used =
-to
-> >> say "bytes" instead of "bits", which is only slightly less bewildering.
-> >> Ports/addresses in the IO space refer neither to bits nor to bytes per
-> >> se, they are an abstract interface, like a syscall number/index.
-> >> (Architecturally, in some cases, these indices may in fact map to
-> >> processor registers which may in fact be portions of a contiguous
-> >> internal memory, so in some cases one could correctly say that the por=
-ts
-> >> refer to "bytes" in such memory, but this is obviously all very
-> >> low-level and microarchitecture-specific.  I think being aware of such
-> >> details actually makes this description more confusing.)
-> >>
-> >> Apparently the reason for this confusing description is that for Linux
-> >> ioperm is a syscall and the kernel implements this syscall using a
-> >> bitmap with 1 bit (permitted/denied) for each port, in a contiguous
-> >> sequence.  See ksys_ioperm in "arch/x86/kernel/ioport.c".
-> >>
-> >> Thus "num bits starting from port address from" actually refers to the
-> >> bits of that bitmap: the bits [from, from+num) are set according to
-> >> turn_on.
-> >>
-> >> This kind of implicit reference to implementation details is wicked.
->=20
-> To complete the picture: this is not a mere Linux-specific
-> implementation detail.  At least for x86 (IA-32) it is inherited from
-> the processor architecture: the port permission bitmap is linked from
-> the structure pointed to by the "Task State Segment" (TSS) and checked
-> by the processor.
->=20
-> It is still an implicit reference to an implementation detail.  I think
-> not mentioning this bits-and-bitmaps business is better but
-> alternatively the reference should be made explicit and the kernel
-> bitmap should be mentioned (and for x86 perhaps also the TSS).
->=20
-> >> Suggested change:
-> >>
-> >>   ioperm() sets the calling thread's access permission for num ports
-> >>   starting from port address from.  If turn_on is nonzero, then
-> >>   permission for the specified ports is enabled; otherwise it is
-> >>   disabled. [...]
-> >
-> > Hmmm, sounds reasonable.  Do you want to send a patch?  Or should
-> > I write it?  (I don't mind; just asking in case you want to do it.)
-> >
-> >> PS: Oh, also, maybe the title should say "set input/output port
-> >> permissions" instead of "set port input/output permissions".
-> >
-> > Same here.
->=20
-> Sorry, I've never written *roff before
+Today's linux-next merge of the amdgpu tree got a conflict in:
 
-I've never written roff(7) myself, but luckily, man(7) is much simpler
-than roff(7).
+  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
 
-> and I don't think I want to spend
-> my time learning that... although, I might be able do this by just
-> blindly replacing words without touching the escapes...
+between commit:
 
-Indeed, that's how I learnt man(7).  Replacing words blindly is quite
-easier than it seems.  I was also scared the first time I wanted to fix
-a bug in a manual page, but I found it was easier than I thought.
+  32fbec62a3e9f ("drm/amdgpu: dm: Convert to atomic_create_state")
 
-> Which bring up the question, why not moving to a less hairy source
-> format?
+=66rom the drm-misc tree and commit:
 
-This question comes up every now and then.  TL;DR: other formats are
-worse.
+  b40f65c12577b ("drm/amd/display: Cover crtc destroy callback")
 
-man(7) is pretty simple, and easy to learn exactly by editing words
-blindly.  There are very few macros, and their behavior is trivial once
-you use them a few times.
+=66rom the amdgpu tree (there are furher fixups later).
 
-One thing that is very important is that we use semantic newlines.
-That discards .md and .rst, since they are meant to be written with
-paragraphs as they'd be read by humans.  mdoc(7) is more complex than
-man(7), and thus we don't want that.  There are other formats, also
-inappropriate, for the same or other reasons.
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
-A summary that will serve for 95%+ of the text written in manual pages:
+diff --cc drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+index ad516aeb9798e,91fdd262c2d2d..0000000000000
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+@@@ -49,7 -49,8 +49,8 @@@ bool amdgpu_dm_crtc_helper_mode_fixup(s
+  void amdgpu_dm_crtc_destroy_state(struct drm_crtc *crtc,
+  				  struct drm_crtc_state *state);
+  struct drm_crtc_state *amdgpu_dm_crtc_duplicate_state(struct drm_crtc *cr=
+tc);
+ +struct drm_crtc_state *amdgpu_dm_crtc_create_state(struct drm_crtc *crtc);
++ void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc);
+ -void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc);
+  int amdgpu_dm_crtc_count_crtc_active_planes(struct drm_crtc_state *new_cr=
+tc_state);
+  void amdgpu_dm_crtc_update_crtc_active_planes(struct drm_crtc *crtc,
+  					      struct drm_crtc_state *new_crtc_state);
 
-		.SH section heading
-		.SS sub section
-		.B bold
-		.I italics
-
-	Alternating per word (spaces removed):
-		.BI bold italics
-		.IB italics bold
-		.BR bold roman
-		.RB roman bold
-		.IR italics roman
-		.RI roman italics
-	(roman means normal)
-
-	paragraph separator:
-		.P
-	Indented paragraph:
-		.IP
-	Tagged paragraph:
-		.TP
-		tag
-
-	Examples:
-		.EX
-		this is an example (monospace, no fill)
-		.EE
-
-> > BTW, the manual page also says:
-> >
-> >      This  call  is  mostly for the i386 architecture.  On many
-> >      other architectures it does not exist or will  always  re=E2=80=90
-> >      turn an error.
-> >
-> > Is this still true?
-> >
-> > Another issue:
-> >
-> >      EIO    (on PowerPC) This call is not supported.
-> >
-> > Is this really true?  Where this is not supported, I expect ENOSYS.
->=20
-> I'll let others answer these.
->=20
-> > And yet another thing: should we document the parameters as being
-> > uintptr_t instead of unsigned long?  They are the same exact type
-> > always, AFAIK.  Or is there any system where they aren't?  If they are
-> > the same, uintptr_t will better document that they are addresses.
->=20
-> I suppose it depends on the architecture, but for x86 these are actually
-> supposed to be 16-bit integers.  I guess they are longs for generality
-> within syscall ABI constraints.
-
-Ahh, sorry, it's a port address, not an address.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---vbxhj5n7tlefdqq5
+--aguZEfv3VuFbuoCC
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmqn7vAACgkQ64mZXMKQ
-wqkqXA/+IcRbYcOtQfjxsR6QrD0SEv7pNyCuMfw07iJdncuTvuEtdMdhjuUkiH4y
-Tw/O08i+n3iP4N/S60rKj8w6Yl8r/4NAP88GKWLXiShrFDnyKjjMQfYu//tbM77C
-nu88yWPGFvMm70KCTFmCSeL5j/lNvKRxzP7C5w0FJ1cozqc+e4+Za4DyM6PQcb/g
-+4nD9U5+9Eajg6roKt1Qk8Q0cJGXWBkQKGAKlfyvyN+peGWe/A2Efw1bvTnB8lEN
-kFhCuhkESxF/WInIfo+D6EE6DfdX/sqZM/FtEcSafu2DAiwmDWgoxA2DCjsAntTE
-IjqBi430C309vGFzGq6XeZX69Y642hu0sAHQKbHr5yhzERJwvVTUFyB6vRlEggMX
-VaTgyGGk+jk5mf45Ajlu+isRsYaqZDVDOctbYfQeRFGLS8/OUu+piNnHQdspQkj5
-tH/JWB43TMuhYw6PBTZ6hT0oxHvJ5Yvbu9Z5vGmlZWBZUCbg5llnOr/+2h89bmQO
-UIDBuR+YOwaEHnBFmiWzuBaGdRNWGuKlHY3bbnUGT0YssG+WEiluAHigIqCn2RNz
-1/I0Kn3tPodco+1+jRGd7vOUmpHwndRmodqQ2Cgz+iwwzWLVwCz8zd7KPBg4uYs3
-9eJcCsHzDoFRQdCFAzOX33ktbbu4HW7nk77LibZgrdHTSNty3BE=
-=y9zE
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqn7z8ACgkQJNaLcl1U
+h9AGAAf+IeVOgBbdzlr+B6IivziNzA4G2zaY1IYS0SaMGP7wyI+5whJAmEt+UY9U
+yVEqsrTeI0SM+zPNNq1FEUzeefrMVt9HNr/gEB5R3os9YtJtuph7fv9JlMt7ZV09
+yd8PvVctE+n25kA43k0xa3Vy7TdfZmEYT8FCUYlxZUZIe95HfrYeLPuSgfumJZYC
+Grm7qyYW/yKJluH05oqr1CCnluoixuuu6JdiZD2zSTesLcyRqYyMQl5rqJZM/Utn
+hdpJAovz7Sorwn1WZsNZDbDZ/vE1V44zf+OVXhIG4c4YSAycJEbfCHbbg+hLg0VA
+9QMDb/u+abu1bcUs+lA7fwtWmBed3g==
+=hwgP
 -----END PGP SIGNATURE-----
 
---vbxhj5n7tlefdqq5--
+--aguZEfv3VuFbuoCC--
