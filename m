@@ -1,248 +1,343 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazolkn19010004.outbound.protection.outlook.com [52.103.32.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143F21DE4EF;
-	Mon, 14 Sep 2026 19:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789413849; cv=fail; b=ib3mpMkLaGbQFA+s2ZRFA7zn2zfLe//Z/a1nT3z73s8LVHg8trcnb52/KnssS0jngdwnP2wJpP2+LgpUusznjy2S3O+NLN+LxcajRUw0QlWRk9VLXozJwz7Z2/6MwkrpIapXfEBRTlBCMMkovCqi9QHDG5qbOg25AYL9dXxiKEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789413849; c=relaxed/simple;
-	bh=7+1nzzyti7omfhyGf5/GHFhXoFL7txLTc3YJVsRqG0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=T+kimBKlgX4tfE7cpn8hRwfWFI95VBRIMJcrNNz0lLn+ci6gWJry3ve8HFrO/IzSGM9rLW/RsIGIms0zIbSR4P2nMOR2nKM11MhW/VWV//dCYx5E7Ef05vJqpkZJKyjNqyCz9MGDbRYOZ6BxQKJnNJGd9Q0PSGF2n5wOlqIhUJU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=gfJ8U2L0; arc=fail smtp.client-ip=52.103.32.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1605A3AAF54
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789413972; cv=none; b=IGivZKyEeb3Gny67UDydEQkmbz0VLor+0VTjErcusfQzj3V7IhKETLil43S8xV4uSm1jhD0v0z2VlqPXLmUVwQz+vGPzlaWN/HWr4UFKpa+vh1o4TyiYyywPktScl5X6y2vnxJ0GIR2i6aUiJQIrQPlXB02m+CCMSpSuVWG2sYg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789413972; c=relaxed/simple;
+	bh=5DbRj/iYqndjmb8Q45VZ6RZRXuNb2x8vDoqW8HnYWiQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fssW+BizYiMZ1JJ990oJJdcVFF25ugSBxNmfDvocyJtrTM74so3piMZkU0SdfQ37RUrehbDdsxEJe3iKn+tVr3BuTLbBprKG32LxYeFrfvpauMXqs6CjBJHCKQlJG7vaVu6hQLzhXmzwjMwiqRTL7r2+BFfE18Ru4aj8cApDHg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=UNKx3QWA; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="gfJ8U2L0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u0PnI/c1HL972y9RqWfm1BF7VzyucGRsu70i9uMvKpKxkp+klDtWbogOOSVlqohXBPAxMateyXDJeFPCTM0nMejjSRAJ1C8Uyzw4N8feNGpNhfIU9brxD4WruklpCza+UqMlg1pEoKbcQvOHxfi8jy5/9lJ1oThRrnIp9mkh+HIWQTlZnrzJGfqbbDhYn8MwNJtOSdXcCW9l/FghHLK6bJ2Kwi/H7hElwQIiYdGZyin6ryiNPPryJ4ch2EAXnmFCL6G1Iq5zqrsyHS4VjDccWn38mB61s322i2dv2cZ0q2Gf3pH1oeHYgUq1uDm0gdH05gnLIicwP6VeFZvfOhLUSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+8ZfOKraQplgbR8r0M+qZzL3nRgkeGcz9IPoEviw+T4=;
- b=B0lVH4zcsAc/1gWFctgFSqkTPUg5JD1lWdN2BJM3fMWUi9xWv/4L+3j9iNT7CLDqMCgpvfJc3KeRIl+0h5kyaQ5LTKiVgMFcPqb5uqZqfJcH9rdlQhm1K8CtU1S1TfgxppGDjPHaFRLd7G/JlhsSZDZ+uCiGivM2jPumo1fIT57m1erPp0MnYVDOWwRDJIVwb3Ign94xaCd7RUySViHB7gvoTCbOIj58ARN5RlMCQGeWvXxJ2duEyX1jsSG4CL03Ek1krNA2LiZnXrPZaGmLshDRPyXyRFhf54+q6JjqvyJV5yBfw9i1GCKwcnPZ3faS5VTZnNPWaUNVaXzxQMEhNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+8ZfOKraQplgbR8r0M+qZzL3nRgkeGcz9IPoEviw+T4=;
- b=gfJ8U2L0kwZZcfevRTV11Ak95cDqmCNJCJJVGzqSKtzHueGKLY0KyhwYbPrwsep4wStS2xbjjpxXxQn9SbX8WvmvIm3XgAyLxtKpCR4R4cynOCFqAqew5rOCWR8Z6DJmcLsgmKY5G/iep3cH6Mvi9ytOUvO2mzLVCMyWtw0L7h1VjbcMGsoeiHNCFeAgWvftSQG78l0EyaFYqCs6Zfd4anQ4Ks6rNHgjhEmffBz5XwkPfrb3xpK+jvUFRI45SgwVLknk2jWSoztAZjThCZAL4aMYxu/Qagc2smNmvuXLxBMndKxWikMHr8BgxG4Z7wlBsvsxERM8bh7Yap9Q9pH3Rg==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by AS4P251MB0709.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:4c0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 19:24:05 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 19:24:05 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Elad Nachman <enachman@marvell.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Volodymyr Mytnyk <vmytnyk@marvell.com>,
-	Serhiy Boiko <serhiy.boiko@marvell.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>
-Subject: [PATCH net v2] net: prestera: validate num_counters in counter response
-Date: Mon, 14 Sep 2026 20:24:01 +0100
-Message-ID:
- <AS8P251MB0001EE76C8EC41B2CEFAE213C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0.windows.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0424.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18b::15) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260914192401.111952-1-elb12345@hotmail.co.uk>
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="UNKx3QWA"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8871ada1a26so22042777b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:26:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789413967; x=1790018767; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IEQPgJ9nFW6WOZIE7dLVwT5VkA5qAfJb83CJ9iXYDR8=;
+        b=UNKx3QWAwzgTfX4q9IXzHPv3yr7JEjZKvujXhzup968pMCl0ddwB0HWLcr/yBoymRI
+         11Iu7ueMbMy5OE0rCyYurE8fXXoE9DetOxOG4BuGKaIGrVuJZh3cRgWFQx1aKLdV4FfD
+         LOtgwJmKWd8V8dsaiV/ZkQ/h2kckNPLKWx6AG1h58O/MdXKL6VIxP13F6Xl6Cm81Yq84
+         u89hgOCK+gE551t34bsOXZnak3KE44bb7og8UOf881HUJ4EEpQCNKFHiUUeQQAPhHpJY
+         niqpT9MYSCgKch2WzIVrFeCTko1UpVGSp4XWKrrNO80BOE2AcYbAsIbL10DlwrW9UG66
+         Gslw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789413967; x=1790018767;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IEQPgJ9nFW6WOZIE7dLVwT5VkA5qAfJb83CJ9iXYDR8=;
+        b=VcQoOdISQ07CtmPFLEpP41nHDZpTXOouH7G7Q7pIUd/Nve4zQSCjiHJkeOA9EkTOZh
+         hs116uZcsO50OlJN/ju+K9ucavqnoZmaSVLYvRHCfSpeyV+VH24L1EMBOmdTGlTLQQBf
+         ycW5QcKCwjjUTJ9KKq+qREbTN/4hPLkECn1LVK+CZgHJ5H8vcnjel4rlgbzGnVyZZ9/t
+         C3Iqhcoy9OALW1aoQxlMRtf3pPlhPOLvnVAcwGPJS1ZwV6D5In2e6kt7vPGBQyZ/nnvV
+         NA4WzLK9oP6kzejTkn4Ds/YlaU2YgMpB9E7VGtLg4dShRE2poSQ4witvs3tYlAfTlvN3
+         0wjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvOz9a63YxA1YtVMb4YO0o5BEwOsjYCj/MIFJyXZx9Xfvrlaej2FKmjac19oYyBncOEsVsr8qwPt1HgC8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMaaqvRb8viYTnRudnNaBiIdX3FZQ2l7uOKpPlzkarDiF+qRFa
+	P9qIKrXu61CwegO3cGgbZqlYK4j4KL0e9k+bcC1TBPtP5lgHf8Co506zBFrCBU+m7HgZ+HVH9wc
+	gC/fYdYeK+g==
+X-Gm-Gg: AYBFou1pG7d3ur+Y565niUuFm4/f5dPMYdGihHJuOe0PM3BYnc0FGLN0D8iNT1tLnR3
+	T1BRDJswaAAVNUfX0pc2kFuGgqEQKZ4tBb2iZ1I6vYZqYsWTJXPofmit45CTyDiw15G772Yw8bM
+	b3cZcbnWRVweDB8iduaGOQrFymmIYm8sEFLBA8PsyftcGtoUM/wS4PlFc6Eol5fecd4c0TWs4LI
+	b3YtEe3tqiHRtEZ/mvee9CcjH42dd9RRHUVEs3BlAOGCUNjPPti6QP2E9a6rSFbxTMpHGdnSHCE
+	8L1xSKKcDW9JsLIjLBFm5tqtDYBioctvw2I27Qs6OBcDB1xQYO5Zf76GDLeYjWQmtPWgYRk2FFU
+	KL0bs0Vw49hIZ//1oxcjwWK6OohQw3Zvp0sC08gqZXJCh17VyM0Q3TAfboI7+q00qxDrL2Ohl4S
+	edXZ9PN9lme3afUMpQQaks94lwLg7E+0ld+xHRWtDeIuAGtEXh9qtHXlgCVnmuw6MOTH6rKMfVe
+	vvTzPp/AIEZmArXL5/MT/rGWO28yEOGf+jxGLT4dupIuU8GyCS8VoAuBUUrAt4/By/T5lyoJdrk
+	t9TO+8HwG704dJ1X55bipYUchiZu
+X-Received: by 2002:a05:690c:e3c1:b0:845:1064:5c03 with SMTP id 00721157ae682-88d1fbd5731mr13241967b3.23.1789413966589;
+        Mon, 14 Sep 2026 12:26:06 -0700 (PDT)
+Received: from pop-os.attlocal.net ([2600:1700:6476:1430:df87:8743:655b:3824])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-884894fd624sm40027897b3.46.2026.09.14.12.26.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 12:26:05 -0700 (PDT)
+Message-ID: <d66b55454add2f2a48a6dabdb4569051bebb5d42.camel@dubeyko.com>
+Subject: Re: [PATCH v4 1/2] hfsplus: fix recursive tree_lock in
+ hfsplus_file_extend()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
+	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Date: Mon, 14 Sep 2026 12:26:03 -0700
+In-Reply-To: <20260912132407.16856-2-ngocthang2710.1999@gmail.com>
+References: <c6b841becc5b1709a9f54a1c0efd0a14f02ad97b.camel@dubeyko.com>
+	 <20260912132407.16856-1-ngocthang2710.1999@gmail.com>
+	 <20260912132407.16856-2-ngocthang2710.1999@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|AS4P251MB0709:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e564ea9-bfb6-4568-bb22-08df1295bd4d
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|55001999006|5062599005|5072599009|25031999004|15080799012|37011999003|25010399006|51005399006|4140399003|23021999003|8060799015|19110799012|12091999003|4302099013|440099028|3412199025|26104999009|1602099012|40105399003|2607281247196008|10035399007|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?RfB9WFcVBEX7W55x/3NS/SxssdOV4TwLEty1vADt/KNL1xvlLmp5TP0BSmRU?=
- =?us-ascii?Q?fCzE50WMFJ/IoHl8AE7MHXI77KguMGyTqfAsgleC3vpIjpgcp+bLZGdqSuIe?=
- =?us-ascii?Q?XEolUtJe2dGwYHWyfUyZbc02OvFSTeESd8s2jdSJbBM7yYjA+rEMDq/RmTOj?=
- =?us-ascii?Q?h5X174YDM+WWYV+eJ9ewDx6q7sEDNfZ7PMvBeRRlhROjfKmlVKxf4xMbgaD0?=
- =?us-ascii?Q?8J77BxqhgVlaCL676WViKVRPtysZu0NuSMIn3eQHwotGASvduKJVMTHu9PFx?=
- =?us-ascii?Q?QrgOh6sNounfboa0cqqhV4mjESKK5sJ18Z6cIOjQokXPKIi2Qb7ScBYSyf0O?=
- =?us-ascii?Q?8BUVZJ3j90XVv9qKYYj2gmNJrEr8JH0hMBST1sKwYK9gxnj5AM30ksdewqEV?=
- =?us-ascii?Q?dOB3nRyjNC9yjBn+ZhKgdjnnk5avfcxz3ynBplptsbtWBiP3US9xe3iPTOUk?=
- =?us-ascii?Q?0wl8BALZ8fbnJrFzTj4bzGxekc2QLiGR5aD2l8LFTG7DW8Gjjv9xG6yUg48k?=
- =?us-ascii?Q?X9Hf9yK2Xe6RQhZ2uBTsPPl7ySo3KbbTIlVLLvPmTS90qC0mAe8XmyHsyMgv?=
- =?us-ascii?Q?uhHWHfYDE4lr96bTgBoXWK9Yc6oMjEHYYoKH7kWDkrSk8iRG29USe0jdwvU+?=
- =?us-ascii?Q?RqRfj04orYY0JDBFfLNMP3u9I7n8Qtu0x6RXjgnvVKhGPL70dc4xsrftRP2a?=
- =?us-ascii?Q?aMKvIFtItzqHZnQEY8oQvDgVus1yiwLMQoLOG7dgWfZzK/+xc+NmauRJfGCO?=
- =?us-ascii?Q?pTsSgDqOSB3URo6maMkW16sz7f/t78oC+WSFCjzykhTGoFB/lGa9T9s+RJXc?=
- =?us-ascii?Q?QbkEoSOVUBJZWuoSxVgVa5KJMYq8fkNELEflajMU0ZVxQ88yGOr0FazgOmu5?=
- =?us-ascii?Q?MIPpeI9Xp8W++bhcodTbAwY/HOxlplQeiB+sFKfO+U1ZgOltOJ1+JSQ6PMmw?=
- =?us-ascii?Q?7rRToW/rS7FQoXjrYEuMbcUG4nxSspsWte06X++c1fYwA12+y7BOfU2qi+Id?=
- =?us-ascii?Q?S5XY3yuyLUKgyxqLaNGPAX68utbW+IQF/xOwfpNRfg+A+1i8GS+Hykd5Ylyi?=
- =?us-ascii?Q?xT75TOLOxzvq6IRgtIl9Sz6/isn0q/fCPvr/GAkSf3lIWMU0JCxVrZJbFUpp?=
- =?us-ascii?Q?442eYsjRgSwmwA2g/OOswzwqRTnyWVl11u0DMwxkZpLLflH+fn0gXTIAShB5?=
- =?us-ascii?Q?KEjy88DzmQRcb1kCmG16e3m0JhzQ59xZrIhBjQ=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LC4aVnYWsXzN4h9Onz5w7WtXKJ21A/dpkAmphicQLlUF/jAawGaaxU2VUVlV?=
- =?us-ascii?Q?j7QdP/Fatg18Id9I+uGB5iTgQfD0MkeE0yAf3QQcQLyCrzfWgF0JSAgphCwZ?=
- =?us-ascii?Q?OyCpoumBLuQzxFpHZwKgi2cbPmKZoRRqZQADIyYHCTk0LZNcsJZm0A2pmRLA?=
- =?us-ascii?Q?ioqfBjo5D6BBDv7/iI8K3EKCDVzcN245bJCUHSnMB56WmIeKU8i+qpVJZ9SL?=
- =?us-ascii?Q?o0JUh8SBys+/vq2dzDay0pJdxyxN0MzUGslmTR/xVSoW/l9tGePCO2jUpN8A?=
- =?us-ascii?Q?WS3lGX4++kXU2VaIp32etUpoj60kJYAnyKV/a9iIwhz/Yxz8c6upAd5AjwFx?=
- =?us-ascii?Q?Yiw0DWNFFd9CHfnN3vvUlwiSPaeaJ5XyC5DwRrEEnql5mLQcInulBmJGALEJ?=
- =?us-ascii?Q?IU3FjouAudo2qDVyofFVMyMakTCGLcwg2DKJwl7AR1AQGumM1VmQQa+x7nFf?=
- =?us-ascii?Q?Obe/3al5WmeddbZXhdspKz0Xp6QerZUPRrAlDZ42Qnv+Q2xEMjHHNekoBF40?=
- =?us-ascii?Q?B2EwEyq439OiKxzNY81L8u0A6f03T+9DKLr7hbUSGTwPLmh7F3BXLrCpPOzk?=
- =?us-ascii?Q?zVrTbb4AVs1Y8KMLFf1/MyC4bpKpQXemsTE4pyfGHBDDPvMmMfiJ1lPnfp2e?=
- =?us-ascii?Q?Ii8MX80HVPeDZD934+W3l24Vf5uPb4WMEeBgqqM9VCRx27tQamHFBvOTpDIE?=
- =?us-ascii?Q?iU0bPDV2OjeRqhLTo1RuLX7vcm8Xb2Landf7UuiTRqK92Mf7+d48t5XzNoXo?=
- =?us-ascii?Q?3Qwg/lgwLo+/gFJzZjYdhg/dkkAQhRa9+fNbvO7VQN1isds0QAY36nEi1oDP?=
- =?us-ascii?Q?LDvCe2cY3lhO86TWOXAIqNsY0IQYqpT/jrNsHSmIjXpZfDEHZHpQS8Dg/khF?=
- =?us-ascii?Q?KuRSQGNayYnwXLlWYdlMOLGV1UYK5xzQ+ICHFrAQ5WlbSRyDFsmVrqWdpFKW?=
- =?us-ascii?Q?W2gcwhJBsjSO3584L5MSdlJyDWcqyx3lphWi7r368QPBwBe9fUv08MyMl5RK?=
- =?us-ascii?Q?VXKRb3rBiEdCFueI0SB0QehbMSfR1sUaihoSybxH7sDyCnKaCcMYT1MtGvAl?=
- =?us-ascii?Q?uvvrGHRFBSWqG/6/9tG7uJ8a8/V5EChty6LaNrTPy7pS25qZ9UCayQ6s8Arx?=
- =?us-ascii?Q?9OA5Yfpr5hmrJl45WvzPmUlDLtAS1cX/z1bFRLj93+BxHBrLmOJubCCoopjU?=
- =?us-ascii?Q?gv3CUaU/7xAEUhiiD+clUYRG4pvrBo59pRP89c7wXBj4dcyCk3cyu3KNq4sk?=
- =?us-ascii?Q?fCXXfDSvgdti57uSx/rZ8voUAtCTPxgsCUFPsdzx1SPCtBKaJoO51vCAdIiu?=
- =?us-ascii?Q?Eth/zhfwpRxI8Ol10o4T9/2EE7U3E70BrwBj8/kGcQIYdruOCNnZnfXCKWf5?=
- =?us-ascii?Q?HUdndW026Y+6NrCNPCeflxAWdHHdI2gFwT6v/6VSRbInupO1QJRudr5YGubw?=
- =?us-ascii?Q?ccFBgJt3wGSmmgUJKTUees1TLNGx8e9j?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e564ea9-bfb6-4568-bb22-08df1295bd4d
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 19:24:04.9625
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4P251MB0709
 
-prestera_hw_counters_get() trusts the counter count in the firmware
-reply, using it to walk resp->stats[], sized for the requested count,
-and to write into the caller's stats array. A malformed reply that
-claims more counters than either holds reads past the response buffer
-and writes past the array.
+On Sat, 2026-09-12 at 20:24 +0700, Nguyen Ngoc Thang wrote:
+> hfs_bmap_reserve() calls hfsplus_file_extend() on tree->inode with
+> tree->tree_lock already held. For the extents overflow B-tree's own
+> inode, growing it can call hfsplus_ext_read_extent() ->
+> hfs_find_init()
+> on that same tree, taking tree_lock a second time (lockdep: "possible
+> recursive locking ... &tree->tree_lock/1"). This happens two ways:
+>=20
+> =C2=A0- the fork already claims more blocks than its eight extents
+> =C2=A0=C2=A0 describe (a corrupted on-disk fork), so hfsplus_ext_read_ext=
+ent()
+> =C2=A0=C2=A0 is called immediately to look up the rest; or
+> =C2=A0- the fork's eight extents get exhausted during this call, and
+> =C2=A0=C2=A0 inserting a new overflow extent record for the file would ne=
+ed
+> =C2=A0=C2=A0 the same lookup.
+>=20
+> Per the HFS+ format the extents overflow file is fully described by
+> its eight fork extents and can never legitimately have overflow
+> extents of its own, so both cases mean it cannot grow any further.
+>=20
+> Move the check into hfsplus_ext_read_extent() itself, the one place
+> that actually re-enters hfs_find_init(), rather than duplicating it
+> at
+> each caller, and report -ENOSPC.
+>=20
+> For the second case, don't allocate blocks on the chance the fork
+> still has room and undo it if not: hfsplus_ext_fork_full() tests the
+> fork first. If it does have a free extent slot, any free space works,
+> same as before. If it's already full, the only way to grow is a
+> contiguous extension of the last extent, so only search for free
+> space starting exactly at the block right after it, and fail with
+> -ENOSPC immediately if that block isn't free -- nothing gets
+> allocated in that case, so there's nothing to undo. The prior
+> allocate-then-free-on-failure code stays at the insert_extent label
+> as a backstop, in case this reasoning has a gap.
+>=20
+> Reported-by: syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+> ---
+> =C2=A0fs/hfsplus/extents.c | 59 +++++++++++++++++++++++++++++++++++++++++=
+-
+> --
+> =C2=A01 file changed, 55 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
+> index eb7c11524d18..236f2d9a7a2d 100644
+> --- a/fs/hfsplus/extents.c
+> +++ b/fs/hfsplus/extents.c
+> @@ -84,6 +84,17 @@ static u32 hfsplus_ext_lastblock(struct
+> hfsplus_extent *ext)
+> =C2=A0	return be32_to_cpu(ext->start_block) + be32_to_cpu(ext-
+> >block_count);
+> =C2=A0}
+> =C2=A0
+> +/* True if all eight extents of a fork are in use (no free slot
+> left) */
+> +static bool hfsplus_ext_fork_full(struct hfsplus_extent *ext)
 
-The array is sized by the block's counter count, which can be smaller
-than the fixed bulk request, and the only caller passes a pointer into
-the middle of it, so the helper cannot bound the writes without being
-told how much space is left.
+static inline?
 
-Pass the remaining capacity down and reject a reply that exceeds the
-request or the space left. This also keeps counter->total_read within
-block->num_counters, so the next poll cannot start past the array.
+> +{
+> +	int i;
+> +
+> +	for (i =3D 0; i < 8; ext++, i++)
 
-Fixes: 6e36c7bcb461 ("net: prestera: add counter HW API")
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
----
-v2:
-  - also bound the reply by the space left in the caller's stats array;
-    v1 bounded it only by the requested count, which is fixed at 256 and
-    can exceed the array, so a block with fewer counters could still be
-    overrun (Sashiko)
-  - add the Assisted-by: LLM tag
-  - name the target tree in the subject
-  - Cc LKML
-v1: https://lore.kernel.org/netdev/AS8P251MB0001CC8A4737B0CC46F41DDFC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+I am introducing the special constant for the 8 extents of the fork in
+HFS+ iomap patchset. How can we handle this? Because I would like to
+see the named constant instead of hardcoded value.
 
-The request itself is left at COUNTER_BULK_SIZE so the firmware sees no
-change; clamping it to the space left would also work, if preferred.
 
-Built with W=1 (prestera_hw.o, prestera_counter.o) on x86_64; no
-warnings. I have no Prestera hardware, so it is not runtime-tested.
+> +	=09
+> if (!ext->block_count)
+> +			return false;
+> +	return true;
+> +}
+> +
+> =C2=A0static int __hfsplus_ext_write_extent(struct inode *inode,
+> =C2=A0		struct hfs_find_data *fd)
+> =C2=A0{
+> @@ -217,6 +228,15 @@ static int hfsplus_ext_read_extent(struct inode
+> *inode, u32 block)
+> =C2=A0	=C2=A0=C2=A0=C2=A0 block < hip->cached_start + hip->cached_blocks)
+> =C2=A0		return 0;
+> =C2=A0
+> +	/*
+> +	 * The extents overflow file is fully described by its own
+> fork
+> +	 * extents; looking up an overflow extent for it would re-
+> enter
+> +	 * hfs_find_init() on the extents tree, whose tree_lock may
+> already
+> +	 * be held by the caller.
+> +	 */
 
- drivers/net/ethernet/marvell/prestera/prestera_counter.c | 5 ++++-
- drivers/net/ethernet/marvell/prestera/prestera_hw.c      | 8 +++++++-
- drivers/net/ethernet/marvell/prestera/prestera_hw.h      | 3 ++-
- 3 files changed, 13 insertions(+), 3 deletions(-)
+The comment is not fully correct. We should not be here for the case of
+Extents Overflow file because there is no forks other than in
+superblock. It's not about the lock issue. We simply should not be here
+at all.
 
-diff --git a/drivers/net/ethernet/marvell/prestera/prestera_counter.c b/drivers/net/ethernet/marvell/prestera/prestera_counter.c
-index 3a762d17ba6c..f261104729e9 100644
---- a/drivers/net/ethernet/marvell/prestera/prestera_counter.c
-+++ b/drivers/net/ethernet/marvell/prestera/prestera_counter.c
-@@ -342,6 +342,7 @@ static void prestera_counter_stats_work(struct work_struct *work)
- 	u32 resched_time = COUNTER_POLL_TIME;
- 	u32 count = COUNTER_BULK_SIZE;
- 	bool done = false;
-+	u32 remaining;
- 	int err;
- 	u32 i;
- 
-@@ -368,10 +369,12 @@ static void prestera_counter_stats_work(struct work_struct *work)
- 		goto resched;
- 	}
- 
-+	remaining = block->num_counters - counter->total_read;
- 	prestera_counter_block_lock(block);
- 	err = prestera_hw_counters_get(counter->sw, counter->total_read,
- 				       &count, &done,
--				       &block->stats[counter->total_read]);
-+				       &block->stats[counter->total_read],
-+				       remaining);
- 	prestera_counter_block_unlock(block);
- 	if (err)
- 		goto abort;
-diff --git a/drivers/net/ethernet/marvell/prestera/prestera_hw.c b/drivers/net/ethernet/marvell/prestera/prestera_hw.c
-index 7695cbb2ce62..2e5cffefea70 100644
---- a/drivers/net/ethernet/marvell/prestera/prestera_hw.c
-+++ b/drivers/net/ethernet/marvell/prestera/prestera_hw.c
-@@ -2305,7 +2305,8 @@ int prestera_hw_counter_abort(struct prestera_switch *sw)
- 
- int prestera_hw_counters_get(struct prestera_switch *sw, u32 idx,
- 			     u32 *len, bool *done,
--			     struct prestera_counter_stats *stats)
-+			     struct prestera_counter_stats *stats,
-+			     u32 stats_len)
- {
- 	struct prestera_msg_counter_resp *resp;
- 	struct prestera_msg_counter_req req = {
-@@ -2324,6 +2325,11 @@ int prestera_hw_counters_get(struct prestera_switch *sw, u32 idx,
- 	if (err)
- 		goto free_buff;
- 
-+	if (__le32_to_cpu(resp->num_counters) > min(*len, stats_len)) {
-+		err = -EINVAL;
-+		goto free_buff;
-+	}
-+
- 	for (i = 0; i < __le32_to_cpu(resp->num_counters); i++) {
- 		stats[i].packets += __le64_to_cpu(resp->stats[i].packets);
- 		stats[i].bytes += __le64_to_cpu(resp->stats[i].bytes);
-diff --git a/drivers/net/ethernet/marvell/prestera/prestera_hw.h b/drivers/net/ethernet/marvell/prestera/prestera_hw.h
-index 0a929279e1ce..2e9aceb7a136 100644
---- a/drivers/net/ethernet/marvell/prestera/prestera_hw.h
-+++ b/drivers/net/ethernet/marvell/prestera/prestera_hw.h
-@@ -235,7 +235,8 @@ int prestera_hw_counter_trigger(struct prestera_switch *sw, u32 block_id);
- int prestera_hw_counter_abort(struct prestera_switch *sw);
- int prestera_hw_counters_get(struct prestera_switch *sw, u32 idx,
- 			     u32 *len, bool *done,
--			     struct prestera_counter_stats *stats);
-+			     struct prestera_counter_stats *stats,
-+			     u32 stats_len);
- int prestera_hw_counter_block_get(struct prestera_switch *sw,
- 				  u32 client, u32 *block_id, u32 *offset,
- 				  u32 *num_counters);
+> +	if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID)
 
-base-commit: c297ed90fbba72d32b7759aae362b36d15b2db1f
--- 
-2.43.0
+Maybe, we need to introduce something like is_extents_btree() method?
+What do you think?
 
+> +		return -ENOSPC;
+> +
+> =C2=A0	res =3D hfs_find_init(HFSPLUS_SB(inode->i_sb)->ext_tree, &fd);
+> =C2=A0	if (!res) {
+> =C2=A0		res =3D __hfsplus_ext_cache_extent(&fd, inode, block);
+> @@ -465,13 +485,30 @@ int hfsplus_file_extend(struct inode *inode,
+> bool zeroout)
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	len =3D hip->clump_blocks;
+> -	start =3D hfsplus_block_allocate(sb, sbi->total_blocks, goal,
+> &len);
+> -	if (start >=3D sbi->total_blocks) {
+> -		start =3D hfsplus_block_allocate(sb, goal, 0, &len);
+> -		if (start >=3D goal) {
+> +	if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID &&
+> +	=C2=A0=C2=A0=C2=A0 hip->alloc_blocks =3D=3D hip->first_blocks &&
+> +	=C2=A0=C2=A0=C2=A0 hfsplus_ext_fork_full(hip->first_extents)) {
+
+It looks like complicated condition and it deserves a static inline
+function, from my point of view.
+
+> +		/*
+> +		 * No free slot is left in the fork, and the extents
+> overflow
+> +		 * file can't record an overflow extent of its own:
+> the only
+> +		 * way to grow it is a contiguous extension of the
+> last
+> +		 * extent, so only accept free space starting
+> exactly at
+> +		 * goal instead of allocating anywhere and having to
+> undo it.
+> +		 */
+
+Maybe, instead of this long comment we need to introduce a dedicated
+method for processing Extents Overflow file allocation case?
+
+> +		start =3D hfsplus_block_allocate(sb, goal + 1, goal,
+> &len);
+
+Maybe, I am missing something here. But goal + 1 sounds like we request
+to allocate only one block. Is it correct? If yes, why only one block?
+Usually, we need to try to allocate a clumpSize.
+
+> +		if (start !=3D goal) {
+> =C2=A0			res =3D -ENOSPC;
+> =C2=A0			goto out;
+> =C2=A0		}
+> +	} else {
+> +		start =3D hfsplus_block_allocate(sb, sbi-
+> >total_blocks, goal, &len);
+> +		if (start >=3D sbi->total_blocks) {
+> +			start =3D hfsplus_block_allocate(sb, goal, 0,
+> &len);
+> +			if (start >=3D goal) {
+> +				res =3D -ENOSPC;
+> +				goto out;
+> +			}
+> +		}
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (zeroout) {
+> @@ -526,6 +563,20 @@ int hfsplus_file_extend(struct inode *inode,
+> bool zeroout)
+> =C2=A0	return res;
+> =C2=A0
+> =C2=A0insert_extent:
+> +	/*
+> +	 * The fork-full precheck above keeps the extents overflow
+> file's
+> +	 * own inode from ever landing here with blocks already
+> allocated;
+> +	 * this is a backstop, so still free what was allocated
+> rather
+> +	 * than leak it.
+> +	 */
+> +	if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID) {
+> +		if (hfsplus_block_free(sb, start, len))
+
+Can we be here at all? If start !=3D goal, then we cannot allocate at
+all. And we can be here only if we have empty slot it the fork. Am I
+right?
+
+Additional comment:
+
+checkpatch.pl --strict flags one alignment style issue:
+fs/hfsplus/extents.c:575: pr_err("can't free extent: start %u, count
+%u\n",
+                      start, len);
+continuation should align with the open paren =E2=80=94 cosmetic only
+
+Thanks,
+Slava.
+
+> +			pr_err("can't free extent: start %u, count
+> %u\n",
+> +				start, len);
+> +		res =3D -ENOSPC;
+> +		goto out;
+> +	}
+> +
+> =C2=A0	hfs_dbg("insert new extent\n");
+> =C2=A0	res =3D hfsplus_ext_write_extent_locked(inode);
+> =C2=A0	if (res)
