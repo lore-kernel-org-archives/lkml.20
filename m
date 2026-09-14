@@ -1,101 +1,80 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C353491C9;
-	Mon, 14 Sep 2026 04:16:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324543BB57
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789359391; cv=none; b=JTSfCWIstw669Hb1nmimQeanZFYfobD2OmUMS6fY6UU+AxmaDmf10KdI9gIRTW7g6uOMjAwtNjAPks1pp6zhH788rtC+ikafacVWGT1v5765XnFkcVmpaHin6ubPvwWmAtHfgYwjHagTlarP9ijaLBbgDIqIG5TtJ7rAgvoCFqg=
+	t=1789359578; cv=none; b=ZFwLhNFXVYAqbYFJLvqwusmDsOy8IeSlX4fprK/pmRQLDD5ucS7xOXR8VMh9e9OaZLI4l52YINRXgdBI5yk9wx5L3R4Wru6G8dv4Yc7xWI5JKvxDt5XLPVSbe9aoH9ECqX2tLEpnRq0PRjGf89nB2nFtZXrVqCvqBn0y8H9LliY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789359391; c=relaxed/simple;
-	bh=QzVrZoukw7WTuOu3cgNefcnDjFp6nTct084mVJfLnnc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mh9jMeyTdUI3XjnWfxPw+1rG4Fus94mRwfKq7sD0ujChqYGtLyyHSJvVNqSit9AosBv2Da8XtB4zDe/CJEMYztMPUJo/eAvT8UFyYWEGDd9KvngEVaC2nU7WfL5KOt/1v09aFPmf8wXqIZVXssMEjCmHdqeOXMyezCtyjq1yepI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=N7dUSa0B; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="N7dUSa0B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=Xrx0krtMKGlJL4nzoC0zRjMGy+yB3MCiq7DW8qKGnTs=;
-	b=N7dUSa0B0kUwwTcMPbU9Wvbk8PYuXoyLpJHjLkQq3KjnCY3/71MT19EqlCyuR9
-	GU5d5V9aumU0e0feiSi6OwpsAcF9CA67BHkywDNrhUsbL8aTyx2SKoYd4y03G4ss
-	1oqgsdFPXxs1chF90Di/lTTvM0QVFSahttBY/gwpQPckU=
-Received: from [IPV6:2409:8900:1e93:14fb:a085:adb4:61d:add9] (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wB3OQsFdadqn7o9Ag--.17275S2;
-	Mon, 14 Sep 2026 12:16:07 +0800 (CST)
-Message-ID: <2ee32e03-e39e-4dd1-be1e-13d3b68f5683@163.com>
-Date: Mon, 14 Sep 2026 12:16:05 +0800
+	s=arc-20240116; t=1789359578; c=relaxed/simple;
+	bh=9oKBhg3meR+W6hKK33WbJkwtHPNaohkVbsl2JTzEIiA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Gf7r95qHggoxDw7myjzyyxKaIvkt4c97hXDO0/QF/iOEMvKxxzpru1FhQLf9liQfWSPXqLLd/426shbQQ6mj272R2SFvCEUko6/9oE+pjpv1zlh3oIht/Zol6npTmMh4BW9U0QSlZqbbcIoR0wrvQxxKUIO2yKWKw12/lTQdH2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f8931a803cso2422443a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:19:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789359575; x=1789964375;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jAGxWAkqJ2PpeNUI4hbani/vDBhxvyCLiTaLssOW/2s=;
+        b=B5Cdb9x159Kmv7i9qeNSpYGM7Tqs/4Fw69PIEJw5itz8ZB7YSF5p9TSF6dnb7ftc1S
+         tNFKwTFSBaWhVtpz+8X9j5/JZVmrik8J6BwaPO6horfMRpwkrYrUJ8hJ9G+cqBtOyWwR
+         1uxY8g7MgdTKDFeSFqP0TcY5wi7CcGzGdE81X2bA1sQfF6N2W4ltfvwAhWo18GeBS0gm
+         5amrB5SCor0idBYkyq7KcR1xC2ETrRyX+3fPpgDGXv/C2IuX0QNNTEm4FwDMi3ISsR8A
+         l0jeXscw3HEElg2cZ7A1+my+4M3dy7jhwVHl/UmKP20jcZczQky7jIeZed1dGlnyB+xS
+         QZXQ==
+X-Gm-Message-State: AFuF++m0P1XcJyJQcPt1KVwbugfPAK8PCH4yzVbhgN+x/3CsvnizJqGI
+	37gyAGh7O13bKr4E/23Q6JxOrwB3rvSZWjl0lH00tPONYNDoy/4Mstu1NPY9zyXYG/0F0B4Omne
+	Oj5y5wFXvNChKFAIaVBp0EvvwMi94sl/bugKhQThbGJe0LdAmMC4+EWnq86A=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs: mount hibernated volumes read-only regardless of
- errors=
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260914034202.52011-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260914034202.52011-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wB3OQsFdadqn7o9Ag--.17275S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF17XFWrJr1rtw1DKr4kJFb_yoW8Ar18pF
-	9rCrnrKr18tw1j93Z7CFW8t3WF93s2ka1DKr1UAF47Zr4kJw1agas0gw1fuFWI9ryaqr4I
-	qF40krWfWFW7AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTKZAUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gfirWqndQcpCAAA38
+X-Received: by 2002:a05:6820:2685:b0:6be:4eb3:e1c0 with SMTP id
+ 006d021491bc7-6c541553efamr309923eaf.45.1789359575192; Sun, 13 Sep 2026
+ 21:19:35 -0700 (PDT)
+Date: Sun, 13 Sep 2026 21:19:35 -0700
+In-Reply-To: <6a74aa44.01d0871a.3a0d52.0028.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa775d7.3aa11909.1a03b8.0057.GAE@google.com>
+Subject: Forwarded: [PATCH] configfs: unhash dentry before dropping the item
+From: syzbot <syzbot+abd6a8dca0f2b7726060@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
+***
 
-在 2026/9/14 11:42, Hongling Zeng 写道:
-> The hibernation check in load_system_files() only converts the
-> superblock to read-only under errors=remount-ro.  With the default
-> errors=continue (and with errors=panic), a hibernated volume is
-> mounted read-write and the mount-time $LogFile emptying writes to it,
-> although a hibernated volume must not be written to at all.
-> 
-> Drop the on_errors term so that a hibernated volume, or a volume whose
-> hibernation state cannot be determined, always mounts read-only.
-> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-> remounts to read-write, and the $LogFile emptying is skipped by its
-> !sb_rdonly() check.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/super.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 2d4132aa39d3..fd7e5dbd1115 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -1660,8 +1660,13 @@ static bool load_system_files(struct ntfs_volume *vol)
->   		const char *es1;
->   
->   		es1 = err < 0 ? es1a : es1b;
-> -		/* If a read-write mount, convert it to a read-only mount. */
-> -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
-> +		/*
-> +		 * A Windows hibernation image is not a filesystem error, so
-> +		 * this is a safety interlock rather than something the
-> +		 * errors= policy may downgrade: always convert a read-write
-> +		 * mount to read-only.
-> +		 */
-> +		if (!sb_rdonly(sb)) {
->   			sb->s_flags |= SB_RDONLY;
->   			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
->   		}
+Subject: [PATCH] configfs: unhash dentry before dropping the item
+Author: jchuang26@m.fudan.edu.cn
 
-Looks good to me.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 069f4aad347e1f3181639d2dfbadfae592df93e7
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Reported-by: syzbot+abd6a8dca0f2b7726060@syzkaller.appspotmail.com
 
+diff --git a/drivers/block/null_blk/zoned.c b/drivers/block/null_blk/zoned.c
+index 384bdce6a..1c3ef902f 100644
+--- a/drivers/block/null_blk/zoned.c
++++ b/drivers/block/null_blk/zoned.c
+@@ -88,6 +88,11 @@ int null_init_zoned_dev(struct nullb_device *dev,
+ 	zone_capacity_sects = mb_to_sects(dev->zone_capacity);
+ 	dev_capacity_sects = mb_to_sects(dev->size);
+ 	dev->zone_size_sects = mb_to_sects(dev->zone_size);
++	if (!dev->zone_size_sects) {
++		pr_err("zone_size is too large\n");
++		return -EINVAL;
++	}
++
+ 	dev->nr_zones = round_up(dev_capacity_sects, dev->zone_size_sects)
+ 		>> ilog2(dev->zone_size_sects);
+ 
