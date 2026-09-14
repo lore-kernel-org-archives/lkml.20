@@ -1,139 +1,130 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1080B46AF00
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D86368D78;
+	Mon, 14 Sep 2026 17:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789405354; cv=none; b=SG3keJRVPtk0+6OTbk9yPyf9b0mMpXKCsg3wtBAkj1+y44klcSOwTi9YV/kffSksAJkB7ON2xsvx0VDhk3iI0l5pNAGFHXa0fpPD3Em0eEYXt74HP3uhqH5uj/kuIDlCb4Y59ycpsuxOU5uvJqqQMhmcZ1mMvwMWkFJAeB18YXY=
+	t=1789405382; cv=none; b=LiZagMsRicMtn5zLBXQrZcLiWceGMEQajuuoM80I+s77cyjh12YdoTWeWqTWD0APECa9h2OelE9oNtq0ZsAmydYAW1See5mfFLBbwULAA8zGkIFrIiz99/jf7nfDe7bx00SVqBDqKAgt+gHA0GBH0FcRxxU9+Cd9g+3kscrKrlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789405354; c=relaxed/simple;
-	bh=CjIjWkMTK9FskVJQo3nHBXYkjnAhMgGt1KVw9EjE6K4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Liph1EXEA63K76dEPer8tAs0nt+lraRUtkj3AI11wiU55X3aerBL4RnY8ygGY+ipzWfwZfmUvC4pPQVQ9W6hsI0LVg4bMo6L1TVE0xKSEJ2dyy+yGsLiZLesKWXXfYHH20Qovi6R6GvbJgGSn01HOUNnSEC1w0HOI+WCIGgCngQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SbBvFFV+; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789405382; c=relaxed/simple;
+	bh=dYCXpFw25I3Y7h9Cj8YGjW/IEpXG/wwnKMKLMnnlhME=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pFRb6wBRiB9V3PozQZ8DEXgRSgDG9EnxMqBo9jIVOLCizAvc3k6bvVVTbcH315fxQOPbz4TcpnCdQHOBtZfOui/F5y82gjBlbgL/XGmg4nPs3kb3L/JVjCRUfoTs/Sc20GC+BYfOyPVubzKl6Ofv7xIB2cgbzuit8IskzZ9+sYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=avqkMUJX; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SbBvFFV+"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso3735252a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789405352; x=1790010152; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eJDVd5ug/v9/QfAbvxEbhWXl7wgBpdpWGbbUb99beIw=;
-        b=SbBvFFV+sCiktopV9WY+N+qPZL3xbUamt1N2h+slT0+kvmhZb0BBnfFDBtVywmNWuO
-         jxXKj0YGZecLgCM3avrMl6DRKsxvMmO++bpEFQ1Fj+z02T7MflzliMhuvnK076eeBsrw
-         T7pVOTQHb54cerFbnD1wJrfI8UPrm0vZGxZAeCycxeREqc8pgVZEJCUqlgf9l0hYzfmC
-         DyN/A94xBDGgCeDlmRZqkEffXw/XpWHc0SGKEPmUoCFsO7zvWDsLMPZ3gkxmgF5nY7rQ
-         GFSUnjCtuuhdyVF2BCZgVAk6h8PLmV4vS1xGhlJDbKTUC6oEnN+lkTP9f1dwopk9oeTZ
-         s3Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789405352; x=1790010152;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eJDVd5ug/v9/QfAbvxEbhWXl7wgBpdpWGbbUb99beIw=;
-        b=ivk/goZQUc1kmDcXnDPqmpgkhoYRs0EXO21tPT0Xs9G1IA2huVsDZFMxkx8+zxqXVV
-         YIe47MrS1o0oNEXl3RNx/hs0LG2JlHdZz2SOdNCHG5wJvBlL8RNXRL7gJWF7GgzZDBmL
-         TMaNA/O0ivEgK3xk8XXdv7beMJLdtORnIQ8b6It3AOzEezGgbYsdsgYjaQNFgSDpPjJz
-         /L0Td5Zg1/1QYMyZPP7AUQW7eS9viuSvMPbctJl1Z/1EPAYd+4PxfesE2Fchds1yOVSl
-         BpSWgRgfcpqPNab82U7L5Cl7YC7nvSTGPDM7KT+KuCQiVGgMhQOwzRTjDo13TB8960Ro
-         VH2A==
-X-Forwarded-Encrypted: i=1; AKwUvBw/Ous6Byo/xsTIBaNTUoKry3Tdk4spI6DXQQlLPMK4aboMzfOQ3WKOmo4XUn+rMRG2PtMFytdC1xJzGAg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDLobqIgvHq4lFMoT/+NeaH7hLQTXqjcWtqpNWi0FY2dUf1Cwh
-	vXLUqpPiYGsnsq+wQhVx7GjjuyqoEU2wC9wlP+Iwezo8y7mZ2mGieN4P
-X-Gm-Gg: AYBFou0w2aXTuuQlBdOaSjeUly6BEFpOqpiIVgQS+coIlah7PzCX5YxXWPvz4H3UUx3
-	N5ZZt5eT70FbAEk9t4ixWXVn+l4pzVoftIeg9IQTMznJJYFzxdajk8H9ITY0dh6C7TG9c8g3qie
-	N0iYzx/8Y/nE5nbQEg3L5sj/7GOdN2xCm0C4h7KPcFbtfdUpL9KBVrgtZSe76tn4WGlQmYPBhbk
-	DfSd6cKyA5rCEv+gKjrxR3e/I1ykcCpY7h1VvLOCsGxWW6t8pSJy1jKm55kBjZDTD3eME4MQL0p
-	NJ7JczBC+kc7yA/O1f8dt0auQyDLOcvxGq6lgmahE+xxyIH84V1jReHu1YhSrOkn+u+Iz5tk6zk
-	clSkfQ1mzmKc/zq6Ig1w8ZF5jQ5vQWxfBJDyI/fUGoiW8Mwx6l0au9I8ASy2UJjNI1N487Kr6pS
-	ORT6addXdYDgmV60a9etYgdguDucaK76RatM70DmqATPOCBhixPkNhd0xmbSWqCPFl/WVroOriG
-	FH1OCStkjxOkCK9msBLvAupwxfosC88ZJAMyw4j5hA=
-X-Received: by 2002:a17:90b:5810:b0:39b:370e:c807 with SMTP id 98e67ed59e1d1-39dec09871fmr6980757a91.17.1789405352147;
-        Mon, 14 Sep 2026 10:02:32 -0700 (PDT)
-Received: from 192.168.50.3 ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfdc15esm52758255ad.66.2026.09.14.10.02.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 10:02:31 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dmitrii Dolgov <9erthalion6@gmail.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH bpf] bpf: Skip unsettled links in link iterator
-Date: Tue, 15 Sep 2026 01:02:07 +0800
-Message-ID: <20260914170206.170723-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="avqkMUJX"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EFvlhe2495103;
+	Mon, 14 Sep 2026 17:03:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=dv33IYOEp6gB7I/zkPCMed4YnTOuiy
+	Vonfo2LDra4BM=; b=avqkMUJX9bwy7vnvVLI0axJ9wtxv+VWe5KlJcTTWJzR4B4
+	x9E2MC8He02jqhSdVss6ZcuB8iHAzcRzo3yxTHBfCP6CVNi0ojGXuh/4gFuLAekC
+	mNSdEYLLmTEEUxisd+l+OcN7g5hkqwV67v+Hj3lk7y3VGcb3caijhA9ZobbHerro
+	dUMs7+xqDD6O5fAnmeKK5TIR+oZnJl5/0F1PhE0Q3V9so6GThl2ONkvbwYbLGmTy
+	dHm2ljAjFNZJJ3Qp6Lr62yPVqsWNtuHNc9LnS/KF0JPzBWNNNHU8LX6gxMqogvZT
+	cFvfMD4S2FdWAf8JoKoo5ex254egUXKZCIDpY5ew==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4ttcg-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 17:03:00 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68EGd86u2333687;
+	Mon, 14 Sep 2026 17:02:59 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gnjjgq3mk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 17:02:59 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68EH2tDe51053044
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 14 Sep 2026 17:02:55 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 257512004E;
+	Mon, 14 Sep 2026 17:02:55 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C99AF2004D;
+	Mon, 14 Sep 2026 17:02:54 +0000 (GMT)
+Received: from osiris (unknown [9.87.150.220])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 14 Sep 2026 17:02:54 +0000 (GMT)
+Date: Mon, 14 Sep 2026 19:02:53 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Jan Polensky <japo@linux.ibm.com>
+Cc: gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+        svens@linux.ibm.com, ciunas@linux.ibm.com, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] s390/rwlock: Add contention tracepoints to rwlock
+ slowpath
+Message-ID: <20260914170253.14910D83-hca@linux.ibm.com>
+References: <20260908135843.1384367-1-japo@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908135843.1384367-1-japo@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: QgubwiQRHltJ97dq5ZBuBi4FDk_ia1vJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDI0MSBTYWx0ZWRfX4tJO5h1ROpsS
+ 4lK/8Ijne0Q6HXl1LyFyeTYIu8P1xQVV5/rYNPw+YBtkn+9icNykLX33iZHORJXNbL4kj9tiAbA
+ k2IpneO6ZQGbeAY88qdbmpRaL/8WakE=
+X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa828c4 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=VFibKQHTiDGcZmGrcJYA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: QgubwiQRHltJ97dq5ZBuBi4FDk_ia1vJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDI0MSBTYWx0ZWRfX83maR1TKlfZD
+ 7/nosdhu3kyoufQDv2jxRvDgWxGk3GUMvJLoxekLOXN1FwxXsW6LoC3ZBDX8NarytP+ZYdX64Ov
+ S4VKEl2RgEIWP+JrZKMEGn4qEdbtw3ubwFPYCY4mPXoooH2iCQndOAzX4mhRac1I+SGF1pWr8Qk
+ RYXX5VGIrUuWUOohBrZY3al61lhL/agAJ7KD3HWKW1WncfV7dY1+v3CqiMgIr2ONmqbPrSscsKq
+ vIT4JvnaiZz06/SfFQywiKltZhM5P6xvmqzGc9UYiC2HJXSDacB5tmpl5qsK7c+ZDcJIGgmikq2
+ vdRM6qjoGHrfmtfTnvppNWdgovGlbSqXjyAxZHkSMs7z7uBpRCrwZo/9BClC97f7WyN1R3MWXX4
+ 5AOsrGOpzWorXnNef/p2TPMb/2Mba9xf/dT+KgzA7L21sAgetbnoHfqNLAhXC0GQqJS4zPCSIwR
+ ZYzqJaYiWO4Azk2JLqw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140241
 
-bpf_link_prime() inserts a link into link_idr before anon_inode_getfile()
-succeeds and before bpf_link_settle() publishes the ID in link->id.
-bpf_link_by_id() treats such an ID-zero link as unsettled, but the link
-iterator takes a reference without this check.
+On Tue, Sep 08, 2026 at 03:58:43PM +0200, Jan Polensky wrote:
+> Instrument arch_read_lock_wait() and arch_write_lock_wait() with
+> trace_contention_begin() and trace_contention_end().
+> 
+> These tracepoints are used by lock contention analysis tools such as
+> perf lock contention to identify contended rwlocks and measure wait
+> times. The generic implementation in kernel/locking/qrwlock.c already
+> emits the same events from its read and write slowpaths.
+> 
+> For arch_read_lock_wait(), the in_interrupt() fast-path is intentionally
+> left outside the tracepoint scope. That path spins without entering the
+> wait queue, so it does not represent queue-based contention and its
+> duration is not comparable to the normal slowpath. This matches the
+> behaviour of queued_read_lock_slowpath() in qrwlock.c.
+> 
+> The include for <trace/events/lock.h> is already present from
+> commit ffa796cc1f45 ("s390/spinlock: Add contention tracepoints to
+> lock slowpath").
+> 
+> Signed-off-by: Jan Polensky <japo@linux.ibm.com>
+> ---
+> v1 -> v2:
+> - Fix tracepoint placement in arch_read_lock_wait() to avoid recursion deadlocks.
+> 
+>  arch/s390/lib/spinlock.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 
-If anon_inode_getfile() then fails, the creator removes the ID and frees
-its still-private link directly.  The iterator is left with a dangling
-reference and its next bpf_link_put() accesses freed memory.
-
-Treat ID-zero entries as transient in bpf_link_get_curr_or_next(), just as
-bpf_link_by_id() does.
-
-  BUG: KASAN: slab-use-after-free in bpf_link_put
-  Write of size 8 by task exp/384
-  Call Trace:
-  bpf_link_put                    kernel/bpf/syscall.c:3372
-  bpf_link_seq_next               kernel/bpf/link_iter.c:33
-  bpf_seq_read                    kernel/bpf/bpf_iter.c:158
-  vfs_read                        fs/read_write.c:572
-  ksys_read                       fs/read_write.c:716
-  do_syscall_64                   arch/x86/entry/syscall_64.c:84
-  entry_SYSCALL_64_after_hwframe  arch/x86/entry/entry_64.S:121
-  Kernel panic - not syncing: KASAN: panic_on_warn set ...
-
-Fixes: 9f8836127308 ("bpf: Add bpf_link iterator")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- kernel/bpf/syscall.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index a8c9b2865c5df..2870ff3167d42 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -6044,7 +6044,10 @@ struct bpf_link *bpf_link_get_curr_or_next(u32 *id)
- again:
- 	link = idr_get_next(&link_idr, id);
- 	if (link) {
--		link = bpf_link_inc_not_zero(link);
-+		if (link->id)
-+			link = bpf_link_inc_not_zero(link);
-+		else
-+			link = ERR_PTR(-EAGAIN);
- 		if (IS_ERR(link)) {
- 			(*id)++;
- 			goto again;
--- 
-2.55.0
+Applied, thanks!
