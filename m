@@ -1,132 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2EF35DA6E;
-	Mon, 14 Sep 2026 05:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8876837998B;
+	Mon, 14 Sep 2026 05:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364533; cv=none; b=bMs8g45TzJOeJgnC1TX0k8xCO5phKblVIDlK4GrgYLViV5en7YDHNlImtVXhPIhE2odaWkukYQV3Z2DVQJl2X//0GhCkjebbcigL30lXhRj9XAEsdRQpaZ29X97o5oYfWFB1Kt999HS2aet6Jla2RxjqSB3isiO8Ra4ItFlVpK8=
+	t=1789364542; cv=none; b=f2c/U8Gb4OXO6tRAHAZcT8uzg8UYCegHaXc70+JMHjp7KdP2ivLW8FUkRZYntmVUfQOY+sVLSTyiAJlP0lCsxPD+TnIiakIcuuuOCf0pf2BGgt+j8kII2/3Kzh1CE0lqI556eOR/a8iUzTW0s4LlU2873Ln//XErLmNhjIohg2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364533; c=relaxed/simple;
-	bh=Gt5cghmkYsHcaGUT0bLK7DMeg9MMat7CQl1r/928wks=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D3DCaXsbTQVzELu4Ubbcmy3/i9lZ7z4WIikM2WUIQedRywB8kgYFGa/XPisZ1w42PWquNHMwXWEDlu7jpY5ldiaxy5XvSca7zBmmtIz0nSu4UZmyNvsl6Ya6HrAuBLxM7sIiYIluQ9zFp5+HtCSRrgUutjE7BtRMvFOolQnCrTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3rRNL/e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789364542; c=relaxed/simple;
+	bh=c7mg0DP44IvEh3HQum8uG66Q7stlHdzJePAOAC2ZNRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oQsaLOeR/1zlkwJ1mmn1veHQiXmZ/C/9X+RV21ZvT9wxOh3ye9Yd2WvtTb/OnTwEUrqXgaA8c9F74t9xPYh7zB3k32Vf99G6hFNp1iF5jnWurwl6szTmFdXy7eh6Bt/528eDQkC6O2ed0S6gsmb0pZseZygeWlj7VdNBAyuDSBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=q0xFFMEi; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3rRNL/e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A2B11F000FF;
-	Mon, 14 Sep 2026 05:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789364531;
-	bh=9WTOweRXQqxPe57Hlf8rF5/p1907bUJYule3AADKIQo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l3rRNL/eppw0Z/mn5NwrbZudnGzqSuza0Z7RLhbTikAIn9RoaNSx+ZzOQK5Wztcdd
-	 EsKDSHqiQxcnYKYcs3QlzuNvT9cOAzTFQYErVLwERPdjD04wuhRaKaMLWcCy22seGo
-	 25tgQafUn1n5c+cdETurg4ZmZqN9tA13r73419tnFdlMW8GjGa717DPXl1qvrH0C8t
-	 SzPF4hqIkNIrl2RQH9wphlvbLqipNejJmXnn24ZoZYLXGzDzxkszNcdaXvu2xK6qAp
-	 0q2h0Lht7nSQA7mgrEAwv2xKQmbBcYk/fx//WMgQB6XiHZ4tg9WL9RJPUUUS4SUWEl
-	 CCPRJxbIsBHRg==
-Date: Mon, 14 Sep 2026 07:42:06 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Masaharu Noguchi <nogunix@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Akira Yokosawa <akiyks@gmail.com>, Chen Miao
- <chenmiao.ku@gmail.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: sphinx-pre-install: warn about unsupported
- Docutils versions
-Message-ID: <20260914074206.05579309@foz.lan>
-In-Reply-To: <20260913-docs-sphinx-pre-install-docutils-v1-1-d923c769af91@gmail.com>
-References: <20260913-docs-sphinx-pre-install-docutils-v1-1-d923c769af91@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="q0xFFMEi"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 03C511F81F;
+	Mon, 14 Sep 2026 07:42:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789364538;
+	bh=V/NEV/kLTCX8bokAeRTT4qUddiLyH+CfDie4m5wqp+I=; h=From:To:Subject;
+	b=q0xFFMEim0YvPgdD5421gOP88vBaDzCd+dwfcNZdbCweRETd8O2SMCeuhBdTwhyw6
+	 TqOf6nhpt6hjjx31sK8RlMamI4jbPbC52Go+aIVe6cY5uTyNeq1jv59WFbnPV94Zv0
+	 wXDk9AdqnkHT/hFHAAQrTMupQh/DVxvnXVsJ0/lhBL7ASTnKNmjQoVHFdKvLqxUN4s
+	 PNe/ORkLvCg1coydLgIp2FgjTHyqDW5VQatp1JBtxW9BUPX/2St7MxHx16fkVgTZ7T
+	 SiYmirpuCuLgOCP4FQ27PHsQKaPlLsWPAEPOJXybsEh3nNodPdlSpajDJin2f8gioU
+	 wETC3bs56V8+Q==
+Date: Mon, 14 Sep 2026 07:42:14 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <20260914054214.GA19835@francesco-nb>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <aqQQjCW1xaGfPdss@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqQQjCW1xaGfPdss@SMW015318>
 
-On Sun, 13 Sep 2026 12:13:23 +0900
-Masaharu Noguchi <nogunix@gmail.com> wrote:
+Hello Frank,
 
-> Sphinx declares the range of Docutils versions it supports, but a
-> distribution can relax that upper bound when it wants to ship a newer
-> Docutils.  The pair then installs happily, and htmldocs builds without
-> a complaint, so nothing looks wrong until pdfdocs is run.
+On Fri, Sep 11, 2026 at 09:30:36AM -0500, Frank Li wrote:
+> On Fri, Sep 11, 2026 at 11:19:46AM +0200, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >
+> > Add support for the Lino iMX93 SoM, its Verdin adapter and development
+> > carrier board.
+> >
+> > The SoM is available in two variants, with i.MX91 or i.MX93 SoC, using
+> > the same PCB (the two chips are pin to pin compatible), to avoid
+> > duplication create a common dtsi to share commonalities.
+> >
+> > Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
+> > Link: https://www.toradex.com/accessories/lino-verdin-adapter
+> > Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
+> > Co-developed-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> > Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> > Co-developed-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > Co-developed-by: Franz Schnyder <franz.schnyder@toradex.com>
+> > Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+
+...
+
+> > +&gpio1 {
+> > +	gpio-line-names =
+> > +		"LINO_P18",
+> > +		"LINO_P16",
+> > +		"PMIC_I2C_SCL",
+> > +		"PMIC_I2C_SDA",
+> > +		"",
+> > +		"",
+> > +		"",
+> > +		"",
+> > +		"",
+> > +		"",
+> > +		"LINO_P65", /* 10 */
+> > +		"LINO_S18",
+> > +		"LINO_S24",
+> > +		"LINO_S20",
+> > +		"LINO_S22",
+> > +		"";
 > 
-> Fedora 44 ships such a pair: Sphinx 8.2.3 (which declares
-> "docutils>=0.20,<0.22") is patched to accept "<0.23" and is installed  
-> alongside Docutils 0.22.4.  make pdfdocs then fails to produce four of
-> its books.  admin-guide runs out of TeX main memory 13 pages in:
+> Can you wrap to 4 names pre line
 > 
->   ! TeX capacity exceeded, sorry [main memory size=6000000].
->   \sphinxafterbreak ->\copy \sphinxcontinuationbox
-
-With some distros/versions, it is needed to change a config file
-to use more memory. On Fedora, the limit is here:
-
-	$ grep main_memory /etc/texlive/web2c/texmf.cnf
-	% main_memory is relevant only to initex, extra_mem_* only to non-ini.
-	% Thus, have to redump the .fmt file after changing main_memory; to add
-	main_memory = 6000000 % words of inimemory available; also applies to inimf&mp
-
-I haven't tested but it seems that there's a way to adjust it when
-calling LaTeX:
-
-	https://tex.stackexchange.com/questions/7953/how-to-expand-texs-main-memory-size-pgfplots-memory-overload
-
-If so, maybe a more interesting patch would be to adjust pdf generaion
-to use a more reasonable memory limit, as 6GB sounds too little.
-
-> while arch, core-api and translations stop on
+> 	gpio-line-names = "LINO_P18", "LINO_P16", "PMIC_I2C_SCL", "PMIC_I2C_SDA",
+> 			  "", "", "", "",
 > 
->   ! Dimension too large.
->   \fb@put@frame ...p \ifdim \dimen@ >\ht \@tempboxa
->   \end{sphinxVerbatim}
+> Reduce LOC, and easy to locate number, such gpio 13,  second of 3rd line
 
-This is also another parameter that may require adjustments.
-If I'm not mistaken, this is related to the maximum level depth
-on titles. I had to change some limit from 7 to 9 on some distros
-in the past. I don't remember exactly where.
+I already replied on the v1 that I disagree on your request. To me it is
+just more readable the way it is now and I do not see minimizing the
+lines of code something that is bringing any kind of benefit on its own.
 
-On both cases, I don't think you can blame docutils or sphinx
-version: those are distro-specific configuration parameters.
+Is this blocking this from being picked up? 
+Is there any other concern on this series?
 
-> Both come from the large literal blocks those books include whole --
-> memory-barriers.txt, devices.txt, kernel-parameters.txt and
-> arch/sparc/oradax/dax-hv-api.txt.  Keeping everything else fixed and
-> varying only the two versions shows that neither component is at fault
-> on its own:
-> 
->   sphinx   docutils   core-api   admin-guide
->   ------------------------------------------
->   8.1.3    0.21.2     ok         ok
->   8.2.3    0.21.2     ok         ok
->   8.2.3    0.22.4     FAILS      FAILS
->   9.1.0    0.22.4     ok         ok
-> 
-> Sphinx gained Docutils 0.22 support in 9.0.0 and upstream decided not
-> to backport it to 8.2.x [1], so this pair will stay broken rather than
-> be fixed in a later 8.2 point release.
+Francesco
 
-Upstream policy AFAICT is to not backport anything: once they release
-a new major or minor, they stop maintaining the previous versions.
-
-> Check for it, since sphinx-pre-install exists precisely to catch a
-> documentation build environment that will not work.  Ask the
-> interpreter behind sphinx-build for its Docutils version -- a venv and
-> the system install can differ -- and warn when Sphinx is older than
-> 9.0.0 while Docutils is 0.22 or newer.  Only warn: the build is left to
-> proceed, and htmldocs is unaffected.
-
-I don't mind having a warning, but I don't think you can blame
-docutils or Sphinx versions on both cases, as the error is related
-to LaTeX. It sounds to be this is actually a combination of those
-three packages plus some distro-specific latex cfg settings on
-some of the shipped files.
-
-Thanks,
-Mauro
