@@ -1,165 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010019.outbound.protection.outlook.com [52.101.193.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3415381AEC;
-	Mon, 14 Sep 2026 18:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410344; cv=none; b=cASfl/RnAbWlFqAUKQLEj+9EtSPsN6E1FE2vSlze2F7R6OLvmOO5J7uewQP1//DVGpX098ox5QPdhWEeMo2QnDNV7PUC4vHyibogWPIjiWleS5TPTq9sSL6e+P3ktQhfgnsrrkKIOGqxqbyYaMD/4xiexOaZnKNeBad/CQv3fO4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410344; c=relaxed/simple;
-	bh=MSUBVHA6SYh17/zAEeD87cDOzMUOc+7X634FG+Ct7Z4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mr198+unIVqkt+iTymd+8GHCnCR6QFycFjMOfG53mBwhYyaqUtFYU2NMK0cKnVMdU69JVhJPF/9ol/YbcXznbOsqBrlwfKYLMTIF35P11eiRj1HyEOO7JBNaMYm04eClg+IMOewZe9CxyVwrIwtcPMctGOjyY9/1Miw/cL4ukRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2dDa3GW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B3137F315
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789410362; cv=fail; b=RDHIKv2O1CeChWT8OjSBYea9XTeoQze91WNnHTPc/ioQu4C7/SLz52vYJY/2g+ioY9QLK4H31u+wOLkLSLOkrgh/0ugvP8a+9d9cTntdSzXL4KjNIJqAU9fQxWVA6x+P6V9A0ARwGC1a+uIVDmD67TAAZXIyx3GTlTcOpTTUL60=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789410362; c=relaxed/simple;
+	bh=JDylaPfLQEJjNGknPwjqnNfnsTlxGAAAr93Hocrf2lA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=qmam0KwhRO7M4Mxw/hQLSX6v98tvVhhvpV2MrrUmVdXBOlvwvyBUQ0Yo+ZH40b9Eh8JAP6qENGkd1+c0uLIt5xY2c5V/yTVWlEbv96dPH41qfk6Qe1XCubHICTiF6Ur8N2bsi74IInVnf8FfQk/dRVp0eWJJYX4EL7Lw1U5E6uA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Br6gnzXt; arc=fail smtp.client-ip=52.101.193.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2dDa3GW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B441F000FF;
-	Mon, 14 Sep 2026 18:25:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789410342;
-	bh=9IjIObR5k7PGYTYmWhdlK+kKKQoR6O9Er2obIa/1gz4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k2dDa3GWuYsEUnYiCf2cNfMemYcH7gF3w4RpJHc2SMwIB5QPObhfRBuDl1VaCDzjL
-	 BxXofrG6qAndbrAnP95A3BGbc1OISuGgaajL6XQ62mHcCgCY9EOWv3admkl0lwU+vL
-	 hpyp4zxo4Wje0UrueF070IivC/uHeW+s1/HsvLFQarY26cIjMucKYU6kpouAmy3Y6c
-	 HuCxDzF4jbAYEqCbEATfP88AL4mkR/cw02/lnYKsbxBYFPEoqheJPHlxRGw4831Eht
-	 /lw/vvJEoS92HnR1Lk1Cp/C5yeN9G1gNVIwr1aqddQzN3MSGyo+7UmY1bfcT68b6Go
-	 8XUQstSyQmoUA==
-Date: Mon, 14 Sep 2026 19:25:28 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 00/21] kbuild: significantly speed up kernel builds
-Message-ID: <aqg5nvRy9nuvC78L@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <202609140833.88C0E16E50@keescook>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Br6gnzXt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H2vevqPdLqdzQIH+BX6wUiLUiWLbLGQ7blbXXaeH712yWkX5O83KbXFxODO3mX96oub+qlIPZ3CnYINERhqem3tYGzVNu7eHkD0zEKFdQ3hkVdtSLqv/JqntN/p3M6iuDmRCfAwjgd++mwlVh31Cx7sQ03h+aDgU3UOvw+qKd3/eRLA8RN4ztK/LO03116XLmTCw3RwMbNuAbcGOUPiq1sf9SP8DajqEy1UdsukZw1JXtA7wyi0u4hKbhdh120A4CrOW677whfMA7We2HTJn+YNptW+LKYCeOcGaSJcAdIm8FVW60zsX6rikaUtu2aVd18v1sRauri42oAMbuBrrEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o/+lZ07oMq4kj/XFUC2SSs5bFJPNCG9LezM8XZQGCrQ=;
+ b=Yn3/gsBh+TqCJ8wjPSKdACuG3MnT10qTEtewDbCi69rDz4nm0/yXQbfihIeMyHlMY3oFYxdKGnSTmsKHQDmMxopmb/UPPVX6lZ3hOQeT5OZyzqh7dckXw0ju3rheD6nCxfrsyIcUEPzVkuEBjI43Bwi5fCdD7o2blXSIhsTH9h9tWqBhOTH2AuhIntiUz82pGHpiovNy6SrTjCeU+UwlJBLiC9VkteXpERAL8PJ+dDvoVYE+mgBuRzD2LLLgbwWigBfUvTvD1ZxoMN7GOSmmp6HBYIIO6dYN+Ptf1clc0R1jTiF99FcsrqdUdXy2mkaW4DiuFESLX+MTbaHgeHhrQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o/+lZ07oMq4kj/XFUC2SSs5bFJPNCG9LezM8XZQGCrQ=;
+ b=Br6gnzXt2WBF6d4tJ4YR6jpi+++feG+JQX1bQq1Vz+tygf2cDhKj1/VettEwqMJETyRpWcDn5VhnKp/Idl3JICu8OpT/X3+mBQbs0Wrz2UGBrfCNIRFr6mfNOhoahqArTviWeagvXCh6WBRUhVi/Ra4AqEy0Tr84HDOfRkaDKb0=
+Received: from BN9PR03CA0716.namprd03.prod.outlook.com (2603:10b6:408:ef::31)
+ by DM4PR12MB7599.namprd12.prod.outlook.com (2603:10b6:8:109::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 18:25:54 +0000
+Received: from BN3PEPF00022BCF.namprd03.prod.outlook.com
+ (2603:10b6:408:ef:cafe::27) by BN9PR03CA0716.outlook.office365.com
+ (2603:10b6:408:ef::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
+ 14 Sep 2026 18:25:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BCF.mail.protection.outlook.com (10.167.248.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 18:25:53 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 13:25:53 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 13:25:53 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 14 Sep 2026 13:25:52 -0500
+Message-ID: <7e7c456d-fe38-caa4-0a82-cf4ebfafd72a@amd.com>
+Date: Mon, 14 Sep 2026 11:25:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609140833.88C0E16E50@keescook>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 0/4] accel/amdxdna: harden command BO payload validation
+Content-Language: en-US
+To: Eva Crystal <0xiviel@gmail.com>, Min Ma <mamin506@gmail.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260912081012.2274075-1-0xiviel@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260912081012.2274075-1-0xiviel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCF:EE_|DM4PR12MB7599:EE_
+X-MS-Office365-Filtering-Correlation-Id: d389e86a-3788-4f79-bb41-08df128d9caa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	SmxLoF9KCLUO8Mjj82xQHgq9g4MXkg/001ouDFYaJzSd6Jj+M82qPBpY9vNZgqD663L3WTW9hqG8byMZ4UxxA+R6IBk6khr76EjOLuExi8kQvlnstDhWAiwLu9NWLj0V3HW1WbsiMcQR2dOVB+54krW8k2df7mrLwXQYuaZSh1gP2XkReKX2OZlCGHvhco6pMrxMuPdJBzqcOVAcJQskBdNF8EKFIezCJj2bbxFHpXTA5cYEwtHlHv8nOyrQL0bw74N3p2jV1PzSjaKcC0bIYx5LMa6Rh5y3PRGU23Ze0ka4GYcQmQomNbVe5CF7vg0jpCLgDMssxb9YUaKEIFSMihWUuWah8eWG8MmYxST7gn5OXBdJCyc69bo7u+eZ3aBxUhqqE3etmUTJfdGTMXVL2ILx5+UHcu+N+Dl/la7a36H1A9rePU+Lu8f4gMNY26EWukKcmtQvJCS9HlguYfIC8eiPSexXOdRxXjD27LogqmgCaJDSBwKyKdyZvPPdECsQMK9/VXk1k40LKpY/qGnufSmDqe2DEH4OUdFxOH9Q7EtjQfiF+x7TaULWNoZmXHQI+a4+05Tr/7OFmK/KbsX6mJUEf361p2LPwe9zi1vGbZpaDtEVbRXnvOqRwmIvDXY1OCgzkWqsQK/oRZy0RpkaAGzVr9Xoe2TQ9okyobr/6oDdEoxgf514UKkUF3zOHQglzoyG6JgheypqB3P7rnNY1A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lGThb5t498LoekuFNYrY6ORvvrpSnb5GenDQVeAdki8tU0pCffR6Ud/8RRmDwUlkaYIVrb8JyEring40dBA6VOBfNE5UE4YbzJgjIaEGsmXVFlWefn1Le2Y1kdkjh6UiJFYCZpv4skQ7fRFrSmxF62bbINjdDW4+dPE4VWza1IecMovVLZRyvTbXug71AjIlwRUgunfsBC/No89KSdlUny0VoloYr3XleyanhEc5gzvsRApHKmQZPMGor9F+2UoJgI2nSNreJEbEz0Ut1ZsdUZQbXeI8CtMgiNOBZtrsth5sDu2dN2Mn3LwOjc38tG8GVBb1pHMrsObScgXatOA6RjS2y6Qhamz6k+4faAa2sJ1aF3d5JxoHbE0qPTcbnFZ76Cnh9q/yHaKVu+urBB2xeB7uOvS9YPOff1W2b+7nkz0RX+3UluOJMgfAMPOSSd0d
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 18:25:53.7579
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d389e86a-3788-4f79-bb41-08df128d9caa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BCF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7599
 
-On Mon, Sep 14, 2026 at 08:41:39AM -0700, Kees Cook wrote:
-> On Mon, Sep 14, 2026 at 10:21:59AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > This series makes allmodconfig builds up to 36% faster, ...
+
+On 9/12/26 01:10, Eva Crystal wrote:
+> These came out of a read of the command submission path in
+> drivers/accel/amdxdna.
 >
-> This is very nice!
-
-Thanks :)
-
+> Where to spend review attention: patch 3 is a real fix - a leaked GEM
+> reference on an error path. Patches 1, 2 and 4 are hardening. I could
+> not reach any of those three, and each commit message says so in as many
+> words and explains what currently prevents it. I would rather be plain
+> about that up front than have you read three messages looking for a bug
+> that is not there.
 >
-> > incremental builds
-> > up to ~70% faster, and noop builds up to ~90% faster.
->
-> Some of the changes for this seem to add complexity that I'm not sure
-> is balanced against the gain? I am still looking through the series,
-> though, maybe I'll change my opinion. ;)
+> What the three have in common is that a check on user-controlled data is
+> either skipped, or holds only because of a property established
+> somewhere else - an allocator that page-aligns, vmap() refusing a
+> zero-page mapping, or the integer promotion rules. Those properties hold
+> today. They are not local to the code that depends on them, and two of
+> the three sit next to siblings that already carry the explicit check.
 
-Well, I aggressively stripped all the commits that had a bad RoI on that.
+I will run some tests against these three.
 
-And a lot of these are additive over 21 commits.
+Thanks,
 
-So, unfortunately, hacking away at what seem like low cost commits will eat
-away at the overall result.
-
-I really did work hard to cut the fat where I could, believe me going
-through what remained and a. figuring out what it did, b. rewriting a lot
-of the code and c. rewriting commit messages (ahem ;) was NOT fun :)
-
-So I was happy to swing the axe as it saved me in terms of what little
-sanity remains ;)
-
->
-> > 		== allmodconfig FULL build ==
->
-> Did you try Clang CONFIG_LTO=y builds?
-
-I tried a CONFIG_LTO_CLANG_THIN in order to check that the *.mod.S stuff
-worked correctly, all working correctly.
-
-I can try to get some profiling numbers for thin and full if you want?
-
->
-> > 			== LLM usage ==
-> > [...]
-> > I extensively audited and rewrote a lot of it, and heavily edited commit
-> > messages, the cover letter and comments.
->
-> I feel like the commit logs still need a lot of work. The LLM verbosity
-> problem appears in many of them, for example spending 80% of the commit
-
-Well I rewrote the majority of them, so this is a stinging critique of my
-commit message writing I guess :)
-
-> log describing every step of some process as background before getting
-> to the actual change. I think a human writing this would be much more
-> terse about the background. I have, however, been known to be too terse
-> in my own commit logs. :P
-
-I mean no, I did write nearly all of them. So I guess err... yeah :)
-
-The testing results and perf numbers are generated and maybe I missed some
-bits but generally this is so.
-
-Anyway, I am known to be critical on-list on occasion, so if you dish it
-out you have to take it - if you point out specific commit messages that
-need work then I can try to put commit msgs on a diet :)
-
-(N.B. I have had feedback like that on a fair few human-written commit
-messages of mine lately so there might be some validity to that ;)
+Lizhi
 
 >
-> > [...]
-> > Nothing too controversial was included. There are further improvements that
-> > could be made, but they would either by very invasive (large scale C header
-> > changes) or generate diminishing returns.
+>    Patch 1 makes amdxdna_cmd_get_payload()'s bounds check unconditional.
+>            It is currently inside "if (size)", so a caller passing NULL
+>            gets an unvalidated pointer into the command BO. The single
+>            NULL caller is safe because command BOs are always
+>            PAGE_ALIGN()ed.  [hardening]
 >
-> One area I think might solved via an LLM is the 3-pass kallsyms stuff.
-> If we could get a deterministic kallsyms build in 1 pass, that would be
-> very nice. A lot of people have tried, but it has eluded upstreaming.
-
-"going from three passes to one would save around 8s on an allmodconfig
-build and 2 to 3s on defconfig, out of tails that are currently roughly 25s
-and 8s." says the LLM :) so that actually does seem worthwhile.
-
-But I think best as a follow up?
-
-I'd like to land the really low-hanging fruit before maybe digging in to
-what else we can cut out :)
-
+>    Patch 2 gives the error-path memset()/memcpy() in
+>            amdxdna_cmd_set_error() a floor. The length is
+>            "abo->mem.size - sizeof(*cmd)" with no check that mem.size is
+>            at least 4. A zero-sized BO is creatable, but cannot be
+>            vmap()ed, so it is rejected a few lines earlier.  [hardening]
 >
-> -Kees
+>    Patch 3 is an actual bug fix: the -ENOMEM path in
+>            amdxdna_cmd_set_error() returns without dropping the reference
+>            amdxdna_gem_get_obj() took on the chained command BO. Small
+>            leak on a rare path, but a leak.  [fix]
 >
-> --
-> Kees Cook
-
---
-Cheers, Lorenzo
+>    Patch 4 adds the explicit short-length and NULL tests to
+>            aie2_init_exec_dpu_req() and aie2_init_exec_cu_req(). The
+>            length test is currently performed by subtracting a size_t
+>            from a u32 and relying on the result being evaluated in
+>            64-bit, so that a short command underflows to a value larger
+>            than the destination. The slot-filling siblings in the same
+>            file (aie2_cmdlist_fill_dpu() and friends) already have the
+>            explicit "cmd_len < sizeof(*sn)" test; these two do not.
+>            [hardening]
+>
+> No behavioural change is intended anywhere except patch 3. Every input
+> the new tests reject is already rejected today.
+>
+> Based on v7.1.5. Compile-tested as an out-of-tree build against 7.1.5
+> headers, no new warnings.
+>
+> Not runtime-tested, and I want to be explicit about that rather than
+> leave it implied. I have the hardware - a Strix Point NPU, 1022:17f0,
+> running npu_7.sbin 1.1.2.64 - and I am happy to run whatever you would
+> like on it and report back. I did not want to send results I had not
+> actually produced.
+>
+> I have deliberately not added Fixes: tags. I worked from release
+> tarballs rather than a git tree and could not verify the introducing
+> commits; someone with the history should add them if these are taken.
+>
+> Eva Crystal (4):
+>    accel/amdxdna: validate the command payload regardless of the size argument
+>    accel/amdxdna: bound the command error payload length
+>    accel/amdxdna: release the chained command BO when vmap fails
+>    accel/amdxdna: check the command payload before using it in the exec requests
+>
+>   drivers/accel/amdxdna/aie2_message.c |  5 +++--
+>   drivers/accel/amdxdna/amdxdna_ctx.c  | 39 ++++++++++++++++++++++----------
+>   2 files changed, 30 insertions(+), 14 deletions(-)
+>
