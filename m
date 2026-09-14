@@ -1,185 +1,153 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D73340281
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C840C38B7A6
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789421147; cv=none; b=tKPn/WQ0WHNpobXj9NGfQqtkLMwsrm+JeokALg07uZkNlDjTdnyh8IQfGJWDurYG7UwmOBeOJC8UBDk9N9fRHT3l/q/uM+/jzXo2NIPmDx774t/aVhrztRjett8HR2kCMzxrDZpLWaa3GXqi07ttkQu6ZkHTkC4zxBl/q55RsXI=
+	t=1789421189; cv=none; b=Xczy1r4aXLij9Sdr6Ra8NIEZ5Id7nuHtn7uP1i/lPjy+cc0lZiHULdlEzD4cYMzJ4LnmGhXkp3YRjCQezXZgy1CxG5MgxI4sc9wQxcJuN5N2ASsuJhpFf6PENxIXnAGvVX/jQV/G+iVowuATijvYaDDMd++tJaxKYst8+hQMVQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789421147; c=relaxed/simple;
-	bh=bqFq1sFhgxNS/knQASD1NGsWJNtqHqrXmQFR35YL73o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RZsetRHw2J99T3fABqydAkFH/iEz9/pMp2dExuOmxkhdgTBvHgHKbL1hMwbSm1zKuZjyWo8K/YpIBJ+dga+0PaJSrKYBdwQpZv5NT7ZMnA9k2awzPVjusKvv3r63+x8Rhv3x6y+slYBuo5vwpVJkXJTtzFrGHqwH/msWgbiMGUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dE3DOaW9; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dE3DOaW9"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-485850cbac3so2163845f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:25:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789421144; x=1790025944; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uiicOJgcAHnqowOM1/oeJPpa4eohRRRcrqsrnETq/qk=;
-        b=dE3DOaW9qpPmkZTf0RAytAEw4pKYc/qAdhnN6xxRgywwABCp1jsS4S9FCdVkimYf/I
-         HKkLqYZpRDBGADtgUH4SswJV5D0D8xzAY8jrgbnru8RyjZVDSAegoUdlT78ShQy3hnSk
-         /Hw6sRWvBxmEUtoU/JKnOX/8+YtyXAxRgNO2Om2EyjJ4xsqcXdTmWqZaJOuRDFw3WhpK
-         3V6ZliMOV3rmA+INNcZ+kLCQJQeUQ52NqUwcn2lnl4nZuehUi9rnjFTUmw7johPr3MGX
-         zemhdoFa3qfOxhyzSwUXEi3j/G0t+xCEDH6MvyhjXXELkJ/bAZnG1GAQ/rB/DLn7xpdL
-         1R2A==
+	s=arc-20240116; t=1789421189; c=relaxed/simple;
+	bh=dWWNsdjuysMJ/2085tK0NW4f9jW++Y+Re2ydq5/YTrs=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=pjjHYxaNgdAfGg5XX3CF+OC/8F1Rp2SlrlEi0ZIAUCXXXDIAReR2znjDDCdSfQ/+ABfdMWPunSC2onIJqJUjR3NEsOaprHAyaj4QtToi3ECoX+9zThowvEdE/TGbZvV2YAO8Fli5Qv7o/6h2VnBmzNPvekmV+oxj0bR8LlJ1v8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bd4bcc3e2so1420027fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:26:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789421144; x=1790025944;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uiicOJgcAHnqowOM1/oeJPpa4eohRRRcrqsrnETq/qk=;
-        b=qyESv81B+29x5v/RzauD2HIMug+DlIisfnyVO12DLvwqGyQ4UpaVXGFfCbi6MrXn6h
-         rswDvWPS1SyYHcKK22isK6NHIPgJu9Qpcls9E8DEzFQt1PyI/mPD8/pQKWo0VO+3qKIB
-         sv0tcYcIVtNZYAV8vNRJV+B4r0gDiRhKaELdyfovjhx3fZmy0exlSd0oqXy3eGBAqqcN
-         OEq0OuCSLAdSLo7Q+LCtK5J1Af2jUhOYe9whHgrsWLvXeivsr1gzDV/l/977IC6EioyP
-         5Cg+dyFyiKxl3G5yYqQoeKwbv08kxbShOJZvF49PgEiMeDcjn/EK5v71XoA90LozaqS1
-         kftg==
-X-Forwarded-Encrypted: i=1; AKwUvBxq3D7L29Gr3nR46FH8/v8d7cPnlhKGupvh774/PYfXysLd5sfKQRaPUirFBi6ZwGW7p6n5Q6twed7R+LU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1SlGuTae/7N+Iuo3gkCfHVU7ur0zblEp+/qd5zTu+vvVOlYzx
-	lFnnn/uxTcIV061eLDIr3XMyfyC3wt+2PuM87iXVDbSQlgv6Xv+mCaisEFvvMg7Q
-X-Gm-Gg: AYBFou2RTWndo1gr78bU+OUKCIZZRp5n2SmWj5VpRc0dAdkjblH2u/6Y/9ATlRrjpUz
-	Fyu0b1Df6x1Uuid1M6UY5GyFrWBSebX7rK8vyb/NAlwYIt+f7BVvCbmTyxeRm6D6F2FlHIpzcMF
-	uF+/5JTSz8StwoiLGFxuGc6fWP3kbtwmrQE/UbWeWGumDO7L2PzKf4OK2QXaROmzYe0qYB/f/Kb
-	PHuMNN57oKMcSthjOGyij8Jzp84k4dhgzm9Yf3BbuFVXBSl1xSaEkgUMxLpqWebe8ZNZqCP7wRS
-	H7xttQtxpCn0Tyw72mfgjG0Pi904FDqLXQJ0oPFreO4kvlMKwhQObqb/DK9K296vGR1UkFDPJ9i
-	bhJyrDijohV3nZJw2HPmTq7G2u4bMFCp0/wclho57OiUlO0Dpf6HA4bfUT4/9VhVikA9esDYz9G
-	RDUfmSGyOsLt7c+0zAMQZKCZ3V4yVYk3VmzLqvN6Dnt6Bg3wIWnTMJSbt32dStbT/GNbhFAo6JN
-	TUN0ZnfXJriTRb8ICzqfwQeWPCyD+iushHQ8n4UdHz3rRW7fLiQES6QFx2P08cxWfWsXkRs8sMh
-	MF1f0gBcwAdrfKSZupWvqO+61gJNnIAC5LqSwrdkoteX/gJTQiILEGcoYXCVhstvaJXdo7i0YGg
-	Y9Q==
-X-Received: by 2002:a5d:5e92:0:b0:486:f8c4:21e with SMTP id ffacd0b85a97d-48702b16c03mr5089854f8f.28.1789421143402;
-        Mon, 14 Sep 2026 14:25:43 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-af2f-db01-e46b-1486-90be-3932.310.pool.telefonica.de. [2a02:3100:af2f:db01:e46b:1486:90be:3932])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fc02sm28563643f8f.16.2026.09.14.14.25.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 14:25:42 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] rtc: class: Make the time32 hctosys limit configurable
-Date: Mon, 14 Sep 2026 23:25:37 +0200
-Message-Id: <20260914212537.1452-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1789421186; x=1790025986;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vvjwSBjsoRZGABnGVp2dTMSYiqE1jQGUEtvi1+gEewA=;
+        b=aALGloN4ygHE4SBOqY0wux3hsfASliF83jPi3D8vDO9C5ujW3aQWQhF6eIzgS0Sm9h
+         wCIJFQOkmVMTbWXl8Pm8BGbMrEbaGYUUoRy0pXQTreR/Qjs1si761JxaH0fj9c1p72ip
+         FSd/gB+/W2PIZXGYn1FtH093bSlj+luey+Dah3pURGqdXJug4X3RwjffwlgVWAnrURl1
+         TOjOB3uVMSv9nWZ/3Hu5m3EHaetzRV3wJBr5rkmcTg4ItsxCwKuUOq/v6ahGtbWiR2u0
+         UCPuBdogrZ1FcF2KTjBcsYkQwqEM4EC0MnBZH3c3sroFa55XKDApkrKpmta9NbqEuG7m
+         U3dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxv97mvYg9q9kIDcQ87wyMbYPYY778ugVhTINgK5oCTrQZ2cUlUBm7uWVm5pJQ0B/jU6OFhcSLUT+Ar9Yg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzHy2ZFVjHO65KxgScaSiCFg52KKO0YzYPuGfFp36/1REC2qaR
+	eV3Jtzt652ZQ6POBB02SVoQ2Ry4dSvKX6Humphc6Vt7mCEQSc9e0XjaCbfD92R3dTmsrkZBITED
+	hNFvd7ZXXVwzKYuSwwaH30+Ut7KUYMQZt5zRThLzc2WY3y05gJY3AzT79llY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:3084:b0:6b7:83d6:292d with SMTP id
+ 006d021491bc7-6c542831440mr2450704eaf.48.1789421186537; Mon, 14 Sep 2026
+ 14:26:26 -0700 (PDT)
+Date: Mon, 14 Sep 2026 14:26:26 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa86682.f81106d8.2ab401.0056.GAE@google.com>
+Subject: [syzbot] [block?] WARNING: suspicious RCU usage in mas_start (2)
+From: syzbot <syzbot+b48868c46e62c1c4cb2c@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, tom.leiming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 32-bit systems with RTC_HCTOSYS enabled, rtc_hctosys() rejects
-RTC dates whose seconds value exceeds INT_MAX, even when userspace
-uses a 64-bit time_t. This leaves system time uninitialized by the RTC.
+Hello,
 
-Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
-time_t") introduced this limit to protect time32 userspace from future
-RTC dates that can break boot. The same limit prevents systems with
-time64 userspace from initializing the clock from valid post-2038 dates.
+syzbot found the following issue on:
 
-Add RTC_HCTOSYS_TIME32_LIMIT for 32-bit kernels, defaulting to y to
-preserve the existing safeguard. Allow integrators to disable it once
-their entire userspace, including init, supports post-2038 dates.
-Warn on rejection with the RTC date and option name so users can
-identify the cause and find the setting.
+HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16091925580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=b48868c46e62c1c4cb2c
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=120f305e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=117fb5f9580000
 
-Keep the option independent of COMPAT_32BIT_TIME. Userspace with a
-64-bit time_t may still need legacy syscalls for operations that do
-not represent post-2038 dates.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-704340f1.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e02afc1c5927/vmlinux-704340f1.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/09cb4a8b3309/bzImage-704340f1.xz
 
-Fixes: b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow time_t")
-Link: https://lore.kernel.org/all/20220908115337.1604277-1-arnd@kernel.org/
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+b48868c46e62c1c4cb2c@syzkaller.appspotmail.com
+
+=============================
+WARNING: suspicious RCU usage
+syzkaller #0 Not tainted
+-----------------------------
+lib/maple_tree.c:720 suspicious rcu_dereference_check() usage!
+
+other info that might help us debug this:
+
+
+rcu_scheduler_active = 2, debug_locks = 1
+locks held by syz.0.17/5926: 1, last CPU#0:
+ #0: ffff888034a420a0 (&ctx->uring_lock){+.+.}-{4:4}, at: tctx_task_work_run+0x1cd/0xbf0 io_uring/tw.c:92
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5926 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ lockdep_rcu_suspicious.cold+0x4f/0xb2 kernel/locking/lockdep.c:6972
+ mas_root lib/maple_tree.c:720 [inline]
+ mas_start+0x621/0x7c0 lib/maple_tree.c:1250
+ mas_state_walk lib/maple_tree.c:3006 [inline]
+ mas_walk+0x82/0x310 lib/maple_tree.c:4458
+ ublk_try_buf_match+0x469/0x7e0 drivers/block/ublk_drv.c:5639
+ ublk_init_iod+0x4a4/0x5b0 drivers/block/ublk_drv.c:521
+ ublk_setup_iod+0x145/0x2f0 drivers/block/ublk_drv.c:1536
+ ublk_dispatch_req+0x4e/0xb00 drivers/block/ublk_drv.c:1776
+ ublk_cmd_tw_cb+0xbe/0x110 drivers/block/ublk_drv.c:2067
+ tctx_task_work_run+0xabe/0xbf0 io_uring/tw.c:96
+ tctx_task_work+0x7a/0xa0 io_uring/tw.c:133
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ exit_task_work include/linux/task_work.h:40 [inline]
+ do_exit+0x951/0x2ae0 kernel/exit.c:1011
+ do_group_exit+0xd5/0x2a0 kernel/exit.c:1154
+ __do_sys_exit_group kernel/exit.c:1165 [inline]
+ __se_sys_exit_group kernel/exit.c:1163 [inline]
+ __x64_sys_exit_group+0x3e/0x50 kernel/exit.c:1163
+ x64_sys_call+0x1567/0x1570 arch/x86/include/generated/asm/syscalls_64.h:232
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f35df99e159
+Code: Unable to access opcode bytes at 0x7f35df99e12f.
+RSP: 002b:00007ffcaa2c82b8 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f35df99e159
+RDX: 0000000000000064 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000003 R08: 0000000000000000 R09: 00007f35dfbec3e0
+R10: 0000000000000001 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f35dfbec3e0 R14: 0000000000000003 R15: 00007ffcaa2c8370
+ </TASK>
+I/O error, dev ublkb0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+Buffer I/O error on dev ublkb0, logical block 0, async page read
+
+
 ---
-Tested this exact patch on SAM9X75 Curiosity (32-bit ARM, rtc0),
-using three full kernel builds and six powered warm boots:
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-  TIME32_LIMIT  COMPAT_32BIT_TIME  RTC in 2026    RTC in 2040
-  y             y                 hctosys=1      hctosys=0, epoch + 2 s
-  n             y                 hctosys=1      hctosys=1, correct time
-  n             n                 hctosys=1      hctosys=1, correct time
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-The default-limit 2040 boot logged the rejected date and
-CONFIG_RTC_HCTOSYS_TIME32_LIMIT=y. The other boots did not warn.
-Legacy clock_gettime and futex returned -ENOSYS with COMPAT_32BIT_TIME=n.
-Tests used a minimal time64 initramfs without NTP. Current clocks and
-all original boot files were restored after testing.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Host tests checked Kconfig defaults and dependencies, the INT_MAX
-boundary and error paths.
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
- drivers/rtc/Kconfig | 23 +++++++++++++++++++++++
- drivers/rtc/class.c |  8 +++++---
- 2 files changed, 28 insertions(+), 3 deletions(-)
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 05b9233b9418..a594c041bc35 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -30,6 +30,29 @@ config RTC_HCTOSYS
- 	  the value read from a specified RTC device. This is useful to avoid
- 	  unnecessary fsck runs at boot time, and to network better.
- 
-+config RTC_HCTOSYS_TIME32_LIMIT
-+	bool "Reject RTC dates after the 2038 cutoff"
-+	depends on RTC_HCTOSYS && !64BIT
-+	default y
-+	help
-+	  Reject RTC dates after 03:14:07 UTC on 19 January 2038 when
-+	  initializing the system clock. This preserves the existing
-+	  safeguard for userspace using a signed 32-bit time_t.
-+
-+	  A rejected date leaves system time unchanged, normally near the
-+	  Unix epoch, and the RTC's hctosys sysfs attribute reads 0. Userspace
-+	  must supply the time if no other source has initialized it.
-+
-+	  Disable this only if the entire userspace, including the init
-+	  system, supports dates beyond 2038. Otherwise, an invalid future
-+	  date in the RTC may prevent booting.
-+
-+	  Disabling this check does not require disabling COMPAT_32BIT_TIME:
-+	  userspace with a 64-bit time_t may still use legacy system calls
-+	  for operations that do not represent dates beyond 2038.
-+
-+	  If unsure, say Y.
-+
- config RTC_HCTOSYS_DEVICE
- 	string "RTC used to set the system time"
- 	depends on RTC_HCTOSYS
-diff --git a/drivers/rtc/class.c b/drivers/rtc/class.c
-index 01ba04028f1f..18ea141ab8c2 100644
---- a/drivers/rtc/class.c
-+++ b/drivers/rtc/class.c
-@@ -72,12 +72,14 @@ static void rtc_hctosys(struct rtc_device *rtc)
- 
- 	tv64.tv_sec = rtc_tm_to_time64(&tm);
- 
--#if BITS_PER_LONG == 32
--	if (tv64.tv_sec > INT_MAX) {
-+	if (IS_ENABLED(CONFIG_RTC_HCTOSYS_TIME32_LIMIT) &&
-+	    tv64.tv_sec > INT_MAX) {
-+		dev_warn(rtc->dev.parent,
-+			 "hctosys: rejecting %ptR UTC due to CONFIG_RTC_HCTOSYS_TIME32_LIMIT=y\n",
-+			 &tm);
- 		err = -ERANGE;
- 		goto err_read;
- 	}
--#endif
- 
- 	err = do_settimeofday64(&tv64);
- 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
--- 
-2.39.5 (Apple Git-154)
-
+If you want to undo deduplication, reply with:
+#syz undup
