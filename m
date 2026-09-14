@@ -1,97 +1,76 @@
-Received: from mail-lr2-f11.google.com (mail-lr2-f11.google.com [74.125.230.75])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494D43403E9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BBE3A16B6
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373816; cv=none; b=hkJPUmmEMI+NSztdXW+zo+qmtxbNY3JxPXMsJ8SHNyrhTz63FeMjasrFu9pVGhjpbVff5KYwU3C/2od4zActqh1d7dHqr7rA2o83T172w7iK/Czsysij43WvhMMXUS7eFzsCTqDK2SOPYXKpYIZsOeKMyPjNtMZad5GZvHYnx3Y=
+	t=1789373826; cv=none; b=AlT0KMkUe7TTcbJhlgEE9rrhoeQFnOsLhSjd/1b+y3bEPsDyxRwP4oICGMe9enUh8SPVxDKE6rs2n4I2sTAmFFbZ1h+sBTU1uVJxXoc78/aWoSPlmtiReXRQ69EYwtVfnwLcBEEZ7j00trqAwpEHWkllcUBk68YJTPO3BDTMVF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373816; c=relaxed/simple;
-	bh=DKZ5vtkPHXpunfwC1+ArGnyFJmrNPzcNvOvYpvbQ5MU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=phxWD9Pl1mcVe4Mkfa9dPyK1kOvSFUJ6954TDnLATCTn5SN2jtMRfYc6D6ZQ9kFC+R2kBnBU1X0z6RjWN/ebJKCCDwmo6r++Ep5LZDLthHFFPjqG6p2r95e25JM8ZHolPpx0TqMrvrnDgCuju+J0eS2Dvb9/aKc/dznVGgvZpp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IipA4YkY; arc=none smtp.client-ip=74.125.230.75
+	s=arc-20240116; t=1789373826; c=relaxed/simple;
+	bh=U2fObva/T4kb4gnGW2Nd5bcGjQpO3qUpI3v+NuFZT80=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZNuPfjRnFMl/6554USpN6vmht573FsEmvC2gL9HriSKa0A3oz8rEkuS+4akAcG6bSleOZtG0np8Xh9aPkQ++ulTzNOz2RM3xvEY7D3MURnp/3+83fV8wnJoAkEJ9im8D4150x9YUtRiV8UxH2IS8XWa43LfsjbysSgNRNvShAuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZK4k8zT; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IipA4YkY"
-Received: by mail-lr2-f11.google.com with SMTP id 38308e7fff4ca-3a49e9e7cd8so18428331fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:16:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZK4k8zT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so7264295e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:17:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373813; x=1789978613; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789373823; x=1789978623; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aUYPK83osLZqDNXLlGB7lbQYloWd+rguo+bEtxrEyi4=;
-        b=IipA4YkYsG7UQGsFqzP1MdhFLRizwi1v+r0xMRgkFrvJeoNFiyziWAVJ4QJtvNg4u7
-         bDi1XwsS8ErVudafjAWCdQZ/qpdZbAH2qBLiTib76wYf8TRnneWoWVHBIRU9Lnz6RIJy
-         CF4UdaD7bY8E3s0VEGxXbqsJwajXZYHAubuZCANdpjRBFEtGahdXr1Bd9PdJnWef1YbA
-         TEgBWKSX9PFPIp7Kf1h6gvcQfPX12+dL4K+Tg5E+SARvXh4f+dGiuOtnS2QavfuoLDDc
-         B64zgZlyDr0Y4qA97xD2sqOTeASzY4M5nZfhSC89ieDLqgYhnUu7q5H5wXVeLVl7SUc/
-         I4QA==
+        bh=bDdWbQbVn5+bafx3DiaQBgQ61FY9LOrox9bmnpws3Bc=;
+        b=IZK4k8zTtDuva5FJNWkxh/YAunjlvDUeOuwsPgN0/ONSwLidsMf1GdJTDRv1Gskf3R
+         XXM/WcoRhUON13Tb3oPy+oTfMNa57c6xgyMs3pJuklo7HzDhLadq/Au+YLqDbiESiMZN
+         NIof1TsyDzE2XtBtipxEwkpZ9gW71nJcwVk2wB/WveaX4RNc2PglNl3d74wU9/meX88I
+         3gYlgGXYpf7xDinlQEQtyxlR8W7GXgewfNtp2Rr29oeJBczewPSQ1uVi4vs/QTepJ7ko
+         rp9umskdHnBESNoAo/pvZeD7ZfTk+jcr8Idx/D+f25xblIVbirJxTtOENxVHmFfH5KuW
+         iMpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373813; x=1789978613;
+        d=1e100.net; s=20251104; t=1789373823; x=1789978623;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aUYPK83osLZqDNXLlGB7lbQYloWd+rguo+bEtxrEyi4=;
-        b=hmK59t3ffkJyHnWBxFVGUR+hKxiZEpjKB9mzftIqq5sCrWCzJHwb0azwiAc7tEYabd
-         RMxN72YBlJaOzYacWoMNY7XviZIvk5C5vXreI5Y6RLTt7nmbt29JCEJANvtVq73Z+MMp
-         U7ZpNz+opJVt0fhKTEZmyphqgtO35bOPqwZkGQfrC8KA3qkvguZJErH/Cmrd5emhhh4U
-         +jK9TC6xET1pH9CpsuMGdE4V09/goXfmw6s9PtlKFfwCAiZ5TZfE5kY8qVekNJ8YSsJe
-         TTSJKIE9pHuNo8fm/+YJ3/qUjOL5PMIb6BdXz8uOaL2WT9D74gVokHqrheCTgW0DU1zI
-         srwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYz2GkyNu9T6AOb5bF1L19bUcv0JEWZYBw2pVrnpllIp9qEsQ1STWbeJvdceVk3xgQAShu7gXxfXz3Jhc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8Jr6Wi+1WYBnmo92AMaHxUTrUmb/fGA3a93Tk4bQgakrgddNs
-	AoQahQJeaJ+t9SCKdbsdawVEhpPzJFpJA0B9V67urv9eS26sICK+AxDR
-X-Gm-Gg: AYBFou04NMfKKl2aUSF63a8K2MGVG36OVPdGfTEu+iY5n7YTWFrksDM31cFsyNdF7uL
-	6HcrcUlDcdF6IgI+PYmPbcZUb8BaM/KiBATwSx7BEciouoeP0h6hIjMKhBc7lD0ucJz7RZwdOZj
-	Yg1ahnNC04Sz1txYYeBk6J9Q5ZXM6/OMNu3gPAtVoMFIkbcIvhROQHSHP7S9110Xw0peTOpYx+g
-	u+UHaTNHQB3I2zeMtvMcw4pkFosJ7murYYm2z+sRx+8l6c1sZrqcDQ34yQE+GF7SoTE8M5m8zXw
-	3l3jiDdBi9TYeUkb8m8Ohtr9rYHZ9dWC9/lgRNQMlYqW6bWqwwA4F/jF1ontEYW5ZrmxOYaMjho
-	dR+9LyDxT0RgH/qZFAee+yoaIHoFmvwTVQK3I5G5SQxeh92tAqaQ3wZN5O/EsIUDZyXv7i0OJt/
-	YAzFxUhHojZEH4EBmbwC4cy3B8466U0G+xZww7LhRvDcg/Tt6djUxMDhZMg550IULxxFtrmUuTg
-	VN3J6XHAkhHZ1WO8g==
-X-Received: by 2002:a05:6512:3052:b0:5b6:1a7c:fd94 with SMTP id 2adb3069b0e04-5b8ae6a92b4mr321128e87.58.1789373813016;
-        Mon, 14 Sep 2026 01:16:53 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047ab97sm2326043e87.76.2026.09.14.01.16.51
+        bh=bDdWbQbVn5+bafx3DiaQBgQ61FY9LOrox9bmnpws3Bc=;
+        b=jkYPYsi7/Ny9qvXDkBagJamtymyuh82bfNty+VeIm9XDuQCVGhaP20dV2iqpRpRBkZ
+         U+oG3kGDj613NWNlihrzTr27lLoeEcZfDm3nwMeGGAiK028sDnEhF8ChsL6s+UuiA7b9
+         O0TG18m5FJxsHStiUeQ/DPxsV+Ib5h+EAjvKp/L4ehy7wA+OFp9HqJ4NoeVZgYKwUyAX
+         TEq0wIVgt+ElmHJrmIYEykQxG1uFxH/M1VhDgp3qrKCHCcTfl8OOkoQedspb3dgRleoZ
+         6XrWP9lGDNkV9BNXmJy/eOJcrpaUCTWPuS4YYliezGgcyAsU+cVc7EUbtgYnnHkInJBc
+         yfrA==
+X-Forwarded-Encrypted: i=1; AKwUvByahvZH9iZPV3ba3jCotH2ovl2zqPp0YWMrS22UZpUrorUAcDLeiDbh7JatXsITgBS7vEX1K4U+p71iq5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKgHIyYNmNlwoPWeAJ996blTY5ndc+maLaJBsztcR0bxqI0N/k
+	8dLmXGQtktEkbm31y9QS1Qx9hfrL1811VyJzQYcDwTQvTr0I8foSgXLL
+X-Gm-Gg: AYBFou1S++lOlEAkI/fnX8ToSlGSXbAun5b28z2AfiMmUK/RFOupzvfLYUPFp16iVva
+	0pB7N/QEpTyQmJtDBvxSaghX1sSEPuDTQN1LkU3XumtWwi6yLGtRBTmpI2wCXaZWo8ksFw10qPy
+	3PWMxmIioyF5HjKK/f2WJUa+kxnUtEMpmt9MCge6W045N/gYe8C4wzJcf9J5grpzQloIOCQPw7a
+	J7MN7+COcSvjolARB4I7FUj8ydsPIKV+Sz1J7zXN9B7Em/j+u4dtF23z83hw2w7tZ4hFhO7uH2O
+	G5Og5+nNt57cHppm2FE9ORpwhp9CW2FUmp24lDA6TIjX9iO71RjYh97cteoEZoh2AMDJugKwaSe
+	25vOfaub9smfhlRSQPCMxq4NIhrH75db2lMXGLELeDbNmrZJI1bF4AS6oAyTVOukybd2qz9nR9I
+	mKRjwF5lRfvhpEVs/+j7E/Uce9KJxUAozUG+w1o9rH3FdfuANeHh/eXQxJp7tYvC1J/ljWGG1DY
+	8WHxrap7FiZnd/kYA==
+X-Received: by 2002:a05:600c:3e17:b0:49d:726:cc9f with SMTP id 5b1f17b1804b1-49e7a65e422mr30100785e9.5.1789373822299;
+        Mon, 14 Sep 2026 01:17:02 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.25])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e6221963dsm202053055e9.2.2026.09.14.01.17.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:16:52 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Xinhui Pan <Xinhui.Pan@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sasha Levin <sashal@kernel.org>,
-	Wayne Lin <Wayne.Lin@amd.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Fangzhi Zuo <Jerry.Zuo@amd.com>,
-	Mario Limonciello <Mario.Limonciello@amd.com>,
-	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
-	Ivan Lipski <ivan.lipski@amd.com>,
-	Melissa Wen <mwen@igalia.com>,
-	Alex Hung <alex.hung@amd.com>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sunil Khatri <sunil.khatri@amd.com>,
-	Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
-	Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
-	George Zhang <george.zhang@amd.com>
-Subject: [PATCH 5.10/6.1] drm/amd/display: set new_stream to NULL after release
-Date: Mon, 14 Sep 2026 11:16:35 +0300
-Message-ID: <20260914081639.12512-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 14 Sep 2026 01:17:01 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the camera privacy switch
+Date: Mon, 14 Sep 2026 10:16:52 +0200
+Message-ID: <20260914081652.5935-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,42 +79,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: WenTao Liang <vulab@iscas.ac.cn>
+The laptop has a camera privacy switch on the side of the top case - a
+slider, not a mechanical cover over the lens, and it does nothing to the
+camera itself. TLMM gpio99 follows its position: high with the switch
+open, low with it engaged. Describe it as a gpio-keys switch so userspace
+can act on it.
 
-commit 9fa26b9eed6195bf840f39ac183b9a6237548755 upstream.
+SW_CAMERA_LENS_COVER is the only switch code the input layer has for a
+camera privacy state, and it is what the Lenovo WMI camera driver and
+Dell's privacy driver report for the same kind of electronic switch on
+x86 machines, so use it here as well despite the name.
 
-In dm_update_crtc_state(), the skip_modeset path releases new_stream
-via dc_stream_release() but does not set the pointer to NULL.
+The embedded controller also raises event 0x29 whenever the switch
+moves, which makes it tempting to report it from the EC driver instead.
+That would be the wrong layer: the pin is a plain level that tracks the
+slider position and needs no EC transaction to read, and the EC event
+carries nothing the pin does not already say.
 
-If a later error (e.g., color management failure) triggers the fail
-label, the error path calls dc_stream_release() again on the same
-dangling pointer, causing a double release and potential use-after-free.
-
-Fix this by setting new_stream to NULL after the initial release.
-
-Fixes: 9b690ef3c704 ("drm/amd/display: Avoid full modeset when not required")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-Reviewed-by: George Zhang <george.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
 ---
-Backport fix for CVE-2026-68236
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts   | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bb5e3a6086f2..deaf98957cb7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9293,6 +9293,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 	/* Release extra reference */
- 	if (new_stream)
- 		 dc_stream_release(new_stream);
-+	new_stream = NULL;
+diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+index ecc8c34fb983..b5848991dffb 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+@@ -51,7 +51,7 @@ sleep_clk: sleep-clk {
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
  
- 	/*
- 	 * We want to do dc stream updates that do not require a
+-		pinctrl-0 = <&hall_int_n_default>;
++		pinctrl-0 = <&hall_int_n_default>, <&cam_privacy_default>;
+ 		pinctrl-names = "default";
+ 
+ 		switch-lid {
+@@ -62,6 +62,13 @@ switch-lid {
+ 			wakeup-source;
+ 			wakeup-event-action = <EV_ACT_DEASSERTED>;
+ 		};
++
++		switch-camera-privacy {
++			label = "camera privacy switch";
++			gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_CAMERA_LENS_COVER>;
++		};
+ 	};
+ 
+ 	leds {
+@@ -958,6 +965,12 @@ tpad_default: tpad-default-state {
+ 		bias-disable;
+ 	};
+ 
++	cam_privacy_default: cam-privacy-default-state {
++		pins = "gpio99";
++		function = "gpio";
++		bias-pull-up;
++	};
++
+ 	edp_bl_en: edp-bl-en-state {
+ 		pins = "gpio18";
+ 		function = "gpio";
 -- 
-2.53.0
+2.55.0
 
+
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
