@@ -1,84 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1520C480324;
-	Mon, 14 Sep 2026 17:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6233C377567
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:04:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789405450; cv=none; b=JbmPABuxyYrmsUcvWCvtShiahuihs3O8UB/ebjNWLf7B9MSLKCj7cwQIJkUss+CgieL5iHK4WZgu29MVeyDoiLm+WGgOQYTPFBeqmGI3QrYIpffgXq/yiUGlqNUFLlZpeZx4jSU6xZ+cEfFjAbleB10CtWu3Bqer3lGV/SS2V6E=
+	t=1789405473; cv=none; b=nrUaa2gHPW10TxVRJe3aVXDPWF02wKalD8PMY0rd4kUDoNyKkM2t+CBVpmDOcD4Z+QFUGUi1yplZmcRVNR+SZJHEF2xWMnpzCWz85zC9pfCpM000OXlex8AJ0hQSbt/tXb+4SPiiQxqGPw7rSPbu0wEAx5ld7lAyiPnqN2wuX4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789405450; c=relaxed/simple;
-	bh=LX2HRALeP6kVWwMqDVM8FbZJpWRL31ZVmPATsUffHUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fnDVybF3LcPu0PosFH9sXCZtkgymX4oTJ+21IdTjqIvuEa9vWMq8E69hHcSE8irY1ivMFJ1Ycu3SP+fB86UYq4kIRNw79CA9H4r2h/PNIuTHMVFhXCiWF6xJxeOwe3kROMy+V4Po09lzR30X/oe7clPo9sQlzG454leJEiRzcVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahHGnnW8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789405473; c=relaxed/simple;
+	bh=h9wZEIGzWJc3gJ/FtHDeXK/qfCPozzizzhCbTztCPdM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PYFUFBTtty1fbdB+zL+XIvJVer4O7SWLJyQgVCyYTaOAK6rqvOA6IEnFSSvPJdea9lv/2sJXeXuwPZpj25qlzcwxzG4/gtXYyTdjUbHg/Gb2HAKCiYpFic/XmWCWbIZ6MzfzKmKwoqVXGmCnFhIc7gDIgMnGwOGASzjJHIlPD+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ir9sNvs/; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahHGnnW8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 339571F000FF;
-	Mon, 14 Sep 2026 17:04:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789405448;
-	bh=D11SiCjARZmfLjydnAFDDsk3oc5AvfRR5D6EpS16Rsg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ahHGnnW8WTlzySGsM42JuacN6EaH4Xz7vQbs2Ii1UKG4szi7DjCIE18Mcr8CyoM23
-	 z0xXjB2caW07nxnkxYSDsB7VnUZd4b7hM2q2WLJi4M4vNmXWu1Ml7LnV+ETtpm6PD/
-	 zETlal3U6BtedJUM5yTcVINo5w7mL1HeSRqp/plVKaAP5Gl/Zi8uOnivCk4pNxgaQS
-	 7Wj3QnZ7xCo4n5umW0GgPmYFNLtgjNnyKcMXj6Q+azUzFZYcuekKPRhwQhX81P2a2Y
-	 UBs5prO4Zt2+xoe8N8obCiATu7oApz2/DXiTuozGPkqAr83MDXRqzKZGIJrw58r+3S
-	 0NtkuCP5CIKhA==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 6B9FCFD9F85; Mon, 14 Sep 2026 18:03:51 +0100 (BST)
-Date: Mon, 14 Sep 2026 18:03:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonas Rebmann <jre@pengutronix.de>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de
-Subject: Re: [PATCH 2/7] spi: spidev_test: add compare mode
-Message-ID: <aqgo93bzXQgMciTS@sirena.org.uk>
-References: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
- <20260914-spi-sun4i-spidev_test-v1-2-72d6a3b38cee@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ir9sNvs/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789405470;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QI/8n5/ffXr1fZD+NqesC3Erw0EDtukPccSd2p6yRxU=;
+	b=Ir9sNvs/lIHXvIL4lwrulAdiV6tZVjJKLuPakjatGzo5nDQgHl9fxa17HzNsf07GZ/VLVN
+	dvuSU52b1G48TPKOM3kkGooCklKyZUVU8hFZeoSkIOa+OFluWjFz0NAnuQUE/s0BZp9fgd
+	Ed8ttvAWE31Z7K4hVn2Nji/TcfFvU3Y=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-286-NuJCBf6cNBWySexYRttv2w-1; Mon,
+ 14 Sep 2026 13:04:27 -0400
+X-MC-Unique: NuJCBf6cNBWySexYRttv2w-1
+X-Mimecast-MFC-AGG-ID: NuJCBf6cNBWySexYRttv2w_1789405465
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 45666180AD5D;
+	Mon, 14 Sep 2026 17:04:25 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 374A51956089;
+	Mon, 14 Sep 2026 17:04:23 +0000 (UTC)
+Message-ID: <deab3ef5-e63f-474f-9a1b-fb4f4b65be2a@redhat.com>
+Date: Mon, 14 Sep 2026 13:04:22 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VojHOG5x6Q3UbjP4"
-Content-Disposition: inline
-In-Reply-To: <20260914-spi-sun4i-spidev_test-v1-2-72d6a3b38cee@pengutronix.de>
-X-Cookie: Orders subject to approval.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] kthread: Drop warning on cpumask allocation failure
+ in kthread_affine_node()
+To: Quchaosheng <quchaosheng000406@163.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>
+References: <20260914120941.63968-2-quchaosheng000406@163.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260914120941.63968-2-quchaosheng000406@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
+cc: Frederic Weisbecker <frederic@kernel.org> for his input.
 
---VojHOG5x6Q3UbjP4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+-Longman
 
-On Mon, Sep 14, 2026 at 04:50:41PM +0200, Jonas Rebmann wrote:
-> From: Marc Kleine-Budde <mkl@pengutronix.de>
->=20
-> Check whether the received data correspond to the transferred data but
-> without enabling loopback mode in the controller.
+On 9/14/26 8:09 AM, Quchaosheng wrote:
+> kthread_affine_node() warns when zalloc_cpumask_var() fails:
+>
+>    if (!zalloc_cpumask_var(&affinity, GFP_KERNEL)) {
+>            WARN_ON_ONCE(1);
+>            return;
+>    }
+>
+> The allocation uses GFP_KERNEL, so it can fail under memory pressure or
+> fault injection.  A failed allocation is a recoverable condition and not a
+> kernel bug, so the warning is noise.  syzbot reports it for a WireGuard
+> NAPI thread:
+>
+>    WARNING: kernel/kthread.c:359 at kthread_affine_node+0x200/0x2e8
+>    CPU: 0 PID: 5207 Comm: napi/wg2-0
+>    Call Trace:
+>     alloc_cpumask_var_node+0xfc/0x138
+>     zalloc_cpumask_var
+>     kthread_affine_node+0x148/0x2e8
+>     kthread+0x29c/0x3d4
+>     ret_from_fork+0x10/0x20
+>
+> The other two callers of zalloc_cpumask_var() in this file, in the kthread
+> preferred affinity and kthreads_online_cpu() paths, return -ENOMEM without
+> a warning.  kthread_affine_node() returns void, so it cannot report the
+> error either, and it only skips the affinity setup for this thread.  Return
+> early without warning, matching those callers.
+>
+> Reported-by: syzbot+37ca7ae3e98cb65c3209@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=37ca7ae3e98cb65c3209
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> ---
+>   kernel/kthread.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/kernel/kthread.c b/kernel/kthread.c
+> index a3f95c904..f735a74b6 100644
+> --- a/kernel/kthread.c
+> +++ b/kernel/kthread.c
+> @@ -355,10 +355,8 @@ static void kthread_affine_node(void)
+>   	if (WARN_ON_ONCE(kthread_is_per_cpu(current)))
+>   		return;
+>   
+> -	if (!zalloc_cpumask_var(&affinity, GFP_KERNEL)) {
+> -		WARN_ON_ONCE(1);
+> +	if (!zalloc_cpumask_var(&affinity, GFP_KERNEL))
+>   		return;
+> -	}
+>   
+>   	mutex_lock(&kthread_affinity_lock);
+>   	WARN_ON_ONCE(!list_empty(&kthread->affinity_node));
+>
 
-> -	printf("Usage: %s [-2348CDFHILMNORSZbdilopsvw]\n", prog);
-> +	printf("Usage: %s [-2348CDFHILMNORSZbdilcopsvw]\n", prog);
-
-This is sorted alphabetically currently.
-
---VojHOG5x6Q3UbjP4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoKOMACgkQJNaLcl1U
-h9DZAgf+KRoKZrLT1YlJvDuErHYMC0bvyns2ifvXYOBZFswCeTX1eBNEvwoz8aUJ
-sE5uKmjsdnNe1ZUpp845IrgnT9X+YUbBeVZjwqv/e15lnslmukLahcg1nicNg2zs
-i/HBWzMOkGy8hthQi8MGxFprqjtz97uzRLaRVFKpBx2vOWEFHXdLKLJ7idTo67tJ
-W0NN2odtDIGPCoCt49cgXZBboPZbsUlnePwqm5eSU+DI0HLg18Nt5OnQqgWuBE0D
-K12c2kTxW2UDH4cy9RPyATvIgWL1mHs3NGN48LYoKxZuY7j71zDwTxkLOh4548Oa
-PmW3aeX7Yv3N/azUCKmvp8xP0BXr5w==
-=4jOr
------END PGP SIGNATURE-----
-
---VojHOG5x6Q3UbjP4--
