@@ -1,90 +1,94 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13A247729E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:37:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3288A47143C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393075; cv=none; b=JRejqJP2nj5rqdmqZgz/owOsry1KibhS7hJqkrk+te4qTyslxI8aRpikq372D751FqnWAcGQMyfIB7aphU3XIxhfcEmtb8uA0hkvRIu4XPagAAGy6oFho9LUlM91zu+tdk/gPcwGS7cqdrXwuW/j5v8vuNaa8xA3hFSyp4CrNmQ=
+	t=1789393077; cv=none; b=S9DYyf64VEEkELzxyeSPSmQEHLVSpX6P3UL4KOVx0K2ehuoIGYtLXjcKSvoGTxNMi6HTk/fARHAagNwgIHvZqqbLGNHdPxVcc4gBa5LIHLtuMIfS1Upghs+918Pw/GiUyqVH3qzvJGUGy8Ruf0GUJzptk5q4sBbXIHGeIEX1fOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393075; c=relaxed/simple;
-	bh=1Lru7JP9GAuuZi6rTqk0Y4BTP/g8OZXnNQPKFszs/qE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OzReBt13jE6amKC6Mf3qJE1SH3b+TVotHQDpNZUFsGIT0IRxAirW90tbpwRrnQ3fqTQFuFnLHo/K9gPT+/JNysPH6/n24kryflIbW+VIZtgRYIenJk5XLBTq53PTii4yxUjnGfWC8uJaQGmK/Qdp6APC5nM53btuWWiMpfNXUD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G3KAKFFn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gfqnnBj5; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1789393077; c=relaxed/simple;
+	bh=jCoZuWEgSbjtm4wLSbpNx2rVBrFvTgX7s+RrR3f+ndo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HQyFHPX2678zW2IYPTtETGWooDNILIoTo9j8CaNXtd1HROZ1IaIN3pQ/ZePVTHSBfHgCMYcdMTj3yXoG+eq7L5kuYzzlA9GVCrcnMImPWkjo3jtptYzgmlp7dg+B/V+aLXjPBlfl/R6CI8GvN7U1tPrexJjXbPzS4RXCiTz1+1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dBkGbM0V; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XnwImuxF; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G3KAKFFn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gfqnnBj5"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0Vow3588169
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:37:52 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dBkGbM0V";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XnwImuxF"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0hn8135657
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:37:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=pklwXAAIq1Ig2ZvDmkN6OFjS+5G8VOhcNQA
-	9piH/HrA=; b=G3KAKFFn+SKCOp3tbFd8NQO1uWzpf7CVF1srOEHkLsohE082pcu
-	4mlaUs+SSOZ1k9jvHzroAljCURUhTioCa9Cc8o9RkPoYo1bxoPDY8xwtVJ+/sOxE
-	N1GaZ0IY52s54Ud1Nxbu+JtcDljmM4KY6BfKBpIBOpodjfXcWr+4o65sNZ2tpuRc
-	zSQA8R80/okc0UttlWzF/R1QBCZIjG7ID0+4+nQP5CPPaHwKXXIVxnsganEnt8eb
-	xQFxaBwODSW5xY307lH055H++E/m3mCf1KNcvNmcS4CTbFUk5FeoFwEZ4aQ8o4xR
-	z+/H+Xh6OAVsPtHPdVU9+FKkUpmHL0qa6jA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gperg8v7t-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=/m1IO6ReHXB
+	nIHxR1Y+am6Pid+itc/UswH9TAnSjnTQ=; b=dBkGbM0Ve6n706ia3z2t5c/CKA0
+	YA/WNHr0UQqdN0vpuG55FOY+oQd90RfxhuGlBSK9bWfloeXOcBLr4Cc23335Mgze
+	UQ2yKmHjadTyHboxLOvitnBa7QRm6uYoYgWFIpF7tyjZPWFDliZSwocG5d9/ghMh
+	4TNKkr9wqquUxFm4rpowsrnlRT6EzdhLfki6s3IZStB+NWnog7nWoRhigMYpEKB9
+	/9O/rocBAzOvKWKv/BOXT4/OvdmrrBWMpzsIzeVevSdnYvXB145OzxBc+fwwW1Qk
+	Q+VVmwDy1w0+saRYuGx/CViOM4e2Gd6l76jgFhQkwvul2xLHPGQgzFseiUg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpeuq8sss-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:37:51 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d54187d8b0so72610795ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:37:51 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:37:53 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39533bb224cso4040046a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:37:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789393066; x=1789997866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pklwXAAIq1Ig2ZvDmkN6OFjS+5G8VOhcNQA9piH/HrA=;
-        b=gfqnnBj5Tih1LGlFrL5lZVekoM9PngOg0BtAcyjjoDi+Y7Cqt8JovQBXosPb2rE8TK
-         GQSSkMT+LTZ04TtMh5he9bPKYZcCVOFHpFw/UMe944SGDEIstiWqkUSauen+pWapMeLE
-         dOuMP8HKmEVXRzIFD2sWOfjRw8qxoomENatvAew6jKsCZTkchb4LRwS0Kdym/EdX1iNw
-         chKkfTnMmrkNOPPJYogbBwrRg1vUkCEI3zgDPAhoIQUcDpuLr6SZ0/mjH+V6ww6Cixtr
-         vugIB62U6/DX2HgRCrc9jw1oUy5pn6AEMW+H8Ufxm0dIfqfBHs1Aa7p6Dt+gwzcgiO0C
-         NW4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789393066; x=1789997866;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1789393068; x=1789997868; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pklwXAAIq1Ig2ZvDmkN6OFjS+5G8VOhcNQA9piH/HrA=;
-        b=iV6gCl229cOSoSUoKLh8l8Dn0B3ChjMlq/nk9uYzBzLcxACsOKcpEFrE/jMuVDIAv3
-         poiuJppdyb7/TsZ0kJsLUjj/yGhw2G//X+kJ/4CVlsRc6siXNxSZ9Dh8zYcMGJqJxi+5
-         /FjtOd2lNygmxnAyeCFXGkMeVw/ZOj7p0wdNWHqjQGpI3ukwXw42kEOeR9EfJTKEK03q
-         RgbOLMWbFglMfKwLjTgQa1KIGnAG37sspcMm6unGg0X/mzuK6hJBaMvjNByGy8zOxN1d
-         Or5q/DJ6AtF4M+GigOXw7N6mQOtYa8uEnmVg80WueQj7m7Y55BiSlazLXOxfJq4DJ8SK
-         6hjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwWzSKxkb6AIjapbfMFy36PGkQz2afe29MYdu7dfP75Yv/lSp+NBcJ5L7Iww2OxeVHr79Xd9xrXZa15uI=@vger.kernel.org
-X-Gm-Message-State: AFuF++krqSuHefuWA5OczyDjjKHOEJlauTMrVA89sXMyQxveOtGo/q5E
-	VF6DIURNpWCqlF1SkcAOL4hHOzJK7gu/d9vfuBi/v9JenalpAjYJu1tPCkpTJtF1hYsxQOPESEP
-	XYHIr7ItZpobJj4E5Q8jLl947pJmrMtkl1BsxQtAzz+PYt+e53j6jyN3aYShP9UVRQCQ=
-X-Gm-Gg: AYBFou0uG6o2nBmPvLSpPItIaYpgF4rROFlPSxsg+Cqi1a0IzSUNSwz9OEJxv6dGVKz
-	nc7Hzq0YhGD07s0fBbZZ7pFCLBEvE9vR0I+khZxX+G8ZBWQcPL2izQHdXUFtXM5DdcTytl4XYJS
-	QOoKUvoEGOmn2qiq2iKXXCj3fmx3wMQM6F3Toder+eDN6dD2AYNUUqIelK1ZZfc3cnKmofgUjTQ
-	UNH6j1+94lZD8mFGQHPCEYXfP4m/Ldjg+4MsQhGxp6gllzcNjMiloEF2QMp7u5N3duyMhr2co+v
-	S8SvBRgr59iR0SUW3RxUxhSvlSXiHBwmXoeXrggsr15Hua4/EvkMOBauvInm5U7YaQKfnZnHVO4
-	y3sN3q2Z40G3ZldyNo1nkGtcWi/yvx/UF4zbsMbrE8qAnz14ueNrpu19i5o8=
-X-Received: by 2002:a17:902:e88c:b0:2d9:383a:30f1 with SMTP id d9443c01a7336-2dd6c5d0539mr51200055ad.4.1789393066278;
-        Mon, 14 Sep 2026 06:37:46 -0700 (PDT)
-X-Received: by 2002:a17:902:e88c:b0:2d9:383a:30f1 with SMTP id d9443c01a7336-2dd6c5d0539mr51199425ad.4.1789393065805;
-        Mon, 14 Sep 2026 06:37:45 -0700 (PDT)
+        bh=/m1IO6ReHXBnIHxR1Y+am6Pid+itc/UswH9TAnSjnTQ=;
+        b=XnwImuxF8J60BkGL1pyMaS8pap2cQZ8jFaxKa2d6KzAKYf6HAi/IAIrsTylWwrt5V4
+         K2Zyh2SBGvU/cY/vUtZN+N3NL34s8zhuo14Ja0OFjxRaQne8sMxzWo6c4agEXp12GJ/i
+         GFYziDzCL7W3EivWhkFy96mqYAcnK9YeoaMnftqJ/dzK8xy1ntsCXtmDYADH4U8Aavli
+         T/F6bG0p2nYKQIwDAT3vz9Ql+EYNzjTxRb/EDIYGdldRTsaxtC8VM2P0h6d51Ze30Bud
+         1Kj2P7/lw/kwq63jsMBrUP3O+EmQA5BXYKb3aEOEONX9uvX13AA3abivTdFAANtfuLTh
+         mzMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789393068; x=1789997868;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/m1IO6ReHXBnIHxR1Y+am6Pid+itc/UswH9TAnSjnTQ=;
+        b=NMBwZKsxsQXPCm93SEugHjQC1sBgFG29s1ZNH9f9nX+w6C/r0Mjv1ANFmqXEETDB+w
+         bHslzwlJb1xByR7rEayIQoMlK9/kUona8EBPeLFo0JNX1xwEntPqa5ncQ0rueqYgSwWl
+         Oh8iP4WgYfb8K08orhkAXkuFsYGD5DlCLixvgTY9rCQeqpPq3Qzk+jQplqKFxiYnfkeH
+         3KUBeL3jsASMCdnlqhIwfI7pVnpv9hWlv+kdhysxETQF00qafjDY6wGh6Tst+4NYYKmo
+         qlofhqHOA3o18iP8XXlQjHBJ91RzKX3kayuOD+j/k90dGmNWa+153TeHsOxN9D6D23Ct
+         PT1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwdXEi9UUTxmLfHrpSxzrc/MZTfHIHGFRV85bYIFMbG7r6zBczSjIEvEpUjxZ0GOVC/BNhmwZUabFNLXl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lr7IydoemQbpspyLYqReD2QlFkGsDJ3g0mml5jW6HKDb60ou7L
+	8EUV1DWKNDbv+WA6r86lZgF8pTq2qOE4YbDXeUEKTvEqAvEGx5ZHingnDiT5Dh5EtRYEYWjvMcc
+	taP8g0ZdchTwDj2kPVT8osp8ilo6FyjzRJiufbgGIaBFc1AywAOqgb7/UIHdq4mUrO9k=
+X-Gm-Gg: AYBFou1f1MYb5WSmoT+FmOBTOgVysI315Bly4GhB023BT1fpmuULpetUuDOKJP3eRi0
+	FIo+x2/IZodtGUEAJY4tdSYWr/eOMnv59C2BJ5Re+ML3oSl1TpFl940D9mBqQkwsnBrMMll8v+k
+	ev5c5m0ZgoFNwV3Eqo6ibIoLY5sSuNZpJqnYcWlN2jXPxSDA7b1iFCHQaY1fby4HJ8eA63qfNX1
+	AZiwSNOubwVD3a0LJF20YiNv1uUjHB3UCS5JQ9zjqMKmHIrJ7MJ1rB9zEq746t7YddcCPislg+K
+	GOb3M1iS9vOeHni5qGutbTk/TZNkycDyKBzs9DxAQkm4ye+TxCUwkTUA+1oLOWdYN2bufu4ZhUX
+	9ZyThkzN7ZvVfQqNr/bRrMBLoBwZjPWQlj6dBLQVKLAqQKzvlYscwPIfgW+o=
+X-Received: by 2002:a17:902:db12:b0:2d9:6db:9fcb with SMTP id d9443c01a7336-2dd6c6eb73emr53966015ad.11.1789393068074;
+        Mon, 14 Sep 2026 06:37:48 -0700 (PDT)
+X-Received: by 2002:a17:902:db12:b0:2d9:6db:9fcb with SMTP id d9443c01a7336-2dd6c6eb73emr53965255ad.11.1789393067452;
+        Mon, 14 Sep 2026 06:37:47 -0700 (PDT)
 Received: from u24-san1p10108.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfd8c84sm49132685ad.62.2026.09.14.06.37.44
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfd8c84sm49132685ad.62.2026.09.14.06.37.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:37:45 -0700 (PDT)
+        Mon, 14 Sep 2026 06:37:47 -0700 (PDT)
 From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
 To: mst@redhat.com, jasowangio@gmail.com, axboe@kernel.dk, ebiggers@kernel.org,
         stefanha@redhat.com
 Cc: pbonzini@redhat.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
         virtualization@lists.linux.dev, linux-block@vger.kernel.org,
         linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] FBE virtualization: inline encryption for virtio-blk guests
-Date: Mon, 14 Sep 2026 06:37:19 -0700
-Message-ID: <20260914133733.15429-1-linlin.zhang@oss.qualcomm.com>
+Subject: [PATCH v2 1/2] virtio_blk: Add control virtqueue support
+Date: Mon, 14 Sep 2026 06:37:20 -0700
+Message-ID: <20260914133733.15429-2-linlin.zhang@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914133733.15429-1-linlin.zhang@oss.qualcomm.com>
+References: <20260914133733.15429-1-linlin.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,107 +96,385 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=QK/91QLL c=1 sm=1 tr=0 ts=6aa7f8af cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE5NCBTYWx0ZWRfXyPoXndFWgBQw
+ wvVieKDnhzQq6kbSppgBe0fYzvo2qCXDUaylqfYu3hzY4QRogDRRELci/MHYHlq5Hz4u+wvK+Mq
+ PgGyQerQL4CO3zq/YsWkw8BcjJ59h7XuBbp3gDOUrkiJ/ZmJach8OazAWhWmxwVnvfK3AaGpMMI
+ DD2JlYKV1GGKiOLg6HXfL6RroiCGawVxoOegeK5gKik3Y4fFwT07K/F34XH6FUHZGeOYS0duEYN
+ xN0m5FjIeqKtX1qwD3fC6HS8GRiwKJCFm3gmOImbaDC2DmXKpshLQZZwmZBaJZmmxs6wD79ACaV
+ i2NZLySI4tGEnb6rK7i7wcOQyR1i9klWqJo3T0oEwgPvRNTO9goSwe4KZe8kseZ/BjXI/8Si/fQ
+ CFlwybvJf75tD15MKh12E8OchBZykUyXGmPcmnp9byrAPqZsI6iJ3DFoPrYRFtIA0aoBk2vzlbJ
+ WQSy+72sYzStMc2UDNw==
+X-Authority-Analysis: v=2.4 cv=TrFzFzXh c=1 sm=1 tr=0 ts=6aa7f8b1 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=kDXN7nACZjSVqT4r80IA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: VH-V7JeFHTBjqEmEAZ92Ki4FPc0gYdKI
-X-Proofpoint-ORIG-GUID: VH-V7JeFHTBjqEmEAZ92Ki4FPc0gYdKI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE5NCBTYWx0ZWRfX5dGIWCqf6pI1
- 2qpIHoHOcjPUDFmzLSjCvMqTUajDuLYcgOY7yfhAKzckQ0WOdyFODJCBvyS/psW3uyz1XE/p3x1
- ximJ5rTJXlYtX7PX8JM1IvvGIKPJeW9xULMylrjPq02CCdZDHLjm6mCRKl19Y9CPeEB9Fe0NjIT
- M7v5CBTMmsPcTKqPOzLVQFmXsFaS6m3r3CfaZW/upnnr8PzMryAwne7K2gveJNDt1V+EfvWBIRZ
- 8IowTis08TaRSl8aalmoCvSp9nakd1O96N9VhiL9mpwJBC3hlf/v/RKF/TTQKQkzANgtuZo2Vdn
- pcr62hejC3vmlctR2unjwH7qkzN+iu95hgIwodVvUpW9Y/BMCGTAOBvsoFtqjOTFilQvCZwNoEf
- N/0+n/TN5gt4HPF2G+IHvU4xghymyG23BysOh2aj2lxePJXOesJgUjtiEClYeRP4jv5YjvHzLJt
- P/kxKpm2bFCp0UhrPxA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE5NCBTYWx0ZWRfX068Uc4/J9HKZ
- Cl1yIIsjLPDMrhzUmk9LJUsbYicLs7ua5iYJw7E+dkFeUT9mF2YvQalmmWdaR5DemNeLvrCWmFj
- 9Af1+8VLeKwhEQSvIvM1a19mXx9HH3Y=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=3eFvK4jGiganB99P3z8A:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: _MCGYkufsoW1iBOG4BK25G6vecp23S8V
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE5NCBTYWx0ZWRfX6sPbwFfxyrFJ
+ 5Xhl+g10MK0Hqi+o4taOwZJY0s1RwAeHVttpGB3oJpOxyLaWEkwuzED2uNo384iaLxTxCTIZbpQ
+ ILUdOeE9sWozVBL6ozPbkm7RXrdUvdQ=
+X-Proofpoint-GUID: _MCGYkufsoW1iBOG4BK25G6vecp23S8V
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140194
+ spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140194
 
 From: linlzhan <linlin.zhang@oss.qualcomm.com>
 
-The virtio-blk driver currently does not preserve blk-crypto metadata when
-dispatching encrypted bios to the virtio queue. As a result, inline
-encryption cannot be used for virtio block devices.
+Add support for the optional virtio-blk control virtqueue.
 
-This series enables inline encryption for guest VMs on platforms where the
-Inline Crypto Engine (ICE) is owned by the host or another virtual machine.
-It extends virtio-blk with a crypto control virtqueue and carries the
-required encryption metadata with data requests.
+If control queue feature bit is negociated, this allows the driver
+to manage control-queue requests independently from the data path
+and to safely handle outstanding requests during device removal
+and suspend.
 
-The series consists of:
+No control command is submitted by this change. The control virtqueue
+will be used by a subsequent inline encryption implementation.
 
-  1. Add control virtqueue support.
-     This allows the guest to exchange key management requests with the
-     virtio-blk backend without mixing them with regular I/O requests.
-
-  2. Add inline encryption support.
-     The driver advertises the device encryption capabilities through a
-     struct blk_crypto_profile and carries encryption metadata, including
-     the virtual keyslot and data unit number (DUN), in virtio requests.
-
-On the backend (blk-crypto-proxy, will be commited in another patch as
-suggested.), the key table mapping virtual slot to the block crypto
-key is maintained, so that the request metadata can be used to resolve
-the guest keyslot to the corresponding block crypto key and to reconstruct
-the blk-crypto context before submitting the bio to the underlying block
-device. 
-
-This keeps the guest integrated with the existing blk-crypto and filesystem
-encryption frameworks while preserving inline-encryption semantics across
-the virtualization boundary.
-
-This is compatible for the virtio SPEC update which is under review:
-https://lore.kernel.org/all/20260913161628.368484-1-linlin.zhang@oss.qualcomm.com/
-
-Known limitations:
-  - Virtio block inline encryption depends on the new control virtqueue
-  - Inline encryption is mutually exclusive with VIRTIO_BLK_F_ZONED.
-
-Testing:
-Compilation pass on Linux-next.
-End-to-end FBE virtualization with wrapped key enabled was validated
-on top of gunyah hypervisor.  wrapped_key_test is a local utility to
-get wrapped key and ephemeral wrapped key via storage ioctl interfaces.
-  - /data/wrapped_key_test /dev/block/userdata generate
-  - /data/wrapped_key_test /dev/block/userdata prepare /data/lt_key.bin
-  - /data/fscryptctl insert_wrapped_key < /data/eph_key.bin
-  - /data/fscryptctl set_policy --identifier=20f553802e64e36b43469211266a5f1c /data/testing
-  - echo "data" > /data/testing/file.txt
-  - sync and reboot
-  - /data/wrapped_key_test /dev/block/userdata prepare /data/lt_key.bin
-  - /data/fscryptctl insert_wrapped_key < /data/eph_key_2.bin
-  - /data/fscryptctl set_policy --identifier=d8ca51d6d2094b73b2dae5ee7e3a10b6 /data/testing
-  - cat /data/testing/file.txt
-
+Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
 ---
-Changes v1 => v2:
-  - Use control virtqueue to perform key management requests
-  - Extend virtio_blk_crypto_msg::dun from a single __virtio64 to a
-    four-element __virtio64 array to support larger DUN sizes.
-  - Remove data_unit_size_bit in virtio_blk_crypto_msg struct
-v1: https://lore.kernel.org/all/20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com/
+ drivers/block/virtio_blk.c      | 179 +++++++++++++++++++++++++++++++-
+ include/uapi/linux/virtio_blk.h |   1 +
+ 2 files changed, 176 insertions(+), 4 deletions(-)
 
-linlzhan (2):
-  virtio_blk: Add control virtqueue support
-  virtio_blk: add inline encryption support
-
- drivers/block/Kconfig           |  12 +
- drivers/block/virtio_blk.c      | 753 +++++++++++++++++++++++++++++++-
- include/uapi/linux/virtio_blk.h | 116 +++++
- 3 files changed, 865 insertions(+), 16 deletions(-)
-
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 32bf3ba07a9d..252ec9366153 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -6,6 +6,7 @@
+ #include <linux/hdreg.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/completion.h>
+ #include <linux/interrupt.h>
+ #include <linux/virtio.h>
+ #include <linux/virtio_blk.h>
+@@ -52,6 +53,15 @@ struct virtio_blk_vq {
+ 	char name[VQ_NAME_LEN];
+ } ____cacheline_aligned_in_smp;
+ 
++struct virtio_blk_ctrl_vq {
++	struct virtqueue *vq;
++	struct mutex mutex;
++	spinlock_t lock;
++	unsigned int inflight;
++	bool dead;
++	struct completion drained;
++};
++
+ struct virtio_blk {
+ 	/*
+ 	 * This mutex must be held by anything that may run after
+@@ -83,6 +93,9 @@ struct virtio_blk {
+ 
+ 	/* For zoned device */
+ 	unsigned int zone_sectors;
++
++	/* Control virtqueue state. */
++	struct virtio_blk_ctrl_vq ctrl_vq;
+ };
+ 
+ struct virtblk_req {
+@@ -110,6 +123,12 @@ struct virtblk_req {
+ 	struct scatterlist sg[];
+ };
+ 
++struct virtblk_ctrl_request {
++	__virtio32 type;
++	u8 status;
++	struct completion compl;
++};
++
+ static inline blk_status_t virtblk_result(u8 status)
+ {
+ 	switch (status) {
+@@ -863,11 +882,131 @@ static int virtblk_getgeo(struct gendisk *disk, struct hd_geometry *geo)
+ 	return ret;
+ }
+ 
++#define VIRTBLK_CTRL_VQ_DRAIN_TIMEOUT (10 * HZ)
++
++/* Prevent new submissions and wait for in-flight requests to complete. */
++static void virtblk_ctrl_vq_quiesce(struct virtio_blk *vblk)
++{
++	unsigned long flags;
++	bool need_wait;
++
++	if (!vblk->ctrl_vq.vq)
++		return;
++
++	init_completion(&vblk->ctrl_vq.drained);
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	vblk->ctrl_vq.dead = true;
++	need_wait = vblk->ctrl_vq.inflight != 0;
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++
++	if (need_wait &&
++	    !wait_for_completion_timeout(&vblk->ctrl_vq.drained,
++					  VIRTBLK_CTRL_VQ_DRAIN_TIMEOUT))
++		dev_warn(&vblk->vdev->dev,
++			 "timed out waiting for control queue requests to complete\n");
++}
++
++/* Fail requests left in the control queue after reset. */
++static void virtblk_ctrl_vq_drain(struct virtio_blk *vblk)
++{
++	struct virtblk_ctrl_request *creq;
++	unsigned long flags;
++
++	if (!vblk->ctrl_vq.vq)
++		return;
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	while ((creq = virtqueue_detach_unused_buf(vblk->ctrl_vq.vq)) != NULL) {
++		if (WARN_ON_ONCE(!vblk->ctrl_vq.inflight))
++			;
++		else
++			vblk->ctrl_vq.inflight--;
++		creq->status = VIRTIO_BLK_S_IOERR;
++		spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++		complete(&creq->compl);
++		spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	}
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++}
++
++static void virtblk_ctrlq_callback(struct virtqueue *vq)
++{
++	struct virtio_blk *vblk = vq->vdev->priv;
++	struct virtblk_ctrl_request *creq;
++	unsigned long flags;
++	unsigned int len;
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	do {
++		virtqueue_disable_cb(vq);
++		while ((creq = virtqueue_get_buf(vq, &len)) != NULL) {
++			bool drained = false;
++
++			if (WARN_ON_ONCE(!vblk->ctrl_vq.inflight)) {
++				/*
++				 * Still complete the request.  Never leave a
++				 * synchronous caller blocked because the accounting
++				 * state was already inconsistent.
++				 */
++				spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++				complete(&creq->compl);
++				spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++				continue;
++			}
++
++			if (--vblk->ctrl_vq.inflight == 0 && vblk->ctrl_vq.dead)
++				drained = true;
++			spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++			if (drained)
++				complete(&vblk->ctrl_vq.drained);
++			complete(&creq->compl);
++			spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++		}
++	} while (!virtqueue_enable_cb(vq));
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++}
++
++/* Submit a control-queue request and wait for completion. */
++static int virtblk_ctrl_vq_request(struct virtio_blk *vblk,
++				    struct virtblk_ctrl_request *creq,
++				    struct scatterlist *sgs[],
++				    unsigned int out_sgs, unsigned int in_sgs)
++{
++	unsigned long flags;
++	int err;
++
++	mutex_lock(&vblk->ctrl_vq.mutex);
++	init_completion(&creq->compl);
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	if (vblk->ctrl_vq.dead) {
++		spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++		mutex_unlock(&vblk->ctrl_vq.mutex);
++		return -ENODEV;
++	}
++	err = virtqueue_add_sgs(vblk->ctrl_vq.vq, sgs, out_sgs, in_sgs, creq, GFP_ATOMIC);
++	if (!err) {
++		vblk->ctrl_vq.inflight++;
++		virtqueue_kick(vblk->ctrl_vq.vq);
++	}
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++	if (err) {
++		mutex_unlock(&vblk->ctrl_vq.mutex);
++		return err;
++	}
++
++	wait_for_completion(&creq->compl);
++	mutex_unlock(&vblk->ctrl_vq.mutex);
++	return 0;
++}
++
+ static void virtblk_free_disk(struct gendisk *disk)
+ {
+ 	struct virtio_blk *vblk = disk->private_data;
+ 
+ 	ida_free(&vd_index_ida, vblk->index);
++	mutex_destroy(&vblk->ctrl_vq.mutex);
+ 	mutex_destroy(&vblk->vdev_mutex);
+ 	kfree(vblk);
+ }
+@@ -965,6 +1104,8 @@ static int init_vq(struct virtio_blk *vblk)
+ 	struct virtqueue **vqs;
+ 	unsigned short num_vqs;
+ 	unsigned short num_poll_vqs;
++	unsigned short total_vqs;
++	bool has_ctrl_vq;
+ 	struct virtio_device *vdev = vblk->vdev;
+ 	struct irq_affinity desc = { 0, };
+ 
+@@ -993,12 +1134,19 @@ static int init_vq(struct virtio_blk *vblk)
+ 				vblk->io_queues[HCTX_TYPE_READ],
+ 				vblk->io_queues[HCTX_TYPE_POLL]);
+ 
++	/*
++	 * The control vq is appended after the data vqs whenever
++	 * F_CTRL_VQ is negotiated.
++	 */
++	has_ctrl_vq = virtio_has_feature(vdev, VIRTIO_BLK_F_CTRL_VQ);
++	total_vqs = num_vqs + (has_ctrl_vq ? 1 : 0);
++
+ 	vblk->vqs = kmalloc_objs(*vblk->vqs, num_vqs);
+ 	if (!vblk->vqs)
+ 		return -ENOMEM;
+ 
+-	vqs_info = kzalloc_objs(*vqs_info, num_vqs);
+-	vqs = kmalloc_objs(*vqs, num_vqs);
++	vqs_info = kzalloc_objs(*vqs_info, total_vqs);
++	vqs = kmalloc_objs(*vqs, total_vqs);
+ 	if (!vqs_info || !vqs) {
+ 		err = -ENOMEM;
+ 		goto out;
+@@ -1015,8 +1163,13 @@ static int init_vq(struct virtio_blk *vblk)
+ 		vqs_info[i].name = vblk->vqs[i].name;
+ 	}
+ 
++	if (has_ctrl_vq) {
++		vqs_info[num_vqs].callback = virtblk_ctrlq_callback;
++		vqs_info[num_vqs].name = "control";
++	}
++
+ 	/* Discover virtqueues and write information to configuration.  */
+-	err = virtio_find_vqs(vdev, num_vqs, vqs, vqs_info, &desc);
++	err = virtio_find_vqs(vdev, total_vqs, vqs, vqs_info, &desc);
+ 	if (err)
+ 		goto out;
+ 
+@@ -1025,6 +1178,9 @@ static int init_vq(struct virtio_blk *vblk)
+ 		vblk->vqs[i].vq = vqs[i];
+ 	}
+ 	vblk->num_vqs = num_vqs;
++	vblk->ctrl_vq.vq = has_ctrl_vq ? vqs[num_vqs] : NULL;
++	vblk->ctrl_vq.dead = false;
++	vblk->ctrl_vq.inflight = 0;
+ 
+ out:
+ 	kfree(vqs);
+@@ -1464,14 +1620,18 @@ static int virtblk_probe(struct virtio_device *vdev)
+ 	}
+ 
+ 	mutex_init(&vblk->vdev_mutex);
++	mutex_init(&vblk->ctrl_vq.mutex);
++	spin_lock_init(&vblk->ctrl_vq.lock);
+ 
+ 	vblk->vdev = vdev;
+ 
+ 	INIT_WORK(&vblk->config_work, virtblk_config_changed_work);
+ 
+ 	err = init_vq(vblk);
+-	if (err)
++	if (err) {
++		dev_err(&vdev->dev, "init virt queue failed: err = %d\n", err);
+ 		goto out_free_vblk;
++	}
+ 
+ 	/* Default queue sizing is to fill the ring. */
+ 	if (!virtblk_queue_depth) {
+@@ -1553,6 +1713,7 @@ static int virtblk_probe(struct virtio_device *vdev)
+ out_free_vq:
+ 	vdev->config->del_vqs(vdev);
+ 	kfree(vblk->vqs);
++	vblk->ctrl_vq.vq = NULL;
+ out_free_vblk:
+ 	kfree(vblk);
+ out_free_index:
+@@ -1571,16 +1732,21 @@ static void virtblk_remove(struct virtio_device *vdev)
+ 	del_gendisk(vblk->disk);
+ 	blk_mq_free_tag_set(&vblk->tag_set);
+ 
++	virtblk_ctrl_vq_quiesce(vblk);
++
+ 	mutex_lock(&vblk->vdev_mutex);
+ 
+ 	/* Stop all the virtqueues. */
+ 	virtio_reset_device(vdev);
++	virtblk_ctrl_vq_drain(vblk);
+ 
+ 	/* Virtqueues are stopped, nothing can use vblk->vdev anymore. */
+ 	vblk->vdev = NULL;
+ 
+ 	vdev->config->del_vqs(vdev);
+ 	kfree(vblk->vqs);
++	vblk->vqs = NULL;
++	vblk->ctrl_vq.vq = NULL;
+ 
+ 	mutex_unlock(&vblk->vdev_mutex);
+ 
+@@ -1593,6 +1759,8 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 	struct request_queue *q = vblk->disk->queue;
+ 	unsigned int memflags;
+ 
++	virtblk_ctrl_vq_quiesce(vblk);
++
+ 	/* Ensure no requests in virtqueues before deleting vqs. */
+ 	memflags = blk_mq_freeze_queue(q);
+ 	blk_mq_quiesce_queue_nowait(q);
+@@ -1600,6 +1768,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 
+ 	/* Ensure we don't receive any more interrupts */
+ 	virtio_reset_device(vdev);
++	virtblk_ctrl_vq_drain(vblk);
+ 
+ 	/* Make sure no work handler is accessing the device. */
+ 	flush_work(&vblk->config_work);
+@@ -1612,6 +1781,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 	 * pointers safely.
+ 	 */
+ 	vblk->vqs = NULL;
++	vblk->ctrl_vq.vq = NULL;
+ 
+ 	return 0;
+ }
+@@ -1672,6 +1842,7 @@ static unsigned int features[] = {
+ 	VIRTIO_BLK_F_FLUSH, VIRTIO_BLK_F_TOPOLOGY, VIRTIO_BLK_F_CONFIG_WCE,
+ 	VIRTIO_BLK_F_MQ, VIRTIO_BLK_F_DISCARD, VIRTIO_BLK_F_WRITE_ZEROES,
+ 	VIRTIO_BLK_F_SECURE_ERASE, VIRTIO_BLK_F_ZONED,
++	VIRTIO_BLK_F_CTRL_VQ,
+ };
+ 
+ static struct virtio_driver virtio_blk = {
+diff --git a/include/uapi/linux/virtio_blk.h b/include/uapi/linux/virtio_blk.h
+index 3744e4da1b2a..0a16972a1535 100644
+--- a/include/uapi/linux/virtio_blk.h
++++ b/include/uapi/linux/virtio_blk.h
+@@ -42,6 +42,7 @@
+ #define VIRTIO_BLK_F_WRITE_ZEROES	14	/* WRITE ZEROES is supported */
+ #define VIRTIO_BLK_F_SECURE_ERASE	16 /* Secure Erase is supported */
+ #define VIRTIO_BLK_F_ZONED		17	/* Zoned block device */
++#define VIRTIO_BLK_F_CTRL_VQ			22	/* Control queue */
+ 
+ /* Legacy feature bits */
+ #ifndef VIRTIO_BLK_NO_LEGACY
 -- 
 2.34.1
 
