@@ -1,122 +1,136 @@
-Received: from mail-ua1-f97.google.com (mail-ua1-f97.google.com [209.85.222.97])
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FE516A395
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A4E3D3499
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789414416; cv=none; b=M8qL3cUuEr1G9pMsjv/mne8eA8BrJH0XtAfGr2zrHg762hN7h7TlkdhBCWs8zQKT7iLPWnYE/PWRcZm0tkaM5U4rM/E50dNUMD9rC0RQar9vpB7iMBNRBlsiW8K/80adU71mMR9bWM1gZqcs2iP5+DCOOePZnJcc3X4UOw8WTlM=
+	t=1789414664; cv=none; b=jpgzZwn1rkXqtP+OUY8N9xJ/xCEOs6lRGZeBxdOZY0l6vY6oRdsHvYesjxGGH6XsRQdKVJdmfmgcs03vAY5JErEMBatokYcHAiIbR8vsRCvvNIHcsZgObDHby4iOl2SvCwz5jBZ49YwwsZ9AzORzch6TYaXvYQalM8wz3u1XL9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789414416; c=relaxed/simple;
-	bh=QovQPc4iliFKo25J6xhEnCLKTDsgyZShJRb3NFNeZU8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mG+d6Neaty3L71dM1UPtaw4zW2KUF6DetilWlbsDgts+CDdA9+eDi6X66CQ5GUjaLGYjcaUA1Uv4yh6QOWDup6DMXh5oHxqhM/ZqjiqSMcNHMe4rRSovmYcDUFs4+6KiNoT6ixfVF2Jyy1lLQB0IJa4m5HQAN7ifES/Q4d9odyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=HWF0mNfh; arc=none smtp.client-ip=209.85.222.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789414664; c=relaxed/simple;
+	bh=mNCwouhEN17Ia0dJNDPGIKLEvTsNZIAvbPqxXsUkGLI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s3lPp7vNXlE0FdZ8caas2NovdMZKfrarLj/BBaatKPGVGhR1Al0AqOubfUTZXA7LhnuYbFRa78ZMfeHi3rDnz0susY550qTqfLiGnzZeGpzG6MDSu71nRDNGHLBoejcKkBQ/44Y5a0TvvEZq2WtEoGsZzQJmb1wSq/nXSCv/R6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rggD72kC; arc=none smtp.client-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="HWF0mNfh"
-Received: by mail-ua1-f97.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so813104241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:33:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789414414; x=1790019214;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PCqYKrJhwcMBqMVGNNFrBZCCNQBh47WyyEB7W5B1uPA=;
-        b=C9JdqnD6qz7K9OenHa1Ok3lFUVeofxJ0QieHd5C/CRo7uekpDVEyWFbWf5Kwa+atle
-         Xr/46PQk3YF7Oq+TMNqMN0husryl8jGOCuR0dhMB51kt+wxiBuCAa3D+fdjsUYyz6Rm7
-         03DqMyUKsIAMleUGrMuUQDx7KX5KPVoypmsvK59Qee828CV324q15SbaJ9EV/Fq4jsN/
-         kTWbvMdp/BrJQyKVimNphDAEW5be7zsG3+iArmUHYRW6ukkSznZSyYhEdHF1C6iID2JN
-         ak6nGjKBMIh/QszifVCiU5jA8vLInA3EeToIqhK4FXh7+WHI5vn+3bYeWSzdMYUNhEBe
-         OrWA==
-X-Forwarded-Encrypted: i=1; AKwUvByLzUf26994dPeN6/iygRdwfAZ9aNMQBeQAPLOAMnUPg5rGwTqq5B/KvswJXfduIt2x1uMO00/JEIiml40=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltAD3jxtg0f66YeIBZsoAE4w1nXlrM+vQvdHlgO11lKE6D42Ip
-	KKjC8zUZzpiDRsTQqiRavACXjg9iVZZQ4wSAUVn6CyfR47lLL8F/XHU9dmnm89YE0UUJoF/uyU7
-	Nxd97HQ0wvmSa1/y/ld1WNKVtGBHot44ojSZTz9Bl6gt0NCPhETD5ybEKOZUn+3PqK2F3cPg9cf
-	qhH1FonT40LUg559m/2dil9mR5xtiB1/Skq1Ea4F2T3k+bX3lhSwgqJ5Ar/9m3wF7zCTg2NfvyZ
-	LPkNO6QwSsgiILaqg==
-X-Gm-Gg: AYBFou0+WtzS3ojO37R34FipNE1Tli5f8/PCOc0bC7A12YzFerOUHcRj18y8iUK4k2I
-	nwmz697V7OqnnINBUPaHRo5KIzwDSkNGhAS11Ore5bnVaEvkVJrWeUV2csT9adTqtM4u7w6NecG
-	QRKD9Lal/8NSJbwCK/U5c3QwhIXtYhTY6HtWl+F8v/X0W9BwHlub24gmO5i08QfQxG5pSU4qu2O
-	lX/rigTG9waczmixP6jzj8BHgxcMmksv4MsxyEM1BzIKpWM4QkT8l3J5dZ9PRJaLYlgv4z6s+no
-	LSETFm6hg3dXzmXH1yFzuvqDmNA7xNOfy+97LzNxdWmbJM8P8XNqdZKXYJSvN06hT3wOpa4eHVq
-	NLFAndpnhW4J6HPy0gAQ1IjS/E36SDfM12S0MZI4g2ZShUl3Cb/uQjslpBqM4UHKVsEMveTqsfL
-	dmMeiBXYZd/FI/QROIaaN+CvG8Ss0ESPi9REoF
-X-Received: by 2002:a05:6102:292a:b0:778:5bbb:b2d2 with SMTP id ada2fe7eead31-79b5b681515mr2152955137.11.1789414413788;
-        Mon, 14 Sep 2026 12:33:33 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-7927e99723asm203140137.19.2026.09.14.12.33.33
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 14 Sep 2026 12:33:33 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530f9b8cd29so36349901cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:33:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rggD72kC"
+Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2ccc2e84048so16514045ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789414413; x=1790019213; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789414662; x=1790019462; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EuYJrEjbVWQ9XMhAMaw1RSdGZ7efm/cFkVNyEiVrURw=;
+        b=rggD72kCkYVJPPWRGPD4cM9CxByr6KT/cytOBS9D8QFMEUueEiC8biGMLnnhynEKIE
+         yv20cabhoiLGGQb4OtU5GRHFoNzRA40NmPrGC2Qfk7zujFeUyK9dExGBtlzXr3mj+oDF
+         Veh4UQ/AIPlz5q2+PbexSWLmeUlE7OeWQpby8BKz0V+3zzEvtUBv503PuzSSHBTGmb5V
+         4G/10Rt3A0TyLrlWNNkGutEVyLbsNM0CQSR05mZu2qZ+IRXTc9OKZnhWQtKdPLWfborQ
+         LC1MbM/LqP6NaovDecuXmkoNsiIAn9zoZKl6twStZPmR9RRjNZtwq4RKZ+o9jNB2WdXR
+         Ha9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789414662; x=1790019462;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PCqYKrJhwcMBqMVGNNFrBZCCNQBh47WyyEB7W5B1uPA=;
-        b=HWF0mNfhwgI97DhMq5Fb9LeIrAmyDNywpfIM6tzXs9D6gMO8fUeuYR4o5fQalAFfqu
-         PoSWDE9M4LYh+yDiNfwK8ILY52h4N4Yl2qemnlggb/e8OPbYnolRSKJR9YQhiYaD//3Y
-         SbbMqcimpkTwgyud6JQgiluFxf/fZj0d/k3jA=
-X-Forwarded-Encrypted: i=1; AKwUvByzYvzInKgvYuljARocP5f+Umz9xKrlV+YK7Ts1XPxTA1Qs6eewha9e0Vx9Bz48rQXg5NG3bI/0AKlLHaw=@vger.kernel.org
-X-Received: by 2002:a05:622a:2b47:b0:530:fd73:6c22 with SMTP id d75a77b69052e-5310cd28075mr78653801cf.0.1789414413247;
-        Mon, 14 Sep 2026 12:33:33 -0700 (PDT)
-X-Received: by 2002:a05:622a:2b47:b0:530:fd73:6c22 with SMTP id d75a77b69052e-5310cd28075mr78646031cf.0.1789414407982;
-        Mon, 14 Sep 2026 12:33:27 -0700 (PDT)
-Received: from [10.14.5.171] ([192.19.161.248])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45adb3sm101173966d6.9.2026.09.14.12.33.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 12:33:27 -0700 (PDT)
-Message-ID: <d43cfb62-f048-42c8-909b-79a0300790df@broadcom.com>
-Date: Mon, 14 Sep 2026 12:33:25 -0700
+        bh=EuYJrEjbVWQ9XMhAMaw1RSdGZ7efm/cFkVNyEiVrURw=;
+        b=HvkAtw34KxusODWf1TZwUJB4i9bi4RPhtlrkcvZqefMYPHC4zao3DOXeQE6MLmOyVb
+         4GJc5BQGb291UuLGbPsfcjv0FS6Mwa6r9FDfiwfNpFULKBiY6JYSfuI5Kknttza+FPr3
+         0jG5/+wwjyzIkMvyDmYzhbpgulktYg05ODjFWAbEp8/gahLLwHMez4kQ2Xhfxf7FKD4f
+         EhGBlG49PAKD7ppHlXFCjcQW7hCProiZZehJIORj5ljUraf9vpAshe62GOdGWJOsj8ju
+         gu0OqAAqKueK2N3GWWFXssDBXrItQ9zxJuaZXLsoD7nTFANzTqRVFA+iyha19reGU++D
+         /J8w==
+X-Forwarded-Encrypted: i=1; AKwUvByvlGT5C+pRymCdEIe1ywqMH4bLmx4pZe/NFG7xKg52xfvWuqVO/1z3Ru9inckCu/1tl17lp1ysn4mGZ/s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mU8Mf/+YLa+Jqr8HXDSVU1GGTdnzvOpg2JZq3nzSJnW5jaf0gm
+	+VfGy2TBZLM6NM5JtZ6s+H2gt/B5kLQmrXNvdUhlTT/lsB8gnddMTZ3u
+X-Gm-Gg: AYBFou3SaZnn+oh6xuGHxkmgY3XmwJY11GUBF0TDxx/AXBVOC99eCvfCk8Tu8xHwlwM
+	KPGVUpq5SOQqsZV01yk5x+tGPPdbByYIAKMuzy4GWTlWgo3/QWF42oL2vFoesUQbFMtrF1fJq3r
+	Rsv2ICBlZoVJsThzgSY28SotqlcM4RusJxSBTz+LfcG6A8AqJ6K9dM3Mk158R7nZW2uzwb/BlIT
+	towMXlVCBk0DmNEpAZk4GNwKkT6pgz3ECwjyuGgvjOcDhfV1WC8qIEXi80o0HvfLumVVn90H8L6
+	QFhdNy3gW3NDTBQGAyDpV5kmOblkkjn0FBdvaJyBmGLdTLQn6C+Gx12Abkjy7xCHj8iMU8J1l7l
+	QyDNxJGa/8iSx/eLLSyPpTCImsVgipNmVzr0ZgUr9RFUKpI7h4Vs+rDW1Frrk3N7NCE7Go06aUG
+	XqXZXSnGiNBQ64fWvNo4zXQUxBSxphKY3ey5ggS2raZXjDM2HyUBNzudO5o+g0q9zk
+X-Received: by 2002:a17:903:3585:b0:2d5:2f49:b3f4 with SMTP id d9443c01a7336-2dd6c5bdd34mr93003365ad.2.1789414661060;
+        Mon, 14 Sep 2026 12:37:41 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:5a::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd3f0faed5sm47949435ad.10.2026.09.14.12.37.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 12:37:40 -0700 (PDT)
+Date: Mon, 14 Sep 2026 12:37:35 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me, bobbyeshleman@meta.com, 
+	almasrymina@google.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/3] net: devmem: embed net_iov_area in
+ binding
+Message-ID: <aqhMeY0r7ye0kuAw@devvm7509.cco0.facebook.com>
+References: <20260911154555.739041-1-sdf@fomichev.me>
+ <20260911154555.739041-3-sdf@fomichev.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: broadcom: brcm-usb: unwind clocks on probe failure
-To: Myeonghun Pak <mhun512@gmail.com>, Al Cooper <alcooperx@gmail.com>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-References: <20260913012956.16443-1-mhun512@gmail.com>
-Content-Language: en-US
-From: Justin Chen <justin.chen@broadcom.com>
-In-Reply-To: <20260913012956.16443-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260911154555.739041-3-sdf@fomichev.me>
 
+On 09/11, Stanislav Fomichev wrote:
+> After replacing the gen_pool with a binding-level freelist, devmem no
+> longer needs a separate chunk owner object. There is only one
+> net_iov_area for the binding, so store it directly in struct
+> net_devmem_dmabuf_binding.
+> 
+> Derive the binding from net_iov_owner() with container_of(), matching the
+> pattern used by io_uring zcrx. This removes the leftover
+> dmabuf_genpool_chunk_owner wrapper and its allocation/free path.
+> 
+> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+> ---
+>  net/core/devmem.c | 41 ++++++++++-------------------------------
+>  net/core/devmem.h | 26 +++++++-------------------
+>  2 files changed, 17 insertions(+), 50 deletions(-)
+> 
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 4883eb7f3a95..7949f8425bcd 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -29,15 +29,6 @@ static DEFINE_XARRAY_FLAGS(net_devmem_dmabuf_bindings, XA_FLAGS_ALLOC1);
+>  
+>  static const struct memory_provider_ops dmabuf_devmem_ops;
+>  
+> -static void
+> -net_devmem_dmabuf_free_chunk_owner(struct dmabuf_genpool_chunk_owner *owner)
+> -{
+> -	if (owner) {
+> -		kvfree(owner->area.niovs);
+> -		kfree(owner);
+> -	}
+> -}
+> -
+>  static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
+>  {
+>  	struct net_devmem_dmabuf_binding *binding =
+> @@ -55,7 +46,7 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+>  	     "can't destroy dmabuf binding. total=%zu, free=%zu",
+>  	     binding->total_niovs, binding->free_count);
+>  
+> -	net_devmem_dmabuf_free_chunk_owner(binding->chunk_owner);
+> +	kvfree(binding->area.niovs);
+>  	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
+>  					  binding->direction);
+>  	dma_buf_detach(binding->dmabuf, binding->attachment);
+> @@ -271,23 +262,14 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+>  	}
+>  	binding->total_niovs = total_niovs;
+>  
+> -	owner = kzalloc_node(sizeof(*owner), GFP_KERNEL,
+> -			     dev_to_node(&dev->dev));
 
-
-On 9/12/26 6:29 PM, Myeonghun Pak wrote:
-> brcm_usb_phy_dvr_init() enables the optional USB2 and USB3 clocks before
-> creating all PHYs and acquiring the remaining probe resources.  Several
-> later failures return without disabling clocks that were already enabled,
-> and deferred probe retries can keep increasing their enable counts.
-> 
-> Track each successful clock enable and unwind only those clocks, in reverse
-> order, when initialization fails.  Keep the existing successful probe path
-> unchanged.  This is limited to the BCM4908 and Broadcom STB USB PHY driver.
-> 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
-> 
-> Fixes: 49859e55e364 ("phy: usb: phy-brcm-usb: Add Broadcom STB USB phy driver")
-> Assisted-by: OpenAI:GPT-5.6
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Justin Chen <justin.chen@broadcom.com>
+There is a leftover owner var, the build fails, will repost later this week
+(to give some time to review for whoever is interested).
