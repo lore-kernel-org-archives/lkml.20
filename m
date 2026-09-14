@@ -1,33 +1,86 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E4E1422E3F;
-	Mon, 14 Sep 2026 09:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE5937E304
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:30:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378192; cv=none; b=ke1udu8+LajvyXiR29pLJeBtKjbfJo0ecK6biFGMysDvEBw++uv/1GWHp7Mf1f5E5AuqUr3czIlys1LFtIx0PhH0DlJjSCMd5ruZbqSx0eZTpi3Bed5X7tUtf294LfnSSJmNYzioJ4eb8/fBXEDTY9SFCZNXStRyNuKRyCFRk4Y=
+	t=1789378251; cv=none; b=qhxPJ8QUeGSSiiBcLlzxSPkNPkMO2Nw0JaRZap9t7GcyB0pLQOP27SeA9wTizMi2Bw4qRJ4AQcatJs96lkMp4C0loOTgzDOJFzzj7UOcduSX4iVSAXSZp2WDYLi4Y4epCY09nRs+S9ce3YMFiSxSvN1B2AG6/p9aOrPqHXcddN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378192; c=relaxed/simple;
-	bh=WgFDTRyIzj72ID3M8rCFA6KeJAl2VOfUbS2RSxda34M=;
+	s=arc-20240116; t=1789378251; c=relaxed/simple;
+	bh=LaWXu73lrgxnM+WOLeLQIIpfXYsTiC4ZzLiUEwSFXJk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ozntfvyPWTljxwjOQPb4WVW5eWKvNjypWjSji9TKdsPgVLBQtvLy32v9tK/DWC+uI5auruwFLQd17h7AFUtJYukRv3GWHpaJJa/PrsCqKDu1NqHLikkeQaS1LyeDgrUlIFj5Ebl6w0bvhu+Ulx0VpDoRe6fqRUJ1SrcuCh9rnEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CqIni/X+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=OQEhBwQNpTCvpOVvzh5msAy2KkFGfw8oRTQDbaClfsVxoJLXo+AfR0EGSEmxl2EnjCRW1+hxccqYVX0jeLQKmuH5poct6zlEpyyag6N42CHVZFBeXcA+MAmTQiNtWCSGklzilX8/DFYLKurQyjXAw3KwXyA9qLc3FSW405HyszA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JaxEYh0A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TzTYUJhM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CqIni/X+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9532F152B;
-	Mon, 14 Sep 2026 02:29:42 -0700 (PDT)
-Received: from [10.0.129.72] (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 82BDA3F59E;
-	Mon, 14 Sep 2026 02:29:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789378186; bh=WgFDTRyIzj72ID3M8rCFA6KeJAl2VOfUbS2RSxda34M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CqIni/X+msMkTBJ38OtxnAmKm3vT4WfopjM7VTolXtMzfVTqCtuuwBWm8px50pxfY
-	 VKOgsxPcXTjc8cUIu0A0TnCmZjb+xok+KPMktvxetNwT+RUocshLNspgSFn3BWh7ja
-	 n4j2+vDS9RoW++2VD6TWPcOcL1vDP6Oot8PCnDWw=
-Message-ID: <92b9c67b-677c-4cfe-8055-13f8e3e9c2cf@arm.com>
-Date: Mon, 14 Sep 2026 10:29:35 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JaxEYh0A";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TzTYUJhM"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5jQlL3842847
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:30:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QwC6/Am/Axhts9IelVPAe4AEzQV5uQbp1jHkK1vCAXs=; b=JaxEYh0AgFuASaKu
+	libuXqFtXFTaPSkzhi/TZSqE/gMgE3Kb5DiXYnnO6C/lKjVoTG8Z3/iEDGoqZlpY
+	MdSHWPMqmEzhmVjY0IjxWAVv6la9fSa2lqPgYVstXCEoxwosnzIbCyKbEwHGCukC
+	of6ehNzI13uGONMHKCG7OcAM6k9HnXXSeU29/4BWE1x8BQJG9TSUNug+niSMA08/
+	JUBE/ORKYw5lisXX3RMUPHKN7+g1o7eHm1TRTgH+ZtSNTe6FNLzjakK7shCMnr0j
+	julbwe4DnRPkHv+9ViHp7g1e88xbyktL1c+KX0bXZwybjYzzJ1yJH1sDBPo7UNs2
+	sHDSeA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c5xvc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:30:47 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-936aa34873bso545768385a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:30:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789378246; x=1789983046; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QwC6/Am/Axhts9IelVPAe4AEzQV5uQbp1jHkK1vCAXs=;
+        b=TzTYUJhMQR7/HoxIedZvnV+3vLlPwtmyDrzAEg4ReMzaelBjTD2kI8RRQQLtoJLRXS
+         GIUZ1VnqM7nl+C7mQRrTVCN+GTCNQlU9uSqelUudqeN0dunwthV5vL8VvXqboLU643jL
+         7sUs+6Ps/1LR7hJUSw08e9qNzzLQBg//WL9BAvyNsYWGhiC4Vkdqv6dhMfJFTyAU+3BB
+         WbSCqB+PA1dFRTjlJ6aakvQX5lIFwgrUZVSUjiw2Dj1lQj+dm6N5ymUSEvHvAw42R4TP
+         RgZcA9z2R3XSYOXcoXopnw15L2/LPMlKaUeWho0N0uaC/3wWmToycNjMDI8XC0+Pn9TB
+         XB/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789378246; x=1789983046;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QwC6/Am/Axhts9IelVPAe4AEzQV5uQbp1jHkK1vCAXs=;
+        b=eVr9CRuYjcG2Br25YOKdWBaUc1DI6fNSFs3ZRfIWPCdgUyPpsIVcCxCjvfCJQu/V5m
+         CbcFLq+W9K43u81cDz4W3HEP7UTooyupLOIoa2n8wdQUj90hfw6xw5SUQ+9q0DyifeE+
+         fvoybMYQ+k031xSkhYFY5UKe1TAwrw2AkpynSxt8uon7sT3JI+dY+WHuiNxV0GvvI5F8
+         cPSBKxaFSlGe2UcEq7NjWrpk9a7T4WTqD9nTbEN+TwBEQOcpHlTaAIY3RC0Bcjwq2P1a
+         v0bmTq0tXByICeDzpyb6Ep9NnOPi4YnTLPwtFV0aPMlWqZjmJKnEFgQtw6kwhNwnw7Jy
+         +1KA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0S9fkkSUHQRcWDT0WJbfg8vN80+O3gFr8K4XFi1aqhm9YijTL9OYqeQwTy0CHr65MhEzjFcw1Lc+TVVY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzgg4DYyXYbo0MoWJfE3qFrjUA1DpFbGtP//XA7fvP+OhDdxpD
+	I3//0WF9wHXMD/H0uxFsYrHMUXSbGNiHiwpLW2cM8h8JviRanHJlSj4X07BlWhiM38ZmjuQb9Mi
+	udrrfaIQrHeEA2MxS8C7RPH7wlT+otXFJa3gAF19RCLQFB0/NdFjG8U7K6LnN5swjSAA=
+X-Gm-Gg: AYBFou2AX3P+laibnHYFjhUS54rEhKn93i/hsvdIT0Qy2Kxu3p+uuOkdAgP5yRklGTC
+	NumoYdTSSgAZqIMP2Y5GcxRU2QM+yO1UUvvzQUfCiMawoqFryk2g8zdh7v95Xp5mQh17nLfoE6R
+	iu1oG4OkgugAwt64fVjR6d5vGU2M206/+hLQBGBgK37nf6fowmIkT9OoIngIHx+LK48u20FpA1X
+	SXkOEgmKazS19Ld6VLvsSDRhufLRcMVJDkqR6kVQqrgXKI9OrlES9ys/dIIa1CUS6n51woIp2Q7
+	CAyWHJNiHaVOmyE+bkcGfHDX5vrVn/eQyjkF1qQexFyP9UNIFDEkxp5uCNMP3gK1YZRhbiQ2Mnp
+	XfEk46QpdzrVzFLcSiJmIrCSSjfn7
+X-Received: by 2002:a05:620a:1d0c:b0:939:f9b6:47f1 with SMTP id af79cd13be357-93a29a3955bmr222698685a.46.1789378246607;
+        Mon, 14 Sep 2026 02:30:46 -0700 (PDT)
+X-Received: by 2002:a05:620a:1d0c:b0:939:f9b6:47f1 with SMTP id af79cd13be357-93a29a3955bmr222688285a.46.1789378246009;
+        Mon, 14 Sep 2026 02:30:46 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5968cf3sm3895022a12.31.2026.09.14.02.30.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 02:30:45 -0700 (PDT)
+Message-ID: <ad4b454e-0774-4870-b743-fd0d82d0311a@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 11:30:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,237 +88,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/15] ACPI: CPPC: Validate _CPC entry and control
- semantics
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jie Zhan <zhanjie9@hisilicon.com>, Lifeng Zheng <zhenglifeng1@huawei.com>,
- Pierre Gondois <pierre.gondois@arm.com>, Sumit Gupta <sumitg@nvidia.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Ionela Voinescu <ionela.voinescu@arm.com>, zhongqiu.han@oss.qualcomm.com,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260830115644.2056983-1-christian.loehle@arm.com>
- <20260830115644.2056983-3-christian.loehle@arm.com>
- <e363804d-78d7-4f09-8d49-f70a4dfc6f71@arm.com>
- <CAJZ5v0j=n4uf=GFVDumb2v1sqcS_f293BG2iCD-Vmp2vpLC=xg@mail.gmail.com>
- <CAJZ5v0igEL-WvvCSadRkGDdZaXRJM0kPAH8i918T+FaDg9oZ5A@mail.gmail.com>
- <7985c629-8d36-4562-a789-074d35e9f260@arm.com>
- <CAJZ5v0jp9q-ZzOKXsOVpvF0ABytHXU9qeSdGyHdhLUL-cLX4sA@mail.gmail.com>
- <CAJZ5v0ieZt_FSM4e=F_UjvN_oZbbiU_aHQgfFk2jifqW2Un5rw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: Use consistent indentation in the
+ example
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+        =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Jerome Brunet <jbrunet@baylibre.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+        Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Binbin Zhou <zhoubinbin@loongson.cn>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        Biju Das <biju.das.jz@bp.renesas.com>,
+        Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Khanh Le <khanh.le.xr@renesas.com>,
+        Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
+        patches@opensource.cirrus.com,
+        David Rau <David.Rau.opensource@dm.renesas.com>,
+        Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Yingkun Meng <mengyingkun@loongson.cn>,
+        Trevor Wu <trevor.wu@mediatek.com>,
+        Julien Massot <jmassot@collabora.com>,
+        Jiaxin Yu <jiaxin.yu@mediatek.com>,
+        Shane Chien <shane.chien@mediatek.com>,
+        Daniel Beer <daniel.beer@igorinstitute.com>,
+        Sebastian Reichel <sre@kernel.org>, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        asahi@lists.linux.dev, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-renesas-soc@vger.kernel.org
+References: <20260913123234.99988-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <aqe4U6EJ0cGnV+Al@opensource.cirrus.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <CAJZ5v0ieZt_FSM4e=F_UjvN_oZbbiU_aHQgfFk2jifqW2Un5rw@mail.gmail.com>
+In-Reply-To: <aqe4U6EJ0cGnV+Al@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: c3FvXksGNdUi0n_4USEC5Slbd_gGSpkS
+X-Proofpoint-GUID: c3FvXksGNdUi0n_4USEC5Slbd_gGSpkS
+X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa7bec7 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=chZs0_0Ys9iI7aL1xjgA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEzNSBTYWx0ZWRfXwUBmLwTIPk9l
+ 4JiHTt12/qCEPLmvd5XBoX7uwx1o4pRImJKYGd9eDrZx8DfaxZ2K1O+4KkYk4fEoQu/2qbaT0SO
+ LPkLEaShH4x2L1i4ADJrZ8z+cFDnyN3AaypspUgNhOLlafa0pDR4jN1Pm59BMFxh4O7PPskOeSk
+ 3+Gla1b57nkV+U5CjAdX9qclrrdNFCq//fWnF/BpesJy/fhFLBLPAjyJ822NiqNkFWs5MG0lju8
+ NuNTHqatGvJUydcD3F0OJ/m5GJhs+P7JAgSO5cKwwU8UOhsHwa/T3nwkGia8ydj93SER5l5OSRh
+ O9EZTk5TicRFH+6bJVTRf3+ivqXoF2bbHFcs0nZ3Z17UW/ZYmaHdK171fhBFqoUu/z7qK+Q60rF
+ ORXEJvi5UOL3rafaoOKbGrrgUXYtxswXn7LLG0+rLfL2f+0jMKp6vqYcu6QgK0rdBx2CKsxXX7m
+ yohBlmqFMcabXrtwx/Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEzNSBTYWx0ZWRfX0/uFE7PYfQ2g
+ 58ph0ZYqHj4F8IGUlOt9039HGLyawhDLldKxBDL/CoIw389mKaaUHRubIZ0b79+V0bh8HAo+Lny
+ 6Bm0GAMpewRldy37wclRJH/dqn64/GM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140135
 
-On 9/10/26 18:13, Rafael J. Wysocki (Intel) wrote:
-> On Fri, Sep 4, 2026 at 6:57 PM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
+On 14/09/2026 11:03, Charles Keepax wrote:
+> On Sun, Sep 13, 2026 at 02:32:35PM +0200, Krzysztof Kozlowski wrote:
+>> Correct indentation in the examples to consistent 2- or 4-spaces
+>> indentation to fix dt-check-style warnings ("example 0
+>> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+>> re-indenting entire example just for that is too much churn.
 >>
->> On Thu, Sep 3, 2026 at 10:02 PM Christian Loehle
->> <christian.loehle@arm.com> wrote:
->>>
->>> On 9/3/26 20:44, Rafael J. Wysocki (Intel) wrote:
->>>> On Thu, Sep 3, 2026 at 9:27 PM Rafael J. Wysocki (Intel)
->>>> <rafael@kernel.org> wrote:
->>>>>
->>>>> On Sun, Aug 30, 2026 at 3:32 PM Christian Loehle
->>>>> <christian.loehle@arm.com> wrote:
->>>>>>
->>>>>> On 8/30/26 12:56, Christian Loehle wrote:
->>>>>>> Writable _CPC controls are Register descriptors encoded as Buffer objects.
->>>>>>> Integer entries represent fixed values or unsupported optional registers;
->>>>>>> Autonomous Selection Integer 1 is the special immutable form which enables
->>>>>>> operation without Desired Performance.
->>>>>>>
->>>>>>> The parser accepts arbitrary object types and cpc_write() assumes that its
->>>>>>> argument contains a GAS. Malformed firmware can therefore make it interpret
->>>>>>> an Integer union member as a register.
->>>>>>>
->>>>>>> Validate the portion of each encoding consumed by the driver: bound Integer
->>>>>>> DWORD forms to 32 bits, and require Buffer entries to start with a complete
->>>>>>> Generic Register descriptor with the expected header. Continue tolerating
->>>>>>> Integer 0 for an absent optional register and retain type checks in
->>>>>>> cpc_write() as defense in depth. Reject an attempt to disable immutable
->>>>>>> Autonomous Selection instead of silently applying only the EPP part of the
->>>>>>> request.
->>>>>>>
->>>>>>> Capability registers are read into u64 temporaries but exposed through u32
->>>>>>> fields. Reject values above U32_MAX instead of allowing them to be
->>>>>>> truncated. In particular, a truncated Highest Performance value can become
->>>>>>> a zero divisor in the performance-to-frequency conversion. Enforce the
->>>>>>> required ordering from Highest through Nominal, Lowest Nonlinear, and
->>>>>>> Lowest Performance, and constrain a present Guaranteed Performance to the
->>>>>>> inclusive Lowest-to-Nominal range. Also reject reversed frequency anchors
->>>>>>> and unequal frequency anchors with identical performance anchors. Those
->>>>>>> invalid tuples otherwise make affine-conversion differences wrap or divide
->>>>>>> by zero.
->>>>>>>
->>>>>>> Check mandatory object presence separately from the Integer-zero convention
->>>>>>> for absent optional fields. ACPI does not reserve zero in the abstract
->>>>>>> Lowest Performance scale, so accept a present Lowest Performance DWORD of
->>>>>>> zero when distinct frequency anchors provide a usable nonzero physical
->>>>>>> minimum. Retain the old rejection when that mapping is unavailable and the
->>>>>>> fallback conversion would expose a 0 kHz cpufreq endpoint.
->>>>>>>
->>>>>>> Minimum Performance also defines zero as a real no-limit value, but the
->>>>>>> exported cppc_set_perf() interface historically used zero to omit a bound.
->>>>>>> Add explicit validity flags so callers can request zero without changing
->>>>>>> that legacy convention. Populate the flags when reading the controls and
->>>>>>> mark the bounds supplied by amd-pstate explicitly.
->>>>>>>
->>>>>>> Performance Limited is listed as a required Buffer, but the interface does
->>>>>>> not depend on it to control performance and the specification permits a
->>>>>>> platform with no limiting indication to always report zero. Preserve
->>>>>>> the compatibility with firmware that represents that case using a NULL
->>>>>>> register descriptor instead of disabling CPPC entirely.
->>>>>>>
->>>>>>> Emit an error when a present _CPC package fails parsing or initialization
->>>>>>> so such firmware and resource failures no longer silently suppress cpufreq.
->>>>>>> Initialize malformed-package failures to -EINVAL and preserve specific
->>>>>>> allocation, mapping, and unsupported-access errors in that diagnostic.
->>>>>>>
->>>>>>> Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using CPPC")
->>>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>>>>> Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
->>>>>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->>>>>>> ---
->>>>>>>  drivers/acpi/cppc_acpi.c     | 172 ++++++++++++++++++++++++++++++-----
->>>>>>>  drivers/cpufreq/amd-pstate.c |  12 ++-
->>>>>>>  include/acpi/cppc_acpi.h     |   2 +
->>>>>>>  3 files changed, 159 insertions(+), 27 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
->>>>>>> index 3b8cdf88e31d..6f3ffa4a1845 100644
->>>>>>> --- a/drivers/acpi/cppc_acpi.c
->>>>>>> +++ b/drivers/acpi/cppc_acpi.c
->>>>>>> @@ -129,6 +129,21 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
->>>>>>>                               !!(cpc)->cpc_entry.int_value :          \
->>>>>>>                               !IS_NULL_REG(&(cpc)->cpc_entry.reg))
->>>>>>>
->>>>>>> +static bool cpc_is_writable(const struct cpc_register_resource *cpc)
->>>>>>> +{
->>>>>>> +     return cpc->type == ACPI_TYPE_BUFFER &&
->>>>>>> +            !IS_NULL_REG(&cpc->cpc_entry.reg);
->>>>>>> +}
->>>>>>> +
->>>>>>> +static bool cpc_entry_present(const struct cpc_register_resource *cpc)
->>>>>>> +{
->>>>>>> +     if (cpc->type == ACPI_TYPE_INTEGER)
->>>>>>> +             return true;
->>>>>>> +
->>>>>>> +     return cpc->type == ACPI_TYPE_BUFFER &&
->>>>>>> +            !IS_NULL_REG(&cpc->cpc_entry.reg);
->>>>>>> +}
->>>>>>> +
->>>>>>>  /*
->>>>>>>   * Each bit indicates the optionality of the register in per-cpu
->>>>>>>   * cpc_regs[] with the corresponding index. 0 means mandatory and 1
->>>>>>> @@ -142,6 +157,29 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
->>>>>>>   */
->>>>>>>  #define IS_OPTIONAL_CPC_REG(reg_idx) (REG_OPTIONAL & (1U << (reg_idx)))
->>>>>>>
->>>>>>> +static bool cpc_integer_entry_valid(unsigned int reg_idx, u64 value)
->>>>>>> +{
->>>>>>> +     switch (reg_idx) {
->>>>>>> +     case HIGHEST_PERF:
->>>>>>> +     case NOMINAL_PERF:
->>>>>>> +     case LOW_NON_LINEAR_PERF:
->>>>>>> +     case LOWEST_PERF:
->>>>>>> +     case CTR_WRAP_TIME:
->>>>>>> +     case REFERENCE_PERF:
->>>>>>> +     case LOWEST_FREQ:
->>>>>>> +     case NOMINAL_FREQ:
->>>>>>> +             return value <= U32_MAX;
->>>>>>
->>>>>>
->>>>>> Sashiko:
->>>>>> "Does this incorrectly restrict the counter wraparound time to 32 bits?
->>>>>> The ACPI specification allows firmware to provide a 64-bit QWord integer
->>>>>> for the Counter Wraparound Time. The cppc_perf_fb_ctrs structure already
->>>>>> models this as a 64-bit value internally
->>>>>> If firmware provides a valid 64-bit integer exceeding U32_MAX for this
->>>>>> register, cpc_integer_entry_valid() will return false and completely abort
->>>>>> CPPC initialization for the CPU. Can we remove this restriction for
->>>>>> CTR_WRAP_TIME?"
->>>>>
->>>>>> This is true. ACPI spec 6.6 and 6.5 (Table 8.23) describe it as
->>>>>> Integer (DWORD) or Buffer
->>>>>> The 64-bit internal representation is only for the case of firmware
->>>>>> providing it as Buffer.
->>>>
->>>> Sashiko is right, the table in the spec is wrong.  If it is Integer,
->>>> it is 64-bit.
->>>>
->>>> The size of an Integer in ASL cannot be restricted.
->>>
->>> Duh, thanks!
->>>
->>>>
->>>>>>
->>>>>>> +     case AUTO_SEL_ENABLE:
->>>>>>> +             return value <= 1;
->>>>>>> +     case DESIRED_PERF:
->>>>>>> +             /* Validated against Autonomous Selection after parsing. */
->>>>>>> +             return value == 0;
->>>>>>> +     default:
->>>>>>> +             /* Tolerate the customary Integer 0 for an absent option. */
->>>>>>> +             return value == 0 && IS_OPTIONAL_CPC_REG(reg_idx);
->>>>>>> +     }
->>>>>>> +}
->>>>>>> +
->>>>>> Sashiko:
->>>>>> "Does this incorrectly restrict the counter wraparound time to 32 bits?
->>>>>> The ACPI specification allows firmware to provide a 64-bit QWord integer
->>>>>> for the Counter Wraparound Time. The cppc_perf_fb_ctrs structure already
->>>>>> models this as a 64-bit value internally.
->>>>>> If firmware provides a valid 64-bit integer exceeding U32_MAX for this
->>>>>> register, cpc_integer_entry_valid() will return false and completely abort
->>>>>> CPPC initialization for the CPU. Can we remove this restriction for
->>>>>> CTR_WRAP_TIME?"
->>>>>
->>>>> It looks like you pasted the same comment twice.  Or did Sashiko hallucinate?
->>>>
->>>> Well, its other comment is actually different from the first one.  Let
->>>> me paste it:
->>>
->>> Apparently I hallucinated :)
->>>
->>>>
->>>> Will this strict rejection break CPPC initialization on compliant firmware
->>>> that provides non-zero integers for other optional capabilities?
->>>> For capability registers not explicitly listed in the switch statement
->>>> above, such as GUARANTEED_PERF or TIME_WINDOW, the ACPI 6.5 specification
->>>> explicitly allows platforms to provide fixed non-zero values encoded as
->>>> Integer objects.
->>>>
->>>> When firmware provides a valid non-zero integer for these optional
->>>> registers, this default case enforces that the value must be zero. Since
->>>> acpi_cppc_processor_probe() fails and returns -EINVAL when this returns
->>>> false, it will completely disable cpufreq and CPPC support for the CPU.
->>>> Should we allow non-zero integer values for these other optional registers?
->>>>
->>>>>> GUARANTEED_PERF and TIME_WINDOW: both are Buffer-only Register descriptors.
->>>>>> Nonzero Integer encodings are invalid and Integer 0 is tolerated because
->>>>>> the previous parser allowed it too. I don't know of any platform describing
->>>>>> this myself.
->>>>
->>>> Strictly speaking Integer 0 is not allowed, see
->>>>
->>>> https://uefi.org/specs/ACPI/6.6/08_Processor_Configuration_and_Control.html#cpc-continuous-performance-control
->>>
->>> I'm happy to reject it too, I was just being careful here because I only have
->>> a tiny subset of ACPI platforms to test this on with and it's for -fixes
->>
->> Instead of rejecting it entirely, you may log an FW_BUG message when
->> it is used, to avoid breaking legacy platforms that possibly used it.
+>> While changing the lines, correct also node name to be generic in
+>> dialog,da7219.yaml.
 > 
-> Still waiting for an update here and reviews from folks.
-> 
-> If this is the only patch that needs to be updated, please just send
-> an update of it alone.
+> And cs42l42 which you also fixup, would make sense to fixup
+> cs35l45 which also has a non-generic name and isn't fixed up.
 
-I know, unfortunately I had to update some of the later patches, too.
-I'll send the entire series shortly.
-Thanks!
+
+Yes, I'll do a v2.
+
+
+Best regards,
+Krzysztof
