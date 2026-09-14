@@ -1,117 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE85035F16C;
-	Mon, 14 Sep 2026 08:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C47399001
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374900; cv=none; b=be/GP/SvYczacN/5kdYK7YjMEoCj4D/mb9YmC5UwMaOW8Cw4vTvNfiP5R1U4GvgNDnhfOuVAWrXiFOupg37Xw62bjysQ4QTbaKu/bl/CMgWLOtH9oQQ1iq6N2uHW40IE6MKuh0WHGFbx2/qxVh8qD9asus34kA237mux6BvOCmg=
+	t=1789374946; cv=none; b=rR042WPT0ont5tnKR9sVMfC56ppeOi08SQSTRhT7lA/NzDuRHuqRAxXoRLWWVDRz9/HQtCi1mWNB5IMgNGqHawwaycH6AbXbr3KGXbOHWlFsM78O/jPHv1e2afDtr9r4YQm8PXASFWfrWIL2SjuJsp7dDQseLf2YWhHxqkynH0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374900; c=relaxed/simple;
-	bh=p2O0AFyvs5/7ZNI0oeDRA42QiFrcGG3sbWSKTgR1DV8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V8FguEYN80e0AyQ9JRqDz08EHoX7TkbFzCQ+fVA+siY01bixCBLc2Ar2eOQGYrDpYBm/fHb4wHpFxDNG2yt/wbWFATCfmpO6FmpaVn7U26K7ZLgNadN/feiCTJKOdN3+PAaR4WGdfBWxA+ebl3qLciihBGJJ77R+W7GysFX8ahI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iUfCTouM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789374946; c=relaxed/simple;
+	bh=Li73VYRhWbKmsxVeXEnSH3QkPyObARZNy6ZrbbFDRHg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MN4g3BPd0pR9Vl/EVABTkdaq5p4mNtdoiaxcTiSndZZZcrU0YccJG/rtw0A/juibiLsOcHmfg3tdx3o2ahS5uuZO5HbxtCk72eHENiZ0pjrL0IDR8sCe8HoIaNvAOG6dod72G1mNQE9aHtXYVLonBHbqBpopzxEJfFaZpNWm2AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrXx02p/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iUfCTouM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51E31F000FF;
-	Mon, 14 Sep 2026 08:34:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789374898;
-	bh=rxx8B1w3xIz3jG8+k/uTEDqQjidwEidLPqZwuCRaVj0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iUfCTouMNK5/y8ZQ8p46qIw7r+mgSaIdyFc4KaRHOitHm/mOWZA2AaJvRG7oJOau8
-	 gO4iAZUTNxjMy3DkjYYzbxnKRO8FdRh9/YrzAzOk8zDYhIKB3gc6lsVsnMY95YbndX
-	 hDCRsJnjy5yxRlYNuvT6Xjp5dMU3/npld62iAfaw=
-Date: Mon, 14 Sep 2026 10:34:48 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: CJ <firefly0158@163.com>
-Cc: oneukum@suse.com, n7l8m4@u.northwestern.edu, kees@kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] usb: mdc800: possible circular locking dependency between
- io_lock and minor_rwsem
-Message-ID: <2026091404-dipping-stubborn-b658@gregkh>
-References: <5c30f641.6b79.1a09ed8b2bf.Coremail.firefly0158@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrXx02p/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92CD81F0089D
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:35:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789374944;
+	bh=JCVjDkbQLFPdmT42ieE/D9gwThDVlwRuyUtdsBm7ClE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DrXx02p/lFBEhSn7NH0u38TVYG9WuR+dxmCWZcuPsVfVnDzR/7hsmOzbSmChbM14A
+	 gkufea8hSg+N+K+fyspiEnn/DX39Rbgcx1XVu1HU2RNdVrNLramMC8ySTkv404kryz
+	 XdH56e8XihY6CZYtxPUtKvcxJjqGgMeiVlbpBirvDS9RxzarWYi0ILoH39xVJoEKfW
+	 30Fz8yhbWMIBLDDWWiqDluWDffgHxG08QMuZUfO5armfZ9bDpnuYc1/nftke/Iz8N5
+	 3gSd9V14ONvXEGLro3UebOz9G5ZtOQ/gn7ttRaFgrmImCYxHe8hJG/dDs5H8dZPHNk
+	 nT9MSC1bwceyw==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f17452so1322024e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:35:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy/sQIztzwx4bOSBkMVr0nmP/oIsDeivlYz1DN0MuXRitV3Bt4MT4blqpR2b+zieHPX+VhH8QwTCkY0N20=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcaI8MGp3uq9Pk1n2r6Z02n+Sp/VsYeZzrB/LmC5rmPWxatWUY
+	n0KIxHGjGxsYOG4Be4ABgx1hlblbghnxIiie1paATzrRNkkFPM+kgu5CjqXWGpMMnkl5eTVacmK
+	dYmZPSdhOOd4wpcgwniTH8pinbK3W2XE=
+X-Received: by 2002:a05:6512:3d0b:b0:5b8:9b7e:4941 with SMTP id
+ 2adb3069b0e04-5b8ae69f2f1mr385616e87.45.1789374943281; Mon, 14 Sep 2026
+ 01:35:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5c30f641.6b79.1a09ed8b2bf.Coremail.firefly0158@163.com>
+References: <6A7910FC22A9FEF1+20260827015739.3314298-1-liudalin@kylinsec.com.cn>
+In-Reply-To: <6A7910FC22A9FEF1+20260827015739.3314298-1-liudalin@kylinsec.com.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 10:35:31 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=qWv14873iDQ7vvGPtdHosZarEY2XG4r7jaBeMZU2nTA@mail.gmail.com>
+X-Gm-Features: AcwNN1VO1mJUgmGkmDzeoood-mB4SIA0XA3D3cl5tdifQfTtvKGhkdNV6v0UL-4
+Message-ID: <CAD++jL=qWv14873iDQ7vvGPtdHosZarEY2XG4r7jaBeMZU2nTA@mail.gmail.com>
+Subject: Re: [PATCH] rtc: ftrtc010: fix clock resource leak on probe failure
+To: Liu Dalin <liudalin@kylinsec.com.cn>
+Cc: Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>, Qin Yungao <qinyungao@kylinsec.com.cn>, 
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 03:36:36PM +0800, CJ wrote:
-> 
-> Hi,
-> 
-> 
-> I am reporting a lockdep-detected circular locking dependency in the mdc800 USB
-> driver, triggered by a syzkaller USB reproducer.  The issue is reproducible with
-> HEAD commit cee9395acd8043be0644b25c34bfa86623f2b935 (v7.3-rc1, Linux
-> 7.3.0-rc1).
-> 
-> 
-> The reproducer connects a synthetic USB device through dummy_hcd that enumerates
-> as the mdc800 camera, then opens the character device node.  No filesystem or
-> image input is involved; the trigger is the connect-then-open sequence on a
-> device that binds to this driver.
-> 
-> 
-> Opening the device reaches mdc800_device_open through the USB character-device
-> file operations, and lockdep reports that the task is acquiring
-> &mdc800->io_lock while already holding minor_rwsem#2 taken by usb_open.  The
-> existing dependency chain in the report shows the opposite order, so the two
-> lock classes are recorded in both orders and lockdep declares a possible
-> circular dependency.
-> 
-> 
-> One possible cause is that the driver's private io_lock is acquired inside the
-> USB core's file-open path, which already holds the minor rwsem that guards the
-> driver binding, while another path takes the same two locks the other way
-> around.  This looks like a lock-ordering problem between a driver-private mutex
-> and the USB core file-layer lock rather than a use of a single lock.  I am
-> reporting the ordering as observed; the driver is legacy and possibly unused, so
-> if the intended fix is to keep the lock order, please treat this as a report of
-> the deadlock potential only.
-> 
-> 
-> This appears to be a recurrence of the syzbot issue whose external id is
-> 1050c0099ec5bfe7ee4e, title "possible deadlock in mdc800_device_open".  It
-> remains reproducible on v7.3-rc1.
-> 
-> 
-> Reproducer:
-> 
-> 
-> syz reproducer:
-> syz_usb_connect(0x2, 0x40, &(0x7f0000000000)=ANY=[@ANYBLOB="12010001000000085f0500a800010000000109022e0001010080320904000004ff00000007050102080000070582030800010705030240000007058402400000"], 0x0)
-> syz_open_dev$char_usb(0xc, 0xb4, 0x0)
-> 
-> 
-> console output: https://pastebin.com/raw/2jB0d1Lm
-> kernel config: https://pastebin.com/raw/YZiwabxk
-> 
-> 
-> Kernel:
-> 
-> 
-> HEAD commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> git tree: upstream (linux.git), tested through the v7.3-rc1 annotated tag object
->            e5e04726cdd043e309677071ab1b65a4b18f422b
-> kernel version: 7.3.0-rc1 #1 PREEMPT(full)
-> tested tag: v7.3-rc1 (Linux 7.3-rc1, 2026-08-30)
-> 
-> 
-> Let me know if you need more details or testing.
+On Thu, Aug 27, 2026 at 3:58=E2=80=AFAM Liu Dalin <liudalin@kylinsec.com.cn=
+> wrote:
 
-Great, can you provide fixes for this, and the other reports you just
-sent out?  Otherwise there's not much we really can do with this at the
-moment as we are drowning in real fixes, and probably don't have time to
-spend on reports-only.
+> When devm_rtc_register_device() fails, ftrtc010_rtc_probe() returns
+> the error directly without releasing clocks obtained via
+> clk_prepare_enable(). This leaks both extclk and pclk resources,
+> which may prevent subsequent probe attempts or module removal.
+>
+> Capture the return value and jump to the error handling path to
+> properly release clocks via clk_disable_unprepare().
+>
+> Fixes smatch warnings:
+> - drivers/rtc/rtc-ftrtc010.c:189 ftrtc010_rtc_probe() warn:
+>   'rtc->extclk' from clk_prepare_enable() not released on lines: 183.
+> - drivers/rtc/rtc-ftrtc010.c:189 ftrtc010_rtc_probe() warn:
+>   'rtc->pclk' from clk_prepare_enable() not released on lines: 183.
+>
+> Fixes: fdcfd854333b ("rtc: rework rtc_register_device() resource manageme=
+nt")
+> Assisted-by: smatch:2.0 [static analysis]
+> Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
 
-thanks,
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-greg k-h
+Yours,
+Linus Walleij
