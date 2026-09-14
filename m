@@ -1,83 +1,201 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FCE420468;
-	Mon, 14 Sep 2026 09:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9869E427F97;
+	Mon, 14 Sep 2026 09:22:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377771; cv=none; b=gnTRFFCf16gY/9BbOgQ97Y9ibMJu8Z9IZmQ/C1AraKUKHZ63tdmXI4YiNS/BQdYLBzi8sYsdtSDHKn406p1hPQilsS5wf52JwX9gfkCYMazIYwC0SO0KvAuaYf9ipfARGbReySV+YtxfuZaA/tNYoWkmQrTODj3hh7HObpDS7MA=
+	t=1789377774; cv=none; b=VwOfGAhlZOqc9FP2+VkFKBbppxWmsmzS4XrkeU/76AmX3D3z2vAryEc2mjKEzCw/bSVQDZDRPHGG+UAaMe5hjrErne9TbVjYm7ROzkV/VFpXLJUAIOoHBnEYKYmfPyNT1g0H68/+0m+RNRNFLFopTzqyzbDdmOpS/OQU04jaBAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377771; c=relaxed/simple;
-	bh=CTU6kNA4lhjUrkL83cra6S1TXKxMzbXLOeLDGAxzMm4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=erOB8PGXiGgB+cP4nuCbMXebc8wZug5zCc5agQ7VnNa4AM5sYxXujhLNZqDt7LYEtgSChwO9yyMRB568wfN5uqKNjjfYy3P4Gw7FXegiYuGzXbh0LjImbfzQEagL4cELcycsVnvG6u/0HCJq4mh6zVBAuoKJlRIm1nLm+4Cj2TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ADtFBfYY; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789377774; c=relaxed/simple;
+	bh=4iA14ccJ3tToIuW0JxnDcx57dEM9zZDephjwK3h1FOo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AYnMNuZU/8hhp97IogJ1Rbs+QDLe9oipAd2gjnxIFryNCoZG7uvZrLZA/k4KmcdCBXyOxiDEpYh9Icf+YggcY+BD3tqWqdiEhZETjnBJ5vT0NF4lRwoFERBG1LZ/k4zrgrVx2KPXl3af0OsSO8G+KlPpUiC3ebWgW7+EnA/KQJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ly3GpfFw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ADtFBfYY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1J
-	qaVddzxdKihEpgRpDLiYm4g+b7Lj4l7BuCdzKNB3U=; b=ADtFBfYYd9Pnx/LoCJ
-	MOZXhjN10mdPHXKX+xbt4b0duY4np/4cZwVkACKzVrsuydY4MAlwO8iK4fyh9VuH
-	i47g2Ql0+Zggtl4H7WKKL/qSOzqnDWwGkDMKIzanShcle75GwKfmJyArsQXInfac
-	BB0vLGhl9q8V7haSeqMOWPMUE=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wCn+t7QvKdq4+5bAg--.13501S2;
-	Mon, 14 Sep 2026 17:22:25 +0800 (CST)
-From: Jiahao Li <lijiahao202609@163.com>
-To: dsterba@suse.com,
-	mason@kernel.org
-Cc: linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiahao Li <lijiahao1@kylinos.cn>
-Subject: [PATCH v1] btrfs: discard: fix warning for discard_state
-Date: Mon, 14 Sep 2026 17:22:22 +0800
-Message-Id: <20260914092222.1465563-1-lijiahao202609@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ly3GpfFw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF4E1F00898;
+	Mon, 14 Sep 2026 09:22:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789377773;
+	bh=01qdzsZbCvqL8FdMyc8gaErER1nQlt9KVctHGyxLt4o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ly3GpfFwzeqQhFXL9RBRlnCm7i2lc8zMmNG887hohTHJaqD8g/j9dA3ALTIXiCc7V
+	 n1rgcFp60l3i46kUX3oZQj3hgEzc6RUT0XMEolGB06ew3zbQXzo4cnIHxAlnm0LRGw
+	 CWooH94Su/O3c7x7qvgpFLRpmZrX+Eexrw/N+8iWSaEQn3Cead8wexnhq2UBZa4b1K
+	 ujW28Kje65+Xapm6DH6iCM0tS2aBt45vrC0WpojZnc7aEZh2695vMJBcZfpjUlxga3
+	 r5qWdL4ijF9NuICsKsQvZZ+wepmbCWFVaXXljPh0ZVbI8Y+mXttaWEpr57R6Ophvft
+	 uVaqnM4zGZ/rQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 14 Sep 2026 10:22:03 +0100
+Subject: [PATCH v2 04/21] kbuild: do not sort nm output where the order is
+ irrelevant
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCn+t7QvKdq4+5bAg--.13501S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtryftFyruryxXw13GF47XFb_yoWkCwc_G3
-	WfGa4v9rnxtwsxJr1Fga15JFZYgw4jgrW7uw47Cw1UKa48J343Jas7KF4ayr1kWr1Uury3
-	trWSq3yjga17CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUeAMa5UUUUU==
-X-CM-SenderInfo: 5olmxthkdrjiiswqmqqrwthudrp/xtbC6RHnxGqnvNF57AAA3u
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-build-speedup-v2-4-39817ec5db23@kernel.org>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+In-Reply-To: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4994; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=4iA14ccJ3tToIuW0JxnDcx57dEM9zZDephjwK3h1FOo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKW79lvvuIH7+Pb6/wL96Qvm2S1cin3yoa1c8vcOaJZU
+ svWKajc6ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEXs9j+O/XeczQJsDwwG8b
+ 1g6H9hvb/96f0mUmULvj4uSUddz7qzcxMux+tPCIjbrOt4dHb7SxKyVIaNXdjWyac+Z23S7WiQb
+ 7n7EAAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Jiahao Li <lijiahao1@kylinos.cn>
+Unless instructed otherwise, nm sorts by name.
 
-Building with -Werror=mabe-uninitialized fails:
-fs/btrfs/discard.c:553:9: error: 'discard_state' may be used
-uninitialized [-Werror=maybe-uninitialized]
+There are places where this is unnecessary - an invocation from
+scripts/sorttable every vmlinux link, scripts/check-function-names.sh run
+after every vmlinux.o link, and the x86 VOFFSET and ZOFFSET listings
+between vmlinux and bzImage.
 
-The compiler cannot prove that discard_state is assigned on every path
-before it is read. Initialize it to BTRFS_DISCARD_EXTENTS, which is the
-state the variable holds when the loop is first entered, this does not
-change runtime behavior, so the warning is gone and the value is always
-well defined.
+Both GNU nm and llvm-nm accept the same '-p' parameter to disable sorting
+in these instances, so use that to prevent this unnecessary work.
 
-Signed-off-by: Jiahao Li <lijiahao1@kylinos.cn>
+Each nm run on its own, x86-64, median of 5:
+
+                             GNU nm 2.47              llvm-nm 22
+                          before  after   delta    before  after   delta
+  defconfig
+  sorttable, nm -S vmlinux 0.080s 0.039s -0.041s   0.265s 0.113s -0.152s
+  check-function-names.sh  0.072s 0.033s -0.039s   0.244s 0.102s -0.142s
+  VOFFSET                  0.077s 0.034s -0.043s   0.261s 0.113s -0.148s
+  ZOFFSET                  0.007s 0.005s -0.002s   0.005s 0.005s  0.000s
+  TOTAL                                  -0.125s                 -0.442s
+
+  allmodconfig
+  sorttable, nm -S vmlinux 0.156s 0.063s -0.093s   0.539s 0.223s -0.316s
+  check-function-names.sh  0.149s 0.054s -0.095s   0.537s 0.217s -0.320s
+  VOFFSET                  0.146s 0.052s -0.094s   0.524s 0.221s -0.303s
+  ZOFFSET                  0.007s 0.005s -0.002s   0.006s 0.004s -0.002s
+  TOTAL                                  -0.284s                 -0.941s
+
+llvm-nm appears to be a lot slower than GNU nm, so these builds naturally
+improve the most.
+
+The four run one after another in the serial tail of every build that links
+vmlinux so impact kernel builds directly.
+
+In an allmodconfig the decompressor is built in parallel while the modules,
+so only the two before the vmlinux link contribute to build time.
+
+The build outputs remain unchanged.
+
+Whole build, 128-thread Threadripper 9980X, best of N runs:
+
+                                          before    after     delta
+                                        ---------------------------------
+  x86 defconfig, touch mm/vma.c, gcc        9.7s     9.5s    -0.18s (-2%)
+  x86 defconfig, touch mm/vma.c, clang      9.3s     9.0s    -0.27s (-3%)
+  x86 defconfig, clean, gcc                30.3s    30.1s    -0.16s (-1%)
+  x86 defconfig, clean, clang              31.7s    31.2s    -0.55s (-2%)
+  x86 allmodconfig, touch mm/vma.c, clang  36.4s    35.8s    -0.67s (-2%)
+
+Assisted-by: LLM
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- fs/btrfs/discard.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/x86/boot/Makefile            | 2 +-
+ arch/x86/boot/compressed/Makefile | 2 +-
+ scripts/check-function-names.sh   | 3 ++-
+ scripts/link-vmlinux.sh           | 2 +-
+ 4 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/fs/btrfs/discard.c b/fs/btrfs/discard.c
-index 1c304bf473e5..413a804ff46b 100644
---- a/fs/btrfs/discard.c
-+++ b/fs/btrfs/discard.c
-@@ -519,7 +519,7 @@ static void btrfs_discard_workfn(struct work_struct *work)
+diff --git a/arch/x86/boot/Makefile b/arch/x86/boot/Makefile
+index 3f9fb3698d66..4a9bce32586d 100644
+--- a/arch/x86/boot/Makefile
++++ b/arch/x86/boot/Makefile
+@@ -74,7 +74,7 @@ SETUP_OBJS = $(addprefix $(obj)/,$(setup-y))
+ sed-zoffset := -e 's/^\([0-9a-fA-F]*\) [a-zA-Z] \(startup_32\|efi.._stub_entry\|efi\(32\)\?_pe_entry\|input_data\|kernel_info\|_end\|_ehead\|_text\|_e\?data\|_e\?sbat\|z_.*\)$$/\#define ZO_\2 0x\1/p'
+ 
+ quiet_cmd_zoffset = ZOFFSET $@
+-      cmd_zoffset = $(NM) $< | sed -n $(sed-zoffset) > $@
++      cmd_zoffset = $(NM) -p $< | sed -n $(sed-zoffset) > $@
+ 
+ targets += zoffset.h
+ $(obj)/zoffset.h: $(obj)/compressed/vmlinux FORCE
+diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+index 06934f9691d6..6ec5e031db1d 100644
+--- a/arch/x86/boot/compressed/Makefile
++++ b/arch/x86/boot/compressed/Makefile
+@@ -76,7 +76,7 @@ HOST_EXTRACFLAGS += -I$(srctree)/tools/include
+ sed-voffset := -e 's/^\([0-9a-fA-F]*\) [ABbCDGRSTtVW] \(_text\|__start_rodata\|_sinittext\|__inittext_end\|__bss_start\|_end\)$$/\#define VO_\2 _AC(0x\1,UL)/p'
+ 
+ quiet_cmd_voffset = VOFFSET $@
+-      cmd_voffset = $(NM) $< | sed -n $(sed-voffset) > $@
++      cmd_voffset = $(NM) -p $< | sed -n $(sed-voffset) > $@
+ 
+ targets += ../voffset.h
+ 
+diff --git a/scripts/check-function-names.sh b/scripts/check-function-names.sh
+index 08071133e5a5..94883e690627 100755
+--- a/scripts/check-function-names.sh
++++ b/scripts/check-function-names.sh
+@@ -13,7 +13,8 @@ if [ ! -f "$objfile" ]; then
+ 	exit 1
+ fi
+ 
+-bad_symbols=$(${NM:-nm} "$objfile" | awk '$2 ~ /^[TtWw]$/ {print $3}' | grep -E '^(startup|exit|split|unlikely|hot|unknown)(\.|$)')
++bad_symbols=$(${NM:-nm} -p "$objfile" | awk '$2 ~ /^[TtWw]$/ {print $3}' |
++	      grep -E '^(startup|exit|split|unlikely|hot|unknown)(\.|$)')
+ 
+ if [ -n "$bad_symbols" ]; then
+ 	echo "$bad_symbols" | while read -r sym; do
+diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
+index e88604150d2c..970ca10f8fa9 100755
+--- a/scripts/link-vmlinux.sh
++++ b/scripts/link-vmlinux.sh
+@@ -161,7 +161,7 @@ mksysmap()
+ 
+ sorttable()
  {
- 	struct btrfs_discard_ctl *discard_ctl;
- 	struct btrfs_block_group *block_group;
--	enum btrfs_discard_state discard_state;
-+	enum btrfs_discard_state discard_state = BTRFS_DISCARD_EXTENTS;
- 	int discard_index = 0;
- 	u64 trimmed = 0;
- 	u64 minlen = 0;
+-	${NM} -S ${1} > .tmp_vmlinux.nm-sort
++	${NM} -p -S ${1} > .tmp_vmlinux.nm-sort
+ 	${objtree}/scripts/sorttable -s .tmp_vmlinux.nm-sort ${1}
+ }
+ 
+
 -- 
-2.25.1
+2.55.0
 
