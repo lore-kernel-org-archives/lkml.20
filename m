@@ -1,52 +1,78 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBDA3B2FC0
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892103B3BE7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789429082; cv=none; b=OpFArh5apqjzH61TqIv98Yq2KT4I8WAVL/WJPcODGGQgSt4kZXjIbpc2Or6j9DPxuC0Y1j/XyD8Hr4rZiO00dl+wCfTeID1ZE53VP0QOzWQ2YB4SW0pFNoQ7Rv9ktsOHqJ3pY58pxaDSx5f79yY7CYQA/0dtRs8k7J2lc8NAUjI=
+	t=1789429203; cv=none; b=lyBslK/lWLnk02q1zo+yPcNbj9Y0ot71KMZVeKXJ2WfW18vdyhGkB9YLeELDqg8b5UfhWVBmXbQ8DijkVKNMdY875uI17n0Lo4n49vibsHkvC/LKET/eVV53GQHzpKM/ikQZemSWA+jfHpGJN7puyCuM13sy7O12Vcpmbwe1k5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789429082; c=relaxed/simple;
-	bh=+3l6/hAEENAGMfP0VLMsxBy7amHlxZeguhGYIxUPpQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PwUlV9nDKwSZrWJUMRLVRjNjTyMOjt3WgRJjPQ1MT1+EupY43wsFLMUwz50qZGn68Vu8HnKbjkqDnlGdjZI2wG2AmGp4YhXPaNQAW8t9FCOmgV2MqOCXfwsEdoMUNYdFQHQnabI3aeMmC3xyDUx244sbH/uhAs+I7syhVLpv5mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc; spf=pass smtp.mailfrom=vasily.cc; dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b=nTa40stb; arc=none smtp.client-ip=109.224.244.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vasily.cc
+	s=arc-20240116; t=1789429203; c=relaxed/simple;
+	bh=3jb2/kWVNJl9v3Hi/zcI5iwfRsCGdIVq1NO79epUrUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bx2tLKzXEfX+paNFbFoiestLxLY3EmZjhD/FaNTgUA2P/9x5W11l8JA52xWiTEStW+rX2rhZCUV4ZtLcJdP1BbyVn+INmHGSQMrJcyOz6qA6vPcodvOdJJzYd//cbXgGdSpCvAom9munievaZtJBqLbhlB8bNaDPuG3l0xvjubI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=gRWOfMoT; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b="nTa40stb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vasily.cc;
-	s=protonmail2; t=1789429074; x=1789688274;
-	bh=DXm57IH84I+Z/2Zqi7VYiba7Lxjq0R6Hm6M0atmougI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=nTa40stbC9pZ4JqmpArr/raEydGcvDhQugLHNtBZU3YLTbF1aPG+gswXAFciA4OHd
-	 l7D25nbDdnttwDCQtDJHOWldSvFm/2OmVTdOLfERG13qHCOTqS2m2nkjDrEG6OVFSH
-	 pTTCBhYRhgSdAMbOKbTg5uGajJx/uXYNju/7HXwglB48uqzHVKEO+MjMCxJglzuBg9
-	 XQx2u6SbdbnKv1B24PpqLtAHODJxn6zkSfbggTHcFIu/B/dmDhlnD4TER34kiZ+Kv4
-	 w7akFmzO+3IIJNkBqyJRnAtthBG1Vejxs1atdTyoMHy0970MvfNJZ2sge9VaEm1TaK
-	 bxlj5OAhRSUPA==
-X-Pm-Submission-Id: 4hkM5X2cdLz1DDX8
-From: Vas Zayarskiy <contact@vasily.cc>
-To: linux@roeck-us.net,
-	Aleksa Savic <savicaleksa83@gmail.com>,
-	Jack Doan <me@jackdoan.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-input@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="gRWOfMoT"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66bd7857841so3795359d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:40:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789429200; x=1790034000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3rY1dPCRtDEmpHY0DiIJuGYxM6bzqcXBiN17JhjWu5s=;
+        b=gRWOfMoTsl34ONkRfjvayuPv1zeT9XJUKQuesk6WqhbK+gvdg6vuR1iqET2pHQ/NPb
+         QY2kPT43RkcWervZo/nBZ7RC6FteWsgrPHIrxLlig0Q+myGuq320mtZztVG+YzFvzFZ4
+         MIffdJS/Df6hbptLfdOOBibo3OAKcBwNXp2D64SiOWGR8wulu8NLuagpz2SowvTDBlOs
+         2IiVpjiIryuOkEsq2777pDAweSY3A9kFgeiarpncEVGED6Ux538DsDbkiyUCPXB7zSpJ
+         QuhfQIOmi9+hSbkdm6g5CHB+OPLS3i1A9m8BiG1QJZXuNMhhHnAOqq3rdupmMZkJddlX
+         xqxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789429200; x=1790034000;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3rY1dPCRtDEmpHY0DiIJuGYxM6bzqcXBiN17JhjWu5s=;
+        b=M2zvdZcEZaoGPs5ZmAlv9NE4dr2ww5F8oOpDjdV+TSOvB3fchHChgQNOsEKaA7hz0r
+         0IzSCbHzBPx0LMGdAC7V0C+6VCtwIqTv6RFnFTuvu8al+TABKw7qEmABAMZ7TsVGcHN+
+         kADzQC1fQruAsdUfiT+e7jeNgWQu2q+9n+zVctLm+um49SphQJl9u6qMeJfNJtUhhiA+
+         yQ/tUve4eTBsYT7VW5Q4Jnx5wa8kWh6P9dOFCcsCBTyQVWJyFmMDVow0cTCc+V3KZCI3
+         fDtDuv0sH9JZxT1rsrJA6dNLtxGth7ic1vRkVXUtJtdQKiu11S6EHOLid2CtAJo0L/cR
+         EXEw==
+X-Forwarded-Encrypted: i=1; AKwUvByo26DGYTsd5x3hFWSBDf3jYwP3xIcln2qq2CIAb4bXwWF/dDu/4ZskeSyafJGDE0kBAtnUKRKYGwLa420=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndJdQXQYMVT3UVo7ePE1Q9EPi1PE2YQuQ/vZhSS4rZ3twpvtAz
+	nKfM2u6NvISvSFe6LmvYonSTkTUJpEkvv8aElGcky/WJRv9tTKFjkPkWE/pDbyXlQmM=
+X-Gm-Gg: AYBFou21So7IDWm8oPMi3USMCjIehlOmTF6wpdYfnzlcK7ybCkPno+iZIWfqWj7CD8w
+	zcYnuVhpO+V//uTv+nfDrmjjI7PNAVqm/GFKU09BvjqiUcuovBgaGHgvVLiAS/E18omnx+Fbwv1
+	LqGhZJGh9wyxUkw4SEs7DHxLM2gEDIywGDQXunnmE3DiZxjAGpH2HAVTpFLgeC6DbXlw0jLwxR0
+	tgzfLKwEWfxEpu7XWqBbDIA+in6uD1lUsEllsSU/WttDSFH3KKfxXPEY2mc5dCXtTzVPHYnpGoM
+	zS9/xrph66GnKy0qYTywPXrVT74FXX78RzzU0+A8oxUJ2sYCY+HSNWYHkEBSZwYJ7KUq6GsU1G7
+	irkDwFOGXe5E9QMlqHZlWk8qBrpuhqOUR7lMELV/8rZtiCUbgYDb5DWpmKdTz6IPrwMB/NSnuK7
+	EtLiSIqArFGwBR6o9Q8loC9q1WhipY+oMRRML3nMKs1daJD0qoBZseYQFdijt7NIrFsDemnmGuU
+	/T1Rc6phtUThelKXXsJXS7UjQa2NXCB7px3Ni/jSuuWb95wzkIZvJ6tKMa5JqPTrUqixdU6yctt
+	saAOSZQzwGJGM/Dng6OZVCsWMykr
+X-Received: by 2002:a05:690e:168e:b0:66e:62cb:bb6e with SMTP id 956f58d0204a3-6714dfca5b6mr1685285d50.11.1789429200102;
+        Mon, 14 Sep 2026 16:40:00 -0700 (PDT)
+Received: from pop-os.attlocal.net ([2600:1700:6476:1430:df87:8743:655b:3824])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125e3fa87sm5207804d50.14.2026.09.14.16.39.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 16:39:59 -0700 (PDT)
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	hch@lst.de
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: [PATCH v3 4/4] hwmon: (aquacomputer_d5next) Add AMPINEL support
-Date: Tue, 15 Sep 2026 02:37:28 +0300
-Message-ID: <20260914233728.22725-5-contact@vasily.cc>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260914233728.22725-1-contact@vasily.cc>
-References: <20260914233728.22725-1-contact@vasily.cc>
+	vdubeyko@coreweave.com,
+	willy@infradead.org,
+	brauner@kernel.org,
+	djwong@kernel.org,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Subject: [PATCH v4 0/7] hfsplus: convert regular file I/O to iomap-based operations
+Date: Mon, 14 Sep 2026 16:39:34 -0700
+Message-ID: <20260914233941.2966421-1-slava@dubeyko.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,317 +81,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add read-only total power, total current, input voltage, hotspot
-temperature and six channel currents for the Aquacomputer AMPINEL.
+This series moves HFS+ regular file data I/O off the legacy
+buffer_head/blockdev_direct_IO() path onto iomap-based operations with
+the goal to retire the older buffer_head-based direct I/O infrastructure.
 
-Decode its 544-byte input report through the existing serial-number,
-temperature and update path, with power, current and voltage handled in
-the device-specific switch. Store all readings in hwmon units.
+v2
+Christoph Hellwig has detected that taking the page lock around
+the kmap/modify/kunmap section is not enough on its own:
+writeback drops the page lock before the write actually completes,
+so a mutator that only waits on the lock can still start rewriting
+a page whose old contents are still in flight to the device.
+Mark the allocation file's mapping with mapping_set_stable_writes()
+and call folio_wait_stable() right after taking the page lock in
+both functions, so a mutator also waits out any writeback that was
+already in progress when it acquired the lock.
 
-Match only the USB telemetry interface, leaving the separate keyboard
-interface to hid-generic. Validate the telemetry collection and report
-size before opening the device. Channel labels follow report order;
-configuration and alarms are not supported.
+Christoph Hellwig suggested to introduce a generalized version
+of iomap_dio_end_io() that was placed into include/linux/iomap.h.
 
-Assisted-by: LLM sparse
-Signed-off-by: Vas Zayarskiy <contact@vasily.cc>
----
- Documentation/hwmon/aquacomputer_d5next.rst |  11 ++
- drivers/hwmon/Kconfig                       |   4 +-
- drivers/hwmon/aquacomputer_d5next.c         | 107 +++++++++++++++++++-
- 3 files changed, 116 insertions(+), 6 deletions(-)
+The hfsplus_btree_aops uses hfsplus_btree_read_folio() and
+hfsplus_btree_writepages() methods. The hfsplus_symlink_aops
+uses hfsplus_symlink_read_folio() and hfsplus_symlink_writepages()
+methods. Also, hfsplus_setattr() doesn't distinguish the regular
+and not regular file cases anymore.
 
-diff --git a/Documentation/hwmon/aquacomputer_d5next.rst b/Documentation/hwmon/aquacomputer_d5next.rst
-index 49163f387..faf1c51c1 100644
---- a/Documentation/hwmon/aquacomputer_d5next.rst
-+++ b/Documentation/hwmon/aquacomputer_d5next.rst
-@@ -13,6 +13,7 @@ Supported devices:
- * Aquacomputer Quadro fan controller
- * Aquacomputer High Flow Next sensor
- * Aquacomputer Leakshield leak prevention system
-+* Aquacomputer AMPINEL power monitor
- * Aquacomputer Aquastream XT watercooling pump
- * Aquacomputer Aquastream Ultimate watercooling pump
- * Aquacomputer Poweradjust 3 fan controller
-@@ -69,6 +70,16 @@ The Aquastream XT pump exposes temperature readings for the coolant, external se
- and fan IC. It also exposes pump and fan speeds (in RPM), voltages, as well as pump
- current.
- 
-+The AMPINEL exposes total power, total current, input voltage, hotspot
-+temperature and six channel currents. Channel numbers follow report order;
-+their mapping to physical connector pins has not been verified. The readings
-+are received approximately twice per second. Only sensor reads are supported;
-+the driver does not configure protection settings or report alarms.
-+
-+For AMPINEL, ``power1_input`` is total power, ``in0_input`` is input voltage,
-+``temp1_input`` is hotspot temperature, ``curr1_input`` is total current, and
-+``curr[2-7]_input`` are the six channel currents.
-+
- The Aquastream Ultimate pump exposes coolant temp and an external temp sensor, along
- with speed, power, voltage and current of both the pump and optionally connected fan.
- It also exposes pressure and flow speed readings.
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 3d8b2c958..06cb246ff 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -257,14 +257,14 @@ config SENSORS_AHT10
- 	  will be called aht10.
- 
- config SENSORS_AQUACOMPUTER_D5NEXT
--	tristate "Aquacomputer D5 Next, Octo, Quadro, Farbwerk, Farbwerk 360, High Flow Next"
-+	tristate "Aquacomputer D5 Next and other USB devices"
- 	depends on USB_HID
- 	select CRC16
- 	help
- 	  If you say yes here you get support for sensors and fans of
- 	  the Aquacomputer D5 Next watercooling pump, Octo and Quadro fan
- 	  controllers, Farbwerk and Farbwerk 360 RGB controllers, High Flow
--	  Next sensor, where available.
-+	  Next sensor and AMPINEL power monitor, where available.
- 
- 	  This driver can also be built as a module. If so, the module
- 	  will be called aquacomputer_d5next.
-diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
-index b58f5b5c9..e661c4dfa 100644
---- a/drivers/hwmon/aquacomputer_d5next.c
-+++ b/drivers/hwmon/aquacomputer_d5next.c
-@@ -2,7 +2,7 @@
- /*
-  * hwmon driver for Aquacomputer devices (D5 Next, Farbwerk, Farbwerk 360, Octo,
-  * Quadro, High Flow Next, Aquaero, Aquastream Ultimate, Leakshield,
-- * High Flow USB/MPS Flow family)
-+ * High Flow USB/MPS Flow family, AMPINEL)
-  *
-  * Aquacomputer devices send HID reports (with ID 0x01) every second to report
-  * sensor values, except for devices that communicate through the
-@@ -23,6 +23,7 @@
- #include <linux/module.h>
- #include <linux/seq_file.h>
- #include <linux/unaligned.h>
-+#include <linux/usb.h>
- 
- #define USB_VENDOR_ID_AQUACOMPUTER	0x0c70
- #define USB_PRODUCT_ID_AQUAERO		0xf001
-@@ -33,6 +34,7 @@
- #define USB_PRODUCT_ID_OCTO		0xf011
- #define USB_PRODUCT_ID_HIGHFLOWNEXT	0xf012
- #define USB_PRODUCT_ID_LEAKSHIELD	0xf014
-+#define USB_PRODUCT_ID_AMPINEL		0xf015
- #define USB_PRODUCT_ID_AQUASTREAMXT	0xf0b6
- #define USB_PRODUCT_ID_AQUASTREAMULT	0xf00b
- #define USB_PRODUCT_ID_POWERADJUST3	0xf0bd
-@@ -41,7 +43,7 @@
- enum kinds {
- 	d5next, farbwerk, farbwerk360, octo, quadro,
- 	highflownext, aquaero, poweradjust3, aquastreamult,
--	aquastreamxt, leakshield, highflow
-+	aquastreamxt, leakshield, highflow, ampinel
- };
- 
- static const char *const aqc_device_names[] = {
-@@ -56,7 +58,8 @@ static const char *const aqc_device_names[] = {
- 	[aquaero] = "aquaero",
- 	[aquastreamult] = "aquastreamultimate",
- 	[poweradjust3] = "poweradjust3",
--	[highflow] = "highflow" /* Covers MPS Flow devices */
-+	[highflow] = "highflow", /* Covers MPS Flow devices */
-+	[ampinel] = "ampinel"
- };
- 
- #define DRIVER_NAME			"aquacomputer_d5next"
-@@ -111,6 +114,16 @@ static u8 aquaero_secondary_ctrl_report[] = {
- #define AQC_FAN_POWER_OFFSET		0x06
- #define AQC_FAN_SPEED_OFFSET		0x08
- 
-+/* AMPINEL offsets include the report ID byte. */
-+#define AMPINEL_DATA_INTERFACE		1
-+#define AMPINEL_STATUS_REPORT_SIZE	544
-+#define AMPINEL_NUM_CHANNELS		6
-+#define AMPINEL_CHANNEL_CURRENT_START	0x6f
-+#define AMPINEL_POWER			0xc7
-+#define AMPINEL_CURRENT			0xc9
-+#define AMPINEL_VOLTAGE			0xcf
-+#define AMPINEL_HOTSPOT			0xe1
-+
- /* Specs of the Aquaero fan controllers */
- #define AQUAERO_SERIAL_START			0x07
- #define AQUAERO_FIRMWARE_VERSION		0x0B
-@@ -516,6 +529,24 @@ static const char *const label_highflow_speeds[] = {
- 	"Flow speed [dL/h]"
- };
- 
-+static const char *const label_ampinel_temp[] = {
-+	"Hotspot"
-+};
-+
-+static const char *const label_ampinel_power[] = {
-+	"Total power"
-+};
-+
-+static const char *const label_ampinel_voltage[] = {
-+	"VCC In"
-+};
-+
-+static const char *const label_ampinel_current[] = {
-+	"Total current",
-+	"Channel 1", "Channel 2", "Channel 3",
-+	"Channel 4", "Channel 5", "Channel 6"
-+};
-+
- struct aqc_fan_structure_offsets {
- 	u8 voltage;
- 	u8 curr;
-@@ -869,6 +900,10 @@ static umode_t aqc_is_visible(const void *data, enum hwmon_sensor_types type, u3
- 		break;
- 	case hwmon_power:
- 		switch (priv->kind) {
-+		case ampinel:
-+			if (channel == 0)
-+				return 0444;
-+			break;
- 		case aquastreamult:
- 			/* Special case to support pump and fan power */
- 			if (channel < 2)
-@@ -889,6 +924,10 @@ static umode_t aqc_is_visible(const void *data, enum hwmon_sensor_types type, u3
- 		break;
- 	case hwmon_curr:
- 		switch (priv->kind) {
-+		case ampinel:
-+			if (channel < AMPINEL_NUM_CHANNELS + 1)
-+				return 0444;
-+			break;
- 		case aquastreamult:
- 			/* Special case to support pump and fan current */
- 			if (channel < 2)
-@@ -907,6 +946,10 @@ static umode_t aqc_is_visible(const void *data, enum hwmon_sensor_types type, u3
- 		break;
- 	case hwmon_in:
- 		switch (priv->kind) {
-+		case ampinel:
-+			if (channel == 0)
-+				return 0444;
-+			break;
- 		case d5next:
- 			/* Special case to support +5V and +12V voltage sensors */
- 			if (channel < priv->num_fans + 2)
-@@ -1336,12 +1379,17 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
- 		return 0;
- 
- 	priv = hid_get_drvdata(hdev);
-+	if (priv->kind == ampinel &&
-+	    (report->type != HID_INPUT_REPORT || size != AMPINEL_STATUS_REPORT_SIZE ||
-+	     data[0] != STATUS_REPORT_ID))
-+		return 0;
- 
- 	/* Info provided with every report */
- 	priv->serial_number[0] = get_unaligned_be16(data + priv->serial_number_start_offset);
- 	priv->serial_number[1] = get_unaligned_be16(data + priv->serial_number_start_offset +
- 						    SERIAL_PART_OFFSET);
--	priv->firmware_version = get_unaligned_be16(data + priv->firmware_version_offset);
-+	if (priv->firmware_version_offset)
-+		priv->firmware_version = get_unaligned_be16(data + priv->firmware_version_offset);
- 
- 	/* Physical temperature sensor readings */
- 	for (i = 0; i < priv->num_temp_sensors; i++) {
-@@ -1394,6 +1442,17 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
- 
- 	/* Special-case sensor readings */
- 	switch (priv->kind) {
-+	case ampinel:
-+		priv->power_input[0] =
-+			min_t(u64, get_unaligned_be16(data + AMPINEL_POWER) * 100000ULL,
-+			      LONG_MAX);
-+		priv->current_input[0] = get_unaligned_be16(data + AMPINEL_CURRENT) * 10;
-+		for (i = 0; i < AMPINEL_NUM_CHANNELS; i++)
-+			priv->current_input[i + 1] =
-+				get_unaligned_be16(data + AMPINEL_CHANNEL_CURRENT_START +
-+						   i * AQC_SENSOR_SIZE);
-+		priv->voltage_input[0] = get_unaligned_be16(data + AMPINEL_VOLTAGE);
-+		break;
- 	case aquaero:
- 		/* Read calculated virtual temp sensors */
- 		i = priv->num_temp_sensors + priv->num_virtual_temp_sensors;
-@@ -1519,8 +1578,26 @@ static void aqc_debugfs_init(struct aqc_data *priv)
- 		debugfs_create_file("power_cycles", 0444, priv->debugfs, priv, &power_cycles_fops);
- }
- 
-+static bool aqc_match(struct hid_device *hdev, bool ignore_special_driver)
-+{
-+	struct usb_interface *intf;
-+
-+	if (ignore_special_driver || hdev->quirks & HID_QUIRK_IGNORE_SPECIAL_DRIVER)
-+		return false;
-+
-+	if (hdev->product != USB_PRODUCT_ID_AMPINEL)
-+		return true;
-+
-+	if (!hid_is_usb(hdev))
-+		return false;
-+
-+	intf = to_usb_interface(hdev->dev.parent);
-+	return intf->cur_altsetting->desc.bInterfaceNumber == AMPINEL_DATA_INTERFACE;
-+}
-+
- static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- {
-+	struct hid_report *report;
- 	struct aqc_data *priv;
- 	int ret;
- 
-@@ -1537,6 +1614,14 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	if (ret)
- 		return ret;
- 
-+	if (hdev->product == USB_PRODUCT_ID_AMPINEL) {
-+		report = hdev->report_enum[HID_INPUT_REPORT].report_id_hash[STATUS_REPORT_ID];
-+		if (hdev->maxcollection != 1 ||
-+		    hdev->collection[0].usage != (HID_UP_MSVENDOR | 1) ||
-+		    !report || report->size != (AMPINEL_STATUS_REPORT_SIZE - 1) * 8)
-+			return -ENODEV;
-+	}
-+
- 	ret = hid_hw_start(hdev, HID_CONNECT_HIDRAW);
- 	if (ret)
- 		return ret;
-@@ -1546,6 +1631,15 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		goto fail_and_stop;
- 
- 	switch (hdev->product) {
-+	case USB_PRODUCT_ID_AMPINEL:
-+		priv->kind = ampinel;
-+		priv->num_temp_sensors = 1;
-+		priv->temp_sensor_start_offset = AMPINEL_HOTSPOT;
-+		priv->temp_label = label_ampinel_temp;
-+		priv->power_label = label_ampinel_power;
-+		priv->voltage_label = label_ampinel_voltage;
-+		priv->current_label = label_ampinel_current;
-+		break;
- 	case USB_PRODUCT_ID_AQUAERO:
- 		/*
- 		 * Aquaero presents itself as three HID devices under the same product ID:
-@@ -1795,6 +1889,9 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	}
- 
- 	switch (priv->kind) {
-+	case ampinel:
-+		priv->serial_number_start_offset = AQC_SERIAL_START;
-+		break;
- 	case aquaero:
- 		priv->serial_number_start_offset = AQUAERO_SERIAL_START;
- 		priv->firmware_version_offset = AQUAERO_FIRMWARE_VERSION;
-@@ -1890,6 +1987,7 @@ static const struct hid_device_id aqc_table[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_QUADRO) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_HIGHFLOWNEXT) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_LEAKSHIELD) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_AMPINEL) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_AQUASTREAMXT) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_AQUASTREAMULT) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_POWERADJUST3) },
-@@ -1902,6 +2000,7 @@ MODULE_DEVICE_TABLE(hid, aqc_table);
- static struct hid_driver aqc_driver = {
- 	.name = DRIVER_NAME,
- 	.id_table = aqc_table,
-+	.match = aqc_match,
- 	.probe = aqc_probe,
- 	.remove = aqc_remove,
- 	.raw_event = aqc_raw_event,
+v3
+Matthew Wilcox recommended to use folio_wait_writeback()
+instead of folio_wait_stable().
+
+Fix failures in generic/091, generic/521, and generic/551.
+
+v4
+Fix failure in generic/363 test-case.
+
+Viacheslav Dubeyko (7):
+  hfs/hfsplus: exchange hardcoded number of extents on named constants
+  hfsplus: rework hfsplus_get_block() logic
+  hfsplus: take the bitmap page lock for allocate/free
+  hfsplus: add iomap operations for regular file data
+  hfsplus: move file related operations to file.c
+  hfsplus: introduce iomap-based file_operations
+  hfsplus: switch address_space_operations on iomap-based support
+
+ fs/hfsplus/Kconfig         |   2 +-
+ fs/hfsplus/Makefile        |   5 +-
+ fs/hfsplus/bitmap.c        |  18 +++
+ fs/hfsplus/extents.c       | 165 ++++++++++++++------
+ fs/hfsplus/file.c          | 304 +++++++++++++++++++++++++++++++++++++
+ fs/hfsplus/hfsplus_fs.h    |  26 +++-
+ fs/hfsplus/inode.c         | 282 +++++++++++-----------------------
+ fs/hfsplus/iomap.c         | 190 +++++++++++++++++++++++
+ fs/hfsplus/iomap.h         |  18 +++
+ include/linux/hfs_common.h |   8 +-
+ include/linux/iomap.h      |  20 +++
+ 11 files changed, 787 insertions(+), 251 deletions(-)
+ create mode 100644 fs/hfsplus/file.c
+ create mode 100644 fs/hfsplus/iomap.c
+ create mode 100644 fs/hfsplus/iomap.h
+
+-- 
+2.43.0
+
