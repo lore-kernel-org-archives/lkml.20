@@ -1,75 +1,113 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB45F40F8ED
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7BA411FBE
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376152; cv=none; b=YWpg7Ue5A+h15INzPkUfiXIo/Xwb0XVfsBJoxVTNiyvkbHs3qwY2VyAOP8tEm2xXCGxTNEj7j/7FEP+ahaFnsXx0vTpyRgbIhcIuqNWbJjOAlOe6yUmvEeDqeOHEWyTmMAmCN36OHlzMOMZNSjDKYppOmF+w8TXtQUr9BQG3Abo=
+	t=1789376164; cv=none; b=XI/LcWmhq/RlDK+k+Dg/6quNOf2DAkjroGoqou2+/89xWBalaHv8MOh5gtzk9BOAXpMFKz0y4Q/jHBSKqR3KsNeLcRv7OcVwL21JdMtRMZAyElTkPpSvcnZSuWIpTOa44DKuzrfSEjzE83xXHUAKIysmjj8nG18c8MxYcp9kxA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376152; c=relaxed/simple;
-	bh=E0I4+1zjVaGtHBBgVF5m2R5LFqDQLIExOzrMaDAt7Jg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sSe0ENgAK1zwrIzsB6NtWXcUx3QaATjCDRjy0rSJkWw5qM2QAPDma2/sUfR32RJbZHbObXAokczm1f8KbdNLrBtlvsXo8IYdWpwO9eNhycfnveGRdGEtSPzSrxX9HBQz3ngTm95l3/sVISzikNAJkkwQYzMYvVtMT5WD/7yxCo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=gSgIJGF8; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789376164; c=relaxed/simple;
+	bh=2AYNHPYR8DvZ2JE4B5Z+TBHCYoIrFkkHKs6JSZq0e6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GEiz145UMtdkfBjH9AsLPBqaf2cMS0iT0sS0QnV/qfttOi+ZuaNLKkVIoK4TydEyyJJ5LRvzPBHe6FCb1mC5jT4JZ0qwffKrGJapff700Ni/mD7DTDH9DtBId+JphTteS4LYTHJsOR/ecaxt/T5uqtjs3RRPrb2JP715VfEJiHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eODMheeK; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="gSgIJGF8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=rCSDCI54rDk5QxqbHLAUTAiw9+q7sYSzEssr70c74NM=; b=gSgIJGF86MBPrCmR4ME2td6ZYl
-	Mn2Q+fT6F+U1OTWErEkV6MikSeHHRtlD2iwOTYO4wIkIgsNznXD4FL45ciWf5eSy2uWQKWrfyElfJ
-	wJJB3NA8PYcQy0NU6X8zF0/eGVESEa6GVsocbgZ4q+n1VR+xTCyuQ08KB9/FfVzOhNItzHF6hROL+
-	lKbg5FP16ye7U8au5nA5m3zsL4a6ArDDq+oI7DPwcm+F6OPI4yZDZkoeqoZmOCcIC2TkP01oviEzz
-	EFxtDdh4J5XU36Ds2hIVcWfjsBiMLkwNAu0IIEFKMC+ezO1GxQCVIdE5LCwynEwIo4k2sIIhKA3v4
-	9a3776XA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x62TT-003V4V-2f;
-	Mon, 14 Sep 2026 08:55:40 +0000
-Date: Mon, 14 Sep 2026 01:55:36 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: tj@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] tools/workqueue/wq_dump.py: Add busy worker
- inspection and BH pool states
-Message-ID: <aqe2MTga350uAoos@gmail.com>
-References: <20260911210625.535285-1-atomlin@atomlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eODMheeK"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2dd6665a10fso6220695ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789376156; x=1789980956; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lgNNFPbS45QrfrwS2UlBvdfwDy06m3LBDa/zfVAjFa8=;
+        b=eODMheeKNUy2rphMojiQGxlLs8Uzx8QLR2MjUrClsavf25XC7T7FZDkQxHlAxsk5hU
+         4R5UClfqxka3a+9M8MzSPi3iszZJUy4ik3fbDegyZNOwyAOAtPdxuf5P74kJExexN1Ma
+         RWHMDBH5VyIwHLuVRQLYyAF96m1PiZ5hV/sfdUR/ONs/gK9+aTpiCPJ1dSfiUrxDdXsS
+         EIMmUn/4a57AIXexvSH1hpweNRPvtq9dPkZHl5VXFM8cgBX4CVFpb0Xrr+gf8hGB56aR
+         rwiFBsLS5yfM3MVpO4V09++NqZZeo17yvioYku152O8AxEdHKP5sR+X9hGaxAojInRv/
+         uOHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789376156; x=1789980956;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lgNNFPbS45QrfrwS2UlBvdfwDy06m3LBDa/zfVAjFa8=;
+        b=Qcs5buc8KS1zP7uV9u/espmioLf+sSv1uoaz5TDFUSKH3kQeNOVByTpkWB53mthZ3f
+         84sPqvyh3PPeoiLq9ma37tKsbTCgG0PtPZ7OukMUMEQLj6Quz0uRFCrMPXUgG0xzbt3G
+         WVvTDUvr7p0AcX/uUSanMpllnz7+LO4wDWbavNCYb4cUoKrFw73iI0/8HG88jC/H2oyv
+         H0itoLIN2Y6VgWOt9ndSMSIs59SUMOKwPOhscOnzFWQfFNDM7xvOFHZ+v/th6pqVdKTW
+         bxQPmY31p76+ahAPMXSzS7S2i2+t8AnN5Cvhr3BhvZ0bnYhXGPKs7U8VqOeA+tJccczS
+         kSbQ==
+X-Gm-Message-State: AFuF++mu2nWlZXsECPM9DjWpIvOR4C7JoKtuI5LZ20qCZIdOL4qHnY4x
+	xj6ikJJuKisTDvvBjJhcjnNhZ+Cy//NyObMqApDiEV2jOi7TbNuMGmQ=
+X-Gm-Gg: AYBFou3C+jeCIi7YK2zgTlGOQieXVRsnpztZhutGyqwjTi5pcC+bFWBNBYhpgYOSavF
+	syoYQwlAzJeQqpy/kgsUvShKh+Q3wIdZGui+txSxmj3jrYp8eUHfybY5PqGPhGQzMx3V52Vl/W1
+	6lEcUAt3E12xNIC5/N2JRWvudZ/xKpVQ9uvfZToO29bn4dHZzrbIZqYnMJhgpQTlpe5EvA+a5S5
+	v/f6rq95PBv+EZ1Ui79BY+9/Cke38VA+RPfJUnnOg3Y31A1fanPtGibO9nrTIFn0KLNipppwBKs
+	hRs22nLDHvKEmOtxMb0+F0hT1cYxw8Dvu6AKX8HX97CHcmiSEcXD5toZS4brjFw5ok6qTOU39Df
+	LU5JRRDKlHSLn1lvhg+aCb3k+PkqSn26/b7JFQZEw8CX0NViNpC3EpEVSqP/RtJXP18v2S+ZOCf
+	QKROJ6SkfWZpvB9c9qUbz0zieY/hiSJIWwBcq6VeB3zXmQfmfNQA9ZOUuQTNUgsK1p8cM+rBOtz
+	hoOa6F6Z02A
+X-Received: by 2002:a17:902:e950:b0:2dd:3d1a:6958 with SMTP id d9443c01a7336-2dd6c5f4ef5mr37059965ad.6.1789376156080;
+        Mon, 14 Sep 2026 01:55:56 -0700 (PDT)
+Received: from DL2XHKPB4.dl.net ([103.63.104.162])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfd8c84sm44569105ad.62.2026.09.14.01.55.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 01:55:55 -0700 (PDT)
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+To: linux@roeck-us.net,
+	tzungbi@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	triet.hoang.dev@gmail.com,
+	wim@linux-watchdog.org
+Subject: [PATCH v2 0/8] watchdog: Convert drivers to DEFINE_SIMPLE_DEV_PM_OPS()
+Date: Mon, 14 Sep 2026 15:54:43 +0700
+Message-ID: <20260914085451.891675-1-triet.hoang.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911210625.535285-1-atomlin@atomlin.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 05:06:25PM -0400, Aaron Tomlin wrote:
-> @@ -176,6 +202,40 @@ for pi, pool in idr_for_each(worker_pool_idr):
->              print(' strict', end='')
->      print('')
->  
-> +    if args.busy:
-> +        for bkt in pool.busy_hash:
-> +            for worker in hlist_for_each_entry('struct worker', bkt.address_of_(), 'hentry'):
-> +                for _ in range(3):
-> +                    try:
-...
-> +                    except Exception:
-> +                        continue
+This series converts the watchdog drivers to use DEFINE_SIMPLE_DEV_PM_OPS()
+and pm_ptr().
 
-Is a bare except the right scope here? It swallows all other silly
-exceptions, so a typo anywhere in this block makes -b print nothing at
-all instead of failing. 
+This is a straightforward cleanup with no functional change intended.
 
-I would go for drgn.FaultError and LookupError, these two that are
-actually expected.
+Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+---
+Link to v1: https://lore.kernel.org/all/20260826060839.203297-1-triet.hoang.dev@gmail.com/
 
---breno
+Changes in v2:
+- Use pm_ptr() instead of pm_sleep_ptr()
+- Align formatting of DEFINE_SIMPLE_DEV_PM_OPS() usage
+---
+Triet Hoang (8):
+  watchdog: cadence_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+  watchdog: da9062: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+  watchdog: keembay_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+  watchdog: msc313e_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+  watchdog: of_xilinx_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+  watchdog: pm8916_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+  watchdog: sp805_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+  watchdog: stmp3xxx_rtc_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+
+ drivers/watchdog/cadence_wdt.c      | 8 ++++----
+ drivers/watchdog/da9062_wdt.c       | 9 ++++-----
+ drivers/watchdog/keembay_wdt.c      | 9 ++++-----
+ drivers/watchdog/msc313e_wdt.c      | 8 ++++----
+ drivers/watchdog/of_xilinx_wdt.c    | 8 ++++----
+ drivers/watchdog/pm8916_wdt.c       | 9 ++++-----
+ drivers/watchdog/sp805_wdt.c        | 9 ++++-----
+ drivers/watchdog/stmp3xxx_rtc_wdt.c | 9 ++++-----
+ 8 files changed, 32 insertions(+), 37 deletions(-)
+
+-- 
+2.53.0
+
