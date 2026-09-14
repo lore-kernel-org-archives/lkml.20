@@ -1,229 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E97643CE49;
-	Mon, 14 Sep 2026 10:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D70B394EBA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382322; cv=none; b=n/LmHrRT2ICAkaI2Sg8g6X+KNNnFf8l8bBmSG+P//5xS+zSf+zN4bItHArRbWgG8BbKqs4gAwPvGNkUOcSa4y/P0f5U7MeHvjqV5AFlCk44iOg0ZKdj5W8XLw9dD9PtVc3kw8tCEHM7gp509tVtfdm3dqAUTf0jbwag/8TXwz3k=
+	t=1789382347; cv=none; b=rxelrgaiw94YojtP9wwIHjuMYoojU2tR9sMg6gJBeITYPsquu0Xwm1kZpR3CcK+KvvKzXY7YK8Ocmu29r5rZLHEuByth1s0bWjvNpM+E37eyAf1JF1lqH0X9X9uwtVOmHUznpfOsZOz9PL1BF2IlpV8q6t/cLUYf0BZ96EMl8gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382322; c=relaxed/simple;
-	bh=bKfaslvYjskhlKulN60lYhjibU84tLDstCJTDPVl+JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=QRvPcmauBIFJLGgHxXfQ9XBEdskZ849KR+an2jRynDVnTz+pcRiyaMr/udE/F9Kj2mZE3+x6OPjyy/Os7vnPD00Z04ziLby3MiZHFhf1a4rZ4wQhqh4GY5k/Xp88jEy3Jri6rFzvwHdwmAyK3W0FUOtQiNJDW/ijWUlPctJn71Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NslTLXcu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789382347; c=relaxed/simple;
+	bh=8TvghD8fb9Zy5mvArgTkNTHXlyXRFErq8WIJuI1R2q8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PwDiUT4GsIWR0BIDEdGNvHklJ8kIyVJtHxby05UF9XPeJhKSyQ4epXJIdvdiZE289/E0zL0RfPjQKfIYYnsjTaYvjt7YrsGWu43sRWiRtWoCcn8S8NDjK1UfVzYMisSzLTOIuMVEgmqJjaxazpdZ3D5hUcVkJIBi9qaXBBl9D2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=Yppxdr+9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kQbg7u48; arc=none smtp.client-ip=103.168.172.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NslTLXcu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250BB1F000FF;
-	Mon, 14 Sep 2026 10:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789382321;
-	bh=TlsuXTLUgDOIrFz6wgywD26/5uJSv8hub4LANbqyj1c=;
-	h=Date:From:To:Cc:Subject;
-	b=NslTLXcu/5fDchRnPSa5dDo8uk9XHVXmSv+hWjvCDfwRCpgoq4JIg+8KHAm1urQNG
-	 aHjWYPiv33jPCjytkt6sSktn78+SUr/ILyZmoCyNxdffujvBgIDVJDSAEIjBwLJVyJ
-	 mbvYAFCqCBXzZBsELud0gD4K2MMdYi/SS0X1vLW+FYRDqOMwoJLCHHaJlZ3kWvVR+W
-	 YhmxTTchgHMVD/zFbr+V8lHeIQJH85phOnEvBhwRSJcnwE4kFFZ9jIJGercT5U15Tr
-	 aEqnzRjNQbLOV6ranOODNRSm966vE1nDtofLxdgL0i8D0SmhJT2Tzt+AXDDfLJeJXC
-	 7g9P/Drh9PhqQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 98FD01AC52F1; Mon, 14 Sep 2026 11:38:38 +0100 (BST)
-Date: Mon, 14 Sep 2026 11:38:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Subject: linux-next: manual merge of the mm-nonmm-unstable tree with the
- origin tree
-Message-ID: <aqfOrukDE6kT0cW9@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="Yppxdr+9";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kQbg7u48"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id 52D591380189;
+	Mon, 14 Sep 2026 06:39:04 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 14 Sep 2026 06:39:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1789382344; x=
+	1789389544; bh=vydnH135QpbJgGMFtNUv3g8AnqjoSBdujNdUzisGZV8=; b=Y
+	ppxdr+9sIO3inCy2Zet2IFqjSwyGWnwvFWdKrvKchoOYmXsEW1Bv9jW0wbQCJyyg
+	MqGwl15buCJVZsoxWa5ihyX+mdhDbxRsxHeBwxe/8XkdXSjY/oGAkYxxb3gKPNBv
+	+ojPfFQ34viBG5WjHOntnQ3G3QfXjv3MFQz2tgwtqlWdqIlK4nbitjQ/G8rB61JL
+	t+zsd4S8YPmxJWm+SWYxLp56n4Im03XG92c0Ta90CiN4b8IBNggNFPcQSvu+iTYI
+	XRgaiXcogiNoDAS1o8++f9TqB97QztfM15IEC9OniB1oiHg/y/cGusMDJmj8ySkC
+	NOm1uqV2831kK1RImXe7g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789382344; x=1789389544; bh=vydnH135QpbJgGMFtNUv3g8AnqjoSBdujNd
+	UzisGZV8=; b=kQbg7u48+y9tnA18y/82bF7gpzqoK1xlC0km9vFBiOhuYdzMsqQ
+	wv8+Mr5pLHDcwLMVbIsx41JjGGzCiVcfH4l3DbId0VNjxbml6Uxj1TFJmkGTRSQe
+	atwz2M0Sv1z8zjTveRdfFoMZvkAoTIfFtDgVl6iYP4ar2lxbx8JLLv1+eitSxJNu
+	6V2xb8Lw8GLxYW9YjqB8TlmLsNyF3/LX3cUiCUMl9ccLGJSJL8k4sakUXFSjl00H
+	Jpak+liWVEA5krqYPXA2wuOR2IDwiBRU/OQ8MDhvE/6eI5mR3KEEUNadLQukPNeS
+	k7MroZwuK8ZL7l2z2284shSi6yyT2RFgFiA==
+X-ME-Sender: <xms:xs6nagFUSJFkutUT8tTYk0_GfibJgi0JVVYc2fojXtAVRRuqp44Spw>
+    <xme:xs6nany7oXjXLGzFVLY1cy_g6DLuX8PbvCEmFbBm0ablQfhVDXN5_COVsKr1SAEAw
+    L0IVIXtCFUbYIxhWK78tTPMekKtm7maPs1_qa5DyGNtPJlG0mSkhmWC>
+X-ME-Received: <xmr:xs6nahTDCgkwZGAyFGywYEOqDnckskH7i1CGEtWOL-M6qLxRqoBKQZKLl9w>
+X-ME-Proxy-Cause: dmFkZTGiQOIHw77ggY3DlkCXQlXCz8IImeccgwXV7ZHAyBfhRJ+QMHaWjJMnXPmuSwFSAn
+    aaA5a5aZytYVxDOEkRZwzAMYrUN5yu6KO5igraE5IQbw89Oae2bj7upLv2siaMdI87K+7K
+    aDxg+srjkcWNkZ9mq4+mr7JSydd1Uh0l5MFl0m9dFbzE6xiBoYeP/gaZAorLEUc0gjpNPF
+    BlytW0gd6Xt1q3rdYRogjsTo7RQxJ3A1K0cF0lHLusSVWg/BD95pgd2oon1ZU5OJuO8cKr
+    df9ieBPv9ai4ZfUANvnOmwenyCHczi7vRcjan4EMvof1gvN7+71qzZoz0skg7ceEeYeTSW
+    iC2SVG7wH2jvSAcGrCPn2En+Hlmv3l29qymMA0DgSsAoVTf4h0lc/Sa0yVEeS4LJ8CytH0
+    Y2wbAKv6hmu6E1gEEE9gVc/gQUA6O7tvDvTk3FMOnpWH+LjE7CAP30Bedp3hnpdoIvJ4GT
+    UmT23P4hWJity8KSB7eoRI1woG9aGqRyG4HW/vZAcMW3351XCb1VsHLDJhVLAMy4ouwc59
+    xtmEXeyWItcdCDF+foURYzSbI+b4jRXxDDuRik8npdM4BVk42i/3S+ElDAJJooRS6FsYWL
+    er7GgSXW0ZTervo6e39TuRcESSAUlE//A2a0wuaIxux/GX+GpZ0tN0mgRx7w
+X-ME-Proxy: <xmx:xs6nalq8g2WjDv9p7btSshK2qnJXITGaDxgHiJsxUvpfkD8vjXRySw>
+    <xmx:xs6napsqLGX7SzZRe_u4jzV0aMLLUE66sgel41Y5uvIR7qSxlJu59A>
+    <xmx:xs6naisbmz1XkB2_lmqbQ85t8MHzLmPMrUl6Bnc8uhGbGFv1QMtIBw>
+    <xmx:xs6nalrmRWX_5SXJv-luMbGbcyMuSnfWXQ9aWzaUZLSDAbV-EYJvCQ>
+    <xmx:yM6nalYWcG7cpQtVdUpaBNMt7VNwiT-_mdpG0Wxb-gQOOzarMYMqOd7H>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 14 Sep 2026 06:39:01 -0400 (EDT)
+Date: Mon, 14 Sep 2026 11:39:00 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+Cc: akpm@linux-foundation.org, andrew+netdev@lunn.ch, apopple@nvidia.com, 
+	artem.kuzin@huawei.com, baolin.wang@linux.alibaba.com, david@kernel.org, 
+	Liam.Howlett@oracle.com, edumazet@google.com, harry.yoo@oracle.com, 
+	hramamurthy@google.com, ivgorbunov@me.com, joshwash@google.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, lorenzo.stoakes@oracle.com, mhocko@suse.com, 
+	muchun.song@linux.dev, pfalcato@suse.de, rppt@kernel.org, surenb@google.com, 
+	torvalds@linuxfoundation.org, vbabka@suse.cz, willy@infradead.org, yuzhao@google.com, 
+	ziy@nvidia.com
+Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated
+ bit
+Message-ID: <aqe-sLv4L5SOHA6l@thinkstation>
+References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+ <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+NiAZ6CxlsRVwIeF"
-Content-Disposition: inline
-
-
---+NiAZ6CxlsRVwIeF
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
 
-Hi all,
+On Sat, Sep 12, 2026 at 10:50:10PM +0300, Ilya Gladyshev wrote:
+> The current page refcount implementation uses a single counter value
+> (zero) as dead. So, to prevent incrementing a dead refcount in
+> folio_try_get(), it fundamentally requires a CAS loop.
+> 
+> This CAS loop can act as a serialization point and can become a
+> significant bottleneck during high-frequency file read operations
+> [1][2].
+> 
+> This patch reallocates the refcount value range:
+> 
+> (1) refcount < 0 means dead refcount (uninit / frozen)
+> (2) refcount = 0 allowed only as a temporary state (see below)
+> (3) refcount > 0 is a regular reference count
+> 
+> In other words, refcount is now split into "dead bit" and a 31-bit
+> counter.
+> 
+> Refcount decrement now works as follows:
+> 1. Counter decrement
+> 2. If it is now zero, try to put it deep inside the dead zone
+>    (CAS to INT_MIN). Or you can view it as "set up frozen bit and reset
+>    counter".
+> 3. This CAS can fail only if someone grabbed a reference in-between --
+>    that's okay, this page is their problem now.
+> 
+> The size of the dead zone allows performing an optimistic increment
+> inside page_ref_add_unless_frozen(), replacing the previous read + CAS
+> loop with a single RMW operation. This reduces cache line bouncing and
+> improves scalability, especially in NUMA scenarios.
+> 
+> [1]: https://lore.kernel.org/all/20251017141536.577466-1-kirill@shutemov.name/
+> [2]: https://lore.kernel.org/all/CAHk-=wj00-nGmXEkxY=-=Z_qP6kiGUziSFvxHJ9N-cLWry5zpA@mail.gmail.com/
+> 
+> Reviewed-by: Artem Kuzin <artem.kuzin@huawei.com>
+> Co-developed-by: Ivan Gorbunov <ivgorbunov@me.com>
+> Signed-off-by: Ivan Gorbunov <ivgorbunov@me.com>
+> Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+> Acked-by: Linus Torvalds <torvalds@linuxfoundation.org>
+> ---
+>  include/linux/page-flags.h | 13 +++++++++++++
+>  include/linux/page_ref.h   | 30 +++++++++++++++++++++++++-----
+>  2 files changed, 38 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index 7a863572adce..b19721e0e7ca 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -196,6 +196,19 @@ enum pageflags {
+>  
+>  #define PAGEFLAGS_MASK		((1UL << NR_PAGEFLAGS) - 1)
+>  
+> +/* Most significant bit in page refcount */
+> +#define PAGEREF_FROZEN_BIT BIT(31)
 
-Today's linux-next merge of the mm-nonmm-unstable tree got a conflict in:
+I am not sure about the naming here. I would expect _BIT to be 31.
+Maybe we should name it _MASK?
 
-  init/main.c
+#define PAGEREF_FROZEN_BIT	31
+#define PAGEREF_FROZEN_MASK	BIT(PAGEREF_FROZEN_BIT)
 
-between commit:
+> +
+> +/* Page reference counter can be in 3 logical states,
+> + * which are described below with their value representation
+> + *        state              |         value
+> + * (1)  safe with  owners    |   1...INT_MAX
+> + * (2)  safe with no owners  |         0
+> + * (3)  frozen               |  INT_MIN....-1
+> + *
+> + * State (2) can only temporarily occur inside dec_and_test.
+> + */
+> +
 
-  7812d6dab0698 ("bootconfig: Fix integer overflow in initrd size check")
+Do we what to enforce your comment about (2)? VM_WARN() in
+page_ref_dec(), page_ref_sub() and _return() variants?
 
-=66rom the origin tree and commits:
+BTW, I wounder if all these VM_WARNs makes DEBUG_VM=y kernel too slow?
+Do we need a separate config option to debug refcounts?
 
-  5271eb8b27ac5 ("bootconfig: fix integer overflow in initrd size check")
-  aeba8e66e7c7b ("bootconfig: move BOOTCONFIG_FOOTER_SIZE to include/linux/=
-bootconfig.h")
+>  #ifndef __GENERATING_BOUNDS_H
+>  
+>  /*
+> diff --git a/include/linux/page_ref.h b/include/linux/page_ref.h
+> index 82ff3a99297a..cc7a9d7db504 100644
+> --- a/include/linux/page_ref.h
+> +++ b/include/linux/page_ref.h
+> @@ -64,7 +64,7 @@ static inline void __page_ref_unfreeze(struct page *page, int v)
+>  
+>  static inline bool __page_count_is_frozen(int count)
+>  {
+> -	return count == 0;
+> +	return count & PAGEREF_FROZEN_BIT;
+>  }
+>  
+>  static inline bool page_is_frozen(const struct page *page)
+> @@ -79,7 +79,12 @@ static inline bool folio_is_frozen(const struct folio *folio)
+>  
+>  static inline int page_ref_count(const struct page *page)
+>  {
+> -	return atomic_read(&page->_refcount);
+> +	int val = atomic_read(&page->_refcount);
+> +
+> +	if (unlikely(val & PAGEREF_FROZEN_BIT))
+> +		return 0;
+> +
+> +	return val;
 
-=66rom the mm-nonmm-unstable tree.
+I was worried about the branch in the hot path and wanted to propose a
+branchless hack -- val & ~(val >> 31) -- but compilers seem to be good
+enough to generate CMOV. The hack produces one more instruction.
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+>  }
+>  
+>  /**
+> @@ -150,7 +155,7 @@ static inline void init_page_count(struct page *page)
+>  
+>  static inline void set_page_count_frozen(struct page *page)
+>  {
+> -	set_page_count(page, 0);
+> +	set_page_count(page, PAGEREF_FROZEN_BIT);
 
-diff --combined init/main.c
-index 31f2bf54976ab,54bab27e0d8c7..0000000000000
---- a/init/main.c
-+++ b/init/main.c
-@@@ -278,7 -278,7 +278,7 @@@ static void * __init get_boot_config_fr
-  	int i;
- =20
-  	if (!initrd_end || initrd_end < initrd_start ||
-- 	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
-+ 	    initrd_end - initrd_start < BOOTCONFIG_FOOTER_SIZE)
-  		return NULL;
- =20
-  	data =3D (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-@@@ -548,12 -548,12 +548,12 @@@ static int __init unknown_bootoption(ch
-  		/* Environment option */
-  		unsigned int i;
-  		for (i =3D 0; envp_init[i]; i++) {
-+ 			if (!strncmp(param, envp_init[i], len+1))
-+ 				break;
-  			if (i =3D=3D MAX_INIT_ENVS) {
-  				panic_later =3D "env";
-  				panic_param =3D param;
-  			}
-- 			if (!strncmp(param, envp_init[i], len+1))
-- 				break;
-  		}
-  		envp_init[i] =3D param;
-  	} else {
-@@@ -581,7 -581,7 +581,7 @@@ static int __init init_setup(char *str
-  	 * the shell think it should execute a script with such name.
-  	 * So we ignore all arguments entered _before_ init=3D... [MJ]
-  	 */
-- 	for (i =3D 1; i < MAX_INIT_ARGS; i++)
-+ 	for (i =3D 1; i <=3D MAX_INIT_ARGS; i++)
-  		argv_init[i] =3D NULL;
-  	return 1;
-  }
-@@@ -594,7 -594,7 +594,7 @@@ static int __init rdinit_setup(char *st
-  	ramdisk_execute_command =3D str;
-  	ramdisk_execute_command_set =3D true;
-  	/* See "auto" comment in init_setup */
-- 	for (i =3D 1; i < MAX_INIT_ARGS; i++)
-+ 	for (i =3D 1; i <=3D MAX_INIT_ARGS; i++)
-  		argv_init[i] =3D NULL;
-  	return 1;
-  }
-@@@ -1349,6 -1349,57 +1349,57 @@@ static inline void do_trace_initcall_le
-  }
-  #endif /* !TRACEPOINTS_ENABLED */
- =20
-+ extern struct initcall_modname __start_initcall_modnames[];
-+ extern struct initcall_modname __stop_initcall_modnames[];
-+=20
-+ /* module_denylist is a comma-separated list of module names */
-+ static char *module_denylist;
-+ bool __init_or_module module_is_denylisted(const char *module_name)
-+ {
-+ 	const char *p;
-+ 	size_t len;
-+=20
-+ 	if (!module_denylist)
-+ 		return false;
-+=20
-+ 	for (p =3D module_denylist; *p; p +=3D len) {
-+ 		len =3D strcspn(p, ",");
-+ 		if (strlen(module_name) =3D=3D len && parameqn(module_name, p, len))
-+ 			return true;
-+ 		if (p[len] =3D=3D ',')
-+ 			len++;
-+ 	}
-+ 	return false;
-+ }
-+ core_param(module_denylist, module_denylist, charp, 0400);
-+ core_param(module_blacklist, module_denylist, charp, 0400);
-+=20
-+ static const char *__init get_builtin_modname(initcall_t fn)
-+ {
-+ 	struct initcall_modname *p;
-+=20
-+ 	for (p =3D __start_initcall_modnames; p < __stop_initcall_modnames; p++)=
- {
-+ 		if (p->initcall_fn =3D=3D fn)
-+ 			return p->modname;
-+ 	}
-+ 	return NULL;
-+ }
-+=20
-+ static void __init do_one_initcall_builtin(initcall_t fn)
-+ {
-+ 	const char *modname;
-+=20
-+ 	if (module_denylist) {
-+ 		modname =3D get_builtin_modname(fn);
-+ 		if (modname && module_is_denylisted(modname)) {
-+ 			pr_info("Skipping initcall for denylisted built-in module %s\n",
-+ 				modname);
-+ 			return;
-+ 		}
-+ 	}
-+ 	do_one_initcall(fn);
-+ }
-+=20
-  int __init_or_module do_one_initcall(initcall_t fn)
-  {
-  	int count =3D preempt_count();
-@@@ -1421,7 -1472,7 +1472,7 @@@ static void __init do_initcall_level(in
- =20
-  	do_trace_initcall_level(initcall_level_names[level]);
-  	for (fn =3D initcall_levels[level]; fn < initcall_levels[level+1]; fn++)
-- 		do_one_initcall(initcall_from_entry(fn));
-+ 		do_one_initcall_builtin(initcall_from_entry(fn));
-  }
- =20
-  static void __init do_initcalls(void)
-@@@ -1466,7 -1517,7 +1517,7 @@@ static void __init do_pre_smp_initcalls
- =20
-  	do_trace_initcall_level("early");
-  	for (fn =3D __initcall_start; fn < __initcall0_start; fn++)
-- 		do_one_initcall(initcall_from_entry(fn));
-+ 		do_one_initcall_builtin(initcall_from_entry(fn));
-  }
- =20
-  static int run_init_process(const char *init_filename)
-@@@ -1653,7 -1704,7 +1704,7 @@@ static noinline void __init kernel_init
-  	 */
-  	set_mems_allowed(node_states[N_MEMORY]);
- =20
- -	cad_pid =3D get_pid(task_pid(current));
- +	rcu_assign_pointer(cad_pid, get_pid(task_pid(current)));
- =20
-  	smp_prepare_cpus(setup_max_cpus);
- =20
+Are you sure we covered the cases that do frozen -> 1 transition with
+page_ref_inc()?
 
---+NiAZ6CxlsRVwIeF
-Content-Type: application/pgp-signature; name="signature.asc"
+Patch 2 switches __init_zone_device_page() to set_page_count_frozen().
+Who unfreezes them?
 
------BEGIN PGP SIGNATURE-----
+Looking dax_fault_iter(), it seems to be done by folio_ref_inc() there
+for FS_DAX case. Switching to PAGEREF_FROZEN_BIT would break it, no?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqnzq0ACgkQJNaLcl1U
-h9AkoAf/U+QSJlsPzBaVJcrle4NJR5aZMkD4MJsMswJ5U5pJTB6b5KiuPIsdk1Lc
-dDvCVq1c3yzAccS/tU9B1LEukbZr2it1qDxW0PzQ7SSo/6MoehIdAopQC5K9x2Kq
-e+9lYg/TkHQ5rfg8tWAoW69cqw2p5shvYSYK1YOsFl2nDtZoshkBzOZLafUYyRxi
-MHpirVDVSqgKXQ9yGcHskrjP1Feq/5516K9pwiYE0urEbR0/SMy83wsenwxnohGU
-URcdnMDVehdnyxNs60N5gGF9hUQhpayEoZA9yXAFgUxKxcQyoiu33RMROZOzZQLZ
-05MZZw8TOeUtcTg5X0dGHgdV5ukchg==
-=o8Pe
------END PGP SIGNATURE-----
+It seems some more ground work needed.
 
---+NiAZ6CxlsRVwIeF--
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
