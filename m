@@ -1,124 +1,133 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F5F35C6A5
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8298741A91E;
+	Mon, 14 Sep 2026 22:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789424578; cv=none; b=a9n/HF0kCavdSBa1YzgAtzv3NU/AUL+tnjfn7XhfNowXG0xHNzGbmEJSyNesPbhaUSpKE2NoAtWxtTepH+UJ9R3hEQDqVRI46tz0SXE2YFkvAoKA31YI20iIvmoVSdM+3U9j3Gq4jApUsJpymhDB2w36y2KgiYZuX73n1P+wBJo=
+	t=1789424594; cv=none; b=UTcnC1gRCVhcBVyF/0Swyjth2jXdiImXWY57Cd8M8zWfecc2FgLrFYrmplwDi2w7A8TQYDINuPK8RGELwKt9kLPZCH2f9/5TSiqwzhyIKxKMMmBLxUbmVRyutK/dOcOntX2fFrTHL/lI8hO0FikFO9wIKZ6pO8xnfUsQZbG3hso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789424578; c=relaxed/simple;
-	bh=foOHSdJTOJhU6+yYWGeeQMxkB0Vsh9TMpxUCdttflIc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bem9HFgE4krY4ihBSXp1gGaEwiGUOUGRo103/zm5YCIOWpEshjGbkFv5B7/rhD5YJ8gM1ydHDJSTzAMJVyoL7uEuc0f+XuBN6dpV99/sKeHDDsMglRa/pYzMkfO2hbfNHJxCvYG5pWfkIaFn0s0rSu+iGP8Orzu9ojSOOi60q1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pn2h3Z2u; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789424594; c=relaxed/simple;
+	bh=Bi89MHYHOLYWpNpNJwfRbRBytm+OSTO/mUdD0V17mFM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ryyRpnIITpjo09QcKhD3aZQXR3Lpn3wh2/UVELQIbwJBUQSxCdRvFojliE0sfhQEM78FGialjEPvXEu7H+rjv4098U1rOrk6lbSJ6FysDi91w+VN24faq6ezSHDWXLfSEx9o1LeLPld0CcqL3nwE6761XpdHKM8+U/jLk8JqZD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhzzpIjt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pn2h3Z2u"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cc46c7so190295385a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:22:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789424576; x=1790029376; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZYIfd78aSnlkErTq0YH0tchJ7mjAaSn1gqbunL7HHbw=;
-        b=Pn2h3Z2uok70LqsU4yQ/B3TILoLDCbxMRrR3zovCCuHHObDc4JUk/uZWyGZsdcOczJ
-         N3/Eh7eAGtQ6bQpdEwfVtohbS3U7L2+s+BVo8FbzKenFSImnCiej50fgaobG3rCgLr6Q
-         JajI3aGB01xda2hlCMOHwXR7aRfVegKP6RVEPNMw9no5hip+iA8pfjNv6GaZXVcrAZU4
-         CSXKTlZf5j3vwznWwshJbvQ66zNwKV8+BZgNoav2VNs6+bRyBWLhd93sQzI+tO9SllxD
-         dZ0SmGttwYDbg81hWtsQQT7ggYCyjwj9aRMyvDQPMIWFUHnE7U4CbkjAUEnEfzNcdaSX
-         bTYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789424576; x=1790029376;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZYIfd78aSnlkErTq0YH0tchJ7mjAaSn1gqbunL7HHbw=;
-        b=Nlsfy0AuKD96CqaCuODa2uhu0TCpegipg9kK9TG/XOoHi5FtsgVtmYg8OcLCEpaBGZ
-         +HQCt91lD6LMpBIKBnketXqSlEbZplsYCw6bnnsZzSEUAgEfu9dD1kFIZ7N9gZtZDfVV
-         35q3JSJ5+m+XjbIkrA0hwy296xt3b52pzkM1dVv0WIHpKpq3hnP5cRMLmr/YdT96W0dY
-         hdQYlZcgQm3N84JGKVSPmix9q3hR8rO7vu9ajeV1fdINgDcCI/ENGSKXIMSebtywFHIE
-         xLSlAA1+x3PWHgS6z0WAI622+OMIpNCi727ESrbq8Hd3SwKfkqIhvhyLNqsy6EPUCqSu
-         DN/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxf7aHDXvpxZH3S4PG7LFdXqOu90HLU/fIBtKp+LVWH2RUE81BXClRM6UF9IgrrLm3KF2tqROeLL3OQR1A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaeDtxKSvtx7iI4q+AvKRBgNjx4aZKS/P87ywa2ADzyveAQqGz
-	x/X0WLcylr351PgU/4bpPHVmSKlq/CfdjPzKcCZtL9DWT8AFRgXmeRk=
-X-Gm-Gg: AYBFou35F64hEBjFcr3N+5KACLWy98VR5jJItifXtBlzrPxD56yoqv+hHofP7asExBt
-	ft7XxHCzYPtvv8YM1+FUimLvWtbVJd/1/Kg4MwWtMMoGRrnwSf5Ujd5YMzZiIeCjHz8f6BoqS63
-	EEckuYpNqBoPZzHU2XOH9qQlbj81/Yp3a6FXq2StO/i/2/GVw2XyYu3Nbm2WxD29nXdYUEd1O2b
-	qN0tR9VzYvqmqXdR0nJf46A9IMazJkG7uCNJkxucRLmkggctr2RYIZa66MLZGUt3a7aGaop6Pn/
-	GBLnEHhhX6ddwiFo7jCPJlJ0SAgBgCw/VPV1p0/9uy4GSAkRyZbAS2EYHQ4+WQ1VqVfCcBFb45T
-	vZU0R5djqc+LErAngdsrVUEMpaCyD9Gamw6CTmcRpqd8Gis0Ll4MnpyIz6PFCNqCV2y2vvD4Ngn
-	pPBY23hsO8H4OPdYZTIQEEtmObpWzr1CtvYfNgYuihUWL8vv0N0ziNCKA2tS6AroTZzHb4ZK32c
-	ffPIzG5nZCpUh4omb42d5oVPhSROq7e/klzqOvToNEOEH7ASwCXTJXya2H0bHNWr2P9f0UaQl5M
-	v2sWSGUAoCdF4gJEFpmLvrSN8MF+4Pxbtt6txZd1HGp5lsJj5srUC5y0XKauKJGYG4CRKg==
-X-Received: by 2002:a05:620a:468b:b0:936:623e:2603 with SMTP id af79cd13be357-93a2985c9cfmr680154785a.17.1789424576182;
-        Mon, 14 Sep 2026 15:22:56 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45adb3sm104283876d6.9.2026.09.14.15.22.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 15:22:55 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Michael Chan <mchan@broadcom.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2] tg3: clean up PHYLIB resources on probe failure
-Date: Mon, 14 Sep 2026 18:22:46 -0400
-Message-ID: <20260914222246.29761-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhzzpIjt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63F201F00893;
+	Mon, 14 Sep 2026 22:23:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789424593;
+	bh=RRU+yJML1OMM4sdrHKCW6nAyxyoRhK5ooyzt6zbz5EA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mhzzpIjt8ICc0v+9pwXJLGyUo6/4W86Z9Rd1H/nQJGbazdtLE1Dircqquu9iu2efd
+	 FnFEeSd8Y2RIPZ43wFwVrX43cYp0Sv0pszmycH5HIWO/hHXzN2FQTBI+CgVh2fEhcA
+	 cUizGTL1e5OKK9RyZcUuVM/i59uYEOlNvO23SwXcgW0vdOz7OPrXqcIdhhOxvIGRhW
+	 LW1F5LwtIFv6MXdFHdRieN3hkXyESVONyHVUaDYgtKSVnwmy7eQOpON9jAxZSjHiQV
+	 s+POBLypUYfj7pp2JnzJxWrCGyqwD5qAJWYkgMf0hOCyAO/85IzEZcyDiU9jgtmViX
+	 DSFJ+F+2XszCA==
+Date: Mon, 14 Sep 2026 15:23:09 -0700
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 15/21] objtool: cache relocations, do less work
+Message-ID: <aqhmhmgrnN3Mw8yG@jpoimboe>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-15-39817ec5db23@kernel.org>
+ <aqhLhVMkNzf_4oJw@jpoimboe>
+ <CAHk-=wiB9MX7vBDQ+WHTUVfSYubLhR-PbABewscqTsxRhg-LbQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wiB9MX7vBDQ+WHTUVfSYubLhR-PbABewscqTsxRhg-LbQ@mail.gmail.com>
 
-tg3_get_invariants() can register an MDIO bus and connect a PHY for
-USE_PHYLIB devices. If tg3_init_one() later fails, its common error path
-releases the mappings and netdev without undoing those PHYLIB resources.
+On Mon, Sep 14, 2026 at 01:06:37PM -0700, Linus Torvalds wrote:
+> Talking about "getting rid of the hashing": the instruction hashing is
+> obviously a big deal judging by the hash size expansion in that other
+> patch.
+> 
+> Do we actually look up all instructions by hash in the first place?
+> From a quick glance, it looks like almost every user of "find_insn()"
+> is looking for just certain *kinds* of instructions: calls, branches,
+> returns, endbr.  And branch targets.
+> 
+> Maybe stack updates? I didn't check.
+> 
+> Yet we seem to hash them all - even if they are just some random
+> ALU-only instruction that is in the middle of a function and never a
+> target of anything and has no impact on any code flow.
+> 
+> So the question becomes: do we actually need to hash those
+> instructions at all? Are they ever actually looked up?
+> 
+> I don't know this codebase at all, so maybe that's just a really
+> stupid question. Feel free to look at me condescendinly, shake your
+> head and say "Poor Linus has lost the plot".
+> 
+> [ And yes, I see that whole "next_insn_same_sec()" thing, which
+> obviously *does* look up all the instructions when you iterate over
+> that function, but it strikes me that using a hash table for that is a
+> bit strange when the natural way to do it would be with juyst a
+> "struct instruction *next" field instead.. ]
+> 
+> So if hashing was such a big deal that it showed up clearly on
+> profiles, maybe the answer isn't just a "make the hash table larger".
+> If a "next" field were to not only make the hash table much smaller,
+> but also mean that next_insn_same_{func,sec}() would become a "follow
+> one pointer", mayeb hashing would become rather cheaper?
+> 
+> Stupid? Or maybe "not completely stupid, but too painful to change"?
 
-Disconnect the PHY and unregister the MDIO bus before the remaining
-teardown. The existing IS_CONNECTED and MDIOBUS_INITED flags make both
-helpers safe when initialization only completed partially.
+The find_insn() in next_insn_same_sec() is a bit odd, that was itself
+part of a performance optimization, but yes, a 'next' pointer could be
+used instead.  Though, IIRC, that instruction struct is the biggest
+overall user of memory, and it just barely fits inside a cache line
+boundary, which we do take advantage of by putting them in adjacent
+blocks.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+But as you alluded to, find_insn() has a lot more users beyond just
+next_insn_same_sec(), like finding jump targets, alternatives, annotated
+instructions, and quite a bit more.  Determining in advance which subset
+of instructions need to be hashed is likely somewhere between "too
+painful to change" and "not feasible" IMO.
 
-Fixes: 158d7abdae85 ("tg3: Add mdio bus registration")
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v2:
-- Remove the redundant USE_PHYLIB guard; both cleanup helpers already
-  check their initialization flags, as discussed with Andrew Lunn.
+There might be more efficient ways to structure the considerable amount
+of data, like replacing "struct instruction" with "struct basic_block"
+or so, but it's hard to know whether that would be a net positive.
 
- drivers/net/ethernet/broadcom/tg3.c | 3 +++
- 1 file changed, 3 insertions(+)
+At least the current design is a somewhat tolerable balance of
+CPU/memory usage and maintainability.  Peter and I already fixed most of
+the major performance issues, so I'm not overly motivated to squeeze the
+last remaining juice of performance, especially if it's going to hurt
+maintainability (maintainer bandwidth is also a precious resource).
 
-diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
-index 73a4b569b..91c7ad997 100644
---- a/drivers/net/ethernet/broadcom/tg3.c
-+++ b/drivers/net/ethernet/broadcom/tg3.c
-@@ -18047,6 +18047,9 @@ static int tg3_init_one(struct pci_dev *pdev,
- 	return 0;
- 
- err_out_apeunmap:
-+	tg3_phy_fini(tp);
-+	tg3_mdio_fini(tp);
-+
- 	if (tp->aperegs) {
- 		iounmap(tp->aperegs);
- 		tp->aperegs = NULL;
 -- 
-2.47.1
+Josh
