@@ -1,129 +1,168 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D3437F334
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:36:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D90D37F30C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410981; cv=none; b=rVUsM5cTxQIOcEh2ontna2cCMPzFL+oEBN7zmIqrz8pxh4ancWDzZ16x6+CJOQ26lTQnW3j7yar9FfKlV/mHm+DAxO4DGFC5ErH8JHZ7TFJizuXSC1gwYvqKWlyZdGG6D29jRXKRH8qVYTunpE3cHrkAS20+HYf9REeWZwiix1E=
+	t=1789411023; cv=none; b=ceiXhbfSCIMaIdiN7OswCEMtM2RkhgpgbuICtWrsLamLaqLNnwLVj1U74mDHMyvDoILYwEgTyHUp9I5tgDnEih0cym8oHq/I2XDU1TZCrsuOdBYmDwOrW86zznzmXmnHclvukVOlAE5uB2QNudZcxONBAJUSddJIxBvalt+Pn5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410981; c=relaxed/simple;
-	bh=OxXVneQUOJfV6asvw2nS8AReGbL3K40Oma8k1pj7BrA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=im0pQe2ihatbhoKEc6APDcB9HJTh1uQMMu0L5E/sBbvqQ4v1NzIOrNs1DOXF2HPI69N1TrafW9efa917CD78UAwEOEbjv0sbDnk0S4gRnTKtkAT7+B/tHCkDb0SvfvscLf5mbI6x4zHt1RjhaaRgFJjhX/thDlB/KE11zl1+LWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=LuEjuPg1; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789411023; c=relaxed/simple;
+	bh=jzmgons7ejK3RqIf9FhUwWMQh0wU6zB2YBwt78fShPA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pUPoEIqeElCoKxSldGfdw7pI0TUDu8GrVAXV+3dCspVhhQagBYO7JQXp5oBe86QKZHFjcq8HMCdoLOzQhAiaviq6DArefMfAnprv4G22pAJD2CB9nQ4VLvy08qwpTEi6LAj2t3YJCtbhYX+WVX1PQ9iRikaouqcehvnzqQ9Hl+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=awuAmPOV; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="LuEjuPg1"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98604f6b4so3384460a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:36:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="awuAmPOV"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd53691be5so21144525ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:37:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789410978; x=1790015778; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sLXWrepmwzfofzjtX5AuHaJ9cfFcfDLD9/VG5Rf9x6s=;
-        b=LuEjuPg1541PZGK8M3SvutAtAHxcvR/emCJamN51jIGTvwgOZuf++Xv1hxmBN7ixQj
-         Ooq2rnD70WRu+XDNygAN8xVyzQ91/37dTAWf7mf2YJDEkBjwDTyuyiIuoDrhVxY/dDb5
-         y8rw3qhJAq7PaRUP14uIf/e7nCImHK5TIlPKECJUbKQ6UflZ2Y7Hy+YV3syvRAqmhbCn
-         R/OhKy8mqs1WoFrEim4/g5xMd6uMyhjdAhPha4Q95oSP2sVa0IJQ/GLNWfPzgAr1+i5E
-         cnJgds+n8KaecCQeKzlJz7S3r+fU33+8TY5jD4It1aK03JylJyl4ate2RGgCSij+lhSY
-         zExQ==
+        d=gmail.com; s=20251104; t=1789411021; x=1790015821; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tbp/X+AmysveQVQvFKs94vOjfQjVlMyD1nl7AhFF9vo=;
+        b=awuAmPOVAqOObpNTkBZeRFF7R9oXrxq1Jx6PZf9+qr7UCm0zkWqonc7doXGCVn28z5
+         O8ySSuCUyYBCLFZggxw3x1X2g3uEn2NAxXEuV0hy2JRXHdQHOLRKls+sTyt9RZRzOhO9
+         PHHxrZAfwwwXK55dWKqUPhbzlfVNQ541eEagyA4J9AUm+8W+4ywi7X8+hyhg3uih/WJh
+         ke5ExENeWcq6Fdh9dVFqjanp1AGxmBJFUvyKxSqJ4sW2mc0dM2qPNHIuwFkhcWAo+sBm
+         HoXISOI+Hdri7eOtWcKo6mM3lIhn6zJ8up37j7JkCG0IaQRKOFQ0JrHC1yAp+76hYodK
+         z1Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789410978; x=1790015778;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sLXWrepmwzfofzjtX5AuHaJ9cfFcfDLD9/VG5Rf9x6s=;
-        b=ms8sVEof1GqDjPoliD4fOB5uhh5Wdtqv+bCPXlDpLP6ATGdgT5ugiI1UgTZnHWVN+E
-         SgSae1pL3AcI8hulbkBPg1xfWDnpxFiqFcetii42DQ3kLm0a7VlW7rQ1zGmAQNYnFrl5
-         PiYMjv8eIvr2ouJXSp2//7KTmyEKqsj3jffxVP5RXWJO7hPcoEbWYDTgb8IwiMVlB+oA
-         deJA19tZbcIAsYb8wHm2R8KU3Hyxh3Jdj5AzC1k1/W0lVzmB4plD53DiTkm88e4ncr+c
-         jDAX3O336/SgWqSShc9+z2gL10fZFK8dAEc5ZQzjWqS3yM1DvAZicFSocdJr+k3VB82R
-         +WaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEHsCp6xLrAipMZlx2NSafkvy8VfUCK1u/6lNYeoem48kVm4CQeabAzpIShAvRo9EgZxgiuGYp4SG8904=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXLmfgNuOEhv/pGram7ywLyamutMH0o2z9s5YFQz0SilpG+izK
-	Y2ZlccboACxxl1RrfjhelNj4F4t8s/3P+1cnlpNJnB+ouyscAw60h9VadWfIkl66oX8=
-X-Gm-Gg: AYBFou0piKDv69/nEZwOSSAO+jcPCJTpMpk5qbd83oXwp/v51gfhw17OqOGGLMPPEg1
-	TT3Wilk4go4WXbi1oPeSCHyehFsMbmD6KdNnyjuBKu8d/MK/2QKISUC30NVqOdXjQ4cByjVAsm3
-	w/Fu26A7ZTG7prk8ADQDsCo6IfiL+L13QZnOklt1vWyEtSIo0421/943CYbPUOgmPw0JGzLi/pW
-	nmCGEdwr497NrWpG21/LUsoU7cLGbD+MWK8r6MVQ8py17AN+ZdYWjsOgpEe9ItEWoponnCwaD/h
-	LqMZk68In+rgMUPW0Vfxo1y8ntyaH+PW1Mb29g7lZf3cwlciOig7VoIrWCHHA1gDVWTbz5+ZrWT
-	K/QHM98p+MLwQb9IGsVTsUpU/CIwIIit7Ps/+Wavhq5N11DauFTE1sEi8Zc7RveU9RD9eG2acMz
-	tVv5pbmjhtcDHBqfTQCSdkYzhtNCkNA5DkV0BrQnFPVPj706LKB9cTvBgl1MnF
-X-Received: by 2002:a05:6402:4499:b0:6a9:cc6d:ea4b with SMTP id 4fb4d7f45d1cf-6a9f63cd8e1mr2485859a12.21.1789410977836;
-        Mon, 14 Sep 2026 11:36:17 -0700 (PDT)
-Received: from localhost ([2a02:aa7:4656:2314:c23c:9eda:81d:3])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b594c28fsm4680607a12.23.2026.09.14.11.36.17
+        d=1e100.net; s=20251104; t=1789411021; x=1790015821;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tbp/X+AmysveQVQvFKs94vOjfQjVlMyD1nl7AhFF9vo=;
+        b=WGCJB7MIt+9xCJx7HnYMSCDy55HhajhoBOQ62JwoQsLoiHGkWFxQpdGgxzIee0qUTM
+         NCx9bIdADL50rHFMYVqiVWd9ORznFws3eIqpzgIwB+V3j8ZctGttoAEFH+bUlQyTYJaz
+         PpcDehOXBO1Op5dRxrhYEM7hQPy+7rj9XGqnn5zWuDqu96nnj68sB4/8krRJhV4rSnzG
+         cYhJryd9uzTUjAhyQ8k+jLe4p/nx4WbkP9t00A8TcSA3bL+TEXRAiAP3sNGXne6HV3eN
+         LLwUXHTfMRIHqHTGOkMvhbiZ6wz1vGqAKjTvM51ctI4VMWSiHj3Eo2YTjKBy6Kj+4Pey
+         QhDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwovuTVUP/4AySnjjtR32mc06bcEPLzJFXD5i/DF5zfAiQr2GXKkOyYpfHtKtcMQTU3FhZVe6ARuoWFe2Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYxGuFOWs6kW/TZDe3DpURYUCuoigH4Iw2ADhteDdR65wr7qyP
+	fR3uSQKWowfUv3BPSYTlJ3wjv/gBkJlkQbsYBSuBZ91ffudecxSPLZlABwQOgQ==
+X-Gm-Gg: AYBFou3BWI1Lsc6liPQBu4pBRo4DDXuyxYUvs+6COY3yPA+MquBl9eZuC9xuvtkKEXa
+	Qj2n29OLr4Ja9/uMrEATjO2Nj52OXsTLH4YCirYGBoqSjNM5eeXfTiO1PlHzpuR1NldZ1HPXuIv
+	RY8FvcbNBxAetZWZg7XGOINeNVqR3nxWpb9ajI65J8/+tArjhmhrTLWUTZSFJkbHsEp5klqrS1x
+	/kCPVXCWkORU0QdchXwwakZBInjuSo3z0GhRKBjJryoAdmeAaoV/GR3FFtK2aM6d8Rc6OcP7SsN
+	hW8Tg3W084XmKHi3VlHLMTzZsOKB59YWUDZ868s61MFC4XczNSI+NEsWqwBdOTAbr2MmOHB+8gv
+	KmNeov6RGUty+UaktUGSBc0Eu8KvXP3v1cksK8VMRGh/J1eX7763Tm4F9XoEIAsSGv2hZlNPXpo
+	A7mdK1h4I/MUmMEDxEmRp4uqjgv0PTM/ln8smddtCizXDkiFdwWn07n0VrSMfTB/6ptJJQfs5vV
+	E/7mPhUEpVOO/jkzNPwDhIrIXJvMo3V/1qqkj7hYHqdT4U=
+X-Received: by 2002:a17:903:98f:b0:2d8:d4ce:7e40 with SMTP id d9443c01a7336-2dd6c7622e4mr78861825ad.21.1789411020855;
+        Mon, 14 Sep 2026 11:37:00 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net. [98.225.44.182])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd46670194sm41297975ad.68.2026.09.14.11.37.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 11:36:17 -0700 (PDT)
-Date: Mon, 14 Sep 2026 20:36:16 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>,
-	Zhou Yingfu <yingfu.zhou@shopee.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	David Rientjes <rientjes@google.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/oom_kill: fix hung tasks queued on mmap_lock behind a
- long reap
-Message-ID: <aqg-oG2HDIUeK5Us@tiehlicka>
-References: <20260914113239.367200-1-jiayuan.chen@linux.dev>
+        Mon, 14 Sep 2026 11:37:00 -0700 (PDT)
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+Date: Mon, 14 Sep 2026 11:36:48 -0700
+Subject: [PATCH] fuse: Cache unsupported ioctl requests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914113239.367200-1-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-fuse-cache-no-ioctl-v1-1-70a05053ef0f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAL8+qGoC/x3MQQqAIBBA0avErBtIo6SuEi3UxhwIDa0IorsnL
+ d/i/wcyJaYMY/VAooszx1Ag6gqs12El5KUYZCP7ZhAC3ZkJrbaeMETkaI8NhTGdarVU3aCglHs
+ ix/d/neb3/QBdJnKsZQAAAA==
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Robet Byrnes <byrnes@wildpumpkin.net>, 
+ Stanislav Kinsburskii <skinsburskii@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789411020; l=2578;
+ i=skinsburskii@gmail.com; s=20260722; h=from:subject:message-id;
+ bh=jzmgons7ejK3RqIf9FhUwWMQh0wU6zB2YBwt78fShPA=;
+ b=fZcg7MJ0BGyyXplRSHhYQzsaoJ1SQW3/6NfqoliVBmJfruNzKoyQEzb9GRIHSzZnyxllMkpoJ
+ Yho+76oIKAnCKGevYFfAPUBDiUKRewz1nnKfgQwvsJGowfdnIQdIXiE
+X-Developer-Key: i=skinsburskii@gmail.com; a=ed25519;
+ pk=bDpriHBYgeTdkIDweZDCemxsU93neJBOCn3YLIuJpnE=
 
-On Mon 14-09-26 19:32:37, Jiayuan Chen wrote:
-> From: Jiayuan Chen <jiayuan.chen@shopee.com>
-> 
-> The oom reaper holds mmap_lock for read while it unmaps the whole
-> victim.  Anyone who wants that lock for write in the meantime sits in D
-> state until the reap is over.
->
-> With swap enabled the victim can be several times the size of RAM and
-> the reap runs for minutes.  LTP oom01 trips hung_task that way for the
-> victim and for ksmd, on 6.6 LTS and on 7.3.0-rc1:
-> 
-> Call Trace:
->  <TASK>
->  __schedule+0x487/0x1870
->  schedule+0x28/0xb0
->  schedule_preempt_disabled+0x16/0x30
->  rwsem_down_write_slowpath+0x1d4/0x750
->  down_write+0x60/0x70
->  __ksm_exit+0xb4/0x230
->  __mmput+0x12c/0x150
->  mmput+0x1e/0x30
->  do_exit+0x283/0xa30
->  do_group_exit+0x34/0x90
->  get_signal+0x952/0x960
->  arch_do_signal_or_restart+0x41/0x250
->  exit_to_user_mode_loop+0xd3/0x560
->  do_syscall_64+0x385/0x470
->  </TASK>
-> 
-> KSM is just the one LTP happened to hit: __khugepaged_exit() has the
-> same write lock cycle ahead of exit_mmap().
+A server that does not implement FUSE_IOCTL returns -ENOSYS for each
+request. Cache this response on the connection and return -ENOTTY for
+subsequent ioctl requests without contacting the server.
 
-Why is this a practical problem we need to care about? It is kind of
-natural that the oom victim exit path might race with the oom reaper. They
-share the same lock that is mutualy exclusive. The whole point of the
-reaper is to ensure there is a forward progress achieved. So before we
-start modifying this let's talk about any practical/real life problems.
+Only cache request-level -ENOSYS. Errors in fuse_ioctl_out.result apply
+to individual commands and must not disable ioctl support for the
+connection.
+
+Check the cached flag before preparing regular ioctl requests and before
+opening a file for file-attribute ioctls, avoiding unnecessary allocations
+and open/release requests.
+
+Signed-off-by: Robet Byrnes <byrnes@wildpumpkin.net>
+Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+---
+ fs/fuse/fuse_i.h |  3 +++
+ fs/fuse/ioctl.c  | 12 ++++++++++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
+index 97d356588d00..e9d8b48069dd 100644
+--- a/fs/fuse/fuse_i.h
++++ b/fs/fuse/fuse_i.h
+@@ -720,6 +720,9 @@ struct fuse_conn {
+ 	/** @sync_init: Is synchronous FUSE_INIT allowed? */
+ 	unsigned int sync_init:1;
+ 
++	/** @no_ioctl: Is ioctl not implemented by fs? */
++	unsigned no_ioctl:1;
++
+ 	/** @max_stack_depth: Maximum stack depth for passthrough backing files */
+ 	int max_stack_depth;
+ 
+diff --git a/fs/fuse/ioctl.c b/fs/fuse/ioctl.c
+index dc3a188f5d72..3ae50a25064b 100644
+--- a/fs/fuse/ioctl.c
++++ b/fs/fuse/ioctl.c
+@@ -23,9 +23,11 @@ static ssize_t fuse_send_ioctl(struct fuse_mount *fm, struct fuse_args *args,
+ 
+ 	ret = fuse_simple_request(fm, args);
+ 
+-	/* Translate ENOSYS, which shouldn't be returned from fs */
+-	if (ret == -ENOSYS)
++	/* Cache request-level ENOSYS only; outarg->result is per-command. */
++	if (ret == -ENOSYS) {
++		fm->fc->no_ioctl = 1;
+ 		ret = -ENOTTY;
++	}
+ 
+ 	if (ret >= 0 && outarg->result == -ENOSYS)
+ 		outarg->result = -ENOTTY;
+@@ -233,6 +235,9 @@ long fuse_do_ioctl(struct file *file, unsigned int cmd, unsigned long arg,
+ 	struct iov_iter ii;
+ 	struct fuse_args_pages ap = {};
+ 
++	if (fm->fc->no_ioctl)
++		return -ENOTTY;
++
+ #if BITS_PER_LONG == 32
+ 	inarg.flags |= FUSE_IOCTL_32BIT;
+ #else
+@@ -492,6 +497,9 @@ static struct fuse_file *fuse_priv_ioctl_prepare(struct inode *inode)
+ 	if (!S_ISREG(inode->i_mode) && !isdir)
+ 		return ERR_PTR(-ENOTTY);
+ 
++	if (fm->fc->no_ioctl)
++		return ERR_PTR(-ENOTTY);
++
+ 	return fuse_file_open(fm, get_node_id(inode), O_RDONLY, isdir);
+ }
+ 
+
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260911-fuse-cache-no-ioctl-1bb573a27597
+
+Best regards,
 -- 
-Michal Hocko
-SUSE Labs
+Stanislav Kinsburskii <skinsburskii@gmail.com>
+
