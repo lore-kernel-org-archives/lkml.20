@@ -1,90 +1,96 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B664472082
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D526442385
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393385; cv=none; b=nTr7roJ6EnnwrjJeAAlpCfvu56O8v/wE/LM/xls30PfAoywjcg/phftGsgwsTqmHiDIidlC6LULSEpJevm5BqAXA3YzhXe0TTPxySMNDDJaXx0o/hIfG2RHrrAPki9LxXeXdWtc8HhJF93v1MkUVLivljCVXtuV7JghWhZc9Okg=
+	t=1789393394; cv=none; b=hwtE0+ara0beuh9a1bJJwFgW3qhNxs1yLjRkGbhPSYgNP/LP1zFYIAqWr/sOd37ENQg1SR9mef36z6FiMuvsxKvG18r2YV/u//Yd3nBOOG1oVztaSCTnIy8F/YayBYDlQbvhx73vqz2FzjHGbyvixE8sBv/MCqNUWi1Ae6MHuDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393385; c=relaxed/simple;
-	bh=VsD3H2ySCWA+ttXwqRR44/yEVZBVYNu9HiXKcp4JU/I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EOg5a9WPzfIfQPTfqnZ1cEJVNLTaFAoehV5U9JMjenvSvK9IZegWdnCS1Y13uFbU4nxiL8F307fkqrL7VHhH2Nxr6n9UIuRz/JkbLCE7k4mp0PkF8g/6GnQ8kHkmdjmSeTIcYrZ+9qi8vjVYZnlWhxJcNJ+dZ5YYE4pS0oleO3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QKEvRdM1; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789393394; c=relaxed/simple;
+	bh=1Fc0KyZHLk7ULyYS8SIQV3M35fMzcsUO/lWfP2TzYWI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EJMHn/H9y2TtPz+XuotabUgogKS9x+vveY9AxMPyhlVvMkrNjuh+BLdcK2dkBKrMduZ9Hve6r0zIEYxj1dygNjjLX8Dqj5MAvyQXDkfVQ+IUzervP7UkpOjhoNFWESnS8sKeWTSxMzPpTLsnhnn9qBcB3OV7DLP2yr+59CQttNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=Po3m6xoh; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QKEvRdM1"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1895C1570;
-	Mon, 14 Sep 2026 06:42:59 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 239B83F882;
-	Mon, 14 Sep 2026 06:42:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789393382; bh=VsD3H2ySCWA+ttXwqRR44/yEVZBVYNu9HiXKcp4JU/I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QKEvRdM1KsJUIgRp2hAnY1MCgGM/jsC+08mreDLmTipFou8mjBZj9V/kx6bWzth3l
-	 tuNqalyLN0cvWZ5wbjjg4t7KqBhT4908Ts+Tkbvtqy48J9zQGOpQbwVeRQIXszeC+r
-	 lPDBN0rq3hBOLFndk/60GPy0jKdhx5mp3czuRW5I=
-Date: Mon, 14 Sep 2026 14:42:51 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v11 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
- provider to an SMCCC device
-Message-ID: <aqf524L399WhJ2XV@arm.com>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
- <20260914060511.277948-7-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="Po3m6xoh"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-486e70f2457so1691977f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:43:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789393389; x=1789998189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6ONs8JfteApgzfSxnZlkhUCoBw9wJsvGngg+TCpNbLU=;
+        b=Po3m6xohTvb/Y1G3DiBSTGXmfbEDYVivNLxOzCpeTtGqt0Mzhkre7PS2GsMyoDX20m
+         FmdAWeCwoXKPL0QbypACWmHCuEOUgLrPs8UyCG5T70y3FjxrlAt3iYgRivgsGnaPAd5Z
+         Bu9yT5oorRnbu06XlBTSwj7P0JQKCZNXzuS3/9ST6nlYMx4WNshawvhi/ipsrkLkedIi
+         EP1Q8WT747/WGBUh9i7GGbclHbBllwP81a2oMavxag1IdylaTefFpPVCe082oaYoyRFd
+         CdWRWHtjnI4DF0F149dtSp283kmsUpD5x2Xb5UEVSV0dYnaBCNkCtaTqDUYZdKfwaDLd
+         ijTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789393389; x=1789998189;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6ONs8JfteApgzfSxnZlkhUCoBw9wJsvGngg+TCpNbLU=;
+        b=GbJ2ZCD2bArb6sljXw5mXIcJ2pq+18ynzOe+Gp441D0rrLRS7LJfi3TlI2h5atP0ev
+         rtUNfv1lTDHFmuSzdwKwFLTm4CalP8R/0OGY/Ui8mzhzptyDz3fZWaakXA7kyEIkyvAP
+         9vg+AVSe9grNaKsRDkW6zq6a+W4n+z+JsLICLRiFHU28N05vDxF/jxmpDLZeOQSNuThe
+         5jYwkNVJ7aLJ9OrIGAKWqy8ghWQRz5Js8eJnC28KM6RnED3NX0Nv0XZSzCRBc1WyHU1K
+         CTy5bIwDbjoCZpSgJzKKYtOY7ikxQlgRdy/lQaToxIgasLiUqqRHTiZjqRm0UowCwR51
+         agMA==
+X-Gm-Message-State: AFuF++mORu+3S0ZHMFZO9vAdTctkILRuD0S5qg2FfTFlwTcEalt0zaXZ
+	AXeZVEaOGIOUjgK/jgm70K1BWV5lIdTTHeLvuqkEgSBL53j65NEFOZ+RA2BLBt2AcbJkCaSZQl7
+	YMZk0N0P4rw==
+X-Gm-Gg: AYBFou29xQdkNcjLrvbL7RDvlVDjjYt+IlmtVuTqhOlIaUUeN5Lw3063TN6+kQn/izV
+	xW86P8Q+QXfN6oZ1xotIp1juilwQ9bLUSfRCmpGi8WewW88gYfdpfFfj0vsC1NSFp122ZpXssAO
+	qXnadyU3Zy4znJylAaTkg0YpaPj7565NI8zvmbkdoMbmSSJtYNGlS4SpAKgXO3Q9E713UXj9Yf2
+	dAj6vWsNU38ORaap1P5M+GlXBjrOSaSk7FZ5pB3jLEaVN+NANcymKL3lE+y0eyCvYr4UO5QC1S6
+	7j6dlwMPaB26+f2ifCbR3QzzZK92TYjX/0b7O1Rh6ZkqM6PCj/8zHp3703+f5S+YGfFxzL9UJQq
+	D/2FtN1v65BMP+Un9QFK9zqOUWv8lWp0PKN7bw9ZY5VG3G1WbJAVuUZoJmDDMm7JOWjRiHrvDex
+	MYMORScWaWJEq3CpzkPENFu1tdMrjaqwjXRmExAwVidQ53rCw8heBKQWoAWMm/9wqVeWIguLWev
+	Eld8fnTEPYqHig1Rdz8xLoyYWHCn071FXeTtRUmZyTgGsaWlNAa3IlunsGi4/wduqNinErNtF3d
+	iDNyew39QSN463usGpaH6q19I4gGn+W0frbgdQ==
+X-Received: by 2002:a05:6000:460e:b0:487:4ba:97f1 with SMTP id ffacd0b85a97d-48704ba9a14mr431505f8f.7.1789393388928;
+        Mon, 14 Sep 2026 06:43:08 -0700 (PDT)
+Received: from [10.160.16.196] (150.red-80-32-100.staticip.rima-tde.net. [80.32.100.150])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb330bdcsm28007119f8f.13.2026.09.14.06.43.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 06:43:08 -0700 (PDT)
+Message-ID: <e39b25a5-6b53-4fbe-9185-9be66ed47df3@kernel.dk>
+Date: Mon, 14 Sep 2026 07:43:06 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914060511.277948-7-aneesh.kumar@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Missing signoff in the block tree
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+References: <aqfBpkMSF1rFicSh@sirena.co.uk>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <aqfBpkMSF1rFicSh@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 11:35:10AM +0530, Aneesh Kumar K.V (Arm) wrote:
-> The Arm CCA guest TSM provider currently binds through the arm-cca-dev
-> platform device. Like arm-smccc-trng, this device is not an independent
-> platform resource; it is a software representation of the RSI firmware
-> service discovered through SMCCC.
+On 9/14/26 3:43 AM, Mark Brown wrote:
+> Commits
 > 
-> Move RSI discovery into the SMCCC firmware driver. When the SMCCC conduit
-> is SMC and if RSI ABI version call is supported, create an arm-rsi-dev
-
-Nit: "arm-rsi". Or did you mean to actually user "arm-rsi-dev" below?
-
-> SMCCC device. Convert the Arm CCA guest TSM provider to an SMCCC driver so
-> it binds to that discovered RSI service and keeps module autoloading
-> through the SMCCC device id table.
+>   0d337c5d5a6ae ("block: warn on too larger integrity allocations")
+>   080f146f067f7 ("block: pass a maxlen argument to bio_iov_iter_get_pages")
 > 
-> Keep the old arm-cca-dev platform-device registration for now. Userspace
-> has used that device as a Realm-guest indicator, so removing it is left to
-> a follow-up patch that adds a replacement sysfs ABI.
-> 
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-[...]
-> @@ -94,6 +95,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
->  		.requires_smc   = false,
->  		.device_name    = "arm-smccc-trng",
->  	},
-> +	{
-> +		.func_id        = SMC_RSI_ABI_VERSION,
-> +		.requires_smc   = true,
-> +		.device_name    = "arm-rsi",
-> +	},
->  };
+> are missing a Signed-off-by from their committers
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Oops indeed, now fixed up.
+
+-- 
+Jens Axboe
+
