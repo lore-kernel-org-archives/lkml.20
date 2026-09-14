@@ -1,108 +1,78 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4433DFC8A;
-	Mon, 14 Sep 2026 14:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 274AE47F788
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397466; cv=none; b=SXhovHAl2CquUoC03s7CrTgYbWPpx1lght83eJts3AZrhMiRfV29VcQHtoakWgkLlSW5xCkPWbuS+joujCzv7ghMxrmBTRstoJSA//lGNMTGmzWjR7acxfDEs0Pvw2D0sj74YAQvE6aqk1E3/E3JuiFCouuyz9JcXVF937pHPlg=
+	t=1789397466; cv=none; b=shX8pvVATugJQG6qEKGSJiZgGORxwBUwBligGd5drC2cIQau3GQjCcGJFu34CnoNYPfzaD7WHXYZzVSfvOYFcfIUtb2WhNa6BKUyfWzbnGg8OuuQ51Abn2IYJdyt0fOtQqYbz9MswMHByivIMOwwkQib1Nxssuet6ZLm8RkkEzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789397466; c=relaxed/simple;
-	bh=aNw3mMrhimZo+nIt/9/tbqxXXAZz9eqBFXTH/90NG7k=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tu2f+ZM2DsmtQaRO8sHPdEbYZyWnOsjkqDp9rEWn9SOSOLXR9DYihk6jLVidQCqbXCy16200F1uXO/9XGhcvyJytVxglYUsXwTmHHzbudFIN0zr97H/ojqLpsaea2T4GqySSsY27dPJP6nZzA0FKzxvdHRrayS+AuHC15YS5Y/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: linux-spi@vger.kernel.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: broonie@kernel.org
-X-PTX-Original-Recipient: jre@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: mkl@pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1220C200051;
-	Mon, 14 Sep 2026 16:50:55 +0200 (CEST)
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <jre@pengutronix.de>)
-	id 1x681G-000v8b-32;
-	Mon, 14 Sep 2026 16:50:54 +0200
-From: Jonas Rebmann <jre@pengutronix.de>
-Subject: [PATCH 0/7] spi: spidev_test: new features
-Date: Mon, 14 Sep 2026 16:50:39 +0200
-Message-Id: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
+	bh=fDxs3RSMgLMHYM2xJnti/dp16e+QGBfMd1fd6wVbCsM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PQpBWO5HhpmgeIGrRyGzy3ueSaGiqhJ+/58nOPnFOZ3I6rS8OvQ5CCBC3w0qf8GT/lYpxjNRQ4pFM02TmoWLystzyPWZCQShHExhGjhYdCO0DL1Xeo1cTo1lDBbr7zUIyTYdbyBS8x1YMZvnYNSygur4YZGxTkx22iF2NMaVjB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Fq7v4RIB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Fq7v4RIB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED021153B;
+	Mon, 14 Sep 2026 07:50:51 -0700 (PDT)
+Received: from [10.0.128.139] (unknown [10.0.128.139])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 646E33F9A2;
+	Mon, 14 Sep 2026 07:50:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789397455; bh=fDxs3RSMgLMHYM2xJnti/dp16e+QGBfMd1fd6wVbCsM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Fq7v4RIBTyW6Flh4cvLImhdyoMuZXe+QwP6fHOBIcZXAcK1B74ZfU928xjBU/apV0
+	 Y3AHQ1ZplqMPJqRTc8XUo+GxwnDEjFAJFtUG57N1UJHTV3vK30CYEyJCXP1QZKc9zz
+	 k1RPSf9O1PwTqyptUlSYNVa34PEihESyl2auRgKU=
+Message-ID: <db219147-e2b5-43ce-9e14-a01ca65c52c7@arm.com>
+Date: Mon, 14 Sep 2026 15:50:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 4/7] arm64: realm: Move Realm memory encryption ops to
+ RSI code
+Content-Language: en-GB
+To: Catalin Marinas <catalin.marinas@arm.com>,
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Jeremy Linton <jeremy.linton@arm.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
+ Will Deacon <will@kernel.org>, Steven Price <steven.price@arm.com>,
+ Andre Przywara <andre.przywara@arm.com>
+References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
+ <20260914060511.277948-5-aneesh.kumar@kernel.org> <aqf0lyf6dQRc4eDR@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <aqf0lyf6dQRc4eDR@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAL8JqGoC/x2MQQqAIBAAvxJ7TtCUsL4SEalb7cXCrQiiv2fdZ
- g4zNzAmQoa2uCHhSUxrzKLKAvwyxhkFhexQyaqWjZKCNxJ8REMfBTyHHXkX1iqn9RS8dgZyuyW
- c6Pq/Xf88L/eRfV5nAAAA
-X-Change-ID: 20260910-spi-sun4i-spidev_test-881b33fdc3b4
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
- Jonas Rebmann <jre@pengutronix.de>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2002; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=aNw3mMrhimZo+nIt/9/tbqxXXAZz9eqBFXTH/90NG7k=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshawXlaw0Nepn3HljV2UQynz+8NftF3RV955+LVF8NcL
- 58X37LoT0cpC4MYF4OsmCJLrJqcgpCx/3WzSrtYmDmsTCBDGLg4BWAiXZqMDM+8tsZ8NJ1uLP13
- bsvfb9vXLJsW9+G+++tNPgf0XlqzfIti+Cvcu2jFiYoglq83ryU4z96ypflTbEHLs57K2dwcrSH
- LajgB
-X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
- fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-A collection of new features for spidev_test which have collected during
-testing/development of spi drivers.
+On 14/09/2026 14:20, Catalin Marinas wrote:
+> On Mon, Sep 14, 2026 at 11:35:08AM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> Realm memory encryption callbacks are CCA-specific. Keep the Realm callback
+>> registration with the RSI initialization code instead of pageattr.c, which
+>> only needs to provide the low-level page-attribute transition helper.
+>>
+>> Export __set_memory_enc_dec() within arm64 so the RSI code can wrap it with
+>> the Realm-specific encrypt/decrypt callbacks and warning policy.
+> 
+> Suzuki commented on v9 I think not to expose this function but I don't
+> see a nice way around since we now moved the realm_crypt_ops out of
+> pageattr.c (so we'd have to export something out of that file).
 
-Patch 2 is a small preparatory commit to share macro definitions with
-the rest of the tools tree instead of keeping local copies.
+Yep, you are right. Thats the conclusion we reached to.
 
-Patches 3 to 8 add the following options:
+> 
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 
-  -c, --compare        Compare RX against TX without enabling controller
-		       loopback mode; useful when TX is physically
-		       bridged to RX.
-  -t, --no-tx          Do not provide a TX buffer.
-  -r, --no-rx          Do not provide an RX buffer.
-  -z, --nonzero        Skip 0x00 and 0xff bytes in the generated
-                       random TX pattern so that a stuck line (pulled
-                       high or low) does not produce a false positive
-                       in compare mode.
-  -P, --predictable    Send a deterministic byte sequence instead of
-                       random data, so that runs can be compared e.g.
-                       on an oscilloscope.
-  -T, --transfers N    Split the message into N SPI transfers inside a
-                       single SPI_IOC_MESSAGE() ioctl, exercising the
-                       controller's multi-transfer handling.
-
-Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
----
-Jonas Rebmann (1):
-      spi: spidev_test: include tools/include
-
-Marc Kleine-Budde (6):
-      spi: spidev_test: add compare mode
-      spi: spidev_test: allow disabling rx or tx buffers
-      spi: spidev_test: don't send 0x0 or 0xff
-      spi: spidev_test: send predictable data
-      spi: spidev_test: add option to split message into multiple transfers
-      spi: spidev_test: print TX on error
-
- tools/spi/Makefile      |   2 +-
- tools/spi/spidev_test.c | 183 ++++++++++++++++++++++++++++++++++--------------
- 2 files changed, 131 insertions(+), 54 deletions(-)
----
-base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
-change-id: 20260910-spi-sun4i-spidev_test-881b33fdc3b4
-
-Best regards,
---  
-Jonas Rebmann <jre@pengutronix.de>
+Thanks
+Suzuki
 
