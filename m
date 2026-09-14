@@ -1,98 +1,148 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CE037A496
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74624908BE;
+	Mon, 14 Sep 2026 17:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407306; cv=none; b=ZnKUL0AxmySKDG3jKTFQHjKuYtnUBAnOODutGde5Se/VY7oR6L32mcY6pURyeTkbzD7P+/72AzoXOuxJhIzUuvOnWnTKWD1Qn3EFh4XwhRwm+GSJZgRaynTF99aIzDrINsaRDh2ZOYTY2EArSrwwcGZWLwWT2XfHwRLx3he6/kg=
+	t=1789407311; cv=none; b=Dhbv1+aO5pRugs9TFkJUV2VG+fY1wHIt+t6IY907HoQI+hPxNDNqe9RrvdMH/V3aBjLPFWRpGO5e4mXCHsj36Ik4arMSr/lcjEnTLFu60KvZM1Im/zHVypq/VSnPCupIkbowaJ5zp0T/UGfHEJbmaOYthAzNXDpb4CbT2SRDJEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407306; c=relaxed/simple;
-	bh=Vsfrgq4Z1iO5Wgf2nTiGn/7pth86QSJP/A56JZdeAO8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SMXAkz4seMNexXtpgoCpEcnNXa9RDlHoP9S3WKfqseTPEx7yImtNp431Di5/PWcQMzMXPHuSybvLZwJys1odE8oar2A0vbz3UktBVwTbqYD0/z2ylrXrbIyhwCobD92Kghzpooe682O+wQDlq4eETTPtkVsKHBQPHlrcr9rQt5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78569cf871bso1735248137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:35:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789407304; x=1790012104;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0NUX54nJDMCbpqD/MoUkH89fRfTiAlUe06ZP87dx3t8=;
-        b=S2x5fbYvcH4KaYHLUboLmobtpFYwH3sZQxD4lwZNhKfZiZcJXP/erAnvE6eCRlSI3X
-         Mb4okoY7+IJ2IBH6Jt5h/fiJZHDeGT2DPh9gSJ7g9h/Ez/wFBxFsrMRog1exZbKwWaqt
-         xoWMO4819nfy5rJNuCI+TcTTNQuMh/FmKswAKQbXoXaLc+qybjZ517oQ8NtC48/ae3Qq
-         s/7NK51pfyq/IoFY3xPRbS1Z9Xg2lMPH4yM3d6MnAC2Qi24OdEzPMF/A4ebbh7OtO+iN
-         Jk95G5hSUypiah34mXq2bi/yV9vXv427b/Latd74uHbBv3bP75pLKZznAiikvjUdGAVH
-         tfow==
-X-Forwarded-Encrypted: i=1; AKwUvBzZkJJTSSMC4ZrgSXu54eKHP9V5m4yw5nSgkdUAsPB1rDAV3JeIBkOgviAwwnRLw6FIofGKsPbOERh2XEs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfx0sd3CbLMackI5ODbsqn0kWiVWJYaSmfijp8lWcNcU9aSXrH
-	B9h04QUlWlRyG12eyF2MWlzEXu3K3W10rW6Lgqbls19Czw+bvJeiEx3GURYx7/iZ
-X-Gm-Gg: AYBFou3uX9slK41w0tYLeJQjM8rzEJOFCSHyIiqO/kXeJSVn+Z34hVBPfF/lF5q9MtT
-	4y6FdQv5mi/YuWT0fJmyuHM6ot0wdagFjDH069Gdasm6tu2NPBtKjril2nkg3y7CFFadEKPX7Es
-	G1B8W+gdqKVn5OL1WKpZ6WmaViTfqGvxUbqoCFiQmZAHSOKP7HdyPvWygGJyX8c6gn+L0O4PzMO
-	3H2zlelW6Po2h9g0LZ5opMGnTPfAZPpbg4pRUKhIUzdLPNYAuFci54FfxHVFXBoRticXqgZ4O9b
-	NHG1UTZV3AF08x2nzt2z9BNrtEYzGdIRkK4fwRbD6VqHPQttOXZKsqqBpF5//L1mkwMuxUB26V4
-	n52vhMRq6qqg0Hbtk4WxGeabi9gnvIM0VLeBg564VONkp6H5PpG4KSbhH8V6pt+dnbY60xjJUuG
-	4IO/ywWVbafJXaXxXUtUxYq5VF6NpCVg/bR2czjni+E7mbbsAa0uL4y0DhO9MBrtDA1hBaeylrg
-	wjPybJf9wCh3sQTVqzwW97Pj+NlNCXtKO3cFA==
-X-Received: by 2002:a05:6102:548a:b0:796:1ed:ba47 with SMTP id ada2fe7eead31-79b51c81486mr1900341137.0.1789407299099;
-        Mon, 14 Sep 2026 10:34:59 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982e805c24esm4483638241.4.2026.09.14.10.34.58
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 10:34:58 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e97e2c7d4so1355354241.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:34:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw+hHP7DxZ7P+nVqUYNkLzRxgSVIN33/KJZTU4psGKaCvnzYhASu2WH1LRvF+VIuIdRgTFVR34UJEgviD8=@vger.kernel.org
-X-Received: by 2002:a05:6102:149c:b0:790:cba0:960 with SMTP id
- ada2fe7eead31-79b5acb355emr2241619137.10.1789407293829; Mon, 14 Sep 2026
- 10:34:53 -0700 (PDT)
+	s=arc-20240116; t=1789407311; c=relaxed/simple;
+	bh=yA0xjPmbWso9PL4zhMVJecfESEqBadcWXFQAEM8YhAg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HEv78vV3Vo4xuUQfabAX+0D1yLZ1jggwFCkoQi0JZgulZRfFJoicLyFZT2gJO47nmUWHUSWN0GzMnrfwueobSrRrHDJDtskqaSKXAi5VxzlNkMYqKHsXRuGcYoaoJIHeLgE97d2hRXrytOc9tZ/vYAvORf+qYE3wNhZByqtvo18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=sY3vF3wP; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="sY3vF3wP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=qDVSXqIm/ZZ7NqZ7O46ll556+WfE6c0OGZaZTBmNtws=; b=sY3vF3wPMfV24E7Dcni58ZXMe3
+	ibRgguOwwLQcKEQ9HKgwLdG1ruIx/1aKEdVd8inZyLeSRuR7x3TuLWHJ8DRgJcZI4Nj/fZgvcq54q
+	9iKpAyphvZsmC/48vIGUoVX5yBZrOfwsP6VD8wZseeqKt08rHwEzDZPTRy4xrWDvBURku0FBVCjVg
+	7dQkU6P+t2WBudH700oWI7gb9iI8lxXDcMp6Voa52PeMMmcus6Iu63I6H/kHw0id++gY9cE1AdfHe
+	5BCRkTk1MbfSj/W+j7m1LQeDmDyu+11lB+sf029bSaUWOFVtp7F3YhVSi8bZgI10O4+UlRcW9iDj/
+	fqigvzsw==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x6AZt-00214e-Ga; Mon, 14 Sep 2026 19:34:49 +0200
+Message-ID: <c1388b5f-9077-4161-8fd8-3b8ebf24fbde@igalia.com>
+Date: Mon, 14 Sep 2026 14:34:41 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788943229.git.tommaso.merciai.xr@bp.renesas.com> <3ee335429dbf7c2d105d03e184d8f74872b680f0.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <3ee335429dbf7c2d105d03e184d8f74872b680f0.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Sep 2026 19:34:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVqRynsmD2nPqmZa2Exqxu735U0OD5FCdOszg6cgWKAvA@mail.gmail.com>
-X-Gm-Features: AcwNN1WoxHDmzn2F97DUjx3relfUn6leVozV88qE-5Mopf8vJX_28JLL2_fcd10
-Message-ID: <CAMuHMdVqRynsmD2nPqmZa2Exqxu735U0OD5FCdOszg6cgWKAvA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] arm64: dts: renesas: r9a09g047: Add USB2.0 support
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: Hold a GEM reference while purging userspace BOs
+To: Kazuki Hanai <hnkz.64@gmail.com>, mripard@kernel.org,
+ dave.stevenson@raspberrypi.com
+Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, eric@anholt.net,
+ bbrezillon@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260830130700.680041-1-hnkz.64@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260830130700.680041-1-hnkz.64@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 9 Sept 2026 at 10:55, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> The Renesas RZ/G3E ("R9A09G047") SoC supports 1x channel with OTG/DRD
-> and 1x channel with host interface.
->
-> Add the EHCI, OHCI, USB2.0 PHY and reset control nodes for USB2.0 channels
-> in R9A09G047 SoC DTSI.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Hi Kazuki,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On 30/08/26 10:07, Kazuki Hanai wrote:
+> vc4_bo_userspace_cache_purge() removes a BO from the purgeable list and
+> then drops the list lock before taking the BO madvise lock. A concurrent
+> final GEM put can therefore release the BO while the purge path still
+> holds only a raw pointer.
+> 
+> Acquire a non-zero GEM reference while the purgeable list lock still
+> protects the lookup. If final release has already started, drop the list
+> lock so the release path can remove the entry and retry. Put the temporary
+> reference after dropping the madvise lock to avoid recursing into final
+> release while that lock is held.
+> 
+> Fixes: b9f19259b84d ("drm/vc4: Add the DRM_IOCTL_VC4_GEM_MADVISE ioctl")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+> ---
+>   drivers/gpu/drm/vc4/vc4_bo.c | 14 ++++++++++++++
+>   1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
+> index 49ea2ed0996b4..5289e69f3345f 100644
+> --- a/drivers/gpu/drm/vc4/vc4_bo.c
+> +++ b/drivers/gpu/drm/vc4/vc4_bo.c
+> @@ -319,6 +319,19 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
+>   		struct drm_gem_object *obj = &bo->base.base;
+>   		size_t purged_size = 0;
+>   
+> +		/*
+> +		 * The last GEM reference can be dropped concurrently. Its free
+> +		 * callback removes the BO from this list before releasing it, so
+> +		 * the list lock makes an unless-zero get safe. Never carry only a
+> +		 * raw list pointer across the lock drop below.
+> +		 */
+> +		if (!kref_get_unless_zero(&obj->refcount)) {
+> +			mutex_unlock(&vc4->purgeable.lock);
+> +			cond_resched();
+> +			mutex_lock(&vc4->purgeable.lock);
+> +			continue;
+> +		}
 
-Gr{oetje,eeting}s,
+Hum, your fix doesn't look correct to me. First, I don't understand why
+you are using something like cond_resched() here. Next, with this
+approach, the BO with refcount=0 will never be removed from the list.
 
-                        Geert
+> +
+>   		vc4_bo_remove_from_purgeable_pool_locked(bo);
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+What you could do instead is calling:
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+if (!kref_get_unless_zero(&obj->refcount))
+       continue;
+
+here.
+
+Best regards,
+- Maíra
+
+>   
+>   		/* Release the purgeable lock while we're purging the BO so
+> @@ -345,6 +358,7 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
+>   			vc4_bo_purge(obj);
+>   		}
+>   		mutex_unlock(&bo->madv_lock);
+> +		drm_gem_object_put(obj);
+>   		mutex_lock(&vc4->purgeable.lock);
+>   
+>   		if (purged_size) {
+
