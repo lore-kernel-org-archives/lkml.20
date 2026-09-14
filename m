@@ -1,86 +1,49 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1901B41D657;
-	Mon, 14 Sep 2026 10:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1894416842;
+	Mon, 14 Sep 2026 10:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789380337; cv=none; b=nU27m7HbMFg8wiugxXMbOG7mkuNrv3+jwYE5uVOP4Ce4Sbz4dSRX5E9+YgV7lImjvapzfMGCBvIZ9bQYj1gFHsXsclMYHT6M3xtkFc7A2DeeY7TDzIJ63vrhCZtTQE/Ll1c9c2St1UUKTSIpr3K0+oYve/N6l3YOjf/A2gvRcpo=
+	t=1789380362; cv=none; b=OU1zLJTrqnZeL5rw0VrU0MbvAwghqIwz4BdL9hjBD/+JjPt438c1sTN/CZo7EdAAxFfqEpS6hrOxGB6H+reykTyH8ZYQpAcspS7fGdPBc12QJ0gk/+V1UbBkSmYYUMoRQJ5/O8eaW8SzHhAgV7d77a+VL9uRb1bvaBgyoKis83s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789380337; c=relaxed/simple;
-	bh=RPxJHl8fG6Za+XlU6ps927tP4ZN2Ost4ugkP6pMt4BM=;
+	s=arc-20240116; t=1789380362; c=relaxed/simple;
+	bh=DMDWCM6JoxGA89eSSsTk0/dEK4XIGdWdYKOGMSUf3xM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I3IiKLcKrAhSFHWR5RE7JJHNtR1cnDs26qOnAKdapApEKW0V2UBQr7eDLQnhj4PKMwrVkiT0qYAyIKYV7WWy8wBOAH8uzpwpR/vM5ezgxK/d+lPDhBjNqISvCCCwTQFMJyYCeTJPzwK3pL/XM3vd02djvbVplhFGQDPF+RZr5bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YnFaqGVT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=EkigB1Yg; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KD9oUBgB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=om4PdHd8; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=OyDCMUiGZcXRMvb1dgVExsOa+FDqeIZjyXOo5EMPhysd+7748k9ZhMAu85izBzbwPIhVWH7DsvW4pvJYTDM+JqMaZpoqz4G0A4/QLBXRwtzQ8dVJHNmr91alJZdk/tqQyupTJpPTv1G6BT+pyqu7IGIAoaayyfkTgCh/YWHPN2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=PvQLSmgO; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YnFaqGVT";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="EkigB1Yg";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KD9oUBgB";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="om4PdHd8"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B97C51F7D7;
-	Mon, 14 Sep 2026 10:05:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789380329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NmBWl0mHYf0yLACdOrccuowLiTsIHpW0AATNzUDZUMM=;
-	b=YnFaqGVTGYwDfGfEj++30T9Olqw3hIHWRGXKY2SmM+XlKUky+i90UxQSeidZ0OwK7+NtIj
-	t6irSIjnVjRWKAifzaWNzR+b6wHaZ317ilLNIHYmdvGIYN2RXNhLkscemObySsN9SF28sV
-	CyZyVsGQO9lPClX74KNwj5k4JVkoDis=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789380329;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NmBWl0mHYf0yLACdOrccuowLiTsIHpW0AATNzUDZUMM=;
-	b=EkigB1YgH0iCLKv73cUBF1d0qHxDnSqIoadVck5eZDLz1jvCOSQF/AnO/DYq/SSNIILfYI
-	Q4naDwfFSiKT2lCw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=KD9oUBgB;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=om4PdHd8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789380325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NmBWl0mHYf0yLACdOrccuowLiTsIHpW0AATNzUDZUMM=;
-	b=KD9oUBgB9J+QLYJ41r0FyeE/f94xrisxj/OIKWLa6D550JtSqWIKsr9Y+HXSYXRIHFdlyC
-	ie02mPr0f960klJ2v8orbij9sSy7p3nUioViQUvmyFaH26yeVJC5C7oETlU+06p14pDmq4
-	MxghZEXpxFr+BysEH8rN61RuqOvOc54=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789380325;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NmBWl0mHYf0yLACdOrccuowLiTsIHpW0AATNzUDZUMM=;
-	b=om4PdHd8ws4Pfe1hfqUPS9aQ7709BKqsCUr9uZO2AM96lebDewlT4JU/v9Dk1n2G52sxoX
-	05BYJzLyJ8TbJzBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8F0B713865;
-	Mon, 14 Sep 2026 10:05:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id wiXiIuXGp2oYAgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 10:05:25 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 20BCFA12E4; Mon, 14 Sep 2026 12:05:25 +0200 (CEST)
-Date: Mon, 14 Sep 2026 12:05:25 +0200
-From: Jan Kara <jack@suse.cz>
-To: Yingchao Deng <dengyingchao@kylinsec.com.cn>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, qinyungao@kylinsec.com.cn
-Subject: Re: [PATCH] fs: fix misleading comments in read_write.c
-Message-ID: <nqzii2t5rbrj4bfpng63vdo3npajak5wprv2xrscqlibicsszt@l3ycwknmopxd>
-References: <918177B3298981ED+20260914075337.1739-1-dengyingchao@kylinsec.com.cn>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="PvQLSmgO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=5Z1v1PVkhwXuhzUjiuSH7T4iPyc1/sQhU/UPzOLJk74=; b=PvQLSmgOBF9dhBHwMD2xbtUD3Y
+	Cs9pSVNzuo7MSooTy6u9tPv6tci36hXzmq7swIY0Ldor9CxztjJCDRgchFhx72AKoEIKcqgEF72IP
+	yx1AM3BFSJWEMQSMWwN+bCniWlsX57BoPbEqA/FQRKNFtDIb4CoIKfecshSxRckjfxbOECFgabS//
+	tonhKq9Pku0zhuxtiqk/DyAWu7v5sKyhWy5UkIqY6cKk1TPhLG/JdR3C+7CtHHZc4+RsVoheCPaw5
+	+kJ730D/cD+bzMP6ecnN9La+kQ9IR4dOH835haXkDHlEQXEk/fh1I9U6d1P5FS1rI9n4cEvsm9yKb
+	vE0XT3Nw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x63Z5-003XSJ-2e;
+	Mon, 14 Sep 2026 10:05:32 +0000
+Date: Mon, 14 Sep 2026 03:05:26 -0700
+From: Breno Leitao <leitao@debian.org>
+To: pavankumaryalagada@gmail.com
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+	Nicholas Bellinger <nab@linux-iscsi.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Andrzej Pietrasiewicz <andrzej.p@samsung.com>, linux-kernel@vger.kernel.org, 
+	Shuah Khan <skhan@linuxfoundation.org>, syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] configfs: fix NULL dereference in
+ configfs_depend_item_unlocked()
+Message-ID: <aqfGt6OFIRuqMC6H@gmail.com>
+References: <20260914094426.25595-1-pavankumaryalagada@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,98 +52,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <918177B3298981ED+20260914075337.1739-1-dengyingchao@kylinsec.com.cn>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B97C51F7D7
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email,kylinsec.com.cn:email];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+In-Reply-To: <20260914094426.25595-1-pavankumaryalagada@gmail.com>
+X-Debian-User: leitao
 
-On Mon 14-09-26 15:53:37, Yingchao Deng wrote:
-> generic_write_checks() returns the number of bytes that may be written
-> (possibly truncated by generic_write_check_limits()), not zero.  The
-> comment was likely copied from generic_copy_file_checks(), which is the
-> analogous function for copy_file_range() and does return 0 on success.
+On Mon, Sep 14, 2026 at 03:14:26PM +0530, pavankumaryalagada@gmail.com wrote:
+> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 > 
-> Also, no_seek_end_llseek() and no_seek_end_llseek_size() are helpers for
-> files that do not support SEEK_END (they only handle SEEK_SET and
-> SEEK_CUR), not for "fixed-sized devices"; that description was copied
-> from fixed_size_llseek().
+> configfs_depend_item_unlocked() can dereference a NULL parent when
+> the configfs item is still being created.
 > 
-> Signed-off-by: Yingchao Deng <dengyingchao@kylinsec.com.cn>
+> The item can be found before it is linked to its parent group,
+> so ci_group can still be NULL. Check ci_group before using it
+> and return -ENOENT if it is NULL.
 
-Nice, thanks. Feel free to add:
+The crash itself looks real, but this reads like a fix in the wrong
+place.  include/linux/configfs.h already documents the opposite
+contract for this API:
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+ /*
+  * These functions can sleep and can alloc with GFP_KERNEL
+  * NOTE: These should be called only underneath configfs callbacks.
+  * NOTE: First parameter is a caller's subsystem, not target's.
+  * WARNING: These cannot be called on newly created item
+  *        (in make_group()/make_item() callback)
+  */
+ int configfs_depend_item_unlocked(struct configfs_subsystem *caller_subsys,
+                                   struct config_item *target);
 
-								Honza
+"cannot be called on newly created item" is exactly the case being
+patched here. 
 
-> ---
->  fs/read_write.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/read_write.c b/fs/read_write.c
-> index e8c14e2760b2..4da846a2bf17 100644
-> --- a/fs/read_write.c
-> +++ b/fs/read_write.c
-> @@ -274,7 +274,7 @@ loff_t fixed_size_llseek(struct file *file, loff_t offset, int whence, loff_t si
->  EXPORT_SYMBOL(fixed_size_llseek);
->  
->  /**
-> - * no_seek_end_llseek - llseek implementation for fixed-sized devices
-> + * no_seek_end_llseek - llseek implementation for files without SEEK_END
->   * @file:	file structure to seek on
->   * @offset:	file offset to seek to
->   * @whence:	type of seek
-> @@ -293,7 +293,7 @@ loff_t no_seek_end_llseek(struct file *file, loff_t offset, int whence)
->  EXPORT_SYMBOL(no_seek_end_llseek);
->  
->  /**
-> - * no_seek_end_llseek_size - llseek implementation for fixed-sized devices
-> + * no_seek_end_llseek_size - llseek implementation for files without SEEK_END
->   * @file:	file structure to seek on
->   * @offset:	file offset to seek to
->   * @whence:	type of seek
-> @@ -1761,8 +1761,8 @@ EXPORT_SYMBOL(generic_write_checks_count);
->   * Performs necessary checks before doing a write
->   *
->   * Can adjust writing position or amount of bytes to write.
-> - * Returns appropriate error code that caller should return or
-> - * zero in case that write should be allowed.
-> + * Returns the number of bytes that may be written on success (which
-> + * may be less than requested if truncated), or a negative error code.
->   */
->  ssize_t generic_write_checks(struct kiocb *iocb, struct iov_iter *from)
->  {
-> -- 
-> 2.33.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+If configfs is now going to accept a not-yet-linked item and return
+-ENOENT for it, shouldn't that comment be updated in the same patch?
+
+And if the contract is meant to stand, shouldn't the caller stop handing
+over an unlinked item instead?
+
+> Fixes: 4bb8548df632 ("usb: gadget: f_tcm: add configfs support")
+
+This tag and the diff do not agree.  4bb8548df632 only touches
+Documentation/ABI, drivers/usb/gadget/Kconfig and
+drivers/usb/gadget/function/f_tcm.c; it does not add or modify anything
+under fs/configfs.
+
+--breno
