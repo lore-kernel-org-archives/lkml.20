@@ -1,122 +1,152 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0DF374A0A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6230442B12;
+	Mon, 14 Sep 2026 11:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384867; cv=none; b=oRi9zfCvwlQcQaYGRicgUUTIpKWDRB2rPefkIsukVgkjyTbXs22oOihKfBVZ0MbbVYnBHaxFwzhd5QXryTOUsZ3SDDjVnfRNI8sBm4cbqr/1fFh+3yQNUviZ/NhMf4XE03nHokyz0MNMe5ZBL5X5cboVqCCo5EIrLDwt988a5y0=
+	t=1789384902; cv=none; b=NbjBBTMg2NOk10t93MvorrWEE4cXgqmg5kZWwng4E7hcaSbYiqESSnwpJPYwSIVdZe5vsDuSVhv1yLYWZCZex6Sh+PgHF+ILLDJu3COu5ynnXd24gxaiAUcJzAT5Uy3MeeSMpujkH8Q7Zz8wAJAFJJFreTsvuqUj03lc/CN/jEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384867; c=relaxed/simple;
-	bh=rq5NpiVVURxPEKHZWNKaVlsgTfHHMY+YBVtD98Pr4R4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XVPw6NgaxOQSqXIn4yM8UWMiTxzZfzKNvdiHT82RiRbylAYS+l9zh2iqKbkQT+zkj75sBuF5pXe/saUYbH0L49QbeMjCYHADMooUo2DuNinhy5oJ+cm86i+6Z+FXGe6OhMkqLiwPFkKV38W8Fmcoy34c507AYETfsvQ25pneuSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JbAKtKuP; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789384902; c=relaxed/simple;
+	bh=8CPNzfXXQkXjqXEZK66MC05qLo563eN5yGa28t3moAA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DVMiZyr1JueWGts6uIVCdtJmMpyPHg+zet8NH7QqcoLIVz7w9H0vf2sJGEgTYBDOhIZAtaNnLk4HfQWfBXHTYNZx7JED53Kxz3qBuSvnKMNTEDZ1AIiajv5syBUgh45KfPU4iYZ3haszKqLi+h8/708Pmff1Tu5u0J6Q8zbOEoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arPNEJa8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JbAKtKuP"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dd020a2e44so28481165ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:21:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789384864; x=1789989664; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Me43ExR5DmXiMgXrmqqfo5yNv2WAFUvXbHnpJpXOxoU=;
-        b=JbAKtKuPrdBdl+o2CcieawUG7iQQCX29AvomNPyCG25El+dd2y+1W7SetawKdzMyXe
-         FOkSb06sFc/uqrBT499OH4PKEeU+Q+73PL1VjUCbO4qCSs/WWNq6+ZrpeZAIOXctU9hj
-         2S58QYLtpha70MUPxNa8JHfk0YjpQ+/ddAFlj84G1SsUKLt9sG5k1Qxi7Rc0ezOJ2GaT
-         4aCzXguHyzhnzLU2FC7ShkauHFouv+d4UODiVceiTCGr5kAMK3NGsDdyCwLpH1aC2Lbi
-         dclQg7723eUgA2+uPnVEYfoD8w+x8Kerihn+sZDKBgN3sHkq9fU2H/BTOyG4UYGPzCj9
-         oKMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789384864; x=1789989664;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Me43ExR5DmXiMgXrmqqfo5yNv2WAFUvXbHnpJpXOxoU=;
-        b=sHaoI+nYLLQggocQGEanCX0F35HE6Hk5s/KRXqbkR2076VLDVFaV3nu4kdhV/c8igP
-         VIkdeIaIR/spRG1sX94vmYRK5/HMX0UgJjAFbr2pRNxpYw90HPrUisaqdWEkFmF27PFu
-         W5VwECwZPVS1WEygAA+pq52VjD3V1Ps+QMU3Pt/rQWpwb/wx75G2TfTp46B9iFcoF+bX
-         pndPY2RFmpEHAzGaaVn+bQQ0Q2z86pP/ED+CgUBuJO+q9A4VGwwt/XlM/TYMMSlqpijh
-         l9dEcHEkzW67ku5ZuYLmJIWsOf84gpcW2lnvEYjYRMKOfD2dN3PFazX1XeoXqTUaezBe
-         MjKg==
-X-Forwarded-Encrypted: i=1; AKwUvBwxc4Crcg6PkARF2WUcuyws/YuWligS9MjGyjA1XUdF+lR8xum/8hMUV2L4qUsXtBT/jvaF3k6g5BY+CTo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIkLxAciR37JihK90TpV7pVt/KP8wRbzGrb1MVfmX+DcSLtDB5
-	jpJ/nRwLfy8A51wkR6zjiYfv6MoFxQYUlvN7ItGEzdtxy+asrMcHHxg1
-X-Gm-Gg: AYBFou0vPDJE+heab4jfhKES0tXbXqULKbjRR1mg9TczhMBKCN4CG2cKQIbWUxCO6Jq
-	qbcdoLxzhLwyiwUwjTyyKX+rrnBC0E/+xPMAR14w3/GeUr3vc64QR+sq3qnXK12TE8e/pWG1Av3
-	6JeKt4mvthFrCK27agK32jQ4kcGSi7A45TJMDj2jN0at8DpQaBswnYrffbDCDZ3epD3cZJlHlib
-	g2fxkeZKWqWYcEpvAVy/zHQKHGNimEFHZWzHmj0tsRNvYwdR+SxbGEBxevzY0KjkvzBUPd2tpAS
-	SWgoH/2DOoARdiPuT5VYCRwZD+ZbVjrBYFwze1GuzR5jKqjvnPhKuW9JBASpBbhZuB/vMnS9Cxm
-	MsroAHNwx34jr5tI/UksCum7IICNn0R1UDYGWNfgG31yQgvAasFTPhNkHUiNaKUDVuD011WjfU2
-	lVvkswREASgtCRW8roDVguI4X/LYsMyclV2DcsRzR7reCmdboThCHb5g==
-X-Received: by 2002:a17:902:ce88:b0:2d8:da29:da41 with SMTP id d9443c01a7336-2dd6c707c69mr42713475ad.15.1789384863573;
-        Mon, 14 Sep 2026 04:21:03 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd445de320sm35512865ad.8.2026.09.14.04.20.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:21:03 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Siratul Islam <email@sirat.me>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] iio: accel: kxcjk-1013: disable autosuspend on remove
-Date: Mon, 14 Sep 2026 19:20:53 +0800
-Message-ID: <20260914112053.1686061-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arPNEJa8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 08E14C2BCB8;
+	Mon, 14 Sep 2026 11:21:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789384902;
+	bh=8CPNzfXXQkXjqXEZK66MC05qLo563eN5yGa28t3moAA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=arPNEJa8e35n5gN4GJo7wd8XJvvTRLWe3MbrW+x20onq9x3j8bzt8OODWzkuas48t
+	 Dc4U50cUM7gfCPNAoohpUu8LIogDPmHvWgnAcb4TXF4ysj8wEIolky0VpYsckwV6ov
+	 GfQ1RGklOwhvn2ptfJa4lyOFxhDpQjRHffmzMOlV3bkjuWfnJHjVUzyDR0H3YPHTNm
+	 AJ+a9xnjBwtcYilXIrYImGw/vsNhwzoZ+J2EXeMP8l1JoayqFL9f7Gsg/A5cN+lrLT
+	 KFRyGSW0QSHYMXGstydUGQoF7/W0/e3iqccUOEnjpWJi1tERzdKLkyZTmFUj7xZ3Hu
+	 gtfT0oYlyXKqg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E97ABC88E50;
+	Mon, 14 Sep 2026 11:21:41 +0000 (UTC)
+From: Maria Lisina via B4 Relay <devnull+sekoohaka.sarisan.gmail.com@kernel.org>
+Date: Mon, 14 Sep 2026 16:21:31 +0500
+Subject: [PATCH v4] mfd: intel-lpss: Prevent DebugFS messages if it is not
+ initialized
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-intel-lpss-debugfs-v4-1-0eb82ea7c1e3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIALvYp2oC/4XNTQ6CMBCG4auYrq1hWiDUlfcwLtoyA034S4uNh
+ nB3CyvjQpbvl8wzCwvoHQZ2PS3MY3TBjUOK/HxittVDg9zVqZnIRJkpkNwNM3a8m0LgNZpnQ4E
+ jkSyqrAahCpYOJ4/kXjt6f6RuXZhH/95/RNjWv1wEDryS0hpTEpFVt6bXrrvYsWcbF8UxIRKhQ
+ eekqbC2lL+EPCZkIsBUKAxQppT4JtZ1/QBcTp+fOgEAAA==
+X-Change-ID: 20260913-intel-lpss-debugfs-eff3580d1295
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Maria Lisina <sekoohaka.sarisan@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2463;
+ i=sekoohaka.sarisan@gmail.com; h=from:subject:message-id;
+ bh=X4qdixAU8o/DioyAqR1f0aRwmV99DvMST7JyVMM/pyg=;
+ b=owEBbQKS/ZANAwAKARPrfuqZo5+iAcsmYgBqp9jEr2/RafuZN8XLeg2a9rt4Oef57IBy8oV13
+ mIQs+N84gKJAjMEAAEKAB0WIQQ8HZKKOdqg5DRiM0sT637qmaOfogUCaqfYxAAKCRAT637qmaOf
+ ogVTD/sHI/nnVU7P8mpgE4SF5wD0se1ghune6fC6a/Ta74TDiqUgJd6RanSpMg6bfj6UwpFzuTT
+ YtRjIextWZ+Yv4r6OjSXPnxdcL7S8SH7Ruso00unF/YDMfo6bNsDPCWzfCQlEpdpdc6m1EUR9kJ
+ 4K4dUePlLhKc/NZfktlV2ETYkEFqli7EyC7xXOSe3jcra8pN/9JCXSP2VRONw3kzeP3mEkfSHTS
+ OKP+3pv2ZV9t/tDi6Ke6w/FAuJazp8r+b54BG3jfF+MYc5x4RVqm2t7jLawwZmnu8eeGixMCKLZ
+ MbUkMy5Nh7I2gHjRt9IoePZxd1Phh0oLV7CEnt+lPfzbNEay4X05DYuOuOUD4V/FBT1Wus1fgJw
+ BeEmoxbJwrc2pdyU5/QW95LTiH/Kd+Dwak4zmmQxY2doV7pIdRbvpY/NrCGwe6xX4fcoppQnyKb
+ PD13SDJ4XZ7+16+pYut5JPgDPAduPpiqQV+qh2Y1FNxGoyc+f0dq/1ZW6S/zUcKBo5SSXa+vWb6
+ tf+6dY44dWLxhxBsYxc7Ftked5TeuBEFlN1iRl5klfqiENn8NLblo7j6ood5rSEFVMEEmhKkFEr
+ WI2uCWHnKv1IqSwZbRllbodt/NaCADSiydJXH3URqhi+k9fjSj4msB7Qtsosn+gDktobMg8b6vr
+ 5G8g8ncrTn/E9AA==
+X-Developer-Key: i=sekoohaka.sarisan@gmail.com; a=openpgp;
+ fpr=3C1D928A39DAA0E43462334B13EB7EEA99A39FA2
+X-Endpoint-Received: by B4 Relay for sekoohaka.sarisan@gmail.com/default
+ with auth_id=1030
+X-Original-From: Maria Lisina <sekoohaka.sarisan@gmail.com>
+Reply-To: sekoohaka.sarisan@gmail.com
 
-kxcjk1013_probe() enables runtime PM autosuspend with
-pm_runtime_use_autosuspend(). The probe error path correctly undoes
-this setting with pm_runtime_dont_use_autosuspend(), but the normal
-remove path only disables runtime PM.
+From: Maria Lisina <sekoohaka.sarisan@gmail.com>
 
-The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-set therefore leaves the runtime PM state incompletely cleaned up after
-the driver is unbound.
+The original code expects DebugFS to be always initialized which
+causes unwanted warnings when DebugFS is simply disabled.
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
+Therefore it spams dmesg with these messages:
 
-This issue was found by manual code inspection.
+  intel-lpss 0000:00:15.0: Failed to create debugfs entries
+  intel-lpss 0000:00:15.3: Failed to create debugfs entries
+  intel-lpss 0000:00:1e.0: Failed to create debugfs entries
+  intel-lpss 0000:00:1e.2: Failed to create debugfs entries
 
-Fixes: 124e1b1d0924 ("iio: accel: kxcjk-1013: support runtime pm")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+This patch adds proper check to intel_lpss_init() and
+intel_lpss_debugfs_add() functions to prevent writing to
+uninitialized DebugFS.
+
+Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
 ---
- drivers/iio/accel/kxcjk-1013.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v4:
+- Keep the dmesg messages, instead check whether DebugFS is initialized
+- Link to v3: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com
 
-diff --git a/drivers/iio/accel/kxcjk-1013.c b/drivers/iio/accel/kxcjk-1013.c
-index 166fb786425f..c6b030f64be1 100644
---- a/drivers/iio/accel/kxcjk-1013.c
-+++ b/drivers/iio/accel/kxcjk-1013.c
-@@ -1547,6 +1547,7 @@ static void kxcjk1013_remove(struct i2c_client *client)
+Changes in v3:
+- Fixed commit name and description.
+- Link to v2: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v2-1-a1a4faf5cc63@gmail.com
+
+Changes in v2:
+- Fixed function name in comment section.
+- Link to v1: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v1-1-833cbb6fffc9@gmail.com
+---
+ drivers/mfd/intel-lpss.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+index 63d6694f71457b2e09d238af0a9bfb897a169a64..d45728f46c499b3f0c3713d30a17b0ae12106095 100644
+--- a/drivers/mfd/intel-lpss.c
++++ b/drivers/mfd/intel-lpss.c
+@@ -146,6 +146,12 @@ static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
+ {
+ 	struct dentry *dir;
  
- 	iio_device_unregister(indio_dev);
++	/* Exit if DebugFS is not initialized */
++	if (!intel_lpss_debugfs) {
++		lpss->debugfs = NULL;
++		return 0;
++	}
++
+ 	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
+ 	if (IS_ERR(dir))
+ 		return PTR_ERR(dir);
+@@ -538,7 +544,15 @@ EXPORT_NS_GPL_DEV_PM_OPS(intel_lpss_pm_ops, INTEL_LPSS) = {
  
-+	pm_runtime_dont_use_autosuspend(&client->dev);
- 	pm_runtime_disable(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
- 
+ static int __init intel_lpss_init(void)
+ {
+-	intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
++	/*
++	 * Check whether DebugFS is initialized to
++	 * prevent unwanted dmesg messages.
++	 */
++	if (debugfs_initialized())
++		intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
++	else
++		intel_lpss_debugfs = NULL;
++
+ 	return 0;
+ }
+ module_init(intel_lpss_init);
+
+---
+base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
+change-id: 20260913-intel-lpss-debugfs-eff3580d1295
+
+Best regards,
 -- 
-2.43.0
+Maria Lisina <sekoohaka.sarisan@gmail.com>
+
 
