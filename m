@@ -1,159 +1,133 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274A344AB68
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A99470121
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387895; cv=none; b=emS2bGY6XV3w5k4crgBI8lLjvi4jeRbkg5kuBjdUgf6lSuTRSxpb9dnhBDWjxQrlrVxrago1oe6mJhG8mrzQIkRY0WjJod26TPcXH+g0/M6/kJjOvpZPPGSgWgcqk9yvfxPlzObGkDH33qS9hGze0w4ttOS5jrazcem0kzNHavg=
+	t=1789387898; cv=none; b=jqG9UtM9VtDtyqlDNfTssU+aN4z6cc6fAGzcUruchNvF0b4adBussyCtZm1zAP8V6KNH3/s3jlRMZO01sXmqhHQ6Y7Fj7CKLEkqBQDy3gKRHeDLxrI4j3Qi6/P/Q64atNQ0eor88jOG7/GKDHEBBhE6rED+pC7nxhE0PspDBPZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387895; c=relaxed/simple;
-	bh=/qXZQiWSYZP3Hk5lWB8Zy7NUdHgncjUSfqqrWQCH8HQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BOa3hScDyQE18W0sum+aSFjiRfRbae2qZMkEVV+vfLrOeQ1SXTK4a9IIYvlcpup2TUJVltrxn6E/ErtGZwKKUnxXjX3DIECOZ9ZxsUDsgkxsmZSFUQfGRvNbEf3AxMAtE6oxB4Ra7W5rawuFvcfGg0TdX2Xl+0ptS/PuiUySpBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZLu1+IBf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZgeMSbhP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789387898; c=relaxed/simple;
+	bh=1PVRB8TUPBWVirpsxM6OHF6ZhUdGDDcHgqxr8lIBT7w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JzLNP2028FuKS95wU4ujXBHpKDiZYn0wWdilNUbwMmC6sb6YL2Yrw7wLAlGdj6SF1g9xyc9Qp/jCN3v+MNIfO+v9XhiIX6gzDqCnuvxAue/FJ8tjtdQ0uavzI/c1quxwiQm9BbRGkl/mwQaOy4a75d8M6pEbUO52ZwE59tr0PiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qa0RpX5J; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZLu1+IBf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZgeMSbhP"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAmADh3291626
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:11:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=TGOsUT3dlL6kI53BlDSeWVAg
-	IydWNJ7b2kgtqLeWv58=; b=ZLu1+IBf/RnwYRTYq8ExeBOIkuZOTXWWJ7HUZ9wS
-	+j8xhBhd6B9ut/wdfdl8wx+7TbHY2X8sHPjkYICYOw+6+ot21wH4ehpHO3s6zd9I
-	54D8Fl7jJ1SAzDGfvnkcZog2ozCLnRUX24p+G6InWJ7rbJLFliRyDdh5i9HouZM0
-	BqPNUL+/WkGISuGfWwB1F7TMTSx9h7OhWyAgHZS4NaYpWRr0/AHRCaJ/0m2ZocUy
-	6kv2ZFNuxEPYd/xD7XAi9QI+4mVbfd0O1p5FpkAx1wVNk3LkBkfqjyvr7zLjVGlK
-	xS2u3yc1PRe/MHS4txbHJzut4h37bCv1W3eYRxeM4ohBwQ==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gperg8hee-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:11:33 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c851df59edso1149013e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:11:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qa0RpX5J"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e25400so1429205b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789387892; x=1789992692; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TGOsUT3dlL6kI53BlDSeWVAgIydWNJ7b2kgtqLeWv58=;
-        b=ZgeMSbhP6OUUbgcCZy7tMlo2h9Eg0Shyf8GCAWYWuKA0V70zFjORA0DA7O0tOLOlvy
-         JbvndHOQFjMZwqVA1ZOzx1DHKXwBhmtsLrkWgu977038UipfCXaj2NYp/Jj2E72KL0SZ
-         wlkLzzUKD2FYR5WS8ox+BdrzC4gNn0Z7YYqDzXD96JMZZ7AhSCRBEkigewUUW663WDE6
-         Dp047rw9umeYqh9IydUgKrOzvrZ/+jCoXCUj9DTrQ4jzs46fTfWL1i/pcz/m77wIUCkE
-         haFHhdr5EUiOWqAZSQfs/xIeiW5dh2zZejQNWYbHAvOANrB+TYyhv3D90+5zZcLVagqG
-         2JKQ==
+        d=gmail.com; s=20251104; t=1789387896; x=1789992696; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rnqfF0881hUPYee8XIZkVKnPceoCWZ6t05x/WRkGDd0=;
+        b=qa0RpX5Jhsle7cdsloIQS03TfZWNLy/wl3lMCLurL+HV4Bs2KyxBhnk2m7P71fzSlT
+         gslGOZwkcs7jwM1CSmJ5R+VAJSK/yRPtHFwBqPBn6gBXOaLAYQTaK218lLqhHZ7Jn025
+         7Ajx4iZDcD4nrO3u/CdvvV9gCN/SOubD6bsNuu5lmJgkku7rHVjf1s/oV0HoTfmjB2Cy
+         qgj37sh7x4w6PWkB8DFYhCAnC29jElfFyvLzotgmm+485ttYLJ1W5FLX5jga06fEQosX
+         QVavoEHlFpDm3UMxq5aerMNs/OUbQF76UgKVxMZ6ea1ssUfbxjSpeNlsIXzolAQdWgRM
+         lHyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789387892; x=1789992692;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TGOsUT3dlL6kI53BlDSeWVAgIydWNJ7b2kgtqLeWv58=;
-        b=BxKXUufWpWU5FYyhI6RHX8JgBo6Nu5Do/qS297rYeTYNLMt7utTlmm2O2IkxbpzI5p
-         EolNUmi1ybaZ0krZWOhXg3guNmXyatO9V8iVSVEg2Wbcp6E8IJBO2D11Wk8LWykQoesO
-         jQA+ZotuxJZUKlxPixaSFabfyWdVwv4FEFCw6xABKDcejfRdOSewLbAyB0ededDoskuN
-         UJvL/Hmnzv6BGu/uwkzAUJ1lJ2lBDRm9ROZgYlDAIGTdXFh96K4tic5u/bsAY9fA7Ch6
-         fN78BxrUtgWhIBOuq4+RfzYTB9Gal5AAwWr8m5GMExtOqC6cAuSO1a51sM4EpYf48V3x
-         gHbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwC0+Jl07+9aLTP3A40iHRcHQcCLU/8KCxG1ZpcfCTc+OwoOTZyx+mML3i0lhOyxYJq/clOvSvxEVZXvzY=@vger.kernel.org
-X-Gm-Message-State: AFuF++moHLzC4rHaEkasKF99zSaMsaLc6kEn5OYPeaZ7LjHUVMsl69iQ
-	pUvzLiXkd8YHGL3rPWcvLg1Zv19O22ZeQ3P3ufmRDj0RUvGB7JdIW3oNTHRmj/R3i6Crkpfdjaw
-	plupSRDRsWrGdkrBc6spa4dpNmenFwcVp9gvqe3pC8/FsOMrRvaMgYrGT8HVTddlgUZs=
-X-Gm-Gg: AYBFou0e6zMEZzYDe922GFaeAtXmHzPnlelg0mxcokGajRC7jNf3pGv5gb/j+Vekgj9
-	KkRly1d/UyALNJy2BcLQKmaxN1ER1Y0Umrp9n7ChvHYcgOrHk06mz+zy6APPdbO+LmFeEeCS+Ir
-	7ihprwYxKC/k/7FcV0TbdD+cy3Ot7eDbne9vXarKlTbAbn5DhpvPTDCuSCLHcZLcKJI3Of+l8C/
-	vvLXrXzQlDOEyrJedYUXYgFd/mwBzThVYnbXjduX6+0AoT+XIJluheNkUSWxIGbYKezsC4nK4eM
-	mfpgoKWnV3uPt1AtRUI1nDSArJv/nH71WEMzloeLVWs1HxC2vKOC++iSG1GV8WABgEqsngCfbci
-	57CVmrf3dqZzohCoYzRPfUFHHtHOAd9ZTFSbfKwvQ4cH2fNpqCuxSKKGABTPDEitlbs75bxhn3A
-	IarC99ScS5RPCa
-X-Received: by 2002:a05:6122:547:b0:5c8:2ad8:1484 with SMTP id 71dfb90a1353d-5c981ad6d23mr1305466e0c.1.1789387892340;
-        Mon, 14 Sep 2026 05:11:32 -0700 (PDT)
-X-Received: by 2002:a05:6122:547:b0:5c8:2ad8:1484 with SMTP id 71dfb90a1353d-5c981ad6d23mr1305402e0c.1.1789387891867;
-        Mon, 14 Sep 2026 05:11:31 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a046499bsm2338562e87.44.2026.09.14.05.11.30
+        d=1e100.net; s=20251104; t=1789387896; x=1789992696;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rnqfF0881hUPYee8XIZkVKnPceoCWZ6t05x/WRkGDd0=;
+        b=WcsXg581Vua0Td+QqntqNF82C8iFAI8YFxC0LRQUJ2E9hPbehoGxXGR+JON9EyDIEC
+         GJJ0yHKhLq9GsNxvZQsVDp15wZgJ4no4mQFAzru1ZrQhyVmVUC9Q/bEIZcWXWerbi+Mt
+         VQJOtd0yy1y6UqsULvxyfZPqoVBFPk0WuMyb2ErXqeXPeTWnSA3ntxoRsChZJ5cvtxhE
+         g3WDB2gin+9/Wal1AaZAqYhXAtvZAtbtKcB9cPjmWl8XYkkAmVXmPaYDDeTQ8VlGc3Fe
+         XqB640HAbADDcWX9RDyhoPiHVP1anAFQ7URf/KQniqTSCX6XR+hdWJlV7/Ba6JdUKFOE
+         VY3g==
+X-Forwarded-Encrypted: i=1; AKwUvBz/SN9rJB2Rs3BHuVkvAIXu+jXSj7vWjADNU5NL5K38kJn/QEjaDB9KY6tgymiOvgRmI/A78EVd9BWKI3Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqh15X5URcNeSHORYgavQgq6UpSFYyBCnZDsicYWdhbaOaokM0
+	3lASfcVYwP/Ct5N1KxMdiaHjpZkoaHloEQY2BnuMCCM5yOUH39es4B4d
+X-Gm-Gg: AYBFou2jRE6GOcnZii9n8r11CKc34ugUPdtNR7PXa9DrNCwZ9hTJiUCqOVh3tWo/eaE
+	/HCWRCBglLw7mSVxNxZwrgbdjero+6GPx/3Vn5wqptrrMrLqC2HdCoc4X83Z0kEk8oTTff/VVYO
+	2jQAAC9vpwxsFbViV4gx/h19L/Zb1zCz0yHOG6S1fDjpAWpqBKW9kJXWPHjj53lS19BHaFywcJq
+	hS4FKzpx892jf+2uXvFhHl2aTyNu3V/kNmb0U4LeURRrxFgsf8jrBxrxovYs8qi+yMftWFs/O7R
+	0RR4hEVy/UzQcAsG19eWS/oq8HS7hMjU/PWgWFzFz7aPfFZ0zFZnoexh5EFdaG1XwLf1VijsR3v
+	sfcH7N3+97HZVDCY6+UVYxP4YwCfODkZeHcl3eP80UeRWaYLRUso32g6VbIOc1xR0xDb7/GUgi9
+	n3HObzMg4skCLS5HawnHgFz0fmkDFnup4CpzALX93G3Msrc/7NaQX5yNHfq9jEcrASJ67NOpVll
+	Z1Mk3i7jnQOMucW
+X-Received: by 2002:a05:6a00:368b:b0:84e:e741:174f with SMTP id d2e1a72fcca58-86f83e3afdbmr5040971b3a.7.1789387895990;
+        Mon, 14 Sep 2026 05:11:35 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a7c7395sm4430398b3a.61.2026.09.14.05.11.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 05:11:30 -0700 (PDT)
-Date: Mon, 14 Sep 2026 15:11:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: iris: Add SC8280XP platform data
-Message-ID: <cwljkshgt7q7dbmujest6u2igpnwcgyx7xmxct2ns4g7ph6avo@zngraegxzmue>
-References: <20260910-sc8280xp-hfi-gen2-v1-1-ea51d0386fdf@radxa.com>
+        Mon, 14 Sep 2026 05:11:35 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] nfc: llcp: fix sdreq TLV list leak on parse/alloc/send failure
+Date: Mon, 14 Sep 2026 19:11:29 +0700
+Message-Id: <20260914121129.2098606-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-sc8280xp-hfi-gen2-v1-1-ea51d0386fdf@radxa.com>
-X-Authority-Analysis: v=2.4 cv=QK/91QLL c=1 sm=1 tr=0 ts=6aa7e475 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=ksxQWNrZAAAA:8
- a=-APiHbVL8haAwMLVaR8A:9 a=CjuIK1q_8ugA:10 a=XD7yVLdPMpWraOa8Un9W:22
- a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-GUID: jk8gl3ntmaCkCRUyj_vWuGEqlPEioK-S
-X-Proofpoint-ORIG-GUID: jk8gl3ntmaCkCRUyj_vWuGEqlPEioK-S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE3MyBTYWx0ZWRfX8KXsFn10kHcQ
- DwQkGJqLLA9CeVl5Cv3SCwJMndeFENuDKPCDl5u2jaO+A4HxrYgLDfaK0KWPbU/2neEuOP7YXCR
- sCXXc/0f0rPLKXAn83d8Ddn3OPin74ilyTk6qV/0Pq2htdogiwdmvuRBtrIzVW+t5V8ZY46xw+P
- F1KkMxdkfEgP1M2cH2AVsCJxUhGstq+2Cfs2/PLGW+5PT43HwYZ4UAajhmIhCXoLbXPko1JbgWr
- 8EwbmlPNeX1/lpSPaFMqF9FhWiLVPBLlHdhqVtTQ0cxTqPfDGaCdij+M+Fkw7+7pQiYyD5WGVeZ
- YCJvhDHOZU6XnDCDD8pGkVffgPUiirbnUGjemk+/N5SM99UD4ouJS3Op/HxzqqFXwUYOwJNWTHT
- ZSyQU8x9LnVqM3R5jYb81iPbx7gor3v8hll/oXTn5PrQtUFh37NvtmVX88d4pkqh1e/HL3PEHAy
- Icz76zrX/pEGKrhqbvA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE3MyBTYWx0ZWRfX+5kuTmtQ3iBk
- L+6HR07aShdN6mIE72tWkZo4rWS/TRFeTub6AhH4fWRUcehgp86OzxQ5SBUPZNW8XW6hJ76LGo1
- 1Xtbpkn/GD9teNlk+YLAscz/CNjy7Ss=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140173
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 11:34:24AM +0800, Xilin Wu wrote:
-> Add platform data for the Iris VPU on SC8280XP and hook up the
-> qcom,sc8280xp-iris compatible.
-> 
-> SC8280XP uses the VPU2 programming model, but can run the newer HFI Gen2
-> firmware.  Describe both the legacy Gen1 firmware and the Gen2 firmware
-> so the driver can select the available firmware at runtime.
+nfc_genl_llc_sdreq() builds a list of TLV nodes while walking nested
+netlink attrs, but 3 error paths (nested-attr parse failure, TLV alloc
+ENOMEM, nfc_llcp_send_snl_sdreq() failure) all skip freeing what was
+already queued.
 
-Please extend the existing sm8250 entry instead of adding a new one. It
-would allow any VPU2 / 4pipe platform to use either HFI Gen1 or HFI Gen2
-firmware.
+Route them through a new free_list label, mirroring the SDRES path in
+the same file which already does this. Harmless on the success path
+too -- send_snl_sdreq() drains the list as it moves nodes, so it's
+already empty by the time free_list runs.
 
-> 
-> Set up the SC8280XP clocks, resets, power domains, bandwidth tables,
-> format list, capabilities and DMA address limit needed by the Iris driver.
-> 
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  .../platform/qcom/iris/iris_platform_common.h      |  1 +
->  .../media/platform/qcom/iris/iris_platform_vpu2.c  | 36 ++++++++++++++++++++++
->  drivers/media/platform/qcom/iris/iris_probe.c      |  4 +++
->  3 files changed, 41 insertions(+)
-> 
+Fixes: d9b8d8e19b07 ("NFC: llcp: Service Name Lookup netlink interface")
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+---
+ net/nfc/netlink.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
+diff --git a/net/nfc/netlink.c b/net/nfc/netlink.c
+index 0c58824cb150..224bdfa2dd0d 100644
+--- a/net/nfc/netlink.c
++++ b/net/nfc/netlink.c
+@@ -1181,7 +1181,7 @@ static int nfc_genl_llc_sdreq(struct sk_buff *skb, struct genl_info *info)
+ 
+ 		if (rc != 0) {
+ 			rc = -EINVAL;
+-			goto put_local;
++			goto free_list;
+ 		}
+ 
+ 		if (!sdp_attrs[NFC_SDP_ATTR_URI])
+@@ -1200,7 +1200,7 @@ static int nfc_genl_llc_sdreq(struct sk_buff *skb, struct genl_info *info)
+ 		sdreq = nfc_llcp_build_sdreq_tlv(tid, uri, uri_len);
+ 		if (sdreq == NULL) {
+ 			rc = -ENOMEM;
+-			goto put_local;
++			goto free_list;
+ 		}
+ 
+ 		tlvs_len += sdreq->tlv_len;
+@@ -1215,6 +1215,9 @@ static int nfc_genl_llc_sdreq(struct sk_buff *skb, struct genl_info *info)
+ 
+ 	rc = nfc_llcp_send_snl_sdreq(local, &sdreq_list, tlvs_len);
+ 
++free_list:
++	nfc_llcp_free_sdp_tlv_list(&sdreq_list);
++
+ put_local:
+ 	nfc_llcp_local_put(local);
+ 
 -- 
-With best wishes
-Dmitry
+2.25.1
+
