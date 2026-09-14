@@ -1,146 +1,77 @@
-Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD9C414424
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1A5417BDE
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376686; cv=none; b=U4af5oijg4jCZwo6bqnxt249Pf54j1PH1kDDWe0vpUKBe050aioGWwO5MVhkgaZox0SKx9bXhl2nNF2uINwbBoTLF/KnHKJa5JOviyj2xDtwd7/UPCM+sejAA0uaUfP0X9Z9KCPpSkPXYeqm53t3FNuQ0UWGHEqWOwyyKzWHLr0=
+	t=1789376737; cv=none; b=LzEF+ia8bmITumQg30XeNLHiNwzrA+7EyVx6QGkgejUlQQot+YJDpmjgi7vG6BotSuooi9D6rsM6mdlw58dhO3XizRDNsr50IvJ0oHnTUsaPVGsjiH7LGKN7nIl2lE4U2t1VikgFBksO9anCNJnQENoIvWyJfATAUzAzgjYZqf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376686; c=relaxed/simple;
-	bh=cyHRGG1jP0E/7LSzChuUoiK/6HUy6jQ8rWqx8S/GEFs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pnSG8FocnNhCh3iAKP/rX2h6S4XUXBSTRW4CftBM84AP3mldRQrNmjxKRrhSFLkbyyJzAFe5n5zXLDzsCr++hVm5/E150DZup3/DA3/z1Wgjl+5w2FE4jd5dYWbNvIoMNp7kOvW8F54ieoXdPVyNa4+mn22LvkFRuzE/iqeQTA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BEteMCVW; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789376737; c=relaxed/simple;
+	bh=j3vvgChfUHxcnO4FbqO5KKyC21+mz3fdMLHSQLjDleU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ujqOYNcw38Kle5G78Df4zlgJrRLLtCmxcSA6yOs/QSDfMln4zONMB00zP4Qh7cL7E2/iNqdabOLf+kWeiEc3e6clQsJZxxPh0RjAfCL4v/AwjWzCUQkOF7LUGanDEKg5g+wrt3YKl4BQj4sJ3w7zhF61DDACoPTDcj5HG2w+lDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J89Iz0ko; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BEteMCVW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cyHRGG1jP0E/7LSzChuUoiK/6HUy6jQ8rWqx8S/GEFs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789376681; v=1; x=1789981481;
- b=BEteMCVWd56/AC6D47UbBT9CFGQwz7GFuTCbIKz1imFLAqkHq4Prq4ohtE3jTAuiyERyx9lC
- PX7NYxz15QZQzu2nIydA8HJ5wxSr10hFeioqB48B7SnAc4Wnv4Q7oipkYTew0L9bWmwcvZgFd72
- OfJCef3vgvbzAEMJWo/qygrE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b890552444941dff;
-	Mon, 14 Sep 2026 09:04:40 +0000
-X-Mizu-Trace-ID: b890552444941dff
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fb8d932f-2dd9-442d-b829-575acf8480f8@linux.dev>
-Date: Mon, 14 Sep 2026 17:04:33 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J89Iz0ko"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 939FF1F008A1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:05:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789376735;
+	bh=O1aFOPIm665Eiw+j6TUvQPtIt8QoHRt8HSXrKrg0cGs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=J89Iz0koAqOnjzK0pkFz60RQBdV9uLL3PzTizp1q54dlHbB8m5kxR/jEBgyNcnPGr
+	 o41oMrc+ZEeaMA6gdGuiG4bhEhmubQFkL7bSEWtYffRfZS59SmRTFLDsKFA4iKwuNi
+	 5plNydnXgiAvG63mvvFTY659e78HvUJ4uL50Tg0W0JW7Jxq4iBgq7uBCW24rrIzpr4
+	 H93mN0zBZudKDCpKchVKvUwdcX1eYDorV6zxla9uLS5akvn4DEY+NsQngsHG5CF30Y
+	 QkYKyRr34MDvtpETel86OkqJ/7vaDZDALxlGdEkdbuKDs0hOYuZLpTKbtnFKV21vae
+	 yoLgbfzsqz0qQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f12so1930117e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:05:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBymdQKNpklc1+zCNyVJBWVSmMV0v27GPBeDsCggpGXTMCrpQLbLYqpDLxtl2FuqfxRVq4TmTuuN0PaWKzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldvP1VvjoxYhj0ARsVm6oV8YUPPcQVUa3/6kFZi5UNkv8PYzyf
+	cfRfQtlPCqmX7so4NXpANqNmymsXyT+cLxTvdaIcb3Kdt/BQmh4t8tKr2z0I9x+xPJ7mQ5bYell
+	1RtGfKZJNs3v929mOx8eBF2EGEstID9k=
+X-Received: by 2002:a05:6512:668d:20b0:5b8:afd2:c17b with SMTP id
+ 2adb3069b0e04-5b8afd2c4cbmr300055e87.11.1789376734252; Mon, 14 Sep 2026
+ 02:05:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
- <20260911102939.2485750-3-ridong.chen@linux.dev>
- <9c8c7c91-b159-4342-8af7-3a8171e85389@linux.alibaba.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <9c8c7c91-b159-4342-8af7-3a8171e85389@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260829194203.108240-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260829194203.108240-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 11:05:22 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmT1brMi8qd2jyV4_=u50i2NEQO88unv0wq1er0RQdERA@mail.gmail.com>
+X-Gm-Features: AcwNN1URGziW8FcEeLQAwIn_mJYzQfGjAW4RUBIvo-J7yMS0ni6UqDbXdjuNGSI
+Message-ID: <CAD++jLmT1brMi8qd2jyV4_=u50i2NEQO88unv0wq1er0RQdERA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: pinctrl: fsl: Replace tabs with spaces
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
+	Giulio Benetti <giulio.benetti@benettiengineering.com>, 
+	Jesse Taube <Mr.Bossman075@gmail.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, Aug 29, 2026 at 9:42=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
 
+> YAML files do not use spaces, even within the values in DTS.  No
+> functional change, although dt-style-check will warn about it
+> ("[tab-in-yaml] tab character not allowed in DTS example").
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On 9/14/2026 3:47 PM, Baolin Wang wrote:
-> 
-> 
-> On 9/11/26 6:29 PM, Ridong Chen wrote:
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> MGLRU's scan_folios() emits the classic-LRU tracepoint
->> trace_mm_vmscan_lru_isolate(), which predates MGLRU. It reports the
->> scan/isolate counts and the LRU type, but carries no generation or
->> memcg context, so a trace of an MGLRU run cannot tell which memcg a
->> given scan belongs to, nor how far reclaim has progressed through the
->> generations.
->>
->> Add mm_mglru_scan_folios next to it, reporting the same counters plus
->> nr_sorted (folios moved to a younger generation by sort_folio()) and
->> the MGLRU context the classic tracepoint lacks: the memcg id, and the
->> max_seq, tier and min_seq of the type being scanned.
->>
->> scan_folios() is the MGLRU-specific layer where folios are actually
->> scanned, so it has no classic-LRU counterpart. That the classic
->> trace_mm_vmscan_lru_isolate() has lived here stably shows this is a
->> long-lived place to hook, and the new tracepoint can be enabled on its
->> own to observe the MGLRU-specific information. The existing tracepoint
->> is left unchanged.
->>
->> Assisted-by: Claude:claude-opus-4-8
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->> ---
->>   include/trace/events/vmscan.h | 63 +++++++++++++++++++++++++++++++++++
->>   mm/vmscan.c                   |  6 ++++
->>   2 files changed, 69 insertions(+)
->>
->> diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.h
->> index 8a872990b4be..5defa8f6719c 100644
->> --- a/include/trace/events/vmscan.h
->> +++ b/include/trace/events/vmscan.h
->> @@ -392,6 +392,69 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
->>           __print_symbolic(__entry->lru, LRU_NAMES))
->>   );
-> 
-> [snip]
-> 
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index 2554a6513aa8..67f59aa73fb9 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -4876,6 +4876,12 @@ static int scan_folios(unsigned long nr_to_scan, struct 
->> lruvec *lruvec,
->>       trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
->>                   scanned, skipped, isolated,
->>                   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
->> +    trace_mm_mglru_scan_folios(lruvec,
->> +                   sc->reclaim_idx, sc->order, nr_to_scan,
->> +                   scanned, sorted, skipped, isolated,
->> +                   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON,
->> +                   lrugen->max_seq, tier,
->> +                   lrugen->min_seq[type]);
-> 
-> Both tracepoints will print some duplicated content, and I'm not sure it's worth 
-> a new tracepoint just to trace max_seq and min_seq.
-> 
-> Anyway, I'm not against this patch, but I'd like to hear others' opinions.
+Patch applied, sorry for the slowness.
 
-Thank you for your review.
-
-Since the lruvec is per memcg and per node, we would like to know how the memcg 
-scans and reclaims its lruvec.
-
-I am also concerned that the content may be duplicated where we place it here. 
-However, with Barry's suggestion, it is stable here. What is more, the trace is 
-under the control of the trace event gate. It is convenient to control and would 
-not lead to any regression when they are disabled.
-
-As my cover letter mentions, with the current trace events, we don't know when 
-the per-memcg lruvec ages, when it is scanned and reclaimed, or with what 
-seq(gen). With this series, we can tell the memcg aging and reclaim actions.
-
--- 
-Best regards
-Ridong
-
+Yours,
+Linus Walleij
