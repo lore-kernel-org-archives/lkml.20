@@ -1,319 +1,390 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010071.outbound.protection.outlook.com [52.101.46.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3467E3EB81E;
-	Mon, 14 Sep 2026 07:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88DA282F21
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372289; cv=fail; b=DSGR274FvWsRgf6mhy+HfARFFPEPByU/Hk6SykbfxrWyv8mPNSnByG4k4iHSd8EMxbuU0W6RRx6tPq2IMgGFL7CH2prJHvGReJrOnpwiSdGlbHXx6SNGjdIbp5vhqizcxgv9DlWzmtzKHRcVnRRV1uwgHmSPMQR+yVHO3x2qjfc=
+	t=1789372297; cv=fail; b=GiQyXRmtctNXQ+1uayQe1hrpJTahjQajPYMfMiwb+yUnuT6AnaWb46rJ6CdvrOHp9JeyvOTfQ5AAkN69UnlUwA4OId83tQYA5FaV5nRhqSA+EYnAaOr6AFpSSQ/+yqAalbqEcJv15vkDVw6H95ok/OsO3Avj0G6kQVfIg7o6BtI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372289; c=relaxed/simple;
-	bh=umjxXrVgP8ZDeKZA6SrBVRGggOLggyt3BGgNyGpKsaI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=VTeZvo0O/vPkthlycZ7OWRO4jPCsdCE5Ayn/bStdfkTz8dbHrVry4hStZNergiY0bczthsU7zz0OGxmi/sGN4Z6bnNNPmzOBE4SL+ZYBkk74TfUQm6l/mWmfM3/tgxBp7xiU5rdHDdHjcKhPs+g3cFtIzlauZySV6U/wlFesxzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=efC7WoN0; arc=fail smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789372297; c=relaxed/simple;
+	bh=TkH1O1xSq/rC5I0bVc2oacU3s69Bi0DhwPxoF29PUOg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E6gSz+VEW5CdaQ0171zBbjeuJsYkolE++zw/SWgYeNQEqbptaJCt9ozuH6IoEnYpREkHDJ15fade/CNDRLB0LEp9St2tmvqaIBze3nvHaZCGHuthyJB458lIL+lyV6Fe/cprpzkuXy59DVn7AXsZnQPF6NJiD2QKQLCEgMjL+8Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=H4TlyTJ7; arc=fail smtp.client-ip=52.101.46.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="efC7WoN0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789372286; x=1820908286;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=umjxXrVgP8ZDeKZA6SrBVRGggOLggyt3BGgNyGpKsaI=;
-  b=efC7WoN0VTcVR6BDrIM7hNWDhaAE/21yfG/VfQhBKq537lEu+XcYbgHT
-   PCYwZ6zDZCWt4qEwCW5dTZLs/sRqkAGUWe7prszuIlh3Ndv8KOElbNWlp
-   M9BXGznqE38svf+EkiZoFhC2lOgKPio/qZGicnmilmt7rwmU241M4I6MG
-   wCmAwVEeCvPRNHKjbAAvGkyU539WBJ0aI28xwi2Z5qQxODwNznt1EeoCF
-   BIkPMTXHwcUtAZIM9DExkWlg0LQ/CREW+QgyeIvHp0Z+HWEKFWP9dyn3y
-   +xKfHJ6A+qIR0CI2xRXPIlyVGoeCthTKWWIu90S6OpV11TXT91R64XD6g
-   A==;
-X-CSE-ConnectionGUID: 1EO8r9UXRs+drhak7Jq/gA==
-X-CSE-MsgGUID: EwvCCel9SeqytqKsl6tmQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="93416311"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="93416311"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 00:51:26 -0700
-X-CSE-ConnectionGUID: k9QaNNqbQdmRCtS9vsEMDg==
-X-CSE-MsgGUID: /eELFkq6QYKvULJn+VaKeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="269941834"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 00:51:25 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 14 Sep 2026 00:51:25 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 14 Sep 2026 00:51:25 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.54) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 14 Sep 2026 00:51:23 -0700
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="H4TlyTJ7"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f89gNkIDXV7SaDkKoWfV6Ideyg/mgVbm3A7M1T+qeZ99APW/wgV+unJiLvUEpWODePjh6D0oHABgwUqM45cbRYIjbVgIcLGTc2G1aNiYQHTLhKAqrgrgpo9xGQcN8BbLdTVFigv37yk7Qse+2uhBayW55EpllB28JIF9ZXjexfXrXSQRUIyyMjbsQsCi1koh3tdXNU5CVbNhfA6ntWFGBOyrDjkSz1O2AiZG6Qy7KNp9/HNOmSd10iNs1LLr5JqOAamo9yyjoiPaPS3LsVeSdmCztnzS7QykBeRD1E0XUXAY4rL31ws8VoVROrzieyP6fFpUvVjMwlm+jGaiCKvoEA==
+ b=HcjSNYoCxsnlcOoDnn7o44NDRq+XgHIGR3fgWRdJr30Oec6Ai6NeHgiwhIb06QXZhAsoOsAZzA4wM8JhhQNm1FRUKUS0/k5vdk+ciOK3+yC3H2aKNeyBGr6KgGgh77M0r26XSCpqZ7Djz7znSa0KbaFzsgoIzzirBVGXxbeBE1AswA/er9bLN0EXYwaatn8STu88Wjd9argo8IkaF8LLl035ETNDCxvkHtx+Yur42Y/Qe/3jF4o2MxUotXx8vasy/HWgFjXRaKX//xzACV2MkvwSmsNA+rlpunNmhVAlSyIAEKeD9rF0a10VWEFesWscxnkdC/QnalRDcVuQux5UJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ad2Xp6R4omUZs6ZM59Dnrd+AJGKd3NKYfEoRubel7xQ=;
- b=RsHtvL9xUkldJbNlkJ/nGOAclwcDPjW2yptAHYLoGZQMZKK0MT5HRHaOQAgHZWPrD3wt+l+WIp6wtzRQHvYupqFfgDYZyxx6puEG2AxnKwPJ5OsWopRwmQTEfA3o5WmEhrmufONCKsZ5xMNca8PhJbbfd5cVr/6+bACqwPqnVOZS5sgGEleU0AEHzcuchLthbmmUybHu9f4AQ78iqhD4XJhQTLd769RbDWQkRdvKf9y6RlyqpdGchjZN8ThSPtQ3BS/CKX0nSrg+tzTqDmU9bMCCc+M/Rf9j5BSwhYP8VlhyfzFiiT33SG42CaRW+NMcNsgTXjZBkXgUuHeeh9qqag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB9534.namprd11.prod.outlook.com (2603:10b6:510:39f::22)
- by DM6PR11MB4737.namprd11.prod.outlook.com (2603:10b6:5:2a2::12) with
+ bh=+33W/L/YIi66jzMvjqmCl5v+1G1uvM/ZsatH3YuCn14=;
+ b=WxS1npUTApmB9TAyAIYqMJslnnb8mh+/nZts380Q29fLYK/m/kQ3rjFdQwy+2XmQVIVIXRr7jSklXKpgi8r9YhSRcSTYkMivAgVupi7AAedH/lvZytBoeXf6/ZLNuKJFsZbwhHMDNOxCbYfb8U8+OyyZJ71cLY6QNKzmzMTMeQbLohklKdKb52Pv7+cLiQ783tNTudF+goAoe1QZKVx7NprT1utdJdlNNgwCIR19GHXW9M9juWnv3EYuKst5zBVJ8tysnvMLZtnsAYUuboyRdc35BtesUae3V8x8tnuV0J9ElbKA0cLR2kBftr75MBIrVF7sGph9VuVC0WQwP39qhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+33W/L/YIi66jzMvjqmCl5v+1G1uvM/ZsatH3YuCn14=;
+ b=H4TlyTJ7dFZAMrInn48v4uX7z/tfxjA7EcsU3Hd56VrOjIW1GECwTLcGt0iIHusFxDQdasrpy1uN9sMByekH9zYE0Z0xFNUpAE+QTDQkDOn0zQDcadZ1dhXMauWVKbofs0gM0EqZnBgix20DSMRPKXWgfZRat8CaulxiouAYT7rKdwbKhuGht/kfEnap9zNFRpesPOPz7en/7u5azkmuvLGcczhS1MZyFu/0hz+6gaKBCIURomRQIVdph7SKLfxIYEIk+8RoBBge8z1kRFN4kIvbvVc2tkPGxguxbineYbz0YvpOzXBFBoaD0hADguPGyGAbu/Ni7KgzhRiODEbQLA==
+Received: from BN9PR03CA0543.namprd03.prod.outlook.com (2603:10b6:408:138::8)
+ by DS7PR12MB6045.namprd12.prod.outlook.com (2603:10b6:8:86::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 07:51:20 +0000
-Received: from PH8PR11MB9534.namprd11.prod.outlook.com
- ([fe80::16ca:6958:c9e9:a266]) by PH8PR11MB9534.namprd11.prod.outlook.com
- ([fe80::16ca:6958:c9e9:a266%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 07:51:20 +0000
-Date: Mon, 14 Sep 2026 09:51:12 +0200
-From: Francois Dugast <francois.dugast@intel.com>
-To: Petr Pavlu <petr.pavlu@suse.com>
-CC: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>, "Andrew
- Lunn" <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Jani Nikula
-	<jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, "Joonas
- Lahtinen" <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
-	<tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Simon Horman
-	<horms@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez
-	<da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin
-	<atomlin@atomlin.com>, <linux-block@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <linux-api@vger.kernel.org>,
-	<intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-modules@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 4/6] drm/i915: Include error-injection.h for
- ALLOW_ERROR_INJECTION()
-Message-ID: <aqencKrPMiB-GWY5@fdugast-desk>
-References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
- <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
-Organization: Intel Corporation
-X-ClientProxiedBy: DU7PR01CA0011.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:50f::14) To PH8PR11MB9534.namprd11.prod.outlook.com
- (2603:10b6:510:39f::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Mon, 14 Sep
+ 2026 07:51:29 +0000
+Received: from BN1PEPF00018546.namprd05.prod.outlook.com
+ (2603:10b6:408:138:cafe::30) by BN9PR03CA0543.outlook.office365.com
+ (2603:10b6:408:138::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Mon, 14
+ Sep 2026 07:51:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN1PEPF00018546.mail.protection.outlook.com (10.167.248.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 07:51:28 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
+ 2026 00:51:10 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
+ 2026 00:51:09 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Mon, 14
+ Sep 2026 00:51:02 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+	<zhiw@nvidia.com>
+Subject: [PATCH v2 13/32] gpu: nova-core: gsp: dispatch RM RPC messages during GMC receive
+Date: Mon, 14 Sep 2026 10:48:48 +0300
+Message-ID: <20260914074907.1399629-14-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914074907.1399629-1-zhiw@nvidia.com>
+References: <20260914074907.1399629-1-zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB9534:EE_|DM6PR11MB4737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91491f05-ba36-490f-0359-08df1234f748
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018546:EE_|DS7PR12MB6045:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f9ff126-7090-4a33-df3f-08df1234fc40
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: H6jJcgF0/r2ntKmle8LBQsb0KO+TxyCu6d8c3bPLFPGuK4E59l7QPxL/L/1COzpQLiScEVc9xNG9+3qEK2Bi/23faJ3nGgYMSEiA0/rvFGx8C5j68Ed1e+zdCFTvsY4oyCOnQWk7vVB9eMrcPSg8URfhfAtcZwX5V8k7FV+HewDXnCN9PuIGgNjMQA1ZJAESxm8uip0nK0IXive0VZX7FnN5nSDga8znVfXGjoUCnRbfyDgaTr6/Ap831j8fAMcl7qCkzRYzxswGPVaYdCcbABOYeygKxKt83pbKSVKy57Uje2jmKkPq+f150yEkB5S8OeXw/aB83+p03VrUYY+RxHLgyPyo3nE4rihczdJUXKB65OJ+d83gbuO5k59+uVLS6sS5Vm5j9snrHitKjO1rBJVOq/BKhbBFdLBlMh5IXejpS4cPanNJhRI3O3R7fR+encXkXk7b7aJViZ2hWDXB1iUDg3EnwDcUqizKqoNqiRRfq/Oup4behSCCmmd7jXM/UCn0/o2jWXe7swXvhrccuPXvy1Lo3Hbw2HxdMYAQJ9ZMAUGldb+xeD56ZqUzgUizPv3S8Ly/koxgdmFsU5Bb3M2CvhWPiXeQESYbxqvoA7AHbdMw47CQYFbz5n6lrqLGy7PYGEpmOuvY8Y1RxGvm194rr+rb2GHbCkoA4UGvcx4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB9534.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|1800799024|23010399003|11063799006|5023799004|56012099006|3023799007|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	UV70rOD3C0Ih2Uacd1JDodd+I8lBtyXPX9JBtayAmH4dXUmor3WWbyNYXV/IrPP4HyzvRUNGhNnIaQiPuKsv3Suy0DZ+G9HlBexO+TkerTbonZxX2YlL+LqOw4ItU2jN7cdOMqQINfGnYKr/RTetpVf5jKZMXLV8HcTHgJIP4gV1B+oyemMw9D5mU/njuF5IJJdI2Hp/0t2jm0MoxN4yrZ8/0DmItzX7uSgDLsIG5qhpMAPvIZKqZzdg01++jEjOB9LxwIRHKonw0YzttWQOVwHKk43iH7mW/elBOFJxynrfYgcN3Y0yIt+ysQu4kpE5ch4ApbBNQE8bf/yFi+WY8AMuyc1Fb8aRlgr5zNad0VibhgJyPworXCQFG+tL1bsxa7ArXckjyhlnOOMTWldb71Dy+YCde0bwJLB8lIsUtE6tJA/O+M9O2zF/HzlJRIJ3H4OTRPR4nSHxXD94bjY9r0V39LHV1YbMmyMSatVM3iQbCynxW9JJxkKQp8jZprecCbrRDiEyFkpshbIpcHZbV3Hr+kGajuftIKLaZQa64brJjenIb7bN9AI5S4V5vouGAsiWuT6tMUhoIdxVRfqCm+M9QUPsRbvp+iXO7gy3lbpjZBmDe5JjqqcwhGV3jUYn/h0WdE/K/yS9+XtTXa1gDJ8iGEBYVipO8oQHdnj6lgL3NiLGkjjk7ITaLEer8070x8aOH1aGN+jEKiHVEpRGPw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(1800799024)(23010399003)(11063799006)(5023799004)(56012099006)(3023799007)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?6VxlagFGdMBeLMtuAHKHfSlHM7DaZ9aIrTzrc3sQI6fZKqtT1f29HJ9ADI?=
- =?iso-8859-1?Q?gAPT0IbRw87iibIw35yiW1RaB3TjZQsKBffY4oSC48nCr1GRWiZqsEp1xQ?=
- =?iso-8859-1?Q?QABFJGcrXXMalHINux/UboUxaJw6euXvv1gDAqLh8uHSV4IelJz24BlpTZ?=
- =?iso-8859-1?Q?lyb2yYM0l+nu3ZI/vrwLdsGManDUkN2Az5SgdLh/CtcXMKPJ35JCmU3hPj?=
- =?iso-8859-1?Q?GfAUzX/VbLO3x7aw3sOl4fm/2pEnJ8QtzT+DTS8OYAccZhuROE3G431flX?=
- =?iso-8859-1?Q?nR8MhR+o8VKAMjNTuy+Fub3l7Wws00NJ+LBuILQK5MTymEUbmzAsFECMRl?=
- =?iso-8859-1?Q?VNyonTxD9MvUTyGvEYveFjkVsXgP1UaGBPuXJ1C7DMr7MRuyHLBbuTSKoq?=
- =?iso-8859-1?Q?7kqjwx38TV+mPEKY0HNXu0OH8jD5CnOkLtKhymFw/upZHJEW2wJcWoMWVD?=
- =?iso-8859-1?Q?OdiEbwuNNKolsxJdCB403sdhx7b9fKiAqcViwNxHbtd9yivYFcQgE13O0W?=
- =?iso-8859-1?Q?2mBBCCA4MWaOJTzcx8PorCEKkGs7dxyBmy6FnvOGw1bInkFlfveAVkn4gZ?=
- =?iso-8859-1?Q?H0MytB/pJbtBqO5iwy9RDk5ACIxj1BhMaqUn7e5vB3IDWKdkSpUj3zn+MS?=
- =?iso-8859-1?Q?AoEuilAFILrq0jOHXPSG99BUtx8zRiYsgt6UWszLAi2zLMiph2aFcpBc78?=
- =?iso-8859-1?Q?4OtMZkqxnVaqMiK6ZIcCfjkTZV7lmZOXUIn4FnToop35rFZGDERbevAFJ1?=
- =?iso-8859-1?Q?xaDPZfjH4QaVxVHApvGeMCDiGJZ30VipoqOGvSFNNADAKr3NejpCbpNH5w?=
- =?iso-8859-1?Q?sNet86qUkuehv0wIUMMFp3BpeBhy0h0raj27mellBY3Jgpru3IW66UAOli?=
- =?iso-8859-1?Q?qqzSnJFlqab3WZR7CFodPtuY0L7C8hKHhEoz1v09N+xBu3L3q5MhwotsPE?=
- =?iso-8859-1?Q?caHEEhVTBW4jYlX3p/FdhLhnVg9j+8fD6u9Zz1Mss5c2usRtAAG9As7ep3?=
- =?iso-8859-1?Q?HV/c8sm5uDCVm8Ny3imqWyz+N58skfP3xpfJGlPZhVU6/524S6YxNzo5G0?=
- =?iso-8859-1?Q?DCKBQJQPHRQmf0Y1tg8qtkxXFdV2ypWkO6D9gC/FnjhPA9GuKmIgaDKOlH?=
- =?iso-8859-1?Q?3oap0Yv6eVLodBcOQfIvEvKDuiy2bQPP8jvvTW6PsAsGiUOTLAHB4RKz61?=
- =?iso-8859-1?Q?4MWBFfMloFu6f7fZXEY0SLU02b6VVucAsW4rXQd3LLjfxnIT/LZ03XGnDY?=
- =?iso-8859-1?Q?pZuvFiFOT5S5hzmSDsYp5MEGquWXn/VuQX/stxMPNl/aiOw1Tq5F2HGb9b?=
- =?iso-8859-1?Q?/smJW9FUS7kRMMFf1qcIhQ/k03FpSOTp5OR6B0vmS726C8BfyLFg5hm9oB?=
- =?iso-8859-1?Q?83YhgPc+o9Pdt55Q/TwHUPm/N3vyDP9LQHY7uEL5UthVEeN67ny5rQBYOw?=
- =?iso-8859-1?Q?IIye4JDqWsJfs07h5aN8FuSsMH4iQR6RpnBg2Kz5tNTXBZQfh77CKxjWAJ?=
- =?iso-8859-1?Q?StwL41S07dL8K9Ht5rWGNxzpHEY2DmhOi4RvwGQuVGoB/fJEVWwzr1FNkm?=
- =?iso-8859-1?Q?qYq8s2yuFMFk6AiYnfsSWz5MM4kuVSiVAIUxgLyWPDAIXOEGjuVpHmexJR?=
- =?iso-8859-1?Q?RG0dqQeeaD1UKWHsEDJzZyhHuaIUoW3UWh0yNyI58ZgIieV7FemtChd01b?=
- =?iso-8859-1?Q?UXpnzcxgSUYmsY5LPlO1iEdUrom13M45opoyRtHR+gKrCw4KXWLr18lqbi?=
- =?iso-8859-1?Q?NFjwKGsHXzGsbIh4eKxV1rVsNqykhThIaWPHL9IjhWNqh7gY6bd/Cj5ZSM?=
- =?iso-8859-1?Q?WsJQvylEuQF42S2Hue9iSZfEtM59AII=3D?=
-X-Exchange-RoutingPolicyChecked: kdX9bGrVdunRYIf25UBLo0w+ZzYBt/+7uZ0RYrL8x6UiEKT8+JxAHcyIms4j1eLG6Kyn7hL4aHuPQQXc8Hes2O1hBTl/+84j4W99SPXhhTp6Kh0vun0REFXpR1BCqdpOQRdfPsGYQNQ+248w+KfvXeSD0nca7qcTSpg3n/GADFxk55CvNB+cOc1Fq1fV5cGbrTj68CWNwFGpOFX2EqU/CVEEExAettRhYgQEdv5LcrzIio9xyQo1FU9vqCivRA+wLEvqhLE0qKaAa2sfR9FYlOnTHFJiBNakmT98Q/FBIyBMU8+8OTuimLbfkrOwyvilk0zlYN4Q1Fcz9ali+GEVpQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91491f05-ba36-490f-0359-08df1234f748
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB9534.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:51:20.7215
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Q7cSolHICag/Be2nYGdU4Vqs/qMbhgeB+lP/TwHb5DFvc+DN5UZKO7IAuhwQaDjPEQRK1vjPcV2hhS9fCDkwNGiImAjRU7hMyamns93DCzA0EgpEQdHyvMIqFvCNkdLV5lLgPoZSi4+iZ94MpnGwZbwqnkmqokJ/NuEUiU9i1xx0BTwDW+9wG4/I2T6aTA/3vghLdPaI8Qt0IGp1bGHX4vJ91PG3MdmCYqAmr+lZInoiuitVcGomGr72n3MC1fJwe7HShPghyJBvukWyUHEFQcAvefju0w9wM7lAeVrJOeVjq83w9Y/8A/CwFk6EO7tbxJSoqmIPl7fbQm22GQBn3MQic7q6eSw2Wy6vud48iZVWg/aYsyzSTJdzt6kt4JTpli80VUdwDJ4UwzP4xpwW87O+Rl0itbbp5fZFoIiyWudtRj+iyCkePL7KZm1RhA5p
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:51:28.7727
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QbZvFSPQAv9JwHCz4soVLr2ImZPV1p+2qWGJKRO3Q2M/7qcRmf35v9Cwurw6x/ctkQO37480LDVXYSkSltLgAfIMQw+7buUk3dkGRAER9zE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4737
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f9ff126-7090-4a33-df3f-08df1234fc40
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018546.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6045
 
-On Fri, Sep 11, 2026 at 05:04:04PM +0200, Petr Pavlu wrote:
-> Several drivers/gpu/drm/i915/*.c files use ALLOW_ERROR_INJECTION(), which
-> is defined in asm-generic/error-injection.h. They currently rely on this
-> header being included indirectly through linux/module.h ->
-> linux/error-injection.h.
-> 
-> Add the missing includes in preparation for removing the
-> linux/error-injection.h include from linux/module.h.
-> 
-> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+RM RPC notifications and GMC messages share the GSP-to-CPU queue.
+GMC waits and the threaded queue drain need to recognize both formats
+while preserving RM RPC notification handling.
 
-Reviewed-by: Francois Dugast <francois.dugast@intel.com>
+Validate the common framing before selecting the message format, dispatch
+interleaved RM RPC messages, and use the same receive path when draining
+the queue.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_connector.c      | 1 +
->  drivers/gpu/drm/i915/display/intel_display_driver.c | 1 +
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c           | 1 +
->  drivers/gpu/drm/i915/gt/intel_gt.c                  | 2 ++
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c           | 1 +
->  drivers/gpu/drm/i915/gt/uc/intel_uc.c               | 1 +
->  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c            | 1 +
->  drivers/gpu/drm/i915/i915_driver.c                  | 1 +
->  drivers/gpu/drm/i915/i915_pci.c                     | 2 ++
->  drivers/gpu/drm/i915/intel_uncore.c                 | 1 +
->  10 files changed, 12 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-> index 7ef9338d67ab..a287884c0045 100644
-> --- a/drivers/gpu/drm/i915/display/intel_connector.c
-> +++ b/drivers/gpu/drm/i915/display/intel_connector.c
-> @@ -23,6 +23,7 @@
->   * DEALINGS IN THE SOFTWARE.
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/i2c.h>
->  #include <linux/slab.h>
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> index 70d112fd4287..204810a11e46 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> @@ -7,6 +7,7 @@
->   * details here.
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/vga_switcheroo.h>
->  #include <acpi/video.h>
->  #include <drm/display/drm_dp_mst_helper.h>
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> index c0fd349a4600..2c3bc7b67c0d 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> @@ -3,6 +3,7 @@
->   * Copyright © 2016 Intel Corporation
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/string_helpers.h>
->  
->  #include <drm/drm_print.h>
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> index 5c7f862f7100..2f0e1cb5578c 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> @@ -3,6 +3,8 @@
->   * Copyright © 2019 Intel Corporation
->   */
->  
-> +#include <linux/error-injection.h>
-> +
->  #include <drm/drm_managed.h>
->  #include <drm/intel/intel-gtt.h>
->  #include <drm/intel/intel_gmd_interrupt_regs.h>
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> index 1c455d84bf9d..091aa33f624a 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> @@ -4,6 +4,7 @@
->   */
->  
->  #include <linux/circ_buf.h>
-> +#include <linux/error-injection.h>
->  #include <linux/ktime.h>
->  #include <linux/string_helpers.h>
->  #include <linux/time64.h>
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> index bd07c72a66fc..d367a897c86b 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> @@ -3,6 +3,7 @@
->   * Copyright © 2016-2019 Intel Corporation
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/string_helpers.h>
->  
->  #include "gt/intel_gt.h"
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> index 7fac97fe30a6..d7c731fe972b 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> @@ -4,6 +4,7 @@
->   */
->  
->  #include <linux/bitfield.h>
-> +#include <linux/error-injection.h>
->  #include <linux/firmware.h>
->  #include <linux/highmem.h>
->  
-> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-> index ce6d20958320..aeb7b24c81c8 100644
-> --- a/drivers/gpu/drm/i915/i915_driver.c
-> +++ b/drivers/gpu/drm/i915/i915_driver.c
-> @@ -30,6 +30,7 @@
->  #include <linux/aperture.h>
->  #include <linux/acpi.h>
->  #include <linux/device.h>
-> +#include <linux/error-injection.h>
->  #include <linux/module.h>
->  #include <linux/oom.h>
->  #include <linux/pci.h>
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 2f03f95945f1..84a7dc6ab5db 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -22,6 +22,8 @@
->   *
->   */
->  
-> +#include <linux/error-injection.h>
-> +
->  #include <drm/drm_color_mgmt.h>
->  #include <drm/drm_drv.h>
->  #include <drm/intel/pci_config.h>
-> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-> index 170e83a8c9fc..e360e4f9d9a2 100644
-> --- a/drivers/gpu/drm/i915/intel_uncore.c
-> +++ b/drivers/gpu/drm/i915/intel_uncore.c
-> @@ -21,6 +21,7 @@
->   * IN THE SOFTWARE.
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/pm_runtime.h>
->  
->  #include <drm/drm_managed.h>
-> 
-> -- 
-> 2.55.0
+Co-developed-by: Alok Kumar <alkumar@nvidia.com>
+Signed-off-by: Alok Kumar <alkumar@nvidia.com>
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ drivers/gpu/nova-core/gsp/cmdq.rs     | 122 ++++++++++++++++----------
+ drivers/gpu/nova-core/gsp/commands.rs |   8 +-
+ drivers/gpu/nova-core/gsp/fw.rs       |   9 ++
+ 3 files changed, 89 insertions(+), 50 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 942f41b4d705..b7d8a467d2fe 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -602,8 +602,8 @@ pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
+         self.inner.lock().send_command(command).map(|_| ())
+     }
+ 
+-    /// Receives one GMC element from the GSP and passes its command id, the `max_resp_or_status`
+-    /// field, and the raw payload slices to `handler`.
++    /// Receives one GMC element from the GSP and passes its header and raw payload slices to
++    /// `handler`.
+     ///
+     /// This method may sleep while waiting. The [`CmdqInner`] mutex stays locked across the wait
+     /// and across the `handler` call, so `handler` must not call back into this [`Cmdq`].
+@@ -900,6 +900,10 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+             )));
+         }
+ 
++        if !header.is_rm_rpc() {
++            return Err(self.poison(fmt!("invalid RM RPC NVDM type")));
++        }
++
+         dev_dbg!(
+             &self.dev,
+             "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}\n",
+@@ -938,6 +942,24 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+         })
+     }
+ 
++    /// Consumes and dispatches the RM RPC element currently at the queue head.
++    fn consume_and_dispatch_rpc(&mut self) -> Result {
++        let (function, seq, length) = {
++            let message = self.wait_for_msg(Delta::ZERO)?;
++
++            (
++                message.header.function(),
++                message.header.sequence(),
++                message.header.length(),
++            )
++        };
++
++        let pages = u32::try_from(length.div_ceil(GSP_PAGE_SIZE))?;
++        DmaGspMem::advance_cpu_read_ptr_v2(self.bar, pages);
++        self.log_event(function, seq);
++        Ok(())
++    }
++
+     /// Receive a message from the GSP.
+     ///
+     /// The expected message type is specified using the `M` generic parameter. A message whose
+@@ -1087,27 +1109,21 @@ fn log_event(&self, function: Result<MsgFunction, u32>, seq: u32) {
+     /// Drains all messages currently pending in the GSP-to-CPU queue.
+     ///
+     /// Reads whatever the GSP has already posted and stops once the queue is empty. No caller is
+-    /// waiting for a reply during a drain, so every message goes to [`Self::log_event`].
++    /// waiting for a reply during a drain, so RM RPC messages go to [`Self::log_event`] and GMC
++    /// messages are consumed without dispatch.
+     ///
+     /// # Errors
+     ///
+     /// Returns the receive error that stopped the drain, in particular the `EIO` of a queue
+-    /// poisoned by corrupt framing (see [`Self::wait_for_msg`]).
++    /// poisoned by corrupt framing (see [`Self::receive_gmc_and_dispatch`]).
+     fn drain(&mut self) -> Result {
+         while !self.gsp_mem.driver_read_area_v2(self.bar).0.is_empty() {
+-            // A message is available, so this returns without waiting.
+-            let msg = self.wait_for_msg(Delta::ZERO)?;
+-
+-            let pages =
+-                u32::try_from(msg.header.length().div_ceil(GSP_PAGE_SIZE)).map_err(|_| {
+-                    dev_err!(&self.dev, "GSP drain: message length overflow\n");
+-                    EIO
+-                })?;
+-            let function = msg.header.function();
+-            let seq = msg.header.sequence();
+-
+-            DmaGspMem::advance_cpu_read_ptr_v2(self.bar, pages);
+-            self.log_event(function, seq);
++            match self.receive_gmc_and_dispatch::<()>(Delta::ZERO, |_, _, _| {
++                (None, QueuePointers::Unchanged)
++            }) {
++                Ok(_) | Err(ERANGE) => {}
++                Err(error) => return Err(error),
++            }
+         }
+ 
+         Ok(())
+@@ -1145,7 +1161,14 @@ fn wait_for_gmc_msg(&self, timeout: Delta) -> Result<GmcMessage<'_>> {
+             return Err(EIO);
+         };
+ 
+-        if let Err(e) = header.validate_framing() {
++        let framing = header.validate_common_framing().and_then(|()| {
++            if header.is_gmc_api() {
++                header.validate_framing()
++            } else {
++                Ok(())
++            }
++        });
++        if let Err(e) = framing {
+             dev_err!(
+                 &self.dev,
+                 "GSP GMC: receive: bad MCTP framing, declared length {}\n",
+@@ -1182,29 +1205,34 @@ fn wait_for_gmc_msg(&self, timeout: Delta) -> Result<GmcMessage<'_>> {
+         })
+     }
+ 
+-    /// Receive the next GMC event from the GSP and dispatch it through a handler.
++    /// Receive the next GMC element from the GSP and dispatch it through a handler.
+     ///
+-    /// The handler receives the GMC command id, the raw payload slices that follow the
+-    /// [`super::fw::GmcApiHeader`] (two because the ring may wrap), and that header's
++    /// The handler receives the message header and the raw payload slices that follow the
++    /// [`super::fw::GmcApiHeader`] (two because the ring may wrap). The header contains the
+     /// `max_resp_or_status` field, which only a handler that knows what it asked for can read.
+     /// It returns `None` for an element it does not handle, paired with the [`QueuePointers`]
+     /// state it left behind.
+     ///
+-    /// Returns `Ok(None)` when nothing claimed the element, either because it is not a GMC
+-    /// element or because the handler declined it. Either way the element is consumed: the read
+-    /// pointer moves past it, or is written back past it when the handler reset the GSP.
++    /// Returns `Ok(None)` when the handler declines a GMC element. A valid interleaved RM RPC
++    /// element is consumed and dispatched before this method returns `ERANGE`. The read
++    /// pointer moves past the element, or is written back past it when the handler reset the GSP.
+     ///
+     /// # Errors
+     ///
+     /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
+     /// - `EIO` if the queue is poisoned or the element fails framing validation (see
+     ///   [`Self::wait_for_gmc_msg`]).
++    /// - `ERANGE` if a valid interleaved RM RPC element was consumed and dispatched.
+     fn receive_gmc_and_dispatch<R>(
+         &mut self,
+         timeout: Delta,
+         handler: impl FnOnce(&GspGmcMsgElement, &[u8], &[u8]) -> (Option<R>, QueuePointers),
+     ) -> Result<Option<R>> {
+         let message = self.wait_for_gmc_msg(timeout)?;
++        if !message.header.is_gmc_api() {
++            self.consume_and_dispatch_rpc()?;
++            return Err(ERANGE);
++        }
+         let header = message.header;
+         let length = header.length();
+ 
+@@ -1213,32 +1241,30 @@ fn receive_gmc_and_dispatch<R>(
+         let cpu_write_ptr = DmaGspMem::cpu_write_ptr_v2(self.bar);
+         let cpu_read_ptr = DmaGspMem::cpu_read_ptr_v2(self.bar);
+ 
+-        let (result, queue_pointers) = if !header.is_gmc_api() {
+-            dev_warn!(&self.dev, "GSP GMC: dropping non-GMC queue element\n");
+-            (None, QueuePointers::Unchanged)
+-        } else if num::u32_as_usize(header.gmc.size) != header.payload_length() {
+-            // GSP-RM sends the element as the GMC header plus `size` bytes, so the two lengths
+-            // describe the same payload and a handler cannot tell which one to believe.
+-            dev_err!(
+-                &self.dev,
+-                "GSP GMC: payload is {} bytes, transport declares {}\n",
+-                header.gmc.size,
+-                header.payload_length(),
+-            );
+-            (None, QueuePointers::Unchanged)
+-        } else {
+-            let command_id = header.gmc.command_id();
++        let (result, queue_pointers) =
++            if num::u32_as_usize(header.gmc.size) != header.payload_length() {
++                // GSP-RM sends the element as the GMC header plus `size` bytes, so the two lengths
++                // describe the same payload and a handler cannot tell which one to believe.
++                dev_err!(
++                    &self.dev,
++                    "GSP GMC: payload is {} bytes, transport declares {}\n",
++                    header.gmc.size,
++                    header.payload_length(),
++                );
++                (None, QueuePointers::Unchanged)
++            } else {
++                let command_id = header.gmc.command_id();
+ 
+-            dev_dbg!(
+-                &self.dev,
+-                "GSP GMC: event: seq# {}, command_id=0x{:x}, length=0x{:x}\n",
+-                header.gmc.sequence,
+-                command_id,
+-                length,
+-            );
++                dev_dbg!(
++                    &self.dev,
++                    "GSP GMC: event: seq# {}, command_id=0x{:x}, length=0x{:x}\n",
++                    header.gmc.sequence,
++                    command_id,
++                    length,
++                );
+ 
+-            handler(header, message.contents.0, message.contents.1)
+-        };
++                handler(header, message.contents.0, message.contents.1)
++            };
+ 
+         let pages = u32::try_from(length.div_ceil(GSP_PAGE_SIZE))?;
+ 
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index c2faa825a849..7ca5ec2a58d9 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -209,7 +209,7 @@ pub(crate) fn gsp_init(
+         cmdq.send_gmc_no_wait(GMCAPI_CMD_GSP_INIT, payload, GSP_INIT_MAX_RESPONSE_SIZE)?;
+ 
+     loop {
+-        let reply = cmdq.receive_gmc_and_dispatch(
++        let reply = match cmdq.receive_gmc_and_dispatch(
+             Cmdq::RECEIVE_TIMEOUT,
+             |header, payload_0, payload_1| {
+                 if header.is_response_to(GMCAPI_CMD_GSP_INIT, sequence) {
+@@ -231,7 +231,11 @@ pub(crate) fn gsp_init(
+                     }
+                 }
+             },
+-        )?;
++        ) {
++            Ok(reply) => reply,
++            Err(ERANGE) => continue,
++            Err(error) => return Err(error),
++        };
+ 
+         if let Some(reply) = reply {
+             return reply;
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 309f9296ebc8..0fccf16f6a1c 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -527,6 +527,11 @@ pub(crate) fn validate_framing(&self) -> Result {
+         self.transport.validate(size_of::<Self>())
+     }
+ 
++    /// Returns `true` if the NVDM header routes this element to the RM RPC dispatcher.
++    pub(super) fn is_rm_rpc(&self) -> bool {
++        self.transport.is_nvdm_type(NvdmType::RmRpc)
++    }
++
+     // Returns the sequence number of the message.
+     pub(crate) fn sequence(&self) -> u32 {
+         self.rpc.sequence
+@@ -811,6 +816,10 @@ pub(crate) fn validate_framing(&self) -> Result {
+         self.transport.validate(size_of::<Self>())
+     }
+ 
++    pub(super) fn validate_common_framing(&self) -> Result {
++        self.transport.validate(size_of::<QueueElementHeader>())
++    }
++
+     /// Returns `true` if the NVDM type says a GMC header follows the transport header.
+     ///
+     /// When it returns `false`, `gmc` holds whatever header the other element kind puts there.
