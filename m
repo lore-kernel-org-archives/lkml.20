@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25BD4825B2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2726490BF9
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:15:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789406154; cv=none; b=TQ1KbL0d2sDAywhw1ifpjrewFHhUvXkXfZCAX26AdCAjsHGo/LzEZ9v2G6bIAs33gJUyzzckyuBJ5GSMNAN5w8oFa0mxsE7QPHxZ/yu8TiBACQysA6A+gZyqKnzyWLuWz+sL95tYeoeAo871wZaUtLxYhwiPtv90e0hatT7r2Cc=
+	t=1789406154; cv=none; b=UwCW5tQQpwCvrjPUVKKqTuHh55ykCV9xcj0fzeS23EBo6Yzraz3klt/lG2TtaAXUoFCHrQAv0WTQQ7jjVS+zId/8EisuW6X+rwSVO3iGmxqhn8VUGM+gjJA/lafkYNjrDy5kG+hD1rFiecINtQFRPUnauw4bslMefbv2H2MkeE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789406154; c=relaxed/simple;
-	bh=tmqSHbyI6Xb4v64GvXcWWq54HgIvyBGsHeSU+Ycg1js=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lXCQwaf9QGAbrcSPWKDlEM9xSXP7Ev9OPIVEpcfrzTBgVqmg3mwaKhxaKr+G0o0vQXHeWrLz0VZkXLIS22HeMoiZwYbMsp9LMlNMTBunnSbQwFumeva4hWUDj75IyTxJam5x3xPhA8gm/7zkaCAJqfhSCLfi3swIVpu7YIY9kvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jWGpCUfE; arc=none smtp.client-ip=10.30.226.201
+	bh=nC8VguaT94phisv0ka20gk/RJPeIjp9sWwfJEtDSKJk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hhIJdejQSkeo9KmkmYfmE71P1e1ztqA3wRBFYhW44swlT+dDVStus4BbNGtr3UvtPHHebkXsnMNWLCq/KgIdZzcZ5eImDN5wSiSWw03JyhXVLuovVhqVPtX7S5AQCC3WScIBKyrvTIiC6WzRupQrGuMB7ftdd4uiXO5dUeeQr3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcpAzItZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jWGpCUfE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A9D43C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcpAzItZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E294C2BCB8;
 	Mon, 14 Sep 2026 17:15:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789406153;
-	bh=tmqSHbyI6Xb4v64GvXcWWq54HgIvyBGsHeSU+Ycg1js=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jWGpCUfEg/3UkU4Gw2pwweRoRvr07L+ns78LHjMYp5ds2kWOttIDRVL9RVQiBi6+8
-	 Qwu9B6wA3gODhk9iEUYBqzSF3ZNMOTzxaEFPnfZdUnalksoKKoViBni33OssQLTRtE
-	 SOjZKhUaGeMusBEcuQzDMD64R+Ik3uS0MW6e1nm9jY/0OeItiIkrZI/64qoylbVM7V
-	 nGUStS18P9LrySYwxaEXugAQmxRfmfPATcVPcbsZEYct2AWZqEDeBaQYEeBCP9WBwZ
-	 SlZm9ETDyQJyBQ+InxRiGN8Z/uAW8YvOt5iaScWhi7KJbDHOxwLEOwDdV4gIGQDgj2
-	 73DXIyC6B1ZHA==
+	bh=nC8VguaT94phisv0ka20gk/RJPeIjp9sWwfJEtDSKJk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=ZcpAzItZf8WyMBjErEkFJNyW2B4A6pjeKXIkNDZk/XSp83/vWfuiOqc68AzgWCx5y
+	 FgvZ8APd09lGRLvxA/gE3PkSHSvXkOuWDbtXhbD0kDLlXkFUI7R4/jtojG5a1VT3Lb
+	 v+zKWeFvTI1fGHM5x4ArzyRH+xDIZS4FTghSwOoZvGm9jdacqtB4trbyqLTRpj+mqd
+	 M6UtNncZWJWw15ud1oxGoOjXqVGdhV02jhUVP63MkNaouL+GR6YFEhVc5y969XiIgr
+	 LyDaBm2IbXkimGn09BATDsNnWjbyy1jyDu8TK+NgEobceQQqkncBunYISAmJ8OXiVr
+	 4flp+Y5dRwcNA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C3CAC88E78;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53FEEC88E73;
 	Mon, 14 Sep 2026 17:15:53 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Tue, 15 Sep 2026 01:14:43 +0800
-Subject: [PATCH v5 02/17] mm/huge_memory: fix rejection of swap cache
- folios with a mapping
+Subject: [PATCH v5 00/17] mm/huge_memory: clean up and decouple the anon
+ and file split helpers
+Date: Tue, 15 Sep 2026 01:14:41 +0800
+Message-Id: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +41,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-swap-thp-cleanup-v5-2-39878b37dfb0@tencent.com>
-References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
-In-Reply-To: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PQU7DMBAF0KtUXmNkzziuzYp7IBbOdEKMwIliN
+ 4Cq3B2nCFGULL/0533NRWSeImfxcLiIieeY45BqaO4OgvqQXljGU80CFFjllJH5I4yy9KOkNw7
+ pPEpLDC1b6rB1op6NE3fx80o+Pf/kfG5fmcrqrI0+5jJMX9fNWa+9X95t+VlLJa3zHn04EhE+F
+ k7EqdzT8C7WgRluCI07BFTiBMzGkQ3B+C2BNwToHQIr4VuDXaMtArotYf4Iv/uIqUTbIATsQPF
+ R/yeWZfkGCQxUSo0BAAA=
+X-Change-ID: 20260804-swap-thp-cleanup-6ce2be6cf3b8
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
  David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
@@ -61,11 +64,11 @@ Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
  Kairui Song <ryncsn@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789406149; l=3844;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789406149; l=6208;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=os8GAwRhiIAeYozzDiYE5/qpjgUr240Y6fX1iEFFm7o=;
- b=x/Xr68PDIC2GidVJPvhZOkF4fMPuURDvqo9AMcQPkTXq+N/nZXOj+Qides9OL/uE6BsYnEoi0
- yp8AJJq1p7ZCESo/T6+fI8f/sEtTrNCP8wjue0YaiDEN6vRXpRmwBni
+ bh=nC8VguaT94phisv0ka20gk/RJPeIjp9sWwfJEtDSKJk=;
+ b=nujeGiQo38WYNQObayt+D3hvinyRBHya+/hXQ8SpPWqz+uniU9+ITC3tIFJu93b2IdPZGKSho
+ bbYUBE3Z2iaA4+bWY/Pnw3AFT63lWptVgYzgoLOLnPH4+0c1EjdqilA
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -73,109 +76,131 @@ X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
 X-Original-From: Kairui Song <kasong@tencent.com>
 Reply-To: kasong@tencent.com
 
-From: Kairui Song <kasong@tencent.com>
+The folio split path handles anon, page cache and swap cache folios in
+one routine.  That mixing is what makes the swap cache split
+restrictions hard to lift and to review. We now support uniform split to
+order-0 only, and no mappingless swap cache folios. And it has left a fair
+number of dead or redundant checks behind.
 
-A folio in the swap cache cannot be split if it has a mapping (shmem).
-The split code does a defensive check for this in
-__folio_freeze_and_split_unmapped, after the folio ref has been frozen
-and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
-rejects the split and returns -EINVAL without unfreezing the folio or
-restoring the counters.
+This series prepares for lifting those restrictions by cleaning up the
+code first: split the routine into an anon and a file helper, and keep
+all swap cache handling in the anon helper.  The file helper never sees
+a swap cache folio, folio_check_splittable() rejects them up front.
 
-That error path is buggy, if it is ever taken. It leaves the folio
-frozen and stuck, skews the counters, and fires the
-VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
+Apart from two bug fixes (patch 1 and 2) and a slight adjustment of anon
+splitting (patch 12), this is a pure cleanup.
 
-Check for this case up front in folio_check_splittable and return
--EBUSY before any state is modified, so the split routine always backs
-out cleanly.
+Testing:
 
-Also fix a bracket style issue that checkpatch.pl keeps complaining
-about.
+The in-tree split_huge_page_test selftest (uniform, non-uniform and
+in-folio-offset splits of anon and pagecache folios) passes 62/62 over
+600 runs on the patched kernel.
 
-Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) functions for folio_split()")
-Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __folio_split")
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+ftrace function_graph tracing filtered on __folio_split() was used to
+compare per-call durations between the base and the patched kernel on
+the same x86-64 box (interleaved runs across alternating reboots.
+135 split calls per run, 600 test runs):
+
+Before: 68.52 us, stddev: 1.58
+After:  67.38 us, stddev: 1.33
+
+The patched kernel is slightly faster. The stack usage and object size
+change as the config and compiler change, but in general the stack
+usage is reduced and object size is basically unchanged.
+
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+Changes in v5:
+- Rebase onto mm-new.
+- Rename remap_folio() to remap_anon_folio(), and reword the changelog
+  to explain why only anon folios are remapped. [David Hildenbrand,
+  Kiryl Shutsemau]
+- Expand the folio_mapped() comment in the anon helper, and drop the
+  folio_lock_anon_vma_read() reference from the changelog.
+  [Zi Yan, Kiryl Shutsemau]
+- Kept the old test result and the code change is identical, and initial
+  test matches previous results.
+- Clarify the after-split folio freeing changelog.
+- Collect Reviewed-by/Acked-by tags.
+- Link to v4: https://patch.msgid.link/20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 7140a1031fb2..351e8893808b 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3934,6 +3934,9 @@ static int __split_unmapped_folio(struct folio *folio, int new_order,
- int folio_check_splittable(struct folio *folio, unsigned int new_order,
- 			   enum split_type split_type)
- {
-+	const bool is_anon = folio_test_anon(folio);
-+	const bool is_swapcache = folio_test_swapcache(folio);
-+
- 	VM_WARN_ON_FOLIO(!folio_test_locked(folio), folio);
- 	/*
- 	 * Folios that just got truncated cannot get split. Signal to the
-@@ -3942,11 +3945,11 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
- 	 * TODO: this will also currently refuse folios without a mapping in the
- 	 * swapcache (shmem or to-be-anon folios).
- 	 */
--	if (!folio->mapping && !folio_test_anon(folio))
-+	if (!folio->mapping && !is_anon)
- 		return -EBUSY;
- 
- 	/* order-1 is not supported for anonymous THP. */
--	if (folio_test_anon(folio) && new_order == 1)
-+	if (is_anon && new_order == 1)
- 		return -EINVAL;
- 
- 	/*
-@@ -3957,7 +3960,7 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
- 	 * swapcache folio split. Only uniform split to order-0 can be used
- 	 * here.
- 	 */
--	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && folio_test_swapcache(folio))
-+	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && is_swapcache)
- 		return -EINVAL;
- 
- 	if (is_huge_zero_folio(folio))
-@@ -3966,6 +3969,15 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
- 	if (folio_test_writeback(folio))
- 		return -EBUSY;
- 
-+	/*
-+	 * A non-anon swapcache folio that still has a mapping can only be a
-+	 * shmem folio under SWAP IO, it's removed from either swap cache or
-+	 * shmem mapping afterward. There is little benefit in splitting them
-+	 * hence reject it here up front before touching anything.
-+	 */
-+	if (!is_anon && is_swapcache && folio->mapping)
-+		return -EBUSY;
-+
- 	return 0;
- }
- 
-@@ -4038,14 +4050,8 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
- 			}
- 		}
- 
--		if (folio_test_swapcache(folio)) {
--			if (mapping) {
--				VM_WARN_ON_ONCE_FOLIO(mapping, folio);
--				return -EINVAL;
--			}
--
-+		if (folio_test_swapcache(folio))
- 			ci = swap_cluster_get_and_lock(folio);
--		}
- 
- 		/* lock lru list/PageCompound, ref frozen by page_ref_freeze */
- 		if (do_lru)
+Changes in v4:
+- Rebase on top of mm-unstable, also mergable on mm-new now.
+- Patch 12 might need some attention as we can skip anon_vma locking for
+  unmapped anon folio now due to further cleanup, including unmapped anon
+  swap cache (not mappingless swap cache).
+- Drop the two swap cache behavior changes, will be sent separately once
+  this lands, so it gets its own attention. Also drop related doc
+  updates. [ David Hildenbrand ]
+- Rename the split helpers to __folio_freeze_split_anon() and
+  __folio_freeze_split_file(), frozen implies unmapped.
+  [ Kiryl Shutsemau, David Hildenbrand ]
+- Keep zone_device_private_split_cb() in the anon helper only, and add
+  VM_WARN_ON_ONCE_FOLIO(folio_is_device_private()) to the file helper:
+  device private folios can only back anonymous memory.
+  [ Kiryl Shutsemau ]
+- Replace the "bool unmap" parameter with a folio_mapped(), rename
+  remap_page() to remap_folio() and document it. [ David Hildenbrand ]
+- Move the racy folio_expected_ref_count() check into unmap_folio()
+  instead of duplicating it.
+- Make more locals const.
+- Reword the mm/swap off-by-one fix: non-uniform swap cache split is not
+  enabled yet, so the bogus sanity check is currently dead code.
+- Collect Reviewed-by/Acked-by tags.
+- Link to v3: https://patch.msgid.link/20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com
 
--- 
-2.55.0
+Changes in v3:
+- Get rid of for_each_folio_safe and open code it.
+- Check if the folio is mapped before freeing it swap cache to avoid
+  potential performance lose.
+- Initial test and binary analyze showed everything is very similiar to
+  previously series.
+- Drop the redundant mapping argument of __split_frozen_folio
+- Link to v2: https://patch.msgid.link/20260813-swap-thp-cleanup-v2-0-d2ee48c6aa49@tencent.com
+
+Changes in v2:
+- Return -EBUSY instead of -EINVAL for swap cache & shmem folio split
+  attempt.
+- Introduce a for_each_folio_safe macro to dedupliate the code and
+  hightlight the reason we need to keep the iterate safe from folio
+  freeing. [ Zi Yan ]
+- Rename __split_unmapped_folio() to __split_frozen_folio [ Zi Yan ]
+- Rename __folio_freeze_split_unmap_anon. [ Zi Yan ]
+- Several comment improments [ Zi Yan ]
+- Drop an unused do_lru argument.
+- Previouse test results are basically unchanged, stack usage reduced,
+  object very slightly larger.
+- Link to v1: https://patch.msgid.link/20260808-swap-thp-cleanup-v1-0-689939a7ccc3@tencent.com
+
+---
+Kairui Song (17):
+      mm/swap: fix off-by-one in swap cache replace sanity check
+      mm/huge_memory: fix rejection of swap cache folios with a mapping
+      mm/huge_memory: invert folio_ref_freeze() check to reduce indentation
+      mm/huge_memory: split the routine for splitting anon and file folio
+      mm/huge_memory: rename __split_unmapped_folio() to __split_frozen_folio()
+      mm/huge_memory: consolidate irq and locking for folio split
+      mm/huge_memory: move EOF trimming into the file split helper
+      mm/huge_memory: move unmap and remap into the split helpers
+      mm/huge_memory: rename remap_page() to remap_anon_folio()
+      mm/huge_memory: move the racy refcount check into unmap_folio()
+      mm/huge_memory: move filemap management into the file split helper
+      mm/huge_memory: move anon_vma handling into the anon split helper
+      mm/huge_memory: move memcg switch into the file split helper
+      mm/huge_memory: drop the unused do_lru argument of the file split helper
+      mm/huge_memory: clean up after-split folio freeing in __folio_split
+      mm/huge_memory: count only swap cache refs in anon folio split
+      mm/huge_memory: drop the redundant mapping argument of __split_frozen_folio
+
+ mm/huge_memory.c | 585 +++++++++++++++++++++++++++++--------------------------
+ mm/swap_state.c  |   3 +-
+ 2 files changed, 307 insertions(+), 281 deletions(-)
+---
+base-commit: baa8de2f3448d1466a888a805c18d01c998fe052
+change-id: 20260804-swap-thp-cleanup-6ce2be6cf3b8
+
+Best regards,
+--  
+Kairui Song <kasong@tencent.com>
 
 
