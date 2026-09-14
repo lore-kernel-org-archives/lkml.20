@@ -1,99 +1,118 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B47477E51
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882E6472543;
+	Mon, 14 Sep 2026 13:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392902; cv=none; b=e1dGz2OwS7RDk2h8PA0yt+9oSTPYZG5UsvrFG0NQNW9/CRvkinSW5XkDpITf/FoOENlIYFNb8azBlsR+c5nJcY9z6RaNCxm+iPkY3HN9cqTK0sqxbLlolVUVDpLYBS+SY2iGXMRpLoNeB88pvLhys89Foetskp/+ftbVVgcvIzs=
+	t=1789392910; cv=none; b=vFYrDuNOfjupPOaPQe9bI/dzuA3u17M79HUzxk31p6L2opUw3q8Q3qsRHfV3TnNO39rawufTVLnQaj+zZMP8/y9IEjGIFP8j3C6I2ocgu/0uVAhkbxU7JBS1anBNv2c8bDpKEB33pJJJWpXnKfcGaHGsmBIW/POP7yFyZwonloQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392902; c=relaxed/simple;
-	bh=N1I/WhP3GLzQG1Kmy9w756cHt+cWsHO36KxPWZULwGQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c1QxXOo2EOc9EQEwHTmg/UbRaKSGlcyAKZ4U4OfzFGIdOC0hvrN9BeEpsPsX9fGz6MLLvLDkg4c/vvmXwei+ak8mSSHqJT8cjIqFmYLmB19drDg7S+6pcWF1CGAaIRvYOzTek8gtsL2oBQLRpFAwnYSmZwXU7yFbw7Ba3xADOO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XvCQpQiR; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789392910; c=relaxed/simple;
+	bh=SkfaGXmQEY5xHBDu4QnDfNDV0wqVF01smR5fjT/K4uc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ntm9VZts1vdepVyBsKAJ0V8mtBnxf6t25gHnH2x0nHXMMtMlUp+14AsA9/RgIhB3/cF3JGCVUaMy02/TpdNi2wYDVAg83Uc1WWTsuuaOi5RqdOLZooZzoAiKwny53nwWbnWJOtJ8aaVyBy4v1Ej5fpZ79tPKB9WQ3KRxGM1PWMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LLqDDLlr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XvCQpQiR"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49c5a927a1fso807735e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:34:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392897; x=1789997697; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N1I/WhP3GLzQG1Kmy9w756cHt+cWsHO36KxPWZULwGQ=;
-        b=XvCQpQiRiBV4/3qqZ2+G9UedYpFsvJQYkGhvJgcLeI8YZoFmM7x+KxZQZGHsHQpJWN
-         sHCV5Vbrh3KQceA9tExLEYXPp68TbBtD7PBRyV4TLDrrjk9GV/Io6uBZvx8YL0l/gRx9
-         sMvLi5BbxCkBP+HLx8unst6vqgIagD8sfKoWcZpwXqpl2jpqcSF4PAONBQS85pdKCjDD
-         gkFaWfcYa8pmTBbFvONL0bIIqB8XzbJhyNeWbDT/Sb+z1waZ7mtwtobiz8ST8L7Ycs7s
-         ObuzEHvch0xocb7ivwsoljL0jTyPy2nq8kTcoHEFkC6Nxa0FR9rXbRpS8A8fXh3kyfQ6
-         OVhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392897; x=1789997697;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N1I/WhP3GLzQG1Kmy9w756cHt+cWsHO36KxPWZULwGQ=;
-        b=Rpr6fUj3a0GAyrChZIYOL0BMTTS7lkZ3VYfnrIb8P4Xv69mcPtEuS05nIjnrMuv6PV
-         78pvRQDSCHPYIa678uUBnpZIbe16OgTfemcRgHzTXGfd4UT56YdNtpYReJ6XmeMuedFR
-         PXFr81aoyqZ6xZ4xnjtwKcjZ+ywVncIYEL2kkQvcYlLTDBO4b8FJNMk+d6g6yd3+U7Oc
-         RVL+wrFSEG81wvrTl10YREAXewlS8sNRRpDO+ED/cARHYnlDYH622IpDFO9dXlJGWTXw
-         5Fa1tEu18GEV2vXRHcB77EGH7+B3dqVK6Z7dgYRd3vEqDxp0pyiBp53ZPuUNNfJN2GO+
-         0Wfg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1wcZCmJNj/mjM/t+kCD2w4Dqu041dulOSOefwHahnaXEsnbjZrAabvOgdFt+PsjlIX0ATwvx3F5+ZaAU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDxU2r3HPh+mbBIq/Kd8JdtCUnpyOJvVTHjdA1UuRGi78+TNv5
-	P79JoHo6jxsriCc1lX6wVB4o8pzhF/jQRBSnnayHhTrBlSkPAz0Em2e2
-X-Gm-Gg: AYBFou1jSKnijL5x7eTuciKGDRpPlMhwEs+ztS85ueBgq7OYBhqjZIxijFD72rr6agk
-	sM9xcgVjLtfoqJEvioNGMeWIcBWBTlaeoK/5ediWf1tUePiRtNVasJQD4Wu87t0z89T2/AFdyOx
-	VTATebulBRloE7gh8JYEMJSmv0GKSBn+It0bWNjZd4RFt9s/wBa0bn2O2i7SxEas7qW6uStpKBj
-	b4fQ9xaNG6ujQi5/TXJb06hNpOydsFJnPZu+1eKNKsQcAlQENi9lf0xTYTlINYxNzkCv0GBOWii
-	ESGnLL4cqyHSSrGurYK1i1dMiQfFYvo8qomf27i5acSwoRmPuy3LNGbUHTa8NZ3IZDNqzugzZK6
-	+T1FhOEeBXDwPWFBpQYjvsAWaVAFiOo0T4wrH7/G/f1e/pjUBMeXNUYwKlhvdp57VyBb58/bQYd
-	kXYaGuwrJjpb4LdjyeZgubzp53UB0N13AoHi0DfEYCEaGOOnLuw3DHPm0Xi3o4PhOgw2nqhaDfZ
-	Dg4E+rEFW5HnWE72BnnItWCo825GPtFOYVYdYDMU8PWR1k4gwZAcw2t2dGscwDGApettPei2dhU
-	81E=
-X-Received: by 2002:a05:600c:19c8:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49e7a68a919mr33411185e9.2.1789392897309;
-        Mon, 14 Sep 2026 06:34:57 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B85A6000F50888CB3F3FDEE.dsl.pool.telekom.hu. [2001:4c4e:1b85:a600:f50:888c:b3f3:fdee])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm419054155e9.2.2026.09.14.06.34.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:34:57 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Triet Hoang <triet.hoang.dev@gmail.com>
-Cc: Sidong Yang <sidong.yang@furiosa.ai>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v6 1/2] accel/rocket: Check allocations before use
-Date: Mon, 14 Sep 2026 15:34:36 +0200
-Message-ID: <20260914133436.8198-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914045605.381933-2-triet.hoang.dev@gmail.com>
-References: <20260914045605.381933-1-triet.hoang.dev@gmail.com> <20260914045605.381933-2-triet.hoang.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LLqDDLlr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 23F4EC2BCFA;
+	Mon, 14 Sep 2026 13:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789392910;
+	bh=SkfaGXmQEY5xHBDu4QnDfNDV0wqVF01smR5fjT/K4uc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LLqDDLlrULmcvs6aYTI19vZaNm15qYtWstADfX02PkphnDL8W2nTDX3C3LRH9xUH3
+	 LlM/Q7rXou9aqPMmcoW6s1B3dpfb7qriwXWxvDk91R03fjbD9hTEJHmYebivb6eaRs
+	 g69GW+DuM6XL4/m1W+y+fruAGbs9ON163U+ZoGWIetqUXIJhFS1ay9c1LxwXqtUuFq
+	 ChJFphmUMix4xrnLQp+aWm+Mq4cNnqcyJkoR8rZBmu4uVfdA+dWnpY0K1VRKFhj50n
+	 O9mOXpj1VOgKFZs7OG+Q5qxW22RGF/BOQ3EBtvn3EWUgq6/KZl/71iBpT0WLIbMt31
+	 y9r3dSdGOcyzg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2A7CC88E70;
+	Mon, 14 Sep 2026 13:35:09 +0000 (UTC)
+From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
+Date: Mon, 14 Sep 2026 21:35:01 +0800
+Subject: [PATCH v6 1/3] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi
+ R28S
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260914-r28s-upstream-v6-1-ea9edd75c126@proton.me>
+References: <20260914-r28s-upstream-v6-0-ea9edd75c126@proton.me>
+In-Reply-To: <20260914-r28s-upstream-v6-0-ea9edd75c126@proton.me>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
+ jensen <jensenhuang@friendlyarm.com>, 
+ Andrey Korshunov <razor1702@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1524;
+ i=HystericalDragons@proton.me; h=from:subject:message-id;
+ bh=ukrn4M7rYY+NNZWj9jv6eu5CXunQ4mtIC9zTzcL2LVQ=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqzlP3ikwhaf+PBurlFc2vzoaGZHoR0X+JzOfzVMiy80t
+ 7qSFLKto5SFQYyLQVZMkUV2U3Wk0KromUUsUsdh5rAygQxh4OIUgIncOsjwP3o7+90Irp9fmBwr
+ rpdKWN55uTlaxqxFYKLZq+lTrx5vNmb4n8DkmH93sv6WTDEuj6u6lX3luz/9Ytu0zmXCjpP/dB0
+ O8AIA
+X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
+ fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
+X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
+ with auth_id=1004
+X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Reply-To: HystericalDragons@proton.me
 
-Hi Triet,
+From: 安容 <HystericalDragons@proton.me>
 
-Re-ran v6 as posted, on its drm-misc-next base (5052ea2e6bfc), on
-RK3588 (Orange Pi 5 Plus, three cores) with PROVE_LOCKING and
-DEBUG_ATOMIC_SLEEP: 30 sequential clients, 10 pairs of concurrent
-clients and 5 after runtime suspend, 55 inferences all bit-correct
-against the reference, no warning or lockdep report, cores back in
-runtime suspend afterwards. Same limit as on v5: the allocation
-failure branches were reviewed, not fault-injected. The tag stands
-for v6; please keep its comment:
+The NanoPi R28S is a dual gigabit Ethernet router board based on the
+Rockchip RK3528 SoC. It shares its base devicetree with the NanoPi
+Zero2, so list both boards in a single entry.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, no fault injection
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: 安容 <HystericalDragons@proton.me>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-Regards,
-Igor
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 81744fbee9..dc04946db0 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -347,6 +347,13 @@ properties:
+               - friendlyarm,nanopi-r2s-plus
+           - const: rockchip,rk3328
+ 
++      - description: FriendlyElec NanoPi R28S/Zero2
++        items:
++          - enum:
++              - friendlyarm,nanopi-r28s
++              - friendlyarm,nanopi-zero2
++          - const: rockchip,rk3528
++
+       - description: FriendlyElec NanoPi R3S
+         items:
+           - const: friendlyarm,nanopi-r3s
+@@ -388,11 +395,6 @@ properties:
+           - const: friendlyarm,nanopi-r76s
+           - const: rockchip,rk3576
+ 
+-      - description: FriendlyElec NanoPi Zero2
+-        items:
+-          - const: friendlyarm,nanopi-zero2
+-          - const: rockchip,rk3528
+-
+       - description: FriendlyElec NanoPC T6 series boards
+         items:
+           - enum:
+
+-- 
+2.55.0
+
+
