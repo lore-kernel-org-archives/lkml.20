@@ -1,165 +1,161 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC0D3D5668
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56ACE3D566E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789383496; cv=none; b=UdxdCFHC1LJBHwUR35S+WL48F8pUIbzXJPq0JTr7qKa1EMAaJO8WNj7AJbNvZvGXQK5paIh7Foe7PbMyBbsFpV9+lhjc0NTDD5xNNC2NQ/lv9WmYD9NxnGZcxLKUe5LMosmpA7xXKRNuqeKIE5SRPjGpRCafM2wAp+QMdqxsiF4=
+	t=1789383520; cv=none; b=GCUdx4FWq3YixRye/3KPuYaxxlGwYaJEXDiN+/PVv3v0G7tvrowm/3czKz+5BhZMfSiAuZRJYhUr9fMtrCRnRKVSxGl8wVHjYENLPMpYBV5X0goWLqyiwdE0N14AYOzRjIuWB5yrlAe46a97YuZHzCoZTDYhodV4CdSNqC0uIJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789383496; c=relaxed/simple;
-	bh=+vtA1uDQ+/rG58w7XlemXYJEpmpQZDCeOVCsaAMQmVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UgnDEWsh6Rfn9iNng1YdWy1PX6o4Dippj7iKrhDVPhKioUBtlconmGa6LEfKYkzG2yoBjANBojBgBwvYxtAzWmvylFoWFMms6f0npN1B4BITVV01hvEXF/4YzTzpvm6RV3SFc/Id212M6Mb0ww0DWNWzIB7726cWCrhocEkMsyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V0oYtYy+; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789383520; c=relaxed/simple;
+	bh=tYs2cxRyTGdf410bulete8ziZ49L87S2sxxJrI5w/0A=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To:Cc:Content-Type; b=XYuVz0WW9lQc+c9KmFdTpY7MqvpbOjlAM3dNquLu8R35m5WJOhnFv5u4RSyk342zAAoyvyaJhzZ3gJuixrxEH/ZQSLISb3TGhLylWmXZmyRc9CjrAgjAVsa8KuvQZ+eJs+aOgvlu5aP1cSMsyIXpfOz793KtwDNu5iJdShDtxF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe; spf=none smtp.mailfrom=sne.moe; dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b=cwiEbDwE; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sne.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V0oYtYy+"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae52so3384827a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:58:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b="cwiEbDwE"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff23d82eso2943025ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:58:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789383490; x=1789988290; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O13ZSeCTw7+8uyM8SwrGz7R3CfCjWVxwzkvMyVMvohI=;
-        b=V0oYtYy+xnY8Vt3TvhPYOux8fOO2H7SkaZb9FuYTXc+wNym33nMi08b4vkoSnAX79W
-         g7cLYakYMozupVJBvAgffDfYhSBM+PmDbqAX8UM8dfKwc8cLobPjynOPQD1t+DPu00Fz
-         d4k+Pua2ErYuDagu6RhqATgHsQMrkWSrqGLMBi3tHinOFwxfDPHqHjpJSoVeAact42Gi
-         z4hQJaCXFM6ONVWUuqUDMexqE64w/r63VKR5hjpaBvs69+g1OHRjCTQSzN68bkQ+3mRb
-         t4qrOM8EWDPg7/aPaICOpHzHVfAhUC0JDb3WibFoVcWuznks/U6zjjF+DJMr/QbOdATf
-         r4mA==
+        d=sne.moe; s=google; t=1789383516; x=1789988316; darn=vger.kernel.org;
+        h=content-type:cc:to:message-id:mime-version:subject:date:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w/AypDIHXXi5CXKyq5GMLOTs6AUWRfjuea5A7khngbU=;
+        b=cwiEbDwEGt5RKJjEal0rtGAk71kZow6MDcKbiPPOXGlnaGKVH23AWHh0K5D3yFwugq
+         qDOzC8q0Et2gLhhEI+RIcTQLmgDdyzQMDAseAxI15ksTV1r4WpHfHQ1+ps1+T+5bkOym
+         ibM5V0Qp5W9QLFsLQHrsdlisVRCAflN4bqkkhLUsVSZxnSxrs9WpKKgzlwZk0zw74Hh6
+         U0cS7RSz+7ySDAOBy1SkYnwYAHTPE8t/NGCQBSBdHy7msYWoNdzJrAYZyiAEaHpYOqUL
+         IF/YlvAKJp/uQsBOPIl/QL0goP3pOfeYuncdJIz3kwfTz1juDrbmaoaX124xXJ0Glryz
+         cwFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789383490; x=1789988290;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O13ZSeCTw7+8uyM8SwrGz7R3CfCjWVxwzkvMyVMvohI=;
-        b=mZNNs93lUvA80hJUbW/WBSCE0DITqFOyIH2sZH7Fe60txVHM6En1vCpRk2nDsGBTWe
-         OIwGL5/2+/YUR/D4k3e//9dcyHIEQi02hXaOyjduvy7sDb87Q6evE4foNmDw//wOCFtD
-         jWDlb4Ex94APRvAJeghwctc4uefhJmBnO3eQRjDR8rTbLkyZaE+Bi/ANX8fLRm77CZPN
-         2k9pR0B8SYS9DirAUuRwWlu3bWlloWwADofGVUfl0jtuzGKySs1WJM4h6V2C57SIzKOI
-         EBdxTDp4ON5v/u7v2Y/kjuIvXsa8C51+kL/sTgohIUL5BupA5MybpHq5z4d0DR40HZ0a
-         a9bw==
-X-Forwarded-Encrypted: i=1; AKwUvBxg26JBaW/Ca03Pn1TMECJwa8YUfPSNohHyNix0mnzRdZpECQ81odyVDfUsIwPORmasBorN6kxH1sF+Gjs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZ/UPIBvIcCCvte0ftjWGzHJmRArWSipoQvKssCFH5YAdbhvTr
-	jVoXfQGytdFqbCG5XV5nUJCek+1V7oemr1PYIfN/IY6hco+jirmUpkU/8/w6dmBr3NY=
-X-Gm-Gg: AYBFou12DNwYCtCvBzZPWtEwkC1ZS0TYq++9HbLxM9bf5Yl2AVmHxJ+QC79ToaVVdLo
-	kfX7X48cYGXTHXvajKlRSn/Ng1id9TCH++TN5pKs6r8GRDfnmcAlhv6pJl+BLbPozRA37hwzKOG
-	b16v6WpgBFmy7T45GmOZSYyu2kRA81oNtiIPQyh6IMVwwYr/qiHFbEZj4QClzd17+XHNnDyFzwb
-	92rMRehajLoNq//7w5tjkDy9JKA1I65EBPe6U0zUtgYNu+mA+S53x2JwwRAf0XYF/rGvVbpnNGm
-	NeASrCKCMa7YgodJVNojyU1TLrqjMwNt+mRl43JFxGYSoia9kLaky+cA9n38bwoQdXQglqKCV9d
-	VBJSMGkDbJ9TslbruSDqoP9r+kRwriPBW+GAMQjqrx0pfGn6ePvUZ9cZG3jaS0LOQ18w/4BXUoD
-	izD48vbEGOI2ezabiIf802AUREv7ohzWW7auoZfCUATC0CneTyyVSz7OvjVCwlV+Y2DuscZf9+N
-	UkUUAMHpg==
-X-Received: by 2002:a05:6402:428a:b0:698:c13e:179a with SMTP id 4fb4d7f45d1cf-6a9f625e94cmr2804901a12.10.1789383490072;
-        Mon, 14 Sep 2026 03:58:10 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.248.34])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5963726sm3888113a12.28.2026.09.14.03.58.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 03:58:09 -0700 (PDT)
-Message-ID: <0c5c7e2b-0dba-4098-8a3a-7ba66adaf108@linaro.org>
-Date: Mon, 14 Sep 2026 11:58:08 +0100
+        d=1e100.net; s=20251104; t=1789383516; x=1789988316;
+        h=content-type:cc:to:message-id:mime-version:subject:date:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w/AypDIHXXi5CXKyq5GMLOTs6AUWRfjuea5A7khngbU=;
+        b=f3a/YiWRPdmyMh3+q59disKaBKguSvxTDZwDtAm50FYyikzdGOohUOD34F+uZQYi93
+         4O2diBHpJU2BTqOe7q15IWN2L5qj8YgJQVxq32dnnqrmry56ZuXeS+4tqVaGwt1r0UTZ
+         dyFbPZx/rrKHVFG5WZLiSEQ4YbgG77hi5tGyhtim9u09efgaCsXC48mZyqOzUyXXPTYQ
+         5x1aCnZSx60rZKMKhEyRyUQvCNhRlrbPpoExW8WTMpFWYcnzV4I4eF9StCbWlaxSWSKH
+         GNOejaqWj63V6W/zZz6uw/w/ew2BNFNm+lcfoaLWKOr/b+fDmzjdRD7o4gEJrOJdVvnk
+         0amQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkj2WL8PGxtSECkuoQ5GPkmQdz4vsEP+FQXxqhhjKhOHZAHYr6eS0HI1w8Ro3AxhCrmyRiUmhKqRjY6ic=@vger.kernel.org
+X-Gm-Message-State: AFuF++myfwkJvrNtB5Tw5NP3tz66HTXnxCpxus6sgNhHEMYrYtf0VBJ5
+	FzWNU8kV8/lBbLoHA1VIcH9t2i3jPAgHpdyvZZo9x7TPYhfeR4q3XGeUA2C/YafwssP0vGVu5gy
+	pL3sAP/KnKL5IjsuzPUo3Ac4NxQEbEHw4Hxdqpt83oFnitxoVc88b0S7aOTqlpw==
+X-Gm-Gg: AYBFou00DD7FUr/1XBTHN1J0WB3rfci++tQ01IeoUiaX9CSMofhVyUybLZ4O0fLg65M
+	H9vNH5HO4xsm3Ch9bGQynswRjKQCM+OjdYRD9UTfgAZqJCT61A2ylEYEaZX4oCq6Opcm0FwamIJ
+	NdrHerC8l0Bzn+Cqty+uukqmLaL5AUqYlJ6b0GpzHvpNd/xfm5TOnf6Ry8HtmdN6MyDXIIwecR2
+	teASQyDas7GVjHdSTTvbD5+i/p4V3QOFWu9UdFhx3OFrcyLSpTONPldOdWqmGh58qkOu/r44Hgn
+	i0+a/HB3GkO19jnQhyfVydUrOAGX7yteRrW8lPaxe6UZOaOwYt5h866M4PIaifU9XMKaMqfxyHh
+	w1vjBnZvhMM3grzHlAf0CGFFkLbuggp/4Bs41NQyHlS+tiCbLyNu6mpSk9W3zv6NqpUzTgKgIik
+	nIWhjlq7yQYJTGTiO9EiykSQA/a3w1zb13QOsI+Es2a7n4X2U+ybv6IA850IwpEpU=
+X-Received: by 2002:a17:903:240c:b0:2d8:f4d4:7044 with SMTP id d9443c01a7336-2dd6c7ca8a6mr27428635ad.3.1789383516506;
+        Mon, 14 Sep 2026 03:58:36 -0700 (PDT)
+Received: from [127.0.0.2] ([2403:18c0:1001:3a:74ea:baff:fe97:d2e7])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c652aa8dsm4687280a12.7.2026.09.14.03.58.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 03:58:35 -0700 (PDT)
+From: Asai Neko <sugar@sne.moe>
+Date: Mon, 14 Sep 2026 18:58:29 +0800
+Subject: [PATCH] ALSA: usb-audio: skip the broken mute control on AVerMedia
+ GC553Pro
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: qcom: camss: Don't reject sensor links faster
- than 4x the CSIPHY timer
-To: david@ixit.cz, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260914-csiphy-sdm845-limits-v2-1-622db5a6ebf0@ixit.cz>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20260914-csiphy-sdm845-limits-v2-1-622db5a6ebf0@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-avermedia-gc553pro-alsa-v1-1-4c694e8b0cd5@sne.moe>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm0ygGDgKsZF6RSs4S+tEhPC3
+ R11+S3e28HFVBzabAeTTV2XOSE/ZcB3mgdBjclQhKIOTX5G2sQmiUo4cFWVqy1IoxMyS9kHqmN
+ 3CZDq1aTX9+98vf3tr+4h/Pzu4Dg+5kyF4nsAAAA=
+X-Change-ID: 20260914-avermedia-gc553pro-alsa-cce3f0a6db70
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, Asai Neko <sugar@sne.moe>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2092; i=sugar@sne.moe;
+ h=from:subject:message-id; bh=KKQ65lm5gd4TGamF3O9BljYBBsGT+aIMb7Ndkequqlk=;
+ b=owJ4nJvAy8zAJfZHZ3FlRAEbJ+NptSSGrOWXI7+8vyx82i/8ltrtSouc2Q+erSu/4/725jejm
+ An1s7vunPrXUcrCIMbFICumyNJ5pKvwyet5Hw646PLBzGFlAhnCwMUpABMR28XIMG+7SpPmw2TZ
+ o+tLZU+Ebjl02up5g0GymfiuE1ax8499fcfwz2D6piUHGzsd1m88NonzxAl9j9zHhh2803h29ik
+ 45NzbwwAAMNtOUg==
+X-Developer-Key: i=sugar@sne.moe; a=openpgp;
+ fpr=89C48A71E4EB9EF0C0442D0EFC2CA37958700609
+Content-Type: text/plain; charset="UTF-8"
 
-On 13/09/2026 23:04, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> The timer clock has no such relationship to the link rate. Both the 2ph
-> and 3ph code use it only as the reference for csiphy_settle_cnt_calc(),
-> where a faster link makes the settle count smaller, not larger: at
-> 269.33 MHz the count converges to 16 as the link rate grows. The vendor
-> driver pins the timer to 269.33 MHz for every sensor (it is the highest
-> rate in the SDM845 clock plan) and streams this exact link with it.
-> 
-> Clamp to the highest listed rate instead of failing, the same way the
-> unknown-link-rate case is already handled.
-> 
-> Solves issue on sdm845 that caps the link at ~1.02 GHz,
-> so the Samsung S5K2X7SP, ~2.3 Gbps/lane, link 1.15 GHz) fails with
-> Pixel clock is too high for CSIPHY
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
-> Tested on SHIFT 6MQ with sdm845-next-20260820-9.
-> ---
-> Changes in v2:
-> - Drop the camcc change entirely; the 269.33 MHz ceiling stands. (Konrad)
-> - Fix the check in camss instead: clamp the timer clock to the highest
->    listed rate rather than failing, matching the vendor driver.
-> - Link to v1: https://patch.msgid.link/20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz
-> ---
->   drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++---------
->   1 file changed, 7 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> index 539ac4888b608..f3d17ea0ab515 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> @@ -157,25 +157,23 @@ static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
->   			long round_rate;
->   
->   			camss_add_clock_margin(&min_rate);
->   
->   			for (j = 0; j < clock->nfreqs; j++)
->   				if (min_rate < clock->freq[j])
->   					break;
->   
-> -			if (j == clock->nfreqs) {
-> -				dev_err(dev,
-> -					"Pixel clock is too high for CSIPHY\n");
-> -				return -EINVAL;
-> -			}
-> -
-> -			/* if sensor pixel clock is not available */
-> -			/* set highest possible CSIPHY clock rate */
-> -			if (min_rate == 0)
-> +			/*
-> +			 * The timer clock is only the reference for the
-> +			 * settle count and does not need to track the link
-> +			 * rate. Use the highest listed rate when the link is
-> +			 * faster than the table covers or unknown.`
-> +			 */
-> +			if (j == clock->nfreqs || min_rate == 0)
->   				j = clock->nfreqs - 1;
->   
->   			round_rate = clk_round_rate(clock->clk, clock->freq[j]);
->   			if (round_rate < 0) {
->   				dev_err(dev, "clk round rate failed: %ld\n",
->   					round_rate);
->   				return -EINVAL;
->   			}
-> 
-> ---
-> base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-> change-id: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
-> 
-> Best regards,
-> --
-> David Heidelberg <david@ixit.cz>
-> 
-> 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Skip the nonfunctional master mute control on the AVerMedia Live Gamer
+ULTRA S GC553Pro (07ca:1553).
+
+USB tracing shows that GET_CUR returns zero bytes instead of the required
+one-byte value, both through usbfs and during ALSA initialization.
+SET_CUR succeeds, but switching capture off does not mute HDMI audio.
+
+Before the change, the driver exposed a misleading PCM Capture Switch
+and logged: 3:2: failed to get current value for ch 0 (-22)
+
+With the patch applied, the switch and warning are absent. A ten-second
+sound recording through PipeWire confirmed that stereo 48 kHz, 16-bit
+capture still works.
+
+Tested on NixOS with the patched 7.3.0-rc3 kernel. The USB audio driver
+object builds with Clang and W=1; sparse and strict checkpatch pass.
+
+Signed-off-by: Asai Neko <sugar@sne.moe>
+---
+Skip the broken mute control on the AVerMedia Live Gamer ULTRA S GC553Pro.
+Testing details and the rationale are included in the patch commit message.
+---
+ sound/usb/mixer_maps.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index 69093c666282..41454cb403d0 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -531,6 +531,15 @@ static const struct usbmix_name_map audient_id24_map[] = {
+ 	{}
+ };
+ 
++/*
++ * The GC553Pro returns no data for GET_CUR on its advertised mute control.
++ * SET_CUR succeeds but does not mute capture, so skip the control entirely.
++ */
++static const struct usbmix_name_map avermedia_gc553pro_map[] = {
++	{ 3, NULL, UAC_FU_MUTE },
++	{}
++};
++
+ /*
+  * Control map entries
+  */
+@@ -577,6 +586,10 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 		.id = USB_ID(0x0763, 0x2031),
+ 		.selector_map = c400_selectors,
+ 	},
++	{
++		.id = USB_ID(0x07ca, 0x1553),
++		.map = avermedia_gc553pro_map,
++	},
+ 	{
+ 		.id = USB_ID(0x08bb, 0x2702),
+ 		.map = linex_map,
+
+---
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+change-id: 20260914-avermedia-gc553pro-alsa-cce3f0a6db70
+
+Best regards,
+--  
+Asai Neko <sugar@sne.moe>
+
+
+-- 
+Asai Neko
+
+
