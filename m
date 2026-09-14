@@ -1,266 +1,131 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2635E48F844;
-	Mon, 14 Sep 2026 16:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDE0477987
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789404702; cv=none; b=fvwOFpkxsaWWxkCuJD2CzYc+qM9TVDCqu0adhuVz2gOnVpGWOMKUv2RZ0LJvZOTbdM6OFt6iksFIi/DB5KEpGb2H9mXZ/V4yrOqIUeSXcH72XCkn6oyy4qEnCw/aD8s6TuZpj0SejqC152Vyln+otIDz7PTuuqLJqgT6ueMPhAI=
+	t=1789404736; cv=none; b=N1WaK6dKRdKBFhfH+lN3Qrq/FnNkB0LpzhWNxCavYTjl6VVzvFDSt2/iVXq6Cqvnb4wl7ZDsyxydQjj2fGMgUdolHrLV45oW4oMZb4ewblZ+fFLfZ72YJ5fC2NzJA1eenNFG0tn0cblePOrl8VqqfUr1Uvkimho2nfjHSTZhBfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789404702; c=relaxed/simple;
-	bh=uGY6NcMWNLywvTowFym9tgnQwZjzy9Owr6elQkyVpjk=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=YHt38HarHcVMVVkdicMBp8qgC602SZTn3JFkKHtL1QtKRSgvxLCk7fAKnLPH6iWK8+4qhL9JzUBO6xqYUrEARpB7lAi/YPmRHjidNMVsrU5duIlIW17YiO9IEr/FGjHo7TyQ+2wRhTUUlgUL7cf8lIT/D8ChUMG70y2OiSnggRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=UPqg+1WX; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="UPqg+1WX"
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 68EGnuOe3963808
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Mon, 14 Sep 2026 09:49:57 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 68EGnuOe3963808
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026082801; t=1789404601;
-	bh=chqvEsr84Q297eDSZWoD36RZB2nZvFGrsL9c2mf5qBQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=UPqg+1WX23h3Ki5DLrty1pJx1am44iqWHAyIVVRI9r5yZ0J2cNq/MctPf7fMKr0Nn
-	 1YGB5OcBbL6YqDk32/y1VC1DUpsxdZaJ0ojSZhe8qeiGwSjiIFm7smQ4QJ9Yx8iTtq
-	 wd3waGp1gGqIyiv10qjg0VAYZIm0gE18GeUOH4Gkf13htytTHq8YQMCf8LSqUnGWp4
-	 nnKj/qVbZk1Hye5oVOx7+nQyO8rNnREqM0BHrOWHcL7tICPNAhTMCN0lVlRsV1u+cB
-	 rC9NpgEtdZ5Cf1Ki4BlrNSpYuzW/XrLi2+rCMZx/UZOwL2EgCOj6sn9KaOggIsy0MH
-	 wSEhy1WjEjh3g==
-Date: Mon, 14 Sep 2026 09:49:50 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Kees Cook <kees@kernel.org>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-CC: Linus Torvalds <torvalds@linux-foundation.org>,
-        Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>,
-        Masahiro Yamada <masahiroy@kernel.org>,
-        Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-        Ard Biesheuvel <ardb@kernel.org>,
-        Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-        Josh Poimboeuf <jpoimboe@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-        =?ISO-8859-1?Q?Bj=F6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
-        Benno Lossin <lossin@kernel.org>,
-        Andreas Hindborg <a.hindborg@kernel.org>,
-        Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Daniel Almeida <daniel.almeida@collabora.com>,
-        Tamir Duberstein <tamird@kernel.org>,
-        Alexandre Courbot <acourbot@nvidia.com>,
-        =?ISO-8859-1?Q?Onur_=D6zkan?= <work@onurozkan.dev>,
-        Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-        llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-        linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-        linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-        linux-hardening@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_21/21=5D_kbuild=3A_use_pi?=
- =?US-ASCII?Q?gz_for_gzip_compression_if_available?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <202609140844.FA7E848A@keescook>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org> <20260914-build-speedup-v2-21-39817ec5db23@kernel.org> <202609140844.FA7E848A@keescook>
-Message-ID: <BCCCC1E7-25B7-4A8D-BDFC-D5D1FA295F6C@zytor.com>
+	s=arc-20240116; t=1789404736; c=relaxed/simple;
+	bh=UIWk/mFEONZjdGSVThQcGe22wgnytiwRHqb6WEyzl6A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V4m2RCFHMxebItpIl4slhLRYkV0z+1e93BES90dFaJ68MY7YFhPPr2lgCVqSOWx/mOnTjCcE2RmNXUpNaQGcmapk1tBTzI+k8DpNnvfo7DDykEk3BW7pwskGBwr+qjpxzCl3jNuJYrtiadiUlNxG2AMbSVqH6k+GHMN+KxAE21U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so907149e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:52:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789404732; x=1790009532;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AvI/QWFHsgVdwtTPxxpgjV2LtpVQ5it1qz0zswhLJPI=;
+        b=SOUpIN0/xYUP/F4vJPRIwJHBHT7j7s2COE4nDmau6RMnOjjrfC2K0Mp6yb2TrrIz3q
+         GtGhca49GD76jenRXuLLYRLcEsz4iGdnVIpKX1WUeCsz8GST3RJa94+/F6lQEXlBKsSK
+         /Xbtdb6+HaganWj8g9XJemnEHyA4gpqyTuxYBJVC8OvfscmNUp6uhzX/GcPf7mWwO6OG
+         cPcGTvMBPtAYMJn5x44tKzWOJKrBIqmDPzvFjVhiqEgJp6YJbQ3qTGF6W7cs8w+uSLQc
+         lt6nLeiGLP0h7Sh5RNTTYtj+c0hrzFDxLLc1rpHGsnCkay4V16ia0pS/qLbAEI+Vz0gL
+         bRmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZu7HvzdBy7OMtks2sHnIwS3dM1buuM6LhrZj8jxeGZ+dFbNbr3EYGFixz2fMvllutVis54Jq6EcBhFIc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdsbswAVDtdrCXDoZTGZT9jGJXI/K5pM8rylGSI53SPnJJ5CIr
+	7LgvtBUGoVx3xbOp71BrZHAa9VC8UAvNUPZ7gL6Kzgf4PxC0aKM6YilXH3vdssLd
+X-Gm-Gg: AYBFou2zrNb8SescY2O8Doroxsvvql57WtloPtxbNLscPpmJYeqmzdF2KYOxmfFM2sP
+	g1B7wFUyzDlm4eIZYG84taTXUAAfOdErAkheWLnlyeFnBKsybxPbEFt+1YxclFi559OpwCPZ4yz
+	e1PT54gaMODQ/7EBnBJrvVxu3YobNfMwOQi9Rq8fCVJ4Lj+eZ9ffHajVnthDbgWCEpm1cuF+/cf
+	Cv2wgV0naVshI48nERzI+7ChColt+5pgpKlthvAtLeSQMQisvwR9rzdwLOPSIw5xtFj4ExD7Iqt
+	wL5u45RRw/N+8QQvjDuIIean9ykftDC8Hrlc/Gi+e6AkEjVk1NfPvvIWKcr+gFyHeNBlCoY6nNj
+	eagvj25Das3bhi8ou/c4fWDZ3vcBN/dhxsI5w4gINaC3NG3DcUPe2bO6YBnpZb3ZStLZ83QT9Cn
+	LxmKOe5ynJquPshpskh5vGGdCmqEuwC/dcnGve6FhAbP54vKR0uTwRQIirgfxEgMBss4PN7jFOT
+	wTXiWA3FrlfHoIj/HJ4ABPdIAyOVLlK9wbVRBrGS6AYdQA=
+X-Received: by 2002:a05:6122:50d:b0:5bd:aba5:3830 with SMTP id 71dfb90a1353d-5c981884dedmr4431397e0c.0.1789404732394;
+        Mon, 14 Sep 2026 09:52:12 -0700 (PDT)
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com. [74.125.227.42])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470d661bsm12193070e0c.8.2026.09.14.09.52.11
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 09:52:12 -0700 (PDT)
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c963a787c9so803576e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:52:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwAl7yF7IsvKogvmFVpE7+XxDORk7tSMSBP4qqtEoPuhzaZAfqykF4NMlJ8a8B2kZ4pIJs0TPiDrlxB/QQ=@vger.kernel.org
+X-Received: by 2002:a05:6122:d86:b0:5c9:54c6:b4c6 with SMTP id
+ 71dfb90a1353d-5c981a92cbfmr4262605e0c.2.1789404731378; Mon, 14 Sep 2026
+ 09:52:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20260913195654.3371385-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260913195654.3371385-3-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260913195654.3371385-3-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 18:51:59 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUpTKXkJFFxgZ5W8Qdb=2YFwTNyjkxKqYFr_kLEsLDWcw@mail.gmail.com>
+X-Gm-Features: AcwNN1XFaYKKRap8WdI0zgtlhQNDEsuoN6yL245cXUtWnEuRlQigs7Ay4Kwnzfc
+Message-ID: <CAMuHMdUpTKXkJFFxgZ5W8Qdb=2YFwTNyjkxKqYFr_kLEsLDWcw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] pinctrl: renesas: rzt2h: setup IRQ in .irq_{request,release}_resources()
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On September 14, 2026 9:39:07 AM PDT, Kees Cook <kees@kernel=2Eorg> wrote:
->On Mon, Sep 14, 2026 at 10:22:20AM +0100, Lorenzo Stoakes (ARM) wrote:
->> On a 128-core Threadripper, gzip -9 of a 36 MiB x86-64 vmlinux=2Ebin ta=
-kes
->> 1=2E6s, and with pigz it takes 0=2E09s, so the performance increase is
->> significant=2E
+On Sun, 13 Sept 2026 at 21:58, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> When exporting a GPIO using the deprecated sysfs GPIO API,
+> gpio_is_visible() calls gpiod_to_irq() to determine whether a GPIO is
+> IRQ-capable, which ends up using
+> struct gpio_irq_chip::child_to_parent_hwirq().
 >
->Neat! I wanna go learn how pigz accomplishes this -- I thought the
->problem with gzip was a common lookup table=2E Anyway=2E=2E=2E
+> When using the GPIO character device, it is possible to request a line
+> and to dynamically switch between using it as an IRQ or as a GPIO, by
+> updating the edge detector.
 >
->> --- a/Documentation/kbuild/reproducible-builds=2Erst
->> +++ b/Documentation/kbuild/reproducible-builds=2Erst
->> @@ -76,6 +76,22 @@ include generated files=2E  You should ensure the so=
-urce tree is
->>  pristine by running ``make mrproper`` or ``git clean -d -f -x`` before
->>  building a source package=2E
->> =20
->> +Compression tools
->> +-----------------
->> +
->> +The compressed kernel image, compressed modules and packages are produ=
-ced
->> +using the program named by the make variable ``KGZIP`` (described in
->> +Documentation/kbuild/kbuild=2Erst)=2E
->> +
->> +It defaults to ``pigz`` if installed (a parallel implementation of gzi=
-p),
->> +or ``gzip`` otherwise=2E
->> +
->> +The generated output between two invocations of identical builds with
->> +either of the default tools will be byte-for-byte equivalent=2E
->> +
->> +However, for reproducible builds, ensure the same tool is used on all =
-build
->> +hosts, as different tools may generate different output from one anoth=
-er=2E
->> +
->>  Module signing
->>  --------------
->> =20
+> The current struct gpio_irq_chip::child_to_parent_hwirq() implementation
+> makes the assumption that it will only be called with the intention of
+> setting up the IRQ permanently, and that it will only be released when
+> the IRQ domain is freed.
 >
->This doc update seems totally unneeded? Having the same build tools for R=
-B
->is already a known requirement=2E I don't think anything new is added her=
-e?
+> Since we now know that this is not the case, take the following steps in
+> order to properly handle that case.
 >
->> diff --git a/Makefile b/Makefile
->> index 790ef23c5e8a=2E=2E38c0cdc9f591 100644
->> --- a/Makefile
->> +++ b/Makefile
->> @@ -561,7 +561,7 @@ PERL		=3D perl
->>  PYTHON3		=3D python3
->>  CHECK		=3D sparse
->>  BASH		=3D bash
->> -KGZIP		=3D gzip
->> +KGZIP		:=3D $(if $(shell command -v pigz 2>/dev/null),pigz,gzip)
+> Implement struct irq_chip::irq_{request,release}_resources() based on
+> the default GPIOCHIP_IRQ_RESOURCE_HELPERS implementations.
 >
->I think the more idiomatic way to do this is:
+> Move the IRQ setup and release logic inside them.
 >
->KGZIP :=3D $(call try-run,command -v pigz,pigz,gzip)
+> Keep the mapping logic inside ::child_to_parent_hwirq() to be able to
+> provide a proper HW IRQ number, but do not actually setup the IRQ.
 >
->However, parallelism needs to be set=2E We can't let it eat all CPUs: it
->needs to respect the -j make option (and make its CPU reservation known
->to "make"), which we already have a solution for in
->scripts/jobserver-exec=2E
+> Remove rzt2h_gpio_irq_domain_free() as its only purpose was to free the
+> acquired IRQs. irq_domain_free_irqs_common() will still be set up as
+> struct gpio_irq_chip::child_irq_domain_ops::free by
+> gpiochip_hierarchy_setup_domain_ops().
 >
->However, I would actually argue that given such an improvement we should =
-just
->make pigz explicitly required and not optional=2E It is packaged everywhe=
-re:
+> Cc: stable@kernel.org
+> Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to handle interrupts")
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> ---
 >
->  =E2=94=82 Debian / Ubuntu              =E2=94=82 =E2=9C=85          =E2=
-=94=82 pigz (main)
->  =E2=94=82 Fedora                       =E2=94=82 =E2=9C=85          =E2=
-=94=82 pigz 2=2E8 (current)
->  =E2=94=82 RHEL / CentOS / Rocky / Alma =E2=94=82 =E2=9C=85 via EPEL =E2=
-=94=82 pigz =E2=80=94 not in base/AppStream
->  =E2=94=82 openSUSE / SLE               =E2=94=82 =E2=9C=85          =E2=
-=94=82 pigz
->  =E2=94=82 Arch Linux                   =E2=94=82 =E2=9C=85          =E2=
-=94=82 pigz (extra)
->  =E2=94=82 Alpine                       =E2=94=82 =E2=9C=85          =E2=
-=94=82 pigz
->  =E2=94=82 Gentoo                       =E2=94=82 =E2=9C=85          =E2=
-=94=82 app-arch/pigz 2=2E8
+> V3:
+>  * no changes
 >
->Only RHEL appears a little glitchy, but likely they would trivially move
->it to base since it's already packaged, but off in EPEL=2E
->
->So, I would say that pigz would be best run as something like:
->
->  KGZIP :=3D $(PYTHON3) $(abs_srctree)/scripts/jobserver-exec $(abs_srctr=
-ee)/scripts/parallel-pigz
->
->with scripts/parallel-pigz being something like:
->
->	#!/bin/sh
->	exec pigz -p ${PARALLELISM:-1} "$@"
->
->> --- a/scripts/Makefile=2Emodinst
->> +++ b/scripts/Makefile=2Emodinst
->> @@ -145,8 +145,10 @@ endif
->>  #
->>  # Compression
->>  #
->> +# Modules are compressed in parallel by make itself, so keep the compr=
-essor
->> +# single-threaded when it is pigz=2E
->>  quiet_cmd_gzip =3D GZIP    $@
->> -      cmd_gzip =3D $(KGZIP) -n -f $<
->> +      cmd_gzip =3D $(KGZIP) $(if $(filter pigz,$(notdir $(firstword $(=
-KGZIP)))),-p 1) -n -f $<
->>  quiet_cmd_xz =3D XZ      $@
->
->Then this could be:
->
->	cmd_gzip =3D SINGLE_THREADED=3D1 $(KGZIP) -n -f $<
->
->and we patch scripts/jobserver-exec:
->
->diff --git a/scripts/jobserver-exec b/scripts/jobserver-exec
->index 21b319e6c9a5=2E=2E8b953148ee9f 100755
->--- a/scripts/jobserver-exec
->+++ b/scripts/jobserver-exec
->@@ -5,6 +5,7 @@
-> Determines how many parallel tasks "make" is expecting, as it is
-> not exposed via any special variables, reserves them all, runs a subproc=
-ess
-> with PARALLELISM environment variable set, and releases the jobs back ag=
-ain=2E
->+If SINGLE_THREADED is set, nothing is reserved and PARALLELISM is 1=2E
->=20
-> See:
->     https://www=2Egnu=2Eorg/software/make/manual/html_node/POSIX-Jobserv=
-er=2Ehtml#POSIX-Jobserver
->diff --git a/tools/lib/python/jobserver=2Epy b/tools/lib/python/jobserver=
-=2Epy
->index 0b1ffdf9f7a3=2E=2Efc38c5020b22 100755
->--- a/tools/lib/python/jobserver=2Epy
->+++ b/tools/lib/python/jobserver=2Epy
->@@ -29,6 +29,11 @@ $claim child to do the actual work=2E
-> The end goal here is to keep the total number of build tasks under the
-> limit established by the initial ``make -j$n_proc`` call=2E
->=20
->+Setting the ``SINGLE_THREADED`` environment variable skips the reservati=
-on
->+entirely and runs the command with ``PARALLELISM=3D1``=2E This is meant =
-for callers
->+that run many short commands in parallel themselves, where each one shou=
-ld use
->+only the job slot it already holds=2E
->+
-> See:
->     https://www=2Egnu=2Eorg/software/make/manual/html_node/POSIX-Jobserv=
-er=2Ehtml#POSIX-Jobserver
-> """
->@@ -68,6 +73,13 @@ class JobserverExec:
->         self=2Eis_open =3D True  # We only try once
->         self=2Eclaim =3D None
->         #
->+        # SINGLE_THREADED asks for no reservation at all: the command ru=
-ns
->+        # with PARALLELISM=3D1, using only the slot its caller already h=
-olds=2E
->+        #
->+        if os=2Eenviron=2Eget('SINGLE_THREADED'):
->+            self=2Eclaim =3D 1
->+            return
->+        #
->         # Check the make flags for "--jobserver=3DR,W"
->         # Note that GNU Make has used --jobserver-fds and --jobserver-au=
-th
->         # so this handles all of them=2E
->
+> V2:
+>  * reuse irq_idx in rzt2h_gpio_irq_request_resources()
+>  * mention that irq_domain_free_irqs_common() is still wired up
 
-If we are going to add dependencies, can we add *any* scripting language t=
-hat is less stone tablet than POSIX awk?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.4.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
