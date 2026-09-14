@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD963B71A4
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15A3282F21
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371966; cv=none; b=PKlTcJN2c3zw8/Ec+vAWLEr/5MoN2tKp3G3BCzZ5WeWEyorzDu2ah1g1S8Ycb3zr9aqbTtQYNNDKfK7UtNvoPEyCKaB/gdVeUE6c+Lo38GqqyqlQwsJ4wKCCHTC3iL2Vv/GuSfQ+5we9f2bGAbcVi82WiFaYwLL2EKQJWvr3EYg=
+	t=1789371968; cv=none; b=fjpb9A2AepgBSN8fSv/8Mcsug+fAZvFBH6Rc60VoyyarJ6h2mGcqgdMeg3lsxL+yQzPLG3iEB/qAf7aeUl6wAxPkCeHrDz0pQjykir6gg3uywumyot6tBapkDNWum1z3RIcEsaE8OcJJ+pHnaMFJTE+3Oo2YQd5GwdusCKZRipM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371966; c=relaxed/simple;
-	bh=zwEor6K8yGoFURlxDvbOjCkK1oLF41ASBn1v919rW7k=;
+	s=arc-20240116; t=1789371968; c=relaxed/simple;
+	bh=ef+oXwxcVa8FKk7hEmWZPLiJFVo/qq/f25Yz8mXsKCA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tuYVG/GKstO0/AG6Qrb/gUV1fSt4nQl95Vn4VNE3OqTjyiYbWHYVoFyVTqVgq3ByUyIrbqy7rIPHZ57K51kh7Aimc+t1oXoZg9RWUIngcBDHTasoZ3N7l2TvkrLN9HSXrVza8XICDnBC047E8sQCmHJYmbeNIIV6a4/jqOuo2QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hkNMWODj; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=hv3InHsXTFdrbmsPUZySNmvVEOcji+ofnuiEgog4UPqHO7kzh1iG6lg3rZj0YPiwaR4aaKRDb8jcMr/r2nxv47B8z9Q6zG5Sa/cCl8cweK4anx/bZzoqUamcFjJ5GcvP4tDrOPtBTrCAcjrThc+wqnzI1x8+Jn9I/T5GGJu3Hjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SoXtCBXY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hkNMWODj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB751F00898;
-	Mon, 14 Sep 2026 07:46:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SoXtCBXY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B8A1F000FF;
+	Mon, 14 Sep 2026 07:46:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789371964;
-	bh=S6FY7ZetqMty4OJBLyaiR50VfGzmS5JdgvQQAtmW5og=;
+	s=k20260515; t=1789371966;
+	bh=Fr64MGYLyhfXI/VcMfbC/lq4kwHH2zRzUBhtquow60k=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hkNMWODjCp66HXsxP40B6blv8cONrbJukcJ/P2yD5rFqHu1HH/cAdIPa6ZXuhv93s
-	 9303f0QcA06EiHGNfU63DL4v/77c41jF3vDiXPO6v0CeV6jfg0Vo0zJVv2nZuWL5RH
-	 ZAr9lzJr6+CDgHX5MiuaC6wKUdbSKS33EDRrNowgZUlwrFRAbIOxcKLy2fHY5mPXbr
-	 EhyJmaTiBbEcvtcnLV+huW2Gj/SF2rzwZCUUu/CQu9LGqrKArnw97S5X76gVRBkFwa
-	 Oc2Q+yds/RTYSv5IB62Vdr3nYHND4TTfDGnS//oCpM7du54OV0DiU/dad6IHatUlQk
-	 zG/jmF4aA/qGQ==
+	b=SoXtCBXYz8HELzdXCgV0Zk7b19CIFJNZ86SOJj3whEkFvT88hv84ODSXjb1xVx8nV
+	 BU/6z1UItonQ0cnmd9rUqCWZVROzEXcSMkUly+I1H8fz14MPjqJQ8fpnHsWE78kMno
+	 O3z3t3UgTrV/BX+wEV9VNpWRMaikzcFm+cD+ddFrwMdJVT6cwzHk4RO7gVfM/5Uxgz
+	 KJbnLkar7hwXT319YdL4HAFddCPxaildBZYguuU+ZnKI3iSlgCc05LCUOyWNOhLyw7
+	 JAjE9M2xNeRi8IlxTz6AC2JUlEkZX7ZhjwDiBRSmjiSio7OuU655d7GoacUUgjoiC8
+	 1vMSXrx6hUi5g==
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 09:46:00 +0200
-Subject: [PATCH v3 01/10] regulator: ab8500: Fix AB8505 VANA voltage
- selectors
+Date: Mon, 14 Sep 2026 09:46:01 +0200
+Subject: [PATCH v3 02/10] regulator: ab8500: Add AB8505 VAUX3 3.05 V
+ setting
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ux500-dts-snowball-regulator-v3-1-7f92a365628e@kernel.org>
+Message-Id: <20260914-ux500-dts-snowball-regulator-v3-2-7f92a365628e@kernel.org>
 References: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
 In-Reply-To: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
 To: Stephan Gerhold <stephan@gerhold.net>, 
@@ -47,42 +47,180 @@ To: Stephan Gerhold <stephan@gerhold.net>,
 Cc: linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.14.3
 
-The AB8505 VANA voltage table assumes selector 0 represents 1.05 V
-and all eight selectors increase linearly. Selector 0 actually
-represents 1.2 V. Selectors 1 through 6 cover 1.05 V through
-1.175 V, and selector 7 represents 1.225 V.
+AB8505 has an additional VAUX3 voltage setting which is not encoded
+in the normal three-bit selector. ArmRegu2.Vaux3Sel3 overrides that
+selector and selects 3.05 V.
 
-Correct the table so each selector reports and programs the documented
-voltage.
+Add the missing voltage and use the override bit as an extended
+selector. Program the ordinary selector before clearing the override
+so VAUX3 does not briefly switch to a stale voltage.
 
-Reference: AB8505 User Manual, DM00046744 Rev 3, p. 257
+Reference: AB8505 User Manual, DM00046744 Rev 3, pp. 229 and 254
 
-Fixes: 8a3b1b8703fe ("regulator: ab8500: Add voltage selection for AUDIO and ANA on AB8505")
+Fixes: 547f384f33db ("regulator: ab8500: add support for ab8505")
 Assisted-by: LLM
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/regulator/ab8500.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/regulator/ab8500.c | 101 +++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 98 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/regulator/ab8500.c b/drivers/regulator/ab8500.c
-index 3705c98b0713..ca59406d42a8 100644
+index ca59406d42a8..07d96f8ff944 100644
 --- a/drivers/regulator/ab8500.c
 +++ b/drivers/regulator/ab8500.c
-@@ -264,13 +264,13 @@ static const unsigned int fixed_2050000_voltage[] = {
+@@ -173,6 +173,7 @@ struct ab8500_shared_mode {
+  * @voltage_bank: bank to control regulator voltage
+  * @voltage_reg: register to control regulator voltage
+  * @voltage_mask: mask to control regulator voltage
++ * @expand_register: additional register used to select an extra voltage
+  */
+ struct ab8500_regulator_info {
+ 	struct device		*dev;
+@@ -193,6 +194,12 @@ struct ab8500_regulator_info {
+ 	u8 voltage_bank;
+ 	u8 voltage_reg;
+ 	u8 voltage_mask;
++	struct {
++		u8 voltage_limit;
++		u8 voltage_bank;
++		u8 voltage_reg;
++		u8 voltage_mask;
++	} expand_register;
  };
  
- static const unsigned int ldo_vana_voltages[] = {
+ /* voltage tables for the vauxn/vintcore supplies */
+@@ -226,6 +233,18 @@ static const unsigned int ldo_vaux3_voltages[] = {
+ 	2910000,
+ };
+ 
++static const unsigned int ldo_vaux3_ab8505_voltages[] = {
 +	1200000,
++	1500000,
++	1800000,
++	2100000,
++	2500000,
++	2750000,
++	2790000,
++	2910000,
++	3050000,
++};
++
+ static const unsigned int ldo_vaux56_voltages[] = {
+ 	1800000,
  	1050000,
- 	1075000,
- 	1100000,
- 	1125000,
- 	1150000,
- 	1175000,
--	1200000,
- 	1225000,
+@@ -593,6 +612,64 @@ static int ab8500_regulator_set_voltage_sel(struct regulator_dev *rdev,
+ 	return ret;
+ }
+ 
++static int ab8500_regulator_get_voltage_sel_expand(struct regulator_dev *rdev)
++{
++	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
++	u8 regval;
++	int ret;
++
++	if (!info)
++		return -EINVAL;
++
++	ret = abx500_get_register_interruptible(info->dev,
++			info->expand_register.voltage_bank,
++			info->expand_register.voltage_reg, &regval);
++	if (ret < 0) {
++		dev_err(rdev_get_dev(rdev),
++			"couldn't read voltage expand reg for regulator\n");
++		return ret;
++	}
++
++	if (regval & info->expand_register.voltage_mask)
++		return info->expand_register.voltage_limit;
++
++	return ab8500_regulator_get_voltage_sel(rdev);
++}
++
++static int ab8500_regulator_set_voltage_sel_expand(struct regulator_dev *rdev,
++						   unsigned int selector)
++{
++	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
++	u8 regval;
++	int ret;
++
++	if (!info)
++		return -EINVAL;
++
++	if (selector > info->expand_register.voltage_limit)
++		return -EINVAL;
++
++	if (selector < info->expand_register.voltage_limit) {
++		ret = ab8500_regulator_set_voltage_sel(rdev, selector);
++		if (ret < 0)
++			return ret;
++
++		regval = 0;
++	} else {
++		regval = info->expand_register.voltage_mask;
++	}
++
++	ret = abx500_mask_and_set_register_interruptible(info->dev,
++			info->expand_register.voltage_bank,
++			info->expand_register.voltage_reg,
++			info->expand_register.voltage_mask, regval);
++	if (ret < 0)
++		dev_err(rdev_get_dev(rdev),
++			"couldn't set voltage expand reg for regulator\n");
++
++	return ret;
++}
++
+ static const struct regulator_ops ab8500_regulator_volt_mode_ops = {
+ 	.enable			= ab8500_regulator_enable,
+ 	.disable		= ab8500_regulator_disable,
+@@ -605,6 +682,18 @@ static const struct regulator_ops ab8500_regulator_volt_mode_ops = {
+ 	.list_voltage		= regulator_list_voltage_table,
  };
  
++static const struct regulator_ops ab8500_regulator_volt_mode_expand_ops = {
++	.enable			= ab8500_regulator_enable,
++	.disable		= ab8500_regulator_disable,
++	.is_enabled		= ab8500_regulator_is_enabled,
++	.get_optimum_mode	= ab8500_regulator_get_optimum_mode,
++	.set_mode		= ab8500_regulator_set_mode,
++	.get_mode		= ab8500_regulator_get_mode,
++	.get_voltage_sel	= ab8500_regulator_get_voltage_sel_expand,
++	.set_voltage_sel	= ab8500_regulator_set_voltage_sel_expand,
++	.list_voltage		= regulator_list_voltage_table,
++};
++
+ static const struct regulator_ops ab8500_regulator_volt_ops = {
+ 	.enable		= ab8500_regulator_enable,
+ 	.disable	= ab8500_regulator_disable,
+@@ -908,12 +997,12 @@ static struct ab8500_regulator_info
+ 	[AB8505_LDO_AUX3] = {
+ 		.desc = {
+ 			.name		= "LDO-AUX3",
+-			.ops		= &ab8500_regulator_volt_mode_ops,
++			.ops		= &ab8500_regulator_volt_mode_expand_ops,
+ 			.type		= REGULATOR_VOLTAGE,
+ 			.id		= AB8505_LDO_AUX3,
+ 			.owner		= THIS_MODULE,
+-			.n_voltages	= ARRAY_SIZE(ldo_vaux3_voltages),
+-			.volt_table	= ldo_vaux3_voltages,
++			.n_voltages	= ARRAY_SIZE(ldo_vaux3_ab8505_voltages),
++			.volt_table	= ldo_vaux3_ab8505_voltages,
+ 		},
+ 		.load_lp_uA		= 5000,
+ 		.update_bank		= 0x04,
+@@ -925,6 +1014,12 @@ static struct ab8500_regulator_info
+ 		.voltage_bank		= 0x04,
+ 		.voltage_reg		= 0x21,
+ 		.voltage_mask		= 0x07,
++		.expand_register = {
++			.voltage_limit	= 8,
++			.voltage_bank	= 0x04,
++			.voltage_reg	= 0x01,
++			.voltage_mask	= 0x10,
++		},
+ 	},
+ 	[AB8505_LDO_AUX4] = {
+ 		.desc = {
 
 -- 
 2.55.0
