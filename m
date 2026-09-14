@@ -1,97 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45A2279DC3;
-	Mon, 14 Sep 2026 08:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E694F3EFFD4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373196; cv=none; b=E6zsEIuZpYQlZIIqp5IlASnUi2TyCyxYKS3tGsCSbKknEOqqtEbnlJtF7lv4rbXhjSeVpQTXnylMQNUCgFS00HGCkwy+oRG5nIO6SL1w64i0xKyA4yLiDc9dzdeQu3EyjEgBYFueQDFXyltZfohThJVxu7paKvOlQjANqQpHMjI=
+	t=1789373252; cv=none; b=c/ZY1gdlm46xLMK00nHp+pznuwK15SacqO7lJ4n2xbti28TpycZQNzAb4kYKYYXg08zfz9q9amWFyb3ZEyw0kDVwpe1JY/KqeUuoQjmQcLs8otXrdMqx6PLsjXvKDRnH18+MUHM/IZBM7LR7gDToZBv/VLADDvs4px+9/RSngOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373196; c=relaxed/simple;
-	bh=X6brkOAP3lrhzjUoaD0QihF8srSFXE/F/lrOZE26crI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oyDrEw7YEk7p8C7NKi7mwbrmY9mi4FpLpSiJfVbAMFiqKs/2UMxywLtwAGRmxOWCZhkeqjPiydekJpKytoHcj57yLJLmr7Nue5wLSIt+AJzBChjs6JC2UiDC1L+2WYqjyp3WPVIEZgOf3n7caW0qfRbaDT6YQJ5jMTDiMdFAo60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PU/8J64o; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789373252; c=relaxed/simple;
+	bh=2AfN/zuzcXz2rERtX+l5Z4PCLd8URiu4rtP3kdK3Dq4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sv4hXzU4umrytqi2VAzf5RPm7czEGacSC7sqMflRs3UCXYIY1J9YZu0zTs9WjkETm9kp+z6N9XLQt6g7DAZExC7nyJ9qDyjT9WsgEeErTEpqOgOfCBwQjs4b4/iYfts5PgAoEMowRtslOgnW6shnmCqI0YZKlIxVJxfRShVqkkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=aslbRqxm; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PU/8J64o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789373195; x=1820909195;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=X6brkOAP3lrhzjUoaD0QihF8srSFXE/F/lrOZE26crI=;
-  b=PU/8J64oIgZLVCtnGSGTttEouze92AH5TDAMcj1tji1FQcyPq6czQui2
-   WTB6lYjhQx0/NoJ08QpWJ1nG7D/XB3GkS2c6oU//u1jYuFA0lCHm4ZmdT
-   kVyZbBSrmz89poimii7tXZoZAl1GpQJGNr72XXXRl07OWjsM/1GUdu/W+
-   VcIvqhsKgeuAwKkeq4PNqHocZE9OOjMB7/YKQSQ2JyybpIQZSkP8KwY/Y
-   TzuNAokI1x6pKJsNSkyMDhlFEftBwERFVSj1XD9a0KlkkoXKYNENCm/6h
-   vXjkGkKUnbNLHuJYZHXo0ul9qJKmUvMgHTsUIk3X1+SqdQM4EOUABXFSU
-   Q==;
-X-CSE-ConnectionGUID: cfo+Sgq2TU2VqFoL35R8Aw==
-X-CSE-MsgGUID: DjtwKCPHSYKTz9GEJJ/YBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="232838"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="232838"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:06:34 -0700
-X-CSE-ConnectionGUID: nPzRhKimS7K9nb7ijcLj6w==
-X-CSE-MsgGUID: BwSpFtfCQaufbZDXPiEzoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="277837276"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:06:29 -0700
-Date: Mon, 14 Sep 2026 11:06:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v4 07/10] iio: buffer-dmaengine: Use dma_slave_caps bus
- width accessors
-Message-ID: <aqerA3A1kgOB6fNC@ashevche-desk.local>
-References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
- <20260911-dmaengine-support-wider-dma-masks-v4-7-72b8fd4cc78e@analog.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="aslbRqxm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789373248;
+	bh=2AfN/zuzcXz2rERtX+l5Z4PCLd8URiu4rtP3kdK3Dq4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=aslbRqxm/Te+ffUi3iG85l42oEtBYSXQpUzr46vCz8jPU4oK4qbQWv+a59K9KaeZQ
+	 Jlvap2UO+3D1AJrCfA+C/Z0wXHV/+6lAvHJLif0GDLdCL1NHe1wVj8NYiYeVzIABel
+	 7s9qWae9DuG8ZcQgrAYce7Ucx82Yo5rqfE67C1Ln9T6rsHXsscSlEbk9jpN5Msa7ts
+	 KVusV93w/6W+GpsCgBTjlpjA7VdeK39MWn7NHw6xdhtAjK+GiCC0J611We5HaIfMon
+	 Rqnic60btLZglX4nbw9cUo8nW1g2Zw7oXCrKgbotASkpgX/rL5dfiV1kTVdOKkfqMH
+	 DgRpQ3dr+ZemA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4F7BD17E005A;
+	Mon, 14 Sep 2026 10:07:28 +0200 (CEST)
+Date: Mon, 14 Sep 2026 10:07:22 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Adrian Larumbe <adrian.larumbe@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 18/18] drm/panthor: Add debugfs knobs to simulate
+ reset failures
+Message-ID: <20260914100722.279b6532@fedora-21.home>
+In-Reply-To: <aqWmIbT_46Enz8VH@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+	<20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
+	<aqWmIbT_46Enz8VH@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-dmaengine-support-wider-dma-masks-v4-7-72b8fd4cc78e@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 06:25:42PM +0100, Nuno Sá wrote:
-> Query the minimum supported source and destination bus widths through
-> the new dma_bus_width_min() helper rather than decoding the raw legacy
-> u32 width masks. This keeps the buffer working
-> with DMA controllers that advertise bus widths via the new bitmap
-> representation.
+On Sat, 12 Sep 2026 20:27:28 +0100
+Adrian Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> I've tried poking the knob that fakes an error in the reset path and got two different kinds of oputput:
+> 
+> Either
+> ```
+> [ 1950.080236] panthor fb000000.gpu: [drm] *ERROR* Failed to boot MCU after reset, making device unusable.
+> [ 1951.167384] panthor fb000000.gpu: [drm] Timed out waiting for MCU to halt
+> [ 1951.167543] panthor fb000000.gpu: [drm] Failed to cleanly suspend MCU
 
--- 
-With Best Regards,
-Andy Shevchenko
+Hm, I guess that happens when the unplug work has been queued but not
+executed yet, and something tries to interact with the FW after that. I
+suspect it's some autosuspend request kicking in after that, and asking
+the FW to suspend, which it can't do because it's not even booted.
+What's weird is the 1sec between those two events (I don't expect
+unplug to take that long to execute).
 
-
+As for the race, I'd say that's not a big deal if the final outcome
+still is that the device is unplug. This being said, the more I look at
+this, the more I think triggering an unplug on a FW boot failure is not
+the right thing to do, but that's another can of worms I don't want to
+open now.
