@@ -1,143 +1,75 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABFC42379A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652823659FD;
+	Mon, 14 Sep 2026 09:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379220; cv=none; b=s/g85vZymTCSIhoV0TIo6Ua/QO2gjQsKxmykhoOc1Rqw+2wJCcQU8SOP6+SsjIMmdaIbTBrqHrdCnQ/hDnRGpCmMRKgi5EsgfayUUM9IIqwuFnIq28i7NScOEsLrmHPC4aV8X3Jki6AbPOz1AsirUb5JOUMH2+XHMiM5e5SCO2k=
+	t=1789379253; cv=none; b=ROzeaEosrm8pWStgFQkS/6ZdnMDjP9wTDi3dBD41E8pOafCI4ZJ4+Q1ujYLccr6Oi675t/oHsRQE7NZzqnszEk1+ezdiX2YiDHnYmSl9qfabdEcTqTVhU4MNXiw5D8ZLOuldDp3YQavkoiwdu/3yLpx0r45plaxLdm/cnjIlMII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379220; c=relaxed/simple;
-	bh=DzgWUJuiNQ6WuYHH3oo31SmlYZ7/cR4pcxcWhooAFj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nf0Yvrg6t1xqxwmWVFPBK1Ncvf8PeU+gTIwxbOD7qWPbyFLNv0t2ktTcyZuAcveYYVpJuzlH3b+OJWp2xyyPIzqd4rpD9e5qWRqJR6PljN3dAkK0qCkfh33rB4nqB8BvOqTyRxInilu7FlYFqMhkCQiYsCa2ay0Wfb/SETfp9ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MhsQIvhf; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789379253; c=relaxed/simple;
+	bh=irNNsT8iKCdzudLKleyMornqIv1Z90Ab8V9lrVpvlP8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZLU3mG6G8XL2w6ypl2m3xdMHQrMXIJtdQwrbkOG93i5U1vVW7/NyVRXyVN6XE7847U6jcMHRoqoIw5qNH/3o5aYS+hmLJMr10EEB5Coe6aGBwVaYHJCBbG1tZrtug2cyn77a6v6ISVIuItwnV/cC3ZlfWzMHb4EVx29eSHCd2/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1lfV1fiT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MhsQIvhf"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso6322935e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:46:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789379217; x=1789984017; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vkw7JGyPZhE+fsyhZVYt1uhb9l0aiaOQEEvbh4klHbs=;
-        b=MhsQIvhfd6YobZCbGa07QSbRUaE85/92WJ/T35bUh9LfZXyXGDl0+g1SHoWyfji52E
-         5Gp5jn8aaG373HpigteInFPEtVZFYdoayFN3dGdT/3SFqz4XWGUGL9MkQCPEh1qJN+N+
-         BhyCLMPbCQswUlwWQj4LCYkhSB5KJPQ+eBh/dKmTdPZ38AffFYaB1hvEHX4p1sIvcLjr
-         zXw+Fa5IXtKFbfUbKDEzYT0xNEKkJTitLSc+zcnDd7qUVp303KW/o3uVAE84CTfjMU3o
-         Cozc4Pm6RRdOaJNuxT6gu27SUhxWnOGZWdoITBm3Mpicc1n8e/daXi9ncni1ZhbhdGZ/
-         4Www==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789379217; x=1789984017;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vkw7JGyPZhE+fsyhZVYt1uhb9l0aiaOQEEvbh4klHbs=;
-        b=tZBV6Om0rHM1sgM6UFnZR5KYokjRx1ivXlJDepN4J/6yBqY0IBxzFMRqc6wHjTcXJf
-         zJxQXihgxwvTElhMS+NT2iZDOYwm9/yeMNfbAvvaJ5n6++vg7gXeMW++yqNpGIpi2LqY
-         MCbsDj2U7PUAgJ8iL4ISDJb/xsn9XCkmrIfO5ooCXqOcsQcd/uNl+C1/akBLA5CzOC7R
-         u6MiFzv2RZTq6o3CHVjIGKVS4QaRC8nUYbwJaBq28Hnkuo+uvG7TMb7Y2ypMQCpyzhRI
-         BKgcDjHLsQYmW/UYVPyAGj6CpmI7Ii72YI2/6n/ecZeGNP2N7XFBecid2vpiUc8QISdK
-         T3Gg==
-X-Forwarded-Encrypted: i=1; AKwUvBw37pBU8fv1t65GQLXif+zu2ZqK4mpotBGjq8WswpdXJL82eSuMDxCwD1yQm5R1mXfuVtCvfGnT8SKDT44=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSmTRnIyXbx4qJzG+8Dvnk5aes1Qfdg1LldvwmSXR19j++OINa
-	QAwMQo9g76oO4Wx7mUQ15qrg0OzPH69Vl4GWwGjYmMxa2l/Nl0YqGR+h
-X-Gm-Gg: AYBFou2KL3/DYqLcdscciK8zy+bMLRW0tA2ZPiH0jxzi7ukLosbMcWfjk4rU00MYXYm
-	ntYhm279TX/jKcW8/R5kdOQN8sM6GIdcdpw3HqY6jndYcVHf2g4HEAHEHTcqFsolatX2cfA0KIk
-	rkyOMYkclJPjUn1ABc6X1Vk5QRIqeXIgDNozfdbpo49Xu43KPrwPKCAt9tf4fKJt2GXpR0CKx/o
-	Yn+kgEXF9az7pllZhDASC3YeYxaZBtLVW1S9T/R+BJR4y2iD+EIlVOYqdazjXzDBrurXEB9+K/P
-	ecZffQU7rNWpXrnnPNFfZtnDVpxrTUFIgdTDjA4iaObCN9BRj/0/Hey8LHmh3F/XbBA+tlWpaHd
-	iSV0ZFDVbXllMDlzeoneUJ64yGWAN+eDTJiysHK0GmreCfioOuB0FnYCfuxFBBLBL5KxectfuA3
-	S78rIatMH4DfYfcBYgC2LQMaUSzZ8/RqMdMx/sq9lyyWbmL0yFbK5SzLnwqG72S25Deh1dvKn5d
-	3Q+21nr
-X-Received: by 2002:a05:600c:1547:b0:49c:fc6c:be09 with SMTP id 5b1f17b1804b1-49e7a67cae4mr20839695e9.32.1789379217223;
-        Mon, 14 Sep 2026 02:46:57 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.25])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e35sm378964285e9.2.2026.09.14.02.46.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:46:56 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Maulik Shah <maulik.shah@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>,
-	ds.heine@posteo.de,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: glymur: hard reset on the first system-domain idle entry (SS3, 0x0200c354) after a heavy load - Lenovo Yoga Slim 7x Gen 11
-Date: Mon, 14 Sep 2026 11:46:47 +0200
-Message-ID: <20260914094648.14502-1-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1lfV1fiT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B8D1F00893;
+	Mon, 14 Sep 2026 09:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789379252;
+	bh=7dtvjOSlcTcT7bJyUrCOWXgHk0cz7zz4GmfHdeVHrGE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=1lfV1fiTowEAx28pjC0cUZdFBI77m5iTURGxOPRAZ5ujGu0xQH4+IcuEaRRR4aoAb
+	 5Y8hN6B/BycYyKvwA2hgJ2zEOOMTJ2u2pzW9gV+IUREG3ByKOGdgRLlbKe39uvUIMe
+	 vOoPy2QEgsBBdKjXLyou0T8L48RM4gMr4H63bDVI=
+Date: Mon, 14 Sep 2026 11:47:22 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Pavel Machek <pavel@nabladev.com>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
+Message-ID: <2026091413-drizzly-guy-9d8e@gregkh>
+References: <20260912065607.535295758@linuxfoundation.org>
+ <aqWnzsSIMkyM46NV@duo.ucw.cz>
+ <f8e1fe51-03f1-4158-80cd-2b462624da3a@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f8e1fe51-03f1-4158-80cd-2b462624da3a@nvidia.com>
 
-Hi,
+On Sun, Sep 13, 2026 at 12:59:10PM +0100, Jon Hunter wrote:
+> 
+> On 12/09/2026 20:28, Pavel Machek wrote:
+> > Hi!
+> > 
+> > > This is the start of the stable review cycle for the 6.12.110 release.
+> > > There are 1376 patches in this series, all will be posted as a response
+> > > to this one.  If anyone has any issues with these being applied, please
+> > > let me know.
+> > 
+> > We get build errors in -cip testing:
+> > 
+> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2842911949
+> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/16461797877
+> > 
+> > drivers/soc/ti/knav_qmss_queue.c: In function 'knav_queue_probe':
+> > drivers/soc/ti/knav_qmss_queue.c:1874:9: error: 'knav_qdev' undeclared (first use in this function); did you mean 'knav_queue'?
+> I am seeing the same for 6.12 and 6.18. Appears to be this commit ...
+> 
+> # first bad commit: [4e91398b6ae1dde1824bcf3d19b4237773f31e68] soc: ti: knav_qmss: Remove debugfs file on teardown
 
-Lenovo Yoga Slim 7x Gen 11 (Glymur / Snapdragon X2 Elite), linux-next
-next-20260908 with Konrad's board DTS (now in next) [1], OSI mode ("Initialized CPU
-PM domain topology using OSI mode"), Ulf's "pmdomain/cpuidle-psci: Fix
-behaviours for CPU PM domains" v3 applied.
+Sasha fixed this up, thanks.
 
-Symptom: after any full-speed all-core load - a kernel build (~85 s
-here), `stress --cpu 18 --timeout 90`, rust-analyzer indexing - the
-machine hard-resets once it goes idle: about one second of freeze, then
-the firmware splash.  Nothing is logged, the APSS watchdog's bootstatus
-reads 0 afterwards, no pstore.  5 out of 5 attempts, 15 s to 3 min after
-the load ends.  Steady idle without a preceding load never resets, for
-hours.
-
-What isolates it to SS3:
-
-- Deleting domain-idle-states from power-domain-system in the board DTS
-  (so 0x0200c354 is never requested; CL5 untouched) survives the same
-  trigger 3 out of 3, through tens of thousands of cluster collapses.
-- On a quiet machine SS3 is entered hundreds of times right after boot
-  and survives every time.  Only the first SS3 entry after a load kills.
-  psci_domain_idle_enter filtered on state==0x200c354 shows no earlier
-  request in the post-load window; the fatal one is the first.
-- The state's latencies are not the variable: it resets with
-  glymur.dtsi's entry 2800 / exit 4400 / residency 10150, with the vendor
-  DSDT _LPI figures (entry 0 / exit 5000 / residency 9000, a local
-  change I carry), and with entry 5000 / exit 5000 / residency 9000.
-
-Ruled out by direct test, each with the same trigger:
-
-- NoC QoS programming (reg removed from all 19 interconnect providers so
-  icc-rpmh skips it): still resets.
-- cpufreq transitions (all policies pinned with the performance
-  governor): still resets.
-- NVMe/PCIe I/O: `stress --cpu 18` with no I/O resets too.
-- PDC secondary mode: the PDC config register named in the vendor DSDT
-  (\_SB_.GIO0.PDCC = 0x0b220110, mask PDCM = 0x35430) reads 0x4, i.e. 0
-  under the mask.
-
-So the question: is SS3/CxPC expected to be usable as a runtime idle
-state on Glymur?  x1e80100 only got domain_ss3 in DT once the PDC
-pass-through configuration landed (95f827ceb21e), while glymur.dtsi has
-carried it since the base dtsi.  Is there a firmware or PDC prerequisite
-this board does not meet, or should glymur drop domain_ss3 from
-power-domain-system the way x1e did until then?
-
-What I run meanwhile: min-residency-us = <4000000000> on domain_ss3.
-cpu_power_down_ok() then never admits SS3 at runtime, while the s2idle
-path (cpu_system_power_down_ok() checks latency only) still takes it.
-Three hours, a rebuild, three suspends and a stress cycle: zero runtime SS3
-entries, s2idle entered SS3 every time, no reset, and s2idle draw is
-unchanged at ~300 mW.  I am not proposing
-that as a patch - a residency value is a hint, not a switch - but it
-does say SS3 is fine as a suspend state here and only fatal at runtime.
-
-Happy to test patches or collect anything else; the reproducer takes
-three minutes.
-
-Thanks,
-Oleg
-
-[1] https://lore.kernel.org/all/20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com/
+greg k-h
