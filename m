@@ -1,289 +1,200 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB3B3C10BE;
-	Mon, 14 Sep 2026 23:43:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942893C279B;
+	Mon, 14 Sep 2026 23:43:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789429384; cv=none; b=ehyWatTF07LbyvgZqImtD8ViDxvRoMPzEx2qKdypyzDncHJbzAYVnXua6cNHMuWOSSRDNDdoEK3RiOn9BXWSygFg5Fl6f8/ijtlmTHtvsCLoKpQbefBaSX4IYYwbydtb2Tzmrg5DdSTlxQdRDiyiu1VqsOPv7YwTKzr9fo77DHs=
+	t=1789429390; cv=none; b=k7tm91LnkSdEspbU3AS3ytRyo3cNs5SVkbxgosOygGlg+y+rG5KDD5/nQmuPB+/qpUpVU+FV/50IbSXQVxN9qO59yNDjNJyOCZjdgR/BegTVryhoVUhTYuFIuA3eE4pfhCOo/2Qmlb9ctTQy35aXe3R+TT/gKKmacEqZeS/I+/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789429384; c=relaxed/simple;
-	bh=IHCJJYsM69/x9ExLdP7eoEmBCDBMmjRNaSlWrplRZTw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C5vpcUUIchbD3eV1xKP9AusZ2w697grCJOW9mzrxOQ5sSMmdsXRuxiH62fVNJA7MZ8sDptTzQUpEsH503D1y4q6h9070hlo02yja6OTCxm0d4ScKnK+cJjyzsp/dDgAr/zmJGKIXC8LsRTq0X3CNGF9/eGDIZRNueKzKIIrRphU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AH6tVa35; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789429390; c=relaxed/simple;
+	bh=rd9cH6uYqdbcqqWAKE/6dakACodS2cOjW2Bgl+3BLeY=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=kADZXyWkuQpkC9fb5k5TI2H2zH8nfmJ5/ztxgxb7OBqV8XDMvy/tb1TgMB5q2uS9z16XEYAAbjNb0Z+MoH8TIgwS37Jc6fV2KQ7BgzfP60s/XmIah0twZAHJHNtsBdOsukKGdc+jisJQjDRBfmRKvNJnbRAzFpUCIbks6AXGBIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZanldW2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AH6tVa35"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D202E1F00898;
-	Mon, 14 Sep 2026 23:43:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZanldW2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BED31F000FF;
+	Mon, 14 Sep 2026 23:43:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789429382;
-	bh=mg3Q4qt8Ofjv2S0dIbdw0SYBd2t8KZymtlWMb+c0fjE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AH6tVa3562tnQf4lc1zFM1JXGuSxsVDbXioxbEKm4AccrDJXDaJ8JEIdCx3FI+Suf
-	 SlnwIRppUCDqi8AnBlnuvU+S7cmPycnJoy6r7gkl/lJMDoxGm3k6AakfK5+ZHPGlG+
-	 2I20dflKnxLQchOq8zSKewitXMcRN7G08iOP01F7+ZoGk5yIy4w+95VFCY6LeKWBCc
-	 TB9tBpA3mTrxZ2N3z8cKqTU5F93Lts3ToQODq6wO1/y8njfDz3Z4wSu+5Tnq5nIM8/
-	 2JLi9j2MQZAm4xf+W8ZWzbuhcTazBYwMDntcYzX9M+T0OkRzQAfu6VTK+VHLvwV/or
-	 ralD6L8sGjPug==
+	s=k20260515; t=1789429384;
+	bh=rG/P63XRfAjkiK3v29BDNXfccJdl4Bv1mJbDPEn8nDY=;
+	h=Date:From:To:Cc:Subject;
+	b=mZanldW2Q1PKl5NiXiDNutUQdo9be+MqVVBHLdBd9rfEXm9Ug/b5R1cqobcT2MkMp
+	 tfz1YMeAFOj4+MuWsRvzRkt2s9uPbNGhrDBIaDMf4fkeq8ue75s0YTHEwVil+lsq5X
+	 T6bviSDOFIVEYcV4S11OrBXC2vfpKW4mzOdit2Dfjdeixav0r1pGBnlXxRBwqN3iot
+	 mY2bD0GXs3imc1+DiljjHladB/oQwEwq3W4RyUsIL9WhCFry+AV6kDTW81u+AU1WFR
+	 c4Y9GBgRDtgSf8N50/de+2GfAwLpiIU571B6Ldu69vkAbsVnRa19W8qYQr6pZ8Seih
+	 Clx2RtKlyjIig==
+Date: Mon, 14 Sep 2026 13:43:03 -1000
+Message-ID: <86d966ec88bbf27d21b2bb4e18c8aa00@kernel.org>
 From: Tejun Heo <tj@kernel.org>
-To: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>,
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Amery Hung <ameryhung@gmail.com>,
+	bpf@vger.kernel.org,
 	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 2/2] sched_ext: Maintain an online cid mask in the scheduler arena
-Date: Mon, 14 Sep 2026 13:42:59 -1000
-Message-ID: <20260914234259.3585373-3-tj@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914234259.3585373-1-tj@kernel.org>
-References: <20260914234259.3585373-1-tj@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf] bpf: Keep generic __uninit kfunc arguments live
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Schedulers on the default cid mapping treat [0, nr_online_cids) as the
-online set and restart on hotplug. Schedulers that install their own mapping
-with scx_bpf_cid_override() have no way to learn which cids are online: the
-count no longer identifies members and the CPU-form cpumask is unusable from
-cid programs. This is an obvious hole in the cid API.
+Stack liveness models a kfunc's __uninit pointer argument as a pure write:
+whatever the buffer holds before the call is dead, and 2cb27158adb3 ("bpf:
+poison dead stack slots") poisons those slots at every checkpoint the path
+visits before the call. Argument validation disagrees. Only dynptr arguments
+honor __uninit. A generic fixed-size buffer goes through check_mem_reg(),
+whose read pass requires every byte readable. The two rules meet at the call
+and the poisoned buffer is rejected with "slot poisoned by dead code
+elimination", even when the program initialized it.
 
-Add scx_bpf_online_cmask(), a kernel-maintained cmask in the scheduler's
-arena, allocated alongside the per-CPU scratch masks and populated after the
-cid mapping is finalized and before ops.init(), for child schedulers too.
-The pointer stays valid through ops.exit() with no reference to take. It is
-the arena offset as a void pointer, the same form struct_ops arena arguments
-arrive in. The verifier types the void return as a scalar for the program's
-arena cast.
+Every kfunc with a generic __uninit output argument is affected,
+bpf_ksock_create() through err__uninit and sched_ext's scx_bpf_cid_topo()
+through its output struct. The rejection needs the buffer's slots to be
+allocated and dead at a checkpoint, for example on the second iteration of a
+loop around the call. Before e566701b9b0c ("bpf: Check fixed-size mem args
+of helpers and kfuncs the same way") kfunc arguments could read poisoned
+slots, so the call passed, but the slots stayed poisoned and the program's
+next read of the buffer was rejected instead.
 
-The mask follows the SCX hotplug notifications: seeded from cpu_active_mask
-and updated before ops.cid_online/offline() runs, so it lags cpu_online_mask
-only inside a hotplug transition. Updates walk the scheduler list under the
-lock that also serializes unlinking. Reads are live, not atomic snapshots.
-Root initialization excludes hotplug.
+Restrict the liveness write-only exception to dynptr arguments, where
+validation accepts uninitialized output. A generic __uninit buffer stays
+live and is never poisoned, and validation keeps requiring it to be
+initialized. Add a selftest with a scalar output buffer and a checkpoint
+between its initialization and the call.
 
+Fixes: 2cb27158adb3 ("bpf: poison dead stack slots")
+Cc: stable@vger.kernel.org # v7.1+
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c                   | 74 ++++++++++++++++++++++--
- kernel/sched/ext/internal.h              |  3 +-
- kernel/sched/ext/sub.c                   | 10 ++--
- tools/sched_ext/include/scx/common.bpf.h |  1 +
- 4 files changed, 77 insertions(+), 11 deletions(-)
+ kernel/bpf/verifier.c                                      |    3 
+ tools/testing/selftests/bpf/prog_tests/verifier.c          |    2 
+ tools/testing/selftests/bpf/progs/verifier_kfunc_uninit.c  |   45 +++++++++++++
+ tools/testing/selftests/bpf/test_kmods/bpf_testmod.c       |    9 ++
+ tools/testing/selftests/bpf/test_kmods/bpf_testmod_kfunc.h |    1 
+ 5 files changed, 59 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 934605dfd950..54a1d84469bf 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -3670,8 +3670,20 @@ static void handle_hotplug(struct rq *rq, bool online)
- 		s16 *tbl = rcu_dereference_check(scx_cpu_to_cid_tbl,
- 						 lockdep_is_cpus_held());
- 
--		if (tbl)
-+		if (tbl) {
-+			struct scx_sched *pos;
-+
- 			cpu_or_cid = tbl[cpu];
-+
-+			guard(raw_spinlock_irqsave)(&scx_sched_lock);
-+			list_for_each_entry(pos, &scx_sched_all, all) {
-+				struct scx_cmask *mask = pos->online_cmask;
-+
-+				if (mask)
-+					__assign_bit(cpu_or_cid, (unsigned long *)mask->bits,
-+						     online);
-+			}
-+		}
- 	}
- 
- 	if (online && SCX_HAS_OP(sch, cpu_online))
-@@ -5280,12 +5292,17 @@ static void free_exit_info(struct scx_exit_info *ei);
- static const char *scx_exit_reason(enum scx_exit_kind kind);
- static bool scx_claim_exit(struct scx_sched *sch, enum scx_exit_kind kind);
- 
--s32 scx_set_cmask_scratch_alloc(struct scx_sched *sch)
-+s32 scx_alloc_kern_arena_objs(struct scx_sched *sch)
- {
- 	size_t size = struct_size_t(struct scx_cmask, bits,
- 				    SCX_CMASK_NR_WORDS(num_possible_cpus()));
-+	struct scx_cmask *online;
-+	struct scx_cmask_ref ref;
- 	int cpu;
- 
-+	/* hotplug stays excluded until the online mask is published */
-+	lockdep_assert_cpus_held();
-+
- 	if (!sch->is_cid_type || !sch->arena_pool)
- 		return 0;
- 
-@@ -5301,15 +5318,28 @@ s32 scx_set_cmask_scratch_alloc(struct scx_sched *sch)
- 			return -ENOMEM;
- 		scx_cmask_init(*slot, 0, num_possible_cpus());
- 	}
-+
-+	/* pack the online mask alongside the scratch masks */
-+	online = scx_arena_alloc(sch, size);
-+	if (!online)
-+		return -ENOMEM;
-+
-+	scoped_guard(rcu) {
-+		scx_cmask_ref_init_kern(sch, online, 0, num_possible_cpus(), &ref);
-+		scx_cmask_ref_from_cpumask(&ref, cpu_active_mask);
-+	}
-+	sch->online_cmask = online;
-+
- 	return 0;
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -12755,7 +12755,8 @@ out:
+ 	/* KF_ITER_NEW kfuncs initialize the iterator state at arg 0 */
+ 	if (arg == 0 && meta.kfunc_flags & KF_ITER_NEW)
+ 		return -size;
+-	if (is_kfunc_arg_uninit(btf, &args[arg]))
++	/* only dynptr validation accepts an uninitialized __uninit argument */
++	if (is_kfunc_arg_dynptr(btf, &args[arg]) && is_kfunc_arg_uninit(btf, &args[arg]))
+ 		return -size;
+ 	return size;
  }
- 
--static void scx_set_cmask_scratch_free(struct scx_sched *sch)
-+static void scx_free_kern_arena_objs(struct scx_sched *sch)
- {
- 	size_t size = struct_size_t(struct scx_cmask, bits,
- 				    SCX_CMASK_NR_WORDS(num_possible_cpus()));
- 	int cpu;
- 
-+	scx_arena_free(sch, sch->online_cmask, size);
- 	if (!sch->set_cmask_scratch)
- 		return;
- 
-@@ -5396,7 +5426,7 @@ static void scx_sched_free_rcu_work(struct work_struct *work)
- 
- 	rhashtable_free_and_destroy(&sch->dsq_hash, NULL, NULL);
- 	free_exit_info(sch->exit_info);
--	scx_set_cmask_scratch_free(sch);
-+	scx_free_kern_arena_objs(sch);
- 	scx_arena_pool_destroy(sch);
- 	if (sch->arena_map)
- 		bpf_map_put(sch->arena_map);
-@@ -7602,7 +7632,7 @@ static void scx_root_enable_workfn(struct kthread_work *work)
- 		goto err_disable;
- 	}
- 
--	ret = scx_set_cmask_scratch_alloc(sch);
-+	ret = scx_alloc_kern_arena_objs(sch);
- 	if (ret) {
- 		cpus_read_unlock();
- 		goto err_disable;
-@@ -10339,13 +10369,44 @@ __bpf_kfunc u32 scx_bpf_nr_cids(void)
-  * hotplug, which lets schedulers treat [0, nr_online_cids) as the online
-  * range. Schedulers that prefer to handle hotplug without a restart should
-  * install a custom mapping via scx_bpf_cid_override() and track onlining
-- * through the ops.cid_online / ops.cid_offline callbacks.
-+ * through the ops.cid_online / ops.cid_offline callbacks, starting from the
-+ * mask scx_bpf_online_cmask() returns.
-  */
- __bpf_kfunc u32 scx_bpf_nr_online_cids(void)
- {
- 	return num_online_cpus();
- }
- 
-+/**
-+ * scx_bpf_online_cmask - Return the online cid mask in the scheduler arena
-+ * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
-+ *
-+ * Return a read-only cmask covering [0, scx_bpf_nr_cids()) which the kernel
-+ * keeps in the scheduler's arena, or NULL if the calling program is not
-+ * associated with a live cid-form scheduler. The mask follows the SCX hotplug
-+ * notifications: a cid's bit is updated before ops.cid_online/offline() runs
-+ * for it. The pointer is valid from ops.init() through ops.exit(). Root
-+ * ops.init() runs with hotplug excluded. Other contexts can observe concurrent
-+ * updates.
-+ */
-+__bpf_kfunc const void *scx_bpf_online_cmask(const struct bpf_prog_aux *aux)
+--- a/tools/testing/selftests/bpf/prog_tests/verifier.c
++++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
+@@ -53,6 +53,7 @@
+ #include "verifier_iterating_callbacks.skel.h"
+ #include "verifier_jeq_infer_not_null.skel.h"
+ #include "verifier_jit_convergence.skel.h"
++#include "verifier_kfunc_uninit.skel.h"
+ #include "verifier_ld_ind.skel.h"
+ #include "verifier_ldsx.skel.h"
+ #include "verifier_leak_ptr.skel.h"
+@@ -214,6 +215,7 @@ void test_verifier_int_ptr(void)
+ void test_verifier_iterating_callbacks(void)  { RUN(verifier_iterating_callbacks); }
+ void test_verifier_jeq_infer_not_null(void)   { RUN(verifier_jeq_infer_not_null); }
+ void test_verifier_jit_convergence(void)      { RUN(verifier_jit_convergence); }
++void test_verifier_kfunc_uninit(void)         { RUN_TESTS(verifier_kfunc_uninit); }
+ void test_verifier_load_acquire(void)         { RUN(verifier_load_acquire); }
+ void test_verifier_ld_ind(void)               { RUN(verifier_ld_ind); }
+ void test_verifier_ldsx(void)                  { RUN(verifier_ldsx); }
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/verifier_kfunc_uninit.c
+@@ -0,0 +1,45 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2026 Tejun Heo <tj@kernel.org> */
++
++#include <vmlinux.h>
++#include <bpf/bpf_helpers.h>
++#include "bpf_misc.h"
++#include "../test_kmods/bpf_testmod_kfunc.h"
++
++char _license[] SEC("license") = "GPL";
++
++/* keep the BTF FUNC record for the inline assembly reference */
++void __kfunc_btf_root(void)
 +{
-+	struct scx_sched *sch;
-+	struct scx_cmask *online;
-+
-+	guard(rcu)();
-+
-+	sch = scx_prog_sched(aux);
-+	if (unlikely(!sch))
-+		return NULL;
-+	online = sch->online_cmask;
-+	if (unlikely(!online))
-+		return NULL;
-+
-+	/* BPF rebases by the low 32 bits, like __arena callback args */
-+	return (void *)((unsigned long)online - sch->arena_kern_base);
++	bpf_kfunc_call_test_uninit(0);
 +}
 +
- /**
-  * scx_bpf_this_cid - Return the cid of the CPU this program is running on
-  *
-@@ -10709,6 +10770,7 @@ BTF_ID_FLAGS(func, scx_bpf_nr_node_ids)
- BTF_ID_FLAGS(func, scx_bpf_nr_cpu_ids)
- BTF_ID_FLAGS(func, scx_bpf_nr_cids)
- BTF_ID_FLAGS(func, scx_bpf_nr_online_cids)
-+BTF_ID_FLAGS(func, scx_bpf_online_cmask, KF_IMPLICIT_ARGS | KF_ARENA_RET)
- BTF_ID_FLAGS(func, scx_bpf_this_cid)
- BTF_ID_FLAGS(func, scx_bpf_get_possible_cpumask, KF_ACQUIRE)
- BTF_ID_FLAGS(func, scx_bpf_get_online_cpumask, KF_ACQUIRE)
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 2586879e9084..067cddf47220 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -1572,6 +1572,7 @@ struct scx_sched {
- 	 * and passes it to the callback's __arena argument.
- 	 */
- 	struct scx_cmask * __percpu *set_cmask_scratch;
-+	struct scx_cmask *online_cmask;
++SEC("tc")
++__success __retval(42)
++__flag(BPF_F_TEST_STATE_FREQ)
++__naked void uninit_scalar_struct(void)
++{
++	/* dead before the call, so poisoned at the checkpoint */
++	asm volatile (
++	"*(u64 *)(r10 - 16) = 0;"
++	"*(u64 *)(r10 - 8) = 0;"
++	"goto +0;"
++	"r1 = r10;"
++	"r1 += -16;"
++	"call %[bpf_kfunc_call_test_uninit];"
++	"r1 = *(u32 *)(r10 - 16);"
++	"if r1 != 1 goto 1f;"
++	"r1 = *(u32 *)(r10 - 12);"
++	"if r1 != 2 goto 1f;"
++	"r1 = *(u32 *)(r10 - 8);"
++	"if r1 != 3 goto 1f;"
++	"r1 = *(u32 *)(r10 - 4);"
++	"if r1 != 4 goto 1f;"
++	"r0 = 42;"
++	"exit;"
++"1:"
++	"r0 = 0;"
++	"exit;"
++	:: __imm(bpf_kfunc_call_test_uninit)
++	: __clobber_all);
++}
+--- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
++++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
+@@ -1087,6 +1087,14 @@ __bpf_kfunc void bpf_kfunc_call_test_pas
+ {
+ }
  
- 	DECLARE_BITMAP(has_op, SCX_OPI_END);
- 
-@@ -2098,7 +2099,7 @@ void scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p);
- void scx_cgroup_lock(void);
- void scx_cgroup_unlock(void);
- #endif
--s32 scx_set_cmask_scratch_alloc(struct scx_sched *sch);
-+s32 scx_alloc_kern_arena_objs(struct scx_sched *sch);
- void scx_disable_bypass_dsp(struct scx_sched *sch);
- void scx_bypass(struct scx_sched *sch, bool bypass);
- s32 scx_link_sched(struct scx_sched *sch);
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 385302d19914..f7aeb1488566 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -1805,6 +1805,12 @@ void scx_sub_enable_workfn(struct kthread_work *work)
- 		goto err_disable;
- 	}
- 
-+	scoped_guard(cpus_read_lock) {
-+		ret = scx_alloc_kern_arena_objs(sch);
-+		if (ret)
-+			goto err_disable;
-+	}
++__bpf_kfunc void bpf_kfunc_call_test_uninit(struct prog_test_pass1 *out__uninit)
++{
++	out__uninit->x0 = 1;
++	out__uninit->x1 = 2;
++	out__uninit->x2 = 3;
++	out__uninit->x3 = 4;
++}
 +
- 	if (sch->ops.init) {
- 		ret = SCX_CALL_OP_RET(sch, init, NULL);
- 		if (ret) {
-@@ -1815,10 +1821,6 @@ void scx_sub_enable_workfn(struct kthread_work *work)
- 		sch->exit_info->flags |= SCX_EFLAG_INITIALIZED;
- 	}
+ __bpf_kfunc void bpf_kfunc_call_test_fail1(struct prog_test_fail1 *p)
+ {
+ }
+@@ -1493,6 +1501,7 @@ BTF_ID_FLAGS(func, bpf_kfunc_call_int_me
+ BTF_ID_FLAGS(func, bpf_kfunc_call_test_pass_ctx)
+ BTF_ID_FLAGS(func, bpf_kfunc_call_test_pass1)
+ BTF_ID_FLAGS(func, bpf_kfunc_call_test_pass2)
++BTF_ID_FLAGS(func, bpf_kfunc_call_test_uninit)
+ BTF_ID_FLAGS(func, bpf_kfunc_call_test_fail1)
+ BTF_ID_FLAGS(func, bpf_kfunc_call_test_fail2)
+ BTF_ID_FLAGS(func, bpf_kfunc_call_test_fail3)
+--- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod_kfunc.h
++++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod_kfunc.h
+@@ -160,6 +160,7 @@ __u64 bpf_kfunc_call_stack_arg_big(__u64
+ void bpf_kfunc_call_test_pass_ctx(struct __sk_buff *skb) __ksym;
+ void bpf_kfunc_call_test_pass1(struct prog_test_pass1 *p) __ksym;
+ void bpf_kfunc_call_test_pass2(struct prog_test_pass2 *p) __ksym;
++void bpf_kfunc_call_test_uninit(struct prog_test_pass1 *out__uninit) __ksym;
+ void bpf_kfunc_call_test_mem_len_fail2(__u64 *mem, int len) __ksym;
  
--	ret = scx_set_cmask_scratch_alloc(sch);
--	if (ret)
--		goto err_disable;
--
- 	struct scx_sub_attach_args sub_attach_args = {
- 		.ops = &sch->ops,
- 		.cgroup_path = sch->cgrp_path,
-diff --git a/tools/sched_ext/include/scx/common.bpf.h b/tools/sched_ext/include/scx/common.bpf.h
-index 76f5e025e107..2ddb01a059fd 100644
---- a/tools/sched_ext/include/scx/common.bpf.h
-+++ b/tools/sched_ext/include/scx/common.bpf.h
-@@ -113,6 +113,7 @@ s32 scx_bpf_this_cid(void) __ksym __weak;
- struct task_struct *scx_bpf_cid_curr(s32 cid) __ksym __weak;
- u32 scx_bpf_nr_cids(void) __ksym __weak;
- u32 scx_bpf_nr_online_cids(void) __ksym __weak;
-+const void __arena *scx_bpf_online_cmask(void) __ksym __weak;
- u32 scx_bpf_cidperf_cap(s32 cid) __ksym __weak;
- u32 scx_bpf_cidperf_cur(s32 cid) __ksym __weak;
- s32 scx_bpf_cidperf_set(s32 cid, u32 perf) __ksym __weak;
--- 
-2.55.0
-
+ void bpf_kfunc_call_test_destructive(void) __ksym;
