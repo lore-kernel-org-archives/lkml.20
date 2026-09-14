@@ -1,73 +1,131 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A489347668C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499E2351C13
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789402685; cv=none; b=gC6aRs18ANmqUnf4VB057WKNz1KAWg9Te4AuldQ3z3bsYr/+LepgPNF4R98nIeDlELdrwDagVSGLdR9tRktXL5L3bKRakQnACcRuAp/esfH/e27jhWCzgJCyArwvKcf9NmizDTkbrD/bE3JXV7dKNutO32k3LaCMIjgNej5T/K4=
+	t=1789402755; cv=none; b=OxvYnsC8rUM+aFddkaVYwjiIfvgnvGvTQQC6Pz/YvfNdGoKeXH6oYcDAsl9Vgo7AcK+khhcm4VUhror+kSM5fyi7lO9/8NZv9pMFEoXk3XZk7nPe+R2wwcipR1H/pZ3ouOY1/DoAXd4Bkbi56/dFh0ABkGWtWE6PRR+bQivBRsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789402685; c=relaxed/simple;
-	bh=zuARar12XFMKQWyIUww7t2WzzCmxZbAOSFUqmie1sdM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=VBVqn9zjjSPkCiX1flqK1tWl8IOzPocfhCmvTQDQDAV+V0v9NUto4/SSfBP6nZaCN1RjHcPT5KAeZsr/U5fNSg1qIj6eoyrqwD7UZtrnO/mQfpRsyXi942UUziAErfF1z0sPffON/Ni5x1adCeY90xfoqWcp0hgzvSdb3BJhUpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f4e4b52404so4184233a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:18:03 -0700 (PDT)
+	s=arc-20240116; t=1789402755; c=relaxed/simple;
+	bh=CYyCugj7UJuCGWM+5VaagQgPdwhTxxh8qGLX7cMsOps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HLaxYGqQUh9D0Gq7pSr4oqDl2sy3MF/wEmj3zjkO0+CohR4r7/xiDJ5oE/OEYfteuSXpfKv6SBHcywN+C8JhZjp6CanbNv7o2oxvye4SpDy0Zp6nbORROEhq6jV+DQ+ubABU5exdTZi5rzg2QmVml5SwwxVP3Cn8sWy0u2XMexk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ia2c2cio; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ia2c2cio"
+Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-39ded0d7f52so599895a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:19:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789402754; x=1790007554; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SeJCWkMK8xHsiSZXR1cWQEth7bGh7tFwjmeGMzJQYvY=;
+        b=Ia2c2cio4hoLNZnZofkB1ZYve9ozFQMcAQuWFPOnJAE2lFqGPABDSYgqiifzihScTq
+         BX5vK3vrO64Vz1hmzEuopkBWUun44g9kkEdtcB5fw69pM5djHyKwMq4TnvNKGNEFDCk8
+         gGSV6grxiE1xsQ/EzoVIdEqoK77NrjwyVaz8GbFGtDobDiW5YlRzRAtafds+Pz7jvRCC
+         46ERk4ruIeW3Zwew1Rfp54HWBHF0F8H+Qcqy16kCQXE2WqKVWGp3YPt1U3S39mw91/Ap
+         NlNGoD72g69cI1hk4xGDAK3XJIvVl+0i+pQkGjli+dS0WPqLPMiEwuQltLH4dL15AcHy
+         tveQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789402682; x=1790007482;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CHx4S70M15ciZne1aLuEfwUpXc+z4r4taQi9qQ5bsfE=;
-        b=I/P/k2lUgEj4hKcaxPTGb6vj2F70sUpJV+2VrnFqw37XC02lWVP+2sRwPoTgdU9KhY
-         /pYRXxaUDXLR3xLDDTghREgcR8EI8yYy7ptiQZbHsQLYBkdSNxAre+F70EQ+fccjns3T
-         zaKBXclxxI9zEb74HjYzyJH9ZkSxsmjyzrfvr6wzWPW9f4ekIuat/95c6sVjiLMjmeSp
-         4BXDnSvbw+PLQ3/cPRPgxTAvXPV4fhhuAjXb/QQiwkF11TbQjnbPb1+fQz0IaZTz9PxY
-         hhR3wCR48y/XzHbu+E1usoz3pvO0m+SwPawUafpFuyBAmno1OywoECh/bikgg3IbvVLT
-         ISfg==
-X-Forwarded-Encrypted: i=1; AKwUvBwtXfXXZMfIiTiSKZgVviplFw5kUqif9prB3vMLBW8L3j3jbfT8Y/XNV5FwyJdCbx+rveNsSQVVw2iSdeE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhONW/wvaY1hY4fk5TlYz8IESLzeUGEGOw6pr/EQx+hQcPiycM
-	3XS2TlAZIJdk8ny9imkcslmgaPf2m4IUETUi9YO3yvQum8FUx12n4HZJvlCJ17/BeALaoCyfFSf
-	xZWfkQTmPqcacT84/Gjj3IOoNZAW/jXt+zmqBgSBX3bVZI8g6SyXmGKKJZik=
+        d=1e100.net; s=20251104; t=1789402754; x=1790007554;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SeJCWkMK8xHsiSZXR1cWQEth7bGh7tFwjmeGMzJQYvY=;
+        b=fuGYZysqMBUtOYArlf0wu0d0qoF0W6VTFf8ro1KymySMiDynii7HI1o4hthSaHcMPC
+         Zgcch3pJT9TgLK3bjmZYBzkgSRQU2vNMa+GJlErycsaJCvWXBCHo6PCryejDvfmumH6j
+         Eg+hKRWpnpaK4g8kk0Wwp4dadlUgXAJhPXtnTo7v2WwIGK3KaQ7IsaRS/bSbjE7CGXL1
+         sIZAorbg0bzL7f7T7MYo+HARuD0q9CzSkVz6LcDE4LAf3kQLULOGgfA+hsWRFVA+4qfQ
+         y6KJB20FeoKUfgOP8RbkX2+p+TcxvizEcwArkO9yph9ps75oRUvIN9AwojnzObzcx5oj
+         WG2A==
+X-Forwarded-Encrypted: i=1; AKwUvBws8yOgU31Fxf6V1dLC8aL7h7W/bMbLeEZVp00QxCztzv0PFDKoCK9X5K69lcMULGSygN92iYVCF4cQ61k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRavjxpH74mUGxYu4e9qehbCslty1UU0uyD0Ucv0Tu7ZKJfvr0
+	NGTuUBTLG8LKnvBlFG4p3VxX+hJpdrcAlPHXN7WatTNZrENBp/yCAcPn
+X-Gm-Gg: AYBFou3E/RwfUbjznbqUdtd4gFo1jLpM2yZQcl8xRN+iwtRFWCOJFvHxlCRS1YavfWs
+	rZI1y0Y7PkySAn90vYRPxAnYPlsfNryJeRYd7P9khI4XOdcghQwKQhrIweKxMIl1pg24z/ap261
+	xkLIEWJSSYAj6PDsFEG8xub22hxKVl3H1NmVvwE3H/dtbjDU2/4FnW3x6sXcUvKhJnrqvfXP0YE
+	4C0HhFHik54Ya2eZl/jPD0sGcwi8yTRaRh10ytkTCuM6lIguSqiyRiJRxZWjBb8Rl7q5yOq8vFJ
+	++o4RS1eabVjdUo2rnZLH3FYTRF3O5Vd79cR5Z/BWUzF5xU9BEPvIAZKapJx8++mfFPr6+cOU/Z
+	g8Gxmgh9ZAODBvm/rHl7uvpH7DFbyyJNSBdmZSKy0tsrl80NOV01YlfFMqlogvie42kyrxPLleq
+	MOsAtGuOBrbof3E6rg1DVZkJmN9ZubU9QlRprmioxJrL4tqpG2ngMF2ym6QUUfdTrE
+X-Received: by 2002:a17:90b:2885:b0:398:9be5:b419 with SMTP id 98e67ed59e1d1-39dec0bf165mr7016294a91.20.1789402753588;
+        Mon, 14 Sep 2026 09:19:13 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4b::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd7545asm177494a91.14.2026.09.14.09.19.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 09:19:13 -0700 (PDT)
+Date: Mon, 14 Sep 2026 09:19:01 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, david.laight.linux@gmail.com, kernel-team@meta.com
+Subject: Re: [PATCH net-next v2 0/2] net: a sockopt_t quirk for the options
+ that write past optlen
+Message-ID: <aqgebMiCaU3i3YJ6@devvm7509.cco0.facebook.com>
+References: <20260914-getsockopt_phase6-v2-0-e48befc9602e@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f028:b0:6b7:46fa:16a2 with SMTP id
- 006d021491bc7-6c54234528bmr1839177eaf.55.1789402682396; Mon, 14 Sep 2026
- 09:18:02 -0700 (PDT)
-Date: Mon, 14 Sep 2026 09:18:02 -0700
-In-Reply-To: <6aa7dcd7.caa6ce30.140852.4da4SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa81e3a.a211d2ce.1a5198.0294.GAE@google.com>
-Subject: Re: [syzbot] [batman?] WARNING in batadv_iv_ogm_process_per_outif
-From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-getsockopt_phase6-v2-0-e48befc9602e@debian.org>
 
-Hello,
+On 09/14, Breno Leitao wrote:
+> This series continues the migration of our protocols to sockopt_t, as
+> described in [1].
+> 
+> There are some protocols that use optlen as the header size, and the real
+> buffer size comes from a field inside the header. This means a bug, given
+> that optlen should be the full buffer size, but there are indications [2]
+> that we have programs that use the bad behaviour above, and we want to
+> avoid breaking them (or, honestly, avoid being cursed by Linus).
+> 
+> That said, create a quirk helper that preserves the same behaviour, even
+> using sockopt_t. The way to do it is simple:
+> 
+> 1) Only do it for userspace callers (ubuf), otherwise a bug here will
+>    corrupt the kernel instead of a simple SIGSEGV.
+> 2) Expand optval mid-air based on the header field.
+> 
+> IP_MSFILTER is the first user, and the smallest one: a single caller, no
+> compat variant, and a reply written front to back. MCAST_MSFILTER on ipv4
+> and ipv6 comes next, and TCP_AO_GET_KEYS has the same shape. Do this
+> quirk on IP_MSFILTER to make sure the dynamic is ok, so, we can expand
+> it later.
+> 
+> None of this is meant to change what userspace sees.
+> 
+> Link: https://lore.kernel.org/all/20260401-getsockopt-v2-0-611df6771aff@debian.org/ [1]
+> Link: https://lore.kernel.org/all/20260806-mcast_fix-v1-0-bed0a5518e57@debian.org/ [2]
+> 
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+> Changes in v2:
+> - sockopt_expand_out() measures the request against opt->optlen instead
+>   of the iterator's remaining count, and asserts that nothing has been
+>   written through iter_out yet. Comparing against the remaining count
+>   made the verdict depend on how far a callback had already got, and a
+>   late call would rewind the write cursor to the head of optval.
+> - Cap the requested size at INT_MAX, since optlen and the getsockopt ABI
+>   are int.
+> - do_ip_getsockopt() writes optlen back only when ip_mc_msfget()
+>   succeeded. Without the guard, a read-only optlen turned -EINVAL,
+>   -ENODEV and -EADDRNOTAVAIL into -EFAULT.
+> - Name IP_MSFILTER in patch 1, document the WARN_ON_ONCE() and that no
+>   in-tree path reaches it, and mention sockptr_to_sockopt() losing its
+>   static.
+> - Link to v1: https://patch.msgid.link/20260910-getsockopt_phase6-v1-0-e681e102d5b8@debian.org
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
-
-Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
-Tested-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=14721925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=a079f084653164a652d1
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=15afe925580000
-
-Note: testing is done by a robot and is best-effort only.
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
