@@ -1,179 +1,309 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83D238DC7F;
-	Mon, 14 Sep 2026 09:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9997F424D57
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379197; cv=none; b=iyQaqjs8tHa0HxKjVPON710NPGCJlBHtPail/3Npz+aWJwOL/XOS7F4Z4Vi7WJOM3/8smeSCxseTOLQbGIxybU0j9qy9Tf9Ylfj/Dj0ylghuIL74J2/j6n6QzSrwWh1ikrXWjn65aiB8oaqqU0F9JYDmv3QJIxoANWaidhmKMXw=
+	t=1789379204; cv=none; b=P3N+iGeAVG8W0mMAvS9XROflWROJkCTwPARmjfih5nd04zcwN2Bp+jBd4eVEqVcqa81RDLENjW2PTLxtxPIdqr0eqcc6AdoA8+m1bTnM1q487N+AMlHuQRDwQOYkZ/Z9jNwCYw1Mqo+0+9DtwE+itcdZXbxxJ6Y6SQOmVNoPPTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379197; c=relaxed/simple;
-	bh=rrFyLLdZF5xXSzle5JlC0438BTyKva3atZTnq8zVXQw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lX0EKk001DZJRrSlIOCgSC0xyCFmVA1qLykNVrFvVVODSAQGWY49oaLOpS1tpXZ9fLWsKe+0J5QpGguIE+g3IKKibcpoZMu6K4E4i/YiGrKsiTh9EpgSRyoFiAZ0oj/kp81d0IkXNDq2C7ENwUqBHBt91Kc4UXxXUr91XEWCyLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eYfbe0dT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=b1JhahW+; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PqSJCCD5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=I9qv+3FO; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789379204; c=relaxed/simple;
+	bh=nXbOP/4mMXUyKJ7QpGLqKgglcZMvE01VhV6d4/ztRRI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eJ90wufiTx8h6Qs5vmT+OF9sz/6NPX9V8kv7ViSyuuWQN8nRhS0hOD6zRu+HrQRbsqToWQnloZ6eBFr51bDmF37y8TX02CtO6Ft6ICzYoUnloBgZ0buggUulGZZZGazxvCegHrPL3Jn3qO8cEBpeP31kKvQdhWZbsEXdb1MA98g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=UcXLKyd/; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eYfbe0dT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="b1JhahW+";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PqSJCCD5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="I9qv+3FO"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7926D21A60;
-	Mon, 14 Sep 2026 09:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789379189; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JoGpoZ91SQfiywItqJCeJB08VIv14uniOSyLXtjKG40=;
-	b=eYfbe0dTerlRbcK/7G0YDqJ8beI/Bs87lYLSr2XlU4rVTECVo/Dp7rpRhxaKHsR5X9m4F2
-	dxGrIGCJ7XHvt1vb+hLyKrEXbvpdfXBswHQ4yX2Q8NcuNBzbtmwOtmmLnN+zClh8EEgXuG
-	zQFUbn/gs0eMgrU3tJ3hZ6++Sgw/xm4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789379189;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JoGpoZ91SQfiywItqJCeJB08VIv14uniOSyLXtjKG40=;
-	b=b1JhahW+j10EFqGvw/fIV03hLQil9C6NpBMBAsE+u9WR86YlILGBKZ9TJFL/OvM47IYpeZ
-	NaJjJ7Sr1K5TkcAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789379185; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JoGpoZ91SQfiywItqJCeJB08VIv14uniOSyLXtjKG40=;
-	b=PqSJCCD5Z50by1WrIFWkXynV6pI9ucX6uJsKzNHyxiggaX9JjJkv8qbetoX5avOUDX+rbX
-	1CZHzmSmCxHGo2xUDICy+zQ89l+LSn9UQaN/3DnXMdrTpWK/kiOCH2L+9nm3PHYs3dbFtA
-	dsuWMSXvk+WjkjElUeu54C80Vv2H6NI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789379185;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JoGpoZ91SQfiywItqJCeJB08VIv14uniOSyLXtjKG40=;
-	b=I9qv+3FOW34hVEo1Zm5sT53yQ8NlnfAHut7quCSjXhNR0zje01ciBT0cbueD372AR0Q9t1
-	etH2iN2TLBeGAlDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2A93313515;
-	Mon, 14 Sep 2026 09:46:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9lg5CXHCp2rEawAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 14 Sep 2026 09:46:25 +0000
-Date: Mon, 14 Sep 2026 11:46:24 +0200
-Message-ID: <8733vcp3m7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Xiang Mei <xmei5@asu.edu>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	torsten.schenk@zoho.com,
-	co+855929c2df672879@bugs.sh,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: 6fire: fix OOB write from device-reported iso length
-In-Reply-To: <20260914074324.3590843-1-xmei5@asu.edu>
-References: <20260914074324.3590843-1-xmei5@asu.edu>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="UcXLKyd/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1789379200;
+ bh=W1U/BBBtVf3N1qfQmcjwgxjBVHkUfhadLlBtORLZQtU=;
+ b=UcXLKyd/busfK9ggXBRe7fB/Ms7/3DQjuKNAtcTkK+a0Ozt97A/eHJHv8rxDYBF+1r63agWho
+ gJG/GvYcjEhz0pEKN3qESwpCrqQyCuz5wHybJXxGairvSqrgD1ChinIfTSbZiSRk8YmT4EMxadP
+ 0ISOWtQLuLv7zCkN0K6mLb6xnDiKeXE/Ilr1FzuE5QuitQjZjh9Lpwara/sncH6tucl/8rjxcgK
+ LxOhWTfja1lE5bouVtGdKBcsB5wZOxVpYEtzkWvRHh/ic7jeFWEAMhZW1+C77oIM+m+SH0plxEz
+ Hgu1B7QAsT1jPp4Vx+IMtiWDrag6hnGJKqMl+5dBRiRw==
+X-Forward-Email-ID: 6aa7c27b469f56687e0fd9e3
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <dcaf96df-4a51-446a-a92d-6bb4e21af618@kwiboo.se>
+Date: Mon, 14 Sep 2026 11:46:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -1.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[855929c2df672879];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FREEMAIL_ENVRCPT(0.00)[zoho.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,zoho.com,bugs.sh,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bugs.sh:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,asu.edu:email]
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/4] arm64: dts: rockchip: Add devicetree for the
+ FriendlyElec NanoPi R28S
+To: HystericalDragons@proton.me
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>,
+ Andrey Korshunov <razor1702@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>
+References: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me>
+ <20260914-r28s-upstream-v5-3-7409c498e8dc@proton.me>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260914-r28s-upstream-v5-3-7409c498e8dc@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 14 Sep 2026 09:43:24 +0200,
-Xiang Mei wrote:
+Hi,
+
+On 9/14/2026 10:24 AM, 安容 via B4 Relay wrote:
+> From: 安容 <HystericalDragons@proton.me>
 > 
-> usb6fire_pcm_in_urb_handler() sizes each outgoing isochronous packet as
-> (actual_length - 4) / (in_n_analog << 2) * (out_n_analog << 2) + 4, where
-> actual_length is the unsigned length the device reported for the matching
-> IN packet.  A packet completed with status 0 and actual_length < 4 wraps
-> the subtraction to 0x7fffffec; a zero-length isochronous packet is legal
-> on the bus, and the preceding loop rejects only non-zero status.  The sum
-> reaches memset() on out_urb->buffer, a 4832-byte object from
-> kcalloc(PCM_MAX_PACKET_SIZE, PCM_N_PACKETS_PER_URB).
+> The NanoPi R28S is a dual gigabit Ethernet router board based on the
+> Rockchip RK3528 SoC, designed and developed by FriendlyElec. It shares
+> most of its design with the NanoPi Zero2, so it builds on the common
+> rk3528-nanopi.dtsi.
 > 
-> Even without the wrap the result is out of bounds: at 88.2/96 kHz the
-> 4-in/6-out scaling turns a full 420-byte IN packet into 628, so eight
-> packets span 5024 bytes of that buffer.  usb_submit_urb() rejects an
-> over-long descriptor only after the memset() and the
-> usb6fire_pcm_playback() copy of user PCM data have run.
+> Specification:
+> - Rockchip RK3528
+> - 1GB RAM
+> - eMMC socket (optional)
+> - MicroSD slot
+> - 1x 1000Base-T (GMAC1, Realtek RTL8211F)
+> - 1x 1000Base-T (PCIe, Realtek RTL8111H)
+> - AICSemi AIC8800D80 SDIO WiFi
+> - 3x LEDs (SYS, LAN, WAN)
+> - 1x USB 2.0 Type-C, peripheral only, shared with the 5V power input
+> - User and MaskROM buttons
+> - Haoyu HYM8563 RTC
+> - 1x USB Type-C debug UART (onboard WCH CH340E)
 > 
-> Guard the subtraction as the sibling usb6fire_pcm_capture() already does,
-> and limit the frame count to what fits in rt->out_packet_size, the OUT
-> endpoint's wMaxPacketSize.  This bounds total_length by the buffer size
-> while keeping each packet length aligned to a whole output frame.
-> 
->   BUG: KASAN: out-of-bounds in usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
->   Write of size 18446744073709551456 at addr ffff88802a3d0000 by task vhci_rx/5018
->   Call Trace:
->    dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
->    print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
->    kasan_report (mm/kasan/report.c:595)
->    kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
->    __asan_memset (mm/kasan/shadow.c:84)
->    usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
->    __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
->    usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
->    vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107 drivers/usb/usbip/vhci_rx.c:242)
->    kthread (kernel/kthread.c:436)
->    ret_from_fork (arch/x86/kernel/process.c:158)
->    ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-> 
->   Allocated by task 10:
->    __kmalloc_cache_noprof (mm/slub.c:5563)
->    usb6fire_pcm_init (sound/usb/6fire/pcm.c:560 sound/usb/6fire/pcm.c:595)
->    usb6fire_chip_probe (sound/usb/6fire/chip.c:133)
->    usb_probe_interface (drivers/usb/core/driver.c:399)
-> 
->   The buggy address belongs to the object at ffff88802a3d0000
->    which belongs to the cache kmalloc-8k of size 8192
->   The buggy address is located 0 bytes inside of
->    4832-byte region [ffff88802a3d0000, ffff88802a3d12e0)
->   Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> Fixes: c6d43ba816d1 ("ALSA: usb/6fire - Driver for TerraTec DMX 6Fire USB")
-> Reported-by: co+855929c2df672879@bugs.sh
-> Closes: https://lore.kernel.org/all/gisnub8aWGLbyZLcDCSc7zWsHonMWGcyRgt5%40bugs.sh/
 > Assisted-by: LLM
-> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> Signed-off-by: 安容 <HystericalDragons@proton.me>
+> ---
+>  arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+>  .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 127 +++++++++++++++++++++
+>  2 files changed, 128 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+> index b677914cd3..51a9889088 100644
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -94,6 +94,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-vicharak-vaaman.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399pro-rock-pi-n10.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-armsom-sige1.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-hinlink-h28k.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-r28s.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-zero2.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-radxa-e20c.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-rock-2a.dtb
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+> new file mode 100644
+> index 0000000000..0b7bbc0122
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+> @@ -0,0 +1,127 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
+> + * Copyright (c) 2026 FriendlyElec Computer Tech. Co., Ltd.
+> + * Copyright (c) 2026 安容 <HystericalDragons@proton.me>
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/leds/common.h>
+> +#include "rk3528-nanopi.dtsi"
+> +
+> +/ {
+> +	model = "FriendlyElec NanoPi R28S";
+> +	compatible = "friendlyarm,nanopi-r28s", "rockchip,rk3528";
+> +
+> +	aliases {
+> +		mmc2 = &sdio0;
 
-Applied now.  Thanks.
+This looks to be missing an serial2 alias:
 
+	serial2 = &uart2;
 
-Takashi
+> +	};
+> +
+> +	gpio-keys {
+> +		compatible = "gpio-keys";
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&usr_btn>;
+
+This is named gpio4_b2_usr_btn in the schematics.
+
+> +
+> +		button-user {
+> +			debounce-interval = <50>;
+> +			gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
+> +			label = "USER";
+> +			linux,code = <BTN_1>;
+> +			wakeup-source;
+> +		};
+> +	};
+> +
+> +	sdio_pwrseq: sdio-pwrseq {
+> +		compatible = "mmc-pwrseq-simple";
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&pwr_wf>;
+> +		post-power-on-delay-ms = <100>;
+> +		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
+> +	};
+> +};
+> +
+> +&combphy {
+> +	status = "okay";
+> +};
+> +
+> +&leds {
+> +	pinctrl-0 = <&led1>, <&led2>, <&led_sys>;
+> +
+> +	led-1 {
+> +		color = <LED_COLOR_ID_GREEN>;
+> +		default-state = "off";
+> +		function = LED_FUNCTION_WAN;
+> +		gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_HIGH>;
+> +		linux,default-trigger = "netdev";
+> +	};
+> +
+> +	led-2 {
+> +		color = <LED_COLOR_ID_GREEN>;
+> +		default-state = "off";
+> +		function = LED_FUNCTION_LAN;
+> +		gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
+> +		linux,default-trigger = "netdev";
+> +	};
+> +};
+> +
+> +&pcie {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pcie_eth_perstb>;
+> +	reset-gpios = <&gpio4 RK_PC0 GPIO_ACTIVE_HIGH>;
+> +	vpcie3v3-supply = <&vcc_3v3>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pinctrl {
+
+This is missing nodes for bluetooth:
+
+	bluetooth {
+		bt_wake_host: bt-wake-host {
+			rockchip,pins = <1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
+		};
+
+		host_wake_bt: host-wake-bt {
+			rockchip,pins = <1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+> +	gpio-keys {
+> +		usr_btn: usr-btn {
+
+Label should be named gpio4_b2_usr_btn to match schematics.
+
+> +			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>;
+> +		};
+> +	};
+> +
+> +	leds {
+> +		led2: led2 {
+> +			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
+> +
+> +	pcie {
+> +		pcie_eth_perstb: pcie-eth-perstb {
+> +			rockchip,pins = <4 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
+> +
+> +	wifi {
+
+Suggest you also add host_wake_wl:
+
+		host_wake_wl: host-wake-wl {
+			rockchip,pins = <1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+> +		pwr_wf: pwr-wf {
+> +			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+
+and wl_wake_host:
+
+		wl_wake_host: wl-wake-host {
+			rockchip,pins = <1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_down>;
+		};
+
+> +	};
+> +};
+> +
+> +&sdio0 {
+> +	bus-width = <4>;
+> +	cap-sd-highspeed;
+> +	cap-sdio-irq;
+> +	keep-power-in-suspend;
+> +	mmc-pwrseq = <&sdio_pwrseq>;
+
+We can likely be explicit and declare:
+
+	no-mmc;
+	no-sd;
+
+> +	non-removable;
+> +	sd-uhs-sdr104;
+
+This is missing the vmmc-supply used.
+
+	vmmc-supply = <&vcc_3v3>;
+
+> +	vqmmc-supply = <&vcc_1v8>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&uart2 {
+
+We can likely declare dma-names here:
+
+	dma-names = "tx", "rx";
+
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&uart2m1_xfer>, <&uart2m1_ctsn>, <&uart2m1_rtsn>;
+> +	uart-has-rtscts;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_host0_xhci {
+> +	/* Type-C port, shared with the 5V power input */
+> +	dr_mode = "peripheral";
+
+Why do you disable dual role here? Is it not possible to have it work in
+host mode? E.g. using a USB hub with power pass-thru?
+
+> +};
+> 
+
+Other than above this closely matches what I played around with in
+U-Boot [1] a few weeks ago. Main objective was to add NEO3 Plus support,
+and only added the R28S DT based on schematics. My R28S should arrive
+any day now :-)
+
+[1] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/commit/40382468ba7ce9aa2e7dcde0e59003fd0d220b43
+
+Regards,
+Jonas
+
