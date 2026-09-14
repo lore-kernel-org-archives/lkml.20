@@ -1,201 +1,627 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012055.outbound.protection.outlook.com [40.93.195.55])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B361632DD;
-	Mon, 14 Sep 2026 05:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364768; cv=fail; b=iubiPtUyjg/Iu/jgwvyRiC+SWdr/bti0pBY2t+skYW6sXpir2cmaHk8N1jFHlxMEsbD5E9D3qQq7Xx/31P4KnSp+MyBTqBpTcaCaJYdJHRmTAry2PBt0v/eRIuZ9dTPI4G6zz6wX3J0ClZVTMbDmS44Vh8W3ltPUPFwGxr9D2Nw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364768; c=relaxed/simple;
-	bh=3Np9pExozgzHs5oUTKpBVFgOUdsj8itEMM1cglXagUc=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=lGddYb1fkhes+JtKqAcwmJ1jCIwDOWJM0n5wYg1RQ9lVAz33jPb4TBmrYVh2BgIG7fH/hptLEaEcKk08f2D+qIJCdpA7JNnhs0SalrB3qEfshFKmBQiO6iIJqUw9pfl6/TWwJerx5W2dnKUhjwIgwqPoUsx6QA2WmJRd2pIURac=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LXSTRtlY; arc=fail smtp.client-ip=40.93.195.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095C434AB14
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789364785; cv=none; b=kOGkylLjid9x7UFQHTA19o03PAXkHdnYadX3MegOKxOHQnhno0hxW8OJzdNHbPRuREweOd3QGFjyUupTtUM9VRTrWMpI2iy5S1sgezw5u1/RcQytHCpivRny48VjHYzCSI4tDZO/cmP87gaN58R0oMhcoAnCk6ZQxAU6TLizQxU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789364785; c=relaxed/simple;
+	bh=5QhzlNik2vb8WTv+Whr0AIXM6Glk/gD+Fu1duuDW/RM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FGsAxp/cgM2D11UhgKhdeUBRuHYuwvIdf/TK5z4sH6wBwsXwkh/bNcZI8oEPOQXN0m9EgPhFoaJRmCl4IOmvapHTj7rHMiEuT7qIpPPq3+g5zkY6oJCroUuOXcxQNtDFOPbGjBUCbOhO24mWfYG04+qbHRF1p+kT5Hb4Adhykpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Oj78Vep7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oqHWD5Ss; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LXSTRtlY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cwprWap44eI/P5/FTleeQXevd1bbxCuBoZ9vsM+HiyHsObEjW4AOEk9/mNwF1d3vzsqDAz4IURV5i78ENQUXqrwOjoxWNhpN8ih8S8Lx2vFayohepR0KB5KPXnWYFhrNWffmps7a5dUE+HijOW6oMYWBIzgV9yrlrs2cl/Pb2XV5hyMTVaJGY7oZDePd10dmohikK600zDvyPCnuTqivYQaJu1t1ZmqqJy6fD5O2aeWKrnZJtWqe1dvIF8U4jGP1q2J6qrHcF25CZbYByRi1/1M4soLX3pnmkY1xbKc2ZEYnWbiyEcF1RdfMbySZEoTKs91lJvn+ILAz+JTpl17cVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yS7uuKsTLYbTzy5o3klLJG6gZkauwXNBSOEO/0O8j8A=;
- b=k/Hbnr35+Gc/KD15y0Wrnmo7Sgm5Ji5/J/StVizv3NY/xa39xOIxBoixC1ly3cd1ifUKgegH+362Una9Row2cSpVpYcelUvBVDqAuv4CxHv3yoQzM00niqfRcQn4aEHZMEuiGkKFpSCwgg/gCoW0Od3ebpag1sCI9hOhsdNggq7N100x1Zurw2RrdxucsqaU5GcgfvJC1HipOVUsdmkc5K7eZgn1U+gFzO1lzevILRy+Sh6A9Qg/ZUn/kDYt1GuB+PI1wE3cXIjbWAHTg09/U8T5IeinoTnX2uc0ByJS5x/f5kytWq5cMsnPdR90mwW7Vn8N6//zFYMhIT5sy/Gmkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yS7uuKsTLYbTzy5o3klLJG6gZkauwXNBSOEO/0O8j8A=;
- b=LXSTRtlYEIfptslIYa0BZxHIEMzR7BMvk9pGqCjbcoMat2AGBhkMQA3gB/JvOLsaswh98pSDEja9qq/a7t5Hc10bMnz4G1ZHidXrvJZg9COL/QI5RTE/9X6et24ydiUxyHEpHVIB+J+57mIvEDSOzU7cJs3cle1ahMCF2vhwWWQe/lRyYv8mADa1jsqxKw+pHbLqeayDyceSZHfpCe3xpnJPTW8yhCL+hVVyfP/ABVG3QwhrI4SOMFJk2A9dD3MKXkuEIfy3KQcTNRXPQC8ULQz1KU4MjSxmam9lPgBAifydoYVImUqu4R4VKCRm0djnpzjDrW5bDSqq/dHn0XECCw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- PH0PR12MB7888.namprd12.prod.outlook.com (2603:10b6:510:28b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Mon, 14 Sep
- 2026 05:46:02 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 05:46:02 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 14:45:59 +0900
-Message-Id: <DLESVA59ROTX.1AI0S1XYY01DP@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 5/8] gpu: nova-core: add NVKV decoder
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-5-0de9d5c8658c@nvidia.com>
- <DLBGYDIEZY9O.13PCPPFAA7JN9@nvidia.com>
-In-Reply-To: <DLBGYDIEZY9O.13PCPPFAA7JN9@nvidia.com>
-X-ClientProxiedBy: TYCP301CA0090.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7b::17) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Oj78Vep7";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oqHWD5Ss"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789364782;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4YoZj7ULUnXFEUqLzayKbTSzQn3c5hbr/5knd21qzAo=;
+	b=Oj78Vep72fcZDtcnB+z9Qfb/2D/xGcNgjf0YdE6lBNiQIz/Uyz3jOhut3NIQ5CUX+geMPT
+	/8+oP03vGQpJM53Pndy1gEwTBv2nxwBPMoGPXUSVr0Pp896G1544hQZeUflcs/WfsYWs3Y
+	0P3M/U4fRbRknobcMF2JmU/uj34NvUE=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-100-OhoIzxyMNzKt8Ex1OR17vg-1; Mon, 14 Sep 2026 01:46:20 -0400
+X-MC-Unique: OhoIzxyMNzKt8Ex1OR17vg-1
+X-Mimecast-MFC-AGG-ID: OhoIzxyMNzKt8Ex1OR17vg_1789364779
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso5398238a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:46:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789364779; x=1789969579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4YoZj7ULUnXFEUqLzayKbTSzQn3c5hbr/5knd21qzAo=;
+        b=oqHWD5Ssinkzr5CNNLm6tX+ob2hDDjBEy07q6mE1mp60vaCNes2N2ieQq1Y+ywmOX+
+         WHhDWsAEERT3Uu7oadZAWWiAblPiR85ZzEXhBnrNhkzxw0n2D6Z1NAbS6sp/XpGx0hdV
+         aqRET5OjWz0aLcabiAqjgCxjrGRthGMSqLnwQLRhsQ5b0hIv3KWaqvzk4EVeAxUEG+pU
+         Ynz40pJ6zQ0Ig2FtrFVIFNj+nOuPk0dUtS08UkO1oGhhdsyWKtbuYwJAp5Fccd1xG0t5
+         OPbA1cmXkKEf5RCGopJsAUiOIjMNVu4S6BSUZq0oVh1J8sY9j8b2yyVlp8iq6V7024qT
+         Wqjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789364779; x=1789969579;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4YoZj7ULUnXFEUqLzayKbTSzQn3c5hbr/5knd21qzAo=;
+        b=h3J7XShowfdVnSpzB/gw8mzfFGZ6RHXwlN0trq5D1LgrpUs4d9ePIZqqd82LTmeBZW
+         VjJY+kka33v++ZP6uMjjpqjQiCnr39rWzyXPzHSOGQrUmIUapwD0GiMy0NsF7aDkxlH8
+         CSt6AaUM5MC8dunFBct5r3xFoIx5X+ufUfWIf4kcKGmBizec4ptOInP7BaeGBDGkR8fo
+         6K6kZWVcr1R5DF4vR0YByTeoiiAsRMevqfaWNtiSTSIPYYIIPomqXi4XJf3SBeUnZ4kh
+         EMpIXEHTJzZzMif8VuxhW7QXuTGiBB/bGzJ4GC/Yzq6vZpZy++W1RcDKR17KJY/D83ol
+         m3cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxe9C61qCsCsORipoFPKG3BI7j99YMFQbXVQoZImVXBMxP7s3svHtzfYAQnWq5X1BJP8dLzPD4kN0sxVIk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRYXL9NYVZVC9ul02UGW/0rK6mUyRGgAbPKXWGKUatpGg/w6IB
+	VRKix6rvLm/NYer4WrWC0+EYoJjJOXnxxIG4JdPiT7n7q0UK+nWXgWtr+CrbaegmcUCgbeTwjAP
+	Ei1tYKi/agXFokG0DCIC9fnsZfH95Pl9Ha/Qy0jh+Eg/ItPOpK+woHHk6Ov3S4d9m1Q==
+X-Gm-Gg: AYBFou283hh7u1HQwMgY0ekHVqfA/Qt2VGo3m5vaf/NxxlPebRhrN5T7fL9IORo7QSu
+	iOptQGdHCPb4Elg3PaR8rL6ED6Wbo4CdgufE2ROF5qKpqZaZ6ER4G82j6sTN+wfKTiB2ZofuITD
+	rC3Nnm9jPdceHEM7jeMnpTBkCPDRnzSQ2sqHtJLOIHzg9HidP0/V+R31i4TX24xbnBYiWKZCSfw
+	KEdHcNM6tlkBhNpe0ROS+g8IyT7nZiZXJ1v/Vz9TZU06z6MgoSrBwZfe9NrKjzsLr+QHTwEjAPG
+	lBlpr6Z0OxOwhxFs9OODYz5C6VHtNZteLdIX4TB5mikeUEYaPv7jZ3vq++kO5xp2W90OexL+8++
+	xcAufdrbX2WGAOAozA7/RleKHGapXLO9cEVF/1VLn2Q==
+X-Received: by 2002:a17:90b:39cc:b0:39d:b769:3067 with SMTP id 98e67ed59e1d1-39debdffe17mr2617499a91.0.1789364779237;
+        Sun, 13 Sep 2026 22:46:19 -0700 (PDT)
+X-Received: by 2002:a17:90b:39cc:b0:39d:b769:3067 with SMTP id 98e67ed59e1d1-39debdffe17mr2617413a91.0.1789364778584;
+        Sun, 13 Sep 2026 22:46:18 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d8aa131sm5474141a91.2.2026.09.13.22.46.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 22:46:17 -0700 (PDT)
+Message-ID: <54ac0609-f111-45fb-9c82-3095ddbed006@redhat.com>
+Date: Mon, 14 Sep 2026 15:46:06 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH0PR12MB7888:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66186b10-8e81-4404-6ec5-08df12237601
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10070799003|3023799007|10067099003|5023799004|56012099006|4143699003|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	I35KBD20rkgIYSmuKRfwojq15P0HqfsDBLyoanHb1Caxc8Zrr1Cobmp4xDg9yQmHRm2926c8rgGIxjdfi42HhrkNSgAdGlbrhIamUaamUtNAH42vred9V+l71hx3L5SSvoOSI/95qonsy14FT0hS545cKO8JZv00vffAJofZBtvaSrVPBKY0G/liEBjZVUeEx7ntkjNtMDG9IyV7HqQPshaEWO8NCwx8WHE2fOkNQwFobaJXEKpS2wJMuw9+0iumjIgtlRYF0c+DsCrPKQFsTWzI7PSnuGlF95NPf3H2A9FzLKDGJ1kDH4JYLdIBBWMJyPGINC0JH6gH9kk3x4BCj+FK6f/KvW98eEFdV0qrqVBN8WUTZCryBxIi0ZJTIts8Ygp2MzL15uE9PffZlpFwf4Uohy7ZkukZ+iZYxvnFmNgpVBbTchkueawZi+1cNrtOLcLd6io9Ry/2BOzM8Xq77QcotmGOS8IKC9xCo9L5opT+SaZlMJfj7YjpgOvaOpqkWuxmMzQ6gT1mdNTG7SD9GBn/JGPSIZDY8y+pS2leElkXPgePIincqqAD+uo/HQnML+nHcYO94CPvXeBQfJgr3WtAiBt2iDfSIEJp9b6MT9c092h9n0ak4v3PhKsWSAXkklIAmmG8a58IiNi8hzcLo/JV9QW1Z1TvM9zG/tXoBGM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10070799003)(3023799007)(10067099003)(5023799004)(56012099006)(4143699003)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eWhmK2IvV0J2YTY5MDJxdHNQZ0V3c1l5WXUvUWUrd0ZldFBEVWEvaXk2Tnp4?=
- =?utf-8?B?bU5ROTQxd3VRQWgyR0EyUFU3VUFnc280UnBDa2ZtU3JlS1lPQVJMaURWbDNY?=
- =?utf-8?B?Z2hSQkFTZkU5cTEzWVdXb2hvdG5VcVJJVXBHSlB0VGxqUFQ2c3ptSFcxajZj?=
- =?utf-8?B?VlRWRVFxNUh1dWtvVHcyNTl4d0lMdW9Mb0RhL1NKYWcwUjM4MWtEYkRsbExD?=
- =?utf-8?B?eG14T2hCZGNBNFlab3Y3U24vY2kyaVpQeVJnZmg3VHNCZUZOL1Z3b3MxNm4y?=
- =?utf-8?B?UjRvOW1UeWVTWlUwWlp1WElZZGRyaFpWZGtvaWdIVEIrcXhXaENRV2lKc2Ni?=
- =?utf-8?B?bE51NHRQNllYRDdWUHBTcGV5MHNmanNGZGhhSFJwd1JPVnRFazI4YTBKVzNB?=
- =?utf-8?B?bnVCNE5yb2t5MGJTNy9Za1VoT0hTT3FaRy9ZMWhlV2NNRVA2d0M2K2k5bkxk?=
- =?utf-8?B?ZUZtMDNzZVJDMmxSMW93Ym1yeURUQ1pZOU84V3F4NTJaaFlYckxaSG91TWwz?=
- =?utf-8?B?b3cvZVZMOWRWcTBvMzAzeVQ1Z3h1S1ZTWEMza1BGZ2k5NXFPc2RZV0EwWHJC?=
- =?utf-8?B?MXk4Mnl6eFYzZ0FxNnh4VWRIajVTdEVMcnAzeFJUWHQzQjJvTkxhUUZpMDdP?=
- =?utf-8?B?S2srTWFVSENaNno5emJnbnRMZ3NMa1dPRnQ2b3JYcFYrYmlGQUJ6dFBLeU1y?=
- =?utf-8?B?ZGJzTW5SNytQQjl4K1VqTDJ5UXgyV0tEeXovVml0cWtDc3l2S3FQbHl3alBK?=
- =?utf-8?B?TVhUL2lrSHVNY0owOVZ1YlorcEM2aGJXRjdDUzJIdXpNeVA2MnpiWm03aGND?=
- =?utf-8?B?RmFHZllDSmdDVDBLakZsOTJPY1RSMklPL2Fvd0VnU0U2ZmhFSHI5L1VOQ251?=
- =?utf-8?B?YXI0TEUvYWZJVEpSanlQM1hVY0FvQjZyTjBHaG9MemJWTkg1bHE2S0tRNTJz?=
- =?utf-8?B?MjhvT0JYUTBjamZVYm8yVmlJQm9DdnJEY3JHQkpYT2NqdWtBY1YzemUrYTEr?=
- =?utf-8?B?RTRqSmdxRGRGa2JxS0VhdjRadmNvS2FPT01Fc1QzVStSWllYRi9jNkVFYi9V?=
- =?utf-8?B?MWdjN3BlWC8wUG9FR085QjcvOWtxUzVzQUM5RGVMRUNreTUwU2dFWFNxOE93?=
- =?utf-8?B?bDNoTWZzSTF2bXhydXlkT3Y3SVhuQk1mNjhyYk95T1lWeUF2ZU1TQzZTNzZV?=
- =?utf-8?B?SEtIOC9IQVhyN05mYlcvcE5BWG5vT2JvbTEzREhJZWp3UGQ2RHZlSkpMNklW?=
- =?utf-8?B?aS9EYWF3V3BPTHVvNlRhRzBKQ1hGV09oNzBWVlFYU0dlTGZ3Tk1DZHdrcFEz?=
- =?utf-8?B?ZlJudGxvQzVnV245dWlBT01wVWxsVG10eHRIMVR0ZmJsUlhhaU13UWJuWkp2?=
- =?utf-8?B?VjgvSFNtNThyN3FzdWRIanFhb2t4WFY5bS9EUHZxQW1WR3ZUanhUR21pNXVB?=
- =?utf-8?B?bEZvYzdaR1IyYi9iY2FTd3BBOFFzdTlLUUp1OERxcVBOVzZjRGNJY1FnMlV4?=
- =?utf-8?B?cVl5amtnckpPZzZRdm9HYm90bG0yS1hzVy9EUHYrQWVHSEc4eWxqUnhZZ2xk?=
- =?utf-8?B?ajIyWi81K0pXSllweVF6QldJcG1SSzU4ckF1ZFZ1cHR0WjBoUjdqU2NSK1J2?=
- =?utf-8?B?T2FFVXVuUW5tNDhvZmpSU0VXb0VGMEQxeVQycUJHNzkwSDF6Zk1JM1kzVjVq?=
- =?utf-8?B?UFJLYlJFWHIyYnZ6NDREMUc0bCtHQUlSdG5BdjFtbk9ZMWpCbzZDc0VsaVdu?=
- =?utf-8?B?NHIyQmxycWpyMUN3UFFKRWh3RFpoTWdWcFFvdU5xT2ZSa3lBV3dFaDU1VDgw?=
- =?utf-8?B?bzlOcjU1ZU13SS9pQVVTY1NFeGM2RGtySXoxNzhLMVNmbmxtc3FQMmRMN2Nx?=
- =?utf-8?B?WkM5OUYxWjh3MllDUFZGNWV3Sm9lbHdFYTJvdDNBeHR0SjRwVDE5MUhyT1px?=
- =?utf-8?B?SmcyL3NZVHFibmRwblA5aTRUd3E0NU56OUhDSUt3Ly96VzMwZFFXQitIdit0?=
- =?utf-8?B?enR6bHEzZ0JaWlRuY2hFcEZLaE1PNFc5SzBuZnhxd0RVaU1QOEVnTURYVGgz?=
- =?utf-8?B?Ulc3OEdxek40a2sydFpZQnNGaFA1ZEc2QUhIejZlbFdJT1R4eHZjbTV5UU1z?=
- =?utf-8?B?YzRFVjZIbXhLOGlkTVFlclRQa2Y0M096d2VKYllodE8vS2o5VSszdE4za3N3?=
- =?utf-8?B?aGFvR3k5bEJmYnJ1b0k3Ui94bjhBdkZ5RURJOU8yNCszdklHN1o0MWZKT0Fr?=
- =?utf-8?B?U0FuTElrblY0UGxyekI5Mmc3ckI5OXNlYzhsYmdtZ05kOTJoWEJhenMvSC9i?=
- =?utf-8?B?a1EyYTVMT3F3ME95cjl3U2ZwV0I0dTMxUkg4WlAyRFB6S2FsVVE2UU5DL080?=
- =?utf-8?Q?4PvYzLj16KYYYds4xPbjuj5KpF0RoiATxf5djInsqkLjh?=
-X-MS-Exchange-AntiSpam-MessageData-1: X5QcSaGiptIAGA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66186b10-8e81-4404-6ec5-08df12237601
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 05:46:02.4026
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uWlp+J2OfRf44lJ6N3JGifQfMw/GqfjsKbHeO6tWM4sr8u1heAYWKAVrveACxE0DS+2UoQjB1fCfENoTaXat2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7888
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 7/7] firmware: arm_rmm: Add wrappers for Realm related
+ RMI commands
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-8-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260912083611.2513845-8-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu Sep 10, 2026 at 4:47 PM JST, Alexandre Courbot wrote:
-> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
-> <...>
->> +    /// Decodes every pair into `schema` and returns the result of [`Sc=
-hema::finish`].
->> +    pub(crate) fn decode<'s, S: Schema>(
->> +        &self,
->> +        schema: &'s mut S,
->> +    ) -> Result<impl Init<S::Target, Error> + 's> {
->> +        let mut cursor =3D Cursor::new(self.data);
->> +        while !cursor.is_empty() {
->> +            let op: Op =3D cursor.take_u64()?.into();
->> +
->> +            let key =3D op.key().into();
->> +            let index =3D op.index();
->> +            let op_value: u32 =3D op.value().into();
->> +            match op.opcode()? {
->> +                Opcode::Imm32 =3D> {
->> +                    self.visit(schema, key, index, DecoderValue::Scalar=
-32(op_value))?;
->> +                }
->> +                Opcode::Seq32 =3D> {
->> +                    let values =3D cursor.take_u32s(num::u32_as_usize(o=
-p_value))?;
->> +                    for (i, &value) in values.iter().enumerate() {
->> +                        let key =3D Self::seq_key(key, i)?;
->> +                        self.visit(schema, key, index, DecoderValue::Sc=
-alar32(value))?;
->> +                    }
->> +                }
->> +                Opcode::Seq64 =3D> {
->> +                    let values =3D cursor.take_u64s(num::u32_as_usize(o=
-p_value))?;
->> +                    for (i, &value) in values.iter().enumerate() {
->> +                        let key =3D Self::seq_key(key, i)?;
->> +                        self.visit(schema, key, index, DecoderValue::Sc=
-alar64(value))?;
->> +                    }
->> +                }
->
-> Another thing that could be worth clarifying: are `Seq32`/`Seq64` with a
-> count of `0` valid? Right now they won't trigger a visit or an error,
-> i.e. they will be silently ignored. Whereas arrays of size 0 do trigger
-> a visit (which sounds logical). I'm not saying this is a problem, just
-> wondering if the behavior is consistent with what NVKV specifies in such
-> cases.
+On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> Introduce wrappers for the RMI functions needed for creating and
+> managing realm guests. This will be used by the KVM to manage the
+> Realms
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> Changes since v17:
+>    * Avoid nesting if conditions for output populating RMI calls
+>    * Clean up comments
+>    * Always use arm_smccc_1_2_invoke() for RMI calls.
+> Changes since v16:
+>    * Split into a separate patch and move away from arch/arm64 to
+>      include/linux/.
+>    * Also moved into the firmware_rmm series from the KVM CCA support.
+>      This is done in a hope to reduce the merge conflicts and make
+>      the KVM CCA upstreaming in independent parallel chunks
+> ---
+>   include/linux/arm-rmi-cmds.h | 461 +++++++++++++++++++++++++++++++++++
+>   1 file changed, 461 insertions(+)
+> 
 
-Yes, it's valid to have a sequence of length zero according to the C
-implementation [1]. The semantics are that a sequence of length 0 is
-equivalent to nothing sent.
+One nitpick for rmi_rtt_data_unmap() below. With it addressed:
 
-[1]: https://github.com/NVIDIA/open-gpu-kernel-modules/blob/615.71.09/src/n=
-vidia/src/libraries/nvkv/nvkv.c#L62-L119
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+
+> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+> index 27a0c56944976..fd7ef7e82b246 100644
+> --- a/include/linux/arm-rmi-cmds.h
+> +++ b/include/linux/arm-rmi-cmds.h
+> @@ -76,4 +76,465 @@ long rmi_sro_execute(struct arm_smccc_1_2_regs *regs);
+>   	__ret;								\
+>   })
+>   
+> +/**
+> + * rmi_rtt_data_map_init() - Create a mapping at protected IPA, copying contents
+> + *			     from a given non-secure source granule.
+> + * @rd: PA of the RD
+> + * @data: PA of the target granule mapped in the guest
+> + * @ipa: IPA at which the granule @data will be mapped in the guest
+> + * @src: PA of the source granule with contents
+> + * @flags: RMI_MEASURE_CONTENT if the contents should be measured
+> + *
+> + * Create a mapping from Protected IPA space to conventional memory, copying
+> + * contents from a Non-secure Granule provided by the caller.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_data_map_init(unsigned long rd, unsigned long data,
+> +					 unsigned long ipa, unsigned long src,
+> +					 unsigned long flags)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_DATA_MAP_INIT, rd, data, ipa, src, flags
+> +	};
+> +
+> +	return rmi_sro_execute(&regs);
+> +}
+> +
+> +/**
+> + * rmi_rtt_data_map() - Create mappings in protected IPA range with unknown contents
+> + * @rd: PA of the RD
+> + * @base: Base of the target IPA range
+> + * @top: Top of the target IPA range
+> + * @flags: Flags
+> + * @oaddr: Output address set descriptor
+> + * @out_top: Top address of range which was processed.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_data_map(unsigned long rd,
+> +				    unsigned long base,
+> +				    unsigned long top,
+> +				    unsigned long flags,
+> +				    unsigned long oaddr,
+> +				    unsigned long *out_top)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_DATA_MAP, rd, base, top, flags, oaddr
+> +	};
+> +	long ret;
+> +
+> +	ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret == RMI_SUCCESS && out_top)
+> +		*out_top = regs.a1;
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * rmi_rtt_data_unmap() - Remove mappings to conventional memory at a protected
+> + *			  IPA range
+> + * @rd: PA of the RD
+> + * @base: Base of the target IPA range
+> + * @top: Top of the target IPA range
+> + * @flags: Flags
+> + * @oaddr: Output address set descriptor
+> + * @out_top: Returns top IPA of range which has been unmapped
+> + * @out_range: Output address range
+> + * @out_count: Number of entries in output address list
+> + *
+> + * Removes mappings to convention memory with a target Protected IPA range.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_data_unmap(unsigned long rd,
+> +				      unsigned long base,
+> +				      unsigned long top,
+> +				      unsigned long flags,
+> +				      unsigned long oaddr,
+> +				      unsigned long *out_top,
+> +				      unsigned long *out_range,
+> +				      unsigned long *out_count)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_DATA_UNMAP, rd, base, top, flags, oaddr
+> +	};
+> +	long ret;
+> +
+> +	ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret == RMI_SUCCESS) {
+> +		if (out_top)
+> +			*out_top = regs.a1;
+> +		if (out_range)
+> +			*out_range = regs.a2;
+> +		if (out_count)
+> +			*out_count = regs.a3;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+
+The unnecessary if statements could be avoided by:
+
+	if (ret != RMI_SUCCESS)
+		return ret;
+
+	if (out_top)
+		*out_top = regs.a1;
+	if (out_range)
+		*out_range = regs.a2;
+	if (out_count)
+		*out_count = regs.a3;
+
+	return RMI_SUCCESS;
+
+> +/**
+> + * rmi_psci_complete() - Complete pending PSCI command
+> + * @calling_rec: PA of the calling REC
+> + * @status: Status of the PSCI request
+> + *
+> + * Completes a pending PSCI command.
+> + *
+> + * Return: RMI return code
+> + */
+> +static inline long rmi_psci_complete(unsigned long calling_rec,
+> +				     unsigned long status)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_PSCI_COMPLETE, calling_rec, status,
+> +	};
+> +
+> +	rmi_smccc_invoke(&regs);
+> +	return regs.a0;
+> +}
+> +
+> +/**
+> + * rmi_realm_activate() - Activate a realm
+> + * @rd: PA of the RD
+> + *
+> + * Mark a realm as Active, signalling that creation is completed, allowing
+> + * execution of the realm.
+> + *
+> + * Return: RMI return code
+> + */
+> +static inline long rmi_realm_activate(unsigned long rd)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_REALM_ACTIVATE, rd,
+> +	};
+> +
+> +	rmi_smccc_invoke(&regs);
+> +	return regs.a0;
+> +}
+> +
+> +/**
+> + * rmi_realm_create() - Create a realm
+> + * @rd: PA of the RD
+> + * @params: PA of realm parameters
+> + * @sro: Preallocated SRO context
+> + *
+> + * Create a new realm using the given parameters.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_realm_create(unsigned long rd, unsigned long params,
+> +				    struct rmi_sro_state *sro)
+> +{
+> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL,
+> +				   SMC_RMI_REALM_CREATE, rd, params);
+> +}
+> +
+> +/**
+> + * rmi_realm_terminate() - Terminate a realm
+> + * @rd: PA of the RD
+> + * @sro: Preallocated SRO context
+> + *
+> + * Terminates a realm, moving it into a ZOMBIE state
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_realm_terminate(unsigned long rd,
+> +				       struct rmi_sro_state *sro)
+> +{
+> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL,
+> +				   SMC_RMI_REALM_TERMINATE, rd);
+> +}
+> +
+> +/**
+> + * rmi_realm_destroy() - Destroy a realm
+> + * @rd: PA of the RD
+> + * @sro: Preallocated SRO context
+> + *
+> + * Destroys a realm, all objects belonging to the realm must be destroyed first.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_realm_destroy(unsigned long rd,
+> +				     struct rmi_sro_state *sro)
+> +{
+> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL,
+> +				   SMC_RMI_REALM_DESTROY, rd);
+> +}
+> +
+> +/**
+> + * rmi_rec_create() - Create a REC
+> + * @rd: PA of the RD
+> + * @rec: PA of the target REC
+> + * @params: PA of REC parameters
+> + * @sro: Allocated SRO context to be used
+> + *
+> + * Create a REC using the parameters specified in the struct rec_params pointed
+> + * to by @params.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rec_create(unsigned long rd,
+> +				  unsigned long rec,
+> +				  unsigned long params,
+> +				  struct rmi_sro_state *sro)
+> +{
+> +	long ret;
+> +
+> +	sro->addr_count = 0;
+> +	sro->regs = (struct arm_smccc_1_2_regs) {
+> +		SMC_RMI_REC_CREATE, rd, rec, params
+> +	};
+> +	ret = rmi_sro_memxfer_execute(sro, GFP_KERNEL);
+> +	rmi_sro_free(sro);
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * rmi_rec_destroy() - Destroy a REC
+> + * @rec: PA of the target REC
+> + * @sro: Allocated SRO context to be used
+> + *
+> + * Destroys a REC. The REC must not be running.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rec_destroy(unsigned long rec,
+> +				   struct rmi_sro_state *sro)
+> +{
+> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_REC_DESTROY, rec);
+> +}
+> +
+> +/**
+> + * rmi_rec_enter() - Enter a REC
+> + * @rec: PA of the target REC
+> + * @run_ptr: PA of RecRun structure
+> + *
+> + * Starts (or continues) execution within a REC.
+> + *
+> + * Return: RMI return code
+> + */
+> +static inline long rmi_rec_enter(unsigned long rec, unsigned long run_ptr)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_REC_ENTER, rec, run_ptr,
+> +	};
+> +
+> +	rmi_smccc_invoke(&regs);
+> +	return regs.a0;
+> +}
+> +
+> +/**
+> + * rmi_rtt_create() - Creates an RTT
+> + * @rd: PA of the RD
+> + * @rtt: PA of the target RTT
+> + * @ipa: Base of the IPA range described by the RTT
+> + * @level: Depth of the RTT within the tree
+> + *
+> + * Creates an RTT (Realm Translation Table) at the specified level for the
+> + * translation of the specified address within the realm.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_create(unsigned long rd, unsigned long rtt,
+> +				  unsigned long ipa, long level)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_CREATE, rd, rtt, ipa, level
+> +	};
+> +
+> +	return rmi_sro_execute(&regs);
+> +}
+> +
+> +/**
+> + * rmi_rtt_destroy() - Destroy an RTT
+> + * @rd: PA of the RD
+> + * @ipa: Base of the IPA range described by the RTT
+> + * @level: RTT level
+> + * @out_rtt: Pointer to write the PA of the RTT which was destroyed
+> + * @out_top: Pointer to write the top IPA of non-live RTT entries, from entry
+> + * at which the RTT walk terminated.
+> + *
+> + * Destroys an RTT. The RTT must be non-live, i.e. none of the entries in the
+> + * table are in ASSIGNED or TABLE state.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code.
+> + */
+> +static inline long rmi_rtt_destroy(unsigned long rd,
+> +				   unsigned long ipa,
+> +				   long level,
+> +				   unsigned long *out_rtt,
+> +				   unsigned long *out_top)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_DESTROY, rd, ipa, level
+> +	};
+> +	long ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret != RMI_SUCCESS)
+> +		return ret;
+> +
+> +	if (out_rtt)
+> +		*out_rtt = regs.a1;
+> +	if (out_top)
+> +		*out_top = regs.a2;
+> +
+> +	return RMI_SUCCESS;
+> +}
+> +
+> +/**
+> + * rmi_rtt_fold() - Fold an RTT
+> + * @rd: PA of the RD
+> + * @ipa: Base of the IPA range described by the RTT
+> + * @level: Depth of the RTT within the tree
+> + * @out_rtt: Pointer to write the PA of the RTT which was destroyed
+> + *
+> + * Folds an RTT. If all entries with the RTT are 'homogeneous' the RTT can be
+> + * folded into the parent and the RTT destroyed.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_fold(unsigned long rd, unsigned long ipa,
+> +				long level, unsigned long *out_rtt)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_FOLD, rd, ipa, level
+> +	};
+> +	long ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret == RMI_SUCCESS && out_rtt)
+> +		*out_rtt = regs.a1;
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * rmi_rtt_init_ripas() - Set RIPAS for new realm
+> + * @rd: PA of the RD
+> + * @base: Base of target IPA region
+> + * @top: Top of target IPA region
+> + * @out_top: Top IPA of range whose RIPAS was modified
+> + *
+> + * Sets the RIPAS of a target IPA range to RAM, for a realm in the NEW state.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_init_ripas(unsigned long rd, unsigned long base,
+> +				      unsigned long top, unsigned long *out_top)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_INIT_RIPAS, rd, base, top
+> +	};
+> +	long ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret == RMI_SUCCESS && out_top)
+> +		*out_top = regs.a1;
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * rmi_rtt_unprot_map() - Map unprotected granules into a realm
+> + * @rd: PA of the RD
+> + * @base: Base IPA of the mapping
+> + * @top: Top of the target IPA range
+> + * @flags: Flags
+> + * @oaddr: Output address set descriptor
+> + * @out_top: Top IPA of range which has been mapped
+> + *
+> + * Create mappings to memory within a target unprotected IPA range.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_unprot_map(unsigned long rd,
+> +				      unsigned long base,
+> +				      unsigned long top,
+> +				      unsigned long flags,
+> +				      unsigned long oaddr,
+> +				      unsigned long *out_top)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_UNPROT_MAP, rd, base, top, flags, oaddr
+> +	};
+> +	long ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret == RMI_SUCCESS && out_top)
+> +		*out_top = regs.a1;
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * rmi_rtt_set_ripas() - Set RIPAS for an running realm
+> + * @rd: PA of the RD
+> + * @rec: PA of the REC making the request
+> + * @base: Base of target IPA region
+> + * @top: Top of target IPA region
+> + * @out_top: Pointer to write top IPA of range whose RIPAS was modified
+> + *
+> + * Completes a request made by the realm to change the RIPAS of a target IPA
+> + * range.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_set_ripas(unsigned long rd, unsigned long rec,
+> +				     unsigned long base, unsigned long top,
+> +				     unsigned long *out_top)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_SET_RIPAS, rd, rec, base, top
+> +	};
+> +	long ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret == RMI_SUCCESS && out_top)
+> +		*out_top = regs.a1;
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * rmi_rtt_unprot_unmap() - Remove mappings within an unprotected IPA range
+> + * @rd: PA of the RD
+> + * @base: Base IPA of the mapping
+> + * @top: Top of the target IPA range
+> + * @flags: Flags
+> + * @oaddr: Output address set descriptor
+> + * @out_top: Top IPA which has been unmapped
+> + * @out_range: Output address range
+> + * @out_count: Number of entries in output address list
+> + *
+> + * Removes mappings to memory within a target unprotected IPA range.
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rtt_unprot_unmap(unsigned long rd,
+> +					unsigned long base,
+> +					unsigned long top,
+> +					unsigned long flags,
+> +					unsigned long oaddr,
+> +					unsigned long *out_top,
+> +					unsigned long *out_range,
+> +					unsigned long *out_count)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_RTT_UNPROT_UNMAP, rd, base, top, flags, oaddr
+> +	};
+> +	long ret = rmi_sro_execute(&regs);
+> +
+> +	if (ret != RMI_SUCCESS)
+> +		return ret;
+> +
+> +	if (out_top)
+> +		*out_top = regs.a1;
+> +	if (out_range)
+> +		*out_range = regs.a2;
+> +	if (out_count)
+> +		*out_count = regs.a3;
+> +
+> +	return RMI_SUCCESS;
+> +}
+> +
+>   #endif
+
+Thanks,
+Gavin
+
