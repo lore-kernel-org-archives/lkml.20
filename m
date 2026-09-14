@@ -1,275 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AF842F6F8
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CEE432BE4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789381202; cv=none; b=GFkme9fuHkuYQMoVAsQK/utCVUNgZkRiwidCUgY+j3xSU/qzm3hpFPx3jiVM7w1WGDSF2vdc4E7IrRdTQZ1zKD4PZg377wUhCcw+0OqrHD9hMkV/49laWURzQ2p5yi311jSOi2aodT2Wc/C4NVTqCUj7UN3GzD8n3Ck7vp2WOyQ=
+	t=1789381289; cv=none; b=s7YlKJoV3VOeTA/qjqyih5CZjzvT94bIMHrbvBRAlre2Wj3n+XP6Ucuh868jLqaHoxORyTsQdf6CYlT1KjnqL60Out0rf1lWcQ/he3OZQktfaYh/KISQKx3r97hj1Zihx4ciA5shYib3GWzOf40r3mEWb+KwChtPByxPo9XEpyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789381202; c=relaxed/simple;
-	bh=s1e/ociTMdVHbodmHGbhf8inhat519yZqvJY0OKPe8I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cCPlgG+mtVBTtkYAZ+EkkzwB9QuS8cVqksgXTdP16VjkPoQDomEpBV3inMDR7tlVGyGKVKcZjQ4KqM1SBQUmpjzoP9Nl/LTiet8tVxGTiqo/9knIyqmf52eMfXN7qN4hKec03JUycTj8mf68VyvnU2LAiAvEEAsXvqgO9dxteRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvuH/rMn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789381289; c=relaxed/simple;
+	bh=VXpebVg7Nldh5Ep1tWZVhxBQDrVdUqDA7c+yyDSAqpg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DCtHSDy/uakQR+jVziFevZL1vRTZ1zagz16k2eYBKXOO17fsG6sl01CzU+J9UqA2MbDHfL303PT5a79/ZPwLDPnQpdpav8RZGQ4RHxW5w7vMzVxkuO3qn5ooWNqMzUjVuJ+NdchB+i3+2dRq21cpOuMiBfF0lcwzEwCBJU7hfdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eo+o13Ft; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvuH/rMn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12DB11F00893
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789381200;
-	bh=w4e/SHlDd98D9BE8dWRPoAwVK/lCQ3ruuHyE9FBfpjE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lvuH/rMnftdqPCCblgZ9w8GJvrhbvk3kRlhXnAXrc+KA8P57DmNuTKK/AC9+yNKBn
-	 n7oWGpoEWJsnxJ2WnC/RP99X6QntnnoFQvC9Q511d8OWFuTkc+a3mlUf5qLh2SIlVC
-	 G/bdMtmtbuHB5MCxGXzVZDQOK0kjTYRZGlh7tPvb69a/odAC3WClrgnnPVQM4jX4uE
-	 7FTgGd9RwWoL2T2zCZVcQkemtDKarGXlouJazGmipLrRMzrD9LC3GTvFz3HgEyUu8L
-	 4YyN8aW3wi2KnB3rrvmGyX2yo/AJDm2TmEE3+Fx3FDN+L1vI8+NA5F0SGRB61VriZ5
-	 dIOekFh8v5VCQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f13so1727565e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:19:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzvJ4F7t8vxbirrTGlFI7w449VsxEr8co2wk7KsKWCKNHUXTpC8VeuRbIYLk7NJ6RAwDLsMBZpgpXtkkVo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqNct+Q5iULVLKSab774U8tZsyJMpMOOpipvNRvXBzR6gMNfTk
-	YbeCF3Od1EWEB1hFAhOntevdYvdpBHHV5o6gUhigqOSK96SUPO30APJLVSUxGg2H223DNnQ3eS8
-	5+dwm6+M+PmS0cbhsNNBqdOjw4B8/as4=
-X-Received: by 2002:a05:6512:1153:b0:5b8:9ee1:10fd with SMTP id
- 2adb3069b0e04-5b8ae8a9343mr1043238e87.32.1789381198380; Mon, 14 Sep 2026
- 03:19:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eo+o13Ft"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2940d16190so431653066b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:21:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789381286; x=1789986086; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OO5pmXKOT9/i4mss78wiYzQWJEasfIGqq/r4oOGiH8I=;
+        b=eo+o13Ftq46zYl7f+RMlklZfmmBTSocZOeRafSTzap0NlBAVAZ8ASy2yf/Q4Ec8r4F
+         cjcXtsqUSX9t1Oa1HUXi9u5QArWhyqg3aWRQS0CHtKzC0gqVcJI4iBSAqziFQGjTS4y9
+         7Rwj0cjcbhOmAnhMb4ChhORR+KqFZ5kwmlZ5oAs5j/0hAmhTwUYe17WoICasZQcB2yYX
+         enWYAq+DQUtgh/8l3zlzWSnvt+ZHXMuxuxlk+mq9/G5dltsCsr+i04OpDB5iTzVLlaJZ
+         tLsM1/rRtQAn8fyDoPf5ruIrKZ4FvazCVoVFcgZLy5gZfdGo5ME8T8DSmp5EQcqwrF8M
+         XTag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789381286; x=1789986086;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OO5pmXKOT9/i4mss78wiYzQWJEasfIGqq/r4oOGiH8I=;
+        b=pEB4LcW9bA84P9kezIN7gXatohFokyRrhlm0B2JNJ9HvL6MUnVrlBiUp43ZB/9QWaP
+         dBAPEAsYc/zpS7aVH/O8R5KDJBu+Z/d4DVf0N981290QdFVS0D+TUp8fF9ZuJ77pQndr
+         VHdhRnpNQqZPHtorYOgsnX0cT+tygw0kKNxkdbTzbfkJ4zTAhDVppCAZ9iNRO4PtMNK2
+         2w+kkmb704/eDRf+nKPSeM1h7P6z34kJYKaTzKq1wGL+yUuxwZUo07hzmhFbuNi6tpjS
+         T+OH0E1ayL6La4D7kbxfKiqZcSTL7oywUUwEvcYU1UctSv+cZQChaN1X7kqNF/L7tddb
+         xh3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxE5EdtyO8iDdPOIml7Xq4pYz9bPuwhQ78Hzvu+J6olMX3sqEpKTSuey9Io3HJX7R1n1WkF8Frk5SxWFAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLU5YiqWRu7aD4Epneo8VeNKEmHi+C2SSRVR1su4p1FvNYIhph
+	Huht7MXXg3jDsWuQt6sERV8VzheyieGdtX7HygOkXJnswxquRGQrJrulLMXzoPbjYrP7xIXjyvV
+	wQLvdfXE=
+X-Gm-Gg: AYBFou0FQSb6yTpotdljMVq4AGa/7H/+hCEvX3VlMDRRibnJ8tplRWxUgY7AGu6YvEj
+	omRgNrPQDEw+fl4P9OHld/i7J2IdXFhl2n+I8kTQkNZ7iGvp/k8UCyxZAk4TQfVOwyGAhybnBVm
+	ztfFJz33P6O85SqS7PRkDZfSA+4o2qAALBVRx5TOflXuxnF1xckeYevwL5VY9wVtuhs1G/Dejm9
+	RIgmusvAZI123b4dT9AJyDUykGKFoCOHhdsCX8zCZW6IOSDa+7zQJ3IqnEyLrFpT3RgatP6YqZu
+	4N+U//xbBBTTuo+1LzefykIP+ITvGLQ0iMHtIfS9Y72M2OLMxdT8f8PImMA/q9UfERSivEVnuqy
+	zRwcKDn+rRXMWMZpbHUSk06NqPpXMR5fXdMhe8xxoJlAmzaclsmpeHhRG+Rxoe3dVZ+yLDtir1D
+	1EGF+vJXbDM6rFV+xUNUbhQGJgGq2Q7A9KhRE99hPtYuJF/lCVQ7o67yyIyFQTD7c=
+X-Received: by 2002:a17:906:eec8:b0:c26:19e3:e981 with SMTP id a640c23a62f3a-c29b875e5b6mr121146566b.33.1789381285743;
+        Mon, 14 Sep 2026 03:21:25 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9959ac65sm19856927a91.16.2026.09.14.03.21.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 03:21:24 -0700 (PDT)
+Message-ID: <3f3209ea-44bf-4dc4-9567-d936703435d2@suse.com>
+Date: Mon, 14 Sep 2026 19:51:16 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki> <8729484.T7Z3S40VBb@rafael.j.wysocki>
- <7ef819c3-5155-48fb-828a-48d9bd72e54b@gmx.de>
-In-Reply-To: <7ef819c3-5155-48fb-828a-48d9bd72e54b@gmx.de>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 14 Sep 2026 12:18:38 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0icBLqUiU4ZF=iY6TB92syM_c7xGBJ7Ag7DGt+f7THHRA@mail.gmail.com>
-X-Gm-Features: AcwNN1XkyKQvZYUoFYUG8vIqH7KV6lfSfcLng61fglctFWAGn98xXh1evhvoXMY
-Message-ID: <CAJZ5v0icBLqUiU4ZF=iY6TB92syM_c7xGBJ7Ag7DGt+f7THHRA@mail.gmail.com>
-Subject: Re: [PATCH v1 03/10] thermal: core: Introduce thermal_cooling_device_create()
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
-	Lukasz Luba <lukasz.luba@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] btrfs: discard: fix warning for discard_state
+To: Jiahao Li <lijiahao202609@163.com>, dsterba@suse.com, mason@kernel.org
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jiahao Li <lijiahao1@kylinos.cn>
+References: <20260914092222.1465563-1-lijiahao202609@163.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20260914092222.1465563-1-lijiahao202609@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 11:04=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
->
-> Am 11.09.26 um 15:02 schrieb Rafael J. Wysocki:
->
-> > From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-> >
-> > Currently, thermal cooling devices have no parents, but it would be
-> > generally useful to be able to create them under specific parents in
-> > the device hierarchy (for instance, it may help to identify the device
-> > representing the actual cooling hardware).
-> >
-> > To make that possible, add thermal_cooling_device_create() that will
-> > work like thermal_cooling_device_register() except that it will take
-> > an additional parent argument (which may be NULL).
-> >
-> > Redefine thermal_cooling_device_register() as a static inline wrapper
-> > around thermal_cooling_device_create().
->
-> Hi,
->
-> i like your idea with the new registration function, this gives us more t=
-ime
-> for migrating the other drivers. Should we mark the original function as
-> deprecated?
 
-Well, it's not a big deal if somebody uses it in new code IMV.
 
-> For the patch itself:
->
-> Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+在 2026/9/14 18:52, Jiahao Li 写道:
+> From: Jiahao Li <lijiahao1@kylinos.cn>
+> 
+> Building with -Werror=mabe-uninitialized fails:
+> fs/btrfs/discard.c:553:9: error: 'discard_state' may be used
+> uninitialized [-Werror=maybe-uninitialized]
+> 
+> The compiler cannot prove that discard_state is assigned on every path
+> before it is read.
 
-Thank you (and thanks for all the reviews)!
+Compiler and its version, a lot of times such false alerts are just 
+compiler version dependent.
 
-> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > ---
-> >   drivers/thermal/thermal_core.c | 28 ++++++++++++++++------------
-> >   drivers/thermal/thermal_core.h |  3 ++-
-> >   drivers/thermal/thermal_of.c   |  2 +-
-> >   include/linux/thermal.h        | 19 ++++++++++++++-----
-> >   4 files changed, 33 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/drivers/thermal/thermal_core.c b/drivers/thermal/thermal_c=
-ore.c
-> > index 82e2f0d8a26d..ac928c199829 100644
-> > --- a/drivers/thermal/thermal_core.c
-> > +++ b/drivers/thermal/thermal_core.c
-> > @@ -1005,7 +1005,8 @@ thermal_cooling_device_alloc(const char *type, co=
-nst struct thermal_cooling_devi
-> >       return ERR_PTR(ret);
-> >   }
-> >
-> > -int thermal_cooling_device_add(struct thermal_cooling_device *cdev, vo=
-id *devdata)
-> > +int thermal_cooling_device_add(struct thermal_cooling_device *cdev,
-> > +                            struct device *parent, void *devdata)
-> >   {
-> >       unsigned long current_state;
-> >       int ret;
-> > @@ -1013,6 +1014,7 @@ int thermal_cooling_device_add(struct thermal_coo=
-ling_device *cdev, void *devdat
-> >       mutex_init(&cdev->lock);
-> >       INIT_LIST_HEAD(&cdev->thermal_instances);
-> >       cdev->updated =3D false;
-> > +     cdev->device.parent =3D parent;
-> >       cdev->device.class =3D &thermal_class;
-> >       cdev->device.release =3D thermal_cdev_release;
-> >       device_initialize(&cdev->device);
-> > @@ -1062,21 +1064,23 @@ int thermal_cooling_device_add(struct thermal_c=
-ooling_device *cdev, void *devdat
-> >   }
-> >
-> >   /**
-> > - * thermal_cooling_device_register() - register a new thermal cooling =
-device
-> > + * thermal_cooling_device_create() - register a new thermal cooling de=
-vice
-> > + * @parent:  parent device (optional).
-> >    * @type:   the thermal cooling device type.
-> >    * @devdata:        device private data.
-> >    * @ops:    standard thermal cooling devices callbacks.
-> >    *
-> > - * This interface function adds a new thermal cooling device (fan/proc=
-essor/...)
-> > - * to /sys/class/thermal/ folder as cooling_device[0-*]. It tries to b=
-ind itself
-> > - * to all the thermal zone devices registered at the same time.
-> > + * Allocate and register a new thermal cooling device under the given =
-parent (if
-> > + * not NULL) and with the given type, device data, and operations.  Du=
-ring the
-> > + * registration, it will be matched against all of the registered ther=
-mal zones
-> > + * and it will be bound to the matching ones.
-> >    *
-> > - * Return: a pointer to the created struct thermal_cooling_device or a=
-n
-> > - * ERR_PTR. Caller must check return value with IS_ERR*() helpers.
-> > + * Return: A pointer to the created struct thermal_cooling_device or a=
-n ERR_PTR.
-> > + * Callers must use IS_ERR*() helpers to check the return value.
-> >    */
-> > -struct thermal_cooling_device *
-> > -thermal_cooling_device_register(const char *type, void *devdata,
-> > -                             const struct thermal_cooling_device_ops *=
-ops)
-> > +struct thermal_cooling_device *thermal_cooling_device_create(
-> > +                     struct device *parent, const char *type, void *de=
-vdata,
-> > +                     const struct thermal_cooling_device_ops *ops)
-> >   {
-> >       struct thermal_cooling_device *cdev;
-> >       int ret;
-> > @@ -1085,13 +1089,13 @@ thermal_cooling_device_register(const char *typ=
-e, void *devdata,
-> >       if (IS_ERR(cdev))
-> >               return cdev;
-> >
-> > -     ret =3D thermal_cooling_device_add(cdev, devdata);
-> > +     ret =3D thermal_cooling_device_add(cdev, parent, devdata);
-> >       if (ret)
-> >               return ERR_PTR(ret);
-> >
-> >       return cdev;
-> >   }
-> > -EXPORT_SYMBOL_GPL(thermal_cooling_device_register);
-> > +EXPORT_SYMBOL_GPL(thermal_cooling_device_create);
-> >
-> >   static void thermal_cooling_device_release(void *data)
-> >   {
-> > diff --git a/drivers/thermal/thermal_core.h b/drivers/thermal/thermal_c=
-ore.h
-> > index e98b0aa5aacc..7ef7c6cab437 100644
-> > --- a/drivers/thermal/thermal_core.h
-> > +++ b/drivers/thermal/thermal_core.h
-> > @@ -270,7 +270,8 @@ void thermal_governor_update_tz(struct thermal_zone=
-_device *tz,
-> >   struct thermal_cooling_device *
-> >   thermal_cooling_device_alloc(const char *type, const struct thermal_c=
-ooling_device_ops *ops);
-> >
-> > -int thermal_cooling_device_add(struct thermal_cooling_device *cdev, vo=
-id *devdata);
-> > +int thermal_cooling_device_add(struct thermal_cooling_device *cdev,
-> > +                            struct device *parent, void *devdata);
-> >
-> >   /* Helpers */
-> >   #define for_each_trip_desc(__tz, __td)      \
-> > diff --git a/drivers/thermal/thermal_of.c b/drivers/thermal/thermal_of.=
-c
-> > index 0217a49b08ae..14dfac9359b8 100644
-> > --- a/drivers/thermal/thermal_of.c
-> > +++ b/drivers/thermal/thermal_of.c
-> > @@ -561,7 +561,7 @@ thermal_of_cooling_device_register(struct device_no=
-de *np, u32 cdev_id,
-> >       cdev->np =3D np;
-> >       cdev->cdev_id =3D cdev_id;
-> >
-> > -     ret =3D thermal_cooling_device_add(cdev, devdata);
-> > +     ret =3D thermal_cooling_device_add(cdev, NULL, devdata);
-> >       if (ret)
-> >               return ERR_PTR(ret);
-> >
-> > diff --git a/include/linux/thermal.h b/include/linux/thermal.h
-> > index 083b4f533933..306ad17aed89 100644
-> > --- a/include/linux/thermal.h
-> > +++ b/include/linux/thermal.h
-> > @@ -293,8 +293,9 @@ struct device *thermal_zone_device(struct thermal_z=
-one_device *tzd);
-> >   void thermal_zone_device_update(struct thermal_zone_device *,
-> >                               enum thermal_notify_event);
-> >
-> > -struct thermal_cooling_device *thermal_cooling_device_register(const c=
-har *,
-> > -             void *, const struct thermal_cooling_device_ops *);
-> > +struct thermal_cooling_device *thermal_cooling_device_create(
-> > +                     struct device *parent, const char *type, void *de=
-vdata,
-> > +                     const struct thermal_cooling_device_ops *ops);
-> >
-> >   struct thermal_cooling_device *
-> >   devm_thermal_cooling_device_register(struct device *dev, const char *=
-type, void *devdata,
-> > @@ -340,9 +341,9 @@ static inline void thermal_zone_device_update(struc=
-t thermal_zone_device *tz,
-> >                                             enum thermal_notify_event e=
-vent)
-> >   { }
-> >
-> > -static inline struct thermal_cooling_device *
-> > -thermal_cooling_device_register(const char *type, void *devdata,
-> > -     const struct thermal_cooling_device_ops *ops)
-> > +static inline struct thermal_cooling_device *thermal_cooling_device_cr=
-eate(
-> > +                     struct device *parent, const char *type, void *de=
-vdata,
-> > +                     const struct thermal_cooling_device_ops *ops)
-> >   { return ERR_PTR(-ENODEV); }
-> >
-> >   static inline struct thermal_cooling_device *
-> > @@ -391,4 +392,12 @@ static inline void thermal_pm_prepare(void) {}
-> >   static inline void thermal_pm_complete(void) {}
-> >   #endif /* CONFIG_THERMAL */
-> >
-> > +static inline struct thermal_cooling_device *thermal_cooling_device_re=
-gister(
-> > +                             const char *type, void *devdata,
-> > +                             const struct thermal_cooling_device_ops *=
-ops)
-> > +{
-> > +     return thermal_cooling_device_create(NULL, type, devdata, ops);
-> > +}
-> > +
-> > +
-> >   #endif /* __THERMAL_H__ */
+In my case, gcc 16.2.1 failed to reproduced this false alert.
+
+  Initialize it to BTRFS_DISCARD_EXTENTS, which is the
+> state the variable holds when the loop is first entered, this does not
+> change runtime behavior, so the warning is gone and the value is always
+> well defined.
+
+It's a false alert.
+
+Firstly if peek_discard_list() didn't find a bg, btrfs_discard_workfn() 
+returned immediately.
+
+Secondly if a bg is found in peek_discard_list(), *discard_state is 
+fetched from bg's discard_state.
+
+So all paths should be fine.
+
+> 
+> Signed-off-by: Jiahao Li <lijiahao1@kylinos.cn>
+> ---
+>   fs/btrfs/discard.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/btrfs/discard.c b/fs/btrfs/discard.c
+> index 1c304bf473e5..413a804ff46b 100644
+> --- a/fs/btrfs/discard.c
+> +++ b/fs/btrfs/discard.c
+> @@ -519,7 +519,7 @@ static void btrfs_discard_workfn(struct work_struct *work)
+>   {
+>   	struct btrfs_discard_ctl *discard_ctl;
+>   	struct btrfs_block_group *block_group;
+> -	enum btrfs_discard_state discard_state;
+> +	enum btrfs_discard_state discard_state = BTRFS_DISCARD_EXTENTS;
+>   	int discard_index = 0;
+>   	u64 trimmed = 0;
+>   	u64 minlen = 0;
+
