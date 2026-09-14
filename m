@@ -1,172 +1,221 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472A944BCA1;
-	Mon, 14 Sep 2026 12:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388783; cv=fail; b=iGFKnkUmFbnhUJz4xO+9sLxTjX8Ykxjx/KhYmkjK0qnigcoBLpOZQcY92VWrDIlF8sY9NUktK0nvL01GOMjaLTRGaJCYobJpbuOtSzGGWkhuVeqj0ABsjDULnYKEnSdHwPa/8VA93zOIdbvPcSc6R+0QkFW3UzLzPQc696HsTeI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388783; c=relaxed/simple;
-	bh=6uYhY2K9gufzHzqXbmZjZlH6VsRhSqUYbVToxSX//cA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iFgyZEQBtyVlkxA53CN/ME85qCXt/Dt7T3CDOCheZb5xcVbJp2W44JCgZLUdspPXvOP8BktNBSZqWm/3DAazoC/YSimF+MJteQUhLmLdWZrTRVwRrBW/yKxCSMwJeUsMI767BvggmqH17mOdUU3nACj4eTUqsayjLxJEc12vs1o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=qLHuAOPx; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=UtgAQBAu; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D247E39EF12;
+	Mon, 14 Sep 2026 12:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789388798; cv=none; b=G0crNDBkRhWXVeaMcIIchLpoM4NMck3xpoLFAMOIX0qkleqO6YnRrnYYevj1AGXZSMJVaKAKnvTQPaFUrieXqLNxfqWPSn9wuXvmUyynTcByHsIvS+7j5s77IC1unwl71gCwuTO2TFkQNjj1LfdWgbQuhn7SdbObsR4/DGXGw94=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789388798; c=relaxed/simple;
+	bh=78T28CfC11xHjAOl1sq7P1//hmjKZwVVx3B8uhlN6B0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c03Podr4zC92BdhoIxxSr/wCaCsR/FhRQFggVwfDjuI9jWxumtaubsXl1eUdfDTkJN7UBTBVnRU8k0svH4vdwq4F6h21nPO4FISAiasGv1pgQ2x6vsKmfl43BA+HUJpmDux9C4PvkriTex9AJ9CP80O7p0gfkPAd6zdXcLAfDrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d93HJtdo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="qLHuAOPx";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="UtgAQBAu"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E4CVG4218593;
-	Mon, 14 Sep 2026 07:26:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=nIHHMwadeNaGcD1a
-	thgdT5JoNIbnnbQp4f8ZQ3mXOJA=; b=qLHuAOPx6d7P19dAO8G5+otti/EVZLro
-	LvVHO5LWo7g/s2ijx5+BYKI0BcMTqJMBeJ/tiQxoLgsgq2IyeCb/6XjdL9R49n/g
-	3FVIcm4AELmBRUHRpeJr0QjpUFc5q9wOdtGM6YdNf1IZUxR02fJ3VfikCDnHswH/
-	5LnFT/7+NC4vbc6hC9BdLvmXw7YXOy0KT4l3feemKRnar/V/AZyE8zwDWIIBo6ZA
-	f0R5D9xE6aY/L8D2+v8ynAG8psYwclcBZVJZKiyvPjMtBrJu7CNzaafoziN5wSio
-	LDammaVLWidgOlgivCeDf8/mx7K2ZsBTwEGP/UiPLRREKdaDGOr9Cw==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11020084.outbound.protection.outlook.com [52.101.85.84])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gn35h9u2w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 07:26:19 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cNHd0Q6ZMO0yEmwnGho6EdmrD7X5lHVMSAoM4oRNgW8tQkh3C2mWKAhF9n/tJspQHshZVR3Khcr45zNWdaROv6I/1p9Quya+1xEnNRQvLfSqXb444LfyE8UznzfR+j5Q/ZvRdTcQ49vnTnoXbNQt2CmzpqsZOKWc6hfGP0POZ1khmNcwC6AiISR8cLPY57+Ue8suigMis8bKZMPgelnnt+9vLSLfW//Prw8np0CLJSwUQ2lw/v7AV6r9uk3FDhPbC68u8PWswdqO49Wu2AXPet9LNSem43F7lPQq7J4U8ddtyPoMwhF/e5fgcWRWz/dSveoAWs/wwgygEVCNGK2E7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nIHHMwadeNaGcD1athgdT5JoNIbnnbQp4f8ZQ3mXOJA=;
- b=MixuAnAU9TVvH5sfc1sf5l3neVVPN0S7DALZOY0WlDgtztC9E4ArGG7meN2Q3WoOI8Ku9a4rO0Whwj+kD8h6SaLJXzyb+x8oxCTGJESEbGf0lImeH/giFCfhmGlSmU/2W5wHBPdEqItpoLA4vXMH1Arx7NhFG4Q0sGcGIkGKgnwBGSZbgf78Ez/gqr9kWtUrJaJCUGOMgzzCoXXaRUv8Sl3mzWdHhWyfhuqUZg5TO7/cba0dqe31XuGtG0FAUtFKttl+B9yeNe6JISYOV9xJWCdRZE2OTdql9Qk2+lAfcKC0rcTQ2ZopM4zHwK08rueNUxINtKjeSfRq7cpnEC1bZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nIHHMwadeNaGcD1athgdT5JoNIbnnbQp4f8ZQ3mXOJA=;
- b=UtgAQBAuH4IYT8rwYfmv1Q8eRY8yD/yaz8uhydi5MMb8/bQC+YsqQVDPYCrZuD7V1bEyS2FQ3ZZ55GA6d4FY/R7ZFz8qXc4Vz9OhcSFpFxWD5z2z5C9efNStX9hVJj6Q7H1ktd3V/869AuOUTRf9Vzm0rsZZ6ldvNW8KqKC43j4=
-Received: from BN0PR04CA0041.namprd04.prod.outlook.com (2603:10b6:408:e8::16)
- by BL1PR19MB6011.namprd19.prod.outlook.com (2603:10b6:208:39e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Mon, 14 Sep
- 2026 12:26:13 +0000
-Received: from BN3PEPF00022BC2.namprd05.prod.outlook.com
- (2603:10b6:408:e8:cafe::86) by BN0PR04CA0041.outlook.office365.com
- (2603:10b6:408:e8::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 12:26:13 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN3PEPF00022BC2.mail.protection.outlook.com (10.167.248.213) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
- via Frontend Transport; Mon, 14 Sep 2026 12:26:12 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 952A940655E;
-	Mon, 14 Sep 2026 12:26:11 +0000 (UTC)
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 85A4A820244;
-	Mon, 14 Sep 2026 12:26:11 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: broonie@kernel.org
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-        patches@opensource.cirrus.com
-Subject: [PATCH] ASoC: cs-amp-lib: Prevent NULL pointer if efi variable is zero length
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d93HJtdo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA711F000FF;
+	Mon, 14 Sep 2026 12:26:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789388796;
+	bh=9cesBeWPjuV+79g9ggA9zyeW1Rrm2zGZzQyniKaIpEY=;
+	h=From:Subject:Date:To:Cc;
+	b=d93HJtdoydPWf6reyNoURC5DkuZ8G5KiwzBay4+9gTUwvF+pR2rj3EFS3bIBZBN7g
+	 FxGmKbFYOhBHFiedgw7OPsYtD+GOJfvjNJHmJAVyOIQxlRNyk+CACHaL0I7ggH92RH
+	 ORyAwk0wZoJkibOcWkc8f+YyAefPdTWukjsnc+zAzSegQ/x3hKgxONyN6La5ZAUu6W
+	 QLH9XorGlUHYaISc0QmAHvRkZAMwHbmhjGXuiSgXysKTPxGdX0ES43OLO+HLaqLUeC
+	 8MuHkkj8krkIIz/KkVoOKD7p3yBdg1OqmgkheUOs45Dm15FCJm+2pfgOAwJe340Iyq
+	 LXzMLSdGKhEWg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH v2 00/13] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
 Date: Mon, 14 Sep 2026 13:26:11 +0100
-Message-ID: <20260914122611.2783563-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.47.3
+Message-Id: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC2:EE_|BL1PR19MB6011:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: f853938d-f86f-4f77-fbbf-08df125b5d4b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|61400799027|10067099003|18002099003|16102099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	sA6PDaXXCCIldtydHNQENywTfsk0NC2Ap09NHwMdUpu9XZie2LBqk8DUabbb4Nunj5gRoFetTkSkLcSz9zYS5Y0shI1/svcx8ot+p1arlUuWNekjqH0FLGUWtZX5FeeVPBEJ6XWCPIjW6gGFTyST3vyaY955CdpqbdJuGkHQ7s6GoAgQ2Y6xcgxAJUFxkhPlFm+OlDwxTJIBPlZ/R4ruFFooWhUgOcFAdJw2tZy1grz+Ll0WXgUMHZTEMBQTjbU/I6WKAU2lWNrotb+9fCbquUsBBJYhf+Pt41cEdci4uhO10aUJgYWljHuSXisXrKGUFNuvx+Wf0gAgYR+DL/NJa1CrA6jSC9WwisXul1VOZY9vco15ngLlL//NgnXq5nI741eFiBN4/c9/VETnM1HSgw8x7lbBE6SI8ZBt1+lhIn4oAbhHKiwDq3VGG/JNjCvEimC4VFfb0YXQPn9d0P3nM/cyIWIwx0fyFAVOgyXu3fIx2zw9hbURXp3SZCbnpabfGiWmcqprkjoA1Q0Wp5jSWl4XmjPJDLs4bwePctevHOSoei5SzqaczmR8Q8CqjIky1zVYjgDlzIU+blZQ6pdAtApFOooVdWcwCjp1xCTkPRONHH5oxPn6um2F6IsM/CEZPVpn1vsMB3PkUyjfmFAVoSXVL5hawx9xSGqNoeH/ft0rFUQS5YbkT2392NoD497tzpkg/vvfewMmoCvRmCKZ8w==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(61400799027)(10067099003)(18002099003)(16102099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	x8Jx18YieSULhgnPaJJGB7KTRNzq2FO3d44c3LbxgpzJMsRWgzXguarzGco4y9Zb+BeOIQTzmIvcI7mmp6l4VU2hH56gCXpWZbtRVZ8jV0oGcqDI9fXXZcj0UBFeL/02zItctLLHkLB9AMIhqUfedKRTbRrKAXV7VbEMnIqQsudvjEywgw0aLDq5uVJOZ/rnGzhoyc6M5jw1FBstKrrDGn+u9uTftV7rXq8r4s6POxWp/B6ttFJ3zEV0G+qs/yLE+PhNTtvtCu3xuoisMjG+zBAKH7k6eMH/g1+oJrkwLaAhh85SjU6lxlp6XHU82+SInnoHdFmIhw/YsAty7/2Q5JRBaVmPMIDw9RFpPcyP1cOi0t6bo9BPXZMCGZrFk9fXKzIuGM9ZvdLSOGpRAeMVWqWnmlaWbr4rhIykRbwyOB0PnZyRfFgk8VhHK3sTx1/N
-X-Exchange-RoutingPolicyChecked:
-	SEHH1d1arZAeSqZgeUoqLCKXTz0gVjcxRsXk1cC3A9r0Rfzev/4pgotmyF38H+ke0EmT6zCCCO0ifbw4mO5J7HDEB7lSxAeTmHEoqqQmZROkNi8sI/oSufMCWYVRreUKL/BonnzjSBlvQST1C5mmj5E7KyFtVnXVpHocHFzIc5kQKZpoymndqpNi7LU18h1/3gq9JiJcuDOEmxJsFdzFqjpNnWlmMo2copyV6ep8TPGdfbj+n5TlYZSCwoB/JIsxS4YcfuiEmlFzJzVe4c8j4H86lp/+TQgT0M+IR7EdtKkDYxNK7cnmwSxgCvcUEhZolNMnjUPoBPlPyAdNDqio8g==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 12:26:12.4352
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f853938d-f86f-4f77-fbbf-08df125b5d4b
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN3PEPF00022BC2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR19MB6011
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE3NyBTYWx0ZWRfX/vks+/77mbFD
- eyHv5rREEiuU1J9HhZA2IhNVWqs/K1Fpe3u9jidKvmt/UG0tvhJ1EcPp5HW9S37ZtZi537RAjIO
- DnvISVEBJ/+FfAwbQw2IhphBndquB+Q=
-X-Proofpoint-GUID: bLcnVBzIcWo16fYVzYW6WCZAE1rdwvlg
-X-Proofpoint-ORIG-GUID: bLcnVBzIcWo16fYVzYW6WCZAE1rdwvlg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE3NyBTYWx0ZWRfX5difHA8l3w7G
- 7L3x2/yMfpMQJhH++cxZqrIRKN0HV6Gy0kkHtTW+Ff34ZczA4Oo7YxSFkobIcF2Xs62pS9eC3da
- 6cFmvu2tAuaVCGbNYaaSmeizdPrZO1Pt//7ue6xTnqMcfrLdwwgth/n1EBkHX6qnxcXDLWoSsmR
- Gr0SelJFYGfLkoYYahYjwmXWSEsgIqFvlzRdf6Yk3XshHFlSzPWnqD6bQAlbx2bqFdsnNMTvX5G
- P0u+cANxWMfva1gu/t7aZWC0j8BMHobxNSH7RqRgPl9yFhneLzxU6NOjcsakgl5+bVplM0JfhV1
- tcQ+i3K7dL0mhR90fsCeNdI53t+WvaCVKxt5W56e5jIv0Av5vL+UEqlY45U3vZN9TEKZzqOe5E7
- nU/uhQ1bmYS20RTcaurWjrCJpqfAZEM4lKdPfAKGiaowWmtO1P/VPcu5jCa7BYH9RqzGzayx1vP
- 9ckcMSUTxCEI2oyTmdA==
-X-Authority-Analysis: v=2.4 cv=It6L47/g c=1 sm=1 tr=0 ts=6aa7e7eb cx=c_pps
- a=1XJinUMeHr/5msdtnNmmhA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=w1d2syhTAAAA:8 a=ocmVEvmWqlpl0qtXL2oA:9
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NzQ6CMBCEX4Xs2TVtgxQ8+R6GQysLNPzUbLHRE
+ N7dQjx6/GYy36wQiB0FuGYrMEUXnJ8TqFMGj97MHaFrEoMSqhClvOAQJzQ84ZOpNa9xwcraXEp
+ blJVuIM32wr0P5b1O3LuweP4cD1Hu6U+m/siiRIGWWiqrXGuh6DYQzzSePXdQb9v2BT35Q8WxA
+ AAA
+X-Change-ID: 20260815-kvm-arm-prefault-9bb411b6897d
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
+ Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
+ Jack Thomson <jackabt.amazon@gmail.com>, 
+ Alexandru Elisei <alexandru.elisei@arm.com>, 
+ Vincent Donnefort <vdonnefort@google.com>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Sean Christopherson <seanjc@google.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Leo Soares Passos <Leo.Bras@arm.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6729; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=78T28CfC11xHjAOl1sq7P1//hmjKZwVVx3B8uhlN6B0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKWP/8SfiQn4Crfqp5Tunp7OFssbAJj73/3V3whUM4qv
+ Xx5vWRoRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACaiVcPwz9x2H/vT1fx6AuIT
+ 0xa8ePFEr+LejULHuo4FDpoJ0+yy9zH8lWzd+KFJau406x87pi4p6JrxQNYrckEa7/P1SRM0JiS
+ XcgEA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-In cs_amp_alloc_get_efi_variable() the first call to
-cs_amp_get_efi_variable() might return EFI_SUCCESS if the variable
-exists with zero length. Trap this and return -ENOENT to prevent
-returning an unexpected NULL pointer.
+This series implements the KVM stage 2 page table pre-faulting feature for
+arm64.
 
-The first cs_amp_get_efi_variable() call was assumed to return
-EFI_BUFFER_TOO_SMALL if the variable existed, but if instead it
-returned EFI_SUCCESS this would be converted to 0 by
-cs_amp_convert_efi_status() and then be returned as a NULL pointer.
+== Foundations ==
 
-Fixes: 00fd40bc7acec ("ASoC: cs-amp-lib: Support Dell SSIDExV2 UEFI variable")
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+The series begins by establishing required foundations:
+
+1. Updating kvm_s2_fault_desc to independently store the exception syndrome
+   register (ESR) value, and updating all code paths to use this value
+   exclusively.
+
+This is needed so we can later generate a synthetic fault to perform the
+pre-faulting - we need to be sure the code doesn't grab an incorrect ESR
+from elsewhere.
+
+2. Updating kvm_s2_fault_desc to independently store the kvm_s2_mmu and
+   updating all code paths to use this value exclusively.
+
+Similarly this is needed so we can generate a synthetic fault against the
+canonical stage 2 MMU (it would make no sense for it to touch nested shadow
+page tables) - we need to be sure that the code doesn't grab an incorrect
+MMU from elsewhere.
+
+3. Updating the abort paths which consume kvm_s2_fault_desc to also return
+   a kvm_s2_fault_result data structure.
+
+To perform pre-faulting the code must know the granule size of what was
+just walked. So the abort paths have to tell us what that was.
+
+4. Pass walk flags to kvm_pgtable_get_leaf() to permit walking page tables
+   under the MMU read lock.
+
+This is Jack's patch, verbatim, which allows the use of the
+KVM_PGTABLE_WALK_SHARED flag to walk page tables under the MMU read lock.
+
+Pre-faulting requires it to be able to work in parallel as specified by the
+API. The read lock precludes page tables being torn down behind our back.
+
+== Implementation ==
+
+Pre-faulting is implemented in kvm_arch_vcpu_pre_fault_memory() whose job
+is to pre-fault the stage 2 page tables which map a specific GPA (which,
+for arm64, is the guest's IPA).
+
+This function is called by kvm_vcpu_pre_fault_memory() for each GPA in the
+range, which itself is ultimately invoked by userland via the
+KVM_PRE_FAULT_MEMORY ioctl.
+
+The implementation is simple - try to walk to the stage 2 page table
+mapping the GPA - if unmapped, fault it in through a synthetic page fault.
+
+pKVM is not supported regardless of whether the VM is protected or
+not.
+
+This is because pKVM instantiates vCPUs upon run, but pre-faulting is
+typically performed before a vCPU is run. It would be confusing and
+inconsistent to error out on non-running vCPUs but to pre-fault running
+ones.
+
+== Credits ==
+
+This series is based, with gratitude, on Jack Thomson's series and their
+respins (links provided below) as well as the feedback he received.
+
+The series includes Jack's v5 "KVM: arm64: Pass walk flags to
+kvm_pgtable_get_leaf()" patch verbatim and two of his test patches (with
+minor fixups), plus a nested pre-fault test based on his.
+
+Link: https://patch.msgid.link/20260612162354.73378-1-jackabt.amazon@gmail.com/
+Link: https://patch.msgid.link/20260113152643.18858-1-jackabt.amazon@gmail.com/
+Link: https://patch.msgid.link/20251119154910.97716-1-jackabt.amazon@gmail.com/
+Link: https://patch.msgid.link/20251013151502.6679-1-jackabt.amazon@gmail.com/
+Link: https://patch.msgid.link/20250911134648.58945-1-jackabt.amazon@gmail.com/
+
+== Reviewer Notes ==
+
+I synced with maintainers on this who asked me to take a look, as there hadn't
+been progress on the series for some time.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- sound/soc/codecs/cs-amp-lib.c | 2 ++
- 1 file changed, 2 insertions(+)
+v2:
+* Split series - Added 1/13 for the esr.h helpers, 2/13 for converting
+  callers to use them, and move what was 1/8 to 3/13 to propagate
+  s2fd->esr, as per Marc.
+* Made esr helpers __always_inline as per Marc.
+* Renamed esr_trap_get_class() -> esr_get_ec() + dropped churn as per Marc.
+* Updated 5/13 (was 3/8) to drop the kvm_s2_fault_result.mapped flag.
+* Also updated 5/13 so abort handlers return -EAGAIN instead of swallowing, as
+  per Marc.
+* Split implementation patch further -> topup_mmu_memcache() change to 6/13,
+  EHWPOISON change -> 7/13 and docs change -> 10/13, as per Marc.
+* No longer mkyoung existing walked ranges, updated docs to reflect, as per
+  Marc.
+* Eliminated s2fd->pre_fault as per Marc.
+* Eliminated the redundant page table level in pre_fault_s2() as per Marc.
+* Put the commit message for 9/13 on a diet as per Marc.
+* Fixed up commit message for 11/13 (was 6/8) to correct reasoning about
+  exit-reason assert, as per Fuad.
+* Simplified: nested test 13/13 (was 8/8), dropping the empty nested-S2
+  setup and using test_supports_el2() to handle NV=0 opt-out, as per
+  Wei-Lin and Fuad.
+* Re-authored patch 13/13 to me as the changes are substantial enough to
+  require it. Updated commit message to give Jack credit for original.
 
-diff --git a/sound/soc/codecs/cs-amp-lib.c b/sound/soc/codecs/cs-amp-lib.c
-index 41a9a5b005c63..9bc19d2e16394 100644
---- a/sound/soc/codecs/cs-amp-lib.c
-+++ b/sound/soc/codecs/cs-amp-lib.c
-@@ -317,6 +317,8 @@ static void *cs_amp_alloc_get_efi_variable(efi_char16_t *name,
- 	unsigned long size = 0;
- 
- 	status = cs_amp_get_efi_variable(name, guid, NULL, &size, NULL);
-+	if (status == EFI_SUCCESS)
-+		return ERR_PTR(-ENOENT);
- 	if (status != EFI_BUFFER_TOO_SMALL)
- 		return ERR_PTR(cs_amp_convert_efi_status(status));
- 
+v1:
+https://lore.kernel.org/r/20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org
+
+---
+Jack Thomson (3):
+      KVM: arm64: Pass walk flags to kvm_pgtable_get_leaf()
+      KVM: selftests: Enable pre_fault_memory_test for arm64
+      KVM: selftests: Add option for different backing in pre-fault tests
+
+Lorenzo Stoakes (ARM) (10):
+      arm64: Add ESR fault helpers
+      KVM: arm64: Use ESR helpers in guest abort handling
+      KVM: arm64: Propagate and use esr in s2fd when handling guest aborts
+      KVM: arm64: Propagate and use mmu in s2fd when handling guest aborts
+      KVM: arm64: Propagate and use kvm_s2_fault_result on S2 fault
+      KVM: arm64: Size the stage-2 memcache from the fault MMU
+      KVM: arm64: Propagate EHWPOISON in kvm_s2_fault_pin_pfn()
+      KVM: arm64: Implement KVM_PRE_FAULT_MEMORY
+      Documentation: KVM: document arm64 KVM_PRE_FAULT_MEMORY
+      KVM: selftests: Add nested pre-fault test for arm64
+
+ Documentation/virt/kvm/api.rst                     |  18 +-
+ arch/arm64/include/asm/esr.h                       |  44 +++
+ arch/arm64/include/asm/kvm_emulate.h               |  52 ++--
+ arch/arm64/include/asm/kvm_pgtable.h               |   5 +-
+ arch/arm64/include/asm/kvm_pkvm.h                  |   2 +-
+ arch/arm64/kvm/Kconfig                             |   1 +
+ arch/arm64/kvm/arm.c                               |   1 +
+ arch/arm64/kvm/hyp/nvhe/mem_protect.c              |  10 +-
+ arch/arm64/kvm/hyp/pgtable.c                       |   5 +-
+ arch/arm64/kvm/mmu.c                               | 300 +++++++++++++++++----
+ arch/arm64/kvm/nested.c                            |   2 +-
+ tools/testing/selftests/kvm/Makefile.kvm           |   2 +
+ .../selftests/kvm/arm64/nv_pre_fault_memory_test.c | 158 +++++++++++
+ .../testing/selftests/kvm/pre_fault_memory_test.c  | 152 +++++++++--
+ 14 files changed, 615 insertions(+), 137 deletions(-)
+---
+base-commit: aa8e5dc6a7a2a1141ab40706a51010adcd0e57d2
+change-id: 20260815-kvm-arm-prefault-9bb411b6897d
+
+Best regards,
 -- 
-2.47.3
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
