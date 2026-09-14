@@ -1,493 +1,284 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466AA49BD8B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2FC486E6D
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409298; cv=pass; b=HuHR0b89oHQu5HUolcTIaFQwil54KQbIfh3s93OjQIRP9jvUbY97u99si8E1/FppNzFIfplcAZL7sYV4WH4Fqrzi2YVRM5pz9upxc6UVlxn1jDAvBg0MfkHrha7ZQzfUtBFc86IIjwLZcTlBokjaPuSVwIFh4xQC8y6g7o34dIo=
+	t=1789409308; cv=pass; b=KtJD8undJp4eQVMrJurS19pLHRm6Wdmnt0iKsY2K3KRK90a8ulKLZgfbaecBu3HfTAA9TqSPYp5nNMTBwgBhxMFx2cW9pL+8RwH7v0jG7yzyz5FPMYpGiaW2YlwVsN+6Njt0PzOiQn5B7XdLIsFbKHy9WCrqKTMnIQXScx21sjA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409298; c=relaxed/simple;
-	bh=GNtEnyksoZpieQFZBEVPTyijM5iCA+K11bd3cC2SOjU=;
+	s=arc-20240116; t=1789409308; c=relaxed/simple;
+	bh=nrL7HxkxpCYK37KcSgRy3IUkJkgNJYps77Sf88qk4eo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lp06+0LkxRD9l9kMfn6Uv0ZQNjzoaed3lZ6cYYpH6mNJX5zOTFw5FOe3nM5JQyoh29XiGUsDNmswTNbCdT8njhyUtiiYVFKXXkviCnVEbROuDx8h0GHXlpeXiaNAT9Fr4EFtO5gdfBmCabN4nisD/BS6cevhZIAYzopKVWVX67I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nsj7g9SO; arc=pass smtp.client-ip=74.125.228.140
+	 To:Cc:Content-Type; b=LPk4es4VOFf4xSQ9NfFH7/jOabjT8LLUXXXCUhl0B5llhDJA5BQ2xR3ovgss/RIX9ICk5D+MsGMQENcizaowEpwmkFbTQTfnNnddu2Kmtmavzidoj5Z5ydOkcj2Eam2Pq5xJTfsVNTAGHK/XM7wA0v7Wuml3gXS4EvS4AyrpO/o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nthWdiIT; arc=pass smtp.client-ip=74.125.230.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nsj7g9SO"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2939b2e4caso47113466b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:08:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789409291; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nthWdiIT"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso21590891fa.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:08:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789409300; cv=none;
         d=google.com; s=arc-20260327;
-        b=eoaKigRJEzW9p0VGVNnZ/KESpdraYA1a9NLuQ25b//5HDjMgGwpc3iISm4YQ5HiesG
-         tTfuxTdGe2MrjEEp8WGcl6nxxlJCCumeRpHtAFsJ6mcVeUuG8T3VRLvpEpIkfhpssx09
-         +Ru3oW4zIm0XGvemfiBDtHAFXyR/SBEvjvChQ4OzEN9Nn5Zp+YP32PnoqI2OO8d99DpF
-         ocrKbh0fArttmFNPYCM7SCmSTuD/Y8b2n2gv6t3j55HPn+WzcsbvK2yHXSuSZKCkJ0bi
-         S/kgR0wGiZ417eu6jEPA2GELC3rlP/ZwLI/1LXGxUwaFdV9hVKnQtBZ8lHc1DZMoyheB
-         wIsA==
+        b=oJjzBlTBx1c8Yd/t4hZPqTyvb+ZPuIkhDXJ76O2670y1ERFsqzKjvF7F5vtQt3OejD
+         zoLf6r45hiSwz0kNYxytnaZWO4ubQC0yTCziK8zE7i9zQ5w/Slh7ZAqEJhAPhWFuba8Z
+         YtE1Zv0MkaST9kUHEuQtbaffNOwlpreIKKODvfw8Tmg90b8Ifjw+yu6o9usawr3OzN0l
+         XgC1/uNXfJVpR2zSqDoshFl2jX3xZH3UDw3WtN7HkThn37j71OOJHfXAODMEggFzAgdk
+         ONj4BUPcvsrJx0wKu/D9hr1kr1tuON7lJ3FmacO+V8/qABEnoSHlikD/MNuZ8MciTXCK
+         HYjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=dZsSAMkqmvVrGGLo+Ywm+06xr1Q8V8tL5t2T+paIFpo=;
-        fh=919bnbMB0YMeaDMsnmvHrdOc8efcsVjbKyWhoXB/z6s=;
-        b=eDDvO9IpjysrTDv1dhU1Ek/sGwS07/idJVqAi7Xg8tqOhzf3+vxePP4rEk5ZNJIsnC
-         b91+jOfIStgH+YWbZgehCeffF8gBCTKVXbT/QqLJW9VPD4YA93LgVyOKA9iyMj25UaTJ
-         3Tf0Y/QgxjJ5N7OsdnOdbHOxdAaG01EJjw2fpPJzqr8bRhVnxssmNA9W6rMjQPodyyGY
-         rNiIp5Nk0UrGZ3aTgBgSvM1GqL+WVXR9BpzqAFlCDPVZRwFYvJcgZoJASxSktHe9CnnN
-         NRauVvyoACSD2h/5Wmbu6At2tIULC6sxyy0+4bV56K0noDA0hd4e0uSiLlpoXD5L4KfA
-         qqDQ==;
+        bh=YqfeFaksCtRDL645H6Ma8BX+7yBDF05G4zL3//smvsI=;
+        fh=vACioXdXqd0r1rtSbwy4zN9pcZ0F9mWWuAeuBjgMUAM=;
+        b=HneDBSbFfxdRcVRtCK4TlPPemOPxB8MXwIXpKVn+QFJO+zCrlaLdlXIWJAMqDcHGTb
+         dqq6+3qJVjfFAzW6wH5ZiafnsAcsyizetESI+5IYlrXUxEY5haAyIn2HjEfHPNCEZp/5
+         JSXN9r9In3+duT1pv9IW9rne0kLU2C/Xzu3acGX0+ZJN+1UE8gco8wQ5iuJ/Qh31uI+r
+         ThDIT4dMwK06JLnWviGWkeHr7MyP2mktu+8RMqn5/fXUGySl4JUVl7E1DJXi8x5JWJjI
+         8oOr1ibfKbtBe5sErl3HAqt+MS1z8y3ejVBsYAjANKMnSMogVjqPezAwWPKjMMgG2kbt
+         GCBA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789409291; x=1790014091; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789409300; x=1790014100; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=dZsSAMkqmvVrGGLo+Ywm+06xr1Q8V8tL5t2T+paIFpo=;
-        b=Nsj7g9SOrGSs9BA704u5oUQu+x0cyu9OjVlbCYuI9ODcRzEhFs8J5vs/866WXHoC/f
-         AgdRF9GUmhINCO3DVSxQ57akTV/jul/YoUj/7FAvnema2jUkgQC7W4zrWZQgDZCdW0Ok
-         4jozPlI+vEi4VwRRPVUQO+vXr8U7JCSHI4vVu2SaCF/TiNZGsz2wPwBb+wt+ExlhAxay
-         eS6pmM5g3kAJjyiMZ4ZrU9U+KxHTE++xkjSKGE1JIpdo4jjCDryWgcqrVpBaXA3kmlLE
-         4hOoIjZfAzagtNKaOSPILJKQP7sO0n1wkLzKvujFy2+BkVLD8rYj22FooVmi+tN+JETa
-         QdjA==
+        bh=YqfeFaksCtRDL645H6Ma8BX+7yBDF05G4zL3//smvsI=;
+        b=nthWdiIT1dqdQPptON5i6UB8AYh32ISOiDmwdttRHgnKK3TyZN7elsFCPNU4D8D+k1
+         qTuRx2iNbqlTLm2GrkuCYePCIpamewXWUv8bTr5o2y0f5Xc7ZIOeGauYVGYdnJLUmSB4
+         Bt9ipvvAZCGC3v8w79Wj4R9qUZSa6AqrBFoAe00K/7j6XFR5Ya4zpGfiknj8zGWc/afo
+         q8IGBmYPAPtfQ8NxCe4u3VF/sqgdnZvV0bN8welvGOf22JqWji3perwKCIQ2bRaIqlQ+
+         Kp2muJ1t8BxJnFSZQaIk48NoDFee/ypD189gKhA+/YIiSdVWpx+Mvg9Btli2s3DBti8t
+         0ddQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789409291; x=1790014091;
+        d=1e100.net; s=20251104; t=1789409300; x=1790014100;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dZsSAMkqmvVrGGLo+Ywm+06xr1Q8V8tL5t2T+paIFpo=;
-        b=Mz2w3I6/sQYy7WQ1CMchE+J+gEEZL+LIMygH+JhFKLhYXEHh+uGx7a2ywPt3a1VsnW
-         ElzAQN2hOVVqZDwh092EU/2Mh7JxAP9mMyJguyRV/6UUXkmQAvtHF3ZE8MixqL878iDe
-         j4P17gGGy+W2cz2uL1bb8NkbHxSULZl/4YYPkF7K1te111T2Dtns2OfglsJ+KPAw/grq
-         0tnXhi3HFh6pmKtfxii9rlnR+5MHuV82zgNq3TwSCxaFXLnVJb5+aC049rqSYV2ByW9s
-         MaNsw/mo8QYtgu/9iswbWa07n1IEnAublCh9evy8xSNvLxpj5YzmBb+eWDjRhmUVBzeI
-         2H0A==
-X-Forwarded-Encrypted: i=1; AKwUvByOmjuo4xRrk8icgIQG/gpmHSWgqv0B3NaMHtwVII5fKLoAdDB/yk1ufwer/Ob1icm0g5QIykRW4zODaM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nslQ9InGCfzHNQG82AdJeB1Zx4GRe7Vd/KvnRQ2yvWye8RepH8
-	1WsrJVRhDXvzHP4gvfgrdtSGC0gc9wa7ICTUaSRR5GPF+lJX1C0O/jQJTHs89fZa3dM5keGQIHz
-	ExrFQDGcVzLvFps+S1n3dyCCokkUPo7wweADnvtXIgg==
-X-Gm-Gg: AYBFou2Aa6N7driFVOT0kEzmacgKJs7KxJHV08XZtj/09iy2sF8RtMPkvgJE/e1El7m
-	9IG6jpIAfyvwydealFl74+Ye/v2d8PGsdi3c1hQsG31uaaIY4Lroz3V5j0H/Ww7MBRBa4snFZYn
-	Cd+z9RaRK33fDqmnvHZmZm3Utfn1Kfqz4vj37f82Pv/MPmfrAN4KpFlkVbC7QZZg/TtRH3gZGdJ
-	iH+5+Opc4NsUqu8Nrs7YKKvuhjTlwAv+a6MYA5vAwHV8/XPJyYal0/RPcyZUQPwJWKQaEShLm0B
-	kQ1hL/dBCLJSL/Sdg93LDHNcRutC0zRq1BjtqKKNzb26oO6tRx7GLszNtWLK5ITtefKFQ7BAArF
-	KrvdSuJRU
-X-Received: by 2002:a17:907:961a:b0:c29:4634:5c8f with SMTP id
- a640c23a62f3a-c29b805aa58mr272778166b.0.1789409290921; Mon, 14 Sep 2026
- 11:08:10 -0700 (PDT)
+        bh=YqfeFaksCtRDL645H6Ma8BX+7yBDF05G4zL3//smvsI=;
+        b=JJDbyU+eEsqDpe/O5CcY5x2LaUenTxMcH2dedWwGcASUszs2euF0wraHkra8V4SrMG
+         AA7kO3Ywcnwf1YQihCXPyD8AfPFZDOXCowCtA5Gg13TAZLtFa0DJJpos5EeNx7AcqzOS
+         x7hn8ljvHPVM7jLo8aIfRHLuhBZe04+dSSJdyMPvNVER0/gmu/O3qYCYh7sZTj+is/UA
+         4HEAWca94jiNfDqv03ijj14N75mXEWVcxa4ApzR6Tw/9+SdB3fi3+w2wB/7wmc/kN+MS
+         FFyBdj9uc90xS5PphO1eFtKa5nc9WEKCNQ4C6soIFP/jK0hjwd8p9fedy11uLxB3/5sd
+         KX1w==
+X-Forwarded-Encrypted: i=1; AKwUvBwZr7DNIVQt9qiu8JTwAjYjI7AvPTMEqFT1oOIfBFySm474kDQcauBILOx7W9dcRpy3+QVRnoC5/jYd8wo=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldOlWI072auiiQvOPaGxm9K/elIbCn+pxZw9304FrA+dPWsLZS
+	rFhpgGSLoKSHQ0AQAt6frEJzrTwbFcajmrZYmyXMUzm9mkV2m3OzcxYFnzoS467Fr/J3JnE25t2
+	6WhDP9veXhjthvNsHbUY28OHNm22/2lA=
+X-Gm-Gg: AYBFou2Sd+i43ZEY6TH4qfDUupZ49sNPXHH5Zf5qwpw+ItqjP6QR9ipwgyfPLQyWhf1
+	9f/8utdHXaZzymMe+qkday942rJHDKd0OLo1FF2denT8SqPTFobVqam52V3lhfHQ08rTfrAzO+l
+	aPYt8OVyNYups96j63G90uO3TrJ3ipwqV58A6VK4WcFI034DzWeAW+Skt4BPINJ8nvDHE+RNfkL
+	vVSNUqXe/3LHHhGlsBz9+WXKMVr1z7uFLZaCfFs5gUhozCaIhpFfFcqB1ST478qUWiqvuZLTdmm
+	FEc9G265nKCcQOnmUhwVXCBLz3HWawFA2U2ycVkirER/K0DIt0mQc/iAmJTMfzoWO9Vato2giXp
+	hhtbRcziPq95Gnw==
+X-Received: by 2002:a2e:8a86:0:b0:3a1:4f33:f60e with SMTP id
+ 38308e7fff4ca-3a5c8904fa7mr13824431fa.8.1789409299251; Mon, 14 Sep 2026
+ 11:08:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824150220.216067-1-nicoyip.dev@gmail.com> <3226752.1789397935@warthog.procyon.org.uk>
-In-Reply-To: <3226752.1789397935@warthog.procyon.org.uk>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Tue, 15 Sep 2026 02:07:59 +0800
-X-Gm-Features: AcwNN1VV9Vfvtm8hYHvkD4szkX5eYUJBHtX0vHbJHnsG1sOPyeukOzqEL0dVaiI
-Message-ID: <CAAo+4rVwjW07EWGft77D4+B_ptVK+bj8zfHdhr3yJG8BM2+3qA@mail.gmail.com>
-Subject: Re: [PATCH net] rxrpc: Take write lock when publishing the initial
- RxGK key
-To: David Howells <dhowells@redhat.com>
-Cc: Marc Dionne <marc.dionne@auristor.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <CANGjgdn=H50AaA-+O_GA-hkE9UwLANmkjx1zRsKUzxF5za8VfQ@mail.gmail.com>
+ <aqa7KgIJYGgf7INk@slm.duckdns.org> <CANGjgd=f9n7zEZS=xi71y_dY6Uk75_qgP9qVDkYBusNz9sp2sg@mail.gmail.com>
+ <CABdmKX2Oer9wrxWdR8s48Czro8H51HY+S_mfnUj-RvhjCM1RgA@mail.gmail.com>
+In-Reply-To: <CABdmKX2Oer9wrxWdR8s48Czro8H51HY+S_mfnUj-RvhjCM1RgA@mail.gmail.com>
+From: Chengfeng Lin <lin2530632123@gmail.com>
+Date: Tue, 15 Sep 2026 02:08:06 +0800
+X-Gm-Features: AcwNN1VjX10xVedHjffuUUEznl-luy-airmCt-rJgo7haX1ZQMrAAmn74RSRo6w
+Message-ID: <CANGjgdmKg1_QyzhCSh03T4RStw5_znnhqmFFS8TVwQbm-sZZbA@mail.gmail.com>
+Subject: Re: [REGRESSION] kernfs: empty cgroup rmdir latency after
+ delete-notification changes
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: Tejun Heo <tj@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jan Kara <jack@suse.cz>, 
+	driver-core@lists.linux.dev, cgroups@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 10:59=E2=80=AFPM David Howells <dhowells@redhat.com=
-> wrote:
->
-> Chengfeng Ye <nicoyip.dev@gmail.com> wrote:
->
-> > On a client connection, a second sendmsg can observe
-> > RXRPC_CONN_CLIENT through a lockless load of conn->state,
->
-> I wonder if I need something like the attached also...  Or if it might do
-> instead, though I think there's no harm in doing your writelock suggestio=
-n
-> anyway.
->
-> David
-> ---
-> commit 21a0c0765f5d2654379f3a0065b059e676d7c761
-> Author: David Howells <dhowells@redhat.com>
-> Date:   Mon Sep 14 14:40:13 2026 +0100
->
->     rxrpc: Fix lack of conn->state barriering
->
->     Because rxrpc can manipulate the connection state in one thread and t=
-hen
->     read it in another, but it also guards access to some members in the
->     struct, it needs to have release/acquire barriers.  Fix this by using
->     helpers to read/set the connection state.
->
->     Fixes: 9d35d880e0e4 ("rxrpc: Move client call connection to the I/O t=
-hread")
->     Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907113=
-743.1453210-1-dhowells%40redhat.com
->     Signed-off-by: David Howells <dhowells@redhat.com>
->     cc: Marc Dionne <marc.dionne@auristor.com>
->     cc: Eric Dumazet <edumazet@google.com>
->     cc: "David S. Miller" <davem@davemloft.net>
->     cc: Jakub Kicinski <kuba@kernel.org>
->     cc: Paolo Abeni <pabeni@redhat.com>
->     cc: Simon Horman <horms@kernel.org>
->     cc: linux-afs@lists.infradead.org
->
-> diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-> index cb36a709f540..dde262ffc7fe 100644
-> --- a/net/rxrpc/ar-internal.h
-> +++ b/net/rxrpc/ar-internal.h
-> @@ -601,7 +601,7 @@ struct rxrpc_connection {
->         unsigned long           events;
->         unsigned long           idle_timestamp; /* Time at which last bec=
-ame idle */
->         spinlock_t              state_lock;     /* state-change lock */
-> -       enum rxrpc_conn_proto_state state;      /* current state of conne=
-ction */
-> +       enum rxrpc_conn_proto_state _state;     /* current state of conne=
-ction */
->         enum rxrpc_call_completion completion;  /* Completion condition *=
-/
->         s32                     abort_code;     /* Abort code of connecti=
-on abort */
->         int                     debug_id;       /* debug ID for printks *=
-/
-> @@ -1185,10 +1185,23 @@ void rxrpc_process_delayed_final_acks(struct rxrp=
-c_connection *, bool);
->  bool rxrpc_input_conn_packet(struct rxrpc_connection *conn, struct sk_bu=
-ff *skb);
->  void rxrpc_input_conn_event(struct rxrpc_connection *conn, struct sk_buf=
-f *skb);
->
-> +static inline void rxrpc_set_conn_state(struct rxrpc_connection *conn,
-> +                                       enum rxrpc_conn_proto_state state=
-)
-> +{
-> +       /* Order write of conn info before write of state. */
-> +       smp_store_release(&conn->_state, state);
-> +}
-> +
-> +static inline
-> +enum rxrpc_conn_proto_state rxrpc_conn_state(const struct rxrpc_connecti=
-on *conn)
-> +{
-> +       /* Order read of state before read of conn info. */
-> +       return smp_load_acquire(&conn->_state);
-> +}
-> +
->  static inline bool rxrpc_is_conn_aborted(const struct rxrpc_connection *=
-conn)
->  {
-> -       /* Order reading the abort info after the state check. */
-> -       return smp_load_acquire(&conn->state) =3D=3D RXRPC_CONN_ABORTED;
-> +       return rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_ABORTED;
->  }
->
->  /*
-> diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
-> index 47824120f1da..1dcfd9e5fca4 100644
-> --- a/net/rxrpc/call_accept.c
-> +++ b/net/rxrpc/call_accept.c
-> @@ -398,8 +398,8 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *loca=
-l,
->                 rx->app_ops->notify_new_call(&rx->sk, call, call->user_ca=
-ll_ID);
->
->         spin_lock(&conn->state_lock);
-> -       if (conn->state =3D=3D RXRPC_CONN_SERVICE_UNSECURED) {
-> -               conn->state =3D RXRPC_CONN_SERVICE_CHALLENGING;
-> +       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_SERVICE_UNSECURED) {
-> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE_CHALLENGING=
-);
->                 set_bit(RXRPC_CONN_EV_CHALLENGE, &call->conn->events);
->                 rxrpc_queue_conn(call->conn, rxrpc_conn_queue_challenge);
->         }
-> diff --git a/net/rxrpc/call_object.c b/net/rxrpc/call_object.c
-> index 817ed9acb91e..29f9a01394c1 100644
-> --- a/net/rxrpc/call_object.c
-> +++ b/net/rxrpc/call_object.c
-> @@ -459,7 +459,7 @@ void rxrpc_incoming_call(struct rxrpc_sock *rx,
->
->         spin_lock(&conn->state_lock);
->
-> -       switch (conn->state) {
-> +       switch (rxrpc_conn_state(conn)) {
->         case RXRPC_CONN_SERVICE_UNSECURED:
->         case RXRPC_CONN_SERVICE_CHALLENGING:
->                 __set_bit(RXRPC_CALL_CONN_CHALLENGING, &call->flags);
-> diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
-> index 48519f0de185..3055ef6fd11d 100644
-> --- a/net/rxrpc/conn_client.c
-> +++ b/net/rxrpc/conn_client.c
-> @@ -182,11 +182,12 @@ rxrpc_alloc_client_connection(struct rxrpc_bundle *=
-bundle)
->         conn->upgrade           =3D bundle->upgrade;
->         conn->orig_service_id   =3D bundle->service_id;
->         conn->security_level    =3D bundle->security_level;
-> -       conn->state             =3D RXRPC_CONN_CLIENT_UNSECURED;
->         conn->service_id        =3D conn->orig_service_id;
->
->         if (conn->security =3D=3D &rxrpc_no_security)
-> -               conn->state     =3D RXRPC_CONN_CLIENT;
-> +               rxrpc_set_conn_state(conn, RXRPC_CONN_CLIENT);
-> +       else
-> +               rxrpc_set_conn_state(conn, RXRPC_CONN_CLIENT_UNSECURED);
->
->         atomic_inc(&rxnet->nr_conns);
->         write_lock(&rxnet->conn_lock);
-> @@ -206,6 +207,7 @@ rxrpc_alloc_client_connection(struct rxrpc_bundle *bu=
-ndle)
->  static bool rxrpc_may_reuse_conn(struct rxrpc_connection *conn)
->  {
->         struct rxrpc_net *rxnet;
-> +       enum rxrpc_conn_proto_state state;
->         int id_cursor, id, distance, limit;
->
->         if (!conn)
-> @@ -215,8 +217,9 @@ static bool rxrpc_may_reuse_conn(struct rxrpc_connect=
-ion *conn)
->         if (test_bit(RXRPC_CONN_DONT_REUSE, &conn->flags))
->                 goto dont_reuse;
->
-> -       if ((conn->state !=3D RXRPC_CONN_CLIENT_UNSECURED &&
-> -            conn->state !=3D RXRPC_CONN_CLIENT) ||
-> +       state =3D rxrpc_conn_state(conn);
-> +       if ((state !=3D RXRPC_CONN_CLIENT_UNSECURED &&
-> +            state !=3D RXRPC_CONN_CLIENT) ||
->             conn->proto.epoch !=3D rxnet->epoch)
->                 goto mark_dont_reuse;
->
-> diff --git a/net/rxrpc/conn_event.c b/net/rxrpc/conn_event.c
-> index 611c790bc6d0..f60bceff0bad 100644
-> --- a/net/rxrpc/conn_event.c
-> +++ b/net/rxrpc/conn_event.c
-> @@ -25,14 +25,13 @@ static bool rxrpc_set_conn_aborted(struct rxrpc_conne=
-ction *conn,
->  {
->         bool aborted =3D false;
->
-> -       if (conn->state !=3D RXRPC_CONN_ABORTED) {
-> +       if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_ABORTED) {
->                 spin_lock_irq(&conn->state_lock);
-> -               if (conn->state !=3D RXRPC_CONN_ABORTED) {
-> +               if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_ABORTED) {
->                         conn->abort_code =3D abort_code;
->                         conn->error      =3D err;
->                         conn->completion =3D compl;
-> -                       /* Order the abort info before the state change. =
-*/
-> -                       smp_store_release(&conn->state, RXRPC_CONN_ABORTE=
-D);
-> +                       rxrpc_set_conn_state(conn, RXRPC_CONN_ABORTED);
->                         set_bit(RXRPC_CONN_DONT_REUSE, &conn->flags);
->                         set_bit(RXRPC_CONN_EV_ABORT_CALLS, &conn->events)=
-;
->                         aborted =3D true;
-> @@ -272,7 +271,7 @@ static int rxrpc_process_event(struct rxrpc_connectio=
-n *conn,
->         bool secured =3D false;
->         int ret;
->
-> -       if (conn->state =3D=3D RXRPC_CONN_ABORTED)
-> +       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_ABORTED)
->                 return -ECONNABORTED;
->
->         _enter("{%d},{%u,%%%u},", conn->debug_id, sp->hdr.type, sp->hdr.s=
-erial);
-> @@ -286,7 +285,7 @@ static int rxrpc_process_event(struct rxrpc_connectio=
-n *conn,
->
->         case RXRPC_PACKET_TYPE_RESPONSE:
->                 spin_lock_irq(&conn->state_lock);
-> -               if (conn->state !=3D RXRPC_CONN_SERVICE_CHALLENGING) {
-> +               if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_SERVICE_CHALLE=
-NGING) {
->                         spin_unlock_irq(&conn->state_lock);
->                         return 0;
->                 }
-> @@ -302,8 +301,8 @@ static int rxrpc_process_event(struct rxrpc_connectio=
-n *conn,
->                         return ret;
->
->                 spin_lock_irq(&conn->state_lock);
-> -               if (conn->state =3D=3D RXRPC_CONN_SERVICE_CHALLENGING) {
-> -                       conn->state =3D RXRPC_CONN_SERVICE;
-> +               if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_SERVICE_CHAL=
-LENGING) {
-> +                       rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE);
->                         secured =3D true;
->                 }
->                 spin_unlock_irq(&conn->state_lock);
-> @@ -548,7 +547,7 @@ void rxrpc_input_conn_event(struct rxrpc_connection *=
-conn, struct sk_buff *skb)
->                 conn->tx_response =3D NULL;
->                 spin_unlock_irq(&conn->local->lock);
->
-> -               if (conn->state !=3D RXRPC_CONN_ABORTED)
-> +               if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_ABORTED)
->                         rxrpc_send_response(conn, skb);
->                 rxrpc_free_skb(skb, rxrpc_skb_put_response);
->         }
-> @@ -556,7 +555,7 @@ void rxrpc_input_conn_event(struct rxrpc_connection *=
-conn, struct sk_buff *skb)
->         if (skb) {
->                 switch (skb->mark) {
->                 case RXRPC_SKB_MARK_SERVICE_CONN_SECURED:
-> -                       if (conn->state !=3D RXRPC_CONN_SERVICE)
-> +                       if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_SERVIC=
-E)
->                                 break;
->
->                         for (loop =3D 0; loop < RXRPC_MAXCALLS; loop++)
-> diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
-> index 1be50e0c9cee..12914fb72345 100644
-> --- a/net/rxrpc/conn_object.c
-> +++ b/net/rxrpc/conn_object.c
-> @@ -407,7 +407,7 @@ void rxrpc_service_connection_reaper(struct work_stru=
-ct *work)
->                 ASSERTCMP(atomic_read(&conn->active), >=3D, 0);
->                 if (likely(atomic_read(&conn->active) > 0))
->                         continue;
-> -               if (conn->state =3D=3D RXRPC_CONN_SERVICE_PREALLOC)
-> +               if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_SERVICE_PREA=
-LLOC)
->                         continue;
->
->                 if (rxnet->live && !conn->local->dead) {
-> diff --git a/net/rxrpc/conn_service.c b/net/rxrpc/conn_service.c
-> index 39c908a3ca6e..04a8206f3a44 100644
-> --- a/net/rxrpc/conn_service.c
-> +++ b/net/rxrpc/conn_service.c
-> @@ -126,7 +126,7 @@ struct rxrpc_connection *rxrpc_prealloc_service_conne=
-ction(struct rxrpc_net *rxn
->                 /* We maintain an extra ref on the connection whilst it i=
-s on
->                  * the rxrpc_connections list.
->                  */
-> -               conn->state =3D RXRPC_CONN_SERVICE_PREALLOC;
-> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE_PREALLOC);
->                 refcount_set(&conn->ref, 2);
->
->                 atomic_inc(&rxnet->nr_conns);
-> @@ -161,10 +161,6 @@ void rxrpc_new_incoming_connection(struct rxrpc_sock=
- *rx,
->         conn->security_ix       =3D sp->hdr.securityIndex;
->         conn->out_clientflag    =3D 0;
->         conn->security          =3D sec;
-> -       if (conn->security_ix)
-> -               conn->state     =3D RXRPC_CONN_SERVICE_UNSECURED;
-> -       else
-> -               conn->state     =3D RXRPC_CONN_SERVICE;
->
->         /* See if we should upgrade the service.  This can only happen on=
- the
->          * first packet on a new connection.  Once done, it applies to al=
-l
-> @@ -174,6 +170,11 @@ void rxrpc_new_incoming_connection(struct rxrpc_sock=
- *rx,
->             conn->service_id =3D=3D rx->service_upgrade.from)
->                 conn->service_id =3D rx->service_upgrade.to;
->
-> +       if (conn->security_ix)
-> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE_UNSECURED);
-> +       else
-> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE);
-> +
->         atomic_set(&conn->active, 1);
->
->         /* Make the connection a target for incoming packets. */
-> diff --git a/net/rxrpc/proc.c b/net/rxrpc/proc.c
-> index e9a27fa7b25d..99d2c850b94e 100644
-> --- a/net/rxrpc/proc.c
-> +++ b/net/rxrpc/proc.c
-> @@ -146,6 +146,7 @@ static int rxrpc_connection_seq_show(struct seq_file =
-*seq, void *v)
->         struct rxrpc_connection *conn;
->         struct rxrpc_net *rxnet =3D rxrpc_net(seq_file_net(seq));
->         const char *state;
-> +       enum rxrpc_conn_proto_state cstate;
->         char lbuff[RXRPC_PROC_ADDRBUF_SIZE], rbuff[RXRPC_PROC_ADDRBUF_SIZ=
-E];
->
->         if (v =3D=3D &rxnet->conn_proc_list) {
-> @@ -159,7 +160,8 @@ static int rxrpc_connection_seq_show(struct seq_file =
-*seq, void *v)
->         }
->
->         conn =3D list_entry(v, struct rxrpc_connection, proc_link);
-> -       if (conn->state =3D=3D RXRPC_CONN_SERVICE_PREALLOC) {
-> +       cstate =3D rxrpc_conn_state(conn);
-> +       if (cstate =3D=3D RXRPC_CONN_SERVICE_PREALLOC) {
->                 strcpy(lbuff, "no_local");
->                 strcpy(rbuff, "no_connection");
->                 goto print;
-> @@ -168,9 +170,9 @@ static int rxrpc_connection_seq_show(struct seq_file =
-*seq, void *v)
->         scnprintf(lbuff, sizeof(lbuff), "%pISpc", &conn->local->srx.trans=
-port);
->         scnprintf(rbuff, sizeof(rbuff), "%pISpc", &conn->peer->srx.transp=
-ort);
->  print:
-> -       state =3D rxrpc_is_conn_aborted(conn) ?
-> +       state =3D (cstate =3D=3D RXRPC_CONN_ABORTED) ?
->                 rxrpc_call_completions[conn->completion] :
-> -               rxrpc_conn_states[conn->state];
-> +               rxrpc_conn_states[cstate];
->         seq_printf(seq,
->                    "UDP   %-47.47s %-47.47s %4x %08x %s %3u %3d"
->                    " %s %08x %08x %08x %08x %08x %08x %08x\n",
-> diff --git a/net/rxrpc/security.c b/net/rxrpc/security.c
-> index 2bfbf2b2bb37..f64acaa6cf53 100644
-> --- a/net/rxrpc/security.c
-> +++ b/net/rxrpc/security.c
-> @@ -114,12 +114,12 @@ int rxrpc_init_client_conn_security(struct rxrpc_co=
-nnection *conn)
->
->  found:
->         mutex_lock(&conn->security_lock);
-> -       if (conn->state =3D=3D RXRPC_CONN_CLIENT_UNSECURED) {
-> +       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_CLIENT_UNSECURED) {
->                 ret =3D conn->security->init_connection_security(conn, to=
-ken);
->                 if (ret =3D=3D 0) {
->                         spin_lock_irq(&conn->state_lock);
-> -                       if (conn->state =3D=3D RXRPC_CONN_CLIENT_UNSECURE=
-D)
-> -                               conn->state =3D RXRPC_CONN_CLIENT;
-> +                       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_CLIE=
-NT_UNSECURED)
-> +                               rxrpc_set_conn_state(conn, RXRPC_CONN_CLI=
-ENT);
->                         spin_unlock_irq(&conn->state_lock);
->                 }
->         }
-> diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
-> index ed7ff32da184..dcbd2033ca01 100644
-> --- a/net/rxrpc/sendmsg.c
-> +++ b/net/rxrpc/sendmsg.c
-> @@ -336,7 +336,7 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
->         if (ret < 0)
->                 goto out_unlock;
->
-> -       if (call->conn->state =3D=3D RXRPC_CONN_CLIENT_UNSECURED) {
-> +       if (rxrpc_conn_state(call->conn) =3D=3D RXRPC_CONN_CLIENT_UNSECUR=
-ED) {
->                 ret =3D rxrpc_init_client_conn_security(call->conn);
->                 if (ret < 0)
->                         goto out_unlock;
->
+Hi T.J.,
 
-Thanks for looking into the problem, this looks like a better fix. If
-appropriate, I would appreciate if there could be a reported-by tag in
-the patch:
+Thanks for the patch. Your changes reduced rmdir() latency by
+21.87-22.86% in the same empty-cgroup benchmark, with sched_ext disabled.
 
-Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+I tested these two states on 2f0c1cf72f46 (7.3-rc2):
 
-Best regards,
+  A: baseline + Shakeel's file-handle decoding read-lock fix [1]
+  B: A + your INODE_INITED changes, without modifying your code
+
+I used the original binary on the bare-metal i7-12700KF, pinned to CPU0,
+with full preemption, the performance governor and Turbo disabled.
+Both kernels used GCC 15.2 and the same config except LOCALVERSION.
+
+The clean timing sequence used four fresh boots: A1 -> B1 -> B2 -> A2.
+
+                     A1       B1       B2       A2
+  rmdir (us)        9.727    7.600    7.548    9.784
+
+Each value is the median of nine sample means. Each sample contains
+128 measured removals after 16 warmups. All four B/A comparisons showed
+the improvement above. Removal CVs were below 2.03%. The drift between
+boots was +0.59% for A and -0.68% for B. The improvement held after
+dropping the first sample from each boot.
+
+Separate, untimed traces showed the same 26 kernfs nodes per removal,
+but ilookup() calls fell from 26 to 1. Deletion lock counts were unchanged.
+Basic checks of file/directory deletion notifications and link counts
+with FDs held open passed on both kernels.
+
+I also timed the full mkdir() -> stat() -> rmdir() sequence using a
+separate binary on the same kernels. The latest continuous follow-up used
+four fresh boots, with nine samples per boot. Each sample had 16 warmups
+and 32 measured sequences, with no pauses between them. The full sequence
+fell from 30.07-30.65 us to 27.97-28.34 us, a 5.77-8.76% reduction.
+The maximum CV was 1.76%, and boot drift stayed below 2% in both states.
+In the earlier continuous follow-up with 128 operations per sample, the
+full sequence was 5.15-6.52% shorter, but CVs of 4.52-6.46% were too high
+to establish a stable overall improvement percentage.
+
+Untimed tracing placed the added write lock in first stat(), during inode
+initialization. The patch skips lookups for nodes whose inodes were never
+initialized; it does not move those lookups into stat(). The individual
+mkdir() and stat() timings remained too variable to quantify their changes.
+
+I also checked whether the benefit persisted with less frequent operations.
+For this diagnostic, I added 50 and 200 ms pauses between sequences,
+outside the timers. I kept 16 warmups and 32 measured sequences per sample.
+rmdir() still saved 2.10-2.58 us, but its baseline rose from about 10 us
+to 18 us, reducing the percentage gain. The full sequence was 0.66-2.85%
+shorter, with a maximum CV of 1.53%.
+
+I included [1] because the file-handle path on this base lacks
+kernfs_rwsem protection. Source review suggests a possible wait cycle
+when that path recreates an evicted inode. Initialization waits for
+kernfs_iattr_rwsem, while removal holds it and waits for I_NEW to clear.
+I have not reproduced this possible deadlock in the kernel.
+Does the base for your diff already include [1] or equivalent locking?
+
+[1] [PATCH v2 3/4] kernfs: don't lose IN_DELETE_SELF
+    when decoding a file handle
+https://lists.openwall.net/linux-kernel/2026/09/05/828
+
+Results and reproducers:
+https://github.com/lcf0399/linux-regression-evidence/tree/f101b1b9c0d3dfce0=
+7f81b11ca2da2c252150e4c/kernfs-empty-cgroup-removal/bare-metal/inode-inited
+
+Thanks,
 Chengfeng
+
+T.J. Mercier <tjmercier@google.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=8814=E6=
+=97=A5=E5=91=A8=E4=B8=80 00:17=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Sun, Sep 13, 2026 at 8:47=E2=80=AFAM Chengfeng Lin <lin2530632123@gmai=
+l.com> wrote:
+> >
+> > Hi Tejun,
+> >
+> > Thanks. I found this during research into kernel performance regression=
+s,
+> > using a microbenchmark of cgroup creation and removal. This was not
+> > prompted by a production issue.
+> >
+> > I reported it to document the added removal cost and ask whether some
+> > of it could be reduced while preserving the fixes. I agree that the
+> > roughly 3 us increase per removal does not, by itself, demonstrate a
+> > significant impact on real workloads.
+> >
+> > Thanks,
+> > Chengfeng
+> >
+> > Tejun Heo <tj@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=A5=
+=E5=91=A8=E6=97=A5 23:03=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > Hello,
+> > >
+> > > On Sun, Sep 13, 2026 at 10:43:04PM +0800, Chengfeng Lin wrote:
+> > > > I found an increase in empty cgroup removal latency across 507d8ce1=
+3f5b
+> > > > ("kernfs: Don't set_nlink for directories being removed") and eea5d=
+2bb34ba
+> > > > ("kernfs: Send IN_DELETE_SELF and IN_IGNORED"). With sched_ext disa=
+bled,
+> > > > rmdir() went from about 6.5 us to 9.6 us, an increase of 46-47%.
+> > > > The result held in two independent runs.
+> > >
+> > > I don't want to make cgroup removal unnecessarily expensive but at th=
+e same
+> > > time it's not an operation that I consider to be a hot path, so as lo=
+ng as
+> > > the operaiton can finish in a reasonable amount of time and single di=
+git us
+> > > definitely is, performance of rmdir usually isn't something which is =
+high in
+> > > priority. Can you please detail why this matters for you?
+> > >
+> > > Thanks.
+> > >
+> > > --
+> > > tejun
+>
+> Hi Chengfeng and Tejun,
+>
+> We use this kernfs IN_DELETE_SELF feature on Android where multiple
+> cgroups are created and removed frequently on a per-application basis,
+> but we hadn't noticed a significant delay due to the inotify
+> functionality during cgroup removal. It's probably masked by much
+> larger delays (milliseconds) we regularly see due to unreleated issues
+> with cgroup locks like priority inversion with cgroup_mutex, and
+> contention for cgroup_threadgroup_rwsem.
+>
+> As far as what we can do, I think avoiding inode lookups for kernfs
+> nodes that never had an inode created should improve the situation. It
+> doesn't eliminate the locking overhead, which I don't think can easily
+> be eliminated. The code below doesn't deal with inode eviction either,
+> but at least files which are never accessed won't introduce the inode
+> lookup overhead.
+>
+> diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+> index 4f9ade82b08a..3ec9f79b1aa2 100644
+> --- a/fs/kernfs/dir.c
+> +++ b/fs/kernfs/dir.c
+> @@ -1523,6 +1523,9 @@ static void kernfs_clear_inode_nlink(struct
+> kernfs_node *kn)
+>         struct kernfs_root *root =3D kernfs_root(kn);
+>         struct kernfs_super_info *info;
+>
+> +       if (!(kn->flags & KERNFS_INODE_INITED))
+> +               return;
+> +
+>         lockdep_assert_held_read(&root->kernfs_supers_rwsem);
+>
+>         list_for_each_entry(info, &root->supers, node) {
+> diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
+> index 38b28aa7cd02..f8b4a8b8ade4 100644
+> --- a/fs/kernfs/inode.c
+> +++ b/fs/kernfs/inode.c
+> @@ -208,6 +208,10 @@ static void kernfs_init_inode(struct kernfs_node
+> *kn, struct inode *inode)
+>         set_default_inode_attr(inode, kn->mode);
+>         kernfs_refresh_inode(kn, inode);
+>
+> +       down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+> +       kn->flags |=3D KERNFS_INODE_INITED;
+> +       up_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+> +
+>         /* initialize inode according to type */
+>         switch (kernfs_type(kn)) {
+>         case KERNFS_DIR:
+> diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
+> index e21b2f7f4159..87f074ce19d3 100644
+> --- a/include/linux/kernfs.h
+> +++ b/include/linux/kernfs.h
+> @@ -113,6 +113,7 @@ enum kernfs_node_flag {
+>         KERNFS_EMPTY_DIR        =3D 0x1000,
+>         KERNFS_HAS_RELEASE      =3D 0x2000,
+>         KERNFS_REMOVING         =3D 0x4000,
+> +       KERNFS_INODE_INITED     =3D 0x8000,
+>  };
+>
+> -T.J.
