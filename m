@@ -1,104 +1,96 @@
-Received: from outbound.ci.icloud.com (ci-2002j-snip4-6.eps.apple.com [57.103.88.227])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7793C3D3314
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.88.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8A13F076C;
+	Mon, 14 Sep 2026 08:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373425; cv=none; b=UvI48dFyPm4jNjHQm65/wEzZAbGz3J4PZ+LncIcgChP9UIkNPyqEUc1COL7mtcMsNngv2IDyww3Car1bE393OtZ5NKyUT2Hu1/c+QInXHppN+LI1U0Ul7BVYxaA8pIrAbzpKcUNzfyduGz7LJOFdKo/kwmTpSHkJM0uC9ooO8ro=
+	t=1789373426; cv=none; b=NTMC45/iyOb4CVD3lfrCw22KI/PBG7VWwTorQZeU4T+mr/lwCqMsHYIOdyQD3p5MuzkHNOKQ34w5dXXazrxS1RcOCHPXLasXd0+c9qhLYX1zvuComInbJsfdbzHgGYvJkPot+qjl2enj6WvcqTtf8eaXwVF8gV1Ep1MZbzRd9Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373425; c=relaxed/simple;
-	bh=WVLrlQuMsT1iq4HLaXaRBiByedSlQFJ6Q8mIvDJu8/c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J8jl9X4Nlwy3FReoGdJIwrD42qer7yCYI2/0bToTcyYogMiRULwGRwJ3ryE4HNjZHE13Lk9q8KhWUNRngfjhi349ap/iHsIj+QKi48GL7EkSHDvg4ZMDXyJUdPw+XSKZNsC+PmYqwUh4rZAgvAcSYiiQXsTuw0mL7cEuC7LNuBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=yXzMtkjy; arc=none smtp.client-ip=57.103.88.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
+	s=arc-20240116; t=1789373426; c=relaxed/simple;
+	bh=PynJ5xo9Sdp/Ik69/y60OZIBerQ/6DJ4h2lEOta72bc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tRBhu8vWlbga+MwSXORVq8gB/Ov1n228vyzK87TygOXVU29XUmGTDDuv/J/toIq2paeaOm+J7MnrjGX0YrKC7E+hoyvTt1NkhyAZrjoXR6GRIs9hn8KGyH5vNDaQMgq180QEzXGe/2D3Mduq+Cif8l3fuCrSKJtXxxDiw+Ut8wM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/HNsU4m; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="yXzMtkjy"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-20-percent-0 (Postfix) with ESMTPS id 607801803215;
-	Mon, 14 Sep 2026 08:10:21 +0000 (UTC)
-X-ICL-RepId: 01a09ef7-96ef-77fc-84a1-15d64969dbea
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQhMAUMGWgFeC0odXANcEhVdRUMMQxtXAHkVVkNUBF9QXxwOAFJFUR9UWEEOCl0SGFwUXFBYHkYSVg1dCRkIW15QG18CQg8cE1YVEx1DGQ8rCEoEQwdFAl4LJRMJU1ZfFRcbXAAXBlsUBEQBXQVdAkkITANVB1IHRRdABFQFXh9BFAhSGUcOQjBUHR0OWAYMUE0BQwgKAlEcVg1X
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1789373423; x=1791965423; bh=Grqz1NULpAgzv3ObRtUmkKvcgSLrgeGPdEtHhY4Tf6k=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=yXzMtkjywkSa/i6L27D3pxvvNFOUUuyrtYuqtY52PS9bO0mfu4GKi/1HG1gY6WTfPj0xFEj7t8hClvutScUOgJSQfAB18XELWWVa/PCuoAzSjYu1kW1pfMae5zMAkArXAAbXg0WZffXliHbHKUfa2M8W7VJEOCzHcgy7NtnVTNoQjq8VqhuVQaC8MPfzmlWX2N4HgGN84t7XnGIHm/q+ya8reOd0dQ1nmD83JK3G/LZPqlmvtEZg3+0YDUtjLVa5CJKcTDR+Fvse6wcJ89ht3IG4l3hqZUt9SBHgzgEF6HrZlx799Xq6hVF8WfM9mqhKI5TJrrFTveGxA6fcS5L8AA==
-Received: from dell-p3650 (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-20-percent-0 (Postfix) with ESMTPSA id 64F181800171;
-	Mon, 14 Sep 2026 08:10:20 +0000 (UTC)
-From: Patrick Pepin <patpep@me.com>
-To: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: Armin Wolf <W_Armin@gmx.de>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Patrick Pepin <patpep@me.com>
-Subject: [PATCH v2] hwmon: (dell-smm) Add Dell Precision 3650 Tower to fan control whitelist
-Date: Mon, 14 Sep 2026 08:09:55 +0000
-Message-ID: <20260914080955.87925-1-patpep@me.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260913112925.11393-1-patpep@me.com>
-References: <20260913112925.11393-1-patpep@me.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/HNsU4m"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BC84FC2BCFA;
+	Mon, 14 Sep 2026 08:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789373425;
+	bh=PynJ5xo9Sdp/Ik69/y60OZIBerQ/6DJ4h2lEOta72bc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=g/HNsU4m8LqTruZZRaHMQkGKpRUaTLsaZ/2ovo99zwSJpLJJX7Zikha+tyW3LwDXF
+	 e4xvPez8X81IjfP1mWdC7csamtdnvmEkxRRVKiRTd2dh83J6t07h3W8stf0BO+/iAr
+	 02kbCyiRxsHb0ity25IqCHTJdDtSFG9uu+jVt8TWjF+3mOzWispVEqg/qV5xalcM2N
+	 MQrnV2ACoiw29BcYdbSrRCHf95ODvoZ/5dpRDon912LNnEbTZkIwWjS6PlFxiAQnDy
+	 +f7Ghqt8JCeVYy4qurZezkzup01dNBYiRTtSiWOVCUWvRWOUn/WEE8H5aKHoVylsr8
+	 VdVoQuXVjW+4Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D70FC88E50;
+	Mon, 14 Sep 2026 08:10:25 +0000 (UTC)
+From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
+Date: Mon, 14 Sep 2026 16:10:18 +0800
+Subject: [PATCH v9 1/6] firmware: meson: sm: video firmware loading via
+ secure monitor
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=DIuCIiNb c=1 sm=1 tr=0 ts=6aa7abee
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10
- a=-UwBEhI7gGgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=HHGDD-5mAAAA:8
- a=aSWZaw_ONm4TnRRh5LEA:9
-X-Proofpoint-GUID: 956thQSqeU8ApX6-ShKpuO7DzrHy9oLT
-X-Proofpoint-ORIG-GUID: 956thQSqeU8ApX6-ShKpuO7DzrHy9oLT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExNSBTYWx0ZWRfXyvh1K3Jg2nHs
- snRyMLIb1fKVNuiqpZKGLiS4B2ZDts6qL7gP+57BEbSYaltC17NpD6fV+jj7dgzFzM2k0jiEi9H
- ToyyNJBXduotprzkH6Vvh6xMvCOp8DWX4Zr8RxF2YJYWruRG3iL1iVZOajcsdsOzyQeFTGByqjE
- 6SDG21V89pjxy178xFPS8OkNdP8wQ4NeS8gBw8FO9tZqWbt3LQJ7ekBN2C/ZEQ8Bh7a1XLcA3xJ
- 2TxCdR4ldsJBTXRErBH17xJh4uZyd5/pksqChQrq9mpeHfJc+pM76O87Utp/Wwh1Rq3MZXdQ5j7
- 5pI39u7BPMig5yNHoWUvKPlassL6ls9tAqTDEboV/BKzkSIUmywJRpGZXmsLZY=
-X-JNJ: AAAAAAABFtmFkGpBVdEXkDdRSatZ9S3j/Cn6DteNWL+rZO+N4eAA/kihYOcACJSMyjFOAJYiPzHZbidNVV9nTUJsN2iTN5TaSf9FvOl8zTUtYnxBSZGAVUJTXN0PfZ1VKoIEdz/IYjHASNACJW5fj5j3RsyO6JgXeMsITDvmCgl7q56F3YxVqwsJY+n3XN7Qb+qABsfkCZD5RiVklQ7OMH8qKQ3+cO/lBrvZby6+KhMV0yVFotJSXx4oIFzgjpXI2SzxodmVf8bwGBWcFt5Pn6+Z+auOtUmdioWPaTSD1YTqHpDPduZsM/npa7dNfQFe7lPr4Yox1s67361v0RMQpZ/eGOjS8xjzvZlCnhVPi2+MyhBzhCV0aD6XnO0oMgQH4f6C3jlxJG1r89k/ld1Z04wirS6Qn6REqc9liLfS3dDr1jc3kHFT5KGZSiXYlKLTXWlnmRne0BjSqq8+IZNhM7GMjI/dnWAZ87vPBffKhTzCcvgFntp+YKvIUXy64acdDxFBpgDwjV6Mi7Mex1j/BSwp2RLk7+UqzFMOGR6jzx0+E7B0M6b2vEXnTkWQYiXtNjzEx0tmNRu2/sqLPfDTaCuAHlbYBuEYGUsL+w9e6pbrZ+9i96ewGs8V1FknjTBDPbIsWTQ5OPPPDvSCttcZyNL1m3k0qCy/uyYFm+X7B48OjF9vHJjH4bqA5Txwqpod+tai3NXZPpmdPL1dZ5qTaAy3qXc8lIqxqMia/HHkgeeQJRZWD+R1uwIU2fJGb6Pb4ASnYsbKxXG3LYiu5X4SIqlDBfisJURYbcVOcvG7Po6U/zQQODVMSYF6JziBbIa/9Awuq25NhsNOV63QuVIwJfOQlUkmGSXbFrdz1z3qnBLcWulnWljYNoEDB1XsDGJznIi6MLUJKhtTdv8UhCg3z4R78NoDwKr3J9HXEfocgeKkyxgI8g9nTXudW5qG3Xuc3vGVYY5nde1gvkkzMWpfkTEMRtQoa8I
- 5BP7OfFSG5Vrb0JoiyeUmQe770iWymbOl9l75KHkk7MC4f1fxzIJXyPDOeTzxajEyGNzrj0yfmQ3TvRufB8vmjJ/Zylj7D5Us3Kn/X9dtFlijPZmS2ZJWJPlccsqwS8dfLHCNrnsFDMwouC5Jt0fmnk0HFumE/l2WuCBbK4KRSwRTudSs8xYyoau0MDHAG6p9LaGeKJu3OwbNZNFnndlSfLT9XMlB1nQj17TQbDpg9SPgpyUTZtAFFUMos7/ozwFBWOMnlSJrua0=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-b4-s4-vdec-upstream-v9-1-72fdb0d71b02@amlogic.com>
+References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
+In-Reply-To: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789373423; l=670;
+ i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
+ bh=ioNPQiZsvUfM7WHdEfF4xb07l7H3o3hVIdC2XZUtO1g=;
+ b=1CLo+30Ei02EhAt7eYtDaRQEUam7kIUmL7XvmRwXk6aHWi4zjcE3akmc38tmGBx2hq6J7q4C7
+ 156ZgdTps3XAKtCLzTAFq6TxjHH9o1BBCNUY+hE6RBYnAj7dGXJZ3Vc
+X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
+ pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
+X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
+ auth_id=555
+X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
+Reply-To: zhentao.guo@amlogic.com
 
-On the Dell Precision 3650 Tower, the EC ignores fan speed writes unless
-automatic BIOS fan control is disabled first. The I8K_FAN_30A3_31A3 SMM
-code pair works on this machine through the WMI-SMM backend: after
-writing 1 to pwm1_enable, all three fans (CPU, front, top) accept the
-three fan states and report matching RPM, and writing 2 hands control
-back to the BIOS. I8K_FAN_34A3_35A3 was tested as well and also works;
-I8K_FAN_30A3_31A3 is used since it matches recent OEM software.
+From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Tested on BIOS 1.48.0 with kernels 7.0.0-30 and 7.0.0-31 (Ubuntu 26.04).
+Add SM_LOAD_VIDEO_FW to the secure monitor command enum
+to allow decoder drivers to load firmware through the meson_sm
+interface.
 
-Signed-off-by: Patrick Pepin <patpep@me.com>
+Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
 ---
-v2: use I8K_FAN_30A3_31A3 instead of I8K_FAN_34A3_35A3 as suggested by
-    Armin Wolf (both pairs tested working on this machine). Pali's
-    Acked-by from v1 is not carried over because of this change.
+ include/linux/firmware/meson/meson_sm.h | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/hwmon/dell-smm-hwmon.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+index 3ebc2bd9a976..3b90b49d0552 100644
+--- a/include/linux/firmware/meson/meson_sm.h
++++ b/include/linux/firmware/meson/meson_sm.h
+@@ -15,6 +15,7 @@ enum {
+ 	SM_THERMAL_CALIB_READ,
+ 	SM_A1_PWRC_SET,
+ 	SM_A1_PWRC_GET,
++	SM_LOAD_VIDEO_FW,
+ };
+ 
+ struct meson_sm_firmware;
 
-diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon.c
-index 7ed94a3db..99a58ed26 100644
---- a/drivers/hwmon/dell-smm-hwmon.c
-+++ b/drivers/hwmon/dell-smm-hwmon.c
-@@ -1639,6 +1639,14 @@ static const struct dmi_system_id i8k_whitelist_fan_control[] __initconst = {
- 		},
- 		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_34A3_35A3],
- 	},
-+	{
-+		.ident = "Dell Precision 3650 Tower",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Precision 3650 Tower"),
-+		},
-+		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
-+	},
- 	{
- 		.ident = "Dell Optiplex 7090",
- 		.matches = {
 -- 
-2.53.0
+2.42.0
+
 
