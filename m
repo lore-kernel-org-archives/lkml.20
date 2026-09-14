@@ -1,105 +1,131 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from lb2.peda.net (lb2.peda.net [130.234.6.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D65544781F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F6A4446E1;
+	Mon, 14 Sep 2026 12:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.234.6.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389589; cv=none; b=JaR4xqfyx9yL8EtUBMSx0XxgigR2YxFcO9ccLEWmajh+uRWtedtLZyk+30eK8qneeVQB9ulRix6gTMcm6poFJsHnLLKOAO4FBDV94bKV0HqVvyuwIZwrjqbTM5KmGcFSkCB6mwCDtKYKuV7ibNipGpY3fOxC+/TJ6uCGS2yYiCw=
+	t=1789389609; cv=none; b=jJ7ceoBVKMEQA3oXNBXji70VN06y7mi1yjruJzYsYKBTAHAW5Mjf4utPDDMLwPEv1YwYNVhXcwboAmVBh/n67cStfuCcO3L28MA4wanSK390UqfmMXEsKmbDtc9xA0ZJm9np8EoZQI5aQbmsjc8rBydsZpl8Uh7cNr1E7WhZMxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389589; c=relaxed/simple;
-	bh=O/gngp4hf+LLp5p9T8vhJw8mUWabD83UKmDRD05jdnY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NcLOUyrrssGznQ3b5IPwX7Ua9OKkg93jLlivxcyjg9b5aCbQms4UkZ2rKdetPsnhIh7NnLbg0GbGnI5p5BNTHTEgjtB4BA0AVeFGL/CqXUksqNxvqCBOnr/wmZZRqE83BhoYkdTIZGCeNwXX55M8/VpFDiRCqKg+pWz3Rn2S3bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mm0R0eCr; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789389609; c=relaxed/simple;
+	bh=gNbkOq+Ttw1t7HU8FDpEpcMJuR0DG26Dudi2mfXAPsM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=XNdkUlmnLRQMbr+r0JkEwfi6ViDumUVdS5lu/iHBQ4xIDMN4BbCT7DXYrkuoStvMURTViaVPR6lldPW4ZR7feXmZ7s1a7IHU8g0M9Wg2vATTgUqC1jbFSukD9G1eH3KyxqzKbXiQsuwBhjs5gz6MbjDdp9lgi2LPod875/KbIdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=peda.net; spf=pass smtp.mailfrom=peda.net; dkim=pass (2048-bit key) header.d=peda.net header.i=@peda.net header.b=mSIMnDw0; arc=none smtp.client-ip=130.234.6.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=peda.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=peda.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mm0R0eCr"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so8813745e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:39:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789389586; x=1789994386; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O/gngp4hf+LLp5p9T8vhJw8mUWabD83UKmDRD05jdnY=;
-        b=Mm0R0eCrqc7dKBJXEc2108LWQqYgHpDh2NeGwHjyMgkW54IsZ06E6yNGBfXYXAhyVV
-         HcCpkcfmGLZNmtzcmnS/4kaX0MTP1rA0ZugIlLG+G2wAH3Jm/+KVxfrLIlzpvqSAs9AH
-         1IXOj9Gfq0kJfT9y+m2ioAbKnSgin096v5Oxoha8y5URiemnRYXp0xmU1iQZhpVNJ1QG
-         UPWfPU0Rr7uWnYBhymIOS4Uos8DXtWNZn0jVR2exlqYqiV8BwT4u5Dff8B48VEOXHhSA
-         inYRKxJiFtC70nNf+nnwYAI6rojrYEc2boOB77bLQqYzG1IOaDHqOwFCwoXq431Zyc/K
-         2Zuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789389586; x=1789994386;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O/gngp4hf+LLp5p9T8vhJw8mUWabD83UKmDRD05jdnY=;
-        b=j8CGfGSGQ5BZ69+wSx3lfdUg1xYpPT/CaJv/uF6hMwTw4P5k+WxdLyDw9ReAlbpadw
-         YMvTacWiKwWqf40q+IzjKVtY5vym1IeAA7lxeNFr7WqekcANIxIR4cG26I+A15kGPTe6
-         9zsG41/VUj+1osUqbvf+cUIn/t9y37csRwYCRsiG09NI2ML/tySzAU1d0cYpyQgXGSC6
-         9NfXe4pvP+UiufhL1Zj63vbZdG3fdcBPEWVzUK2LlJx7oSqAZoXb9zyDJpGwOH/RszLn
-         sz/zKWMG7zzxTIIFvMVMAc1TCwIbf25VQbkyhvtx+OKhKbLu/zT99CyyuM5tra8GD2Lk
-         bbRg==
-X-Forwarded-Encrypted: i=1; AKwUvByeN2MXIsWYgfX0WqGhZW9gUl2N6oqrdg/SB++RzTAUFs7rD8I1J5p+y5K305AqrBhkdglP6a56onaxaZk=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntWfm5qUyiA/6SOx/5whwB4xgKj+2qn/ma3Ma+UeAxSLrsmIGC
-	X/yi+C7oE6Pze8ot5JJpmuwsEbeLVwHMPERFcjMq/IsNwGvu3GxPPmRl
-X-Gm-Gg: AYBFou3rtNRc7SbUQLcpoyGzXMQjt1hGQqXKrVaVpsscWH/xYnG+yKtEiuC1qo9O0wY
-	Gb5u8WU2I0qlPTn6SZOtAa1O3yiPRqhkTtg2qFvQ2hkKQrrg89geVkPqChVynXuy4KtCzV19fVv
-	uLNFYe29rVtgteJpKDIuaNm9dqN9yUrfZxhOHgQbEc3aVEGmTIhmzbTgKYd/8Bm2ta4QPVyPkK5
-	gPWpnPYPWDFcHaSqquemYuYc3+01BS1jhzWtQWuxotcETmVN93CfUGFa4m42tKro8AI5dI3ORMg
-	BdGUn1NnfuBNk+NOzB+HOya0fc7E+JFfoeH8+pvl8srIAy8nZVl1Lprd1uPNzhz/QHpn9+UZ4as
-	+Qf0ovS9T235OZp76M9NT5VuJPmqb/CqQXHJCK/X/6t1EAugjXzjQsdwkE3QqAFVpK+6dM61S+u
-	v17WavvVq+SghjvjDaOzxKPYG7ryJWNC7CIT1HZpY9EmoTGXqApbE+SIDR+dyBiHqeM1gH0RNle
-	tI3
-X-Received: by 2002:a05:600c:4f41:b0:49d:38:afce with SMTP id 5b1f17b1804b1-49e7a6868c0mr31405635e9.22.1789389586006;
-        Mon, 14 Sep 2026 05:39:46 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f353sm26035194f8f.26.2026.09.14.05.39.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 05:39:45 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jacky Bai <ping.bai@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	imx@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: Re: [PATCH v5 1/3] pinctrl: imx: answer OUTPUT_ENABLE/INPUT_ENABLE queries from the pad register
-Date: Mon, 14 Sep 2026 14:39:44 +0200
-Message-ID: <20260914123944.149806-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAD++jLnmgKrmUnyCx8dq9yFuJxx68Tt-3XPz0WRzOO8F7805OA@mail.gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=peda.net header.i=@peda.net header.b="mSIMnDw0"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=peda.net; s=default;
+	t=1789389602; bh=gNbkOq+Ttw1t7HU8FDpEpcMJuR0DG26Dudi2mfXAPsM=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=mSIMnDw0JjU2RRMvLsUSIa7CK0FY+ELNTZyx927AwRj+/T+FMk8GEoNfF1smGXo6x
+	 uA+iVeXqxJTe5liR3mBhHn+vpIhHWCMe34lw1Sy8FJ41uUSuwGwkDoXMMKTmSadnTV
+	 0CYbZS15y/gvSd6Zc/P3saF/mAknWitpuNcpDvxlwhCJGvSrRv0RESY4JZb6v6W+X0
+	 0XJWsNppV9xi4ZY8Kx8upyOXKdhfIqAspvB3Lcd+Ku9S48KTEU5EZoduSxFIWNwKEd
+	 r4S8Er/BuKZuxDjDFKBdBKcg89MiQBUHPGQmQocz6+Wo2QslQhG7ltFOw6m1viB3Az
+	 Y6idRgD4PCrIA==
+Received: from [86.60.167.233] (86-60-167-233.dynamic.lounea.fi [86.60.167.233])
+	by lb2.peda.net (lb2.peda.net) with ESMTPSA id 27A07D600C6;
+	Mon, 14 Sep 2026 15:40:02 +0300 (EEST)
+Message-ID: <cf83be66-e540-4abf-b377-7e344d62a1dd@peda.net>
+Date: Mon, 14 Sep 2026 15:40:01 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+From: Mikko Rantalainen <mikko.rantalainen@peda.net>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+ linux-kernel@vger.kernel.org, brauner@kernel.org, viro@zeniv.linux.org.uk,
+ jack@suse.cz, alx@kernel.org, dalias@libc.org
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+ <aqcmz5uI7PgN5CT7@casper.infradead.org>
+ <bcdb8f85-d53a-4824-8e34-8d190ec7f4b2@peda.net>
+Autocrypt: addr=mikko.rantalainen@peda.net; keydata=
+ xjMEWvlVlRYJKwYBBAHaRw8BAQdAJneRuA4reN56nwM7GyQ8Gwkhc4ANBia0NFNcU/qwP63N
+ Lk1pa2tvIFJhbnRhbGFpbmVuIDxtaWtrby5yYW50YWxhaW5lbkBwZWRhLm5ldD7ClgQTFggA
+ JwUCWvlY9wIbAwUJXfwPAAULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAhCRC4w4yaqAoqKxYh
+ BNKwvdN4KAGSgYZmbbjDjJqoCiornGsA+wWoUBgH7S20W4KkYvr5OipJ5FBH0vbHDEvv26V+
+ WYt5AQCbgxKfVQD1g9gp67xb2NWkMKccy/5R0oYl7uGBDKHNBc44BGftb9gSCisGAQQBl1UB
+ BQEBB0CXgySU7HDsuvqYVVlXWZvvGTyjxz4iEQSemOwJ8BU7EgMBCAfCfgQYFggAJhYhBNKw
+ vdN4KAGSgYZmbbjDjJqoCiorBQJn7W/YAhsMBQkX8l8AAAoJELjDjJqoCiorklIBANBBccGb
+ g8cV5dSjL2oUNnJKK3ZgkBSfWjk21cISIMIxAP4xRcw/3Kk0sCRbKNFXyGtIk4OQrvYBaAij
+ qKI0ItEoBg==
+In-Reply-To: <bcdb8f85-d53a-4824-8e34-8d190ec7f4b2@peda.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+Mikko Rantalainen (2026-09-14 12:07 Europe/Helsinki):
+> ---
+> retval = filp_flush(file, current->files);
+> 
+> WARN_ONCE(retval == -EINTR ||
+>           retval == -ERESTARTSYS ||
+>           retval == -ERESTARTNOINTR ||
+>           retval == -ERESTARTNOHAND ||
+>           retval == -ERESTART_RESTARTBLOCK,
+>           "close: ->flush %ps returned interrupt error %d\n",
+>           file->f_op->flush, retval);
+> ---
+> 
+> That would leave the existing userspace ABI unchanged while making
+> remaining offending implementations easier to find and fix.
+> 
+> I also considered retrying filp_flush() inside close(), but I don't
+> think that can be done generically. ->flush() is not documented as
+> safe to restart from the beginning after partial execution, and
+> an interruptible wait could immediately encounter the same
+> still-pending signal again. So fixing the interruptibility at the
+> offending wait seems safer if the above invariant is indeed
+> the intended one.
 
-On 2026-09-14 Linus Walleij wrote:
-> This looks like something I could apply separately from the rest,
-> can I just queue this patch in the pinctrl tree?
+Another thing I noticed is that there are already several paths where
+the kernel calls filp_close() and intentionally ignores its return value.
 
-Thanks for the reviews. If it is all the same to you, I would keep the
-three together until v6 has been looked at; gpio-mmio depends on this
-patch to get correct answers on Vybrid, so I would rather not have it
-land ahead of the rest. v6 goes out this week with Haibo's comments
-addressed and a small pinctrl patch for the CONFIG_PINCTRL=n stubs
-added. Once that is settled, this patch can go through your tree and the
-gpio patches through Bartosz's in the same cycle.
+For example, close_files() does:
 
-Best regards,
-Mehmet
+    filp_close(file, files);
+
+without checking the result. The same is true for do_close_on_exec(),
+and close_range() explicitly says:
+
+    Currently, errors to close a given file descriptor are ignored.
+
+So I don't think a ->flush() implementation can rely on returning EINTR
+and having somebody retry the interrupted operation. There are valid
+close paths where nobody will ever see that return value, even when the
+process itself continues running.
+
+This seems to strengthen Matthew's point: if some work performed by
+->flush() is required for correctness, that work has to tolerate these
+close paths without depending on userspace retry. Returning an
+interruption result cannot be the recovery mechanism.
+
+I'm therefore leaning towards treating an observable -EINTR/-ERESTART*
+from ->flush() as suspicious in general, rather than just special-casing
+the close(2) syscall. The fatal-signal case is harmless because the task
+will not observe the result, but close-on-exec and close_range() show
+that unobserved filp_close() errors are already part of normal operation
+as well.
+
+That also makes me think documenting the intended ->flush() contract
+would be useful: if required close-time work must not depend on the
+caller retrying filp_close(), that seems like an important invariant for
+implementations to know.
+
+What guarantees must file_operations::flush provide when its caller may
+have no way to act on its return value?
+
+In any case, I'm now thinking that returning EINTR for close() is a bug
+when file descriptor is already freed. I think the only question is how
+it should be solved. I initially thought it should just be mapped to
+success. Maybe it should be logged as subsystem bug *and* mapped to
+success for userspace instead?
+
+-- 
+Mikko
