@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC65C2E6CA6;
-	Mon, 14 Sep 2026 10:14:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E732E6CA6;
+	Mon, 14 Sep 2026 10:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789380863; cv=none; b=LZr7HZLabiHE5yQHtApFRpLjfINEiEzNuOeIEDE7T+zjAJObllOdC3KPtODKlzJQpjOp+2TdzoKn4o32VW6+Vp9riqh29oO9aHYzIVBmD35fikHXeOHLa6h7Fa6bB+KXzC4StqZNt5ySXoJ/U5ov9E6bC6s+FCNgG+EEn59mw1Y=
+	t=1789380897; cv=none; b=M7MJ4Q928wj0jB1oI2z7CQAW7Wr+z2c1KTN2015TAYTlzodyygP8TYrYf19+l6urL21FYhtHn+oCwWs8m61sTOGJKYGyZUG1xJpiKrYoGW5xZAF1KyR4pMXxklkqzcJfpkrM2s2E9N+46/1yEhSGe4OQC55mN9kQpEX60XhFnyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789380863; c=relaxed/simple;
-	bh=rmC4/YcEq5olwYAkjh+h4YWndqEVCVaCPUGICgBvd/A=;
+	s=arc-20240116; t=1789380897; c=relaxed/simple;
+	bh=L9BQcZ89GV6RGkDsIMoT1B+9EdqsSp5iDpytDOlQlII=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vc1u8W3lOy6QiRB3uZ5OZg0b1FZVtANVtflb4cPObISAy8A2ax0H4I2umfJ8z9QseqwtCL28LG08gx7EpJY/tRUJbRGTFQj+1DTktRWDHCF512DBxKWlxOf6szOucMx32XiqCmRRl0dG3id8FmKnXRte8aFyhHVs/BymCS5Ox/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5NLQ/Od; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ux+D3TE8i+w4Gy51Pa6zfR4NHuQ6jK82OXFe4Jiy2JBkG482jCtI0KGfzJdc6PAnnWIBWgeEIUKUKY0zghVYTGBjizgc+FQpYKPHppf+RUd1BcsguMw99w8wUCK2qwJD8VScgH0znAt8KDFmVi7pgadSgL2rLL1FTB7eZWrBZwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YS4of+TH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5NLQ/Od"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9BB1F000FF;
-	Mon, 14 Sep 2026 10:14:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YS4of+TH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570EE1F000FF;
+	Mon, 14 Sep 2026 10:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789380856;
-	bh=50Ab5hgRM3J+T1RQ+KqVdIaeqjJu0Jhurl0zuN8lli4=;
+	s=k20260515; t=1789380891;
+	bh=SRUSOiwe0L/larYPjqxFmRfsiCTKfw6OLlxz+WzrfBw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a5NLQ/Od9aoxLSn7RFt6Rh4GdF+QEP9wSGi7MiaVvDuVs1p0VVbK1KLEAnGmeDHeI
-	 y+RZXoaGQt/Jied7/1sMcrVfyv92ByAWk9d1v06Pqs7YjR7TMHeBiUv9FUyWZvLEBh
-	 20wT0IvMCpbm/U6v1ptX9x69kRMWA+4YNav8yH2uz6dXRmUsou2RhLp65dgNGw1gI/
-	 MgmsPMnN3VnmRS54wtnztO7i9bysAs6R0EF6kuGj0hB3oTk83+tQVYsVg20btgIMbB
-	 ps+dFjQ9LXFjzy1XwlKRf3wkNVU9bQGFbgw+YEX6G9HFQYk5GJijzyqOHSTH9aOTuK
-	 UcRzxTkGAOfeg==
-Date: Mon, 14 Sep 2026 12:14:12 +0200
+	b=YS4of+THBrhzwlUaYoWEfqfVVWZ2jgZmXD+XvQbGoQe2mHSU+sr6rbVJFmnmAmPVh
+	 uECaHAucYYJuoQ3d4WJUMHZDlWQIskMSeRGlaSWhZnL1dwuxBPjsFanxQFpcD54rUJ
+	 AuqoAaIKp+TpCuJwsKJJthQyIGSlHhIc1P3PUNVwX2I2M3Te4TY8HXm7Hq5Cq4Troy
+	 8X48d27Exa3KmNzi4YejVEIknRPWETwIz+1qIZLgcjvrKnGE+nDlwGl3Om7eEOIzbo
+	 ZCrCHpGGVytewWJqKBtPIDeCo3VxwmxI1frrVRosaPC7O8ss6zWBunTtZNVrqAita0
+	 nKqGBtwCT0wUA==
+Date: Mon, 14 Sep 2026 12:14:46 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>
+To: Vincent Jardin <vjardin@free.fr>
 Cc: Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
-	Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH 1/9] dt-bindings: vendor-prefixes: Add Shenzhen TXD
- Technology Co., Ltd.
-Message-ID: <20260914-venerable-accelerated-seagull-acdb8d@quoll>
-References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
- <20260913-nt36672a-panels-v1-1-ce097402c6ea@minlexx.ru>
+	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v6 2/3] dt-bindings: arm: fsl: add Free Mobile Nodebox v3
+ CPU Module
+Message-ID: <20260914-private-psychedelic-scorpion-9c74ad@quoll>
+References: <20260913-for-upstream-nbxv3-dts-v6-0-058566b93ba1@free.fr>
+ <20260913-for-upstream-nbxv3-dts-v6-2-058566b93ba1@free.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,31 +48,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260913-nt36672a-panels-v1-1-ce097402c6ea@minlexx.ru>
+In-Reply-To: <20260913-for-upstream-nbxv3-dts-v6-2-058566b93ba1@free.fr>
 
-On Sun, Sep 13, 2026 at 08:36:33AM +0300, Alexey Minnekhanov wrote:
-> Add prefix for Shenzhen TXD Technology Co., Ltd., manufacturer of
-> medium sized LCD and camera modules for mobile phones, tablets and
-> automotive.
+On Sun, Sep 13, 2026 at 02:35:25PM +0200, Vincent Jardin wrote:
+> Add DT compatible string for the Free Mobile Nodebox v3 CPU Module, an
+> NXP LX2160A based board.
 > 
-> [1] https://en.txdkj.com/
-> 
-> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 > ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> index ba20029693734..86c502d8d1d5f 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1771,6 +1771,8 @@ patternProperties:
->      description: Turing Machines, Inc.
->    "^tuxedo,.*":
->      description: TUXEDO Computers GmbH
-> +  "^txd,.*":
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-So prefix is "txdkj"
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
