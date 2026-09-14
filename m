@@ -1,36 +1,40 @@
-Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB303403F4
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40221339363
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789355366; cv=none; b=T0sNNDhT9gP7mBzQ6/p3SvpjDm3gi0BFZBOgA8L/U1nkbs/BOODPkmMFwghKU+ogrB+gO6kgCDVY67P05SEWN7hK6X3RAVPNvnWsyxBJ+W8+AcGTPBvnYtqJrb6d7qiaBT4ILW680c+AGWhb4mmQWcl7Umfz1ZXfioShkqGx304=
+	t=1789355389; cv=none; b=CVsJZyPCbR8uhzXpqnXeBX8MNaDWgSa6CQFAgynQX5xJ6y3kbmlisdI4j92hwmdndQyPi0vJeNX96pJo8i8EsNJzrgxYr75j52pcTrSpWB5yH7223EbwLgOzX90snIhDOoeVWUgnMXOPmz03bHWmVhEkV76r+pxTA9BiiClXMbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789355366; c=relaxed/simple;
-	bh=m+foVBAoalhqLlq2Og+IWuwZmX9gvSN2FL3MD01und4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E1kp53rs+KEK+EcMWys3klxKvYYX0b/rN+VHSeAuOtvmz5LjyGak6yszeKUtK/3PbO6HodnS0KL8+HSprb94/NoAg3O9g0Ek4ayor39l/fhI5nsAvCWhGlwrNwdQNhdvjVr6e+5WWMtYoewlS7SDQvBbz2WfM+8z9hgs6vHdTBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XMm5I/3W; arc=none smtp.client-ip=91.218.175.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789355389; c=relaxed/simple;
+	bh=9m+jQtL5I8TsNmSDCStEThpTwVkOj5tDKOewGACrNKU=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=f+xPhzSMDjt48om+T/nmB3zLTWQ7QRwtXHpEOTYH0gPRSB3ipPTBBgFewEn2RMzGGGRljvNkNJ0llpPjJGppQsOYu3CEQv4IygCjBjYrunr323mJBrMP0VDszi/2eUUUPMg9LlNEicX9xmDKjrieozP0Bv8j0r/CmBEVn2NQF7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=VtA423Yi; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XMm5I/3W"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=m+foVBAoalhqLlq2Og+IWuwZmX9gvSN2FL3MD01und4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789355355; v=1; x=1789960155;
- b=XMm5I/3WfwV828PwC0hisoEi0O+4sNAvlHcX6SGKGQSYvbvuRNCg4cf+v0dJ9YDn0UCzV5V8
- f4Kvd1b1SNl7KeAZqntkIJXPNF+Kjbc7DZFO2Ze5yhHO9LVcCqghfLh/w10zoXjJFQlT0n08JJY
- PWbhP/ADe60L18QKKEERwHYs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ab92a83b59a5437d;
-	Mon, 14 Sep 2026 03:09:15 +0000
-X-Mizu-Trace-ID: ab92a83b59a5437d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e21370f7-f95a-4f07-ada4-7c139628370a@linux.dev>
-Date: Mon, 14 Sep 2026 11:09:08 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VtA423Yi"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Y9N6gaJR2vJOsZjjclQfE1bobd9p7/9wtxiewg0sEGo=;
+	b=VtA423YikAc4SOwGutUyAa1ayWYYa1oG7HNN1zslMabwEZ7nNrirH4xNz64wP77MS6qVF2wu5
+	GWVERnST/Zs9hTbqnWC0hCl9v0X9pUjudQID4Ga863RQKzFPIlTR264e+81NUdEooIKQzy+lEbv
+	UmeGd7qjrnyyHMuR5M27C2c=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hjqbX22SKzKm6j;
+	Mon, 14 Sep 2026 10:58:32 +0800 (CST)
+Received: from kwepemr500001.china.huawei.com (unknown [7.202.194.229])
+	by mail.maildlp.com (Postfix) with ESMTPS id 36B8A40578;
+	Mon, 14 Sep 2026 11:09:33 +0800 (CST)
+Received: from [10.174.178.9] (10.174.178.9) by kwepemr500001.china.huawei.com
+ (7.202.194.229) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 14 Sep
+ 2026 11:09:32 +0800
+Message-ID: <fd88104a-982a-4c73-9a5f-8c67ded3d5ca@huawei.com>
+Date: Mon, 14 Sep 2026 11:09:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,73 +42,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: shmem: ignore sysfs configs for shmem forced
- collapse
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
- hughd@google.com, david@kernel.org
-Cc: ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, ljs@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 0/4] mm/ksm: use per-VMA locking for find_mergeable_vma()
+From: Jinjiang Tu <tujinjiang@huawei.com>
+To: <xu.xin16@zte.com.cn>, <akpm@linux-foundation.org>, <david@kernel.org>,
+	<liam@infradead.org>, <surenb@google.com>, <rppt@kernel.org>,
+	<ziy@nvidia.com>, <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
+	<dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
+	<chengming.zhou@linux.dev>, <usama.arif@linux.dev>, <gourry@gourry.net>,
+	<harry@kernel.org>, <vbabka@kernel.org>, <peterz@infradead.org>,
+	<borntraeger@linux.ibm.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+References: <20260913121716693wiN5osmShywgtitghSm7G@zte.com.cn>
+ <a19a0c1d-d2bf-4c40-9308-e815f925f87a@huawei.com>
+In-Reply-To: <a19a0c1d-d2bf-4c40-9308-e815f925f87a@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemr500001.china.huawei.com (7.202.194.229)
 
 
+在 2026/9/14 11:03, Jinjiang Tu 写道:
+>
+> 在 2026/9/13 12:17, xu.xin16@zte.com.cn 写道:
+>>>>     Patch 1 removes an unused 'vma' member from struct folio_walk.  
+>>>> It has
+>>>>     never been used since its introduction and is pure cleanup.
+>>>>
+>>>>     Patch 2 adds a 'walk_lock' member to struct folio_walk and extends
+>>>>     folio_walk_start() to assert the required locking mode. Existing
+>>>>     callers are converted to pass PGWALK_RDLOCK, so there is no 
+>>>> functional
+>>>>     change.  This prepares folio_walk_start() for callers that hold a
+>>>>     per-VMA read lock instead of mmap_read_lock(), which is needed 
+>>>> by the
+>>>>     Patch 4. No functional change.
+>>>>
+>>>>     Patch 3 tranforms the boolean 'lock_vma' into the enum 
+>>>> 'page_walk_lock'
+>>>>     without any behavior changed, which is prepared for the Patch 4 
+>>>> to use
+>>>>     per-VMA locking. No functional change.
+>>>>
+>>>>     Patch 4 introduces find_mergeable_vma_locked(), which uses the
+>>>>     universal per-VMA locking helper vma_start_read_unlocked() to 
+>>>> look up
+>>>>     and read-lock a VM_MERGEABLE VMA without taking 
+>>>> mmap_read_lock().  All
+>>>>     KSM call sites that previously used find_mergeable_vma() under
+>>>>     mmap_read_lock() are converted to the new helper, and the 
+>>>> locking in
+>>>>     get_mergeable_page() is switched to PGWALK_VMA_RDLOCK_VERIFY so 
+>>>> that
+>>>>     folio_walk_start() can verify the per-VMA lock is held.
+>>>>
+>>>> A microbenchmark was run to measure the time KSM takes to merge a
+>>>> victim region under mmap_lock contention. Under interference from 4 
+>>>> churner
+>>>> threads, the merge time of the per-VMA KSM-optimized kernel is
+>>>> significantly reduced by 50%.
+>>> Hi.
+>>>
+>>> During task exiting, __ksm_exit() uses mmap_write_lock() to 
+>>> synchronize with ksmd.
+>>> see the comment of ksm_test_exit().
+>>>
+>>> void __ksm_exit(struct mm_struct *mm)
+>>> {
+>>>     ...
+>>>
+>>>     if (easy_to_free) {
+>>>         mm_slot_free(mm_slot_cache, mm_slot);
+>>>         mm_flags_clear(MMF_VM_MERGE_ANY, mm);
+>>>         mm_flags_clear(MMF_VM_MERGEABLE, mm);
+>>>         mmdrop(mm);
+>>>     } else if (mm_slot) {
+>>>         mmap_write_lock(mm);
+>>>         mmap_write_unlock(mm);
+>>>     }
+>>>
+>>> }
+>>>
+>>> When ksmd currently is scanning the exiting mm, we should guarantee 
+>>> the mm pagetable
+>>> still valid (i.e., mm_users > 0). However, ksm_mm_slot only holds 
+>>> mm_count, which only
+>>> guarantees the mm_strcut isn't freed. So, __ksm_exit() uses mmap 
+>>> write lock to synchronize
+>>> with ksmd.
+>>>
+>>> IIUC, vma_read_lock cannot be exclusive with mmap_write_lock().
+>>>
+>> Nice catch. Thanks for pointing this out. Indeed, the original 
+>> exclusion between
+>> __ksm_exit() and ksmd relied on mmap_write_lock() blocking 
+>> mmap_read_lock(),
+>> and per-VMA read locks do not provide that exclusion.
+>>
+>> A possible approach to restore the necessary guarantee is to pin 
+>> mm_users while
+>> ksmd is walking the page tables:
+>>
+>> Before scanning a given mm, try to take a reference with 
+>> mmget_not_zero(mm).
+>> If it fails, the mm is exiting, so we skip it.
+>>
+>> Hold that reference for the entire duration of scanning that mm (not 
+>> per-VMA),
+>> and drop it with mmput() when done.
+>>
+>> On the fallback path where we need to acquire mmap_read_lock(), drop 
+>> the mm_users
+>> reference before waiting, to avoid delaying an exiting mm.
+>
+> We should avoid holding mm_users ref too long. Otherwise, when the 
+> task being scanned
+> by ksmd is OOM-skilled, even though the victim task has responsed 
+> SIGKILL signal and
+> exited, the mmaps aren't released due to mm_user > 0.
 
-On 9/14/26 10:12 AM, Baolin Wang wrote:
-> According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected to
-> ignore any THP or mTHP interface settings.
-> 
-> However, after commit 26c7d8413aaf ("mm: thp: support "THPeligible" semantics
-> for mTHP with anonymous shmem"), performing MADV_COLLAPSE on shmem will
-> depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "inherit"
-> (although that is the default), which can cause MADV_COLLAPSE to fail
-> unexpectedly.
-> 
-> Fix this by returning the result of shmem_huge_global_enabled() directly
-> when MADV_COLLAPSE is requested, allowing PMD-order collapse while ignoring
-> shmem THP/mTHP settings.
-> 
-> Fixes: 26c7d8413aaf ("mm: thp: support "THPeligible" semantics for mTHP with anonymous shmem")
-> Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shutemov.name/
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> ---
-> Changes from v1:
->   - Use the correct fixes tag (per Kiryl).
->   - Collect reviewed tags from Kiryl, Zi and Lance. Thanks.
-> ---
->   mm/shmem.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
+In this case, we have to relying on OOM reaper to work. But it need to wait OOM_REAPER_DELAY
+(2s) to response.
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-
-Thanks,
-Qi
-
-> 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index c92ed17dbc4a..b572c60f2af8 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -2049,8 +2049,11 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
->   
->   	global_orders = shmem_huge_global_enabled(inode, index, write_end,
->   						  shmem_huge_force, vma, vm_flags);
-> -	/* Tmpfs huge pages allocation */
-> -	if (!vma || !vma_is_anon_shmem(vma))
-> +	/*
-> +	 * Tmpfs huge pages allocation or forced collapse ignores
-> +	 * sysfs configs.
-> +	 */
-> +	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
->   		return global_orders;
->   
->   	/*
-
+>
+> We should check whether the mm_user has dropped to 1 during scanning, 
+> like what
+> ksm_test_exit() has done.
+>
+>>
+>> This directly guarantees that mm_users > 0 while ksmd is accessing 
+>> the page tables,
+>> so __mmput() cannot reach exit_mmap() and free them. It is more 
+>> precise than the
+>> old mmap_write_lock() synchronization and should not introduce 
+>> noticeable delay,
+>> since the reference is only held for the scan duration.
