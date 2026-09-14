@@ -1,175 +1,84 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86BC3B2FF7
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772FC374A0A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385944; cv=none; b=ixzLhZrP6T9/dndw52OaDw372PNj54HcoWzLiFoaSwRfHlowtlgW0uFQoo/ia8LQYQKM4XwdULux9XTuFWffNjFKshIAf0CV7IDl+nosZ65yCEYTdp/LhVH5f5XZrbsdNkqSgdZ7SWg2h6RkPzDtuRo1ohzmxki7ZPc5a+I3RDU=
+	t=1789385946; cv=none; b=ioHg0A2nN5PfZyXYQS5OvloOptb38dZubh0L9+LnEkohCBHAslJK49tE4Ci/dkYmwGUNJK+RljBXoAoBX4DOt1PvFFwbiRsGFMP/l7iZEad5xKo5xs3TdyWqgh5XHjOLrt/9ZgN3MYU7fIez16pH8yZWSN2v49Mp2Ic74L0O0iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385944; c=relaxed/simple;
-	bh=nzaw1ZAmtOROpgCKmG5DjRksvIPCMA3GYz9v8u/qerU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l9dDGr7ocjN+ekqAgcxAPWu1VVICUIkDXdj/tSp2IaXuIhccfnSOa9nAjqLFNnWzgg8PZVcvl320Goj17H26UZ1wHv3QR5fge1gfiQfBkESn73JwkyyRjp2Z/x47F6rHx5DDgQ3UPILr/4g9N/5WTbQweQiJ4KFvi13CapOU62w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L/roNM34; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L/roNM34"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso524802a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:39:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789385942; x=1789990742; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zbek3cNhmINKfcKEFQeZ34orcON/ITUbplZKcMIGouo=;
-        b=L/roNM34BUUAjtnQP7Pk7v53dwOAxM1rBAP6bQ9UgN5YRxOcDVmoKV0/bzVxpOwsp0
-         Thx3DYQascfxtKkbqXPiIOlTWSS2/2pxvxbtdHJQ4gKhnXId5FKvxpNnlCRKgDrqdqNJ
-         GSjDxrY+KSnxGONtsRh0FzQ/oOUoxqcoYV85d2n0QMubu39LzKK7aaOzXiUxfsrvGQwk
-         H04j7JjpgIsQ2tYNrZsnfC5/GrjYv7BHtsMyHspBZKXoX/gJeIHpjw469DqrQfZdLebQ
-         dSz+lVVgYJJAaySp7zq95xF0JxPgAutoS3PiSmlmkpCV99dhP11idLAaUGaQ+w12EuQ5
-         6pVQ==
+	s=arc-20240116; t=1789385946; c=relaxed/simple;
+	bh=JVPZjlnKODJi3nhixnUVBnhD7OEQ2ep1GCtg6AHA990=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=qwGixxsxjHpXFeTfgZ+d+SPqpxb41fQk6Za3Ttp17oeTphea2Or3aNSdDFubB/aFfvbuFrBaAYEUPZnYpYiLdkH5Ajr2PRYtDJuA2OIwXtItX6DYdkwWhoUuyYrDWXwtwQOVftMN27JXkudiWpeb9lbvC2Fc/NLScCaZKdNj/CA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-46524220c5aso3168969fac.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:39:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789385942; x=1789990742;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zbek3cNhmINKfcKEFQeZ34orcON/ITUbplZKcMIGouo=;
-        b=AZTDHcBn/N0JGoa7Bw2Db7rbASr7M9QU4qmTsdn5ROa+3l+yaTCnNkpmezOnUaAbOo
-         0cwn+hKVZ7tnU2N4qsy+47vnappzprKNkLrnAf3BJdm9u9YshakxArjpSVTCFkdKSPnf
-         kc/Xp7z4fP8+l1pVO49/nWQjbs4yhZ0jNKmrnE0AleLzOgCqRmA6dqwNyhMdLNJp+dct
-         9Ra0f9h8Cu2EQtXtX9/PC3sPuZg8TVzMsCl0ntxZ4LNkZw/6WqnpepOR1sVn4BQJLjO4
-         rNLnmpJOzag4mFmt88TGaMhEz0nnKRGZL2wtmzulvoT7LSeIEl38UkoGSY39QNdaIsCn
-         b8FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzVqUmMsXPWozM1647ZTx7cA+rJg1WNz9lKHj0isWpvRc+fTG5myYXf5D76XlWfyEZD1dR+ZoorznaGDZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++le/mWJvK6awXFNNbrIwUoQIciErCtuTLxRohHyz6Pqmv1pwjPl
-	bc1CPjeJx9YWF/STYlTgBCXjdyNxM+49XAlKBnccxZAceXooKjIfkBg1a/y/JQ==
-X-Gm-Gg: AYBFou0hQgaLaJR3+Alo7myAKeFh9RK5vUVFvTolJTNyFJS0UVJaKWXFM3yOFFIXpNV
-	+dssvDidLXvPpRr7FpVa3R7IFVTDF/Og/P0gPXlhCl1TpA5LepV0GUsf1cGyrNx/+/ZW23XsZP9
-	NlmMu7zLgeckoZpCuNAocJF3geTCHhMC6PF/ZeBW/zkDikJ6Z5KX3xOyjZWG4hmI9/ZqXlaat0b
-	GO1e5AOGx4HGyC/TcFGKqJTcfwdPnXOhQK17qBC9gGmau8rcqLvZX5G5AuYG36kKVji/ZyifRxF
-	vfw1UK9aNUmf0GVx/Hfd17Hv289ogOQRA0EOsIeCPdEkpTj9CjYUBcJ4OdI0Wma6IOY97z+TPB+
-	2fF2DQo5hNY4xfoX4G00uyQHSG7FJc6CL1YpGVGuJhHqjSE8MVpENjGCF7XgRjfkz2G8kOlIiYp
-	sfujBO4pY5mgJln9iEoeKKH5nOUS7U0SXtu2XAB2BU56D/Vh/gCQfeF/JGQt3cdVYZqLx10vHJn
-	VmYwBgqVOnX/lJE
-X-Received: by 2002:a17:90b:4c0a:b0:398:ba46:1d9f with SMTP id 98e67ed59e1d1-39dec4e1a4emr2279547a91.13.1789385941910;
-        Mon, 14 Sep 2026 04:39:01 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994d8af1sm21910095a91.11.2026.09.14.04.38.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:39:01 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] hwmon: (gpio-fan) fix pm_runtime imbalance for alarm-only fans
-Date: Mon, 14 Sep 2026 18:38:56 +0700
-Message-Id: <20260914113856.1987128-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        d=1e100.net; s=20251104; t=1789385944; x=1789990744;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8ShvkcUi2XdXGg3Kv7W4123bBr/e+6dayYQSTZLlVJI=;
+        b=p4iqJbni7KrKAKsN6K5zCj76CScD1tuSUH5R3XsWNwe+ufpymxzryAvCDMxKeN3r5U
+         SQ1e/Nzup/RyVfNJjoALRjsMIrOTCZBVIJJMf9mZIaVPrlTipt4JkuXi+R2x1L26FVMy
+         oDxLhb1k+w13/TFwQrlg59AxQ6LFkoCj8dh+HQIfU+TXYgNMt6d2Lw5qotyUpOxpTl7G
+         kmNf2zXnE3LhM7M6EXSHeZ/BiWsJcLeNGrLPkeGoveXajsiFBA/Q+81CFG58qwU+mf14
+         BKTxKRouYh7eZvzWvOFanATmh2dHnjIUJ6BC463RzxGCZG5jg7mvAt1n0AJMQ5w61Kqc
+         r6TA==
+X-Gm-Message-State: AFuF++lMgS6+so3I1keTXCd6oxIVT3avEdENqi4VS+dsDpCPlDe7gSsA
+	nWev2Az1VIbsLrAgmqB7ePwXnFbBI+zotFhqy28/48Pu7JCaTQ6VWy4HUmL60V32eddo6zJjwdT
+	GXeZm0dvVNLVFkNxhDmpl7FuY15lrhCu4eMEwKBWtHqNrKeL34G31G9J5XjM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a4a:e841:0:b0:6be:19a6:fe63 with SMTP id
+ 006d021491bc7-6c542a34449mr1007208eaf.25.1789385944367; Mon, 14 Sep 2026
+ 04:39:04 -0700 (PDT)
+Date: Mon, 14 Sep 2026 04:39:04 -0700
+In-Reply-To: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7dcd8.a211d2ce.1a5198.0290.GAE@google.com>
+Subject: Forwarded: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
+From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-pm_runtime_enable() runs unconditionally in probe, but its devm cleanup
-is only registered when control GPIOs are present, so alarm-only fans
-never get pm_runtime_disable() on unbind.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-v2's fix moved pm_runtime_enable() earlier and opened a sysfs race; v3
-fixed that. Guenter asked this version also close the other two PM
-issues Sashiko found: a pm_enabled guard so an early probe failure
-can't drop a PM ref that was never taken, and a lock around the
-enable-and-check block so a racing sysfs write can't double-take one.
+***
 
-Fixes: 0d01110e6356 ("hwmon: (gpio-fan) Add regulator support")
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260901111903.660681-1-congnt264@gmail.com
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
-Changes in v4:
-- Covers the other 2 PM findings Guenter asked for: pm_enabled guard
-  on gpio_fan_stop(), and a lock around the enable-and-check block.
+Subject: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
+Author: jchuang26@m.fudan.edu.cn
 
- drivers/hwmon/gpio-fan.c | 29 ++++++++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 3 deletions(-)
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
 
-diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
-index 084828e1e281..93dd685c4fa5 100644
---- a/drivers/hwmon/gpio-fan.c
-+++ b/drivers/hwmon/gpio-fan.c
-@@ -46,6 +46,7 @@ struct gpio_fan_data {
- 	struct gpio_desc	*alarm_gpio;
- 	struct work_struct	alarm_work;
- 	struct regulator	*supply;
-+	bool			pm_enabled;
- };
+Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
+
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index 53fbdbbe8..24ea350cd 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -1410,9 +1410,13 @@ batadv_iv_ogm_update_seqnos(const struct ethhdr *ethhdr,
+ 		return BATADV_NO_DUP;
  
- /*
-@@ -522,10 +523,21 @@ static void gpio_fan_stop(void *data)
- 	struct gpio_fan_data *fan_data = data;
- 
- 	mutex_lock(&fan_data->lock);
--	set_fan_speed(data, 0);
-+	/* set_fan_speed(0) drops a PM ref; only valid once PM is enabled. */
-+	if (fan_data->pm_enabled)
-+		set_fan_speed(data, 0);
-+	else
-+		__set_fan_ctrl(fan_data, fan_data->speed[0].ctrl_val);
- 	mutex_unlock(&fan_data->lock);
-+}
- 
--	pm_runtime_disable(fan_data->dev);
-+static void gpio_fan_pm_runtime_disable(void *data)
-+{
-+	struct gpio_fan_data *fan_data = data;
-+
-+	/* Registered before pm_runtime_enable() runs; skip if it never did. */
-+	if (fan_data->pm_enabled)
-+		pm_runtime_disable(fan_data->dev);
- }
- 
- static int gpio_fan_probe(struct platform_device *pdev)
-@@ -553,6 +565,11 @@ static int gpio_fan_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(fan_data->supply),
- 				     "Failed to get fan-supply");
- 
-+	/* Register before gpio_fan_stop() so LIFO teardown runs that first. */
-+	err = devm_add_action_or_reset(dev, gpio_fan_pm_runtime_disable, fan_data);
-+	if (err)
-+		return err;
-+
- 	/* Configure control GPIOs if available. */
- 	if (fan_data->gpios && fan_data->num_gpios > 0) {
- 		if (!fan_data->speed || fan_data->num_speed <= 1)
-@@ -580,16 +597,22 @@ static int gpio_fan_probe(struct platform_device *pdev)
- 			return err;
+ 	orig_ifinfo = batadv_orig_ifinfo_new(orig_node, if_outgoing);
+-	if (WARN_ON(!orig_ifinfo)) {
++	if (!orig_ifinfo) {
++		/* The GFP_ATOMIC allocation inside batadv_orig_ifinfo_new()
++		 * may fail under memory pressure. That is not a kernel bug,
++		 * so don't WARN; just skip duplicate detection.
++		 */
+ 		batadv_orig_node_put(orig_node);
+-		return 0;
++		return BATADV_NO_DUP;
  	}
  
-+	/* Lock so a racing sysfs write can't double-take a PM ref here. */
-+	mutex_lock(&fan_data->lock);
- 	pm_runtime_set_suspended(&pdev->dev);
- 	pm_runtime_enable(&pdev->dev);
-+	fan_data->pm_enabled = true;
- 	/* If current GPIO state is active, mark RPM as active as well */
- 	if (fan_data->speed_index > 0) {
- 		int ret;
- 
- 		ret = pm_runtime_resume_and_get(&pdev->dev);
--		if (ret)
-+		if (ret) {
-+			mutex_unlock(&fan_data->lock);
- 			return ret;
-+		}
- 	}
-+	mutex_unlock(&fan_data->lock);
- 
- 	/* Optional cooling device register for Device tree platforms */
- 	fan_data->cdev = devm_thermal_of_child_cooling_device_register(dev, np,
--- 
-2.25.1
-
+ 	spin_lock_bh(&orig_node->bat_iv.ogm_cnt_lock);
