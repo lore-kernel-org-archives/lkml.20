@@ -1,501 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C421D37998B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2EF35DA6E;
+	Mon, 14 Sep 2026 05:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364493; cv=none; b=SdbbbK0PZzCBex3ffAMYH2hE//ExgQNmq8DN1+xR7is4/NVLy4Iiv+js4a8gTaCyZIob7Av1yIfoymJY8gc3k+ns3pnPlaDhPjIlZGyCJNheNeISCKEAAuPNbuBHsGHQqoeaVLxYKxKA09Cwov/nbm0fTpJcU/8BDH/lOdVYOH8=
+	t=1789364533; cv=none; b=bMs8g45TzJOeJgnC1TX0k8xCO5phKblVIDlK4GrgYLViV5en7YDHNlImtVXhPIhE2odaWkukYQV3Z2DVQJl2X//0GhCkjebbcigL30lXhRj9XAEsdRQpaZ29X97o5oYfWFB1Kt999HS2aet6Jla2RxjqSB3isiO8Ra4ItFlVpK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364493; c=relaxed/simple;
-	bh=zRrIIpcVLrCXTBhieNQzI3EY0LrfmalLyUe+OYByE+o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hyq+qD+6HJdXkRGLdeJ/I2aSlBK0WQyCXyMB1184JKjQ0h+Tb5vzKTxIUqOKLlRuVNK2KyXXIRKXkbLeunw+FueAntNtSuvrUI/q1WI6i4/QPoBJa/NqaTnBz8/S1SA7hWah4PJvx3PWvLa9sLCkniqybOmEXFtxdS+t7Z0VzQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FQ11WHIs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TpXolVqZ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789364533; c=relaxed/simple;
+	bh=Gt5cghmkYsHcaGUT0bLK7DMeg9MMat7CQl1r/928wks=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=D3DCaXsbTQVzELu4Ubbcmy3/i9lZ7z4WIikM2WUIQedRywB8kgYFGa/XPisZ1w42PWquNHMwXWEDlu7jpY5ldiaxy5XvSca7zBmmtIz0nSu4UZmyNvsl6Ya6HrAuBLxM7sIiYIluQ9zFp5+HtCSRrgUutjE7BtRMvFOolQnCrTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3rRNL/e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FQ11WHIs";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TpXolVqZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789364490;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kgdK3ICiN0orAH3GszJk6qjZAUrdfwzdfyzN2L9vl84=;
-	b=FQ11WHIsUCkQuHs405ZGqNvB2/QCXV8gdRIR4Z7dsywkm1iK4+gheaJBBSajbA3/pEsVww
-	KoDIlKysR6of9LeUioXTyLys5sXlhCR9UAQUh1cZKLtD46Tx03qHQAv61KMhA9ne69zkMt
-	u4I9+kgp6ewbAuaCWeXxe11Vkc7+ObQ=
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-457-vcppfHs9NeeDemgQSdCTwQ-1; Mon, 14 Sep 2026 01:41:29 -0400
-X-MC-Unique: vcppfHs9NeeDemgQSdCTwQ-1
-X-Mimecast-MFC-AGG-ID: vcppfHs9NeeDemgQSdCTwQ_1789364488
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-ca8aee88725so4383427a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:41:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789364488; x=1789969288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kgdK3ICiN0orAH3GszJk6qjZAUrdfwzdfyzN2L9vl84=;
-        b=TpXolVqZRZZjYSNA1fdQWvVEzg6tZ+bEmGqWAtlK0ZROd5sywFNwxp3UFM8XcnoUbq
-         MWmqTFSzyIL1O/IrI+9hZktq0raCJkBZSeFczkuwS8ui6/n2TOzdv/mGSNa3FAI2WY5a
-         OS/F9/yHlMxcJZfFmCSO5Pmllh1SNRhS8ljAmb/d6n0ZJwH9Ejh8a8pDWSX2OPRYmQuD
-         j/VIHZBPs4N+f07TQ+k4xY5/sVydXrvmQuHI92ytiX2eSCsiBxVSPfEDH4uvjFyLI73X
-         YXVhBvxVRLsktXQeYk4sC9Us/1NCMgbo8FE4x1Gn+vjsckHwdK67VVLuOXy4Wgq21Kcb
-         QyBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789364488; x=1789969288;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kgdK3ICiN0orAH3GszJk6qjZAUrdfwzdfyzN2L9vl84=;
-        b=X+Jt3OW0mygg9ubgIqwWAoGgwmGkOqG+2aktUpnNO56qnl4FTFnYrGyrNYmsz+tCH7
-         uBTxMU6KyMKuk3z6aPRG2SmnBAQnO+YRh0dAwbBjvgctp7d+7MQgYbJxFf9JvbO4V1mh
-         GdQYPPyPAu88Ie3NRDlW72ZHccJzB0B6CxsB4I4+NCMfo8hIYpi7MNyz7p3p4tQQ7oi/
-         S0uU5DpVfKwZ8xlA5l1ff99INZ3Rt51YxVMnmaRYDwFLNrbw/F5ba+NKJq7DcUNyBuPL
-         zKoSKVIKfQ57cimneRSNma4w+LW1PjvlMGlwEHi2xwtQE1dT0JW/EQ6PRWO+3MAeew0Z
-         jZEA==
-X-Forwarded-Encrypted: i=1; AKwUvBz5eqwaVm+EHx/DprXG31g0Z61FvWGLPQ2FKgolIC9tT6hRNxLt+UB1uzU/56qOvJcQB4u94LJOgDBjwss=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWN9xMPyKZI/iLz+Ln65gg4ayW0HOOwrMFOMxQMm20cuuLEusH
-	wmL7i/e0RnivuqkTBzC/bFaWiqYlmVCQLUUvLI7YAbkRorJQqhMhSS6AU+yoLVVgWHu0ebKTbRT
-	Mhslw1D0qD8TYTRxEU2QLL7UzuM2yS+rDays5mKVqFKn6gV/13N+c5F0fXcyIxc3G7A==
-X-Gm-Gg: AYBFou18oXbs0Th6m17bHRBpSPQpmpL3QbrlW9GzYVrbaoFhwtcmZUDex7vo0DbtWIt
-	xeRa80mphSaA3jdzi4RhV6ahZnp/6dIJeeGOCr+9tfimfxPdRoz3hVK75g3OY/kn9ok/MD/ecOZ
-	th3jjjMVyvk6LQXwz70iEMcHhheMryOnMAmiS+T+1dMyNlFHS7+P6dC1XXtf/afvgsylV+19YNr
-	FCJNwbGSfkvaHTrROnk8Z2mJeF7XEPe2+55wzVqT7Jnz7v5DPn+ZJjHe59+RPWD7hnql/N8+PaN
-	icDbC4qpQv1nzof31UJErNY5wU6RH0u8nlsp/bcK7fYgNoi4UukuBQlmPRdRc2tZzArWt4/6mxM
-	LtUGDZeIwjMLH2vWZewJBJbf8VbGu8urEZlhrqwOE/A==
-X-Received: by 2002:a05:6a00:35c8:b0:857:72ba:ff0d with SMTP id d2e1a72fcca58-86f85ce3d75mr3077525b3a.21.1789364487811;
-        Sun, 13 Sep 2026 22:41:27 -0700 (PDT)
-X-Received: by 2002:a05:6a00:35c8:b0:857:72ba:ff0d with SMTP id d2e1a72fcca58-86f85ce3d75mr3077468b3a.21.1789364487302;
-        Sun, 13 Sep 2026 22:41:27 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b286c49d2sm4061828b3a.10.2026.09.13.22.41.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 22:41:26 -0700 (PDT)
-Message-ID: <b2fd288e-e0e7-49cc-b0cb-933fba501d79@redhat.com>
-Date: Mon, 14 Sep 2026 15:41:14 +1000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3rRNL/e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A2B11F000FF;
+	Mon, 14 Sep 2026 05:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789364531;
+	bh=9WTOweRXQqxPe57Hlf8rF5/p1907bUJYule3AADKIQo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=l3rRNL/eppw0Z/mn5NwrbZudnGzqSuza0Z7RLhbTikAIn9RoaNSx+ZzOQK5Wztcdd
+	 EsKDSHqiQxcnYKYcs3QlzuNvT9cOAzTFQYErVLwERPdjD04wuhRaKaMLWcCy22seGo
+	 25tgQafUn1n5c+cdETurg4ZmZqN9tA13r73419tnFdlMW8GjGa717DPXl1qvrH0C8t
+	 SzPF4hqIkNIrl2RQH9wphlvbLqipNejJmXnn24ZoZYLXGzDzxkszNcdaXvu2xK6qAp
+	 0q2h0Lht7nSQA7mgrEAwv2xKQmbBcYk/fx//WMgQB6XiHZ4tg9WL9RJPUUUS4SUWEl
+	 CCPRJxbIsBHRg==
+Date: Mon, 14 Sep 2026 07:42:06 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Masaharu Noguchi <nogunix@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Akira Yokosawa <akiyks@gmail.com>, Chen Miao
+ <chenmiao.ku@gmail.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: sphinx-pre-install: warn about unsupported
+ Docutils versions
+Message-ID: <20260914074206.05579309@foz.lan>
+In-Reply-To: <20260913-docs-sphinx-pre-install-docutils-v1-1-d923c769af91@gmail.com>
+References: <20260913-docs-sphinx-pre-install-docutils-v1-1-d923c769af91@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
- for memory
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-7-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260912083611.2513845-7-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
+On Sun, 13 Sep 2026 12:13:23 +0900
+Masaharu Noguchi <nogunix@gmail.com> wrote:
+
+> Sphinx declares the range of Docutils versions it supports, but a
+> distribution can relax that upper bound when it wants to ship a newer
+> Docutils.  The pair then installs happily, and htmldocs builds without
+> a complaint, so nothing looks wrong until pdfdocs is run.
 > 
-> The RMM maintains the state of all the granules in the system to make
-> sure that the host is abiding by the rules. This state can be maintained
-> at different granularity, per page (TRACKING_FINE) or per region
-> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
-> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region, all pages
-> in the region must be of the same state, this implies we need to have "fine"
-> tracking for DRAM, so that we can delegate individual pages.
+> Fedora 44 ships such a pair: Sphinx 8.2.3 (which declares
+> "docutils>=0.20,<0.22") is patched to accept "<0.23" and is installed  
+> alongside Docutils 0.22.4.  make pdfdocs then fails to produce four of
+> its books.  admin-guide runs out of TeX main memory 13 pages in:
 > 
-> For now we only support a statically carved out memory for tracking
-> granules for the "fine" regions. This can be extended in the future to
-> allow modifying the tracking granularity and remove the need for a
-> static allocation by the firmware.
+>   ! TeX capacity exceeded, sorry [main memory size=6000000].
+>   \sphinxafterbreak ->\copy \sphinxcontinuationbox
+
+With some distros/versions, it is needed to change a config file
+to use more memory. On Fedora, the limit is here:
+
+	$ grep main_memory /etc/texlive/web2c/texmf.cnf
+	% main_memory is relevant only to initex, extra_mem_* only to non-ini.
+	% Thus, have to redump the .fmt file after changing main_memory; to add
+	main_memory = 6000000 % words of inimemory available; also applies to inimf&mp
+
+I haven't tested but it seems that there's a way to adjust it when
+calling LaTeX:
+
+	https://tex.stackexchange.com/questions/7953/how-to-expand-texs-main-memory-size-pgfplots-memory-overload
+
+If so, maybe a more interesting patch would be to adjust pdf generaion
+to use a more reasonable memory limit, as 6GB sounds too little.
+
+> while arch, core-api and translations stop on
 > 
-> Similarly, the firmware may create L0 GPT entries describing the total
-> address space. But if we change the "PAS" (Physical Address Space) of a
-> granule, then the firmware may need to create L1 tables to track the PAS
-> at a finer granularity. Linux therefore checks if the platform firmware manages
-> the PAR region. i.e., the firmware is in charge of managing the L1 GPTs
-> (creation and the required memory for the GPT tables - via static carveouts)
-> without host intervention. Support for dynamic GPT creation by the host will be
-> added later.
+>   ! Dimension too large.
+>   \fb@put@frame ...p \ifdim \dimen@ >\ht \@tempboxa
+>   \end{sphinxVerbatim}
+
+This is also another parameter that may require adjustments.
+If I'm not mistaken, this is related to the maximum level depth
+on titles. I had to change some limit from 7 to 9 on some distros
+in the past. I don't remember exactly where.
+
+On both cases, I don't think you can blame docutils or sphinx
+version: those are distro-specific configuration parameters.
+
+> Both come from the large literal blocks those books include whole --
+> memory-barriers.txt, devices.txt, kernel-parameters.txt and
+> arch/sparc/oradax/dax-hv-api.txt.  Keeping everything else fixed and
+> varying only the two versions shows that neither component is at fault
+> on its own:
 > 
-> If the firmware requires us to manage the tracking or GPT memory, Deactivate
-> the RMM and reclaim any memory donated at RMM activation.
+>   sphinx   docutils   core-api   admin-guide
+>   ------------------------------------------
+>   8.1.3    0.21.2     ok         ok
+>   8.2.3    0.21.2     ok         ok
+>   8.2.3    0.22.4     FAILS      FAILS
+>   9.1.0    0.22.4     ok         ok
 > 
-> Apply the same checks when hotplugged memory is brought online.
-> 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> [ Switch to RMI_GPT_L1_INFO for checking GPTs and deactivate RMM ]
-> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
->   Changes since v17:
->       * Move wrappers that may not be used elsewhere, out of arm-rmi-cmds.h
->   Changes since v16:
->       * Check fine tracking and create L1 GPTs for hotplug-added memory.
->       * Clarify the L1 GPT setup and move the explanatory comment.
->       * Switch to using RMI_GPT_INFO command for checking the GPTs.
->       * Deactivate the RMM and reclaim the memory if we can't proceed.
->   Changes since v15:
->       * Skip firmware-reserved NOMAP memory in rmi_init_metadata()
->       * Handle negative error codes from wrappers.
->   Changes since v14:
->       * Move the implementation into drivers/firmware/arm_rmm.
->   Changes since v13:
->       * Moved out of KVM
-> ---
->   drivers/firmware/arm_rmm/rmi.c | 200 +++++++++++++++++++++++++++++++++
->   include/linux/arm-rmi-cmds.h   |   2 +
->   2 files changed, 202 insertions(+)
-> 
-> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> index ecc89e91d264d..583e1aca9b15a 100644
-> --- a/drivers/firmware/arm_rmm/rmi.c
-> +++ b/drivers/firmware/arm_rmm/rmi.c
-> @@ -5,12 +5,15 @@
->   
->   #include <linux/cpufeature.h>
->   #include <linux/memblock.h>
-> +#include <linux/memory.h>
->   #include <linux/arm-rmi-cmds.h>
->   #include <linux/slab.h>
->   
->   #include <asm/memory.h>
->   #include <asm/pgtable-hwdef.h>
->   
-> +static bool arm64_rmi_is_available;
-> +
->   /* Currently only the first 2 registers are used by Linux */
->   #define RMI_FEAT_REG_COUNT	2
->   static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] __ro_after_init;
-> @@ -68,6 +71,69 @@ static inline long rmi_granule_range_undelegate(unsigned long base,
->   	return ret;
->   }
->   
-> +/**
-> + * rmi_granule_tracking_get() - Get configuration of a Granule tracking region
-> + * @start: Base PA of the tracking region
-> + * @end: End of the PA region
-> + * @out_category: Memory category
-> + * @out_state: Tracking region state
-> + * @out_top: Top of the memory region
-> + *
-> + * Return: RMI return code
-> + */
-> +static inline int rmi_granule_tracking_get(unsigned long start,
-> +					   unsigned long end,
-> +					   unsigned long *out_category,
-> +					   unsigned long *out_state,
-> +					   unsigned long *out_top)
-> +{
-> +	struct arm_smccc_1_2_regs regs = {
-> +		SMC_RMI_GRANULE_TRACKING_GET, start, end,
-> +	};
-> +
-> +	rmi_smccc_invoke(&regs);
-> +
-> +	if (regs.a0 != RMI_SUCCESS)
-> +		return regs.a0;
-> +
-> +	if (out_category)
-> +		*out_category = regs.a1;
-> +	if (out_state)
-> +		*out_state = regs.a2;
-> +	if (out_top)
-> +		*out_top = regs.a3;
-> +
-> +	return RMI_SUCCESS;
-> +}
-> +
-> +/*
-> + * rmi_gpt_info - Query the GPT info for the given PAR.
-> + * @start: Base of the physical address region
-> + * @top: Top of the physical address region
-> + * @out_top: Top of the phyiscal address region for which
-> + *		the GPT @out_gpt_par_state is valid
-> + * @out_gpt_par_state: State of the GPT covered by [start, out_top)
-> + */
-> +static inline long rmi_gpt_info(unsigned long start, unsigned long end,
-> +				unsigned long *out_top,
-> +				unsigned long *out_gpt_par_state)
-> +{
-> +	struct arm_smccc_1_2_regs regs = {
-> +		SMC_RMI_GPT_INFO, start, end,
-> +	};
-> +
-> +	rmi_smccc_invoke(&regs);
-> +	if (regs.a0 != RMI_SUCCESS)
-> +		return regs.a0;
-> +
-> +	if (out_top)
-> +		*out_top = regs.a1;
-> +	if (out_gpt_par_state)
-> +		*out_gpt_par_state = regs.a2;
-> +
-> +	return RMI_SUCCESS;
-> +}
-> +
->   /**
->    * rmi_features() - Read feature register
->    * @index: Feature register index
-> @@ -759,6 +825,124 @@ static int rmi_configure(void)
->   	return ret;
->   }
->   
-> +/*
-> + * Make sure the area is tracked by RMM at FINE granularity.
-> + * We do not support changing the tracking yet.
-> + */
-> +static int rmi_verify_memory_tracking(phys_addr_t start, phys_addr_t end)
-> +{
-> +	while (start < end) {
-> +		unsigned long ret, category, state, next;
-> +
-> +		ret = rmi_granule_tracking_get(start, end, &category, &state, &next);
-> +		if (ret != RMI_SUCCESS)
-> +			return -ENOMEM;
-> +
-> +		if (state != RMI_TRACKING_FINE ||
-> +		    category != RMI_MEM_CATEGORY_CONVENTIONAL) {
-> +			/* TODO: Set granule tracking in this case */
-> +			pr_err("Granule tracking for region isn't fine/conventional: %llx-%lx\n",
-> +			       start, next);
-> +			return -ENODEV;
-> +		}
-> +		start = next;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
+> Sphinx gained Docutils 0.22 support in 9.0.0 and upstream decided not
+> to backport it to 8.2.x [1], so this pair will stay broken rather than
+> be fixed in a later 8.2 point release.
 
-I would suggest to drop rmi_granule_tracking_get() by combining its logics into
-rmi_verify_memory_tracking().
+Upstream policy AFAICT is to not backport anything: once they release
+a new major or minor, they stop maintaining the previous versions.
 
-/*
-  * Make sure the area is tracked by RMM at FINE granularity.
-  * We do not support changing the tracking yet.
-  */
-static int rmi_verify_memory_tracking(phys_addr_t start, phys_addr_t end)
-{
-         struct arm_smccc_1_2_regs args;
+> Check for it, since sphinx-pre-install exists precisely to catch a
+> documentation build environment that will not work.  Ask the
+> interpreter behind sphinx-build for its Docutils version -- a venv and
+> the system install can differ -- and warn when Sphinx is older than
+> 9.0.0 while Docutils is 0.22 or newer.  Only warn: the build is left to
+> proceed, and htmldocs is unaffected.
 
-         while (start < end) {
-                 args.a0 = SMC_RMI_GRANULE_TRACKING_GET;
-                 args.a1 = start;
-                 args.a2 = end;
-                 rmi_smccc_invoke(&args);
-
-                 if (args.a0 != RMI_SUCCESS)
-                         return -ENOMEM;
-
-                 if (args.a1 != RMI_MEM_CATEGORY_CONVENTIONAL ||
-                     args.a2 != RMI_TRACKING_FINE) {
-                         /* TODO: Set granule tracking in this case */
-                         pr_err("Granule tracking for region isn't fine/conventional: %llx-%lx\n",
-                                 start, args.a3);
-                         return -ENODEV;
-                 }
-
-                 start = args.a3;
-         }
-
-         return 0;
-}
-
-> +/*
-> + * We do not support creating L1 GPTs yet. So, make sure that
-> + * all the regions are managed by the firmware.
-> + */
-> +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
-> +{
-> +	unsigned long l0gpt_sz;
-> +	unsigned long next, par_state;
-> +
-> +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
-> +					  rmi_feat_reg(1)));
-> +	start = ALIGN_DOWN(start, l0gpt_sz);
-> +	end = ALIGN(end, l0gpt_sz);
-> +
-> +	while (start < end) {
-> +		long ret = rmi_gpt_info(start, end, &next, &par_state);
-> +
-> +		if (ret != RMI_SUCCESS)
-> +			return -ENOMEM;
-> +
-> +		if (par_state != RMI_GPT_PAR_PLAT) {
-> +			pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
-> +				start, next);
-> +			return -ENOMEM;
-> +		}
-> +		start = next;
-> +	}
-> +
-> +	return 0;
-> +}
-
-I would suggest to drop rmi_gpt_info() by combining its logics into rmi_verify_gpt_firmware_managed().
-
-/*
-  * We do not support creating L1 GPTs yet. So, make sure that
-  * all the regions are managed by the firmware.
-  */
-static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
-{
-         struct arm_smccc_1_2_regs args;
-         unsigned long l0gpt_sz;
-
-         l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
-                                           rmi_feat_reg(1)));
-         start = ALIGN_DOWN(start, l0gpt_sz);
-         end = ALIGN(end, l0gpt_sz);
-
-         while (start < end) {
-                 args.a0 = SMC_RMI_GPT_INFO;
-                 args.a1 = start;
-                 args.a2 = end;
-                 rmi_smccc_invoke(&args);
-                 if (args.a0 != RMI_SUCCESS)
-                         return -ENOMEM;
-
-                 if (args.a2 != RMI_GPT_PAR_PLAT) {
-                         pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
-                                 start, args.a1);
-                         return -ENODEV;
-                 }
-
-                 start = args.a2;
-         }
-
-         return 0;
-}
-
-> +
-> +static int rmi_prepare_memory(phys_addr_t start, phys_addr_t end)
-> +{
-> +	int ret;
-> +
-> +	ret = rmi_verify_memory_tracking(start, end);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return rmi_verify_gpt_firmware_managed(start, end);
-> +}
-> +
-> +static int rmi_init_metadata(void)
-> +{
-> +	phys_addr_t start, end;
-> +	struct memblock_region *r;
-> +
-> +	for_each_mem_region(r) {
-> +		int ret;
-> +
-> +		/* Firmware-reserved NOMAP regions are not usable system RAM */
-> +		if (memblock_is_nomap(r))
-> +			continue;
-> +
-> +		start = memblock_region_memory_base_pfn(r) << PAGE_SHIFT;
-> +		end = memblock_region_memory_end_pfn(r) << PAGE_SHIFT;
-> +
-
-nit: unnecessary to covert the physical address (struct memblock_region::base and (base + size))
-to PFN and then convert PFN to physical address:
-
-		start = PAGE_ALIGN(r->base);
-		end = PAGE_ALIGN_DOWN(r->base + r->size);
-		if (start >= end)
-			continue;
-
-> +		ret = rmi_prepare_memory(start, end);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int rmi_memory_notifier(struct notifier_block *nb,
-> +			       unsigned long action, void *data)
-> +{
-> +	struct memory_notify *arg = data;
-> +	phys_addr_t start, end;
-> +	int ret;
-> +
-> +	if (action != MEM_GOING_ONLINE)
-> +		return NOTIFY_DONE;
-> +
-> +	start = PFN_PHYS(arg->start_pfn);
-> +	end = PFN_PHYS(arg->start_pfn + arg->nr_pages);
-> +	ret = rmi_prepare_memory(start, end);
-> +
-> +	return notifier_from_errno(ret);
-> +}
-> +
-> +static struct notifier_block rmi_memory_nb = {
-> +	.notifier_call = rmi_memory_notifier,
-> +};
-> +
-> +bool is_rmi_available(void)
-> +{
-> +	return arm64_rmi_is_available;
-> +}
-> +EXPORT_SYMBOL_GPL(is_rmi_available);
-> +
->   static int __init arm64_init_rmi(void)
->   {
->   	int ret;
-> @@ -786,8 +970,24 @@ static int __init arm64_init_rmi(void)
->   	if (ret) {
->   		pr_err("RMM activate failed\n");
->   		ret = ret < 0 ? ret : -ENXIO;
-> +		return ret;
->   	}
->   
-> +	ret = rmi_init_metadata();
-> +	if (ret)
-> +		goto out_deactivate;
-> +
-> +	ret = register_memory_notifier(&rmi_memory_nb);
-> +	if (ret)
-> +		goto out_deactivate;
-> +
-> +	arm64_rmi_is_available = true;
-> +	pr_info("RMI configured\n");
-> +
-> +	return 0;
-> +
-> +out_deactivate:
-> +	WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_DEACTIVATE));
->   	return ret;
->   }
->   
-> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-> index cd6e309ddf2d8..27a0c56944976 100644
-> --- a/include/linux/arm-rmi-cmds.h
-> +++ b/include/linux/arm-rmi-cmds.h
-> @@ -58,6 +58,8 @@ static inline int rmi_undelegate_page(phys_addr_t phys)
->   	return rmi_undelegate_range(phys, PAGE_SIZE);
->   }
->   
-> +bool is_rmi_available(void);
-> +
->   long rmi_sro_memxfer_execute(struct rmi_sro_state *sro, gfp_t gfp);
->   void rmi_sro_free(struct rmi_sro_state *sro);
->   long rmi_sro_execute(struct arm_smccc_1_2_regs *regs);
+I don't mind having a warning, but I don't think you can blame
+docutils or Sphinx versions on both cases, as the error is related
+to LaTeX. It sounds to be this is actually a combination of those
+three packages plus some distro-specific latex cfg settings on
+some of the shipped files.
 
 Thanks,
-Gavin
-
+Mauro
