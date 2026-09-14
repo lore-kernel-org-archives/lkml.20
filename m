@@ -1,109 +1,121 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755FB34252B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1F1C84CB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789401623; cv=none; b=P7HEh4H6osCvh05NXkLJgDsZNc4/Qy5f6miT2O9rF8DnHRQNbb6Uqm1BFz/HHhDr+i2fcuP7dLCE2OyTtd284W3uvMuWZRY+83AHMcHeBgyX5z54Bse4ovwEtdJQDqiVZWWlqshn0XooBlTwHIycQjWUEZr9hsmGGtsfQ7V3P/s=
+	t=1789401637; cv=none; b=nDf3F30h5Wps+luGgTaS3sUyqEvfij5SR7UTL6ISXjVAfa0u7RNB/qZp5D7rdVrz6nmVhJiUuMqScHXXZGzaxTsN4DpIYwB4zM+AwJG/n1WicQFbJtzQaZS6xyMwxGpQXmfF+nz95I/69MEGNMz0PQmkwEY3tB35Xo++TjoJrl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789401623; c=relaxed/simple;
-	bh=XRYbluNPP8AMPvjs11ldgv62V308J1KXRstC2EzoBRY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Xa+fOhe4G1qFGFSVo1GtbUbh6NoOyFuuMh/dTiHrWwUT9QOP2HUcYUmZJ9t0EbVJr7Lb5RqFt/vulVfZsMfdPL3ZWlQP+61YYtyGd7nROphBu1DlFj18sViyK4TPZjXnM+PqyG94QsqxbuVc56QcULEJh7wFVhyzqxc7XGnlSuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HzDwXL9P; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789401637; c=relaxed/simple;
+	bh=xMRNGFwT5MG/tN2Z4rVlgZAaGoxD3wGYA7E+SDFQua8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rA8Wtyi7pSNZHNHBqZgmPp8QNhZDnE8niUEWXoLijzTaS7OGefL133y2YFIQFz3mon82fDGQHsyj5UMhkZvW6R8cDqjLytB+RYI1InLRwPZBRPTvk2Qyyt6iD7uD/zTizMD5mP4VRNu/L/ViZYzTJfKReDjLZUy2iFyPepLqDbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=aDGBOHjY; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HzDwXL9P"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c29c49a977aso37380266b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="aDGBOHjY"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so409280166b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789401619; x=1790006419; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=XRYbluNPP8AMPvjs11ldgv62V308J1KXRstC2EzoBRY=;
-        b=HzDwXL9PtsDZPrCoGHlBfi3c4hkfP5Rkangyd+FB4oy5y3C55KbqWNTTXpBlj4dz1m
-         f/kbk37o3+kByzdp86QQ/dmw1wjwzOumcgFZd+OcEd6TuRNr3pdyLU00qQUmbLGzGwuF
-         pEvKR28EabW2NcyBFyUTQcmx+GBojbEkBEMdsPquEO9YzjEyLHHMqIYP1eMBpgLi/goa
-         ucblFqTsGUyhMYO/XIbIeIyJARiR6ngG0e3QFgF63C6Oq5Mej9ZC2oIJvmV4Q5wqn+U8
-         fWyeRadgBEl6DemrkomvZtyPsRq6vp9VH4X14HhrMFmaLz3yvCXhqFZGX/UzT2BUBb+h
-         +fzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789401619; x=1790006419;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linux-foundation.org; s=google; t=1789401633; x=1790006433; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XRYbluNPP8AMPvjs11ldgv62V308J1KXRstC2EzoBRY=;
-        b=giHtIDRetdOy7fUoQMXIY7yaUczaO3WIKOJvtoRkG+Mj8ozW5DHXuCs3xO5YyOeTHI
-         BuTiCY4hc5rZNtoHvyCheYcmYISOvRmq8Gc8AKtTdzC/OtkKx53FzcD9UtWz1An6jTP5
-         Y7Yfst3IVfrIqQtTusNFj8RhMkuZkqa/sCaBUsF/0iXBshMLPeJP8+liFY3shvnypSeZ
-         s0isGkMxdA0HKIPqXdghvnbV8KuNHv8QCUKsuN01lLpXz4uDaCMJGK5GiF9pfeA4zmlh
-         wJBOk7eRJBT3q9i+EEDNtBMH0CiQjjpGEf0rLELlK5KeewSj/QkHM5oQGOFCgM+x2fsb
-         EXSQ==
-X-Forwarded-Encrypted: i=1; AKwUvByizfXNTFRPFGz2qyd6cxYKBPT5zEXxLV5d2YXjjRUjzCwybE9tPm4Y8zPsrEdxR7pVoX/NbBecJ3R7ZPg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZ254/yo97tnkocYZlX1UactCf3VopPZsQxFcjhQl3cq72vbPg
-	/YIXizUucWa+eU+H87m9BlKnFlHE4Tuc0keS8ERNQ40OIKsJprPncK9qq4BPTwuEz44=
-X-Gm-Gg: AYBFou3GKaPKANbEd5arAwkme6hM8xHBgEJN7S+Ql39Pi1udhvusC9UKFff3qqvnj2s
-	4e0UvFj/H5aimNBOpDYwAmp8pMEp7zOESp7xdOitxRz2CNxTBikmuZnoDom/9qXzKNJ/Fo0WoEb
-	AkAl7MaW0J2abbS4wzAETJUHO0YBmvrFFWCTvxiZLFul4klkjkA5PRx5TCnmR9265a8XhfhMh6e
-	Me0A1ReeziKI4usY1OFidVdRyCLldtkR+QdUr2C26b+yzYQNEg61I7+Qi5JBbRZz29TjzeJDS03
-	HrL+IECj2yttB4c3JEJXphupesBKsjCg+5synnb/yDnkwEp5MC5EEJo8PUAzudVcjhdaQpady5U
-	zrFjO0RlHH2Dxtx7+Ckc/OUkSu8UJd/reC44kw+3BT9O0c4C7/D6hEXjcL0TQdupKiHY0TA3+p6
-	TFnnPOCvD98cD2xl/ECkqryBIc3zXzhKcBrTbbK7AOM6Ugi0cn6ip0NQGsbRv2aDESHoj96JG6b
-	B8=
-X-Received: by 2002:a17:907:6088:b0:c26:19de:9ae8 with SMTP id a640c23a62f3a-c29b8734e64mr227554866b.39.1789401619322;
-        Mon, 14 Sep 2026 09:00:19 -0700 (PDT)
-Received: from draszik.lan ([109.255.181.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966021d0dsm467443566b.10.2026.09.14.09.00.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 09:00:17 -0700 (PDT)
-Message-ID: <6d3fd2d27eb54a926486da34947e843c0f29253c.camel@linaro.org>
-Subject: Re: [PATCH] phy: samsung: usbdrd: propagate GS101 PIPE3 lock
- failures
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>, Neil
- Armstrong <neil.armstrong@linaro.org>, Krzysztof Kozlowski
- <krzk@kernel.org>, Alim Akhtar	 <alim.akhtar@samsung.com>, Pritam Manohar
- Sutar <pritam.sutar@samsung.com>,  Sam Protsenko
- <semen.protsenko@linaro.org>, Johan Hovold <johan@kernel.org>, Peter
- Griffin	 <peter.griffin@linaro.org>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 14 Sep 2026 17:01:36 +0100
-In-Reply-To: <20260623135349.42739-1-pengpeng@iscas.ac.cn>
-References: <20260623135349.42739-1-pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+        bh=lW3GLwaZtw2SQDM2dpduYrEemaWK0EaPlBH9/B8yf6k=;
+        b=aDGBOHjY70gess3IRaT7zL9GXTve7UDHZ8AcWOugz7toUNlO77JgyKN7B18kAM7Hu/
+         NVA5zftok0nvdQ8cG64AYn5Fu+ldcQhxhrT8Y3f2yM9WkG5vtfSEO3k6e15T02R8NrW9
+         2EWIdgT45Nuf3yPOcfElmxYpPnxCJPOPubv/s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789401633; x=1790006433;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lW3GLwaZtw2SQDM2dpduYrEemaWK0EaPlBH9/B8yf6k=;
+        b=cwMOJIZcULIR5I0OdmVF/sIGgY1mXZIr/jif+e7wsw7zh7vD4k2p4UL7znuy6DF9VG
+         tvBpLvKSYV4F/4mqtgxsyL/H+3atPzVhmr6Y/PGnsQIphPPnUUfLffyPVGl3K2qVpPNp
+         j11wa5q8bvcjeWQIKXN2nQERHj4YgpSwV6wcApEg4PxsvXHAGFeXdGs2MIfyouXE+P0o
+         4XLhD6JZQBeF+mD8DzYcimGGkrLS5+GNvyz61AGwqNbPb8YFDykeMgWFcXCsAgqzL/m7
+         PqskrdausmSVn774xUEqS8f7EVSk/Isk+mFMEY18ncPhL8TW3jV91vtRVON7ZDqTOOuO
+         UvIg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUNUnvCu2F8DAYcudzOAW/6mzLJ1ku7np7/Mhbt6gEy4V80yZ388RNtMP6Eb266hpOIhjqu9nAXo17/EU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM7Vd2nRFHszSu52U7rKwMRdcxAe8MBmzXuCzuAFI8jI/05FO8
+	eJlJiO8CJjyGy9H0nK2l9aomVKFolPD6eM4bU1GKMSgNLSNlHxO6tpwLG3BBI55BOlpmFPOgoVL
+	0w2yJlTw=
+X-Gm-Gg: AYBFou0ZAgV+optbbwOOBRMEZE7eDEo5+EOtylQCd9HC4v8MiYzn5RiDcGfwkysi1ch
+	EpTVda9kBroqu6mNoaqZDOJyUoBIrlmOc4PQFBBVTLl+9IwyyRO7EPaylvVIsWsTy0ST5kbTCM1
+	TetlNlmEsXJZpFAxSUjImXa5/0PMS0BxUQc4CQjeo7N1wPCjfryH9h6Pk3k/MpQRxxeVezhJVoP
+	AV78QbvQt8a9jc8Z5fbYrl9FU1ncTHw16RmGhUPPoIefCHEjBaJt+aHCVDZfu9uzcMOxab87pL4
+	4Y5PZzZuf72jcCp4aT23VeZ0aAuJ3M5TJij8b9RJnganUxS1hVtY3fP5ME2r3+1rbwLML/3697u
+	AAcEf48e+mpfPxtP3kDzmRYLuaY7K9plwt3T5AHVe8l0LhzbsBrOIk0Snew1F3vYHEYPB51o/K2
+	0hUl978YPj04RRBM8fdL0F053OvsUDwYcBylmZPsPWwju3LPlkmbO8jc2fX40UO6BcOai6ISGz2
+	VxyRhtAQO424faaGT+LYerxaG7/mkt9yEox25pi2n0RHU5gk9VzKSGcYg4Z
+X-Received: by 2002:a17:907:3e1f:b0:c26:337e:7e05 with SMTP id a640c23a62f3a-c29b84c6a93mr418209266b.4.1789401633351;
+        Mon, 14 Sep 2026 09:00:33 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com. [74.125.228.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e8acsm464104166b.5.2026.09.14.09.00.32
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 09:00:32 -0700 (PDT)
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso395248766b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwqYR8KRykyLa9AeSCmuRRvyRMsHQ5mvPvVYydNs1a7TcYVHzO09B+9HBbbx1/8fOuY824V1uFC5X9P5RU=@vger.kernel.org
+X-Received: by 2002:a17:907:3f9f:b0:c29:444c:8f28 with SMTP id
+ a640c23a62f3a-c29b84c2597mr415053566b.5.1789401247404; Mon, 14 Sep 2026
+ 08:54:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org> <202609140833.88C0E16E50@keescook>
+In-Reply-To: <202609140833.88C0E16E50@keescook>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 14 Sep 2026 08:53:50 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whB0X28MNAg71it=1SfFyV7rB+PK3qajpRyWoxXHW81fw@mail.gmail.com>
+X-Gm-Features: AcwNN1VyLYI7E7T_24gtwZZHDPdmXi1EUi9s9xthPRH35xQepEwWHVnUZ8r6fdo
+Message-ID: <CAHk-=whB0X28MNAg71it=1SfFyV7rB+PK3qajpRyWoxXHW81fw@mail.gmail.com>
+Subject: Re: [PATCH v2 00/21] kbuild: significantly speed up kernel builds
+To: Kees Cook <kees@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 2026-06-23 at 21:53 +0800, Pengpeng Hou wrote:
-> The GS101 PIPE3 initialization checks the PMA PLL lock and then checks
-> the CDR lock. The PLL helper returns an error, but the GS101 PIPE3 init
-> path dropped that result. The CDR helper only logged a timeout. PHY
-> initialization could therefore still return success after either the PLL
-> or the selected receive lane had not locked.
->=20
-> Make the in-file SoC-specific phy_init hook return an int so helpers
-> with real failure results can propagate them through the existing PHY
-> init paths. Keep the register-only helpers returning success and use the
-> new return path to report the GS101 CDR wait failure. Other SoC helper
-> paths keep their previous success behavior.
->=20
-> Fixes: 32267c29bc7d ("phy: exynos5-usbdrd: support Exynos USBDRD 3.1 comb=
-o phy (HS & SS)")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
-> =C2=A0drivers/phy/samsung/phy-exynos5-usbdrd.c | 78 ++++++++++++++++-----=
---
-> =C2=A01 file changed, 55 insertions(+), 23 deletions(-)
+On Mon, 14 Sept 2026 at 08:41, Kees Cook <kees@kernel.org> wrote:
+>
+> One area I think might solved via an LLM is the 3-pass kallsyms stuff.
+> If we could get a deterministic kallsyms build in 1 pass, that would be
+> very nice. A lot of people have tried, but it has eluded upstreaming.
 
-Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+Even the three-pass one hasn't apparently always been entirely
+deterministic. We've had random reports over the years of it failing
+in some circumstances.
+
+Maybe we've fixed it all, or maybe the failures just go imperceptibly
+rare. Regardless, it has definitely been fragile.
+
+               Linus
