@@ -1,182 +1,301 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011055.outbound.protection.outlook.com [52.101.57.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3FE311968;
-	Mon, 14 Sep 2026 04:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789360887; cv=none; b=hNh/SB6Ychih9JskLLI4KqsJMmfObDY5tHgqod72mUxvqfPmy7v9q29SU4h6LX2xERpK1Tpicl2A4jg/ZcAudqtfXX2Agqllzg+S+sRpayoZx1Dl2d3u34SVTZwT8f9DlX5sbI8v+econb4vINp5f71VFrJLOl/eUOXoAievg0g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789360887; c=relaxed/simple;
-	bh=ZRPFWCfsQpmgi7ALxAJGT5LfyVu7iIMwBO+NyLak/1k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uxORsCKz390JPkvV7iv/XHZEtYpQp8blbWBdejMGVN1So7u5Yyk8mBteVMDJ3Qla4dV9Ky7OvvscBzrbTLGkVRGTghJ4ftE03HcO7lc0Px+DqR/Gbayu5Eg5Kr3VCVwaziA4G6hyX0aERS6x3FhlGqJvmUUj0ta16VpM/+hSp+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=hAZveVxR; arc=none smtp.client-ip=188.68.63.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1214344DB1;
+	Mon, 14 Sep 2026 04:44:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789361083; cv=fail; b=KeVlIVwlAhOXMv+PhAX/yvm3ewSRdZS0krr78p7YN8ihA2PQ8meOPxXw3IladiyKVxIaqfi4f3lh+c8b5ixlixS03os8QTIxX8iImSJoYIdcAGHwfnjKeueLzIHpSmFwNcjB1vhrrwYf85rEMjS7zZ66bO3INH/1+lQs58UMmMU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789361083; c=relaxed/simple;
+	bh=bVFEp65FB9APKP2VArJccQa26nliSdC1KxdrSkV6ZcE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=s0GAt7AdOEvsFNsn191JrbDZrn58n+zHPTVbDVX31BTku4Cw4xKRECCR7zT4nviPG7fncGQufB9c7BZ73SjZ5acqCOxR/L/yK/ADACvBMmtTRpONWKn6VW1JePTBVbup0YPpAQhiFJqHUfbDjhkeTGGKPUgJ+9L2OdR0yZ93Ms8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sIg6rWSg; arc=fail smtp.client-ip=52.101.57.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="hAZveVxR"
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hjst60K8Pz6Pfb;
-	Mon, 14 Sep 2026 06:41:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789360878;
-	bh=ZRPFWCfsQpmgi7ALxAJGT5LfyVu7iIMwBO+NyLak/1k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hAZveVxR0k7ft5Ru3eu1Z7UE8ls6tKrXIjdUgz77S64iOc+4AljwUQCz7jU9q3Q5R
-	 fUJFeXiX0IbRAvHDBKlFrw3RTWJhDG17hENn5M5XCWkDfzhoyYblmjtkBOhpWeYlRC
-	 HbQmblDDEmWPQg2heCJ4onbZZfitSXLtBsbpwodwIdQKnnuKZ08/Dc7XXGSGi1ix46
-	 2xueeVKDrDVzTKkAbauw75Y3TLNavyp+q192clDSIRQWkoKnS8iiCdj8R8IRIWvJtZ
-	 QHiE7FGPxX18nbQXHwqKW9wzWTNDPtBhp3IMrjmS6+ozFa2l8xZmi5geV+wyCWr7Ho
-	 lH7jFMlX7fExw==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hjsqt1L0zz4ynw;
-	Mon, 14 Sep 2026 06:39:22 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hjsqs37j3z8tH0;
-	Mon, 14 Sep 2026 06:39:21 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 8F0C15F9D2;
-	Mon, 14 Sep 2026 06:39:16 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <0d5e446c-76bc-48f3-8e6e-1005b2b7d18a@leemhuis.info>
-Date: Mon, 14 Sep 2026 06:39:16 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sIg6rWSg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QQw6UX1MqB0JGJNctQRuWWPJgx/Kj6YhUwEkxkQ+P5To7HDwLLov+mXNjc6cwf3e7pMCD7IshkvMPKFSFksfOis7CXTbw1+OfCpD1RiSR74lIsDftEyVmQf4G2dwy2KxaQ4sJJYO3IPzCiTr7Nv6eAtnXg1Y4yndtzTMJZ2H1k4PywofxM4VWUG1iZoUM+VSG8teVd7qNQUjyUlgipAFnyyQviNO3rkLt6dfsv3IRHPhYD/9BxOYAecWar45MNqM02Ey2NDQAilu+AkeD9lHPWkem+DoDHxfhWS+FZSpKLYnxiBJ4Yq2SbpsGqHgygvoX8yMgL8+g6cdw58L4/SqBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/ixD2//XYftyF+hraokcJgxvzxbY2vj/NZXcqVMoHvQ=;
+ b=adf+2tUeT8f5QRFpeOjA7Xxv5KGXhx3ICPiQP6uHp/LV6dNkZpi4TpNeoP9BymfnElzrVyVflhPvi8EbVgP5S14m7vTZAT3p/Zf7qNzFsDmfP8cbrZxqoSpsPnOR4lXfEQkP3DmeRTUpE9BNM3hFDbPbZPi67F2UQg5XNd3+HtHqHdLpHIZjhVWURr1BwRkWXzmTioJJPXYzetuTUmDbesIlkxHuhGrUcqoEpkBf2wbQG1BiaibIeo/J3i0aK6DnwzQC2xguQ2lKdSg/jxKRfn1Q6Y2UgZ6cr20sToJUbFcYqv4bGUBb533EwHRYY/qo6Dfn1WB6amaBWRSBu6coQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/ixD2//XYftyF+hraokcJgxvzxbY2vj/NZXcqVMoHvQ=;
+ b=sIg6rWSgmG62M1xx3lHRnfZmNjq2DmR/sv2jZC+RjrO3U6Gkevsn9YeBW6WueDJ4vtLN63G/j1oNLb9tOgIbOBDVeDbE2jdENkYDMrHa6gu+v3CwIsAYj4vtGsfHQFGj2E4oloHjh0WUCMDCJAUNlKcS/Zr8uvmFl6hExxijc0BGDLbmLDQmrAMtg9AhPjeAr+3HoZzS6VkXPizN0dEcyXRCtJovG0wA/5962ZLFJDYHCic2K9eoDp6u0/3QGeEzEvuRxeJzlBWAr9/ksp5pUKW45Z/2NqP0EQP4TLST6i8bTCPPBLg9OflMpMjjetGzFLy0X6U8V0JV4EWU1NEjlg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Mon, 14 Sep 2026 04:44:30 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 04:44:30 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 13:44:27 +0900
+Message-Id: <DLERK64QOSQC.3V77YFL5NAG31@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 4/8] gpu: nova-core: add NVKV encoder
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-4-0de9d5c8658c@nvidia.com>
+ <DL96FLHTRWOI.1FKOXD8RCXBUP@nvidia.com>
+In-Reply-To: <DL96FLHTRWOI.1FKOXD8RCXBUP@nvidia.com>
+X-ClientProxiedBy: TYWP286CA0025.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:262::13) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: mt76: mt7921: skip unknown CLC firmware records
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
- Felix Fietkau <nbd@nbd.name>
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Ryder Lee
- <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>,
- Sean Wang <sean.wang@mediatek.com>, Deren Wu <deren.wu@mediatek.com>,
- Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- linux-wireless@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, Junjie Cao <junjie.cao@intel.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: 
- <CAMyXUJmh=WfwC4_KHupNxYR5e2Gy5QhBDL5TSG6XEW-XLa+X4Q@mail.gmail.com>
- <20260816174841.1918-1-acharyalaxman8848@gmail.com>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <20260816174841.1918-1-acharyalaxman8848@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178936075711.727885.2130365036702910187@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 8F0C15F9D2
-X-NC-CID: 3T/37B0KQWk+04oK9fzOgf2WIOXpJ0kgNQvt2OfBScAk38PdRFM=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DM6PR12MB4124:EE_
+X-MS-Office365-Filtering-Correlation-Id: be0a5746-d34a-4093-b324-08df121add47
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|10070799003|23010399003|6133799003|22082099003|18002099003|3023799007|11063799006|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	8o4uo/99/QOJ0dSsmZ2F8+rYJtGQT9s5cqwWBXqJxndG592Yz71QN5uTysGyYxviCZLBkYwyjFQrD8S4YCPnMva32PvgRtX/Yi5QBF5h3MCBBpXXfDFg/siQI9UPiZod3s5rUobYcQDT5ZDqtipqmNzkkP15ePxxXdeqGfJjLKUh6ahCb72GAoctZB4t6Ch02hBQY+PtpOGvoQat4oOeNGyoZzVZPHU7s8XKhirkq9VF3sAnU2Au0fV65p8my7riTmC37288VKpCOq4tGeLKcKtIFczrLg4JwijE0qag13lIW1u7PdNTe/gjei5Dw72jFUAAFA5tf22d6MHxR9NzHsi4TRWhD4r39raFMAA6QriWAnJJczH7GY59/oJlN1rDdlSKhp2WMEyyBhVtIKwWTsDXl8RDIdsRQiJQ8GJT8PjpYQZC8VPMwk5IqCZvGTYVoMdF3ea9D0UXGTM7Tqp/xvuQ3FCPY1+5s4AIzfvRNw0f8c6f+X2p5thn3m69GPtIRwxqfc68qZMspZsaede9UMSEiEH2iVwWeWkOYrFpOp9IxfTg1iCY19oVn28y2Ng7LRSjXvCxtynQnoUK5I/8WkHQKm4RqKuuVLe/oxIqHjNzDhTSby8KBuwtAmO7jx5M4OI9DgwHhzS39bjvSat95xMQ2nhGx274Rx0aMbKHuu0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(23010399003)(6133799003)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OGgzODQ3dUREQjJtMmt1MmNxRUo2ZW1pUmNUU2JRSld6MEc4YlNRZkw3MExw?=
+ =?utf-8?B?elo1R1ZBNGkxZGhka0tQN3A3MDU5NWFmcSt1MVRHVHJ0ZUZmK2ZGaHpHa0pU?=
+ =?utf-8?B?eTcyRTBrd1dScS9wSVUvNGZQaUdiSmVYeDRRYUxGOWxKejllRCsrU2JXRHBV?=
+ =?utf-8?B?WGtBcm1Ud04xMnErZ3Y5Q2tad3p4aVpkbm5RcFRqNWhQZWRZZUpVemYxZnp1?=
+ =?utf-8?B?UHlkeGx3RENkZTA3UE9yWERHVGVkZkM3US8vVHZJbWNKNXJ3Y3ZqRXNId2hn?=
+ =?utf-8?B?Q0ZLdjJYQWxVRmNvdFJIdHVGRjkxdVFrbXN0b0kzVUN6Tmx3Wk9LekZGalpB?=
+ =?utf-8?B?elZLY05VQnMva3l1T09ZZHM0KzZYeHlPMXpwamgvOXRydjRQTVhaREFPVnpJ?=
+ =?utf-8?B?blZ4TjRQQjliaDVkKzJ2cTYyWjQyWDQ0ZXQ4TFNFQkRKQXpnZGM0cXFPVlJM?=
+ =?utf-8?B?L2xaL2FINitMV05qQnMrLzgvbndYbFpxTmNwbmlsa1ZPUU1EYVVQQzY0NCtF?=
+ =?utf-8?B?VU9iME1POGdFaEQxSW51dit1QVhSUXUyZE42YzNjVy85RnVEcUFLalZiS2NM?=
+ =?utf-8?B?MUxVYVVrSHFWbkhkUHYxZjI5ajlPS1ZZb1llM285aStRdUlEa0lleUVRS01m?=
+ =?utf-8?B?ajdjdWZKemJsc3pkZWp5YnBSYVoveW1zZnVRY1VIelJTN1Z4UWRtTTN1WjFi?=
+ =?utf-8?B?N052L1p3aC80R24rR0ltSUpwTXFVK2x0T3dlU29FRkdJbUdINzFFQXFqUE81?=
+ =?utf-8?B?NkhoRlRTUldqdHJpZVNkT254ZjdEYTY5VFdaN3VVeXIwSDF6cDUyRXZLbExu?=
+ =?utf-8?B?c3Exc3VSdGIzZjVEK2l2cktLamRjdG9nU2QvYTJ6Wnk2S1R5SFNmZWtReTJX?=
+ =?utf-8?B?a1ZneTlhandrVEFUcDhXcHpZRVl5ZGU5a3o4djFjL0g1b2FZd3Q2bkx3b2dY?=
+ =?utf-8?B?d2dMb1pqVFQraUVsTGVyQ1U4S0JOMkk1d2pYa01MaVg0QjRSVFdWV3p0Sjla?=
+ =?utf-8?B?YkN4WFZNV1BhaTVJS2hpU2ppV0t5NklNa1JpRVlFWVNyKzlQeS91K0tWbGlI?=
+ =?utf-8?B?VnR1L1psdkdFZFRCS1d0SDdBRUNhWVpQQUhWb0F4Qk9jdVFNa2lzbjRxNC9y?=
+ =?utf-8?B?Qjc3elFxbnY2SU8yYkZFZG1Sak5vNUJocnFFUU1jQy9SdWtkMzUxTi83YlVL?=
+ =?utf-8?B?Vmxadlh3NFVMaWQxRWxFOGhsUnNOOWVCOFVuVDdzRkEweXJFTDVycjI1YzBM?=
+ =?utf-8?B?dzVxLzRZem1XeHVieTVxN1RRQ1pDbG96dEViQlhEbWpPSjF3MjFYTm9Za1Za?=
+ =?utf-8?B?VThOKzFCWUZPQVFSK1JoQlU1b0NJWFpkOW50a0gzQmYvdzFINzVOQ0xGc2NL?=
+ =?utf-8?B?djhPbUpjWVZJQTJWbHJMYzJvejVQZWN1eEY1WUVQNUY0SG16UlJWUUIwVS9C?=
+ =?utf-8?B?WTY4OUFQMDVmczNKVXozTG5iaWd6NDg1Skh0ck52d3R2a1hiY2ZNc1ljV1lG?=
+ =?utf-8?B?ZFBoRlRLbnc2RU9kTW1naldqZlZ5MldiOFNaWjVMUkVic25FOUF4cXVaZVRO?=
+ =?utf-8?B?bTBVR04wVWszRHdOcFFUUDVVdGpZaklUWHAvUUQ1NzV3N1hBQ2VlQVcwSFYx?=
+ =?utf-8?B?ZGZYakFDd0Nzb3NmdE0yZ3dhdXpZbkhPcGs5UGNQQzVaM2dRMkVZMTYrRHNa?=
+ =?utf-8?B?VUJEWTNQUmVxc0xiMERwaDdiTjhqR2p5R1ROWjNNQ3FmQ3FWV2FxT2NOaUh2?=
+ =?utf-8?B?RmVXbi9qOGI5cWI4Snc2eWNxZyt5bFdJaWhKMTZub2RQZ2RlQ0tYWmFqRlVZ?=
+ =?utf-8?B?d0pEcEhHeUZ1WnlZaXlrOEVqK1Ezd1FsUkMxeXhvMDIwNk53OEdhMzNFTll5?=
+ =?utf-8?B?Uy9HTmlwa05YWk8xcFk2QUE2M1VXS3N5TVAvMkNUSGp6amxRTkliN0V3R3lx?=
+ =?utf-8?B?aTNPYThOYWNYK0ZKbXFiYzJYNVZkVWUrdDZodUovank1ejhYUzA0Sms3S0lM?=
+ =?utf-8?B?VWdTN2RGV3NncVpvcXdaYW8xcndtMXVYZE9tMmhMS1hHNHF6ZFpjQ3lxUmt0?=
+ =?utf-8?B?NmdYT2o3dm5zT3VRZW1xamtmVy9TaDkxUmFKWEdCVzAzQ0E3aXBXZUE1QWJ6?=
+ =?utf-8?B?clRwWW9oclc4anM1Y295M1phY01wVW12RG1EZHNXR0s2S25WL005cWV3QVZL?=
+ =?utf-8?B?MzZqUmc0YU1rZEVOUlRiTjRxWVJyUFJ4OHRJRmE3ZXRtdHp3bG9TbllQT25H?=
+ =?utf-8?B?MFhTYmxqZkFJb0hGWjNKczJobWhDUDR4MWVnMEtQbE1oQWpkNWNmUXRrWmNC?=
+ =?utf-8?B?ZEkzMCs1ZEFack5YVEROUXdGb3dhN052emd5Y2xWSnFXZE15eHVWbkJpUUY3?=
+ =?utf-8?Q?ahGzquH3HdQ04qa8358RK+zu1d7G8KZPgjmcAsPCewlqe?=
+X-MS-Exchange-AntiSpam-MessageData-1: C/RUhdm92v9fXA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be0a5746-d34a-4093-b324-08df121add47
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 04:44:30.2560
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Oeuz2ErohivkiOg9H6bLxN3EpEJI9yxSIGtOo61MibBvFoX/vSibY+aBj6IH18zHe7UE8GZyb2HPnjtBW+dw9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4124
 
-On 8/16/26 19:48, Laxman Acharya Padhya wrote:
-> Treat an out-of-range CLC index as newer firmware rather than a
-> malformed image. linux-firmware 20260810 ships MT7922 records with
-> idx 3, and rejecting them made mt7921e fail to probe.
-> 
-> Keep the record-length checks, and report those as errors so a
-> truncated table is visible instead of a silent retry loop.
+On Tue Sep 8, 2026 at 12:07 AM JST, Alexandre Courbot wrote:
+> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+> <...>
+>> +/// An encoded NVKV byte stream.
+>> +///
+>> +/// # Invariants
+>> +///
+>> +/// The byte length is always a multiple of `size_of::<u64>()`.
+>> +pub(crate) struct EncodedStream(Vec<u8, StreamAllocator>);
+>> +
+>> +impl EncodedStream {
+>> +    /// Creates an empty stream.
+>> +    fn new() -> Self {
+>> +        // INVARIANT: An empty stream's byte length is 0, a multiple of=
+ `size_of::<u64>()`.
+>> +        Self(Vec::new())
+>> +    }
+>> +
+>> +    /// Appends a single `u64` to the stream.
+>> +    fn push_u64(&mut self, value: u64) -> Result {
+>> +        // INVARIANT: Appending `size_of::<u64>()` bytes keeps the byte=
+ length a multiple of
+>> +        // `size_of::<u64>()`.
+>> +        Ok(self.0.extend_from_slice(&value.to_ne_bytes(), GFP_KERNEL)?)
+>> +    }
+>> +
+>> +    /// Appends `data` as bytes to the stream, zero-padded to a `u64` b=
+oundary.
+>> +    fn extend_with_padding<T: IntoBytes + Immutable + ?Sized>(&mut self=
+, data: &T) -> Result {
+>> +        let bytes =3D data.as_bytes();
+>> +        let padded =3D bytes.len().next_multiple_of(size_of::<u64>());
+>> +        // Reserve so that a failed allocation can't leave the invarian=
+t violated.
+>> +        self.0.reserve(padded, GFP_KERNEL)?;
+>> +        self.0.extend_from_slice(bytes, GFP_KERNEL)?;
+>> +        // INVARIANT: The padding ensures the total length remains a mu=
+ltiple of
+>> +        // `size_of::<u64>()`.
+>> +        Ok(self.0.extend_with(padded - bytes.len(), 0u8, GFP_KERNEL)?)
+>> +    }
+>> +}
+>> +
+>> +// The Deref to &[u64] relies on this alignment guarantee.
+>
+> nit: `&[u64]`.
+>
+> <...>
+>> +/// Describes the format of the following NVKV operation.
+>> +#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+>> +#[repr(u8)]
+>> +enum Opcode {
+>> +    /// A 32-bit value in the op word.
+>> +    Imm32 =3D 0,
+>> +    /// 32-bit values for consecutive keys, starting at the op word's k=
+ey.
+>> +    Seq32 =3D 1,
+>> +    /// 64-bit values for consecutive keys, starting at the op word's k=
+ey.
+>> +    Seq64 =3D 2,
+>> +    /// An array of bytes.
+>> +    Array8 =3D 3,
+>> +    /// An array of 32-bit elements.
+>> +    Array32 =3D 4,
+>> +    /// An array of 64-bit elements.
+>> +    Array64 =3D 5,
+>> +}
+>> +
+>> +// TODO[FPRI]: This is a temporary solution to be replaced with the cor=
+responding derive macros once
+>> +// they land.
+>
+> Actually, can't you use the nova-core local `bounded_enum!` macro to
+> define `OpCode`? This would generate the implementations below automatica=
+lly.
+>
+>> +impl TryFrom<Bounded<u64, 4>> for Opcode {
+>> +    type Error =3D Error;
+>> +
+>> +    fn try_from(value: Bounded<u64, 4>) -> Result<Self> {
+>> +        match value.get() {
+>> +            0 =3D> Ok(Self::Imm32),
+>> +            1 =3D> Ok(Self::Seq32),
+>> +            2 =3D> Ok(Self::Seq64),
+>> +            3 =3D> Ok(Self::Array8),
+>> +            4 =3D> Ok(Self::Array32),
+>> +            5 =3D> Ok(Self::Array64),
+>> +            _ =3D> Err(EINVAL),
+>> +        }
+>> +    }
+>> +}
+>> +
+>> +impl From<Opcode> for Bounded<u64, 4> {
+>> +    fn from(value: Opcode) -> Self {
+>> +        Bounded::from_expr(value as u64)
+>> +    }
+>> +}
+>
+> Sashiko has a point that `from` requires `#[inline(always)]`. Ideally,
+> we prefer to avoid using `from_expr` when we can, which in this case we
+> can by doing an exhaustive enumeration. Which is exactly what the
+> `bounded_enum` does, so leveraging it also solves this issue. :)
+>
+>> diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova=
+-core/gsp/nvkv/encode.rs
+>> new file mode 100644
+>> index 000000000000..6c1a9cbd90e8
+>> --- /dev/null
+>> +++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+>> @@ -0,0 +1,210 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFI=
+LIATES. All rights reserved.
+>> +
+>> +#![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
+>> +
+>> +use kernel::prelude::*;
+>> +
+>> +use super::{
+>> +    EncodedStream,
+>> +    Index,
+>> +    KeyId,
+>> +    Op,
+>> +    Opcode, //
+>> +};
+>> +
+>> +/// An encoder for an NVKV stream.
+>> +pub(crate) struct Encoder {
+>> +    stream: EncodedStream,
+>> +}
+>> +
+>> +impl Encoder {
+>> +    /// Creates an empty encoder.
+>> +    pub(crate) fn new() -> Self {
+>> +        Self {
+>> +            stream: EncodedStream::new(),
+>> +        }
+>> +    }
+>> +
+>> +    /// Returns the encoded data.
+>> +    #[must_use =3D "encoded stream must be consumed"]
+>> +    pub(crate) fn finish(self) -> EncodedStream {
+>> +        self.stream
+>> +    }
+>> +
+>> +    #[inline(always)]
+>
+> Unless not inlining implies a build error (as is the case for
+> `Bounded::from_expr`), I think the convention is to stick to `#[inline]`
+> for these.
+>
+> Same applies for other methods.
 
-For the record: Linus pulled this directly from the list into mainline
-yesterday after I pointed to this patch in a small regression report. I
-did that, as I had seen multiple people reporting a regression who
-confirmed that this patch fixed things for them.
-
-Bypassing subsystems like this has obvious downsides and risks; hence,
-if that got something on the wrong track, please speak up -- or ideally
-send patches to set things straight again in mainline.
-
-https://git.kernel.org/torvalds/c/1a296bfd3e775e515233f746218824fc7dd5ff16
-/ 1a296bfd3e775e ("wifi: mt76: mt7921: skip unknown CLC firmware
-records") [v7.3-rc3]
-
-Ciao, Thorsten
-> Fixes: 9417c5818a01 ("wifi: mt76: mt7921: validate CLC firmware records")
-> Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-> ---
->  drivers/net/wireless/mediatek/mt76/mt7921/mcu.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
-> index a118a301564c..40546005c743 100644
-> --- a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
-> +++ b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
-> @@ -477,18 +477,23 @@ static int mt7921_load_clc(struct mt792x_dev *dev, const char *fw_name)
->  
->  	for (offset = 0; offset < len; offset += clc_len) {
->  		if (len - offset < sizeof(*clc)) {
-> +			dev_err(mdev->dev, "Invalid CLC record\n");
->  			ret = -EINVAL;
->  			goto out;
->  		}
->  
->  		clc = (const struct mt7921_clc *)(clc_base + offset);
->  		clc_len = le32_to_cpu(clc->len);
-> -		if (clc_len < sizeof(*clc) || clc_len > len - offset ||
-> -		    clc->idx >= ARRAY_SIZE(phy->clc)) {
-> +		if (clc_len < sizeof(*clc) || clc_len > len - offset) {
-> +			dev_err(mdev->dev, "Invalid CLC record\n");
->  			ret = -EINVAL;
->  			goto out;
->  		}
->  
-> +		/* Newer firmware may add records this driver does not use yet */
-> +		if (clc->idx >= ARRAY_SIZE(phy->clc))
-> +			continue;
-> +
->  		/* do not init buf again if chip reset triggered */
->  		if (phy->clc[clc->idx])
->  			continue;
-
+Thanks, particularly on noticing the bounded_enum!
