@@ -1,59 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9468F475320;
-	Mon, 14 Sep 2026 12:50:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6315B497B85
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390222; cv=none; b=OW6+mowapidX6LvxmkDiatMiFHCDiiKipCJuC8O4goQijXPnnHMRG7YiKomyVUt8coJyi6chtUb2kpnxK0Q/dudLfdenIffy29T+JMP64YlYIgjasq+OkZdGhPrUQfEOUdDh7zHMm7rQer+CGr9AYlu85/znDvT6NeHHZ9yZmrM=
+	t=1789390223; cv=none; b=GALcuwHNFTu3L/rTM1lRzGQuUm2ye9uCB6V+Gbljlg+cRfMi/zkgcpHCiB/AOiyLVDS4NFRNIwteoDc+e98kQzIXEiiXYE31x2/fcELWvgabTPv9iwkvCuszlW0PIpZgc0Se5R3k5OcjRn53D6j6v6yQdqlS3U9j4wGdF53KJsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390222; c=relaxed/simple;
-	bh=4etfGZMWZ5ZJzFe+zPJx242UvP4vou7lstyycOADWc8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uR3LL0X27GKB0b3zowVRHZkFDIGPnVtjHetoJlpMlNDFA0a5/wN6vs076MXqw3L4p2kZpbXw4rDRAEC02m9GClVnfqyjkCQY/oyUIou2GcqBUJr70UslnlGXqRDC0v62RuMFHDREX17RFs7x/Ezp/DRk+YYJKv/K1aXSIr/qrSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZnWie55; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789390223; c=relaxed/simple;
+	bh=gDMpFJWapcnhBZHow5tYWj4u0/ni4AXCm1hEuPmwG5w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iwbEtm371DaSh4q3kteYBdY4V6v+8e3l4nq9SbfrZi4Pj9Zv75ISISPRiwXacWBP7kKW3IglO6P3hGZA7UTCCNqeJvu8THbI/DeegWRXAMhk0QkAK5BttqTETfzc5lq7KpuAOJzy9fzkVAjUJZttUM6GPR4R+ixaXK+KRfaiPPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TjpOMBOM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b+f1fRZ0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZnWie55"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DCE1F000FF;
-	Mon, 14 Sep 2026 12:50:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789390218;
-	bh=v2ra3ieNUhR7B4MtTkkeUqkeFuJOFN8UJu5yaTqCtis=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TZnWie55FA4qDB9t+xus0CtSeQ7DnHKn71yabYzzbwgSemvva5oiWbzGYeTiWygKv
-	 KAKklNGWy7xPgwV13h4SQxotsckyVft5P1Vm1sLgcDXUXL/rvEeDbHrMFyejVCyLw8
-	 FNDE+gJhYHIVoGR1SzwU9QjDF1G2CBtZSxo5FoGQWsT9u6otumzQqJH3SwbTHpl4GE
-	 Qv8pU1XrfWUSRmNMF8OZVx3ePcmZSphcnfwLodrh9QUuWvhac1rbt/x1MMQxesB0RN
-	 v+fX277tvuqp9PtHIDmuDa7uH+RRhVFsCSZp1dtJjIiMMIjOUBDd8Fp/O+XfsZY/hy
-	 1akYjFNuCTWAQ==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	x86@kernel.org
-Cc: Jinchao Wang <wangjinchao600@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org
-Subject: [PATCH v16 03/13] x86/hw_breakpoints: Make DR7 updates NMI safe
-Date: Mon, 14 Sep 2026 21:50:11 +0900
-Message-ID: <178939021170.94750.17115728735164122117.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178939017565.94750.9431053336761330458.stgit@devnote2>
-References: <178939017565.94750.9431053336761330458.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TjpOMBOM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b+f1fRZ0"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAlxTG1460629
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:50:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KBk697OcXRYhQ5p1XM5h8Xcl5jMkWBXjU8/ArCjrsWQ=; b=TjpOMBOMnolk1QWI
+	ZZOYnirI51SSYdlfuFYoNBqQyE+fpwiIqjrgCAUQlDJ9ynT0qGzik+zl6TUX+IM9
+	fA/xFsoId+u0LbJ3XV/8UVBrzbZ5gnY5X0AhsM2zPzflqNO0pGFQCAtndzohBN0V
+	O8dJzCgZywnRhsQKP32P7FKENyRbSjm4bu8J9gqNHCSb1zkK1OED8jYQxibBM6Z2
+	j7YLsRUGhFP6q8JME+g8XKAx5dVOK1x6jw6hHTxJYl7Dv/BoMnPd7CScNcPhD0hs
+	yXGRX3WjNYzhBAFrwxTfX/pHGr+74rjpv6eH/jNDukoDNUU9c1TBFKaoeV269z0H
+	HzB02g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpeex8qs5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:50:19 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so675624985a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789390218; x=1789995018; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KBk697OcXRYhQ5p1XM5h8Xcl5jMkWBXjU8/ArCjrsWQ=;
+        b=b+f1fRZ02ERf6o5Xb/LAv2HfBoUSFGxbRGXilmf8222X/McGkujLA+Uki8h26OUf1g
+         WCi5P7CwrPoFhj6EBwUB7xJgenQ27KleTkdJQ8IYoeXlbnPtLg7+hriF+dW3Fc95E6xZ
+         P7ElaMEijFQdnwmxHxAYctNfxjKsss8Qb1ByNhyClLy7HjcvbU0X5ILllvvzGRjpQMcc
+         kDQxeYdJt5IlWiCB/dnu1kM5kEPeq9CZjQisXkZnbXh1UM0/sRXDLEblyT5cNR6dIp2H
+         kMGjp92hWn2VoUwM5GfmiMd//DJPsGnu/Tg0iRWqnhgVxF4YrJt+rHOmdKJL0pRK+Tip
+         h+Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789390218; x=1789995018;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KBk697OcXRYhQ5p1XM5h8Xcl5jMkWBXjU8/ArCjrsWQ=;
+        b=T0GWdVGTSmfiSXxT7xGxsKAAIFD6ORXHKynyLR0oqrmSS3lQKRQmSIoY8yC6g1+77F
+         /lm0ekOSmFlXJtObJOsuue0wwJvzKVWwkI2KqMkjURTjUNX9jj669JD/qObeCnXY6zat
+         kTuSI8TizbkNfpLJhvC5n+D4nyL+A5VlS2xoi/CKX2/4AsdYD7A9KZavjr0PishbzPrI
+         BPOvrrwYwxFAsbx5k1ejYnFNpcD89MyAY1TA+v12fCUHrpMpMYBhlO/Kuv1gnsAMDD67
+         32YRYqmF9ahW1YhZx33gG1N0iNMiVcWQC/rXwWMI1j1/h5moK+vQM1fof3m7ek2eX9Zv
+         E5Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEUvhKmokpIpvcj7PqGZPvqYRaDRKu+a99QFa7kmUTOB7hiqahS+EKKgdc5G4LaKdnrWYXk22EpCLrK0s=@vger.kernel.org
+X-Gm-Message-State: AFuF++la65LMknffgEIQmuvCKcUoJ4FJTjOoYC2nxKudAWvUEE2LdGK4
+	AAuyb533FyXT1cz5CRQV4VqEyfIEkbdP2m6rfrjFjWPEJMkL4BbCSjSt1bToPjs+jwVd3IaFu2U
+	1PuOvvPzYyKBfBMigsueAnv+Kv0th7solesgkq6UvhN7tw5fLmu6JmFXV+bG+TNjzNK8=
+X-Gm-Gg: AYBFou3Gqz7BLqSDZRgE/U+poeDhu79UPc/k5dLB4d5f3VX5sK3cgn6UI97fo7Ijeos
+	wBKNupnkMcFru7kovwFXchYbu+0Ck8oJUwMwBSYahxhkO5D0sGCpzisJyIn0vSF2U2ZzNYpHpov
+	kqFpQ2UYmERzG249jj3JImy21Ox0492FbLPKlcocb+Cj94dWfY+v8E3jTyiLINFf1tKuo7AWH7H
+	Re5CkjTG7Os7aoftqcy6iithyZEp8HOrzuEqLwPXyuMrFhgj0Etewu+fwD8cce9r8puj0hIfJfe
+	FJHKi96dG6oaLyA8JcPrMvR2LSTaNVvSso5XO9W+N9UhhzhcD7wyI0dtArkWmnP+wape+phORIY
+	fH/fg9TEM
+X-Received: by 2002:a05:620a:4885:b0:939:5f4d:67b0 with SMTP id af79cd13be357-93a29766649mr345894385a.8.1789390218141;
+        Mon, 14 Sep 2026 05:50:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:4885:b0:939:5f4d:67b0 with SMTP id af79cd13be357-93a29766649mr345886985a.8.1789390217488;
+        Mon, 14 Sep 2026 05:50:17 -0700 (PDT)
+Received: from [127.0.1.1] ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6c566bdbsm242387555e9.11.2026.09.14.05.50.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 05:50:16 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 15:47:50 +0300
+Subject: [PATCH v4 51/52] arm64: dts: qcom: sm8750: Add GCC CX power domain
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,453 +89,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-qcom-tie-cx-to-gcc-v4-51-9d5a606ada33@oss.qualcomm.com>
+References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
+In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Ajit Pandey <quic_ajipan@quicinc.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Imran Shaik <quic_imrashai@quicinc.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.16-dev-0e65f
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1014;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=gDMpFJWapcnhBZHow5tYWj4u0/ni4AXCm1hEuPmwG5w=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqp+z99RrWtRkAmEqS+3SUBLhnWTdNFd2KpIwrz
+ ImDoDhFN+aJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaqfs/QAKCRAbX0TJAJUV
+ VhVwD/0cBO7oZN0lN/wkNiy5t0jlMMGSOEGTNF30cWjVGmUlWn/f0HKcWx1zf/9PJ802mrlKHmb
+ Eb3sT3obVr6vcC52UG18hDKNFUK+k6jDqWKfodSlEORd9iIv600ucrs1qVDsp7fzB4YASSselmO
+ cyDAWlIBwYnx73kFB1DjALRCXjKJ79uiq49hUQYhO/Dmw/0TrPtXUa01aeQeYSH+wJ/NFTAVlqG
+ NvNtesIRd8RobVyUkAjFarJ0stKDh/BGWuPuT5ZdW+XCZ47fA52LLzikfmkU7ZFANUPi17l6xUU
+ zx6OD/57BuAloRYjxVENexoJa4GFWYcz1F4qU+C9kC/o244qfB6xZ2uqDA8RUGNj4ARBMK+TDu6
+ NP14we0P8nqrami8i6s8fQFTOyXMUiFAOjjLQYiobDOs13c2IyGztV4kC9BZWrCFo4XNwYfkmhJ
+ +7fYEJVXUZ2qro90p64Kgowm5f3L/pkXt4sM5myDVhOUCMquoeTfrKHxmsPKLgAQdXJjIkpDmh9
+ Bo8ch27D0ODG2CMgPmtFEFNgw3iUAC2LIHYMItCT/YgQqXW0DRDw2spcaAE5NpqOxVq/Wml/u8D
+ 3h5RlOoYw5DL9zfIT1eZNfrRSum3B4BFR6dyoccYGVKc3PNkhmgLfMVhCD+hqJ111ZMeUPCI7+2
+ eRyxSeSYY8w90kQ==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE4MyBTYWx0ZWRfXwu13E9g+vGns
+ QKSt4byEDEF7WtuwpI3kHJaaoFNi54bUlAJgcebjC+EdxTtfS42EAAGDq5hP1rJ823o4adFqJjL
+ 97hQ50kBhtAS44K5W/cC8WqR1ZhgeAI2sxz19oGcJeztUstU091RetLWMLkWdnRUGbp9jgubDU8
+ kFixaNRzpFZT0sqi/NFDlT9kgxNlWDecFJq/sGSwaOLZyWFvP33uuLLHY2H8kI43JZXgtIjwBW7
+ mG/wsSGXG/375/qBGwa10gmJ0o36eTo1Xsr4Sq0bv39OdDTF+vjsjiYuF9KW6Nl8yZfyQhl0oIv
+ KJy+MQjKaThHjdo1HP0SScKesh/Kh3QMMI6lGVSb7SiqmyUVFa9c9NAI7/UJ4bIudM36bwHDm/H
+ xTymL8FoX15Gn7/7QMP/XmjARpVROgZd1r3ndK4W2L6FQM70Og9r4rKR3TlnR+bw4UfW1usC8Bs
+ d1txLooCRChms4S0wbA==
+X-Proofpoint-GUID: TsFG6emE5KhndRN6OSkjcNmCLWpcSBPr
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE4MyBTYWx0ZWRfX9a4htI6Tublt
+ vEfP+BbYpfo/uKj1JYLiJ0u79pxDll4CwwQZ10jjTd/CPiBBGPvb8P/4tTFAIrhWdmmWlU2Do56
+ nAmKaynIVKGABPDfuPIpPPGLuySVIO0=
+X-Proofpoint-ORIG-GUID: TsFG6emE5KhndRN6OSkjcNmCLWpcSBPr
+X-Authority-Analysis: v=2.4 cv=MsrHeGae c=1 sm=1 tr=0 ts=6aa7ed8b cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=dUfsX-4dSnU6X-0t-lkA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
+ suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140183
 
-From: Jinchao Wang <wangjinchao600@gmail.com>
+The GCC GDSCs on SM8750 are backed by the RPMh CX power domain. Without
+describing that parent domain, consumers of GCC-provided GDSCs can enable
+their local domain without causing the required CX vote to be held.
 
-Hardware breakpoint installation and removal run with IRQs disabled, but
-an NMI can still enter the same code through KGDB. The interrupted
-operation and the NMI can consequently claim the same slot or overwrite
-each other's DR7 state.
+Add the CX power-domain reference to the GCC node so votes from GCC GDSC
+consumers can propagate to RPMh CX.
 
-Claim and release per-CPU slots with cmpxchg. Update cpu_dr7 with
-single-instruction per-CPU operations, and preserve hardware-first
-disable and hardware-last enable ordering. Add a per-CPU sequence number
-so interrupted DR7 writers and restore paths detect an NMI update and
-retry from the latest shadow state.
-
-Link: https://lore.kernel.org/all/4ee0a2efc9e8387af83286b8495b7d490247e165.1785067572.git.wangjinchao600@gmail.com/
-
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Jinchao Wang <wangjinchao600@gmail.com>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
-Changes in v16:
- - In local_db_save(), remove the hypervisor check so all paths go
-   through the sequence retry loop, preventing an intervening NMI from
-   bypassing the sequence check on return.
- - In local_db_save(), check cpu_dr7_seq before clearing hardware DR7
-   and load from shadow cpu_dr7 on sequence retry to prevent
-   destructively clobbering hardware DR7 state installed by an NMI.
- - In local_db_restore(), restore from shadow cpu_dr7 whenever
-   cpu_dr7_seq changed instead of evaluating dr7 ? cpu_dr7 : 0,
-   ensuring breakpoints installed by an NMI are preserved when dr7
-   was initially 0.
-Changes in v15:
- - Always preserve DR7_FIXED_1 in arch_install_hw_breakpoint(),
-   arch_uninstall_hw_breakpoint(), and hw_breakpoint_restore() to comply
-   with the x86 architectural specification.
- - Wrap local_db_save() in a cpu_dr7_seq loop to detect NMI breakpoint
-   updates and ensure DR7 is disabled before entry.
- - In local_db_restore(), if dr7 is 0 and an NMI modified breakpoints,
-   restore DR7_FIXED_1 to undo the NMI's overwrite and preserve KVM
-   guest isolation.
- - Always write "val | DR7_FIXED_1" to hardware DR7 in local_db_restore()
-   to ensure architectural compliance.
- - Avoid modifying the saved dr7 argument in-place across retry loops.
-Changes in v14:
- - In local_db_restore(), return immediately if saved dr7 is 0 to avoid
-   overwriting intentionally cleared hardware DR7 state (e.g. KVM guest
-   entry) with cpu_dr7 when an NMI increments cpu_dr7_seq.
-Changes in v13:
- - Add compiler barriers (barrier()) before checking cpu_dr7_seq to
-   prevent the compiler from hoisting the sequence check before debug
-   register updates or shadow state modifications.
-Changes in v12:
- - Use stack variables dr7 and dr7_seq directly in exc_nmi() and remove
-   unnecessary per-CPU nmi_dr7 and nmi_dr7_seq variables.
----
- arch/x86/include/asm/debugreg.h |   77 ++++++++++++++++++++++--------
- arch/x86/kernel/cpu/mce/core.c  |   10 ++--
- arch/x86/kernel/hw_breakpoint.c |  101 ++++++++++++++++++++-------------------
- arch/x86/kernel/nmi.c           |    7 ++-
- arch/x86/kernel/traps.c         |   10 +++-
- 5 files changed, 124 insertions(+), 81 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/x86/include/asm/debugreg.h b/arch/x86/include/asm/debugreg.h
-index 50f830972698..ac1607eeefb7 100644
---- a/arch/x86/include/asm/debugreg.h
-+++ b/arch/x86/include/asm/debugreg.h
-@@ -19,6 +19,7 @@
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index 28cf22da854d..b9e943afc510 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -677,6 +677,8 @@ gcc: clock-controller@100000 {
+ 				 <0>,
+ 				 <&usb_dp_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
  
- DECLARE_PER_CPU(unsigned long, cpu_dr7);
- DECLARE_PER_CPU(bool, cpu_dr_in_guest);
-+DECLARE_PER_CPU(unsigned int, cpu_dr7_seq);
- 
- #ifndef CONFIG_PARAVIRT_XXL
- /*
-@@ -126,45 +127,79 @@ static __always_inline bool hw_breakpoint_active(void)
- 
- extern void hw_breakpoint_restore(void);
- 
--static __always_inline unsigned long local_db_save(void)
-+static __always_inline void local_db_save(unsigned long *dr7,
-+					  unsigned int *dr7_seq)
- {
--	unsigned long dr7;
-+	bool retrying = false;
- 
--	if (this_cpu_read(cpu_dr_in_guest))
--		return 0;
-+	if (this_cpu_read(cpu_dr_in_guest)) {
-+		*dr7 = 0;
-+		*dr7_seq = 0;
-+		return;
-+	}
- 
--	if (cpu_feature_enabled(X86_FEATURE_HYPERVISOR) && !hw_breakpoint_active())
--		return 0;
-+	do {
-+		/* Inner loop: get DR7 with checking cpu_dr7_seq. */
-+		*dr7_seq = this_cpu_read(cpu_dr7_seq);
- 
--	get_debugreg(dr7, 7);
-+		if (unlikely(retrying)) {
-+			*dr7 = this_cpu_read(cpu_dr7);
-+		} else {
-+			get_debugreg(*dr7, 7);
- 
--	/* Architecturally set bit */
--	dr7 &= ~DR7_FIXED_1;
--	if (dr7)
--		set_debugreg(DR7_FIXED_1, 7);
-+			/* Architecturally set bit */
-+			*dr7 &= ~DR7_FIXED_1;
-+		}
- 
--	/*
--	 * Ensure the compiler doesn't lower the above statements into
--	 * the critical section; disabling breakpoints late would not
--	 * be good.
--	 */
--	barrier();
-+		barrier();
-+		if (unlikely(*dr7_seq != this_cpu_read(cpu_dr7_seq))) {
-+			retrying = true;
-+			continue;
-+		}
- 
--	return dr7;
-+		/* Outer loop: clear DR7 and retry if sequence number is updated. */
-+		if (*dr7)
-+			set_debugreg(DR7_FIXED_1, 7);
++			power-domains = <&rpmhpd RPMHPD_CX>;
 +
-+		/*
-+		 * Ensure the compiler doesn't lower the above statements into
-+		 * the critical section; disabling breakpoints late would not
-+		 * be good.
-+		 */
-+		barrier();
-+		retrying = true;
-+	} while (unlikely(*dr7_seq != this_cpu_read(cpu_dr7_seq)));
- }
- 
--static __always_inline void local_db_restore(unsigned long dr7)
-+static __always_inline void local_db_restore(unsigned long dr7,
-+					     unsigned int dr7_seq)
- {
-+	unsigned long val;
-+	unsigned int seq;
-+
- 	/*
- 	 * Ensure the compiler doesn't raise this statement into
- 	 * the critical section; enabling breakpoints early would
- 	 * not be good.
- 	 */
- 	barrier();
-+
- 	if (this_cpu_read(cpu_dr_in_guest))
- 		return;
--	if (dr7)
--		set_debugreg(dr7, 7);
-+
-+	do {
-+		seq = this_cpu_read(cpu_dr7_seq);
-+		if (seq == dr7_seq) {
-+			if (!dr7)
-+				return;
-+			val = dr7;
-+		} else {
-+			val = this_cpu_read(cpu_dr7);
-+		}
-+
-+		set_debugreg(val | DR7_FIXED_1, 7);
-+		barrier();
-+	} while (unlikely(seq != this_cpu_read(cpu_dr7_seq)));
- }
- 
- #ifdef CONFIG_CPU_SUP_AMD
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index 39f238952e14..b3669d6f88d4 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -2109,8 +2109,9 @@ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
- {
- 	irqentry_state_t irq_state;
- 	unsigned long dr7;
-+	unsigned int dr7_seq;
- 
--	dr7 = local_db_save();
-+	local_db_save(&dr7, &dr7_seq);
- 
- 	WARN_ON_ONCE(user_mode(regs));
- 
-@@ -2127,18 +2128,19 @@ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
- 
- 	irqentry_nmi_exit(regs, irq_state);
- out:
--	local_db_restore(dr7);
-+	local_db_restore(dr7, dr7_seq);
- }
- 
- static __always_inline void exc_machine_check_user(struct pt_regs *regs)
- {
- 	unsigned long dr7;
-+	unsigned int dr7_seq;
- 
- 	irqentry_enter_from_user_mode(regs);
- 
--	dr7 = local_db_save();
-+	local_db_save(&dr7, &dr7_seq);
- 	do_machine_check(regs);
--	local_db_restore(dr7);
-+	local_db_restore(dr7, dr7_seq);
- 
- 	irqentry_exit_to_user_mode(regs);
- }
-diff --git a/arch/x86/kernel/hw_breakpoint.c b/arch/x86/kernel/hw_breakpoint.c
-index 68de7ed79d88..866bbbb8918d 100644
---- a/arch/x86/kernel/hw_breakpoint.c
-+++ b/arch/x86/kernel/hw_breakpoint.c
-@@ -43,6 +43,9 @@ EXPORT_PER_CPU_SYMBOL(cpu_dr7);
- DEFINE_PER_CPU(bool, cpu_dr_in_guest);
- EXPORT_PER_CPU_SYMBOL_GPL(cpu_dr_in_guest);
- 
-+/* Sequence number of the per-CPU DR7 state. */
-+DEFINE_PER_CPU(unsigned int, cpu_dr7_seq);
-+
- /* Per cpu debug address registers values */
- static DEFINE_PER_CPU(unsigned long, cpu_debugreg[HBP_NUM]);
- 
-@@ -100,7 +103,7 @@ int decode_dr7(unsigned long dr7, int bpnum, unsigned *len, unsigned *type)
- int arch_install_hw_breakpoint(struct perf_event *bp)
- {
- 	struct arch_hw_breakpoint *info = counter_arch_bp(bp);
--	unsigned long *dr7;
-+	unsigned int seq;
- 	int i;
- 
- 	lockdep_assert_irqs_disabled();
-@@ -109,32 +112,25 @@ int arch_install_hw_breakpoint(struct perf_event *bp)
- 		return -EBUSY;
- 
- 	for (i = 0; i < HBP_NUM; i++) {
--		struct perf_event **slot = this_cpu_ptr(&bp_per_reg[i]);
--
--		if (!*slot) {
--			*slot = bp;
-+		if (!this_cpu_cmpxchg(bp_per_reg[i], NULL, bp))
- 			break;
--		}
- 	}
- 
- 	if (WARN_ONCE(i == HBP_NUM, "Can't find any breakpoint slot"))
- 		return -EBUSY;
- 
--	set_debugreg(info->address, i);
--	__this_cpu_write(cpu_debugreg[i], info->address);
--
--	dr7 = this_cpu_ptr(&cpu_dr7);
--	*dr7 |= encode_dr7(i, info->len, info->type);
--
--	/*
--	 * Ensure we first write cpu_dr7 before we set the DR7 register.
--	 * This ensures an NMI never see cpu_dr7 0 when DR7 is not.
--	 */
--	barrier();
--
--	set_debugreg(*dr7, 7);
--	if (info->mask)
--		amd_set_dr_addr_mask(info->mask, i);
-+	do {
-+		seq = this_cpu_inc_return(cpu_dr7_seq);
-+		this_cpu_write(cpu_debugreg[i], info->address);
-+		barrier();
-+		set_debugreg(info->address, i);
-+		if (info->mask)
-+			amd_set_dr_addr_mask(info->mask, i);
-+		this_cpu_or(cpu_dr7, encode_dr7(i, info->len, info->type));
-+		barrier();
-+		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
-+		barrier();
-+	} while (seq != this_cpu_read(cpu_dr7_seq));
- 
- 	return 0;
- }
-@@ -152,36 +148,34 @@ void arch_uninstall_hw_breakpoint(struct perf_event *bp)
- {
- 	struct arch_hw_breakpoint *info = counter_arch_bp(bp);
- 	unsigned long dr7;
-+	unsigned int seq;
- 	int i;
- 
- 	lockdep_assert_irqs_disabled();
- 
- 	for (i = 0; i < HBP_NUM; i++) {
--		struct perf_event **slot = this_cpu_ptr(&bp_per_reg[i]);
--
--		if (*slot == bp) {
--			*slot = NULL;
-+		if (this_cpu_read(bp_per_reg[i]) == bp)
- 			break;
--		}
- 	}
- 
- 	if (WARN_ONCE(i == HBP_NUM, "Can't find any breakpoint slot"))
- 		return;
- 
--	dr7 = this_cpu_read(cpu_dr7);
--	dr7 &= ~__encode_dr7(i, info->len, info->type);
--
--	set_debugreg(dr7, 7);
--	if (info->mask)
--		amd_set_dr_addr_mask(0, i);
--
--	/*
--	 * Ensure the write to cpu_dr7 is after we've set the DR7 register.
--	 * This ensures an NMI never see cpu_dr7 0 when DR7 is not.
--	 */
--	barrier();
--
--	this_cpu_write(cpu_dr7, dr7);
-+	do {
-+		seq = this_cpu_inc_return(cpu_dr7_seq);
-+		dr7 = this_cpu_read(cpu_dr7);
-+		dr7 &= ~__encode_dr7(i, info->len, info->type);
-+		set_debugreg(dr7 | DR7_FIXED_1, 7);
-+		if (info->mask)
-+			amd_set_dr_addr_mask(0, i);
-+		barrier();
-+		this_cpu_and(cpu_dr7,
-+			     ~__encode_dr7(i, info->len, info->type));
-+		barrier();
-+	} while (seq != this_cpu_read(cpu_dr7_seq));
-+
-+	WARN_ONCE(this_cpu_cmpxchg(bp_per_reg[i], bp, NULL) != bp,
-+		  "Can't release breakpoint slot");
- }
- 
- static int arch_bp_generic_len(int x86_len)
-@@ -315,10 +309,7 @@ static inline bool within_cpu_entry(unsigned long addr, unsigned long end)
- 				sizeof(struct tlb_state)))
- 			return true;
- 
--		/*
--		 * When in guest (X86_FEATURE_HYPERVISOR), local_db_save()
--		 * will read per-cpu cpu_dr7 before clear dr7 register.
--		 */
-+		/* local_db_save() reads this state before clearing DR7. */
- 		if (within_area(addr, end, (unsigned long)&per_cpu(cpu_dr7, cpu),
- 				sizeof(cpu_dr7)))
- 			return true;
-@@ -326,6 +317,10 @@ static inline bool within_cpu_entry(unsigned long addr, unsigned long end)
- 				(unsigned long)&per_cpu(cpu_dr_in_guest, cpu),
- 				sizeof(cpu_dr_in_guest)))
- 			return true;
-+		if (within_area(addr, end,
-+				(unsigned long)&per_cpu(cpu_dr7_seq, cpu),
-+				sizeof(cpu_dr7_seq)))
-+			return true;
- 	}
- 
- 	return false;
-@@ -493,12 +488,18 @@ void flush_ptrace_hw_breakpoint(struct task_struct *tsk)
- 
- void hw_breakpoint_restore(void)
- {
--	set_debugreg(__this_cpu_read(cpu_debugreg[0]), 0);
--	set_debugreg(__this_cpu_read(cpu_debugreg[1]), 1);
--	set_debugreg(__this_cpu_read(cpu_debugreg[2]), 2);
--	set_debugreg(__this_cpu_read(cpu_debugreg[3]), 3);
--	set_debugreg(DR6_RESERVED, 6);
--	set_debugreg(__this_cpu_read(cpu_dr7), 7);
-+	unsigned int seq;
-+
-+	do {
-+		seq = this_cpu_inc_return(cpu_dr7_seq);
-+		set_debugreg(this_cpu_read(cpu_debugreg[0]), 0);
-+		set_debugreg(this_cpu_read(cpu_debugreg[1]), 1);
-+		set_debugreg(this_cpu_read(cpu_debugreg[2]), 2);
-+		set_debugreg(this_cpu_read(cpu_debugreg[3]), 3);
-+		set_debugreg(DR6_RESERVED, 6);
-+		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
-+		barrier();
-+	} while (seq != this_cpu_read(cpu_dr7_seq));
- }
- EXPORT_SYMBOL_FOR_KVM(hw_breakpoint_restore);
- 
-diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
-index 3c9f60d6ca5a..c3806f7bd3e8 100644
---- a/arch/x86/kernel/nmi.c
-+++ b/arch/x86/kernel/nmi.c
-@@ -531,11 +531,12 @@ enum nmi_states {
- };
- static DEFINE_PER_CPU(enum nmi_states, nmi_state);
- static DEFINE_PER_CPU(unsigned long, nmi_cr2);
--static DEFINE_PER_CPU(unsigned long, nmi_dr7);
- 
- DEFINE_IDTENTRY_RAW(exc_nmi)
- {
- 	irqentry_state_t irq_state;
-+	unsigned long dr7;
-+	unsigned int dr7_seq;
- 	struct nmi_stats *nsp = this_cpu_ptr(&nmi_stats);
- 
- 	/*
-@@ -572,7 +573,7 @@ DEFINE_IDTENTRY_RAW(exc_nmi)
- 	 */
- 	sev_es_ist_enter(regs);
- 
--	this_cpu_write(nmi_dr7, local_db_save());
-+	local_db_save(&dr7, &dr7_seq);
- 
- 	irq_state = irqentry_nmi_enter(regs);
- 
-@@ -594,7 +595,7 @@ DEFINE_IDTENTRY_RAW(exc_nmi)
- 
- 	irqentry_nmi_exit(regs, irq_state);
- 
--	local_db_restore(this_cpu_read(nmi_dr7));
-+	local_db_restore(dr7, dr7_seq);
- 
- 	sev_es_ist_exit();
- 
-diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
-index 30aa8369957e..018abe736285 100644
---- a/arch/x86/kernel/traps.c
-+++ b/arch/x86/kernel/traps.c
-@@ -1231,8 +1231,12 @@ static noinstr void exc_debug_kernel(struct pt_regs *regs, unsigned long dr6)
- 	 * it results in an endless recursion and stack overflow. Thus we stay
- 	 * with the IDT approach, i.e., save DR7 and disable #DB.
- 	 */
--	unsigned long dr7 = local_db_save();
--	irqentry_state_t irq_state = irqentry_nmi_enter(regs);
-+	unsigned long dr7;
-+	unsigned int dr7_seq;
-+	irqentry_state_t irq_state;
-+
-+	local_db_save(&dr7, &dr7_seq);
-+	irq_state = irqentry_nmi_enter(regs);
- 	instrumentation_begin();
- 
- 	/*
-@@ -1289,7 +1293,7 @@ static noinstr void exc_debug_kernel(struct pt_regs *regs, unsigned long dr6)
- 	instrumentation_end();
- 	irqentry_nmi_exit(regs, irq_state);
- 
--	local_db_restore(dr7);
-+	local_db_restore(dr7, dr7_seq);
- }
- 
- static noinstr void exc_debug_user(struct pt_regs *regs, unsigned long dr6)
+ 			#clock-cells = <1>;
+ 			#reset-cells = <1>;
+ 			#power-domain-cells = <1>;
+
+-- 
+2.54.0
 
