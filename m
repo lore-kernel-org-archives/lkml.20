@@ -1,48 +1,77 @@
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2DD420468;
-	Mon, 14 Sep 2026 09:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB0A42317C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377701; cv=none; b=WDzfvgSMlgd8aznLNP1zPZdpbTk8x3c8aRyOZnqSnFyWYiv/rw4FxUDJIssHY/v2v8QsYuoOtZqFJoi+cMbBTKAptm3OF17OM5/8NPp3yy+rJhnefkFHx2BR12Px8uLisbvm15G/g7q/9g2YWcb3Z+LcjR6pjNPrufve+PV3F+E=
+	t=1789377703; cv=none; b=nnblVSL991ZY87wayxUlSUMRsROWM1WRBC7cWn7yhXmKxFE8ulHh2x4J1AkLEWJSDyVbPIbA/7WkiJuI/gEVZ4WByVukIKmCcaQ+M8Du6faWLddhVd9f0tb+klT03Gp50am/lbO7HiZdPMn85sVOeiTn/sHtIxqGGBa1g96eoTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377701; c=relaxed/simple;
-	bh=rOx5USgvuTxJyuoRcB/WIiOPs7OWa9OwZx4bOpM8rdw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RV5KeZ+bk107VwWRGP+yMvXZpWmmXG3wD5DHIejTTFVMc9mSDhdFqatdiheUuPn7nEMUfBEcXiksQNqI2e0EH8nuXWyYMLP9uiDHz54I6GhF2jH5mGg0zZetSAtwJeMIf9EI7CwSzBdQHbRhFOz4IJmfufye1DfVpzmJ/jgrUD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 416CF20025C;
-	Mon, 14 Sep 2026 11:21:37 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id D5AE720025A;
-	Mon, 14 Sep 2026 11:21:36 +0200 (CEST)
-Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id A2291180006C;
-	Mon, 14 Sep 2026 17:21:35 +0800 (+08)
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: alexandre.belloni@bootlin.com,
-	linux-rtc@vger.kernel.org,
+	s=arc-20240116; t=1789377703; c=relaxed/simple;
+	bh=AWgNdelLuusMKTO3XmEV6H2qIFR8ZhjKw8eGqirrJj8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FHBNxxTpWm+YO8+OnSiuj+qbOKDWLfudtdJdrSKiP3kWCLLZrIpIr+B7N7phiAayNW5/DhpmGwIUHH++GD43vl9o1jYPCsPfruz8oXJteC7Ue7cOtQJcTIv/k4AMkz3O8ONusMtFgAfzL9ubSHaWF5kUrCJ+zLSI2sg+QuGjbIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BCKXjLqg; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BCKXjLqg"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-530ea5dafd4so22267801cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:21:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789377700; x=1789982500; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DJLNgmlgQhAoJRQ2IrTohM5uVJQIzCvFDhXSRTt2DE4=;
+        b=BCKXjLqgahPBnZIF2oa8n4IX/jW/XfHQtuXpWlaNdbMa1o2Kr2kIitX2FNE6YLaxxn
+         IszLyAzzeP40Z/04KUGPn0PDttkyxKcWgaSeHAVO9zLVrjLfrG7/EnIvTHgaCAOBxN1a
+         ey1G82Kz+9LeK5amNquTWc65uNNNU6EdqebrdPpx0uO2wZSow6zPsbtBqXJjy3RpBj+d
+         8S0ZRZLQCPbkNrHmC3zmSns2jygCFE9nYmP1tZU0ONmRfnCQrmzXzp56/6AOCaYMGD6c
+         c3xfwRGQadddqtIlWNm7FegBB7ORdKqRNVBNXNO4QvjXakvfqzzklMpUZwdHhPQWn+gO
+         tZFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789377700; x=1789982500;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DJLNgmlgQhAoJRQ2IrTohM5uVJQIzCvFDhXSRTt2DE4=;
+        b=kvGeKXtitcnlT1FolxYgLIF/1wza2UeuuU4nTtemYwtPnD5dXU1XCOlm70l1mRcugx
+         bmjS//cIuZ0wzelAOEi5p94R5a/iE01NqplqYo36EU/3kfee68UDN4hj4pb7BYEIdJbc
+         4S8RQ46nHfHxsjv+Z9U+k93uAfwG+CK19v997wi+nDCcA2D1C3c4GKnfLpdzSTC0FuL7
+         APGg6epf7to/EvwQHpY4tJdCdak4TfBnfya/L59w8qjwbeXqQJhSRqReobwl8nsQgnOr
+         +QcWkf47lSFEpI8MzCfB8gj5eA6bNvceWtbv4PI6vEiUfCOzZLkV7VZMSHKxHbHJ85Jh
+         iErg==
+X-Forwarded-Encrypted: i=1; AKwUvBzAl+VCpQtltAexZHM1VddSvhCv9Maidxz8qtH3VC2dItVe+/MVOmr+NcXu0S5OHEM/Ckvfdc84FdHowrQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQmeFjHDAkNX/096SmcdRUDacoKSYcioKXQjyDDpCT33VGd5N6
+	EWGr7wsYLPvOcH6HcScCeueFQ7dJwcOB9p72Yw1nZL7mRJuw2LY/39dA
+X-Gm-Gg: AYBFou37GeTkElvB4YNdgSe5vbTvMOROfVbXbxITeEySJxeIHtkuKHCW9NWA7fpymR6
+	71R1XNcgGQGOYHfGZy1mBl0PPGLucAIcF006t8D2jQtmlRyTWqrHLpzSq+ZqVXXXjZjTarguryU
+	7BHWy3FdA7MDJYFonzVJRnA7AyhIif8H8Sj9dF0cNUTPKYlsliEpMK98EDbt5OWps/9pWEBcEk6
+	sY5CgUB4gpnsjh6arpgm+EOEGhzukoJonWVSsW9TFCID5DD0n8abAY/RxQZon+eoC2YjBvrJk+h
+	xP4o205jBdivbmNcYXt88ckwPbTmY13F2Fahtdc3RBCXrpF3OhcIBD/4+i3/Q5UaL4IphN9jffj
+	k3UOVriMrkh6zDvgHH0ADeQQiyNIl7azIcP99tLCz/r4AoZgLTdIawRYUZhgQjn45NsUYe1/9ag
+	mfHkg/Q+7cFTaFd7UEUptlqz0W4O+KQPBkgUMO//7TipmlpDLQenT+GhVJt107hOadYo9BybLbd
+	IPV4lwPCf4Bm1XEjid3yqys1DVbEYrTmrh/bevV/FlyRFBug0g2eYDgrD1liWDOF0wR
+X-Received: by 2002:ac8:59c1:0:b0:530:db0e:e098 with SMTP id d75a77b69052e-5310cf602b0mr23311491cf.23.1789377700398;
+        Mon, 14 Sep 2026 02:21:40 -0700 (PDT)
+Received: from kernel-dev.. ([2a01:4ff:f0:3ff2::1])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f49444bsm89854256d6.29.2026.09.14.02.21.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:21:40 -0700 (PDT)
+From: Uzair Beg <uzairbeg11@gmail.com>
+To: io-uring@vger.kernel.org
+Cc: axboe@kernel.dk,
+	asml.silence@gmail.com,
+	Chengfeng Lin <lin2530632123@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	wim@linux-watchdog.org,
-	linux-watchdog@vger.kernel.org,
-	linux@roeck-us.net
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [PATCH v6 5/5] rtc: pcf85363: add watchdog support with configurable step size
-Date: Mon, 14 Sep 2026 14:51:26 +0530
-Message-Id: <20260914092126.3757418-5-lakshay.piplani@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260914092126.3757418-1-lakshay.piplani@nxp.com>
-References: <20260914092126.3757418-1-lakshay.piplani@nxp.com>
+	Uzair Beg <uzairbeg11@gmail.com>
+Subject: [RFC PATCH 2/3] io_uring/rsrc: bulk refill the node cache on allocation miss
+Date: Mon, 14 Sep 2026 09:20:48 +0000
+Message-ID: <20260914092049.130079-3-uzairbeg11@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914092049.130079-1-uzairbeg11@gmail.com>
+References: <20260914092049.130079-1-uzairbeg11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,407 +79,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-Add watchdog support to PCF85263/PCF85363 using the watchdog subsystem.
-The 5-bit count selects the timeout with a clock step: timeouts up to
-30 seconds use the 1 Hz step, longer ones the 0.25 Hz step (max 120 s),
-reported back through the watchdog device. One count of margin is added
-because the first period after a reload lasts between WDR and WDR-1
-counts, so the timeout is never shorter than requested. Select
-WATCHDOG_CORE if WATCHDOG so the device can register.
+A first fill of a sparse fixed file table takes one allocator round
+trip per install, since the per-ring node cache starts empty and
+nothing is freed back during the fill. At 4,096 slots that is 4,096
+calls into the slab allocator.
 
-The chip has no reset output; expiry is only signalled via the WDF flag
-routed to INTA, so this is an alarm-only watchdog (WDIOF_ALARMONLY). WDIE
-is toggled on start/stop with rollback-safe register ordering, expiry is
-rate-limited from the IRQ handler, and the watchdog is only registered
-when an interrupt line is present. WDF is cleared through the
-write-0-to-clear helper.
+When the cache has a dedicated kmem_cache, refill it in batches on a
+miss: allocate up to IO_ALLOC_CACHE_REFILL objects with
+kmem_cache_alloc_bulk(), return one and stash the remainder in the
+cache. A 4,096-slot first fill then enters the allocator roughly once
+per batch instead of once per object. This mirrors the existing bulk
+allocation of requests from req_cachep.
 
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+kmem_cache_alloc_bulk() may return fewer objects than requested,
+including zero; both cases are handled. Stashed objects have their
+init_clear region zeroed and are poisoned like any other cached
+entry, and the cache never grows past max_cached. Callers without a
+dedicated slab are unchanged.
 
+Bare-metal measurement shows this is neutral on the reported workload:
+the per-object cost is in the SLUB allocation path itself, not in the
+number of allocator entries. It is kept because the following patch
+relies on the same bulk machinery.
+
+Reported-by: Chengfeng Lin <lin2530632123@gmail.com>
+Closes: https://lore.kernel.org/io-uring/CANGjgdmt0FQ=offsdfn+wEaDxbOFoAa6bi92X_vEo4S6aCZ56A@mail.gmail.com/
+Tested-by: Chengfeng Lin <lin2530632123@gmail.com>
+Signed-off-by: Uzair Beg <uzairbeg11@gmail.com>
 ---
-V5 -> V6:
-- Adopt an already-running watchdog (bootloader- or battery-backed):
-  read CTRL_WDOG until two reads agree, set WDOG_HW_RUNNING and re-arm
-  WDIE when it is running, otherwise leave WDIE masked. Do not decode
-  the live countdown as the configured timeout; keep the fixed default
-  and let the core's first keep-alive reload it
-- Report watchdog probe failures via dev_err_probe()
+ io_uring/alloc_cache.c | 29 ++++++++++++++++++++++++++---
+ io_uring/alloc_cache.h |  1 +
+ 2 files changed, 27 insertions(+), 3 deletions(-)
 
-V4 -> V5:
-- Select WATCHDOG_CORE if WATCHDOG so the device can register.
-- Scale the timeout by the clock select with one count of margin (1 Hz
-  step up to 30 s, else 0.25 Hz, max 120 s) and report it back.
-- Alarm-only watchdog (WDIOF_ALARMONLY): expiry is only signalled via WDF
-  routed to INTA; toggle WDIE on start/stop with rollback-safe ordering.
-- Don't program WDR from .set_timeout when inactive (it would start the
-  watchdog); only reload when watchdog_active(), and drop the clamp.
-- Register the watchdog only when an interrupt line is present.
-- Use a fixed default timeout (no timeout-sec); userspace can change it.
-- Give the watchdog struct a back-pointer to struct pcf85363 and clear
-  WDF via the shared write-0-to-clear helper.
-
-V3 -> V4:
-- Use watchdog_init_timeout(&wd->wdd, 0, dev) to allow devicetree or module parameter overrides; 
-  fallback to WD_DEFAULT_TIMEOUT if not provided.
-- Centralized clock selection logic in pcf85363_wdt_select_clock() and applied dynamically 
-  whenever timeout changes.
-- Removed unused repeat variable and simplified timeout handling for clarity.
-
-V2 -> V3:
-- Split into separate patches as suggested:
-  - Battery switch-over detection.
-  - Timestamp recording for TS pin and battery switch-over events.
-  - Offset calibration.
-  - Watchdog timer (to be reviewed by watchdog maintainers).
-- Dropped Alarm2 support
-- Switched to rtc_add_group() for sysfs attributes
-
-V1 -> V2:
-- Watchdog related changes due to removal of vendor specific properties
-  from device tree
-  * remove vendor DT knobs (enable/timeout/stepsize/repeat)
-  * use watchdog_init_timeout (with 10s default)
-  * derive clock_sel from final timeout
-  * default, repeat=true (repeat mode)
-- Fixed uninitalised warning on 'ret' (reported by kernel test robot)
-- Use dev_dbg instead of dev_info for debug related print messages
-- Minor cleanup and comments.
----
----
- drivers/rtc/Kconfig        |   1 +
- drivers/rtc/rtc-pcf85363.c | 259 ++++++++++++++++++++++++++++++++++++-
- 2 files changed, 258 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 05b9233b9418..4871cb3fb24d 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -516,6 +516,7 @@ config RTC_DRV_PCF8523
- config RTC_DRV_PCF85363
- 	tristate "NXP PCF85363"
- 	select REGMAP_I2C
-+	select WATCHDOG_CORE if WATCHDOG
- 	help
- 	  If you say yes here you get support for the PCF85363 RTC chip.
- 
-diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
-index 22661abd9ebb..aa45d71e6ab5 100644
---- a/drivers/rtc/rtc-pcf85363.c
-+++ b/drivers/rtc/rtc-pcf85363.c
-@@ -23,6 +23,7 @@
- #include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/string.h>
-+#include <linux/watchdog.h>
- 
- #include <dt-bindings/rtc/pcf85363-tsr.h>
- 
-@@ -147,6 +148,24 @@
- #define PCF85363_SEC_MASK	0x7F
- #define PCF85363_TS_READ_RETRIES	3
- 
-+#define WD_TIMEOUT_SHIFT        2
-+#define WD_CLKSEL_MASK  GENMASK(1, 0)
-+#define WD_CLKSEL_0_25HZ        0x00
-+#define WD_CLKSEL_1HZ   0x01
-+#define WD_CLKSEL_4HZ   0x02
-+#define WD_CLKSEL_16HZ  0x03
-+#define WD_MODE_REPEAT	BIT(7)
-+
-+#define WD_DEFAULT_TIMEOUT  10
-+#define WD_TIMEOUT_MIN	1
-+#define WD_COUNT_MAX	0x1F
-+/* Longest guaranteed timeout at the 0.25 Hz step (WDR=31, one count margin). */
-+#define WD_TIMEOUT_MAX	120
-+/* Longest timeout served by the 1 Hz step (WDR=31, one count margin). */
-+#define WD_TIMEOUT_1HZ_MAX	30
-+/* CTRL_WDOG reads back the live countdown; retry until two reads agree. */
-+#define WD_READ_RETRIES		3
-+
- /* Cached timestamp; the flag is cleared once the value is copied here. */
- struct pcf85363_ts {
- 	bool valid;
-@@ -169,6 +188,13 @@ struct pcf85x63_config {
- 	unsigned int num_nvram;
- };
- 
-+struct pcf85363_watchdog {
-+	struct watchdog_device wdd;
-+	struct pcf85363 *pcf85363;
-+	u8 timeout_val;
-+	u8 clock_sel;
-+};
-+
- /*
-  * CTRL_FLAGS is write-0-to-clear, so write the complement of the mask to
-  * clear only the requested bits without disturbing the others.
-@@ -483,12 +509,13 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, void *dev_id)
- 		return IRQ_NONE;
- 
- 	if (flags) {
--		dev_dbg(&pcf85363->rtc->dev, "IRQ flags: 0x%02x%s%s%s%s%s\n",
-+		dev_dbg(&pcf85363->rtc->dev, "IRQ flags: 0x%02x%s%s%s%s%s%s\n",
- 			flags, (flags & FLAGS_A1F) ? " [A1F]" : "",
- 			(flags & FLAGS_TSR1F) ? " [TSR1F]" : "",
- 			(flags & FLAGS_TSR2F) ? " [TSR2F]" : "",
- 			(flags & FLAGS_TSR3F) ? " [TSR3F]" : "",
--			(flags & FLAGS_BSF) ? " [BSF]" : "");
-+			(flags & FLAGS_BSF) ? " [BSF]" : "",
-+			(flags & FLAGS_WDF) ? " [WDF]" : "");
- 	}
- 
- 	if (flags & FLAGS_A1F) {
-@@ -512,6 +539,15 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, void *dev_id)
- 		handled = true;
- 	}
- 
-+	if (flags & FLAGS_WDF) {
-+		dev_warn_ratelimited(&pcf85363->rtc->dev,
-+				     "watchdog timer expired\n");
-+		if (pcf85363_clear_flags(pcf85363, FLAGS_WDF))
-+			dev_err(&pcf85363->rtc->dev,
-+				"failed to clear watchdog flag\n");
-+		handled = true;
-+	}
-+
- 	/*
- 	 * Clear flags this handler does not service (e.g. A2F/PIF); otherwise
- 	 * they hold the level-triggered INTA line asserted and storm the IRQ.
-@@ -691,6 +727,215 @@ static const struct pcf85x63_config pcf_85363_config = {
- 	.num_nvram = 2
- };
- 
-+/*
-+ * Program the watchdog counter (WDR) so the reported timeout is never
-+ * shorter than requested: the first period after a reload lasts between
-+ * WDR and WDR-1 counts, so add one count of margin. Timeouts up to 30 s
-+ * use the 1 Hz step (1 s/count); longer ones the 0.25 Hz step (4 s/count).
-+ */
-+static void pcf85363_wdt_select_clock(struct pcf85363_watchdog *wd)
-+{
-+	unsigned int timeout = wd->wdd.timeout;
-+
-+	if (timeout <= WD_TIMEOUT_1HZ_MAX) {
-+		wd->clock_sel = WD_CLKSEL_1HZ;
-+		wd->timeout_val = timeout + 1;
-+		wd->wdd.timeout = timeout;
-+	} else {
-+		wd->clock_sel = WD_CLKSEL_0_25HZ;
-+		wd->timeout_val = DIV_ROUND_UP(timeout, 4) + 1;
-+		wd->wdd.timeout = DIV_ROUND_UP(timeout, 4) * 4;
-+	}
-+}
-+
-+/* Repeat mode restarts the watchdog automatically after each period. */
-+static int pcf85363_wdt_reload(struct pcf85363_watchdog *wd)
-+{
-+	u8 val;
-+
-+	val = WD_MODE_REPEAT |
-+	      ((wd->timeout_val & WD_COUNT_MAX) << WD_TIMEOUT_SHIFT) |
-+	      (wd->clock_sel & WD_CLKSEL_MASK);
-+
-+	return regmap_write(wd->pcf85363->regmap, CTRL_WDOG, val);
-+}
-+
-+static int pcf85363_wdt_start(struct watchdog_device *wdd)
-+{
-+	struct pcf85363_watchdog *wd = watchdog_get_drvdata(wdd);
-+	int ret;
-+
-+	/* Route WDF to INTA; alarm-only, the chip has no reset output. */
-+	ret = regmap_update_bits(wd->pcf85363->regmap, CTRL_INTA_EN,
-+				 INT_WDIE, INT_WDIE);
-+	if (ret)
-+		return ret;
-+
-+	ret = pcf85363_wdt_reload(wd);
-+	if (ret)
-+		regmap_update_bits(wd->pcf85363->regmap, CTRL_INTA_EN,
-+				   INT_WDIE, 0);
-+
-+	return ret;
-+}
-+
-+static int pcf85363_wdt_stop(struct watchdog_device *wdd)
-+{
-+	struct pcf85363_watchdog *wd = watchdog_get_drvdata(wdd);
-+	int ret;
-+
-+	/* Halt the counter first so a failed disable cannot leave it armed. */
-+	ret = regmap_write(wd->pcf85363->regmap, CTRL_WDOG, 0);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(wd->pcf85363->regmap, CTRL_INTA_EN,
-+				  INT_WDIE, 0);
-+}
-+
-+static int pcf85363_wdt_ping(struct watchdog_device *wdd)
-+{
-+	struct pcf85363_watchdog *wd = watchdog_get_drvdata(wdd);
-+	int ret;
-+
-+	ret = pcf85363_clear_flags(wd->pcf85363, FLAGS_WDF);
-+	if (ret)
-+		return ret;
-+
-+	return pcf85363_wdt_reload(wd);
-+}
-+
-+static int pcf85363_wdt_set_timeout(struct watchdog_device *wdd,
-+				    unsigned int timeout)
-+{
-+	struct pcf85363_watchdog *wd = watchdog_get_drvdata(wdd);
-+
-+	wdd->timeout = timeout;
-+
-+	pcf85363_wdt_select_clock(wd);
-+
-+	/*
-+	 * Programming the counter with a non-zero value starts it, so only
-+	 * reprogram when the watchdog is already running; the core keeps the
-+	 * new timeout for the next start otherwise.
-+	 */
-+	if (!watchdog_active(wdd))
-+		return 0;
-+
-+	return pcf85363_wdt_reload(wd);
-+}
-+
-+static const struct watchdog_info pcf85363_wdt_info = {
-+	.identity = "PCF85363 Watchdog",
-+	.options = WDIOF_KEEPALIVEPING | WDIOF_SETTIMEOUT | WDIOF_ALARMONLY,
-+};
-+
-+static const struct watchdog_ops pcf85363_wdt_ops = {
-+	.owner = THIS_MODULE,
-+	.start = pcf85363_wdt_start,
-+	.stop = pcf85363_wdt_stop,
-+	.ping = pcf85363_wdt_ping,
-+	.set_timeout = pcf85363_wdt_set_timeout,
-+};
-+
-+/*
-+ * CTRL_WDOG reads back the live countdown, which decrements while the
-+ * watchdog runs, so a single read can catch a transient value. Read until
-+ * two consecutive reads agree before deciding whether the watchdog is armed.
-+ */
-+static int pcf85363_read_wdog_stable(struct pcf85363 *pcf85363, unsigned int *out)
-+{
-+	unsigned int prev, cur;
-+	int retries, ret;
-+
-+	ret = regmap_read(pcf85363->regmap, CTRL_WDOG, &prev);
-+	if (ret)
-+		return ret;
-+
-+	for (retries = 0; retries < WD_READ_RETRIES; retries++) {
-+		ret = regmap_read(pcf85363->regmap, CTRL_WDOG, &cur);
-+		if (ret)
-+			return ret;
-+
-+		if (cur == prev) {
-+			*out = cur;
-+			return 0;
-+		}
-+
-+		prev = cur;
-+	}
-+
-+	*out = cur;
-+	return 0;
-+}
-+
-+static int pcf85363_watchdog_init(struct device *dev, struct pcf85363 *pcf85363)
-+{
-+	struct pcf85363_watchdog *wd;
-+	unsigned int regval;
-+	bool running;
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_WATCHDOG))
-+		return 0;
-+
-+	wd = devm_kzalloc(dev, sizeof(*wd), GFP_KERNEL);
-+	if (!wd)
-+		return -ENOMEM;
-+
-+	wd->pcf85363 = pcf85363;
-+
-+	wd->wdd.info = &pcf85363_wdt_info;
-+	wd->wdd.ops = &pcf85363_wdt_ops;
-+	wd->wdd.min_timeout = WD_TIMEOUT_MIN;
-+	wd->wdd.max_timeout = WD_TIMEOUT_MAX;
-+	wd->wdd.timeout = WD_DEFAULT_TIMEOUT;
-+	wd->wdd.parent = dev;
-+	wd->wdd.status = WATCHDOG_NOWAYOUT_INIT_STATUS;
-+
-+	/*
-+	 * Fixed default timeout; userspace can change it via WDIOC_SETTIMEOUT.
-+	 * CTRL_WDOG reads back the live countdown, not the programmed reload
-+	 * value, so it must not be decoded into wdd.timeout: adopt the known
-+	 * default and let the watchdog core's first keep-alive reload it.
-+	 */
-+	pcf85363_wdt_select_clock(wd);
-+
-+	/*
-+	 * The counter and WDIE are battery-backed and survive a reboot, so a
-+	 * bootloader may leave the watchdog armed. Detect that and hand it to
-+	 * the core as already-running rather than silently disabling it; only
-+	 * a stopped watchdog gets WDIE masked so a stale enable cannot storm
-+	 * the level-triggered INTA line.
-+	 */
-+	ret = pcf85363_read_wdog_stable(pcf85363, &regval);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to read watchdog register\n");
-+
-+	running = ((regval >> WD_TIMEOUT_SHIFT) & WD_COUNT_MAX) != 0;
-+
-+	ret = pcf85363_clear_flags(pcf85363, FLAGS_WDF);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to clear WDF\n");
-+
-+	/*
-+	 * Once WDOG_HW_RUNNING is set the core keeps the watchdog alive via
-+	 * .ping(), which does not touch WDIE, so arm WDIE here for an adopted
-+	 * watchdog; otherwise keep it masked.
-+	 */
-+	ret = regmap_update_bits(pcf85363->regmap, CTRL_INTA_EN, INT_WDIE,
-+				 running ? INT_WDIE : 0);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to configure WDIE\n");
-+
-+	if (running)
-+		set_bit(WDOG_HW_RUNNING, &wd->wdd.status);
-+
-+	watchdog_set_drvdata(&wd->wdd, wd);
-+
-+	return devm_watchdog_register_device(dev, &wd->wdd);
-+}
-+
- /* Six BCD bytes; bit 7 of the seconds byte is reserved, not time data. */
- static ssize_t pcf85363_format_timestamp(const u8 *regs, char *buf)
+diff --git a/io_uring/alloc_cache.c b/io_uring/alloc_cache.c
+index a44b82a80f1..cba0e6c5d66 100644
+--- a/io_uring/alloc_cache.c
++++ b/io_uring/alloc_cache.c
+@@ -42,10 +42,33 @@ void *io_cache_alloc_new(struct io_alloc_cache *cache, gfp_t gfp)
  {
-@@ -971,6 +1216,16 @@ static int pcf85363_probe(struct i2c_client *client)
- 		clear_bit(RTC_FEATURE_ALARM, pcf85363->rtc->features);
- 	}
+ 	void *obj;
  
-+	/*
-+	 * Watchdog expiry is only signalled via INTA (no reset output), so it
-+	 * needs an interrupt line to be usable.
-+	 */
-+	if (irq_a > 0) {
-+		ret = pcf85363_watchdog_init(dev, pcf85363);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "Watchdog init failed\n");
-+	}
+-	if (cache->slab)
+-		obj = kmem_cache_alloc(cache->slab, gfp);
+-	else
++	if (cache->slab) {
++		unsigned int room = cache->max_cached - cache->nr_cached;
++		void **slot = &cache->entries[cache->nr_cached];
++		unsigned int batch, got, i;
 +
- 	dev_set_drvdata(&pcf85363->rtc->dev, pcf85363);
++		if (unlikely(!room))
++			return kmem_cache_alloc(cache->slab, gfp);
++
++		batch = min_t(unsigned int, IO_ALLOC_CACHE_REFILL, room);
++		got = kmem_cache_alloc_bulk(cache->slab, gfp, batch, slot);
++		if (unlikely(!got))
++			return NULL;
++
++		/* return one object, stash the rest in the cache */
++		obj = slot[got - 1];
++		for (i = 0; i < got - 1; i++) {
++			if (cache->init_clear)
++				memset(slot[i], 0, cache->init_clear);
++			if (unlikely(!kasan_mempool_poison_object(slot[i])))
++				break;
++			cache->nr_cached++;
++		}
++		for (; i < got - 1; i++)
++			kmem_cache_free(cache->slab, slot[i]);
++	} else {
+ 		obj = kmalloc(cache->elem_size, gfp);
++	}
+ 	if (obj && cache->init_clear)
+ 		memset(obj, 0, cache->init_clear);
+ 	return obj;
+diff --git a/io_uring/alloc_cache.h b/io_uring/alloc_cache.h
+index b288bfccc91..82d552c7517 100644
+--- a/io_uring/alloc_cache.h
++++ b/io_uring/alloc_cache.h
+@@ -7,6 +7,7 @@
+  * Don't allow the cache to grow beyond this size.
+  */
+ #define IO_ALLOC_CACHE_MAX	128
++#define IO_ALLOC_CACHE_REFILL	32
  
- 	ret = rtc_add_group(pcf85363->rtc, &pcf85363_attr_group);
+ void io_alloc_cache_free(struct io_alloc_cache *cache,
+ 			 void (*free)(const void *));
 -- 
-2.25.1
+2.43.0
 
