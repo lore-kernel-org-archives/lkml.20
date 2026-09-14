@@ -1,61 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0EC3AD50D;
-	Mon, 14 Sep 2026 23:08:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554023E0C5C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789427318; cv=none; b=FrMfb+RCBT20zjYARubM1pdz6Zg8UBGaooQ937q8Tv24Pa9oYpqdED1pA6VdWoM/nx2uMOvb+XW9zw9N3StWyBeIwUmSL6fQ98L8uGmm8l3HQbgRnqjn/GfHCoL74W8lJAGyUxn8n6fu3x06zJaEVEGD5rSh53BkmXQh0ZJapeo=
+	t=1789427328; cv=none; b=kTGNkK8UzEqAFMqqRuawHnKEo5+IPAj+r2kexdwzfR7sDL4+Tca+JafxY7SyS9LwhxzB6MCd6jcYS/1Z52GGztW2pQu1EPQ3N7em1hCkv3PDrP7MwBPNDZyreyIRfE5iADdKwkiPlNFMC12MSz6jwGPoOibwpXishZR8m4jWHR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789427318; c=relaxed/simple;
-	bh=sifGbpcJZ6ak9898a4a+7wUMRq6t9+ZKGpLZVEVA3pY=;
+	s=arc-20240116; t=1789427328; c=relaxed/simple;
+	bh=MM4HmYEslwlFT8HkcEYriN+iKsGM8sUFm0m8up2LJO8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s12pXZOIt2mZqe7pNbIKEY0bssxK5vNyqaJYiSkGi8DNwtGIwWHznVR7E+xcSUdlKekyPyMTDcrSwUBpVw0fikaT7V8DflZ9X7KV5WBfpkjpJSeDS3Nm/R88MYsnJGN8U48Ie3NRjOf2piJtS7x/CrZLXVcG8AgxDDP9hqJYsdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YONpReF7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eBMmYBjjTY4G6QWJhasn3W/1P/Yv1A33KOEV2YYY1KDy6m3uEAgMf57sLLY8O50KjpwqO5DejSAlzYQUfZTiSp7QUWUrMbfQhA2fk+3sCfsWwhcSi5cQHsKWnRk5IV5NHCPQL58RH8ybcTVK0JZJNrTqP4Wnv5g505d2ElhxCXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CWYERCwE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Qnfropyq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YONpReF7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BB9D1F000FF;
-	Mon, 14 Sep 2026 23:08:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789427316;
-	bh=teU9egWXWTg3+smcPNTUHcztSHtfb3v6gooiz1ix4xQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YONpReF7TZPklgSDkMxCjL0uc1trF3rkPBopQ0ENJWsS/rA9NenkH4CETrypL97rj
-	 3gpAFSzWjgB/ZHXvn/RS5ITZFMFBZSJTVOJUhgpodO1s4np7IBSFLthuPn8UDU5XWm
-	 PZU16LVo55tim3qe5k3vG+OZqnVFNJwQMKDNnjwoRjqO9fd9J4A+UwfSFx8rMPRhgN
-	 SzTsdHHz2oOCRpGFlClXleMWAnprmMFgctgADeIPHwA4jLNPtryqC1ciLX1ygTaRu1
-	 HrURpEtFz2hPGkLyhgEkVak78QDlVdj0JmzDOnehkzsZBEfL3UKrpsvX/RRBa6zL6G
-	 KLPrXMFJ4t3hg==
-Date: Mon, 14 Sep 2026 16:08:28 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Mario Limonciello <superm1@kernel.org>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Alex Huang <Alex.Huang2@amd.com>,
-	Alex Hung <alex.hung@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
-	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
-	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
-	Dillon Varone <Dillon.Varone@amd.com>,
-	"Dr. David Alan Gilbert" <linux@treblig.org>,
-	Fangzhi Zuo <jerry.zuo@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Ivan Lipski <ivan.lipski@amd.com>, James Lin <pinglei.lin@amd.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
-	Ray Wu <ray.wu@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Satyajit Roy <sroy14@alum.utk.edu>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
-	Tomasz =?utf-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
-	Tom Chung <chiahsuan.chung@amd.com>,
-	Wenjing Liu <wenjing.liu@amd.com>,
-	YiPeng Chai <YiPeng.Chai@amd.com>
-Subject: Re: linux-next: manual merge of the amdgpu tree with the
- drm-misc,drm-fixes tree
-Message-ID: <20260914230828.GA331288@ax162>
-References: <aqQBUuTVpgnTkQ8k@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CWYERCwE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qnfropyq"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EN0IXa1440935
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:08:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=EOf9jLDathiKO1GdPmBUWCGG
+	kUylbrTzUgoCUbTBCZE=; b=CWYERCwErA9YwhYo+x2NFwrUzqRRohzsoxsqdi1a
+	95MeXnHD1MH/ik6G9oONeC1tThhdKaRMj1ngfDplCwnOWI226dqbLP4lFEeDg/fG
+	6Cvz3pFB85SdkdccAYBTibDxN05WnUe/QbLbJf9MJWz0Nx20vIsi16L/n9mhwjL2
+	s0ZQeRgNJHf2ahzIVZQjuU8sQsJ2Y3bD+6fH0Imm2kZQ6z2DXiiJr1oT7qjYE6Cv
+	7u+1iP5g84Sg3fhmr7a76kJKDQNvqPv/ZOtiNXqVIAkwrc+PGn/4j6NtqFbczyvD
+	UAZ0jCXrn62A285mppAxpCuoFQjQweEA4LxxXHMvTKgPQQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpeuqay8m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:08:45 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-785827e6073so887038137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:08:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789427324; x=1790032124; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EOf9jLDathiKO1GdPmBUWCGGkUylbrTzUgoCUbTBCZE=;
+        b=QnfropyqyoXkaay8wEOgR/YVLdbvU0SVMUX8eRmVJyNxpH2Ksk/l+EPzPCOcLhAOjU
+         Ar3ffEDe1CckRQAZJ+1DA26EUNacRBPrBhLOyDOo0YLIiaUzprGzRBDLloxs5DKpfRpz
+         jPu31kLiQ6QLs8Ro9TfjfU7cpqkcrLBtYzXdVfFXAjeo+9OSYbnqjgIAOY/IMCkBYB0q
+         kkN4QNxvefkbZh48Upz3ZUpaVo2Tm513DYWtCyeIuqszINRKQN94EbpsNTCc2FA9J7oJ
+         3wyAMyfN+h7VLj9LhTZ5B/hwM9sbWJjAGydVp7DHyee2DeDZKzl7X85cfAcWU4W+uIMj
+         OkRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789427324; x=1790032124;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EOf9jLDathiKO1GdPmBUWCGGkUylbrTzUgoCUbTBCZE=;
+        b=WNZSem5Yy7r02ozdKMHt+LBx+hX3qCXWSjy6z+5kJ1Rone4ySlYL35uWFmj+Qky6sA
+         HH4wHNwZvW/H9C1F/neqmG/KE+wg9FlHtEC7f0gVBrWRX8s7/5pcTCcikV/5T32EWbQ7
+         BKDUKRp5VzpC/nDbZPEu++Tx34slJJ4LIndfaWiHS/QqC5A1jIAzz+wGDH/YOX2ktI2I
+         xVsDhCmUlVNlQ0JxuYQOrVRpE4VSt7zR3RiJdZu2ynHS2XTZIdp/N2MReiZPyQjrVUOP
+         W7rKJRzDB7kMgHhyiLOoc5uny7V7Fb+4Pgo3aPfFWdXBRgYwzMp1PVBzkCHxjedP0pEa
+         t+8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxBcLRR16ZF6y0tMT7LHeNO6USKdWp2ij1UlHaoT5MYxSr/xsStxnMe8uED3KrR7BmIpmz7MLYmkZ+7YFE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVx3nxDghxbzP6fASksk5tDYIWhQS3mZTO6b5eVYYNGJHWljrX
+	QwhwkOmxJq3JKeWj7zY61z/Exq0cnP1IvtvmKph/R6cGxGOE2T1NvKdiO4MCwQqDe7u+OQJRKqb
+	csGWjMA09FZeSf1A4lNa4Os2ByfYH7bqp0l/GWrJ+a1DWcNP0xqZqWE/iQLpIA37CykE=
+X-Gm-Gg: AYBFou1A55YIahAKSt8oc+5ru6hXgNz/JRZwcyYEC10Cu9Zq5p/H9CIQ7MKgA2QvRXP
+	POfjB5Ib7NNMnPbCX0xnVHbMSq5ucQSgX99VZ1lK5vs0fDno9KrZcrYpYpiSY8kHPL1sLZ+5DDG
+	52GNcfz0RkWdypnZptHP7k7bSlDceIZoPC2cJsoJ1yGT78h8FE+/iOVJ/mIX/3a2xZ6UEDPUv1i
+	mX7cBoEwXyWKgxxvUbME4XhhEZDOiQFyF88SjiInQ0bM9niHUwK4AAnXyTv3czRrQ7+JYDtOs76
+	M4XEG6eSKQ6poK+cB6uD5Bd3BnbTWtuSI4rX3mkUAcLxs4XqMyUWxUeqoeWWhBg9YJ3t1f2PA/p
+	c2BMma4qzY5kx0g+/W/W35FIOeZrccPCmEgGk1R/ehUBU+/N4B73Iu6RDrytNb60bldvrYF8KW9
+	xmAx04FmLEn3v7
+X-Received: by 2002:a05:6102:160b:b0:785:e069:6c5 with SMTP id ada2fe7eead31-79b5adb091dmr5457423137.8.1789427324377;
+        Mon, 14 Sep 2026 16:08:44 -0700 (PDT)
+X-Received: by 2002:a05:6102:160b:b0:785:e069:6c5 with SMTP id ada2fe7eead31-79b5adb091dmr5457408137.8.1789427323825;
+        Mon, 14 Sep 2026 16:08:43 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5b433b5a6sm22229601fa.4.2026.09.14.16.08.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 16:08:41 -0700 (PDT)
+Date: Tue, 15 Sep 2026 02:08:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Saim Shujah <saimzst@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: clear pending flush state before physical
+ cleanup
+Message-ID: <3mhqndcw4defdpdo7t5wgb4ysh5cai6b7rq4sargypesxr67bj@6ibdnfmgyrol>
+References: <20260826182459.1506522-1-saimzst@gmail.com>
+ <wyoltftfpoxowxs4g4uwa2vi2pnspubn4vw4l2y52bwrhcjvew@xh3og5yp7uaq>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,460 +103,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqQBUuTVpgnTkQ8k@sirena.org.uk>
+In-Reply-To: <wyoltftfpoxowxs4g4uwa2vi2pnspubn4vw4l2y52bwrhcjvew@xh3og5yp7uaq>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDMzMSBTYWx0ZWRfX6e/yuMQZ6osV
+ +LAIScsXlfpEcurFe4VCoi3G3oO1Jwm58fLcGBeZrd7hbhdUiuLHr9WP4sbnAxLxRJtiJb4NvfH
+ KjBG5hnsUkkGawaKtSjOaI+GK7b0uYCb6V7Qkb9Nt4Ut5+7MbOmlQLDw/7rqbSMIYObvaVRrArt
+ h7sNZazV5fw3CLi1V1gKfmSBfjyskSky/8LOsCZm/TPrx6/UGtvh7RBhPTOjL63bmIITK8b4iZL
+ V+UbPo/dx5RhWodJPo9bCiAz5i/qLtOe9/18l/cKL1NDHE12jap4PjjCQU7uHcxd94qRoKuG5JT
+ dM8tdTHpDpLFjTDlvIRw1cxDe82aadmj7snjUWGKakPsebONrTXcddWUNBfAFKyj8UECyNU7Uvr
+ PA4dKasZOhDe9cLZX+x3IwCjBj6NvIZDnCSAOl7IQlhSogapt5HRVwS7X1tUJzu6a73/Rti0yM6
+ ShcPcl/PDi3BlYK9GBA==
+X-Authority-Analysis: v=2.4 cv=TrFzFzXh c=1 sm=1 tr=0 ts=6aa87e7d cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=pG1nA-xtObB0exEfb0QA:9 a=CjuIK1q_8ugA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-ORIG-GUID: BcY0R9zMrx_T9ZszU-LKzKPKxczsczzo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDMzMSBTYWx0ZWRfX43rZW4klwS4z
+ gCwHKYuC5FNP0psBgaCS9Dj+fj7izZ8bnZ+WzLSvOVIMzdYLv4ofjSXdfZO6ZGWiX7/qT1cjSCO
+ jPDm42loxV/UK3dsm6re0F2hza8HTNg=
+X-Proofpoint-GUID: BcY0R9zMrx_T9ZszU-LKzKPKxczsczzo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_05,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140331
 
-Hi AMD folks,
-
-On Fri, Sep 11, 2026 at 02:25:38PM +0100, Mark Brown wrote:
-> Today's linux-next merge of the amdgpu tree got conflicts in:
+On Mon, Sep 14, 2026 at 12:59:30AM +0300, Dmitry Baryshkov wrote:
+> On Wed, Aug 26, 2026 at 11:24:59PM +0500, Saim Shujah wrote:
+> > Hardware can consume an active-frame CTL flush while the cached software
+> > pending-flush mask retains the submitted bits. Video-mode disable stops the
+> > timing engine before physical cleanup, which then adds teardown bits to the
+> > stale cached mask.
+> > 
+> > The teardown trigger can replay source-pipe bits after timing
+> > stops, leaving one pending and preventing the first commit after re-enable.
+> > 
+> > Clear the cached pending-flush bookkeeping before constructing the teardown
+> > state. clear_pending_flush() updates software bookkeeping only; it does not
+> > write the hardware CTL_FLUSH register.
+> > 
+> > Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Saim Shujah <saimzst@gmail.com>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 1 +
+> >  1 file changed, 1 insertion(+)
 > 
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> 
-> between commits:
-> 
->   f65198b3d0738 ("drm/amd/display: Use HDMI FreeSync range from common EDID parser")
-> 
-> from the drm-misc,drm-fixes tree and commits:
-> 
->   0412b1064a3bd ("drm/amd/display: Cover EDID CEA parsing helpers")
-> 
-> from the amdgpu tree.
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-I (and KernelCI [1][2]) are seeing a build breakage from a conflict
-between these two changes in -next, which can be easily reproduced when
-the KUnit tests are disabled.
+Unfortunately this patch breaks several IGT tests on sc7180:
 
-  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_connector.c:3690:23: error: 'parse_edid_cea' defined but not used [-Werror=unused-function]
-   3690 | STATIC_IFN_KUNIT bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
-        |                       ^~~~~~~~~~~~~~
+kms_plane_alpha_blend@constant-alpha-max
+kms_plane_alpha_blend@constant-alpha-mid
+kms_rotation_crc@cursor-rotation-180
+kms_rotation_crc@primary-rotation-180
 
-f65198b3d0738 removed the use of parse_edid_cea() in
-amdgpu_dm_connector.c but it looks like Mark put these functions back
-into place to keep everything building and working for 0412b1064a3bd
-when the two are merged together.
-
-Given f65198b3d0738, it seems like 0412b1064a3bd is pointless and could
-be reverted entirely to try and avoid this conflict altogether? I tested
-the following diff and it seems to build cleanly for me.
-
-[1]: https://lore.kernel.org/178914594745.4423.13336797159691042320@kernelci.org/
-[2]: https://lore.kernel.org/178914594374.4423.11399857311284391817@kernelci.org/
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index d76ebf145dfc..37d1508d656b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3603,107 +3603,6 @@ void dm_restore_drm_connector_state(struct drm_device *dev,
- }
- EXPORT_IF_KUNIT(dm_restore_drm_connector_state);
- 
--STATIC_IFN_KUNIT bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
--		unsigned int offset,
--		unsigned int total_length,
--		u8 *data,
--		unsigned int length,
--		struct amdgpu_hdmi_vsdb_info *vsdb)
--{
--	bool res;
--	union dmub_rb_cmd cmd;
--	struct dmub_cmd_send_edid_cea *input;
--	struct dmub_cmd_edid_cea_output *output;
--
--	if (length > DMUB_EDID_CEA_DATA_CHUNK_BYTES)
--		return false;
--
--	memset(&cmd, 0, sizeof(cmd));
--
--	input = &cmd.edid_cea.data.input;
--
--	cmd.edid_cea.header.type = DMUB_CMD__EDID_CEA;
--	cmd.edid_cea.header.sub_type = 0;
--	cmd.edid_cea.header.payload_bytes =
--		sizeof(cmd.edid_cea) - sizeof(cmd.edid_cea.header);
--	input->offset = offset;
--	input->length = length;
--	input->cea_total_length = total_length;
--	memcpy(input->payload, data, length);
--
--	res = dc_wake_and_execute_dmub_cmd(dm->dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY);
--	if (!res) {
--		drm_err(adev_to_drm(dm->adev), "EDID CEA parser failed\n");
--		return false;
--	}
--
--	output = &cmd.edid_cea.data.output;
--
--	if (output->type == DMUB_CMD__EDID_CEA_ACK) {
--		if (!output->ack.success) {
--			drm_err(adev_to_drm(dm->adev), "EDID CEA ack failed at offset %d\n",
--					output->ack.offset);
--		}
--	} else if (output->type == DMUB_CMD__EDID_CEA_AMD_VSDB) {
--		if (!output->amd_vsdb.vsdb_found)
--			return false;
--
--		vsdb->freesync_supported = output->amd_vsdb.freesync_supported;
--		vsdb->amd_vsdb_version = output->amd_vsdb.amd_vsdb_version;
--		vsdb->min_refresh_rate_hz = output->amd_vsdb.min_frame_rate;
--		vsdb->max_refresh_rate_hz = output->amd_vsdb.max_frame_rate;
--		vsdb->freesync_mccs_vcp_code = output->amd_vsdb.freesync_mccs_vcp_code;
--	} else {
--		drm_warn(adev_to_drm(dm->adev), "Unknown EDID CEA parser results\n");
--		return false;
--	}
--
--	return true;
--}
--EXPORT_IF_KUNIT(dm_edid_parser_send_cea);
--
--STATIC_IFN_KUNIT bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm,
--		u8 *edid_ext, int len,
--		struct amdgpu_hdmi_vsdb_info *vsdb_info)
--{
--	return false;
--}
--EXPORT_IF_KUNIT(parse_edid_cea_dmcu);
--
--STATIC_IFN_KUNIT bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm,
--		u8 *edid_ext, int len,
--		struct amdgpu_hdmi_vsdb_info *vsdb_info)
--{
--	int i;
--
--	/* send extension block to DMCU for parsing */
--	for (i = 0; i < len; i += 8) {
--		/* send 8 bytes a time */
--		if (!dm_edid_parser_send_cea(dm, i, len, &edid_ext[i], 8, vsdb_info))
--			return false;
--	}
--
--	return vsdb_info->freesync_supported;
--}
--EXPORT_IF_KUNIT(parse_edid_cea_dmub);
--
--STATIC_IFN_KUNIT bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
--		u8 *edid_ext, int len,
--		struct amdgpu_hdmi_vsdb_info *vsdb_info)
--{
--	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
--	bool ret;
--
--	mutex_lock(&adev->dm.dc_lock);
--	if (adev->dm.dmub_srv)
--		ret = parse_edid_cea_dmub(&adev->dm, edid_ext, len, vsdb_info);
--	else
--		ret = parse_edid_cea_dmcu(&adev->dm, edid_ext, len, vsdb_info);
--	mutex_unlock(&adev->dm.dc_lock);
--	return ret;
--}
--EXPORT_IF_KUNIT(parse_edid_cea);
--
- STATIC_IFN_KUNIT void parse_edid_displayid_vrr(struct drm_connector *connector,
- 				     const struct edid *edid)
- {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
-index e42a0d53b549..6732e5e644cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
-@@ -158,16 +158,6 @@ int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
- int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
- 			const struct edid *edid,
- 			struct amdgpu_hdmi_vsdb_info *vsdb_info);
--bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
--			     unsigned int offset, unsigned int total_length,
--			     u8 *data, unsigned int length,
--			     struct amdgpu_hdmi_vsdb_info *vsdb);
--bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm, u8 *edid_ext,
--			 int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
--bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm, u8 *edid_ext,
--			 int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
--bool parse_edid_cea(struct amdgpu_dm_connector *aconnector, u8 *edid_ext,
--		    int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
- void amdgpu_dm_connector_funcs_force(struct drm_connector *connector);
- enum dc_status dm_validate_stream_and_context(struct dc *dc,
- 					      struct dc_stream_state *stream);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 19ead11b5e73..7b6400ec8107 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -6134,259 +6134,6 @@ static void dm_test_restore_state_same_sink(struct kunit *test)
- 	KUNIT_EXPECT_PTR_EQ(test, stream->sink, aconnector->dc_sink);
- }
- 
--/* Mock DMCU plumbing for parse_edid_cea_dmcu() tests. */
--static bool dm_test_dmcu_is_init(struct dmcu *dmcu)
--{
--	return true;
--}
--
--static const struct dmcu_funcs dm_test_dmcu_funcs_vsdb = {
--	.is_dmcu_initialized = dm_test_dmcu_is_init,
--};
--
--static const struct dmcu_funcs dm_test_dmcu_funcs_novsdb = {
--	.is_dmcu_initialized = dm_test_dmcu_is_init,
--};
--
--static const struct dmcu_funcs dm_test_dmcu_funcs_ackfail = {
--	.is_dmcu_initialized = dm_test_dmcu_is_init,
--};
--
--/*
-- * Build a bare display manager carrying a dc with a resource pool whose DMCU
-- * uses the supplied funcs table (or no DMCU at all when @funcs is NULL). The
-- * DMCU CEA parser path only touches dm->dc->res_pool->dmcu, so no adev/ctx is
-- * required.
-- */
--static struct amdgpu_display_manager *
--dm_test_alloc_dm_dmcu(struct kunit *test, const struct dmcu_funcs *funcs)
--{
--	struct amdgpu_display_manager *dm;
--	struct resource_pool *pool;
--	struct dmcu *dmcu = NULL;
--	struct dc *dc;
--
--	dm = kunit_kzalloc(test, sizeof(*dm), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, dm);
--	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, dc);
--	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, pool);
--
--	if (funcs) {
--		dmcu = kunit_kzalloc(test, sizeof(*dmcu), GFP_KERNEL);
--		KUNIT_ASSERT_NOT_NULL(test, dmcu);
--		dmcu->funcs = funcs;
--	}
--
--	pool->dmcu = dmcu;
--	dc->res_pool = pool;
--	dm->dc = dc;
--	return dm;
--}
--
--/*
-- * Build a display manager backed by an amdgpu_device and a dc with a ctx (but
-- * no DMUB), so the DMUB CEA send path can build a command, fail the execute,
-- * and log via drm_err() safely.
-- */
--static struct amdgpu_display_manager *dm_test_alloc_dm_adev(struct kunit *test)
--{
--	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
--	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
--
--	KUNIT_ASSERT_NOT_NULL(test, adev);
--	KUNIT_ASSERT_NOT_NULL(test, dc);
--	adev->dm.adev = adev;
--	adev->dm.dc = dc;
--	return &adev->dm;
--}
--
--/**
-- * dm_test_send_cea_length_too_long - Test an oversized chunk is rejected
-- * @test: KUnit test context
-- */
--static void dm_test_send_cea_length_too_long(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 data[16] = {0};
--	bool ret;
--
--	ret = dm_edid_parser_send_cea(dm, 0, 128, data,
--				      DMUB_EDID_CEA_DATA_CHUNK_BYTES + 1, &vsdb);
--	KUNIT_EXPECT_FALSE(test, ret);
--}
--
--/**
-- * dm_test_send_cea_dmub_unavailable - Test a failed DMUB command reports false
-- * @test: KUnit test context
-- */
--static void dm_test_send_cea_dmub_unavailable(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 data[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
--	bool ret;
--
--	/* ctx->dmub_srv is NULL, so the DMUB command execute fails. */
--	ret = dm_edid_parser_send_cea(dm, 0, 8, data,
--				      DMUB_EDID_CEA_DATA_CHUNK_BYTES, &vsdb);
--	KUNIT_EXPECT_FALSE(test, ret);
--}
--
--/**
-- * dm_test_parse_cea_dmcu_empty - Test an empty extension parses to no VSDB
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_dmcu_empty(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm = dm_test_alloc_dm_dmcu(test, NULL);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[1] = {0};
--
--	KUNIT_EXPECT_FALSE(test, parse_edid_cea_dmcu(dm, ext, 0, &vsdb));
--}
--
--/**
-- * dm_test_parse_cea_dmcu_no_dmcu - Test a missing DMCU fails the first send
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_dmcu_no_dmcu(struct kunit *test)
--{
--}
--
--/**
-- * dm_test_parse_cea_dmcu_vsdb_none - Test the DMCU finds no AMD VSDB
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_dmcu_vsdb_none(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm =
--		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_novsdb);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
--	bool ret;
--
--	ret = parse_edid_cea_dmcu(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
--				  &vsdb);
--	KUNIT_EXPECT_FALSE(test, ret);
--}
--
--/**
-- * dm_test_parse_cea_dmcu_multi_chunk - Test intermediate chunks are acked
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_dmcu_multi_chunk(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm =
--		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_vsdb);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
--	bool ret;
--
--	ret = parse_edid_cea_dmcu(dm, ext, 2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES,
--				  &vsdb);
--	KUNIT_EXPECT_TRUE(test, ret);
--}
--
--/**
-- * dm_test_parse_cea_dmcu_ack_fail - Test a failed chunk ack aborts the parse
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_dmcu_ack_fail(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm =
--		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_ackfail);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
--	bool ret;
--
--	ret = parse_edid_cea_dmcu(dm, ext, 2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES,
--				  &vsdb);
--	KUNIT_EXPECT_FALSE(test, ret);
--}
--
--/**
-- * dm_test_parse_cea_dmub_empty - Test an empty extension returns the flag
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_dmub_empty(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[1] = {0};
--
--	/* No chunks are sent, so the freesync flag is returned as-is. */
--	vsdb.freesync_supported = true;
--	KUNIT_EXPECT_TRUE(test, parse_edid_cea_dmub(dm, ext, 0, &vsdb));
--}
--
--/**
-- * dm_test_parse_cea_dmub_send_fail - Test a chunk send failure aborts the parse
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_dmub_send_fail(struct kunit *test)
--{
--	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
--	bool ret;
--
--	/* The first chunk send fails (no DMUB), so the parse bails out. */
--	ret = parse_edid_cea_dmub(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
--				  &vsdb);
--	KUNIT_EXPECT_FALSE(test, ret);
--}
--
--/**
-- * dm_test_parse_cea_routes_dmub - Test a present dmub_srv routes to DMUB
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_routes_dmub(struct kunit *test)
--{
--	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
--	struct amdgpu_dm_connector *aconnector;
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[1] = {0};
--
--	KUNIT_ASSERT_NOT_NULL(test, adev);
--	mutex_init(&adev->dm.dc_lock);
--	adev->dm.dmub_srv = kunit_kzalloc(test, 1, GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, adev->dm.dmub_srv);
--
--	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, aconnector);
--	aconnector->base.dev = &adev->ddev;
--
--	/* len 0 routes to the DMUB parser, which returns the freesync flag. */
--	vsdb.freesync_supported = true;
--	KUNIT_EXPECT_TRUE(test, parse_edid_cea(aconnector, ext, 0, &vsdb));
--}
--
--/**
-- * dm_test_parse_cea_routes_dmcu - Test a missing dmub_srv routes to DMCU
-- * @test: KUnit test context
-- */
--static void dm_test_parse_cea_routes_dmcu(struct kunit *test)
--{
--	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
--	struct amdgpu_dm_connector *aconnector;
--	struct amdgpu_hdmi_vsdb_info vsdb = {0};
--	u8 ext[1] = {0};
--
--	KUNIT_ASSERT_NOT_NULL(test, adev);
--	mutex_init(&adev->dm.dc_lock);
--	adev->dm.dmub_srv = NULL;
--
--	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, aconnector);
--	aconnector->base.dev = &adev->ddev;
--
--	/* len 0 routes to the DMCU parser, which returns false. */
--	KUNIT_EXPECT_FALSE(test, parse_edid_cea(aconnector, ext, 0, &vsdb));
--}
--
- /**
-  * dm_test_get_amd_vsdb_unsupported - Test a zero VSDB version reports no support
-  * @test: The KUnit test context
-@@ -9083,17 +8830,6 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_restore_state_no_encoder),
- 	KUNIT_CASE(dm_test_restore_state_no_stream),
- 	KUNIT_CASE(dm_test_restore_state_same_sink),
--	KUNIT_CASE(dm_test_send_cea_length_too_long),
--	KUNIT_CASE(dm_test_send_cea_dmub_unavailable),
--	KUNIT_CASE(dm_test_parse_cea_dmcu_empty),
--	KUNIT_CASE(dm_test_parse_cea_dmcu_no_dmcu),
--	KUNIT_CASE(dm_test_parse_cea_dmcu_vsdb_none),
--	KUNIT_CASE(dm_test_parse_cea_dmcu_multi_chunk),
--	KUNIT_CASE(dm_test_parse_cea_dmcu_ack_fail),
--	KUNIT_CASE(dm_test_parse_cea_dmub_empty),
--	KUNIT_CASE(dm_test_parse_cea_dmub_send_fail),
--	KUNIT_CASE(dm_test_parse_cea_routes_dmub),
--	KUNIT_CASE(dm_test_parse_cea_routes_dmcu),
- 	/* get_amd_vsdb */
- 	KUNIT_CASE(dm_test_get_amd_vsdb_unsupported),
- 	KUNIT_CASE(dm_test_get_amd_vsdb_supported),
 -- 
-Cheers,
-Nathan
+With best wishes
+Dmitry
