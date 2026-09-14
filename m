@@ -1,206 +1,191 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011058.outbound.protection.outlook.com [40.93.194.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35552415F1D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83173F86F3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375812; cv=pass; b=Xz27Wn+FJD1ayD74ha8TFX4awQk/BOX05o9FJqnHXHJe61XwlFJjclrznYmz3Cvg2ly3deipYczCHwz70jmp9VYEH+gdWLmXev1TS3sK9l5C+wKBhBB4liggbF6E+j6zlcsf5Ku5zCHmxMvLr+H5DJdG5zsaoDopBuLKPEdBLvM=
+	t=1789375823; cv=fail; b=tntCV8oXb81OFrFGEgcfWacv3jzzTWL/RPW4WFqcRW9DVYwz6wDI0V3IeYbLdbf0OKLGtuPVm1RI21H8ykimtZLe9+xXVqzcVaIIqO+xrhtYPjYRJ8IkwixQ5C7giNemDbila5D6l3C70W/V62ubL8JErxpwOdR64kYjg17x8F0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375812; c=relaxed/simple;
-	bh=rURd6TloKr3f0GtmYotAt/Lt132i4nJ02pnGCrda06Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YE5wPf6kTr6b3/OAr0H+OCBsIuOj0HGFKmn09I5NOWVJOSdQc9fdpybPtISo6qU1uCZNJ88EWS3rYzgL69o/SecA1ESuANi9rmohFhgk/DHGD8Ii88q71ZyY9VoylVR50da2CT+xzkOQlXk31+wlsgshc09Y1y/lZ5aep4fqVLQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UVcAMdwb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ABOHDuQM; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789375823; c=relaxed/simple;
+	bh=dezCchqhzhQhzN+flx8TmY6Txfdk2BKb2BrmSu/MZic=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=H3WqQC+lj1dipMYtL6G8vIyn3sbuKKf7Yf5HAelP0S2N+LiDWGLq5Wj6wjd0MWilrQBFOxu5eUfUdsB72aFQ23RNd3zVDZ/fBLK3nM43eJWNXqhhY/r1egFerW9t7hQfSov2X+HbEvvfM5CUHwSMEFDAne/f5RNqFGs5XSSS1Lw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TRyqArHV; arc=fail smtp.client-ip=40.93.194.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UVcAMdwb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ABOHDuQM"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5idFm793225
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:50:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rURd6TloKr3f0GtmYotAt/Lt132i4nJ02pnGCrda06Y=; b=UVcAMdwbCwVGAbCV
-	C+sUaDdDX+wSQ71/mmFXzE/+9fIcAZHzaY3fc/XfdVRB0NaaSP0FTc/4MgstqM9i
-	si3Mf9Gz0rfrpoHnnL29Lxvcxul1FW2q/LrvaZU72WTE22DOmEuQqcE7sXLJ4nql
-	RysRQcME7N72Fq8zodzLw0YqGXZ2HPtP4KN3XlDFAS4oTAGE27DHd+3Q0Sk2mdgr
-	HcDGrJUw0yKoh4BLXGkfEu+jYFQpdNDIpOFZbGCEpjO/fzR/N9wHNjb1GT2HOSFM
-	EAD5UqdxyBLXVJwigrgEiRRIaaseVJ8EKkFKtcsk1jj/AXalu8ePqYGRZ5iV3fBL
-	YOVQAw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cnsay-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:50:06 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a0b66ecd9so189689285a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:50:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789375806; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZehVBxVBXzg9qcLleM/AqrlgQomEHKSRDfIEvEIvRWD3WLJdVoaut66eJHf7dpsYyR
-         ZVFZ9Chkj95TTfSqTHn1T6gz0a/JYiq2/qW1ma+Rud7mVpSNljy32lxYzF8uAYhYlL8J
-         Id9CFVySLCEG3xzIQuj0lwWE5QMJxsXI11JHZIm8tYQYUr6JftodyyY4yTx+lX2+1ErD
-         hbUTVL2mK0vX2VLfS2A4lf+2/O9+1Hr/+oji9d+vylqOWEqbR9Vhw8aHL5tIBOPIuhym
-         KKwzK/ZNbXwJvI6CcxFn80X00IT9RzhrArMf88MYrjMxHKZegC0kpBIvxa7l8MgBt0Nf
-         wfOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rURd6TloKr3f0GtmYotAt/Lt132i4nJ02pnGCrda06Y=;
-        fh=VO5PjMm+WuzZ+btK0g6Pzt4yWbV3VlFhGNo7fj1EzPQ=;
-        b=VMKXoQqsXSvTFkI5MZL4zv5WOnyP/l6ZdxrpfuBi7dlUTj807PV1m0QbdeYaQghKPC
-         q0TGEykIcZDztYLvAtXypnGpjpjfIIy18DI3jZA0XykImbF1lymG2l/S1DAdjgt0NHs3
-         icFhCboRaze8mcBnyBiS99PYJWTbjZhrU5h0i0Ex8zNCOSdDS6bk7Qz9oj+jX917L8Zi
-         9MuPIEcl3ebVmLwQM78WDC5+/ku8l6erFXAYkWpO4oKoqQ+HHVDptpLjmM4ep9m0etX+
-         1yWqNhtvM4Yc1J9TbNcUVZniq+kdNmDupYi+PfdX0ssEbi07kP5d07BC4JLoQWOGYov8
-         Bw9w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789375806; x=1789980606; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rURd6TloKr3f0GtmYotAt/Lt132i4nJ02pnGCrda06Y=;
-        b=ABOHDuQM7w4+pTjSMEemMaJbm1P1IG5kEDiRaIy2/xJaxpvzu4DtXJEVC1Pvl/SQES
-         oxz+aZgI9am2d5Vtow4fHr085ulgWogHx/ybpu5INDG4SQEdSK0IXJ59hOgXLGhVNwlv
-         7du053IxfeZbqhpnZg+/ILYZcgLUAYB8OzJe+99T/0g1cWXSTfbNv6U3g83W/cvG4FS1
-         na//uRUQP+5eDB3rKp9ExcC2GO/1PTpq6LYQNSQEHMKam2CeZ+P8DlwTlItNc0Qxx/ux
-         AdatrNuxTQ7IqYH7tJfwxo0/+9dxuZZU1rkVJnDdq7pvho9HvrGyYkHSfE60t+XX8Vcm
-         y8Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789375806; x=1789980606;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rURd6TloKr3f0GtmYotAt/Lt132i4nJ02pnGCrda06Y=;
-        b=UOL5p/I/y5PU8PLI03niWv/BZsonfobBeiQW/2snIodWYXPxHbULsDOMiWsCxpaK4V
-         deklfaxl9+m/Rluq2d/BD0Zkbm37/8mOYYPK7RN4M+5P3wvOo7aj3qkTcoHwX0y1hd9b
-         jdl5De/ZDyeIctDRSOy4LvrvG9dhVxz9y7xbdr0MUJXnYNLD1rfJa9BRYqPe0lkPCwTb
-         qbbnQ0KYgdnGkP98IAnbYkR7wxdH1bNx3YRwRntWGkGXuT+BLPKz11RkN1zqMz54Jv8M
-         wFMqSWXcLQ30peERLwNiN2eCC4/WZIwNDt9xNIPBRCf4d2/t6TtCycEZGz+7IgFb4oAR
-         ucgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxYAuQDlAecMVvfUeqzGAD25cux9QjHwaXV5v6oDGFFSrVR1Yaf807aSTA6/JaYIUd1sM2T8+Y9XgZdTeo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4kQRrIrdwuYSxL7xMhvS/gDJpOw6U+4PUvCg2xaqtb0MMWDpL
-	0YyvWhMIXsPbHWp9YxaaCNl4wkUpYaoDZ9iYhAaNe29kHp/10e5cWkw3Gm9omLZ3hVu+VTaGpp3
-	HKmFCZgii7AfQAJqGFnYhvHDg3HA1jc3e+UHxcRwTaYkbB8WfihmWWDbveelnSkULiq7Mu4rCF8
-	OfvgArrpW5HszT8Nuyb1W904Cl4wVfUFwM0k+FYzOQCw==
-X-Gm-Gg: AYBFou1kkhaqFmbBqts8/xPM7U0zT9g9sEdJWPp9mjeoAaePjdkrTjYmnoQcwQphBZH
-	dtWEMFxivt3YmiSbynrAo1Rn9/ppghYKhgEXBo1RIN8VC0Eyr6/9r1IVehp8pYekiteiRy9jtR+
-	xTD+mp6L25a4rRGXxR3ZCxEFckcXsGg1K+dPgxTyu45dTX8RtRBCA9f9k5TDiYXWEzblSBnnM1z
-	3Wjllj+/s/wLzdaHEEeE2hdYD9dr9zOj019UjROkkC/rxAHkhdQP7Vn2rrqiRjoL5XRMzzUnpY=
-X-Received: by 2002:a05:620a:1b87:b0:939:9fca:8d2 with SMTP id af79cd13be357-93a2981322bmr224910085a.18.1789375805796;
-        Mon, 14 Sep 2026 01:50:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:1b87:b0:939:9fca:8d2 with SMTP id
- af79cd13be357-93a2981322bmr224901585a.18.1789375804889; Mon, 14 Sep 2026
- 01:50:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TRyqArHV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iwnf1y+/t+9yk8NAVdXeHhUWRWHHi/3biLxUisoD5sM1UJUpAIfgLcE/TzgfEOWAMsTrYMPqyXQk7Q+cdTOEVPzVDnBp1gp63hCmpBRKfiYMij0EUqmOQsGZwkKWxQRttSwBEnzA7cKy841A9yV2bwbS0I8lNtO8lV30pTz10CS7APwENT/225XmroSxTJhakdfYPCSyCcC99CiKh4CvQ89Xgb9MAHZTjibID0hh1bIQgdEWzLPOieY1/E+6j2YpI4NRGaEqYDSgkXCTqnldJpLiX3AsuLbSNFSW3Yt+FvYv2lCRTlpX7Oj9qUA5In/UVhBK7LWvjMkbrrLhjpqRCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jsZ58M60wccX3/kBee6YIGPDb5Qzs+n5tpk+WjpspVE=;
+ b=R3M7lzQVsbnTHJHpDD+MI6xWAkyYQZr5RcGaE9lMrimhD2PgSRknAxQZB3yK8GvXoQicYf1rzdx/CyD9G7CKfZJR/pqZjh5t+yAtoZMBe5omW2pizblJVTDd4Hc3DuSCBoSi0FNCLXaLFggO6yKvgK19gZ4nNsZZboUFzoMh9yJCRUmA4k0RthDU/TGu0iTCorP5LykfVQlv6pYRvzWvcruKlUrU8uYz3XdE//KqPTZ7UdIKphHmFysAN1i9mIeQv75dhSSoiGh2tJbb2ySn0S/LnH+HYXJVBAe4nOgGl3P7ZWpYRQpjddqTzUMRu0ky1rEr9A0icLIoQiGzRwB7fA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jsZ58M60wccX3/kBee6YIGPDb5Qzs+n5tpk+WjpspVE=;
+ b=TRyqArHVu4xMDMbQaNcqg0mNFQsbIFvjYMjMnJIewi7mflF1lj6tyEHDa+LaShtSPH/1RqyYRBEVXDcEszSvsiT4uR/0YcakunMUQ48qnaWtZaBOsPQ7budluG5ky/fJ7TVyfijoL+Bwkyp6LM5g7srVW4EyMDDSLUHnuzmi3jpH2PH5EzC/mTfgvc14p4aCr7sDJ9ChFsI4PyD8QSrlATaMwduldUv7RWYcsVnijhjLroU6h5vDTXyDZJ1XUKXNUKTtqGZfc5XFAhqAmSvizLS2CALLWOhBLvW/ZP9Y7AnLZ4syPcCJ1Sk404Pv6NUQYnxAANOaX566OjCQBdfARA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by DS0PR12MB6464.namprd12.prod.outlook.com (2603:10b6:8:c4::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Mon, 14 Sep 2026 08:50:10 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 08:50:09 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <etsal@meta.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCHSET v2 sched_ext/for-7.4] sched_ext: Add lazy preemption support
+Date: Mon, 14 Sep 2026 10:47:44 +0200
+Message-ID: <20260914084955.1798562-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI3PEPF00004EA6.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::45c) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com>
- <CAMRc=MfDAiUMzOYRWioK2NDM37=yQqb4pQ5ETZz1PVOKQhhdug@mail.gmail.com> <CAFEp6-1PuGMGkdfWYiUQnYffm7en8b-DQybg_4M9xw9MVDNRsQ@mail.gmail.com>
-In-Reply-To: <CAFEp6-1PuGMGkdfWYiUQnYffm7en8b-DQybg_4M9xw9MVDNRsQ@mail.gmail.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 10:49:54 +0200
-X-Gm-Features: AcwNN1VznECsrEJUnLcouEQxxRZWOhGsAh6qOvyElwlmFiNZH_egy-fEq4m3Sig
-Message-ID: <CAFEp6-3gD0xBJZOOmTw1MBex-DYo99MXHsQr_=uLABMHdSjaVQ@mail.gmail.com>
-Subject: Re: [PATCH v6 00/11] arm64: dts: monaco-arduino-monza: Add support
- for LGA WiFi/BT module
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-pci@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Wei Deng <wei.deng@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEyNSBTYWx0ZWRfX/KKup7s3bZg+
- uAWDxiH6PzjsGAtmownqGQeEjB3/vijNgt0fLS9EgwtV9sSyKH35KwxiaQ2vKfWcqiwucb3J+Jp
- spNSMe+d87ydLsoJ+HREmD97gVbeNFcx3L+NxTZd6KVlcvjKZIZNTD59eeGX98Ihq2ZXSkSpCIz
- YeS9jrIpMpAJ4LaHjDOBKuvtJe622u8fRjcO6Hajk8kkmJqtMy84xbBWqmb+oYbS40iVvtBV2pj
- nwCuRaHa/qth4ZmL2cKlVJFNWliBDsc3tV1mygcZOaR66RWJmlLtqbCUwcW+OHTnF4sRWnK9536
- oZAYeFa8iHXFbNB+d5ALk0pqjAnJckntucGqsGh2KDr5W7YBQFbSdlPYLyAO/oq/79I0Sn6u+bJ
- +RDxoOwi0IT8eBFJOg0q/I57Awhq+ZxXGh8k/qKaBJ8KGQjih8b+f/MfTjoATbq2fF5JvEBIYvC
- seN25cLiPxXFTVs//Vg==
-X-Authority-Analysis: v=2.4 cv=EMyTQFZC c=1 sm=1 tr=0 ts=6aa7b53e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
- a=et7816VZQgabzuuDM88A:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEyNSBTYWx0ZWRfXzc42K26o2O0X
- Y9uH/fCwe0jd8BdmYqQFsaSnbCngBG9NVsc58WZbBPOgj1iQzL7+zETdUUWPPSeGhxZ0ljNXjwr
- goQaJokDO0e1nnGcJ8QvAioUbiiLe+0=
-X-Proofpoint-GUID: MTnDefrc_H2N2te9ngzsnkorOFLWhiGf
-X-Proofpoint-ORIG-GUID: MTnDefrc_H2N2te9ngzsnkorOFLWhiGf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 bulkscore=0 clxscore=1015 malwarescore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140125
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|DS0PR12MB6464:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc10f20e-6012-48a4-6c62-08df123d2eb9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	BTXdTLAM/uOi0diWdN14s5NY1bQkFyUSVUfUo5GxnEnP0NGUyxt3Y1tD/dDdA1W7rwEYzGaFeYdDkOoQjdhTQltV6DZg6/s7PyR7Mxp7c/+zU507U0FslndN/synY+5r9EerXlsqnbFDFaWMNJFbdmgF70BtFG3Y1K6GNMuvABOCE2JHX7dNpw1c+MUww5k/drmaHWhov0ckkLf2u+NMCbH/iZ453ZuUg1S+fa9YY/EQrZGJ6CyaClNNhmH7vL0gHrnEdWYX/GKTIQf+5K656/h37It58NnWo8aKsQQFuXyh0UBTFciE7kpgLX8J3JU1wRWolcLTC16qpE+XUC3988Ai0L5HLEFYB2vqpGHwBMRYAwiQ2Jwe/ukZSFaGi6rlk5StMMc+0UFBfXoQ/I6hFm7nvrUS3yFbzhvOitFKJKy5yYLVEpvnTnipOJFG+5zcKMUOpW6t/K6r30TkBD5Ck1RtKVNDeWnM/+QuYg7p4NtoQAjTWuotvku+gfGDTcBIk4VBicjc6eHsKHJE9AwrUMmgWsPie2JZxraGZ4tiuRqMBqtWE8pl9S6eetznjtyg2kS/DppLRyUq/CdpQbgyPcApPiGbLzkGXp1tZ0p4xvLGnY7mHPk2z03XDBPSzAEwXfgnLvi1Rvn8mHEP3uQkuPNfYqfOv4+3Xx8nqRQuQ3U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?boJmGpO3g8rYj4+mhsgPYC398fVYj+wXnV0ReuFz+PIpo7PJkcWzLaDSUDEz?=
+ =?us-ascii?Q?VQRc8xT4+zWIBVaxlMIowjRPGCXbaVlqs1tplzMAJ0qJ4z9T2buP3EZX/iXS?=
+ =?us-ascii?Q?TDeUkNC3CRv5mRB2h/fKMTrMJwbmaGbwPw8uGR5GrBL7d1n4cGd0zJcB0S1P?=
+ =?us-ascii?Q?V2bx1IdrGTTEw9BUbOYpFFbZ7gsakD0skG3XcJfMV15HaWilwCzrpMRU79iL?=
+ =?us-ascii?Q?2ioGsFUCSAz4lkkYmw/lWuz8f763AfAgEdWdvkN3oJE2lU58rnAOTqnJVKtH?=
+ =?us-ascii?Q?Lz304WNGOz5sk0mWDNwyuMrM8hXeYgBjmTkK7tfgjn7OgkqYkYBCT1VK/Rdc?=
+ =?us-ascii?Q?vC2VMg1WLhfE92DJ+LN3AKYM6gMCwp9r8PpydLqv52XZKhMfW3xWlRIlCEyB?=
+ =?us-ascii?Q?gi59Zg+GUZLLUY3wmCiAlNttEfeMgXhkIuCwoNXwZt/S1Ff8Qq03K4bI8ygA?=
+ =?us-ascii?Q?J0T+NAw66+axdCUhONXwuxXNwidVQO1M+C6TWomuexjJRPfz0LsN/EPHgAu7?=
+ =?us-ascii?Q?HsKHiDCLmCE6apUywbHr04xvt885AI92L2P/MRvrqYiuidsRtgR9s7d3Kjaa?=
+ =?us-ascii?Q?dtkwrpYhJg4NCgXP6IpspSsePp9ZsFbYdfvz0jaUsRoI85BI2uNtMMHrTspb?=
+ =?us-ascii?Q?hT/aWQzSDqP633a8KjsT+sbSWMOkZW6H3pEPW3BGjda98nZx8+Nixu5/oCn1?=
+ =?us-ascii?Q?jSk97LnIxGMv57w6yZdI4NddDldB9SVKcZvaKryMP/z+0q0PaBFuS4m4Mboo?=
+ =?us-ascii?Q?XEnMwN6tvayNIzwa75JRQhJaLdL0tEg+a8YMC080XtV05ufIF+7BgjkbZxG5?=
+ =?us-ascii?Q?LVMuAPBhykXjknfV8MrEkxsdQUx7MevTt++9i+puKKSty/uGPiv+NAz12B7x?=
+ =?us-ascii?Q?N/1HrSsPWT0zvZLO3S9i3wei+xZbW0NxgYRPlYBgtcv2+v0jNMfp3PZMI5JW?=
+ =?us-ascii?Q?c51Ou0mkr4SArTj5JIvmJH1vL3tgmdFx7w37HB1pY7D6ADiDtdXz9gQcczGx?=
+ =?us-ascii?Q?AX2jA10HLcvs+mkuj2ieZqFrTCw4wfB7F145CZ+v9/x6nSPqySO/2DXaAkVO?=
+ =?us-ascii?Q?D1Cvzw18q5csel7s2Uy2W9iZz9caZmO8EHSkXjBZVLJUmG7PizouAqQw2o3e?=
+ =?us-ascii?Q?HGgL7AFWzQXD4Ja3Zdlg4v80uTyp6JTeq98cqQfH53KKfrlsGRIqtD8oFs8p?=
+ =?us-ascii?Q?fPFIsV3zNreHM7mgFSPrjZVgHvcX7XMsb6S7MzLNBJYfwFGrS6JKnPjr7ATP?=
+ =?us-ascii?Q?hhz1aq8etm2bms9DmfZ83GEtdmflI0JaK/OXcjjwi9Lr+DLwHwA0OVdjSTSa?=
+ =?us-ascii?Q?q7V+HkF9ZbnrUNYv/PkvA6OeGckAXKTlMvCNlmSLfPgDxyI2lOrfTQRoQDq7?=
+ =?us-ascii?Q?rSjegbHJewt9cs0tI6nz0r/87RwFT/f8DjYtjKRB1uaAGthwyor4i1BG8QdC?=
+ =?us-ascii?Q?hMF2qAo+rPYdcgPiDvAbx4vbR/Grwoz4BABo+bHSPGDqyt8KKyjS6aBZox5O?=
+ =?us-ascii?Q?Ko98r0pHnsL5cHPIJWiN1WPF+qx+/OdHYG8TvTwaChBudhRMxoZ4t0jQUWOe?=
+ =?us-ascii?Q?mfA1W2jzjDekFgS6bGSOkX/nFO6mAbsxUN/4WPRyGj7KFbF5247CFC9958Ao?=
+ =?us-ascii?Q?oPw56YCjhepOlR5bGUs7YWmBB152L/0CziF3JjQb6oMyr3TU++A1waYuUbet?=
+ =?us-ascii?Q?/8G4+CWEV+FU3O2P9bVot3KK96LNdnzNgHTxQozsNSHjhiearueb8tjoH4zl?=
+ =?us-ascii?Q?/xbrZdB60g=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc10f20e-6012-48a4-6c62-08df123d2eb9
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 08:50:09.8726
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jug3Iufu1rr7j58J2lw2O/KLTwWDNRMRwdOfvqOAbJjWvsg1dTHOPnCIBxkvFGumE8BJsHdWsw6vUGmB3M/GyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6464
 
-Hi Luiz,
+The fair scheduling class can defer a scheduling boundary through lazy
+rescheduling, but sched_ext currently exposes only immediate preemption to BPF
+schedulers.
 
-On Mon, Sep 7, 2026 at 2:50=E2=80=AFPM Loic Poulain
-<loic.poulain@oss.qualcomm.com> wrote:
->
-> Hi Bartosz,
->
-> On Mon, Sep 7, 2026 at 10:24=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.=
-org> wrote:
-> >
-> > On Fri, 4 Sep 2026 17:42:15 +0200, Loic Poulain
-> > <loic.poulain@oss.qualcomm.com> said:
-> > > This series describes support for the onboard WiFi/Bluetooth module
-> > > present on the Arduino VENTUNO Q (monaco) platform.
-> > >
-> > > The board provides LGA pads for a wireless module. On the VENTUNO Q
-> > > these pads are populated with an NFA725B module featuring the
-> > > QCA2066 WiFi/BT combo chip. While implemented as an LGA footprint,
-> > > the design is functionally compatible with the M.2 Key E.
-> > >
-> > > The NFA725B exposes WiFi over PCIe and Bluetooth over a UART.
-> > > Both interfaces are gated through the W_DISABLE1# and W_DISABLE2#
-> > > signals, as defined by the M.2 specification and handled here via
-> > > the pcie-m2 power sequencer.
-> > >
-> > > This series models the hardware using the existing pwrseq framework
-> > > and connector bindings, allowing coordinated PCIe and UART bring-up.
-> > >
-> > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > > ---
-> >
-> > What is the merge strategy? Do the pwrseq changes depend on first two b=
-luetooth
-> > patches (I don't think so)? Can they go onto an immutable branch shared=
- with
-> > the BT tree?
->
-> The pwrseq changes are only a dependency for the Bluetooth changes,
-> not the other way around. So yes, they can potentially go separately.
+This series adds lazy variants of the enqueue and kick preemption flags. They
+expire the running sched_ext task's slice while allowing the scheduling boundary
+to be deferred until a return to user space or the next scheduler tick.
 
-Does the above work for you? Would you prefer to take the Bluetooth
-change separately, or would you or Bartosz rather pick up the full
-series?
+SCX_OPS_LAZY_SLICE_EXPIRY selects lazy slice expiry by default. Schedulers can
+override that default in either direction for individual tasks through
+scx_bpf_task_set_slice_expiry(). The helper preserves sub-scheduler task
+ownership boundaries. Bypass continues to force immediate rescheduling.
 
-Regards,
-Loic
+Lazy enqueue and kick requests also restore the scheduler tick when targeting an
+infinite-slice task on a NO_HZ_FULL CPU, ensuring forward progress even when the
+target's tick has stopped.
+
+The kselftests cover immediate and lazy preemption, coalescing and precedence
+between kick modes, enqueue preemption, per-task slice-expiry overrides, invalid
+flags and lazy preemption of infinite-slice tasks on NO_HZ_FULL CPUs.
+
+Tested in separate virtme-ng runs, covering preempt=lazy and nohz_full:
+
+ $ vng -a "preempt=lazy" -- tools/testing/selftests/sched_ext/runner -t kick
+ $ vng -a "preempt=lazy nohz_full=8-15" -- tools/testing/selftests/sched_ext/runner -t nohz_tick
+
+  kick:
+    PASSED:  6
+    SKIPPED: 0
+    FAILED:  0
+
+  nohz_tick:
+    CPU 8 received 7 finite-slice ticks
+    PASSED:  1
+    SKIPPED: 0
+    FAILED:  0
+
+Changes in v2:
+ - Make lazy slice expiry a per-task property (Tejun Heo).
+ - Add scx_bpf_task_set_slice_expiry() for per-task overrides from any sched_ext
+   callback (preserving sub-scheduler task ownership).
+ - Restore the scheduler tick dependency for lazy enqueue and kick preemption of
+   infinite-slice tasks on NO_HZ_FULL CPUs (Tejun Heo).
+ - Accumulate immediate and lazy kick requests independently and resolve their
+   precedence in kick_one_cpu() (Tejun Heo).
+ - Allow PREEMPT|PREEMPT_LAZY and WAIT|PREEMPT_LAZY, immediate preemption, WAIT
+   and plain kicks take precedence over lazy preemption (Tejun Heo).
+ - Clear both preemption masks together when processing or skipping a preemption
+   request (Tejun Heo).
+ - Extend the kselftests with combined and ordered kick requests, per-task
+   expiry overrides and NO_HZ_FULL coverage.
+ - Link to v1: https://lore.kernel.org/r/20260911195800.974364-1-arighi@nvidia.com
+
+Andrea Righi (2):
+  sched_ext: Add lazy preemption support
+  selftests/sched_ext: Add lazy preemption tests
+
+ include/linux/sched/ext.h                         |   8 +
+ kernel/sched/ext/ext.c                            | 146 +++++-
+ kernel/sched/ext/internal.h                       |  39 +-
+ kernel/sched/ext/sub.c                            |  15 +-
+ tools/sched_ext/include/scx/compat.bpf.h          |  13 +
+ tools/sched_ext/include/scx/enum_defs.autogen.h   |   3 +
+ tools/sched_ext/include/scx/enums.autogen.bpf.h   |   6 +
+ tools/sched_ext/include/scx/enums.autogen.h       |   2 +
+ tools/sched_ext/include/scx/enums_abi.autogen.h   |   5 +-
+ tools/testing/selftests/sched_ext/Makefile        |   1 +
+ tools/testing/selftests/sched_ext/kick.bpf.c      | 166 +++++++
+ tools/testing/selftests/sched_ext/kick.c          | 526 ++++++++++++++++++++++
+ tools/testing/selftests/sched_ext/nohz_tick.bpf.c |  54 ++-
+ tools/testing/selftests/sched_ext/nohz_tick.c     | 189 +++++++-
+ 14 files changed, 1129 insertions(+), 44 deletions(-)
