@@ -1,165 +1,99 @@
-Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3D23F4DE6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766893ACF16;
+	Mon, 14 Sep 2026 08:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373079; cv=none; b=dSnsrMzCU0ZEZsyy77dmmqNeZG92TSL4Ish43FiE7e/OrJ0EmCiMx/H1Vez94HrmHLsNc63hIVLxS4N78iWZBzMO+JCpGUsvorin7e930M/gSqfVu4f80/dDhLDM34rA0HIiyW323GF/TEkFNJeEEWZqkc7NMYDHeWimnaJEXFA=
+	t=1789373104; cv=none; b=lR8kpXo+pA0RCc5YXMJDzJu8rmA8N5Q4laPRkoo1bR7/F3gqE5FW4k4tBSJ0IOCiXcNN4nWDNtYXcJNY6RuAiplABZB99KhdiC5WcVRMks+v5ip3UCIwYSUdPNVKKI8+tqnuyFt2eGWt9cy2SPpTExtdtpfjy9ncgD3Eu/PURVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373079; c=relaxed/simple;
-	bh=T2TbIB10b98M8VFnbRgkYEzSgOl2JI73PuH/i08J044=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=R1Zrxj1kVK/c86/TlXqEqOX8AGj9TpWdHKcg25BvFwzHwqqEKYsXrn3hxXrHPmvCXvZO0/vkdpckzVQMoNab1bOfChkqsRopHBxY8DVZfJ6Ar60m8BBOPyf8MU56ym49ifEK9TbrXcpLC9vB5sULZCChxSsisR6nF9G35cYa/Q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zblgm2PK; arc=none smtp.client-ip=91.218.175.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zblgm2PK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=T2TbIB10b98M8VFnbRgkYEzSgOl2JI73PuH/i08J044=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789373075; v=1; x=1789977875;
- b=Zblgm2PKALYugzvDRWf9IF9Ys3ClEX0rguv1i5JhO9h6K74DCAigiTHanIx+nWPDoYQSkMnT
- ATW0hppLcOrT9TFoTCaDTlF4bNvPQwKCQv1iaF1LcSLYQNIiKYGmorpQvFXCz+OOFpL6IfZgRSk
- Gm3HahWM5ryVROBJmLYQQmvM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 95a8c5560b05925a;
-	Mon, 14 Sep 2026 08:04:35 +0000
-X-Mizu-Trace-ID: 95a8c5560b05925a
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Mon, 14 Sep 2026 16:03:54 +0800
-Subject: [PATCH v5 2/6] dt-bindings: hwmon: Move LM63 family to a dedicated
- binding
+	s=arc-20240116; t=1789373104; c=relaxed/simple;
+	bh=bnDie4ATY9L7KljtTBcFIsi5Hc5gLseEnKmWnnnaZ/c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UmUnb1kCN8Mt4ofYYvfLhPkJrmov8iJ+OJsC9yGRgDi51o6nLf9YYPr+ebactLfrkyBBG6QaZ6S9DfebLBD1ODpBRtfcrAwo7FfaYjxOsDVD+tChzrMrD2wDa7tyuqWpJaLxxXNhGgD7B2oMTb+G6bPQrfa+v7BDLJKkXrfm7Ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f87bc8d0b01211f19a56ed5b684f684d-20260914
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:a3771e0c-53e6-4c4f-922d-0948eb8dba23,IP:0,U
+	RL:5,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:5
+X-CID-META: VersionHash:7db8b62,CLOUDID:f7d32dfd53290b8c3cc408f3885045e8,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:99|95|82|11|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f87bc8d0b01211f19a56ed5b684f684d-20260914
+X-User: liuqiqi@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liuqiqi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 873099512; Mon, 14 Sep 2026 16:04:54 +0800
+From: Qiqi Liu <liuqiqi@kylinos.cn>
+To: akpm@linux-foundation.org,
+	vbabka@kernel.org
+Cc: surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qiqi Liu <liuqiqi@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm/page_alloc: apply per-task GFP context in bulk allocator
+Date: Mon, 14 Sep 2026 16:04:51 +0800
+Message-Id: <20260914080451.294896-1-liuqiqi@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ctl2301-v5-2-b44b81cd2c3c@linux.dev>
-References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-In-Reply-To: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3142;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=T2TbIB10b98M8VFnbRgkYEzSgOl2JI73PuH/i08J044=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFnLVxXsZdHWM1131i9na/d5B/8zkZlcXyN4dvLkb4zS8
- tuY6Di9o5SFQYyLQVZMkaX7Ac+2Ap8o2wKBQl+YOaxMIEMYuDgFYCJOHYwMJ4p2KnTLf+Y67L/0
- 98ub2scOzst+xPbF6Gzqb9cem/elkxgZFkW//RqtkzO/f+tWR0duw+u3r5Qt3RK6eOLEwOiSVgZ
- DDgA=
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+Content-Transfer-Encoding: 8bit
 
-Move the National Semiconductor LM63, LM64, and LM96163 compatibles out
-of trivial-devices.yaml and into a dedicated binding. Describe their
-integrated fan control and preserve the optional interrupt used by the
-ALERT output. Permit use as thermal cooling devices via #cooling-cells.
+alloc_pages_bulk_noprof() does not call current_gfp_context(), so
+per-task scoped allocation constraints (PF_MEMALLOC_NOIO,
+PF_MEMALLOC_NOFS, PF_MEMALLOC_PIN) are not applied on the bulk fast
+path.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+The most direct consequence is PF_MEMALLOC_PIN: without clearing
+__GFP_MOVABLE, prepare_alloc_pages() selects MIGRATE_MOVABLE for
+the PCP list, and a task with PF_MEMALLOC_PIN set receives movable
+pages from the bulk allocator.  Once pinned, these pages can no
+longer be migrated but remain in MOVABLE pageblocks, violating the
+mobility contract.  This can increase fragmentation and interfere
+with compaction or contiguous-memory allocations, eventually
+surfacing as higher allocation latency or allocation failures under
+memory pressure.
+
+Found via review of the bulk allocation tracepoint hooks [1].
+
+[1] https://lore.kernel.org/all/20260907120949.418450-1-liuqiqi@kylinos.cn/
+Link: https://sashiko.dev/#/patchset/20260907120949.418450-1-liuqiqi%40kylinos.cn
+Fixes: 387ba26fb1cb ("mm/page_alloc: add a bulk page allocator")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
 ---
- .../devicetree/bindings/hwmon/national,lm63.yaml   | 53 ++++++++++++++++++++++
- .../devicetree/bindings/trivial-devices.yaml       |  6 ---
- 2 files changed, 53 insertions(+), 6 deletions(-)
+ mm/page_alloc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
-new file mode 100644
-index 0000000000000..f2e0993cfbef3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwmon/national,lm63.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: LM63-compatible temperature sensors with integrated fan control
-+
-+maintainers:
-+  - Guenter Roeck <linux@roeck-us.net>
-+
-+description: |
-+  The LM63 family provides local and remote temperature monitoring together
-+  with fan speed monitoring and PWM fan control. Supported devices include
-+  the National Semiconductor LM63, LM64 and LM96163.
-+
-+allOf:
-+  - $ref: hwmon-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - national,lm63
-+      - national,lm64
-+      - national,lm96163
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  "#cooling-cells":
-+    const: 2
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        temperature-sensor@4c {
-+            compatible = "national,lm63";
-+            reg = <0x4c>;
-+            #cooling-cells = <2>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index 2de8eb09cb7d1..e46912ba2fd66 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -368,16 +368,10 @@ properties:
-           - mps,mpq82d00
-             # Murata D1U74T-W power supply unit
-           - murata,d1u74t
--            # Temperature sensor with integrated fan control
--          - national,lm63
--            # Temperature sensor with integrated fan control
--          - national,lm64
-             # Temperature sensor
-           - national,lm95235
-             # Temperature sensor
-           - national,lm95245
--            # Temperature sensor with integrated fan control
--          - national,lm96163
-             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
-           - national,lm80
-             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
-
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 12fac9084c48..3be7288a1aa7 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -5207,6 +5207,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 
+ 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
+ 	gfp &= gfp_allowed_mask;
++	gfp = current_gfp_context(gfp);
+ 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
+ 		goto out;
+ 
 -- 
-2.55.0
+2.25.1
 
