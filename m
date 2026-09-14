@@ -1,185 +1,262 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B53470139
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1EBF471408
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391692; cv=none; b=Fi2ezdn5BiM6u1B7RmVa99dGbcLFPJUpbspD4erkuCbWhNBBR5xAVR38PfjubsBv2yRvIYPdGCSypB6/jzaYwAXn202EO4cw45fli15tKPfEBzaUD1V2diLNLdUdb5UtLZ5qdNAg+hH5d893OVdfGAT0mXjS9hqXC9sIKVyiITk=
+	t=1789391698; cv=none; b=Q4eYFD795Zprmqsg0M8YxXIi2xmvstf3qzc0gUq+1tbhmHe8MO8dL5xvPmEIGPFqB7dPF+/X1sFt/v85zGs2YlRbwJej0aJzwgHJxBCfOeI3BSI4mhvspnCkHMNsH2GaDJwfYn49v1yt8WuLRPESFhSGQYtIoXvoFol+6vB8KbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391692; c=relaxed/simple;
-	bh=JbNhrARpv6JYgXbHTtrDTe6wuqZhnPpG+LDN0UD/1q8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ia5X1dRW9hwzjYPHyooxoynDWyfNZJ4WFp/UfDls9WWuLdUoL7TKQ3DL/An0JeFkeXrIB/wj0bX4wrCKWxqEas6KiTG1r8Cg7a3T9gvHrjtM6nKiSxJIp7H/Pubc/+hOQMxL6V/Vwr9cTRh01Os1KL93ElDdUwgzRwRh4dVEVsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Bm9gTt3l; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789391698; c=relaxed/simple;
+	bh=9fzthyXkK1SDBi5vFe7gBqxNV/kFVCWjjbdq04srRZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XI6Uqhl3NNb06vCyFjntSDPs28QJ2N8sU6Z8Bt3tzOxBNpQNP2eZOSiIMQ6oxLNEG+A+9uGNOhSMA/2+U001Q3SqcPJbx/3/MpeilhY2MN8bxWHPcM2PSGTy4o0DrO+kRJs0ZgZaSEGJyAip9wv7uFCQbWYMy+qAx3B17wwFJPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YBLDnf85; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Bm9gTt3l"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484366874b0so1112979f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:14:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789391688; x=1789996488; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QXqt/TfNNS4iK2D0KIQwOPPSsGXvQRI7uTBOlyeJv7U=;
-        b=Bm9gTt3llcq6HzSZnkF8+WXQV8xXPVZ2g0D5BPBkmL/qiv6sPRq6apAExzIHrm0zU5
-         XF5jJf8J2pQYlFkhhkGSyw9nlGLupgjLYryWWR/ZB32/AbhLaMVYSC+rBjWU90lVIn+D
-         fdUaOlDqzhHvE0jPcNSvBEggEBNyzA8odl6LafeIDm4l//CNbfo8U3/yu18b0AMZhQk3
-         Jn+AHMqBF3Bi4ihz3KG3OjPhKljDGSuQXKuMRLziUGzjTpuhtugQRnmxiBFW/6WEuz0R
-         BkzekbsTk+Kh1kXEvsDECVUAfaAlejtC6UcuQTcdiTUJBPY/ODPcNlV30enUTk7zOTFW
-         yIZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789391688; x=1789996488;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QXqt/TfNNS4iK2D0KIQwOPPSsGXvQRI7uTBOlyeJv7U=;
-        b=K+UGqaCUtjMBnmbnLLNKD/oks/2poM8Hcm3FzLVr5EVNYLTG5Q/FcZQSIdYRygjcE6
-         E9BNM0zpDfLK68htgLfdhcD0rl9Qba33pE0LRo7/948kKUsAZQJDbhQI9CRU7aknLe0p
-         f3Cg3YA4gTWR//LGHjhLX2yyBTHJL2uprcAJFAklxNNPQrG4y9zTo5NuMMztmDXqYLFy
-         F/GP4+T84kPrpyMbXhEJqaHLuvIfh/dc5r8tC1eiPAQt58MfNvRpWMxatqHn9aICJwL3
-         evmi6FE/HlqV+XIqKDKPEEIdFZa0TUBnkGEf3vSJ17cgrDWMHeR/klBdsgyOt1npBYSu
-         oZ9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxJkijnR4414hOmNnGZN3hKPHbiW1iXFO8+JbaNCu0q0SUwhl7FhOlNSsEUFtFgTpb2EVupiIVVUN4spH4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nB7kVAspJ5C2jWKhc7pfnEYRMmmMzKqDBePCXRZ8TGntAGD0Gv
-	fBwjcEJHzBuLW7ER1PmBVdjjZGoY8Ft88BALV7D1YwBxPGcLhm58gR5+voqccp40RCY=
-X-Gm-Gg: AYBFou18eHlqmFkMQXQchTdElz44OyQH8/8/gntY9oVenBEQezLJtJ9w/AB4O3itZ19
-	3tLGCVu+164d7S6HdAbiB36vrlbEg34s89Zw2FWkg7GtbiGLMwVXVKFTfuTEOGK4EbAz+9BiEET
-	y24x56ixAfR0+sQ91b4p4+gvJT/sp4BBncBAeA6xHOWUZKu5C5umZxdPN/3QuTZ/hCK1VRtMDsh
-	xOyGaOazIY+wR3Us/zuhEprR67IMsjVDolNxjslJLdIFAY12LbNV7Zh+biwFq9ltzJlBvamLnS7
-	N/3F0cpu+YhSoDbavbHN93HUNutgjXezYPl8gOPnzJ4svW6LO15CB6W0E1r8b7z4aq30evYJW+z
-	Bd0wajDuEsmPngitG6iLdpyFVko8AiSfx7QupOkA3dlrE//zJ9H6ypBhhetVsyIfdrAl7YbOGp8
-	QE4A3wZzX25uryrNuz7TQ8gjDvNVIQZeyLJeD1bC8++IDAa8g9vbJZTK/+xlirKm9WzUe05Lo=
-X-Received: by 2002:a05:600c:46ce:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49e7a6870d9mr47453825e9.13.1789391687993;
-        Mon, 14 Sep 2026 06:14:47 -0700 (PDT)
-Received: from [192.168.3.100] ([151.42.87.32])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e608sm28719703f8f.23.2026.09.14.06.14.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 06:14:47 -0700 (PDT)
-Message-ID: <964d6626-202c-4d0a-aef2-86a383f405ab@baylibre.com>
-Date: Mon, 14 Sep 2026 15:14:46 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YBLDnf85"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53AB21570;
+	Mon, 14 Sep 2026 06:14:50 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9AFB93F9A2;
+	Mon, 14 Sep 2026 06:14:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789391693; bh=9fzthyXkK1SDBi5vFe7gBqxNV/kFVCWjjbdq04srRZ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YBLDnf85hRwnACSxvYy88ispQT9XLGw9eliM6ovAUr5ToQcP2Fdi7ksyPYLPJ63R+
+	 a8BJTDioobKIcffsqGTUNa9LdfKw9d9IuWN8U7nB+0hFKhRElBuKs4POGxb4Ds07my
+	 89sM7iB/X0+em2o2O1/DP5S93kvLdM8tVXmG0sAc=
+Date: Mon, 14 Sep 2026 14:14:44 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Olivia Mackall <olivia@selenic.com>
+Subject: Re: [PATCH v11 2/7] firmware: hwrng: arm_smccc_trng: Register as an
+ SMCCC device
+Message-ID: <aqfzRKlPsxuGYJlw@arm.com>
+References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
+ <20260914060511.277948-3-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] ASoC: meson: add audin main module and I2S formatter
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260912-audin-v1-0-7fbefe928711@baylibre.com>
- <20260912-audin-v1-2-7fbefe928711@baylibre.com>
- <20260913-inventive-millipede-of-certainty-dd58ce@quoll>
-Content-Language: en-US
-From: Valerio Setti <vsetti@baylibre.com>
-In-Reply-To: <20260913-inventive-millipede-of-certainty-dd58ce@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914060511.277948-3-aneesh.kumar@kernel.org>
 
-Thanks for your review and feedbacks.
+You still haven't copied Olivia and Herbert for the hw_random bits.
 
-
-On 9/13/26 11:41 AM, Krzysztof Kozlowski wrote:
-> On Sat, Sep 12, 2026 at 12:14:32AM +0200, Valerio Setti wrote:
->> +static int meson_gx_audin_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct resource *res;
->> +	void __iomem *mmio;
->> +	struct regmap *regmap;
->> +	struct clk *clk;
->> +	int ret;
->> +
->> +	ret = device_reset(dev);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to reset device\n");
->> +
->> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->> +	if (!res)
->> +		return dev_err_probe(dev, -EINVAL, "Failed to get memory resource\n");
->> +
->> +	/*
->> +	 * Do not use devm_platform_ioremap_resource() here: it would claim the
->> +	 * whole AUDIN window exclusively and the FIFO children would then fail
->> +	 * to request their own sub-ranges.
->> +	 */
+On Mon, Sep 14, 2026 at 11:35:06AM +0530, Aneesh Kumar K.V (Arm) wrote:
+> The SMCCC TRNG interface is a firmware-provided SMCCC service rather than a
+> standalone platform device. Now that the SMCCC core has an SMCCC bus,
+> create an arm-smccc-trng device for the discovered TRNG service and convert
+> the hwrng driver to an SMCCC driver.
 > 
-> And this should point you that child is not a separate device.
+> The SMCCC id table preserves module autoloading for systems where the TRNG
+> driver is built as a module.
 > 
-> Please open your datasheet and read what is the address space of this
-> device. You claim here ENTIRE address space. If you insist that entire
-> address space is not owned by this device, then you misrepresented
-> hardware in the DT anyway.
-
-As I mentioned in the cover letter I designed it this way so that I 
-could easily re-use the same driver code for all 3 FIFOs just offsetting 
-the base address. I knew it was a bit hackish a solution, but IMO that 
-was worth it since it was simplifying a bit driver's code. Perhaps it 
-was more software-oriented rather than hardware related.
-The other possible approach is to fully copy what AIU is doing and 
-allocate each FIFO as a DAI. I'll follow that design then, but if you 
-have any better idea please let me know.
-
->> +	mmio = devm_ioremap(dev, res->start, resource_size(res));
->> +	if (!mmio)
->> +		return dev_err_probe(dev, -ENOMEM, "Failed to remap memory\n");
->> +
->> +	regmap = devm_regmap_init_mmio(dev, mmio, &audin_regmap_cfg);
->> +	if (IS_ERR(regmap))
->> +		return dev_err_probe(dev, PTR_ERR(regmap), "Failed to init regmap\n");
->> +
->> +	clk = devm_clk_get_enabled(dev, NULL);
->> +	if (IS_ERR(clk))
->> +		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get clock\n");
->> +
->> +	ret = gx_formatter_create(dev, &audin_dapm_widgets[0], &audin_formatter_i2s_drv, regmap);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to allocate formatter\n");
->> +
->> +	ret = devm_snd_soc_register_component(dev, &audin_component, NULL, 0);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to register component\n");
->> +
->> +	ret = devm_of_platform_populate(dev);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to probe child nodes\n");
->> +
->> +	return 0;
->> +}
->> +
->> +static void meson_gx_audin_remove(struct platform_device *pdev)
->> +{
->> +	gx_formatter_free(&audin_dapm_widgets[0]);
->> +}
->> +
->> +static const struct of_device_id meson_gx_audin_of_match[] = {
->> +	{ .compatible = "amlogic,meson-gxbb-audin" },
->> +	{ .compatible = "amlogic,meson-gxl-audin" },
+> The sysfs device path changes from the old smccc_trng platform-device path
+> to an arm-smccc device path. No known userspace dependency on the old path
+> was found; a Debian Code Search lookup for the existing platform-device
+> name/path did not find any users.
 > 
-> Why do you have two entries here and no fallbacks? This makes no sense,
-> really. I have no more doubts that your "gx" is a real SoC/
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Tested-by: Andre Przywara <andre.przywara@arm.com>
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 
-OK. Genuine question about naming here: would "amlogic,gx-audin" be 
-fine? Because in "meson-gx.dtsi" I see many surrounding nodes have 
-"amlogic,meson-gx-" prefix, but that doesn't seem to follow design rules 
-from "writing-bindings.rst".
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 
-
--- 
-Valerio
-
+> ---
+>  arch/arm/include/asm/archrandom.h       |  2 +-
+>  arch/arm64/include/asm/archrandom.h     |  2 +-
+>  drivers/char/hw_random/arm_smccc_trng.c | 32 ++++++++-----
+>  drivers/firmware/smccc/smccc.c          | 62 +++++++++++++++++++++----
+>  4 files changed, 76 insertions(+), 22 deletions(-)
+> 
+> diff --git a/arch/arm/include/asm/archrandom.h b/arch/arm/include/asm/archrandom.h
+> index cc4714eb1a75..ee39a03ddf8a 100644
+> --- a/arch/arm/include/asm/archrandom.h
+> +++ b/arch/arm/include/asm/archrandom.h
+> @@ -2,7 +2,7 @@
+>  #ifndef _ASM_ARCHRANDOM_H
+>  #define _ASM_ARCHRANDOM_H
+>  
+> -static inline bool __init smccc_probe_trng(void)
+> +static inline bool smccc_probe_trng(void)
+>  {
+>  	return false;
+>  }
+> diff --git a/arch/arm64/include/asm/archrandom.h b/arch/arm64/include/asm/archrandom.h
+> index 8babfbe31f95..7605dd81bd1e 100644
+> --- a/arch/arm64/include/asm/archrandom.h
+> +++ b/arch/arm64/include/asm/archrandom.h
+> @@ -12,7 +12,7 @@
+>  
+>  extern bool smccc_trng_available;
+>  
+> -static inline bool __init smccc_probe_trng(void)
+> +static inline bool smccc_probe_trng(void)
+>  {
+>  	struct arm_smccc_res res;
+>  
+> diff --git a/drivers/char/hw_random/arm_smccc_trng.c b/drivers/char/hw_random/arm_smccc_trng.c
+> index dcb8e7f37f25..01c1a30cbab8 100644
+> --- a/drivers/char/hw_random/arm_smccc_trng.c
+> +++ b/drivers/char/hw_random/arm_smccc_trng.c
+> @@ -16,8 +16,10 @@
+>  #include <linux/device.h>
+>  #include <linux/hw_random.h>
+>  #include <linux/module.h>
+> -#include <linux/platform_device.h>
+>  #include <linux/arm-smccc.h>
+> +#include <linux/arm-smccc-bus.h>
+> +
+> +#include <asm/archrandom.h>
+>  
+>  #ifdef CONFIG_ARM64
+>  #define ARM_SMCCC_TRNG_RND	ARM_SMCCC_TRNG_RND64
+> @@ -94,29 +96,37 @@ static int smccc_trng_read(struct hwrng *rng, void *data, size_t max, bool wait)
+>  	return copied;
+>  }
+>  
+> -static int smccc_trng_probe(struct platform_device *pdev)
+> +static int smccc_trng_probe(struct arm_smccc_device *sdev)
+>  {
+>  	struct hwrng *trng;
+>  
+> -	trng = devm_kzalloc(&pdev->dev, sizeof(*trng), GFP_KERNEL);
+> +	/* validate the minimum version requirement */
+> +	if (!smccc_probe_trng())
+> +		return -ENODEV;
+> +
+> +	trng = devm_kzalloc(&sdev->dev, sizeof(*trng), GFP_KERNEL);
+>  	if (!trng)
+>  		return -ENOMEM;
+>  
+>  	trng->name = "smccc_trng";
+>  	trng->read = smccc_trng_read;
+>  
+> -	return devm_hwrng_register(&pdev->dev, trng);
+> +	return devm_hwrng_register(&sdev->dev, trng);
+>  }
+>  
+> -static struct platform_driver smccc_trng_driver = {
+> -	.driver = {
+> -		.name		= "smccc_trng",
+> -	},
+> -	.probe		= smccc_trng_probe,
+> +static const struct arm_smccc_device_id smccc_trng_id_table[] = {
+> +	{ .func_id = ARM_SMCCC_TRNG_VERSION },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(arm_smccc, smccc_trng_id_table);
+> +
+> +static struct arm_smccc_driver smccc_trng_driver = {
+> +	.name	  = KBUILD_MODNAME,
+> +	.probe	  = smccc_trng_probe,
+> +	.id_table = smccc_trng_id_table,
+>  };
+> -module_platform_driver(smccc_trng_driver);
+> +module_arm_smccc_driver(smccc_trng_driver);
+>  
+> -MODULE_ALIAS("platform:smccc_trng");
+>  MODULE_AUTHOR("Andre Przywara");
+>  MODULE_DESCRIPTION("Arm SMCCC TRNG firmware interface support");
+>  MODULE_LICENSE("GPL");
+> diff --git a/drivers/firmware/smccc/smccc.c b/drivers/firmware/smccc/smccc.c
+> index bdee057db2fd..756c79204e44 100644
+> --- a/drivers/firmware/smccc/smccc.c
+> +++ b/drivers/firmware/smccc/smccc.c
+> @@ -9,7 +9,8 @@
+>  #include <linux/init.h>
+>  #include <linux/arm-smccc.h>
+>  #include <linux/kernel.h>
+> -#include <linux/platform_device.h>
+> +#include <linux/arm-smccc-bus.h>
+> +
+>  #include <asm/archrandom.h>
+>  
+>  static u32 smccc_version = ARM_SMCCC_VERSION_1_0;
+> @@ -81,16 +82,59 @@ bool arm_smccc_hypervisor_has_uuid(const uuid_t *hyp_uuid)
+>  }
+>  EXPORT_SYMBOL_GPL(arm_smccc_hypervisor_has_uuid);
+>  
+> +struct smccc_device_info {
+> +	u32 func_id;
+> +	bool requires_smc;
+> +	const char *device_name;
+> +};
+> +
+> +static const struct smccc_device_info smccc_devices[] __initconst = {
+> +	{
+> +		.func_id        = ARM_SMCCC_TRNG_VERSION,
+> +		.requires_smc   = false,
+> +		.device_name    = "arm-smccc-trng",
+> +	},
+> +};
+> +
+> +static bool __init smccc_probe_smccc_device(const struct smccc_device_info *smccc_dev)
+> +{
+> +	int ret;
+> +	struct arm_smccc_res res = {};
+> +
+> +	if (smccc_conduit == SMCCC_CONDUIT_NONE)
+> +		return false;
+> +
+> +	if (smccc_dev->requires_smc && smccc_conduit != SMCCC_CONDUIT_SMC)
+> +		return false;
+> +
+> +	if (IS_ENABLED(CONFIG_ARM) && ARM_SMCCC_IS_64(smccc_dev->func_id))
+> +		return false;
+> +
+> +	arm_smccc_1_1_invoke(smccc_dev->func_id,
+> +			     0, 0, 0, 0, 0, 0, 0, &res);
+> +	ret = res.a0;
+> +
+> +	if (ret == SMCCC_RET_NOT_SUPPORTED)
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+>  static int __init smccc_devices_init(void)
+>  {
+> -	struct platform_device *pdev;
+> -
+> -	if (smccc_trng_available) {
+> -		pdev = platform_device_register_simple("smccc_trng", -1,
+> -						       NULL, 0);
+> -		if (IS_ERR(pdev))
+> -			pr_err("smccc_trng: could not register device: %ld\n",
+> -			       PTR_ERR(pdev));
+> +	struct arm_smccc_device *sdev;
+> +	const struct smccc_device_info *smccc_dev;
+> +
+> +	for (int i = 0; i < ARRAY_SIZE(smccc_devices); i++) {
+> +		smccc_dev = &smccc_devices[i];
+> +
+> +		if (!smccc_probe_smccc_device(smccc_dev))
+> +			continue;
+> +
+> +		sdev = arm_smccc_device_register(smccc_dev->device_name, smccc_dev->func_id);
+> +		if (IS_ERR(sdev))
+> +			pr_err("%s: could not register device: %ld\n",
+> +			       smccc_dev->device_name, PTR_ERR(sdev));
+>  	}
+>  
+>  	return 0;
+> -- 
+> 2.43.0
