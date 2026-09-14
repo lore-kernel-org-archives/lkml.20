@@ -1,39 +1,30 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097E0446066;
-	Mon, 14 Sep 2026 12:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1325445563C;
+	Mon, 14 Sep 2026 12:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388046; cv=none; b=U6TCtJlAsAEt5SA+cva1BEAdheTQnmqN5kiz3pkSHvj5Q56LyfPNIgWUoWKbAPcKy4V1AkAuVdUhwaXB35Gqqcr1OBPKhWV5fIxfrfVWDTztDIP+hlfdZ9FOX182y0XGUROc9voM5F9axDcWThPcxcs0nySkWTaS2EjYBFMQJgc=
+	t=1789388114; cv=none; b=hhy+IiTAT7DWrytHMqOS8LDs8fwhECsKq+xizOkteoP+O8rAPu5DugHXHxcby33ikh0DlnPbVuqR9GhghXSuQuE53OCWdV5VJaDwyHcc+eWCzVLI+kkaIhyqpINNs5opVMZUadcELqn87Nz67aKBmOEJbTBBeRwzmSTQSdDz4jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388046; c=relaxed/simple;
-	bh=KQcD7ybHb9EH/g4an3ybWreK7NtJgH39BxZcqpEasco=;
+	s=arc-20240116; t=1789388114; c=relaxed/simple;
+	bh=V4v29hqphf71drKAKxNYS2bGk7KT06PPuG3ckTO1o2k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j9ooz3KsptR0/hqH+JicKanqr+fdV91c5ogNBVOCvF4RqXZyfHK0aYAmep9KClIdDwUT+Er6pXIlIowtLUhbRut3jPKXCFSEJcV9ubjjuKZd8FwfJeJUNJ6tzM47m3IG4w+YwvQ5ptX5ugY2B59QRaWMm2w380zOY6pu7V3Njlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=HvuVKhwL; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="HvuVKhwL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1789388026;
-	bh=+Z+8q8Y7PKeF8cylK/vBWxaeMrcPKioUqaIkfs3jFUI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HvuVKhwLt4XaqqjwXFMayGAETLjfAb0T6qgAsd5l5uEC3/JqEtlr0aAz4ivLNFa1Q
-	 wN4+/9SSD79HoN4yRs7FCMbuuSiwFqdH4pID3QJLrsKxWaCKsTY+RqwN5RkdHhyq8E
-	 OicCblvD2Wqp94izGrep+3isQFnBaj3srrSlFyTi+Jc/tdKV6zXSiZPmgVNgaJnThy
-	 izhURc9OKgEWeGg+gE94ntmeKIgZhzOTeTGvvQHpyHMDS1kqe7PTTU8KxEMSwV5riN
-	 Giu6X14a6b6Yy65cd7Meu40vCGmNDBbGgl1DGktAloM2QwFO65216KWYY/mySrSirz
-	 JqVYXxt1c1C0g==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hk3w060kMz4wKF;
-	Mon, 14 Sep 2026 22:13:36 +1000 (AEST)
-Message-ID: <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
-Date: Mon, 14 Sep 2026 13:13:36 +0100
+	 In-Reply-To:Content-Type; b=f7jOmxU1+1BHiL7tG2x1peslm4+ORIt9k3QV/MHn0YNa/i2PjFq1VSagZo6dvnsLZlENnu3X4VWk4cgf7Br0+PgszF8r3gpQW4ARhNYQkdo3+NUirdlkUIkADozraqmDfR1/5a9VJWviCcBXO4aoDhjubXd08QeaAibIKpjCuQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hk3xL4TcZzKHMWL;
+	Mon, 14 Sep 2026 20:14:46 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id B1EBA4056D;
+	Mon, 14 Sep 2026 20:14:57 +0800 (CST)
+Received: from [10.67.110.36] (unknown [10.67.110.36])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgC3eG1A5adqaVsSAQ--.53660S2;
+	Mon, 14 Sep 2026 20:14:57 +0800 (CST)
+Message-ID: <a8320365-6bf9-4db4-b05e-7776a6089a98@huaweicloud.com>
+Date: Mon, 14 Sep 2026 20:14:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,126 +32,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
- <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260914115456.GY13683@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 2/4] perf dwarf-aux: Add die_has_flex_array() helper
+To: Namhyung Kim <namhyung@kernel.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ linux-perf-users@vger.kernel.org, Zecheng Li <zli94@ncsu.edu>,
+ Yanbo Zhao <yzhao62@ncsu.edu>, Shuai Xue <xueshuai@linux.alibaba.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>
+References: <20260914064535.1671939-1-namhyung@kernel.org>
+ <20260914064535.1671939-3-namhyung@kernel.org>
+Content-Language: en-US
+From: Tengda Wu <wutengda@huaweicloud.com>
+In-Reply-To: <20260914064535.1671939-3-namhyung@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_Ch0CgC3eG1A5adqaVsSAQ--.53660S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF4UtrWrtFy5XFWruw4kZwb_yoWrGr43pF
+	4UCw13Ar4UGF4Ikw1fX3Z5u3yrt3yxXFWFya93C34xAry7XF17uF97Kr1Ygw4rKr4DAw4I
+	kr1DGw4UGan7XFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
+	7KsUUUUUU==
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-Hi Leon,
 
-On 14/09/2026 12:54, Leon Romanovsky wrote:
-> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
->> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
->>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
->>>> Expand the VFIO DMABUF revocation state to three states:
->>>> Not revoked, temporarily revoked, and permanently revoked.
->>>
->>> The thing is that "temporarily revoked" is actually the standard
->>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
->>> for VFIO.
->>
->> I think temporarily revokes here means it is revoked from a dmabuf
->> perspective
+
+On 2026/9/14 14:45, Namhyung Kim wrote:
+> The die_has_flex_array() returns true when the given type is a compound
+> type and contains an array at the end.  To prevent an infinite recursion
+> add a depth field to the internal function.
 > 
-> My guess is that this is more of a "change owner" operation than a
-> revoke operation.
+> Cc: Masami Hiramatsu <mhiramat@kernel.org>
+> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> ---
+>  tools/perf/util/dwarf-aux.c | 77 +++++++++++++++++++++++++++++++++++++
+>  tools/perf/util/dwarf-aux.h |  3 ++
+>  2 files changed, 80 insertions(+)
 > 
-> The main issue here is that we have to guess the semantics instead of
-> having a properly named and documented operation. 
+> diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
+> index d7160f87ac7d7ab3..465824e6513eb0ac 100644
+> --- a/tools/perf/util/dwarf-aux.c
+> +++ b/tools/perf/util/dwarf-aux.c
+> @@ -2180,3 +2180,80 @@ Dwarf_Die *die_deref_ptr_type(Dwarf_Die *ptr_die, int offset,
+>  
+>  	return die_get_member_type(&type_die, offset, die_mem);
+>  }
+> +
+> +static bool is_flex_array_member(Dwarf_Die *mb_die)
+> +{
+> +	Dwarf_Die type_die;
+> +	Dwarf_Word size;
+> +
+> +	/* get the type of the member */
+> +	if (die_get_real_type(mb_die, &type_die) == NULL)
+> +		return false;
+> +
+> +	if (dwarf_tag(&type_die) != DW_TAG_array_type)
+> +		return false;
+> +
+> +	return dwarf_aggregate_size(&type_die, &size) < 0 || size == 0;
+> +}
+> +
+> +#define MAX_FLEX_ARRAY_RECURSION  256  /* arbitrary */
+> +
+> +static bool die_has_flex_array_recurse(Dwarf_Die *parent_die, int depth)
+> +{
+> +	Dwarf_Die die_mem, last_mb;
+> +	int tag = dwarf_tag(parent_die);
+> +
+> +	if (tag != DW_TAG_structure_type && tag != DW_TAG_union_type)
+> +		return false;
+> +
+> +	/* prevent infinite recursion */
+> +	if (depth > MAX_FLEX_ARRAY_RECURSION)
+> +		return false;
+> +
+> +	if (dwarf_child(parent_die, &die_mem))
+> +		return false;
+> +
+> +	do {
+> +		if (dwarf_tag(&die_mem) != DW_TAG_member)
+> +			continue;
+> +
+> +		if (tag == DW_TAG_union_type) {
+> +			if (is_flex_array_member(&die_mem))
+> +				return true;
+> +
+> +			if (die_get_real_type(&die_mem, &last_mb) &&
+> +			    die_has_flex_array_recurse(&last_mb, depth + 1))
+> +				return true;
+> +		}
+> +
+> +		if (tag == DW_TAG_structure_type)
+> +			memcpy(&last_mb, &die_mem, sizeof(last_mb));
+> +
+> +	} while (dwarf_siblingof(&die_mem, &die_mem) == 0);
+> +
+> +	if (tag == DW_TAG_structure_type) {
+> +		if (is_flex_array_member(&last_mb))
 
-Apologies if the cover letter for the series and patch commit message 
-(which cover this) are unclear about the motivations and semantics.  On 
-the commit message, can you suggest clarifications:
+Not sure if this case can actually happen, but adding a check for whether
+last_mb is valid is probably better. (I see Sashiko flagged this too.)
 
-"This is useful for lifecycle management, to reclaim VFIO PCI BAR
-ranges previously delegated to a subordinate client process: by
-revoking, the driver process can ensure that the loaned resources are
-made inaccessible when the client is deemed "done".  The original
-DMABUF is defunct, and BAR resources can then be safely re-exported
-for use by new clients."
+Thanks,
+Tengda
 
-Given what I'll explain below, do give suggestions please.  There is 
-more context in the cover letter (the volume of which I didn't think 
-appropriate for the commit message).
-
-> As Christian pointed
-> out, the patches describe what they are doing well, but they do not
-> explain why they are doing it.
-
-His comment may be warranted on the other, new, patch for DMABUF name, 
-but I don't think this applies here.
-
->> Just that VFIO can make it's internal dmabuf work again, there won't
->> be a notification to any importer or an expectation that something
->> like iommufd will re-establish mapping automatically.
->>
->> This is principally a kernel self protection mechanism where the
->> userspace was expected to have removed the dmabuf before issuing a
->> reset/etc. If they didn't then the kernel plonks it and userspace gets
->> a mess to clean up.
-> 
-> Revoke/invalidate means that the importer should stop accessing the
-> buffer provided by the exporter. It does not specify what the exporter
-> should do afterwards.
-> 
-> So I still think that "temporarily revoked" is closer to
-> invalidate_mappings, with some additional dma-buf documentation to lose
-> the expectation that the buffer will become available again.
-
-You are right in indicating in your previous email that the "temporarily 
-revoked" state is the old "revoked" state.
-
- From the DMABUF importer interactions, there's _still_ only "revoked or 
-not revoked" state.  No changes there.
-
- From this VFIO exporter's perspective, the change is to add a "sticky" 
-revoked state.
-
-The thing (as per UAPI docs, again I hope there's no guessing needed) 
-that the new third state gives is that a) userspace can explicitly 
-request it via the new ioctl/feature, and b) it is guaranteed not to be 
-spuriously or intentionally undone by anyone else.
-
-E.g. reset:  temporarily revoke, then un-revoke.   New ioctl: 
-permanently revoke, such that something like a subsequent reset isn't 
-going to undo it and make the DMABUF usable again.
-
-The usage scenario is:
-
-1. Process A exports DMABUF from VFIO device.  (Proc A is the 
-"orchestrator" here.)
-2. Process A sends fd to process B.
-3. Process B maps it, or hands it on, etc.
-4. Process A eventually decides the buffer is finished with/lifecycle 
-done/wants to reuse that BAR range for something else.  It permanently 
-revokes the DMABUF.
-5. Hopefully this isn't a surprise to B (some cooperation has given it 
-up first) but either way, B now cannot access the BAR range anymore. 
-This does not _need_ cooperation, so if B becomes malicious, or crashes, 
-etc. A can still revoke it.
-6. That BAR range is reused for something unrelated.
-
-
-HTH,
-
-
-Matt
+> +			return true;
+> +
+> +		if (die_get_real_type(&last_mb, &die_mem))
+> +			return die_has_flex_array_recurse(&die_mem, depth + 1);
+> +	}
+> +
+> +	return false;
+> +}
+> +
+> +/**
+> + * die_has_flex_array - Check if the given type has a flex-array at the end
+> + * @parent_die: a pointer to type DIE
+> + *
+> + * This function returns %true iff @parent_die is a struct type and has an
+> + * array at the end.  Note that the flex-array has no element, it should have
+> + * no size and the parent size doesn't include the flex-array.  So it should
+> + * locate at the offset of the parent size.
+> + *
+> + * For simplicity, it assumes the parent size of aligned with the flex-array.
+> + */
+> +bool die_has_flex_array(Dwarf_Die *parent_die)
+> +{
+> +	return die_has_flex_array_recurse(parent_die, 0);
+> +}
+> diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
+> index 161f0bf980b6ee6a..9b662db710220522 100644
+> --- a/tools/perf/util/dwarf-aux.h
+> +++ b/tools/perf/util/dwarf-aux.h
+> @@ -189,4 +189,7 @@ void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **var_types)
+>  /* Get the frame base information from CFA */
+>  int die_get_cfa(Dwarf *dwarf, u64 pc, int *preg, int *poffset);
+>  
+> +/* Check whether given type has a flex array */
+> +bool die_has_flex_array(Dwarf_Die *parent_die);
+> +
+>  #endif /* _DWARF_AUX_H */
 
