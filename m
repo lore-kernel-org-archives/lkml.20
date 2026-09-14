@@ -1,187 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90182442B06
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D578D443AA3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385418; cv=none; b=qNIoYFETqFi+z76Z4Raf8kZZgNVfEe8j/ZZKKW35uXziDznmSOIWThyqC3xVESaNjVRKZD+PD8mwYL3vIF0HrXD0GzLEs+2vap36hqqFZljtEpJsR94ObRkYr9ifLcI9RXT7ldBJd2W6PqRsIzclOHk7k35TWstd9DzOn5RSflk=
+	t=1789385420; cv=none; b=sNCztVbSGNpdh1Y4FidrQCxQjbdC9rOv5s88mU5QGqS9uqWDXwMlpfulNThPw0oyNxvbK3SY6+AJstiDK1BdoXyZX8jbbJmGA3xGHFoJA/0cmVyxNuaLowMg+qGy4KXBPlyyKwbvWRLDeHPPjVI5Did/BrZd8xh+r+W3kRfFM7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385418; c=relaxed/simple;
-	bh=as80AICFOa3ucCrDS8ekVZdkRHxbSqAwgYk3LtJMubg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fs0Xp8VcxCOQ18QIMPPXs9dqcRDJpB0mQalnS30r/YNO4fEohIGUyCeFZC5z/kFDlFJNArMUaVlQh6mRHpLfSb15KxByZdR68WseTHGbvr60RJ+a4TsrsroCO/dPZ0dmx0n0YHTtvuSon+n+lbMUJpfiUKh9y60cwFH4RXK1gOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JyEL/rhv; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JyEL/rhv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789385416; x=1820921416;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=as80AICFOa3ucCrDS8ekVZdkRHxbSqAwgYk3LtJMubg=;
-  b=JyEL/rhvhe1IUYxFXrVweWgh674IJYIYu0ZiPNqpBBFctVd+1xgRMKZF
-   mMISX3iGqo1zBrw6S6SgGcWG4/jMtVSZDtO8JW3h/YfWw2d7vbVyd3PDd
-   WqKGMAuzWLtVmn6ylrE8E/w1MMXzEEZNA+2wW9pMrl1P/z9HvWtRngn0A
-   8vKrNfhGqex9slzKh/BYRcrUOSTwk96hMGgyVFxYmL6xybG4z0iv7eBuI
-   4flL/96Tvckii5sVLuUjdU8aY5kvGYRGZdLSyK+I6FUy7rR4qWU5j+e8B
-   Z9Z2gSoYAI4NGTekRIi3sEKVWAYdaVjK3SqmFbOOu5c5Rp+vQBRmCcdpm
-   A==;
-X-CSE-ConnectionGUID: 5H6tWHyfRvicyIp8WTx9YA==
-X-CSE-MsgGUID: mr4yJDNVSXidPeRWlzsMUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89864402"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="89864402"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:30:15 -0700
-X-CSE-ConnectionGUID: 2/P2/hX5TgyeXYYOKmvq9A==
-X-CSE-MsgGUID: E+DRzYNZTEiL+ve3Fzi1+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="273132973"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.245.35])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:30:14 -0700
-From: Adrian Hunter <adrian.hunter@intel.com>
-To: alexandre.belloni@bootlin.com
-Cc: Frank.Li@nxp.com,
-	billy_tsai@aspeedtech.com,
-	linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 00/17] i3c: Fixes, cleanups and HDR-DDR support
-Date: Mon, 14 Sep 2026 14:29:46 +0300
-Message-ID: <20260914113003.183150-1-adrian.hunter@intel.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1789385420; c=relaxed/simple;
+	bh=n20Ba5LUQL7bUD+JlHlCQioYJNI0zR4FOqKw7owM7Yw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=XB8qqyVpZns8DNDaJaayf2VN+zm+NKiuyULqgiTiiaQgSxkHmeaWdeOn2sOW9/WlmocfLRrgEBn1a4DlWQskHNzBgTAp3xSeIxmj75jgEsBBQoxW87JZKZeG/b96tRbjMMBiWZ5vnmTNZSnkxPypggz9C+VKMZGha2NOFfPR8S0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6c324a0c0faso1708386eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:30:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789385417; x=1789990217;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rCSx+1bt0iswccXLvZttietBc0iGWkJz4IAHt5J1XTU=;
+        b=bTtSSf4iEk0UpEgWITx/ooEb2dl4sVHtRs1UAYqRGQ+3MXRvTG5GfZSrb2XlUpaQ/8
+         zgTTkLGFW/JROY4Ma5Z3RpqCTr18wiHjyKKoehhyFTDOAAne/79J1qOOAe1aiZLej9Sf
+         D2Wj2BRq0XjhOhn4YrpX4iQM501gaJEMxI7qeNfQHHiKF+d7QKfDlFcNDYnqFcQ0mMGc
+         y5JYHZNOkUR3B+vgdK33JXHVj+ZMoZb9A71e0JC1ee69rOy1BukMPVQDYu1aWlFYzYSk
+         wDb5f/tX+PbiK0wqJSd367qnvScg3AOXQpq02SL8plKEvx44FUqu7HivjVY5npAmDnlk
+         gK+A==
+X-Gm-Message-State: AFuF++kWjzLCJP7JLmJlgPdkJrVpIZCXTrVXgvRcu7OiPU3h+0DRrrLb
+	/wQTZov8UNCJDePr81Nek7oYA8yws2tGzxEQLi6Jdj+MGKflm+MhosB3gXnLO1u+VtDbrWYA3Hc
+	UKqGfDIH0QcvD7APA0+ytpoEgDIEuhoyclGtS7vWWj7sdDw3vrlG6L/NaNuY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:81c5:b0:6b7:8415:d77e with SMTP id
+ 006d021491bc7-6c541f45b3bmr824865eaf.41.1789385417248; Mon, 14 Sep 2026
+ 04:30:17 -0700 (PDT)
+Date: Mon, 14 Sep 2026 04:30:17 -0700
+In-Reply-To: <6aa316b2.f81106d8.2ab401.0014.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7dac9.3aa11909.1a03b8.0083.GAE@google.com>
+Subject: Forwarded: [PATCH] BUG: using smp_processor_id() in preemptible code
+ in sk_skb_reason_drop
+From: syzbot <syzbot+dc57fd6722deb17e92af@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-This series brings a collection of fixes, specification-conformance
-cleanups and feature additions to the I3C core and MIPI I3C HCI driver.
+***
 
-The first three patches are independent fixes tagged for stable. The
-remaining patches address a mixture of correctness issues in the core
-and HCI driver, improve conformance with the I3C and HCI
-specifications, add support for configurable device NACK retries, and
-finally add HDR-DDR support.
+Subject: [PATCH] BUG: using smp_processor_id() in preemptible code in sk_skb_reason_drop
+Author: jchuang26@m.fudan.edu.cn
 
-The series is organised as follows:
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
 
-  Stable fixes (patches 1-3)
-  --------------------------
+Reported-by: syzbot+dc57fd6722deb17e92af@syzkaller.appspotmail.com
 
-  - Fix an out-of-bounds read in the core DMA bounce-buffer helper.
-
-  - Fix a destination buffer overrun in the HCI DMA path for reads whose
-    length is not a multiple of four bytes. The issue is independent of
-    IOMMU usage, although the existing workaround was only applied when
-    an IOMMU was present.
-
-  - Close a probe-time race in the HCI PCI driver where the LTR sysfs
-    attribute becomes visible before drvdata has been initialized.
-
-  Core fixes (patches 4-5)
-  ------------------------
-
-  - Fix ACPI target enumeration on multi-instance controllers by
-    extracting the bus-controller instance number and PID from the
-    correct _ADR fields.
-
-  - Remove a stale GETSTATUS response-length check that became obsolete
-    when actual_len-based validation was introduced.
-
-  HCI IBI and suspend fixes (patches 6-11)
-  ----------------------------------------
-
-  - Fix the IBI enable error path to unwind controller-side setup when
-    ENEC fails.
-
-  - Send DISEC before disabling IBIs in hardware so that an IBI racing
-    with teardown is not silently dropped.
-
-  - Avoid accessing controller hardware from ->free_ibi(), where runtime
-    PM does not guarantee the device is resumed.
-
-  - Drain all pending IBIs whenever INTR_IBI_READY is received instead
-    of processing only the first queued entry.
-
-  - Reorganize the DMA suspend/resume callbacks in preparation for the
-    following change.
-
-  - Rework DMA suspend handling to stop Ring Bundles according to the
-    HCI specification, synchronize with the interrupt handler, and flush
-    any pending IBI before disabling the rings.
-
-  HCI specification cleanups (patches 12-14)
-  -------------------------------------------
-
-  - Correct the Response Descriptor DATA_LENGTH field definition.
-
-  - Remove an invalid maximum-transfer-size capability derived from
-    reserved HC_CAPABILITIES bits.
-
-  - Remove HDR-BT and Fm/Fm+ definitions that are not defined by any
-    released version of the HCI specification.
-
-  Feature additions (patches 15-17)
-  ---------------------------------
-
-  - Implement the .set_dev_nack_retry() master operation using DAT
-    support provided by HCI v1 controllers.
-
-  - Restrict advertised and permitted HDR modes to the intersection of:
-      * controller capabilities,
-      * bus-configuration constraints, and
-      * target capabilities.
-
-  - Add HDR-DDR private-transfer support to the HCI driver, including
-    descriptor generation and capability advertisement when supported by
-    both the controller and the active command-descriptor format.
-
-
-Adrian Hunter (17):
-      i3c: master: Fix out-of-bounds read in DMA bounce buffer setup
-      i3c: mipi-i3c-hci: Bounce short reads irrespective of the IOMMU
-      i3c: mipi-i3c-hci-pci: Set drvdata before creating LTR sysfs attribute
-      i3c: master: Match ACPI targets to the correct bus controller instance
-      i3c: master: Remove stale GETSTATUS length check
-      i3c: mipi-i3c-hci: Fix i3c_hci_enable_ibi() error path
-      i3c: mipi-i3c-hci: Send DISEC before disabling IBIs in hardware
-      i3c: mipi-i3c-hci: Fix runtime PM violation in i3c_hci_free_ibi()
-      i3c: mipi-i3c-hci: Process multiple IBIs per interrupt
-      i3c: mipi-i3c-hci: Move DMA suspend/resume callbacks
-      i3c: mipi-i3c-hci: Stop rings gracefully when suspending
-      i3c: mipi-i3c-hci: Fix Response Descriptor DATA_LENGTH mask
-      i3c: mipi-i3c-hci: Remove invalid transfer size limit
-      i3c: mipi-i3c-hci: Remove invalid HDR-BT and Fm/Fm+ definitions
-      i3c: mipi-i3c-hci: Support configurable device NACK retries
-      i3c: Restrict HDR modes to those supported by the bus and target
-      i3c: mipi-i3c-hci: Add HDR-DDR support
-
- drivers/i3c/device.c                               |  15 ++-
- drivers/i3c/internals.h                            |   2 +
- drivers/i3c/master.c                               |  88 +++++++++++++--
- drivers/i3c/master/mipi-i3c-hci/cmd.h              |   4 +-
- drivers/i3c/master/mipi-i3c-hci/cmd_v1.c           |  28 ++++-
- drivers/i3c/master/mipi-i3c-hci/cmd_v2.c           |   4 +-
- drivers/i3c/master/mipi-i3c-hci/core.c             |  99 +++++++++++++---
- drivers/i3c/master/mipi-i3c-hci/dat.h              |   2 +
- drivers/i3c/master/mipi-i3c-hci/dat_v1.c           |  25 +++++
- drivers/i3c/master/mipi-i3c-hci/dma.c              | 125 ++++++++++++++-------
- drivers/i3c/master/mipi-i3c-hci/hci.h              |   9 +-
- drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c |   5 +-
- include/linux/i3c/device.h                         |   4 +
- include/linux/i3c/master.h                         |   3 +
- include/linux/platform_data/mipi-i3c-hci.h         |   4 +
- 15 files changed, 330 insertions(+), 87 deletions(-)
-
-
-Regards
-Adrian
+diff --git a/net/core/drop_monitor.c b/net/core/drop_monitor.c
+index abaf108ac..4c068d613 100644
+--- a/net/core/drop_monitor.c
++++ b/net/core/drop_monitor.c
+@@ -516,6 +516,15 @@ static void net_dm_packet_trace_kfree_skb_hit(void *ignore,
+ 	 */
+ 	nskb->tstamp = tstamp;
+ 
++	/*
++	 * The tracepoint can run in preemptible context (e.g. from
++	 * tcp_data_queue()).  Pin the task to the current CPU before
++	 * dereferencing the per-CPU pointer, otherwise this_cpu_ptr()
++	 * triggers a "using smp_processor_id() in preemptible code"
++	 * splat.  migrate_disable() is used instead of preempt_disable()
++	 * because the drop_queue spinlock can sleep on PREEMPT_RT.
++	 */
++	migrate_disable();
+ 	data = this_cpu_ptr(&dm_cpu_data);
+ 
+ 	spin_lock_irqsave(&data->drop_queue.lock, flags);
+@@ -527,6 +536,7 @@ static void net_dm_packet_trace_kfree_skb_hit(void *ignore,
+ 
+ 	schedule_work(&data->dm_alert_work);
+ 
++	migrate_enable();
+ 	return;
+ 
+ unlock_free:
+@@ -534,6 +544,7 @@ static void net_dm_packet_trace_kfree_skb_hit(void *ignore,
+ 	u64_stats_inc(&data->stats.dropped);
+ 	u64_stats_update_end(&data->stats.syncp);
+ 	spin_unlock_irqrestore(&data->drop_queue.lock, flags);
++	migrate_enable();
+ 	consume_skb(nskb);
+ }
+ 
