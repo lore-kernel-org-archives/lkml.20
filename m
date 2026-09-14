@@ -1,106 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFCF48EC71
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CF149B5DF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408962; cv=none; b=uDcUM1MpKE//Gwn/vbRfaBTRzjBgguFpLY5bj8sDl1+ze4ycZPxTT9hyMdlwNALWbRn0Gx3RsBiLX+K53HekZ3d/RQDSF55eFHltkB2ON43Am3DgsLNzD1KSH1lv+pkVKqBzjIaTpBfg/Bm0vHoRO6Srh9kOvzoaNGT2A+GcXpE=
+	t=1789408965; cv=none; b=fpv5GlzHRj27g5RmH1rZu/wre2Tk9vEkTjVrtDGpXnrtU2xD4kjxuABtimD++aBaLkphS+HKkd9Z9HRTrmnZXYN8ybzwVdaIOKCre8rzxdWCNgfk4cQt7zWvbrbjWfSoJ/hLLaycYEfGV28Y5a2YAiH+uh+/nZP4FyERMI8mb6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408962; c=relaxed/simple;
-	bh=CbmML/vKsaN+MWUnpte02DsCF76GYqE2t1EdZsqtJkI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X45mcx66m4Y4YI7m0M0+gThDtdeoqTbpIBnPxCy4w+tH9g0DZ+KB5twA/GpDYhV2TMOUscunb14cqHMuCP7o9nY8Rb1vlbTbLATaUO1GSky2T7W1lEKt/NfhSFGdBvU6UsdGA+8XALk9jW2cuOk1i5xg+4QVz6nnPBwG6rtyZSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gy6Pfmot; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789408965; c=relaxed/simple;
+	bh=CDrNn5tYB+7ik9rYD8HaesjBeC1wNSiymp7q5LHmmgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vB1965am7Jc02IJNR5PEfP1wTmP3S8LIYsSSK0zVUsBBVhyFLnzrCHWzTNTaswOs5BVYWvpJlwh85FqjqMfpBM1CSXO2s4pLimZ5unGfg81AoTciPVg6BPKKVTis4tzAqm+Nxa0YWdmMLgq1ANyvgH5AuGDCKa9M5O4ZftLZ9HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sEPJS6zp; arc=none smtp.client-ip=91.218.175.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gy6Pfmot"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732DE1F00893
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789408960;
-	bh=EI/hgccyqJYl8Wn5rmh2eoCrWHAuMVpeg97UYtuVp8s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Gy6PfmottFl42tiZ7YbkvVhRDqEtYHl/TVF3IxBkreKeuFF3Tss2NvcaldAhfiM6m
-	 bg4TQc8QtyNuZQdw31hGfYZdrdlrOh0Z8cDdcfXskv2kQDZkY56FOCnTy778h7nbzu
-	 0dyQIyUMfTNbNAk/H3zELMcSDODn+bmgVD/Tj0G1Hvfskdja8fHSn8ENOcT4Z5quy6
-	 5sfR+mZFpQN1WDnmXPwU0NbqQuJ+dQ71t5TlBkHV5ALC29A5zxa+xeBefwxl/zvMfv
-	 8aTuMx3gdAItquJf2kVPWPMYT4txxnVpVrT9Dz/5yE9k+7rUDdQfInoe7tK19mHubB
-	 7ytmTWV3nb0Bg==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a33307ecd9so39324391fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:02:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByvBUtSLR71oDDX0FRu/dsrB16iz1iklpBBs77bBuG9+wEeJPX7LC142XpNy/9EYlIhhxZSPMYl58Cit/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++m62TOhcotcklgpnb4onHVJpg8iCD5GMqrKM6kFfKoqyy8dMhUS
-	/RBm2/3zOisfNv61seoJbzj02ida4Dfq7Ixdp6kwmRSvY6rzaAfgFx2IcyVwW7v4FfxlG6HoHfl
-	u2ue4/YSggWKyljfbZw/enle+949/YfY=
-X-Received: by 2002:a05:651c:a0b:b0:3a3:4c63:771c with SMTP id
- 38308e7fff4ca-3a5c88ab524mr5666321fa.12.1789408958806; Mon, 14 Sep 2026
- 11:02:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sEPJS6zp"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CDrNn5tYB+7ik9rYD8HaesjBeC1wNSiymp7q5LHmmgI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789408960; v=1; x=1790013760;
+ b=sEPJS6zpSPQZHGZFOT5vhLulq2pY+TDpQCPnFDRNYDeo7Vvtf8l/9KWnamj0xNyl2bVX+puH
+ D13SNHfIpUm3rTd8GXu2nYR/DlZHlEl1ManlhgynLZ36DsCH3Uy68S430cnCulwQ4Ulu+Ttct7B
+ 8iEIyYoTWg7gRP7YX+akevTA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3bd1142eb17dcc35;
+	Mon, 14 Sep 2026 18:02:40 +0000
+X-Mizu-Trace-ID: 3bd1142eb17dcc35
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4cddd4a4-d684-46c9-862e-5708797f399d@linux.dev>
+Date: Mon, 14 Sep 2026 11:02:31 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910203727.63489-1-mhun512@gmail.com>
-In-Reply-To: <20260910203727.63489-1-mhun512@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 14 Sep 2026 20:01:21 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gsa3ybAQvusfO0WZX+ZjK9LGOD3HUWHiO+5HVC8WUXgg@mail.gmail.com>
-X-Gm-Features: AcwNN1WMOG02-FJ8ACeaT2XmVVKlrZsyVcaRXPpQgqr4pw2nAOcMbMNWji4E4Jw
-Message-ID: <CAJZ5v0gsa3ybAQvusfO0WZX+ZjK9LGOD3HUWHiO+5HVC8WUXgg@mail.gmail.com>
-Subject: Re: [PATCH] PNP: Detach device after resource transition failure
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
+ bpf_reg_state->id [NFC]
+To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20260910164635.459558-2-vineet.gupta@linux.dev>
+ <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 10:37=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com> =
-wrote:
+
+
+On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
+>> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
+>> index 66fb11b6c6a7..d974baad37ee 100644
+>> --- a/kernel/bpf/states.c
+>> +++ b/kernel/bpf/states.c
+> [ ... ]
 >
-> pnp_device_probe() attaches the PNP device before it activates or
-> disables its resources.  The attach changes the status from PNP_READY
-> to PNP_ATTACHED, but errors from either resource transition return
-> directly and leave that status behind.  A later bind or manual PNP
-> configuration attempt then sees a device that is still marked in use.
+>> @@ -369,13 +369,6 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>    * and r7.id=0 (both independent), without temp IDs both would map old_id=X
+>>    * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
+>>    * X->temp2, but X is already mapped to temp1, so the check fails correctly.
+>> - *
+>> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
+>> - * base id (flag stripped) must both map consistently. Example: old has
+>> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
+>> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
+>> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
+>> - * with A->B. The base ID cross-check catches this.
+>>    */
+>>   static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>   {
+>> @@ -384,15 +377,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>
+>>   	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
+>>
+>> -	if (!check_ids(old_id, cur_id, idmap))
+>> -		return false;
+>> -	if (old_id & BPF_ADD_CONST) {
+>> -		old_id &= ~BPF_ADD_CONST;
+>> -		cur_id &= ~BPF_ADD_CONST;
+>> -		if (!check_ids(old_id, cur_id, idmap))
+>> -			return false;
+>> -	}
+>> -	return true;
+>> +	return check_ids(old_id, cur_id, idmap);
+>>   }
+> [ ... ]
 >
-> Route both errors through the existing failure path so it restores the
-> status to PNP_READY.  Do not disable the device or clean its resources:
-> pnp_activate_dev() only marks it active after a successful start, while
-> pnp_disable_dev() preserves the active state and resource table when
-> stopping fails.
+>> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>> index d571fbfc86a3..da6cb961a520 100644
+>> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+> [ ... ]
 >
-> This issue was identified during our ongoing static-analysis research whi=
-le
-> reviewing kernel code.
+>> @@ -648,10 +648,10 @@ l_exit_%=:							\
+>>   }
+>>
+>>   /*
+>> - * Test that regsafe() verifies base_id consistency for BPF_ADD_CONST
+>> + * Test that regsafe() verifies base_id consistency for ADD_CONST_*
+>>    * linked scalars during state pruning.
+>>    *
+>> - * The false branch (explored first) links R3 to R2 via ADD_CONST.
+>> + * The false branch (explored first) links R3 to R2 via ADD_CONST_64.
+>>    * The true branch (runtime path) links R3 to R4 (unrelated base_id).
+>>    * At the merge point, pruning must fail because the linkage topology
+>>    * differs.
+> Does this comment still match what the code does? The patch removes the
+> "base_id" concept from kernel/bpf/states.c (deleted the paragraph that
+> defined it, removed the two-level compound/base id check from
+> check_scalar_ids), but the comment here still describes the test as
+> verifying "base_id consistency" and refers to "unrelated base_id" on the
+> next line.
 >
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> Looking at the function name and __description below:
+>
+>>    */
+>>   __description("add_const base_id must be consistent for pruning")
+>>   __failure __msg("invalid variable-offset")
+>>   __naked void add_const_base_id_pruning(void)
+> and later at line 695:
+>
+>>   	/* Runtime: R2.id=A, R4.id=C: base_ids A vs C inconsistent,
+>>   	 * pruning should have failed. */
+> Should these be updated to use current terminology, or does "base_id"
+> still have meaning in this context? The test itself still works correctly
+> after the patch, so this appears to be a documentation consistency
+> question rather than a functional issue.
+
+Indeed base_id as a term is gone, but just id alone might be confusing 
+as well.
+How about link id as a replacement for base_id
+
+-Vineet
+
+>
+>
 > ---
->  drivers/pnp/driver.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 >
-> diff --git a/drivers/pnp/driver.c b/drivers/pnp/driver.c
-> index 6d58b1465081..80c2a0f15b80 100644
-> --- a/drivers/pnp/driver.c
-> +++ b/drivers/pnp/driver.c
-> @@ -96,13 +96,13 @@ static int pnp_device_probe(struct device *dev)
->                 if (!(pnp_drv->flags & PNP_DRIVER_RES_DO_NOT_CHANGE)) {
->                         error =3D pnp_activate_dev(pnp_dev);
->                         if (error < 0)
-> -                               return error;
-> +                               goto fail;
->                 }
->         } else if ((pnp_drv->flags & PNP_DRIVER_RES_DISABLE)
->                    =3D=3D PNP_DRIVER_RES_DISABLE) {
->                 error =3D pnp_disable_dev(pnp_dev);
->                 if (error < 0)
-> -                       return error;
-> +                       goto fail;
->         }
->         error =3D 0;
->         if (pnp_drv->probe) {
-> --
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
 
-Applied as 7.4 material, thanks!
