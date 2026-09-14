@@ -1,82 +1,105 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CBB513DA7F9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B51F469857
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391909; cv=none; b=g9IgUUXenP0pwpuBWGNMyUnhdwJAjRFHJJFyBe1xryCV+ajiWrRZMK9LhKlVCntwUGYsL4nSejDpBZaIDOBrNFRBcEev7UxASmhBDg5fRcpTL98yv/YZwqxQPidG9CHLhXEdV0dwByTIO2sFfX8l022toXoJxlcNjVPbMhms264=
+	t=1789391919; cv=none; b=ovKic30T1kL8+1B4Ampj9zUERRveZQdMivfG7jdVgY9/L8Ef6eA0YQlSOeoDogdB98hIkQzjlYC1Pl6b85u8zBfyjY12eVrLQR2BmTfMX8YbaWwyC3rxBhWajhJBuFHJggPPuK7rFTMFmHO+wsOKOzwNrIykHkq2+DT1LGwSCeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391909; c=relaxed/simple;
-	bh=4fFSBQUmiQmXrYe1XA04TLaJwyz/YyMUQosBL+4T7Qk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ft7NutPJss758xoxI4Y+R0UbTSF87Hr/UifGrwZShJYij5RF3/XPJ6pqI6cMZqTMthRNBT/njaC7OYEqzPdIaMKxj7hc4ImtJl+Z5fOCtjM9IOqYgGh+kR7ujtB/xE4+k16Vik1SC7LW6Gma9HyBrgAs6nx///2WkZeWi5jvzzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Cd1LGj1/; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789391919; c=relaxed/simple;
+	bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=o194cCNyVJbbOzKY82ICLWr9rEvQsGAxRg166cWtr4Yt0vLoSsRARn1qsujZJXQDjLc6w1MGfmHyMJrqv4mRPm9DEC0QEtiUu90zzXD6zxm9u2mrdIcpPsR54oENuz8snGXbwh1NY4Cjk5KT/Y/SD4X+8L2tPWERgcpZlAktVKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IR5QfglT; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Cd1LGj1/"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77D071576;
-	Mon, 14 Sep 2026 06:18:23 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8721F3F59E;
-	Mon, 14 Sep 2026 06:18:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789391907; bh=4fFSBQUmiQmXrYe1XA04TLaJwyz/YyMUQosBL+4T7Qk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cd1LGj1/mJ4u+1418F6iLq38fn956rgDEzm4+0FMnSL3Bu+3xHQy/239mqTq0dLOP
-	 kmRwuZN8+mzhQt7yFew5Xx3tEBNwknVxKOKb1VnOIWECWioIAaVpgwCk7CFUSXtKkp
-	 9vSlYv4HgfIxWUS7qlNb2HRQTHJv+lS+FfQu/QFM=
-Date: Mon, 14 Sep 2026 14:18:19 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v11 3/7] firmware: arm_rmm: Move RSI support out of
- arch/arm64
-Message-ID: <aqf0G2j_t7wlW0DP@arm.com>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
- <20260914060511.277948-4-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IR5QfglT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789391918; x=1820927918;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
+  b=IR5QfglTVtwvU8PTYTrRSKDgdr0rL77j5lh6mNUI5FclUAmqGpK1fTi3
+   VYuJbMsv42tTT2DZUGo/5LcWnUh4xri5kF2rmL7YaNO9LYH4Gg32NIpZb
+   p7LmrcPBcfNqz62N+fHxt9ONY3AwEBITyaNZw/Hn5O3G7jMgN589kDNCN
+   ntPxsLKqkL/4hYNzOaCficFZL8fz2BLUGqBN3UDhbxMqVG1zGIie7nH5u
+   ctEQt67iy2T6hC1e8mf1XK7RlODhUkQcmB345WWp9pghomYYz07fMEFGN
+   JR8491S72kgt6S/dhDt7sNAxUeCL/Odc8cmJ2cIg+v6n5g0We6Sy+sByK
+   g==;
+X-CSE-ConnectionGUID: u2GHe043Qjm2Y/WYBWyE/A==
+X-CSE-MsgGUID: cSoAFOq1SsOYRggUHlFKnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89768226"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89768226"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:18:38 -0700
+X-CSE-ConnectionGUID: gLmUT0d9SWGeZhp5c2DZ4g==
+X-CSE-MsgGUID: xBWAYN1BQ6uYAsUSlwfxbQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="276171115"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:18:36 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Mon, 14 Sep 2026 16:18:02 +0300
+Subject: [PATCH] drm/xe/nvm: add system controller region
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914060511.277948-4-aneesh.kumar@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-nvm_add_sysctl_region-v1-1-75d710daf5d0@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3M0QpAMBSA4VfRubaaxRqvIq2xg1OMdiSSd7dc/
+ hff/wBjJGRosgcinsS0hRRFnsEwuzChIJ8alFRa1kUpwrla573lm4djsRGnJISujHKmN1pLBcn
+ uEUe6/m/bve8Hruo4IGcAAAA=
+X-Change-ID: 20260914-nvm_add_sysctl_region-6582a8b86602
+To: Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789391915; l=884;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
+ b=TMrp+TtcG+Wocd0zT0UJHADOd9VE0Lf3JgUDiOSUmxfoTFR2hYr7CjRrAaPLu9mNFbItcAWL2
+ Na2NEGXtfMvA2mugLPvwwcu6iVBR29aF2P4uN+h7NGIuL54T+YaAxtW
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-On Mon, Sep 14, 2026 at 11:35:07AM +0530, Aneesh Kumar K.V (Arm) wrote:
-> The RSI SMCCC function IDs describe a firmware ABI and are not arm64
-> architecture specific definitions. Follow-up changes need to use them from
-> non-arch code, including drivers/firmware/smccc and the Arm CCA guest
-> driver.
-> 
-> Move the complete Realm Service Interface (RSI) implementation from
-> arch/arm64 to drivers/firmware/arm_rmm. The RSI SMCCC definitions and
-> command helpers are also moved to include/linux so they can be shared by
-> architecture code and firmware or driver code. This also keeps the
-> firmware interface outside architecture code, as requested [1].
-> 
-> [1] https://lore.kernel.org/all/agsNO9cc7H-b0H8L@willie-the-truck
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Add region 5 (System Controller) to the list of regions
+available on device.
 
-The patch looks alright but always wondered why this and the following
-two patches are not first in the series. They look like some almost
-independent cleanup randomly in the middle of the SMCCC bus series.
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+ drivers/gpu/drm/xe/xe_nvm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Otherwise,
+diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
+index 1ea67eaeae24..51a1a431ad85 100644
+--- a/drivers/gpu/drm/xe/xe_nvm.c
++++ b/drivers/gpu/drm/xe/xe_nvm.c
+@@ -28,6 +28,7 @@
+ static const struct intel_dg_nvm_region regions[INTEL_DG_NVM_REGIONS] = {
+ 	[0] = { .name = "DESCRIPTOR", },
+ 	[2] = { .name = "GSC", },
++	[5] = { .name = "SYSCTL", },
+ 	[9] = { .name = "PADDING", },
+ 	[11] = { .name = "OptionROM", },
+ 	[12] = { .name = "DAM", },
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260914-nvm_add_sysctl_region-6582a8b86602
+
+Best regards,
+-- 
+Alexander Usyskin <alexander.usyskin@intel.com>
+
