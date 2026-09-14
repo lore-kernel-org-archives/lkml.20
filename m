@@ -1,146 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55A03D75D7
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:59:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFA33D7D82;
+	Mon, 14 Sep 2026 10:59:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789383581; cv=none; b=n3wJ1iXOtjycaBuK57H4ifnfIQOCLkT17Fh5DbWXSjt6MEfAogoPDp/EYsap7yN83oc326zO9IYO1/KuY0zVpfwCwDu3uM2Yf0CBwoYgTENM2aPvB4QbKP1Jti/iyN1BpkRQG2T4VfXEmb50B+FwwdJp/fdIcVJAed+N702HxQY=
+	t=1789383593; cv=none; b=QoTxmgd5/LA8c7OqQ04T/37oCBqa+bKt/pKgh+PddNKcBtVZUtZ+XlyMFNlOOHLmOI7Gvhx22lxyKl5RY/RaE+44Yt+0COuvfVWdoZigrF+Lo7ppuFB6H+gQ/fDQ9F9a9QVpPnJIUvbQ8emhEMrWc8C4JyJGp7d1UL8MMZKA74g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789383581; c=relaxed/simple;
-	bh=PgkI0z9SON09RoaG0Eo1dzgmmu3lPuYvERolAIKtbyY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rKHb1L2AB1Z9IIelwI4HvLkDODz19g8qbjkhd1afm113/TuyXk6wC5s0wki42qLBwYEXHQ7OTHpkF4AGYSFeV7ZS6V5z0RI3lkfW363pFSr18+1gN3wSEKWL+ncan0YPvYkmzs5IkqokLIT5yCLCzp66q9A+gbutgLC7d0iMKjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zuk9D7+m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789383593; c=relaxed/simple;
+	bh=wUSWOAwuv8WbftY13eJFY7cdsmtZr8wHtpJzTjHjQ/Q=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=efdFGDBvXP1xBdwe3dLlmKffZOJcVnJpCBMzaWTm9HtLdoG0NzQ8aX9REQi87kSpnLxC5CcO0bXDF8HgweJGxknWWMw3lt55uaZlIIrB84joiRRehAZOvM5AaCOAlKrAWUTGnEgN4dTm2ReW53L9KjlLMso8qT3rp0owLZUE+TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBL5qrZj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zuk9D7+m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8924C1F000FF;
-	Mon, 14 Sep 2026 10:59:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBL5qrZj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23AD1F000FF;
+	Mon, 14 Sep 2026 10:59:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789383576;
-	bh=k/820N3jYr2GH3WCO3bqlo3T1Ji36Ja7L774u/GuoxQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zuk9D7+mhbmETqyGx+b6NA4d8RWyYcLoNEy1TLPy0e/Dn014vxpUU1WikKC0T0r/7
-	 Ov0mc/YucGBUfMHEKxaz4Szf0RCtFDXTL2j+5EaEU684rqf7h1KAeJsVLwHuCgvnNX
-	 rrJ4Xmspi5n/zFEUrfvdeasWfnfQdQ//QstsUMkPh0bcblv1/EHVAl33TI/hLAazdJ
-	 cNEMhFVSfrV3SbjJoJY0rIhS5ju09P/WvIdRLw6sRKPkBBYVNX+nnLSUjbs4KwUuXb
-	 r7jP6cKkSNV3pXSLrkE2Il3/ucxD2s/GuuCvD6IxvGqiJOIuaAAs2eYk6liRWao171
-	 MU1WgEBpP/keA==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 90776198004A;
-	Mon, 14 Sep 2026 06:59:31 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 14 Sep 2026 06:59:34 -0400
-X-ME-Sender: <xms:k9OnaqHYjWotVJxbnp41r1vGY8JgRiwaCeF8ZUhFdpvWFG7d-4QyPg>
-    <xme:k9OnatqGa77SeWvVYXGCWqC6KA_p51VWUT3QfNN8pXhsTf97SBefGebz3M2f4GUQM
-    efQkSQbQBgk5TetMsyHfOTnRZs1MvplpYV0c_QnK22bo74jwpjhdFbC7Q>
-X-ME-Received: <xmr:k9Onai2kuygq_g1aR0atLTaZwY5SGosh2LTQ7AUPw54UU8OogHShrHUYt1s>
-X-ME-Proxy-Cause: dmFkZTEa4sevxAV6Q4GAtMmH3bNgFi9bBl2P5MgBoETq78GI1x+H4CqfJcXgtyg8PZSHj5
-    LvBOUCzISOeMcJoRas58P2quezxpo3JC6BH90ravhEQYsyOcJAJXikWX7542hpMGHON4L7
-    i7k6Zwylw09Q7uXYpekWt9ouQUuEpeXnzySfB+XsC6DRIfmU+wT5NEO4827CpZTmvhRRw5
-    c6Kmio2ItUEUefEPyDnOD+8oAQJ/XhY/CYU1LoF4MPhTOKywPDF6hfnX5h1iFSclCvFQYr
-    kcrXR0C/DEDl7eglkfSInGXgUWVUj950lWrgzDvr/sTLu+HwJpLB5xSuAE4a5sKhKXt3Ip
-    PAy8KT9QsKuOTuZHH23753Aasww8q9BumVuQkb4ZSLnqUwyQwh0wDgZdyuVJSqKWgmm7ym
-    N2ZaTFzPy4JKby6jkjg9S1XjwbxdToO/GANDuV2z6KCDq2De5oJAgSC83nQ3xY+T78TA7Q
-    hJdkQHaht+xAzKVkzoiC6y2OZ0JKyqEHq6uBWIKe7wAViEPip3UJ6AELJ5Wc8yO3cB/hml
-    5Yn0mDJEYYjhvcZM6qxXkCfnYOK3NyW3sHKdEzTU+jVaDB6T4AuSwnL9tpWBkqTl87Gi4l
-    8ZlwpGwz0CZcFI/a9uqBNKj0fHONB5xJe9RxjfmyiTvEPvjRZDq3KhXsVX9A
-X-ME-Proxy: <xmx:k9OnahBrDsaxL963XQga0pd_HufUJ3UEG3E1KeV3GYJFzKnWO0K0AQ>
-    <xmx:k9Onat8SpXgt7AK8tbhOtlPySC-SAZ8H7kq1LJu9o8BK7nhUb35hFg>
-    <xmx:k9OnavMSoaSp_NcmONiBIEEodxgVb_NxKWozUyJntVafvVjYQx41BQ>
-    <xmx:k9OnanF5FAyueRGy-U3vIDp4RVRlfFaFAvXnoU64J2N6MnXFO9R5Uw>
-    <xmx:k9OnausicBquc8Ki5-pPkwUILlALjYlm6cuBbPexMfzrXZah4wJ2-hhJ>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Sep 2026 06:59:30 -0400 (EDT)
-Date: Mon, 14 Sep 2026 11:59:29 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, 
-	surenb@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
- PMDs
-Message-ID: <aqfRCPheDYTgTdAk@thinkstation>
-References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
- <20260913072312.52111-1-lance.yang@linux.dev>
+	s=k20260515; t=1789383586;
+	bh=x2TjAAutncf4ENJcUmccneQn3Qg+/E7cvgwW0tmXPMk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=EBL5qrZjbspf5FkLQhjiVy7hzqgCmL59PoJuMGnaWKDfZlptnSGuagixTWHt3lyUu
+	 2k1VsTlu+pP1HI2Hl1O5fmH1dHU3tzjH01zfnCF85kh0irtERdNHBBgYu7V1pMLawG
+	 PUs50NoRsmuPbKy9gpjPX0+al4tGAWc/25XUwLeARG8VD7W2lFUrXLRZLmWo5yueXV
+	 lJyzphuH5oudrbRRYFRXqrstGxHQAgQ7fEfayZsaZGj3nEHWDZIz/5hwPmeqN7fcX+
+	 qnfNpIOdWBx+CSYP5wSDIw6UjUXGkKtOVBS8eMu4du0YpQ80pxF8KbjDkjS0pxW6CF
+	 zJ9lItFesuZ1Q==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Yilin Chen <1479826151@qq.com>, ojeda@kernel.org
+Cc: boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+ dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
+ acourbot@nvidia.com, work@onurozkan.dev, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yilin
+ Chen <1479826151@qq.com>
+Subject: Re: [PATCH] rust: configfs: require Send data for Subsystem
+In-Reply-To: <tencent_05937A22D2DA2BAE808EF19E491AA109BC09@qq.com>
+References: <ImeI6ab12UCXAZVW3-KRxc7AELF-et3TKlpmchMSeMieBMVekE65n2sM9LYa_WyA8qkaiWeN-9_zkIFlad047Q==@protonmail.internalid>
+ <tencent_05937A22D2DA2BAE808EF19E491AA109BC09@qq.com>
+Date: Mon, 14 Sep 2026 12:59:38 +0200
+Message-ID: <87v788t7xh.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913072312.52111-1-lance.yang@linux.dev>
+Content-Type: text/plain
 
-On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
-> 
-> On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
-> >On Sun, 13 Sep 2026 13:19:42 +0800 Lance Yang <lance.yang@linux.dev> wrote:
-> >
-> >> From: Lance Yang <lance.yang@linux.dev>
-> >> 
-> >> has_deposited_pgtable() uses !vma_is_dax() to decide whether a huge zero
-> >> PMD has a deposited PTE page table. That also accepts raw PFN mappings
-> >> of huge_zero_pfn, although vmf_insert_pfn_pmd() does not deposit a page
-> >> table on x86.
-> >> 
-> >> Zapping such a mapping would call pgtable_trans_huge_withdraw() without
-> >> a corresponding deposit. With pmd_huge_pte(mm, pmd) == NULL, that causes
-> >> a NULL pointer dereference.
-> >
-> >That's the sort of thing we'd prefer to avoid.
-> >
-> >> Use vma_is_anonymous() for the huge zero PMD check. This matches how PTE
-> >> page tables are allocated, deposited and moved.
-> >> 
-> >> - For anonymous page faults that install a huge zero PMD,
-> >>   do_huge_pmd_anonymous_page() allocates a PTE page table and
-> >>   set_huge_zero_folio() deposits it before installing the PMD.
-> >> 
-> >> - On fork, copy_huge_pmd() allocates and deposits a PTE page table when
-> >>   copying a huge zero PMD into an anonymous VMA.
-> >> 
-> >> - Raw PFN mappings use vmf_insert_pfn_pmd(), and DAX file holes use
-> >>   vmf_insert_folio_pmd() to map the huge zero folio. Both use insert_pmd(),
-> >>   which deposits a PTE page table only when arch_needs_pgtable_deposit()
-> >>   requires it.
-> >> 
-> >> - Moving an anonymous huge PMD preserves its deposited PTE page table.
-> >>   move_huge_pmd() transfers the deposit when necessary. For UFFD MOVE,
-> >>   both VMAs must be anonymous, and move_pages_huge_pmd() transfers the
-> >>   deposit as well.
-> >> 
-> >> Keep arch_needs_pgtable_deposit() first so architectures that require a
-> >> deposited PTE page table still return true regardless of the VMA type.
-> >> 
-> >> Commit d80a9cb1a64a ("mm/huge_memory: add and use
-> >> normal_or_softleaf_folio_pmd()") removed the vma_is_special_huge() check
-> >> in zap_huge_pmd(). That check skipped the huge zero PMD deposit test for
-> >> non-DAX VM_PFNMAP and VM_MIXEDMAP mappings. Removing it exposed these
-> >> mappings to the incorrect !vma_is_dax() test.
-> >> 
-> >> Fixes: d80a9cb1a64a ("mm/huge_memory: add and use normal_or_softleaf_folio_pmd()")
-> >> Cc: stable@vger.kernel.org
-> >
-> >How real is this?  Is there a reported-by:?  Do you have a reproducer? 
-> 
-> Yes, I reproduced it on x86 with a small test module. It sets
-> VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
-> huge_zero_pfn, without touching the page tables directly. A full-PMD
-> munmap() crashes before the split series[1] as well.
+Hi,
 
-Ah. So there's no real bug upstream, right?
+Thanks for the patch.
 
-And I am not sure it is how we want to address this. I don't think we
-should allow randomly map huge zero page (and non-huge too). It can be a
-security risk if it ever gets exposed writable.
+"Yilin Chen" <1479826151@qq.com> writes:
 
-See CVE-2015-3288 and 6b7339f4c31a ("mm: avoid setting up anonymous
-pages into file mapping").
+> Subsystem stores its data by value, but its blanket Send implementation
+> did not require the data to be Send. This allowed a configfs subsystem
+> containing a non-Send value to be transferred across threads.
+>
+> Link: https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/Should.20add.20Data.3A.20Send.2FSync.20bounds.20in.20configfs.3A.3ASubsystem.3F/with/623719979
+>
+> Fixes: 446cafc295bf ("rust: configfs: introduce rust support for configfs")
+>
+> Assisted-by: Gpt-5.6 Sol
+>
+> Signed-off-by: Yilin Chen <1479826151@qq.com>
+> ---
+>  rust/kernel/configfs.rs | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
+> index cd082b83e9e7..f8ca5fc03bf1 100644
+> --- a/rust/kernel/configfs.rs
+> +++ b/rust/kernel/configfs.rs
+> @@ -135,8 +135,9 @@ pub struct Subsystem<Data> {
+>  // SAFETY: We do not provide any operations on `Subsystem`.
+>  unsafe impl<Data> Sync for Subsystem<Data> {}
+>
+> -// SAFETY: Ownership of `Subsystem` can safely be transferred to other threads.
+> -unsafe impl<Data> Send for Subsystem<Data> {}
+> +// SAFETY: Ownership of `Subsystem` can safely be transferred to other threads
+> +// if its data can be transferred as well.
+> +unsafe impl<Data: Send> Send for Subsystem<Data> {}
+>
+>  impl<Data> Subsystem<Data> {
+>      /// Create an initializer for a [`Subsystem`].
+>
+> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Re our discussion on zulip [1], I think your observation is correct, but
+there are a few more issues we should fix:
+
+- AttributeOperations: require AttributeOperations::Data: Sync. This is the
+  point where the user implements a method that receives &Data from a
+  foreign thread, so the requirement is visible close to the use site.
+
+- GroupOperations: add Sync as a supertrait, since make_group and
+  drop_item receive &self the same way.
+
+- Change type GroupOperations::Child: 'static; to
+  GroupOperations::Child: 'static + Send;, because release drops the
+  child group on an arbitrary thread. The child's own Sync needs are
+  already covered by its own AttributeOperations and GroupOperations
+  impls.
+
+- Update the SAFETY comments on the FFI callbacks that call
+  get_group_data to cite these bounds as the justification for handing
+  out &Data on this thread.
+
+An alternative is to put Data: Sync on Subsystem::new and Data: Send +
+Sync on Group::new. That is simpler but less precise, and it does not
+document the requirement next to the trait methods that receive the
+reference. I prefer the trait-level bounds.
+
+Can you send a new version with these fixes?
+
+Best regards,
+Andreas
+
+[1] https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/Should.20add.20Data.3A.20Send.2FSync.20bounds.20in.20configfs.3A.3ASubsystem.3F/with/623192434
+
