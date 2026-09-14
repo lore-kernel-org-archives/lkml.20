@@ -1,152 +1,195 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C392E43DEB3
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EF3426D03;
+	Mon, 14 Sep 2026 10:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382692; cv=none; b=NMir5tZe2ZYXjVmrYdTH/5tHvsZxGS7KpnM4oJ93bR5TCmvDotU55Mb0idkwzrMxkW5JoxILy3B+R1vfAnnsQnjJrXG4RGIYqhHpm/Py9e3qxgAUGeOZif6Tobl4KGD3KlSRrdvytEiLY4Hfeg/uQgacHSfuGGoJLdEZ6JozRfU=
+	t=1789382701; cv=none; b=qa4+LKQjLMBFvBxw66FnseyPPS2xRLzR5FUeIXw7pgDwcYYJ7rCdifIY1To/X1plW0WcYEWzFyCMCfjc/ordE7wv+fgQT66zfKqDGCxk/+E6jR00ib/MNlm7bkTZiMXIXOwd+RJeFuLbvo3XzGG2pGjUeUhB+n2GMp43UJIQYec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382692; c=relaxed/simple;
-	bh=812INHpCsKxdi9vRvdXLJbGGFeCf8GPj4h/s/T//r8I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jA5WD8HNIs51FNHD91CebzOVZFNN2ymfGrpJk/MOTEj3+f4tu4MjXuMBCyGMsWo35Q4yy87KiayDeKjz78XaCmff0Mo83+oChs7oFpolkDyoRx3rVubvMnrh9XF/esVTh/jGe0mxA42LiwDQW2uoArgAUWRpq8JXoX5Im9IzTLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JLR9pzdS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TON8JA1R; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789382701; c=relaxed/simple;
+	bh=xLHXZn3Puf64p2btSuTlnBlLyW9MWfIh73UeUba0Wus=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WhuQOD6Fiw9qLp3xkY4AsnLbYLWlSSoKSG85vXhhXp/wjZRimT3Oi8aEXivT3YbkNr3KZs6wXq/HiZDm6r3fkE7JhEjfCAtYr9+tPq3TL+QCfjKwCxnnCDTIOCZmSwoKMztVdWtC3if9LeJ3zqR+Q1PFd9C/GJFK+HAXRmYbC0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N278Zs7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JLR9pzdS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TON8JA1R"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nWaL1332245
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:44:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	P4FJ4s9/QzAggJf/vxdGQVJj2JX++EHJC32Vcrso0Zg=; b=JLR9pzdSt1LTaHN1
-	derqEsvRmrhNUQE3wpCgGXqmNhk6Iuq6zHMK30z6tpMa5x+oojVXTYaoNaAkaofR
-	oMXm7AURNrbierc6Vc6cLCCSjgA9iTDhShw7zXE1+0zyO5+LMEBTu+miA2Tet1YE
-	/DeXhSfNcrqspn2b9QGmoiFa/G3XB9Cn5wVFn270dRenQPnG7wMEEVi+Cs8A3uwT
-	FJlzJ6cvJu5znQTZ9nrkdHlip72tmR0JdbD43y7px6h/6gkVu3DToRoeZcGl5CE2
-	14+mVJxYT2Ek12n76Ibs2D9SSfvRLn0f5Xxw8t/2HNH+o6IDv71r4H9S06LY7W5r
-	pUzF4Q==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpeex86tk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:44:43 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930a312222dso32490285a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:44:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789382682; x=1789987482; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P4FJ4s9/QzAggJf/vxdGQVJj2JX++EHJC32Vcrso0Zg=;
-        b=TON8JA1Rzir7SYiewd6mIzJ9iRNK/o6BMjAriRsZg77TkKUPQZyvoUjzYBHw71cmu8
-         dGUwLIFtmeLJDPsA3P8VzliiMb286Wrn3+7YcFEy8AJRtaP4RFcODxxsK+Wa4ASc1zgP
-         2Qpta5sibHCdn2evlao3jlncLyjXGBRMMmnLP1R6vkMXyxoJSr2mtTTY8y68WMr1GV6a
-         xDMrRfBapwvSEIf6jb90mSx0xxNJ+z/d8mS3fuF8Xp+UcaJNpQYqjJEqrMBF8Zt179Ia
-         dYQ316wsrOxq9CXb+SW0JAaF6tIDAz15PoGYbS/JDI6q0HPfnL22Sr44GMBQrd/+sRF4
-         B0Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789382682; x=1789987482;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P4FJ4s9/QzAggJf/vxdGQVJj2JX++EHJC32Vcrso0Zg=;
-        b=UHJsCv9lwB54xi9VhxzgPZWU/cmnxvcjEgV1aKXQzYoDiEIffhh9i22/kLuUIGOtxq
-         1/YdPZTheksF6fEhGxTZGmUZfOFR/p/s0q/mB1ELaW1aCH55xq3u41rJ11tS/tCaRXL0
-         ZUt+TNYQA1fG8oZtHL+P8pf2NHi7N/+kXV1tM0tv2oOvf3qhqUhFvw9602LM7qfKstvN
-         0ZLyiUKoSREfhhRfRJeLdDsph2zPGGezrYOfC70pF0D2XoZ7TqlNrUjM3b1Iycev86U2
-         dJ6wwHCUltDAhDLI/F8rc55p+9Jz5MohzN28PmEzkjDqUqXl/GhCHkwrAuc4YALWo1pg
-         w7lA==
-X-Forwarded-Encrypted: i=1; AKwUvBwp1hG18dquFDQbILgJjWq3iZhyKpJ20QIwnYYktYaBL9BCYUgu9I17fVbCZULGtFSBmCr0WLbLhihyIJk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzEBap3sRBihDRoNRALaLZUt2rovLwbFOr73N+mxfF59Iy+TPf
-	oUUgMb/iQ+3g7vb8bJ2bdomj9Y5wXmMPL2RMh4ShUnQfUwOKCCwbTqGAXnqYjnVMXWF8wv9pSbT
-	cEv80KeAY/fevT+4GO5TQbCSpzg4BIxycqTOmNPWy432jff4b5+L+PLrDEA3ODUqJ4x4=
-X-Gm-Gg: AYBFou3vLxQTkGXjrXqJvVtC+BJ/Yn9/QgpFmz5Lj5/hO86k1r8x3cUMISKETg2z5Rb
-	zskenyt/b3+PlzXK5VazWhwWTe2y/cBhk0h0Jxe4olL9zVVM/AZkmpMWkXjC5Bt68IoR5pdn954
-	smyvr8RNz/K+bowz1cad2WGp3F33/JjmBF7dU97DCf3EAp44ZBSXh4YvAWu0rwMmSHP6qyiqPHd
-	FNIlOMTbIW/MGH+F0XpDGlK15pNGt8LpEynRpbyX0x+s19IWt1t7OKgVEWQPyiK2WjNpGto6PEe
-	OdRz5Fd8LbUXiagyj46Ip6lbVjNqM11gr5iYiWR6UWV7/ftoLFXgy80bSTU4Z6IwsJkUBnFBvF5
-	+HGkYEEFyS/W9YKdLTDECSA==
-X-Received: by 2002:a05:620a:480a:b0:939:c8b8:4639 with SMTP id af79cd13be357-93a29c029cdmr224874385a.4.1789382682328;
-        Mon, 14 Sep 2026 03:44:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:480a:b0:939:c8b8:4639 with SMTP id af79cd13be357-93a29c029cdmr224872485a.4.1789382681869;
-        Mon, 14 Sep 2026 03:44:41 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9ba8f3ab9sm3782645a12.15.2026.09.14.03.44.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 03:44:41 -0700 (PDT)
-Message-ID: <9a072680-c06b-4255-bece-bd20a90a1e14@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 12:44:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N278Zs7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9411F000FF;
+	Mon, 14 Sep 2026 10:44:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789382695;
+	bh=Zgkv+k4iBESbCVXAtCuYGBCd++Hb/fOZYZ+TTVD4Isk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=N278Zs7hhbk6XLPGmhx3Bv1jpvaeK0H2PRXXY0V8DvNiH2eXWlE3TUJ/gTxLVtBzx
+	 M+CP7h73E3tBpVshR0vxx4G3tGoY9Nzn/eobiETo2/Hb3KiJEDviQBEFs8ISVpN1ev
+	 GSBT0a/+4Kq0zujQAv5IlKUUqL8GkMMU4jmuad/8DPgvClRAIT9FzSSOK3H26apQ5Z
+	 CpAVSHSRqjd9tnxNusbF8k4p0ckHW3G+yFfN07cI7F7+Kc5jssaXYBMokVMYkq9HLk
+	 dcf2fugbT488NPqHIW1pSjbBYm6EWI1Iz9AvwQ9TJ3xLyhFCLuFGmQTz+DX+xe9xQs
+	 u7O6NpggZhPhQ==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, daniel@iogearbox.net,
+ mike.marciniszyn@gmail.com, mohsin.bashr@gmail.com, sdf@fomichev.me,
+ bobbyeshleman@meta.com, daskald@meta.com, bestswngs@gmail.com,
+ maxime.chevallier@bootlin.com, jacob.e.keller@intel.com,
+ leitao@debian.org, cuitao@kylinos.cn, asml.silence@gmail.com,
+ dw@davidwei.uk
+Subject: Re: [PATCH net-next v2 3/5] net: Revalidate queue config for
+ ringparam changes
+In-Reply-To: <178915060796.219967.9039776741140153103@kernel.org>
+References: <20260910180908.1506533-4-bjorn@kernel.org>
+ <178915060796.219967.9039776741140153103@kernel.org>
+Date: Mon, 14 Sep 2026 12:44:51 +0200
+Message-ID: <87pkygnmcc.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] arm64: dts: qcom: nord-ride-embedded: Enable PCIe
- controllers and PHY
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Yu Zhang <yu.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260914071944.164217-1-shengchao.guo@oss.qualcomm.com>
- <20260914071944.164217-4-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914071944.164217-4-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfX6S+Z5/4oRl8m
- jOCFIUnHTHaf3AuPm8XWEOj58Mwc18B3ZoziEP/iQeNsJdfGIotwAq4HBuKgL0t0Ov4ey+zskPy
- 3GjAAChzuNRw8K1RkCE69ZUDf7wo2cPUKo3vwPr8udP5Zgm8aAPMdM/9BYrkc6pE62bihf7aq0p
- PW0LJDQwlChsEvJzMF8DC2kcqsz8ZBmB6xO3p2A0GyEjuqBKPZAbUNRDKt532ggFhqei4pDC5rn
- AzQZIqqQisQlMXFjfBa3dtkJYTI4K153IutYeFpmQYzQPzVQ6hNlq4gslb7Jt7wi3Kcvzn0+o5F
- Oc5OsUPM7yLx7tkJSDl9BpzMdsdwtwYeu9x2rvLormt9Wz4C8K2Qf7CqV/zwkTmBDyGdrWoLt91
- zb3AvHkisVdM5HUBSbk/yLrGsW0hd6WEjETakocmpPwQ1jgXqfAZn4u1vNsX6eHsNvUmPPVYIbe
- frZSAgVvtViNl+E8xSA==
-X-Proofpoint-GUID: ndt6mzPDYQOtZnMTjaQrEHHZG3_s1C7r
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfXzVsuqodH50yK
- KUnymVFqjbIQN/RDYenyCctr+k9pwYSKJ+WWg84c/NuaD8DYTOYh1ZLoE90fSub08YiI4JUU077
- 1nZi3gCI5oVPgC6wFnWzTFNEamMpfXs=
-X-Proofpoint-ORIG-GUID: ndt6mzPDYQOtZnMTjaQrEHHZG3_s1C7r
-X-Authority-Analysis: v=2.4 cv=MsrHeGae c=1 sm=1 tr=0 ts=6aa7d01b cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=393rYoDGjkx6UDgLgWgA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140154
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/14/26 9:19 AM, Shawn Guo wrote:
-> From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> 
-> The Nord Ride Embedded board routes all four PCIe links, so enable
-> pcie0-pcie3 and the QMP PHY, supply the per-port PHY and PLL rails, and
-> describe the PERST# and WAKE# lines of each root port.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+netdev-bot+sashiko@kernel.org writes:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>     Memory-provider queue configuration is validated when the provider is
+>>     bound. A later ethtool ring change may invalidate it because drivers
+>>     can size queue memory from both ring depth and RX page size. For
+>>     example, fbnic uses multiple PPQ entries for each RX page larger than
+>>     PAGE_SIZE, which reduces the usable software ring depth.
+> [ ... ]
+>>     Use the same transaction for ioctl and netlink. Drivers without
+>>     ndo_validate_qcfg skip the new validation.
+>
+> [Severity: Low]
+> The message reads as if it closes a live misconfiguration hole, but at th=
+is
+> commit no in-tree driver implements a ring-depth-aware ndo_validate_qcfg =
+and
+> no driver reads qcfg->rx_ring_size, so netdev_queue_config_revalidate()
+> cannot change any validation outcome yet.
+>
+> The two current ndo_validate_qcfg implementations, bnxt_validate_qcfg() a=
+nd
+> mlx5e_queue_validate_qcfg(), only inspect qcfg->rx_page_size. The fbnic
+> consumer named in the message, fbnic_validate_qcfg() reading
+> qcfg->rx_jumbo_ring_size, arrives in the following patch of the series.
+>
+> The last paragraph does disclose the limitation, so this is only about
+> framing: could the message state that this is core plumbing and that the
+> fbnic consumer lands in the next patch?
 
-Konrad
+Ok! I reworded the commit message to state that fbnic consumer followes
+the next patch.
+
+...
+
+>> diff --git a/net/core/netdev_config.c b/net/core/netdev_config.c
+>> index b101341e32513..1975de42a60d9 100644
+>> --- a/net/core/netdev_config.c
+>> +++ b/net/core/netdev_config.c
+>> @@ -50,6 +50,15 @@ static int netdev_nop_validate_qcfg(struct net_device=
+ *dev,
+>>  	return 0;
+>>  }
+>>=20=20
+>> +static void netdev_qcfg_apply_dev(struct netdev_queue_config *qcfg,
+>> +				  const struct netdev_config *cfg)
+>> +{
+>> +	/* Device config overrides callback-provided fallbacks. */
+>> +	qcfg->rx_ring_size =3D cfg->rings.rx_pending;
+>> +	qcfg->rx_mini_ring_size =3D cfg->rings.rx_mini_pending;
+>> +	qcfg->rx_jumbo_ring_size =3D cfg->rings.rx_jumbo_pending;
+>> +}
+>> +
+>
+> [Severity: Low]
+> Can these three assignments hand a rendered config full of zeroes to
+> ndo_validate_qcfg()?
+
+Yes, unless thte driver initializes the fields. Device-wide config is
+authoritative -- including zero! I've clarified the requirements in the
+docs for next version.
+
+>> diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
+>> index 4b0bc503f9307..1320289025b25 100644
+>> --- a/net/ethtool/ioctl.c
+>> +++ b/net/ethtool/ioctl.c
+> [ ... ]
+>> @@ -2239,10 +2240,29 @@ static int ethtool_set_ringparam(struct net_devi=
+ce *dev, void __user *useraddr)
+>>  	    ringparam.tx_pending > max.tx_max_pending)
+>>  		return -EINVAL;
+>>=20=20
+>> +	ret =3D netdev_reconfig_start(dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
+>> +
+>> +	ret =3D netdev_queue_config_revalidate(dev, NULL);
+>> +	if (ret)
+>> +		goto out_free_cfg;
+>> +
+>>  	ret =3D dev->ethtool_ops->set_ringparam(dev, &ringparam,
+>>  					      &kernel_ringparam, NULL);
+>> -	if (!ret)
+>> -		ethtool_notify(dev, ETHTOOL_MSG_RINGS_NTF);
+>> +	if (ret)
+>> +		goto out_free_cfg;
+>> +
+>> +	/* The driver may adjust the accepted ring depths. */
+>> +	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
+>> +	swap(dev->cfg, dev->cfg_pending);
+>> +	ethtool_notify(dev, ETHTOOL_MSG_RINGS_NTF);
+>
+> [Severity: Low]
+> Is the committed configuration guaranteed to be one that ndo_validate_qcf=
+g()
+> actually saw?
+
+A driver implementing ndo_validate_qcfg must use the same normalization.
+I documented that requirement, fbnic uses the same rounding helper in
+both paths.
+
+>> diff --git a/net/ethtool/rings.c b/net/ethtool/rings.c
+>> index 9054c89c5d7bb..c04312fc0d061 100644
+>> --- a/net/ethtool/rings.c
+>> +++ b/net/ethtool/rings.c
+> [ ... ]
+>> @@ -299,10 +300,20 @@ ethnl_set_rings(struct ethnl_req_info *req_info, s=
+truct genl_info *info)
+>>=20=20
+>>  	dev->cfg_pending->hds_config =3D kernel_ringparam.tcp_data_split;
+>>  	dev->cfg_pending->hds_thresh =3D kernel_ringparam.hds_thresh;
+>> +	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
+>> +
+>> +	ret =3D netdev_queue_config_revalidate(dev, info->extack);
+>> +	if (ret)
+>> +		return ret;
+>>=20=20
+>>  	ret =3D dev->ethtool_ops->set_ringparam(dev, &ringparam,
+>>  					      &kernel_ringparam, info->extack);
+>> -	return ret < 0 ? ret : 1;
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	/* The driver may adjust the accepted ring depths. */
+>> +	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
+>> +	return 1;
+>>  }
+>
+> [Severity: Low]
+> The comment says the driver may adjust the accepted ring depths, but does
+> this second copy store the depths the hardware ended up with, or just the
+> requested ones?
+
+It captures only adjustments that the driver reports through ringparam.
+I updated the comments and docs.
+
+
+Bj=C3=B6rn
