@@ -1,329 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EE54052D9;
-	Mon, 14 Sep 2026 13:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325C746F4A0;
+	Mon, 14 Sep 2026 13:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392724; cv=none; b=uKAR0BCd3sm8DDZ0eDL21M2IQDOca0k6aXlTZqy4+VqAyEzw5uvbWRlWlNSSv30mzeEdlbgWd2HVjPbGjpeQeURYopvRr/P0XS+n9WMnyx14PM0CiWN8xVD/CHz+YNg+lebol053rH01lHfASqQHTuBhxNghYMYPNBHlITik3u4=
+	t=1789392736; cv=none; b=s1/UkK51eq0wH9XdQzdF63o/NSivnDpayosKoG20rGkuYjQXPcygdWALUt5aBwaJmYKrw9vrq0bsvyG5urm7IFERcbXJmg6Q/Uz4ktQrMK0HoHA5j8Ng1E/e9AnkzjTMiDl8BMajZYKZmfCW04R2fsmVleNydtdnabN86+TlF9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392724; c=relaxed/simple;
-	bh=yN6frNFI9YSItNuRWkUJAT4mMFL0kjF+BisseYeNbdc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=RgK7h8PX3KJgaOJVHILuVHYQrTabxziyS1T+D5fEX41LTgfmrE1Ap413MF+hF3Yhkg5QErxHjKx5dr3vtVLBAFcbCVIW9iP8JJ8fr7b9MADC8WVbz4/ka2Zm00algvaYoqhlAnPLK/bwFKXPb+wM9tZfDDpoWeq5IU7HJJXMFIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7B8EvWz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789392736; c=relaxed/simple;
+	bh=S/7DoU9w/adzeImuAELyp83bLhS+5tqqdA6JhGXIO/4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=si4p72LaErq5N1fvBz9HQcAq2fWdwkFl+jAvedPxx8NFjHTsQyDk5KIiHJwL6xKlJL1BMm6p8RC6enMqPnz594o6oJ/Sy2vAc08wrg4yNxLzpS3tluLQbxcqMD8Zb1uR6dui7IeAyZhdqdMP63063lKJnHVaaONzIbk5VfQtS/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=iItvpyeL; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7B8EvWz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68D21F000FF;
-	Mon, 14 Sep 2026 13:32:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789392722;
-	bh=N+sM8wRsWqqkRu9oA4S/pvIXAWvFOGn7YnNOSNB6quc=;
-	h=Date:From:To:Cc:Subject;
-	b=G7B8EvWz3K0ixQ1tjDHVGqSbWDOYSX33N5GXnfFDR61rf+oaS2+FO3qKq1F4qs5Mw
-	 hCDhOfStXyRomXOwo/LTwP3qL3JTEpORzBfbL3DHVaMvmEfdcBHbBh3PrRoWcwPH+r
-	 F/xHI5gR4gh0HQSbB9irju1YBcBAXJb1ozOkbTLM9hdOzExqol29S4+b5cK+rK3IXg
-	 BU/67BQohk1839dlpz7JlU2h+FLEZkfVHDKyruS6SagTtdGAjP3gLsQvBqeLob3msj
-	 bGPmFNPzJpF3CMRFX0CCsEeJpnSkL4NTXq3v///4QT90ttOspGj/yP5dmnBCy14EoB
-	 5Daf/MMe47Wqw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id D17551AC52F1; Mon, 14 Sep 2026 14:31:59 +0100 (BST)
-Date: Mon, 14 Sep 2026 14:31:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
-	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
-	Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Tom Chung <chiahsuan.chung@amd.com>
-Subject: linux-next: manual merge of the amdgpu tree with the drm-misc tree
-Message-ID: <aqf3T0-GiqaMsBF6@sirena.co.uk>
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="iItvpyeL"
+Received: from [10.235.78.2] (dynamic-176-002-023-136.176.2.pool.telefonica.de [176.2.23.136])
+	(Authenticated sender: a.erhardt@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id ED9BB2FC0063;
+	Mon, 14 Sep 2026 15:32:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1789392725;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BroUSLltzgQ4tFVvgwVa49cEuOWIstWsPc6LnBEpsKI=;
+	b=iItvpyeLfzTYVBbES53XX4NhsoNHvDwSebXHJ4u04HcAU0L9p0+gaRD9tmvSbfMtppdYlT
+	WOOGgCiIJLv9xShUtlS86qK8igLWUJnCBudV4FL9ZCd6EpsuS0tabsCPbddy7+3hcjlNXC
+	LWRDSD5rQmCfOUdtOboyLbOi4UuISwk=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
+Message-ID: <9ea37d10-7b9b-4f4c-b294-e5f392a8d358@tuxedocomputers.com>
+Date: Mon, 14 Sep 2026 15:32:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7GgmGZOlPCnaCd+q"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] HID: generic: add LampArray support via
+ hid-lamparray helper
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: wse@tuxedocomputers.com, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Armin Wolf <W_Armin@gmx.de>,
+ Cristian Mazzotta <cmmazzo@icloud.com>
+References: <20260903073602.3815258-1-aer@tuxedocomputers.com>
+Content-Language: en-US
+From: Aaron Erhardt <aer@tuxedocomputers.com>
+In-Reply-To: <20260903073602.3815258-1-aer@tuxedocomputers.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Am 03.09.26 um 09:35 schrieb Aaron Erhardt:
+> Add a new hid-lamparray helper module and integrate it with the
+> hid-generic driver.
+> 
+> While more complex lamparray handling should be done in userspace via
+> hidraw, providing a small module to add basic lamparray support makes it
+> possible for userspace software to interact with lamparrays by simply
+> using well-known APIs of the LED subsystem. One use-case would be to
+> enable desktop environments to support keyboard backlight control out of
+> the box for HID lamparray devices without having to implement the whole
+> HID protocol themselves.
+> 
+> This patch is based on previous discussions:
+> https://lore.kernel.org/all/1fb08a74-62c7-4d0c-ba5d-648e23082dcb@tuxedocomputers.com/
+> 
+> The helper provides basic support for devices exposing a
+> Lighting/LampArray application collection (usage page 0x59) and
+> registers a single-zone RGB LED representation via the LED
+> subsystem.
+> 
+> hid-generic now checks for LampArray support after hid_parse() and
+> optionally registers a lamparray instance. Failures in the helper
+> do not abort device probe to keep the driver logic otherwise unchanged.
 
---7GgmGZOlPCnaCd+q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Another question that came to my mind while doing some tests on what will soon
+be posted as v6 is the following: Should we really set everything to zero as a
+default? Up to v4, the LEDs were set to full brightness by default which would
+be quite annoying in dark environments or when the LEDs of the device are
+really bright. Turning everything off like the current implementation on the
+other side makes things look like they don't work until a userspace program
+takes over control. So I was wondering whether it would be better to just leave
+everything in autonomous mode until userspace starts writing to the LED. I'm
+not sure yet what the best solution is, so I would like to have some feedback
+on that design if possible.
 
-Hi all,
+> 
+> LampArray resources are released on driver remove.
+> 
+> This commit was successfully tested on the Microsoft MacroPad reference
+> implementation (https://github.com/microsoft/RP2040MacropadHidSample
+> 1d6c3ad) and in combination with the tuxedo_nb04_wmi driver, albeit
+> only fully functional with a recent fix posted to the LKML
+> (https://lore.kernel.org/all/20260826081149.235487-2-aer@tuxedocomputers.com).
+> 
+> v5:
+> - Proper hardware detection (no quirks necessary anymore)
+> - Add documentation for new sysfs knob
+> - Pass limits of the device to sysfs (intesities & brightness)
+> - More flexible Kconfig (use tristate)
+> - Improved locking
+> - Several memory leak and (de-)initialization fixes
+> - Don't read current color values from hardware (the HID spec does not
+>   offer this option)
+> - Remove redundant report dump functionality
+> v4:
+> - Restrict CONFIG_HID_LAMPARRAY to built-in configurations only to fix
+>   additional randconfig build errors
+> v3:
+> - Squash V1 and V2 into one patch
+> v2:
+> - Fix Kconfig to avoid build errors when LEDS_CLASS_MULTICOLOR is
+>   disabled
+> 
+> Aaron Erhardt (2):
+>   HID: lamparray: add new LampArray helper module
+>   HID: generic: add LampArray support via hid-lamparray helper
+> 
+>  .../ABI/testing/sysfs-driver-hid-lamparray    |  16 +
+>  drivers/hid/Kconfig                           |  18 +
+>  drivers/hid/Makefile                          |   2 +
+>  drivers/hid/hid-generic.c                     |  38 +
+>  drivers/hid/hid-lamparray.c                   | 812 ++++++++++++++++++
+>  include/linux/hid-lamparray.h                 |  88 ++
+>  6 files changed, 974 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-lamparray
+>  create mode 100644 drivers/hid/hid-lamparray.c
+>  create mode 100644 include/linux/hid-lamparray.h
+> 
 
-Today's linux-next merge of the amdgpu tree got a conflict in:
-
-  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-
-between commits:
-
-  3a2c4d55e32ad ("treewide: refresh kmalloc_obj() conversions")
-  32fbec62a3e9f ("drm/amdgpu: dm: Convert to atomic_create_state")
-
-=66rom the drm-misc tree and commits:
-
-  29d303de7669a ("drm/amd/display: Cover crtc duplicate_state stream and nu=
-ll guard")
-  b40f65c12577b ("drm/amd/display: Cover crtc destroy callback")
-  fa67092e4674c ("drm/amd/display: Add reset_state existing-state branch te=
-st")
-
-=66rom the amdgpu tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-index 17bd64611a823,544445fbc7706..0000000000000
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@@ -1404,18 -1504,118 +1504,118 @@@ static void dm_test_crtc_duplicate_stat
-  	amdgpu_dm_crtc_destroy_state(crtc, dup);
-  }
- =20
- +/* Tests for amdgpu_dm_crtc_create_state() */
- +
-+ /**
-+  * dm_test_crtc_duplicate_state_retains_stream - Test duplicate retains t=
-he stream
-+  * @test: The KUnit test context
-+  *
-+  * When the current CRTC state carries a DC stream, duplicating the state=
- must
-+  * copy the stream pointer and take an additional reference on it. Destro=
-ying
-+  * the duplicate then drops that reference back to the KUnit-managed one.
-+  */
-+ static void dm_test_crtc_duplicate_state_retains_stream(struct kunit *tes=
-t)
-+ {
-+ 	struct dc_stream_state *stream;
-+ 	struct drm_crtc *crtc;
-+ 	struct dm_crtc_state *cur;
-+ 	struct drm_crtc_state *dup;
-+ 	struct dm_crtc_state *dm_dup;
-+ 	struct dc_link *link;
-+=20
-+ 	crtc =3D kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
-+ 	cur =3D kunit_kzalloc(test, sizeof(*cur), GFP_KERNEL);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cur);
-+=20
-+ 	link =3D dm_kunit_alloc_link(test);
-+ 	stream =3D dm_kunit_alloc_stream(test, link);
-+=20
-+ 	cur->stream =3D stream;
-+ 	crtc->state =3D &cur->base;
-+=20
-+ 	dup =3D amdgpu_dm_crtc_duplicate_state(crtc);
-+ 	KUNIT_ASSERT_NOT_NULL(test, dup);
-+=20
-+ 	dm_dup =3D to_dm_crtc_state(dup);
-+ 	KUNIT_EXPECT_PTR_EQ(test, dm_dup->stream, stream);
-+ 	/* The duplicate took a second reference on top of the managed one. */
-+ 	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 2);
-+=20
-+ 	/* Destroying the duplicate drops back to the KUnit-managed reference. */
-+ 	amdgpu_dm_crtc_destroy_state(crtc, dup);
-+ 	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
-+ }
-+=20
-+ /**
-+  * dm_test_crtc_duplicate_state_null_state_returns_null - Test guard on m=
-issing state
-+  * @test: The KUnit test context
-+  *
-+  * Duplicating a CRTC whose current state is NULL must trip the WARN_ON g=
-uard
-+  * and return NULL without allocating a new state.
-+  */
-+ static void dm_test_crtc_duplicate_state_null_state_returns_null(struct k=
-unit *test)
-+ {
-+ 	struct drm_crtc *crtc;
-+=20
-+ 	crtc =3D kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
-+ 	crtc->state =3D NULL;
-+=20
-+ 	KUNIT_EXPECT_NULL(test, amdgpu_dm_crtc_duplicate_state(crtc));
-+ }
-+=20
- -/* Tests for amdgpu_dm_crtc_destroy() */
- -
-+ /**
-+  * dm_test_crtc_destroy_cleans_up_and_frees - Test destroy tears down the=
- CRTC
-+  * @test: The KUnit test context
-+  *
-+  * amdgpu_dm_crtc_destroy() is the drm_crtc .destroy callback: it must run
-+  * drm_crtc_cleanup() and free the CRTC. Initialise a CRTC with a primary=
- plane
-+  * so it is registered on the device (num_crtc =3D=3D 1), then destroy it=
- and verify
-+  * the CRTC was unregistered (num_crtc back to 0). The CRTC is a plain (u=
-nmanaged)
-+  * allocation because amdgpu_dm_crtc_destroy() kfree()s it.
-+  */
-+ static void dm_test_crtc_destroy_cleans_up_and_frees(struct kunit *test)
-+ {
-+ 	struct amdgpu_device *adev;
-+ 	struct amdgpu_crtc *acrtc;
-+ 	struct drm_plane *plane;
-+ 	int ret;
-+=20
-+ 	adev =3D dm_kunit_alloc_adev(test);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+=20
-+ 	plane =3D drm_kunit_helper_create_primary_plane(test, &adev->ddev,
-+ 						      NULL, NULL, NULL, 0, NULL);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane);
-+=20
-+ 	/* amdgpu_dm_crtc_destroy() kfree()s the CRTC, so use a plain alloc. */
-+ 	acrtc =3D kzalloc_obj(*acrtc, GFP_KERNEL);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+=20
-+ 	ret =3D drm_crtc_init_with_planes(&adev->ddev, &acrtc->base, plane,
-+ 					NULL, &dm_test_crtc_funcs, NULL);
-+ 	KUNIT_ASSERT_EQ(test, ret, 0);
-+ 	KUNIT_EXPECT_EQ(test, adev->ddev.mode_config.num_crtc, 1);
-+=20
-+ 	amdgpu_dm_crtc_destroy(&acrtc->base);
-+=20
-+ 	/* drm_crtc_cleanup() ran: the CRTC was unregistered from the device. */
-+ 	KUNIT_EXPECT_EQ(test, adev->ddev.mode_config.num_crtc, 0);
-+ }
-+=20
- -/* Tests for amdgpu_dm_crtc_reset_state() */
-++/* Tests for amdgpu_dm_crtc_destroy() */
-+=20
-  /**
- - * dm_test_crtc_reset_state_allocates_state - Test reset installs a fresh=
- state
- + * dm_test_crtc_create_state_allocates_state - Test create_state allocate=
-s a fresh state
-   * @test: The KUnit test context
-   *
- - * Resetting a CRTC with no existing state must allocate and install a new
- - * drm_crtc_state.
- + * Creating state for a CRTC must allocate a new drm_crtc_state.
-   */
- -static void dm_test_crtc_reset_state_allocates_state(struct kunit *test)
- +static void dm_test_crtc_create_state_allocates_state(struct kunit *test)
-  {
-  	struct amdgpu_device *adev =3D dm_kunit_alloc_adev(test);
- +	struct drm_crtc_state *crtc_state;
-  	struct drm_crtc *crtc;
- =20
-  	crtc =3D kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-@@@ -1423,13 -1623,56 +1623,55 @@@
-  	crtc->dev =3D &adev->ddev;
-  	crtc->state =3D NULL;
- =20
- -	amdgpu_dm_crtc_reset_state(crtc);
- +	crtc_state =3D amdgpu_dm_crtc_create_state(crtc);
- +	KUNIT_EXPECT_NOT_ERR_OR_NULL(test, crtc_state);
- =20
- -	KUNIT_EXPECT_NOT_NULL(test, crtc->state);
- -
- -	if (crtc->state)
- -		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
- +	if (!IS_ERR(crtc_state))
- +		amdgpu_dm_crtc_destroy_state(crtc, crtc_state);
-  }
- =20
-+ /**
-+  * dm_test_crtc_reset_state_replaces_existing - Test reset frees the old =
-state
-+  * @test: The KUnit test context
-+  *
-+  * Resetting a CRTC that already carries a state must destroy the existing
-+  * state before installing a fresh one. The old state holds a stream refe=
-rence,
-+  * so a successful reset drops that reference (via amdgpu_dm_crtc_destroy=
-_state)
-+  * and leaves the CRTC with a new, non-NULL state.
-+  */
-+ static void dm_test_crtc_reset_state_replaces_existing(struct kunit *test)
-+ {
-+ 	struct amdgpu_device *adev =3D dm_kunit_alloc_adev(test);
-+ 	struct dc_stream_state *stream;
-+ 	struct dm_crtc_state *old;
-+ 	struct drm_crtc *crtc;
-+ 	struct dc_link *link;
-+=20
-+ 	crtc =3D kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
-+ 	crtc->dev =3D &adev->ddev;
-+=20
-+ 	link =3D dm_kunit_alloc_link(test);
-+ 	stream =3D dm_kunit_alloc_stream(test, link);
-+ 	/* Extra ref so destroying the old state drops back to the managed one. =
-*/
-+ 	kref_get(&stream->refcount);
-+=20
-+ 	/* reset_state kfree()s the old state, so use a plain (unmanaged) alloc.=
- */
-+ 	old =3D kzalloc_obj(*old, GFP_KERNEL);
-+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, old);
-+ 	old->stream =3D stream;
-+ 	crtc->state =3D &old->base;
-+=20
-+ 	amdgpu_dm_crtc_reset_state(crtc);
-+=20
-+ 	/* Old state was destroyed (stream ref dropped) and a new one installed.=
- */
-+ 	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
-+ 	KUNIT_EXPECT_NOT_NULL(test, crtc->state);
-+=20
-+ 	if (crtc->state)
-+ 		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
-+ }
-+=20
-  /* Tests for amdgpu_dm_crtc_destroy_state() */
- =20
-  /**
-@@@ -1906,8 -2634,13 +2633,12 @@@ static struct kunit_case amdgpu_dm_crtc
-  	KUNIT_CASE(dm_test_count_crtc_active_planes_mixed),
-  	/* amdgpu_dm_crtc_duplicate_state */
-  	KUNIT_CASE(dm_test_crtc_duplicate_state_copies_fields),
- +	/* amdgpu_dm_crtc_create_state */
- +	KUNIT_CASE(dm_test_crtc_create_state_allocates_state),
-+ 	KUNIT_CASE(dm_test_crtc_duplicate_state_retains_stream),
-+ 	KUNIT_CASE(dm_test_crtc_duplicate_state_null_state_returns_null),
-+ 	/* amdgpu_dm_crtc_destroy */
-+ 	KUNIT_CASE(dm_test_crtc_destroy_cleans_up_and_frees),
- -	/* amdgpu_dm_crtc_reset_state */
- -	KUNIT_CASE(dm_test_crtc_reset_state_allocates_state),
- -	KUNIT_CASE(dm_test_crtc_reset_state_replaces_existing),
-  	/* amdgpu_dm_crtc_destroy_state */
-  	KUNIT_CASE(dm_test_crtc_destroy_state_no_stream),
-  	KUNIT_CASE(dm_test_crtc_destroy_state_releases_stream),
-
---7GgmGZOlPCnaCd+q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqn908ACgkQJNaLcl1U
-h9A3VQf5AX8nh2wntOAyO5xZ4a3W7exUJIshgpFDg719xZx3WDthGLUrsy+d7ZPl
-ddkZEncce+TlqMwKvZkMGh4f8FJeief9A9ViUeSSwO80cJQWU7PUExD557QkpgCw
-xKCM+TZFIsDSdsPk3maQaznB7Kwyj/nCe0thCMUMeNWv1D7ru/H5BKcj4odHDHdF
-v+ht13HiF8MRvSWcxwiGuiP4RSGv7kU04aqY7Rdsp5w0Pui4ATMemT6VlKa6+677
-0JdLlU92jFfsq6MGFyQvoUg9yH7gb3eRqIWKIgbPiP7Az4Jiq11ZRvNOyWfhbYrH
-TJJDb7kuKbf0UwpJuesMamedUljS5w==
-=7KBl
------END PGP SIGNATURE-----
-
---7GgmGZOlPCnaCd+q--
