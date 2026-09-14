@@ -1,139 +1,166 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFFF53F6606;
-	Mon, 14 Sep 2026 08:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E399C41A76F;
+	Mon, 14 Sep 2026 08:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376347; cv=none; b=fCdQYR+8EASimJM7OC2h4P0O8Wc6NnkqDua0qV0QIJ46PwcppNm2bRTHuH5f1QmNugv7jTRwNOWjfnO5QFOvmCmU0YKnfIDW1WZCH2NX9CSmDgA2k+A6003b9QXtGUqwcYgI3Zz3OeFaXBdvrVLnHNa4U5zDqjiiOBBhWaXnLBA=
+	t=1789376350; cv=none; b=G9rgDSd+AqOOrEwIjZon4cXBLqdV2NF+QWYNHmtaJyaGL2Tv8tgW/KdzU1IYUVrmr9LsdKqNbi+n8lZjpvLpaqrCt/BDnkgHNhgar/cqwvDxytG4RdDEfl5PdC5+Gr42wMsI8n1+KaHw2WWBZdu795lx7ctbnkC/tdHNtMz/JAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376347; c=relaxed/simple;
-	bh=ZKR3YL7DOGMM33HkTzgkuXuovQncJmpU/sGGmUwK81Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AKPKvz43UkLgNO61GAtf9LA8z132unciLIXP7Unnugb7m7eeuj4QXmqc9gykFo8pN6MXkgex6GGiN8FQckbMm5TRgYJ5kSVC/1nzch+DLmHeMyj2zxFtBIRnPd8KiMY5nLhBvMhjMa2x7Q2qaQvXEGXJj4PLjr635HLV9iFDERo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S3JmjT5N; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789376350; c=relaxed/simple;
+	bh=fOsDLSxcv8a4gJDBa7QYVILyDaH5Cys2L35ytaFq0HY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LmOICHZczG/BV0Qy+Dpj7zqjyy4gyu8QlcDkA1ZVqGG68COW+XxZTPt97kVBh/RC6akSZcoI8EXGJHJPyufz7brF1n+IDoqT6QBBFGW9KgIGDgiKSmr3J2Dh3kyeY4/yTxIHcB1hJy6Q+8oyo8R58vweSzQ+n4+89KZVuhWbMx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=sX5x7Ssb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oY3vPC3Q; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=QPTEyr+I; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=VOOU+K3H; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S3JmjT5N"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E61d4W1220073;
-	Mon, 14 Sep 2026 08:58:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=aE4dvM
-	a+pgFR08pTQqS/RYVptiyrSgj2EERRyfiKGvg=; b=S3JmjT5NDrTSGI8TRmjlVO
-	f3ydBjaPYj7XBxa/CzNYfVHd6loxEh410Mi2tShzUyJ95eWAVOIeFJyPWxbk7Nf4
-	TYN3eXnPi3SgCIdz0q6SW4jZASWrDJdz9CH4vJk2GyxshlPAsK20rxKe+ipEaHmU
-	1es7frHhEalnkgApwCJRv1Br3vTcfRSDqRXEVgMCvBEnZyhH184xNrGKI0OTtmgE
-	HLhuqr5hHd6ylh735oqIWRe8NtASkpx5egUDhWzTf2rANW+94ALWw68gRjfWSW7Y
-	wglNOEbcOOYP9EzBi3vQGvR9ctDoxqZ8Gl20ZlzR8T/vXpx28K+z3SV6oUP6GYFA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4r6x6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 08:58:47 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5o9Kv1775175;
-	Mon, 14 Sep 2026 08:58:46 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gnhevw2y2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 08:58:46 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68E8wiIA30933374
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 14 Sep 2026 08:58:44 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A0B2120040;
-	Mon, 14 Sep 2026 08:58:44 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3885E2004B;
-	Mon, 14 Sep 2026 08:58:44 +0000 (GMT)
-Received: from [9.224.77.173] (unknown [9.224.77.173])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 14 Sep 2026 08:58:44 +0000 (GMT)
-Message-ID: <28c6b0e5-eff3-4556-802d-be6ed3f16615@linux.ibm.com>
-Date: Mon, 14 Sep 2026 10:58:43 +0200
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="sX5x7Ssb";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oY3vPC3Q";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="QPTEyr+I";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VOOU+K3H"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9818121B48;
+	Mon, 14 Sep 2026 08:58:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789376335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cv39aLl/6H8PMEvbRcDZQ1JU3/BwVqeD4/GtCaTWzvE=;
+	b=sX5x7SsbAl+wfmH1yph6yXQlcS9xzuD7QcnDjCDjl2mPngDBl7bYhPCjoGRoYDZywfDTCP
+	g2yyma9jVlxsM0wQCF5t43qK0DSfWwdOJOv/7o/wsZi3LmLyhl4to0xs1PZT4blrglC39w
+	Q1ObJWGALZFmWUGyJKiu9A8eVsUpw18=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789376335;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cv39aLl/6H8PMEvbRcDZQ1JU3/BwVqeD4/GtCaTWzvE=;
+	b=oY3vPC3QrGxm4pzVZ0rN0AEaRgvk7V28CBfDAwTvsd9eFe+u+NWCDo4/LdtUb2zWkdlW2E
+	eWk3U1HGGNWhxKAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789376331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cv39aLl/6H8PMEvbRcDZQ1JU3/BwVqeD4/GtCaTWzvE=;
+	b=QPTEyr+Im0HDbS4/PhwoWOsvhY2vkbreoCf+cwWAfKvmVGpA5uwErygmjaWxlPa5c73kwQ
+	t2THRsQCxq/s12Dz44Me+jHM9lU7JZUTS97kE3cBmdkHrnFiMekUvf++yF9JOregWMnbAb
+	g2suzXlu7mIAhkr1V1ZOsJIqX2FoAdI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789376331;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cv39aLl/6H8PMEvbRcDZQ1JU3/BwVqeD4/GtCaTWzvE=;
+	b=VOOU+K3H9PrbVQgCNCVfnfM1/8cuuKifn9PxSIFRfnTQ0u6wNmSv1RUJmeCNy1JsrJx60d
+	qfY/AkJ6qbNd3cCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6D44F1368C;
+	Mon, 14 Sep 2026 08:58:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id mq2pGku3p2pbNAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 08:58:51 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 12CA6A12E4; Mon, 14 Sep 2026 10:58:47 +0200 (CEST)
+Date: Mon, 14 Sep 2026 10:58:47 +0200
+From: Jan Kara <jack@suse.cz>
+To: Mateusz Guzik <mjguzik@gmail.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 09/10] proc: use path_clone()
+Message-ID: <33wbufd3drjilmfkpq2kmwpcaquxxky2idtozyuk6pkc4xbc2t@sxdsapiar4ti>
+References: <20260913144918.1606123-1-mjguzik@gmail.com>
+ <20260913144918.1606123-10-mjguzik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net RESEND] net/mlx5: Use unique names for software
- steering caches
-To: Leon Romanovsky <leon@kernel.org>, Jakub Kicinski <kuba@kernel.org>
-Cc: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
-        Paolo Abeni <pabeni@redhat.com>, Alex Vesker <valex@nvidia.com>,
-        Gal Pressman <gal@nvidia.com>,
-        Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-        Kees Cook
- <kees@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
-        Saeed Mahameed <saeedm@nvidia.com>,
-        Yevgeny Kliteynik <kliteyn@nvidia.com>
-References: <20260730210200.2590115-1-tariqt@nvidia.com>
- <20260803182614.23f26c91@kernel.org> <20260804080455.GB326170@unreal>
- <20260804145756.331951b7@kernel.org> <20260806111739.GF23431@unreal>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <20260806111739.GF23431@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 6z6PFjUIU08umo8wYdOkU-brpLRUJTT6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEyMSBTYWx0ZWRfX0MgKatl/gdlL
- NEB80UX1ne+/lllmiMm+HreI4VvlAiHs4oTYPe5krrEdoX8WbgBkqGeVoaElHaRS6r7hKmZYJeK
- 8xTxSvIeVA0tSeBMUjYELIJ06bXa0mU=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa7b748 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=1Diy75IYRmTSxbJiyC4A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: hdYAq1H2Qstr8mQixZrYsGG0FkWKm-8t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEyMSBTYWx0ZWRfX+pgIVr6PBaJC
- 5+mUidS7qJLX6x3IC5Cml79bbK/ONHAoRUh2vP8oHmA/ImdjqvLC635PO5RAXFuC8ncTDBvK/I/
- tQDI/erZmtaz2fHfaJN/kudTYdcYpH/0xPl3ZNJbxQhD2vZ3ZWorcZyGck2wlNBqPieh43FRZic
- InY5OXMRBoFlxblPwZ6B/Yr/5odhnLM3x9UPKCRDC/X7KcxXWaMKsbLpKxAEO0eO6vvr/kjq9g9
- 3Vx0zE/ox1ELxuYcQijPi3hw3Vhgm7Xq/LovuWWE1h9iUjkJ/qtPsy/WuofRNdB3jtP0iGCwtlB
- 3G4zrqNf/roay59QkeLLndUG/OpIBPLmDhWj6LclnRwIA4+jP/BYk/mGqlsxOmTBFtBPGoF1LIl
- sa5X0yRNmvJORbhXctJYxCfnXjPGtgj4ILFLuDqmIb06thfZfYt4TrXZmCQkfx8sm+9gkwovnBy
- 3Rzg0wkVCGyVV23rGiQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140121
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913144918.1606123-10-mjguzik@gmail.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
 
-Am 06.08.26 um 13:17 schrieb Leon Romanovsky:
-> On Tue, Aug 04, 2026 at 02:57:56PM -0700, Jakub Kicinski wrote:
->> On Tue, 4 Aug 2026 11:04:55 +0300 Leon Romanovsky wrote:
->>> On Mon, Aug 03, 2026 at 06:26:14PM -0700, Jakub Kicinski wrote:
->>>> On Fri, 31 Jul 2026 00:02:00 +0300 Tariq Toukan wrote:
->>>>> Prefix each cache name with the device name to make it unique.
->>>>
->>>> Why do we need a per-device kmem_cache?
->>>> Isn't the right fix to make this driver-level state?
->>>
->>> This kmem_cache is required only for software managed steering mode, which is
->>> configured per device by mlx5_fs_mode_set(). In general, resources
->>> should be allocated only when they are actually needed.
->>
->> Of course you have to wrap the init in a lock and count users.
->> Trivial stuff.
+On Sun 13-09-26 16:49:16, Mateusz Guzik wrote:
+> No functional changes.
 > 
-> I don't see why we should abandon the simple, architecturally
-> correct approach of allocating and managing resources where they
-> belong in favor of a more complex global scheme involving locking
-> and reference counting.
+> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  fs/proc/base.c | 3 +--
+>  fs/proc/fd.c   | 3 +--
+>  2 files changed, 2 insertions(+), 4 deletions(-)
 > 
-Any updates on this?
+> diff --git a/fs/proc/base.c b/fs/proc/base.c
+> index 01d8bfe1c410..6b055352eabd 100644
+> --- a/fs/proc/base.c
+> +++ b/fs/proc/base.c
+> @@ -1766,8 +1766,7 @@ static int proc_exe_link(struct dentry *dentry, struct path *exe_path,
+>  
+>  	exe_file = get_task_exe_file(task);
+>  	if (exe_file) {
+> -		*exe_path = exe_file->f_path;
+> -		path_get(&exe_file->f_path);
+> +		path_clone(&exe_file->f_path, exe_path);
+>  		fput(exe_file);
+>  		return 0;
+>  	} else
+> diff --git a/fs/proc/fd.c b/fs/proc/fd.c
+> index 0f9a1556f2a3..9ab9bfd6e48d 100644
+> --- a/fs/proc/fd.c
+> +++ b/fs/proc/fd.c
+> @@ -180,8 +180,7 @@ static int proc_fd_link(struct dentry *dentry, struct path *path,
+>  
+>  	fd_file = fget_task(task, fd);
+>  	if (fd_file) {
+> -		*path = fd_file->f_path;
+> -		path_get(&fd_file->f_path);
+> +		path_clone(&fd_file->f_path, path);
+>  		ret = 0;
+>  		fput(fd_file);
+>  	}
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
