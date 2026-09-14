@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-118.mta0.migadu.com [91.218.175.118])
+Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A27463B84
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A143546D8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389144; cv=none; b=k9aVAh3/5RPVqsXeRSe7sDLQ4cwYv+ELfIwHsBfgcyu3d5gVhv4oqa8Axk5VXR//T9sovuq9KoKzntEEm7I3jqwAUbyZoZSJ9IbR++nX2n2w6Na5rYoq+7LcaZzzwMC/SHNBzIX8aUrgpQncinDqum5S42vzs6CV38jmKCBG0UU=
+	t=1789389138; cv=none; b=kZVGDeYFJ79qI8vVutx9Qjzpt53RsEr3zmVjdENcoDcZvzSQknfWsV92t36oywzb3NcxSRJc6MtAsveiGhHMhUPFQKPrtRlcS1OMa7ej6/bKa7aWZlyZfKtOfeCtt/ZTRIk51F4iM771R7WrGhQj+EAxDPouo3rOLExNaAGpbqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389144; c=relaxed/simple;
-	bh=DPe1I53E+kRlfcEsvDmSLP4EjuaTV/Jtl8i3KROoEu4=;
+	s=arc-20240116; t=1789389138; c=relaxed/simple;
+	bh=l9rS6hCS40oLFaHf8DDPyFgRnX3di/CMgWWuQWOguRk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nkhN4qZVg+OFoFVrpU+D1KYLVzrryttjflcN7P7ouVvR/eI7gt4wwajXlAlDDeYWfTG/6lkd+jRsUpxeEzEn00r7aFWnnfTTW0l33Q5lk/PI8EPtbq0IlyxSOe183DpkjbjyXqphBOOHw/ozW49NAdSvbXriO/SWJuYXBwDtbaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cWHd3aIb; arc=none smtp.client-ip=91.218.175.118
+	 MIME-Version; b=aANpivTL4vM7eLPqS0T2dSVGLigj5mkRpjXF11/l5KeFeLA1zIkWmKdKR/F5IjcuolpXE6RwUjfPjENvuvwNUQeI0g5jH6ip3d5QzvJDzASs7FZM+i8BW7dYHJ2aZrar8dRv5RYsjXPToBVhiLpflfQuYWK9nEZNRk4EFZC/o18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=w3Vsb0hN; arc=none smtp.client-ip=91.218.175.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cWHd3aIb"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="w3Vsb0hN"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DPe1I53E+kRlfcEsvDmSLP4EjuaTV/Jtl8i3KROoEu4=;
+DKIM-Signature: a=rsa-sha256; bh=l9rS6hCS40oLFaHf8DDPyFgRnX3di/CMgWWuQWOguRk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789389134; v=1; x=1789993934;
- b=cWHd3aIbAE0S4Gf3wLWy2lcbND2U0Gtf2X92xQsL+kp1icn5x4TtyI7/kjNmTch0G5/Sljpa
- 1oSfY9kiYacqfXYv1Um1K6+oS12w6khouByqCjHHOPPlnVJStAAforDABS+7bj4lhMvqTG2ihUM
- tUfdhFhNPYsjpFbPQ1GkJy80=
+ t=1789389128; v=1; x=1789993928;
+ b=w3Vsb0hNhcuTJVOFM1gCOUpSQravM71il3YZg6kCY59NTZkrirvExSnvUra2Aqsfiyau6eXW
+ 9eC1Rvz/ww0JpAVNsTDT9jOSCaFDK20Z+DS+FwkjLwEs7aWv+/JqE67YvEzzdOE3wkFjIxTuFRh
+ ptrwjleA8srVMWg06h52LqsY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 374a9e1bbe50b91d;
-	Mon, 14 Sep 2026 12:32:14 +0000
-X-Mizu-Trace-ID: 374a9e1bbe50b91d
+Received: by mta10.migadu.com with ESMTPS id def300bf9b7a4cdf;
+	Mon, 14 Sep 2026 12:32:07 +0000
+X-Mizu-Trace-ID: def300bf9b7a4cdf
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -62,9 +62,9 @@ Cc: ying.huang@linux.alibaba.com,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [RESEND v7 28/29] mm: install PMD swap entries on swap-out
-Date: Mon, 14 Sep 2026 05:28:18 -0700
-Message-ID: <20260914122950.3283997-29-usama.arif@linux.dev>
+Subject: [RESEND v7 25/29] mm: handle PMD swap entries in UFFDIO_MOVE
+Date: Mon, 14 Sep 2026 05:28:15 -0700
+Message-ID: <20260914122950.3283997-26-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260914122950.3283997-1-usama.arif@linux.dev>
 References: <20260914122950.3283997-1-usama.arif@linux.dev>
@@ -76,247 +76,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When reclaim swaps out a PMD-mapped anonymous THP it first splits the PMD
-via TTU_SPLIT_HUGE_PMD. The huge mapping is lost for the whole swap
-round-trip: swapping the range back in takes HPAGE_PMD_NR faults and
-leaves as many small mappings, and the process waits for khugepaged to
-collapse them again.
+move_pages_huge_pmd() returns -ENOENT for any PMD that is neither
+trans_huge nor a migration entry, so an aligned UFFDIO_MOVE over a
+swapped-out THP fails even though a PMD swap entry is a perfectly good
+mapping to move. Falling back to the PTE path is no help either: splitting
+yields PTE swap entries pointing at the same swap-cache folio, and
+move_pages_ptes() refuses any swap-cache folio that is still large.
 
-The PMD does not have to be split. A contiguous run of slots was already
-secured when the folio was added to the swap cache - a non-contiguous
-allocation would have split the folio first - so the whole mapping can be
-replaced by one PMD-level swap entry encoding the first slot.
+move_swap_pmd() is modelled on move_swap_pte(): it moves the entry under
+both PMD locks, propagates soft-dirty, arms the UFFD marker for an
+RWP-registered destination, carries the deposited page table across, and
+requires pmd_swp_exclusive() for the same single-owner semantics.
 
-shrink_folio_list() therefore stops asking for TTU_SPLIT_HUGE_PMD for a
-PMD-mappable folio already in the swap cache, and try_to_unmap_one() grows
-a PMD branch. TTU_SPLIT_HUGE_PMD remains the fallback for everything else.
+The entry can only be moved whole while the covered swap cache is empty or
+holds one PMD-sized folio. A cached folio is locked and revalidated, then
+its anon rmap is re-anchored to the destination VMA; an empty cache is
+re-checked slot by slot under both PMD locks, because a per-slot folio that
+appeared meanwhile would need the PTE path to fix up its rmap metadata. A
+range that is already split is split and retried through PTEs. Revalidation
+failure just returns -EAGAIN: its usual cause is a racing fault that made
+src_pmd a healthy present THP, which must not be shattered.
 
-set_pmd_swap_entry() is deliberately close in shape to
-set_pmd_migration_entry(): invalidate the mapping while keeping the
-original for rollback, take a swap reference on every slot, transfer the
-exclusive state, propagate the dirty bit to the folio so writeback is not
-lost, add the mm to mmlist before the entry becomes visible, and carry
-over soft-dirty and uffd-wp. Any step that can fail restores the mapping
-first.
-
-The entry encodes exactly what the PTE entries would, so swap_map
-accounting is unchanged: each slot carries a count of one, released
-individually on a later split or together on swap-in.
-
-zswap needs no handling here. It stores the folio as order-0 entries, and
-the PMD-order swap-in users split and fall back to PTEs if any covered
-slot turns out to have a zswap entry.
-
-thp_swpout_pmd counts PMD mappings replaced this way. Unlike thp_swpout it
-counts mappings rather than folios, so a fork-shared THP can increment it
-once per mapping.
+Finally, reject a PMD swap entry at the *destination* with -EEXIST. It is
+not a hole, and unlike a migration entry it does not resolve on its own:
+pte_alloc() skips a !pmd_none PMD, pte_offset_map_rw_nolock() then fails,
+and the resulting -EAGAIN would be retried forever.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- Documentation/admin-guide/mm/transhuge.rst |  5 ++
- include/linux/huge_mm.h                    |  2 +
- include/linux/vm_event_item.h              |  1 +
- mm/huge_memory.c                           | 84 ++++++++++++++++++++++
- mm/rmap.c                                  | 19 +++++
- mm/vmscan.c                                |  9 ++-
- mm/vmstat.c                                |  1 +
- 7 files changed, 120 insertions(+), 1 deletion(-)
+ mm/huge_memory.c | 158 ++++++++++++++++++++++++++++++++++++++++++++++-
+ mm/userfaultfd.c |  14 +++++
+ 2 files changed, 171 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/admin-guide/mm/transhuge.rst b/Documentation/admin-guide/mm/transhuge.rst
-index b187d618452f4..64d413d9fd83e 100644
---- a/Documentation/admin-guide/mm/transhuge.rst
-+++ b/Documentation/admin-guide/mm/transhuge.rst
-@@ -632,6 +632,11 @@ thp_swpout
- 	is incremented every time a huge page is swapout in one
- 	piece without splitting.
- 
-+thp_swpout_pmd
-+	is incremented every time a PMD mapping is replaced by a PMD-level
-+	swap entry. A fork-shared THP can increment this counter once for each
-+	PMD mapping that is swapped out.
-+
- thp_swpout_fallback
- 	is incremented if a huge page has to be split before swapout.
- 	Usually because failed to allocate some continuous swap space
-diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-index b44a228dfe20c..86c65e3a6c5d1 100644
---- a/include/linux/huge_mm.h
-+++ b/include/linux/huge_mm.h
-@@ -550,6 +550,8 @@ vm_fault_t do_huge_pmd_device_private(struct vm_fault *vmf);
- 
- #ifdef CONFIG_THP_SWAP
- vm_fault_t do_huge_pmd_swap_page(struct vm_fault *vmf);
-+int set_pmd_swap_entry(struct page_vma_mapped_walk *pvmw,
-+		       struct folio *folio);
- #else
- static inline vm_fault_t do_huge_pmd_swap_page(struct vm_fault *vmf)
- {
-diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
-index 2628ccda076a0..f8fd4e13698c3 100644
---- a/include/linux/vm_event_item.h
-+++ b/include/linux/vm_event_item.h
-@@ -108,6 +108,7 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
- 		THP_ZERO_PAGE_ALLOC_FAILED,
- 		THP_SWPOUT,
- 		THP_SWPOUT_FALLBACK,
-+		THP_SWPOUT_PMD,
- #endif
- #ifdef CONFIG_BALLOON
- 		BALLOON_INFLATE,
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index bd9cc24c2b011..317d2108105de 100644
+index 5f3d620c64a94..497f677a3ef71 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -5736,3 +5736,87 @@ void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct folio *folio
- 	trace_remove_migration_pmd(address, pmd_val(pmde));
- }
+@@ -2972,6 +2972,78 @@ int change_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
  #endif
-+
+ 
+ #ifdef CONFIG_USERFAULTFD
 +#ifdef CONFIG_THP_SWAP
-+/**
-+ * set_pmd_swap_entry() - Replace a PMD mapping with a PMD-level swap entry.
-+ * @pvmw: Page vma mapped walk context, must have pvmw->pmd set and
-+ *        pvmw->pte NULL (i.e. PMD-mapped).
-+ * @folio: The folio being swapped out. Must be in the swap cache.
-+ *
-+ * This installs a PMD-level swap entry in place of a present PMD mapping,
-+ * avoiding the need to split the PMD into PTE-level swap entries.
-+ *
-+ * Return: 0 on success, negative error code on failure.
++/*
++ * Move a PMD-level swap entry from src_pmd to dst_pmd. Both PMD locks are
++ * acquired here; src_folio (if present) must already be locked. The deposited
++ * page table backing the source THP is moved across with the entry.
 + */
-+int set_pmd_swap_entry(struct page_vma_mapped_walk *pvmw,
-+		       struct folio *folio)
++static int move_swap_pmd(struct mm_struct *mm, struct vm_area_struct *dst_vma,
++			 unsigned long dst_addr, unsigned long src_addr,
++			 pmd_t *dst_pmd, pmd_t *src_pmd,
++			 pmd_t orig_dst_pmd, pmd_t orig_src_pmd,
++			 spinlock_t *dst_ptl, spinlock_t *src_ptl,
++			 struct folio *src_folio, swp_entry_t entry)
 +{
-+	struct vm_area_struct *vma = pvmw->vma;
-+	struct mm_struct *mm = vma->vm_mm;
-+	unsigned long address = pvmw->address;
-+	unsigned long haddr = address & HPAGE_PMD_MASK;
-+	struct page *page = folio_page(folio, 0);
-+	bool anon_exclusive;
-+	pmd_t pmdval;
-+	swp_entry_t entry;
-+	pmd_t pmdswp;
++	pgtable_t src_pgtable;
++	pmd_t moved_pmd;
 +
 +	/*
-+	 * try_to_unmap_one() only gets here for a PMD-mapped, anonymous,
-+	 * PMD-sized folio that is already in the swap cache, and a swapcache
-+	 * folio is always swapbacked. Refuse instead of crashing should that
-+	 * ever stop being true: the caller aborts the rmap walk and the folio
-+	 * simply stays mapped.
++	 * The folio may have been freed and reused for a different swap entry
++	 * while it was unlocked. Re-verify the association.
 +	 */
-+	if (unlikely(!pvmw->pmd || pvmw->pte ||
-+		     !folio_test_anon(folio) ||
-+		     !folio_test_swapcache(folio) ||
-+		     !folio_test_swapbacked(folio) ||
-+		     folio_nr_pages(folio) != HPAGE_PMD_NR)) {
-+		VM_WARN_ON_ONCE_FOLIO(true, folio);
-+		return -EBUSY;
++	if (src_folio && unlikely(!folio_matches_swap_entry(src_folio, entry) ||
++				  folio_nr_pages(src_folio) != HPAGE_PMD_NR))
++		return -EAGAIN;
++
++	double_pt_lock(dst_ptl, src_ptl);
++
++	if (!pmd_same(*src_pmd, orig_src_pmd) ||
++	    !pmd_same(*dst_pmd, orig_dst_pmd)) {
++		double_pt_unlock(dst_ptl, src_ptl);
++		return -EAGAIN;
 +	}
 +
-+	flush_cache_range(vma, haddr, haddr + HPAGE_PMD_SIZE);
++	/*
++	 * If the folio is in the swap cache, re-anchor its anon rmap to the
++	 * destination VMA so a future swap-in fault at dst_addr finds it.
++	 * Otherwise, re-check the whole PMD swap range: a PMD swap entry is
++	 * only a compact encoding for HPAGE_PMD_NR swap slots, and any per-slot
++	 * cached folio would need the PTE move path to update its rmap
++	 * metadata.
++	 */
++	if (src_folio) {
++		folio_move_anon_rmap(src_folio, dst_vma);
++		src_folio->index = linear_anon_page_index(dst_vma, dst_addr);
++	} else {
++		unsigned int type = swp_type(entry);
++		pgoff_t offset = swp_offset(entry);
++		int i;
 +
-+	pmdval = pmdp_invalidate(vma, haddr, pvmw->pmd);
-+
-+	/* Update high watermark before we lower rss */
-+	update_hiwater_rss(mm);
-+
-+	if (folio_dup_swap(folio, NULL) < 0) {
-+		set_pmd_at(mm, haddr, pvmw->pmd, pmdval);
-+		return -ENOMEM;
++		for (i = 0; i < HPAGE_PMD_NR; i++) {
++			if (swap_cache_has_folio(swp_entry(type, offset + i))) {
++				double_pt_unlock(dst_ptl, src_ptl);
++				return -EAGAIN;
++			}
++		}
 +	}
 +
-+	/* See folio_try_share_anon_rmap_pmd(): invalidate PMD first. */
-+	anon_exclusive = PageAnonExclusive(page);
-+	if (anon_exclusive && folio_try_share_anon_rmap_pmd(folio, page)) {
-+		folio_put_swap(folio, NULL);
-+		set_pmd_at(mm, haddr, pvmw->pmd, pmdval);
-+		return -EBUSY;
-+	}
++	moved_pmd = pmdp_huge_get_and_clear(mm, src_addr, src_pmd);
++	if (pgtable_supports_soft_dirty())
++		moved_pmd = pmd_swp_mksoft_dirty(moved_pmd);
++	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
++	if (userfaultfd_rwp(dst_vma))
++		moved_pmd = pmd_swp_mkuffd(moved_pmd);
++	set_pmd_at(mm, dst_addr, dst_pmd, moved_pmd);
 +
-+	mm_prepare_for_swap_entries(mm);
++	src_pgtable = pgtable_trans_huge_withdraw(mm, src_pmd);
++	pgtable_trans_huge_deposit(mm, dst_pmd, src_pgtable);
 +
-+	if (pmd_dirty(pmdval))
-+		folio_mark_dirty(folio);
-+
-+	entry = folio->swap;
-+	pmdswp = softleaf_to_pmd(entry);
-+	if (pmd_soft_dirty(pmdval))
-+		pmdswp = pmd_swp_mksoft_dirty(pmdswp);
-+	if (pmd_uffd(pmdval))
-+		pmdswp = pmd_swp_mkuffd(pmdswp);
-+	if (anon_exclusive)
-+		pmdswp = pmd_swp_mkexclusive(pmdswp);
-+	set_pmd_at(mm, haddr, pvmw->pmd, pmdswp);
-+
-+	folio_remove_rmap_pmd(folio, page, vma);
-+	folio_put(folio);
-+
-+	count_vm_event(THP_SWPOUT_PMD);
++	double_pt_unlock(dst_ptl, src_ptl);
 +	return 0;
 +}
 +#endif /* CONFIG_THP_SWAP */
-diff --git a/mm/rmap.c b/mm/rmap.c
-index feb751e29b992..3745f16cf5716 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2284,6 +2284,25 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 				goto walk_abort;
- 			}
++
+ /*
+  * The PT lock for src_pmd and dst_vma/src_vma (for reading) are locked by
+  * the caller, but it must return after releasing the page_table_lock.
+@@ -3006,11 +3078,95 @@ int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pm
+ 	}
  
+ 	if (!pmd_trans_huge(src_pmdval)) {
+-		spin_unlock(src_ptl);
+ 		if (pmd_is_migration_entry(src_pmdval)) {
++			spin_unlock(src_ptl);
+ 			pmd_migration_entry_wait(mm, src_pmd);
+ 			return -EAGAIN;
+ 		}
 +#ifdef CONFIG_THP_SWAP
-+			/*
-+			 * If the folio is in the swap cache and we're not
-+			 * asked to split, install a PMD-level swap entry.
-+			 */
-+			if (!(flags & TTU_SPLIT_HUGE_PMD) &&
-+			    folio_test_anon(folio) &&
-+			    folio_test_swapcache(folio)) {
-+				if (set_pmd_swap_entry(&pvmw, folio))
-+					goto walk_abort;
++		if (pmd_is_swap_entry(src_pmdval)) {
++			swp_entry_t entry;
++			struct swap_info_struct *si;
++			enum swap_pmd_cache cache_state;
 +
-+				add_mm_counter(mm, MM_ANONPAGES,
-+					       -HPAGE_PMD_NR);
-+				add_mm_counter(mm, MM_SWAPENTS,
-+					       HPAGE_PMD_NR);
-+				goto walk_done;
++			/*
++			 * UFFDIO_MOVE on anon mappings requires single-owner
++			 * semantics; refuse to move a shared swap entry.
++			 */
++			if (!pmd_swp_exclusive(src_pmdval)) {
++				spin_unlock(src_ptl);
++				return -EBUSY;
 +			}
-+#endif
 +
- 			if (flags & TTU_SPLIT_HUGE_PMD) {
- 				/*
- 				 * We temporarily have to drop the PTL and
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index c2eb8fa9d5e50..7648a2a0d0813 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1408,7 +1408,14 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 			enum ttu_flags flags = TTU_BATCH_FLUSH;
- 			bool was_swapbacked = folio_test_swapbacked(folio);
- 
--			if (folio_test_pmd_mappable(folio))
++			entry = softleaf_from_pmd(src_pmdval);
++			spin_unlock(src_ptl);
++
 +			/*
-+			 * With THP_SWAP, PMD-mappable folios already in the
-+			 * swap cache can be unmapped with a PMD-level swap
-+			 * entry, avoiding the cost of splitting the PMD.
++			 * Pin the swap device against a racing swapoff. NULL
++			 * means swapoff is in progress, which resolves on its
++			 * own, so ask the caller to retry. An error pointer
++			 * means the entry names no swap device at all: that
++			 * never resolves, so report it instead of spinning in
++			 * the caller's -EAGAIN loop.
 +			 */
-+			if (folio_test_pmd_mappable(folio) &&
-+			    !(IS_ENABLED(CONFIG_THP_SWAP) &&
-+			      folio_test_swapcache(folio)))
- 				flags |= TTU_SPLIT_HUGE_PMD;
- 			/*
- 			 * Without TTU_SYNC, try_to_unmap will only begin to
-diff --git a/mm/vmstat.c b/mm/vmstat.c
-index a3e809c57f295..5badcce8ff0ad 100644
---- a/mm/vmstat.c
-+++ b/mm/vmstat.c
-@@ -1435,6 +1435,7 @@ const char * const vmstat_text[] = {
- 	[I(THP_ZERO_PAGE_ALLOC_FAILED)]		= "thp_zero_page_alloc_failed",
- 	[I(THP_SWPOUT)]				= "thp_swpout",
- 	[I(THP_SWPOUT_FALLBACK)]		= "thp_swpout_fallback",
-+	[I(THP_SWPOUT_PMD)]			= "thp_swpout_pmd",
- #endif
- #ifdef CONFIG_BALLOON
- 	[I(BALLOON_INFLATE)]			= "balloon_inflate",
++			si = get_swap_device(entry);
++			if (!si)
++				return -EAGAIN;
++			if (IS_ERR(si))
++				return PTR_ERR(si);
++
++			src_folio = NULL;
++			cache_state = swap_pmd_cache_lookup(entry, &src_folio);
++			if (cache_state == SWAP_PMD_CACHE_SPLIT) {
++				put_swap_device(si);
++				__split_huge_pmd(src_vma, src_pmd, src_addr);
++				return -EAGAIN;
++			}
++
++			mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0,
++						mm, src_addr,
++						src_addr + HPAGE_PMD_SIZE);
++			mmu_notifier_invalidate_range_start(&range);
++
++			if (src_folio) {
++				folio_lock(src_folio);
++				/*
++				 * Do not split on failure here. The usual cause
++				 * is that a racing fault swapped the range back
++				 * in and dropped the folio from the swap cache,
++				 * so src_pmd is now a healthy present THP;
++				 * splitting it would destroy the very mapping
++				 * UFFDIO_MOVE is trying to move whole. The
++				 * caller's -EAGAIN retry re-reads src_pmd and
++				 * picks the right path, exactly as
++				 * move_swap_pte() relies on for the PTE case.
++				 */
++				if (!folio_matches_swap_entry(src_folio, entry) ||
++				    folio_nr_pages(src_folio) != HPAGE_PMD_NR) {
++					folio_unlock(src_folio);
++					folio_put(src_folio);
++					mmu_notifier_invalidate_range_end(&range);
++					put_swap_device(si);
++					return -EAGAIN;
++				}
++			}
++
++			dst_ptl = pmd_lockptr(mm, dst_pmd);
++			err = move_swap_pmd(mm, dst_vma, dst_addr, src_addr,
++					    dst_pmd, src_pmd, dst_pmdval,
++					    src_pmdval, dst_ptl, src_ptl,
++					    src_folio, entry);
++
++			mmu_notifier_invalidate_range_end(&range);
++			if (src_folio) {
++				folio_unlock(src_folio);
++				folio_put(src_folio);
++			}
++			put_swap_device(si);
++			return err;
++		}
++#endif /* CONFIG_THP_SWAP */
++		spin_unlock(src_ptl);
+ 		return -ENOENT;
+ 	}
+ 
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 79cc7b546f130..e9e1df254fd72 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2053,6 +2053,20 @@ static ssize_t move_pages(struct userfaultfd_ctx *ctx, unsigned long dst_start,
+ 			break;
+ 		}
+ 
++		/*
++		 * A PMD swap entry at dst is a swapped-out THP, not a hole,
++		 * and unlike a PMD migration entry it will not resolve on its
++		 * own. Nothing below faults it back in: pte_alloc() skips a
++		 * !pmd_none PMD, pte_offset_map_rw_nolock() then fails on the
++		 * non-present PMD, and the -EAGAIN that produces would be
++		 * retried forever by the loop below. Be strict, exactly as for
++		 * a present THP.
++		 */
++		if (unlikely(pmd_is_swap_entry(dst_pmdval))) {
++			err = -EEXIST;
++			break;
++		}
++
+ 		ptl = pmd_trans_huge_lock(src_pmd, src_vma);
+ 		if (ptl) {
+ 			/* Check if we can move the pmd without splitting it. */
 -- 
 2.53.0-Meta
 
