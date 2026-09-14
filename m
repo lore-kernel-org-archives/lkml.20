@@ -1,517 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34874248B2;
-	Mon, 14 Sep 2026 09:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28C0425880
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377835; cv=none; b=Q+xT0n7u0p9cWjRfyQ+sD+TOrjEsJJ1Gm4c6L800RNW3QEKs9CiAFNlF8agHZYzedcDlPUUDAlN8AqYT6Ra7WV3TFqixvJYdxMwJiJWHGLc18gYiJsFr1aYStwgRCgOOTwfvVL78IG8a6oyVPoG1sU9Nh70Ds/VMO4mUiFizuPM=
+	t=1789377844; cv=none; b=UDL18yiQmZA79eTB+HCcJQ4lvjZVwYZINLIgKuZILxelQYINO0AxGD3a21Y6FEVbl3jRO0Ud4NANhThmSBugUG9tS6QUEZUFiTcoFrk7a47qtrZBEYAw7yZe9ef+tMkXqeyfQShcX6JIMalhBHw7Ruo/gQ6ru/KHtCQfxs7GKPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377835; c=relaxed/simple;
-	bh=I4N/QGvfiqwISRNIr8XvyiUONyrL6kJU9dfDNPImVZI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M9cdSnO/L6IgSJ2LEr8AHoHw3S+Tdmi8VxBzKT1h3jCi2YM5SDnggqGfRXk65R38ybFLmPK5UcyidLx69YemRXpd5pEooAi2HSMQwXURuxwtzKOIJPJ0/n3tpGBuTfO1b3p2TPcA8EHrmh8SOj9yH8CxIXyJrXo6fuBWbuQVhEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6CZ8IQt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377844; c=relaxed/simple;
+	bh=PJCpttXgaFTAAuIppNV/gcSz4Kqn62rNZomfMgasjmI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Vvh9maVs0RXQImnxSiV0Jn7mUmMnaOqDgXGE6qVpGI2sLgpsGzLkDlsDjPRRxFo1SRmbbRJdxU0imazGS3UfzhDD29Xhuvq8DxKoVuI7/cPWF07a5u4/bEMxIAqbmvFO/yHH8g3+E4icFqZgXtJSkc2C9W88EYJ1MEURAHBedwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S03B2mRD; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oYsrdG6F; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6CZ8IQt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B681F00893;
-	Mon, 14 Sep 2026 09:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377824;
-	bh=kyV9tLD58BJ1dnw177aZoGUZ0P4tXoiPTGjshBkWPJc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=N6CZ8IQtNzAm3MOeHsBzVU3OHCfZSB2aFpjOGqPt0kCf+gJ9XY8ZBD8pbAUh1SRny
-	 qJs1K+ul6ytmQx/QvBshZDW9jFG/dXkOttQh61WygMJSRhvKnAE36QEjUwjpC5rL3R
-	 4kSPJijHTqaPPJlAKV6TwdwkRbOcsAFTn9xchkby4N2/OtiPQ86BJS99DW2vR2ZXSz
-	 JYcw/vp1cUYWwMwv2wzAzTrezB0P3ZJnvlK4iKXaN4dDdQYsQX19mgCOgeg6lGO13r
-	 dKuzneutadx12/JYtwshlJF0wqtpwOjnEJ1thPpM2BzpSEWkWe5DqW6Npv5RlSNThZ
-	 Lfd1dyVWpfxnA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 10:22:09 +0100
-Subject: [PATCH v2 10/21] kbuild: move the toolchain checks into
- init/Kconfig.toolchain
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S03B2mRD";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oYsrdG6F"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789377837;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
+	b=S03B2mRDhMOL9hadIcjxq84aJy8x2b9D+LQRphsfR0PdxlSCwtWsvengupFKEESvc1Vm48
+	I8ruJN69aaAnU2kVZpNcR43EyW1fQVn3HoCQ5L+YIzEkzrMhFUfviLS2Oe8+EcUgt3hZ3G
+	77M7sQNZfEwjFDdRQNiorKBilPwieko=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-571-PWcl-3mtMw-KD9eGD5-wWg-1; Mon, 14 Sep 2026 05:23:56 -0400
+X-MC-Unique: PWcl-3mtMw-KD9eGD5-wWg-1
+X-Mimecast-MFC-AGG-ID: PWcl-3mtMw-KD9eGD5-wWg_1789377835
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4955e865174so14964165e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:23:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789377835; x=1789982635; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
+        b=oYsrdG6Fa2kcN1QW3mC4SMRafmaJlaWHFHx8NyuuN73+zAFvY2tPFf7YGXAIVuMaAI
+         TuNAH/9BzAlWVMsrUBltCllDPhOgbHvFBAkMrQbDkzm2hVgPpnxH9oTQid9kARUuwHm5
+         fm968OJObPInV9GSSIwg+hjDhj4ndPu7t4HrlEVXcG2TnbBy+d+jE4ftJ0Z5s7Aqj9WH
+         I6eZOyqa7gnahAmpdKOSSjgyQIhIL24G/K+5BkCdTqOVLOcRiG/PcECYtOPZJu4GEFa3
+         cIGrepfFT0BCydOZlb28oXsTrhlmf3txMq3h/BxZRpwCptWUqZPYDbF+faiW/O2iXgvn
+         ocxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789377835; x=1789982635;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
+        b=FHckjVv1z29QRA1LqXDRiVKGVlEB89szbM3nwFn8h+GMiEglkChu8okgjoX+61LiMX
+         4mO08gJkFj0A4mjdpKGbY6bzWgFUQtCphTwgVkcmWoE7ClxhdpSYHsvUTNO+6wvLen02
+         n7kD9qHL+rU5TXlta+b0/9Wzna0cIckwrUqDPPlVO9aLQR5aEoPw4N85B6Nxd0oacyWU
+         LwQZK6cVZ4h2tx7wXbmxR3HGzTKTXATBcCuHMaxejwlyD0so9sFsNEEagh0lk16dqIPZ
+         broVwkj6ggOg5yz9z1XVfcrGBTL0bZzESK4RQ6mVQZhMii2AwA4Wbd5rk+UXZuH3GXQJ
+         4gfA==
+X-Forwarded-Encrypted: i=1; AKwUvByjhnq713NjstyjDFPxk8uHXlNw6CkmfoA1bfzXmxvc4HMhsAJxtsIpKEG5A3WYO+l8f03j7XEkfuBf110=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKKmjvMV3FEAXf5p7Wkf1eGBncfGMQ0jnquRXE0G8N6OSmuHw+
+	oAJxoLx+o7JAe7kk8mkqxKQH+QzmJAcaQ9pno4ZBSbIx3L3ursszulPJc6XW38tUl2IKG2ssEwM
+	/7tut2Vft/kr+g9TPwU6orVk/TtY9LtQqRbCo81gHFJ9e+cLKiHSiqBkJGkNZqJLGPw==
+X-Gm-Gg: AYBFou1XMb/zEIB4SHgesx8/zCiaURIpopo5fh8CAYU1Vxd+EyicskyrYSv5mZrf49F
+	DLzm+115S9KP7OF/2z0ZI42MB5aazFMXFEReYZyxX4ropWvkjcIL6yCbyiVc8GB7YhpG+W+DqRi
+	AJWlUfOa/XceLn/rTGb6Ue6z+ELyZ80IoNtS/xYhAvW/ucTZ64hS9ioUrNCwl+wt4Ul3Drnrz1y
+	uolDYDItFIKZl6EcBNntFLub2UYUaTR1VvbkFgB67/mdhaBn1/loM/htj2N5SD8QoaX0Dh/TB1A
+	HQShjZvQeABbbqJKfBQlu9p9uKTw2iAzdRvjTY0z6InPvTUBg5OwotGC+x7JP1DqPxq+HkkHM1h
+	YGgUirOpm+AtFycPte5xkFjC+yIWjX9eLr8eA2tpMs7H+9DiDS2qzuQztMw==
+X-Received: by 2002:a05:600c:628f:b0:49d:1df6:2592 with SMTP id 5b1f17b1804b1-49e7a66ae3dmr16857815e9.21.1789377835285;
+        Mon, 14 Sep 2026 02:23:55 -0700 (PDT)
+X-Received: by 2002:a05:600c:628f:b0:49d:1df6:2592 with SMTP id 5b1f17b1804b1-49e7a66ae3dmr16857405e9.21.1789377834915;
+        Mon, 14 Sep 2026 02:23:54 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm399519375e9.2.2026.09.14.02.23.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:23:54 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Chen-Yu Tsai
+ <wens@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Liu Ying
+ <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Luca Ceresoli <luca.ceresoli@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Francesco Dolcini <francesco@dolcini.it>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Rob
+ Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Marcus Folkesson
+ <marcus.folkesson@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Yannick Fertre
+ <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>, CK Hu
+ <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>, Yongxing Mou
+ <yongxing.mou@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, Chris
+ Morgan <macromorgan@hotmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: display: Use consistent indentation in
+ the example
+In-Reply-To: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 11:23:52 +0200
+Message-ID: <87pkyg1907.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-build-speedup-v2-10-39817ec5db23@kernel.org>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
-In-Reply-To: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14277; i=ljs@kernel.org;
- h=from:subject:message-id; bh=I4N/QGvfiqwISRNIr8XvyiUONyrL6kJU9dfDNPImVZI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKW7zmQmMV3odw2PubvrmO2kk9tvLfrrfhSs7P71FIfU
- 8fdd5WiOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARDilGhlMTH07ezXtKRDvu
- 6J7VDhP6466Lq927m6r0f2fTry8r/kxj+Gf2hJtheZXciTmtMrdO9K7J/Wcv/ELsp/+6X0fbxZX
- 7uVkB
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain
 
-init/Kconfig opens with two hundred lines identifying the compiler,
-assembler, linker and rustc and probing which options they support, none of
-it to do with init.
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> writes:
 
-Move them into their own file, sourced from the top of init/Kconfig, so
-that the next commit can add to them without growing init/Kconfig further.
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
-No functional change.
-
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- init/Kconfig           | 197 +-----------------------------------------------
- init/Kconfig.toolchain | 198 +++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 199 insertions(+), 196 deletions(-)
-
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f06c52..b44a9482cdc9 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1,201 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
--config CC_VERSION_TEXT
--	string
--	default "$(CC_VERSION_TEXT)"
--	help
--	  This is used in unclear ways:
--
--	  - Re-run Kconfig when the compiler is updated
--	    The 'default' property references the environment variable,
--	    CC_VERSION_TEXT so it is recorded in include/config/auto.conf.cmd.
--	    When the compiler is updated, Kconfig will be invoked.
--
--	  - Ensure full rebuild when the compiler is updated
--	    include/linux/compiler-version.h contains this option in the comment
--	    line so fixdep adds include/config/CC_VERSION_TEXT into the
--	    auto-generated dependency. When the compiler is updated, syncconfig
--	    will touch it and then every file will be rebuilt.
--
--config CC_IS_GCC
--	def_bool $(success,test "$(cc-name)" = GCC)
--
--config GCC_VERSION
--	int
--	default $(cc-version) if CC_IS_GCC
--	default 0
--
--config CC_IS_CLANG
--	def_bool $(success,test "$(cc-name)" = Clang)
--
--config CLANG_VERSION
--	int
--	default $(cc-version) if CC_IS_CLANG
--	default 0
--
--config AS_IS_GNU
--	def_bool $(success,test "$(as-name)" = GNU)
--
--config AS_IS_LLVM
--	def_bool $(success,test "$(as-name)" = LLVM)
--
--config AS_VERSION
--	int
--	# Use clang version if this is the integrated assembler
--	default CLANG_VERSION if AS_IS_LLVM
--	default $(as-version)
--
--config LD_IS_BFD
--	def_bool $(success,test "$(ld-name)" = BFD)
--
--config LD_VERSION
--	int
--	default $(ld-version) if LD_IS_BFD
--	default 0
--
--config LD_IS_LLD
--	def_bool $(success,test "$(ld-name)" = LLD)
--
--config LLD_VERSION
--	int
--	default $(ld-version) if LD_IS_LLD
--	default 0
--
--config RUSTC_VERSION
--	int
--	default $(rustc-version)
--	help
--	  It does not depend on `RUST` since that one may need to use the version
--	  in a `depends on`.
--
--config RUST_IS_AVAILABLE
--	def_bool $(success,$(srctree)/scripts/rust_is_available.sh)
--	help
--	  This shows whether a suitable Rust toolchain is available (found).
--
--	  Please see Documentation/rust/quick-start.rst for instructions on how
--	  to satisfy the build requirements of Rust support.
--
--	  In particular, the Makefile target 'rustavailable' is useful to check
--	  why the Rust toolchain is not being detected.
--
--config RUSTC_LLVM_VERSION
--	int
--	default $(rustc-llvm-version)
--
--config RUSTC_LLVM_MAJOR_VERSION
--	int
--	default $(shell,expr $(rustc-llvm-version) / 10000)
- 
--config RUSTC_CLANG_LLVM_COMPATIBLE
--	bool
--	default y if CC_IS_CLANG && RUSTC_LLVM_MAJOR_VERSION = $(shell,expr $(cc-version) / 10000)
--	help
--	  This indicates whether Rust and Clang use LLVM of the same major
--	  version.
--
--	  Operations involving handling LLVM IR or bitcode (e.g. cross-language
--	  LTO) require the same LLVM major version to work properly. For best
--	  compatibility it is recommended that the exact same LLVM is used.
--
--config ARCH_HAS_CC_CAN_LINK
--	bool
--
--config CC_CAN_LINK
--	bool
--	default ARCH_CC_CAN_LINK if ARCH_HAS_CC_CAN_LINK
--	default $(cc_can_link_user,$(m64-flag)) if 64BIT
--	default $(cc_can_link_user,$(m32-flag))
--
--# Fixed in GCC 14, 13.3, 12.4 and 11.5
--# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113921
--config GCC_ASM_GOTO_OUTPUT_BROKEN
--	bool
--	depends on CC_IS_GCC
--	default y if GCC_VERSION < 110500
--	default y if GCC_VERSION >= 120000 && GCC_VERSION < 120400
--	default y if GCC_VERSION >= 130000 && GCC_VERSION < 130300
--
--config CC_HAS_ASM_GOTO_OUTPUT
--	def_bool y
--	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
--	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
--
--config CC_HAS_ASM_GOTO_TIED_OUTPUT
--	depends on CC_HAS_ASM_GOTO_OUTPUT
--	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
--	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
--
--config TOOLS_SUPPORT_RELR
--	def_bool $(success,env "CC=$(CC)" "LD=$(LD)" "NM=$(NM)" "OBJCOPY=$(OBJCOPY)" $(srctree)/scripts/tools-support-relr.sh)
--
--config CC_HAS_ASM_INLINE
--	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
--
--config CC_HAS_ASSUME
--	bool
--	# clang needs to be at least 19.1.0 since the meaning of the assume
--	# attribute changed:
--	# https://github.com/llvm/llvm-project/commit/c44fa3e8a9a44c2e9a575768a3c185354b9f6c17
--	default y if CC_IS_CLANG && CLANG_VERSION >= 190100
--	# supported since gcc 13.1.0
--	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106654
--	default y if CC_IS_GCC && GCC_VERSION >= 130100
--
--config CC_HAS_NO_PROFILE_FN_ATTR
--	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
--
--config CC_HAS_COUNTED_BY
--	bool
--	# clang needs to be at least 20.1.0 to avoid potential crashes
--	# when building structures that contain __counted_by
--	# https://github.com/ClangBuiltLinux/linux/issues/2114
--	# https://github.com/llvm/llvm-project/commit/160fb1121cdf703c3ef5e61fb26c5659eb581489
--	default y if CC_IS_CLANG && CLANG_VERSION >= 200100
--	# supported since gcc 15.1.0
--	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
--	default y if CC_IS_GCC && GCC_VERSION >= 150100
--
--config CC_HAS_COUNTED_BY_PTR
--	bool
--	# supported since clang 22
--	default y if CC_IS_CLANG && CLANG_VERSION >= 220100
--	# supported since gcc 16.0.0
--	default y if CC_IS_GCC && GCC_VERSION >= 160000
--
--config CC_HAS_BROKEN_COUNTED_BY_REF
--	bool
--	# https://github.com/llvm/llvm-project/issues/182575
--	default y if CC_IS_CLANG && CLANG_VERSION < 220100
--
--config CC_HAS_ALLOC_TOKEN
--	def_bool $(cc-option,-falloc-token-max=123)
--
--config CC_HAS_MULTIDIMENSIONAL_NONSTRING
--	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
--
--config LD_CAN_USE_KEEP_IN_OVERLAY
--	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
--	# https://github.com/llvm/llvm-project/pull/130661
--	def_bool LD_IS_BFD || LLD_VERSION >= 210000
--
--config RUSTC_HAS_SPAN_FILE
--	def_bool RUSTC_VERSION >= 108800
--
--config RUSTC_HAS_UNNECESSARY_TRANSMUTES
--	def_bool RUSTC_VERSION >= 108800
--
--config RUSTC_HAS_FILE_WITH_NUL
--	def_bool RUSTC_VERSION >= 108900
--
--config RUSTC_HAS_FILE_AS_C_STR
--	def_bool RUSTC_VERSION >= 109100
--
--config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
--	def_bool RUSTC_VERSION >= 109800
--
--config PAHOLE_VERSION
--	int
--	default "$(PAHOLE_VERSION)"
-+source "init/Kconfig.toolchain"
- 
- config CONSTRUCTORS
- 	bool
-diff --git a/init/Kconfig.toolchain b/init/Kconfig.toolchain
-new file mode 100644
-index 000000000000..fac36246451f
---- /dev/null
-+++ b/init/Kconfig.toolchain
-@@ -0,0 +1,198 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+config CC_VERSION_TEXT
-+	string
-+	default "$(CC_VERSION_TEXT)"
-+	help
-+	  This is used in unclear ways:
-+
-+	  - Re-run Kconfig when the compiler is updated
-+	    The 'default' property references the environment variable,
-+	    CC_VERSION_TEXT so it is recorded in include/config/auto.conf.cmd.
-+	    When the compiler is updated, Kconfig will be invoked.
-+
-+	  - Ensure full rebuild when the compiler is updated
-+	    include/linux/compiler-version.h contains this option in the comment
-+	    line so fixdep adds include/config/CC_VERSION_TEXT into the
-+	    auto-generated dependency. When the compiler is updated, syncconfig
-+	    will touch it and then every file will be rebuilt.
-+
-+config CC_IS_GCC
-+	def_bool $(success,test "$(cc-name)" = GCC)
-+
-+config GCC_VERSION
-+	int
-+	default $(cc-version) if CC_IS_GCC
-+	default 0
-+
-+config CC_IS_CLANG
-+	def_bool $(success,test "$(cc-name)" = Clang)
-+
-+config CLANG_VERSION
-+	int
-+	default $(cc-version) if CC_IS_CLANG
-+	default 0
-+
-+config AS_IS_GNU
-+	def_bool $(success,test "$(as-name)" = GNU)
-+
-+config AS_IS_LLVM
-+	def_bool $(success,test "$(as-name)" = LLVM)
-+
-+config AS_VERSION
-+	int
-+	# Use clang version if this is the integrated assembler
-+	default CLANG_VERSION if AS_IS_LLVM
-+	default $(as-version)
-+
-+config LD_IS_BFD
-+	def_bool $(success,test "$(ld-name)" = BFD)
-+
-+config LD_VERSION
-+	int
-+	default $(ld-version) if LD_IS_BFD
-+	default 0
-+
-+config LD_IS_LLD
-+	def_bool $(success,test "$(ld-name)" = LLD)
-+
-+config LLD_VERSION
-+	int
-+	default $(ld-version) if LD_IS_LLD
-+	default 0
-+
-+config RUSTC_VERSION
-+	int
-+	default $(rustc-version)
-+	help
-+	  It does not depend on `RUST` since that one may need to use the version
-+	  in a `depends on`.
-+
-+config RUST_IS_AVAILABLE
-+	def_bool $(success,$(srctree)/scripts/rust_is_available.sh)
-+	help
-+	  This shows whether a suitable Rust toolchain is available (found).
-+
-+	  Please see Documentation/rust/quick-start.rst for instructions on how
-+	  to satisfy the build requirements of Rust support.
-+
-+	  In particular, the Makefile target 'rustavailable' is useful to check
-+	  why the Rust toolchain is not being detected.
-+
-+config RUSTC_LLVM_VERSION
-+	int
-+	default $(rustc-llvm-version)
-+
-+config RUSTC_LLVM_MAJOR_VERSION
-+	int
-+	default $(shell,expr $(rustc-llvm-version) / 10000)
-+
-+config RUSTC_CLANG_LLVM_COMPATIBLE
-+	bool
-+	default y if CC_IS_CLANG && RUSTC_LLVM_MAJOR_VERSION = $(shell,expr $(cc-version) / 10000)
-+	help
-+	  This indicates whether Rust and Clang use LLVM of the same major
-+	  version.
-+
-+	  Operations involving handling LLVM IR or bitcode (e.g. cross-language
-+	  LTO) require the same LLVM major version to work properly. For best
-+	  compatibility it is recommended that the exact same LLVM is used.
-+
-+config ARCH_HAS_CC_CAN_LINK
-+	bool
-+
-+config CC_CAN_LINK
-+	bool
-+	default ARCH_CC_CAN_LINK if ARCH_HAS_CC_CAN_LINK
-+	default $(cc_can_link_user,$(m64-flag)) if 64BIT
-+	default $(cc_can_link_user,$(m32-flag))
-+
-+# Fixed in GCC 14, 13.3, 12.4 and 11.5
-+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113921
-+config GCC_ASM_GOTO_OUTPUT_BROKEN
-+	bool
-+	depends on CC_IS_GCC
-+	default y if GCC_VERSION < 110500
-+	default y if GCC_VERSION >= 120000 && GCC_VERSION < 120400
-+	default y if GCC_VERSION >= 130000 && GCC_VERSION < 130300
-+
-+config CC_HAS_ASM_GOTO_OUTPUT
-+	def_bool y
-+	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
-+	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
-+
-+config CC_HAS_ASM_GOTO_TIED_OUTPUT
-+	depends on CC_HAS_ASM_GOTO_OUTPUT
-+	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
-+	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
-+
-+config TOOLS_SUPPORT_RELR
-+	def_bool $(success,env "CC=$(CC)" "LD=$(LD)" "NM=$(NM)" "OBJCOPY=$(OBJCOPY)" $(srctree)/scripts/tools-support-relr.sh)
-+
-+config CC_HAS_ASM_INLINE
-+	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
-+
-+config CC_HAS_ASSUME
-+	bool
-+	# clang needs to be at least 19.1.0 since the meaning of the assume
-+	# attribute changed:
-+	# https://github.com/llvm/llvm-project/commit/c44fa3e8a9a44c2e9a575768a3c185354b9f6c17
-+	default y if CC_IS_CLANG && CLANG_VERSION >= 190100
-+	# supported since gcc 13.1.0
-+	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106654
-+	default y if CC_IS_GCC && GCC_VERSION >= 130100
-+
-+config CC_HAS_NO_PROFILE_FN_ATTR
-+	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
-+
-+config CC_HAS_COUNTED_BY
-+	bool
-+	# clang needs to be at least 20.1.0 to avoid potential crashes
-+	# when building structures that contain __counted_by
-+	# https://github.com/ClangBuiltLinux/linux/issues/2114
-+	# https://github.com/llvm/llvm-project/commit/160fb1121cdf703c3ef5e61fb26c5659eb581489
-+	default y if CC_IS_CLANG && CLANG_VERSION >= 200100
-+	# supported since gcc 15.1.0
-+	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
-+	default y if CC_IS_GCC && GCC_VERSION >= 150100
-+
-+config CC_HAS_COUNTED_BY_PTR
-+	bool
-+	# supported since clang 22
-+	default y if CC_IS_CLANG && CLANG_VERSION >= 220100
-+	# supported since gcc 16.0.0
-+	default y if CC_IS_GCC && GCC_VERSION >= 160000
-+
-+config CC_HAS_BROKEN_COUNTED_BY_REF
-+	bool
-+	# https://github.com/llvm/llvm-project/issues/182575
-+	default y if CC_IS_CLANG && CLANG_VERSION < 220100
-+
-+config CC_HAS_ALLOC_TOKEN
-+	def_bool $(cc-option,-falloc-token-max=123)
-+
-+config CC_HAS_MULTIDIMENSIONAL_NONSTRING
-+	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
-+
-+config LD_CAN_USE_KEEP_IN_OVERLAY
-+	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
-+	# https://github.com/llvm/llvm-project/pull/130661
-+	def_bool LD_IS_BFD || LLD_VERSION >= 210000
-+
-+config RUSTC_HAS_SPAN_FILE
-+	def_bool RUSTC_VERSION >= 108800
-+
-+config RUSTC_HAS_UNNECESSARY_TRANSMUTES
-+	def_bool RUSTC_VERSION >= 108800
-+
-+config RUSTC_HAS_FILE_WITH_NUL
-+	def_bool RUSTC_VERSION >= 108900
-+
-+config RUSTC_HAS_FILE_AS_C_STR
-+	def_bool RUSTC_VERSION >= 109100
-+
-+config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
-+	def_bool RUSTC_VERSION >= 109800
-+
-+config PAHOLE_VERSION
-+	int
-+	default "$(PAHOLE_VERSION)"
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
 -- 
-2.55.0
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
