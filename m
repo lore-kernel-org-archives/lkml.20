@@ -1,46 +1,47 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013004.outbound.protection.outlook.com [52.101.72.4])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011064.outbound.protection.outlook.com [40.107.130.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C417486BA9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2959E4963D1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:40:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407646; cv=fail; b=s4Kmm3MXSSZmvT51Dg8Csgs53MeZyvqcfPLKicfV7HmMd5/Wp/nPq4iSvFDoZTodUnfJN16Nnuze5Qin2DDMgeQ+kWqsB73Ds3emCT4hqQ2yFPAfWprat/RFXUEwVohp5h8s9wsrtpgEqqSPPO/sncPftG8grtNo0Z3rMntT6cY=
+	t=1789407653; cv=fail; b=USUDejY45kT9xokST083T5NWYMolsCJ4SJlp8WJP7cB7cJGZvKgnwbENHDXQ/GLlJcySaMEqD9+BDGw2WtS9gEH9SsBlVzekqyVaoYIW7ue66vcjt4vL6+fSp4ejvSxqVvz/zbnSkZwDKB2MPflp0RG8jgXHTnvt5yVaA/FKUw0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407646; c=relaxed/simple;
-	bh=pVhr4Mn3zUfMgDCqV877xCKVdoi6yNxfFreREufXzpE=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=Azk+Y6xKX23gkY1xzAA7ibY2EQXX40bZvlJP7xNu8rm+bLlU8qW63avB4nT9+uXXU+GqWpnoUZ61k4g0scquruvrm2NBtNH7KlD8Uk2/CJqKXgklc9hFb4xF06udVGNd6/jMcg7KwfKCNok4SlLIy2KW8rIoflpbO1VJ3KfxtBY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QlSKQHky; arc=fail smtp.client-ip=52.101.72.4
+	s=arc-20240116; t=1789407653; c=relaxed/simple;
+	bh=by/tb5Bk6nekvmrU6oZYnbcfpaX/2uQuv4c1qqunwTc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=T9S0mEJiPJVFW8nGN8B/w/UyClNttotLEBXZ7qx2mhdhi0DPiV8Jv8zHG1YOvOBemREYVj5HHkc5fZ5gapEOD3j4UbEo14OBLkSZybCkFbGGi7RLlx4u4uVJoMLrMbL6Zol5L/tz/uKuNf8vMkeeEUzDm5a/Sy9UPKvqiL4NadA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=spl088wY; arc=fail smtp.client-ip=40.107.130.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QlSKQHky"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="spl088wY"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XdMuVJ0/csf4+TvxIeupMo+QZWkJcF4QO5ERmfYbq6lgqdExAQsoObQxp6VxdQkV0PKAU+OvanNBTLlA2UrnJd+Rij8rebtxblAfkG+4KQ7W1EBIVjfUWog4Ze4lGcPy4GcU0BmKwipHH4cf8wPmwbXqVeez8ojvuYrWezmJVkJMdz/WbDqetR2LuNI1MXOzOpADYH5wsNu5ghMiTNV5G+Mw+hDV7RSk/LYwFRTpeovNSj8emVCoNf+3frihMZRqZL+nxmG8lp1vi84B0MHP9bKltgMUGY9MBF2pF6R83dPymPP7pu9bwxGRxsvy/GaGkzuJGI0XclqWhEExWH4SSA==
+ b=RHFfzGULBAigzeJaPcMGNk+scztQ8Jb7Q5o8WG6Wf49iF2hv7xiM41xnJ7apzDnRWIIgf5EnTwcLRD5ie5DObPYxl4iwHqYDZw2V+8YG1cZGTp4AnL7T82MqccjVCmlvkf4M8wz6Lkfnb4v0RgNJJmSfe8K1FWHtTheXwLdxLP4p8wBWkk5gcmuDq7bK1s+NjDHDkZRu04gzntcVNtmp4sjiyvNQmpsFzFnV8u8S2ECjGRv5J9D5K9MqhKBTX0bkX6edyuP5afy1O5/TaDSgt0oWyz80gOkbh1mAJIUch4yQ1eqG40RX2p93UvYOCLlaQJjV0YPSN7hQQs4uQMpJ6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lFDSJ/Kea3zdi5BzKT1ulBE8Fmf4TDFqawXkdFzwVbI=;
- b=gaz2op5vzEy761AyZZsWPK3HfwNYmYI8dKzEHb+QqQpbtNW92U4eE/1Wtv1L4nOyhV5BnETCJoIlRu0EmezqP8UDHIlqYPxWTH0vOwqcjXMa4iN3+/pTdU98esLn8rvvZrWA60Wmoz6PQfSUCm/elvGcIr2qBP2I5NjMbZ/P3YpGfljYb+iQUBHt/wRO22mxTn27ycXhQ9ukcjVwG2sHDGhMl4moUXArazkXdHMwwdOnIV73Vko7Rly+NiLeS8LkWaryrkt5UVAonsJSpFXt7EyVAhCPW5bhs6dXYi+z7mzQsIHRmsmyXWyOvTqHrjoxA7V12hMKMc+d9X1fkGix9Q==
+ bh=ssKp3NwhyA92vxkO+1pEB7NB7HHLhpMbHe01d76udmA=;
+ b=Bb+DhvjAoNPDfC3DmxtLvWC2iMkkb7B9BDu33XjjcLs+leuxL9lckm2NQbqaaYdmiKbDbkWua3pEXoPMpM4Rr0oVZw2ZQSYJnJemVupH+1RVoyzFbsV8ZAkiKQQ+h9eKXpp85GeilNeNoVlYhedRSMsAuKPpiN6WLUJtal9Q57M0D1yVSQ2LV92AQHwG8ivHjzjMrsJBfqKb94GsFspUTnpj5HeFIYnB6rbJ0YGUT4SzKzIh7BgJgZEPLYXSygDzvKkIg6VGUwSuXWHv3Ab1aUm04A6+uhGI08FI6kRp3oTX49FqYo82t0fssrzeguwFZsd0lVtbR1T/rv/ZZRsKBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lFDSJ/Kea3zdi5BzKT1ulBE8Fmf4TDFqawXkdFzwVbI=;
- b=QlSKQHkyideg+o5pOT8wf0edG7sqe0f3Vkjr+9VytQ2SJEg9tctUzWaem7fENvMZhxE/T76SBhfWb5WmoJhM+gsVg0pXHj+1+vdEcTgF7PVYmVLdzlXM/ESBx6WpGXfp46xQGM7LM0aWT33E5Rf4EMa8egfAoj60Nz/iHg2uzNKpD/FWWCHCOxgWl/ImmQnYDT2wBkorpy1K0VUb67sO14e7nDFrdicjnWzVhE0gchx65y1a7bkyMs7smiO+nIV/Z3wedUqJQh8ZbeBlc4eBzfYKVsffh0bu2/mWmO+KO64tCjW39GX4IGV6RHj9CK0kSXAAcE6d9TXuwMxcfsyX9g==
+ bh=ssKp3NwhyA92vxkO+1pEB7NB7HHLhpMbHe01d76udmA=;
+ b=spl088wYVmZRxH8tK8hEfqccsc9NPIZzj3Qjor6hIFHiv86i8KM8L8OU3XVHH1TDBDRWr1M2z08FWFlnuMCv56m01OQxZm0AXepRediVjMvrvrDF9kF51BnBGA40qn5GF7awRlVJJ5aRZ+PQhIai7DGluBLNYmGxHLiPecJ/KbgpVK8zd1dAgIhNPvpJo0xhk1+AM7p7GiAPfVUDnsHWfGDxxzW8WxcNJWwr1Cw4kSeL0MXydbRkPtx6UeSCc9cHptY0hQ1BOlVxInHXQIm6LlZdbDK/MNIIXyvPG/tVDlsVpzP6jXE/6wgneWJTvWClP+WzPFlCDVj1J13z4fs08Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
  (2603:10a6:102:4ab::13) by MMZPR04MB447860.eurprd04.prod.outlook.com
  (2603:10a6:190:55::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 17:40:42 +0000
+ 2026 17:40:48 +0000
 Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
  ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
  ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 17:40:42 +0000
+ 17:40:48 +0000
 From: marouene.boubakri@oss.nxp.com
 To: Jens Wiklander <jenswi@kernel.org>,
 	Sumit Garg <sumit.garg@kernel.org>,
@@ -52,14 +53,16 @@ To: Jens Wiklander <jenswi@kernel.org>,
 	op-tee@lists.trustedfirmware.org,
 	linux-riscv@lists.infradead.org
 Cc: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
-Subject: [PATCH 0/3] tee: optee: prepare the driver for RISC-V
-Date: Mon, 14 Sep 2026 19:54:32 +0200
-Message-Id: <20260914175435.118303-1-marouene.boubakri@oss.nxp.com>
+Subject: [PATCH 1/3] tee: optee: build the Arm-specific code only on Arm
+Date: Mon, 14 Sep 2026 19:54:33 +0200
+Message-Id: <20260914175435.118303-2-marouene.boubakri@oss.nxp.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260914175435.118303-1-marouene.boubakri@oss.nxp.com>
+References: <20260914175435.118303-1-marouene.boubakri@oss.nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: CYXPR03CA0038.namprd03.prod.outlook.com
- (2603:10b6:930:d2::23) To PA3PR04MB11203.eurprd04.prod.outlook.com
+X-ClientProxiedBy: CYZPR02CA0012.namprd02.prod.outlook.com
+ (2603:10b6:930:a1::7) To PA3PR04MB11203.eurprd04.prod.outlook.com
  (2603:10a6:102:4ab::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,118 +72,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|MMZPR04MB447860:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0cb2f56-39cc-4681-94ae-08df12874c37
+X-MS-Office365-Filtering-Correlation-Id: 9dfa5705-99ff-4162-6a45-08df1287501e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|19092799006|1800799024|23010399003|56012099006|5023799004|11063799006|3023799007|10067099003|18002099003;
+	BCL:0;ARA:13230040|376014|366016|19092799006|1800799024|23010399003|56012099006|6133799003|5023799004|11063799006|3023799007|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	do6hVAgRzg2e/iRp3XMAwu7MtmU5GBQ40zMpmvtXNjAwnR28CKDndCJZKlv4WbWiDHcP5NQ/PvnhbjMGucUPX43vwSGp1AfIaVIThVcNfmA6NyXMfCwg+9AWsjnBksAnTmOUqHxPK2820u9Nj5haXCa6mJwmFCNxpmG/IAhyTdvnKC3qLLsXtpjXWDNimr8mpzHXDGAk4hL6nMK+uXxWjzxdlgXEYYUNMU5W5PJ8O+SZDabgu+VI6xgqFtH3qBiTu9a4YfSLg34wdVO8UagFbMWEnCMXAbMxZ0CzG9BfY1dQhlhhGVOvGu8FL+q5zxeO3hGrSfVuBvUDYpaXnZjxtBBBnNOMWvS0jIz1ug170AorH22q7Ztqw1mzu8KJ1Das59R4SQmjK/D7cP2yJnqu/gVAx2ZtrGdwQzhvhGhFUlmSwlb5Z4wENa0w/RrLUZfh1iZZbib2Vk8yLtaOZNMcnsquencfy6aERmh4V/zTfH5SCvOp6ytjWsfsgOYOzO/y1ru6XVTeIY12K3yKRxV6AtHS2yC3BwLGTaZTq77zjPt63NtHjR1p0U5GKi0IGBNRKYQK3IpRd2cDCLY+IUY6urmlK31JPHWQPLAG8hun8txJuGcOumnPYV+MZ1NpJACoa1k9d1BRH8SDUA9lyKSpMWzGj2A21yDoY7nnCpXRQf0=
+	NaFWq/z4cN+WbM82kX45V2XYQJyVKwy/xuOjFf52GBIr41mg/i1EtzO24RFt2CghMuSZGueCH1cVJTU36cGePz2ktoMFx9kPUbYeWO3Z1MVL6cfiFp7sSZsKfiSfRfN0Alzay0DPeXahs9SXSQH5vbjK6kWhbMdsRgkyvoRHg7Um4D/LxxRSavlO+taBCQwkBx1Lpzg8amvexG2mXn1vG/36dmyZVYjSFfWsyFm/W7MScmGzVdOLM9gGrPIWw0bV6XkrqSW+QI6X+CVqOv0WVfnMwr2pu+qpOG5tOeDqr4E7YR/TlpF9hbP12E++fpqWmvKBJ24PRTj7FNp9tA0BiNX+IK1mRfyannEpP9iHNodrPCxIW2wnnsbxlGRP7ra2PWZwJC3bOmXKkQGCEqqW9YWSQHEctPauBTBOo1RswGdCcq33T7mc+Y2BQA6CVZ36uqB60PJdm3QekxfB1+glSsi5g4O5sXo+BbZUFxz1+2Xl+bcgJ2C1WS2sLK9RJO8St7CtHVkmSe0xfpWHitcqCakjK5owGurkN0rzRlDhhbkxxm7w0AYg93qn943dOr4mscKzj8zhNgvQijwCxglgf0GVCBXs1QQcARpELSu4py/BrlL8JDyzLLTXYfN7KXPA3XRqLXEFOY5+TLYFlWwuNAMAsrg4zeP9tnGswGNU2LU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(1800799024)(23010399003)(56012099006)(5023799004)(11063799006)(3023799007)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(1800799024)(23010399003)(56012099006)(6133799003)(5023799004)(11063799006)(3023799007)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+U0XlpURvK0yTDSz/1f34fG2MMS3dY9vAfAa8SrqIJQw9oOPegQoDYpGQEt1?=
- =?us-ascii?Q?QFMVi1P3HXj2SM3c/EjaS2MvUloLFVtMMpDj9KdIniay3NpCVq8Esdmk6zTp?=
- =?us-ascii?Q?X8wE5a+Q/CokFkLMopMPJbikOY438Bxxl1kBy3ARKSAbeKIr2/fBYd4h7AfW?=
- =?us-ascii?Q?FVwjmp604mT14A10tSBSZj5BsYiVE+goHKwVPm6PPMLqr/6SuO2ZhxtMnrUG?=
- =?us-ascii?Q?CskYwyZXdDC18wDevzv8OFsDmlJOSr9L2JylUpnsiugO3ITtn2dEJ9OleF0A?=
- =?us-ascii?Q?yJo1oOJJvH3jZQua1/tDHvvkZSjhXADMI30Vm+fbaoxO3znhlQNVWBvLQdNK?=
- =?us-ascii?Q?FVbZi+WuRVmEnXo8WIMKjtAw3/g21D1QN4aLKtGLo8j7ficIg1y1eysG92N6?=
- =?us-ascii?Q?wz+bg6OuNwx4+dqWh+TXtoSZhnt1+v+BSxCUWy23OU2AkJGOOUQGAR7j/yj+?=
- =?us-ascii?Q?Gj4g/LJxolE54yC+UkihH1hbhL7LxjuKG2FmiW48q0tPttQIcEE1znuCu1Iq?=
- =?us-ascii?Q?yB69URZfha831SRS3wjHmPVukOkFHK0XYhuN4en1v04HxUQPMxFTf6ka73z9?=
- =?us-ascii?Q?e+MqFegkT3T1dkKj2woAid5f/38QnRINCURUb0wX5ZckuEfOvRBDh6AdsyQh?=
- =?us-ascii?Q?fEu5kjgPkZfE0ht5jIdkSoHw6cXmxq2E+FE1R/7vKgX/OX+1mRgcq0cbexXv?=
- =?us-ascii?Q?RPrc+iUZowOqUTMn1/ckx+WilzK2loDNnMvrB2XvuLoIHDi261V2dmTnQJJQ?=
- =?us-ascii?Q?DPdRj8sNImuF67jDucVu8AVq/yM8AsytlavB28vrvWbi+ojrdOV0+dfhPrSx?=
- =?us-ascii?Q?PvzKURlTbJrvp7GiZITY8HEG9jBxmlFu/ie5aAM/xebL5kRSQapr6sC2oD0U?=
- =?us-ascii?Q?s5RlYH3BExaHeuEWOyyv55BvpYAM5nUs4juhANBRUlBovI9ECFtzuV8hUIw3?=
- =?us-ascii?Q?3tq+9ykNyYelJwVQ8NUa/zSgv/j1SgXlipNVHRfFidpt0WwUY8NExfCpsu4Q?=
- =?us-ascii?Q?xuURd6t4WzIOU52KHzeEZe+B/vxTupWIJN4oGQbRiwsUuilAJYMazI0Sn8H9?=
- =?us-ascii?Q?Ix3ZBsd4DG4UkV6INlN2aScwghnS5Gv/v+b9DmiPpykOUEoBqAzUbgbP9/ss?=
- =?us-ascii?Q?/4cS4Sbb91e1w4ePSdhqQWTj7gOwftbVWmx8qOcdmh5JkwJYijfrJMRkpe0Y?=
- =?us-ascii?Q?Pivhq1oNYHEr9rIQJQCY8KPgcJciDrgZxu1lJLPgjQAvrsO75+hKAjlVS2k+?=
- =?us-ascii?Q?J7ZCnqoPcoXhbq32L1bpzibZPmm1PihWaC6R2RiAAFANcqULtRrWFlQSfSVK?=
- =?us-ascii?Q?TYTRKy42naYsW3OMVzpmprjg+GjEG9Pt55NqCvQK2NJotCrjKuAThOYb0E//?=
- =?us-ascii?Q?jx0vj9zqTaz1jEj/IeepZ/kXV/fOMXU0cq3spA/6RRs6kOsEuBhOKQOkA8YP?=
- =?us-ascii?Q?JvotR3oSAdaoWout2mhmIbb6zUFTzhgS43tfUcP3SGwKGUc0CGCG50ukNuM+?=
- =?us-ascii?Q?d8KbecLwDJ8ckbaXPaGzecgaN7KgsMXxqJBbCgmgAx8YaLQpVhubbXTOGoTL?=
- =?us-ascii?Q?xuLaZGBx+xD6a+OPUwQqbagoSPpFfp4gOxcB8UqmL6/BAFWc5h+7qWtCANvs?=
- =?us-ascii?Q?qwHvA7ckSJLSZ4e7moevkSkTIhSRwbrWsOhA562EeO36nZIO/vnkTW081uF7?=
- =?us-ascii?Q?MCUUKgRdLx/eUj0F/ogDmAESksD4N+8ZfMCmza7iO34bzUO5/a/ALn8Pj9v5?=
- =?us-ascii?Q?GuttJkm7+IJIaW+Kc3goQ4XDgmkmiyEuFmFuDYYwWg3mLPypPzI0Y282dM7A?=
-X-MS-Exchange-AntiSpam-MessageData-1: h9tz5e5FYAIrTQ==
+	=?us-ascii?Q?zKh7sK/oZ4m05UXvWhNP4F+OVz5l/5s5zTW5hFMZebQkePlN0hHzpERrjLEJ?=
+ =?us-ascii?Q?V9rjHulLurtMbzQyCsYwyx8Oww9Dzi5YndCh8s8yuLteYYB7S1gJjMxL4CL9?=
+ =?us-ascii?Q?B62B9PBqCj6mVmM6l/yub3hx2nFdD+igtFGKa8aybIt03TxbOAb4Ju1x0rT/?=
+ =?us-ascii?Q?aQjkK33UoOtCjXLVlgac26+UVfCh46NF9Y0IsE4YhSfNWEVn3rRuYSpPaQ9Y?=
+ =?us-ascii?Q?/stxEuFug8dZBgkSLo+zJZJR48Qtw5FUS9lXCMzPfTOLf/gtJGIdvpIMzQjN?=
+ =?us-ascii?Q?Blutn2VkmFRcGjqrSVvv1/DP84hL/awO9pP0xqzBUhMfjwvZ0LfZc3tpcUD9?=
+ =?us-ascii?Q?6ec6nCqXiXmO5mREmDYcUt7uKnURGctZk5x4Sdgs88v23Ll4PnW+R5wmzjL0?=
+ =?us-ascii?Q?cmAnG5Eho1RO0gkZ+rzT60AIcOEgtNHHFhGXdOZUZvEDuoUU9LJ1ifzYRyLD?=
+ =?us-ascii?Q?FSFUAE8IP3vdAApyoCiiy5/GVi2x+otwtjz8rPYsZ+DInl0AkCbOmyUP2Aeo?=
+ =?us-ascii?Q?ubQ0isX0suS5R1ltZdUN2kLkjjaoOlGcMvqZGPVCP4D9aqTqHrsbcl/fb7Kh?=
+ =?us-ascii?Q?KSM3dujHvJF//HQ8dm3leaNPSkPbfO0wZivam1Slr5eLhpMWGLho6pP1QkrU?=
+ =?us-ascii?Q?F4Yx2jyhFDXENVxrZLx/JwxZbEY6XbTGHuEXnZa2EGdioT3dHDe3uiDvAkdc?=
+ =?us-ascii?Q?DLbMKZMZyX/r1+aMrycSSgmF980/wKrK2LJowmAXb57dRNSqnRWxI4ZwPVs3?=
+ =?us-ascii?Q?vMQItneST1plJxnceqUOUf6V8Pka9BM3/a8pAYQFyxASlP2y43vP/q8ghhQ6?=
+ =?us-ascii?Q?UVnujV3ATkCnYaPXBklNSGQybePfTM/8DSsSi2g4sX4UsAqLtikIH5ry/n8R?=
+ =?us-ascii?Q?XwwFi5QvqUmoDBgU8EiaD8FF+TBUF11o17QFi4OgB0vldunV8WebrAeATlKl?=
+ =?us-ascii?Q?oMyBfbRiKFZrWbYm6BZqual8OJdojacSsPOq2aShTYOG338OK6/W7hm9Nnwt?=
+ =?us-ascii?Q?Gv3Hd04mFojXt0i09EQcH2yCI5AWuIL1Nhwg+tLAjKqYxX6UVtaImxiO42At?=
+ =?us-ascii?Q?7iHwxZVKvqRPli9mKqLS2KwDAglSy0q4SAQ1B3p2Y42FMM2onJcZPLkgxPhE?=
+ =?us-ascii?Q?Drsjz+yxvqLaIEoIQ8abxU4/YIXYA82Stkd4Gmy3rUNrOWy3n9ygo3VPiZg2?=
+ =?us-ascii?Q?GbNrd4IOt4WWSpdk5gl1aC9KHN86h/WtlYrKkLBS4s24UzoIddW0AgRF3b4o?=
+ =?us-ascii?Q?6FRRskOMiMarXtH+uvkhssRk8Saq0GlaDTy3uJD85Ba36wJxt90liJ2pMU7E?=
+ =?us-ascii?Q?JfJiFmJ99ihgridxkC/HiFZgmuAyvEWR72t9Sa0FUqHj1YOgOXr9t1gvYw0E?=
+ =?us-ascii?Q?zkPBxlSMivirE+GCbOppvSxlvpWASip1TffoG0xJtH4qSh7KkgVVd9cv2mh9?=
+ =?us-ascii?Q?9VjBI/kL84AyCL4QvHtHqW/riNJ8+0rK11eUhFaNz8T/f9OCNbSb94EDIGMJ?=
+ =?us-ascii?Q?Rv+E5MMGsFTozb/QfEJ7mfvdZ/4I0sB2xlwqRkkD4zaRFWlddG8GNbvr6rUA?=
+ =?us-ascii?Q?c/0/FgZRvp3sV61yE943bWT2hGW+44t386xslnWHjJRh/kdWi0qOwKnxoHC7?=
+ =?us-ascii?Q?s+KDXFetYrhGXt86Anp0/ZG5OTBH/CmawovLIT5z8fjfgymzK7SINHgmQLk5?=
+ =?us-ascii?Q?opJRbhw//bvElbgeyavdTp7JJlio8EvMe7xmSuendeZ/BbQGusswKbpiNHS4?=
+ =?us-ascii?Q?H+J6jLs/vtLC4S+YuOhKT+Dnf2Cfa7Cun4zbamXfdJfswoki0l16mfhAfSmA?=
+X-MS-Exchange-AntiSpam-MessageData-1: GE2/tBs6N7G3Ew==
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0cb2f56-39cc-4681-94ae-08df12874c37
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dfa5705-99ff-4162-6a45-08df1287501e
 X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 17:40:42.2777
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 17:40:48.4892
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C9HD1WmM27yaM0doNPsuv5M0qePYw8UkQT48KOGqei6EySjHVIDY9dpNwlD1CoKng9jaEXW1Fs3ZiEaro1YcOzeEWUmDSOH5RZHFNETxGHDl9G5gKVSGWGD+VFkg3DBKZMFPHFDfz14G3csttKManQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: lbUGE5pxj6JhkDJWtqjOH0h3V+hi3NazHENGd/U436pJ/h8M4ww0kZS3/or0MsoWFznGKrKtJ2K/EuBAmoPJVOhTlXCsySqRteHUJfSRO31H5V3xzZMvhwB1moIRxmzZszaGXmEFPszHa5PIcRE6sg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB447860
 
 From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 
 The OP-TEE driver reaches OP-TEE through the SMC ABI or the FF-A ABI,
-both specific to Arm, and the TEE subsystem and the OP-TEE driver
-depend on HAVE_ARM_SMCCC. On RISC-V there is no SMC instruction: OP-TEE
-runs in a domain isolated by the M-mode firmware and is reached through
-the RISC-V Platform Management Interface (RPMI), carried on an SBI
-Message Proxy (MPXY) channel, for which Linux already has a mailbox
-driver.
+both specific to Arm, yet builds both unconditionally together with the
+SMC Calling Convention definitions they rely on: ffa_abi.c only checks
+at runtime whether the FF-A transport is reachable, and optee_private.h
+includes <linux/arm-smccc.h> and defines the SMC and FF-A specific types
+for every file of the driver. This is fine as long as the driver depends
+on HAVE_ARM_SMCCC, but it keeps the driver from being built for an
+architecture without SMCCC, such as RISC-V.
 
-This series only puts the build plumbing in place for a third ABI next
-to the SMC and FF-A ones:
+Build smc_abi.c only when HAVE_ARM_SMCCC is set and ffa_abi.c only when
+ARM_FFA_TRANSPORT is enabled, and provide stubs for their registration
+otherwise, so that it fails with -EOPNOTSUPP as the FF-A ABI already
+does when the FF-A transport is not reachable. Keep the SMCCC header,
+the SMC invoke function type, the SMC and FF-A specific structures and
+the SMC RPC register parameters in optee_private.h under the same
+conditions, and drop the unused <linux/arm-smccc.h> include from
+notif.c.
 
-- patch 1 builds the Arm-specific code of the driver only on Arm:
-  smc_abi.c when HAVE_ARM_SMCCC is set and ffa_abi.c when
-  ARM_FFA_TRANSPORT is enabled, with stubs for their registration
-  otherwise. The SMCCC header, the SMC and FF-A specific types and the
-  SMC RPC register parameters in optee_private.h are kept under the
-  same conditions, so that nothing Arm-specific is left in the common
-  part of the driver;
+No functional change: OPTEE still depends on HAVE_ARM_SMCCC, and
+ffa_abi.c is still built whenever the FF-A ABI can be registered.
 
-- patch 2 adds an RPMI ABI placeholder: an OPTEE_RPMI_ABI option built
-  when the MPXY mailbox driver is enabled, rpmi_abi.c and its
-  registration from the driver core. The transport is not implemented,
-  so the registration fails with -EOPNOTSUPP;
-
-- patch 3 lets the TEE subsystem and the OP-TEE driver be enabled on
-  RISC-V, and teaches the memory type check of the driver about the
-  RISC-V page attributes, without which the driver does not build
-  there. It is kept separate as it changes the dependencies of the
-  subsystem-wide TEE menu.
-
-There is no functional change. On Arm, OPTEE still depends on
-HAVE_ARM_SMCCC and the SMC and FF-A ABIs are built whenever they can be
-registered. On RISC-V the driver builds without any Arm-specific code
-but no ABI registers, so it does not load. The RPMI transport will be
-implemented on top of this in a separate series.
-
-Testing: [TODO before posting: riscv64 defconfig plus TEE/OP-TEE,
-built-in and as modules, and arm64 defconfig plus OP-TEE with FF-A
-built-in, modular and disabled, with W=1 at every step of the series.]
-
-Marouene Boubakri (3):
-  tee: optee: build the Arm-specific code only on Arm
-  tee: optee: add an RPMI ABI placeholder
-  tee: optee: allow enabling the driver on RISC-V
-
- drivers/tee/Kconfig               |  2 +-
- drivers/tee/optee/Kconfig         | 10 +++++-
- drivers/tee/optee/Makefile        |  5 +--
- drivers/tee/optee/call.c          |  8 +++++
- drivers/tee/optee/core.c          |  8 +++--
+Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+---
+ drivers/tee/optee/Makefile        |  4 ++--
  drivers/tee/optee/notif.c         |  1 -
- drivers/tee/optee/optee_private.h | 52 ++++++++++++++++++++++++++++++-
- drivers/tee/optee/rpmi_abi.c      | 23 ++++++++++++++
- 8 files changed, 101 insertions(+), 8 deletions(-)
- create mode 100644 drivers/tee/optee/rpmi_abi.c
+ drivers/tee/optee/optee_private.h | 39 ++++++++++++++++++++++++++++++-
+ 3 files changed, 40 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
+index ad7049c1c107..183cdde1ac04 100644
+--- a/drivers/tee/optee/Makefile
++++ b/drivers/tee/optee/Makefile
+@@ -7,8 +7,8 @@ optee-objs += rpc.o
+ optee-objs += protmem.o
+ optee-objs += supp.o
+ optee-objs += device.o
+-optee-objs += smc_abi.o
+-optee-objs += ffa_abi.o
++optee-$(CONFIG_HAVE_ARM_SMCCC) += smc_abi.o
++optee-$(CONFIG_ARM_FFA_TRANSPORT) += ffa_abi.o
+ 
+ # for tracing framework to find optee_trace.h
+ CFLAGS_smc_abi.o := -I$(src)
+diff --git a/drivers/tee/optee/notif.c b/drivers/tee/optee/notif.c
+index 6e85f2f5c516..68014222d7be 100644
+--- a/drivers/tee/optee/notif.c
++++ b/drivers/tee/optee/notif.c
+@@ -5,7 +5,6 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+-#include <linux/arm-smccc.h>
+ #include <linux/errno.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
+index aefe1e6f5689..94a4f251f5cf 100644
+--- a/drivers/tee/optee/optee_private.h
++++ b/drivers/tee/optee/optee_private.h
+@@ -6,7 +6,6 @@
+ #ifndef OPTEE_PRIVATE_H
+ #define OPTEE_PRIVATE_H
+ 
+-#include <linux/arm-smccc.h>
+ #include <linux/notifier.h>
+ #include <linux/rhashtable.h>
+ #include <linux/rpmb.h>
+@@ -15,6 +14,10 @@
+ #include <linux/types.h>
+ #include "optee_msg.h"
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
++#include <linux/arm-smccc.h>
++#endif
++
+ #define DRIVER_NAME "optee"
+ 
+ #define OPTEE_MAX_ARG_SIZE	1024
+@@ -42,10 +45,12 @@
+  */
+ #define OPTEE_DEFAULT_MAX_NOTIF_VALUE	255
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ typedef void (optee_invoke_fn)(unsigned long, unsigned long, unsigned long,
+ 				unsigned long, unsigned long, unsigned long,
+ 				unsigned long, unsigned long,
+ 				struct arm_smccc_res *);
++#endif
+ 
+ /**
+  * struct optee_call_waiter - TEE entry may need to wait for a free TEE thread
+@@ -119,6 +124,7 @@ struct optee_supp {
+ 	struct completion reqs_c;
+ };
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ /**
+  * struct optee_pcpu - per cpu notif private struct passed to work functions
+  * @optee:	optee device reference
+@@ -149,7 +155,9 @@ struct optee_smc {
+ 	struct work_struct notif_pcpu_work;
+ 	unsigned int notif_cpuhp_state;
+ };
++#endif
+ 
++#if IS_ENABLED(CONFIG_ARM_FFA_TRANSPORT)
+ /**
+  * struct optee_ffa -  FFA communication struct
+  * @ffa_dev:		FFA device, contains the destination id, the id of
+@@ -170,6 +178,7 @@ struct optee_ffa {
+ 	struct workqueue_struct *notif_wq;
+ 	struct work_struct notif_work;
+ };
++#endif
+ 
+ struct optee;
+ 
+@@ -257,8 +266,12 @@ struct optee {
+ 	const struct optee_ops *ops;
+ 	struct tee_context *ctx;
+ 	union {
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ 		struct optee_smc smc;
++#endif
++#if IS_ENABLED(CONFIG_ARM_FFA_TRANSPORT)
+ 		struct optee_ffa ffa;
++#endif
+ 	};
+ 	struct optee_shm_arg_cache shm_arg_cache;
+ 	struct optee_call_queue call_queue;
+@@ -290,6 +303,7 @@ struct optee_context_data {
+ 	struct list_head sess_list;
+ };
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ struct optee_rpc_param {
+ 	u32	a0;
+ 	u32	a1;
+@@ -300,6 +314,7 @@ struct optee_rpc_param {
+ 	u32	a6;
+ 	u32	a7;
+ };
++#endif
+ 
+ /* Holds context that is preserved during one STD call */
+ struct optee_call_ctx {
+@@ -422,9 +437,31 @@ static inline void reg_pair_from_64(u32 *reg0, u32 *reg1, u64 val)
+ }
+ 
+ /* Registration of the ABIs */
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ int optee_smc_abi_register(void);
+ void optee_smc_abi_unregister(void);
++#else
++static inline int optee_smc_abi_register(void)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline void optee_smc_abi_unregister(void)
++{
++}
++#endif
++#if IS_ENABLED(CONFIG_ARM_FFA_TRANSPORT)
+ int optee_ffa_abi_register(void);
+ void optee_ffa_abi_unregister(void);
++#else
++static inline int optee_ffa_abi_register(void)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline void optee_ffa_abi_unregister(void)
++{
++}
++#endif
+ 
+ #endif /*OPTEE_PRIVATE_H*/
 
 base-commit: 827751b699b79a6e569983359c02dce67f81b94c
 -- 
