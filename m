@@ -1,170 +1,72 @@
-Received: from mta0.migadu.com (out-241.mta0.migadu.com [91.218.175.241])
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B5438F929
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.241
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A933442B06
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385760; cv=none; b=R5X/51S4la3Ax56CPHxcG49B+KI09jzlUPMxUw99ndiRK70EDhnGYi34NKkxhzgz1TzQXFx9W0LlcY8qvN8uQbNAacQ4iZKOzcjQ7uTztCCc589Ag5KUPovsLudcsE+psexqZ4BcTDH8V96E0efJUsz1czlgqM4CO+P15zbgETI=
+	t=1789385765; cv=none; b=CMjcBiZkHRn7LrbRr0ZhVJylgVwQaVDePEjIGQujBfVv7FXovnHPgJWsUwoZbCzZu3ZygCwTi3UD5VqM1Xy+Ddh1Vczl+RIhTQhGIECFPz349FTsW75AT0bO+lQbTASTiM3spnr4na41hc4lD7yfbmVZqONGA+sagm9zHOEUxf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385760; c=relaxed/simple;
-	bh=Mq84fMPjgRr8IUchfu0DML7OTorvAF0mYDARQZvXd5I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lVrSKlTesimif17tCxFMR+fMg9UMgNaL87DAoRn2fDwJndRQGspi9xewmS0Cs2vAoyFI+RcDeQ2+kWenWGg2yIFUi5YAFYRXNOaIPlB4XyOGj/FuLRMSgj8idI5iFnOP/CxfwfNAax0UPaKrBeeDEVet3icAbseHxhdkHkxhBcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WfpZaWGz; arc=none smtp.client-ip=91.218.175.241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WfpZaWGz"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Mq84fMPjgRr8IUchfu0DML7OTorvAF0mYDARQZvXd5I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789385756; v=1; x=1789990556;
- b=WfpZaWGzyiI66NCR2p2EpPX95yvscbGy+5hpiT9zkCZg19OTxe4KIyEa7KmSdB+b/lDLwSUZ
- sgvUPL6QtGYgbe2Hdp7bmSXF+CTGw5K6OFII3/vvRGwFoOFKei1cakpQKqD3PVQhB6tSinexH2U
- zEOs3shsQvbSNo6DOHCk2sq4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7e634c98e0f093b8;
-	Mon, 14 Sep 2026 11:35:56 +0000
-X-Mizu-Trace-ID: 7e634c98e0f093b8
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: [PATCH v3 15/18] KVM: arm64: Reject host access to protected VM private state
-Date: Mon, 14 Sep 2026 12:33:35 +0100
-Message-Id: <20260914113338.159227-16-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260914113338.159227-1-fuad.tabba@linux.dev>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+	s=arc-20240116; t=1789385765; c=relaxed/simple;
+	bh=Rph0Abjo/lt5YFlI4ADuF91JvEppjAM7d2toFKQooxQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=YyUyCGanGwFmyAvY6JSV1OP5J9bIIvlMF8UKLLkKHAYuIb2cnflX+KMD8c/BrHJc49L/5H0i6gL6KUKiRXlnU8ZaO0Zj80CS+eRRCBglEhfgT5+xmAVKBqqaccNiZdTYf1kdOv+4h6d/bCvZokp5qO2sSwyWur1UE5piFweKiY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-80497c6ec88so4247275a34.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:36:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789385763; x=1789990563;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NrNoxDVQMABFpJHxYtXjMjHDfoWBRmY6C9wXR7yxjho=;
+        b=UdsE9t2DRPMIBSC/1SL0YdSVJBswGTtf0WMbfOLU3lr4td6IJjy7Q3IurIB9hhXlPp
+         WXRYAH60w4iGhlAcAKX2hC48LuZ9cgCHFlph6QvB2JsUkBqsN6PsN35hdxEX76or7P/S
+         jSNvfnXoFF607p8MN/WadTOyN73qcppc6CiX63jkEr256ALANGN3sy9TIBd2MywnEeo8
+         +jPuMexdqr0a3Ib4sVwpy8Q5fo7EY7bnRMVrpGM1jit+sj+2RaOKED5FkkYoyGCWqXUI
+         VqSAeWybqZrcm7v5JfcfaOJk6CZjGbV6VzolrkYhaN8EP1mIz0nQKF3ljYO2qdFei6h1
+         /aOg==
+X-Forwarded-Encrypted: i=1; AKwUvBziXZCp2rScLlw2cCVoPxFOCmidZ/UWJIeMTrrENvv6OUEviSYKH88PJWev8UHl/JmOAxX2UF1GdmpXZpQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA37PRkVu+jVcQ/lgStHuaAcgIpLam94IBgxyISZcOVO2lZ7XA
+	pQPXqWLHQ6++C3tRorpBRIdrrVpxBbFK2eDtUI4Cf5TGQPROVoifjifYM4lrKw8ow6zQQAlD+PH
+	5ridW4z4DhbmLNDRiBYk4FxDDTsVlpD5ryaVTU5zvM88Z3NPA9vJrru80hns=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:159f:b0:4b9:a829:f016 with SMTP id
+ 5614622812f47-4c7b5c8e9b8mr1297547b6e.34.1789385762872; Mon, 14 Sep 2026
+ 04:36:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 04:36:02 -0700
+In-Reply-To: <b85449ea-38a3-45e8-a05e-03e4b4f0a84f@yandex.ru>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7dc22.a211d2ce.1a5198.028f.GAE@google.com>
+Subject: Re: [syzbot] [input?] [usb?] KASAN: slab-use-after-free Read in roccat_open
+From: syzbot <syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com>
+To: dmantipov@yandex.ru, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-A protected vCPU's register and debug state is no longer exposed to
-the host. Host ioctls that would reach that state now fail rather
-than operate on a copy that isn't the guest's:
+Hello,
 
-  - KVM_GET_ONE_REG and KVM_SET_ONE_REG return -EPERM once the vCPU has
-    run: the copy then holds reset values plus what the exit handlers
-    marshal out. Pre-run access still builds the guest's boot state.
-  - KVM_ARM_VCPU_INIT returns -EPERM once the vCPU has run: it would
-    reset the host copy alone and rewrite mp_state, which EL2 reads
-    only at hyp vCPU creation, so a vCPU the guest powered off would
-    come back RUNNABLE.
-  - KVM_SET_VCPU_EVENTS rejects external-abort injection with -EPERM;
-    SError injection is forwarded and stays permitted.
-  - KVM_SET_GUEST_DEBUG returns -EPERM: a protected guest's debug state
-    is hypervisor-owned.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-The KVM_{GET,SET}_ONE_REG and KVM_ARM_VCPU_INIT checks are one filter
-on the ioctl number in kvm_arch_vcpu_ioctl(), the only caller of the
-three functions they were in. Its -EPERM now precedes the cases'
--EFAULT and the ONE_REG case's pending-reset handling, which the next
-KVM_RUN performs. The external-abort check reads the payload, and
-KVM_SET_GUEST_DEBUG has its own case in kvm_vcpu_ioctl(), so it never
-reaches kvm_arch_vcpu_ioctl(): those two stay in their handlers.
+Reported-by: syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com
+Tested-by: syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com
 
-KVM_CHECK_EXTENSION returns 0 for KVM_CAP_ARM_INJECT_EXT_DABT and
-KVM_CAP_SET_GUEST_DEBUG on a protected VM: kvm_pkvm_ext_allowed()
-returns false on every capability it doesn't list, and the patch that
-advertises the capabilities protected VMs support leaves these two
-out. The two ioctl checks stay for a VMM that doesn't query
-KVM_CHECK_EXTENSION.
+Tested on:
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/arm.c   | 21 +++++++++++++++++++++
- arch/arm64/kvm/guest.c | 11 +++++++++++
- 2 files changed, 32 insertions(+)
+commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=12042115580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=d632e93ffcd1452bc61e
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10382115580000
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index ca6e109b3e5d6..0362f5f235e02 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1865,6 +1865,23 @@ static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
- 	return __kvm_arm_vcpu_set_events(vcpu, events);
- }
- 
-+/*
-+ * Once a protected vCPU has run, the host copy is not the guest's state,
-+ * and EL2 has read mp_state, which it does only at hyp vCPU creation.
-+ */
-+static long pkvm_filter_vcpu_ioctl(struct kvm_vcpu *vcpu, unsigned int ioctl)
-+{
-+	switch (ioctl) {
-+	case KVM_ARM_VCPU_INIT:
-+	case KVM_SET_ONE_REG:
-+	case KVM_GET_ONE_REG:
-+		if (vcpu_is_protected(vcpu) && vcpu_has_run_once(vcpu))
-+			return -EPERM;
-+	}
-+
-+	return 0;
-+}
-+
- long kvm_arch_vcpu_ioctl(struct file *filp,
- 			 unsigned int ioctl, unsigned long arg)
- {
-@@ -1873,6 +1890,10 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 	struct kvm_device_attr attr;
- 	long r;
- 
-+	r = pkvm_filter_vcpu_ioctl(vcpu, ioctl);
-+	if (r)
-+		return r;
-+
- 	switch (ioctl) {
- 	case KVM_ARM_VCPU_INIT: {
- 		struct kvm_vcpu_init init;
-diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
-index b01d6622b8720..d5e2e08f05461 100644
---- a/arch/arm64/kvm/guest.c
-+++ b/arch/arm64/kvm/guest.c
-@@ -786,6 +786,13 @@ int __kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
- 	u64 esr = events->exception.serror_esr;
- 	int ret = 0;
- 
-+	/*
-+	 * EL2 injects an external abort only to complete a forwarded abort.
-+	 * SError injection is forwarded.
-+	 */
-+	if (vcpu_is_protected(vcpu) && ext_dabt_pending)
-+		return -EPERM;
-+
- 	/*
- 	 * Immediately commit the pending SEA to the vCPU's architectural
- 	 * state which is necessary since we do not return a pending SEA
-@@ -883,6 +890,10 @@ int kvm_arch_vcpu_ioctl_set_guest_debug(struct kvm_vcpu *vcpu,
- {
- 	trace_kvm_set_guest_debug(vcpu, dbg->control);
- 
-+	/* A protected guest's debug state is not exposed to the host. */
-+	if (vcpu_is_protected(vcpu))
-+		return -EPERM;
-+
- 	if (dbg->control & ~KVM_GUESTDBG_VALID_MASK)
- 		return -EINVAL;
- 
--- 
-2.39.5
-
+Note: testing is done by a robot and is best-effort only.
