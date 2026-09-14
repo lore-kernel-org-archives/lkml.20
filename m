@@ -1,170 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA70348C77;
-	Mon, 14 Sep 2026 11:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F66143F8B8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386711; cv=none; b=vEfbMHmBnNIFH+IGetxIkotTa29pjh2yc65NLsOrXTp5DMJ9gf5/wkhs+Jv/NO0BoXUNaddbIk2OuQ0nMxnduKCo5bdRnDQP9B738B8+HKwmtPUfq651MJCJXsBYQ00Ja/RCMlOnCnVlVxFCHs9EVCbB249LPmp20c4MewJk89o=
+	t=1789386836; cv=none; b=AOENgYOhrrHMHYeKJNmA2/Vj7C0pGe0stuZ4DbasRCRopnC6qrzZuVq/NJj4gV6XOCNWqrbsiOKO5+NITq7N2PUasUKYP62bk4B2P2YwAnYCguJYMoI+PA7VY4/wHU0MTqG4wyhXmyAPumx0Xr+G9/3Jd7+cv1Tt+1pHU7+16Ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386711; c=relaxed/simple;
-	bh=LK9oiszB9E+gFbWwOkvJKEyq1iH2IEtWQQ7QCmi7isc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a+Tm++qMesUFCzjGtacomq+/Uqdg0ovAG/Lz9TSCb9w4jjBch46QgWI6VijF8QlTm7QcNXpILUyN7fP74A5wDRNGVZwOh/tgD74IV+KmKROq5VsiHdJ7gog8IGa18r8IL5ZLVEonGU7a/AKJzLdPklxhpXN/cUy04RZdi5idogc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BV5v/s6O; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BV5v/s6O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0111F000FF;
-	Mon, 14 Sep 2026 11:51:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789386709;
-	bh=R7+L0DS/i+DsiPCK294YRFFlGBSviuyUaFNf79SZZmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BV5v/s6Ovk+D6wQt7lAW7VvxwNapnxy859ARewOJYGvT9LiLkWeHTRW84L70HS3/+
-	 Ud1hn+k70Sl4tlLJU6I19fmutJ5k7vTedG/uqVYCjh3apn2B0ecJ5rpNowrtWAd/+o
-	 4L5DY/CVobpsOtdB4nLm8SXKhsGePL41l0oT5UxbjpsjNGs3SmyE1SsHMM3DaKOcmi
-	 fclMqI/Se2BSNQyLFNG73xUiYjk/jDXHuM/E3Ucx5CmfjK+rowZgWFBpyFjOzCltnc
-	 4QjDuA2+ypUTgEaVSZ+lXwEpA7c33gM50dQKMr7Z9Vzq4VLePiDlGlr3YMoPN20GqZ
-	 mFqqk5iimPBcg==
-Date: Mon, 14 Sep 2026 13:51:44 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] PCI: endpoint: Support hardware-owned MSI-X table
- and PBA
-Message-ID: <aqff0CqBIDeMMTke@ryzen>
-References: <20260830151948.3547577-1-den@valinux.co.jp>
- <apVWd1u9JjTKQczu@ryzen>
- <pj5vpwwd5tr5tuvhdq3bcpefnq27r6ljvwoysguz2o4tglcqx5@l7zmb6wjnhla>
- <apXdm2I33edo8kpZ@ryzen>
- <sor2mm4jzgeprhn3fjw4jmcaowwkhhuus6exi4k5kum6frqvug@gatkk7r4qyxd>
- <apfPWc09CY2o-P5s@ryzen>
- <zxyr55h6s3tjc6pe23wzwb77dxppsljxcagpqhp4u24cqka2ne@fesick6sneto>
+	s=arc-20240116; t=1789386836; c=relaxed/simple;
+	bh=Oy9g0Rm6pD4S64HJdm3CjnBlSj9nP4TkYubvGXXUt20=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=b4nF4g/SiGFWNIdjTSzpGednHtkUNRZC4t0XxIzACxoEu/unUFZxy9mzRDjgDMSPo6L+/kAKNWy4tZuqEfsbpLIOjwHJ0X+jvczXT2EZvVU74Y6lo1/CZeblEVjTt7Sp/oL6LZyPsD2W/PDEY66wR3lsowy+s8sCE4fXXvO0if0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c34cd4bffbso851341eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:53:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789386833; x=1789991633;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3wo7UwFKH7eZA0tNkfsZQYrFComugpOZXW7NZrfaLKg=;
+        b=rTPqzPMsvy58E3Cc3g4Upp1Xbsj5OibqfWbT/m6JAf2CKAMxEGFtYW5+EDfgAqgBed
+         7ke9NSJ0sPXfNRN3i+VXhN+CsyS32zICmBU6FseVWkMl/ib7+HPA9yX/u309F3za6F4Z
+         zMPmzI21HC2oO1hxbhTdIvKZtLXGltkL7ZA3NbzBaWJnhunXIvPVmbjZbfF3bxvUe+zx
+         1aIPv0efFV4kh+WGu0uLVc76wCfM+UIGQpiaECEJbedUblVeeS3g1PY6UCDCapFj0FWd
+         t7RqmHAyKWPs8gBsOImhYAzuhvfdSG5gQqK1NoArTLWYnMkXVF5pp/YOcackDUyF8wya
+         BRcA==
+X-Gm-Message-State: AFuF++nd5J8AdNAhXrPgcubMoj+Qz8U9ulNvrOf901zqLnuf7Th6oXsr
+	GdyVBDV+RQY2xjNT2zveRgtSbG5u1qlhUc4QLQUFUHvoKwW/zyOgu1WDpxYb8TD+ZUSx1If1m9w
+	fI/4jR68SbuQOelQeStGf9y9i6EwdgFVrI5cBRqUIDgEqHN8qjBfcQW1E4Og=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <zxyr55h6s3tjc6pe23wzwb77dxppsljxcagpqhp4u24cqka2ne@fesick6sneto>
+X-Received: by 2002:a05:6820:3091:b0:6b7:8396:f3d4 with SMTP id
+ 006d021491bc7-6c541d435aemr900088eaf.54.1789386833520; Mon, 14 Sep 2026
+ 04:53:53 -0700 (PDT)
+Date: Mon, 14 Sep 2026 04:53:53 -0700
+In-Reply-To: <6aa4a377.f81106d8.2ab401.0024.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7e051.016ef6ab.da411.001e.GAE@google.com>
+Subject: Forwarded: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
+From: syzbot <syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Koichiro,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-On Thu, Sep 03, 2026 at 04:56:18PM +0900, Koichiro Den wrote:
-> > 
-> > Please share your branch. I should have time to do a quick test.
+***
 
-I did test your patches using pci-epf-test.
+Subject: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
+Author: jchuang26@m.fudan.edu.cn
 
-EP side:
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git 15071f2a1263e82150c77eeb1e94dbfc31950a8e
 
-[  105.770736] using HW-defined MSI-X layout!
-[  105.770763] MSI-X table BAR: 4 offset: 0x4000 size: 0x1000
-[  105.770777] MSI-X PBA BAR: 4 offset: 0x5000 size: 0x1000
-[  113.634512] raising MSI-X doorbell for irq: 1 msg_data: 0
-[  114.650505] raising MSI-X doorbell for irq: 2 msg_data: 1
-[  114.658509] raising MSI-X doorbell for irq: 3 msg_data: 2
-[  114.666499] raising MSI-X doorbell for irq: 4 msg_data: 3
-[  114.674508] raising MSI-X doorbell for irq: 5 msg_data: 4
-[  114.682498] raising MSI-X doorbell for irq: 6 msg_data: 5
-[  114.690508] raising MSI-X doorbell for irq: 7 msg_data: 6
-[  114.698500] raising MSI-X doorbell for irq: 8 msg_data: 7
-[  114.706508] raising MSI-X doorbell for irq: 9 msg_data: 8
-[  114.714500] raising MSI-X doorbell for irq: 10 msg_data: 9
-[  114.722508] raising MSI-X doorbell for irq: 11 msg_data: 10
-[  114.730500] raising MSI-X doorbell for irq: 12 msg_data: 11
-[  114.738511] raising MSI-X doorbell for irq: 13 msg_data: 12
-[  114.746498] raising MSI-X doorbell for irq: 14 msg_data: 13
-[  114.754509] raising MSI-X doorbell for irq: 15 msg_data: 14
-[  114.762499] raising MSI-X doorbell for irq: 16 msg_data: 15
-[  114.770509] raising MSI-X doorbell for irq: 17 msg_data: 16
-[  114.778500] raising MSI-X doorbell for irq: 18 msg_data: 17
-[  114.786508] raising MSI-X doorbell for irq: 19 msg_data: 18
-[  114.794501] raising MSI-X doorbell for irq: 20 msg_data: 19
-[  114.802507] raising MSI-X doorbell for irq: 21 msg_data: 20
-[  114.810500] raising MSI-X doorbell for irq: 22 msg_data: 21
-[  114.818509] raising MSI-X doorbell for irq: 23 msg_data: 22
-[  114.826502] raising MSI-X doorbell for irq: 24 msg_data: 23
-[  114.834509] raising MSI-X doorbell for irq: 25 msg_data: 24
-[  114.842502] raising MSI-X doorbell for irq: 26 msg_data: 25
-[  114.850509] raising MSI-X doorbell for irq: 27 msg_data: 26
-[  114.858499] raising MSI-X doorbell for irq: 28 msg_data: 27
-[  114.866510] raising MSI-X doorbell for irq: 29 msg_data: 28
-[  114.874500] raising MSI-X doorbell for irq: 30 msg_data: 29
-[  114.882510] raising MSI-X doorbell for irq: 31 msg_data: 30
-[  114.890500] raising MSI-X doorbell for irq: 32 msg_data: 31
+Reported-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
 
-
-Host side:
-
-#  RUN           pci_ep_basic.MSIX_TEST ...
-MSI-X1 returned -110
-# pci_endpoint_test.c:168:MSIX_TEST:Expected 0 (0) == ret (-110)
-# pci_endpoint_test.c:168:MSIX_TEST:Test failed for MSI-X1
-MSI-X2 returned 0
-MSI-X3 returned 0
-MSI-X4 returned 0
-MSI-X5 returned 0
-MSI-X6 returned 0
-MSI-X7 returned 0
-MSI-X8 returned 0
-MSI-X9 returned 0
-MSI-X10 returned 0
-MSI-X11 returned 0
-MSI-X12 returned 0
-MSI-X13 returned 0
-MSI-X14 returned 0
-MSI-X15 returned 0
-MSI-X16 returned 0
-MSI-X17 returned 0
-MSI-X18 returned 0
-MSI-X19 returned 0
-MSI-X20 returned 0
-MSI-X21 returned 0
-MSI-X22 returned 0
-MSI-X23 returned 0
-MSI-X24 returned 0
-MSI-X25 returned 0
-MSI-X26 returned 0
-MSI-X27 returned 0
-MSI-X28 returned 0
-MSI-X29 returned 0
-MSI-X30 returned 0
-MSI-X31 returned 0
-MSI-X32 returned 0
-MSI-X33 returned -22
-#      SKIP      MSI-X33 is disabled
-#            OK  pci_ep_basic.MSIX_TEST
-ok 16 pci_ep_basic.MSIX_TEST # SKIP MSI-X33 is disabled
-
-
-There seems to be a bug that "pci_ep_basic.MSIX_TEST"
-returns status ok, even though MSI-X1 returned -110 (ETIMEDOUT).
-
-If you don't look closely enough, it is easy to miss the
-"MSI-X1 returned -110"
-and only see:
-ok 16 pci_ep_basic.MSIX_TEST
-
-
-Perhaps this is what I missed when I was doing the same conversion as you some
-time ago.
-
-Anyway, I do see the same problem as you. For some reason IRQ 1 is not working,
-but all other IRQs are working.
-
-Unfortunately I don't have any ideas.
-MSIX_DOORBELL_VECTOR is 10:0 so msg_data can have value 0-2047.
-Thus, it looks correct that dw_pcie_ep_raise_msix_irq_doorbell()
-sets msg_data =  (interrupt_num - 1);
-
-FWIW, I think you should send out patch 1/7 as a standalone patch, so that
-it can be picked up ASAP.
-
-
-Kind regards,
-Niklas
+diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
+index 9b4e29557..2449df2e9 100644
+--- a/net/netfilter/nf_conntrack_netlink.c
++++ b/net/netfilter/nf_conntrack_netlink.c
+@@ -3390,7 +3390,13 @@ static bool expect_iter_name(struct nf_conntrack_expect *exp, void *data)
+ 	struct nf_conntrack_helper *helper;
+ 	const char *name = data;
+ 
+-	helper = rcu_dereference(exp->helper);
++	/* This iterator runs under nf_conntrack_expect_lock (see
++	 * nf_ct_expect_iterate_net()), which serializes changes to exp->helper.
++	 * Use the protected accessor to document that lock-based protection and
++	 * avoid a bogus RCU lockdep splat.
++	 */
++	helper = rcu_dereference_protected(exp->helper,
++					   lockdep_is_held(&nf_conntrack_expect_lock));
+ 	if (!helper)
+ 		return false;
+ 
