@@ -1,119 +1,71 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from va-2-38.ptr.blmpb.com (va-2-38.ptr.blmpb.com [209.127.231.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334233D0C09
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:28:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B1B3DDB18
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:28:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367300; cv=none; b=NHqPvN4JG1vxNh87rY8t3+cYB7ZbdocfgB7xAXvwu4MT/RC+IUabExHwyxIYy05Zj+D5hhI6ntwDZtYxZ/i+5PSBcANULHG2wiPoaMbrgiCeQgcH2ieplO28zJpwe+yH0Z7iegwgf9tSoq/D7wqow2V3SGUvVK4HYWC5qwO0lbc=
+	t=1789367326; cv=none; b=DP1GKfvKQZGXE5wIalMfGp0+TRdS36PZEXrXwyNlKg/S6TuTrB0kN5VjKG3Wyi47wQx4a0S09e6eSXP2AOf56SvtFOYZ8bE4U1AZBGJUjPzO45vKpwRk8ixvtpUqP+kA/vhw/OtkUpfr1kThzSQLKj6H2W+CBRw7yfIDpsBmOmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367300; c=relaxed/simple;
-	bh=TPDQPFLtPZvZI1VjjY0N2Stg09IIGcwfk/cDP+v1pFE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B8iBeBgx+lOAnfEfw0R4xQZCG32vOyNOJn4QjtyE5Ozq4bFlYjv3hSMw4Ffz+4hYteI+sxZUjR8AbREnA9Pdq7FsrcRbB3NI1chGvi5XCk8jpLYu4+XEb7IjcHStL5kOUt3PNDagvP21U7mVJwTGnhevr4fvIIc3AUpIze8WK8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Im0O/NMv; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789367326; c=relaxed/simple;
+	bh=qQbNDtGIEBu1d7dXB51yp73gOkY2ynQCu3xKODdhecw=;
+	h=Content-Type:From:Subject:Message-Id:To:Mime-Version:References:
+	 Cc:Date:In-Reply-To:Content-Disposition; b=iaW81M/ErGV7JsZDo6p8R/Skc327XI7/EVXvhFJoI56wqTjlW7G0W9HNzbQTOwnxgRSc+aVtxuP1h5CJLjzq+NFdphCb55E50PYV8LyJxsV4yN8GFWoA+mY12YvXZcrqGJMDjI6x1HL094WnjnPIerWbbj9MAS4LJ2M9hY3TTJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=vtHhwFkD; arc=none smtp.client-ip=209.127.231.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Im0O/NMv"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-86ec25cf7ecso488127b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789367298; x=1789972098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iiJKaMbfu9qWEi2n2OlhqAtcjgz04Z/iHxvz1jHrk94=;
-        b=Im0O/NMvog1usWt2PJGPLuFH4wO+sLDVWWgS4PPxInUlmlhk4fVBHL8zHvm7fC9OYH
-         g6RrUXxF1Y9KtHTQktb2row3Wwi0B7zV1FApjfprMhms6Kr3NAyfQT8cZQBItUaFrmKY
-         UzqZXyQiE5reD8PtSCgcSD6FhRQ+bngeIgL9cRudmZGRDAET9dhqYcNsCYR6dAdC6rBz
-         owj4/+EKhVZdNsyXQ+1tG+epyqS46+pRAhTPjZUUWWH3wqreTU6HGbLKpMzVRxx8qMgX
-         EyqmtmWwLK6Fm+o+uLMWsIWIvQQbG7fxd9plgRd3ukluMNqeEmGer+8Oe3cjdTX4ICdk
-         8Y+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789367298; x=1789972098;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iiJKaMbfu9qWEi2n2OlhqAtcjgz04Z/iHxvz1jHrk94=;
-        b=A7aG0W87i/XOcLYQxijCAIf6ib32te60uJK+A1KoeGwfG2I0pPtEgXCyhcI+mzJOht
-         fU06HHPN38m6GjXIWLXUp15c4ru9YpcLr892fRz59W6Z/+Qzq7IkGI4L1t1GxuGrbnuP
-         hiSiClx2ZSNs70KqD8aR6bYjq0cWxg3hiT6AxNeOebsHoF61KLHgrQfSFMxokxfq2Kyc
-         eibpQRv2KqTC8E5CQftv1+U0755LeHICfmEWoDb9hycVlfHjsjOJQ87owO+qKYMAjWVB
-         eOgBgD6dJbxng8KMoAbfoVWMRWJhcayA6L3rrmYQA/GL1EEfyhA/El1eGks0HkiNZX1Q
-         fMbQ==
-X-Forwarded-Encrypted: i=1; AKwUvByWP8FrdZWgORW3D6C4MSX17DZeyEmL9SuJnDQZjY58BCknX17Izp73zk/7LoFigoUQ5wXFiQoUk2JFTdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kF1a20vZBuJkMvZpdyKXfZ77l/YbVrIHUc+P7YSSTEoTvnV3tL
-	VG8dSj0vlZ4D77lM9PwbbmsnaSfutHAUVqyzeC2plPD7crDc+3hKDJQx
-X-Gm-Gg: AYBFou2Ex2txudm9kDiQA1zN5hTcHJpVdN1kZvBU6T5lUObH1pwULPashh9Y5iQqHBP
-	39BwkMzuypKzRv+qePGXz8Q7iCg+54QqnGfUwIy6J2la/Vat8hCYvu5cpxWw72bt09VjI/xHM8n
-	0lxLaAFLXUa5WjqrCN9l4MJI+fN5agbmHLOdJ30IQrnFt6j+RdAVATkox2wEYG1+rA+jw7qasI8
-	w5chBnSt41/3ZV/bB1qYumDSUiQpBmSrT/MlXGTd4noABHC+cLdbwbzJ9zrdxT7XwmFOKB9UXL7
-	w3biu7owUIYUMkZ1ejNpmQ6mJJqLOCpcUMP6C1F3Aot+wlmPfKin9SyEIreLU29xugyDqU5xSao
-	EoeIjABYy5pKdCvgmW5UdAejuqBg0eK2V7UohBO+heO9LUrED0sxwt/mIvKmz2PhCQ/TK+KmPi1
-	XXGxcw1bMOkEVRocsEXtSURaSZDat5u+HSfpL/i/9oxpWrrR4u9t+d3A==
-X-Received: by 2002:a05:6a00:ae0d:b0:869:31b1:4ce3 with SMTP id d2e1a72fcca58-86e2a7ce365mr6207771b3a.9.1789367298432;
-        Sun, 13 Sep 2026 23:28:18 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b294be699sm3989659b3a.34.2026.09.13.23.28.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 23:28:18 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Marc Hulsman <m.hulsman@tudelft.nl>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <khali@linux-fr.org>,
-	Hans de Goede <j.w.r.degoede@hhs.nl>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hwmon: (w83791d) remove fan/pwm 4-5 sysfs group on remove
-Date: Mon, 14 Sep 2026 14:28:09 +0800
-Message-ID: <20260914062809.1650538-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="vtHhwFkD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1789367313; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=sQMkuUXUspgukwSOb26Oq32mNEp/z9l0P4KjT+/v4T0=;
+ b=vtHhwFkDXlFepJgpWBBnyZ7kW8fFQ4shf3ixMXKW6/OIpDidkh48B/ZjAJ65kCXd63DHcr
+ IMydUSYGJmU9PQK+kMuOOCVeWiU0M+M4WOLacYTPiFdNgEUQEd3Yn3Jzhdj/0wBfRL3G+r
+ hIp4f+D04MAORUCy4C+I9+Mf1zrPLBHj04uaKddZ68IIffqx7W8Tr8o7uJ4PSVuXoT1y4k
+ 2dyLm8eXTZrWd/lpL+t0P5hf2IyymnOaDlGUWr9Vx9UpifDEClDv/rJ6fJbN3wz0IVNDvC
+ yyK2HVxhWycsQRaU8mKBkU/iBYFBpNMIgi31dviPwmBgxVNNCm6BvNx5x4ciYA==
+X-Original-From: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+From: "Zhaoyu Liu" <liuzhaoyu.zackary@picoheart.com>
+Subject: Re: [PATCH] iommu/sva: remove iommu_sva_present flag
+Message-Id: <aqeUDObfmw+ZlFUj@hostpc>
+X-Lms-Return-Path: <lba+26aa7940f+d8ceee+vger.kernel.org+liuzhaoyu.zackary@picoheart.com>
+To: "Baolu Lu" <baolu.lu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <aoq8VGFL/Mdjd/M5@hostpc> <19132505-225a-45fb-a507-b916a718dccc@linux.intel.com>
+Cc: <joro@8bytes.org>, <will@kernel.org>, <robin.murphy@arm.com>, 
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Received: from hostpc ([124.160.26.250]) by smtp.feishu.cn with ESMTPS; Mon, 14 Sep 2026 14:28:30 +0800
+Date: Mon, 14 Sep 2026 14:28:28 +0800
+In-Reply-To: <19132505-225a-45fb-a507-b916a718dccc@linux.intel.com>
+Content-Disposition: inline
 
-When the fan/pwm 4-5 pins are not used as GPIO, w83791d_probe()
-creates the w83791d_group_fanpwm45 sysfs group on the I2C client
-device.
+Thank you, Baolu.
 
-The probe error path removes this group when a later initialization
-step fails, but the normal remove path only removes w83791d_group.
-As a result, the optional fan/pwm 4-5 sysfs files can remain after the
-driver is unbound.
+One more thing =E2=80=94 do you know why the maintainers haven't noticed / =
+responded to this patch?
+Jason, Baolu, are you able to contact them directly?
 
-The callbacks associated with these files access the driver data,
-which is devm allocated and released after driver unbind. Leaving the
-sysfs files behind can therefore result in accesses to stale driver
-data.
+Thanks,
+zackary
 
-Remove w83791d_group_fanpwm45 during normal teardown as well.
-
-This issue was found by manual code inspection.
-
-Fixes: 6e1ecd9b8f13 ("hwmon: (w83791d) fan 4/5 pins can also be used for gpio")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/hwmon/w83791d.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/hwmon/w83791d.c b/drivers/hwmon/w83791d.c
-index 4a777430af5c..4b07a25ae59e 100644
---- a/drivers/hwmon/w83791d.c
-+++ b/drivers/hwmon/w83791d.c
-@@ -1415,6 +1415,7 @@ static void w83791d_remove(struct i2c_client *client)
- 	struct w83791d_data *data = i2c_get_clientdata(client);
- 
- 	hwmon_device_unregister(data->hwmon_dev);
-+	sysfs_remove_group(&client->dev.kobj, &w83791d_group_fanpwm45);
- 	sysfs_remove_group(&client->dev.kobj, &w83791d_group);
- }
- 
--- 
-2.43.0
-
+On Wed, Sep 02, 2026 at 09:37:00AM +0800, Baolu Lu wrote:
+> On 8/23/2026 5:24 PM, Zhaoyu Liu wrote:
+> > The global iommu_sva_present bool merely mirrors
+> > !list_empty(&iommu_sva_mms) under the same mutex. Remove it and rely
+> > on list_for_each_entry to handle the empty list case, which is a no-op.
+> >=20
+> > Signed-off-by: Zhaoyu Liu<liuzhaoyu.zackary@picoheart.com>
+> > ---
+> >   drivers/iommu/iommu-sva.c | 14 +++-----------
+> >   1 file changed, 3 insertions(+), 11 deletions(-)
+>=20
+> Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
