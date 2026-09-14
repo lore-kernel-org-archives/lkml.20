@@ -1,151 +1,197 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB30C40F743;
-	Mon, 14 Sep 2026 08:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.1
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375972; cv=fail; b=MWZWgIdyOoN4XsBWf3iQcHY6q1uAuyKkVR6Hf52qsN931RQeiE9T2F7I5yOidM3E/RvdXrchOW268uEa07qeMe0oVoYSl1TyMA3mWB5nKiitCw9SaGIfh5Y57GvZDwHM/O24pw4nyhxKT36+EFWTW/P0cnxn9WSrquN5B0Z11Fk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375972; c=relaxed/simple;
-	bh=4oJijptQlzUPkTFJAh3l45t6UUpoCKN4sIv9hGEeKiU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NvVF1zSzm/6HkFYq4LhFEtk8Jbf1AnZ1/wAlqjJSio0eZYWfuvUMqajfXfDiXtSldlYFiDin/DBJBa4/kLjXdwNglCgPVyImaE6cs4BotAahHROsG7BmB4iON0o2123sPRZypQZ9TmLY0iyGcy6vER0Qh3cw5LdDjUz2EJz4AjA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=FeX/eQFF; arc=fail smtp.client-ip=52.101.57.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E079640EBB6;
+	Mon, 14 Sep 2026 08:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789376015; cv=none; b=cWOW+apMp09nS1mAUWSBlahqglQAr9UzphIc7aGMhCNNBINTpQD1zdAGsiRgEIfRw4tXFun82ZS8TRIBr4I3EAvv/i1CBUY98hBro8JNe2Gc4prculjbgsbQXSF9+VQQUlaODVfogOAdUppXQ7NtOtRnrLgw75S/qPp8cITWdFg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789376015; c=relaxed/simple;
+	bh=2/QPqyyGci2C3ahz4RkgnHjD5wDyxAb1g79QR0gXQNo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ujfo60XT2j3hxNa3EA9b43HoqRigO7VMOzlC7GwljZ4MnGKtQXDHECNajfkc6fLfVhi/Aht/nhKDFcN5V3njrRQWgquNUcewTfxRWuimz2f2oWdfrRbXSiM8jKYkqDVVvnpIzjtZcVXBGota9VVKth5biOy8ZxRgJoZNHXMboPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=IN8+8F/R; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=DFMTfNGM; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OFM2Wc2L; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=M9A/G52L; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="FeX/eQFF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PweAKjctPMjPtvfQ5W0YhcJAblHKUpyM6VsaeaUeYOnxKncXKy0lT89vYvRWj1zkZ9Kt/BTRZwiyXjvENos82CCGRoOGywC7YyJfQ9glmtuokwlNO+nRZ3mO3R1Ix8ZIKeQpRE9brs8GTXPKGLpnWcc/SkEVhXOvBAAI6owRt0fTaNj+WaG5v9dN4XxbLGVta8q1CDBAE1fidqnnOS5zEgEI5tMbpUkRJCF+VNf05Z3jba5lQ16/KQ+js2PQM+GjioL8co6y9/obX2qBzk+pNxJ9fxgwlLlK33af/dcAKqOnnK7JjoNLUXG6BUwrzIXuutMP1tvF7hMkQWFljO1HNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yzpk2HuAlkRP3hnp4Bu4yztqgoWxsT41dOQwP4zymsA=;
- b=johxiaAKomR3D7ccyKK6l1DsSNsy32dhUXBuEpymyqCHI+9sugjaP8bngtgplqt2Fw9zOlW2XRqLoNwtTCpqBlogtfecWv3lUP++4aqwIcDK/MCUcSusxaoKu34HeeJxz5yTQuH7/GHJFIPS5mZjGWKc94Bt3oicOeCLwGuUGI/bzCFFYfQC5AU+17M5HYO1yTlTNgLSF250O7lIIIGRiHK5L9KzHtmXWZVhpdJVJ4kJLJ9heZ+QsgJ5vA98K00OWkHo7ZYJu9qu9jIstlFoNBKZRygjsAIM0/iUS+e7rumDaP6ORuQQ86/gJFKny+FEPWtU/pXBNan0zFt3UhxbeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yzpk2HuAlkRP3hnp4Bu4yztqgoWxsT41dOQwP4zymsA=;
- b=FeX/eQFFwNaYA7P/4nTqpd8aMPbB3+nuLD8wL/Fx79Tf/s2DWq8IKuZtPLagLBdevHd4chY6auL7tc3lwIzhlFAEsELqBgrJ/OzuMAv5oiG+Om1vf0R7jKQOGuEKtaYdClGHT2ozzS/+blRkuqNOX4wHCndbiw4cDJ/xvZPq0eE=
-Received: from SJ2PR07CA0020.namprd07.prod.outlook.com (2603:10b6:a03:505::19)
- by PH6PR12MB338919.namprd12.prod.outlook.com (2603:10b6:510:3dc::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 08:52:27 +0000
-Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
- (2603:10b6:a03:505:cafe::97) by SJ2PR07CA0020.outlook.office365.com
- (2603:10b6:a03:505::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.10 via Frontend Transport; Mon,
- 14 Sep 2026 08:52:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 08:52:27 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
- 2026 03:52:03 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
- 2026 03:52:02 -0500
-Received: from localhost (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Mon, 14 Sep 2026 03:52:02 -0500
-From: Michal Simek <michal.simek@amd.com>
-To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
-	<michal.simek@amd.com>, <git@amd.com>
-CC: Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>, Shubhrajyoti Datta
-	<shubhrajyoti.datta@amd.com>, Srinivas Neeli <srinivas.neeli@amd.com>, "open
- list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
-	<devicetree@vger.kernel.org>, "moderated list:ARM/ZYNQ ARCHITECTURE"
-	<linux-arm-kernel@lists.infradead.org>, "open list:GPIO SUBSYSTEM"
-	<linux-gpio@vger.kernel.org>
-Subject: [PATCH] dt-bindings: gpio: zynq: Add parsing of hogs
-Date: Mon, 14 Sep 2026 10:51:54 +0200
-Message-ID: <0b17cd7e24ea9a92a3e5268a1f9e5a840960ac6d.1789375913.git.michal.simek@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="IN8+8F/R";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="DFMTfNGM";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OFM2Wc2L";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="M9A/G52L"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D472E21B03;
+	Mon, 14 Sep 2026 08:53:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789375999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7fkfs27SEfag3YWNxjnmJi7blS0vIHEFAEl3bfsZExw=;
+	b=IN8+8F/Rcy692g8YziViPLkzwLLFsJDWZeKrQlObOLNin3UOPy0LQ1khHfmGqlQRPhqJM/
+	7nSFhBBm96FJxhJPWToSxR2I9bDZ8NMHACTTlDwUgm4AJ8rZGL74LyvgJRG7ESZ19sEw65
+	LYa3NAkzs0KKaU/BtV2i65Tvn4N/I9Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789375999;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7fkfs27SEfag3YWNxjnmJi7blS0vIHEFAEl3bfsZExw=;
+	b=DFMTfNGMtqLBjzSx95f2WPLejkPSgFqATIxLwjCCngnI+NhC+qKoQz/7ZfNYfE3bPZDKIG
+	BWoyKBmmN7kvAQDw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789375994; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7fkfs27SEfag3YWNxjnmJi7blS0vIHEFAEl3bfsZExw=;
+	b=OFM2Wc2LW/F05zo+8WP3oMBPVpsn4eRK62uRx0Pt+KwmsczdVCH759Oy15iJhe8rj9n+F6
+	4hry47T0Ybfu9wQTq+m/Gv3yeP1+ToTbJGhwlP3a39PO/nB413+VnqEhtC9nA3h9Ttj+Xl
+	Yt2Nw5ZzLaaoN5GwHGD+3iIpMC10UTQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789375994;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7fkfs27SEfag3YWNxjnmJi7blS0vIHEFAEl3bfsZExw=;
+	b=M9A/G52LiKgaciRSQhrLjz0OFI7OcghoIZ614oIexmApg3nfQmT5F9Dbz8o3mIRJprKGS7
+	wdld7qqeK34R39CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AE6E5136A1;
+	Mon, 14 Sep 2026 08:53:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id J1WSKvq1p2qyLgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 08:53:14 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 401F4A12E4; Mon, 14 Sep 2026 10:53:06 +0200 (CEST)
+Date: Mon, 14 Sep 2026 10:53:06 +0200
+From: Jan Kara <jack@suse.cz>
+To: Mateusz Guzik <mjguzik@gmail.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 00/10] Towards safer path_* API
+Message-ID: <pm4tszxmbzodnxbsc3paaaogobweqlgbnleyoeukzs23rdnzr6@caobahbhkrl7>
+References: <20260913144918.1606123-1-mjguzik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=997; i=michal.simek@amd.com; h=from:subject:message-id; bh=4oJijptQlzUPkTFJAh3l45t6UUpoCKN4sIv9hGEeKiU=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWQt37om+NOXo+f/c+456Nva9nB9Ed/b7W7FdmfXn2bes l9837p5WztKWRjEOBhkxRRZpjPpOKz5dm2p2PLIfJg5rEwgQxi4OAVgIjMdGP6Zz1UXW+OwNlP+ 95tftVpyHarHt7fk/lsUbXGwj0taMnULw3/HzBiZTvtmS7UFy97nL95g8VxOMtCgfn3wE9kbX/Z XHWQCAA==
-X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|PH6PR12MB338919:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a2be39e-126f-489b-9118-08df123d80b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|82310400026|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	lK/Nvv8UsRwBpW+A633bTOzf/W6qV1jT0yXJJWB1rHjdp6CKzlWqnqgzcRVaTkAFCWq4ZIa7S/5uV8TaVGc4gnWEutgJ0Kv5iAbg7DCpwq6wxe3E+pPkPGjvi8Jq2ET1+Vkk/iSXbMMvBJYKikzhHaqble9YgUsfsHql/JdGzoQ+MW8b2BAmQVIaNOE9qubjOTlMbaAcekIq5pLWsCfzIUzGHGyH3h/8WdQhUW+fq6X/RV9mWIb1FAF+Y+8sLIuKIxxMQdOD5w+WNVMFe9VN9Cph20Batd+EzvOPmGNLFATyKS+LZWOy1iBqTkyG8XntOdFpYkXjrkQJuvqS9XGG4eY+aed5Q86vc0RYT/nd9xC2gACPOyq/7d/sDZlP3StnotnCK+AoD4Ynv5K/Y4JmKiqNboBb6M1srSGFE4wWNuXeOkIqnMLf0dDkh+OR8OYPA8/cwXkECxbkzH+UDTDBN8pZQAfj3TElDWEsL+pivsw3Fdf+C7kdV42VVZz1PqBRsRVt5zRdr55guInhng3p2MKkvPeFK//453Guf/Ru4dB7mCneGCPPpiGP5G/TeK4Mxgu3fwMq0/s8ukShV08a/qDuqf5ayie/BASOlLypL0Gul5pn6mF2P1rWjmxAE4Dg5+iaOC7TuhkXKsJib5wRCh3mksgaW+5V5qZxcoCfKK8mZx9Pivoxjwbhrunw8RIg8A6cgczy0Yh2HcImrdA1zQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(82310400026)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bmnRbwXF2h7N88vyWp81/UnZKfAgt4ixnck2JtozC6Jebx0ufkLe1IimbmDVIwSF2EKKaTpGnQC0nOwlmH0IOY+pKXptD4hXIqTrlE653YTeGrEdMoc8JJjQ80LDwyFGgxg8M3Vwsbz85ik06YJiVGlHwblELLu76pRrbWKuftNsaTezhQHd1UX4V4d2gNVDz/AW+7gNdpYmWt0eNGXrJbwdCL3hcD7pbGsKqyT/ojHeVHUu4u1fOzjETUMezLW4dewQ607Wg+PuYE8+3i2cnKgFOYWPF3M2tTso3APM+QKd6LQfop9m66ore2VKKvZDsLbs/Z/0VK7etkRBH7fbNSKibcEcpwqUAJ4+6bsbGKAl/MLjExAnm4jrXbpRGxjyVQJ89d/2fBCMbgkOTMXKw5Bhb5OPd6MPRCaDxCSL+axXYruQTSQyz/1NQYha1Two
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 08:52:27.0620
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a2be39e-126f-489b-9118-08df123d80b6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002314.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH6PR12MB338919
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913144918.1606123-1-mjguzik@gmail.com>
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
 
-Allow parsing GPIO controller children nodes with GPIO hogs the same way
-it is done by commit 545908a9fb9c ("dt-bindings: gpio-mmio: Support
-hogs") and commit e8f2ca6be61f ("dt-bindings: gpio: ast2400-gpio: Add
-hogs parsing").
+On Sun 13-09-26 16:49:07, Mateusz Guzik wrote:
+> Currently the handling is highly error-prone with consumers allowed to
+> arbitrarily manipulate references, notably with path_get().
+> 
+> In the past this resulted in preventable bugs.
+> 
+> The end goal, not yet achieved with this patchset, will provide an
+> invariant that a populated 'struct path' has precisely one set of
+> references on it.
+> 
+> While consumers can still cause leaks by neglecting to path_put(), the
+> footgun of path_get() can be eliminated.
+> 
+> With this patchset instead of hand-rolling a path copy and issuing
+> path_get() on it, callers can resort to path_clone() instead.
+> 
+> Almost all path_get() consumers get converted, most of which with
+> coccinelle.
+> 
+> Few instances are left until I figure out a nice way to sort them out.
+> 
+> Overall almost entirety of this patchset is a NOP.
 
-Signed-off-by: Michal Simek <michal.simek@amd.com>
----
+I like most of the changes. Just the changes to path_init() kind of leave a
+bad taste because they leave struct path assignment there for the RCU
+lookup mode. But I don't see a nicer way of dealing with it.
 
- Documentation/devicetree/bindings/gpio/gpio-zynq.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+								Honza
 
-diff --git a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml b/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
-index de24bb361e9f..fffeb5ec0645 100644
---- a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
-+++ b/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
-@@ -45,6 +45,12 @@ properties:
-   power-domains:
-     maxItems: 1
- 
-+patternProperties:
-+  "^.+-hog(-[0-9]+)?$":
-+    type: object
-+    required:
-+      - gpio-hog
-+
- allOf:
-   - if:
-       properties:
----
-base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
-branch: xnext/zynq-gpio
-
+> 
+> Mateusz Guzik (10):
+>   fs: unexport backing_file_set_user_path() and make it take the ref on
+>     its own
+>   fs: add path_create(), path_move() and path_clone()
+>   fs: use path_clone() in path_init()
+>   fs: use path_clone() and path_move() in vfs_open*
+>   fs: use path_clone() in backing_file_set_user_path()
+>   Coccinelle-based conversion of path_* consumers to use the new
+>     primitives
+>   autofs: use path_create()
+>   fsnotify: use path_clone()
+>   proc: use path_clone()
+>   nfsd: use path_clone()
+> 
+>  drivers/block/loop.c               |  3 +-
+>  fs/autofs/dev-ioctl.c              |  3 +-
+>  fs/autofs/expire.c                 |  4 +--
+>  fs/backing-file.c                  |  2 --
+>  fs/devpts/inode.c                  |  6 ++--
+>  fs/failfs.c                        |  3 +-
+>  fs/fhandle.c                       |  3 +-
+>  fs/file_attr.c                     |  6 ++--
+>  fs/file_table.c                    |  3 +-
+>  fs/fs_struct.c                     |  6 ++--
+>  fs/namei.c                         | 44 ++++++++++++++++++++++++------
+>  fs/namespace.c                     |  3 +-
+>  fs/nfsd/export.c                   |  6 ++--
+>  fs/nfsd/nfs4xdr.c                  |  8 +++---
+>  fs/notify/fanotify/fanotify.c      |  6 ++--
+>  fs/notify/fanotify/fanotify_user.c |  3 +-
+>  fs/nsfs.c                          |  3 +-
+>  fs/open.c                          | 10 ++-----
+>  fs/overlayfs/params.c              |  3 +-
+>  fs/pidfs.c                         |  3 +-
+>  fs/proc/base.c                     |  6 ++--
+>  fs/proc/fd.c                       |  3 +-
+>  fs/smb/server/vfs.c                |  3 +-
+>  fs/xfs/xfs_handle.c                |  3 +-
+>  include/linux/path.h               | 14 ++++++++--
+>  kernel/trace/bpf_trace.c           |  3 +-
+>  security/apparmor/task.c           |  3 +-
+>  security/keys/big_key.c            |  3 +-
+>  security/landlock/fs.c             |  3 +-
+>  security/landlock/syscalls.c       |  3 +-
+>  30 files changed, 87 insertions(+), 85 deletions(-)
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
