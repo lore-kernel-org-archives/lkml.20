@@ -1,260 +1,95 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98CA41D103
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04ABC3115AC;
+	Mon, 14 Sep 2026 08:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375857; cv=none; b=iR0jXqQFUvtOJD0RTwJVN4zge7LizDcmcOKcwtfRvueI4a4JaouWAWNwOYmla9xvHVoj5K/DNP0lp2ncA2b8hxS3s59EwrlSxirtS2jPabS+o5OD97tp8spyLBGlln8USZv9KSCMai/IESEffhJlLZtPXBXCW9lvg+t2ed6Y4Zs=
+	t=1789375929; cv=none; b=n30L4VHls1DgiAupUjJ1QQ7JHiFNF6V9g9/W7CDc/OaKpAj+/l7yfJp4jFccpKfScUrJkh7AxzPzVvAro+vNI27iO/1Q2IxgZh5OucL2P2/X0UABt6hFASI87ZVHaM+wQV42MMp5rxBREoCcagTK+mNP0IMVmtNAKV7ZaqAN73s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375857; c=relaxed/simple;
-	bh=4kmKGPl8jrWtWetJGovz3XHXjjaAKGy6v1BRtuq+Sr0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=GQSf7bWoZ9KbyNfgyhA00XU9hXYluuvFNWm2LaxdxQZWFOAM+Pux7RSp/UjqRa/xoEZO97vH0TMXLTGhiNTsAdToFQbuS7ZA60TerY8p9P0L22GhOxRNBJF/G/uTuIVW5O+OQnvNNOXAxSrWWtLGcHTLqUHKwZ7L9TGH8/uqVlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1b27d7ab2so3425676eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:50:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789375843; x=1789980643;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BqDut2NvegO8zSRLp9JVh14GmyI892vgOxBKkgFiEtc=;
-        b=sNdr7RGnAamDWH45xp3qvYr3dd6UCswzaVwP6JQsPnmWkGHRUB8RQgSxrMictVO/IE
-         FcRNChoatYTkDQqDiMbsdP0rj6kWLpJtFlP7IdUCjF7igFfBwNh4f96+tp+muhzyUZGj
-         bgAG2vtOi9U2v0GtwF7jddfdHwg7MY8fTqBSolycHGJYgDRhE05mHBwCcAgslFO5SziT
-         zv0H4mU4OM58f3O6PmaDapv6DxJ66QUy7HKeR1ovKPBpsxBQEk2Gw9i0RzZJhZvzv5cY
-         RW2nFTsLV6OkZ2G7v2DXNqc1ZTOhikYAiaVZjhbFakicz0E0SPMVL74LOb4xxvni3Gw9
-         d+sA==
-X-Forwarded-Encrypted: i=1; AKwUvBzsKbrNFUoBYCHwAD1+pRmZn8gbw72FdFZMpww8enRBFxw2xNdtKyNxcIiXF34P2RKAfI7GKaufR5N3DNM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOVvvcNU7V93n+Loe1O6p51k061sUYn8gmFeD1guD7Y6PuxhdO
-	P+U2A+Xv3DCL8LR17WoR5Y7sTMIWMV9+I8MGRU4rMLlGEdg2w+mOH6tlI0ztJjmHwM4J3spwb3G
-	fmA4h8W9+oD8dEsr8lJ6gj3vzgqdgWQNRfDncCeGTxk7v/ChNlSSmmrtyROQ=
+	s=arc-20240116; t=1789375929; c=relaxed/simple;
+	bh=jzqEDZaTUIyRsbYzvWrdlv16UybcqOcTHPZz8hdyo2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F1ZxajJs/SrSv3xuWnTtTyUN8i2FZxo2pAdT1VX4ptDtISkVL7Zoc5gWRcIasn1k4/LxlEesHCioP+QN4uqwfbP2ba+SOlAkHE8cgONeme36i4owAl74LpMkOKHSc02T8e2xY0JYH+XCTm3chvmIExEhO6XuoJItL40QU6wd+XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZaCFZ4my; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZaCFZ4my"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789375922; x=1820911922;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jzqEDZaTUIyRsbYzvWrdlv16UybcqOcTHPZz8hdyo2M=;
+  b=ZaCFZ4my74Lis1pbDImXr4b3kq2UKdXnuffc6mylG+PpZV2nbxpmpGLv
+   wJxxCVR6cc816LBz2MDEVEinv/NIohgP3YzZAjczE1pAWtvY5AtcnLBn1
+   2OXIL5OU9+/rMrbuDcrZAu54A97mBzO/bdf9vpwYlrE17WqPgRAFDk3zc
+   OsAScIcxdGg1DVvqd53QASP3POlZghLygKWdCtJu4xDE9a3IErUnFbXAo
+   3SVywWsYn+e+bC5BqPy64z+yPICKumP5rRbmW1R8QOh5+nk8TkdJBTS/9
+   wzoOBYN10oQmsq7PbUJRZZcnp76qqbN1oCvaVl2X6UvysuQR8LtNj1lvJ
+   g==;
+X-CSE-ConnectionGUID: GNwxMruTRL+8EFGRRVjf/A==
+X-CSE-MsgGUID: nAVTzPh+QVCHQwBmT5jZvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89932981"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89932981"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:51:59 -0700
+X-CSE-ConnectionGUID: CskLL6m8RuiafZqVYg0a6g==
+X-CSE-MsgGUID: T4rCyc4eRI6hknMmkSY3Ow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="818193"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa012.fm.intel.com with ESMTP; 14 Sep 2026 01:51:57 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 06D6D99; Mon, 14 Sep 2026 10:51:56 +0200 (CEST)
+Date: Mon, 14 Sep 2026 10:51:56 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] thunderbolt: Reject oversized XDomain properties
+ responses
+Message-ID: <20260914085156.GB106095@black.igk.intel.com>
+References: <20260909010737.1883610-1-4ncienth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:16ab:b0:6c2:e131:676a with SMTP id
- 006d021491bc7-6c5401806e8mr729341eaf.28.1789375842729; Mon, 14 Sep 2026
- 01:50:42 -0700 (PDT)
-Date: Mon, 14 Sep 2026 01:50:42 -0700
-In-Reply-To: <20260914061449.4024632-1-huangsj@hygon.cn>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7b562.3aa11909.1a03b8.007c.GAE@google.com>
-Subject: [syzbot ci] Re: fs/proc: split the inode list for procfs
-From: syzbot ci <syzbot+cic7fceedca4fbf785@syzkaller.appspotmail.com>
-To: adobriyan@gmail.com, akpm@linux-foundation.org, aleksa@amutable.com, 
-	brauner@kernel.org, dev.jain@arm.com, ebiggers@kernel.org, 
-	fangbaoshun@hygon.cn, hpa@zytor.com, huangsj@hygon.cn, jack@suse.cz, 
-	jannh@google.com, joannelkoong@gmail.com, joel.granados@kernel.org, 
-	kees@kernel.org, legion@kernel.org, libaokun@linux.alibaba.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, ljs@kernel.org, 
-	mjguzik@gmail.com, oleg@redhat.com, ryan.roberts@arm.com, sandeen@redhat.com, 
-	tj@kernel.org, viro@zeniv.linux.org.uk, yingzhiwei@hygon.cn, 
-	zhongyuan@hygon.cn
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260909010737.1883610-1-4ncienth@gmail.com>
 
-syzbot ci has tested the following series
+Hi,
 
-[v1] fs/proc: split the inode list for procfs
-https://lore.kernel.org/all/20260914061449.4024632-1-huangsj@hygon.cn
-* [RFC PATCH 1/3] fs/drop_caches: do not scan procfs in drop_pagecache_sb()
-* [RFC PATCH 2/3] fs/super: introduce a helper sb_inodes_empty()
-* [RFC PATCH 3/3] fs/proc: split the inode list
+On Wed, Sep 09, 2026 at 10:07:37AM +0900, Daehyeon Ko wrote:
+> tb_xdp_properties_request() allocates room for 45 data dwords in its
+> 252-byte response buffer.  The XDomain length field is six bits wide,
+> however, and a malicious peer can set it to 63.  After the fixed response
+> fields are subtracted, the driver treats this as 48 data dwords.
+> 
+> Commit 322e93448d90 ("thunderbolt: Clamp XDomain response data copy to
+> allocation size") only bounds the copy against data_len.  If data_len is
+> at least 48, memcpy() reads 192 bytes from the 180-byte res->data array,
+> causing a 12-byte heap out-of-bounds read.  Commit 4db2bd2ed478
+> ("thunderbolt: Limit XDomain response copy to actual frame size") limits
+> the earlier copy but does not constrain this header-derived length.
+> 
+> Reject response data lengths that exceed the allocated source buffer
+> before copying them into the assembled property block.
+> 
+> Fixes: d1ff70241a27 ("thunderbolt: Add support for XDomain discovery protocol")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 
-and found the following issue:
-KASAN: slab-out-of-bounds Read in hook_sb_delete
+Applied to thunderbolt.git/fixes, thanks!
 
-Full report is available here:
-https://ci.syzbot.org/series/736afa16-0dc2-40e7-9a6c-74db419044d7
-
-***
-
-KASAN: slab-out-of-bounds Read in hook_sb_delete
-
-tree:      vfs
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/vfs/vfs.git
-base:      15aa70de9f706fb0e3852f636b8a0a9d5bc048ab
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/cd4bf6c8-aad6-4b38-b003-31dcd0a8a4bf/config
-
-ima: No TPM chip found, activating TPM-bypass!
-Loading compiled-in module X.509 certificates
-Loaded X.509 cert 'Build time autogenerated kernel key: affe42cfbb2369724f6c4c4a3fe3f0b2fe4692dc'
-ima: Allocated hash algorithm: sha256
-ima: No architecture policies found
-evm: Initialising EVM extended attributes:
-evm: security.selinux (disabled)
-evm: security.SMACK64 (disabled)
-evm: security.SMACK64EXEC (disabled)
-evm: security.SMACK64TRANSMUTE (disabled)
-evm: security.SMACK64MMAP (disabled)
-evm: security.apparmor
-evm: security.ima
-evm: security.capability
-evm: HMAC attrs: 0x1
-PM:   Magic number: 10:739:371
-usb usb44-port5: hash matches
-udc dummy_udc.27: hash matches
-dummy_udc dummy_udc.27: hash matches
-usb usb12-port1: hash matches
-netconsole: network logging started
-gtp: GTP module loaded (pdp ctx size 128 bytes)
-rdma_rxe: loaded
-cfg80211: Loading compiled-in X.509 certificates for regulatory database
-Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
-Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
-clk: Disabling unused clocks
-ALSA device list:
-  #0: Dummy 1
-  #1: Loopback 1
-  #2: Virtual MIDI Card 1
-md: Waiting for all devices to be available before autodetect
-md: If you don't use raid, use raid=noautodetect
-md: Autodetecting RAID arrays.
-md: autorun ...
-md: ... autorun DONE.
-EXT4-fs (sda1): mounted filesystem b4773fba-1738-4da0-8a90-0fe043d0a496 ro with ordered data mode. Quota mode: none.
-VFS: Mounted root (ext4 filesystem) readonly on device 8:1.
-devtmpfs: mounted
-VFS: Pivoted into new rootfs
-Freeing unused kernel image (initmem) memory: 27172K
-Write protecting the kernel read-only data: 223232k
-Freeing unused kernel image (text/rodata gap) memory: 1552K
-Freeing unused kernel image (rodata/data gap) memory: 804K
-x86/mm: Checked W+X mappings: passed, no W+X pages found.
-x86/mm: Checking user space page tables
-x86/mm: Checked W+X mappings: passed, no W+X pages found.
-Failed to set sysctl parameter 'max_rcu_stall_to_panic=1': parameter not found
-Run /sbin/init as init process
-==================================================================
-BUG: KASAN: slab-out-of-bounds in _raw_spin_lock+0x2e/0x40
-Read of size 1 at addr ffff88810eea9ce0 by task init/1
-
-CPU: 0 UID: 0 PID: 1 Comm: init Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150
- print_address_description+0x55/0x1e0
- print_report+0x58/0x70
- kasan_report+0x117/0x150
- __kasan_check_byte+0x2a/0x40
- lock_acquire+0x7d/0x350
- _raw_spin_lock+0x2e/0x40
- hook_sb_delete+0x15d/0xd10
- security_sb_delete+0x76/0x110
- generic_shutdown_super+0xb2/0x3d0
- kill_anon_super+0x3b/0x70
- proc_kill_sb+0x47/0x180
- deactivate_locked_super+0xbc/0x110
- cleanup_mnt+0x3d3/0x460
- mntput_no_expire_slowpath+0xa58/0xbf0
- __fput+0x6a4/0xa50
- task_work_run+0x1d9/0x270
- exit_to_user_mode_loop+0x204/0x770
- ret_from_fork+0x593/0xb70
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-
-Allocated by task 1:
- kasan_save_track+0x3e/0x80
- __kasan_kmalloc+0x93/0xb0
- __kmalloc_flags_noprof+0x532/0x7a0
- __alloc_empty_sheaf+0x28/0x40
- __pcs_replace_empty_main+0x43b/0x6c0
- kmem_cache_alloc_noprof+0x399/0x600
- bio_alloc_bioset+0x271/0xc60
- ext4_mpage_readpages+0x12a7/0x1c40
- read_pages+0x193/0x5a0
- page_cache_ra_unbounded+0x754/0x9d0
- page_cache_ra_order+0xb47/0xee0
- filemap_get_pages+0x86d/0x1ec0
- filemap_read+0x426/0x11e0
- ext4_file_read_iter+0x553/0xad0
- __kernel_read+0x4ca/0x960
- integrity_kernel_read+0x89/0xd0
- ima_calc_file_hash+0x451/0x890
- ima_collect_measurement+0x51b/0xa00
- process_measurement+0x1272/0x1c10
- ima_file_mmap+0x1b0/0x200
- security_mmap_file+0x773/0xa20
- vm_mmap_pgoff+0x134/0x4e0
- elf_load+0x237/0x6a0
- load_elf_interp+0x4da/0xb50
- load_elf_binary+0x1bda/0x28d0
- bprm_execve+0x930/0x1590
- kernel_execve+0x8c3/0x9c0
- try_to_run_init_process+0x13/0x60
- kernel_init+0xb2/0x1d0
- ret_from_fork+0x514/0xb70
- ret_from_fork_asm+0x1a/0x30
-
-The buggy address belongs to the object at ffff88810eea9c00
- which belongs to the cache kmalloc-128 of size 128
-The buggy address is located 96 bytes to the right of
- allocated 128-byte region [ffff88810eea9c00, ffff88810eea9c80)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x10eea9
-flags: 0x17ff00000000000(node=0|zone=2|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 017ff00000000000 ffff888100041a00 dead000000000122 0000000000000000
-raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 18944299736
- post_alloc_hook+0x1f9/0x250
- get_page_from_freelist+0x2209/0x2280
- __alloc_frozen_pages_noprof+0x217/0x5a0
- allocate_slab+0x7d/0x620
- refill_objects+0x2d5/0x350
- __pcs_replace_empty_main+0x2c8/0x6c0
- __kmalloc_noprof+0x47b/0x720
- tomoyo_commit_ok+0x29/0x1d0
- tomoyo_update_domain+0x4ea/0x7e0
- tomoyo_update_mount_acl+0x11c/0x2d0
- tomoyo_write_file+0xae4/0xc50
- tomoyo_supervisor+0xff8/0x1560
- tomoyo_mount_permission+0x670/0x9e0
- security_sb_mount+0xe4/0x320
- path_mount+0xbc/0x1050
- init_mount+0xc3/0x110
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88810eea9b80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88810eea9c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->ffff88810eea9c80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-                                                       ^
- ffff88810eea9d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff88810eea9d80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+BTW, there is similar for res->data_length == 0 below, maybe you can look
+at that too?
