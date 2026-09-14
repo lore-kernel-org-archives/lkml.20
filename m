@@ -1,157 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE6F346E7A;
-	Mon, 14 Sep 2026 13:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C75471434
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393226; cv=none; b=iV7jmJlYJz5UJa2XPNhpsqMNT1jI9Bg+evEvOIns9GkFEr2XOJiLEyEdyRcZFflv82rw7ss+Ovc1WmqXs3e8aG1mPMQ2hwVQ9i2tM4FOuijrO3FcB8eqsHVr95rDz/5S0cihFdgLjUDT29En2tgKSd6qPgwWe7qp8aAIGzKQBXc=
+	t=1789393231; cv=none; b=NhW4o1Lqlk5S0OXRlUE4kRD+8dheLIhCdBEOlldyLEWW8hw8hu6zy/AlkQahuSDpFfwgAav1AOQTb0sYdQkavc8qfYXok0Jz/LyIRiFruTVnBzmo3vlF7ajPGMCj0I3XQNPZ7zu973dvQ13/kQUi28bhcp+Ywa/rn3FJr4lFe/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393226; c=relaxed/simple;
-	bh=E+KhKIAMyC05iY0875PAPrHvVHXcbIbEQ3ivoNjQCfs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lcckvMzneXIePcyvc1GP9jTrdUXnX5isOxoSaNFEPGEopt1fm0NRaAiD5n1DMBrtQUaDo4HGUGhcWCbBgD1BY+XUIFy1BSeI1Jrda2poCNPSTALyy9pb1SSamZYcp9fsO2g5FqzS4wJkuMG4d8/crec3A44Z5P0PfGpgtZq0/SI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TTq7QOm8; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789393231; c=relaxed/simple;
+	bh=mZU/fO8OtaGbBarERog6EImn3Wb4EilvuM8GJIgoyXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZprUKbIr4QLwb71meO9iosYIg+swPs//J0+bVnKrD0hdocWDsduu42Z4w7O4uZURJF3U7dY2a7XZqeTNiD4fJ+QhEtYaO78O5Q8gkbtNGGfFv0ZMvm4/oJvgOQ3qKQQtLaJYrmpVVKsO8WzBWve9r5BvRYMuzppgBHReEHTLQy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=bPZBSaWo; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TTq7QOm8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789393224; x=1820929224;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=E+KhKIAMyC05iY0875PAPrHvVHXcbIbEQ3ivoNjQCfs=;
-  b=TTq7QOm8bsereU0mJV5KCIKOOjInpO7BWWWv8mmZ3f4ovla0S2HWpzmH
-   RGa/Itnwq1jEJBFBQV8AerkEPMjMNPhAyVk7Y34083yNvf54DvmntE8rP
-   Dw0B8DkAWmCx4uSRpOeJdhjnEETABKKqxSkFc8kRfpcwnKN54niT4JHsK
-   EZMyNcx0frsrV6AO3/oNTz3y4BrlF6xoi8mkxDSm782I7haU1sCTozdqL
-   jN9ZGRJX/IC9xvxEwohLJBOzAdDhiJWWb3esVMbKlmJrAW1qIB/52wPP3
-   sxglXijd9LX+bE0WxSWu0SaRzz4ce0GWXLwsfqSJgd07KrqvTCm0zEP4B
-   A==;
-X-CSE-ConnectionGUID: khEEoOn0SMSXAlqV/3YbeA==
-X-CSE-MsgGUID: +1y4YdnQRJaPVVjVqo3Wzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89785986"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="89785986"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:40:24 -0700
-X-CSE-ConnectionGUID: 2vNB/G2ZQnmYc7Mal76E7Q==
-X-CSE-MsgGUID: p6flLJEAQQK1Y41Ti1HSBQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="310916764"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.245.60]) ([10.245.245.60])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:40:21 -0700
-Message-ID: <6e2c9b03-4694-4f6b-8fc0-552c069de65f@linux.intel.com>
-Date: Mon, 14 Sep 2026 16:40:18 +0300
+	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="bPZBSaWo"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85901984388so1396247b3.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:40:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1789393229; x=1789998029; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VFyoG+nKOe7E1GIHo4TRUP3a6TAurMs7mwR7N6d6faA=;
+        b=bPZBSaWowTS0ZJvXRPKEmWtdKuRgsWC3pkGTuX8W6J03oJ+Y59GusV+oDYBuy1OJXp
+         NwQMeCbtlVv7uzV0dI32O5tVCWZcCZOW+XIAqqipJigz47SzQWeNuGeQJ7ISPtUgXlC1
+         T7F4RbmArBzMEoa2onRNWaDxDJVHhijJPXweJA4BKbSurI8HSBsK7Zi5YSU2lGHeM1JX
+         kk/LsYPUr0NdKVV0/u8Egy7ygsp8yhhvnIa84hQjJaviPfP8LGpNTdGQKE4KlgEfnxbW
+         BI/g9HXOBJ9cLKGLtPU/A2oip44eKfXNSIUJs2i4Th92p6LuXR0CZ18mu6NPFbFwB0r6
+         JZnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789393229; x=1789998029;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VFyoG+nKOe7E1GIHo4TRUP3a6TAurMs7mwR7N6d6faA=;
+        b=YmBFAID0zFaQlYrN45Dkqsu+2kHtz/EC5baqjYnzNeHDJIFMTv8iD37Vd9zEq1C5fn
+         5/wgy2cuc9f6R6nzQgX98K2nPWvR1RbEhm/PvoPFZveunzhStTmjxH1s1zgTdAwNhbtT
+         KdevwfanzRp0/LjLrF/KW65D0ymxqFkVZbBVBDlMGmqdf3zl3hsdulzY22SB7Ic2Jq6x
+         URZBHwKP0Ik3h3hMZEnhG8cE6AAjLB2kVq0J89gD4R7z6CGRtgbJP7FOlZOhxmU1WA3h
+         Kt+Yvt/JNrhI8GqT/KeTGeXF/EmLi00Jeh86eChaFcqqW6rwlEyBeEkrEoZYJZgAz0sv
+         HtTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOzgzBLfEOxHgztd0rwDi+yxzPDOi4Xesk87OtdvQzSADJBcsuoR7aM5Lq3eY9ClxAey0h+qtvJNk+898=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkZGJkmAln/jz7YeNIzQg5RRFRJgNRQ04fJSvEzFmr1fHk0YER
+	EgwO29c1DnR0RPdZT492uxPBBNPnofKO+ca7IVg4Ul+YjpKF3Sq7i8zp5IbG2b9Rh9Qz
+X-Gm-Gg: AYBFou0evY1bKqIbTPz5gvPu0oA0V9TOn8blUpXr70qZ+jLqalkRs03HMG6wzyfO+86
+	DwNIOKhwEtEJ+lOBSC0IvM8dZo+tsy7my0XjMal4VxQFhAKaM1v16RHR7ZcSVuk65RznpzZ/RDQ
+	qHmFeGeQ/G2ZYS+8ruGnX8k7PKvgx3vDzng7O5MdtsEFNFrzigrmdholZhdHnS4MELeQ2s+mq/E
+	tp2xf7Wep0NXJCHjNtwi0ZcDUPkKSyb6i6Je9FAMoXkzR4shjdGHhJG11jDYCuWzDWJpcWc8PYH
+	vdT5dFc7l4CNmUNVtoslKS8+wUDkmBsrEch9YA0YZqj2rQ6Augk7AasCd6kbiuxXunFSfjt4DUV
+	3sSMFVjyrTJ2Vp3KupUt/5/WBDewEZbQ4KeIylRN+rdwKCQBua1Zy2Fmd4rzElqFaWRGXiWHj+2
+	sT/2C49N5F+V6l6lNMFSIx4jeHHHefmtOy2+u68CU1D1GgW6TObfvpniYNXswdT5Pa2s/uqmDnx
+	ffPT7vU2wtasPbZo3fIfG6F9iYZlbB2CZtYyU0=
+X-Received: by 2002:a05:690c:6c87:b0:861:a34b:7de6 with SMTP id 00721157ae682-88d1992ba59mr9985527b3.0.1789393228701;
+        Mon, 14 Sep 2026 06:40:28 -0700 (PDT)
+Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88488a4c120sm36807737b3.38.2026.09.14.06.40.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:40:28 -0700 (PDT)
+From: Christopher Lusk <clusk@northecho.dev>
+To: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Tahera Fahimi <fahimitahera@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Casey Schaufler <casey@schaufler-ca.com>,
+	John Johansen <john.johansen@canonical.com>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] Landlock signal scope and TIOCSIG
+Date: Mon, 14 Sep 2026 09:40:13 -0400
+Message-ID: <20260914134013.1457130-1-clusk@northecho.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260914.b8a029f9abb8@gnoack.org>
+References: <20260913221958.839429-1-clusk@northecho.dev> <20260914.b8a029f9abb8@gnoack.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IOetlOWkjTogW1BBVENIXSB4aGNpOiBzaWRlYmFuZDogY2hlY2sg?=
- =?UTF-8?Q?vdev_liveness_before_removing_endpoints_on_unregister?=
-To: =?UTF-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>,
- Michal Pecio <michal.pecio@gmail.com>
-Cc: Selvarasu Ganesan <selvarasu.g@samsung.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "quic_wcheng@quicinc.com" <quic_wcheng@quicinc.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "cpgs@samsung.com" <cpgs@samsung.com>,
- "alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
- "thiagu.r@samsung.com" <thiagu.r@samsung.com>
-References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <CGME20260910101324epcas5p1faf6f82de85c9468f42f6f9b2f13e99b@epcas5p1.samsung.com>
- <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
- <360067785.01789039502721.JavaMail.epsvc@epcpadp1new>
- <TYUPR06MB62172308C897F81F7DAFF557D2BF2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <750468423.101789103583573.JavaMail.epsvc@epcpadp2new>
- <TYUPR06MB6217F0788C14DD89D237C807D2BE2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <937773018.41789116303608.JavaMail.epsvc@epcpadp1new>
- <191ee5d5-d93d-4fa3-9654-b3735d344118@linux.intel.com>
- <20260912141837.06b2f3cf.michal.pecio@gmail.com>
- <TYUPR06MB62174110FB101AD6B7B069EBD2BB2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <20260914110949.38a46596.michal.pecio@gmail.com>
- <852003c6-317c-4004-ba2c-d6c4b0bd31e6@linux.intel.com>
- <TYUPR06MB621791B56D232A2219614493D2BB2@TYUPR06MB6217.apcprd06.prod.outlook.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <TYUPR06MB621791B56D232A2219614493D2BB2@TYUPR06MB6217.apcprd06.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/14/26 16:00, 胡连勤 wrote:
-> Hi Mathias,
-> 
->>>
->>> But xhci_discover_or_reset_device() is called: before hub_port_init()
->>> calls problematic hub_enable_device() / hub_address_device() functions,
->>> it calls hub_port_reset(), which calls hcd->driver->reset_device().
->>
->> To me it looks like both drv->pre_reset and xhci_discover_or_reset_device()
->> are called in this path.
->>
-> Your code tracing is correct. drv->pre_reset() IS called at
-> hub.c:6412 before usb_reset_and_verify_device(), and
-> xhci_discover_or_reset_device() IS called via hub_port_reset() →
-> hcd->driver->reset_device() inside hub_port_init().
-> 
-> However, this path is not the actual crash path. I apologize —
-> my earlier call chain referencing usb_reset_device() was an
-> assumption, not from the actual crash dump.
-> 
-> 
->> hub_event()
->>     port_event()
->>       usb_reset_device(udev)
->>         if (config) //and for each interface in this config: , for each interface)
->>           if (cintf->dev.driver) {
->>             drv = to_usb_driver(cintf->dev.driver);
->>             if (drv->pre_reset && drv->post_reset)
->>             unbind = (drv->pre_reset)(cintf);
->>
->>
->> Any chance you could trace the whole call path in more details and see exactly which path
->> is staken before the crash.
->>
->> port_event() should only call usb_reset_device() for usb3 devices with link stuck in
->> ss.inactive for longer than ~100ms.  Is this really a usb3 audio device?
->>
-> No, it is not. The device is a full-speed Apple EarPods
-> (USB 1.1):
-> 
->    usb 1-1: new full-speed USB device number 2 using xhci-hcd
->    usb 1-1: Product: EarPods
->    usb 1-1: New USB device found, idVendor=05ac, idProduct=110b
-> 
-> So the port_event() → usb_reset_device() warm-reset path for
-> SS.Inactive does not apply here.
-> The actual crash path is through usb_disconnect(), not
-> usb_reset_device(). The full sequence from dmesg + crash trace:
+Hello Günther,
 
-Thanks for clarifying, the crash part is now clear.
+Thanks for digging into this so carefully, and for the clear write-up.
 
-What is still unclear is the parts before this.
-How do we end up in a situation where we are resetting and addressing
-a device with sideband still registered.
+Your capability framing convinces me.  Controlling who may attach to (or
+open a master for) the PTY is the right layer, and the master FD is best
+thought of as the capability, the same way socketpair() is.
 
-What codepath ends up calling the futile
+You are also right that the series is incomplete as a fix: the same three
+signals arrive through the n_tty control-character path (Ctrl-C / Ctrl-\ /
+Ctrl-Z) that my patch does not touch, and PTYs additionally raise SIGWINCH,
+SIGHUP and SIGCONT.  That reinforces your point rather than mine.  Chasing
+individual signal-delivery paths inside the TTY layer is the wrong layer,
+and a per-ioctl hook would only paper over one entry into a mechanism that
+is working as designed.
 
-hub_port_init()
-   ->hub_address_device()
+One question, mostly so I have the line right in my own notes rather than
+to relitigate: how do you see this relative to the SIGIO/fowner path that
+4b80320ca7ed brought under SCOPE_SIGNAL?  My read of the distinction is
+that in the SIGIO case the sandboxed process unilaterally selects the target
+by arming the owner, whereas here the recipients have voluntarily attached
+to the terminal and the TTY driver delivers job-control signals over that
+attachment.  If that is the intended boundary, it is a clean one, and I am
+happy to treat TTY-driven signals as outside the guarantee.
 
-that ends up freeing and reallocating the xhci vdev?
+If it is useful, I would be glad to send a small documentation patch making
+that explicit: a note in the SCOPE_SIGNAL / IPC-scoping section of
+landlock.rst that TTY-driver signal delivery (TIOCSIG and the
+control-character path) is not mediated by SCOPE_SIGNAL, with the practical
+guidance to control PTY attachment instead.  I will drop the task_kill
+approach.
 
-Is there a way (like drv->pre_reset call) among that path to
-inform audio driver to unregister sideband?
+Thanks again for the thorough look.
 
-Thanks
-Mathias
-
-
+Christopher
