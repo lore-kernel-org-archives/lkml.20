@@ -1,152 +1,114 @@
-Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CF149B5DF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5815949BD91;
+	Mon, 14 Sep 2026 18:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408965; cv=none; b=fpv5GlzHRj27g5RmH1rZu/wre2Tk9vEkTjVrtDGpXnrtU2xD4kjxuABtimD++aBaLkphS+HKkd9Z9HRTrmnZXYN8ybzwVdaIOKCre8rzxdWCNgfk4cQt7zWvbrbjWfSoJ/hLLaycYEfGV28Y5a2YAiH+uh+/nZP4FyERMI8mb6M=
+	t=1789408966; cv=none; b=Lb9MpGKK9kcnTNwtsCbeFQLCaFku/vAtufLpjA8pDabeG2627cULUOoH2e2X0nzmuzOJJxzjTMIuad2lZFTt5CKoxl/3K323IRXSHx7+m2DQbUFAzSfkAEB9l2gjKKtTUJikCPQDIfy+VZBS/8TudmMK+YJV+cKrdXA+hlEZlx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408965; c=relaxed/simple;
-	bh=CDrNn5tYB+7ik9rYD8HaesjBeC1wNSiymp7q5LHmmgI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vB1965am7Jc02IJNR5PEfP1wTmP3S8LIYsSSK0zVUsBBVhyFLnzrCHWzTNTaswOs5BVYWvpJlwh85FqjqMfpBM1CSXO2s4pLimZ5unGfg81AoTciPVg6BPKKVTis4tzAqm+Nxa0YWdmMLgq1ANyvgH5AuGDCKa9M5O4ZftLZ9HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sEPJS6zp; arc=none smtp.client-ip=91.218.175.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789408966; c=relaxed/simple;
+	bh=bqxP6sc2QEjALXQBKUwOCI9jW/zTvnOiDGBvRDbQu4M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=M4mLNKvmcdCtQqxtNKjdtCFC81umpfXMw/FZLOiSD23zEuP9nFL3whr5EhPmNiXlKx+rQPVFi8ipqtUG7uWr6KU8SffrzgMlY+j7nqSgRx+6aFwk7eOto5pS6xrMnk3hn4Rf/VboTfSO5uVL5sWcl/2abqwzYJaTTXgLfQc3Q1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABgm8/NN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sEPJS6zp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CDrNn5tYB+7ik9rYD8HaesjBeC1wNSiymp7q5LHmmgI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789408960; v=1; x=1790013760;
- b=sEPJS6zpSPQZHGZFOT5vhLulq2pY+TDpQCPnFDRNYDeo7Vvtf8l/9KWnamj0xNyl2bVX+puH
- D13SNHfIpUm3rTd8GXu2nYR/DlZHlEl1ManlhgynLZ36DsCH3Uy68S430cnCulwQ4Ulu+Ttct7B
- 8iEIyYoTWg7gRP7YX+akevTA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3bd1142eb17dcc35;
-	Mon, 14 Sep 2026 18:02:40 +0000
-X-Mizu-Trace-ID: 3bd1142eb17dcc35
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4cddd4a4-d684-46c9-862e-5708797f399d@linux.dev>
-Date: Mon, 14 Sep 2026 11:02:31 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABgm8/NN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1031F000FF;
+	Mon, 14 Sep 2026 18:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789408963;
+	bh=nJSCJtj+BjfxnkldKwVIs6Y28B2i4ncWNgyuiA00XQo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ABgm8/NNQ1dnJiIaWuOuk9KZ7LDjuy5bTfaz+qsbMV5L+62v22OZn0Z0tQNPenzqF
+	 D7+0AGYfs7w2ORUdjD5bh/B/QX/siYnbs91yAXVv4dWwVNArjkH/uab2ZSsTsXEkba
+	 shBdbHEjKnYJvIhA3av9piLxcxcuTNSzTHKkXa2leS2ECRNrQUt1Y5syve68UEt/Xo
+	 jAILPCYm2B5BB9fzeCnr44kangd1fPhYFcvPAqi6IC79ZItLQ34jSPciSZ2I9prijR
+	 hxOzb/8uTn5iOeHf/h2IBVbjW2cbTPQmkj3an9F4R6zIjAP2/a077gytbOZeVManfa
+	 qRxu3JhwlKi8A==
+From: Mark Brown <broonie@kernel.org>
+To: Saravanan Sekar <sravanhome@gmail.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
+References: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
+Subject: Re: [PATCH 0/3] regulator: mpq4210: Address the post-merge review
+ comments
+Message-Id: <178938078782.1239410.8957648663391965889.b4-ty@b4>
+Date: Mon, 14 Sep 2026 11:13:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
- bpf_reg_state->id [NFC]
-To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20260910164635.459558-2-vineet.gupta@linux.dev>
- <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2239; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=bqxP6sc2QEjALXQBKUwOCI9jW/zTvnOiDGBvRDbQu4M=;
+ b=owGbwMvMwMWocq27KDak/QLjabUkhqwVZptK5hTWlm5Z4KuyafNdXnNFaQXdQuf5r75+y17tX
+ NXQqja5k9GYhYGRi0FWTJFl7bOMVenhElvnP5r/CmYQKxPIFAYuTgGYSOpP9n+KHbzNi3exvGkJ
+ e7FK7Iey/I1yXpklVmlcPAGKnf3NvrpTG4pv7pMQOP+l+NPxsykpyolsEtZz37a+sNV7a/hxR/Z
+ Fv5M5f/9ncPiF1aXsWH7u9WEJ+8lt2zm38P7w2XDXd112mObuDbbGGix6TfYbZgVUrfzrMOnrly
+ Uxk96aqpzvZhTJiDnMKPvFt0I4UkY5qsbi8B/DQpE57a7MjQs+zXW/8vpFl4DQj/SleoZvj6vMS
+ GPyds5JfOY9j5Wrwkvynk3VvXa/NbPDm00bApkiRbRMKu8cuT6hrEFevGTqvN/TCpLZW4tbbRUO
+ zT6ntqYmVKAvROrDr1NT1aQVs3T9NaPOfrqg+GI2y2onAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Sun, 13 Sep 2026 11:40:15 +0000, Tapio Reijonen wrote:
+> regulator: mpq4210: Address the post-merge review comments
+> 
+> The MPQ4210 series was applied to for-7.4 as e3c05a881fc9 and 61879d561e91,
+> and two review comments arrived afterwards. Both are addressed here as
+> incremental patches against current for-7.4.
+> 
+> Patches 1 and 2 rename mps,fb-voltage-divider to mps,fb-voltage-divider-ohms,
+> as Krzysztof asked. The split across the binding and the driver leaves one
+> commit where the two disagree, so they are meant to be applied together. The
+> suffix is worth more here than the convention alone: mps,mp886x.yaml already
+> describes a property of the same name whose values are kilo ohms rather than
+> ohms, so two bindings from the same vendor spelled the resistances
+> identically while meaning different units. Nothing in tree uses the old name
+> and it has not appeared in a release, so no fallback is kept.
+> 
+> [...]
 
+Applied to
 
-On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
->> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
->> index 66fb11b6c6a7..d974baad37ee 100644
->> --- a/kernel/bpf/states.c
->> +++ b/kernel/bpf/states.c
-> [ ... ]
->
->> @@ -369,13 +369,6 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>    * and r7.id=0 (both independent), without temp IDs both would map old_id=X
->>    * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
->>    * X->temp2, but X is already mapped to temp1, so the check fails correctly.
->> - *
->> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
->> - * base id (flag stripped) must both map consistently. Example: old has
->> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
->> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
->> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
->> - * with A->B. The base ID cross-check catches this.
->>    */
->>   static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>   {
->> @@ -384,15 +377,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>
->>   	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
->>
->> -	if (!check_ids(old_id, cur_id, idmap))
->> -		return false;
->> -	if (old_id & BPF_ADD_CONST) {
->> -		old_id &= ~BPF_ADD_CONST;
->> -		cur_id &= ~BPF_ADD_CONST;
->> -		if (!check_ids(old_id, cur_id, idmap))
->> -			return false;
->> -	}
->> -	return true;
->> +	return check_ids(old_id, cur_id, idmap);
->>   }
-> [ ... ]
->
->> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->> index d571fbfc86a3..da6cb961a520 100644
->> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-> [ ... ]
->
->> @@ -648,10 +648,10 @@ l_exit_%=:							\
->>   }
->>
->>   /*
->> - * Test that regsafe() verifies base_id consistency for BPF_ADD_CONST
->> + * Test that regsafe() verifies base_id consistency for ADD_CONST_*
->>    * linked scalars during state pruning.
->>    *
->> - * The false branch (explored first) links R3 to R2 via ADD_CONST.
->> + * The false branch (explored first) links R3 to R2 via ADD_CONST_64.
->>    * The true branch (runtime path) links R3 to R4 (unrelated base_id).
->>    * At the merge point, pruning must fail because the linkage topology
->>    * differs.
-> Does this comment still match what the code does? The patch removes the
-> "base_id" concept from kernel/bpf/states.c (deleted the paragraph that
-> defined it, removed the two-level compound/base id check from
-> check_scalar_ids), but the comment here still describes the test as
-> verifying "base_id consistency" and refers to "unrelated base_id" on the
-> next line.
->
-> Looking at the function name and __description below:
->
->>    */
->>   __description("add_const base_id must be consistent for pruning")
->>   __failure __msg("invalid variable-offset")
->>   __naked void add_const_base_id_pruning(void)
-> and later at line 695:
->
->>   	/* Runtime: R2.id=A, R4.id=C: base_ids A vs C inconsistent,
->>   	 * pruning should have failed. */
-> Should these be updated to use current terminology, or does "base_id"
-> still have meaning in this context? The test itself still works correctly
-> after the patch, so this appears to be a documentation consistency
-> question rather than a functional issue.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
 
-Indeed base_id as a term is gone, but just id alone might be confusing 
-as well.
-How about link id as a replacement for base_id
+Thanks!
 
--Vineet
+[1/3] regulator: dt-bindings: mps,mpq4210: Use the -ohms unit suffix
+      https://git.kernel.org/broonie/regulator/c/7a145b72280c
+[2/3] regulator: mpq4210: Use the -ohms feedback divider property
+      https://git.kernel.org/broonie/regulator/c/69bd71e55b71
+[3/3] regulator: mpq4210: Drop the mod_devicetable.h include
+      https://git.kernel.org/broonie/regulator/c/4cc0c5739ab8
 
->
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
