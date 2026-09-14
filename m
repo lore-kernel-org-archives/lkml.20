@@ -1,65 +1,65 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE8537C93F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:48:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BAE370D54
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:48:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364882; cv=none; b=HWc3C4hr2Nf8UEhYNRRjba+qN8SHixFa1zwUvX7Uj5/vfAb1V/CeS0Tpz10LihBAXWZQHPzMU/2W6svpVOrL9DGqtKzWEvbfB9OagRplOOBFDr3afn16JS/JeOI6lGWA3du7IEDvwEQyy27Uw94nQh5jxmnvuaxFDYLCO9oh0i4=
+	t=1789364885; cv=none; b=D+86+f3TBPAP7zvTnPWJOxdchZkFOhh2D2LKb+nuo1P2F03RwiG0b0DJq6cX4zMLRXAwx03ZFdgNFqbVXlrOQJFLmLrOdIb28NXhLPsYsIwVf5Ckc/5Ll15kE3hPcDe84qkAJ1cXOlm9TpCS4Tw4inxcgka7sYmDOrJsAuT8kRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364882; c=relaxed/simple;
-	bh=VhuMZhQSgNUoK23zJ2zuGMxgfoJ6eICwbGGFCSMgtLk=;
+	s=arc-20240116; t=1789364885; c=relaxed/simple;
+	bh=vs8iIby2nXHPAbbxM+YDs27DIBOnDI8WdDFG6sw1nDM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lNpNCyuNXkqF0ziEHoYatfeItiayHtke1Mqe7eNQei0sbl3hyGCr9D6Yov2nW5KJNh29wErguuZvcm9xyqKrN+0UCFPlJMFzTWL82qhUfDcAP6tb3PVVn7w0Jdkp3vJtLuA/FmTYGj2E+jdHrlLRsI8o7hi+v9ehPuIbjag+7+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RDiaANrq; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=GaefLa1vI/y8pnut8KkoodUVg21uCl5cBvxjbMK+a1IduDnZvY3PvzqiyrvVY0oUilP6e68O6SoEi61XJ28n/pIlqLZOVj4wyD3YY/5m6f4FYzrA9ODO1B4pt7ZdVfjgA5iaaAWGNzDd38eWGb5VQeU9GoZFAzo1P8qCdD1BnYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0WV3lCS; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RDiaANrq"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso4535275e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:48:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0WV3lCS"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so7130985e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:48:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789364879; x=1789969679; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789364882; x=1789969682; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8DwGhYZenzciYHL+gywc0ajJIiQoquXAsP6MMMAsMaU=;
-        b=RDiaANrqbHEKKukEDx+yCiL2qUEbwS3x8DwNwne3Mc1+U7iSwms+qMj+T9aMlG4DAG
-         WQpqC78UTdXvccyxgboQFwGx4RZU8wb4m3o/yvcuMdZY91PoT3ZzHOeBgSkxeQsiSgHd
-         gX+rxAK9lLTO6Eh6DIU+irWDLTFv6bKdKorc06ssr55Mn/QkoGGzvQm28SDnxYavIKNm
-         l16XpaNaltnSo0ZgpuAr20D65b3T9gKiNtC48njj+d+GhWE5CodXP7v15ilPox4pxceb
-         C+rsalwDBP5KlIWQrfLUueDWQHpAElMphhXXk78jqYwRxAVIEyuhzFNNfUsfX+yyMcHA
-         XBvg==
+        bh=dMwj6bRyrsgMgTwnA+0w1Z6ygXdtryIk5Fb3zMeqsM4=;
+        b=L0WV3lCSZnHfQjOcjCCHDJsn0gl7p6p4CDujA2LiKAOqWR/s2fYIntUnqEe4dTYVPS
+         y196xts1gLfNi83+00WQs+GaPegM6cZrw3uqOWdmdkq3jvbFAOeoHOpyec48W3slhXcD
+         sTZ/gMbi6hXa7O/ZViFUN89iGzYK5RUldMJuhfn0FcBngAMhQvea12ywHN5qOm5wZxZu
+         2aob8v4nwcPgjatv3bkKid2Kv54fOx7IWWcm5DkW/OuOd+Mc4QtkUgbgv6U9bvjSxZve
+         ezfDSx+SRCUnB6MZo6GLWt/g+661Jf8o8S32Di735vk+bzaBRI/otDR0w7aGHeF9jmLR
+         SMfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789364879; x=1789969679;
+        d=1e100.net; s=20251104; t=1789364882; x=1789969682;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8DwGhYZenzciYHL+gywc0ajJIiQoquXAsP6MMMAsMaU=;
-        b=bHZU0pYwrEbRGNrNCGtlN311f8ziH3ubARPqywbEwvGaVG0VkQy4N4J+v212FUH7w9
-         91iX+QXHyHTwPyMCnq6By3VvBluAk4PUBlv304z1rCxL1J5DC50lGPwU02UXyH4ZuTuJ
-         7mEFQEQjXHq5BR2m8Iq9b7sdNrXpOXOxia+YeCqnsbkwrweHATYn/jayaDGYnQQOF5Ed
-         EDwovqkLefZqDgG+28aP8xkuTD/0k+/ySiTZ+2wZ7iNYmrGVVdRknB7MQZBOSFI/LF1I
-         gQ2dfPYsCz+Upy+X0eqaNJOYr3Y7vOaqagp31tlavnPxW4pIqZwcLXvzKEEVxxKwhzOv
-         goOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxayJAZgP0ERKm7jQ9B/yZ/ha+5EZqpxUamA5XgZTW5Sdpm/yzO7t7kAA3CG0tmqokaBns8QV6PaL86AP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTlOKomj7Skm4Tse6M0rxrn5mYo7j2iZ5P7409y2XdjJKfq0hS
-	ekoeezN0+9IB3se725x/xMYVj31ep5HDV6/J9PGiBQp1Zbab3m3eVgs9
-X-Gm-Gg: AYBFou3D4ZXZoEn5LEwID+drJXM5kwXP+WKEu0l141V81DETw/3aJ/6Zr/kkxZ4gghy
-	jq/1rsloaIjGv8hXY5R8DqAzA1CpZNerJBP+pMXkQwaKV+dF+XfassQlcxnZGLgIBNxjfcznS1m
-	fARLeU+/8YS4+toXJyBboEqbNaY7+vBe7ixCcwlqGgfr+OWC51ro9bg1rnpvvi9dLsim6twmoqr
-	K/VyFymkmIfSNSiCVCUhAs8uvhX0gwz8YcIgK/RU0eBJAalzE8L4JV3Kp0dXvf3dybmbiEK6mws
-	Mbegvm7OfEz80NQ35XRBL1j8CWVuUNwKwBQsJViW+sjmJbYHU5wiWgS5sT3VF2X2VSg4jOyWZsk
-	x9t7jfutXaleCP+sbK7al6eYVdQjEG42nPi6mPAoSzVTfIDjELSm2TolDpRAHd0O9fpuUOY3AhZ
-	VbVs4xqHmjH4/JXN0UJakXNqfVeXRGAjMp7gXa8CMY0O1/Cz96+AhSiaoO3a+PLf9qLGiLpuzza
-	dYUpOptNFqZ0LEmu78UcWMRgebPyPTHhWQZtVtb0uRAOZDwITnTo6aPX8W9fSuZEQyfw716N/1Q
-	AiKUU/UJITq3kuXdjqYglpUd5lTYghk=
-X-Received: by 2002:a05:600c:6989:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-49e7a64ccc4mr8629955e9.2.1789364878978;
-        Sun, 13 Sep 2026 22:47:58 -0700 (PDT)
+        bh=dMwj6bRyrsgMgTwnA+0w1Z6ygXdtryIk5Fb3zMeqsM4=;
+        b=dlWs5V8lbsN/LVRu3xj1a6RwSJ7ICMl6nwSMOHDGpssv/U8Ot8xH32Ypi5LOHSC7LU
+         qiCvxvEFYnpkduJkhDi5VkJkTPsZ34Z27BBzqk0HQcqnkzlf8fj9gDLiVqtGGRbJRgAM
+         Kcd+sjAI9epRXGm+Rbb67mc3nB/2cAt6og3xruI3IslwoorhAEjfOsIbroEB557NiAML
+         A6Oop2GBIotHjEPL68VbG2qNjIkAp80VHVYQtbdpXv8a1nfZ0u1AVahySA9mWJcBqlxS
+         IQCjkNwsk0f1dld47vaLN7Rz0R4pHEQY0UA+CL8IQY7GFhKrkzSVudtXXrEvuw9ZN4Os
+         Leyg==
+X-Forwarded-Encrypted: i=1; AKwUvBy45PXc06SOgTVccC97JEOEP2/rSRuItUDppuIZPHIndAcAcs0Jdxee8WXZ8uS1OPIhioDfZVpaWBAWcAI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnpyRi+trENmZ7ZT/JD23xxg+8U+joPMEPQpBWxvVrjg1jEroW
+	H6CWn0PlwbKYFmylDHEATIIq+3gBWklqX0jx/tVf/IlaDvHTRDEKBpjJ
+X-Gm-Gg: AYBFou2WBeWeoCWuZC2o2Jbio08fqmxgjft9STQ21y6Nl8saOQp8/MHPjxYEkV/rREH
+	jKKspfSFTdRJNvLi4vdR/K99XGLgtIkiPN7O/jowkU3xPUw7DrQ1wBPrWN1iTqRo2pS6Q4DzzJf
+	09mjqGLJNx10xb0vufMz/3gQxnigmJwe/NQI6iPzGkceWSlKukO195qMyVbFsh+SfWyYJXro4jM
+	PHXZanKhtGT8woN67wKfuRtfFuydYx7mb/Ig/B1ip2RxGImEmDTNgmgfb5uK+L9Os2Xgy3rzQzZ
+	I6hWNJ/YHAXR4NFSVvjWz8ayP1Z9qQFAxuovDBGwh1zd8n3fO6tejH7vxtRIm+yCBd5AIjts1sv
+	pIoVAUkc7akw0QsU7BPGC0D/VBkc8QLnCn28yP9bhBdaCU191wvXQeCYipTl2LcP6ZOngmWBx0Q
+	9A0RIioUfqlE0AiRFl4Tfcye4Mz28xVly9158pfbIiebmKQASFiT8P1dHdq7G/YddZ/0dDwQit7
+	mLeIALedho0tLCWQMj71LRBgu9RpZDFo6sUArYJbycx+MGHEjzKMJVvK8ViFqro+W2Fi7tcm8Zj
+	noV/zQbos8DOHjVF2twyKNvc1eLs9d0=
+X-Received: by 2002:a05:600c:871b:b0:49e:69e3:884d with SMTP id 5b1f17b1804b1-49e7a63770cmr9516405e9.4.1789364882018;
+        Sun, 13 Sep 2026 22:48:02 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-077-007-122-014.77.7.pool.telefonica.de. [77.7.122.14])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6a06cfb8sm214537735e9.5.2026.09.13.22.47.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6a06cfb8sm214537735e9.5.2026.09.13.22.48.00
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 22:47:58 -0700 (PDT)
+        Sun, 13 Sep 2026 22:48:01 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -86,9 +86,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-rt-devel@lists.linux.dev,
 	kasan-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/6] kcov: Add a kcov_pause guard
-Date: Mon, 14 Sep 2026 07:46:28 +0200
-Message-Id: <20260914054632.12877-3-kmehltretter@gmail.com>
+Subject: [PATCH v3 4/6] sched/core: Pause KCOV in __schedule()
+Date: Mon, 14 Sep 2026 07:46:30 +0200
+Message-Id: <20260914054632.12877-5-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20260914054632.12877-1-kmehltretter@gmail.com>
 References: <20260914054632.12877-1-kmehltretter@gmail.com>
@@ -100,176 +100,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Interrupt-return work can run after HARDIRQ_OFFSET is dropped, when
-in_task() is true. KCOV then attributes instrumented callees to the
-interrupted task.
+kernel/sched/ is built without KCOV instrumentation, but callees such
+as sched_clock(), architecture CPU-capacity helpers and profile_hits() are.
 
-Add a KCOV_PAUSED bit next to KCOV_IN_CTXSW and mask both in
-kcov_mode_enabled(). The coverage callbacks need no new check because
-check_kcov_mode()'s exact comparison rejects modes with KCOV_PAUSED set.
+During preemption and schedule() calls, instrumented callees can add
+nondeterministic scheduler coverage to current.
 
-The context switch suppression keeps its own bit: kcov_prepare_switch()
-runs on the previous task and kcov_finish_switch() on the one switched
-in, so its lifetime is not a pause section.
+With CONFIG_KCOV_SELFTEST added to x86_64 defconfig, the interrupt
+selftest fails under QEMU, detecting spurious coverage in
+arch_scale_cpu_capacity().
 
-The shared setter no longer sets KCOV_IN_CTXSW on a disabled task,
-since its mode already fails the coverage callbacks' exact comparison.
+Annotating each callee would spread exclusions across architectures.
+Pause across __schedule() instead, extending the scheduler exclusion to
+its callees.
 
-Provide a kcov_pause guard backed by flag helpers shared with context
-switch suppression. The helpers access kcov_mode with READ_ONCE() and
-WRITE_ONCE() and use compiler barriers to keep instrumented calls inside
-the suppressed region. The guard saves the previous pause state and
-restores it at scope exit, so sections nest. When KCOV is enabled for
-current, remote softirq sections save and restore the complete mode,
-preserving the pause state.
-
-With CONFIG_KCOV=y, restoring a previously clear flag still writes
-kcov_mode even when task coverage is disabled; nested guards also take
-that path in this case.
-
-The helpers are __always_inline. Guard users must be built without KCOV
-instrumentation because inlining does not remove the caller's own coverage
-callbacks.
+KCOV_PAUSED remains set while a task is switched out. The guard in its
+resumed __schedule() frame restores the prior state.
 
 Assisted-by: LLM
-Suggested-by: Alexander Potapenko <glider@google.com>
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- include/linux/kcov.h | 80 +++++++++++++++++++++++++++++++++++++++-----
- kernel/kcov.c        |  5 ---
- 2 files changed, 71 insertions(+), 14 deletions(-)
+ kernel/sched/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/kcov.h b/include/linux/kcov.h
-index 895b761b2db1..41833b434c40 100644
---- a/include/linux/kcov.h
-+++ b/include/linux/kcov.h
-@@ -2,6 +2,8 @@
- #ifndef _LINUX_KCOV_H
- #define _LINUX_KCOV_H
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index ae97c63842a4..54b5c5383fe6 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7116,6 +7116,9 @@ static void __sched notrace __schedule(int sched_mode)
+ 	struct rq *rq;
+ 	int cpu;
  
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/sched.h>
- #include <uapi/linux/kcov.h>
- 
-@@ -23,20 +25,64 @@ enum kcov_mode {
- 	KCOV_MODE_TRACE_CMP = 3,
- };
- 
--#define KCOV_IN_CTXSW	(1 << 30)
-+#define KCOV_IN_CTXSW	BIT(30)
-+#define KCOV_PAUSED	BIT(29)
++	/* Instrumented callees would leak coverage into current. */
++	guard(kcov_pause)();
 +
-+static __always_inline bool kcov_mode_enabled(unsigned int mode)
-+{
-+	return (mode & ~(KCOV_IN_CTXSW | KCOV_PAUSED)) != KCOV_MODE_DISABLED;
-+}
+ 	/* Trace preemptions consistently with task switches */
+ 	trace_sched_entry_tp(sched_mode == SM_PREEMPT);
  
- void kcov_task_init(struct task_struct *t);
- void kcov_task_exit(struct task_struct *t);
- 
--#define kcov_prepare_switch(t)			\
--do {						\
--	(t)->kcov_mode |= KCOV_IN_CTXSW;	\
--} while (0)
-+static __always_inline unsigned int
-+__kcov_set_flag(struct task_struct *t, unsigned int flag)
-+{
-+	unsigned int mode = READ_ONCE(t->kcov_mode);
-+	unsigned int prev_flag = mode & flag;
-+
-+	if (!prev_flag && kcov_mode_enabled(mode)) {
-+		WRITE_ONCE(t->kcov_mode, mode | flag);
-+		barrier();
-+	}
-+	return prev_flag;
-+}
- 
--#define kcov_finish_switch(t)			\
--do {						\
--	(t)->kcov_mode &= ~KCOV_IN_CTXSW;	\
--} while (0)
-+static __always_inline void
-+__kcov_restore_flag(struct task_struct *t, unsigned int flag,
-+		    unsigned int prev_flag)
-+{
-+	if (!prev_flag) {
-+		barrier();
-+		WRITE_ONCE(t->kcov_mode, READ_ONCE(t->kcov_mode) & ~flag);
-+	}
-+}
-+
-+static __always_inline void kcov_prepare_switch(struct task_struct *t)
-+{
-+	__kcov_set_flag(t, KCOV_IN_CTXSW);
-+}
-+
-+static __always_inline void kcov_finish_switch(struct task_struct *t)
-+{
-+	__kcov_restore_flag(t, KCOV_IN_CTXSW, 0);
-+}
-+
-+/*
-+ * Pause coverage for current. Callers must be built without KCOV
-+ * instrumentation.
-+ * Pass the returned state to __kcov_resume().
-+ */
-+static __always_inline unsigned int __kcov_pause(void)
-+{
-+	return __kcov_set_flag(current, KCOV_PAUSED);
-+}
-+
-+static __always_inline void __kcov_resume(unsigned int paused)
-+{
-+	__kcov_restore_flag(current, KCOV_PAUSED, paused);
-+}
- 
- /* See Documentation/dev-tools/kcov.rst for usage details. */
- void kcov_remote_start(u64 handle);
-@@ -93,6 +139,8 @@ void __sanitizer_cov_trace_switch(kcov_u64 val, void *cases);
- 
- static inline void kcov_task_init(struct task_struct *t) {}
- static inline void kcov_task_exit(struct task_struct *t) {}
-+static inline unsigned int __kcov_pause(void) { return 0; }
-+static inline void __kcov_resume(unsigned int paused) {}
- static inline void kcov_prepare_switch(struct task_struct *t) {}
- static inline void kcov_finish_switch(struct task_struct *t) {}
- static inline void kcov_remote_start(u64 handle) {}
-@@ -107,4 +155,18 @@ static inline void kcov_remote_start_usb_softirq(u64 id) {}
- static inline void kcov_remote_stop_softirq(void) {}
- 
- #endif /* CONFIG_KCOV */
-+
-+/*
-+ * Scope-based KCOV pause:
-+ *
-+ *	guard(kcov_pause)();
-+ *
-+ * pauses coverage for current until the end of the scope. Callers must be
-+ * built without KCOV instrumentation.
-+ */
-+DEFINE_LOCK_GUARD_0(kcov_pause,
-+		    _T->paused = __kcov_pause(),
-+		    __kcov_resume(_T->paused),
-+		    unsigned int paused)
-+
- #endif /* _LINUX_KCOV_H */
-diff --git a/kernel/kcov.c b/kernel/kcov.c
-index 79dabbad5a38..faccbd3bd2b8 100644
---- a/kernel/kcov.c
-+++ b/kernel/kcov.c
-@@ -830,11 +830,6 @@ static const struct file_operations kcov_fops = {
-  * collecting coverage and copies all collected coverage into the kcov area.
-  */
- 
--static inline bool kcov_mode_enabled(unsigned int mode)
--{
--	return (mode & ~KCOV_IN_CTXSW) != KCOV_MODE_DISABLED;
--}
--
- static void kcov_remote_softirq_start(struct task_struct *t)
- 	__must_hold(&kcov_percpu_data.lock)
- {
 -- 
 2.53.0
 
