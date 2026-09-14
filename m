@@ -1,280 +1,137 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011068.outbound.protection.outlook.com [52.101.62.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8B142DA4D;
-	Mon, 14 Sep 2026 10:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789381347; cv=none; b=KVZ+07RdQKIlhgKK5DP505vPbyallWPBhNwJamikCZbXincs3hdwyG2l3nLO3p0bs0k0pKGJy23NBLQHZVgbqWCw1FARHHQtX8qF8QP45LTTy+rTEeKa2cTPOoSBp+9b6K2fUBGWscCjNNQJpPO1cjdryiMb+8zhor9QiVjmnZ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789381347; c=relaxed/simple;
-	bh=RY4GIHwuDLaly0IG8Q+6XwSaYgk4kiPit01Exqz4TjA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=avyBSHv82868sGKOViwZFvODM7lGFJDA7nqbnby7rB7xl+EmAXyere8i/YsvP2yl+CR/GMFgGfnHEMX8D02NgNjBGcA+4aOw5v9vfd3QlyrA+HXHn9ADOOneOt8OF+qpoNemhxek3Q30cAVSovII8K9LoCvI+mlxhe7PeY8Jex0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=p2wi7jCq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=g4fW+si0; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=3YH9x2Re; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ekt6QP9Q; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64262424641
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789381367; cv=fail; b=uFyoiLPO8JwSP/7A3RcCoeD9t460FQsNjTAiHs0DGy4QZ3YeXT/xhU4no4USFAiioNQDM79deGO+jZk33LXRF+GoS80RSE3lasUmvSD/912GXf49ypHnl4ETU3PepmB0+QI1qqADe0y/p85DTrvJ1me4Aly4aAOHsnaWYCqKAXE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789381367; c=relaxed/simple;
+	bh=9Totc1u11nygKg3WOusNkzlnzry1tnUOkS6oRvvXU9A=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OokmeRaxRxikbKiiwi2rA8CrADIXN5ytPah79QEr6uL9XbAiaLT4Rb6HW2b7rt9d7txqAHskewd3h8wwjIdoXgvr+mHYA0KvbBxikVUsTCUqDqcoj5bv/lXC+LqHODv+Ysxs5aM08IR2/4j1tnczfAaawmNHgrtIJTQk4mVz1C8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fCB3SMfr; arc=fail smtp.client-ip=52.101.62.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="p2wi7jCq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="g4fW+si0";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="3YH9x2Re";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ekt6QP9Q"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 173C521ADA;
-	Mon, 14 Sep 2026 10:22:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789381340; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=luzLayfa4rHXL45QFB+GJQv0hHmRfCd3gxDCrJhimew=;
-	b=p2wi7jCqQxMtDtt0SsJX+NDu1YtSlcItEir5Cv21ks6QnEMwGVCmcDrkR5kJTSI6nYgRcV
-	pGq810eVTVfxv2SY5kw3iByF5JkocvR69W3AxecpcAsdrut6/sHHYR2VvwsKWLDOB5/chg
-	P6uECxmfOOYvoB/zhKWFS1s00tCq8t8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789381340;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=luzLayfa4rHXL45QFB+GJQv0hHmRfCd3gxDCrJhimew=;
-	b=g4fW+si0DbGfirJ5Db7Wx8lw1R/j3jX/4JhaoyHqCn44N2t47tkSsfgEddDjhEtFkVBFc5
-	WHIYkg8AvLpEjWDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789381336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=luzLayfa4rHXL45QFB+GJQv0hHmRfCd3gxDCrJhimew=;
-	b=3YH9x2ReN5DpSz5W5vfPn8wUxsHwFU5gl/qOIfVTasOSV3oj5HCsgPUPOUoh24VxCykh3r
-	Xh/gXjjqkGMbhisDJSHhIfeW5Nn6WVk10BMjUfYWDDW/2Q5Ak0is5ZwZr9QTjk/dPecUPM
-	beaT68eD94/xZVzXU3dX19wHad9n/6A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789381336;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=luzLayfa4rHXL45QFB+GJQv0hHmRfCd3gxDCrJhimew=;
-	b=ekt6QP9QmhOVCfSgVrF8QGUctm83k9cFrXM4te530+y1kMuSZQr1wXBMtz8zApT85TR4UB
-	BkbCxFvK25UeQTDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DDAFE13515;
-	Mon, 14 Sep 2026 10:22:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2tYaNtfKp2ogFAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 10:22:15 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 6A623A12E4; Mon, 14 Sep 2026 12:22:07 +0200 (CEST)
-Date: Mon, 14 Sep 2026 12:22:07 +0200
-From: Jan Kara <jack@suse.cz>
-To: Barry Song <baohua@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Tal Zussman <tz2294@columbia.edu>, 
-	Wenjie Qi <qwjhust@gmail.com>, willy@infradead.org, akpm@linux-foundation.org, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, axboe@kernel.dk, trond.myklebust@hammerspace.com, 
-	jaegeuk@kernel.org, chao@kernel.org, qiwenjie@xiaomi.com
-Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
-Message-ID: <3pclzpr4f5qisxwqhjguk4zz7vwdbahzbjbgqryq2f5mpklddk@f5do4mayzzot>
-References: <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
- <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
- <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu>
- <CAGsJ_4xMK=rPXCH5OiCOYHKRQp-w+xDJQusJ_ykbuAuLZr+8bA@mail.gmail.com>
- <1e5118a5-6b61-49d0-85e1-825e22059241@columbia.edu>
- <CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz-cHaDWLkxaQ@mail.gmail.com>
- <65a2c7df-0d2e-46de-9580-01e9c35a7e32@columbia.edu>
- <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
- <hbki3yc23dr5fkre5phwx2ev6yjfn3ooodan37uo3at53y3gs2@kjyxyb34s5bi>
- <CAGsJ_4xNLEhrCZR-7ZAxBnYV8BDzuQT29yT419mObVRGH71AVg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fCB3SMfr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C4sZIIXzwDfuWrRA00jrQifGCoDrXDIQzutcUtepNlbzNlRXH8h19C9EBO1goIChJW/rQfFGYzBow8drgFfmmwcgC9Johi1Ae1/Mvdxa7rE1mAXdpJ39vqHfJCAncYXzWDJVKqzOog7BYC4b0Kzh7QDMzm1hP/84impEGPZUTVe7iKOiv0as+eLk6CEhrc6/PXOLc2ZP2QesxiE6BbMtBTgdtCKJeEKwek+v5XQJ6pLJOnH/ic4PIJjfU7HX0WrLjcD9lqvzn5Ovv8ADpbnZqMd/3TUNwIQyhwNCAAdZENzcRG+aJsjMRVuBWZSHPyuGpOUf/ZEsKnTKOm3Qs6Pqzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gY4zU4BwjWt9MXU7dImmRTeInsHmYf9dgC52QpDM1Ns=;
+ b=YYeDC6g8blVuQVfFhOm5AZEfulj55ZACeK6Id6KRkquBJlRWzVRm5T60gEaDc9+yiESQ27AYf4czC/2lmqp1on9WRU+ce6QEsvlNQiorXhOCd6xKh384Nl1TNFO73Hq02EpK3qVRaIEIFHNv+duU4dGoZWA9/47O5ancwQsfv5aBSD4of6B30qDAGXO0i+qp4HrN/rE1MrOPSJKWtjKed4BNUl9alHSeY5d8Q2NaRNNr5v+T3SJ0NL4F9hQyBEq6VMrN1Y+QNEAvWKAoCrUmJqaXJr/dPy9zgiGXdczKGyzmiPJWlE0XXZjqkOJmZfRhUskEEPzAj04+kLxCeqATPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gY4zU4BwjWt9MXU7dImmRTeInsHmYf9dgC52QpDM1Ns=;
+ b=fCB3SMfrqdyl4mdUlaMM0k21mPEnxWbEDi97W4XJMTVlgAZlp2kNeZKGHnkRPnUAj41ufIW6fPL3kFmGEJXcWXzZi4Mh4CD/nMUdPfZkPSZ+CHA7zefOC6xfgr+z6RHrHVXL3QwhTluQZxXubKMBE09p3j7xjcFU9WlfTSIPnTc=
+Received: from BN9PR03CA0863.namprd03.prod.outlook.com (2603:10b6:408:13d::28)
+ by CH3PR12MB7737.namprd12.prod.outlook.com (2603:10b6:610:14d::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 10:22:41 +0000
+Received: from BN3PEPF00022BCB.namprd03.prod.outlook.com
+ (2603:10b6:408:13d:cafe::8c) by BN9PR03CA0863.outlook.office365.com
+ (2603:10b6:408:13d::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
+ 14 Sep 2026 10:22:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BCB.mail.protection.outlook.com (10.167.248.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 10:22:41 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 05:22:40 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 05:22:40 -0500
+Received: from localhost (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 14 Sep 2026 05:22:39 -0500
+From: Michal Simek <michal.simek@amd.com>
+To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
+	<michal.simek@amd.com>, <git@amd.com>
+Subject: [PATCH] microblaze: Enable xilinx dmas and axi emac drivers
+Date: Mon, 14 Sep 2026 12:22:35 +0200
+Message-ID: <6d41613ed4ccfdc38ec47070b79a5893e3abc2a6.1789381354.git.michal.simek@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Developer-Signature: v=1; a=openpgp-sha256; l=774; i=michal.simek@amd.com; h=from:subject:message-id; bh=9Totc1u11nygKg3WOusNkzlnzry1tnUOkS6oRvvXU9A=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWQtP/V2S+DGKR5P+gs/WRyuCXRx9J6XuG1h6/T+Dfq/Y rQsFred7ChlYRDjYJAVU2SZzqTjsObbtaViyyPzYeawMoEMYeDiFICJrDnGyLAyweUam0p9xe5P /fercpsETY7fn2h/c/YN8a3Lf5SfaRBjZGi7L6eplZapdad22Yd7dx7telZ1X/GUZOFcKVUeh9D 3lqwA
+X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4xNLEhrCZR-7ZAxBnYV8BDzuQT29yT419mObVRGH71AVg@mail.gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,columbia.edu,gmail.com,infradead.org,linux-foundation.org,vger.kernel.org,kvack.org,kernel.dk,hammerspace.com,kernel.org,xiaomi.com];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[columbia.edu:email,infradead.org:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCB:EE_|CH3PR12MB7737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 508837fb-9a43-4d63-62eb-08df124a1bc8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	sro/HfIV/LX64BogOeUdqm0L5m+sy686O6/sxK1picwQ6JOn+G3jMgUf9xjEoVgyiY0OMBuHVJ8YUuQdH0YIyQm5ry3FDjg886TfCJX/UAnpruTHE4551dxcktpIGYB1nY4JC7t4gjO87acmE4Azldr3pip/zCeYVx4D5489mmUlgVGS301Vjgy22ekgHicC3I/Cxb7e1PkD40mFfQpvkys0VZ3PqIVJv1Kb7/OgRKbSwIPjsSl63yDFMMRs7TqDX8jYifGOu0Ss/8W1WuaDMz0AfKmR5dlex6jbOARFbnkPkDY2pnvxwxtA5my0m7iNvTbWJBBkQuzIDX3opRapZIQICqD1GRMxsG8H8MnUI3FfivVlLnmdaGtHxlPqV8wAO4SMfhNT/Rlyv2UUxGnIL2draoRyqQhiFvjPyvYwXZRuck3uAxcPGBQ3WPYGSPG0sHHJzZGMzQjeJ2GImE+pIP92WkinHM472RmbaMpaYOL7yca0M69xk7459yiaNcYWkZXZW/9NdXyKBV2onw4NujZDu9SZyK96vpi8EgrIB1ewXVdU5SSFhEPL9c0cXbif/KerO2CEn2xgWXtu+2EYxOoaZONxaYklQ5b+Xu7NHUT9Gd3hewzrWPGTMnPvzP8Zsfwq8Bh73zVcylbAyzh+RkXhDWc6ADyNTk0hTm62I+DK9Nxc6SrHzNXCqCjTxRyT5Sk+rB7AKCyqOKpWSkY4mg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	VAz/D4kKEhwJ69Vn8Ab1P9h+Nm2AUsy7nsJX8rpTBgpqko995lrRpDIfgOMu5MggP3JKZErgnsZtiVq28amei87yYgO8TeBkDTZEhDyy9FGyWJHEj6obnZixbc6Ghpv4AITQSVw25mJSpwnTSizL03WTtiLB28J9XUe5DuZnJ0ufMC2cMXwCSqkqS7BdgNgx6kzysEfW7CHupP6pweYRWt13xO9LgkGj6BSbparRHNJmH3ymadgk7xeM4CJZCOixLEMRHHfC0X+bMxoDK38lIsG3KgrFplmJmANv69rDyoF192jjTvgjJaQYXaS4Zhcqf7HzYQGxrXIPKYfzAapoqqHTQ+b2HGcXTSGYAMNjBb7p4Wl6WmrOX13iOH0AJ7elnERR2UFU1+FbLqBw7RFC37onsrztXFKFoUOOUba67zSfuDJd9uHCVNyEe720cY3f
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:22:41.2470
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 508837fb-9a43-4d63-62eb-08df124a1bc8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BCB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7737
 
-On Mon 14-09-26 17:42:59, Barry Song wrote:
-> On Mon, Sep 14, 2026 at 5:33 PM Jan Kara <jack@suse.cz> wrote:
-> >
-> > On Mon 14-09-26 09:09:32, Barry Song wrote:
-> > > On Mon, Sep 14, 2026 at 7:34 AM Tal Zussman <tz2294@columbia.edu> wrote:
-> > > >
-> > > > On 9/13/26 6:51 PM, Barry Song wrote:
-> > > > > On Fri, Sep 4, 2026 at 6:36 AM Tal Zussman <tz2294@columbia.edu> wrote:
-> > > > >>
-> > > > >> On 9/4/26 12:28 AM, Barry Song wrote:
-> > > > >> > On Sun, Aug 30, 2026 at 7:59 PM Tal Zussman <tz2294@columbia.edu> wrote:
-> > > > >> >>
-> > > > >> >> On 8/30/26 6:25 AM, Wenjie Qi wrote:
-> > > > >> >> > From: Wenjie Qi <qiwenjie@xiaomi.com>
-> > > > >> >> >
-> > > > >> >> > Fault-around can map ready dropbehind folios without going through the
-> > > > >> >> > normal page-cache lookup that clears dropbehind. A mapping represents a
-> > > > >> >> > competing cached user, but writeback completion can currently unmap that
-> > > > >> >> > folio. A later mmap access must then fault it back in.
-> > > > >> >> >
-> > > > >> >> > Retain mapped folios instead. For a mapped folio,
-> > > > >> >> > folio_unmap_invalidate() can call unmap_mapping_folio(), which takes
-> > > > >> >> > i_mmap_rwsem and may sleep. Retaining the folio also avoids this path when
-> > > > >> >> > folio_end_dropbehind() runs in non-preemptible task context.
-> > > > >> >> >
-> > > > >> >> > Unmapped dropbehind folios continue through the existing invalidation path.
-> > > > >> >> >
-> > > > >> >> > Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages when writeback completes")
-> > > > >> >> > Cc: stable@vger.kernel.org
-> > > > >> >> > Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> > > > >> >> > Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> > > > >> >> > Reviewed-by: Tal Zussman <tz2294@columbia.edu>
-> > > > >> >> > ---
-> > > > >> >> > The mapped-plus-dropbehind state was reproduced in QEMU. The patched
-> > > > >> >> > kernel retained the mapped folio and continued to evict the unmapped
-> > > > >> >> > dontcache folio. I did not reproduce the sleeping-in-atomic warning and
-> > > > >> >> > am not aware of an existing report.
-> > > > >> >> >
-> > > > >> >>
-> > > > >> >> I was able to trigger the sleeping-while-atomic BUG on current mainline with
-> > > > >> >> some help from Claude. The reproducer itself is straightforward enough, but the
-> > > > >> >> configuration was a little finicky. The atomic context comes from using
-> > > > >> >> threadirqs so that virtblk_done() completes requests from the irq thread under
-> > > > >> >> local_bh_disable() and the vq spinlock with irqs off, so in_task() is true but
-> > > > >> >> the i_mmap_rwsem down_read() sleeps. It also needed 1 vCPU (so completion stays
-> > > > >> >> in the irq thread rather than softirq) and ext4 -o dioread_lock (so end_io runs
-> > > > >> >> inline instead of on a workqueue). With v4 applied the bug is gone, so:
-> > > > >> >>
-> > > > >> >
-> > > > >> > Thanks, Tal. Then I'm getting quite confused. Since with Wenjie's
-> > > > >> > patch, we are no longer going to sleep for dropbehind in `filemap.c`,
-> > > > >> > do we still need all the complex logic in the block device and file
-> > > > >> > system layers to move dropbehind to a workqueue task context?
-> > > > >> >
-> > > > >>
-> > > > >> Hi Barry,
-> > > > >>
-> > > > >> Let me clarify. Wenjie's patch prevents sleeping in a very specific case.
-> > > > >> The existing in_task() check covered most other cases, in that it just
-> > > > >> doesn't do dropbehind invalidation if we're not executing in task context
-> > > > >> (for example, block device writeback completing in interrupt context).
-> > > > >>
-> > > > >> However, dropping the invalidation defeats the point of dropbehind, as it
-> > > > >> leaves the pages in the page cache. If we get rid of the task-context
-> > > > >> deferral mechanism, we wouldn't sleep, but we also wouldn't invalidate.
-> > > > >> Wenjie's change is largely unrelated to this.
-> > > > >
-> > > > > Hi Tal,
-> > > > >
-> > > > > Thanks for the clarification. However, I’m still not convinced.
-> > > > >
-> > > > > If `unmap_mapping_folio()` is the only place where we might
-> > > > > sleep — where we might take `mapping->i_mmap_rwsem` through
-> > > > > `i_mmap_lock_read()`, as Wenjian pointed out in [1] — we have now
-> > > > > prevented that from happening with `if (!folio_mapped(folio))`.
-> > > > >
-> > > > > So no mapped folio should call `folio_unmap_invalidate()`:
-> > > > >
-> > > > > static void filemap_end_dropbehind(struct folio *folio)
-> > > > > {
-> > > > >          struct address_space *mapping = folio->mapping;
-> > > > >
-> > > > >          VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
-> > > > >
-> > > > >          if (folio_test_writeback(folio) || folio_test_dirty(folio))
-> > > > >                  return;
-> > > > >          if (!folio_test_clear_dropbehind(folio))
-> > > > >                  return;
-> > > > >          if (mapping && !folio_mapped(folio))
-> > > > >                  folio_unmap_invalidate(mapping, folio, 0);
-> > > > > }
-> > > > >
-> > > > > Why do we still need the `in_task()` check in
-> > > > > `folio_end_dropbehind()`?
-> > > > >
-> > > > > void folio_end_dropbehind(struct folio *folio)
-> > > > > {
-> > > > >          if (!folio_test_dropbehind(folio))
-> > > > >                  return;
-> > > > >
-> > > > >          /*
-> > > > >           * Hitting !in_task() should not happen off RWF_DONTCACHE writeback,
-> > > > >           * but can happen if normal writeback just happens to find dirty folios
-> > > > >           * that were created as part of uncached writeback, and that writeback
-> > > > >           * would otherwise not need non-IRQ handling. Just skip the
-> > > > >           * invalidation in that case.
-> > > > >           */
-> > > > >          if (in_task() && folio_trylock(folio)) {
-> > > > >                  filemap_end_dropbehind(folio);
-> > > > >                  folio_unlock(folio);
-> > > > >          }
-> > > > > }
-> > > > >
-> > > > > Could any other operation in `folio_unmap_invalidate()` sleep for
-> > > > > unmapped folios? Otherwise, it seems we don't need `in_task()` at
-> > > > > all?
-> >
-> > We do need it. folio_unmap_invalidate() calls filemap_release_folio() which
-> > calls into ->release_folio() handler and generally filesystems are allowed
-> > to sleep in this handler. Now usually they don't actually sleep there but
-> > they definitely grab a lot of irq unsafe locks there as Tal writes below.
-> 
-> Hi Jan,
-> 
-> Thanks very much for your explanation. That makes a lot of
-> sense to me.
-> 
-> Then, based on the above, I am getting into another confusion and
-> have another question. If `release_folio()` is actually allowed
-> to sleep, and some filesystem might sleep there in the future,
-> wouldn't Wenjie's patch [1] make sense in that case, as it
-> guarantees that `->release_folio()` is always called in a
-> sleepable context, while `in_task()` does not provide such a
-> guarantee?
-> 
-> https://lore.kernel.org/linux-mm/20260820142956.1414337-1-qiwenjie@xiaomi.com/
+Both drivers are used on Microblaze systems for quite a long time that's
+why enable them.
 
-Well, adding the folio_mapped() check makes sense as well as Matthew
-explained - we shouldn't be dropping mapped folios(). But yes, now that
-you've made me look into this I don't think dropping the in_task() check
-here is correct and we still need to make sure that *at least* we are in
-non-interrupt context and preferably to keep fs maintainer's sanity in a
-sleepable context. Matthew?
+Signed-off-by: Michal Simek <michal.simek@amd.com>
+---
 
-								Honza
+ arch/microblaze/configs/mmu_defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/microblaze/configs/mmu_defconfig b/arch/microblaze/configs/mmu_defconfig
+index fbbdcb394ca2..7f9b19d0d9db 100644
+--- a/arch/microblaze/configs/mmu_defconfig
++++ b/arch/microblaze/configs/mmu_defconfig
+@@ -70,6 +70,8 @@ CONFIG_XILINX_WATCHDOG=y
+ CONFIG_FB=y
+ CONFIG_FB_XILINX=y
+ # CONFIG_USB_SUPPORT is not set
++CONFIG_DMADEVICES=y
++CONFIG_XILINX_DMA=y
+ CONFIG_UIO=y
+ CONFIG_UIO_PDRV_GENIRQ=y
+ CONFIG_UIO_DMEM_GENIRQ=y
+---
+base-commit: 98f468b04d5cc3be5382a923f19ab289e0c40fc4
+branch: next
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
