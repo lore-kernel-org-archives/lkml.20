@@ -1,79 +1,83 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF7034D3B9;
-	Mon, 14 Sep 2026 07:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B8B393DEB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789369777; cv=none; b=Wx099F431FUVCekUR7Eby1A/56/zyG0sEZFBE8AdCJuedtaRNdB+FfzWPioKkCJnVs07PuUqBHIvaFG90BRpSibkkBIqoecrM+JGkFwVIn+4eyBeaK9sc46hnXtRSQa0X67i/aI6voeV7IUkRZu84OLCzPsfTPWy3E2tXAlCmCg=
+	t=1789369808; cv=none; b=NGgSsIYSKNTqDX9Gu2Ll2ViAvz3R8B+J82lT/x2mZHGomM5udJ5mOKijU2ZTrItCI5LVz1u8iL0cONaDxQy8FpzHPUev36gdTpPCSK5vlsfsXF8gYLU0+ZC1+BJusEGZcyW1Sm1tP08PFuv5K45M1icu4kBClDAki3+a2gyDZeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789369777; c=relaxed/simple;
-	bh=DoYL3snGn616IhdKPpLUNFMaWRRKzjQKy1uQEI5wzFM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l6X5tKvtjG7jjXXeXejCw+uJS631e6AwTWEUFJMQi7537SPChAzu3FGbmO173tXpVkMtwQ1BkzhhZXb7ew+Ebk+Sr1LIud+K7i7dGm0LVbgNlqsiNOHnBiDKWqxSAm+kIaNa+8IIfE3Rx8N8ZwYVX6jGdQu3kQPvkueJpggPugs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=M3Gv9R1q; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="M3Gv9R1q"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789369772; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=dY/tbtHXJyrWy4yy4iw+QpX+GNXsYElEvogCXMRcIqg=;
-	b=M3Gv9R1q9HThYMM90V0YMMBL4OO2m4lZ5UO9dkdj4/DlqoNoOpxD4unL3KWTQPooQa6qZel+LR85x7iRrpa4Apr2IsGDIlOwuT599UknwfTAY88IzazrDyhPZTI1j6q9KSsnnY6+BZOWY+Huj++C5UYQpHVWSHDtviEaDQE2WMQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R391e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XAsx57d_1789369768;
-Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAsx57d_1789369768 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 14 Sep 2026 15:09:30 +0800
-Message-ID: <093148f4-ed10-4e41-939d-be82e2844fc5@linux.alibaba.com>
-Date: Mon, 14 Sep 2026 15:09:28 +0800
+	s=arc-20240116; t=1789369808; c=relaxed/simple;
+	bh=StZnvQJiw/jGEgswuyS0WcG0iFbaDEbWxFKIv2maTt4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=peNRS8mX4/Xhh5nqDv/NhstCYLaBcsQmJ8YVYu86GNR2lTgE3BTLoCh7uMijsdz5xcc6EpS6Zj4xWT/3H3cIPRRAuex82Rc42dSGTmq6tHa2zDIyC4XJYYpA1A1RvCdQdh+ni8s/lekgXVAQsiGRojrK6KjchJFZgyD1dDSYM+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b36cf0d9d3so3199582eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:10:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789369806; x=1789974606;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bSwwMzrMMe3qDo0FnunxYy3hrhaeFsQX/OYG3KwwEfo=;
+        b=N16uZjqI9Vk+aCXOHpZFYlhpv2p2Th1Ad5luleXH/F9dlgDW9uJbC7qavKmbQoBm1S
+         mIY/bnjBHvxbWfP1GM5XbQN4lHcUKllsct/z8Kko3dk/sVGClZfVQm1KelC4DTId2mau
+         d9FbkB485ybVewnWWSsTiOG+fGEBLgKfe9zCoNoiWurEZW02kySr7Z2dzxwk+JHgJlDU
+         1ZEfmD4bTUlgaVm4Y06a67WXPADoMFhLzqIJ8QTZ7fgPqev2EjQ3H0QDzIS0JN/iRSI1
+         Lh+MLcA97tkgdFZfrS9fTCB6QTCQwz3RZzjwITeht6njOE9wI8JnY24gVINBA4glKlo1
+         WNYA==
+X-Gm-Message-State: AFuF++mpkzuVcD45fsVI7ZR4Ep85MuTMbI9/GbuVRnqwHe0juoiKpXtb
+	g1zBxXiL7/UlWZemt1PEEaaUIsny02rIMhDcJIV68SBqKl2+7q3XhcteEdX8v2wy/dGyg/7blw9
+	X6PgARXUB7yy38zT0ES8P1UB9imOQHBHFO0SGuvIZNrOAUGS2GI6vDkQqs/8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] mm/mglru: factor out lru_gen_seq_nr_pages()
-To: Ridong Chen <ridong.chen@linux.dev>, Steven Rostedt
- <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
- <20260911102939.2485750-2-ridong.chen@linux.dev>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260911102939.2485750-2-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:4b96:b0:6c1:fd93:5295 with SMTP id
+ 006d021491bc7-6c5412661demr1173715eaf.21.1789369805989; Mon, 14 Sep 2026
+ 00:10:05 -0700 (PDT)
+Date: Mon, 14 Sep 2026 00:10:05 -0700
+In-Reply-To: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa79dcd.f81106d8.2ab401.0046.GAE@google.com>
+Subject: Forwarded: [PATCH] configfs: unhash dentry before dropping the item
+From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
+***
 
-On 9/11/26 6:29 PM, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> Both lruvec_evictable_size() and the debugfs lru_gen_seq_show() compute
-> the number of pages in a generation the same way: sum lrugen->nr_pages
-> over all zones for a given (gen, type) and clamp each term to >= 0.
-> 
-> Factor that out into lru_gen_seq_nr_pages() so the open-coded zone loop
-> lives in one place. No functional change.
-> 
-> A follow-up patch adds a tracepoint that needs the same per-generation
-> page count, and will reuse this helper instead of open-coding it again.
-> 
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
+Subject: [PATCH] configfs: unhash dentry before dropping the item
+Author: jchuang26@m.fudan.edu.cn
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+
+Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
+
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index 53fbdbbe8..3c5f7c80b 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -1410,9 +1410,12 @@ batadv_iv_ogm_update_seqnos(const struct ethhdr *ethhdr,
+ 		return BATADV_NO_DUP;
+ 
+ 	orig_ifinfo = batadv_orig_ifinfo_new(orig_node, if_outgoing);
+-	if (WARN_ON(!orig_ifinfo)) {
++	/* batadv_orig_ifinfo_new() can fail when the memory allocation fails.
++	 * This is not a bug, so don't warn and treat the OGM as non-duplicate.
++	 */
++	if (!orig_ifinfo) {
+ 		batadv_orig_node_put(orig_node);
+-		return 0;
++		return BATADV_NO_DUP;
+ 	}
+ 
+ 	spin_lock_bh(&orig_node->bat_iv.ogm_cnt_lock);
