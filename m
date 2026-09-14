@@ -1,191 +1,180 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F60F312834;
-	Mon, 14 Sep 2026 10:07:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F04842124F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789380430; cv=none; b=JWN3S970XAUgRcutH8JnXHL1kiTnFw6k7/OrJcNyfSnRvshJQ1xCpglFK/59ZoXdohvngQYMjwOZdcVV3poYc1CUHKSvx4eY3VS2bETy8NO8tltljYV1+vPBXnVxnJ8ib9Zb3mRkHBDd0Dg/IfeLe74RaDzcszSfKC3ZYMjDLbU=
+	t=1789380445; cv=none; b=p01dLIPeBaDqi1qNbQ7WzK2YC+wopPxcwOGurA7RTxWOcQR6qpkx+LMbHtflydQ8UCeHbzy0m39x4Un4PFjKZM34qOdsgrd9oJiwFNAMQ7V67AV0bB19Niwg9L+716assKKTJDryj6YpGFejU4TGyz8SW9YUQ561tYVQIB/mgUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789380430; c=relaxed/simple;
-	bh=idSZEOwt2qRl0e/s8CB7MHLpmTICoUBCiZeTptYJnOY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XQuWsfldPmmDKd8YR43lrgNv/mipSkMwUEDx+OqyfxfB46conaA4b/iiPOwRnXlTc+a9IjYSimXCaY8zorq2HnNC0pKuwpy+Jrj0GcsZVtMoVllGRmJpB1yfxeRxdVSl6R8D+ddoIttGlk07eLkbe4hZ+bbjQPnuLNLTm4HWd1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2qzPj9+/; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HTP7iGDp; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MolRUicF; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Yok0wRHI; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2qzPj9+/";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HTP7iGDp";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MolRUicF";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Yok0wRHI"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2284421ACB;
-	Mon, 14 Sep 2026 10:06:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789380423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nOpH+fIUr+a0Q6/TTAicMCY4wDMdjLj5Txyg+aI9Cv4=;
-	b=2qzPj9+/tQSYLMCVX5N9W87AchDa5GhmN2n6TMpAXjNYKSqP6y6eUAwMZX2uFPM1eJcnwN
-	XPhkseTvkfO3aRQD2XmXquiQ9GpDNohL+fuZMQ8ui3DtVX6R86RpUk8pKBc5tZ4IEsPgOL
-	lBkHkSJqP620ro0K6oALKVlIkdFe7Vo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789380423;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nOpH+fIUr+a0Q6/TTAicMCY4wDMdjLj5Txyg+aI9Cv4=;
-	b=HTP7iGDpvo4y/Ol1MKaHc/bEVcdgLq8KYAdKKgs9nAmw57FcgbY+wBMnH8ptUwrHpmK4MF
-	J4ribDJfaeJ124BQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789380419; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nOpH+fIUr+a0Q6/TTAicMCY4wDMdjLj5Txyg+aI9Cv4=;
-	b=MolRUicFHBqL5mNU7DnX+6QnbKUl+A/LlLr/xja1HGPt7xfd6cL9ehONzKpN09abX1SJJL
-	Y8r6OxechItRfk4bAdkSwqFsSZbz3XzGBchFGAYF3zmJcTQoGdloTAYh9EnEEAQ48+4niF
-	vgKLdcRUoPED3e3iuzgPdIg/Fts+gPw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789380419;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nOpH+fIUr+a0Q6/TTAicMCY4wDMdjLj5Txyg+aI9Cv4=;
-	b=Yok0wRHIQGSpZCnd7tFyCLfPphr8pTsRS9XhCeK0LZqm6Z2wi3AaEe/P3oPeIEah0zSlag
-	QFI114yLd8D8reAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EE235136B2;
-	Mon, 14 Sep 2026 10:06:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id KMUnOkLHp2oxBAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 10:06:58 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 8F71FA12E4; Mon, 14 Sep 2026 12:06:54 +0200 (CEST)
-Date: Mon, 14 Sep 2026 12:06:54 +0200
-From: Jan Kara <jack@suse.cz>
-To: Yichong Chen <chenyichong@uniontech.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>
-Subject: Re: [PATCH v2] ext4: fix the logical block counter overflow in
- indirect migration
-Message-ID: <nc3ibzvc4o7a4g4fa3p72ma46ylzplrbqdqhqfgcxpanwpjqmj@dctqw33yyfns>
-References: <20260914082516.3442815-1-chenyichong@uniontech.com>
+	s=arc-20240116; t=1789380445; c=relaxed/simple;
+	bh=hr07YaU6PFVHxAwCI6L4ceySbzfzdgQYT4svOeTD7jU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=boAwkeBTDaUeoOfW/BmVIyT5esLHdxx/nVwOTZxklaPFmcBmc4oVpLGF2ld1FERbknAcfQclggKOPMxuj3Y1VDoYZ+oJoPDBvqaUG/MrAarbcIjS/wJJabKoAIRVuQAtV59cI8PrLFWsGSbiN6ar8tRiQfutmzuzXB9uJrZQ9Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+	id D6D2F1EAB58; Mon, 14 Sep 2026 18:07:20 +0800 (AWST)
+X-Spam-Level: 
+Received: from [IPV6:2001:8003:8802:7000::9c4] (unknown [IPv6:2001:8003:8802:7000::9c4])
+	by sphereful.davidgow.net (Postfix) with ESMTPSA id A3E3B1EAB52;
+	Mon, 14 Sep 2026 18:07:18 +0800 (AWST)
+Message-ID: <a03d4e21-71df-432f-b707-3c7e16a37578@davidgow.net>
+Date: Mon, 14 Sep 2026 18:07:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914082516.3442815-1-chenyichong@uniontech.com>
-X-Spam-Level: 
-X-Spam-Score: -2.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,linux.vnet.ibm.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[uniontech.com:email,suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished
+ timeout when CONFIG_HZ=100
+To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, kunit-dev@googlegroups.com,
+ Marco Pagani <marpagan@redhat.com>
+References: <20260913084155.520015-2-david@davidgow.net>
+ <4357c0bd2a78e88b49b7375bc18d1116df3275b6.camel@mailbox.org>
+From: David Gow <david@davidgow.net>
+Content-Language: fr
+In-Reply-To: <4357c0bd2a78e88b49b7375bc18d1116df3275b6.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon 14-09-26 16:25:16, Yichong Chen wrote:
-> update_tind_extent_range() advances lb->curr_block, an ext4_lblk_t, by
-> max_entries * max_entries for every empty triple-indirect slot.  One
-> triple-indirect block spans max_entries^3 logical blocks, which exceeds
-> 2^32 as soon as the block size is 8K or larger (16384^3 = 2^42 with 64K
-> blocks), so the counter wraps while that block is walked.
+Le 14/09/2026 à 5:03 PM, Philipp Stanner a écrit :
+> +Cc Marco
 > 
-> A wrapped counter makes the migration store a block number that is 2^32
-> blocks away from the one the pointer block describes.  Two ranges can then
-> end up with the same ee_block, which trips
-> BUG_ON(newext->ee_block == nearex->ee_block) in ext4_ext_insert_extent(),
-> and without that collision the data is still moved to the wrong logical
-> block while the migration reports success.
+> On Sun, 2026-09-13 at 16:41 +0800, David Gow wrote:
+>> The drm_sched_scheduler_overhead_tests tests hardcode a timeout of 5x
+>> total_us, and fail if it's exceeded. However, on systems with
+>> CONFIG_HZ < 250, this tends to fail.
+>>
+>> As it's possible to configure many architectures to use 100 Hz (and some,
+>> such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the test
+>> doesn't fail on these configurations.
+>>
+>> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
+>> Signed-off-by: David Gow <david@davidgow.net>
+>> ---
+>>
+>> This failure showed up on UML when testing the addition of CONFIG_DRM to
+>> the KUnit 'alltests' config[1]. Ideally, I'd like to see this test fixed
+>> (or at least skipped/disabled) on these broken configurations so that the
+>> alltests run is clean. (I don't actually run any CONFIG_HZ=100 configs
+>> other than UML, but fixing them all is ideal if we can manage it.)
+>>
+>> If you'd rather a different implementation / magic number, let me know.
+>> I picked 15 here as it gave me plenty of leeway: 10 worked most, but not
+>> all, of the time under i386 qemu w/ CONFIG_HZ_100, and was fine with UML
+>> on this machine.
+>>
+>> Thanks,
+>> -- David
 > 
-> Keep the counter in 64 bit so that it cannot wrap, and refuse the
-> migration with -EOPNOTSUPP once a data block would land on EXT_MAX_BLOCKS
-> or beyond: an extent may not cover that block, because
-> ext4_valid_extent() rejects a wrapping ee_block + ee_len, and only a
-> corrupt block map has data there.
+> Thx for the patch. Where are you running the tests and what for, is it
+> a CI or other test system?
 > 
-> Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
-> Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
 
-This is even better. Feel free to add:
+Yeah, this is generally for KUnit in CI (and, in my case, to make sure
+changes to KUnit itself don't regress other tests). But KUnit tests are
+also run in several different CI systems, and now on linux-next as well.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+In particular, this has been caught up whilst testing adding
+CONFIG_DRM=y to the KUnit 'alltests' config, which is used to get a
+config which includes as many tests as possible. This is finding some
+real issues, so I think it is worthwhile in general.
 
-								Honza
+> 
+> So one thing about the unit tests is that they were originally not so
+> much intended for being run on all sorts of CIs, but as a development
+> tool for the drm_sched devs to have something to move forward with.
+> That's in part why they contain "scheduling quality tests".
+> 
+> That caused some raised eyebrows already because people run these
+> lengthy tests in CIs.
 
-> ---
+Yeah, finding the distinction between KUnit as a useful tool/framework
+for writing tests and KUnit as a suite of tests that should be run
+automatically is a bit tricky.
+
+Ultimately, it's a judgement call if the benefit of having the test run
+more widely (potentially uncovering real issues, or discovering issues
+earlier in, e.g, linux-next merges) is worth the effort of making the
+test suitably robust against all of the different environments it runs in.
+
+> Maybe what we actually should have is a split of the test suite into
+> two parts, where one part covers basic sanity, and the other measures
+> scheduling behavior. The former could then be run by CI folks, the
+> latter explicitly be discouraged from being run by anyone who is not a
+> drm_sched-developer.
 > 
-> Notes:
->     v2: refuse EXT_MAX_BLOCKS (0xffffffff) as well, so the bound is >= instead
->         of >.  An extent may not cover that block: ext4_valid_extent() rejects a
->         wrapping ee_block + ee_len, so storing it would leave the migrated inode
->         corrupt.
+
+That definitely can be done. As-is, the way this is currently handled is
+though CONFIG_KUNIT_ALL_TESTS, and through .kunitconfig files.
+
+If you don't want tests to be caught up in automatic systems (other, I
+guess, than your own), then removing the 'default KUNIT_ALL_TESTS' (and
+'if !KUNIT_ALL_TESTS' from the DRM_SCHED_KUNIT_TEST Kconfig entry is the
+simplest way to do it. You could then set CONFIG_DRM_SCHED_KUNIT_TEST=y
+(either via a .kunitconfig file or some other means) to run them whilst
+doing drm scheduler development in particular.
+
+And, of course, splitting suites up or skipping tests if certain
+prerequisites aren't met are both options for keeping tests in the more
+general CI pool if you'd like.
+
+Cheers,
+-- David
+
 > 
->  fs/ext4/migrate.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> P.
 > 
-> diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-> index e06d847033a1..2ce587043945 100644
-> --- a/fs/ext4/migrate.c
-> +++ b/fs/ext4/migrate.c
-> @@ -14,7 +14,7 @@
->   * represented by a single extent
->   */
->  struct migrate_struct {
-> -	ext4_lblk_t first_block, last_block, curr_block;
-> +	u64 first_block, last_block, curr_block;
->  	ext4_fsblk_t first_pblock, last_pblock;
->  };
->  
-> @@ -65,6 +65,10 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
->  			       ext4_fsblk_t pblock, struct migrate_struct *lb)
->  {
->  	int retval;
-> +
-> +	if (lb->curr_block >= EXT_MAX_BLOCKS)
-> +		return -EOPNOTSUPP;
-> +
->  	/*
->  	 * See if we can add on to the existing range (if it exists)
->  	 */
-> -- 
-> 2.51.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>>
+>> [1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-c5c0f18fc7b0@kernel.org/
+>> ---
+>>  drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
+>>  1 file changed, 9 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>> index 285546a2218f..02c83b5c2189 100644
+>> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>> @@ -13,6 +13,13 @@
+>>   * logic.
+>>   */
+>>  
+>> +/* We need a more generous timeout when CONFIG_HZ=100. */
+>> +#if CONFIG_HZ < 250
+>> +#define TIMEOUT_MULTIPLIER 15
+>> +#else
+>> +#define TIMEOUT_MULTIPLIER 5
+>> +#endif
+>> +
+>>  static int drm_sched_scheduler_init(struct kunit *test)
+>>  {
+>>  	struct drm_mock_scheduler *sched;
+>> @@ -88,7 +95,7 @@ static void drm_sched_scheduler_queue_overhead(struct kunit *test)
+>>  
+>>  	/* Wait with a safe margin to avoid every failing. */
+>>  	done = drm_mock_sched_job_wait_finished(job,
+>> -						usecs_to_jiffies(total_us) * 5);
+>> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+>>  	end = ktime_get();
+>>  	KUNIT_ASSERT_TRUE(test, done);
+>>  
+>> @@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct kunit *test)
+>>  
+>>  	/* Wait with a safe margin to avoid every failing. */
+>>  	done = drm_mock_sched_job_wait_finished(job,
+>> -						usecs_to_jiffies(total_us) * 5);
+>> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+>>  	end = ktime_get();
+>>  	KUNIT_ASSERT_TRUE(test, done);
+>>  
+> 		
+
