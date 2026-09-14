@@ -1,29 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3CE3D9DC1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:10:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80581448D18
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387810; cv=none; b=VhW4ikTQvuYE2TCBlF0d4wJ/E8I1OUKC4yWbwwcIyUWvD8vtNDvizCNTMpNUiIfF1DUN+1+7kCuTbhygcQrMHj3SSPXOo8HDc7mGTsQ79Aq9/xQTpXsQr907ZMK5KmMtUjsFjoNLaMIQBHydZLTL+t8Kw5Go/CpUlfnWlC1MeQE=
+	t=1789387810; cv=none; b=AJL9ptBD71rA0j7dy5BFoCVfAUfYjGczT0d+Rp24KT9SFxQws4h4Q004V1YnBT5JqAnGxzmatl6jYUphvmCZI1oP4a+JLftlKBU6KqnEJLECotXsr66ZouB3Fvs5D5ldOyXbYAmVYCIqjRM1MqrkgcYPXbQTfXaPpWTOuDVgkUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789387810; c=relaxed/simple;
 	bh=Rd/ssEXJfvGknlIRhhgGAulCg+IfAPGfLzjYBtXbFOY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qDX/jBg/bK9RiIF0e3HzBaE5mrEwM0XFcJ56b7lmtTuQ1nF21fd72lolsEtxLBBVyIRG9SWrvDNcyAnh+e67fuib2rjisoiX/9ErzkMp2PPOo1xad3dWYhOklpM2CsJPCDOB4coRDvmfVVBRQhwMjFNLE8K9UfSuP/XvWp+6c80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=If3LmJ6c; arc=none smtp.client-ip=117.135.210.3
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hWDsEH1BT1ZhmLad7zcu49Nl5w7did/lL2PVOlz5wPYVF1djQWZHVE6fFGXyE8jlJRanIkicYqYXCurh6gfuigCZF5K3qESm7IfYr+p8ACDXa+0MLOWSRh4+hlyNSKg8kv/A+xMVAN4SQhRxyNTrGf43cazpBaLCaRb/9tR8/qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=B6M3wi4E; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="If3LmJ6c"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="B6M3wi4E"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=E0
-	qUFxRgBufn0cU04zWtQvRC+ovT09TZq6OCCO5ga78=; b=If3LmJ6cpEzd5rOdu/
-	8UA4/5lEOc2e7ofF6RZR0wDG7l2Gxzsqy3OzZag6lJa0hYCp8zOt/q98A/GzJ0v5
-	XWWCRq4j2HoX7e6c9T8brOZdEqdWl7lMAmZlGhSmL+5Bb1uwb5AXnXOGmRRZuFyW
-	jPzOtZzdPdRC5pF/hZKDmMjkY=
+	qUFxRgBufn0cU04zWtQvRC+ovT09TZq6OCCO5ga78=; b=B6M3wi4ExQ3CNtVogC
+	cEtOf5RW1GVdJeuJ5Gfy2GrxVi7AMw1W6D2x0FXsgNRMIPmVJrPhMuZEq0DcWfx1
+	c582wvm1E97Qac1P3Fq0EN/7C9srzUD1souoG8YJQxhD7oWC73ewBrFZOF5bxSJs
+	XFD6/nn640epTlXNURD3SBJ+U=
 Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3HzsF5Kdqp6amAg--.24394S4;
-	Mon, 14 Sep 2026 20:09:42 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgBnUen746dq02GAQA--.31592S4;
+	Mon, 14 Sep 2026 20:09:33 +0800 (CST)
 From: Quchaosheng <quchaosheng000406@163.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -33,8 +33,8 @@ Cc: Waiman Long <longman@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	Quchaosheng <quchaosheng000406@163.com>
 Subject: [PATCH 1/2] locking/rtmutex: Handle empty waiters tree in try_to_take_rt_mutex()
-Date: Mon, 14 Sep 2026 20:09:40 +0800
-Message-ID: <20260914120941.63968-1-quchaosheng000406@163.com>
+Date: Mon, 14 Sep 2026 20:09:30 +0800
+Message-ID: <20260914120931.63940-1-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -43,12 +43,12 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3HzsF5Kdqp6amAg--.24394S4
+X-CM-TRANSID:PSgvCgBnUen746dq02GAQA--.31592S4
 X-Coremail-Antispam: 1Uf129KBjvJXoWxWw4xXFW8uw1xZF4rCF15Arb_yoW5XFy5p3
 	y5KrW7Jw1vqrZ29rW7Zr1xXrW5Aw4rCFW7Jwn7tF1UG3Z8XF42qrnrK3W09F48CryfX39I
 	qrs8Zw4aqFWrXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEfHUwUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAAa+NGqn5AboWgAA3R
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAB68Mmqn4-7nuAAA3f
 
 The waiter branch of try_to_take_rt_mutex() reads the top waiter from the
 lock waiters tree and passes it to rt_mutex_steal() without checking that
