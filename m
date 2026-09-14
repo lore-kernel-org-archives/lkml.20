@@ -1,136 +1,126 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9813B2FF9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C303A7587
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365783; cv=none; b=ZMHeR9FzfkGVH6XS2KIKFxAqdtz3y9/b5eAAJzU91RfojfgXzL+6453xqjmTJU8drlU+P2urskUyP7l7JiB9moKT5K0Bg2ycjIiCMXnkFZg15ghRAeUrmMk1q0RYKgweuzLshNf6mRHETKhem9Fz7DHy8CFsTipqW46CPR5JA0Y=
+	t=1789365786; cv=none; b=iCOCPPvpbvohJzKrGSQzp6lsvjUJYMgFhlf2f8ow7rcYJJ+MS4d6GWbDSGsDz8hOh2a2RPHeYyJMzAlT1dl3znorOpylKn5b7HPqt6w/ldEJV5TuJE0/7RZ3lwVI42IHZr8JoG064s0pAJuPYM2WlmrjISrpDJWd0+Qs9MSHOWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365783; c=relaxed/simple;
-	bh=Gv7lORaDNCNghahgjKYq5FlxBpKPlgY3TJoQDAGQytg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ci40nw8YwdWsaWPgHP7zapPivY5okJMnTqY0KsXvjIEYDWgWZAlX9jMNJarRdOMUS9PMxXYqioQM3K2aKjMg4lmeDh6fLaGT+7AIH0YKWL0cIDG9QouwUfDOAnKCIHZi4jwY6988/fdyqMkTgvoqeMAb571fKA5+On57LkVWHXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qq10oqsP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=n/sM3TBx; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qq10oqsP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="n/sM3TBx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789365778;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pqstWO1ZgVHH8TktNFCBcMfA6S7qInTZbOl2DmKbnYU=;
-	b=Qq10oqsP3MV4jHwYiXRxqDokyQvZInyAGMr3RPAYzNXL2qp2qI8gDQ3n3dk0hNmiKXOjgj
-	dy8s8ipeYOJs94wWhnqExfjgfRxj0bjJwh1ji7vpE9xdahfRL+UOv2j+jBCAD3ggWh5bOD
-	xYtu6Hz+KfD5OF6n2razITMM54aTEsc=
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-428-QimVAHgZOFS8F1tYU6xIYA-1; Mon, 14 Sep 2026 02:02:57 -0400
-X-MC-Unique: QimVAHgZOFS8F1tYU6xIYA-1
-X-Mimecast-MFC-AGG-ID: QimVAHgZOFS8F1tYU6xIYA_1789365776
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c153bab4c3so2656070eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:02:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789365776; x=1789970576; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pqstWO1ZgVHH8TktNFCBcMfA6S7qInTZbOl2DmKbnYU=;
-        b=n/sM3TBxn/n8f4by77c5V5AElTog9dUDPL3WH4dpbVzMQzwdXlLkK3OzMaqusOIpL1
-         6sbeSfHyBPtogZE1l+mginjBuga86IBuMYi6DeslXZ1Ju73LATZs+gvHx7sxW8KTPe4W
-         ZVypHgSzEwA7oNR6ZSdLaNiVyRLhUjnPSeh3oJ2NXEWHZgEurNXCOK3dZgRagH0pBvDp
-         2H4y7ifJwH1OrWqc/WInmKPMek9NUFD+YuqgQ6ywMcZjVrB4Skv4iccvEsxputY/qbQT
-         KaWhct6i4mGG8xR2iwAiCN9hNcqQtiix1l81tMszyMPU/wLB/TJ8Q4oWY5+Jz7EMCVD7
-         AqTA==
+	s=arc-20240116; t=1789365786; c=relaxed/simple;
+	bh=KrWuAQN/YUzFmuM/SnD67MzbY8Rua4ucCdCtnbvFtw8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=VletIBiB2qi3hBLxoNAoVOa8KHZgoQwJO9BH8fdwBSkKm02n65AC1Lp1f0RWs+Lj8zoKv0RpOINz6qbDh2tKejbt3pMgc2CBTvpa+/EFZQDxYpwr9LqpTQ8FP551OTMvCyRHnWGSKT480IDP4i3b7qbu96RP+1/7XvIZ1AZ1TAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7e99ff505c2so4105756a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:03:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789365776; x=1789970576;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pqstWO1ZgVHH8TktNFCBcMfA6S7qInTZbOl2DmKbnYU=;
-        b=gWi8iHZjWo4S1UNEaOnX+AxEC3FJH+yVan9hPZIlPkux8QhtmehP1NKC0uLUA3tnbB
-         nuz9b1GuFdjHFcgY4y35Bf8CdijyOLMwTRpoGRQ3E24ZBiXT8Dt/VqT2Lb4dQgH4iqVx
-         KKAWg0Vh4GOHWcUp1Fd3YesYR73ZEt+5nfj7h02tfZUYdMFCy152ZbGt+vyivxO5fU9k
-         eorRPclafcqct3/ZRt04Qkqz5rx+CY92D+X375X0eF5nIWHhvEpkuw9imJV2p6CL9vCx
-         X5u5maRPMze6eV+bdM8Uh6pMG6vIzhFYYQc47EOv2UeTRiIW6VtUpFJ3cXbNoQGmFilK
-         /Y8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ05xZdInlPbRaMbenxrUddj+rAqw3eO2M1/1udjmoz4+72tlvL77FyXIqS2TCCrfDyxXV0X+L9Hlrxaw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nb7ZRsVVO9pbuLN04HDUkP9Z5hwqGtcqdBQhtp/Ra9lkdzC21B
-	0BCSv+q5/u65l/f/B+bucw4atIgoGBusOYslQxbJXew2ppnessJyhXFxNii5ytrX1cqn7tzinIA
-	Ch+wJG0qwK2pHhGzq/yYsuqEMXu+RLpKNP/d/gZ4B3XoB0fCbP3Ht1j0MrlC8fc/m1A==
-X-Gm-Gg: AYBFou1fFhpubz0tl/u5araUCGF2X+O7HAS0CBWf1Y/tTvgZsluaSGrcE5qB4cl0MrK
-	kOgwTmYkVWtVGg7/mGotDntKI+GbnpWrvGbtpGUAJXZZN1HVvlEeV/b4ycpADDNBLwCKfSo7bgC
-	UHC76F69kDoga6ahUptBKR1SSbvUcRz93ynykHeAvaXb63YtuNqvnX1Lprc7hf22O5vnuZY1H6W
-	k2YSbiC6LAiL4eFEyvdWUY809jS14GyYzejXCd+njY7DsGhP6oya7xHOvJrq8FddQ1fdpKSHoa6
-	QdkwPQwlgmEubOYuiGrYk/lqXZLQAOWP1ihZY2VdkqL62Qc/R6IpEad5qGYsgB6tpp0D7rRQvYH
-	0wuNWCnLzNcwZxqjhL9pRSu840pxcIP5tJj9EYXqg1Q==
-X-Received: by 2002:a05:6820:985:b0:6b7:46fc:1e6 with SMTP id 006d021491bc7-6c542f1e27bmr483602eaf.69.1789365776269;
-        Sun, 13 Sep 2026 23:02:56 -0700 (PDT)
-X-Received: by 2002:a05:6820:985:b0:6b7:46fc:1e6 with SMTP id 006d021491bc7-6c542f1e27bmr483565eaf.69.1789365775779;
-        Sun, 13 Sep 2026 23:02:55 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143659a9a06sm23239081c88.0.2026.09.13.23.02.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 23:02:55 -0700 (PDT)
-Message-ID: <37ff6cc7-9a72-41df-a473-b45803ad5239@redhat.com>
-Date: Mon, 14 Sep 2026 16:02:46 +1000
+        d=1e100.net; s=20251104; t=1789365781; x=1789970581;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sd1ReA4Xsp1RZel0nvo1OTqrl0NkHIqHncWwsM2t8Vs=;
+        b=qnVIC6s4k4JiUEaHV9pKaZCPp/CkTGT+QrJRRcLYKjjCZi+Denw6UYOSyoYjN59zdc
+         nTVAz/Kwqk+dbvz9PkEj8MoQgahI/9X2sTLe/MN8pNpZG/t44GXdSw+yPH/0rvYtPVhw
+         yAt3KYWBds2E+QjkIRrKKNWXAJQ1KYE8P8YCcAj/Z07D4jvEFpFVEDgQg2DPbqNQup/3
+         pKN+hIQaezYGzRu7jVA5Z9iZWATnHd8Jo33qYsVe2YhoIP6MmwyKhQbme2Ssxd5g59Eu
+         a0CUvsoYuV5lRLLpwaFVZtcx3LYs5ejjEnhFxrr2Qa0yW6GPxwuNL4vuSXKXTicpmjSq
+         Qbkg==
+X-Forwarded-Encrypted: i=1; AKwUvBykrwkDYlGiV4Q0020rjIbxWpou2VYoVZUyifU1CLdcW4wp78F6BoGdqIbZk0I2w9xZUE6Cu3/8H5HNj10=@vger.kernel.org
+X-Gm-Message-State: AFuF++mva0crr5fKtHg5oHNBI5aUJD6i4NLyJSnwmaXQ+m7H/fpetaBv
+	BLv89BR+kgNJ0zEqP+cAW/Ettt5tuG+JgREv6+94MaG3IftPbwrOO05aMwcCyTyRKR9LrBjsics
+	QGc9YusuA6mYze7DKHMq/2QCBRITaoxuENQWkgarO+a+eUtj7C0rGJFP+sDM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] arm_mpam: resctrl: Add pass-through
- resctrl_arch_preconvert_bw()
-To: Ben Horgan <ben.horgan@arm.com>
-Cc: james.morse@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, corbet@lwn.net, x86@kernel.org,
- linux-doc@vger.kernel.org, dave.martin@arm.com
-References: <20260911163613.1131447-1-ben.horgan@arm.com>
- <20260911163613.1131447-3-ben.horgan@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260911163613.1131447-3-ben.horgan@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:a09:b0:6b1:c6d8:8358 with SMTP id
+ 006d021491bc7-6c541c4afddmr904959eaf.22.1789365781589; Sun, 13 Sep 2026
+ 23:03:01 -0700 (PDT)
+Date: Sun, 13 Sep 2026 23:03:01 -0700
+In-Reply-To: <6aa78abd.2e7c7dfd.df720.59a0SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa78e15.f81106d8.2ab401.0041.GAE@google.com>
+Subject: Re: [syzbot] [usb?] UBSAN: array-index-out-of-bounds in uea_bind
+From: syzbot <syzbot+92f5bf49bf4ac75223ca@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/12/26 2:36 AM, Ben Horgan wrote:
-> resctrl rounds up the percentage value of the MBA based on the bw_gran. As
-> MPAM uses a binary fixed point fraction format for MBA rather than a
-> decimal percentage, this introduces rounding errors.
-> 
-> Without this additional rounding, if the user reads the value in an MB
-> schema and then writes it back to the schema, the value in hardware won't
-> change. However, with this additional rounding, this guarantee is broken
-> for systems with mbw_wd < 7.
-> 
-> resctrl is introducing resctrl_arch_preconvert_bw() to allow the arch code
-> to specify the conversion resctrl does to the user-provided bandwidth
-> value. Add the MPAM version of resctrl_arch_preconvert_bw(). This does no
-> conversion.
-> 
-> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-> Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-> ---
-> Changes since v3:
-> Parameter order switch (Reinette)
-> Add Reinette's R-b
-> 
-> Changes since v4:
-> Add missing tearoff divider, ---
-> ---
->   drivers/resctrl/mpam_resctrl.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+Hello,
 
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+UBSAN: array-index-out-of-bounds in uea_bind
+
+usb 5-1: reset high-speed USB device number 6 using dummy_hcd
+usb 5-1: device descriptor read/64, error -71
+usb 5-1: reset high-speed USB device number 6 using dummy_hcd
+------------[ cut here ]------------
+UBSAN: array-index-out-of-bounds in drivers/usb/atm/ueagle-atm.c:2466:28
+index 4 is out of range for type 'bool [4]'
+CPU: 3 UID: 0 PID: 34 Comm: kworker/3:0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+ __ubsan_handle_out_of_bounds+0xcc/0xf0 lib/ubsan.c:455
+ uea_bind+0x1014/0x1380 drivers/usb/atm/ueagle-atm.c:2466
+ usbatm_usb_probe+0x378/0x1b50 drivers/usb/atm/usbatm.c:1058
+ uea_probe+0x194/0x570 drivers/usb/atm/ueagle-atm.c:2597
+ usb_probe_interface+0x303/0x8f0 drivers/usb/core/driver.c:396
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3772
+ usb_set_configuration+0xd97/0x1c60 drivers/usb/core/message.c:2268
+ usb_generic_driver_probe+0xa1/0xe0 drivers/usb/core/generic.c:250
+ usb_probe_device+0xef/0x400 drivers/usb/core/driver.c:291
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3772
+ usb_new_device.cold+0x685/0x115c drivers/usb/core/hub.c:2695
+ hub_port_connect drivers/usb/core/hub.c:5567 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5707 [inline]
+ port_event drivers/usb/core/hub.c:5871 [inline]
+ hub_event+0x30a3/0x4a60 drivers/usb/core/hub.c:5953
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+---[ end trace ]---
+
+
+Tested on:
+
+commit:         762137ff ptp: fc3: register PTP clock after initializa..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16c708c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5d652488f63e96fd
+dashboard link: https://syzkaller.appspot.com/bug?extid=92f5bf49bf4ac75223ca
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+
+Note: no patches were applied.
