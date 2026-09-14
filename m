@@ -1,38 +1,37 @@
-Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
+Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3047532B989
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.253
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040AF2B9BA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789356855; cv=none; b=WYE42QuaHnZmyAlg073YFsgMWGzKyOX2SV+x8tQcImkGkO69xDKWIJGqb3/W+aFspt9XH9bp4S2s70XKET1xrhb4Q5Z1CpL4NSB97K/bRtuI2NPqkn0qbNvLcfp3zlS5wACSwopt/FFa0NX17kWN79hIXzYwnYOBIRVVoChZq8E=
+	t=1789356857; cv=none; b=V3+TELsOnX3NiNPQcNkZiZ0ZBcXi+PLZy2kkPguGXPIGnWZRrcOqGd3uso9hnQQDLqZ3NeCcN90LRJVS+cUAyDLDDtmuDwz+SQYgvj8ofQ2qI07z8cka7RQZQ815eHDZLOtCt+AnDJ9u002tdLGRsMC+Gd4voCxMOlZlUiQTRLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789356855; c=relaxed/simple;
-	bh=0ZUsP0LswRkkip9tShGsyYFmjM0FkrhaBvJDLod4oH4=;
+	s=arc-20240116; t=1789356857; c=relaxed/simple;
+	bh=FjLD91OsmHHYXnKEalfNO2UjXgSa8L0XL7p5Xdw+wAE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QEZ6I9Bvy/ALu2E7aUm5E6BIbEn2bchRlkoXWitZyo+MFv8XuwzP/DcSLuAIv8UrlIttTRGnrwQjkR2wOnCc5yX+zJwsND6pymGzutUc3y96ae3UQ086VQP5qPIvihNM/1u4LTPhNKiFPVnWXdjt012ehrxvnjlIYR9poJG58EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=frhkQO5L; arc=none smtp.client-ip=91.218.175.253
+	 In-Reply-To:To:Cc; b=jht6XOFEgLg0g05IoPr1pf+2ZzWJb6DSi0P7DRGXV7UWaSEab6jxBbpxJuLJfAM/wq6rglJrnwwkvjvyzvHyZxL7Xpdaxa/amqCAgtqE1D5ygk2V5V3FbUBfbXP8VUBeoSbGNSL1r2B1h5qWlSYRJJtwAj1d0Yir0M/wSzhUOn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=djkAODB3; arc=none smtp.client-ip=91.218.175.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="frhkQO5L"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="djkAODB3"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0ZUsP0LswRkkip9tShGsyYFmjM0FkrhaBvJDLod4oH4=;
+DKIM-Signature: a=rsa-sha256; bh=FjLD91OsmHHYXnKEalfNO2UjXgSa8L0XL7p5Xdw+wAE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789356851; v=1; x=1789961651;
- b=frhkQO5LtdWunzsKyZlnoLMs62oBHjdMfCTPAklKUW5P9QGe1PVHKCnRQ3OpsYzBIJIX3VT3
- 1SHlrmu4hxM7kWsm1SwvExnH9b4UderxbW9qC/bHHvrByOJnXBVEQ/5oQsBurL1fJI6OYtz96qN
- 2Ik8uet51XreKvmvdSPAwpNI=
+ t=1789356853; v=1; x=1789961653;
+ b=djkAODB3+Q7/HNzhx2ZXdVuKpSEXgkumiGXVm7297ldREF4tU6vyOBml2BF0GW1zBLavcTdV
+ ocY65ma5LzOdr4xaH0qcbNcqJJNU026tIBV/7GkBnvcAKNtkn5IL4YvR3lhRTKg2U3SYCceb2VU
+ x4L330CwDHnK/VRZrDsBSFtE=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 57ee228aeb5f01e7;
-	Mon, 14 Sep 2026 03:34:11 +0000
-X-Mizu-Trace-ID: 57ee228aeb5f01e7
+Received: by smtp.migadu.com with ESMTPS id eb00aff8d21a2672;
+	Mon, 14 Sep 2026 03:34:13 +0000
+X-Mizu-Trace-ID: eb00aff8d21a2672
 X-Migadu-Flow: FLOW_OUT
 From: Ye Liu <ye.liu@linux.dev>
-Date: Mon, 14 Sep 2026 11:34:00 +0800
-Subject: [PATCH 1/3] mm/vmalloc: group xa_init with vbq field
- initializations
+Date: Mon, 14 Sep 2026 11:34:01 +0800
+Subject: [PATCH 2/3] mm/vmalloc: extract vmap_insert_free_area helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-vmalloc_study-v1-1-526f68559706@linux.dev>
+Message-Id: <20260914-vmalloc_study-v1-2-526f68559706@linux.dev>
 References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
 In-Reply-To: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -52,31 +51,83 @@ X-Mailer: b4 0.14.3
 
 From: Ye Liu <liuye@kylinos.cn>
 
-Move xa_init() next to the other vbq field initializations instead of
-after the unrelated vfree_deferred setup.
+The allocation and insertion of a free vmap_area is duplicated
+between the loop body and the tail of vmap_init_free_space.  Factor
+it into a small helper so the main function only deals with computing
+the free gaps between busy regions.
 
 Signed-off-by: Ye Liu <liuye@kylinos.cn>
 ---
- mm/vmalloc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/vmalloc.c | 41 ++++++++++++++++++-----------------------
+ 1 file changed, 18 insertions(+), 23 deletions(-)
 
 diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 859e6d2d57a3..117483dd048c 100644
+index 117483dd048c..797933ba9451 100644
 --- a/mm/vmalloc.c
 +++ b/mm/vmalloc.c
-@@ -5585,10 +5585,11 @@ void __init vmalloc_init(void)
- 		vbq = &per_cpu(vmap_block_queue, i);
- 		spin_lock_init(&vbq->lock);
- 		INIT_LIST_HEAD(&vbq->free);
-+		xa_init(&vbq->vmap_blocks);
+@@ -5433,11 +5433,23 @@ module_init(proc_vmalloc_init);
+ 
+ #endif
+ 
++static void __init vmap_insert_free_area(unsigned long start, unsigned long end)
++{
++	struct vmap_area *free = kmem_cache_zalloc(vmap_area_cachep, GFP_NOWAIT);
 +
- 		p = &per_cpu(vfree_deferred, i);
- 		init_llist_head(&p->list);
- 		INIT_WORK(&p->wq, delayed_vfree_work);
--		xa_init(&vbq->vmap_blocks);
- 	}
++	if (!WARN_ON_ONCE(!free)) {
++		free->va_start = start;
++		free->va_end = end;
++		insert_vmap_area_augment(free, NULL,
++					 &free_vmap_area_root,
++					 &free_vmap_area_list);
++	}
++}
++
+ static void __init vmap_init_free_space(void)
+ {
+ 	unsigned long vmap_start = 1;
+ 	const unsigned long vmap_end = ULONG_MAX;
+-	struct vmap_area *free;
+ 	struct vm_struct *busy;
  
  	/*
+@@ -5447,32 +5459,15 @@ static void __init vmap_init_free_space(void)
+ 	 *  |<--------------------------------->|
+ 	 */
+ 	for (busy = vmlist; busy; busy = busy->next) {
+-		if ((unsigned long) busy->addr - vmap_start > 0) {
+-			free = kmem_cache_zalloc(vmap_area_cachep, GFP_NOWAIT);
+-			if (!WARN_ON_ONCE(!free)) {
+-				free->va_start = vmap_start;
+-				free->va_end = (unsigned long) busy->addr;
+-
+-				insert_vmap_area_augment(free, NULL,
+-					&free_vmap_area_root,
+-						&free_vmap_area_list);
+-			}
+-		}
++		if ((unsigned long)busy->addr - vmap_start > 0)
++			vmap_insert_free_area(vmap_start,
++					      (unsigned long)busy->addr);
+ 
+ 		vmap_start = (unsigned long) busy->addr + busy->size;
+ 	}
+ 
+-	if (vmap_end - vmap_start > 0) {
+-		free = kmem_cache_zalloc(vmap_area_cachep, GFP_NOWAIT);
+-		if (!WARN_ON_ONCE(!free)) {
+-			free->va_start = vmap_start;
+-			free->va_end = vmap_end;
+-
+-			insert_vmap_area_augment(free, NULL,
+-				&free_vmap_area_root,
+-					&free_vmap_area_list);
+-		}
+-	}
++	if (vmap_end - vmap_start > 0)
++		vmap_insert_free_area(vmap_start, vmap_end);
+ }
+ 
+ static void vmap_init_nodes(void)
 
 -- 
 2.25.1
