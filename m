@@ -1,40 +1,34 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F8A311968
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C76F375F80;
+	Mon, 14 Sep 2026 05:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789362944; cv=none; b=IZLU6shbRKLSRvFdoh1LWgu+FBzRrB9QShRKNgLmhk5Us14yul/SCdbrLBDr0gG2pN5o8SmCgNhdGgBtBwPgdAG2QjmPCCwFVYRDUXMh/SV3VMg/Yt0L8i2W6/LyMZqjlf6bCclUzEgmK0xx3iiekAhQnMio8S8ImC0GGRUNz4s=
+	t=1789362951; cv=none; b=OE8IUCpHkAVTuD+ntZy+5Cq0NZi9fSnKVzRxxZXxu/qsVwTS/9DoTuhMhADtrQImqOiZVvcXZLnW5/uk5UWDlLAjjs84Yfln52xtBcRVdk1djm+9HjexsjmDGWS/M0CGneclkqYVvW9X8DrTQQbVMkip84uuvqeLC/eZr9v1mL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789362944; c=relaxed/simple;
-	bh=JWc6kL5u++skIy2R+4WnVwWp8bEoyApVyvKKd5rYzms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r1lhw3CAAHa6Yuy+xnnSrscF+3LqRq6rVbX3dJJLZjLB2mzotDyv7InScF+k/WN/rHRWL/UA4BBRSsDz9uJoy0XFG1bYuPSBTgYmqJ7wRY1yXokaQ3IBua7z+52UnlLOVbBAqBy23lEKA7Qd8HMdr0HUBujh0yO15gPey68mECQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SIoY0t5E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789362951; c=relaxed/simple;
+	bh=iXQfsBJIJkTYwENA++tcZ1Esa7AHbOeINuOyV1jxrNA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FxzLhiy0q883JqJTA2qQil6/DStKpfp0mCWvRgN5lJr53MzmfpaFKlSoMhXVlC8ejxICpaSz+bcQNoCKUSc0ZGXcSt2kK06FsV8tHw5lJMQ7Dm8x/TRTXrXGdeWMlz/6XBEV57XY/a2rH83QJkNnGt4r1TD157vGi1ldLZbA80g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=O5HLxjXb; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SIoY0t5E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90CF61F000FF;
-	Mon, 14 Sep 2026 05:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789362943;
-	bh=GUDBwHEEq7TXUANzZfGT2Bt6VxcKoDJkKvK4JgFLejE=;
-	h=From:To:Cc:Subject:Date;
-	b=SIoY0t5EzeuOkLvjtAI9DpiOH9foAsEuv9DTc0qYR5BDO1OV/wd0/VbmqSy2Vdhdp
-	 /7e+ueiyud+pXuWZDJNoTCWV7nFAhypxY2SJ1TI4e6cM1yZ5ymmsnUIhfKGJ4mci1a
-	 7CvIJwB5MPf6Xm8lgC/xTaN6aqouZu7bHV3EV4asRP25wQ2k+vtZPOgD0FY+L5pDwg
-	 qARStT88+ooiNtlsaiCHA7gXJ/EEOA/qn55XAgKnjU0olnZYxKN1nUts2XqosOq87O
-	 GSYAXWVIp8CFO5C4oELu2GZrswwYoKe/n4B8XIZ4KwgxLWuR5J7FHoM/EikXd5abVa
-	 nep++2t735iZg==
-From: Mike Rapoport <rppt@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="O5HLxjXb"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4da1351f1;
+	Mon, 14 Sep 2026 13:15:41 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [GIT PULL] memblock: fix for regions display in debugfs and MAINTAINERS update
-Date: Mon, 14 Sep 2026 08:15:32 +0300
-Message-ID: <20260914051534.4085114-1-rppt@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] gpio: virtuser: skip free_irq when no IRQ is installed
+Date: Mon, 14 Sep 2026 13:15:37 +0800
+Message-Id: <20260914051537.15320-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,37 +36,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa09e57ae8f03a1kunm4486090a2792f2
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDS04fVhkdSxlCSEJPTU9MGVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=O5HLxjXbrqCphPtitxgwzBlDImpTI1gtv9AzLLm1aOyyuFlsY0aCoKmzGZxdjmkG2s34pQ+t5P1r4yEtAe9hEKv+CQzBYAr12tAMDynajaZQEtdFl4xwggO6spzgxBGk5ZLme2XIxIlUs8to1WL599eZldqrkruac1dCMskvZek=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=jcXqZq2FjxF+k+84RvL0Rb7ivu7ieeF6I31HK9TGejs=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Linus,
+Disabling interrupt monitoring uses atomic_xchg() to clear the stored IRQ.
+When monitoring is already disabled, atomic_xchg() returns 0. It must not
+be passed to free_irq().
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+The bug is reproducible on an x86_64 QEMU guest with
+CONFIG_GPIO_VIRTUSER=y and CONFIG_GPIO_SIM=y. Configure a live
+gpio-virtuser device through configfs. Its input lookup must refer to a
+live gpio-sim bank, such as key gpio-sim-test with offset 0. The
+consumer's dev_name attribute is shown as <dev> below; then run:
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+    echo 0 > /sys/kernel/debug/gpio-virtuser/<dev>/gpiod:input:0/interrupts
 
-are available in the Git repository at:
+On an unpatched kernel, this reaches gpio_virtuser_interrupts_set() with
+ld->irq still at its initial value 0, and free_irq() reports:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mm/memblock tags/fixes-2026-09-14
+    Trying to free already-free IRQ 0
 
-for you to fetch changes up to 6e33dc90df108c76899dc544a42d17adcba61668:
+The same reproducer completes without the warning on the patched kernel.
 
-  MAINTAINERS: update memblock tree URLs (2026-09-09 20:28:14 +0300)
+Fixes: 91581c4b3f29 ("gpio: virtuser: new virtual testing driver for the GPIO API")
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/gpio/gpio-virtuser.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-----------------------------------------------------------------
-memblock: fix for regions display in debugfs and MAINTAINERS update
-
-* Make sure that multiple flags on a memblock region are all displayed in
-debugfs
-
-* Update memblock tree tags in MAINTAINERS
-
-----------------------------------------------------------------
-Meijing Zhao (1):
-      mm: memblock: show all region flags in debugfs
-
-Mike Rapoport (Microsoft) (1):
-      MAINTAINERS: update memblock tree URLs
-
- MAINTAINERS   |  4 ++--
- mm/memblock.c | 18 +++++++++++-------
- 2 files changed, 13 insertions(+), 9 deletions(-)
+diff --git a/drivers/gpio/gpio-virtuser.c b/drivers/gpio/gpio-virtuser.c
+index 7d0d366be..d5876c19c 100644
+--- a/drivers/gpio/gpio-virtuser.c
++++ b/drivers/gpio/gpio-virtuser.c
+@@ -692,7 +692,8 @@ static int gpio_virtuser_interrupts_s et(void *data, u64 val)
+ 		atomic_set(&ld->irq, irq);
+ 	} else {
+ 		irq = atomic_xchg(&ld->irq, 0);
+-		free_irq(irq, ld);
++		if (irq)
++			free_irq(irq, ld);
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
 
