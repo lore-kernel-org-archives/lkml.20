@@ -1,318 +1,513 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011055.outbound.protection.outlook.com [52.101.65.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BC44963CA;
-	Mon, 14 Sep 2026 12:50:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390222; cv=fail; b=ZVvbOjwAnkdMV4mCSDNIG1gJgGQX6gSTLFHh6J68UPLm3ucTQ5vy3BPFzLY8p+BqBJHRkmN9HssiqMLNq/xLLB6xmfuy+U+MgU8d3fKexhqrkDvMVTdKLURlX5Ug/gIRvfEgxeTSpRbID3ls1nsOv422GGaXzFbN0A6dgKdGdE0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9468F475320;
+	Mon, 14 Sep 2026 12:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789390222; cv=none; b=OW6+mowapidX6LvxmkDiatMiFHCDiiKipCJuC8O4goQijXPnnHMRG7YiKomyVUt8coJyi6chtUb2kpnxK0Q/dudLfdenIffy29T+JMP64YlYIgjasq+OkZdGhPrUQfEOUdDh7zHMm7rQer+CGr9AYlu85/znDvT6NeHHZ9yZmrM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789390222; c=relaxed/simple;
-	bh=Gc1TxaOrHN222id8IhR5snYb5IiAsyn5XSCkLEPlpak=;
+	bh=4etfGZMWZ5ZJzFe+zPJx242UvP4vou7lstyycOADWc8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=g+wF9pPN9w3zhE7/AHL33gs8broIEEzsThkgNifk1x5jvuUsLVfWC9jEFYwUnIwFU42KEQjC740+/D3E1fZkkiGpHB1da+zuFTa5fJNv9x0P0X+CgWCoSeZ7jnKFOZoq7UDvPClDSByhVHumeUB8vo3zw29NyyHIAa+dX4rXfHM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=oWmb7qaJ; arc=fail smtp.client-ip=52.101.65.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	 MIME-Version:Content-Type; b=uR3LL0X27GKB0b3zowVRHZkFDIGPnVtjHetoJlpMlNDFA0a5/wN6vs076MXqw3L4p2kZpbXw4rDRAEC02m9GClVnfqyjkCQY/oyUIou2GcqBUJr70UslnlGXqRDC0v62RuMFHDREX17RFs7x/Ezp/DRk+YYJKv/K1aXSIr/qrSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZnWie55; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="oWmb7qaJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iOWTADnguA7E72FHEpIvk7Zv4eYpNkDLrb2gRnL/CKlm2q5CeooXstrGc2/OhelgAlmnC1x4VTBgpG8F83dYqOZOQ4+Fx/I/ROtHiVugZnZ3UvRT/pXVUfBmdnTMWfKEdORpFl0WHU2UNwZPHrIO14RelgSrbCmR1U/MjgEF7EjSEm6Y+oRc9iYt1q+zAsmKGC5sPEyGBA7nooa+Uhe0c4XLzwun2Z2V3hEUa+W1Ff7ix/NCWrJH72Tl/NjJ8jksgzHT1pPrceez0gdX0XdD5mVzeOHz7j4TUyu+zVkc0GBbGqicjVEPa/7ghzmR1z04I5/Xc5dK7+zLydXfLSufMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jU9MXlLnmGKkDOUO394eSJQ0G0ZYr9aiRiTJSZpMkM8=;
- b=H+icPkTQ9yQi6t6iZqzVpdKoaWw3xAoaSnQvtdrXnR/Ny7rgjpWOTg0ciyBliikoJAfp9KZiPBB5EwCsG9TzJqxd5HgS/bpsLgpUzv+G/X2Bk6Uk3rplxkPzBfMCzfVq87xSGy5BgV9bJmllsvxv+dg6SLEl6BRYTU9PHa0rv27y0O4ytqDc7B48kObeNrFHXydmfahkiaoRoLWb2hWwd1mtfivrzyQNZYFxvgalQEAr1aX/dDjdY3o8oCUAK2xLwbwNmWsj3DkqLMA6j5RmY6MLFjaqJNkSO+pUob5hirDxIaSJBgKHVIzofeMV7R+dWofyDtDEPfu0PMya79Va0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jU9MXlLnmGKkDOUO394eSJQ0G0ZYr9aiRiTJSZpMkM8=;
- b=oWmb7qaJbAEi+8/S3WEMt+8dMpwiURQFaSvXxpuKWE8Ot0QhP4faNWgaO3bfNNsLJYFayQm/8oLPKtd7TV4HBlU4e26GqG8BiAuAfznyzYXR4HNHD+L9pvckzNSmN2R+qKNnGq6ukhQmIBNRBTEV9lCBHZYgVc42qz4EL/K4goomSafQ6SLlhqlpXIlXXmIEw6bgn8wI/rwrQelr2A0fZgQDTpIFAbHXEXsgBAtz3PNRgCq3vJdDCZ2unpWdT1fpgXsL/puA4P+Pq5vGNpm5g7CuOd+ML4evWJ+A80vGVc8VXgzoF0eGzJ5pLrGXpCBUGtGgAA+8FqIH6m5M3HO4ww==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by AM9PR04MB8971.eurprd04.prod.outlook.com
- (2603:10a6:20b:40a::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 12:50:08 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 12:50:08 +0000
-From: Larisa Grigore <larisa.grigore@oss.nxp.com>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>
-Cc: linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZnWie55"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DCE1F000FF;
+	Mon, 14 Sep 2026 12:50:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789390218;
+	bh=v2ra3ieNUhR7B4MtTkkeUqkeFuJOFN8UJu5yaTqCtis=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TZnWie55FA4qDB9t+xus0CtSeQ7DnHKn71yabYzzbwgSemvva5oiWbzGYeTiWygKv
+	 KAKklNGWy7xPgwV13h4SQxotsckyVft5P1Vm1sLgcDXUXL/rvEeDbHrMFyejVCyLw8
+	 FNDE+gJhYHIVoGR1SzwU9QjDF1G2CBtZSxo5FoGQWsT9u6otumzQqJH3SwbTHpl4GE
+	 Qv8pU1XrfWUSRmNMF8OZVx3ePcmZSphcnfwLodrh9QUuWvhac1rbt/x1MMQxesB0RN
+	 v+fX277tvuqp9PtHIDmuDa7uH+RRhVFsCSZp1dtJjIiMMIjOUBDd8Fp/O+XfsZY/hy
+	 1akYjFNuCTWAQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	x86@kernel.org
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
 	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	clizzi@redhat.com,
-	aruizrui@redhat.com,
-	eballetb@redhat.com,
-	echanude@redhat.com
-Subject: [PATCH v2 02/10] ufs: unipro: Add TX/RX FSM state attributes
-Date: Mon, 14 Sep 2026 14:49:52 +0200
-Message-ID: <20260914125000.30812-3-larisa.grigore@oss.nxp.com>
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	kvm@vger.kernel.org
+Subject: [PATCH v16 03/13] x86/hw_breakpoints: Make DR7 updates NMI safe
+Date: Mon, 14 Sep 2026 21:50:11 +0900
+Message-ID: <178939021170.94750.17115728735164122117.stgit@devnote2>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914125000.30812-1-larisa.grigore@oss.nxp.com>
-References: <20260914125000.30812-1-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM9P195CA0024.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:21f::29) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+In-Reply-To: <178939017565.94750.9431053336761330458.stgit@devnote2>
+References: <178939017565.94750.9431053336761330458.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|AM9PR04MB8971:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16e25a3d-04bf-4c42-6be7-08df125eb543
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|19092799006|921020|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
- vSz/ngLRENDrzEgdqUOC63FSrhPlGfRmfPUgzOBvAqaCR64yrOVp8O6TAGk3hAjSQ14O3lRp24fTzD6GwP+fZ/v/9y9Ddi5RDHyAfm+B1IQu4tbEn1ok0Vwq30XFQixfy69MLoDB8LvI4cZHcqx1WdfdVA0K97LXdvpnsmucUrpMq+HmBGyg8KlTa2xeqEJNd9OiMASRKkHR6Rz2qxn6S9aFvwnEoZCTolZ6kcZQbCs6M82AyG2UUYGioAwtg/mmolGY68w3pHX6CqtOdywjTJLMvk8zALmMEQILfUNP27mb+T5vmDlw4E6D9d1OPV3gILJmOuUtqDJhwzsXG9MmgmyQoZwMOkeO7hFdgf+0KW/UZDi1bCEi4mz1kKS/zP905Qi0k+BD2Ej8NZ4Ddu05uKjGC7Q6dPa6NdtKugrZlGnlRIYf/gC3PIKS3iPEewVq5xgXgftHhev61yfU3E+mrYQCW+f7bd1w56K0jcdbiaxjeWnS/x/YGbZJV9UsFRylBJNpB4WqtGoJ5ylhM/DyenJCN+yNXirmn6ZX9mSqMZsjhIcv5OjLpbW3IlrLQ2H1CLzka3NEZZqfMdf9QcjN0CS0Avr55RR5HPTEYl7h26cSI+QSHWCMBN/MD281vQ+iXrU7HiAhqhBGLncMLrH52iE9a/pXp29BKqUN8RZZx8DNJt0uYz49wgavhNUYcju/XHUZhMQMZxxn8aj2myOQ3w==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(19092799006)(921020)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?R1hYZFBvMjNpbnNKdUZKN3JieUtXMVVMRjR5STA5cytrNHdpOVloSWcwWFhP?=
- =?utf-8?B?UC84QkRzT0NkZHhSUVJNM2NodUdORFFqUklDRWpDWHJ4Q3VRbXY4c1ZZRms2?=
- =?utf-8?B?T2dqVkVHSXR3c04zNnBFaWtFTDFEOGNaMG1uTXIrM2hzcFlmcWd3c3M0ZHBY?=
- =?utf-8?B?bjJLMzhISmtaRElFTmExc01TNHZnRXpmMy9FZFlHRlNhVTIzQ2Y2L0JCRG1r?=
- =?utf-8?B?djlBYWNaeXkxeFpKaW5GZ29WemNrZDlxTEFQNi84WXhjaUVHNVI0VHJzWm96?=
- =?utf-8?B?Q0FMMkZkOGxzalFuS0NqUmhQNEZnZFhQSjY2dGdxZnIyTStSaHk2d3hab0ZP?=
- =?utf-8?B?RjFpYVVIc0l3UFZ2RlBIQi96dTBLYzJJZEhiMnlja05rWFQrclVsSHVmOEE0?=
- =?utf-8?B?RlU2OTBPWkk2RVRhU0tGTlJhc1Q2Y3BPaE5ybjc5U0F4TGdKQTlXbjltWGVt?=
- =?utf-8?B?eU82bEVzSldKaGZCWWFNbHdVV0JCekg0RUZLN0IwVVJNeHpTVVE1UXRsc2ZY?=
- =?utf-8?B?VnRhNzlDWDdyWElnUHVDNVcxU3NOOGxWS1A2eXRBVUtwK1lnNWNIT05RaWtu?=
- =?utf-8?B?S0ZUMTluNTB5Y3J5OHVHZVpCd3lVdGJOeGxUVTI2OEV4V3p4dlZ6a2ZDODg3?=
- =?utf-8?B?enhTamNkdm9ZN3NOME9zRmxLWVlHSG85NVcwODZtUktMWWNWZDkwQm5aY1JJ?=
- =?utf-8?B?cTR0VFJqcUtXTVZINlhnRlArVThqbG1ZOG9xaXkzS3JWelkrY1BxSFh1dnFz?=
- =?utf-8?B?RmptNzNvTldEQ2FMOGZVaVNOekZSdE4vd0FueVBXdzhYejVoRHRNRk5TRGFV?=
- =?utf-8?B?bmFVMlhsN3VDQ1NkTmdWZm1jKy9DRkR2VGN6Ri8vVzdwOHhmeDl3czYrU21C?=
- =?utf-8?B?YTBQM3VhOEhoUHU4NlhQUVpRRk9VMjdJU1JsdlA4WXZzRGorTU5pQ2JueW9W?=
- =?utf-8?B?N013WXREbTRGYnFERnNocTNQcFN6Q2hxaTBzTnZTREVwVmxlMnZhWDQ4cUp1?=
- =?utf-8?B?VlEva2hIMXExTUhRZm8zU29NaWRQWUtTNTNNNDBta0pIdTI4MzhsRmtjZDFY?=
- =?utf-8?B?RjJINytzMDA2eUVaczFKM3pqVkljdlJxRFdqVkZQakFMOWZTMmZxRkYrYnJB?=
- =?utf-8?B?OEJQL3JvVUJVSlJpRlNPWVRPdWFTTGFJTGgwV2hlWE4xWTVHMnpScXRrV0py?=
- =?utf-8?B?QU1tS2dyUUZvYTFiYWhvb3N6QlRrQkphWW9sNlJVZDlydm9EOXNSYU5udU9o?=
- =?utf-8?B?c0hoUDdXUUlKU2psQm5pbE5SUmRLWnU4T3JFTUhjb3dSOE5iOXJSZzNEQmJx?=
- =?utf-8?B?WDVZTWxHL25wVGVEN1RQZ3NpbitaUWdwY1Z6ZFhKQ04xY0I0aDc5YlhqZExI?=
- =?utf-8?B?OFIzQXZEbFhwajFhWHJhdy9YbGZvRUNsYzhmeGh1MEMveHZiWFBpU0dHVWdZ?=
- =?utf-8?B?ZDVGNkd2V3FVWmVSeGFGMUp1ZWlyL3d0SnhVT0k3M1hPUmNuQ2p6UzRoOGg2?=
- =?utf-8?B?VWlSVnFRZ3hqRGJDcCtYNVdlRnVQa09NaURJRDRCWFd2ZG1ESVlvNFgxSTJS?=
- =?utf-8?B?akRVdlFKT0Z0cER0a2dBTnlNSnRrakpKZlQ0c2RIU0JCYk91ZjJNVTlkRnpQ?=
- =?utf-8?B?eU4yUjdHSzNvV25Jcm9uUTlUT1R1SERVM1V5NFY2VytKZ1FabDFYRXo4UjhO?=
- =?utf-8?B?eVcyR2dOcW9oZm9XTXhUY1Z5cTZVSzBZTVZlT3dSUk94ZUprcDFZLzMzeEph?=
- =?utf-8?B?UWFFNi9lSnd6MzF0YVl3Z2hIN1RZVDhZMFFrQmhuVzVLbkszeFU3dkd5VEN2?=
- =?utf-8?B?L1JFbEJKV0pRczI5aWxzY0I1WHB5dEQ3c01MOUdDc3QycVJ3eEhwUFFkNyty?=
- =?utf-8?B?YVBmeXBBTlpERERLUWZsdWYzdUxJekNoSVFsektiMkl4TXY4ZWlMZ3d6ckM1?=
- =?utf-8?B?R3R5ZHgyWmNHNlZPUmlWRHJyVWk2ZWNlaTdKWGVUKzRIR2VpRjhxcjZHaERW?=
- =?utf-8?B?N3ZwaUdlOTduMmUvZ3ByckhKN3l3V1Q4bnZCNkladkZZWU1CcTFRWUFmNDhP?=
- =?utf-8?B?d3A2MnZsTFFuUEFkUGhDTHJYN2t3bTZPWWoySVFHdFcwa2R0eEpGMlR4bHZ0?=
- =?utf-8?B?WEl1OVVTNm4zSzVVdVk5d05iOUpod2Q2aFBLbXRTQml5Y2hOSGFSemxBTHVK?=
- =?utf-8?B?d0tLNVNGakFVNVZuNGtyN0ZVWTd2bGlFVks1S3BVNTZlMFo2SlNwMzFBdzRV?=
- =?utf-8?B?ak5ISENqdDhMdTZ3WkVaRGVQT0g2YkErTFVhYTU5OHhmdWxYR0ZYUzdBYmN6?=
- =?utf-8?B?RTdWQWUwUHQvdkRoVTIrMFE5Y0V1WGVBaDdTb0d1SHFHVEIvMm16UT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16e25a3d-04bf-4c42-6be7-08df125eb543
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 12:50:08.8055
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 86ZsecRlxBBsb4+epgRANWOS5MhVb0FhgIP9oTllR37BdhbKd3uU1V/Jmb3kBV8ZKklFR4NqffH+GVfveThH7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8971
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Add TX_FSM_STATE and RX_FSM_STATE to include/ufs/unipro.h, as these are
-UniPro M-PHY attribute definitions rather than host controller specific
-ones.
+From: Jinchao Wang <wangjinchao600@gmail.com>
 
-Remove the duplicated local definitions from the HiSilicon, Qualcomm, AMD
-Versal and DesignWare UFS headers.
+Hardware breakpoint installation and removal run with IRQs disabled, but
+an NMI can still enter the same code through KGDB. The interrupted
+operation and the NMI can consequently claim the same slot or overwrite
+each other's DR7 state.
 
-This also prepares for using these definitions in a subsequent commit.
+Claim and release per-CPU slots with cmpxchg. Update cpu_dr7 with
+single-instruction per-CPU operations, and preserve hardware-first
+disable and hardware-last enable ordering. Add a per-CPU sequence number
+so interrupted DR7 writers and restore paths detect an NMI update and
+retry from the latest shadow state.
 
-Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://lore.kernel.org/all/4ee0a2efc9e8387af83286b8495b7d490247e165.1785067572.git.wangjinchao600@gmail.com/
+
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Jinchao Wang <wangjinchao600@gmail.com>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
- drivers/ufs/host/ufs-amd-versal2.c | 4 ++--
- drivers/ufs/host/ufs-hisi.c        | 8 ++++----
- drivers/ufs/host/ufs-hisi.h        | 5 -----
- drivers/ufs/host/ufs-qcom.c        | 4 ++--
- drivers/ufs/host/ufs-qcom.h        | 1 -
- drivers/ufs/host/ufshcd-dwc.h      | 4 ----
- include/ufs/unipro.h               | 2 ++
- 7 files changed, 10 insertions(+), 18 deletions(-)
+Changes in v16:
+ - In local_db_save(), remove the hypervisor check so all paths go
+   through the sequence retry loop, preventing an intervening NMI from
+   bypassing the sequence check on return.
+ - In local_db_save(), check cpu_dr7_seq before clearing hardware DR7
+   and load from shadow cpu_dr7 on sequence retry to prevent
+   destructively clobbering hardware DR7 state installed by an NMI.
+ - In local_db_restore(), restore from shadow cpu_dr7 whenever
+   cpu_dr7_seq changed instead of evaluating dr7 ? cpu_dr7 : 0,
+   ensuring breakpoints installed by an NMI are preserved when dr7
+   was initially 0.
+Changes in v15:
+ - Always preserve DR7_FIXED_1 in arch_install_hw_breakpoint(),
+   arch_uninstall_hw_breakpoint(), and hw_breakpoint_restore() to comply
+   with the x86 architectural specification.
+ - Wrap local_db_save() in a cpu_dr7_seq loop to detect NMI breakpoint
+   updates and ensure DR7 is disabled before entry.
+ - In local_db_restore(), if dr7 is 0 and an NMI modified breakpoints,
+   restore DR7_FIXED_1 to undo the NMI's overwrite and preserve KVM
+   guest isolation.
+ - Always write "val | DR7_FIXED_1" to hardware DR7 in local_db_restore()
+   to ensure architectural compliance.
+ - Avoid modifying the saved dr7 argument in-place across retry loops.
+Changes in v14:
+ - In local_db_restore(), return immediately if saved dr7 is 0 to avoid
+   overwriting intentionally cleared hardware DR7 state (e.g. KVM guest
+   entry) with cpu_dr7 when an NMI increments cpu_dr7_seq.
+Changes in v13:
+ - Add compiler barriers (barrier()) before checking cpu_dr7_seq to
+   prevent the compiler from hoisting the sequence check before debug
+   register updates or shadow state modifications.
+Changes in v12:
+ - Use stack variables dr7 and dr7_seq directly in exc_nmi() and remove
+   unnecessary per-CPU nmi_dr7 and nmi_dr7_seq variables.
+---
+ arch/x86/include/asm/debugreg.h |   77 ++++++++++++++++++++++--------
+ arch/x86/kernel/cpu/mce/core.c  |   10 ++--
+ arch/x86/kernel/hw_breakpoint.c |  101 ++++++++++++++++++++-------------------
+ arch/x86/kernel/nmi.c           |    7 ++-
+ arch/x86/kernel/traps.c         |   10 +++-
+ 5 files changed, 124 insertions(+), 81 deletions(-)
 
-diff --git a/drivers/ufs/host/ufs-amd-versal2.c b/drivers/ufs/host/ufs-amd-versal2.c
-index 2154d6286817..0d4d5e98ad65 100644
---- a/drivers/ufs/host/ufs-amd-versal2.c
-+++ b/drivers/ufs/host/ufs-amd-versal2.c
-@@ -112,7 +112,7 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
- 		u32 time_left, mibsel;
+diff --git a/arch/x86/include/asm/debugreg.h b/arch/x86/include/asm/debugreg.h
+index 50f830972698..ac1607eeefb7 100644
+--- a/arch/x86/include/asm/debugreg.h
++++ b/arch/x86/include/asm/debugreg.h
+@@ -19,6 +19,7 @@
  
- 		time_left = TIMEOUT_MICROSEC;
--		mibsel = UIC_ARG_MIB_SEL(MTX_FSM_STATE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(offset));
-+		mibsel = UIC_ARG_MIB_SEL(TX_FSM_STATE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(offset));
- 		do {
- 			ret = ufshcd_dme_get(hba, mibsel, &reg);
- 			if (ret)
-@@ -132,7 +132,7 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
- 		}
+ DECLARE_PER_CPU(unsigned long, cpu_dr7);
+ DECLARE_PER_CPU(bool, cpu_dr_in_guest);
++DECLARE_PER_CPU(unsigned int, cpu_dr7_seq);
  
- 		time_left = TIMEOUT_MICROSEC;
--		mibsel = UIC_ARG_MIB_SEL(MRX_FSM_STATE, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(offset));
-+		mibsel = UIC_ARG_MIB_SEL(RX_FSM_STATE, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(offset));
- 		do {
- 			ret = ufshcd_dme_get(hba, mibsel, &reg);
- 			if (ret)
-diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
-index 2d214ce9620e..bd223bda1ce2 100644
---- a/drivers/ufs/host/ufs-hisi.c
-+++ b/drivers/ufs/host/ufs-hisi.c
-@@ -30,10 +30,10 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
- 	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+ #ifndef CONFIG_PARAVIRT_XXL
+ /*
+@@ -126,45 +127,79 @@ static __always_inline bool hw_breakpoint_active(void)
  
- 	do {
--		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 0),
-+		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
- 				      &tx_fsm_val_0);
- 		err |= ufshcd_dme_get(hba,
--		    UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
-+		    UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
- 		if (err || (tx_fsm_val_0 == TX_STATE_HIBERN8 &&
- 			tx_fsm_val_1 == TX_STATE_HIBERN8))
- 			break;
-@@ -47,10 +47,10 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
- 	 * check the state again.
+ extern void hw_breakpoint_restore(void);
+ 
+-static __always_inline unsigned long local_db_save(void)
++static __always_inline void local_db_save(unsigned long *dr7,
++					  unsigned int *dr7_seq)
+ {
+-	unsigned long dr7;
++	bool retrying = false;
+ 
+-	if (this_cpu_read(cpu_dr_in_guest))
+-		return 0;
++	if (this_cpu_read(cpu_dr_in_guest)) {
++		*dr7 = 0;
++		*dr7_seq = 0;
++		return;
++	}
+ 
+-	if (cpu_feature_enabled(X86_FEATURE_HYPERVISOR) && !hw_breakpoint_active())
+-		return 0;
++	do {
++		/* Inner loop: get DR7 with checking cpu_dr7_seq. */
++		*dr7_seq = this_cpu_read(cpu_dr7_seq);
+ 
+-	get_debugreg(dr7, 7);
++		if (unlikely(retrying)) {
++			*dr7 = this_cpu_read(cpu_dr7);
++		} else {
++			get_debugreg(*dr7, 7);
+ 
+-	/* Architecturally set bit */
+-	dr7 &= ~DR7_FIXED_1;
+-	if (dr7)
+-		set_debugreg(DR7_FIXED_1, 7);
++			/* Architecturally set bit */
++			*dr7 &= ~DR7_FIXED_1;
++		}
+ 
+-	/*
+-	 * Ensure the compiler doesn't lower the above statements into
+-	 * the critical section; disabling breakpoints late would not
+-	 * be good.
+-	 */
+-	barrier();
++		barrier();
++		if (unlikely(*dr7_seq != this_cpu_read(cpu_dr7_seq))) {
++			retrying = true;
++			continue;
++		}
+ 
+-	return dr7;
++		/* Outer loop: clear DR7 and retry if sequence number is updated. */
++		if (*dr7)
++			set_debugreg(DR7_FIXED_1, 7);
++
++		/*
++		 * Ensure the compiler doesn't lower the above statements into
++		 * the critical section; disabling breakpoints late would not
++		 * be good.
++		 */
++		barrier();
++		retrying = true;
++	} while (unlikely(*dr7_seq != this_cpu_read(cpu_dr7_seq)));
+ }
+ 
+-static __always_inline void local_db_restore(unsigned long dr7)
++static __always_inline void local_db_restore(unsigned long dr7,
++					     unsigned int dr7_seq)
+ {
++	unsigned long val;
++	unsigned int seq;
++
+ 	/*
+ 	 * Ensure the compiler doesn't raise this statement into
+ 	 * the critical section; enabling breakpoints early would
+ 	 * not be good.
  	 */
- 	if (time_after(jiffies, timeout)) {
--		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 0),
-+		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
- 				     &tx_fsm_val_0);
- 		err |= ufshcd_dme_get(hba,
--		 UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
-+		 UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+ 	barrier();
++
+ 	if (this_cpu_read(cpu_dr_in_guest))
+ 		return;
+-	if (dr7)
+-		set_debugreg(dr7, 7);
++
++	do {
++		seq = this_cpu_read(cpu_dr7_seq);
++		if (seq == dr7_seq) {
++			if (!dr7)
++				return;
++			val = dr7;
++		} else {
++			val = this_cpu_read(cpu_dr7);
++		}
++
++		set_debugreg(val | DR7_FIXED_1, 7);
++		barrier();
++	} while (unlikely(seq != this_cpu_read(cpu_dr7_seq)));
+ }
+ 
+ #ifdef CONFIG_CPU_SUP_AMD
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index 39f238952e14..b3669d6f88d4 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -2109,8 +2109,9 @@ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
+ {
+ 	irqentry_state_t irq_state;
+ 	unsigned long dr7;
++	unsigned int dr7_seq;
+ 
+-	dr7 = local_db_save();
++	local_db_save(&dr7, &dr7_seq);
+ 
+ 	WARN_ON_ONCE(user_mode(regs));
+ 
+@@ -2127,18 +2128,19 @@ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
+ 
+ 	irqentry_nmi_exit(regs, irq_state);
+ out:
+-	local_db_restore(dr7);
++	local_db_restore(dr7, dr7_seq);
+ }
+ 
+ static __always_inline void exc_machine_check_user(struct pt_regs *regs)
+ {
+ 	unsigned long dr7;
++	unsigned int dr7_seq;
+ 
+ 	irqentry_enter_from_user_mode(regs);
+ 
+-	dr7 = local_db_save();
++	local_db_save(&dr7, &dr7_seq);
+ 	do_machine_check(regs);
+-	local_db_restore(dr7);
++	local_db_restore(dr7, dr7_seq);
+ 
+ 	irqentry_exit_to_user_mode(regs);
+ }
+diff --git a/arch/x86/kernel/hw_breakpoint.c b/arch/x86/kernel/hw_breakpoint.c
+index 68de7ed79d88..866bbbb8918d 100644
+--- a/arch/x86/kernel/hw_breakpoint.c
++++ b/arch/x86/kernel/hw_breakpoint.c
+@@ -43,6 +43,9 @@ EXPORT_PER_CPU_SYMBOL(cpu_dr7);
+ DEFINE_PER_CPU(bool, cpu_dr_in_guest);
+ EXPORT_PER_CPU_SYMBOL_GPL(cpu_dr_in_guest);
+ 
++/* Sequence number of the per-CPU DR7 state. */
++DEFINE_PER_CPU(unsigned int, cpu_dr7_seq);
++
+ /* Per cpu debug address registers values */
+ static DEFINE_PER_CPU(unsigned long, cpu_debugreg[HBP_NUM]);
+ 
+@@ -100,7 +103,7 @@ int decode_dr7(unsigned long dr7, int bpnum, unsigned *len, unsigned *type)
+ int arch_install_hw_breakpoint(struct perf_event *bp)
+ {
+ 	struct arch_hw_breakpoint *info = counter_arch_bp(bp);
+-	unsigned long *dr7;
++	unsigned int seq;
+ 	int i;
+ 
+ 	lockdep_assert_irqs_disabled();
+@@ -109,32 +112,25 @@ int arch_install_hw_breakpoint(struct perf_event *bp)
+ 		return -EBUSY;
+ 
+ 	for (i = 0; i < HBP_NUM; i++) {
+-		struct perf_event **slot = this_cpu_ptr(&bp_per_reg[i]);
+-
+-		if (!*slot) {
+-			*slot = bp;
++		if (!this_cpu_cmpxchg(bp_per_reg[i], NULL, bp))
+ 			break;
+-		}
  	}
  
- 	if (err) {
-diff --git a/drivers/ufs/host/ufs-hisi.h b/drivers/ufs/host/ufs-hisi.h
-index 6af6a268458d..08dccfbec404 100644
---- a/drivers/ufs/host/ufs-hisi.h
-+++ b/drivers/ufs/host/ufs-hisi.h
-@@ -39,11 +39,6 @@
- #define MASK_UFS_DEVICE_RESET		(0x1 << 16)
- #define BIT_UFS_DEVICE_RESET		(0x1)
+ 	if (WARN_ONCE(i == HBP_NUM, "Can't find any breakpoint slot"))
+ 		return -EBUSY;
  
--/*
-- * M-TX Configuration Attributes for Hixxxx
-- */
--#define MPHY_TX_FSM_STATE	0x41
+-	set_debugreg(info->address, i);
+-	__this_cpu_write(cpu_debugreg[i], info->address);
 -
- /*
-  * Hixxxx UFS HC specific Registers
-  */
-diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-index 38897d01fde2..1e492dac8d93 100644
---- a/drivers/ufs/host/ufs-qcom.c
-+++ b/drivers/ufs/host/ufs-qcom.c
-@@ -390,7 +390,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+-	dr7 = this_cpu_ptr(&cpu_dr7);
+-	*dr7 |= encode_dr7(i, info->len, info->type);
+-
+-	/*
+-	 * Ensure we first write cpu_dr7 before we set the DR7 register.
+-	 * This ensures an NMI never see cpu_dr7 0 when DR7 is not.
+-	 */
+-	barrier();
+-
+-	set_debugreg(*dr7, 7);
+-	if (info->mask)
+-		amd_set_dr_addr_mask(info->mask, i);
++	do {
++		seq = this_cpu_inc_return(cpu_dr7_seq);
++		this_cpu_write(cpu_debugreg[i], info->address);
++		barrier();
++		set_debugreg(info->address, i);
++		if (info->mask)
++			amd_set_dr_addr_mask(info->mask, i);
++		this_cpu_or(cpu_dr7, encode_dr7(i, info->len, info->type));
++		barrier();
++		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
++		barrier();
++	} while (seq != this_cpu_read(cpu_dr7_seq));
  
- 	do {
- 		err = ufshcd_dme_get(hba,
--				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
-+				UIC_ARG_MIB_SEL(TX_FSM_STATE,
- 					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
- 				&tx_fsm_val);
- 		if (err || tx_fsm_val == TX_STATE_HIBERN8)
-@@ -406,7 +406,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+ 	return 0;
+ }
+@@ -152,36 +148,34 @@ void arch_uninstall_hw_breakpoint(struct perf_event *bp)
+ {
+ 	struct arch_hw_breakpoint *info = counter_arch_bp(bp);
+ 	unsigned long dr7;
++	unsigned int seq;
+ 	int i;
+ 
+ 	lockdep_assert_irqs_disabled();
+ 
+ 	for (i = 0; i < HBP_NUM; i++) {
+-		struct perf_event **slot = this_cpu_ptr(&bp_per_reg[i]);
+-
+-		if (*slot == bp) {
+-			*slot = NULL;
++		if (this_cpu_read(bp_per_reg[i]) == bp)
+ 			break;
+-		}
+ 	}
+ 
+ 	if (WARN_ONCE(i == HBP_NUM, "Can't find any breakpoint slot"))
+ 		return;
+ 
+-	dr7 = this_cpu_read(cpu_dr7);
+-	dr7 &= ~__encode_dr7(i, info->len, info->type);
+-
+-	set_debugreg(dr7, 7);
+-	if (info->mask)
+-		amd_set_dr_addr_mask(0, i);
+-
+-	/*
+-	 * Ensure the write to cpu_dr7 is after we've set the DR7 register.
+-	 * This ensures an NMI never see cpu_dr7 0 when DR7 is not.
+-	 */
+-	barrier();
+-
+-	this_cpu_write(cpu_dr7, dr7);
++	do {
++		seq = this_cpu_inc_return(cpu_dr7_seq);
++		dr7 = this_cpu_read(cpu_dr7);
++		dr7 &= ~__encode_dr7(i, info->len, info->type);
++		set_debugreg(dr7 | DR7_FIXED_1, 7);
++		if (info->mask)
++			amd_set_dr_addr_mask(0, i);
++		barrier();
++		this_cpu_and(cpu_dr7,
++			     ~__encode_dr7(i, info->len, info->type));
++		barrier();
++	} while (seq != this_cpu_read(cpu_dr7_seq));
++
++	WARN_ONCE(this_cpu_cmpxchg(bp_per_reg[i], bp, NULL) != bp,
++		  "Can't release breakpoint slot");
+ }
+ 
+ static int arch_bp_generic_len(int x86_len)
+@@ -315,10 +309,7 @@ static inline bool within_cpu_entry(unsigned long addr, unsigned long end)
+ 				sizeof(struct tlb_state)))
+ 			return true;
+ 
+-		/*
+-		 * When in guest (X86_FEATURE_HYPERVISOR), local_db_save()
+-		 * will read per-cpu cpu_dr7 before clear dr7 register.
+-		 */
++		/* local_db_save() reads this state before clearing DR7. */
+ 		if (within_area(addr, end, (unsigned long)&per_cpu(cpu_dr7, cpu),
+ 				sizeof(cpu_dr7)))
+ 			return true;
+@@ -326,6 +317,10 @@ static inline bool within_cpu_entry(unsigned long addr, unsigned long end)
+ 				(unsigned long)&per_cpu(cpu_dr_in_guest, cpu),
+ 				sizeof(cpu_dr_in_guest)))
+ 			return true;
++		if (within_area(addr, end,
++				(unsigned long)&per_cpu(cpu_dr7_seq, cpu),
++				sizeof(cpu_dr7_seq)))
++			return true;
+ 	}
+ 
+ 	return false;
+@@ -493,12 +488,18 @@ void flush_ptrace_hw_breakpoint(struct task_struct *tsk)
+ 
+ void hw_breakpoint_restore(void)
+ {
+-	set_debugreg(__this_cpu_read(cpu_debugreg[0]), 0);
+-	set_debugreg(__this_cpu_read(cpu_debugreg[1]), 1);
+-	set_debugreg(__this_cpu_read(cpu_debugreg[2]), 2);
+-	set_debugreg(__this_cpu_read(cpu_debugreg[3]), 3);
+-	set_debugreg(DR6_RESERVED, 6);
+-	set_debugreg(__this_cpu_read(cpu_dr7), 7);
++	unsigned int seq;
++
++	do {
++		seq = this_cpu_inc_return(cpu_dr7_seq);
++		set_debugreg(this_cpu_read(cpu_debugreg[0]), 0);
++		set_debugreg(this_cpu_read(cpu_debugreg[1]), 1);
++		set_debugreg(this_cpu_read(cpu_debugreg[2]), 2);
++		set_debugreg(this_cpu_read(cpu_debugreg[3]), 3);
++		set_debugreg(DR6_RESERVED, 6);
++		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
++		barrier();
++	} while (seq != this_cpu_read(cpu_dr7_seq));
+ }
+ EXPORT_SYMBOL_FOR_KVM(hw_breakpoint_restore);
+ 
+diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+index 3c9f60d6ca5a..c3806f7bd3e8 100644
+--- a/arch/x86/kernel/nmi.c
++++ b/arch/x86/kernel/nmi.c
+@@ -531,11 +531,12 @@ enum nmi_states {
+ };
+ static DEFINE_PER_CPU(enum nmi_states, nmi_state);
+ static DEFINE_PER_CPU(unsigned long, nmi_cr2);
+-static DEFINE_PER_CPU(unsigned long, nmi_dr7);
+ 
+ DEFINE_IDTENTRY_RAW(exc_nmi)
+ {
+ 	irqentry_state_t irq_state;
++	unsigned long dr7;
++	unsigned int dr7_seq;
+ 	struct nmi_stats *nsp = this_cpu_ptr(&nmi_stats);
+ 
+ 	/*
+@@ -572,7 +573,7 @@ DEFINE_IDTENTRY_RAW(exc_nmi)
  	 */
- 	if (time_after(jiffies, timeout))
- 		err = ufshcd_dme_get(hba,
--				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
-+				UIC_ARG_MIB_SEL(TX_FSM_STATE,
- 					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
- 				&tx_fsm_val);
+ 	sev_es_ist_enter(regs);
  
-diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
-index 3c6cb2281af0..1ec661277c1d 100644
---- a/drivers/ufs/host/ufs-qcom.h
-+++ b/drivers/ufs/host/ufs-qcom.h
-@@ -10,7 +10,6 @@
- #include <soc/qcom/ice.h>
- #include <ufs/ufshcd.h>
+-	this_cpu_write(nmi_dr7, local_db_save());
++	local_db_save(&dr7, &dr7_seq);
  
--#define MPHY_TX_FSM_STATE       0x41
- #define HBRN8_POLL_TOUT_MS      100
- #define DEFAULT_CLK_RATE_HZ     1000000
- #define MAX_SUPP_MAC		64
-diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
-index a5e40e7604a1..0406f2bb576b 100644
---- a/drivers/ufs/host/ufshcd-dwc.h
-+++ b/drivers/ufs/host/ufshcd-dwc.h
-@@ -27,10 +27,6 @@
+ 	irq_state = irqentry_nmi_enter(regs);
  
- #define CBREFREFCLK_GATE_OVR_EN		BIT(7)
+@@ -594,7 +595,7 @@ DEFINE_IDTENTRY_RAW(exc_nmi)
  
--/* M-PHY Attributes */
--#define MTX_FSM_STATE		0x41
--#define MRX_FSM_STATE		0xC1
--
- /* M-PHY registers */
- #define RX_OVRD_IN_1(n)		(0x3006 + ((n) * 0x100))
- #define RX_PCS_OUT(n)		(0x300F + ((n) * 0x100))
-diff --git a/include/ufs/unipro.h b/include/ufs/unipro.h
-index e0f490e11c7f..6fee545bdee5 100644
---- a/include/ufs/unipro.h
-+++ b/include/ufs/unipro.h
-@@ -34,6 +34,7 @@
- #define TX_PWM_G6_G7_SYNC_LENGTH		0x0034
- #define TX_HS_DEEMPHASIS_SETTING		0x0037
- #define TX_HS_PRESHOOT_SETTING			0x003B
-+#define TX_FSM_STATE				0x0041
- #define TX_REFCLKFREQ				0x00EB
- #define TX_CFGCLKFREQVAL			0x00EC
- #define	CFGEXTRATTR				0x00F0
-@@ -72,6 +73,7 @@
- #define CFGRXCDR8				0x00BA
- #define CFGRXOVR8				0x00BD
- #define CFGRXOVR6				0x00BF
-+#define RX_FSM_STATE				0x00C1
- #define RX_FOM					0x00C2
- #define RXDIRECTCTRL2				0x00C7
- #define CFGRXOVR4				0x00E9
--- 
-2.43.0
+ 	irqentry_nmi_exit(regs, irq_state);
+ 
+-	local_db_restore(this_cpu_read(nmi_dr7));
++	local_db_restore(dr7, dr7_seq);
+ 
+ 	sev_es_ist_exit();
+ 
+diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
+index 30aa8369957e..018abe736285 100644
+--- a/arch/x86/kernel/traps.c
++++ b/arch/x86/kernel/traps.c
+@@ -1231,8 +1231,12 @@ static noinstr void exc_debug_kernel(struct pt_regs *regs, unsigned long dr6)
+ 	 * it results in an endless recursion and stack overflow. Thus we stay
+ 	 * with the IDT approach, i.e., save DR7 and disable #DB.
+ 	 */
+-	unsigned long dr7 = local_db_save();
+-	irqentry_state_t irq_state = irqentry_nmi_enter(regs);
++	unsigned long dr7;
++	unsigned int dr7_seq;
++	irqentry_state_t irq_state;
++
++	local_db_save(&dr7, &dr7_seq);
++	irq_state = irqentry_nmi_enter(regs);
+ 	instrumentation_begin();
+ 
+ 	/*
+@@ -1289,7 +1293,7 @@ static noinstr void exc_debug_kernel(struct pt_regs *regs, unsigned long dr6)
+ 	instrumentation_end();
+ 	irqentry_nmi_exit(regs, irq_state);
+ 
+-	local_db_restore(dr7);
++	local_db_restore(dr7, dr7_seq);
+ }
+ 
+ static noinstr void exc_debug_user(struct pt_regs *regs, unsigned long dr6)
 
