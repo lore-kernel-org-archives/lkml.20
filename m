@@ -1,164 +1,108 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30C240F756;
-	Mon, 14 Sep 2026 08:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAC740B0FE
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375019; cv=none; b=eWOxNXrE1ngdjsyMlRkepaJIl0/suVgWexVMgLWAckTRFtOGJiSel2PdmegieVJgYGS9Tck/E6VtJf1tXQWwgTntprpXwn44oRY9mNonFfD2615fsx0KjrroEOA5+q8DOwfTuUuCbDvz1Bo8cjjxUvgYFV9NwdNBbM1CU6aMUmg=
+	t=1789375075; cv=none; b=fsSCriN3wiuLI8BXzU/HQwGixkaiduK19HaeitV7lYFQ9qYQnOpcDxyK/t8iqyOLIVW+XIeKaKEFNrgcY4Qmd895/EdfoIEQo3slmSbu/ADHOkQK+xkUsGxlWLCLBGKDLCr9C3TrTKtzOAi+ifB862OX8Ahc2NSClozslXvykhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375019; c=relaxed/simple;
-	bh=JME5BQjtec124eb9yanhj/n3yCrhsMGSgGJHJNE2RAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IXZE9l6/KhZn1eXkrQ9eru8QMV9GH74oK9kat6oU4Kgegcj/vJgalQRNFGjkcZIIHzqVtV92G8zN2+9W919Ng+z32f5rxsxl+T4IBPp4tKR7CcBDk3M++FTZxbeUObiZ/D7tI07RlKPXa4LZLVq854Sm/RltzzQ7qN9h4OvJdjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=mS1XrmjZ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ovaJa3wt; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=UjAiVTDm; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=jr0jyM58; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="mS1XrmjZ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ovaJa3wt";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="UjAiVTDm";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jr0jyM58"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6D8201F388;
-	Mon, 14 Sep 2026 08:36:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789375011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=87c11ra7wF1rwaxwnuycKYlooj+/5mNGob7/rCviIEA=;
-	b=mS1XrmjZD0fj1qlmmLL+R/hUB4qRrgRMS0iQzmkq8GShzWotL0dO4tSDxJWH7XtC+x5KwM
-	WXtLtUPfjz3G/km6K4+J5KPu1Udj/pxsU5D5xGmuTakSOwDf2RBd3ycYlRF65zCUb0iwbV
-	9zFNxe5HGgFmCOJ4oxYB4CY37X1l45k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789375011;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=87c11ra7wF1rwaxwnuycKYlooj+/5mNGob7/rCviIEA=;
-	b=ovaJa3wtedCFrR2kLhKWCdxS8d1FMiELUE9FFRaXDiNw6tzmbthSwBGBpE1Ti/tDiob2ca
-	Nd1WxFYC+0O0i5CQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789375007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=87c11ra7wF1rwaxwnuycKYlooj+/5mNGob7/rCviIEA=;
-	b=UjAiVTDmmHRP7OudCoVoluQiIdavqlSlFrViy0zngRgiNL77OwzfEFSB9UVYuaF1C+t+Zf
-	gytgTpG3bLe/JSIABDqUoLVlyEaX61xyKDAxTLnPOgomeOF07GG21aoRnn1jSQgUzwhtXA
-	nqHYoAdhQrHijGi8j9X0iy2iYUZ4K30=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789375007;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=87c11ra7wF1rwaxwnuycKYlooj+/5mNGob7/rCviIEA=;
-	b=jr0jyM58QTn10i09CQAJ0ed0gPjF7T0WPPrmLpM5of6ZabyJjo/Ngt7TuxZpXBa85oKdWK
-	DKPDW0E88nkDhlCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4793313515;
-	Mon, 14 Sep 2026 08:36:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uNR3ER+yp2ojHgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 08:36:47 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id C3129A12E4; Mon, 14 Sep 2026 10:36:42 +0200 (CEST)
-Date: Mon, 14 Sep 2026 10:36:42 +0200
-From: Jan Kara <jack@suse.cz>
-To: Mateusz Guzik <mjguzik@gmail.com>
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 08/10] fsnotify: use path_clone()
-Message-ID: <og5vraj76bhfzbidkgujd5exdlh4ckutulmm7rcln4xbjjvl53@6z3cewyb3k4v>
-References: <20260913144918.1606123-1-mjguzik@gmail.com>
- <20260913144918.1606123-9-mjguzik@gmail.com>
+	s=arc-20240116; t=1789375075; c=relaxed/simple;
+	bh=KNjA7PQve0B0fl47yF9t7FoPzwqzW5FmNGRGU7EkkH4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ai5xBgLbPEXIJ+QG3uakTqsXItdde6hWJKWh8J04tD8N3UNO7VYmCsccfd9CJu79WyfX1dLyn7NzkEKglF6yZY7+ob0QulnhA71M//6f8abxS5HRbanRrFxJ97vW2zRr2y9wkSkttzGBkDmfRocYP8F3vy3QP87mS3yes2+ZmLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 8fb9cfaeb01711f19a56ed5b684f684d-20260914
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7e0e7534-873d-4d54-8319-c5519fe8c04d,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:cd564c1b352896c757069cba0f8b4daf,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 8fb9cfaeb01711f19a56ed5b684f684d-20260914
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 958684671; Mon, 14 Sep 2026 16:37:46 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v12 0/6] ntfs: fix volume flag races and persist the recorded error state
+Date: Mon, 14 Sep 2026 16:37:35 +0800
+Message-Id: <20260914083741.146689-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913144918.1606123-9-mjguzik@gmail.com>
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Sun 13-09-26 16:49:15, Mateusz Guzik wrote:
-> No functional changes.
-> 
-> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+Hi all,
 
-This looks good to me. Feel free to add:
+The fs/ntfs runtime metadata-corruption paths only record the in-memory
+NVolErrors() flag, and the dirty-bit persistence used to race with
+ntfs_sync_fs(): a volume could end up with a clean on-disk dirty flag
+despite modification or recorded corruption, so chkdsk would not run on
+the next mount.  This series fixes that.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+   1/6 makes the volume flag read-modify-write atomic under the
+      $Volume mrec_lock;
+   2/6 marks the volume dirty unconditionally on metadata changes,
+      dropping the racy caller-side checks in file.c and namei.c;
+   3/6 derives the on-disk dirty bit from the recorded error state at
+      the persistence points (sync_fs, remount-ro, put_super) and never
+      writes a hibernated volume;
+   4/6 persists the dirty state after the final put_super() commits so
+      late errors cannot unmount clean;
+   5/6 stops ntfs_sync_fs() from clearing VOLUME_IS_DIRTY: the clearing
+      moves to the quiescent transitions, a recorded error state is
+      still persisted at sync time, and sync now reports writeback and
+      flush errors instead of discarding them;
+   6/6 checks the dirty-state commit on remount and unmount.
 
-								Honza
+Changes in this revision, from the review:
 
-> ---
->  fs/notify/fanotify/fanotify.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/notify/fanotify/fanotify.c b/fs/notify/fanotify/fanotify.c
-> index a208a7ec1692..84b4c505dbe3 100644
-> --- a/fs/notify/fanotify/fanotify.c
-> +++ b/fs/notify/fanotify/fanotify.c
-> @@ -559,9 +559,8 @@ static struct fanotify_event *fanotify_alloc_path_event(const struct path *path,
->  		return NULL;
->  
->  	pevent->fae.type = FANOTIFY_EVENT_TYPE_PATH;
-> -	pevent->path = *path;
->  	*hash ^= fanotify_hash_path(path);
-> -	path_get(path);
-> +	path_clone(path, &pevent->path);
->  
->  	return &pevent->fae;
->  }
-> @@ -600,10 +599,9 @@ static struct fanotify_event *fanotify_alloc_perm_event(const void *data,
->  	pevent->hdr.len = 0;
->  	pevent->state = FAN_EVENT_INIT;
->  	pevent->watchdog_cnt = 0;
-> -	pevent->path = *path;
->  	pevent->pos = range ? range->pos : FANOTIFY_NO_RANGE;
->  	pevent->count = range ? range->count : 0;
-> -	path_get(path);
-> +	path_clone(path, &pevent->path);
->  
->  	return &pevent->fae;
->  }
-> -- 
-> 2.53.0
-> 
+  - 5/6: with the clearing gone from the sync path, a recorded error
+    state is persisted without ever clearing the bit, and
+    sync_blockdev() and blkdev_issue_flush() are both called with the
+    first error returned.
+
+  - The IOCB_NOWAIT behavior and the per-operation $Volume mrec_lock
+    acquisition are outside the scope of this series.  The series keeps
+    the unconditional ntfs_set_volume_flags() call to preserve the
+    ordering that marks the volume dirty before the metadata
+    modification; a RWF_NOWAIT write still blocks in the marking when
+    the volume looks clean, as it already did on the base.  The
+    non-blocking and contended-lock handling (mutex_trylock, GFP_NOWAIT)
+    will be addressed in a separate follow-up patch.
+
+Hongling Zeng (4):
+  ntfs: fix volume flag update races
+  ntfs: set the volume dirty bit unconditionally on metadata changes
+  ntfs: sync the volume dirty bit with the recorded error state
+  ntfs: persist the dirty state after the final put_super() commits
+
+ fs/ntfs/file.c   |  20 ++---
+ fs/ntfs/namei.c  |  24 ++----
+ fs/ntfs/ntfs.h   |   1 -
+ fs/ntfs/super.c  | 191 ++++++++++++++++++++++++++++++++++++-----------
+ fs/ntfs/volume.h |   4 +
+ 5 files changed, 171 insertions(+), 69 deletions(-)
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.25.1
+
