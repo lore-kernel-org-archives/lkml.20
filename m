@@ -1,241 +1,265 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com [148.163.129.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB8E34D382
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789426832; cv=none; b=RltM77AhXwZ2ZgH8jB//8OfQYRRho2OnshRlt7IDl551CCCnbmCRbNHsuLHUysZOrbDC9E1kySqrQSfs+rLpF7RTWKVDfpashrqPNTnI85BRXwEcsFEEfXO+0HGGB6Cug0ow5x5B6pj82yHhiSAGKAl00IF1mEtiGtxRQwK3vdk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789426832; c=relaxed/simple;
-	bh=Uvda3mpDZ+Q/k7LZ/3pQQ7KyTaZcRTOLWlF3hmPQjjE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=eNLX4Y0ubsSXZ9lPU2ywK0y/Bq58FFUBW6IGekJlpDU0lbXzNfOgoe8sNNqTMpnpy8HuL6gFhXBT11ESSCmug5yPFWNj7rlY4ypA7x9KxD39hkK8phlsOu3e//sygQuPJeHsHSD97nDlg/+G0Ubbs6oqZ88InbM89xO7VUANHdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6c2bb8200b0so3337306eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:00:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789426829; x=1790031629;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=44Xx70pjFYQDKE7JTJq5Y/pRdejI1BJo8WjK0aWEuzw=;
-        b=S2G3FWO1r1bVGaRkWqVRl6kyi96nG8mYaNjAi6KPX9ya6VQrlQQQTt1eaFUWT7aOlO
-         qsBg+R9euY2+xwidjFS1cKoJ7/RP/FVUA127KgO9VLiKQTTyattD5omTAcyt0z9RPav9
-         IwqKcEcyQ1BLavbF/nEbL5GeREczWhzdWRyaQAMTZpjlrQehlg4eoKYU2XGXXDGS/xW8
-         ID+GME7NWZvEArWuvEo3uArHnify9eneKF6JzFsJ6tFfFa34kImhbUhVX2U+NN4HjXkj
-         lrHmMwCUvQvTR0rU9JG+GAz1NNVFccLq4XHyxxRu8cbF/6QqJiJwUQa+b+xtkJt8X+5t
-         W0nA==
-X-Forwarded-Encrypted: i=1; AKwUvBzepPQfcdFu4hTFFaiXWITmIisfzv0WJIkempK1NK7VkkWwwiFoumV4Bs/QfohB7d5d5hEWruSx3ZBXks0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSopCp27HQNAGzhyKGNw4bC7reiTU05N+bsQEv954TKZMM5ias
-	L06kozzW0dU2bO4CFe2nmDjU+2LVvz6BBcldrYKdOyYRkA3b+lord6/2WjzTZGsV7+yMO+IJ4/E
-	agL/7v7quHDjkrSWQBf5A4aGGix2pvkhp1Nkwe9joSlth5CUKyZGZdwzYOdQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31EB37C93F;
+	Mon, 14 Sep 2026 23:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.129.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789426854; cv=fail; b=qN7TtDuwOvUkOE6c8DLAfptGuvw5QDZthQ5zTn2DZV0bO2T9nnxQp1H6qFKi+25EnAsq5efFrAzSQP9ignS628DiWy5jzg6I5iPOZksYkuNYA+zxJDOXbBJD9C7jozT4KQBvQN75HBhF4rKhQKnB7+yTNolbH2I6URONbTAOnxc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789426854; c=relaxed/simple;
+	bh=l79hDJCWMjoJBLy0WK8Yc2N84/d9Go/IBs43sjPQr3c=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ueSAQUrvIZxx+To2LSJ0HL59/q+z+OY++XITYEyWjPds+MbKSW7oHwzh5s6Web2o873txFa+Be5J4awNjMfM0SvhIKTjCvWqHkxMTts4xetqOBDbgcH4eWe5DhP6X1/xSEdLexmtaDLwqVhBaxZANqFKQIp0lLigGrC2AhxCE2U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com; spf=pass smtp.mailfrom=sitime.com; dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b=oBzCkaFO; dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b=EaMPZgi1; arc=fail smtp.client-ip=148.163.129.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sitime.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b="oBzCkaFO";
+	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b="EaMPZgi1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitime.com;
+ h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:content-type:date:date:from:from:in-reply-to:in-reply-to:message-id:message-id:mime-version:mime-version:references:references:subject:subject:to:to;
+ s=mail; bh=MZYbQMRApdSq3e9vx9xJQpwUAHCRx8pSURM4jplpxJA=;
+ b=oBzCkaFOPG/7Wwut9OelXrXuf08wAMnuR/q8n+1MD0Z/OQ5kHghLm7nkaMcd09K4HehLlM3koGa5RaUIBS4XAV8CvYC1hn882gIhCe5YP+UoFtch+W1YzCnUBpuaLbs6R86RyrucTId4uPKamxMNVqaUkYrHbPcguJdHCmL6KNYI/HFKaLdFZnLi6B718CNQ1iLIs3AnBUcDfF0Q1qrQYmOgFdHqpY9kTtQN1f+9t2/NDX77Psgdo485DjYqgKftyapk0Te6KSbwAcOXOJnKSnJfP5qVui1DVP2d4XhckyIwIH+dy5958pRzlKcUpCxn3ludBYm+lV+AST/RDMbnqA==
+X-Virus-Scanned: Proofpoint Essentials engine
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021110.outbound.protection.outlook.com [40.107.208.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id A0607A80077;
+	Mon, 14 Sep 2026 23:00:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZocaGBjixX0vA4d2PyRnTZwapd2SjuJfAdt/yv7XQ1Pp7azqGE9x2ADiKS1hZYAmHYowkw16MorM/vevOqkwPGLkIOzQWL+Z1gZJTuV6oUKXNinN7w1+wFo6xlQ0Y81nWbTk5NH160NhvASv8vXxGrQ+mmhaG2LLbxL2Qsd79k9krmp4EoB6RtkMzQHbrzpSx8ePde19txQv2CGgPqiZK53WD6Va++4Q0P+9FN1Js5IJvXX4rTukZG4ZwhctVJ/p/dQqG3bb5/+YChloH/thwukVAfre+aYQb+pdDG4G0WuyhjFsq+Hq22D4YoEQYQykvF+zQDudyy8DTfVJPNoONw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MZYbQMRApdSq3e9vx9xJQpwUAHCRx8pSURM4jplpxJA=;
+ b=hwaHwl/1aQF/J2bB5xbjbO2PftCYmnUlv17V6RtwVDU9guFArs+79LLbKjPqrRJxb1GvFcGDbDH/H2OTolmzfTJMydADO+agFF6BJbcgefr/38cTDyPTcKgD4ygPHPKtLFjOSUexyiHTofB5bLStk4+mTh1hR47TplhHxjfmHC+CaBDu/SkUR4fD9RNPXBXCtF26m5DQG7DmNByYv0BHJfuilZFt1W+uLXgpwQHaWpqPcW5Y6lsOiG3AYUdNp1llPcccOpfsS/E3wiUTC2YA3UzdCeIwSrqVXJiTXiaqt+AJxkwpLAY7qMQVH1CdXihOJOsHDzZpFHgOqnybc7ql3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sitime.com; dmarc=pass action=none header.from=sitime.com;
+ dkim=pass header.d=sitime.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=Sitime.onmicrosoft.com; s=selector1-Sitime-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MZYbQMRApdSq3e9vx9xJQpwUAHCRx8pSURM4jplpxJA=;
+ b=EaMPZgi1/a5EjJHdisRUktJaFZ/r3MVU4v105PsNwbuBXhYpbz/D2VdRN/lEUkO95JGyqK8Z2CMXOHE4bJmhO1grszlvU6Gn+9G2BBywOkhjbX1ZIY3je4B+wtlLND4kXTNamE1qaNds5q6r3kfd1nEyHJ+Uj0admOUo/4tc2pyOaSst2Lm28AcqJyK1PZN/fMPKzbMJFi5mr9YKBl0oZJ4NffAqAS1FxzdztQMVI/+Pn8V/JR0m9rpFo59Gw587ZcDSYTb8CWYdmrZeTuK6XdAFTwpEL6k9nOIHwxN1gkvX/3ZEvqgw3FZ8DqgUEkT5H4P7/f868FAI0FYP2T9XLg==
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ (2603:10b6:408:3bf::16) by MW6PR20MB6839.namprd20.prod.outlook.com
+ (2603:10b6:303:23e::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
+ 2026 23:00:40 +0000
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01]) by LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 23:00:40 +0000
+From: Ali Rouhi <arouhi@sitime.com>
+To: "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+CC: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>,
+	"vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
+	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+	"ivecera@redhat.com" <ivecera@redhat.com>, "robh@kernel.org"
+	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cjubran@nvidia.com"
+	<cjubran@nvidia.com>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v8 08/15] dpll: sit9531x: add support to get and
+ set frequency on pins
+Thread-Topic: [PATCH net-next v8 08/15] dpll: sit9531x: add support to get and
+ set frequency on pins
+Thread-Index: AQHdOyOwcC+FoFSTvEyLo9BKWxvO6bbEqYYAgAoZ2wA=
+Date: Mon, 14 Sep 2026 23:00:37 +0000
+Message-ID: <20260914230034.63861-7-arouhi@sitime.com>
+References: <178887151864.219967.4978978194985471898@kernel.org>
+In-Reply-To: <178887151864.219967.4978978194985471898@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sitime.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LVWPR20MB994915:EE_|MW6PR20MB6839:EE_
+x-ms-office365-filtering-correlation-id: 8d773bab-b930-416c-91bc-08df12b3ffa0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|38070700021|6133799003|10067099003|56012099006|5023799004|3023799007|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ rUUH32k7BxDwDsKrXGIRlyjGrs2DpEV71QZNrsQMUjvzrZ5Ra1qD/5l4l6mopNsJG6WBckJfP0EP8sM7F4Tn2XJayheK+cIK7yRwXaJu9pnWhHLG4ZmbW1Cfu/k07p3bGxQZ/Vdw4FoOp4X/rKrA/SLrPMpzvN2exTxLsB4u4F5IcF5a+BBPPzT7NKfv9zaiOZH1RhzSnn1X0JuKJiWBGrlKNlAPaXh2QRZBsJV75PvSjWa1CoFFq6cEewXYIespVANyJX6l7zI/uo+sQXZrmF2RlY1CHOlz1D/KQSUW1MEU5M5he92VBzEhShbQcS32BsQHhFnC2idRAv3pzCYDwwVWzHrz9lT//33j3mxx6H8PjrFtNZLEZjvTuktlXz8lrpgvXBgmJb7tXYhZiAZaqY2uGhlcsAsSVAbFQ7FfgQ2nkj6PoaIcoNqglhdJ9yfcKwUDeZVeSo5nUPgUgu0X5q4FSOD2RTujYXjhWg3jFYwB80Ou/sy51ITyku1YFvJXLOloQHv74rjJ87QwDUCoLBPF29XuRKyOAAub12Kaxwxpvgs7+wQrNfV57kbpKzfz+mSJPcofwLf8+udur84UQa4iEFfsZgc8YUuYLXMG8jHfh55/aTonS4I3Q0d99Xs0pigUXSUDOVNQLgMpoDlLtboKBPZcGMPwk57yFfztZIcDGAJXbgzoL+2xrTe9zAohEluCXVbneR6RXvCefjTRVgIJtnTsJCRjj5VzcbLgVp0=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(38070700021)(6133799003)(10067099003)(56012099006)(5023799004)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?pphihM491iDRmqQ4zHmUufjcyBNev83U6KGj3aNgE/f2chZ+qh0hH7S7/R?=
+ =?iso-8859-1?Q?Kb3RXVWTU9Bdp8iTBGOBV79bGkecjU4kMLrbUv8rLDMOVUr//OwDLrzs0h?=
+ =?iso-8859-1?Q?QQRmTE9oH70hjUF2sewE4kOt2JqQKxmczHJNoxwrrz2JeaR//Z2FA9zAiX?=
+ =?iso-8859-1?Q?xdO/fzLi5iiJ701rbh2dloVHNVNpa+CEjbTd3yZFHfQm9IwvlcfELUUInL?=
+ =?iso-8859-1?Q?ajFdRjpP7Tgp1830UasF9UyUnP7G/P95PR+KlKPn/nIAmGb/bVvRpipj3x?=
+ =?iso-8859-1?Q?sl/UC/1tHLCTWHJMyZ47lxA8zKfgtD+tFATVClWrOYkoOk6uAaMDvSS2tS?=
+ =?iso-8859-1?Q?kBhzGNQulSLsKkdZKrjn8h4LJj/cQHY9Xn7n5+QoAnV/qaqTMPa+0nba1Y?=
+ =?iso-8859-1?Q?7pC+0yAm4yTVzKagpDRw9F/RfxxtTjPQdUiaA7hjDfUf8i6LxcSSzOxXAZ?=
+ =?iso-8859-1?Q?vzgRFiYa//mboE4bgLJ1DA60jEndW+1g5+qQklMK4jXI0d3KEMwm7Jz9SI?=
+ =?iso-8859-1?Q?OQcOuEiUfgeZ5vtwATaT3uaTM9h82kjTXNFiNQs17dJNVCYVD1jKQPz9/v?=
+ =?iso-8859-1?Q?cVSrW1jw6GtesaVLkwle2VWOoJc1gEpp1rwKeAcDC+WA+V1yl5vc0qesUu?=
+ =?iso-8859-1?Q?1TMYlttSfGssAGVUj+gv7tqar+ysD4zb/10ZoeXmQQfBBH/iZQ7qFyf0Te?=
+ =?iso-8859-1?Q?BkI059nxOMNG7ed/0XfaV/brjJmG1oFi2DEHr2kObv830LbaiamJbqKRu+?=
+ =?iso-8859-1?Q?6EQS5Fi6sisvJhZlmcqhHqD1i10hfAFJGt2J0yZFNk+taPlYjtPedmyoas?=
+ =?iso-8859-1?Q?C4gnO4JAip/iDNGWmC9DYmAaHk/EDXs6nMQWQHCo+hrVfeORIk2sbIVK6l?=
+ =?iso-8859-1?Q?iRVAOALzWrw9uTKIOcSfzvW05g7nO7InGdZ1/yr74NE7blIygJ33xUAg5d?=
+ =?iso-8859-1?Q?zk2SnW1V2ydpcl0cNJJybSoZjorm/nLKRzO3lKv/uD4Y4W1ukGcx32GRKQ?=
+ =?iso-8859-1?Q?53BNUnWTrn6G6HBTcLNZmvrzGgUIA9Rk0V8viXtusqywAB/qxS0babRAfp?=
+ =?iso-8859-1?Q?tVrdebKqrJYkghU+gk8SA7fkmgksJlBoEPi0YTqRfWRk4U5ZjohMky2EYa?=
+ =?iso-8859-1?Q?c3SyICspEmiqxPUazXd+RxgHhNc84c7R7G0PSuW2nT6JrXEJ9mDwsHAmAR?=
+ =?iso-8859-1?Q?w3YHrYNPdZtWBw5Amnf/fw5MtpcSlvEfF+pDkQIKLlbN0e02kzTS9H8XsZ?=
+ =?iso-8859-1?Q?CYFxPS+aa6bMEKbASwixmdTV5qW7dsL3NgNP1NDdKhuMF7WSwZ13pFUk2B?=
+ =?iso-8859-1?Q?A5mPqiG6Zk8F4mALKMwuQzTRavugKpqhfWnrSQ2iGxDpOGlBwLjVFardrG?=
+ =?iso-8859-1?Q?/UhOLbxzwWPRAsLHxdgH2Spd+x/6dAvkMhnDQ/kMvooO2UfjrI0immkl0+?=
+ =?iso-8859-1?Q?eQT7Rp9nuB0HQ/nZxrviubs8e0ZZPbolbZJxC+rIsgGtFRHaobeHeK+7vB?=
+ =?iso-8859-1?Q?9sPSihOxLBh0TxWxJMlkD/+2mJCmoxanbJIr3dAQgjpWdn6yGs4pgGfDl2?=
+ =?iso-8859-1?Q?DNbgbMSBbmSAA2ECT8GPb3ye5/ExHRNZGJO6YFAuZO5ycTu2uhkOOg+Fzz?=
+ =?iso-8859-1?Q?q4P3jIecEJrH8/p0UyloFOKpw78st1dfcp7ZP4ELucA/6cSEknCDbjZn2i?=
+ =?iso-8859-1?Q?QTTlCvH7ehk9LgvOQvrOLwjfOy03z1TWdn+/Ta3kIs1koeBFieAGpMWZFd?=
+ =?iso-8859-1?Q?Rt2wJ36tttXbJy+Lhh1pDuqGOLy/TziIiezPga5ZGbmIBM?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4c02:b0:6be:46f4:2908 with SMTP id
- 006d021491bc7-6c544dad007mr2996077eaf.55.1789426829545; Mon, 14 Sep 2026
- 16:00:29 -0700 (PDT)
-Date: Mon, 14 Sep 2026 16:00:29 -0700
-In-Reply-To: <6a6d3cbd.6ce73036.24301b.000d.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa87c8d.4c28b7d0.c1bba.0020.GAE@google.com>
-Subject: Re: [syzbot] [raid?] possible deadlock in blk_probe_dev
-From: syzbot <syzbot+68e1f51046d68329940f@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-raid@vger.kernel.org, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	yukuai@fnnas.com
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked:
+	JB98zsiO4sZocneCjM4C+40rvMZT9pRkDKQRz1MYrU/CMM4RfaXEgOCSkVVsqF8iMc46B/0vnjKOkmanr6EWwkiNIhE653qaP9iffYQRNpBjc374hW/7ndJ5tYZkCJsYMtD2dZVIipUggNC5y2plcTyIHlmJE75oad73XpsfVWYKnZ6UI+DbUIVxMh/O6Suh2wJw/mum+OXRnhSFCT1chrq29QWly4sGWYK/jiKQKwDWk1wwAYSCB7xBXpiKIHijHgEMmdWG3UANa3kNAhhMANA4CaoS8059RTBJvB1SOR6Rb8o6TH5Fg9UV5xPstOIWga+aCYggJZ40xU/c5Lq/tw==
+X-OriginatorOrg: sitime.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LVWPR20MB994915.namprd20.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d773bab-b930-416c-91bc-08df12b3ffa0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2026 23:00:37.8969
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8fb55916-cf10-4b0d-96f4-cf3952657263
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: XkBWMz+ebzdo5Zqj+WUCQ1gKVHmb2sp9KPAivKwZ3eTYhVERIkcykZVr2ndqw7p9ifGM2SwbKhlzafehHVuxiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR20MB6839
+X-MDID: 1789426844-X9ks3jaGrd6w
+X-PPE-STACK: {"stack":"us1"}
+X-MDID-O:
+ us1;ut7;1789426844;X9ks3jaGrd6w;<arouhi@sitime.com>;ee4c095510f4a2bc549243be2f087a38
+X-PPE-TRUSTED: V=1;DIR=OUT;
 
-syzbot has found a reproducer for the following issue on:
-
-HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=12ff9905580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=68e1f51046d68329940f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11a0bc8e580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+68e1f51046d68329940f@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz-executor197/4337 is trying to acquire lock:
-ffff888023113d40 ((wq_completion)md_misc){+.+.}-{0:0}, at: touch_wq_lockdep_map+0x9c/0x1c0 kernel/workqueue.c:4111
-
-but task is already holding lock:
-ffffffff8f9b98e0 (major_names_lock){+.+.}-{4:4}, at: blk_probe_dev+0x28/0x1e0 block/genhd.c:885
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #3 (major_names_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       blk_probe_dev+0x28/0x1e0 block/genhd.c:885
-       blk_request_module+0x16/0xc0 block/genhd.c:901
-       blkdev_get_no_open+0x9b/0xf0 block/bdev.c:870
-       bdev_file_open_by_dev block/bdev.c:1091 [inline]
-       bdev_file_open_by_dev+0x70/0x210 block/bdev.c:1079
-       md_import_device+0x120/0x360 drivers/md/md.c:3847
-       md_add_new_disk+0xdbf/0x1820 drivers/md/md.c:7656
-       md_ioctl+0x2bec/0x36d0 drivers/md/md.c:8499
-       blkdev_ioctl+0x5ad/0x6f0 block/ioctl.c:798
-       vfs_ioctl fs/ioctl.c:51 [inline]
-       __do_sys_ioctl fs/ioctl.c:597 [inline]
-       __se_sys_ioctl fs/ioctl.c:583 [inline]
-       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #2 (&mddev->reconfig_mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       mddev_lock_nointr drivers/md/md.h:734 [inline]
-       md_start_sync+0xc4/0xea0 drivers/md/md.c:10275
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       process_one_work+0xa32/0x1b10 kernel/workqueue.c:3372
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 ((wq_completion)md_misc){+.+.}-{0:0}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       touch_wq_lockdep_map+0xad/0x1c0 kernel/workqueue.c:4111
-       __flush_workqueue+0x131/0x1200 kernel/workqueue.c:4153
-       md_alloc+0x30/0x10a0 drivers/md/md.c:6334
-       md_alloc_and_put drivers/md/md.c:6423 [inline]
-       md_probe drivers/md/md.c:6439 [inline]
-       md_probe+0x73/0xf0 drivers/md/md.c:6434
-       blk_probe_dev+0x149/0x1e0 block/genhd.c:888
-       blk_request_module+0x16/0xc0 block/genhd.c:901
-       blkdev_get_no_open+0x9b/0xf0 block/bdev.c:870
-       blkdev_open+0x141/0x4f0 block/fops.c:665
-       do_dentry_open+0x6ab/0x14d0 fs/open.c:996
-       vfs_open+0x82/0x3f0 fs/open.c:1101
-       do_open fs/namei.c:4837 [inline]
-       path_openat+0x19fa/0x2440 fs/namei.c:5000
-       do_file_open+0x20e/0x430 fs/namei.c:5029
-       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
-       do_sys_open fs/open.c:1423 [inline]
-       __do_sys_openat fs/open.c:1439 [inline]
-       __se_sys_openat fs/open.c:1434 [inline]
-       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  (wq_completion)md_misc --> &mddev->reconfig_mutex --> major_names_lock
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(major_names_lock);
-                               lock(&mddev->reconfig_mutex);
-                               lock(major_names_lock);
-  lock((wq_completion)md_misc);
-
- *** DEADLOCK ***
-
-locks held by syz-executor197/4337: 1, last CPU#2:
- #0: ffffffff8f9b98e0 (major_names_lock){+.+.}-{4:4}, at: blk_probe_dev+0x28/0x1e0 block/genhd.c:885
-
-stack backtrace:
-CPU: 2 UID: 0 PID: 4337 Comm: syz-executor197 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- touch_wq_lockdep_map+0xad/0x1c0 kernel/workqueue.c:4111
- __flush_workqueue+0x131/0x1200 kernel/workqueue.c:4153
- md_alloc+0x30/0x10a0 drivers/md/md.c:6334
- md_alloc_and_put drivers/md/md.c:6423 [inline]
- md_probe drivers/md/md.c:6439 [inline]
- md_probe+0x73/0xf0 drivers/md/md.c:6434
- blk_probe_dev+0x149/0x1e0 block/genhd.c:888
- blk_request_module+0x16/0xc0 block/genhd.c:901
- blkdev_get_no_open+0x9b/0xf0 block/bdev.c:870
- blkdev_open+0x141/0x4f0 block/fops.c:665
- do_dentry_open+0x6ab/0x14d0 fs/open.c:996
- vfs_open+0x82/0x3f0 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x19fa/0x2440 fs/namei.c:5000
- do_file_open+0x20e/0x430 fs/namei.c:5029
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x12d/0x210 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc5b6fe4b37
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffd92e81700 EFLAGS: 00000202 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 000055557809b400 RCX: 00007fc5b6fe4b37
-RDX: 0000000000000002 RSI: 00007ffd92e81810 RDI: ffffffffffffff9c
-RBP: 00007ffd92e81810 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000004
-R13: 0000000000000005 R14: 00007fc5b7049ca0 R15: 0000000000000002
- </TASK>
-md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
-block device autoloading is deprecated and will be removed.
-md: could not open device unknown-block(0,0).
-md: md_import_device returned -6
-md/raid1:md127: not clean -- starting background reconstruction
-md/raid1:md127: active with 2 out of 2 mirrors
-md127: detected capacity change from 0 to 20480
-md127: detected capacity change from 20480 to 0
-md: md127 stopped.
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Replies inline.=0A=
+=0A=
+> Does a single pin set also carry two side effects the message does not=0A=
+> mention? [NVM shadow write, sibling phase restart, ~100 ms]=0A=
+=0A=
+The v9 changelog now states that a per-pin frequency set runs=0A=
+inside the chip's programming state: it updates the NVM shadow, re-locks th=
+e=0A=
+loops with the required settle time, and restarts the output dividers of th=
+e=0A=
+owning PLL phase-aligned.  That is the device's programming model for divid=
+er=0A=
+changes, not something the driver can decompose.=0A=
+=0A=
+> This comment describes "the previous split between free-run and sync=0A=
+> formulas" [...] Could the paragraph be dropped [...]?=0A=
+=0A=
+Dropped in v9 -- the sit9531x_get_fvco() kernel-doc now describes what=0A=
+the function does, without referring to out-of-tree history.=0A=
+=0A=
+> Is SIT9531X_PLL_PHFL_ON_DEMAND_EN meant to stay set after the flush?=0A=
+=0A=
+No -- fixed in v9: the on-demand enable is disarmed after the one-shot=0A=
+flush, together with the trigger-source restore, so a later assertion of th=
+e=0A=
+restored trigger cannot re-flush the PLL's outputs.=0A=
+=0A=
+> Is it safe to program a real divider from a guessed VCO rate here? [...]=
+=0A=
+> Would returning an error when the VCO cannot be read be preferable, and=
+=0A=
+> should sit9531x_get_fvco() distinguish a bus error from a dormant PLL?=0A=
+=0A=
+v9 makes sit9531x_get_fvco()=0A=
+propagate a register-read failure as an error distinct from "DIVN not=0A=
+programmed", and the frequency setter fails the request instead of programm=
+ing=0A=
+a divider from a band-edge guess.=0A=
+=0A=
+> Can a request that the driver advertised as supported be satisfied at a=
+=0A=
+> materially different rate here?=0A=
+=0A=
+The advertised set was the real problem and is fixed=0A=
+in v9: pins now advertise the concrete firmware-listed rates (plus the curr=
+ent=0A=
+one), so the normal path validates against rates the divider chain actually=
+=0A=
+produces.  The wide range remains only on outputs whose DT lists nothing; f=
+or=0A=
+those the divider can only produce Fvco/N and v9 reports the effective rate=
+=0A=
+back through frequency_get, which is the value the core then exposes.  We=
+=0A=
+prefer reporting the achievable truth over rejecting, since a board that=0A=
+declares its rates never hits the rounding path.=0A=
+=0A=
+> What happens to the 34-bit divider when one of these five writes fails=0A=
+> partway through?=0A=
+=0A=
+Fixed in v9: the five previous bytes are read and saved before the=0A=
+write, and a mid-sequence failure restores them before the commit, so a mix=
+ed=0A=
+old/new divider is never latched.=0A=
+=0A=
+> Is a u32 wide enough for the effective rate this line caches?=0A=
+=0A=
+The reachable overflow is closed in v9: the setter rejects any request=0A=
+above U32_MAX (see below), so no accepted request can cache a wrapping rate=
+.=0A=
+=0A=
+> The Return: block lists 0, -ENODEV and register access errors, but this=
+=0A=
+> -EINVAL [...] is not among them. [and step numbering]=0A=
+=0A=
+Both fixed in v9 -- the Return: block lists -EINVAL and the step=0A=
+numbering in the doc block and the body agree.=0A=
+=0A=
+> The changelog says "An input's frequency is what the board presents".  Is=
+=0A=
+> ref->freq actually that value when a board lists several rates?=0A=
+=0A=
+The device cannot measure an input's rate, so the board's declaration=0A=
+is the only source there is.  When a board lists several rates the first en=
+try=0A=
+is taken as the nominal one presently wired -- that is a board-authoring=0A=
+convention we will spell out in the binding description.  Boards for which=
+=0A=
+this matters can list the live rate first or list only one rate.=0A=
+=0A=
+> does this read past ref[] for the INTSYNC pin at this point in the series=
+?=0A=
+=0A=
+Resolved by the v9 registration restructure: the=0A=
+INTSYNC pins are not registered until their dedicated ops tables exist, so =
+no=0A=
+intermediate commit exposes ref[9]/out[12] through the frequency callbacks.=
+=0A=
+=0A=
+> does this also swallow I2C and regmap errors? [freq_get fallback]=0A=
+=0A=
+v9 falls back to the cached value=0A=
+only for -ENODEV (the genuinely unresolvable routing case the comment=0A=
+describes) and propagates register access errors, so a transient bus failur=
+e=0A=
+is not reported as a live frequency and cannot spoof the set path's=0A=
+old =3D=3D new short-circuit.=0A=
+=0A=
+> Should this setter sanity-check the upper bound of frequency itself?=0A=
+=0A=
+Yes -- fixed in v9: the setter rejects any request above U32_MAX,=0A=
+closing the "4294967297 Hz validates as 1 Hz" hole, and independently rejec=
+ts=0A=
+a DIVO that does not fit its 34-bit field.=0A=
