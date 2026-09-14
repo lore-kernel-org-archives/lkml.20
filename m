@@ -1,199 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66773F6610;
-	Mon, 14 Sep 2026 22:32:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED0C42254A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:32:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789425142; cv=none; b=sNzS/M0s8SzkM+H7V2QzyWTsIxSU8AQlQSABugFlCWaQ2gOwhv+7yUcgvx1wdB410Jt6+JspeJvw+vKTDYUiXJnh61GqZyomLljuKkpg3gx8Jx4hj9Gb1P4x/i5+6z7//g9W4gXk43hVySM2vbO6q8upwilaiwcXxNYc5ap4yeU=
+	t=1789425143; cv=none; b=Dqc85BkKucBCtxXbzIoRKbcZgefxkhxemn3cKTLraMlV3nFRSQfZ3Vwg0ryYPmYIxG1F7gD2TPwewrQo1whVrPlI9Vg8OQNjy7xsqGZG/Tvil8ffaNTobApqmfCqu0OrCrYcIp4LZRPnhZdih2h1mymMpvxoOjoN1GyTSr9iTRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789425142; c=relaxed/simple;
-	bh=bLnfQpX9WteOicTADYo7gVjLmdCzHpRn4PMQO2GTuCM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FbVfocRli5YnjYvNPpqpDXi3XY5qS34H/uhH3vlQJrsOtrO5N4EIiPexW/1o9aHj2bhoicIuFE8QMpaWVepQ5ftSUlFItfQI1H+9RCqQqqLbrjzo/H/q/xIW5QZCyJg0/CdRYmgR7mYTgMjkxhWhtGg+LB0SxuXYFjZVRrAJ+co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRlV+Ypv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789425143; c=relaxed/simple;
+	bh=2K2+Q6owcaRQPAZ3ACLtiWUXPfmyIUG4fBuKDbgQeoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ARXIvLSDoTyF4XNHJbyGoXd27J84fugHym03Eeh78TrSUpoLDjAjbfaoK3xjiCUOEBrf0Pr0OMXCgbVKXngT+teNU2j/ckZIjaRh1u8+YqlOXIhUsC6w5DT4fzVQBi3SRyOKMCkEdaMrV2UWtztUbfc6FGI5R5mrLFkHv8y2vw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TLszFhJv; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRlV+Ypv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726D81F00898;
-	Mon, 14 Sep 2026 22:32:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789425139;
-	bh=Ps1Pf9HY55XJc6hUxZI1FWG+aZ4DlvyxQbmpujBPK50=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nRlV+YpvxHQVtVRWHIbygpj+OZVvjJfHQQnKrKTOJhBpvRhGTy4ZjBujWyve0WKGA
-	 w435enXlS2HHNW1DJmrDvB02MD6uRMC6FSFxadfIWa4zRR51XZvQaQIMcvWDnDANdK
-	 t6MJ+Lyt4Agr05qu9eBxp3Rnm5l6crb30IfsRXAQZzW6+6Lkipmre5C0QlWeXisZfk
-	 8GjeaR5kxEVJ3pl+ciP2lL9/G5ZTVB3ItA5KJXcFFls+TjRVi0i9raU19+EJQaJ8va
-	 4j2eI+QyO/ZBjqiE7S4f+jixrGcNW+DqjWKSXbZULTLTyuTiEciTjWbik/faUHtNBt
-	 juvas0SA0gB0g==
-From: Kees Cook <kees@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Kees Cook <kees@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-hardening@vger.kernel.org,
-	Lorenzo Stoakes <ljs@kernel.org>,
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TLszFhJv"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so8795ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:32:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789425140; x=1790029940; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h/mgh4gWTa/ucSTLn+qewaTi2SshWtrqgS51IF0oOeU=;
+        b=TLszFhJviWjSCXYIF6cvuK39BqUCITTBgEbYnOPFIGUDLyNj0TAKSy7IWEgKpdvivd
+         6Uz/nl/HwCLga47/lnuGHtpoxxEsiQxrKEOA5MlAVMSg+WAyFg/8S1O9zD/j9b1NnDBT
+         /Dv+/aW5VUqCY2q7FrL++thDG0KFk00zy0+igEZdKqk/78GX3eMscwc+UVo1j4PuY1Tz
+         vo4KE2hhzyLv/OTpmGlJ2aXAzUqSttRuNDbQQU0aRo4FvEDRfPpfj0AeWMhpGYjOMepU
+         dMCsDnkXhIXEbOcoqwo/xcZ4D+OT3oTgWoihLhbWu+Akxy8HjeBkHTAVQnoVaIXpYI1c
+         84DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789425140; x=1790029940;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=h/mgh4gWTa/ucSTLn+qewaTi2SshWtrqgS51IF0oOeU=;
+        b=TK8hq+ULsoDNlNM/O2a21mmznRsEGCYAJyEkHITyzSl0qtB59PeBH/+3DkNLfe/mv0
+         8ePGJ/cfwVKN+v0CNFOIJSwV3ZxGtREDn8/RikzHiEb9kFc5jUJlDCATbCUSAsHK48Gz
+         XL82sHpUnzxKyDPbx+Z0J33xgtI/Rajprc/Mc3XaZTAXWqjx0yfxkTfUsoARq4iF8EwI
+         exqwDGNCmvnYaHslLqb4PI9H9RLHvF0BUOusR4OTDxV3nKvQCsUnzcWByXxBC+VB38N0
+         FgVXJxY3co9WS1Wd+F6oe/gSXHKJawg/1w7snx2kvWumLbX/yarTSBGpFdC3qWXJzzca
+         UZRg==
+X-Forwarded-Encrypted: i=1; AKwUvByrEjI91kPpKDBOvVhB2dvLkgraG1CUjq8k0ahXPY1Lo2JAKwXgioNc/xBp5Tb9h0O0PckqxzPeEl2VaRk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuo7Mya7kiyk2Y37cuXmvlojVC5utgpwk84DcxXE7mElyL+uH5
+	VUMGj+NXyCSUfA/iO48qbi1GgXYUDZLX2Xw6eZYlZVBBaxlkVhqqg9m76IVq67YkAg==
+X-Gm-Gg: AYBFou1K3vgziIc4bab8xBs0Xn3apmTsCGIojkOg1pEHPB8OQeahrDFaS+RCWixb+Je
+	dQ+muEIB3lqrcuiTNkndDqOjqNTejCLSXw6q2Xf2c1Oryl+irajqywxiIRIZLijCD054Pzwa2si
+	vQF4wRDDCWW64c5Pkx1vAVow/3lbmrXWum8g5IgLs7lY73YqiK+SwqbY4iw+4WACXQRqigN9yym
+	VaYiqzOif5f+SuwhOgEuQwZZYIa2slwia+Am/Kz/rwP+y7lFszZcvDyd9xT38Qvk9452i+/zpSQ
+	X5tIS95m2YjUsOen4W0busBgOb1wGdDL3YfygOqvJj0ITC8PXk3htKErKon9HvMTgGHC2eduCnT
+	8kulMau2ZF/K/sgH8iUdu8SxGoRketu9Wul0PjpZFOI9HQwJnwA8s4XPAx9y5LnjDJTUNLpndg9
+	M953kKffni6kUeSfS9icaaz7A/W+QQo0TZ0R0L/mA4qd4wQj44gusxBK94xSsWOL/XJbtBo+/W2
+	dSCaFmkKR5FARWjFJbt1hP3WEjM21EGCLOGexk=
+X-Received: by 2002:a17:902:cf0b:b0:2db:2225:d2fd with SMTP id d9443c01a7336-2dd76be2bc3mr3447165ad.16.1789425140030;
+        Mon, 14 Sep 2026 15:32:20 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2e51:8:9e:b709:96a2:f1d6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1438d1381c2sm1704593c88.10.2026.09.14.15.32.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 15:32:19 -0700 (PDT)
+Date: Mon, 14 Sep 2026 15:32:12 -0700
+From: Isaac Manjarres <isaacmanjarres@google.com>
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: =?utf-8?B?6auY57+U?= <gaoxiang17@xiaomi.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Xiang Gao <gxxa03070307@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for devm_kmalloc
-Date: Mon, 14 Sep 2026 15:32:17 -0700
-Message-Id: <20260914223219.901347-2-kees@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260914223212.i.829-kees@kernel.org>
-References: <20260914223212.i.829-kees@kernel.org>
+	=?utf-8?B?5Y2w6Zev?= <yinchuang1@xiaomi.com>,
+	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Lorenzo Stoakes (Arm)" <ljs@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [External Mail]Re: [RFC] bpf: account ring buffer backing pages
+ separately from Lost RAM
+Message-ID: <aqh17GTlWiDVJ-N1@google.com>
+References: <20260815091819.3651099-1-gaoxiang17@xiaomi.com>
+ <04f3ce2f-67f5-4829-9551-a69b9df29854@kernel.org>
+ <CAEf4BzbwZkoacX-iP1j4+p8YNbWsq0pc3eTermh2uT5ir66zbw@mail.gmail.com>
+ <8d2e20842c24460296e4c83e6dc0dde3@xiaomi.com>
+ <CAEf4BzYQvhSVN=Hggg5FHzFdkRr4UNBD6yXaBsOaAwbsRpXpsw@mail.gmail.com>
+ <aqSNkbhIuaB5D0H0@google.com>
+ <CAEf4BzbAOgwQqsRQnY4yxvubLtioQNL_BBHer4ExvNF7Rvvu4w@mail.gmail.com>
+ <aqhZEuQTu394hYB6@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5602; i=kees@kernel.org; h=from:subject; bh=bLnfQpX9WteOicTADYo7gVjLmdCzHpRn4PMQO2GTuCM=; b=owGbwMvMwCVmps19z/KJym7G02pJDFkrSj8WbJVbIJ/P8uXHLbbr6tu0z805uPEx7//mnV9eT GtRNGZ72FHKwiDGxSArpsgSZOce5+Lxtj3cfa4izBxWJpAhDFycAjCRpTMZGZ7Vnl9ktbGh5Md7 u7/cSyXbtJLZ7+UYRtnb/53SLrJg6QSG/8XWj8wN7068lWp5hqnkg7LBmYTp7plVikKWzI0Vkz/ asgMA
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqhZEuQTu394hYB6@google.com>
 
-Mirroring the type-based allocation now in use for the kmalloc family of
-APIs, provide the same for the devm_kmalloc family of APIs. This will
-allow for future plumbing of type information (e.g. alignment) into the
-underlying allocations. This immediately gains type check on return
-values (instead of the prior "void *" return type).
+On Mon, Sep 14, 2026 at 01:29:06PM -0700, Isaac Manjarres wrote:
+> On Fri, Sep 11, 2026 at 05:04:55PM -0700, Andrii Nakryiko wrote:
+> > On Fri, Sep 11, 2026 at 4:24 PM Isaac Manjarres
+> > <isaacmanjarres@google.com> wrote:
+> > >
+> > > On Wed, Aug 19, 2026 at 10:24:28AM -0700, Andrii Nakryiko wrote:
+> > > > On Tue, Aug 18, 2026 at 6:46 AM 高翔 <gaoxiang17@xiaomi.com> wrote:
+> > > > >
+> > > > > Thanks for the pointer. Understood — no new NR_* counter or
+> > > > > /proc/meminfo entry.
+> > > > >
+> > > > >
+> > > > > The remaining question is on the consumer side: Android's Lost RAM
+> > > > > accounting would need to enumerate all live BPF ringbuf maps
+> > > > > (BPF_MAP_GET_NEXT_ID) and read each map's fdinfo memlock to sum them.
+> > > > >
+> > > >
+> > > > For BPF ringbufs specifically, you should be fine just iterating all
+> > > > map with BPF_MAP_GET_NEXT_ID, getting its FD with
+> > > > BPF_BTF_GET_FD_BY_ID, and then passing that fd to
+> > > > BPF_OBJ_GET_INFO_BY_FD to get map's size.
+> > > >
+> > > Hi Andrii,
+> > >
+> > > Thanks for the suggestion on this! I did want to express a couple of
+> > > concerns with this:
+> > >
+> > > Scalability
+> > >
+> > > I counted the number of maps on one of our devices, and there are 112
+> > > maps, meaning that there will be between 224-336 syscalls with this
+> > > approach. eBPF is becoming more popular, so I'm concerned about how well
+> > > this will scale, if we have to invoke 2-3 syscalls per map.
+> > >
+> > > I had a test program that implemented your suggestion, and it took about
+> > > 2 ms to identify 39/112 ringbufs. As the number of maps in the system
+> > > grows, I'm concerned that the latency associated with computing the
+> > > memory usage from ringbufs will become even more expensive. This is
+> > > something we had an issue with before on Android, where we had to
+> > > iterate through various sysfs files to gather wakeupsource metrics [1].
+> > >
+> > > To improve on this, I was wondering if we could expose the ringbuf
+> > > memory usage and potentially other bpf stats through bpffs
+> > > (/sys/fs/bpf/stats)? This counter could be a lightweight counter that is
+> > > incremented/decremented on ringbuf allocation/freeing so that when it is
+> > > read, there aren't any expensive computations.
+> > >
+> > > For this specific metric, we could just use a counter to track how much
+> > > memory is being used by ringbufs and have userspace read that. That also
+> > > brings me to my next point.
+> > >
+> > 
+> > I just don't see a good enough reason to single out ringbuf maps
+> > specifically. other map types also use memory, why would they be
+> > excluded?
+> 
+> I was looking at ringbuf maps specifically because they allocate memory
+> for the ringbuf via alloc_pages() and aren't attributed to any counter
+> that is exposed to userspace. The other maps use either the slab
+> allocator or vmalloc() to allocate memory, and those entries are visible
+> via /proc/meminfo.
+> 
+> > If you are worried about too many syscalls, look into map iterator
+> > program types (grep for SEC("iter/bpf_map") in selftests). That will
+> > be super fast and way more generic than what you propose. You can ping
+> > such program in bpffs and that will be you custom /sys/fs/bpf/stats
+> > implementation that you have full control and customizability of
+> > 
+> 
+> Thanks for the suggestion; I'll look into this and let you know if I
+> have any questions!
+> 
+I looked into this, and this works in reducing the overhead from number
+of syscalls, but the other part about correctness isn't handled by this.
 
-Signed-off-by: Kees Cook <kees@kernel.org>
----
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: <driver-core@lists.linux.dev>
-Cc: <linux-hardening@vger.kernel.org>
----
- include/linux/device/devres.h | 102 ++++++++++++++++++++++++++++++++++
- 1 file changed, 102 insertions(+)
+For ringbuf maps we would have access to max_entries, but that just gives
+us the amount of memory consumed by the data portion of the ringbuf, but
+it doesn't include the 3 metadata (kernel structures, consumer idx page,
+and producer idx page). I don't see how to derive this value--rather
+than hardcoding it.
 
-diff --git a/include/linux/device/devres.h b/include/linux/device/devres.h
-index 14ab9159bdda..7656c9ecd4da 100644
---- a/include/linux/device/devres.h
-+++ b/include/linux/device/devres.h
-@@ -62,6 +62,108 @@ static inline void *devm_kcalloc(struct device *dev, size_t n, size_t size, gfp_
- {
- 	return devm_kmalloc_array(dev, n, size, flags | __GFP_ZERO);
- }
-+
-+/**
-+ * __devm_alloc_objs - Device-managed allocation of objects of a given type
-+ * @DEVM_ALLOC: which device-managed size-based allocator to use.
-+ * @DEV: device to scope the allocation lifetime to.
-+ * @GFP: GFP flags for the allocation.
-+ * @TYPE: type to allocate space for.
-+ * @COUNT: how many @TYPE objects to allocate.
-+ *
-+ * Device-managed counterpart of __alloc_objs().
-+ * @DEVM_ALLOC takes (@DEV, size, gfp).
-+ *
-+ * Returns: Newly allocated pointer to (first) @TYPE of @COUNT-many allocated
-+ * @TYPE objects, or NULL on failure.
-+ */
-+#define __devm_alloc_objs(DEVM_ALLOC, DEV, GFP, TYPE, COUNT)		\
-+({									\
-+	const size_t __obj_size = size_mul(sizeof(TYPE), COUNT);	\
-+	(TYPE *)DEVM_ALLOC(DEV, __obj_size, GFP);			\
-+})
-+
-+/**
-+ * devm_kmalloc_obj - Device-managed allocation of a single typed object
-+ * @DEV: Device to scope the allocation lifetime to.
-+ * @VAR_OR_TYPE: Variable or type to allocate.
-+ * @GFP: Optional GFP flags (defaults to %GFP_KERNEL).
-+ *
-+ * Device-managed counterpart of kmalloc_obj(): the allocation is sized from
-+ * @VAR_OR_TYPE and returned as a pointer to that type, not void *.
-+ *
-+ * Returns: newly allocated pointer to a @VAR_OR_TYPE on success, or NULL on
-+ * failure.
-+ */
-+#define devm_kmalloc_obj(DEV, VAR_OR_TYPE, ...)				\
-+	__devm_alloc_objs(devm_kmalloc, DEV, default_gfp(__VA_ARGS__),	\
-+			  typeof(VAR_OR_TYPE), 1)
-+
-+/**
-+ * devm_kmalloc_objs - Device-managed allocation of an array of a typed object
-+ * @DEV: Device to scope the allocation lifetime to.
-+ * @VAR_OR_TYPE: Variable or type to allocate an array of.
-+ * @COUNT: How many elements in the array.
-+ * @GFP: Optional GFP flags (defaults to %GFP_KERNEL).
-+ *
-+ * Returns: newly allocated pointer to an array of @VAR_OR_TYPE on success, or
-+ * NULL on failure (including when the total size overflows).
-+ */
-+#define devm_kmalloc_objs(DEV, VAR_OR_TYPE, COUNT, ...) \
-+	__devm_alloc_objs(devm_kmalloc, DEV, default_gfp(__VA_ARGS__), \
-+			  typeof(VAR_OR_TYPE), COUNT)
-+
-+/**
-+ * __devm_alloc_flex - Device-managed allocation of a trailing-flex-array object
-+ * @DEVM_ALLOC: which device-managed allocator to use.
-+ * @DEV: device to scope the allocation lifetime to.
-+ * @GFP: GFP flags for the allocation.
-+ * @TYPE: type of structure to allocate space for.
-+ * @FAM: name of the flexible array member of @TYPE.
-+ * @COUNT: how many @FAM elements to allocate space for.
-+ *
-+ * Device-managed counterpart of __alloc_flex().
-+ * @DEVM_ALLOC takes (@DEV, size, gfp).
-+ *
-+ * Returns: Newly allocated pointer to @TYPE with @COUNT-many trailing @FAM
-+ * elements, or NULL on failure.
-+ */
-+#define __devm_alloc_flex(DEVM_ALLOC, DEV, GFP, TYPE, FAM, COUNT)	\
-+({									\
-+	const size_t __count = (COUNT);					\
-+	const size_t __obj_size = struct_size_t(TYPE, FAM, __count);	\
-+	TYPE *__obj_ptr = DEVM_ALLOC(DEV, __obj_size, GFP);		\
-+	if (__obj_ptr)							\
-+		__set_flex_counter(__obj_ptr->FAM, __count);		\
-+	__obj_ptr;							\
-+})
-+
-+/**
-+ * devm_kmalloc_flex - Device-managed allocation of a flexible-array structure
-+ * @DEV: Device to scope the allocation lifetime to.
-+ * @VAR_OR_TYPE: Variable or type to allocate (with its flexible array).
-+ * @FAM: The name of the flexible array member of the structure.
-+ * @COUNT: How many flexible array member elements to allocate.
-+ * @GFP: Optional GFP flags (defaults to %GFP_KERNEL).
-+ *
-+ * Returns: newly allocated pointer to @VAR_OR_TYPE on success, or NULL on
-+ * failure. If @FAM has been annotated with __counted_by(), its counter is set
-+ * to @COUNT.
-+ */
-+#define devm_kmalloc_flex(DEV, VAR_OR_TYPE, FAM, COUNT, ...) \
-+	__devm_alloc_flex(devm_kmalloc, DEV, default_gfp(__VA_ARGS__), \
-+			  typeof(VAR_OR_TYPE), FAM, COUNT)
-+
-+/* All devm_kzalloc aliases for devm_kmalloc_(obj|objs|flex). */
-+#define devm_kzalloc_obj(DEV, P, ...) \
-+	__devm_alloc_objs(devm_kzalloc, DEV, default_gfp(__VA_ARGS__), typeof(P), 1)
-+#define devm_kzalloc_objs(DEV, P, COUNT, ...) \
-+	__devm_alloc_objs(devm_kzalloc, DEV, default_gfp(__VA_ARGS__), \
-+			  typeof(P), COUNT)
-+#define devm_kzalloc_flex(DEV, P, FAM, COUNT, ...) \
-+	__devm_alloc_flex(devm_kzalloc, DEV, default_gfp(__VA_ARGS__), \
-+			  typeof(P), FAM, COUNT)
-+
- static inline __realloc_size(3, 4) void * __must_check
- devm_krealloc_array(struct device *dev, void *p, size_t new_n, size_t new_size, gfp_t flags)
- {
--- 
-2.34.1
+I did see that fdinfo for the maps does give the total memory usage
+via bpf_map_memory_usage(). However, that value includes structures that
+are allocated through the slab allocator and vmalloc, so using that
+value would double count the memory usage in the system. Userspace
+doesn't have the information required to break that value up to extract
+just the part that is allocated through alloc_pages() directly.
 
+I think it's worthwhile accounting this data correctly, as on our setup
+there are 39 ringbufs. This can lead to 468 kB -- 1872 kB of unaccounted
+memory depending on the page size.
+
+--Isaac
