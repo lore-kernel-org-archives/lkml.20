@@ -1,128 +1,105 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192B945C715;
-	Mon, 14 Sep 2026 12:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213B345D910;
+	Mon, 14 Sep 2026 12:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387447; cv=none; b=JDNIBFlW2sr1vcpUr+38ja/bjnb4GEy+8AluD/s/PHIyIhToVEdWeBvv9vI6tz1GnYiGVpoSnfT1GynI4gNk0u7WBS4FxZHYD7q6t4HI3zQgCdWT8zns+5EdvSJP5zy/3plX7RiiVbUx4trFfJo92HEpruuovHM/lwJlVjyO3VQ=
+	t=1789387448; cv=none; b=gc5jypOzeb16ZS3hT/eBXAdZOv1RMu60mgG5Rqoc0nVYFJgaqW04HAd1VroUiwSoobmPBMiSWz+ALQ0s0aaej01NFZ39zaoNsy3cOhU0pZKBR8fjZh+5MGs5VsrQpqeZVKCH0HVkvh7kG8PbfbGPv+qJGwYxGj7FRovhgER1BaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387447; c=relaxed/simple;
-	bh=FIBAsyGFPvfETpyBr09HjNxH1AY/V6dy8oQmWy+oGKQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nJlGcppXPKQ9Cw4cXavqw5CT4tUEhHzjaIXaNmcYR9I1+WFbK5O0/uagxNaqjjaPbAy9wyMgZaXoa+66ce+W3ERWMQV6rFdgDwo3m3B0umJD/yfa2p8Cx7NxWkm+Q1AGgk+7yWS7ZlZq2IeecNrRFWTu0zIAro/NL+LrN/L4csk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LJMRJl+p; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789387448; c=relaxed/simple;
+	bh=RwEZhfMJP7L6Q0UDZRqChxPxeZtWRLjjgHga4wyLG+U=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=L/JqhcdGBV8tNiHBr64eI8IHNeIRQ+VuvPx4VTD77EFcrhE4ivLBVOb8qQa1j3HRaFs2GRifI2FF0kAkmzgQ+dn/3dJihdtGeLir4WzyKsSkh+ri5xw93kbUsgL5aw3QxoUwYAEeJQRKqWcufYKKO4OYYmArZLHSUY4Z1GDoU7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gCsAFcR0; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LJMRJl+p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789387442;
-	bh=FIBAsyGFPvfETpyBr09HjNxH1AY/V6dy8oQmWy+oGKQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LJMRJl+pUKWfH3GPfyZgm75Fi0YlKga5UpcvvrqMf4QWJ4gh29GLdVho1OI5g6X4v
-	 QFTnQy3htoeUqMhV8qjZ1UW7pegE2uAT+XlSkDRzeMT+jvtV/LyEk9f9gy2I8UTa2Q
-	 KiuHqW+kQE5IqDJqTC1ZaAJ/6sKUzxaN8JolzkKzXxFsI8SmC8bE9wECXcgzmDYxEu
-	 0zR7+DHT+Ti33kDASsuNHrBqxNOv929m+df+QNmZpig5pmecpbpKRHbg97jmb/hsEo
-	 sOVsIbeAVJ3WQ+9HNtK8NkqZKxj7+lkk0lq+1r9Aofh6nqBW76fJ+cFC0n00xYvc6A
-	 rqgbBU/9wCEzg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8603417E020C;
-	Mon, 14 Sep 2026 14:04:01 +0200 (CEST)
-Message-ID: <37b8b39d-0880-4625-a8cc-f41a6aab3308@collabora.com>
-Date: Mon, 14 Sep 2026 14:04:01 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gCsAFcR0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789387446; x=1820923446;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=RwEZhfMJP7L6Q0UDZRqChxPxeZtWRLjjgHga4wyLG+U=;
+  b=gCsAFcR0CPZkKCq2CZqPTWbYBOuU2HzZ2NpCCY2l6z80hS7W9jRJWLfm
+   D4GzmbyzTHb+rQsjq309oZKFcrtvRJGR9X9JUeBsjCwKM4RiJ0y/nc6Sb
+   S4mqHULrIuMh1pxQR6vo8Lld90wxMICNC0cEdbVkAdoIePDfGB8/TEPPp
+   H0CTqyqX98iiJE63i0Qq4BKHWdxUds9W6pxzM7e1C3CWiNAy8DiFYNQQo
+   CmTmadPqbI0ArJw6bXLFEn57vTe7Qjdx53No9gofHZ/kMk654Z+IfxBFe
+   +4ZDqa05Ot3ouU+JT6t/e0IJ0TCqTOqBNw25xKlWwpHCROPG0Yt0JtHNT
+   A==;
+X-CSE-ConnectionGUID: Ladvqn86Sbu6MGeuGui9rA==
+X-CSE-MsgGUID: W4Ngqh+2Q+GZ+wnIwN4BaA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89763224"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89763224"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 05:04:05 -0700
+X-CSE-ConnectionGUID: h0RGzZDZSImuU1pjcvMo4g==
+X-CSE-MsgGUID: FzTGZXnSSpmvM9i3IXefpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="274541772"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.96])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 05:03:58 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Petr Pavlu <petr.pavlu@suse.com>, Jens Axboe <axboe@kernel.dk>, Jakub
+ Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Simon Horman <horms@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Francois Dugast
+ <francois.dugast@intel.com>, Luis Chamberlain <mcgrof@kernel.org>, Petr
+ Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami
+ Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org,
+ linux-api@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/6] drm/i915: Include error-injection.h for
+ ALLOW_ERROR_INJECTION()
+In-Reply-To: <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+ <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
+Date: Mon, 14 Sep 2026 15:03:56 +0300
+Message-ID: <2860c528b7ce0d596a24b05f0ae2b4a9f21be301@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 02/24] dt-bindings: ufs: mediatek,ufs: Complete the
- binding
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Peter Wang <peter.wang@mediatek.com>,
- Chaotian Jing <chaotian.jing@mediatek.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
- <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Stanley Jhu <chu.stanley@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
- <20260914-mt8196-ufs-v12-2-9279d7ef814d@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260914-mt8196-ufs-v12-2-9279d7ef814d@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 9/14/26 13:38, Louis-Alexis Eyraud wrote:
-> From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
-> As it stands, the mediatek,ufs.yaml binding is startlingly incomplete.
-> Its one example, which is the only real "user" of this binding in
-> mainline, uses the deprecated freq-table-hz property.
-> 
-> The resets, of which there are three optional ones, are completely
-> absent.
-> 
-> The clock description for MT8195 is incomplete, as is the one for
-> MT8192. It's not known if the one clock binding for MT8183 is even
-> correct, but I do not have access to the necessary code and
-> documentation to find this out myself.
-> 
-> The power supply situation is not much better; the binding describes one
-> required power supply, but it's the UFS card supply, not any of the
-> supplies feeding the controller silicon.
-> 
-> No second example is present in the binding, making verification
-> difficult.
-> 
-> Disallow freq-table-hz and move to operating-points-v2. It's fine to
-> break compatibility here, as the binding is currently unused and would
-> be impossible to correctly use in its current state.
-> 
-> Add the three resets and the corresponding reset-names property. These
-> resets appear to be optional, i.e. not required for the functioning of
-> the device.
-> 
-> Move the list of clock names out of the if condition, and expand it for
-> the confirmed clocks I could find by cross-referencing several clock
-> drivers. For MT8195, increase the minimum number of clocks to include
-> the rx_symbol ones, as they're internal to the SoC and should always
-> be present, and should therefore not be omitted.
-> 
-> MT8192 gets to have at least 3 clocks, as these were the ones I could
-> quickly confirm from a glance at various trees. I can't say this was an
-> exhaustive search though, but it's better than the current situation.
-> 
-> Properly document all supplies, with which pin name on the SoCs they
-> supply. Complete the example with them.
-> 
-> Also add a MT8195 example to the binding, using supply labels that I am
-> pretty sure would be the right ones for e.g. the Radxa NIO 12L.
-> 
-> Finally, remove the 'ufs_' prefix from all clock names containing it
-> and rename 'ufs' clock to 'main'.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> Reviewed-by: Chaotian Jing <chaotian.jing@mediatek.com>
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+On Fri, 11 Sep 2026, Petr Pavlu <petr.pavlu@suse.com> wrote:
+> Several drivers/gpu/drm/i915/*.c files use ALLOW_ERROR_INJECTION(), which
+> is defined in asm-generic/error-injection.h. They currently rely on this
+> header being included indirectly through linux/module.h ->
+> linux/error-injection.h.
+>
+> Add the missing includes in preparation for removing the
+> linux/error-injection.h include from linux/module.h.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+I guess merging all of this through one tree would speed things up for
+you.
 
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+for merging via whichever tree you prefer. However, please let me know
+if you do want this merged through drm-intel.
+
+Thanks for doing this.
+
+
+BR,
+Jani.
+ 
+
+-- 
+Jani Nikula, Intel
