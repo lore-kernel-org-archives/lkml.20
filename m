@@ -1,66 +1,121 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E9E442FBE;
-	Mon, 14 Sep 2026 17:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27BF492525
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789406126; cv=none; b=jKVRKRZypSeC+CSERmBWU5trpzuhHVSSuQ3aQpkKLL4NXrcB8pWK5DVmGHvkcI+4x9je2FL0sYtCZTVoNvMxhZo9Jbx83uKXpgXE8penDV7wrliQIjVW3btM111SXS0bDhZhtNo/T309JARGq4DgcTULIAhnRx8gkxmB1MX9p24=
+	t=1789406154; cv=none; b=oi1CJKOnAGSyOD3bnBwhT9Rx6+L+VjnrReiAlSW37lodf+WiPwFKhnDb31gTF2+0zj5a+KsPvWqpCmskDA+Wa5Ovy89LhwNEhjbbeQfeiLSXpja3hXhn/aWPJ824OW8Oq9FDkmHJZD0XzJv4SC8k4oBE3RwHTXkiuqvaEQjLNZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789406126; c=relaxed/simple;
-	bh=BaY099pQnb8RcVVcB1iD6IsIJCTPfTBjyaqEiiftcw4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s7ao58ryxA0ttmNBIGf9MLU+HgrekZJGiImUJSAf4mVaQpb8J0Zlc9HBzwR54XIS1l9IgUrlClbQ9RPSiSsrH+2Y01euWWSnZoGgpL820mEjWZgXLnW3Zu1CZ09VC8rTZhI9/DaawwX70352v7kqtBKPOoqc/H6hzPX0z3pklj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=xF/7IzY7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789406154; c=relaxed/simple;
+	bh=q6d8QZgJ9uVNO04KnNDgtygNJ+rHQadMULxGSKbRmEg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ce84HSFUGPCHNZdDTuBg/KeZO1ra7VWywWEV5S5UEZ6KymttGJlDRUKncmasdveVfT08ItolF1lFzL3+FTCH83FkrgtZxlv+BnI5T/8E+SrqXlZ7c1DQx5aFkBrJ/NQgwomkXOU7/cG6wHRxpn4IryscZE0hEdOtLQQbLHgp5lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tcpLb9kJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="xF/7IzY7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=kO1Phuy3HB401WykWQcheLZAPaTS/ITcEYR8FM8rne4=; b=xF/7IzY77TSGpaf3wupO7PL3ZF
-	tEqIS7E70Hrb5GnrIUKGKHIdbDNY07cF/Bou+CdDK7Ik3MK54SrzEjF8GXXmX8VJTsgYu5VDP51eI
-	JD6XSd8hQJgudaVHO5tQOWawLV46lPYR70II4MFdr62vFnzpPmhRlsQYQupsmsHdcF24=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6AGx-0057NB-B6; Mon, 14 Sep 2026 19:15:15 +0200
-Date: Mon, 14 Sep 2026 19:15:15 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: khendry@reliablecontrols.com
-Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] net: pcs: rzn1-miic: Verify port number from dtb
-Message-ID: <363ffea9-b3f5-43be-a39b-fe2108a213ac@lunn.ch>
-References: <20260914-rzn1-miic-fix-array-v4-0-069112feec86@reliablecontrols.com>
- <20260914-rzn1-miic-fix-array-v4-2-069112feec86@reliablecontrols.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tcpLb9kJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D584C2BCFA;
+	Mon, 14 Sep 2026 17:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789406153;
+	bh=q6d8QZgJ9uVNO04KnNDgtygNJ+rHQadMULxGSKbRmEg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=tcpLb9kJ28FmtFy5JvuCEPC70mkaGA2lAAjhkmF/9Tlt3B1ayNzdO4vEGsKbw4YYn
+	 W5A4zIzLNVFskozAy/YG7oXBY4F6J/ZCzXrSIstlEQG4oDjNX+fK7EvV9VyjT5DbI+
+	 gQjnQ8DOFl/QsSkmInplsH3yi/e6P2og2I+kPCEPaqF99iUj/IgPAR8B5Xr7ctZy5A
+	 dx3BwwY6a7IUarqJ6uEg1hmMiulpY7AQL/6I36S9/GkIhet8VTjKABGVA4v8z3Qt/q
+	 GzctZozrOQoE+NWg/nelfTLd6vf1IDT4wnV/l1Cf/kc5lZJftN/UzWf/lLuQ6UO8gk
+	 swSb3dMadgS5Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B20FC88E72;
+	Mon, 14 Sep 2026 17:15:53 +0000 (UTC)
+From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
+Date: Tue, 15 Sep 2026 01:14:42 +0800
+Subject: [PATCH v5 01/17] mm/swap: fix off-by-one in swap cache replace
+ sanity check
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-rzn1-miic-fix-array-v4-2-069112feec86@reliablecontrols.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-swap-thp-cleanup-v5-1-39878b37dfb0@tencent.com>
+References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
+In-Reply-To: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>, 
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+ Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
+ Kairui Song <ryncsn@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789406149; l=1650;
+ i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
+ bh=810n4do4aOKMWihCxqnhsHXg2hcES1SAm+rRly1NOZc=;
+ b=TD7AokuIIIO3qHuTryNrrJFaeotme90f+Sx8e3cBvBRNKxx+8aj6JZLK5qKRH21lcwrMz1ac5
+ Z6Yn5pDcF3EAmvXXtvcBrZhV529Cqpzegiilz1N9cpCkU/1k+pvbA9g
+X-Developer-Key: i=kasong@tencent.com; a=ed25519;
+ pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
+X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
+ with auth_id=562
+X-Original-From: Kairui Song <kasong@tencent.com>
+Reply-To: kasong@tencent.com
 
-On Mon, Sep 14, 2026 at 09:41:01AM -0700, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
-> 
-> Add check to make sure port number is in range before writing
-> to dt_val array
-> 
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+From: Kairui Song <kasong@tencent.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+The DEBUG_VM sanity check in __swap_cache_replace_folio() iterates
+the old folio's range with "while (ci_off++ < ci_end)", so the loop
+body runs on the already-incremented offset: the first entry is
+skipped and one entry past the range is read.  For a folio split
+that entry belongs to the first after-split folio and was just
+repointed by the replacement loop above, so the check would warn
+spuriously whenever sub-folio orders differ from the head folio's.
 
-    Andrew
+Currently we don't support non-uniform swapcache split, but this still
+needs a fix to clean it up and prepare for non-uniform swap cache split.
+
+Use the same do-while pattern as the replacement loop.
+
+Fixes: 8578e0c00dcf ("mm, swap: use the swap table for the swap cache and switch API")
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Kairui Song <kasong@tencent.com>
+---
+ mm/swap_state.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index 625c185a1ca4..cef44aadee61 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -396,8 +396,9 @@ void __swap_cache_replace_folio(struct swap_cluster_info *ci,
+ 	    folio_order(old) != folio_order(new)) {
+ 		ci_off = swp_cluster_offset(old->swap);
+ 		ci_end = ci_off + folio_nr_pages(old);
+-		while (ci_off++ < ci_end)
++		do {
+ 			WARN_ON_ONCE(swp_tb_to_folio(__swap_table_get(ci, ci_off)) != old);
++		} while (++ci_off < ci_end);
+ 	}
+ }
+ 
+
+-- 
+2.55.0
+
+
