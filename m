@@ -1,84 +1,145 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772FC374A0A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93ECE361DDC;
+	Mon, 14 Sep 2026 11:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385946; cv=none; b=ioHg0A2nN5PfZyXYQS5OvloOptb38dZubh0L9+LnEkohCBHAslJK49tE4Ci/dkYmwGUNJK+RljBXoAoBX4DOt1PvFFwbiRsGFMP/l7iZEad5xKo5xs3TdyWqgh5XHjOLrt/9ZgN3MYU7fIez16pH8yZWSN2v49Mp2Ic74L0O0iY=
+	t=1789385951; cv=none; b=cudOXmptxjeHNAQmW1I7zgKp7+ZUOpf2H5QjA30ilLzTuydppWeRHt7l/nv/eo8aZdEHaRwhqHMVlNWMKO9mO0OsVDYjWFTcpJdeD/pwKdMgOHE+Qluq1QolV9thIHM7vAqnSpGq5lfVehjXJpTf6Fe4JSi+UX4T+NwjF82xecU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385946; c=relaxed/simple;
-	bh=JVPZjlnKODJi3nhixnUVBnhD7OEQ2ep1GCtg6AHA990=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=qwGixxsxjHpXFeTfgZ+d+SPqpxb41fQk6Za3Ttp17oeTphea2Or3aNSdDFubB/aFfvbuFrBaAYEUPZnYpYiLdkH5Ajr2PRYtDJuA2OIwXtItX6DYdkwWhoUuyYrDWXwtwQOVftMN27JXkudiWpeb9lbvC2Fc/NLScCaZKdNj/CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-46524220c5aso3168969fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:39:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789385944; x=1789990744;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8ShvkcUi2XdXGg3Kv7W4123bBr/e+6dayYQSTZLlVJI=;
-        b=p4iqJbni7KrKAKsN6K5zCj76CScD1tuSUH5R3XsWNwe+ufpymxzryAvCDMxKeN3r5U
-         SQ1e/Nzup/RyVfNJjoALRjsMIrOTCZBVIJJMf9mZIaVPrlTipt4JkuXi+R2x1L26FVMy
-         oDxLhb1k+w13/TFwQrlg59AxQ6LFkoCj8dh+HQIfU+TXYgNMt6d2Lw5qotyUpOxpTl7G
-         kmNf2zXnE3LhM7M6EXSHeZ/BiWsJcLeNGrLPkeGoveXajsiFBA/Q+81CFG58qwU+mf14
-         BKTxKRouYh7eZvzWvOFanATmh2dHnjIUJ6BC463RzxGCZG5jg7mvAt1n0AJMQ5w61Kqc
-         r6TA==
-X-Gm-Message-State: AFuF++lMgS6+so3I1keTXCd6oxIVT3avEdENqi4VS+dsDpCPlDe7gSsA
-	nWev2Az1VIbsLrAgmqB7ePwXnFbBI+zotFhqy28/48Pu7JCaTQ6VWy4HUmL60V32eddo6zJjwdT
-	GXeZm0dvVNLVFkNxhDmpl7FuY15lrhCu4eMEwKBWtHqNrKeL34G31G9J5XjM=
+	s=arc-20240116; t=1789385951; c=relaxed/simple;
+	bh=ZEqXV20UfJpPysNADYTF43diSa/57Iv3c2M4KOvi/ko=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LTr26FtXyDz8Cw7OamltyaTxUI0LIJzka2J6msy9i+0RAAKqo3+pkue2vfHRFwkS493sIxjzIX414+H77nZDMgQ1x8F1HB9f/rxy+4t4Ld7gTuCJ0XYpCKCsAxA1jR+GfsW1lbxlP9plX5Lp+2lYSWyYSoDEkTuJOdMEygFv7UU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nTFIZwLA; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nTFIZwLA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789385947;
+	bh=ZEqXV20UfJpPysNADYTF43diSa/57Iv3c2M4KOvi/ko=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=nTFIZwLAvoYEUQhGLNQPtycCmX6f14do4EyIYyevvzEQuhLOmNTk8mIMTB7cxHk2+
+	 UV7Z9kO21pvXScf18km+mhF6+JnHUeaOmo8tHsW3sXCRigzL3XovwXV+LzFfsARg68
+	 oemZyBf+yd0c7CprFRGM4xcnYULp7eZfls80hq7da3Np1V0W9YJoEfPHotFlz82tZq
+	 +DzpvJXxDJop/710rVCo1YU4ztpcmhxMyrrGVJ1+WAxzC8VpxT+stNqR/nzxWEgLI3
+	 v8/tWFD7q2H1N65j/3QpXgBac5HmRSrYj52RLCAeqdm0Co48e3YuP6PwUlDRBc8d2n
+	 4zTNvqBwCuXpg==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C940E17E093B;
+	Mon, 14 Sep 2026 13:39:05 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Date: Mon, 14 Sep 2026 13:38:47 +0200
+Subject: [PATCH v12 01/24] dt-bindings: phy: Add mediatek,mt8196-ufsphy
+ variant
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e841:0:b0:6be:19a6:fe63 with SMTP id
- 006d021491bc7-6c542a34449mr1007208eaf.25.1789385944367; Mon, 14 Sep 2026
- 04:39:04 -0700 (PDT)
-Date: Mon, 14 Sep 2026 04:39:04 -0700
-In-Reply-To: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7dcd8.a211d2ce.1a5198.0290.GAE@google.com>
-Subject: Forwarded: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
-From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-mt8196-ufs-v12-1-9279d7ef814d@collabora.com>
+References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
+In-Reply-To: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Peter Wang <peter.wang@mediatek.com>, 
+ Chaotian Jing <chaotian.jing@mediatek.com>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Stanley Jhu <chu.stanley@gmail.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789385943; l=2063;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=bk5EtgAp8+Q6dY7h9oTa6fh/C3fcFtiFpYBT06lrORk=;
+ b=MyHdxbhEWSidqYqe5QwS65OA93k85iycaWolhOsDT7NKNWZKdmlrlOUN2PFGiyEFh1uynD+pa
+ vPu6n9mSJJ5AX2FdPoZm3Bqp93Y+WKm7oWhPOdfkKMqUQyZ+q7xZ8vP
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-***
+The MediaTek MT8196 SoC includes an M-PHY compatible with the already
+existing mt8183 binding.
 
-Subject: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
-Author: jchuang26@m.fudan.edu.cn
+However, one omission from the original binding was that all of these
+variants may have an optional reset.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
+Add the new compatible, and also the resets property, with an example.
 
-Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+---
+ .../devicetree/bindings/phy/mediatek,ufs-phy.yaml        | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index 53fbdbbe8..24ea350cd 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1410,9 +1410,13 @@ batadv_iv_ogm_update_seqnos(const struct ethhdr *ethhdr,
- 		return BATADV_NO_DUP;
+diff --git a/Documentation/devicetree/bindings/phy/mediatek,ufs-phy.yaml b/Documentation/devicetree/bindings/phy/mediatek,ufs-phy.yaml
+index 6e2edd43fc2a..ee71dfa4e0c0 100644
+--- a/Documentation/devicetree/bindings/phy/mediatek,ufs-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/mediatek,ufs-phy.yaml
+@@ -27,6 +27,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt8195-ufsphy
++              - mediatek,mt8196-ufsphy
+           - const: mediatek,mt8183-ufsphy
+       - const: mediatek,mt8183-ufsphy
  
- 	orig_ifinfo = batadv_orig_ifinfo_new(orig_node, if_outgoing);
--	if (WARN_ON(!orig_ifinfo)) {
-+	if (!orig_ifinfo) {
-+		/* The GFP_ATOMIC allocation inside batadv_orig_ifinfo_new()
-+		 * may fail under memory pressure. That is not a kernel bug,
-+		 * so don't WARN; just skip duplicate detection.
-+		 */
- 		batadv_orig_node_put(orig_node);
--		return 0;
-+		return BATADV_NO_DUP;
- 	}
+@@ -43,6 +44,10 @@ properties:
+       - const: unipro
+       - const: mp
  
- 	spin_lock_bh(&orig_node->bat_iv.ogm_cnt_lock);
++  resets:
++    items:
++      - description: Optional UFS M-PHY reset.
++
+   "#phy-cells":
+     const: 0
+ 
+@@ -66,5 +71,16 @@ examples:
+         clock-names = "unipro", "mp";
+         #phy-cells = <0>;
+     };
++  - |
++    #include <dt-bindings/reset/mediatek,mt8196-resets.h>
++    ufs-phy@16800000 {
++        compatible = "mediatek,mt8196-ufsphy", "mediatek,mt8183-ufsphy";
++        reg = <0x16800000 0x10000>;
++        clocks = <&ufs_ao_clk 3>,
++                 <&ufs_ao_clk 5>;
++        clock-names = "unipro", "mp";
++        resets = <&ufs_ao_clk MT8196_UFSAO_RST0_UFS_MPHY>;
++        #phy-cells = <0>;
++    };
+ 
+ ...
+
+-- 
+2.55.0
+
