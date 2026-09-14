@@ -1,146 +1,130 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91DB3750CC
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB3937204E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371639; cv=none; b=UQBlrmHQparq9MYMhTHXNvHhzaEvHUtizh+SqyL7MoDvLsveGfFbibWLoWmy4AE5btxacEpB1eA++hl9/HwbvMifNHRC6fCOm5a0QvNc3YMnBesPkG8FvlbndnlMRlL23FmaFJr1bG12TEHxAlCknBVNQvbAUEYpP1hq7eo0lwE=
+	t=1789371663; cv=none; b=JUKM9ccbSYJ2/Rn0Qo3/ifLhAMJWkVN52/MjGc/tyVdeWSWPS/jM5nzgqgckqtKmP4b8plIDkFb43BSwk9k516t+ymS9TZl9ZMWlQicTmzjrv5YUZzoYtmANgLTDFnnPWmIfgcr0+iW8Myo1cSmNMnvNZ5j7aD/pZJqhp12gXqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371639; c=relaxed/simple;
-	bh=7D1WrDaOXw3jEwbtz6iaTiJ0Ik7U81oE17WafVAW2yg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j1G1EEo5KfvKXdUwHCnPUNx7y4qsj6iCcIgX/yhGD0d4dhzQMutHRDI6RuZ74OxRHr3/vIKcEzcRFR6vJ7HlD3nqleOwicBdNvtItw3kvAHL2FW5BJvkA+oQQJWLWfREsrGK4BQOe1YC8gN80Zs9UaNl41heoo2PrfvYwc2bS54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WBdy/+Q/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QhnlK6Xy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789371663; c=relaxed/simple;
+	bh=zmkCEVRXJ2RjY1tfIyBwhvIpFzfLhR7uGNvI0kN6wAo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=c/bVqsx8xxwYEwk8h+mMOtSjKWP4g0i96WLq8seJeGOVVd8TNyNphsjj0WZ2BsKt5G3OAe1JjxJROZozMVY4GZlX+z9IGZ9h/sJy/2NHMSja1naPScpjYTX57Obfcw128Kij2XBCXAJczpn5Rf/5TJqO4y3mh/CJsgFO6QScaMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1cu49bD; arc=none smtp.client-ip=74.125.230.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WBdy/+Q/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QhnlK6Xy"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5j9K7063786
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:40:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=+MmYma9ipaJNApTwltViswWE
-	v0iN2F3QjUMkSNVw71w=; b=WBdy/+Q/q0vdN9eewwBB5t9+2NZ37YLDTW5vL+fG
-	pRODQtAmweFTGF2QIHVYwSJBRUu6gH+rnmLteHJbOsHmQNNbP7UtXFlhgYloXSZA
-	4RNnihwXWLzlcpALjb39GZNuiHSnXyqZepB+5qwZZKURCN74ppNVbQyiuPuQSGsP
-	gOJKQFSOA2fpS5GSrXahymmFnYvvRbiU1NbJB/7xf7f47h3S+3Y5BfVfp2Gt4PNg
-	sBQLzx0hlsQpWzAhVLovKXr94rimfjUvmt0b8yLOmCHYEUK6xID+dGWTulBOEWOa
-	lTXE03Q3HTeAlhgfhOpNOig79r1CN/DuyBYd6OxoeVTzxA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dnm4x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:40:36 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90e8dd8be81so38321786d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:40:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1cu49bD"
+Received: by mail-lr2-f3.google.com with SMTP id 38308e7fff4ca-3a4f7261b56so18862341fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:41:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789371636; x=1789976436; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+MmYma9ipaJNApTwltViswWEv0iN2F3QjUMkSNVw71w=;
-        b=QhnlK6XyH0ZPUcUbKCxRbLPmbrJ1HIaAwDrq5aNDp5XrrTtLmF61VbB+IoAsN/ggpi
-         NEPMqxy2lLHqm86u4hWAkECQ38iqHiqDmSPX94m8/ZVhGteSfSm9dAq9dNgY0igyZh1p
-         YI0T6Je24f7IZ8FGnyqfJCDZhGBCHt2gP8unDR0+l6hPJGkt7KfM9seZBUX+WA9MR9f6
-         GjhL73ABbj6DYJGBS7MpwSo1vqlxKGEnrSzJbEonX8O1RTZ9Gu/xqtJ4J2HbwwrzJXRx
-         4PEjb7lN6Soe0BZWx8+5TgAmr3OZNUH0CxOi2uURtyY01RzNd+fqMGG4ZOwEDhaml251
-         j4AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371636; x=1789976436;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789371660; x=1789976460; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+MmYma9ipaJNApTwltViswWEv0iN2F3QjUMkSNVw71w=;
-        b=Q/5SRavFvfqpeT+g40ho+lIne4XLNdOM28Oa4XIwjrzbGoDjTdyySuuyCZspISmpIb
-         +hLCuF2UTIXZ/IL/XXr5bsieJzd/0Le+S2lZEV/x7oztvFP+bQdEr+68AdRrar7YI6H6
-         ctlxYJIRHvpdbEgVHqMEmvuDq4VpdW7z0D6SgBwrf4kvEetbDwCzEs7j4zzucchJQbIu
-         bfehU/Xs/gT73yMwO73PIT2tkBEjiN/pfmeMWoL4WkgJZ/UUMHW5sorHUE07dlOly+L3
-         GmGgfBlf5CE8uqe5e4zXKq43cN9OySVNHjsHRkwebsdEV9nUsRPmRpYbFAXeN5RMyF3I
-         V//Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy6n3WDR/jVTl7xXhJh8gZYPvtUtk5xxzzWt+kgYxEv+z8NJ9rPmYJnw6YGfnGjrcnPYEajbydflAZ8i5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++liTiWD42+6wTvvyQLZbTHL3b1GKP5Tw+wOXkFjps+VVTkEgf2z
-	bptTNok51zRv8OlXi33cnITZvlvMCY1Uzcw13Y1ESjm9q5YTHFmLoHN3sJuatXtYqMGD5aE0gwn
-	BmBxExad+TBD5ku7F0BJvpGmmW9HGQPbOL7IFBSzxRGyi2SzhVbQ+qbrO6yHasG6w0Eo=
-X-Gm-Gg: AYBFou34BINBnICOW4WvUToMoFTRXExiE+DiDoIRhvwLQ4Ev9K8tqrI0mgJit9oARcj
-	r72TI/ELQ0suMk0QrWiikjuz0fzfxrj7XYyKmTaae6VfU3r4vZlLqkzOsj6fq9DcZgfG8mKPg6b
-	YcYvKWyFYhcsZVD7FNDuamLXD6+PHInc+BfKK6oK/lLbHi0DSfxC7wXYJ11Sa1XDQSSIvEXSmds
-	FDWLIEEQ76GLmwURjZIlH9x3ryU9u3CHebA3GvcZgRpZzQzth44DtJqJFzsnZQQUiK/a+ckVlTI
-	twG7HDgoyID6UlemdBzO/QH5/f12IcVuhzV1Ux9Nr3vlO5mTHmEfFVjV8WbVbk5ghu7XwwQv3k7
-	/vwk+DT+/kSQv/Q==
-X-Received: by 2002:a05:620a:6018:b0:939:6df9:f991 with SMTP id af79cd13be357-93a29c360e7mr165549485a.52.1789371635957;
-        Mon, 14 Sep 2026 00:40:35 -0700 (PDT)
-X-Received: by 2002:a05:620a:6018:b0:939:6df9:f991 with SMTP id af79cd13be357-93a29c360e7mr165545685a.52.1789371635437;
-        Mon, 14 Sep 2026 00:40:35 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f353sm23982368f8f.26.2026.09.14.00.40.33
+        bh=cpZ8aiz1nJMHc4s8HTwIf+eLIqHawFVPZ8yiJXV3xqE=;
+        b=T1cu49bDWfcU9imyd+QhW8vasAKjphh+CXjTvp48a1/dEziZ8wYXa99MezbQEdfWpt
+         tgGn0rdu8NinwtH/dPvAgTBLXuS6KHr9jL1neogRyCQ/XQDS5FhC1iBAS5zEcpVWvLV4
+         OV1dI3dvemxCoh8Cxv4LeAGOgRHofW6c8A6pyYEyKvLWzMheTheD9oZcXesYT3uZ2zMP
+         I4yuWLLVLi8guyQXJ6Ot5PYrM4mFY0bsG1IIDOXXF5KbegGVZY8R3sFPlwtZhd7Hfnbg
+         e+XCfeNmfDITzHm/VkoyIElhENy6MxTAbzSAfFkZ8/X5B9bwYJqtaC3bzHiG6ebQk2l2
+         Wg4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789371660; x=1789976460;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpZ8aiz1nJMHc4s8HTwIf+eLIqHawFVPZ8yiJXV3xqE=;
+        b=RpMUWhbV68K/Mou5n3/Fg0QFt6jTNV5CetspsREMaYdIaD9fyoVdFsRlEruH+hYiJe
+         gngVYkvz43TwRlfdBsuI8ODHmyOjpEz88bo3rZj1xeG7SvZ1dBm6P8Yc1xaCkenO/GF3
+         QPqit1EVBNgArPzZgW3TiHhduHE5ZWLt4I/u1gBLFTYQSfrtzw5kD939EBnYaTZDcPkU
+         5RBA2zWOwKBHDNx6oAM2ynJ3sk/5Xc517SakuLZAs7oHrDQg94zFyuCft469ufhfTC8r
+         jBW7m9PuSLEUnTTXUyyaEH1M+0/Cn6ewHk2KVQkF5Q0AMzbA4e5jLM5xFtIHwG03apj7
+         /1fw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRJO+roE5w3OQP/ZouQXow246WhY3jLycva1rQuXykm/pS206Gh7P2BHsvDJgejAKWpBGZfyrUR62VcNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWShibS7KrmNUdPN2+AkBynkm/Ohn0PwGmrU+xGSGZpEDo/al9
+	P+r/pmN2vfD+M7yoJO5Ogp4N6AxgAkxCDqn4LpKBaUCBRHIOa7jtewH7
+X-Gm-Gg: AYBFou0GiWd+wy+ikomDu3q6Tid/vEOVF50ZWZYHfNsk6saz7xKUQTXlsJ02pfdRv3P
+	0esmmHXySbLhHNGIQuO+j7H2abktXCKvyoyH+3P5yOATVmbBuWcedF08ZhR+z+eQqdgnpMz0m/R
+	XI34QsKYGGp6z+yNx2drN0A1JZEBAjg+GAv1xZLnKohC7tqXnepFSaM8RVetDwnmf5pCjehX2t2
+	XklLthVvvOI3BvC+/5OkJyiCu1MkF+Kmq7d4/NH3+Keq/kJVsDin/zoWmOZR3+xiZbpjZzuRcXf
+	J8UBR8gTC1VuxVJz+xDrM1RCmWTTX3YYv9ZbbW5Gqb4TzJPpIBC4Re8aXJDtuYK29VG9uKw8qLp
+	OOZyTePwpT9NQpXvPFg+JWYgUKB0evkYnc+HkGbUdudV+MBgtLpSJcIihu0jGkVRGJFlR48317L
+	iYS0T094PHy1bqsyQXlwQXMJES63NZVChPwj7qIkzjxVHXzJB/doVxIvccPlso7nQOYYT9aBXnb
+	MbXpeUMgoP7t1su
+X-Received: by 2002:a05:6512:1053:b0:5b8:ab9a:1e97 with SMTP id 2adb3069b0e04-5b8ae6b660dmr352514e87.57.1789371659553;
+        Mon, 14 Sep 2026 00:40:59 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a045726fsm2241169e87.20.2026.09.14.00.40.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:40:34 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:40:32 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 19/31] arm64: dts: qcom: eliza: Add domain idle state
- names
-Message-ID: <h3grscehc53f3rvw73jbvnpwbc2m6fhr7xqrexsrrd3t7yphpu@vq6gu73yqiom>
-References: <20260914-b4-idle-state-name-v1-0-660c31187819@oss.qualcomm.com>
- <20260914-b4-idle-state-name-v1-19-660c31187819@oss.qualcomm.com>
+        Mon, 14 Sep 2026 00:40:59 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Xinhui Pan <Xinhui.Pan@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sasha Levin <sashal@kernel.org>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Yunxiang Li <Yunxiang.Li@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Candice Li <candice.li@amd.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Junrui Luo <moonafterrain@outlook.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	hackyzh002 <hackyzh002@gmail.com>
+Subject: [PATCH 5.10] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
+Date: Mon, 14 Sep 2026 10:40:47 +0300
+Message-ID: <20260914074050.10384-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-b4-idle-state-name-v1-19-660c31187819@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwOCBTYWx0ZWRfXw8Zqyc7IzP7q
- MspDHXJLUlFbpg9w+/ulVr22D6XJxsxDSW55oTE9+c/lau2KztvrglX9sFHD7Y2A99W9sjARRoc
- y6aJ3R0VlvP+wjXM7INJt7bCwnIIC8I/vMYnE9cYFqn/e9ZTwO24K6w03lOHpSljCB+drXpKnTl
- Sa/lLWBRknYCS+9vh25c6HdujAEEMtkk1aywMWGqCHPrhHhzl/WoljVvYwLMsTjDkLev5j8zWpU
- PCZuqF9K3tPROfiIs9xDv1InHUOf3JLztmTOiKAT19RmXgwJkqvcE3WvI23PIujS3SkR0KTIW7t
- u0IMrbH14q1uZtjBAH9EIprp6oD/xJ9DMC69ZMoF1Z/k68nK5xEUzJX+vXIrrirN081LMrmDHW6
- 316VVDMEQei2mYLCZcuN+6qtfY16RsX0CJYLldlSmt7J5DLzagQAXuZaMC4BCykUqVq9dkQoj3c
- QQuSm0Yk7a2nm7aFbmQ==
-X-Proofpoint-ORIG-GUID: ZRJCnviya39m9r9AqBJcCVLGxATZTyuw
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwOCBTYWx0ZWRfX3E4sbjQ40cLz
- WdWd2miCI+ysw378/79VQiZTSXe1fE62bFHYYh8SuNr4kcn3/UMsNs4tfUbemLziI/AfRugbMlD
- YzrtGSUMhQTBSSfCXUWJWPBFWn5PwFk=
-X-Authority-Analysis: v=2.4 cv=Y6htIReN c=1 sm=1 tr=0 ts=6aa7a4f4 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=HAnpKfeiUU4SruykqnYA:9 a=CjuIK1q_8ugA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: ZRJCnviya39m9r9AqBJcCVLGxATZTyuw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 impostorscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140108
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 26-09-14 12:29:51, Maulik Shah wrote:
-> Add the idle-state-name property for the domain idle state so low power
-> modes are described consistently and its name is printed in pmdomain
-> debugfs.
-> 
-> While at it, update CPU idle state names to match the low power modes
-> they describe.
-> 
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+From: hackyzh002 <hackyzh002@gmail.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit 87c2213e85bd81e4a9a4d0880c256568794ae388 upstream.
+
+The type of size is unsigned int, if size is 0x40000000, there will
+be an integer overflow, size will be zero after size *= sizeof(uint32_t),
+will cause uninitialized memory to be referenced later.
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for BDU:2026-01386
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index addeda42339f..4e20daa34305 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -100,7 +100,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 	uint64_t *chunk_array_user;
+ 	uint64_t *chunk_array;
+-	unsigned size, num_ibs = 0;
++	size_t size;
++	unsigned int num_ibs = 0;
+ 	uint32_t uf_offset = 0;
+ 	int i;
+ 	int ret;
+-- 
+2.53.0
+
