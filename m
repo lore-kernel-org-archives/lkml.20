@@ -1,203 +1,515 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010044.outbound.protection.outlook.com [52.101.46.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217372C11CA;
-	Mon, 14 Sep 2026 01:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789348253; cv=fail; b=fTYTEcpHTimKmUhZLJhFlzub6z/EGvZrm6adEUphLXsWRja87dWVUjCEMUhD67R9YM5f2VLgTLzhwgaJeL2qRlS3FxJVUGkipuvWjnPjquSUxzBpgMKvdfQCZaosMqBZR6zdNT+cEB3nu0oM3saODrfPy0gIi77ZP78CtvedQA4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789348253; c=relaxed/simple;
-	bh=73yrEgeuULsnnm3RnrhNKspeYf+iB0WvVwwPxeGgyxw=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=sC5zcpHKxZ6TxgPyTXNVXYPvrLG8w0Tsr0CSQXp5yNKr+genoDSBv7XzWsinLLLqBqPtfetK87DhH5GaeEgpjqCKcHX3YLRp2UeD2nwM12yC6gMxQcXuCfvcXdYiOIU4+XoM5B9V9BRxPFnpOBTJbCGw1N2RKLr57DVnTlrnUhY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GEVL9yIf; arc=fail smtp.client-ip=52.101.46.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6BB29C328
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789348330; cv=none; b=kHRxERFgOOi6vrCeMJA70P9wpdoQz0/MZvBiUj/VroP8ogDc0pNhphpA60x+YKEOyEMjKzq6l7ikpmPVffH9hB78M3zBIi/GwSP/xXDyRbhMmmNJA3lqqPLjlyVJXsJoiJnAEutH+UXsYT+Z2YgLrNnmDMlYqNyjLWgaXDR9tSg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789348330; c=relaxed/simple;
+	bh=IzeBZIAu8Iu7JhViYfM89nSb6AUEWlm6PRdWck0SNqw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=RFNuJhb4SjInDOBQixAr8qbhElJ4cz4xSxiEDhNWqz0OTiVzmM/cRV0opLVF4jpgoVv/n51kHkxQD19XPX0osHLLZVc6pk/5RwUsXzov/GFJU7lcZs03W6g7bHVnY9rTBDUs0wrulkxv+Ztl9lMkJsgl1vt3CScY/7LGM1WAgoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fqRBhwmn; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GEVL9yIf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iJTgQxJ5y8/EtzF9915aKDHTJcRW9sbv7IeGUfkXj65zB6c+ANzWPHhmsrxGnMClD4US3O3pGwR5U91UL6a5szxJME7Jq7rHKccDt9vVFtPd11jlTLmAwqhXUwvK8k/ZcrLQHLC8o9w570xnVf95W38xTtN+IQoGzYO3BbbXDTNsw4Du+2qRoWtpN7xxlAaqnVqaM4mfwxW4sz/ILYequAu1bAI8NSMXBUKQ/z6NCOx0vBfhzzmPn+DhYP3vyLIUyj1htDRXO7ZNrd7Mp745M4JYNJ75TX3vdbo89GfreAc8r9ymxWQEN/Li8CuMUr+0+AzhqkVUJjm1aDlFVuU36g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wuAxBe8i3zNxPxazxdP4qC1AGx4GwbC4lQRUEHvbits=;
- b=Yk9Xm97AoZ2HjpoI/TOkZCNGfrsIrtiHmcWIQj1yJGA9c4cjm63sn9tjRlqS/G5KR6jqDyEU7PLa2Zkck0NErAAQC2nu4N5N6Fz1Io3A+yS7+pefXzIFGlHkedFt0+gP/BDdDu0G5dxWtUmIMuMye8I0jBWKBDrXx5k6uSOKpOeTBuhGKb4Tfa1I+3S18hZ1LmsnEnJ/LzN1UssMzMuuSCxhEYKU0YF6RHkW5CVcJ5RfdM/AoVBU1fFc3t8o/wazct+XA6LdeHLGSedO3azR1yA/+oq8QBySY7XEcZ5aYY9L1HK0G/ffkVi7NNd8tXlqERONBQWOqMtL9wTd5sL5Tw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wuAxBe8i3zNxPxazxdP4qC1AGx4GwbC4lQRUEHvbits=;
- b=GEVL9yIftvTOZnFsalYQINWdzENauC5XRsXLDfpEnwyHJyHi+ockqgT/pI24z9YIUb9O9ArXQvA/lPaRrQXPHZWVOIH0VGTECw/YIlNyQMV+158GHs/vAipUIICVHU2RjeWQr/B6RpHnc6v3tUXiqLCBM7CYiMQBW8eSe9dncLhNS7UVl3qnokVDogPb9AkFY2RYntwkbkafBZSo/9cVf+FfnCtjzeSeY+EhW0Gik3b0STyPNoE5iVD88SPlpBeofHB/iaQMmgLSKY6pPg/zAnGzXdF/Ia4w8TFeNgGpc1/99kuUzjNsksbzO3kqhuYSV3aWzXz9hJL8nOpdiUqr9A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 01:10:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 01:10:48 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 10:10:45 +0900
-Message-Id: <DLEN0K4JVUB1.1G3JJZHEJXBBC@nvidia.com>
-Cc: "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
- <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni"
- <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <netdev@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: net: netlink: validate attribute length before
- casting to `c_int`
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Sagar Taunk" <sagartaunk@proton.me>
-Content-Transfer-Encoding: quoted-printable
-References: <20260913021730.18926-1-sagartaunk@proton.me>
-In-Reply-To: <20260913021730.18926-1-sagartaunk@proton.me>
-X-ClientProxiedBy: TY6P301CA0042.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3ba::8) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fqRBhwmn"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so2396640a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:12:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789348328; x=1789953128; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:content-language:cc:to
+         :subject:from:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y9tXIbPlNP6ameAMEEM4+Ga7euehLrZ9+6Dgw663taw=;
+        b=fqRBhwmn9Kk9ScC2kQRgmlXsk7CMJ7zhvC1x8+uUvTp0Nz4QUQ/HdoNEMlh93b4k4C
+         qIyzUXMxOFNueLsTu+h6cVfA8GJghFkvQiW1SFFgJO0q1Da1T4bsR4CPbYqOsfrzRdfj
+         dDM1EzZx7mPsBWxyZ499+9uxjdZyr9T4Iu+E9YSNz+8iqJD1K2pwHtpc1xO4DV9mw9ui
+         wyp2xPezk4PuZb/MU7YxSidvOoshA0UZOpuEIQXrvmY2ovYdeFYqjVc+a4IKSQZR14Xt
+         y514vI9uplXYCdmeNHmnKXMZyPKpokgcfHDSdwUM4gUts/jhgb7oViWEijiFTSd81fXa
+         a40A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789348328; x=1789953128;
+        h=content-transfer-encoding:content-type:content-language:cc:to
+         :subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y9tXIbPlNP6ameAMEEM4+Ga7euehLrZ9+6Dgw663taw=;
+        b=EaSmzZN5xBF5CnCBFyJM6Cf2gtOhZ9e44KZS7dEBnqXLdPRf2kOSqWHB/Xce3K8xQp
+         y/IVntAu4INTQS/asgW9jCjZjxjakm5Id1x02pEHES8WJdmG/UaKkKrJorzVgDrtL/O0
+         dWtALohnlWKFqRG1VsnwYmabZFfmE0fgaD6bUBJgI7VXEQGnAECh/w5Kjnzwn48mdi0Q
+         hYGLzMyjcpyg3t9C7EuDoT4l1GdfkVpSxj8MzAbPqRubfRCSY8R4+BHbrZlUJfU47Q6i
+         vvJkiM/lhpw+rK+5l69CB6w/WYc2QXgzrfJxNu7hkZxR/mcC5BfRPdEfML1g4zGVD61Y
+         OOPg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/XuqwbaDP61Rr8CJYvK0gYVBV6UZgoM+6EydQmLHcCl9ImkpKJH1CndljXMhJAcNyhmPl1ZGbBn9AlmQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdxRXkx7wxiqtmoZ66DhKZ9XvUeBjR7r2jQLIQ8zargvoT5i2Z
+	TzHkjD6ngD4K5WF2wdiNoVA7EUmw88Ua7CdwEXaD6idbmEb4G54sWszy
+X-Gm-Gg: AYBFou03BjRxCjiLsVwOy5yfJ83DYNzfGUF4jV7v4BE+m8fzIjMd7B6ORwD6KWBo70+
+	PNH5lz/TVPMMTx1ZOQklNXhBUgvodFHaHCyxUiX0LFgekQDca2uiG+sSgWWCuXpHtqf9GaC+u3B
+	IAJSnmyZJltlzbP881bhcNhYI8ZtdIqN4XFmol0w1B9cNeLMLzjF0oPWbzPqvfzD6ncXxf8wlV9
+	dNxntxp/Wema5rNfWJDD9ZNhigOx+qHFewZG5spV52ovJXBHpJHF93REbtATkNdt79568tRkgoD
+	dvT/E5JXIZouBYN6mQhWU+nRJzI3acBJHDv6p4N7WkWAX+DO3ry8a/AcHNgQFx6gPrXBbBlw8Pr
+	szrbwKXLEeRRquZZxMHV4afC0qWyIMZ42B9ImvDWY+V2lHa6KL8sAaDeIEtIbZdjcY2KXd7rt6z
+	eI/X10Wwkt9BU36TfysC0YtT1bweVCZXbKx1K5caXO2xeIqwguygnIPBbIgBRoRf7qC32lGFdVc
+	cKSUr01I14Eyb/NzUzQkc9/mgG9U4nTRq1ZFuhxm6ITOg9oFiV4LSk=
+X-Received: by 2002:a17:90b:1805:b0:39b:4877:ae90 with SMTP id 98e67ed59e1d1-39dec143751mr909263a91.22.1789348328321;
+        Sun, 13 Sep 2026 18:12:08 -0700 (PDT)
+Received: from ?IPV6:2607:f598:b3da:2e70:5551:6aaf:8be2:608? ([2607:f598:b3da:2e70:5551:6aaf:8be2:608])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9b359sm22260828eec.14.2026.09.13.18.12.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 18:12:07 -0700 (PDT)
+Message-ID: <0da43a8c-1755-49fe-b8e2-403489297f06@gmail.com>
+Date: Sun, 13 Sep 2026 18:12:08 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MN2PR12MB4190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bbd6990-5474-442e-8f65-08df11fd02fc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|376014|7416014|1800799024|366016|10067099003|6133799003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	HDlQAyWCrJOXFCszLL677JIRgeCx06F7eTUrr83Gq9wJXIm8ecAhtpTfqZwBUxQwtOkVVE5+Oz9gxXBkVAGlfiU5rcPtV6SDnbPamgWH9jBHAvGyvhsAXORy4tsDlzEaaSc1EYJ51y9BeQqQMpVGD3/SyQg7ZCBim9J1dMo4X7s8UpcCiz5TxfKXMEcEjphYKxXU898xQufta1BtIGLBu/BejhZVzu3ctQmrmaV7ZvDyFwrw1xMzNPAUOIgenB9TMwT7HzJpFvpLg64niPs8T0t2FXx7e5f2J8LabVDjxTuv1OsWuJs45eAJHhK2leZlHJTHw8cwCml437UuWyFbRqSfGt4JlkHJtAJI1wsittLk4qkct9lkuEjMH5klNoW35JS5637M1KLbyE/X5/vJsCKSB+RvslfUc42Ua6vnWBE9KroH7Y2+GSyEhtHZ99OQxszXWQr6reh2CBrvL/zo3Jxr8zZblAejl27K2/+zA1JDfmGjLYkMaH5jTtqt6bmSQsgWPpHLffNNJINFp2nFZf1AQ0wCqXkQZ5Wup2jRqlEbq77M0c6p1YUTHmMzkKQS9MMV2C9SyLTunSFo1w0E/GKvC+fDxsAZWnXUXQer7PCaz+ewaj5w0HfY+9JxVKiOXq8CMp6KZmOQwPdtOmG2XnxxsQ85jeCVFyM6KCwphA8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(7416014)(1800799024)(366016)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YjRnN0t1TXQrczgxQVJkeWVyblpOemcxb2hMNFJoaHJycVdjcGFtSGZVQnhx?=
- =?utf-8?B?WGRUSkZpb2xRcmpBVjkzM1dGblQxU0hmY0FSVGI3UkVvK25xeGdNa3Y4Wkpw?=
- =?utf-8?B?dkE4SU5kNGFPS01VSm5JbjJVV2xPY2lYYVNvYlB2cTZWYkw4OThuOEw5MklF?=
- =?utf-8?B?Yk9ZamZpaDV1eEN2YU9iQmIwSzdMbDg3QUIxMXVHQU1YZnVCUFY0Y1NRUm91?=
- =?utf-8?B?YzJ1bjlIeFJDeVVqakFFSE0xQVphM3pRTVR0eGlDQ3BDWWc4L2QyeUVLZk85?=
- =?utf-8?B?RmE3QXpKeDIrNVhPWnRYb1pIa0ROQVk5dmVpaTZ6Rm42aFFQZVNPWlkyeWxW?=
- =?utf-8?B?Q0V4RTRBRkt6c0hSTk05M1BaeHJyR2VwYVNyd0Z6S3NOTzdqWUJiTG9wU3Zo?=
- =?utf-8?B?ZWRyM2I3blFkampiOFV2SkZPTmJwZHhYQThzZ2prdXlJa1JKMk01SU02UWpU?=
- =?utf-8?B?K1c2eWd3NmV0emZtZm52MlpCWlNwVXhDd3QyQmhiamNMdHhkWXJQZVVGTVZI?=
- =?utf-8?B?bFZYRjdzY0kzUDVxYWVIdnZnZXo5OXR5Skp4eWNxVjc2SG5XNGZSZ3hOVzVN?=
- =?utf-8?B?R3NyemlOVEhnZGpCRGNmUDN3R0NMZjUxd0U2YmlPbll1dU11ZWNJSFIvdEpo?=
- =?utf-8?B?SkJKSEdYOTZYYlZpQ3BBckVOaXA5aEJEanRydzBDUkFrbDgvRFdIajVSelZa?=
- =?utf-8?B?MWtuU1J3SzJpYlVlSE91bmt4bHhQR2k4a1VFQlowODZRSEhuMy9SVkd1S09W?=
- =?utf-8?B?Mm9tNVc3TWFCNmZIZXlJbG90T1FwM3ZmK1NLb09NdG1RM0F1dWZsTElhZ3lw?=
- =?utf-8?B?Si9BL0FtdzZGdFNyWmRsRUx1WkxYRmp5cVA4VW5XTHdIdTkzUzJjU0t2M2VI?=
- =?utf-8?B?S2ErTStLbmh4eFFiK0pvb05wWFJXMUIwOTFBSGdOMVJpaVdSNXlKMzZnd2c2?=
- =?utf-8?B?bG5kWDhNNGlMVE83bmUwMFptcFRCd2prV3NQTnBGQzRwNEtseVRRTE9rUHh4?=
- =?utf-8?B?T01YNFZnaUVBWEx3QVdOcnArWlprRzNUa0UxSGhTV25VT0VMVmVKcVNEcmZH?=
- =?utf-8?B?eFU4T1RGLzVNU0JqTEQ0UHNkdkN1ZFVXMWg3WWdhd0xRQVY1aEFBd3A0dFF5?=
- =?utf-8?B?MDlhRlFRdmxkVjEvSHdjRWdnbEcydlNNWjFDT2ZyVzdBS2QvVkJJaSszTkpP?=
- =?utf-8?B?UUM0MjdNZ3lGc3lyaWVsSXJ1U3JPaDMreW1VbSs4V1B2Nzh0WnNmbU9qc2hH?=
- =?utf-8?B?VzB0QXdWSnRJM20yaVppWWtwaklsREprUTRJYXBmeEh6dUdxQXpqZlR2MmhF?=
- =?utf-8?B?UlVWVTBXb2luWkNLR0ZHYk1LRDZHYWtmd3dYa3I0MmxuMFVDaStqK3R5V1Uz?=
- =?utf-8?B?WWZmKzR0WkJkbjFxd2ttSWl0cFAxSk5UMk0wQldrRkQ1ejk3bDNwR3JqU2Nw?=
- =?utf-8?B?UFdSRUt6anBmeC9VS2NoSGE3bmRDWjNQdlFyNmZ2UGZHQml0OGxjVVMzRWlw?=
- =?utf-8?B?L0w0V1I0bytMVGJxV2swSGpZd2xiWFpja3cvbXU2dkhJMUxrOEFwbHhybmNZ?=
- =?utf-8?B?ZUhObXAxR0RIWmlsQTJkK3h4cFJ2cWREKzBTb0RlQlNuTEMxTktTSm8rblMw?=
- =?utf-8?B?cmY4WEVFeUlSQzlROE9RRE1PeUwxOGlHenZXWlZSVWhMaDFObFZ5RUltc0dN?=
- =?utf-8?B?WkZCOGJ5ZWFCZlRyWWltOEdMZHRTY0JFaEZCOUphbnBOb0RYanBMdTU3a08y?=
- =?utf-8?B?UHY0bEd0MGQ5YkUvWE1vVUE1RTE0UUVNMlgwK21Rck1wbEdjLzByWHUvK3Qz?=
- =?utf-8?B?aldZVE9HNTlUSWxDZm8zUURleTdsOC9RRVU4bXRmRWIxVUwreGdwdGtjc2s1?=
- =?utf-8?B?bWdjU2E4VllJdHF2c05XMFlhalFVbnJHcTFwOE0wY2ZhMzB0aTV4S3o2NmlW?=
- =?utf-8?B?UHIwTHhKR29wNThUWFJMSHFha3QyYmFZZWdDSjJRald4alpwRE1rMFV4YlRW?=
- =?utf-8?B?dHVHSU9JdWRFVzhvejZ0TWFMV2FVQ1BxdjVlbjZOMHpYL3YzWkg0K1ZVd1Vy?=
- =?utf-8?B?U21jSjFWQU5VR1NvcGNhc0NmQXZpQ3U2V2NwWWVTcmg1V3Uyb2QxY0o0ZWVW?=
- =?utf-8?B?YWZtdE9YdjgvZDRubXp5cUVlVUtvMkNDeGIza29KajU4N0JsRldkS2tJelVV?=
- =?utf-8?B?UHhmUTM2Rk1FcDBEVWN0NVJRYndNOU1tTThhU1R5VjNtTGNQV2I4R2wyOSs1?=
- =?utf-8?B?TEhkOFBCbCtscm15NkN1aHYrMmxUNXNTdy9GdmR2bEE4QTR5OFRoTUYzMS9B?=
- =?utf-8?B?bkk1eVo5TTgvSUpaeEIwb2NTRGpPMEhYeFp0cGN3dStaNndEd0crTFR2cWdj?=
- =?utf-8?Q?GqSHsbpwr/Q7WzzGL9KsSL4eJaSIWZCqd5WRsTMa3gCN3?=
-X-MS-Exchange-AntiSpam-MessageData-1: gWo+URcUheK3Vg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bbd6990-5474-442e-8f65-08df11fd02fc
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 01:10:48.5807
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PU5DNoIeSxdMMwom7Kv4c2p1OdOsjPpuKaYh2Cwymx8evUMXLRYtVl7FcPoxISUVd7fVRHqmbzxU6VjKK6JMrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
+User-Agent: Mozilla Thunderbird
+From: Bozhen Peng <bozhenpeng93@gmail.com>
+Subject: [PATCH] platform/x86: bitland-mifs-wmi: Support WUJIE15 PRO HPT
+To: Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Armin Wolf <W_Armin@gmx.de>, Gladyshev Ilya <foxido@foxido.dev>,
+ Mingyou Chen <qby140326@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, platform-driver-x86@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun Sep 13, 2026 at 11:17 AM JST, Sagar Taunk wrote:
-> As pointed out by Sashiko, `put()` trusted an unchecked `as` cast from
-> `usize` to `c_int`. When the length exceeds `i32::MAX`, that cast
-> wraps around to a negative value.
->
-> `nla_put()`'s `skb_tailroom()` check treats the length as signed, so
-> the wrapped negative value slips past it. Further down, `__nla_reserve()`
-> and `skb_put` reinterpret the same value as unsigned, turning it into an
-> enormous length and triggering a kernel panic via `skb_over_panic()`.
->
-> So, validate the cast with `c_int::try_from()` instead, and return
-> `EMSGSIZE` when the length doesn't fit.
->
-> Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
-> ---
->  rust/kernel/net/netlink.rs | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
->
-> diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
-> index 3c2b142a7402..f929f63b32c1 100644
-> --- a/rust/kernel/net/netlink.rs
-> +++ b/rust/kernel/net/netlink.rs
-> @@ -88,11 +88,19 @@ fn put<T>(&mut self, attrtype: c_int, value: &T) -> R=
-esult
->          T: ?Sized + IntoBytes + Immutable,
->      {
->          let skb =3D self.skb.skb.as_ptr();
-> -        let len =3D size_of_val(value);
-> -        let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
-> -        // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, an=
-d the provided value is
-> -        // readable and initialized for its `size_of` bytes.
-> -        to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int=
-, ptr) })
-> +        let bytes =3D value.as_bytes();
-> +        // `nla_put()` takes attrlen as a plain `c_int`. If `bytes.len()=
-`
-> +        // doesn't fit, an `as` cast would wrap around a negative value.
-> +        // Which then, would feed a huge unsigned length to `__nla_reser=
-ve()`
-> +        // and `skb_put()` causing it to panic via `skb_over_panic()`. S=
-o,
-> +        // the following check will reject it instead.
-> +        let len =3D c_int::try_from(bytes.len()).map_err(|_| EMSGSIZE)?;
+I found that my WUJIE15 PRO with the HPT board uses three profiles:
+performance (0), balanced (1), and quiet (2). The driver's default
+mapping gets these wrong and exposes a fourth mode that the firmware
+does not implement. My laptop only has USB-C power input, so the
+circular-hole adapter requirement also rules out its supported external-
+power configuration.
 
-I understand that you wanted to reuse `bytes` here, but the original use
-of `size_of_val` is clearer and keeping it would also reduce the diff,
-so let's call `c_int::try_from` on that.
+I added a check matching the vendor, product and board names to select
+the correct profiles and power check. During testing, I saw
+power_supply_is_system_supplied() return true even after I unplugged the
+charger during sleep. I switched the check to the ACPI adapter's _PSR,
+which reads the current power-present bit on this machine. I also made
+resume select balanced if power was removed, rather than restore the
+saved performance profile. If the power query fails, I return the error
+instead of assuming the charger is connected.
 
-Also the comment is unneeded. The change of type is justified by the
-fact that `nla_put` requires a `c_int`. Any further explanation adds
-confusion, and the mentioned `__nla_reserve` doesn't even appear in the
-chunk. This reads like what an LLM would produce, i.e. tediously.
+I checked the firmware methods and found only two fan readings, in F2/F1
+order, and no MIFS CPU temperature reading. Some unimplemented GET
+commands return success with zero data, so I could not use a successful
+query to establish sensor support. I register the two fans and leave out
+the temperature input. I also hide the unsupported GPU, RGB mode and fan
+boost controls, and check firmware replies to the remaining SET
+commands. I left normal keyboard backlight control unchanged.
 
-> +        let ptr =3D bytes.as_ptr().cast::<c_void>();
+I found that the event GUID also matches redmi-wmi, so I made that
+driver decline this machine and leave its notifications to bitland-mifs-
+wmi. I kept the existing behavior for other machines and documented the
+HPT differences.
 
-Same here, the original line was fine so no need to change it. So it
-looks like `bytes` is not needed at all.
+Signed-off-by: Bozhen Peng <bozhenpeng93@gmail.com>
+---
+I tested this on my MECHREVO WUJIE15 PRO (WUJIE15 Series-HPT), comparing
+the firmware methods and profile values with the Windows OEM controls.
 
-As a general rule, and to make reviewing easier, it is a good idea to
-keep the diffs are small as possible. Here the commit message says this
-patch validates a value, so it should limit itself to that.
+I ran the hardware tests on Ubuntu 26.04.1, kernel 7.0.0-30-generic. I
+used a small adaptation for that kernel's older WMI API in the test
+modules. I have left that adaptation and the extra diagnostic logging
+out of this patch.
+
+I ran 22 automated profile, backlight, binding and sensor checks, all of
+which passed, and tested the actual hotkeys. I recorded about 2280 and
+2850-2970 RPM from the two fans while running, and zero when stopped. I
+did not independently calibrate the RPM readings.
+
+For the final _PSR change, I ran two s2idle tests. With the charger
+connected, the driver read supplied=1 and restored performance; it
+stayed in performance afterwards. With the charger unplugged during
+sleep, it read supplied=0 and restored balanced; it stayed balanced
+afterwards. Requesting performance on battery then returned EOPNOTSUPP.
+The logs include the resume decision and firmware readbacks.
+
+I also built a full x86_64 kernel and both modules against the for-next
+base below, without the WMI API adaptation. I used x86_64_defconfig with
+BITLAND_MIFS_WMI and REDMI_WMI enabled, GCC 15.2.0 and W=1. I saw no
+compiler warnings from either changed driver.
+
+ .../wmi/devices/bitland-mifs-wmi.rst          |  31 ++++
+ drivers/platform/x86/bitland-mifs-wmi.c       | 170 +++++++++++++++++-
+ drivers/platform/x86/redmi-wmi.c              |   7 +
+ 3 files changed, 201 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/wmi/devices/bitland-mifs-wmi.rst b/Documentation/wmi/devices/bitland-mifs-wmi.rst
+index 9e86ecc29..fd966cf18 100644
+--- a/Documentation/wmi/devices/bitland-mifs-wmi.rst
++++ b/Documentation/wmi/devices/bitland-mifs-wmi.rst
+@@ -7,6 +7,37 @@ Bitland MIFS driver (bitland-mifs-wmi)
+ Introduction
+ ============
+ 
++MECHREVO WUJIE15 PRO (HPT) firmware variant
++-----------------------------------------
++
++The MECHREVO WUJIE15 PRO with board WUJIE15 Series-HPT uses a reduced
++interface. The driver selects this variant using exact system vendor,
++product name and board name matches.
++
++The supported platform profiles are low-power (raw value 2), balanced
++(1), and performance (0). There is no separate full-speed mode.
++USB-C is the only external power input on this model. Performance is
++available on external power, but not on battery. The driver queries the
++ACPI adapter's _PSR for current power presence because USB-C connector
++ONLINE state may still be stale during resume. A failed query is not
++treated as external power being present.
++On resume, a saved performance profile becomes balanced if external
++power was removed, matching the firmware's AC-loss transition.
++
++Command 0x0d returns two little-endian tachometers, EC Fan 2 followed by
++Fan 1. No third fan or CPU-temperature input is provided. GPU switching,
++RGB modes and fan boost are not exposed. Keyboard backlight brightness
++uses the normal 0 through 3 values.
++
++Unsupported GET commands can return success (0x8000) with an empty
++payload. Successful queries alone therefore do not establish the
++presence of a sensor or control; the driver uses the known capabilities.
++Supported profile and backlight SET calls are also checked for a
++firmware acknowledgment.
++
++The event GUID is shared with redmi-wmi. On this exact DMI combination,
++redmi-wmi declines binding so bitland-mifs-wmi handles the notifications.
++
+ 
+ EC WMI interface description
+ ============================
+diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+index 3a3731845..3193ae4bd 100644
+--- a/drivers/platform/x86/bitland-mifs-wmi.c
++++ b/drivers/platform/x86/bitland-mifs-wmi.c
+@@ -14,6 +14,7 @@
+ #include <linux/dev_printk.h>
+ #include <linux/device.h>
+ #include <linux/device/devres.h>
++#include <linux/dmi.h>
+ #include <linux/err.h>
+ #include <linux/hwmon.h>
+ #include <linux/init.h>
+@@ -159,6 +160,19 @@ struct bitland_mifs_wmi_data {
+ 	struct device *hwmon_dev;
+ 	struct device *pp_dev;
+ 	enum platform_profile_option saved_profile;
++	bool is_wujie15_hpt;
++};
++
++/* Profile mapping and capabilities for the WUJIE15 PRO HPT board. */
++static const struct dmi_system_id bitland_wujie15_hpt[] = {
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "MECHREVO"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "WUJIE15 PRO"),
++			DMI_EXACT_MATCH(DMI_BOARD_NAME, "WUJIE15 Series-HPT"),
++		},
++	},
++	{ }
+ };
+ 
+ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
+@@ -167,12 +181,15 @@ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
+ {
+ 	struct wmi_buffer in_buf = { .length = sizeof(*input), .data = (void *)input };
+ 	struct wmi_buffer out_buf = { 0 };
++	struct bitland_mifs_output reply;
+ 	int ret;
+ 
+ 	guard(mutex)(&data->lock);
+ 
+-	if (!output)
++	if (!output && !data->is_wujie15_hpt)
+ 		return wmidev_invoke_procedure(data->wdev, 0, 1, &in_buf);
++	if (!output)
++		output = &reply;
+ 
+ 	ret = wmidev_invoke_method(data->wdev, 0, 1, &in_buf, &out_buf, sizeof(*output));
+ 	if (ret)
+@@ -181,6 +198,20 @@ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
+ 	memcpy(output, out_buf.data, sizeof(*output));
+ 	kfree(out_buf.data);
+ 
++	/* HPT's supported profile/backlight calls acknowledge with 0x8000. */
++	if (data->is_wujie15_hpt) {
++		u16 status = get_unaligned_le16(output);
++
++		if (status == 0xe000)
++			return -EOPNOTSUPP;
++		if (status != 0x8000)
++			return -EIO;
++		dev_dbg(&data->wdev->dev,
++			"HPT op=%#x fn=%#x arg=%u value=%u status=%#x\n",
++			input->operation, input->function, input->payload[0],
++			output->data[0], status);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -201,6 +232,22 @@ static int laptop_profile_get(struct device *dev,
+ 	if (ret)
+ 		return ret;
+ 
++	if (data->is_wujie15_hpt) {
++		switch (result.data[0]) {
++		case 0:
++			*profile = PLATFORM_PROFILE_PERFORMANCE;
++			return 0;
++		case 1:
++			*profile = PLATFORM_PROFILE_BALANCED;
++			return 0;
++		case 2:
++			*profile = PLATFORM_PROFILE_LOW_POWER;
++			return 0;
++		default:
++			return -EINVAL;
++		}
++	}
++
+ 	switch (result.data[0]) {
+ 	case WMI_PP_BALANCED:
+ 		*profile = PLATFORM_PROFILE_BALANCED;
+@@ -220,6 +267,26 @@ static int laptop_profile_get(struct device *dev,
+ 	return 0;
+ }
+ 
++static int bitland_wujie15_is_supplied(void)
++{
++	struct acpi_device *adapter;
++	unsigned long long online;
++	acpi_status status;
++
++	/* USB-C ONLINE can still contain the pre-suspend connector state. */
++	adapter = acpi_dev_get_first_match_dev("ACPI0003", NULL, -1);
++	if (!adapter)
++		return -ENODEV;
++
++	/* This machine's adapter _PSR reads the current EC power-present bit. */
++	status = acpi_evaluate_integer(adapter->handle, "_PSR", NULL, &online);
++	acpi_dev_put(adapter);
++	if (ACPI_FAILURE(status) || online > 1)
++		return -EIO;
++
++	return online;
++}
++
+ static int bitland_check_performance_capability(struct bitland_mifs_wmi_data *data)
+ {
+ 	struct bitland_mifs_input input = {
+@@ -229,7 +296,15 @@ static int bitland_check_performance_capability(struct bitland_mifs_wmi_data *da
+ 	struct bitland_mifs_output output;
+ 	int ret;
+ 
+-	/* Full-speed/performance mode requires DC power (not USB-C) */
++	/* WUJIE15 PRO is powered through USB-C only. */
++	if (data->is_wujie15_hpt) {
++		ret = bitland_wujie15_is_supplied();
++		if (ret < 0)
++			return ret;
++		return ret ? 0 : -EOPNOTSUPP;
++	}
++
++	/* Other models require the firmware's circular-hole adapter type. */
+ 	if (!power_supply_is_system_supplied())
+ 		return -EOPNOTSUPP;
+ 
+@@ -256,6 +331,27 @@ static int laptop_profile_set(struct device *dev,
+ 	int ret;
+ 	u8 val;
+ 
++	if (data->is_wujie15_hpt) {
++		switch (profile) {
++		case PLATFORM_PROFILE_LOW_POWER:
++			val = 2;
++			break;
++		case PLATFORM_PROFILE_BALANCED:
++			val = 1;
++			break;
++		case PLATFORM_PROFILE_PERFORMANCE:
++			ret = bitland_check_performance_capability(data);
++			if (ret)
++				return ret;
++			val = 0;
++			break;
++		default:
++			return -EOPNOTSUPP;
++		}
++		input.payload[0] = val;
++		return bitland_mifs_wmi_call(data, &input, NULL);
++	}
++
+ 	switch (profile) {
+ 	case PLATFORM_PROFILE_LOW_POWER:
+ 		val = WMI_PP_QUIET;
+@@ -286,9 +382,12 @@ static int laptop_profile_set(struct device *dev,
+ 
+ static int platform_profile_probe(void *drvdata, unsigned long *choices)
+ {
++	struct bitland_mifs_wmi_data *data = drvdata;
++
+ 	set_bit(PLATFORM_PROFILE_LOW_POWER, choices);
+ 	set_bit(PLATFORM_PROFILE_BALANCED, choices);
+-	set_bit(PLATFORM_PROFILE_BALANCED_PERFORMANCE, choices);
++	if (!data->is_wujie15_hpt)
++		set_bit(PLATFORM_PROFILE_BALANCED_PERFORMANCE, choices);
+ 	set_bit(PLATFORM_PROFILE_PERFORMANCE, choices);
+ 
+ 	return 0;
+@@ -314,13 +413,25 @@ static int bitland_mifs_wmi_suspend(struct device *dev)
+ static int bitland_mifs_wmi_resume(struct device *dev)
+ {
+ 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
++	enum platform_profile_option profile = data->saved_profile;
++	int supplied;
+ 
+ 	/* Skip event device */
+ 	if (!data->pp_dev)
+ 		return 0;
+ 
+-	dev_dbg(dev, "Resuming, restoring profile %d\n", data->saved_profile);
+-	return laptop_profile_set(dev, data->saved_profile);
++	/* Match the firmware's performance-to-balanced transition on AC loss. */
++	if (data->is_wujie15_hpt &&
++	    profile == PLATFORM_PROFILE_PERFORMANCE) {
++		supplied = bitland_wujie15_is_supplied();
++		if (supplied < 0)
++			return supplied;
++		if (!supplied)
++			profile = PLATFORM_PROFILE_BALANCED;
++	}
++
++	dev_dbg(dev, "Resuming, restoring profile %d\n", profile);
++	return laptop_profile_set(dev, profile);
+ }
+ 
+ static DEFINE_SIMPLE_DEV_PM_OPS(bitland_mifs_wmi_pm_ops,
+@@ -386,7 +497,16 @@ static int laptop_hwmon_read_string(struct device *dev,
+ 				    enum hwmon_sensor_types type, u32 attr,
+ 				    int channel, const char **str)
+ {
++	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
++	static const char *const hpt_fan_labels[] = { "Fan 2", "Fan 1" };
++
+ 	if (type == hwmon_fan && attr == hwmon_fan_label) {
++		if (data->is_wujie15_hpt) {
++			if (channel < 0 || channel >= ARRAY_SIZE(hpt_fan_labels))
++				return -EINVAL;
++			*str = hpt_fan_labels[channel];
++			return 0;
++		}
+ 		if (channel >= 0 && channel < ARRAY_SIZE(fan_labels)) {
+ 			*str = fan_labels[channel];
+ 			return 0;
+@@ -414,6 +534,18 @@ static const struct hwmon_chip_info laptop_chip_info = {
+ 	.info = laptop_hwmon_info,
+ };
+ 
++/* HPT fills only the F2/F1 tachometers; the temperature GET is a no-op. */
++static const struct hwmon_channel_info *hpt_hwmon_info[] = {
++	HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT | HWMON_F_LABEL,
++			   HWMON_F_INPUT | HWMON_F_LABEL),
++	NULL
++};
++
++static const struct hwmon_chip_info hpt_chip_info = {
++	.ops = &laptop_hwmon_ops,
++	.info = hpt_hwmon_info,
++};
++
+ static int laptop_kbd_led_set(struct led_classdev *led_cdev,
+ 			      enum led_brightness value)
+ {
+@@ -606,7 +738,28 @@ static const struct attribute *const laptop_attrs[] = {
+ 	&dev_attr_fan_boost.attr,
+ 	NULL,
+ };
+-ATTRIBUTE_GROUPS(laptop);
++
++static umode_t laptop_attr_is_visible(struct kobject *kobj,
++				      const struct attribute *attr, int index)
++{
++	struct bitland_mifs_wmi_data *data = dev_get_drvdata(kobj_to_dev(kobj));
++
++	/* All three custom attributes require methods absent on HPT. */
++	if (data && data->is_wujie15_hpt)
++		return 0;
++
++	return attr->mode;
++}
++
++static const struct attribute_group laptop_group = {
++	.attrs_const = laptop_attrs,
++	.is_visible_const = laptop_attr_is_visible,
++};
++
++static const struct attribute_group *laptop_groups[] = {
++	&laptop_group,
++	NULL
++};
+ 
+ static const struct key_entry bitland_mifs_wmi_keymap[] = {
+ 	{ KE_KEY, WMI_EVENT_OPEN_APP, { KEY_PROG1 } },
+@@ -661,6 +814,7 @@ static int bitland_notifier_callback(struct notifier_block *nb,
+ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+ {
+ 	struct bitland_mifs_wmi_data *drv_data;
++	const struct hwmon_chip_info *chip_info;
+ 	enum bitland_wmi_device_type dev_type =
+ 		(enum bitland_wmi_device_type)(unsigned long)context;
+ 	struct led_init_data init_data = {
+@@ -675,6 +829,7 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+ 		return -ENOMEM;
+ 
+ 	drv_data->wdev = wdev;
++	drv_data->is_wujie15_hpt = dmi_check_system(bitland_wujie15_hpt);
+ 
+ 	ret = devm_mutex_init(&wdev->dev, &drv_data->lock);
+ 	if (ret)
+@@ -708,10 +863,11 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+ 		return PTR_ERR(drv_data->pp_dev);
+ 
+ 	/* Register hwmon */
++	chip_info = drv_data->is_wujie15_hpt ? &hpt_chip_info : &laptop_chip_info;
+ 	drv_data->hwmon_dev = devm_hwmon_device_register_with_info(&wdev->dev,
+ 								   "bitland_mifs",
+ 								   drv_data,
+-								   &laptop_chip_info,
++								   chip_info,
+ 								   NULL);
+ 	if (IS_ERR(drv_data->hwmon_dev))
+ 		return PTR_ERR(drv_data->hwmon_dev);
+diff --git a/drivers/platform/x86/redmi-wmi.c b/drivers/platform/x86/redmi-wmi.c
+index cc82ef502..de41642b7 100644
+--- a/drivers/platform/x86/redmi-wmi.c
++++ b/drivers/platform/x86/redmi-wmi.c
+@@ -4,6 +4,7 @@
+ #include <linux/acpi.h>
+ #include <linux/bits.h>
+ #include <linux/device.h>
++#include <linux/dmi.h>
+ #include <linux/input.h>
+ #include <linux/input/sparse-keymap.h>
+ #include <linux/module.h>
+@@ -69,6 +70,12 @@ static int redmi_wmi_probe(struct wmi_device *wdev, const void *context)
+ 	struct redmi_wmi *data;
+ 	int err;
+ 
++	/* This shared GUID belongs to bitland-mifs-wmi on the WUJIE15 PRO HPT. */
++	if (dmi_match(DMI_SYS_VENDOR, "MECHREVO") &&
++	    dmi_match(DMI_PRODUCT_NAME, "WUJIE15 PRO") &&
++	    dmi_match(DMI_BOARD_NAME, "WUJIE15 Series-HPT"))
++		return -ENODEV;
++
+ 	/* Init dev */
+ 	data = devm_kzalloc(&wdev->dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
