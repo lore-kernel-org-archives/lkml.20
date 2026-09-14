@@ -1,78 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EBA394EA6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D13381B1A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420656; cv=none; b=o7xAvlNzs+LtmBo4UAHuPCxZSwxvgHX3XDDWGHSGehX0EhwqYlYzZLP6znon55BP2B9PqgV6fhgrYqFEPq7qna8OVBYngI9juMdfNJHQ2GQgQQD64CEfsUFIqqdT9Ebdc6p5HuQSJawYftxvPpHqDqL4t6GHE/WOL8TA8QZGIrU=
+	t=1789420689; cv=none; b=rHPGBih+qFm0NvKjq0lu1f7eTy8JNOsXt07e2KJzwMTJUhxUo9p9TCxrFgmLqVCOVRlczMCmwBrmGFRqR7WlvtUSYw1p6uCq4srspJmAk+cZBpwXDwPGhFKhcoDNaH3N/ooY8UIpiCQCr8g44drO+uflazq2EEPNj1L0Ouv9XJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420656; c=relaxed/simple;
-	bh=SPH2yTaJN2+oSe3I3KJ+8QZMneaPEyA++eBCEmtFrho=;
+	s=arc-20240116; t=1789420689; c=relaxed/simple;
+	bh=7zG9u9TuXc8+YswrK4qwj5egTXD+ot8bDs8IYn66F54=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MODIP+bNA7iUrDqH+w+BYVl5WHxZTRoT871+92ENzj+zpFBecyyiy6/I20vGxr8Es7uDoZm2UU4yG+yqeqZgl+iJR+EnH1Fpn3DpC+/mHbEJU79NmWvvW5UIzPf5hKP9oHPMiTkdZILyvJ54PJPoQZEJ5Pnw9/c4g4/c2fAXnWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAA1t5PR; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=aPMdQmrLsb4gP8nfed9hSbno8xMzioO0z25eHBYbSJBPKgK3bJj5VsIkby2npnd7yklcjoMKjrnDVRu/gh6sOph4Z5KHop+OAuxEDm8isSL/4kNDbEZIZlJ1486cjNPDDv8w0va4m0PP8LcFR8WYztdric9gMCq+7gZwGLLchDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZ7Tj1gd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAA1t5PR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70AA31F0089B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:17:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZ7Tj1gd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974BD1F008AB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789420654;
-	bh=SPH2yTaJN2+oSe3I3KJ+8QZMneaPEyA++eBCEmtFrho=;
+	s=k20260515; t=1789420688;
+	bh=7zG9u9TuXc8+YswrK4qwj5egTXD+ot8bDs8IYn66F54=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fAA1t5PR6uytt7TO/+zRxHcBsR89bCEzrRFsItHVGQ9TxKajyM3spHG+5sijP19OJ
-	 t1zWQodK7soN5keOj0OF2PDyPrLqTz3IIIVYVgyjyitTzxm6zqyCnQde7V0vQU6FDC
-	 xuUQR0iZ7zWz1Tx5WUoUYh3mR8oOHyfQbDU7G3T15qFWH0szwx8nqwaWC49XlRhF8Q
-	 qAWd7oY4Wyv4/8AQED7TGy+CDw+jeXMhyzQQuAfIVPkxEreL8GcwZc5pPBhSTMzY9l
-	 rfMVDPdwNKQcCvQ+aMvWAErD138DKFtfRRZfKAE+1khUpRmhXGhlYjbKL44dsLMWlD
-	 2z8C0hCDy4s2Q==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso293966e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:17:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwT5xTv9fVjhYP5LPboU4252yBNF9KeL7YgpFUBEfknZNmVfVH9ETSLDQcpyfKscEEpzQ1cPS5ulMwdV6A=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9pjQ5yU/JePjQ89jjx8BVO1NQJ4w7o8xM95jAaAxj7oewMnM3
-	VmaEdTIcAxnR3YZ5hDATMRXke1geBRzBUCg/XZwuF9LHJKvFY62If8LNyJtag9aK6HwOXIlRzay
-	Y67OP6NtXFtFHMtmP0lhyTwssniExINI=
-X-Received: by 2002:a05:6512:1053:b0:5b3:f8b:b714 with SMTP id
- 2adb3069b0e04-5b8b2a8671cmr211409e87.21.1789420653140; Mon, 14 Sep 2026
- 14:17:33 -0700 (PDT)
+	b=ZZ7Tj1gdm9SrxtbdCgk6ReL1sdwtzsWMEvNxd9JCUG8Ji0Xcb/d9zdJemIX2O1AQQ
+	 AApQXGEXAoK0K2/iGycyA6NWVVBmbSXfGidRiu2aXny/LyxoW/ab5sc+eCxPFQPugl
+	 p6+49opeEPqFbfeU+vC9Y200X42XE/AQz3orkztqZyKH+uURIehFRT/X9AC5v6+qXo
+	 OOB5ixVvwxLCNLpSCu538j4bxX0rBY0XjwUNyfGqrWrAJ3IbZxoJmnZxV5gsuOY1lX
+	 vujTwy4HdqWUEeFqEnezZCi+5izLM2Tu2FxmyY+2Vu4YaNOfjWJYVdrfHzpVHiVD/U
+	 iOXghlqady6OA==
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cadeb4so363561985a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:18:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwkxPdi6fMsb7uJvnpj9xmrRCegjnQMQIZaov7yaxyJWEfIFr7fLI66x9uCu3fJlXGGLb+AOfPydiIJENw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7TmXPgGSuwuJkw9d6ZZ67aiTnlrLrpxMERAwABgKXSlPmKrS3
+	rHRFYS5jhHr0iWSeBNwLOhTrCCyqJpDpFhTTKDvxXAMAg3+JGDTdB7qOlIhho0/Sr/BYPB/MUfH
+	J0GNP31Ms+1qby3WFJsdvHc3YxO+OMY8=
+X-Received: by 2002:a05:620a:4885:b0:939:5f4d:67b0 with SMTP id
+ af79cd13be357-93a29766649mr728782085a.8.1789420687917; Mon, 14 Sep 2026
+ 14:18:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-arm64-have-shared-gpios-v1-1-31af942ab30f@oss.qualcomm.com>
-In-Reply-To: <20260907-arm64-have-shared-gpios-v1-1-31af942ab30f@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 23:17:20 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=hnRNYuGxe=T7T5aPQFve5wtD5qt5e6z7-kz92GiHpSQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XpyMYmDGh9l_sJ8JQBmfLBouLclcDrGavwm4fsBketM_Ew-WInKbZCshk
-Message-ID: <CAD++jL=hnRNYuGxe=T7T5aPQFve5wtD5qt5e6z7-kz92GiHpSQ@mail.gmail.com>
-Subject: Re: [PATCH] arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
+References: <20260914122950.3283997-1-usama.arif@linux.dev> <20260914122950.3283997-2-usama.arif@linux.dev>
+In-Reply-To: <20260914122950.3283997-2-usama.arif@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 15 Sep 2026 05:17:56 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4x54z4afiLwNwgs2u0RP1WEBbCgtFQpszqi5q_pkydeUg@mail.gmail.com>
+X-Gm-Features: AcwNN1XhiKWzoaffDJcnpMgvSmrkdNy-g5DUkTJv57ChGKG-Ex_IRrRos-wQ8IU
+Message-ID: <CAGsJ_4x54z4afiLwNwgs2u0RP1WEBbCgtFQpszqi5q_pkydeUg@mail.gmail.com>
+Subject: Re: [RESEND v7 01/29] mm: rename pmd_to_softleaf_folio() to pmd_softleaf_to_folio()
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, chrisl@kernel.org, 
+	kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org, 
+	ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>, willy@infradead.org, 
+	youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com, 
+	shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org, dev.jain@arm.com, 
+	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, 
+	Vlastimil Babka <vbabka@kernel.org>, lance.yang@linux.dev, linux-kernel@vger.kernel.org, 
+	nphamcs@gmail.com, shikemeng@huaweicloud.com, yosry@kernel.org, 
+	qi.zheng@linux.dev, luizcap@redhat.com, kernel-team@meta.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 7, 2026 at 4:50=E2=80=AFPM Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> wrote:
-
-> Shared GPIO management provided by the GPIO shared proxy module has been
-> enabled for Qualcomm platforms for some time. By extension of the
-> defconfig, it's been effectively enabled for all ARM64 platforms when
-> using the default configuration. Bugs discovered initially after the
-> feature was first enabled, were fixed and I haven't seen any new reports
-> for several months. Make the feature enabled by default for all ARM64
-> platforms officially, which will allow us to continue the removal of the
-> deprecated GPIOD_FLAGS_BIT_NONEXCLUSIVE flag from the kernel.
+On Mon, Sep 14, 2026 at 8:30=E2=80=AFPM Usama Arif <usama.arif@linux.dev> w=
+rote:
 >
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> pmd_to_softleaf_folio() reads as if it converted a PMD into a folio. What
+> it does is decode the softleaf entry stored in the PMD and return the
+> folio that entry references - the direction softleaf_to_folio() already
+> spells out.
+>
+> No functional change intended.
+>
+> Suggested-by: Dev Jain <dev.jain@arm.com>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
 
-That sounds reasonable.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
+LGMT,
+Reviewed-by: Barry Song <baohua@kernel.org>
