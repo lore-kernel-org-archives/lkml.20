@@ -1,73 +1,96 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF63494815
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B585836C0C8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=176.10.93.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398966; cv=none; b=ltJ9RZjELrb0bF42Ib+9SXVjyglBNJ2uf02GJ/m+FAulEvr9pqYQ9LZAtMXpbBtYj6THNpcvhuM/GxFmb/+rKvzrxkw9JoNABy3V2PP6i315oGhiMspIZvn17F81bqt4qIUKgNq420dnerYYKH/tE4rdjOcYn/hsURPxD3jNttA=
+	t=1789398970; cv=none; b=b7ME9L9tKa2jQmumvxtvU+efPxF7l5ngHgzfcgTzcySesfZAHcDPaY3Dwe6Fu37oNawkxlOs1W9+LUVIx+in0XTDGgPyCSPhjrvl7kGFH2/aOvn0+gn/JS60nXDRNKPdxCYxmk+oVsYYUgJHXTWxg537Lpt0DF164BFyyeujmd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789398966; c=relaxed/simple;
-	bh=4dJKpMh0ArrJHHSBPxvIe1TnCuCwIXRdwPGtVCVI1co=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=PWBv8UVJTCgGwaT89l/rqJEP3CAJ1ETH1jERbbYK0k/iLC7Gw2Ng2l/r8PA1UpwB/XQpkoSPwGrkN/imP1t9WfL+dyXj9T/2zSh+ZItaw4grT+vWu5xE2f7Nhzy8magBqkb3dGt8iYN+WchDwF906g1cuTpbfGI0S8M28KKleco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b1c1538784so3905481eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:16:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789398964; x=1790003764;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=24sCPG/o3zU61A9NY8NO+diIPkVFlz/cGFo7L1Cw0Es=;
-        b=r+puIpG/3JBCIPtvNqVIFJ2D7foapoeHKyjs+8rf7FkFj913sUEb1WFaTCv3Zpq8mT
-         tzl5XWebIXKYOTSZ2/Wwn0OUWfOxQG0mlBfi4byC/sG6/tM2Nl/k4py/cZ3g6X0x6Tqh
-         H5J+a2a+J8w2MtfFQ49LpRLUmeyCzmG5R7fCU3lFtmb9hvlxa8vAlKKnE0zpZ7IDbYkD
-         zXBPosvxuqi1UGtKqBBNkWWBCWC6aCZAZ+I5pI6fRiMhaEk5CkfX2JIU1S+WIUQQNYr0
-         wHECsQJ5k9PihBFxewf/BGN5+hDI+awUKXEWgHcJYu76X+TcSYPDYFU3VmDdGIcqTNR2
-         5EZQ==
-X-Forwarded-Encrypted: i=1; AKwUvByprT4zcpYBYVZ4+rDLrQ3Q9HyY95eoTw2UR2gJsLUyYaekIpVxLAURPMXUPn8NyVlbu0Yw6bUlD2Ot/ho=@vger.kernel.org
-X-Gm-Message-State: AFuF++noQ1EH7vW0viFERV5fGbWIKNTlI5TY3yDx9P3ThfqoExbNuoy2
-	Wp6styVB6E/TuGMgGclOIASlYV/e9DUwjm+qhKdc4XGyb7kZmNCS7t43nfxWbEHWAAj5eiewJn1
-	ek6KOJ31N3UGMeSf2YZenTHEKZ423LjEN9wzWIubxRahwvg+2l2s6XgQR+BA=
+	s=arc-20240116; t=1789398970; c=relaxed/simple;
+	bh=BgHBCYGXjROhQ/d7IdLv542O9fFL5ylMndakTbQxU98=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CW0n/eyYKTAy9jDt2ETT+6+NT6s0ivYPK+H9kYdpzJ3geqtFBK0YSGv59FbOXLYjUNlKM8Y6uWYS3y977xOfeZoyPl8Pl4b1gXUg0WHAEo0Yo+lPuMWBV3wYlYK/0lCGQqoAYhjs/k9D5yOVopG8W7XAVAbx0vIMj3f6OPfueyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cyberprotect.ru; spf=pass smtp.mailfrom=cyberprotect.ru; dkim=pass (2048-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b=jQgUtWJm; dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b=iH+0PQWr; arc=none smtp.client-ip=176.10.93.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cyberprotect.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberprotect.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="jQgUtWJm";
+	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="iH+0PQWr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
+	bh=RdvBOVnEKQdDMFBx5aH72LXneDiwa7iML9qml3N/n84=; b=jQgUtWJmwNKw1hsXIaa+KnSSfo
+	fZGI8a9YpV01Tor+l0gK6kmC5kSEiZL4xsR6a0+FWXhcela7Cx7abQISYIrNiVgCAzUppfOyskxd9
+	ZOJDz7QfoQB6dvhPhoEu0jBwJjXx+loDO6o49dbk8l15nuJJF0XfqbUvvUpLzA6N+oUN+BIROlYmF
+	5mRS07PG62zUh8YNKOuT2ARVjmJ/8Fng+eeeoaGIpTEjA5eBAbJY8KwwoFr/m3T5NgA/qcyAZYAp+
+	RKLrdAskaorCHc722Iimdr/FQXaDsq7MU77PA0f6LOHLkgx0zvrIVE2RdkxUhiIPODESF2Z7ndneJ
+	5TkY2/RQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
+	bh=RdvBOVnEKQdDMFBx5aH72LXneDiwa7iML9qml3N/n84=; b=iH+0PQWr4FzqmqQctLMfFKUiaq
+	G+UVxyqir2zVBRTA5K0Q5xjWLJiAlGG0/zpjxhckkuCfNiOZn9GTdsZYh4Cw==;
+From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+To: Austin Zheng <austin.zheng@amd.com>
+CC: Jun Lei <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+	<sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+	<alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+	<christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>, Dillon Varone <dillon.varone@amd.com>, Nicholas Carbones
+	<Nicholas.Carbones@amd.com>, Wayne Lin <wayne.lin@amd.com>, Ray Wu
+	<ray.wu@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
+	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Dmitriy
+ Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+Subject: [PATCH] drm/amd/display: guard NULL secondary pipe in dcn_validate_bandwidth()
+Date: Mon, 14 Sep 2026 18:14:46 +0300
+Message-ID: <20260914151446.94380-1-Dmitry.Chumachenko@cyberprotect.ru>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:98e:b0:6c1:c628:b0bf with SMTP id
- 006d021491bc7-6c53f44bc19mr1552308eaf.13.1789398963953; Mon, 14 Sep 2026
- 08:16:03 -0700 (PDT)
-Date: Mon, 14 Sep 2026 08:16:03 -0700
-In-Reply-To: <6aa7d3c4.e3f7d457.2eeb0a.f494SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa80fb3.f81106d8.2ab401.004f.GAE@google.com>
-Subject: Re: [syzbot] [kvm?] INFO: task hung in kvm_gmem_release (2)
-From: syzbot <syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AIP-EXCH-1.aip.ooo (10.77.28.101) To AIP-EXCH-1.aip.ooo
+ (10.77.28.101)
 
-Hello,
+resource_find_free_secondary_pipe_legacy() returns NULL when no free
+pipe is available, but the result is only passed to ASSERT() (a
+WARN_ON_ONCE() that does not stop execution) and then dereferenced in
+split_stream_across_pipes() and dcn_bw_calc_rq_dlg_ttu().
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+The sibling resource callers (dcn10/dcn20/dcn201) already NULL-check
+this function's result. Do the same here and skip the split when no
+free pipe is available.
 
-Reported-by: syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com
-Tested-by: syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Tested on:
+Fixes: 74c49c7ac14f ("drm/amdgpu/display: Add calcs code for DCN")
+Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+---
+ drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=118642d1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=ab6273c58262b9de56d9
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=13d7e925580000
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+index 61553e24d53e..de54807ade43 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+@@ -1261,10 +1261,12 @@ bool dcn_validate_bandwidth(
+ 						/* pipe not split previously needs split */
+ 						hsplit_pipe = resource_find_free_secondary_pipe_legacy(&context->res_ctx, pool, pipe);
+ 						ASSERT(hsplit_pipe);
+-						split_stream_across_pipes(&context->res_ctx, pool, pipe, hsplit_pipe);
++						if (hsplit_pipe)
++							split_stream_across_pipes(&context->res_ctx, pool, pipe, hsplit_pipe);
+ 					}
+ 
+-					dcn_bw_calc_rq_dlg_ttu(dc, v, hsplit_pipe, input_idx);
++					if (hsplit_pipe)
++						dcn_bw_calc_rq_dlg_ttu(dc, v, hsplit_pipe, input_idx);
+ 				} else if (hsplit_pipe && hsplit_pipe->plane_state == pipe->plane_state) {
+ 					/* merge previously split pipe */
+ 					pipe->bottom_pipe = hsplit_pipe->bottom_pipe;
+-- 
+2.49.0
 
-Note: testing is done by a robot and is best-effort only.
