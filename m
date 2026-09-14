@@ -1,226 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486F73B27F9;
-	Mon, 14 Sep 2026 22:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21792FE057;
+	Mon, 14 Sep 2026 22:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789424594; cv=none; b=N7Lwis0F9L/YN2xoO782NYkd+dh4uv8zYfEFKmBMThY4CsrAWAhfdzYoGx8+zFl76sM7R3Q1BuZoqpF6GAlDjOajG6iF/3v16TvjOvO6ZVOsEYCdlHMfTkvw10omAKb3zebWSGAFyVXHTKER3XcMl78TpYPTyHH8ljbPVkLFpf8=
+	t=1789424709; cv=none; b=EZazaEvdHaG/35RzAkpROMAl76uFadaV2ENBX1IawKtbdveXbKTiDk3n+BZtMc9Z3Q9ii8FUBPg897d5KVMFfZJogNn8gX0g1VM/t7Ec3M4OppiWsgyH0Y/RZrjW5NIvMUC3R2NH8oGrXDx4WWi8+N+lb9Ouks0EZ++bIF5ofyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789424594; c=relaxed/simple;
-	bh=AY14/dh+9hvDyIE5lh6vj7qd/HDUj2RhBboboa6VLC0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eWjKRl8xvhGk0/Ieqn6C6amaxXAWcAVMpxuJhRvjnMvvS8TiZ4hH/NcFJ08LvVJF/3Ey6BZDFWmrGu3ipi/vzHXk7ETOTUtu18/h50xh2ARbeDHBO7eZ043rUtoNkcErU2y9ZU2PpT1aQ3m372Flz84m3oU3bqowtgp1tdgSLUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NOwfO8z0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789424709; c=relaxed/simple;
+	bh=lRwyLDKclG5PTkKiaCP0WfETw35RY2cC30b8ggFxCpg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Wlg9lGHUjSkJxhkjebnTRkuUb0SaSyyEL3e4bWCTSYO8dl322qE+XpCAlB0Hy3xjpJaToU4OeNj2b1R8PW2Zc1INzHs8NTp8XP/ToBsE3BbQiROMgB+9wnOlFS6L2RBc5StJnsuV6MUAUqWm6Y2A83SnU3TI4Njl1PAFLbYATvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=epD2xGM4; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NOwfO8z0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DBAD1F000FF;
-	Mon, 14 Sep 2026 22:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789424592;
-	bh=gX0+buPol0IOu2STFYojX6mwp/Bods897OXsqduo5aA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NOwfO8z0DKR9n0v0AyUrHXu/Z3wP42nsBxLo0tx0FGp2Emi5MCpMD36NqKiet0mAb
-	 IXPC8DIN8pmkayfa+n1Z7hC/3olMJXvvaKUIo6QNmdWFSPkmHH63+mM1703odrTrZw
-	 2+YvigqxHBQ4EGAVmpzwrx5cWeOwfvgMiUqTHaTPQXGpBmGdTZwec5mv3vphaphKo8
-	 QyvjqVSrprtX/d5wqALXX2ExpnGjuF6jfAYHARk/xbN7sA8wTYSV7ndxcS3dq9FnT0
-	 3GKB82ttVc5M3nL1SJZCEQAEdRk1EugwXIILObbzO4TY/H4M9n2uFgtxsM3Jzwt4Tf
-	 ibMjyTgI8+Rsw==
-Message-ID: <f506f53c-0fa1-4853-9560-2172bf880efa@kernel.org>
-Date: Mon, 14 Sep 2026 23:23:09 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="epD2xGM4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789424707; x=1820960707;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=lRwyLDKclG5PTkKiaCP0WfETw35RY2cC30b8ggFxCpg=;
+  b=epD2xGM4map3pLIvRr4pMWmFo6pSUfdMkFf7VCNOvqVn/QghRUJZG2Qb
+   3zBZWtX7+952kDxdneVxadKUMFNTgFrGkCzybitWCBZdD/DJukNgsEvnD
+   74EhJpKvOLws4Ifu2e7MfeW5oKFTao805Wl+D6GcCZvzs8CXx7oAGsAs+
+   FZqy9jDgU71JhL7lmndfv4GV5lP6eMe/NtuYApyxSw6cuJKyvkiB++Pv6
+   Px85fM7L12G9l+HeuxIayVSNxWuzd5E/nHk7Rj//2OpFRY2CNjq6Tjw79
+   5rVe83syKtAzxDIXu1HsJ7ciTkm7f5/t0/6uSkE7jIbm/2iMwB5FYGQ+K
+   w==;
+X-CSE-ConnectionGUID: fu6d7j+YTnuzUs3sPa7UwA==
+X-CSE-MsgGUID: 3TvUinnZQSe5ckL0IlbwMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93608054"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93608054"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 15:25:06 -0700
+X-CSE-ConnectionGUID: o6rW3JWLR0yDEFjVHAANFA==
+X-CSE-MsgGUID: AxBYWUm+TPqDVSYWsw29zQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="274710260"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 15:25:05 -0700
+Message-ID: <025bdcdef34170b1ffcc673c6b59cb51abc8fef5.camel@linux.intel.com>
+Subject: Re: [PATCH 1/4] sched/cache: Keep nr_pref_llc_running in the
+ runnable domain
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Chen Yu <yu.c.chen@intel.com>, Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: brauner@kernel.org, bsegall@google.com, dietmar.eggemann@arm.com, 
+	imv4bel@gmail.com, jack@suse.cz, juri.lelli@redhat.com, kees@kernel.org, 
+	kprateek.nayak@amd.com, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, mgorman@suse.de, 
+	mingo@redhat.com, peterz@infradead.org, qyousef@layalina.io, 
+	ricardo.neri-calderon@linux.intel.com, rostedt@goodmis.org,
+ srikar@linux.ibm.com, 	sshegde@linux.ibm.com, vincent.guittot@linaro.org,
+ vineethr@linux.ibm.com, 	viro@zeniv.linux.org.uk, vschneid@redhat.com,
+ wanglu.priv@gmail.com, 	yi1.lai@intel.com, zhanxusheng1024@gmail.com,
+ zhanxusheng@xiaomi.com, 	ziqianlu@bytedance.com, chen.yu@linux.dev
+Date: Mon, 14 Sep 2026 15:25:05 -0700
+In-Reply-To: <aqdVpO66OfmHvvqB@chenyu-dev>
+References: <f3b70dd40e29b309ff3449a95a4af4513ad0ef70.camel@linux.intel.com>
+	 <20260910220331.1209469-1-kayracizmeci@gmail.com>
+	 <aqdVpO66OfmHvvqB@chenyu-dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] nvmem: layouts: Add Rockchip OTP CPUID layout
- driver
-To: Alexey Charkov <alchark@flipper.net>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Finley Xiao <finley.xiao@rock-chips.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
- <20260902-rk3576-otp-cpuid-mac-v2-3-e4b7fe2ab13f@flipper.net>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-3-e4b7fe2ab13f@flipper.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+
+On Mon, 2026-09-14 at 10:02 +0800, Chen Yu wrote:
+> Hi Kayra,
+>=20
+> On Fri, Sep 11, 2026 at 01:03:30AM +0300, Kayra Cizmeci wrote:
+> > Hello Tim,
+> >=20
+> > > So moving the accounting next to (or after) the h_nr_runnable update
+> > > would make task_pref_llc_runnable() return false and skip the
+> > > decrement, leaving nr_pref_llc_running too high.
+> >=20
+> > What I really wanted wasn't getting the accounting next to or after the=
+ h_nr_runnable.=20
+> > If we are updating h_nr_runnable in some way that means we don't need
+> > its check since it's already getting updated. And if it's getting updat=
+ed
+> > that means on that branch we know how our check should behave since we=
+=20
+> > are a subset of it. We can skip the delayed check on that way since we =
+are
+> > trying to behave as h_nr_runnable's subset.
+> >=20
+> > >        if (entity_is_task(se))
+> > >                pref_llc_running_dec(...);      /* sched_delayed still=
+ 0 */
+> > >        se->sched_delayed =3D 1;
+> > >        ...
+> > >        for_each_sched_entity(se)
+> > >                cfs_rq->h_nr_runnable--;        /* sched_delayed alrea=
+dy 1 */
+> >=20
+> > For example:
+> >=20
+> > In this code the h_nr_runnable is updated the same way regarding what i=
+s sched_delayed.
+> > That means if we want to behave as a subset of it, we don't need the ch=
+eck delayed,
+> > since we check the delayed to be a subset but if h_nr_runnable is decre=
+asing/increasing
+> > we should look into our checks.
+> >=20
+>=20
+> I had a try according to your suggestion. It seems that the code becomes =
+more complex
+> and brings more headache :-( due to several corner cases. The current ver=
+sion is a simpler
+> version with less code IMO. But I agree it looks a little hard to catch u=
+p with, so I added
+> some comments around account_llc_dequeue() and adjusted the code sequence=
+ of clear_delayed()
+> to make it easier to understand. Tim, could you please help check if this=
+ makes sense?
+>=20
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index e64d9ad7a108..89311bbadfac 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1609,8 +1609,58 @@ static void account_llc_dequeue(struct rq *rq, str=
+uct task_struct *p)
+>  	if (p->pref_llc_queued) {
+>  		/*
+>  		 * Skipped if still delayed (set_delayed() already removed it);
+> -		 * clearing pref_llc_queued below also stops clear_delayed()
+> -		 * from re-adding it.
+> +		 *
+> +		 * The nr_pref_llc_running varies with h_nr_runnable, it involves
+> +		 * set_delayed(), clear_delayed(), account_llc_enqueued() and account_=
+llc_dequeue().
+> +		 * The following shows two typical cases of how nr_pref_llc_running is=
+ maintained
+> +		 * during enqueue/dequeue.
+> +		 *
+> +		 * case 1 - wakeup a delayed task
+
+I assume both CPU0 and CPU1 in preferred LLC, and task woken on
+CPU1.  Should say so.
+
+> +		 *
+> +		 * CPU0                                       CPU1
+> +		 * __dequeue_task [fake dequeue]
+> +		 *   set_delayed
+> +		 *     rq0->nr_pref_llc_running--
+> +		 *     p->se.sched_delayed =3D 1
+> +		 *
+> +		 *                                     try_to_wake_up(p)
+> +		 *                                       enqueue_task_fair
+> +		 *                                         requeue_delayed_entity
+> +		 *                                           clear_delayed
+> +		 *                                             rq0->nr_pref_llc_runnin=
+g++
+
+							       rq1->nr_pref_llc_running++
+> +		 *
+> +		 *
+> +		 * case 2 - LB for delayed task
+
+LB for delayed task from a preferred LLC to a non-preferred LLC.
+
+> +		 *
+> +		 * CPU0                                       CPU1
+> +		 * __dequeue_task [fake dequeue]
+> +		 *   set_delayed
+> +		 *     rq0->nr_pref_llc_running--
+> +		 *     p->se.sched_delayed =3D 1
+> +		 *
+> +		 *
+> +		 *                                     --------- load balance --------=
+-
+> +		 *                                     detach_task(p, rq0, migrate_loa=
+d)
+> +		 *                                       account_llc_dequeue
+> +		 *                                         ** DO-NOT-DECREASE **
+> +		 *                                         rq0->nr_pref_llc_running
+
+						The above block should be under CPU 0
+
+> +		 *
+> +		 *                                     attach_task(p, rq1)
+> +		 *                                       account_llc_enqueue
+> +		 *                                         ** DO-NOT-INCREASE **
+> +		 *                                         rq1->nr_pref_llc_running
+> +		 *
+> +		 *                                     pick_eevdf
+> +		 *                                       __dequeue_task  [real dequeue=
+]
+> +		 *                                         account_llc_dequeue(DEQUEUE=
+_DELAYED)
+> +		 *                                           ** DO-NOT-DECREASE **
+> +		 *                                           rq1->nr_pref_llc_running
+> +		 *                                           p->pref_llc_queued =3D 0;
+> +		 *
+> +		 *                                         clear_delayed
+> +		 *                                           p->se.sched_delayed =3D 0=
+;
+> +		 *                                           ** DO-NOT-INCREASE as pre=
+f_llc_queued=3D0 **
+> +		 *                                           rq1->nr_pref_llc_running
+>  		 */
 
 
+Thanks for describing the operation scenario.
+However the above cases are not comprehensive and a bit long for comment.
 
-On 9/2/26 2:07 PM, Alexey Charkov wrote:
-> Rockchip SoCs customarily use the CPU ID programmed into their on-chip OTP
-> memory to derive stable Ethernet MAC addresses even when a board doesn't
-> otherwise have dedicated storage for those. The derivation depends on the
-> particular bootloader implementation (e.g. it is done by upstream U-Boot,
-> which patches the derived MAC addresses at runtime into the device tree it
-> hands to the kernel). Using less featureful bootloaders, such as direct
-> boot to Linux from SPL, leaves the kernel with only a random MAC address
-> instead, even though everything required for the derivation is equally
-> available to Linux as it is to U-Boot.
-> 
-> Reproduce the same derivation in the kernel and expose the result as an
-> nvmem cell named "mac-address", so that of_get_mac_address() picks it up
-> through its standard nvmem fallback. The address index comes from the DT
-> phandle argument, which lets both interfaces of a dual Ethernet board
-> share a single cell.
-> 
-> Enable the layout by default on Rockchip, as consumers of its cells would
-> otherwise defer their probe indefinitely.
-> 
-> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> ---
->  MAINTAINERS                                |   1 +
->  drivers/nvmem/layouts/Kconfig              |  13 ++++
->  drivers/nvmem/layouts/Makefile             |   1 +
->  drivers/nvmem/layouts/rockchip-otp-cpuid.c | 119 +++++++++++++++++++++++++++++
->  4 files changed, 134 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f3d07ce7b3c8..73e0531445be 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23727,6 +23727,7 @@ M:	Alexey Charkov <alchark@flipper.net>
->  L:	linux-rockchip@lists.infradead.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
-> +F:	drivers/nvmem/layouts/rockchip-otp-cpuid.c
->  
->  ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
->  M:	Daniel Golle <daniel@makrotopia.org>
-> diff --git a/drivers/nvmem/layouts/Kconfig b/drivers/nvmem/layouts/Kconfig
-> index 5e586dfebe47..6e2511ac6f7e 100644
-> --- a/drivers/nvmem/layouts/Kconfig
-> +++ b/drivers/nvmem/layouts/Kconfig
-> @@ -26,6 +26,19 @@ config NVMEM_LAYOUT_ONIE_TLV
->  
->  	  If unsure, say N.
->  
-> +config NVMEM_LAYOUT_ROCKCHIP_OTP_CPUID
-> +	tristate "Rockchip OTP CPU ID layout support"
-> +	default ARCH_ROCKCHIP
-> +	select CRYPTO_LIB_SHA256
-> +	help
-> +	  Say Y here if you want to expose the MAC addresses that Rockchip
-> +	  bootloaders derive from the CPU ID programmed into the OTP memory of
-> +	  Rockchip SoCs. Boards which have no other source of MAC addresses
-> +	  need this to get stable ones when the bootloader does not patch them
-> +	  into the device tree.
-> +
-> +	  If unsure, say N.
-> +
->  config NVMEM_LAYOUT_U_BOOT_ENV
->  	tristate "U-Boot environment variables layout"
->  	select CRC32
-> diff --git a/drivers/nvmem/layouts/Makefile b/drivers/nvmem/layouts/Makefile
-> index dd6c6c70b1a9..a0ade4c22c79 100644
-> --- a/drivers/nvmem/layouts/Makefile
-> +++ b/drivers/nvmem/layouts/Makefile
-> @@ -6,4 +6,5 @@
->  obj-$(CONFIG_NVMEM_LAYOUTS) += fixed-layout.o
->  obj-$(CONFIG_NVMEM_LAYOUT_SL28_VPD) += sl28vpd.o
->  obj-$(CONFIG_NVMEM_LAYOUT_ONIE_TLV) += onie-tlv.o
-> +obj-$(CONFIG_NVMEM_LAYOUT_ROCKCHIP_OTP_CPUID) += rockchip-otp-cpuid.o
->  obj-$(CONFIG_NVMEM_LAYOUT_U_BOOT_ENV) += u-boot-env.o
-> diff --git a/drivers/nvmem/layouts/rockchip-otp-cpuid.c b/drivers/nvmem/layouts/rockchip-otp-cpuid.c
-> new file mode 100644
-> index 000000000000..61f509c4a8cf
-> --- /dev/null
-> +++ b/drivers/nvmem/layouts/rockchip-otp-cpuid.c
-> @@ -0,0 +1,119 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// SPDX-FileCopyrightText: 2026 Flipper FZCO
-> +/*
-> + * NVMEM layout for the CPU ID in Rockchip OTP memory
-> + */
-> +
-> +#include <crypto/sha2.h>
-> +#include <linux/device-id/of.h>
-> +#include <linux/etherdevice.h>
-> +#include <linux/hex.h>
-> +#include <linux/module.h>
-> +#include <linux/nvmem-provider.h>
-> +#include <linux/of.h>
-> +#include <uapi/linux/if_ether.h>
-...
-> +
-> +static int rockchip_cpuid_mac_pp(void *priv, const char *id, int index,
-> +				 unsigned int offset, void *buf, size_t bytes)
-> +{
-> +	char cpuid[ROCKCHIP_CPUID_LEN * 2];
-> +	u8 digest[SHA256_DIGEST_SIZE];
-> +	u8 *mac = buf;
-> +
-> +	if (bytes != ROCKCHIP_CPUID_LEN)
-> +		return -EINVAL;
-> +
-> +	if (index < 0 || index > 1)
-> +		return -EINVAL;
-> +
-> +	/* The buffer still holds the raw CPU ID at this point */
-> +	bin2hex(cpuid, mac, ROCKCHIP_CPUID_LEN);
-> +
-> +	sha256(cpuid, sizeof(cpuid), digest);
-> +
-> +	memcpy(mac, digest, ETH_ALEN);
-> +	mac[0] &= 0xfe;		/* clear the multicast bit */
-> +	mac[0] |= 0x02;		/* set the locally administered bit */
-> +	mac[5] ^= index;
-> +
-> +	if (!is_valid_ether_addr(mac))
-> +		return -EINVAL;
-isn't this a dead check?
 
+>  		pref_llc_running_dec(rq, p);
+>  		/*
+> @@ -6415,23 +6465,18 @@ static __always_inline void return_cfs_rq_runtime=
+(struct cfs_rq *cfs_rq);
+> =20
+>  static void set_delayed(struct sched_entity *se)
+>  {
+> -	/*
+> -	 * Drop a task leaving the runnable set. Must run before sched_delayed
+> -	 * is set, or task_pref_llc_runnable() would already exclude it;
+> -	 * clear_delayed() mirrors this after clearing the flag.
+> -	 */
+> -	if (entity_is_task(se))
+> -		pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
+> -
+> -	se->sched_delayed =3D 1;
+> -
+>  	/*
+>  	 * Delayed se of cfs_rq have no tasks queued on them.
+>  	 * Do not adjust h_nr_runnable since __dequeue_task()
+>  	 * will account it for blocked tasks.
+>  	 */
+> -	if (!entity_is_task(se))
+> +	if (!entity_is_task(se)) {
+> +		se->sched_delayed =3D 1;
+>  		return;
+> +	}
 > +
-> +	return 0;
-> +}
-> +
-> +static int rockchip_cpuid_add_cells(struct nvmem_layout *layout)
-> +{
-> +	const struct rockchip_cpuid_data *data;
-> +	struct nvmem_cell_info info = {0};
-> +	struct device_node *layout_np;
-> +	int ret;
-> +
-> +	data = of_device_get_match_data(&layout->dev);
-> +	if (!data)
-> +		return -EINVAL;
-same here, this is dead check as we can never reach to this point
-without matching compatible.
+> +	pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
+> +	se->sched_delayed =3D 1;
 
-> +
-> +	layout_np = of_nvmem_layout_get_container(layout->nvmem);
-> +	if (!layout_np)
-> +		return -ENOENT;
-> +
-> +	info.name = "mac-address";
-> +	info.offset = data->offset;
-> +	info.raw_len = ROCKCHIP_CPUID_LEN;
-> +	info.bytes = ETH_ALEN;
-> +	info.read_post_process = rockchip_cpuid_mac_pp;
-> +	info.np = of_get_child_by_name(layout_np, info.name);
-> +
-> +	of_node_put(layout_np);
-> +
-> +	ret = nvmem_add_one_cell(layout->nvmem, &info);
-> +	if (ret)
-> +		of_node_put(info.np);
-> +
-> +	return ret;
-> +}
-> +...
+This change looks good and make the code cleaner.
 
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Alexey Charkov <alchark@flipper.net>");
-> +MODULE_DESCRIPTION("NVMEM layout driver for the CPU ID in Rockchip OTP memory");
-> 
+Tim
 
+> =20
+>  	for_each_sched_entity(se) {
+>  		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
