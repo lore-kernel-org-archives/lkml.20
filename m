@@ -1,185 +1,123 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599DD39768C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE5439768C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789428479; cv=none; b=vEnaYOWaQYOpSJT/HUu6iGacAxCfkh8LR1YBsPZpCBFTErxj7uxPc+wuDJg3mumt7cR39FCgGItHZu8ab5iC3GXDICieJfq+j57S9Vd4bDRZ/rZLBQRM1DHGlantfiNf572cM63D2f4UCZlgClA5Syh0omqNBb0trsBs+Fvchek=
+	t=1789428536; cv=none; b=QIJh4JtVXcRyIF2DmKeHfoSdwDPd9GY3qQKRIv59N+bInWTeNaSeA1f6WFG3JlqZqKQeh5BxWY3GSs3GWaN7AIVX6WnMxVNg+GO2OOTgPBdQz72JS672geCYjCEOVWqCKfqdU5PpECaiQQlV7K2QwYdDAS9eJ+4CJONUvnnbSHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789428479; c=relaxed/simple;
-	bh=V/KXG5wgKR5+vLOkBvwwHlvYlNM7vtiZA4gswTDPhTQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YjEu1pJjefGvfRsBWqN9AqZtN8BsoE8uBibKF4XYwdBLiT0neOErBWNdiNc3W+2dRTwWSSrfSIEqZAYAcWv7J/2HcJFwOqgQV5K6lo7q56nnGX0VqARlxRohr0oCrFH2jetXV7S3VYgzuiVXZnfgsxvzFMQfU2CIrf/04PNx3IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=SHhlVR/G; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1789428536; c=relaxed/simple;
+	bh=so6+kpWSPAr+SaQAzS8bXa6DUJTn4TrJn7YN0EqL8rI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dnH+rTMV8ALfsr8ExVZedfSRwgavlB1ppsvzcPgBOWxQ6f+V2icliH4sBROjzOwWNqiNr6DlNHg2p44NxEpwnMAmUaAzyntDWvFfclk4XQ4Gsi4TSRucgKMJ3jGQaNLJhy8pjFLJp40uqZCZxd0gAKHyIPsluYkrU5mCM1xDddE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=m262tNUn; arc=none smtp.client-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="SHhlVR/G"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso24487735e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:27:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789428474; x=1790033274; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jDjN0WMFCOSBqgbtPzRrK3zeeUvndcJ2a115299joOg=;
-        b=SHhlVR/G+LzHyMFFXyFfqCxG2mRl4i5bKL+5r+tzmo7J2jlmZX/OSMWiDkWOWYHomA
-         zGf2Pa1c81MHJ7TjzAD31pdnmL/awbDgjA3MifJAQPpAHOeYt7H5/emdQM8Sr1xLGmcB
-         WRri8/xj2Z04PTXp5K37HV6ms9bu+H7aLjCuCAxeysiMSQ6iyigE096Aax3gcWih+AaO
-         Zi/U1idmn6k02PzD/VVElNTKoiRDyhQIeyiBPiUUIBqWOIH+ac3Bc8XCzvg4S1PgDnVG
-         NP7baGxh7b3B1vR7QVYQcozH1+OcOKF8FtpZfbVS1T/ePXyjCnIwaQDTmgv6Vc38VWCB
-         NaJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789428474; x=1790033274;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jDjN0WMFCOSBqgbtPzRrK3zeeUvndcJ2a115299joOg=;
-        b=tsR6Wc/u2k0hV4CsZiuZ2/9g5ZDWgVZmG0g8xcQIoC2qqEEZP6zE6xBZoQ4Wzn6iCZ
-         Qa/0g5d+j7QLRyigeaeLE3opNk0tg6m5aeCioGF5/mZbyqoraLt4+rgB+zwkob0NASyS
-         KUosnx3KdyZHc5lXV5EAJjeiRgLhMUQVwaoWtzzdywOo4DfCi4AP3ePHK1ohf2hsAeX5
-         6VaLN0vGtnhJmrydgbZukn7u+SzXSS39N96tEEnkg+khyFbixl7Ij1GfYRfhdi+xPZtF
-         urmSJMNGvWDNrYzE0/eOLkcVw16+/pQt/yYY+Sfpy3/HefzsFoxZIRV38w+YFQa49Bcm
-         ifoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwL7GlwAOR5xToRdoY0fpIeFCuCZhV740nr/8s+eJ4UpqdYctoGp1VuvubUhd2snoFTdCEmlxaFPTkpqnE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8RVdDiqgESIgpe3bYNDY3CceEbiCneHQKzzVNchnHhiayFhq1
-	1xcXv+TxszfMrM9o2ZE8uSx0hZVEZ0geig2/y43rmgda3WMfe1+dL87vuwxPEj+LaYM=
-X-Gm-Gg: AYBFou18hdiKtU1PaXesLFevpcN6efLd5JIyC6Hm16onhCdOuCfPBP9uUvGvk4iTtuY
-	d+5HijYv/h8KlB8BWzHQNa/nZd+sGwQdx1iyYMGHwHYITFheyk06XAEOK/Y8p9spDMde9Wr8GXn
-	5Fugvoz2+LiaYOJ6nFSIkUNQ/wTVdm2DENHRypte/VxSPnniG2QEBshh/5qcxlFasbz7KDbPZkj
-	iqp6lrxr+PUzFY8PpV0XY3twIoUl+oaBfTpakLZtRRhog9as4FqSqLHTnYxJBBzuAtVKt6fn6t0
-	I48CTbqvq0kDsPqg7tCtUsTONmXN1VeJUD2i2Ud68lmvmqljnugCjZglc2M4fYevDJ9peVa/uDd
-	wNVysuLNhJOolwUz6EBBMqHPL5UrF9ZqbsUPkbCIEPf90kSs5dWzO4BhceAQfqDV5ryH9+OdfuS
-	UVWJuwXv13Mq9U84UAMqEhMltc373YUL1khAQ3T8OJ5W8MPoeRZ34ddZ8rK01XI9mclYLg/hftt
-	+tuqLEywXYQmtz8cegnO0mBEQmTP891YZNL5iboA2Ns+PIrCmZ3K1+Vsytn9LEFGlMPq5fQlSnj
-	OkQ3Kx5h0x26Wfx6zIC8qp5WZg==
-X-Received: by 2002:a05:600c:3589:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49e7a669271mr67975575e9.11.1789428473668;
-        Mon, 14 Sep 2026 16:27:53 -0700 (PDT)
-Received: from [10.160.16.196] (150.red-80-32-100.staticip.rima-tde.net. [80.32.100.150])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d66ab6esm25447395e9.2.2026.09.14.16.27.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 16:27:52 -0700 (PDT)
-Message-ID: <74c87cd3-8ac1-46da-a1b9-9149d46b4788@kernel.dk>
-Date: Mon, 14 Sep 2026 17:27:50 -0600
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="m262tNUn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail3; t=1789428529; x=1789687729;
+	bh=yxoj++wFvVAwzImdOHquYq/PvmSP6Nwb1m+Fxi9E1PA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=m262tNUn0qggQ6BzAr6L7CTMNd/qcn7PFIcSzWLEgQf6UWVQ5Rwi8wcNhMUddA0GJ
+	 o21obADMQC6PjFbfGNy/Qt1MxIz+0r0lUCjX5jC+NA2f+ddY9vkdxqPNatH4e07E9T
+	 UMDRj73N6reiM7ZmItw/MudS9bYjLfug+QW/i2oCRD4KGN5WUUkKs6I8Xg87j07s9F
+	 P3VkZgItjLu9PdklKh035FJBOMK94QTqbEtPmUfCGnEP+jgTEFDZxT1Q2AcJ0HNdWN
+	 hF4LeDW+lXOxWIWiEPJ46bhiT1DMdUOSLb1oMno7/fx7O/j1VX64JA3vkO8dKxZL/Y
+	 Y6zybbh5jNVrA==
+Date: Mon, 14 Sep 2026 23:28:45 +0000
+To: Andrea della Porta <andrea.porta@suse.com>
+From: Angel J <iamanaws@httpd.dev>
+Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
+Message-ID: <VaPKN3QbW3sGj8wePAvI_xD3twp_MQE4-4xeSbvgoQPVUnKDWKz0EWT_JiLehpmc6WOsCAoFOPs412Xhtthes_ZtvrgsKB4QB6QPz-XvRb4=@httpd.dev>
+In-Reply-To: <B6jXhRRiVu4TfgjwfVOLgxbh1xIciImKFVMmjkMRoDt5SO7WpM2M3gBqsjtnh3VhYobWdcNfqFrmlCdhqZBqUakSNkTeVNZYJnXLTx55kRI=@httpd.dev>
+References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev> <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev> <aqfgUUkZYZg6ZABF@apocalypse> <B6jXhRRiVu4TfgjwfVOLgxbh1xIciImKFVMmjkMRoDt5SO7WpM2M3gBqsjtnh3VhYobWdcNfqFrmlCdhqZBqUakSNkTeVNZYJnXLTx55kRI=@httpd.dev>
+Feedback-ID: 163474212:user:proton
+X-Pm-Message-ID: d2ba4b13e36e34d8135a55ca2599efddc5d2a885
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for blocking
- inline issue
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, tglx@kernel.org, mingo@redhat.com
-References: <20260911154148.644489-1-axboe@kernel.dk>
- <20260914192243.GA776954@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260914192243.GA776954@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182"; charset=utf-8
 
-On 9/14/26 1:22 PM, Peter Zijlstra wrote:
-> On Fri, Sep 11, 2026 at 09:40:50AM -0600, Jens Axboe wrote:
->  
->> This series issues those requests inline in blocking mode instead, and
->> only pays for the offload if the request actually blocks. But by the
->> time it blocks, the submitter is deep in the kernel with the request on
->> its stack, so the work can't be moved to another thread. What we can
->> move is the identity. If the submitting task blocks, an idle io-wq
->> worker takes over its user visible identity (tid, signal state,
->> credentials, scheduling attributes, cgroup, user register state),
->> finishes the io_uring_enter() call and returns to userspace as the
->> submitter. The original task finishes the request as an
->> io-wq worker and joins the pool. Userspace is none the wiser, hopefully,
->> the same tid came back from the syscall, it's just on a different
->> task_struct. 
-> 
-> I'm still struggling my way through this thing.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182
+Content-Type: multipart/mixed;boundary=---------------------7de5e8224e3f8cd20eea8e5ae1dd0491
 
-I don't blame you.
+-----------------------7de5e8224e3f8cd20eea8e5ae1dd0491
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-> So thread T1 is doing this blocking syscall. When it actually blocks,
-> you hand-over the userspace identifying part to another thread T2, which
-> will return to userspace as if it were T1.
+Ok, here it is...
 
-Correct.
+I tested this quirk on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy,
+and it boots without either OF fix. The diff below omits the test logging.
 
-> Is this really a hand-over, or a swap? I would imagine we not have two
-> threads with the same tid and all that.
+PCI_FIXUP_HEADER runs after the resources have been parsed using the
+original header type, and changing hdr_type also affects configuration
+restore. I don't know enough about this part of PCI to judge whether
+that's safe, so I'll wait for your advice before submitting it as a patch.
 
-It's a swap, yes we won't have two threads with the same tid.
+Thanks,
+Angel J
 
-> Also, I'm a wee bit confused, why not swap out the kernel stack with a
-> io-wq worker and have the original thread return to userspace. This
-> seems like a better defined situation. In so far as anything here is
-> well defined.
-> 
-> Swapping the kernel state seems like a simpler endeavour than swapping
-> all that is or might be user visible.
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda..57df88a38 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -291,6 +291,22 @@ static int __init pci_apply_final_quirks(void)
+ }
+ fs_initcall_sync(pci_apply_final_quirks);
+ =
 
-I think we'd just be trading one set of problems for another. In terms
-of the kernel side, we have the following set of issues around swapping
-the kernel stack instead:
 
-- 'current' itself, this is used throughout the waiting helpers. Things
-  like wait_queue_entries that use private = current.
++/*
++ * On the Dell XPS 8940, 8086:4c43 reports a PCI-to-PCI bridge but has no
++ * downstream bus. Use host-bridge class and a normal header so that
++ * pci_is_bridge() does not send it through bridge scanning.
++ */
++static void quirk_intel_4c43_host_bridge(struct pci_dev *dev)
++{
++	if ((dev->class >> 8) !=3D PCI_CLASS_BRIDGE_PCI ||
++	    dev->hdr_type !=3D PCI_HEADER_TYPE_BRIDGE)
++		return;
++
++	dev->class =3D (PCI_CLASS_BRIDGE_HOST << 8) | (dev->class & 0xff);
++	dev->hdr_type =3D PCI_HEADER_TYPE_NORMAL;
++}
++DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4c43, quirk_intel_4c43_ho=
+st_bridge);
++
+ /*
+  * Decoding should be disabled for a PCI device during BAR sizing to avoi=
+d
+  * conflict. But doing so may cause problems on host bridge and perhaps o=
+ther
 
-- Any kind of sleeping lock that also stashes away the value of
-  'current;.
+-----------------------7de5e8224e3f8cd20eea8e5ae1dd0491--
 
-- signal interrupible sleeps via TASK_KILLABLE
+--------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-- Just like the userspace side, we have a bunch of kernel side state as
-  well in the task_struct. Not a complete list, but:
-	- plug, for any kind of in-progress IO submission state
-	- journal_info
-	- reclaim_state
-	- io_uring
-	- PF_MEMALLOC and friends
-	- task_work
-	- lockdep
-	- preempt/irq stuff in thread_info
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
 
-- Kernel stack itself in ways it's tied to the task_struct
-	- stack canary
-	- KASAN
-	- vma tracking
-	- thread.sp
-	- pt_regs
+wrsEARYKAG0Fgmqogx0JEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmes3p/1OSpN6LMhObrgEYZy+8qMUO+52BFBVbvV
+KvCQQRYhBEAFf9htFyVnqZzmVhoBbwppzUxnAACY0wD/SFb48faYSk4S81Rn
+a+nMZZ6WbytcUHJBks8/2VhxtfcA/jdk2n5GJvzeuyWgZAPW5fl9UDEyWQuO
+Mti2YQDwnA4D
+=zn2q
+-----END PGP SIGNATURE-----
 
-Probably not a complete list, but it's a start... I do agree that the
-kernel stack swap seems like the more immediate idea, but I think it's a
-harder problem.
 
->> Folks that have been around a while may remember earlier
->> attempts at this about 20 years ago.
-> 
-> That was the whole threadlet thing, right? Very hazy memories of that.
-> I'll have to go read that back, I'm sure I still have that in my inbox
-> *somewhere*.
+--------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182--
 
-Right, and it's actually pretty related to what we're discussing above.
-The first one was Zach's fibrils which attempted the kernel stack swap,
-and then we had threadlets from Ingo which went the route that this
-patch set is also taking and dealt with userspace state swaps instead.
-
-> Surely we abandoned that approach for a reason. ISTR there being some
-> significant ick there, much like the thing you're proposing now.
-
-Well like you that state has long since been swapped out on my end, my
-recollection was disagreement on the API, not the swapping itself. But
-also extremely hazy there...
-
-> Not sure yet on how things compare. Will have to dig through that stuff
-> again.
-
-Let me know if you find something interesting there.
-
--- 
-Jens Axboe
