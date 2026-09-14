@@ -1,94 +1,246 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BB926CE05
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06CD2D94AF;
+	Mon, 14 Sep 2026 01:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789348398; cv=none; b=n1U97ifJTUoO2RqwWobbxoneF8rjSJmox7ofHeVzbxW1ZgEkczFuCZWjXIlAK8ZCnyfr44D/KCWtR2ViSY3J1PgbJJqxSr08VulyHaHdLbWu8wW9VC7fMrKqiLp10qI80C3S+DFdDlLKoNFPMDJ/fj1A+NZGneYD7Koam/RXeEI=
+	t=1789348632; cv=none; b=NzyciDtbd9zeHctTbtYt19/QQIX71pjpZsZeXVUFlUTLYA6nP7GAAhcILVXMNavizbZKOeEInj3c7MMCcByJV+RDNcukGKVn6oeYzBYkbQg0rDQMwn0a3+vOYkhHSopfloQAHXyoLrApKl6evJbYZetnsZCAiQJ/WzQ+9RyLJ7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789348398; c=relaxed/simple;
-	bh=nEiwzoK4SoNy8IEzELJlP5xTHu5XFQc/2OLa7Gpxo+I=;
+	s=arc-20240116; t=1789348632; c=relaxed/simple;
+	bh=yaS7ARHyhCJQ5O/dVyDdhqWsOUNVVb3p0svU8JYNqME=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ci9jyhTsXvyVWAnKn+HE2k4tZWpqxBIk9rgVF+WAFDaxb8F78G1IEaJbZVrr19yFmhZkfinvxZKivdXZdiSzmIO8/seK5SdaMc1wKGr3LlvrXc8WBvQoz4tR1tUfiESxzeDR5el1urfrKkKzbaUmofelM4Bv/tmyRPdJPIB94z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SVnttTLP; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=YXW9oxPwJZ4t3jx29C+A3RGnd0MthTZHB/LHEUKPMPw+KLkk6HDiVRPesvOjExe8h9x02PoRFfyW1vgtPz49SCrOfgjMlojbiHfl7/dOuPf/znkTlA7hD9i/Gid0JzUCRFldFxMqfeIjWw+tKBcdLJXQ03HzBbIpA8K3dNgcw/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z71TbIzT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SVnttTLP"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b355ffso776304b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:13:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789348397; x=1789953197; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AYhF5pMkaESj6kjmpcCVISkdRjgmdv7n0c/SdhgqaIU=;
-        b=SVnttTLPQltCdRMbkj5NmnIeCRblPHiYSoyv6pKqYPf03rN8NfRqXQ51MpZwqGq+V5
-         TjMN8etQeb7yH3uO8KQ+gmVlNW/OLXEKPbhaRLC1owz1Dlw3hKv9RzfpuB8qVU7seZ7b
-         VNcceZCmth4n9nPsrDL7vcarFVcKcbBQIZA5pfORZh+ySg+hUYoIozBC236FT5/fdMLH
-         tiJABXRBvvlwuuZrf94HG06AOIonwDV3K7x8DnIMnBYpzbNFv9v9lXOEQZ/heCv4TmZz
-         ozFKht8R2yPOAdDdGTM2zqDiFGVzeaaqL+jC/T3dNC6b/9meB/EugH3PTEL5MGyH01Ek
-         OVNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789348397; x=1789953197;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AYhF5pMkaESj6kjmpcCVISkdRjgmdv7n0c/SdhgqaIU=;
-        b=AT+uxuuGYLIZ3NqpOeF6aeT2Y9ZswS0zyY4vhRFZVVmsUhjuscFVq1zMIgpVGWxRqM
-         xMTlyi5crzMhobb4KTAUCgm0RzYsv+FAI5QyQ5sbzzltWNmD2Vnu7JkshLXQmsk5eX3w
-         VsA8F1jKqQJ6Y6CaexLzbnnE7PCFRmZ/tH/z3hOxk8P7CKx/Di77hXuMRULuTOmytpO8
-         pwkuP00Gk0cuT/57Fimjk3GlsiiKgh08uzzRapulLXG8Y00GdfqdMPFWNl11xrb8RjZl
-         ptZ39NpT1r+jTgd1uCHMiVRfWqjMK3qIrjdePsona36K1XaOZW/i8vDQrod5n8gn9XnF
-         /OVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzdb3G8Hj7pQKQn6+8MtDYboTt4CqQ+sm9MxkAgWMgh2bjzaj0sbh+tU1lojvaKPUEEYjSwQOxw5QYhhQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTqDsm73T+cqXchLIWYlQ0tp/XjKcZ6P1E6bJ02gFDUBceE89b
-	1IFvCFOgTka+y9tsWtaM+5RxompFmb3oYSFRPqxqd1mLCtqKzq6kNlX9
-X-Gm-Gg: AYBFou1IwN7oojimCwY+KQ2Zk3BuO+FLetF30H3M2wvVG9i+npzDT7OVwrV/n6jgm3e
-	49F5QbHFlUawvsP6aiCC7SJIE9MX7TdEaRslOI62S6Pb9Z5eozm7L8J+WnBv+RsmduH2n5Ic061
-	cjFYyxS1rGDVRf2MfS3eNpPk9Dj/FwDn/MR98rrberaB97ALD9v1mSHfgC5JeUk5WfXUcxCyKOg
-	CbIUl67cjjILfwMKUxOufc70CGDoOX0MU6lKfI1yQzTQammfRxfQeZgMmknM85Q8WN/Iw5kR7sO
-	jEQT7o9tefXJ11aj4vFCy8djSfg3wyP5yi2Wpru03LwrE1C7BdxPp9YiZ1wuBdTN6K3CdVVPqvK
-	EivomTJq8jHnc0Cz6jLQmCAY6BLQbFCg66UBvjyKRhydnZQBIefyHlRMzaKZ942IfK1vu/d4dqd
-	2QTWfQYnJQAha6XqvFjk0SJIn2jYqyR+3ksdACYsQvUy85SQI+jo8gcPkfVI96XmTpFdS31OLG8
-	pj228GMm2WhTkw9sRfndakn190UxfE1OqrZhjyT
-X-Received: by 2002:a05:6a21:4cc6:b0:3cd:8bba:824f with SMTP id adf61e73a8af0-3db4042265emr402955637.4.1789348396768;
-        Sun, 13 Sep 2026 18:13:16 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:a739:376c:7eb4:ea2d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e4fb3esm22832868eec.7.2026.09.13.18.13.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 18:13:15 -0700 (PDT)
-Date: Sun, 13 Sep 2026 18:13:12 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: "hpp.iscas" <hppiscas@163.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Daniel Mack <daniel@zonque.org>
-Subject: Re: [PATCH] Input: eeti_ts - publish the OF module alias
-Message-ID: <aqdKI55w_6FCCl4b@google.com>
-References: <20260905134004.66336-1-hppiscas@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z71TbIzT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDAB21F000FF;
+	Mon, 14 Sep 2026 01:17:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789348630;
+	bh=CxNE9VhML03EVnMjcv9cl9hUaRqHKkzyMHIH5zs2+Mw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z71TbIzTwvppbu9XQkljgc1auny1M6YBlOr8ZQahB5hMXjrrHO2mYPFIZYuxOrIy9
+	 XxkQOisIQNumk9Ro5npv0NGtW8aXqk4B2eXXuXxfAUPMgZl74sKS8VVL64hLKu4Dr4
+	 Diqb8X7DeEDXW/21AWvaH5TuUvCZ6hrBHiTXdJTga6po9K8jlN836zMryYMOPzqK7A
+	 Ced225RRVswQnkr1fG/XdKWBKwTj1GI+Yxlcv5mJhUkGmZrdBOW0Kaa5PcJTqVEDcI
+	 LhMx3Sh3fK7L0gvVJ7zmYqObflj1a3iKec9N6KdrbuKsvwiBq1ro4Tabo+SSnInoGK
+	 txFErcSl6Uk9Q==
+Date: Sun, 13 Sep 2026 18:17:08 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Hui Su <sh_def@163.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf evsel: Restrict incremental open error unwind
+Message-ID: <aqdLFApaxDgj1mtZ@google.com>
+References: <20260912031112.1814574-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260905134004.66336-1-hppiscas@163.com>
+In-Reply-To: <20260912031112.1814574-1-sh_def@163.com>
 
-On Sat, Sep 05, 2026 at 09:40:04PM +0800, hpp.iscas wrote:
-> The EETI driver matches eeti,exc3000-i2c Device Tree clients, but only
-> publishes the legacy eeti_ts I2C ID. The I2C core emits an OF modalias
-> for a Device Tree client.
+On Sat, Sep 12, 2026 at 12:11:10PM +0900, Hui Su wrote:
+> evsel__open_cpu(), evsel__tool_pmu_open() and
+> evsel__hwmon_pmu_open() support opening a subrange of a CPU map, bounded
+> by [start_cpu_map_idx, end_cpu_map_idx).
 > 
-> Publish the existing OF match table within its CONFIG_OF guard.
+> Their error paths, however, unwind using "while (--idx >= 0)" all the way
+> back to CPU index 0 regardless of start_cpu_map_idx. If lower CPU indices
+> were opened by an earlier invocation, a later incremental open failure
+> therefore closes those existing file descriptors and overwrites their
+> slots with -1.
 > 
-> Fixes: e32d7f1b246c ("Input: eeti - add device tree matching table")
-> Signed-off-by: hpp.iscas <hppiscas@163.com>
+> Before this fix, running the new incremental open test demonstrates this
+> corruption:
+> 
+>   $ perf test -v "Tool PMU"
+>    12: Tool PMU:
+>    12.1: Tool PMU                                                      : Ok
+>    12.2: Tool PMU leader                                               : Ok
+>    12.3: Incremental open error unwind boundary:
+>      FAILED: CPU 0 FD overwritten: FD(evsel, 0, 0)=-1, expected 4
+>   FAILED!
+> 
+> Stop the unwind at start_cpu_map_idx so that only file descriptors
+> opened by the current invocation are rolled back.
+> 
+> After this fix:
+> 
+>   $ perf test -v "Tool PMU"
+>    12: Tool PMU:
+>    12.1: Tool PMU                                                      : Ok
+>    12.2: Tool PMU leader                                               : Ok
+>    12.3: Incremental open error unwind boundary                        : Ok
+> 
+> Fixes: 4804e0111662 ("perf stat: Use affinity for opening events")
+> Fixes: 240505b2d0ad ("perf tool_pmu: Factor tool events into their own PMU")
+> Fixes: 53cc0b351ec9 ("perf hwmon_pmu: Add a tool PMU exposing events from hwmon in sysfs")
 
-Applied, thank you.
+Maybe we just need to last one?
 
--- 
-Dmitry
+Acked-by: Namhyung Kim <namhyung@kernel.org>
+
+Thanks,
+Namhyung
+
+
+> Signed-off-by: Hui Su <sh_def@163.com>
+> ---
+>  tools/perf/tests/tool_pmu.c | 79 +++++++++++++++++++++++++++++++++++++
+>  tools/perf/util/evsel.c     |  2 +-
+>  tools/perf/util/hwmon_pmu.c |  2 +-
+>  tools/perf/util/tool_pmu.c  |  2 +-
+>  4 files changed, 82 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/perf/tests/tool_pmu.c b/tools/perf/tests/tool_pmu.c
+> index c6c5ebf0e935..667160f9e2cd 100644
+> --- a/tools/perf/tests/tool_pmu.c
+> +++ b/tools/perf/tests/tool_pmu.c
+> @@ -1,8 +1,16 @@
+>  // SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
+> +#include <errno.h>
+> +#include <fcntl.h>
+> +#include <string.h>
+> +#include <unistd.h>
+> +#include <internal/xyarray.h>
+> +#include "cpumap.h"
+>  #include "debug.h"
+>  #include "evlist.h"
+> +#include "evsel.h"
+>  #include "parse-events.h"
+>  #include "tests.h"
+> +#include "thread_map.h"
+>  #include "tool_pmu.h"
+>  
+>  static int do_test(enum tool_pmu_event ev, bool with_pmu)
+> @@ -100,9 +108,80 @@ static int test__tool_pmu_with_pmu(struct test_suite *test __maybe_unused,
+>  	return TEST_OK;
+>  }
+>  
+> +static int test__tool_pmu_incremental_open_unwind(struct test_suite *test __maybe_unused,
+> +						  int subtest __maybe_unused)
+> +{
+> +	struct evlist *evlist = evlist__new();
+> +	struct parse_events_error err;
+> +	struct perf_cpu_map *cpus = NULL;
+> +	struct perf_thread_map *threads = NULL;
+> +	struct evsel *evsel;
+> +	int ret = TEST_FAIL, fd0 = -1;
+> +
+> +	if (!evlist)
+> +		return TEST_FAIL;
+> +
+> +	parse_events_error__init(&err);
+> +	if (parse_events(evlist, "tool/user_time/", &err)) {
+> +		parse_events_error__exit(&err);
+> +		evlist__put(evlist);
+> +		return TEST_FAIL;
+> +	}
+> +	parse_events_error__exit(&err);
+> +
+> +	evsel = evlist__first(evlist);
+> +	cpus = perf_cpu_map__new("0,1");
+> +	threads = thread_map__new_by_tid(getpid());
+> +	if (!cpus || !threads)
+> +		goto out;
+> +
+> +	/* Step 1: Open CPU index 0 successfully */
+> +	if (evsel__open_per_cpu_and_thread(evsel, cpus, 0, threads) < 0) {
+> +		pr_debug("Failed to open CPU index 0\n");
+> +		goto out;
+> +	}
+> +
+> +	fd0 = (*(int *)xyarray__entry(evsel->core.fd, 0, 0));
+> +	if (fd0 < 0 || fcntl(fd0, F_GETFD) < 0) {
+> +		pr_debug("CPU index 0 FD is invalid (%d)\n", fd0);
+> +		goto out;
+> +	}
+> +
+> +	/* Step 2: Intentionally trigger failure on CPU index 1 */
+> +	evsel->core.attr.sample_period = 1; /* Not supported for tool PMU -> -EINVAL */
+> +	if (evsel__open_per_cpu_and_thread(evsel, cpus, 1, threads) >= 0) {
+> +		pr_debug("Unexpected success opening CPU index 1 with sample_period=1\n");
+> +		goto out;
+> +	}
+> +
+> +	/*
+> +	 * Step 3: Check that CPU index 0's FD was NOT destroyed by CPU index 1's unwind.
+> +	 */
+> +	if ((*(int *)xyarray__entry(evsel->core.fd, 0, 0)) != fd0) {
+> +		pr_debug("FAILED: CPU 0 FD overwritten: FD(evsel, 0, 0)=%d, expected %d\n",
+> +			 (*(int *)xyarray__entry(evsel->core.fd, 0, 0)), fd0);
+> +		goto out;
+> +	}
+> +
+> +	if (fcntl(fd0, F_GETFD) < 0) {
+> +		pr_debug("FAILED: CPU 0 FD %d was closed by error unwind! errno=%d (%s)\n",
+> +			 fd0, errno, strerror(errno));
+> +		goto out;
+> +	}
+> +
+> +	ret = TEST_OK;
+> +out:
+> +	evsel__close(evsel);
+> +	perf_cpu_map__put(cpus);
+> +	perf_thread_map__put(threads);
+> +	evlist__put(evlist);
+> +	return ret;
+> +}
+> +
+>  static struct test_case tests__tool_pmu[] = {
+>  	TEST_CASE("Parsing without PMU name", tool_pmu_without_pmu),
+>  	TEST_CASE("Parsing with PMU name", tool_pmu_with_pmu),
+> +	TEST_CASE("Incremental open error unwind boundary", tool_pmu_incremental_open_unwind),
+>  	{	.name = NULL, }
+>  };
+>  
+> diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+> index d4cb455f4a7d..eb429087ebfe 100644
+> --- a/tools/perf/util/evsel.c
+> +++ b/tools/perf/util/evsel.c
+> @@ -3127,7 +3127,7 @@ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
+>  			FD(evsel, idx, thread) = -1;
+>  		}
+>  		thread = nthreads;
+> -	} while (--idx >= 0);
+> +	} while (--idx >= start_cpu_map_idx);
+>  	errno = old_errno;
+>  out:
+>  	if (err)
+> diff --git a/tools/perf/util/hwmon_pmu.c b/tools/perf/util/hwmon_pmu.c
+> index ed544dca70c3..96aeb379e169 100644
+> --- a/tools/perf/util/hwmon_pmu.c
+> +++ b/tools/perf/util/hwmon_pmu.c
+> @@ -803,7 +803,7 @@ int evsel__hwmon_pmu_open(struct evsel *evsel,
+>  			FD(evsel, idx, thread) = -1;
+>  		}
+>  		thread = nthreads;
+> -	} while (--idx >= 0);
+> +	} while (--idx >= start_cpu_map_idx);
+>  	close(dir);
+>  	return err;
+>  }
+> diff --git a/tools/perf/util/tool_pmu.c b/tools/perf/util/tool_pmu.c
+> index 5c30854b4644..d2f7591747d9 100644
+> --- a/tools/perf/util/tool_pmu.c
+> +++ b/tools/perf/util/tool_pmu.c
+> @@ -349,7 +349,7 @@ int evsel__tool_pmu_open(struct evsel *evsel,
+>  			FD(evsel, idx, thread) = -1;
+>  		}
+>  		thread = nthreads;
+> -	} while (--idx >= 0);
+> +	} while (--idx >= start_cpu_map_idx);
+>  	errno = old_errno;
+>  	return err;
+>  }
+> -- 
+> 2.55.0
+> 
