@@ -1,197 +1,333 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D2341A4FB
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798F030C158;
+	Mon, 14 Sep 2026 09:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376439; cv=none; b=mFNIJHkJ/qMcVGZJnBT8ODMm+MelrGKJiRJHSrGwF3lXdjTOSSGRBScXJ5/oRA//a1SzgS4p1nqe4sR9dPcY+Rr70FvGgr+Sn7zHPapS/gBWG/EtIBKWJs/ayglREC4li5V2yHoTTWukcaJTV+5ufAp4HdxWhw2X1DEvMFHHTA4=
+	t=1789376436; cv=none; b=dlZxeRgRvtrctjPQGfT4idFdCatl86yJobOPVb9Wk4xzx/OBJVj6SLRa/brVJfcwI9ZZ6bcmnMx9Xqh6fVps6ZKriVC/RJCMEUa68QVWCMKqnMpvHjWSyRh6iwsekRHj5SWIv6GQc1S7u2vpEVbxKKlPMStanbX/p3OO9Drnql8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376439; c=relaxed/simple;
-	bh=fd4IwnttAj8+fxTWq2c8ZtjFO80h/q8D0v0Pef6pMwg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CYv1XCTLT7Y8OVPCw/UarnuGnpHtXuTuuO99dwva9jB1e/dkTMkOYwvkYtPzM8ko4TKEK/v5gSd11CeyKcLxbe2VRmG/pnd/Edv65HMQ3PIrGrv85pS7grIQ1YhKmcAm+m3/7ey7wH79UOYli3GcyymleozAzQOvjSdRK4i0YTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WVynkl2Z; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789376436; c=relaxed/simple;
+	bh=7bt/F0CfVemOLCYjcFdY4goT6DEiXj1lo5PD518miAs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=py756LHAsqviw9qcIaWWcj5jQNVhkPGaw+0zpYVSDOw2EDoYojCog5bbpooVfHTTgV48kOAavCqNCpl1dKmqT/ykU08qwurI9R/bOsW2hZHtLFTpqFMIkAtjYNCHzLBUrhodKTl0pve6b0oz8uCPnqJdhhotA5auyWgZkaTTsrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=B7GNDCSc; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WVynkl2Z"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso741676f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:00:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789376427; x=1789981227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zaMjbnfDAPZVK+O4yC2H4PKXkZqx8bBFkgVpIjfU32g=;
-        b=WVynkl2Zq7N8/va0ac9dIVoEfryijXIX6UhMCF8GnLH7lpf99tkgApeEv8kVOd90Jw
-         dgBs2RHK7ryNuA4ysWEMUWMSfx26DGORzrgXm+qsqFFLAUccwnxmGkWubQefUE+fVH1l
-         TTZr2x2u3Y8RP+Jdq8EHuQqtVMeDj/WJRjUpBlzBjfvLaett2/qmuG10zKDX7WmjAb59
-         M2vP/dqGetPNFWj0BPr8MBWy69XQQTaRPDoFHn/cgQhihs9WSK8ASKp9J8v1zp0tNxuy
-         Rs1mTczMwQ6HGhru/A5zX0V1cOKEcrWShmVyeQTp2szBFM9AfZJXPcYvza5WWgVNIQEx
-         /a5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789376427; x=1789981227;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zaMjbnfDAPZVK+O4yC2H4PKXkZqx8bBFkgVpIjfU32g=;
-        b=tTRcd+ehTXyfOxPnFearAGadyDV4E2FdkagNVNoTqGECukxSYol7zpj68DhSr1Txc2
-         1koLyrfZXNPcyJb2FG7BpVQNfpFWHXcRcHNL2JUEOIexM+hqhgxoHR+0pb4udszOqkDx
-         xrMwv4Ura2PmwFywbGCDxTMJ8m8ZHZ/SYkB+OZs/DKgNPfiSe8bIpYx7biMahWyZWZJ8
-         2kNz6r3eeIjMLb98YukEYG1N9g3Jj13vNaMH0E0s9cHkDFmjq6mKVnv4lg0SWJL4uFt6
-         wrtLvwCB1OUQgnJCTT1ruBK3ai2e0L7fP3gVNXhrtKlGva9YXTBhx8IOG1ClGf/gdZPW
-         2XbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygamN0W+mg0LRsZcE6Jp47KgJ90MK6sHg1Ylh+bf0+BAJZo5I74YKGCsezp3673maZnjtKOr7JGe0qkTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++moX3g3Zng2DUZxQsAgC7eJxd9dbt98wIwvU4ZnaBKOl83AJfFA
-	M3gYem4SGTEB5a+RgL208PQuXnZdncsZ6kzxUWGQuNsr1afRepY6I4jM
-X-Gm-Gg: AYBFou2ywRLE2ZgOUCH2YS81CuzhCnV62R8HJTtCln8LsZqqd710cJUmRBwueg66ppq
-	aaSbQQFhqj4rUgpWJ5KamunnOhV5sc44+rHHEckCa/UaGhIlZjR1hytc6hL1h1/BuYYBgGrpN3U
-	6xVKhkgB/DS8g8JaUD3R5hMcfSDrEnEQmCzK2sfV1XadVNofuqakmu7owYfm8bD73z5gNNq+j3B
-	TvaCainrm6KHPhxKfSqIVLskBw8n42VXQ3UtcGE+nFyteGo/RPzW7boHWTINCY5Oner4eTlYrcT
-	JybXeFjL8IQ8IjKxVmLJdD34pWu2Xol+BTZJAwYXRhZrelQAZjtF178CxAcNa7G4mTSGtQuLpIk
-	Oo+8BjiYlAu8Kmg4++E5VvyRQgZe3EA+Pj6c/YWPkdY1uvVL1CPUvioriDdHFMreuYehH9RJ2EK
-	p49rQ4Cpm3qCNPIhmmlJKLl2oUJC0DWxeAj79lWViy2MKacFya+iP+i8jBcxXv6gzHX70l4fbBF
-	qxM0ch8X1uV
-X-Received: by 2002:adf:e18d:0:b0:486:f955:895e with SMTP id ffacd0b85a97d-48702a9a5b5mr1446542f8f.7.1789376425972;
-        Mon, 14 Sep 2026 02:00:25 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:9cc4:c200:33d8:8ea2:e077:ebe1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm25245851f8f.9.2026.09.14.02.00.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:00:25 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: javierm@redhat.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: andriy.shevchenko@intel.com,
-	holofermes@gmail.com,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	amit.barzilai22@gmail.com
-Subject: [PATCH v6 5/6] drm/ssd130x: Implement ssd130x_write_cmd() on top of ssd130x_write_cmds()
-Date: Mon, 14 Sep 2026 11:59:30 +0300
-Message-ID: <20260914085931.66857-6-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914085931.66857-1-amit.barzilai22@gmail.com>
-References: <20260914085931.66857-1-amit.barzilai22@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="B7GNDCSc"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E61cQU1073456;
+	Mon, 14 Sep 2026 08:59:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=pt3fSj
+	eeIvWvADHdEPjDUXMMoaPuoTnloTSzqubqWqg=; b=B7GNDCScsOGqYPNIY9orkN
+	HY8ojE0QQlZ6xyEU8m89/vC8C+tWvny456itzCZHkkHmW1laVd8dkWFsG9raouzO
+	IR1zaJ8DgeqsKKTYNCNWCrZkCwG99La442uSvx8AT1uf6qXM+hcNlklaFEuPDdk/
+	GqPRirHdQxoajVFyeiI8kJsATQ1ifvpvUmv9uBVVz15mH+kfNEqtpKe/hHHmbVt5
+	niKh1lSktd1kx+sQXXaWNcMghxKJJs4TZ5GNs+7wdzatSA0e2ROGynKhh3lRU5LK
+	cKWeWJQ8Y9Of2NjArx269SMfbEf6+LROL18rlv7HHKJNDBu3n8SQtcqzU4/t6b6A
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5hgc3b-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 08:59:27 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5o6vw1787513;
+	Mon, 14 Sep 2026 08:59:26 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gnjjgmvfy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 08:59:26 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68E8xOrP47579618
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 14 Sep 2026 08:59:24 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 734662004B;
+	Mon, 14 Sep 2026 08:59:24 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3944520040;
+	Mon, 14 Sep 2026 08:59:24 +0000 (GMT)
+Received: from [9.224.77.173] (unknown [9.224.77.173])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 14 Sep 2026 08:59:24 +0000 (GMT)
+Message-ID: <61b5197f-3a6e-4cbd-8ad7-ca69582309f6@linux.ibm.com>
+Date: Mon, 14 Sep 2026 10:59:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nbd: reclassify u->iolock of AF_UNIX sockets
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+        linux-block@vger.kernel.org, nbd@other.debian.org,
+        linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+        Christian Borntraeger <borntraeger@kernel.org>
+References: <20260713181401.11088-1-borntraeger@linux.ibm.com>
+Content-Language: en-US
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <20260713181401.11088-1-borntraeger@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEyMSBTYWx0ZWRfX+YlATiqctGpe
+ k1wngUHpBpEIeYRP3aTkIEwCUY4EhsTDKjVSD/bV4HeDw3NX9NXsGGWrevk5sEdMOVcAG4d1We4
+ jGLh3/TKsPQ7Ms5MnrT8viHwk6MlwpSOdYv123SQz5dUrhNGPbcMKxg+uM/UtB/AiDZX6MxWRHU
+ 3/a4ASoxIkqjldqHV+hzclqKN7tQiJFJo/FTtiscUwJpuNDCO+SXM6K4kxNtZVh4+eYz28WcXXm
+ jHTwe+qJRugknJoHhINdyWAcmfzhNOATR67lsOjGsl2Q2dalndvMt6L7h7sNVH8vnHBNyI1L28S
+ 3h4flERW7YbKUhlD4xYum4jAQfioqaXWZyvIBNoaNEzVvUAWjx++uO+dOUU9bmRX+8HILu19z2n
+ pA86o9cghQKRN9p9oe0jqDbMmghpjH7P671TMRJon/F1Nn1gc9d3qygM+2RZqZH2zIVrTfd5H8H
+ 2lJndpCFadLSlq2fF+w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEyMSBTYWx0ZWRfX0xtS1jCc3bMq
+ 1RkLP/6qJgSPLVkGMilUc9nB1oejdatiOxPZVIbbwgawFMw/BukY8LXLuWQoID+UrFNT6MRWhD/
+ vkj/pPMMIEDyCPAAtdiR3gls7Yus2Cg=
+X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aa7b76f cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=LzvJ8H6-aFGr2eQcibkA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: kpOJ9pIp-rtEa6xqL_mdf5hqQ2cMvDos
+X-Proofpoint-GUID: t3V_b0Wgz2UdNpGKkjelEm7xlBcSKqfu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140121
 
-ssd130x_write_cmd() and ssd130x_write_cmds() each carried their own
-regmap_write() loop over SSD13XX_COMMAND, differing only in how the caller
-supplies the bytes.
+Am 13.07.26 um 20:14 schrieb Christian Borntraeger:
+> From: Christian Borntraeger <borntraeger@kernel.org>
+> 
+> in our CI we do get the following when unloading the nbd module.
+> 
+> [  120.008698] block nbd0: NBD_DISCONNECT
+> [  120.009078] block nbd0: Disconnected due to user request.
+> [  120.009413] block nbd0: shutting down sockets
+> 
+> [  120.269755] ======================================================
+> [  120.269757] WARNING: possible circular locking dependency detected
+> [  120.269759] 7.2.0-rc2-00005-g3e3aa6da87d3 #117 Not tainted
+> [  120.269761] ------------------------------------------------------
+> [  120.269762] modprobe/8168 is trying to acquire lock:
+> [  120.269764] 000001e67da57138 (set->srcu){.+.?}-{0:0}, at: __synchronize_srcu+0x36/0x210
+> [  120.269775]
+>                 but task is already holding lock:
+> [  120.269776] 000001bf63462d90 (&q->elevator_lock){+.+.}-{3:3}, at: elevator_change+0xac/0x1d0
+> [  120.269784] which lock already depends on the new lock.
+> 
+> [  120.269786] the existing dependency chain (in reverse order) is:
+> [  120.269788]
+>                 -> #5 (&q->elevator_lock){+.+.}-{3:3}:
+> [  120.269792]        lock_acquire+0x150/0x3f0
+> [  120.269795]        __mutex_lock+0xba/0xdc0
+> [  120.269799]        mutex_lock_nested+0x32/0x40
+> [  120.269802]        elevator_change+0xac/0x1d0
+> [  120.269804]        elv_iosched_store+0x194/0x1e0
+> [  120.269807]        kernfs_fop_write_iter+0x18c/0x270
+> [  120.269810]        vfs_write+0x23c/0x380
+> [  120.269813]        ksys_write+0x88/0x120
+> [  120.269816]        __do_syscall+0x170/0x750
+> [  120.269818]        system_call+0x72/0x90
+> [  120.269821]
+>                 -> #4 (&q->q_usage_counter(io)#18){++++}-{0:0}:
+> [  120.269871]        lock_acquire+0x150/0x3f0
+> [  120.269873]        blk_alloc_queue+0x2fe/0x340
+> [  120.269876]        blk_mq_alloc_queue+0x6c/0xe0
+> [  120.269879]        __blk_mq_alloc_disk+0x2a/0x80
+> [  120.269881]        dasd_gendisk_alloc+0xd4/0x200
+> [  120.269885]        dasd_state_known_to_basic+0x34/0x1f0
+> [  120.269890]        dasd_change_state+0x28a/0x570
+> [  120.269892]        dasd_set_target_state+0x76/0xf0
+> [  120.269895]        dasd_generic_set_online+0xc8/0x2c0
+> [  120.269897]        ccw_device_set_online+0xc6/0x550
+> [  120.269901]        online_store+0xd2/0x270
+> [  120.269904]        kernfs_fop_write_iter+0x18c/0x270
+> [  120.269906]        vfs_write+0x23c/0x380
+> [  120.269909]        ksys_write+0x88/0x120
+> [  120.269912]        __do_syscall+0x170/0x750
+> [  120.269914]        system_call+0x72/0x90
+> [  120.269916]
+>                 -> #3 (fs_reclaim){+.+.}-{0:0}:
+> [  120.269920]        lock_acquire+0x150/0x3f0
+> [  120.269922]        __fs_reclaim_acquire+0x44/0x50
+> [  120.269925]        fs_reclaim_acquire+0xbe/0x100
+> [  120.269927]        kmem_cache_alloc_noprof+0x6c/0x6d0
+> [  120.269931]        alloc_empty_file+0x58/0x150
+> [  120.269933]        dentry_open+0x3c/0xa0
+> [  120.269935]        pidfs_alloc_file+0xba/0x130
+> [  120.269940]        pidfd_prepare+0x8c/0xf0
+> [  120.269945]        scm_recv_unix+0xb0/0x130
+> [  120.269949]        __unix_dgram_recvmsg+0x2aa/0x430
+> [  120.269954]        sock_recvmsg+0x70/0xd0
+> [  120.269956]        ____sys_recvmsg+0x8a/0x190
+> [  120.269958]        ___sys_recvmsg+0x88/0xd0
+> [  120.269960]        __sys_recvmsg+0x76/0xd0
+> [  120.269962]        __do_sys_socketcall+0x40a/0x460
+> [  120.269964]        __do_syscall+0x170/0x750
+> [  120.269967]        system_call+0x72/0x90
+> [  120.269969]
+>                 -> #2 (&u->iolock){+.+.}-{3:3}:
+> [  120.269973]        lock_acquire+0x150/0x3f0
+> [  120.269975]        __mutex_lock+0xba/0xdc0
+> [  120.269978]        mutex_lock_nested+0x32/0x40
+> [  120.269981]        unix_stream_read_generic+0x11e/0xa60
+> [  120.269985]        unix_stream_recvmsg+0xae/0xc0
+> [  120.269988]        sock_recvmsg+0x70/0xd0
+> [  120.269990]        __sock_xmit+0xf0/0x1b0 [nbd]
+> [  120.269997]        nbd_handle_reply+0x284/0x770 [nbd]
+> [  120.270001]        recv_work+0x10c/0x290 [nbd]
+> [  120.270004]        process_one_work+0x2ba/0x800
+> [  120.270009]        worker_thread+0x21a/0x400
+> [  120.270012]        kthread+0x164/0x190
+> [  120.270016]        __ret_from_fork+0x4c/0x340
+> [  120.270020]        ret_from_fork+0xa/0x30
+> [  120.270022]
+>                 -> #1 (&cmd->lock){+.+.}-{3:3}:
+> [  120.270026]        lock_acquire+0x150/0x3f0
+> [  120.270028]        __mutex_lock+0xba/0xdc0
+> [  120.270031]        mutex_lock_nested+0x32/0x40
+> [  120.270034]        nbd_queue_rq+0x38/0x70 [nbd]
+> [  120.270037]        blk_mq_dispatch_rq_list+0x19c/0x540
+> [  120.270040]        __blk_mq_do_dispatch_sched+0x3ce/0x3e0
+> [  120.270043]        __blk_mq_sched_dispatch_requests+0x198/0x1e0
+> [  120.270046]        blk_mq_sched_dispatch_requests+0x3c/0x90
+> [  120.270049]        blk_mq_run_work_fn+0x9e/0x180
+> [  120.270052]        process_one_work+0x2ba/0x800
+> [  120.270055]        worker_thread+0x21a/0x400
+> [  120.270058]        kthread+0x164/0x190
+> [  120.270060]        __ret_from_fork+0x4c/0x340
+> [  120.270063]        ret_from_fork+0xa/0x30
+> [  120.270065]
+>                 -> #0 (set->srcu){.+.?}-{0:0}:
+> [  120.270069]        check_prev_add+0x160/0xf40
+> [  120.270073]        __lock_acquire+0x12aa/0x15a0
+> [  120.270075]        lock_sync+0xf4/0x190
+> [  120.270077]        __synchronize_srcu+0x5c/0x210
+> [  120.270080]        elevator_switch+0x190/0x340
+> [  120.270082]        elevator_change+0x152/0x1d0
+> [  120.270084]        elevator_set_none+0x44/0x90
+> [  120.270087]        blk_unregister_queue+0xd4/0x130
+> [  120.270090]        __del_gendisk+0x172/0x3c0
+> [  120.270093]        del_gendisk+0x86/0xb0
+> [  120.270096]        nbd_dev_remove+0x30/0x90 [nbd]
+> [  120.270100]        nbd_cleanup+0x11a/0x3a8 [nbd]
+> [  120.270104]        __do_sys_delete_module+0x18e/0x340
+> [  120.270107]        __do_syscall+0x170/0x750
+> [  120.270110]        system_call+0x72/0x90
+> [  120.270112]
+>                 other info that might help us debug this:
+> 
+> [  120.270114] Chain exists of:
+>                   set->srcu --> &q->q_usage_counter(io)#18 --> &q->elevator_lock
+> 
+> [  120.270120]  Possible unsafe locking scenario:
+> 
+> [  120.270121]        CPU0                    CPU1
+> [  120.270122]        ----                    ----
+> [  120.270124]   lock(&q->elevator_lock);
+> [  120.270126]                                lock(&q->q_usage_counter(io)#18);
+> [  120.270129]                                lock(&q->elevator_lock);
+> [  120.270132]   sync(set->srcu);
+> [  120.270134]
+>                  *** DEADLOCK ***
+> 
+> [  120.270136] 2 locks held by modprobe/8168:
+> [  120.270138]  #0: 000001bf44ce11e0 (&set->update_nr_hwq_lock){++++}-{3:3}, at: del_gendisk+0x76/0xb0
+> [  120.270145]  #1: 000001bf63462d90 (&q->elevator_lock){+.+.}-{3:3}, at: elevator_change+0xac/0x1d0
+> [  120.270152]
+>                 stack backtrace:
+> [  120.270155] CPU: 48 UID: 0 PID: 8168 Comm: modprobe Not tainted 7.2.0-rc2-00005-g3e3aa6da87d3 #117 PREEMPT
+> [  120.270157] Hardware name: IBM 9175 ME1 701 (LPAR)
+> [  120.270158] Call Trace:
+> [  120.270158]  [<000002c7d1164dde>] dump_stack_lvl+0xae/0x108
+> [  120.270160]  [<000002c7d126e5b4>] print_circular_bug+0x1a4/0x230
+> [  120.270163]  [<000002c7d126e7cc>] check_noncircular+0x18c/0x1b0
+> [  120.270165]  [<000002c7d126fb80>] check_prev_add+0x160/0xf40
+> [  120.270167]  [<000002c7d12736fa>] __lock_acquire+0x12aa/0x15a0
+> [  120.270168]  [<000002c7d1275ce4>] lock_sync+0xf4/0x190
+> [  120.270169]  [<000002c7d129c8fc>] __synchronize_srcu+0x5c/0x210
+> [  120.270171]  [<000002c7d1bb4790>] elevator_switch+0x190/0x340
+> [  120.270173]  [<000002c7d1bb4a92>] elevator_change+0x152/0x1d0
+> [  120.270174]  [<000002c7d1bb53c4>] elevator_set_none+0x44/0x90
+> [  120.270176]  [<000002c7d1bbee84>] blk_unregister_queue+0xd4/0x130
+> [  120.270177]  [<000002c7d1bdff42>] __del_gendisk+0x172/0x3c0
+> [  120.270179]  [<000002c7d1be0216>] del_gendisk+0x86/0xb0
+> [  120.270182]  [<000002c751b2adc0>] nbd_dev_remove+0x30/0x90 [nbd]
+> [  120.270185]  [<000002c751b30d72>] nbd_cleanup+0x11a/0x3a8 [nbd]
+> [  120.270189]  [<000002c7d12c72ce>] __do_sys_delete_module+0x18e/0x340
+> [  120.270191]  [<000002c7d22dc170>] __do_syscall+0x170/0x750
+> [  120.270192]  [<000002c7d22f0db2>] system_call+0x72/0x90
+> [  120.270194] INFO: lockdep is turned off.
+> 
+> this seems to be a false positive.
+> 
+> Commit d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep
+> circular dependency") already reclassifies sk_lock and slock of
+> sockets handed to nbd, including AF_UNIX ones, precisely to keep
+> lockdep from reporting.
+> That is not sufficient for AF_UNIX: the unix stream/dgram recvmsg and
+> sendmsg paths do not serialize on sk_lock but on unix_sk(sk)->iolock,
+> and that mutex keeps the generic "&u->iolock" class shared by every
+> AF_UNIX socket in the system.
+> 
+> Teach lockdep about the lock instances to avoid this report.
+> This gets rid of the lockdep warning.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-Turn ssd130x_write_cmd() into a thin variadic wrapper that collects its
-arguments into a small stack buffer and defers to ssd130x_write_cmds(), and
-move the protocol comment onto the latter, which is where the loop now
-lives.
 
-No functional change: the bytes sent and the bus transactions used to send
-them are identical for every chip on both the I2C and SPI transports.
+Ping.
 
-Assisted-by: LLM
-Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
----
- drivers/gpu/drm/solomon/ssd130x.c | 65 +++++++++++++++----------------
- 1 file changed, 31 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 1d834be6243b..fd13250ef56a 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -258,41 +258,12 @@ static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values,
- }
- 
- /*
-- * Helper to write command (SSD13XX_COMMAND). The fist variadic argument
-- * is the command to write and the following are the command options.
-+ * Helper to write a command (SSD13XX_COMMAND) from a buffer. The first byte
-+ * is the command opcode and the following ones are its parameters.
-  *
-- * Note that the ssd13xx protocol requires each command and option to be
-- * written as a SSD13XX_COMMAND device register value. That is why a call
-- * to regmap_write(..., SSD13XX_COMMAND, ...) is done for each argument.
-- */
--static int ssd130x_write_cmd(struct ssd130x_device *ssd130x, int count,
--			     /* u8 cmd, u8 option, ... */...)
--{
--	va_list ap;
--	u8 value;
--	int ret;
--
--	va_start(ap, count);
--
--	do {
--		value = va_arg(ap, int);
--		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, value);
--		if (ret)
--			goto out_end;
--	} while (--count);
--
--out_end:
--	va_end(ap);
--
--	return ret;
--}
--
--/*
-- * Write a command byte sequence from a buffer.
-- *
-- * Like ssd130x_write_cmd() but takes a pre-built byte array instead of
-- * variadic arguments, handy when the command is already in an array or
-- * when the caller wants to use sizeof() for the length.
-+ * Note that the ssd13xx protocol requires the opcode and each parameter to
-+ * be written as a SSD13XX_COMMAND device register value. That is why a call
-+ * to regmap_write(..., SSD13XX_COMMAND, ...) is done for each byte.
-  */
- static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8 *cmd,
- 			      size_t len)
-@@ -309,6 +280,32 @@ static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8 *cmd,
- 	return 0;
- }
- 
-+/*
-+ * Variadic wrapper around ssd130x_write_cmds(). The first variadic argument
-+ * is the command opcode and the following are its parameters.
-+ *
-+ * The arguments are gathered into a fixed size buffer, so at most 8 bytes
-+ * can be sent per call, i.e. an opcode and seven parameters. That covers
-+ * every command this driver sends through it. Commands taking more parameters,
-+ * such as the grey scale tables, must use ssd130x_write_cmds() instead.
-+ */
-+static int ssd130x_write_cmd(struct ssd130x_device *ssd130x, int count,
-+			     /* u8 cmd, u8 param, ... */...)
-+{
-+	u8 buf[8];
-+	va_list ap;
-+
-+	if (drm_WARN_ON(&ssd130x->drm, count > sizeof(buf)))
-+		return -EINVAL;
-+
-+	va_start(ap, count);
-+	for (int i = 0; i < count; i++)
-+		buf[i] = va_arg(ap, int);
-+	va_end(ap);
-+
-+	return ssd130x_write_cmds(ssd130x, buf, count);
-+}
-+
- /*
-  * Run a packed command sequence.  The format is a flat byte array where each
-  * entry starts with a length byte followed by that many command bytes.  A
--- 
-2.55.0
+> ---
+>   drivers/block/nbd.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+> index 8f10762e90ef..a811e431b47a 100644
+> --- a/drivers/block/nbd.c
+> +++ b/drivers/block/nbd.c
+> @@ -32,6 +32,7 @@
+>   #include <linux/err.h>
+>   #include <linux/kernel.h>
+>   #include <linux/slab.h>
+> +#include <net/af_unix.h>
+>   #include <net/sock.h>
+>   #include <linux/net.h>
+>   #include <linux/kthread.h>
+> @@ -1241,6 +1242,7 @@ static struct socket *nbd_get_socket(struct nbd_device *nbd, unsigned long fd,
+>   #ifdef CONFIG_DEBUG_LOCK_ALLOC
+>   static struct lock_class_key nbd_key[3];
+>   static struct lock_class_key nbd_slock_key[3];
+> +static struct lock_class_key nbd_unix_iolock_key;
+>   
+>   static void nbd_reclassify_socket(struct socket *sock)
+>   {
+> @@ -1267,6 +1269,17 @@ static void nbd_reclassify_socket(struct socket *sock)
+>   					      &nbd_slock_key[2],
+>   					      "sk_lock-AF_UNIX-NBD",
+>   					      &nbd_key[2]);
+> +		/*
+> +		 * The AF_UNIX stream recvmsg/sendmsg paths serialize on
+> +		 * u->iolock, not sk_lock, so it must be reclassified as
+> +		 * well.  A held mutex cannot be reclassified; skip it in
+> +		 * that case, as sock_allow_reclassification() does for
+> +		 * sk_lock.
+> +		 */
+> +		if (!mutex_is_locked(&unix_sk(sk)->iolock))
+> +			lockdep_set_class_and_name(&unix_sk(sk)->iolock,
+> +						   &nbd_unix_iolock_key,
+> +						   "&u->iolock-NBD");
+>   		break;
+>   	}
+>   }
 
