@@ -1,213 +1,132 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3A74457C4
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49051446058;
+	Mon, 14 Sep 2026 11:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385684; cv=none; b=LXuyDTJcklDzlMSej0yiDq8Thl2zSEBCBuKNHImEzddUjGKuxwEbFdsAONveETyrCZRr7mlRUj87oTQxTzLRpXJaIf7PvYhd5eo3sdRuXEy0mX44Zq2u05TyAHg8Okn437XkFb0O0GPlwpHfqBnCXrLWzKI+/ItG7MAsTIUu5yI=
+	t=1789385686; cv=none; b=XnFI/krrobw329Zt88VPuIuxiO71hgmNjiKBF/ODq3S7ANbtgcVAaxKFfpEO0t0tVMbkrMWuqMoHyTROE7qsmkCyxEx1U6J/+qFarC+NjpFBdv3NLR47SrVcF31H+0Mw+H/EDXQrg951ad3aKLhKvEw7QgX6kwQPiLTOyeX8eIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385684; c=relaxed/simple;
-	bh=ZNHMK8USnEUBFNdT4XsnR2ucLrd01V6o1ncfU/MQox0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=p1TdTUG5Q1PW4HP9NSynHdZaNs93l3Mk5Ik66AqwXfRzpDfUTuNTg8BPuQZfWmUDTaR1pIybTAdjBz5xCzh6B+rJWRpIF1kWLDZcLgv3B2D1j6Iw7uamRW4QENFWvcZfeDXPZIlpL29Nx+9+EwzA1+TDH/J+3OjniYAqLpp7ftw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wwdgT0f5; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789385686; c=relaxed/simple;
+	bh=sSRFVTidQasuPz8521m5PN5HwOlZ0zi3/PeiCfahcSQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bOwCJHfpUHfh8qw2FNlVi7jmIQ4MpJXHsgnIvFgWBGOD4XSOMKyJUf1qu9dRreBJ/hmMRbm6CWqSRvMFuiMuQ6F/d/DsYR+60510jagYaiPIiX21t5Oaa7FEkfdkp+yZUR4shbVwJmQ5Gc2pDZz4yhUcgoK1IQjSc6uzyTVJ03M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=hAqGfMNz; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wwdgT0f5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZNHMK8USnEUBFNdT4XsnR2ucLrd01V6o1ncfU/MQox0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789385679; v=1; x=1789990479;
- b=wwdgT0f5Rfhh3B25gyxxiRjDVecCjvAQY/uPW+00YFlRlVeso8MQgQ4HBsef9g740p2xyitY
- J5i0xuEQmRx+g6sp0MXitvxIWQ8e1hE3goOGMA/6jSe5nlOopquIShS9ZosUSUyXwLavy6dBp+G
- waNLCBPpnWxY57asGEYByQ10=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 656b046eef235c37;
-	Mon, 14 Sep 2026 11:34:38 +0000
-X-Mizu-Trace-ID: 656b046eef235c37
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: [PATCH v3 09/18] KVM: arm64: Implement HVC handling for protected guests at EL2
-Date: Mon, 14 Sep 2026 12:33:29 +0100
-Message-Id: <20260914113338.159227-10-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260914113338.159227-1-fuad.tabba@linux.dev>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="hAqGfMNz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=9kDt8MxBVH7q1uB3c1gULH0B+RxoT7fg9gQ1vnKfZws=; b=hAqGfMNzGqw/rwHZGO4BCdI4ga
+	xzcAzt81AEccuqzSmbuAsjEshZiprwz+ho5zV9ry+hO4t5b3Gff4o11Tbu9IGUCgq7DBigknXpyQp
+	24tpH3Z+bNRrq3ISD6VMjlJdkWRKh59mM913E4ffZ6wKRvzYq/EFDAJUcRfYIrMgFoaSOky7YcbGW
+	eYIwAJT3/gKFbrphOAK0hvVMN7ri3i0S5r11CkzNkZf7wdZMEVL+bv0Rb5Ux77OQaBwkyqq9YhUxC
+	OVs02JrHSMyhphH/6FVchmQPWGVlckC1MfGtViSwOIhVQlgsVBBgAkBpYkEsv2Geky0KOTnQVSVUy
+	j25X6LqQ==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1x64xM-000MEJ-1u;
+	Mon, 14 Sep 2026 13:34:40 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1x64xL-000IDD-2A;
+	Mon, 14 Sep 2026 13:34:39 +0200
+Message-ID: <62c41440-d060-4151-acb3-6e858f6ee241@iogearbox.net>
+Date: Mon, 14 Sep 2026 13:34:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: manual merge of the bpf-next tree with the bpf tree
+To: Mark Brown <broonie@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+ Networking <netdev@vger.kernel.org>
+Cc: Amery Hung <ameryhung@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <aqfbLhfgFBNbluZe@sirena.co.uk>
+Content-Language: en-US
+From: Daniel Borkmann <daniel@iogearbox.net>
+Autocrypt: addr=daniel@iogearbox.net; keydata=
+ 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
+In-Reply-To: <aqfbLhfgFBNbluZe@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28123/Mon Sep 14 08:24:19 2026)
 
-Extend kvm_handle_pvm_hvc64() to handle SMCCC_VERSION,
-SMCCC_ARCH_FEATURES and the vendor hypervisor call UID at EL2, so
-these queries don't reach the host. ARCH_FEATURES is mandatory from
-SMCCC 1.1, the version EL2 implements: it returns SUCCESS for itself and
-for SMCCC_VERSION, NOT_SUPPORTED for anything else, and handles the
-ARCH_WORKAROUND_1/2/3 queries as the host does, from a copy of the
-host's mitigation state taken at init with the sanitised ID registers.
-The workaround calls themselves are already handled on hyp entry.
-
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/include/asm/kvm_hyp.h |  4 ++
- arch/arm64/kvm/arm.c             |  4 ++
- arch/arm64/kvm/hyp/nvhe/pkvm.c   | 68 ++++++++++++++++++++++++++++++++
- 3 files changed, 76 insertions(+)
-
-diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
-index 4974492744cc8..7609c78c68f34 100644
---- a/arch/arm64/include/asm/kvm_hyp.h
-+++ b/arch/arm64/include/asm/kvm_hyp.h
-@@ -10,6 +10,7 @@
- #include <linux/compiler.h>
- #include <linux/kvm_host.h>
- #include <asm/alternative.h>
-+#include <asm/spectre.h>
- #include <asm/sysreg.h>
- 
- DECLARE_PER_CPU(struct kvm_cpu_context, kvm_hyp_ctxt);
-@@ -150,6 +151,9 @@ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
- 
- extern unsigned long kvm_nvhe_sym(__icache_flags);
- extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
-+extern enum mitigation_state kvm_nvhe_sym(spectre_v2_state);
-+extern enum mitigation_state kvm_nvhe_sym(spectre_v4_state);
-+extern enum mitigation_state kvm_nvhe_sym(spectre_bhb_state);
- extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
- extern unsigned long kvm_nvhe_sym(hyp_nr_cpus);
- extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index db36815630790..cceeeee266902 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2622,6 +2622,10 @@ static void kvm_hyp_init_symbols(void)
- 	kvm_nvhe_sym(__icache_flags) = __icache_flags;
- 	kvm_nvhe_sym(kvm_arm_vmid_bits) = kvm_arm_vmid_bits;
- 
-+	kvm_nvhe_sym(spectre_v2_state) = arm64_get_spectre_v2_state();
-+	kvm_nvhe_sym(spectre_v4_state) = arm64_get_spectre_v4_state();
-+	kvm_nvhe_sym(spectre_bhb_state) = arm64_get_spectre_bhb_state();
-+
- 	/* Propagate the FGT state to the nVHE side */
- 	kvm_nvhe_sym(hfgrtr_masks)  = hfgrtr_masks;
- 	kvm_nvhe_sym(hfgwtr_masks)  = hfgwtr_masks;
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index 0252f28cca300..855cb77c8bba1 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -10,6 +10,7 @@
- #include <linux/mm.h>
- 
- #include <asm/kvm_emulate.h>
-+#include <asm/spectre.h>
- 
- #include <hyp/adjust_pc.h>
- 
-@@ -18,6 +19,11 @@
- #include <nvhe/pkvm.h>
- #include <nvhe/trap_handler.h>
- 
-+/* The host's Spectre mitigation state, for SMCCC_ARCH_FEATURES. */
-+enum mitigation_state spectre_v2_state;
-+enum mitigation_state spectre_v4_state;
-+enum mitigation_state spectre_bhb_state;
-+
- /* Used by icache_is_aliasing(). */
- unsigned long __icache_flags;
- 
-@@ -1183,8 +1189,70 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
- {
- 	u64 val[4] = { SMCCC_RET_INVALID_PARAMETER };
- 	bool handled = true;
-+	u32 feature;
-+	uuid_t uuid;
- 
- 	switch (smccc_get_function(vcpu)) {
-+	case ARM_SMCCC_VERSION_FUNC_ID:
-+		/* Nothing to be handled by the host. Go back to the guest. */
-+		val[0] = ARM_SMCCC_VERSION_1_1;
-+		break;
-+	case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
-+		/* The workaround calls themselves are handled on hyp entry. */
-+		val[0] = SMCCC_RET_NOT_SUPPORTED;
-+		feature = smccc_get_arg1(vcpu);
-+		switch (feature) {
-+		case ARM_SMCCC_VERSION_FUNC_ID:
-+		case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
-+			val[0] = SMCCC_RET_SUCCESS;
-+			break;
-+		case ARM_SMCCC_ARCH_WORKAROUND_1:
-+			switch (spectre_v2_state) {
-+			case SPECTRE_VULNERABLE:
-+				break;
-+			case SPECTRE_MITIGATED:
-+				val[0] = SMCCC_RET_SUCCESS;
-+				break;
-+			case SPECTRE_UNAFFECTED:
-+				val[0] = SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED;
-+				break;
-+			}
-+			break;
-+		case ARM_SMCCC_ARCH_WORKAROUND_2:
-+			switch (spectre_v4_state) {
-+			case SPECTRE_VULNERABLE:
-+				break;
-+			case SPECTRE_MITIGATED:
-+				/* With SSBS advertised the guest's default is safe. */
-+				if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, SSBS, IMP))
-+					break;
-+				fallthrough;
-+			case SPECTRE_UNAFFECTED:
-+				val[0] = SMCCC_RET_NOT_REQUIRED;
-+				break;
-+			}
-+			break;
-+		case ARM_SMCCC_ARCH_WORKAROUND_3:
-+			switch (spectre_bhb_state) {
-+			case SPECTRE_VULNERABLE:
-+				break;
-+			case SPECTRE_MITIGATED:
-+				val[0] = SMCCC_RET_SUCCESS;
-+				break;
-+			case SPECTRE_UNAFFECTED:
-+				val[0] = SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED;
-+				break;
-+			}
-+			break;
-+		}
-+		break;
-+	case ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID:
-+		uuid = ARM_SMCCC_VENDOR_HYP_UID_KVM;
-+		val[0] = smccc_uuid_to_reg(&uuid, 0);
-+		val[1] = smccc_uuid_to_reg(&uuid, 1);
-+		val[2] = smccc_uuid_to_reg(&uuid, 2);
-+		val[3] = smccc_uuid_to_reg(&uuid, 3);
-+		break;
- 	case ARM_SMCCC_VENDOR_HYP_KVM_FEATURES_FUNC_ID:
- 		val[0] = BIT(ARM_SMCCC_KVM_FUNC_FEATURES);
- 		val[0] |= BIT(ARM_SMCCC_KVM_FUNC_HYP_MEMINFO);
--- 
-2.39.5
-
+On 9/14/26 1:31 PM, Mark Brown wrote:
+> Hi all,
+> 
+> Today's linux-next merge of the bpf-next tree got a conflict in:
+> 
+>    tools/testing/selftests/bpf/prog_tests/verifier.c
+> 
+> between commit:
+> 
+>    a903f145a8914 ("selftests/bpf: Add tests for the KF_PERFMON gates")
+> 
+> from the bpf tree and commit:
+> 
+>    5647b77587ce1 ("selftests/bpf: Test kfunc packet memory direct writes")
+> 
+> from the bpf-next tree.
+> 
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+lgtm
