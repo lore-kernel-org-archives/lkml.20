@@ -1,139 +1,92 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C4245C71C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D471B471256;
+	Mon, 14 Sep 2026 12:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389459; cv=none; b=kubRWi2Il3gKzDAgjw+XfhiNT072QSWoeZCxe43P6QlQ94mUA7rl7jTenUbofy50FsEj5RgW2tDbRBD//ZbfL8p64PvO3U7E0jbsuEM9sab8JFflE0GNcqNFYPmMq2Cgpv9hyzFIkvyH4lKfqCYGLBbEjhMQkc4gK8N5FtdxAXY=
+	t=1789389465; cv=none; b=eBXPKEk7oXN2Q14q0C10/h5O6rjkjtTzTbD8eELTyg73pAJfsUvsn+8poHvUOwixFC/r0in/kkhps55+rtEXXOaZB4/pgJxOFjwejJC3n0lFUiWklWOCdl4ychzbde8Zgk7wtcxF9aaCl1VrOXUMI11lDdntMk9wqMboraGXnC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389459; c=relaxed/simple;
-	bh=K05PmFF6pkqk7FVBk07pIjMzhL0tcbul2tO9kilU8bA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OooJ4gjDFx4ANG3JbQh/RG4C7UFxfl8pB7hy1rpeqEQn8uaopV8vJjdrWM9vXF55HnA6WXpY+0FbEC3twpRZClrHJ/AlkGMiWK6bxaoBJXqKHkZcXPri0LHvvuTAI4euac88Fnoj8nBJn9PH0KCTSZmvMnlTb4jL+as5T7tmoTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=owD5IByI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bJgyHJqz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789389465; c=relaxed/simple;
+	bh=unHGFqFI3Vc6Ehw1zKTLVRWLmr5GW/DE/rxNl5THv4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HSdhLRW96KgZ49qB0SgPQPmIcFyvzwmR3so5R/oSW2MnsdFjVaXBXK0+7yxYmY0ss33LuRPJKFqpDSPERCltUt4szfERvNmlHp1yDtoxy0okeQimjkeiXFdDZCF3bqJUB1guboEtiQqtcTJCUTfdgx0BXgwrJ0sKo6vfHRtMUIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=sBroTqwr; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="owD5IByI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bJgyHJqz"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAm6TJ3793302
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IElVkIsCBxgJuoSMibKS1eyihRvOBQooxAqxg9nq+9I=; b=owD5IByIMKLXs8Wq
-	/uCIiPxjgkzEWVjVmzjM+v1Hs6Dgs3J1+S4S9vigdaDAGt9QZIFwhRFRaYej1WjR
-	sKNWNjTQ7VlPZVpno9G/g+Eekoe1o5IQEwKgeU9GBbtKWJjZarFCFTBotWsjT9c3
-	WhNdoMk7/8HlAwcV0ahqJmVePRQPzTY9NFDY59kAw/viw7F0q+sn7AZ687C/rQM4
-	Z2jbSKPqOh2tgmnU4smJICqbbv2beQm6AeCoZi4+fx2zW9qMzYZUF5ojgf7dLIhi
-	CEAEPAB50xYzRtKUzu3LneBTLhtz7u1xwKFHlEhX2ry3TzCP8hPIivbMJ724f6UR
-	UTLvgA==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg14h7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:36 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c665139c92so116326e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:37:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789389454; x=1789994254; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IElVkIsCBxgJuoSMibKS1eyihRvOBQooxAqxg9nq+9I=;
-        b=bJgyHJqzAKdDwx6Jmk4J4gs1IP+4+duTPK6PccUCr2IejTBbSkMlp5+/LSrkto7rzk
-         orgidVmEIEsz9Qc3/eygXASzFGIgTJYAx6OlJW/km1cjC3d9VfYv8KKotDHUg7xaiWo0
-         fOjI0TwpkX4lh98Rw7hYky8ASqdkwRiIRUMBFAIOW2xt0I6zMvheF8X/47oUdNfZRSdo
-         gBFwq7OIMfWEPIH6gsI9PhXQ/OtxZ8u+lCmaJRgg4vGOCKNOGcsS7mwoXad+zfADTaNn
-         YvSAKikucLJmWz/0aBE1DwdYXBXHd81RRm+k85MWdE9UYe6kmuH0NgVt9Dz/lKlJRj8Y
-         OERw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789389454; x=1789994254;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IElVkIsCBxgJuoSMibKS1eyihRvOBQooxAqxg9nq+9I=;
-        b=IuYVutiuXbKuGJ8fMnWTTTDue/bdsbBiFvOmQbzBERlbwJDRHztG3RU9G/MK376+Qu
-         h2aDXTxgR1fgdnN6z5Ml8jRr4YPny+GykvPOqvepdWna/0D8fZbBsL2nMIPSD4qqDrrp
-         wijusbt4HJNRDCoTOqpOjVuH6Oix7WXp9VZeFcutdnGeOoEZQYAJEzKpnjm1tf9icNjE
-         ZpHmh8ip1KjXrpB8jryXxFBGSsunRn0E8/mOy7mALFU7ehGoj4yOqO2SxGHbb6/v9UZs
-         i33mvPE8oMyln5v4Pe3QiTzzqV2mGHyuAE1paHqhEOs+pFmnoyvcYovaCXJ9486Aq3aK
-         9/rQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwv6Z2ZbVNWHrpEV3xocQu+vy3zApeiOxvTI/SLAx1W5zX1bMIHhLIAccx2n17zNE5i8rNp6cup7cq391E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCoEYdmhQbHICPOt91xg6DY3pJpkA0NwQkSsv34WsyH09Kskgl
-	CKVVJuDd95RS3kM3t14VrhPzxJXDBCxsgEYbEXizKFWwawb/O3Kim65bMyx/uxj70/LBzHwxtfu
-	UqAOvFDDbLdpvyg4/5BMVNlpWtNhL3uqkQmomkBPN0QAGBHsK1psw4oG6DiwF7WHnQ30=
-X-Gm-Gg: AYBFou32RfkW8b8yQbLn7/dtlFID15rtZ1t+ingEXb1WUdAbSgdQXxznjsk4kQurnec
-	PoFwfVwp/Zsb2JbXRA0e6ET+Sl3xI4dBYIZrDG59rfaEGksXZeUmasGRtz7RTCDAkIiS//bUCnL
-	gorffCEh5zfzA8hLP5ECFCrPesf3nDZI3fVYBwYhfBl/9cTBmyAyiETzJ9cUq2nubHnQL8iaLQN
-	V03u/EVoGTai58NO9TU+wr45g0UNZ+zVeBW8gdkeYcSMIgPaGRi1VDnJO8mc6Wfr0799ncIlsKR
-	Q8o42+Y2uGugn8q0v34OIBwD+ab4E1QWjg27sIp+St7Q8YfeCjfuTD3sgmTUD4Lv1n8fim8gg8u
-	/mUXx7MkZF7PTqzqG40H7lg==
-X-Received: by 2002:a05:6102:54aa:b0:795:41a8:ff58 with SMTP id ada2fe7eead31-79b53156063mr371813137.0.1789389454097;
-        Mon, 14 Sep 2026 05:37:34 -0700 (PDT)
-X-Received: by 2002:a05:6102:54aa:b0:795:41a8:ff58 with SMTP id ada2fe7eead31-79b53156063mr371803137.0.1789389453626;
-        Mon, 14 Sep 2026 05:37:33 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a046d243sm2407027e87.53.2026.09.14.05.37.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 05:37:32 -0700 (PDT)
-Message-ID: <e54cc308-7be7-406f-be05-c38a759e5b3c@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 14:37:30 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="sBroTqwr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=EQvmED0XLnRiwVr+hqQN5dNbbcwXDcg5FEOEt6uQaAU=; b=sBroTqwr4aHv8+LplZswgoX3aU
+	0Ss5buFm1c3RrFWkMwVnYWKyRfaZhFX1ouyFnw2t0qDn5TNJ/XxoYHHJkXeDuw+IV28RTbuxXnr9m
+	v34tXwpKoqoTtxi/+HLGgoIdg5KRyVRQe0kKD/j2eyyWE4sLTs1mwCheiF4c6/TS1vYE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x65w8-00550T-FI; Mon, 14 Sep 2026 14:37:28 +0200
+Date: Mon, 14 Sep 2026 14:37:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Ahmed Naseef <naseefkm@gmail.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>, Qingfang Deng <dqfext@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	SkyLake Huang <SkyLake.Huang@mediatek.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net] net: phy: mediatek: do not report link and per-speed
+ LED rules together
+Message-ID: <06b12441-4018-46ab-87a8-668078bcd9f7@lunn.ch>
+References: <20260912134306.3544329-1-naseefkm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pmdomain: core: Fall back to node name for idle states
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260914-pmdomain-idle-state-name-fallback-v1-1-e4242c409a0b@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914-pmdomain-idle-state-name-fallback-v1-1-e4242c409a0b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa7ea90 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=5kt61lt8hwMnmxBZRvwA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-ORIG-GUID: TUnioJeBJ_98JO1xb6VBUHniqKeKxcTL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE3OSBTYWx0ZWRfX4AjoCjvJEZrp
- xuI3Wweix8DI84Adh2XwYNzalddprfKP7JKsy24KsXWjL8Rs+9+J7IiHYA9AJpEeGlQK+mxquhF
- cpOx5aqoSzewt032qbg8xGZTpPb7/bI=
-X-Proofpoint-GUID: TUnioJeBJ_98JO1xb6VBUHniqKeKxcTL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE3OSBTYWx0ZWRfX+Mmw5Dgt6gNo
- mj0eXjzxG8oNb3HSaAUWjknEYYPSfTMpMy7IMJVi8j60VUi4Y4wG9PPKaeoCv+k2Ju0TNg5sho2
- MbyWi/alz5epsAYFgTu2dbJ3CIzE8I7cXUarqE8fej3O7Eu8R1Asp8C07bwEYXutClXjRJgrpfW
- lnKpI4REe5amA35kpWaufXoIIYV1eoeBkQLvjhjUylFvYp1+s/fv7tHBCOB5ZJvp452smFGsW7L
- ou30aMYKe9/aHzzHTzjZZiJ03mep4YeUVnAWvcNaSsowa0qj5TYusFUAb14VG+DQ8D4P0zciFLl
- 6OpxamFhnHvugs9bdsD6KsYRJoEEiOTcZsEZv8n56yao1UzHz4ZiyyESOwBQ9orHT8U9RDwV7QR
- TafJHrVOPnuRO3nlFytT4I2dOLwi59inJYc127+qKUw9AMZ5IW8QVreENhwexs/VNqoRC0snLkR
- xw8rXzLZF5A+7JOyQ4g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140179
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912134306.3544329-1-naseefkm@gmail.com>
 
-On 9/14/26 8:54 AM, Maulik Shah wrote:
-> The dt_idle_states uses idle-state-name when available and when missing
-> falls back to the node name. Do the same for domain-idle-states.
+On Sat, Sep 12, 2026 at 05:43:06PM +0400, Ahmed Naseef wrote:
+> mtk_phy_led_hw_ctrl_get() reports TRIGGER_NETDEV_LINK whenever any of the
+> speed bits in on_set is on, and in addition reports every individual
+> TRIGGER_NETDEV_LINK_* bit that is set. The netdev trigger refuses that
+> combination: netdev_led_attr_store() rejects TRIGGER_NETDEV_LINK together
+> with any per-speed rule, and it validates the whole resulting mode rather
+> than just the bit being written. Once the hardware has any link bit
+> programmed, every write to the trigger attributes of that LED therefore
+> fails with -EINVAL and the LED can no longer be configured.
 > 
-> This lets pmdomain idle_states_desc debugfs show a name even when
-> idle-state-name is omitted.
+> The rules are also fed back into the hardware: the trigger stores what is
+> read back, and a later write of device_name programs it again, expanding
+> TRIGGER_NETDEV_LINK to every speed in on_set. An LED configured for a
+> single speed is thereby silently widened to "on at any link speed".
+> 
+> Both are easy to see on the EcoNet EN7528, whose four PHYs share one LED
+> block. The first LED programs the block correctly, the second reads those
+> rules back and rewrites them widened, and the remaining two then read the
+> widened value, so an LED configured for "link_10 link_100" ends up lit on a
+> 1000 Mbps link.
+> 
+> on_set holds every speed the LED can indicate and is exactly what
+> mtk_phy_led_hw_ctrl_set() programs for TRIGGER_NETDEV_LINK, so report the
+> speed independent rule only when all of them are on, and the individual
+> speeds otherwise. The mapping is then the inverse of the one used when
+> programming the LED and round trips without changing the register.
+> 
+> Fixes: c66937b0f8db ("net: phy: mediatek-ge-soc: support PHY LEDs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
 
-These are often 'idle-state-N', so I'm not sure there's much value
-(but certainly don't treat that as a nack)
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Konrad
+    Andrew
