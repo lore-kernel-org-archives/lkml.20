@@ -1,100 +1,42 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E687393DF5;
-	Mon, 14 Sep 2026 09:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A1A41D648;
+	Mon, 14 Sep 2026 09:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378385; cv=none; b=QxNf/AktTYprEKWN55kaX5heJNPzhu7AjA0/gyHygp2GOY2z6gf7o550rppnY6RtcavhXt3Y+mYmhumdW8IWZbPi8GLkIwMPWvhh5iTJQ3xzyaJRHe/f3kOI2ZVqup6pX3d2BBLgD0WiZYlDy/v0IfSAcDpWZgnnLDxyUXVtQ7I=
+	t=1789378387; cv=none; b=dDffKkPisBcsgOd5uok72rla+BENIZjGwYVRtAvf9nTUWrjJTHjR8NMLlUi8p+P0A3FgGdE5QprY0j54pS0xAAV7vrhpSzsVxpiWOiQgqmghYifHAGE6TighQ1VsahiMv03bzb0tJih4bAZp3ZQ4HyxZ3jFsjL/M6iAe2g4/ruQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378385; c=relaxed/simple;
-	bh=aSj33CN0T3dI/k14fPa6ofhjE1bRSsSF8+cMgeD4JMw=;
+	s=arc-20240116; t=1789378387; c=relaxed/simple;
+	bh=Rns9Q4qLtxlw6IyA5BLhL4Pqqdje+UUjfQyTd+lbEuc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nPifpcGXlJpBMKaMQjXyYoX4RgnjEF6uwZKFJRv++jm+41PZZdVcvNevVqa/BniZMG92GXazMMBW2PTrkKntZLzXTdKj3wOPcoa4hh6e3I/yQNu8V8Dc8lS/DvPrYojhZutU8RkFNHZzqdd2VM7cBAvKtPP10nPZaCoD9wt8f0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=LbIDoKjN; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XRF123uR; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nMwfz1Sg; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=0sRxt1xJ; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ylcvmy7kjzE00YfVQ7yqwK+J4L0P4vnNDxJVdoUtmmpf1Wy+53hdACe6I7fLZDGpo2r36mc+0KcI4kEXEXQywzDfyI6UZy0oQ4aYwpfmttBirKr2ffrxg0oTNyQEg17SOKChlLmgf04518R54HqgFgO6Avd0NH/HBNAZkk5n3xE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cqyci8CU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="LbIDoKjN";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XRF123uR";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nMwfz1Sg";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="0sRxt1xJ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C89EE1F45E;
-	Mon, 14 Sep 2026 09:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789378377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
-	b=LbIDoKjNeXoce6+Au8AUEmijy9fOusYZyTZUtJIZRWjyLl6mAxI2CHfcE8lxC3LfVyTq4V
-	FOi0ZyXOpbwV+ceni0eQ35T1oqrF3DBiyZhaMLkTolyxBvJ+PtSTTIK4hGhiUHfQQ16kgW
-	5zui2dRs127w1G0rbHsZbVJQIsF8k7o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789378377;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
-	b=XRF123uRxImNUf9YrAcZypZwpkHHDigE22v1nuf4vasiaLeELcfsShNR6obW8JuOen/B0x
-	nYkeSHJi7lPGkUBQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789378372; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
-	b=nMwfz1Sgx3+zFjCPJptoAizAv9jEuAuj3+63p+1uS9zSZup/ZeZ/hQoT9DUjbphthhpMsG
-	j+qzl/oag9dJnrDvMYEurA/JC1WJfOdA9N+Bi4v00ub9sQjRGyMiDYykzYHrn2q3uplxrW
-	eGDw40MayqyWozqxSA3kepwx1PRV1zk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789378372;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
-	b=0sRxt1xJhYVpOLEuHiB88wnuBlg5CP/Qv0UxLrrVRNYKn9JO9RbVU8ZR04NSVQq7vvOG39
-	nc4d7DOAVWLfnZCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D4A91368C;
-	Mon, 14 Sep 2026 09:32:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uTVgJkS/p2prXQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 09:32:52 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2E0A2A12E4; Mon, 14 Sep 2026 11:32:52 +0200 (CEST)
-Date: Mon, 14 Sep 2026 11:32:52 +0200
-From: Jan Kara <jack@suse.cz>
-To: Barry Song <baohua@kernel.org>
-Cc: Tal Zussman <tz2294@columbia.edu>, Wenjie Qi <qwjhust@gmail.com>, 
-	willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, axboe@kernel.dk, trond.myklebust@hammerspace.com, 
-	jaegeuk@kernel.org, chao@kernel.org, qiwenjie@xiaomi.com
-Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
-Message-ID: <hbki3yc23dr5fkre5phwx2ev6yjfn3ooodan37uo3at53y3gs2@kjyxyb34s5bi>
-References: <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
- <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
- <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
- <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
- <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu>
- <CAGsJ_4xMK=rPXCH5OiCOYHKRQp-w+xDJQusJ_ykbuAuLZr+8bA@mail.gmail.com>
- <1e5118a5-6b61-49d0-85e1-825e22059241@columbia.edu>
- <CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz-cHaDWLkxaQ@mail.gmail.com>
- <65a2c7df-0d2e-46de-9580-01e9c35a7e32@columbia.edu>
- <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cqyci8CU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692FD1F00893;
+	Mon, 14 Sep 2026 09:33:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789378385;
+	bh=TF8vWdHT/xzToLwETV42FttPVsuKKNCeUrPRhSDWsyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cqyci8CULMLK5znEv17PEAp1/k+q2BZIachlXSX4MAJIur5gdxyJpr9iZTcPmarw1
+	 udrtyEXOfU3jnqGH9gn3/FEcgbXAmW37oY0S91OZZmtwu/0IEbZiRmm4YMKc9CFgjs
+	 AVg7pAppOCUNzV1QITn1ejrkrVtZq7Wjgv8oTqgh/oIRJTsHIOLYAFDL2bF1dSWN/h
+	 i7iTbvvfX4VhxkSnKVBjvl4IoGQiD5pquf5juSYLpa0ac1pj/5VrzV+n9eztmd0kWg
+	 wZStrzX++2+c+NJrErDiuOCJWiDF2fskFA+YTdpX1MIP7gcvG9/P8beC4k8Yorw73G
+	 /mnGqYlLgJncw==
+Date: Mon, 14 Sep 2026 10:33:01 +0100
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: esteuwu@proton.me, elder@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, xlie7669@gmail.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH] net: ipa: Add IPA_MEM_STATS_DROP_MODEM memory region
+Message-ID: <20260914093301.GP48209@horms.kernel.org>
+References: <20260909-ipa-modem-drop-v1-1-0c9664f09c4a@proton.me>
+ <178900975328.219967.188619870211891152@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,153 +46,139 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[columbia.edu,gmail.com,infradead.org,suse.cz,linux-foundation.org,vger.kernel.org,kvack.org,kernel.dk,hammerspace.com,kernel.org,xiaomi.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[columbia.edu:email,imap1.dmz-prg2.suse.org:helo,suse.com:email,infradead.org:email,xiaomi.com:email]
+In-Reply-To: <178900975328.219967.188619870211891152@kernel.org>
 
-On Mon 14-09-26 09:09:32, Barry Song wrote:
-> On Mon, Sep 14, 2026 at 7:34 AM Tal Zussman <tz2294@columbia.edu> wrote:
-> >
-> > On 9/13/26 6:51 PM, Barry Song wrote:
-> > > On Fri, Sep 4, 2026 at 6:36 AM Tal Zussman <tz2294@columbia.edu> wrote:
-> > >>
-> > >> On 9/4/26 12:28 AM, Barry Song wrote:
-> > >> > On Sun, Aug 30, 2026 at 7:59 PM Tal Zussman <tz2294@columbia.edu> wrote:
-> > >> >>
-> > >> >> On 8/30/26 6:25 AM, Wenjie Qi wrote:
-> > >> >> > From: Wenjie Qi <qiwenjie@xiaomi.com>
-> > >> >> >
-> > >> >> > Fault-around can map ready dropbehind folios without going through the
-> > >> >> > normal page-cache lookup that clears dropbehind. A mapping represents a
-> > >> >> > competing cached user, but writeback completion can currently unmap that
-> > >> >> > folio. A later mmap access must then fault it back in.
-> > >> >> >
-> > >> >> > Retain mapped folios instead. For a mapped folio,
-> > >> >> > folio_unmap_invalidate() can call unmap_mapping_folio(), which takes
-> > >> >> > i_mmap_rwsem and may sleep. Retaining the folio also avoids this path when
-> > >> >> > folio_end_dropbehind() runs in non-preemptible task context.
-> > >> >> >
-> > >> >> > Unmapped dropbehind folios continue through the existing invalidation path.
-> > >> >> >
-> > >> >> > Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages when writeback completes")
-> > >> >> > Cc: stable@vger.kernel.org
-> > >> >> > Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> > >> >> > Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> > >> >> > Reviewed-by: Tal Zussman <tz2294@columbia.edu>
-> > >> >> > ---
-> > >> >> > The mapped-plus-dropbehind state was reproduced in QEMU. The patched
-> > >> >> > kernel retained the mapped folio and continued to evict the unmapped
-> > >> >> > dontcache folio. I did not reproduce the sleeping-in-atomic warning and
-> > >> >> > am not aware of an existing report.
-> > >> >> >
-> > >> >>
-> > >> >> I was able to trigger the sleeping-while-atomic BUG on current mainline with
-> > >> >> some help from Claude. The reproducer itself is straightforward enough, but the
-> > >> >> configuration was a little finicky. The atomic context comes from using
-> > >> >> threadirqs so that virtblk_done() completes requests from the irq thread under
-> > >> >> local_bh_disable() and the vq spinlock with irqs off, so in_task() is true but
-> > >> >> the i_mmap_rwsem down_read() sleeps. It also needed 1 vCPU (so completion stays
-> > >> >> in the irq thread rather than softirq) and ext4 -o dioread_lock (so end_io runs
-> > >> >> inline instead of on a workqueue). With v4 applied the bug is gone, so:
-> > >> >>
-> > >> >
-> > >> > Thanks, Tal. Then I'm getting quite confused. Since with Wenjie's
-> > >> > patch, we are no longer going to sleep for dropbehind in `filemap.c`,
-> > >> > do we still need all the complex logic in the block device and file
-> > >> > system layers to move dropbehind to a workqueue task context?
-> > >> >
-> > >>
-> > >> Hi Barry,
-> > >>
-> > >> Let me clarify. Wenjie's patch prevents sleeping in a very specific case.
-> > >> The existing in_task() check covered most other cases, in that it just
-> > >> doesn't do dropbehind invalidation if we're not executing in task context
-> > >> (for example, block device writeback completing in interrupt context).
-> > >>
-> > >> However, dropping the invalidation defeats the point of dropbehind, as it
-> > >> leaves the pages in the page cache. If we get rid of the task-context
-> > >> deferral mechanism, we wouldn't sleep, but we also wouldn't invalidate.
-> > >> Wenjie's change is largely unrelated to this.
-> > >
-> > > Hi Tal,
-> > >
-> > > Thanks for the clarification. However, I’m still not convinced.
-> > >
-> > > If `unmap_mapping_folio()` is the only place where we might
-> > > sleep — where we might take `mapping->i_mmap_rwsem` through
-> > > `i_mmap_lock_read()`, as Wenjian pointed out in [1] — we have now
-> > > prevented that from happening with `if (!folio_mapped(folio))`.
-> > >
-> > > So no mapped folio should call `folio_unmap_invalidate()`:
-> > >
-> > > static void filemap_end_dropbehind(struct folio *folio)
-> > > {
-> > >          struct address_space *mapping = folio->mapping;
-> > >
-> > >          VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
-> > >
-> > >          if (folio_test_writeback(folio) || folio_test_dirty(folio))
-> > >                  return;
-> > >          if (!folio_test_clear_dropbehind(folio))
-> > >                  return;
-> > >          if (mapping && !folio_mapped(folio))
-> > >                  folio_unmap_invalidate(mapping, folio, 0);
-> > > }
-> > >
-> > > Why do we still need the `in_task()` check in
-> > > `folio_end_dropbehind()`?
-> > >
-> > > void folio_end_dropbehind(struct folio *folio)
-> > > {
-> > >          if (!folio_test_dropbehind(folio))
-> > >                  return;
-> > >
-> > >          /*
-> > >           * Hitting !in_task() should not happen off RWF_DONTCACHE writeback,
-> > >           * but can happen if normal writeback just happens to find dirty folios
-> > >           * that were created as part of uncached writeback, and that writeback
-> > >           * would otherwise not need non-IRQ handling. Just skip the
-> > >           * invalidation in that case.
-> > >           */
-> > >          if (in_task() && folio_trylock(folio)) {
-> > >                  filemap_end_dropbehind(folio);
-> > >                  folio_unlock(folio);
-> > >          }
-> > > }
-> > >
-> > > Could any other operation in `folio_unmap_invalidate()` sleep for
-> > > unmapped folios? Otherwise, it seems we don't need `in_task()` at
-> > > all?
+On Thu, Sep 10, 2026 at 03:09:13AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> 
+> - [Medium] The newly declared region id `IPA_MEM_MODEM_STATS_DROP` has no
+>   producer and no consumer, so the patch is functionally inert and…
+> - [Low] Commit-message / code identifier mismatch plus stale peer
+>   documentation for the new drop-statistics region.
 
-We do need it. folio_unmap_invalidate() calls filemap_release_folio() which
-calls into ->release_folio() handler and generally filesystems are allowed
-to sleep in this handler. Now usually they don't actually sleep there but
-they definitely grab a lot of irq unsafe locks there as Tal writes below.
+Hi Esteban,
 
-								Honza
+I'd appreciate it if you could comment on the AI-generated
+review posted by netdev-bot+sashiko. This is now an expected
+part of the Netdev development process [1].
 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Thanks!
+
+[1] https://docs.kernel.org/process/maintainer-netdev.html#review-timelines
+
+> 
+> --
+> 
+> net: ipa: Add IPA_MEM_STATS_DROP_MODEM memory region
+> 
+> This adds a new ipa_mem_id enumerator for the modem-side drop statistics
+> region and allows it in ipa_mem_id_valid() only for IPA v5.0 and later.
+> No platform data file or driver code path references the new region.
+> 
+> Link: https://github.com/LineageOS/android_kernel_qcom_sm8450-modules/commit/fc71d0972a2453cc29f873d723a355a902c6d69c
+> 
+> > diff --git a/drivers/net/ipa/ipa_mem.c b/drivers/net/ipa/ipa_mem.c
+> > index 078d32a18dbf..3000aaa24530 100644
+> > --- a/drivers/net/ipa/ipa_mem.c
+> > +++ b/drivers/net/ipa/ipa_mem.c
+> > @@ -166,6 +166,7 @@ static bool ipa_mem_id_valid(struct ipa *ipa, enum ipa_mem_id mem_id)
+> >  			return false;
+> >  		break;
+> >  
+> > +	case IPA_MEM_MODEM_STATS_DROP:
+> >  	case IPA_MEM_AP_V4_FILTER:
+> >  	case IPA_MEM_AP_V6_FILTER:
+> >  		if (version < IPA_VERSION_5_0)
+> 
+> [Severity: Medium]
+> Can this new case ever be taken?  ipa_mem_id_valid() is only consulted for
+> ids that already appear in a struct ipa_mem_data.local[] array, and a grep
+> of the tree at this commit shows IPA_MEM_MODEM_STATS_DROP only in
+> ipa_mem.h (the declaration) and here.
+> 
+> The v5.0+ data files that the version >= IPA_VERSION_5_0 gate could apply
+> to all define just the one drop-stats region:
+> 
+> drivers/net/ipa/data/ipa_data-v5.0.c
+> drivers/net/ipa/data/ipa_data-v5.2.c
+> drivers/net/ipa/data/ipa_data-v5.5.c
+> 	.id		= IPA_MEM_STATS_DROP,
+> 
+> and the only consumer of drop-stats memory still looks up the old id:
+> 
+> drivers/net/ipa/ipa_qmi.c:init_modem_driver_req() {
+> 	...
+> 	/* If the DROP stats region is defined, include it */
+> 	mem = ipa_mem_find(ipa, IPA_MEM_STATS_DROP);
+> 	if (mem && mem->size) {
+> 		req.hw_stats_drop_base_addr_valid = 1;
+> 	...
+> }
+> 
+> The commit message says the region "is used in IPA v5.0 and higher", but
+> with no producer and no consumer the change has no runtime effect.  Would it
+> make sense to land the data-file entry and the QMI consumer in the same
+> series?
+> 
+> There also seems to be a layout prerequisite that isn't mentioned.  In
+> ipa_data-v5.0.c, IPA_MEM_STATS_DROP is at offset 0x3870 with size 0x0020
+> (ending at 0x3890), and IPA_MEM_MODEM starts at 0x3898 with canary_count 2,
+> so its two canaries occupy 0x3890-0x3898:
+> 
+> 	{
+> 		.id		= IPA_MEM_STATS_DROP,
+> 		.offset		= 0x3870,
+> 		.size		= 0x0020,
+> 		.canary_count	= 0,
+> 	},
+> 	{
+> 		.id		= IPA_MEM_MODEM,
+> 		.offset		= 0x3898,
+> 		.size		= 0x0d48,
+> 		.canary_count	= 2,
+> 	},
+> 
+> Doesn't adding a second drop-stats region require shifting IPA_MEM_MODEM and
+> everything after it?
+> 
+> > diff --git a/drivers/net/ipa/ipa_mem.h b/drivers/net/ipa/ipa_mem.h
+> > index b25babade787..56703bada07c 100644
+> > --- a/drivers/net/ipa/ipa_mem.h
+> > +++ b/drivers/net/ipa/ipa_mem.h
+> > @@ -68,6 +68,7 @@ enum ipa_mem_id {
+> >  	IPA_MEM_STATS_QUOTA_AP,		/* 0 canaries, optional (IPA v4.0+) */
+> >  	IPA_MEM_STATS_TETHERING,	/* 0 canaries, optional (IPA v4.0+) */
+> >  	IPA_MEM_STATS_DROP,		/* 0 canaries, optional (IPA v4.0+) */
+> > +	IPA_MEM_MODEM_STATS_DROP,	/* 0 canaries, optional (IPA v5.0+) */
+> 
+> [Severity: Low]
+> The subject and the body both name IPA_MEM_STATS_DROP_MODEM, but the
+> enumerator added here is IPA_MEM_MODEM_STATS_DROP, and a grep of the tree at
+> this commit finds no occurrence of IPA_MEM_STATS_DROP_MODEM at all.  Could
+> the changelog and the code be made to agree?
+> 
+> The neighbouring statistics regions put the owner last:
+> 
+> 	IPA_MEM_STATS_QUOTA_MODEM,	/* 2/4 canaries (IPA v4.0+) */
+> 	IPA_MEM_STATS_QUOTA_AP,		/* 0 canaries, optional (IPA v4.0+) */
+> 
+> Would IPA_MEM_STATS_DROP_MODEM (as the subject says) fit that convention
+> better than IPA_MEM_MODEM_STATS_DROP?
+> 
+> Also, the comment on the existing IPA_MEM_STATS_DROP still reads "0
+> canaries, optional (IPA v4.0+)" with no hint that it becomes the AP-side
+> region once the modem-side one exists on v5.0+.  Could that comment be
+> updated so a config author can tell which region to use for AP drop
+> statistics?
+> 
+> One more thing on the changelog: the paragraph explaining the split ("From
+> IPA v5.0 onwards, two memory regions for drop stats exist: one for the AP
+> (that is, the driver) and one for the modem (Q6).") sits below the ---
+> cut line, so it is not part of the recorded commit message.  Was that
+> intended to be above the cut line?
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-ipa-modem-drop-v1-1-0c9664f09c4a%40proton.me
