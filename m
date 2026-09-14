@@ -1,99 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4C2476CC6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4322476CED;
+	Mon, 14 Sep 2026 13:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391702; cv=none; b=En6rCETgZOhQEEExFEr8dFc9yFIIrIRaPo0B/rdTqDswPF+mSPDzb+UGqKGBn1puHBBNrqQZNu5x6pAOhvx4tR0ON+04AEhIs5ybS/PTrwbWT0OzXBdoopasmgVSo6HWeEZodlm8Ln6fLfRUa1hUq/8hQPDsqVp0jHnOM2MqLA4=
+	t=1789391713; cv=none; b=QJOHeUy4cqsv0VRYmhqVti9tehFXCfgigTc71X5dRI1OP1+sJIXL8cZQItl5H4pmlh5iGSL1JvZhCJzVjlJMyv3VHiU/z1t7PLGVfxyFCWbMwRpyvya4BKP4XZ+PZgjk36FLRy6GfTeYc83wNIJLRfbt6OvPMvL0xmjo5bt6ssY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391702; c=relaxed/simple;
-	bh=Wf/056cUaOPw6b0LYkM3dWwSABdjYGQgD8VYruvaN28=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jaU4f8Lz6DE7y/0hp0BL+f6KjuG6Mt3D29bO5Y9knU74xlmP6dDebUEpaWfJFvbZiPdAc2H1BIUN4xMhha7DncHR/CUGgIXT8LCgvT7X74SfoP7KqxmvAfpYOUZj9PTlqo4X68nYpMG4XjNmEyH81AeiEzqu1n3E3qMwqVi/5Z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obL/gzEx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789391713; c=relaxed/simple;
+	bh=PF9u7DYv9qFIslukP9LwzISVHtIb3gYuRnqxZlxFypM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=XUfvhzKXUIP0RIBGFEkAUoHC66j/j5lVeXk/7C3MasUv01n806jmcoGEHmX9aSYYafBlmyxXTQ21Kp77Rf83iqU+a+3187D+oOVB+fR02qWyA1lFif6+MVvAFA1RWZ+2BDaR8TNAaxjGR1dHEq+n/C8dwPCra/6n1HHeEHrdNWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SxKPjlum; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obL/gzEx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D191F000FF;
-	Mon, 14 Sep 2026 13:15:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789391700;
-	bh=yNX+pg6s++jHe739ZWXokI+Hzo3W+6ygLDhjO8GThd0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=obL/gzExmpLbw5n6yscg+VlDAmU7zCcu8aUd080HeJG+AmPI+fkWEFKNFaCwOVtYm
-	 XTy3iTGI/iuhEy4rdNoTwCPluZ5m6LeL3yH/qAg+KaKbShE4YKq+cpA37NLtaFpfMB
-	 19wz6V4mSSuRowK3kKIwWV6hhE1xZBlGs+vCXQ+VYnXtPYpME62QwXsQPtgENAXkEP
-	 yAj/2h6vQ8JzAehE+5nymcLBAs/nZLQTBimn+57OplEQr0xfacUVK0QlZ51wrnbE/c
-	 I6U1JeaCvXrNj4Wi3hoqT4C5WXnUKfGkyRj035JJ96ep6JYJytZBPxyVgoYQaH25rR
-	 wxQ3PYvCswoEw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 7AF331AC52F1; Mon, 14 Sep 2026 14:14:57 +0100 (BST)
-Date: Mon, 14 Sep 2026 14:14:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-	Liam Girdwood <lgirdwood@gmail.com>, Axel Lin <axel.lin@ingics.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 09/10] regulator: ab8500: Preserve OTP-enabled buck
- regulators
-Message-ID: <aqfzURhgpX55Obfs@sirena.co.uk>
-References: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
- <20260914-ux500-dts-snowball-regulator-v3-9-7f92a365628e@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SxKPjlum"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DA236C6220A;
+	Mon, 14 Sep 2026 13:15:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9AC9960323;
+	Mon, 14 Sep 2026 13:15:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C548511C7AFC3;
+	Mon, 14 Sep 2026 15:14:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789391704; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=PF9u7DYv9qFIslukP9LwzISVHtIb3gYuRnqxZlxFypM=;
+	b=SxKPjlumrmLPx8G3OPdJHMCjg0uhorZ9JkemWkvjRbh/+4NYUgGLeeGxaJXWTAgXjj381l
+	wN98FXQvXyHgS7I7CXFu4LgpgQBVEJ0ksOP37XPWW+oSLq4bP1+qGzbM1kAnIiY5cvjoy/
+	4Psslo9bZ/mXq6obNaRJfY3P/dV6SuZmcRHDMcCaKajDrJR7gqLOpYFK5ifAg9dNSgGusi
+	E8BAgOXPKZjkdkyTFgyZQ6745i8p5rXVMscORBPbJEQlatC9lO3IJsKryQ87Lv/VPNBOrQ
+	svYncYsx6cis7MVfbq/gwgmw83VWLwBsbIlA5Jb8Vdv5IJKAD/YmVbqnn54eAQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>
+Cc: Shan-Chun Hung <schung@nuvoton.com>,  Michael Turquette
+ <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,  Brian Masney
+ <bmasney@redhat.com>,  Richard Cochran <richardcochran@gmail.com>,  Arnd
+ Bergmann <arnd@arndb.de>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  netdev@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+In-Reply-To: <20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com>
+	(Miquel Raynal's message of "Thu, 13 Aug 2026 09:28:10 +0200")
+References: <20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 14 Sep 2026 15:14:59 +0200
+Message-ID: <87o6e0nfe4.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3Xns4qoZTjgVkA89"
-Content-Disposition: inline
-In-Reply-To: <20260914-ux500-dts-snowball-regulator-v3-9-7f92a365628e@kernel.org>
-X-Cookie: My vaseline is RUNNING...
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hello,
 
---3Xns4qoZTjgVkA89
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 13/08/2026 at 09:28:10 +02, Miquel Raynal <miquel.raynal@bootlin.com> wr=
+ote:
 
-On Mon, Sep 14, 2026 at 09:46:08AM +0200, Linus Walleij wrote:
-> The SMPS enable fields are initialized from OTP and may leave a rail
-> enabled for discrete consumers which cannot be described in the device
-> tree. Such a rail currently looks unused to the regulator core and is
-> disabled when constraints are completed.
+> The MA35D1 clock provider registers its muxes with parent data
+> structures filling .fw_name. This is not the ideal approach since that
+> would require a massive amount of internal clock names declaration in
+> the DT. Since the DT does not play the game of exposing all these names,
+> none of the parent lookups performed when instantiating the muxes
+> succeed. As a result, these muxes get registered as root clocks, leading
+> to a sadly flat clock tree and no frequency assigned to most of the
+> peripheral clocks:
 
-> +static int ab8500_buck_init(struct regulator_dev *rdev,
-> +			    struct regulator_config *config)
-> +{
+Jacky, this is an actual fix which is a month old now, the SPI
+controller (and maybe other blocks as well) does not work without this
+patch. Would you mind giving this a bit of feedback?
 
-> +	/*
-> +	 * The SMPS enable state is selected by OTP.  An enabled rail may
-> +	 * supply discrete board components which are not represented as
-> +	 * regulator consumers, so keep it out of the unused-regulator sweep.
-> +	 */
-> +	rdev->constraints->boot_on = true;
-> +	rdev->constraints->always_on = true;
-> +	rdev->constraints->valid_ops_mask &= ~REGULATOR_CHANGE_STATUS;
+> Fixes: f50a000b4219 ("clk: nuvoton: Use clk_parent_data instead of string=
+ for parent clock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-This unconditionally overrides machine constraints, the general idea is
-that we should always trust machine constraints.  For this particular
-driver it probably doesn't matter so much but it's a bad example and we
-really should update the DT too, and if we're going to enforce in kernel
-then warn about doing so.
-
---3Xns4qoZTjgVkA89
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqn81AACgkQJNaLcl1U
-h9CGHwf/R9wNzZDpf2IG6lb7twqj6FCOWqPzUYdRy7gGyrvsD/RnEAkrmqNWnuFj
-CCq9nVGZrNE4dYnI1I1g5fs4Q0+JMDI+rRjh/jYklRemDdDJfjheS53CiWH83u+Y
-pqiYKZPna0rgbLztXn9z+8FwI+7dV3QhSqo/IMTG/OeBkMYduWzyiCpVnFIyJIkK
-t1pqcI2ZiOvn4ggBAyFO7uTttAjRVk9+1rYx4HJR07RsC+17iSOxXNhcPWketPjR
-t1LOEjwDSlFQlhYwZWfRNvbXOWHBbbcl0PgJvKzJvCsqEdvK6/s2uY9YJ9vO4buR
-yi/1I5OiAFlCfG/W+c3VlHvf8DrwWg==
-=5uWK
------END PGP SIGNATURE-----
-
---3Xns4qoZTjgVkA89--
+Thanks,
+Miqu=C3=A8l
