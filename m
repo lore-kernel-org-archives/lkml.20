@@ -1,125 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA4941CB4C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C4A35292A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:43:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382577; cv=none; b=twcwWL4J6eaOe8i/Q7o6eFqtuLnVlkiNNuYpvSl1WzscJIL3oopPNAVKTqkGzZ/w0J8Bpqk4cgvuzXsStFmgYFR71YDTp4uro1qMmJs6dl4H2BU1aato29Jt+oPFXDqfK7nEd0WJnJGQiXTpAnsBYuDCGCavnK0KD/s3ZlskgNo=
+	t=1789382609; cv=none; b=cyZ512DVQoUEX2ejDuHIG2y1ncbEC2HKA7but2TniwWVMyQNwuvWEsq7yxegLpClzlps/QM1AYYZSDJNQrWnsmsfFaWNa+vRLnPB2Rkzy8Yrf+DgukFjX8mM+LRWSkj7rLBgRzeTeFsyz4wT8j57z+6tMHs9RLILTlJM2DgLsmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382577; c=relaxed/simple;
-	bh=+BbvenQMNXTIOAVBoBW26VkcDlBYYGupfmkeRmBT70k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Eoc/R/i1iIpmU41L7nO5YbLkEB4okyDX3t6JGaQ+kYgS1tIINiPj+hH73cVfbXN/CT1pM194D2pS1YppgpOsONOUFr+Lkj1LDv++lEgZtOG/VZTxTPcRrBvpGZC6DvMqkvQlc51UGVl9f+2i5ttmJVN9PZCllFHH6PRNpZe+QGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3sT7Gdo; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3sT7Gdo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B6C1F000FF;
-	Mon, 14 Sep 2026 10:42:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789382576;
-	bh=ciCy+irl3CVqSBupfnZoZAqhk9D/bI5E8bqRZzqlV70=;
-	h=From:To:Cc:Subject:Date;
-	b=K3sT7GdouZcF/iLX7zGY1V45rI3nO/AFFRtzWEtUa2GIgCq02MRpr657Gzi6LUzED
-	 Hb9aNNdp4oIqtp2Xdt+AUAZuJQxYWn7eVtCPl7ik0p5+YlKCIkcYdu5LiHmNyZntbK
-	 m5u+eaeRJo2qF4eR1dPpl71NDovpPxrVfkc4ttbEuYUNrEuYgnyY7M1a0qXRGVT++E
-	 3UAZKyqix/KGyaewuUen65Uk3h2FCJyzNJIX5x+9vxpqeVDEYEznR/sDg8RrZXxV+B
-	 /IiPxytjQJe1etNHP54TR6a5PlAIP74Si2AMhWOlmmMZ8hZbScizCnedMVvUQlr2Ff
-	 R+M94u5vhWr8g==
-From: Thorsten Blum <blum@kernel.org>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thorsten Blum <blum@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/boot: Simplify serial console control flow
-Date: Mon, 14 Sep 2026 12:41:36 +0200
-Message-ID: <20260914104136.74312-3-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1789382609; c=relaxed/simple;
+	bh=kFtV0op8BFDK9PEJ70qDKwmxH8svJFJQwVVdjVKAMuU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=B7djNnkCATbMm7sIuC93LCLvpZxjQlinxDh8kVuNerl9B7FIq6OICm3zcYy1hWRIx8HnIKA4RpdRLFF1maUHyMIlwN8eIsad/8Ew4xPQTCCCrGqK50Hmrl9svnp1olkzvl9xur8oIFe5NlhgbmyaIE3HeXFHphHdGU7o+0JDALo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b325074c26so4884759b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:43:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789382607; x=1789987407;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C5f3Ta0fB6GIy+tJjJYb5Uu77jzx4B0Qt7pFl7Q37Iw=;
+        b=Uyc7NxzBH8F/ZDgKKaApb18P9O1v/znZbtUxLAVmI4smABejul97Sc4FUiZPE/2JAc
+         5Fo7PT52YBpqI1Rsfk4vnB4j6hgf6Aubn7XqPHKyqfDmP2ZLvjUFwCy0fqmujQFgelL/
+         ca1hbgpagcuOuDcTR//swypJrWatOvYLrsss6crp82+ie6t00/103oA9HC6KrCN82ZVe
+         eeH+cPBG4sNxinXXQCXCHZUItWkjw1kn0cKZEZpv1WzdYDMeoIyRCsDwKsYdnpNYf3LC
+         MyE7FIQuYeLqNfamiLqBqxNtoTUvvRWGmWvGxG8hBgkG1h/wg/7X/wnekbuLiPFEOR8m
+         SEXw==
+X-Gm-Message-State: AFuF++kII9XACkclW2FKlleN23K1VeP+iwHLThDRzz3WJK7/vMM1ETlS
+	rCPcMzaCCSskuDOwSx0oJiaIMEcYa9pI3t0vJIkbbOyrlBSSz0V+ID15jEhURWAOksohTkrAJkq
+	Ck0qxqMJJ2NBvzCR5rUMZr+0ehAnKSDVbsxkW1Hq3St58j2dGui/eipZf7uU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2032; i=blum@kernel.org; h=from:subject; bh=+BbvenQMNXTIOAVBoBW26VkcDlBYYGupfmkeRmBT70k=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnLzycoupzoSOh705Z5S693+mvP40XRBqbzfrJt5HjR8 ipFZ8LPjlIWBjEuBlkxRZYHs37M8C2tqdxkErETZg4rE8gQBi5OAZjIbFaGP3wT76nole91PvuI I/rvAnuGlRV1vkWXHh5RsFWc7/KPyYvhr3S4wP37+7751ZeuOhUZc+PU8byr75vup0/KbEt2Xvb lKB8A
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:690b:b0:4c3:7695:1178 with SMTP id
+ 5614622812f47-4c7b2dfac87mr1122397b6e.8.1789382607538; Mon, 14 Sep 2026
+ 03:43:27 -0700 (PDT)
+Date: Mon, 14 Sep 2026 03:43:27 -0700
+In-Reply-To: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7cfcf.f81106d8.2ab401.004b.GAE@google.com>
+Subject: Forwarded: [PATCH] BUG: sleeping function called from invalid context
+ in null_insert_page
+From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-In serial_get_stdout_devp() and serial_console_init(), remove the goto
-statements and return NULL and rc directly.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-In serial_console_init(), handle errors early to reduce indentation.
+***
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/powerpc/boot/serial.c | 28 ++++++++++++----------------
- 1 file changed, 12 insertions(+), 16 deletions(-)
+Subject: [PATCH] BUG: sleeping function called from invalid context in null_insert_page
+Author: jchuang26@m.fudan.edu.cn
 
-diff --git a/arch/powerpc/boot/serial.c b/arch/powerpc/boot/serial.c
-index 1d221ff420fd..f46943c21a22 100644
---- a/arch/powerpc/boot/serial.c
-+++ b/arch/powerpc/boot/serial.c
-@@ -87,19 +87,18 @@ static void *serial_get_stdout_devp(void)
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 893e11787f78e43b534e252249ac3fff4d1333f8
+
+Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
+
+diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+index 6beb1f5b7..e22e79b02 100644
+--- a/drivers/block/null_blk/main.c
++++ b/drivers/block/null_blk/main.c
+@@ -1861,8 +1861,15 @@ static int null_init_global_tag_set(void)
+ 		tag_set.flags |= BLK_MQ_F_NO_SCHED_BY_DEFAULT;
+ 	if (g_shared_tag_bitmap)
+ 		tag_set.flags |= BLK_MQ_F_TAG_HCTX_SHARED;
+-	if (g_blocking)
+-		tag_set.flags |= BLK_MQ_F_BLOCKING;
++	/*
++	 * Shared tag sets can be used by memory-backed devices, which may
++	 * sleep in ->queue_rq() while allocating a page.  The flag cannot be
++	 * changed after the tag set is allocated, so always mark shared tag
++	 * sets as blocking.  blk-mq will then use an SRCU read lock instead
++	 * of an RCU read lock around dispatch and the allocation is allowed
++	 * to sleep.
++	 */
++	tag_set.flags |= BLK_MQ_F_BLOCKING;
  
- 	devp = finddevice("/chosen");
- 	if (devp == NULL)
--		goto err_out;
-+		return NULL;
- 
- 	if (getprop(devp, "linux,stdout-path", path, MAX_PATH_LEN) > 0 ||
- 		getprop(devp, "stdout-path", path, MAX_PATH_LEN) > 0) {
- 		devp = finddevice(path);
- 		if (devp == NULL)
--			goto err_out;
-+			return NULL;
- 
- 		if ((getprop(devp, "device_type", devtype, sizeof(devtype)) > 0)
- 				&& !strcmp(devtype, "serial"))
- 			return devp;
- 	}
--err_out:
- 	return NULL;
- }
- 
-@@ -113,7 +112,7 @@ int serial_console_init(void)
- 
- 	devp = serial_get_stdout_devp();
- 	if (devp == NULL)
--		goto err_out;
-+		return rc;
- 
- 	if (dt_is_compatible(devp, "ns16550") ||
- 	    dt_is_compatible(devp, "pnpPNP,501"))
-@@ -134,19 +133,16 @@ int serial_console_init(void)
- 		rc = opal_console_init(devp, &serial_cd);
- #endif
- 
--	/* Add other serial console driver calls here */
-+	if (rc)
-+		return rc;
- 
--	if (!rc) {
--		console_ops.open = serial_open;
--		console_ops.write = serial_write;
--		console_ops.close = serial_close;
--		console_ops.data = &serial_cd;
-+	console_ops.open = serial_open;
-+	console_ops.write = serial_write;
-+	console_ops.close = serial_close;
-+	console_ops.data = &serial_cd;
- 
--		if (serial_cd.getc)
--			console_ops.edit_cmdline = serial_edit_cmdline;
-+	if (serial_cd.getc)
-+		console_ops.edit_cmdline = serial_edit_cmdline;
- 
--		return 0;
--	}
--err_out:
--	return -1;
-+	return 0;
- }
+ 	error = null_init_tag_set(&tag_set, g_poll_queues);
+ 	if (error)
