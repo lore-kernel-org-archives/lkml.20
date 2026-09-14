@@ -1,118 +1,93 @@
-Received: from smtpo75.interia.pl (smtpo75.interia.pl [217.74.67.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32ACE3624BC
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929CC3254B8;
+	Mon, 14 Sep 2026 06:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789368061; cv=none; b=AOGAqZ3kY/UWc6sezFpbn2bH7L1OcFL1dvefQz7dZWMPDMPxBew1ARdlHNUKMaOvXYTZ/xDHnmxzrKR0JeJHyPA0pkiMclBgic39yccKRK2qkyn6phKS8BDHxuMUIeP7KmlRhYxksxSYgoM9KE8rIT28pQyvKKWqXx9eaMEwJbk=
+	t=1789368088; cv=none; b=hs6jakvgyugkUxN6PeUApP8+IvlDbd6d8SLmjDPE/qaFIaff+LR7qWQINPPvBdqZSCaOg5dK4w8GOx70WJPCfwLBFR2N2zMk1tfSjnCzek2ThC8UxjgyJyVDQbePZqWpGcNMnPLTyD8FAYDxpx64vVazl+l5JrX533Ozc0FxYqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789368061; c=relaxed/simple;
-	bh=QO7dVWJRLZKDWl34KsraszC5WM8oAwV+eN5oExcOgIg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s+Wh4J4gMjyKf05XjZqCc4Fwht9oDFLYbg6pTsmVkh9FBzXiXdPhq+2arpkfozO2X41E5PCaEewxQDjekq9UawXQ0bfZPf/bPipZ2kqSThmKRUWeMyG6PDS9UY/hqBKbN/ctUoBBrtud2+jRZnt9XzFy5+KW+N+u9nIzmukhs84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=rDOyyIj6; arc=none smtp.client-ip=217.74.67.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
+	s=arc-20240116; t=1789368088; c=relaxed/simple;
+	bh=5jTrYA6Zr84aXSJFgu+ff1cVyGO/1oBt4OyEQJMxErU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FAj/jMUG0W2mvIgoUEnvj/XB9GNyqKLHQ12quilfXoAW5l557d+ZMyeYZLNFahb8leZ+TKkDDvR3u2ftsuw8oRwC0Cdi+TizuHXr9zOdhiNuexJcm6JOTAVq+7qQZjNhCAHc+sJIkmdeFSoU2LvoUwnrncX5ayHovnFbQ69qUHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U97m//Rg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="rDOyyIj6"
-Received: from nr200 (unknown [80.68.231.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Mon, 14 Sep 2026 08:40:45 +0200 (CEST)
-Date: Mon, 14 Sep 2026 08:40:42 +0200
-From: Slawomir Stepien <sst@poczta.fm>
-To: Basavaraj Natikar <bnatikar@amd.com>
-Cc: syzbot <syzbot@kernel.org>, syzkaller-bugs@googlegroups.com,
-	Basavaraj Natikar <basavaraj.natikar@amd.com>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>, linux-input@vger.kernel.org,
-	Sandeep Singh <sandeep.singh@amd.com>, linux-kernel@vger.kernel.org,
-	syzbot@lists.linux.dev
-Subject: Re: [PATCH] HID: amd_sfh: Validate PCI BAR size before mapping
-Message-ID: <aqeW6o0kFhxTaloK@nr200>
-References: <94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org>
- <7f8690bc-17c7-45e7-bacd-a341b2ef0a4b@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U97m//Rg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0E21F000FF;
+	Mon, 14 Sep 2026 06:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789368087;
+	bh=Yku2AC1DiRK8ZyVSgDsbrBS1Zs5eKB0SXuUewpy+4e8=;
+	h=From:Date:Subject:To:Cc;
+	b=U97m//RgirwBsqp1r1RrBo10FHssoez8otNgsm5YTvCybkqVKdHXhFg3EN877capj
+	 /LFiZ/T8+MDjRmaUyWEetacOUQSOSYC7YO9iICDo3GPPIb+U3w507Io6MBdXlYwkoQ
+	 XJlnnjX+6obBwsMGEl/t5pEZp9/yB1kRuvjL5BtF3wV0yhJT/BmJjoQkWsWt6Zw6bG
+	 yxUyDbj+C/Nbu/9S0AyW//3be19EKvRrOz6KkNpwBe3qe95OrLQB0QjACyHKlQMbrs
+	 RueKmyfpljybFuya9XssB+Xbuvm68KOz71/3qeOOxv1G9lxpne0zlD3fBc9D+/oijc
+	 ObyF/z6xrZOmg==
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 08:41:18 +0200
+Subject: [PATCH] usb: fotg210: guard host shutdown in gadget-only builds
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7f8690bc-17c7-45e7-bacd-a341b2ef0a4b@amd.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1789368047; bh=35Na2uDYoTkrNh01Rjn3p8QVuDGTu1Bb9xs9LnADGw8=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	b=rDOyyIj6aTEe/GmaUS69QFeQXd+EWa2i7Izyyemz+sGAYy7KNqoyYiR5PC6iI1DKJ
-	 /rHPq6Liim32PymGFsviz84lD8MGPRBBqZHTMltuAVFJ+FiaYrvdItet0TPEy+Nvqm
-	 FB73zZPNYyNHbjc1hSVOpBuqrswDqDK+tM2OWFD8=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-fotg210-ehci-fixes-v1-1-a75ca67fac04@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LSwqAMAxF0a1IxgbSWvxtRRyIfWomKq2IUNy7x
+ eHhchNFBEWkvkgUcGvUY88wZUHzNu0rWH02WbG1dMbxclyrNcLYZuVFH0Q2rZfGTag6AeXxDPh
+ D/obxfT/hnyo2ZAAAAA==
+X-Change-ID: 20260914-fotg210-ehci-fixes-18d074ae390e
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Alan Stern <stern@rowland.harvard.edu>, Daniel Palmer <daniel@thingy.jp>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-On wrz 11, 2026 21:33, Basavaraj Natikar wrote:
-> 
-> On 8/27/2026 12:06 PM, syzbot wrote:
-> > [You don't often get email from syzbot@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> > 
-> > From: Slawomir Stepien <sst@poczta.fm>
-> > 
-> > The amd_sfh driver maps PCI BAR 2 using pcim_iomap_regions() and
-> > subsequently accesses MMIO registers at offsets up to 0x10958 (e.g.,
-> > AMD_P2C_MSG3 at 0x1068C). However, the driver never validates that the BAR
-> > size is large enough to cover these accesses. If the driver is bound to a
-> > device with a smaller BAR 2, this leads to an out-of-bounds memory access
-> > and a page fault during the probe function.
-> > 
-> > For example, a page fault can occur when reading from privdata->mmio +
-> > AMD_P2C_MSG3 in mp2_select_ops():
-> > 
-> >    BUG: unable to handle page fault for address: ffffc9000390368c
-> >    PGD 100000067 P4D 100000067 PUD 1012c1067 PMD 105b64067 PTE 0
-> >    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-> >    RIP: 0010:readl arch/x86/include/asm/io.h:59 [inline]
-> >    RIP: 0010:mp2_select_ops drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:282
-> >    [inline]
-> >    RIP: 0010:amd_mp2_pci_probe+0x337/0x5f0
-> >    drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:487
-> >    Call Trace:
-> >     <TASK>
-> >     local_pci_probe drivers/pci/pci-driver.c:332 [inline]
-> >     pci_call_probe drivers/pci/pci-driver.c:394 [inline]
-> >     __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
-> >     pci_device_probe+0x431/0xc90 drivers/pci/pci-driver.c:489
-> > 
-> > Fix this by verifying that the length of BAR 2 is at least 128KB before
-> > attempting to map it. Since the maximum accessed offset is 0x10958, and PCI
-> > BAR sizes are powers of 2, any legitimate hardware will have a BAR size of
-> > at least 128KB.
-> > 
-> > Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
-> > Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
-> > Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=4eadd4dfe9e66522bae8
-> > Link: https://syzkaller.appspot.com/ai_job?id=3bc1c45c-548f-4ab5-8243-d2c8ec321d6c
-> > Signed-off-by: Slawomir Stepien <sst@poczta.fm>
-> > 
-> > ---
-> > diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> > index 78f830c13..c0c324565 100644
-> > --- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> > +++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> > @@ -17,6 +17,8 @@
-> >   #define PCI_DEVICE_ID_AMD_MP2          0x15E4
-> >   #define PCI_DEVICE_ID_AMD_MP2_1_1      0x164A
-> > 
-> > +#define AMD_SFH_MIN_BAR_SIZE           (128 * 1024)
-> 
-> Please use SZ_128K instead of the open-coded (128 * 1024), A short comment noting the value
-> must cover the highest register offset (0x10958) would also help future readers.
-> 
-> With that:
-> Acked-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+FOTG210 can be built with CONFIG_USB=n, but its shutdown callback
+references usb_hcd_platform_shutdown() from the USB host core,
+causing a link failure.
 
-Sure, will send v2, thanks!
+Guard the call with CONFIG_USB_FOTG210_HCD so gadget-only builds do
+not reference the host shutdown helper.
 
--- 
-Slawomir Stepien
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609141128.DQicnuRW-lkp@intel.com/
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Fix the gadget-only build failure introduced by the FOTG210 common
+EHCI conversion by guarding the host shutdown call.
+
+Based on the complete FOTG210 modernization series. Verified with
+PowerPC64 gadget-only and Gemini host object builds using LLVM.
+---
+ drivers/usb/fotg210/fotg210-core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/fotg210/fotg210-core.c b/drivers/usb/fotg210/fotg210-core.c
+index 7976bdae5f07..7de49b7eb3aa 100644
+--- a/drivers/usb/fotg210/fotg210-core.c
++++ b/drivers/usb/fotg210/fotg210-core.c
+@@ -258,7 +258,8 @@ static void fotg210_remove(struct platform_device *pdev)
+ 
+ static void fotg210_shutdown(struct platform_device *pdev)
+ {
+-	if (usb_get_dr_mode(&pdev->dev) != USB_DR_MODE_PERIPHERAL)
++	if (IS_ENABLED(CONFIG_USB_FOTG210_HCD) &&
++	    usb_get_dr_mode(&pdev->dev) != USB_DR_MODE_PERIPHERAL)
+ 		usb_hcd_platform_shutdown(pdev);
+ }
+ 
+
+---
+base-commit: da11df946e2c5288ba1124b20af7faada58b85eb
+change-id: 20260914-fotg210-ehci-fixes-18d074ae390e
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
