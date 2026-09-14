@@ -1,91 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6363A16B6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F7440EB9D
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375110; cv=none; b=hoKr92K3EFCyz3qW+3/Sc3AqCI+f4kONmoRYyxGSTMZc4uhNJZVDQ1PZd9hLyOeKrKUp3jGYYPRVxJSxhO434qOxxkY40bAk5yOFiSugtN5ewcGYGEVWlyaJnRV9eevoO8bmMO3BDnjf53NcidvotvWghiqWusB9i9+Vtm/a+e0=
+	t=1789375131; cv=none; b=c/IRSv0q5HLqiPQqWb2mui7HmKzK1xOYnX6VqhOU/rHjTzQk6iM04H0bjk45Zlql7RlCd1rIceteCvGf8x8b2FPKH/F96vgRAigPOm4RkFpkkjSjbg/DupQHMJpvxMTdwIkfROu4305iFdt+ffmmu1fO7GNTDjqH4hpU+mSGMk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375110; c=relaxed/simple;
-	bh=bikajq6gPXx+5/b1yY5tPaGoZUSaoR9JVl/gex3jVF0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zhwbm3Co9qp/gx6jTCyf/Rz4ZgjlPcVkCu4uaInJBYwd8r4Ks5ZpzeIw90PYJM0odTHOY2zhGmWdZbWAqvmv8wZX1VeVxG423IXWtYMr4BLoQKAYn8Puml2bWldbh9/AdoIiTxhkE9DsOoDNWeyyS31HxajqijqO3mk14oGBwDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gG0JwTs5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789375131; c=relaxed/simple;
+	bh=X8/s6aSmrogL3Vlf90YuTtTdLS9XMrzzdluA6ZKQqBo=;
+	h=Mime-Version:Subject:From:To:CC:Message-ID:Date:Content-Type:
+	 References; b=Q+Ho4OGnbQr+L+jE10hfN97tqNwJRgQBlN88QNubz4+eCeqb43K4SgmtTADSQ16b7hIe0rLqJYSLbAuMGigWmvHYxlVVRVB0StNqrkxfg4PXvzu7BEFvy+I/IJTd1qn3wXmzMxKh2Dv3JaRUOAhbwuPR16N+HEl3/JaogiLrQJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=NnVzRTZT; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gG0JwTs5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0071F00899
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789375108;
-	bh=bikajq6gPXx+5/b1yY5tPaGoZUSaoR9JVl/gex3jVF0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gG0JwTs5WXFNYujRACYdkpD8Yu4KLEpIm9Oo8vxUg1g2lKhthj1SUWh5LxP8LOd8j
-	 s3IdBRCkiXG6oIB0xNjcPWCqv/l/6+D2BsIaE85D30ponbnqhvovkmiEGh9aEBHUgb
-	 9GzFk8rnYx1zg6B2FB1sEtjr357if1NpCsPkEioCUj9N7vwy2spT4jZ2bmDrHIxfr9
-	 O6eMU6q0h6SsdSzRd0qGmuRo956aFbT1NCXid4CbrjNV0tE2S+bfJ8S+dMMxAu+WYI
-	 QiQ2wc/33TNV1S5Rvg/WGeue6m2Ln2rfyrsJe/Q9/vMS0WU/74xzFpITJp/s6NtG3n
-	 tSThAWGBNUAmQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso1736395e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:38:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx0IJMuz2zgOYw5fGeUvbqit8JJN9qN7EsSSBbuLtTF23TJ3x610/I82bLqjRvyxXmeZCFxayOJ5tY9qsk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKRO7KxE2m178ksxJ4sxCVLgZzSTkgorvlNW9u/ziPY9x+ApaE
-	iDXyPXmm16jl4Iztsc3f7mcLZOWwBIcWbgUh9jH+g00q/EwQmSkkLgoeoi7iZYIgF6h8rrE4xoc
-	CRLnuDUHtlPAsTV/DNweutd/6O+u83g8=
-X-Received: by 2002:a05:6512:31c3:b0:5b6:1a7c:26 with SMTP id
- 2adb3069b0e04-5b8ae69c303mr379645e87.41.1789375106756; Mon, 14 Sep 2026
- 01:38:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="NnVzRTZT"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260914083840epoutp01b1cbce1a18adbb8aad89e57647da26dd~VIzEOqqAf0060600606epoutp01T
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:38:40 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260914083840epoutp01b1cbce1a18adbb8aad89e57647da26dd~VIzEOqqAf0060600606epoutp01T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789375120;
+	bh=JtytV7zHdS16M6Nuepa/yJ0RtTM6dYTLMDxDFnaoKvw=;
+	h=Subject:Reply-To:From:To:CC:Date:References:From;
+	b=NnVzRTZTDoiZ8Zp8oJCcz80ADihSAt+XibFhrVTB9eSvs9vi3V+iZTO3oTVRV/80Z
+	 znICWJL7FaCVhBid9/I8TKGsbPQnCA2cmQrd59R29oRFa43KJy5Z58voDpUtK/mEhk
+	 2qTqay6Jq1xoia0n36qjU4MdQBwd5xNQ2MS18ack=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260914083839epcas2p2af9767b3705492f29ed0e909f9619831~VIzDpyjIf1228112281epcas2p2Q;
+	Mon, 14 Sep 2026 08:38:39 +0000 (GMT)
+Received: from epcas2p1.samsung.com (unknown [182.195.38.211]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hjz7z2bTWz6B9mG; Mon, 14 Sep
+	2026 08:38:39 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260827021054.0963C1F000E9@smtp.kernel.org> <B61B30904C7ACEEF+20260827080320.3351155-1-liudalin@kylinsec.com.cn>
-In-Reply-To: <B61B30904C7ACEEF+20260827080320.3351155-1-liudalin@kylinsec.com.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 10:38:12 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=s_dyCyaPCHhQttukZ7m8hFMpCGm5hATrHUBirEG+RxQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XRCpHWiCNsju-U4qdFirQ62HAIRpU4gSyI_23OghB7AclZ3HrLyZLO5w4
-Message-ID: <CAD++jL=s_dyCyaPCHhQttukZ7m8hFMpCGm5hATrHUBirEG+RxQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] rtc: ftrtc010: fix resource management and integer overflow
-To: Liu Dalin <liudalin@kylinsec.com.cn>
-Cc: Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Deng Yingchao <dengyingchao@kylinsec.com.cn>, Qin Yungao <qinyungao@kylinsec.com.cn>, 
-	Luo Qiu <luoqiu@kylinsec.com.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Subject: [PATCH 0/2] scsi: ufs: batch device-init reads with UFS 5.0
+ aggregated read
+Reply-To: hyenc.jeong@samsung.com
+Sender: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
+From: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
+To: "James.Bottomley@HansenPartnership.com"
+	<James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>,
+	"bvanassche@acm.org" <bvanassche@acm.org>, "linux-scsi@vger.kernel.org"
+	<linux-scsi@vger.kernel.org>
+CC: Jinyoung Choi <j-young.choi@samsung.com>, Alim Akhtar
+	<alim.akhtar@samsung.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "peter.wang@mediatek.com"
+	<peter.wang@mediatek.com>, "can.guo@oss.qualcomm.com"
+	<can.guo@oss.qualcomm.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20260914083838epcms2p1336cbd08ce6ed192eeed9adbad365a93@epcms2p1>
+Date: Mon, 14 Sep 2026 17:38:38 +0900
+X-CMS-MailID: 20260914083838epcms2p1336cbd08ce6ed192eeed9adbad365a93
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260914083838epcms2p1336cbd08ce6ed192eeed9adbad365a93
+References: <CGME20260914083838epcms2p1336cbd08ce6ed192eeed9adbad365a93@epcms2p1>
 
-On Thu, Aug 27, 2026 at 10:03=E2=80=AFAM Liu Dalin <liudalin@kylinsec.com.c=
-n> wrote:
+UFS 5.0 adds the AGGREGATED READ query (opcode 0x9): one QUERY RESPONSE
+UPIU returns many descriptors, attributes and flags as a chain of typed
+groups.
 
-> This series fixes three issues in the Faraday FTRTC010 RTC driver
-> found by Sashiko AI static analysis:
->
-> Patch 1: Fixes a clock resource leak when devm_rtc_register_device()
-> fails in ftrtc010_rtc_probe().
->
-> Patch 2: Replaces manual clock management with devm APIs to fix a
-> use-after-disable vulnerability in ftrtc010_rtc_remove(). The RTC
-> device is registered via devm_rtc_register_device() but clocks are
-> manually disabled in .remove() before devres cleanup, creating a
-> window where MMIO reads on clock-gated hardware can cause a
-> synchronous external abort.
->
-> Patch 3: Fixes integer overflow in ftrtc010_rtc_read_time() and
-> ftrtc010_rtc_set_time() where u32 arithmetic wraps for dates
-> beyond year 2106.
->
-> All three patches are based on v7.2-rc2 and have been verified
-> with checkpatch.pl --strict.
+Patch 1 adds the opcode, the request mask, the group header and the reply
+plumbing. Patch 2 uses it during device init: a single aggregated read
+replaces the per-item queries for the attributes, flags and ID strings,
+falling back to individual queries on older devices or a rejected opcode.
 
-All patches:
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+No functional change for pre-5.0 devices.
 
-Maybe they need rebasing on v7.3-rc1 or maybe they will just
-apply cleanly (I think so).
+Hyeoncheol Jeong (2):
+  scsi: ufs: Add the aggregated read query opcode and its reply format
+  scsi: ufs: Serve the device init reads from one aggregated read
 
-Yours,
-Linus Walleij
+ drivers/ufs/core/ufshcd.c | 365 +++++++++++++++++++++++++++++++++++---
+ include/ufs/ufs.h         |  46 +++++
+ include/ufs/ufshcd.h      |  11 ++
+ 3 files changed, 402 insertions(+), 20 deletions(-)
+
+-- 
+2.25.1
+
