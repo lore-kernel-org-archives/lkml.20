@@ -1,74 +1,106 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B832AD35;
-	Mon, 14 Sep 2026 02:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CB7245020
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351304; cv=none; b=OTeAIxHQzrePSK5/jLf3kMsg86/KtWyN+nifSnkjEshQUVw+hVCdc4gD1RyFgPkuPMkMqbTs3wisMADsUnj25LsW2Ut2X2tYfeP81AB05WkDLjdzVOo4pPv8BsTyzahRUukTM5sg6FcdbA4abIBi054L2TyVAERgGdPpbCRiiY4=
+	t=1789351385; cv=none; b=QCp9tT+xApJHV3HEDCQj43WbrR9Cn3BtLp4F6UKXycLtVx7bMMal9icQntL43jTsXA/aglhDQcfYw3hF+imC4gD6/C6UAxkjksNV1yrMkGHbirJhOMCZuZeRoenEziDWB4LEQpEbskS875izoTPw+3wyRZkGhUgeghX2xxIuhcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351304; c=relaxed/simple;
-	bh=04k4f9e5gea5+x/CyoY7hoQpWb9+xswIoo6JawiSkYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ayp/xzWbm3BhSNTWPXIUxku4qrXzE/J8cHMLM888qHUgdqfosQiwUmx4cIw99jTK3AK+UwxNqc9eLmfi86CtXEYF65tVEkFUAsdP/6LmKJlpnJYk61K8Uk8UgCwTaXMfselDbQx82yB2Gh3RDAWIijOuy6BA5mpf0r5OEampcN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=RNX6qIEI; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="RNX6qIEI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=0K3FOZW0zXjce4YXC5/62Q2NjlSiguNAa7sWXDR+mmA=; b=RNX6qIEImbEpECsvjNGu91bNRz
-	yaSVbyKOKYXWyh9Nor9441rBV7Z+ldsK3+YQBshlzZcvrAwMhF/ylVGXbZnVmyvGLYbPx38cTHGTn
-	qx7O1+KBCv8GGsUZBXDJU9a/l2/6yEZ2u7XVxXJIjvAFE+grSdWJtJCczgRmFRQPiZkt1602SwW1r
-	a6oUln1Sw5PA2faxleEzQ2DlEm7o9D+HgHD0/5p089Q1V1IHA1NttaNNzZV37TtMvWAMaE0YZfb4c
-	rIKtkpklpccmMKeDlEqjjlGXaq5lUvVir3/EU7LeLBairbXCoU13wkfcSoMJjad4ISvBDRkDWr4DN
-	9R5zjqBA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x5w0l-00000002AKp-2Bzk;
-	Mon, 14 Sep 2026 02:01:35 +0000
-Message-ID: <38c933e8-b026-42e7-8b68-6b469e39abe9@infradead.org>
-Date: Sun, 13 Sep 2026 19:01:33 -0700
+	s=arc-20240116; t=1789351385; c=relaxed/simple;
+	bh=gF1QW0Ig2Sba+Tmb/Zs+9oZFdmkgCXK5bo3IXNieFqM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=KVwOcErz3pLpjq1qr6yEoKlKEp3BpuZh7f49H6uHG+h2J+WMrv8j6Unda39lJYBsaWO28KSFrsuGp4tygAKRRug5bBKWNaZljO8niMf0t8f/rxl6H5JyOzve3Th+M5Hpio80KleXru6JOvAQCtP28N98ietqyeZ39sEMHiFCD3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ad778bacbeso4708569b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:03:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789351383; x=1789956183;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gO/R69cYMwrlavSbi1XpU7D7/7bNbizcayAR/WkfIJU=;
+        b=oUSIWFxlgOGPr34sSPepdIGQ53z+7QD0Llzratxnp9n8LAXaFnOZ4sk1K7kmw5bEKp
+         5+r+uAI8bDBLJ2UYLnjHgfno3F5aE7u4PHmRE6azd1eFuwIq8r4jLrpRfNXJybmCyXMH
+         4niBv9+oiVhawz/uWvyG+iRe9Ul1l0K8Yp2xNBshY+h/R1IKHulV0HIZlpGAQbCUTpry
+         b2uZL0ponC74DDvHiRH/pbDzfSPwPDLr89rdZj6YjE1XBDObiRvXxu3I2CboNewwE9L3
+         rkhQzwdYwX0wauV3GyoyyO0gL78DFXtRONSkj1ksFkp8VhdNoD52CT1SZ+9MPo++AzXr
+         BHnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVDzEu43mN9/HYKhoKfBijBBrMpvYxO86ua88iZj0HVKWuKpFa4vwfOOZL7zlcJ7IHvgdRXUWlZkhqlMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgmZYE/eFy4gexYiI8nrrbOVA5xEr2CPvTolnbGnw37xWjg24y
+	OQ/tsNwcB3y2oJDEKaBeoAgx2FRO/D5504FwKFSfH+S3sULqi0bTdLA0I35nTPgGaHpqXZtFKAz
+	yAMqjGdVZSg2LBiUbgcyO8uwWdSg2Zb/UiLqFBJrhU9oMNxn0IQYitzUePHA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Support WUJIE15 PRO HPT
-To: Bozhen Peng <bozhenpeng93@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Armin Wolf <W_Armin@gmx.de>, Gladyshev Ilya <foxido@foxido.dev>,
- Mingyou Chen <qby140326@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, platform-driver-x86@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <0da43a8c-1755-49fe-b8e2-403489297f06@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <0da43a8c-1755-49fe-b8e2-403489297f06@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:198e:b0:4c4:d8a0:2773 with SMTP id
+ 5614622812f47-4c7b626a8efmr220367b6e.32.1789351383436; Sun, 13 Sep 2026
+ 19:03:03 -0700 (PDT)
+Date: Sun, 13 Sep 2026 19:03:03 -0700
+In-Reply-To: <6aa74ffd.2cd27cd2.290120.3dbeSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa755d7.a211d2ce.1a5198.0289.GAE@google.com>
+Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in config_item_get
+From: syzbot <syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hello,
 
-On 9/13/26 6:12 PM, Bozhen Peng wrote:
-> diff --git a/Documentation/wmi/devices/bitland-mifs-wmi.rst b/Documentation/wmi/devices/bitland-mifs-wmi.rst
-> index 9e86ecc29..fd966cf18 100644
-> --- a/Documentation/wmi/devices/bitland-mifs-wmi.rst
-> +++ b/Documentation/wmi/devices/bitland-mifs-wmi.rst
-> @@ -7,6 +7,37 @@ Bitland MIFS driver (bitland-mifs-wmi)
->  Introduction
->  ============
->  
-> +MECHREVO WUJIE15 PRO (HPT) firmware variant
-> +-----------------------------------------
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+KASAN: slab-use-after-free Write in config_item_get
 
-The underline should be at least as long as the heading line.
+==================================================================
+BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+BUG: KASAN: slab-use-after-free in atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:252 [inline]
+BUG: KASAN: slab-use-after-free in __refcount_add include/linux/refcount.h:283 [inline]
+BUG: KASAN: slab-use-after-free in __refcount_inc include/linux/refcount.h:366 [inline]
+BUG: KASAN: slab-use-after-free in refcount_inc include/linux/refcount.h:383 [inline]
+BUG: KASAN: slab-use-after-free in kref_get include/linux/kref.h:45 [inline]
+BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90 fs/configfs/item.c:104
+Write of size 4 at addr ffff88804491f01c by task syz.1.545/7868
 
--- 
-~Randy
+CPU: 1 UID: 0 PID: 7868 Comm: syz.1.545 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/08/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+ atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:252 [inline]
+ __refcount_add include/linux/refcount.h:283 [inline]
+ __refcount_inc include/linux/refcount.h:366 [inline]
+ refcount_inc include/linux/refcount.h:383 [inline]
+ kref_get include/linux/kref.h:45 [inline]
+ config_item_get+0x26/0x90 fs/configfs/item.c:104
+ get_target fs/configfs/symlink.c:139 [inline]
+ configfs_symlink+0x407/0x11d0 fs/configfs/symlink.c:200
+ vfs_symlink+0x18b/0x330 fs/namei.c:5794
+ filename_symlinkat+0x1cd/0x420 fs/namei.c:5819
+ __do_sys_symlinkat fs/namei.c:5839 [inline]
+ __se_sys_symlinkat+0x4e/0x2b0 fs/namei.c:5834
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
 
+
+Tested on:
+
+commit:         a7c1290e configfs: pin the symlink target's dirent ins..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1626c115580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=6d794b10c2a1184e
+dashboard link: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Note: no patches were applied.
