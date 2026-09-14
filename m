@@ -1,65 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C729347F3DD
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BBB47AF5F;
+	Mon, 14 Sep 2026 14:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396766; cv=none; b=ag/l9umRDPrwDVwClL5vFqvxtzdUL5e0yDyQ5R0GIhY4dUbCr/lF7pVw4C75cePvJmRCd49flEKnP+y7M92VEass6ef1GmL2A42zgAHpGMTcBa7l0+vMu3e594y1TYHIYQOhdgThXl2df3GRM9kj3CviuaESWdIzWqGoBTQ0fRQ=
+	t=1789396794; cv=none; b=QDd6SXcVkPYC/x5Kf1hIqnOGkJduPzDCBnOArRqCxmDCw48K3WJIQs8pEVO/6Z1Vg82SbvpVWez4+yO6D1jgt0GlU7fq6emz5Xec9VT/8+G19ZY1TwdR75Idp+DQHLUS5jSgwhLYlp/oID4DOVcK5iXmTY0WoNzdwnUeibxAxns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396766; c=relaxed/simple;
-	bh=S3kiUryi7ys2gWqYZn4Qj5z61a8AqX+Y1KsLFE3pDEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a3NsXCb4bmqBZaePoE6eUPq9SOYOO7GP659drv7p+DNlryksNilHSpE/EHbIiagdIpz3XYPRGZMaDlmcEf8gySikDklfGgKyRl/POKHKIDWjpYMuupmb1Izn84qQGVNH5j80LvxYRsZJYxanqDHX9mBF1ouhF0ZAKfQeQQUeKjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HexKKt3f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789396794; c=relaxed/simple;
+	bh=Tf/OcllJ2Yb63WJf1blzFMdyNwJao/wBuYAaItBcEfg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FTn7CltV2ncfkg74vMG0rCFAZiGuXBfyzMT/6Zwb3PZ7rrxQ/sab05wm82h1YnVMJ/UhmAczfkfsCZUjKfixAgqmzLohZ71BbIpTI38UYAZZKVWmbZ84JKii2v/bBoksbAPqEzJT71cLFostG2KiWQvi8iItlzxAhqLaMlZu4DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eaFyewLk; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HexKKt3f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E72B1F000FF;
-	Mon, 14 Sep 2026 14:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789396764;
-	bh=S3kiUryi7ys2gWqYZn4Qj5z61a8AqX+Y1KsLFE3pDEQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HexKKt3fFac6sIZs49+idp+3Xm8EsD9lAHQ8szU+YT5j1zbdyHO0H1b/VMiZTyaIv
-	 v4Bhd7KPFnP0DkGoBOSbKWWBlmzazu8tkB2wcldkSc/gtD469tt70gMR4SFlt+Gk+t
-	 jHyirFXJ7pdhrDiT9bDUvYvyQo15Aa6PvOZhSBj8o1q8LhdtKD4eqfmpP5wbq52O4Z
-	 wS8XhkqjDqoaeuUkZsX611IU5Vffmz5AXrTbX2VJ4AAQeeAA7p+284KgJfz05fr/ZO
-	 LT/jctvYi0Yy5rcqBsEDOCfdA9yi+DEbHfoSgvutk6/wwHYdPEo3TTdlz4F63alVOg
-	 E4NWik788ZfQg==
-Date: Mon, 14 Sep 2026 08:39:21 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Mateusz Nowicki <mateusz.nowicki@posteo.net>
-Cc: axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvme: bump genctr when cancelling a request
-Message-ID: <aqgHGefyCPcoNoB_@kbusch-mbp>
-References: <20260913124053.86565-1-mateusz.nowicki@posteo.net>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eaFyewLk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Tf
+	/OcllJ2Yb63WJf1blzFMdyNwJao/wBuYAaItBcEfg=; b=eaFyewLkH4TIDXFqvX
+	5ksgDwOzYVORHyaVLJ0nbPS7QTIQM58s+fp30uLaV3i7ItBdgb5Vu8DV5/R7jXM0
+	hVm13d+lB+c8kXP4qibPqVbrl9B5LrKn8+JVEcRJAhSjQgL41eYW2CatJKSuDGjy
+	XHTKjrM1IvkoTHcWqWbYZ8EiM=
+Received: from hpl-VMware-Virtual-Platform.. (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXBL3qBqhqmNCpAg--.22384S2;
+	Mon, 14 Sep 2026 22:38:35 +0800 (CST)
+From: peilinhe2020@163.com
+To: he.peilin@zte.com.cn,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: alexandre.torgue@foss.st.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	jiang.kun2@zte.com.cn,
+	kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	mcoquelin.stm32@gmail.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	vbridgers2013@gmail.com,
+	xu.xin16@zte.com.cn
+Subject: Re: [PATCH net v6] net: stmmac: remove software VLAN tag stripping
+Date: Mon, 14 Sep 2026 22:38:34 +0800
+Message-ID: <20260914143834.5828-1-peilinhe2020@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <7d72b99f-ca65-4ad4-954c-b3f9d07de523@bootlin.com>
+References: <20260911141126.10592-1-peilinhe2020@163.com> <7d72b99f-ca65-4ad4-954c-b3f9d07de523@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913124053.86565-1-mateusz.nowicki@posteo.net>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAXBL3qBqhqmNCpAg--.22384S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZrW7GrW8GFW5Gw15uF4Uurg_yoW3CwcEk3
+	yDAr98W3y8AF1q9F10yF1YqFnYgay7X34fKrZ8Xw17try8JF4Fgan5WryI9F4fGayFvF9F
+	yrnxtFW8t34jgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_GYLtUUUUU==
+X-CM-SenderInfo: xshlzxhqkhjiisq6il2tof0z/xtbC8guAMmqoBuuG-gAA3c
 
-On Sun, Sep 13, 2026 at 12:41:01PM +0000, Mateusz Nowicki wrote:
-> The cancel path is taken when the host stopped waiting for the
-> controller: CSTS.CFS set (dead path in nvme_dev_disable(), no CC.EN=0,
-> no wait), or CSTS.RDY not cleared within CAP.TO. Nothing stops the
-> controller from posting completions after that, and the second
-> nvme_dev_disable() from nvme_reset_work() reaps them in
-> nvme_reap_pending_cqes().
+From: Peilin He <he.peilin@zte.com.cn>
 
-I think it was supposed to be that we don't cancel a request while it's
-still possible to see a natural completion. So with that in mind,
-perhaps the call to "nvme_disable_ctrl" should be called unconditionally
-instead of only on a live controller.
+Hi Maxime,
 
-The sequence you're describing is weird, though. Your controller
-has fatal status, the driver hasn't done anything yet to recover the
-device, so why were there no completions available the first go around,
-then completions became available on the second? The controller
-shouldn't have done anything in that time, nor should it have been able
-to since Bus Master Enable was off.
+Thanks for the review and for the detailed debugging.
+
+> Eaxh patch should be an independent thread, not a reply to the previous
+> one.
+
+Ack. I'll send v7 as a new series instead of a reply to the previous one.
+
+> So this patch breaks all the stmmac selftests on some dwmac1000, e.g. on
+> dwmac-meson8b :
+> ...
+> Can you add the following patch to your series, as patch number 1 so
+> that ethtool selftests still work during bisect ? I've tested it on
+> the board who'se selftest failed with this patch and it works :)
+
+Thanks for the analysis and for testing the fix. I'll add your selftests
+fix as patch 1/2, keeping your authorship, followed by the software VLAN
+stripping removal as patch 2/2.
+
+I'll send the v7 series as a new thread shortly.
+
+Thanks,
+Peilin
+
