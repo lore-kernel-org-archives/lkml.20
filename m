@@ -1,237 +1,139 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E40449B11
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C4245C71C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389426; cv=none; b=C+w2qiIgegxR+Pl5gEk4m+0gLAPsQ+xIDTShwCb0Ln1e0f7CN+jrXjTHD6yeExYUNB8PJ1tRIkRTOdl3yOxRfaUDIDcQMVa33siz+ljXK74JUUBq6IXJbNZJZXL+X3W4+VBLnSnsguvkoek9GR8ERA9Mft/8MkbKHKrK3eHSuP8=
+	t=1789389459; cv=none; b=kubRWi2Il3gKzDAgjw+XfhiNT072QSWoeZCxe43P6QlQ94mUA7rl7jTenUbofy50FsEj5RgW2tDbRBD//ZbfL8p64PvO3U7E0jbsuEM9sab8JFflE0GNcqNFYPmMq2Cgpv9hyzFIkvyH4lKfqCYGLBbEjhMQkc4gK8N5FtdxAXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389426; c=relaxed/simple;
-	bh=8JfImYkWMN2z8zY/DFCLfhhHTMkSq3MZm/WUGiZF0CU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=gxPc8NMB3tmA/KwR1NzxuOWwiNnEMLIiL16jYeiW09lHBEApHpcNY/zbtUh2a6Il/2SaWEa4AjFkY+GsXCYXzhvMvafMKqckBKsQhQS0oZAOxsRCGVyvOpdQGX0scv0Nvp8QQAuja8e3xxxU4382/cf0c0JvLmUTbWDZtj9yt54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c324a0c0faso1784643eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:37:04 -0700 (PDT)
+	s=arc-20240116; t=1789389459; c=relaxed/simple;
+	bh=K05PmFF6pkqk7FVBk07pIjMzhL0tcbul2tO9kilU8bA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OooJ4gjDFx4ANG3JbQh/RG4C7UFxfl8pB7hy1rpeqEQn8uaopV8vJjdrWM9vXF55HnA6WXpY+0FbEC3twpRZClrHJ/AlkGMiWK6bxaoBJXqKHkZcXPri0LHvvuTAI4euac88Fnoj8nBJn9PH0KCTSZmvMnlTb4jL+as5T7tmoTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=owD5IByI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bJgyHJqz; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="owD5IByI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bJgyHJqz"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAm6TJ3793302
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IElVkIsCBxgJuoSMibKS1eyihRvOBQooxAqxg9nq+9I=; b=owD5IByIMKLXs8Wq
+	/uCIiPxjgkzEWVjVmzjM+v1Hs6Dgs3J1+S4S9vigdaDAGt9QZIFwhRFRaYej1WjR
+	sKNWNjTQ7VlPZVpno9G/g+Eekoe1o5IQEwKgeU9GBbtKWJjZarFCFTBotWsjT9c3
+	WhNdoMk7/8HlAwcV0ahqJmVePRQPzTY9NFDY59kAw/viw7F0q+sn7AZ687C/rQM4
+	Z2jbSKPqOh2tgmnU4smJICqbbv2beQm6AeCoZi4+fx2zW9qMzYZUF5ojgf7dLIhi
+	CEAEPAB50xYzRtKUzu3LneBTLhtz7u1xwKFHlEhX2ry3TzCP8hPIivbMJ724f6UR
+	UTLvgA==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg14h7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:36 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c665139c92so116326e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:37:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789389454; x=1789994254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IElVkIsCBxgJuoSMibKS1eyihRvOBQooxAqxg9nq+9I=;
+        b=bJgyHJqzAKdDwx6Jmk4J4gs1IP+4+duTPK6PccUCr2IejTBbSkMlp5+/LSrkto7rzk
+         orgidVmEIEsz9Qc3/eygXASzFGIgTJYAx6OlJW/km1cjC3d9VfYv8KKotDHUg7xaiWo0
+         fOjI0TwpkX4lh98Rw7hYky8ASqdkwRiIRUMBFAIOW2xt0I6zMvheF8X/47oUdNfZRSdo
+         gBFwq7OIMfWEPIH6gsI9PhXQ/OtxZ8u+lCmaJRgg4vGOCKNOGcsS7mwoXad+zfADTaNn
+         YvSAKikucLJmWz/0aBE1DwdYXBXHd81RRm+k85MWdE9UYe6kmuH0NgVt9Dz/lKlJRj8Y
+         OERw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789389423; x=1789994223;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SSLp5OKYuN7gkXOwQJ1j8JpiEmQ1dS03NKwz82+mzNs=;
-        b=rpM6j7bAeUghGPK/0NNgpux6FxuNdt8Y7A0FyL3EHHHtuqIaCQGY0X0gXvETxETVaq
-         gbATeSVQDjVdXK7eFqEamcC3/owikH0Oc2TBsr6GO3m2HNnHaAr5AkKYkgzhHX+gPcQQ
-         aHQdXP5hH4IjS6FcU4cx3VjCyvbrYMQMALbhZLQLfSjKuGSxqNYGy0qfjt7SqxQodXCx
-         9ShLBjXHIOpb6Fa8waAX+tE8TVOfFrL9zWGLreymtxOCLbub18ZIYOTglaaVyGT14Vuj
-         iPIoA0PaVat8cfSttfy6VlQf1ZAqbdLw5qfK86XCsFgL7gH6Bv4/3HgX90fGow2CLgv8
-         TJwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQejbqxka9iEcUItkJakqCu2LNFZJvPCg1dRwNM4c1M3Wf42iCRnRSXfHYNtoF2ZTJGvttCIfbumq4ick=@vger.kernel.org
-X-Gm-Message-State: AFuF++kd/1BuCi49AA14GeW/f7v3Rh5vgH3fUWQFedZFZofBcNVi7/5z
-	APKWlUpODjqvJAs6WWQMYu5Z3gpcSeNlyxywoJf7AW/ANqJeYZbWLXeCfOiEkky3gxX+75Vw+B8
-	pYhdaqmQeIzU7aJH/1VqKNtTr6JodwbczC1Re10wpPFAovwy0YuNm3MWiRvQ=
+        d=1e100.net; s=20251104; t=1789389454; x=1789994254;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IElVkIsCBxgJuoSMibKS1eyihRvOBQooxAqxg9nq+9I=;
+        b=IuYVutiuXbKuGJ8fMnWTTTDue/bdsbBiFvOmQbzBERlbwJDRHztG3RU9G/MK376+Qu
+         h2aDXTxgR1fgdnN6z5Ml8jRr4YPny+GykvPOqvepdWna/0D8fZbBsL2nMIPSD4qqDrrp
+         wijusbt4HJNRDCoTOqpOjVuH6Oix7WXp9VZeFcutdnGeOoEZQYAJEzKpnjm1tf9icNjE
+         ZpHmh8ip1KjXrpB8jryXxFBGSsunRn0E8/mOy7mALFU7ehGoj4yOqO2SxGHbb6/v9UZs
+         i33mvPE8oMyln5v4Pe3QiTzzqV2mGHyuAE1paHqhEOs+pFmnoyvcYovaCXJ9486Aq3aK
+         9/rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwv6Z2ZbVNWHrpEV3xocQu+vy3zApeiOxvTI/SLAx1W5zX1bMIHhLIAccx2n17zNE5i8rNp6cup7cq391E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCoEYdmhQbHICPOt91xg6DY3pJpkA0NwQkSsv34WsyH09Kskgl
+	CKVVJuDd95RS3kM3t14VrhPzxJXDBCxsgEYbEXizKFWwawb/O3Kim65bMyx/uxj70/LBzHwxtfu
+	UqAOvFDDbLdpvyg4/5BMVNlpWtNhL3uqkQmomkBPN0QAGBHsK1psw4oG6DiwF7WHnQ30=
+X-Gm-Gg: AYBFou32RfkW8b8yQbLn7/dtlFID15rtZ1t+ingEXb1WUdAbSgdQXxznjsk4kQurnec
+	PoFwfVwp/Zsb2JbXRA0e6ET+Sl3xI4dBYIZrDG59rfaEGksXZeUmasGRtz7RTCDAkIiS//bUCnL
+	gorffCEh5zfzA8hLP5ECFCrPesf3nDZI3fVYBwYhfBl/9cTBmyAyiETzJ9cUq2nubHnQL8iaLQN
+	V03u/EVoGTai58NO9TU+wr45g0UNZ+zVeBW8gdkeYcSMIgPaGRi1VDnJO8mc6Wfr0799ncIlsKR
+	Q8o42+Y2uGugn8q0v34OIBwD+ab4E1QWjg27sIp+St7Q8YfeCjfuTD3sgmTUD4Lv1n8fim8gg8u
+	/mUXx7MkZF7PTqzqG40H7lg==
+X-Received: by 2002:a05:6102:54aa:b0:795:41a8:ff58 with SMTP id ada2fe7eead31-79b53156063mr371813137.0.1789389454097;
+        Mon, 14 Sep 2026 05:37:34 -0700 (PDT)
+X-Received: by 2002:a05:6102:54aa:b0:795:41a8:ff58 with SMTP id ada2fe7eead31-79b53156063mr371803137.0.1789389453626;
+        Mon, 14 Sep 2026 05:37:33 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a046d243sm2407027e87.53.2026.09.14.05.37.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 05:37:32 -0700 (PDT)
+Message-ID: <e54cc308-7be7-406f-be05-c38a759e5b3c@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 14:37:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1c90:b0:6be:b2e3:27e with SMTP id
- 006d021491bc7-6c53fc7ab29mr1026057eaf.16.1789389423031; Mon, 14 Sep 2026
- 05:37:03 -0700 (PDT)
-Date: Mon, 14 Sep 2026 05:37:03 -0700
-In-Reply-To: <6aa7e4d0.62481f88.1223bb.56dcSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7ea6f.016ef6ab.da411.0020.GAE@google.com>
-Subject: Re: [syzbot] [mmc?] WARNING: ODEBUG bug in vub300_disconnect
-From: syzbot <syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pmdomain: core: Fall back to node name for idle states
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260914-pmdomain-idle-state-name-fallback-v1-1-e4242c409a0b@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260914-pmdomain-idle-state-name-fallback-v1-1-e4242c409a0b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa7ea90 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=5kt61lt8hwMnmxBZRvwA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: TUnioJeBJ_98JO1xb6VBUHniqKeKxcTL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE3OSBTYWx0ZWRfX4AjoCjvJEZrp
+ xuI3Wweix8DI84Adh2XwYNzalddprfKP7JKsy24KsXWjL8Rs+9+J7IiHYA9AJpEeGlQK+mxquhF
+ cpOx5aqoSzewt032qbg8xGZTpPb7/bI=
+X-Proofpoint-GUID: TUnioJeBJ_98JO1xb6VBUHniqKeKxcTL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE3OSBTYWx0ZWRfX+Mmw5Dgt6gNo
+ mj0eXjzxG8oNb3HSaAUWjknEYYPSfTMpMy7IMJVi8j60VUi4Y4wG9PPKaeoCv+k2Ju0TNg5sho2
+ MbyWi/alz5epsAYFgTu2dbJ3CIzE8I7cXUarqE8fej3O7Eu8R1Asp8C07bwEYXutClXjRJgrpfW
+ lnKpI4REe5amA35kpWaufXoIIYV1eoeBkQLvjhjUylFvYp1+s/fv7tHBCOB5ZJvp452smFGsW7L
+ ou30aMYKe9/aHzzHTzjZZiJ03mep4YeUVnAWvcNaSsowa0qj5TYusFUAb14VG+DQ8D4P0zciFLl
+ 6OpxamFhnHvugs9bdsD6KsYRJoEEiOTcZsEZv8n56yao1UzHz4ZiyyESOwBQ9orHT8U9RDwV7QR
+ TafJHrVOPnuRO3nlFytT4I2dOLwi59inJYc127+qKUw9AMZ5IW8QVreENhwexs/VNqoRC0snLkR
+ xw8rXzLZF5A+7JOyQ4g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140179
 
-Hello,
+On 9/14/26 8:54 AM, Maulik Shah wrote:
+> The dt_idle_states uses idle-state-name when available and when missing
+> falls back to the node name. Do the same for domain-idle-states.
+> 
+> This lets pmdomain idle_states_desc debugfs show a name even when
+> idle-state-name is omitted.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-KASAN: slab-use-after-free Read in mmc_host_classdev_release
+These are often 'idle-state-N', so I'm not sure there's much value
+(but certainly don't treat that as a nack)
 
-==================================================================
-BUG: KASAN: slab-use-after-free in mmc_host_classdev_release+0xfb/0x120 drivers/mmc/core/host.c:70
-Read of size 8 at addr ffff888029c334c8 by task kworker/u32:4/5855
-
-CPU: 2 UID: 0 PID: 5855 Comm: kworker/u32:4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: kvub300d vub300_deadwork_thread
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- mmc_host_classdev_release+0xfb/0x120 drivers/mmc/core/host.c:70
- device_release+0xd2/0x270 drivers/base/core.c:2640
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x1f7/0x640 lib/kobject.c:737
- put_device+0x1f/0x30 drivers/base/core.c:3884
- vub300_delete drivers/mmc/host/vub300.c:379 [inline]
- kref_put include/linux/kref.h:65 [inline]
- vub300_deadwork_thread+0x22c/0x550 drivers/mmc/host/vub300.c:739
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 1026:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- usb_alloc_dev+0x55/0x1090 drivers/usb/core/usb.c:651
- hub_port_connect drivers/usb/core/hub.c:5483 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x2b93/0x4420 drivers/usb/core/hub.c:5966
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 5855:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6792
- device_release+0xd2/0x270 drivers/base/core.c:2640
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x1f7/0x640 lib/kobject.c:737
- put_device+0x1f/0x30 drivers/base/core.c:3884
- usb_put_dev+0x23/0x30 drivers/usb/core/usb.c:790
- vub300_delete drivers/mmc/host/vub300.c:378 [inline]
- kref_put include/linux/kref.h:65 [inline]
- vub300_deadwork_thread+0x224/0x550 drivers/mmc/host/vub300.c:739
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff888029c33000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 1224 bytes inside of
- freed 2048-byte region [ffff888029c33000, ffff888029c33800)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888029c31000 pfn:0x29c30
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88801c042f00 ffffea0000965a10 ffffea0000854a10
-raw: ffff888029c31000 0000000000080006 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88801c042f00 ffffea0000965a10 ffffea0000854a10
-head: ffff888029c31000 0000000000080006 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5136, tgid 5136 (klogd), ts 52095697133
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- syslog_print+0xf8/0x620 kernel/printk/printk.c:1585
- do_syslog+0x5bd/0x6d0 kernel/printk/printk.c:1763
- __do_sys_syslog kernel/printk/printk.c:1855 [inline]
- __se_sys_syslog kernel/printk/printk.c:1853 [inline]
- __x64_sys_syslog+0x74/0xb0 kernel/printk/printk.c:1853
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x121/0x770 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 5737 tgid 5737 ts 44841793649 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x2cc/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- tomoyo_add_entry security/tomoyo/common.c:2166 [inline]
- tomoyo_supervisor+0x65d/0x1340 security/tomoyo/common.c:2238
- tomoyo_audit_env_log security/tomoyo/environ.c:37 [inline]
- tomoyo_env_perm+0x191/0x200 security/tomoyo/environ.c:64
- tomoyo_environ security/tomoyo/domain.c:673 [inline]
- tomoyo_find_next_domain+0x13d7/0x2010 security/tomoyo/domain.c:889
- tomoyo_bprm_check_security security/tomoyo/tomoyo.c:102 [inline]
- tomoyo_bprm_check_security+0x12d/0x1d0 security/tomoyo/tomoyo.c:92
- security_bprm_check+0x87/0x1e0 security/security.c:820
- search_binary_handler fs/exec.c:1755 [inline]
- exec_binprm fs/exec.c:1797 [inline]
- bprm_execve fs/exec.c:1853 [inline]
- bprm_execve+0x80b/0x1940 fs/exec.c:1829
- do_execveat_common.isra.0+0x4a5/0x580 fs/exec.c:1951
- __do_sys_execve fs/exec.c:2024 [inline]
- __se_sys_execve fs/exec.c:2018 [inline]
- __x64_sys_execve+0x93/0xd0 fs/exec.c:2018
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x121/0x770 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff888029c33380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888029c33400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff888029c33480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                              ^
- ffff888029c33500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888029c33580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
-Tested on:
-
-commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=174c2115580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=f4a0159ce6802a0a4774
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=15aeb5f9580000
-
+Konrad
