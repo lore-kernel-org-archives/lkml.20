@@ -1,139 +1,173 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08AB41A4F8
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335CA418A5D;
+	Mon, 14 Sep 2026 09:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376853; cv=none; b=BAL70WAJej5Ctl9N1sOW9ERe0+iObkNOeyh2K5DZ47/Lc2lBnlDzz6SwrcT504QVO5HVuAcPtBybOcDhm7aVvdElHTJC3i+BJX6g/rpAHMSlSXLHleZ59Xf421L6CD6Y7IN/yYnbfd9udK6l8ryvgZfI6sq7mEHilXgY4xw9tjk=
+	t=1789376850; cv=none; b=nuJ3pGpUkJNbzIvQRspQ8XUTNB+SvJ+Vh/2qArWEBXFc7eJFDbCJHK9wMBmoqxLA5b7xcrxp//QC7mFqxcR14gE+JFPkQcwHbIz1yAsb1Dxp9NvY14/+w8xjUhYxM78rqAzY0o4RDKy5UJH9587g+jzrm12drgkVVbZYAuM99cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376853; c=relaxed/simple;
-	bh=FN6z/whQjCJR5PJ9elVbNUyC4Aww99HqmqaHahztQls=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jmKGHw7sQzEOmcgYPzLxMEPy9u+A2KjtsnWYsUu67H++X/1wQNRizmbk5piYr1aK4o2ME+ue7xLbUGxEy4UVk4cBrRk8qnMCY4DXBbIhnNgrZfvyrxOQfxKeG3WybU4gtLoYK9761CyQEnCJxnkiYmD1fuQnDBT6yph/RvQIFFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RWG3Lrso; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789376850; c=relaxed/simple;
+	bh=engjEc2gudsArVMmNEJz5z41HqqXgHRqILp5st5A2Ko=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ocyRZ1VK+ASyIC8JebhrC3PFVXsIT43x+hdR/DZs2KlBu+JOONnJvdpr+Pushhg6zVs7hNnQJ4BC8mRQJ+/6BwNg1Z3PTjPbTcKWDda1bCi4MxDuliVfcjK0AFhUXTtNpGGQkmtigZuAg0exvuy7bUZw2p9T7LKSKk5toEfV/t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=G8gXagL0; arc=none smtp.client-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RWG3Lrso"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-869d181419bso2790621b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:07:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789376851; x=1789981651; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wvFBiMkRGjwoloZbq9nwDlVvLI1OyRNq467fT53sktU=;
-        b=RWG3Lrso78cHLp3V0uvJIbc5+X4QEHaDstNSaqtrl/dx0WaGnuyajTaW214twt0kDc
-         PreTvb9aL1TR2rncRrmpmodlAWsqlYEpCVZVO6W/17srI+fffWM7zM9D0YihjVkFEuwm
-         IglCZ2zWZnf3HCD79Qmf/BRC2L0Xi/WQecWeajwAtmx63Gyi4vnbs/qHwi+a3Tsn+GmK
-         yxknl76WTU3vlGldJRSJaV/EC6Koatk7/8etYt78j5w715BaRQk7//Vh2Fm9CZYOFMH3
-         mGEtVkihni7fWlTxzdH8fBCwfQwLfhYUqrcWS0pPvkLWuOQ/rbff/SHQIr2YTQJ+eU6V
-         zpYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789376851; x=1789981651;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wvFBiMkRGjwoloZbq9nwDlVvLI1OyRNq467fT53sktU=;
-        b=H1ySyeGeCZ3x7HfJt/HG8wcTFAfe/c/QEuKSGwWuWVybcrtRdeMqvsq5sjS/BHigV8
-         FXICsnAjG+4szgh+221/07LL0YC2Vyapwflymsnz7XzvHQf+hF+acEo4QwTML5vg3gju
-         9jO71WclfRmSWHge0hAgsmNUF5JsyAjoSoxPNw7UyZtzFsYey/3Z2/pzFoWPllZNHDGW
-         ka6j0EPYgB1ZO1nZCdRz6+Oodhq/W8OxGSfezwDnJrljHpRoUvOA+CuV8TPvHuIqn2/l
-         fTCDchtGQN948uSLbWTwUrBq6KtZ8hNdD1jDlr2/ShagcJzO5u6hfM7O2uX2JjA9at6S
-         fapA==
-X-Forwarded-Encrypted: i=1; AKwUvBwI1yF+RaJEmzvFCY2lnxDtSa21FFzdaY5lJOxw7+2DSpqSIFQP8Fw5yFXqYRuvvz66LmQsinvhvVcjSEE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxEB80XT395Wbi37iYrr7+l4V/9wlpW/U7/qmFw/tCG6gahw2f
-	PMp+c1s2Xv45UFNwSyBi3XgUZ/rmKVydGap+Kd4BfT8omfBhcUNClivp
-X-Gm-Gg: AYBFou3KsIQujog7bVA5unP3z6DVmAwHYGT8UXwZJ/eq7EH53Ms+FDxLdpkPKxYvKnC
-	f/bi872ULSGdBJTlnGrrR2Id7hIT+aGFo+mqN3eUjxzrasqI9rwbJZbFziavqFe7cOg/wZOmE9x
-	kg92sG87lBSVlklFg0qOFnTbKs+P8xlr+FBeNOte1mB/8jmROZg9z4JiUVeZq9k87QACTHwYckw
-	L0FYBCNpgznm9T15Bu0MoNeJJKN9Ctm3l9t7D78OgM6RnS4ao+Y2lLh4RKZFpKkpDjEVY6rUh/S
-	olclAzCxzeOr5SwBsoRV+6VykGF1iOME8xSJg+IWK7n/53l4LbaB2E1AzyAAnFVAXUMNtQAx2gS
-	rBclPDZvz1wVnyQHPrHoon0f4hITnpMJ3IXyCNPYglClp8GbSDWqDGMnX8/GU25BXa8UobTaSe3
-	4bxpstYESFxfRR49aVYnttOKY5Zd/d9vzhdFcnSvcQM/meIxIALcg5KdM=
-X-Received: by 2002:a05:6a00:8d8e:b0:84e:909:ac03 with SMTP id d2e1a72fcca58-86f83b3b22fmr3682395b3a.10.1789376850775;
-        Mon, 14 Sep 2026 02:07:30 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b291c1601sm4365005b3a.31.2026.09.14.02.07.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:07:30 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Dong Aisheng <aisheng.dong@nxp.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Wolfram Sang <wsa@kernel.org>,
-	Fugang Duan <fugang.duan@nxp.com>,
-	linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: imx-lpi2c: release clocks on remove
-Date: Mon, 14 Sep 2026 17:07:18 +0800
-Message-ID: <20260914090718.1666333-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="G8gXagL0"
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hjzlL5BWpz4BQm;
+	Mon, 14 Sep 2026 11:05:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789376750;
+	bh=engjEc2gudsArVMmNEJz5z41HqqXgHRqILp5st5A2Ko=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=G8gXagL0Jnv4nNdUyybM7/GNJS2GAfoBc5w5jTI2Y83sT6R3ACO80LG6cpaw5x0D7
+	 VyyjDMkwjWEpMJaqf515RWBHU4OqoDgGbuRmYyqIqszv39YbpjnPly32Mygzctj4IO
+	 Ro3Zo5mtF5+fOV4PYiJiTikrfbz/JOQ7bZl5jLLDIo//8LopqAcVw4Pxo5u6UbhlQn
+	 SDgQkXg/U3fMGCubwV96HJIOk40/QCtTXXfajM9Qtw+o7N2G9W7HbY4+rfq9/dWSUr
+	 kZXTsvo2tulhjjeHYVZUS8cZKygBuAdlH16mA4Xt3pN888GbtFjxkOP3E7z9bgzloZ
+	 MwOrRrkuM/s2g==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hjzjv1NBRz7yxL;
+	Mon, 14 Sep 2026 11:04:35 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hjzjt0ywRz8sbC;
+	Mon, 14 Sep 2026 11:04:33 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 58F815F9D8;
+	Mon, 14 Sep 2026 11:04:27 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <260eee02-29d3-478f-9a39-d67adfefe862@leemhuis.info>
+Date: Mon, 14 Sep 2026 11:04:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: qrtr: resend HELLO on MHI resume
+To: Daniel J Blueman <daniel@quora.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Chris Lew <christopher.lew@oss.qualcomm.com>,
+ Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
+ Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Takashi Iwai <tiwai@suse.de>
+References: <20260909055846.16539-1-daniel@quora.org>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260909055846.16539-1-daniel@quora.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <178937666798.1427810.11433211726485551189@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 58F815F9D8
+X-NC-CID: T+F9yzsBemWHL7da7K3H05tvnUG+n+nUAdOdPPCfRe+q7OZ3MhQ=
 
-lpi2c_imx_probe() prepares and enables the controller clocks before
-enabling runtime PM. After probe succeeds, clock management is handed
-over to the runtime PM callbacks.
+On 9/9/26 07:58, Daniel J Blueman wrote:
+> Since the MHI HELLO exchange was relocated, it is sent only at device
+> registration. During a suspend-resume cycle, the firmware in WiFi
+> cards such as WCN7850 indefinitely waits for another HELLO,
+> triggering:
+> 
+>   ath12k_wifi7_pci 0004:01:00.0: timeout while waiting for restart complete
+>   ath12k_wifi7_pci 0004:01:00.0: failed to resume core: -110
+> 
+> Fix this by triggering the handshake from resume_early in the MHI
+> transport.
+> 
+> Validated on Qualcomm X1E-801800 on Lenovo Slim 7x across 10
+> suspend-resume cycles.
 
-However, lpi2c_imx_remove() only disables runtime PM and autosuspend.
-It does not ensure that the device is active before teardown or drop
-the clock references acquired during probe.
+For the record: Takashi ran into this regression as well and provided a
+different fix, but withdrew it after I pointed out this fix, which
+worked for Takashi. For details see:
+https://lore.kernel.org/all/87mrtkpd2q.wl-tiwai@suse.de/
 
-For platforms which do not require clock prepare/unprepare in the
-runtime PM callbacks, runtime suspend only disables the clocks, leaving
-the prepare references held for the lifetime of the driver. Since the
-remove path never unprepares them, these references are leaked when the
-driver is unbound.
-
-For platforms which prepare and unprepare clocks during runtime PM, an
-unbind while the device is still runtime active can similarly leave
-the clock prepare and enable references outstanding.
-
-Resume the device before disabling runtime PM so that the clocks are in
-a known enabled and prepared state. Then drop the temporary runtime PM
-reference and disable and unprepare the clocks during final teardown.
-Mark the device suspended after the hardware resources have been
-released.
-
-This issue was found by manual code inspection.
-
-Fixes: 13d6eb20fc79 ("i2c: imx-lpi2c: add runtime pm support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/i2c/busses/i2c-imx-lpi2c.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/i2c/busses/i2c-imx-lpi2c.c b/drivers/i2c/busses/i2c-imx-lpi2c.c
-index e1a4338bc51e..481950004b2a 100644
---- a/drivers/i2c/busses/i2c-imx-lpi2c.c
-+++ b/drivers/i2c/busses/i2c-imx-lpi2c.c
-@@ -1604,8 +1604,13 @@ static void lpi2c_imx_remove(struct platform_device *pdev)
- 
- 	i2c_del_adapter(&lpi2c_imx->adapter);
- 
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
-+
-+	clk_bulk_disable_unprepare(lpi2c_imx->num_clks, lpi2c_imx->clks);
-+	pm_runtime_set_suspended(&pdev->dev);
- }
- 
- static int __maybe_unused lpi2c_runtime_suspend(struct device *dev)
--- 
-2.43.0
+Ciao, Thorsten
+> Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
+> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> ---
+>  net/qrtr/af_qrtr.c | 13 +++++++++++++
+>  net/qrtr/mhi.c     | 10 +++++++++-
+>  net/qrtr/qrtr.h    |  2 ++
+>  3 files changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+> index 78347c937af7..2ffcfc2fdb4a 100644
+> --- a/net/qrtr/af_qrtr.c
+> +++ b/net/qrtr/af_qrtr.c
+> @@ -623,6 +623,19 @@ static void qrtr_hello_work(struct work_struct *work)
+>  	qrtr_port_put(ctrl);
+>  }
+>  
+> +/* Trigger the HELLO handshake after the remote has been reset, eg on resume */
+> +void qrtr_endpoint_hello(struct qrtr_endpoint *ep)
+> +{
+> +	struct qrtr_node *node = ep->node;
+> +
+> +	mutex_lock(&node->ep_lock);
+> +	node->hello_sent = false;
+> +	mutex_unlock(&node->ep_lock);
+> +
+> +	schedule_delayed_work(&node->say_hello, 0);
+> +}
+> +EXPORT_SYMBOL_GPL(qrtr_endpoint_hello);
+> +
+>  /**
+>   * qrtr_endpoint_register() - register a new endpoint
+>   * @ep: endpoint to register
+> diff --git a/net/qrtr/mhi.c b/net/qrtr/mhi.c
+> index 3990da1a65dc..50326ffa3401 100644
+> --- a/net/qrtr/mhi.c
+> +++ b/net/qrtr/mhi.c
+> @@ -183,6 +183,7 @@ static int __maybe_unused qcom_mhi_qrtr_pm_suspend_late(struct device *dev)
+>  static int __maybe_unused qcom_mhi_qrtr_pm_resume_early(struct device *dev)
+>  {
+>  	struct mhi_device *mhi_dev = container_of(dev, struct mhi_device, dev);
+> +	struct qrtr_mhi_dev *qdev = dev_get_drvdata(dev);
+>  	enum mhi_state state;
+>  	int rc;
+>  
+> @@ -201,7 +201,13 @@ static int __maybe_unused qcom_mhi_qrtr_pm_resume_early(struct device *dev)
+>  		return rc;
+>  	}
+>  
+> -	return qcom_mhi_qrtr_queue_dl_buffers(mhi_dev);
+> +	rc = qcom_mhi_qrtr_queue_dl_buffers(mhi_dev);
+> +	if (rc)
+> +		return rc;
+> +
+> +	qrtr_endpoint_hello(&qdev->ep);
+> +
+> +	return 0;
+>  }
+>  
+>  static const struct dev_pm_ops qcom_mhi_qrtr_pm_ops = {
+> diff --git a/net/qrtr/qrtr.h b/net/qrtr/qrtr.h
+> index 3f2d28696062..de2de69a6199 100644
+> --- a/net/qrtr/qrtr.h
+> +++ b/net/qrtr/qrtr.h
+> @@ -27,6 +27,8 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid);
+>  
+>  void qrtr_endpoint_unregister(struct qrtr_endpoint *ep);
+>  
+> +void qrtr_endpoint_hello(struct qrtr_endpoint *ep);
+> +
+>  int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len);
+>  
+>  int qrtr_ns_init(void);
 
