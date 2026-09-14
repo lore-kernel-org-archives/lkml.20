@@ -1,36 +1,36 @@
-Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
+Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211ED37F72E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCED33890F8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410556; cv=none; b=FfbgsMc88FvBEvICONVXeNMzpjKrPlgUOxlo/cPe683sNoSfr3LMWhRc3iHd3l+cZqd+gDBRaZNZW9XfPLAk6DzPz3lE5aryyGBcxGtC7yC+0GpMenBIwOc8tpBy/QZvDCsE67xmD7aiZDTs0fhCvpgg5YCKaYtcnI6miIt4pEo=
+	t=1789410560; cv=none; b=H+IHK1evJZFLsiFFjEI7wMWXXrSYMdf0ShUV/v3CYjntUKcLmE6Ub/cDi+nd/RTsrIRhFxKpeJDFtihSnsvSNsQyhvlFLzUney+BzXf2C49Ykf+HQb20GvVfpbFgD5IN0aYxG717NXbH+krJf7tqBUbPcqmnqYLVM2mB0MX5CJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410556; c=relaxed/simple;
-	bh=7/sIrvEWn39u77dnOkwjRM5cwchngQ5qOWcv4z5CNe0=;
+	s=arc-20240116; t=1789410560; c=relaxed/simple;
+	bh=SbOf+X7P5Uk1jXdMKZgWyQenep8GU8iSruKsda0GEqM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=po1O2PHBRKFWUqD14U2nq7C40pWVeLko7MPWobhyfPbR+WfNJuc7X+Oc7bGWlqcbAJsHnoUhUiBgIJWvgF+6tDStY8uG75d93tUux+mc/vxhQIq1HyLGiqmKg9AHlqgN0pYx/TLBtp8PbVdILrwiWdn775R4681l7TA95S69RW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HALt7N0c; arc=none smtp.client-ip=91.218.175.187
+	 In-Reply-To:Content-Type; b=f9anWYOdCZpI7YyO65eTdQScyTgtBaoKki1Pefh3hFJMoV8S7CapHY3r5Obsy3dgc65z/pS+QCUYRyRNP9dLWQCaRCB9Fym7CokfSM07DRQlVkW7bD3de4lMYzhvpk5IasB5jXY8uSN7SGz5JLAaoubVQERNlfExA/h5Vj02+2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q8n230uE; arc=none smtp.client-ip=91.218.175.196
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HALt7N0c"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q8n230uE"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7/sIrvEWn39u77dnOkwjRM5cwchngQ5qOWcv4z5CNe0=;
+DKIM-Signature: a=rsa-sha256; bh=SbOf+X7P5Uk1jXdMKZgWyQenep8GU8iSruKsda0GEqM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789410548; v=1; x=1790015348;
- b=HALt7N0cOxMnNaUow9IIH4OTA9XZK5nHjBI26EWot4SxX/FiokO0Vp6n7rUjQJwqpXAndp9/
- sLQYEnUTgS2agFYD15teXBYrELTAYWp3d6lJALmYzj3ggqNheIZF61FStfhR1ZfeYW6cp0J4mRi
- 8rmAr9Bq8cyu83YeE6nt3FBI=
+ t=1789410554; v=1; x=1790015354;
+ b=q8n230uEVbuXf2wwGAurx7pKUn5do+Z1U1xwD70rxTWWHYoL0S1L1Kii1HdDZiprAtF89D7+
+ pF3zsvqCAwaf4BZ9ssepvAkoTA+DnEABSBtUQXkvxkzoOTcSHwUyaudxqFRwfVfqe5uyVmxhjsy
+ MOkNJZlRG7LYfG9E6eWvAK0Y=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 46738f0eef395c07;
-	Mon, 14 Sep 2026 18:29:08 +0000
-X-Mizu-Trace-ID: 46738f0eef395c07
+Received: by smtp.migadu.com with ESMTPS id aa833c5d9575ff90;
+	Mon, 14 Sep 2026 18:29:13 +0000
+X-Mizu-Trace-ID: aa833c5d9575ff90
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <029a18c3-f6f5-4971-8ee2-25a98dec416c@linux.dev>
-Date: Mon, 14 Sep 2026 19:30:54 +0200
+Message-ID: <ac77dc6c-a216-42a3-a858-8fcfff65e364@linux.dev>
+Date: Mon, 14 Sep 2026 19:55:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,85 +38,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] soundwire: amd: fix work drain ordering and
- pm_runtime guard in remove path
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, vkoul@kernel.org
-Cc: yung-chuan.liao@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- Syed.SabaKareem@amd.com, Mario.Limonciello@amd.com, Richard.Gong@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
- <20260910190240.1604447-4-Vijendar.Mukunda@amd.com>
- <860a28bf-9c69-48da-9fa7-1cdb82761c35@linux.dev>
- <3abf2784-49ff-459c-9022-acd88bd767b4@amd.com>
+Subject: Re: [PATCH] ASoC: codecs: rt712-sdca-dmic: fix uninitialized
+ stream_config->type
+To: Jiangshan Yi <yijiangshan@kylinos.cn>, oder_chiou@realtek.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Cc: shumingf@realtek.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 13667453960@163.com, stable@vger.kernel.org
+References: <20260914104712.379574-1-yijiangshan@kylinos.cn>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <3abf2784-49ff-459c-9022-acd88bd767b4@amd.com>
+In-Reply-To: <20260914104712.379574-1-yijiangshan@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/14/26 08:07, Mukunda,Vijendar wrote:
+On 9/14/26 12:47, Jiangshan Yi wrote:
+> stream_config is not initialized before being passed to
+> sdw_stream_add_slave().  The type field may contain garbage and is
+> later copied to stream->type by sdw_config_stream().
 > 
+> Zero-initialize stream_config so type defaults to SDW_STREAM_PCM.
 > 
-> On 9/14/26 01:35, Pierre-Louis Bossart wrote:
->> On 9/10/26 21:00, Vijendar Mukunda wrote:
->>> amd_sdw_manager_remove() cancelled amd_sdw_work but not
->>> amd_sdw_irq_thread. Since amd_sdw_irq_thread() calls
->>> schedule_work(&amd_sdw_work), an in-flight irq_thread item can
->>> re-queue amd_sdw_work after its cancel returns, defeating the
->>> cancellation.
->>>
->>> Fix by calling amd_disable_sdw_interrupts() first to quiesce the
->>> hardware IRQ source, then cancel_work_sync() for amd_sdw_irq_thread,
->>> then cancel_work_sync() for amd_sdw_work. The existing
->>> cancel_work_sync(amd_sdw_work) is also moved to after
->>> amd_disable_sdw_interrupts() so that any work item queued between the
->>> old cancel position and the interrupt disable cannot escape draining.
->>>
->>> synchronize_irq() is deliberately not used before the
->>> cancel_work_sync() calls. Once SoundWire interrupts are masked, no new
->>> IRQ deliveries can occur. An IRQ handler already in flight may still
->>> queue amd_sdw_irq_thread, so cancel_work_sync() is used to drain both
->>> amd_sdw_irq_thread and any amd_sdw_work items it may have scheduled.
->>> This fully quiesces the driver workqueues, making synchronize_irq()
->>> unnecessary.
->>>
->>> Also guard pm_runtime_disable() so it is only called when runtime PM
->>> was actually enabled. amd_sdw_manager_start() calls pm_runtime_enable()
->>> only at the very end, after several fallible hardware init steps. If
->>> sdw_amd_startup() fails mid-loop (one manager started, the next fails
->>> before pm_runtime_enable()), sdw_amd_exit() triggers
->>> platform_device_unregister() for all managers. Calling
->>> pm_runtime_disable() on the partially-started manager finds
->>> disable_depth already at its initial value of 1, silently increments it
->>> to 2 and returns without a warning, so a later pm_runtime_enable() would
->>> only bring it back to 1 and leave runtime PM disabled. Use
->>> pm_runtime_enabled() to skip the call when it was never paired with an
->>> enable.
->> The alternative is to do a pm_runtime_enable() in the probe(), and later
->> a pm_runtime_set_active().
->>
->> That way if the probe is successful, then the remove() will always deal
->> a balanced enable.
->>
->> Maybe only put a single 'fix' per patch?
-> Thanks for the comments. I agree that it is preferable to keep each patch
-> focused, but in this case both changes are part of the same remove-path
-> cleanup bug and are tightly coupled.
+> While at it, use snd_sdw_params_to_config() helper instead of
+> open-coding the same logic.
 > 
-> I do not think moving pm_runtime_enable() to probe() is the right fix
-> here. In this driver, runtime PM is intentionally enabled only at the end
-> of amd_sdw_manager_start(), after the fallible hardware bring-up sequence.
-> If one instance succeeds and the next fails before pm_runtime_enable(), the
-> remove path can still run for the partially started instance. In that
-> scenario, an unconditional pm_runtime_disable() is incorrect because there
-> was no matching enable for that instance.
+> Fixes: 63a511284c9e ("ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+> ---
+>  sound/soc/codecs/rt712-sdca-dmic.c | 14 +++++---------
+>  1 file changed, 5 insertions(+), 9 deletions(-)
 
-My take on error handling is to avoid partially functional setups. Keep
-things simple, fail big and fail early. Well-intended concealment
-schemes will introduce more problems, e.g. if the link for the right amp
-fails the left one might work, but users will complain about left-only
-sounds...
+This change looks correct, and there are quite a few other codecs in the
+same directory where the same change could be applied. Just look for
+"struct sdw_stream_config stream_config;"
 
-That said, I am not going to lay on the tracks if this is the design you
-want for your IP.
+For this patch here's my
+
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+
+
+> 
+> diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
+> index 8860d81134e7..a9f3aa4e143a 100644
+> --- a/sound/soc/codecs/rt712-sdca-dmic.c
+> +++ b/sound/soc/codecs/rt712-sdca-dmic.c
+> @@ -13,6 +13,7 @@
+>  #include <sound/core.h>
+>  #include <sound/pcm.h>
+>  #include <sound/pcm_params.h>
+> +#include <sound/sdw.h>
+>  #include <sound/tlv.h>
+>  #include "rt712-sdca.h"
+>  #include "rt712-sdca-dmic.h"
+> @@ -632,10 +633,10 @@ static int rt712_sdca_dmic_hw_params(struct snd_pcm_substream *substream,
+>  {
+>  	struct snd_soc_component *component = dai->component;
+>  	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
+> -	struct sdw_stream_config stream_config;
+> +	struct sdw_stream_config stream_config = {0};
+>  	struct sdw_port_config port_config;
+>  	struct sdw_stream_runtime *sdw_stream;
+> -	int retval, num_channels;
+> +	int retval;
+>  	unsigned int sampling_rate;
+> 
+>  	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
+> @@ -647,13 +648,8 @@ static int rt712_sdca_dmic_hw_params(struct snd_pcm_substream *substream,
+>  	if (!rt712->slave)
+>  		return -EINVAL;
+> 
+> -	stream_config.frame_rate = params_rate(params);
+> -	stream_config.ch_count = params_channels(params);
+> -	stream_config.bps = snd_pcm_format_width(params_format(params));
+> -	stream_config.direction = SDW_DATA_DIR_TX;
+> -
+> -	num_channels = params_channels(params);
+> -	port_config.ch_mask = GENMASK(num_channels - 1, 0);
+> +	/* SoundWire specific configuration */
+> +	snd_sdw_params_to_config(substream, params, &stream_config, &port_config);
+>  	port_config.num = 2;
+> 
+>  	retval = sdw_stream_add_slave(rt712->slave, &stream_config,
+> --
+> 2.25.1
+> 
+> 
+
