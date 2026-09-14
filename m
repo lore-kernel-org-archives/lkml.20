@@ -1,106 +1,78 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263FA42046E;
-	Mon, 14 Sep 2026 09:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9AE41A79C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377007; cv=none; b=QD7RSdyTq3AkBXLPRt8Vt+2vz293ecCZur+x6rIC94o0JOyafUO5gFGRrdSI7PmaHtfs0ckGBEagRopHI1HXZmX0i5EegZobYq/Crmuwf4EhdzlpJ6tFy7vnlxRXeB3BEerOI1x9cikuL/R6m4i8YcxoYb8H2KDhmhvMR488evc=
+	t=1789377027; cv=none; b=uPwVHO04mcU3dxfYfMOZF4EZtgTMUgw0CBm2xvaG6FRkf2Ct1LUalL6BYOtfNYfVkECacAPAAwwcazuFgp849tGP3ojrvO4iWvQXi2jGWKd0q43Sj1dzbxom0M4D0/BbGl/E9ctrc7xrB7rA+McNkmWg1+5sDt1rpUKnF3KnEQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377007; c=relaxed/simple;
-	bh=sHMWlu+OTUqYhqFrSUJL3jwM1neJ6/5JmISeQqqjsEA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:To:From:
-	 References:In-Reply-To; b=BdYu/sdRLUbICVin5fkAIeWdMETBwc1IpjbZmX7Roxe0Dri2HAeOkXCKKAoVMIxEJwffVK3eaiMmP0jRqxk+ksi6kXjc5wlitYz2Kz4BMt0z/ttvX6FDZX9tr9VumCN1+aomr8ezc0ApuPTz44Zl/wD9e8AggEnAH9OSF26vs1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=V/S0lrmm; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789377027; c=relaxed/simple;
+	bh=HiF6kaoY0vmI5yZ0jUaC6VsOtStEetN5jUYUzI7+c/s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k3PFk047QMwASIBwGWlnKTfckhE88euV6PjSugwFTguSRjv14Re7E6FWg19ZJrmfL8A+851nUoCWqO2rsvfkinKBgOeV2KFQHyo+xQaor2bGVzWm1htoDmBaVg0wzhOKR/1K3R3/LLdqN7LN/RURXJbXVt8ws0m4vb1eLjeVGDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Md4rnTmK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="V/S0lrmm"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id BE0C0C5CD40;
-	Mon, 14 Sep 2026 09:10:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B03C560323;
-	Mon, 14 Sep 2026 09:10:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9370F11C7AFDC;
-	Mon, 14 Sep 2026 11:09:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789376999; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=J6gkIocMxhvdpf/NKA6qKbg3ZwMu+O+tLx3jm8Ehdxo=;
-	b=V/S0lrmmL71ZBsBR/XBCFjI98LgKkiHAv7j9dc0xrTkjkGC9lUUILnC0yOpXTDdo6Jqym+
-	efzToVH1eyBm9ahiseIPrlPneDIHEWt7DqGZb6bDmy0oDinA45cHma+7+DqkRjloEf6G4P
-	4WXtli+F8pHa2mmVqCJu2x1nfnLkYl9O8hXqGEWBaHmOvlr71+4u4LL0Zq9vhSM23gTlDx
-	LJ4AlI90ifROUyx7NgNve5QPatdQ4yidw+kC682ul7VhVGHAmjFHi85J+j86VqIpop0Cj4
-	CBgFpqr4f/HRNcCCy9bbwsy07nqo+molgZt2jZxtiBDm5iimwdzMn/T/gWxDQg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Md4rnTmK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5001F0089D
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789377025;
+	bh=eM8Qgu6NYAz2KlTImTDOnkezDzsEl+drhOjvzifcCQs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Md4rnTmKu+8ZHcpPlO1k029rTa7aHBYDxtFakKljBYWfvc0s6Rg2C1Y+nZ1AtwVQg
+	 BDmUAalaph70nl+ULxhmI6rZvjHpJmeuDOdLK1Tgy/0o9JNhg27B6yzv3uu6HcsVr1
+	 z5pEBOYA85TPfIvDk9g5j8fa5xm7i0UA4lzloHDDV/RvarIRnylF2GMHTuqob+mDAg
+	 l1TmXRVnZifJ2EQKuxuEHu0EyALc4pMuy4q2GUdr+6xLdq6SJxcQ7cGvP8GQogxznj
+	 Q052T5FBKCiLlwJ7T5+e0y9aG9n0r2DQ7km6d5+Q3uIFsFfnR9kHlXWu/NrCF0FMl8
+	 sHxVNkSXzjRFg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so1869355e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:10:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwccpL6BdbOUhOEqmGok12I5I++HmTPV8MdJt3mw3Y8xVBUFKd3/HqocPEq+pIcrr6sro0ekmFJ008EKoo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8J/REfZT0huVv7YU1OL6fApCRpVrOvyw/3HpzarsB9Hs0nZMz
+	H/r5ImMnr7U5msh4vvFm2QQMe9qkbj1p5jeW01pxTnLbFuP4rreXZiaPgMdgNCbpz9GtsU04ke0
+	TdCZiHff8q14BqMFU64UQNF0DupcMNq0=
+X-Received: by 2002:a05:6512:1389:b0:5b4:ab2f:5bd5 with SMTP id
+ 2adb3069b0e04-5b8ae68c4d8mr760395e87.8.1789377023628; Mon, 14 Sep 2026
+ 02:10:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260831105056.756259-5-conor@kernel.org>
+In-Reply-To: <20260831105056.756259-5-conor@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 11:10:10 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=F5efmf+b8wvNRcBq3ORB03f+Zue5A5NiaMP=Deu5vAg@mail.gmail.com>
+X-Gm-Features: AcwNN1UxwLBklInMTDkL86Qeyshy5Z5cOuZdxURaH6Lw5kZs_qB3HVR-u2maOv8
+Message-ID: <CAD++jL=F5efmf+b8wvNRcBq3ORB03f+Zue5A5NiaMP=Deu5vAg@mail.gmail.com>
+Subject: Re: [PATCH v1 0/3] pinctrl: mpfs-mssio: three fixes
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-gpio@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+	Daire McNamara <daire.mcnamara@microchip.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Valentina.FernandezAlanis@microchip.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 11:09:31 +0200
-Message-Id: <DLEX74H9NP51.1V8PYE64K89RI@bootlin.com>
-Subject: Re: [PATCH 2/2] dt-bindings: display/msm: Use consistent
- indentation in the example
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Chen-Yu
- Tsai" <wens@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, "Liu Ying" <victor.liu@nxp.com>, "Andrzej
- Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Francesco Dolcini" <francesco@dolcini.it>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>, "Rob
- Clark" <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov"
- <lumag@kernel.org>, "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica
- Zhang" <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, "Marcus Folkesson"
- <marcus.folkesson@gmail.com>, "Maxime Coquelin"
- <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Yannick Fertre"
- <yannick.fertre@foss.st.com>, "Raphael Gallais-Pou"
- <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
- <philippe.cornu@foss.st.com>, "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Adrien Grassein" <adrien.grassein@gmail.com>, "Russell King"
- <linux@armlinux.org.uk>, "Simha BN" <simhavcs@gmail.com>, "CK Hu"
- <ck.hu@mediatek.com>, "Jitao shi" <jitao.shi@mediatek.com>, "Yongxing Mou"
- <yongxing.mou@oss.qualcomm.com>, "Abel Vesa" <abelvesa@kernel.org>, "Chris
- Morgan" <macromorgan@hotmail.com>, "Martinez Canillas"
- <javierm@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <imx@lists.linux.dev>, <linux-mediatek@lists.infradead.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260913123331.100293-4-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260913123331.100293-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun Sep 13, 2026 at 2:33 PM CEST, Krzysztof Kozlowski wrote:
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Hi Conor,
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Mon, Aug 31, 2026 at 12:51=E2=80=AFPM Conor Dooley <conor@kernel.org> wr=
+ote:
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+(...)
+> Conor Dooley (3):
+>   pinctrl: mpfs-mssio: fix whitespace in debugfs output
+
+Applied for next.
+
+>   pinctrl: mpfs-mssio: fix width of unused bank voltage setting
+>   pinctrl: mpfs-mssio: use correct regmap function to set bank voltage
+
+Applied for fixes.
+
+Sorry for slowness on my side :/
+
+Yours,
+Linus Walleij
