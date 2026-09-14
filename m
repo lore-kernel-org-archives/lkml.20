@@ -1,186 +1,238 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D224266A5
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CA643DEA5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382715; cv=none; b=P6i0uCNJCC30WgTJuHou6ALD2mmKIk2WGGrxk+y4HaY7/P8Yc9RGX5dG2qbmk3gFB5iY3eq3f+YCLrxfivFAOaoKtTTagugSQrRdOpOKAECnkwBdQQhsTi0IuhPL6XRD9V9ahwDkVqaaFHtzOUVDsJk9cO+fTBQT8WP5UO33eiY=
+	t=1789382724; cv=none; b=EO4Oy0m+3RlHu27HiWhXlFcWK5Zih0K2QnSpyW01YP9leCo1rbNnQyfhI9EFfTZEu0BU3L+DVf2fOqB1di8B18Fy8eLTL5pxS4fUb0n2KRghaMH3F8ZC0oNFMcYThIPlJ3OMpOhVx6S94+f4W86MIOVljFTud9FLInel1YMntUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382715; c=relaxed/simple;
-	bh=LgVLOg1arH3h6yph2weqhsiaYO9KaoHGIb0VLd0w+9A=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=vDA5Ik6JPiZ0cs+8FIWw52r0VRJh1Yg8XFuFbJXSiau9XyK1Ofjq/AsBaR5zttoVZYlBJ497qdsNvMPQ6lfXFVUI7TDB0moGdaox5Zy4AGRbchdWi4kHHI33sMPoer6UWuR/1h3GIgU69Hg/hW6q2Cah1KkWs+HDsM8MFez5OJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ni8fuoLd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OThLJBLA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789382724; c=relaxed/simple;
+	bh=e7vNYM+WHo2QHJFS+H0w5tDbhh5kApZbGem+B9fbWps=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hmS4EqQWvNzAlxTdotaIP37s4ZFvghtrlo27OiMWT1TtKmJBYxqWPZD0wUE67uOuved0FrEYJScgkkJi76z08qGkS6QShrfmV9Nv1njJuxKvJqju7lLX5mnEe7pTVVNzA2pSKaAdK3vpgWBElCenMpcU7OyugA4PhXA8lgvaEe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q/b4F+y1; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ni8fuoLd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OThLJBLA"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nfXQ401813
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=bVt9ANX2ebJHpMR9J1dO4N
-	fPSwjbfp7C4d6bTEwou7c=; b=ni8fuoLdBZyUyB+gFjLwlRzQaJbAH42Z8ai4Hj
-	LkgGfmUmUNN2pIBMVhJQimyteKr9CZcAqyYpSVadmfipY1YTB0lLwl6f1ac7mZ/p
-	PJkJKQDCvfDQ/nKjYGyqbNoijvGD/R2Ez1oHRxiU9bSmo3hH5mQttGAtbM9ZD3Sn
-	aFxT3+Ba4jk4EgZPErFhK/ZIIi3JYX8B4hvQnQrmPJgeO0gSAv13vHzQoQwvB/zj
-	VjQwQ2GyeoqD5Xc160f2DV7rn2E2tqxpl5wLe4Pa0kMb9tkZ+atLF8jPWjErSMAZ
-	bEOBx1BhOzh7x1cdgRK7HyMgR9PLc3HkcRWuXT+irY4nc+4g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hst09r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:45:07 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934963b2bc0so653300285a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:45:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q/b4F+y1"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b90133ae8so1442137b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:45:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789382706; x=1789987506; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bVt9ANX2ebJHpMR9J1dO4NfPSwjbfp7C4d6bTEwou7c=;
-        b=OThLJBLAc9H6o9sHUXxzT0dJtnEPOvRoJvn8wuDQY9ik0F2ZQ1ndfnKOFJCL4rKO1V
-         jzpjsqDNF/i+jeeCocXo+xo73DzLKs8caqvyH7LkpdI3862uKd+o+i+nxedtB0+K6szN
-         s1Z5zTVmigAJhc8cMkkDV4U4w5ZIynUeTSTx1Y7roXgbrcAHdE1SwxCcixF+cPbsaYKu
-         BMxkqrawYbCB0/ZQ0188cjz3P2O68jOmh4e+T6xRSukIRqgQdWFLY/sf0vuN3SyG7UQW
-         KV5WBQEcCLzhYZ4x/2o2D4mJPZNBuzmkd3PVYyHAK37sRYISfY2FmQik6WJ4FnKmobwC
-         jb5w==
+        d=gmail.com; s=20251104; t=1789382712; x=1789987512; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
+        b=Q/b4F+y1zaus5GPjXUMwdXQy5YzJ1u4dB/R/4Y7DzoUWAdypnZJ8DjopjVzVU+5/12
+         L7xLQNnUjhvdsG0R5ZuaPoTVfz7nQ/+k/UeC7vo2OexscvKCKtW8UJRa4lFUo2uh2TNk
+         zA/GEOuGWuq+wYpq6gEtqsei0TD9dn3RdyJhNLkfc4LSZADcShzrZiXqi16dG8tPeE5S
+         /nz94xSXpug3PLyGfuovLmbIrD6cCNS/tCWy9PGjf4krVy83632LKQHstvslt5/Wpr6X
+         rD/0H+HDpPvOI3Z8qSsI45b1P/85TdIq0YeHhvsVkGs8SDwn7XdPrV1EtctFTFwclo+N
+         O7Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789382706; x=1789987506;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bVt9ANX2ebJHpMR9J1dO4NfPSwjbfp7C4d6bTEwou7c=;
-        b=V8lmiv1b2QG0Yclg/b4aLe8Id+A3nFV0588GgInFXaNieHCQI9Mo336ukUUDHDss7K
-         Y7dJ69JrVNpswF3LBgMLdIUzOgZ5Dn0BWUbGAbdqQ+iRdYhp2qA6JCTL5FwaPl2JuXNN
-         9e4JcyuuRsztx6xd5c4Mdh4ya81wofDj2dBwux6teN1p86atZzpD2TPyO6+Vn/ggCsqu
-         yMkGR7fegvGBJY3ozcziFbm7coQrFWhz/9SlVDtnecBhNA8Hecho6N9XOHZjQtruxi7L
-         4BIyOOW/y6UBKlnXM/5r3lUMZMh1Y4U9IDVjcH3WwLCXbaxqQB/zdWLSNbssSRa1DiN4
-         4qRg==
-X-Forwarded-Encrypted: i=1; AKwUvBwyb5g1+rjxc4AOZxnGxPByYh/aO0rfBmhNWWQEXojjGaP0XfVMidEkbOmo5zpFxMPwogdvIl42wtCkilA=@vger.kernel.org
-X-Gm-Message-State: AFuF++koAAGDqVtCSolwMNKkKxCUDjJlXa9DM+DRKVcR61r7ydptH6IA
-	VjlPAQmPUgqnZtabuUzxaFG2aPqKB/OnFhZp3E31i5/MZGgmk0b0RlIaXbceR7MPEC/VGyuzQ9s
-	tSfMCqyImX1EfT4phyN9i87EhzlBefFKNyHW6+BmdVWepvhKYzTlwFGryVthiQBG8iTg=
-X-Gm-Gg: AYBFou0bpkLC2dv0liKOxAmsDI2Tf7Hw9ET8jclV90jO69eOHTLF0hcLzTvC0kqfFKR
-	WYbu4vZvyTyDohpsoWgiuRB6gT5qy/TNtVheiakMUkYlr1fOQsZyaS0N5b75KVNGvkztQ+1pinV
-	wjRy4B0jwvdVCKB3Ibw23R3QJuAFcJwYW5qJ/a3AiNUbj0a02t5vHpzrl9kduIaNxAZrSvF6gTp
-	LctVPMWE2Tyj9nV0xIF/CfdBwQML/Z+uJoNx2ZD1XEDYdLcEb3H9lOQkGwvaYJruj76hfxwexVo
-	VppZQUVPKDTGi2RoqEHEAsAOX2zcJTHj6xUy+KkFKXZX5/zpP7B5VoS9o8oKj9P55SKczu8avT+
-	kHZ0GJ/6E
-X-Received: by 2002:a05:620a:198f:b0:91c:c20b:a135 with SMTP id af79cd13be357-93a29a07d04mr239682885a.40.1789382706119;
-        Mon, 14 Sep 2026 03:45:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:198f:b0:91c:c20b:a135 with SMTP id af79cd13be357-93a29a07d04mr239675785a.40.1789382705592;
-        Mon, 14 Sep 2026 03:45:05 -0700 (PDT)
-Received: from [127.0.1.1] ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee8bsm26335926f8f.15.2026.09.14.03.45.03
+        d=1e100.net; s=20251104; t=1789382712; x=1789987512;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
+        b=FuZA2UYCUwVtWd4eRBuP82RhEPlq4L197++zhYcupQyOftlZMWoow4XuP80HGkLFJP
+         xlmoZSX64jnP1G1ynZ1oUTJJ0DsgU6cB275cKt+0Xi1pQCJ2sZu8TtuTOyHjLF20rQZE
+         SlQu7H4cxWtK6LCqaJ0QaYnA3i+3H5UdapflkjrWHwgjNlTpF8MddJmp7pjajiSgXgXG
+         8j2WJt8CpHOPIEf2RENM9YomE9pc5lqLkRnnPNewJkdetulTnmhsyvkxze6JR43RGf8F
+         WnVX1EeQKK7G9LM788H8HmedfWIFupfHvDmCnjWiNAlUO8rZiq9NMV+J0TzjxlONfzZ4
+         MXsQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzBcZj3jKnfskOL9Lj7I1vtMFVr6PN8/aapIhp+2k6nla7olgpgxszHlxHNFgRJV0BMpZ5t0f354HtMkk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7SWfxN0SH8WWNLuKZZs2HViYYJrqQ7p55HfkCykYy7xjvO4mb
+	24fPAKLY3EvLSAiuxlZdgpwSmy951MZjbs78N24huAJTSKtIODuAGom9
+X-Gm-Gg: AYBFou3O2JfNcooLKJOr6vkQKLmJKA+shhakLBOr7fE4dLTLihjZ3hVU+9LyGI/Rc7M
+	d42wsOkjQf4PMv0TUjensfSYAB4NZ7hlrowjyP3Gq5d7R5/jjCoV8yuXkibQCxB6arf6lZlThBO
+	TuZlIcS906PwSavyGHzJozHJOWI2tVpux3g0+RBuR/pA8Bi9lSXhKJsLz9u40eeo1hyzmPlxPht
+	WO7gMSNFPXMWi3IuDygGUw9ey9DX8el3NcsrHzT6yAQRyMRKiiAPf8pUnFixedYEQ4psuJTtugo
+	VK8+OT89VcblZT+7LJvaB9NPq2vonxpXbv5shfZi5Df2jep4ka5vSss8c6bHizpY2qaxMDb8+CS
+	945sXzOQ8cXWmArzlLg9nsy6UvxDxK3EGl0h5WY08mBkiBjD9lfzR4zr+r6ShjBynkhGKvkDBBA
+	SF25OJGyBOkQB8gzeNC9oI9jf1Vzylm0zUi2k5Qer6PLImgq0zJN5/b4CwsioZNJTfsrd7+FwyP
+	ckB7BmZyFbkDqPRdU5s7n+EuNZAODUBQdEFtd3mn9tAVLvzCgi2ET1xkTHDo27Z+BcuMNsLBm7n
+	y3e51hNr9LjAn2IBR7cUPu58eEhJ+Pyt3AE69Pc4HA+7saSxbLVTjwJMkFqTo/U=
+X-Received: by 2002:a05:6a00:21c2:b0:857:7384:b5fd with SMTP id d2e1a72fcca58-86f8737ced2mr3809414b3a.25.1789382712304;
+        Mon, 14 Sep 2026 03:45:12 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b28fd0e0dsm4234386b3a.26.2026.09.14.03.45.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 03:45:04 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: [PATCH 0/5] arm64: dts: qcom: eliza-cqs-evk: Add storage subtypes
- and rework generic parts
-Date: Mon, 14 Sep 2026 13:44:47 +0300
-Message-Id: <20260914-dts-qcom-eliza-add-ufs-variant-v1-0-78b3249eae61@oss.qualcomm.com>
+        Mon, 14 Sep 2026 03:45:11 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	Alejandro Colomar <alx@kernel.org>,
+	linux-man@vger.kernel.org,
+	Karel Zak <kzak@redhat.com>,
+	util-linux@vger.kernel.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org
+Subject: [RFC PATCH 0/3] mm/swap: reserve swap areas for deliberate offload
+Date: Mon, 14 Sep 2026 18:44:58 +0800
+Message-ID: <20260914104501.3960616-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAB/Qp2oC/yXNQQ6CMBBA0auQWTtJqRWDVzEuxnbQMVqkU4iBc
- HeqLt/m/wWUk7DCqVog8SQqfSyodxX4O8Ubo4RisMY2pq0dhqw4+P6F/JSZkELAsVOcKAnFjEd
- nWusbvz+QgxJ5J+7k8xucL3/reH2wz98qrOsG6IepU4IAAAA=
-X-Change-ID: 20260914-dts-qcom-eliza-add-ufs-variant-74092c6c35a4
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-0e65f
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1707;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=LgVLOg1arH3h6yph2weqhsiaYO9KaoHGIb0VLd0w+9A=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqp9ApTMOdveQxC+GgWs24vgVerOyzMma7EAhXl
- IWzjH1+QSmJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaqfQKQAKCRAbX0TJAJUV
- Vr5DD/90DWRJJAWm10lQLvvjM5+th4W1uJ73J00f28H0HieOBxzaTbLRNrJnltOreWkdLqmghQA
- JKw8/K6OY5JDwiQUic44JTh3/60AGaV7lWRcMm8U3WLIP7Lp1/+GpKS8HYEl/VBMqXbjFr9AvtE
- zW4CY9JS2sNVTQMNRpV60Ofsg58jcfcP81cM0G8CbU68Qfu1z8eGu4dJozEQ5+bTdmFcfgUBflg
- OEVVUPhanXEC0UEJ42ZruUGfwAmGZNoXZjuTtvR48aA2PnESotXHzlpwGVlMKpwTwBf32AmXvpE
- FP6IGSjxBy1/Ltcae7y7/WLNXm2r/tvZv7GZqoAHxcujJ+07EoZhbz6Uy1MFgeiBwZBfEK/TbFM
- zS8gRpcdtzvQe5aXuS0YGvIHz0BVu4Z343Bid/cDWj2MIK8UXkuK918E8pD96HLpQ8rJI0+jcRO
- 2dL4MAcp+gEmnQiZEBwrpVXlvBUH1dLz63Rkbh1CMO/HzqOoo8MxmsMldUsAY3C9ZW7EUDRy5cQ
- P4AuSouxyf0mMW8LhJaLBjJb41Ab+niNMzwoErtnMkko35L+4YGnLO6/Z/NPZwxeRZbGykTbQ7a
- aTu0NEYrUBPwKVqlKcVeyYc9yn0DDyP00Ton5v9dog/wBz/UBkCVd/c38WaT8HjIHAAlm8s6rNv
- 3bw59rCxmX/PpmA==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfX+hzLx7LBuLXm
- 2cXH/YjmWFUOJCklw9OOe9BYHgX5skuLwfXrpSEi1U7p2ZzSSKTC27KnZZc/UWKYBApRecNcrxy
- 5F+FVTDTRrNQZ2VGRGLe+X5pkxNAJEQ7XmAegtl7hby9q/OiiTCsxi9+HGwgILFvYM8yXY+0unH
- StMRxKAbUEaRzs4IHsWYK/E3X1SHuMSoeOTvVl7297VCDxh6gAAsm1+2PPMTpv5WD8RugsS/jP6
- maFbZuW3oo311UQCHlWVv4LNmJvsHToZ0+LnG6zhqJpe+y/UCpFdSUpBRBbzOHCaViZBBRpXpN6
- rFJlEwZkbJplyRVgVqR4ur5bNWPrzAzmghzou/W+WAEsaaxcXAylrXKZxXw6vJzybekj6Bv9/i7
- HZ5VWBVallMpZcfwjX8N3Jfa4qHblhwEjznv545pQodxk3p3C9gIBrvhL5f1Wgmzi1TZDSswiHH
- KGLdOaS4L2pQSbzX6uw==
-X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa7d033 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=Ujb343AK-uRHTq2VCXsA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: _wZaMaPbhZjfHHtvSauvgbjkRnGjhMCm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1NCBTYWx0ZWRfX82EWgNFrOTb0
- IHCxjLmFG/rwsMVvaRwnhQiA744oPqVvRamOjJgJP8N8Wfs9njf+FVjTVHjYpwXN4jPkcFPEAR5
- XpmnhMNNpFyHhAcO8EjH3DlSIr98D5M=
-X-Proofpoint-ORIG-GUID: _wZaMaPbhZjfHHtvSauvgbjkRnGjhMCm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140154
+Content-Transfer-Encoding: 8bit
 
-It turns out there is a UFS variant of the Eliza CQS SoM as well. So
-lets differentiate between them with -emmc and -ufs suffixes for DTBs
-and compatible strings.
+Some swap backends are useful for deliberate cold-page offload but are poor
+dependencies for ordinary reclaim under acute memory pressure. Swap on ZFS
+zvols is an existing example, with documented deadlocks under memory
+pressure [3]. Compressed swap is another attractive target: accepting a
+write may require memory for compression or storage even when logical swap
+slots remain free.
 
-Adding -emmc suffix for to the current Eliza CQS SoM and EVK devicetree
-files will not affect any current users as these boards haven't reached
-the public use yet.
+This series adds an offload-only swap-area policy for such deployments,
+alongside a conventional swap reserve for pressure reclaim.
 
-Also, move the sound card support from the eliza-cqs-evk to the generic
-eliza-evk, which will allow it to be reused not only by the UFS variant,
-but also by the Eliza CQM EVK later on.
+Proactive offloading is already established by TMO/Senpai [4], which uses
+pressure feedback to offload cold pages to compressed memory or SSDs.
+DAMON_RECLAIM [5] also uses free-memory watermarks to suspend proactive
+reclaim under severe pressure. These control when reclaim runs; this RFC
+restricts which swap areas ordinary reclaim may write, including through
+retained swap entries. The existing memory.zswap.writeback control [6]
+restricts backing-swap writes per cgroup, rather than reserving individual
+swap areas for explicitly admitted offload.
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-Abel Vesa (5):
-      dt-bindings: arm: qcom: Add more compatible for Eliza EVKs and SoMs
-      arm64: dts: qcom: eliza-cqs-evk: Move sound card support to Eliza EVK generic
-      arm64: dts: qcom: eliza: Rename existing EVK to suggest eMMC
-      arm64: dts: qcom: eliza: Add CQS SoM UFS variant
-      arm64: dts: qcom: eliza: Add CQS EVK UFS variant
+The minimum contract is that ordinary reclaim must not initiate a new,
+non-zero backend write to an offload-only area. Reads, swapoff, zero-page
+metadata, architecture preparation, and I/O that was already admitted remain
+valid. If no eligible swap remains, existing reclaim and OOM behaviour applies.
+This RFC does not promise a performance result or define a new workload policy.
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |   9 +
- arch/arm64/boot/dts/qcom/Makefile                  |   3 +-
- arch/arm64/boot/dts/qcom/eliza-cqs-evk-emmc.dts    |  18 +
- arch/arm64/boot/dts/qcom/eliza-cqs-evk-ufs.dts     |  18 +
- arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts         | 141 -------
- ...{eliza-cqs-som.dtsi => eliza-cqs-som-emmc.dtsi} |   0
- arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi    | 421 +++++++++++++++++++++
- arch/arm64/boot/dts/qcom/eliza-evk.dtsi            | 139 +++++++
- 8 files changed, 607 insertions(+), 142 deletions(-)
----
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-change-id: 20260914-dts-qcom-eliza-add-ufs-variant-74092c6c35a4
+Cgroup v2 memory.reclaim and per-node reclaim establish admission. Manual
+MGLRU eviction currently does too, but its debugfs interface is not stable
+ABI. Ordinary direct reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim do not
+gain access. This is an explicit operator policy; the kernel does not measure
+physical headroom or automatically classify backends.
 
-Best regards,
---  
-Abel Vesa <abel.vesa@oss.qualcomm.com>
+The three patches are based on mm-new as refreshed on 11 September, at
+995829088503:
+
+1. The complete swap-area policy, including eligible-capacity accounting and
+   recovery of eligible cache entries.
+2. zram03/zram04 coverage for reclaim routing, zswap bypass, discard policy
+   and file workingset activation.
+3. zram05 coverage for retained swap entries, including ordinary-write
+   refusal, proactive recovery, data integrity and checked teardown.
+
+The implementation is intended to make these questions reviewable:
+
+1. Should pressure eligibility be a durable property activated with the
+   physical swap area, or should it be selected late during backend migration?
+2. Do provenance, allocation filtering, eligible capacity, and retained-entry
+   refusal provide a useful minimum contract for userspace and controllers?
+3. Is redirtying or activating a retained dirty folio, with possible churn or
+   OOM, acceptable, or is backend migration a prerequisite?
+4. How should persistent activation fail closed and remain auditable when
+   /proc/swaps and swapon --show do not expose the policy?
+5. Should an ineligible fast-path cluster be invalidated immediately, and
+   should an offload-only area recover its own cache entries based on eligible
+   fullness rather than global swap fullness?
+6. Should the workingset activation heuristic continue to count offload-only
+   capacity when pressure reclaim cannot allocate from it?
+
+Build checks passed on x86 with i915 built-in or modular, and with swap or
+memory cgroups disabled. The affected arm64 MTE objects also compiled.
+
+The routing and workingset tests passed in x86 QEMU guests. In the
+retained-entry test, ordinary reclaim wrote nothing to offload-only swap;
+proactive reclaim then wrote the dirty folio, and all data verified
+correctly. With the write guard removed, the same test failed because
+ordinary reclaim wrote to the offload-only area.
+
+Persistent fstab encoding remains unsettled. When hibernation is about to
+save an image, an active offload-only area named by resume= is rejected as
+the image target with -ENODEV. Virtual Swap Space v4 [1] separates swap
+entries from their physical backing, while swap tiers v10 [2] proposes
+per-cgroup backend selection. These raise the question of whether offload
+eligibility belongs to physical swap areas or a later placement decision;
+this RFC does not assume those interfaces are settled.
+
+An explicit-only util-linux companion implementing swapon --offload-only
+is prepared for separate submission.
+
+Feedback on the eligibility contract, its placement in the swap stack,
+and the unresolved ABI and reclaim-policy questions would be welcome.
+
+[1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
+[2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.com/
+[3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.html#using-a-zvol-for-a-swap-device-on-linux
+[4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent-memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
+[5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.html
+[6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
+
+Matthias Goergens (3):
+  mm: restrict offload-only swap to proactive reclaim
+  selftests: zram: cover offload-only swap policy
+  selftests: zram: cover retained offload-only entries
+
+ Documentation/mm/swap.rst                     |  87 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
+ drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
+ drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
+ include/linux/swap.h                          |  29 +-
+ include/linux/vm_event_item.h                 |   1 +
+ mm/memcontrol.c                               |  20 +-
+ mm/page_io.c                                  |  24 +-
+ mm/swapfile.c                                 | 126 +++++-
+ mm/vmscan.c                                   |  31 +-
+ mm/vmstat.c                                   |   1 +
+ tools/testing/selftests/zram/.gitignore       |   2 +
+ tools/testing/selftests/zram/Makefile         |   4 +-
+ tools/testing/selftests/zram/config           |  10 +-
+ tools/testing/selftests/zram/swap_offload.c   | 402 ++++++++++++++++++
+ .../selftests/zram/workingset_offload.c       | 206 +++++++++
+ tools/testing/selftests/zram/zram03.sh        | 166 ++++++++
+ tools/testing/selftests/zram/zram04.sh        | 149 +++++++
+ tools/testing/selftests/zram/zram05.sh        | 360 ++++++++++++++++
+ tools/testing/selftests/zram/zram_lib.sh      |  28 ++
+ 23 files changed, 1620 insertions(+), 42 deletions(-)
+ create mode 100644 tools/testing/selftests/zram/swap_offload.c
+ create mode 100644 tools/testing/selftests/zram/workingset_offload.c
+ create mode 100755 tools/testing/selftests/zram/zram03.sh
+ create mode 100755 tools/testing/selftests/zram/zram04.sh
+ create mode 100755 tools/testing/selftests/zram/zram05.sh
+
+
+base-commit: 9958290885035431e2494159f555e332c3c14906
+-- 
+2.55.0
 
