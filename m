@@ -1,101 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010016.outbound.protection.outlook.com [52.101.69.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25A147ACC9;
-	Mon, 14 Sep 2026 14:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395819; cv=none; b=eEM6JXSg3tJGcPxlkxaCWIe8ttiKdsdNodEaS/rDpPAd845U3Yh2YQF3YB9hyU8hkOH94kvBXVdrSOKj+osfHH5vSaVQg7EREhTCrk9kPA+eTzVZ0SdBMVMXYzajxPaFgm68Yp8NyPRpr6HgR6KMW/VMXeLZJi6iOqnqd5/EPxg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395819; c=relaxed/simple;
-	bh=dL2tCf9R2yFYdQyhb1vg7KlOpunIGTvyq2ICqewh28E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ejZqbohv6QWfKU/DfUwABTeKxu8wntZiu4gZqij8mSITGglMxcv3u0tbNVxnZjqJU9CDln9egA1I8Tyut7vsLdFilnxIBkKBsc5UTdJWQtZhaZhoOwPvVTW9gX0vpyX1n852sFASDUvv6rrn/edXGXO/6usPWhv6lWGafsyrnOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mHui+Ibu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ACC47DD6D;
+	Mon, 14 Sep 2026 14:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789395817; cv=fail; b=P0t1SstN91QhLTjqRA7bMESycgjvlsbfBILCQ0LrS0pDOqTyKG4oybdfFP/+RwTLruAP4xIhGS46LGjB3zWDB7CVeFBKcEgwSk8bnbK92oznoxK4p5u4Yuu85ZDU0dciQpbzpPk3nP2reFovhdwU84lsMvQ1XDib63esFBR0hps=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789395817; c=relaxed/simple;
+	bh=i0CiW0aGyTLXMZa5nQA1GuSLhCVLyCb4+gPkbrj7a0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hpiXz8NBdyU2YWsvdjTRzm4vcTnc6CWA1aAQBbgsAzAEFkxjI181l4fkq4hSIyNE1jlgrURTPyCub3e1ALME3oA5ON2gK0hckBVmLML7Bm1qgVK2EYstB2/jRKMcPUcT7ZILHaIyY/ptgHxU47mr6liJPs7mMyjNsL9hYL1RNeE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=G+bau7qm; arc=fail smtp.client-ip=52.101.69.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mHui+Ibu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C731F0089D;
-	Mon, 14 Sep 2026 14:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789395817;
-	bh=MBpdI9GABjSpbOSBeiuA8iViUPE/b+K1BLYoiHpgDDA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mHui+Ibu6V4Lmbd00FMAKZfVJb5+IqZz8jTq/0v8I2B8+lo0FsxJlHmOMWSR0fMh5
-	 JL2VXI5yolS7lMgfsDUfqWTgMynzKD3HyBjZgbvoQzMmJ3RlGf3eMtuFH/bmK2gMSk
-	 YXToqSlnJMVRQmhYY9we8UpQMKHjy4V0hPjl1v0zyTEs6Qw/Haq7HPkh1kwds5bSOQ
-	 jXArOAnECpOT850NqXI5lJoRHacAzEBSTVD1CUp1gLYdFXjPjM6cJiDZo+bYNaAQ6H
-	 JGoi/mXF67cUwkrxdxos5vKiNjXPU/vRI39tUQCT3TyV8T+aF7HFba4PCsASHiy/K8
-	 X14pGOEx9Ufcg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 6/8] mm/damon/sysfs-schemes: use switch-case in add_scheme_filters()
-Date: Mon, 14 Sep 2026 07:23:23 -0700
-Message-ID: <20260914142327.92510-7-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260914142327.92510-1-sj@kernel.org>
-References: <20260914142327.92510-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="G+bau7qm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OywDmd9uij8nh43ls8GfvXltaBj7Fgw/ym4c6jyqFNwkW42sYOinajPf/5ogSYcYE94b3daxK+99J1ivwCWB/9rD3xAK/CXBEwhsMFixv3ZmSc/TEA8mGcwJjF+w8RZsgetogDgQhhvl6gvu3ch+U2+L4dwUS8zPsJ6N32uLdH8SHf/ogAee+pUhTsrVHUfev9B6VUbMfU2ennjQbwSkRU4Iuh5rYVlNGxrOokJgU1NWNpUEm2v+7RkskaXwlQhPasWoN9Br9B2+4s2VSeVzJ+NaDBii1giAV358UrxhdBwt1ZQysk80NweJbq7XjaRnjn7/OAy4ThM+tdKr9zpslQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AxY9y3EQEIjKYAmPGHB2pQQqgQdeImm4yoZg62jB/x4=;
+ b=nPd4JXUd0ZsHqDAgtDapMM375NKDcJXQHWqTvvNbfuJ/5kBdk2yacUeX5m3J3nHwZ1K6Xlb7XqMVU1EPD75XcbbJUkSXweJp5nz4mZzugZyALq0gaNXDntM6MiyP+pmjpUdYBx/ws4P8VJ0t66+gmuojdduPmrTpDNjMmZ/IjlHZukHO8H+AAZfTlTAVtN/Ax5DQwmqkbKRyyZo2MF2QF83de3aKR6jpkkuKcLaAINS+OTIlUc0wY0r5RQ78sNXph8uuxvdPW6N6IbJXVXUTaeMcIusRHDbc8JUzVLhfXyUrB+NBbAA4q+j52+vowLAwkpoWCViHHqmAXZmHzeERdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AxY9y3EQEIjKYAmPGHB2pQQqgQdeImm4yoZg62jB/x4=;
+ b=G+bau7qm90qwrqsKcojDVet4x9Te93qrPnJDyUizHwRo5BpcdEFm6W/To5U/gHK+gB9BDzfiXgKaUPo6pEHAm6a+M2j4MJ53yG3ZRW+yqWRRXdkbzlc9Gz6LRcft3nqqZ/yXRgarPcokeSZdRSCj0mjG2elKdjzF8ZX2TNXI+0GzuqOPrbvx2S2j6AymIzjNny4ixyJvtjLQHze3stMdNsdfWcoGBAw7L9SKmBlSpTTusw0pSG6GeRI0i00bRdJ6rVdjFKgyJ+fwoyjdgcAwzO3id7c02hQSsTYKYdY6HOen6tirFPAIOl6ENOIIgLTT+F0q1m/kJpitMNcODz/HiA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8540.eurprd04.prod.outlook.com (2603:10a6:20b:437::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 14:23:32 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 14:23:32 +0000
+Date: Mon, 14 Sep 2026 09:23:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:FREESCALE SOC DRIVERS" <linuxppc-dev@lists.ozlabs.org>,
+	"moderated list:FREESCALE SOC DRIVERS" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCHv2] dmaengine: bestcomm: make gen_bd init helpers static
+Message-ID: <aqgDWhGqkYki03F2@SMW015318>
+References: <20260913194804.39939-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913194804.39939-1-rosenp@gmail.com>
+X-ClientProxiedBy: PH8PR05CA0024.namprd05.prod.outlook.com
+ (2603:10b6:510:2cc::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8540:EE_
+X-MS-Office365-Filtering-Correlation-Id: 207d4fdd-aace-4b6d-620c-08df126bc126
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|19092799006|6133799003|18002099003|22082099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	AG/wtdGvgB8tfGQgXkmwcgyegXQkdaiavFSBT5gHVWSvBXZTb6dZbFg+5lAcVa0Oe3LgOtdIYo5P55rDSX8aNf7f0XYViZC+olEHKTcz0LbuGFw9ofW7a26YwSvImKsYxwRIujEKFZHh2y/qUDxW94Woq87na8clhH+yCXiZ6iCnPu7iBpnqAuQmwJjeOA/MDsSTNyAT8xDKwS6xvQ7s4sCZdOLR7Wj8veI40OR2tWJ38SrhfFXZ0Rjy6437fdJUSatzomA0vWxbcUaa+DYZgBYNCqM4ny9ZdLl8gH2rvC+NVMyIRFdPioBI+sGn+fcvI40AfMhSsfS2pXmFUJGDu5hcT/CbH8QJkG9fsEei8UQX5HyvRpspN5DZDBWfB9PwDt+ufEBh46TZB0dXgnXS1hirHUJB7JNsX0WjL1Md5THtv71wpnlfVCMSqAeNaj563YpcUZUweu2Ba8zwsQzs2rHVvDuetyyouDQ9UwQX773FYqI1WpdaCy4fXD+cH8ybgyGKRh0TIHomsmdHmRSRm+tvWjf3z5AkU2Nh0vpkAASTgQ8TuzBssUsJVcOLGx5fnbE6aApU+/wzKpJvWZO2ZUsh5hfgX3XESKkQHp4U0Q53eB8K0CW+JW9ew3YpKDL4BLJxfWhQDHTGDGnERHpBKoqlalH2DoYl8yskz4iuGpw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(19092799006)(6133799003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dJY9r7zUDs5pl3zyrG1Bwcg27eGp69wTgUw9fhxhpnAH5As9pRjkjfYtyhi7?=
+ =?us-ascii?Q?PZjbWw5uZSSInMgrmdfZGhz5K12iwL4kP9cK3+1aNPCrC4vDDWdqY0XmlLGJ?=
+ =?us-ascii?Q?CVxOA5iWrhPwhMWaDdsnZFB2/Lh/pt0j5o2+4ai3gEtd2DDnSeS3JrOgwjyp?=
+ =?us-ascii?Q?kOOqqCOJ+xM6i2yOvl5GYvo2fKoWHg83WGxMQv+TKjpmCxEJqxxSxL5ag/OD?=
+ =?us-ascii?Q?6MsfDPGoxco5HVw3C/bIW2/p4jza0g9lXUATnjfHul6BxCRd+tbzMqwdvm0F?=
+ =?us-ascii?Q?465b3S+/rwg6t5CWxjaXXqD9LRaXkEDS3x/bFiVXS3y8hIt6TAJGh1hwAGf1?=
+ =?us-ascii?Q?IMUU6pbpV85w+gw6ELsuKkStvqy+t2/uDfPVsLy63+V2VcrdaWa/3ZozExy0?=
+ =?us-ascii?Q?qva33q4+l/XGIoyA1OlMUBBhsJtAj8JIkzSsKrtn4Xhl5nkVKYveDGL1uBM3?=
+ =?us-ascii?Q?F0RY3BONNHRHg9ouYxmHoJPNAJjt66UWIiAwZp3oQelI9e26Zq+Y/9ytwHL8?=
+ =?us-ascii?Q?6pYI8HEO+KkyShA+hS53Os4LwVev6p6qFWN6bxKlI+5GMuIYz3ln3xhR0YUj?=
+ =?us-ascii?Q?88QSGpNN3pD0/joU/fMwItBJWJDbtS05dKzvsLiykTka3ooaj5E0W5PiL4da?=
+ =?us-ascii?Q?Zgol9QCH6LyjB+v2tBaOQOuOyqCJ+5DX5OdXHtHuwOulXYjQNM6DL2Jpi3H3?=
+ =?us-ascii?Q?fvnslciXy9Ez2Wjw4wY/xBwbdl07YIJRHyubZjg7oJ7aLT92Ly7cfuwHykft?=
+ =?us-ascii?Q?aVh6N+QdOFOsb9PUwvDqkuRQwVewV/Mu7PSAF6ItgqN8XRThlisy6Um/QPiR?=
+ =?us-ascii?Q?pleTmj92VxYecCcXF0T1tKLlI562s4CPd4ZSlqbhlEGBSV6g3rqiVit0PH9y?=
+ =?us-ascii?Q?zY1UKLo/hgpbJ3Y7E2nTGPK/jvDNSobctRSF/2c7LE2qEu9x72MBevfqOO83?=
+ =?us-ascii?Q?AZg9+xIZzBt4kapKN0c4b2hJnn4UeXQjanukDxeYmZum+DZJBr6D4xvFIZDS?=
+ =?us-ascii?Q?4H7kSjmL7SO+a7h2/TjwM/KSoaRYUxs5SHvFTS2Ys1aIzxNHm5LkI8m6VVUH?=
+ =?us-ascii?Q?ZuwPsEhjj5vsKV7gbnPRCLZcx/cMHuB/OZf0Qe/JgeJcfEzuZIA0dh47zome?=
+ =?us-ascii?Q?9rTAOBjZLqWom3aotCX0qfBbJVzPT/civps4BJc7uJMLGgq/6wOuNhHsAPlE?=
+ =?us-ascii?Q?BWqBM3QlzRf2bayq+hfUupYijk1eVO+tkhlxem1S8a/2ZT0ScXRWd80lAoPT?=
+ =?us-ascii?Q?a7JDhhAeLKx9IC/qxrgFfUx/wvc7auW5GUX/QmFklvlgpu6frh/ZHeZPa9ut?=
+ =?us-ascii?Q?gqNYtPA/7b3dK1fvHqmvI5yHpLu3wsPA0A7YWE4EwJx1q/6v6lqF9TywSUd2?=
+ =?us-ascii?Q?Q1P4Uh+Fld/9IWMtJEYEgnZTWw8sF7vgd1lTJnPZCnJoFpPqs0Ujr/Kn9jOZ?=
+ =?us-ascii?Q?dXtYCQBH7ydiQM3jQhU8bd+Z6q7egOf7MAWotQNEN2f5NHvEO0WIUlACE+vk?=
+ =?us-ascii?Q?FG9BtO5XTXU3VrB5MXOd9qQwiC4fP9f0fiLHiaAZ4L7+dhgppvUDdI4hD0DI?=
+ =?us-ascii?Q?eFBwOe8wdjD+PQFSQETNVRkD+1u3pxDWCrf7IXV+f0SuXMQG2WVQGzgpoV02?=
+ =?us-ascii?Q?fl/4lJTxnSPK/Ik1BExm4e7TvV7GvCPsy1f1kjfyblAbONYKcP4LBjoMFUgx?=
+ =?us-ascii?Q?yHXUQabtvrqUdF51zzvxhb1wSskJY3f9k3Fqfo+4jqWb5Ds0ZZvcf5WOgFK5?=
+ =?us-ascii?Q?KzhHzctYoDEeaXU/8MYe1u0LL54wCNF7iV1iD6AUAvkY0ukLWOBl?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 207d4fdd-aace-4b6d-620c-08df126bc126
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:23:32.4663
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hOg9A71/jX/NUKRP+iPbj2s6l7Zcai2i3gWeCuNR1soaLJ9tb+mPs8BUg/gbuonPHwf8vqfmxstH1uP7zFo6W8I1U56jcrbvWYP46Tj6aog2mK30PcZE7wkv56WRs55c
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8540
 
-damon_sysfs_add_scheeme_filters() has long if-else chains for DAMOS
-filter types.  Convert the code to use switch-case, which would be
-cleaner and more efficient.
+On Sun, Sep 13, 2026 at 12:48:04PM -0700, Rosen Penev wrote:
+> bcom_gen_bd_rx_init() and bcom_gen_bd_tx_init() are only called from
+> the PSC wrapper functions in gen_bd.c, so make them static, drop
+> their now-unneeded exports, and remove the corresponding header
+> declarations.
+>
+> These had use before commit 7d3ee229ea51
+> ("powerpc: Drop MPC5200 LocalPlus bus FIFO driver")
+>
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
 
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs-schemes.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index a4ec5d54cfbd1..bfb6f0bc3f213 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2822,7 +2822,8 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 
- 		if (!filter)
- 			return -ENOMEM;
--		if (filter->type == DAMOS_FILTER_TYPE_MEMCG) {
-+		switch (filter->type) {
-+		case DAMOS_FILTER_TYPE_MEMCG:
- 			err = damon_sysfs_memcg_path_to_id(
- 					sysfs_filter->memcg_path,
- 					&filter->memcg_id);
-@@ -2830,16 +2831,23 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 				damos_destroy_filter(filter);
- 				return err;
- 			}
--		} else if (filter->type == DAMOS_FILTER_TYPE_ADDR) {
-+			break;
-+		case DAMOS_FILTER_TYPE_ADDR:
- 			filter->addr_range = sysfs_filter->addr_range;
--		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
-+			break;
-+		case DAMOS_FILTER_TYPE_TARGET:
- 			filter->target_idx = sysfs_filter->target_idx;
--		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
-+			break;
-+		case DAMOS_FILTER_TYPE_HUGEPAGE_SIZE:
- 			filter->sz_range.min = sysfs_filter->range_min;
- 			filter->sz_range.max = sysfs_filter->range_max;
--		} else if (filter->type == DAMOS_FILTER_TYPE_PROBE_HITS_WSUM) {
-+			break;
-+		case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
- 			filter->range_min = sysfs_filter->range_min;
- 			filter->range_max = sysfs_filter->range_max;
-+			break;
-+		default:
-+			break;
- 		}
- 
- 		damos_add_filter(scheme, filter);
--- 
-2.47.3
+>  v2: mention driver removal that made them unused.
+>  drivers/dma/bestcomm/gen_bd.c       | 6 ++----
+>  include/linux/fsl/bestcomm/gen_bd.h | 8 --------
+>  2 files changed, 2 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/dma/bestcomm/gen_bd.c b/drivers/dma/bestcomm/gen_bd.c
+> index 61b5746e1a97..b5093f7445cb 100644
+> --- a/drivers/dma/bestcomm/gen_bd.c
+> +++ b/drivers/dma/bestcomm/gen_bd.c
+> @@ -81,7 +81,7 @@ struct bcom_gen_bd_priv {
+>  /* Task support code                                                        */
+>  /* ======================================================================== */
+>
+> -struct bcom_task *
+> +static struct bcom_task *
+>  bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
+>  			int initiator, int ipr, int maxbufsize)
+>  {
+> @@ -108,7 +108,6 @@ bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
+>
+>  	return tsk;
+>  }
+> -EXPORT_SYMBOL_GPL(bcom_gen_bd_rx_init);
+>
+>  int
+>  bcom_gen_bd_rx_reset(struct bcom_task *tsk)
+> @@ -166,7 +165,7 @@ bcom_gen_bd_rx_release(struct bcom_task *tsk)
+>  EXPORT_SYMBOL_GPL(bcom_gen_bd_rx_release);
+>
+>
+> -extern struct bcom_task *
+> +static struct bcom_task *
+>  bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
+>  			int initiator, int ipr)
+>  {
+> @@ -192,7 +191,6 @@ bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
+>
+>  	return tsk;
+>  }
+> -EXPORT_SYMBOL_GPL(bcom_gen_bd_tx_init);
+>
+>  int
+>  bcom_gen_bd_tx_reset(struct bcom_task *tsk)
+> diff --git a/include/linux/fsl/bestcomm/gen_bd.h b/include/linux/fsl/bestcomm/gen_bd.h
+> index aeb312a1cd00..7253d308d77a 100644
+> --- a/include/linux/fsl/bestcomm/gen_bd.h
+> +++ b/include/linux/fsl/bestcomm/gen_bd.h
+> @@ -16,10 +16,6 @@ struct bcom_gen_bd {
+>  };
+>
+>
+> -extern struct bcom_task *
+> -bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
+> -			int initiator, int ipr, int maxbufsize);
+> -
+>  extern int
+>  bcom_gen_bd_rx_reset(struct bcom_task *tsk);
+>
+> @@ -27,10 +23,6 @@ extern void
+>  bcom_gen_bd_rx_release(struct bcom_task *tsk);
+>
+>
+> -extern struct bcom_task *
+> -bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
+> -			int initiator, int ipr);
+> -
+>  extern int
+>  bcom_gen_bd_tx_reset(struct bcom_task *tsk);
+>
+> --
+> 2.55.0
+>
