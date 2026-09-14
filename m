@@ -1,136 +1,256 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D66941C30F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E687393DF5;
+	Mon, 14 Sep 2026 09:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378347; cv=none; b=ujMpeKsXdl19NtNMbAqykC13qlAhUTl7JsPGe4LyVGxgEBZd92+xFpHVU/BQpYC72AXfNXlFKsAtTlVN4ItJ4LCmXVlg2UKamt7SDyX+fth6vvVWOndGnRNORQSAlGFreyayTWOib9mYePQT9+eu4Bk5x3wLxFDkDtVYfnkrO5c=
+	t=1789378385; cv=none; b=QxNf/AktTYprEKWN55kaX5heJNPzhu7AjA0/gyHygp2GOY2z6gf7o550rppnY6RtcavhXt3Y+mYmhumdW8IWZbPi8GLkIwMPWvhh5iTJQ3xzyaJRHe/f3kOI2ZVqup6pX3d2BBLgD0WiZYlDy/v0IfSAcDpWZgnnLDxyUXVtQ7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378347; c=relaxed/simple;
-	bh=ThjuJJIilkFnb3x21CQlJpZVJrdeK0DbvDM3qFJoTpc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dy8cfvmOMByDrJzOjcu5Yxfgn227V/nKLeVi0cTnaZhA761W2wSE0SWpwVjdBA1pNy0J7ss+qWvUQz+tLqDoFH6dPbel/5Uo0EcMIM1laeQaIUAUg9GQZLJag/5eh/6Eu7qV6xltlwzrZ6lQrNvSVM1iIvwdj1+6EYuByQf7yTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EfNcv0nh; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789378385; c=relaxed/simple;
+	bh=aSj33CN0T3dI/k14fPa6ofhjE1bRSsSF8+cMgeD4JMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nPifpcGXlJpBMKaMQjXyYoX4RgnjEF6uwZKFJRv++jm+41PZZdVcvNevVqa/BniZMG92GXazMMBW2PTrkKntZLzXTdKj3wOPcoa4hh6e3I/yQNu8V8Dc8lS/DvPrYojhZutU8RkFNHZzqdd2VM7cBAvKtPP10nPZaCoD9wt8f0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=LbIDoKjN; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XRF123uR; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nMwfz1Sg; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=0sRxt1xJ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EfNcv0nh"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so1733041a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:32:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789378345; x=1789983145; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VIqJAEv0wE0GewharGE+LoF/XSc70c9h3/w9GQFRHEs=;
-        b=EfNcv0nhAz915vEkIxvjKWZxBqPhCt9u/GJJGs26srntvITLsxbYwJIoedxe5PfXNC
-         YHip9UY+4Am9Bhzo8lHDNvkRFHIXHFgNRvXpUgXhi5N1Y65xf8u7jQGV1xu+3WTxVr00
-         GTnedh2PND+7CLz8lunF4JIEutfu/e/gON8pn2cqv85hjrPDqqOKrQbvXhAzyH2E5upU
-         T3tivVUDEfiZSMQyxQJcAIy/6H+TwOJPhGHxTk35fKqqY5LdFhDKRahwWH+XTvi8dgmh
-         KBeLCBslKV6zq/fHM4BEEzR/dTeIFv3oXaMfoowlv7kUNw+jkrwxh5YlzpQwkvXhIUmS
-         tfnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789378345; x=1789983145;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VIqJAEv0wE0GewharGE+LoF/XSc70c9h3/w9GQFRHEs=;
-        b=qfeuP0T3XQgayGF8AsAWJkqKqdZhW4izJdBpSud2M62cFJg4RBJyOjNqlnttvNDbs6
-         5aAazw8SS+zGoj10v1wmcdJb4mg4J4b9yDE4qFcE1CxMlGB/KQbOncHuIyqv2ijZKP8e
-         wV9C9RQHyQGfDWXKYLwSbTfA8v+bRntutOc3DOn0xNzG56a5vPPoWLSygrxNrtQOEukD
-         rdsV/662IKWsiSPzOWOT5zqpQliaa9tCOyO7JcNLHFF1/gA6s47VfTwCFQkdbdBWxCu2
-         v1emgiV7UN4MNgrXpanCwzgUkw+NcDf5C2OONmPXhamwg8mZ2b3hWsrqCsnxgxvazXb8
-         ukGw==
-X-Forwarded-Encrypted: i=1; AKwUvBzeveeDTMIGJemMcPmhRqpaXrq1VA49UdlpYrJOKmCQwGMAqc2GVul8hIB8ojoXZIAokar3+5+yjk213UQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnXkLnK9lFPIZtCagh43+7+EVrtIYgH+kXuQdTblvUpqRkuHEH
-	9CgNPIxJvUv75Dn15wuzsS3q2D5+3y3cxD2LgFuXkAI5otOC4Ct2IspI
-X-Gm-Gg: AYBFou1ZqsC2gs4d8PM09kAQgPOvU/HfNPH8IVf+TIzDTBeffwu5xcQ2lnugfURg/39
-	IqxGhLi5jyenvOIm1/cCo55vdJ8NJp3tpyLcxUPMtmVF4r0KSmVzMO6eCF3MrWQ6XEhuffOpSq0
-	ALRrARNV9Gw+I7jh7+Yyl5fVC/735sUCLcaki87hKwUybwzq+kq7JNkkbJLMGYwRxfgiGZdMoJV
-	MAHrWwbQLTQRS50Jivr1R72wKVep+yY4TKwjXEbouoC6xtjD0u8H9/betgbp/sm1uVbDOc0YdB0
-	s036rplca0lXp5G8QYUKuJHUbWOLJ7Sjx8nSg9I8M/J40/T3CALDCClnbO/qbFiPBIuGHZ+sp/k
-	H6hGnbwB3bSfLjHwPQLxLiZqBxPvdKrxiExxlzCeYAe74ZARYreD+Sv+gsc8j8Ge+XqY6dlPTPq
-	2RYifSP/7eu1d2htikvF80FIUtKmZ8T8LANZjz0cw5WR1c4PepINGdR1DQ/aEaGWNGXy4Bwh7Pj
-	zZ+Jy/kRA0ZJkYRAN23eEi1OVivmLP4stkHajM1t5XPXkzoPulBGAaueZ+D1Gfqr6pCaTOKY2cz
-	SyP3jBqKKjN4E+ieT7mweor1Z3E4UHOMvOBB+6wTqfY74shkh/tELJs7osCxTQnSJ/cOGneoGxH
-	6RtarV+NrRM0=
-X-Received: by 2002:a17:90b:57e7:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-39dec05d7femr3897850a91.13.1789378344844;
-        Mon, 14 Sep 2026 02:32:24 -0700 (PDT)
-Received: from cs-1047136853211-default.asia-southeast1-b.c.t54fbfa9bf0658dcb-tp.internal (155.135.143.34.bc.googleusercontent.com. [34.143.135.155])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d6b08sm20414733a91.8.2026.09.14.02.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:32:24 -0700 (PDT)
-From: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
-Subject: [PATCH v6 1/1] xfs: prevent close() from hanging on frozen filesystems
-Date: Mon, 14 Sep 2026 09:31:51 +0000
-Message-ID: <20260914093152.1698-2-aditya.ansh182@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914093152.1698-1-aditya.ansh182@gmail.com>
-References: <20260914093152.1698-1-aditya.ansh182@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="LbIDoKjN";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XRF123uR";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nMwfz1Sg";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="0sRxt1xJ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C89EE1F45E;
+	Mon, 14 Sep 2026 09:32:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789378377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
+	b=LbIDoKjNeXoce6+Au8AUEmijy9fOusYZyTZUtJIZRWjyLl6mAxI2CHfcE8lxC3LfVyTq4V
+	FOi0ZyXOpbwV+ceni0eQ35T1oqrF3DBiyZhaMLkTolyxBvJ+PtSTTIK4hGhiUHfQQ16kgW
+	5zui2dRs127w1G0rbHsZbVJQIsF8k7o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789378377;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
+	b=XRF123uRxImNUf9YrAcZypZwpkHHDigE22v1nuf4vasiaLeELcfsShNR6obW8JuOen/B0x
+	nYkeSHJi7lPGkUBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789378372; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
+	b=nMwfz1Sgx3+zFjCPJptoAizAv9jEuAuj3+63p+1uS9zSZup/ZeZ/hQoT9DUjbphthhpMsG
+	j+qzl/oag9dJnrDvMYEurA/JC1WJfOdA9N+Bi4v00ub9sQjRGyMiDYykzYHrn2q3uplxrW
+	eGDw40MayqyWozqxSA3kepwx1PRV1zk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789378372;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XlsJ7pXjtqm+GzQ+2zmJwqm6kI3CiTcOpGOda6jqVgA=;
+	b=0sRxt1xJhYVpOLEuHiB88wnuBlg5CP/Qv0UxLrrVRNYKn9JO9RbVU8ZR04NSVQq7vvOG39
+	nc4d7DOAVWLfnZCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D4A91368C;
+	Mon, 14 Sep 2026 09:32:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uTVgJkS/p2prXQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 09:32:52 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 2E0A2A12E4; Mon, 14 Sep 2026 11:32:52 +0200 (CEST)
+Date: Mon, 14 Sep 2026 11:32:52 +0200
+From: Jan Kara <jack@suse.cz>
+To: Barry Song <baohua@kernel.org>
+Cc: Tal Zussman <tz2294@columbia.edu>, Wenjie Qi <qwjhust@gmail.com>, 
+	willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, axboe@kernel.dk, trond.myklebust@hammerspace.com, 
+	jaegeuk@kernel.org, chao@kernel.org, qiwenjie@xiaomi.com
+Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
+Message-ID: <hbki3yc23dr5fkre5phwx2ev6yjfn3ooodan37uo3at53y3gs2@kjyxyb34s5bi>
+References: <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
+ <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
+ <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+ <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu>
+ <CAGsJ_4xMK=rPXCH5OiCOYHKRQp-w+xDJQusJ_ykbuAuLZr+8bA@mail.gmail.com>
+ <1e5118a5-6b61-49d0-85e1-825e22059241@columbia.edu>
+ <CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz-cHaDWLkxaQ@mail.gmail.com>
+ <65a2c7df-0d2e-46de-9580-01e9c35a7e32@columbia.edu>
+ <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[columbia.edu,gmail.com,infradead.org,suse.cz,linux-foundation.org,vger.kernel.org,kvack.org,kernel.dk,hammerspace.com,kernel.org,xiaomi.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[columbia.edu:email,imap1.dmz-prg2.suse.org:helo,suse.com:email,infradead.org:email,xiaomi.com:email]
 
-When a file is closed, xfs_file_release() attempts to trim speculative
-post-EOF blocks. This requires allocating a transaction, which blocks
-indefinitely if the filesystem is frozen.
+On Mon 14-09-26 09:09:32, Barry Song wrote:
+> On Mon, Sep 14, 2026 at 7:34 AM Tal Zussman <tz2294@columbia.edu> wrote:
+> >
+> > On 9/13/26 6:51 PM, Barry Song wrote:
+> > > On Fri, Sep 4, 2026 at 6:36 AM Tal Zussman <tz2294@columbia.edu> wrote:
+> > >>
+> > >> On 9/4/26 12:28 AM, Barry Song wrote:
+> > >> > On Sun, Aug 30, 2026 at 7:59 PM Tal Zussman <tz2294@columbia.edu> wrote:
+> > >> >>
+> > >> >> On 8/30/26 6:25 AM, Wenjie Qi wrote:
+> > >> >> > From: Wenjie Qi <qiwenjie@xiaomi.com>
+> > >> >> >
+> > >> >> > Fault-around can map ready dropbehind folios without going through the
+> > >> >> > normal page-cache lookup that clears dropbehind. A mapping represents a
+> > >> >> > competing cached user, but writeback completion can currently unmap that
+> > >> >> > folio. A later mmap access must then fault it back in.
+> > >> >> >
+> > >> >> > Retain mapped folios instead. For a mapped folio,
+> > >> >> > folio_unmap_invalidate() can call unmap_mapping_folio(), which takes
+> > >> >> > i_mmap_rwsem and may sleep. Retaining the folio also avoids this path when
+> > >> >> > folio_end_dropbehind() runs in non-preemptible task context.
+> > >> >> >
+> > >> >> > Unmapped dropbehind folios continue through the existing invalidation path.
+> > >> >> >
+> > >> >> > Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages when writeback completes")
+> > >> >> > Cc: stable@vger.kernel.org
+> > >> >> > Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> > >> >> > Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> > >> >> > Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+> > >> >> > ---
+> > >> >> > The mapped-plus-dropbehind state was reproduced in QEMU. The patched
+> > >> >> > kernel retained the mapped folio and continued to evict the unmapped
+> > >> >> > dontcache folio. I did not reproduce the sleeping-in-atomic warning and
+> > >> >> > am not aware of an existing report.
+> > >> >> >
+> > >> >>
+> > >> >> I was able to trigger the sleeping-while-atomic BUG on current mainline with
+> > >> >> some help from Claude. The reproducer itself is straightforward enough, but the
+> > >> >> configuration was a little finicky. The atomic context comes from using
+> > >> >> threadirqs so that virtblk_done() completes requests from the irq thread under
+> > >> >> local_bh_disable() and the vq spinlock with irqs off, so in_task() is true but
+> > >> >> the i_mmap_rwsem down_read() sleeps. It also needed 1 vCPU (so completion stays
+> > >> >> in the irq thread rather than softirq) and ext4 -o dioread_lock (so end_io runs
+> > >> >> inline instead of on a workqueue). With v4 applied the bug is gone, so:
+> > >> >>
+> > >> >
+> > >> > Thanks, Tal. Then I'm getting quite confused. Since with Wenjie's
+> > >> > patch, we are no longer going to sleep for dropbehind in `filemap.c`,
+> > >> > do we still need all the complex logic in the block device and file
+> > >> > system layers to move dropbehind to a workqueue task context?
+> > >> >
+> > >>
+> > >> Hi Barry,
+> > >>
+> > >> Let me clarify. Wenjie's patch prevents sleeping in a very specific case.
+> > >> The existing in_task() check covered most other cases, in that it just
+> > >> doesn't do dropbehind invalidation if we're not executing in task context
+> > >> (for example, block device writeback completing in interrupt context).
+> > >>
+> > >> However, dropping the invalidation defeats the point of dropbehind, as it
+> > >> leaves the pages in the page cache. If we get rid of the task-context
+> > >> deferral mechanism, we wouldn't sleep, but we also wouldn't invalidate.
+> > >> Wenjie's change is largely unrelated to this.
+> > >
+> > > Hi Tal,
+> > >
+> > > Thanks for the clarification. However, I’m still not convinced.
+> > >
+> > > If `unmap_mapping_folio()` is the only place where we might
+> > > sleep — where we might take `mapping->i_mmap_rwsem` through
+> > > `i_mmap_lock_read()`, as Wenjian pointed out in [1] — we have now
+> > > prevented that from happening with `if (!folio_mapped(folio))`.
+> > >
+> > > So no mapped folio should call `folio_unmap_invalidate()`:
+> > >
+> > > static void filemap_end_dropbehind(struct folio *folio)
+> > > {
+> > >          struct address_space *mapping = folio->mapping;
+> > >
+> > >          VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
+> > >
+> > >          if (folio_test_writeback(folio) || folio_test_dirty(folio))
+> > >                  return;
+> > >          if (!folio_test_clear_dropbehind(folio))
+> > >                  return;
+> > >          if (mapping && !folio_mapped(folio))
+> > >                  folio_unmap_invalidate(mapping, folio, 0);
+> > > }
+> > >
+> > > Why do we still need the `in_task()` check in
+> > > `folio_end_dropbehind()`?
+> > >
+> > > void folio_end_dropbehind(struct folio *folio)
+> > > {
+> > >          if (!folio_test_dropbehind(folio))
+> > >                  return;
+> > >
+> > >          /*
+> > >           * Hitting !in_task() should not happen off RWF_DONTCACHE writeback,
+> > >           * but can happen if normal writeback just happens to find dirty folios
+> > >           * that were created as part of uncached writeback, and that writeback
+> > >           * would otherwise not need non-IRQ handling. Just skip the
+> > >           * invalidation in that case.
+> > >           */
+> > >          if (in_task() && folio_trylock(folio)) {
+> > >                  filemap_end_dropbehind(folio);
+> > >                  folio_unlock(folio);
+> > >          }
+> > > }
+> > >
+> > > Could any other operation in `folio_unmap_invalidate()` sleep for
+> > > unmapped folios? Otherwise, it seems we don't need `in_task()` at
+> > > all?
 
-Fix the hang by wrapping the preallocation cleanup block with
-sb_start_write_trylock() and xfs_ilock_nowait() to bypass the trim
-best-effort when the filesystem is frozen or locking fails.
+We do need it. folio_unmap_invalidate() calls filemap_release_folio() which
+calls into ->release_folio() handler and generally filesystems are allowed
+to sleep in this handler. Now usually they don't actually sleep there but
+they definitely grab a lot of irq unsafe locks there as Tal writes below.
 
-Suggested-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
----
- fs/xfs/xfs_file.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+								Honza
 
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index d8202da15aca..dd6d2e08faff 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -1872,17 +1872,21 @@ xfs_file_release(
- 		return 0;
- 
- 	/*
--	 * If we can't get the iolock just skip truncating the blocks past EOF
--	 * because we could deadlock with the mmap_lock otherwise. We'll get
--	 * another chance to drop them once the last reference to the inode is
--	 * dropped, so we'll never leak blocks permanently.
-+	 * If we can't get the iolock or if the filesystem is frozen, just skip
-+	 * truncating the blocks past EOF because we could deadlock with the
-+	 * mmap_lock or hang the close() call. We'll get another chance to drop
-+	 * them once the last reference to the inode is dropped, so we'll never
-+	 * leak blocks permanently.
- 	 */
- 	if (!xfs_iflags_test(ip, XFS_EOFBLOCKS_RELEASED) &&
--	    xfs_ilock_nowait(ip, XFS_IOLOCK_EXCL)) {
--		if (xfs_can_free_eofblocks(ip) &&
--		    !xfs_iflags_test_and_set(ip, XFS_EOFBLOCKS_RELEASED))
--			xfs_free_eofblocks(ip);
--		xfs_iunlock(ip, XFS_IOLOCK_EXCL);
-+	    sb_start_write_trylock(mp->m_super)) {
-+		if (xfs_ilock_nowait(ip, XFS_IOLOCK_EXCL)) {
-+			if (xfs_can_free_eofblocks(ip) &&
-+			    !xfs_iflags_test_and_set(ip, XFS_EOFBLOCKS_RELEASED))
-+				xfs_free_eofblocks(ip);
-+			xfs_iunlock(ip, XFS_IOLOCK_EXCL);
-+		}
-+		sb_end_write(mp->m_super);
- 	}
- 
- 	return 0;
 -- 
-2.47.3
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
