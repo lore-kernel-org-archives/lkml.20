@@ -1,53 +1,54 @@
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C840C38B7A6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F2D38734A
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789421189; cv=none; b=Xczy1r4aXLij9Sdr6Ra8NIEZ5Id7nuHtn7uP1i/lPjy+cc0lZiHULdlEzD4cYMzJ4LnmGhXkp3YRjCQezXZgy1CxG5MgxI4sc9wQxcJuN5N2ASsuJhpFf6PENxIXnAGvVX/jQV/G+iVowuATijvYaDDMd++tJaxKYst8+hQMVQY=
+	t=1789421189; cv=none; b=CcJZhea3lQ/pZdbDVcaIY9vEeWB+aW9z3HgOLcaB1RnlD+vgLWdBrcXQ2GIQLoO9WSXOZXhNYPpsnXXikiRbZRizELYCmWYCEw3ErFloxGmKJcgnx9dJInRdINQs7tNdFY/Dt09XPa64kQLmmizbKg3NC7OgXw1eyDHDRzuFcNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789421189; c=relaxed/simple;
-	bh=dWWNsdjuysMJ/2085tK0NW4f9jW++Y+Re2ydq5/YTrs=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=pjjHYxaNgdAfGg5XX3CF+OC/8F1Rp2SlrlEi0ZIAUCXXXDIAReR2znjDDCdSfQ/+ABfdMWPunSC2onIJqJUjR3NEsOaprHAyaj4QtToi3ECoX+9zThowvEdE/TGbZvV2YAO8Fli5Qv7o/6h2VnBmzNPvekmV+oxj0bR8LlJ1v8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.73
+	bh=KvJhzZd6AwkkIU2Es4vbnEfIFXnH+ahy6asB0LKS7NE=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=odrpJQwQ3aNYrM8nFI1M+8E7etuNz9bZ3RHMfa7wA3UCCvbwRQ8xcQ085avAX2rhdc0bz7z+hBNvt9Yq8vxIXHbf/MWL7AxnaJ0RN4df0FH+jgG1vWSxgT6vqn03o+MdgJISGnlL2mHaEfnhuq+s5xbeyB6c/cWScA1xUg2OZXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bd4bcc3e2so1420027fac.1
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8069d92e182so942427a34.0
         for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:26:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789421186; x=1790025986;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vvjwSBjsoRZGABnGVp2dTMSYiqE1jQGUEtvi1+gEewA=;
-        b=aALGloN4ygHE4SBOqY0wux3hsfASliF83jPi3D8vDO9C5ujW3aQWQhF6eIzgS0Sm9h
-         wCIJFQOkmVMTbWXl8Pm8BGbMrEbaGYUUoRy0pXQTreR/Qjs1si761JxaH0fj9c1p72ip
-         FSd/gB+/W2PIZXGYn1FtH093bSlj+luey+Dah3pURGqdXJug4X3RwjffwlgVWAnrURl1
-         TOjOB3uVMSv9nWZ/3Hu5m3EHaetzRV3wJBr5rkmcTg4ItsxCwKuUOq/v6ahGtbWiR2u0
-         UCPuBdogrZ1FcF2KTjBcsYkQwqEM4EC0MnBZH3c3sroFa55XKDApkrKpmta9NbqEuG7m
-         U3dQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxv97mvYg9q9kIDcQ87wyMbYPYY778ugVhTINgK5oCTrQZ2cUlUBm7uWVm5pJQ0B/jU6OFhcSLUT+Ar9Yg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzHy2ZFVjHO65KxgScaSiCFg52KKO0YzYPuGfFp36/1REC2qaR
-	eV3Jtzt652ZQ6POBB02SVoQ2Ry4dSvKX6Humphc6Vt7mCEQSc9e0XjaCbfD92R3dTmsrkZBITED
-	hNFvd7ZXXVwzKYuSwwaH30+Ut7KUYMQZt5zRThLzc2WY3y05gJY3AzT79llY=
+        bh=UJSsiHzVynrUipB9iDSOlhf+oxil+0VedCJ6OweJF3s=;
+        b=UMMk+IS8LtdI/4m3MNDIXG3wHFW9GC08KCWJ8eSMW8pFUEiKnxmbnd78GSG3xJcer3
+         g7FjRYsogc/wCgh/8Cl6zhwt1U7OQ3dUmGLyIO0S/NpWKq/0LzmJo3jEaPGyziSftOPQ
+         5AmaB1+xlCJ4mFG1zwGn7ElJybJwUQdLNATuRiVE4M0CjDlr5447Vql96zIF2KZqQ45R
+         nE6kGvsSt3gb2JlDVS+zN4szF2zjQTJPjpCClsm5LFhXhqccnl8jUWI1CmEFT2zgSXXl
+         +76SGrrOej0kVrRH6JARjXbwJFsVS5aZYvt9YBiY22nqu0NBbSAHojYZp8ziLa9qzeYN
+         MijA==
+X-Forwarded-Encrypted: i=1; AKwUvBzs5BAJnztfNQXTDQzbDS+4Ylz36eqbGifGG6EBDmB+lwAiurOmkBNdg3It8HiwMZHkJ3ln2BFo7Dz1U1A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nouMJxsuoAmzaZIaxpYWwymziJXj50SoysHMhffiN9kJtnkW1B
+	c2HhPAMRKLL6XyQNFnjIiZZUYHpltPLTHUi3zolRQOrs3Wy2YT44N9Qh8fKj9scUEbBgmw+ctfG
+	azY/Wa/h2d/Iz+z+73jNX7oaKflabZN5SI0mWD1tamiSzXVfKyU2dwdA9zmA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3084:b0:6b7:83d6:292d with SMTP id
- 006d021491bc7-6c542831440mr2450704eaf.48.1789421186537; Mon, 14 Sep 2026
+X-Received: by 2002:a05:6820:1389:b0:6c1:dc9f:ab2e with SMTP id
+ 006d021491bc7-6c53f446182mr2350443eaf.27.1789421186287; Mon, 14 Sep 2026
  14:26:26 -0700 (PDT)
 Date: Mon, 14 Sep 2026 14:26:26 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa86682.f81106d8.2ab401.0056.GAE@google.com>
-Subject: [syzbot] [block?] WARNING: suspicious RCU usage in mas_start (2)
-From: syzbot <syzbot+b48868c46e62c1c4cb2c@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tom.leiming@gmail.com
+Message-ID: <6aa86682.f81106d8.2ab401.0055.GAE@google.com>
+Subject: [syzbot] [usb?] general protection fault in ucsi_acpi_probe (2)
+From: syzbot <syzbot+e7aa19176573a6992617@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, heikki.krogerus@linux.intel.com, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
@@ -56,75 +57,94 @@ syzbot found the following issue on:
 
 HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
 git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16091925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=b48868c46e62c1c4cb2c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=120f305e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=117fb5f9580000
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=14358df9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=e7aa19176573a6992617
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10c5bdf9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14c5bdf9580000
 
 Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-704340f1.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e02afc1c5927/vmlinux-704340f1.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/09cb4a8b3309/bzImage-704340f1.xz
+disk image: https://storage.googleapis.com/syzbot-assets/a1f812f889ad/disk-704340f1.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/8aa4ccae83ac/vmlinux-704340f1.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/8f86a50bf181/bzImage-704340f1.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+b48868c46e62c1c4cb2c@syzkaller.appspotmail.com
+Reported-by: syzbot+e7aa19176573a6992617@syzkaller.appspotmail.com
 
-=============================
-WARNING: suspicious RCU usage
-syzkaller #0 Not tainted
------------------------------
-lib/maple_tree.c:720 suspicious rcu_dereference_check() usage!
-
-other info that might help us debug this:
-
-
-rcu_scheduler_active = 2, debug_locks = 1
-locks held by syz.0.17/5926: 1, last CPU#0:
- #0: ffff888034a420a0 (&ctx->uring_lock){+.+.}-{4:4}, at: tctx_task_work_run+0x1cd/0xbf0 io_uring/tw.c:92
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 5926 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Oops: general protection fault, probably for non-canonical address 0xdffffc00000000fc: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x00000000000007e0-0x00000000000007e7]
+CPU: 0 UID: 0 PID: 5618 Comm: syz-executor238 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/08/2026
+RIP: 0010:ucsi_acpi_probe+0x6c/0x4b0 drivers/usb/typec/ucsi/ucsi_acpi.c:199
+Code: 89 74 24 08 4c 8b 23 4c 89 e7 e8 bf 7d cd fd 49 83 c4 f0 45 31 f6 84 c0 4d 0f 45 f4 49 81 c6 e4 07 00 00 4c 89 f0 48 c1 e8 03 <42> 0f b6 04 28 84 c0 0f 85 16 04 00 00 41 8b 2e 31 ff 89 ee e8 fb
+RSP: 0018:ffffc90004c27ab8 EFLAGS: 00010207
+RAX: 00000000000000fc RBX: ffff88801d7ac4e8 RCX: ffff888011e4be80
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffffff8760c1c0 R12: fffffffffffffff0
+R13: dffffc0000000000 R14: 00000000000007e4 R15: 1ffff11003af589d
+FS:  0000555588eb7400(0000) GS:ffff888125bcb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000000 CR3: 0000000045e66000 CR4: 00000000003526f0
 Call Trace:
  <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- lockdep_rcu_suspicious.cold+0x4f/0xb2 kernel/locking/lockdep.c:6972
- mas_root lib/maple_tree.c:720 [inline]
- mas_start+0x621/0x7c0 lib/maple_tree.c:1250
- mas_state_walk lib/maple_tree.c:3006 [inline]
- mas_walk+0x82/0x310 lib/maple_tree.c:4458
- ublk_try_buf_match+0x469/0x7e0 drivers/block/ublk_drv.c:5639
- ublk_init_iod+0x4a4/0x5b0 drivers/block/ublk_drv.c:521
- ublk_setup_iod+0x145/0x2f0 drivers/block/ublk_drv.c:1536
- ublk_dispatch_req+0x4e/0xb00 drivers/block/ublk_drv.c:1776
- ublk_cmd_tw_cb+0xbe/0x110 drivers/block/ublk_drv.c:2067
- tctx_task_work_run+0xabe/0xbf0 io_uring/tw.c:96
- tctx_task_work+0x7a/0xa0 io_uring/tw.c:133
- task_work_run+0x150/0x240 kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x951/0x2ae0 kernel/exit.c:1011
- do_group_exit+0xd5/0x2a0 kernel/exit.c:1154
- __do_sys_exit_group kernel/exit.c:1165 [inline]
- __se_sys_exit_group kernel/exit.c:1163 [inline]
- __x64_sys_exit_group+0x3e/0x50 kernel/exit.c:1163
- x64_sys_call+0x1567/0x1570 arch/x86/include/generated/asm/syscalls_64.h:232
+ platform_probe+0xf9/0x190 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ device_driver_attach+0xe0/0x1d0 drivers/base/dd.c:1203
+ bind_store+0x1d3/0x220 drivers/base/bus.c:267
+ kernfs_fop_write_iter+0x3a5/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x61e/0xbb0 fs/read_write.c:687
+ ksys_write+0x156/0x270 fs/read_write.c:739
  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f35df99e159
-Code: Unable to access opcode bytes at 0x7f35df99e12f.
-RSP: 002b:00007ffcaa2c82b8 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f35df99e159
-RDX: 0000000000000064 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000003 R08: 0000000000000000 R09: 00007f35dfbec3e0
-R10: 0000000000000001 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f35dfbec3e0 R14: 0000000000000003 R15: 00007ffcaa2c8370
+RIP: 0033:0x7f5d40826649
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd2d524bb8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f5d40826649
+RDX: 0000000000000007 RSI: 0000200000000600 RDI: 0000000000000006
+RBP: 0000000000000001 R08: 0000000000000006 R09: 0000000000000006
+R10: 0000000000000006 R11: 0000000000000246 R12: 00007ffd2d524d28
+R13: 431bde82d7b634db R14: 00007f5d408b9c40 R15: 0000000000000002
  </TASK>
-I/O error, dev ublkb0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
-Buffer I/O error on dev ublkb0, logical block 0, async page read
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:ucsi_acpi_probe+0x6c/0x4b0 drivers/usb/typec/ucsi/ucsi_acpi.c:199
+Code: 89 74 24 08 4c 8b 23 4c 89 e7 e8 bf 7d cd fd 49 83 c4 f0 45 31 f6 84 c0 4d 0f 45 f4 49 81 c6 e4 07 00 00 4c 89 f0 48 c1 e8 03 <42> 0f b6 04 28 84 c0 0f 85 16 04 00 00 41 8b 2e 31 ff 89 ee e8 fb
+RSP: 0018:ffffc90004c27ab8 EFLAGS: 00010207
+RAX: 00000000000000fc RBX: ffff88801d7ac4e8 RCX: ffff888011e4be80
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffffff8760c1c0 R12: fffffffffffffff0
+R13: dffffc0000000000 R14: 00000000000007e4 R15: 1ffff11003af589d
+FS:  0000555588eb7400(0000) GS:ffff888125ccb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000555588eb76d0 CR3: 0000000045e66000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	89 74 24 08          	mov    %esi,0x8(%rsp)
+   4:	4c 8b 23             	mov    (%rbx),%r12
+   7:	4c 89 e7             	mov    %r12,%rdi
+   a:	e8 bf 7d cd fd       	call   0xfdcd7dce
+   f:	49 83 c4 f0          	add    $0xfffffffffffffff0,%r12
+  13:	45 31 f6             	xor    %r14d,%r14d
+  16:	84 c0                	test   %al,%al
+  18:	4d 0f 45 f4          	cmovne %r12,%r14
+  1c:	49 81 c6 e4 07 00 00 	add    $0x7e4,%r14
+  23:	4c 89 f0             	mov    %r14,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 0f b6 04 28       	movzbl (%rax,%r13,1),%eax <-- trapping instruction
+  2f:	84 c0                	test   %al,%al
+  31:	0f 85 16 04 00 00    	jne    0x44d
+  37:	41 8b 2e             	mov    (%r14),%ebp
+  3a:	31 ff                	xor    %edi,%edi
+  3c:	89 ee                	mov    %ebp,%esi
+  3e:	e8                   	.byte 0xe8
+  3f:	fb                   	sti
 
 
 ---
