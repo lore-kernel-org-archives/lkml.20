@@ -1,242 +1,119 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDCC41D64E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57ACC2EA173
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378310; cv=none; b=EahgbKOxE+eq9TUk6kTgKNJviqnEYqc1ZI3ndriqnN41bNdWuhmUJz3a3Mlqtq/Wwi8YsNPalXnwpZSKxROrn0lAzVj84QSRf0h0K0XFZVKiwAyIuGlnhcEnMAGof7VOV+iNgIiEW8IwvY1VzywqbQTwM90ne8HVC/qcI/Sv9Kk=
+	t=1789378335; cv=none; b=FBgyeuRN8/GeDAHv647etN6VWOuMumq8eeOwoGMY+c+4W0V9TUKHQ8laWVFx04JekTITV6y4MKmzR9TzjKL5rsOuTygMp8qDATFz7iw3XVyJNRdi7nIAkAuiw1OipdDhtRIGjSBuYMtfkXjBGEDRqJD9OwzekvPKWSZaMQnHS9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378310; c=relaxed/simple;
-	bh=A7mGEjdcqD3q0xpznb4BgSxNI2gUkNOYuI6Snejdmkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GJOAyxpnAdCzrh5q68zc8zj8zqgmJVXPHsoY5lUhj+fcoHz7X4HA6bGmg0yxYQ5u94os9E/jlTHGPctNHHLOq+yctRm2B5JlDGONkepIPKOhvXaK/lwxNGXy6zmkcGP4dAcvysZy8T3ksT7k0IDI/AOMf1vq9Ectezg6GY2SgFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=V76AKnlb; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789378335; c=relaxed/simple;
+	bh=1IdoY1hiT6PmkTeljw6MT7zrKtvU8liEHU6LWcr8124=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PXCQvkug8YudQdi6L9KsePyDzkOQcEHgtXJ6VYKOVla321E6eNqRKgvHRBdFmDR0X3vXX8ZECYiAvayAyDJIoszHnJnqttEO1O35yWMk4VNQ2JhkjAdSYyzV4fcn+8d0GAKtDzXvMU22QLurSGhc50DrOU/mvcMPIvpVk13l7EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dk8jzMDc; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="V76AKnlb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789378306;
-	bh=A7mGEjdcqD3q0xpznb4BgSxNI2gUkNOYuI6Snejdmkc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=V76AKnlbuMCH78H1nS0hmndClVrHigfd8rkIKh3v8Lh0Tk3SQDXZYKD7BxojL1G9p
-	 w2JChLY/XYm8SHV2X/TRDx75zNdLUJIvEsPhw8uM/Xkia3iitipPmCsSBnD0ApqRMX
-	 fK5q3foeUuL09YRPZlN864v9UB+jxdGqqw3jRC7dngChU3b6sRGt2bOoKjxzKy4spT
-	 KFKaynu9abo0280Ut9GAZc9sV3X9uIwiJ9Lt9UhBDsKW2ZeP8nsw/w1QCm3vhdasJT
-	 gdKAYk5ldpzrJhAdzAuHHj4X2VYrIf/46CDLZdzCTanTzQzPfa8Rea9uoHNUuc2lAZ
-	 3NfJfGcKwqVHQ==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C685F17E05D3;
-	Mon, 14 Sep 2026 11:31:45 +0200 (CEST)
-Date: Mon, 14 Sep 2026 11:31:41 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 08/16] drm/panfrost: Move all DRM device
- initialisation into device_init()
-Message-ID: <20260914113141.34527b1e@fedora-21.home>
-In-Reply-To: <20260912-claude-fixes-v9-8-e588feaa61ef@collabora.com>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
-	<20260912-claude-fixes-v9-8-e588feaa61ef@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dk8jzMDc"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so1280938a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789378333; x=1789983133; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fUgUbIzBHavhcx103b2rVszh/STl0E/XwGRt39cKnyM=;
+        b=Dk8jzMDc1MpJzUyRROkorzogF28rUqt8PpiLyLwdEp3qEOU7h/sGptIbgPtngWs0hb
+         sIJFmowjKbL9UUANISSbcv+hepwRfyCY3qYXEzMATdw6aBBeBtqIt8yCTz208fgtytg6
+         9KVlmpKw8hCLbNPk5Bj3ngyGTZ9hQZEGy4wDGujp/+laP1rE5RzUcx8gCJHytXeA1wfB
+         hbHZQ32YgYSuJgEJQ85voGZqjNYvww3NwR8Y99xcX1/FD031GtAF9RZfuOGkDx89T/wz
+         782+G6PuSeL+CvSXBgdL6oQCjz29z7Q8PHPmOrR/YeWB2lKRKsnktaF5ok1nG5cq3ZAs
+         L4mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789378333; x=1789983133;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fUgUbIzBHavhcx103b2rVszh/STl0E/XwGRt39cKnyM=;
+        b=dI/HXWOtspAzGmT6mikO3Jq5l7dY10wbrBpSS7T0hjWHwAFUrI1vIeEIuTYYdQBHca
+         hI8pIMX056ljQ5T7LCaMI/9xUOgf88Ru+h1yYpjU2mEZi/1yRl1nd90wtaNVjVge8rv3
+         rhBeJLYSbeT3s7JC5QbNYAttd8UDk1NRfqy6K/HA9rFCYlxNQaGHMwFBcNn151one2T+
+         aFqwxp294GG2Rk5AP3PT/Xr4LX7OZal5U3vsryy/CEjFSGN8aNAjTh9Hsfki5M+ECAT8
+         4vMpbS7IAJUx0wHJVQw21KGPWjcTq51/86b8k4VEwlKDQZxMCgpdQ683WuWEHQHveW6c
+         sXGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwRbU1DjhQqVTvff1Yfq7ji+O2mJECAVk3lIOeeRO+oDZmHj5EgKmoed6DlaGC+2FncBfaeaBLaMEEZPr4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ke+K8UF7BGJyW4DWPSD1RK7v7dJqgXtj7V6++WPSzdHwA4ifcg
+	PXTihUhnw47Ydp/rYj2wzUB059q7moBLSelL511lF/DYNqZk7FTC8PceumG+thvU
+X-Gm-Gg: AYBFou3MBYq4yiyK6Pd5BoXZ/GVfwO7bcLtItz5TYhjctr9BZRTp0l+PpsFcICrD/Pd
+	9daaSH7c/m26opP+ipIJ7wFTTVAzhtpKs3O/Bk7jEPwyp12QzQ3OMb0EikKYa8fgOA7AxRiPgGP
+	x2cHnypHdct7y4bTQFbILo2d8IOagYRgzbo+Q6iXINN8j5ChimBetpxIi4eNOnLimq1oGE7b/gB
+	bxg6rzYpbRI9M1tgYZ3otxBhLJ5YjMxyIlKu8sMukxlA1vSkwPfGmzCy340vQAdbUaYaARw9SVR
+	3qRU3r2hKFY2V95OfgW20diCA8IVpvYTW29W4XhVVk1adinc2lYb7HxQrOJPaQDuHCJQs6AVCn1
+	QqUQZlJGX2dEgiDZ3fi18XXiuDE4i3xEV9whyNh5/zC91OCpe1TmBy+5lVPO30NW/ZQF509wn+N
+	yxjMh+yg1NSrtWbarWsO0OAfLFAykpZT+8SDKkOtdnUq8186Q+F3defIzKCctQnkXzrPYfkr01a
+	7QbsRdb+Xd7WaRSN8M3tVgiRadm8o48E8UoHxTwsvjNZwMFiTLWmM2+QZrbrpt5ovo4q5SZy+7e
+	S1AxNfLNF9c/T9oizjmltZAvPye9n5XYXKCUIS77JV3MtrTKY656qNTQv5xa6+Pvu2zaraFZ0Zo
+	oS+HCe4qRiYk=
+X-Received: by 2002:a17:90b:534c:b0:39d:f08e:e6e7 with SMTP id 98e67ed59e1d1-39df08f09b2mr2513332a91.9.1789378333338;
+        Mon, 14 Sep 2026 02:32:13 -0700 (PDT)
+Received: from cs-1047136853211-default.asia-southeast1-b.c.t54fbfa9bf0658dcb-tp.internal (155.135.143.34.bc.googleusercontent.com. [34.143.135.155])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d6b08sm20414733a91.8.2026.09.14.02.32.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:32:12 -0700 (PDT)
+From: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+Subject: [PATCH v6 0/1] xfs: prevent close() hangs on frozen filesystems
+Date: Mon, 14 Sep 2026 09:31:50 +0000
+Message-ID: <20260914093152.1698-1-aditya.ansh182@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, 12 Sep 2026 00:28:09 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+Hi Christoph, Darrick, and Carlos,
 
-> Ideally the probe() function will do as little as possible, and all device
-> initialisation and registration should happen inside the panfrost device
-> subsystem, just like it's done in Panthor. This also simplifies resource
-> unwinding in the error path.
->=20
-> Do the same thing for DRM driver remove, as in, sweep most of the action
-> into panfrost_device_fini(), just like we did for device probe.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+This is version 6 of the patch series addressing the close() system
+call hanging indefinitely on frozen XFS filesystems (Bugzilla #205833).
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+In v5, I introduced a transaction allocation flag
+(XFS_TRANS_WRITECOUNT_TRYLOCK) to handle the trylock inside
+__xfs_trans_alloc() and propagated it down to xfs_free_eofblocks().
+Christoph suggested this design and reviewed the implementation.
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 37 +++++++++++++++++++++++
->  drivers/gpu/drm/panfrost/panfrost_drv.c    | 47 +-----------------------=
-------
->  2 files changed, 38 insertions(+), 46 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 2fcbd223204c..ec2b1d29a26c 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -8,6 +8,7 @@
->  #include <linux/pm_domain.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
-> +#include <drm/drm_drv.h>
-> =20
->  #include "panfrost_device.h"
->  #include "panfrost_devfreq.h"
-> @@ -230,6 +231,12 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
->  {
->  	int err;
-> =20
-> +	pfdev->comp =3D of_device_get_match_data(pfdev->base.dev);
-> +	if (!pfdev->comp)
-> +		return -ENODEV;
-> +
-> +	pfdev->coherent =3D device_get_dma_attr(pfdev->base.dev) =3D=3D DEV_DMA=
-_COHERENT;
-> +
->  #ifdef CONFIG_DEBUG_FS
->  	mutex_init(&pfdev->debugfs.gems_lock);
->  	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
-> @@ -291,8 +298,31 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
->  	if (err)
->  		goto out_perfcnt;
-> =20
-> +	pm_runtime_set_active(pfdev->base.dev);
-> +	pm_runtime_mark_last_busy(pfdev->base.dev);
-> +	pm_runtime_get_noresume(pfdev->base.dev);
-> +	pm_runtime_enable(pfdev->base.dev);
-> +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> +	pm_runtime_use_autosuspend(pfdev->base.dev);
-> +
-> +	/*
-> +	 * Register the DRM device with the core and the connectors with
-> +	 * sysfs
-> +	 */
-> +	err =3D drm_dev_register(&pfdev->base, 0);
-> +	if (err < 0)
-> +		goto err_disable_rpm;
-> +
-> +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> +
->  	return 0;
-> =20
-> +err_disable_rpm:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_disable(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
-> +	pm_runtime_set_suspended(pfdev->base.dev);
-> +	panfrost_gem_fini(pfdev);
->  out_perfcnt:
->  	panfrost_perfcnt_fini(pfdev);
->  out_job:
-> @@ -316,6 +346,13 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
-> =20
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> +	pm_runtime_get_sync(pfdev->base.dev);
-> +
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_disable(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
-> +	pm_runtime_set_suspended(pfdev->base.dev);
-> +
->  	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index a3eff77add55..f77780c72a1a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -830,7 +830,6 @@ static const struct drm_driver panfrost_drm_driver =
-=3D {
->  static int panfrost_probe(struct platform_device *pdev)
->  {
->  	struct panfrost_device *pfdev;
-> -	int err;
-> =20
->  	pfdev =3D devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
->  				   struct panfrost_device, base);
-> @@ -839,46 +838,7 @@ static int panfrost_probe(struct platform_device *pd=
-ev)
-> =20
->  	platform_set_drvdata(pdev, pfdev);
-> =20
-> -	pfdev->comp =3D of_device_get_match_data(&pdev->dev);
-> -	if (!pfdev->comp)
-> -		return -ENODEV;
-> -
-> -	pfdev->coherent =3D device_get_dma_attr(&pdev->dev) =3D=3D DEV_DMA_COHE=
-RENT;
-> -
-> -	err =3D panfrost_device_init(pfdev);
-> -	if (err) {
-> -		if (err !=3D -EPROBE_DEFER)
-> -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
-> -		goto err_out0;
-> -	}
-> -
-> -	pm_runtime_set_active(pfdev->base.dev);
-> -	pm_runtime_mark_last_busy(pfdev->base.dev);
-> -	pm_runtime_get_noresume(pfdev->base.dev);
-> -	pm_runtime_enable(pfdev->base.dev);
-> -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> -	pm_runtime_use_autosuspend(pfdev->base.dev);
-> -
-> -	/*
-> -	 * Register the DRM device with the core and the connectors with
-> -	 * sysfs
-> -	 */
-> -	err =3D drm_dev_register(&pfdev->base, 0);
-> -	if (err < 0)
-> -		goto err_out1;
-> -
-> -	pm_runtime_put_autosuspend(pfdev->base.dev);
-> -
-> -	return 0;
-> -
-> -err_out1:
-> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> -	pm_runtime_disable(pfdev->base.dev);
-> -	pm_runtime_put_noidle(pfdev->base.dev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
-> -	panfrost_device_fini(pfdev);
-> -err_out0:
-> -	return err;
-> +	return panfrost_device_init(pfdev);
->  }
-> =20
->  static void panfrost_remove(struct platform_device *pdev)
-> @@ -887,11 +847,6 @@ static void panfrost_remove(struct platform_device *=
-pdev)
-> =20
->  	drm_dev_unregister(&pfdev->base);
-> =20
-> -	pm_runtime_get_sync(pfdev->base.dev);
-> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> -	pm_runtime_put_noidle(pfdev->base.dev);
-> -	pm_runtime_disable(pfdev->base.dev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  }
-> =20
->=20
+However, Darrick suggested that the deadlock can be resolved much
+more simply at the VFS-layer within xfs_file_release() by surrounding
+the existing check with sb_start_write_trylock() instead of passing
+transaction allocation flags all the way down.
 
+This v6 implements that VFS-layer trylock approach. It modifies only a
+single file (fs/xfs/xfs_file.c). If sb_start_write_trylock() fails (meaning
+the filesystem is frozen or freezing), we simply skip the speculative
+preallocation trim.
+
+I would appreciate your guidance on which of the two architectural
+paths is preferred for XFS:
+1. The v5 transaction-flag approach (centralized within xfs_trans_alloc).
+2. The v6 VFS-level trylock approach (localized within xfs_file_release).
+
+If the v5 approach is preferred, I will rebase the transaction-flag
+patches onto the current master and submit them as a new version.
+
+Thanks,
+Aditya
+
+Aditya Prakash Srivastava (1):
+  xfs: prevent close() from hanging on frozen filesystems
+
+ fs/xfs/xfs_file.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+-- 
+2.47.3
