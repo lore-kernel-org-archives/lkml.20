@@ -1,146 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A373386567
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410304; cv=none; b=ZQWGMyYHN1MlTsCSjVFkWWltcb1XUcsHgVK+X31z3yzTRFey6qIC/KnIrmlhXUxkN1VyoptdV4M+tcrnPwuHb5EB9D6N2C5c9ZUjBEpW0o4xRBv8Ku9g2fsRWZXXIMbFVTDPonin8M4eU2F4GUYmmFHV0R2lx0+LhqXmmo8lpAs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410304; c=relaxed/simple;
-	bh=E7HvEMEH3x9f0jAa3bC0loHO1RMGNOPokzzj9zsJJJY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D632385D68
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789410342; cv=pass; b=AxbQlrJ3ugMtU7qPZfJXk3Jo/V3+V1xbWG9n6mlEDdus7jqEcbJY2R5AtgPR8xf2GAU7dI8NAD4A+Aep4UGeB0WP5T/bkiKR+uwHaLBKDHpfLyCt9fprlFUGQuSOPyfwz/uTVhNbrx77RBTJX8NQpi5OWCJ+WMnZsc2cVQC7EW4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789410342; c=relaxed/simple;
+	bh=M05cKKzyMe6gEci7W/N5xN6B2lG87e4rRXDr2YH4Gn0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DsVlUjM5rqtjeAQNGdyrAMS7WrlKF20QpqOYwMQRiNCvBWqMZaxeOciCb1RgS6KdpUJrAczwhyVMiJrqrAL4G6/EZNe1wL6uD9FK8UQhL7uTRhuSBikkxnu+99Sx60pn3Hxvo5+AvR/dwnoIuubQdVd5RId5eD1k784cRSIq4Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2hYOyCB; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=syS0HJ2V4Gq8xTt7dO9hrXs3hFJ5UJh01eJQh62OC6WXkaQq+1nhMNRaQtFcT3glVcasmMg+E0CRWl098iK8CJwVdsOsc+yiZUJjanepUhPsBCSIG+Dm608VtZLeU0fO9Zr/pm9GbtiRpA1EiiT3Lf+YoLuxqnKyilNfQf+nhx8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lhRwOt5L; arc=pass smtp.client-ip=74.125.231.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2hYOyCB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1361F000FF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:25:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789410302;
-	bh=VkPKODouaWQz277H6RYko4h8DGXFuHfYweq4HcITfeg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=I2hYOyCBl2pSXtgz11KfgeXNh8uATx3DiNNlT9BP7M06XdgWcl+YmXR0zPABP4ZGq
-	 yu8+huIlvDKirnz8D18T1+xlmHL9DU6QGB7PrZ9a/cQBTXVU6QGau0dQ10kwnpzzD7
-	 YYuj4ugVcwV5gfVvuLh6COLMdcjJVwSM+9XWl/USSVn/ue5o1LvePIi5hPVC2O1brK
-	 uWF4fzxp3//GxluiJNXyY1n5DpMpomuW/JD+C1Dg2B6D1Ji1BzipnXmXpI1bB7hChY
-	 EbbAowg7X9euZhTEjqQOOP/Lk7D940i166U0Pel76/zdr5/c+oL+RKHAevA9/JcswM
-	 xcmS7mBhQ17Wg==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso28260391fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:25:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxyk43dua/C4ppFy+x0scLZGRs2DpA8ZRad8ppNyx0ADl8rfMAEfbU81PiyqM0qbyWQEFoyHCk0LSRclNo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxy7nqNP/tyYwNaO0r1EcjtnfzGFjK4sCwSWpT6+4WIvP2CtET
-	IqCHd7aT5mDzzn46j5Sl9xaj/TckW+A1OqC6z7/Miex1AeFSxnQKzUwZ0ZMZVEV+VriRaxWDRjl
-	ICshQ1oQay4PCfBOuzlOZtQxQaOgZcIM=
-X-Received: by 2002:a05:651c:1986:b0:3a5:af50:bc99 with SMTP id
- 38308e7fff4ca-3a5c89b02bcmr10886751fa.13.1789410301161; Mon, 14 Sep 2026
- 11:25:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lhRwOt5L"
+Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4f0c89e35so1582859a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:25:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789410340; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XuJvEXgjDBeSmbDWklZtP/EiLGWpd/8+ne1x1ngTm6wcS2fX8T1HNLewlGNMcnxHO4
+         ajGaHaw13ph7URmC4F8dtcyG1GypUzkLNi8rOEplK5Bx7MJVS3oy0Q1BeCdS2P2leg1/
+         6ciZkG/A1SezGZRvjfJMcUbssCWyMx7Q5Fuc4ov+UiiRZb0sxQnPezYCch72r4zrIz8p
+         p35dPaPgUOCiBGisZv68c0hHMC4BCXA8sM6uJxKD5ziZVzFQxZAXvKQu4ueR/fq4nYWO
+         /ROLnNKZFgXXnaB8hxM4RPt//fx/D0ZufjS0QkQ4aKh0CIZ3l85rXLwPY1R0M4MSyJV+
+         q3gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=U651fx6dEYbgcs9HadXqwVgaBN2uUjOTpkPkaj2tUlo=;
+        fh=xaf5q9eqbbhLyunJyjw58E/aeOqM+KmCPQNu0r6PxZU=;
+        b=VYP7rKB6HYgE5IiRW09CJOuSuzl/+6hb1xvCsu+pLc/tRtqW+YKHLVuvz6dyQP1hT2
+         vHDMk+jKtSgUrPQpfnTUnggekCfGlbzZqzV0wMGQF/1RpbXl6gN8LXmeEUOVZS6c9USB
+         PlIJZTP9R9klIkYxx89II4bBsQ2HsIEow6YcDFKbvMckkQzxoG1fxl2qAm4SJAbQ00al
+         9gZam0HxA3AZwG4BFod46KM5zig/bzjbivFff4zxZfyV0eBhSrPnndwBT/cjvsVajUYo
+         T9KrUJYaAnLlOrX5x4n9gp0DXr7ugaMFNwChnjAIQwvDAvSYk0iBuPbG2Yz6gSduM+9Z
+         sndw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789410340; x=1790015140; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U651fx6dEYbgcs9HadXqwVgaBN2uUjOTpkPkaj2tUlo=;
+        b=lhRwOt5LcPQwCa23RxJjpcmFP5PNada84hRS1iRL67lMg7oGzS9VrD8XU+P5YhNfpN
+         kVKGwa6dNvlSj4PxxZfhzG9IunzlkJ31g1C8og2Jxiw1o/dsKzZKe8tLqxIURssaZi0b
+         uWl9mu6gAInzTgOJ80IUgCqsuY1TVBeBJMVTKmWnmfVPgPLYg8pFqU77nWy1jvwRPvs6
+         EfN+bh/wZlT5W3C30hOHBIB1M/8whF5vf2V24xsVSgQgjkC3xPC1Nve1d+qn7J/C1eiO
+         LIDt9qg8AUeHD7ojQ34+3TJK1W8gn/wHDafrq8RY3bjqpnro1DHFJ/nm6ENioRA1DaZk
+         t9yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789410340; x=1790015140;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U651fx6dEYbgcs9HadXqwVgaBN2uUjOTpkPkaj2tUlo=;
+        b=HW1WibBLDMzbDhVllJi+FVKNhNIEgL9G8cFMBOLXKx7VqPDNjSE7SRsRfOP2pvY6/T
+         xpnkxx88NHNGjZbPabDOYejk8J5neNT//lNi3Fk81DHkVrfu2jgT3DxfL0mPobztSuF/
+         dsOuloVkr8qxKn87/3DphUC+OjRPtEV6fHrqwOjc8U3EhfR9FsD/4tM2/2zGbkX7308u
+         8OZ21CV7s8nyVdIa2u443jxQ6xu/BQ52rQx61At/sLfrQ6N8mkubQFIbuYzknn154vdF
+         8nXT/ff2XXr8k2g6aGKkKaTHpRPfH+YB+GNLcxu7D06FCKiy56QPPmwCCtSAYC4ADir6
+         12GA==
+X-Forwarded-Encrypted: i=1; AKwUvBymzmVtUegl8qkthLtCTYcr8jkbEh0lvLAHyD7r6XjN6zzqOENmzJZ+3c0G8c9/fiUH9jfxrcURSSDY6qc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6S3eERRRnXNeZKx4EZV5ZiLZTU1kDhfyDxWg/Jtrhvvzg5W/O
+	DHdV/OL06ncT7Zw82Cpn0gX9aVPpSkzhTv1K3tdsnNKN6l8BI75bzlcmibck579/bYPLwcqeiL5
+	ZSgyOwM3KFZ2pWjbEwKJ8iK4giEerLPw=
+X-Gm-Gg: AYBFou3TBh3IDVnL0YEE6S9tPAkEtCVDv4NqEPvI4eoo4ZwFcx8DZdlbVQmAQbOQNjb
+	ZLz3QmGHRWp31gtw1pyVtjU4+g1ERxep294oyQnT5Sp3gzaTrC0PQ+6rXB+H6zzVQheE2vHkp8v
+	zke3VQejA3FzcFYu7Ihj9xOnZJ8McNpsRO/xPRqw2fZI0OVpfFT7yNlAkM2Hsyn+31p58+Tv/61
+	xLHsweBVjMwViLTtxyYVYSePNj1eEb43svsUF+nRiBQd0M6IMcHZvqdRXCW0zrsfsBLMt3FOMka
+	XLikDNQ5ijo/mttyR/kKYm2sw++fNrPUVmzUFGzqCBMtTM8OaYsej/5kHA==
+X-Received: by 2002:a05:6820:2213:b0:6b7:46fa:16aa with SMTP id
+ 006d021491bc7-6c54292a26fmr2212816eaf.63.1789410340130; Mon, 14 Sep 2026
+ 11:25:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910111329.2220-1-lirongqing@baidu.com> <20260910111329.2220-3-lirongqing@baidu.com>
-In-Reply-To: <20260910111329.2220-3-lirongqing@baidu.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 14 Sep 2026 20:23:43 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iPPmrTtLRG23UYJ_ibn7VUceuN2qFXpjCsBYnBzDMzYA@mail.gmail.com>
-X-Gm-Features: AcwNN1XrpECCpH-qeMvLzTLEkaV7aS72AoP0mk-c4jR0zH9fPAyVKLDsSnm7T6c
-Message-ID: <CAJZ5v0iPPmrTtLRG23UYJ_ibn7VUceuN2qFXpjCsBYnBzDMzYA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] cpufreq: acpi-cpufreq: fix P-state index mismatch
- in get_cur_freq_on_cpu()
-To: lirongqing <lirongqing@baidu.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, zhongqiu.han@oss.qualcomm.com
+References: <20260914-libbpf-log-buf-fix-v1-1-f592caffcc71@gmail.com> <05221557-59b5-4d93-ac55-d9e372d0862b@gmail.com>
+In-Reply-To: <05221557-59b5-4d93-ac55-d9e372d0862b@gmail.com>
+From: =?UTF-8?B?THXDrXMgVmllaXJh?= <luisflavieira@gmail.com>
+Date: Mon, 14 Sep 2026 15:25:27 -0300
+X-Gm-Features: AcwNN1WpiCNo8BkMZsFY2qQC5nwNASs0EdBNHmV87IALQDdz9LKh29qKxXvtpoQ
+Message-ID: <CAFTBxmixD6bHH0Rn+Tr432tbgfzbKcrMd98s7_NTTF-Mibqh2Q@mail.gmail.com>
+Subject: Re: [PATCH bpf] libbpf: Fix program log buffer size validation
+To: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 1:13=E2=80=AFPM lirongqing <lirongqing@baidu.com> w=
-rote:
->
-> From: Li RongQing <lirongqing@baidu.com>
->
-> get_cur_freq_on_cpu() uses perf->state, which is an index into
-> perf->states[], to index policy->freq_table[]. However, freq_table[]
-> is built by filtering _PSS entries that are not lower in frequency
-> than the previous one, so its index space no longer matches
-> perf->states[]. The original P-state index for each remaining
-> freq_table entry is stored in driver_data.
->
-> Once an entry has been skipped, using perf->state as an index into
-> freq_table[] can therefore select the frequency of a different
-> P-state.
->
-> The reported current frequency itself remains correct because it is
-> obtained from extract_freq(). The mismatch only affects the cached
-> frequency used by get_cur_freq_on_cpu() to detect a firmware frequency
-> change behind our back.
->
-> If the wrong table entry contains a frequency different from the one
-> the CPU is actually running at, the check falsely detects a frequency
-> change and sets data->resume. The next ->target() call then performs a
-> redundant control-register write even if the requested P-state is
-> already the current P-state.
->
-> Conversely, if the wrong table entry happens to contain the frequency
-> to which firmware has changed the CPU, the frequency change is missed
-> and data->resume remains clear. A subsequent ->target() call for the
-> P-state that the cpufreq core believes to be current can then
-> short-circuit without rewriting the control register, leaving the CPU
-> at the firmware-selected frequency until a different P-state is
-> requested.
->
-> Fix this by taking the cached frequency directly from
-> perf->states[perf->state].core_frequency. perf->state and
-> perf->states[] use the same P-state index space, and converting
-> core_frequency to kHz yields the same value stored in the corresponding
-> freq_table entry during initialization.
+On Mon, Sep 14, 2026 at 10:22=E2=80=AFAM Mykyta Yatsenko
+<mykyta.yatsenko5@gmail.com> wrote:
+> The change looks correct, few questions:
+>  * Do we really need a unit test for this? We are not testing those error
+> conditions now.
 
-Sashiko has comments on this patch and it has a point IMV:
+Agreed. I'll drop the selftest in v2.
 
-https://sashiko.dev/#/patchset/20260910111329.2220-1-lirongqing%40baidu.com
+>  * While here should we rewrite the first check as (!!log_buf !=3D !!log_=
+size), to
+> cover the case when log_size =3D=3D 0 but log_buf is nonnull (we check it=
+ later in
+> bpf_prog_load()) (AI)
 
-Can you please tell me what you think?
+Makes sense. I'll update the setter to validate the buffer/size pair
+consistently with bpf_prog_load().
 
-> Fixes: e56a727b023d ("[CPUFREQ] Make acpi-cpufreq more robust against BIO=
-S freq changes behind our back.")
-> Reported-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> Suggested-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> ---
->  drivers/cpufreq/acpi-cpufreq.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufre=
-q.c
-> index a797bb2..3313c74 100644
-> --- a/drivers/cpufreq/acpi-cpufreq.c
-> +++ b/drivers/cpufreq/acpi-cpufreq.c
-> @@ -353,6 +353,7 @@ static u32 get_cur_val(const struct cpumask *mask, st=
-ruct acpi_cpufreq_data *dat
->
->  static unsigned int get_cur_freq_on_cpu(unsigned int cpu)
->  {
-> +       struct acpi_processor_performance *perf;
->         struct acpi_cpufreq_data *data;
->         struct cpufreq_policy *policy;
->         unsigned int freq;
-> @@ -368,7 +369,9 @@ static unsigned int get_cur_freq_on_cpu(unsigned int =
-cpu)
->         if (unlikely(!data || !policy->freq_table))
->                 return 0;
->
-> -       cached_freq =3D policy->freq_table[to_perf_data(data)->state].fre=
-quency;
-> +       perf =3D to_perf_data(data);
-> +       cached_freq =3D perf->states[perf->state].core_frequency * 1000;
-> +
->         freq =3D extract_freq(policy, get_cur_val(cpumask_of(cpu), data))=
-;
->         if (freq !=3D cached_freq) {
->                 /*
-> --
-> 2.9.4
->
+>  * Fixes tag is probably not needed, because this is libbpf, target bpf-n=
+ext.
+
+Agreed. I'll retarget v2 to bpf-next and drop the Fixes tag.
+
+Thanks for the review.
