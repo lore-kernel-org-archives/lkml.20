@@ -1,141 +1,128 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4B146C4C5
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE38F258EF9;
+	Mon, 14 Sep 2026 12:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389647; cv=none; b=qN0sAV8CRdedBkbmNLnsYGxlFDTOMnUc9SgbrrUsTOcHdQQbk/1f8ezVWpjxSjkSezbn3WTxTckB90sxbBNX6LGCaVM6w782rAY8JxNTUfMp8w0UlYqvZ5uFEpMlLhjJ9tx7lE5FIl0U1pp3pj1G4O+xRwqPN+eDrMpf/1UZ71E=
+	t=1789389664; cv=none; b=oyLAvF0A+Kq9++iHus5z7i/zBRkv34MD+l4A+K1DK5vfTBEcKjUearM3tz1rh3z0/Day1sTtTpa51KYy/TDfJMUuJMe6SVRme8c6hAHxBDEFWqI9kMsyRvGoRZvFnUZczaqoSKBqPDxewixa7M2NHFc9xnaC87S7jmy+oJ1KhfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389647; c=relaxed/simple;
-	bh=q8bwhVOS2Q2tpx89t9Vl5SDienAaREAdOX3DiRJmeU4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MJmIA6STTC9WkVGspIML0/FsE19ziTNANq5YuOGeGLsMmkjdVQ+qAK9dwHGvo/GJBygFma9AjwPqxl77usUDxnhifsPRrYShWjdTpgrjLEdlhnZtQsugPxADprhBYfkDHis09+hnQ258Lv12l9nstb3ENIAEdz4x0BbTeeYbqaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UFuc6nvk; arc=none smtp.client-ip=74.125.231.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789389664; c=relaxed/simple;
+	bh=5vV1fvoA6kAHgh2q5Cl/thwnhZvOQ3BBUsh6SWjy6bM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L9wd1+4fbBucctZEi1WxlCMPNcBTzCyzVOZWNzjLGt6xItRsrcYUToQwoZVfK8D3lUA95ii4JtKyFzgRhmL5Ic5ioq7Akk6oOel0H56/rOHsSMqmLB+Gljn63Hyvq0HIy5v/y+7iSw+6Nh6kKcQgXlf68tykmbGYcmCdeMdTo0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QwbZyQfJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UFuc6nvk"
-Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-80527255583so570108a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:40:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789389644; x=1789994444; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=718Ayf180iqV39sL4SEKsU5v63hqKWeZ6vfIuYMZ+CA=;
-        b=UFuc6nvk0usc0NYbQvNXEb/3/R0WYKXvobdpHyAmqBGfymIMLZZUyl1b8ppPDyfOtt
-         DprP/QB8sG3nJS0g/r/LCCR7OsLXxUPy+EvJzlk786HoBdHBzFDrdlatpFfFetcW+X0i
-         IfBdWMxQKUtGHsErygAo1bN8yQpljpcxwsFFuBXAwpyiYXMJSwjL0GaXzdH+SABrYHUk
-         bcIm1trXMrgcLQxhl95AatItVvAB2DkE4QrZARbAdYy7DNewgAcAhwb3IDck6GBL/wsD
-         W2FNWOBUeeInrB6CT/Yti+DMLxfPMKscMPaEOejPaaCYWxOq6f+YyAXPGf70/dOpqkSu
-         fosA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789389644; x=1789994444;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=718Ayf180iqV39sL4SEKsU5v63hqKWeZ6vfIuYMZ+CA=;
-        b=rUGLciENME0yDXyXpTLUD/985icCC6TEqG7tqQDm2Anndl+sx+3X89TehrEOoZ6jgX
-         wkzxbQ1equgT/6+DfyVd0yW/fURIi3ysU7DQDYAFIZiHvi2odaTMBRf13wVwmTR/+6tf
-         RtpxTgyL2YqGQUtw/8ymetmi1WrYPbJbSp5XoxxMzd3GDg/pAR6H4usQeFZaWqHPRk60
-         e6f8lzZPWQ4uzNkoYgqUvZpBbeSHO4/XKoIBaEBERLqaV9C1xqBBQj5/YEojJvXK9JE1
-         wiWUKmC9rvZt/6qZyQvQOPgPtg6d5aAPs6YuiKTwT0cuT+RN9+PJ3sdXLxRY6/VIH49p
-         vXag==
-X-Forwarded-Encrypted: i=1; AKwUvBx2FzD6DsdD27/r+aPn2JHAO7tMWoxliMcEorCOnb4acofFCWdzNk0wPPkOhc56OR5mgg9l5mhAVfMgFwU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJ3sv/utIuo0G720MEhOmwEelYHWorsZUpgyYzw0IUaPce5DsC
-	kcvdvVGQn33AJ5ASyJl7GF7ncSjfEE1IydB+D3ql9QdnbLnbie5KpKGcAl9lbw==
-X-Gm-Gg: AYBFou3H5M5ezMVQH3qJNwE0FoX/7S3ciZVxMTcx7rk7WLn0nNMLXBSinIJIKdttNgf
-	zV8QdchV0KFt0wsmh5gCSo7IP2k0MhZbK+t9omCtPdB5AT/7HmXv2w6a6TOXr6h/83DKoggj9Zf
-	VmRFI207UH+0Cc5YGT6R7vyEmz80Eo7v5cdLhbQw/FVZMtK4ewph61TjW+3UMjOHDWPF0mizALL
-	9zLuPSzv90k9RTrevDegr1q71z+35Nj/kQNj/VBtec1uDnDo+MmjbCJGueJfd2/316AMQ9gRdI3
-	updjF3KwHJYPFCXuCkLyyJ9Ff2QNhS68LH/EmLr1fTX2S3rrh4+v8qAZ0eIaAdjA22Kmk9f36Xk
-	jIFEAB/gshH54Jn8O3In1Bia08QLHcgTzrfMytlVg0NDIUcHfxuOA5B8sT5CZ1A57LFiAPgpU4N
-	AHN01Y5fYaUBq3zWpyGzncw+Hwx4k6W81EH7Gmm7fqtMWSIjXEnHyryI9xEoqNJa6JzVIdDpOfh
-	AXR4M+jvya05lv7
-X-Received: by 2002:a05:6830:380f:b0:7fa:5c68:d053 with SMTP id 46e09a7af769-8089a453a04mr1442257a34.29.1789389644050;
-        Mon, 14 Sep 2026 05:40:44 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-805cb5ba734sm6527788a34.0.2026.09.14.05.40.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 05:40:43 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rtc: pxa: fix IRQ leak on probe failure after pxa_rtc_open()
-Date: Mon, 14 Sep 2026 19:40:37 +0700
-Message-Id: <20260914124037.2204337-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QwbZyQfJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2CB1F000FF;
+	Mon, 14 Sep 2026 12:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789389662;
+	bh=TsiixbUIFRIpiu/LESOIf6uIWt8c+irRdgfE+CUiC6k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QwbZyQfJGSeLfclg5XejqxKsJpQu40BoHa5FMLo5R6Cy0gbh4kAduhvJLIE/t/KIo
+	 A7ityOvzDt/gXjAdSX528GLd3Vmjp34UK6vlFGhwGPNpik7PYr/YqDJjCKD6h0cqT6
+	 mQaEDqC0xrYeKUbqvb4pc11muG/8yeiswR8qcsiEFS1s47YQEOZKdn4LUdVAzLJUyc
+	 dwnBt/85jwdczzzrecRMlsPDNUGoXlXnxz1HYxGdvKZb1YZ1jvQohufmn/8mXbXFbX
+	 sDIdgngl53odeyduQHgjmEenACF0CERs4yXeNKx/lVN1K2QT9R7wfGoAFsS3HQxuDU
+	 Q8giT1GSPpyKg==
+Message-ID: <2eab84cb-6d2f-4ec3-9869-e2aa9c1d75da@kernel.org>
+Date: Mon, 14 Sep 2026 14:40:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: ideapad-laptop: Add Yoga Pro 7 14IAH10 Mode
+ key
+To: Navon John Lukose <navonjohnlukose@gmail.com>, ikepanhc@gmail.com,
+ ilpo.jarvinen@linux.intel.com
+Cc: mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260913224753.30281-1-navonjohnlukose@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260913224753.30281-1-navonjohnlukose@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-pxa_rtc_probe() calls pxa_rtc_open(dev), discarding its return value.
-On success that requests both the 1Hz and alarm IRQs. If a later step
-fails (sa1100_rtc_init() or devm_rtc_device_register()), probe returns
-without releasing them -- and pxa_rtc_irq() then dereferences the
-devm-freed pxa_rtc on any pending/spurious interrupt, plus a retry
-fails with -EBUSY since the IRQs are never released. Not theoretical:
-commit 34127b3632b2 ("rtc: pxa: fix null pointer dereference") documents
-sa1100_rtc_init() failing this way on a real Zaurus SL-C1000.
+Hi Navon,
 
-Check pxa_rtc_open()'s return, and route both later failures through
-pxa_rtc_release() via a new err_release label, mirroring the existing
-remove() cleanup.
+On 14-Sep-26 12:47 AM, Navon John Lukose wrote:
+> The F9 "Mode" key emits WMI fn-key event 0x46, which the keymap does not
+> cover, so it reaches userspace as KEY_UNKNOWN and cannot be remapped from
+> there. Under Windows it opens a performance profile chooser, so it belongs
+> in the keymap as a user-assignable key. Map it to KEY_PROG4.
+> 
+> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+> ---
+> Lenovo Yoga Pro 7 14IAH10 (83KF), BIOS QGCN35WW. No other key on this
+> machine emits 0x46, and pressing the Mode key leaves platform_profile
+> unchanged.
+> 
+> KEY_PROG4 per Hans's note on the 0x3d key, that a key opening a settings
+> dialog under Windows should get a free KEY_PROG#:
+> https://lore.kernel.org/platform-driver-x86/35969669-48b6-469e-9cd2-26929fb33e5f@redhat.com/
 
-Fixes: 3cdf4ad9633e ("rtc: pxa: convert to use shared sa1100 functions")
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
- drivers/rtc/rtc-pxa.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+As the comment on the KE_KEY entry above the one you add says, this should
+really be handled specially inside ideapad_wmi_notify(). IIRC we still want
+the KE_KEY entry to emit a key-press on laptops without DYTC platform-profile
+support.
 
-diff --git a/drivers/rtc/rtc-pxa.c b/drivers/rtc/rtc-pxa.c
-index 62ee6b8f9bcd..e01e683c2f61 100644
---- a/drivers/rtc/rtc-pxa.c
-+++ b/drivers/rtc/rtc-pxa.c
-@@ -338,7 +338,9 @@ static int __init pxa_rtc_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 	}
- 
--	pxa_rtc_open(dev);
-+	ret = pxa_rtc_open(dev);
-+	if (ret)
-+		return ret;
- 
- 	sa1100_rtc->rcnr = pxa_rtc->base + 0x0;
- 	sa1100_rtc->rtsr = pxa_rtc->base + 0x8;
-@@ -347,7 +349,7 @@ static int __init pxa_rtc_probe(struct platform_device *pdev)
- 	ret = sa1100_rtc_init(pdev, sa1100_rtc);
- 	if (ret) {
- 		dev_err(dev, "Unable to init SA1100 RTC sub-device\n");
--		return ret;
-+		goto err_release;
- 	}
- 
- 	rtsr_clear_bits(pxa_rtc, RTSR_PIALE | RTSR_RDALE1 | RTSR_HZE);
-@@ -357,12 +359,16 @@ static int __init pxa_rtc_probe(struct platform_device *pdev)
- 	if (IS_ERR(pxa_rtc->rtc)) {
- 		ret = PTR_ERR(pxa_rtc->rtc);
- 		dev_err(dev, "Failed to register RTC device -> %d\n", ret);
--		return ret;
-+		goto err_release;
- 	}
- 
- 	device_init_wakeup(dev, true);
- 
- 	return 0;
-+
-+err_release:
-+	pxa_rtc_release(dev);
-+	return ret;
- }
- 
- static void __exit pxa_rtc_remove(struct platform_device *pdev)
--- 
-2.25.1
+For laptops with DYTC support you want to modify this bit in ideapad_wmi_notify():
+
+                /* performance button triggered by 0x3d */
+                if (data->integer.value == 0x3d && priv->dytc) {
+                        platform_profile_cycle();
+                        break;
+                }
+
+to also trigger on the new 0x46 code:
+
+                /* performance button triggered by 0x3d or 0x46 */
+                if ((data->integer.value == 0x3d || data->integer.value == 0x46) && priv->dytc) {
+                        platform_profile_cycle();
+                        break;
+                }
+
+So that this key actually toggles through the different (power-save/balanced/performanc)
+platform profiles the laptop has.
+
+Unless there already is another key to do that ?
+
+And please also add a comment to the new KE_KEY entry that this is handled inside
+ideapad_wmi_notify() like the existing KE_KEY entry for 0x3d has.
+
+Hmm, I see you say that under Windows this opens a performance menu rather
+then outright toggle the profile. So I guess that you maybe also have Fn + Q or
+something which already directly switches profile ?  If you do then KEY_PROG4
+seems fine. If you do not I think just cycling the profile would be better,
+what do you think ?
+
+Regards,
+
+Hans
+
+
+> 
+>  drivers/platform/x86/lenovo/ideapad-laptop.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> index 8213524..6fa72a3 100644
+> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
+> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> @@ -1360,6 +1360,8 @@ static const struct key_entry ideapad_keymap[] = {
+>  	{ KE_KEY,	0x45 | IDEAPAD_WMI_KEY, { KEY_PROG3 } },
+>  	/* Performance toggle also Fn+Q, handled inside ideapad_wmi_notify() */
+>  	{ KE_KEY,	0x3d | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
+> +	/* Mode (performance profile chooser) */
+> +	{ KE_KEY,	0x46 | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
+>  	/* shift + prtsc */
+>  	{ KE_KEY,   0x2d | IDEAPAD_WMI_KEY, { KEY_SELECTIVE_SCREENSHOT } },
+>  	{ KE_KEY,   0x29 | IDEAPAD_WMI_KEY, { KEY_TOUCHPAD_TOGGLE } },
+> 
+> base-commit: 22098763a10d9c13
 
