@@ -1,167 +1,221 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013044.outbound.protection.outlook.com [40.107.159.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1320538645E;
-	Mon, 14 Sep 2026 18:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AD93939B1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789412287; cv=fail; b=QNDK+OKHBi3YqSFVF5XbffF/olPepaVaL4sRh9PPKvxELjijjGYG9mARJKfSDJG0u7f8kj+xZcehAM4VvwJCCp6N6Vl3CP4gaIYX5hqEK7W8HoNjAPerCrSJO2pO9RPs8mgd3zLbSmvipZUdophy/zPmeHFdsBFdP73IstonnPo=
+	t=1789412396; cv=pass; b=WcWhQND2LZok0ZWHiZSRitj8IW05rvut0Y9OfgF94U2SoqDbQmVyZKrXmpiyHXf3El60g6Otfpu1QG55AnHtOlpGE7jZM3cA62DkiBhEP576t5nN4B3F3Z1eTU39js0gSKJ3fPME09kzuFjZ8Hi3x/OHo0mI3OyligLfM5bn/Gk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789412287; c=relaxed/simple;
-	bh=UP5t7b4E/F+h1NCGtOMS6jdGHwGRwyBz348aabzbq0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XgNv4mz0pC8o0uz80oa9bd7CtnwBnVRkuMFOTp295+qL0C8FmHt6Z8nvOfJEv49tFWa0Vb5Gd0ZVJHg1jzjfUJBteE5giGZBThZPVn4hEPvf3Kqp4BBlxdZ0z8W7xHX7ugh0jIsv4tLx/C8pTQeIhLElBvfykx62WAJUznedquo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QdXbVtQk; arc=fail smtp.client-ip=40.107.159.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789412396; c=relaxed/simple;
+	bh=NhbjBxjZC9QaqhJh1oSQvVf3rlrk3ZYiHUcnxcsGtM0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cm/KOP5ojLWotfPxe69o6MCFG2ACVB2XD9CugXEaFemi9tTvztBBYF0fj5uodbnFvT98JJ3CfRdPlbEvbvGJ2IepWm931/igdCM9HAsitMpGWUjbY1SRRRFZkU39iHBMRkqp5ElQLFHF6lsftn5HTbAU60rn5EqM17f47WPm9Rs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=M1TW4fJE; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QdXbVtQk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G+wCS3AKyO72WaV+Qw6ptFD3jINCSAXBces99dZqzUEHg7jk7tr5jb35I5Cl5YvS907JzX2UtzLn+yvusu36ao20Ii9gAe2oVOkGNzmnyJ+8zMOhvO1XfJWgCNZK7zT6zXQ28G5dtiYz023Zr4wSE8fK+h2bP3QWC0LQkwvVovfHBRQvC9XTdNprAFeT574BSmzBf1r5sJRdZnGxMWZey0PVjXv5kjrYjeK9RVZZu1vGiteazG+y30v1tfwOsAHt6FI8qlnUw7NHUuTBNm7zXSg31kJIOvKY+wT539XlbmjtfoYd+kCu/rGMvsNmLoyUK+38DdLDVLmFXaF2FlOQgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mSkEsoJFDegBrjk1J1sGKN9x7UYhAzIepM6m/JHeNds=;
- b=hiRa4Ne7o6Tej62HUv37aRvLIWKJriheD7v8W+xl4f0wpK8+aFr2eXjt9KjDNud5+oAC1jqa7eqOPr2fBMCEq+LgSt9s5OBBeMFW8jDYkIMF83NJhKfwqi4XteCtvB/lEqSU2KUM5QdmQVmvZpCT1iJJ/ygqeQSYTxX/U6bASv6Byz+sH+UYhCHHkyVKLNWAUOlvNESz9BTbedGSKDmRbi/U1YEe5/uL8186E/Co255Zd+0FJTuJsDKYKu/YiQftBoZbpPnOfl3viHpl7mC2NXfr9Sgsl/8feo4uQYWu3l/2p/hr2FXG2AFXc+8POnBs/g8yzMFCPLqY4j1ul5yKCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mSkEsoJFDegBrjk1J1sGKN9x7UYhAzIepM6m/JHeNds=;
- b=QdXbVtQkdjahh7Z0+7tgTcXCkTfy8zGw97My94XT9JUnoGI279QO7w3T5UlLhlBnhdUJYaMahGJs50OR7NGa/F1BPlQ5zvZQans4wctr4DY1KYnRxu5KgsP1A8+saUWdVaeMc6Vraa8s/MP4dEDyVK7nEIHeUybx88eqIcwwqHNJE1menxTaCUyqhOL3zsJ2S8NPj+jP67WKaZSQYjyIRgZc8mkQOgy0llOyZCM4i8ecKhfcxCRinFACDCYcXfDjV8iRFf1t/SdjFNQnF999S2CiaN8rmIdBNCclY6nfcue3UzueaEb2AP7o/nAoWGRTyscsSjSb7YHu6ss2I9c/3Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB8426.eurprd04.prod.outlook.com (2603:10a6:102:1ca::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 18:58:02 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 18:58:02 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank.Li@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/8] ARM: dts: imx: cleanup some dtb check warnings
-Date: Mon, 14 Sep 2026 14:57:54 -0400
-Message-ID: <178941226247.1796804.5468877600268749945.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901-arm_dts_clean1-v1-0-db741f37a1f4@nxp.com>
-References: <20260901-arm_dts_clean1-v1-0-db741f37a1f4@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P223CA0009.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:338::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="M1TW4fJE"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-5306706e89dso483151cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:59:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789412392; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qZuqTJGFEuw8ARUZPI/M0FJoafM63B2mvwvNzKe9sk5d4iqh/ALCtAruuMet8HztbT
+         jtBgo+mT+3FuygKWRCRkgnU9+Vtcz72eFVOZhWDPvF9P6X1JHLRGgLoxL+r2Q4gAp/Eh
+         JssfVBMsL5auwS1cbGus/m51qgd8YNgGneq8dEfc5saKCdQM//su4Q8znNuRFFTkwMnJ
+         Qu1XyIpa2boBWthvvkKzdp1cCMuv3LQEmY1uOvniNJW3yiS81+4el9fF/aWlNWWglSg/
+         pbYT3IGxGA7gV2mq6HiLz76up+YeLuajb/3zKaK9eXcOQD2xXJGOCOCZHPXNweLShOKG
+         d6dA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MXbtIxiTnl0yl3kL8iSegb1NJaJ65aO3IifGdRU9GVg=;
+        fh=MHztpwgo2BOCS84W73yX8cOeNa8b5cxBUTzz/cywgwo=;
+        b=Ik9k48+XhDvfdXtY7H+XhCGtSgJKlQ2K/4cufSraLq7mamd8vwh1it642ttXFg9Nfc
+         NXqW2Ie70V3uY5GMAZ+qHdjkwADTUg3zvNHH4Sx2FNQR7o8cNPNRRLogRWd4VTg6Z1dG
+         i02WM+kkMldAH0f+7Ro9TtUPqYEnwfS1LeRAMDAMa8qFSV9QBjNmSFP5eZ1S3qWK62Sn
+         K/u4bTU+82tjrlKHuIax8L0N4S3FY2oXulCjaVPtCaLXjv87NetvDw28GG4jAmJFgfWO
+         RxwzMcVdJkGoj+rn+TEFeudwInGfB+kErpXE6RYWdxmgFOr9aCuvp9V+14q1QZ4TLN7V
+         gzBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789412392; x=1790017192; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MXbtIxiTnl0yl3kL8iSegb1NJaJ65aO3IifGdRU9GVg=;
+        b=M1TW4fJEAJrPGDk8d7UWtlra4MHWA6oBITL7jbkAMqOfllWA5yBxUbEikRE/HsxfYL
+         AEGWXpApRu/EWbXTY63y3Ep3M80NjsyfGNqUvAKY2RSKaL1yp4P/Zm6dsVdDzaiVbw30
+         SX+eS6xUownioV1D3YzlPM9MYTu7jfqAmo2NJR82Wud0jwczZyNotOPjEGsZr1RxXm3y
+         +DTIHw1oByF2WavsyCUjM5Q0yyB4GBvOEPbyAIyVJiNb3PsLpLwSv/sHet0xChf4YBzX
+         bl34x8fAyqfNjxVjT0Bgm2Dz15A6s5paaTbbXQHflX9RH7xCrX8TC/986QcBDxVyM9Tl
+         betA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789412392; x=1790017192;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MXbtIxiTnl0yl3kL8iSegb1NJaJ65aO3IifGdRU9GVg=;
+        b=rQffgXDFYnL1YKUEjbaWIoaPIvDbTLxsRyDW8NzyjXczwhP6ECa4UbDPXrTU6+aolx
+         ngaQiiwJoRnFnt+gtVhiZWN0V/KzWm/bjVECPypxeHl8T8Vk1BRJnAwlN6z1Q0xv8V4B
+         gJkEfF+Scb5N1pqFI4fd9yuw0HMGwRgATTfLRCtMnc0Edvu1EDBe+WIp9Yo5tr8yP/RT
+         xZzzdODX6tHdnUc8LNvhsD9XwTy6CY61zjpHlMWLzuHGdRoz+N/ijU3FbfDLtTLlOSXT
+         IFY/ZEnrvwIiL11vS3PIPa/ST+Dz0QTIN/EzydBO8mg5E1eAFGJ3NSRDA+gH9Z0mBTXc
+         fAjg==
+X-Forwarded-Encrypted: i=1; AKwUvByJMs7dpCRl0ISPLY11wEXQfSCwvs8x428T1m5ITj3KjoOWbh90q/23YvS78s87HwBF+XM3GyVO+QLPED4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+3S0BZRbE+j4BAie+Cz5H4jaoQin0m8lDFnMEJt8MVsoLcRdp
+	gof/rpEHXpxvNUAh4TrPTKAFexdTfNJv6WWdNE3mZ61gnaVAtYw7vvQWnqXxtEvVsQyZ3llppIC
+	niqEha70TgkdY5ppFs51QmtfFS1Kk5pXUpoxHHV1k
+X-Gm-Gg: AYBFou2Q0r/iw07pbFnwhMP1jqrQAdQB3NYQhPzNxsQ8uGJTlAjcdWf3BPhB6HRPy8g
+	2l7+qXJdIp2HNJv2A5skVAXehFf+Y/DVxcLcPslilFbhdUjUwJIfRtaTQiDFlQktPDlK5iua5wz
+	PcKktfCIXp8tvEg6f96ViZ98XTHThMJnX/i5Cyy/MQurY6yrZAhj4bqXYXUX/nqfjOQXZspW/bu
+	srT+b7NpAaPnqKjRYs44/aGvlf01nRFDV+e4t3h3D7zTlzypEP7nhyBYkWdl+Yk55jJzROJ5bSG
+	rYFfFGqhWfq0h4ahxELIDxvwC9rgduVf37tfS4G1pMrCGGWPmmNnmlI=
+X-Received: by 2002:a05:622a:8b:b0:530:e00f:7768 with SMTP id
+ d75a77b69052e-5311a495dfbmr2698831cf.0.1789412391372; Mon, 14 Sep 2026
+ 11:59:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8426:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b737364-27fe-421b-3130-08df129219e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|19092799006|1800799024|7416014|10067099003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	UovhPEKhR3OTO5fxUl/n5Kgp0DSzqKQLifYmqbuMDu6F68UzrpCMGTIF3bhj6se66iS6MkLNNr5p6HUBIGxNpkq4UFekKKJQci+GF6BO6RycpK28DsrNNUN+zl0LAHXzKS9eNT/rR3rpKh5Jmf2n895ecO/MiHoqlWIrDmpwENHrpqS1LhgxDtvokYMrKKdzRGgYq++BK3a/nY8yJyj2tnnZQcCFOhSSO2j/M9s1GYC0KHRlX6UVH5H8CxbnZS8x6meQVC0XUJXFnbJFQ2APU6ZzwyOtVmBDOlUzUtQCzOjli1F4hS4ajFNUBNU5LuTLZrQzJA30kzp9S5vPBG+W2eeXpfDOYWSX91Ag8ejjsrSy8N++B0q51NDRyQOmUTh6U8abvYC2A+AMdPjfqWssIQiUY8lAIheDmt+lncHs4NslIdTlilZQte0Z0SVGguGnfjMEAwxFvyxBCNgkE1mRMFGGjgajqtWibpWFUsxSk9bw55hFZaG5upnpDT+g2IqlmPv94fiSWlzLQeluJcsBDqILcmH11VPDQN0eVkDpzpp0XxaRVC8hvWFoS7oTIb6LR7Zjnq4nu0B+NCqe6wxRIxWLsyR1HbXf+uV1yU/gkwu6nL6htezkjQO6Lh+w/hWRzaZNFBf/XRoj8xDEhTWXQStsrKCBrJL0IinifRFFu4I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(19092799006)(1800799024)(7416014)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZSs0eTdCU1RpeXhmNGhmUTNUYzk1QUpzbXhEU0tGRGVxK3AzVkRZcGhlRWl5?=
- =?utf-8?B?TkFDbFhoSld4OGp0Z0RXTFlkanY2a29hYkE1bzJORGQwZlJwQnUwK1V0U1FI?=
- =?utf-8?B?MGwxVi95dXBueEVjdnVMU3hudWR2TEk0a0h2a3A5aS95SmdJSGJJbEVsNWZs?=
- =?utf-8?B?RDVEcFJKMVRnUGVGYUxob2wyZXVWRnlEUmJtcDFWRmxpZEEvU1kzb3BtS3U4?=
- =?utf-8?B?ZXJWRERBMGdUNnlqdmV0Ri90MG9ha2NTOG9vcURRRFkwK1pOZXE0dVZ1eURC?=
- =?utf-8?B?Rjgxek5FcENaTWw2ODhDSCt3MWlrRk5Sa2pzY25CUU4rVGZvekEwcUlubm9m?=
- =?utf-8?B?bmpZY2xwQjEvTDhXY1FubUlTOEhqSnpuSitaU1Y4S0pLd0F1TC8yNm1ROXZK?=
- =?utf-8?B?TE5uV2xKTWRQbU1POUNlbDdQWllJeC9PN0d6WGhTODFIS0U0MmUydGlKMWMw?=
- =?utf-8?B?YXM2Tm1kcWl2M015Uk1ocTNhR21TNENpMkp0N045S0p3Q0taZVBseHF2MGpG?=
- =?utf-8?B?Y0FsQURBY3ZkU2E5T3VlUkpnOGx6M0p6Si95bUNVVlNZMVVDeEYza0pCOXV3?=
- =?utf-8?B?S1pFdzI5Mkw3cTVWTzI4NXFEZXlpL29ieXQrdWVoYjRBQTRXRjE3RHJRZ3pI?=
- =?utf-8?B?MHYvTzYxZHcwWk9LZXkwVS9VRXE3OHpxaWEyZzk2dGdNOHY3ZTdkVXM4V3hM?=
- =?utf-8?B?QUZiclZSQnVMTUxWS3hhTzNYNENXc0lGQVd4aExXazRjNTRQS0Y4a0NFVzlS?=
- =?utf-8?B?WFdTcGp0UEkwRVNKbjZUd2JrbjJKZHN6ai8rZHdMTHA3ekx4RjgvWGkvQlNL?=
- =?utf-8?B?TmY2bU9GK3FOZ2VyekxkQS9iaEltRS9FaHVXUlVPQWZmUDlIb20wOTVYZHpG?=
- =?utf-8?B?Zjllb3I4eTBpVjhDcGZGU3ZCZjl2R1pxcm0rSFcrdlNmZ1pwMDdSQ054SDlJ?=
- =?utf-8?B?UklpNkg5aFZyN1RGWXlNcWZMVzZQeVAyQkJOZjRzbnhhakE3VHhHb0drM1Bn?=
- =?utf-8?B?YzJCZWFoOG1IWTUzSlBQamloQ3o1NVNMazRCS2M5cGp6aVc2UXVickFGOW9i?=
- =?utf-8?B?TFVmc2t6a2JLbDk3anhvbVdjT1phaWZQYzhxeFNpWElTRm9wNTdKcDE5dFR0?=
- =?utf-8?B?Vms5dW1vUk84aWwxWkhxRisyU3JSQjBnR3NUL1BMTVp1Zk9BU0t6SmFWVTMv?=
- =?utf-8?B?eUE3YlA4N2tMdnhzOFo3M2VseEg0Y1RwVHJSdTdCbzRBTi9mNUlSK0RhNkRu?=
- =?utf-8?B?bnAydEtQUGdBSWJvM3BrbEtIZ3JhcDhYT2hTdUFiMUl6SU5vWC9OaXB1amNr?=
- =?utf-8?B?aURtR1Mwb2FUenBRWVlqU0VCZEdJbmtwc1ptUGIzZ1VSZkNKT0NwVjNpYmJr?=
- =?utf-8?B?eWdOR2c4VUQ3UUkyREZuQkQyRUU3UlVSakdjWlE4VitSdUpyMHNCNTBLeXc3?=
- =?utf-8?B?Sk9hWm5jbFBkQS84Mndrc1BrMllSWXc3YmVEeUJpMW9zQmd0OXo0MDAwY3FS?=
- =?utf-8?B?MVRYWHdDNU9xcGVtMzgvYk12OTg4VzhrRXlka3M3TW5ldGcvaVNFZ0xKN3NZ?=
- =?utf-8?B?S0ZXVWYwYm92QlVjMEh2SGZvVGZ2ZzRPY291eUlaU3ZEOTEwcEYzWmk5dm1a?=
- =?utf-8?B?TE5sRC8wdmRJNmNJQjFpOFlTaHVLUkhXOWVwSFpyQ0g4QmlMalhxNys1S3lp?=
- =?utf-8?B?c211ZVdZMWFnUHpXNXJjN2I0RmRrTE9ESFlMb1IwQmtvb0FlazEyMXdvN0lm?=
- =?utf-8?B?ZmVqdFJoZkJZMmhVWkhiOGRSUm5sbzNpTXRGQzZBdDZkbjk5WisxYTZPeUIw?=
- =?utf-8?B?UU1Rc3RHUzdvTlIyaHhrbG5TNHFMZXNPTVkxbWdZR3NwN2dDTVN4SHQxOXdX?=
- =?utf-8?B?VjRaN1dvYkhOaDNzUFZvbUJ5VjFUazJIcjJvZGFXQi9QOGU1dzE1S3VkWWYr?=
- =?utf-8?B?eWhiNWFoZDBrNi9aaUxiTVEwWmkxQkN4NkRDb0lEajgwN205ZGd5dk04KzdJ?=
- =?utf-8?B?TUNvc0JibjljVVFiZU9aWHVxUUpwSG5aS1NjamJzQ1FvejJyNXlMeFBiWmEw?=
- =?utf-8?B?TmZ2NkVKMmJBRUlwS1psK0JpZ012bGltTEVPbnB5Z2gyUGFDVi9BMXlKYVhE?=
- =?utf-8?B?akwyRWgzbWJsTkZ0UER6Q2hUb0NVeUYrTmU1eXR1NDBGM1AyWTQ0dWptaDBs?=
- =?utf-8?B?NXFQQXdRSmdhQU9MYVBiQXc0cXNvVFFNSTRMeTl0UWVaQVB2d1VkOVl3YVNy?=
- =?utf-8?B?a3hnN0RuOWtwSlV3OEtLdlJiZ2tlb0xCUExUWHBDODI2K0hvSkp0TFllZ1c0?=
- =?utf-8?B?ZEVXRVJwTjEza0tMTUs0b2dCUW5ERy9mQy8zNEZkZkEza1JEZjN3Q1pmWEYx?=
- =?utf-8?Q?8M3ZjK+KvhRW3Z16uwm7eXXLWTqIbWBPRmrac?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b737364-27fe-421b-3130-08df129219e9
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 18:58:02.0733
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iUQG5YMD//HPGbBeFa8ltJ36VUTaiHgIMcHIbWm6B1FbAfj648sAcBhTozBCVX9do7byZ0LuVO+3b17sL6CcCAAdTUfDPbUV2Liw3QDB8jz8St0ZyOkf1ZAnUM7zmfJ9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8426
+References: <cover.1789281096.git.zhang_wei@open-hieco.net> <a362ecf119a7e1c6a42c0643537cc51e83f78bb2.1789281096.git.zhang_wei@open-hieco.net>
+In-Reply-To: <a362ecf119a7e1c6a42c0643537cc51e83f78bb2.1789281096.git.zhang_wei@open-hieco.net>
+From: Jim Mattson <jmattson@google.com>
+Date: Mon, 14 Sep 2026 11:59:37 -0700
+X-Gm-Features: AcwNN1X2mz6cTxPV1l_OulVBMfNkr7dwm4_Z-lQ3Da2vVo6vle-Sc_6TFpBuX9I
+Message-ID: <CALMp9eRL2rTkRMj0cuhxUcrzJ9G8VY4an6vCiCDSu5X139UKtA@mail.gmail.com>
+Subject: Re: [PATCH v6 2/8] KVM: nSVM: Synthesize DecodeAssists EXITINFO for
+ emulated intercepts
+To: Tina Zhang <zhang_wei@open-hieco.net>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+On Sat, Sep 12, 2026 at 11:44=E2=80=AFPM Tina Zhang <zhang_wei@open-hieco.n=
+et> wrote:
+>
+> When the x86 emulator encounters an instruction intercepted by L1,
+> svm_check_intercept() synthesizes a nested VM-Exit without fresh hardware
+> DecodeAssist state.  Populate the architectural EXITINFO1 field when
+> DecodeAssists is exposed to L1.
+>
+> Provide the GPR number for MOV CR/DR, the interrupt vector for INTn, and
+> the linear address for INVLPG.  Leave EXITINFO1 clear for CLTS, LMSW,
+> SMSW, selective CR0 writes, and INVLPGA; the INVLPGA address remains in
+> guest rAX.  Leave EXITINFO1 unchanged when DecodeAssists is not exposed,
+> and leave unrelated intercepts unchanged.
+>
+> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+> ---
+>  arch/x86/kvm/svm/svm.c | 32 +++++++++++++++++++++++++++++++-
+>  1 file changed, 31 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index ea647938a2a6..6834e1101bb6 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -4837,6 +4837,7 @@ static int svm_check_intercept(struct kvm_vcpu *vcp=
+u,
+>         int vmexit, ret =3D X86EMUL_CONTINUE;
+>         struct __x86_intercept icpt_info;
+>         struct vmcb *vmcb =3D svm->vmcb;
+> +       bool decode_assists;
+>
+>         if (info->intercept >=3D ARRAY_SIZE(x86_intercept_map))
+>                 goto out;
+> @@ -4846,14 +4847,26 @@ static int svm_check_intercept(struct kvm_vcpu *v=
+cpu,
+>         if (stage !=3D icpt_info.stage)
+>                 goto out;
+>
+> +       decode_assists =3D guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSI=
+STS);
+> +
+>         switch (icpt_info.exit_code) {
+>         case SVM_EXIT_READ_CR0:
+>                 if (info->intercept =3D=3D x86_intercept_cr_read)
+>                         icpt_info.exit_code +=3D info->modrm_reg;
+> +
+> +               if (decode_assists)
+> +                       vmcb->control.exit_info_1 =3D
+> +                               info->intercept =3D=3D x86_intercept_cr_r=
+ead ?
+> +                               BIT_ULL(63) | (info->modrm_rm & 0xf) : 0;
 
+Nit: CR_VALID | (info->modrm_rm & SVM_EXITINFO_REG_MASK)
 
-On Tue, 01 Sep 2026 18:25:34 -0400, Frank.Li@oss.nxp.com wrote:
-> Cleanup some simple dtb check warnings
+>                 break;
+>         case SVM_EXIT_WRITE_CR0: {
+>                 unsigned long cr0, val;
+>
+> +               if (decode_assists)
+> +                       vmcb->control.exit_info_1 =3D
+> +                               info->intercept =3D=3D x86_intercept_cr_w=
+rite ?
+> +                               BIT_ULL(63) | (info->modrm_rm & 0xf) : 0;
 
-Applied, thanks!
+Same nit.
 
-[1/8] ARM: dts: imx51-zii-rdu1: rename node name i2c-gpio to i2c-0
-      commit: 3d0c54a7634f7a27527da4b83985509ce9d7619e
-[2/8] ARM: dts: imx6qdl-emcon: Remove unrecognized disable-gpio PCIe property
-      commit: a89327ced267f3bddd39bfef55697042ba24e4fb
-[3/8] ARM: dts: imx7d-nitrogen7: drop unsupported wakeup-gpios from tsc2004
-      commit: 5c2b3c0be9de935e232380f301a6b0ccc2e1654e
-[4/8] ARM: dts: imx7d-meerkat96: disable lcdif node
-      commit: 8fdbfe040d08ed7d7c5e2dde2c16328ff29f086b
-[5/8] ARM: dts: imx50-kobo-aura: convert sd2_vmmc to regulator-fixed
-      commit: 4ca5ffee7500c3ce78fc821fa4eedfcb28e445a4
-[6/8] ARM: dts: imx6dl-b125v2: add touchscreen-size-x/y to exc80h60 node
-      commit: c9608f889d2e94888e980148ec04b77614448737
-[7/8] ARM: dts: imx6sll: remove unused node csi@20e8000
-      commit: 5e863f9f2c7f66a0ff902189c389d142bfdc0805
-[8/8] ARM: dts: imx6ul-14x14-evk: remove reduntant bus-type under csi node
-      commit: 12f17efd282d8a66d5570098e12c1642efe2910a
+> +
+>                 /*
+>                  * Adjust the exit code accordingly if a CR other than CR=
+0 is
+>                  * being written, and skip straight to the common handlin=
+g as
+> @@ -4891,13 +4904,30 @@ static int svm_check_intercept(struct kvm_vcpu *v=
+cpu,
+>                  */
+>                 cr0 =3D vcpu->arch.cr0 & ~SVM_CR0_SELECTIVE_MASK;
+>                 val =3D info->src_val  & ~SVM_CR0_SELECTIVE_MASK;
+> -               if (cr0 ^ val)
+> +               if (cr0 ^ val) {
+>                         icpt_info.exit_code =3D SVM_EXIT_CR0_SEL_WRITE;
+> +                       if (decode_assists)
+> +                               vmcb->control.exit_info_1 =3D 0;
+> +               }
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+I don't think clearing EXITINFO1 here is correct. The APM says:
+
+> MOV-to-CR0 Special Case. If the instruction is MOV-to-CR, the GPR number =
+is provided. If the instruction is LMSW or CLTS, no additional information =
+is provided and bit 63 is not set.
+
+The Decode Assists depend on the instruction opcode, not on the intercept.
+
+>                 break;
+>         }
+>         case SVM_EXIT_READ_DR0:
+>         case SVM_EXIT_WRITE_DR0:
+>                 icpt_info.exit_code +=3D info->modrm_reg;
+> +               if (decode_assists)
+> +                       vmcb->control.exit_info_1 =3D info->modrm_rm & 0x=
+f;
+
+Nit: SVM_EXITINFO_REG_MASK
+
+> +               break;
+> +       case SVM_EXIT_SWINT:
+> +               if (decode_assists)
+> +                       vmcb->control.exit_info_1 =3D info->src_val & 0xf=
+f;
+> +               break;
+> +       case SVM_EXIT_INVLPG:
+> +               if (decode_assists)
+> +                       vmcb->control.exit_info_1 =3D info->invlpg_linear=
+_addr;
+> +               break;
+> +       case SVM_EXIT_INVLPGA:
+> +               if (decode_assists)
+> +                       vmcb->control.exit_info_1 =3D 0;
+>                 break;
+>         case SVM_EXIT_MSR:
+>                 if (info->intercept =3D=3D x86_intercept_wrmsr)
+> --
+> 2.43.7
+>
