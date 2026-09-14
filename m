@@ -1,161 +1,146 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56ACE3D566E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55A03D75D7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:59:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789383520; cv=none; b=GCUdx4FWq3YixRye/3KPuYaxxlGwYaJEXDiN+/PVv3v0G7tvrowm/3czKz+5BhZMfSiAuZRJYhUr9fMtrCRnRKVSxGl8wVHjYENLPMpYBV5X0goWLqyiwdE0N14AYOzRjIuWB5yrlAe46a97YuZHzCoZTDYhodV4CdSNqC0uIJQ=
+	t=1789383581; cv=none; b=n3wJ1iXOtjycaBuK57H4ifnfIQOCLkT17Fh5DbWXSjt6MEfAogoPDp/EYsap7yN83oc326zO9IYO1/KuY0zVpfwCwDu3uM2Yf0CBwoYgTENM2aPvB4QbKP1Jti/iyN1BpkRQG2T4VfXEmb50B+FwwdJp/fdIcVJAed+N702HxQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789383520; c=relaxed/simple;
-	bh=tYs2cxRyTGdf410bulete8ziZ49L87S2sxxJrI5w/0A=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To:Cc:Content-Type; b=XYuVz0WW9lQc+c9KmFdTpY7MqvpbOjlAM3dNquLu8R35m5WJOhnFv5u4RSyk342zAAoyvyaJhzZ3gJuixrxEH/ZQSLISb3TGhLylWmXZmyRc9CjrAgjAVsa8KuvQZ+eJs+aOgvlu5aP1cSMsyIXpfOz793KtwDNu5iJdShDtxF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe; spf=none smtp.mailfrom=sne.moe; dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b=cwiEbDwE; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sne.moe
+	s=arc-20240116; t=1789383581; c=relaxed/simple;
+	bh=PgkI0z9SON09RoaG0Eo1dzgmmu3lPuYvERolAIKtbyY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rKHb1L2AB1Z9IIelwI4HvLkDODz19g8qbjkhd1afm113/TuyXk6wC5s0wki42qLBwYEXHQ7OTHpkF4AGYSFeV7ZS6V5z0RI3lkfW363pFSr18+1gN3wSEKWL+ncan0YPvYkmzs5IkqokLIT5yCLCzp66q9A+gbutgLC7d0iMKjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zuk9D7+m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b="cwiEbDwE"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff23d82eso2943025ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sne.moe; s=google; t=1789383516; x=1789988316; darn=vger.kernel.org;
-        h=content-type:cc:to:message-id:mime-version:subject:date:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w/AypDIHXXi5CXKyq5GMLOTs6AUWRfjuea5A7khngbU=;
-        b=cwiEbDwEGt5RKJjEal0rtGAk71kZow6MDcKbiPPOXGlnaGKVH23AWHh0K5D3yFwugq
-         qDOzC8q0Et2gLhhEI+RIcTQLmgDdyzQMDAseAxI15ksTV1r4WpHfHQ1+ps1+T+5bkOym
-         ibM5V0Qp5W9QLFsLQHrsdlisVRCAflN4bqkkhLUsVSZxnSxrs9WpKKgzlwZk0zw74Hh6
-         U0cS7RSz+7ySDAOBy1SkYnwYAHTPE8t/NGCQBSBdHy7msYWoNdzJrAYZyiAEaHpYOqUL
-         IF/YlvAKJp/uQsBOPIl/QL0goP3pOfeYuncdJIz3kwfTz1juDrbmaoaX124xXJ0Glryz
-         cwFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789383516; x=1789988316;
-        h=content-type:cc:to:message-id:mime-version:subject:date:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=w/AypDIHXXi5CXKyq5GMLOTs6AUWRfjuea5A7khngbU=;
-        b=f3a/YiWRPdmyMh3+q59disKaBKguSvxTDZwDtAm50FYyikzdGOohUOD34F+uZQYi93
-         4O2diBHpJU2BTqOe7q15IWN2L5qj8YgJQVxq32dnnqrmry56ZuXeS+4tqVaGwt1r0UTZ
-         dyFbPZx/rrKHVFG5WZLiSEQ4YbgG77hi5tGyhtim9u09efgaCsXC48mZyqOzUyXXPTYQ
-         5x1aCnZSx60rZKMKhEyRyUQvCNhRlrbPpoExW8WTMpFWYcnzV4I4eF9StCbWlaxSWSKH
-         GNOejaqWj63V6W/zZz6uw/w/ew2BNFNm+lcfoaLWKOr/b+fDmzjdRD7o4gEJrOJdVvnk
-         0amQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkj2WL8PGxtSECkuoQ5GPkmQdz4vsEP+FQXxqhhjKhOHZAHYr6eS0HI1w8Ro3AxhCrmyRiUmhKqRjY6ic=@vger.kernel.org
-X-Gm-Message-State: AFuF++myfwkJvrNtB5Tw5NP3tz66HTXnxCpxus6sgNhHEMYrYtf0VBJ5
-	FzWNU8kV8/lBbLoHA1VIcH9t2i3jPAgHpdyvZZo9x7TPYhfeR4q3XGeUA2C/YafwssP0vGVu5gy
-	pL3sAP/KnKL5IjsuzPUo3Ac4NxQEbEHw4Hxdqpt83oFnitxoVc88b0S7aOTqlpw==
-X-Gm-Gg: AYBFou00DD7FUr/1XBTHN1J0WB3rfci++tQ01IeoUiaX9CSMofhVyUybLZ4O0fLg65M
-	H9vNH5HO4xsm3Ch9bGQynswRjKQCM+OjdYRD9UTfgAZqJCT61A2ylEYEaZX4oCq6Opcm0FwamIJ
-	NdrHerC8l0Bzn+Cqty+uukqmLaL5AUqYlJ6b0GpzHvpNd/xfm5TOnf6Ry8HtmdN6MyDXIIwecR2
-	teASQyDas7GVjHdSTTvbD5+i/p4V3QOFWu9UdFhx3OFrcyLSpTONPldOdWqmGh58qkOu/r44Hgn
-	i0+a/HB3GkO19jnQhyfVydUrOAGX7yteRrW8lPaxe6UZOaOwYt5h866M4PIaifU9XMKaMqfxyHh
-	w1vjBnZvhMM3grzHlAf0CGFFkLbuggp/4Bs41NQyHlS+tiCbLyNu6mpSk9W3zv6NqpUzTgKgIik
-	nIWhjlq7yQYJTGTiO9EiykSQA/a3w1zb13QOsI+Es2a7n4X2U+ybv6IA850IwpEpU=
-X-Received: by 2002:a17:903:240c:b0:2d8:f4d4:7044 with SMTP id d9443c01a7336-2dd6c7ca8a6mr27428635ad.3.1789383516506;
-        Mon, 14 Sep 2026 03:58:36 -0700 (PDT)
-Received: from [127.0.0.2] ([2403:18c0:1001:3a:74ea:baff:fe97:d2e7])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c652aa8dsm4687280a12.7.2026.09.14.03.58.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 03:58:35 -0700 (PDT)
-From: Asai Neko <sugar@sne.moe>
-Date: Mon, 14 Sep 2026 18:58:29 +0800
-Subject: [PATCH] ALSA: usb-audio: skip the broken mute control on AVerMedia
- GC553Pro
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zuk9D7+m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8924C1F000FF;
+	Mon, 14 Sep 2026 10:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789383576;
+	bh=k/820N3jYr2GH3WCO3bqlo3T1Ji36Ja7L774u/GuoxQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zuk9D7+mhbmETqyGx+b6NA4d8RWyYcLoNEy1TLPy0e/Dn014vxpUU1WikKC0T0r/7
+	 Ov0mc/YucGBUfMHEKxaz4Szf0RCtFDXTL2j+5EaEU684rqf7h1KAeJsVLwHuCgvnNX
+	 rrJ4Xmspi5n/zFEUrfvdeasWfnfQdQ//QstsUMkPh0bcblv1/EHVAl33TI/hLAazdJ
+	 cNEMhFVSfrV3SbjJoJY0rIhS5ju09P/WvIdRLw6sRKPkBBYVNX+nnLSUjbs4KwUuXb
+	 r7jP6cKkSNV3pXSLrkE2Il3/ucxD2s/GuuCvD6IxvGqiJOIuaAAs2eYk6liRWao171
+	 MU1WgEBpP/keA==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 90776198004A;
+	Mon, 14 Sep 2026 06:59:31 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 14 Sep 2026 06:59:34 -0400
+X-ME-Sender: <xms:k9OnaqHYjWotVJxbnp41r1vGY8JgRiwaCeF8ZUhFdpvWFG7d-4QyPg>
+    <xme:k9OnatqGa77SeWvVYXGCWqC6KA_p51VWUT3QfNN8pXhsTf97SBefGebz3M2f4GUQM
+    efQkSQbQBgk5TetMsyHfOTnRZs1MvplpYV0c_QnK22bo74jwpjhdFbC7Q>
+X-ME-Received: <xmr:k9Onai2kuygq_g1aR0atLTaZwY5SGosh2LTQ7AUPw54UU8OogHShrHUYt1s>
+X-ME-Proxy-Cause: dmFkZTEa4sevxAV6Q4GAtMmH3bNgFi9bBl2P5MgBoETq78GI1x+H4CqfJcXgtyg8PZSHj5
+    LvBOUCzISOeMcJoRas58P2quezxpo3JC6BH90ravhEQYsyOcJAJXikWX7542hpMGHON4L7
+    i7k6Zwylw09Q7uXYpekWt9ouQUuEpeXnzySfB+XsC6DRIfmU+wT5NEO4827CpZTmvhRRw5
+    c6Kmio2ItUEUefEPyDnOD+8oAQJ/XhY/CYU1LoF4MPhTOKywPDF6hfnX5h1iFSclCvFQYr
+    kcrXR0C/DEDl7eglkfSInGXgUWVUj950lWrgzDvr/sTLu+HwJpLB5xSuAE4a5sKhKXt3Ip
+    PAy8KT9QsKuOTuZHH23753Aasww8q9BumVuQkb4ZSLnqUwyQwh0wDgZdyuVJSqKWgmm7ym
+    N2ZaTFzPy4JKby6jkjg9S1XjwbxdToO/GANDuV2z6KCDq2De5oJAgSC83nQ3xY+T78TA7Q
+    hJdkQHaht+xAzKVkzoiC6y2OZ0JKyqEHq6uBWIKe7wAViEPip3UJ6AELJ5Wc8yO3cB/hml
+    5Yn0mDJEYYjhvcZM6qxXkCfnYOK3NyW3sHKdEzTU+jVaDB6T4AuSwnL9tpWBkqTl87Gi4l
+    8ZlwpGwz0CZcFI/a9uqBNKj0fHONB5xJe9RxjfmyiTvEPvjRZDq3KhXsVX9A
+X-ME-Proxy: <xmx:k9OnahBrDsaxL963XQga0pd_HufUJ3UEG3E1KeV3GYJFzKnWO0K0AQ>
+    <xmx:k9Onat8SpXgt7AK8tbhOtlPySC-SAZ8H7kq1LJu9o8BK7nhUb35hFg>
+    <xmx:k9OnavMSoaSp_NcmONiBIEEodxgVb_NxKWozUyJntVafvVjYQx41BQ>
+    <xmx:k9OnanF5FAyueRGy-U3vIDp4RVRlfFaFAvXnoU64J2N6MnXFO9R5Uw>
+    <xmx:k9OnausicBquc8Ki5-pPkwUILlALjYlm6cuBbPexMfzrXZah4wJ2-hhJ>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 14 Sep 2026 06:59:30 -0400 (EDT)
+Date: Mon, 14 Sep 2026 11:59:29 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, 
+	surenb@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
+ PMDs
+Message-ID: <aqfRCPheDYTgTdAk@thinkstation>
+References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
+ <20260913072312.52111-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20260914-avermedia-gc553pro-alsa-v1-1-4c694e8b0cd5@sne.moe>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm0ygGDgKsZF6RSs4S+tEhPC3
- R11+S3e28HFVBzabAeTTV2XOSE/ZcB3mgdBjclQhKIOTX5G2sQmiUo4cFWVqy1IoxMyS9kHqmN
- 3CZDq1aTX9+98vf3tr+4h/Pzu4Dg+5kyF4nsAAAA=
-X-Change-ID: 20260914-avermedia-gc553pro-alsa-cce3f0a6db70
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, Asai Neko <sugar@sne.moe>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2092; i=sugar@sne.moe;
- h=from:subject:message-id; bh=KKQ65lm5gd4TGamF3O9BljYBBsGT+aIMb7Ndkequqlk=;
- b=owJ4nJvAy8zAJfZHZ3FlRAEbJ+NptSSGrOWXI7+8vyx82i/8ltrtSouc2Q+erSu/4/725jejm
- An1s7vunPrXUcrCIMbFICumyNJ5pKvwyet5Hw646PLBzGFlAhnCwMUpABMR28XIMG+7SpPmw2TZ
- o+tLZU+Ebjl02up5g0GymfiuE1ax8499fcfwz2D6piUHGzsd1m88NonzxAl9j9zHhh2803h29ik
- 45NzbwwAAMNtOUg==
-X-Developer-Key: i=sugar@sne.moe; a=openpgp;
- fpr=89C48A71E4EB9EF0C0442D0EFC2CA37958700609
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913072312.52111-1-lance.yang@linux.dev>
 
-Skip the nonfunctional master mute control on the AVerMedia Live Gamer
-ULTRA S GC553Pro (07ca:1553).
+On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
+> 
+> On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
+> >On Sun, 13 Sep 2026 13:19:42 +0800 Lance Yang <lance.yang@linux.dev> wrote:
+> >
+> >> From: Lance Yang <lance.yang@linux.dev>
+> >> 
+> >> has_deposited_pgtable() uses !vma_is_dax() to decide whether a huge zero
+> >> PMD has a deposited PTE page table. That also accepts raw PFN mappings
+> >> of huge_zero_pfn, although vmf_insert_pfn_pmd() does not deposit a page
+> >> table on x86.
+> >> 
+> >> Zapping such a mapping would call pgtable_trans_huge_withdraw() without
+> >> a corresponding deposit. With pmd_huge_pte(mm, pmd) == NULL, that causes
+> >> a NULL pointer dereference.
+> >
+> >That's the sort of thing we'd prefer to avoid.
+> >
+> >> Use vma_is_anonymous() for the huge zero PMD check. This matches how PTE
+> >> page tables are allocated, deposited and moved.
+> >> 
+> >> - For anonymous page faults that install a huge zero PMD,
+> >>   do_huge_pmd_anonymous_page() allocates a PTE page table and
+> >>   set_huge_zero_folio() deposits it before installing the PMD.
+> >> 
+> >> - On fork, copy_huge_pmd() allocates and deposits a PTE page table when
+> >>   copying a huge zero PMD into an anonymous VMA.
+> >> 
+> >> - Raw PFN mappings use vmf_insert_pfn_pmd(), and DAX file holes use
+> >>   vmf_insert_folio_pmd() to map the huge zero folio. Both use insert_pmd(),
+> >>   which deposits a PTE page table only when arch_needs_pgtable_deposit()
+> >>   requires it.
+> >> 
+> >> - Moving an anonymous huge PMD preserves its deposited PTE page table.
+> >>   move_huge_pmd() transfers the deposit when necessary. For UFFD MOVE,
+> >>   both VMAs must be anonymous, and move_pages_huge_pmd() transfers the
+> >>   deposit as well.
+> >> 
+> >> Keep arch_needs_pgtable_deposit() first so architectures that require a
+> >> deposited PTE page table still return true regardless of the VMA type.
+> >> 
+> >> Commit d80a9cb1a64a ("mm/huge_memory: add and use
+> >> normal_or_softleaf_folio_pmd()") removed the vma_is_special_huge() check
+> >> in zap_huge_pmd(). That check skipped the huge zero PMD deposit test for
+> >> non-DAX VM_PFNMAP and VM_MIXEDMAP mappings. Removing it exposed these
+> >> mappings to the incorrect !vma_is_dax() test.
+> >> 
+> >> Fixes: d80a9cb1a64a ("mm/huge_memory: add and use normal_or_softleaf_folio_pmd()")
+> >> Cc: stable@vger.kernel.org
+> >
+> >How real is this?  Is there a reported-by:?  Do you have a reproducer? 
+> 
+> Yes, I reproduced it on x86 with a small test module. It sets
+> VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
+> huge_zero_pfn, without touching the page tables directly. A full-PMD
+> munmap() crashes before the split series[1] as well.
 
-USB tracing shows that GET_CUR returns zero bytes instead of the required
-one-byte value, both through usbfs and during ALSA initialization.
-SET_CUR succeeds, but switching capture off does not mute HDMI audio.
+Ah. So there's no real bug upstream, right?
 
-Before the change, the driver exposed a misleading PCM Capture Switch
-and logged: 3:2: failed to get current value for ch 0 (-22)
+And I am not sure it is how we want to address this. I don't think we
+should allow randomly map huge zero page (and non-huge too). It can be a
+security risk if it ever gets exposed writable.
 
-With the patch applied, the switch and warning are absent. A ten-second
-sound recording through PipeWire confirmed that stereo 48 kHz, 16-bit
-capture still works.
-
-Tested on NixOS with the patched 7.3.0-rc3 kernel. The USB audio driver
-object builds with Clang and W=1; sparse and strict checkpatch pass.
-
-Signed-off-by: Asai Neko <sugar@sne.moe>
----
-Skip the broken mute control on the AVerMedia Live Gamer ULTRA S GC553Pro.
-Testing details and the rationale are included in the patch commit message.
----
- sound/usb/mixer_maps.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 69093c666282..41454cb403d0 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -531,6 +531,15 @@ static const struct usbmix_name_map audient_id24_map[] = {
- 	{}
- };
- 
-+/*
-+ * The GC553Pro returns no data for GET_CUR on its advertised mute control.
-+ * SET_CUR succeeds but does not mute capture, so skip the control entirely.
-+ */
-+static const struct usbmix_name_map avermedia_gc553pro_map[] = {
-+	{ 3, NULL, UAC_FU_MUTE },
-+	{}
-+};
-+
- /*
-  * Control map entries
-  */
-@@ -577,6 +586,10 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 		.id = USB_ID(0x0763, 0x2031),
- 		.selector_map = c400_selectors,
- 	},
-+	{
-+		.id = USB_ID(0x07ca, 0x1553),
-+		.map = avermedia_gc553pro_map,
-+	},
- 	{
- 		.id = USB_ID(0x08bb, 0x2702),
- 		.map = linex_map,
-
----
-base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
-change-id: 20260914-avermedia-gc553pro-alsa-cce3f0a6db70
-
-Best regards,
---  
-Asai Neko <sugar@sne.moe>
-
+See CVE-2015-3288 and 6b7339f4c31a ("mm: avoid setting up anonymous
+pages into file mapping").
 
 -- 
-Asai Neko
-
-
+  Kiryl Shutsemau / Kirill A. Shutemov
