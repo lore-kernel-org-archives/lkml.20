@@ -1,78 +1,77 @@
-Received: from mail-pf1-f227.google.com (mail-pf1-f227.google.com [209.85.210.227])
+Received: from mail-vs1-f99.google.com (mail-vs1-f99.google.com [209.85.217.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1064963BA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6E33914EB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789417459; cv=none; b=cR4z8HzaR8i0kD9FkEHrSso0sBWt+xbLtGzW3JKc5KE14jlL3aUf+tQgKO0IdMlmRynavvKktQ0Al8t0jX7a7+SJva1PscAyKB9Y+sJzbLo87QZWgMdkRa1OXexoiTLPoEI2xPQUw4iNsjukGOqQG/ZBqBhqAWOewTZWU9USJso=
+	t=1789417463; cv=none; b=B3mUJL+xXx/SChmgNJy6zQPh0QWmgpAoydpgd35LALUPrDI69UTRHGYDGj2TrdJ+wgyrrYeHniMoNC5Qk8kWxN8a6lu/MERAx81qVMaqTtgosu1MrF9ukFWNCkBf8vc/BX/zRYDkxtf8qq6rSwuqjonm9eSUPghY1lOF6S5UgO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789417459; c=relaxed/simple;
-	bh=MMDykQzy7x7p66o0iMs9Sx0TXt7mVPc64bBKVA3boHE=;
+	s=arc-20240116; t=1789417463; c=relaxed/simple;
+	bh=k2tzbk1Xu7br+97MZVzboFVQLhf+xwYbmmoNash5Lbs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VOK9YJAjYaQAHdlyVL+IC0pmO75mFTVRIN6B6dE7xX7xPDik7MGbpIlosCFEO9PWCOgARZAjmmqnLCxmcaFZ7wqITcGlvjdyH31uM3F6x5CNKpWTnWwFJ7q4xrAbRimsKiIWWTERT46DBGUHepLpGoQP+7eWDH6HfgxVFewzZTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=JDKS3rqq; arc=none smtp.client-ip=209.85.210.227
+	 MIME-Version; b=LibGhbKILM8k4FCBteS3tZn5sASWBw82rxqLP5inHS4AqZF/ZkdloJS2bGjPnaAl1zKveJyYfx3LHElClqLaIEQy9ly/P3mTW3ngF9krIqQXPiWO0ylXFrZyqlgX94z2ZLSko1TEzfDE8RMBqAWTdh4vlDir4Jl6BPJNoX4K1bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Ox7RP5GA; arc=none smtp.client-ip=209.85.217.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="JDKS3rqq"
-Received: by mail-pf1-f227.google.com with SMTP id d2e1a72fcca58-8692be1cda4so3125498b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Ox7RP5GA"
+Received: by mail-vs1-f99.google.com with SMTP id ada2fe7eead31-785073ad5ccso922192137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789417457; x=1790022257;
+        d=1e100.net; s=20260707; t=1789417460; x=1790022260;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5am8jY+Eh+kLQoKuHV0GYjrdnQEpm2u3B816c/P3fZI=;
-        b=A2IaBl7pu/TN2apAa8pzVLJ8+h7WmhBK+yOB+xkDRwIxQlLfwI1zw5SB6LB/ctov4M
-         UPjzfCIQ7DwQ8fldzRrtk2U8kg7RNEp/5lilDuHpJDmkqrkVvjKpgmeUKEHHKquwP9xt
-         SB8nC+eWhcz0V06YxHxYSRDdb4avPlEp29x//pRXhMnI9+D6349IJNlfYKhGoZMQk0yj
-         gNS2VoiWtF3gDFUiqOSXVoeC7PcPUZ5rpHiCpNmwtwz71cvDZhgAJHVKCslqYNfDEcEm
-         5hVHnZao2W0Q6/gSMRhEI8u1feD0kPdbAND5kE4B1s5x2iFw1L23KrAI7Ci6XQ3Df8bx
-         TbMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxw9cWDJPaDjLHEhamLguj/n+TrgGM5bf85F4wavNkPKBAhkD1MxNVSx1Myevos+ApBs4ehurT11x0/lsw=@vger.kernel.org
-X-Gm-Message-State: AFuF++no4eAD+o6NHOYzJ+zqxk1StQ8lUUZJN/sDyDma96/hz7FWkGoT
-	AaElhXqivnhxvBnWmzix2sCT7HYoQDyqsu1jyUZ5sNzI2rBjHgw4l4gZQd69uyVyWFKRlKoG112
-	NCHXw7y5r8m8u1LyToBTjAdPE6PUdZTpP6N47lGrHzKSlcnN7Avga1CxSifGD3oB3rsBleaZwqv
-	Wrov244qgJT2dflHYA/I7dGKYJxGXqEH76IuGoyW28vAw337ggqUPbp/QcUf4uz23qsj8BJpGRq
-	uu/IAchFCxdv3mdVIM1WA==
-X-Gm-Gg: AYBFou2fbsi//y007LQMUVoe8qRm+2WiXOlGRNmrGwa3QxoqFYJwhqb6htUO8qTmAAw
-	FB975fY55qLLbB7t7qCmJMRjFrlSlz6Vi5W438Ge0ruHcYX+eFOw4bD4+XNU4jHTMsN7b0Uw59a
-	XaHzAX849c3JpOPpe34BHNtB8RRb/CTDYGbMLTefBeuaCvkXAX4nXA0G1dRoFbuG8r0NJqMYbm3
-	h11g8uYCLBId+ESK+Er+7SYxxSMfacVpdhAclgpTTPsi3JAwUXuhsNhgO7BkMKqR97vujYMEurq
-	O+GQcZ8+Kza6u1uECsrpZ+a7E0T7A1Wu01ev+4Dkz8MW0/nyqsEtpp7nRdaKr+83dJpe2+wmdMx
-	CET1gCETu/Q5suTHmJw7nBgkkJAKcI6xjL7oZBK8Px9bZ/VaH4O4Jn07nLfNAt/UsYVhS9h3X6P
-	4M6QQ+mn8LYDbgOIu8hQrGugGCCTuPrMux6SzVcQ==
-X-Received: by 2002:a05:6a00:4096:b0:84a:29a7:f3b1 with SMTP id d2e1a72fcca58-86f85107ee3mr8681456b3a.16.1789417456511;
-        Mon, 14 Sep 2026 13:24:16 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-29.dlp.protect.broadcom.com. [144.49.247.29])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc4c62a4114sm4644967a12.1.2026.09.14.13.24.15
+        bh=Lw4cU/iYb1d+4k9XS51T95AvbCYV5HtwSci4L0F+IcE=;
+        b=qJ4zx3tEsGa2n+XHrVTCrtCSuWY18rGLGzltSoM5Ft6l2yJyb6gsqgSuMfwzVQytn+
+         WE/6JofdwHAJgg0tumou2GTxmDFUwfA7rkQNcPB1U4B7kVsfVQUjuUam3clYgCW/sQqV
+         2PlPorknnSYV31w4R4h5k27aRCgPBaraMXv0QMfC+zemq+0ZbtQK1napx9NjMBRh3JzV
+         8YmITTodawmiJ/4ZzPusas+W/7DVuL0jjrTmIBKixyKJaKQNFZBcGnDqr8hAFTDV44ww
+         iX0cCTir9ggzmA4k3RLa18fXIHIq76iwHEXxy4b5Z3bZHfAmGfjr66BK2Nh4AShzlm3m
+         AqkA==
+X-Forwarded-Encrypted: i=1; AKwUvByjYmTAvtDbjD8WVAmu4Xn0gIm63MFdWf2ATCIu9dxEEPZV+0L6/4cimhwsOK7YrDeGKXKRLez1yImGv/4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lR/R/uIu/6J4+JT/l5Ek9v1/xaWrNqRGb1UJRU++AgddYMgaWr
+	CHgZ683++KqCtiMALHIvBc43AVPz6wSUau3rdEsC2hJXR8jfVNCpXkkqwCNUir7r0IsDOB4rg47
+	yA1k+5h19YuWxAJagMqrom2AJx2sc7OZLbQxmTowC75c5hHzjpPOd5L5o0sXB+6koh2fvUJKb2R
+	iagtWPHQiiSH4KurSWlYrm6+XqZYwVZf1X+P3Tv0BuVXU65Y+13dB3cBoDKR/9wEXBth5ruBXOc
+	kNKXGK4hAlkDFhwLO6xeg==
+X-Gm-Gg: AYBFou1vOrIMj3irQRLGPuuxMvSLbaSDExaY3O7H3++/H0tqNlsvWt/DS+LxD+qmoHL
+	ndjbDr6g7rxTH1GpAXo5JlBsn+d5xlxATE6m46NZ9zV8rktIGTW8/mov0DVAKLpgf/eg8Ty9HO/
+	qtD+v9ivu/li6tUDOQjXeNEzBemQ+xQrIl0LG+6TDU+/VmWEtKOVUu6bt99Kh/+Zbj9qYPqGn4z
+	juaM/HetqJtwTpAlfkqSiahcAKWJjoMgie0lT/TSaqEKTTpRdmz7Y0HJB3Tsve3hwDCyNPqjvG5
+	tWz+zGI91k9hgH5S3xnLQ9h40EiH639IIRZjoeFAAV+ajIL1pJOnDdQFCFV3CCFERimwrcPdd7a
+	BGrgLqMuAVznvxqzNrE/l6HPpxg+XufcWZDPSSq6wzqXMVcAxmNgtGaT6qqN3kw==
+X-Received: by 2002:a05:6102:510b:b0:784:b9ec:913d with SMTP id ada2fe7eead31-79b5acba6b0mr2198372137.8.1789417460017;
+        Mon, 14 Sep 2026 13:24:20 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com ([144.49.247.127])
+        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-7927dab913asm203656137.14.2026.09.14.13.24.19
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 14 Sep 2026 13:24:16 -0700 (PDT)
+        Mon, 14 Sep 2026 13:24:20 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4e0b45e4bso4542788a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:15 -0700 (PDT)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-47d75bcf3ebso3480088fac.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789417455; x=1790022255; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1789417459; x=1790022259; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5am8jY+Eh+kLQoKuHV0GYjrdnQEpm2u3B816c/P3fZI=;
-        b=JDKS3rqqEQImpy9+9F75bbUuu6e9gTTAY+kKa6GnTewaqNikUPSs0jXzipxY1c3WTc
-         3OBZbiO8oxDrPF5SA7yWKYdBRnhd9anOzsukhUuM2eFwUMwRFryKBWOQbzYl8CzVqh0R
-         4V/5ZrnK+ERmZAVYUmKKDtToQ3QbOBq6h7qM4=
-X-Forwarded-Encrypted: i=1; AKwUvBxdwBsvwAHXzrVe/dizCW996ZOXvFiX/dUMtJ3F9u0kwtdzv5fZ8Ga+pKKpYNxO5aD2V0Yj2DC0DI2ayT0=@vger.kernel.org
-X-Received: by 2002:a05:6820:1899:b0:6b1:9f9d:79f3 with SMTP id 006d021491bc7-6c53fd76a77mr2393528eaf.17.1789417454681;
-        Mon, 14 Sep 2026 13:24:14 -0700 (PDT)
-X-Received: by 2002:a05:6820:1899:b0:6b1:9f9d:79f3 with SMTP id 006d021491bc7-6c53fd76a77mr2393506eaf.17.1789417454184;
-        Mon, 14 Sep 2026 13:24:14 -0700 (PDT)
+        bh=Lw4cU/iYb1d+4k9XS51T95AvbCYV5HtwSci4L0F+IcE=;
+        b=Ox7RP5GA1kaNnqbnJyMQpVpqIbSLW5KM5CZ/7pfC+R4XLd9LAuApy2yxuotxRV7pSz
+         Yo401mUcfLZtrRR8wr0zTULlYaUs/9hXg4pES+qV8bWlkP7X1PPKjbdXQobXnk1jousa
+         79Ii2aoIzK8Sk4Y4Eogw4q9DkCcKgHr5KQtLA=
+X-Forwarded-Encrypted: i=1; AKwUvBxsRLRPCNSQE0pB6BUoVOL8MQumoGO4PLFZzzDFh2KNLqT6LWtlqXF/LPVBGqGAc7ku+qK9/xntxDK51NA=@vger.kernel.org
+X-Received: by 2002:a05:6870:44b:b0:47b:dbb4:7cbb with SMTP id 586e51a60fabf-481f9b10f9fmr4289079fac.14.1789417458745;
+        Mon, 14 Sep 2026 13:24:18 -0700 (PDT)
+X-Received: by 2002:a05:6870:44b:b0:47b:dbb4:7cbb with SMTP id 586e51a60fabf-481f9b10f9fmr4289044fac.14.1789417458237;
+        Mon, 14 Sep 2026 13:24:18 -0700 (PDT)
 Received: from lvn-dbc2489.lvn.broadcom.net ([192.19.161.250])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df8699bc6sm11623741fac.3.2026.09.14.13.24.12
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df8699bc6sm11623741fac.3.2026.09.14.13.24.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 13:24:13 -0700 (PDT)
+        Mon, 14 Sep 2026 13:24:17 -0700 (PDT)
 From: Rishi Chhibber <rishi.chhibber@broadcom.com>
 To: gregkh@linuxfoundation.org,
 	arnd@arndb.de
@@ -92,9 +91,9 @@ Cc: bryan-bt.tan@broadcom.com,
 	yin.ding@broadcom.com,
 	tapas.kundu@broadcom.com,
 	Rishi Chhibber <rishi.chhibber@broadcom.com>
-Subject: [PATCH v3 1/4] misc: vmw_vmci: Reserve a datagram resource id for zero-copy buffer sharing
-Date: Mon, 14 Sep 2026 13:22:06 -0700
-Message-ID: <137107b03a5e76ec39a0a7f453db892044ccb108.1789413109.git.rishi.chhibber@broadcom.com>
+Subject: [PATCH v3 3/4] Documentation: misc: Add vmw_zerocopy driver documentation
+Date: Mon, 14 Sep 2026 13:22:08 -0700
+Message-ID: <714b2c18a9f4ad7a4adc927941965ef45e8438c7.1789413109.git.rishi.chhibber@broadcom.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1789413109.git.rishi.chhibber@broadcom.com>
 References: <cover.1789413109.git.rishi.chhibber@broadcom.com>
@@ -108,41 +107,325 @@ Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 Summary of changes:
-- Add VMCI_VMWZC_DST_RID to the reserved hypervisor datagram resource id
-  enum and bump VMCI_RESOURCE_MAX accordingly
+- Add Documentation/misc-devices/vmw_zerocopy.rst describing the device
+  node, the ioctl interface, the message types and the buffer limits
+- Link it from Documentation/misc-devices/index.rst
 
-The hypervisor-side zero-copy buffer sharing service occupies its own
-resource id in the hypervisor datagram namespace. Reserve a name for it
-alongside the existing entries rather than leaving callers to open-code the
-number, following the procedure described in that enum's own comment: the
-set of resource ids available in the hypervisor is fixed and statically
-known, and a new caller extends it by incrementing the maximum.
+Document the userspace interface of the vmw_zerocopy driver added earlier
+in this series: the /dev/vmw_zc device node, the VMW_ZC_IOCTL_MSG ioctl and
+its message types, the data and metadata size limits, and an example call
+sequence.
 
-VMCI_RESOURCE_MAX has no in-tree users, so the bump does not affect
-existing code. The new entry likewise has no in-tree user until the
-vmw_zerocopy driver, added later in this series, references it.
+The prose also covers the parts of the design that are not apparent from
+the interface alone: how a PFN list replaces a data copy, the metadata
+feedback path and why those pages need different release handling from the
+data pages, the atomic submission semantics of placing both PFN lists in a
+single datagram, the transport abstraction, and why the destination
+resource id is owned by the kernel rather than selectable by userspace.
 
 Signed-off-by: Rishi Chhibber <rishi.chhibber@broadcom.com>
 Reviewed-by: Alexey Makhalov <alexey.makhalov@broadcom.com>
 Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
 ---
- include/linux/vmw_vmci_defs.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/misc-devices/index.rst        |   1 +
+ Documentation/misc-devices/vmw_zerocopy.rst | 278 ++++++++++++++++++++
+ 2 files changed, 279 insertions(+)
+ create mode 100644 Documentation/misc-devices/vmw_zerocopy.rst
 
-diff --git a/include/linux/vmw_vmci_defs.h b/include/linux/vmw_vmci_defs.h
-index 60c9eacd2cf3..4435d2ff1241 100644
---- a/include/linux/vmw_vmci_defs.h
-+++ b/include/linux/vmw_vmci_defs.h
-@@ -179,7 +179,8 @@ enum {
- 	VMCI_UNITY_PBRPC_REGISTER = 14,
- 	VMCI_RPC_PRIVILEGED = 15,
- 	VMCI_RPC_UNPRIVILEGED = 16,
--	VMCI_RESOURCE_MAX = 17,
-+	VMCI_VMWZC_DST_RID = 17,
-+	VMCI_RESOURCE_MAX = 18,
- };
- 
- /*
+diff --git a/Documentation/misc-devices/index.rst b/Documentation/misc-devices/index.rst
+index f911edaecbfa..8d1687a2d566 100644
+--- a/Documentation/misc-devices/index.rst
++++ b/Documentation/misc-devices/index.rst
+@@ -27,4 +27,5 @@ fit into other categories.
+    spear-pcie-gadget
+    tps6594-pfsm
+    uacce
++   vmw_zerocopy
+    xilinx_sdfec
+diff --git a/Documentation/misc-devices/vmw_zerocopy.rst b/Documentation/misc-devices/vmw_zerocopy.rst
+new file mode 100644
+index 000000000000..80a6277acf28
+--- /dev/null
++++ b/Documentation/misc-devices/vmw_zerocopy.rst
+@@ -0,0 +1,278 @@
++.. SPDX-License-Identifier: GPL-2.0-or-later
++
++======================================
++VMware Zero-Copy Buffer Sharing Driver
++======================================
++
++Overview
++========
++
++The VMware zero-copy driver (``vmw_zerocopy``) provides a misc character
++device at ``/dev/vmw_zc`` that allows guest userspace to share memory buffers
++with a VMware hypervisor-side peer without copying the payload through a
++kernel bounce buffer.
++
++The driver's responsibilities are strictly bounded:
++
++- Pin the caller's user pages with ``pin_user_pages_fast()``.
++- Collect the physical page frame numbers (PFNs) of those pages.
++- Transmit the PFN list to the hypervisor peer through the driver's
++  transport backend (currently VMCI; see `Transport Abstraction`_).
++- Unpin the pages when the ioctl returns.
++
++The hypervisor reads the payload directly from the guest's physical frames.
++No data is copied into or out of kernel memory.
++
++
++How Zero Copy Works
++===================
++
++A conventional driver copies application data into a kernel buffer and then
++sends that buffer to the device.  This driver does not.
++
++When userspace calls ``VMW_ZC_IOCTL_MSG`` with a ``VMW_ZC_MSG_USER_BUFFER``
++message, the kernel:
++
++1. Calls ``pin_user_pages_fast()`` to pin the data and metadata pages in
++   place, preventing them from being swapped or moved for the duration of
++   the ioctl.
++2. Iterates over the pinned pages and records each page's PFN using
++   ``page_to_pfn()``.
++3. Packs the PFN list into a ``struct vmw_zc_host_message`` and hands it to
++   the transport backend for delivery to the hypervisor peer (currently
++   VMCI's ``vmci_datagram_send()``).
++4. Calls ``unpin_user_pages()`` before returning.
++
++The hypervisor receives the datagram, maps the listed guest-physical frames
++directly, and accesses the buffer contents without any copy traversing the
++guest kernel.  The guest kernel never touches the payload data itself.
++
++
++Metadata Feedback Path
++======================
++
++Each ``VMW_ZC_MSG_USER_BUFFER`` call may supply two separate buffers:
++
++- **data buffer** - the payload the hypervisor will read.  Pages are pinned
++  with ``gup_flags = 0`` (read-only from the caller's perspective).
++- **metadata buffer** - a control region (up to 64 KiB) the hypervisor
++  writes into.  Pages are pinned with ``FOLL_WRITE`` so the hypervisor can
++  store per-operation results directly in the caller's own memory.
++
++Both PFN lists travel in a single VMCI datagram.  The hypervisor, while those
++pages are still pinned, writes per-operation information - such as completion
++status, byte counts, or application-level result codes - directly into the
++metadata pages.
++
++Because the metadata pages are the same physical pages that userspace mapped,
++userspace can read the hypervisor's response immediately after the ioctl
++returns by reading its own buffer.  No additional system call is required to
++retrieve the result.
++
++Key properties of this feedback path:
++
++- **Per-call**: a fresh metadata region is provided with each ioctl, so
++  results from one call do not interfere with another.
++- **Synchronous**: the result is present in the metadata buffer when the
++  ioctl returns; no polling or waiting is required.
++- **In-place**: the hypervisor writes into the caller's own pinned pages;
++  the result does not pass through any intermediate kernel buffer.
++- **Rich**: up to 64 KiB of arbitrary per-operation result data per call.
++
++
++Atomic Submission Semantics
++============================
++
++Both the data PFN list and the metadata PFN list are placed in a single
++``struct vmw_zc_host_message`` and delivered in one transport ``send()``
++call (currently backed by a single ``vmci_datagram_send()``).  The
++hypervisor receives the complete bundle atomically.  There is no state held
++between ioctl calls: if the send fails, nothing has been committed on the
++hypervisor side.  This makes error recovery straightforward for the caller.
++
++
++Transport Abstraction
++=====================
++
++The driver is split along a small internal interface so that VMCI is a
++swappable backend rather than something the ioctl path depends on directly:
++
++- ``vmw_zerocopy_core.c`` owns the misc device, the ioctl, and user page
++  pinning.  It builds a ``struct vmw_zc_host_message`` on the stack and
++  hands it to a transport for delivery.  It contains no VMCI-specific code.
++- ``vmw_zerocopy_vmci.c`` implements delivery over VMCI: creating the
++  driver's VMCI datagram handle, maintaining the per-peer datagram buffers
++  described under `Constraints`_, and calling ``vmci_datagram_send()``.
++
++The two are joined by ``struct vmw_zc_transport_ops``, defined in the
++driver-private ``vmw_zerocopy_priv.h``::
++
++    struct vmw_zc_transport_ops {
++            int  (*init)(void);
++            void (*exit)(void);
++            int  (*send)(const struct vmw_zc_host_message *msg);
++    };
++
++VMCI is currently the only transport, selected at compile time with
++``vmw_zc_transport = &vmw_zc_vmci_transport`` in ``vmw_zerocopy_core.c``.
++The destination is owned entirely by the transport backend, so ``send()`` takes
++no address argument.  Adding a second transport means implementing this
++interface in a new source file and pointing ``vmw_zc_transport`` at it - the
++ioctl, pinning, and message-building code do not change.
++
++
++Use Cases
++=========
++
++This driver is suited to workloads where:
++
++- A guest application needs to hand large buffers to a VMware hypervisor
++  service without incurring a kernel-to-kernel copy of the payload.
++- Per-operation completion feedback (status, byte count, result code) is
++  required synchronously with the send, without a separate receive call.
++- The metadata region is bounded (<= 64 KiB) and the response latency must be
++  bounded by the ioctl round-trip rather than by a polling interval.
++
++Examples include guest-side offload of data transformation, checksum, or
++inspection workloads where the hypervisor peer processes each buffer and
++reports the outcome directly into the caller's metadata page.
++
++
++Userspace API
++=============
++
++Device
++------
++
++The driver registers a misc character device::
++
++    /dev/vmw_zc
++
++The device is created with mode ``0644`` so that unprivileged guest
++userspace can open it without additional privilege.
++
++ioctl
++-----
++
++All operations use a single ioctl::
++
++    ioctl(fd, VMW_ZC_IOCTL_MSG, &msg)
++
++where ``msg`` is a ``struct vmw_zc_guest_message`` defined in
++``include/uapi/linux/vmw_zerocopy.h``.
++
++Addressing the peer
++-------------------
++
++Userspace does not address the peer.  The destination is a compile-time
++constant owned by the transport backend, and there is no initialisation call
++and no per-message address field.
++
++This is deliberate.  The destination is a VMCI resource ID in the hypervisor
++context, and that namespace belongs to the platform: low IDs are the
++hypervisor's own control entry points.  A device node that unprivileged
++userspace can open must therefore not let userspace name a destination, or it
++becomes an unfiltered writer onto the hypervisor's control namespace.
++``msg.reserved`` exists only to keep the structure layout fixed and must be
++zero; a non-zero value returns ``-EINVAL``.
++
++Message types
++-------------
++
++``VMW_ZC_MSG_USER_BUFFER``
++  Transfer a buffer, with optional metadata feedback.  Fill
++  ``msg.u.data`` as follows:
++
++  =====================  =================================================
++  Field                  Meaning
++  =====================  =================================================
++  ``buffer``             ``__u64`` userspace address of the data buffer;
++                         0 if no data buffer.
++  ``buffer_length``      Length in bytes; 1-65536 (64 KiB maximum).
++  ``metadata``           ``__u64`` userspace address of the metadata buffer;
++                         0 if no metadata buffer.
++  ``metadata_length``    Length in bytes; 1-65536 (64 KiB maximum).
++  =====================  =================================================
++
++  At least one of ``buffer`` or ``metadata`` must be non-zero.
++  The metadata buffer must remain mapped for the duration of the ioctl; the
++  hypervisor may write into it at any point while the call is in progress.
++
++``VMW_ZC_MSG_RAW``
++  Send a small inline payload (<= 36 bytes) to the peer without pinning any
++  user pages.  Fill ``msg.u.raw_buffer.raw_buffer`` with the payload and
++  set ``msg.u.raw_buffer.raw_len`` to the payload length.  Useful for
++  lightweight control or signaling messages.
++
++Pointer fields (``buffer``, ``metadata``) are declared as ``__u64`` so that
++``struct vmw_zc_guest_message`` has the same layout on 32-bit and 64-bit
++userspace.  The argument pointer itself still needs conversion for 32-bit
++callers, so ``.compat_ioctl`` is set to ``compat_ptr_ioctl``.
++
++Example call sequence
++---------------------
++
++The following pseudo-code illustrates the typical usage pattern::
++
++    /* Step 1: open the device */
++    fd = open("/dev/vmw_zc", O_RDWR);
++
++    /* Step 2: allocate data and metadata buffers */
++    void *data     = mmap(NULL, DATA_SIZE,     PROT_READ,             ...);
++    void *metadata = mmap(NULL, METADATA_SIZE, PROT_READ | PROT_WRITE,...);
++    /* fill data buffer with payload */
++
++    /* Step 3: transfer the buffer and wait for metadata feedback.
++     * There is no destination to supply; the driver owns it.
++     */
++    struct vmw_zc_guest_message xfer_msg = {
++        .message_type = VMW_ZC_MSG_USER_BUFFER,
++        .u.data = {
++            .buffer          = (uint64_t)(uintptr_t)data,
++            .buffer_length   = DATA_SIZE,
++            .metadata        = (uint64_t)(uintptr_t)metadata,
++            .metadata_length = METADATA_SIZE,
++        },
++    };
++    ioctl(fd, VMW_ZC_IOCTL_MSG, &xfer_msg);
++
++    /* Step 4: read the result - no extra syscall needed */
++    struct my_result *res = (struct my_result *)metadata;
++    if (res->status == 0)
++        /* success */;
++
++
++Constraints
++===========
++
++**One destination, fixed by the driver.**
++The peer is not selectable by userspace; see "Addressing the peer" above.
++The send path builds its datagram on the stack per call, so it performs no
++allocation, holds no driver lock, and has no shared mutable state.  Concurrent
++senders are serialised only where the VMCI transport itself serialises them.
++
++**Send-only.**
++The driver transmits PFN descriptors to the hypervisor; it does not receive
++datagrams.  Hypervisor responses are delivered through the metadata writeback
++path described above, not through a kernel receive queue.
++
++**Buffer size limits.**
++Data and metadata buffers are both capped at 64 KiB (``SZ_64K``).  These limits
++bound the worst-case VMCI datagram size and the number of pages that must
++remain pinned during the ioctl.
++
++**Inline raw payload limit.**
++The ``VMW_ZC_MSG_RAW`` message carries at most 36 bytes
++(``VMW_ZC_MAX_RAW_BUFFER_LEN``).
++
++**Incompatible with encrypted guest memory.**
++The driver's correctness depends on the hypervisor being able to read and
++write guest physical pages.  Hardware memory encryption (AMD SEV-SNP, Intel
++TDX) intentionally prevents this.  The Kconfig dependency
++``depends on !X86_MEM_ENCRYPT`` enforces this constraint at build time and
++prevents the module from being enabled in encrypted-memory guests.
++
++**x86 only.**
++The driver depends on ``CONFIG_X86`` and ``CONFIG_HYPERVISOR_GUEST``.  Its
++current transport backend uses ``VMWARE_VMCI`` (see `Transport
++Abstraction`_), which is an x86 VMware platform interface.
 -- 
 2.52.0
 
