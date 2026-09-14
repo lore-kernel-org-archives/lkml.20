@@ -1,256 +1,192 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010032.outbound.protection.outlook.com [52.101.61.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21792FE057;
-	Mon, 14 Sep 2026 22:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789424709; cv=none; b=EZazaEvdHaG/35RzAkpROMAl76uFadaV2ENBX1IawKtbdveXbKTiDk3n+BZtMc9Z3Q9ii8FUBPg897d5KVMFfZJogNn8gX0g1VM/t7Ec3M4OppiWsgyH0Y/RZrjW5NIvMUC3R2NH8oGrXDx4WWi8+N+lb9Ouks0EZ++bIF5ofyE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789424709; c=relaxed/simple;
-	bh=lRwyLDKclG5PTkKiaCP0WfETw35RY2cC30b8ggFxCpg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Wlg9lGHUjSkJxhkjebnTRkuUb0SaSyyEL3e4bWCTSYO8dl322qE+XpCAlB0Hy3xjpJaToU4OeNj2b1R8PW2Zc1INzHs8NTp8XP/ToBsE3BbQiROMgB+9wnOlFS6L2RBc5StJnsuV6MUAUqWm6Y2A83SnU3TI4Njl1PAFLbYATvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=epD2xGM4; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3805F494810
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:28:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789424927; cv=fail; b=KrnX8DkYtxamVrXdLY1F/muMLCMibr71JfOguJCD+dLnBXbYrwLa6N1UrvTh8Ap2xkJw8/FTONBofXXdTp8abuV2M+F1DIyvo2c8qnfHMMi9jy+b3o/NglFdbSCmrKC9u8iU69QaSs98ChmhH4aDT40uV6jo8wqpzgmzeLl38pQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789424927; c=relaxed/simple;
+	bh=HCljXYdZpL4rKsAjtzhXsyR4nNFW5OYhjx6r+7R1VMg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=XIULdP7nXAHt8nLo7FmKM1BCupYEoX2WrsRm1k2OrMvnnGbqejmCiICHzfYs1xeVYbNqKK4NeBJRMvkGmCMg4yASXX8A/kb6Rh1gTJAvfodLRCjFyIyOjzSrUmphKHNszLhlihAhM9FdIlnPoQjautHOdgl5jFwlheXOMkMM9ug=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AImkHJKU; arc=fail smtp.client-ip=52.101.61.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="epD2xGM4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789424707; x=1820960707;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=lRwyLDKclG5PTkKiaCP0WfETw35RY2cC30b8ggFxCpg=;
-  b=epD2xGM4map3pLIvRr4pMWmFo6pSUfdMkFf7VCNOvqVn/QghRUJZG2Qb
-   3zBZWtX7+952kDxdneVxadKUMFNTgFrGkCzybitWCBZdD/DJukNgsEvnD
-   74EhJpKvOLws4Ifu2e7MfeW5oKFTao805Wl+D6GcCZvzs8CXx7oAGsAs+
-   FZqy9jDgU71JhL7lmndfv4GV5lP6eMe/NtuYApyxSw6cuJKyvkiB++Pv6
-   Px85fM7L12G9l+HeuxIayVSNxWuzd5E/nHk7Rj//2OpFRY2CNjq6Tjw79
-   5rVe83syKtAzxDIXu1HsJ7ciTkm7f5/t0/6uSkE7jIbm/2iMwB5FYGQ+K
-   w==;
-X-CSE-ConnectionGUID: fu6d7j+YTnuzUs3sPa7UwA==
-X-CSE-MsgGUID: 3TvUinnZQSe5ckL0IlbwMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93608054"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93608054"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 15:25:06 -0700
-X-CSE-ConnectionGUID: o6rW3JWLR0yDEFjVHAANFA==
-X-CSE-MsgGUID: AxBYWUm+TPqDVSYWsw29zQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="274710260"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 15:25:05 -0700
-Message-ID: <025bdcdef34170b1ffcc673c6b59cb51abc8fef5.camel@linux.intel.com>
-Subject: Re: [PATCH 1/4] sched/cache: Keep nr_pref_llc_running in the
- runnable domain
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Chen Yu <yu.c.chen@intel.com>, Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: brauner@kernel.org, bsegall@google.com, dietmar.eggemann@arm.com, 
-	imv4bel@gmail.com, jack@suse.cz, juri.lelli@redhat.com, kees@kernel.org, 
-	kprateek.nayak@amd.com, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, mgorman@suse.de, 
-	mingo@redhat.com, peterz@infradead.org, qyousef@layalina.io, 
-	ricardo.neri-calderon@linux.intel.com, rostedt@goodmis.org,
- srikar@linux.ibm.com, 	sshegde@linux.ibm.com, vincent.guittot@linaro.org,
- vineethr@linux.ibm.com, 	viro@zeniv.linux.org.uk, vschneid@redhat.com,
- wanglu.priv@gmail.com, 	yi1.lai@intel.com, zhanxusheng1024@gmail.com,
- zhanxusheng@xiaomi.com, 	ziqianlu@bytedance.com, chen.yu@linux.dev
-Date: Mon, 14 Sep 2026 15:25:05 -0700
-In-Reply-To: <aqdVpO66OfmHvvqB@chenyu-dev>
-References: <f3b70dd40e29b309ff3449a95a4af4513ad0ef70.camel@linux.intel.com>
-	 <20260910220331.1209469-1-kayracizmeci@gmail.com>
-	 <aqdVpO66OfmHvvqB@chenyu-dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AImkHJKU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HNLdeyVDXvsFi1bwBrYav0mGmxtMbjQv5WOt692vC37H0x31AnUi1lX9FsUdkEPAGmKwWjnilQiunXPowdVQjmnA9fYwwJ5fxuxhU4zueooldJ4i31nmHR4SwWiA6Wwlf9gbfyo4WmVqiNGmtYyFhrnptfXLY5vKFmU67n9wXA54ys85Erv9SzCibdy82d39QJijMS9BTKyC+0qKZminwyJ4dO8dy2tdxFqXrQczV+yGBj1DTOpqGxtbrcZD+pQG+C6fYZJO8McW6Ukpt45YRW6n348Zz/CBcs0RNgUOjqUOCjE3YeZpRNl3+0anVwzj6T8GEccWUVQAHZpMAoxmfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BO+nbHSwrA02c1j3fvUwjIXr+2X/OQXfqmxgnArEusA=;
+ b=DKkxR9i6puetiirqrQLnDFn1G0KDi+b3+pJpKgWtpAZZME/KJtMyid5nCeYDNkr80++yhAqj3usXvNSMrZ/IrX22AsPuUo316q6CyocXffxTBg16jyF/F/bSg+yLkAGDrcf0OOvdsIK3clnyhrJmmrkBVOhaIIJRU7N9lmjhvSqKbR4UEoasyHUoPFs5pLbHQ8QCxESCXV4HZy40OBNswXUSgMsxSq2QiEj3CXg94jZUzJkR0oaQsFWjzk/ybeKsT9uWhuMqV5hFxyGD/jGzwX+au0HsOJpd+GbjtpFPIgyMnEhvsGgRLl3HktVoW7HvBPI/AokTofsbWm5/R2R7iA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BO+nbHSwrA02c1j3fvUwjIXr+2X/OQXfqmxgnArEusA=;
+ b=AImkHJKUMy5vsLJO+x7bo2SDimTtm8DfP6Q3T/J/SxoKosCe4Arv5TSFqyGO5hqSrvXmwVAaG3+n+BJwQuIaTEHMe5h4XfT/XNMaaIs333O3OwOueFKz42sxi3as1rX+fbXw3o6h2sk0OhSXac4uK1Iw3FyVy4dOPfM83WjWSi93GTnPqMF/DakYKQCMKHlcv87E2sst+DFypbFbp0wz6x3yPg/eUDIho5goRHI0LH1tonbAiYPAGGgZ0L+Mjc8xShew+AEY8EkLDK3vSZolvbdJ6wpFpVWiYVt+WyyiI/rbtO/Er6bLeKDQo3P8pm/AXmILGLzstwsEQpZHBA8J3Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LY0PR12MB325698.namprd12.prod.outlook.com
+ (2603:10b6:408:3bb::14) by SA1PR12MB8164.namprd12.prod.outlook.com
+ (2603:10b6:806:338::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 22:28:38 +0000
+Received: from LY0PR12MB325698.namprd12.prod.outlook.com
+ ([fe80::b65f:1548:5b35:e2b5]) by LY0PR12MB325698.namprd12.prod.outlook.com
+ ([fe80::b65f:1548:5b35:e2b5%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 22:28:38 +0000
+Date: Mon, 14 Sep 2026 19:28:36 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Subject: Re: [PATCH v11 1/7] firmware: smccc: Add an Arm SMCCC bus
+Message-ID: <20260914222836.GO3968357@nvidia.com>
+References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
+ <20260914060511.277948-2-aneesh.kumar@kernel.org>
+ <20260914133249.00007d35@oss.qualcomm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914133249.00007d35@oss.qualcomm.com>
+X-ClientProxiedBy: MN2PR16CA0054.namprd16.prod.outlook.com
+ (2603:10b6:208:234::23) To LY0PR12MB325698.namprd12.prod.outlook.com
+ (2603:10b6:408:3bb::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LY0PR12MB325698:EE_|SA1PR12MB8164:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae3404d4-8de7-4594-c21b-08df12af85aa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	Z4osGj3NNvu5Ptq3fcsWJQRRAVXuVlEd8MxUf4V3Fh7iHRzvCF4pMgNHTYjLjmSVqmv3H7mh1UFuLfcCuY2T9qSX3LOxkunneE2IVcmpJnlWzJghSlq9myA5IFkSYU0LTdsKU7YUk6M9f/7oGbv7iAJISqcLcelQmQ4x5PzK59oY9/+YqK0F/UkIDU2sdZVDzvdkzqlAqAWWNcBfYecgYci9hlRs3p2D22bzIVZakUzYmt+9XWCU3GuStglyprug2lUneDyjHcbhtpxpmZLFTE+WJ03+xPkCSVPVSo92irT+W59rID+c6EAj/CRoyTQBsNJl1lTR9oYFelG1dPQNcfSQEej+Q4NJM2twXo/aLYKLcms7PRVIErGaP9vqihbfwCUNZNYVl7CrX8dEJg53wT8dIpeyhuIu1+r8eHXFUZkdJdSbWgGsvNx9nmBHGkuqZalGwfGvJGCySp5M/NvWfjEtFcSYyhfKo/6MqF4Y2m3V8W2VKCp0jyC5lzgJIwJjf8/PMXc0Zh+F2VcEJ9wf97HPPayOm4s4/vQ5VdV9pkL3iPUhCAZI4l/2T+MreL3D7rcOtysts1A5KnL1wMSMhZcD0fReuiJJjJgF6KzL8MmQbCDs5u9XhaM8wt+kOORWu1jJO5yOJZL4sWs1lfKcjF8lRB1IyJ+z0U3AXztqBlc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB325698.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?exT/qc1zrOSOYUOAyDeEDoepJhuJHpPUVixPd6IlgKF4TsYbdNtfTV7X/bMn?=
+ =?us-ascii?Q?rJogauabKOVE1ecAxpUIOilUWGZlwrDNwIfTJxicpZuwiJ4njepfWEU5xdYC?=
+ =?us-ascii?Q?OejLflUy9zJFJxBFPZdwpjg1lKxttHxNpwC1+tmcVjiEtHkqaBf72n+9WKM2?=
+ =?us-ascii?Q?pYOmrZIEo2FZTfAuLvwo0NqhEhssA7ZPaUJAtX0ZCFjzuvR8zEgc/CLv0ML5?=
+ =?us-ascii?Q?L10MvMyYlIj6TL6VmnHPbfAH/oG9R3eqAeaEMc+tVNfZQaeAac8z4+ZWnIYw?=
+ =?us-ascii?Q?jiysqUe2V69LBrxB12qFlEEE4liVArGcvfAj7IXp/+RTdK8OawzSdcN87JnR?=
+ =?us-ascii?Q?Xrw5GL3UVRB2mw8KQyqkSFV2qi1hwJNRrJv6FnL+Yr19uYERsBbFiCSWF7za?=
+ =?us-ascii?Q?QIvz28obLl6Qco4x+BXAQKnp0QMIcNv7SwqUNQxVp6FtDVXiWSnzRiQmoNFh?=
+ =?us-ascii?Q?y19sCredtnZQOwDzMz52HWv2bnAONUA/fJ5TkQ8CuAVpHXn8jEPsgaR4w0oW?=
+ =?us-ascii?Q?wxRvtc7JWuVkO/lJ3MD+KybpN1a8PCOJC7Ite+sfSz0Ao4JSFWOqrQNlp1d0?=
+ =?us-ascii?Q?L9agB0hsaFPW5xVKShJJvKVkQAtD8/BW9/FT8fXeCSr4HtpBVxd2UHvgCxvU?=
+ =?us-ascii?Q?ENz9j3DF+HovrabKHzydcmcorirwlrBI3tAtbCuUxvZJkfv4inbWH6KSi5R0?=
+ =?us-ascii?Q?URRBUfcygMC5rC/QD3YoE45K66TR+h0IDeHuk0kZ3sNDa343sfYhBexUaM5H?=
+ =?us-ascii?Q?lVr/x1/gmLbFUhJPb/f+TWE1hddZciuT1a3YaJhMUQQM3qi07XzxhqPMzfio?=
+ =?us-ascii?Q?jfW9sK1VaT5+m8lLpPrE390dQrUpvpWXh3/B5mOqOGGLfXZYOoIo0Lx7mDRn?=
+ =?us-ascii?Q?SQfi4ZnX4CPTkeZozl+qZcnkW3GanhLwIfRSmz9/nljmMbL5LZzexQPkSkAo?=
+ =?us-ascii?Q?Qjma+LMTiLQX0/dworT5MexaKgIjyiTPQ8WDKKc55P8eaZ90DTj+lKuHYE98?=
+ =?us-ascii?Q?rwN6qseOYb08v7vfLmLAxqhiaMonp3wLXiADze7w93+ElkE7971ocAPDKnsj?=
+ =?us-ascii?Q?m+7PKIAoTNgLXmxaPYrZDQyqoGIA8M7IsCO+Uqt6dLptbnlkmphx8QmwWH1e?=
+ =?us-ascii?Q?Ii8SckDQAWsylnV17Gah9ETJ4c/alqHp+Nb3QIt1s5lehqwRSZTrEHwMkH6F?=
+ =?us-ascii?Q?tV+sLWH+lsNfSBXeXvVWQ7VDS6yptus/QF8OPGvGzB6ij7TixKWkXeCWS99F?=
+ =?us-ascii?Q?0nnNsoYpz6NCWS19PWLNDye0wcnMpF7IAig/cafmZ2Ct2CCLZ757c12daj+E?=
+ =?us-ascii?Q?D5gP4pLv3H2t5Rd7DzRQkdsL2XWGS7c34a3VV0VlQaM62jNMrcrWJO5VA/gE?=
+ =?us-ascii?Q?dG5Ck0JcZa7izrnC0BENh3CABhfLa7fv55LW9X5Ys1S42lBwHVv8/Vhx8uTu?=
+ =?us-ascii?Q?yS3PXlb4fBgh/62HjUfgGvIdwLLg1crhFJpvhZIng8jQ6xJFuwjTrHgKmewR?=
+ =?us-ascii?Q?0dAj3YAwvbETsbd9zC3y7aPEqXK7c3WXogN+LLFDRcuKY4ViLonBm8dnCNTT?=
+ =?us-ascii?Q?Z4OdiSwOq/pbps0oo4gEI/vtlJKr+bflK9ilGkdrUtuPOsVUYeC4iM39rpbs?=
+ =?us-ascii?Q?Em7neMCQPKuyqpjT+ikhIK972vW6zAXQiyXKPpJnf6PxygzmtsTm0uZchITn?=
+ =?us-ascii?Q?Y6UD1BgqbEFpOvQSy0rCvnghDVK4L1qY2aT/9d74OacXEQAJ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae3404d4-8de7-4594-c21b-08df12af85aa
+X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB325698.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 22:28:38.1844
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bKvL/W51MOOQS6hEQlgJLkPZ+2iQ8BzCac1p38x9DWeFnDLB0mMyLUlqVGpcUFQ+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8164
 
-On Mon, 2026-09-14 at 10:02 +0800, Chen Yu wrote:
-> Hi Kayra,
->=20
-> On Fri, Sep 11, 2026 at 01:03:30AM +0300, Kayra Cizmeci wrote:
-> > Hello Tim,
-> >=20
-> > > So moving the accounting next to (or after) the h_nr_runnable update
-> > > would make task_pref_llc_runnable() return false and skip the
-> > > decrement, leaving nr_pref_llc_running too high.
-> >=20
-> > What I really wanted wasn't getting the accounting next to or after the=
- h_nr_runnable.=20
-> > If we are updating h_nr_runnable in some way that means we don't need
-> > its check since it's already getting updated. And if it's getting updat=
-ed
-> > that means on that branch we know how our check should behave since we=
-=20
-> > are a subset of it. We can skip the delayed check on that way since we =
-are
-> > trying to behave as h_nr_runnable's subset.
-> >=20
-> > >        if (entity_is_task(se))
-> > >                pref_llc_running_dec(...);      /* sched_delayed still=
- 0 */
-> > >        se->sched_delayed =3D 1;
-> > >        ...
-> > >        for_each_sched_entity(se)
-> > >                cfs_rq->h_nr_runnable--;        /* sched_delayed alrea=
-dy 1 */
-> >=20
-> > For example:
-> >=20
-> > In this code the h_nr_runnable is updated the same way regarding what i=
-s sched_delayed.
-> > That means if we want to behave as a subset of it, we don't need the ch=
-eck delayed,
-> > since we check the delayed to be a subset but if h_nr_runnable is decre=
-asing/increasing
-> > we should look into our checks.
-> >=20
->=20
-> I had a try according to your suggestion. It seems that the code becomes =
-more complex
-> and brings more headache :-( due to several corner cases. The current ver=
-sion is a simpler
-> version with less code IMO. But I agree it looks a little hard to catch u=
-p with, so I added
-> some comments around account_llc_dequeue() and adjusted the code sequence=
- of clear_delayed()
-> to make it easier to understand. Tim, could you please help check if this=
- makes sense?
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index e64d9ad7a108..89311bbadfac 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -1609,8 +1609,58 @@ static void account_llc_dequeue(struct rq *rq, str=
-uct task_struct *p)
->  	if (p->pref_llc_queued) {
->  		/*
->  		 * Skipped if still delayed (set_delayed() already removed it);
-> -		 * clearing pref_llc_queued below also stops clear_delayed()
-> -		 * from re-adding it.
-> +		 *
-> +		 * The nr_pref_llc_running varies with h_nr_runnable, it involves
-> +		 * set_delayed(), clear_delayed(), account_llc_enqueued() and account_=
-llc_dequeue().
-> +		 * The following shows two typical cases of how nr_pref_llc_running is=
- maintained
-> +		 * during enqueue/dequeue.
-> +		 *
-> +		 * case 1 - wakeup a delayed task
+On Mon, Sep 14, 2026 at 01:32:49PM -0700, Jonathan Cameron wrote:
+> > +struct arm_smccc_device *arm_smccc_device_register(const char *name, u32 func_id)
+> > +{
+> > +	int ret;
+> > +	struct arm_smccc_device *smccc_dev;
+> > +
+> > +	if (!name)
+> > +		return ERR_PTR(-EINVAL);
+> > +
+> > +	smccc_dev = kzalloc_obj(*smccc_dev);
+> > +	if (!smccc_dev)
+> > +		return ERR_PTR(-ENOMEM);
+> > +
+> > +	smccc_dev->func_id = func_id;
+> > +	smccc_dev->dev.bus = &arm_smccc_bus_type;
+> > +	smccc_dev->dev.release = arm_smccc_release_device;
+> > +
+> > +	ret = dev_set_name(&smccc_dev->dev, "%s", name);
+> 
+> Does protecting the string defeat the nice underlying const handling?
+> e.g.
+> 	ret = dev_set_name(&smccc_dev->dev, name);
+> might be better.
 
-I assume both CPU0 and CPU1 in preferred LLC, and task woken on
-CPU1.  Should say so.
+Pedenatically the %s is better as it doesn't restrict name to not
+include % characters. 
 
-> +		 *
-> +		 * CPU0                                       CPU1
-> +		 * __dequeue_task [fake dequeue]
-> +		 *   set_delayed
-> +		 *     rq0->nr_pref_llc_running--
-> +		 *     p->se.sched_delayed =3D 1
-> +		 *
-> +		 *                                     try_to_wake_up(p)
-> +		 *                                       enqueue_task_fair
-> +		 *                                         requeue_delayed_entity
-> +		 *                                           clear_delayed
-> +		 *                                             rq0->nr_pref_llc_runnin=
-g++
+> you'd often see this between an device_initialize() and device_add()
+> and then we'd be relying on the device_put() to clean it up.
+> 
+> So as this stands this is fragile as any error paths that later
+> get added...
 
-							       rq1->nr_pref_llc_running++
-> +		 *
-> +		 *
-> +		 * case 2 - LB for delayed task
+Yes, but as written it is OK, and this is a common pattern in the
+kernel. I agree it is fragile tricky..
 
-LB for delayed task from a preferred LLC to a non-preferred LLC.
+Still it isn't an urgent reason to change it around, but the best
+pattern is to put the allocate, dev.release=, and device_initialize()
+in one 'alloc' function. Then the other function calls it and always
+unwinds with put_device. Use device_add().
 
-> +		 *
-> +		 * CPU0                                       CPU1
-> +		 * __dequeue_task [fake dequeue]
-> +		 *   set_delayed
-> +		 *     rq0->nr_pref_llc_running--
-> +		 *     p->se.sched_delayed =3D 1
-> +		 *
-> +		 *
-> +		 *                                     --------- load balance --------=
--
-> +		 *                                     detach_task(p, rq0, migrate_loa=
-d)
-> +		 *                                       account_llc_dequeue
-> +		 *                                         ** DO-NOT-DECREASE **
-> +		 *                                         rq0->nr_pref_llc_running
+This avoids mixing the different kfree/put_device error unwind regimes
+into the same function..
 
-						The above block should be under CPU 0
+> > +	if (ret) {
+> > +		kfree(smccc_dev);
+> > +		return ERR_PTR(ret);
+> > +	}
+> > +
+> 
+> here can't free the name allocation.
 
-> +		 *
-> +		 *                                     attach_task(p, rq1)
-> +		 *                                       account_llc_enqueue
-> +		 *                                         ** DO-NOT-INCREASE **
-> +		 *                                         rq1->nr_pref_llc_running
-> +		 *
-> +		 *                                     pick_eevdf
-> +		 *                                       __dequeue_task  [real dequeue=
-]
-> +		 *                                         account_llc_dequeue(DEQUEUE=
-_DELAYED)
-> +		 *                                           ** DO-NOT-DECREASE **
-> +		 *                                           rq1->nr_pref_llc_running
-> +		 *                                           p->pref_llc_queued =3D 0;
-> +		 *
-> +		 *                                         clear_delayed
-> +		 *                                           p->se.sched_delayed =3D 0=
-;
-> +		 *                                           ** DO-NOT-INCREASE as pre=
-f_llc_queued=3D0 **
-> +		 *                                           rq1->nr_pref_llc_running
->  		 */
+The funky reasoning is since name failed there is no name allocation
+to free
 
+And then device_register() failure must always be done with
+put_device, so it will capture the name. As long as name/register are
+a pair with nothing between it is "fine".
 
-Thanks for describing the operation scenario.
-However the above cases are not comprehensive and a bit long for comment.
-
-
->  		pref_llc_running_dec(rq, p);
->  		/*
-> @@ -6415,23 +6465,18 @@ static __always_inline void return_cfs_rq_runtime=
-(struct cfs_rq *cfs_rq);
-> =20
->  static void set_delayed(struct sched_entity *se)
->  {
-> -	/*
-> -	 * Drop a task leaving the runnable set. Must run before sched_delayed
-> -	 * is set, or task_pref_llc_runnable() would already exclude it;
-> -	 * clear_delayed() mirrors this after clearing the flag.
-> -	 */
-> -	if (entity_is_task(se))
-> -		pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
-> -
-> -	se->sched_delayed =3D 1;
-> -
->  	/*
->  	 * Delayed se of cfs_rq have no tasks queued on them.
->  	 * Do not adjust h_nr_runnable since __dequeue_task()
->  	 * will account it for blocked tasks.
->  	 */
-> -	if (!entity_is_task(se))
-> +	if (!entity_is_task(se)) {
-> +		se->sched_delayed =3D 1;
->  		return;
-> +	}
-> +
-> +	pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
-> +	se->sched_delayed =3D 1;
-
-This change looks good and make the code cleaner.
-
-Tim
-
-> =20
->  	for_each_sched_entity(se) {
->  		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
+Jason
