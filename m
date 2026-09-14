@@ -1,104 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66FA49CF40;
-	Mon, 14 Sep 2026 18:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D903496D4B;
+	Mon, 14 Sep 2026 18:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409632; cv=none; b=qnucUX598bkmtJZz8P/v2rQ1YhjTGy9kapowawb5FRlfODDPNHAzC7uUTkN/M5xfiIjCN7tBBYZg5xTVNEJq+sjCZZFpHoQF6fSybTqQLuN4iAHf/7euQLfKKrFqIn3GQR+pJFmgrdKdd/xFpJqQqE7oFZ4cJSOQWBBs6et/xQs=
+	t=1789409658; cv=none; b=eN0THxb2FyTcwhdJfdE1F3L26MLlwdR3ZVEKWYjxJ5Skfnt44MVQWqXUBZNaKVD75hAIxbdnNNKAjTNToudjMAsQ7+D5qLNHM3IItOcrhFZNuylNea4ouQ1ci9dI3PwEwtLd9f+QOFD99RJQSOHiXfxvcg/Y1olKFsZTXOuG3uU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409632; c=relaxed/simple;
-	bh=7rRaIlb5/NILuLBTb73lVXxBaNkHm34RtM8W6nwjL5A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RcLBxhHFM2dK6c+Sk7OO7flzvuuIhHaT45gvbqKuagSMsSFEY9l8A2QG0Pb0ywUiQH50J+GEffC7Q993uEjMGbKwLhxX88qATbR8TQulO1gnpD2muCb69IHLqQ2NgjtaKMFOqBKQqdFB7rLl+/cdxNG1BHM5k2IA5JbrBQW9S3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fb5gt7UX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789409658; c=relaxed/simple;
+	bh=amXM8PKIKM/ToVfiVB0vQgptloCgyaQyxAlLwhGLl88=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fVafeeoG089NPFULG9eOuuIYdkHjp3epQw7I5Hp7/7srz63h6hmzAU5lOWcPJjITFAWiWzivKxbJQhDn9Ae4E/lpdrEeWiVnjcsjndsI8OjyBaPlDA9Qtir+SnpA0Tvop8959GeXZwWIBybsIe4YOrD3kNsqkD0WLDWJk2SHHg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pFKpZpZa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fb5gt7UX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1D61F000FF;
-	Mon, 14 Sep 2026 18:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789409626;
-	bh=7rRaIlb5/NILuLBTb73lVXxBaNkHm34RtM8W6nwjL5A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Fb5gt7UXrnN84vay26iTzNwBQflYZzP37Lw9ekgimEYM2sxxzMlLzUSxvB0WlFzx3
-	 twaLpTb2P+Zxu9f4zKc0o1CaGob4X5EeRpQ1wAuj4AJ/9FAuEhaCpE1Y0eW8l42xON
-	 8ojjNKUPjxQ0H2QLeUHZwrLv4G9g89ly8s8Y6LGKj4IUkJa0iXU8NfpdLTf4Uvk2RK
-	 aybTZno2dWmFo5BNz9JNmKcqGHcof1g11yyVs2RRc5fcICxdBWxKGpul3A9bZh3r2c
-	 yfRlK8nvZssnOxhOOMnmG3pdb/7BGV47c561JDqRdM1Zjv/DXydP56gwoaHn8Z41ZI
-	 9chQHeLE711cA==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 3BD32FDAB4D; Mon, 14 Sep 2026 19:13:13 +0100 (BST)
-Date: Mon, 14 Sep 2026 19:13:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shengyu Qu <wiagn233@outlook.com>
-Cc: Jack Yu <jack.yu@realtek.com>,
-	Cristian Timohi <cristiantimohi@gmail.com>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
-	"Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
-	"Flove(HsinFu)" <flove@realtek.com>,
-	"venkataprasad.potturu@amd.com" <venkataprasad.potturu@amd.com>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	"vkoul@kernel.org" <vkoul@kernel.org>,
-	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
-	"pierre-louis.bossart@linux.dev" <pierre-louis.bossart@linux.dev>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
-	Fish690103 <fish690103@realtek.com>,
-	Mike Lin =?utf-8?B?KOael+abieiDvSk=?= <mikelin@realtek.com>
-Subject: Re: [BUG] ASoC/AMD ACP70/RT721: ASUS TUF Gaming A14 FA401EA speakers
- silent and headphone jack buzzes on playback
-Message-ID: <aqg5OYBZ5eYqd-QX@sirena.org.uk>
-References: <CAAAbPi4w+YO=W8vFr63wy6++1WQ2mHUDVfUDKyWR8xcTWKXCKw@mail.gmail.com>
- <1fdd17c6-a0ab-42de-8362-8e1374d42fac@amd.com>
- <bc542e80-e572-452b-81ba-53e57ed3126e@amd.com>
- <30fed968a6f54a6c81eca4ee23ea4166@realtek.com>
- <CAAAbPi4MekJAyNsCAi2Ww9QHVVrrGkW2cdDTrrpttZYmh7yZHw@mail.gmail.com>
- <3fa3de8f2bf24041ba9c029e0984abfb@realtek.com>
- <TY4PR01MB144329FF6B2B48FED9486F12E98BD2@TY4PR01MB14432.jpnprd01.prod.outlook.com>
- <99e1afd842c4466ea562c83bb736fa74@realtek.com>
- <TY4PR01MB14432C55B885DB8231CA07C6298BB2@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pFKpZpZa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CBF2DC2BCFA;
+	Mon, 14 Sep 2026 18:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789409657;
+	bh=amXM8PKIKM/ToVfiVB0vQgptloCgyaQyxAlLwhGLl88=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=pFKpZpZaEMCFVSX+WdizcaK6/XRKL5FLhRv7yVwmrAPQJgjdiyxUcMDd6M12hkBVk
+	 M8iMA5oGAadWM9Lwox4N2kzpnPufMf2VQwKrbedk4Uf2E2316r5PEW4lj39QYWPzbv
+	 OpvFlJBQi2r4ryW0xOMw7XxC7Wh6t1cACHKFI1Qshv50fop1akH+LLepmlyqqkzUQ+
+	 iQgQvuRFNGk2sNjgSU06w2v1toeify1owwT21An0muGGqk/cycUwytSPtGKGXj37ty
+	 /iqQbtO0+DlhN0lNhMdrbO3DScFvOzaU4XMKobdq19DAxPDF9soiN1NG1cpHqd4rEm
+	 9QDnTCKOdN38A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB519C88E6F;
+	Mon, 14 Sep 2026 18:14:17 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 14 Sep 2026 20:14:14 +0200
+Subject: [PATCH v3 1/4] backlight: qcom-wled: Fix NULL pointer dereference
+ in PM callbacks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DKc/gNg892rRrUgM"
-Content-Disposition: inline
-In-Reply-To: <TY4PR01MB14432C55B885DB8231CA07C6298BB2@TY4PR01MB14432.jpnprd01.prod.outlook.com>
-X-Cookie: Orders subject to approval.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-qcom-wled-backlight-v3-1-d69fe9843841@ixit.cz>
+References: <20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz>
+In-Reply-To: <20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1308; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=+wgGNECp4AfVjE6eGXUZbwV3oC+I+6OGlHWyUvqiSrU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqDl4wE0G4LCdwH1KOt8U61clGOca51ytgIZld
+ bwFVgJO6baJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqg5eAAKCRBgAj/E00kg
+ cq2qD/0aMFIPasz9Dr94KFeN+OxZvH6cPkbIhJIaEwboFgwpvYifAXOdMXNhX1s0b5O+mU4PuAC
+ lnHE89ggJu+ZRaIN2k8qfpie2vfRSND14nbhZh7l5CF9kDvoVDpauI3z70Qy2Nt/7x27gFXL99L
+ Td9b7Mj6mehn0nODie3NarMSA4TgsoPYE71WlSgKTMSScu8uHSa1nAFECYmn+yENhruMdFu/uNy
+ J702QAjh/qVCzq2lstGHcuNdjCoWNSsvxiyAjMddfd9nhET3zF2+feFHDuMZCTSEIxn0/l2sKBP
+ Va6yml3X4HMw1NGv79ALiDs3Sb+kH38WSd8exp5kbWUgImmMz3h3fwrSgD4/fg9hqX9MtNYrrK3
+ nnVoeFSK8C11dsx3390zveC5DWbETJBr7N8P6BoC126OYiOzQ27ssjeSpTonBIldGk5/gpXBTi5
+ 5uw23oHm7a0MOqlmqDipazRf4RCElQPjsjlE/wVi6MttfVcb4BTELPLtI8Lz1fds0/TyZJECGhU
+ Zti23oUC1n8snGjP/2/kp+eqwlAm/VQAsIKgw5oN3mxT1t4+RYNgeypDN0wb2D/YOlRTA8maspw
+ Qzt7O/FvAOgm4WG5hF6CfRdzUEj9dzKvnhuOdNxWpx4YHg3IbhxD9jjOi1/yPdN5g6TwvV1XSAh
+ wo1dKof/VZRK06A==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+
+From: David Heidelberg <david@ixit.cz>
+
+wled_probe() doesn't set the driver data for the platform device.
+As a result, dev_get_drvdata() in wled_remove() will return NULL,
+leading to a NULL pointer dereference afterward.
+
+Set the platform device driver data in wled_probe().
+
+Cc: stable@vger.kernel.org
+Fixes: feeab87b3072 ("backlight: qcom-wled: Add support for short circuit handling")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/video/backlight/qcom-wled.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+index 650dd95f06ef5..a76158a298335 100644
+--- a/drivers/video/backlight/qcom-wled.c
++++ b/drivers/video/backlight/qcom-wled.c
+@@ -1747,16 +1747,17 @@ static int wled_probe(struct platform_device *pdev)
+ 
+ 	memset(&props, 0, sizeof(struct backlight_properties));
+ 	props.type = BACKLIGHT_RAW;
+ 	props.brightness = val;
+ 	props.max_brightness = wled->max_brightness;
+ 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
+ 					    &pdev->dev, wled,
+ 					    &wled_ops, &props);
++	platform_set_drvdata(pdev, bl);
+ 	return PTR_ERR_OR_ZERO(bl);
+ };
+ 
+ static void wled_remove(struct platform_device *pdev)
+ {
+ 	struct wled *wled = platform_get_drvdata(pdev);
+ 
+ 	mutex_destroy(&wled->lock);
+
+-- 
+2.55.0
 
 
---DKc/gNg892rRrUgM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Sep 14, 2026 at 08:16:22PM +0800, Shengyu Qu wrote:
-
-> On my FA401EA this issue doesn't exist so I can't test. Maybe you can ask at
-> bugzilla so other users with this issue could test?
-
-> PS: maybe this is the issue for some old batches of RT721 chip? My device is
-> very new and this might be why I don't have this issue?
-
-Could some firmware update have done something that helps somehow?
-
---DKc/gNg892rRrUgM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoOTgACgkQJNaLcl1U
-h9DdvQf9GfRjnoEOkD6Y4dVEQW4KTWTO64JFN9QPuIP5nH7JvvCegLA1Oe6ihlt+
-zrfJCqlo3ebWprnGZ20OhqhvJtKjj0LqFxVEbMAnVJbStMRMCcwE2wCTuJaKyglP
-pzrzrGmhKCxRPIy3UdE+r7a5+ZkCGTnsvwwPRmYuVP4FNcRAcSYLiNJ4TJVtJ/os
-9AmhIkmXsCzb6/idRxHRto7KSuMcp4IDZeNyF0SwhyRks9uJaug4Kts94Fn9/BiJ
-Wuo3zc94BZLSWtEGND+5VwHl5c7DZmEU6t9XwiTkjqykatUr7t56meqHI0HngW4G
-jk6GHypEqtATJaRU39CWHK2Vuio8og==
-=Prl7
------END PGP SIGNATURE-----
-
---DKc/gNg892rRrUgM--
