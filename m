@@ -1,142 +1,267 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta0.migadu.com (out-32.mta0.migadu.com [91.218.175.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A533331EC7
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982103B83E8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371206; cv=none; b=LN4BuRen+Li1J3FK5KY220uvgsn3NHAkVLXV8kWGkUWAVuB6A+/1iEOGV3ma5SOlngp9FEItAuTSAAVE/hYweKLnnq0dcee/C4EIETMde3gOSYnCKnym+a8ddJV+8EEAm1E7Pd+fQZ1q0Z1v3T7Dg1TXU3sXnMvbrmK9d1zDu4s=
+	t=1789371252; cv=none; b=uSnRto9UNumUHdGu+8jRu0gDgJ1NF6auBCI/CGFulMIoPpYoQKJORMhg8hM4vL4pXgP+TotRc7FFnLB3+xcYeLBChy4pu1SxAemnEaByvddfqNYXMlgiGEYJj4MaejjadepdW3xMOgfmpvlyCt1Muq10u1mc0QHfmuKX4oUKAb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371206; c=relaxed/simple;
-	bh=DTr6iiCXWEqi8Ceal6qp4HJBgbt9QBxJ+v30+Z1ghDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NjNIIfq8SOFdXYYegjV6IkWleFSO4Ak20NCMFR/JkDmobkWdUQ4KGwepn8wRhDhVlptL9FYhjtLoGY6rGBICe5F+B6gbbvt/D4kW9iNgunJMVnjoHQVComlND1PDU++ut+IQ9o16kcjRhiVxGmzQYC/st9py7obqE3eUIdgIQ38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WXMCr7d7; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789371252; c=relaxed/simple;
+	bh=T9yqexVIbUceZI9GQ7YgOL3+cqQQ9ZaJeJTzzuJBpjY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DKGaJHEh8lwgrvA3GwoJ/BdC6qZSSoAT+PJiwdnDDEJ6vNJCzJ951pI1GlU3M3lui/3JSMDtqXOH9ten5IbTNpgkLcC7BBpu78MRrz8LKYeIruY4tN6couH7qIRTvjD+/NgFX+DeYHCe2PP4CcP07xo4dvQFWTzDQ4UijA1ELjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=b6pCvLLd; arc=none smtp.client-ip=91.218.175.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WXMCr7d7"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so1420314f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789371203; x=1789976003; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aZr2FikKI33KDHEnzqoeN/VTnNw+pox/jCxpOuAG6zQ=;
-        b=WXMCr7d7uocRZ39WfXINuWRDf9AuOfUDiiJUL+jC+2lTafOUXv3gaAAEUFyQmB+Rvs
-         a1lUhv2oavzERsuzNMICfiAZfdAN9K8C1nLLS/lsuWWMrfOGLlWAtUBJd6Jc1cQsYntZ
-         UflZVMdql8z3GcmijcDuIQaA/yHVJJJ9RJiUVwDJX6RR4MXCSsRNUYYkuzUwTgLhEfgh
-         X5oFV5ri8gAlE7vi88W/vGx6VdlGZygBU5X03HGr14lNZFiRe8yKsiFwDkKr+s3SdapY
-         q8QTsZ1CqZ1MVUYgkDP7Lj32OjknilXwOHe3tsKEo/gLHrZfml2ghZj/7IVn8W94Xqz7
-         7GWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371203; x=1789976003;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aZr2FikKI33KDHEnzqoeN/VTnNw+pox/jCxpOuAG6zQ=;
-        b=nYvt9tdCENJzbSwgQ5rQ/NHyKGJDe1DWOvw1jDxaLnwJUqIlSJDuCtR8HJ9ngbNy0Y
-         29Ou5ZB0Ix5F3wvVUVLdC8R4HORXOIMlk6zadiVqU9bKOdBkt6fvjkmgtOqeOGxVQHqa
-         j435K7rmPMqaaiweWYSUAB/N9B/gnduGdqupfS5fKgmN4cA0/w8S7aHykN+I7wB2M9lW
-         OIbXgO74iIsjg72LkhLLgo8hABfReDcZwtuskb3yZhBzT2r5LKSnUOUSydxpjDiP7YJr
-         v+xNKZC2PtI5lLxtH5n74rLiG+M1okJ9yNdw2hYuqwmGlw+M0RCXXvRONWoHBwzH0orf
-         dCfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoT1zt8rO0BiWGABpWElfbBocuWSNOz3hnejyOGEuVvnwTRu5QRdVFUG4qocsQqXewI+wjBZ1CJ6jw/4w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nY5RZZytshmTxUr0nJ5+pfxIfay5KE7cTXMYwjIxKP05Dps5ya
-	kQzuwmlN3s7FroENMtwIon5WcbZjUGdNqoQSqezWtBkPjU8WubztNhIQz9Q0az+MYgg=
-X-Gm-Gg: AYBFou1/amWqintIrckzwi6b2BgjRsrGC7ToijI1B6V3f4+xc9LuYQYYnU1yMtU9ucE
-	RodHwxpoEFPblsiG/2rwvyqJUfM7kShU6PpLFgfRnujtSQtxnPnIEYqdZZFkJdO39/iJw9c7Qnz
-	9z6zbEK3DmfWrHC3JwWcvjwgO3zzlyhn5DIAqiNXWsywVhvSYAhDDGRjnfBvH7eBvzPg4CzW6eZ
-	eJDD8ug/PYtZVNv0xnXa3cCL6KCSdkMe+EcdP23Ztj/EC2M6T1Z9e6in/slRw5mXjBuneBvEasC
-	P8nPqHcyut2f5D9hBcLAG2NBWnEKPR3sbr/Z2FRlL49VhPitoNJTzV6jvOiYOfR7XEHZ6wdnCl7
-	A3M/4hTyShVq7a6Q+wt7cG73+hYkH5LcDHdx4QTwmQylaeNCiIwVCV+vLBR273wwoDmcscCwbI7
-	Es8DJGJdnGkHSf9y0knTSstTtDyC13bzN/oQ9sxX+SXF2t9ZTV3hMpfmiVBBsSUSKa4QcBZOIea
-	Wza+H4YPJXnuwcSI1JrElcrYz12L8ugGdHz/78/KsDLNkil5c29uXzbtg6EJriY2i4rdQwH
-X-Received: by 2002:a05:6000:470c:b0:486:f770:9e87 with SMTP id ffacd0b85a97d-48702aacef4mr2464666f8f.5.1789371202652;
-        Mon, 14 Sep 2026 00:33:22 -0700 (PDT)
-Received: from localhost (p200300f65f19a904d5c06a7863c841d4.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d5c0:6a78:63c8:41d4])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-486eb2ed106sm24129793f8f.1.2026.09.14.00.33.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:33:21 -0700 (PDT)
-Date: Mon, 14 Sep 2026 09:33:20 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] ASoC: meson: add audin main module and I2S formatter
-Message-ID: <aqeiUfIyeW2mapm_@monoceros>
-References: <20260912-audin-v1-0-7fbefe928711@baylibre.com>
- <20260912-audin-v1-2-7fbefe928711@baylibre.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="b6pCvLLd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=T9yqexVIbUceZI9GQ7YgOL3+cqQQ9ZaJeJTzzuJBpjY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789371246; v=1; x=1789976046;
+ b=b6pCvLLdw//ZztLIUFZYl/nNZFtefyttTJgOyQ/tY0LG1xLrz2Ean29fvXELz9cq70Wj62rX
+ goxiJPaFkT8LEW6c/HYdrhCmmeWlQ6P7f+9rJ8RaZP3ahStCynGXk0PeexfvjQR31BRMcLP8TD9
+ ImvOh8B+ekkSEW2LQkpeyUhY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c11aff05638d77e2;
+	Mon, 14 Sep 2026 07:34:06 +0000
+X-Mizu-Trace-ID: c11aff05638d77e2
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn
+Subject: [RFC PATCH v3 0/5] blk-iocost: BPF struct_ops cost model
+Date: Mon, 14 Sep 2026 15:33:51 +0800
+Message-ID: <20260914073356.791518-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4kuywhcc5gf5klas"
-Content-Disposition: inline
-In-Reply-To: <20260912-audin-v1-2-7fbefe928711@baylibre.com>
+Content-Transfer-Encoding: 8bit
 
+From: Tao Cui <cuitao@kylinos.cn>
 
---4kuywhcc5gf5klas
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/6] ASoC: meson: add audin main module and I2S formatter
-MIME-Version: 1.0
+This is v3 of the RFC.  The changes since v2 are listed in the
+changelog at the bottom.
 
-Hello Valerio,
+Why a pluggable model at all
+----------------------------
 
-On Sat, Sep 12, 2026 at 12:14:32AM +0200, Valerio Setti wrote:
-> +#include <linux/clk.h>
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
+When iocost landed in 2019, its commit message already promised that
+"a later patch will also allow using bpf progs for cost models", and
+the code has carried the split for it ever since: calc_vtime_cost()
+is a dispatcher whose only implementation is calc_vtime_cost_builtin().
+Seven years later the builtin linear model is still the only one.
+This series fills that slot, following the TCP congestion control
+model registration pattern: builtin algorithms remain the default
+while new ones can be prototyped in BPF.
 
-Please rely on <linux/platform_device.h> to provide of_device_id and
-drop the include for <linux/mod_devicetable.h>. That latter header is
-supposed to go away soon and injects a lot of build dependencies into
-your driver.
+The measured problems
+---------------------
 
-If you want to go full iwyn, please use <linux/device-id/of.h> instead.
+The builtin model prices each IO with a binary sequential/random base
+picked by a single per-cgroup cursor and a 16MB seek threshold, plus
+a per-page cost.  On a virtio-blk device with the HDD autop profile,
+a 4k IO costs ~24us when judged sequential and ~2.7ms when judged
+random, a 112x spread, so a wrong judgement becomes a wrong price.
+Three classes of mispricing, all measured:
 
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include <sound/soc.h>
-> [...]
-> +static const struct of_device_id meson_gx_audin_of_match[] = {
-> +	{ .compatible = "amlogic,meson-gxbb-audin" },
-> +	{ .compatible = "amlogic,meson-gxl-audin" },
-> +	{}
-> +};
+ 1. Heuristic rigidity.  Two legitimate sequential readers in one
+    cgroup (a database with multiple tablespaces, a threaded backup)
+    ping-pong the single cursor and are all priced random: a
+    measured 89x overcharge collapses throughput under the same
+    weight.  Random IO within a hot window smaller than the 16MB
+    threshold is priced sequential: measured 107x undercharge, an
+    accounting escape for hotspot workloads.  No setting of the six
+    builtin parameters seems able to fix this: telling the streams
+    apart requires per-IO state tracking, which looks like logic
+    rather than coefficients.
 
-It seems to be subjective, but I think most nit-pickers in the kernel
-prefer { } over {} to match the spacing in the non-empty initializers.
+ 2. Device nonlinearity.  SLC-cache phases, SMR band placement and
+    shared controllers (multiple NVMe namespaces multiplexing one
+    device) make the real cost of an identical IO vary by an order
+    of magnitude over time or across namespaces.  A static
+    6-parameter linear model has no way to express that.
 
-Best regards
-Uwe
+ 3. Unpriced operations.  Flush and zone append fall through to a
+    cost of zero and bypass throttling entirely, and the same pattern
+    extends to device quirks the builtin model was never taught.
 
---4kuywhcc5gf5klas
-Content-Type: application/pgp-signature; name="signature.asc"
+Mispricing feeds directly into the control loop: vtime budgets,
+surplus donation and the vrate feedback all consume the model's
+output, so a wrong model can skew the whole controller.
 
------BEGIN PGP SIGNATURE-----
+How
+---
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqnoz4ACgkQj4D7WH0S
-/k6wBgf/VDlnoO5+iXo8tNZhitG0NPObCWmA3qnUxY31Go2pWwo5D7mENYe58DQf
-LbOjfyHM3rG5ajmQJpNpoxoWanM8pHm1pbf7WjzZXg8WxLPnc6Y6QmjA5rC1Rsoe
-OaAlq3aB/SmDTaIo9WzaLTYU/UhsFNVrWjtqGWhRXgGod17Q1r4iEW6LZadLjsyw
-8xYNabxMGbQJVZK8cXM2tJCC9n1O51+z8w01tQyZ4ze4J3Xw7v8uRXbDezOIqIee
-/+z7LE3HPZKG04IMtzYplulwe4dmSdjkf81QWxDR5SFxRrlxNaSuxE12LKJ4DSS4
-GL20Mp6Pvdl/Kqd1PwrNPdwUx4BNlw==
-=LwSM
------END PGP SIGNATURE-----
+A bound BPF model fully owns pricing for every IO on the device:
+it is called from the bio charging path and prices every operation
+including flushes.  The completion-time request sizing for the
+latency met/missed accounting still uses the builtin coefficients
+(the request's bio, and with it the issuing cgroup, is gone by then);
+extending the model there is an open question of this interface.  The builtin
+cursor is not exposed; a model is expected to track its own stream
+state.  Note that model state keyed by the blkcg alone is shared
+across every device the model is bound to, unlike the builtin cursor
+which is per (cgroup, device).
 
---4kuywhcc5gf5klas--
+    u64 calc_cost(u64 opf, u64 nbytes, sector_t sector,
+		  struct blkcg *blkcg, u64 model_flags)
+
+opf is the full bio->bi_opf (the operation must be extracted with a
+mask, and the REQ_* flag bits, including PREFLUSH/FUA, are part of
+it); model_flags carries iocost-specific metadata which is not part
+of the bio operation flags, such as whether the cost calculation
+is for a merged request; the return value is vtime, clamped to 1
+second of device time per IO.  blkcg is passed so the model can key
+per-cgroup state; state stored in BPF_MAP_TYPE_CGRP_STORAGE
+follows the cgroup lifetime, and optional blkcg_online()/
+blkcg_offline() callbacks mirror the css lifecycle for models
+which want eager setup or teardown.
+
+The registration and binding model follows the TCP congestion
+control model registration pattern: registering a struct_ops makes
+the model available by its name, while io.cost.model binds one
+registered model to a device with "model=<name>" and restores the
+builtin model with "model=linear".  Unregistering a model removes
+it from the registry so it can no longer be selected by name;
+devices already using the model keep using it until they are
+switched back to the builtin model, at which point the reference
+is released.  A model which does not implement calc_cost is
+rejected at load.  Sleepable models are rejected at verification,
+since calc_cost() runs under RCU read lock.  Patch overview:
+
+ 1/5: the BPF struct_ops cost model support: Kconfig, ops
+      definition, name registry, registration, io.cost.model
+      binding, unified dispatch and verifier checks
+ 2/5: selftest with the 2x example model (the full builtin linear
+      HDD formula at double cost) plus a runner and the selftest
+      kernel config entries
+ 3/5: add an iocost_ioc_tick tracepoint emitting the per-period
+      controller state, so model quality can be evaluated without
+      drgn (existing events are state-change driven and silent in
+      steady state)
+ 4/5: a second example model which replaces the single-cursor
+      sequentiality heuristic with per-cgroup multi-stream detection
+      keyed by the cgroup, the first consumer of the state interface
+ 5/5: document the model=<name> binding in cgroup-v2.rst
+
+Does it work
+------------
+
+Mechanism, verified functionally (QEMU, virtio-blk with the HDD
+profile, sequential-read workload from a 1%-weight cgroup, builtin
+vs the 2x example model):
+
+ - per-IO charge: 2882us -> 5722us, a factor of 1.985x; the
+   completed IO count halves and total cost.usage is conserved,
+   i.e. the model output drives both charging and budgeting
+ - edge cases: binding an unknown model name fails with ENOENT
+   and nothing is applied; unregistering a bound model leaves the
+   device correctly priced (2x) until it is switched back; the
+   readback shows the bound model name; the selftest runner
+   checks the write error and errno of every step, including the
+   restoration
+
+Workload-shape verification added in this revision (same setup,
+4k IOs at weight 1000, builtin vs the 2x example model):
+
+ - flush-heavy workload (read/write/fsync alternating): priced
+   1.99x the builtin, i.e. flushes no longer reset the cursor
+   and misjudge the following IO as random
+ - non-page-multiple IO (6 KiB): priced ~2x, matching the
+   builtin's truncating page count
+ - first IO from a high LBA (past 16 MiB): priced 2.01x, i.e.
+   a fresh cgroup's zero cursor no longer misjudges the first IO
+   as random
+
+Payoff, demonstrated with the multi-stream example model (4/5) on
+the same setup, 4k IOs at weight 1000, builtin vs the model:
+
+ - two sequential readers in one cgroup: priced 1961us/op by builtin
+   (both judged random by the single cursor) and 23us/op by the
+   model (each stream keeps its own slot); the completed IO count
+   rises by two orders of magnitude
+ - random IO inside an 8M window: priced 24us/op by builtin
+   (undercharge, an accounting escape) and 2607us/op by the model
+ - single-stream sequential and whole-disk random pricing are
+   unchanged, so the model fixes both directions of mispricing
+   without introducing a new one
+
+Non-interference, measured on enterprise NVMe: no measurable
+overhead when the BPF model is not attached.
+
+---
+Changes in v3:
+- blkcg online/offline notifications follow the model binding, not
+  the name registry; an unregistered but still-bound model keeps
+  receiving them until its last reference is dropped
+- the io.cost.model write resolves the model name before applying
+  anything and swaps the model pointer under ioc->lock, so a bad
+  name rejects the whole write and concurrent writers cannot
+  interleave a half-applied configuration
+- iocost_ioc_tick reports the period's own state, including its
+  measured duration and the period number that just ended
+- a model which does not implement calc_cost is rejected at load
+  (the CFI stub previously satisfied the check and priced every
+  IO at 0)
+- CFI stubs are provided for blkcg_online/blkcg_offline, without
+  which the verifier rejected any model trying to implement the
+  optional lifecycle callbacks
+- the example models match the builtin cursor semantics: a zero
+  cursor means no previous IO, the cursor is only advanced for bios
+  the builtin prices (a dataless flush no longer resets it), the
+  cursor advance truncates to whole sectors like bio_end_sector(),
+  and the page count truncates like the builtin; stream updates
+  are lockless like the builtin cursor, noted in the example
+- the selftest builds at every commit (the streams test moved to
+  the patch adding the multi-stream model), includes <ctype.h>,
+  checks enable=1, skips instead of failing on devices without
+  iocost, distinguishes the open() errno from the write() errno,
+  and reports the restoration error
+
+Tao Cui (5):
+  blk-iocost: add BPF struct_ops cost model support
+  selftests/bpf: add iocost cost model test
+  blk-iocost: add iocost_ioc_tick tracepoint for per-period device
+    summary
+  selftests/bpf: add multi-stream sequentiality example model
+  docs: cgroup-v2: document io.cost model=<name> binding
+
+ Documentation/admin-guide/cgroup-v2.rst       |  12 +
+ block/Kconfig                                 |   9 +
+ block/Makefile                                |   1 +
+ block/blk-cgroup.c                            |   3 +
+ block/blk-iocost-bpf.c                        | 307 ++++++++++++++++++
+ block/blk-iocost.c                            | 229 +++++++++++--
+ include/linux/blk-iocost.h                    |  83 +++++
+ include/trace/events/iocost.h                 |  46 +++
+ tools/testing/selftests/bpf/config            |   2 +
+ .../selftests/bpf/prog_tests/iocost_model.c   | 200 ++++++++++++
+ .../selftests/bpf/progs/iocost_model.c        | 134 ++++++++
+ tools/testing/selftests/bpf/progs/iocost_ms.c | 156 +++++++++
+ 12 files changed, 1158 insertions(+), 24 deletions(-)
+ create mode 100644 block/blk-iocost-bpf.c
+ create mode 100644 include/linux/blk-iocost.h
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_ms.c
+
+-- 
+2.43.0
+
