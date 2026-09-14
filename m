@@ -1,147 +1,132 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC4041F348
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0360741F349
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378094; cv=none; b=uYnCqk0ALU5tnbBJitkJj8+SRNUJ8AdqK6zF1mtyKtAQnA1GSKtR7Wvv9FUp+7xn89l09FBND5mKfsc5YQnUonXvkegsYvgbgGUS/kdljlUu/cHAQ2gpktpWF/n+mzEJY/UD+hkfYJrV2CoRJOq8HPzeByPT4ajCnU6S8KzVu7I=
+	t=1789378116; cv=none; b=LiZPEkQ0MQg6G+6TNPSwFaNnZa1+csNc8U8U8Oc0Qcy0sYvKWRr+G46lScvBGQ9qZQfq9xv3TWNX/T6neh8zt0ftWWyrmkPeXqYoOjFRtbH7VtmJfL6gTIMnqSfFtK9wkXt9/4jHgyFWCUMcYblYckf22+q9rZcv8F4RmiGlBlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378094; c=relaxed/simple;
-	bh=uBRBgt60qnQzF51ZX1c+WFKEWEU4s4VaOlHTPM97Lag=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AU99UMoU9Rl+OnTPv8nKiXuf5o+oZs91I+tS+CziKj1Mb/Q32/oZvE5y1Vmhsvlt/3WObQp0gFUE8ifOHIcWaMp/mHTqw7Jcz9yrmMus2UWKW5ATs8m8LBnIKh0PZMaqH0kA8b7iWXmMDOUjA3eaM4aEpBN4PKydTRl4Wtr99Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F0uMdTl0; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789378116; c=relaxed/simple;
+	bh=aOoRiF5ZcIqkBQech3uSRQ8qZjtxOqi4FHTB7U3fCc4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uYvoT3yC79kykO7RvyTYr2yWjXwigvi91ZdpGiigX2RPgYsp8G6BDB6PwUFZ8/5DyvnTNJ8LIIJI4+FfITMkzjbmoeVWL5IjoLghnH1aRJ94FmHpwIduaBPUdHXXVgJpGZTDatqcD9Mhhw/ZH8WbbyaiCFirzZPEwiy1cojkbE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=mk+DFCC8; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F0uMdTl0"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so862006f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:28:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789378091; x=1789982891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xa5ZbUfuvrToiYmQZWM/hOZFSIc+eJSMXf4MjNO/px8=;
-        b=F0uMdTl0wnRVDDi57eBVsSwHBeIkhHZKMwQ/GgzQiYBRyj/cwd3ioOOu9yvZYO/6dj
-         qKTEwc1euxg6XUgHxeuXj2Xprb47cfK08fzyHMn/4ctls1rDrY1sy1Ng7zYGTuuG//zD
-         l1W7vXQHSjlhM6LtEWuijGJR0mleo8hmNT+o1+jwvueIIfPlLfjnyCSO+U/UVAcJFOAh
-         qZfkH12MUF95515wgaZJn4dPz/cEI21IMKuDEnYmhZtet+FCFw7WwDxX7wNcEg0msrjE
-         BeLOvSFElOUsRJPvfWGt+mvmNrK+254WRZViXp0b8ILiSJyXQCo/hVc7X0xLjiPA88dO
-         B5zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789378091; x=1789982891;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xa5ZbUfuvrToiYmQZWM/hOZFSIc+eJSMXf4MjNO/px8=;
-        b=sl1L+SKua5294dVzFK++GDGwudiapL3lqm6sb+LO/D27OKMhclp8eB0EkpO+1Ajv/y
-         5tMnb3JKmBX+n4nbug8hqNRcYBLvJrlfNfntJyJdUENbydQ2KRAsPASHW9WBxnFmNWsy
-         mA4ZNVvBNUr/fYEQDTP/PA9XMtq6zs+/nWMHi2BtObHpgHmeX9+cELRB6KDtS+ubiPps
-         oYQJMZ1ZLD0dObdvNq28sjBAeNJeCQ8A41Nfkym7Tyu3kithL17MZiAHkzx3SLeLk5oF
-         PQD2LemEx984UQ6Mor8izSvC+JYipCenxEdUyGePcYWp+GXO79kflOx7CuOqKuW/4dEs
-         oTNw==
-X-Forwarded-Encrypted: i=1; AKwUvByI0T5wOojf7QQ6jEeFR2z+pVQ1dfC7J6vSQouGvlcuTW4fBHkDcZpvYtxuTTw/YIipDEzGvG3Y+qSj0jk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nM/FYGGV17JPbBMHd5/Yw3TYXJ2RvMIPt16s/1kX0juQmzOTOC
-	iDAMVJJ21BdnOzRxn78sCqoWgJbPQ/Y8LMT2RrFGGTjjyUixwTc7i3vR
-X-Gm-Gg: AYBFou3KchtlxquPD60DaqPQ485cazb8rNRkjPPcwsBIBg4XJT5OoW+jL786ZygL5yo
-	1uPDu6ne44zp+abHEJdTMntd0ji4T7EsvSTmmdTOnUnF3zugQ+vJUtZsQ3+Z4pR+oXpKcj3ltWH
-	GRjfqkV/JdqK+aeCflcsf00ro9oEoIWsTqU/PrXeKj2ZYqQANolKbg62wV4ixSM6fs/Scgg6hrQ
-	HjEHY+8PNc/1u+oUZXjOvW3tckhJ8crvLvDcxaE9joIGL8EbSeeE3MvAodUCqgVrTTsVt9c9X4M
-	2il0JAvCzOB0AERiZKBK9uNSepEb6qg3MD/HY8xNH14fYDhE2w5dBOnGKgacQqMeNkzbwM+EiNF
-	kfZxqSdCYmWTQM2Mpmb4TFQUHRgTUUVJJH6OIXw2Pw8cJHKX0VlF91eP9bw9qquVdnTET868aF7
-	nvtjU2qSH+KSnLY5Vx0rg/HtNXtcb5+hFSSn+EggXyeVsSM3mdH3P1T4ghSoHaWTzmQ46o4799h
-	Gnodps=
-X-Received: by 2002:a05:600c:4745:b0:49e:799e:c1c3 with SMTP id 5b1f17b1804b1-49e7a6868a8mr17463165e9.17.1789378091334;
-        Mon, 14 Sep 2026 02:28:11 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.25])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e7a29826fsm45244255e9.4.2026.09.14.02.28.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:28:10 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the camera privacy switch The laptop has a camera privacy switch on the side of the top case - a slider, not a mechanical cover over the lens, and it does nothing to the camera itself. TLMM gpio99 follows its position: high with the switch open, low with it engaged. Describe it as a gpio-keys switch so userspace can act on it.
-Date: Mon, 14 Sep 2026 11:28:02 +0200
-Message-ID: <20260914092802.12315-1-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="mk+DFCC8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1789378113;
+ bh=mewteUdeB+vh/ROowqyMXpJPpjRCsZe73lQbBQU5dyg=;
+ b=mk+DFCC8Qpde+98HYbY9GEi6/LaM8jntiy+C6HDbqk5wldpPyE74SdWlhus6jQjDZCcSS98ET
+ sKudZDU/hL5AjQplmZtuBnNO1t6iCaQ9VDLjQpaIRPK48QQTNEPMZ4iHTyntm+kMYiz8Fqeyaxv
+ jDNNI1/uvbXFu5YyQrL817sVpK4275JDnAmJtmES+ULLQ9xD/cUrpH8V3UOI3uasL9DjDik3FZD
+ zpgC4QMjdImY9+VjgNOM/s1k8PY7NnOGFJEXWoVv7NkrFWgt6pXEOXj4gTwj0GwRcAOnPgtDsCK
+ /pZ04KqbRkpZ5HISXw8w+0DEnqsNGDkz/9+xe5zwx3DA==
+X-Forward-Email-ID: 6aa7be39469f56687e0fbce3
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <1074c834-1d64-4bda-b6d5-599755324dcd@kwiboo.se>
+Date: Mon, 14 Sep 2026 11:28:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/4] arm64: dts: rockchip: Split out the common NanoPi
+ RK3528 parts
+To: HystericalDragons@proton.me
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>,
+ Andrey Korshunov <razor1702@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>
+References: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me>
+ <20260914-r28s-upstream-v5-2-7409c498e8dc@proton.me>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260914-r28s-upstream-v5-2-7409c498e8dc@proton.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-SW_CAMERA_LENS_COVER is the only switch code the input layer has for a
-camera privacy state, and it is what the Lenovo WMI camera driver and
-Dell's privacy driver report for the same kind of electronic switch on
-x86 machines, so use it here as well despite the name.
+Hi,
 
-The embedded controller also raises event 0x29 whenever the switch
-moves, which makes it tempting to report it from the EC driver instead.
-That would be the wrong layer: the pin is a plain level that tracks the
-slider position and needs no EC transaction to read, and the EC event
-carries nothing the pin does not already say.
+On 9/14/2026 10:24 AM, 安容 via B4 Relay wrote:
+> From: 安容 <HystericalDragons@proton.me>
+> 
+> The FriendlyElec NanoPi Zero2 and the NanoPi R28S share their power
+> tree, storage, RGMII Ethernet, RTC, SYS LED and debug console. Move
+> those parts into rk3528-nanopi.dtsi so the NanoPi R28S can reuse them,
+> and leave only the board specific nodes in the NanoPi Zero2 devicetree.
+> 
+> Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
+> Signed-off-by: 安容 <HystericalDragons@proton.me>
+> ---
+>  .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 307 +--------------------
+>  arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 304 ++++++++++++++++++++
+>  2 files changed, 313 insertions(+), 298 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
+> index 97d85124d2..a8d99f983f 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
 
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
----
-Changes in v2:
-- Capitalize the switch label (Konrad).
-- Put the pin state where the GPIO index sorts it, between gpio94 and
-  gpio111, instead of after the trackpad state (Konrad).
-- Link to v1: https://lore.kernel.org/all/20260914081652.5935-1-okerixx@gmail.com/
+[snip]
 
- .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts   | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+> -
+>  &usb_host0_ehci {
+>  	status = "okay";
+>  };
+> @@ -347,23 +74,7 @@ &usb_host0_ohci {
+>  	status = "okay";
+>  };
+>  
+> -&usb_host0_xhci {
+> -	extcon = <&usb2phy>;
+> -	maximum-speed = "high-speed";
+> -	phys = <&usb2phy_otg>;
+> -	phy-names = "usb2-phy";
+> -	status = "okay";
+> -};
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-index ecc8c34fb983..769f195c99d9 100644
---- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-@@ -51,7 +51,7 @@ sleep_clk: sleep-clk {
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
--		pinctrl-0 = <&hall_int_n_default>;
-+		pinctrl-0 = <&hall_int_n_default>, <&cam_privacy_default>;
- 		pinctrl-names = "default";
- 
- 		switch-lid {
-@@ -62,6 +62,13 @@ switch-lid {
- 			wakeup-source;
- 			wakeup-event-action = <EV_ACT_DEASSERTED>;
- 		};
-+
-+		switch-camera-privacy {
-+			label = "Camera privacy switch";
-+			gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_CAMERA_LENS_COVER>;
-+		};
- 	};
- 
- 	leds {
-@@ -1012,6 +1019,12 @@ wcn_sw_en: wcn-sw-en-state {
- 		bias-disable;
- 	};
- 
-+	cam_privacy_default: cam-privacy-default-state {
-+		pins = "gpio99";
-+		function = "gpio";
-+		bias-pull-up;
-+	};
-+
- 	cam_indicator_en: cam-indicator-en-state {
- 		pins = "gpio111";
- 		function = "gpio";
--- 
-2.55.0
+I suggest you keep all USB nodes in the device board files, NEO3 Plus
+have USB 3.0 support and uses different configuration. So it will be
+easier to get an overview if USB nodes are kept in the board DT.
 
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+Else most of this split matches what I played around with for U-Boot at
+[1] a few weeks ago. I plan to send out the NEO3 Plus DT based on this
+series later.
+
+[1] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/commit/40382468ba7ce9aa2e7dcde0e59003fd0d220b43
+
+Regards,
+Jonas
+
+> -
+> -&usb2phy {
+> -	status = "okay";
+> -};
+> -
+>  &usb2phy_host {
+>  	phy-supply = <&usb2_host_5v>;
+>  	status = "okay";
+>  };
+> -
+> -&usb2phy_otg {
+> -	status = "okay";
+> -};
+
+[snip]
+
