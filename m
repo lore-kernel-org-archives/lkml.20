@@ -1,375 +1,367 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012065.outbound.protection.outlook.com [52.101.43.65])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C924B32A3C9;
-	Mon, 14 Sep 2026 02:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789354276; cv=fail; b=k9Wbh4IQOIFXHOAVSy8JHIZjVH9JprhwAJn08WJSoAL3Qp3yNZFWVpp/POMaJc7p+XcJg3/JSTengpQqc8UG0S4+bkEWK+vr1Iu3XjDCvFSp6tiBLdebUOA1Fj4IRvlw5MgA2kVJiQoe0YuGVmfD3/qHNzeaR6eEr6vP+PEqwsA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789354276; c=relaxed/simple;
-	bh=noxIFUgk1GgLXsqtUBOWRnI4ASUyj9LXyCg4ECXBi5I=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pWapPuV6kABxYcOQ3cm3fFzFhTjt4ryGHIl0BYPd0FZkT8CvAxGNUNuvY9qYtmdw73FUqam7fBv7viiCFufLXSXaX4dSIkvCLg1pedSAHiulwFlHM5GG18ikXpQClvBbSwV2vcBy+tq3yI+wLdf4vw/dp9FIZzQiuE0UX0DNxrE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=oyrEx8O6; arc=fail smtp.client-ip=52.101.43.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424E71E7660;
+	Mon, 14 Sep 2026 02:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789354389; cv=none; b=bJkcyBBbi/5pl/0GlM8qkRldgPb1qaeIsIDVRBLtLg8mmp8ObOBe9GWDX/QwnLpeBjlzGZjdrIHuFySlAv+FZJLdRjvxHF5S2dnFM/jOouckdznZ/vFfsuBFheB8unvGf394vPNnjkIz4zxMqpny9K8k0Cvl7+5nT12rrtl1rjk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789354389; c=relaxed/simple;
+	bh=IFFPvxzokibPXB367pLLouYL6uGDLIMXvpaXrY55m54=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DzBrP6GpHsOFUVi4SQ+swJS4uq1FAGbeAMxbs7zQc1U1s7JPRz5erX4HJbINQ2C+ID7ieM97ySYn/7TzIyrvwbG96oef5jvImRJVM49ZnmWI67W4saZRjRQ3CBPDM/Wt3tdzqA6CAU5FP79aWFP0fOdtToXm0v8BrAEQYsUjeUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CP+ekiaS; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="oyrEx8O6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=abg2pe2HYhP8wOMR53Tby4o5eddymP0L9my5nosB4J9dH1AvC/oCVm5JsQTBs+GlU00ox62KCkaqaYDyNcuzyLVyUf6sl+DTHBG57PMEEsD1PtvDpB4YxbV8fR9Z4Ohdk/tRHh2ikh8q3JN7OXk8RQ2kR/KIsShozBOfM+Y3ylTqt8XBJYxsfIC2375PGVsAcSgGjkWg+FtwEOIZ9jd+E3bXYMWhKGdsjig4CpOzHI69xF4oea2zemUEMVKAooiuSocp8aey+oKoknReP9qhC5WYx0WS2SKVYxEo8BykznZ0p3z7tKwR1aI9XQUudJzitOHREJS5ftD4JiOVTptsiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y3bInfaLLH+54YCwEVXo8eVMZe6orJRP7jlSGWaofS0=;
- b=blF+OsJm+AwbA6PLerC5+JHdA7IbfuTuEOm1YXM9dcN4Vkne94hlnR9h1qzwvMYTvQcbsDfJOA2fnmqMyFA8nes/+8rUXaQ/aQXpjZ9Ozx+bkMEV30kt9Zlny/8DJZ/FZVVW2uV4+npZoszCT7yPoot//SpHztl8UnYokMhXE6wjyrZNXrvtg1kWIZ02i72a1PkCywN5Ntl+aCdgKFkeoUT4bpmgQfgZ0MaL9On1QM9/jgtFSqu+Vn2v9gZwUxJXfTmItogKJPcM0wHV3zyU0RZbPQJiYqdDDHtJPKpW7CJg3srf2ueMXTVRqV58Er5tVMYxhm6UThsnymHTCDqLmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y3bInfaLLH+54YCwEVXo8eVMZe6orJRP7jlSGWaofS0=;
- b=oyrEx8O6yHccb632Miw36kdxECPbOhkF+2iggM9qV/6vNeLy6fJ2bkMkmNsAmoMxBqzYo7ypB9/28el4MZO9ICl9o81lpBUNwwoSQRINTYfWgyVgKwHMe5b2OFlQ8maNNJAKK07B5HJAucCgxZ24vHR1GiIHgqzyXVk2SipmxchjTQcBPXmnaqXIvssh3zOJ5vAA2QUEgpZYrgL6d2j1YdMf8a5qhtjQFaJVcCm/tl/ABsDTKOeGXqse9ShGeKDolw1ZKOD7ztKb5Ab2T0Yl6nxwKDc6KGHCOei+F/fmVlmil9pskDtNL4OrCfXzF5UR/9dgAOGbryJ07yJv7vgSug==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from LV8PR03MB7398.namprd03.prod.outlook.com (2603:10b6:408:18f::13)
- by PH7PR03MB7267.namprd03.prod.outlook.com (2603:10b6:510:24e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 02:51:09 +0000
-Received: from LV8PR03MB7398.namprd03.prod.outlook.com
- ([fe80::9d6:b5c1:7f72:e982]) by LV8PR03MB7398.namprd03.prod.outlook.com
- ([fe80::9d6:b5c1:7f72:e982%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 02:51:09 +0000
-From: genevieve.chan@altera.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Lothar Rubusch <l.rubusch@gmail.com>,
-	Ng Tze Yee <tzeyee.ng@altera.com>,
-	Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
-	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: socfpga: agilex: add Agilex7F SoCDK multi-QSPI board
-Date: Mon, 14 Sep 2026 10:50:52 +0800
-Message-Id: <20260914025052.14354-3-genevieve.chan@altera.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20260914025052.14354-1-genevieve.chan@altera.com>
-References: <20260914025052.14354-1-genevieve.chan@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI3PR01CA0010.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::16) To LV8PR03MB7398.namprd03.prod.outlook.com
- (2603:10b6:408:18f::13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CP+ekiaS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789354387; x=1820890387;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=IFFPvxzokibPXB367pLLouYL6uGDLIMXvpaXrY55m54=;
+  b=CP+ekiaSI2J6RWWRGOraRvc9UxNsE9lkszDoZWQ/FcnnX0Nh1xkevThx
+   c+jSC6pe2ENVaxeDqhGsCHWd7OatO7cecCV/eH6XIXZLI4eaZl7Nu5cgM
+   ClixIHz2Ej2L/OhuYKWEbm63wb0YsuYEGKwLc7/QdXAjYD4H+ZHI/3N3K
+   tEQmkdymHES2RvjKmYbnrA9rUjZCK/hq7k5B1sPmWu2nyEMJkLjBxLlHG
+   4EQzPFUAOC7e1ViH/gN7ORa4LBeb0Fl/RdFQo+HckxzoQTo15SWpJGcHG
+   CS9+lbfKSEkI/0zucmXS3S48f1bj6fVTzIZ5WpR+lg/20ODWBLM2pgIBT
+   w==;
+X-CSE-ConnectionGUID: eVLSZos7QqynG4WpbJvmKA==
+X-CSE-MsgGUID: prtq4RScTMWKlCQI6HsEkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100037009"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="100037009"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:53:07 -0700
+X-CSE-ConnectionGUID: QEQ1xgNSSIy6O9ikDM7PzQ==
+X-CSE-MsgGUID: GlaXlsrJS6Oc/zLq/KcAXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="273033343"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:53:02 -0700
+Message-ID: <49aae020-d5c3-4519-8e99-e65a5b5c5cf5@linux.intel.com>
+Date: Mon, 14 Sep 2026 10:52:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR03MB7398:EE_|PH7PR03MB7267:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd9eb432-804f-42a3-6c32-08df120b079e
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|921020|10067099003|56012099006|11063799006|18002099003|22082099003|55112099003;
-X-Microsoft-Antispam-Message-Info:
-	v2fizMBbvYqCAiGMyXwcL8UwS5mirPVwj7/Nt7+06a+CHKnmda7o7D3HYb0CMj0xk5OmSTM1I15nIPIav9eQFUtgJDasdWRYIQprECjxUeYkXTUKbpcZuOUsleloy3eKplCHHM4AZK5v8l8Kr/oLsozOQokSlXJoy+plTFsnvbRubKgUxBlqsbNk+qkfAn099wpa35JlQ9qXth603c2MYCTe+6SwF/Wx3VQXIDXEtbd+r7zmtRYYU3cCHDKINuBUODpB77sAZShEY0E0X288FBLy7mojcHdaz+/PcQGXkrtxTXpAvbBVVXPpq8ppY2xUoce19sorcZmV5Tpe9v1/akjwqBdo/nE8sPtkisLgDf/1i+MyYelmYic2UAAqCkn7INqBNNN8U2BbI7JIcHKzu6uRGvxm2mUD6UrCwyVrbNbpjxVlECoyruGz/2MmsPaXD5rh/jv5lPbMrCLlrgxOH7pudEGMf0HGShiLX/1DFd4JZOYE2zu1Loqn7gKjNKaKmnacS5JUEcET42JAnu/qOOt7k9+UgSBEkpxuDh5S1kGjIolc3uqT089FWoQP3WauwcS8vd5Ec0q4JgI//SmR8M26Vc8ZGNz9+Rcj7fI3GZ8WrEIITrMJ2iGc0TGBGkdXV1iq5VzoUG/4nPkfyNrLalwBidrh52Lt+FwrR9OhEvhF1dZz/p2pjnaV9YKrQwdNk1sIe02I+AiiHrH/0GUQ3w==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR03MB7398.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(921020)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Gi6rEawMPHg1vDc5zCOVD5Gip9iIjrMLWhyyGFsUm8sEPSitpoQ2cyy+tHXu?=
- =?us-ascii?Q?bwOVGMf4DgTH/1DTtcijFe0An8QlYOSkd1nvAiWVVDQlazhdO5q2TNoP1XQ7?=
- =?us-ascii?Q?ajnErs93IPWe3iuX6AsEGkrWgNsrxUyO8MgaZYq/fbAFpkPVaREpaoQgVrrd?=
- =?us-ascii?Q?YcoQY386gQlXmLxcju241MLxt+N7ziqoX/rmbFzlNjfc9sj9S23CxhAswZEf?=
- =?us-ascii?Q?f4vMHsqGditoYelkM1pD9S6EuYcsf9kp8TIhKenwD+hOW0hPFSaKUlAQh+to?=
- =?us-ascii?Q?GcLYgAF4kFXDeQPKV1wquPpIAYYAwskdiY3Lme/LVES85T5LaF+OICNGhaB9?=
- =?us-ascii?Q?IvmzxXB/+m2TTJuCDc3T8Br279ETRuveC7fSgBHAc0rZWqMOD8bR4w4Z6Un1?=
- =?us-ascii?Q?DbeozcZJsjwKkSs10a5Ql/oyBTcmV04Isetc6XSsiq/FJ2MPi5eCkrJHjc4y?=
- =?us-ascii?Q?tSd+fw3SL4F/6cxtAGHqI/fepQ8BCSwPjXD1Nvh/+WsiauyYdpbwyPzCVhm1?=
- =?us-ascii?Q?REve+R9YMj/Mnr44SFXJZ87qPx0crlqa2cExHD4B09OykAAkQ+93Njg8eARC?=
- =?us-ascii?Q?x+loHoITf79NtCP5FNd4UEWBQdItOv+fdbayqVlLLQaMDyqrxe0qmdMfIjXU?=
- =?us-ascii?Q?uuWSoBw+jjhh8wRATAzbZHYsQkQB7XBnlTna4sEZt9OYUCTkvWlllVJ9KPRz?=
- =?us-ascii?Q?2s5GqV0JCgl5LHbgys3ZbDYB0X4whrC7SBQHBXhPcT0CZR+Bcrz9jvdONAgj?=
- =?us-ascii?Q?d/CoERNjEl5qnHy61CqeRtEUUlpeoEKn6b6AdqoJxxU17Oz2WQ6Xzr5ITcvL?=
- =?us-ascii?Q?qMbvRfezsybKzjRzI9eCifURhE1Nw1bfb71JO9lvMDqlZB1jnlm34BBOGBRq?=
- =?us-ascii?Q?Y/RDrOxpEQQqrIWLG1ElhxP07J4giHhto/Ji//Nj9E7WwnKO3pXik6QWkOJj?=
- =?us-ascii?Q?QnD9kVXWdu0c9vGR16cMya29ZB0SF6pwEQfLHA1x/xPkwk5HQJMtOzs132Q1?=
- =?us-ascii?Q?4iU0zoME5dU4kiTiSuykHOZtcnYSdwDE0coenUf1SWq+oIWYqiCW+pUarWxk?=
- =?us-ascii?Q?+/aR7dJqe3ztKCscf/l7Qht7Er+XQuZPUo2FBAiK8SKEm3AY49Mz7wtcKN2P?=
- =?us-ascii?Q?mTewnODnfrAJdbXMrvP4qSJ2CFNsyIiLGIsPrcS/RrXT3Wc9Kd4fxABf4z0Y?=
- =?us-ascii?Q?bFCzpB9m3dkgQVBM0LWVYK1OdTrDUXvHlYWvqAtWckgxAAFz5osHE3kjohoH?=
- =?us-ascii?Q?FOXpI4abn2+bxZS4c18nkZyIdVigw8H+FMdNE0+AsSBbNB0xw3OxII0nARqB?=
- =?us-ascii?Q?3Ct9JjgtJSzafo+AsqxgX91edvdZDDjGQ7lF7gTAFXr7sicX9ck6bVvyDLdj?=
- =?us-ascii?Q?w8oqL2+PUQuqGoI83RYa/YWq12VPqVRGjXZ0yezA0ugEsZuN+FdYiCAmKVnf?=
- =?us-ascii?Q?YlKFAQASUzbJKtfLdMftivnEeJBI5g3/53Z/29ejWr94efj90gAjckJ2cMGN?=
- =?us-ascii?Q?cRtQRUu+z2wJvE/OFCJZb6r/6020EaRRc90aMa9rG+nob2DhJsVHhrCIqQrA?=
- =?us-ascii?Q?+JyTy6Z7+zzcqBn5q05m1qQQKB5kWT6i32XkK+T6PWtw5kFBep5pOfv6qkuk?=
- =?us-ascii?Q?EsJ/Fg2CmX+MQUltWoxP3/aBnweVj5HFA7zOnUEsH0JMFprhLtuL1QCk2Qlt?=
- =?us-ascii?Q?eas8E1kc5Vb4mhv/Q8UbH0OX8BpNQB4b+hvSExYvPT0+4RwyGZmV+HxFlkQS?=
- =?us-ascii?Q?XAosf2zaTpm3WA2tEx0DsiUREtEi4Bw=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd9eb432-804f-42a3-6c32-08df120b079e
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR03MB7398.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 02:51:09.3120
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nhw7TNMqF7IZO7eusEVNwyTTij8yG4lfiJB7iqiliwklnmCp5c+CW5Y5Nwh/lDxBKCVnvqlACYVHZP+dRDCjuE3h/2nkgo0MFuRQ+RTHpDk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7267
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 4/6] perf tools: Show memory region in perf-c2c
+ subcommand
+To: "Falcon, Thomas" <thomas.falcon@intel.com>,
+ "acme@kernel.org" <acme@kernel.org>
+Cc: "Rogers, Ian" <irogers@google.com>,
+ "alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
+ "james.clark@linaro.org" <james.clark@linaro.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "Hunter, Adrian" <adrian.hunter@intel.com>,
+ "namhyung@kernel.org" <namhyung@kernel.org>,
+ "jolsa@kernel.org" <jolsa@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260910194324.98002-1-thomas.falcon@intel.com>
+ <20260910194324.98002-5-thomas.falcon@intel.com>
+ <6221da3e-38a7-48c2-9588-25338ce7d915@linux.intel.com>
+ <8a7ba749c9f190ddcf41bab861ac2f1282774628.camel@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <8a7ba749c9f190ddcf41bab861ac2f1282774628.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Genevieve Chan <genevieve.chan@altera.com>
 
-Add a board device tree for the Agilex7F SoCDK with multi-QSPI support.
-Describe four Micron MT25QU02G flashes on chip selects 0-3, based on
-socfpga_agilex.dtsi like other Agilex board variants.
+On 9/11/2026 11:58 PM, Falcon, Thomas wrote:
+> On Fri, 2026-09-11 at 08:50 +0800, Mi, Dapeng wrote:
+>> On 9/11/2026 3:43 AM, Thomas Falcon wrote:
+>>> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>>>
+>>> Add memory region field to the cacheline list view to help users
+>>> identify the memory region to which the cacheline belongs. The memory
+>>> region field was included with the introduction of support for the
+>>> Off-module Response facility (OMR) [1] in Intel's Diamond Rapids and
+>>> Nova Lake architectures.
+>>>
+>>> An example of the new perf c2c output including the memory region
+>>> field is shown below:
+>>>
+>>> Shared Data Cache Line Table     (181 entries, sorted on Total HITMs)
+>>>        --------------- Cacheline --------------      Tot  ------- Load Hitm -------    Total    Total    Total
+>>> Index             Address  Region  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads   Stores
+>>>     0  0xffffffffa1658ec0     0x0     0    1302    4.13%      103      103        0     1707     1707        0
+>>>     1  0xffffffffa16a9100     0x0     0     991    3.73%       93       93        0     1580     1580       19
+>>>     2  0xffffffffa16a91c0     0x0     0      37    3.05%       76       76        0      384      384        4
+>>>     3  0xffffffffa0607a00     0x0     0       1    2.65%       66       66        0     1146     1146        5
+>>>     4  0xffffffffa16a9200     0x0     0       1    1.72%       43       43        0      174      174        3
+>>>     5  0xffffffffa0607a80     0x0     0       1    1.16%       29       29        0      439      439       12
+>>>     6  0xffffffffa16aadc0     0x0     0       1    0.72%       18       18        0      158      158        3
+>>>     7  0xff30ea3c37934640     N/A     0      51    0.64%       16       16        0       60       60        8
+>>>     8  0xff30ea3c373b4640     N/A     0      64    0.48%       12       12        0       69       69       11
+>>>     9  0xff30ea3c387b4640     0x0     0      56    0.48%       12       12        0       59       59        9
+>>>    10  0xff30ea3c37db4640     N/A     0      49    0.44%       11       11        0       50       50       10
+>> It looks good. Thanks.
+>>
+>>
+>>> [1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
+>>>
+>>> Assisted-by: Sashiko:gemini-3.1-pro-preview
+>>> Assisted-by: GitHub-Copilot:claude-opus-4-8
+>>> Codeveloped-by: Thomas Falcon <thomas.falcon@intel.com>
+>> The tag name should be "Co-developed-by" instead of "Codeveloped-by".
+>> Besides, the tag should be moved to the place where is after my SoB and
+>> before your SoB. :)
+> Ah, sorry about that, I will fix it up soon. See further comments below...
+>
+> ...
+>
+>>> +static int
+>>> +dcacheline_node_mem_region(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
+>>> +			   struct hist_entry *he)
+>>> +{
+>>> +	int width = c2c_width(fmt, hpp, he->hists);
+>>> +	struct c2c_hist_entry *c2c_he;
+>>> +	unsigned int mem_region;
+>>> +	char buf[20];
+>>> +
+>>> +	c2c_he = container_of(he, struct c2c_hist_entry, he);
+>>> +	mem_region = c2c_he->mem_region;
+>>> +
+>>> +	if (mem_region == PERF_MEM_REGION_NA)
+>>> +		scnprintf(buf, sizeof(buf),  "N/A");
+>>> +	/* mem_region could only be >= PERF_MEM_REGION_MMIO */
+>>> +	else if (mem_region == PERF_MEM_REGION_MMIO)
+>>> +		scnprintf(buf, sizeof(buf), "MMIO");
+>>> +	else
+>>> +		scnprintf(buf, sizeof(buf), "0x%x",
+>>> +			  mem_region - PERF_MEM_REGION_MEM0);
+>>> +
+>>> +	return scnprintf(hpp->buf, hpp->size, "%*s", width, buf);
+>>> +}
+>> It seems the previous comment is missed? 
+>>
+>> "Is the mem-region column print guarded by HEADER_MEMORY_RANGES as well?"
+>>
+>> I'm not quite sure about this, please double check. Thanks.
+> Sorry, I missed your two comments below your first regarding developer tags.
+>
+> If you refer to this change below, dcacheline_mem_region is printed only if c2c.show_mem_region (perf_header__has_feat(&session->header, HEADER_MEMORY_RANGES)) == true, otherwise it is not included in
+> output_str. I will update perf-c2c to include cache regions as well to be more consistent with perf-script in a new version and fix the tag mistakes.
 
-Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
----
- arch/arm64/boot/dts/intel/Makefile            |   1 +
- .../socfpga_agilex7f_socdk_multiqspi.dts      | 214 ++++++++++++++++++
- 2 files changed, 215 insertions(+)
- create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex7f_socdk_multiqspi.dts
+Thanks. We need to ensure dcacheline_mem_region is printed only when the
+header exists. Other it would cause misleading for users.
 
-diff --git a/arch/arm64/boot/dts/intel/Makefile b/arch/arm64/boot/dts/intel/Makefile
-index 270c70fdf084..9298ab8b9314 100644
---- a/arch/arm64/boot/dts/intel/Makefile
-+++ b/arch/arm64/boot/dts/intel/Makefile
-@@ -10,5 +10,6 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_agilex_n6000.dtb \
- 				socfpga_agilex5_socdk_nand.dtb \
- 				socfpga_agilex72_socdk.dtb \
- 				socfpga_agilex7m_socdk.dtb \
-+				socfpga_agilex7f_socdk_multiqspi.dtb \
- 				socfpga_n5x_socdk.dtb
- dtb-$(CONFIG_ARCH_KEEMBAY) += keembay-evm.dtb
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex7f_socdk_multiqspi.dts b/arch/arm64/boot/dts/intel/socfpga_agilex7f_socdk_multiqspi.dts
-new file mode 100644
-index 000000000000..7d444a84fd67
---- /dev/null
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex7f_socdk_multiqspi.dts
-@@ -0,0 +1,214 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026, Intel Corporation
-+ */
-+#include "socfpga_agilex.dtsi"
-+
-+/ {
-+	model = "SoCFPGA Agilex7F SoCDK multi-QSPI";
-+	compatible = "intel,socfpga-agilex7f-socdk-multiqspi",
-+		     "intel,socfpga-agilex";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
-+		ethernet2 = &gmac2;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		led0 {
-+			label = "hps_led0";
-+			gpios = <&portb 20 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led1 {
-+			label = "hps_led1";
-+			gpios = <&portb 19 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led2 {
-+			label = "hps_led2";
-+			gpios = <&portb 21 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		/* We expect the bootloader to fill in the reg */
-+		reg = <0 0x80000000 0 0>;
-+	};
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	/* PHY delays are configured via skew properties */
-+	phy-mode = "rgmii";
-+	phy-handle = <&phy0>;
-+
-+	max-frame-size = <9000>;
-+
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+		phy0: ethernet-phy@4 {
-+			reg = <4>;
-+
-+			txd0-skew-ps = <0>; /* -420ps */
-+			txd1-skew-ps = <0>; /* -420ps */
-+			txd2-skew-ps = <0>; /* -420ps */
-+			txd3-skew-ps = <0>; /* -420ps */
-+			rxd0-skew-ps = <420>; /* 0ps */
-+			rxd1-skew-ps = <420>; /* 0ps */
-+			rxd2-skew-ps = <420>; /* 0ps */
-+			rxd3-skew-ps = <420>; /* 0ps */
-+			txen-skew-ps = <0>; /* -420ps */
-+			txc-skew-ps = <900>; /* 0ps */
-+			rxdv-skew-ps = <420>; /* 0ps */
-+			rxc-skew-ps = <1680>; /* 780ps */
-+		};
-+	};
-+};
-+
-+&mmc {
-+	status = "okay";
-+	cap-sd-highspeed;
-+	broken-cd;
-+	bus-width = <4>;
-+	clk-phase-sd-hs = <0>, <135>;
-+};
-+
-+&osc1 {
-+	clock-frequency = <25000000>;
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&usb0 {
-+	status = "okay";
-+	disable-over-current;
-+};
-+
-+&watchdog0 {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <25000000>;
-+
-+		m25p,fast-read;
-+		cdns,read-delay = <2>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			qspi_boot0: partition@0 {
-+				label = "Boot and fpga data";
-+				reg = <0x0 0x10000000>;
-+			};
-+		};
-+	};
-+
-+	flash@1 {
-+		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-+		reg = <1>;
-+		spi-max-frequency = <25000000>;
-+
-+		m25p,fast-read;
-+		cdns,read-delay = <2>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			qspi_boot1: partition@0 {
-+				label = "Boot and fpga data";
-+				reg = <0x0 0x10000000>;
-+			};
-+		};
-+	};
-+
-+	flash@2 {
-+		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-+		reg = <2>;
-+		spi-max-frequency = <25000000>;
-+
-+		m25p,fast-read;
-+		cdns,read-delay = <2>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			qspi_boot2: partition@0 {
-+				label = "Boot and fpga data";
-+				reg = <0x0 0x10000000>;
-+			};
-+		};
-+	};
-+
-+	flash@3 {
-+		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-+		reg = <3>;
-+		spi-max-frequency = <25000000>;
-+
-+		m25p,fast-read;
-+		cdns,read-delay = <2>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			qspi_boot3: partition@0 {
-+				label = "Boot and fpga data";
-+				reg = <0x0 0x10000000>;
-+			};
-+		};
-+	};
-+};
--- 
-2.43.7
+If we plan to add cache region in the "region" column, we could need to add
+"mem" prefix before the memory region ID which avoids the ambiguity.
+Besides, we'd better change the region id to decimal format after adding
+the "mem" prefix. 
 
+
+
+>
+> Tom
+>
+> -	if (c2c.display != DISPLAY_SNP_PEER)
+> -		output_str = "cl_idx,"perf_header__has_feat(&session->header,
+> +						HEADER_MEMORY_RANGES);
+> +	c2c.show_mem_region = perf_header__has_feat(&session->header,
+> +						HEADER_MEMORY_RANGES);
+> +	if (c2c.show_mem_region)
+> +		dim_dcacheline.header.line[0].span = 3;
+> +
+> +	if (c2c.display != DISPLAY_SNP_PEER) {
+> +		if (asprintf(&output_str,
+> +			     "cl_idx,"
+>  			     "dcacheline,"
+> +			     "%s"
+>  			     "dcacheline_node,"
+>  			     "dcacheline_count,"
+>  			     "percent_costly_snoop,"
+> @@ -3285,10 +3346,17 @@ static int perf_c2c__report(int argc, const char **argv)
+>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
+>  			     "ld_lclhit,lcl_hitm,"
+>  			     "ld_rmthit,rmt_hitm,"
+> -			     "dram_lcl,dram_rmt";
+> -	else
+> -		output_str = "cl_idx,"
+> +			     "dram_lcl,dram_rmt",
+> +			     c2c.show_mem_region ?
+> +			     "dcacheline_mem_region," : "") < 0) {
+> +			err = -ENOMEM;
+> +			goto out_mem2node;
+> +		}
+> +	} else {
+> +		if (asprintf(&output_str,
+> +			     "cl_idx,"
+>  			     "dcacheline,"
+> +			     "%s"
+>  			     "dcacheline_node,"
+>  			     "dcacheline_count,"
+>  			     "percent_costly_snoop,"
+> @@ -3300,7 +3368,13 @@ static int perf_c2c__report(int argc, const char **argv)
+>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
+>  			     "ld_lclhit,lcl_hitm,"
+>  			     "ld_rmthit,rmt_hitm,"
+> -			     "dram_lcl,dram_rmt";
+> +			     "dram_lcl,dram_rmt",
+> +			     c2c.show_mem_region ?
+> +			     "dcacheline_mem_region," : "") < 0) {
+> +			err = -ENOMEM;
+> +			goto out_mem2node;
+> +		}
+> +	}
+>>
+>>> +
+>>>  static int offset_entry(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
+>>>  			struct hist_entry *he)
+>>>  {
+>>> @@ -1359,6 +1400,14 @@ static struct c2c_dimension dim_dcacheline_node = {
+>>>  	.width		= 4,
+>>>  };
+>>>  
+>>> +static struct c2c_dimension dim_dcacheline_mem_region = {
+>>> +	.header		= HEADER_LOW("Region"),
+>>> +	.name		= "dcacheline_mem_region",
+>>> +	.cmp		= empty_cmp,
+>>> +	.entry		= dcacheline_node_mem_region,
+>>> +	.width		= 6,
+>>> +};
+>>> +
+>>>  static struct c2c_dimension dim_dcacheline_count = {
+>>>  	.header		= HEADER_LOW("PA cnt"),
+>>>  	.name		= "dcacheline_count",
+>>> @@ -1790,6 +1839,7 @@ static struct c2c_dimension dim_dcacheline_num_empty = {
+>>>  
+>>>  static struct c2c_dimension *dimensions[] = {
+>>>  	&dim_dcacheline,
+>>> +	&dim_dcacheline_mem_region,
+>>>  	&dim_dcacheline_node,
+>>>  	&dim_dcacheline_count,
+>>>  	&dim_offset,
+>>> @@ -2853,8 +2903,11 @@ static int ui_quirks(void)
+>>>  	/* Fix the zero line for dcacheline column. */
+>>>  	buf = fill_line(chk_double_cl ? "Double-Cacheline" : "Cacheline",
+>>>  				dim_dcacheline.width +
+>>> +				(c2c.show_mem_region ?
+>>> +					dim_dcacheline_mem_region.width : 0) +
+>>>  				dim_dcacheline_node.width +
+>>> -				dim_dcacheline_count.width + 4);
+>>> +				dim_dcacheline_count.width +
+>>> +				(c2c.show_mem_region ? 6 : 4));
+>>>  	if (!buf)
+>>>  		return -ENOMEM;
+>>>  
+>>> @@ -3106,7 +3159,8 @@ static int perf_c2c__report(int argc, const char **argv)
+>>>  	OPT_END()
+>>>  	};
+>>>  	int err = 0;
+>>> -	const char *output_str, *sort_str = NULL;
+>>> +	const char *sort_str = NULL;
+>>> +	char *output_str = NULL;
+>>>  	struct perf_env *env;
+>>>  
+>>>  	annotation_options__init();
+>>> @@ -3271,9 +3325,16 @@ static int perf_c2c__report(int argc, const char **argv)
+>>>  		goto out_mem2node;
+>>>  	}
+>>>  
+>>> -	if (c2c.display != DISPLAY_SNP_PEER)
+>>> -		output_str = "cl_idx,"
+>>> +	c2c.show_mem_region = perf_header__has_feat(&session->header,
+>>> +						HEADER_MEMORY_RANGES);
+>>> +	if (c2c.show_mem_region)
+>>> +		dim_dcacheline.header.line[0].span = 3;
+>>> +
+>>> +	if (c2c.display != DISPLAY_SNP_PEER) {
+>>> +		if (asprintf(&output_str,
+>>> +			     "cl_idx,"
+>>>  			     "dcacheline,"
+>>> +			     "%s"
+>>>  			     "dcacheline_node,"
+>>>  			     "dcacheline_count,"
+>>>  			     "percent_costly_snoop,"
+>>> @@ -3285,10 +3346,17 @@ static int perf_c2c__report(int argc, const char **argv)
+>>>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
+>>>  			     "ld_lclhit,lcl_hitm,"
+>>>  			     "ld_rmthit,rmt_hitm,"
+>>> -			     "dram_lcl,dram_rmt";
+>>> -	else
+>>> -		output_str = "cl_idx,"
+>>> +			     "dram_lcl,dram_rmt",
+>>> +			     c2c.show_mem_region ?
+>>> +			     "dcacheline_mem_region," : "") < 0) {
+>>> +			err = -ENOMEM;
+>>> +			goto out_mem2node;
+>>> +		}
+>>> +	} else {
+>>> +		if (asprintf(&output_str,
+>>> +			     "cl_idx,"
+>>>  			     "dcacheline,"
+>>> +			     "%s"
+>>>  			     "dcacheline_node,"
+>>>  			     "dcacheline_count,"
+>>>  			     "percent_costly_snoop,"
+>>> @@ -3300,7 +3368,13 @@ static int perf_c2c__report(int argc, const char **argv)
+>>>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
+>>>  			     "ld_lclhit,lcl_hitm,"
+>>>  			     "ld_rmthit,rmt_hitm,"
+>>> -			     "dram_lcl,dram_rmt";
+>>> +			     "dram_lcl,dram_rmt",
+>>> +			     c2c.show_mem_region ?
+>>> +			     "dcacheline_mem_region," : "") < 0) {
+>>> +			err = -ENOMEM;
+>>> +			goto out_mem2node;
+>>> +		}
+>>> +	}
+>>>  
+>>>  	if (c2c.display == DISPLAY_TOT_HITM)
+>>>  		sort_str = "tot_hitm";
+>>> @@ -3314,7 +3388,7 @@ static int perf_c2c__report(int argc, const char **argv)
+>>>  	err = c2c_hists__reinit(&c2c.hists, output_str, sort_str, perf_session__env(session));
+>>>  	if (err) {
+>>>  		pr_err("Failed to reinitialize hists\n");
+>>> -		goto out_mem2node;
+>>> +		goto out_str;
+>>>  	}
+>>>  
+>>>  	ui_progress__init(&prog, c2c.hists.hists.nr_entries, "Sorting...");
+>>> @@ -3323,17 +3397,19 @@ static int perf_c2c__report(int argc, const char **argv)
+>>>  	hists__output_resort_cb(&c2c.hists.hists, &prog, resort_shared_cl_cb);
+>>>  	err = hists__iterate_cb(&c2c.hists.hists, resort_cl_cb, perf_session__env(session));
+>>>  	if (err)
+>>> -		goto out_mem2node;
+>>> +		goto out_str;
+>>>  
+>>>  	ui_progress__finish();
+>>>  
+>>>  	if (ui_quirks()) {
+>>>  		pr_err("failed to setup UI\n");
+>>> -		goto out_mem2node;
+>>> +		goto out_str;
+>>>  	}
+>>>  
+>>>  	perf_c2c_display(session);
+>>>  
+>>> +out_str:
+>>> +	free(output_str);
+>>>  out_mem2node:
+>>>  	mem2node__exit(&c2c.mem2node);
+>>>  out_session:
+>>> diff --git a/tools/perf/util/c2c.h b/tools/perf/util/c2c.h
+>>> index 53f024e25d99..f04e78e1a2e3 100644
+>>> --- a/tools/perf/util/c2c.h
+>>> +++ b/tools/perf/util/c2c.h
+>>> @@ -33,6 +33,7 @@ struct c2c_hist_entry {
+>>>  	unsigned long		*nodeset;
+>>>  	struct c2c_stats	*node_stats;
+>>>  	unsigned int		 cacheline_idx;
+>>> +	unsigned int		 mem_region;
+>>>  
+>>>  	struct compute_stats	 cstats;
+>>>  
