@@ -1,157 +1,146 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D157C411A02
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376676; cv=pass; b=T8z6R+PWo4jUcql/BiLBlfTyGJEgFh88o4pjO/TmLdadHdWKPymzgNsF1eJA4NTyDUx/dNbrbLswRHaCMHZh5mjpQvXm8+KZuId1rsxrDo5HD5Tr7NgAhIOx4UrRTqmSPf018sfkaKl/z0eEnl3ZE0cNKNVYuEPykadrdQX0KVQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376676; c=relaxed/simple;
-	bh=Po+fg1JflY23iGX44ZbQ0ZPhrPVSPOWKc9ZVsNI8LCQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gm+LTEm4RcGV2n2yISmBjg2CFmmTvn8SSaMjP+OhatWVEG4dK0MNELLTsB8Asbq3BcKCT0WS4NLQsZg3beMt/qQ4Pz2so/GwWBwbCvanYzh5lVAW8Vxq6b2xdnWHzRi2JR2B78DntHGcEoDg+NQe79WVCVHoPl1OvFJBSZSPK5A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b1kYTA5J; arc=pass smtp.client-ip=74.125.231.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD9C414424
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789376686; cv=none; b=U4af5oijg4jCZwo6bqnxt249Pf54j1PH1kDDWe0vpUKBe050aioGWwO5MVhkgaZox0SKx9bXhl2nNF2uINwbBoTLF/KnHKJa5JOviyj2xDtwd7/UPCM+sejAA0uaUfP0X9Z9KCPpSkPXYeqm53t3FNuQ0UWGHEqWOwyyKzWHLr0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789376686; c=relaxed/simple;
+	bh=cyHRGG1jP0E/7LSzChuUoiK/6HUy6jQ8rWqx8S/GEFs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pnSG8FocnNhCh3iAKP/rX2h6S4XUXBSTRW4CftBM84AP3mldRQrNmjxKRrhSFLkbyyJzAFe5n5zXLDzsCr++hVm5/E150DZup3/DA3/z1Wgjl+5w2FE4jd5dYWbNvIoMNp7kOvW8F54ieoXdPVyNa4+mn22LvkFRuzE/iqeQTA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BEteMCVW; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1kYTA5J"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-8050801d337so1213843a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:04:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789376671; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c1mTIAXXFxTHQTKDlqBmbVhh/Dx4Z302CVElRu21DL8h67MuODZrmmomwQv8OpQxDp
-         2E7vftIVLAPSE9Nb4MPzfHTJnxLEKNxVfj2aGpyPZi5V1S5hbtZtGn3102SaFhRYtdOv
-         uPx0YM5J5o9s15ECEQVQcTn4ZiYEgSpbxXU86708U5xOUN/Ad7fCRwLV0zdMClaentqA
-         gFNSRAO8gkPntetaZKk+6pmF+BnS5RpREqzawaoSIqg3eInBnNVKQX1PmCaVNqs5hskQ
-         SEG5w3Ds3qzxN1J/zEwcZhkxE0P7MEiGKtPESofIYTnfZMS1FIbLzBUcpu5Nc5tHb14Z
-         PRwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6hZ4sLkAvzKguvhtkssQGq15W26aLKtU+1jNPbiNdg8=;
-        fh=Z+2gv1EdB5C/mSq/exNv9511s/+O0bshMkiy02XHhD0=;
-        b=a2eHKVFVaztpbazxRGpN3PTWjRrEeBhLQ0FXWinQFI2EN+izxHOXZXPhXDtVqDDn+h
-         44RCwlYSkpcfOEOEsbqN2XtaTTwD9U68YtHl1BQ28hXtltpB3xiZcxZpb9xy1vYylSL9
-         XCz1fOIJxGgJ1O+7piNJFrGKaRr4VTyVhNN64Yb/rAWrooYNTSV+EzLPG9fbp0srcOaS
-         6aUzf2EzjwyJBVhmxc0WEOfvhFZRYcQJXYf7XrOxndA8me0AUWVv41uvnhDGwTsXZuOm
-         nOCUTin3npZfGLLgikkFxzgOFkflje53rmeKRbIhBj/KZF++JMsOIqtbPyILOVk4Ta6T
-         uxFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789376671; x=1789981471; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6hZ4sLkAvzKguvhtkssQGq15W26aLKtU+1jNPbiNdg8=;
-        b=b1kYTA5J8E+3TBsgdRbdwHF6G6LQmqR4KpO/ebMakEJIVwOqpxyOWM2Wy4UloHu9sf
-         dm4wYFpDSvVv0ytB3Z9RuMEW+eou518bKJQQLPIT0zSZzjhYAoZf2gsVQVnOH390+4gD
-         ddH+OCd/xj9XFYSGSBSa20d3FoCb0GvKvYDgvtkfYmEOVdmcvPshO6lxgJwQhrVfLYDC
-         zmzoFEzpwY3zWqraDAh6bza/VPNI7PpnmZgBbcVozDXWbfvina+AJDohBd/V7nvLQo/B
-         nIvDECsyWBRqIYkO6JHTNpMySlRjnRf3ms8bsvVSilNMXWfTYHnB/CePvaZtyWi41a2G
-         pW+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789376671; x=1789981471;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6hZ4sLkAvzKguvhtkssQGq15W26aLKtU+1jNPbiNdg8=;
-        b=jImmPBpu8gkVz1EVtAxYtSio7wePYEzO1fBfocDpBJChuGYlh8pmeqT5bcEiTKVT4R
-         huDN2Rsn0HQd43kAWlbSVzFs1+dw0oa9pMa+AG3z7re3In5dGcbEKxtY3JclU2U5ogzm
-         0fZokwoyv5gyvgkhI3IIlS1kugztTLYzY/ib7D7B3bUCKHUX2xQPH95Pqn/Q03NOE/Zt
-         a4guVzW4sxonzckvCQtTkSN3vuhOjMjyM0ABrw+zDD/fI74eIFsWHofUO4TlNmVZzsbM
-         yqpMTti6mnvLmF0NgKPjDWW1ra1+CKilOw46ofKa8vYI/hmhKGPbDcfhPymXCwV0ADNw
-         n6Qg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Dxs61iD5muDoi5ZYXiLCHttX9qGCanz05zh2KjY3VEaO54DjNFxnIv2gsshaMAqfv8lrPUaOFAUYlUM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGnR2t1btNa6rNZNE9qUK+jqAOPsWLKNWur7onVBMNkauvEJbx
-	EiMO24wANvjpvau9/+D2cj7qjV++JV8DxY3Ew3dqMTpQD2w4mimr/1sslPdS4PoJrzLNYdEmD38
-	zaHgEoHxasAAVErdABGGSS7J+9S9EEks=
-X-Gm-Gg: AYBFou1GOoUZrDlpP1xglgHP2cbO/61XRpX21hoIy5S+nDuZYTnDKUX3N/Wc1rjOCxk
-	NOyiYhubG+lJTD0iY+OgOyw28hRPNGxbOiOV9tkn+hvUSd1E/7BSMUQvvuHl73URtcS7pNZ2uqq
-	pL1bOwNcVGzNHQMQrMUTn9Sj9D3BnMO3e/GtHwgpWQLmMjR09C9MvXMA3QUhzxVESp+SHCbelAZ
-	JTEgf4SKlw0KP/xdH7Dr2++PDltprlax1HeuYYf7qeU5qJTHf9NDQcSXjfsRKftZ7JgTvi/uLLC
-	qDJH/N+kwTJrP7NR0xJvNbCLYLrry7K3c0SCMVTblCQlfhs2Eedc7lMpe8XBRJVjqXB6FdgPqYm
-	j1QLxOF6A+7Iq1A==
-X-Received: by 2002:a05:6820:4cc4:b0:6c3:8216:6358 with SMTP id
- 006d021491bc7-6c542537ac0mr1319314eaf.29.1789376671216; Mon, 14 Sep 2026
- 02:04:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BEteMCVW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cyHRGG1jP0E/7LSzChuUoiK/6HUy6jQ8rWqx8S/GEFs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789376681; v=1; x=1789981481;
+ b=BEteMCVWd56/AC6D47UbBT9CFGQwz7GFuTCbIKz1imFLAqkHq4Prq4ohtE3jTAuiyERyx9lC
+ PX7NYxz15QZQzu2nIydA8HJ5wxSr10hFeioqB48B7SnAc4Wnv4Q7oipkYTew0L9bWmwcvZgFd72
+ OfJCef3vgvbzAEMJWo/qygrE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b890552444941dff;
+	Mon, 14 Sep 2026 09:04:40 +0000
+X-Mizu-Trace-ID: b890552444941dff
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fb8d932f-2dd9-442d-b829-575acf8480f8@linux.dev>
+Date: Mon, 14 Sep 2026 17:04:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
- <20260823111959.17029-7-amit.barzilai22@gmail.com> <87tsnxl3jg.fsf@ocarina.mail-host-address-is-not-set>
-In-Reply-To: <87tsnxl3jg.fsf@ocarina.mail-host-address-is-not-set>
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-Date: Mon, 14 Sep 2026 12:04:20 +0300
-X-Gm-Features: AcwNN1UGx_5yKvwgvZgvxzGgxcllCpI8_ZHciIS7iNKYuuND6gS1iU1-Bj3Y5Ts
-Message-ID: <CAOEgbEqtmanqwuX-hLNG8HwNn1+NMJZUzbNFavkJEpqfQAfLfQ@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
-To: Javier Martinez Canillas <javierm@redhat.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andriy.shevchenko@intel.com, holofermes@gmail.com, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Sep 10, 2026 at 3:00=E2=80=AFPM Javier Martinez Canillas
-<javierm@redhat.com> wrote:
-> >  static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8=
- *cmd,
-> >                             size_t len)
-> > @@ -271,6 +310,17 @@ static int ssd130x_write_cmds(struct ssd130x_devic=
-e *ssd130x, const u8 *cmd,
-> >       unsigned int i;
-> >       int ret;
-> >
-> > +     if (ssd130x->device_info->cmd_params_are_data) {
-> > +             if (!len)
-> > +                     return 0;
-> > +
->
->
-> Can len even be 0? If that's the case then I guess that makes more sense
-> to check and bail out early regardless if cmd_params_are_data is true ?
->
-> For the !cmd_params_are_data case, the for loop will be a no-op anyways
-> but still I think is cleaner to check as the first thing in this function=
-.
-
-I leaned on the no-op loop in the second branch, but I agree it would
-be cleaner to check this and remove the edge case regardless if parameters =
-are
-data or not.
-
-Addressed in v6.
-
-> > +             ret =3D regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cm=
-d[0]);
-> > +             if (ret || len =3D=3D 1)
-> > +                     return ret;
-> > +
->
-> The len =3D=3D 1 case is for commands that do not have parameters right? =
-I
-> think that adding some comments explaining this to make it clear why
-> there is an early return.
-
-Added a comment in v6.
-
-> I'm happy with the implementation now, thanks a lot for bearing with
-> me and your patience iterating over this series.
->
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
-No problem at all, happy to work with you.
-Thank you for the review.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org,
+ "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20260911102939.2485750-1-ridong.chen@linux.dev>
+ <20260911102939.2485750-3-ridong.chen@linux.dev>
+ <9c8c7c91-b159-4342-8af7-3a8171e85389@linux.alibaba.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <9c8c7c91-b159-4342-8af7-3a8171e85389@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---
-Thanks,
-Amit
+
+On 9/14/2026 3:47 PM, Baolin Wang wrote:
+> 
+> 
+> On 9/11/26 6:29 PM, Ridong Chen wrote:
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> MGLRU's scan_folios() emits the classic-LRU tracepoint
+>> trace_mm_vmscan_lru_isolate(), which predates MGLRU. It reports the
+>> scan/isolate counts and the LRU type, but carries no generation or
+>> memcg context, so a trace of an MGLRU run cannot tell which memcg a
+>> given scan belongs to, nor how far reclaim has progressed through the
+>> generations.
+>>
+>> Add mm_mglru_scan_folios next to it, reporting the same counters plus
+>> nr_sorted (folios moved to a younger generation by sort_folio()) and
+>> the MGLRU context the classic tracepoint lacks: the memcg id, and the
+>> max_seq, tier and min_seq of the type being scanned.
+>>
+>> scan_folios() is the MGLRU-specific layer where folios are actually
+>> scanned, so it has no classic-LRU counterpart. That the classic
+>> trace_mm_vmscan_lru_isolate() has lived here stably shows this is a
+>> long-lived place to hook, and the new tracepoint can be enabled on its
+>> own to observe the MGLRU-specific information. The existing tracepoint
+>> is left unchanged.
+>>
+>> Assisted-by: Claude:claude-opus-4-8
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   include/trace/events/vmscan.h | 63 +++++++++++++++++++++++++++++++++++
+>>   mm/vmscan.c                   |  6 ++++
+>>   2 files changed, 69 insertions(+)
+>>
+>> diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.h
+>> index 8a872990b4be..5defa8f6719c 100644
+>> --- a/include/trace/events/vmscan.h
+>> +++ b/include/trace/events/vmscan.h
+>> @@ -392,6 +392,69 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
+>>           __print_symbolic(__entry->lru, LRU_NAMES))
+>>   );
+> 
+> [snip]
+> 
+>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>> index 2554a6513aa8..67f59aa73fb9 100644
+>> --- a/mm/vmscan.c
+>> +++ b/mm/vmscan.c
+>> @@ -4876,6 +4876,12 @@ static int scan_folios(unsigned long nr_to_scan, struct 
+>> lruvec *lruvec,
+>>       trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
+>>                   scanned, skipped, isolated,
+>>                   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
+>> +    trace_mm_mglru_scan_folios(lruvec,
+>> +                   sc->reclaim_idx, sc->order, nr_to_scan,
+>> +                   scanned, sorted, skipped, isolated,
+>> +                   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON,
+>> +                   lrugen->max_seq, tier,
+>> +                   lrugen->min_seq[type]);
+> 
+> Both tracepoints will print some duplicated content, and I'm not sure it's worth 
+> a new tracepoint just to trace max_seq and min_seq.
+> 
+> Anyway, I'm not against this patch, but I'd like to hear others' opinions.
+
+Thank you for your review.
+
+Since the lruvec is per memcg and per node, we would like to know how the memcg 
+scans and reclaims its lruvec.
+
+I am also concerned that the content may be duplicated where we place it here. 
+However, with Barry's suggestion, it is stable here. What is more, the trace is 
+under the control of the trace event gate. It is convenient to control and would 
+not lead to any regression when they are disabled.
+
+As my cover letter mentions, with the current trace events, we don't know when 
+the per-memcg lruvec ages, when it is scanned and reclaimed, or with what 
+seq(gen). With this series, we can tell the memcg aging and reclaim actions.
+
+-- 
+Best regards
+Ridong
+
