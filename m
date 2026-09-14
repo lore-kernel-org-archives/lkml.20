@@ -1,109 +1,56 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31A5475320
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC46D303C8A;
+	Mon, 14 Sep 2026 14:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394767; cv=none; b=X5u+EkHd9ZzOT+dxiO2c845mvIYtO4OZtZ7BhZrTNMcMP2oYoYN1D6CjCencta1B+/3JJsrodw6kVaRxeBtPPlTmhMZosxCx4WYIAM+o9RNMDFzwC10Gkzrp7efSplI7NzuV8Sy9jhz4c5dAssQ/CdvkJF2bNCymHaSLyBcQTTc=
+	t=1789394788; cv=none; b=Nkq64QwSO9cfOYPuqH/TIPEiVrrpTDWnxZR1K+1yLojgCG6o83xdsOc9YMXbkUVUeodWQcGXoUE54ooxMejC0rgQEOSM9HwECJh64lWk6C4hocpJW+xBZ8iRWnV4+xDT3hoQTy82bNQRw3zTT0aYkMNAtgzygiV3ysL0Za4/EAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394767; c=relaxed/simple;
-	bh=ntRH/yJFT8bnr3NA7fpl1u0UWwgPQd1nw1mxGnJ3x0Q=;
+	s=arc-20240116; t=1789394788; c=relaxed/simple;
+	bh=kEbhPZqdypUYH5zuM3CM3xRPQdHZ9jN8Yu7SKo3bj+o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aWkNhVDuZBQ5BTs07tHj82fLwDo8yuI6BTZS74z04bwIdTBqLRZg/HD44lU7VjVk6gs8RJxPD9yZOZkbyqbVSpWa+e0v/bPW+ro8f9r6X7cUZfdf6n0Cpijs4u3Cg298U3fR9PDrYYUCDsPy9KDOgp5XEPZINpbDBWjazqMnH+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S5LpRl7f; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=D7DZlitN; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NGm/9aQ6nWdkVDiBr3GNpBMK+SooH+spQi28p3x7wYJifyTMRQFfGw1tBqFdoinnGaB5Z3ov/R7CgRtEaUaj9IoQdVy4dkDj01/k2Jk+SXnFnkmaZqNEBnoFS/6vp9uHZ4WeE9LRfMww3hq4dnBKpXdVnkC009tsk+1P9u67i9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lxW4m4Ei; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S5LpRl7f";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="D7DZlitN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789394761;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/wHJSL8csboMYxIPrt9fIoOx8qVsPB687MZL7EWYIGI=;
-	b=S5LpRl7f7638xXAMrD7Ef1/RnI/eoZwKcWqosBwe/7vmqOQZOKVbFTR58VFSgsw6q+GTLl
-	QYEhRuw5fASUgutg/YETlluVJaD/AMfei2mQ6udNPNtH0/Vyh+Gbxng6n3O6kJeY4gs7KD
-	B/7/i5C2POUAFa5gQVBHS1KUnG6agUc=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-433-Edou5225OSmcLOMZbSAJlA-1; Mon, 14 Sep 2026 10:05:59 -0400
-X-MC-Unique: Edou5225OSmcLOMZbSAJlA-1
-X-Mimecast-MFC-AGG-ID: Edou5225OSmcLOMZbSAJlA_1789394758
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93909014c85so629655985a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:05:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789394758; x=1789999558; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/wHJSL8csboMYxIPrt9fIoOx8qVsPB687MZL7EWYIGI=;
-        b=D7DZlitN6frSkTx5Fw9svg0AC/DZ4eijMsFnuj1VRu9YhrSifzJh19FSlbooCf7u1F
-         +baduFVexaf+2cocwWo90s/9iDkeSLujgj6xSanXmiAOgoZO2Q+C/EapDke0jNFbavIK
-         Iz1tCIbnDqtGxUU8ClCBeVeF7vAaFaFu5Vfu8eL8yvfAYnqGYG3xK3fZGt6ec7pQGdnC
-         ZaA1nKwi/FyQQw0q8wGwmlBGGqS2ZYgMH1z9SXflgQFtYSArH6iDigTM5lIZlHwLskoq
-         RQy8FpTKTHMuQjUv8d15IjUWcC8QfGXuETbZcbagn+laDMK0YEXxwmVmmm7dFB3AACrQ
-         ZlOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789394758; x=1789999558;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/wHJSL8csboMYxIPrt9fIoOx8qVsPB687MZL7EWYIGI=;
-        b=Iq2MeZq+hrOJlQyS0aeMRcpPqJJoUtunxAJMJx8jd7s3KW9fkmRMxfohYn89RYtmmH
-         BiKRxeMrWre6RqJG2IlsfS+HGyn9wVWg6LZZBGmlMBmh63dhIkGXpXzJVsr6vW5e0Rh9
-         vdgWWueuLXmfvZ4D6L/8T7l/JWAO6JsCU5EQa2Oq11ddh9jwQgvBOTGBW4VWxk54aUz2
-         8z63K29uOMVjDHH4CGjorrSiDwv6Ee67tO5ycDTsJ5OU7pUTKeJw42bDaV4zWDUXoU2U
-         VxwgZ4zKGex76gpTVGCuJYPw9a+dAUDcWLHsbF7R3vXKxffII2qIxwU0VsD8NdGoqCY2
-         85/A==
-X-Forwarded-Encrypted: i=1; AKwUvBy+rE4KRDMU4uz2hutZP5XTmfEp6yGeHC/Je748oxbDzkKiOwXB1J+KHk9otP92pny04YNR7sKI/RNZH7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lI38230KSPY875zPQq06oLmFXrppfy4OZ+eDzJgqV1riPJxns5
-	8OUHC2UYG1gNYOT5jb4rdfT961Twy9L0ye0zCdyi7O449wVahjgYYa6TvjoeGyRXtgE1VUlB4ON
-	N30feXZPNPD4GCc+UHkAl488LUa5fbqMRKblqhxUmi10sq7TJQ9S+6CkyIpisvJw6lg==
-X-Gm-Gg: AYBFou2H4xAauKmtdNW7vbfuqsIPQ49RoCnTzyVgybdCq2SkWUVJ9aPmfVzFq7BpxGu
-	VwPPj58ALXpdAuNalk603JUrLBikfej9A/tjW9aap0p50a9The4aVAho1NXfyFmXpagDzxOLC0u
-	qJui31KXbcxJ2pXlj9DwDx6P5+N0nbm8VakhUfi1dO/CmlzlvIsenx/frJZwXAidwgWgsz2XwPB
-	8EJZfFvYZiKN/3L5uqlXdBw/O4xDJ3+StOmcMgwqP3ZL7Gnceh4f2xIrZ8RtNu0+FgkwPX3zkSk
-	Lq6XoBttyqHAnNX73BdxcKp3+mTeo9rtyzObVemvYiWEKvBo1IT3ljSWJ3CiHGtTvCcyMLqCn+0
-	54mrGjcIV6SaaFc8Gk0i7nZ5bZ/jBx5TLLEQ=
-X-Received: by 2002:a05:620a:1a29:b0:939:6ec8:6928 with SMTP id af79cd13be357-93a2985d5c8mr389784485a.16.1789394758162;
-        Mon, 14 Sep 2026 07:05:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a29:b0:939:6ec8:6928 with SMTP id af79cd13be357-93a2985d5c8mr389765885a.16.1789394756851;
-        Mon, 14 Sep 2026 07:05:56 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ed67a93dsm906151985a.43.2026.09.14.07.05.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 07:05:55 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:05:53 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Edward-JW Yang <edward-jw.yang@mediatek.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Irving-CH Lin <irving-ch.lin@mediatek.com>
-Subject: Re: [PATCH v4 00/24] MT8189: Add support for system and base clock
- controllers
-Message-ID: <aqf_QZpOIj-170Am@redhat.com>
-References: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
- <amuWdRD-TBQtFT_4@redhat.com>
- <1f6bdf69-c3fe-4e1d-8ff8-0e36d9f4e063@collabora.com>
- <aqf6NH-xrMtCQppv@redhat.com>
- <f2bb7446-bfbd-4598-ba95-d9561a4e132b@collabora.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lxW4m4Ei"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 733C91570;
+	Mon, 14 Sep 2026 07:06:22 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0ED323F86F;
+	Mon, 14 Sep 2026 07:06:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789394786; bh=kEbhPZqdypUYH5zuM3CM3xRPQdHZ9jN8Yu7SKo3bj+o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lxW4m4EivxqOzcC3wG8EsJ1ftz5SRskIH7wLNcW2DE+3sE8I/m6oAN1mCVJmH3B/p
+	 oNmCAl8S9o/4X11xWRjGj1jaU2iaj7bnjDrgnlbD6dRJLr+QL9lbkQptMzaMySRmlm
+	 BuYbFyQ+p/R3Y6CW+snj8mCVrhfLiaSJJRZFbu5s=
+Date: Mon, 14 Sep 2026 15:06:20 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [PATCH v3 3/3] kselftest: mm: introduce size_to_shift() helper
+Message-ID: <aqf_XGKDq6jH6pJW@e129823.arm.com>
+References: <20260914-fix_hpage_macro-v3-0-c9a305a01d39@arm.com>
+ <20260914-fix_hpage_macro-v3-3-c9a305a01d39@arm.com>
+ <b88f4ec0-61a8-47b0-901a-d63db115936c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -112,50 +59,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f2bb7446-bfbd-4598-ba95-d9561a4e132b@collabora.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+In-Reply-To: <b88f4ec0-61a8-47b0-901a-d63db115936c@kernel.org>
 
-Hi Angelo,
-
-On Mon, Sep 14, 2026 at 03:48:20PM +0200, AngeloGioacchino Del Regno wrote:
-> On 9/14/26 15:44, Brian Masney wrote:
-> > On Fri, Jul 31, 2026 at 12:04:49PM +0200, AngeloGioacchino Del Regno wrote:
-> > > On 7/30/26 20:22, Brian Masney wrote:
-> > > > Should there be a new MAINTAINERS entry added? There's currently 221
-> > > > files under drivers/clk/mediatek/ and there's currently only one
-> > > > mediatek maintainer entry:
-> > > > 
-> > > >       MEDIATEK MT6735 CLOCK & RESET DRIVERS.
-> > > > 
-> > > > Is there anyone from mediatek (or elsewhere) that could act as a clk
-> > > > subsystem maintainer similar to what the other SoC vendors do? Help with
-> > > > reviews, send in pulls, etc?
-> > > > 
-> > > 
-> > > I may be able to step in, but I have to check if it's feasible, time-wise, on
-> > > my side.
-> > > 
-> > > Though, that won't happen until mid-September... because, well, I'm about to go
-> > > on holiday (in a few days from now).
+On Mon, Sep 14, 2026 at 04:01:02PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/14/26 09:30, Yeoreum Yun wrote:
+> > Introduce size_to_shift() for future users that need to
+> > obtain shift of a huge-page which is other than pmd_psize().
 > > 
-> > I'm checking in to see if you would be willing to be clk submaintainer
-> > for the MediaTek clk drivers?
+> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > ---
+> >  tools/testing/selftests/mm/vm_util.c | 10 +++++++++-
+> >  tools/testing/selftests/mm/vm_util.h |  1 +
+> >  2 files changed, 10 insertions(+), 1 deletion(-)
 > > 
-> > Brian
+> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> > index fd1432dc6152..1fef1266429f 100644
+> > --- a/tools/testing/selftests/mm/vm_util.c
+> > +++ b/tools/testing/selftests/mm/vm_util.c
+> > @@ -157,6 +157,14 @@ bool check_for_pattern(FILE *fp, const char *pattern, char *buf, size_t len)
+> >  	return false;
+> >  }
+> >  
+> > +uint64_t size_to_shift(uint64_t size)
+> > +{
+> > +	if (__builtin_popcountll(size) != 1)
+> > +		return 0;
+> > +
+> > +	return ffsl(size) - 1;
+> > +}
 > 
-> Time is lacking
+> Could likely just be an inline helper?
 
-I can relate...
+Okay. If there is no comments on today, I'll post tomorrow with this.
 
-> , but I get that one hour from me is more than zero, which is
-> a good thing.
-> 
-> Let's do it.
-
-Thank you. Please send a patch for MAINTAINERS when you get a
-chance.
-
-Thanks,
-
-Brian
-
+-- 
+Sincerely,
+Yeoreum Yun
