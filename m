@@ -1,214 +1,841 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011012.outbound.protection.outlook.com [52.101.57.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EBDF3A7593
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789418922; cv=none; b=YQh44gnBqTsYf8llM9PhIo9U6rpGhUaN8IM+23/JvAf9XA/NWjYP2+VbQUJmyo0AlSAb7BcOeaPHBcJp5HabDApb1pGZpJj+gVZ7X8qCpI3sXZVoZv4bQfYSyZrsYgfAhob6oBwRlGcfsi6+Ua/kQ03ieGHLWCZEjs+H64E3b6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789418922; c=relaxed/simple;
-	bh=fqJvoQBoKqoOv6P+b9IQ9mjZppt5o7nFP7HzcFKNFRw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iMYfhyz+viy9iSkC8j/HqV1+rH+3fdBHDo7eQ4/k27kzXhSv7jfPx+vxHlq+DQ6MZVUkv43YdYGk3ys+HqRGABFR+clotjsp0zxgQxkV78ArpR20QNYmpIbkAn4W1vhof4mI7MyRcLOmv8i+40X7R72+Gwu91EdBrsUYOYfalS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YfjqILKR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a90w5Riy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31B43DF000
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789418990; cv=fail; b=bEM4oWNVLv0X9E/0/2zOKgiCZs86O+2l+YAaXfvoZtFgwyb35ldcVshHyK4QuQ3jkZ85kqFyBeBMRLKv8b1LRp1VmDxV+7wR8KAFlgngrmwOWW6RTRmWagxM0lRFAf608HRztnQj1Gc3s2QBEIwf04FIOcSwnn5bwoZN9lc0v6c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789418990; c=relaxed/simple;
+	bh=9VmMiYWoNr9ePwnv3rxHIa19FUMiND2eMBeJ46/mxrI=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=QcuQqvdEeQ38vP/rwi+RZrJQ/ZxoQKN8B3oOh13vCeJIV2NpI3V4R85lmToaDgl7uIbRBs1ryBNYaj8rzXa8oJiVKZSV2fQ5feWwO8Sj/gFCPE/sgfRtNapE4idKLbKSwaMzvsOGqTrRBzCrfTWfpR0sc66+nY2IANVSBWOkKwU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=devzYFe3; arc=fail smtp.client-ip=52.101.57.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YfjqILKR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a90w5Riy"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EJYRQR1485179
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:48:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oNbtU+fYM6Bse6/ahm7UnypPYDX2ByCgnI422mmbSzw=; b=YfjqILKR54Hcu7Ag
-	fnSJtdYq4XcDNViCQaRA9/je893O6NtKOZOlV5Hc10pnpWZvK8b5DldupNePKVhR
-	6D/YwP0eIaaWOTL4X8R1jlV1aLRiwePlvvuLoHjbxjkqbvtv2GmAQxizwPCuS8RA
-	JQ5SrvTdezavOG9dOYfGQ2HxX65GcMH2mbe9yGk1NpyZXDT3V/LlRySk0JJtgnT3
-	+2l6YogzrnmqJ1RMaWrkI0irds/sZegCTxg0Y35a6OmO2jFiASRY3bjPawZnL/An
-	bicjOpWu7lBhZkFxAZF9tH0dRLQNfhmUoIqKRJidebYXpxmobzm5YBwW4jfTh1+O
-	aH0XXw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpg2kt8mm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:48:40 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c85798977dcso5958225a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:48:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789418919; x=1790023719; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=oNbtU+fYM6Bse6/ahm7UnypPYDX2ByCgnI422mmbSzw=;
-        b=a90w5Riy5pc7kgUGoUf6Yp6v26jC1FGwvkDrwy0kXulzN6P/CneRFd+AKrL7l8POLB
-         qD2VOEwAOzIkU3ouyEaEvcyHKDWickvRmo9atOi6wZkjIPMwD7f+wvRfAfeqioTghpE2
-         /1G/PDpu0AZzEBOnQcZGBHokHJmnp7XgcNKWDsoNPrN//j0+1brOcXmUj6A6hAqDii2J
-         9gVksQHc+KjTtbILAwg5BjW8/mAjErhsFRxlekBo88VHaLcXY7xRDlpraqw0XuKKswPR
-         fxtDZkb8tBFJ8e78Pps9J8Qp0bEzzPjf8bHrUhvzH8wu/Bjz5CWziNEBKiU//QeahvOh
-         zm2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789418919; x=1790023719;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oNbtU+fYM6Bse6/ahm7UnypPYDX2ByCgnI422mmbSzw=;
-        b=D4agGjsrH9eXhIppGdgw7KRHvouUxmdqZdHbl/AZ4bJW4oWJ6lSLdoy5kdqcqBiidu
-         YBPsDqF/zFGsnK5eVRJZCrqkpfLxFcL7TlNaiAh3evnPdJArEPTnzR+XMBjLMZ5946vm
-         tYWL0hhWQJ+xUT69fCbSdCppYvRHIkZ+tZBq6LNRN9jgAVOKHyEgeQRT0Lbf0r2lYgM6
-         3HpyVLOD4FW6Mhx2Q6fsbnUY8ENQ3UJFWkMVkZeBD0VEd2jPQcpFbo+YvhNfauIJ4Q8/
-         5ERkC1w6gJDhhghCoHd3/pwqOAF9kjkirfb90y/1beba7gmusUbN5QDIQ9DwB8Yce1TY
-         D/YQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybst3MxGi3124W3TIgbxkNZaBtQEio4SCh/ZsfJ0AbKvsvuNyNpsq9zz+sKUQ5LwAGxWg5zhyae/pV2qU=@vger.kernel.org
-X-Gm-Message-State: AFuF++moJCWMB2jW8/MdVFypEyzOqhS3ZqeOsfiyhRaHQi0LC/nYbBxm
-	wtk4s5KYVgOeIhg94y4h5riE8RiTc2eGi2frxxYYm7r3UzVx7qHWSTw64nhFPw1wSptJ4vwv3JD
-	zrz12xLlzmkSRt1kuwpALCzEj5bQoGLZiaQ8lEkM++48U+2oJacf8NPFg/wPoP1jX31A=
-X-Gm-Gg: AYBFou1NqTF2m435giiHUzNyyN/Uxkc0ZDT/aDU+YElY6gJwl3aoNVIanjO7T5nt719
-	bOZ6T4E/brcIOPj8oYwH8WE70GdnFVcwaDtprIae8JMdBODHnUpJfzy9jxoqaqkbUdoqRATWptG
-	gQnEegzlSdxhOGmefuY3TJWP9WE2DCQorLhUMFpJhf6hNngv20RHApS4Ie+/TaMakB4Ku4DwV+V
-	BLcNFtBxPP4aoU6fF09WvXDh+wWIjp3s35HFV9ICPTGl3KvoA7tfjrTbBTcU9+ISVG4yrk3z1Ou
-	A/hzBnYkZHL3yb+qZgrAojYq8khwPpY5RH1vS2VV5orUz+UouPAl63+0gKL8QGFodp3SYpK2bdS
-	nu719epD/GFp8Z4/D41xDTfXPcj8=
-X-Received: by 2002:a05:6300:6708:b0:3d3:ae40:51df with SMTP id adf61e73a8af0-3db405679demr8759765637.19.1789418919016;
-        Mon, 14 Sep 2026 13:48:39 -0700 (PDT)
-X-Received: by 2002:a05:6300:6708:b0:3d3:ae40:51df with SMTP id adf61e73a8af0-3db405679demr8759688637.19.1789418918602;
-        Mon, 14 Sep 2026 13:48:38 -0700 (PDT)
-Received: from localhost ([50.35.44.179])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bc03778c7sm18430177eec.9.2026.09.14.13.48.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 13:48:38 -0700 (PDT)
-Date: Mon, 14 Sep 2026 13:48:35 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-        Catalin
- Marinas <catalin.marinas@arm.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Jeremy Linton <jeremy.linton@arm.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Mark Rutland
- <mark.rutland@arm.com>,
-        Sudeep Holla <sudeep.holla@arm.com>, Will Deacon
- <will@kernel.org>,
-        Steven Price <steven.price@arm.com>,
-        Suzuki K Poulose
- <Suzuki.Poulose@arm.com>,
-        Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v11 5/7] virt: coco: arm-cca-guest: Rename TSM report
- source file
-Message-ID: <20260914134835.00001fb3@oss.qualcomm.com>
-In-Reply-To: <20260914060511.277948-6-aneesh.kumar@kernel.org>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
-	<20260914060511.277948-6-aneesh.kumar@kernel.org>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="devzYFe3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OpgZUvTF9E+VZiIbTd9veuQEBqXTTpBGfwvmAI5+1jwiFgzX9czNo39uD7XyQMIn+KeYqFO3h6anj8Fc77ExeTTZuuf4vBPDg6jegfaYcSAm5buf6tk2Yn4bHhi2+Wh3AsWFakDEw/JLEprqMCtviUM3vkWdVOJaOidBHa4cWiu3hq1I/UvZT0rrkdObTe/g2BOStvEv/55liA4YzG8EKlrAh/u8/piI8YN+xcy993PMZNPnCkw6vbGvjug/HiftlSrWx3feM0BjSEuee/272qOPQcQ0vmwPZ/zzGR4gMjByCfzC1gPra8mRct6j0AWJGF7YTtSj+VFsWUGTkS3tQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mTTV/jONeQoPFp/f5fYCWjngJ3nDWSAgp9WAzv3YRfs=;
+ b=YCCExGdQh4VTQdJy+TxPXr4H8FBycA1sgrca1mGjz38ZM64xXDU7hAjY0RiO9yZ9SJeJFQs5RArTS+iryKCRNu8pVWwysa3cml3UY0Qf40yUYc2uUQk7Sx1rtMp//uh9fLQmJDnIb59yQ2f7D1bgfELYvA2jgTJEGhDJEd6j971C+64W1DUhnO4jiOgUE/17+HO+XrN7wQ0z4SixmKCzucPhYZVrkhQwtR4yULl0Eo5ZClagT0oTAwydwVA1eeD0QaAHQ2KB2/3Ezx6D/5KEG3F/DLU8onJV27bZBIl5BRIwWC0PBk1To0+FvjY/+EaVCoVb+ARRhOnzOIauHlwsuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mTTV/jONeQoPFp/f5fYCWjngJ3nDWSAgp9WAzv3YRfs=;
+ b=devzYFe3nFLxx4s626FDyEop3qJhDdDMpzWWu3MVTtl1EYU4JU6boPCaoJXeDLPbzjy4yRCaQLBFuOrDr1jUj57eDOmbIKHfQLxP29axRSDxQkLgclhjaoddwC2E/w8qxO8nZkOsDCUWZ6ss8Tj0W4ywsKgbJlmn7uXJwNacIZ7ZJVIDGBiQ3LcnuhfEqkhZ6gNUXKwtcBoE4BkwftiER482ZSoga3KWwODXnyP69oNGI1sIuvqT9OWqH7tq3nceV9Htaou3CX8cDX10Jewtb5tp6wY1NpiXp+Ah9XUxiGnzuhh5e+Wit+zb+QcBHV9pb7BM08kY4j1nGTrjxBCmEw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by PH8PR12MB7206.namprd12.prod.outlook.com (2603:10b6:510:226::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 20:49:32 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 20:49:32 +0000
+From: Yury Norov <ynorov@nvidia.com>
+To: linux-kernel@vger.kernel.org,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Jakub Kicinski <kuba@kernel.org>
+Cc: Yury Norov <ynorov@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	David Laight <david.laight.linux@gmail.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Yury Norov <yury.norov@gmail.com>
+Subject: [PATCH] bitfield: get rid of __MAKE_OP machinery
+Date: Mon, 14 Sep 2026 16:49:29 -0400
+Message-ID: <20260914204929.240310-1-ynorov@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BL1P221CA0005.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c5::19) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: dxlu4jDPgb4Ab7i-n5m-W7GFRaJdqpj8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDI5NiBTYWx0ZWRfX6HXyCL+yyaSW
- ybB8C/NufhCgy60TYWDw2o1sy0JqX8K6aZWF2NyoKov6QpfuiHmgWUyZxvtEIo1d8IBjjYXrKtZ
- sJMeghLpsGh/aSHV9EWg5bEaQiZyVkQuz4UHLj/NVNaY204xBejWL99RWJuc/tsfB+uaRvOteHl
- QDzbH1U9k8oBIOq6dHl+b8BjbA60AQwq3+HoOjBS+b9dUhmGhbTnrzeTUAm4p5d5t4ZD31BXxM/
- LfVDYgTHvwaXQqAPimPb38Z8fd097e4qz78Jw24l8cXp0VVG2NoC1Ai6BoVhmOpMqUvuzhnfbc/
- bytHN/JBI0ApZ3CrSocRpGhaA6IkpH0m0rML6dk6DPQ70Xgagh+0u3Lvf2RhYLgi/iRnq0pvce/
- grQwOMCoJqY4TwykAThqT2KDnju9fiygP6PjjBlf528N6Ekbk9hA0TomJwew84l9nyKG3w83HQf
- MUiuMM0VetQy6wGIlpA==
-X-Proofpoint-GUID: dxlu4jDPgb4Ab7i-n5m-W7GFRaJdqpj8
-X-Authority-Analysis: v=2.4 cv=M7TYuCws c=1 sm=1 tr=0 ts=6aa85da8 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=Ikd4Dj_1AAAA:8 a=WpFFXPemFeC_EDwlIHcA:9 a=CjuIK1q_8ugA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDI5NiBTYWx0ZWRfX+m7n9HOk2fsd
- CtnaOn9AQRbtRBdc4EuDVVWJKPA1BQ2aFhcVs3N1y/SwaRfLuVL6AXjJtRd8ImkIjSfzPSqWas8
- XgDks3u78Ng4ko+N4m8VcAnq1rRfNx4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_04,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140296
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|PH8PR12MB7206:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec4c5db0-93a2-432f-d4ad-08df12a1ad7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	PPMNK6qqhkA7APbs/A3TWYuzRR2m5OIgQ1LH+uNv7eyjKBUlEsm8j78/wOOS5BlJ0MrsnYnn9ehfUS210CEkmQsgvde3EDTogec+DGZvk4yo7ogTcUbemEvTKiEeVtXJg6J8Cd6GModgOecgImOtKPQnpWyRTqoJF3e4BObprQY/QMmGtkzFccSlKjROpmrR+7JG7nL352krAauYLbk59k0QrkXIeYdUUnEdcmOIXPPqzivgqDqv3H4pdz3v7aO7Yonz2LG0UhUfFF1GwHROHtYfD6ZIbJQQ32x/Kx2kgEqvI59u6ctUjbD53C9o0yXmexFBgiZVH5OtJ2vIx1JOGsdxNWwQwD6RDRFypFDvy1Ri8G4G+LNVYCiwi+LdH9ijKugPVSayJFy+POch3vka0ggwsJd3caTCeEQCHnGkKbfFj1KU6ZB3tInHXrvR1x1bjM3fTwVmuOcUKUOTC+ZN83fLyrbffPbiSCBuvHDyis06DQHK9RzjVBAuXm4cOIyYWaOnuaVbK8+eC7gMHAuI+ESLGjLfU/CJdlKKXpdFYVnvtXbJEGou5zu9aY2/N/TlUy6KlhqqtSQd5JEah0FKwl6QE0m2soArlYK2kGe9R89m/mEmnOtq6uFylj/gE9r94+vDfJ0dq4XJ7SDVxzAKIy5dwMWZ3sV3j+C26Bk8X4U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tIrO4KozXM5NDsepQhxkzK9OBqAZ7w5yyFm8hzF7M8K9tnnTnjAfTKBVYwNg?=
+ =?us-ascii?Q?Z2gDgZDknEvLA2dTp7Oj7457hbmwmppSF19hK/quwgDDcRuLyNi+jaaEQ8Tm?=
+ =?us-ascii?Q?Sxb5mAnVlfWHZkpYeQaNlND0hlczy3bu3JRlVuznbxfnZdzMC/DSgQA6BDQ2?=
+ =?us-ascii?Q?pOCpOI0iJhfGkXgYzzbneXvDB7Pt3X1m+2BL3bJ8UFfFpb5ziae8KPJWNpk2?=
+ =?us-ascii?Q?uVIxy+yepwslUJz12G2qzZSW4cQRPvDlYXIkcJTBbcXwtkjpdYPbCRqEDhIu?=
+ =?us-ascii?Q?wrXZxn62K42WNemouy93dmED+TMZMYN+VRFlorbZzfD9pC23xWaIGkELfp71?=
+ =?us-ascii?Q?Gh7OyKap25SZWHIM8LWDY7yeOEcETsIBF37/0PV/4vbvVE4dK5HQ09JuYHeC?=
+ =?us-ascii?Q?MkBHyTlUZFTdQgkly8iwuIsSV69eKVxW7BWyAS06WfyKHno13MTPaJ5tLo2P?=
+ =?us-ascii?Q?cT37XHU+I8eFs9yfba6MOTFVbD8Us6OUrMhvH0Ag9anGjxlBJL1p3U4UkBcX?=
+ =?us-ascii?Q?AIGXTBOPjHOarzuCcbLgZ0afeMsoCNA2WFzLKyuiN2ebhQppkSnA4uFyKtWo?=
+ =?us-ascii?Q?D222oAd/uwEpmEcUkT0kaZ8tVMLVSW3Iz0zgUSyxkjZiAK/8OQ6X9NXSfeBP?=
+ =?us-ascii?Q?AhnGIUVSq1RT47IEVR7flnOgfQO8ZbEDIRqu2kq5/E31wyIFSzUrNh3FpleU?=
+ =?us-ascii?Q?YEqHnJ9evmYDb5AvGWXRHJoXo7ZINHLK+thuvYJUnRRzo7tP6OcbgQC8RRJk?=
+ =?us-ascii?Q?8VQLkOBiUyg36PK3IcZ3QE4bJMuYXNAt+VEML+qbHSsKnvHkNpPzql6QTTPG?=
+ =?us-ascii?Q?LFISbxYX721tTp2fL5cDEQNi3UQRk1h5caWjPm+kCInlsSiOS8nseoJ2ZMDU?=
+ =?us-ascii?Q?1umIS+qSa1e044bRce+rA3BZrrAwalIRcr/RCZ2JYiaYyI3JaHy9L3R+f1Qo?=
+ =?us-ascii?Q?zx3JbWgfi3sdWrMHE8GeLWz0Nue33+pGa/c6nmaM+7GnrxikLWTM+qkaEA54?=
+ =?us-ascii?Q?IndhXrFO/AgpVartAQQDpoPrkkyBXmHgQWpNb7544F/qsVvx8e1CxBub03+S?=
+ =?us-ascii?Q?pTBe4xLtD/EaWVI4QIm9GEfwJIOvC+qOF+hmQvBQVozg2LLpPyBHl2rt1fnu?=
+ =?us-ascii?Q?qCQwHCVslxNYuDiGWjoN4+fi/UgMFus8F6w0L2HweUfMfUNtEm1gQk7Opol1?=
+ =?us-ascii?Q?OvNifnB2TGQlVTJvjBsNR3mcoImeB0POeFIBaC1KODg/vt5qzvIx1t7f6trT?=
+ =?us-ascii?Q?KCxXY0xo2JWD7HTHBynhimCom2WEbKJ/2VE1iJxigGaSjQ+vVUo0kYSg2Lta?=
+ =?us-ascii?Q?P/jJZD5VZHNjvyDjthraT74oLEb54jkUBMRf2Wx30U+PjG6W/4skANnafalI?=
+ =?us-ascii?Q?XUBM+V+Uz31sA4fpCIeC6kl3VnhmRGxcuwjsdQ1QIYlviKXyR/be6drNx05/?=
+ =?us-ascii?Q?dEHCJJxVx60C7iGGs0RYX9f0TLxvSRZyMP5lFY6rC57P0OBqVtX2AGlFjeSI?=
+ =?us-ascii?Q?PBXZ6Z0OiqYTOtxsUv8yGMgexg8vEAC4rG49oq+vPCzLWzRVA35MeRFXlos7?=
+ =?us-ascii?Q?waXBG9SlxcPMawG/4udReA7eaZmFTZLPQv1jvFDBc4eQrgyCcOpdx0VMVxz8?=
+ =?us-ascii?Q?TeXQWKtgra/yGR9CkG4wT+PabnsGgNbdpUR4qNURPpytXJ9gMj6+QVdO1+l+?=
+ =?us-ascii?Q?vXahFMA51k5bivnf/x4vfY6dz/soi0NLVyCD2BiK5w6u0FR2?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec4c5db0-93a2-432f-d4ad-08df12a1ad7c
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 20:49:32.1811
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ti4VifZs7q7RGlXqEpAe30lQYt/9j1NZEYGsuiLhs9VtliqmhaaxvRZK3/ddncHb2HVGcZse2v+U64eCUFAWBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7206
 
-On Mon, 14 Sep 2026 11:35:09 +0530
-"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
+The __MAKE_OP machinery hides the fixed-width bitfield helper definitions
+from source searches and makes the end result highly obscured and largely
+uncontrolled.
 
-> The Arm CCA guest driver currently only implements TSM report support, but
-> follow-up changes will add more TSM-related functionality to the same
-> module.
-> 
-> Rename arm-cca-guest.c to main.c and build it as an object of the
-> arm-cca-guest module. This leaves room for the module to grow additional
-> source files.
+This follows earlier discussions about making these helpers easier to
+find: [1], [2].
 
-Should probably mention the structure renames that you have in here.
-I wasn't expecting to see anything other than build system changes and
-a file rename.
+Move the explicit helpers and their shared checks into
+linux/bitfield-fix-width.h in both the kernel and tools headers, and
+include it from bitfield.h to preserve existing users.
 
-Jonathan
+The repeated overflow check is factored into __assert_field(), preserving
+the original condition and compile-time diagnostics.
 
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> ---
->  drivers/virt/coco/arm-cca-guest/Makefile                    | 2 ++
->  drivers/virt/coco/arm-cca-guest/{arm-cca-guest.c => main.c} | 6 +++---
->  2 files changed, 5 insertions(+), 3 deletions(-)
->  rename drivers/virt/coco/arm-cca-guest/{arm-cca-guest.c => main.c} (97%)
-> 
-> diff --git a/drivers/virt/coco/arm-cca-guest/Makefile b/drivers/virt/coco/arm-cca-guest/Makefile
-> index 69eeba08e98a..7564f4fcc4a4 100644
-> --- a/drivers/virt/coco/arm-cca-guest/Makefile
-> +++ b/drivers/virt/coco/arm-cca-guest/Makefile
-> @@ -1,2 +1,4 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  obj-$(CONFIG_ARM_CCA_GUEST) += arm-cca-guest.o
-> +
-> +arm-cca-guest-y += main.o
-> diff --git a/drivers/virt/coco/arm-cca-guest/arm-cca-guest.c b/drivers/virt/coco/arm-cca-guest/main.c
-> similarity index 97%
-> rename from drivers/virt/coco/arm-cca-guest/arm-cca-guest.c
-> rename to drivers/virt/coco/arm-cca-guest/main.c
-> index b741643d1364..80659f0885e9 100644
-> --- a/drivers/virt/coco/arm-cca-guest/arm-cca-guest.c
-> +++ b/drivers/virt/coco/arm-cca-guest/main.c
-> @@ -156,7 +156,7 @@ static int arm_cca_report_new(struct tsm_report *report, void *data)
->  	return ret;
->  }
->  
-> -static const struct tsm_report_ops arm_cca_tsm_ops = {
-> +static const struct tsm_report_ops arm_cca_tsm_report_ops = {
->  	.name = KBUILD_MODNAME,
->  	.report_new = arm_cca_report_new,
->  };
-> @@ -177,7 +177,7 @@ static int __init arm_cca_guest_init(void)
->  	if (!is_realm_world())
->  		return -ENODEV;
->  
-> -	ret = tsm_report_register(&arm_cca_tsm_ops, NULL);
-> +	ret = tsm_report_register(&arm_cca_tsm_report_ops, NULL);
->  	if (ret < 0)
->  		pr_err("Error %d registering with TSM\n", ret);
->  
-> @@ -191,7 +191,7 @@ module_init(arm_cca_guest_init);
->   */
->  static void __exit arm_cca_guest_exit(void)
->  {
-> -	tsm_report_unregister(&arm_cca_tsm_ops);
-> +	tsm_report_unregister(&arm_cca_tsm_report_ops);
->  }
->  module_exit(arm_cca_guest_exit);
->  
+With GCC 15.2.0 and x86-64 defconfig plus the bitfield KUnit tests, the
+before/after kernel builds are binary identical.
 
+The __MAKE_OP generates the following 40 functions (including the direct
+____MAKE_OP(u8,u8,,) invocation):
+
+  u8_encode_bits()
+  u8_replace_bits()
+  u8p_replace_bits()
+  u8_get_bits()
+  le16_encode_bits()
+  le16_replace_bits() [dead code]
+  le16p_replace_bits()
+  le16_get_bits()
+  be16_encode_bits()
+  be16_replace_bits() [dead code]
+  be16p_replace_bits() [dead code]
+  be16_get_bits()
+  u16_encode_bits()
+  u16_replace_bits()
+  u16p_replace_bits()
+  u16_get_bits()
+  le32_encode_bits()
+  le32_replace_bits() [dead code]
+  le32p_replace_bits()
+  le32_get_bits()
+  be32_encode_bits()
+  be32_replace_bits() [dead code]
+  be32p_replace_bits()
+  be32_get_bits()
+  u32_encode_bits()
+  u32_replace_bits()
+  u32p_replace_bits()
+  u32_get_bits()
+  le64_encode_bits()
+  le64_replace_bits() [dead code]
+  le64p_replace_bits() [dead code]
+  le64_get_bits()
+  be64_encode_bits()
+  be64_replace_bits() [dead code]
+  be64p_replace_bits() [dead code]
+  be64_get_bits()
+  u64_encode_bits()
+  u64_replace_bits()
+  u64p_replace_bits()
+  u64_get_bits()
+
+Functions marked with [dead code] have no in-tree callers and are
+removed by this change.
+
+Link: https://lore.kernel.org/all/20250214073402.0129e259@kernel.org/ [1]
+Link: https://lore.kernel.org/all/aeub59FBHbCy-KKP@yury/ [2]
+Assisted-by: OpenAI Codex
+Signed-off-by: Yury Norov <ynorov@nvidia.com>
+---
+ MAINTAINERS                              |   2 +
+ include/linux/bitfield-fix-width.h       | 235 ++++++++++++++++++++++++++++++
+ include/linux/bitfield.h                 |  49 +------
+ tools/include/linux/bitfield-fix-width.h | 236 +++++++++++++++++++++++++++++++
+ tools/include/linux/bitfield.h           |  49 +------
+ 5 files changed, 475 insertions(+), 96 deletions(-)
+ create mode 100644 include/linux/bitfield-fix-width.h
+ create mode 100644 tools/include/linux/bitfield-fix-width.h
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index be05b0c3684757fa2da3aa1f02265f6e9bfebcb2..03973f947121491a44a5dfd946b3c0649e7a77e2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4638,6 +4638,7 @@ BITMAP API
+ M:	Yury Norov <yury.norov@gmail.com>
+ R:	Rasmus Villemoes <linux@rasmusvillemoes.dk>
+ S:	Maintained
++F:	include/linux/bitfield-fix-width.h
+ F:	include/linux/bitfield.h
+ F:	include/linux/bitmap-str.h
+ F:	include/linux/bitmap.h
+@@ -4658,6 +4659,7 @@ F:	lib/find_bit_benchmark.c
+ F:	lib/region_alloc_benchmark.c
+ F:	lib/test_bitmap.c
+ F:	lib/tests/cpumask_kunit.c
++F:	tools/include/linux/bitfield-fix-width.h
+ F:	tools/include/linux/bitfield.h
+ F:	tools/include/linux/bitmap.h
+ F:	tools/include/linux/bits.h
+diff --git a/include/linux/bitfield-fix-width.h b/include/linux/bitfield-fix-width.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..fba86bb76999f1d9a96045dbdddb72f4806a305e
+--- /dev/null
++++ b/include/linux/bitfield-fix-width.h
+@@ -0,0 +1,235 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef _LINUX_BITFIELD_FIX_WIDTH_H
++#define _LINUX_BITFIELD_FIX_WIDTH_H
++
++#include <linux/compiler.h>
++#include <linux/types.h>
++#include <asm/byteorder.h>
++
++extern void __compiletime_error("value doesn't fit into mask")
++__field_overflow(void);
++
++extern void __compiletime_error("bad bitfield mask")
++__bad_mask(void);
++
++static __always_inline
++u64 field_multiplier(u64 field)
++{
++	if ((field | (field - 1)) & ((field | (field - 1)) + 1))
++		__bad_mask();
++	return field & -field;
++}
++
++static __always_inline
++u64 field_mask(u64 field)
++{
++	return field / field_multiplier(field);
++}
++
++#define field_max(field)	((typeof(field))field_mask(field))
++
++#define __assert_field(v, field)						\
++	do {								\
++		if (__builtin_constant_p(v) &&				\
++		    ((v) & ~field_mask(field)))				\
++			__field_overflow();				\
++	} while (0)
++
++static __always_inline __must_check
++__u8 u8_encode_bits(u8 v, u8 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline __must_check
++__u8 u8_replace_bits(__u8 old, u8 val, u8 field)
++{
++	return (old & ~field) | u8_encode_bits(val, field);
++}
++
++static __always_inline
++void u8p_replace_bits(__u8 *p, u8 val, u8 field)
++{
++	*p = (*p & ~field) | u8_encode_bits(val, field);
++}
++
++static __always_inline __must_check
++u8 u8_get_bits(__u8 v, u8 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__le16 le16_encode_bits(u16 v, u16 field)
++{
++	__assert_field(v, field);
++	return cpu_to_le16((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++void le16p_replace_bits(__le16 *p, u16 val, u16 field)
++{
++	*p = (*p & ~cpu_to_le16(field)) | le16_encode_bits(val, field);
++}
++
++static __always_inline __must_check
++u16 le16_get_bits(__le16 v, u16 field)
++{
++	return (le16_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__be16 be16_encode_bits(u16 v, u16 field)
++{
++	__assert_field(v, field);
++	return cpu_to_be16((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline __must_check
++u16 be16_get_bits(__be16 v, u16 field)
++{
++	return (be16_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__u16 u16_encode_bits(u16 v, u16 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline __must_check
++__u16 u16_replace_bits(__u16 old, u16 val, u16 field)
++{
++	return (old & ~field) | u16_encode_bits(val, field);
++}
++
++static __always_inline
++void u16p_replace_bits(__u16 *p, u16 val, u16 field)
++{
++	*p = (*p & ~field) | u16_encode_bits(val, field);
++}
++
++static __always_inline __must_check
++u16 u16_get_bits(__u16 v, u16 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__le32 le32_encode_bits(u32 v, u32 field)
++{
++	__assert_field(v, field);
++	return cpu_to_le32((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++void le32p_replace_bits(__le32 *p, u32 val, u32 field)
++{
++	*p = (*p & ~cpu_to_le32(field)) | le32_encode_bits(val, field);
++}
++
++static __always_inline __must_check
++u32 le32_get_bits(__le32 v, u32 field)
++{
++	return (le32_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__be32 be32_encode_bits(u32 v, u32 field)
++{
++	__assert_field(v, field);
++	return cpu_to_be32((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++void be32p_replace_bits(__be32 *p, u32 val, u32 field)
++{
++	*p = (*p & ~cpu_to_be32(field)) | be32_encode_bits(val, field);
++}
++
++static __always_inline __must_check
++u32 be32_get_bits(__be32 v, u32 field)
++{
++	return (be32_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__u32 u32_encode_bits(u32 v, u32 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline __must_check
++__u32 u32_replace_bits(__u32 old, u32 val, u32 field)
++{
++	return (old & ~field) | u32_encode_bits(val, field);
++}
++
++static __always_inline
++void u32p_replace_bits(__u32 *p, u32 val, u32 field)
++{
++	*p = (*p & ~field) | u32_encode_bits(val, field);
++}
++
++static __always_inline __must_check
++u32 u32_get_bits(__u32 v, u32 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__le64 le64_encode_bits(u64 v, u64 field)
++{
++	__assert_field(v, field);
++	return cpu_to_le64((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline __must_check
++u64 le64_get_bits(__le64 v, u64 field)
++{
++	return (le64_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__be64 be64_encode_bits(u64 v, u64 field)
++{
++	__assert_field(v, field);
++	return cpu_to_be64((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline __must_check
++u64 be64_get_bits(__be64 v, u64 field)
++{
++	return (be64_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline __must_check
++__u64 u64_encode_bits(u64 v, u64 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline __must_check
++__u64 u64_replace_bits(__u64 old, u64 val, u64 field)
++{
++	return (old & ~field) | u64_encode_bits(val, field);
++}
++
++static __always_inline
++void u64p_replace_bits(__u64 *p, u64 val, u64 field)
++{
++	*p = (*p & ~field) | u64_encode_bits(val, field);
++}
++
++static __always_inline __must_check
++u64 u64_get_bits(__u64 v, u64 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++#endif /* _LINUX_BITFIELD_FIX_WIDTH_H */
+diff --git a/include/linux/bitfield.h b/include/linux/bitfield.h
+index 14f86e455a678b04a4588e80789ab74902324c9c..e3f7315c1d539bff0491f570b607881032ce1ddb 100644
+--- a/include/linux/bitfield.h
++++ b/include/linux/bitfield.h
+@@ -10,7 +10,7 @@
+ #include <linux/build_bug.h>
+ #include <linux/compiler.h>
+ #include <linux/typecheck.h>
+-#include <asm/byteorder.h>
++#include <linux/bitfield-fix-width.h>
+ 
+ /*
+  * Bitfield access macros
+@@ -211,53 +211,6 @@
+ 		*(_reg_p) |= (((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask));	\
+ 	})
+ 
+-extern void __compiletime_error("value doesn't fit into mask")
+-__field_overflow(void);
+-extern void __compiletime_error("bad bitfield mask")
+-__bad_mask(void);
+-static __always_inline u64 field_multiplier(u64 field)
+-{
+-	if ((field | (field - 1)) & ((field | (field - 1)) + 1))
+-		__bad_mask();
+-	return field & -field;
+-}
+-static __always_inline u64 field_mask(u64 field)
+-{
+-	return field / field_multiplier(field);
+-}
+-#define field_max(field)	((typeof(field))field_mask(field))
+-#define ____MAKE_OP(type,base,to,from)					\
+-static __always_inline __##type __must_check type##_encode_bits(base v, base field)	\
+-{									\
+-	if (__builtin_constant_p(v) && (v & ~field_mask(field)))	\
+-		__field_overflow();					\
+-	return to((v & field_mask(field)) * field_multiplier(field));	\
+-}									\
+-static __always_inline __##type __must_check type##_replace_bits(__##type old,	\
+-							base val, base field)	\
+-{									\
+-	return (old & ~to(field)) | type##_encode_bits(val, field);	\
+-}									\
+-static __always_inline void type##p_replace_bits(__##type *p,		\
+-					base val, base field)		\
+-{									\
+-	*p = (*p & ~to(field)) | type##_encode_bits(val, field);	\
+-}									\
+-static __always_inline base __must_check type##_get_bits(__##type v, base field)	\
+-{									\
+-	return (from(v) & field)/field_multiplier(field);		\
+-}
+-#define __MAKE_OP(size)							\
+-	____MAKE_OP(le##size,u##size,cpu_to_le##size,le##size##_to_cpu)	\
+-	____MAKE_OP(be##size,u##size,cpu_to_be##size,be##size##_to_cpu)	\
+-	____MAKE_OP(u##size,u##size,,)
+-____MAKE_OP(u8,u8,,)
+-__MAKE_OP(16)
+-__MAKE_OP(32)
+-__MAKE_OP(64)
+-#undef __MAKE_OP
+-#undef ____MAKE_OP
+-
+ #define __field_prep(mask, val)						\
+ 	({								\
+ 		auto __mask = (mask);					\
+diff --git a/tools/include/linux/bitfield-fix-width.h b/tools/include/linux/bitfield-fix-width.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..8c2a0fa224e9976d3587bb76c947b7cf8df4b8bb
+--- /dev/null
++++ b/tools/include/linux/bitfield-fix-width.h
+@@ -0,0 +1,236 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef _LINUX_BITFIELD_FIX_WIDTH_H
++#define _LINUX_BITFIELD_FIX_WIDTH_H
++
++#include <linux/compiler.h>
++#include <linux/kernel.h>
++#include <linux/types.h>
++#include <asm/byteorder.h>
++
++extern void __compiletime_error("value doesn't fit into mask")
++__field_overflow(void);
++
++extern void __compiletime_error("bad bitfield mask")
++__bad_mask(void);
++
++static __always_inline
++u64 field_multiplier(u64 field)
++{
++	if ((field | (field - 1)) & ((field | (field - 1)) + 1))
++		__bad_mask();
++	return field & -field;
++}
++
++static __always_inline
++u64 field_mask(u64 field)
++{
++	return field / field_multiplier(field);
++}
++
++#define field_max(field)	((typeof(field))field_mask(field))
++
++#define __assert_field(v, field)						\
++	do {								\
++		if (__builtin_constant_p(v) &&				\
++		    ((v) & ~field_mask(field)))				\
++			__field_overflow();				\
++	} while (0)
++
++static __always_inline
++__u8 u8_encode_bits(u8 v, u8 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline
++__u8 u8_replace_bits(__u8 old, u8 val, u8 field)
++{
++	return (old & ~field) | u8_encode_bits(val, field);
++}
++
++static __always_inline
++void u8p_replace_bits(__u8 *p, u8 val, u8 field)
++{
++	*p = (*p & ~field) | u8_encode_bits(val, field);
++}
++
++static __always_inline
++u8 u8_get_bits(__u8 v, u8 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++static __always_inline
++__le16 le16_encode_bits(u16 v, u16 field)
++{
++	__assert_field(v, field);
++	return cpu_to_le16((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++void le16p_replace_bits(__le16 *p, u16 val, u16 field)
++{
++	*p = (*p & ~cpu_to_le16(field)) | le16_encode_bits(val, field);
++}
++
++static __always_inline
++u16 le16_get_bits(__le16 v, u16 field)
++{
++	return (le16_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline
++__be16 be16_encode_bits(u16 v, u16 field)
++{
++	__assert_field(v, field);
++	return cpu_to_be16((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++u16 be16_get_bits(__be16 v, u16 field)
++{
++	return (be16_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline
++__u16 u16_encode_bits(u16 v, u16 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline
++__u16 u16_replace_bits(__u16 old, u16 val, u16 field)
++{
++	return (old & ~field) | u16_encode_bits(val, field);
++}
++
++static __always_inline
++void u16p_replace_bits(__u16 *p, u16 val, u16 field)
++{
++	*p = (*p & ~field) | u16_encode_bits(val, field);
++}
++
++static __always_inline
++u16 u16_get_bits(__u16 v, u16 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++static __always_inline
++__le32 le32_encode_bits(u32 v, u32 field)
++{
++	__assert_field(v, field);
++	return cpu_to_le32((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++void le32p_replace_bits(__le32 *p, u32 val, u32 field)
++{
++	*p = (*p & ~cpu_to_le32(field)) | le32_encode_bits(val, field);
++}
++
++static __always_inline
++u32 le32_get_bits(__le32 v, u32 field)
++{
++	return (le32_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline
++__be32 be32_encode_bits(u32 v, u32 field)
++{
++	__assert_field(v, field);
++	return cpu_to_be32((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++void be32p_replace_bits(__be32 *p, u32 val, u32 field)
++{
++	*p = (*p & ~cpu_to_be32(field)) | be32_encode_bits(val, field);
++}
++
++static __always_inline
++u32 be32_get_bits(__be32 v, u32 field)
++{
++	return (be32_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline
++__u32 u32_encode_bits(u32 v, u32 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline
++__u32 u32_replace_bits(__u32 old, u32 val, u32 field)
++{
++	return (old & ~field) | u32_encode_bits(val, field);
++}
++
++static __always_inline
++void u32p_replace_bits(__u32 *p, u32 val, u32 field)
++{
++	*p = (*p & ~field) | u32_encode_bits(val, field);
++}
++
++static __always_inline
++u32 u32_get_bits(__u32 v, u32 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++static __always_inline
++__le64 le64_encode_bits(u64 v, u64 field)
++{
++	__assert_field(v, field);
++	return cpu_to_le64((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++u64 le64_get_bits(__le64 v, u64 field)
++{
++	return (le64_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline
++__be64 be64_encode_bits(u64 v, u64 field)
++{
++	__assert_field(v, field);
++	return cpu_to_be64((v & field_mask(field)) * field_multiplier(field));
++}
++
++static __always_inline
++u64 be64_get_bits(__be64 v, u64 field)
++{
++	return (be64_to_cpu(v) & field) / field_multiplier(field);
++}
++
++static __always_inline
++__u64 u64_encode_bits(u64 v, u64 field)
++{
++	__assert_field(v, field);
++	return (v & field_mask(field)) * field_multiplier(field);
++}
++
++static __always_inline
++__u64 u64_replace_bits(__u64 old, u64 val, u64 field)
++{
++	return (old & ~field) | u64_encode_bits(val, field);
++}
++
++static __always_inline
++void u64p_replace_bits(__u64 *p, u64 val, u64 field)
++{
++	*p = (*p & ~field) | u64_encode_bits(val, field);
++}
++
++static __always_inline
++u64 u64_get_bits(__u64 v, u64 field)
++{
++	return (v & field) / field_multiplier(field);
++}
++
++#endif /* _LINUX_BITFIELD_FIX_WIDTH_H */
+diff --git a/tools/include/linux/bitfield.h b/tools/include/linux/bitfield.h
+index ddf81f24956ba069b2c1a7b096a6c9bf92fc9182..4508cefabec92d4e05a09ecf93b98bf4e304d305 100644
+--- a/tools/include/linux/bitfield.h
++++ b/tools/include/linux/bitfield.h
+@@ -9,7 +9,7 @@
+ 
+ #include <linux/build_bug.h>
+ #include <linux/kernel.h>
+-#include <asm/byteorder.h>
++#include <linux/bitfield-fix-width.h>
+ 
+ /*
+  * Bitfield access macros
+@@ -127,51 +127,4 @@
+ 		(typeof(_mask))(((_reg) & (_mask)) >> __bf_shf(_mask));	\
+ 	})
+ 
+-extern void __compiletime_error("value doesn't fit into mask")
+-__field_overflow(void);
+-extern void __compiletime_error("bad bitfield mask")
+-__bad_mask(void);
+-static __always_inline u64 field_multiplier(u64 field)
+-{
+-	if ((field | (field - 1)) & ((field | (field - 1)) + 1))
+-		__bad_mask();
+-	return field & -field;
+-}
+-static __always_inline u64 field_mask(u64 field)
+-{
+-	return field / field_multiplier(field);
+-}
+-#define field_max(field)	((typeof(field))field_mask(field))
+-#define ____MAKE_OP(type,base,to,from)					\
+-static __always_inline __##type type##_encode_bits(base v, base field)	\
+-{									\
+-	if (__builtin_constant_p(v) && (v & ~field_mask(field)))	\
+-		__field_overflow();					\
+-	return to((v & field_mask(field)) * field_multiplier(field));	\
+-}									\
+-static __always_inline __##type type##_replace_bits(__##type old,	\
+-					base val, base field)		\
+-{									\
+-	return (old & ~to(field)) | type##_encode_bits(val, field);	\
+-}									\
+-static __always_inline void type##p_replace_bits(__##type *p,		\
+-					base val, base field)		\
+-{									\
+-	*p = (*p & ~to(field)) | type##_encode_bits(val, field);	\
+-}									\
+-static __always_inline base type##_get_bits(__##type v, base field)	\
+-{									\
+-	return (from(v) & field)/field_multiplier(field);		\
+-}
+-#define __MAKE_OP(size)							\
+-	____MAKE_OP(le##size,u##size,cpu_to_le##size,le##size##_to_cpu)	\
+-	____MAKE_OP(be##size,u##size,cpu_to_be##size,be##size##_to_cpu)	\
+-	____MAKE_OP(u##size,u##size,,)
+-____MAKE_OP(u8,u8,,)
+-__MAKE_OP(16)
+-__MAKE_OP(32)
+-__MAKE_OP(64)
+-#undef __MAKE_OP
+-#undef ____MAKE_OP
+-
+ #endif
+-- 
+2.53.0
