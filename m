@@ -1,76 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3429839023D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1FC38DC43;
+	Mon, 14 Sep 2026 05:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365562; cv=none; b=qvJf5vsOlDHLF8xtdHK0PgRE+kWHnvTp+JLkTo2/K6BiCq3SIf0NCysqA/bIRJw4E6dR0vCiiLOBy0F2YN8LYpHukrib1ZRKcOlBLcACBNHZrN+iE8CU3BuRVDYMCYsV8B2v3rAEwzzCMDWjDHH3xMcfjWh6R+MC+KZOvTYsWjE=
+	t=1789365588; cv=none; b=Iqpz+ir4h7sYZJtSSY5khVmQOMHvo3fOB9FDrIHEhYGLiWHzR9hLZ6L7DbhsrIrL+xHpc5OIWEPiV7oFGJjCOhV8dciRAXfMlTFLFejtS3DHApnJjs4DW5hyeB0DiDZE+A8bqt7htm3cQ2cPgKxrEkexOyIUiR0EuLIbDviZNkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365562; c=relaxed/simple;
-	bh=h5I9HY19MpQ1lCvPUIUC1hs9lEXfo8z79X9TxaWr7/g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cKSxoSQf+9Bbou1xbPIoDkeFtMHHeUfBP1YljPngVIBNVMjilHxPODZ+22UTvTRo9TZXVHvvD1oBlAR1lrQrMzOJ8MLIosMUVPGGAJ+U8pt8XEWhICJigz3H3ztvmhAVtusSUDAU+gYL9YzlV0Ma/6fcjNIZ0904I6vBdzqVN5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYOs2YZu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789365588; c=relaxed/simple;
+	bh=pBh966lODtpbh0icAJ5LQuJV8RVZqXy67eLTo61PdeQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s/MBIuzJYSe0B8fTvxVk5qHxGZ4E6QvH2rm31w+ch9B7GPNzjbiPsInVjN45g2RQdFgvrdhscscA6Ya0nmqIUDoo23lNs1F3VIEr11kjTsJUIfQemmwkLBvcqVmn5tj/NZPSGjvhyQtzrglcQTbVxlwKtc8EKpLOax7pvBk/MOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=NmSo4jER; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYOs2YZu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C78291F000FF;
-	Mon, 14 Sep 2026 05:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789365557;
-	bh=HwgDrDnEblWNsNQxUseFgLL3m5bnPaTZRpQzIjhhgW4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=DYOs2YZuT0+Mxf3rfQU2AC8D9wUnr9Dv5XkagKJFBm6H/vdGfb4pyryeRsY6wvk/L
-	 BMAYEEjQWMOqNvf7kxPafTXsBN4hLTchDtouZI2R5DGxCaZuVdMT5QRR1jU04OGmtK
-	 Tj22GgN05jvO77EO4Sz/oxdR+qdjNmxEclHBpLYM7l77sZ3SszCWkeIBeioToE4/iT
-	 Q2U0c8MUdjsqSUXkHuZjnoUzLxEf44WnRW1gbpNqlnTjlnmqLk4D/AoJtaIb/Na0bK
-	 xg/b7GTDy7XqYcZU86lwN6FEmC07Cx+RDajeIp0Wlj4s+pjuAfqlS1yf7d8KKq3HJh
-	 MU/AD5w0odFKQ==
-From: Mike Rapoport <rppt@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>, 
- Samiullah Khawaja <skhawaja@google.com>
-Cc: David Matlack <dmatlack@google.com>, tarunsahu@google.com, 
- open list <linux-kernel@vger.kernel.org>, 
- "open list:KEXEC HANDOVER (KHO)" <kexec@lists.infradead.org>, 
- "open list:KEXEC HANDOVER (KHO)" <linux-mm@kvack.org>
-In-Reply-To: <20260910173659.1945246-1-skhawaja@google.com>
-References: <20260910173659.1945246-1-skhawaja@google.com>
-Subject: Re: [PATCH v2 0/1] liveupdate: Add documentation for file
- dependencies
-Message-Id: <178936555084.3691424.8106623729087785082.b4-ty@b4>
-Date: Mon, 14 Sep 2026 08:59:10 +0300
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="NmSo4jER"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id C15F91FB7B;
+	Mon, 14 Sep 2026 07:59:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789365577;
+	bh=CFirnp4rcQADvcn62AmTmPFCZMeve+7sCvYxo8PgTBg=; h=From:To:Subject;
+	b=NmSo4jERgiI/C62kJqShM5aU4chxp0UiSj8dx2VAVve/2ktWG4e4BLLu9sX76L/p/
+	 fT5cQ9CgqUDuXg9uts3P3U7dAYauLencxLImbUI1/3YNW6J1qNJKhuK3rQSjtumbhB
+	 6HvvgVKWagPTK1yruXU5QJ7dd08aU1Maz3W2uw+cYb+sQ4ytLI5pHsDuSNi6FoOK9J
+	 QOHB6focBBS9uvTVfBg4x2Ga68x5Dkna316fBnDogkawHZnv0L9/8h1ZfM5StOP7qt
+	 3TL/kmqAeQ4VTg0D2a/Ehue4iLrOzkQF8TvmBKCsK6Ei/QQMJQlv8p9SNGKFLGPEm1
+	 Agm1sEaaMHD6g==
+Date: Mon, 14 Sep 2026 07:59:35 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Kendall Willis <k-willis@ti.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, msp@baylibre.com,
+	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com,
+	vishalm@ti.com, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/2] Input: gpio-keys - support wakeup pinctrl state
+Message-ID: <20260914055935.GB19835@francesco-nb>
+References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
 
-On Thu, 10 Sep 2026 17:36:58 +0000, Samiullah Khawaja wrote:
-> liveupdate: Add documentation for file dependencies
+Hello Kendall,
+
+On Sat, Sep 12, 2026 at 04:33:52PM -0500, Kendall Willis wrote:
+> Add 'wakeup' pinctrl state to support separate pin wakeup
+> configurations for GPIO. Upon suspend the 'wakeup' pinctrl state is
+> chosen if it exists. On resume the 'default' pinctrl state is selected.
+> The 'wakeup' pinctrl state allows wakeup from low-power states if a
+> specific pin configuration is needed.
 > 
-> I sent out v3 of liveupdate_get_file_incoming() and
-> liveupdate_get_token_outgoing() series to add documentation for
-> dependencies.
+> On TI K3 AM62 family of devices, the GPIO controller is turned off in
+> suspend to RAM states, so no interrupt can be received by the
+> controller. This prevents system wakeup from low-power states.
+> Alternatively, the pins can wakeup the system if a wakeup flag is set on
+> the pin by using pinctrl.
 > 
-> https://lore.kernel.org/all/20260820191854.1642931-1-skhawaja@google.com/
+> A corresponding device tree patch using the 'wakeup' pinctrl state can
+> be found under "arm64: dts: ti: k3-am62l3-evm: add wakeup-source for GPIO
+> button".
 > 
-> [...]
+> Tested GPIO wakeup from suspend on AM62L EVM and AM62P EVM.
+> 
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
 
-Applied to luo-internal-api branch of liveupdate/linux.git tree, thanks!
+This is going to be useful also for verdin am62 (verdin_key_wakeup /
+k3-am62-verdin.dtsi).
 
-[1/1] liveupdate: luo_file: Add documentation for dependencies
-      commit: 38dd32f08d19beb441f202e61d9dfede3b7f055b
-
-tree: https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux
-branch: luo-internal-api
-
---
-Sincerely yours,
-Mike.
-
+Thanks,
+Francesco
 
