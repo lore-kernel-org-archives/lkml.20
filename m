@@ -1,299 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f0.google.com (mail-ed2-f0.google.com [74.125.228.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0F4499F14;
-	Mon, 14 Sep 2026 18:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1E7351C13
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409658; cv=none; b=u8BSAtPxckX96rw9jL52oi/Z+hxcrjnoLNLFGwmbHDS2ZAuF40U/MWFWoCjKVlpEvccuV7fsOJssmvkFMZlapRKq28Y7A+saIS3TprRTXmZsrzJXebQfauFpsEogdPRgdq8pwufsedHarv2RS64z5m572VKige4Vl3slLw5aqlM=
+	t=1789409837; cv=none; b=XA9aATZmAttvB/DuVLtBOHeDYW5qp/XKKhrYyPork7P+o3fW939STDyq2dafskaqJLVw1oDJYYXk49YvadVdl4Pb+XC5oCf3a+ztrPLYTnBdGNo5NvIuNvLx3qV7+xerkNbnAZpWlAD1yjV7rHduHUYHtYhpGLi29eDHOXAbxbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409658; c=relaxed/simple;
-	bh=Her6yhG8c/Pu9YromXbt/KuJgoEzdzspjxJpC/NhJbk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H38FeY70qqJKX5RW4taSUIbBXc9HiAeg3a3FPy/FGxVLD90v/Uc+zJFSbw5gblOp+FSVMMQ8W50h942JiJkI7/BQtyTiJU2ZMq/fih0S2CLKEF6b8ccuAiTceJAShVv6fC3Ld5jPwPapTr/W2u3D0KCrmFL5UjJGYlMgTCEQvLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uJS3ewsv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789409837; c=relaxed/simple;
+	bh=Z6tnLZmfbZY9KJukSWtadBsrV3bxYzT97i5mms5gBBU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=hho4vdf+lb5lk7/5ezeE56n6L5ky0d3wJW2SOxMvoN3t+WU3mO4AAgs6pY6kUcdyBFCnajS/0R6Ysmrh3dE+EUkhUSQP4XNHNMqV+osFzCiNzTuFICU3D8a58Qr4Q/wUpTVuM5pFYLfoM1w1t2W1lmMwAigTFc6Ifx/em8XCp5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ljEN20HE; arc=none smtp.client-ip=74.125.228.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uJS3ewsv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F116DC4AF09;
-	Mon, 14 Sep 2026 18:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789409658;
-	bh=Her6yhG8c/Pu9YromXbt/KuJgoEzdzspjxJpC/NhJbk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=uJS3ewsvBANIlj5aylRX+D11xbZ/Q8vudEhviW73tsr5p+1tdXwLoKfuXKhHnTaQA
-	 xSw9z8V0chQiGiAOB2XxpaTd+F3ZXzV8rBFiHj0TK/mv7WXRS5KWGVBAvXAFmKXR+b
-	 RYFxSXCW9+ocGsPMxCpt5WjbohC5ug+MnKzlPtxk/a2vgBpkn5Gk0HPvTW2wl74dqp
-	 JAac+TIJN2PtopfjO/YEe7CA9fxOKmoZxVsmAKixitnkIJ6JyPO4wwAjiUTJ6YiFbW
-	 YyJmPGXNY4zUUKM1cyfSZWCcifUG0m+KTj9HPH8UuWoTzlJ/b7U1haqkANxd2GMkFf
-	 4ooN50+U2Vnsw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC932C88E7D;
-	Mon, 14 Sep 2026 18:14:17 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 14 Sep 2026 20:14:17 +0200
-Subject: [PATCH v3 4/4] backlight: qcom-wled: Read back the programmed
- brightness at probe
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ljEN20HE"
+Received: by mail-ed2-f0.google.com with SMTP id 4fb4d7f45d1cf-6a8a84cf27eso2297409a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:17:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789409831; x=1790014631; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MhwZKQH3naP48pBWrsTvWrJs+Fp5fgGMTIobqvnavu8=;
+        b=ljEN20HElxd9H8T1EKn4LuHkQus18lX3szBzvlm9slxRPtKIOPJ6rNRFfKffuaxnyU
+         ybyDiR/1RIl6QqA1UbElBeVpnOLpYOwuH9yrBPJW6XbA/VUw8sa3ewplFAAqkZ0hLOpj
+         eQpJPwQk2mikEFr5Oczfyd+l0sRywPHnFKqnN+4RjTiE48ARLt5oGtr/gkMdsfMVRfAg
+         Q3FWQ0M9uSBaYcNUIV0xzMfJzECrpVQNz3ZrTtzDCcQnuWD63zeiXmrGAycM+9+QFVrv
+         iPyXrlURabFvZxNgzVxQLMKF623pvmIaAsMZxbaobJlqKYikJfdKbiKTr0hfMSXBAa+m
+         UlZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789409831; x=1790014631;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MhwZKQH3naP48pBWrsTvWrJs+Fp5fgGMTIobqvnavu8=;
+        b=d1VIFbuR9vWRBf6Zg7JcBktZUsc6AVOdQHGi9BwhE1+5Q3w/XQtRJkFr2l/LfFb282
+         dr50wcuGRwtZb6kH/lDQUA8D2DwkKfk/XMb5ar/1VItwRlR7SGw83gRqKdVepX0UXvVc
+         GICJYzaeOdCJiG8lfZuuu9diGsA7LrTemk5+SIN+8YV272/02lausPThqyqTSSP6hQVj
+         H6DrekFwuxGUzPsql2XaBGa+yg1EcQQjVeOy7R64kDf6CGcT3S0EwjBcfjM23tfDbOxH
+         x/UNIKMs5mwg4zyWyMZcvcdfIIPSQiwregO1ZDAbXGFAMJor1FMl1D3qz9idulFOAS/x
+         l7pw==
+X-Forwarded-Encrypted: i=1; AKwUvByE/+MD8YaHlnsAON5zue2sTgHHoXnQ/YtnQ9y6/ODIg5svnV17ZylyaG6yRnvd2caojVGoKJ7BfexkjPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++moyNifZZ6XKwp9bzYDU7DLKJeW7Yixe9U2CIa82XYED5b24QxG
+	bRvuzsUkOcXh16CsvZ21ZWBRrDdeZNliCG5JIEBRUbkojxk3xOqS7lIe
+X-Gm-Gg: AYBFou12EDbWvfe/CckVMo5gigt+UuAbwCa3a2FIxPeYTg95r9o7meRu/dPusQB7RZD
+	VXyBDbiv0k4G7SjqK4DWS4tDV4RAslWqLPo1m0DTkIlvliv/QQ2t/uZOvw/dHbXnlxopWULJo+W
+	g43fAeQDi51o38CnzlGSuMpFmhDuiH8/qrk2OMW1v3BZcxaBVZFo00NqqSk/xiTkBIgBfVgiKsh
+	bidrdLrnZemZJ++fX4V/CTUBUnC6qPCWjtEs5NNQEoWiUvwptprTJwIWaZhak1g1IcvJBio+Igp
+	ZNRkhV/YxKolbZXNaizKDBf4YKF9vjPM51vnW68GHX+cHmJXumcyIiwLMJ9jFulyt0Z/Y7QFgEe
+	/mBAXAw/YXP74asSVRMor69CfdOcUiw0vi6t4QvzuBpa7LgFQ80LB/Jaxs0xsCPQBTmBDRtmYFU
+	T2ruKL/nM016/vCRb/13BbJnOr0ZvSAGWGWOtjylFkrRZjBKUS3oWL5yKSQiUAHIjUAqPWsodcI
+	higiNG3zvgP5ub2FkZHI9iTLhMIHi77Zwvcitjs8tCRtKehks77Hs2ArhAtz8vywLztOwX/leyh
+	BzeueMx00xYpsuRb+3ZkxxXVrw1Od8Wkhfe6HA==
+X-Received: by 2002:a05:6402:4149:b0:6a6:c4b:c92f with SMTP id 4fb4d7f45d1cf-6a9f6227feamr2295917a12.9.1789409830894;
+        Mon, 14 Sep 2026 11:17:10 -0700 (PDT)
+Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9ba8f3ab9sm4370429a12.15.2026.09.14.11.17.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 11:17:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-qcom-wled-backlight-v3-4-d69fe9843841@ixit.cz>
-References: <20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz>
-In-Reply-To: <20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
- Kiran Gunda <quic_kgunda@quicinc.com>, 
- Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6845; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=Nidh9qw4K//eY6dG1HyoeNGnuAFJH6nbVwPXrtUb50U=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqDl4V+pJrmV2561jKJU01TGxU8vgcqrIh5X2a
- PlsSuXv6ESJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqg5eAAKCRBgAj/E00kg
- ckUyD/4kelPr0O/PIMcfSR+A8dfZvlicHAnRvsnN+cmtuK0OC3QRHLcyZnmSMxYm52OmlJ9g6Bo
- clOpYrBCRKVkkwqPYtRFTwb76dByJqUHR8uSPhY6YQpWXdLxJqM73lHsgCDC52dxoFs5Vv3DZC8
- RvdzYWpI6rDCsQ5vQIWPXWfkLe7z0cORtgAUXYW7ZFV4vHMKXZJy9owHFFcDLMDpHZx6IRM/r/g
- 3T5vTeFsGj8kX0DgRjBMFiwX6NnYyGCiXCrJ9Jq2/+Vf5ovJv0qcJJvthTagR6Gqs9NswdJI8WL
- bNoG2P/5Z87z5Lk+DojHqExxLYHnL7S+BNSRrfPmiA1cS/8SXyOgiIW6X2lEjdCxmKVnsb0aF7E
- YX1RNRn6fmo8ZihYxi6oH17H+fwmq1tE5Dv4Agg3DxDKlOjHhcM1LQ0DQESZOeo126EZBiFqSFx
- BsKhQy5mew9AMTiDiliXS2mKzwZaVuZqj2HYSuAbgrMuffuL21bvV2ShwAGVexqCgKvgwKbQ7M/
- svmTCV+tgboZauA8PxBt6wu6HRfenR11R/RL2f8QK/GW0O5G7zmjCWbsfjIyOXV9RYHjXyc6sOV
- 3knegkXTvUi1fdGjMaE7wYTKPn3jgWgiLA/9/bQRLfk9HhXQouMTUbrUmSym6c3tbrkZMb/DrnB
- 7+0Ax2FRYsLpz3w==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 20:17:09 +0200
+Message-Id: <DLF8UFBL6NEL.MAD9F5418DIG@gmail.com>
+Cc: "Hui Zhu" <zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v10 1/2] mm/bpf: Add bpf_proactive_reclaim
+ kfunc
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: "Hui Zhu" <hui.zhu@linux.dev>, "Roman Gushchin"
+ <roman.gushchin@linux.dev>, "JP Kobryn" <inwardvessel@gmail.com>, "Shakeel
+ Butt" <shakeel.butt@linux.dev>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Ihor Solodrai" <ihor.solodrai@linux.dev>,
+ "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song
+ Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
+ Olsa" <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Shuah
+ Khan" <shuah@kernel.org>, "Barry Song" <baohua@kernel.org>, "Geliang Tang"
+ <geliang@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-mm@kvack.org>,
+ <linux-kselftest@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <cover.1789091855.git.zhuhui@kylinos.cn>
+ <e00910f328c129fea716e9fd031dada328e60313.1789091855.git.zhuhui@kylinos.cn>
+In-Reply-To: <e00910f328c129fea716e9fd031dada328e60313.1789091855.git.zhuhui@kylinos.cn>
 
-From: David Heidelberg <david@ixit.cz>
+On Fri Sep 11, 2026 at 4:20 AM CEST, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+>
+> BPF programs can observe memory pressure on a cgroup (e.g. refault
+> stats via bpf_mem_cgroup_page_state()), but cannot act on it:
+> triggering reclaim on a chosen cgroup requires writing to
+> memory.reclaim, which BPF cannot do. Add bpf_proactive_reclaim(),
+> a sleepable kfunc which performs one proactive reclaim pass on a
+> given memory cgroup, similar to a write to memory.reclaim but
+> without retrying until the target is reached, so that when and how
+> hard to reclaim is BPF policy rather than hard-coded thresholds.
+>
+> Since some bpf program types may be invoked while holding fs locks,
+> limit the kfunc to BPF_PROG_TYPE_SYSCALL only, to avoid deadlocking
+> in filesystem shrinkers on the reclaim path. A SYSCALL program can
+> invoke the kfunc directly, or asynchronously from its bpf_wq or
+> task_work callbacks, which run in process context and keep the
+> SYSCALL program type.
+>
+> The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+> following the precedent of high_work_func(), the memory.high
+> workqueue fallback. Note that only the reclaim target is capped: the
+> actual scanning work and its duration are not bounded. Reclaiming more
+> than one batch is left to the BPF program rather than enforced by the
+> kfunc: with one call per bpf_wq callback and the same work item
+> requeued for the next batch, the program can also stop submitting
+> batches in between, e.g. once the target cgroup is dying.
+>
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> ---
+>  mm/bpf_memcontrol.c | 88 ++++++++++++++++++++++++++++++++++++++++++++-
+>  mm/internal.h       | 10 +++---
+>  2 files changed, 93 insertions(+), 5 deletions(-)
+>
+> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+> index 716df49d7647..d8827bc388ef 100644
+> --- a/mm/bpf_memcontrol.c
+> +++ b/mm/bpf_memcontrol.c
+> @@ -8,6 +8,8 @@
+>  #include <linux/memcontrol.h>
+>  #include <linux/bpf.h>
+>
+> +#include "internal.h"
+> +
+>  __bpf_kfunc_start_defs();
+>
+>  /**
+> @@ -159,6 +161,74 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct m=
+em_cgroup *memcg)
+>  	mem_cgroup_flush_stats(memcg);
+>  }
+>
+> +/**
+> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
+> + *                         cgroup
+> + * @memcg: the target memory cgroup to reclaim from
+> + * @size:  the amount of memory to reclaim, in bytes, clamped to
+> + *         MEMCG_CHARGE_BATCH (64 pages)
+> + * @swappiness: the reclaim swappiness, in the range
+> + *         [MIN_SWAPPINESS, SWAPPINESS_ANON_ONLY], where
+> + *         SWAPPINESS_ANON_ONLY means anon-only reclaim, or -1 to use
+> + *         the memcg's own swappiness
+> + *
+> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
+> + * memory.reclaim, but without retrying until @size is reached.
+> + *
+> + * Only the reclaim target is capped: @size is clamped to
+> + * MEMCG_CHARGE_BATCH, following the precedent of high_work_func(),
+> + * the memory.high workqueue fallback, which bounds each reclaim
+> + * request the same way. The actual scanning work and its duration
+> + * are not bounded. To reclaim more, call this kfunc repeatedly
+> + * instead of passing a larger @size.
+> + *
+> + * The kfunc can be called directly from a BPF_PROG_TYPE_SYSCALL
+> + * program, synchronously in the context of the thread running the
+> + * program, or from the bpf_wq and task_work callbacks of a SYSCALL
+> + * program, which run in process context and keep the SYSCALL program
+> + * type. It is registered for BPF_PROG_TYPE_SYSCALL only, because
+> + * generic sleepable programs may run with filesystem locks held or
+> + * in NOFS/NOIO contexts, where the reclaim path could deadlock on
+> + * those locks via filesystem shrinkers.
+> + *
+> + * For asynchronous reclaim of more than one batch, driving the
+> + * reclaim from a bpf_wq callback is recommended: call this kfunc
+> + * once per callback and requeue the same work item for the next
+> + * batch, instead of looping inside the callback and monopolizing a
+> + * workqueue worker, and give each target memcg its own work item,
+> + * as high_work_func() does with one work item per memcg. Whether
+> + * to submit the next batch is up to the BPF program, which can stop
+> + * at any point, e.g. once the target cgroup is dying.
+> + *
+> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
+> + * smaller than a page, or (unsigned long)-1 if @swappiness is out of
+> + * range.
+> + */
+> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg=
+,
+> +						unsigned long size,
+> +						int swappiness)
 
-Since the previous change wled_probe() seeds wled->brightness from
-MOD_EN, but with default-brightness rather than the level the hardware
-is actually driving, so a backlight left lit by the bootloader still
-visibly steps on the first update, and actual_brightness reports the
-last value written rather than what the panel shows.
+I'm going to have to request one final change, sorry.
 
-Add wled_read_brightness(), which returns 0 when MOD_EN is clear and
-otherwise reads the brightness register the matching
-wledN_set_brightness() writes: the first enabled string on WLED3 and
-WLED4, the selected modulator on WLED5. Use it to seed both
-wled->brightness and the initial backlight property, and expose it as
-backlight_ops.get_brightness so that actual_brightness reflects the
-hardware too.
+I think long is more meaningful as return value than unsigned long. It's al=
+ready
+restricted to MEMCG_CHARGE_BATCH. We return error for various arguments, we
+should probably change to -EINVAL.
 
-A module that is enabled with the brightness registers at zero, which
-wled4_setup() and wled_auto_string_detection() can leave behind on a
-cold boot, now reads back as off. The OVP interrupt is then armed by the
-first brightness update rather than from probe, which is what happens
-on every other board where the module starts out disabled.
+Apart from that it looks ok to me, but please, also wait for Shakeel to rev=
+iew
+the set before you respin v11.
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Assisted-by: LLM
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/video/backlight/qcom-wled.c | 76 +++++++++++++++++++++++++++++++------
- 1 file changed, 64 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index eb742a6598173..471a0cb2b81f6 100644
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -54,17 +54,17 @@
- #define WLED3_SINK_REG_SYNC				0x47
- #define  WLED3_SINK_REG_SYNC_CLEAR			0x00
- 
- #define WLED3_SINK_REG_CURR_SINK			0x4f
- #define  WLED3_SINK_REG_CURR_SINK_MASK			GENMASK(7, 5)
- #define  WLED3_SINK_REG_CURR_SINK_SHFT			5
- 
- /* WLED3 specific per-'string' registers below */
--#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + (n * 0x10))
-+#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + (n * 0x2))
- 
- #define WLED3_SINK_REG_STR_MOD_EN(n)			(0x60 + (n * 0x10))
- #define  WLED3_SINK_REG_STR_MOD_MASK			BIT(7)
- 
- #define WLED3_SINK_REG_STR_FULL_SCALE_CURR(n)		(0x62 + (n * 0x10))
- #define  WLED3_SINK_REG_STR_FULL_SCALE_CURR_MASK	GENMASK(4, 0)
- 
- #define WLED3_SINK_REG_STR_MOD_SRC(n)			(0x63 + (n * 0x10))
-@@ -285,16 +285,60 @@ static int wled5_set_brightness(struct wled *wled, u16 brightness)
- 		  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
- 		  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB;
- 
- 	rc = regmap_bulk_write(wled->regmap, wled->sink_addr + offset,
- 			       &v, sizeof(v));
- 	return rc;
- }
- 
-+static int wled_read_brightness(struct wled *wled)
-+{
-+	u16 addr, mask;
-+	__le16 v;
-+	u32 val;
-+	int rc;
-+
-+	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
-+			 &val);
-+	if (rc < 0)
-+		return rc;
-+
-+	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-+		return 0;
-+
-+	switch (wled->version) {
-+	case 3:
-+		addr = wled->sink_addr +
-+		       WLED3_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
-+		mask = WLED3_SINK_REG_BRIGHT_MAX;
-+		break;
-+	case 4:
-+		addr = wled->sink_addr +
-+		       WLED4_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
-+		mask = WLED3_SINK_REG_BRIGHT_MAX;
-+		break;
-+	case 5:
-+		addr = wled->sink_addr + (wled->cfg.mod_sel == MOD_A ?
-+					  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
-+					  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB);
-+		mask = WLED5_SINK_REG_BRIGHT_MAX_15B;
-+		break;
-+	default:
-+		dev_err(wled->dev, "Invalid WLED version\n");
-+		return -EINVAL;
-+	}
-+
-+	rc = regmap_bulk_read(wled->regmap, addr, &v, sizeof(v));
-+	if (rc < 0)
-+		return rc;
-+
-+	return min_t(u32, le16_to_cpu(v) & mask, wled->max_brightness);
-+}
-+
- static void wled_ovp_work(struct work_struct *work)
- {
- 	struct wled *wled = container_of(work,
- 					 struct wled, ovp_work.work);
- 	enable_irq(wled->ovp_irq);
- }
- 
- static int wled_module_enable(struct wled *wled, int val)
-@@ -475,16 +519,28 @@ static int wled_update_status(struct backlight_device *bl)
- 	wled->brightness = brightness;
- 
- unlock_mutex:
- 	mutex_unlock(&wled->lock);
- 
- 	return rc;
- }
- 
-+static int wled_get_brightness(struct backlight_device *bl)
-+{
-+	struct wled *wled = bl_get_data(bl);
-+	int rc;
-+
-+	mutex_lock(&wled->lock);
-+	rc = wled_read_brightness(wled);
-+	mutex_unlock(&wled->lock);
-+
-+	return rc;
-+}
-+
- static int wled4_cabc_config(struct wled *wled, bool enable)
- {
- 	int i, j, rc;
- 	u8 val;
- 
- 	for (i = 0; i < wled->cfg.num_strings; i++) {
- 		j = wled->cfg.enabled_strings[i];
- 
-@@ -1646,25 +1702,25 @@ static int wled_configure_ovp_irq(struct wled *wled,
- 	if (!wled->brightness)
- 		disable_irq(wled->ovp_irq);
- 
- 	return 0;
- }
- 
- static const struct backlight_ops wled_ops = {
- 	.update_status = wled_update_status,
-+	.get_brightness = wled_get_brightness,
- };
- 
- static int wled_probe(struct platform_device *pdev)
- {
- 	struct backlight_properties props;
- 	struct backlight_device *bl;
- 	struct wled *wled;
- 	struct regmap *regmap;
--	u32 mod_en;
- 	u32 val;
- 	int rc;
- 
- 	regmap = dev_get_regmap(pdev->dev.parent, NULL);
- 	if (!regmap) {
- 		dev_err(&pdev->dev, "Unable to get regmap\n");
- 		return -EINVAL;
- 	}
-@@ -1728,41 +1784,37 @@ static int wled_probe(struct platform_device *pdev)
- 	}
- 
- 	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
- 
- 	val = WLED_DEFAULT_BRIGHTNESS;
- 	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
- 
- 	/*
--	 * The module may already be enabled, either by a bootloader that left
--	 * the backlight lit or by the setup above. Record that, so that the
--	 * first brightness update does not enable an already enabled module,
--	 * and so that the OVP irq is armed from probe rather than from that
--	 * first update.
-+	 * The module may already be lit, either by the bootloader or by the
-+	 * setup above. Start from what the hardware is driving, so that the
-+	 * first brightness update does not step the brightness.
- 	 */
--	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
--			 &mod_en);
-+	rc = wled_read_brightness(wled);
- 	if (rc < 0)
- 		return rc;
- 
--	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
--		wled->brightness = val;
-+	wled->brightness = rc;
- 
- 	rc = wled_configure_short_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	rc = wled_configure_ovp_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	memset(&props, 0, sizeof(struct backlight_properties));
- 	props.type = BACKLIGHT_RAW;
--	props.brightness = val;
-+	props.brightness = wled->brightness ?: val;
- 	props.max_brightness = wled->max_brightness;
- 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
- 					    &pdev->dev, wled,
- 					    &wled_ops, &props);
- 	platform_set_drvdata(pdev, bl);
- 	return PTR_ERR_OR_ZERO(bl);
- };
- 
-
--- 
-2.55.0
-
-
+> [...]
