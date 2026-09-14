@@ -1,124 +1,134 @@
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23C51ABED9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2487F476CD6
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403907; cv=none; b=HgxDULq4I6xMVAfeSZeMZT+3f19rwKW/ghDEZCuRsLuR6yPejD2VXYmlgDnLR/pZj92bAeml5q8UldCB3xSUQonmmrND8/zYdPpBXipukYevccMmWT1PU4xrfF6ebOf30CNCHhb5v63Ihzxs2OPnYeeJudK/Qibn+8kY5yD5yZY=
+	t=1789403907; cv=none; b=YlP5ERJikURAR45hbMbAWln4Lfgadqn8R0FQoJYTv4hICGhShTH9xeMLqyyLlJvNPvnuYJyrl/FQv5DJjXYqAPTAkozPH20zDoGd/DBUxQV+41He669iDG1itjY8rGY9hbpdU6DTt0jhxtJ+j4XJBZNshowLOiPOsO6ASRAORS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789403907; c=relaxed/simple;
-	bh=xn7LQ0PXlxIeeF8zzyZvPpHydODrJ+C406gP7HxEXJk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=aDErsubvwoJXAxYJXv3LtIOOeOSmn9aA5pYXyv8lw7CY9QILVP4VeEtJA/T0Xm+NawS3zrCykJr9KehhzXmQVl4GrtWBWhFwH0yKdYuRXwysN84BMEbceOfLVZhiza+4ZYucKZY4ROKfTw3uTIxOt2+1yr63qU+2nTVXSZ/+fkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.136
+	bh=x6SqZ9Bnlp7yK7hFGhAkybXar8lsgtKvbSy4K/3aM7o=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bTxPWHEcavw1fW/YOgrCLy7Ibk5INoVCV1zPYSQOMGxvpLDeB87xkdSVDDSsPE9x6Of0obMAtkUF/t0Xd92D1wfKHWKrDujFIVenIkzfFEK1RZoi1Css+l9AYDdDpDVdfr43XgEKpYVkCq0CuL0n3ZyX7Md17YngIROCluEq0uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b1b1ca0f3aso498520eaf.0
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-7f4ddb9adf4so1444318a34.1
         for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:38:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789403905; x=1790008705;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LAzyC7Lu5MFRo20mDnBb8gws1b+bAcif7S6636vTpgE=;
-        b=HFivcgyi6BhfDftws3N7oFMpZiwYz6ERqO++YQPw8FOaVVly+cuYfQfIchcXfypJsA
-         mVRpyRkG7SV19MvQLXRmRPz6KTi0huTjVUNL64u03cTAvdkYxtxOkkkdVQ09SeU9xlgT
-         NLv47fs010Nh6MtJkCO7vP4oeuOGYgy8E5wu0b0E5fnmv1knO+r2CBdweJAPvbzUFIWf
-         F1IPQd53gXSzFEHVqxeMhFAQ8oVy65W7p0ZsHINniaieBX8s9tJE6yizG13JUrEAp1Wv
-         /DE6ljQOD/fUu2+N0JXR6nLNCZ/PtZlWfZDJtb4vluDmT6FUuhdhEPL1cdfA5jQ2ZMSB
-         c9QA==
-X-Forwarded-Encrypted: i=1; AKwUvBzUcmsynecld6CssmkTh6GiTBQALRdhL/amarZqqlpyCtHTgPPCRLTTuQMmr7W8YWbc13h7schhCG4Az7o=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7PiWLD8rO2bvIMY71EFrLU/LXHm0k43yePM7leZjHffapCtqB
-	zxuQvJfGfM/VovbuiRTs/rjDX+ouyr8PzOobQWCVTYNWCHfOXGMZ/JZwbqLOSIdaIWa2vQFUmA9
-	vbFJLip9FL6AlizCrBoBNQ0IDI4adM0gXvkMLyEuWChNNllS7ov+JOTskT64=
+        bh=12sDc1dvbHhFyr+KZsnVGB1XgTrOLqUuU3x0ZaD5uXk=;
+        b=iXzWVAEHuDdMdiJ23d6HJJURb8itwhA2qrI7bkbewLulcdS05kZY5YBy2nUjG0TuFt
+         sLcrw8UfMuLFRTk6sK3GIeLQ6+eX7r3j5Rz07yp5RIZVp8y6Y4MjcDJXECAtpDnGzrl4
+         MPuPRoqTFyj4Ux0focB+/89T7TqtryuJWteY7rIRCRBDQRLzO5qYxDhOKQ878Ldrm1ru
+         WcMnNTEzHRJuJu60meUjaiDVQCIYkAMfRdYh/yGCqH8pP58lqG7XbspJyRFAwc9+nS6h
+         9aNhgSp7iRyKlFzEhPIJ/bUqlnUPy+l9DWSNMF99I6FhZz3ooGHYO7zH8VCyNpP06n0v
+         a0bw==
+X-Forwarded-Encrypted: i=1; AKwUvBwbIkliOR4ZLywwpp222K4621IxMrDAildBbBEx54gtR1hsuryHP/dPaewzPhx1cc1Rmo7U+0nLMU1x24I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUSHo76yYWOFBIG00sPBo4C38t13k7X2UOjGeOlcDrPl27NI4k
+	riJg08h76mxeA98Hat6FDRtRwpTbPuNHteYVC2gU4fA3PD7G8cYZjNkAS7cPytncD1/BrM06S8w
+	luO0JQtjzTNATEeNLx/rqnsDVUV0zlUYgzoRXzCkwAUUI5bSwGrzsdsMOYig=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:616:b0:6c2:b9f8:b1f0 with SMTP id
- 006d021491bc7-6c53f44bc24mr2045585eaf.7.1789403904771; Mon, 14 Sep 2026
- 09:38:24 -0700 (PDT)
-Date: Mon, 14 Sep 2026 09:38:24 -0700
+X-Received: by 2002:a05:6820:f013:b0:6c1:d6a4:9268 with SMTP id
+ 006d021491bc7-6c54214b30cmr1842072eaf.5.1789403905073; Mon, 14 Sep 2026
+ 09:38:25 -0700 (PDT)
+Date: Mon, 14 Sep 2026 09:38:25 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
-Subject: [syzbot] [exfat?] WARNING in vfat_update_dotdot_de
-From: syzbot <syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com>
-To: hirofumi@mail.parknet.co.jp, linkinjeon@kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	sj1557.seo@samsung.com, syzkaller-bugs@googlegroups.com
+Message-ID: <6aa82301.a211d2ce.1a5198.0296.GAE@google.com>
+Subject: [syzbot] [kernel?] KASAN: global-out-of-bounds Read in bus_uevent_store
+From: syzbot <syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    5225b8eec4c9 mailmap: update entry for Jens Axboe
+HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
 git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11cd61f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=b0aebd03565f5774f7f8
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11b455f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13a1b615580000
+console output: https://syzkaller.appspot.com/x/log.txt?x=15489c8e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=9a321aea9d851b299486
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17de9905580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11f042d1580000
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/fdabe739a017/disk-5225b8ee.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ef60d7040756/vmlinux-5225b8ee.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ccb7b942e430/bzImage-5225b8ee.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/be5074fab5f0/mount_0.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=16cd61f9580000)
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+Reported-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
 
-loop0: rw=8912896, sector=102, nr_sectors = 1 limit=63
-syz.0.17: attempt to access beyond end of device
-loop0: rw=8912896, sector=103, nr_sectors = 1 limit=63
-syz.0.17: attempt to access beyond end of device
-loop0: rw=8390657, sector=98, nr_sectors = 1 limit=63
-Buffer I/O error on dev loop0, logical block 98, lost sync page write
-------------[ cut here ]------------
-!buffer_uptodate(bh)
-WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410 fs/buffer.c:991, CPU#0: syz.0.17/6146
-Modules linked in:
-CPU: 0 UID: 0 PID: 6146 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:mark_buffer_dirty+0x299/0x410 fs/buffer.c:991
-Code: 4c 89 f7 e8 a9 01 d8 ff 49 8b 3e be 40 00 00 00 5b 41 5c 41 5e 41 5f 5d e9 74 52 fb ff e8 ef 00 68 ff eb 8c e8 e8 00 68 ff 90 <0f> 0b 90 e9 a5 fd ff ff e8 da 00 68 ff 90 0f 0b 90 e9 cf fd ff ff
-RSP: 0018:ffffc90003b57858 EFLAGS: 00010293
-RAX: ffffffff825fc9c8 RBX: ffff888076b98460 RCX: ffff888020348000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000002
-RBP: dffffc0000000001 R08: ffff888076b98467 R09: 1ffff1100ed7308c
-R10: dffffc0000000000 R11: ffffed100ed7308d R12: ffff88806768a434
-R13: 0000000000000000 R14: ffff8880544440b0 R15: ffff88807688ba08
-FS:  00007fa0804ca6c0(0000) GS:ffff888124cd2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffdc870d998 CR3: 0000000035986000 CR4: 0000000000350ef0
+==================================================================
+BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
+BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+Read of size 1 at addr ffffffff8d72559f by task syz.0.17/5917
+
+CPU: 2 UID: 0 PID: 5917 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
 Call Trace:
  <TASK>
- mmb_mark_buffer_dirty+0x2c/0x1f0 fs/buffer.c:624
- vfat_update_dotdot_de+0x90/0x1c0 fs/fat/namei_vfat.c:917
- vfat_rename_exchange fs/fat/namei_vfat.c:1140 [inline]
- vfat_rename2+0xe3e/0x1c90 fs/fat/namei_vfat.c:1171
- vfs_rename+0xbd9/0xef0 fs/namei.c:6208
- filename_renameat2+0x533/0x9a0 fs/namei.c:6326
- __do_sys_renameat2 fs/namei.c:6355 [inline]
- __se_sys_renameat2+0x5a/0x2c0 fs/namei.c:6350
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa07f59e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fa0804ca028 EFLAGS: 00000246 ORIG_RAX: 000000000000013c
-RAX: ffffffffffffffda RBX: 00007fa07f826090 RCX: 00007fa07f59e159
-RDX: ffffffffffffff9c RSI: 0000200000000480 RDI: ffffffffffffff9c
-RBP: 00007fa07f63503b R08: 0000000000000002 R09: 0000000000000000
-R10: 00002000000004c0 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fa07f826128 R14: 00007fa07f826090 R15: 00007ffc6d0e6af8
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ kobject_action_type lib/kobject_uevent.c:86 [inline]
+ kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+ bus_uevent_store+0x3d/0x90 drivers/base/bus.c:917
+ bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf702efec
+Code: Unable to access opcode bytes at 0xf702efc2.
+RSP: 002b:00000000ffa3eb5c EFLAGS: 00000296 ORIG_RAX: 0000000000000004
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000080000280
+RDX: 000000000000ff0a RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
  </TASK>
+
+The buggy address belongs to the variable:
+ kobject_actions+0xdff/0x4e80
+
+The buggy address belongs to the physical page:
+page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xd725
+flags: 0xfff00000002000(reserved|node=0|zone=1|lastcpupid=0x7ff)
+raw: 00fff00000002000 ffffea000035c948 ffffea000035c948 0000000000000000
+raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner info is not present (never set?)
+
+Memory state around the buggy address:
+ ffffffff8d725480: f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9 00 06 f9 f9
+ ffffffff8d725500: f9 f9 f9 f9 00 00 01 f9 f9 f9 f9 f9 00 00 02 f9
+>ffffffff8d725580: f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9 00 07 f9 f9
+                            ^
+ ffffffff8d725600: f9 f9 f9 f9 00 00 06 f9 f9 f9 f9 f9 00 04 f9 f9
+ ffffffff8d725680: f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9 00 05 f9 f9
+==================================================================
 
 
 ---
