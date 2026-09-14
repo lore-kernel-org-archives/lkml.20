@@ -1,66 +1,62 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010010.outbound.protection.outlook.com [40.93.198.10])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011040.outbound.protection.outlook.com [52.101.62.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8DD47F3A3
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081F53BE632
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397184; cv=fail; b=HiojM+yI5xNXFaQG5a0myKimq/WcyFbmVTIgvm8+xP3DXN3zcWUi9xTNl7MdCBzhgefOhJP32Pgiw10sgLdalXKjsipaP8Of+vqUaeZQczRJinfXZx6PZt0hMfHbhmfHrGbJNYZz4T4NnOdIlJPqC2eeSnY9GLSA8RhzmjgHl0Y=
+	t=1789397199; cv=fail; b=qN3+bVPXjQImOU9yZgbJoAAzfhco1Qb9u6NogX8IWu4NPpk8vbSJULxw3WjeK1fwZHNUAC90UejxE3OeztWtfeSyfgrqnvQwWErsgYKGvx8/rj/0ql0Kwj0nFoNU7LPvsHhisY/8nIUoeqrWGkB94w3zcueQg1ChMcxPy7OH2z8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397184; c=relaxed/simple;
-	bh=wkrlBD6wJomTbCp5btzBzond1N+Y5m/cfWexO9RAuzw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=VMxGS2KWZAeFl8N53/UU9aAiqgUcdWRLZNu826TPxu/JDjIkoPlfE2HWMm5g4dZzvQKjvZef6lXAgyCpMOVpHFwJ8CIm3ul4VGkoTktmwZ8oXxqdsZw4HqvehVogzgHOwppNG8DJtNp1RsG97BM+MtSLM/98iK48QDwHn0VKHwg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Lnys3PHb; arc=fail smtp.client-ip=40.93.198.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789397199; c=relaxed/simple;
+	bh=/JidOn/XPF4+tAVoaVAQ8APoHGbOsueQAAMYRumGwlw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=TP4HPqoiC04aCyqjVttEz3/jwB4cXBumq0EENY3qiLEOpI4m3lfXiT+HUNxr6kCYk0t24O70gLHiGlpo2qvLAXjeO2+1G2wyP5XmkAmYm36ntl2ObDFd+0XU1IU/OOULdLGcl+tJa/KsRcu2x7jJsOiHCCYl9sWlUWbbXzNDvvs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pm5va6az; arc=fail smtp.client-ip=52.101.62.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Lnys3PHb"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pm5va6az"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cGr4Q3mxw22w754fRffg293iNekFi8QJjdwSs713G+vrxTElnu6KOjS7NxL7+s4IHkonjDGlAEhGX0t+yQBFqpFy1ndDIvxXyfSdf22Hk7iI9Ztbhvu8UzXLV0N5zLjYK8X2h4S2lFZBtwtLqxd87dPcvsRnWMWN7E0QR1ifxiw5SN5FIKnq4dxHEmJfduRbDeKOb0QxwMgN3xyZf7KxGnxF8HW9oj/ssFB8hopSEkKPs2n689PdVco4uiMx8rBVTyKzQPNhfJGDcY/W7qAfLBtXwclcysXjEEA2PvZ2YJLr28VGHZSnq6DFE+l71Dfm6n6ZeVOzIxjG03OtScZlgQ==
+ b=UqJZt2UoOQZmXsy2GB2WhH4fCYgLYXgaUS9xjGYAO6KMlhiHLsx+d06fqc4tgnBUrzhZMQyuUGnOurUj4zmLQPODlp7DPKPpi5AZsEhKLP7dQPdM+Ou+xHjQmCDFJVVoODAYy5Q7vn4Og+cmoHroeYD/s3NHoBK+GAoVGU+dyEB8bEpjbBL2fXwRnse+GjG1VctfII01bloRWHZWzfZorooKCJ3iX6EGegqaP+wJl1seQYMsadBFH67XQPa+V0s+M5ZP3Xuy0kRxX64OBuw+WuPt/0Qo8fh3jqiYBWlC3PyYX1GBQAj/iNyyShQJ7Uj7+sCaFQFSSJQJe9kq33fSOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vxYOcCyCdle1ZXiywb7YXUMnnCJ6m3gXGeZEO2caC6M=;
- b=FudexCL46Tbt/DcGXM5VGjyTQwKo4rCK/TiT6wM1owjFW3W5SoQ2PaaB6HXaC3uVjcFhM/YWrG4EL/wES0y8TUDznzMhBCTL3SOw0dIQhCPw6+O0M3/WQCF6G6DN/5lNyq/ogLu78SpO+R2yUt46t55Mqno76yZJJn5rpqGDMTV91CaRkbopIzTPzWZYCxxFyFJj1Nh5b/Br5umrHWct22asXs3COoQBNUo89u3mqqOSfsmhyYIdGMqcQ3NLib1egq1cm3vmhHMIZBNiAUVy1WTvi3aLZyCv76tc5wc5yqtHU/WI6sczvOE6oFFtt3S5gGtM4EqPYggVgninEG1tow==
+ bh=r/pb9Gmao60GI4Ip+Yf4Al/KC4h95mMWgnhBb+LiY0M=;
+ b=EYrWwoPZ8Vo5KjbSQC1++Y+sSLSUlf2I0S0+qZf3lh5Xo6b4v6YRVxLJ/1EBVEZK2tY62ed/+J90qU3xWsc40XLYHrInFcojb8eu3veZslyZeo/5U0f5LEqSb0yG9tED/YvEwSZJ+EIKAqQi0+HVrOg7fAVg3fIkRoZ5JNnwnz2QTdgLZjzASLrdyaBCfT/+9BbpT3lN61daMUMpqFCtdTdStARguOMe+YdvEUfcikx9hmJV2vkd9EsAaNL9iPzmAB5DXlIzKjnAIMDrcawahqCgjoysL9rX6Fz++fVHA5BslszaRwYQFuZc5LbUg+NMiKiLiPTn7sU8NQ9IMegDow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vxYOcCyCdle1ZXiywb7YXUMnnCJ6m3gXGeZEO2caC6M=;
- b=Lnys3PHbkskQ5YI35io1Duemc9CirT/4jNLhNxBVgz80O6+bxvsn2B8uFZdQ157XMcWo8hSLK+dIIA0AyiA9iKsvHmZ/OThrfiXcd4W3AIZSN7ft8K6rBx2znlzR+JCWyOJ41HYJ/mRK33G8qVDP+8YYtG2jeH7CpoEkQ0XNHDA=
+ bh=r/pb9Gmao60GI4Ip+Yf4Al/KC4h95mMWgnhBb+LiY0M=;
+ b=pm5va6azJaWKvQ06Qx6jWsblDEMWqVDmdgu2/l5SZ1YhDN1v48X7wwfZFObQuAh31c5hYcCquFjWAd+PhFv90Q96Dn3OL4+SzkMbP3QvaGqNORr62RM8YRuz46E2dKHjPTq7kyxBdIC9VXAgbYd+//9j7CkMeigfln7yfWDX4yDDKUKBEgeoU0bBCwe/VEv6JzoESagMlC2VJMiHb2nMA04NgzyxZeMDK29cYUS915ANt/+Zxv8B7pV3uoggWFVwNjWZ3GBGmJfS2TMXpNx8PddncgRgXKTdWkfytuTMgx2bQCpvmja6pU4ZS+whl563kQjeyjxUbLWE2k5wJmRlsw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SN7PR12MB6715.namprd12.prod.outlook.com (2603:10b6:806:271::19) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by SA5PPFB9BA66B77.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8df) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 14:46:17 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 14:46:17 +0000
-Message-ID: <59194d11-c21c-40e8-a41b-2d91b31130cc@amd.com>
-Date: Mon, 14 Sep 2026 20:16:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
-To: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
- Alexander Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang <guoqing.zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0024.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:b8::10) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+ 2026 14:46:31 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 14:46:31 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <etsal@meta.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCHSET v3 sched_ext/for-7.4] sched_ext: Add lazy preemption support
+Date: Mon, 14 Sep 2026 16:44:52 +0200
+Message-ID: <20260914144620.2032614-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI2PEPF00000B84.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::41b) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,136 +64,143 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SN7PR12MB6715:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67360ddb-b918-4326-e672-08df126eeea6
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SA5PPFB9BA66B77:EE_
+X-MS-Office365-Filtering-Correlation-Id: e036743e-e764-4416-53b4-08df126ef731
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|22082099003|18002099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|18002099003|3023799007|10067099003|11063799006|6133799003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	wPHIpgvlKpPIKtHlAM753rGNz+TgvUuh0PfQ/PObELVA+btIj5kAznWt7bkT63I0AmQS5R5ULBaZ7ZoNK27lO71GIXrdvGmwIWXbpRH8HloPgLbBV+1qwxGiUZXUrRdWPtRX5Ci50ppo6UY9RZ1xwHrGr0iCerHxrst9sKiOl41rtswSmGU4zOYrww1YERp+WQqKzEvrgUoXzgVEOOj7+UVu0Zuj1avUnn3L3mspJdsiHUj6azAm19X5jkRsNukPHCQjdf7EbUyk9H0dCkGPy/N3mEpuYpD8Eu6e3qHyCaQF3ZiYtlef5fQlcY1K1UeTkW0PEVoD8OLJTXwVzTwxPKLEZizQa4++Rtp2L7ZWbCiNLQtAYHIaTxkRW7ZndmJ4Lm3+iUaCOsq9F5LRZHB8F37n7tqrN5Pp5SYkewRxF5YTy9ZP6435mzOLpgwQZPC9TZA+6vmFPaVvvjgZr5JBdYmqtEpOdJ3K+ZahO1/Q/Gq6PrMGkfJtxfc+S/16K/l7kTfalRZt1dNQdJ5Puo8QZBgAGo5Vex7F9VifwM2601mizhoQ542oelBRmdzIyeG4GMR1R5l7zrqfZJZcFpQQvFigbV+jnc3AOoo7gajqE4u8YJ8qlrICm9xpKLynWNnYrUk6EAdz+YMmANF2y/Gy2nA7thREEWnoVPrY80Msebw=
+	sn3aihmOU69/beReGeuL59suj5gNN8J7zctH2MLFrQfVNwaPKuocKtrnZFije71qDsUEhNBJEDkNP0753GrOUQd3f0hd8zhs/TSr/bA/71pIBINSR3SlGdnlYkqRxGCZyiLEduC+MfSg3bl60oMsKekIy3Ar1brZiq9i6NuPMINgDgWRiidAsJTCX202Y5GOsmflNLWOlMkmnqy2NlkwmcgvDA4dC9M7fw04MKYGHF68Z+Hnhxlwlt9YHTPsN0RMzBLGqNXuLXwmeE1S2CgKv3YbvTliXSDbMOn5XEjGaePjjOFlH0zdc65DPtgORJCxmLYHJfogkIkbLuwgZk6WVm6a99D1RqfWBqNWHLgrxR/fcx7EBvUyyyRUUKH/7Pfzbdis5yn0E18plIVDTsS2m0lhRT8QnAAen2y+XtbiN1KCvjPHGbxs9y5e4Kvi8AqBcWyvuMgRBXBb9SxhEHSGmyUI2e/xEFuk8G+cw4LIM7WLi7boC6LBa2TNDeJI6cN89DMu9TyA0+QsXIoJk8t6oRQKAJo+TVfX4v1CA5Uq1wrDHAX5y6iXEze/hxGZC9grDKwSQHXwlEXwzwtuKdmdo3L6BYcPdVVu9DSC1UDbKqOKJ4ora1SRgVQvqx9c7yyFBRGI0+prUTR6UAymd2YPvLMd1MCV+6wKkxKcmaCVJ1k=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR12MB7091.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(3023799007)(10067099003)(11063799006)(6133799003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enNmNGR6WHFhWU9kT051eVhHSys3eS81RHROekRSbWVWMFVFWDM1aHRGbEJp?=
- =?utf-8?B?ZU9yOW9OSmFVY1U5bGQ1a2VTbjZDYVZWcjhkT2xtaXdva1pWNmxPZlNackNm?=
- =?utf-8?B?YUx5d3VXajZ3M3NBTjdPbTBPZFJsWmQzSHk3eXpYUnh3WE84aDFTa0U0aGow?=
- =?utf-8?B?UndYS0o2akluWXFPeUs4N1FYQzdrMmdPMHFIdDlyeVZpSHVIY3lGbjc3WHhT?=
- =?utf-8?B?NlM3UDczVlBYcVZoNTdReE81SW9mRXNCY3FOZW5UYk9LWUVrWWtQSGZPdUJn?=
- =?utf-8?B?VGV0Y24vdVpyNVA0aEIxNzVrWU8yUnFYdGt0bFNhUU5vTHJXYTVpSTFIcVVr?=
- =?utf-8?B?S2l0V0NWUkNDTXYxbjRFS3lzVExNODBSbkF1ejZYZ0t0ODllNmR5RTdxcTIw?=
- =?utf-8?B?d0FXenRIdWw2SXJEWGFwUHMyTWorNWN1N2pYMjIyT0FzdkhlK0JidWtnc2ho?=
- =?utf-8?B?V0YzSFlkZGZLR3JlVEczUG5TUEZpdGdVVmN0ZHlhYWpqNHFYSjJtcFpNMmsz?=
- =?utf-8?B?WldSWDc3bm9PbW9aSHBKbkE2d0JLd2JmYkFEbmtRcTduSEt2MXB5ckhjNjFF?=
- =?utf-8?B?NDh3VE1aL0lQYzlUdFA5UnVNbFBMK0hiUEYyU3JmTnZLNzBaQkl3L3RDcHYy?=
- =?utf-8?B?amtsNE15Uzk3M1Q5MlJyWlQwZGpwNk1nc0F0NVpwUlRkenJBdWZqOUNZRVhj?=
- =?utf-8?B?N3NUaGhNYWpDVzlaSFJKWWJ4YTN0T2FwSnRFNTNheVhETUp5ekpBSkVuTzBQ?=
- =?utf-8?B?eHNpK2s3dTQyUkxPQUo1ektsQmFEdWVVT0JzZERMZzdFUjVHK3YrSzkyc3o3?=
- =?utf-8?B?Wng4ZE5DZ0VORlNBKy9sNDVsdWJDRmdsYStYc0F3Rlkvd0FWb294QmpIN0JE?=
- =?utf-8?B?ZGR6Zi9tSjJRYjRHOGxMT3kvVTRudXhjOFMrWVRMN21PMDJ6RDI2OVJIM2Zx?=
- =?utf-8?B?YUIwaEJWd2V3MHBicm9FTlFudGEvVXNzNXdJV3hkL1N3OVNUemx6T0Y4Zkk3?=
- =?utf-8?B?N0cyLzA3M0RRcVdvdzREeGVRTjVMWkMvdmpaNEZML2ZSSjZzVnN2bXRrMGdN?=
- =?utf-8?B?dU9TMVlZVUh6ZlR1YktseS9Wd3hVWjQ0RUVxMk5GSDdLZm1pWDNzTnFNYUxo?=
- =?utf-8?B?S2FvSG9IMERsZXozV3VQZkxYMWJBN3JWRDZqVFlkM2VCMm1vbTFweFhLTDI1?=
- =?utf-8?B?SHVkQjBzWUdtb2N1V2NZNWxOMmlab05RWVpjUEFxZTdUOXJoNXQ5SDVCbVFl?=
- =?utf-8?B?UGI5MDFwcFNqb1pRQitwWHgrUzFyeFBoN0huNmFtdG9rWlVtVUloeHFjMVhM?=
- =?utf-8?B?MC9LSS9XMmVPRXN2a0dnVHFBbVBoUTczUSs4cEZyL29WVXVSSTQ5amRRM2JB?=
- =?utf-8?B?VW9hREd2L3lGM3BtMFJWbndBaUZmV2ZQL09CNUorUEhwYWJjaDJmLy94bHA0?=
- =?utf-8?B?VVFOSE1GWU9QV1B5VWt3eWJobmFPUW8zL0VVd2NPdndiV3d0dFdMMHp4WkVY?=
- =?utf-8?B?SEJaYmhXKytxYWsrU2dVekMrTFc0ajBPTnRvS0tWTkRCOU1WNklEOTdOUGcv?=
- =?utf-8?B?dTdCWTAzZEhVemZCN05sa1BWdjhxREhQWU1vS2ptd1hiMk8rRUx6L0lhNVlE?=
- =?utf-8?B?TjVoeEUvRUlQSzdMY1JqbW0wOTdkbWNuZjliY21lT2VUeGdjS1R4dGVmbDZX?=
- =?utf-8?B?UUlDR3RpSm1uU1dWcFJxcFNBTlZwTmtrbnUvNVpnRkM4NHBIN2oyUkVXb0FJ?=
- =?utf-8?B?eDNtUERBSWZXVWhrSXI4RkZOZHJKZmNFSHR6c3F2cVpWZDQ1NERSTERSZVBQ?=
- =?utf-8?B?ZTNRL0hxaVFoSHV0Nm5GVHQ4dVhtTTc5TGFCdWJyc2Q5WXdTYnloRTNyK3F1?=
- =?utf-8?B?b1Zzb2hvU0hyZkh0OWt1aGZqVzFtU054Z2dZaEJTRjVBSFEzNHZXTnVhS1Yx?=
- =?utf-8?B?WTNoQXl4UTJ2TThDdVM3b0djdEIrQkRCL2k1OW5aajhWYzU2dXpzdE5SaXJW?=
- =?utf-8?B?NU1idU1qQ1ZtSGQ2NENzZ2NWd1d3WWtJc1RuYzU0dVhJaE5QL2MxUjlqZlFH?=
- =?utf-8?B?dHozWDZXM2xiK2hJNzA5YmRUTGRqSFhDWDl6US9EU2ljUWF5eVd6VlE3UEZI?=
- =?utf-8?B?cHZSZkJSRFpCTElOeWxwTXpQV0hWNGxLazdaWHFuZkZtSVpMV1R4VzJ1RjVo?=
- =?utf-8?B?SmlhNFZmOGoyYkNNQ1BVSDR3czZvWml2cEpsTkVGVUpYeHpaY3k0N1d5TllN?=
- =?utf-8?B?UjRRMmxkaTZ2b2JDRlNPVHpBaUI0QXQxNHVJL0V2RzAxdThNL2hMdEpzNHFn?=
- =?utf-8?Q?sd7pYiPDIcQRvqc01X?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67360ddb-b918-4326-e672-08df126eeea6
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+	=?us-ascii?Q?IUPzvlBrYrJc8RCZFZdGayxVehSJpZmHezAzlV4UMY6X5IMCpeqjEo+Z4umr?=
+ =?us-ascii?Q?2lDm8f129XO4CMrlSvtciGOm6B9bZW+wtdEqF8OAq6fCNfBTsOqUtqYkwuhc?=
+ =?us-ascii?Q?mqEzRBWAKtVQXbCq1PVeZKASDJglMbH05RZeJIwNYK0hrMhK+6QXZF6CVq0+?=
+ =?us-ascii?Q?iVr/zvxCGziZfgJ1280r8AcUTFgARWQ1LbIusT9rQ3xoxC3k69vK6f4h+4LT?=
+ =?us-ascii?Q?l6D8fVMayJAbAxeCEGvpf2CsIoLE7PNSjyvLtklbQaAhJl2EtZgMjlmQSHl/?=
+ =?us-ascii?Q?VX/+OpZoiQvIjIlG0OVIsbkRqPQzvyzaNXvZJws+n9grfN+AL2Bjo5VXa+ys?=
+ =?us-ascii?Q?u6jsyjgx8Mwk8EKCkvRS8hJyI4/LJEYxcFYbSaNQbY+Bs03esQ9bvhuas9Ad?=
+ =?us-ascii?Q?L4PivgVkcEmVkhQ/oOy2evA99JDK2ln9hL8u4TKY2MQn7TE77KEeNWfOGd2E?=
+ =?us-ascii?Q?cIyS8j28O4drN8l67lmnINWweLFEAe5+Pkg6ARUCsssEKEcpz6bF1Egoggl5?=
+ =?us-ascii?Q?1sZkU13CygFGGJyJSYyrBZeEnESUvrJJHHhK4pU24Kxvb4TjQ+5IEXhGEnIJ?=
+ =?us-ascii?Q?vKHPxng5wQqnBj71ebb74L15N4rVSQ0TxbjuIcquDKDEaCNFWlDIpWAY9/kW?=
+ =?us-ascii?Q?7+wY+WzYbtoiHW4D3TC83gkwQtqWz5G9yDFzwb+D+Za1hgGu+oR8NmaA//sz?=
+ =?us-ascii?Q?84Ota85g6eseLVoiWnZL/b+TuUmOXZB7xHF9G7YvQPU2NivbnF5zKdVBJagK?=
+ =?us-ascii?Q?d3n0IUonSEMwDRG/U9Z09wkXaAXv6l5Ta00+S9n17fiKzsso1NftDGQF+WWy?=
+ =?us-ascii?Q?npp010tWNefiUkyp7EAXkrhrnwdprFnBRIW5xcZ3tnY91caOYKzrIKSVE11P?=
+ =?us-ascii?Q?nK7mJYNZN//NDPpVPUCT6wS6E4TaeDuQcxZkhfDTJbrAYyGOp4sKl+ZssqsV?=
+ =?us-ascii?Q?UH9RFJ69T9l/lSG9jclLhS+4uf9rvGa6H7AxuiifYc9Xs12BlQjMg/u0hSfb?=
+ =?us-ascii?Q?DMbYsTMEuYcE70zI4bOBUr4HeKYbJ829b/5giD9ke+0hjp3P1vLwNKP3NFqE?=
+ =?us-ascii?Q?3Ku5JIGhl91FuS/AZoCar505d+6hMn5kolmerbWNpuX5DxHNzxo15kte1KAY?=
+ =?us-ascii?Q?VulgHmanETKgvp9PxBui1M8c2SMY8ONZVXE7uFqnuY+6vjCj/WWBoMKV7dv3?=
+ =?us-ascii?Q?t46Uvf++aMhadzQUv6BwrprzVG7bAtL+GjPxwXHXv/HciyIU0TOCTBqUYHeS?=
+ =?us-ascii?Q?DUch8rgpmkYvu15OJQkMHQy6I7PkRsUTz/oItzC2hzSTT7+AxrSddZ7Lu8w6?=
+ =?us-ascii?Q?6rdfDKuSFcPh4EPmff4P4kNLL63uIfvqqhZCoGfxk9zqzNQJXaiYLKAhSRAO?=
+ =?us-ascii?Q?uhBcNtwfrelbJCLAO0E0I/58PeKy+fk+HGHnAk8aWGq7aiX8InGBYIT+/BDR?=
+ =?us-ascii?Q?D0mV8p5kZV1GEaC0VjsSro8nvxhMkcxLGokkZK1PNvlpDZtPfXpuCIA4cOf7?=
+ =?us-ascii?Q?heUT/0gMq1xLWbZYnnxKfADeRtn2VGS5d5YGrr3LROWP+s9bHXAymtiYoDA6?=
+ =?us-ascii?Q?fFg7f8GxwCKnrCEjcXtBfnKiy0mi0aGLxVsfjofxlIfhxGj6FRbuI8hUKIZ1?=
+ =?us-ascii?Q?vDW4bClA23bIda/i7DBa7WxWC0N2UfIhGH+QNG801i3RnxAEaE840EU4cPTa?=
+ =?us-ascii?Q?VHko6TaG3dIeK+neYIJ8WGXKLrAK5+9osatuPkTqYuqmrdbzRFlnJ1xuL3M2?=
+ =?us-ascii?Q?4c4YCSV1zg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e036743e-e764-4416-53b4-08df126ef731
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:46:17.0417
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:46:31.4460
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kyvY1boRpDjSHQhuwPr3dg+HUphnu+hpNOICDh8tGpqsNOOX6pc9Dtgu3W/bs59k
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6715
+X-MS-Exchange-CrossTenant-UserPrincipalName: j31tLQuXPye1hdarOwLyiVIkxdr0XqpIF12A9uv6K+sG7RX0rpzqCaS2iT4ZdPZV4mB2hcoeQLBxsjM9hnhSVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFB9BA66B77
 
+The fair scheduling class can defer a scheduling boundary through lazy
+rescheduling, but sched_ext currently exposes only immediate preemption to BPF
+schedulers.
 
+This series adds lazy variants of the enqueue and kick preemption flags.  They
+expire the running sched_ext task's slice while allowing the scheduling boundary
+to be deferred until a return to user space or the next scheduler tick.
 
-On 14-Sep-26 7:26 PM, Dmitriy Chumachenko wrote:
-> [Some people who received this message don't often get email from dmitry.chumachenko@cyberprotect.ru. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> The reg_state readouts return szbuf bytes but never write the pad members
-> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
-> skipped when the upstream port or AER capability is absent). The sysfs
-> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
-> local user through the 0444 reg_state attribute.
-> 
-> Zero the buffer once the size is known.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
-> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+SCX_OPS_LAZY_SLICE_EXPIRY selects lazy slice expiry by default.  Schedulers can
+override that default in either direction for individual tasks through
+scx_bpf_task_set_slice_expiry().  The helper preserves sub-scheduler task
+ownership boundaries.  Bypass continues to force immediate rescheduling.
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Lazy enqueue and kick requests also restore the scheduler tick when targeting an
+infinite-slice task on a NO_HZ_FULL CPU, ensuring forward progress even when the
+target's tick has stopped.
 
-Thanks,
-Lijo
+The selftests cover immediate and lazy preemption, coalescing and precedence
+between kick modes, enqueue preemption, per-task slice-expiry overrides, invalid
+flags, and lazy preemption of infinite-slice tasks on NO_HZ_FULL CPUs.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> index 72ea37dbfea8..0086de0f685d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->          pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
->                                                       sizeof(*pcie_reg_state));
->          pcie_regs->inst_header.instance = 0;
-> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->          p = &xgmi_reg_state->xgmi_state_regs[0];
->          for_each_inst(i, adev->aid_mask) {
->                  for (j = 0; j < xgmi_inst; ++j) {
-> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->          p = &wafl_reg_state->wafl_state_regs[0];
->          for_each_inst(i, adev->aid_mask) {
->                  for (j = 0; j < wafl_inst; ++j) {
-> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->          p = &usr_reg_state->usr_state_regs[0];
->          for_each_inst(i, adev->aid_mask) {
->                  usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
-> --
-> 2.49.0
+Tested in separate virtme-ng runs, covering preempt=lazy and nohz_full:
 
+ $ vng -a "preempt=lazy" -- tools/testing/selftests/sched_ext/runner -t kick
+
+  kick:
+    PASSED:  6
+    SKIPPED: 0
+    FAILED:  0
+
+ $ vng -a "preempt=lazy nohz_full=8-15" -- tools/testing/selftests/sched_ext/runner -t nohz_tick
+
+  nohz_tick:
+    CPU 8 received 7 finite-slice ticks
+    PASSED:  1
+    SKIPPED: 0
+    FAILED:  0
+
+Changes in v3:
+ - Avoid redundant rq clock updates when restoring the tick dependency and use
+   the pinned rq lock helpers for lazy kick delivery (Sashiko).
+ - Set PR_SET_PDEATHSIG for the indefinitely spinning kick test workers so they
+   don't survive unexpected test-runner exit (Sashiko).
+ - Wait for a delta in nr_lazy_victim_running instead of an absolute count that
+   may include reschedules from the previous phase (Sashiko).
+ - Increase the nohz_tick scheduler watchdog and phase timeouts to tolerate
+   scheduling delays in oversubscribed test VMs.
+ - Link to v2: https://lore.kernel.org/r/20260914084955.1798562-1-arighi@nvidia.com
+
+Changes in v2:
+ - Make lazy slice expiry a per-task property (Tejun Heo).
+ - Add scx_bpf_task_set_slice_expiry() for per-task overrides from any sched_ext
+   callback (preserving sub-scheduler task ownership).
+ - Restore the scheduler tick dependency for lazy enqueue and kick preemption of
+   infinite-slice tasks on NO_HZ_FULL CPUs (Tejun Heo).
+ - Accumulate immediate and lazy kick requests independently and resolve their
+   precedence in kick_one_cpu() (Tejun Heo).
+ - Allow PREEMPT|PREEMPT_LAZY and WAIT|PREEMPT_LAZY, immediate preemption, WAIT
+   and plain kicks take precedence over lazy preemption (Tejun Heo).
+ - Clear both preemption masks together when processing or skipping a preemption
+   request (Tejun Heo).
+ - Extend the kselftests with combined and ordered kick requests, per-task
+   expiry overrides and NO_HZ_FULL coverage.
+ - Link to v1: https://lore.kernel.org/r/20260911195800.974364-1-arighi@nvidia.com
+
+Andrea Righi (2):
+      sched_ext: Add lazy preemption support
+      selftests/sched_ext: Add lazy preemption tests
+
+ include/linux/sched/ext.h                         |   8 +
+ kernel/sched/ext/ext.c                            | 153 +++++--
+ kernel/sched/ext/internal.h                       |  39 +-
+ kernel/sched/ext/sub.c                            |  15 +-
+ tools/sched_ext/include/scx/compat.bpf.h          |  13 +
+ tools/sched_ext/include/scx/enum_defs.autogen.h   |   3 +
+ tools/sched_ext/include/scx/enums.autogen.bpf.h   |   6 +
+ tools/sched_ext/include/scx/enums.autogen.h       |   2 +
+ tools/sched_ext/include/scx/enums_abi.autogen.h   |   5 +-
+ tools/testing/selftests/sched_ext/Makefile        |   1 +
+ tools/testing/selftests/sched_ext/kick.bpf.c      | 166 +++++++
+ tools/testing/selftests/sched_ext/kick.c          | 530 ++++++++++++++++++++++
+ tools/testing/selftests/sched_ext/nohz_tick.bpf.c |  56 ++-
+ tools/testing/selftests/sched_ext/nohz_tick.c     | 195 +++++++-
+ 14 files changed, 1143 insertions(+), 49 deletions(-)
+ create mode 100644 tools/testing/selftests/sched_ext/kick.bpf.c
+ create mode 100644 tools/testing/selftests/sched_ext/kick.c
