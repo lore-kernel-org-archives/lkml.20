@@ -1,81 +1,113 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AF037E5D6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:18:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210BD3E557E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388313; cv=none; b=Z3T0fQVnkmAmDBvPWwvg+v5DofUVVO0ZQO8CCK9AS1M22wbWKUPDusa26Tnog5YyMLssKjvwXhuUrVcwSFjHpNlroXjcUJ/+VqRA7y+CspzjcKPgA0NudzPGixmdHCXScBcYnKjOCICxp/cJEN1WuKn97dUP4kBsH9TSo5ucmgM=
+	t=1789388355; cv=none; b=R0rh7FOSanWCEXrkmnOIKNQRTXyFyem3SWCUOXqXBLZTfEnvzj8SfmlLqTMfuBZAGxrE9T5N9Ny5eY8BuNlhpXtzHVkMg+IJx2/XhRzdil1nnb6Ml5xoMLP9mF5vUiFVif9DWqjFW9M9237kMI53V47GfKFUAD3kqwcIqz9mIV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388313; c=relaxed/simple;
-	bh=z8UKOT4LRmUx0tEKiphbmXg9dhQVXWkkDs2CUSv6iiQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=PLRe1Jkr+3a9U5Ki4DNpjtlrIQ5UYI+y4ruaRyMOz86V5yECxEtcwF9wto5EvLgVJOECeFFqTJnFGzcUo0jqQqQiBglMEdspn+X46505U69Yt4Jv6fq1ttfXdD/oUrkXgrz83l6fG9IZ12RJpAoHqIXSsi8WIWO/TNtknliDG3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-47cfa971c9eso4601409fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:18:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789388311; x=1789993111;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1tdctKTfGOEx6u0suuhPuX0byzhb6tnOSenslaiXVgc=;
-        b=HPWX1WbbQSF3gannMApRCGQy+0xMmvG9rI9mpXz5EJMTn7vynD/Fue5CWbyr938kmG
-         OU86q+3+/XGzcKxk68hZ77SwuyRRkQOGtt4dpgCFzcVd+UGlpdP07snbU8u7Sdf6HZH/
-         IxRYG44vtUNlZcmGHWFtR9lfW+5UvDYe2SR7S555JWsZHGQd3pji2KE2xHSq2OOsKUwa
-         rg5OZmAv/8v06AJpDEOvAFzl6i2sQm2GVFsNRDOuKru2eLGBhTGaoC7POjOEeHTNaO9L
-         BQIB0Uqstg4o8WSNUZaQQXMRI1Jm2AAN8HGBjl9OpM118vUgYZzCA7d8N6rpIp52OTVf
-         UWlg==
-X-Gm-Message-State: AFuF++lmlJ4Vg4EyoF+B9pHsrDUIdP3aPQVePBJcieQJ5E7naM9HXlwh
-	Uwcx3cEaDC1kN4olK9+b0AAYEs0RN6Vqu2+cSVHwRDbhVaajLxmaV1GRR5JtR2Lqg/ggmtlarm2
-	/M484MRjP0gfrmxdtO3zUdJhI4o41NdQB1vfd4OB8awLMdoB+tZaeINLKTuc=
+	s=arc-20240116; t=1789388355; c=relaxed/simple;
+	bh=HAyAnZ0GadBkjMAXPjuUHMJJX0SITzcvmfI8+Umd6ug=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HtzO9fTOmGRB5b6mqH1dXYGJz5i1EqBzAzkMOld8czTgdDcFFbSoT4Apv/rdQ/K+6EkJ7q9AauARMo3LQX+BhgeEeIzuMP25PXvmG7wYZQRUdaEekBNt4Xq4Lu/H14tb+rj13HAd97aUpRIF1d2pxoQ5BqzgkrMOcCmDZDv3ZUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mvPXp8oU; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mvPXp8oU"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 580794E4059F;
+	Mon, 14 Sep 2026 12:19:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2D1D560323;
+	Mon, 14 Sep 2026 12:19:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55AEE11C7AFEC;
+	Mon, 14 Sep 2026 14:19:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789388347; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=okg6YUvbJfQyTjw8b4yIFAJ6zweKF8RLdit5ouRtvwA=;
+	b=mvPXp8oUQwSYwYrF7tDalA1c1hawfCbb6Bc4VFavuPRIvyk//HB4djgkNcY4VRLlY9oShr
+	Tf1FO2vGjSkiEP8p7X6YhLFWEdnMDbCSH1V3zlVbWDxpcC564UDnw1XHn1XRQ4oTnII8sE
+	oPdtINBYYBiB8wjxdBFbckGZm85igt8Sg83v5FmnBBpdnIEAG+BCbkw+i7PA8JZVkbUGO+
+	a3BKusMG4mw5rGZvgKXCIOBbJwo6dZ2yebHlqbWIfcD0eMg/hqaHim89ib4sz+VvO9h6S+
+	pD4p4f4nuAdEuefQboPtcUyUOIc1hzsdtkKkxsOStzV77fLOTESLAVSIyDzrzg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Itai Handler <itai.handler@gmail.com>
+Cc: mwalle@kernel.org,  pratyush@kernel.org,  linux-kernel@vger.kernel.org,
+  linux-mtd@lists.infradead.org,  vigneshr@ti.com,  richard@nod.at,
+  takahiro.kuwano@infineon.com
+Subject: Re: [PATCH v2 3/3] mtd: spi-nor: take the flash lock in
+ spi_nor_remove()
+In-Reply-To: <20260914081149.1916589-4-itai.handler@gmail.com> (Itai Handler's
+	message of "Mon, 14 Sep 2026 11:11:49 +0300")
+References: <20260914081149.1916589-1-itai.handler@gmail.com>
+	<20260914081149.1916589-4-itai.handler@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 14 Sep 2026 14:19:04 +0200
+Message-ID: <87a4pkowjr.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4cc8:b0:6aa:e367:a3e2 with SMTP id
- 006d021491bc7-6c3cd7dd88amr2569088eaf.19.1789388311271; Mon, 14 Sep 2026
- 05:18:31 -0700 (PDT)
-Date: Mon, 14 Sep 2026 05:18:31 -0700
-In-Reply-To: <695faa63.050a0220.1c677c.039a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7e617.f81106d8.2ab401.004e.GAE@google.com>
-Subject: Forwarded: [PATCH] UBSAN: array-index-out-of-bounds in dbFindLeaf (2)
-From: syzbot <syzbot+1afe7ef2d0062e19eeb3@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On 14/09/2026 at 11:11:49 +03, Itai Handler <itai.handler@gmail.com> wrote:
 
-***
+> spi_nor_remove() restores the addressing mode with the same unlocked
+> call to spi_nor_restore() that spi_nor_shutdown() used before the
+> previous patch, and it is exposed the same way: the MTD device is still
+> registered at that point, so an unbind can run the restore while another
+> thread is in the middle of an operation. A busy flash silently ignores
+> the restore, and a restore that lands between two chunks of a read
+> switches the chip to 3-byte addressing while the driver keeps sending
+> 4 address bytes.
+>
+> Moving the restore after mtd_device_unregister() would not fix this.
+> Since commit 19bfa9ebebb5 ("mtd: use refcount to prevent corruption")
+> del_mtd_device() drops a reference instead of refusing with -EBUSY when
+> the device is in use, so unregistering returns right away and does not
+> wait for an operation that is already running.
+>
+> Take nor->lock for the restore, as spi_nor_shutdown() now does. The
+> unregister stays unconditional, so a flash whose restore had to be
+> skipped is still torn down.
+>
+> Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when e=
+xiting")
+> Signed-off-by: Itai Handler <itai.handler@gmail.com>
+> ---
+>  drivers/mtd/spi-nor/core.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index 647bf8dce719..8d0302565445 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -3852,8 +3852,14 @@ static int spi_nor_probe(struct spi_mem *spimem)
+>  static int spi_nor_remove(struct spi_mem *spimem)
+>  {
+>  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
+> +	int ret;
+>=20=20
+> -	spi_nor_restore(nor);
+> +	/* As in spi_nor_shutdown(), do not restore under an operation. */
+> +	ret =3D spi_nor_prep_and_lock(nor);
+> +	if (!ret) {
+> +		spi_nor_restore(nor);
+> +		spi_nor_unlock_and_unprep(nor);
+> +	}
 
-Subject: [PATCH] UBSAN: array-index-out-of-bounds in dbFindLeaf (2)
-Author: jchuang26@m.fudan.edu.cn
+Why isn't this folded into patch 2? You are fixing the same race, but
+you do it in two steps which makes step 1 incomplete. I don't get it.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f0b9d8eb98dfee8d00419aa07543bdc2c1a44fb1
+You are making things overly complicated for no reason. You commit logs
+are overly verbose and the comments are also superfluous.
 
-Reported-by: syzbot+1afe7ef2d0062e19eeb3@syzkaller.appspotmail.com
-
-diff --git a/fs/jfs/jfs_dmap.c b/fs/jfs/jfs_dmap.c
-index cdfa699cd..53642b1ec 100644
---- a/fs/jfs/jfs_dmap.c
-+++ b/fs/jfs/jfs_dmap.c
-@@ -2971,7 +2971,11 @@ static int dbFindLeaf(dmtree_t *tp, int l2nb, int *leafidx, bool is_ctl)
- 			/* sufficient free space found.  move to the next
- 			 * level (or quit if this is the last level).
- 			 */
--			if (x + n > max_size)
-+			/* stree[] holds max_size entries, so max_size is
-+			 * already one past the last valid index.  Use >=
-+			 * to reject it and avoid an out-of-bounds read.
-+			 */
-+			if (x + n >= max_size)
- 				return -ENOSPC;
- 			if (l2nb <= tp->dmt_stree[x + n])
- 				break;
+Thanks,
+Miqu=C3=A8l
