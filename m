@@ -1,68 +1,40 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44282396D36
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83CF34C140;
+	Mon, 14 Sep 2026 13:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392138; cv=none; b=El2zlNpMcjw2r4sF/i4PRJe4YZ3ZHkcnT6Un/dUEMXwTuGrkokKg63zaJrtOCjS0zDS2e6ZoQwuMTDV5vLvui4qCDkoJ0/DloJh/Si2kJF/82MX8XacD1KphZ1cUgg78ATrZnQwQkHR8md4gPUpoaFMpZxlaD6Sbcoa3C0Fb3mI=
+	t=1789392145; cv=none; b=k8N3ivenY7CkQB2eY6iYMQbVMqfrYVC5/PpOtHWTlGmNha5BmMgh+B2boXEVr8Zu4Kz/kDcpdBQUSnjeGS9nUa4gjh2TzLTzMTFGiAo+i4wLQT0CC8rfI2ftivOZaMVZ3nQxWsyCNQJgWOAF097xGaEI6C9sTRd32QSTuWA0sG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392138; c=relaxed/simple;
-	bh=n7aX+8kZ9LXKzmnUDnSoeH2PxL/Lefk9d4ihaUPODPE=;
+	s=arc-20240116; t=1789392145; c=relaxed/simple;
+	bh=g+NHV6fMPvMB7g7ePyJrULSs0z4hTzYaFjSbJMYyRe8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BgZI3Tnj+SPJAnh2Uzc/jw386y4q5mblnXV3e3nbuMV/YMtGsXfluuaXlLNjFfv6xkT2vSMQU2Wp9apfPlW7qabll2mR3h3PctFVN9GROOMXFEQZ8iqGOg+QFQUxCHIg//45i4vOlPeuKCt2ogxyFVWZgNsfMMgbTCso0szHm3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c02B9JzG; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=gHQ+Zn8P8MCxKbhPOiR2UbLpFEsNJLHlTQlrFbSPhZXnKERjB+Hc4VGmkm7NG8BAHf7Z5X3bbajEpBcuyW0ElEkLtf3Ets2BD7wegUZy+/39XBMLQiBi0BuMcWdYc4gRfzUr/R+kMTLqjIJUM2AsI5NOzmk3jMiU+4ya5y3Xzzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VPD5O4Ip; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c02B9JzG"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso19518305e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:22:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392135; x=1789996935; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=68CLQdhSjTAyvUMuVP7kMZoX9zgZl750X8olIiK9eCU=;
-        b=c02B9JzGYWJhvsRqr0CAaM55FAiU2h2L+wGUif+SmEFpCF81OKTbv3H2sAs3pKArPh
-         aDwU0G0lksWUMpBp/WQ9H6SvdBDXZxCQeXYJ4XgpIwSlt0ya03/tGTZSEhkoZF9JCbUi
-         mCrfdEOLWCAMPeEIlYYI/jWoEkvBwKPQ2cQn1DyXnHmnGgit6zC3Pmvjmk5SyeOdGJAi
-         PfEw27EPFqdglLGAX1RqXKPs6DGW+iuN86fo7XsDuVbLffDTI9FRPWbRs/v510jREe/Z
-         r2kCfjtvK5FjC3UQ6U8mayqceaTjSZ7304YEe+3o1GF8voBhkxSJ3IIgCQoQBRD6oW3q
-         7JDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392135; x=1789996935;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=68CLQdhSjTAyvUMuVP7kMZoX9zgZl750X8olIiK9eCU=;
-        b=cffTmX/72DpOjjlQ4CUIQL2fMCOJ/RishQgyyuyfG1ijqTq4SS55WFABFbydp39ZiM
-         vPshy+R7phgEQBe6D4rnlybWIBmUwcgLgipw6+FUKJ8GfV6iqqyf/Mw/2A3eNP4kjGAT
-         pU5Sj18lmuDvii5sconjnsPTJwsGIMTWx/0Fh90LCgbW8qs4kDDIDkn2h4TQcGK+kotZ
-         qWK11PvWbq02Tagae3ldds7tFmrgK36ORB5Nxt1QIY2X1rBQYLhtrDsvKb4Z9KLcChio
-         A0mkpLbRHo6rXaxFdbhNoW9wCRGlmdeqKXHNoiCrYlnGBSVP7x9K9lFz0JQHBHHZCuhB
-         5/vA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWFaUGS+vyCFe6HF0SexK8uE2Mok7CtWFmOGjJlIWTC9LwHHGJNgo8J/9rcuO6NyB/USTKaN8GIwUKamI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRfrolyelLR5sb3NyPH2X8SmCJ2XIusOHnxwrB6b2i+mdn4NBK
-	z6LT/XDKKEkc8fMzfeozLqs2wCLp9O7p+ZHJSVP6TXd4PILDbNmFpwv0
-X-Gm-Gg: AYBFou0ATNxx3HL24vBHYiDUGtCQFU2DJkBETC0PU8ycknpWVaGm/Rkm7DZdY4cKzYY
-	M3ML6YfoRU5fXQuAOIcHCp4qcM3HrObcLoKiP7Xozydfjf5DQX3qv3r3jjKA6nphvDwD6NCDO8L
-	+ulrH9ttfbbyOQBg+5FWqF0w/KQdTrs2KS72hmCtCSEseTSPv3/irVF8obTqBIaza61gdD36fXG
-	zb2m1Gw1FGQEuNf9FumFceFuiI7c5wB3kGaikltZDNm7EpgaIwcUZDUDdQiSk9fziESYy2JYPlQ
-	zripj8jJNjxcEWwdj0FIhr169LpQI9OCbcCO2wlHAx4nsZLau8aTJhRZlsaPy6kSNNqkGAWs53E
-	NWGSg8tGYJtuRXdPvnbOI3qIqS3FFmYjL+yhL0T7Kn/fMnFDplwAKRi2OyfQO1nezBaSZaVZQ9/
-	DVK267A3ygTvne/8CRBq4JvugoNiSqyq5BPLk0sClNPYPQ9osbVuUG4zoIVX5xiomGtoF7EsCc2
-	v7Mb17zd4rAOaRQqJdT0vtiswKfNKL8UQi8TfGpcm4x2Q==
-X-Received: by 2002:a05:6000:430a:b0:486:f18b:3cf8 with SMTP id ffacd0b85a97d-48702abf773mr3234183f8f.22.1789392135207;
-        Mon, 14 Sep 2026 06:22:15 -0700 (PDT)
-Received: from ?IPV6:2a03:83e0:1126:4:37f5:891d:1d21:b3d3? ([2620:10d:c092:500::7:35f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f353sm26261378f8f.26.2026.09.14.06.22.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 06:22:14 -0700 (PDT)
-Message-ID: <05221557-59b5-4d93-ac55-d9e372d0862b@gmail.com>
-Date: Mon, 14 Sep 2026 14:22:13 +0100
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VPD5O4Ip"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789392142;
+	bh=g+NHV6fMPvMB7g7ePyJrULSs0z4hTzYaFjSbJMYyRe8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VPD5O4Ipjn6V7JnsslWeosPZd2xLD6c8kLbVWbDVFLeG08VSS81NgTqRNi6R8cML5
+	 XVOFUhrXVQUezVJZeSFZ62/24mhg411q2gc0GP+cXxrKQPxLUki1qOCYxrBhY0BeJG
+	 XhcihTsgEU3bsl6iRXQT+lFvqrFoeTUZIykhkfNveVuwYxu59f9auZNZaKAQPniq/g
+	 Q02tLWHFC7Ho58afsIZ+zs+oPF4UTr2Y+6LVyWE+Nh3W1J580b8BvItH5pwo8gkMxo
+	 5iR4ACRQEZwtltaDD9aZsqQgZMGAdywaaFrj3cswe7N3WZS9WAbRRhai7zXAiUdD44
+	 3uu2t4aLwxIfw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 762BA17E0074;
+	Mon, 14 Sep 2026 15:22:21 +0200 (CEST)
+Message-ID: <07add31d-5622-40eb-9bcf-f7cb2396fee3@collabora.com>
+Date: Mon, 14 Sep 2026 15:22:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,123 +42,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf] libbpf: Fix program log buffer size validation
-To: Luis Vieira <luisflavieira@gmail.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20260914-libbpf-log-buf-fix-v1-1-f592caffcc71@gmail.com>
+Subject: Re: [PATCH v2 02/13] ASoC: mediatek: mt8189: Propagate APLL enable
+ errors
+To: phucduc.bui@gmail.com, Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cyril Chao <Cyril.Chao@mediatek.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Dan Carpenter <error27@gmail.com>, cassiogabrielcontato@gmail.com,
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260914072842.24420-1-phucduc.bui@gmail.com>
+ <20260914072842.24420-3-phucduc.bui@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-From: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
-In-Reply-To: <20260914-libbpf-log-buf-fix-v1-1-f592caffcc71@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260914072842.24420-3-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/14/26 12:50 PM, Luis Vieira wrote:
-> bpf_program__set_log_buf() intends to reject log buffer sizes larger
-> than UINT_MAX.
+On 9/14/26 09:28, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> However, the function checks the existing prog->log_size instead of
-> the incoming log_size argument. As a result, an oversized value can
-> be accepted.
+> mt8189_apll1_enable() and mt8189_apll2_enable() currently ignore
+> errors from regmap_update_bits() and do not clean up resources when
+> clock enable operations fail.
 > 
-> Validate the supplied log_size instead.
+> Propagate these errors and roll back the clocks and tuner state on
+> errors.
 > 
-> Add a regression test that verifies that values larger than UINT_MAX
-> are rejected with -EINVAL on platforms where size_t can represent
-> such values.
-> 
-> Fixes: b3ce90795035 ("libbpf: Add per-program log buffer setter and getter")
-> Signed-off-by: Luis Vieira <luisflavieira@gmail.com>
+> Fixes: dc637ffeed6c ("ASoC: mediatek: mt8189: support audio clock control")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 > ---
+> 
+> Changes in v2:
+>   - Update the names of the goto labels.
+> 
+>   sound/soc/mediatek/mt8189/mt8189-afe-clk.c | 78 ++++++++++++++++------
+>   1 file changed, 56 insertions(+), 22 deletions(-)
+> 
+> diff --git a/sound/soc/mediatek/mt8189/mt8189-afe-clk.c b/sound/soc/mediatek/mt8189/mt8189-afe-clk.c
+> index 63e03a40dbbe..aaf4f7921363 100644
+> --- a/sound/soc/mediatek/mt8189/mt8189-afe-clk.c
+> +++ b/sound/soc/mediatek/mt8189/mt8189-afe-clk.c
+> @@ -454,30 +454,47 @@ int mt8189_apll1_enable(struct mtk_base_afe *afe)
+>   
+>   	ret = mt8189_afe_enable_top_cg(afe, MT8189_CG_APLL1_CK);
+>   	if (ret)
+> -		return ret;
+> +		goto err_clear_mux_setting;
+>   
+>   	ret = mt8189_afe_enable_top_cg(afe, MT8189_PDN_APLL_TUNER1);
+>   	if (ret)
+> -		return ret;
+> +		goto err_disable_apll1_ck;
+>   
+>   	/* sel 44.1kHz:1, apll_div:7, upper bound:3 */
+> -	regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG,
+> -			   XTAL_EN_128FS_SEL_MASK_SFT | APLL_DIV_MASK_SFT |
+> -			   UPPER_BOUND_MASK_SFT,
+> -			   (0x1 << XTAL_EN_128FS_SEL_SFT) | (7 << APLL_DIV_SFT) |
+> -			   (3 << UPPER_BOUND_SFT));
+> +	ret = regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG,
+> +				 XTAL_EN_128FS_SEL_MASK_SFT | APLL_DIV_MASK_SFT |
+> +				 UPPER_BOUND_MASK_SFT,
+> +				 (0x1 << XTAL_EN_128FS_SEL_SFT) | (7 << APLL_DIV_SFT) |
+> +				 (3 << UPPER_BOUND_SFT));
+> +	if (ret)
+> +		goto err_disable_apll_tuner1;
+>   
+>   	/* apll1 freq tuner enable */
+> -	regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG,
+> -			   FREQ_TUNER_EN_MASK_SFT,
+> -			   0x1 << FREQ_TUNER_EN_SFT);
+> +	ret = regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG,
+> +				 FREQ_TUNER_EN_MASK_SFT,
+> +				 0x1 << FREQ_TUNER_EN_SFT);
+> +	if (ret)
+> +		goto err_disable_apll_tuner1;
+>   
+>   	/* audio apll1 on */
+>   	ret = mt8189_afe_enable_top_cg(afe, MT8189_AUDIO_APLL1_EN_ON);
+>   	if (ret)
+> -		return ret;
+> +		goto err_clear_freq_tuner_en;
+>   
+>   	return 0;
+> +
+> +err_clear_freq_tuner_en:
+> +	regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG,
+> +			   FREQ_TUNER_EN_MASK_SFT,
+> +			   0x0);
+> +err_disable_apll_tuner1:
+> +	mt8189_afe_disable_top_cg(afe, MT8189_PDN_APLL_TUNER1);
+> +err_disable_apll1_ck:
+> +	mt8189_afe_disable_top_cg(afe, MT8189_CG_APLL1_CK);
+> +err_clear_mux_setting:
+> +	apll1_mux_setting(afe, false);
+> +
+> +	return ret;
+>   }
+>   
+>   void mt8189_apll1_disable(struct mtk_base_afe *afe)
+> @@ -506,30 +523,47 @@ int mt8189_apll2_enable(struct mtk_base_afe *afe)
+>   
+>   	ret = mt8189_afe_enable_top_cg(afe, MT8189_CG_APLL2_CK);
+>   	if (ret)
+> -		return ret;
+> +		goto err_clear_mux_setting;
+>   
+>   	ret = mt8189_afe_enable_top_cg(afe, MT8189_PDN_APLL_TUNER2);
+>   	if (ret)
+> -		return ret;
+> +		goto err_disable_apll2_ck;
+>   
+>   	/* sel 48kHz: 2, apll_div: 7, upper bound: 3*/
+> -	regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG,
+> -			   XTAL_EN_128FS_SEL_MASK_SFT | APLL_DIV_MASK_SFT |
+> -			   UPPER_BOUND_MASK_SFT,
+> -			   (0x2 << XTAL_EN_128FS_SEL_SFT) | (7 << APLL_DIV_SFT) |
+> -			   (3 << UPPER_BOUND_SFT));
+> +	ret = regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG,
 
-The change looks correct, few questions:
- * Do we really need a unit test for this? We are not testing those error
-conditions now.
- * While here should we rewrite the first check as (!!log_buf != !!log_size), to
-cover the case when log_size == 0 but log_buf is nonnull (we check it later in
-bpf_prog_load()) (AI)
- * Fixes tag is probably not needed, because this is libbpf, target bpf-next.
+Well, this is a bit of defensive programming here.
 
->  tools/lib/bpf/libbpf.c                           |  2 +-
->  tools/testing/selftests/bpf/prog_tests/log_buf.c | 25 ++++++++++++++++++++++++
->  2 files changed, 26 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-> index b749c01742ee..e1fed7735614 100644
-> --- a/tools/lib/bpf/libbpf.c
-> +++ b/tools/lib/bpf/libbpf.c
-> @@ -9955,7 +9955,7 @@ int bpf_program__set_log_buf(struct bpf_program *prog, char *log_buf, size_t log
->  {
->  	if (log_size && !log_buf)
->  		return libbpf_err(-EINVAL);
-> -	if (prog->log_size > UINT_MAX)
-> +	if (log_size > UINT_MAX)
->  		return libbpf_err(-EINVAL);
->  	if (prog->obj->state >= OBJ_LOADED)
->  		return libbpf_err(-EBUSY);
-> diff --git a/tools/testing/selftests/bpf/prog_tests/log_buf.c b/tools/testing/selftests/bpf/prog_tests/log_buf.c
-> index d6f14a232002..31c842d27fb4 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/log_buf.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/log_buf.c
-> @@ -3,6 +3,8 @@
->  
->  #include <test_progs.h>
->  #include <bpf/btf.h>
-> +#include <limits.h>
-> +#include <stdint.h>
->  
->  #include "test_log_buf.skel.h"
->  #include "bpf_util.h"
-> @@ -267,6 +269,27 @@ static void bpf_btf_load_log_buf(void)
->  	btf__free(btf);
->  }
->  
-> +static void prog_log_buf_size_limit(void)
-> +{
-> +#if SIZE_MAX > UINT_MAX
-> +	struct test_log_buf *skel;
-> +	char log_buf[1];
-> +	int err;
-> +
-> +	skel = test_log_buf__open();
-> +	if (!ASSERT_OK_PTR(skel, "skel_open"))
-> +		return;
-> +
-> +	err = bpf_program__set_log_buf(skel->progs.good_prog, log_buf,
-> +				       (size_t)UINT_MAX + 1);
-> +	ASSERT_EQ(err, -EINVAL, "set_log_buf_too_big");
-> +
-> +	test_log_buf__destroy(skel);
-> +#else
-> +	test__skip();
-> +#endif
-> +}
-> +
->  void test_log_buf(void)
->  {
->  	if (test__start_subtest("obj_load_log_buf"))
-> @@ -275,4 +298,6 @@ void test_log_buf(void)
->  		bpf_prog_load_log_buf();
->  	if (test__start_subtest("bpf_btf_load_log_buf"))
->  		bpf_btf_load_log_buf();
-> +	if (test__start_subtest("prog_log_buf_size_limit"))
-> +		prog_log_buf_size_limit();
->  }
-> 
-> ---
-> base-commit: ee363e055895364039bf28348ff13c615afad4ba
-> change-id: 20260913-libbpf-log-buf-fix-49f5038caa5d
-> 
-> Best regards,
-> --  
-> Luis Vieira <luisflavieira@gmail.com>
-> 
-> 
+The regmap pointer is already checked by the previous function call, and this is
+a regmap over MMIO... and MMIO writes can't fail.
+
+> +				 XTAL_EN_128FS_SEL_MASK_SFT | APLL_DIV_MASK_SFT |
+> +				 UPPER_BOUND_MASK_SFT,
+> +				 (0x2 << XTAL_EN_128FS_SEL_SFT) | (7 << APLL_DIV_SFT) |
+> +				 (3 << UPPER_BOUND_SFT));
+> +	if (ret)
+> +		goto err_disable_apll_tuner2;
+>   
+>   	/* apll2 freq tuner enable */
+> -	regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG,
+> -			   FREQ_TUNER_EN_MASK_SFT,
+> -			   0x1 << FREQ_TUNER_EN_SFT);
+> +	ret = regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG,
+> +				 FREQ_TUNER_EN_MASK_SFT,
+> +				 0x1 << FREQ_TUNER_EN_SFT);
+> +	if (ret)
+> +		goto err_disable_apll_tuner2;
+
+Same here.
+...and it's the same in some other commits of this series.
+
+Though, good job about fixing the failure paths, that's good stuff.
+
+Cheers,
+Angelo
 
