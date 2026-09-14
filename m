@@ -1,219 +1,88 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BD345198A;
-	Mon, 14 Sep 2026 12:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2A4443C39
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387522; cv=none; b=WNPI2YJ5+JqHrHqMc5skOgtj1b0RfPHhWcjr+XdOISVhzOXZPAWdfxEsVXVP5qRAxnKrN9yTDoP2thGpy11Zr6+YZ1ZbI4dvVTqEOZrZwMNPcWULqQ+gb28YkVfvk/HhncxYTEPa86ZhQ7v2YqMNdGTyDHO6TSSar+1FQDFM4sM=
+	t=1789387535; cv=none; b=eMhzEw5mqgYvPsIbMpoVaYS97lze7v0m0xau5CDXL0CH1IvX2T6Jz4SmBqkgtn8PjWIKHnYXgCwMmVJ2c+l3sSyoRQXhJjpg33opYNWIUNS2xwc18tZ7fETbZuj9yyt9mt1BK6936YtLUSmfKfvJXoyYajZBueGMj2Q/O+w1Fz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387522; c=relaxed/simple;
-	bh=TXBFlo/yKQa3ajGkoWWKR8wNXMf580F82Ef81AWSp+s=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=B9BczsILCYwyoUFdpQO+5o9MvGsRHUPgf7JA2TT+XbnxSXYVaFzTaSd2w8rPdy38TDZbPpOLei5Ct9EC4FZqABd0Ojj1CNOks9XsH77SehaE2wZl3bq2bWrMevM6ifczLHQPJj1QaxI3l7ynzF5MmcshjVWCid25/vUecZ1UhSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=xUNsbCkl; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1789387535; c=relaxed/simple;
+	bh=EPKKIl6b3EX8ev0wV8qzJhlhMCWNx423BGnboaaBEu0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k5uj+zcFPwSV0HUAnfPDAnu05smESxvDhKaGTup/OufPvfVrNH9oJrZivqGjYjpXxNZt+NeWYVhq6bmkxNTwJBhYw/1c3lsCmMGmOJchwvL4ADxP/IPMVjfEoPcP++pZ9VHvLNhO7nbGOT9tt/rYy3doWHmWwrhJANCkE9KSOBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l63j0eY3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="xUNsbCkl"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id EA1945341063;
-	Mon, 14 Sep 2026 14:05:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789387518;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2fr3EoOIiIhQYIp0RlRy+4O9t1XNQ0pEoMB84iuMT0E=;
-	b=xUNsbCklwwjyvKtMuuXEvuSTWz4FGWiOVUSmy+8jvoksW8A53Ff75P3hBS8x9ej4+0qtCs
-	BGvDnFf+9LgXSRcZh/3F4t1/Ji8EzifTuSn/c8OcMsNTm+XXpUTfgJid+bqskis1XG8ycH
-	9CFD/ezURu2k4XCN1+t4j8MAp7ARRPo=
-Message-ID: <158555ee-315b-45c5-a2a7-c98ea104d540@ixit.cz>
-Date: Mon, 14 Sep 2026 14:05:17 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l63j0eY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368371F0089A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789387533;
+	bh=EPKKIl6b3EX8ev0wV8qzJhlhMCWNx423BGnboaaBEu0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=l63j0eY3owxAwFmzW+uTH89IrGmFevi3NYadMmQhCCS1ss1AxvUwzPZhAM5U8lUSC
+	 XVGeiEDAFdBs/HBm1LHiEt1Iu6qBqLULZ9TD/KS2mLUx+BGsKIdiy1FsJe24du76xb
+	 oZz/FIhU47BOb8bxZ5OUSn854dyJHQTgX47StRGclbzw4BhtBED4rvhZ3K8rin9E2l
+	 UewJ0rwo5JgjxAQJcdvwvJwTx0yj+GuEYBtMoyO5wEFlbI/vLlTOW6wbKnoEjqGPxr
+	 EOOtGf2FBzOqf4plumIHiSmm8qwRBG3S64OkHX5Mnvw1o5X2D3icGLbmReQoFeuKNc
+	 T1Z9yUPfxwEUA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so2021895e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:05:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByhPs7L8JXowfIcEO0iaz+yoXUPjPb15tq5WmbSXV9hj5bFT9MqfvIL6IQOWEho/womplVIOA+3Q0zLRfY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktVTyWdzrjPua/ITUvmdgTcVyYqgMW/snpR2vu3qe3JQEFsjH3
+	byeANBZxcUSlOF19VHtXq2bYQjzSb+j+7+0ax80s5eEwxRvFEAGxEgbNnnv448styVne4PCDiWf
+	CKIqCIY6ngxuvaTt2sb76gcFoSIzr3H0=
+X-Received: by 2002:a05:6512:2242:b0:5b7:65c0:8b92 with SMTP id
+ 2adb3069b0e04-5b8ae68d987mr1247986e87.12.1789387531865; Mon, 14 Sep 2026
+ 05:05:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
- device
-From: David Heidelberg <david@ixit.cz>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Dang Huynh <danct12@riseup.net>, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
- <d0d7e3d0-15bf-4850-99ec-44d429c6bae1@oss.qualcomm.com>
- <42ef03e8-112a-4689-aedd-eeb7ec9b4f58@mainlining.org>
- <be018c1c-88f3-41fc-9293-d5090a79b3a7@ixit.cz>
-Content-Language: en-US, cs-CZ
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <be018c1c-88f3-41fc-9293-d5090a79b3a7@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260903075940.2089367-1-mehmet.fide@gmail.com> <20260903075940.2089367-3-mehmet.fide@gmail.com>
+In-Reply-To: <20260903075940.2089367-3-mehmet.fide@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 14:05:19 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnhjQncaYeN-2KQT64AJ39iWa-RtHiX2MCvJxcD0KJ=GA@mail.gmail.com>
+X-Gm-Features: AcwNN1XZ9uIL02Hv0f9jfHvvbR53KZbr_8sAwWaE8orQR7toy2YPXPWxkdZN7oo
+Message-ID: <CAD++jLnhjQncaYeN-2KQT64AJ39iWa-RtHiX2MCvJxcD0KJ=GA@mail.gmail.com>
+Subject: Re: [PATCH v5 2/3] gpiolib: add get_config() and gpiochip_generic_get_config()
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, imx@lists.linux.dev, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@screeningeagle.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 14/09/2026 14:03, David Heidelberg wrote:
-> On 14/09/2026 13:58, Muzaffer Kadir wrote:
->> Hi Konrad,
->>
->> On Mon, 14 Sep 2026 13:22:52 +0200, Konrad Dybcio wrote:
->>> On 9/12/26 10:39 AM, Muzaffer Kadir via B4 Relay wrote:
->>>> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
->>>>
->>>> Add General Mobile Shamrock (GM 5 Plus).
->>>> Shamrock is designed similar to L9300.
->>>> Downstream reference is [1].
->>>
->>> Please feel free to
->>> wrap your messages at 72
->>> characters, otherwise they are
->>> a bit hard to read! :D
->>
->> I am sorry to hear that. vim shows
->> it less than 72 and I can't see which
->> line is bigger than 72.
-> 
-> Hehe, yeah, had the same issue.
-> 
-> require('lualine').setup {
->    options = {
->      icons_enabled = true,
->      theme = 'auto',
->      component_separators = { left = '', right = '|'},
->      section_separators = { left = '', right = ''},
->      disabled_filetypes = {
->        statusline = {},
->        winbar = {},
->      },
->      ignore_focus = {},
->      always_divide_middle = true,
->      globalstatus = false,
->      refresh = {
->        statusline = 1000,
->        tabline = 1000,
->        winbar = 1000,
->      }
->    },
->    sections = {
->      lualine_a = {'mode'},
->      lualine_b = {'branch', 'diff', 'diagnostics'},
->      lualine_c = {'filename'},
->      lualine_x = {'filetype'},
->      lualine_y = {'progress'},
->      lualine_z = {
->        { '%3l:%-2.(%c%V%)', type = 'stl' },
->      },
->    },
->    inactive_sections = {
->      lualine_a = {},
->      lualine_b = {},
->      lualine_c = {'filename'},
->      lualine_x = {'location'},
->      lualine_y = {},
->      lualine_z = {}
->    },
->    tabline = {},
->    winbar = {},
-> 
->    inactive_winbar = {},
-> 
->    extensions = {}
-> 
-> }
-> 
-> see a lualine_z for the way how to let neovim show length INCLUDING tabs :)
+On Thu, Sep 3, 2026 at 9:59=E2=80=AFAM Mehmet Fide <mehmet.fide@gmail.com> =
+wrote:
 
-...aaaand the comment was about opposite problem then the one I tried to address.
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+>
+> A chip with a pin control backend sets a line's configuration through
+> set_config() and gpiochip_generic_config(), but has no way to read one
+> back. gpio-mmio needs that to learn the direction of a line whose
+> direction lives in the pin controller.
+>
+> Add the optional get_config() callback, taking the packed parameter to
+> query and returning its bare argument the way pinctrl_gpio_get_config()
+> does, and gpiochip_generic_get_config() as the pin control backed
+> implementation, the mirror of gpiochip_generic_config(). Without
+> CONFIG_PINCTRL the pinctrl stub returns 0 and leaves the config alone,
+> so the helper answers -ENOTSUPP there instead.
+>
+> Nothing in gpiolib calls get_config() and there is no consumer API; it
+> is for the chip's own use.
+>
+> Suggested-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-Sorry for the noise.
+Excellent Mehmet, exactly what I had in mind!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> 
-> David
-> 
->> Only one I can see is url itself.
->> Should I move url to Link trailer?
->>
->> For other parts of review,
->> I will fix them in v2.
->> Thanks a lot for review.
->>
->> Best regards,
->> Muzaffer Kadir
-> 
-
+Yours,
+Linus Walleij
