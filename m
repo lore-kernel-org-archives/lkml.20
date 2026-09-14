@@ -1,131 +1,105 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CAE3B14B1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5CE2D7DC8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384953; cv=none; b=TA1kdPI6keWpKTsfcD4ZWsTcFcnod/YnhL5UUEOguyIBzaLo6bwFxld4ravxAhqSHdc9EsvHKzBbSxPmVjS+ol8wdagG2W8WMmUk6FNVEBKfohmvilVQBXBsuAf45khvruDwkvfhpplqS4Y3+qgnCeXWbB/dxoYKpWQDNOxu8yM=
+	t=1789384960; cv=none; b=ko7N0vgRbgRlYixywVzjFS644kfpEbF+bVVG2Oo+HaMdOkqGLlTafMpq3NO3WOwNglYEqv7oOaJYZngHd4kozkuuY1Geu0AIh3UJ/WwpVC8oLAg5+oL7Vgt7qCfunvIyXzIeZRnLhIHdb0LCf1URouAoTEU1+fAdumusc6t+ADY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384953; c=relaxed/simple;
-	bh=QQFSvxFWSgliUKfFMytDsbNvvxV+i6xT34GC/iP7I+8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=d/YQF6375B/X5qVjjICPcpik1WkmSvEOtiRtENLwJI7qiZDnS0v0o7a+z/6/4VWv8T6WSzoyDPZaSWjmylJYlcwjYAbAHTp/ZSin41UUwhRBCNs2Fq7Quip6c0fHetQshdA0Dcjh3IFj9h3v4LO1em5tQMEKGMCgUJxl7eoBgXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=cy74yz1Y; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789384960; c=relaxed/simple;
+	bh=fOZY9r7GYmr74OQDITJhZs1KkW9cwkudx5/l0jQdQic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kkfJMQr0JIpA4bjOkynQ4SzLG6/QhU65vlS7i9xG3gwi9JMqf/75fR7nsc7ihrC9Kx+MyYvYjE4pOUPpuDLSg8sp2HI/ENUcwmL8+YiBeZUO2rK7yGjpz+lhiX56MZ+Lek3hN51AKdj3iZpQ90k5+VKcvWBSDW2jP30StLrPquw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EJDHqCAO; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="cy74yz1Y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
-	:From:Date:MIME-Version:From:Reply-To;
-	bh=2ydmnqg3HzMcYUZI2KHG3VyDjXAqFDQPhoUDoniAetY=; b=cy74yz1Y2/+YbLAzf8335Y1wM1
-	1qLgLIt0fU9HO16yeqOoAy75tO5s7AnypubeO87+oGmwMGKg6q/MUoFSq/tZGgTz3sgbEqxG4vc06
-	zP5qqCPG2YgXWFEm/jscvjKnYZqQADeVQe6vHEZwKPPqvss9nk2fDZVgKLv8YLmEjIjHVWeRlSwW2
-	WcYalKf39RPww+iHWTzwYX2w9xtZlPVx5pqbT5wAQEq6eQ1cloAxLY//PvcnaFRV8H/pR1T5tVApd
-	0JemAXv1ZInZf4KodOETfh6hsN1r8ePc9cSgp/7sirQgvLogFgLm4GzTF7q6H4HXrK+Il1qrPcrRb
-	rLAiSyAQ==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
-	by fanzine2.igalia.com with esmtps 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x64lG-001qu6-1K; Mon, 14 Sep 2026 13:22:09 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
-	by mail.igalia.com with esmtp (Exim)
-	id 1x64lE-005S9L-IM; Mon, 14 Sep 2026 13:22:09 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
-	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
-	(envelope-from <mfo@igalia.com>)
-	id 1x64lE-00000001lBc-2bZU;
-	Mon, 14 Sep 2026 13:22:08 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EJDHqCAO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=b6h9B7SjS+nD6fl859nfFSgHxbx9xqTYAJEWyrVktok=; b=EJDHqCAOcv5YkaId3X+q+bMK3D
+	VLeA0h5X+uLKnTHsqMHESKzted4TJDruxDC2s6KVcMwf8opMs2xmfKXx9fZ8Qi43pmZO0EWZAhZuF
+	SYzU1TL/c228tTkmDyL++ek+cO2+DzafBXdDARYfE1YqYf7QO2jSmHbvA/hr6Ffw5VPdvLJot23Tl
+	7M/j0v/gCZxPszKaVMN9rd41AAhxqQ59luNEaNYZ2BDtlbWEQf3hGRN27+1j8No0CLf0xVcYSBhKs
+	yfDcfSnf5ZaJpPevtmz0OQle1qSktfw55lx9pXj5SpEAtOLUCIYWKjNpT5KIYHGRzIgM65dawgRwK
+	Uxy19D/w==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x64lX-0000000AbRd-1HiC;
+	Mon, 14 Sep 2026 11:22:27 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 37D7630066A; Mon, 14 Sep 2026 13:22:26 +0200 (CEST)
+Date: Mon, 14 Sep 2026 13:22:25 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Waiman Long <longman@redhat.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Haakon Bugge <haakon.bugge@oracle.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH] locking/osq_lock: Ensure proper locking semantics for
+ osq_lock/osq_unlock()
+Message-ID: <20260914112225.GA3500130@noisy.programming.kicks-ass.net>
+References: <20260910141908.592414-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 14 Sep 2026 08:22:08 -0300
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave
- Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
- <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
- Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 4/5] x86/cpuid: fix unbootable VMs by really inlining
- memcmp() in hypervisor_cpuid_base()
-In-Reply-To: <20260911043822.GHaqOFvnw5mQ0s89QQ@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-4-e70ef3b75b6a@igalia.com>
- <20260911043822.GHaqOFvnw5mQ0s89QQ@fat_crate.local>
-Message-ID: <6113f06c790cfe1141d2dc09b68937b6@igalia.com>
-X-Sender: mfo@igalia.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
-X-Spam-Score: -20
-X-Spam-Bar: --
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910141908.592414-1-longman@redhat.com>
 
-On 2026-09-11 01:38, Borislav Petkov wrote:
-> On Sat, Aug 22, 2026 at 03:33:20PM -0300, Mauricio Faria de Oliveira wrote:
->> diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
->> index 82eddfa2347b32b76c2ea9b85f005ca5416ac71f..2d9f3d4d63de6e721f275d9e80d372edbdfedf30 100644
->> --- a/arch/x86/include/asm/cpuid/api.h
->> +++ b/arch/x86/include/asm/cpuid/api.h
->> @@ -204,7 +204,7 @@ static inline u32 cpuid_base_hypervisor(const char *sig, u32 leaves)
->>  		 * from PVH early boot code before instrumentation is set up
->>  		 * and memcmp() itself may be instrumented.
->>  		 */
->> -		if (!__builtin_memcmp(sig, signature, 12) &&
->> +		if (!__inline_memcmp(sig, signature, 12) &&
+On Thu, Sep 10, 2026 at 10:19:08AM -0400, Waiman Long wrote:
+> The osq_lock is special in the sense that lock transfer from one CPU to
+> the next can happen either over the common optimistic_spin_queue.tail
+> value with uncontended lock or over a lock waiter's own percpu
+> optimistic_spin_node.locked flag when the lock is contended.
 > 
-> Dunno, did you not think of simply doing it by foot and save yourself all
-> those gymnastics in patches 1-3?
-
-In the review of the original patchset (fixed by this series) it is
-mentioned that a compiler might turn it into a memcmp() [1] -- and thus
-revert back to the same issue.
-
-[1] https://lore.kernel.org/all/877ccz12ab.ffs@tglx/
-
-Thanks,
-
+> To ensure proper lock synchronization, we need to provide
+> the acquire/release semantics for the osq_lock/osq_unlock()
+> functions in both cases. This is currently the case for the
+> common optimistic_spin_queue.tail value, but not for the percpu
+> optimistic_spin_node.locked flag as the proper barriers are missing in
+> some places. Fix that by adding the needed barriers in those places.
 > 
-> IOW, something like this totally untested thing below:
+> Note that the two percpu optimistic_spin_node.locked setting in
+> osq_unlock() are proceeded by a full barrier xchg() call, but the
+> contended cachelines are different. This should probably work in most
+> cases except in some exotic architectures where the barrier semantics
+> may be cacheline specific. Nevertheless a release barrier is still added
+> for safety reason as we may opt to relax the xchg() calls in the future.
 > 
-> diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
-> index 2d9f3d4d63de..a2db83d17940 100644
-> --- a/arch/x86/include/asm/cpuid/api.h
-> +++ b/arch/x86/include/asm/cpuid/api.h
-> @@ -192,9 +192,10 @@ static __always_inline bool cpuid_function_is_indexed(u32 function)
->  #define for_each_possible_cpuid_base_hypervisor(function) \
->  	for (function = 0x40000000; function < 0x40010000; function += 0x100)
->  
-> -static inline u32 cpuid_base_hypervisor(const char *sig, u32 leaves)
-> +static inline u32 cpuid_base_hypervisor(const char *__sig, u32 leaves)
->  {
->  	u32 base, eax, signature[3];
-> +	u32 *sig = (u32 *)__sig;
->  
->  	for_each_possible_cpuid_base_hypervisor(base) {
->  		cpuid(base, &eax, &signature[0], &signature[1], &signature[2]);
-> @@ -204,9 +205,12 @@ static inline u32 cpuid_base_hypervisor(const char *sig, u32 leaves)
->  		 * from PVH early boot code before instrumentation is set up
->  		 * and memcmp() itself may be instrumented.
->  		 */
-> -		if (!__inline_memcmp(sig, signature, 12) &&
-> -		    (leaves == 0 || ((eax - base) >= leaves)))
-> -			return base;
-> +		if (sig[0] == signature[0] &&
-> +		    sig[1] == signature[1] &&
-> +		    sig[2] == signature[2]) {
-> +			if (leaves == 0 || ((eax - base) >= leaves))
-> +				return base;
-> +		}
->  	}
->  
->  	return 0;
+> The "node->locked" read in osq_lock() was relaxed by commit 036cc30c6b6a
+> ("locking/osq: No need for load/acquire when acquire-polling") a while
+> ago as the smp_load_acquire() loop was causing a performance hit due to
+> the repeated acquire barriers in the loop and it argued that an earlier
+> atomic_xchg() call could provide the needed barrier. That may not be
+> enough especially if we have to loop for a while before the lock is
+> released. Now with the new smp_cond_load_acquire() helper, only one
+> acquire barrier is added at the end of the loop. So it shouldn't have
+> the performance hit noted in that commit.
 
--- 
-Mauricio
+You need to substantiate this *should*.
+
+> Currently osq_lock is used only by mutex and rw_semaphore code for queuing
+> purpose. As a result, the imperfect lock synchronization support does
+> not cause harmful consequence as the new osq_lock owner of a contended
+> osq_lock will still have to wait for the real mutex and rwsem lock to
+> be released by the pervious osq_lock owner before it can acquire it and
+> go into its critical section. For correctness, we still have to fix it
+> in case it is used elsewhere which doesn't have this inherent protection.
+> 
+> Fixes: 036cc30c6b6a ("locking/osq: No need for load/acquire when acquire-polling")
+
+This doesn't make sense. You cannot argue that the code is correct as is
+and still add Fixes.
+
+
