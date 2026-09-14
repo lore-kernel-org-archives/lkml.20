@@ -1,39 +1,65 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0624339363;
-	Mon, 14 Sep 2026 03:12:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB0F3385B9;
+	Mon, 14 Sep 2026 03:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789355554; cv=none; b=Pt1TbgLX+YbbvQ37c1AP6Feo2VB5/L+dfVYXo2X7yUdM/5Q/5SOGhkgWHla9smHQJtLRHeSNv0gr3DZIDen3ut/iNNneLAdtLHeNho2KwgpXr3XkLLWzR/NzW+XsrO4TxrOfB1YMOU5uFulwwkPjWMLJUgJit/VPltfby72ZL/M=
+	t=1789355589; cv=none; b=nAScXVMmsxeyAqxACzd0yUq4CRKys1xl6WiOA08jvhEGL2zzQ5zVut9nIUAiqJuLbdXtqfsm4PjtL2vFOA1MjBWEC/ZrrlqHzw4SQ7YQs9dpIOPrGq7WHjBvG3Ngh3uvNqsDPm6hKwaaeOcBvJVc6g6BJ2t67AWYgwm4eJF81/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789355554; c=relaxed/simple;
-	bh=huKWwb8rlJf3+N6r/GnqyXXU00p1lhy5cN8M9ZjYp0c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LLHOzzUQyQDokwyTa0KqtO2cJkVRs4jtowKJNyZdA/w1eyD/uPOfQ13GAG7TSDyvt7SadSbY+WTXcs7zE4YIFMdFSaoZl29ckV3lsT5t3Niz+N8a6CjaOoxpd3YaNVukdOcox+X6Bqy5posQbPvZmS0zQqvC5qEsLOGU/t4zuAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from k3-03 (unknown [159.226.43.8])
-	by APP-05 (Coremail) with SMTP id zQCowABn0Tv4ZadqJ0crCA--.15303S2;
-	Mon, 14 Sep 2026 11:11:59 +0800 (CST)
-From: Tan Chi <tanchi25@mails.ucas.ac.cn>
-To: Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>,
-	kvm-riscv@lists.infradead.org
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Jones <ajones@ventanamicro.com>,
-	kvm@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
+	s=arc-20240116; t=1789355589; c=relaxed/simple;
+	bh=XqDBQG9I/kQldxTtUTL+ST32GQ6BWJOlxbv1O1OdUso=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CWCn84OsruAFbhZQlBvEbekgxPG+2ErJlUM85oVhSeSn6063bgzZRN/tw5XBs1+gTv+KVCRvQ9BtsWCtfFYXxGDQUcWMB+cbFHgIczoLA3uInIC2w0mqpOFzt1o9tC4+eznbDjhuDkQP8/4QIWsCD3nvFdGup0hG55CMagSCDvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Ui7YEX0E; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=dXx9Iapv; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Ui7YEX0E";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="dXx9Iapv"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hjqwC55rVzKp1n;
+	Mon, 14 Sep 2026 05:12:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789355579;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=0fI6f3FOiJn+yr/ZG6phPn13meKh+HsNJMQ50OGU9CA=;
+	b=Ui7YEX0ELcK69vcBJxavXE1UUg7xcdr5+6Ps9UUGlHGsM19GaD1isy0Iid3/PBE7dz7Vkl
+	6z3qRbyLuSvu7KfyeUwg0+/u9bJVybWA/F7HvZp2+ijiP844pWBQihxUFk3IyT2L2bPUKr
+	0bAwkseeETVMA9iZu3RRsnvmXLfbqpVuQTupJmJMfH/dasoxrnzzNAAehrfpEfiU65iveZ
+	omDQJLaXm8zCy+voei38SUgdMQP4t3lChD5DhWtuxI4PIyLw7GOoQNtKjXTC07ocWx/IFX
+	Zoul1GkH9zmW6YsRTGDMlnQfuXgo3KnwjMON065bnXSRHkKfbQBiKJEDwb2s5g==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789355578;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=0fI6f3FOiJn+yr/ZG6phPn13meKh+HsNJMQ50OGU9CA=;
+	b=dXx9Iapvp1VemEj5g6FDYviBG5mdjhwEOUxPtyeJnYpyz2HbH3LmUnz6onQlUufaSnRLlS
+	kMwsLSJUOYJnBq1wLQ7WLstKmXYDe0WjI1tNcuStQ31Pa6eMCjIk1ebFQYL7OEKkD1uDsl
+	2PwlYS7bZMSODeuaGsGgYbhyYVaRaS+IrRnQelq247hv3A0EsDh0KkYj//BBG0UqiJB3du
+	zZtdx3+sMS06eIMeyHJMAr9Sx+gWcpkxL/aYvtcrtOgnDlDNSjCu/NebGWRXleQxlo5roY
+	3I2+/ZOt2GytP8FjoGdeZkaMJvlcoufL+LZwvqpkIAVwjfAPIOrD/ro80kLxGA==
+To: linux-sound@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Tan Chi <tanchi25@mails.ucas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] RISC-V: KVM: Fix HSM hart status error propagation
-Date: Mon, 14 Sep 2026 11:11:46 +0800
-Message-ID: <20260914031146.446157-1-tanchi25@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.53.0
+	patches@opensource.cirrus.com
+Subject: [PATCH] ALSA: doc: cs35l56: Point to kernel.org firmware repository
+Date: Mon, 14 Sep 2026 05:12:30 +0200
+Message-ID: <20260914031252.98932-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,64 +67,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABn0Tv4ZadqJ0crCA--.15303S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur47GF48ZrWrZrW8JFWxtFb_yoW8Xr4rpr
-	ZrGa1DurWFkFy0gasFya1q9FW5uFsagrnakw1kKw4Fv3yjvFW5Xr4vg34aqry5Aa48Wr1I
-	9FWYqF90v3Z8Ja7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67
-	AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjfb15UU
-	UUU==
-X-CM-SenderInfo: pwdquxrlsvqzpdlo2hpxfd2hldfou0/
+X-MBO-RS-ID: d480095db436342707e
+X-MBO-RS-META: 8zggmroufeborg9d47hyqwrcijnwzmwx
 
-kvm_sbi_hsm_vcpu_get_status() returns SBI_ERR_INVALID_PARAM when
-the requested hart does not exist. However, the HART_STATUS case
-returns from the SBI handler without storing this error in
-retdata->err_val.
+Use the primary mirror of linux-firmware at kernel.org.
+No functional change.
 
-As a result, a guest querying the status of a non-existent hart
-observes SBI_SUCCESS instead of SBI_ERR_INVALID_PARAM.
-
-Use the common SBI error handling path for HART_STATUS after
-saving a valid hart state in retdata->out_val. This preserves
-the returned error when kvm_sbi_hsm_vcpu_get_status() fails.
-
-Fixes: bae0dfd74e01 ("RISC-V: KVM: Modify SBI extension handler to return SBI error code")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Tan Chi <tanchi25@mails.ucas.ac.cn>
+Fixes: 088fb4ee17fc ("ALSA: doc: cs35l56: Add information about Cirrus Logic CS35L54/56/57")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
- arch/riscv/kvm/vcpu_sbi_hsm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Cc: David Rhodes <david.rhodes@cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: linux-doc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
+Cc: patches@opensource.cirrus.com
+---
+ Documentation/sound/codecs/cs35l56.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/riscv/kvm/vcpu_sbi_hsm.c b/arch/riscv/kvm/vcpu_sbi_hsm.c
-index f26207f84bab..06a15629c26b 100644
---- a/arch/riscv/kvm/vcpu_sbi_hsm.c
-+++ b/arch/riscv/kvm/vcpu_sbi_hsm.c
-@@ -95,9 +95,9 @@ static int kvm_sbi_ext_hsm_handler(struct kvm_vcpu *vcpu, struct kvm_run *run,
- 		ret = kvm_sbi_hsm_vcpu_get_status(vcpu);
- 		if (ret >= 0) {
- 			retdata->out_val = ret;
--			retdata->err_val = 0;
-+			ret = 0;
- 		}
--		return 0;
-+		break;
- 	case SBI_EXT_HSM_HART_SUSPEND:
- 		switch (lower_32_bits(cp->a0)) {
- 		case SBI_HSM_SUSPEND_RET_DEFAULT:
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
+diff --git a/Documentation/sound/codecs/cs35l56.rst b/Documentation/sound/codecs/cs35l56.rst
+index b3f8c1c238518..4a246f535d260 100644
+--- a/Documentation/sound/codecs/cs35l56.rst
++++ b/Documentation/sound/codecs/cs35l56.rst
+@@ -50,7 +50,7 @@ DSP. Firmware files are essential to enable the full capabilities of the
+ amplifier.
+ 
+ Firmware is distributed in the linux-firmware repository:
+-https://gitlab.com/kernel-firmware/linux-firmware.git
++https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/
+ 
+ On most SoundWire systems the amplifier has a default minimum capability to
+ produce audio. However this will be
 -- 
 2.53.0
 
