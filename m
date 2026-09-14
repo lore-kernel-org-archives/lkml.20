@@ -1,178 +1,170 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6755372ECD
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:12:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3619E360EFF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789359145; cv=none; b=Xgc5ahk4iMsPBsK8kDfZCivQpe6p41tiu65JwA4HeghU3UE3SM+UKaXRIaklejYkmPMRUnM0SBcTIkY70QMFjWapsIVz0AnJ6uH5+j/Y0jJ/320PSskzQV4RmSj3TwQ6oYu93+VJ12Mx+VdBJ+BFNZPWV9TiGM48yuxYufcdL6k=
+	t=1789359230; cv=none; b=S1aAXDT/A7lSXI6Xbai/N2ikG6mNIuV6TgUe2DX79eYShru/MAMvAvOtgtC88PQE6j+c+6m5JjI0fw8atd118+kNmKZuBTptjjIyIfQ++tyqm0l7WSVkb3iwpGLZ1bbhMeXwMm12YSyXGr9keFNlnF27fyiuxfwA52nnCIG8yHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789359145; c=relaxed/simple;
-	bh=ESNZSr3AXK9HlMk/gFGcAXiW9NstBhL9DjBXliLakIw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=he0tUgFlmPxWihY1+FkGS7QebQk1cbMaIsXrKvB7n/Utf9FMVD0JAPMeg7c/u1PfhhIgc0HhjfOw2hquANANhsTWZkPpuJETzgVUilqb3KP2IQsGrJD3ckRF/jRqH4uxmqhEarhEn8apEKQdjXj/uNpQw3KRmqIEgy6CL17Hhxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fB+tv/Kw; arc=none smtp.client-ip=209.85.219.43
+	s=arc-20240116; t=1789359230; c=relaxed/simple;
+	bh=n6npgSmBNifImp8W3NIguLO/9tg1tliNBHKDMIQsXqc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=flwTL+SJ9PxZjbqISuCoqbqwUvKET6YomofWS3UPKpmMXMAfmfeYS6PwjJ14jxaLPUzV2j3a5/Lm9H3IzjgwtRRkDj3NrxjWlFvwV3WQ9c7NpOiKIudYI06+h4JGEQxSDL181MCARs1mYoR771qJNVuHG76UWDjG3ljW2XvoF3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PsWoDCCu; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fB+tv/Kw"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-90cc64570deso31077016d6.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:12:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PsWoDCCu"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1766so1060224a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:13:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789359143; x=1789963943; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JGnLBFbtVuYmY0fd2Ltr4LaVEVXK5J1EaYUMo1O47F0=;
-        b=fB+tv/KwTmFXB/enKWm4S1sA4MTjcid0HueI/hQHFDh9lmyIoMAXQ9a31tTqNKUd9q
-         DrZ9UhiqSzpMW09mcSjEg+3RqTJQeidqcbVnFQlh0iX59QOqw13+gSy5jge6F+pYW3sm
-         eKxk1XW4aP6Ftf/xtKEWU3UwPK+9+1ZMSmHlwp56k71z49fPfYYOD1x/+oofxXsrXsC4
-         3s/DcVNR2IUvT/6cbKgE/6i7g3VJhNRH8an+xPA9mPQZv1eyak2f7sSGSiZDdpy9xHsB
-         zBZBtqB890rpDFPIyURatDG1rgCXvxtsSWhKSxK3EcsmynxD8GajbCLaMBmaWO9DiZS8
-         MXIQ==
+        d=gmail.com; s=20251104; t=1789359228; x=1789964028; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/eutc18koqEJykqXSKdaf4pI6am7bxBMT6hFPvEeQyE=;
+        b=PsWoDCCuwKB5qsibDQnf2kwHID3c311drD7lCvi0Kmur2w35Z1RAD1lrfGKj6CUt4T
+         uAxna2wycLYaD7O+K/6Cj0uk0R6r9IxAPwGLQvrhziEBuQXx/tUdRkkrN5rNWB37Cq+Q
+         KhOnDEKtkmIWPUoWhLxEB4g45e4MsOLTWNJWi+1Oh5+q8lRWLSY5bUHrUKHaZxWGHiFM
+         u+ObAuMDTeHBt9Ri8AgH3ntuiA8yxpwOQq8QSVQsrG9Qu9ApI7sq5hJhvHEwEOHZnk7D
+         zE8yz3OIzovtR9hD2JYL+r48++hsY6P5aLG6CCSCYQCQlsNpihrQp4JzIsNTl1X3iqm+
+         8h0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789359143; x=1789963943;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JGnLBFbtVuYmY0fd2Ltr4LaVEVXK5J1EaYUMo1O47F0=;
-        b=sLLwbjgDn8OgShqxPV1hoEWrOtqjNEdph3XTgy/mPtCYt1e2q/N1jWEatcrBxXslHo
-         TiKsGt1EkQL6lSI2qe0EtKiZdUv29Qs77hHhSyTSW8b/r90tjz1diUC6/leU+4kth3s2
-         n4wN9XMrmW1+4syv6W+cKbPsFLpzkfOrS2uGLYA67XIyZUrYatLOnmCj/Jjep85Ab3qZ
-         8Qzbp+KRDklXR/Df68Dn3k/ELXFzzuiRh7bVb9jE8muXWbFKMgYMm5cDJWQENpRB2TJ6
-         cn56dLG5Q3UKWobwiWTeowjy1qBz9JtFvRkcYYhQigJQQFsjm6J4wTqxHsgiytAunl+H
-         WoKw==
-X-Forwarded-Encrypted: i=1; AKwUvByc3lBMGcrZEUaK0PQbaD41nv2c/q/K6NYVgpqSP9dM2eheV22+RE0k+jsIL/trM45kJGtDHcBzaShcBaA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqa1ls4Zb9UY+hl4jrauG5oz1kPQq5SNQCmebB5oxYOUCXG8As
-	pzBB5H18a/FigSWmM2WSuxWzqw/UkXggCdGUlttJSP8MDkhM7yhNRv3j
-X-Gm-Gg: AYBFou3HSRTmARcZUqcdW3WgQliTY7rYA7YCmC6tVdaal8aWI8JSIIu1Xn07yZYkzoP
-	eMmT++tgukWnbvyIEgR21qpWLJvKGqBbSUx3Hmnqd0q+lGmizn+49rAu/1qaaWNaJDqyPfwP2NF
-	auc5IK/cdgfkX2boI9UTZKpykaKyhtzRwoO6dEf+zsEkz56VfCJB0GYY+y58TXmujBrmAINTsMk
-	PRILKcPO7N/cw1Jh3r5oKjr3aemzd4ynqXE0Vaq63BzttfzTQvjRCvlbycYqWaR/YxA1ZJx/Oim
-	JNw+1PVdc2lCrDWs754kt6/SHHyNww5tKr3WiWPY3iJqC7NxIx2PxsbuQwDcve8XXudxn0THYKT
-	XPT7uov6Nv+b4Uqyb1R+BFi369hsV5qD12NCy8lRyxS/Sv41cSHKoLP4Vr846VLbV5IFsOraxrf
-	lShEuth8kt8xkODP3OIEnib3GSmEPfvZuzGgwVmHslG6o6aq8IzudHizMzl2aL27/39fhksu07M
-	2z4J91TFARlEX8MkuYGfFeoIa8HO+u9Z4KrKGGpagW/y0pllwTqDXp/hrwmmPA9wyJBj175khhB
-	wOyL6fn0lR3DXGMx27JHq4F6zS8TS+KxzjpaaLlzMejCuO8gkqWQSj/askq+p6TT5xsQ/G6Ko5O
-	Kpk4lnmwh3BCA2oEjiVzabol8oyCSDK7Dr+Y=
-X-Received: by 2002:a05:6214:8613:b0:911:2a7c:65b9 with SMTP id 6a1803df08f44-91226be65b9mr53306246d6.30.1789359142637;
-        Sun, 13 Sep 2026 21:12:22 -0700 (PDT)
-Received: from edhar.longhair-great.ts.net (pool-173-48-206-252.bstnma.fios.verizon.net. [173.48.206.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d35a9sm85215836d6.41.2026.09.13.21.12.21
+        d=1e100.net; s=20251104; t=1789359228; x=1789964028;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/eutc18koqEJykqXSKdaf4pI6am7bxBMT6hFPvEeQyE=;
+        b=R1q6KFLYb9+QXR591oh+R4jkvAJzsxQ7rAtOHZeq3kLcQb+vAl2t0AXIa2co87JmM6
+         +sB5kMcqMLRCxPv5Q26TPzIHxGi0hFJyNK7FE+g0fJVp/AOghnEhZVj+IvO728HeYjVl
+         t22y/Ycr5i/SaJANP9hv8kVZKcH3upFNmD5Z6yZbTer6V95YRFPgSil391mIRMEg39+Q
+         /D0whIuDYnriuT9MK0PMyw2VkBDOmeVqwzAmZJNNQy/oShv30MebYLtT+CxUoytO2RnY
+         cyysCq8LUW8KN80gaUaewhwYTcvg8NOqNmDffFgNB5v9eY2rjFXOOyZ2jyQ+jGaJuHMd
+         VsWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVAgmTwwYtpIQuGmx2XtT2cnpHFVRkg9FT7OdZxhtPL/uTn2q+FBWkkNtXfDyyytd5UyLY8SZHA2FORFI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1TUQg7Jwh9URPhSuEKsj9HBtlP1Uq3fIybWcB6QeIFewGIBTN
+	QyRtpw436JChxaOransbvux+lUhCTtZmVtM+s2x+zejz/6SZ8lpyvbdX
+X-Gm-Gg: AYBFou0gQcyArKC2Yvq8S300hLvsjqlyJGT/sGCwKQy02VJz4HeUjzhJk2djFNCgDcZ
+	MPX1b5R2OGqTqLRi4DU2oydj7abKJ7FdheWakLhBx0GCNPLbxb0l0f/skA25Y9lW9gOYBQlKBwo
+	oPXEarMIlkYrSvkw9PBUnzVYP1ZROBU7cPjJbW+k5raR/6OIP4gcdnzlyzEtOo8KeJpmfkK/Ssn
+	6xf2vt6e3CvdgTEBTRO4xXic/yX7V8KsFbzvL+pzaZOxlEoOq2b9haU+C9PN3X2S76Lk2WqiKoH
+	+mzXZQcy3IWRnx58mnGaZdqrs6eXawJZu4NTXRVijWtrOfohKITZV2RyLCyMGBJh40l7yGwcf3S
+	cUVEujHW5M4yuETjr3+gNd6/3valZPS/oUNV0iNwP6FA5dYEda3vhjUaXDuhbmRZRJrmjhhr+Kg
+	TcA39ONDBxOf+7hI3RlUVb88WIipczoKJGFgILDO9ERho4iC4ehFxjOo99QXHuo13G2A==
+X-Received: by 2002:a17:90a:d648:b0:39d:cbb1:c96f with SMTP id 98e67ed59e1d1-39dec09a779mr1939982a91.18.1789359228512;
+        Sun, 13 Sep 2026 21:13:48 -0700 (PDT)
+Received: from omen-arch ([147.46.174.112])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d987e755fsm18783377a91.0.2026.09.13.21.13.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 21:12:22 -0700 (PDT)
-From: Zack Gomez <zack.gomez@gmail.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	leitao@debian.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zack Gomez <zack.gomez@gmail.com>
-Subject: [PATCH net] netpoll: bound the deferred transmit queue
-Date: Mon, 14 Sep 2026 00:12:21 -0400
-Message-ID: <20260914041221.1028092-1-zack.gomez@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 13 Sep 2026 21:13:48 -0700 (PDT)
+Date: Mon, 14 Sep 2026 13:13:39 +0900
+From: Junseo Lim <zirajs7@gmail.com>
+To: "Florent Revest (Anthropic)" <florent.revest@linux.dev>
+Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, KP Singh <kpsingh@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Leon Hwang <leon.hwang@linux.dev>, 
+	Sechang Lim <rhkrqnwk98@gmail.com>, Puranjay Mohan <puranjay@kernel.org>, 
+	Xu Kuohai <xukuohai@huaweicloud.com>, Ilya Leoshkevich <iii@linux.ibm.com>, 
+	Hari Bathini <hbathini@linux.ibm.com>, Christophe Leroy <chleroy@kernel.org>, 
+	Naveen N Rao <naveen@kernel.org>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+	Pu Lehui <pulehui@huawei.com>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+	Hengqi Chen <hengqi.chen@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf v2 1/2] bpf: Skip detached progs in trampoline images
+ that are still in use
+Message-ID: <aqdrwVpanH3WGurX@omen-arch>
+References: <20260912095924.866254-1-florent.revest@linux.dev>
+ <20260912095924.866254-2-florent.revest@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912095924.866254-2-florent.revest@linux.dev>
 
-__netpoll_send_skb() parks an skb on npinfo->txq whenever the device
-cannot take it at once, and once the queue is non-empty every later skb
-goes straight there to keep ordering. queue_process() drains it from a
-workqueue and, unlike the direct path, never polls the device for
-completions: when the ring is stopped it backs off HZ/10. Nothing limits
-the queue length.
+I think there's still a correctness gap here.
 
-A producer that outruns that drain therefore grows the queue until the
-host is out of memory. Observed with netconsole forwarding a GPU driver
-that logged one line at ~1e5/s after a firmware hang. The NIC was
-moving ~17k packets/s: completions for each burst surfaced tens of ms
-later, outside the one-tick window, so queue_process() slept HZ/10 per
-ring while ~1e5 lines/s kept arriving. The queue grew at ~170 MB/s,
-unreclaimable slab reached 51 GiB in five minutes and the OOM killer
-ran from kswapd with 341 MiB of anonymous memory on the whole box. What
-the queue held was the flood itself; the OOM report never left the
-host.
+> > diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+> > index c18e005a41dbe..9c166bdfbc6a6 100644
+> > --- a/arch/arm64/net/bpf_jit_comp.c
+> > +++ b/arch/arm64/net/bpf_jit_comp.c
+> > @@ -2429,6 +2430,10 @@ static void invoke_bpf_prog(struct jit_ctx *ctx, struct bpf_tramp_node *node,
+> >  	enter_prog = (u64)bpf_trampoline_enter(p);
+> >  	exit_prog = (u64)bpf_trampoline_exit(p);
+> >  
+> > +	/* nop, patched to skip this prog when it is detached */
+> > +	skip = ctx->ro_image + ctx->idx;
+> > +	emit(A64_NOP, ctx);
+> > +
+> >  	if (node->cookie == 0) {
+> >  		/* if cookie is zero, one instruction is enough to store it */
+> >  		emit(A64_STR64I(A64_ZR, A64_SP, run_ctx_off + cookie_off), ctx);
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does this still leave a use-after-free
+> window between the newly added skip NOP and the __bpf_prog_enter() call in
+> invoke_bpf_prog()? 
+> 
+> If a task on a preemptible kernel executes this NOP but is involuntarily
+> preempted before calling __bpf_prog_enter() (where rcu_read_lock or 
+> rcu_read_lock_trace would be acquired), it hasn't blocked the RCU grace 
+> periods yet. 
+> 
+> If another CPU detaches the program, patches the NOP, and drops the program 
+> reference during this preemption, the program could be freed. When the
+> preempted task resumes, could it load the now-freed program pointer and call
+> __bpf_prog_enter(p) on freed memory?
 
-Reproduced on the same host (netconsole over a 10G ConnectX-4 Lx) under
-the same slow-completion condition: 200k lines to /dev/kmsg in 0.12 s
-left 188k skbs and 173 MiB of unreclaimable slab parked, draining at
-~8-10k packets/s. With prompt completions the same burst drains at line
-rate; any stall on the link reproduces the growth.
+I reproduced the scenario Sashiko pointed out in our environment:
 
-Until the 2006 netpoll rework [1] the deferred path drained through
-dev_queue_xmit(), with the stack's own backpressure, and was capped at
-16 skbs (MAX_QUEUE_DEPTH). That series moved it to a direct
-hard_start_xmit() with the HZ/10 back-off and made the queue
-per-device, dropping the cap on the way. Neither change was discussed
-on the list.
+     ==================================================================
+     BUG: KASAN: vmalloc-out-of-bounds in __bpf_prog_enter_recur+0x3a5/0x3f0
+     Read of size 8 at addr ffffc90000055040 by task candidate/110
 
-Cap it at 1024 skbs and drop new skbs beyond that. netconsole already
-counts NET_XMIT_DROP in its per-target xmit_drop_count, so the loss is
-visible in configfs. Nothing is logged on the drop path because that
-would recurse into the console being drained.
+     CPU: 1 UID: 0 PID: 110 Comm: candidate Not tainted 7.3.0-rc2-00014-g15071f2a1263-dirty #2 PREEMPT(full)
+     Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux 1.17.0-2-2 04/01/2014
+     Call Trace:
+      <TASK>
+      dump_stack_lvl+0xb0/0x110
+      print_report+0x14b/0x4a4
+      kasan_report+0x108/0x130
+      ? __bpf_prog_enter_recur+0x3a5/0x3f0
+      ? __bpf_prog_enter_recur+0x3a5/0x3f0
+      __bpf_prog_enter_recur+0x3a5/0x3f0
+      bpf_trampoline_6442509193+0x37/0xf1
+      __x64_sys_futex+0x9/0x410
+      do_syscall_64+0xb0/0x530
+      ? srso_alias_return_thunk+0x5/0xfbef5
+      entry_SYSCALL_64_after_hwframe+0x76/0x7e
+     RIP: 0033:0x42a21d
+     Code: d5 48 8d 3c 0a eb 91 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+     RSP: 002b:00007f1befda9128 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
+     RAX: ffffffffffffffda RBX: 00007f1befda9ce4 RCX: 000000000042a21d
+     RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+     RBP: 00007f1befda92b0 R08: 0000000000000000 R09: 0000000000000000
+     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000021
+     R13: 00007ffd400508a0 R14: 0000000000000010 R15: 00007ffd40050997
+      </TASK>
 
-[1] https://lore.kernel.org/netdev/20061026225645.482978803@osdl.org/
+     The buggy address belongs to a vmalloc virtual mapping
+     Memory state around the buggy address:
+      ffffc90000054f00: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+      ffffc90000054f80: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+     >ffffc90000055000: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+                                                ^
+      ffffc90000055080: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+      ffffc90000055100: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+     ==================================================================
 
-Fixes: b6cd27ed3388 ("netpoll per device txq")
-Signed-off-by: Zack Gomez <zack.gomez@gmail.com>
----
-Tested on 7.2.5 with this patch applied: the 200k-line burst that parked
-188k skbs / 173 MiB on the unpatched kernel parks at most ~2k skbs and
-+4 MiB, with 182k drops counted in the target's transmit_errors; with
-prompt completions the same burst drains at line rate with a peak
-backlog of ~180 skbs and no drops. Built with LLVM=1 W=1, checkpatch
---strict clean.
+I used SCHED_DEADLINE to increase the likelihood of preemption.
+This seems consistent with the preemption window described above.
 
-Two choices I would take direction on: tail drop keeps the oldest
-messages and loses the newest, which for a console are usually the
-ones wanted, so dropping from the head is a few more lines; and 1024
-is arbitrary, about 1 MiB of skbs.
-
-queue_process()'s HZ/10 back-off is why slow completions turn into a
-~10k packet/s trickle; a shorter retry is a separate change I have
-not measured yet.
-
- net/core/netpoll.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-index fe1e0cda5d6..8fd640955e4 100644
---- a/net/core/netpoll.c
-+++ b/net/core/netpoll.c
-@@ -38,6 +38,14 @@
- 
- #define USEC_PER_POLL	50
- 
-+/*
-+ * Cap on skbs parked in npinfo->txq while the device is busy. The queue
-+ * exists to ride out a transient stall; a producer that outruns the
-+ * device for longer than that must lose packets, not grow it without
-+ * bound.
-+ */
-+#define NETPOLL_TXQ_MAX	1024
-+
- /*
-  * carrier_timeout is netconsole-specific and only kept here to preserve the
-  * netpoll.carrier_timeout module-parameter ABI. Its value is exposed to
-@@ -314,6 +322,10 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
- 	}
- 
- 	if (!dev_xmit_complete(status)) {
-+		if (skb_queue_len(&npinfo->txq) >= NETPOLL_TXQ_MAX) {
-+			dev_kfree_skb_irq(skb);
-+			goto out;
-+		}
- 		skb_queue_tail(&npinfo->txq, skb);
- 		schedule_delayed_work(&npinfo->tx_work,0);
- 	}
-
-base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
--- 
-2.55.0
-
+Best,
+Junseo
