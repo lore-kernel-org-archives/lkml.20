@@ -1,63 +1,52 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F324538D40B;
-	Mon, 14 Sep 2026 06:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DE83290C7;
+	Mon, 14 Sep 2026 06:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789369027; cv=none; b=T7xz7MMTgMOYYMRPR+64+ZD4g3cJ+EEZWJSCs+JwAZe9kuQjsAygpANbp2xIGUCVccp9F48X/VGim6t97idgn842IF4RleMCpFQV55hBGGmD0DPN9leR15nFI+Re+bcuxwE36qGbate2XBbOaNeTBnlm6/pi161LMNHin4Ad6uw=
+	t=1789369078; cv=none; b=YySZtxHKbkU1uo6pDnv+o0lQhQd1mi1bYcNwBPJZoL7+Tj7SpWTgWCjF3W0YPJHLWpmyMJsxK+SuVNea9FZntYi3hE1xtzDVl4LOS/xF5/4Ds5YRmga3pfm/DvODzaZ5KVW6sF7J4WcSGa3zXC+tX7mRcT+VpKIFLa8OQb+ygVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789369027; c=relaxed/simple;
-	bh=InWnSchOFmtnDRRPOkDjuk0ggAfdGCXzi6qozZkDWfA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jHyTZx6SXdH1hEI3L2OXWffov8P9vTAc/2QevJyN1+IfGsKq50dCNPwJN8yNNl6tb1LeVUxkAb9eghfPTsJPGktW0tlAgVLXPZtvY5DCJA6MnFHlvO9yOK48PzUVxgEmt3Pn09uLnnWLwAwZSiOt7LE0mpJPDVQx3mw7lAPjdW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=QjsUH/4Q; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1789369078; c=relaxed/simple;
+	bh=cE7HLX+YCBfj2HIFGPdVVmbWnE7TYB2eicReZHTWim8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=D3HWGx1hIlvDaXjtWc2q0feAgV74/3FTcktjVXulaYrG6wTMFCm/+fHaN5w8zCfdOtgpp5MFVwhIZviLtD0n0l/X5TeViqAbfq+YDD2FkvJS5LwSGfXy7VdUDc3Pj4swwEsk3dWWl7hbxBCoGzCQjiCyj6mKf+PG3VR6WtEUxAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=e4nn9din; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="QjsUH/4Q"
-X-UUID: 79f0179ab00911f18dc8c9802ae25ab1-20260914
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=NGfrSwb7kUfROhwGV7OHlue/a5Pn2gN3pKAVCv80KqY=;
-	b=QjsUH/4QvL1OsWH7h7+UFLpST3Bb/4s2CoFtym961Zb8r0OPCgfarsLxRyT1Az/P/w8NL6+8x2sGqq1uj0Llg5+6iWLidTZraDVAhGBAd11jByJ9lCBBT7y6xHxzaaOR7uBYBhCOYWfKA4xsm8gpoF8R3oAGC0huB178DF4kwQ0=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:f1bda98c-6277-4dbe-9874-ca6202d83bfb,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:1b153fd1-f9b0-4ba3-931f-dd1de252a72d,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 79f0179ab00911f18dc8c9802ae25ab1-20260914
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
-	(envelope-from <chris.lu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1958883300; Mon, 14 Sep 2026 14:56:57 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 14 Sep 2026 14:56:55 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 14 Sep 2026 14:56:55 +0800
-From: Chris Lu <chris.lu@mediatek.com>
-To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
-	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
-CC: Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>,
-	SS Wu <ss.wu@mediatek.com>, linux-bluetooth
-	<linux-bluetooth@vger.kernel.org>, linux-kernel
-	<linux-kernel@vger.kernel.org>, linux-mediatek
-	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>
-Subject: [PATCH v2 1/3] Bluetooth: btmtk: Route firmware debug event to the diag channel
-Date: Mon, 14 Sep 2026 14:56:52 +0800
-Message-ID: <20260914065654.102916-2-chris.lu@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260914065654.102916-1-chris.lu@mediatek.com>
-References: <20260914065654.102916-1-chris.lu@mediatek.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="e4nn9din"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789369005;
+	bh=LIVL8L76t6KEPTcGTpEPKDpsGGvY+rr+QPSKuZ3S47E=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=e4nn9dinSZAPTIIaOk+HD0sAxthyzy9pakrgHJfDCKP1WhJwdDk7TaoFzP2WROk3M
+	 C6u0v2WuyiVBLOnjLWeVD6S2w9hWV075y465gjSR86p+fp15BmWrick6Rxy7hk0dJk
+	 Vww3YhRdG32SjScsofT7JHu2OyX4IzyJ7Wv4GLuY=
+X-QQ-mid: esmtpgz10t1789368987tc3938474
+X-QQ-Originating-IP: oa/POHotl25pRRqxZDjcxefat9hRezoAQFHWYo8D1aA=
+Received: from uniontech.com ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 14 Sep 2026 14:55:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9193533759185836638
+EX-QQ-RecipientCnt: 11
+From: Yichong Chen <chenyichong@uniontech.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>,
+	Yichong Chen <chenyichong@uniontech.com>
+Subject: [PATCH] ext4: fix the logical block counter overflow in indirect migration
+Date: Mon, 14 Sep 2026 14:55:44 +0800
+Message-Id: <20260914065544.3438431-1-chenyichong@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,95 +54,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MfQnJH+7WKv6drDog6dbw8OMcEYzBjol7oM3AVxXW59Tzq/zKgrcnk7G
+	xqoBRHDC88Qo3DzarVgCnBEH7GHaGtmiU6gIIV03S3AgXAyK6SgUkBHi/C7OyikOf5aCUFf
+	5gWRkwicgu+wh2Q9Unh8KjZK8icy5Vzo31A2PomiIAxJTsoYSEKcdSeb3UQOknBynAqN8n7
+	xOG8DOGTb0hwAuaEfify3DAsuE6SoQn5qqC+j8lOt6+B1p9EatKnfOiJ5qv3O3AZnvET4lO
+	p5zD5lUTlXNPH6fqI/H8XXoIh7JUzBBM82rsiXu0ic9Ph1YubMk6Uzxs1zg6ip4Sd2DL4ZU
+	QwZk1GN2RrgaCmdjgxCc45HvHA+G59eGj6lXDX785dEmSWH0juxiOVzgc8oUT57igk/+/MM
+	bHwmNX5Vwtz9i4b/rokZSkd7wuzX0wBG/fYKybNzCNXzI9WCYcQXswTiUk2NsJGt0yel1w0
+	OBrD0ysVHHkNxZcs88H5XSIh32QIxPM9cxInCD/8691mRRgIAaqJec0Ms+e9bryxlBcclF2
+	ZyOa7kF+Q4AtXoXgg+wy/aexar+XBNwej4Q9HuZDPle804R5yf4XiEV4XnCQUiCI/SQrwS5
+	zRiu7LRxD+vZ7xK5q+Cq19TSzKBJkrXAynVSgUyB+miQLaFumeaySlf5+KdcZRrouYdiDBr
+	T5oMI+lrzfIt6utfLKh8fGSzWFMKQ3MNLGSbFsT0u/M9zN+JJzTkyVRogcYnWfh0PnlXTgA
+	2PgzMF1C890NcJedt65Tcglx7NkzLYe1NnNeq0vXpos/orzJXU/LYB83fXRs8/NFkCOmSyM
+	6pIb/nC7klHCZbL5vTk18TC5E3WVemhwfGmqqd5jukt/Z/Xz1SJq1ZX0+31ZYoytwNwSCMo
+	Qk3Kh2ekvO4W5z2HBPk4PBRUn3D1NhZ0TwecSYKkDc9cfkDkgvki3+I0LASewPTiqGvhB6D
+	7rOIwW6A2jNEsfmAfJ1JWWs0j8xxzJdHIXcUu1KN95v21lIqUl06VfWk5iwQj/hRS4wkbk/
+	Cr4lPxYg==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-MediaTek controllers may emit a firmware debug event on the ACL channel
-using the reserved handle 0x0efd, which shows up in the ACL header as
-0x2efd once the start fragment flag is included.
+update_tind_extent_range() advances lb->curr_block, an ext4_lblk_t, by
+max_entries * max_entries for every empty triple-indirect slot.  One
+triple-indirect block spans max_entries^3 logical blocks, which exceeds
+2^32 as soon as the block size is 8K or larger (16384^3 = 2^42 with 64K
+blocks), so the counter wraps while that block is walked.
 
-Neither btmtk_usb_recv_acl() nor btmtksdio_recv_acl() recognizes it, so
-the packet is passed to the HCI core, which has no connection with that
-handle and complains:
+A wrapped counter makes the migration store a block number that is 2^32
+blocks away from the one the pointer block describes.  Two ranges can then
+end up with the same ee_block, which trips
+BUG_ON(newext->ee_block == nearex->ee_block) in ext4_ext_insert_extent(),
+and without that collision the data is still moved to the wrong logical
+block while the migration reports success.
 
-  Bluetooth: hci0: ACL packet for unknown connection handle 3837
+Keep the counter in 64 bit so that it cannot wrap, and refuse the
+migration with -EOPNOTSUPP when a data block is found after the last
+logical block an extent can describe, which only a corrupt block map can
+contain.
 
-Handle it the same way as the existing firmware debug logging packets and
-forward it to the diagnostic channel instead.
-
-Confirmed with MTK internally that this event's wire format is fixed:
-firmware always sends it as a single ACL_START packet and never splits
-it into a continuation (ACL_CONT, which would show up as 0x1efd). Add a
-comment above the switch spelling that out for this and the other
-vendor-reserved handles already handled here (0xfc6f, 0x05ff, 0x05fe),
-so review tooling doesn't keep flagging the apparent lack of a matching
-continuation case.
-
-Verified on MT7922: under the condition that triggers this firmware
-debug event, it is now routed to the diag channel instead of reaching
-the host as an unknown ACL packet.
-
-Signed-off-by: Chris Lu <chris.lu@mediatek.com>
+Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
+Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
 ---
-v2: Confirmed with MTK that this event's wire format is fixed at a
-    single ACL_START packet; added a comment above the switch in
-    btmtk.c and btmtksdio.c explaining that HCI fragmentation does not
-    apply here, addressing review feedback on v1.
+ fs/ext4/migrate.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- drivers/bluetooth/btmtk.c     | 8 ++++++++
- drivers/bluetooth/btmtksdio.c | 8 ++++++++
- 2 files changed, 16 insertions(+)
+diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
+index e06d847033a1..8043959c19ef 100644
+--- a/fs/ext4/migrate.c
++++ b/fs/ext4/migrate.c
+@@ -14,7 +14,7 @@
+  * represented by a single extent
+  */
+ struct migrate_struct {
+-	ext4_lblk_t first_block, last_block, curr_block;
++	u64 first_block, last_block, curr_block;
+ 	ext4_fsblk_t first_pblock, last_pblock;
+ };
+ 
+@@ -65,6 +65,10 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
+ 			       ext4_fsblk_t pblock, struct migrate_struct *lb)
+ {
+ 	int retval;
++
++	if (lb->curr_block > (ext4_lblk_t)-1)
++		return -EOPNOTSUPP;
++
+ 	/*
+ 	 * See if we can add on to the existing range (if it exists)
+ 	 */
+-- 
+2.51.0
 
-diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-index 660ed5b02841..ddf50ab9533e 100644
---- a/drivers/bluetooth/btmtk.c
-+++ b/drivers/bluetooth/btmtk.c
-@@ -1055,6 +1055,13 @@ int btmtk_usb_recv_acl(struct hci_dev *hdev, struct sk_buff *skb)
- 	struct btmtk_data *data = hci_get_priv(hdev);
- 	u16 handle = le16_to_cpu(hci_acl_hdr(skb)->handle);
-
-+	/* The handles below are vendor-reserved values MTK firmware uses to
-+	 * tag out-of-band debug/dump data on the ACL channel rather than a
-+	 * real connection. Each is always sent as a single, complete
-+	 * ACL_START packet, so unlike genuine connection data they never
-+	 * arrive fragmented (e.g. 0x2efd is never followed by an ACL_CONT
-+	 * continuation, 0x1efd).
-+	 */
- 	switch (handle) {
- 	case 0xfc6f:		/* Firmware dump from device */
- 		/* When the firmware hangs, the device can no longer
-@@ -1076,6 +1083,7 @@ int btmtk_usb_recv_acl(struct hci_dev *hdev, struct sk_buff *skb)
- 		fallthrough;
- 	case 0x05ff:		/* Firmware debug logging 1 */
- 	case 0x05fe:		/* Firmware debug logging 2 */
-+	case 0x2efd:		/* Firmware debug event */
- 		return hci_recv_diag(hdev, skb);
- 	}
-
-diff --git a/drivers/bluetooth/btmtksdio.c b/drivers/bluetooth/btmtksdio.c
-index fe4ca9395aa3..46cb143a99c6 100644
---- a/drivers/bluetooth/btmtksdio.c
-+++ b/drivers/bluetooth/btmtksdio.c
-@@ -451,6 +451,13 @@ static int btmtksdio_recv_acl(struct hci_dev *hdev, struct sk_buff *skb)
- 	struct btmtksdio_dev *bdev = hci_get_drvdata(hdev);
- 	u16 handle = le16_to_cpu(hci_acl_hdr(skb)->handle);
-
-+	/* The handles below are vendor-reserved values MTK firmware uses to
-+	 * tag out-of-band debug/dump data on the ACL channel rather than a
-+	 * real connection. Each is always sent as a single, complete
-+	 * ACL_START packet, so unlike genuine connection data they never
-+	 * arrive fragmented (e.g. 0x2efd is never followed by an ACL_CONT
-+	 * continuation, 0x1efd).
-+	 */
- 	switch (handle) {
- 	case 0xfc6f:
- 		/* Firmware dump from device: when the firmware hangs, the
-@@ -460,6 +467,7 @@ static int btmtksdio_recv_acl(struct hci_dev *hdev, struct sk_buff *skb)
- 		fallthrough;
- 	case 0x05ff:
- 	case 0x05fe:
-+	case 0x2efd:		/* Firmware debug event */
- 		/* Firmware debug logging */
- 		return hci_recv_diag(hdev, skb);
- 	}
---
-2.45.2
