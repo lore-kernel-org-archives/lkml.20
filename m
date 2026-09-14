@@ -1,73 +1,105 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF0436B905
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0855E34A76F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789401850; cv=none; b=PumEQ+zrM6xWc2EPJfIOhJwXdSc9Ty5YLMtLA/J2Fj0re5DiQe6UvJ+coDweVS9DcEXx7yjFZUJfp238B32Lm8v52HMeSgX1WHbPjS01RaY9AZiIgzreJuoNG3b/8/VmSZO5GYseVvnyDFot0PJdS3APRS4Ne9aQly1u+/tSxmg=
+	t=1789401895; cv=none; b=CUP1a6SdxfS2zl0SbfPjoB3O3BO5S81g7Ea7nE9DhwggkEZyxajzntzTwlC9F7BejivyAPWOqE6gEtoMDamv4/0O/XfbDiJ334YKMYvzN58b7H2Kh0clUX1MPWm4oJYKBMTMiF/mvDzAEv8RbOR4ixPeio66wPqGMUpd1RRyXgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789401850; c=relaxed/simple;
-	bh=ZzsST+LEUGeVsaNT2nlxnAzIEtfZDnpQOEj5US9Iw2A=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=XC1s0w+YlVMkdxgVWAfxdhgWInwGdUMA43CEEH63UeMMM3aTVOWsoxgqLDH81OBAUUnuqYFvc8etWfr9pJRF717rL0RcXk/55sZkcduMslcTtJL7aHVVTqBWkw7wWzf/JhsdI3DQ/A0y1Tol/MIisFXL3D9UKVsSxN2PvUTL84o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a7de733fa9so4558000b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:04:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789401847; x=1790006647;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+	s=arc-20240116; t=1789401895; c=relaxed/simple;
+	bh=Sgn87V/ffdQ0Mw2u0QtttnnD5720T1tTrgEBiXpaGcA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pe+wtmXu4uh0NMBiuSi1g+ykc6jk+vpwRQeL93u4hsKApG7RBnHeLsnhspnOuKD3sBnZa+a+tvTZs+8udmH27bc9ONEQoLknFSY9hIvPaXseM77ot+PKEmygTnoEGOx/9OlMp3O9f8wnfGN7vmCyiQmwrBHpv4L3qNvvRVlde1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=XzkbyW0i; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="XzkbyW0i"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6af07e08so1203605e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=6wind.com; s=google; t=1789401891; x=1790006691; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=bqVhu3Rqi7QrX2Xb1oDXVOQWk7VkDTkLnCINgBeuGRA=;
-        b=hPSaKWRxrVimozIomJN5pqfvQZ9eyfU0/q6IzctN4hpqfiMq7b3VLNNhFy0JShHZwa
-         XCi5djePuoXFjeX+Pdny8dtgDxcR1uivzQSSFzDVuA0vxJrzW/xapbHaR0ug4uPAt+Il
-         RlcjTh8bo+vzt9cz9I+X8vhR0SJD+E8o1NWmmphWU2aAtLa0EWkbf5DgpA13nEtEN06v
-         xi7WxhsVlwAPpVseisWPtFqU6Wzp57VMWzZqdXFObTPbvsx2AXgcin8TzGpoHNh9sIcH
-         raFBBOzpjtLeqAbgGhTGjB7FLrI5cbNOrfO0BFrPxg4IrIIr3VlKQGUSPRIbMIcfifm1
-         fR6g==
-X-Forwarded-Encrypted: i=1; AKwUvBy0XRAM+LOE53hZvbDQ1sVDzeh0zhM7lMfvCiD4LFqwV0mHpIgh5A4lKMhdI2tepC2OeJkSD6f6nNKXlqQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrOPmla1NipyX9QHYsfXy0SBJGV+HINZAY/oTifEO0KoufcGaw
-	mORFM18lPDTv8EiTbORv0Jj8J4XEpc29j+YbBFjHbTz8NK2cZju9mCmoWdpLMSIYA2FCEZBNS5t
-	E9UCKafzbBxEH2S3/jYCitGxHZt1+jq3BaGK6oFPUJWB4MoaWQkXmXDZwIoU=
+        bh=c2e/oQkBlRuHGocwCZrcUxkwTAc0GxvFf1MGdOjknyk=;
+        b=XzkbyW0iKKz9d9PcJHOTcSIob/MlbyKvGe+ZoDPvMtkwwmacU2JdDY9recjcpaOQ7h
+         5pu6SGEDKVamOzoyR+0xkW8N66anfEntWbVcxiYwkM8tyJf36EwXrnJ+fqg3j1IlWu5T
+         hHSyEymKM7mtizy6MSXOoBchAloasbUMrncWHzaxx5cz/+EAzDz6CHJwS9VmgKdcmKAO
+         uLEqCPdAUabWxhA8fZ0JP3PxaN4Nll/7kth5HYohg+oVIlEeJ5UsmpuIWQ9sGXC3xIkL
+         0dRzB1nPv4OX5eRhHsWkLbmh8YEryB41Yweu4EbesKuEwR60pHr2R9Og9BDskNmB7si3
+         jAVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789401891; x=1790006691;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=c2e/oQkBlRuHGocwCZrcUxkwTAc0GxvFf1MGdOjknyk=;
+        b=Dx2QQtcXCQ/OM59oQ/necAydrgz81HxD5z2ztWzqmGrAjWFFTppjIpQ7XSEEHy1l5h
+         aa/V8otEGnM6qQMiro7kJSRY8WxN+qmg/DhDeqYBDJxhJ5fum4aAaH1ING1gCC82VPf5
+         hUSA0gGMOAcTvs9r8FrHb4+mFvju5fInP4P88RitA2MluMZKKkqYkV89N6G0AgJCcVk7
+         CqCqeobN3rHlDXFdw7aJTqnxm6h5ydoi5Av2auEUlN7qeCcPoNGzoWIYEK6aRicyE7DO
+         GwC5/qqwnwhmIOz8eul4YaZbrurp6xnIEXBHtSrqIJBMiVM+PZKWGMP5pg+xXTsjhkfi
+         WkEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmyZ1P29ojXPLLJBmsjTBf/SbJxnMDLDXDheT8kFNqrOWkL6jE3nIrTng0E+rJQ3dPXh93FLTW6HDFvmg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kX1gdMZRfgQMr+jZIqElNV6Kc0N/bq67gnafLLB0JW+PIw96Ya
+	r1BfDq21tBnjh7Pas+YoA/gDnPAWQmJ32c8eeWwaA42AvxjzsI3izu2/nzjFv9gQUOw=
+X-Gm-Gg: AYBFou1f6EX7vTbqWE5X5wAdLLkR00Vc8x2yLdid1dk1NBSbaItMS84Uz48nQknLvOY
+	nWwz+RFfT/mPlKU8WQhGpEbHtawnWQqEN7yS4hvq9JLFCxkjFeLs5oRMnu9SsPyHMY/0Fr3E90Q
+	EJI0jOX3pTUNhzntAWBtBLJBjg4AARuQDrqSCRj1nHGZuzvNWl187v6Dsue59WMDmy9Prya0hX3
+	i0KrXkEje3tJxgx1zBxROjCxEQ4egzIPX7JL+nWaWhXJhI8vDKZ9NXYn8rgPjmMfdbkwI9prs3M
+	jE23ymjJu2t8f3ZRgv8cTQOqVljhljVr50R/iKK1c2/xeQfRJ+j8PIwFCbX7T7HNxrvTDrjjM/u
+	XGjbnfdine1MmLFqX5/iqqcYXyL7nYBORkipE51ZtR52YZX/EskeH+zwARghkoNoPqxCmZkzuSb
+	bfymbcAWE9XhdLM2fumQwKA1Q57kcgkl95D6qkMP4G3XHtcyyLsYgJTOl+ySwbgI4mWcKUxyYqD
+	79v82YSHC65wpT/9Te8rqup+eAI7R2wpSuVodDxqrgiEFSgIvaB
+X-Received: by 2002:a05:600c:19cf:b0:49d:1da4:511b with SMTP id 5b1f17b1804b1-49e7a6859e1mr35897685e9.1.1789401891025;
+        Mon, 14 Sep 2026 09:04:51 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35bed0sm28874405f8f.32.2026.09.14.09.04.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 09:04:50 -0700 (PDT)
+Message-ID: <29afa1c3-b1db-4e98-9640-104251cdfa2e@6wind.com>
+Date: Mon, 14 Sep 2026 18:04:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3a10:b0:4b1:b037:da8b with SMTP id
- 5614622812f47-4c7b34d5c4cmr2158407b6e.11.1789401846926; Mon, 14 Sep 2026
- 09:04:06 -0700 (PDT)
-Date: Mon, 14 Sep 2026 09:04:06 -0700
-In-Reply-To: <6aa7dac8.02c11d65.3148fc.728cSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa81af6.f81106d8.2ab401.0051.GAE@google.com>
-Subject: Re: [syzbot] [net?] BUG: using smp_processor_id() in preemptible code
- in sk_skb_reason_drop
-From: syzbot <syzbot+dc57fd6722deb17e92af@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net-next v5 4/4] selftests: net: test AF_PACKET multicast
+ dumps
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
+ Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
+ Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260914014539.5015-1-sigefriedhyy@gmail.com>
+ <20260914014539.5015-5-sigefriedhyy@gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Content-Language: en-US
+Organization: 6WIND
+In-Reply-To: <20260914014539.5015-5-sigefriedhyy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
-
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
-
-Reported-by: syzbot+dc57fd6722deb17e92af@syzkaller.appspotmail.com
-Tested-by: syzbot+dc57fd6722deb17e92af@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=152a8df9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=dc57fd6722deb17e92af
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=154fe925580000
-
-Note: testing is done by a robot and is best-effort only.
+Le 14/09/2026 à 03:45, Yuyang Huang a écrit :
+> Dump the link-layer multicast addresses of a dummy device and verify
+> that ifa_index restricts the dump to that device, that the all-hosts
+> address joined on link up is listed without IFA_F_GLOBAL, that an
+> address added with SIOCADDMULTI is listed with IFA_F_GLOBAL and
+> IFA_MC_USERS, and that IFA_TARGET_NETNSID dumps another netns. Skip
+> when the kernel does not support AF_PACKET dumps.
+> 
+> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
