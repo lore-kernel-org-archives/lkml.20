@@ -1,120 +1,110 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 689053B0AE7;
-	Mon, 14 Sep 2026 08:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta0.migadu.com (out-45.mta0.migadu.com [91.218.175.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E613EFFBA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373976; cv=none; b=dka2qd+33V6RTQzZ3SiGeakTYiNZ3WBs68TPdEn8DDPg+RSPkJ9cTKKSSt3cMyvhGQq6OpwzeFe5UAd3bjuWjvcmZPiu6q09dNRNCdxX4q7IiuzmnWnvmRNDPo7G73LDPMti5J3t1pHdywFskD14wUoV+j0RPBfVeka0KyeOiS4=
+	t=1789374003; cv=none; b=Q1wO/yIlylFndP8oSxVsnoyAAknTbdvIOfk5Kt0m0miPxCZEp+EVc2p/v7q/Kli39659kk2VYW+De1prlyp3bW8Ve3nbWtVolBy/b04kLjLQCfUfj81XZ1Fqr/8mHuF324oUY5ifwgDre+q1FO/r+uEjk7mfemu+6eaaHk6naSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373976; c=relaxed/simple;
-	bh=m0ynvs3ASpXg1FC+68FV0PXhWfrNCCs02XWVdpFI/DQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LCbHDmn5Mokbs0SvnuYbCd5tCkWPMx5Gq5SFin9P1x4I4fZqJqbqPpQ7D8OtqVXzYYSyPqazEpf1BSyvIzK/8t3939CIkE/Mpert9ltS9cJsZJqwVNBE10kZsKqZDSw17LRNdDQosoaGVzyJnVeOD7iywzl9ZnQ0XsiJ70P00xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qn7Y86S7; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789374003; c=relaxed/simple;
+	bh=U7vTt2iELlQ0EEFdakKRfkx0wSobYgfSFzBqINVEnHs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 In-Reply-To:References; b=Q/S2luG5aYlybqX9WldrOrsJugih+eOjbPoriKZa38v5dp8UTbjc6jXP0sFNM97hc3IphNbkgM2lt2nLJ3AKaM29V/f2P5CKJRGYt7PkauuJc5kb/qkdxOr6cW4LbAY9mgi9DYSWWOEYIa5Cl6GcoUKyy4tmx5FdN5f7o00x6Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UK7DmuMD; arc=none smtp.client-ip=91.218.175.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qn7Y86S7"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2155F1570;
-	Mon, 14 Sep 2026 01:19:30 -0700 (PDT)
-Received: from [10.0.128.139] (unknown [10.0.128.139])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 347C73F7B4;
-	Mon, 14 Sep 2026 01:19:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789373973; bh=m0ynvs3ASpXg1FC+68FV0PXhWfrNCCs02XWVdpFI/DQ=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=qn7Y86S79uT/YwzISi20g2289oLffqODkAmnxFgB2/f7TGFSQH0pkD3Flpjb9goCV
-	 JVxc5wzSGZPvwfsvk8giDVPvJZb6nSQiZf9vHgvAswACRxWTw5hI/Q8OEqEP2oUPT0
-	 WdpXR2joVP3TKazZtFh5ODPYF2WekqdLue2DS+xI=
-Message-ID: <1fca136f-5802-449a-81f1-3a76c31a2f74@arm.com>
-Date: Mon, 14 Sep 2026 09:19:29 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UK7DmuMD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=U7vTt2iELlQ0EEFdakKRfkx0wSobYgfSFzBqINVEnHs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789373998; v=1; x=1789978798;
+ b=UK7DmuMDV0VPrT5MmKknXCqLYrMAI/3rY1tOmAtZZL5XIAOpbl7EE374D19gQGnOPXE4LDgv
+ k2Um6ED2NATlrru+MbYUXcGbZXWmtV+f7di7ZqQ2yq5HRFNxc317ZO30E23i79Ks0cePx8El0No
+ AqMVoFOZDQSWY5YN844+v+L4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 85b6144fd9a19aa4;
+	Mon, 14 Sep 2026 08:19:58 +0000
+X-Mizu-Trace-ID: 85b6144fd9a19aa4
+X-Migadu-Flow: FLOW_OUT
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Mon, 14 Sep 2026 16:18:03 +0800
+Subject: [PATCH v5 3/6] dt-bindings: hwmon: Add Sensylink CTF2301
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
-Content-Language: en-GB
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-5-suzuki.poulose@arm.com>
- <f00d01d1-8df0-4865-8e52-c85171cf4ca5@redhat.com>
- <4f18aa66-2296-4b63-87f5-6ab493faecbc@arm.com>
-In-Reply-To: <4f18aa66-2296-4b63-87f5-6ab493faecbc@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-ctl2301-v5-3-522def70acb4@linux.dev>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-doc@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+In-Reply-To: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
+References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1686;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=U7vTt2iELlQ0EEFdakKRfkx0wSobYgfSFzBqINVEnHs=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFnL1x76eWbBXPl7F+xPi/5g/Tg77+OZHetkKg7IdR5t6
+ xb8IHrIsqOUhUGMi0FWTJGl+wHPtgKfKNsCgUJfmDmsTCBDGLg4BWAiJy8y/GRMuGXty6XuH9Lj
+ l1CYWmXifsWjbZ64w4c5n+eXKc85fIKRYV76CZb9U913eTW3f6nbbRjNZHAsTkhQ5u5be+9lVud
+ 2MgEA
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-On 14/09/2026 07:22, Suzuki K Poulose wrote:
-> Hi Gavin
-> 
-> Thank you for the review, I will address most of them. Responses inline.
-> 
-> On 14/09/2026 06:04, Gavin Shan wrote:
->> On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
->>> RMM v2.0 introduces the concept of "Stateful RMI Operations" (SRO). This
->>> means that an SMC can return with an operation still in progress. The
->>> host is expected to continue the operation until it reaches a conclusion
->>> (either success or failure). During this process the RMM can request
->>> additional memory ('donate') or hand memory back to the host
->>> ('reclaim'). The host can request an in progress operation is cancelled,
->>> but still continue the operation until it has completed (otherwise the
->>> incomplete operation may cause future RMM operations to fail).
->>>
->>> The SRO is tracked using a struct rmi_sro_state object which keeps track
->>> of any memory which has been allocated but not yet consumed by the RMM
->>> or reclaimed from the RMM. This allows the memory to be reused in a
->>> future request within the same operation. It will also permit an
->>> operation to be done in a context where memory allocation may be
->>> difficult (e.g. atomic context) with the option to abort the operation
->>> and retry the memory allocation outside of the atomic context. The
->>> memory stored in the struct rmi_sro_state object can then be reused on
->>> the subsequent attempt.
->>>
->>> Wrappers for SRO RMI commands are also provided here because they depend
->>> on the rmi_sro_execute() implementation added by this patch.
->>> Delegate/undelegate handles are also added here because they now use the
->>> SRO/stateful command infrastructure and are also used for the memory
->>> DONATE/RECLAIM flows.
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> 
-> 
->>> ---
->>>   drivers/firmware/arm_rmm/rmi.c | 586 +++++++++++++++++++++++++++++++++
->>>   include/linux/arm-rmi-cmds.h   |  41 +++
->>>   2 files changed, 627 insertions(+)
->>>
->>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
->>> arm_rmm/rmi.c
->>> index 5b0e342ce3d58..4f9898ece7547 100644
->>> --- a/drivers/firmware/arm_rmm/rmi.c
->>> +++ b/drivers/firmware/arm_rmm/rmi.c
-> 
->>
->> I would drop rmi_granule_range_{delegate, undelegate}() by combining 
->> their logics to
->> their only callers rmi_{delegate, undelegate}_range(). More details 
->> are provided for
->> rmi_{delegate, undelegate}_range() in the below.
-> 
-> Ack
+Add the Sensylink CTF2301 temperature sensor and fan controller to the
+LM63 family binding. The chip follows the LM63 register model and can
+provide a thermal cooling device when #cooling-cells is present.
 
-I have moved them closer, but kept the logic separate, since this is not
-a simple RMI call.
+Do not provide a national,lm63 fallback because the CTF2301 is not fully
+compatible with LM63. It uses different conversion-rate encodings,
+extended local-temperature registers, additional fan lookup table
+entries, and device-specific PWM and ALERT/TACH configuration. An older
+LM63 driver would therefore not operate the device correctly.
 
-Cheers
-Suzuki
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ Documentation/devicetree/bindings/hwmon/national,lm63.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+index f2e0993cfbef3..4c8d0a15fbd12 100644
+--- a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
++++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+@@ -12,7 +12,8 @@ maintainers:
+ description: |
+   The LM63 family provides local and remote temperature monitoring together
+   with fan speed monitoring and PWM fan control. Supported devices include
+-  the National Semiconductor LM63, LM64 and LM96163.
++  the National Semiconductor LM63, LM64 and LM96163, and the Sensylink
++  CTF2301.
+ 
+ allOf:
+   - $ref: hwmon-common.yaml#
+@@ -23,6 +24,7 @@ properties:
+       - national,lm63
+       - national,lm64
+       - national,lm96163
++      - sensylink,ctf2301
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.55.0
 
