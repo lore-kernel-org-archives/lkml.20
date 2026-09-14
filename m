@@ -1,127 +1,173 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8027444A3FE
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37FF3D88FA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393346; cv=none; b=BjNDrcggdA0judhAc+ro+mU1+Qrh+v6FvLys43ua8aGiWkqcU6sCGc5taRPIefngZGT7AZNdiusCSeEELwyigZtqDFKDc2c7ewtf+ML9mg4f+25+oMAXrRFBEDwZXWEHENcqvy3wRU9UnhbimdmXLesM7VhwGP1JwpvbkTfeJcs=
+	t=1789393368; cv=none; b=qWSNVsT401mAix3u+Qo++8b1cz2nYlVeiLGjUY48MeeeQjGVQniOH6LoNQnCqM4+7+mzFxDBh6saswTOs+dJ4ASOW0dmKrvgQy639zzqkJFYtaelIL7TiHDylVI7hBu3YbAtj6mcCu0n5YvIzg4p72zV1slPPesFi4kqWQ8TAEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393346; c=relaxed/simple;
-	bh=o3r5KTDUMd2Ryp8djVBpnOvccaOXRkX1yt8Yfbuf284=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aZCTv24QVG+yp6Xk4AXXOfwC0Nzvm/oQH0WFVKne/sWc2bQX/eJmFjwke6g+WWCSlOvuvP5VmscoD7lHRAXvvjs0LayodQA40VEAJ1spJaPAYsXXEMDB284R34Bw+w2HMMuNjPVWgOUnJTw4nHWLK4ZGqFnPYZqbPM7AzMmfMuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LjwW/+1p; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789393368; c=relaxed/simple;
+	bh=0Vt5alXm6MeOoH3XXC0xWPb7R2uxCqupZ76Ru/W7X/E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K/xgK8owWzVRAAbdli4Ei19Se28MWjjBY5+H61MMUB2nUDYbnlsQbfVLIbVyUR1/6+kVurkZNH6+jcV610W1F/Zd0sXn46J3ty9o0XF07o3J6HW32hGM27kICzoTVeQr9y+vWBLeZChmTkieL05hatuTg5gARRvhNNs86SeGFbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SV6ZPi3Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LjwW/+1p"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff23d81eso2404065ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:42:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789393343; x=1789998143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=szMMrZ57zR+vj+A4cF4lARsCWhq/BFFfWh68VaeaZGQ=;
-        b=LjwW/+1p/fVerC0w+2NPDuNa2JsBxOLIgz0an3e7d2BYSr4SItnL6NWMuXE+AIdu+E
-         CfpxXoEPTwqYNxWIDeaezklNiGFNRuSWYrXoiurqWeB+XF0bfZBKIILBeCCxP+uKFaBN
-         24+YfwK0vlxwwVZOFCaDzJg+rEnEJA/fFB5byPIekKPnlqHhYqiZwraz1jylmh66OP41
-         iNkFRXuVtIY9wCMb7tfJKbDvJdSg0OqwEspa5Sj54PpN74PhhQ/t5deAlJEDhi8xBtwo
-         DBtmZhBW8efS4fvXg3KoODhIn/xYcI7dDDDT2aaL6CEpvgR0sQubl3Mop4zsiDKaz2pI
-         TzzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789393343; x=1789998143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=szMMrZ57zR+vj+A4cF4lARsCWhq/BFFfWh68VaeaZGQ=;
-        b=pvDrFSUoe2IdyingzeFvsrmZydLDth9a0IGP1S1GxHyX5bKZaYY0WAKqtn6WlDqShN
-         SZ6SkAcMq+A/MP4iutB+uxhpeaAlOHFwgQN2vxXoiYIJwUXzGlb8YFJVXeXJS42gWoIX
-         mmm3tWAjnrAAX/wXZmtgpN4OjOvTHdFm3YV94ecDIbEzpdYG8aM6A0Fo2AIRdfqs4i4l
-         j5j12W8kfnH1eyQtJY42JZuv2Qbh/Qn7/Pmf74y7OhIAdb4QN70sq7vWC8didNVInPVw
-         tkmDUEvYxD7CybL0NOve47blsEKfntBAJ5P3SNHbWen2PTkwAMCiZNSKKsQINX5cC6zo
-         CPjw==
-X-Forwarded-Encrypted: i=1; AKwUvBztpb7RRxWQqeow5YIFIkDXOZ+itlQTQtYqxGHxY+QHjinMbhWHr0ShEDi6nhXKbSCsat8ES//jsoKbBKY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTji3H5TT16G/mUxPP4mP4NDdiB7L4P4jR7CZMehlRzn9hX9kM
-	9tOFcpGGhAtuI4u0y3khYseHqIfF1lN8epKKbySC64fCTNJM7X2AHrjE
-X-Gm-Gg: AYBFou0Im7eanRzhvCUz0nTUOejJLG00yFxQzD/NkWb5DotR3zP3lA2BysjxG17oar1
-	PGSnFXqbfnKslctZMXruak4kBzeH/AIN54xPut7ReM0Ks0m1j8a1PQLpb4MRaweNfQP5NtpHFXk
-	feds08lVW8NHJvLaOnsg6ZL069Z/MxVayh1331uB3aJcMDWG90oRiFF3DXotD9kRhpbNqumlTm5
-	QbIT9E68+z8hP1N4qazNYCnwPEGdS+owZ+74CVI9zOcyDJ6HPkxOEDWH7Yteuvgb6G8o69tFDjQ
-	StJY5teyX5yKXzXknvK3xYvvzWrRvv1V+6vae/g8/AU84KVkevoN6ySacChdLgnLN2mQ9/2gmAp
-	ntOdekEcRyQrJyQ+SloeHRkTb8iUVA6GxpPMnEBIpNLL4wDQLUiV9doZEksNF0V7yXbTif5mjV6
-	+zFQSAsy8Hu6wiqpZoBg3ZlSx2fFJLRAE1zraQmr5MB4CXWeqWXbw/z89SEUupqYdjCRhdUl0MN
-	OpNzxw8Vu4wIhbdPXO6TLQzcJGOhtT4XPyZi1zDEMcmmblUj/wXCb7n/7ykj4wvVol4UboSgXXW
-	GdsBggPqvv4Ua1nAp5dD
-X-Received: by 2002:a17:903:240c:b0:2d8:f4d4:7044 with SMTP id d9443c01a7336-2dd6c7ca8a6mr35987125ad.3.1789393342816;
-        Mon, 14 Sep 2026 06:42:22 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.109])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfef639sm48914155ad.71.2026.09.14.06.42.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:42:22 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: ikepanhc@gmail.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: mpearson-lenovo@squebb.ca,
-	derekjohn.clark@gmail.com,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Navon John Lukose <navonjohnlukose@gmail.com>
-Subject: [PATCH v2] platform/x86: ideapad-laptop: Add Yoga Pro 7 14IAH10 Mode key
-Date: Mon, 14 Sep 2026 19:12:16 +0530
-Message-ID: <20260914134216.1295740-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SV6ZPi3Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687AC1F000FF;
+	Mon, 14 Sep 2026 13:42:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789393366;
+	bh=3BCtIVGaFrK84rHYDsXJCu4GU+rN8YV13RCmCsAqNzU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SV6ZPi3QftK0oV2Gw/ZjShiSD8DhHQfnS0q9dpTb9QiYvt8knlldRIQdeORlYRrrH
+	 boZVHI4N5aKytFZV8uq7EqXnyyyfM95ebPJhxukUDkylzkw6ofLYO/juXjufbPpmYK
+	 brlsiftVFH0HhMWfGUfCbVyWKFZ0Exueq8QT4VFtakdynnCMjtY9TasLlk61qOeRKt
+	 O9iOCnUuHZKDOT8EbtECSIeqy3kKzr67nDf6LtjOFphMbAxMmRZ/jz4VbYk7UfVIup
+	 yuHDR0oVKXLXHfNPqjJPiDmEh8e+RJagNPHMT6Qu+HKWi2xHvU8lRcBTZj4cip1h5F
+	 VsHi7+XTlhBbg==
+Message-ID: <7fff15cd-5136-418c-a8a4-b9fe5f30ad81@kernel.org>
+Date: Mon, 14 Sep 2026 15:42:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/hugetlb: preserve mremap address delta when
+ skipping page tables
+To: Jaewook You <jaewook376@gmail.com>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Johan Hovold
+ <johan@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260911182408.75821-1-jaewook376@gmail.com>
+ <20260914132352.472-1-jaewook376@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914132352.472-1-jaewook376@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The F9 "Mode" key emits WMI fn-key event 0x46, which the keymap does not
-cover, so it reaches userspace as KEY_UNKNOWN and cannot be remapped from
-there. Under Windows it opens a performance profile chooser. The Fn+Q
-button already cycles platform_profile through
-ideapad_check_special_buttons(), so map 0x46 to KEY_PROG4 as a
-user-assignable key rather than cycling the profile a second way.
+On 9/14/26 15:23, Jaewook You wrote:
+> move_hugetlb_page_tables() optimizes mremap() by advancing to the last
+> entry in the page table when the source page table does not exist, either
+> initially or after unsharing a PMD table.  The common loop increment then
+> steps to the first entry in the next page table.
+> 
+> However, the code advances both the source and destination addresses to
+> the last entries in their respective page tables, which is wrong.  The
+> destination address must be advanced only by the same amount as the source
+> address.
+> 
+> If the source and destination offsets within their page tables differ, the
+> destination address can be advanced too far, causing follow-up issues.  Fix
+> this by advancing the destination address by the source advance distance.
+> 
+> With a reproducer, we were able to trigger a kernel panic on x86-64.  With
+> this fix in place, we can no longer reproduce the issue.
+> 
+> Fixes: e95a9851787b ("hugetlb: skip to end of PT page mapping when pte not present")
+> Fixes: 4ddb4d91b82f ("hugetlb: do not update address in huge_pmd_unshare")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jaewook You <jaewook376@gmail.com>
+> ---
+> Changes in v3:
+> - Clarify that the optimization advances to the last entry in the current
+>   page table before the common loop increment steps to the next entry.
+> - Rename remaining_size to offset_to_last_entry as suggested by David.
+> 
+> v2: https://lore.kernel.org/20260911182408.75821-1-jaewook376@gmail.com/
+> 
 
-Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
----
-v2: reword the entry comment and explain why 0x46 is not routed through
-platform_profile_cycle() (Hans).
+v2 does not exist publicly ;)
 
-https://lore.kernel.org/platform-driver-x86/2eab84cb-6d2f-4ec3-9869-e2aa9c1d75da@kernel.org/
+This would have been better send as a v1 upstream (I mentioned this in private
+but you might have missed it).
 
-Lenovo Yoga Pro 7 14IAH10 (83KF), BIOS QGCN35WW.
+>  mm/hugetlb.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 4f6f58bf3db6c..5749f6270fb1f 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -5161,18 +5161,21 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+>  	hugetlb_vma_lock_write(vma);
+>  	i_mmap_lock_write(mapping);
+>  	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
+> +		const unsigned long offset_to_last_entry =
+> +			(old_addr | last_addr_mask) - old_addr;
+> +
+>  		src_pte = hugetlb_walk(vma, old_addr, sz);
+>  		if (!src_pte) {
+> -			old_addr |= last_addr_mask;
+> -			new_addr |= last_addr_mask;
+> +			old_addr += offset_to_last_entry;
+> +			new_addr += offset_to_last_entry;
+>  			continue;
+>  		}
+>  		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
+>  			continue;
+>  
+>  		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
+> -			old_addr |= last_addr_mask;
+> -			new_addr |= last_addr_mask;
+> +			old_addr += offset_to_last_entry;
+> +			new_addr += offset_to_last_entry;
+>  			continue;
 
-Measured with dyndbg on ideapad-laptop.c and a kprobe on
-platform_profile_cycle():
+As Oscar expressed, he might prefer some comment about the situation. But maybe
+that can be deferred to some proper cleanups here.
 
-  Mode key (plain F9), 2 presses:
-      WMI fn-key event: 0x46, twice
-      no platform_profile change
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-  Fn+Q, 2 presses:
-      platform_profile_cycle() twice, called from ideapad_acpi_notify()
-      no WMI fn-key event
-
- drivers/platform/x86/lenovo/ideapad-laptop.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-index 8213524..35c13d9 100644
---- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-+++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-@@ -1360,6 +1360,8 @@ static const struct key_entry ideapad_keymap[] = {
- 	{ KE_KEY,	0x45 | IDEAPAD_WMI_KEY, { KEY_PROG3 } },
- 	/* Performance toggle also Fn+Q, handled inside ideapad_wmi_notify() */
- 	{ KE_KEY,	0x3d | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
-+	/* Mode, opens a profile chooser; the Fn+Q button cycles the profile */
-+	{ KE_KEY,	0x46 | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
- 	/* shift + prtsc */
- 	{ KE_KEY,   0x2d | IDEAPAD_WMI_KEY, { KEY_SELECTIVE_SCREENSHOT } },
- 	{ KE_KEY,   0x29 | IDEAPAD_WMI_KEY, { KEY_TOUCHPAD_TOGGLE } },
 -- 
-2.55.0
+Cheers,
 
+David
