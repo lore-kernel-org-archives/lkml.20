@@ -1,85 +1,103 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AB6F46D555;
-	Mon, 14 Sep 2026 12:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A482447805;
+	Mon, 14 Sep 2026 12:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387875; cv=none; b=WMIbyM2cgas3C9tRy2Ci0SROhLIYzcgfT98Y1WiSvoLknpDp3k8M8HmhTvV3I+jQsu0Dtn38PIo2DcoKmZnbzPLmAsMY98NwccneIfKxiz/o05q7pVoUcSjsG0efnZcGXrcJOMc78wb1Ipku/i/f/wo2eBCHIxkmYPes4vdlmWQ=
+	t=1789387880; cv=none; b=GZfWKA2ZUs+zqpVRHJU/+Pc3MoBkxi6He8hHTiifHxM0j0dICj8ey7PbPVI88rNmQnC5QG6ky3frLczgOmwccPHc3K1nBWrxrLeDgQBrHqEJCTd7pgC3z4j+zqWPMoDHjRxetNRhc2aYLNXGYg38xJAtEh0lv7fb84lPW2qHIao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387875; c=relaxed/simple;
-	bh=BfCF52edpp8mH2plXPnBsGk/siPwAVEpfm8El73Bf4w=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gZVxcsQfLpNfVfZZ2qD9B+FZ9ufnwfwV4R7X0T7NwRSAmL7uYLfg/pGFZ078NW4RJSwSJOBhfpxtv1UFKP5yP39mY0hvTP/02bP+BOKXRJKOpL6pFLDUcswiCFN4ZXcDY7qAV39ydFJPBh2Yutwim6567iHw7p5T7HtA8XPcBp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hk3rr5s38z2CZqw;
-	Mon, 14 Sep 2026 20:10:52 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hk3rp6G7Sz2CZqw;
-	Mon, 14 Sep 2026 20:10:50 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id DE797B35D;
-	Mon, 14 Sep 2026 20:10:47 +0800 (CST)
-Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Mon, 14 Sep
- 2026 20:10:48 +0800
-Date: Mon, 14 Sep 2026 20:10:45 +0800
-From: Huang Shijie <huangsj@hygon.cn>
-To: Alexey Dobriyan <adobriyan@gmail.com>
-CC: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <zhongyuan@hygon.cn>,
-	<fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>, <jack@suse.cz>,
-	<dev.jain@arm.com>, <ljs@kernel.org>, <akpm@linux-foundation.org>,
-	<hpa@zytor.com>, <ryan.roberts@arm.com>, <mjguzik@gmail.com>,
-	<joel.granados@kernel.org>, <jannh@google.com>, <oleg@redhat.com>,
-	<aleksa@amutable.com>, <legion@kernel.org>, <kees@kernel.org>,
-	<joannelkoong@gmail.com>, <tj@kernel.org>, <libaokun@linux.alibaba.com>,
-	<ebiggers@kernel.org>, <sandeen@redhat.com>, <linux-fsdevel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH 1/3] fs/drop_caches: do not scan procfs in
- drop_pagecache_sb()
-Message-ID: <aqfkRSO-Fa9-_754@hsj-2U-Workstation>
-References: <20260914061449.4024632-1-huangsj@hygon.cn>
- <20260914061449.4024632-2-huangsj@hygon.cn>
- <c566b9eb-7cad-4a03-bf53-ae3b3e699559@p183>
- <aqfhiHlogbbADDkP@hsj-2U-Workstation>
+	s=arc-20240116; t=1789387880; c=relaxed/simple;
+	bh=Wl3ENf6BnjTaC8yIrHzo+jFAUyZCF78AjgSJCTeDpsQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=idxt+GCgVxU+5IcYMMgY+YdWCft6YV4zKLRCdNgunLrg/Dr7zUg79XnSTZLmlnyF3RP4QPBQQhTjK1bKUAYAiC6L39yF+ihsU0xzJnOed7nC5OApt0ZYyh8pgF7VVW8kymay1fCXun0lSlYmXlnVGtjumdfPICvJ5R8FkPQbV+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCpdq6Dt; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCpdq6Dt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A27A4C2BCB8;
+	Mon, 14 Sep 2026 12:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789387879;
+	bh=Wl3ENf6BnjTaC8yIrHzo+jFAUyZCF78AjgSJCTeDpsQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=kCpdq6DtgJOWAmHAVesZBQZ3QI3SR0VjjqtVlKVxBD2DzeEDSud0cbzcFUbNA68yq
+	 ORRzC9AsXJPmMfMv+RlMxcS4C0HRLOBslEYWt+WKG1bzOXPi8FsgiaCDWJxQ9Lvpb+
+	 vmA1aYFhe3qrv9pdnyD30TxdyNyuGDmLA6gfwWEFq09qwFakjxWVxf1lUNKnYf/rqi
+	 CxRxkCZ6rJjx/GlrKVvJoVrUbR7eYpWARCOtZogFrgLJK+Mu8e7NaQddF/88S4+vFD
+	 ktV0yt0p+0Xk6LszE8bxenBNoNwsrDvy1V9oqDrW45NzS62t3wBhZFUM430LVhEJkx
+	 iB9AfEM7tdP4A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB02C88E66;
+	Mon, 14 Sep 2026 12:11:19 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Mon, 14 Sep 2026 15:10:52 +0300
+Subject: [PATCH] dt-bindings: dma: mediatek,uart-dma: add mt6572
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <aqfhiHlogbbADDkP@hsj-2U-Workstation>
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrB1IQv2pVxEXcTLqFGoliUUQ7
+ 27U5bd4b4fAXjhAk+3g+S9BfnOCzjOgyc4jo7hkMMqUqtYvLIvKoIu4Wh/d16J5MzmtqposQao
+ Wz4Ns97HtHoe1/zDFawPHcQI3ahAucwAAAA==
+X-Change-ID: 20260814-6572-dt-uartdma-29ecd1078cac
+To: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Long Cheng <long.cheng@mediatek.com>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789387877; l=1054;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=R/+/MvTbfqvkqZYPWb9QyO+k6HKf/kl6ZguY9m0N+VQ=;
+ b=vHFQ8nf+Cscdtn5vC9FyI/0sorPVchBdXpOIQ+fzj8SGBcpe4ZMoTKRWZGvDpsjerB48ledz2
+ KESJiMeDfqWDtBQYWIV6sKsJwpR3GB4+CKVowCWSei6VHMLmKXh0tdV
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-On Mon, Sep 14, 2026 at 07:59:09PM +0800, Huang Shijie wrote:
-> On Mon, Sep 14, 2026 at 12:19:03PM +0300, Alexey Dobriyan wrote:
-> > On Mon, Sep 14, 2026 at 02:14:47PM +0800, Huang Shijie wrote:
-> > > There is no page cache for the procfs, so do not scan the
-> > > inodes in procfs.
-> > 
-> > > @@ -20,6 +21,9 @@ static void drop_pagecache_sb(struct super_block *sb, void *unused)
-> > >  {
-> > >  	struct inode *inode, *toput_inode = NULL;
-> > >  
-> > > +	if (sb->s_magic == PROC_SUPER_MAGIC)
-> > > +		return;
-> > 
-> > This should be some flag somewhere in superblock.
-> > Other fake filesystems don't support pagecache too.
-> yes.
-> 
-> It seems it is better to check like this:
->         if (sb->s_bdi == &noop_backing_dev_inf)
-> 		return;
-> 
-I find check noop_backing_dev_info is not right, the tmpfs may also use it.
+From: Roman Vivchar <rva333@protonmail.com>
 
-It seems there is no flag in superblock for us.
-If we have no choice, I can add a new flag for it.
+Add a compatible string for the mt6572 APDMA, that is compatible with
+mt6577 IP.
+
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Based on next-20260813 tag.
+---
+ Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
+index bba20e88a6dc..bd5f5260613b 100644
+--- a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
++++ b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
+@@ -23,6 +23,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt2712-uart-dma
++              - mediatek,mt6572-uart-dma
+               - mediatek,mt6795-uart-dma
+               - mediatek,mt8173-uart-dma
+               - mediatek,mt8183-uart-dma
+
+---
+base-commit: 2697ef8943c9985c14708a6429e21812693857b2
+change-id: 20260814-6572-dt-uartdma-29ecd1078cac
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
 
 
