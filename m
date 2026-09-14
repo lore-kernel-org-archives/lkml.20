@@ -1,106 +1,102 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CB7245020
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6115C29AAFA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351385; cv=none; b=QCp9tT+xApJHV3HEDCQj43WbrR9Cn3BtLp4F6UKXycLtVx7bMMal9icQntL43jTsXA/aglhDQcfYw3hF+imC4gD6/C6UAxkjksNV1yrMkGHbirJhOMCZuZeRoenEziDWB4LEQpEbskS875izoTPw+3wyRZkGhUgeghX2xxIuhcc=
+	t=1789351460; cv=none; b=ZKXxrMfJ18/dWe69VFv1/w8AukvIk8OH0+9MgsDsRTfKIJkstVtlPzHJzuCWI10zxYwqg4erF+7d3VMfkTIanzYTZeRSgDkYzdHx9t5kT4iNVxSQAdNVy3ldtIqA3Cs/uV3Xrnrby5N1NHKOqiS2MRi16zB1GtKJ6JJq4Gv7ek8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351385; c=relaxed/simple;
-	bh=gF1QW0Ig2Sba+Tmb/Zs+9oZFdmkgCXK5bo3IXNieFqM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KVwOcErz3pLpjq1qr6yEoKlKEp3BpuZh7f49H6uHG+h2J+WMrv8j6Unda39lJYBsaWO28KSFrsuGp4tygAKRRug5bBKWNaZljO8niMf0t8f/rxl6H5JyOzve3Th+M5Hpio80KleXru6JOvAQCtP28N98ietqyeZ39sEMHiFCD3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ad778bacbeso4708569b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:03:04 -0700 (PDT)
+	s=arc-20240116; t=1789351460; c=relaxed/simple;
+	bh=OyHBm0aM6KH70QZ5Y8bPQRTTYqCndlWggB4rMvP7OlM=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=GNMHt0moCoPZULy/9ZuogFNWWBd4Cl0oNb8mOkKTxhyeRs/wkciJsrXf+WRB150jvjv7OYX6uNI51i93S5mUo6+fRJRqn9LUIWAVGnXRwzglG4BFMCcMpu67JpFEpTmxmMwjbTsKx7R/Wmn+2Ev4JRa+Yc2nddPFP793MiKODdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kW6jYuqF; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kW6jYuqF"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd148aso20008236d6.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789351458; x=1789956258; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u6VPj5Ei/NNEX3MNDuO9HYgV6AmHjtH/GQMIJlXajTU=;
+        b=kW6jYuqF/JNesbCtJnh5Np5xrNfkYwcMyH19AIgvMvdOkpriIMXQfxJpjOOw9Hkhfr
+         n22ESWwfwCrwCMy6EQe6eP8Z+Eqn180aB9m5DjVkzafFkF5OAsrQdgc4m1N6znZmBBxD
+         GKFA7SQN7RRfT0lKhbeRU+QneE9aAIswriiIMLtSWVYfNxAw7JVcOL97DAUvFB/utM1C
+         UhGL2ZA7xczQMeUrBVaVr6XSWy61tGbhjeoUO2HmBKVT8WVG+K4jRcT9VWcKzzjdKOvX
+         WEcLwC6TOjElXTSPcLJrnLgnhBfzuchOoHF/MVsX7eiO9mAOcuq8g9ku86ZCJhaNliyr
+         ctLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789351383; x=1789956183;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gO/R69cYMwrlavSbi1XpU7D7/7bNbizcayAR/WkfIJU=;
-        b=oUSIWFxlgOGPr34sSPepdIGQ53z+7QD0Llzratxnp9n8LAXaFnOZ4sk1K7kmw5bEKp
-         5+r+uAI8bDBLJ2UYLnjHgfno3F5aE7u4PHmRE6azd1eFuwIq8r4jLrpRfNXJybmCyXMH
-         4niBv9+oiVhawz/uWvyG+iRe9Ul1l0K8Yp2xNBshY+h/R1IKHulV0HIZlpGAQbCUTpry
-         b2uZL0ponC74DDvHiRH/pbDzfSPwPDLr89rdZj6YjE1XBDObiRvXxu3I2CboNewwE9L3
-         rkhQzwdYwX0wauV3GyoyyO0gL78DFXtRONSkj1ksFkp8VhdNoD52CT1SZ+9MPo++AzXr
-         BHnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVDzEu43mN9/HYKhoKfBijBBrMpvYxO86ua88iZj0HVKWuKpFa4vwfOOZL7zlcJ7IHvgdRXUWlZkhqlMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgmZYE/eFy4gexYiI8nrrbOVA5xEr2CPvTolnbGnw37xWjg24y
-	OQ/tsNwcB3y2oJDEKaBeoAgx2FRO/D5504FwKFSfH+S3sULqi0bTdLA0I35nTPgGaHpqXZtFKAz
-	yAMqjGdVZSg2LBiUbgcyO8uwWdSg2Zb/UiLqFBJrhU9oMNxn0IQYitzUePHA=
+        d=1e100.net; s=20251104; t=1789351458; x=1789956258;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u6VPj5Ei/NNEX3MNDuO9HYgV6AmHjtH/GQMIJlXajTU=;
+        b=qnkEBsCuUYKlUX2IgrZSXFSqBZ+XJL0UbezFv1KWGt/3MXYwoBJcXQhh7BjMgDiesA
+         inaZpK6fsf+rzBY2LYoakoC0OFn+BBb6gmMjCCHzCw/oQSmY9A4XmVdRndwlvj2j+U9O
+         a/Ox6pDku6ZuIk3eUKFfL0b8dj+3Fmap8SJ6/ZsSv+itAjzKmY7LYPDx536DyfiFEC+W
+         ctHsti94d/n3DULcLFOvAXTlinamttXuZD4o0RBos9+YD9q9xh46ufBrbSU0dGCJ5HHk
+         M1sBzP2V16BaMfdoK5gtcK0oNI05chfGeNf0b62PnAX5kO+2xyilwAx3Qw9VPGdchkhz
+         tVAA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEjSt/1u4OHE+hbcBGPkqxNtQB/0HPf174QJXVlqoiCIR4BcdMZacm9oATll41cGPn3r1jhIaWNkhhM/Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBo4qH9ZvH6DoQvxHGN7fSkC/v2o4k/W3uAljWdmWwFtnWc8v9
+	f9Xu7hSuhNvjeeu657nXzbf/u7+OCXv8n7CkTUHmuhTomWWhvKdBoIo=
+X-Gm-Gg: AYBFou2Ac9yX/MWUdkWNsJsIPs0HtztkHXqY+v8BjrAQmhFbMyYbdvlp4r+MaTSKhBA
+	h8pBVOizUDl6/xkASxjfbh7QIbeXomrkWKMoa9Zhv50FNvlO2HIT5mhIJjkRKFTzvx41kYEWN3j
+	dsG6UAPb2N4J1u0DTpbwsL0ShejMFF9AuWqQ0DbyKVDtYtgWUyb84KwMiC4wDH75ZwJCejm2ixs
+	ljrbwVtdTy2SMBH6Qc3u8TtN1rhiFWlUvlNHIN3YiMewWw4hZvzfJj2zbN6/q7NkHAMA5IKwXrx
+	wAgDP7lWZg6MbBid0iIjz9DJc+7DC2gsJeUDOBA2ludmVoNkm0pdSvvHCEH9rjlSdZYsL9hbd2/
+	Quy0ZfOVOG1B97LMAPvQ+CrllPZhQ/Q8C9c+R94fi2ODx+ofbRlc6pdxO+kUjmmT4Rss1H5URQx
+	mj8M+2l0dqeU821xWJXY6jTT3awprDSmioHGvxlWqE8EjhqZu4+GiGJnZHXNxyupWFgxb8z8DfY
+	fnKLdZ4XAIPKG8NNtL8bi0ZJcItlDGovi1n
+X-Received: by 2002:a05:620a:4885:b0:939:5f4d:67b0 with SMTP id af79cd13be357-93a29766649mr99212785a.8.1789351458163;
+        Sun, 13 Sep 2026 19:04:18 -0700 (PDT)
+Received: from [120.7.1.23] (135-23-94-154.cpe.pppoe.ca. [135.23.94.154])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45cd5dsm82051236d6.14.2026.09.13.19.04.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 19:04:17 -0700 (PDT)
+Subject: Re: [PATCH 5.10 000/798] 5.10.270-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065516.948645775@linuxfoundation.org>
+From: Woody Suwalski <terraluna977@gmail.com>
+Message-ID: <c9cc917a-41f8-0f2a-6ee8-9f328a2d9ec4@gmail.com>
+Date: Sun, 13 Sep 2026 22:04:37 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101
+ Firefox/140.0 SeaMonkey/2.53.24
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:198e:b0:4c4:d8a0:2773 with SMTP id
- 5614622812f47-4c7b626a8efmr220367b6e.32.1789351383436; Sun, 13 Sep 2026
- 19:03:03 -0700 (PDT)
-Date: Sun, 13 Sep 2026 19:03:03 -0700
-In-Reply-To: <6aa74ffd.2cd27cd2.290120.3dbeSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa755d7.a211d2ce.1a5198.0289.GAE@google.com>
-Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in config_item_get
-From: syzbot <syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.270 release.
+> There are 798 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+Built OK for i386 architecture, installed and booted on a 32-bit EeePC.
+No new issues noticed....
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-KASAN: slab-use-after-free Write in config_item_get
+Wow, that was a biggy :-)
 
-==================================================================
-BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-BUG: KASAN: slab-use-after-free in atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:252 [inline]
-BUG: KASAN: slab-use-after-free in __refcount_add include/linux/refcount.h:283 [inline]
-BUG: KASAN: slab-use-after-free in __refcount_inc include/linux/refcount.h:366 [inline]
-BUG: KASAN: slab-use-after-free in refcount_inc include/linux/refcount.h:383 [inline]
-BUG: KASAN: slab-use-after-free in kref_get include/linux/kref.h:45 [inline]
-BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90 fs/configfs/item.c:104
-Write of size 4 at addr ffff88804491f01c by task syz.1.545/7868
+Tested-by: Woody Suwalski <terraluna977@gmail.com>
 
-CPU: 1 UID: 0 PID: 7868 Comm: syz.1.545 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/08/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
- atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:252 [inline]
- __refcount_add include/linux/refcount.h:283 [inline]
- __refcount_inc include/linux/refcount.h:366 [inline]
- refcount_inc include/linux/refcount.h:383 [inline]
- kref_get include/linux/kref.h:45 [inline]
- config_item_get+0x26/0x90 fs/configfs/item.c:104
- get_target fs/configfs/symlink.c:139 [inline]
- configfs_symlink+0x407/0x11d0 fs/configfs/symlink.c:200
- vfs_symlink+0x18b/0x330 fs/namei.c:5794
- filename_symlinkat+0x1cd/0x420 fs/namei.c:5819
- __do_sys_symlinkat fs/namei.c:5839 [inline]
- __se_sys_symlinkat+0x4e/0x2b0 fs/namei.c:5834
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+BTW: Welcome to Griffin K.H. :-)
 
-
-Tested on:
-
-commit:         a7c1290e configfs: pin the symlink target's dirent ins..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1626c115580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6d794b10c2a1184e
-dashboard link: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Note: no patches were applied.
