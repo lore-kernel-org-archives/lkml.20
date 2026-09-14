@@ -1,97 +1,233 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E952517A30A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B86C26CE05
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789348129; cv=none; b=g/WvvpU3phaAlM11cTBZf3OXtf3WMLlJsmZeFI6hXtIzMLkAMq64otbrb2JYnUO1bcjT+v33JU9T0do7UolhVxDxFSPB88XlqhHTY2Vws3AD80SFecS0wMPj5+y5qz/B0H8oR4BdDhL9zF7wOotvBMlqqZETiABgNZUjr2FNJcI=
+	t=1789348185; cv=none; b=TuiL56WHu1YnkuaB3hVxuDoFnK5dQBj3lUlrG7YDlUVAVDYvUpzJvjUjdu+bvyXKe65PR13X4Id8Pmeo05lxF21FM6puA4qbjwL2LFi5Mfl0oQjXAKR2w+tREY0fYSYn7iVl6qeztYTCnmz3Pa33RNhPTv0WRMo4yIQ0uymJBmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789348129; c=relaxed/simple;
-	bh=16vb3KZQWUdtN7Kgg2jXydRCFn/oKzlazujQ/uWCQHs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IOY+qhoIrmUQDtY0TV0uuFGbiQ4ReiN6yI4v7RZ2198P90wMe4X5lzOWh3Ca+Cm/RIoo2yh8tT29M0pCnwjVQSJylDdoOE5yduqjM7NPr3vz4nrrSiYbuxuporCRlwXrWmwGL6IwsUQZHGRagdUmgk7xNCafRGOI668tjbakPV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FzvCfaTQ; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789348185; c=relaxed/simple;
+	bh=n1xjytiEmtJb2DX0y2NLkgCfVqlqN7ZA1i7C3afS57I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dz5tp0zTNJMxDEgG4a8ByzbX9SB86ZTOsNjtvy49YypKBn8JrgRhaUzieJddPmIbvJHE9H87rDaWoR08py6hz+ErK5GXN5ik8ZiQCN7yAcDFi+RuO0uL893YTrV51aAaJM97jdtVGWH50EoORb0gtOFlHLg5FwinXx+BWg1EUAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCW7fxAz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FzvCfaTQ"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc147d86bebso3072335a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789348127; x=1789952927; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pE3zawT4od2ZtheQocZVAYF6r1UYiw8K/mr/U6/fWUY=;
-        b=FzvCfaTQ1SJvsYqsWAmVEONU8ue8uCw+0NWD1iC4qyHP0Gr5t7lXKEXzCpNRM2I+C/
-         kzujQWvfhtnCDyAzeAgBIWl5GLNXtWkQjrTciber7qPHA7Qrv5zOLJhuCG1bVD+XpHfd
-         jrsPaGvXQF2hkIAAN0ACtyDoBMeurCOmX2PQgZWpmnbe0MhgPHfZPPSfK8FJOrhU1gfF
-         DLV4wn7weVXUnb4D1ALp4xapJMkdNZ7zMiyWOsw2Iz22nHzChbXU+U92bj+V1cANzL4V
-         EQN2eqs/kKMnI3AganCFUY+R04VOdpJncPDZSqCI9wwfPRzK3I37lZPuiZn7twBhgN2N
-         cf2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789348127; x=1789952927;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pE3zawT4od2ZtheQocZVAYF6r1UYiw8K/mr/U6/fWUY=;
-        b=UhCsQ8D/JIV/YQLH611XAzKy7mNLDQ5LVHVGJRW3RBVqpEvCPZMMOblvrN/3qLT07s
-         zdfpfQBJkvOTgIrL8G75T3i8Y+tRvVhmhG7P2qrIfZsPSCJWqd7EwCo7m/CmmOQ7Jk06
-         PK5E+An9rd8aRcfpaCtejO3UKBypLjcLM2Wq86b7qos9XLdmMjanfW9Liy//RoDV44/2
-         O+ynhmiCq/R5uEh3TwG8+b1R36omZWggxzzNMnjEA5s8mxugOriZ2xTCdSgGXAmXTJ2H
-         eQg+DjqrYw0RA4OSaseWU/oiQ3vM5+csCb8njdHZIbJxScImlQxYkq/8NBMM9WKmOruk
-         YV5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzmDUOeKGWBLgo/5ZmsEPusYgx+68B9+4KxmXk5qrUAyC/qZViyB5iqPntdbWrfl8kbeRuUBJmNcg2YmNA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOz98jhOMwvzPqAacTNWqQHBFvVgRgsq+moVm+Mz4i2OYSXXQ5
-	ORFoMDAJOEkz/bfyosQ0flk0DBEXeubCAB1BXmw+fn+g17IcF++tRTky
-X-Gm-Gg: AYBFou3xd4RQPA9HTgOntwZeqW3wB0A99lx5LNGSZqp02igWRgV8zSNfob9GG8vIhKv
-	4KEFsICRdXjY6PqEr9yz4J8uz2V9HDKpkPzYEGu3zrPBQJnhfnpapYzdlkfDanEeXOzTaGbDi+4
-	BeQUHpIL3RaAdfEP4IKdcarGsbZczSLufhpzqT1XYM0r8pNkhSYzV2bhkNv4EmDt9+EXHYYI3dE
-	9VGL7bJ3xFAi9dpro+4dPKZxvzak4nzXJkE4PAuunfntSrRl1nA5vE91Fsnu47Q3wV2Q7Ug5fKy
-	YgaPqgPnmZVnp9ibU2RM1yVEwj2SZoXG41qZpxBguog1Obm+GLCRy3eTnTpY4mjFsJD3srOflk4
-	xtEO6mpR8QDEn4wTggI5AFGXe5BZdkdifRwsMDKocox0Y2uRoeyLRDW0x8wZy88eqgPlNsJw/Le
-	fz+8mIKO+BvDYg48mpUs61WI/DJy47/GRF6SwbcQQfWIGiZOqcVMA55un8B/nQqc08aBoksCK6o
-	dZ/aMc1rgI2DJj+K/6FMnMn3iIyhTeENA/d6fRY
-X-Received: by 2002:a05:6372:a703:b0:3bf:8a0e:dd99 with SMTP id adf61e73a8af0-3db26e544f2mr4658971637.17.1789348127210;
-        Sun, 13 Sep 2026 18:08:47 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:a739:376c:7eb4:ea2d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f5833fsm27453770eec.23.2026.09.13.18.08.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 18:08:46 -0700 (PDT)
-Date: Sun, 13 Sep 2026 18:08:43 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Roberts Kursitis <roberts.kursitis@azeron.eu>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] Input: xpad - add support for Azeron devices
-Message-ID: <aqdJEeI4gccwzbjO@google.com>
-References: <20260906143040.162418-1-roberts.kursitis@azeron.eu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCW7fxAz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13761F0089A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:09:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789348183;
+	bh=4ndSNsr2rSjtlZsOTZb7f4dR7eAAlwrJ58BLG0WJdXg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TCW7fxAzHNuqev2i1C/rBmI02474P77pm4O27dKtfNyEpY+h+xwSsD+3isGzVVGne
+	 v1TnbmFegLg6HSkvEVYpldRPBLzMq+Si+r3RWu7iqusXjyzxKJrpvLY9FUzEIWw0f3
+	 o05VLC80aHNb+CnAdERGAdEQ2ZgGNNFrF+UmtiVOUZJxpXbwPnFCWuctKhC+x2Zs1z
+	 WaEVQL2qWaJ3WDAXvSVEUZL/xqBtR10jABOzBjgEyOxSJaNc4TIGHDjCQQCfCZZTHN
+	 OdB02P372dN8uzJNypD5mAjg3ORVDIF1vSqBJphBaNaqRP24ERNhtCQ71aMl51tERG
+	 tDqGLcCa4ujUw==
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-90e8e70fa02so35963466d6.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:09:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx0Iz0GhcBBUOgtxU4oQDklNnI/7eolXuZZQHD7MADNP28iRRiVe/yOwjwNl67zK27Rbpl+I8xcXZ9adcQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7pOPogSIssd4HnrB9mQGuIhMIDoYPbt2gj4BbcAO1xPZf4PvK
+	J+e1NMKWDsFSZ0SBfsz0Ee2bhUjtXfQQtQldDPCp3Ycq2tVMSp0CnsdlhVVL6PJmrG6NWrD6Yqp
+	3/bBBDG/c2jtsBHXbwUpicLpAQAGwxKw=
+X-Received: by 2002:a05:620a:2707:b0:939:bd4e:b2fe with SMTP id
+ af79cd13be357-93a29a12d15mr69398285a.40.1789348183191; Sun, 13 Sep 2026
+ 18:09:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906143040.162418-1-roberts.kursitis@azeron.eu>
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
+ <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
+ <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+ <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu> <CAGsJ_4xMK=rPXCH5OiCOYHKRQp-w+xDJQusJ_ykbuAuLZr+8bA@mail.gmail.com>
+ <1e5118a5-6b61-49d0-85e1-825e22059241@columbia.edu> <CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz-cHaDWLkxaQ@mail.gmail.com>
+ <65a2c7df-0d2e-46de-9580-01e9c35a7e32@columbia.edu>
+In-Reply-To: <65a2c7df-0d2e-46de-9580-01e9c35a7e32@columbia.edu>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 14 Sep 2026 09:09:32 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
+X-Gm-Features: AcwNN1UFRWFTcqC6hN8ctMIRvI1_rCC0AM5x7mAixBPPm5RLTzvAhNItNpawqdI
+Message-ID: <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
+Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Wenjie Qi <qwjhust@gmail.com>, willy@infradead.org, jack@suse.cz, 
+	akpm@linux-foundation.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, axboe@kernel.dk, 
+	trond.myklebust@hammerspace.com, jaegeuk@kernel.org, chao@kernel.org, 
+	qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 06, 2026 at 05:30:40PM +0300, Roberts Kursitis wrote:
-> Azeron controllers (Cyro, Cyborg, Classic/Compact, Cyro Lefty,
-> Cyborg II and Keyzen) present a standard Xbox 360 controller
-> interface, so they work with the existing xpad driver once their
-> USB IDs are added.
-> 
-> The 0x16d0 vendor ID is a shared block, but this is safe because
-> xpad only binds interfaces that match the Xbox 360 signature.
-> 
-> Tested with an Azeron Keyzen.
-> 
-> Signed-off-by: Roberts Kursitis <roberts.kursitis@azeron.eu>
-> Cc: stable@vger.kernel.org
+On Mon, Sep 14, 2026 at 7:34=E2=80=AFAM Tal Zussman <tz2294@columbia.edu> w=
+rote:
+>
+> On 9/13/26 6:51 PM, Barry Song wrote:
+> > On Fri, Sep 4, 2026 at 6:36=E2=80=AFAM Tal Zussman <tz2294@columbia.edu=
+> wrote:
+> >>
+> >> On 9/4/26 12:28 AM, Barry Song wrote:
+> >> > On Sun, Aug 30, 2026 at 7:59=E2=80=AFPM Tal Zussman <tz2294@columbia=
+.edu> wrote:
+> >> >>
+> >> >> On 8/30/26 6:25 AM, Wenjie Qi wrote:
+> >> >> > From: Wenjie Qi <qiwenjie@xiaomi.com>
+> >> >> >
+> >> >> > Fault-around can map ready dropbehind folios without going throug=
+h the
+> >> >> > normal page-cache lookup that clears dropbehind. A mapping repres=
+ents a
+> >> >> > competing cached user, but writeback completion can currently unm=
+ap that
+> >> >> > folio. A later mmap access must then fault it back in.
+> >> >> >
+> >> >> > Retain mapped folios instead. For a mapped folio,
+> >> >> > folio_unmap_invalidate() can call unmap_mapping_folio(), which ta=
+kes
+> >> >> > i_mmap_rwsem and may sleep. Retaining the folio also avoids this =
+path when
+> >> >> > folio_end_dropbehind() runs in non-preemptible task context.
+> >> >> >
+> >> >> > Unmapped dropbehind folios continue through the existing invalida=
+tion path.
+> >> >> >
+> >> >> > Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages w=
+hen writeback completes")
+> >> >> > Cc: stable@vger.kernel.org
+> >> >> > Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> >> >> > Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> >> >> > Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+> >> >> > ---
+> >> >> > The mapped-plus-dropbehind state was reproduced in QEMU. The patc=
+hed
+> >> >> > kernel retained the mapped folio and continued to evict the unmap=
+ped
+> >> >> > dontcache folio. I did not reproduce the sleeping-in-atomic warni=
+ng and
+> >> >> > am not aware of an existing report.
+> >> >> >
+> >> >>
+> >> >> I was able to trigger the sleeping-while-atomic BUG on current main=
+line with
+> >> >> some help from Claude. The reproducer itself is straightforward eno=
+ugh, but the
+> >> >> configuration was a little finicky. The atomic context comes from u=
+sing
+> >> >> threadirqs so that virtblk_done() completes requests from the irq t=
+hread under
+> >> >> local_bh_disable() and the vq spinlock with irqs off, so in_task() =
+is true but
+> >> >> the i_mmap_rwsem down_read() sleeps. It also needed 1 vCPU (so comp=
+letion stays
+> >> >> in the irq thread rather than softirq) and ext4 -o dioread_lock (so=
+ end_io runs
+> >> >> inline instead of on a workqueue). With v4 applied the bug is gone,=
+ so:
+> >> >>
+> >> >
+> >> > Thanks, Tal. Then I'm getting quite confused. Since with Wenjie's
+> >> > patch, we are no longer going to sleep for dropbehind in `filemap.c`=
+,
+> >> > do we still need all the complex logic in the block device and file
+> >> > system layers to move dropbehind to a workqueue task context?
+> >> >
+> >>
+> >> Hi Barry,
+> >>
+> >> Let me clarify. Wenjie's patch prevents sleeping in a very specific ca=
+se.
+> >> The existing in_task() check covered most other cases, in that it just
+> >> doesn't do dropbehind invalidation if we're not executing in task cont=
+ext
+> >> (for example, block device writeback completing in interrupt context).
+> >>
+> >> However, dropping the invalidation defeats the point of dropbehind, as=
+ it
+> >> leaves the pages in the page cache. If we get rid of the task-context
+> >> deferral mechanism, we wouldn't sleep, but we also wouldn't invalidate=
+.
+> >> Wenjie's change is largely unrelated to this.
+> >
+> > Hi Tal,
+> >
+> > Thanks for the clarification. However, I=E2=80=99m still not convinced.
+> >
+> > If `unmap_mapping_folio()` is the only place where we might
+> > sleep =E2=80=94 where we might take `mapping->i_mmap_rwsem` through
+> > `i_mmap_lock_read()`, as Wenjian pointed out in [1] =E2=80=94 we have n=
+ow
+> > prevented that from happening with `if (!folio_mapped(folio))`.
+> >
+> > So no mapped folio should call `folio_unmap_invalidate()`:
+> >
+> > static void filemap_end_dropbehind(struct folio *folio)
+> > {
+> >          struct address_space *mapping =3D folio->mapping;
+> >
+> >          VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
+> >
+> >          if (folio_test_writeback(folio) || folio_test_dirty(folio))
+> >                  return;
+> >          if (!folio_test_clear_dropbehind(folio))
+> >                  return;
+> >          if (mapping && !folio_mapped(folio))
+> >                  folio_unmap_invalidate(mapping, folio, 0);
+> > }
+> >
+> > Why do we still need the `in_task()` check in
+> > `folio_end_dropbehind()`?
+> >
+> > void folio_end_dropbehind(struct folio *folio)
+> > {
+> >          if (!folio_test_dropbehind(folio))
+> >                  return;
+> >
+> >          /*
+> >           * Hitting !in_task() should not happen off RWF_DONTCACHE writ=
+eback,
+> >           * but can happen if normal writeback just happens to find dir=
+ty folios
+> >           * that were created as part of uncached writeback, and that w=
+riteback
+> >           * would otherwise not need non-IRQ handling. Just skip the
+> >           * invalidation in that case.
+> >           */
+> >          if (in_task() && folio_trylock(folio)) {
+> >                  filemap_end_dropbehind(folio);
+> >                  folio_unlock(folio);
+> >          }
+> > }
+> >
+> > Could any other operation in `folio_unmap_invalidate()` sleep for
+> > unmapped folios? Otherwise, it seems we don't need `in_task()` at
+> > all?
+> >
+>
+> So I think you're right about the sleeping aspect, but the problem is
+> that this still gets called from interrupt context. folio_unmap_invalidat=
+e()
+> grabs a number of locks in a non-IRQ safe way. Just at a glance, the
+> spin_lock(&mapping->host->i_lock) call could lead to a deadlock, since ot=
+her
+> paths don't call it with interrupts disabled. And xa_unlock_irq() enables
+> interrupts unconditionally, which would be incorrect from hardirq I belie=
+ve.
 
-Applied, thank you.
+That makes sense to me. If that's the case, it seems the
+comment above
 
--- 
-Dmitry
+`if (in_task() && folio_trylock(folio))`
+
+is no longer relevant at all.
+
+BTW, if we use `spin_lock_irqsave(&mapping->host->i_lock)` in
+other places and also restore IRQs when unlocking the xarray, then
+we shouldn't need the `in_task()` check anymore, should we?
+
+Best Regards
+Barry
