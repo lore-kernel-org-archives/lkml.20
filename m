@@ -1,178 +1,199 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59939449B1B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256654534BB;
+	Mon, 14 Sep 2026 11:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386483; cv=none; b=pOllyh2odrBwxUZRV3GHCIbEwWRsAaQCtdtKJ8e1DvWyrYSX5Ai1DqTNJ1gx1R2f1gLMd/vmEyYrWE6ovSi+KoMxgosiQRGuXeP3DoK8jWGAnH2zurJ61DxwP9cdvaLEM5v+0e5fwvp+n1ZmfxnhIi0PldMm30bB28FB7tfnzZ0=
+	t=1789386492; cv=none; b=tXzJpp/KiiFMdKazr4oquf/XQqapH5U14EnsjZVVadJu1PxfyfgrQ2WreimGZiq5294+Dkxdlo2KzElH1p20pAbXxS+kKIxMEoXcx/E4K8vZKe9MI2h3ophmCH7l9fs4P7nu6Geb8gLNsqlDNshd+uzChOTRGSzRoj7jn4v6dv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386483; c=relaxed/simple;
-	bh=E4ohnOIq6zfI28XKOV2bCDtgBX4+Hdvc9ipS4oTiikk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oRZS0wi3PLjdvjY6pFw/KhC9jkbV+cRrK/9qKaOtUUFDMXOBJHUFD8lkKAlIoIroMjx9+nm0gc3OPUBmLHGAUhBQUl+NvDK9xW4lSYsbtp6CXk+EB7PmNNAyjl3MqN2N7kQuuifRIPAOkU+6JbzaQJs3d47J+qeojKGL6WHmH0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=l5MB2Zef; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rDKaeYhm; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1789386492; c=relaxed/simple;
+	bh=ySVw3BtQ8VdlSvwcAcvu2VldK45kYaHXHC6yP9WKKsg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Z3tYZIM+bKN5mT0NembYb10YdwI/OdHfKiC4SsISiydeP9+NKiqH77xmjROyFGk8Sj89w/DGxi/TnyU/mmpVG7kqIiW+bOQiPWHlFlOj56ik3JYLCEruACfYGNF5ybnsnvBINk/aeoe12y2wysgVQiuPvdapRfynMhcbZd7ZSCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=SXuEO2sa; arc=none smtp.client-ip=49.212.243.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="l5MB2Zef";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rDKaeYhm"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5BD41EC05FF;
-	Mon, 14 Sep 2026 07:48:00 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 14 Sep 2026 07:48:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789386480; x=
-	1789472880; bh=nhu7V+ysH98/aFNClZZEmMq7xZMdgb3VIE7Ho88hbAk=; b=l
-	5MB2ZefBlmvesAgmegSkrGLzkzUf2gH3U5D432D1ny0V7nL8YLSkYuZ2D6ATxm22
-	avZ/TjBHt/j9LQS6NcNzFeryvg3sRc9+6JslC9ScUOGGcMybxmuVXDS1IzeAcqwe
-	BxWxQsQ9LxiPEwg4TtRWRNf2MOIfqVWwfEfAFBcE7+Foy+w3y4N9s3nitkqlnU8k
-	95MZggqPBOXjOkUVju6CO3CLKAQ+LAkCZo0os63UhtnQkkv5v4cgN9NBcUMsNbCr
-	4ZSo37ulhtbFZoXlVgX5xrD9ywd4rR+8HaPJhJfXlYJRzlTDquL6Ee98q2bZNHgP
-	cg6gmjMhv9l/1zrbBmfGw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789386480; x=1789472880; bh=nhu7V+ysH98/aFNClZZEmMq7xZMdgb3VIE7
-	Ho88hbAk=; b=rDKaeYhmXC1vA6tII0/v2IWlw45I+CIz5y+PyQJko5qMA88e5Pc
-	aDlfHl98tvjK35/OG3hY309WAGZwAiedhf3uJHnttdmWMRAhAlnBo39G8mm+Sf4+
-	G+NJgo32lIBOZRgpAlp6j4eV9Q1LJpO34KO14inUbwM5J6QzEmQpLRfHjkTzPtFi
-	ZJM+CRK/kuOjftxhvfAR41Zyltqt1LYHwTScalS7rLZqoiAxGGqOp4OCGROcc1iT
-	9RBmvbvrWi4CSPDBhrvl+70wRdu3qg1GOo7w3UM/WmSV2a5MZ1nj1ajVSnbqcvki
-	boST5mrvwYoZGlekP04PcV1p26cWNgl9DlA==
-X-ME-Sender: <xms:796nahitoQWg6_0Bu4nPdqdhLnV-iNvZm4Grd3wXJvdXcCstg7WFMg>
-    <xme:796najr-GVfeZqTMBjxctNrIBqVWwmhrnOhgvRFujLVYHMpCzFYWRXg9kepb03Edh
-    x_Ecepxo8ysOg1MLkZL2FJsvL-QTe48OiVBjCpkDPZbvsX1Q1-Eznpi>
-X-ME-Received: <xmr:796naofsKemcZu_CAW9HAOOV3eqUWUrXyee77KTxNrsiIArkK0tUeQH7HAI>
-X-ME-Proxy-Cause: dmFkZTFYcUDJMowE9JN8nz4OFx+gVOBEBH+t8GLwIW5cVX5aQlsigM3WocSdwL8FChn2PE
-    lm1yyhomAKAJMsKZ0vvOqI09MOV52VgTbuJ2eXgyibnylHJIBIL41ORpFpFRHfz6VdI8Kr
-    ViGFqPZEuxqogt0cVWqO5e3fxEXI/CNRXfQ15Mf4uMTo2wwuFNQlHQ4gOggsEb0117tCyF
-    zUoiwPml+9T/CyB9dpoVPqfZv4uaL+ABItxp0DoeXXWIbjrFI4Iq+8/t4v4Bz311MZgpQV
-    I7ssRm+d+zUxAOgskWGBnF1dhbKa8MKw7VBGpWOsHDCxNJd2YafXAVeIGPFBy3duUVW5fF
-    HPh7v++Vv7JUwSdVperfS+M7kvVowFLBOvvFJlH/bI2I/ou9RQvV4BO8kM8aFY+NMzf3IW
-    /6saKp/FzRF5O5qfv9I2rZLSvlcLyUi42irbeRCBzChi1NM8DzeN61fKNtpfGro1EEFaqz
-    KSo9NbleERAQ7LXogIoLaK0dCmjibUiLv1CrgN+v2tQX+pCyACUgXPeX8L7fPy59WOd0tC
-    +OB8xVe3L0PCXcwfZgJ1oz7BxBu67aZS1PKe444p9swprWoir/EpwI1bN645lL0isBZCA4
-    DhuD6XPWZoqTqHNTo8CRWH6SaxTAfq/u/QxDNY292I031PqUzEVNpJNzT9Iw
-X-ME-Proxy: <xmx:796naufL9uE9Mj5woEUD2SmDXmm_rvJZL-mGpPSlUG1e4WVOMVro1w>
-    <xmx:796namcTIkaiyydLJyIfWlIJ7MFQmJmo7D25jhffxVpg2jLX-jlGUw>
-    <xmx:796naspNdJKdirZ481GEzlfiNQ-UnkB0SANiszav3T1jnWx7uFq4Kw>
-    <xmx:796nauzlfsZtMmoYj_a1k0l1GPPCArGSFTkcohmTtdmmTuJKmwwnlA>
-    <xmx:8N6naqmDAzD2Xx4pKOtBKOkHD9AxLr8fnjsJmL0rcXRXoAZrVLx4Nc6V>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Sep 2026 07:47:59 -0400 (EDT)
-Date: Mon, 14 Sep 2026 12:47:58 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, "Liam R . Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v2 09/12] mm/collapse: open-code collapse_single_pmd() in
- its two callers
-Message-ID: <aqfeuAPx3lCKSXtd@thinkstation>
-References: <20260910120238.2529819-1-kirill@shutemov.name>
- <20260910120238.2529819-10-kirill@shutemov.name>
- <DLCTWPIN1HRO.2HK4RPZ43F301@nvidia.com>
+	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="SXuEO2sa"
+Received: from h183.csg.ci.i.u-tokyo.ac.jp (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
+	(authenticated bits=0)
+	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68EBfjsJ084060
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Mon, 14 Sep 2026 20:41:57 +0900 (JST)
+	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=iW6paRDU1WuHVvPa2Tan4+ENXAFGhAHh39Stpx/lGEU=;
+        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+        h=From:Message-Id:To:Subject:Date;
+        s=rs20250326; t=1789386117; v=1;
+        b=SXuEO2saKk20YD2hI4Bd3B6I1m3y39IXjKSDYVMyTHJVPMTQG/DWMsTfg5ROC63a
+         jQn/hizniPKxQGoa4QtbRLVEU85+E7s2+daO7YVK9mG9QtCn58S1tOauNKKtiSV2
+         rgA9ixQDTlU1/m0K8LG0USQ6+PyjRjdGcSGYV1qGyESosnCt3e+dw6Ii5Bv8hD/0
+         e19rtNxCti9KLIb+3XRWxOaN7rt0DXQJs+t1yWxfjNxqRebhgPZGzMpvOugpvHoi
+         RSX+sNZyTMEjUyAPfeRllhhiUhdOq0z8rIfdEgfUVkAEW7O39oHByZAhKO/t0Tnu
+         QykA1SOKzEoWPoyc1NtBKQ==
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Date: Mon, 14 Sep 2026 20:40:56 +0900
+Subject: [PATCH v10 17/20] KVM: arm64: PMU: Pass the target CPU to
+ kvm_pmu_probe_armpmu()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLCTWPIN1HRO.2HK4RPZ43F301@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-hybrid-v10-17-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
+References: <20260914-hybrid-v10-0-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20260914-hybrid-v10-0-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+        Yury Norov <yury.norov@gmail.com>,
+        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+        Steffen Eiden <seiden@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Shannon Zhao <shannon.zhao@linaro.org>,
+        Andrew Jones <drjones@redhat.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+        devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kselftest@vger.kernel.org,
+        Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+        Fuad Tabba <fuad.tabba@linux.dev>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4142;
+ i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
+ bh=ySVw3BtQ8VdlSvwcAcvu2VldK45kYaHXHC6yP9WKKsg=;
+ b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ9byu2U355cuY5z6LYFNdSLDjY2nWNJbHYwqTMv2haonR
+ tcq65h3lLIwiHExyIopsqQU7ebWiK79VJgQ3wIzh5UJZAgDF6cATGRWH8M/bSkpMyOu3ZuiUyKv
+ s+34fcnmwj2ftH1hDPOTZrcb/JjQwciwrdDrxrf1b/cXzY3MPyxivDqlxUfFsIJ1b3pkRcrOA5O
+ 5AQ==
+X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
+ fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
 
-On Fri, Sep 11, 2026 at 06:09:32PM -0400, Zi Yan wrote:
-> On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
-> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> >
-> > collapse_scan_pmd() and collapse_run_pmd() each have a clear locking
-> > contract.  The scan is called with mmap_lock held for reading and returns
-> > with it still held.  The collapse is called without it.
-> >
-> > collapse_single_pmd() kept that boundary inside itself.  It dropped the
-> > lock on some paths and not others, and reported which by way of a bool its
-> > callers had to carry along and then act on.
-> >
-> > Open-code it in the two callers.  Each scans under the lock it already
-> > holds and, on SCAN_SUCCEED, gives the lock up before running the collapse.
-> > khugepaged's lock_dropped and madvise_collapse()'s mmap_unlocked both go:
-> > the code dropping the lock is now the code that wanted to know.
-> >
-> > khugepaged's walk carries on to the next table while the scan keeps
-> > refusing, and ends once a collapse has taken the lock from under it.
-> > madvise_collapse() re-finds its VMA after a collapse, which it did before,
-> > and now uses a NULL vma to say that it has to.  It still reports the drop
-> > to its own caller, from the line that does it.
-> >
-> > The lock is given up and taken again at the same points as before.  No
-> > functional change.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > ---
-> >  mm/khugepaged.c | 102 +++++++++++++++++++++++-------------------------
-> >  1 file changed, 49 insertions(+), 53 deletions(-)
-> >
-> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> > index c26907300c23..9bdf12128357 100644
-> > --- a/mm/khugepaged.c
-> > +++ b/mm/khugepaged.c
-> > @@ -2857,28 +2857,6 @@ static enum scan_result collapse_run_pmd(struct mm_struct *mm,
-> >  	return result;
-> >  }
-> >  
-> > -/*
-> > - * Try to collapse a single PMD starting at a PMD aligned addr, and return
-> > - * the results.
-> > - */
-> > -static enum scan_result collapse_single_pmd(unsigned long addr,
-> > -		struct vm_area_struct *vma, bool *lock_dropped,
-> > -		struct collapse_control *cc)
-> > -{
-> > -	struct mm_struct *mm = vma->vm_mm;
-> > -	enum scan_result result;
-> > -
-> > -	result = collapse_scan_pmd(vma, addr, cc);
-> > -	if (result != SCAN_SUCCEED)
-> > -		return result;
-> > -
-> > -	/* The collapse takes its own locks, so give this up */
-> > -	mmap_read_unlock(mm);
-> > -	*lock_dropped = true;
-> > -
-> > -	return collapse_run_pmd(mm, addr, cc);
-> > -}
-> > -
-> 
-> Sorry for walking back on this. I think collapse_single_pmd() can be
-> kept and still get patch 10 to 12 applied. The reason is that by looking at the
-> code after patch 11 is applied, the collapse_scan_pmd() +
-> collapse_run_pmd() patterns in madvise_collapse() and
-> collapse_scan_mm_slot() look very similar. And it can make
-> collapse_scan_pmd() and collapse_run_pmd() internal with only
-> collapse_single_pmd() exported.
+kvm_pmu_probe_armpmu() currently samples the current CPU internally,
+which ties the helper to default PMU selection.
 
-I gave more motivation in my reply to David:
+Move that policy to kvm_arm_set_default_pmu() by passing
+raw_smp_processor_id() from the caller, and make the helper search for
+the pPMU covering an explicit CPU. Move the helper above
+kvm_pmu_create_perf_event() so later code can reuse it when creating
+PMU events for a VCPU's current pCPU.
 
-https://lore.kernel.org/all/aqQf9hSy0iNjnL6t@thinkstation/
+This preserves the existing default PMU selection behavior while
+preparing fixed-counters-only mode to select a pPMU at runtime.
 
-Short version: scan and run have different locking expectations, and
-the split puts the boundary where the lock is. It is also what makes
-moving the scan to per-VMA locking trivial, since the caller owns the
-lock and the engine never touches it.
+Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/pmu-emul.c | 72 +++++++++++++++++++++++------------------------
+ 1 file changed, 35 insertions(+), 37 deletions(-)
+
+diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
+index 05b48be05abd..ccd268d76235 100644
+--- a/arch/arm64/kvm/pmu-emul.c
++++ b/arch/arm64/kvm/pmu-emul.c
+@@ -694,6 +694,23 @@ static int kvm_map_pmu_event(struct arm_pmu *pmu, unsigned int eventsel)
+ 	return eventsel;
+ }
+ 
++static struct arm_pmu *kvm_pmu_probe_armpmu(int cpu)
++{
++	struct arm_pmu_entry *entry;
++	struct arm_pmu *pmu;
++
++	guard(rcu)();
++
++	list_for_each_entry_rcu(entry, &arm_pmus, entry) {
++		pmu = entry->arm_pmu;
++
++		if (cpumask_test_cpu(cpu, &pmu->supported_cpus))
++			return pmu;
++	}
++
++	return NULL;
++}
++
+ /**
+  * kvm_pmu_create_perf_event - create a perf event for a counter
+  * @pmc: Counter context
+@@ -823,42 +840,6 @@ void kvm_host_pmu_init(struct arm_pmu *pmu)
+ 	list_add_tail_rcu(&entry->entry, &arm_pmus);
+ }
+ 
+-static struct arm_pmu *kvm_pmu_probe_armpmu(void)
+-{
+-	struct arm_pmu_entry *entry;
+-	struct arm_pmu *pmu;
+-	int cpu;
+-
+-	guard(rcu)();
+-
+-	/*
+-	 * It is safe to use a stale cpu to iterate the list of PMUs so long as
+-	 * the same value is used for the entirety of the loop. Given this, and
+-	 * the fact that no percpu data is used for the lookup there is no need
+-	 * to disable preemption.
+-	 *
+-	 * It is still necessary to get a valid cpu, though, to probe for the
+-	 * default PMU instance as userspace is not required to specify a PMU
+-	 * type. In order to uphold the preexisting behavior KVM selects the
+-	 * PMU instance for the core during vcpu init. A dependent use
+-	 * case would be a user with disdain of all things big.LITTLE that
+-	 * affines the VMM to a particular cluster of cores.
+-	 *
+-	 * In any case, userspace should just do the sane thing and use the UAPI
+-	 * to select a PMU type directly. But, be wary of the baggage being
+-	 * carried here.
+-	 */
+-	cpu = raw_smp_processor_id();
+-	list_for_each_entry_rcu(entry, &arm_pmus, entry) {
+-		pmu = entry->arm_pmu;
+-
+-		if (cpumask_test_cpu(cpu, &pmu->supported_cpus))
+-			return pmu;
+-	}
+-
+-	return NULL;
+-}
+-
+ static u64 __compute_pmceid(struct arm_pmu *pmu, bool pmceid1)
+ {
+ 	u32 hi[2], lo[2];
+@@ -1098,7 +1079,24 @@ static void kvm_arm_set_pmu(struct kvm *kvm, struct arm_pmu *arm_pmu)
+  */
+ int kvm_arm_set_default_pmu(struct kvm *kvm)
+ {
+-	struct arm_pmu *arm_pmu = kvm_pmu_probe_armpmu();
++	/*
++	 * It is safe to use a stale cpu to iterate the list of PMUs so long as
++	 * the same value is used for the entirety of the loop. Given this, and
++	 * the fact that no percpu data is used for the lookup there is no need
++	 * to disable preemption.
++	 *
++	 * It is still necessary to get a valid cpu, though, to probe for the
++	 * default PMU instance as userspace is not required to specify a PMU
++	 * type. In order to uphold the preexisting behavior KVM selects the
++	 * PMU instance for the core during vcpu init. A dependent use
++	 * case would be a user with disdain of all things big.LITTLE that
++	 * affines the VMM to a particular cluster of cores.
++	 *
++	 * In any case, userspace should just do the sane thing and use the UAPI
++	 * to select a PMU type directly. But, be wary of the baggage being
++	 * carried here.
++	 */
++	struct arm_pmu *arm_pmu = kvm_pmu_probe_armpmu(raw_smp_processor_id());
+ 
+ 	if (!arm_pmu)
+ 		return -ENODEV;
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.55.0
+
