@@ -1,34 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440DC3AAF5E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325983A8749;
 	Mon, 14 Sep 2026 19:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789413686; cv=none; b=BPL8NFo5ap80EXOtqYCEW1MreKpvCfRM9tn0U4b68sESoRjsHmUfLH11li+WDvijATz6iGcA/R8x3yOdZIjde6FegnlwGNSJ5ToTGomistcCQmjG5SYm4HZCRx8QDylM53ce1gulkSTEuH9ByksJaI1iuHyBZgRRlMHfTMdD4Eg=
+	t=1789413686; cv=none; b=Es6AUalZiD33Ku4XE851BmauVg2s5Ky3gmxz3nP6QCZmdOQDE6INeh00r1kydSHS2H/h2XmAaVWAh+PlcK+AvIWKDe7HZ42bEKqJZ/jN92tcUy3YXtkJRZbxsSx43jlkV56jaUIG3EooICgHQXmvxnJVm3PWYZfjkufX8QM3g5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789413686; c=relaxed/simple;
-	bh=QmfEvOE4SfAXS/MeusYKjadXdFtLLVJQBW79Ocyb2sE=;
+	bh=gOLNNogmoOOUL45wHXQtYclrVHmbDfqCCG9L2KZ0nIU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AoBki104j08Iso4JKBajywqxRWXlIteN/kF8QSCqW61de3iG5EsI+79bSRX8itS+G7D5yr6ffDErh0jEi+qSPcazNbaCJTfGCjkjz5I9Go3bFukzUc/1ahXK5Fa+p1w752hV3P9D03CemsNBBjh3J0OE97p1bAvogcdDrqkvmFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZJj/XXtD; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=q2Gw3Z7/sBWR78ZO8vEYYOvKvPMOqZkXoSzSO22Z40xbjP8W/bz5r6JVEUAPGP9adGZz7xJENFCGzKuccnCopT7nKv1G+tro+xqJPvyMdE9IxWvIgTPx5LD67Lv/YRUlQtY+qT5SUnzwnduWAPRc+ZRcPYYFzH10xGAUDpWa9f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=X2a5Dp0H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZJj/XXtD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A2C4C2BCFC;
-	Mon, 14 Sep 2026 19:21:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="X2a5Dp0H"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DC82CC2BCFA;
+	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1789413686; bh=QmfEvOE4SfAXS/MeusYKjadXdFtLLVJQBW79Ocyb2sE=;
+	t=1789413685; bh=gOLNNogmoOOUL45wHXQtYclrVHmbDfqCCG9L2KZ0nIU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ZJj/XXtD4/uyycZPEeGBA0Fs06w5E+6metK7nGUXuskkkTRfh+lvZ/uhbvB/yciGf
-	 4+FOR66Q3Zcxg083BRibZkFgXnhIwi3GVfm5tiPJnjwvXpbidQLczAMmYUksECyAT3
-	 apyhdqHVVPZOpQuvoArLt+FlpQAY1p7xprmwfg18=
+	b=X2a5Dp0H0laPCEG8lrUdiOBOMoR2sBtKhK1u61LzZXCvo7j/w2tyhcmnRdBHH9l7A
+	 nfM0nSS72df6lPuZYFUe+8O49dcx+L2Qrxb8L2e8ECrlaviuI+TANvkIMSjHUUcKvP
+	 +laRUzu/RbQqnoJULSVpa5UcqUl2bqhl+xWQw24c=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06E0DC88E7F;
-	Mon, 14 Sep 2026 19:21:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9ACEC88E6F;
+	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 14 Sep 2026 21:21:07 +0200
-Subject: [PATCH 10/10] media: i2c: ov9282: clamp flash_duration default to
- its maximum
+Date: Mon, 14 Sep 2026 21:21:04 +0200
+Subject: [PATCH 07/10] media: i2c: ov9282: drop redundant vblank field
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +36,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
+Message-Id: <20260914-ov9282-fixes-v1-7-f520af59df1b@linux.dev>
 References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
 In-Reply-To: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
 To: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -52,58 +51,84 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Richard Leitner <richard.leitner@linux.dev>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789413683; l=1566;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789413683; l=2525;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=QmfEvOE4SfAXS/MeusYKjadXdFtLLVJQBW79Ocyb2sE=;
- b=k0eF9Jh8G8G7xgYuL6nj8uXj+T+DlDKz8Z/VilI9haV6d1DhZrUbfoOrhsfDK4b3YpJWcHh6N
- ur71VONOvRHCn2x7V5wUAO0m9fxwWcxK5b/FHeB+i9vSW0CySkG68Sy
+ bh=gOLNNogmoOOUL45wHXQtYclrVHmbDfqCCG9L2KZ0nIU=;
+ b=UC0U5HwzoIhjoGvQsq/peph0ucT2991+FX2i8rB/xNgGLAYdlDCgUuUqZysXuVZK6hQyes9I6
+ YhrtGd6BADYCUjCTQLPWjrtLSWg2oubxi1zHtdjLagIsaSPL5F+F2eW
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-Currently the OV9282_STROBE_FRAME_SPAN_DEFAULT is always passed as default
-to the flash_duration v4l2 control, where the maximum is dynamically
-changed. This may lead to situations where the default is above the
-maximum.
+The ov9282 main struct has a dedicated vblank field which was only used
+to duplicate the value of the vblank v4l2 control.
 
-Fix this by setting the maximum value as default when
-OV9282_STROBE_FRAME_SPAN_DEFAULT is above the maximum value.
+Therefore drop this struct field.
 
 Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
- drivers/media/i2c/ov9282.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov9282.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index be38ecfad8c82..1c5bed85781ce 100644
+index 632184e76b9bd..28f8b05b4c09e 100644
 --- a/drivers/media/i2c/ov9282.c
 +++ b/drivers/media/i2c/ov9282.c
-@@ -11,6 +11,7 @@
- #include <linux/i2c.h>
- #include <linux/math.h>
- #include <linux/math64.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-@@ -556,12 +557,15 @@ static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
- 	u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
- 	u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
- 	u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-+	u32 fd_default;
+@@ -193,7 +193,6 @@ struct ov9282_mode {
+  * @again_ctrl: Pointer to analog gain control
+  * @pixel_rate: Pointer to pixel rate control
+  * @flash_duration: Pointer to flash duration control
+- * @vblank: Vertical blanking in lines
+  * @noncontinuous_clock: Selection of CSI2 noncontinuous clock mode
+  * @cur_mode: Pointer to current selected sensor mode
+  * @code: Mbus code currently selected
+@@ -216,7 +215,6 @@ struct ov9282 {
+ 	};
+ 	struct v4l2_ctrl *pixel_rate;
+ 	struct v4l2_ctrl *flash_duration;
+-	u32 vblank;
+ 	bool noncontinuous_clock;
+ 	const struct ov9282_mode *cur_mode;
+ 	u32 code;
+@@ -646,17 +644,13 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
  
- 	if (fd_max_us < exposure_us)
- 		fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_VBLANK:
+-		ov9282->vblank = ov9282->vblank_ctrl->val;
+-
++		lpfr = ctrl->val + ov9282->cur_mode->height;
+ 		dev_dbg(ov9282->dev, "Received vblank %u, new lpfr %u",
+-			ov9282->vblank,
+-			ov9282->vblank + ov9282->cur_mode->height);
++			ctrl->val, lpfr);
  
-+	fd_default = min_t(u32, OV9282_STROBE_FRAME_SPAN_DEFAULT, fd_max_us);
-+
- 	return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
--					1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
-+					1, fd_default);
- }
+ 		ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl,
+ 					       OV9282_EXPOSURE_MIN,
+-					       ov9282->vblank +
+-					       ov9282->cur_mode->height -
+-					       OV9282_EXPOSURE_OFFSET,
++					       lpfr - OV9282_EXPOSURE_OFFSET,
+ 					       1, OV9282_EXPOSURE_DEFAULT);
+ 		if (ret)
+ 			return ret;
+@@ -704,7 +698,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		ret = ov9282_update_exp_gain(ov9282, exposure, analog_gain);
+ 		break;
+ 	case V4L2_CID_VBLANK:
+-		lpfr = ov9282->vblank + ov9282->cur_mode->height;
++		lpfr = ctrl->val + ov9282->cur_mode->height;
+ 		ret = cci_write(ov9282->regmap, OV9282_REG_LPFR, lpfr, NULL);
+ 		break;
+ 	case V4L2_CID_HFLIP:
+@@ -1412,7 +1406,6 @@ static int ov9282_probe(struct i2c_client *client)
+ 	/* Set default mode to first mode */
+ 	ov9282->cur_mode = &supported_modes[DEFAULT_MODE];
+ 	ov9282->code = MEDIA_BUS_FMT_Y10_1X10;
+-	ov9282->vblank = ov9282->cur_mode->vblank;
  
- /**
+ 	ret = ov9282_init_controls(ov9282);
+ 	if (ret) {
 
 -- 
 2.53.0
