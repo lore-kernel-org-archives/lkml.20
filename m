@@ -1,107 +1,44 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326C519D074
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104F82765ED;
+	Mon, 14 Sep 2026 00:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789346608; cv=none; b=BObqz4j4BeMlpuZlT/i8usS09ktNDpU8H48rfJMzKWibj3RbyvHgf3S1cAiblYQ3ZWezqu0ywOVREn3GlRQOmq7+7qyscpBxsX/Exy/mQ/jC7rqUPzckIT6+zO6wIdJQ/nmF6XPmIQIqjjYAW+0nUILCHVcgyniu5egelGO11tA=
+	t=1789346634; cv=none; b=CI+I+OeyLzgKatOs305jZCCXVQdovwPAZdft2gDB4cnFrAqCQ610/hdxN4I/t+PTnQY3hib6tqUwFZSyiRwbl0ZdhcimU4J1FiXUbnKnVE8a6DKHyd+PE82zaeNqX+Zdj6FUQlPWQbf+0hsNwr4l8H2wVxnnK5hyAXYvfoEHT0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789346608; c=relaxed/simple;
-	bh=g4Sb+4EO6utuPttACpx7esnqjC4tL1wK9PbH7KgaxpI=;
+	s=arc-20240116; t=1789346634; c=relaxed/simple;
+	bh=aOppxkQjbj66SzuZa8DA79a5pGiE+52DHXubBbTwEA8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MbFTpnHfkd4RU7Pa0qjFhw+Hqbh/cT04jmbj+9EqVObSYuSLRzp16Tk9YbjV+VDPvue8eKXVkI2YexXUifuD2XRE6jsSwrvd9ezRylweW1u09eSSKtUmP+A7uIBUNIyet29V9Q92MeeUg5+XjFPWj4KqJNcjCBtkzFxEOWRQKzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bgQfIVCC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FoduFFMb; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=c4P26Gv0L6T56qRBWZ14js4/7yqBMS+Cf2TnJb59LNDfOneiPoVpJAwA52yc2ISw7X9zm5EVXHEQAGS9h4pCX6q34BACS99Lu8wBNAFR61uTahYDeuMqNpePylR6gOrAcY/h6Eradm4feSP4no5OM+hSW32jV9SKAZviysDV4es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ny5Nx2hp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bgQfIVCC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FoduFFMb"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E06FQa3187586
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:43:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Lj9pFcVapk0XSSP7vk2Ibgx2
-	B2uTAyJseO6HX7OHZTQ=; b=bgQfIVCCMV3iD6UZqTIHicnGFEy/PC9xmmStr4hW
-	iyC32DhH9LgnCniqdkSEuCp+18iX2NujkqzB1cYtn95L8LVUk38FeprgNUjoEObo
-	F1txYgUXb12oxATaUNxoV7SsKqhQbgyAqLs1qnT1eg2kzJEIYOFCvXccLkNm/YRd
-	aC3vPCNpJiZbmz1REOfDqdv6wJ42UIKuVkkfm7QFOBiWNYEJThgAh3RD3xHMQdzC
-	6Bbuf/rwqlQTj5DOZn+sS4Bt1FFCprFi7kiLdLEx0DvAjUEGldr9FSevg0hvgOpa
-	ceQrTpifSKXCoMijz+EzO9JZOtJZtsFbE/l5hG2JPdZYmw==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9d4ens-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:43:25 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-980989f5030so2335631241.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:43:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789346605; x=1789951405; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Lj9pFcVapk0XSSP7vk2Ibgx2B2uTAyJseO6HX7OHZTQ=;
-        b=FoduFFMb4QvrYTNj3PWf/z6Ap4i/xSOfgjqFI2OM0T6wREgJ8V2SrrRVqo43GfE0T6
-         JESM2OW3Gbc9Hzvd6/LJKrXX9L/rQBYWG6n55UdLGkMDYoo3SVbJaVAUMCBEnZP3VvFS
-         UeAbPciVsZxkjQX73n3GqxuWFZX3aBm4VDqrCnOgtpjWUrqoA4nP4r7SRperejKEB6or
-         B3RVYHtomKjQZAn49Z8Eq62I8/Aes5QfMBB5R+p73wWDCBqeIbAr/LILl/5PtJYe5U6W
-         FwGVd2aQ50YghJ1IaZZiOa9byjL2zmG/YENAt7Cu/aU6ArsZmW2GQwuBQP3AbHB/i2to
-         JErw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789346605; x=1789951405;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lj9pFcVapk0XSSP7vk2Ibgx2B2uTAyJseO6HX7OHZTQ=;
-        b=BeYsX3n/PIEe/UGekLrRovY/6TMMTpav8lgJ53jiLrwlCEN8tX4LXPTE1bIqqHTTRF
-         NzjoTyRcSDIs6mHouD5JNE8+56jEV4+PhDJF3OL1rYxceLn/jay8XDmhfpb+AEaATpoL
-         HH0T5KRSea1NAKtW7JnTce8O0Ty0pmeUPnK0oOE344MwmxJYF0rfHcwWUy9f3o4V9DOc
-         ipt5BVe283zJKLhV6n4OIs4CSlOGi7WTuTZwpYiK2jw58Lnv/WEYu6XMLfwPvkSLOs20
-         FNRqvOJEfSNmEiphT2il7eT94Rn+uZa2T3QUCmFi91U7A/cXY6MD8WsW5y44RABRbbmZ
-         RU6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxoRSdbfkd+YI7KgpKsRNBUgKvOsa+/uIPxlKlOdAPm8dqzWzOyV2SgrKfxjQY1C50t2AlaKuJcIfRWg38=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8SWhgwCE6dXrJJQDXEYcS+Xs6lMi3sgfjUxTWzj4UtmoWwRYR
-	M0UI/yN3kQSywA6c5f0QImbpPJs3IyKg0yz/81zSwTqCgiVFkMG/KGmodHUxy9cMMaJKJD4Nyuy
-	XatYMfQjttND0dkyrfew0jvjyNoAAYUQDlnRzlyr1hsaieonPjs2B7fYCixHte3igMsU=
-X-Gm-Gg: AYBFou3MT4+i0tDp7+yCo5qKT99L8EFpQ095qcvNT/m/QpUEErpZUTM7vCUHqIQ0h7R
-	/Z+X4aJ0WVBoBN0jKcxUokfSWKeeaWUrKaKJrponu812Y5Dm8yySCgCd+70Ka/UyD9xvQW9HmJM
-	r0JGppHdJ0n8TspUA5MyeFNcyRw8kbCF/dX22BeWWqijvcR6n1/0sFI1LMy6YuKZdiqJrtPUY/r
-	bjk6cbAKDRjieegjmAhm3a7dQZP3Jg9OES+C/T7zpHz7ywEOeeEZ9ck8fzsjoF4NdeFN/yF45f8
-	lhJXtMpJ4UkYFcIcj3h12YiNQmOnHuPSWxWqmrUqc0aX+/58F0aNJCLoP9jTTX3N6Ul9R3hcl6l
-	Pzv+BIPh2FEi7329dAFjlbDYGrRg8xy+Ry60DAaxw1kb+DWYW1K8Y4WOvaPrlE8wrYpdGk2+0sa
-	SdBXIyIOqL/8QK
-X-Received: by 2002:a05:6102:a48:b0:79a:1d27:a8ac with SMTP id ada2fe7eead31-79b5878ad50mr144551137.5.1789346604719;
-        Sun, 13 Sep 2026 17:43:24 -0700 (PDT)
-X-Received: by 2002:a05:6102:a48:b0:79a:1d27:a8ac with SMTP id ada2fe7eead31-79b5878ad50mr144521137.5.1789346604268;
-        Sun, 13 Sep 2026 17:43:24 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3303fc9sm23868501fa.6.2026.09.13.17.43.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 17:43:23 -0700 (PDT)
-Date: Mon, 14 Sep 2026 03:43:21 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Archit Taneja <architt@codeaurora.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
- during .atomic_pre_enable()
-Message-ID: <udst66v6mxlbugyqehsrluvf3nvuw34plt7fzj75wwzrwgev6m@wzyiuexzeu4o>
-References: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com>
- <20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ny5Nx2hp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC83F1F000FF;
+	Mon, 14 Sep 2026 00:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789346632;
+	bh=hMdrZnl7GMSNqS8s9XDzRYe1n93DJ8JeY1FfH2sUYRY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ny5Nx2hpwEQFzoUf2Yx3a1OYBQ7vXr1S7uqOp0I78em9aQfG2Yfr71o44ye+qLxDI
+	 6ymtTrtTv13PFjW9paLTmA9rnLH6Z0WahQqLGDvORg3hAEStsUK1zCkufTHXoJG1tY
+	 5gur5NYhIpubZ8gd+9I3/USCbCMjHxh4bVIpkx/bbgWUxNdb0AE/mHAejnjAF2+s+D
+	 dYtBSJIU4V88iGstmsyx4+T0g7VfJOnBsaVc9A4IbyR6jU3vQI9C0m7kdHZZg7RUzi
+	 GMUvBG23wbTUtsQaHtLh2GPu55UREKESFXgVlknKKdRSaKas1Vq+B5gtLClktEbpig
+	 pc0j6V2gZsT1w==
+Date: Sun, 13 Sep 2026 21:43:48 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Chun-Tse Shao <ctshao@google.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] perf jevents: Add mesh bandwidth saturation for CWF,
+ EMR, GRR, SNR, SPR, SRF
+Message-ID: <aqdDRJ7kD_fyR2OI@x2>
+References: <20260909220445.2117921-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -110,53 +47,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwNiBTYWx0ZWRfX/RIb2H60zfGr
- 0V6mUY5OEGNMY96d5uFfej4z7InO7U/S7M8YJbdwCfAr07Nculaban2Ce1iuL5XDHVxmAkr1kAR
- 2KPnG8denClDjYYVhq9rD8V2kmqe9XQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwNiBTYWx0ZWRfXzQdGLIWBSxSJ
- OwRtb9GPAXCJLEJWRQsAXHn4I4Ics0j0SKJD2Bu+U4gw7okFBw6Jzlulo58BkWXMnJC/tttxqfU
- oysfIK8kxU4QEjIbk4mujeCUPhLINhaDxnCNJMLah0XoWFPpCfqQHIwk/YrdC0rNfUWi9KuFzVX
- JPvJTSSZRfq6cUz99QABncqtkVIQ4wnRm0kga8gWYPgmFEBNNW+JF79TUGdBaGu+FrLli9gAH+/
- PYW7zKR/49OHuI8YaYalakt8b8qGNHdBL4ygetYinIE8P6Du23/oJ+QxNn+0Xcffor5Nx+hmVg+
- 6hZi1DiS2oPf/IAlcihmRDwHntVM08mNyDP3nYeHN4kwzRZgh54GqXnWHPBgEcXXQVhYtTJkpKL
- y1ll4Utx13zfohg50yzh7RTSzT2jvMY6B+6UUyQBmnxNuPW6atyjlIfFHhJrZp+xC4MKE76WQX9
- pnvNJcxjDp8gJIPkmrA==
-X-Authority-Analysis: v=2.4 cv=IOSXmQvG c=1 sm=1 tr=0 ts=6aa7432d cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=yaZh0le1K7A__2Wy8xAA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-ORIG-GUID: 8hOo0N0yA7OKaVFm_rKOkZQC3piEsC7w
-X-Proofpoint-GUID: 8hOo0N0yA7OKaVFm_rKOkZQC3piEsC7w
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_08,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140006
+In-Reply-To: <20260909220445.2117921-1-irogers@google.com>
 
-On Fri, Sep 11, 2026 at 12:29:35PM +0200, Krzysztof Kozlowski wrote:
-> Properly handle power up failures during .atomic_pre_enable() by
-> aborting the .atomic_pre_enable() to avoid accessing registers why
-> blocks did not bring up.  Otherwise this could lead to imprecise aborts
-> when accessing MMIO while entire power domain is off.
-> 
-> Cc: <stable@vger.kernel.org>
-> Fixes: ba3d7bf3a7ab ("drm/msm/hdmi: Convert PHY files according to new design")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Wed, Sep 09, 2026 at 03:04:45PM -0700, Ian Rogers wrote:
+> Extend the mesh bandwidth saturation's list of events to include
+> events from clearwaterforest, emeraldrapids, grandridge,
+> graniterapids, sapphirerapids and sierraforest. This makes the
+> lpm_mem_sat metric available for those CPU models.
+
+Thanks, applied to perf-tools-next, for v7.4.
+
+- Arnaldo
+ 
+> Signed-off-by: Ian Rogers <irogers@google.com>
 > ---
->  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 +++++++++++++++++++++---------
->  1 file changed, 21 insertions(+), 9 deletions(-)
+>  tools/perf/pmu-events/intel_metrics.py | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+> diff --git a/tools/perf/pmu-events/intel_metrics.py b/tools/perf/pmu-events/intel_metrics.py
+> index bc2b920d3a0d..9780bf978a41 100755
+> --- a/tools/perf/pmu-events/intel_metrics.py
+> +++ b/tools/perf/pmu-events/intel_metrics.py
+> @@ -1099,7 +1099,8 @@ def UncoreMemSat() -> Optional[Metric]:
+>      try:
+>          clocks = Event("UNC_CHA_CLOCKTICKS", "UNC_C_CLOCKTICKS")
+>          sat = Event("UNC_CHA_DISTRESS_ASSERTED.VERT", "UNC_CHA_FAST_ASSERTED.VERT",
+> -                    "UNC_C_FAST_ASSERTED")
+> +                    "UNC_C_FAST_ASSERTED", "UNC_CHA_DISTRESS_ASSERTED.DPT_ANY",
+> +                    "UNC_CHA_DISTRESS_ASSERTED.DPT_NONLOCAL")
+>      except:
+>          return None
+>  
+> -- 
+> 2.55.0.1003.g10538fe699-goog
