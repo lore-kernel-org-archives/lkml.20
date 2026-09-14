@@ -1,189 +1,139 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1325445563C;
-	Mon, 14 Sep 2026 12:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4643C3D9674
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388114; cv=none; b=hhy+IiTAT7DWrytHMqOS8LDs8fwhECsKq+xizOkteoP+O8rAPu5DugHXHxcby33ikh0DlnPbVuqR9GhghXSuQuE53OCWdV5VJaDwyHcc+eWCzVLI+kkaIhyqpINNs5opVMZUadcELqn87Nz67aKBmOEJbTBBeRwzmSTQSdDz4jg=
+	t=1789388158; cv=none; b=tv5GUnvGSKn/ztS8zs9CSORy9c+0lRT849ICl/8JS2spiqRHabkKE94ZD/mSQO4JHBJrSYrQC1rjS3eblSaaRGyfWeT9N0ohZ2C8EkcoIChejRr04PHA162OYDukCsye0HNE2G67FAzlNZ+2wHJMCFxvcCjtmhFJRg3R36oLP5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388114; c=relaxed/simple;
-	bh=V4v29hqphf71drKAKxNYS2bGk7KT06PPuG3ckTO1o2k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f7jOmxU1+1BHiL7tG2x1peslm4+ORIt9k3QV/MHn0YNa/i2PjFq1VSagZo6dvnsLZlENnu3X4VWk4cgf7Br0+PgszF8r3gpQW4ARhNYQkdo3+NUirdlkUIkADozraqmDfR1/5a9VJWviCcBXO4aoDhjubXd08QeaAibIKpjCuQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hk3xL4TcZzKHMWL;
-	Mon, 14 Sep 2026 20:14:46 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id B1EBA4056D;
-	Mon, 14 Sep 2026 20:14:57 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgC3eG1A5adqaVsSAQ--.53660S2;
-	Mon, 14 Sep 2026 20:14:57 +0800 (CST)
-Message-ID: <a8320365-6bf9-4db4-b05e-7776a6089a98@huaweicloud.com>
-Date: Mon, 14 Sep 2026 20:14:56 +0800
+	s=arc-20240116; t=1789388158; c=relaxed/simple;
+	bh=gErqX5CkJ3k5ZE0RlQFl1YtciVW68CeEp9/eczdgOiU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EsV0e7KLVIkC1FOIrAvMSgiO4n/7+4LXm2vzeYv681JDUEjvVqqsNq2UhGtrAZA9XHJfVhtym0/BaYMmcX9w0frXSduehR29z+Zz/88EtZx6LJDFh1gt+jcJ1ZMOBzIpHW0L/jLiX2yhUwHURBzv5wfvpoBiGKaNen3CTeIpqYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ltcMcIpu; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ltcMcIpu"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id AFC794E40504;
+	Mon, 14 Sep 2026 12:15:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 62FF960323;
+	Mon, 14 Sep 2026 12:15:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A183E11C7AF9D;
+	Mon, 14 Sep 2026 14:15:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789388149; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=c/j2KSqoeXBO/q3tfC1ALuuQTrGhFj6j1QP0rTOkUU8=;
+	b=ltcMcIpu7KTkiliv/Sa0/XOryVq+Iy4OOrpOQXGT2bqQF6+9WInj1c1ZBbTrmJ5ot6lWQm
+	Stl2p/qa3c0UzIiZzikOiSv/uzemiocQXjLBEt1EkLLiruLlvqQ+xAHPTeyfy0Kkbh+SBi
+	yPgJEoV3KwEtUjjvPKieD5XEoBZ4Gn9GNI1wcgbpIYFeMIDKOM6a1+MGA342Omian1E5s8
+	yCWPVI9SpOZ0q0y7DspWzcMTCFSND9Q6X5KNJO8+QhCtIFUvVDm42CtmqCHUYu2+4E8XVa
+	2xir+AEUZ4JBCqTSyMywT/x5Lujn6FuOnvy1rJD3quvJ/q78zI0DFjucYACBgg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Itai Handler <itai.handler@gmail.com>
+Cc: mwalle@kernel.org,  pratyush@kernel.org,  linux-kernel@vger.kernel.org,
+  linux-mtd@lists.infradead.org,  vigneshr@ti.com,  richard@nod.at,
+  takahiro.kuwano@infineon.com,  stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] mtd: spi-nor: take the flash lock in
+ spi_nor_shutdown()
+In-Reply-To: <20260914081149.1916589-3-itai.handler@gmail.com> (Itai Handler's
+	message of "Mon, 14 Sep 2026 11:11:48 +0300")
+References: <20260914081149.1916589-1-itai.handler@gmail.com>
+	<20260914081149.1916589-3-itai.handler@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 14 Sep 2026 14:15:46 +0200
+Message-ID: <87fqzcowp9.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] perf dwarf-aux: Add die_has_flex_array() helper
-To: Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- linux-perf-users@vger.kernel.org, Zecheng Li <zli94@ncsu.edu>,
- Yanbo Zhao <yzhao62@ncsu.edu>, Shuai Xue <xueshuai@linux.alibaba.com>,
- Masami Hiramatsu <mhiramat@kernel.org>
-References: <20260914064535.1671939-1-namhyung@kernel.org>
- <20260914064535.1671939-3-namhyung@kernel.org>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <20260914064535.1671939-3-namhyung@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_Ch0CgC3eG1A5adqaVsSAQ--.53660S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF4UtrWrtFy5XFWruw4kZwb_yoWrGr43pF
-	4UCw13Ar4UGF4Ikw1fX3Z5u3yrt3yxXFWFya93C34xAry7XF17uF97Kr1Ygw4rKr4DAw4I
-	kr1DGw4UGan7XFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
-	7KsUUUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
+On 14/09/2026 at 11:11:48 +03, Itai Handler <itai.handler@gmail.com> wrote:
 
+> spi_nor_shutdown() calls spi_nor_restore() to put the flash back into
+> 3-byte addressing before the system reboots or kexecs. It does so
+> without taking nor->lock, which every other path that talks to the chip
+> acquires through spi_nor_prep_and_lock().
+>
+> device_shutdown() does not freeze userspace and does not stop kernel
+> threads; it walks the device list calling ->shutdown with all CPUs
+> online. Another thread can therefore be in the middle of an operation,
+> with the restore running concurrently with it. A write and a read are
+> both damaged, in different ways.
+>
+> A program or erase leaves the flash busy, and a busy flash accepts only
+> status register reads and ignores everything else, including the EX4B
+> that spi_nor_restore() sends. Neither spi_nor_write_enable() nor
+> spi_nor_set_4byte_addr_mode() reads anything back, so the restore
+> reports success while the flash is left in 4-byte addressing. The next
+> boot stage then addresses it with 3 bytes and reads the wrong data,
+> which is the failure commit 59b356ffd0b0 ("mtd: m25p80: restore the
+> status of SPI flash when exiting") introduced this restore to prevent.
+>
+> A read, by contrast, does not ignore the restore - it is corrupted by
+> it. spi_nor_read() holds the lock across a loop that issues one
+> spi_nor_read_data() per chunk, each using nor->addr_nbytes.
+> spi_nor_set_4byte_addr_mode() updates nor->params->addr_nbytes and not
+> nor->addr_nbytes, so a restore landing between two chunks switches the
+> chip to 3-byte addressing while the driver carries on sending 4 address
+> bytes. The rest of the transfer is addressed wrongly and returns wrong
+> data, and nothing reports an error. A restore may also soft reset the
+> chip in the middle of that same read.
+>
+> Take nor->lock for the restore, so it runs between operations instead of
+> during one: a program or erase has finished waiting on the chip, and a
+> read has issued its last chunk. This is a locking fix rather than a
+> missing wait - each operation already waits for completion at the site
+> that started it.
+>
+> This narrows the race without closing it. The restore still runs while
+> MTD users are attached, so an operation that starts after it has
+> completed will address a chip that is now in 3-byte mode while
+> nor->addr_nbytes is still 4. Closing that as well would mean having MTD
+> stop accepting operations before ->shutdown runs, which is a larger
+> change; serialising against the operations already in flight is what
+> keeps the restore itself from being issued into a busy chip.
 
-On 2026/9/14 14:45, Namhyung Kim wrote:
-> The die_has_flex_array() returns true when the given type is a compound
-> type and contains an array at the end.  To prevent an infinite recursion
-> add a depth field to the internal function.
-> 
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+6 paragraphs to tell "Accesses to the flash should be
+serialized". Please reduce it.
+
+> Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when e=
+xiting")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Itai Handler <itai.handler@gmail.com>
 > ---
->  tools/perf/util/dwarf-aux.c | 77 +++++++++++++++++++++++++++++++++++++
->  tools/perf/util/dwarf-aux.h |  3 ++
->  2 files changed, 80 insertions(+)
-> 
-> diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-> index d7160f87ac7d7ab3..465824e6513eb0ac 100644
-> --- a/tools/perf/util/dwarf-aux.c
-> +++ b/tools/perf/util/dwarf-aux.c
-> @@ -2180,3 +2180,80 @@ Dwarf_Die *die_deref_ptr_type(Dwarf_Die *ptr_die, int offset,
->  
->  	return die_get_member_type(&type_die, offset, die_mem);
->  }
+>  drivers/mtd/spi-nor/core.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index 8bc117b46e02..647bf8dce719 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -3862,8 +3862,21 @@ static int spi_nor_remove(struct spi_mem *spimem)
+>  static void spi_nor_shutdown(struct spi_mem *spimem)
+>  {
+>  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
+> +	int ret;
 > +
-> +static bool is_flex_array_member(Dwarf_Die *mb_die)
-> +{
-> +	Dwarf_Die type_die;
-> +	Dwarf_Word size;
-> +
-> +	/* get the type of the member */
-> +	if (die_get_real_type(mb_die, &type_die) == NULL)
-> +		return false;
-> +
-> +	if (dwarf_tag(&type_die) != DW_TAG_array_type)
-> +		return false;
-> +
-> +	return dwarf_aggregate_size(&type_die, &size) < 0 || size == 0;
-> +}
-> +
-> +#define MAX_FLEX_ARRAY_RECURSION  256  /* arbitrary */
-> +
-> +static bool die_has_flex_array_recurse(Dwarf_Die *parent_die, int depth)
-> +{
-> +	Dwarf_Die die_mem, last_mb;
-> +	int tag = dwarf_tag(parent_die);
-> +
-> +	if (tag != DW_TAG_structure_type && tag != DW_TAG_union_type)
-> +		return false;
-> +
-> +	/* prevent infinite recursion */
-> +	if (depth > MAX_FLEX_ARRAY_RECURSION)
-> +		return false;
-> +
-> +	if (dwarf_child(parent_die, &die_mem))
-> +		return false;
-> +
-> +	do {
-> +		if (dwarf_tag(&die_mem) != DW_TAG_member)
-> +			continue;
-> +
-> +		if (tag == DW_TAG_union_type) {
-> +			if (is_flex_array_member(&die_mem))
-> +				return true;
-> +
-> +			if (die_get_real_type(&die_mem, &last_mb) &&
-> +			    die_has_flex_array_recurse(&last_mb, depth + 1))
-> +				return true;
-> +		}
-> +
-> +		if (tag == DW_TAG_structure_type)
-> +			memcpy(&last_mb, &die_mem, sizeof(last_mb));
-> +
-> +	} while (dwarf_siblingof(&die_mem, &die_mem) == 0);
-> +
-> +	if (tag == DW_TAG_structure_type) {
-> +		if (is_flex_array_member(&last_mb))
+> +	/*
+> +	 * Wait for an operation started by another thread to finish.
+> +	 * device_shutdown() runs with MTD users still active: a busy flash
+> +	 * ignores the commands spi_nor_restore() issues, leaving it in
+> +	 * 4-byte address mode, and a restore landing mid-read changes the
+> +	 * chip's address width under the transfer.
+> +	 */
 
-Not sure if this case can actually happen, but adding a check for whether
-last_mb is valid is probably better. (I see Sashiko flagged this too.)
+I'm fine with the diff, but please drop this comment.
 
 Thanks,
-Tengda
-
-> +			return true;
-> +
-> +		if (die_get_real_type(&last_mb, &die_mem))
-> +			return die_has_flex_array_recurse(&die_mem, depth + 1);
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/**
-> + * die_has_flex_array - Check if the given type has a flex-array at the end
-> + * @parent_die: a pointer to type DIE
-> + *
-> + * This function returns %true iff @parent_die is a struct type and has an
-> + * array at the end.  Note that the flex-array has no element, it should have
-> + * no size and the parent size doesn't include the flex-array.  So it should
-> + * locate at the offset of the parent size.
-> + *
-> + * For simplicity, it assumes the parent size of aligned with the flex-array.
-> + */
-> +bool die_has_flex_array(Dwarf_Die *parent_die)
-> +{
-> +	return die_has_flex_array_recurse(parent_die, 0);
-> +}
-> diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
-> index 161f0bf980b6ee6a..9b662db710220522 100644
-> --- a/tools/perf/util/dwarf-aux.h
-> +++ b/tools/perf/util/dwarf-aux.h
-> @@ -189,4 +189,7 @@ void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **var_types)
->  /* Get the frame base information from CFA */
->  int die_get_cfa(Dwarf *dwarf, u64 pc, int *preg, int *poffset);
->  
-> +/* Check whether given type has a flex array */
-> +bool die_has_flex_array(Dwarf_Die *parent_die);
-> +
->  #endif /* _DWARF_AUX_H */
+Miqu=C3=A8l
 
