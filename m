@@ -1,96 +1,144 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB0635C69C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789402324; cv=none; b=L078yd5b3Eb69lLu+R65jFYI5062Tg9+MeMHr6lLaHMLXKbxALrmJPYaVwLPc5OUhQYWIDzlWN5U9cny8WpmYOYKoTo0BZWyJVVPsv/Q0YdLuFASo0Q5/6zQBcjwEirxKvsjxmFhlT3KyjvnSCNgSnamlrEoxSOTYPT9+7SggQg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789402324; c=relaxed/simple;
-	bh=whWzBLS2wmRxWDNqkKlLcdLwgrG1sbnMZySXUAFc6a8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kkxadif4Kh2kST0ZbAyZNWr9akeBnm4jjatztgja+1OliFTU/eBEuw/22vBxC4MZkz1RY8+zKDggU/M4g/27bsfHcr4dAH+v8ziNrtx+NPbqvLyvzQulqPD+2jddAB9mFTrQylccgFivGsvTAS/uiLClS5wQuxt8HM2mEPz/Gxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ToHrbJEE; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DD24734F5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789402335; cv=pass; b=WsYC5oUn7CdwqpLjctlXwq6BTyEQColAIU9kwtPu09dWfBDBGPnrSlJVR+HGoGNRPx7ooxWdXUIWwWfQ5Q+/ST0Vpt6UoCNpiS2ZJO/s7tcYkF++4kpfHBdHY+YHx5lkvO36A0Y9y3dYCNdUZgEf6h1lfQ4Yo5Rp2/MmOLH3aUc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789402335; c=relaxed/simple;
+	bh=ZIrwzndTIJn+zc3gui4wMdEbuLT5FkETFxZVrQW961I=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bBreda+fcKPPRYg1q7Rq8WzF8zCc78nYE9ep9iA+vSgDpzED9iUJmpgy2D28+wIkEUiSpf5ZiaYJ8ej80iEs4cMevUnNMCP2lkdULqII1V6txGu3KQjgUcELafYBr9ehB5qlXwmpxIYT3SK5lWc6CQjkPtmWlxwzBXT83onU/aM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iPxS2JBl; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ToHrbJEE"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hk9Bw0QDVzKmJK;
-	Mon, 14 Sep 2026 18:11:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789402312; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N1UfaGhIpy5Dvplr02p7iGkuX5llX7tHIRnfdWIDMHk=;
-	b=ToHrbJEENCgOEfJyfWdKXB2x30h/Ie7TMrCCZLnvGg8S26C0ge0xgGj34jlVtppfGRR5x3
-	gnb5OMHMyf9r1Bn8vE0UGyfZZbTaKwbdkRZLf7X1ChJbM1cR4Iijq7umCFum5FLIfgBRvd
-	5m5yjU2NHtFOa+BYdHZs+JC3o1KsUj3KODXdpQKjy01mYjR9FHntDXBJit4mUdNT3lSm9i
-	PRHrwCdK7RAUY4gzrIGCbu3GNWWOONpDBIk5ruC3Rx/RrgIfYVDzmHDWwwNSKrRTVSi31y
-	mssjCHaSGx4QiJjcO0B9n7J0/22p2wXygz5FpmV5Vcok/OKXD0aFvmJ5ZkSz5A==
-Message-ID: <c57cd3daf458e1868aa468f6e426ac0220c615a8.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Remove useless BUG_ON()
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Philipp Stanner <phasta@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 14 Sep 2026 18:11:48 +0200
-In-Reply-To: <20260625120151.1757146-2-phasta@kernel.org>
-References: <20260625120151.1757146-2-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iPxS2JBl"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e4so27089476d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:12:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789402332; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NVxeJRGKweLj514w+IFehWrh4nR7txB8ZsDD7ugGstWJOVKDbKoJnHcnGIG2FPZTUR
+         9e7LhRLkj86arliMGVhGkw4kdgaJLzOpYAU4+DG9n4FxFDIop7chZNXSvOtAdlsDjDYi
+         kVCI+WaA3CyAysdeLV7d2QqOF49fQFsPmMonefKPT+W2EFOfU1rXQ4sgd0RI2xcqqXdF
+         CDCHLzTt1Gea7O3VCpLJEbZyWPmziN8FcL4RJ/7JGINoG4y94g9FNma2xCF2beuGc0N7
+         qt6GsHZC/YXuBKaUcTi+6bs59rInuulEAYiiUHjHl5IxWGEPUDv4UyxRREOPqSMC7AtH
+         529A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=ZIrwzndTIJn+zc3gui4wMdEbuLT5FkETFxZVrQW961I=;
+        fh=aqsU1il7DLzxK9IjjzxLvuTMnDmSaFirBfocOwFcI3Y=;
+        b=pYcYNX0cw5wBUJndnR+oIp07Gxu/9AuQKO8kmm9Apqhf8wFVtPphK/nsUSGVsUj57H
+         4rPjsKPWHODe/RmDeYOCEb7hDhoZVjbrUC0zlXlArM/NV1AtgFw4IvpibfCrqDeIAy8W
+         YNyS2pAO5IWJzq3g3fPanfESr6CkIIrWIyvlj+5P/4MMlQKv1pnXBdLb4vu/bkdQWdYX
+         Uo3cqyT/Y1Z1IPNuVBT157iuUshrFQATESBjUVQG+qc2NIw0vstZxbZKd0i1ZibYh83A
+         2UQiGjYued6hGDAzjHrdbta6TTdfTHKjU1EeGA0gccM0g9Ow0E+ARcng/Hvot5PHS5ry
+         YloQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789402332; x=1790007132; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZIrwzndTIJn+zc3gui4wMdEbuLT5FkETFxZVrQW961I=;
+        b=iPxS2JBlCWjKkwI6vuyC+p9d0cFDovSdjWkqcQV34zbE3g9Qfs1+kZC2wXrxn4qPpb
+         rKZvPsICkvKF7gbP2B0iNQezKfzeEWT03p7YNUJEgksiYi4/mEP0lAJ1lag3N8GztxnE
+         RureO3rxrhakhZb3pXE2RiAncPW60A4Fo/sC+CRaL0DPjcU+hZNvDmxhTYVXVykiNrrF
+         YwKNrSUZ5lRm7dA2AT2TfTxos5QZ6R/nXB0ltE8FFAHyMHMDq1fKtbHVuMZye5hWP4tK
+         S+QObWjW1fAl88bR/tJKhCXpOYZppcazqEikoOtnNvF5uZWw+V4auwALmLALL87RH3cg
+         Cdlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789402332; x=1790007132;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZIrwzndTIJn+zc3gui4wMdEbuLT5FkETFxZVrQW961I=;
+        b=kG8Up6NSRrca7VCNgy4Enq2up/4hd/kLXn+I9QLlH1UxlcYmOsukq5LZABEnKH1DS9
+         0RZvv4W/Hlf3F9zGlso2m/BiP88XRcHGcdRwTF4U0+FdLJ9Pn0JvS1MaQe1/5+cAL43h
+         PjVv1E0LF+4u1IQEB6xF8RLCcX0rKsdoO+0RitzvdPlfFV2poZ4QheumjOpfL25EQzhb
+         Qen9v76b6W05ogTPvnoZ8QTAiTL1XEFPT9RiQcPC87+DEf28VBq9mmGdVC3oa75v1sBI
+         A1ctrgQOwcuZEACw6Po8N0Eb6TCPjEqCWeyK6GybJuoIhH1/3WvRtlEwy+RtZkMcPdWF
+         PEcw==
+X-Forwarded-Encrypted: i=1; AKwUvByvARBryqHSK89oMAQv8nWKkRcg+Ik2TCXCbCVNVT9Ihj9cwNoe3uAaxPUTsXXjPrGygjY7HEKcY7LbSEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDkEKjWh7SQt2VyOkmclFRRv3S9aSowl3FViA0vtsDQar4gRYf
+	/nZQuCNx2XX9hlPI2ZDyaZ2hi+v2cgYXNBwFrPr37EEp40U3VaetXZNopLQiN/BaWebBLNprjv2
+	sk0MtJcqlg8FFI/kWzrBZKUL/0ppiWzI5NY22vZrC
+X-Gm-Gg: AYBFou1dnGu1Ytnmllugfoj5WsKj7Jc7vUcUOMAkkLw3GWiArGoB6rqQ+b0DexFXZsG
+	SRCvtOmGJZRqSqnbQGHYuOP4/gU+mtUxIjMkvt1lDGV9CNQ9Iss9VrmgSzGeHws+PVBBg+wzrEO
+	idfRBRvwzXrGo3KheJ6cDj+b23M1pyY54bPor18BY4aLTeRPHPEAA+AwBHFBa/F+SJ/zeoWFHbj
+	FlH7VYmRVl6X2pRuLZDr/ky2mx66nTqFc52d8yBQ1o0LT7jeGQsvrUdmhPDM920pftR/VuCEAVy
+	BtFuTqd0CJ/glK1AQKPgq8RPxkmyw7UZlDHw4uEdtuy3G+kmiNEJfvwBMSzsucAaAaj8TnJnmI5
+	fQhY0uGq3CA==
+X-Received: by 2002:a05:6214:4188:b0:910:3453:7d8d with SMTP id
+ 6a1803df08f44-9122e68cb26mr52724686d6.34.1789402330683; Mon, 14 Sep 2026
+ 09:12:10 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 14 Sep 2026 09:12:09 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 14 Sep 2026 09:12:09 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260911140816.3236725-1-joshua.hahnjy@gmail.com>
+References: <20260911140816.3236725-1-joshua.hahnjy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: ui38oy8szfpqbw8udhqb7fyzigdkn3ph
-X-MBO-RS-ID: 47d6b421d68e00cc370
+Date: Mon, 14 Sep 2026 09:12:09 -0700
+X-Gm-Features: AcwNN1WUbkCX1sstQv0ZWJuvqOHMzCSyd9_UN_yhDwBAx0uKe7xefyFjGTdT2Vg
+Message-ID: <CAEvNRgFme=qjw+T8NoKwLuhVLBGYeXGFaNM_jB9tR3WkgPLjHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] mm: hugetlb: Track used_hpages when
+ getting/putting pages from subpool
+To: Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+	Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
+	rientjes@google.com, vannapurve@google.com, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 2026-06-25 at 14:01 +0200, Philipp Stanner wrote:
-> BUG_ON() should not be used anymore since it crashes the entire
-> kernel.
-> Its remaining usage is in drm_sched_job_arm() to check the entity
-> pointer. If that pointer is NULL, however, the problem will become
-> visible through a respective NULL pointer exception anyways.
->=20
-> There is no advantage in crashing the kernel as a whole.
->=20
-> Remove the BUG_ON().
->=20
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Joshua Hahn <joshua.hahnjy@gmail.com> writes:
 
-Can someone review this?
+> On Wed, 09 Sep 2026 14:49:26 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+>> From: Ackerley Tng <ackerleytng@google.com>
+> Hi Ackerley,
+>
+> Thank you for working on this fix / simplification!
+>
+>> HugeTLB subpools currently only track used_hpages when the user
+>> configures a size limit.
+>>
+>> This is buggy since when there are existing allocations from the
+>> subpool that would have satisfied the minimum reservations,
+>> hugepage_subpool_put_pages() will still restore a reservation to the
+>> subpool. See below for an example of a false reservation.
+>
+> I'm not sure if I see the false reservation example, could I be
+> missing something here : -)
+>
 
+My bad, I copypasted from the cover letter to this commit message. Will
+fix in the next revision.
 
-P.
+See more at [1].
 
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> b/drivers/gpu/drm/scheduler/sched_main.c
-> index d2ca01b31ee4..4e1b6e79ae19 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -637,7 +637,6 @@ void drm_sched_job_arm(struct drm_sched_job *job)
-> =C2=A0	struct drm_gpu_scheduler *sched;
-> =C2=A0	struct drm_sched_entity *entity =3D job->entity;
-> =C2=A0
-> -	BUG_ON(!entity);
-> =C2=A0	drm_sched_entity_select_rq(entity);
-> =C2=A0	sched =3D container_of(entity->rq, typeof(*sched), rq);
-> =C2=A0
+[1] https://lore.kernel.org/all/CAEvNRgEwbUXj5cVQq4A-U=AMOzP3S1mjnrOC79Li71wf-E+dDw@mail.gmail.com/
+
+>>
+>> [...snip...]
+>>
