@@ -1,143 +1,123 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E96D48BD3C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BECC49B1E1;
+	Mon, 14 Sep 2026 17:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407770; cv=none; b=cOmRmVzo4+FpIP1VSM3Y67eHqfJqrDL8tAc0fsl1/gAnANzvU0xr+0YzHk7SbUx+bCKddu5PK5xDNoDUvdMaz4dd348mLtrqXanVeQ0PR6er/nur6fj4ZcB9p8+e7Ne0jjX9WmF4c8culFYaCsa1FvZHV9wT3vNYEe/I8VWCMd4=
+	t=1789407774; cv=none; b=qtTy2x+NBhmoK5ChtZ4GHe5Oi4nFyK7fVshSenvJepQYQTI5D4oW6eSIli8BC85o/CKROHWvgqIw82b5JihAccFVwWpLnRcEqew0So6KDhGlPg7f1pEOKLTpGNmZ+AObpqXAsJQgmbm7CHGeYgRNj/+k1rJob58sjpQmXIpO6rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407770; c=relaxed/simple;
-	bh=+izH8riELWSAMprbT5C678K1jl8pB7zXElojauJucHg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uHwPeg63OI1NaDs19KhopWc2LjgUoXh+S50uc9fG/bZO03OWc06gkvKgt5zFgzVcL4/ubZbxmoimfHXbnbUVH6Nh6R0UkAHONvH9NqCQC+0S1W8BoQXwNSD2mi82vcLjr1R/ii6hRSW5fgCKD7A12aRfhCxu9xyJa6quUuzPk2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f42.google.com with SMTP id ada2fe7eead31-7954fbd0ffaso663163137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:42:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789407768; x=1790012568;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gjfZXacAwr82/eq+UL7cs88Dit/YxtI5ifxFAg8Xa84=;
-        b=BTIfpw0ROwjQchrXtjL/jvfn3gzVuTQ4GDPlzK5oSJoqyIDuz9DR9X+zLu+GiwT8cZ
-         AorHPf7HBjyiOlO1ZInz6ujE70XqR3xyAO1TlbS06e/NiJ5JdkNULU8YLAk0/JzXhUBZ
-         AwV1i7tFnJ584tkE7sufUA/tL0qxWnFf7/Zc2tNYb6/sM3Vr4TTLppOc5zrqqPzEkJ/X
-         8Q0CaoGNRCICdTLuuZ8eQdTb59Rw47B2wRIIKPvvcmhcRi6xM32d8Acyed3mVV9GdK+O
-         izqscv5+iMr32tZDZrg4au39XDd3V0G+vdhETwrQNpIQxzSsQt1qFwf/rg3lAufgnuey
-         B+Og==
-X-Forwarded-Encrypted: i=1; AKwUvBykpaSqLMbr4gRhzRicq3GJDfoGSzaWdFacrh/uv+bFtUZs8g45cDO1pdLF9pNHq8Uth26xSPO5N3cT3fY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lh2kE4t5xJTUYSTchVyIg1cSEJSEKmLVOBI+OTYPlTYeBRanls
-	Hv8vaMXDf2SBYtJUBRjodFLw4St0LSMKJetlr1QjIy8JG0oLRGWyrdR1KdukJRe0
-X-Gm-Gg: AYBFou3PnZoqUgZll3LvK4MEFS87P4eP820C+d9OvKrm3Fu2kHsTqDqmVPSicznmaAU
-	CZvs9if8CR7L2bhe4V2g0lGKpaYDqcYoprhUoGv09X94+qRVwmB8yRcB0fONOjU8IbdGj/p1JkD
-	vth6LmJqkJB+qzSqKDL62osTJBiVHF4FP1ejDVUlXb9EhYbL5kaPBWcGAyQfZjdHEJyELi/z8/7
-	IVi6I9o/crMl2j36SpQV9nh1fpmDeLCa3RO1inT+nFddWo6euLEJPrmYZE0qt9LpWkOVJjCQ3Hs
-	z5FgpJ5GeNnG0HS5NIaN4ODCNyJt2PVKzAM/I3pCUCYlDTfBSrQ8+SE0J7pIr1A0drqfttgeM5V
-	faIkeJ5CdHqPWODDt4yklgWlZJY3eO9EBxqXuL37fTfVut5opvORJYHfYj4TfYBav/hF9MA+AH8
-	I7b4fGhlXB5/dItHkH2rxW+Bu5D5aoWNHqSc35OG7lByRUqR0RnZbs/JZ2S+8T54XhrYoh0dQnJ
-	TZlDipRflwBLwQCB9zlrp9GPaaYrCP7MuNmlw==
-X-Received: by 2002:a05:6102:864c:20b0:79b:a93c:145 with SMTP id ada2fe7eead31-79ba93c04a9mr3759709137.10.1789407767683;
-        Mon, 14 Sep 2026 10:42:47 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c84716a167sm13189939e0c.18.2026.09.14.10.42.46
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 10:42:46 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785643199baso752462137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:42:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw2Jx80wD8NzHDvjgRboH7Oe68yKhaRsqHSyQa2yRWEHz8JZk0f4RKLb30SNxIGp5It08y/ukWxMkCvxM0=@vger.kernel.org
-X-Received: by 2002:a05:6102:54a9:b0:789:5f54:2367 with SMTP id
- ada2fe7eead31-79b579b0d38mr4032527137.4.1789407765732; Mon, 14 Sep 2026
- 10:42:45 -0700 (PDT)
+	s=arc-20240116; t=1789407774; c=relaxed/simple;
+	bh=PUvlkcnmJaXZt5p8As0KvIuk3AZONRe1vja4HE+7gb4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PROZ46hh8EpIsnCvg14JZin7HD2jgvw+ywoBghVxgjRw7ohOAFY01FmXMJ5oV2lJdAqZPfNzbHJhVwljR50ceank0SvsOGxStJSJgSKohtnbDCg900qQ/NgoJfh4MXjgG6gMoj3WkVk/PUXVF+lN072iIJy2Z6JOukiewZ9Mr3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9GMkzQ4; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9GMkzQ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 016E0C2BCB8;
+	Mon, 14 Sep 2026 17:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789407774;
+	bh=PUvlkcnmJaXZt5p8As0KvIuk3AZONRe1vja4HE+7gb4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=K9GMkzQ4tXQnYcuZuo4qsEOXG8WXJfw6ehXpaMRK/ECEQ0qVPjdMj4jnVma2fyXe3
+	 JcyHHoDM5nG/FnjgrOs6iOJQ8V8OljpIcYqZKkqa1cIkONgUGsQ/cOkm0ZB3Q3sKU3
+	 K8y6SR1nPGhJ0rCjaJ9Lao8bNuI1ObfHycKP60LhZ7GDYX3w21L2ijbCN35LVYUWdm
+	 6KOwVAq5RsA4s0BtH9sTKZrf/+eJduzrP9vOuv8Ib9mZj2eISzAZ0ghvTDWNfk2pKo
+	 mwl+rCoha+9hhdR6ZdMuxd6/aWc5Nffcf3yf71ww49BzpopC3VU5cxRw/1OqyFxPbw
+	 i9YbeJ2D1qF2A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C352EC88E73;
+	Mon, 14 Sep 2026 17:42:53 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v2 0/3] backlight: qcom-wled: Fix OVP IRQ imbalance and
+ start from the hardware state
+Date: Mon, 14 Sep 2026 19:42:46 +0200
+Message-Id: <20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788943229.git.tommaso.merciai.xr@bp.renesas.com> <34a6d23e309aab5fbf369132d75794222097396d.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <34a6d23e309aab5fbf369132d75794222097396d.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Sep 2026 19:42:34 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUYC2m3YgayTrCvZHoTVkj4v+7a5cvO1g=UFxR+6dJiJw@mail.gmail.com>
-X-Gm-Features: AcwNN1XJ1dIjrp16s-r0VgwKaAicGc_4VU9cyLbRu-FG27nHPGFdbzVolc0-zaM
-Message-ID: <CAMuHMdUYC2m3YgayTrCvZHoTVkj4v+7a5cvO1g=UFxR+6dJiJw@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] arm64: dts: renesas: r9a09g047e57-smarc: Enable
- USB2.0 support
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NSxKCMBAFr0LN2rFCABFX3sNiEZIBRvloEhGlu
+ LuAe5dd1a/fBI4sk4NTMIGlgR333QJyF4CuVVcRslkYpJAHkYkjPnTf4qshg4XSt4ar2mNpsiS
+ NhUyjJIJlebdU8rhVL/mP3bO4kvZrajVqdr637+12CFfv/8MQYog6NiYmVRgl0jOP7Pf6A/k8z
+ 1+qgE5jxgAAAA==
+X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1862; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=PUvlkcnmJaXZt5p8As0KvIuk3AZONRe1vja4HE+7gb4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqDIcJVfrVXuYj/bpDoKLOG0YCDlIZtHrntKuG
+ wxZR0f1JvmJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqgyHAAKCRBgAj/E00kg
+ chiGD/0RSVqrVoapWgon9AH1/YrrdXUVhs7NeYk97yKba4FByYxmYxUxhEyFzw3Vs3/3n37ezd5
+ k2EB62/9RJUxQLTsJmiOheaSwYwBMC9NBAHUOP5FJponINw0xDfpigHOE0im7qnkzeBU0BAORH2
+ EpWkzpwX6fitA8wVyeaAvN3X8XLAiht+U9aDQSlhjIhwTG6vWWdftMwPfS9OoN/7sDMhHrMysIV
+ o16MmdHmD5v+gDUMtQC/UIZllBlXXWXcdb4Dt5E5znCnXQTKa+TVZhuo/ZnGB+W0erezMwl69qE
+ RGMBW6W+mEzz2w5ZPO/2kjud/WYYfUFJeqBuVO13c06VK17YOa2oTWunhbAEW8rHgaGouxdCzQa
+ r8gs2Q53wye/wJQKy+Nh+mfMhGo3SUiU7s3nBD8sB9Wuf+hUwhay2Hdf8FfC2A6KcK46utsg6Dm
+ l/9H1iVQhgmiixrAZdJpDnrdn30GAvpS/dGdUiFZfrjom77pmuUnitnaaHXDM0oLxcn3A31RGSw
+ eur/3WTXv3hhTjn3Sc8R0XocFa96rLXn/86Zxc0pC5XJ22mJVy6EBHmBQOrP9f0zm61IlH/VNCO
+ 2aJZ1OqRbuEAb4Zgo2/vek+YjIk73WC92wo4t5rI4Fj3KE1BM3qGSzEx5/jSThRKd0qnDHmkYJl
+ ZZaJZK/5nolyKnQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Hi Tommaso,
+The qcom-wled OVP interrupt is enabled at probe whenever the module is
+already on, but the driver still believes the backlight is off, so the
+first brightness update re-enables the interrupt and trips "Unbalanced
+enable for IRQ". sdm845-mainline has carried a workaround for years and
+Joel posted a flag-based version last October [1], which Konrad and
+Daniel asked to be replaced by something that does not track the IRQ
+state by hand.
 
-On Wed, 9 Sept 2026 at 10:55, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> Enable USB2.0 support on the RZ/G3E EVK board. The USB1B_1A_HOST and
-> USB5_4_HOST connectors support host operation only, while USB0_OTG
-> supports both host and peripheral operation.
->
-> renesas-smarc2.dtsi is shared by all boards based on the RZ SMARC
-> Carrier II Board. USB2.0 is not yet supported on the RZ/G3L SMARC
-> EVK, so disable the common USB2.0 nodes in its board DTS until proper
-> support is added.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+The first patch is unrelated and fell out of writing the readback: the
+WLED3 brightness register stride has been one byte instead of two since
+the 2019 restructuring, so multi-string pm8941 boards only program one
+string correctly. Untested, I have no WLED3 board; it restores what
+pm8941-wled.c did and matches the downstream leds-qpnp.c layout.
 
-Thanks for your patch!
+[1] https://lore.kernel.org/all/20251021-qcom-wled-fix-unbalanced-ovp-irq-enable-v2-1-7ff115b4ffe7@joelselvaraj.com/
 
-> --- a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
-> @@ -298,6 +298,28 @@ sd1-data {
->                 };
->         };
->
-> +       usb20_pins: usb20 {
-> +               ovc {
-> +                       pinmux = <RZG3E_PORT_PINMUX(0, 0, 12)>; /* USB20_OVRCURN */
-> +                       bias-pull-up;
-> +               };
-> +
-> +               vbus {
-> +                       pinmux = <RZG3E_PORT_PINMUX(0, 1, 12)>; /* USB20_VBUSEN */
-> +               };
-> +       };
-> +
-> +       usb21_pins: usb21 {
-> +               ovc {
-> +                       pinmux = <RZG3E_PORT_PINMUX(G, 6, 12)>; /* USB21_OVRCURN */
-> +                       bias-pull-up;
-> +               };
-> +
-> +               vbus {
-> +                       pinmux = <RZG3E_PORT_PINMUX(K, 3, 12)>; /* USB21_VBUSEN */
-> +               };
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- Add a fix for the WLED3 brightness register stride.
+- Add patch reading the programmed brightness back via
+  backlight_ops.get_brightness. (Konrad)
+- Note the brightness readback is done in the follow-up to the first
+  patch.
+- Link to v1: https://patch.msgid.link/20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz
 
-While these two signals are wired to the SLG46108, which generates
-USB1_EN_OC# from that, the latter does not seem to be wired on the
-carrier board (SMARC_MODULE_CN P67)?
+---
+David Heidelberg (3):
+      backlight: qcom-wled: Fix WLED3 brightness register stride
+      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      backlight: qcom-wled: Read back the programmed brightness at probe
 
-> +       };
-> +
->         usb3_pins: usb3 {
->                 pinmux = <RZG3E_PORT_PINMUX(4, 1, 12)>, /* USB30_VBUSEN */
->                          <RZG3E_PORT_PINMUX(4, 0, 12)>; /* USB30_OVRCURN */
+ drivers/video/backlight/qcom-wled.c | 88 +++++++++++++++++++++++++++++++------
+ 1 file changed, 75 insertions(+), 13 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260908-qcom-wled-backlight-fd9574027353
 
-The rest LGTM.
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-Gr{oetje,eeting}s,
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
