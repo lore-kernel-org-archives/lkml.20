@@ -1,139 +1,116 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA344360EFF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E0932B989
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789359939; cv=none; b=VGehgWmvztGFFQCnWDic9rZNaYkjZXjqjCT8RNSD3E5uOlElAo0Sn6wZGJhslVIhd4qgq0vxjS/FLK4B2I2z5oeolMy+MEgtSvPoVP7HTN+KVt3v7l75pJrRdRd5hAtzs488IU7ZukVzsRrylodTDTraCwPnBAxMvSftiJmKUbQ=
+	t=1789360201; cv=none; b=HKIr18oBZr7r2RJ7RLYb7eALaI/1CdO/jqplkCUweOWR7WDFMQSBo9YRwKwkJXBJpmoI4eyTt6ZolzEtNhSnCXxyzelga1UE7mpz+rMC9LgZnbfL9RztsXLqQjEiS1rmVot99YLd29rsVsZ8EAuaGs/z7kNQeEDws44rT7LVi+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789359939; c=relaxed/simple;
-	bh=IKYTEkRJA/yTXqJoVZoiN4hKi//+UQNf48N+jbQglYg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UkvsRsrodTUh5XHS4dctald5t9LMpO4ndwHDj8HMJDK07WM0NQ7OvjQfNCHbyUtdkLYvJawkhA1XP2cxNNomXEvP2xEvoh9IBKbibJe0rsSIMF23VBSmrder7Fh81bU6ohoEFLCE+cOfROuJHzy8V4ehJr1DKwoK/E/d6z8xKpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iySuluh6; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789360201; c=relaxed/simple;
+	bh=zuFdopvoJZIg4s5BdB8/GnhIh0rcX0tuW5HGxwYz5eU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o2z8Ry/4pvYf8JvNXenomi+4BMZDrAU+5TpqrCMb4XMF7nZfslr1NVW1Bh9Y4wWWHdW3sZeXNIp97WUm6qiq6fbNHxB0ZfjJuSeKd8MP90MPLWWIO49MIdxd0IonA2PubuLUn1iyPUoB9Cpz1K1Sj3/7CuCUtYGj18W4HZBhqcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fsFvEgg7; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iySuluh6"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8692be1cda4so2254656b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789359937; x=1789964737; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MGYYwUXQBV/IktFqjUcwZn3BsoQtowX7trp9zvobBJ4=;
-        b=iySuluh697TJX27bAKrtFKSI2mMg3lBKsEZt6tV/PxeeDOBy1DXMNezRaMMe/33QRa
-         3uOF5VWaot7pGQ5MmEV/o9AQwI4T668xanvpwZS/jMFKc5bYH/AguL847vH1+mVh+uRj
-         LPewDP6qpkwX5Kod3oTA6rcvclo1s3z36y8SXaE6YnFwCOhr8yWCVqDOrpkpUZSmrkee
-         fHtuPagiCwfHcC72JtKLiaE2lJRm+XbQ7JnHqTC0VlCaTR5r/ThP2EsyGaHc9ZA8+AmX
-         5BRRcCN7ZWI+52muPEsRMmEMwC/H5kcRha3fU44ji1SgJ/bFW16udg56BfqayA7wwHu7
-         gOaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789359937; x=1789964737;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MGYYwUXQBV/IktFqjUcwZn3BsoQtowX7trp9zvobBJ4=;
-        b=cZ0ksgqXKYWZzcwIpVoVYgHgNiAKsT7ZkFOQDV10M9vSmeClCsxYU7TCK9hoRiBIEA
-         xwevVUkS/590d0jKqQcb1vzpZjjf6arwSEDWVmHRIXhBpiwRUXMb+lokGiiqWg6ae0d+
-         UsXq8N8j73zunBjNh+rfy5JdB3lObEf7p+DW9cmaw+sKzOeKwE7KWy0YFkPIfxevgdoT
-         yv3MeShURwcJ+QVr5ZCAJF6tp0uLnzOSrFJw+VvRxk95RFfFncE49SSV8ADcM23nJN/k
-         Yh3SUFpqRkfg79fVFXspBDt0zMnkORRRfXERZwABFIrau6aJkAp6EnC0xNa7Ei5b3abl
-         dPHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpQiXIeq9NVit6QjXQ2MZSwWCYgxyh4TNpI2dpgVzdlAAMU4ViQrQ+ziU7rf24av43IGrIUvaMtglFFPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++leOq9cZr9zfX5/oNq66kqiEcykhix24kEKlsjc5c18pSIfH2r4
-	VC5UhfTckfos7V899UFGyzJ4AmIXbiCKxy0Fy0+IwhEn8RX1T9Y8jq7A
-X-Gm-Gg: AYBFou1emAVPj/dnEuRDJH1X0wb34951oxFX2S/7bUUoorlwb0id0xFQaX/t/E1vO95
-	kmTgP/nankHrv/jlEkijadFvlmux4gxNIRWdJIex3VyKoFgewWlSFbgutD4iTGQCsdrboXgszfB
-	GTl5HrFVVdrHGjSOUHAobUe1jZ1Mof4awc1p1HxZg2E+rWJ9V2tN//HTuTM2HPOVbxWc9yTaPs6
-	/SBqRDIl+vVw28WYN2ueo8r/xvz+tUe2AIXctfSQjob/93fCLJ0gcy+aPBnw2fjk6PtUcuA7hBX
-	kcYZXGgzT277LuU6ZjTxGm5cyGEtfvBWQpIwaCy3HHlChyKIzGSrMxMejBkchnHz29dgg6CxQ1o
-	4v0NlN5WzpBKDEFDXrYMUYPJxAmlkJn/GFuoAQ+z4Hh45ByQvbHJZPLR1alZUCu9FitFEDkQgFx
-	ppL1IOo/zQneRvScyXanOuVai3gRyTUOmCkYT3s9Lh94nsz8jgdpkxairKqgXGMzFQn/gr5GmZ0
-	Z7ggHJzk2ZxO8l5S8AFu088sF1lwcYdtO2a3Ap+lDyEdeH2uCgGzkL/RladQJndtIOxb0l6EvKg
-	frm3L2+YqVOn5Eof/rPSI4A=
-X-Received: by 2002:a05:6a00:3c8f:b0:848:2c5e:305e with SMTP id d2e1a72fcca58-86f8393cc77mr2219156b3a.6.1789359936974;
-        Sun, 13 Sep 2026 21:25:36 -0700 (PDT)
-Received: from localhost.localdomain ([121.152.194.222])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b4c39ebfbsm3873038b3a.54.2026.09.13.21.25.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 21:25:36 -0700 (PDT)
-From: James Kim <james010kim@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matt Porter <mporter@kernel.crashing.org>,
-	Alexandre Bounine <alex.bou9@gmail.com>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	James Kim <james010kim@gmail.com>
-Subject: [PATCH] rapidio: mport_cdev: fix use-after-free in mport_mm_close()
-Date: Mon, 14 Sep 2026 13:23:27 +0900
-Message-ID: <20260914042327.49798-1-james010kim@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fsFvEgg7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789360199; x=1820896199;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zuFdopvoJZIg4s5BdB8/GnhIh0rcX0tuW5HGxwYz5eU=;
+  b=fsFvEgg7dnxGognl7KKaWgzbScWFYLar85PrukV6TYA+ugsh1kW7oRJV
+   CJaTicxWhisO5dFkiHEj9DABY3emUwzuZx/l581KyYHkOiTZ3AdfVujNx
+   e7Uy+szo+vPG/gCWXeDJ/2Mj1YMYWi6XH2+va58DY8fUis4Rn1Yi3JTNP
+   XTjouvOfNjbolhWGOr3/I6xvisQ3kRfFHXHb2LS1RV4hA7ekARycP48xx
+   1611KEL4Kks85dvS0Q00TuYtPU6YKUN5yP6EranQE1+GW+ioqRO8uR1Fh
+   tfJn2oz1fYNOW509V2sJ7HzC98PPSpDIKIkIV1eUcJdKPqwb1bTVAbDLm
+   A==;
+X-CSE-ConnectionGUID: bAk8Y5qOQl2TwkOGE0mHig==
+X-CSE-MsgGUID: f+3aVvIsSBW5j81fIRS3yQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="92222710"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="92222710"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 21:29:59 -0700
+X-CSE-ConnectionGUID: /kiGRS6SQwqR8ySwwkepVQ==
+X-CSE-MsgGUID: /xxfBCbaTTqxkGfULcugdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="268241738"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 21:29:57 -0700
+Date: Mon, 14 Sep 2026 07:29:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: sekoohaka.sarisan@gmail.com
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mfd: intel-lpss: Fix DebugFS initialization
+Message-ID: <aqd4Q2xYQjChX5tD@ashevche-desk.local>
+References: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-A use-after-free vulnerability was identified in mport_mm_close() in
-drivers/rapidio/devices/rio_mport_cdev.c, identical to the pattern
-previously addressed in dma_req_free().
+On Sun, Sep 13, 2026 at 05:53:53PM +0500, Maria Lisina via B4 Relay wrote:
 
-This is observable from userspace when an application creates an mmap
-mapping via the RapidIO character device and subsequently unmaps it
-(or terminates, triggering exit_mmap()). During munmap, mport_mm_close()
-is invoked and drops the mapping reference via kref_put().
+This is a fair report and patch, but three versions over a night?!
+Please, slow down! Even with this kind of patch you have to wait
+at least 24h between versions.
 
-If kref_put() drops the last reference, mport_release_mapping() is called,
-which frees the underlying rio_mport_mapping structure. The subsequent
-mutex_unlock() then dereferences map->md to unlock buf_mutex, leading to
-a use-after-free:
+> The original code defers DebugFS check with unnecessary warning message
+> which also appears when DebugFS is simply disabled.
+> 
+> Therefore it spams dmesg with these messages:
+> 
+>   intel-lpss 0000:00:15.0: Failed to create debugfs entries
+>   intel-lpss 0000:00:15.3: Failed to create debugfs entries
+>   intel-lpss 0000:00:1e.0: Failed to create debugfs entries
+>   intel-lpss 0000:00:1e.2: Failed to create debugfs entries
 
-   mport_mm_close()
-     -> mutex_lock(&map->md->buf_mutex);
-     ...
-     -> kref_put(&map->ref, mport_release_mapping); /* map is freed */
-     -> mutex_unlock(&map->md->buf_mutex);          /* UAF: map used */
+One message is enough as an example.
 
-Fix this by caching map->md before kref_put() and using the cached
-pointer for mutex unlocking, ensuring that freed memory is not accessed.
+> This patch adds proper checks to intel_lpss_init() and
+> intel_lpss_debugfs_add() functions and removes warning message.
 
-Fixes: e8de370188d0 ("rapidio: add mport char device driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Kim <james010kim@gmail.com>
----
-Note for Andrew:
-Following up on the Sashiko review results you shared in the dma_req_free()
-thread (https://sashiko.dev/#/patchset/20260615070530.371640-1-james010kim@gmail.com),
-I audited the reported pre-existing flaws and verified that this UAF in
-mport_mm_close() is a genuine bug with the identical locking pattern.
+...
 
- drivers/rapidio/devices/rio_mport_cdev.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+> -	ret = intel_lpss_debugfs_add(lpss);
+> -	if (ret)
+> -		dev_warn(dev, "Failed to create debugfs entries\n");
+> +	intel_lpss_debugfs_add(lpss);
 
-diff --git a/drivers/rapidio/devices/rio_mport_cdev.c b/drivers/rapidio/devices/rio_mport_cdev.c
-index ad82c2108a56..47ba34b4afb2 100644
---- a/drivers/rapidio/devices/rio_mport_cdev.c
-+++ b/drivers/rapidio/devices/rio_mport_cdev.c
-@@ -2167,11 +2167,12 @@ static void mport_mm_open(struct vm_area_struct *vma)
- static void mport_mm_close(struct vm_area_struct *vma)
- {
- 	struct rio_mport_mapping *map = vma->vm_private_data;
-+	struct mport_dev *md = map->md;
- 
- 	rmcd_debug(MMAP, "%pad", &map->phys_addr);
--	mutex_lock(&map->md->buf_mutex);
-+	mutex_lock(&md->buf_mutex);
- 	kref_put(&map->ref, mport_release_mapping);
--	mutex_unlock(&map->md->buf_mutex);
-+	mutex_unlock(&md->buf_mutex);
- }
- 
- static const struct vm_operations_struct vm_ops = {
+Obviously this message is added here deliberately. If you are annoyed by it,
+we may consider dropping the level.
+
+...
+
+> +	/* Ensure intel_lpss_debugfs stays NULL on error,
+> +	 * so intel_lpss_debugfs_add() exits properly.
+> +	 */
+
+/*
+ * Wrong comment style for multi-line
+ * comments.
+ */
+
+...
+
+TL;DR: moving from warn to info or debug level  would be a good compromise.
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
