@@ -1,122 +1,124 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C213DC85B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB0044A40E;
+	Mon, 14 Sep 2026 13:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392653; cv=none; b=UafKdQ53GURjDoo/zbR5YFaaWIIv3ltwveDMw4ScVNWqtK+bf7Jc7usPLiqwPFXonY8/kQkkdVHozzw9iKR5ADHGE/jHVstBkYKPGSPbJypxbW8Y6PIe/Z8scbjsh55mv5PB7JCp8bg7Yoiv3Zfy4ktl1RmMkxoWFC9AYuxOyZ4=
+	t=1789392661; cv=none; b=faaLyBhT8vTeGXxOGOImN/jFFIb1+hcZM1/JfBJz8qIsqTYxgRTYC1/82WPanww/wk/pTc0z9XXCPneOZVNJEK7f+a3zG5jffaQ0O2/A/VTrI3pIevpYcohwWnIt5YMVaFkDvp8fbqkChRcIwnY5hISc90Hd1wX1DSM/sucJXBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392653; c=relaxed/simple;
-	bh=IE9uzs2DfEHR/K6U5+EleAkKoKjLhWPifcX2XlK3Wh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QY2K2nP5ZVFZtlpd4GSdjRVlDqthqB8dRMqe71q7YEBXz1rgxwpzpMJRThkII7Od6PjMQUb3JgYWFW33m2dTI0o5oJH6vCrER2TPwRPijsgLuP2m86ZQ0au6WiFPNWyfUB+kSLYnPjzxHnUWlL9OR8z0NTqbp3V19QxbeZ5QMIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IFWuLy/q; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789392661; c=relaxed/simple;
+	bh=FZ93MFND4SZk1HkhbjKt6fLSIxoPV8LGoHAopPRUrH0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rMgFuH8HT7O/2eKDDwBQ+fEV9EZe40Tmbnq67zQJDexTki+S1lkvf36ZkF3ccf7Rji7KbTEu9nlY9NAfm1cigpVXxKDZ9+J5IMeopNO6wwhmJc2MclnSBsUc1K58yksk+JooqCdt1FcAhUiO/8gPdDrv+PJts/kyFm+8oaUkk3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J00m7Nhg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IFWuLy/q"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f6so12866865ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:30:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392651; x=1789997451; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BJaElS3MZVd4zd/Sev0Vi87r/VeJDnrTVpf4OPQWFKo=;
-        b=IFWuLy/qEDvgw/Hkb53foLb2aki69NHhPf/sYVe8ybe5uNx1ifXSvSxX8Egr1d+3H0
-         m9QLhO8fz2BT9uTjboHbia4N0XJgHrjCU0E5NoedA8naEw+zPvEH7NacltPJb2eHgtYY
-         rnzfg1d75y1/PLP1mddD6xKqkayQCr5ixlkoTXOJMa94e9+rfukwoTwEm+21x28rBKWB
-         pyyi2197cikfqnXRRz+zN3MDDdK6ujxVxJXZGd/F8ZS1wfH8PfwQBPPYv6gXGNyNY0ga
-         KbYsd+AQBz6xNHIs9oT2gBK4zWrnWpouF8OOwfDpW8C6xqsN1b34Dto995LY+POB+pEI
-         Od9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392651; x=1789997451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BJaElS3MZVd4zd/Sev0Vi87r/VeJDnrTVpf4OPQWFKo=;
-        b=JW6MU5KdCCIVkUamtpHiT1y33OuZYKqgdX99rxH2kcau3tZ/xwvryMzxJUKuvEDflh
-         v6qpurCI4JbK8d+nWSlPO3DDbHvteXQuWbecjgP1Y2DtumlMK0jxTL63FX2u6m8VklEb
-         kMCRTzTK43MZFLKb1bfqRuY6xY3eOtVlomSVCrO2qa9Yh5Fc+LVhQdkMX/BVD+5S/B1a
-         QXgnhrLsA07jFeoIVY8FM0/vLIwZGbp+YDxU29Iw0V5ssL9z1YClDZZeEUUBwCg+qEsp
-         fmkWPlhB5afbsOg8Q5vvOR6G7amvW716ni9+JSsDZnc3fzJ4WfK6JUPCT7+fRR1lhYcf
-         qtPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfsA9kpEut1J6im08nDJE63tynhZNMuL1u9Lrij2muKJteqV9warw9XwKUHek5GpT4+XLZxjiq0KvikU0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLNJaJVdd0eEVGkEv5cHMwbOlE4u6gGOIMoIumciq54qsgv5Rj
-	hjGxgxZbJ/67/NZlnoPcpyTZzL1QIoSNBwyM8MZo18190znGvm41eNpy
-X-Gm-Gg: AYBFou2xWxql3aVhgSUY32vyyxxoXTylwqu7oL7gznoggIBVZ7GrJs8hppsJl+yksvh
-	DPYnNUoEaHOUMWkaMcBAq3CbLk2yeOJEB5J062R4srnwb3h+wStc+PIoGCCV2hjhQrPTQuAHR8r
-	zb8KtjP52q1LhvvRNlPWDB1wIaYjNyNHvbZNFKDq0IhF/wDgx7bjgGqPN6vg32Uid7nyrP7VIch
-	6iWQYWbmlkTNCvroITQGEEVnt00nwOIzxBZDqkcDfHfSWpxfxHMgXSDNhX8M+tz0j5jr6aWyQOB
-	IU47rSuYqRW22LfsV6zwgqTTLdcXkvBX6tHoDktT+uDCcAzC3L1uKGTi9WBCSNBT3D4rO7TxTyH
-	en8UDzLN937dU5zhsE7ng1bwkRn0RWiU03B+iukav30KShdDVEmo1P1M7rbofZPFZBOzID8yZyi
-	a11ELHn3Q3Gydhvr/EP2d8kkESv9YzmG46PrhNv+xHuoxjjX88Z6n3GQ==
-X-Received: by 2002:a17:902:f70e:b0:2dd:752e:6d69 with SMTP id d9443c01a7336-2dd752e6effmr6027245ad.4.1789392650893;
-        Mon, 14 Sep 2026 06:30:50 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd428ede1dsm39850535ad.13.2026.09.14.06.30.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:30:50 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Joerg Roedel <jroedel@suse.de>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] iommu/sprd: disable clock on remove
-Date: Mon, 14 Sep 2026 21:30:39 +0800
-Message-ID: <20260914133039.1732900-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J00m7Nhg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 67BE9C2BCF5;
+	Mon, 14 Sep 2026 13:31:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789392661;
+	bh=FZ93MFND4SZk1HkhbjKt6fLSIxoPV8LGoHAopPRUrH0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=J00m7NhgRyXI+XMBNkxOggYYXeK5lmXV6TeNMOHvxYjKGkuHepuIkUaueDTV13o0N
+	 Ao5sP1vj4XySZQL0ZYnKCkZhlbM50rN4q73xy+X65JStst4Y561QbWmmF0ORZ8D1Jb
+	 qhftgzNP51MLYUxKTKMvEEY5F6feXFiG1LXLTRLZSxZL7V7XfCwvgdbPZkFIf21Qwj
+	 vKW+ovafpj3lJ1eNyDzmahsq4fWPUMP6Ui/52aVPQ+bro7hp/XTQ01bmK1WqOvsYbK
+	 lc/ZD+OppcuLZ3Pwj9ekL1AJ2qelF72zYFGiwRr0N6olLL2yTEWOLuIYxFpxTyyVO5
+	 6sLZgtmAzBGbA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5285CC88E70;
+	Mon, 14 Sep 2026 13:31:01 +0000 (UTC)
+From: Avalon Vargas via B4 Relay <devnull+avalon.vargas.centeno.est.una.ac.cr@kernel.org>
+Date: Mon, 14 Sep 2026 07:30:47 -0600
+Subject: [PATCH] arm64: dts: qcom: Fix touchscreen address on Dell Inspiron
+ 7441
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMyw7CIBBFf6WZtSSABB+/YlwAHWVMpWaGGpOm/
+ y7o8tzcc1YQZEKB87AC45uE5tLA7AZIOZQ7Khobg9XW65NxasRpOjhnVJ2XlCUxYlE+eqvN3h1
+ D9NDUF+ONPr/s5fpnWeIDU+2t/ohBUEUOJeU+PYNUZNi2Lxvirp6RAAAA
+X-Change-ID: 20260914-dell7441-touchscreen-6b6201348ab6
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Val Packett <val@packett.cool>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789392660; l=1937;
+ i=avalon.vargas.centeno@est.una.ac.cr; s=avalon-una-20260914;
+ h=from:subject:message-id;
+ bh=cWKOXfSe8ZMCWag3Rxp781xh1Hgee6YPOPUmg88AEUg=;
+ b=FayQ/FIpndcg5F9U82KQTUWBFChd9LE0wC09Rwqx5L/LbJmEocy1yRMpLDy6XxVvXCd7RqZO/
+ e4kAxKsH227CfRIje3fiLIkNHHlW5RPRbbXXgsMdHh8llOfoxy/alhI
+X-Developer-Key: i=avalon.vargas.centeno@est.una.ac.cr; a=ed25519;
+ pk=I7FZ301yhA9Jl2LReBEqv+9LUrd5zi397CIT2gTB6RE=
+X-Endpoint-Received: by B4 Relay for
+ avalon.vargas.centeno@est.una.ac.cr/avalon-una-20260914 with auth_id=1032
+X-Original-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+Reply-To: avalon.vargas.centeno@est.una.ac.cr
 
-sprd_iommu_probe() enables the optional IOMMU gate clock through
-sprd_iommu_clk_enable(), which obtains the clock with
-devm_clk_get_optional() and explicitly calls clk_prepare_enable().
+From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
 
-The probe error path correctly balances this operation with
-sprd_iommu_clk_disable(), but the normal remove path does not disable
-the clock. devm_clk_get_optional() only manages the clock reference and
-does not balance the explicit clk_prepare_enable() performed by the
-driver.
+The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
+responds at I2C address 0x09, while the device tree specifies 0x10.
+Probing the latter fails with -ENXIO and no touchscreen input device
+is registered.
 
-As a result, successfully probing and subsequently removing the driver
-leaves the clock prepare and enable counts unbalanced.
+Use address 0x09, matching the LXST2021 configuration on the related
+Dell Latitude 7455. With this address, the controller identifies as
+29BD:1103 and binds to hid-multitouch. Touch input and suspend/resume
+have been verified on the affected Inspiron using Linux 7.2.4 with
+the equivalent device-tree overlay.
 
-Disable the clock after unregistering the IOMMU device, once teardown
-that may require access to the IOMMU registers has completed.
-
-This issue was found by manual code inspection.
-
-Fixes: b23e4fc4e3fa ("iommu: add Unisoc IOMMU basic driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
 ---
- drivers/iommu/sprd-iommu.c | 1 +
- 1 file changed, 1 insertion(+)
+This replaces the earlier report-plus-diff with a patch submission.
+Only one unit has been tested. I have no evidence of double-sourcing
+or a working Inspiron touchscreen at 0x10; a typo remains possible.
 
-diff --git a/drivers/iommu/sprd-iommu.c b/drivers/iommu/sprd-iommu.c
-index c1a34445d244..65a970ad4c9f 100644
---- a/drivers/iommu/sprd-iommu.c
-+++ b/drivers/iommu/sprd-iommu.c
-@@ -524,6 +524,7 @@ static void sprd_iommu_remove(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, NULL);
- 	iommu_device_sysfs_remove(&sdev->iommu);
- 	iommu_device_unregister(&sdev->iommu);
-+	sprd_iommu_clk_disable(sdev);
- }
+touch input and suspend/resume. The native upstream patch has not yet
+undergone a full kernel DTB build or dtbs_check.
+
+Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
+---
+ arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+index 75e10d9..0cf5716 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+@@ -25,9 +25,10 @@ &gpu_zap_shader {
+ };
  
- static struct platform_driver sprd_iommu_driver = {
--- 
-2.43.0
+ &i2c8 {
+-	touchscreen@10 {
++	/* LXST2021 */
++	touchscreen@9 {
+ 		compatible = "hid-over-i2c";
+-		reg = <0x10>;
++		reg = <0x09>;
+ 
+ 		hid-descr-addr = <0x1>;
+ 		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
+
+---
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+change-id: 20260914-dell7441-touchscreen-6b6201348ab6
+
+Best regards,
+--  
+Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+
 
