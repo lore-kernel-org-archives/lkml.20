@@ -1,233 +1,106 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6751E471402;
-	Mon, 14 Sep 2026 14:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F245A46982B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395179; cv=none; b=ioCmW7lfU1v7SsJQZ96GnPXiDSjwfmjmeOUrIg7j7smBfEN4CGMlJtnAX9RU84G2EdG7PPKFElo34SEppuRKvZ0gJDEgseIPGIukpXEXV79rkOSRP+q7S1TQorZClGJkoEW9osRtfJZj0aFlHl9AKaXl2Trj0tP+veG+BwtlSeQ=
+	t=1789395192; cv=none; b=ag4hZQIwxVtc3oRcroSjyVYXTCsUDukPZd3uj5h+y3OfckgdcJ68RPvYeRcb/vGGf284oJeSGQ1nI3RDFKrtmYUndAFNbWj2HR2Aa5iWEcNcpldlKlPYCHkA2SAAgq/xkM1k4MLwM2k5ozvoA/c4XeMIX3Kzs01bLZK63i9HEbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395179; c=relaxed/simple;
-	bh=UrSK293fwFDujTjwSVBaMN8gvwemeZczHJsVM1ZYPy4=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=rbD2+gmOMB8ZRXpi1f29z3LPW/ZZIVPLojJ1mN8smOEGPNlk9YWyMpC2NfHYUEztAoBSplTztoxtwEU9pNwsNZkw+f1FIJ+pM/ZKaMbQ+wPfvWo28jx3aa37LaYhieh0vNsWOBiPMHE0IeTC/vYfFM6oFqBjE5BcPOoG3fy4RQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=IOuRaT6F; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789395192; c=relaxed/simple;
+	bh=gqMTCSzaftfm5uQHSdHc/hzs5nKlsY49FVembIOJCVw=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=GliIdU0hqoZ0kt9o19qtFk16ULtKhPKwp0a+M3DRrtcA+1Qi0Geud2lIYY8vbSOhgLAI39PY+A80MG+fU25DYAde3tdj1OShWxm5Ca9QaA5WeSBT/3slL4IoXnSL0ODXLNqFXDq1G8ax9L4/qWrlIHmoTp9fYoClQOH0m+Jf4tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fydv2+BF; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="IOuRaT6F"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 061B6A02A9;
-	Mon, 14 Sep 2026 16:12:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789395169; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=e/IgfF6yLLH39AK6wZv/vjP09JtDv7w42jijGVHpL4Q=;
-	b=IOuRaT6FYPV67HJjNwppyiP3wSSn3Nd0cDIAp5I/lNPktMXSdC+245Q5/+pTRl9VZf3zJJ
-	g4egBGOV8UYLFcX2M362LKDpKUZyjTkidCLrBPNAvb6jrSEY7sCy1LpSmmKYE0D75Escom
-	ztso4/8VDlJd5GQ0jNH5yjFH0aomlwLa4z/46spqfCb2Y3ucLG3rmT6AiRpEDzR1q7UFfC
-	dvgyrBaN0t9ppQY2AHsoA9p73SRUbWNpW8BII2Y91QKFQEg5WVwiEonIL+m0ItCbGdv7Bz
-	22hgDH1hhKFbrQuFGYa2rPTGMWTKk0o/b0TCfCwHFx0Ce67+8gHpBVh1tT2mcg==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fydv2+BF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789395190; x=1820931190;
+  h=date:from:to:cc:subject:message-id;
+  bh=gqMTCSzaftfm5uQHSdHc/hzs5nKlsY49FVembIOJCVw=;
+  b=fydv2+BFc10JiXQSUVxRSXRLuDW8ieds6w09TjeC0dpOzxlSvI1UJwqz
+   j7I+9El9wT+TWbvquwQMHtgyg7BSh2I7PZVNuBaC7Eq15wxqc8zEEN53R
+   h8hHF3STA1Uk9rteEkHX42YanMvZOqg1Yo6lZH7wBEJtBuCTP8zyhjpwm
+   7vHuGGFiPS/oMHIjMShuA8cm2EvRbNvJtBpOQwHQopF4kddxWsmYadb0f
+   +wziJEAoCo1krwcUV1ASPZ+fSklqaxwb6mhcP7taU4F+05+W3ImW3cRaZ
+   0ujbEF8XYDw0zLZYeMTln5wmlQMkZ+GCVtmbX9Iv4APvnLAlmG8CiA2zO
+   g==;
+X-CSE-ConnectionGUID: 32x2mn61TAGmL9ePD1YxYw==
+X-CSE-MsgGUID: KSbIlU5ERMG0WKeP0hjA/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="93571322"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93571322"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 07:13:09 -0700
+X-CSE-ConnectionGUID: ozPZhHviSoupPoiB9paZ/A==
+X-CSE-MsgGUID: x7AuoYUGT8uQU071K3+9OA==
+X-ExtLoop1: 1
+Received: from igk-lkp-server01.igk.intel.com (HELO 71151d66d536) ([10.211.93.152])
+  by fmviesa003.fm.intel.com with ESMTP; 14 Sep 2026 07:13:07 -0700
+Received: from kbuild by 71151d66d536 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x67Qe-000000000Br-0mjZ;
+	Mon, 14 Sep 2026 14:13:04 +0000
+Date: Mon, 14 Sep 2026 16:12:45 +0200
+From: kernel test robot <lkp@intel.com>
+To: Timur Tabi <ttabi@nvidia.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Lyude Paul <lyude@redhat.com>
+Subject: drivers/gpu/drm/nouveau/nvkm/subdev/fb/gb202.c:17:37:
+ warning: result of comparison of constant 4503599627370495 with expression of
+ type 'dma_addr_t' (aka 'unsigned int') is always false
+Message-ID: <202609141504.5flfpx8O-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Mon, 14 Sep 2026 16:12:46 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Birger Koblitz <mail@birger-koblitz.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
-Subject: Re: [PATCH net-next v11 06/15] ax88179_178a: Add HW support for
- AX179A-based chips
-In-Reply-To: <20260914-ax88179a-v11-6-5ea7a925ba6d@birger-koblitz.de>
-References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
- <20260914-ax88179a-v11-6-5ea7a925ba6d@birger-koblitz.de>
-Message-ID: <18c931ca985a82a044c9269743fb4fb7@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Birger
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+commit: 31d3354f42c0da34415164a1f621a195caa1f1bc drm/nouveau: verify that hardware supports the flush page address
+date:   10 months ago
+config: i386-randconfig-r062-20260914 (https://download.01.org/0day-ci/archive/20260914/202609141504.5flfpx8O-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609141504.5flfpx8O-lkp@intel.com/reproduce)
 
-On 14.9.2026 14:46, Birger Koblitz wrote:
-> This adds bindings and HW support for AX179A-based USB-Ethernet
-> controllers. The AX179A-family of chips consists of the
-> AX88279 (2.5GBit PHY)
-> AX88179A/B (1GBit PHY, B variant has wider temperature range)
-> AX772D/E (100Mbit PHY)
-> 
-> The controllers all have the same vendor and device ID
-> (0x0b95, 0x1790) and are distinguished by their BCD device versions,
-> which are
-> 2.00 AX88179A/B
-> 3.00 AX88772D/E
-> 4.00 AX88279
-> 
-> For all chips, the driver calls the same ax88179a_bind() function
-> and the chips are then distinguished by the chip version and
-> BCD device ID. The AX179A-based chips all provide both a CDC-NCM
-> compatible USB interface, and a proprietary vendor interface. By 
-> default,
-> the proprietary vendor interface is not active and Linux will load the
-> CDC-NCM driver to support the devices. If the ax88179_178a module is
-> configured by the OS to have precedence over CDC-NCM, then this driver
-> will switch the device to use the vendor interface, and the device will
-> be controlled by the ax88179_178a driver when the device is probed 
-> again
-> after an automatic reset by the device.
-> 
-> Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> ---
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 31d3354f42c0 ("drm/nouveau: verify that hardware supports the flush page address")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609141504.5flfpx8O-lkp@intel.com/
 
-> [...]
+All warnings (new ones prefixed by >>):
 
-> diff --git a/drivers/net/usb/ax88179_178a.c 
-> b/drivers/net/usb/ax88179_178a.c
-> index 
-> 6aa35c8eb594fda38f7680f8801f0d82090c1efd..33be9ef73e73dd550402692e96605d22c481c7ec 
-> 100644
-> --- a/drivers/net/usb/ax88179_178a.c
-> +++ b/drivers/net/usb/ax88179_178a.c
-> @@ -1270,6 +1270,18 @@ static const struct driver_info 
-> at_umc2000sp_info = {
-> 
->  static const struct usb_device_id products[] = {
->  {
-> +	/* ASIX AX88179A USB 3.2 1000Mbit Ethernet */
-> +	USB_DEVICE_VER(0x0b95, 0x1790, 0, 0x0200),
+>> drivers/gpu/drm/nouveau/nvkm/subdev/fb/gb202.c:17:37: warning: result of comparison of constant 4503599627370495 with expression of type 'dma_addr_t' (aka 'unsigned int') is always false [-Wtautological-constant-out-of-range-compare]
+      17 |         WARN_ON(fb->sysmem.flush_page_addr > DMA_BIT_MASK(52));
+         |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+   include/asm-generic/bug.h:123:25: note: expanded from macro 'WARN_ON'
+     123 |         int __ret_warn_on = !!(condition);                              \
+         |                                ^~~~~~~~~
+   1 warning generated.
 
-USB_DEVICE_VER(0x0b95, 0x1790, 0x0200, 0x0200),
 
-Otherwise it would select the wrong callback the existing AX88179 
-(0x0100)?
+vim +17 drivers/gpu/drm/nouveau/nvkm/subdev/fb/gb202.c
 
-> +	.driver_info = (unsigned long)&ax88179a_info,
-> +}, {
-> +	/* ASIX AX88772D USB 2.0 100Mbit Ethernet */
-> +	USB_DEVICE_VER(0x0b95, 0x1790, 0x0300, 0x0300),
-> +	.driver_info = (unsigned long)&ax88772d_info,
-> +}, {
-> +	/* ASIX AX88279 USB 3.2 2500Mbit Ethernet */
-> +	USB_DEVICE_VER(0x0b95, 0x1790, 0, 0x0400),
+     9	
+    10	static void
+    11	gb202_fb_sysmem_flush_page_init(struct nvkm_fb *fb)
+    12	{
+    13		struct nvkm_device *device = fb->subdev.device;
+    14		const u64 addr = fb->sysmem.flush_page_addr;
+    15	
+    16		// Ensure that the address is within hardware limits
+  > 17		WARN_ON(fb->sysmem.flush_page_addr > DMA_BIT_MASK(52));
+    18	
+    19		nvkm_wr32(device, NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_HI, upper_32_bits(addr));
+    20		nvkm_wr32(device, NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_LO, lower_32_bits(addr));
+    21	}
+    22	
 
-USB_DEVICE_VER(0x0b95, 0x1790, 0x0400, 0x0400),
-
-Same as with AX88179 above.
-
-> [...]
-
-> diff --git a/drivers/net/usb/ax88179a_devices.c 
-> b/drivers/net/usb/ax88179a_devices.c
-> new file mode 100644
-> index 
-> 0000000000000000000000000000000000000000..21ca71cba52ca84883a05d8be869115395c82af1
-> --- /dev/null
-> +++ b/drivers/net/usb/ax88179a_devices.c
-
-> [...]
-
-> +static const struct net_device_ops ax88179a_netdev_ops = {
-> +	.ndo_open		= usbnet_open,
-> +	.ndo_stop		= usbnet_stop,
-> +	.ndo_start_xmit		= usbnet_start_xmit,
-> +	.ndo_tx_timeout		= usbnet_tx_timeout,
-> +	.ndo_get_stats64	= dev_get_tstats64,
-> +	.ndo_change_mtu		= ax88179_change_mtu,
-> +	.ndo_set_mac_address	= ax88179_set_mac_addr,
-> +	.ndo_validate_addr	= eth_validate_addr,
-> +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
-
-dev->mii.mdio_read is never initialized for ax88179a, so 
-dev->mii.mdio_read()
-through usbnet_mii_ioctl() is a NULL function pointer.
-
-Something like:
-
-   static int ax88179a_mii_ioctl(...)
-   {
-   	struct ax88179_data *data = netdev2data(net);
-   	return phylink_mii_ioctl(data->phylink, ifr, cmd);
-   }
-
-> [...]
-
-> +static int ax88179a_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
-> +{
-
-> [...]
-
-> +
-> +		if (pkt_desc & AX179A_RX_PD_VLAN) {
-> +			vlan_tag = pkt_desc >> AX179A_RX_PD_VLAN_SHIFT;
-> +			__vlan_hwaccel_put_tag(ax_skb, htons(ETH_P_8021Q),
-> +					       vlan_tag & VLAN_VID_MASK);
-
-Drop the mask and pass the complete vlan_tag, so priority is preserved?
-
-> +		}
-> +
-> +		usbnet_skb_return(dev, ax_skb);
-> +		skb_pull(skb, pkt_len_plus_padd);
-> +
-> +		/* Next RX Packet Header */
-> +		pkt_desc_ptr++;
-> +	}
-> +
-> +	return 1;
-> +
-> +err:
-> +	return 0;
-> +}
-> +
-> +static struct sk_buff *ax88179a_tx_fixup(struct usbnet *dev, struct 
-> sk_buff *skb, gfp_t flags)
-> +{
-> +	u64 tx_desc = skb->len & AX179A_TX_DESC_LEN_MASK;
-> +	int frame_size = dev->maxpacket;
-> +	struct sk_buff *ax_skb;
-> +	u64 *tx_desc_ptr;
-> +	int padding_size;
-> +	int headroom;
-> +	int tailroom;
-> +	u16 tci = 0;
-> +
-> +	/* TSO MSS */
-> +	tx_desc |= ((u64)(skb_shinfo(skb)->gso_size & 
-> AX179A_TX_DESC_MSS_MASK)) <<
-> +		   AX179A_TX_DESC_MSS_SHIFT;
-> +
-> +	headroom = (skb->len + sizeof(tx_desc)) % 8;
-> +	padding_size = headroom ? 8 - headroom : 0;
-> +
-> +	if (((skb->len + sizeof(tx_desc) + padding_size) % frame_size) == 0) 
-> {
-> +		padding_size += 8;
-> +		tx_desc |= AX179A_TX_DESC_DROP_PADD;
-> +	}
-> +
-> +	if ((dev->net->features & NETIF_F_HW_VLAN_CTAG_TX) && 
-> (vlan_get_tag(skb, &tci) >= 0)) {
-> +		tx_desc |= AX179A_TX_DESC_VLAN;
-> +		tx_desc |= ((u64)tci & AX179A_TX_DESC_VLAN_MASK) << 
-> AX179A_TX_DESC_VLAN_SHIFT;
-> +	}
-> +
-> +	if (!dev->can_dma_sg && (dev->net->features & NETIF_F_SG) && 
-> skb_linearize(skb))
-> +		return NULL;
-
-Call dev_kfree_skb_any() before returning, so the skb can't leak when 
-skb_linearize() fails.
-
-> [...]
-
-Thanks
-Nicolai
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
