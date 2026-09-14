@@ -1,194 +1,121 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BD7424D74;
-	Mon, 14 Sep 2026 09:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51D63438BE;
+	Mon, 14 Sep 2026 09:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379869; cv=none; b=dD4ZqEjXt6NIDLNz55tbqLA4qgLLf83cdGqOxhHycR/DZ8nK1VVEgOx3jFDjiVb9gk5hXzjFSxBsWaeVzI1AMOzNF1PeWmuzIN9+THk6nCaE8NU9Ah4gvm4GPjeXUA3UTlqUI2RXHtp0UbJdpCUeNST5LKAy8EJeCJLLPuGxCmg=
+	t=1789379890; cv=none; b=ioPtxw567Q1UfyT7U355c26hLxRbpDEVDsWzqvzTSC0PvMloIQCEUJIC4jp+/QuG9KnwAU1JuM+/r1iwJ7MGy427Jq2HIPjdReYiFsc+d2GQVv/nCbC83FaYu4Y+B+iEGplLsv+cUtwfwLuts4hzKDmWVKALMZeJy6Whc6K4iH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379869; c=relaxed/simple;
-	bh=cUWGQyihlntV9QIyD5z00X9p3zOZTj570Hp2nWynBQQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n431ZB0KRaQ85kWjQlCTydBG2A81Cm0fIdGetEYN4fyzUGcS0fzKOj4yMib/GReCQ8W9NM7zZiFBriPVGoIcKBb0KBnGhM/UNiM8nqiOZEMzjyY9lRmX+iXoCu3GHqkRa57/98JgRgRippclpnwhgWPLYIxXkX8iCnSfjphzqBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bVo0we9i; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=snfxtuF/; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=C0tmwS9O; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=f3yhWP0z; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1789379890; c=relaxed/simple;
+	bh=b53VofDGPRM1GBlgP66ZMJ0fkJDmyWLK7QstQpHO3rw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=j92YqIJbduMWAbMaIJx6uFQW2+8/Qv0sWBJveknNH8hELxZIi46tOqrKC4hfNSDYX0+rFj+y1NAEClLXVrFnOp+ahX5+nr0xOmuTuzS93QhgnvoUzNMEahWZ4V5YNwkK4iatCidxku20/bVvdNSMcr8+7alBmrgmQL6s39wIor4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCse/liL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bVo0we9i";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="snfxtuF/";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="C0tmwS9O";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="f3yhWP0z"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C269621BC9;
-	Mon, 14 Sep 2026 09:57:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789379861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
-	b=bVo0we9iSTuHF633BV5n0XXQs4PSCNMYhElpdzJ6NAs6s1QkDYVSocT9G2VM1j4qAzUCSU
-	0dpQCp0QXPqOT6M+dy4NoenKwiAj0eW21Rofrvr3hChSSQ2/r2cpDgwT7AdTFNUTwASo2J
-	67q0HTO0HdOupD0vC9grFiXl+h84mog=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789379861;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
-	b=snfxtuF/wJ4uUcEv5jqslNOPo7M8iCywDanF9FR8ekwSSayUBWIXBRulnxvaQn0fkRCNWJ
-	flwpxj5IEfMUpYAg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=C0tmwS9O;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=f3yhWP0z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789379856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
-	b=C0tmwS9O9EaoshMDvZ6TrBChumcdy+H/YwPEGXKYZQVZPDE+VRwTv0Ijb6gh27GB+itjWw
-	9LbQoZrM/1Ah3joZS2upDL1ovqyhVuBI5/9+ohCGm29C/G5sIKDQ0PzUUqgA5/pqjdDCUa
-	0523B1OoRnHwPcW7+ftJ8PQNSceLw6k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789379856;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
-	b=f3yhWP0z1+nlOzZOpnXjUSUv8Vt6ScrWylxUvDiNGmhPAR5iUfH8++iLqgvghFVW3tgrXS
-	6DvKk1/ioLS+EKBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 98AEE13515;
-	Mon, 14 Sep 2026 09:57:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id r+04JRDFp2qleAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 09:57:36 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 25A23A12E4; Mon, 14 Sep 2026 11:57:32 +0200 (CEST)
-Date: Mon, 14 Sep 2026 11:57:32 +0200
-From: Jan Kara <jack@suse.cz>
-To: Yichong Chen <chenyichong@uniontech.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>
-Subject: Re: [PATCH] ext4: fix the logical block counter overflow in indirect
- migration
-Message-ID: <yd23jmljtzvw7xuzvwfq5jbsjfx4hjuoukv2bsk3gx5kzpagvf@tpd2pmceqgay>
-References: <20260914065544.3438431-1-chenyichong@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCse/liL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF0B1F000FF;
+	Mon, 14 Sep 2026 09:58:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789379888;
+	bh=NV5ysSYUzr7wTam47Xgr5BpP0ObkoK7ZWem9Cub+zLY=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=OCse/liLHwkV5ghS83TJD0nEEp3k/7NCtbvhQpsWjEHvSX13i3c4WIlqNwyrkiN3n
+	 bNUu0o7vcMjxsIly8au6ZzJqUCQ7hhKCZeGJtmOGYoJGdkgaYk196+JKHelCepjJOo
+	 y/eWwie63/vQ408vRMnBnzEAuP8BvOJof92ByeDwp86warvGOzDD5r1loM0OS1juaa
+	 hA9FzMwU44A9t4WjW7bld8O+Q3NCEz4+LdunqtSDZbtEmrEkJ4XIfy3i5tPhtbBejn
+	 wbXl++57n9Ybwf+JSsRuiiFfuhf4yarwOAPjZgV1KF+6sc3yEe42d+HuSAgLLzj9ft
+	 ayANgIx7PCmqQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914065544.3438431-1-chenyichong@uniontech.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: C269621BC9
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,linux.vnet.ibm.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 11:58:04 +0200
+Message-Id: <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
+ segment size
+Cc: "Matteo Kloiber" <kernel@matt3o12.de>, <aliceryhl@google.com>,
+ <ojeda@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
+ <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260831233215.287881-1-kernel@matt3o12.de>
+ <20260831233215.287881-3-kernel@matt3o12.de>
+ <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
+ <20260913210806.125589-1-kernel@matt3o12.de>
+ <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
+In-Reply-To: <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
 
-On Mon 14-09-26 14:55:44, Yichong Chen wrote:
-> update_tind_extent_range() advances lb->curr_block, an ext4_lblk_t, by
-> max_entries * max_entries for every empty triple-indirect slot.  One
-> triple-indirect block spans max_entries^3 logical blocks, which exceeds
-> 2^32 as soon as the block size is 8K or larger (16384^3 = 2^42 with 64K
-> blocks), so the counter wraps while that block is walked.
-> 
-> A wrapped counter makes the migration store a block number that is 2^32
-> blocks away from the one the pointer block describes.  Two ranges can then
-> end up with the same ee_block, which trips
-> BUG_ON(newext->ee_block == nearex->ee_block) in ext4_ext_insert_extent(),
-> and without that collision the data is still moved to the wrong logical
-> block while the migration reports success.
-> 
-> Keep the counter in 64 bit so that it cannot wrap, and refuse the
-> migration with -EOPNOTSUPP when a data block is found after the last
-> logical block an extent can describe, which only a corrupt block map can
-> contain.
-> 
-> Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
-> Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+On Mon Sep 14, 2026 at 2:45 AM CEST, Alexandre Courbot wrote:
+> On Mon Sep 14, 2026 at 6:08 AM JST, Matteo Kloiber wrote:
+>> On Mon Sep 7, 2026 at 11:43 AM JST, Alexandre Courbot wrote:
+>>> It also means that without patch 1, nova-core would split the firmware
+>>> into hundreds of 64KB SG entries, which is not breaking but still
+>>> something we want to avoid. The correct fix is to make sure that
+>>> `dma_set_max_seg_size` is called by the driver, and while we are at it
+>>> we also want every driver to call `dma_set_mask_and_coherent`. Ideally
+>>> we would use the type system to make sure that both functions are calle=
+d
+>>> before any DMA operation can take place (using a safe interface), but
+>>> I'm not quite sure yet how we can do this.
+>>
+>> This sounds sensible indeed. Should I open a thread regarding that on Zu=
+lip?
+>
+> Probably not necessary, the mailing-list has a larger audience and is
+> the right place for this. I expect people will jump in here with their
+> thoughts.
 
-Yeah, I guess this is the easiest way how to deal with this. Feel free to
-add:
+The problem with those is not that they must strictly be called before
+allocating DMA memory, but they must not be called concurrently with other =
+DMA
+operations, such as allocating DMA memory, as it would technically be a dat=
+a
+race.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Now, we can't really have drivers define them statically (e.g. in the drive=
+r
+trait) as there may be cases where it depends on the runtime state or prope=
+rties
+of the device queried at runtime. Sometimes it is also defined through OF
+properties (which from a kernel perspective are runtime values too).
 
-								Honza
+For the same reason it is also pretty hard to invent a type state pattern f=
+or
+those setters that is not getting ridiculously complex without much value, =
+which
+is why we just kept them unsafe for the time being.
 
-> ---
->  fs/ext4/migrate.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-> index e06d847033a1..8043959c19ef 100644
-> --- a/fs/ext4/migrate.c
-> +++ b/fs/ext4/migrate.c
-> @@ -14,7 +14,7 @@
->   * represented by a single extent
->   */
->  struct migrate_struct {
-> -	ext4_lblk_t first_block, last_block, curr_block;
-> +	u64 first_block, last_block, curr_block;
->  	ext4_fsblk_t first_pblock, last_pblock;
->  };
->  
-> @@ -65,6 +65,10 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
->  			       ext4_fsblk_t pblock, struct migrate_struct *lb)
->  {
->  	int retval;
-> +
-> +	if (lb->curr_block > (ext4_lblk_t)-1)
-> +		return -EOPNOTSUPP;
-> +
->  	/*
->  	 * See if we can add on to the existing range (if it exists)
->  	 */
-> -- 
-> 2.51.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+The best option to get rid of the unsafe would probably be to use atomics
+instead. It would however be a rather big change, what makes it a bit of a =
+hard
+sell, given that the reason of this unsafe is more on the theoretical side =
+of
+things.
+
+Theoretically, we could also optimize the situation for when it is statical=
+ly
+known, e.g. some dma::Config trait that can be implemented, such that the b=
+us
+can set the before calling probe(). But we'd really want this to work per d=
+evice
+ID table entry, as it may differ between supported devices. But that might =
+not
+be quite straight forward without associated_type_defaults. The simplest th=
+ing I
+could think of is some callback, such as
+
+	fn dma_info(id_info: Option<&Self::IdInfo>) -> DmaInfo
+
+which is called before probe(), but that's not great either. Maybe there is=
+ a
+good solution for this, but I'd first want to exhaust getting the setters s=
+afe.
