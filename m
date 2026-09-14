@@ -1,94 +1,94 @@
 Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38BE1E8826
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:16:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4622D876B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:18:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789352192; cv=pass; b=iI21Upv1NC4z07MT68mMUPTaK/IoRDKU731gSMYnknnafSatUOJ0QBJwWtOWuTi8hdrpZOASqktSgZIVlhtx04EfcqrmfMQ7osdOxG9A0NC8D2OQUH+NAiXl9L5PvkWFVQGDcJYsODueRouY3xbWhqVDzKXIx8ZxW85Q2zDpzPg=
+	t=1789352304; cv=pass; b=aE3LCiRr7eOlAOd/gIct5WxhTUERRQUedHaG3AfY6KHHL+QiBF/o3AibnqJf2lefhlaw/dJwjsfYxkGt/4ibO4a2+tHFdyGSgj42uAUuaEE26noKlZfhV8vfuxsodb/MGgf5LIYX/ZHshNjs6dim/Q6Jrpo79iY0BY3OvXViQvY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789352192; c=relaxed/simple;
-	bh=5MdLv94iEPVs3xiNujxsMPtCysxyX09G4pIUwr0YlK4=;
+	s=arc-20240116; t=1789352304; c=relaxed/simple;
+	bh=XRzNtKPR6AKm+sBG91uXww4VHhEG5iSLy5tnfi2M7lc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KJUkjrgBUyG56s7nrIBjXVG/aBY4ZxeEL6Co2213AqchuUsT/2jbeVUIOBA0FaNRXoTshSsEt9x/3TEaoC6//RX/w9sGSeMN/xeOVihpTVgElSafik91AGgcNfIBEtZRd4p22jNqCUy+cILucbt0rewUF9wrmb3VeoMLa0kuXGc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LbvJYfyg; arc=pass smtp.client-ip=74.125.229.204
+	 To:Cc:Content-Type; b=QWKn/Xq+SOKP82AisYJ4mJcGINpuV1uxZXku7l4YI4s1Mf1TxOMLonaIVw530nvFd438wHKC0RrdDztxokxN624cmKyOTjXigaDLSDSVaz5mtqiEPmtiX/QN4Lwbf2XhHVG0YGK7WyUmLW/0jVYJ9pKLFCzTVdcoV+zzhJNtQtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V8rNW4Wi; arc=pass smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LbvJYfyg"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74e0c2e4dso2062942e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:16:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789352189; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V8rNW4Wi"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so1684479e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:18:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789352300; cv=none;
         d=google.com; s=arc-20260327;
-        b=Ed2E5bQCFiYhhdUlgYY0Ku61dBM546EDC+A0g6erMBTIEgQiIjAiQU2HIPM+m8TLY6
-         lyrKj0Rnwu26aCp9G+NHiROLsJECBm6hvupgCRrZ11kfZr2RsDF+j8ERJ0T1GzxpgSg1
-         YKaoMj0zUkrzIqLLkP0GtP66RsGG6h+w1khZ++qdMiPBesv1CpwgUpctMOp9YJSdrc7c
-         71aUbSM3MxrTjU/93HLvtYgZWIa8xbiK5znXdyDQKRibd0mW7RWKFoKQ25BpXDszLp24
-         pFe6zCx2DF4J0Ce4S8HW941pldy5pa0XCtaAgPq33vQdjECj9MfFe0LPsAIwJKDOAud7
-         jVew==
+        b=opgzQp3AEOqIegpIbJ6ZvJx3K/ounfwBd22bE0tzQrjY8SOfXsi8SeLsELdLjWx2O7
+         /jIu9LpVQBu8WQA7qG1mTR1lhKck8vnY2Qh3BRX1WoORB29FV6cFqmsHOOth58EW2jd2
+         ONfZFwUAeusPFs92/N8OJtSx4h4lRmSuL8Q9PKBeN3C++ixvwanHTOVYDo12PgL9xH+x
+         wOV0qDrKq7N2Gs7wsUgZbFterP4GYKh/76SvTis3zfWaqLPxQ6GYTaxKPOpuQ6/5K/As
+         Ri1vfS8ySDURCKe7A3XSjDwJnWKx1Msn/4ISoOUwY/ZT4uCMEmvZ+a3vLGkNFu03n2OX
+         MyJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=5yXzplmWjCBukJ3GrFEzSXQyy+tsHQh5scTlYkCUf/A=;
-        fh=xVY7i9/tZLuOVvBrf/tekky27F5JajM4/LibEYU/ow4=;
-        b=F55N9Fk6i8nwtVNDDPOfr8R+X2UyqM/cwyD6OC7jpUlo5wdPMuL7i6fcxydrvwO1B7
-         THZiGL1bpTaX8aJzJKqC14dPdbV+HjtXebN9Cr/tRFD2dLJe8QGTmqLzPzJL0Koh8jiD
-         pb7VKTgJOSrQ5wgaKxnm6li65DZkGKMJDB+XDFLzbOAhU5NlatKuL15J86cqu7ERYWyV
-         mz9vZmD2EOQaKnWENvnxz2pBivkaAOAHQSm0RMo5HmSfema2MzhuWz8hBoBT/n4OQPh/
-         mAlW/xQYNVoOZC2EssPCP4RMNtZmiaFLowlxcUly8qgb03577JXVP7f45fnAvEhwVrjw
-         HJTw==;
+        bh=yKvkuA5kghZYj6k0K2bq1InB60nQreojZmTTUXP/Hrk=;
+        fh=SsfNBMyAxafwoLepCUjGbj07Lc7+FHfpNTYaot19Bqc=;
+        b=ah9o3H4p6af3utUrsVpX2PI/iX5ZSNY2/6tlaE0cYgnZ7aVYPu3f8WSqC4nC17sHT/
+         86vBO5ck4C5Bn8y7wneFtBQgT5jTxQL/NyPipyJ8Y7uSYwRnORKAkOU9XVWGcd77CvbP
+         S39wQkvWtg4RdFcWD0WiFEx11/xdDD8hU0+e6esQyUYXhTYhIxjj5S/kAFkQmLoCK7uc
+         47gdoY6lYe9YJalrqEZ42i00C2NUl04ib66Q4/DewMA+HJOAOH/fuXJX4iWb91pvmFBo
+         8CNfUirXDgsRk2x6T2pRoNY67UeFJm7Vfu69ybCGFwuHoPotloCaxHRy28sGScxmlvkm
+         vCow==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789352189; x=1789956989; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789352300; x=1789957100; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5yXzplmWjCBukJ3GrFEzSXQyy+tsHQh5scTlYkCUf/A=;
-        b=LbvJYfygCVwanjcOyH52EYjzdBnPtGqB7Y6pO0L4M2h8Dqcyg1sjGY/jJ25btxKu8G
-         iTcHlAUBVf5vgzUmWWWJ39GdiD8gzCQtN/lqGzbxAbMZdrI71C5gKQYpITDE7/zJxJNz
-         pCri4r4kE4O+2o2HfXUjFrjzgbWe6jCBMad3glirK2JFhvBSSECxMa4/2s56kSBhID14
-         oN19JBiaxCF4g/v9HFBQwG/QW7xDnwRPMbui3HtpbsfZBGovxQlC+Tvvh/3HpceWyJZN
-         Kq4q2SxyoiL9Aytxh46wyn72F88M0ZUxfc2dq1WViNIzvZfw8vxpce8rmryjxqDs78+D
-         HZyA==
+        bh=yKvkuA5kghZYj6k0K2bq1InB60nQreojZmTTUXP/Hrk=;
+        b=V8rNW4WiRdHVUWYra7yVHFYk8KAgjTBa47ph9/5xreOKTq9cfLPcKRP+gfYmo7JWsC
+         syVUByLfRLNyigdih99PoOsCZYr5HH1RZ1UrD7gPuxkwqE74t471IZLXNAuDDuACG7Dy
+         PFE7kyVep3ch16NARUjkH7Rj6fslR2lyM49X1IHL9RQ6H701CZEipE00ymBaEtT7uXg5
+         ABFtvrNo0K2FcROAi6Y5w0KHXueLAjTRj/awsvJRpFsWEnG5WAJDA6eDHqnzCMPsq4IX
+         F6nH3roc86yAqH7NCYAw/arf5oVQ9o/MMlIDVdQaiJ75618QSG8wjcU4ijfXNYIGuwqc
+         6H6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789352189; x=1789956989;
+        d=1e100.net; s=20251104; t=1789352300; x=1789957100;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5yXzplmWjCBukJ3GrFEzSXQyy+tsHQh5scTlYkCUf/A=;
-        b=AK5k05x7DRJsN9mv5QIEm+V5330pf9XaK9aDTyjrdqJRRHN1DTKmUj+4od4kcHHenk
-         7VT/FEM19JJ2f9sWAs/YGIntYfq4QRHZbqmiMv/cVhwZ4SC032YuqXF9fx+vlPH/WvZL
-         ysdidnNs4VwQAbTm5PrPTDd2OsvFiCC8JJYmPWpAur4Pxo+jDGa9fx616vzGqAAzNJRs
-         YJoU+06FMDNsjZJ/MWSsAtSiVTXmQrlzYAR7+ElDn88jc8AeUl9m3Gkhs93DtiuSN31+
-         fBgZlaqWF687xmGvo6om2uNSKcMAG43u8MhZUI+g41XiBxPvS7shECfxwcVf4ict6xg1
-         yzfg==
-X-Forwarded-Encrypted: i=1; AKwUvBw4RGqltVTJGmGWbssjzv+Vb1PZB3CvYOQVgrYB7Z/T7+dKnpOkTfa/jyE8bUBqBb9+VNPSBWdIRUOMJBE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJJAFcG9GrOe5f+BrRiDq3X5OLpoNbsxwWYRI/9oyMJDKAWCmR
-	AQzgBZldTxzg+bZMYMYj4qyKoe8DHSJKfA0L5kMflI+OVU6MUE1jlEsKayWr5ZLr0uZ6L6SZHe/
-	PeB89zX4jBia4dUpke2A87qE8F+ovCPN5fA==
-X-Gm-Gg: AYBFou0OjBojgaYNSfi1MPrzqdgs4VrEKCEPEwdNc2ZvqVvVIXs8Tw3MC2o7Ba1a1U6
-	/2F/hvEibG8g+wxT2TzhtgLUtjoVzaOCP+mUQ+cN6GttgU+fquUbP36XiQ5e6jgKLAe3VIRfRfx
-	F39vdkIOqJpk/sP4RF6oM+3NR2hMMs0O6SWUR0VVo8ii4KkoBUUvoz/D+16bA3PEZofQDCffsin
-	mGzW81txRQmmfpPtHCa0X+MiO9yZlwYs1ouQYQndCZ96E+LWe6paWRUpozdDhy5zhKstWSOzjfc
-	rOaWyalB8kGkjaQrwRRiwfLWN9hsPQ1yXrtcOnoisJwrr4XT5p//4DetbjXhVgTbqED211Nh+nI
-	+1dXU/INHUV8tm1faVfcqqwAI
-X-Received: by 2002:a05:6512:124c:b0:5b5:e092:c3ee with SMTP id
- 2adb3069b0e04-5b8ae67d26cmr161163e87.1.1789352188506; Sun, 13 Sep 2026
- 19:16:28 -0700 (PDT)
+        bh=yKvkuA5kghZYj6k0K2bq1InB60nQreojZmTTUXP/Hrk=;
+        b=Ib9kbePPuzH26+0l8966pzsgk9a8KLbMyECmIiAvuK8fPkl0LmdoaksneVvm1cR4Kq
+         I5TJj+S3mNGkyjXTAK/esItBWnVnm4rG55KGXW48XLW5XlbqOd04eoi7933Ypj4iQloZ
+         Fot9ydweOdH/lSSzQvyBc4DyYrK/tKYuXn3dtD9kHXvGeUDC2shtoPbbwMUF1jYzLrcc
+         hzxvTDx4fQUUrxWdZnLGcd6MKf2EQ2X+EcYyJn+GXg5/c955yglO0wCbR2CFXJdOLbVz
+         tOd5g9HEVzb2XWHNaJcTAOxGMSrLHL5pCS1tjYjwrV9yrKieNyg/zSE5icEIkBDxdo54
+         f5cA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+00T1sNeEDJcc9sL/tby9GDSuRSlwDxTLqBxFFUMgqp1Iqe127MI5LrxmmXhXJylyi7JXRLUvXWKNtBs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kr0D5yzgBIn6AdgkB5nbaVcgIeuC1RZs/wX7CbxiFTM2nj2lXe
+	ZkTOYFwvtFT5SWwzW7W7xoqsJkKdCHc6jZ6kQHKuFGO2UGtXlUUrDG15ltJvIM2tp0W9xyn6HWd
+	/+G6CtyVXVvHm0KeO7MGlYXA/vtzRG0c=
+X-Gm-Gg: AYBFou0CPudsgKHbfwV2Cf6I0rdplDDzOnzxpjbPzVgToqsk6nC0+EkRGN/wwD6wZ91
+	kCTKnUH1SS5mmEQm8eZ5Gzb36xCkPUP6epZoY10xTohqRTRU0bRVv/22POi4KN7ckct/TEUEfGr
+	MafMMMIJngd3rFcBETQWBfSIjBp9bGl7tO2D40E3KWm7P0HSWzz31wn0wSUULS8veedhTyOgCdu
+	RRm7fJE9ETlkNM+WBPatCfm+oQQ4miCZk9r3+JWWPLNsR+l+bexIaml7z25YKulRrKY7bq6azIq
+	5GJCZ6n+mxMNM3wDVnUPNTwr0G831gJixe9G5J+wSXEb0GiDD46HNY1U5nAoWdLpgPOVGrmyI7m
+	QUGS9CUMyJa0RajzxvHXr+HIl
+X-Received: by 2002:a05:6512:318a:b0:5b6:421:a8fd with SMTP id
+ 2adb3069b0e04-5b8ae6b9093mr149563e87.29.1789352300428; Sun, 13 Sep 2026
+ 19:18:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912-b4-bunzip2-blocksize-fix-v1-1-c7384bbfc954@gmail.com> <20260913190707.413136686f78887287764f0a@linux-foundation.org>
-In-Reply-To: <20260913190707.413136686f78887287764f0a@linux-foundation.org>
+References: <20260912-b4-bunzip2-blocksize-fix-v1-1-c7384bbfc954@gmail.com> <20260913190904.bd6811bc8e094047017c67f3@linux-foundation.org>
+In-Reply-To: <20260913190904.bd6811bc8e094047017c67f3@linux-foundation.org>
 From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 13 Sep 2026 22:16:16 -0400
-X-Gm-Features: AcwNN1Xf8e1ajVkMm3ueVyiMktER8R-UYl1cGQHz_MkdxJ2eIL-j1FsuK6s3yJY
-Message-ID: <CAEdQ38HY2wYptnqo_yF=GX9PsY7akUVB2z64HbErATOF=R5vKg@mail.gmail.com>
+Date: Sun, 13 Sep 2026 22:18:07 -0400
+X-Gm-Features: AcwNN1VM8XngtNQB-pgIz8uVKeDvAsmMl48FSCAoRIZeQw0QMDqfpxAw9pClylo
+Message-ID: <CAEdQ38FOnZPmhc2LYOCXS4sqpi4gqLGnkUMA7EXyDFL_9A=X0w@mail.gmail.com>
 Subject: Re: [PATCH] lib/decompress_bunzip2: fix off-by-one in run-length
  bounds check
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -97,7 +97,7 @@ Cc: "H. Peter Anvin" <hpa@zytor.com>, Alain Knaff <alain@knaff.lu>, linux-kernel
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 13, 2026 at 10:07=E2=80=AFPM Andrew Morton
+On Sun, Sep 13, 2026 at 10:09=E2=80=AFPM Andrew Morton
 <akpm@linux-foundation.org> wrote:
 >
 > On Sat, 12 Sep 2026 14:17:35 -0400 Matt Turner <mattst88@gmail.com> wrote=
@@ -119,22 +119,19 @@ k
 > > This code came from busybox, which fixed the same line in 2013 in commi=
 t
 > > 932e233a491b ("bunzip2: fix off-by-one check").
+> >
+> >
+> > ...
+> >
+> > -                     if (dbufCount+t >=3D dbufSize)
+> > +                     if (dbufCount+t > dbufSize)
 >
-> Thanks.
+> Sashiko thinks there's also a potential overflow here which could be
+> addressed in this patch.
 >
-> > Fixes: bc22c17e12c1 ("bzip2/lzma: library support for gzip, bzip2 and l=
-zma decompression")
-> > Cc: stable@vger.kernel.org
->
-> Why is a backport proposed?  Hopefully because downstream users need
-> this change, but the changelog doesn't tell anyone the reasons why.
+>         https://sashiko.dev/#/patchset/20260912-b4-bunzip2-blocksize-fix-=
+v1-1-c7384bbfc954@gmail.com
 
-I ran into this because my system uses lbzip2 as /bin/bzip2 -- a
-common thing on Gentoo I believe. As far as I can tell, anyone using
-lbzip2 as their system bzip2 would run into this and it's only because
-it's very uncommon these days to compress a kernel with bzip2 that no
-one has noticed. I only noticed because I was adding support for
-various compression formats on alpha.
-
-No strong preference for a backport from me. Just thought it would be desir=
-able.
+What's the appropriate flow to/from busybox (from which this code
+originates)? Apparently we don't sync from busybox, but do we want to
+avoid divergences?
