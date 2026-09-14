@@ -1,80 +1,87 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9ED3EFFCE
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE5533D6D5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372119; cv=none; b=INBNP7cysyg23cAdNLhnw01FQJTVOiBi1WuKHuwE4zWBU0EiJ1QoShz3SfQ0Yxm1J7RQiEYf4hArXuB11wFdaeiToWZeg1Zqe1zHTScK+aY8A1ht9IK4zODnXEORpH00PWzHI658ESvRHLRmJc7h7Dvjyr5ePPawXoICZj+u0wU=
+	t=1789372142; cv=none; b=Hj5r95gXfnY/07NpUJwkInhyb+6Lx3fh4oOLoXB89BYDs1CYKmEhuDtj9X22DBwiaOZvCT6mc4Oy1FVbHHT52THbyPwgarw/1zIdqi3xOEj0WIpIsKAugFxi3d7NHkWYlCJneAqJePMl5tFbwIW0V4dhqf3fSVOSBObhE/s5QO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372119; c=relaxed/simple;
-	bh=ZyZdd7bSDjmQXqulrFgkH2xm2+rxBYNnFOVk22MIB+M=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=MEBrBv4z7RUG1HE4TzbvCS+oUTkGBnWZvETxWnwJtle2gQ7FkJf55N3XrBNcGm95qOBsfL5jWY51rkWOvhD7+ulhTgQI13KmZBm74dcJyglsNNbCumThkQ077LKYXdgeEgTzyS7xChNAHFI+oMfBoPGj3WQ6kDapaOv3Mj9/TPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XGYgy0QN; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XGYgy0QN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ZyZdd7bSDjmQXqulrFgkH2xm2+rxBYNnFOVk22MIB+M=; b=X
-	GYgy0QNCn2FklwWMs9MNZLCvU0fX01obIj/ELskMiGZwg3rSrZfB4KYEdf249xgi
-	grL6sIaWMMjsYKFnvcIrcKJe75YbRecfKoi3hfovabumLmPILNrCi9AIFvFToPUT
-	gQgKJqOs+tD3SNPNUfGjfDlu66GBTJwtQ5HhnYthlM=
-Date: Mon, 14 Sep 2026 15:48:06 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: shaggy@kernel.org, yun.zhou@windriver.com, mjguzik@gmail.com,
-	brauner@kernel.org, ssrane_b23@ee.vjti.ac.in
-Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: [BUG] jfs: kernel BUG in txUnlock at fs/jfs/jfs_txnmgr.c
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/+cvUgj4CWQYOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/K42C7nLsOLiET28JkgJWqQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1789372142; c=relaxed/simple;
+	bh=TMa+OM5r+Vw1Fyw2b/6glfXwF+0n+Fc54o83E3UwZhE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XtJ/5IyzUNR5acMJCL1ScjyRzafLWhHdvGbSTAB0cUuUrAT63L2paDuX1gD/ItbSj+dZdZnQ4XqyvrSkYjudhz9J9zNxNuI+4AQ/SV3A96IxGhPzXlnKlremrCurNeNjZJgfFQ4/qMEc4ecm9q23dQOihv5TQIqhJ8iPLzCm9Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: esmtpsz11t1789372072td29db936
+X-QQ-Originating-IP: a25r7OdHgSwUV56NjAw63Rnel8ssIsZih28fCd7k0+g=
+Received: from localhost.localdomain ( [175.0.204.93])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 14 Sep 2026 15:47:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12824370477255619033
+EX-QQ-RecipientCnt: 10
+From: Yingchao Deng <dengyingchao@kylinsec.com.cn>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Leo Yan <leo.yan@arm.com>
+Cc: coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	dengyingchao@kylinsec.com.cn,
+	qinyungao@kylinsec.com.cn
+Subject: [PATCH v2 0/1] coresight: syscfg: fix deadlock on device registration failure
+Date: Mon, 14 Sep 2026 15:45:24 +0800
+Message-ID: <B16F90D29FAA2B3E+20260914074524.1694-1-dengyingchao@kylinsec.com.cn>
+X-Mailer: git-send-email 2.45.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <57a2fc08.6fac.1a09ee33943.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3_7y2pqdq8B4PAA--.18533W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3hZbDWqnprbjxQAA3l
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: MOL6Ei/hP4VXag/PsoZ/x9ylEMqNy2KV/bQRQPx1eRU4QGhXZFYqsifn
+	HN+ICQeqUZunzZzBdi+yM08xvIb5997GOUb1EZCri8vU8hcMvJae9OB55w12FZKzypnTH4o
+	KQrGFTudbdPJYqTlW4uIeUMbs3z+MuLoZlKZj/Mo/paJX/889uXWuw+y9f8+zbbuqKDhATB
+	9KesZ9FBhlSGYsH3lL6vBVCZtdxiEPM+/S1kKI6zA0Gba9X3CZO1OJV50FiRzvwdhkYzEE2
+	FrGf7I7c+eSZQfq7WZNYPldgUkG0oHg+GHIixIhfTxJzckf7PqJJtn0KU1/9tV7mSqc3S/J
+	ck+BUJh9M+PU6JuTE2JLc0y0iHD211uXMqPGIOE0mNi50rk2nkgs/dizx0vo58Ezxdhp44s
+	vdqlpTOwEzP6G1LYBvaKtdxURWL4e7no5axlhWvq5X7H61Kcm6R/bfye/Q/kTtBs+gOXXhM
+	Rc+bHH4Qb37j52/cl+25mglJpos4dduqhb7cE+9XCUM0uxGtJs10gdxcjG0N1cFE8gw6nDn
+	g5JO/NMn4MeLcooVs7UClwvNKucalB76+/KEfl+QsLb/eNHwbBZt8wYl0PbmW5EAoCr6z4d
+	MYKYJ9gcpkEbI4YW3uvwi0gSVPMg56zWNuOm4lqOoL9COCcGgh+Kghrnc8D42a+C3EWj3iR
+	pettlIH1u5KADA9tcUesXu49jvJr/3Bap9meWhMXpCcPyGUVMJQaRal5MLoJEe3GzwiJoeP
+	wyi0YY2OJUm0Rr3qxD4Kmia2BvGB7PV6/ebRvsoSvuFpnPegH4qi9FI6YF9rRQHk7WfOX6M
+	x9klzb+xU7pakxB2zAmDd47EW1IZZnORHdKo+hN7U1sPX4V83czjHXyYPzzeFgdxH2zR8OQ
+	RQcTn8wFaYrEP7k1sw4wHgOJlqdTlDFmG1Ez51dpszYyQdXg/SP9IfxFuYRfEIFKZHOMrtC
+	opDbpYZSX/2VX0cEwqdDtFvXTmP4bWs91i4QqiQF1jAsIUJucOUo7C0bgbOGA+XPBkvmLyI
+	QYvsdESRggpw8TCxDbvJCv6Bjfyb/cg+aNYqxOnXa+LjluY1XXe1ykwubK3Zw4UEPZM+IaZ
+	3HdBU/vPSPYgV5sXRAaAOWQ3Utzmj6llKZ7Seb1mzo0nRFrpQXoMmHQ40xHeY+XdJAfAmU0
+	BeQcut3PbZk7ajduwznVoKa4wEXvijK55Dgsm4O5HW6P1fVGqUvv1umsSDApn5S86kdT
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-SGksCgoKSSBhbSByZXBvcnRpbmcgYSBrZXJuZWwgQlVHIGluIHRoZSBKRlMgdHJhbnNhY3Rpb24g
-bWFuYWdlciwgdHJpZ2dlcmVkIGJ5IGEKc3l6a2FsbGVyIHJlcHJvZHVjZXIgdGhhdCBtb3VudHMg
-YSBjcmFmdGVkIEpGUyBpbWFnZS4gIFRoZSBpc3N1ZSBpcyByZXByb2R1Y2libGUKd2l0aCBIRUFE
-IGNvbW1pdCBjZWU5Mzk1YWNkODA0M2JlMDY0NGIyNWMzNGJmYTg2NjIzZjJiOTM1ICh2Ny4zLXJj
-MSwgTGludXgKNy4zLjAtcmMxKS4KCgpUaGUgcmVwcm9kdWNlciBtb3VudHMgYSBjcmFmdGVkIEpG
-UyBmaWxlc3lzdGVtIGltYWdlIG9uIGEgbG9vcCBkZXZpY2UgYW5kCnBlcmZvcm1zIGZpbGUgb3Bl
-cmF0aW9ucyB0aGF0IGZvcmNlIHRyYW5zYWN0aW9uIGNvbW1pdHMgb24gaXQuICBUaGUgZmFpbGlu
-Zwpjb250ZXh0IGlzIHRoZSBKRlMgY29tbWl0IHRocmVhZCBqZnNDb21taXQsIG5vdCB0aGUgc3lz
-Y2FsbCB0YXNrLgoKClRoZSBjb25zb2xlIHNob3dzICJrZXJuZWwgQlVHIGF0IGZzL2pmcy9qZnNf
-dHhubWdyLmM6OTMzISIgd2l0aCBhbgppbnZhbGlkLW9wY29kZSBPb3BzIGFuZCBSSVAgaW4gdHhV
-bmxvY2suICBUaGUgYXNzZXJ0aW9uIGF0IHRoYXQgc2l0ZSBpcwphc3NlcnQobXAtPm5vaG9tZW9r
-ID4gMCk6IHRoZSB1bmxvY2sgcGF0aCByZXF1aXJlcyB0aGUgdHJhbnNhY3Rpb24gYmxvY2sgdG8K
-c3RpbGwgYmUgcGlubmVkIGJ5IHRoZSBjdXJyZW50IHRhc2suCgoKT25lIHBvc3NpYmxlIGNhdXNl
-IGlzIHRoYXQgdGhlIGNyYWZ0ZWQgaW1hZ2UgZHJpdmVzIGEgY29tbWl0IHBhdGggdGhhdCByZXR1
-cm5zCmVhcmx5LCBzbyB0aGUgbm9ob21lb2sgcmVmZXJlbmNlIG9uIHRoZSB0cmFuc2FjdGlvbiBi
-bG9jayBpcyBkcm9wcGVkIGJlZm9yZQp0eFVubG9jayBydW5zIGFuZCB0aGUgY291bnRlciBubyBs
-b25nZXIgcmVmbGVjdHMgdGhlIGJsb2NrJ3Mgc3RhdGUuICBUaGlzIGxvb2tzCmxpa2UgYSBsaWZl
-dGltZS9yZWZlcmVuY2UtY291bnRpbmcgcHJvYmxlbSBpbiB0aGUgdHJhbnNhY3Rpb24gbWFuYWdl
-ciByYXRoZXIKdGhhbiBhIGJvdW5kcyBwcm9ibGVtLCByZWFjaGVkIG9ubHkgd2l0aCBpbmNvbnNp
-c3RlbnQgb24tZGlzayBtZXRhZGF0YS4gIEkgYW0KcmVwb3J0aW5nIHRoZSBhc3NlcnRpb24gYW5k
-IHRoZSBwYXRoIGFzIG9ic2VydmVkLgoKClRoaXMgYXBwZWFycyB0byBiZSBhIHJlY3VycmVuY2Ug
-b2YgdGhlIHN5emJvdCBpc3N1ZSB3aG9zZSBleHRlcm5hbCBpZCBpcwozYzM4NjZjNzFkYTQ1ZWY2
-MTIwMS4gIEl0IHJlbWFpbnMgcmVwcm9kdWNpYmxlIG9uIHY3LjMtcmMxLgoKClJlcHJvZHVjZXI6
-CgpzeXogcmVwcm9kdWNlcjogaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L25NSEhhUWdwCgpjb25z
-b2xlIG91dHB1dDogaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3o2QXE0bXk2CgprZXJuZWwgY29u
-ZmlnOiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvd0RCSGpVQkMKCgpLZXJuZWw6CgoKSEVBRCBj
-b21taXQ6IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKZ2l0IHRyZWU6
-IHVwc3RyZWFtIChsaW51eC5naXQpLCB0ZXN0ZWQgdGhyb3VnaCB0aGUgdjcuMy1yYzEgYW5ub3Rh
-dGVkIHRhZyBvYmplY3QKwqAgwqAgwqAgwqAgwqAgwqBlNWUwNDcyNmNkZDA0M2UzMDk2NzcwNzFh
-YjFiNjVhNGIxOGY0MjJiCmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzEgIzEgUFJFRU1QVChmdWxs
-KQp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMSAoTGludXggNy4zLXJjMSwgMjAyNi0wOC0zMCkKCgpMZXQg
-bWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0IHJlZ2Fy
-ZHMsCkNoYW5namlhbgoK
+cscfg_create_device() calls put_device() on the error path while holding
+cscfg_mutex.  If device_register() fails, put_device() drops the last
+reference and invokes cscfg_dev_release(), which takes cscfg_mutex again,
+deadlocking.  This removes the unnecessary mutex from cscfg_dev_release().
+
+Changes in v2:
+- Per Leo Yan's suggestion, instead of unlocking before put_device(),
+  remove the unnecessary mutex from cscfg_dev_release() and take it
+  only around cscfg_mgr field initialization.
+- Links to v1: https://lore.kernel.org/all/604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn/
+
+Yingchao Deng (1):
+  coresight: syscfg: fix deadlock on device registration failure
+
+ drivers/hwtracing/coresight/coresight-syscfg.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
+--
+2.33.0
