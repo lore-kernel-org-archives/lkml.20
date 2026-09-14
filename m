@@ -1,105 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BF25733E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0DC3115AC;
+	Mon, 14 Sep 2026 04:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789361448; cv=none; b=IFDNXISxfiOC5r519VNVbKRgPuDiORI348bPj/LbIs5kOPxf9++cndonSPnTjj7huqutf+jHBHzKMaEK0hUBV01yPrU6YgI6MpyQAjUst12wqYG4Kb9pn8z2/Nqb1UluMSb1DpRg+sX1UNBYP+SXHRCt2hhdOt2zEQz4Bl6V5nI=
+	t=1789361471; cv=none; b=BfrrM8GwRHgixGyJbN4Dv9ay8xbZhTpj4bCEOkAyGpxlJ23co/RBGomXn2wp8P1lxI0Q6AOue5MySbxRKMVpQseA6VO/hc73H/4GjKHGNL8dV1YRj6vmFHxK+8JZy9bTP8CX26bD62Gw5F03lgel8orAa0eq2Qyj8d9wCJZ/ANw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789361448; c=relaxed/simple;
-	bh=3/dJO0bblp44/9srkukBRbil1UNNMEz8L13Frh+sKek=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mKmq9rf/NSlxKZZKRmwnF+slDAKvQY3WI7J1+g3QBmO4Emu9+a8mq4YZZ4VCsdYu0HyraXbmmfSsmB3pP+8MfWtLNpST33VMEBG0uxHAh/t22OvoJ7Vb8reYdcwQrsj2yEiOmR+1HhlHHKJ720/cKmRVxZITpmCIq8rTWCqmI8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sRdceleu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789361471; c=relaxed/simple;
+	bh=ty0lL2XdGaJ16xd8LAp4MjWH5vFih56YMjJeBIWwGPg=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=p8EXonIOtjapp60HtDv5rRsmtfWhUpJfwEkhiVEX2+4YRHSzeYNQ5JUDqIQCsDMYgglKy9mmcZrUtUtrioS8rg9to+33r86Uc9sBOdRyw2Utm8t9v533sqv1z6X/RWBm1pm9QSR+NBYsBBcsEQfyB/mUR2BBIhSvHX0lEIw4T+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MeQtjrGw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sRdceleu"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 927A5C2BCB8;
-	Mon, 14 Sep 2026 04:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789361447;
-	bh=3/dJO0bblp44/9srkukBRbil1UNNMEz8L13Frh+sKek=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sRdceleuBYmxstvJOHaPttC1j68kkSnjggrmsdsQSHSIIfQ5ffZpMe8i98jTaqU7p
-	 rnUMi/lNvgIflLGRYpciTegpHH36gVrqt98UbpqFZVsI1rzWBCgZv3h3gS0aiirnAK
-	 QVWrIZ2uQxMbA5Iivh/22sucqcD/mHGPurcXeEf7Jrsw/41k8URY7g9xh1ol/eIk7B
-	 Se+XMq6MpE0oAkyGq33La59SkMUoqvTV61DB7ly4mhiHDznFDUw3myp+7ZJF9iKsEZ
-	 VUYuWmMQ8taqBBmRuip5IhLp7Y4lEI7m95nDIrhfiiJikYEOdW5SY/TV30hOY4btW+
-	 etsbjE/diACvg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70AC6C88E50;
-	Mon, 14 Sep 2026 04:50:47 +0000 (UTC)
-From: Takahiro Kuwano via B4 Relay <devnull+takahiro.kuwano.infineon.com@kernel.org>
-Date: Mon, 14 Sep 2026 13:50:36 +0900
-Subject: [PATCH 1/2] mtd: spi-nor: spansion: Remove s25fs256s0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MeQtjrGw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709611F000FF;
+	Mon, 14 Sep 2026 04:51:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789361469;
+	bh=a3gFrigOiuyKqxOGSC7uDkyzjzEhyZx4u6ZWL7zbPLw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MeQtjrGwy2BYnAiJdS4o/ast5Nb77gHoBYTRLvGcy9DwjCXSEAbzKW9Ph9G6cICFi
+	 xVv0pm6ibBNKq3wkT5I2bX0FL9e3tL+lf7gqG3pQ6WQbcZ/bo92Web0dKPtlOcoIGp
+	 HafwrCFCNl8YYmaaZ/65Eym98u30Bu30Pw5EHPVgF9qEcmy3kkbGCoR5AxF3xVcni3
+	 0EocryL22nGsvPVgk+BpbjSkEOwKETF8Nv9CCY1I6qhoY9QeffJqzKzq6wV2t8hz1j
+	 oKUQ/ah6Bi+QXp6eXrY2HMzqUeIfH59TFrx/LfTS6tbHmGk10jAhlR57V4233/L8Ft
+	 VEVcKG0Bi6bug==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199FA380AA63;
+	Mon, 14 Sep 2026 04:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-s25fs256s-fixup-v1-1-e94019455c1e@infineon.com>
-References: <20260914-s25fs256s-fixup-v1-0-e94019455c1e@infineon.com>
-In-Reply-To: <20260914-s25fs256s-fixup-v1-0-e94019455c1e@infineon.com>
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Alexander Sverdlin <alex@sverdlin.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789361446; l=1387;
- i=takahiro.kuwano@infineon.com; s=20250227; h=from:subject:message-id;
- bh=pC764isHWSwUhqkcJDPq348qqcspEvCp/PJEhckABAE=;
- b=xeZWmnO0p1VtbkZpMy3oreJH6iuRIcRaqHDLsyQKPUvPcNBzUDdA/ENxEB7dfhFp0S8VcoY4W
- 0p11DtqFcQrAiAN4/3/YF4KOR/NhhXI73HR2JTblBZVAEF1+2lQuANq
-X-Developer-Key: i=takahiro.kuwano@infineon.com; a=ed25519;
- pk=aS8V9WLuMUkl0vmgD0xJU19ZajdJmuyFBnBfVj0dfDs=
-X-Endpoint-Received: by B4 Relay for takahiro.kuwano@infineon.com/20250227
- with auth_id=566
-X-Original-From: Takahiro Kuwano <takahiro.kuwano@infineon.com>
-Reply-To: takahiro.kuwano@infineon.com
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next v3] selftests/bpf: Add test for indirect
+ struct_ops
+ trampoline
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178936140489.322883.12116940153387060587.git-patchwork-notify@kernel.org>
+Date: Mon, 14 Sep 2026 04:50:04 +0000
+References: <20260908073506.29734-1-yangtiezhu@loongson.cn>
+In-Reply-To: <20260908073506.29734-1-yangtiezhu@loongson.cn>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, loongarch@lists.linux.dev, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-From: Takahiro Kuwano <takahiro.kuwano@infineon.com>
+Hello:
 
-The Spansion ID table lists s25fs256s0 and s25fs256s1 as variants
-distinguished by id[4] (0x00 for 256 KB sectors and 0x01 for 64 KB
-sectors), following an incorrect statement in the datasheet.
+This patch was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-The sector size of s25fs256s is configurable between 256 KB and 64 KB.
-The factory default is 64 KB, and id[4] is always 0x01 regardless of the
-configured sector size. Remove the invalid s25fs256s0 entry from the ID
-table.
+On Tue,  8 Sep 2026 15:35:06 +0800 you wrote:
+> Add a test case to verify that arguments passed on the stack are
+> correctly read by an indirect struct_ops trampoline.
+> 
+> This test ensures the correctness of stack offsets across various
+> architectures. It is particularly critical for architectures like
+> LoongArch, RISC-V, ARM64, and PowerPC where arguments beyond the
+> first 8 registers are passed on the stack, as well as x86_64 and
+> s390x which have lower register argument limits.
+> 
+> [...]
 
-Fixes: 075fd6dff24a ("mtd: spi-nor: spansion: Differentiate between s25fl256s and s25fs256s")
-Signed-off-by: Takahiro Kuwano <takahiro.kuwano@infineon.com>
----
- drivers/mtd/spi-nor/spansion.c | 7 -------
- 1 file changed, 7 deletions(-)
+Here is the summary with links:
+  - [bpf-next,v3] selftests/bpf: Add test for indirect struct_ops trampoline
+    https://git.kernel.org/bpf/bpf-next/c/698181b2d5fd
 
-diff --git a/drivers/mtd/spi-nor/spansion.c b/drivers/mtd/spi-nor/spansion.c
-index 6938fe26969c..6a62ca6f6451 100644
---- a/drivers/mtd/spi-nor/spansion.c
-+++ b/drivers/mtd/spi-nor/spansion.c
-@@ -873,13 +873,6 @@ static const struct flash_info spansion_nor_parts[] = {
- 		.sector_size = SZ_256K,
- 		.no_sfdp_flags = SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 		.mfr_flags = USE_CLSR,
--	}, {
--		.id = SNOR_ID(0x01, 0x02, 0x19, 0x4d, 0x00, 0x81),
--		.name = "s25fs256s0",
--		.size = SZ_32M,
--		.sector_size = SZ_256K,
--		.no_sfdp_flags = SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
--		.mfr_flags = USE_CLSR,
- 	}, {
- 		.id = SNOR_ID(0x01, 0x02, 0x19, 0x4d, 0x01, 0x80),
- 		.name = "s25fl256s1",
-
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
