@@ -1,147 +1,154 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C37A374E5A;
-	Mon, 14 Sep 2026 06:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365996; cv=pass; b=CrEA4HOwFr+V48IKa/VYCLvXXEY6ryLaKKwvGVMv0oTBJxBbljD9tfJBX4F0L0NPdtwxgHHw2LKwohnN5YZimo6r1VLSIgweotwApaPgt50q2dVK6s7TRHJvCicBiuwKBwDSm6x7NKE+oO7+Vh0eHkTUY3g69zWCwIH0Ch5gsDA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365996; c=relaxed/simple;
-	bh=VsEnd7DKvZ7xYeAftb3uMHqznzj8YJ3yeKX8HBHIHW8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Ad529XSdtjD0/0h7uCk8vlF2kzrmpz/xX36Q0n4wIiugbwG/RGP8CnGbqfrskq3xLi+/0latFay6KebzjLBHPnA9QV9X1zLp373yM37Rq1Vt2HN+smcdt5THK/NXFMdFIiDz/shmadUK4eZc8VdmJZtw8ipOZY+lJWUTImepjgQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=B0WZ85WD; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=JyncruHr; arc=pass smtp.client-ip=81.169.146.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C58C3BB9FE;
+	Mon, 14 Sep 2026 06:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789366033; cv=none; b=ka5EiOyzvMvOECADYDDTsD7CE28rNMbOSWFJE7nfFtHxTuhrHG+EgGJxTB7ihQL1do5+JyFJLrk5JykIHAUdBtbzHF1ZyPfhh6cD5BNCuBCuYG5M/qGTMGuEWJNz0Scd0fxcLP5PN9em23Z1SCuH1tX2O8OTbt69Ee1V8pH4TAs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789366033; c=relaxed/simple;
+	bh=UDCrdDr2Z4QRtCb9eXSARB5kp4OgIYJ+nZD3APdV9xY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=udpZesIVRAri9gbb4GDVilZFMwLTpJUs3BgdNB6JxfOGu7+Y6GUzREiA72kwQ96XMSaxX/CZvOe09q63OCM7460qYD49Y1O5Z0nn2yLe/Xbw76WKDmhmyA6dwR7m9Z4koJZ5HQ57+CtiiccogZMnRpQW+fWkDeT0iFV/+/EdRk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LykWJtMa; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="B0WZ85WD";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="JyncruHr"
-ARC-Seal: i=1; a=rsa-sha256; t=1789365808; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=aSMSs5eDLpx/fM9We9dnJ08FpeGY5+Pj3H91P4D6oaAfB4GUxo9qQK/1jmJxXzJXDv
-    aMQNHBdoo7FcUtElRSFjVnWBf5eHAKPXBWC0qcZEVlWedbeQYwsdR6LORgzqW5UIEDDR
-    MSQcBcOi6rKygNw9z9sj6CGhPvThQxT21Vj0aKu/B6ivxip1LLSX/HmZW6c/GlCyj5C3
-    w4dOdEe1yXlnmm4Ihn+LUeH1G+pBsY9HWNKcAiQAU9afuG9+j5uZ4QASCV6piSkmu9lW
-    p9m9Ehk5IxrQkkQYWdPIdW9KIe01wzKgOoo1B7lL8rx91NKaG1KpeBdChfKWiFIFVDDf
-    st8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789365808;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=YYpsH7bBkDFh/l5zgioH7kXJektckeDpmTXuUM95JTA=;
-    b=euMhPTN+5DrCTArIukyj1A0/9q4IuIF5e1mvQlxb7Te38U8WXqzXjiOXzexJJMrrVH
-    Z1Lv2FsJrQIXNs50IVFx5oBInNv1o/g6fWH+tSZKIx0+t8TqiCJgOVmxk+QMY+HkjHi2
-    rT5edhixrnpVbGJYqt7SPraKxKvmhdwegKHL4lv8x+KcVw13sia63nv/lGopu/sSwfV3
-    4qfzalHnsMsoa8GsDqFO1JwLFSkqduKMxcFJrZEQ7BkX1yjm1uAQD/3mMXpyz/VATJtB
-    lWSprXaVz7Zaq7GEwfKk8MQnXaDeMv0P89dDjr9lt/Y5ve2rZWu+gaLtzulZEMeDE8k5
-    g26Q==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789365808;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=YYpsH7bBkDFh/l5zgioH7kXJektckeDpmTXuUM95JTA=;
-    b=B0WZ85WDfKTctVYzOFNX67NMForCu1kEEObO51w782wEsz3+589zcJrg+Y0NlHF6kq
-    OJayxOoFGQZvwZ1foFMzg+3I235Ynu3lHbb9MN/DEDMrK+GteSpICHHUFu1esrvMRO+9
-    pV1FM7Tpc6daaURfFcfwH6hqW+LRXtNGSt0KmSpH/fB9/Dakrj3Cu0pOcfR6GHsqpbwf
-    3xHduGeQOM/TReVr7qaoWTnEyG8Qt677W4Xacm/m/FPiGx0E6T/IRr+k8KUV33efSodF
-    hsszO8wdzgeOZ2WKIXmIZPoQOO9VEJ7iTLoW31RRhKj0fmGi3N650QnBxdC+qhU7TbgR
-    vlvg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789365808;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=YYpsH7bBkDFh/l5zgioH7kXJektckeDpmTXuUM95JTA=;
-    b=JyncruHrf42SDlaQd/cixth9uqeoXeNVAo4oyaZfYsryrYWBwFuivrSplBJ74O0HnP
-    W1Twui/ofUAhYDjXjFDw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2poGnsiNgFnoH/cELIESn7Rf3BYpheEKbUP4"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id Q0498328E63RBlf
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Mon, 14 Sep 2026 08:03:27 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LykWJtMa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789366030; x=1820902030;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UDCrdDr2Z4QRtCb9eXSARB5kp4OgIYJ+nZD3APdV9xY=;
+  b=LykWJtMajWRnyGxkqZNnLZvtU9BMbCdQobSH23k0CrkIxyDtOTAtaVyb
+   M7A/LFOv/iqkHr3MutBZzF+3rt5YWVR21LWu9cIH3ith+CpRSYDhgIJu1
+   xthHr3Y6CNmL6NRH4CEW963F3j7JHxjjGZfrcZi2hTz+VDirlG36niDsq
+   jRvB0mCvSnSIxEN5a0GB9N+sFM7MKbbeoJV1UXYudujFmH20MQscMyx+4
+   sXJXyRCemBt9gCTPGCPHcyK669j3LPGE93uctR7ykE0yBpU6XpGegOrvS
+   wzWbJ/BmMezxa421YSM719JkEjrBgccQ4+5YE5V8gxM3rAo8XLcbPwSJg
+   g==;
+X-CSE-ConnectionGUID: gOK/7/L7T4+6WktoAwHeeg==
+X-CSE-MsgGUID: rQ40SIrvQPW9eUgtLJAAcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89729536"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89729536"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 23:07:07 -0700
+X-CSE-ConnectionGUID: Yvj2c5dBQ7elpb9hUbickQ==
+X-CSE-MsgGUID: C+vBA5QDS76Os5swCQEy8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="270749630"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 13 Sep 2026 23:07:05 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5zqH-000000002X1-3qQx;
+	Mon, 14 Sep 2026 06:07:01 +0000
+Date: Mon, 14 Sep 2026 14:06:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+	Dave Penkler <dpenkler@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dominik Karol =?utf-8?Q?Pi=C4=85tkowski?= <dominik.karol.piatkowski@protonmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] gpib: tnt4882: fix memory leak on probe failure
+Message-ID: <202609141321.qGDHzSqJ-lkp@intel.com>
+References: <20260913063603.1443403-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH] kbuild: fix spurious error from find when generating
- asm-headers
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <a812debb-e5d8-4f9b-abcc-a9414983402a@infradead.org>
-Date: Mon, 14 Sep 2026 08:03:17 +0200
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>,
- =?utf-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Thomas Gleixner <tglx@kernel.org>,
- linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0D6980B8-5EB9-4554-9B8E-5CAF3B595848@goldelico.com>
-References: <6e2a2c0cb5d7885ae0dc146025d21c23904d7b70.1789330068.git.hns@goldelico.com>
- <a812debb-e5d8-4f9b-abcc-a9414983402a@infradead.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913063603.1443403-1-lgs201920130244@gmail.com>
 
-Indeed!
+Hi Guangshuo,
 
-> Am 14.09.2026 um 00:39 schrieb Randy Dunlap <rdunlap@infradead.org>:
->=20
-> Hi,
->=20
-> On 9/13/26 1:07 PM, H. Nikolaus Schaller wrote:
->> The *.h pattern should be quoted or we may see errors like
->>=20
->>  find: paths must precede expression: elf.h
->>  Usage: find [-H] [-L] [-P] [-Olevel] [-D =
-help|tree|search|stat|rates|opt|exec] [path...] [expression]
->>=20
->> if the working directory contains some *.h files.
->>=20
->> This was found in a cross-compilation environment.
->>=20
->> Fixes: 2d69b891e6461 ("kbuild: Support generated asm-headers in =
-subdirectories")
->> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
->> ---
->> scripts/Makefile.asm-headers | 2 +-
->> 1 file changed, 1 insertion(+), 1 deletion(-)
->>=20
->> diff --git a/scripts/Makefile.asm-headers =
-b/scripts/Makefile.asm-headers
->> index b38931314ad7c..9db8ab0145a44 100644
->> --- a/scripts/Makefile.asm-headers
->> +++ b/scripts/Makefile.asm-headers
->> @@ -48,7 +48,7 @@ syscall-y   :=3D $(addprefix $(obj)/, $(syscall-y))
->> generated-y :=3D $(addprefix $(obj)/, $(generated-y))
->>=20
->> # Remove stale wrappers when the corresponding files are removed from =
-generic-y
->> -old-headers :=3D $(shell test -d $(obj) && find $(obj) -name *.h)
->> +old-headers :=3D $(shell test -d $(obj) && find $(obj) -name '*.h')
->> unwanted    :=3D $(filter-out $(generic-y) $(generated-y) =
-$(syscall-y),$(old-headers))
->>=20
->> filechk_wrap =3D echo "\#include <asm-generic/$*.h>"
->=20
-> Same as this other patch from 13 hours earlier:
->=20
-> =
-https://lore.kernel.org/linux-kbuild/f54cae8e7da612ad558154706ce2e99f98d13=
-6c4.1789282037.git.tanggeliang@kylinos.cn/T/#u
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on kees/for-next/kspp]
+[also build test ERROR on linus/master kees/for-next/pstore v7.3-rc3 next-20260911]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/gpib-tnt4882-fix-memory-leak-on-probe-failure/20260913-143603
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/kspp
+patch link:    https://lore.kernel.org/r/20260913063603.1443403-1-lgs201920130244%40gmail.com
+patch subject: [PATCH] gpib: tnt4882: fix memory leak on probe failure
+config: x86_64-randconfig-r133-20260914 (https://download.01.org/0day-ci/archive/20260914/202609141321.qGDHzSqJ-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609141321.qGDHzSqJ-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609141321.qGDHzSqJ-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpib/tnt4882/tnt4882_gpib.c: In function 'ni_gpib_probe':
+>> drivers/gpib/tnt4882/tnt4882_gpib.c:1588:9: error: 'ret' undeclared (first use in this function); did you mean 'net'?
+    1588 |         ret = ni_gpib_config(link);
+         |         ^~~
+         |         net
+   drivers/gpib/tnt4882/tnt4882_gpib.c:1588:9: note: each undeclared identifier is reported only once for each function it appears in
+   drivers/gpib/tnt4882/tnt4882_gpib.c:1595:1: warning: control reaches end of non-void function [-Wreturn-type]
+    1595 | }
+         | ^
 
 
-Anyways, thanks for having it fixed.
+vim +1588 drivers/gpib/tnt4882/tnt4882_gpib.c
 
-BR,
-Nikolaus
+  1557	
+  1558	/*
+  1559	 * ni_gpib_probe() creates an "instance" of the driver, allocating
+  1560	 * local data structures for one device.  The device is registered
+  1561	 * with Card Services.
+  1562	 */
+  1563	
+  1564	static int ni_gpib_probe(struct pcmcia_device *link)
+  1565	{
+  1566		struct local_info_t *info;
+  1567		//struct struct gpib_board *dev;
+  1568	
+  1569		/* Allocate space for private device-specific data */
+  1570		info = kzalloc_obj(*info);
+  1571		if (!info)
+  1572			return -ENOMEM;
+  1573	
+  1574		info->p_dev = link;
+  1575		link->priv = info;
+  1576	
+  1577		/*
+  1578		 * General socket configuration defaults can go here.  In this
+  1579		 * client, we assume very little, and rely on the CIS for almost
+  1580		 * everything.  In most clients, many details (i.e., number, sizes,
+  1581		 * and attributes of IO windows) are fixed by the nature of the
+  1582		 * device, and can be hard-wired here.
+  1583		 */
+  1584		link->config_flags = CONF_ENABLE_IRQ | CONF_AUTO_SET_IO;
+  1585	
+  1586		/* Register with Card Services */
+  1587		curr_dev = link;
+> 1588		ret = ni_gpib_config(link);
+  1589		if (ret) {
+  1590			kfree(info);
+  1591			link->priv = NULL;
+  1592		}
+  1593	
+  1594		return ret;
+  1595	}
+  1596	
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
