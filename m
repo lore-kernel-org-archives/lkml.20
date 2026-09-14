@@ -1,125 +1,141 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A4747ACCC;
-	Mon, 14 Sep 2026 14:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52394779A4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395472; cv=none; b=DSzyn57jFvCaS8d+4rMfCzlA+FRjhsSKOdaR9cSMFqq/Cb4A1hqwlJ87bEnDg0bKb5wq91WcwLsYrTbCsdk1Uoir38qAJujKSFSwTSGVYJcpE7ODZMcXZBk343UQHA7UeDJQEd2WRK9ov57nDabLwAjWVER+zUKbFrBOHXyOsrw=
+	t=1789395484; cv=none; b=ZC4n4RvpMaaYyVH3BZBEdpYTP+KMltJ2FLzR4EAdCYcWHl1fp9vKXQV9daWkEazqxwmF9rUlfV3YxMd9PJiUhSuEpIJ5kLtvOIvMVSveI2Kq917BgqreVPYUyu3ANnl8MwE8+Gy+0R0LV4bynYwKTjPH70jQwUtbnR3wVFIWWmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395472; c=relaxed/simple;
-	bh=SDqAZti/BCotUVGV4wz0wJY55FTzMyO0+5R5FdBHTJA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=tm2n6ZJQdYYRIBHOiYSut9VhlUUsbLjGLe7sOT8kyG+Qmoif3WgBq8Qk/NP0lGjsz/lqsFpq5Zdid4JSEmvKULTYCtOkH7xCE4u4vOcGLFhBJ4FNqWMbvV2DN6wKCZNK47nQ/OeGD88ha4fjbZzA5HXYqudJpauhIZZbwzU46NE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=2fotui9Y; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789395484; c=relaxed/simple;
+	bh=R0JXs4K4B17uiKX90Z6XfheFYV7xCpbbVkHcFpWkp9c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=N/9AHiqjFGhOGoR12HP+yyLYmYzltzlom//ex5sgQr2DEFPbEAbZpuAC9nmTyB7D2O8Kixl46wNW6PplKC6BExc+Lx/KOzpHr4BFVDYJumyN+wV4LF9Rf1dGGAm7kM54g2bIg50gLRc+Y98Wtl2ucJGGdQ1Wz1d+djBHCYo2QIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aZS/QKaS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="2fotui9Y"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 95983A91DB;
-	Mon, 14 Sep 2026 16:17:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789395467; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=//gKRI6vJSt4tiZ77db84KWCpaV85uXVckkTDkSP5og=;
-	b=2fotui9Y6irYr6DzUhfTUYI2wQDd/7FxAw3DALcVwZsSXBF+kP9pbUDJHG09AH0RkOFbaw
-	D20Ljfmxmgfzm+qidEu20PpuixJeJWviA3/dBO4qdyJky67/I2a3SjUM0V+516cNZumNCz
-	9xvPoHtvfnf2E3Qur/mgSO3gvm26unWVu237iqsrZ3jPi/f0HmFsypg1Y2j1lfy0VdqCC4
-	Jzy2u0FT+qPFjKmGroVjkpW9xJrlBcLFhGh0pnNwYQRBYiwdC1/0hIC2oFksaQIf4HHxBi
-	U7PNpldO9zyCpK85FvgPc+6sjb2Vd/MZbqxFa6WG59kIZzWWvtokt2w1nOwVBw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aZS/QKaS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E44D1F000FF;
+	Mon, 14 Sep 2026 14:18:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789395482;
+	bh=yjxwIJVTV73FYMBOQAx7yyt+IObU99d1wGVsm7maRqM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aZS/QKaSVT6eQDgMBxSxxKY0WvUpo1BYhZ7Dr6bdyo/W/B4UFaanpXA1I1BNyCfiJ
+	 lClOouf4aqoqQ5Zo4FdDhnrEIV5mOq6qo99rZIlVQPMJXRSenkVdfZ/o9N2P929I9j
+	 EFlaGLxGfjI7zX7i3GDs+coAkCxsnt/SaZTctekEZiREFk+TNylJLdLIpG0cQ3oBKK
+	 nzjVUP9Nz6zhTRzqkVBZWxPhuSQ4v2kEKyEQe3FCigUV4suziUVL4iiJSJBnmPNsXt
+	 1HJV9fPMgLgj+t6uJBq53IQJit0xHoWGAaVAtfdfZdtD8EifkBCedQzG+2bhe56g25
+	 wYlv7+/iRxDRg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] mtd: spi-nor: issi: Add support for is25wx01g
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TnVubyBTw6E=?= <nuno.sa@analog.com>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: "Pratyush Yadav" <pratyush@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Michael
+ Walle" <mwalle@kernel.org>, "Richard Weinberger" <richard@nod.at>
+In-Reply-To: <20260914-mtd-spi-nor-new-issi-chip-v2-2-3cd4d7e434b2@analog.com>
+References: <20260914-mtd-spi-nor-new-issi-chip-v2-0-3cd4d7e434b2@analog.com>
+ <20260914-mtd-spi-nor-new-issi-chip-v2-2-3cd4d7e434b2@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 14:18:01 +0000
+Message-Id: <20260914141802.0E44D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Mon, 14 Sep 2026 16:17:47 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Birger Koblitz <mail@birger-koblitz.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
-Subject: Re: [PATCH net-next v11 08/15] ax88179_178a: Add EEE configuration
- support for AX88179A PHYs
-In-Reply-To: <20260914-ax88179a-v11-8-5ea7a925ba6d@birger-koblitz.de>
-References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
- <20260914-ax88179a-v11-8-5ea7a925ba6d@birger-koblitz.de>
-Message-ID: <9217e516e7725ee9b5f982af380eae87@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 14.9.2026 14:46, Birger Koblitz wrote:
-> Configure phylink to work with the PHYs in the AX88197A controllers
-> and provide ethtool get/set eee operations calling into phylink.
-> 
-> Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> ---
->  drivers/net/usb/ax88179a_devices.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/net/usb/ax88179a_devices.c 
-> b/drivers/net/usb/ax88179a_devices.c
-> index 
-> 80cabe3557cdef8267c365fccc0bc379936bb241..97aad545daee1dd1f5c4d63a1276523589c9617f 
-> 100644
-> --- a/drivers/net/usb/ax88179a_devices.c
-> +++ b/drivers/net/usb/ax88179a_devices.c
-> @@ -206,6 +206,20 @@ static int ax88179a_get_eeprom_len(struct 
-> net_device *net)
->  		return AX88179A_EEPROM_LEN;
->  }
-> 
-> +static int ax88179a_get_eee(struct net_device *net, struct 
-> ethtool_keee *edata)
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Locking operations (spi_nor_sr_lock/unlock) unconditionally fail w=
+ith -EINVAL because read_sr2 is set to 0.
+- [High] Missing Flag Status Register (FSR) handling leaves the WEL bit set=
+, causing lock operations to fail with spurious -EIO errors.
+--
+
+commit e7f55264e73008ad9ab4912b2a3228b2d1b7b7bd
+Author: Nuno S=C3=A1 <nuno.sa@analog.com>
+
+mtd: spi-nor: issi: Add support for is25wx01g
+
+Add support for the ISSI IS25WX01G, a 1 Gbit (128 MiB) octal NOR flash.
+The part is fully described by SFDP, so only the flash ID and a small
+post_bfpt fixup are needed.
+
+> diff --git a/drivers/mtd/spi-nor/issi.c b/drivers/mtd/spi-nor/issi.c
+> index 2f057d731df2a..a0b46c298d53c 100644
+> --- a/drivers/mtd/spi-nor/issi.c
+> +++ b/drivers/mtd/spi-nor/issi.c
+> @@ -29,6 +29,24 @@ static const struct spi_nor_fixups is25lp256_fixups =
+=3D {
+>  	.post_bfpt =3D is25lp256_post_bfpt_fixups,
+>  };
+> =20
+> +static int is25wx01g_post_bfpt_fixups(struct spi_nor *nor,
+> +				      const struct sfdp_parameter_header *bfpt_header,
+> +				      const struct sfdp_bfpt *bfpt)
 > +{
-> +	struct ax88179_data *ax179_data = netdev2data(net);
+> +	/*
+> +	 * There is no Status Register 2 and no 35h command. And WRITE STATUS
+> +	 * REGISTER takes a single data byte.
+> +	 */
+> +	nor->params->opcodes.write_sr1_and_sr2 =3D 0;
+> +	nor->params->opcodes.read_sr2 =3D 0;
+
+[Severity: High]
+Does explicitly zeroing read_sr2 break the generic locking support?
+
+When locking or unlocking the flash, the core calls
+spi_nor_write_sr1_and_sr2_and_check(), which delegates to
+spi_nor_read_sr1_and_sr2() to verify the lock bits. This helper
+unconditionally calls spi_nor_read_sr2().
+
+If read_sr2 is 0, spi_nor_read_sr2() immediately returns -EINVAL, causing
+any attempt to lock or unlock the flash to unconditionally fail.
+
 > +
-> +	return phylink_ethtool_get_eee(ax179_data->phylink, edata);
+> +	return 0;
 > +}
 > +
-> +static int ax88179a_set_eee(struct net_device *net, struct 
-> ethtool_keee *edata)
-> +{
-> +	struct ax88179_data *ax179_data = netdev2data(net);
+> +static const struct spi_nor_fixups is25wx01g_fixups =3D {
+> +	.post_bfpt =3D is25wx01g_post_bfpt_fixups,
+> +};
 > +
-> +	return phylink_ethtool_set_eee(ax179_data->phylink, edata);
-> +}
-> +
->  static const struct ethtool_ops ax88179a_ethtool_ops = {
->  	.get_link		= ethtool_op_get_link,
->  	.get_msglevel		= usbnet_get_msglevel,
-> @@ -215,6 +229,8 @@ static const struct ethtool_ops 
-> ax88179a_ethtool_ops = {
->  	.get_eeprom_len		= ax88179a_get_eeprom_len,
->  	.get_eeprom		= ax88179_get_eeprom,
->  	.set_eeprom		= ax88179_set_eeprom,
-> +	.get_eee		= ax88179a_get_eee,
-> +	.set_eee		= ax88179a_set_eee,
->  	.nway_reset		= usbnet_nway_reset,
->  	.get_link_ksettings	= phy_ethtool_get_link_ksettings,
->  	.set_link_ksettings	= phy_ethtool_set_link_ksettings,
-> @@ -440,6 +456,10 @@ static int ax88179a_phylink_setup(struct usbnet 
-> *dev)
->  		phy_if_mode = PHY_INTERFACE_MODE_SGMII;
->  	}
-> 
-> +	memcpy(data->phylink_config.lpi_interfaces,
-> +	       data->phylink_config.supported_interfaces,
-> +	       sizeof(data->phylink_config.lpi_interfaces));
-> +
->  	phylink = phylink_create(&data->phylink_config, dev->net->dev.fwnode,
->  				 phy_if_mode, &ax88179a_phylink_mac_ops);
->  	if (IS_ERR(phylink))
+[ ... ]
+> @@ -120,6 +138,12 @@ static const struct flash_info issi_nor_parts[] =3D {
+>  		.id =3D SNOR_ID(0x9d, 0x70, 0x19),
+>  		.name =3D "is25wp256",
+>  		.flags =3D SPI_NOR_QUAD_PP,
+> +	}, {
+> +		/* is25wx01g */
+> +		.id =3D SNOR_ID(0x9d, 0x5b, 0x1b),
+> +		.sector_size =3D SZ_128K,
+> +		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB |
+> +			 SPI_NOR_4BIT_BP | SPI_NOR_BP3_SR_BIT6,
 
+[Severity: High]
+Does enabling locking support without a Flag Status Register (FSR) clearing
+mechanism cause spurious -EIO errors?
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Because the driver enables SPI_NOR_HAS_LOCK without adding a custom late_in=
+it
+or ready hook to clear the FSR (unlike the Micron implementations), the Wri=
+te
+Enable Latch (WEL) bit can remain stuck at 1 in the hardware register.
 
-Thanks,
-Nicolai
+When spi_nor_write_sr1_and_sr2_and_check() reads back the status register to
+verify the lock bits, it reads WEL=3D1 while the intended buffer has WEL=3D=
+0. This
+strict verification fails and returns -EIO, masking actual hardware status
+errors.
+
+For reference, the strict check in spi_nor_write_sr1_and_sr2_and_check()
+looks like this:
+
+    if (sr[0] !=3D tmp[0] || sr[1] !=3D tmp[1])
+        return -EIO;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-mtd-spi-no=
+r-new-issi-chip-v2-0-3cd4d7e434b2@analog.com?part=3D2
