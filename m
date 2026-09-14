@@ -1,200 +1,146 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF13412BEF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:50:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8FE423EB9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379430; cv=none; b=tvJrhV7s3wcs6ivCYPI8XyFUE4w0gVzVEa0AOjyDZ9IeQf7MLgDNmgSqTUlIkz0jnVIoMAcdyKFwyXExi0VaFGC/AAVtZCGtzwoYSP6vvT6JO/0NHZHvbUuVYSjl0PPPANaWO662P83mzIPH6IiXQvCohOF9+q9C1dznd7xyVxk=
+	t=1789379441; cv=none; b=azUIIsWgw7vuvvQZQ8q2eixTl4KzGHH5cczdnSb02J0G1rsM+9U0wkvm+sAURNNReeL+8uT3un3PkUvQUp8wH4PoYUxVqq1tMevdDJsFpBFqtItcFfwgcJsMTd6z8tJ3VPf768hSjYsAPZ/vLz8dvKDywuJbsnWdtAmZOa7GuCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379430; c=relaxed/simple;
-	bh=kylQFAzh35/Kr/cF4hIu5aA/58qReMn3tf26L0Lxe+Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HFFMBG5H22UVEhtDCahp1zBc840lf6koxrsi1G2PD74A0vABDy9gu275csWL7Qe+LM0+pHQU6eKwRKr8OpaeB6tIUDbVQvYPBkK7U7RrjwZ77yy34twu+tm4MUr+7POwpCLh2gXQN1zXfTpdxkKiXrRrhFGRzVK6n3F6p1mkAiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WOgK2rBB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=K4z2P0ZI; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789379441; c=relaxed/simple;
+	bh=lOn8gRXqvS7hF+moEVAKdLL/rL+TDs0AzKWVEtTpFUQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OH/zvqySMT2Iq3Q1hPnBsWfiJdTGMHWyy3HQs4D3/FTbmIIsn7K7lABCiTsbxPSoet3sbzTgF109EWlJ8EcC6++K28iL7+VfN4QBEOElY1GQdAWBCeFCsXe645EIMNbPqgzAE9MTlt/U4oTJMBO8kl+sjMv152cDQvOymsTVJDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=fHSPUpYi; arc=none smtp.client-ip=217.74.67.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WOgK2rBB";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="K4z2P0ZI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789379427;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GS5txPMa8dcMMZaluUjmTNiCxS+esxKMHPUrHUieImQ=;
-	b=WOgK2rBBsCwXzuM+61k5wROi6+AgbIZNnUKILLJggzhjimbqQfsMwgdCtNfKvr1EqgykwZ
-	1zXx8nSL4ZrzYcFDQVnL8MHYGy1cNEAnR2EaE0118GjdhW9ao3SofxnUDOF6yOMQFUiVrK
-	RiEQmDYAkZ/QmAMIEedpHhFCf9XtlIo=
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-417-B3QpEpHGNNu-VTHmLX0Img-1; Mon, 14 Sep 2026 05:50:25 -0400
-X-MC-Unique: B3QpEpHGNNu-VTHmLX0Img-1
-X-Mimecast-MFC-AGG-ID: B3QpEpHGNNu-VTHmLX0Img_1789379424
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc132709c76so4091548a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:50:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789379424; x=1789984224; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GS5txPMa8dcMMZaluUjmTNiCxS+esxKMHPUrHUieImQ=;
-        b=K4z2P0ZI751g6O1022D1CCaiILnXhh+a7PrmmbQVktwoLCFN67l7BWtxmDxlAgNtLK
-         ANDszsmSzYPVcHBVVGzm29GGsCWZ8ZyIU6JgN9ua9e2d1Bgbw5wGZZGeMgMCgjNTJADD
-         BxRZeGkVFXE9j3tKIY9nSPPubRwC8UVcBkTQLYXWcHQTWZpa2RiqtayJ7L9QFVl6Dz6x
-         MPrabX899CF5MLWP8DYBNP9J3pHI5bRU+df/SWfkH4malHOmKFgrrIde4JUD9sSMUNzQ
-         F2YZuhRUhye0QBjvl3mjZ92TMOc5LaKKUDo/doiftqNnvOr9JPfTTTD8l6YUcFexgFz/
-         r2OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789379424; x=1789984224;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GS5txPMa8dcMMZaluUjmTNiCxS+esxKMHPUrHUieImQ=;
-        b=ly7coSILto/fiY9VBr3V88kWfQL3LP1zI05fZFM9/uvO105+JugxFNdpPmwZ7upwk8
-         ogp+j10vftlXEd1gcxHbLNMPHGQyfAHcIqCjDfGHiZiV7VHJflgQUIKEq7qszK7cJeKb
-         w+svsOIF6ujvr7o9xqGX6xiuZn9UlYdMGKgNv5hI7O6mPst3MXQ2f8nwb+VDa3W/vACp
-         H+gVFTm64sMUsH/o3DKJOOwaKStDnBOVYfk2VMvO3knvQCAD+8h0ijUxbqs/1dIBpd1w
-         5JIoBf9gwPmhQ67yX/0FSVljdac17yl6UObwRQs1kKGkVJoONTfDAuiA00FAeqSecxSc
-         wzUA==
-X-Forwarded-Encrypted: i=1; AKwUvByIqXC89oGPqajrcECWR6IcFH/Utlic/ZRBZbml3JAfXpKk84yDbZ4kYg7x1Q+8KHA2buKxHPmixdp9qcY=@vger.kernel.org
-X-Gm-Message-State: AFuF++niOvRajssAq2ZYKIBtbXMf24J0YK92KeNhdesrHFmda5SHTV+/
-	O0XIufy4XsF+Uzg7xseSvsDNB/DDXyNlx+BFtNiXRRI4qOO+OdueHZAPn4pqEUGT9HmyamsvT/2
-	mlXIR9r/CjpYKTAxRkVaDL0LZmoc/g0ypzHY7mGU3stpzimdfbhfyeq/ckyIWkpGRng==
-X-Gm-Gg: AYBFou03DSKhfI3ixhFMdH8haAAPgNcnMfxoAyGSdQPk8aoxmDZerEUE1Vcs2ocQWey
-	a8t4iHixLIqct8R5XG/gu1Q47Vn4e/hGLlvJZ3u+oEdR5yH2ckw90UqI3A7lyfAIBvaE+YWsgif
-	iTUIrQwBRCmM9ZS0NFz33oUaQtdE4zPG8d4zYadCbJD5gMeBTQ+SXK0Z/i4yeiHMLCrRzYcNRk/
-	qQBNNXBc1oTFxVbMgGTHfBUYR9tq5w9Env5JOxPIS9P7IWNfyA40VW3kcZ2G60atenoWFml1sKr
-	A2bBmNQcH4ua7Lj5GTdP3na/0XfywiA46ikiBneDNZ2+tWOU/iHy2wJdxyDbyqkGfQ5zfCyOpmM
-	FXt/22EcJhqdvXFYb0wteWiu/AheII1KvrYH3B1olZw==
-X-Received: by 2002:a05:6a20:7f9c:b0:3c3:7ac4:dac0 with SMTP id adf61e73a8af0-3db4052063emr3632229637.13.1789379424393;
-        Mon, 14 Sep 2026 02:50:24 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7f9c:b0:3c3:7ac4:dac0 with SMTP id adf61e73a8af0-3db4052063emr3632178637.13.1789379423970;
-        Mon, 14 Sep 2026 02:50:23 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4efc398sm30439434eec.19.2026.09.14.02.50.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 02:50:23 -0700 (PDT)
-Message-ID: <25706923-8e9c-4785-a80d-b138478ad374@redhat.com>
-Date: Mon, 14 Sep 2026 19:50:12 +1000
+	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="fHSPUpYi"
+Received: from localhost (unknown [80.68.231.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
+	Mon, 14 Sep 2026 11:50:33 +0200 (CEST)
+From: Slawomir Stepien <sst@poczta.fm>
+To: syzkaller-bugs@googlegroups.com,
+	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	bentiss@kernel.org,
+	jikos@kernel.org,
+	linux-input@vger.kernel.org,
+	sandeep.singh@amd.com
+Cc: linux-kernel@vger.kernel.org,
+	syzbot@lists.linux.dev,
+	Slawomir Stepien <sst@poczta.fm>,
+	syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
+Subject: [PATCH v2] HID: amd_sfh: Validate PCI BAR size before mapping
+Date: Mon, 14 Sep 2026 11:50:07 +0200
+Message-ID: <20260914095007.205287-1-sst@poczta.fm>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-5-suzuki.poulose@arm.com>
- <f00d01d1-8df0-4865-8e52-c85171cf4ca5@redhat.com>
- <4f18aa66-2296-4b63-87f5-6ab493faecbc@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <4f18aa66-2296-4b63-87f5-6ab493faecbc@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
+	t=1789379434; bh=FVa+YjjcW9hmFc3cvqqLFK8kvWsctFf1lA9TzHiUzRc=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=fHSPUpYimmQJwRXJJMwauDMh4YC2dOr0lbSESJrhIuk8069d6i45hKt1PZOI12pY+
+	 q1qx7CorWSJ+JFttOIXvJmOhobNi+64e6mlbODH/yJIsppO6DSOrYyen9Y2+hcTk+A
+	 6kiugcgEwqnJcqWLRrfPnoWuJhJp/kjdFucx28HY=
 
-Hi Suzuki,
+The amd_sfh driver maps PCI BAR 2 using pcim_iomap_regions() and
+subsequently accesses MMIO registers at offsets up to 0x10958 (e.g.,
+AMD_P2C_MSG3 at 0x1068C). However, the driver never validates that the BAR
+size is large enough to cover these accesses. If the driver is bound to a
+device with a smaller BAR 2, this leads to an out-of-bounds memory access
+and a page fault during the probe function.
 
-On 9/14/26 4:22 PM, Suzuki K Poulose wrote: 
-> On 14/09/2026 06:04, Gavin Shan wrote:
->> On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
->>> RMM v2.0 introduces the concept of "Stateful RMI Operations" (SRO). This
->>> means that an SMC can return with an operation still in progress. The
->>> host is expected to continue the operation until it reaches a conclusion
->>> (either success or failure). During this process the RMM can request
->>> additional memory ('donate') or hand memory back to the host
->>> ('reclaim'). The host can request an in progress operation is cancelled,
->>> but still continue the operation until it has completed (otherwise the
->>> incomplete operation may cause future RMM operations to fail).
->>>
->>> The SRO is tracked using a struct rmi_sro_state object which keeps track
->>> of any memory which has been allocated but not yet consumed by the RMM
->>> or reclaimed from the RMM. This allows the memory to be reused in a
->>> future request within the same operation. It will also permit an
->>> operation to be done in a context where memory allocation may be
->>> difficult (e.g. atomic context) with the option to abort the operation
->>> and retry the memory allocation outside of the atomic context. The
->>> memory stored in the struct rmi_sro_state object can then be reused on
->>> the subsequent attempt.
->>>
->>> Wrappers for SRO RMI commands are also provided here because they depend
->>> on the rmi_sro_execute() implementation added by this patch.
->>> Delegate/undelegate handles are also added here because they now use the
->>> SRO/stateful command infrastructure and are also used for the memory
->>> DONATE/RECLAIM flows.
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+For example, a page fault can occur when reading from privdata->mmio +
+AMD_P2C_MSG3 in mp2_select_ops():
 
-scripts/checkpatch.pl recommends s/Co-Developed-by/Co-developed-by, the same
-format issue exists in other patches and please double check.
+  BUG: unable to handle page fault for address: ffffc9000390368c
+  PGD 100000067 P4D 100000067 PUD 1012c1067 PMD 105b64067 PTE 0
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:readl arch/x86/include/asm/io.h:59 [inline]
+  RIP: 0010:mp2_select_ops drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:282
+  [inline]
+  RIP: 0010:amd_mp2_pci_probe+0x337/0x5f0
+  drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:487
+  Call Trace:
+   <TASK>
+   local_pci_probe drivers/pci/pci-driver.c:332 [inline]
+   pci_call_probe drivers/pci/pci-driver.c:394 [inline]
+   __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
+   pci_device_probe+0x431/0xc90 drivers/pci/pci-driver.c:489
 
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> 
-> 
->>> ---
->>>   drivers/firmware/arm_rmm/rmi.c | 586 +++++++++++++++++++++++++++++++++
->>>   include/linux/arm-rmi-cmds.h   |  41 +++
->>>   2 files changed, 627 insertions(+)
->>>
->>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ arm_rmm/rmi.c
->>> index 5b0e342ce3d58..4f9898ece7547 100644
->>> --- a/drivers/firmware/arm_rmm/rmi.c
->>> +++ b/drivers/firmware/arm_rmm/rmi.c
+Fix this by verifying that the length of BAR 2 is at least 128KB before
+attempting to map it. Since the maximum accessed offset is 0x10958, and PCI
+BAR sizes are powers of 2, any legitimate hardware will have a BAR size of
+at least 128KB.
 
-[...]
+Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
+Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=4eadd4dfe9e66522bae8
+Link: https://syzkaller.appspot.com/ai_job?id=3bc1c45c-548f-4ab5-8243-d2c8ec321d6c
+Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+Acked-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+---
+v2:
+* Use SZ_128K for AMD_SFH_MIN_BAR_SIZE define
+* Add comment why we need 128K
+* Add 'Acked-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>' since no logical changes
 
->>> +
->>> +static void rmi_op_continue(unsigned long sro_handle, unsigned long flags,
->>> +                struct arm_smccc_1_2_regs *out_regs)
->>> +{
->>> +    *out_regs = (struct arm_smccc_1_2_regs) {
->>> +        SMC_RMI_OP_CONTINUE, sro_handle, flags
->>> +    };
->>> +
->>> +    rmi_smccc_invoke(out_regs);
->>> +}
->>> +
->>
->> The pattern 'regs' is used in some of the 'struct arm_smccc_1_2_regs' arguments
->> or variables in this series, which is incosistent to the existing patterns which
->> is either 'args' or 'res' by searching the source files using 'git grep arm_smccc_1_2_regs'.
->> So I would suggest we have the fixed the pattern 'args' :-)
-> 
-> 
-> I would prefer to keep it "regs" as, unlike the smccc_1_1 calls, we
-> pass "arm_smccc_1_2_regs" for both arguments and results. In this case
-> we are using a single structure, so, to avoid the confusion, I
-> intentionally used regs
-> 
+v1:
+* https://lore.kernel.org/all/94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org/
+---
+ drivers/hid/amd-sfh-hid/amd_sfh_common.h |  4 ++++
+ drivers/hid/amd-sfh-hid/amd_sfh_pcie.c   | 10 ++++++++++
+ 2 files changed, 14 insertions(+)
 
-It's fine to keep "regs" pattern, then the only place using "args" is
-rmi_smccc_invoke(). I think the variable or argument names in rmi_smccc_invoke()
-can be improved there to use "regs" pattern. With this, we have the unified
-pattern "regs".
-
-static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *pregs)
-{
-         struct arm_smccc_1_2_regs regs = *pregs;
-		:
-}
-
-Thanks,
-Gavin
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+index f8c6b7fc34fb..3d29119a3765 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+@@ -13,11 +13,15 @@
+ #include <linux/auxiliary_bus.h>
+ #include <linux/mutex.h>
+ #include <linux/pci.h>
++#include <linux/sizes.h>
+ #include "amd_sfh_hid.h"
+ 
+ #define PCI_DEVICE_ID_AMD_MP2		0x15E4
+ #define PCI_DEVICE_ID_AMD_MP2_1_1	0x164A
+ 
++/* The BAR 2 size must cover the highest register offset (0x10958) */
++#define AMD_SFH_MIN_BAR_SIZE		SZ_128K
++
+ #define AMD_C2P_MSG(regno) (0x10500 + ((regno) * 4))
+ #define AMD_P2C_MSG(regno) (0x10680 + ((regno) * 4))
+ 
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+index eda26a094d3f..061a63519d44 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+@@ -497,6 +497,16 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+ 	if (rc)
+ 		return rc;
+ 
++	if (!(pci_resource_flags(pdev, 2) & IORESOURCE_MEM)) {
++		dev_err(&pdev->dev, "BAR 2 is not IORESOURCE_MEM\n");
++		return -ENODEV;
++	}
++
++	if (pci_resource_len(pdev, 2) < AMD_SFH_MIN_BAR_SIZE) {
++		dev_err(&pdev->dev, "BAR 2 is too small\n");
++		return -EINVAL;
++	}
++
+ 	rc = pcim_iomap_regions(pdev, BIT(2), DRIVER_NAME);
+ 	if (rc)
+ 		return rc;
+-- 
+2.55.0
 
