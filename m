@@ -1,143 +1,493 @@
-Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE943B9616
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5D5339719;
+	Mon, 14 Sep 2026 19:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789415920; cv=none; b=TYI5FZvZPInysRSx3jPQOeLrNCCyQYrVSi3AGunnp7uehje71P+pRF7V/2EYYOdiLzVw9ncDPldBcps3idFJrWHGcGK5iOgVlK6+z86nKF4o9EHxwvAsJYk6Qn+C8D4X6jwyOluVKRJrcNmgJ915WQMSSuXHkP2N20c3m9LRPgw=
+	t=1789415957; cv=none; b=EIcSmdYQqXchXVLMPZpnQtq30t1bMKhHtaI908uJv0Px59O4lDhB/nb6un6KYohxRQAkMUuBM/6whn2bt5LgB6j+L9+0mKKQOOSl87naR9+s9EE46ccJiiwy9XolFZcAkbAa/jibPTYwFuk8pdv9Ly1+EcDhTfYpkh7xLNQK0Fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789415920; c=relaxed/simple;
-	bh=3kqEkvVCEbgErecUwuK/wE0yb7FqRpWXJcs5N/PL2bs=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=UwreyDyCin+6luBHZEIOWqzBXpMefUE5ijL+kCqpacIqgXCfK81mLJ59TblVk05ZVZzUqbtqZKhFjIjoqWfXly/Lr5JvHPdFObYVgeVzUU51laoqu7J3AVtVBruXxyaKoyvfCC4LDVH5zQtSZ4U4Zh2B9uAQDBJv1qcGw86Eapw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so854645b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:58:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789415916; x=1790020716;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qARFW0MIy4Ie65GCDNTf4BdO5sA+2DVEUTUWVMiEKtM=;
-        b=yoV9PL4JHwEbCvPKx+wbXNzXMwKl4mU/4t/tePShjiE+MWME72U1iF6AnjwThDdMvD
-         6Q/1hBasizJupW4+XrRsdIeSL7JRmErWxviJb5PHLikQHWgRmQK8pvTMLuLj4KFL0dbX
-         x3OcPw7yQQ37crCLMm5RC8G620whRCgAoVha4Hck+QucVf0kk5U+3Z+Z9tE4DTq6Zz/B
-         4yuNH+JyCeDyXiMA/snDN2SYVi/6FM7aWMr2ya4FKSpTn6Gm0/zkvLbP3dEm6HKPLb6v
-         h4pwqHwGSudC7/7ei6ocUJwdKtWLFgkOusxQ1BOxVSPae71Yubwe/7oYbqwVcbIyALmv
-         sCcw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwi3IrkeN7mwWkffwTBWPB4WlQ4BptJAhOj6oFxJrwyMjXwN+EWerB3AlNJcMFj4FSd8v+p3S1QM3ZrUg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKgLVoKT1TOV2bbmwQ5XYhlrLkuLOYebXe9ygZYBz+PKBvg4ZY
-	xVj21P3ouF/EyZldOvxD3V/BIrVJIAbwxaO4dgET0/E9Op0S1b9APbTUyXuE1FP8lstmFXxbNZS
-	YXoUozXi2mvjrMDKv1EeiFR5QGRUwasLrTwSLsCd8Fs2N3axfVGgewwBoM4w=
+	s=arc-20240116; t=1789415957; c=relaxed/simple;
+	bh=MbTK/BiDK32M+Hi83c8cfvVO9pH0nnM6KlxNarHoa18=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W8kp8dygPhl4w4QuN2zUXtpfkODNKhfIAxHskyoWgR6qtV9E3jx94RhLdLi/7QAnbwljd3PaMNgvPBZecXzFTVeHxwP5+KQ3Mef83GlGycr1UWf3tf0cRJNH5hdmccWhoEIwSy/sbsEqMFXJ3/ReU4A27DhqR9bF66gaSGI38D8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc; spf=pass smtp.mailfrom=vasily.cc; dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b=c4fHtoFz; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vasily.cc
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b="c4fHtoFz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vasily.cc;
+	s=protonmail2; t=1789415944; x=1789675144;
+	bh=fTwBKA6RAontSyliE1HVRUhDjQpzvDmrCWyxP8N+KXc=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=c4fHtoFzOg91SjUwZ0nXIOWg4pS1n0qcWKGETFvhiZSGb4isATVqC1E+xOKtPu2vM
+	 L65Yq0imTcRtky5Z0+J/9ep5F2s7qaWc4oANso6dpbrf++aKtT9eECVpZbnhWDWVhB
+	 DxJ4udfcuXGM4hsbZVAAD/8okOcaAJbnyyspJn6L9DkqMwaGMPgWpS6dh1k9lW1Y28
+	 f8CVoIaqVdOKYzqPkaQqRo/EYcWnJUFUsk8m4l5L3EUPECtDZ9X1wzIAd9m9338F5k
+	 NZCqZz1QjmDYZNZTzQgtetRwu6XCcwQoB1onRUVAg2Hh3SlgtCNTJr7jd1QrnRFBep
+	 qKODD4Y+ERIWw==
+X-Pm-Submission-Id: 4hkGDz6Cwpz2Sd3r
+From: Vas Zayarskiy <contact@vasily.cc>
+To: Aleksa Savic <savicaleksa83@gmail.com>,
+	Jack Doan <me@jackdoan.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH] hwmon: (aquacomputer_d5next) Add AMPINEL support
+Date: Mon, 14 Sep 2026 22:57:22 +0300
+Message-ID: <20260914195759.171524-1-contact@vasily.cc>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2013:b0:6c3:3f02:7514 with SMTP id
- 006d021491bc7-6c53fa6fb02mr4204858eaf.5.1789415915775; Mon, 14 Sep 2026
- 12:58:35 -0700 (PDT)
-Date: Mon, 14 Sep 2026 12:58:35 -0700
-In-Reply-To: <6a459145.52c20a74.1f8b39.0005.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa851eb.4c28b7d0.c1bba.001f.GAE@google.com>
-Subject: Re: [syzbot] [comedi?] possible deadlock in comedi_do_insn (2)
-From: syzbot <syzbot+acd959f649966559199c@syzkaller.appspotmail.com>
-To: abbotti@mev.co.uk, hsweeten@visionengravers.com, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+The Aquacomputer AMPINEL power monitor currently exposes no hwmon
+readings. Add read-only support for total power, total current, input
+voltage, hotspot temperature, six channel currents and the device's
+reported current deviation.
 
-HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=165c9901580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=acd959f649966559199c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12aa2471580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15f26601580000
+Decode the unsolicited 544-byte input reports from USB interface 1.
+Validate the vendor collection, report length and ID, and use the
+existing two-second expiry check to reject missing or stale readings.
+Keep aggregate power and current in wire units in the existing caches
+and convert them on read to avoid overflowing those caches. Reject power
+values that cannot be represented by the hwmon long value on 32-bit
+systems.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-704340f1.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e02afc1c5927/vmlinux-704340f1.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/09cb4a8b3309/bzImage-704340f1.xz
+HID matching also claims the separate keyboard interface for this product
+ID. Preserve its input and hidraw handling, including reset-resume, while
+keeping it outside the sensor decoder.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+acd959f649966559199c@syzkaller.appspotmail.com
+Document the sensor mapping and update the Kconfig help. Channel labels
+follow report order. No vendor configuration requests are sent, and
+protection settings and alarm reporting are not implemented.
 
-comedi comedi0: comedi_test: 1000000 microvolt, 100000 microsecond waveform attached
-comedi comedi1: comedi_bond: 0:2  attached, 32 channels from 1 devices
-============================================
-WARNING: possible recursive locking detected
-syzkaller #0 Not tainted
---------------------------------------------
-syz.0.17/5908 is trying to acquire lock:
-ffff8880339978f0 (&dev->mutex#4){+.+.}-{4:4}, at: comedi_do_insn+0x2e/0x360 drivers/comedi/kcomedilib/kcomedilib_main.c:183
-
-but task is already holding lock:
-ffff8880339970f0 (&dev->mutex#4){+.+.}-{4:4}, at: comedi_unlocked_ioctl+0x180/0x3310 drivers/comedi/comedi_fops.c:2290
-
-other info that might help us debug this:
- Possible unsafe locking scenario:
-
-       CPU0
-       ----
-  lock(&dev->mutex#4);
-  lock(&dev->mutex#4);
-
- *** DEADLOCK ***
-
- May be due to missing lock nesting notation
-
-locks held by syz.0.17/5908: 1, last CPU#1:
- #0: ffff8880339970f0 (&dev->mutex#4){+.+.}-{4:4}, at: comedi_unlocked_ioctl+0x180/0x3310 drivers/comedi/comedi_fops.c:2290
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 5908 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_deadlock_bug.cold+0xbd/0xca kernel/locking/lockdep.c:3085
- check_deadlock kernel/locking/lockdep.c:3137 [inline]
- validate_chain kernel/locking/lockdep.c:3939 [inline]
- __lock_acquire+0x13f4/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
- comedi_do_insn+0x2e/0x360 drivers/comedi/kcomedilib/kcomedilib_main.c:183
- comedi_dio_bitfield2+0x3c0/0x420 drivers/comedi/kcomedilib/kcomedilib_main.c:314
- bonding_dio_insn_bits+0x2b9/0x570 drivers/comedi/drivers/comedi_bond.c:100
- parse_insn+0x1326/0x19f0 drivers/comedi/comedi_fops.c:1613
- do_insn_ioctl+0x152/0x4e0 drivers/comedi/comedi_fops.c:1790
- comedi_unlocked_ioctl+0xf68/0x3310 drivers/comedi/comedi_fops.c:2422
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9368f9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffcaf8c9638 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f9369225fa0 RCX: 00007f9368f9e159
-RDX: 0000200000000400 RSI: 000000008028640c RDI: 0000000000000004
-RBP: 00007f936903503b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f9369225fac R14: 00007f9369225fa0 R15: 00007f9369225fa0
- </TASK>
-
-
+Assisted-by: LLM sparse
+Signed-off-by: Vas Zayarskiy <contact@vasily.cc>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+This initial support is based on passive USB captures compared with video
+of the device's own display at idle and under workload. It is intended
+to make the observed telemetry available through standard hwmon readers.
+The captures establish field scales and load response, not calibration
+or exact equivalence between USB and display averaging.
+
+Testing:
+- Built and linked the module against Linux 7.2.5 with W=1.
+- Built the driver object on this hwmon-next base (7.3-rc3), x86_64 with
+  the driver configured as a module, and i386 built-in with SMP and PM
+  disabled. Both configurations pass W=1 and sparse without findings.
+- Replayed 995 reports through the actual C parser/read functions in a
+  userspace harness with ASan/UBSan, malformed reports, stale reads,
+  keyboard bypass, visibility and integer range checks. The harness
+  also simulates the 32-bit long conversion bound. All seven Python
+  capture/decoder tests pass, including filmed-display fixtures.
+- checkpatch --strict reports no findings with the pending sign-off
+  check excluded. The changed RST document renders without warnings.
+
+Hardware testing used one AMPINEL (0c70:f015, USB bcdDevice 0100) connected
+from its small USB header to an internal motherboard USB header on NixOS.
+The C implementation passed 72/72 simultaneous raw-USB/hwmon comparisons
+on 7.2.3 across module reload, USB-core unbind/rebind and deep suspend/
+resume. Both input registration and keyboard capabilities were preserved.
+Automatic loading and updating readings were subsequently verified after
+reboot to 7.2.5 and after desktop-session changes. No executable C
+statements have changed since those hardware tests; this preparation
+adds a header include, comments, Kconfig and documentation updates.
+The new 7.3-rc3 builds are compile/static checks, not hardware boots.
+
+Review limits and questions:
+- Alarm flags and configurable limits are not decoded. Is this initial
+  telemetry-only scope acceptable? Their USB mappings are not established.
+- Channel numbers are report order, not verified connector pin numbers.
+  Current deviation is the reported value; its formula is unknown.
+- Hotspot temperature was validated only above zero. The existing
+  Aquacomputer 0x7fff unavailable convention is applied by analogy;
+  an unavailable hotspot and negative encodings were not observed.
+- USB bcdDevice is a descriptor value, not an independently verified
+  firmware version. Other firmware, alarm-generated keyboard events,
+  full power removal and physical unplug/replug remain untested. The
+  internal header connection is not ordinarily unplugged during use.
+
+AI assistance: Codex assisted with capture/display analysis, the C
+implementation, tests and submission text in response to requests for
+read-only Linux telemetry through the existing Aquacomputer driver.
+Sparse was also used for static analysis.
+
+ Documentation/hwmon/aquacomputer_d5next.rst |  14 ++
+ drivers/hwmon/Kconfig                       |   4 +-
+ drivers/hwmon/aquacomputer_d5next.c         | 146 +++++++++++++++++++-
+ 3 files changed, 159 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/hwmon/aquacomputer_d5next.rst b/Documentation/hwmon/aquacomputer_d5next.rst
+index 49163f387..0d44626cf 100644
+--- a/Documentation/hwmon/aquacomputer_d5next.rst
++++ b/Documentation/hwmon/aquacomputer_d5next.rst
+@@ -13,6 +13,7 @@ Supported devices:
+ * Aquacomputer Quadro fan controller
+ * Aquacomputer High Flow Next sensor
+ * Aquacomputer Leakshield leak prevention system
++* Aquacomputer AMPINEL power monitor
+ * Aquacomputer Aquastream XT watercooling pump
+ * Aquacomputer Aquastream Ultimate watercooling pump
+ * Aquacomputer Poweradjust 3 fan controller
+@@ -69,6 +70,19 @@ The Aquastream XT pump exposes temperature readings for the coolant, external se
+ and fan IC. It also exposes pump and fan speeds (in RPM), voltages, as well as pump
+ current.
+ 
++The AMPINEL exposes total power, total current, input voltage, hotspot
++temperature, six channel currents and current deviation. Channel numbers follow
++report order; their mapping to physical connector pins has not been verified.
++The readings are received approximately twice per second. The device connects
++to an internal motherboard USB header. Only sensor reads are supported; the
++driver does not configure the device's protection settings or report alarms.
++
++For AMPINEL, ``power1_input`` is total power, ``in0_input`` is input voltage,
++``temp1_input`` is hotspot temperature, ``curr1_input`` is total current,
++``curr[2-7]_input`` are the six channel currents, and ``curr8_input`` is the
++device-reported current deviation. The deviation formula is not known.
++Readings older than two seconds return an error instead of a cached value.
++
+ The Aquastream Ultimate pump exposes coolant temp and an external temp sensor, along
+ with speed, power, voltage and current of both the pump and optionally connected fan.
+ It also exposes pressure and flow speed readings.
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index 3d8b2c958..06cb246ff 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -257,14 +257,14 @@ config SENSORS_AHT10
+ 	  will be called aht10.
+ 
+ config SENSORS_AQUACOMPUTER_D5NEXT
+-	tristate "Aquacomputer D5 Next, Octo, Quadro, Farbwerk, Farbwerk 360, High Flow Next"
++	tristate "Aquacomputer D5 Next and other USB devices"
+ 	depends on USB_HID
+ 	select CRC16
+ 	help
+ 	  If you say yes here you get support for sensors and fans of
+ 	  the Aquacomputer D5 Next watercooling pump, Octo and Quadro fan
+ 	  controllers, Farbwerk and Farbwerk 360 RGB controllers, High Flow
+-	  Next sensor, where available.
++	  Next sensor and AMPINEL power monitor, where available.
+ 
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called aquacomputer_d5next.
+diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
+index 1ca70e726..b33d0ccc0 100644
+--- a/drivers/hwmon/aquacomputer_d5next.c
++++ b/drivers/hwmon/aquacomputer_d5next.c
+@@ -2,7 +2,7 @@
+ /*
+  * hwmon driver for Aquacomputer devices (D5 Next, Farbwerk, Farbwerk 360, Octo,
+  * Quadro, High Flow Next, Aquaero, Aquastream Ultimate, Leakshield,
+- * High Flow USB/MPS Flow family)
++ * High Flow USB/MPS Flow family, AMPINEL)
+  *
+  * Aquacomputer devices send HID reports (with ID 0x01) every second to report
+  * sensor values, except for devices that communicate through the
+@@ -19,9 +19,11 @@
+ #include <linux/hwmon.h>
+ #include <linux/jiffies.h>
+ #include <linux/ktime.h>
++#include <linux/limits.h>
+ #include <linux/module.h>
+ #include <linux/seq_file.h>
+ #include <linux/unaligned.h>
++#include <linux/usb.h>
+ 
+ #define USB_VENDOR_ID_AQUACOMPUTER	0x0c70
+ #define USB_PRODUCT_ID_AQUAERO		0xf001
+@@ -32,6 +34,7 @@
+ #define USB_PRODUCT_ID_OCTO		0xf011
+ #define USB_PRODUCT_ID_HIGHFLOWNEXT	0xf012
+ #define USB_PRODUCT_ID_LEAKSHIELD	0xf014
++#define USB_PRODUCT_ID_AMPINEL		0xf015
+ #define USB_PRODUCT_ID_AQUASTREAMXT	0xf0b6
+ #define USB_PRODUCT_ID_AQUASTREAMULT	0xf00b
+ #define USB_PRODUCT_ID_POWERADJUST3	0xf0bd
+@@ -40,7 +43,7 @@
+ enum kinds {
+ 	d5next, farbwerk, farbwerk360, octo, quadro,
+ 	highflownext, aquaero, poweradjust3, aquastreamult,
+-	aquastreamxt, leakshield, highflow
++	aquastreamxt, leakshield, highflow, ampinel
+ };
+ 
+ static const char *const aqc_device_names[] = {
+@@ -55,7 +58,8 @@ static const char *const aqc_device_names[] = {
+ 	[aquaero] = "aquaero",
+ 	[aquastreamult] = "aquastreamultimate",
+ 	[poweradjust3] = "poweradjust3",
+-	[highflow] = "highflow" /* Covers MPS Flow devices */
++	[highflow] = "highflow", /* Covers MPS Flow devices */
++	[ampinel] = "ampinel"
+ };
+ 
+ #define DRIVER_NAME			"aquacomputer_d5next"
+@@ -110,6 +114,17 @@ static u8 aquaero_secondary_ctrl_report[] = {
+ #define AQC_FAN_POWER_OFFSET		0x06
+ #define AQC_FAN_SPEED_OFFSET		0x08
+ 
++/* AMPINEL offsets include the report ID byte. */
++#define AMPINEL_DATA_INTERFACE		1
++#define AMPINEL_STATUS_REPORT_SIZE	544
++#define AMPINEL_NUM_CHANNELS		6
++#define AMPINEL_CHANNEL_CURRENT_START	0x6f
++#define AMPINEL_POWER			0xc7
++#define AMPINEL_CURRENT			0xc9
++#define AMPINEL_CURRENT_DEVIATION		0xcb
++#define AMPINEL_VOLTAGE			0xcf
++#define AMPINEL_HOTSPOT			0xe1
++
+ /* Specs of the Aquaero fan controllers */
+ #define AQUAERO_SERIAL_START			0x07
+ #define AQUAERO_FIRMWARE_VERSION		0x0B
+@@ -515,6 +530,25 @@ static const char *const label_highflow_speeds[] = {
+ 	"Flow speed [dL/h]"
+ };
+ 
++static const char *const label_ampinel_temp[] = {
++	"Hotspot"
++};
++
++static const char *const label_ampinel_power[] = {
++	"Total power"
++};
++
++static const char *const label_ampinel_voltage[] = {
++	"VCC In"
++};
++
++static const char *const label_ampinel_current[] = {
++	"Total current",
++	"Channel 1", "Channel 2", "Channel 3",
++	"Channel 4", "Channel 5", "Channel 6",
++	"Current deviation"
++};
++
+ struct aqc_fan_structure_offsets {
+ 	u8 voltage;
+ 	u8 curr;
+@@ -868,6 +902,10 @@ static umode_t aqc_is_visible(const void *data, enum hwmon_sensor_types type, u3
+ 		break;
+ 	case hwmon_power:
+ 		switch (priv->kind) {
++		case ampinel:
++			if (channel == 0)
++				return 0444;
++			break;
+ 		case aquastreamult:
+ 			/* Special case to support pump and fan power */
+ 			if (channel < 2)
+@@ -888,6 +926,10 @@ static umode_t aqc_is_visible(const void *data, enum hwmon_sensor_types type, u3
+ 		break;
+ 	case hwmon_curr:
+ 		switch (priv->kind) {
++		case ampinel:
++			if (channel < AMPINEL_NUM_CHANNELS + 2)
++				return 0444;
++			break;
+ 		case aquastreamult:
+ 			/* Special case to support pump and fan current */
+ 			if (channel < 2)
+@@ -906,6 +948,10 @@ static umode_t aqc_is_visible(const void *data, enum hwmon_sensor_types type, u3
+ 		break;
+ 	case hwmon_in:
+ 		switch (priv->kind) {
++		case ampinel:
++			if (channel == 0)
++				return 0444;
++			break;
+ 		case d5next:
+ 			/* Special case to support +5V and +12V voltage sensors */
+ 			if (channel < priv->num_fans + 2)
+@@ -1071,6 +1117,12 @@ static int aqc_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 		break;
+ 	case hwmon_power:
+ 		*val = priv->power_input[channel];
++		if (priv->kind == ampinel) {
++			/* AMPINEL caches deciwatts to avoid overflowing u32. */
++			if (*val > LONG_MAX / 100000)
++				return -ERANGE;
++			*val *= 100000;
++		}
+ 		break;
+ 	case hwmon_pwm:
+ 		switch (priv->kind) {
+@@ -1097,6 +1149,9 @@ static int aqc_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 		break;
+ 	case hwmon_curr:
+ 		*val = priv->current_input[channel];
++		/* AMPINEL caches total current in centiamperes to fit u16. */
++		if (priv->kind == ampinel && channel == 0)
++			*val *= 10;
+ 		break;
+ 	default:
+ 		return -EOPNOTSUPP;
+@@ -1324,6 +1379,34 @@ static const struct hwmon_chip_info aqc_chip_info = {
+ 	.info = aqc_info,
+ };
+ 
++static int aqc_ampinel_raw_event(struct aqc_data *priv, const u8 *data, int size)
++{
++	int i, sensor_value;
++
++	if (size != AMPINEL_STATUS_REPORT_SIZE || data[0] != STATUS_REPORT_ID)
++		return 0;
++
++	priv->serial_number[0] = get_unaligned_be16(data + AQC_SERIAL_START);
++	priv->serial_number[1] = get_unaligned_be16(data + AQC_SERIAL_START + SERIAL_PART_OFFSET);
++
++	/* Keep aggregate power and current in wire units until aqc_read(). */
++	priv->power_input[0] = get_unaligned_be16(data + AMPINEL_POWER);
++	priv->current_input[0] = get_unaligned_be16(data + AMPINEL_CURRENT);
++	for (i = 0; i < AMPINEL_NUM_CHANNELS; i++)
++		priv->current_input[i + 1] =
++			get_unaligned_be16(data + AMPINEL_CHANNEL_CURRENT_START +
++					   i * AQC_SENSOR_SIZE);
++	priv->current_input[AMPINEL_NUM_CHANNELS + 1] =
++		get_unaligned_be16(data + AMPINEL_CURRENT_DEVIATION);
++	priv->voltage_input[0] = get_unaligned_be16(data + AMPINEL_VOLTAGE);
++
++	sensor_value = get_unaligned_be16(data + AMPINEL_HOTSPOT);
++	priv->temp_input[0] = sensor_value == AQC_SENSOR_NA ? -ENODATA : sensor_value * 10;
++	priv->updated = jiffies;
++
++	return 0;
++}
++
+ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8 *data, int size)
+ {
+ 	int i, j, sensor_value;
+@@ -1333,6 +1416,14 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+ 		return 0;
+ 
+ 	priv = hid_get_drvdata(hdev);
++	/* The AMPINEL keyboard interface has no hwmon device. */
++	if (!priv->hwmon_dev)
++		return 0;
++	if (priv->kind == ampinel) {
++		if (report->type != HID_INPUT_REPORT)
++			return 0;
++		return aqc_ampinel_raw_event(priv, data, size);
++	}
+ 
+ 	/* Info provided with every report */
+ 	priv->serial_number[0] = get_unaligned_be16(data + priv->serial_number_start_offset);
+@@ -1517,6 +1608,8 @@ static void aqc_debugfs_init(struct aqc_data *priv)
+ 
+ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ {
++	struct hid_report *report;
++	struct usb_interface *intf;
+ 	struct aqc_data *priv;
+ 	int ret;
+ 
+@@ -1533,6 +1626,27 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	if (ret)
+ 		return ret;
+ 
++	if (hdev->product == USB_PRODUCT_ID_AMPINEL) {
++		intf = to_usb_interface(hdev->dev.parent);
++		/*
++		 * hid-generic yields every interface matching our product ID.
++		 * Preserve input and hidraw on the separate keyboard interface.
++		 */
++		if (intf->cur_altsetting->desc.bInterfaceNumber != AMPINEL_DATA_INTERFACE) {
++			hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
++			return hid_hw_start(hdev, HID_CONNECT_DEFAULT);
++		}
++
++		report = hdev->report_enum[HID_INPUT_REPORT].report_id_hash[STATUS_REPORT_ID];
++		if (hdev->maxcollection != 1 ||
++		    hdev->collection[0].usage != (HID_UP_MSVENDOR | 1) ||
++		    !report || report->size != (AMPINEL_STATUS_REPORT_SIZE - 1) * 8)
++			return -ENODEV;
++
++		/* Do not expose zero readings before the first complete report. */
++		priv->updated--;
++	}
++
+ 	ret = hid_hw_start(hdev, HID_CONNECT_HIDRAW);
+ 	if (ret)
+ 		return ret;
+@@ -1542,6 +1656,14 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		goto fail_and_stop;
+ 
+ 	switch (hdev->product) {
++	case USB_PRODUCT_ID_AMPINEL:
++		priv->kind = ampinel;
++		priv->num_temp_sensors = 1;
++		priv->temp_label = label_ampinel_temp;
++		priv->power_label = label_ampinel_power;
++		priv->voltage_label = label_ampinel_voltage;
++		priv->current_label = label_ampinel_current;
++		break;
+ 	case USB_PRODUCT_ID_AQUAERO:
+ 		/*
+ 		 * Aquaero presents itself as three HID devices under the same product ID:
+@@ -1791,6 +1913,9 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	}
+ 
+ 	switch (priv->kind) {
++	case ampinel:
++		priv->serial_number_start_offset = AQC_SERIAL_START;
++		break;
+ 	case aquaero:
+ 		priv->serial_number_start_offset = AQUAERO_SERIAL_START;
+ 		priv->firmware_version_offset = AQUAERO_FIRMWARE_VERSION;
+@@ -1870,6 +1995,11 @@ static void aqc_remove(struct hid_device *hdev)
+ {
+ 	struct aqc_data *priv = hid_get_drvdata(hdev);
+ 
++	if (!priv->hwmon_dev) {
++		hid_hw_stop(hdev);
++		return;
++	}
++
+ 	debugfs_remove_recursive(priv->debugfs);
+ 	hwmon_device_unregister(priv->hwmon_dev);
+ 
+@@ -1877,6 +2007,14 @@ static void aqc_remove(struct hid_device *hdev)
+ 	hid_hw_stop(hdev);
+ }
+ 
++static int aqc_reset_resume(struct hid_device *hdev)
++{
++	if (hdev->claimed & HID_CLAIMED_INPUT)
++		hidinput_reset_resume(hdev);
++
++	return 0;
++}
++
+ static const struct hid_device_id aqc_table[] = {
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_AQUAERO) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_D5NEXT) },
+@@ -1886,6 +2024,7 @@ static const struct hid_device_id aqc_table[] = {
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_QUADRO) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_HIGHFLOWNEXT) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_LEAKSHIELD) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_AMPINEL) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_AQUASTREAMXT) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_AQUASTREAMULT) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_AQUACOMPUTER, USB_PRODUCT_ID_POWERADJUST3) },
+@@ -1901,6 +2040,7 @@ static struct hid_driver aqc_driver = {
+ 	.probe = aqc_probe,
+ 	.remove = aqc_remove,
+ 	.raw_event = aqc_raw_event,
++	.reset_resume = aqc_reset_resume,
+ };
+ 
+ static int __init aqc_init(void)
+
+base-commit: 46fde107b4e881f179bf02bca69d8a0020561b3c
+-- 
+2.54.0
+
