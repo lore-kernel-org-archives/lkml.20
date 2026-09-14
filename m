@@ -1,101 +1,116 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D578D443AA3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A9C443AA8
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385420; cv=none; b=sNCztVbSGNpdh1Y4FidrQCxQjbdC9rOv5s88mU5QGqS9uqWDXwMlpfulNThPw0oyNxvbK3SY6+AJstiDK1BdoXyZX8jbbJmGA3xGHFoJA/0cmVyxNuaLowMg+qGy4KXBPlyyKwbvWRLDeHPPjVI5Did/BrZd8xh+r+W3kRfFM7A=
+	t=1789385420; cv=none; b=LnEd77sISRsPaBHEWo02mrHljLgPoH6tXxRENTmvmEsR0oOOjzL8JyoICVebKfU30BglT84fsKxckPmqfjyCITehuj9lZc8hOJUuagX2g6JR+jnoHkbPtgRSN9qqGGdCNx0NPW4xlBsyTx/apYUvRPFXaVZQhRxkdDSE4PgqlbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789385420; c=relaxed/simple;
-	bh=n20Ba5LUQL7bUD+JlHlCQioYJNI0zR4FOqKw7owM7Yw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=XB8qqyVpZns8DNDaJaayf2VN+zm+NKiuyULqgiTiiaQgSxkHmeaWdeOn2sOW9/WlmocfLRrgEBn1a4DlWQskHNzBgTAp3xSeIxmj75jgEsBBQoxW87JZKZeG/b96tRbjMMBiWZ5vnmTNZSnkxPypggz9C+VKMZGha2NOFfPR8S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6c324a0c0faso1708386eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:30:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789385417; x=1789990217;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rCSx+1bt0iswccXLvZttietBc0iGWkJz4IAHt5J1XTU=;
-        b=bTtSSf4iEk0UpEgWITx/ooEb2dl4sVHtRs1UAYqRGQ+3MXRvTG5GfZSrb2XlUpaQ/8
-         zgTTkLGFW/JROY4Ma5Z3RpqCTr18wiHjyKKoehhyFTDOAAne/79J1qOOAe1aiZLej9Sf
-         D2Wj2BRq0XjhOhn4YrpX4iQM501gaJEMxI7qeNfQHHiKF+d7QKfDlFcNDYnqFcQ0mMGc
-         y5JYHZNOkUR3B+vgdK33JXHVj+ZMoZb9A71e0JC1ee69rOy1BukMPVQDYu1aWlFYzYSk
-         wDb5f/tX+PbiK0wqJSd367qnvScg3AOXQpq02SL8plKEvx44FUqu7HivjVY5npAmDnlk
-         gK+A==
-X-Gm-Message-State: AFuF++kWjzLCJP7JLmJlgPdkJrVpIZCXTrVXgvRcu7OiPU3h+0DRrrLb
-	/wQTZov8UNCJDePr81Nek7oYA8yws2tGzxEQLi6Jdj+MGKflm+MhosB3gXnLO1u+VtDbrWYA3Hc
-	UKqGfDIH0QcvD7APA0+ytpoEgDIEuhoyclGtS7vWWj7sdDw3vrlG6L/NaNuY=
+	bh=aVG8ApbrMeITL2vobZYuzF9rR5qtyehLwSaBRnUoQIw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U90iRB3G6aicLrJ+oOZcfKvSo45UQhnB676QxITkp29kyurx1q5EvcSKfRoPD9QcYKszF9HfEAZQxsAy3NYG32YAzQDwp8yAN/KkUu+WS+CLs7VWxoQYOzC6T3Xb7QJ/dC3lhgoCROwcM2pbMqVrFQTOix2WWlaoQgWFUqBV+Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D7npPajC; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D7npPajC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789385418; x=1820921418;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=aVG8ApbrMeITL2vobZYuzF9rR5qtyehLwSaBRnUoQIw=;
+  b=D7npPajCCAZNJSr0n33d0fAsDfvKBMFmxVLUHFNsefkmoyWZUNo7blUo
+   1ylwuusbmbYHAqlTgxg4bhS7RfAn3ciQYXW3HBQUjIZS3kB70quwIoTbd
+   e9fjnzmbHboAFyR6KN/1Wxn9248F+8c2/xTSVUD9Wo0ID26zWBpCUrgdW
+   oonYXPSh+rpUbh3Xoh6ghFf2a51y3/gqTQ5xs1iYaBR7KWfnhMv2KPKnc
+   lO2cukAnfMOyf4VJXQpCYIFF4RTmIUO87xIyl2OuNfEKm+ziI9YXn25KF
+   lBpMztIFH+wNXNo6MCwbjFz27poLldZADcJz37K5kWV/MLnt4d7/kWMQf
+   g==;
+X-CSE-ConnectionGUID: hrN8dE54SNi7svw6HoT7HA==
+X-CSE-MsgGUID: ACB84OAzTTeLFrV12ZYRFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89864410"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89864410"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:30:17 -0700
+X-CSE-ConnectionGUID: HXP2fMbxStGHVn4ZSJatIg==
+X-CSE-MsgGUID: 8Ux+fK0pTpa2osbIOJH+RA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="273133021"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.245.35])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:30:16 -0700
+From: Adrian Hunter <adrian.hunter@intel.com>
+To: alexandre.belloni@bootlin.com
+Cc: Frank.Li@nxp.com,
+	billy_tsai@aspeedtech.com,
+	linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 01/17] i3c: master: Fix out-of-bounds read in DMA bounce buffer setup
+Date: Mon, 14 Sep 2026 14:29:47 +0300
+Message-ID: <20260914113003.183150-2-adrian.hunter@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914113003.183150-1-adrian.hunter@intel.com>
+References: <20260914113003.183150-1-adrian.hunter@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81c5:b0:6b7:8415:d77e with SMTP id
- 006d021491bc7-6c541f45b3bmr824865eaf.41.1789385417248; Mon, 14 Sep 2026
- 04:30:17 -0700 (PDT)
-Date: Mon, 14 Sep 2026 04:30:17 -0700
-In-Reply-To: <6aa316b2.f81106d8.2ab401.0014.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7dac9.3aa11909.1a03b8.0083.GAE@google.com>
-Subject: Forwarded: [PATCH] BUG: using smp_processor_id() in preemptible code
- in sk_skb_reason_drop
-From: syzbot <syzbot+dc57fd6722deb17e92af@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+When a bounce buffer is required for DMA_TO_DEVICE transfers,
+i3c_master_dma_map_single() rounds the DMA mapping length up to a
+cache-line boundary:
 
-***
+	map_len = ALIGN(len, cache_line_size());
 
-Subject: [PATCH] BUG: using smp_processor_id() in preemptible code in sk_skb_reason_drop
-Author: jchuang26@m.fudan.edu.cn
+It then allocates the bounce buffer with:
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
+	kmemdup(buf, map_len, GFP_KERNEL);
 
-Reported-by: syzbot+dc57fd6722deb17e92af@syzkaller.appspotmail.com
+kmemdup() copies the full allocation size, causing it to read map_len
+bytes from buf even though only len bytes are valid.  This results in an
+out-of-bounds read of up to cache_line_size() - 1 bytes past the end of
+the caller's buffer.
 
-diff --git a/net/core/drop_monitor.c b/net/core/drop_monitor.c
-index abaf108ac..4c068d613 100644
---- a/net/core/drop_monitor.c
-+++ b/net/core/drop_monitor.c
-@@ -516,6 +516,15 @@ static void net_dm_packet_trace_kfree_skb_hit(void *ignore,
- 	 */
- 	nskb->tstamp = tstamp;
+Fix the issue by allocating the bounce buffer with kzalloc() and copying
+only len bytes from the original buffer.  The remaining bytes up to
+map_len stay zero-filled, avoiding both the out-of-bounds read and
+exposure of unrelated memory contents to the DMA engine.
+
+Fixes: f8d9e56aeb87 ("i3c: master: Add helpers for DMA mapping and bounce buffer handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+---
+ drivers/i3c/master.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index afcd7a21a3e6..f9a6c8560fab 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -2216,12 +2216,11 @@ struct i3c_dma *i3c_master_dma_map_single(struct device *dev, void *buf,
  
-+	/*
-+	 * The tracepoint can run in preemptible context (e.g. from
-+	 * tcp_data_queue()).  Pin the task to the current CPU before
-+	 * dereferencing the per-CPU pointer, otherwise this_cpu_ptr()
-+	 * triggers a "using smp_processor_id() in preemptible code"
-+	 * splat.  migrate_disable() is used instead of preempt_disable()
-+	 * because the drop_queue spinlock can sleep on PREEMPT_RT.
-+	 */
-+	migrate_disable();
- 	data = this_cpu_ptr(&dm_cpu_data);
+ 	if (force_bounce) {
+ 		dma_xfer->map_len = ALIGN(len, cache_line_size());
+-		if (dir == DMA_FROM_DEVICE)
+-			bounce = kzalloc(dma_xfer->map_len, GFP_KERNEL);
+-		else
+-			bounce = kmemdup(buf, dma_xfer->map_len, GFP_KERNEL);
++		bounce = kzalloc(dma_xfer->map_len, GFP_KERNEL);
+ 		if (!bounce)
+ 			return NULL;
++		if (dir != DMA_FROM_DEVICE)
++			memcpy(bounce, buf, len);
+ 		dma_buf = bounce;
+ 	}
  
- 	spin_lock_irqsave(&data->drop_queue.lock, flags);
-@@ -527,6 +536,7 @@ static void net_dm_packet_trace_kfree_skb_hit(void *ignore,
- 
- 	schedule_work(&data->dm_alert_work);
- 
-+	migrate_enable();
- 	return;
- 
- unlock_free:
-@@ -534,6 +544,7 @@ static void net_dm_packet_trace_kfree_skb_hit(void *ignore,
- 	u64_stats_inc(&data->stats.dropped);
- 	u64_stats_update_end(&data->stats.syncp);
- 	spin_unlock_irqrestore(&data->drop_queue.lock, flags);
-+	migrate_enable();
- 	consume_skb(nskb);
- }
- 
+-- 
+2.53.0
+
