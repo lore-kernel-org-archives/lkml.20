@@ -1,137 +1,153 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011068.outbound.protection.outlook.com [52.101.62.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64262424641
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789381367; cv=fail; b=uFyoiLPO8JwSP/7A3RcCoeD9t460FQsNjTAiHs0DGy4QZ3YeXT/xhU4no4USFAiioNQDM79deGO+jZk33LXRF+GoS80RSE3lasUmvSD/912GXf49ypHnl4ETU3PepmB0+QI1qqADe0y/p85DTrvJ1me4Aly4aAOHsnaWYCqKAXE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789381367; c=relaxed/simple;
-	bh=9Totc1u11nygKg3WOusNkzlnzry1tnUOkS6oRvvXU9A=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OokmeRaxRxikbKiiwi2rA8CrADIXN5ytPah79QEr6uL9XbAiaLT4Rb6HW2b7rt9d7txqAHskewd3h8wwjIdoXgvr+mHYA0KvbBxikVUsTCUqDqcoj5bv/lXC+LqHODv+Ysxs5aM08IR2/4j1tnczfAaawmNHgrtIJTQk4mVz1C8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fCB3SMfr; arc=fail smtp.client-ip=52.101.62.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fCB3SMfr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C4sZIIXzwDfuWrRA00jrQifGCoDrXDIQzutcUtepNlbzNlRXH8h19C9EBO1goIChJW/rQfFGYzBow8drgFfmmwcgC9Johi1Ae1/Mvdxa7rE1mAXdpJ39vqHfJCAncYXzWDJVKqzOog7BYC4b0Kzh7QDMzm1hP/84impEGPZUTVe7iKOiv0as+eLk6CEhrc6/PXOLc2ZP2QesxiE6BbMtBTgdtCKJeEKwek+v5XQJ6pLJOnH/ic4PIJjfU7HX0WrLjcD9lqvzn5Ovv8ADpbnZqMd/3TUNwIQyhwNCAAdZENzcRG+aJsjMRVuBWZSHPyuGpOUf/ZEsKnTKOm3Qs6Pqzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gY4zU4BwjWt9MXU7dImmRTeInsHmYf9dgC52QpDM1Ns=;
- b=YYeDC6g8blVuQVfFhOm5AZEfulj55ZACeK6Id6KRkquBJlRWzVRm5T60gEaDc9+yiESQ27AYf4czC/2lmqp1on9WRU+ce6QEsvlNQiorXhOCd6xKh384Nl1TNFO73Hq02EpK3qVRaIEIFHNv+duU4dGoZWA9/47O5ancwQsfv5aBSD4of6B30qDAGXO0i+qp4HrN/rE1MrOPSJKWtjKed4BNUl9alHSeY5d8Q2NaRNNr5v+T3SJ0NL4F9hQyBEq6VMrN1Y+QNEAvWKAoCrUmJqaXJr/dPy9zgiGXdczKGyzmiPJWlE0XXZjqkOJmZfRhUskEEPzAj04+kLxCeqATPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gY4zU4BwjWt9MXU7dImmRTeInsHmYf9dgC52QpDM1Ns=;
- b=fCB3SMfrqdyl4mdUlaMM0k21mPEnxWbEDi97W4XJMTVlgAZlp2kNeZKGHnkRPnUAj41ufIW6fPL3kFmGEJXcWXzZi4Mh4CD/nMUdPfZkPSZ+CHA7zefOC6xfgr+z6RHrHVXL3QwhTluQZxXubKMBE09p3j7xjcFU9WlfTSIPnTc=
-Received: from BN9PR03CA0863.namprd03.prod.outlook.com (2603:10b6:408:13d::28)
- by CH3PR12MB7737.namprd12.prod.outlook.com (2603:10b6:610:14d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 10:22:41 +0000
-Received: from BN3PEPF00022BCB.namprd03.prod.outlook.com
- (2603:10b6:408:13d:cafe::8c) by BN9PR03CA0863.outlook.office365.com
- (2603:10b6:408:13d::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 10:22:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BCB.mail.protection.outlook.com (10.167.248.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 10:22:41 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
- 2026 05:22:40 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
- 2026 05:22:40 -0500
-Received: from localhost (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Mon, 14 Sep 2026 05:22:39 -0500
-From: Michal Simek <michal.simek@amd.com>
-To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
-	<michal.simek@amd.com>, <git@amd.com>
-Subject: [PATCH] microblaze: Enable xilinx dmas and axi emac drivers
-Date: Mon, 14 Sep 2026 12:22:35 +0200
-Message-ID: <6d41613ed4ccfdc38ec47070b79a5893e3abc2a6.1789381354.git.michal.simek@amd.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA30F353A7A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:22:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789381379; cv=none; b=X80YQw+coLnx+AFRx5SufhkKa9S+VpueN9+gpvn2HlPS/RvMNRenl6YsNuKlXkGs+q4CbJMmQyagyspkddr7+9RtDjpvz96h+G6oF/Qc5kr5iHGLLGO7b8FHSKVcasbNsgygXIzTWDvVtCHARUwOf+g9V5baP6LwJDhYCYUOZi0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789381379; c=relaxed/simple;
+	bh=M9xpPADoL19hxr27DkufqRMasiizNX7ktpq6FGesp9k=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=q8Gans6GKSupCr0g3+A8bOjKnjCzKNawSGT8fHvxkHs25xsmZfm5GVTBPDpnm27KE45Lgas2j/6sCoI4SnJyFL5nHJuJthj9SgZg9EPNgr2xKrc8mdu3VG7C8wMLcGcGBDryA3NSeWZxl3y7WLxtzhXlxCkoPznL5T/AzlIYaRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45e6091d8a1so1746160fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:22:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789381376; x=1789986176;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xR20iaTbZ0bdjxfv4NrTmDVY7AwmSd6Kpmne0tL0/bo=;
+        b=lJta3djtyYppGO4iYNplFT7t9YyjnCzYk9iSeqM6XzFlj/iLbRB6QfT/G/QxWbbB6D
+         O84f5Kz2nf4KtAZF+faHYNlc2DSYCVUHJx2rz/0AfW3AG53drZ6jKO0vNetN26E/z3sX
+         Q+m+y7h95VjSRDUytUbGkIhgZvkKdH3lMxBSVwWmD6YczcO/cnxeQylb7g6CJsR/wyC+
+         8dwmKJgialTJpUOjF8ioTIKoqetcJbiv4JubHK0wIx5hLeP/2sWcpqa3vgR59Z3jHt3u
+         BufiZUIMU4DJHxDoqpUrJ4cECRqKO2gay1qXPyKym+da6C4ExLK7yptEjw0f/LUUK9eL
+         MZZw==
+X-Gm-Message-State: AFuF++nwiw6id9FEQ+pk/Vurj05OwzJYBTGVviK65QKa68RKlCmnb6QL
+	5v58FUx/1uxwc4HtMY6/VHxEFQw6/579Okba8cciwBTaSBInnk4+NiPXnPILvTjI25mOJqkAeg2
+	vNV+UfWKoufRn+wVAlX4+LXx3CkddlAe2JasWL20fEqlCrKOFBH+VSKRv+Vo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=774; i=michal.simek@amd.com; h=from:subject:message-id; bh=9Totc1u11nygKg3WOusNkzlnzry1tnUOkS6oRvvXU9A=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWQtP/V2S+DGKR5P+gs/WRyuCXRx9J6XuG1h6/T+Dfq/Y rQsFred7ChlYRDjYJAVU2SZzqTjsObbtaViyyPzYeawMoEMYeDiFICJrDnGyLAyweUam0p9xe5P /fercpsETY7fn2h/c/YN8a3Lf5SfaRBjZGi7L6eplZapdad22Yd7dx7telZ1X/GUZOFcKVUeh9D 3lqwA
-X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCB:EE_|CH3PR12MB7737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 508837fb-9a43-4d63-62eb-08df124a1bc8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|18002099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	sro/HfIV/LX64BogOeUdqm0L5m+sy686O6/sxK1picwQ6JOn+G3jMgUf9xjEoVgyiY0OMBuHVJ8YUuQdH0YIyQm5ry3FDjg886TfCJX/UAnpruTHE4551dxcktpIGYB1nY4JC7t4gjO87acmE4Azldr3pip/zCeYVx4D5489mmUlgVGS301Vjgy22ekgHicC3I/Cxb7e1PkD40mFfQpvkys0VZ3PqIVJv1Kb7/OgRKbSwIPjsSl63yDFMMRs7TqDX8jYifGOu0Ss/8W1WuaDMz0AfKmR5dlex6jbOARFbnkPkDY2pnvxwxtA5my0m7iNvTbWJBBkQuzIDX3opRapZIQICqD1GRMxsG8H8MnUI3FfivVlLnmdaGtHxlPqV8wAO4SMfhNT/Rlyv2UUxGnIL2draoRyqQhiFvjPyvYwXZRuck3uAxcPGBQ3WPYGSPG0sHHJzZGMzQjeJ2GImE+pIP92WkinHM472RmbaMpaYOL7yca0M69xk7459yiaNcYWkZXZW/9NdXyKBV2onw4NujZDu9SZyK96vpi8EgrIB1ewXVdU5SSFhEPL9c0cXbif/KerO2CEn2xgWXtu+2EYxOoaZONxaYklQ5b+Xu7NHUT9Gd3hewzrWPGTMnPvzP8Zsfwq8Bh73zVcylbAyzh+RkXhDWc6ADyNTk0hTm62I+DK9Nxc6SrHzNXCqCjTxRyT5Sk+rB7AKCyqOKpWSkY4mg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VAz/D4kKEhwJ69Vn8Ab1P9h+Nm2AUsy7nsJX8rpTBgpqko995lrRpDIfgOMu5MggP3JKZErgnsZtiVq28amei87yYgO8TeBkDTZEhDyy9FGyWJHEj6obnZixbc6Ghpv4AITQSVw25mJSpwnTSizL03WTtiLB28J9XUe5DuZnJ0ufMC2cMXwCSqkqS7BdgNgx6kzysEfW7CHupP6pweYRWt13xO9LgkGj6BSbparRHNJmH3ymadgk7xeM4CJZCOixLEMRHHfC0X+bMxoDK38lIsG3KgrFplmJmANv69rDyoF192jjTvgjJaQYXaS4Zhcqf7HzYQGxrXIPKYfzAapoqqHTQ+b2HGcXTSGYAMNjBb7p4Wl6WmrOX13iOH0AJ7elnERR2UFU1+FbLqBw7RFC37onsrztXFKFoUOOUba67zSfuDJd9uHCVNyEe720cY3f
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:22:41.2470
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 508837fb-9a43-4d63-62eb-08df124a1bc8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BCB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7737
+X-Received: by 2002:a05:6820:4de7:b0:6b7:46e9:96fa with SMTP id
+ 006d021491bc7-6c540e660d9mr760657eaf.42.1789381376619; Mon, 14 Sep 2026
+ 03:22:56 -0700 (PDT)
+Date: Mon, 14 Sep 2026 03:22:56 -0700
+In-Reply-To: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7cb00.4c28b7d0.c1bba.0019.GAE@google.com>
+Subject: Forwarded: [PATCH] BUG: sleeping function called from invalid context
+ in null_insert_page
+From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Both drivers are used on Microblaze systems for quite a long time that's
-why enable them.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-Signed-off-by: Michal Simek <michal.simek@amd.com>
----
+***
 
- arch/microblaze/configs/mmu_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+Subject: [PATCH] BUG: sleeping function called from invalid context in null_insert_page
+Author: jchuang26@m.fudan.edu.cn
 
-diff --git a/arch/microblaze/configs/mmu_defconfig b/arch/microblaze/configs/mmu_defconfig
-index fbbdcb394ca2..7f9b19d0d9db 100644
---- a/arch/microblaze/configs/mmu_defconfig
-+++ b/arch/microblaze/configs/mmu_defconfig
-@@ -70,6 +70,8 @@ CONFIG_XILINX_WATCHDOG=y
- CONFIG_FB=y
- CONFIG_FB_XILINX=y
- # CONFIG_USB_SUPPORT is not set
-+CONFIG_DMADEVICES=y
-+CONFIG_XILINX_DMA=y
- CONFIG_UIO=y
- CONFIG_UIO_PDRV_GENIRQ=y
- CONFIG_UIO_DMEM_GENIRQ=y
----
-base-commit: 98f468b04d5cc3be5382a923f19ab289e0c40fc4
-branch: next
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
--- 
-2.43.0
+Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
 
+diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+index 6beb1f5b7..7f3fbac0f 100644
+--- a/drivers/block/null_blk/main.c
++++ b/drivers/block/null_blk/main.c
+@@ -70,6 +70,7 @@ static DEFINE_MUTEX(lock);
+ static int null_major;
+ static DEFINE_IDA(nullb_indexes);
+ static struct blk_mq_tag_set tag_set;
++static struct blk_mq_tag_set blocking_tag_set;
+ 
+ enum {
+ 	NULL_IRQ_NONE		= 0,
+@@ -1847,34 +1848,44 @@ static int null_init_tag_set(struct blk_mq_tag_set *set, int poll_queues)
+ 	return blk_mq_alloc_tag_set(set);
+ }
+ 
+-static int null_init_global_tag_set(void)
++static int null_init_global_tag_set(struct blk_mq_tag_set *set, bool blocking)
+ {
+ 	int error;
+ 
+-	if (tag_set.ops)
++	if (set->ops)
+ 		return 0;
+ 
+-	tag_set.nr_hw_queues = g_submit_queues;
+-	tag_set.queue_depth = g_hw_queue_depth;
+-	tag_set.numa_node = g_home_node;
++	set->nr_hw_queues = g_submit_queues;
++	set->queue_depth = g_hw_queue_depth;
++	set->numa_node = g_home_node;
+ 	if (g_no_sched)
+-		tag_set.flags |= BLK_MQ_F_NO_SCHED_BY_DEFAULT;
++		set->flags |= BLK_MQ_F_NO_SCHED_BY_DEFAULT;
+ 	if (g_shared_tag_bitmap)
+-		tag_set.flags |= BLK_MQ_F_TAG_HCTX_SHARED;
+-	if (g_blocking)
+-		tag_set.flags |= BLK_MQ_F_BLOCKING;
++		set->flags |= BLK_MQ_F_TAG_HCTX_SHARED;
++	if (blocking)
++		set->flags |= BLK_MQ_F_BLOCKING;
+ 
+-	error = null_init_tag_set(&tag_set, g_poll_queues);
++	error = null_init_tag_set(set, g_poll_queues);
+ 	if (error)
+-		tag_set.ops = NULL;
++		set->ops = NULL;
+ 	return error;
+ }
+ 
+ static int null_setup_tagset(struct nullb *nullb)
+ {
+ 	if (nullb->dev->shared_tags) {
+-		nullb->tag_set = &tag_set;
+-		return null_init_global_tag_set();
++		bool blocking = g_blocking || nullb->dev->blocking;
++
++		/*
++		 * Some memory-backed devices can sleep in their request
++		 * submission path, which is invalid if the tag set is
++		 * non-blocking since the block layer then calls the driver
++		 * under rcu_read_lock(). The blocking flag is fixed when a tag
++		 * set is allocated, so use a dedicated blocking global tag set
++		 * for such devices.
++		 */
++		nullb->tag_set = blocking ? &blocking_tag_set : &tag_set;
++		return null_init_global_tag_set(nullb->tag_set, blocking);
+ 	}
+ 
+ 	nullb->tag_set = &nullb->__tag_set;
+@@ -2195,6 +2206,8 @@ static int __init null_init(void)
+ 	unregister_blkdev(null_major, "nullb");
+ 	if (tag_set.ops)
+ 		blk_mq_free_tag_set(&tag_set);
++	if (blocking_tag_set.ops)
++		blk_mq_free_tag_set(&blocking_tag_set);
+ 	return ret;
+ }
+ 
+@@ -2215,6 +2228,8 @@ static void __exit null_exit(void)
+ 
+ 	if (tag_set.ops)
+ 		blk_mq_free_tag_set(&tag_set);
++	if (blocking_tag_set.ops)
++		blk_mq_free_tag_set(&blocking_tag_set);
+ }
+ 
+ module_init(null_init);
