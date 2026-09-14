@@ -1,188 +1,137 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A92D37188A;
-	Mon, 14 Sep 2026 23:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789429617; cv=none; b=brRgs42d1YTK2/4M6oAhrbIxuOh+69lLHSS2fBmIOTqPaKWYPaktRr0XC4Zn38qTufmBqdQcZTi/iPGW7K10gwolfF3AqCLFJiJqho1Nui7T0uPZpGl9TW/ed1Uv0Grp/Qx6mfp9P/CNmDm4Y1IiItN+tfmCPMCrYH7mt+whqx4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789429617; c=relaxed/simple;
-	bh=vc3gK8rdW0E6XGs/ogff0lyv32RC8OPpnIEc8lwurOQ=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=Ei2WwRWJyJyGe+w08r1iGZyEUTXwCsKF09LpVbBw+VeGmtA7zPwUK6bTkanaCilTPQI8LA9RbE0mFGzngDRThz8PqtOVjExp8MPsqlYaVhfrjrQoxbKECYxxYvbkaQmtpVURsSVxFac2kuT4NF9Sbogj3/KdSY2CnffzoMEoKuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=PUM/RIbm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SIBoKl4m; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885F73AA1BA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789429633; cv=pass; b=pa9xMdoAjHAEK6h5bat+nlwJd1NwuE0KFw+Mk8bji7T7FgUmXGNNmpYDKeHmidSYnL9nD/wA3wwyEiQzxNLsoplr24GWeuZA8Ka4OAKmXh1zZCdYpnL+xasoP1veefpfvzyhVtfomqJT/Ycj49EjLe+xOg5hX1WivDg5FaBPyqw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789429633; c=relaxed/simple;
+	bh=oK9gNr6FEqLo45K0RkNT/yAk3ebgfwqHPtjzK1AF9cU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Kx9gUTKVzOPui3Sr2QlPK9yJ9mvcigjDirPG3gqU9hk/RSeYiHatC1NVii9L7IZgzvmhKz7v5tfwS0ZuPZp++eJobqMJWdmyKf7a8ofjrNJRzvN0yAsXy8y2VOAnz3MrMyAKSjowB3b1MwrSwMmCIT3ku8OX8ZDJa6fbT6gZEd4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=skAGjK7c; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="PUM/RIbm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SIBoKl4m"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 708941D0005C;
-	Mon, 14 Sep 2026 19:46:54 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 14 Sep 2026 19:46:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
-	1789429614; x=1789516014; bh=V3s7o3gI0yPUWxQCUr/3GqFnXiy29U2QQ3w
-	y2+LezBo=; b=PUM/RIbmaTxnA3u9lFf1rBsuvPqdBIhtrVhSoUN6SprA6/9YGL8
-	NlvJ/hPddAYyiG3kllREDAuPGIYT491VriKsWI2BFJf95VWHZ+1nc6JC+Zh8JHkt
-	OBj1rFIsRp+v8bWspYG75puN9/OPJAQlvsAZaVwPS56NV3zbz7Upew5GpZSVQg+7
-	6fathoknMlwT0PyvE/Uzw9GxMfZK2c+3RdRrDlpqAfgXiq28nr8w9KzT8tOqn46K
-	P/b21WvC2+eomRSZxvS3CFu3sm6+Q8dTqduwnPCfSnIkjOrjjTznBj2s0wLDd+8q
-	dWdzlIrmHXnWhpGp5N4NQV3IS3vV0UAq2tw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789429614; x=
-	1789516014; bh=V3s7o3gI0yPUWxQCUr/3GqFnXiy29U2QQ3wy2+LezBo=; b=S
-	IBoKl4mRQ57Fh8fzDAetrS2QQ7NkE6fCFyZVnJfy/Dxh6BrscMv0PXBurOnXFSNw
-	qalJXpVgbc7mXZEVvNFFQlPMKBctC3lAsIWWfk0yHY5IJ3m4bLcVtv2yuLE2cbeq
-	yaz0ofnKIqw0yFF3NHXkEQCNo9CmuAvxLhKZOMKRRof0e4mjFtOHnHC4qzH4gu7S
-	Ft96QSO0jXGWCOZeq43RishpGIKpi3dBoWfbAH3HjQjBClyW0JOTb9QESeyGJ9yi
-	31Crl5bo0LBOkDte5tum43AXQS2MI/5ZUF3W1GQzOMtbdyMwV7egVDWFzCUITpR1
-	UwPjmO4NOXMDukVOmPBXQ==
-X-ME-Sender: <xms:boeoat8ZN31O_OkYJWhpUPKgKO1cqbGHNHCrNty4fimCgkpv6_gbYQ>
-    <xme:boeoaj9iFgxpk6wLhCV6ojJMgfMjKqQRb3h6KQdWrLIXH7NQBfaulbTBbS0amGCPv
-    1H-CdV3-5SMmF1RKvGNAlo1QAesGeI3SUM0oqJg4ktY2bojg1Ad>
-X-ME-Received: <xmr:boeoatRKJGFvceDweRfPQgppMhe8Q7qdnbxvez8GHgk5fWERwC_1IDdI_nUw04wLB-5t6txBRGF7AH6sFYr5wSkiRXrZYUk>
-X-ME-Proxy-Cause: dmFkZTGsZL8vu+ZKUlZ1eTDllNccSmmcExtFrx4CttXm4MjWm1JUSBpvLBpo0C+9OGdU44
-    vzcY7T2sxLf9ROPpBn4NoAOU4+fCIlw1vhps+iO45a9TqrnqiaoBuFJu+xl9h9oLRdapCI
-    cVxSg52fdtr2tUljpyu1YqTZ8n1nUzi6fO7oo4JvxnKwM1eruG7iBoBW4uk4CUVS1YVnir
-    D7vpg8UIzBGxEXK4O3DX624fQ8pDWhxJgdztxcY6MwdL07UfWKrQYVD9+DiW0OvtMe3JuF
-    rajRGa0XMeDqeeYTXWl5+1d60cZIcYPTGKvR+cK9w8W++vpr75EnLt0+IM91xVr5tFKoG9
-    SgQHeiZPF5KAVnoVKfIzWEuW8tBaxzIaw3s4MsZ4LSVbv3qu0kYZGNP7IvTYc1iDL/KuZU
-    GInfetwIuJNmT4ag1eN+FaQ+sL3oW2uB6kUUecp71AUOfxRkb5s4hBPlfa9h7OWRtVMj29
-    W+GkH/HVuH4cmE8bKXJ8b+opOn2TXjFxSRmtBkqIOmqlZcAZTVRpJUKNppxJxo1iPd4+ye
-    gQEwCkJZQ2lNR4d5wZwacYJShA324K9J0a+7TPxOB9/L8uGYZWvbnp3xHbWLNutXowiqWL
-    yuKJRH/J/a2WA76gSqNyDYEWWYiOf8u6IG/nXbcwe9rIMDMGZ760EK6LGA/A
-X-ME-Proxy: <xmx:boeoanfCzVmrunhpSHnLY7dDqkd969YGONiRhnUGmkycuJ20niM1ew>
-    <xmx:boeoahCLu9g6nmryfEonsSlfV1DISMipJT3Wzl5PN5_ZR3_Qsw9iiQ>
-    <xmx:boeoapn11yurVkThg3hxkziteYe20vxw0mVZHQz3z0e2-PxIK8O6Gg>
-    <xmx:boeoasdjgTwwByotJ7uGjtkRCjQ_NQxITVFFk91d6mciiIF43xSFAQ>
-    <xmx:boeoar3yf36J2ppNdB1SRf7zZpncrsTtdjOkPnoqo6tvd_EwjK45ggZQ>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Sep 2026 19:46:51 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="skAGjK7c"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43da99easo26195507b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:47:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789429631; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kNiZBdWutLvtGhLmbr8pQj/n/IKoLwS7hQebVuACyDM1pABwylOZ34IYfgfVor8CzH
+         lr9IjfhkDjSM+pBIJNaZgqM9rwSaeL0PiuSRTYQ0KnqhqsLohAgbaq1So/WgA8PHiON8
+         wQDMHomsVT643yZZlwNVojPae/NybZIdtoR611SOrSmGJy8iZzBLExvSk+6PHjIbKpBl
+         PHTlTtzbLSQcEpd3KwZzPhuJn36hqbmgen6WqfwHup6G5Im0qy/RUDhQQpHFJYopty5M
+         /MCSYaoFjskNb2xV7Q/GoE5pgJcLmzohLct80RFFp7Kkw30qLBRNC7/35YdtPqrBYoWU
+         FUcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=cFthcrFYFgZKOOCNtEyPVxbnm0K5sPNXxafO3124q6U=;
+        fh=TIvxLuDC9MUIm4IMuHmsJbOr4BWxym0bVX+4FmFQ9IM=;
+        b=XlhHlKhJk0LvHwpe82wt9RL0B8DXlzCbdAT59YhF+wdJ1nkk2kqUzCdpbzZo7l3RvB
+         8K+5ruzayV0Pn0RwMxrfWZIex4BOdoU1THVGP/9TCKahM7PvGyZXSK6TvFH3hshkqSNo
+         RrepNX+eEa9qMA+7laIopYQMlmPv8AaUr+TMiy61Anl4yA1am7E5vKn04vjoCdAcKbui
+         tCJkyIhFGm4S5xfgY3KPM9G79k/2ouNUl7tX97TmJQ6yvakQHvVqxDFQn3UAM2ZWrzNy
+         U9oLq4V9BYA12BXcggBp/8eXnI4CK8FBIBba6UlxfYHuR0cmZ8a7TUe9DsFsgt9KLiyn
+         14Ag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789429631; x=1790034431; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cFthcrFYFgZKOOCNtEyPVxbnm0K5sPNXxafO3124q6U=;
+        b=skAGjK7cVNsXrBWKxU0KjzCohPYFFitzBmUKKAVeXboV6gA6vQlqhMQwVChJgk5Nim
+         RPs/+wN11IyIFWzx3b3i+uFXUAq0CxAGyLh6YyLuPCpnh4VIus5/fkZQsqKGUY8hJYAN
+         futHheNy7lj2Gvbqn65J6mWl55w2AVeDb4MEW3h7BHnyPZHvQbC4lI105CvW7x9WLb1Z
+         j16HnPUZE6ejEz8cRPgWLAmEuFj1Cr4orodxx9sntZifqoE5lttrn4hdmlTdhAFewN1N
+         b3Xzcuc2s7A4e0e9IV8JWoIdD0109crvVtE7CurEG2dgAlE1rUUC7mkCxHSg3T021Lm6
+         FGUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789429631; x=1790034431;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cFthcrFYFgZKOOCNtEyPVxbnm0K5sPNXxafO3124q6U=;
+        b=ytcc0ufIK71rxgWlL8IRW7stKXnaf4iha5Hpe+vuDT8xnLFEhNJtb1fSICbNBbASLJ
+         ZxJbe1BtfC2a5xRUcjOc90j/H0UUzwsA2wioBsdwXix9kA3z+de6PIGWlP4aIUBYyp7k
+         /7CNvphoD2DqGy4RV+a1bRFo/mP1i0Al1rHN7u9qoke6d9I/AC0o1YtHwu7hB2OdYOcO
+         LZIu8F6HX3vvh1izzKUBg97PXJtsoEGq6twiPt2DtzhXcQbAp5By6Isvuw4O91x89mQm
+         r3Nhq1KOd4qTve3YWNC4u2MUC1dl6oUPR1umfK/oENjAlif4ibx/5jtSx6jopYAfK3Vv
+         c2BA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7T4P/ldmlUbveoqdjV5/SIWduQBW9PjR3Gb/lA9hN00sahdxzXZrclgVXlc5KOuXOpSh0zSIPmoWed3s=@vger.kernel.org
+X-Gm-Message-State: AFuF++muhQLfWhkQFE7iFQ+POYDPAj6HAcumwi70yV5MGtRWxXr15n/d
+	4cIEanH0DV3n2c4Sju97lZMjDbpnilvxTI3ADUCzCR/3VNOo+zhsh+/TrsNRIDqKWu6Q5IcgLjB
+	D87nnrZrH8ouHNplEfOx9kLa/OZ/2GtW4msWEdY5D
+X-Gm-Gg: AYBFou0+WxiQCBc9G3toQJQxg/Dj4bVpS6hBLOuZYMmjvFTZzY1k8b9on+WiXWE93FS
+	n9gkUbPZZAyjtVO1deSjIArTe727tlFe5Ey3CwP82rUKtnRRbsAJNRBmoZJJfAY17BhMjBiLsT3
+	s1AtizBJ1qWazjlGP+1ZH5v4BvMig/WH/wQuBIPV/rVbEFwY+TbNtQhvRLjwGiNUMRuTgIQFLOO
+	HnrFJVLAR+mp7J1ZS64OwL2HJcVi1DphLAFm3KXmdVbAdwUqz5lBSUtyhI0bSOkacup5YrZrvo5
+	Imctai2ughx1YxmYW3JXV8HuksHbRFWhGevKcDx8RDui5Jp/rO0ocILzkcS6nK4z3V12YcR6s4Y
+	y29XNvHF71g==
+X-Received: by 2002:a05:690c:4f85:b0:873:5bd1:98ce with SMTP id
+ 00721157ae682-88d246564bemr11903357b3.64.1789429631046; Mon, 14 Sep 2026
+ 16:47:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Mateusz Guzik" <mjguzik@gmail.com>
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- "Mateusz Guzik" <mjguzik@gmail.com>
-Subject: Re: [PATCH 02/10] fs: add path_create(), path_move() and path_clone()
-In-reply-to: <20260913144918.1606123-3-mjguzik@gmail.com>
-References: <20260913144918.1606123-1-mjguzik@gmail.com>
-  <20260913144918.1606123-3-mjguzik@gmail.com>
-Date: Tue, 15 Sep 2026 09:46:49 +1000
-Message-id: <178942960969.207413.13223800203703717090@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+References: <20260906202747.4041389-1-samagazaryan@google.com>
+ <20260906202747.4041389-4-samagazaryan@google.com> <aqHU-6RV_AapSu3M@lizhi-Precision-Tower-5810>
+ <DLC6ERLST1B6.6K3HLH38DQLK@google.com> <5fb77c2c-40b8-4dfe-95d3-e0c73b8559bc@intel.com>
+In-Reply-To: <5fb77c2c-40b8-4dfe-95d3-e0c73b8559bc@intel.com>
+From: Sam Agazaryan <samagazaryan@google.com>
+Date: Mon, 14 Sep 2026 16:46:59 -0700
+X-Gm-Features: AcwNN1V-uXXao4kvW2-FUblLASgfbHJF_w7kOEKYfus9MUe94SpKIUhs3nxCeVQ
+Message-ID: <CAHreonHEAPrzhVH0AiAzrZOr+h8D=T8hB_oC0TP50d79y_OWSA@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>, linux-i3c@lists.infradead.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Vitor Soares <vitor.soares@toradex.com>, 
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 14 Sep 2026, Mateusz Guzik wrote:
+> actual_len is a problem.  Only 2 controller drivers support it.
+> No I3C device drivers support it.  mctp-i3c reads len not actual_len.
+> regmap-i3c ignores len and actual_len.  And its definition comment
+> is not exactly correct since it is only valid for reads.
+>
+> Despite that, the additional issue here, is what to do about a short
+> read.  Seems like it should be in the uapi, but actual_len needs to
+> be fixed first.
 
-A few more words here wouldn't hurt.
-Maybe just "These helpers encapsulate a common pattern and using them
-will make the code easier to read".
+I think something we can do to get around this is to incorporate one
+of Meagan's patches
+[1] which addresses actual_len usage in all the controller drivers.
 
-When there are no words I have to guess the purpose myself and I am
-terrible at guessing the thoughts of others.
+With controller support we can add a field for actual_len in the UAPI struct:
 
-Also I would probably make these static-inline, but maybe that isn't
-important.
+    struct i3c_ioc_xfer {
+        __u64 data;
+        __u16 len;
+        __u16 actual_len;
+        union {
+            __u8 rnw;
+            __u8 cmd;
+        };
+        __u8 mode;
+        __u8 pad[2];
+    };
 
-NeilBrown
+As a follow up, I can also help clean up other i3c drivers in future
+changes, such as mctp-i3c
+since at that point we should have actual_len support across all the
+controller drivers.
 
+Thanks,
+Sam
 
-> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
-> ---
->  fs/namei.c           | 29 +++++++++++++++++++++++++++++
->  include/linux/path.h | 14 ++++++++++++--
->  2 files changed, 41 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/namei.c b/fs/namei.c
-> index ca4f5e3be99a..c8754c7ba8be 100644
-> --- a/fs/namei.c
-> +++ b/fs/namei.c
-> @@ -698,6 +698,35 @@ static __always_inline int lookup_inode_permission_may=
-_exec(struct mnt_idmap *id
->  	return security_inode_permission(inode, mask);
->  }
-> =20
-> +/**
-> + * path_create - WRITEME
-> + * @path: path to get the reference to
-> + * @mnt: WRITEME
-> + * @dentry: WRITEME
-> + *
-> + * Create a path object using the given vfsmount and dentry pair while inc=
-rementing
-> + * the reference count on both.
-> + */
-> +void path_create(struct path *path, struct vfsmount *mnt, struct dentry *d=
-entry)
-> +{
-> +	path->mnt =3D mntget(mnt);
-> +	path->dentry =3D dget(dentry);
-> +}
-> +EXPORT_SYMBOL(path_create);
-> +
-> +/**
-> + * path_clone - WRITEME
-> + * @path: path to get the reference to
-> + *
-> + * Given a path increment the reference count to the dentry and the vfsmou=
-nt.
-> + */
-> +void path_clone(const struct path *src, struct path *dst)
-> +{
-> +	dst->mnt =3D mntget(src->mnt);
-> +	dst->dentry =3D dget(src->dentry);
-> +}
-> +EXPORT_SYMBOL(path_clone);
-> +
->  /**
->   * path_get - get a reference to a path
->   * @path: path to get the reference to
-> diff --git a/include/linux/path.h b/include/linux/path.h
-> index 7ea389dc764b..8a621e0e1921 100644
-> --- a/include/linux/path.h
-> +++ b/include/linux/path.h
-> @@ -10,8 +10,18 @@ struct path {
->  	struct dentry *dentry;
->  } __randomize_layout;
-> =20
-> -extern void path_get(const struct path *);
-> -extern void path_put(const struct path *);
-> +void path_create(struct path *, struct vfsmount *, struct dentry *);
-> +void path_clone(const struct path *, struct path *);
-> +void path_get(const struct path *);
-> +void path_put(const struct path *);
-> +
-> +static inline void path_move(struct path *src, struct path *dst)
-> +{
-> +	dst->mnt =3D src->mnt;
-> +	dst->dentry =3D src->dentry;
-> +	src->mnt =3D NULL;
-> +	src->dentry =3D NULL;
-> +}
-> =20
->  static inline int path_equal(const struct path *path1, const struct path *=
-path2)
->  {
-> --=20
-> 2.53.0
->=20
->=20
->=20
-
+[1] https://lore.kernel.org/r/20260911210935.1353126-3-meaganlloyd@linux.microsoft.com
