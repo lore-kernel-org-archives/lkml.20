@@ -1,72 +1,106 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFC2214813
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E41D214813;
+	Mon, 14 Sep 2026 06:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367044; cv=none; b=PEIpGfdos64m55XK/sKJI9+ladIT9ceTa22fvk/nm+Syi9Fl4AKvUfavCchEYDiYXUdAlMROYApkH8iWq7+OrzefJY7FspaMEATMpYnUwEfhvB1x8UeBGbn1PQ/YWd8tREiSVMIRfr6E8kQKKmPAgaYaRtqV68v4DdWoWneuU9g=
+	t=1789367058; cv=none; b=jY/IAL+cW2lx2UeHaflpZY9YcN6wmn4LOjH6tD64p0k9DwxSGCHkAAUGMZo76F6Te6fGzS+c727zyq+uPjC9Sf8ooySUd41b6DtX9nj9WqlyBcpwMp4DEqKLS1Qv/mAUlQylZs0BELeO+v7TYt8yNHaiG4VwmRHoQdGl4cKH/Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367044; c=relaxed/simple;
-	bh=54EmS3Fo2Olc8MVnySNsM01auKW93VAuOQTb+7ZnNAE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=dBlj/DLJli7ax5Fii5DXLn2A6gmg4QPA2YTG4NfSZiHo5PcVaOXcRO0traqdNmJi6R51hZB0IBQBDoTWlEMkaTnPmNa8jysqE/aIXf4u0d+v0GKyciVeTteyytPVbFBFhYxHImGB+BUHi7gDsunf2+yzeseQ9NFfBWhcqMgqiNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b2d1eb484aso5149235b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:24:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789367042; x=1789971842;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XULTNg5POOwDQ3SspcwZpI0kQTmjyytZpmZYHO6ZWuE=;
-        b=XT4+RP4L0WGPD6i43ASHZqJ2/aWKCFvHJGsii3dkEAaKdrto5JCVrE1vbjIUAdr7Mm
-         iglyURQfnu8jC0bcES7zndglt61B+ut2QmMomY0pqS/GsirRwZsYJA2H5NQVCcdyh1G3
-         +t4BkF+3w1rl2tk1HO4YMSwzGZEJpxHkmi82ZhIeDM/ic/om0GqueOL7A0IYbPQS7Pti
-         hQil7kwri6WmOjrJ9zDhvXJJEYTYED0w7lwSsSxO7dH5nDN8E8pp9/5sRR5Ol5McyiE7
-         brjmuWh4FVQBlwlBhXPfoQrUUCT3Qj+Pq+cgujB1UZP4aend/YWOzbfq0HF9owm40bIe
-         FSiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkpZg9lhpU/aVXnpJanjXEW0DS5Iux45KJqZQFsghELLk1fkh3PvNAqceJeSGg7ItE6oMK4xYXYx+AD1Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4KeedxhADW4gtU/OEDEkLBdQKzNXxHNIWNjtq/FhntL0DD7Gm
-	1D4K17uDAiHyA2TBFN/+t3Dbps9zd7FeZAhKS61nL/c1nfYjiTo93qMTfBaUJIsieZvbENraH3p
-	UzGiq9+MDJWAlqp9vx3ZGieIpoAgP7GLxNJebiG0e1olpDlW5A2gGPct6OH4=
+	s=arc-20240116; t=1789367058; c=relaxed/simple;
+	bh=9B4XH0II4xZ1j+bNjSDBu3eGMS1m7Y+HYDd5JbKuO40=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=nO+HYxfxaQ4qVc71zbCJzuUxY10gKJyI7YPHDkWxRRuNDrN0HkqKGm6lu+3zjsz7hCqAeskr0F1jsvdkhhHzUwL/vxE2YsLLdQBUZ38hBbPMkKjPFdJNCNj3+MeGFf8WHS3chrwaXsf0wLe9T6IHVhx90OHanGsz9NeUFLhYr90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=hisilicon.com; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hisilicon.com
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hjvw23SD8zKm6K;
+	Mon, 14 Sep 2026 14:13:06 +0800 (CST)
+Received: from kwepemf200017.china.huawei.com (unknown [7.202.181.10])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7C6124055B;
+	Mon, 14 Sep 2026 14:24:07 +0800 (CST)
+Received: from [10.67.121.58] (10.67.121.58) by kwepemf200017.china.huawei.com
+ (7.202.181.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
+ 2026 14:24:06 +0800
+Message-ID: <cda318e3-806c-4388-8f1d-cd814ec194e0@hisilicon.com>
+Date: Mon, 14 Sep 2026 14:24:05 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:16a3:b0:6b1:8780:70fe with SMTP id
- 006d021491bc7-6c54214a0bbmr477428eaf.2.1789367041916; Sun, 13 Sep 2026
- 23:24:01 -0700 (PDT)
-Date: Sun, 13 Sep 2026 23:24:01 -0700
-In-Reply-To: <6aa78ad4.f8cccc7c.3aceb8.fbccSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa79301.f81106d8.2ab401.0043.GAE@google.com>
-Subject: Re: [syzbot] [usb?] UBSAN: array-index-out-of-bounds in uea_bind
-From: syzbot <syzbot+92f5bf49bf4ac75223ca@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] PM / devfreq: Fall back to previous_freq when
+ get_cur_freq() fails
+To: Bean Huo <beanhuo@iokpp.de>, <linux-pm@vger.kernel.org>,
+	<linux-scsi@vger.kernel.org>
+CC: <linux-kernel@vger.kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi
+	<cw00.choi@samsung.com>, "Martin K . Petersen" <mkp@kernel.org>, "James E . J
+ . Bottomley" <James.Bottomley@HansenPartnership.com>, Avri Altman
+	<avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, Alim Akhtar
+	<alim.akhtar@samsung.com>, Stanley Jhu <stanleyjhu@google.com>, Bean Huo
+	<beanhuo@micron.com>
+References: <20260907192140.2701755-1-beanhuo@iokpp.de>
+ <20260907192140.2701755-2-beanhuo@iokpp.de>
+Content-Language: en-US
+From: Jie Zhan <zhanjie9@hisilicon.com>
+In-Reply-To: <20260907192140.2701755-2-beanhuo@iokpp.de>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemf200017.china.huawei.com (7.202.181.10)
 
-Hello,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Reported-by: syzbot+92f5bf49bf4ac75223ca@syzkaller.appspotmail.com
-Tested-by: syzbot+92f5bf49bf4ac75223ca@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         762137ff ptp: fc3: register PTP clock after initializa..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=10cc9c8e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5d652488f63e96fd
-dashboard link: https://syzkaller.appspot.com/bug?extid=92f5bf49bf4ac75223ca
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17fb08c9580000
-
-Note: testing is done by a robot and is best-effort only.
+On 9/8/2026 3:21 AM, Bean Huo wrote:
+> From: Bean Huo <beanhuo@micron.com>
+> 
+> devfreq_set_target() calls the optional ->get_cur_freq() callback to get
+> the frequency that is passed as freqs.old to the DEVFREQ_PRECHANGE and
+> DEVFREQ_POSTCHANGE notifiers, but it does not check the return value. If
+> the callback fails without setting @freq, cur_freq is never assigned, and
+> an uninitialized stack value is passed to the notifiers.
+> 
+> hisi_uncore_get_cur_freq() can hit this. It returns -ENODEV without
+> setting @freq when its PCC channel is missing. On the mailbox error path
+> it sets @freq to 0 instead, so that the core does not read a random
+> value.
+> 
+> The other two callers, cur_freq_show() and devfreq_monitor_resume(),
+> already check the return value and use devfreq->previous_freq when the
+> callback fails. Do the same in devfreq_set_target().
+> 
+> This does not seem to cause a visible problem today. The passive governor
+> is the only DEVFREQ_TRANSITION_NOTIFIER user in the tree, and it only
+> reads freqs.new. So this patch is not marked for stable.
+It's a really rare error path indeed.
+> 
+> Fixes: 0fe3a66410a3 ("PM / devfreq: Add new DEVFREQ_TRANSITION_NOTIFIER notifier")
+> Signed-off-by: Bean Huo <beanhuo@micron.com>
+> Reviewed-by: Avri Altman <avri.altman@sandisk.com>
+Thanks, LGTM.
+Reviewed-by: Jie Zhan <zhanjie9@hisilicon.com> 
+> ---
+>  drivers/devfreq/devfreq.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
+> index f08fc6966eae..f20d9a660779 100644
+> --- a/drivers/devfreq/devfreq.c
+> +++ b/drivers/devfreq/devfreq.c
+> @@ -348,9 +348,8 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
+>  	unsigned long cur_freq;
+>  	int err = 0;
+>  
+> -	if (devfreq->profile->get_cur_freq)
+> -		devfreq->profile->get_cur_freq(devfreq->dev.parent, &cur_freq);
+> -	else
+> +	if (!devfreq->profile->get_cur_freq ||
+> +	    devfreq->profile->get_cur_freq(devfreq->dev.parent, &cur_freq))
+>  		cur_freq = devfreq->previous_freq;
+>  
+>  	freqs.old = cur_freq;
