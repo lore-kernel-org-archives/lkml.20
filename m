@@ -1,82 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0DC3115AC;
-	Mon, 14 Sep 2026 04:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50570349CC3;
+	Mon, 14 Sep 2026 04:52:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789361471; cv=none; b=BfrrM8GwRHgixGyJbN4Dv9ay8xbZhTpj4bCEOkAyGpxlJ23co/RBGomXn2wp8P1lxI0Q6AOue5MySbxRKMVpQseA6VO/hc73H/4GjKHGNL8dV1YRj6vmFHxK+8JZy9bTP8CX26bD62Gw5F03lgel8orAa0eq2Qyj8d9wCJZ/ANw=
+	t=1789361564; cv=none; b=gK9+YZ4cm/EyXmy4tRNqTbbjtZzqWp4Wx4WN/zkBKPyv/bz991+FHQA7c7IwzQHGVGtz9jCW/tqz0lEcBqLTy/X4kUyGE2idIfU0qaLVMlH5GTy5iVosecQp6z7v/ezDbvLLdiAfSox/zMetkCKRjkunUC5iSWAvUjNETcXi0k0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789361471; c=relaxed/simple;
-	bh=ty0lL2XdGaJ16xd8LAp4MjWH5vFih56YMjJeBIWwGPg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=p8EXonIOtjapp60HtDv5rRsmtfWhUpJfwEkhiVEX2+4YRHSzeYNQ5JUDqIQCsDMYgglKy9mmcZrUtUtrioS8rg9to+33r86Uc9sBOdRyw2Utm8t9v533sqv1z6X/RWBm1pm9QSR+NBYsBBcsEQfyB/mUR2BBIhSvHX0lEIw4T+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MeQtjrGw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789361564; c=relaxed/simple;
+	bh=IOmJ9vKGN9+BB1u/jqy+ZCwwC/C6S6NozX6XkKyyaWU=;
+	h=Date:From:To:Cc:Subject:Message-Id:Mime-Version:Content-Type; b=lmKxmFCZvG6JgEOAy+rNCvcPwxHSC6J95/xaw2urSt8T4x5uy1ZF1tIOM1k7ebNiS6G4c1ia56ZGkYswrVmcsAMm9suKGmRL7VwtMeiyVjCd6AygER/aLZi30XHsWR8YrF+EwPDkzl+erczOUhszAaJod2VV1RKYbVjc799JD+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=jmEysL+g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MeQtjrGw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709611F000FF;
-	Mon, 14 Sep 2026 04:51:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789361469;
-	bh=a3gFrigOiuyKqxOGSC7uDkyzjzEhyZx4u6ZWL7zbPLw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=MeQtjrGwy2BYnAiJdS4o/ast5Nb77gHoBYTRLvGcy9DwjCXSEAbzKW9Ph9G6cICFi
-	 xVv0pm6ibBNKq3wkT5I2bX0FL9e3tL+lf7gqG3pQ6WQbcZ/bo92Web0dKPtlOcoIGp
-	 HafwrCFCNl8YYmaaZ/65Eym98u30Bu30Pw5EHPVgF9qEcmy3kkbGCoR5AxF3xVcni3
-	 0EocryL22nGsvPVgk+BpbjSkEOwKETF8Nv9CCY1I6qhoY9QeffJqzKzq6wV2t8hz1j
-	 oKUQ/ah6Bi+QXp6eXrY2HMzqUeIfH59TFrx/LfTS6tbHmGk10jAhlR57V4233/L8Ft
-	 VEVcKG0Bi6bug==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199FA380AA63;
-	Mon, 14 Sep 2026 04:50:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="jmEysL+g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94DA71F000FF;
+	Mon, 14 Sep 2026 04:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789361562;
+	bh=3Wt5ocwzEWGnNlYZNryMwTicaVcgg2/IRrlxzOXxn+c=;
+	h=Date:From:To:Cc:Subject;
+	b=jmEysL+gdBRXJvJ5wGy4PM7XFeiQowuZ8f4CnHxs55WYuJ7Swv6ro4Vjz8CbHJbaz
+	 k2DgKnvO/hrEIkvnexjb//nMkqxlb6b7yAWiw1ut/wiDInTaY7isxSWl0oE3BdoNVP
+	 UJSDGSFi70HHNsS9QVJMfIUXRaD/fRdc9fH/ud9Q=
+Date: Sun, 13 Sep 2026 21:52:42 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-mm@kvack.org, mm-commits@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [GIT PULL] hotfixes for 7.3-rc4
+Message-Id: <20260913215242.66cdff48a7849112984deefc@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next v3] selftests/bpf: Add test for indirect
- struct_ops
- trampoline
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178936140489.322883.12116940153387060587.git-patchwork-notify@kernel.org>
-Date: Mon, 14 Sep 2026 04:50:04 +0000
-References: <20260908073506.29734-1-yangtiezhu@loongson.cn>
-In-Reply-To: <20260908073506.29734-1-yangtiezhu@loongson.cn>
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, loongarch@lists.linux.dev, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
 
-This patch was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+Linus, please merge this batch of hotfixes, thanks.
 
-On Tue,  8 Sep 2026 15:35:06 +0800 you wrote:
-> Add a test case to verify that arguments passed on the stack are
-> correctly read by an indirect struct_ops trampoline.
-> 
-> This test ensures the correctness of stack offsets across various
-> architectures. It is particularly critical for architectures like
-> LoongArch, RISC-V, ARM64, and PowerPC where arguments beyond the
-> first 8 registers are passed on the stack, as well as x86_64 and
-> s390x which have lower register argument limits.
-> 
-> [...]
 
-Here is the summary with links:
-  - [bpf-next,v3] selftests/bpf: Add test for indirect struct_ops trampoline
-    https://git.kernel.org/bpf/bpf-next/c/698181b2d5fd
+The following changes since commit 0d9ff90a5422cc7509258aaaba1e7481df4d332a:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+  Merge tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi (2026-09-05 09:25:50 -0700)
 
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-09-13-21-50
+
+for you to fetch changes up to 7891fbb9512f127826e1d5dbf380ee212bd15eb0:
+
+  mm/folio: EXPORT_SYMBOL_FOR_KVM(lru_cache_drain_for_folio) (2026-09-08 23:28:06 -0700)
+
+----------------------------------------------------------------
+14 hotfixes.  10 are cc:stable.  11 are for MM.
+
+All are singletons - please see the changelogs for details.
+
+----------------------------------------------------------------
+Ackerley Tng (1):
+      mm/folio: EXPORT_SYMBOL_FOR_KVM(lru_cache_drain_for_folio)
+
+Andrew Morton (1):
+      remove old lib/alloc_tag.c
+
+Christopher Obbard (1):
+      mailmap: update entry for Christopher Obbard
+
+Coiby Xu (1):
+      mailmap: map Coiby Xu's address
+
+Jiayuan Chen (1):
+      mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
+
+Lorenzo Stoakes (ARM) (3):
+      mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
+      mm/mremap: account mm->locked_vm correctly for MREMAP_DONTUNMAP
+      mm/vma: correctly unaccount on mmap_prepare() failure
+
+Nhat Pham (1):
+      mm, swap: fix SWAP_USAGE_OFFLIST_BIT collision with real usage count
+
+Qi Zheng (1):
+      fs: fix missed removal of super_fs_objects_eligible()
+
+Seunguk Shin (1):
+      fs/dax: check zero or empty entry before converting xarray entry
+
+Shakeel Butt (2):
+      memcg: avoid charging the root memcg from obj_cgroup_charge_pages()
+      mm/mlock: use the IRQ-safe accessor for NR_MLOCK in __munlock_folio()
+
+Wenjie Qi (1):
+      mm: filemap: retain mapped dropbehind folios
+
+ .mailmap         |    4 +-
+ fs/dax.c         |    9 +-
+ fs/super.c       |   18 +-
+ lib/alloc_tag.c  | 1029 ------------------------------------------------------
+ mm/filemap.c     |    2 +-
+ mm/folio.c       |    2 +
+ mm/huge_memory.c |   86 +++--
+ mm/memcontrol.c  |    2 +-
+ mm/mlock.c       |    2 +-
+ mm/mremap.c      |    9 +-
+ mm/shrinker.c    |    2 +
+ mm/swapfile.c    |    2 +-
+ mm/vma.c         |    6 +-
+ 13 files changed, 91 insertions(+), 1082 deletions(-)
+ delete mode 100644 lib/alloc_tag.c
 
