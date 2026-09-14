@@ -1,157 +1,135 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01D7385521
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:31:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407068; cv=none; b=sP+sbhSPXvTe7qHgbxiBVK6Bk3vnKz6U7+9ujx4H7Xb8UuDa+Vbd0QC06YG3XJctHDIlfUk0SdHgPbtQMAq3aMso18CGepcBRk12dtf0/H77oUDYW252c9EKK3TExU4uoFBy87kiXTXZFmf5Okk+5LlGWpTw/Q7ujxrvfeh4NQQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407068; c=relaxed/simple;
-	bh=qHFSpRikwa/nn6MFHRYhx4cMrvlGxbQe1RFuOZb4iI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=enzsOUq3V5KE1AuMuvwpDRi3lB8iX5eCnwcyvGr7z0fJKUML4RSGaxxuUrwRnQc1AzwEvPZAeBAWpynVW6OxpWtC5/wBrPgPwYVA1MrrvPqq45t/8FGQYtVxbuva8YNWB9HbgxmlN8UE+ujP1NktrL9qnSMjj/Zmfy+wTwzRtBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hwuP2ooL; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B20E493658
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789407175; cv=pass; b=cmzQ8s3oUzW1FbbR85oVnHNKS29Ledy4WrgltwYCiRSPKf+/a5VnqjYSIYZgxFmBL1Ti5DwzXEN5tXfr2P8mGuqdUIhTdHBoSaENZ3IH6+Bx30axjKfUVGRI7zqzA0QM3JYZrij+xu6+/xiVcKB0FFTVvY7jNeqoP/eDmzkfwD0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789407175; c=relaxed/simple;
+	bh=gCtcRw+qNHNStAJYTVYJOoSF1vMwsMIbo21sJaqXQqw=;
+	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lwJPtC5trOk54HRRNVG8O3uMuEjZmqZeWekAyPFj8fzEpCDKOKI3yVLFFfK9Bq4/u1L0LurKDgDaJmFk9ScfDt0w7aK9KumG7rgSNfVoOhlLagzkyAbyXqJXrqgm+xa6Q/y0lupstCMp14kKv2b5tewKfoO1xb7mMyP1kg3DecE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=POQUs0QH; arc=pass smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hwuP2ooL"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a318299b93so17623611fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:31:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="POQUs0QH"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae45so4878495a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:32:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789407168; cv=none;
+        d=google.com; s=arc-20260327;
+        b=izk/gi4r/e6FUzwm6u7P7BVJweFFDMkUL3DyYZv/EmzkszFKRltnxe4GBG0lzezHCJ
+         kDu8Of3s34ErPjJAM/YBDqdVaLZBEcNateQIf9RuB4U7TrdLpnvxP2czzJzx9d0vt7RX
+         OSuME6Uh15R/uVMULLvNsb0NPacZl4sYxsH1R7pSaDDKm1gcaLb1y2SSYZVeEtqQiCv8
+         rgR0SPhrAtVsVl85NAEMDy5+mWxAUmp8ZehfOIBFTntDSuETeO6H/CpNsbMVxal3W7Mf
+         s7O3WHQ3V0i5Thb2r+GqpG4iFzQNBquq7ujm4bn3SY0eolexF//mt/Lo13DUg3Qltyo5
+         GxmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:references:in-reply-to:dkim-signature;
+        bh=gCtcRw+qNHNStAJYTVYJOoSF1vMwsMIbo21sJaqXQqw=;
+        fh=aShFb3lf2yadIeK0MWlIkvZjqIa8tge9hWSHKA5GuaM=;
+        b=bk7wFmMmkOzF3hW0Z7fjWsUlXBxp/wLAvO2Y9KKgztUNqR3NFn1RmWbijZvpuGukkC
+         ieU/FzV6X8li++tAB6Nqokcu6mpNtjmbJ1D0O+n/Y0hB+1Z5XAt5Sd2/O4RFEq0FK2zB
+         qlWIaBd79OtefhoSBedWIbKbJx0SSIm2rPDMEFzw1VnYKQXC3JPq0l5KdakWPJ4GL34O
+         4E5F2QFz7bqqSE04gUQwK1sa5X0uYiATtKtE2rNioeK9tmXBpeHhBEf853xaj1nVlSjB
+         N5CEzIQVuYw1vhXBQpG/KbHew7tKqfX5rdNZmWtNxQhTCoCVOVW/SfntZ1GTtFWIDLUI
+         AfbQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789407062; x=1790011862; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uejRUvyuFcc6D/L4RGNRyiFIR0zJDJV2e12Q9seeuxg=;
-        b=hwuP2ooLLZmSOUk9fVY+YoFXzpVfQGMeNXomBnAeswGCFze2WNQCjuJGodl9JvwejN
-         S+RQC4C1e3gBYet9wRCgGHnN6LeKNXWYCUJlFDmWs/q5rV2P/aFovQ9LgYZ5Z3aJ/ZqJ
-         N96nu813pfACKKYDOplW+TBFry5q/FT9daS7HixJKMqlb9IpRDG/Zg6kkVNztyCDRL3K
-         Yi6Z0ENn3tHMzfgn/YZHnZSkbSD9fKpfzCcH4E2tQXztf1gQDmQFf5C4h6ggrxrIIPqU
-         PD0ExHT2jRFCxvD5eGVHhW/rCWa1XU5H/ats1Pj7RPtcwL63ydiUqLDX3SvIHZaUtmQg
-         mRuw==
+        d=gmail.com; s=20251104; t=1789407168; x=1790011968; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gCtcRw+qNHNStAJYTVYJOoSF1vMwsMIbo21sJaqXQqw=;
+        b=POQUs0QHEvLkF4InMVkMDvXrmA1vA3QH27I7JAkFGQEwL7UHrV1FQ569DV6Jb1a8xF
+         GUCH+HkbUWAgB6E9Jjqf8ok2m7ZMYCh+pRBHtOjPQW8dBB4EqJ9IpmsRFIJZ6oFu5rtp
+         RagZhY/jNfQxd5UyCMo7bEVfo6I5jct9KcPMQ0nkuUckWGxiqHLqSlHepIfaIlXEm5fC
+         XbG3taBBv9d0IHPMePAhDdxL5l0n2Nu0gIt7njKjgLX7Ca1Iz5lkYlVCedvGJVBAoMAG
+         6RK8VWYrNkY2ratB395tkD2q4RxONYks9HzyFoj972EgUfrOjzSPsAj3MwT3ZAa3USXw
+         fLUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789407062; x=1790011862;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uejRUvyuFcc6D/L4RGNRyiFIR0zJDJV2e12Q9seeuxg=;
-        b=jSmSkYTxDe1LbisXmvxBSAZz5Jl+GlDV+GIGjaWy7HrgIrj8EkS33FuyQjvBXK+C+e
-         jNMBz0WSrNcHpuRjWvpvHtE/CuRIOGQ94dYUZi6f0GhezaK+4gUTIaMcMGPOLUCxQVnA
-         U5+yw2jeiy/aFZqgtdFA4XzRVHA+bOXvLSgONEh9HGhcPMQ5w5rSpTz4b0J/ycMwNCjr
-         Wl8b2/Osw1wdDHn+eRah72KZCV2GTDvIrU7LiKbl7nY1nXlxQz1ym32H0G5XBSm0VuEb
-         F5Utt049s+gVBHvzqcsr455bhlXzAvOZIwoFPJ7h4WcCnRPWihTgIKY1UfwYt9KknRkm
-         Tvug==
-X-Forwarded-Encrypted: i=1; AKwUvBwQl+AUHCSfRcdCSjvO2hT7WsGQhJZpSY0Wda1zDV/fmp8UUycpJLviZmvi9+nePLd8HzBQQE7ulQUi7ns=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBHwOIwD3nKktWxN8EzsglN2i2sfIMrN5BFzU2iIfZytQzPOpq
-	B1T5upYPOMeJiNiCZxtNBmlghoueBNvaxYIx4bmA/j6ochkmadnLDuK5
-X-Gm-Gg: AYBFou11fkhXKgbq1Dt/yOyqVSsEZSBOHFciSUpwQS6lAYgwOLqDnVTStQBLh9xYmqm
-	UjfA+oCEeVfBrx0mBm6R2AdsWW/dHSqb6zzz3f0my4dBRCAplplfDi47TAFwNvew5WTO05C5bjI
-	KlbGldJqk13JyjmF1M7SBtJNKmw5snOiGK9tMcIK+M1dXmRxxKRTXSXevuB8FVd6VhcesH3yRb3
-	24vmIvy58pIvGDcNJKFtrED55AXD4wLkzBsA2voV6JsqgereyoyK4WkO4LUISnrmiEzSYawJOze
-	kmGy3LlWCisKI5ywCPfSKLixyYoLcBHfk3ljAt47MmJuiIPbtF2kH79d2t2Nx/GZaQm2e3tykN9
-	IA/zxLlviYCoFnzP5TXiB9Rdk8jGWytYc3i0kx3TwZezKCPsx6WsoZj8dZbKhgd+mQKUwpdr+Gr
-	7SuqjD4UU3CalbUnAOHgvb8Sj6fHYDFS6yAE/BXbvwPJGW/v+/+IJ+wIHZCJfcQRLY8gYY+vaWf
-	baPd2ucsdvOZXqw0w==
-X-Received: by 2002:a05:651c:31c8:b0:3a3:74b9:8a7a with SMTP id 38308e7fff4ca-3a5c896409emr5494961fa.19.1789407062008;
-        Mon, 14 Sep 2026 10:31:02 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.93.121])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3361f94sm25781391fa.32.2026.09.14.10.30.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 10:31:01 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mikhail.v.gavrilov@gmail.com,
-	Maxim Skokov <skokovmaksimevg@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: RFCOMM: free the skb when the DLC has no owner
-Date: Mon, 14 Sep 2026 20:30:42 +0300
-Message-ID: <20260914173044.5249-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20251104; t=1789407168; x=1790011968;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gCtcRw+qNHNStAJYTVYJOoSF1vMwsMIbo21sJaqXQqw=;
+        b=JrU6/Bna1s/E1sifLI6ZIS8KoDBd8tf0xqHOskkkikiIZ+AZBQhjCIIVXXbf/GT4G4
+         2RL6Sgm7Qx5nsmYrn85SgSCeoubZcXMQtvIMCrixZv6gakK74vi1iA44APDzTGtQpteG
+         mIFo0dQNanemONQZguPm2shA9BDtxKmBBxGYAIHOBWsjJuE7hFaXzeITVn0eZ8vLp8dq
+         Yir1rmoi/4d5ySZRaBBa5fZx/r1S79YbQZi9ABJQ5reORS7n0m+ISGC7LUMuo/RA6+z0
+         +3IF7lxhd0xLeBv2iqcxYTffxmn3TY0QsdjsUJwKuDJZHttptz3c9Cq9Rip0fKMXvBc3
+         vXbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxN98ZJ71w0YdQUaPyIx8WoFQWSdM16wdp29IlMNaeoQcn1GsbKlISPXBNyn/dxajobjCGD4ViPN6Oi9XE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/fSH2QkDpeGxydfe34XRPYg+7uy6GSJyZgQ7fiEA4O6V4I3aO
+	SS0VQbUKp7fOfwCEatXzKTqmrLUc0SjFyEjWISDihOGDxPXEDm5h0k8RaT/ph6GiQ06B8iy6WJa
+	4cbxWw9FMQqsRhrj46pK5xGJd6UQU2j0=
+X-Gm-Gg: AYBFou3ZsHTkTKSsMsdPtiAXxovEdalNJa0MxuRt+uQpXKolBSK8YC7dEEECqNcRvon
+	JfyUb/UnIF10hEw1OvWg+tzJ0VH2XKDTt9e5qiO6B7LjWLlBQ2mQx/Hb+9jdTqkV5v/9ZqLR+V2
+	Y26H2EsIrjUEhnkVhDye23cnDJ4TAjUtRcje4pUhIdo6NhJrNKah2UYtQYqNZX8C3MIfarcu5LL
+	UzXrjZa1j4Voh+/WF0rnA8N8co4HjFZY1jJ5ydFphp0zItFlnibx6gYFAS0yhXUnt7JjzAHLLJ/
+	S6X18D0ztAs49w/WERYHz5aybfY8KHWAJ2YkDUyGvjulW1sQun1+mBzFF2A8pLAsRUGsWW/wdVu
+	qb+w8KK+ljQcA1GOVWIEo/XhWmRV8VLNiknHRV40=
+X-Received: by 2002:a05:6402:24d3:b0:6a9:a281:ca8a with SMTP id
+ 4fb4d7f45d1cf-6a9f6379705mr4277384a12.20.1789407168020; Mon, 14 Sep 2026
+ 10:32:48 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 14 Sep 2026 12:32:46 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 14 Sep 2026 12:32:45 -0500
+In-Reply-To: <aqe2K0nVppBFSidV@stanley.mountain>
+References: <20260913040140.4517-1-gaberashawn@gmail.com> <20260913040140.4517-2-gaberashawn@gmail.com>
+ <aqe2K0nVppBFSidV@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Gabriel Changamire <gaberashawn@gmail.com>
+Date: Mon, 14 Sep 2026 12:32:45 -0500
+X-Gm-Features: AcwNN1WpByfxKhF0aBLisXpqJcCGb5hY09UxTHQsDO2h2LA-o97HI9q9YhD-9kw
+Message-ID: <CACKJOpCHzkwX3G=mrbe0i8Xj79RK7648EoD7BXuKqLM9JuPe3w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] staging: sm750fb: remove unused definitions from ddk750_reg.h
+To: error27@gmail.com
+Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com, 
+	gregkh@linuxfoundation.org, linux-fbdev@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-rfcomm_recv_data() hands the skb to d->data_ready() and returns 0
-without freeing it, so the callback owns the skb from that point on.
-The tty implementation frees it when the DLC has been detached from its
-device:
+Thanks for the Acked-by and for the feedback on patch 2. That makes
+sense =E2=80=94 I=E2=80=99ll drop patch 2 and leave those register definiti=
+ons in
+place.
 
-  static void rfcomm_dev_data_ready(struct rfcomm_dlc *dlc,
-                                    struct sk_buff *skb)
-  {
-          struct rfcomm_dev *dev = dlc->owner;
+Regards,
+Gabriel
 
-          if (!dev) {
-                  kfree_skb(skb);
-                  return;
-          }
-
-The socket implementation returns without freeing it, and the skb is
-leaked.
-
-A connected DLC can have no owner: rfcomm_sock_destruct() clears
-d->owner, while the DLC itself stays on the session until it is closed.
-Data frames that arrive in that window still find d->state ==
-BT_CONNECTED in rfcomm_recv_data() and are handed to the callback, one
-leaked skb each.
-
-The leak does not stop on its own either.  The remote runs out of
-credits only once RFCOMM_RX_THROTTLED is set, and for a socket the only
-place that sets it is rfcomm_sk_data_ready() itself, below the return.
-rfcomm_process_dlcs() keeps granting credits, so the remote keeps
-sending and the leak keeps growing.
-
-Free the skb, as the tty side does.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Closes: https://lore.kernel.org/linux-bluetooth/CABXGCsPe5wykd8Aj-hm+SJ7SGQyb8yoGNnx3XDpPmBathj+EGg@mail.gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Maxim Skokov <skokovmaksimevg@gmail.com>
-Assisted-by: Claude:claude-opus-5
----
-
-Notes:
-    Noticed in the v3 thread of "Bluetooth: RFCOMM: connect the session
-    socket without rfcomm_mutex", where the same leak is described.
-    
-    Found by inspection.  I did not manage to produce an orphaned connected
-    DLC on hardware: it needs the socket to be destroyed while the remote is
-    still sending on the DLC.  A kprobe on rfcomm_sk_data_ready() over an
-    HFP session (RTL8851BE, btusb) counted 31 frames delivered to a live
-    socket and one rfcomm_sock_destruct(), so the window does open in normal
-    use; no frame happened to arrive inside it.
-    
-    Built and loaded on 7.3.0-rc1 with KASAN, UBSAN, PROVE_LOCKING and
-    DEBUG_OBJECTS; HFP and A2DP sessions behave as before, and none of the
-    sanitizers reported anything on the RFCOMM paths.
-
- net/bluetooth/rfcomm/sock.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/rfcomm/sock.c b/net/bluetooth/rfcomm/sock.c
-index 958081adb9..82aa38715c 100644
---- a/net/bluetooth/rfcomm/sock.c
-+++ b/net/bluetooth/rfcomm/sock.c
-@@ -48,8 +48,11 @@ static void rfcomm_sock_kill(struct sock *sk);
- static void rfcomm_sk_data_ready(struct rfcomm_dlc *d, struct sk_buff *skb)
- {
- 	struct sock *sk = d->owner;
--	if (!sk)
-+
-+	if (!sk) {
-+		kfree_skb(skb);
- 		return;
-+	}
- 
- 	atomic_add(skb->len, &sk->sk_rmem_alloc);
- 	skb_queue_tail(&sk->sk_receive_queue, skb);
--- 
-2.47.3
-
+On Mon, 14 Sep 2026 11:54:03 +0300, Dan Carpenter <error27@gmail.com> wrote=
+:
+> On Sun, Sep 13, 2026 at 04:01:40AM +0000, Gabriel Changamire wrote:
+> > The sm750fb TODO asks for unused code to be removed. Of the 1203
+> > register and field definitions in ddk750_reg.h, 1046 are referenced
+> > neither by the rest of the driver nor, transitively, by any definition
+> > that is referenced.
+> >
+> > Remove them, together with section comments that are left with no
+> > content beneath them. The include guard and all VALIDATION_CHIP
+> > conditional blocks are preserved.
+> >
+> > Build-tested: all driver objects are byte-identical before and after
+> > the change. No functional change.
+> >
+> > Signed-off-by: Gabriel Changamire <gaberashawn@gmail.com>
+> > ---
+>
+> These macros are just documentation and they don't hurt readability.
+> They probably improve readability.
+>
+> regards,
+> dan carpenter
