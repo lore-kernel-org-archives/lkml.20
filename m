@@ -1,235 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6521E39A06D;
-	Mon, 14 Sep 2026 18:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FD738C421;
+	Mon, 14 Sep 2026 18:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789411090; cv=none; b=ruw7DOWQhXGjLYVZ3/2QljdHNHEJqOtqyemo22nsEMqGITSKhcx+4WmVe+ocTEB147nc7ZQKUgu/UuboY0/mOhRDUu5jQJpjPos9EZ48KHTLi0Nc4FKYaptga/K7jnqGYzxElvgIaGstAUntL+mxjMkeoPbIjoFBwcZEqlLq+Lc=
+	t=1789411183; cv=none; b=e5l52WbWdSPqywPcWqV9cC6L37Y1U7T42aW6nPLX+j3HnrZh3fe/H06hMYmuFuspFl7KRLG6k5PxlYvjfn9BbMyWJRLwID7pZYI1jGxL5EqVUBc2uMDindBl3HM8P7N+Ipf5P/BY1DhSizypZT+1nvwgsVjW18Aq4Q+7h5sEzrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789411090; c=relaxed/simple;
-	bh=buo+TV4B9A9ue04d3G5s3ntT0h/OLrZvRPQ+pXGsoVI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HUzdnurV65MFbOXLBKxKauP4+Fc+e/TBlOQtFos+yvvw2cHxdQTYjRFKlvhBavPZooP4BwlmGftzfIXH8HOG4KFUmNVOzO47q9oujbFW9TuIXwVfqs4jms4aVu/xAYNwurJfARNohH2L8tjoDMscoj1jxzQbOLpx2k+E2mwY8Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGHNSAzR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789411183; c=relaxed/simple;
+	bh=+EvIFyiaw2QT4DIUq7XxLl31BnnCkBd+XUSVmEJJYmA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ryM+TA6sdQRXBvMfx4gTMVyUTVIfOrkJ60o3pJaorfF66XJisOm0IKHSbbIXwCOY+Os3m8YvFIU5G+jjoyaM1gWDZvWwuss62vYOVtgtRzDx1PW5AKHfA5x8Qq3zN/a7tbigR6drY5gWohUYU5q+sq2HAPCsSGzMRcjHT+V1xOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=0yeBtz7G; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGHNSAzR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0713A1F00893;
-	Mon, 14 Sep 2026 18:37:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789411081;
-	bh=Z4o56JwkEFW73boPUFtrcKj3thXmqi1LZKtly3vu1cE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GGHNSAzR/YhH3QxWKSpLNHwFdrKTCQM++s4yVnSlTjpF5i0eKHg87SWTJS+60Jz6O
-	 tmd2pV1U9ekBH9l7e1TB26XBFYY95/AeNM6M+abVf2wXus84n+3nw/BnoVaaZFjdBx
-	 Z+EEynR3KHL8940RmbcPqrPx1iIsaeLWq++uK8z9E703MistGlNSU9AFtPZGysg/EO
-	 NB7SKar172Fc+bdrEHyaVuwD5rOoYj09bbgJl+NWYJZfKGgnJj1jPbQoiULfZyrYbe
-	 IPPb4MwDvV9sfDVUuSFtPwvAAd+ZqpTzW5YpMDHphkO184NNB0+5XcktIC/58Efx2q
-	 8R0tB+TXRJqhQ==
-From: Ard Biesheuvel <ardb@kernel.org>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Borislav Petkov <bp@alien8.de>
-Subject: [PATCH 2/3] x86/boot: Move unaccepted memory handling out of the decompressor
-Date: Mon, 14 Sep 2026 20:37:48 +0200
-Message-ID: <20260914183745.37538-7-ardb@kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="0yeBtz7G"
+Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 2FA601FEC8;
+	Mon, 14 Sep 2026 20:39:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789411178;
+	bh=2lpOwqwwWWqvtF5ZG2J22MmAgTdqVo1i0uZSJYQvyg4=; h=From:To:Subject;
+	b=0yeBtz7G3SjFamZwOgEoGQKJVcj29lojNIqR4oTjLqrv9ACPkNuwHNg9MisohyvKh
+	 b4iB9m76RuXQ1NgjF5OW3Hf+3hIyrE0xM2Y8tSbedA+4zfQvcfeH98LkiWDSRDa9pb
+	 7d7RpIjXuJCQXcQ4fp10Qk6gEJnJnzjGdeNgHvSZ4F288ZDGReVFx3hYS3lrArsRlM
+	 Oyjiy4Vdod6WUcwCEKmYUz1NqICcgLZ2Qt+gbh7SYpDS3ll2JKnEuV17F8ICcpe6IE
+	 j36RFuGc4qIqbykx8w1mDuFAkbHZ91F7rGnrAl90QaKRdI1kYTTwZh9Lgp/QpTq9vg
+	 QrsTdTiWQFaFQ==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v1] arm64: dts: freescale: imx8mp-verdin-yavia: fix external GPIOs
+Date: Mon, 14 Sep 2026 20:39:31 +0200
+Message-ID: <20260914183932.30325-1-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260914183745.37538-5-ardb@kernel.org>
-References: <20260914183745.37538-5-ardb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5848; i=ardb@kernel.org; h=from:subject; bh=buo+TV4B9A9ue04d3G5s3ntT0h/OLrZvRPQ+pXGsoVI=; b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuF3c/iOyf69Vw8uI/N/aa/MfteQeRJ95K8nnX/EyO1N x08a/yqo5SFQYyLQVZMkUVg9t93O09PlKp1niULM4eVCWQIAxenAEzE+i0jw/JJfrGeLsFepx71 M36V3WxxgW12rvHh6UIF+84wm1kv3c7wP+HCpktyPm+FS1uk/lZGLE7e5Cup9bbP46uts8qH1Zv 9WAA=
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
 Content-Transfer-Encoding: 8bit
 
-arch_accept_memory() is an arch-specific hook that is required by the
-EFI stub when processing memory that the firmware reports to the OS as
-EFI_UNACCEPTED_MEMORY.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-This hook is called after ExitBootServices() has been called, as before
-that point, the EFI memory map may get updated behind the back of the
-running EFI stub, making it difficult to get a stable view on it while
-iterating over the entries.
+pinctrl_gpios_ext_yavia (SODIMM 64/66) is defined but never applied to
+gpio3, so those pins stay at their NAND reset function instead of GPIO.
 
-Currently, the x86 version of this hook is implemented in its
-decompressor rather than in the EFI stub itself, in a manner that is
-problematic: when an error occurs, it calls the decompressor's error()
-routine, but without having gone through the decompressor initialization
-code. This means it will resort to direct port I/O rather than the
-hypercall based interface that TDX guests would use otherwise.
+Fix SODIMM 64 to the correct pad, MX8MP_IOMUXC_NAND_READY_B (GPIO3_IO16).
 
-Conceptually, code that is only called from the EFI stub, and never by
-the decompressor when doing legacy boot, belongs in the EFI stub and not
-in the decompressor.
-
-So move it into the x86-specific EFI stub code, replacing the error() on
-the TDX path with tdx_panic(), and dropping the error() when no CC
-support is detected - the kernel can decide what to do in this case
-after it has booted.
-
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Fixes: b694fbe2ff40 ("arm64: dts: imx8mp-verdin: Add yavia carrier board")
+Cc: stable@vger.kernel.org
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- arch/x86/boot/compressed/mem.c          | 42 --------------------
- arch/x86/boot/compressed/sev.h          |  2 -
- arch/x86/include/asm/sev.h              |  2 +
- drivers/firmware/efi/libstub/x86-stub.c | 40 +++++++++++++++++++
- 4 files changed, 42 insertions(+), 44 deletions(-)
+ arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/boot/compressed/mem.c b/arch/x86/boot/compressed/mem.c
-index 0e9f84ab4bdc..1721af3a8039 100644
---- a/arch/x86/boot/compressed/mem.c
-+++ b/arch/x86/boot/compressed/mem.c
-@@ -2,48 +2,6 @@
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
+index f3d28e23ba6c..2a90f312fb27 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
+@@ -117,6 +117,11 @@ &flexcan1 {
+ 	status = "okay";
+ };
  
- #include "error.h"
- #include "misc.h"
--#include "tdx.h"
--#include "sev.h"
--#include <asm/shared/tdx.h>
--
--/*
-- * accept_memory() and process_unaccepted_memory() called from EFI stub which
-- * runs before decompressor and its early_tdx_detect().
-- *
-- * Enumerate TDX directly from the early users.
-- */
--static bool early_is_tdx_guest(void)
--{
--	static bool once;
--	static bool is_tdx;
--
--	if (!IS_ENABLED(CONFIG_INTEL_TDX_GUEST))
--		return false;
--
--	if (!once) {
--		u32 eax, sig[3];
--
--		cpuid_count(TDX_CPUID_LEAF_ID, 0, &eax,
--			    &sig[0], &sig[2],  &sig[1]);
--		is_tdx = !memcmp(TDX_IDENT, sig, sizeof(sig));
--		once = true;
--	}
--
--	return is_tdx;
--}
--
--void arch_accept_memory(phys_addr_t start, phys_addr_t end)
--{
--	/* Platform-specific memory-acceptance call goes here */
--	if (early_is_tdx_guest()) {
--		if (!tdx_accept_memory(start, end))
--			panic("TDX: Failed to accept memory\n");
--	} else if (early_is_sevsnp_guest()) {
--		snp_accept_memory(start, end);
--	} else {
--		error("Cannot accept memory: unknown platform\n");
--	}
--}
- 
- bool init_unaccepted_memory(void)
- {
-diff --git a/arch/x86/boot/compressed/sev.h b/arch/x86/boot/compressed/sev.h
-index 22637b416b46..62e50c2e71ed 100644
---- a/arch/x86/boot/compressed/sev.h
-+++ b/arch/x86/boot/compressed/sev.h
-@@ -14,7 +14,6 @@
- 
- void snp_accept_memory(phys_addr_t start, phys_addr_t end);
- u64 sev_get_status(void);
--bool early_is_sevsnp_guest(void);
- 
- static inline u64 sev_es_rd_ghcb_msr(void)
- {
-@@ -37,7 +36,6 @@ static inline void sev_es_wr_ghcb_msr(u64 val)
- 
- static inline void snp_accept_memory(phys_addr_t start, phys_addr_t end) { }
- static inline u64 sev_get_status(void) { return 0; }
--static inline bool early_is_sevsnp_guest(void) { return false; }
- 
- #endif
- 
-diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-index 9e7a077c445d..843bf463d14d 100644
---- a/arch/x86/include/asm/sev.h
-+++ b/arch/x86/include/asm/sev.h
-@@ -464,6 +464,8 @@ static __always_inline void sev_es_nmi_complete(void)
- extern int __init sev_es_efi_map_ghcbs_cas(pgd_t *pgd);
- extern void sev_enable(struct boot_params *bp);
- 
-+bool early_is_sevsnp_guest(void);
++&gpio3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_gpios_ext_yavia>;
++};
 +
- /*
-  * RMPADJUST modifies the RMP permissions of a page of a lesser-
-  * privileged (numerically higher) VMPL.
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
-index cef32e2c82d8..5009623e4a37 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -10,6 +10,7 @@
- #include <linux/pci.h>
- #include <linux/stddef.h>
+ &gpio4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_ctrl_sleep_moci>;
+@@ -266,7 +271,7 @@ MX8MP_IOMUXC_NAND_DATA03__GPIO3_IO09	0x106	/* SODIMM 62 */
  
-+#include <asm/cpuid/api.h>
- #include <asm/efi.h>
- #include <asm/e820/types.h>
- #include <asm/setup.h>
-@@ -17,6 +18,7 @@
- #include <asm/boot.h>
- #include <asm/kaslr.h>
- #include <asm/sev.h>
-+#include <asm/shared/tdx.h>
- 
- #include "efistub.h"
- #include "x86-stub.h"
-@@ -1068,3 +1070,41 @@ void efi64_stub_entry(efi_handle_t handle, efi_system_table_t *sys_table_arg,
- 		      struct boot_params *boot_params);
- #endif
- #endif
-+
-+#ifdef CONFIG_UNACCEPTED_MEMORY
-+/*
-+ * process_unaccepted_memory() is called after ExitBootServices(), and so these
-+ * memory acceptance routines cannot rely on EFI protocols for detecting the
-+ * presence of TDX or SEV-SNP, or emit any kind of output if any error
-+ * conditions are detected.
-+ */
-+static bool early_is_tdx_guest(void)
-+{
-+	static bool once;
-+	static bool is_tdx;
-+
-+	if (!IS_ENABLED(CONFIG_INTEL_TDX_GUEST))
-+		return false;
-+
-+	if (!once) {
-+		u32 eax, sig[3];
-+
-+		cpuid_count(TDX_CPUID_LEAF_ID, 0, &eax,
-+			    &sig[0], &sig[2],  &sig[1]);
-+		is_tdx = !memcmp(TDX_IDENT, sig, sizeof(sig));
-+		once = true;
-+	}
-+
-+	return is_tdx;
-+}
-+
-+void arch_accept_memory(phys_addr_t start, phys_addr_t end)
-+{
-+	if (early_is_tdx_guest()) {
-+		if (!tdx_accept_memory(start, end))
-+			tdx_panic("Failed to accept memory");
-+	} else if (early_is_sevsnp_guest()) {
-+		snp_accept_memory(start, end);
-+	}
-+}
-+#endif
+ 	pinctrl_gpios_ext_yavia: gpiosextyaviagrp {
+ 		fsl,pins = <
+-			MX8MP_IOMUXC_NAND_CE1_B__GPIO3_IO02	0x106	/* SODIMM 64 */
++			MX8MP_IOMUXC_NAND_READY_B__GPIO3_IO16	0x106	/* SODIMM 64 */
+ 			MX8MP_IOMUXC_NAND_DQS__GPIO3_IO14	0x106	/* SODIMM 66 */
+ 		>;
+ 	};
 -- 
 2.47.3
 
