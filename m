@@ -1,197 +1,162 @@
-Received: from mail-oa1-f80.google.com (mail-oa1-f80.google.com [209.85.160.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF234D5A1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABD3258EF9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789347033; cv=none; b=ddvVzBmnpqURFopOyj2xIyryEibPA8yg+MjnwHIMNUstTQ5jgpjaO7kx8Z3O9igA/7oD9yBgUjJB1udPK9jmYp4FSLoZZ5VwVsqN2irWmQU+b0kxH3nWvOnHvCnYzrhCCdOmbXjar9zs7kUtMFD4q3J7Ws8GBTwNIfCN+aaqJ8s=
+	t=1789347039; cv=none; b=tyQV4KhyBFIoFR4IbqfGcobd1NP/PzlK4Sx/Pem+rByyu1EFj89ST2voNTlxnUR97g09uSUvKx86sQz+uxBGoHvDVuXlIh/CUqlblsVs1ZMej/rqwJ6yIIdUg+azxepHMu1M3rUyZHHbTxeDEndLEPS9G3II28aH7J7OWjXZN4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789347033; c=relaxed/simple;
-	bh=N8Sj/46xOrd4MmG2zyzsVbynJnFJeSzEyp6wiD1izVU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ryYO2L2sJxm/rHXCM9ugCxL+g/zBXja558AdcaZTazEIGSAY9xMePruvhfARnxdo4SihdJ97K9cQFotezhEo02R3Cqbi+UQpWJ0Wf4KDHo4ECKfZZaSl5g9uTt9tGx5jdRDRKXbEQ/i2uM2vUfVdVqTq+FSy8MfmQyezj6esRIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f80.google.com with SMTP id 586e51a60fabf-456b5122c7cso5924378fac.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:50:31 -0700 (PDT)
+	s=arc-20240116; t=1789347039; c=relaxed/simple;
+	bh=BhhLq0kAUoP6SjkHOa6ihyiJTZuMj7B+uI7Zc5zJhAg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E9nc2Pozy9qypoyka8JApKQxSq6m4yMH11kg9U8DrHwyr0HjNZ1r8ihaznpGeFPWwjP+41RY1WitIO3aD2ZmLF/hV5ZCY62ABfUKqtj7etsqhElR5LQYG5n1rDSISJXekz5r1Z8qrdM/c88GvJdUKDrtEpQIzbxutLz8py5Mwro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rpu4QKXY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RBep13df; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rpu4QKXY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RBep13df"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E06Vag3131699
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=asdURPVQzX5whnoLxzBXSnq5
+	avohb5NjScAZbrvWiNA=; b=Rpu4QKXY3gQNBMg6lx6rZ31xdK55mimRsuaSryd/
+	hQZtTAddl61kn8ty1TCk2sFiFblA567q3CEv1wsb25QIcMqPUQ0+3DJb7sHQ+yfc
+	UIiBaTzcXMvrrG7RQr23P+togK4Koyb+GqPm+g0pWZxXjDYhMI+EJFMg8CHJy8IB
+	GrLAAFa6zPLb7zTgxi7EIeAKjSj9PZxXtUhm9CLKpODgs5gj8HVqxLBsk3qBGeOG
+	Vehy247I8VBID2TjTd3PxpwV5DP90CGNfgxPTrYxzZXB6/FqGHMM41GvEPUjebME
+	N/U5xfrR4zjrNqXTVv0yEEqZmep4HHTUMpD+yLDv9S0WGw==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c4fw2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:36 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-78481f4ba52so2701403137.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:50:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789347036; x=1789951836; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=asdURPVQzX5whnoLxzBXSnq5avohb5NjScAZbrvWiNA=;
+        b=RBep13dfS5OIq335Y3lsGYYHR7Ow1BP6yEE0cVdeNK9r82C9peopy5q/fLO7We7lhb
+         hnM0gxullC5ImMV5f02/zy8ZKLcsUnyJIkWFum1Gk8A/3QNATxuxHZBjasnSVxefqYh7
+         lM5CVCC1X9w0BioaSak5+pxp1sg71GcQga/VZLIdQi9Is9Rsb9L9BImi4QCLQddZDJVh
+         8+zntyHWD5RONp6UbQgM/aTGYv/lb9SEtlVjCRwtjKNa1ODRrOclZMI7cLTBXy5xeP5E
+         /6aYGB4hm8rjNr9IYbQ4LHO2dxegS3WoIRP4tZWeLnxgSTsBzDvJ3XdRf1ZTAvXAKjZr
+         Yd9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789347030; x=1789951830;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20251104; t=1789347036; x=1789951836;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mRRM5dshULzfbwZ3jlw5DrysetDGvPOIjZm8NVz77HY=;
-        b=A0Hpc25BbJd/FdV58p3PEnOSGDCVtOn9uFEUN5T3Rdak6shFvSsoMi2sMpzywKW1F+
-         tSgc5JNjAO8RBpRPreqM1NpNe7b3aX24+Pn5QF563xX5zkxpUR/E9d6BNVaK/iGKmogo
-         nCjceJtSYd40XaDjFPADnTnYbBsWtrb/S4eYUOQOI7+zsKBPl8+MX1Lit8Cwod87Z6cQ
-         Rx7uq3zW6EWe0YbjNO4W4ftukAYo5SfSRL5bRhLtNw+rkRkNI5hB92/uoDZzUMUu/NR3
-         CAczlkPHZyJgHjRR/Vg8dVUj276/Ezd0tjw36jjKLf1nJjlvvCRpa6pmQ3Qm/dI6JlSr
-         Ovbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzeSviVrNZiL4+VIIryQZ2rD3R7D04oJ4tJE2gaSpgSg0Rh69javgM4fm4gqu+hWGpm7eUbcxAt4QCB/lw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcFIKQCY5P5yjf6BaesyY4qAmetbzulbb1L/Y5Qp8uNBD0gAwk
-	d0XuQe8ShfL5K9rlPf6iU0klGISi7av+6k4soBrbAMotZheKDXA+uQpBhSgDgh27NJjI7+Z9O9s
-	0Vgvl1yBeILQh39Nig0AZ5iSKvr7vMBBQddMu2djvFebNW/thqdFESKYJVsA=
+        bh=asdURPVQzX5whnoLxzBXSnq5avohb5NjScAZbrvWiNA=;
+        b=riCR52AqUOnhmNZxhsPVu6ewpAY5zdbCDXjdfUrzMM1Lo3c81s1aVBDMkMmudzIOAw
+         N121pHQAF9xc7UbEGD+5HkrhmlIhKB8vYyNSVUd7kA3L2dyJXhYMtTH5erGhTc3NZ8I2
+         Eur+L5TwveMXTtue7R42uFtYgIqqzyxaWfrtSHMBYPJed5FfgyChneKOiyBustvFdwt+
+         mdd9EfgtJNOiDH6v2z4g6rFmmeBQfJhlFevn9lm1wbxKMVMkSUpSRqLfK1c4bcLy+iTE
+         JDP90UmzVB5Tzv4ReA9UGRsZ2w1/N4uW/DHtfwbVMLLayoR4AemwyeA+6jcGiud6S9Kn
+         kdGg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOLYdUvracLNy4JB0S7OOpgodUBoFkpxBw7SXhctMVUdDMvXGYvdNSSpsiXPJmWNVFg6P7i+5Z6XI+s2Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGJvJo4eUK8lRykgXfADxYIA54BfYwn7vMRkVR2pE15DwQ5EIp
+	428PyPbuWrWIE90FQsZDpW6PZA3lo6bzkiGH9RdG6AFCHM6isLDf0ySottET1wQxF7WX+bdUVVx
+	RfubfQdjwdtkIewsGEe3piS3AGgi2J8bRbJ4L9jzNPbKCN272dwwM2XL0me6cPX0Ac/0=
+X-Gm-Gg: AYBFou0zHhUz2Hp7MFPcTNHhfsz7DRp8tvjYN9Z0n2pHUc6GKvD+j1J3NQkOdx/MGTq
+	Li4X+n3In4UN+7L0WdFNWU+IR5b7Bsp9cg0iC4FNX1x3utHr8apLl+xNzYAY9B1sRDcu0dLqWLM
+	IDvUDnYpslpjoskOiUi8r0oGNF81/4ldUfzI2MkGZOev+R27qwjeS2q6VhUDvfp/UyeOKbcH3Ro
+	/RvV733+NjKemnsnUx2zwA1O/DlUp9ZLH+luCzn/jydUnce/BbQCEGqM1Aq2HMO3sb2Fyk9aeYR
+	wc+PLVQmCn3AvhK2jnSfWwOt28N+91SPOpT9IH+3Hg6FRvNoXId3Zd96BmmKS3nR2JfZdUaqhHj
+	YC1Gz5vjRdS/GfwUh/xOFB5IGCMud0nHtQSY/cDOaeTYeqljLuW6i9BYaunEjcMXAnrlzUavhnd
+	+IPjOO3ck88z2e
+X-Received: by 2002:a05:6102:5792:b0:785:d308:cc2e with SMTP id ada2fe7eead31-79b5acb5481mr108155137.9.1789347036241;
+        Sun, 13 Sep 2026 17:50:36 -0700 (PDT)
+X-Received: by 2002:a05:6102:5792:b0:785:d308:cc2e with SMTP id ada2fe7eead31-79b5acb5481mr108147137.9.1789347035856;
+        Sun, 13 Sep 2026 17:50:35 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a04798d2sm2023587e87.69.2026.09.13.17.50.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 17:50:33 -0700 (PDT)
+Date: Mon, 14 Sep 2026 03:50:30 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Archit Taneja <architt@codeaurora.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 7/7] dt-bindings: display/msm: hdmi: Correct name of
+ disallowed supplies
+Message-ID: <6vmbxuukduj5tpvijgltcizdhhgllj4biep7dqs6twj7qte4cp@khfdliq4agqy>
+References: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com>
+ <20260911-drm-msm-hdmi-fixes-before-eliza-v4-7-87bdb9f1987f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c8d:b0:6c3:a421:5a97 with SMTP id
- 006d021491bc7-6c3cc7004camr1591591eaf.7.1789347030503; Sun, 13 Sep 2026
- 17:50:30 -0700 (PDT)
-Date: Sun, 13 Sep 2026 17:50:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa744d6.a211d2ce.1a5198.0285.GAE@google.com>
-Subject: [syzbot] [kernel?] KASAN: slab-use-after-free Read in remove_one_compat_dev
-From: syzbot <syzbot+7db35adbc02c5b86d4e0@syzkaller.appspotmail.com>
-To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-7-87bdb9f1987f@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: xS26dD6yzcwyOrV4BcrmUULjvQJp-dQi
+X-Proofpoint-GUID: xS26dD6yzcwyOrV4BcrmUULjvQJp-dQi
+X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa744dc cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=XYAwZIGsAAAA:8
+ a=EUspDBNiAAAA:8 a=5Adlwl6woCA7rngLHykA:9 a=CjuIK1q_8ugA:10
+ a=-aSRE8QhW-JAV6biHavz:22 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwOCBTYWx0ZWRfXxDZsCq3ClJhC
+ 16nv1jy0ioZtKl5p8NiWbN8F+5deXMny0PwFj+00yJ6rM3h+RShlMSvrgLl/SDYJR9bK5iLCE/J
+ yaHV/BZhs9WDSTgCx21x9JD4MY0vCwl63xdte/E3h7wYu/4iiHgGzELKzidYkvYe9Ib4ClQK/we
+ Pda6HKWMQiIf9IxUvtpELQvsXqgv0N4VZeBqS8Bf6aLdDUsnyKoxCYyT4l1udoBlmij3PN+iNX2
+ f1nkJkhVoq03Lr+IO+t6R2gMJM/Zjt4AXQrBNB5Ak0E112AC/uPFRkFYTrbOOzh0xi/1nhrsjMq
+ K2doed/8adbNdeno/K7R6lYt6JLDl0f4GIH123eY2g0yETpZr+Y95eWt7cqC8bK/gULvsGLksy9
+ VwE6fBVSyUzkGx9fhn5WVqTRCaufPoWfhUXmtfh+0UDae67gj1ewGgU6DFXAOEcMktgN0dA96xl
+ p9iSungee3jMuXHH+KA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwOCBTYWx0ZWRfX+vOhk4knZwsc
+ 4XZG1h3GgR4QrCo17CCLIL/kQOzd2RfzPKprqPv89Jf2kkia8MzrEjDw55nbV10ZtWuEvJt0g6M
+ tJqox/SzuSZ34642aquYuRJI0sBzNJI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_08,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140008
 
-Hello,
+On Fri, Sep 11, 2026 at 12:29:40PM +0200, Krzysztof Kozlowski wrote:
+> There are no properties in DTS or Linux drivers called
+> "core-vcc-supplies" or "hdmi-mux-supplies", so the binding probably
+> wanted "-supply" properties instead (which are defined in the top-level
+> properties of the binding).
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/display/msm/hdmi.yaml | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
 
-syzbot found the following issue on:
+Fixes: 2f14bc38d88a ("dt-bindings: display/msm: hdmi: split and convert to yaml")
 
-HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=13c87615580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
-dashboard link: https://syzkaller.appspot.com/bug?extid=7db35adbc02c5b86d4e0
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-5445d641.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-5445d641.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Image-5445d641.gz.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+7db35adbc02c5b86d4e0@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in kobject_uevent_net_broadcast+0x110/0x53c lib/kobject_uevent.c:415
-Read of size 8 at addr ffff0000f621ced0 by task kworker/u8:17/6617
-
-CPU: 0 UID: 0 PID: 6617 Comm: kworker/u8:17 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Workqueue: ib-unreg-wq ib_unregister_work
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack+0x30/0x40 lib/dump_stack.c:94
- dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
- print_address_description+0xb0/0x238 mm/kasan/report.c:378
- print_report+0x68/0x84 mm/kasan/report.c:482
- kasan_report+0x8c/0xc4 mm/kasan/report.c:595
- __asan_report_load8_noabort+0x20/0x2c mm/kasan/report_generic.c:381
- kobject_uevent_net_broadcast+0x110/0x53c lib/kobject_uevent.c:415
- kobject_uevent_env+0x518/0x944 lib/kobject_uevent.c:611
- kobject_uevent+0x2c/0x3c lib/kobject_uevent.c:659
- device_del+0x5f8/0x71c drivers/base/core.c:3983
- remove_one_compat_dev+0x5c/0x7c drivers/infiniband/core/device.c:1036
- remove_compat_devs drivers/infiniband/core/device.c:1047 [inline]
- disable_device+0x184/0x240 drivers/infiniband/core/device.c:1339
- __ib_unregister_device+0x214/0x33c drivers/infiniband/core/device.c:1571
- ib_unregister_work+0x20/0x38 drivers/infiniband/core/device.c:1683
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-
-Allocated by task 7081:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x40/0x78 mm/kasan/common.c:78
- kasan_save_alloc_info+0x40/0x50 mm/kasan/generic.c:570
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x9c/0xb4 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f4/0x5fc mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- uevent_net_init+0xcc/0x2a0 lib/kobject_uevent.c:782
- ops_init+0x2cc/0x528 net/core/net_namespace.c:137
- setup_net+0x118/0x2fc net/core/net_namespace.c:443
- copy_net_ns+0x454/0x698 net/core/net_namespace.c:582
- create_new_namespaces+0x304/0x50c kernel/nsproxy.c:132
- copy_namespaces+0x3fc/0x474 kernel/nsproxy.c:195
- copy_process+0x177c/0x332c kernel/fork.c:2310
- kernel_clone+0x234/0x9fc kernel/fork.c:2766
- __do_sys_clone kernel/fork.c:2908 [inline]
- __se_sys_clone kernel/fork.c:2876 [inline]
- __arm64_sys_clone+0x168/0x1d4 kernel/fork.c:2876
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
-
-Freed by task 13:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x40/0x78 mm/kasan/common.c:78
- kasan_save_free_info+0x54/0x6c mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x74/0xa4 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x188/0x698 mm/slub.c:6792
- uevent_net_exit+0x1b0/0x1cc lib/kobject_uevent.c:816
- ops_exit_list net/core/net_namespace.c:200 [inline]
- ops_undo_list+0x3cc/0x81c net/core/net_namespace.c:253
- cleanup_net+0x474/0x6c4 net/core/net_namespace.c:706
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-
-The buggy address belongs to the object at ffff0000f621cec0
- which belongs to the cache kmalloc-32 of size 32
-The buggy address is located 16 bytes inside of
- freed 32-byte region [ffff0000f621cec0, ffff0000f621cee0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff0000f621ca40 pfn:0x13621c
-flags: 0x5ffc00000000200(workingset|node=0|zone=2|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 05ffc00000000200 ffff0000c0001780 fffffdffc3334710 fffffdffc346e790
-raw: ffff0000f621ca40 0000000000400039 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-
-Memory state around the buggy address:
- ffff0000f621cd80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
- ffff0000f621ce00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
->ffff0000f621ce80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-                                                 ^
- ffff0000f621cf00: 00 00 00 fc fc fc fc fc 00 00 00 fc fc fc fc fc
- ffff0000f621cf80: fa fb fb fb fc fc fc fc 00 00 00 fc fc fc fc fc
-==================================================================
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- 
+With best wishes
+Dmitry
