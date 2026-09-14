@@ -1,77 +1,77 @@
 Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35554411FA8;
-	Mon, 14 Sep 2026 08:40:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9357441443F;
+	Mon, 14 Sep 2026 08:41:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375257; cv=none; b=u7oJsKejd9V0KsHVkqnzNQDCTGgwc7Oxb9xNqPAH0sldfJmAsgTcnZXVReyjWxT+aKCnuOljzzvKOMDKInRrukmBzel+r2DoP6gwXV+qUUMqboccQp5TUz3f9HHn1oAqC2Qm/KSNvgHmoKb+oQB66Za/QRce/vaBzCneQIwlgAc=
+	t=1789375266; cv=none; b=skl1pIrTJDtsXXVjmmFqDjUX3M909S5nSaeBYwl+ten37A4A2zouu/vbk+lJiVsnGMXKI0ow/1tt7Xhl0SwF3avjvDlRZd3oOAWWZ2VlyuO+Y8aw5+2Q7EWKPV7x5YYPug+KpWkHEW3r29qk1OA6jl7vuME33Me46q+7xtphawI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375257; c=relaxed/simple;
-	bh=1UsHloy/L2sarxFvpPUMHmIp2lRWVoyjmt1Tj9haRyA=;
+	s=arc-20240116; t=1789375266; c=relaxed/simple;
+	bh=Kl4BqSpbf9kZBomKYU6+DuNDNx65y0P55uZAFar9yNk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hdIEyatrtPV6mCbiSWGm9B+aMH4HCrPnlUGbVBYeC1V5RvjfRUH7ZrxdUwV8fLEMvTTPVTWm1l8dm7/5OJ+T9bP1vc6zk4CuuRzQZGmeCivdSV4Va69JJl8ciGlpkakGqOMCIECeBB+FcDuiINZsPXyRUy57VB0BUz4gXaMzcKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=BQ8gMpnO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cmxmLMYh; arc=none smtp.client-ip=103.168.172.156
+	 In-Reply-To:To:Cc; b=stPVkv4YjO8baLvG49NIIUZd0RIFosNYwab6Zvhxvgx3CdYNLF5EXLQYTVvg2Im0br5ctpvc7xFUQSuf1ATd7Cd4xSFjBHtgoO58zp5/4wXq+/mDYKgRjIP/g/P7lKzgoarlCfef+XIMHbwe+JFjHyXTM0aTH12udIjVTZlEx9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=De06MiKw; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=R7Y3zTxC; arc=none smtp.client-ip=103.168.172.156
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="BQ8gMpnO";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cmxmLMYh"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 03C51140009E;
-	Mon, 14 Sep 2026 04:40:46 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="De06MiKw";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="R7Y3zTxC"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id E6A49140009E;
+	Mon, 14 Sep 2026 04:40:57 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Mon, 14 Sep 2026 04:40:46 -0400
+  by phl-compute-03.internal (MEProxy); Mon, 14 Sep 2026 04:40:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789375246;
-	 x=1789461646; bh=qGCNF78R8wJOtYi2eSbyY81WkHIiBzIfw2hpbakjkPU=; b=
-	BQ8gMpnOBAPndWSXYt//cK7WcDAoGl/T1nRA0GnvfNked0gr4kN9EPzDJhPMAMf/
-	9Ufwd8hZm/49KwQKLNWMob+4MCXiIAMTYMijIc7ivasCQfWLG9PosgdhuE6yvvLB
-	BrDmzNTbgo5ti8bLK/dNr4GTKnIopct9TEhw2vUlfYvU11XdkvL2qD2Lhw7Gh82e
-	SDsVgKw2ghyqlwEQUTaoeXPox0WSR2CEjBAODfF9fmr6decfpwFZI+uQi2TkyGcK
-	r0VFdQ7RIPDP6w+V8tNdaP/3FnOsilGrdjxF4oQDIaueDT+KvlCkAn8wat74ViUJ
-	p66yp401+3PfQRA792zdEA==
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789375257;
+	 x=1789461657; bh=CLi5z8YBcWqnU2ceRM7Yd8tzXqpUUOKntz+Aw5cnEjg=; b=
+	De06MiKwRClscnF+yyR/zxKqm98yD0JGfOfdbOLwnoS2xM5azZSInt2C5dMEUC/+
+	L0h0/s2o9vA2xx6imqC6pkDfPvw9aF5UcW5iZrLu1uwYD63eN8HzB3YmSF84tcn1
+	rjso1WbSo7ypHBht86I80Bqv6Nrru2M26wrKre0wk8IFOBKj3rwva4Pi+27gm5V2
+	/I5KudHxLqQX26gA0NWyb90DOVozOPSnr7BtQDibzEwlPuq+82ozTAGVLNIS/WVc
+	j23mwbkbHRv7z3q15+LIJc2FnLVqk8bNCxGmhfLtlQJzCDg38qFVmuTVbY82Opeq
+	Q7kFpgLoDMpkTPG2Vt7srA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789375246; x=
-	1789461646; bh=qGCNF78R8wJOtYi2eSbyY81WkHIiBzIfw2hpbakjkPU=; b=c
-	mxmLMYhVWiGtSiDe968yKNA9aopHSLerhkKpyPJ//VKbMYNSfmrxpv1aiSvjnWmh
-	D8FYRAeViV/eZMbLgvqg+L9EdQ1S7UK5BFIwUDMrXq6PR3Na9A3s1mRtKlIsUuwi
-	paneC6KHFBBXF6lfY7FlpkVR4yWPykNUtD83ULaLuwjqxHK6HudBh1sITc8iCNPk
-	sLsV/MdZAqv+cGEktBYu+pv1Boeb+dn6N2oyv/+Uuvk9KKh5JtPxzMcDuLRjRgrK
-	YSKy/pKagI5c2NikjempUd2DN1jbHkWcdBoGfu/+ibyUP0cWPmHjroEJkf/uC2Jl
-	x9drR0C7FG52aeJdGgfMQ==
-X-ME-Sender: <xms:DbOnasXVHmlHrHnu2MsSIxvjw8jPcivKlWBqjhcOz8NU55dn2gIlaw>
-    <xme:DbOnaowTPiBoESBYQ-6QHAGplEBTdyjRlTpqU2ViO6cb4YlHg0Xn9LhkHqaszmowd
-    gtLNTXqqiBtQFNlZ3ECxS5smxaSmX6XGbOf0HwS01VlyuOHhnoAWZIG9w>
-X-ME-Received: <xmr:DbOnar_ciHZY3SGigOWeTKYEzgDT2_Nr_aRMVDqgC0Xx5uAn-kU8Mbj88SdzJi1SjmA4UOdW8_C5UOjRvysI0L-xm49LmjNL3PjZKw>
-X-ME-Proxy-Cause: dmFkZTE4K6JMrxd6sPzZVNrePGCzWSArxKGqIFy2UwUC7nS/ZY+sStdcZ7vmPmE2pNoHZC
-    9MiqcQ5OXckdWGFiy01IJr2JkZ+n3p+fcnek7D1Qwk8LgHRtAPwJ3G0I5cz7ZhSuemTIJc
-    i9Rs6SyTtRrS0p1PgXmcVZpifTNEIm8RuZjsFaFCWemyhP462rhvuOdftkbms6ekvvuLIV
-    6HeACEZ35ia1OWZxWsqljJDvRhxvUU8yfY+GnRLK37wYdoIiqubcn305EIee0gH5ypsRyC
-    0b6zJacisih6eDtoNCnZwnv1woWj2R2DHm/YruUPQexvu5t1hokHp9I+EwChY3zqidyUQy
-    3yAiyGB3X1Cjr2VvfEjsV7rs4+tSOLd+orK+v+d00vTve3WcpxhQPCJs7s1dhbwRhi96+0
-    J0ZvlEqgAGDGN9ZiQ3o4tz7663DiFJOhx50e4k0gf+GegkRIn6CmirzJJ9ZdCvJICzDbsg
-    uV/NMcmKJiNwImigdyvqNN60K9mI4vCS2PWaRA+WD44n2K2DC4ZJxjjXoAzMczjAex8qYW
-    Nm7HXqAirw+V4tRv5YdtThjSJYkl8WtqtUVxavk3vPc2T8fUNRe0xURM9sDQDUvFv2d/X/
-    weS18JmTPvdNalTEhMwIOeJSJ+/wNYtZAwDVKgdSfX2wwjqE+qeWgBvRLMcg
-X-ME-Proxy: <xmx:DbOnal8dJvN4zw3_5OluJ4fDyiz4Pedv80O3Mripk2lo6TSmlHNXCw>
-    <xmx:DbOnaiUfgDI6AeTvAkyaRsyVeB6IAjVpbBErBrZsDZv1W9FIvU9XYw>
-    <xmx:DbOnaqdTiV-TZmLLTDFtq2M6QB7lJHeEiL3J1NcPIO-BUrF9p49EBg>
-    <xmx:DbOnajbDX87PUUFUmV7vt0Hwb71FX7vMSHqQE4QA1PY0J3X8XiSxWQ>
-    <xmx:DrOnauVLncNmCmIRuWyf35Z-hy6hnpeEuw69ha7bqg8dK3A906Q29zcj>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789375257; x=
+	1789461657; bh=CLi5z8YBcWqnU2ceRM7Yd8tzXqpUUOKntz+Aw5cnEjg=; b=R
+	7Y3zTxC7MwZRIZyJjjXXFMVPohV4VRbr8lby40VUsUMxAyferWairLoLPScH9NpM
+	GJamx/3525C9JBOzK6ArBJYk6yHtdBv9mvrvz4ft9fGlwCYO5bi/1RaNssSnyAp2
+	LwfRagT/m+aUh5XxjBQmAD2jPTabtF8ol6suCST1veFMMYye39EKAjoNDKvql8Wy
+	YtJs/stDkxYp1Yj+PXe7D0vCvkRWw1VocY9eNF3Ktl6olPPG1SrDDce5Jr/OouW7
+	A7IPAyZFF7GTi2HIKON9LBqmDGW9NVF4aQSDUcUEOSZqSsVC4pysztk21xFtlxJY
+	y3LvZuK6h2Z5IMzJ+EDOA==
+X-ME-Sender: <xms:GbOnarRXoFvkkdzGV1IM3o1F36bTzhgjyeIdYyCwzh_suWkihQtNwQ>
+    <xme:GbOnasfRe42V4sX6ofVrafDlY3--ipmjDeKw9Bso5wdvkmV6_e29hgovJ08xJhx8U
+    ut6-mHHlrofmq3lNG7rl3AkDQFalDO5Qs7MnhA515f7r9ZtEgBCHu9z>
+X-ME-Received: <xmr:GbOnasehHdRrOYQp6a7O2MlUujzwBuZZeK-loLqtrXxMqS7JlEarZcLz5E7SJMkr2fFqyORHtnlOGUPdrhmVChdMrCB6Ir3nVJ8uBQ>
+X-ME-Proxy-Cause: dmFkZTEDLHr0shzxwhX+29bUrq2gfJ1+uzQ4b4gKQs3bZHRMEcVi5+3e+WWMmXn4weJHF0
+    3tXMcFWQblGPPDQI4M9zHrzHMMgs0LXrEWCtY0HOKPhWUiTU65Hq4BSITitLFMR/nfR54A
+    QBr3yt2+EqSebK505dZuX4BQiJBC2YrhM1cKA3YLwTBOhpwZfcQEF5yaMpHRvipvp5nbhM
+    qXqI61aj3JPw2SHELjXQTGsoBh2Y/LuJTzIJZd7IArzAR6+91M7O+W1wr1s1KNxWnuZkuF
+    hsZ8YwXBQsE0gAiTRFJnmiV46ucM1Ygc8cn9Pw17HkJ3S5rNQ8lRntZ8AGSg3kYW6wJPSV
+    OeiSFc2h4OgseGDTZyRE0V7vPoLh4oDzpY8OT2bk+UZ9o9qNHUtT4GcEkKOjFrnn0Hyjw4
+    e4a3zdxRDZlIqL4xhaot0eP+xiVP+EG+FZv3Rhn2mXeWU8TL0MKiP1udhjLfpJYtqQQhH4
+    PsbOzLChgfnIeBB0gB+nd3+0xZCWOgcNNLmbsN5NEtSJg2wpC9A8371pXg/7ndy7XROzpY
+    YoAr3rJwuoFdO/dEOtS2J4kVm2pMf5YgQqKkdIpHIZnOQMjTu6Cf3MPuCuZNfuFoH1Qb3k
+    HY66NvfYz6oz9km/+nouXQ9e3aMR55NYj8fVESHhFK4p1NnB9L3ejNDm2SmA
+X-ME-Proxy: <xmx:GbOnam3vuJyXF0PpDtc8sd5fsLPU_Y5e77lZ7DIbhgmhuUAqZQfBIw>
+    <xmx:GbOnak-yOhdndORqQm7zqiey9Fj4_hgiFGR7BsMiAqxuMfpIEccxgA>
+    <xmx:GbOnar4A0FKluapTVcp7It6VCsOXI7jcei6MZCuS09AlRyLJfvsXXw>
+    <xmx:GbOnastvlFO3QoVP-2HqqQ9ywcGlIwpurj87KS9zPDn3rx8tTFvcBQ>
+    <xmx:GbOnaiuT-TU4Zo_6N3C_pSU8wRr7YyHvM_Cxv5c6qpzVQgWbBYj4nYK8>
 Feedback-ID: i47b949f6:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Sep 2026 04:40:45 -0400 (EDT)
+ 14 Sep 2026 04:40:57 -0400 (EDT)
 From: Janne Grunau <j@jannau.net>
-Date: Mon, 14 Sep 2026 10:40:34 +0200
-Subject: [PATCH v2 04/13] arm64: dts: apple: t8122: Fix child-name-order
- dt-check-style issues
+Date: Mon, 14 Sep 2026 10:40:41 +0200
+Subject: [PATCH v2 11/13] arm64: dts: apple: t6032-j575d: Remove unused
+ "framebuffer0" label
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,7 +80,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-apple-dts-m3-dt-style-check-v2-4-e3e89c33f562@jannau.net>
+Message-Id: <20260914-apple-dts-m3-dt-style-check-v2-11-e3e89c33f562@jannau.net>
 References: <20260914-apple-dts-m3-dt-style-check-v2-0-e3e89c33f562@jannau.net>
 In-Reply-To: <20260914-apple-dts-m3-dt-style-check-v2-0-e3e89c33f562@jannau.net>
 To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
@@ -90,82 +90,36 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Janne Grunau <j@jannau.net>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1986; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=1UsHloy/L2sarxFvpPUMHmIp2lRWVoyjmt1Tj9haRyA=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqzlm5kvXt14+1BTGYOuJgunxNZ4reA9v3qu3Fj40iiVQ
- c//0Ue/jlIWBjEuBlkxRZYk7ZcdDKtrFGNqH4TBzGFlAhnCwMUpABNp0GX4X5gRu7/L8cjEOfOy
- /xj8mHKi8qb8vsO7juVnGdw/tnvN8y5GhvVqN0pr2DZ6tfO+CTM/4CrLOXX+lPZ9jC/DK+5mNSs
- xsgIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=809; i=j@jannau.net; s=yk2025;
+ h=from:subject:message-id; bh=Kl4BqSpbf9kZBomKYU6+DuNDNx65y0P55uZAFar9yNk=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqzlm1mOF16s8T24t0N6q7hxiEnZI7WQwIeKjUpL/FZZG
+ HxpFzjVUcrCIMbFICumyJKk/bKDYXWNYkztgzCYOaxMIEMYuDgFYCK9uxkZZh1/efRaHOMX9Zag
+ JVFNcYyBHwxOZcr4cMmcsnmeycA3nZHhxs0zwjeYkub2n7e7nqvQ/D+Bb4/sx52i0vGZbRlLH7/
+ kAwA=
 X-Developer-Key: i=j@jannau.net; a=openpgp;
  fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-Reorder child nodes by name to fix dt-check-style warnings.
+Fixes "[unused-labels] label 'framebuffer0' defined but never
+&-referenced" dt-check-style strict mode warning.
 
 Signed-off-by: Janne Grunau <j@jannau.net>
 ---
- arch/arm64/boot/dts/apple/t8122.dtsi | 34 +++++++++++++++++-----------------
- 1 file changed, 17 insertions(+), 17 deletions(-)
+ arch/arm64/boot/dts/apple/t6032-j575d.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/apple/t8122.dtsi b/arch/arm64/boot/dts/apple/t8122.dtsi
-index de09989c5663..481f68a570ec 100644
---- a/arch/arm64/boot/dts/apple/t8122.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8122.dtsi
-@@ -20,6 +20,13 @@ / {
- 	#address-cells = <2>;
- 	#size-cells = <2>;
+diff --git a/arch/arm64/boot/dts/apple/t6032-j575d.dts b/arch/arm64/boot/dts/apple/t6032-j575d.dts
+index 1c4a0fc9bd6f..e83fdb5d8c86 100644
+--- a/arch/arm64/boot/dts/apple/t6032-j575d.dts
++++ b/arch/arm64/boot/dts/apple/t6032-j575d.dts
+@@ -26,7 +26,7 @@ chosen {
  
-+	clkref: clock-ref {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+		clock-output-names = "clkref";
-+	};
-+
- 	cpus {
- 		#address-cells = <2>;
- 		#size-cells = <0>;
-@@ -165,23 +172,6 @@ l2_cache_1: l2-cache-1 {
- 		};
- 	};
+ 		stdout-path = "serial0";
  
--	timer {
--		compatible = "arm,armv8-timer";
--		interrupt-parent = <&aic>;
--		interrupt-names = "phys", "virt", "hyp-phys", "hyp-virt";
--		interrupts = <AIC_FIQ AIC_TMR_GUEST_PHYS IRQ_TYPE_LEVEL_HIGH>,
--			     <AIC_FIQ AIC_TMR_GUEST_VIRT IRQ_TYPE_LEVEL_HIGH>,
--			     <AIC_FIQ AIC_TMR_HV_PHYS IRQ_TYPE_LEVEL_HIGH>,
--			     <AIC_FIQ AIC_TMR_HV_VIRT IRQ_TYPE_LEVEL_HIGH>;
--	};
--
--	clkref: clock-ref {
--		compatible = "fixed-clock";
--		#clock-cells = <0>;
--		clock-frequency = <24000000>;
--		clock-output-names = "clkref";
--	};
--
- 	soc {
- 		compatible = "simple-bus";
- 		#address-cells = <2>;
-@@ -451,6 +441,16 @@ pinctrl_aop: pinctrl@2f4824000 {
- 				     <AIC_IRQ 352 IRQ_TYPE_LEVEL_HIGH>;
- 		};
- 	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupt-parent = <&aic>;
-+		interrupt-names = "phys", "virt", "hyp-phys", "hyp-virt";
-+		interrupts = <AIC_FIQ AIC_TMR_GUEST_PHYS IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_FIQ AIC_TMR_GUEST_VIRT IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_FIQ AIC_TMR_HV_PHYS IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_FIQ AIC_TMR_HV_VIRT IRQ_TYPE_LEVEL_HIGH>;
-+	};
- };
- 
- #include "t8122-pmgr.dtsi"
+-		framebuffer0: framebuffer@0 {
++		framebuffer@0 {
+ 			compatible = "apple,simple-framebuffer", "simple-framebuffer";
+ 			reg = <0 0 0 0>; /* To be filled by loader */
+ 			/* Format properties will be added by loader */
 
 -- 
 2.55.0
