@@ -1,123 +1,94 @@
-Received: from mail-qk1-f225.google.com (mail-qk1-f225.google.com [209.85.222.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C5549CF3A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774C939CD1B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416310; cv=none; b=svwDLNxr48J16PcGuMrlVzHOJzU4AozUaznpFe/l3cJ5Dw3yMKCELE1jrh40aAQG9qdDueFLano7g9Ua+aPOJ048mCx6opBJ72gPZhYVvCI7c96xL+c1LiQ6/BN0B7OVGCqb5EckeDEiEzvZabDOJESRnzK5pu0GScdj7ed6okw=
+	t=1789416395; cv=none; b=PG88zMMKKFMu3djpgfAwt+o2RU8iocSSJpiesUsTvPDbT/gBTa7RDg/V5w7/jP4B1t4Kl5R9FzwX1UIW0An46CQTjnP3hE5P6HREt8dnaiBs5MfL9tpO7tzwxj3G86qQ5d0mRVuboXqi3/LWkms/4z6VHCsYUn+5FyiDHdEAILE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416310; c=relaxed/simple;
-	bh=AzKSoRwvTjlokWKwNtPUDkmp7fh7XU/ixZUbBOqey1Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Sww9erkCxzaiqGjkRbYbZGlPJaL/1JIdBfgbAgULcKaVRPoI3YbtHjJpBUWOp+KYWLRca8CqxD+tx/0XE8P8y1ekqBU6frJ2m8hcg48enPGCpZ1qzT043Jtxm2Zr+0I4z91P9+w9Lcz2AJPvIifk8Ks4ogr1Sjm7LMbIxkgzP0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=W+UONO1O; arc=none smtp.client-ip=209.85.222.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789416395; c=relaxed/simple;
+	bh=pbfuCer32EFke61basoKfT/u18IxpodVo5YuWUgUf0w=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=U4SqfoDDJPCByK8TBpWOsqV8NEuEUcV7TVNXD6xEXGK9w4WpwoibtfduJfFK0W4a+R4zhQDEG3PRrJgGr3b35vBliSI5ux6VANkbkuzX5BxpIvSW+hcfxqHPfx4GclyN3TTFeWdl5ri6naAqF3sOce+pEk0nVgmNtzU/SNuRcoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HemtjLNa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="W+UONO1O"
-Received: by mail-qk1-f225.google.com with SMTP id af79cd13be357-939fa4f2b81so211509885a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:05:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789416308; x=1790021108;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OIidc7nfo4IBJ7tzqZdeeXEx50mWtljjao4fEGgMHU8=;
-        b=ncAULlJSD7GRR4qkCpMG8yztw0ItMmlE2/qkRP0ioVPpB4ioE2RsuStDgx+kB2GtQJ
-         xBxdI+zBkqH0U0b4WBfOo8W8FbUsEiR6DHGr9sAZkCdTP00uheZ7STgzWZufk595QSMP
-         TKRiyW2iw3GizickQotAKN63tv3QF2xRabhr4ORdtWrpzZvl2XpIF+8GIyniqzsq9lXg
-         TBIMAArh6PP/WXm2DvdkRb2OeCRPjtvowJz3Owu/6cKuDb4GornFSbWmkshMWWwRupkr
-         bh8HCOYNam/0FnAFsVVmerS0+FseUJYplQVIB0EP46OpYq/iYgWwLKKFdnQ2u9z/eq3S
-         WROQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCVvT+6k+jXi9nUIgyMMIr8mU3kATXB7iNeRIv+Ac/+hM+JEZx4SBeOuTH0mN6Z+LGG/nxduHFacelphs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+MViiS3D+OkenCU7WqLiPgZ6h0C31XUIgj7nhnJ+dkLwsEYMe
-	Xf5d/Lu7btuOtvBhAiCp9xIC/uNcW9ABNBRI7D+sTlur9ojiE7NNFdGuo10oh5TAHI+Xw9rrqgQ
-	/lcD5GgyojYiK7RXhLEZcA14I9JnKcZk5xz25rIyThd8wOnYKnYG9K3M6k5iRmc9DX4eD/fzYbL
-	gj27v7uEVjovdwAjiOskX0vSyH50wXZpO/lbz5Ex4DeYOmCIohGIn8TBph8ZH9DznyUgN9HvDNy
-	SQ+pcuWh2Ek+KVORuHXq0S4Qw==
-X-Gm-Gg: AYBFou2lnkWNMoJHbMEeG3XC+omPRNZnXIOUAQHv5h7vWPHAlDB9Nte2YBaDGYnnFu1
-	2WgvgKiDUStyBg6bXNc+WjiV+qoj8kAPfwaXiwATBsHB9d4HUJ49tmpImfUEmNnDKy9K6/5xUsY
-	fqx6LnokZc8CTkNBb6RDlaA4iSjuhHSD81Za1YVWd9eeq+EjESh2VjKT26OAKpIAxWrl5ORDiRa
-	Go7BRegL2aPFkUcteZCTYVsv5eDOYbXPsDSXtr1puu4HVOoGsSzoxMr24MQJ1g+3q7QaDI4s33z
-	NYPBKSBlC0hyqH2sFk4yYRsSODnWHX+fz5HZTJwFBJXV/cZatAYGS5btChnCig3pUgg63jqhP8T
-	hsEQxktxGNoyCtK8lPnpWVJOMg63Lz/Me+aEIn+RAaFiqVzf/ljJtGS1LBvEFxDk=
-X-Received: by 2002:a05:620a:2590:b0:939:5ab4:e6ab with SMTP id af79cd13be357-93a296fe0admr620031985a.5.1789416307869;
-        Mon, 14 Sep 2026 13:05:07 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com ([144.49.247.127])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93a101ff397sm66903685a.8.2026.09.14.13.05.06
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 14 Sep 2026 13:05:07 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90e80ce3597so86582116d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:05:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789416306; x=1790021106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OIidc7nfo4IBJ7tzqZdeeXEx50mWtljjao4fEGgMHU8=;
-        b=W+UONO1ORBoFXDkLQnuKDTxqTbRrwvs/wkeNmgYOHdUMx0L7GXFBEZndPXsCmMZL+a
-         zcCByEUUcsW+qjgdrbnoz54fadGlE9hQ8cJ+k9WN3OGy85JLGAttUlHFammZ51pbtTo1
-         lcZoD3Msp9JeFveRGAW2Xixhr3o31OEISSHcY=
-X-Forwarded-Encrypted: i=1; AKwUvBxm/YDf1Qvataqpf47U30Da1OX22CZJJmoD6nz/qngBmBrTRkc10Vuee6oDf6+fqWkr5JuAAziSIZZp2Dw=@vger.kernel.org
-X-Received: by 2002:a05:6214:5003:b0:90c:e613:4e33 with SMTP id 6a1803df08f44-9122e52e2a2mr65468066d6.23.1789416306071;
-        Mon, 14 Sep 2026 13:05:06 -0700 (PDT)
-X-Received: by 2002:a05:6214:5003:b0:90c:e613:4e33 with SMTP id 6a1803df08f44-9122e52e2a2mr65467406d6.23.1789416305608;
-        Mon, 14 Sep 2026 13:05:05 -0700 (PDT)
-Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47a6ebsm103081106d6.22.2026.09.14.13.05.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 13:05:05 -0700 (PDT)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Ryohei Hashimoto <laurel.medalist12@gmail.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Arend van Spriel <arend.vanspriel@broadcom.com>
-Subject: Re: [PATCH wireless-next v3] wifi: brcmfmac: log the firmware status when a connect fails
-Date: Mon, 14 Sep 2026 22:05:02 +0200
-Message-ID: <20260914200502.1747715-1-arend.vanspriel@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260913165526.4426-1-laurel.medalist12@gmail.com>
-References: <20260913165526.4426-1-laurel.medalist12@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HemtjLNa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADBEC1F000FF;
+	Mon, 14 Sep 2026 20:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789416394;
+	bh=pPqCPfuyxQlDdjmdeyS0KXu2sKKxkPJsmqBlbxxmr1U=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=HemtjLNaHlgTSZN6z2PzWNBZEYTbAKZEk3SmLKY+qxVSxTysa1nSJKW60n4QIGFI1
+	 fDjFkZAixXVmh6Nc3hDc832ZTD1v4z60ZQ9msqffVFNb4B96FzcOxrYBJrIL2Rm0uq
+	 cRC1NVo1WB1YR2jZ4Vfviyz8sUyhw3lMkqOKorgtIGysUT8qZuVH6j9WKSI6Mu27qM
+	 FH5uNLiCNXqAQOLQgFEeRBpt42jvHAmIt2hVwsJ1nnJ0RMaBUrFoq6HcghppY/Mwyf
+	 R6hCssaubkIGAjjUET+8MSdD1s2vJ+SQt+4lXRkdfgs17ky3wiEiDAo6p2+xyZ8glH
+	 6jk49Rf8PAcyA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 3E6AA198003A;
+	Mon, 14 Sep 2026 16:06:32 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Mon, 14 Sep 2026 16:06:32 -0400
+X-ME-Sender: <xms:xlOoavKPlaJ-yALHvHz2Q-SMSTCwneQRzLeao6Ww_lWNCQi08fIM_g>
+    <xme:xlOoat-JqAM9l8HMzUKPriT8yTXP-MQ8v3vsn_X6Hik8aIgujakyX4m3SgIMzRchO
+    bFq8xo095T6txaZ-Ztu9ruzTrxrq7BEC6ryh8BeX8hdNfFFOI-mL2mWnA>
+X-ME-Proxy-Cause: dmFkZTECI6tzmPfbEfVsRAg1Kx4eH1bwUiI4Tc8shp8r6XYCQ//dLhs9WFBH1QvJp2xaM5
+    /1TBLx72kGdMCe8BsQwOIgphG6Ah9Adx7TBLIuP+qL63i03R0F5RCve5zrrAtrbF4yj0aa
+    fIhwvsSS9XvCELbC6ZIoK72OqRvMaMzCM0AgXQsRAjxq1dKEruADNv+drTl9Tdc5mqYcY1
+    h9Bv1REtYERvk8r6fwxLxD9aNJTzJdVCcKzmMBn2TMB/jzwJtLb6FsdeDL1Lw2jKPSChK9
+    9FtL2kxJCYlRYf0F/DWMRvvRgSpPQIVQBm6i6/9pHBc5M9DnKWlLaLveayYrZLB6YHUVI/
+    1OII3/LyV+DrJmXVWytAKe3VPV9a/wdJadA74Kej5vMHw7e2/zxZPsw+qxJ5gVoNikbaC+
+    61XyjKyjn86MNvOFwjZ+5nu/VYLow7HCwIWSZYTvfFgb/nuJBOd5V2XkU0Fwg+poP2eiVF
+    8sYEdmiJQrtzmrGpdajKKIjzSXxsWkXZdJ+yonh2VqmInf4evfxvZdDnIxKCXPhwyeeUPh
+    iJ3+//9trt3fNowGLgG10SePTIMkwN1swZQYeaXY0YfB0eFfJKXfYCCc6D78FhfVhS4vLq
+    CPKClLuPIYj/ptUog9I/+v4vBGPHrcuh7c9djo992+w4UHEotJ3eYy5ywTFg
+X-ME-Proxy: <xmx:yFOoanz7VnqFMJNf1AeYvSoPIdxA9EBxSuwaNgr3JjICpjLgGfBsZw>
+    <xmx:yFOoatGJanQKfO8z3KhtSfXrK0j3Wob1B0XdHuc8cYwXdmQ-BrhGvQ>
+    <xmx:yFOoarypG0ETvGuBl78omVJWAVTpn9YrcSMibumUhKjAAi_tW8fsBg>
+    <xmx:yFOoaut6LGPT0eiYBhkhXGqr6h1fbys6AV9xsEi6HrF-vnIhdZUPVg>
+    <xmx:yFOoao2L7tKzTR6aPLO7Ka1IbDlFstSSJ0skhfBU4EbaoE6PfRIShfUX>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id D689CF80081; Mon, 14 Sep 2026 16:06:30 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Date: Mon, 14 Sep 2026 22:06:10 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Melody Wang" <huibo.wang@amd.com>, x86@kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ "Tom Lendacky" <thomas.lendacky@amd.com>
+Message-Id: <8e4b05a5-61e7-4015-ab72-1e55156e1772@app.fastmail.com>
+In-Reply-To: 
+ <d0b15a9b5f6e2199ff48bb77e9396044fa96dfb2.1789345277.git.huibo.wang@amd.com>
+References: <cover.1789345277.git.huibo.wang@amd.com>
+ <d0b15a9b5f6e2199ff48bb77e9396044fa96dfb2.1789345277.git.huibo.wang@amd.com>
+Subject: Re: [PATCH v2 6/8] x86/sev: Register the guest with the SVSM APIC protocol
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Sep 2026 01:55:26 +0900, Ryohei Hashimoto wrote:
-> brcmf_bss_connect_done() receives the firmware event in @e but discards it
-> on the failure path.  Every failed connect is reported to cfg80211 as
-> WLAN_STATUS_AUTH_TIMEOUT (16), whatever the firmware actually said, so
-> userspace only ever sees:
-> 
->   wlan0: CTRL-EVENT-ASSOC-REJECT bssid=00:00:00:00:00:00 status_code=16
 
-[...]
- 
-> The status reported to cfg80211 is left alone; changing it would alter what
-> userspace sees.
-> 
-> [1] https://github.com/RPi-Distro/firmware-nonfree/issues/38
-> [2] https://github.com/raspberrypi/firmware/issues/1829
-> 
-> Assisted-by: Claude:claude-opus-5
-
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-
-Regards,
-Arend
-
-> Signed-off-by: Ryohei Hashimoto <laurel.medalist12@gmail.com>
+On Mon, 14 Sep 2026, at 02:57, Melody Wang wrote:
+> The SVSM APIC protocol supports 5 calls. SVSM_APIC_CONFIGURE_EMULATION
+> (shortened to SVSM_APIC_CONFIG_EMULATION for brevity), call 1, provides
+> the controls whether the guest can make use of the SVSM APIC protocol.
+>
+> Implement this call, and register Alternate Injection for the guest
+> by default.
+>
+> Signed-off-by: Melody Wang <huibo.wang@amd.com>
 > ---
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  arch/x86/boot/compressed/sev.c | 17 +++++++++++++++++
+>  arch/x86/boot/compressed/sev.h |  6 ++++++
+>  2 files changed, 23 insertions(+)
+>
+
+Does this need to happen in the EFI stub and/or decompressor? We have swathes
+of early SEV-SNP boot code in the kernel proper; could it be done there?
+
