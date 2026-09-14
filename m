@@ -1,105 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B51F469857
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A12F43DA4B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391919; cv=none; b=ovKic30T1kL8+1B4Ampj9zUERRveZQdMivfG7jdVgY9/L8Ef6eA0YQlSOeoDogdB98hIkQzjlYC1Pl6b85u8zBfyjY12eVrLQR2BmTfMX8YbaWwyC3rxBhWajhJBuFHJggPPuK7rFTMFmHO+wsOKOzwNrIykHkq2+DT1LGwSCeQ=
+	t=1789391937; cv=none; b=VNFwCb8VAMZv6DGCSJ+LINZPW/hvGR9ehfUZ9d2iGRVIJMguXoHlmDTL3VTxOtWrnJbdEKSgr688xXSCYFFGBj9rXlWtzbVjS2t/odCnSh9wEXXBM32hnAVuANEc34YdZs7yXc2ek9J38mJUDoJCm8n2joBFfzbVeNqlR3O+nFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391919; c=relaxed/simple;
-	bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=o194cCNyVJbbOzKY82ICLWr9rEvQsGAxRg166cWtr4Yt0vLoSsRARn1qsujZJXQDjLc6w1MGfmHyMJrqv4mRPm9DEC0QEtiUu90zzXD6zxm9u2mrdIcpPsR54oENuz8snGXbwh1NY4Cjk5KT/Y/SD4X+8L2tPWERgcpZlAktVKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IR5QfglT; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789391937; c=relaxed/simple;
+	bh=G1zooFoW5kaSsGSngkHqHlHRXKzhQm5z2OiUqt60jmI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T+M51Z7eU6hcEpUPRwMZ/4REIpz1mzok8U1FyxBKVYb8NvBluzClPsX1mXOvlPJmtUoc/PaC5dhtvGQeHZ+IRgEy68gdYIm2XXNafIf7PJO7x7fQBj/R6EY+rsvXxJ0wdi99zdVf/sxEqk0VDs49SEaDarOZc3pMWKppE5xJREI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4OURtAM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IR5QfglT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789391918; x=1820927918;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
-  b=IR5QfglTVtwvU8PTYTrRSKDgdr0rL77j5lh6mNUI5FclUAmqGpK1fTi3
-   VYuJbMsv42tTT2DZUGo/5LcWnUh4xri5kF2rmL7YaNO9LYH4Gg32NIpZb
-   p7LmrcPBcfNqz62N+fHxt9ONY3AwEBITyaNZw/Hn5O3G7jMgN589kDNCN
-   ntPxsLKqkL/4hYNzOaCficFZL8fz2BLUGqBN3UDhbxMqVG1zGIie7nH5u
-   ctEQt67iy2T6hC1e8mf1XK7RlODhUkQcmB345WWp9pghomYYz07fMEFGN
-   JR8491S72kgt6S/dhDt7sNAxUeCL/Odc8cmJ2cIg+v6n5g0We6Sy+sByK
-   g==;
-X-CSE-ConnectionGUID: u2GHe043Qjm2Y/WYBWyE/A==
-X-CSE-MsgGUID: cSoAFOq1SsOYRggUHlFKnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89768226"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="89768226"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:18:38 -0700
-X-CSE-ConnectionGUID: gLmUT0d9SWGeZhp5c2DZ4g==
-X-CSE-MsgGUID: xBWAYN1BQ6uYAsUSlwfxbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="276171115"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:18:36 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Mon, 14 Sep 2026 16:18:02 +0300
-Subject: [PATCH] drm/xe/nvm: add system controller region
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4OURtAM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45161F000FF;
+	Mon, 14 Sep 2026 13:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789391935;
+	bh=H4lgleji7/TmSk0WiBbJhXNt3/OfbliY0H4ZtIu5kjs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Q4OURtAMJ3WIuw4GPiestiZF4uXn0oGBo5lUmL6A1m4WHhQ1Xhd+ZeAREkD3IfzrT
+	 6qeS5AkuSZUGIAA2i+1j0dsYCqR+WeGXHU/bihFSEAIh0e6+8L7gxlucpeD58ZvCQj
+	 Vt7nLXPexITTAy8F3+TKcJYv4VlZ2dmrvSNuwhQ2SN7ijplxGeg6/xWidjY+FsE4sp
+	 ztMsI91Rmx9NolHJ8YX/yK8GONQYoU1mFTDly3i6hWBrQ3uD2piOww1XuKIQMBsuYk
+	 iUqRUbcSxiYivlvpMbR1E7j/XVRDomayankndy8+9AW8HG8h+F7O9WcGujWVtauiWP
+	 aSfnL9+MDc9EA==
+Message-ID: <8578fa96-14f0-4c3e-bd7f-a2a626f79f2c@kernel.org>
+Date: Mon, 14 Sep 2026 15:18:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/16] erofs: use folio_attach/detach_private() instead
+ of direct assignment
+To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
+ Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
+ Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>,
+ Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org
+References: <20260913-remove-pg_private-v4-0-848550f7574e@nvidia.com>
+ <20260913-remove-pg_private-v4-9-848550f7574e@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260913-remove-pg_private-v4-9-848550f7574e@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-nvm_add_sysctl_region-v1-1-75d710daf5d0@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3M0QpAMBSA4VfRubaaxRqvIq2xg1OMdiSSd7dc/
- hff/wBjJGRosgcinsS0hRRFnsEwuzChIJ8alFRa1kUpwrla573lm4djsRGnJISujHKmN1pLBcn
- uEUe6/m/bve8Hruo4IGcAAAA=
-X-Change-ID: 20260914-nvm_add_sysctl_region-6582a8b86602
-To: Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789391915; l=884;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
- b=TMrp+TtcG+Wocd0zT0UJHADOd9VE0Lf3JgUDiOSUmxfoTFR2hYr7CjRrAaPLu9mNFbItcAWL2
- Na2NEGXtfMvA2mugLPvwwcu6iVBR29aF2P4uN+h7NGIuL54T+YaAxtW
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-Add region 5 (System Controller) to the list of regions
-available on device.
+On 9/14/26 04:24, Zi Yan wrote:
+> erofs_onlinefolio_init/split/end() use folio->private without setting
+> PG_private or increasing folio refcount and it works. But after PG_private
+> is replaced by checking folio->private in a future commit, it can break
+> folio_expected_ref_count(), since the folio has private data without
+> elevated refcount. Change them to use folio_attach/detach_private().
+> Folios during this process are locked as they are in the process of
+> readahead, so no parallel migration/folio split can happen.
+> 
+> Furthermore, because folio->private is used to store in-flight I/O counter
+> and the counter reaches 0 when all I/O completes successfully without error
+> or being dirty, ->private=0 causes folio_detach_private() to not drop the
+> elevated folio refcount. Solve this issue by using bias=1 for the counter,
+> so that ->private stays non NULL throughout every attach-to-detach process.
+> Add a macro EROFS_ONLINEFOLIO_BIAS=1. While at it, fix the comment about
+> ->private bit layout and add EROFS_ONLINEFOLIO_COUNT_MASK.
+> 
+> It prepares for a future commit that removes PG_private.
+> 
+> Assisted-by: LLM
+> To: Gao Xiang <xiang@kernel.org>
+> To: Chao Yu <chao@kernel.org>
+> Cc: Yue Hu <zbestahu@gmail.com>
+> Cc: Jeffle Xu <jefflexu@linux.alibaba.com>
+> Cc: Sandeep Dhavale <dhavale@google.com>
+> Cc: Hongbo Li <hongbohbli@tencent.com>
+> Cc: Chunhai Guo <guochunhai@vivo.com>
+> Cc: linux-erofs@lists.ozlabs.org
+> Cc: linux-kernel@vger.kernel.org
+> Reviewed-by: Gao Xiang <xiang@kernel.org>
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
- drivers/gpu/drm/xe/xe_nvm.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
-index 1ea67eaeae24..51a1a431ad85 100644
---- a/drivers/gpu/drm/xe/xe_nvm.c
-+++ b/drivers/gpu/drm/xe/xe_nvm.c
-@@ -28,6 +28,7 @@
- static const struct intel_dg_nvm_region regions[INTEL_DG_NVM_REGIONS] = {
- 	[0] = { .name = "DESCRIPTOR", },
- 	[2] = { .name = "GSC", },
-+	[5] = { .name = "SYSCTL", },
- 	[9] = { .name = "PADDING", },
- 	[11] = { .name = "OptionROM", },
- 	[12] = { .name = "DAM", },
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260914-nvm_add_sysctl_region-6582a8b86602
-
-Best regards,
 -- 
-Alexander Usyskin <alexander.usyskin@intel.com>
+Cheers,
 
+David
