@@ -1,94 +1,105 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD07541D112;
-	Mon, 14 Sep 2026 09:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B718D41BA83;
+	Mon, 14 Sep 2026 09:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376988; cv=none; b=GAcHWVxBac3EJXw+kmt/679U9oMAbBo4jejegR03PSfAWN/7OOoPuuXCt5WAn7htFAUfEnrKaiUoJfJkwT2aOvFE1Mljc1Sc6AcXgTkL3923CipJptRbBvQFf7uqu3v/yvfzc5ZHeSiSzflAbRAQ6zdq2UwcL3xS7mVYcbLGK+4=
+	t=1789376999; cv=none; b=TSRbrZmtk53/I2TqfMxM8kLxmroxJrlVkL5qFm6irBKc+9iWWiJsx9gOGW0LzVroFZehqfV5Kux9vyCSSPOophx0+cYDpA8i9m2tTcRFQUdfgiavcCz7Jr7Fl38ebcuFz6qswQtRVWpxVrdNqHtVXeCpfcG27L0cf8GctZqPDRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376988; c=relaxed/simple;
-	bh=QJgGQfU0m8+74hKWTGhWk4d30YwlNS1/Mh4tlwkbBxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MYsXSOxrqu2hY+lA2wGrd8fcCGpmH1FMn9iAwyXpKwXnNWo6ggqc6oSx7fZaLdqBi0LxzxRQ4y4UysxIvX/yF/zlOsdnWTFIH1enJlDhyt+XoDAUu/Vo+xcggpQnoHiCDqyas6//GkXVUcGkCardJlCMwzu2ZaJZn2JGywKGZs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=EuPUdTFY; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=VYQU0d5o; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789376999; c=relaxed/simple;
+	bh=sHMWlu+OTUqYhqFrSUJL3jwM1neJ6/5JmISeQqqjsEA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:To:From:
+	 References:In-Reply-To; b=Vztw8m5QSwVRpLbZE5pSvAFzzxjNfA6JeXNxqYhIj9EdNM3hk7XZvAQs2/1eIpz4cycQZ9LEYr4Fs+/Z06yTzRxFffqZoY5c9D6e7PKu+zLsGE0CMOJ1shZtLFyL5Sm+bKfCBHwdY/iIq9VynWt2+nxieGoo9miPp1NurrHATkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QOx/baCy; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EuPUdTFY";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="VYQU0d5o"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hjzqp57f4zKmwd;
-	Mon, 14 Sep 2026 11:09:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789376982;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=MHeW1CPKnaVftcIvrFx2pYex06w5p9ZRk+t3E962Owk=;
-	b=EuPUdTFYedeOhhLAtPjFL+sdg6UWnxKIhVjx8z/UMXjcKiWSswTCVu3ST+x+fBYkDa2i/M
-	CUHSDpYXJ6Oic7sSFfP5ISQE4ApPs//q3Sxabk/cpuKRAm7s9ESFwlsBMtRg9mNKcvtqol
-	FDB+T28/GkUB2A19eyOyDPFwscPYNkWQQgRNt5fE8qjjG7Rb86ADCYn5p+197VQ59Iwz9S
-	D46ogYFT4D8z/QpoWQUk5gVfHoi/UvIX+rkJt0pfb4SttrULlXu/BqCpXgEyGca/2k2iTx
-	VLl5NbF1ubAcsv8r13DWcnaPbfLfnY6x6GyB8Nja06sx4fDEKgNgv/ywQbEmOQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=VYQU0d5o;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789376981;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=MHeW1CPKnaVftcIvrFx2pYex06w5p9ZRk+t3E962Owk=;
-	b=VYQU0d5obr2NLWOaeJ7auVMl49K6W9fJEIhD31PqQDmDAx73IJowN0+VY1qt1bXgKiWlHo
-	EE0pEBNXpmJF8BqF9s342OWImZc9PowGg6voyEror3RCENtAkyxjI+ZxprDVH77HgZH+Bw
-	1W80zqIyrmwZ++KvS0fAzdE0nZZD97eMCnM0fv7sDBErNixOXGBq7bH9JasE+XP7a8U29Z
-	5HMkc5nKJUT6AccK6lq9yEM9wtsHayYfT5EpYbRXaPsRNNIEdIi39SYIIX5Uf4d9azjHHj
-	FnIu5KOExuufia4AttASzDCepv7Uf90t6W2tlGszd1SEIXV5nLazuk7rNNqWwA==
-To: Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: fbtft: replace number with sizeof()
-Date: Mon, 14 Sep 2026 11:08:58 +0200
-Message-ID: <20260914090858.9939-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QOx/baCy"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C6C994E405A0;
+	Mon, 14 Sep 2026 09:09:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 93F0D60580;
+	Mon, 14 Sep 2026 09:09:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1E0CB11C7AFDB;
+	Mon, 14 Sep 2026 11:09:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789376991; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=J6gkIocMxhvdpf/NKA6qKbg3ZwMu+O+tLx3jm8Ehdxo=;
+	b=QOx/baCyIfdZIARepp6rSTVpentmNiDyxh/MzkNo667zrVwrPzSi/av2sIi9036kR90wcX
+	1cvc4jdCrwV097hLpWf2iDVabSiC11DtW7J1xyqQXazNoA64Wl91R5rKEI8FxCpyc9ptil
+	d+WhOydTJIs7zDbd6mw+szwsocwD9lCzeBTxIRfayrxJRpUvKv/JdIZAezkFvDYRk5/QsS
+	OPFQcb5MRz94HyIbB/OsKBkagZqlQWVnJh1TLJZMeu43YXlcLA101Ygc2ctU0spQmfnRI1
+	mlCgsvmVZUbYE5ne3cozOiZTcqNTeXaw+yp6jOZae8jNUAqU4pSkxil5SzkMsw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: cw4btzrgu7sahhkxa6erqcjkpep5yxpt
-X-MBO-RS-ID: 00adecfe0b933e12e23
-X-Rspamd-Queue-Id: 4hjzqp57f4zKmwd
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 11:09:15 +0200
+Message-Id: <DLEX6WY9X3PO.S0N8N4G4K301@bootlin.com>
+Subject: Re: [PATCH 1/2] dt-bindings: display: Use consistent indentation in
+ the example
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Chen-Yu
+ Tsai" <wens@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
+ Holland" <samuel@sholland.org>, "Liu Ying" <victor.liu@nxp.com>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Francesco Dolcini" <francesco@dolcini.it>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>, "Rob
+ Clark" <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov"
+ <lumag@kernel.org>, "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica
+ Zhang" <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>, "Marcus Folkesson"
+ <marcus.folkesson@gmail.com>, "Maxime Coquelin"
+ <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
+ <alexandre.torgue@foss.st.com>, "Yannick Fertre"
+ <yannick.fertre@foss.st.com>, "Raphael Gallais-Pou"
+ <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
+ <philippe.cornu@foss.st.com>, "Matthias Brugger" <matthias.bgg@gmail.com>,
+ "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
+ "Adrien Grassein" <adrien.grassein@gmail.com>, "Russell King"
+ <linux@armlinux.org.uk>, "Simha BN" <simhavcs@gmail.com>, "CK Hu"
+ <ck.hu@mediatek.com>, "Jitao shi" <jitao.shi@mediatek.com>, "Yongxing Mou"
+ <yongxing.mou@oss.qualcomm.com>, "Abel Vesa" <abelvesa@kernel.org>, "Chris
+ Morgan" <macromorgan@hotmail.com>, "Martinez Canillas"
+ <javierm@redhat.com>, <dri-devel@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-mediatek@lists.infradead.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Replace integer number with sizeof with the goal of prevent future truncation bugs.
+On Sun Sep 13, 2026 at 2:33 PM CEST, Krzysztof Kozlowski wrote:
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- drivers/staging/fbtft/fb_ili9320.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-diff --git a/drivers/staging/fbtft/fb_ili9320.c b/drivers/staging/fbtft/fb_ili9320.c
-index 0f98267a7..655778392 100644
---- a/drivers/staging/fbtft/fb_ili9320.c
-+++ b/drivers/staging/fbtft/fb_ili9320.c
-@@ -21,7 +21,7 @@
- 
- static unsigned int read_devicecode(struct fbtft_par *par)
- {
--	u8 rxbuf[8] = {0, };
-+	u8 rxbuf[sizeof(u64)] = {0, };
- 
- 	write_reg(par, 0x0000);
- 	par->fbtftops.read(par, rxbuf, 4);
--- 
-2.55.0
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
