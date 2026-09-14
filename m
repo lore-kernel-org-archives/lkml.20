@@ -1,135 +1,153 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E3E344DB1;
-	Mon, 14 Sep 2026 04:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D7833D6F0;
+	Mon, 14 Sep 2026 04:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789360564; cv=none; b=TyOA6yqdc4vgfIctm1ZUdagWiSgRHci6WUEetvPhsjTo+mwA0+FuJfsIOqj39xG/3KZcAPCtwSZfDAzmr7b0EuqfRLPvhA/wW0QSHECFbU5rptdtX11WoO1Vc+R3F4AMc/Nbsma8DFrFIewbmUBt+NfExuYES6DDh6d3qpD2V0o=
+	t=1789360563; cv=none; b=Lw9b4BwpT8vXqh2D8SncjR+XlE3oTj7vGipGcjiW63SkNdPwAevlqLJvn1sWA513Pmdg+UuRI8Q8ujIMmuCJ3JZ6m77pD//ZfcE8qI+mYsZAR8yNYvRbHfibVtShyVaJaFGQmI/256W9YoqBAyXUTCE44OqgsGDkCY1G7/K/CrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789360564; c=relaxed/simple;
-	bh=/MkaBP2BXbpnwAuBhsPlzxp3Mgs/EG6ZZrIvMRBC9sY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hfd4Z+yENJixhlxKeB8FN1ZXkoJdqnxqFRFVAF2Yg5MeThVp/V7UMPEAy13Td+LkV+eOWWULM7GnYYunTrBlvtI0NdiicxXfs1qN4gSvsGolltaADHKHb4rMeqVCky8YUQS6Agdoox6WAUHEFfD5f9qkq9dZj9J9F87JAMObyrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bt/0t7R2; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789360563; c=relaxed/simple;
+	bh=l/3VpX+XI0mzcW52NigVjmYMhh6INWYXFx0JGEuAyv8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DsxXDY+4LhdIkfc5ZH22RR8v3a6wuHquS6diWuIqj1JUD5GRekKcQCnkKjXFYo0Ajk6ygnHK8j2P87M/TDTQT2fS/VeP2T7a1Wz0srAc72GULz9JsyJUhRbfrVvhLsrdhaoW0blOXsgHm/mH3sBwRLjesq3UDUAzc/tcNnjktKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=WRhGlbO9; arc=none smtp.client-ip=185.244.194.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bt/0t7R2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789360563; x=1820896563;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=/MkaBP2BXbpnwAuBhsPlzxp3Mgs/EG6ZZrIvMRBC9sY=;
-  b=Bt/0t7R2PAv2r5OQyGnfMSY6IxAPRpVl3Xvock4jd8UFZsLZWyP8TMGR
-   CJbMOkHFShpOSSdGMV/FT2B9af66s/h6NMvEaesuvpkc+5mEoXerEAzon
-   cLko5nfgZhiKUVdwavj9NJys8Z2jpFgkTe7Il7KExaUVxJ3iCGb4+97BX
-   sQk/SrDPhwHFLawteRkLlUD0HUchJqS7T4E6JHNy4ANxzuNd+U5agcEfB
-   9z22kYQwLqVC2lhZFL6Pwb+h7iJMQZ+2cRQCV7U+wNGUBcqJZzfJ9GwWt
-   1wTO/cw2y/4WhddnmKrAklxbCsrMLQsrCwhw9CPvxWSR4aQ41V1oKfywH
-   A==;
-X-CSE-ConnectionGUID: sgryxnn6TXW75zPuu+3Olg==
-X-CSE-MsgGUID: ip0WduhPTRKiqNxCrdPRaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100306394"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="100306394"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 21:36:03 -0700
-X-CSE-ConnectionGUID: 5im3CHrXS8emo4yEcYNfHQ==
-X-CSE-MsgGUID: ZDxBqddJRsOBoqU8uFwD6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="269253911"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 21:36:00 -0700
-Date: Mon, 14 Sep 2026 07:35:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Armin Wolf <W_Armin@gmx.de>, Linux ACPI <linux-acpi@vger.kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Linux PM <linux-pm@vger.kernel.org>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Subject: Re: [PATCH v1 04/10] ACPI: processor: thermal: Use
- thermal_cooling_device_create()
-Message-ID: <aqd5rhdaE_AIxMNI@ashevche-desk.local>
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
- <2362345.iZASKD2KPV@rafael.j.wysocki>
- <aqQtIMm-gdJoZAsq@ashevche-desk.local>
- <CAJZ5v0j5B4LFbrhSuw0j=fLcY+cFFTEMvyt_ED-+9j1dvQEqLw@mail.gmail.com>
- <aqQwf3y66lPhTTyf@ashevche-desk.local>
- <CAJZ5v0jV-cMDt0Hhhw8Nnea1jhXfGVUajaomAmSUcmx2sZLb6Q@mail.gmail.com>
- <aqRDC2LZ7m3caTSn@ashevche-desk.local>
- <5b54b08a-4dfd-4efe-b646-821adcd235b2@gmx.de>
- <aqZbqbSsRlsjjRPB@ashevche-desk.local>
- <CAJZ5v0j9g9Vyam7PnrGikYyyrUwSFghPk6ecXVEm9PN8z8tOHg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="WRhGlbO9"
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hjslz4GJDz9KSt;
+	Mon, 14 Sep 2026 06:35:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789360559;
+	bh=l/3VpX+XI0mzcW52NigVjmYMhh6INWYXFx0JGEuAyv8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WRhGlbO9qY9QfRs4S606PpeWRg0XE7+ZPlCpSm1AU2rrDD5Lfo5WXz+VzPr3RpSY8
+	 G65jTa5AkmCnWvKBcxnLMDOnuIZ1sNmb2EIyJS5BehmfpL11Ug4cOFP6FtxsT2fq0X
+	 QpU4+vu48tLXRSb6hTeHRDG+xGOAPXgnpUoHY6XpjyhQ33qc6kJMf/uwf58dT0i3mz
+	 VyoAu1Nu9YvNLucsFZhFN9JTbaTp6K7yv38nFzpNdqWwRqEG4mDQcqIOX7MynLTsFH
+	 2WvSpKOTuM9mi2YhW5yr8WOuTHI71/tEarn9mvNKHyu6ZCKBDkIEW+bKADBTaNqXz9
+	 24qwmHiqI4wIw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hjslz3Y6bz7wsn;
+	Mon, 14 Sep 2026 06:35:59 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hjslx4hd8z8svW;
+	Mon, 14 Sep 2026 06:35:57 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 805E05F9D2;
+	Mon, 14 Sep 2026 06:35:56 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <2fd03569-f1c4-4c02-97ed-c74f4cd7f809@leemhuis.info>
+Date: Mon, 14 Sep 2026 06:35:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0j9g9Vyam7PnrGikYyyrUwSFghPk6ecXVEm9PN8z8tOHg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH wireless] wifi: mt76: mt792x: fix NULL dereference in ACPI
+ SAR init during probe
+To: Devin Wittmayer <lucid_duck@justthetip.ca>, Felix Fietkau <nbd@nbd.name>,
+ Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Klara Modin <klarasmodin@gmail.com>,
+ Charlie-cy Wu <Charlie-cy.Wu@mediatek.com>, JB Tsai <jb.tsai@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Ryder Lee <ryder.lee@mediatek.com>,
+ Shayne Chen <shayne.chen@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-wireless@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+References: <20260825181712.28548-1-lucid_duck@justthetip.ca>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260825181712.28548-1-lucid_duck@justthetip.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178936055709.725840.16914483602007956628@mxe9fb.netcup.net>
+X-NC-CID: DBseGpMhWIEgVtQ5BXljnzJ0Jmciv99+44qwUxKmBeXs+d6quD4=
 
-On Sun, Sep 13, 2026 at 12:28:05PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Sun, Sep 13, 2026 at 10:15 AM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Fri, Sep 11, 2026 at 11:14:09PM +0200, Armin Wolf wrote:
-> > > Am 11.09.26 um 20:06 schrieb Andy Shevchenko:
-> > > > On Fri, Sep 11, 2026 at 07:01:23PM +0200, Rafael J. Wysocki (Intel) wrote:
-> > > > > On Fri, Sep 11, 2026 at 6:47 PM Andy Shevchenko
-> > > > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > > > On Fri, Sep 11, 2026 at 06:36:28PM +0200, Rafael J. Wysocki (Intel) wrote:
-> > > > > > > On Fri, Sep 11, 2026 at 6:32 PM Andy Shevchenko
-> > > > > > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > > > > > On Fri, Sep 11, 2026 at 03:02:53PM +0200, Rafael J. Wysocki wrote:
-
-...
-
-> > > > > > > > Is any user space ABI breakage expected as an outcome of this change?
-> > > > > > > Not really.
-> > > > > > Maybe makes sense to state this clearly in the cover letter?
-> > > > > I guess you specifically mean the manually created symbolic links in
-> > > > > sysfs that get removed.
-> > > > >
-> > > > > If so, I'm not aware of anyone using them for anything, but the lack
-> > > > > of observation is not proof of nonexistence.
-> > > > Yes, I refer to the changes in the sysfs layout / presence / absence.
-> > >
-> > > AFAIK those custom sysfs attributes are not even documented under Documentation/ABI, and
-> > > thermald also does not seem to use them. I thus think we can safely remove them.
-> >
-> > There is Debian source code browser (that covers hundreds of OSS projects) [1],
-> > have you tried to seek any matches there? Otherwise the assumption that nobody
-> > uses them might be wrong even if they were never documented.
-> >
-> > [1]: https://codesearch.debian.net/
+On 8/25/26 20:17, Devin Wittmayer wrote:
+> Some laptops carry a MediaTek power table in their firmware, and the
+> driver reads it to set a transmit limit for each frequency range. It
+> only fills in the ranges themselves when it registers the device.
 > 
-> It is mostly relevant whether or not they are used by someone today
-> and not whether or not they have ever been used at all.
+> The startup step that does this existed already, but it never programmed
+> anything. These two commits made it run a regulatory update instead,
+> which sets the limits on the way through, long before registration. So on
+> a machine that has the table the driver reads through an empty pointer
+> and the interface never appears:
 
-Yes, my point is if there is no use there, it will be a very good justification
-to assume that no-one use that.
+For the record: Linus pulled this directly from the list into mainline
+yesterday after I pointed to this patch in a small regression report. I
+did that, as I had seen multiple people reporting a regression who
+confirmed that this patch fixed things for them.
 
-> We'll find out.
+Bypassing subsystems like this has obvious downsides and risks; hence,
+if that got something on the wrong track, please speak up -- or ideally
+send patches to set things straight again in mainline.
 
-Sure. Sooner or later :-)
+https://git.kernel.org/torvalds/c/7825de3f75d184612d77655669a04ea0da252c17
+/ 7825de3f75d184 ("wifi: mt76: mt792x: fix NULL dereference in ACPI SAR
+init during probe") [v7.3-rc3]
 
-> If anyone complains and they are unable to cope with that, adding
-> "thermal_cooling" back should not be a problem (although I'd rather
-> not do it unless absolutely necessary).
+Ciao, Thorsten
 
-Agreed.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+>   BUG: kernel NULL pointer dereference, address: 0000000000000004
+>   RIP: 0010:mt792x_init_acpi_sar_power
+>   Call Trace:
+>    mt7921_set_tx_sar_pwr
+>    mt7921_mcu_regd_update
+>    mt7921_regd_update
+>    mt7921_run_firmware
+>    mt7921e_mcu_init
+>    mt7921_init_work
+> 
+> Skip it when the ranges are missing. They are applied again once the
+> device is up, which is where they came from before.
+> 
+> Reported-by: Klara Modin <klarasmodin@gmail.com>
+> Closes: https://lore.kernel.org/linux-wireless/aoyxqHYvSuaBeubf@soda.int.kasm.eu/
+> Fixes: 9b80bd9cab40 ("wifi: mt76: mt7921: add regulatory wiphy self manager support")
+> Fixes: e9f3f1cc133f ("wifi: mt76: mt7925: add regulatory wiphy self manager support")
+> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+> ---
+> 
+> Reproduced on both chips before sending, an MT7922 and an MT7925, and the
+> fix clears both. Neither machine here ships a vendor power table, so I
+> supplied one through an ACPI override in the initrd. It also wants recent
+> firmware. The June builds do not turn on self-managed regulatory and
+> nothing happens; the builds now in linux-firmware do, and then it dies
+> exactly as reported with no interface at all. Patched, both come up and
+> scan normally, and the injected limits still show through in the power
+> table afterwards, so the skip does not lose them.
+> 
+> With that table still in place and the fix absent, backing out the mt7921
+> commit on its own also boots clean, so the table is not what causes this.
+> 
+>  drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
+> index 946dd7956e4a..b468051fbe68 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
+> +++ b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
+> @@ -323,7 +323,8 @@ int mt792x_init_acpi_sar_power(struct mt792x_phy *phy, bool set_default)
+>  	const struct cfg80211_sar_capa *capa = phy->mt76->hw->wiphy->sar_capa;
+>  	int i;
+>  
+> -	if (!phy->acpisar || !((struct mt792x_acpi_sar *)phy->acpisar)->dyn)
+> +	if (!capa || !phy->acpisar ||
+> +	    !((struct mt792x_acpi_sar *)phy->acpisar)->dyn)
+>  		return 0;
+>  
+>  	/* When ACPI SAR enabled in HW, we should apply rules for .frp
 
