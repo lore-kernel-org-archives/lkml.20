@@ -1,105 +1,119 @@
-Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5048E3E557A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334233D0C09
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367279; cv=none; b=f+w31ChMbJ1OtJ2pwHHnZzWWLyb3bLMO3QuNsoRczji6ozm79IzCXqEuPZoeIB2SCvQ4r4MaGaoqGeQcdkMcNX/1j2sUjpnv/3TKuHCyVrbKegq0PQop8E3XkP1Sf1JIk0sSNm7qHvh0XEIYTa3aejYTLGn7Cs1dobRwb9gEufA=
+	t=1789367300; cv=none; b=NHqPvN4JG1vxNh87rY8t3+cYB7ZbdocfgB7xAXvwu4MT/RC+IUabExHwyxIYy05Zj+D5hhI6ntwDZtYxZ/i+5PSBcANULHG2wiPoaMbrgiCeQgcH2ieplO28zJpwe+yH0Z7iegwgf9tSoq/D7wqow2V3SGUvVK4HYWC5qwO0lbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367279; c=relaxed/simple;
-	bh=djNIl/KI66JahUpFMSuKlhJQe7ZFtgYzMuSNU7iNmpY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vCJkD+wNBVUg6sqKlnT67gu4cvKT2vfbRTMVbgrqpiJUIvmXLqPH3Ngh8yWx1nwwoPPT7Ovse+yZD6GuDwNzjaog+yrxSBzYN7uJyAE9GuJYBl53pLFozT3pCI1ZlF8Hpm+44XWYHfSCzByb+JqkqDVE5OTnZYEYr1aRQWVvNl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OwWlXJDt; arc=none smtp.client-ip=91.218.175.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789367300; c=relaxed/simple;
+	bh=TPDQPFLtPZvZI1VjjY0N2Stg09IIGcwfk/cDP+v1pFE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B8iBeBgx+lOAnfEfw0R4xQZCG32vOyNOJn4QjtyE5Ozq4bFlYjv3hSMw4Ffz+4hYteI+sxZUjR8AbREnA9Pdq7FsrcRbB3NI1chGvi5XCk8jpLYu4+XEb7IjcHStL5kOUt3PNDagvP21U7mVJwTGnhevr4fvIIc3AUpIze8WK8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Im0O/NMv; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OwWlXJDt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=djNIl/KI66JahUpFMSuKlhJQe7ZFtgYzMuSNU7iNmpY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789367270; v=1; x=1789972070;
- b=OwWlXJDt7sfSLhJLsxHmFJEce+o+jumojbBilsHuNLqw8QX3jz0sPeP2uelItj1kNB7HVWsH
- Tc1eiXsXaAhLHDO03RCDr5yOGbSAxiK6t2Jo3fJvhwO/NZCHjSOjAILbif5e+cnsiZTckeV2bCP
- XW+F+bW4H6GtcfZf5ZkrfsSs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 9725185ab10d7887;
-	Mon, 14 Sep 2026 06:27:40 +0000
-X-Mizu-Trace-ID: 9725185ab10d7887
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 14 Sep 2026 14:27:28 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, hannes@cmpxchg.org, yosry@kernel.org,
-	nphamcs@gmail.com, chengming.zhou@linux.dev, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kasong@tencent.com, chrisl@kernel.org
-Subject: Re: [PATCH] mm: zswap: return -ENOENT when the swap device is gone
-Message-ID: <aqeT0FkVptyVLaDV@fedora>
-References: <20260913063031.1689420-1-hebaoquan@kylinos.cn>
- <20260913004831.884d37afd92249d763b7f1da@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Im0O/NMv"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-86ec25cf7ecso488127b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:28:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789367298; x=1789972098; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iiJKaMbfu9qWEi2n2OlhqAtcjgz04Z/iHxvz1jHrk94=;
+        b=Im0O/NMvog1usWt2PJGPLuFH4wO+sLDVWWgS4PPxInUlmlhk4fVBHL8zHvm7fC9OYH
+         g6RrUXxF1Y9KtHTQktb2row3Wwi0B7zV1FApjfprMhms6Kr3NAyfQT8cZQBItUaFrmKY
+         UzqZXyQiE5reD8PtSCgcSD6FhRQ+bngeIgL9cRudmZGRDAET9dhqYcNsCYR6dAdC6rBz
+         owj4/+EKhVZdNsyXQ+1tG+epyqS46+pRAhTPjZUUWWH3wqreTU6HGbLKpMzVRxx8qMgX
+         EyqmtmWwLK6Fm+o+uLMWsIWIvQQbG7fxd9plgRd3ukluMNqeEmGer+8Oe3cjdTX4ICdk
+         8Y+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789367298; x=1789972098;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iiJKaMbfu9qWEi2n2OlhqAtcjgz04Z/iHxvz1jHrk94=;
+        b=A7aG0W87i/XOcLYQxijCAIf6ib32te60uJK+A1KoeGwfG2I0pPtEgXCyhcI+mzJOht
+         fU06HHPN38m6GjXIWLXUp15c4ru9YpcLr892fRz59W6Z/+Qzq7IkGI4L1t1GxuGrbnuP
+         hiSiClx2ZSNs70KqD8aR6bYjq0cWxg3hiT6AxNeOebsHoF61KLHgrQfSFMxokxfq2Kyc
+         eibpQRv2KqTC8E5CQftv1+U0755LeHICfmEWoDb9hycVlfHjsjOJQ87owO+qKYMAjWVB
+         eOgBgD6dJbxng8KMoAbfoVWMRWJhcayA6L3rrmYQA/GL1EEfyhA/El1eGks0HkiNZX1Q
+         fMbQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWP8FrdZWgORW3D6C4MSX17DZeyEmL9SuJnDQZjY58BCknX17Izp73zk/7LoFigoUQ5wXFiQoUk2JFTdY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kF1a20vZBuJkMvZpdyKXfZ77l/YbVrIHUc+P7YSSTEoTvnV3tL
+	VG8dSj0vlZ4D77lM9PwbbmsnaSfutHAUVqyzeC2plPD7crDc+3hKDJQx
+X-Gm-Gg: AYBFou2Ex2txudm9kDiQA1zN5hTcHJpVdN1kZvBU6T5lUObH1pwULPashh9Y5iQqHBP
+	39BwkMzuypKzRv+qePGXz8Q7iCg+54QqnGfUwIy6J2la/Vat8hCYvu5cpxWw72bt09VjI/xHM8n
+	0lxLaAFLXUa5WjqrCN9l4MJI+fN5agbmHLOdJ30IQrnFt6j+RdAVATkox2wEYG1+rA+jw7qasI8
+	w5chBnSt41/3ZV/bB1qYumDSUiQpBmSrT/MlXGTd4noABHC+cLdbwbzJ9zrdxT7XwmFOKB9UXL7
+	w3biu7owUIYUMkZ1ejNpmQ6mJJqLOCpcUMP6C1F3Aot+wlmPfKin9SyEIreLU29xugyDqU5xSao
+	EoeIjABYy5pKdCvgmW5UdAejuqBg0eK2V7UohBO+heO9LUrED0sxwt/mIvKmz2PhCQ/TK+KmPi1
+	XXGxcw1bMOkEVRocsEXtSURaSZDat5u+HSfpL/i/9oxpWrrR4u9t+d3A==
+X-Received: by 2002:a05:6a00:ae0d:b0:869:31b1:4ce3 with SMTP id d2e1a72fcca58-86e2a7ce365mr6207771b3a.9.1789367298432;
+        Sun, 13 Sep 2026 23:28:18 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b294be699sm3989659b3a.34.2026.09.13.23.28.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 23:28:18 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Marc Hulsman <m.hulsman@tudelft.nl>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Jean Delvare <khali@linux-fr.org>,
+	Hans de Goede <j.w.r.degoede@hhs.nl>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hwmon: (w83791d) remove fan/pwm 4-5 sysfs group on remove
+Date: Mon, 14 Sep 2026 14:28:09 +0800
+Message-ID: <20260914062809.1650538-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913004831.884d37afd92249d763b7f1da@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
 
-On 09/13/26 at 12:48am, Andrew Morton wrote:
-> On Sun, 13 Sep 2026 14:30:31 +0800 Baoquan He <hebaoquan@kylinos.cn> wrote:
-> 
-> > zswap_writeback_entry() returns -EEXIST when get_swap_device() finds no
-> > device.  -EEXIST is the shrinker's "page already in swap cache" signal,
-> > which makes zswap_shrinker_scan() stop shrinking entirely.  A NULL
-> > get_swap_device() instead means the device is being swapped off, so the
-> > entry is simply stale.
-> > 
-> > Return -ENOENT so the shrinker skips the stale entry and keeps scanning.
-> > Independent of xswap; affects all swap devices.
-> 
-> I'm struggling to understand the userspace-visible runtime effects of this.
-> 
-> I see that reclaim will prematurely abort, but is this a once-off thing
-> which will resolve on the next reclaim attempt, or will the reclaim
-> failure persist for a significant period?
+When the fan/pwm 4-5 pins are not used as GPIO, w83791d_probe()
+creates the w83791d_group_fanpwm45 sysfs group on the I2C client
+device.
 
-Not a one-off, and not permanent either: it lasts the whole swapoff.
+The probe error path removes this group when a later initialization
+step fails, but the normal remove path only removes w83791d_group.
+As a result, the optional fan/pwm 4-5 sysfs files can remain after the
+driver is unbound.
 
-Assume I have two swap disks. zswap is enabled. By default 20% of RAM is
-the zswap upper limit. So now if I swapoff /dev/vdb, at the same time
-reclaimer call shrinker to writeback, -EEXIST makes shrink_memcg_cb()
-return LRU_STOP, which ends the shrink pass right there. get_swap_device()
-returns NULL for an entry whose device is gone, so every such entry still
-on the zswap LRU stops a pass where it stands. The pool gets almost nothing
-written back for the length of the swapoff.
+The callbacks associated with these files access the driver data,
+which is devm allocated and released after driver unbind. Leaving the
+sysfs files behind can therefore result in accesses to stale driver
+data.
 
-# swapon
-NAME     TYPE      SIZE USED PRIO
-/dev/vdb partition   4G   0B   -1
-/dev/vdc partition   2G   0B   -1
+Remove w83791d_group_fanpwm45 during normal teardown as well.
 
-The entry is rotated before writeback, so later passes get past it. It is
-a throughput collapse, not a deadlock.
+This issue was found by manual code inspection.
 
-static enum lru_status shrink_memcg_cb(struct list_head *item, struct list_lru_one *l,
-                                       void *arg)
-{
-	......
-	list_move_tail(item, &l->list);
-	......
-	writeback_result = zswap_writeback_entry(entry, swpentry);
-	......
-}
+Fixes: 6e1ecd9b8f13 ("hwmon: (w83791d) fan 4/5 pins can also be used for gpio")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/hwmon/w83791d.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I can't reproduce it now. And I forget how I met this, just did too many
-tiems of testing and code change. this probably comes from reading the
-code. So this may be a logic bug that rarely happens rather than a easily
-seen regression.
-
-Thanks
-Baoquan
+diff --git a/drivers/hwmon/w83791d.c b/drivers/hwmon/w83791d.c
+index 4a777430af5c..4b07a25ae59e 100644
+--- a/drivers/hwmon/w83791d.c
++++ b/drivers/hwmon/w83791d.c
+@@ -1415,6 +1415,7 @@ static void w83791d_remove(struct i2c_client *client)
+ 	struct w83791d_data *data = i2c_get_clientdata(client);
+ 
+ 	hwmon_device_unregister(data->hwmon_dev);
++	sysfs_remove_group(&client->dev.kobj, &w83791d_group_fanpwm45);
+ 	sysfs_remove_group(&client->dev.kobj, &w83791d_group);
+ }
+ 
+-- 
+2.43.0
 
