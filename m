@@ -1,80 +1,35 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from lb2.peda.net (lb2.peda.net [130.234.6.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A3F2D7380
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079D22D7380;
+	Mon, 14 Sep 2026 06:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.234.6.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367817; cv=none; b=JP55Fd0Kw1CN+COE/jHDkrWDXNayNoxrj9KhLTlLl9Q/FyvRN50B3hW9ROdK7cqmJ+IdwXo4BfPAnyq9UdUFbWEXgewC0SGDyQ/E4QcFMrG3N3iORuXyDkqqa6kDXIWuqstQONJLKUN0fJKwV/CbPoIliG5Y/+yZxwlWP5s9PI4=
+	t=1789367825; cv=none; b=nS2bdaSF1GJdemC0Jm6kHl6mNjss+wbFY83FIZoeFdZh3+s0VsL/+IF/9YRscgpRgTSVuU9V4kLIN7EK2Jj9ghVcMJv9HxkPvIuzAg7Mgh3GUalclv55WDmDGSBNeM0kXIFhTyxztQ10wUyOug3a9kPaCDFkglaYOR9U/0z1x70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367817; c=relaxed/simple;
-	bh=59Ztp7wkPBkv3y9kgjXCrNTzodHOqT063wAVuM/ePnc=;
+	s=arc-20240116; t=1789367825; c=relaxed/simple;
+	bh=8N42BmCblJVZfeWu1cm73VCY2czk8tZtyc88nGTs5zE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OpWSFM2qTxB9VHYQDaTe4QIIdDzIhlfgnpQtzZBGbXlpTC3z3qqQ1k4CYcxrkzS01WuveOY062DC0N/le/IYBbr5BlvUMFKd9cQ+hrlWx6sAUOz7eXrM5f0z9Ps5A75GAPkVaGsW9jiu32g2ndgp+EWVwKsW6iIswc5vM9WQHcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yDBaDnhg; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=A0HizsZT; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VkVZPGiQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hMQfAJCw; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 In-Reply-To:Content-Type; b=g8qsx/zz9rJ8iUKPEg2b6n8CN5J37KdYkberobyQ5vw5lM+ElOgRyafgrpifDwj8Lm4xEICf6AB0WspbEL6MSRDMXmROfk51TlwKS1eKv45kjtIolbQUJy+lCx4t6iX18v3UXG2rTy8r+zZFBwwrhBWBGPQYmLRUdFoFH+qAqOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=peda.net; spf=pass smtp.mailfrom=peda.net; dkim=pass (2048-bit key) header.d=peda.net header.i=@peda.net header.b=MykX7Eu4; arc=none smtp.client-ip=130.234.6.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=peda.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=peda.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yDBaDnhg";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A0HizsZT";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VkVZPGiQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hMQfAJCw"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B7E5321B4A;
-	Mon, 14 Sep 2026 06:36:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789367809; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
-	b=yDBaDnhgprnaW4rkDv+AI7y7wGT0034Df4Ms79Vq0XzxbzKtfhqHG5pwHLTaOKJxL7hQIr
-	kHRxcjAWcSOAXGigdQH5js4WX3kgslteueq0JFmACerAIrXO+Jf+pCQrhDt4UcnaUB0h2C
-	QVVzVA5UsU5lt7qol2ZMRYMCJgVAFaM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789367809;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
-	b=A0HizsZTctUKBT/l3RA5u6IfGe9UxR6fX3ZB+vmXgTSXC9PeBOpf7s9UZGvOfySkBkQB15
-	RkZZAcVQV8U2xrBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789367805; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
-	b=VkVZPGiQxewzpoWGUIXHjOkK7wqwAJRVIgAk7B2BwTG43tBxx/oiYD3sgJqeoBGIV6t7/U
-	y1miQdtpJ+hnt8vilSUQRYId/iY50q8goQVnlYTdv2dRWlSG5B8zI7JOwd5X+C4MGApIOj
-	PKz7ZnFXRxQtLAG+rqCI7wVDoPE9gQ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789367805;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
-	b=hMQfAJCwSNyGRxzaShD6//oY2wEOMhR/PkWLXYKwCDaBxNj0fNOsQgMldPdeOt5kBf3yuF
-	6RP3jdS/FXrrHmBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2832F13515;
-	Mon, 14 Sep 2026 06:36:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sZ/NOPyVp2qAFgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 14 Sep 2026 06:36:44 +0000
-Message-ID: <b2f48121-30c3-4530-9687-3e8757172816@suse.de>
-Date: Mon, 14 Sep 2026 08:36:44 +0200
+	dkim=pass (2048-bit key) header.d=peda.net header.i=@peda.net header.b="MykX7Eu4"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=peda.net; s=default;
+	t=1789367819; bh=8N42BmCblJVZfeWu1cm73VCY2czk8tZtyc88nGTs5zE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=MykX7Eu48WTDqBURwwpcGBIjj2NPoEV00/TaG4Lhlc3mK1V+CdD9KqlIke4bz31II
+	 +G7pf4ZPIEpZBuYft+h7dnFQ9Ah4UV1iabclce4AyHoED6GHRy1mVoc2bsuSs8npVm
+	 p1zeoPc3SVq52Yfi5ibDyjRT77tU0e26eXCLMJ82SCp8WhbJQODcSxmA30Fyi8fsDA
+	 oG9Yp3Fn05pOu9D5IUA6N/dWBgf0PR8D9/4z1P4/LOK+08Msc3zLkwpXieVe1hzL56
+	 05Ha+0V88sSGn5MTu6X3fpDQgpxqd1Vc+VUDHL61OgpC6eogjpCgPqZM3aDLlH22O8
+	 WhZFFwvXmSAOQ==
+Received: from [86.60.167.233] (86-60-167-233.dynamic.lounea.fi [86.60.167.233])
+	by lb2.peda.net (lb2.peda.net) with ESMTPSA id 26BDED60144;
+	Mon, 14 Sep 2026 09:36:59 +0300 (EEST)
+Message-ID: <0e27e9dc-3520-436e-aa69-af9e938ab1bf@peda.net>
+Date: Mon, 14 Sep 2026 09:36:58 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,127 +37,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/aspeed: Balance the display clock enable on teardown
-To: Myeonghun Pak <mhun512@gmail.com>, Joel Stanley <joel@jms.id.au>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Jeffery
- <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>, Sam Ravnborg <sam@ravnborg.org>,
- =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>,
- linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Ijae Kim <ae878000@gmail.com>
-References: <20260913223019.89651-1-mhun512@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260913223019.89651-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	FREEMAIL_TO(0.00)[gmail.com,jms.id.au];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,codeconstruct.com.au,aspeedtech.com,ravnborg.org,tronnes.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo]
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+To: Rich Felker <dalias@libc.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+ linux-kernel@vger.kernel.org, brauner@kernel.org, viro@zeniv.linux.org.uk,
+ jack@suse.cz, alx@kernel.org
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+ <20260913205358.GX25906@brightrain.aerifal.cx>
+From: Mikko Rantalainen <mikko.rantalainen@peda.net>
+Autocrypt: addr=mikko.rantalainen@peda.net; keydata=
+ xjMEWvlVlRYJKwYBBAHaRw8BAQdAJneRuA4reN56nwM7GyQ8Gwkhc4ANBia0NFNcU/qwP63N
+ Lk1pa2tvIFJhbnRhbGFpbmVuIDxtaWtrby5yYW50YWxhaW5lbkBwZWRhLm5ldD7ClgQTFggA
+ JwUCWvlY9wIbAwUJXfwPAAULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAhCRC4w4yaqAoqKxYh
+ BNKwvdN4KAGSgYZmbbjDjJqoCiornGsA+wWoUBgH7S20W4KkYvr5OipJ5FBH0vbHDEvv26V+
+ WYt5AQCbgxKfVQD1g9gp67xb2NWkMKccy/5R0oYl7uGBDKHNBc44BGftb9gSCisGAQQBl1UB
+ BQEBB0CXgySU7HDsuvqYVVlXWZvvGTyjxz4iEQSemOwJ8BU7EgMBCAfCfgQYFggAJhYhBNKw
+ vdN4KAGSgYZmbbjDjJqoCiorBQJn7W/YAhsMBQkX8l8AAAoJELjDjJqoCiorklIBANBBccGb
+ g8cV5dSjL2oUNnJKK3ZgkBSfWjk21cISIMIxAP4xRcw/3Kk0sCRbKNFXyGtIk4OQrvYBaAij
+ qKI0ItEoBg==
+In-Reply-To: <20260913205358.GX25906@brightrain.aerifal.cx>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Rich Felker (2026-09-13 23:53 Europe/Helsinki):
+> On Sun, Sep 13, 2026 at 10:38:14PM +0300, Mikko Rantalainen wrote:
+>> In addition, POSIX.1-2024 requires that if close() reports EINTR, the
+>> descriptor must remain open. It also explicitly permits an interrupted
+>> close() to return success after closing the descriptor.
+>>
+>> This patch is about implementing the second option to be compatible with
+>> both POSIX.1-2024 and real-world applications.
+> ...
+> 
+> I don't think there is serious concern about userspace regressions
+> making this change. It would not be changing the meaning of any
+> existing result code or adding a new error condition applications need
+> to be aware of (like the EINPROGRESS mess).
+> 
+> But I'm also not sure how helpful the change would be. It's already
+> possible to patch this up in userspace, and as you noted, we already
+> do that in musl and so does Bionic. So the main practical effect of
+> this change would be just forcing the right behavior on glibc systems
+> even when glibc doesn't want to fix it. Maybe that's a good idea? I'm
+> not sure. I think it would be best to have everyone on the same page
+> that this should be fixed, with both glibc fixing it so it's right on
+> old-kernel/new-glibc, and the kernel fixing it so it's right on
+> new-kernel/old-glibc. That would also avoid hard feelings from a
+> unilateral action perceived as dictatorial.
+
+I think there are two important questions:
 
 
+(1) What is the caller truly expected to do for EINTR? They cannot
+retry which would be the typical response to EINTR.
 
-Am 14.09.26 um 00:30 schrieb Myeonghun Pak:
-> aspeed_gfx_load() enables the display clock without checking the return
-> value and never disables it on probe failure or removal. devm_clk_get()
-> only releases the clock reference, leaving the enable unbalanced.
->
-> Use devm_clk_get_enabled() to handle enable failures and automatically
-> disable and unprepare the clock on probe failure or removal.
->
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
->
-> Fixes: 4f2a8f5898ec ("drm: Add ASPEED GFX driver")
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> Assisted-by: OpenAI:GPT-5.6
+(2) If caller cannot retry because file was already closed, can caller
+have any valuable information from EINTR return instead of success?
+I think it's pretty safe assumption that success from close() would
+be handled correctly by the caller.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-> ---
-> Validated with an ARM64 W=1 object build and strict checkpatch.
-> No hardware runtime, clock-failure injection or unbind testing was done.
->
->   drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-> index d4577663a..aa36b79d0 100644
-> --- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-> +++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-> @@ -189,13 +189,12 @@ static int aspeed_gfx_load(struct drm_device *drm)
->   	}
->   	reset_control_deassert(priv->rst);
->   
-> -	priv->clk = devm_clk_get(drm->dev, NULL);
-> +	priv->clk = devm_clk_get_enabled(drm->dev, NULL);
->   	if (IS_ERR(priv->clk)) {
->   		dev_err(&pdev->dev,
-> -			"missing or invalid clk device tree entry");
-> +			"failed to get and enable clock\n");
->   		return PTR_ERR(priv->clk);
->   	}
-> -	clk_prepare_enable(priv->clk);
->   
->   	/* Sanitize control registers */
->   	writel(0, priv->base + CRT_CTRL1);
+I'm currently thinking that the answer to (1) is "???" and answer to
+(2) is best you can do is to log "Some unknown action interrupted
+some unknown background process while closing file XYZ, pretending
+everything went well." because anything else would assume some
+specific implementation of close() on Linux.
+
+As I see it, the fact that avoiding EINTR return value when the file
+is already closed fixing POSIX.1-2024 compatibility and glibc is just
+a bonus for a change that makes sense otherwise, too.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+Mikko
 
