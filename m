@@ -1,199 +1,201 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904C1496D4E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D445F486403;
+	Mon, 14 Sep 2026 15:02:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398134; cv=none; b=RHSdEQ96Pq4rMLEOX9gEpwGYyk33Fo7n6iLHwm0pH9PqzGZs4QM7YOfMmIEIMDFP5FbmgihjHWtWW9Nqj9/34VJKhwGngGNfIowFfGVKH836T0iXQ8AqXDNHK5DSkWCdb3QvNKkeklx0xkZzNkbqzuI8UuFPm18w/ika+OId3yk=
+	t=1789398138; cv=none; b=fRJJ16+b9Ka28YfAgvQ2800EZzFgrGIA/Q8QBUZe94YpSjHo4seq/SSLAdNgAANZn0J2O9F51MFFobQWjJk+vDWoJtAxAqERAp9wcfmRG+E774INmQ3xCePJ4PTypTTDcRfTiEgJVW2DjuyE1yyJhvp6WE7KAPIR7vnCaiuhESo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789398134; c=relaxed/simple;
-	bh=7l1jH4YEwwaB9bVTubCiHOrHrjM7s2t+ualLZn24p7o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XRhrlNvlwxtU+SO9ELnvwtO2IP/ctvCtMXGT0QJd5aouWo8fKdUMKRlezPXYGcE3v5Fa/FiTqHMNwJ/dgZ61tE2PZX3S2aTxEoBH3ntj3nAdUs/8mtdIu4sPCMZjKIme9wDNuWJXYjdp94MKdDG6z9l/s+y0nC3mQeSRIi+LdWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PNNrgj2x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D2y+KV1i; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789398138; c=relaxed/simple;
+	bh=qfAyj0ybwJ4DJXdH6Vmm7/5PNAiQvM8UyRor9dsN0CI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=c2GrK6LqdWfJ9c+bNbXl1s09BDunIcmEOzgwLkYfy37o7B8JKC85s/MJHB1V++6v2bwfJ6NpUOOiWQWcS5P5rnC046/sesweDvnVa31ruUU67LCvRPcFJ0Fkl+SACDC4UhN5wzwLASR+TwNC2Kg/J519WgfFYqOA33M4aIDKgN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FbtUOEcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PNNrgj2x";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D2y+KV1i"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0QGQ674431
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:02:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=HKDK43ay9zY
-	tKdxpkhmpR5tzBLdv8wVtA8UrvJmZbMs=; b=PNNrgj2xk1EVdX4xt1Bn2RFQdPV
-	ZNGqJ/gLtlYrw2aAyZoshur384XYsKMYZI4sopxxebhppb2J6ILJDyG0CRKzGbg1
-	NbBxFWFs9ivdli9ZMrqm2WTuX0qayLTIQYBZhN/kCRC7clqpogcQ1L7JsAmNeg8U
-	5+syTQqoiQhhwHfuRCyOs20S2AUGq0Z9hCXJEO2ZP9kRoOA+sYNgWhpOR4iLayUS
-	bz0q3Y81tGiWtfVVVmi9fCIUIrHFWBL/fQQo3xvbjoax4p+k5BgK/c/sK2uZuqpI
-	xGCSP+wwwriu2zzTsTVIeESb+foFYkHAZ2JTm75BVfH03C3sHalj060/wow==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpecs9a83-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:02:11 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1b8b593a4so3392545eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:02:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789398126; x=1790002926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HKDK43ay9zYtKdxpkhmpR5tzBLdv8wVtA8UrvJmZbMs=;
-        b=D2y+KV1iWlyoG6wZvn2fRggY51zyUCOgLNS1jbp9XbqCsP9f60xam0A9HannU9OkxD
-         n58lcDa2iAEGysL6dSNwcP3KOHCrqXzn8J4BlG42noSZpBUmmIw30uTmr8W16V/JQahp
-         RqKWGWcBibPkFkG8bJYTFinov1Ge4VxLNW4/FQVcH6VR/AS/g4QFk+scGQLW6P88o+aH
-         e5XFZH1csT6hcgWW0PAXWQ5hP/uwXRgvs9I81nIu7sue47V4d6bAWZZ2U7PkFwG1hkia
-         gG/WQz3mtO669ziMpJBWGVZcZXzQL7KrPKFx7FAaHmDU57iU3UaMhGnuV4SpZBx77ncd
-         qtaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789398126; x=1790002926;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HKDK43ay9zYtKdxpkhmpR5tzBLdv8wVtA8UrvJmZbMs=;
-        b=n0OllmyPWbGfivZLew+v7m549rgpepFu3aFjPszmvh7EcLGzb56GuDpnY58WP7QLeV
-         0yN4F8WrLF3ALjSm4Z8cEl9hF1L0wpGtB2xAjxdJ3MFVVPgF84U+Q2YnAa4eRirF2ebs
-         /UfxdrwAh8sHECVEFiOXcCVErFkurl7mZ026vOVSgKYQ9rYbSInCZPTU3HXEX6H/QCCx
-         sJY0a/j+1nqkK3sFf7zhxbGJfAJlJjq7Ry2ViqXB0rCf+vW4atAI2rGVdx4uc1wikOjq
-         nGBgMzHCJHvWMePaVX8DxcHkuOZ0DBvveMcmChUPMngx1UHzc+fcogM3zB/rD1PNiqSb
-         q37g==
-X-Forwarded-Encrypted: i=1; AKwUvByjfzvbNVN3FpVIevp5F2HhvFwgDKiFEDG6E92S3+LesCSLroZmtLUR6Kbza2dt1b/n+7OZguWRV06tadY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8gDIXAE8gCkGapW/eBbbMuOoO+2aR7fHRdq82nViWjw5LcuVo
-	ElGddz5/AvDhzz/uKXJ/S5vaA1jxxMfsDr9s4Y+m9A8dKH6XfYXK46HgtiT2bp9ubGSkXXyrP/5
-	cTiOEPDsbsnsuSFhIOveatTegS4iWX5h5fF50MgGT9z+90/j8CwBJPUjz/F7rwJShYvM=
-X-Gm-Gg: AYBFou2IwYDBHeqSUtsQVQr3s1dF34vzJ2VZxjseo5aAhizE8zUqYrKIIpbm9jDfyu1
-	UopfJH7rmVp0SEkJyA8u8xXOOFM6A9ZmC2Zrw/cDMCi9LHjorvUUdf1BjMKnOqfqglBms4z6jcB
-	+TCY0dHMDryUN+4vl+kTBnr6ooBcKnLSvfl5QtQ3gktkVunWQi9LrDOIptfMoTEkjVxwL5OW0h0
-	fC8MJFnAjE+VMvztWSEH0KgZaIN2J5FiysAywbVthl8J24LYhLc+BcQdH8BfYgCl6dwqMhNC+KF
-	dZenW+SoXY5xdBfNPuil6B4DskQAOVAREKSYwR+saprVYQmu8OWAG8pMfC/3U0PGnFLDkGK06FK
-	3CKDSiER3MIUWJfNjjohJYgiFIN+GJZ4FFFUSF1I7nKB0S0zCpQurTSZLvw==
-X-Received: by 2002:a05:6820:6ad0:b0:6be:dc4:13f0 with SMTP id 006d021491bc7-6c542926f3emr1546471eaf.49.1789398124765;
-        Mon, 14 Sep 2026 08:02:04 -0700 (PDT)
-X-Received: by 2002:a05:6820:6ad0:b0:6be:dc4:13f0 with SMTP id 006d021491bc7-6c542926f3emr1546403eaf.49.1789398124319;
-        Mon, 14 Sep 2026 08:02:04 -0700 (PDT)
-Received: from uffe-tuxpro14.. (h-178-174-189-39.A498.priv.bahnhof.se. [178.174.189.39])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296608480esm468632666b.36.2026.09.14.08.02.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 08:02:03 -0700 (PDT)
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org
-Cc: Dhruva Gole <goledhruva@gmail.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>,
-        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v4 4/5] cpuidle: psci: Initialize the PM domains in powered off state for OSI
-Date: Mon, 14 Sep 2026 17:01:40 +0200
-Message-ID: <20260914150146.187622-5-ulf.hansson@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914150146.187622-1-ulf.hansson@oss.qualcomm.com>
-References: <20260914150146.187622-1-ulf.hansson@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FbtUOEcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3AE1F00893;
+	Mon, 14 Sep 2026 15:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789398134;
+	bh=6fTmcmc+a4IUNwae9Nxcfez5sumoqebDO82GfLQBZkY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=FbtUOEcRtZhns+Zw5yDfZqYhCI9CoETgI/1XfZ9DKiPZsjMzAh+cNfYgAHHBh5Ze2
+	 UJCWSzDSUrpDDioCW/uL/8TzzzHYOmlUyDKnjG7KAw9Hmdf+8JXoV637sifD5wOGXA
+	 XslPofXx4VNhS1MijPFO6ayUd9qNWgPpYBakikTOKGGOLNMo09ft26O9TA/7cY3WLP
+	 zfR0ZJHRxRYb05Ub2a4s0/yoqCtwb/jfek5lrNzBxvsCj7aQ/qpc1WvNqTz0Ugn2ww
+	 Bx7L/tBNLBhxSd9KD1w1dJcxqZ+ZD4kcHBAWWQ5gzQPj36qivS4A+qkoEGLBOX8UIf
+	 LiCbaNkrc9lFQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 14 Sep 2026 15:57:26 +0100
+Subject: [PATCH v2 06/40] mm: make map_kernel_pages_[prepare,complete]
+ internal and unexported
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfX6ecq+06VKcSC
- 8NXpAkb49Cv7qoUjSHZoltzl3+ymsIQqULl4pvVwENAw6mTKz+upp0e+8d9X41vyjDPHe1V81IB
- qR7BzvR9O+vtwg1dutWx4rY+ReMopjA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfX0pSL8yqUK7bt
- J00hsmxhKd7WV2T7HR+T2X0vUF0LAVrsHtp0pAli2JJV/aT2EkFvfLKB49IlZb4Avhk0KA4fQH2
- b+OzeMuMdf6gYBhMqTEWiwCgJYcS6Tn3a9K7KmgsMEOExDhNCDhoJPRRBlP0g6NOHY21xmXYpIK
- KAHZjjFrLZav4ssUe0FYVBM+gsfaMhJ6Eh7+iv5o1JTFJSjYtJcZE8dU/bgETBh2zKBrVMTAZUf
- Y0a5bOAg2JswAnMi5MLxG6PutyZWG7x6mYAuhM0zhGCGqy6VUutppu/SbQal3ckIQKwqmq0iefi
- 2UI0yGMfM0rKiMDLj4nYc6ly0zgf7N8vyWmy5bQz8eG6542L/a20qJoATNcajcf3tnZuW2nPvKG
- Oxh0XmcFSfkjfIpjLn13mmYEgTNd07KLbUrN7FUpJuau0oDcGmOjylLddV6F/K7dKRiiOs9sn6+
- 7LRLTqszCSozpX2P1XA==
-X-Proofpoint-GUID: A59-o6bHNC_4V0qODWQC6Df8rAr5ujrq
-X-Authority-Analysis: v=2.4 cv=b/cncdGx c=1 sm=1 tr=0 ts=6aa80c73 cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=h7aNHqOhPKB91FvYUefsSA==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=GddhhVl5-a8N4MGu71oA:9 a=k4UEASGLJojhI9HsvVT1:22
-X-Proofpoint-ORIG-GUID: A59-o6bHNC_4V0qODWQC6Df8rAr5ujrq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 phishscore=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140215
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-6-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2508; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=qfAyj0ybwJ4DJXdH6Vmm7/5PNAiQvM8UyRor9dsN0CI=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK+r5PCoDJPNUgphWKkfuuoH/9JZFr1nKwtUDSP3z
+ Cn7oqndUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgInwyzIyNF9mWVXYPW1vb7ZM
+ 66s/zkcn7tkx+5WDrPIbuwuVNj2Rmxj+RxzIutOxsltC5Kf/lBLGusmzUz9u109jY071Df1+RmI
+ 3BwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-At the point when the PM domain and the topology are registered through the
-genpd subsystem, it's not really known whether corresponding CPUs are
-online and thus if the PM domain should be initialized as powered on or
-not. Instead this information becomes available when the CPU devices gets
-attached to their respective PM domain through dt_idle_attach_cpu().
+There's no reason to export the symbols for these functions which are only
+called from internal mm logic, additionally there's no reason for them to
+be declared in mm.h.
 
-This is a problem when using PSCI OS-initiated mode, as we may end up with
-a PM domain that has the genpd's status indicating it to be powered on,
-while it in fact may not be the case. In the less severe scenario, this
-leads to selecting a shallower domain idle state for the PM domain than
-necessary. A more critical problem is when a non-CPU device shares the PM
-domain, leading to their corresponding drivers not being able to trust the
-status of it.
+This patch therefore removes the exports and moves the declarations to
+mm/internal.h.
 
-Let's fix these problems by initializing the state for the genpd's to be
-powered off and in the deepest possible domain idle state, when using
-OS-initiated mode. The support for ->sync_state() is maintained by setting
-the GENPD_FLAG_POWER_UNKNOWN for the genpds in question.
+No functional change intended.
 
-Reported-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Link: https://lore.kernel.org/all/20260811-domain_off_ss3-v1-0-6a0a0fc023f5@oss.qualcomm.com/
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Tested-by: Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
-Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
+ include/linux/mm.h | 3 ---
+ mm/internal.h      | 3 +++
+ mm/memory.c        | 2 --
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-Changes in v4:
-	- Drop GENPD_FLAG_RPM_ALWAYS_ON.
-Changes in v3:
-	- None.
-Changes in v2:
-	- Fix a bug in the call to pm_genpd_init().
-
----
- drivers/cpuidle/cpuidle-psci-domain.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
-index b9e4ad7d43a3..5722365b943e 100644
---- a/drivers/cpuidle/cpuidle-psci-domain.c
-+++ b/drivers/cpuidle/cpuidle-psci-domain.c
-@@ -68,9 +68,8 @@ static int psci_pd_init(struct device_node *np, bool use_osi)
- 	 */
- 	if (use_osi) {
- 		pd->power_off = psci_pd_power_off;
--		pd->flags |= GENPD_FLAG_ACTIVE_WAKEUP;
--		if (IS_ENABLED(CONFIG_PREEMPT_RT))
--			pd->flags |= GENPD_FLAG_RPM_ALWAYS_ON;
-+		pd->flags |= GENPD_FLAG_ACTIVE_WAKEUP | GENPD_FLAG_POWER_UNKNOWN;
-+		pd->state_idx = pd->state_count ? pd->state_count - 1 : 0;
- 	} else {
- 		pd->flags |= GENPD_FLAG_ALWAYS_ON;
- 	}
-@@ -78,7 +77,7 @@ static int psci_pd_init(struct device_node *np, bool use_osi)
- 	/* Use governor for CPU PM domains if it has some states to manage. */
- 	pd_gov = pd->states ? &pm_domain_cpu_gov : NULL;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 68250ece4219..0c17f0932b76 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4768,9 +4768,6 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
+ int vm_insert_page(struct vm_area_struct *, unsigned long addr, struct page *);
+ int vm_insert_pages(struct vm_area_struct *vma, unsigned long addr,
+ 			struct page **pages, unsigned long *num);
+-int map_kernel_pages_prepare(struct vm_area_desc *desc);
+-int map_kernel_pages_complete(struct vm_area_struct *vma,
+-			      struct mmap_action *action);
+ int vm_map_pages(struct vm_area_struct *vma, struct page **pages,
+ 				unsigned long num);
+ int vm_map_pages_zero(struct vm_area_struct *vma, struct page **pages,
+diff --git a/mm/internal.h b/mm/internal.h
+index 1ed11eaf276a..0cd26277a4c8 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1511,6 +1511,9 @@ int remap_pfn_range_prepare(struct vm_area_desc *desc);
+ int remap_pfn_range_complete(struct vm_area_struct *vma,
+ 			     struct mmap_action *action);
+ int simple_ioremap_prepare(struct vm_area_desc *desc);
++int map_kernel_pages_prepare(struct vm_area_desc *desc);
++int map_kernel_pages_complete(struct vm_area_struct *vma,
++			      struct mmap_action *action);
  
--	ret = pm_genpd_init(pd, pd_gov, false);
-+	ret = pm_genpd_init(pd, pd_gov, use_osi);
- 	if (ret)
- 		goto free_pd_prov;
+ static inline int io_remap_pfn_range_prepare(struct vm_area_desc *desc)
+ {
+diff --git a/mm/memory.c b/mm/memory.c
+index 926276d41920..448342883e9d 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2628,7 +2628,6 @@ int map_kernel_pages_prepare(struct vm_area_desc *desc)
  
+ 	return 0;
+ }
+-EXPORT_SYMBOL(map_kernel_pages_prepare);
+ 
+ int map_kernel_pages_complete(struct vm_area_struct *vma,
+ 			      struct mmap_action *action)
+@@ -2640,7 +2639,6 @@ int map_kernel_pages_complete(struct vm_area_struct *vma,
+ 			    action->map_kernel.pages,
+ 			    &nr_pages, vma->vm_page_prot);
+ }
+-EXPORT_SYMBOL(map_kernel_pages_complete);
+ 
+ /**
+  * vm_insert_page - insert single page into user vma
+
 -- 
-2.43.0
+2.55.0
 
