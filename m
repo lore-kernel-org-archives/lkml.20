@@ -1,239 +1,268 @@
-Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com [67.231.154.164])
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A656243B3E6;
-	Mon, 14 Sep 2026 23:01:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.154.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D96395AE4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789426872; cv=fail; b=Y5xCYp4YnLiOFoqM3n1P1Sar+fT0djzMT7QgMjQGLSNi7E2HboCuD5uGEvNCA80lNDkMQAmTBKRfe0392anNzPpiadOsAaT3yo4yrxWbkFFZtHmPvkUremQ7XX7WhZYSmrv7dzQUhIomt+R53Jm0JsGHkZ9Pc4SHBPu7SEJqVLw=
+	t=1789426959; cv=pass; b=YMW5WppYV4E6rsVBFDb1SrCCmurFmceXIaFg+fkIjGG04BCWUeZ+qwl7+9Nj2T53aqNc/mhcHpTKj+5ApaCCsSplXO4YtnQx/6P/YfgK3gwoRsMna1unuVKFXQd/9Ek6aAZQSHta8QLTnFxh4Qs/YaxFIRzIUsWWK+RXmQstXMk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789426872; c=relaxed/simple;
-	bh=H584gortRqsNYVunZMw2gXIvApxTA8WbZmdZtI4Kwz4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SxvDtOpCNBiQq5rDiXNbgiHOVLeTFI4Z7gxPQQNVDQRCv362me0YiSJAQYq0Y8rHYSnKp9beXVsSFVcLDH2vuPxQhkpod1jsuc0ZzVi/eloBf6kxD68KfRCA/Oc3f8JL1k5XhEP3Z4I36e8kahyxuNcx4SMu2cnk6dnHkedQLP4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com; spf=pass smtp.mailfrom=sitime.com; dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b=WBhvcMGh; dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b=ZYpAxbb2; arc=fail smtp.client-ip=67.231.154.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sitime.com
+	s=arc-20240116; t=1789426959; c=relaxed/simple;
+	bh=HnZj22pjlGHIEfM6bhLJdkIF85ojkiFcxZaEA0PyVZk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t6EGNR4y1PZEfl347Lva842mrJ0JCBpO/W/8xYJpTh+FCEDHJ9Xls0htlJCy6KEZobUitMFr/n3cA+/crEtGwzSPjmN/IgeIN84pLK1g2RcIsvrD1hcVVMonQ+GoKshsHAOZR0yzda7IVaBXfA2Nq0B1GMMUWUWZQek+0gRVVRc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njLUo9f6; arc=pass smtp.client-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b="WBhvcMGh";
-	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b="ZYpAxbb2"
-Received: from dispatch1-us1.ppe-hosted.com (ip6-localhost [127.0.0.1])
-	by dispatch1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTP id CD33C1C04AB;
-	Mon, 14 Sep 2026 23:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitime.com;
- h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:content-type:date:date:from:from:in-reply-to:in-reply-to:message-id:message-id:mime-version:mime-version:references:references:subject:subject:to:to;
- s=mail; bh=QvHTsU3PQHWQ64ZX6cltrMKfoUYLWWcZVSTdlJsDbCo=;
- b=WBhvcMGhC588Y4I6N779n5KwvaOuUAjw6SccW8klzqWUZyzdlDTveyhzspo2lQ6LnmlghKP5JxD1rt+9j2jWOYNJQkw7ulZaQe8frewGgaso+IhTshYSZC8zAaUMvl5Td9jp4MoeTiPxWK8fXsh4luj0DnjNDhdljy6zqRprVKUMlrt+fP+BO+A0vlpBzG2n2wQ1RsUMdezvxDjztDE/qZyWoNij53KTMET5ElNKIGKPOKLgNJvOhhwQhnEfq0fY+g0K2Hlw2xWQJRZlcTrUG7AEkefPf3SCVlx86tfKel+ho7bU1QnLhTKTZirRQPVbcCimm2nXYvjffi3oSOnG6g==
-X-Virus-Scanned: Proofpoint Essentials engine
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11022095.outbound.protection.outlook.com [52.101.48.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id 7CFF38007A;
-	Mon, 14 Sep 2026 23:00:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hj/FXFpsI/AA7X4xJR1wctqVnKuCWqChawDC7lc00kMkZdt6VLcWEaJTe1SBpt/Z/vzn3woVNptvXD5sn1+5lHIQPojnW0SUaFsgVNmQzBGAS9hzw6ICxLG6ldbK3TBti2bIlHuIL2kXZChq6/00y/z5JbBcSjW/pd1lukmnTzNG6saVP+b2j0hzQn2Jd5ZGWej3Hggnqqza6bdDMlrVZw1+HVQrstObGEAGYF0g+6HOJZkKyt7Ft2CpvLBUjIZadL2DliE0c40OIINj0gh9Rs/YosQBYesFdJslT95iElu97oi509mbvJ0mCxMws551IcyJv/yCMrTcAN3PuBeOIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QvHTsU3PQHWQ64ZX6cltrMKfoUYLWWcZVSTdlJsDbCo=;
- b=jtvylrw2LSnoUR2LxScoWnm8qns4txlJBOTpEzzjTBtMqrfNdN6cuUaLc2U0Y7WJf8jcVIQluQ8Gt9oy9SIaykiIqnS4riLw514xx+kbtUcdA+lAVyU8uWHdS1LNHEa0UWeNuVkqGLsLSr9OVuVHovs2/gbAVkFpVrGRk6uAhF9GsRItgBh5iax81yLsYhuuJXZ44Tc33J4K6p8fU2s5G4nBxon5AOPrDQHvXkJ0on5b7ybh6UtC+VZgZBm4BoGT+U4FyifFFDvAgUlMKEk7kWeGBhYn1QRqQ+6cTmX40IxEFzZY3F7dbrp6Yy6LUrS/qeQUlxQkIsbWRgRGpeeiag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=sitime.com; dmarc=pass action=none header.from=sitime.com;
- dkim=pass header.d=sitime.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njLUo9f6"
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-8049e44d0c3so3594977a34.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:02:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789426956; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QPbu6XVsCohvwkqYuQpXFBHcaeGA4G0HAo9L+p8OmtiMswsaoIh/MSH/cmTB+KJsEK
+         4/G776PwC/3n7pj96htbe0oJSyyG7Y7oo35PXEINA1Glcj+/lqcobBOBjikktN261f2O
+         ryGUnub4RPQwMb05BReP9y7lw2VC0kGl2oxbTuL0pJ0fQxw4pcj/fRakBY2+YKVEctWI
+         OPgHJJsbyY67274ZVaHI6Fm9a9RpSx2qwj3pxCf/WChU19tMPKg72/Z5HHjYpcXIqgFt
+         loLMybqQelj9wRmlA9LjUDGYHwEK1+77uo4FOe/AkrFeQycXioFr3exf+XIWpT4LZceK
+         UoPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=pOUFKWLA82ZDA522DpGzRiQP4xIkyg70D3qyVuxPWKQ=;
+        fh=LBaB9kizGZcm2IKSPduf95KLu8sxMUzp4Ze9rMaWZJU=;
+        b=a/pHc6IQmTUxiioqIw6m50TWFB/TOjgHAT8DDuc1AcwiUROUKzBdcwxdhkq9bNn2bA
+         pTfJkJmT/IrjrW1RW3RT3Nb8PsdMLcKWn8NVvmw4JpoZm2o8JLTsPkcvEgK/Uej+6kn8
+         fr9/zUj8QAxVKvre5hIZcFBkHYM30dv+ZsxLtx4I8ZYpVLJnOfmAMCzRkBo4TOg8NmSZ
+         2GlM1524fUfLcUucgUlL7dsgdRQz5eePH3W9jF6P/C+81dOiE7J0Sc7uUh/bqVTzVpkh
+         VG7WGk9167V43eSP/XtTOLL7HlwTG0GWiEQNo8UfoKwhcgTU3R2M75AIsewjnlKiGNvO
+         K1Xg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Sitime.onmicrosoft.com; s=selector1-Sitime-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QvHTsU3PQHWQ64ZX6cltrMKfoUYLWWcZVSTdlJsDbCo=;
- b=ZYpAxbb2dmoI1oVuGAdgy78BYricerZX5USAbNp1Nk9yu8w75ajFYAAaz3m/AxXUje4MO0x2rz0GRPHD1vD1Da+ZqcGFoishcnSOgJnJ7OAHAvvpt2jAhLyfwfgXkavKBcRV5zsedeVjf2Q0UunVAMtMyDT6tkcC/muInm7ZOH1cm3kxvEr3mp7D2lAyPWCzptGXDx1jfnoGuwF7KF9nvyrizHrOXzGZ9PXt6ww/fWz/AZenK/epXX16QAdhU3dL5ikvAn27MmbLWU69u731LNkUjYrMnpSDsuzAHICm2qwgK92OdDF6CoX+hBFcl5NmjFXMA/0kL9VXbAYJG8rodA==
-Received: from LVWPR20MB994915.namprd20.prod.outlook.com
- (2603:10b6:408:3bf::16) by MW6PR20MB6839.namprd20.prod.outlook.com
- (2603:10b6:303:23e::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
- 2026 23:00:43 +0000
-Received: from LVWPR20MB994915.namprd20.prod.outlook.com
- ([fe80::9551:3864:128b:8c01]) by LVWPR20MB994915.namprd20.prod.outlook.com
- ([fe80::9551:3864:128b:8c01%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 23:00:43 +0000
-From: Ali Rouhi <arouhi@sitime.com>
-To: "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-CC: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>,
-	"vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
-	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
-	"ivecera@redhat.com" <ivecera@redhat.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cjubran@nvidia.com"
-	<cjubran@nvidia.com>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v8 11/15] dpll: sit9531x: add support to get and
- set esync on pins
-Thread-Topic: [PATCH net-next v8 11/15] dpll: sit9531x: add support to get and
- set esync on pins
-Thread-Index: AQHdOyOwbuY3GSPEK0aUf9+si1JKiLbEqYqAgAoZ2oA=
-Date: Mon, 14 Sep 2026 23:00:39 +0000
-Message-ID: <20260914230034.63861-10-arouhi@sitime.com>
-References: <178887152134.219967.16181634650893462486@kernel.org>
-In-Reply-To: <178887152134.219967.16181634650893462486@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=sitime.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LVWPR20MB994915:EE_|MW6PR20MB6839:EE_
-x-ms-office365-filtering-correlation-id: 3a198215-a22f-4b9c-22b5-08df12b40102
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|38070700021|6133799003|10067099003|56012099006|5023799004|3023799007|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- V4I3E6rAqmPQt0i2D8m5MRZQtqiVUKR543ju9fc0M5pYfSgtpbOmSUItIoT62UtC379cOpCrckv7GNoxNNpBSJXWcz1qlxH5+iceQeiGwolE+LlURqmjUm+Zhlu0ysn4iOi5q15eynBndr1rChiWOcCznZFUo+N2PJ98ctIDKZuBEDoqURwSlS22MwLhT+shu3o94ut9RxwFzkUbNWCWn9i3mBMjyiyolrIXUMbQ1W7iHRsBPHT5sbMFrzBw7/n9+PHMneGvvnq0ScsEwVCXM6u9GPXOWJIEcjtkWqGilz59NrzWc8XjvGiBDds9NJLDIa4uwnFAHWfbcF2bhHpRUNh0sc8oBGdYFciGXPdtAu4hRciUZngnAONQ2CWMN8u+/4/4W0DyiJpkweEzIl+eFPFGSKRxehMSECg9IsYnDT1ezY9NGEuHZfluQNIbBWi0YCRxI5vxbBPoPzA9G72nb0GI2BBaz7/Em5loj4KsixhMupL3uR0pQltJmjFOsm2wzxrYYb84LwNntkNxzAigsRiJXVCdm8BFOgFQDy6Qv9J7e6cmFksxVXueuKxZcymKOEbaNz5g9mDfETBXyWD7tc1zp+gri/rnJSzMhpLPZZ79ZxmgLeKkUmas6fGMsB+IJJzIVA9AxFj07tbZiCPFInDapfA5vstUzVsv7e5dXHkIJFx/5Rl5Fr/Kh4w3bkm+HtnQXfBeze0dyMPyO5SEH2S4Oi9IrrTPHZwMYD8am5g=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(38070700021)(6133799003)(10067099003)(56012099006)(5023799004)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?S9vKo/R9deRj6AatexqoFXjsPp7IZvRaQo3Je6W0dJhs/RP2wSllkdx/Uh?=
- =?iso-8859-1?Q?1x91IpHW4eZNqulzJdIMDxrr/xiCSJc1q6FdJfFAM97DVB16EsLHi09jHl?=
- =?iso-8859-1?Q?BJyYTbhZQV1SfQ4OfRs1yAUBDtqIvvdjgfoCJYK917PPpH1pce+YZ0jE6F?=
- =?iso-8859-1?Q?BzzcdBxW8n81nCQFt+I2E4dJMdrMjyXpRma2+s4jygeFkyN+doQClAB+1D?=
- =?iso-8859-1?Q?dy2wnbCIfdu5/yfoAQcuohiOLkPbl9J9QTa6nb3y7vG089SdwiHtG2TSmx?=
- =?iso-8859-1?Q?VrXfcIrbjLqrvMFqBNQDclh+Jyfekl637EgeEUKx0H5M921r/ggMufZDWw?=
- =?iso-8859-1?Q?PI7pbiJfxDxTHynCINPF0EZ8xmlP5l5SCNT0OlptHSErj+/OX5Z8+rg3j6?=
- =?iso-8859-1?Q?fKBnTDVPqPNWhlBJ1JXz3AczQi6UZhJCd9aYx7byzsgFpt9CPhjv+3Gaqi?=
- =?iso-8859-1?Q?Cb7rf6QS78RFJKWToszrC3iQHn/SqUaDCGi4yZfXubo/TcARwB9L+riDFl?=
- =?iso-8859-1?Q?gaom+nNk73lLa56MfHNGTOieiIG2cVGk8C3S0zRs1JTaj40xtj9x9k9M+L?=
- =?iso-8859-1?Q?EUjPLQId9z4Hhrbu0Z5m8aARFKN6ODOaBlAGQN9+mlK9c5xXuLDmr+c0ni?=
- =?iso-8859-1?Q?xWof1j1pmEyD6uuyZLC6pI/RuyA7BgWas8P5YIIAEC4YzkCU3twPkgeYXS?=
- =?iso-8859-1?Q?Xnexhd1f4SYWI4uEvPCws+td9n7zk7htmk0AM0bZWuXqe/23MI1Chdf0u6?=
- =?iso-8859-1?Q?C7d5J6w7LucIjMi86iek2FQuQhdmgu8Z7LqkBO1V9mTmwvi5NhZp81miM9?=
- =?iso-8859-1?Q?7N0WAAU7cxRF+zE5VkhLKkAzNt0xQ5Z0aVDIm1NJjIaPKHmNt0SfohrUvx?=
- =?iso-8859-1?Q?5rMvpAIkVIvBgIvEUI8mYn4nEd6P8nX0QBclcknm79NQ0skENM/KC8XzFG?=
- =?iso-8859-1?Q?Eyugmz2Zg6WxtZsR9GegM+00J/yFQELDwAklV3dZoGzFB9P4i7L6M+aFIb?=
- =?iso-8859-1?Q?OhjBKUDuRE9KSXpT3VPIBnMIZP7e88QEwBXyAgm816TrrSw/+FPwVv0bUX?=
- =?iso-8859-1?Q?I/XrgFF7tN7iOfEGlFk3BIpv0Fla/n/7owQIXAmuiq3MjLuRf6ZFrwPSjP?=
- =?iso-8859-1?Q?Hd7EETSc58/fJE4k4c21mrXgaKA8xnCytMWexNZQfUX1x+/jhPnJK8Z3/W?=
- =?iso-8859-1?Q?e0vRhzvU0DbKAvfsDSA8GFLXvLkurrVvX+b65uhko/Af4UREgRjTrMMLm6?=
- =?iso-8859-1?Q?Q0c4qRFOZO9oE4Duk1RqTc/d//I8SX13DN+pSuniXKPZnKcVgLaMHCpp0p?=
- =?iso-8859-1?Q?gfaf3peWaEPenAvHm5oy7x+NObCe9wVbkXQUiTUtF5x3OfRfuSdvu5Khf0?=
- =?iso-8859-1?Q?0w/BiDw16xfKTj75E9IlHuS8Z4bowKvJ8oMNljvUp2BIe5X36Jm+gEu6J4?=
- =?iso-8859-1?Q?aPcC/XFLUgWaIKPDJW9wgwU8sY6H5oTjFHzF+q2ECce3LDe6eLPwX77Wcz?=
- =?iso-8859-1?Q?8obdkH0ZUQ7amDPHqoo2FPNmfEbR18WzYf6gtep+VC3OAOxb7VqkH+CLfI?=
- =?iso-8859-1?Q?r4o5+pFN3biWkUpUD96G/soDrhnyMRRucDTVGbVmheCW28VfY2mQ5ZdxKB?=
- =?iso-8859-1?Q?Gw0io+Ae3ZR5ZyhgiCfwsYPKkYXeOIgpw7dLqaJmbLuxuAmMmh+nw6ssJK?=
- =?iso-8859-1?Q?P2rN0ORr8hxyECVSl3Z9OD4Rc4EXGNhd8Sk/0pkFWaNDmtr23zLq8VqOGN?=
- =?iso-8859-1?Q?qryz2qvWJjAxss7mUiOi/vVZcaJP4UzwQuKSWSL/thffT0?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+        d=gmail.com; s=20251104; t=1789426956; x=1790031756; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pOUFKWLA82ZDA522DpGzRiQP4xIkyg70D3qyVuxPWKQ=;
+        b=njLUo9f613ETcTM0BuZQ/4VcFKGxPrUlgbNcdOnqGn1fpgDzwp1a5Q+vdz6tDUJDrZ
+         McuIdpwa0U1GX97oEpWaoSnjchGBZ7wpohw1URwfNZm95eWAWjrRuVaLSWzierLNoTi0
+         07PqvdfTBb0sG5IDKXJU5B3jrSJ6LT5fF7Otz6TywYI0cAVi9GHmD5F73G7dSpsA0/UK
+         C8Nev/wxrYSqIl1F2SGoL2XAUbw5kndaG/pvZsUAv+fIpulOoU6upAXBL1e4JR1qFzfX
+         fdlzqM4JazG9sFpLcubUSpj+hVWNfnpd7fZf5lthjq/189Fw0GAzdh+dQQXrgjGoldfV
+         9qFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789426956; x=1790031756;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pOUFKWLA82ZDA522DpGzRiQP4xIkyg70D3qyVuxPWKQ=;
+        b=M9t1uZQI0AY9WiL31F796xVeyEbITk8wfhtCpPEMIsjHRGpdsiD5a4NYrbsUrVoA4A
+         PDtVBvJdItoUPmbRjdgrUe6T7c1bYC7pR+4VcIgqNvyQB5Na8Q/KXrnNeeveIxcU+nhI
+         mZ4G8AZ5jHj0nIaYsZ2LWLql1rWS3p402rVZpjehy/B65pFX1kyHayNNUQaWGL1X4ZEa
+         9bb4R0++Mf9bZs3/Uu66jeIW9aCQPTvNv2BSNxgWumLecvnPA+JuAJQ7vhI8KfZv7jzy
+         0e7lveDghNad0f2tNgspLBEEDaT/hJG84JoJaYskMhVaXg86o8BydADFHUN+Ag6ffj5v
+         Jneg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRqBAw6Yr3hHl9zxUwqIHdq7+RcCXxS1tI202EfknZUncbB0k9EhgrybysMaE/n9zQRTFoENnciOujeoc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOQw/Sf7FkGr4V96RAuog7iOnvd8TKM7Tp7LwyQUAdnIfNrsnu
+	vkK4xF7rNaQFbDuIXQOaKXYZuKX+UJpU2lHP8ZXyXr6xkVo9p1+CmxWj/OA01PlT+8doZbHaY3X
+	Klm56xDewTx6yQolqStq40Vf78tBBLbM=
+X-Gm-Gg: AYBFou0inVVCrIU4szbfbpNcWXQppBFTaN6Bk2nmIjFdN63YoHDF4hLWUNgKG11G0Mn
+	ulx0s3CRr2o00EqwFhZCeFKSn55xEDfxHkVngHfPUABPFCdkp3As8C4OhSITZRlNp/iDZYCxHLJ
+	7SKuwuY1ZHw8jw1wX8l3T5D4xscQH2+4e5sj7C5lscOswWJ86cHPkU5kGRmRK5cCKUvC/YFUiC/
+	zE9LaPD3pe+Z5ft7pRiiBjiixdlty3gi0NNPDcenyPIS6E5HC/5HvGEoIriWGr1ASunK7MrjjnJ
+	JbVdJ5RspZnnzprEOfZiqDPbXuPuKBpuZVLLNDFrmz8fnD7l29v184s=
+X-Received: by 2002:a05:6820:2226:b0:6ba:1878:2a6c with SMTP id
+ 006d021491bc7-6c540088554mr2619502eaf.4.1789426956040; Mon, 14 Sep 2026
+ 16:02:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	eu3/udpRc9Gt2r3lYaD6Zk3ZdFsPZ1b03amZHGGrJ6WIP3P2wTZg3ghzTrUFNixvvljq6bq2/hwq5iCnK7naVCR9Q0DtJS0L3BpSOk9HOWSjf39+R6Y5diIw0o9IRkxg7DrTW03muHHU7o/QmGWxh8hl3NLUu9LC1Bt5+nGD0GlD97d1S8oAthvPLmU66PBRv+nOeZp4grl9LAiNt46u7FLHxPoxUCifg9vzBzjMGeK7qQJ2NyzidCGvxGptVrUxSJ2thAJVxwP8hRzdmIRymm51bqaJHBe7f4nICyG2ERO7dqeEXIKjJZ67uYD3IbjmRll/LcciPGlBgIoWo0KEGg==
-X-OriginatorOrg: sitime.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LVWPR20MB994915.namprd20.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a198215-a22f-4b9c-22b5-08df12b40102
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2026 23:00:39.3667
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8fb55916-cf10-4b0d-96f4-cf3952657263
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: l6Qq2Wukoa5StzrlTxuzYAVfvOOT3ze9bE+VofP/N6H3pIJPQ43KO85XO+kDn5sJdl9485qA3+opI38Np1cCNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR20MB6839
-X-MDID: 1789426847-N5uqAT_CGKN7
-X-PPE-STACK: {"stack":"us1"}
-X-MDID-O:
- us1;at1;1789426847;N5uqAT_CGKN7;<arouhi@sitime.com>;ee4c095510f4a2bc549243be2f087a38
-X-PPE-TRUSTED: V=1;DIR=OUT;
+References: <20260914073356.791518-1-cui.tao@linux.dev> <20260914073356.791518-2-cui.tao@linux.dev>
+In-Reply-To: <20260914073356.791518-2-cui.tao@linux.dev>
+From: Amery Hung <ameryhung@gmail.com>
+Date: Mon, 14 Sep 2026 16:02:24 -0700
+X-Gm-Features: AcwNN1VZkBQqQYfMVd7gQUm6WpRn7TeG3A6jO20_KXpKUTM9cv8b_LakI3YB1JE
+Message-ID: <CAMB2axNkTS-UuH-KctiY+5qh-JZZkKsiyQr_KOnGJt1bPoL3eA@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 1/5] blk-iocost: add BPF struct_ops cost model support
+To: Tao Cui <cui.tao@linux.dev>
+Cc: tj@kernel.org, josef@toxicopanda.com, axboe@kernel.dk, 
+	cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org, 
+	ast@kernel.org, daniel@iogearbox.net, linux-kselftest@vger.kernel.org, 
+	cuitao@kylinos.cn
+Content-Type: text/plain; charset="UTF-8"
 
-Replies inline.  The esync path was substantially=0A=
-reworked in v9, which resolves most of the points below at once.=0A=
-=0A=
-> Is the embedded sync frequency here the marker rate or the carrier rate?=
-=0A=
-=0A=
-v8 conflated the two.  v9 implements the uAPI=0A=
-semantics: the supported embedded-sync rate is the 1 Hz marker, the carrier=
-=0A=
-stays the pin's separately configured frequency, and the changelog now=0A=
-describes exactly what the code does.=0A=
-=0A=
-> Where is the pin's previous output rate saved so this path can restore it=
-?=0A=
-=0A=
-Fixed in v9: the pre-esync rate is saved when esync is enabled and=0A=
-restored when it is disabled, so an enable/disable cycle returns the pin to=
-=0A=
-the rate userspace configured.=0A=
-=0A=
-> What happens if the second or third step here fails?=0A=
-=0A=
-Fixed in v9: a failure after the first committed step unwinds the=0A=
-pulse-control write, and the cached esync state is only updated when the=0A=
-whole sequence succeeded, so the reported state cannot claim "disabled" for=
- a=0A=
-pin whose carrier was already changed.=0A=
-=0A=
-> Can dpin->esync_freq go stale here?  [frequency_set / disable do not clea=
-r=0A=
-> it]=0A=
-=0A=
-Closed in v9 from the other side: a frequency_set on a pin with esync=0A=
-enabled is rejected with -EBUSY and an extack asking to disable esync first=
-,=0A=
-so the cached esync state and the carrier can no longer diverge through tha=
-t=0A=
-path.=0A=
-=0A=
-> Should esync->pulse be reported as 0 when esync->freq is 0?=0A=
-=0A=
-Yes -- fixed in v9, matching ice and zl3073x: both fields read 0 in=0A=
-the disabled case.=0A=
-=0A=
-> it looks like one constant is being used both as a uAPI percentage and as=
- a=0A=
-> raw register value.  Which of the two is it? [and: full-byte write]=0A=
-=0A=
-For the single supported configuration (1 Hz marker) the=0A=
-PROG0 pulse-control value that produces the emitted marker corresponds to t=
-he=0A=
-50 percent duty the getter advertises, which is why one literal appears in=
-=0A=
-both roles; the v9 comment states this explicitly.  PROG0 in this mode is=
-=0A=
-wholly the pulse control byte, so the full-byte write does not clobber=0A=
-unrelated fields; this was verified on hardware (SiT95317 evaluation board)=
-=0A=
-by checking the marker against the blob-programmed configuration.=0A=
-=0A=
-> could this byte be written inside the window sit9531x_output_freq_set()=
-=0A=
-> already opens?=0A=
-=0A=
-It could, and it is a good micro-optimisation, but merging the two=0A=
-windows couples the esync path into the frequency helper's error handling f=
-or=0A=
-a saving of one commit cycle on a rare configuration operation.  We kept th=
-e=0A=
-operations separate for clarity; happy to revisit if the extra commit cycle=
-=0A=
-turns out to matter in practice.=0A=
-=0A=
-> The comment says this byte applies in SYSREF / SYNCB modes.  The new esyn=
-c=0A=
-> path does not select either mode, so does the write take effect at all [.=
-..]?=0A=
-=0A=
-The outputs wired for esync on our reference board=0A=
-are configured by the NVM blob into the mode where the pulse byte applies;=
-=0A=
-the driver's esync-control DT flag is what marks exactly those outputs, so=
-=0A=
-the path is only reachable where the write takes effect.  This is=0A=
-bench-verified on the SiT95317 board.=0A=
+I mostly looked from a struct_ops perspective.
+
+> +
+> +static const struct bpf_func_proto *
+> +bpf_iocost_get_func_proto(enum bpf_func_id func_id,
+> +                         const struct bpf_prog *prog)
+> +{
+> +       switch (func_id) {
+> +#ifdef CONFIG_CGROUPS
+> +       case BPF_FUNC_cgrp_storage_get:
+> +               return &bpf_cgrp_storage_get_proto;
+
+This seems redundant. BPF_FUNC_cgrp_storage_get should already be part
+of bpf_base_func_proto.
+
+> +#endif
+> +       default:
+> +               return bpf_base_func_proto(func_id, prog);
+> +       }
+> +}
+> +
+> +static int bpf_iocost_check_member(const struct btf_type *t,
+> +                                  const struct btf_member *member,
+> +                                  const struct bpf_prog *prog)
+> +{
+> +       /* calc_cost() is called with RCU read lock held */
+> +       if (prog->sleepable)
+> +               return -EINVAL;
+> +       return 0;
+> +}
+> +
+> +static int bpf_iocost_init_member(const struct btf_type *t,
+> +                                 const struct btf_member *member,
+> +                                 void *kdata, const void *udata)
+> +{
+> +       struct iocost_model_ops *ops = kdata;
+> +       const struct iocost_model_ops *uops = udata;
+> +       u32 moff = __btf_member_bit_offset(t, member) / 8;
+> +
+> +       switch (moff) {
+> +       case offsetof(struct iocost_model_ops, name):
+> +               if (bpf_obj_name_cpy(ops->name, uops->name,
+> +                                    sizeof(ops->name)) <= 0)
+> +                       return -EINVAL;
+> +               return 1;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static u64 bpf_iocost_calc_cost_stub(u64 opf, u64 nbytes, u64 sector,
+> +                                    struct blkcg *blkcg, u64 model_flags);
+> +
+> +/*
+> + * kdata is seeded from the CFI stubs, so calc_cost is never NULL; a
+> + * model which did not implement it inherits the stub, which prices
+> + * every IO at 0.  Compare against the stub to reject it.
+> + */
+> +static int bpf_iocost_validate(void *kdata)
+> +{
+> +       struct iocost_model_ops *ops = kdata;
+> +
+> +       if (ops->calc_cost == bpf_iocost_calc_cost_stub)
+> +               return -EINVAL;
+
+This should check !ops->calc_cost. CFI stubs are used to construct
+trampolines; they are not copied into kdata for callbacks omitted by
+userspace. Also, should the reserved name "linear" be rejected here?
+
+> +       return 0;
+> +}
+> +
+> +static int bpf_iocost_reg(void *kdata, struct bpf_link *link)
+> +{
+> +       struct iocost_model_ops *ops = kdata;
+> +       struct iocost_bpf_model *m;
+> +       int ret = 0;
+> +
+> +       if (!bpf_struct_ops_get(ops))
+> +               return -ENOENT;
+
+struct_ops core should hold a map reference when calling .reg().
+Calling bpf_struct_ops_get() in reg() and bpf_struct_ops_put() in
+unreg() doesn't seem necessary.
+
+> +
+> +       m = kzalloc(sizeof(*m), GFP_KERNEL);
+> +       if (!m) {
+> +               bpf_struct_ops_put(ops);
+> +               return -ENOMEM;
+> +       }
+> +       refcount_set(&m->refs, 1);
+> +
+> +       mutex_lock(&iocost_bpf_reg_lock);
+> +       {
+> +               struct iocost_bpf_model *other;
+> +
+> +               list_for_each_entry(other, &iocost_bpf_models, list) {
+> +                       if (!strcmp(other->ops->name, ops->name)) {
+> +                               ret = -EEXIST;
+> +                               break;
+> +                       }
+> +               }
+> +       }
+> +       if (!ret) {
+> +               m->ops = ops;
+> +               list_add(&m->list, &iocost_bpf_models);
+> +               list_add(&m->lifecycle, &iocost_bpf_lifecycle);
+
+This seems to contradict what the changelog says: "blkcg
+online/offline notifications follow the model binding, not the name
+registry"
+
+> +       }
+> +       mutex_unlock(&iocost_bpf_reg_lock);
+> +
+> +       if (ret) {
+> +               bpf_struct_ops_put(ops);
+> +               kfree(m);
+> +       }
+> +       return ret;
+> +}
+> +
+> +/*
+> + * Unregistering drops the registration reference.  When the last
+> + * reference is gone (no device bound), the node leaves the lifecycle
+> + * list and is freed; otherwise bound devices keep it alive and it
+> + * keeps receiving blkcg online/offline notifications.
+> + */
+> +static void bpf_iocost_unreg(void *kdata, struct bpf_link *link)
+> +{
+> +       struct iocost_model_ops *ops = kdata;
+> +       struct iocost_bpf_model *m;
+> +
+> +       mutex_lock(&iocost_bpf_reg_lock);
+> +       m = iocost_bpf_model_lookup(ops);
+> +       if (m) {
+> +               list_del(&m->list);
+> +               if (refcount_dec_and_test(&m->refs)) {
+> +                       list_del(&m->lifecycle);
+> +                       kfree(m);
+> +               }
+> +       }
+> +       mutex_unlock(&iocost_bpf_reg_lock);
+> +
+> +       bpf_struct_ops_put(ops);
+
+Mentioned above. Doesn't seem to be necessary.
+
+[...]
+
+> +static const struct iocost_model_ops *
+> +ioc_bpf_model_prepare(const char *name)
+> +{
+> +#ifdef CONFIG_BLK_CGROUP_IOCOST_BPF
+> +       const struct iocost_model_ops *new = NULL;
+> +       int ret;
+> +
+> +       if (!name[0])
+> +               return NULL;
+> +       ret = iocost_bpf_model_get(name, &new);
+
+It looks more straightforward if iocost_bpf_model_get() just return
+the ops ptr and ERR_PTR on error.
+
+> +       return ret ? ERR_PTR(ret) : new;
+> +#else
+> +       return name[0] ? ERR_PTR(-ENOENT) : NULL;
+> +#endif
+> +}
