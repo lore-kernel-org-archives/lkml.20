@@ -1,161 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBE7433BBD;
-	Mon, 14 Sep 2026 10:27:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5349D433059;
+	Mon, 14 Sep 2026 10:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789381668; cv=none; b=khEeMj7ziGgEoq+fuaEbyuFfmbqMbSSqft3+h+TsL+FYjF+s8MunpML6fiGys2OWQMwkhq22VPunXk3Uk7ZRIdqVZZnhr1FrFVLfmayCU/BQHvX+Cn+aRA1TcPmp7sAxUGtztL6XFAjscju1QTrhrsCRRjJgfCnqDeG0pu3KvpQ=
+	t=1789381688; cv=none; b=dSZQ25B9LaQlS6b4Av9cygbuRLV9YE+YOVgCIwhVc4mVMVUxux/6WE/Q6FqNm7BnK8HblM8dehoRexlX/D9+c+HRKhNOoW1Ua1xTdQxUyi8O0S1X2NCKJ//lIBDtPqaibXzTB/sCopciJVounrKCaW+hzERwB+EFul5KRydYEDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789381668; c=relaxed/simple;
-	bh=Pqby7/raelVyTS+mHmIrdGeadonbP9M4SDCZFoQ/Ois=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KK6DpmrsQ3McoA21QZPtdjIU3uLnerwqCcE7nmhVS7r4dVeTZmwIb1Nw8zuVpcgxk4U9tWC10wCgw/xv8ptcVohzX1uCRW5xypw5GQTRSwQ/DS4IajUxtM/lIAnqs3df6yUaroTmORt/1fZOsP+Rg5umqQGFgVWevBVTOjiSntQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=el9UUB8K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789381688; c=relaxed/simple;
+	bh=BwOrr2KAJAZg+sgOgloSxZAMjyVMU0vsY3LxgeDpaRk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JVRVszLc6E/JJyII8U3/+rxQUAla0AOeUH7GReNL0N+bK+dMlBMk2dELqamaCpDyKV5LJCfaYXlwktVYiZov/m+Ly+XDdCwxB1sXTpZfdvz55+hh7lpnWMCXbgv7wYouI+nbbsuoyxR4Bp/GXEMvOb5ntY9NhdpS5caRZopFG0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qvqyfRlT; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="el9UUB8K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4861F000FF;
-	Mon, 14 Sep 2026 10:27:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789381664;
-	bh=vRxMGoDpTwq9LCPo6am3xiYDTxZ0V1j1TOEM418TNfw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=el9UUB8KFLWk3BECCbN0rFvBxBfsOeTb5BeP2XIlAeiak8DQr36rxCsaC4rbxXPkL
-	 fVajd+aLMaY5iaPvzQqStycmoxpTVpbWfmUdaLVJTpUVJLbdwIgX481arVagH40jKJ
-	 FrHNgadgpYwF0A/TztVd7Uy1hn8ijVct+uAIK0+Eqb08E5cYfwYHfJHePzb3KkOQH2
-	 GoAdL6LC9GXQ9aA/cVXMa4GlqexfE2yeuGCiwdmg7B3L3J6lPJvcGm+T2WoUGFKf7D
-	 MjPuED9OWrLiw2aQxmDstQPanUak4z49eXwc5AZqRhOViYHknTzuqSverlgsWlk2ZE
-	 OGt4Sr0kcG7+Q==
-Date: Mon, 14 Sep 2026 11:27:39 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18 2/7] firmware: arm_rmm: Check for RMI support at init
-Message-ID: <20260914-nano-narwhal-of-blizzard-dbc6a0@sudeepholla>
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-3-suzuki.poulose@arm.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qvqyfRlT"
+Received: from [192.168.1.22] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id DBFBE20B7168;
+	Mon, 14 Sep 2026 03:27:08 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DBFBE20B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789381637;
+	bh=9FMakUTBN+IyCdDcaWf7V7aTn6h5oZP5pYbgi1KoQUI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qvqyfRlTlbcG9uClnlktIuT2JJ9/rpqb493t3eWY3D03MVLG2VT7cy+uoByMG77Wm
+	 cjs5IJFvlxYra/FjOXmPvNBAz2bSFYtA4Ff7EnqXIiDAXntznu0y6VX0PGf1D/Zdb4
+	 R/MONBUDUZ1T+rPkCA3UX6aVMnnfRAyIMwHl2m9Y=
+Message-ID: <28e42462-732b-4d58-bcdb-cc9378eb134d@linux.microsoft.com>
+Date: Mon, 14 Sep 2026 15:57:49 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912083611.2513845-3-suzuki.poulose@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] x86/irq, iommu/amd, PCI: Drop redundant
+ irq_retrigger inits
+To: Thomas Gleixner <tglx@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org"
+ <x86@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, "namcao@linutronix.de" <namcao@linutronix.de>
+Cc: "H. Peter Anvin" <hpa@zytor.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>, Robin Murphy <robin.murphy@arm.com>,
+ Rob Herring <robh@kernel.org>,
+ Shradha Gupta <shradhagupta@linux.microsoft.com>,
+ Aditya Garg <gargaditya@linux.microsoft.com>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260810090716.2325295-1-namjain@linux.microsoft.com>
+ <20260810090716.2325295-4-namjain@linux.microsoft.com> <875x0e204j.ffs@fw13>
+ <SN6PR02MB4157F453542D6003038CAC3DD4BF2@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <87mrtoyzoy.ffs@fw13>
+ <SN6PR02MB4157B093E09517D408FD58DAD4BE2@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <87y0d6xpan.ffs@fw13>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <87y0d6xpan.ffs@fw13>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 12, 2026 at 09:36:05AM +0100, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
+
+
+On 9/13/2026 12:36 AM, Thomas Gleixner wrote:
+> On Fri, Sep 11 2026 at 16:32, Michael Kelley wrote:
+>> From: Thomas Gleixner <tglx@kernel.org> Sent: Friday, September 11, 2026 1:12 AM
+>> As for the future, you may remember my RFC patch set from a couple
+>> years ago for the Synthetic Interrupt Controller (SynIC) that Hyper-V
+>> provides to guests. The SynIC currently has special case nodes under
+>> /sys/bus/vmbus to manage CPU affinity. As a better approach, the patch
+>> set modelled the SynIC as an irqchip so standard Linux mechanisms could
+>> manage affinity. You and I corresponded about per-cpu flow handler
+>> tweaks to make it all work. The RFC patch set didn't get traction with
+>> the Microsoft folks and I didn't push it. But it had a stand-alone IRQ
+>> domain not parented to VECTOR because Hyper-V interrupts are hard
+>> coded to HYPERVISOR_CALLBACK_VECTOR. As a stand-alone domain,
+>> a .irq_retrigger function might have been useful in fixup_irqs(). That's
+>> all speculative, but it was in the back of my head when I suggested to
+>> Naman that the outermost chip .irq_retrigger function should be
+>> checked. I'm fine with not doing that check now, and if a future case
+>> like the Hyper-V SynIC arises, the check can be added.
 > 
-> Query the RMI version number and check if it is a compatible version.
-> The first two feature registers are read and exposed for future code to
-> use.
+> It doesn't because that domain is not parented by the vector domain, so
+> interrupts in that domain cannot have a descriptor in the descriptor
+> array and neither will end up in msi_set_affinity().
 > 
-> We only support this for Little Endian kernels, the Big Endian kernel
-> support is anyway marked BROKEN and is being removed.
+> These interrupts are handled in the generic cpuhotplug mechanism.
 > 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
-> v18:
->  * Always use arm_smccc_1_2_invoke() for all RMIs making sure the unsused
->    parameters are 0 - Sashiko
->  * Move rmi_features() calls away from the arm-rmi-cmds.h to rmi.c - Gavin
-> v17:
->  * Rename ARM_RMM to ARM_RMM_RMI to make it easier to add Guest facing RSI
->    support, which is also in progress
-> v16:
->  * Update Kconfig text to include PCIe TDISP.
->  * Export rmi_feat_reg() here rather than in a later commit.
-> v15:
->  * The code is moved again, this time into the 'firmware' directory.
-> v14:
->  * This moves the basic RMI setup into the 'kernel' directory. This is
->    because RMI will be used for some features outside of KVM so should
->    be available even if KVM isn't compiled in.
-> ---
->  arch/arm64/Kconfig                |   1 +
->  arch/arm64/kernel/cpufeature.c    |   1 +
->  drivers/firmware/Kconfig          |   1 +
->  drivers/firmware/Makefile         |   1 +
->  drivers/firmware/arm_rmm/Kconfig  |  26 +++++++
->  drivers/firmware/arm_rmm/Makefile |   2 +
->  drivers/firmware/arm_rmm/rmi.c    | 122 ++++++++++++++++++++++++++++++
->  include/linux/arm-rmi-cmds.h      |  36 +++++++++
->  8 files changed, 190 insertions(+)
->  create mode 100644 drivers/firmware/arm_rmm/Kconfig
->  create mode 100644 drivers/firmware/arm_rmm/Makefile
->  create mode 100644 drivers/firmware/arm_rmm/rmi.c
->  create mode 100644 include/linux/arm-rmi-cmds.h
+> fixup_irqs() is really only about the vector domain to handle the case
+> where an interrupt was raised on the old vector on the outgoing CPU
+> before the generic hotplug affinity change took effect.
 > 
+>>> Devices might have a way to retrigger at the device level, but that's
+>>> not reachable from the interrupt chip.
+>>>
+>>> So both places fixup_irq() and msi_set_affinity() can use retrigger
+>>> hierarchy safely without the conditional checking the outermost domain
+>>> chip.
+>>
+>> And setting .irq_retrigger in x86_init_dev_msi_info() becomes
+>> superfluous, right?
+> 
+> Yes.
+> 
+> Thanks,
+> 
+>          tglx
 
-[...]
 
-> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-> new file mode 100644
-> index 0000000000000..9792bf0e00cb9
-> --- /dev/null
-> +++ b/include/linux/arm-rmi-cmds.h
-> @@ -0,0 +1,36 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026 ARM Ltd.
-> + */
-> +
-> +#ifndef __LINUX_ARM_RMI_CMDS_H_
-> +#define __LINUX_ARM_RMI_CMDS_H_
-> +
-> +#include <linux/arm-smccc-rmi.h>
-> +#include <linux/bug.h>
-> +#include <linux/processor.h>
-> +#include <linux/types.h>
-> +
-> +
-> +/*
-> + * rmi_smccc_invoke: Invoke the RMI call and return the results in @regs_out
-> + * @regs_in: Registers with the arguments filled in.
-> + * @regs_out: Ouptput results from the call.
-> + */
-> +static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *regs)
-> +{
-> +	struct arm_smccc_1_2_regs args = *regs;
-> +	unsigned long status;
-> +
-> +	while (1) {
-> +		arm_smccc_1_2_invoke(&args, regs);
-> +		status = RMI_RETURN_STATUS(regs->a0);
-> +		if (status != RMI_BUSY && status != RMI_BLOCKED)
-> +			break;
-> +		cpu_relax();
-> +	}
-> +}
+I'll remove the conditional check in next version at both of the places.
+Thanks.
 
-I haven't done a detailed review, this is just a drive through comment.
-The while(1) gained my attention.
-
-Should RMI_BLOCKED be returned to the caller instead of retried here?
-
-RMM spec defines RMI_BLOCKED as persisting until the Host takes action.
-It also says it is returned when another SRO on the same context is
-incomplete. You may be running it on different CPUs and hence different
-context I assume. But this loop takes no such action and hides the status
-from the caller, so a command issued against that context if that can
-happen can spin indefinitely while the operation which would unblock it
-cannot run. Ignore me if it taken care not to happen elsewhere. I am
-just looking at this in isolation.
-
-Could this retry only RMI_BUSY and propagate RMI_BLOCKED so that the caller
-can arrange for the incomplete operation to make progress if the above
-scenario is possible ?
-
--- 
 Regards,
-Sudeep
+Naman
+
