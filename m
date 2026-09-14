@@ -1,129 +1,118 @@
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81613932FA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3987E381B1A;
+	Mon, 14 Sep 2026 18:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410685; cv=none; b=fgjRk3tqtiMqpCTeQu14Hpj4flNPAvIUcrja7MRuZMJOBt0fN9YTvgxR4fi6rbaQTmPLcy7y1PVRPSSo90zKJrswqBZo1HrLON1tNx6P2IYJoMwhewIX3o03GNuP0P5K0kvL4BoJfjDCRPcQ8PYyiEJ1Dyh7JJQe9MrpRDdjCmI=
+	t=1789410736; cv=none; b=hCgxWav00xixAnW1OHdILFemqIltfiMMvLpIBp6UQOKdU8ZVE+/6z4u8dhngz89IKeialhPh/VXXTLsiLnTPw6D/MnmMQ303uJ7YJPkrZFv8q2ymZoh6De1smbKl9mxByyEpDRrH+UsLxEJOXoH+o0jSCu73gQabrgaUcTiY0ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410685; c=relaxed/simple;
-	bh=ZRTmTgpXAIHI5PwDlZl3mxTARuuSCtuzR8f+OYUlUCU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MdERR509Gh7vM7SKyBoqQQoxxoZbUoIvDzcjSov8hQ1X5UpGmFqHN4s0re0byzjanKDOwGWNbZt1Xdg4bphCfBM/Wh/n8vDfDP6M+WHFmEJ2rDQCWfNdk1xyGbKFQAUnHH/HwO4v9yEFVaboXM3h+aC+ZpBiYJJDHwuvlzRm+lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BSKHjr9C; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789410736; c=relaxed/simple;
+	bh=D2+hleGXIMDN227b5SNY36r7EzpYxCREKmva1l2nkHY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nv8YZUORR9KkQpXQ/WxoTj3VMl+zvfVc2n39giYCHlYb0Y6+D3kxMYM2GCbMVC4KO3pp3+2BpscVskTrOBXfn6wq98hR9khr9LkrLhYntrHeByGvSPP754tz3+vq/JimqnucM5Zpg1JJtP++O3vjMIlNvziOFEn6pm35sRfBwlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LT1cFNgk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BSKHjr9C"
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-90e9e042ee1so42097216d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:31:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789410681; x=1790015481; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qkJteh6h5Gfo3xV7o+rs+ZpT2JdE1CQXCwGXk9wGX2g=;
-        b=BSKHjr9CWlAv8yrPfkgRxiN4X2zIdo9fcHKOHUcVgEmFE6UPk68LSB7+HVacCwf14N
-         4Om89g6vDrjqBWktgRu04QVCL1On6Lffhuux6/i9FfAJlJo95P4sc3D9xe+YFyKnPlWM
-         rqwxhvTnAK9U+vQzA+t0IFUpOKbZKdWzjad6z6CMJvQ9pb0iunDRD9JXViDsjiGF8VUy
-         U8AjCCiz8k3OobMlj1c828qmAvkmJnLh7OJwQ+8tH/skVVRJk9DD2IL9fTz3R9/FXNyD
-         ynI1KQl3RfN+8tYYPY9lqLs5EAYZZLesiNo0CI+og2xszNVZHkK+0vMAqmL3ThnaDzul
-         RCPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789410681; x=1790015481;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qkJteh6h5Gfo3xV7o+rs+ZpT2JdE1CQXCwGXk9wGX2g=;
-        b=LcPHW7dOxjq/nY2BCWGTblB6BVR9RA/5haA5vU+zy+E0Qguz6+5Pc0BjnsRmMTpkYp
-         KyggpDkeCB4rqGKRhtwzjkj5memibW6q2YF+JMXWWnNeZswbtvhqGVYlu18jJCrBBCEy
-         cfqANxY0MXT0BShPZqLd1lu8XSLbAmpl7S2hWncfv/ZEjuu48a31JerXWtdjgETcmMAN
-         g7zR5jObJiVD+yIf11V0qEcFRpFcmhPbsY3D+5y1CQCLN6hKII6OmkW6lSOjMRBXthfG
-         dwLmbr5kmC51C8vVkrSNst8xd01L2l2P3T3vECXDYPz1ufjNW4rZHFN+jjDQSm43VHc+
-         IhbQ==
-X-Forwarded-Encrypted: i=1; AKwUvByzy4e7jil2JXG9F49bda16HgtuyZnn2ts9Ex9sEtFGvIk8y37yG3wvRTkEbeKe2yJn+E6BoC0kk+CeEC0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6kIm0WZu1O3HL465yg9k7bwoUuwC6+jZkx0Ie0yZV6Zy1VgEY
-	4eMwumX38l73xonnhV3ue9BPbUZYbMt6KZtx0BVddOqRmirs5raV5OFI
-X-Gm-Gg: AYBFou2wC7WcukNFsi2uhJTEAs7tUj26O20iE9YCLCnfvVJ+dGosW/ewkD6fp1O3yKj
-	a3SuZhzBt9plfzCyHi0sdpuloyr6jTRXYVdhURMfHuP7VrSOXA7x+cUH0aCYbIA2aVSH1QtTH8L
-	jhuykNlelG2y7XhBxriDF8GA4VBiW7DCTijE6AXqv4LKqzanCqT1m9a0RyqG5UBaXQC5Hd+WUNF
-	xDtMrZ+luuBhMJ6ldGB+dzRGgDbAN/upzbWtCfsh/oWC+WOTkSvslAMIyDVJWVriu3USW2yWafn
-	fnYpOfGRjGTs/shQjqWwYPeg3WD2yFKNEu3B4ABv9i0Uuhbxnwyp1wqS6NjUBs7Zrfk6PPNPhNh
-	187sT7stP+6k/enA4g95cAudY/7OBEe+HrTWHNK0YqPPLkadsEXe9OUyibc2UQ/ZwziNgOwOlIN
-	mpyccALYV7wtHLwy/p7eVangqJO6VWXEaM0JWPOIy1ppx0awnVOXkvNcI3ykE+/ADweuVKjBJj5
-	evBzzbg3xm1Ly4OvMubC53q9A==
-X-Received: by 2002:a05:620a:268d:b0:939:993e:bffb with SMTP id af79cd13be357-93a29804240mr566801385a.22.1789410681357;
-        Mon, 14 Sep 2026 11:31:21 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ed67a93dsm960651085a.43.2026.09.14.11.31.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 11:31:20 -0700 (PDT)
-Message-ID: <f687d3d9-b4da-4549-a40f-fd9254e7fda0@gmail.com>
-Date: Mon, 14 Sep 2026 11:31:17 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LT1cFNgk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFDD31F000FF;
+	Mon, 14 Sep 2026 18:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789410734;
+	bh=qh1ZerciXS6mhhgUbgOWtjBtb3wIfa62KF3pRdi9HRg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LT1cFNgkvbD3eoVT/UaBEH3+r1ZmImzoNjg1sB0fKgYfiWphX+2k3leDEJjTKPvkI
+	 UCeZKsCtpOsU1Qh6ZRgd9PGKscvkwgEZ/CXkgLZsggzcTd3LcxREE5AMbc7rSZ176a
+	 7gNUxLvYBfZ5rTEMblheppVavtWDrYGJ9aihGEv2SwKX80uE2nVnkBoFYyryneR1eY
+	 l99LJZaV59sYUO8uU85RDxazHEX6uhwHzX4FGdH4s0ESmZYKyjLD5malFkq7HqRZYp
+	 MO93SpFQpfLWTJCfXhlr1iU+iBNmOcV7d+vp6+IkNPD3Hj/IjfJ9MaHA5ebXh1WWUJ
+	 +Cz7fAfk/ogdA==
+Date: Mon, 14 Sep 2026 11:32:14 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 18/21] kbuild: rust: optionally parallelise rustc
+ front end
+Message-ID: <202609141124.F24B6F77@keescook>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-18-39817ec5db23@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260912065648.999753832@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-build-speedup-v2-18-39817ec5db23@kernel.org>
 
-On 9/11/26 23:29, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.6 release.
-> There are 1815 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.6-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Mon, Sep 14, 2026 at 10:22:17AM +0100, Lorenzo Stoakes (ARM) wrote:
+> The threads are taken from make's jobserver, so a parallel build is not
+> oversubscribed. It was found that benefits level off at 8 threads (16 was
+> found to be around the same, and 32 slower).
 
-perf fails to build with arm/arm64/mips:
+I think it's worth noting that this comes from rustc itself (it has
+built-in support for the make jobserver). See commit ecab4115c44c
+("kbuild: mark `rustc` (and others) invocations as recursive").
 
-ui/browsers/hists.c: In function 'evsel__hists_browse':
-ui/browsers/hists.c:3191:41: error: 'hotkey_act' undeclared (first use 
-in this function)
-  3191 |                                 memset(&hotkey_act, 0, 
-sizeof(hotkey_act));
-       |                                         ^~~~~~~~~~
-ui/browsers/hists.c:3191:41: note: each undeclared identifier is 
-reported only once for each function it appears in
-   CC 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/trace/beauty/clone.o
-make[7]: *** 
-[/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/build/Makefile.build:95: 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/ui/browsers/hists.o] 
-Error 1
-make[7]: *** Waiting for unfinished jobs....
+What happens when there is no jobserver, e.g. "make" without -j, or
+"make -j1"?
 
-this is caused by b8ad2bfb11e0868b595b4cd9dfcb9e80f174b2d5 ("perf ui 
-hists: In report UI ensure thread is set with reference counting")
+> [...]
+> rustc has a parallel front end, enabled with -Zthreads, available since
+> rust 1.84 [0] and therefore on every rustc the kernel supports.
+> 
+> It is not yet stable and its output is not reproducible, so it cannot be
+> [...]
+> +The number of threads rustc's parallel front end may use, passed to it as
+> +``-Zthreads``. Unset by default, as the parallel front end is not yet
+> +stable and its output is not reproducible. The gain levels off at 8
+> +threads.
+
+Okay, unstable, not reproducible.
+
+> Generated output was confirmed byte-for-byte identical.
+
+But this says otherwise? I am confused. Reproducible or not?
+
 -- 
-Florian
+Kees Cook
