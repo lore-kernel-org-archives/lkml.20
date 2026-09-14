@@ -1,128 +1,135 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DE83290C7;
-	Mon, 14 Sep 2026 06:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8CC3803DF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789369078; cv=none; b=YySZtxHKbkU1uo6pDnv+o0lQhQd1mi1bYcNwBPJZoL7+Tj7SpWTgWCjF3W0YPJHLWpmyMJsxK+SuVNea9FZntYi3hE1xtzDVl4LOS/xF5/4Ds5YRmga3pfm/DvODzaZ5KVW6sF7J4WcSGa3zXC+tX7mRcT+VpKIFLa8OQb+ygVY=
+	t=1789369151; cv=none; b=LcxBGl+WGNTEQBYY5u2v+uj1360jEkC53sTkzAYe3T9X4BuWr5IMBEodFjMuvbPBow7aH/cWsm8K+eebk1+TL5o7+jQVlM++Ji3eUnu/9THSya5MdgW5LwFIGGTjeuhnjCaDrW8GxwqR56bzn8nIC0HDid3mJfMq8rPKDwHfedM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789369078; c=relaxed/simple;
-	bh=cE7HLX+YCBfj2HIFGPdVVmbWnE7TYB2eicReZHTWim8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=D3HWGx1hIlvDaXjtWc2q0feAgV74/3FTcktjVXulaYrG6wTMFCm/+fHaN5w8zCfdOtgpp5MFVwhIZviLtD0n0l/X5TeViqAbfq+YDD2FkvJS5LwSGfXy7VdUDc3Pj4swwEsk3dWWl7hbxBCoGzCQjiCyj6mKf+PG3VR6WtEUxAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=e4nn9din; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1789369151; c=relaxed/simple;
+	bh=RdI38lPbEJ2mWlXOoSpq+ttdSUBVsk+hP74ijK+MXlI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JVXbEAJRvy3ckTjofIUNsgENgwCun5ea8d/oxL6xM7zpr7+d0XWdNFFBgCez676Dr/XmvTpsAO7cghTJ6PigeeAGv6UrxeX3oG913TWMqLUe4nNvIlir6FiqDQcF4eQ9A37L1b4gGTMKFUw/zgEs/mEdDCEqZ7yULuH+4qUuELE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FYL2QiVQ; arc=none smtp.client-ip=91.218.175.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="e4nn9din"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789369005;
-	bh=LIVL8L76t6KEPTcGTpEPKDpsGGvY+rr+QPSKuZ3S47E=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=e4nn9dinSZAPTIIaOk+HD0sAxthyzy9pakrgHJfDCKP1WhJwdDk7TaoFzP2WROk3M
-	 C6u0v2WuyiVBLOnjLWeVD6S2w9hWV075y465gjSR86p+fp15BmWrick6Rxy7hk0dJk
-	 Vww3YhRdG32SjScsofT7JHu2OyX4IzyJ7Wv4GLuY=
-X-QQ-mid: esmtpgz10t1789368987tc3938474
-X-QQ-Originating-IP: oa/POHotl25pRRqxZDjcxefat9hRezoAQFHWYo8D1aA=
-Received: from uniontech.com ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 14 Sep 2026 14:55:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9193533759185836638
-EX-QQ-RecipientCnt: 11
-From: Yichong Chen <chenyichong@uniontech.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>,
-	Yichong Chen <chenyichong@uniontech.com>
-Subject: [PATCH] ext4: fix the logical block counter overflow in indirect migration
-Date: Mon, 14 Sep 2026 14:55:44 +0800
-Message-Id: <20260914065544.3438431-1-chenyichong@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FYL2QiVQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RdI38lPbEJ2mWlXOoSpq+ttdSUBVsk+hP74ijK+MXlI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789369146; v=1; x=1789973946;
+ b=FYL2QiVQaL+9H/Qchz2huCcf6O/prrO9MU6XC0B9ovwZY0+K3Gm+jKo+WLJ4xUuZBzzSClDT
+ R5TEXX0LKF2OfjhzX+nx7+DjCfnQhF7ZW5u+a3n/28/3aW600uWAUYsbTaMBKpOICo5NA47RGat
+ vT6Xd7Rz7LQ6ivR/p2I8HAFQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 2d3a4388d5ce9ab6;
+	Mon, 14 Sep 2026 06:59:06 +0000
+X-Mizu-Trace-ID: 2d3a4388d5ce9ab6
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 14 Sep 2026 14:58:52 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, edumazet@google.com, dsahern@kernel.org,
+	idosch@nvidia.com, davem@davemloft.net, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+	luoxuanqiang@kylinos.cn
+Subject: Re: [PATCH net-next v2] ipv6: make IPV6_FREEBIND and
+ IPV6_TRANSPARENT setsockopt lockless
+Message-ID: <aqebLK84eb_lfPOE@fedora>
+References: <20260912134040.215664-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MfQnJH+7WKv6drDog6dbw8OMcEYzBjol7oM3AVxXW59Tzq/zKgrcnk7G
-	xqoBRHDC88Qo3DzarVgCnBEH7GHaGtmiU6gIIV03S3AgXAyK6SgUkBHi/C7OyikOf5aCUFf
-	5gWRkwicgu+wh2Q9Unh8KjZK8icy5Vzo31A2PomiIAxJTsoYSEKcdSeb3UQOknBynAqN8n7
-	xOG8DOGTb0hwAuaEfify3DAsuE6SoQn5qqC+j8lOt6+B1p9EatKnfOiJ5qv3O3AZnvET4lO
-	p5zD5lUTlXNPH6fqI/H8XXoIh7JUzBBM82rsiXu0ic9Ph1YubMk6Uzxs1zg6ip4Sd2DL4ZU
-	QwZk1GN2RrgaCmdjgxCc45HvHA+G59eGj6lXDX785dEmSWH0juxiOVzgc8oUT57igk/+/MM
-	bHwmNX5Vwtz9i4b/rokZSkd7wuzX0wBG/fYKybNzCNXzI9WCYcQXswTiUk2NsJGt0yel1w0
-	OBrD0ysVHHkNxZcs88H5XSIh32QIxPM9cxInCD/8691mRRgIAaqJec0Ms+e9bryxlBcclF2
-	ZyOa7kF+Q4AtXoXgg+wy/aexar+XBNwej4Q9HuZDPle804R5yf4XiEV4XnCQUiCI/SQrwS5
-	zRiu7LRxD+vZ7xK5q+Cq19TSzKBJkrXAynVSgUyB+miQLaFumeaySlf5+KdcZRrouYdiDBr
-	T5oMI+lrzfIt6utfLKh8fGSzWFMKQ3MNLGSbFsT0u/M9zN+JJzTkyVRogcYnWfh0PnlXTgA
-	2PgzMF1C890NcJedt65Tcglx7NkzLYe1NnNeq0vXpos/orzJXU/LYB83fXRs8/NFkCOmSyM
-	6pIb/nC7klHCZbL5vTk18TC5E3WVemhwfGmqqd5jukt/Z/Xz1SJq1ZX0+31ZYoytwNwSCMo
-	Qk3Kh2ekvO4W5z2HBPk4PBRUn3D1NhZ0TwecSYKkDc9cfkDkgvki3+I0LASewPTiqGvhB6D
-	7rOIwW6A2jNEsfmAfJ1JWWs0j8xxzJdHIXcUu1KN95v21lIqUl06VfWk5iwQj/hRS4wkbk/
-	Cr4lPxYg==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912134040.215664-1-xuanqiang.luo@linux.dev>
 
-update_tind_extent_range() advances lb->curr_block, an ext4_lblk_t, by
-max_entries * max_entries for every empty triple-indirect slot.  One
-triple-indirect block spans max_entries^3 logical blocks, which exceeds
-2^32 as soon as the block size is 8K or larger (16384^3 = 2^42 with 64K
-blocks), so the counter wraps while that block is walked.
+On Sat, Sep 12, 2026 at 09:40:40PM +0800, Xuanqiang Luo wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> 
+> IPV6_FREEBIND and IPV6_TRANSPARENT still take the socket lock despite
+> using inet_assign_bit() to update the flags shared with IP_FREEBIND
+> and IP_TRANSPARENT. IPv6 TCP and UDP sockets can already update these
+> flags without the lock through the corresponding SOL_IP options.
+> 
+> Move both options to the lockless setsockopt path.
+> 
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> ---
+> Changes:
+> v2:
+>   - Squash the two patches into one and drop the cover letter.
+>     (Eric Dumazet.)
+> 
+> v1: https://lore.kernel.org/all/20260911102418.157071-1-xuanqiang.luo@linux.dev/
+> 
+>  net/ipv6/ipv6_sockglue.c | 36 +++++++++++++++---------------------
+>  1 file changed, 15 insertions(+), 21 deletions(-)
+> 
+> diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
+> index 1f68fb64a43ef..4b3536571c980 100644
+> --- a/net/ipv6/ipv6_sockglue.c
+> +++ b/net/ipv6/ipv6_sockglue.c
+> @@ -398,6 +398,21 @@ int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
+>  
+>  	/* Handle options that can be set without locking the socket. */
+>  	switch (optname) {
+> +	case IPV6_FREEBIND:
+> +		if (optlen < sizeof(int))
+> +			return -EINVAL;
+> +		/* Shared with IP_FREEBIND. */
+> +		inet_assign_bit(FREEBIND, sk, valbool);
+> +		return 0;
+> +	case IPV6_TRANSPARENT:
+> +		if (valbool && !sockopt_ns_capable(net->user_ns, CAP_NET_RAW) &&
+> +		    !sockopt_ns_capable(net->user_ns, CAP_NET_ADMIN))
+> +			return -EPERM;
+> +		if (optlen < sizeof(int))
+> +			return -EINVAL;
+> +		/* Shared with IP_TRANSPARENT. */
+> +		inet_assign_bit(TRANSPARENT, sk, valbool);
+> +		return 0;
+>  	case IPV6_UNICAST_HOPS:
+>  		if (optlen < sizeof(int))
+>  			return -EINVAL;
+> @@ -666,27 +681,6 @@ int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
+>  		retv = 0;
+>  		break;
+>  
+> -	case IPV6_TRANSPARENT:
+> -		if (valbool && !sockopt_ns_capable(net->user_ns, CAP_NET_RAW) &&
+> -		    !sockopt_ns_capable(net->user_ns, CAP_NET_ADMIN)) {
+> -			retv = -EPERM;
+> -			break;
+> -		}
+> -		if (optlen < sizeof(int))
+> -			goto e_inval;
+> -		/* we don't have a separate transparent bit for IPV6 we use the one in the IPv4 socket */
+> -		inet_assign_bit(TRANSPARENT, sk, valbool);
+> -		retv = 0;
+> -		break;
+> -
+> -	case IPV6_FREEBIND:
+> -		if (optlen < sizeof(int))
+> -			goto e_inval;
+> -		/* we also don't have a separate freebind bit for IPV6 */
+> -		inet_assign_bit(FREEBIND, sk, valbool);
+> -		retv = 0;
+> -		break;
+> -
+>  	case IPV6_RECVORIGDSTADDR:
+>  		if (optlen < sizeof(int))
+>  			goto e_inval;
+> 
+> base-commit: 348ea4642f56ab3dc93621c8e3ab0ccd0e5f1782
+> -- 
+> 2.43.0
+> 
 
-A wrapped counter makes the migration store a block number that is 2^32
-blocks away from the one the pointer block describes.  Two ranges can then
-end up with the same ee_block, which trips
-BUG_ON(newext->ee_block == nearex->ee_block) in ext4_ext_insert_extent(),
-and without that collision the data is still moved to the wrong logical
-block while the migration reports success.
-
-Keep the counter in 64 bit so that it cannot wrap, and refuse the
-migration with -EOPNOTSUPP when a data block is found after the last
-logical block an extent can describe, which only a corrupt block map can
-contain.
-
-Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
----
- fs/ext4/migrate.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-index e06d847033a1..8043959c19ef 100644
---- a/fs/ext4/migrate.c
-+++ b/fs/ext4/migrate.c
-@@ -14,7 +14,7 @@
-  * represented by a single extent
-  */
- struct migrate_struct {
--	ext4_lblk_t first_block, last_block, curr_block;
-+	u64 first_block, last_block, curr_block;
- 	ext4_fsblk_t first_pblock, last_pblock;
- };
- 
-@@ -65,6 +65,10 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
- 			       ext4_fsblk_t pblock, struct migrate_struct *lb)
- {
- 	int retval;
-+
-+	if (lb->curr_block > (ext4_lblk_t)-1)
-+		return -EOPNOTSUPP;
-+
- 	/*
- 	 * See if we can add on to the existing range (if it exists)
- 	 */
--- 
-2.51.0
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
