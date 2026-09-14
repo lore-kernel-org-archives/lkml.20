@@ -1,229 +1,161 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8C03D7D69
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394763; cv=pass; b=hmB7Mz8URigyXQN5+kTPKLv0f2t89ej1nNi56x7mZEqW01WPYeQ1WLZAWv63LzbfLD3VdmYq1uW3OzRYmHu466Wc2vKg/JKK/XYfM8CuDwmz+kBcMtO9VI6di7eriybD392yYTZkDGfcL0PJr7rdq0tfevpHSL/NCkVXzyC+FTU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394763; c=relaxed/simple;
-	bh=Hmk0hio/+v9Sq6QCGLY1Vj7O+t7pbTMdbPT8rsUVCRM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SC4oSlYBMBZx1sN/Cqp6nx7PsX1GOR0XVZcvbUBeE5zxr3J8XJobUumAlOzbw0u+t/nmWXXSewZZIEQHxPT9QHdt9eoTjBHx/zaca89YtrVxkwqIDGyUS13g/cqdmbNmE1KeuIhhsCSx5vR/NaRigRW+lub77/gR+JUhPytR2nQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QBN05uFD; arc=pass smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31A5475320
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789394767; cv=none; b=X5u+EkHd9ZzOT+dxiO2c845mvIYtO4OZtZ7BhZrTNMcMP2oYoYN1D6CjCencta1B+/3JJsrodw6kVaRxeBtPPlTmhMZosxCx4WYIAM+o9RNMDFzwC10Gkzrp7efSplI7NzuV8Sy9jhz4c5dAssQ/CdvkJF2bNCymHaSLyBcQTTc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789394767; c=relaxed/simple;
+	bh=ntRH/yJFT8bnr3NA7fpl1u0UWwgPQd1nw1mxGnJ3x0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aWkNhVDuZBQ5BTs07tHj82fLwDo8yuI6BTZS74z04bwIdTBqLRZg/HD44lU7VjVk6gs8RJxPD9yZOZkbyqbVSpWa+e0v/bPW+ro8f9r6X7cUZfdf6n0Cpijs4u3Cg298U3fR9PDrYYUCDsPy9KDOgp5XEPZINpbDBWjazqMnH+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S5LpRl7f; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=D7DZlitN; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QBN05uFD"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8871ada1a26so17606627b3.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S5LpRl7f";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="D7DZlitN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789394761;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/wHJSL8csboMYxIPrt9fIoOx8qVsPB687MZL7EWYIGI=;
+	b=S5LpRl7f7638xXAMrD7Ef1/RnI/eoZwKcWqosBwe/7vmqOQZOKVbFTR58VFSgsw6q+GTLl
+	QYEhRuw5fASUgutg/YETlluVJaD/AMfei2mQ6udNPNtH0/Vyh+Gbxng6n3O6kJeY4gs7KD
+	B/7/i5C2POUAFa5gQVBHS1KUnG6agUc=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-433-Edou5225OSmcLOMZbSAJlA-1; Mon, 14 Sep 2026 10:05:59 -0400
+X-MC-Unique: Edou5225OSmcLOMZbSAJlA-1
+X-Mimecast-MFC-AGG-ID: Edou5225OSmcLOMZbSAJlA_1789394758
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93909014c85so629655985a.0
         for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:05:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789394757; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KLy72WPjw3iHf6vpnGykNKG+Ne01I4nmkPbIsR1+2bK8gxvSAEQmWHDMDHOH3sriNy
-         AU+6aau7MSFQ64OjT7Z9DImR3HuAkct1jhr5szO1Nksm1+xAtrxhl2WuWtZybdmAFCd3
-         JfJzFy4SVJegwdXAhKjn4TZLnE3+oHi6elAKQqfleDPafoYxzMZxKTc6WDxHxkhofk2q
-         aE9zJpp/kbCaS1H5OiQnbYuCnKaSlW8iQxIi3pxkRsPWsTCry5OdcZBBe0FfgPPY99Jg
-         W7zpKrG7hwzFCnNLZGJLzA4KkVtPpnmw6qorLZN9etg6q5es/1CukXGXkuymYU148UmC
-         QIYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ptvwdsSJglQVzgKp+FYr9aouOwiPCbztkA+vkBu9aAw=;
-        fh=C83fktjAX2aABYF7K0R8jf8nF6/sDrcEhLq4HsvCxL8=;
-        b=PkqLxGa5y9Oj3fqqnP5C0mZGYa975SFTjdFV/Peqa468DprO+gW2KFxbDwTysH1etf
-         KVeEkPRYgqU/eDTUXYTTyl0hDb6kqQXzw286glA1rC4+Yjsp7wxExEFsSsmX22fr8ONW
-         dnpsJjNOBTeq4jLwA8injWKS7SoF5fyZlRWbfRvST2NMBUemtFC4L69q6LbvfSvqaapv
-         XDY7GVi5ozfvqhCAgf78QU8bGMAsW8PRn57b/C1veVsi/GhvrOySS/PzMzAoa22KoxFa
-         7p9SF07Izc082UN3Oad3leWDKbH1xAoyOW/tiGR0+P0izeOfOmshzIsRIjz2jmQ1oFVC
-         zkxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789394757; x=1789999557; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ptvwdsSJglQVzgKp+FYr9aouOwiPCbztkA+vkBu9aAw=;
-        b=QBN05uFDIn0aCXfDOptPcLLBREyrx1YM8BeLmtx9FnuD6FALkqnRsq4PXGINSdxHjI
-         6bTCpo885oWOdoMhKOaTEUTjv1oE8vEkYYUBhwKP1mOBlxguF9ARmNcX4RXMPqlccrlH
-         QyLtdLFV8pTtrLaFZ6WOLTrtsR7NBYO2ZRjnaqqruDEuXd1X1SUlBLLeUlF22XQUkqSd
-         OUuZ3Wf3mu32Q0Rh1XRf7q17XRAXXOkehD52UZLBaTQKcKkFYLnSTkcFHvntOSadmpWh
-         sWpdx9fURPsumyV104BF/Ce1uH+/OJVIdvKZQbrw/RJKBQsTxhbqukJScCBu7ElgRaSh
-         xiEg==
+        d=redhat.com; s=google; t=1789394758; x=1789999558; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/wHJSL8csboMYxIPrt9fIoOx8qVsPB687MZL7EWYIGI=;
+        b=D7DZlitN6frSkTx5Fw9svg0AC/DZ4eijMsFnuj1VRu9YhrSifzJh19FSlbooCf7u1F
+         +baduFVexaf+2cocwWo90s/9iDkeSLujgj6xSanXmiAOgoZO2Q+C/EapDke0jNFbavIK
+         Iz1tCIbnDqtGxUU8ClCBeVeF7vAaFaFu5Vfu8eL8yvfAYnqGYG3xK3fZGt6ec7pQGdnC
+         ZaA1nKwi/FyQQw0q8wGwmlBGGqS2ZYgMH1z9SXflgQFtYSArH6iDigTM5lIZlHwLskoq
+         RQy8FpTKTHMuQjUv8d15IjUWcC8QfGXuETbZcbagn+laDMK0YEXxwmVmmm7dFB3AACrQ
+         ZlOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789394757; x=1789999557;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789394758; x=1789999558;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ptvwdsSJglQVzgKp+FYr9aouOwiPCbztkA+vkBu9aAw=;
-        b=qs1V6Jhrugbgfz3ZKScG3fia6qcD3VnZlu/YVnprYY55jRR01HPoE7lZ0BSJBr+c4P
-         4EF2Q/33ygZ0OAPozEdKR7ESWANBtdwt+Z6M6BDxUFWtAoCyShiPJlByMkGGtqJYjG6Y
-         jpQnIHnUnB3csRVZQOI7rTF/0EBX0CVHA+DhUBvAsrK+GtgBr4+me42oelh1U8JAlgNN
-         QxKih+QWV390H7WFwg8NQKskkwvK8au2bb9+/c83ZBwKClBX4vWcOItBG34ueCjy6q+0
-         aN4k4IfarCFK71sGzvKKdx+wsVSVNwoNffZNOhORKpSi+l+zN4LE6Lk3R3kApG+7WZzQ
-         Hg8g==
-X-Forwarded-Encrypted: i=1; AKwUvByrTbXe0LITTLACD0LnzAXCY7ffDcZLPKFjmmoJRBV/YBRD1/3yecUf5Uxf/EQRa0oprHK42jiECgcjHy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJMrpnaEWv1XLQutLzAIqc9DWy3lwSFz2kcq+EkBj7OcCNqWBE
-	hsClU5UewTD22a0KA68nI6Lc7n5sbo+M1LupIVtif3sOEuzA3z25x414jBwpU9uAL1bmFU6wuYu
-	F8V2QzeJqnCpeJyBKwFCaq9wfSu4UVgc=
-X-Gm-Gg: AYBFou2bXnNAXLd+Xdk/Dp1cEvcspLRXAT/1PYRokjDF55EqQU2/rAFfvO5uCO9M0c3
-	iP9KzVtByna9exBrTmVv1KHh/TtIJFM7oBseHjyJdHOr4hBC2vgqyTnSPtkwUVCGVsKn+28EA+z
-	mbLkFLShNNlSIJ+laYAlao01NHezRR3G9ahNsj3ms2VDzbmwSBW2PoXdwv0WnX9/pbZ/aZO5y9i
-	SBIuJiutXDv0eKsFzImpigzcy4BOCAv8JEwYWeBasegM+vl3jEBK0gGFK9rb0lzIovbpg5xJpt8
-	bnekPI2rVqQU7c/KKQTMaxxb7NKK499AA1uF2jhPQFXmIxzGh8aZOEgVQT/kB4aPtS10dNc/RBz
-	4B2yZu2gB57U4fu5J5Cu3xVDmuHmE8m/H4nI72wzjMg==
-X-Received: by 2002:a05:690e:d8a:b0:671:1880:17ba with SMTP id
- 956f58d0204a3-6714e1a228dmr572822d50.90.1789394756676; Mon, 14 Sep 2026
- 07:05:56 -0700 (PDT)
+        bh=/wHJSL8csboMYxIPrt9fIoOx8qVsPB687MZL7EWYIGI=;
+        b=Iq2MeZq+hrOJlQyS0aeMRcpPqJJoUtunxAJMJx8jd7s3KW9fkmRMxfohYn89RYtmmH
+         BiKRxeMrWre6RqJG2IlsfS+HGyn9wVWg6LZZBGmlMBmh63dhIkGXpXzJVsr6vW5e0Rh9
+         vdgWWueuLXmfvZ4D6L/8T7l/JWAO6JsCU5EQa2Oq11ddh9jwQgvBOTGBW4VWxk54aUz2
+         8z63K29uOMVjDHH4CGjorrSiDwv6Ee67tO5ycDTsJ5OU7pUTKeJw42bDaV4zWDUXoU2U
+         VxwgZ4zKGex76gpTVGCuJYPw9a+dAUDcWLHsbF7R3vXKxffII2qIxwU0VsD8NdGoqCY2
+         85/A==
+X-Forwarded-Encrypted: i=1; AKwUvBy+rE4KRDMU4uz2hutZP5XTmfEp6yGeHC/Je748oxbDzkKiOwXB1J+KHk9otP92pny04YNR7sKI/RNZH7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lI38230KSPY875zPQq06oLmFXrppfy4OZ+eDzJgqV1riPJxns5
+	8OUHC2UYG1gNYOT5jb4rdfT961Twy9L0ye0zCdyi7O449wVahjgYYa6TvjoeGyRXtgE1VUlB4ON
+	N30feXZPNPD4GCc+UHkAl488LUa5fbqMRKblqhxUmi10sq7TJQ9S+6CkyIpisvJw6lg==
+X-Gm-Gg: AYBFou2H4xAauKmtdNW7vbfuqsIPQ49RoCnTzyVgybdCq2SkWUVJ9aPmfVzFq7BpxGu
+	VwPPj58ALXpdAuNalk603JUrLBikfej9A/tjW9aap0p50a9The4aVAho1NXfyFmXpagDzxOLC0u
+	qJui31KXbcxJ2pXlj9DwDx6P5+N0nbm8VakhUfi1dO/CmlzlvIsenx/frJZwXAidwgWgsz2XwPB
+	8EJZfFvYZiKN/3L5uqlXdBw/O4xDJ3+StOmcMgwqP3ZL7Gnceh4f2xIrZ8RtNu0+FgkwPX3zkSk
+	Lq6XoBttyqHAnNX73BdxcKp3+mTeo9rtyzObVemvYiWEKvBo1IT3ljSWJ3CiHGtTvCcyMLqCn+0
+	54mrGjcIV6SaaFc8Gk0i7nZ5bZ/jBx5TLLEQ=
+X-Received: by 2002:a05:620a:1a29:b0:939:6ec8:6928 with SMTP id af79cd13be357-93a2985d5c8mr389784485a.16.1789394758162;
+        Mon, 14 Sep 2026 07:05:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a29:b0:939:6ec8:6928 with SMTP id af79cd13be357-93a2985d5c8mr389765885a.16.1789394756851;
+        Mon, 14 Sep 2026 07:05:56 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ed67a93dsm906151985a.43.2026.09.14.07.05.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:05:55 -0700 (PDT)
+Date: Mon, 14 Sep 2026 10:05:53 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Edward-JW Yang <edward-jw.yang@mediatek.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Irving-CH Lin <irving-ch.lin@mediatek.com>
+Subject: Re: [PATCH v4 00/24] MT8189: Add support for system and base clock
+ controllers
+Message-ID: <aqf_QZpOIj-170Am@redhat.com>
+References: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
+ <amuWdRD-TBQtFT_4@redhat.com>
+ <1f6bdf69-c3fe-4e1d-8ff8-0e36d9f4e063@collabora.com>
+ <aqf6NH-xrMtCQppv@redhat.com>
+ <f2bb7446-bfbd-4598-ba95-d9561a4e132b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913-misc_fix-v1-0-558c1e4028b9@oss.qualcomm.com> <20260913-misc_fix-v1-2-558c1e4028b9@oss.qualcomm.com>
-In-Reply-To: <20260913-misc_fix-v1-2-558c1e4028b9@oss.qualcomm.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 14 Sep 2026 10:05:45 -0400
-X-Gm-Features: AcwNN1X4x2Jn_HQuWP1CvY-sUU6PZRXZ8e3BCnElDU8YY8MEUBdC6jcAj5uupHA
-Message-ID: <CABBYNZJpwkbFB8E4uHu4AcHjtR8R0CKnhj0Zesf1umoLyiqecQ@mail.gmail.com>
-Subject: Re: [PATCH 2/4] Bluetooth: coredump: Fix btmon heap-buffer-overflow
-To: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, 
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Manish Mandlik <mmandlik@google.com>, 
-	Zijun Hu <zijun_hu@icloud.com>, Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f2bb7446-bfbd-4598-ba95-d9561a4e132b@collabora.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Zijun,
+Hi Angelo,
 
-On Sun, Sep 13, 2026 at 11:43=E2=80=AFPM Zijun Hu <zijun.hu@oss.qualcomm.co=
-m> wrote:
->
-> The collected coredump data can exceed btmon's maximum packet size of
-> 1490 bytes, But hci_devcd_dump() forwards the entire coredump data as an
-> HCI_DIAG_PKT without checking its size, causing below issue in btmon.
->
-> Why ?
->
-> For a monitor packet, its payload length @len in header may exceed
-> BTSNOOP_MAX_PACKET_SIZE, btmon uses it to access payload in @buf.
-> so cause heap-buffer-overflow.
->
-> Kernel:
-> include/net/bluetooth/hci_mon.h
-> struct hci_mon_hdr {
->         __le16  opcode;
->         __le16  index;
->         __le16  len;
-> } __packed;
->
-> BlueZ:
-> src/shared/btsnoop.h
-> monitor/control.c
-> struct control_data {
->         uint16_t channel;
->         int fd;
->         unsigned char buf[BTSNOOP_MAX_PACKET_SIZE];
->         uint16_t offset;
-> };
->
-> Issue:
-> ERROR: AddressSanitizer: heap-buffer-overflow on address 0x51b00000065c a=
-t pc 0x7f50b987a029 bp 0x7ffde88dc8d0 sp 0x7ffde88dc088
-> READ of size 17916 at 0x51b00000065c thread T0
->     #0 0x7f50b987a028 in write ../../../../src/libsanitizer/sanitizer_com=
-mon/sanitizer_common_interceptors.inc:1096
->     #1 0x5b4f3443ae3a in btsnoop_write ../src/shared/btsnoop.c:289
->     #2 0x5b4f3429cbf0 in data_callback ../monitor/control.c:969
->     #3 0x5b4f3444fa9d in mainloop_run ../src/shared/mainloop.c:104
->     #4 0x5b4f34451da6 in mainloop_run_with_signal ../src/shared/mainloop-=
-notify.c:196
->     #5 0x5b4f342953fc in main ../monitor/main.c:303
->     #6 0x7f50b8c2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_star=
-t_call_main.h:58
->     #7 0x7f50b8c2a28a in __libc_start_main_impl ../csu/libc-start.c:360
->     #8 0x5b4f34295ed4 in _start (/usr/bin/btmon+0x29fed4) (BuildId: b41ca=
-afb24db693946c283eaea48112186863d2d)
+On Mon, Sep 14, 2026 at 03:48:20PM +0200, AngeloGioacchino Del Regno wrote:
+> On 9/14/26 15:44, Brian Masney wrote:
+> > On Fri, Jul 31, 2026 at 12:04:49PM +0200, AngeloGioacchino Del Regno wrote:
+> > > On 7/30/26 20:22, Brian Masney wrote:
+> > > > Should there be a new MAINTAINERS entry added? There's currently 221
+> > > > files under drivers/clk/mediatek/ and there's currently only one
+> > > > mediatek maintainer entry:
+> > > > 
+> > > >       MEDIATEK MT6735 CLOCK & RESET DRIVERS.
+> > > > 
+> > > > Is there anyone from mediatek (or elsewhere) that could act as a clk
+> > > > subsystem maintainer similar to what the other SoC vendors do? Help with
+> > > > reviews, send in pulls, etc?
+> > > > 
+> > > 
+> > > I may be able to step in, but I have to check if it's feasible, time-wise, on
+> > > my side.
+> > > 
+> > > Though, that won't happen until mid-September... because, well, I'm about to go
+> > > on holiday (in a few days from now).
+> > 
+> > I'm checking in to see if you would be willing to be clk submaintainer
+> > for the MediaTek clk drivers?
+> > 
+> > Brian
+> 
+> Time is lacking
 
-This probably needs to be fixed in btmon if it attempts to read past
-the buffer size. Also, since it now supports vendor packets that may
-not be limited by HCI packet size, perhaps we should allocate based on
-the channel MTU which probably needs per-vendor configuration to allow
-collecting its vendor packets.
+I can relate...
 
-> Fix by forwarding the collected dump data as an HCI_DIAG_PKT only when
-> its size <=3D 1490.
->
-> Fixes: b257e02ecc46 ("HCI: coredump: Log devcd dumps into the monitor")
-> Signed-off-by: Zijun Hu <zijun.hu@oss.qualcomm.com>
-> ---
->  net/bluetooth/coredump.c | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
->
-> diff --git a/net/bluetooth/coredump.c b/net/bluetooth/coredump.c
-> index 71fc8dab4004..61b45ba58a65 100644
-> --- a/net/bluetooth/coredump.c
-> +++ b/net/bluetooth/coredump.c
-> @@ -250,36 +250,43 @@ static void hci_devcd_handle_pkt_pattern(struct hci=
-_dev *hdev,
->         }
->
->         pattern =3D skb_pull_data(skb, sizeof(*pattern));
->
->         if (!hci_devcd_memset(hdev, pattern->pattern, pattern->len))
->                 bt_dev_dbg(hdev, "Failed to set pattern");
->  }
->
-> +/* Align with BlueZ's BTSNOOP_MAX_PACKET_SIZE. */
-> +#define HCI_DEVCD_DIAG_MAX_SIZE (1486 + 4)
-> +
->  static void hci_devcd_dump(struct hci_dev *hdev)
->  {
->         struct sk_buff *skb;
->         u32 size;
->
->         bt_dev_dbg(hdev, "state %s", hci_devcd_state_name(hdev->dump.stat=
-e));
->
->         size =3D hdev->dump.tail - hdev->dump.head;
->
-> -       /* Send a copy to monitor as a diagnostic packet */
-> -       skb =3D bt_skb_alloc(size, GFP_ATOMIC);
-> -       if (skb) {
-> -               skb_put_data(skb, hdev->dump.head, size);
-> -               hci_recv_diag(hdev, skb);
-> +       if (size <=3D HCI_DEVCD_DIAG_MAX_SIZE) {
-> +               /* Send a copy to monitor as a diagnostic packet */
-> +               skb =3D bt_skb_alloc(size, GFP_ATOMIC);
-> +               if (skb) {
-> +                       skb_put_data(skb, hdev->dump.head, size);
-> +                       hci_recv_diag(hdev, skb);
-> +               }
->         }
->
->         /* Emit a devcoredump with the available data */
->         dev_coredumpv(&hdev->dev, hdev->dump.head, size, GFP_KERNEL);
->  }
->
-> +#undef HCI_DEVCD_DIAG_MAX_SIZE
-> +
->  static void hci_devcd_handle_pkt_complete(struct hci_dev *hdev,
->                                           struct sk_buff *skb)
->  {
->         u32 dump_size;
->
->         if (hdev->dump.state !=3D HCI_DEVCOREDUMP_ACTIVE) {
->                 DBG_UNEXPECTED_STATE();
->                 return;
->
-> --
-> 2.34.1
->
+> , but I get that one hour from me is more than zero, which is
+> a good thing.
+> 
+> Let's do it.
 
+Thank you. Please send a patch for MAINTAINERS when you get a
+chance.
 
---=20
-Luiz Augusto von Dentz
+Thanks,
+
+Brian
+
