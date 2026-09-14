@@ -1,119 +1,125 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFD6496D5E;
-	Mon, 14 Sep 2026 19:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE4433DED9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:55:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789415624; cv=none; b=JIHllI4e0jZMQCzEpwpdQzitXEf4qiAFq/CiUyVIdjlDo8pl576Kw1XmelJklvTQUb5uEHSOeyBKZ6HTX/W1sglK0vklw8BeiNKLW1gyJNcG7OdUSSh8F/oXmKYUrWEvVYIdsTX1ahcZC/qEYIPl/0fMP1j+IR3EOYugrzaeoMg=
+	t=1789415724; cv=none; b=j7HWHSgebHJ63EXz4MIH3xZ81IFyYtbHKkUSGuCIN2CcyUGV7NRoYYXklt6rKpgV8Zkz7Fndd86n+Gv9wzE/8nHnWE7BNmfDR+tL8bJ/TWppbQpY++dn1ZTssqa1nlonOkGXA/eEhAAUX0PczkwSMCvP8M33XLwDT/WXima1uk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789415624; c=relaxed/simple;
-	bh=E2pDS5GaSNUQXDT27nNSw2vgkOr9Ijzb9Rp2UNGR1Ds=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=IXwMZrNFb+C/xGg3N0d363FJp5OKa2FJto3CKihiTNztr+fwGginilTxlGXK4TzNdtkpUBs0FZpW+rop3zxss5LTfxirOkOeEmuhbngrMeF5xOBwxK5YaSxC6nbLoQkKNW0fy28cdpfQ93klSERNQhjby0h9BjTYwqCyKDX3M3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=SXx7rO6q; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=X1NEAzsG; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789415724; c=relaxed/simple;
+	bh=Laxp0Q4fdbSsx/bSE8DTPChd1Qoi2LY7exp/DnLxEmU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Tuj7LRg14RXJEGrpbJ3g2DxGtDOCFg59XpVHnYF2IfOXHUOt3Fw+UJluJ/qhIUGmTdKvv+uqgp/b0kXsoAxf6jTJ/W1FzP3+3gHVWkQFRQ+SKxFLYRAnztL/O1FvImweflxi/9LLjrXU9MFUT0S+IxWrlDwykGxzz19zAzMPtl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZWWB0ai2; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="SXx7rO6q";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="X1NEAzsG"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 080071D00086;
-	Mon, 14 Sep 2026 15:53:37 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 14 Sep 2026 15:53:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789415617;
-	 x=1789502017; bh=opaCvCnTuRSbqkN6v+2aHUWMlgp5xCP12xi1paNZ7Uc=; b=
-	SXx7rO6qIQgZ8O0wzKw8K9aaUJzr0t0oZlP92QFKdwqH3sy4D66HQ5imYyVjHimY
-	4Q5NjIAlfuADMRh2NQgR2csXnodBozzW0fTiaCLDIioVEYt0AynT2QvdNQq97AQR
-	y0Fqw4ykudDpB2jOOm/V1N6yVJOnWAiOqGK/XIMh9UUz+1EAXuyW9v03jq4XgAP2
-	2mHLYxRRGQ6FUtBt0LyVH51Z/qUhqj39vHKlxC5B7YOLk75UVrBPAxOIs+nntDBs
-	yPIiJ+Tp1tHR0N9v9NAq8cQCqeoI0v3PVlyOkf3YKoXLiGCfViVquCUeZtF2MeTg
-	SnYRdmgdCLB/bAAivP9mAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789415617; x=
-	1789502017; bh=opaCvCnTuRSbqkN6v+2aHUWMlgp5xCP12xi1paNZ7Uc=; b=X
-	1NEAzsG1IAZML9OZDVCbJTAd6PZiIScmF6EQz6HoillENg5x9iKA5PA6e+tdk3Bp
-	PypF9f1EZcvBnWTdclhq8+hMC5rtFMrz5P55YboUD74+Dts/ZWZbghSrXr/6DGr9
-	sJy/ZeJw3Yg/UnkAN0KUvIyMSAy6M13rEQ3njzgcsaPCgZTEtXTrpY3R5hY2d4H1
-	yHRsrNqP87qcOIXEmi1ZzBFdrzlJ0EXacUnBUUalwKvVeiVG27oNX8zTdVlYV+5G
-	BPeWDeVFPDAVKmV5Mub2cFtGdOe3sAibLjPgx0vv7otMZsLrepsonn6oX+niUPf4
-	exLakNAWHLwCmxMhJ3yAQ==
-X-ME-Sender: <xms:v1CoalVLJjEK375I8AcdnZVD6OC4H5j7V-eX8kfLza3iqkRtZodU7A>
-    <xme:v1CoagZF51gy7ynRbWZHjM4_cbvfzlRTOX3Ufyhx5H0lW2eAC7W9sRDxnpYMT7TjZ
-    EITYBhNXSKk7gf-EHLxGaKADUZCwhe04Pu6M76Fq5SAEKIo0SBmXfpW>
-X-ME-Proxy-Cause: dmFkZTFJURTY62Q7SjjrdQBiZ9cK/QsrasdOpZ0C4CYJUiQ8fvYo5xjoK5R5hMDCs5S+mQ
-    4mAz41kXkBUv1l6Ddaa2CyFUStIFEeH1kJgJXUZXCb/OB1VNX7p65ppX+f9DVlMONBQ+tu
-    flzVfJFJIHs740LfRcASx4VtYsjrCfL7Yl2YOLhpICiTIU08KSUD9RAKbSiL9fp/32SgGh
-    zL8SHSRsUNlTljWE6f7j1yPE5YJKIELrlXKP7RmGb7P/YaXFU6WwPdj7YOZvVlTjNslSVf
-    1jO4D+MTMvJbB1ZkG02tSEDwMweIH90UaaDct50l4nhV9wCsh1xG1hk0Zb2+II+9L0vufl
-    /hj0Qtgo1YMFrIf5mNeAH33MAuc4kuVjBL48lbyPzQb19vUkqkFHuhwPEW0et0VPrFaMYP
-    lt+eg6kbYVfci/rFwAh6Q435bhox3yfM+k3d3/jTl87/6UmEDI7gsu3slWu63QTCLUqz7q
-    2sNgGQ1lVHJihAlaKG75Vb0SiR2INSxfvffKh7MLcSm6qTsE1aQ7YFef7KZR3UOjfFAHXA
-    gLmHBrv6KVVDdSTHFydHLqzsfVRrLIEXmn9q/0ltU1HAvx4ZAUMQgfY7WJCm6FaVOvRuPI
-    BaIVzh0cMBzjPiaRTNsl+4dappa2Dvu8HCyCw6xjfju23e4Eznp2uABiRklA
-X-ME-Proxy: <xmx:wFCoanC0J5EtlPbP4_25RowBHhyM5I-veJHZduujJNKiIspCFs9sPw>
-    <xmx:wFCoakZacQzLrx6V3EqUzdeTs0SdXOM4s7_Kd6vzCW-XHks_MTbJSQ>
-    <xmx:wFCoaq7m-LKVRJOt8bawE0kMJeMaH7nnhhn6jMAFf0xtfLnN-D_G_w>
-    <xmx:wFCoala2Q-U8mB3lS6H1MDeuO6RvdOMLt3t4hPiMED5wX5DDI30XIA>
-    <xmx:wVCoajF7Z1GjnWQObrlfo8_TigsADRNglTK9FlQPS9NxekYjYlzzAZFt>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 6595732A0084; Mon, 14 Sep 2026 15:53:35 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZWWB0ai2"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49e6deb520eso32174095e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:55:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789415721; x=1790020521; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Laxp0Q4fdbSsx/bSE8DTPChd1Qoi2LY7exp/DnLxEmU=;
+        b=ZWWB0ai2E8LEiUs9dj7YmK8iWFC9gI6JB3A5pYaQrwS7PuRQnm4TfTsi3tSWkIZ/xw
+         LQhje18rNeUA3tz7+5HBt7vDbnnmFl6skKUYmWYAHRVzPUMtFO29XFum/e/ae7AuUJ6d
+         BNWJkh8AtPb024c1+bPWZf70JOWyCRLoWwVcjjO7h4o606IQKmTh7xV0pNghACpehWg2
+         uwEGTI/s/A9Yr+zyjYR8d3Oux/sZ1T/nVhnXwNFCmI6+bOaFh8PW+kCUAs72g5LEPM6+
+         DfO6I8IGYheougyRGiiLg8xvnecFuATVWZ+Fh11GW87PsG1ORd3kLW4Qbq3wZYG7XZk7
+         BmQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789415721; x=1790020521;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Laxp0Q4fdbSsx/bSE8DTPChd1Qoi2LY7exp/DnLxEmU=;
+        b=jElyww1Uf38ZQvPxaK/GANCAnVEJbAbMNBkxvQBuNnIzc0mtrzyYOWGuku26jUdJaN
+         oaE3JkjNtlGQfPLUgyhBgOC+IeCAK+51RSWDE3IQz6siLEsrVE75Cpyulf//I4IWTZER
+         gjIUZ+Pg9VTx+3jAX+K06V6mfsq8j0isxbMygipBk1DXsrtDAP8zjuPdD+7wxnn01/GU
+         UEuV3Ofuqj88bJu7RogW6tgQbACFRpGqeOCosxDTc3MY6lkT68aFyeskQJPgv32TYIfh
+         m1MU1EjWrorogixxXORYeq/6eyGXxVeNqMgBJZtAOUJKb8U0YTArbNbW26LlzVmZXR2j
+         WnPg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5hvn0REVi0J6MDnmluvxE6piG2TybcFHjJpNOx7Y+SaU9W7Dqwy04FfC+Hzqng7tcT7q+UHsnelyTT50=@vger.kernel.org
+X-Gm-Message-State: AFuF++njd6oR4GDYlVwfM9iBQRfEFwHeYo5jCg7x1UNVa0M+fH+dppA6
+	L8yeigGg8RHD1N/91xTm7xtRGFq0kK0yEUjstT/ZoQ7FO0G7+8bQMLUJb6y/s6H7YQ==
+X-Gm-Gg: AYBFou0FWeh3qb1mSKlw+SjpWF14StptKt1Gvs8j6FD7ZZHgy3/3ln4CM3Y/ulSge5V
+	q8IR0B9NRQApynoxA7YSQa5Wj8uXjAnZghItIjvOBHKTVQ5XU6g0yukO7BzKtPTcArv/CxfXpof
+	d0FOP0u16YfasgwfdETjUDcGuRtdvWeNpHEKiF7ABOkjvSuxclbSnjkVDFv2RLhBk16G7a77N5Z
+	wSyJExYhLnmJpuUK7uwcKYfyVbv/+iYa1AHbbNZeUVwV+Z0hH6k+kIP3mMLeV9kpgeO7cWciaPr
+	BFqG4X+PuZv7R3v8ZeckY+iOiisH65BSdl77Hmvja4PBmzRT8tbz5wBaM5Tmd3lqG0I2EdUJbGt
+	EaPDpfE+PAoR8NkRt6aLKQccmu1C61yI1dFeUmqa70CNImyCfVBTVD6JxgxHvcIbkJyb996WSPQ
+	AVjm/iKQlrUxfyqzOO8h14xftjA7Ydc4R6uJs7i4yIo8kspKv0WxKHRSc+uYVKOUb0KwiLteT6e
+	Q+2A6JJAVsM6C9KBAOCuA==
+X-Received: by 2002:a05:600c:3b1d:b0:49e:74b6:740f with SMTP id 5b1f17b1804b1-49e7a685a5cmr49653885e9.17.1789415720432;
+        Mon, 14 Sep 2026 12:55:20 -0700 (PDT)
+Received: from darker.lan (104.157.125.91.dyn.plus.net. [91.125.157.104])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e6f1sm28315322f8f.6.2026.09.14.12.55.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 12:55:19 -0700 (PDT)
+Date: Mon, 14 Sep 2026 12:55:08 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+    Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 07/26] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
+ folio_activate()
+In-Reply-To: <bbf33dc0-6812-f204-188f-f2176a4faf4c@google.com>
+Message-ID: <60bac57a-e486-c0af-1a8e-583fd6e939cc@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com> <c44a34f8-ea3c-48cd-27d5-02df129be685@google.com> <ddab52d0-48c7-4d2c-b403-45f11e041654@kernel.org> <bbf33dc0-6812-f204-188f-f2176a4faf4c@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AmIRJ1Q9JmRB
-Date: Mon, 14 Sep 2026 21:53:00 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Mark Brown" <broonie@kernel.org>, soc@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-next <linux-next@vger.kernel.org>
-Message-Id: <b6ca14bc-a4f6-477b-bbb0-da12d27b61af@app.fastmail.com>
-In-Reply-To: <aqgf5o_gSUQH1AF0@sirena.co.uk>
-References: <amY1zEUOGFe4Op6W@sirena.org.uk>
- <fd352f58-8100-4b0f-ac8c-25b08d0e2886@sirena.org.uk>
- <aqgf5o_gSUQH1AF0@sirena.co.uk>
-Subject: Re: Missing signoff in the arm-soc tree
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Sep 14, 2026, at 18:25, Mark Brown wrote:
-> On Mon, Aug 03, 2026 at 06:25:57PM +0100, Mark Brown wrote:
->> On Sun, Jul 26, 2026 at 05:29:00PM +0100, Mark Brown wrote:
->> > Commit
->> > 
->> >   3edcea7f0413e ("Merge branch 'arm/fixes' into for-next")
->> > 
->> > is missing a Signed-off-by from its committer (and also isn't showing up
->> > as a merge).
->> 
->> This issue (and the matching author signoff) is still present today.
->
-> These issues are *still* present today.  It's making noise whenever I
-> check -next for ongoing issues, it'd be good if the branch could be
-> rebuilt.
+On Sat, 12 Sep 2026, Hugh Dickins wrote:
+...
+> I have kept the address for debugging, and do put it to some use in
+> the paranoid vmstats patch 27/26. On 32-bit, with 4-byte pointers,
+> this LRU_NEXT_ACTIVATE bit does then leave one pointer covering two
+> adjacent entries, when it's deciding whether the folio points back
+> to this lru_add entry. Is it possible for two adjacent entries to
+> hold the same folio (and so perhaps miscount the stat)? Yes, it is
+> possible (if that folio is freed and reused and readded immediately);
+> but so unlikely that it's of no importance when gathering stats.
 
-I assume you hit this on the branch I pushed out earlier today, which
-started fresh from 7.3 with just a single merge. I've amended that
-commit with an S-o-b now, but I'm not sure if that is what you are
-asking.
+It doesn't matter at all, it doesn't affect the choices made here,
+but I do want to correct my estimation of the likelihood of identical
+adjacent entries. Perhaps the most common occurrence would be, not
+when freed+reused+readded, but when isolate_migratepages_block() does
+that little lru_add_del_folio() + folio_add_lru() dance. It could be
+that the entry it "deletes" (by breaking the linkage from folio to
+fbatch) is the one most recently added to that fbatch, then
+folio_add_lru() will fill the next slot with that same folio.
 
-When you write "and also isn't showing up as a merge", do you mean
-your script has an exception for merge commits to not need S-o-b
-but fails to detect this one as a merge? I see that about half the
-merges in linux-next (including your daily merges) are not signed off,
-so I'm not sure if we are all doing this wrong the same way, or if
-there is a different problem with the soc tree.
-
-      Arnd
+Hugh
