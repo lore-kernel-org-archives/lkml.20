@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECFE45C71C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE853FA5F0
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389097; cv=none; b=POZprCsTT/EKAiNSPPp5A0FfiHAvaJzQQB3PY3ts21ZSjlx1HxDxBsQTVAM0w9bU2wc6QXEJcTui9c8tcE40HRmkIhkT3WM3YibSVJRwI1S7IKzL57gw+NJcri0FK5z9+OnXUG5a8OPd5dKfUvU3dsDSbYEjYR5ng1V+rmwID7E=
+	t=1789389093; cv=none; b=CXoFTnlkpEZ5EtqGPlgbLLOqMD97mt+hviyC9Iuq+q9KbuLl4Eks0aENENlLs7R9AAlHzhoqihSd1wwLya3NfgBlnrN9QHPQXrXSIID4c/xVGA5tEKMbyhPi7TvhlQ1+QNmouWeFFGYwl0RcGQ7/Kry98LH9jsANmqrAbZuc6WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389097; c=relaxed/simple;
-	bh=Q7Vo+oMZWSnoi9kpct14wrtvWt95QszpUVVNkFyr/6c=;
+	s=arc-20240116; t=1789389093; c=relaxed/simple;
+	bh=3XNEzeVU1O8SWrgui6NV2H1NKonCjPLxXmf/sJyhnNo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IKYbpV87KPAX0huE5VDBc38V/ozFi3htz95/d3h5utonimi64eUocV7YHoOcXSSkAuAmx6TXb8C/7FywGvxBUSCE/K8nW8LpIdyc3Aup1sAWsEnW99wvB8mXE5yyUaol1nWTMxjhn91t/gqu+Eu2vFyPsDB3uUUUU40QFX6z3nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z5GhJrBL; arc=none smtp.client-ip=91.218.175.41
+	 MIME-Version; b=ct2mDG7MCqX0g8IgCvn/Y9SCtFtLlMFEleD52IhVMoV/0zT29XB2QOWb8hSFsMeFmu/YrCC65TBAeHdnIya1gI6E8HTFbCPy9bhi4bFlqoY8j4hBKbHtfRUr191Z9DLvo4SAmesrkNy5QLLBYkl21bgNf9e3gd/GIySANn6KKKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=On/2qC4F; arc=none smtp.client-ip=91.218.175.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z5GhJrBL"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="On/2qC4F"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Q7Vo+oMZWSnoi9kpct14wrtvWt95QszpUVVNkFyr/6c=;
+DKIM-Signature: a=rsa-sha256; bh=3XNEzeVU1O8SWrgui6NV2H1NKonCjPLxXmf/sJyhnNo=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789389086; v=1; x=1789993886;
- b=Z5GhJrBLiU2mFJd2D90uchgd529Y/fai1OvFUV9kqOBTIdFvKQ0Q6ePS/l9kPiszDgm6pNsb
- 8DvDCL7/SaRToSr+wmIf4qNysI19355EWN4HBhqZiJyPz/YplWoUDECQmwCxOWMporw7/UMe3cI
- d/6uRIU5A+MsstqisGYQ1IjY=
+ t=1789389084; v=1; x=1789993884;
+ b=On/2qC4FRxiKg8BKss9FvrqxQfRXdEZVS+/Yd2Y8ReSiHpF5mbnzY43jFaDf7VlbtDspCMoq
+ MJkZgU23BsVbPL+LgwpfcwJifc2DwirapYwEUf0UbdjcV21p7XBhrp/plSXIwjx3F+fyvGYRQ4y
+ O/HXT3+7tXl0dcK2Fwl71B18=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 56156af8bd9f1fa3;
-	Mon, 14 Sep 2026 12:31:26 +0000
-X-Mizu-Trace-ID: 56156af8bd9f1fa3
+Received: by mta10.migadu.com with ESMTPS id 178b94f0694f8731;
+	Mon, 14 Sep 2026 12:31:23 +0000
+X-Mizu-Trace-ID: 178b94f0694f8731
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -62,9 +62,9 @@ Cc: ying.huang@linux.alibaba.com,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [RESEND v7 11/29] mm: split PMD swap entries into PTE swap entries
-Date: Mon, 14 Sep 2026 05:28:01 -0700
-Message-ID: <20260914122950.3283997-12-usama.arif@linux.dev>
+Subject: [RESEND v7 10/29] mm: make PMD migration-entry splitting explicit
+Date: Mon, 14 Sep 2026 05:28:00 -0700
+Message-ID: <20260914122950.3283997-11-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260914122950.3283997-1-usama.arif@linux.dev>
 References: <20260914122950.3283997-1-usama.arif@linux.dev>
@@ -76,90 +76,342 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
-or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
-handler - has to be able to split that entry too, or the callers that rely
-on split_huge_pmd() to hand them a PTE table would find the PMD unchanged.
+__split_huge_pmd() and friends take a "freeze" boolean that every caller
+has to pass and almost every caller passes as false. The name says nothing
+about what it selects, and the one thing it does select - PTE migration
+entries instead of PTE mappings - is only ever wanted by the rmap migration
+path.
 
-No reference counting is needed: a swap entry pins no folio, and swap_map
-is already one per slot, so the PTEs simply take over what the PMD held.
+Rename it to use_migration_entries, keep it private to mm/huge_memory.c,
+and add split_pmd_to_migration_entries() for try_to_migrate_one(), the only
+caller that wants it.
 
-The migration-only entry point cannot reach the new branch, because
-page_vma_mapped_walk() never hands back a swap PMD for the folio being
-migrated. Warn if that ever changes, and force the regular split anyway,
-since the branch leaves folio and page uninitialised.
+migrate_vma_split_unmapped_folio() also passed freeze=true, but only ever
+runs on a PMD that is already a migration entry, which the generic helper
+expands into PTE migration entries either way. Its folio_get() only existed
+to balance the put_page() that freeze=true performs, so both go.
 
-Test the pre-split old_pmd rather than re-reading *pmd in the trailing
-folio_remove_rmap_pmd() gate, so every entry-type test in the function
-interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
-leaves the PMD present as far as software is concerned.
+No functional change intended.
 
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- mm/huge_memory.c | 36 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
+ include/linux/huge_mm.h | 22 ++++++++-------
+ mm/huge_memory.c        | 60 ++++++++++++++++++++++++-----------------
+ mm/memory.c             |  4 +--
+ mm/migrate_device.c     |  7 +----
+ mm/mprotect.c           |  2 +-
+ mm/rmap.c               |  7 +++--
+ 6 files changed, 55 insertions(+), 47 deletions(-)
 
+diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+index 8ca0fa3be2acb..64b6a2eea899d 100644
+--- a/include/linux/huge_mm.h
++++ b/include/linux/huge_mm.h
+@@ -430,7 +430,7 @@ int folio_memcg_alloc_deferred(struct folio *folio);
+ void deferred_split_folio(struct folio *folio, bool partially_mapped);
+ 
+ void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
+-		unsigned long address, bool freeze);
++		unsigned long address);
+ 
+ /**
+  * pmd_is_huge() - Is this PMD either a huge PMD entry or a software leaf entry?
+@@ -462,12 +462,10 @@ static inline bool pmd_is_huge(pmd_t pmd)
+ 	do {								\
+ 		pmd_t *____pmd = (__pmd);				\
+ 		if (pmd_is_huge(*____pmd))				\
+-			__split_huge_pmd(__vma, __pmd, __address,	\
+-					 false);			\
++			__split_huge_pmd(__vma, __pmd, __address);	\
+ 	}  while (0)
+ 
+-void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
+-		bool freeze);
++void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address);
+ 
+ void __split_huge_pud(struct vm_area_struct *vma, pud_t *pud,
+ 		unsigned long address);
+@@ -590,7 +588,9 @@ static inline bool thp_migration_supported(void)
+ }
+ 
+ void split_huge_pmd_locked(struct vm_area_struct *vma, unsigned long address,
+-			   pmd_t *pmd, bool freeze);
++			   pmd_t *pmd);
++void split_pmd_to_migration_entries(struct vm_area_struct *vma,
++				    unsigned long address, pmd_t *pmd);
+ bool unmap_huge_pmd_locked(struct vm_area_struct *vma, unsigned long addr,
+ 			   pmd_t *pmdp, struct folio *folio);
+ void map_anon_folio_pmd_nopf(struct folio *folio, pmd_t *pmd,
+@@ -690,12 +690,14 @@ static inline void deferred_split_folio(struct folio *folio, bool partially_mapp
+ 	do { } while (0)
+ 
+ static inline void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
+-		unsigned long address, bool freeze) {}
++		unsigned long address) {}
+ static inline void split_huge_pmd_address(struct vm_area_struct *vma,
+-		unsigned long address, bool freeze) {}
++		unsigned long address) {}
+ static inline void split_huge_pmd_locked(struct vm_area_struct *vma,
+-					 unsigned long address, pmd_t *pmd,
+-					 bool freeze) {}
++					 unsigned long address, pmd_t *pmd) {}
++static inline void
++split_pmd_to_migration_entries(struct vm_area_struct *vma,
++			       unsigned long address, pmd_t *pmd) {}
+ 
+ static inline bool unmap_huge_pmd_locked(struct vm_area_struct *vma,
+ 					 unsigned long addr, pmd_t *pmdp,
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 873887aed0bc2..0e347a545588c 100644
+index ee8d46827ffdc..873887aed0bc2 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -3304,6 +3304,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
- 						 vma, haddr, rmap_flags);
- 		}
-+	} else if (pmd_is_swap_entry(*pmd)) {
-+		/*
-+		 * A PMD swap entry has no page, so it cannot be turned into
-+		 * PTE migration entries.  page_vma_mapped_walk() never hands
-+		 * one back for the folio being migrated, so this should not
-+		 * happen; warn, but also force the regular split so that a
-+		 * broken invariant cannot make the code below dereference the
-+		 * uninitialised folio and page.
-+		 */
-+		VM_WARN_ON_ONCE(use_migration_entries);
-+		use_migration_entries = false;
-+		old_pmd = *pmd;
-+		soft_dirty = pmd_swp_soft_dirty(old_pmd);
-+		uffd_wp = pmd_swp_uffd(old_pmd);
-+		anon_exclusive = pmd_swp_exclusive(old_pmd);
- 	} else {
- 		/*
- 		 * Up to this point the pmd is present and huge and userland has
-@@ -3440,6 +3455,25 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
- 			set_pte_at(mm, addr, pte + i, entry);
- 		}
-+	} else if (pmd_is_swap_entry(old_pmd)) {
-+		const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
-+		pte_t pte_swp_entry;
-+		swp_entry_t entry;
-+
-+		for (i = 0, addr = haddr; i < HPAGE_PMD_NR;
-+		     i++, addr += PAGE_SIZE) {
-+			entry = swp_entry(swp_type(old_entry),
-+					  swp_offset(old_entry) + i);
-+			pte_swp_entry = swp_entry_to_pte(entry);
-+			if (soft_dirty)
-+				pte_swp_entry = pte_swp_mksoft_dirty(pte_swp_entry);
-+			if (uffd_wp)
-+				pte_swp_entry = pte_swp_mkuffd(pte_swp_entry);
-+			if (anon_exclusive)
-+				pte_swp_entry = pte_swp_mkexclusive(pte_swp_entry);
-+			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
-+			set_pte_at(mm, addr, pte + i, pte_swp_entry);
-+		}
- 	} else {
- 		pte_t entry;
- 
-@@ -3467,7 +3501,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+@@ -2033,7 +2033,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		pte_free(dst_mm, pgtable);
+ 		spin_unlock(src_ptl);
+ 		spin_unlock(dst_ptl);
+-		__split_huge_pmd(src_vma, src_pmd, addr, false);
++		__split_huge_pmd(src_vma, src_pmd, addr);
+ 		return -EAGAIN;
  	}
- 	pte_unmap(pte);
+ 	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+@@ -2257,7 +2257,7 @@ vm_fault_t do_huge_pmd_wp_page(struct vm_fault *vmf)
+ 	folio_unlock(folio);
+ 	spin_unlock(vmf->ptl);
+ fallback:
+-	__split_huge_pmd(vma, vmf->pmd, vmf->address, false);
++	__split_huge_pmd(vma, vmf->pmd, vmf->address);
+ 	return VM_FAULT_FALLBACK;
+ }
  
--	if (!pmd_is_migration_entry(*pmd))
-+	if (!pmd_is_migration_entry(old_pmd) && !pmd_is_swap_entry(old_pmd))
+@@ -3190,7 +3190,7 @@ static void __split_huge_zero_page_pmd(struct vm_area_struct *vma,
+ }
+ 
+ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+-		unsigned long haddr, bool freeze)
++		unsigned long haddr, bool use_migration_entries)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	struct folio *folio;
+@@ -3291,10 +3291,10 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		 * folios w.r.t anon exclusive handling. See the comments for
+ 		 * folio handling and anon_exclusive below.
+ 		 */
+-		if (freeze && anon_exclusive &&
++		if (use_migration_entries && anon_exclusive &&
+ 		    folio_try_share_anon_rmap_pmd(folio, page))
+-			freeze = false;
+-		if (!freeze) {
++			use_migration_entries = false;
++		if (!use_migration_entries) {
+ 			rmap_t rmap_flags = RMAP_NONE;
+ 
+ 			folio_ref_add(folio, HPAGE_PMD_NR - 1);
+@@ -3344,11 +3344,11 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		VM_WARN_ON_FOLIO(!folio_test_anon(folio), folio);
+ 
+ 		/*
+-		 * Without "freeze", we'll simply split the PMD, propagating the
+-		 * PageAnonExclusive() flag for each PTE by setting it for
++		 * Without migration entries, we'll simply split the PMD and
++		 * propagate the PageAnonExclusive() flag for each PTE by setting it for
+ 		 * each subpage -- no need to (temporarily) clear.
+ 		 *
+-		 * With "freeze" we want to replace mapped pages by
++		 * With migration entries we want to replace mapped pages by
+ 		 * migration entries right away. This is only possible if we
+ 		 * managed to clear PageAnonExclusive() -- see
+ 		 * set_pmd_migration_entry().
+@@ -3359,10 +3359,10 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		 * See folio_try_share_anon_rmap_pmd(): invalidate PMD first.
+ 		 */
+ 		anon_exclusive = PageAnonExclusive(page);
+-		if (freeze && anon_exclusive &&
++		if (use_migration_entries && anon_exclusive &&
+ 		    folio_try_share_anon_rmap_pmd(folio, page))
+-			freeze = false;
+-		if (!freeze) {
++			use_migration_entries = false;
++		if (!use_migration_entries) {
+ 			rmap_t rmap_flags = RMAP_NONE;
+ 
+ 			folio_ref_add(folio, HPAGE_PMD_NR - 1);
+@@ -3387,7 +3387,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 	 * Note that NUMA hinting access restrictions are not transferred to
+ 	 * avoid any possibility of altering permissions across VMAs.
+ 	 */
+-	if (freeze || pmd_is_migration_entry(old_pmd)) {
++	if (use_migration_entries || pmd_is_migration_entry(old_pmd)) {
+ 		pte_t entry;
+ 		swp_entry_t swp_entry;
+ 
+@@ -3420,8 +3420,8 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		for (i = 0, addr = haddr; i < HPAGE_PMD_NR; i++, addr += PAGE_SIZE) {
+ 			/*
+ 			 * anon_exclusive was already propagated to the relevant
+-			 * pages corresponding to the pte entries when freeze
+-			 * is false.
++			 * pages corresponding to the pte entries when
++			 * use_migration_entries is false.
+ 			 */
+ 			if (write)
+ 				swp_entry = make_writable_device_private_entry(
+@@ -3469,7 +3469,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 
+ 	if (!pmd_is_migration_entry(*pmd))
  		folio_remove_rmap_pmd(folio, page, vma);
- 	if (use_migration_entries)
+-	if (freeze)
++	if (use_migration_entries)
  		put_page(page);
+ 
+ 	smp_wmb(); /* make pte visible before pmd */
+@@ -3477,15 +3477,28 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ }
+ 
+ void split_huge_pmd_locked(struct vm_area_struct *vma, unsigned long address,
+-			   pmd_t *pmd, bool freeze)
++			   pmd_t *pmd)
+ {
+ 	VM_WARN_ON_ONCE(!IS_ALIGNED(address, HPAGE_PMD_SIZE));
+ 	if (pmd_trans_huge(*pmd) || pmd_is_valid_softleaf(*pmd))
+-		__split_huge_pmd_locked(vma, pmd, address, freeze);
++		__split_huge_pmd_locked(vma, pmd, address, false);
++}
++
++/*
++ * Split a present PMD into PTE migration entries, for the rmap migration
++ * walker.  Like split_huge_pmd_locked(), the caller must hold the PMD lock and
++ * must already be inside an mmu_notifier invalidate range.
++ */
++void split_pmd_to_migration_entries(struct vm_area_struct *vma,
++				    unsigned long address, pmd_t *pmd)
++{
++	VM_WARN_ON_ONCE(!IS_ALIGNED(address, HPAGE_PMD_SIZE));
++	if (pmd_trans_huge(*pmd) || pmd_is_valid_softleaf(*pmd))
++		__split_huge_pmd_locked(vma, pmd, address, true);
+ }
+ 
+ void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
+-		unsigned long address, bool freeze)
++		unsigned long address)
+ {
+ 	spinlock_t *ptl;
+ 	struct mmu_notifier_range range;
+@@ -3495,20 +3508,19 @@ void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
+ 				(address & HPAGE_PMD_MASK) + HPAGE_PMD_SIZE);
+ 	mmu_notifier_invalidate_range_start(&range);
+ 	ptl = pmd_lock(vma->vm_mm, pmd);
+-	split_huge_pmd_locked(vma, range.start, pmd, freeze);
++	split_huge_pmd_locked(vma, range.start, pmd);
+ 	spin_unlock(ptl);
+ 	mmu_notifier_invalidate_range_end(&range);
+ }
+ 
+-void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
+-		bool freeze)
++void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address)
+ {
+ 	pmd_t *pmd = mm_find_pmd(vma->vm_mm, address);
+ 
+ 	if (!pmd)
+ 		return;
+ 
+-	__split_huge_pmd(vma, pmd, address, freeze);
++	__split_huge_pmd(vma, pmd, address);
+ }
+ 
+ static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned long address)
+@@ -3520,7 +3532,7 @@ static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned
+ 	if (!IS_ALIGNED(address, HPAGE_PMD_SIZE) &&
+ 	    range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
+ 			 ALIGN(address, HPAGE_PMD_SIZE)))
+-		split_huge_pmd_address(vma, address, false);
++		split_huge_pmd_address(vma, address);
+ }
+ 
+ void vma_adjust_trans_huge(struct vm_area_struct *vma,
+diff --git a/mm/memory.c b/mm/memory.c
+index 926276d419202..477d7e359b447 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2096,7 +2096,7 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+ 		next = pmd_addr_end(addr, end);
+ 		if (pmd_is_huge(*pmd)) {
+ 			if (next - addr != HPAGE_PMD_SIZE)
+-				__split_huge_pmd(vma, pmd, addr, false);
++				__split_huge_pmd(vma, pmd, addr);
+ 			else if (zap_huge_pmd(tlb, vma, pmd, addr)) {
+ 				addr = next;
+ 				continue;
+@@ -6382,7 +6382,7 @@ static inline vm_fault_t wp_huge_pmd(struct vm_fault *vmf)
+ 
+ split:
+ 	/* COW or write-notify handled on pte level: split pmd. */
+-	__split_huge_pmd(vma, vmf->pmd, vmf->address, false);
++	__split_huge_pmd(vma, vmf->pmd, vmf->address);
+ 
+ 	return VM_FAULT_FALLBACK;
+ }
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 0c437004329d9..4a0b61d50d222 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -918,12 +918,7 @@ static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+ 	unsigned long flags;
+ 	int ret = 0;
+ 
+-	/*
+-	 * take a reference, since split_huge_pmd_address() with freeze = true
+-	 * drops a reference at the end.
+-	 */
+-	folio_get(folio);
+-	split_huge_pmd_address(migrate->vma, addr, true);
++	split_huge_pmd_address(migrate->vma, addr);
+ 	ret = folio_split_unmapped(folio, 0);
+ 	if (ret)
+ 		return ret;
+diff --git a/mm/mprotect.c b/mm/mprotect.c
+index 2888ee638d872..ee33bbb421008 100644
+--- a/mm/mprotect.c
++++ b/mm/mprotect.c
+@@ -530,7 +530,7 @@ static inline long change_pmd_range(struct mmu_gather *tlb,
+ 		if (pmd_is_huge(_pmd)) {
+ 			if ((next - addr != HPAGE_PMD_SIZE) ||
+ 			    pgtable_split_needed(vma, cp_flags)) {
+-				__split_huge_pmd(vma, pmd, addr, false);
++				__split_huge_pmd(vma, pmd, addr);
+ 				/*
+ 				 * For file-backed, the pmd could have been
+ 				 * cleared; make sure pmd populated if
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 5332c52909be1..feb751e29b992 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2290,7 +2290,7 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 				 * restart so we can process the PTE-mapped THP.
+ 				 */
+ 				split_huge_pmd_locked(vma, pvmw.address,
+-						      pvmw.pmd, false);
++						      pvmw.pmd);
+ 				flags &= ~TTU_SPLIT_HUGE_PMD;
+ 				page_vma_mapped_walk_restart(&pvmw);
+ 				continue;
+@@ -2515,13 +2515,12 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 
+ 			if (flags & TTU_SPLIT_HUGE_PMD) {
+ 				/*
+-				 * split_huge_pmd_locked() might leave the
++				 * split_pmd_to_migration_entries() might leave the
+ 				 * folio mapped through PTEs. Retry the walk
+ 				 * so we can detect this scenario and properly
+ 				 * abort the walk.
+ 				 */
+-				split_huge_pmd_locked(vma, pvmw.address,
+-						      pvmw.pmd, true);
++				split_pmd_to_migration_entries(vma, pvmw.address, pvmw.pmd);
+ 				flags &= ~TTU_SPLIT_HUGE_PMD;
+ 				page_vma_mapped_walk_restart(&pvmw);
+ 				continue;
 -- 
 2.53.0-Meta
 
