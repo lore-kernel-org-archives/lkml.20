@@ -1,138 +1,187 @@
-Received: from mail-oo1-f98.google.com (mail-oo1-f98.google.com [209.85.161.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0735639CD1B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B6949DB80
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416260; cv=none; b=VYX1GU+F+Q+8B/h/NBBjr/xbjVn9j5XO0tq/tI4oPZ8uxGbykuMnT+U1cGyz5frOdDXDfsUlQ4bqCp6dADawrhoy+5IL1T525RWMTI7vYWU0zd+1dJS6sZ4TTZUmvPtKSIr5YfWgWlQeS1PZp3xT1/+7XwSH5BV2liJKwNG/1UI=
+	t=1789416294; cv=none; b=UT/Nh7YDy6+aUUXdCMZy4ouTqxm3WZaz9KfyJTM6gnl+FMn6xBbLQ0yevvjnJorlADLRe5lWdgFNKyDRjkxq5JeDsU6i9z9WpoXHH3RB7sh7OrPVBpDTWmwuqjbWfUGVhYODY+EDoU5e0T8mzAYERPuBz7rqVyi2IAYhjR8ZNYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416260; c=relaxed/simple;
-	bh=gVBPMHDvUFZ7LHqXksbl0G8iSclpJgOhQy7Cg7sDOSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OAJqVkzAEfWLn1Ep1jv//qi/t22XtXEdiUUDD/pmz7Z9IviMkGkkGMPcc8BdPC8alhvkyLU7oExajcWam2BRDaBO0xi+NVXUsKFMTY/0XolBD5DRlPDSVGpXXKT2Ed1ILyb/+FVi8F+XDKLnNI3hcwpCAS9lN25y7OE2mI4ZsD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=B1TInPzA; arc=none smtp.client-ip=209.85.161.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789416294; c=relaxed/simple;
+	bh=ErYITKcJxDoMsV0VqDPeQpRgOvQfuVozbFtYnk7vZiU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=YRk6ByZmy2iiWjb+h+zx3iOEY5U+56DtUaSbEV1/kF+FWE72Mcp6Fdie6czTTMafJ9SVQh+x8K7cDKrnuDBydIea6sQpDaBh0KX9ffq7fVUv79//HMJXS7BEcBoyzKqh1cuMwgh0r3y8E7wOEK4255p5urtg80gQgUe6FPLWUCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBUE5ct8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="B1TInPzA"
-Received: by mail-oo1-f98.google.com with SMTP id 006d021491bc7-6b8ef7de4bdso810043eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:04:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789416258; x=1790021058;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pp623zgj8rh3D0bcXBH5BWiFVK6JWL+1hwJlGhtfFXM=;
-        b=SKrfpFFsVj3txcMRKleo8nrod+Y+RgZra/HzyXFrj+6CsH8RLTyyD5mKpAw9ZR7evj
-         Tg0VzWJtGHrjoNg2nMLO1imLEtlPkz36fkrlV4e2SmX09f/gRLp1gQq439CGjEBzkMDE
-         /m5m+AbS9VXGZJ78FsdlVvJtt+JEjBmtIxuuzb3vWagYov+CEK0pf5LZbuuZe6N1oaDn
-         SScipONlLRuc2RWKwVKqtMOculL4J6MHEUwmIG//pHv6Ltb5jninMqAN0qaG4nrnu6gn
-         DDuy0qjx3TrsCibK7OG+4UxeP98Zgnrh6aS9XU6IW9B+wVBCaJiyRudRqQ3VGe+2deeb
-         Gqxg==
-X-Forwarded-Encrypted: i=1; AKwUvByZu2qZaztnbt1wYnTGT61HCK9gB+/2w5X5Rn32tbHVhcxeSuRyIdxUr1djBEdBmZ0OJhCltwXxckppw8A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/QIMBk7wJxgDpxojSl9fSE6utQWBhFjHr4i+fSM63FDv5ONso
-	NLKUXtc4hLlrHsyH6Ex1FrO+NAO9m0f0XIzxNCNkEnWZt0Y5T4XhifrkVFLRcIsm4XOOJW7EwJN
-	WUHKcJIw5wD5s2Uu2/tSobaYMWDjrw5CtEMAyaGlQIu0a+/yYq6lvHGOWMi4Ek4ESIszZyHp+nP
-	W2fTBgZx5WfcW6a+1wLIkG7aUDGOczabpZ2qqPzcbSPKMxBJfsaUdPZsteEPaOSUavk7LrV8+U7
-	t/FSM/WLCZN1jgwPewze784CA==
-X-Gm-Gg: AYBFou0iPsaZLIUBLWGpoQq3qfSRTl7QKImmE1qc3T/l3a9N8zj3yRc0NvwvbmT+sWD
-	fRsadiOnxKBFYYnukm8ti9KWfm3fiBJ/zOL5ZFVOJQeOrMAqcQglBBrGM8M+DOnhzivVwmfUSLe
-	ZXMkxbzdSFnKdCDVWYUoLbrXCpgUykA2Z75ATKBIwpzHl59dnq9wUQ92xeMpTlFLszc5Psb7GlY
-	S9FhYdHLbf3kOltdWEJ07gL9q6Iex9YWFXsScBXPJwrz8WGtinL5Ikr98ghFEoKDLmvCj5QgrZf
-	zQeBQ8ANFXbgBqpr7kpgDm6U9DsGRol20BDpQhM3vO76UZ5tdzb4t1ZMzte1Fb0UeG/aD/IiuUf
-	Eg18k2yg0ftiZbAaIcup6px2hRA/IiXBsWMFrIHChe3gFz6E74Q0CTFUZCe6jPqK0kqtGUifKxQ
-	oBlVOHF+lrGFGxVD3CblQLjB7ZgRKB3oE2DWQeqYOcPA==
-X-Received: by 2002:a05:6820:4de3:b0:6b7:8396:f3c9 with SMTP id 006d021491bc7-6c541458231mr2333263eaf.43.1789416257415;
-        Mon, 14 Sep 2026 13:04:17 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc4c62a7761sm4609587a12.2.2026.09.14.13.04.16
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 14 Sep 2026 13:04:17 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90e87478402so94555046d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:04:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789416256; x=1790021056; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pp623zgj8rh3D0bcXBH5BWiFVK6JWL+1hwJlGhtfFXM=;
-        b=B1TInPzAeLy7emetVC1V6ps8TXtIqgEqRfSdKaRrmhqIuEsIt0IEj981oWS1bz0naB
-         FBHwPXSYBFHRieZ7hFHVw9AO0VXvwgKRERTKq4QbM5hbnhxfOw6A4OEu1mNy3j9abmRQ
-         y1m4qRvwWS3xLnVmEhx1/QGR3oSPV1c5UU1w8=
-X-Forwarded-Encrypted: i=1; AKwUvBxiPPGCDWR7b8jwEhlj68vzNNIX2FGFtq+ZdUwzEdgYG19zhw2p2XP3McdgVeT3gGKYDibRufI6tiPkccQ=@vger.kernel.org
-X-Received: by 2002:a05:6214:d8e:b0:90e:96a9:4c5d with SMTP id 6a1803df08f44-9122e4f371dmr67130166d6.15.1789416255437;
-        Mon, 14 Sep 2026 13:04:15 -0700 (PDT)
-X-Received: by 2002:a05:6214:d8e:b0:90e:96a9:4c5d with SMTP id 6a1803df08f44-9122e4f371dmr67122906d6.15.1789416250177;
-        Mon, 14 Sep 2026 13:04:10 -0700 (PDT)
-Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47afc2sm102712366d6.20.2026.09.14.13.04.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 13:04:09 -0700 (PDT)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH net-next] wifi: brcmfmac: Improve D3 substate entering timeout handling
-Date: Mon, 14 Sep 2026 22:04:07 +0200
-Message-ID: <20260914200407.1743850-1-arend.vanspriel@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260908-brcmfmac-bcm43752-suspend-fix-v1-1-32585639d763@collabora.com>
-References: <20260908-brcmfmac-bcm43752-suspend-fix-v1-1-32585639d763@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBUE5ct8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717431F00893;
+	Mon, 14 Sep 2026 20:04:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789416291;
+	bh=v4KUWbILeePOarO8rQimXyKut1t+TlxUptv4A1TtiJg=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=gBUE5ct8ZmdI+YqImZsuYlKm6SxX5TvXFwvqz3PTDg8CRq3rRWTcOxdOtFLcrpFky
+	 /pFMe14ZGcTL4SsATkseFrQMINkzZ/2b/EF6aXUwXswOqLCvLGZMvattMxFydTwu6r
+	 gv6bzT+xiLMUsGSDKjQWzw3JxPyqpRgdE6U8ixIhXzK+K5wuF5UwHT6z7eCs7afesO
+	 p4N9N2WDanS5PVHg137kOpTOM2NoY/RU3ZybBYmcdOy92EfW2SGgeG+BjEMd7e06UA
+	 RqKHzg1xRt7x0/w0rQbYee0p+OTwfS91TfFYwLXiweEPZTOl3LmdTrK8AolxcWGs03
+	 RSrKwrVzgS3jA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 87F37198004A;
+	Mon, 14 Sep 2026 16:04:49 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Mon, 14 Sep 2026 16:04:49 -0400
+X-ME-Sender: <xms:YFOoagQH00Zlp61Ua-F6f-Db1AeRDp05--6sjAwfEl2oJR8rbpL1kQ>
+    <xme:YFOoaoloZovv3wkR1zHJ2-SreafW9nlEANMt5v2S01qG9YUg8E_PXuA9lxS8anJSz
+    kJzFQHRH0BasTIUDE6T5qcfZwH_HtB9BkyuGni_CQIwt0UoRaGncZ45OQ>
+X-ME-Proxy-Cause: dmFkZTESoSO3bkLsfEH4A8M32QOGWSruwXp7UGnaw2j89vCrqxY7fSwKRvtDkugq2dp3kG
+    tetxOuuiuAHQQJQzDbY9UaMTxmjRolrKndXBEZneX6d1h20fLxPIGiADRqLowAtFi3iiwh
+    xKUOetKplnu3XQ8VJDf9WCDSHLnm6dsw0C/kFD9ZGnPjZHDkhHRzuQO6snjwG1ODvjkQGH
+    BUqhV5pWZ/ZRVg68YBO1folrqjBsDdvbNQTtNzL2zbmD7iEUmyOz2gAiqvryNI3YIQBWKF
+    WPAt9dNmR5u4jmXf8nScxGIrysMZVN8tFt/XM+d4JcvpRbmYhn/MNbWIBAr1SigiCLipWr
+    NMbA7CgEZ7ubg+wbnGw7GxpGMjf2txu5ITc5zXipLLQGH/SXAvtRrMicl5wFn3/F8R9y+7
+    c1nkRsdoWCiulSAE2yypG/8IhvW6jStcCTo1QjZn8zKXADOxB0E3GjVSOWHOU72UuDDDpu
+    rNGQdPoRxmDX0JOJr7IybTTAwQ1d7u3cKylQmOU348Au/J9BWye7p5cTBOBPET6kuS+Qbi
+    9BvEq4FcWKBZ9QLe0SJWq1juqFsTNY75C5V1INb0SHBkgVx7YqK4rrBnvZcAeV+5fswV0a
+    Ejk7GRWkmoyP56S76ZM2tbqqxSVxuomoBLvUANg1hz6K9urCyUBL6xg6yp7Q
+X-ME-Proxy: <xmx:YVOoam7m4NM5RsxPGKwaTeOm5__lFR1uEd3Iykj8Y0z4cVVjqAsQ5w>
+    <xmx:YVOoatv-UPCQor3g1GLVXR5uyVBI45kXh_63Beyj54A5f9zvs2avGA>
+    <xmx:YVOoav56mqC3RrOPMhqRvrwHOvcKmkczrRGJtwi5o02aAShoArPQZw>
+    <xmx:YVOoagXgBCGoHAd6UzeQQY0h3i3l1kcUbuqO0lIrsxL343wpJrA44g>
+    <xmx:YVOoap_z3tK_6Kv_5htx3DIpZ0uYrh9SH5W8r1_-bVibxXlZog88KvQ6>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3F83FF8007D; Mon, 14 Sep 2026 16:04:48 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Date: Mon, 14 Sep 2026 22:04:27 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Melody Wang" <huibo.wang@amd.com>, x86@kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ "Tom Lendacky" <thomas.lendacky@amd.com>
+Message-Id: <db8bceb5-b72a-4742-aa44-9cf21a8c95b8@app.fastmail.com>
+In-Reply-To: 
+ <8b651e078329193ef458757696ea54a314519427.1789345277.git.huibo.wang@amd.com>
+References: <cover.1789345277.git.huibo.wang@amd.com>
+ <8b651e078329193ef458757696ea54a314519427.1789345277.git.huibo.wang@amd.com>
+Subject: Re: [PATCH v2 5/8] x86/sev: Add a function to contain all SEV-specific setup
+ operations
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, 08 Sep 2026 17:26:12 +0200, Sebastian Reichel wrote:
-> Some firmwares (e.g. BCM43752) do not service the D3_INFORM mailbox
-> handshake when idle, so the D3 ACK never arrives. If WoWL is not armed
-> the device is going to be powered off during system suspend and
-> re-probed on resume anyway (brcmf_pcie_pm_leave_D3() handles that), so
-> the missing ACK is harmless and must not abort the whole system suspend.
-> When WoWL is active the device has to stay powered with its state
-> preserved, so keep treating the timeout as fatal.
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-[...]
-
-> @@ -2653,8 +2653,13 @@ static int brcmf_pcie_pm_enter_D3(struct device *dev)
->  			   BRCMF_PCIE_MBDATA_TIMEOUT);
->  	if (!devinfo->mbdata_completed) {
->  		brcmf_err(bus, "Timeout on response for entering D3 substate\n");
-> -		brcmf_bus_change_state(bus, BRCMF_BUS_UP);
-> -		return -EIO;
-> +
-> +		if (devinfo->wowl_enabled) {
-> +			brcmf_bus_change_state(bus, BRCMF_BUS_UP);
-> +			return -EIO;
-> +		}
-> +
-> +		brcmf_dbg(PCIE, "No D3 ACK, continuing to power the device off\n");
+On Mon, 14 Sep 2026, at 02:57, Melody Wang wrote:
+> To make the code clean in the boot phase, add a sev_prepare() wrapper
+> which contains early SEV-specific checks in order to have all that code
+> in a single place.
+>
+> No functional changes.
+>
+> Signed-off-by: Melody Wang <huibo.wang@amd.com>
+> ---
+>  arch/x86/boot/compressed/sev.c          | 11 +++++++++++
+>  arch/x86/include/asm/sev.h              |  3 +++
+>  drivers/firmware/efi/libstub/x86-stub.c | 17 +++--------------
+>  3 files changed, 17 insertions(+), 14 deletions(-)
+>
+> diff --git a/arch/x86/boot/compressed/sev.c b/arch/x86/boot/compressed/sev.c
+> index fc2029746c50..c935a97f72e9 100644
+> --- a/arch/x86/boot/compressed/sev.c
+> +++ b/arch/x86/boot/compressed/sev.c
+> @@ -511,3 +511,14 @@ bool early_is_sevsnp_guest(void)
 >  	}
->  
->  	devinfo->state = BRCMFMAC_PCIE_STATE_DOWN;
+>  	return true;
+>  }
+> +
+> +bool sev_prepare(void)
+> +{
+> +	u64 unsupported = snp_get_unsupported_features(sev_get_status());
+> +	if (unsupported) {
+> +		error("Unsupported SEV-SNP features detected\n");
 
-brcmf_err() is still emitted unconditionally on timeout, which means
-affected devices will log an error message to dmesg on every suspend
-even when WoWL is not armed and the missing ACK is expected/harmless.
-Please move brcmf_err() inside the if (devinfo->wowl_enabled) check.
+The EFI stub will call this while running under the boot services, so
+error() should not be used here.
 
-Also, please target wireless-next instead of net-next in the subject prefix
-for the next version.
+Also, error() never returns - it is the decompressor's pseudo-panic()
+so whatever you return to will never execute.
 
-Regards,
-Arend
+
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
+> diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
+> index 3cb6c5d6a6e0..95f9a5084c45 100644
+> --- a/arch/x86/include/asm/sev.h
+> +++ b/arch/x86/include/asm/sev.h
+> @@ -605,6 +605,8 @@ static inline void sev_evict_cache(void *va, int npages)
+>  	}
+>  }
+> 
+> +bool sev_prepare(void);
+> +
+>  #else	/* !CONFIG_AMD_MEM_ENCRYPT */
+> 
+>  #define snp_vmpl 0
+> @@ -652,6 +654,7 @@ static inline enum es_result savic_register_gpa(u64 
+> gpa) { return ES_UNSUPPORTED
+>  static inline enum es_result savic_unregister_gpa(u64 *gpa) { return 
+> ES_UNSUPPORTED; }
+>  static inline void sev_apic_ghcb_msr_write(u32 reg, u64 value) { }
+>  static inline u64 sev_apic_ghcb_msr_read(u32 reg) { return 0; }
+> +static inline bool sev_prepare(void) { return false; }
+> 
+>  #endif	/* CONFIG_AMD_MEM_ENCRYPT */
+> 
+> diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
+> b/drivers/firmware/efi/libstub/x86-stub.c
+> index cef32e2c82d8..fae3a7dfb8b3 100644
+> --- a/drivers/firmware/efi/libstub/x86-stub.c
+> +++ b/drivers/firmware/efi/libstub/x86-stub.c
+> @@ -783,19 +783,6 @@ static efi_status_t exit_boot(struct boot_params 
+> *boot_params, void *handle)
+>  	return EFI_SUCCESS;
+>  }
+> 
+> -static bool have_unsupported_snp_features(void)
+> -{
+> -	u64 unsupported;
+> -
+> -	unsupported = snp_get_unsupported_features(sev_get_status());
+> -	if (unsupported) {
+> -		efi_err("Unsupported SEV-SNP features detected: 0x%llx\n",
+> -			unsupported);
+> -		return true;
+> -	}
+> -	return false;
+> -}
+> -
+>  static void efi_get_seed(void *seed, int size)
+>  {
+>  	efi_get_random_bytes(size, seed);
+> @@ -919,6 +906,7 @@ void __noreturn efi_stub_entry(efi_handle_t handle,
+>  	unsigned long kernel_entry;
+>  	struct setup_header *hdr;
+>  	efi_status_t status;
+> +	bool err;
+> 
+>  	efi_system_table = sys_table_arg;
+>  	/* Check if we were booted by the EFI firmware */
+> @@ -933,7 +921,8 @@ void __noreturn efi_stub_entry(efi_handle_t handle,
+> 
+>  	hdr = &boot_params->hdr;
+> 
+> -	if (have_unsupported_snp_features())
+> +	err = sev_prepare();
+> +	if (err)
+>  		efi_exit(handle, EFI_UNSUPPORTED);
+> 
+>  	if (IS_ENABLED(CONFIG_EFI_DXE_MEM_ATTRIBUTES)) {
+> -- 
+> 2.43.0
