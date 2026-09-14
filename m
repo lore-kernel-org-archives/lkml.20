@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFC73F4859
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7393FE347
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371976; cv=none; b=ioj3+sGPahvRPw+53P/tKw2Gw7bHDREaOWfiJMevQiOpqFzfw9j2r+2CP+WLFfwAUj/0+l8pTHmGKYUJ0zHrG1ePBkI76WKjAv3ZNT6P3yzWlpCpfhyTCsTtmE2aemmUxJe94Cfidk7FBBsUctZiovEbF+Ub7sW6Lj0SPaVq1Y4=
+	t=1789371979; cv=none; b=Kmnq9v0DuQ1NCMlnev0OJCA3unD8wialcn0RN1YWdooQD1DzCSZAwEloJc2tev63M5x7qsobX5qNZIn/tiL9RG8bAoGOKC6Wu+ApV9dQzJ0vnw8BcWyQiWSGCtqIgq3B6waQrDlymp8YEItH9mUoMPRseN03ICgeqWkGpOCTvDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371976; c=relaxed/simple;
-	bh=o2g5BJsdLmgKohvdPEwdQASKwo6XZOlBHx9JkteNmOM=;
+	s=arc-20240116; t=1789371979; c=relaxed/simple;
+	bh=XY7mOhZqq9LWXUt88AII2yu7FLuLutizkwgrhvSheuE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JVSV6WnsjXwaoZ7N7PJDpuYFb8AQxMNkjAGtSN4AKYNzrixhJdShj1CURS2SB/9a3qVRtNUCSNYxntgyn68y1R80jcN51pWR6H5F39MJRF2A1u16HNuYuI0Z0kyq3UyaymVHNfvP+o71yYfYtfh7IF2Jn6Zr3l8W69MSwFyhrL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVu+S3zH; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=soLYFFifyYBtxS3GYYUO68ckRhaWJl2fQk8p3SL7cOxywC1Ek96K49H0/31u2F2cJpfSc4fcauTDMU7+Re5xM/CIrNUiVQ5Nva696yzDDrHOeQr79a9gKl4khHx7ksUxNme4svToxDXsO/GWadG7GZgSB1fFIXI25u2Anf0U0AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUoVKTbt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVu+S3zH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B241F00898;
-	Mon, 14 Sep 2026 07:46:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUoVKTbt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ADC51F00893;
+	Mon, 14 Sep 2026 07:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789371974;
-	bh=XgsPq9RhCd3/kciawcNEGIUOwsxaXN47MCNNBD2JLps=;
+	s=k20260515; t=1789371978;
+	bh=HW64KVa5kWJeO60DzhKz9juuefGy7uyjxpyhr0h7unk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=XVu+S3zH69dhsk5mEq0h7vPyasVe6Fx0QcGOnJYFvtB3ng0W28ZV/iaNE+onKEafd
-	 m+TvZ92bDhojXe69or3SIuXOtTMrrJIkqNaIqwZYEZ4sdtqeVAbb2K53AdFNRARmah
-	 Z3eYvyM2Q9wr5q9+wsYqHNVTdgXhBQ0a7vOjokMImKfbYFLfmXqetqlOd8FNNzyJeO
-	 8QnFs0OUUcMuyv+wGwkR+3HepGwQFbjDqHj7uDY/xdEG0H2NT+U1+adhfSS4XtcrBq
-	 gLIAS2btcH4BRFgRtNtqAKlLWAfqs7fBJ8vTDh3Ia16DbEdlwDU4oTcdsItzmechly
-	 S0lqwfcqMJ9AA==
+	b=ZUoVKTbtkkjmab7Wrf7HciKjTtpF6KZF//yjujrhqWNCsIQV3qBQmZg221WIazEsY
+	 +NWTxNMHL85N6TN3Fcs3wZymg0wTblHTr0eBJR53g6cdzCZ+u6uNEdPRUWqRX+qru4
+	 WOP/khZLbsLcPADVVWn9/YUIA0b084g7wVZeLw/m64MFuF+fO4u82eXcrj3GrVzzBt
+	 PTSDwfVhZ+bOJQ3z2M05txpyPelKULbV4qUgIe7/N7DhY30rHFzoMA8Ni1GbezFgbm
+	 kiTJlbI5lC7TWZ6vXZ14P1VbKTJg7S9gGLn6cy/w+DvdAg5x4KuNPyIQJq2kT0mPNr
+	 tt+dz+MtG9y3g==
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 09:46:06 +0200
-Subject: [PATCH v3 07/10] regulator: ab8500: Use linear ranges for LDO
- voltages
+Date: Mon, 14 Sep 2026 09:46:08 +0200
+Subject: [PATCH v3 09/10] regulator: ab8500: Preserve OTP-enabled buck
+ regulators
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ux500-dts-snowball-regulator-v3-7-7f92a365628e@kernel.org>
+Message-Id: <20260914-ux500-dts-snowball-regulator-v3-9-7f92a365628e@kernel.org>
 References: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
 In-Reply-To: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
 To: Stephan Gerhold <stephan@gerhold.net>, 
@@ -47,157 +47,180 @@ To: Stephan Gerhold <stephan@gerhold.net>,
 Cc: linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.14.3
 
-VINTCORE uses consecutive selectors with uniform 25 mV steps, with
-AB8505 duplicating the highest voltage at selector 7. AB8505 VAUDIO
-likewise has uniform 100 mV steps followed by a duplicate selector for
-its highest voltage.
+The SMPS enable fields are initialized from OTP and may leave a rail
+enabled for discrete consumers which cannot be described in the device
+tree. Such a rail currently looks unused to the regulator core and is
+disabled when constraints are completed.
 
-Describe these selector encodings with linear ranges and the matching
-regulator helpers instead of enumerated voltage tables. Keep tables for
-the irregular and non-monotonic VAUX and VANA selectors.
+Read the enable field while registering each switchable buck
+regulator. If it is nonzero, mark the regulator boot-on and always-on
+dynamically so the unused-regulator sweep leaves it alone. Keep the
+enable operation idempotent so applying the always-on constraint
+preserves an OTP-selected hardware-control or low-power mode instead of
+forcing high-power mode. Synchronize the cached mode with the preserved
+field so an OTP-selected low-power state is also reported correctly.
+
+Regulators which are disabled by OTP retain normal switchable
+behavior.
 
 Assisted-by: LLM
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/regulator/ab8500.c | 74 +++++++++++++++++++++++-----------------------
- 1 file changed, 37 insertions(+), 37 deletions(-)
+ drivers/regulator/ab8500.c | 76 ++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 67 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/regulator/ab8500.c b/drivers/regulator/ab8500.c
-index e4c3502c8dbc..d1540099104c 100644
+index 130febf2680a..57ef3d4610e6 100644
 --- a/drivers/regulator/ab8500.c
 +++ b/drivers/regulator/ab8500.c
-@@ -258,25 +258,13 @@ static const unsigned int ldo_vaux56_voltages[] = {
- 	2790000,
- };
+@@ -422,11 +422,10 @@ static int ab8500_regulator_disable(struct regulator_dev *rdev)
+ 	return ret;
+ }
  
--static const unsigned int ldo_vintcore_voltages[] = {
--	1200000,
--	1225000,
--	1250000,
--	1275000,
--	1300000,
--	1325000,
--	1350000,
-+static const struct linear_range ldo_vintcore_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(1200000, 0, 6, 25000),
- };
+-static int ab8500_regulator_is_enabled(struct regulator_dev *rdev)
++static int ab8500_regulator_get_enable_value(struct regulator_dev *rdev)
+ {
+ 	int ret;
+ 	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
+-	u8 enable_mask;
+ 	u8 regval;
  
--static const unsigned int ldo_vintcore_ab8505_voltages[] = {
--	1200000,
--	1225000,
--	1250000,
--	1275000,
--	1300000,
--	1325000,
--	1350000,
--	1350000,
-+static const struct linear_range ldo_vintcore_ab8505_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(1200000, 0, 6, 25000),
-+	REGULATOR_LINEAR_RANGE(1350000, 7, 7, 0),
- };
+ 	if (info == NULL) {
+@@ -442,18 +441,71 @@ static int ab8500_regulator_is_enabled(struct regulator_dev *rdev)
+ 		return ret;
+ 	}
  
- static const unsigned int fixed_1200000_voltage[] = {
-@@ -306,15 +294,10 @@ static const unsigned int ldo_vana_voltages[] = {
- 	1225000,
- };
- 
--static const unsigned int ldo_vaudio_voltages[] = {
--	2000000,
--	2100000,
--	2200000,
--	2300000,
--	2400000,
--	2500000,
--	2600000,
--	2600000,	/* Duplicated in Vaudio and IsoUicc Control register. */
-+static const struct linear_range ldo_vaudio_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(2000000, 0, 6, 100000),
-+	/* Duplicated in Vaudio and IsoUicc Control register. */
-+	REGULATOR_LINEAR_RANGE(2600000, 7, 7, 0),
- };
- 
- static DEFINE_MUTEX(shared_mode_mutex);
-@@ -720,13 +703,27 @@ static const struct regulator_ops ab8500_regulator_volt_mode_expand_ops = {
- 	.list_voltage		= regulator_list_voltage_table,
- };
- 
--static const struct regulator_ops ab8500_regulator_volt_ops = {
-+static const struct regulator_ops ab8500_regulator_linear_range_volt_mode_ops = {
-+	.enable			= ab8500_regulator_enable,
-+	.disable		= ab8500_regulator_disable,
-+	.is_enabled		= ab8500_regulator_is_enabled,
-+	.get_optimum_mode	= ab8500_regulator_get_optimum_mode,
-+	.set_mode		= ab8500_regulator_set_mode,
-+	.get_mode		= ab8500_regulator_get_mode,
-+	.get_voltage_sel	= ab8500_regulator_get_voltage_sel,
-+	.set_voltage_sel	= ab8500_regulator_set_voltage_sel,
-+	.list_voltage		= regulator_list_voltage_linear_range,
-+	.map_voltage		= regulator_map_voltage_linear_range,
-+};
+-	enable_mask = info->enable_mask ? info->enable_mask : info->update_mask;
+-
+ 	dev_vdbg(rdev_get_dev(rdev),
+ 		"%s-is_enabled (bank, reg, mask, value): 0x%x, 0x%x, 0x%x,"
+ 		" 0x%x\n",
+ 		info->desc.name, info->update_bank, info->update_reg,
+-		enable_mask, regval);
++		info->update_mask, regval);
 +
-+static const struct regulator_ops ab8500_regulator_linear_range_volt_ops = {
- 	.enable		= ab8500_regulator_enable,
- 	.disable	= ab8500_regulator_disable,
- 	.is_enabled	= ab8500_regulator_is_enabled,
- 	.get_voltage_sel = ab8500_regulator_get_voltage_sel,
- 	.set_voltage_sel = ab8500_regulator_set_voltage_sel,
--	.list_voltage	= regulator_list_voltage_table,
-+	.list_voltage	= regulator_list_voltage_linear_range,
-+	.map_voltage	= regulator_map_voltage_linear_range,
++	return regval & info->update_mask;
++}
++
++static int ab8500_regulator_is_enabled(struct regulator_dev *rdev)
++{
++	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
++	u8 enable_mask;
++	int ret;
++
++	ret = ab8500_regulator_get_enable_value(rdev);
++	if (ret < 0)
++		return ret;
++
++	enable_mask = info->enable_mask ? info->enable_mask : info->update_mask;
++
++	return !!(ret & enable_mask);
++}
+ 
+-	if (regval & enable_mask)
+-		return 1;
++static int ab8500_buck_enable(struct regulator_dev *rdev)
++{
++	int ret;
++
++	/* Keep an OTP-selected hardware or low-power mode intact. */
++	ret = ab8500_regulator_is_enabled(rdev);
++	if (ret)
++		return ret < 0 ? ret : 0;
++
++	return ab8500_regulator_enable(rdev);
++}
++
++static int ab8500_buck_init(struct regulator_dev *rdev,
++			    struct regulator_config *config)
++{
++	struct ab8500_regulator_info *info = config->driver_data;
++	int ret;
++
++	ret = ab8500_regulator_get_enable_value(rdev);
++	if (ret <= 0)
++		return ret;
++
++	/* Report forced LP accurately; HP and hardware control are normal mode. */
++	if (ret == info->update_val_idle)
++		info->update_val = info->update_val_idle;
+ 	else
+-		return 0;
++		info->update_val = info->update_val_normal;
++
++	/*
++	 * The SMPS enable state is selected by OTP.  An enabled rail may
++	 * supply discrete board components which are not represented as
++	 * regulator consumers, so keep it out of the unused-regulator sweep.
++	 */
++	rdev->constraints->boot_on = true;
++	rdev->constraints->always_on = true;
++	rdev->constraints->valid_ops_mask &= ~REGULATOR_CHANGE_STATUS;
++
++	dev_dbg(config->dev, "%s: preserving OTP-enabled state\n",
++		info->desc.name);
++
++	return 0;
+ }
+ 
+ static unsigned int ab8500_regulator_get_optimum_mode(
+@@ -861,7 +913,7 @@ static const struct regulator_ops ab8500_regulator_linear_range_volt_ops = {
  };
  
- static const struct regulator_ops ab8500_regulator_mode_ops = {
-@@ -836,12 +833,13 @@ static struct ab8500_regulator_info
- 	[AB8500_LDO_INTCORE] = {
+ static const struct regulator_ops ab8500_buck_ops = {
+-	.enable			= ab8500_regulator_enable,
++	.enable			= ab8500_buck_enable,
+ 	.disable		= ab8500_regulator_disable,
+ 	.is_enabled		= ab8500_regulator_is_enabled,
+ 	.get_optimum_mode	= ab8500_regulator_get_optimum_mode,
+@@ -1127,6 +1179,7 @@ static struct ab8500_regulator_info
  		.desc = {
- 			.name		= "LDO-INTCORE",
--			.ops		= &ab8500_regulator_volt_mode_ops,
-+			.ops		= &ab8500_regulator_linear_range_volt_mode_ops,
+ 			.name		= "BUCK-SMPS1",
+ 			.ops		= &ab8500_buck_ops,
++			.init_cb	= ab8500_buck_init,
  			.type		= REGULATOR_VOLTAGE,
- 			.id		= AB8500_LDO_INTCORE,
+ 			.id		= AB8500_BUCK_SMPS1,
  			.owner		= THIS_MODULE,
--			.n_voltages	= ARRAY_SIZE(ldo_vintcore_voltages),
--			.volt_table	= ldo_vintcore_voltages,
-+			.n_voltages	= 7,
-+			.linear_ranges	= ldo_vintcore_ranges,
-+			.n_linear_ranges = ARRAY_SIZE(ldo_vintcore_ranges),
- 			.enable_time	= 750,
- 		},
- 		.load_lp_uA		= 5000,
-@@ -1121,12 +1119,13 @@ static struct ab8500_regulator_info
- 	[AB8505_LDO_INTCORE] = {
+@@ -1152,6 +1205,7 @@ static struct ab8500_regulator_info
  		.desc = {
- 			.name		= "LDO-INTCORE",
--			.ops		= &ab8500_regulator_volt_mode_ops,
-+			.ops		= &ab8500_regulator_linear_range_volt_mode_ops,
+ 			.name		= "BUCK-SMPS2",
+ 			.ops		= &ab8500_buck_ops,
++			.init_cb	= ab8500_buck_init,
  			.type		= REGULATOR_VOLTAGE,
- 			.id		= AB8505_LDO_INTCORE,
+ 			.id		= AB8500_BUCK_SMPS2,
  			.owner		= THIS_MODULE,
--			.n_voltages	= ARRAY_SIZE(ldo_vintcore_ab8505_voltages),
--			.volt_table	= ldo_vintcore_ab8505_voltages,
-+			.n_voltages	= 8,
-+			.linear_ranges	= ldo_vintcore_ab8505_ranges,
-+			.n_linear_ranges = ARRAY_SIZE(ldo_vintcore_ab8505_ranges),
- 		},
- 		.load_lp_uA		= 5000,
- 		.update_bank		= 0x03,
-@@ -1169,12 +1168,13 @@ static struct ab8500_regulator_info
- 	[AB8505_LDO_AUDIO] = {
+@@ -1177,6 +1231,7 @@ static struct ab8500_regulator_info
  		.desc = {
- 			.name		= "LDO-AUDIO",
--			.ops		= &ab8500_regulator_volt_ops,
-+			.ops		= &ab8500_regulator_linear_range_volt_ops,
+ 			.name		= "BUCK-SMPS3",
+ 			.ops		= &ab8500_buck_ops,
++			.init_cb	= ab8500_buck_init,
  			.type		= REGULATOR_VOLTAGE,
- 			.id		= AB8505_LDO_AUDIO,
+ 			.id		= AB8500_BUCK_SMPS3,
  			.owner		= THIS_MODULE,
--			.n_voltages	= ARRAY_SIZE(ldo_vaudio_voltages),
--			.volt_table	= ldo_vaudio_voltages,
-+			.n_voltages	= 8,
-+			.linear_ranges	= ldo_vaudio_ranges,
-+			.n_linear_ranges = ARRAY_SIZE(ldo_vaudio_ranges),
- 		},
- 		.update_bank		= 0x03,
- 		.update_reg		= 0x83,
+@@ -1556,6 +1611,7 @@ static struct ab8500_regulator_info
+ 		.desc = {
+ 			.name		= "BUCK-SMPSA",
+ 			.ops		= &ab8500_buck_ops,
++			.init_cb	= ab8500_buck_init,
+ 			.type		= REGULATOR_VOLTAGE,
+ 			.id		= AB8505_BUCK_SMPSA,
+ 			.owner		= THIS_MODULE,
+@@ -1581,6 +1637,7 @@ static struct ab8500_regulator_info
+ 		.desc = {
+ 			.name		= "BUCK-SMPSB",
+ 			.ops		= &ab8500_buck_ops,
++			.init_cb	= ab8500_buck_init,
+ 			.type		= REGULATOR_VOLTAGE,
+ 			.id		= AB8505_BUCK_SMPSB,
+ 			.owner		= THIS_MODULE,
+@@ -1606,6 +1663,7 @@ static struct ab8500_regulator_info
+ 		.desc = {
+ 			.name		= "BUCK-SAFE",
+ 			.ops		= &ab8500_buck_ops,
++			.init_cb	= ab8500_buck_init,
+ 			.type		= REGULATOR_VOLTAGE,
+ 			.id		= AB8505_BUCK_SAFE,
+ 			.owner		= THIS_MODULE,
 
 -- 
 2.55.0
