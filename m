@@ -1,166 +1,198 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71C64968F0;
-	Mon, 14 Sep 2026 12:50:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7394B49CF45;
+	Mon, 14 Sep 2026 12:50:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390229; cv=none; b=PcXz/ggBnn6ulAuawx2SQXjfS4BbujzhO9X4aoFpuat5FosPQh2h5VKJoetMGxEo8V+KfV1v3YSnSKXpbZyiv8AKWj6oiBFF8G/xkzGTSjrW46cuI7t4fyZ0kE08BVBY/YMj6QPZF42Z6wWqTXwGxsnxu4AAdhNlXPhivxFDw7g=
+	t=1789390234; cv=none; b=gw1FZBfCEnMNCLzdAPgfcK/LKOns2vuXP/1FPa8b5iiOK0Hjx27GTyNN/ZHdfEhuLAd3/uvCrC3fB26zJsKrkkCchHRMPcnFxTE4Mtom6bDazISVJb8/OwTTxS4omib+nc14lUmKJA0mxtzA8wlF2aNgomuCeA91obCr+Qvbdsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390229; c=relaxed/simple;
-	bh=51+QGtDrrULfWPwN+qx3nNNHE2I+SDEQHyJRI8YKgiQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PqX/wWjZJbo0HDiLTgEbMGidJ9GApC4TPnGIsBfb7ZXp87c3F5J8c9Vyq9Q7xRouej4sTbeXSyVS/z9TrYHAOsoq2rgszKn7Uqp4LkO1W0ipZ3GMooVZCnxQeCX+uj+KGW2WlsaS8l7bLZigRq9xbaARmoPmFv3S+cBsExb2lJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OsrBnctL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789390234; c=relaxed/simple;
+	bh=PYl9tcxM6Cdu8hGPpv2Egs41pWacXKoL2X28FmuNlZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LiOrImYveWqNlAliTegxGWOP36WZpoTPE6rwHFNn55e2cD1/3OcwmuA8RLKbfw+0+2Oemn9srF7OzlJx81Kd7WQ58NXLfGZxz6OxxTJ0v8sm+GNqes69BEKm+MzrlLkjYumMCbtvAbAnf6T1Rk2URBPgN+mRwnA7N9N5da0S+VI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+mdlLmt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OsrBnctL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 855C61F00902;
-	Mon, 14 Sep 2026 12:50:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+mdlLmt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE59E1F0089B;
+	Mon, 14 Sep 2026 12:50:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789390225;
-	bh=nAHs0FwO5HirqBTAsL4xPSPoEzHJVgBNldVSVJGuM6w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OsrBnctLlVJgJWgc+plCxEab0DY8146Qc1y8Ip+Tu/Ll3daLLQsZaHPldecXLyIdC
-	 NBuC3ALG7uHJs19Qw3qJdlrLV9Ay7UVdlo7Bh8RRQ1RWDqKWUnsfOIRfQmgNVqrY8n
-	 wp5SesIHJyRyNLXyA+WfzoHIpICyGsVKuLUtDzW2qWN7k7FZ7WqfxCWV5etlbIM54b
-	 gVP5twM7yfOTh/ZQRqmwiVOXlFYvVhHItFHWHfKQToTY+135Kiu2uJkEBXt3uqd8VB
-	 xaTqe/pxjFr4Z0TSy6ARyNJKJNSPNL/xELAfpyHHOgSHUa5LmN0goMPEqN7VffUzm7
-	 9BAQr8UcOfqFw==
-Subject: Re: [PATCH net-next] dt-bindings: net: Use consistent indentation in
- the example
-From: netdev-bot+sashiko@kernel.org
-To: krzysztof.kozlowski@oss.qualcomm.com
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, justin.chen@broadcom.com, florian.fainelli@broadcom.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, ulli.kroll@googlemail.com,
- linusw@kernel.org, clement.leger@bootlin.com, olteanv@gmail.com,
- hkallweit1@gmail.com, linux@armlinux.org.uk, hayashi.kunihiko@socionext.com,
- mhiramat@kernel.org, nbd@nbd.name, lorenzo@kernel.org, ryder.lee@mediatek.com,
- shayne.chen@mediatek.com, sean.wang@mediatek.com, johannes@sipsolutions.net,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- jjohnson@kernel.org, richardcochran@gmail.com, geert+renesas@glider.be,
- magnus.damm@gmail.com, yongxing.mou@oss.qualcomm.com, rfoss@kernel.org,
- abelvesa@kernel.org, vineetha.g.jaya.kumaran@intel.com,
- claudiu.manoil@nxp.com, alexandre.belloni@bootlin.com, elder@kernel.org,
- s-vadapalli@ti.com, rogerq@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-mediatek@lists.infradead.org,
- ath10k@lists.infradead.org
-Date: Mon, 14 Sep 2026 12:50:22 +0000
-Message-ID: <178939022208.22033.14553895731937911806@kernel.org>
-In-Reply-To: <20260913122910.99457-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260913122910.99457-3-krzysztof.kozlowski@oss.qualcomm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789390230;
+	bh=qNK7HWtEwf7yYtEI+BW5sYT6RpN5ifh+1rzahdwRim4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=i+mdlLmtunjzGffH0pIm4ljNJcZczRmG9ygNjA5aWYlknuQuYzvt0gmX+HGnEZptQ
+	 yJ3D+mCRLWWhwpeRdnLKJ4hVcNC6TzBzDNpEpSktv8XCEwSOBjhPOxp+5duz4nXzod
+	 I37kDpDZGkgsyTzig4+va3ZIoCGnMlHbV2iVEwiJ3hQq6oLqZ6+o67+saHyrvdtfrn
+	 JjI0ei5irh2Lzp1FuBqM9gqTa1Ap3tWNM6vcz+TZveJ+BjilSvXJX1mL35tS7zXuT1
+	 x5jA5oZ2X1utAz2hWNuRfvIi81kigGM4kUAEQ4bGBd7lMQiIJL+iRX96NozVkSAAnF
+	 sACWfvh4MaDJQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	x86@kernel.org
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	kvm@vger.kernel.org
+Subject: [PATCH v16 04/13] x86/hw_breakpoints: Add arch_modify_local_hw_breakpoint_addr() API
+Date: Mon, 14 Sep 2026 21:50:23 +0900
+Message-ID: <178939022358.94750.10843461787759740658.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <178939017565.94750.9431053336761330458.stgit@devnote2>
+References: <178939017565.94750.9431053336761330458.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+From: Jinchao Wang <wangjinchao600@gmail.com>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Wprobe needs to move an active per-CPU watchpoint without releasing and
+reserving its hardware slot.
 
-- [Medium] In Documentation/devicetree/bindings/net/cortina,gemini-
-  ethernet.yaml the patch does more than re-indent: it deletes the whole…
+Add arch_modify_local_hw_breakpoint_addr() as the architecture backend for
+modify_local_hw_breakpoint_addr(). It validates the new address, finds the
+installed local slot, and updates the hardware debug register and per-CPU
+shadow register. The core layer (modify_local_hw_breakpoint_addr()) handles
+updating bp->attr.bp_addr and counter_arch_bp(bp)->address.
 
---
+The caller must provide an installed local event and a valid address.
+Slot ownership, breakpoint type, length, mask and DR7 remain unchanged.
 
-dt-bindings: net: Use consistent indentation in the example
+Link: https://lore.kernel.org/all/59637b96946653393a7ad3c7de094094796b39c2.1785067572.git.wangjinchao600@gmail.com/
 
-This reindents the DT binding examples under Documentation/devicetree/
-bindings/net/ to consistent 2- or 4-space indentation so that
-dt-check-style stops reporting "indent mismatch" warnings.  Twelve
-binding files are touched.
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Jinchao Wang <wangjinchao600@gmail.com>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+Changes in v16:
+ - Clear breakpoint in shadow cpu_dr7 before setting hardware DR7 so
+   an intervening NMI cannot re-enable the breakpoint via
+   local_db_restore() while the address register is being updated,
+   preventing spurious #DB exceptions.
+ - Check cpu_dr_in_guest and return -EBUSY to reject modifying local
+   breakpoints while executing a KVM guest.
+Changes in v15:
+ - Temporarily clear the breakpoint enable bit in DR7 before updating the
+   debug address register, and re-enable it afterward, to comply with the
+   x86 hardware specification and avoid spurious #DB exceptions.
+Changes in v13:
+ - Add compiler barrier (barrier()) before checking cpu_dr7_seq to
+   prevent hoisting the sequence check before set_debugreg().
+ - Clarify in commit log and code comment that the core layer manages
+   updating bp->attr.bp_addr and counter_arch_bp(bp)->address.
+Changes in v11:
+ - Return int error code instead of void.
+ - Validate the new address using hw_breakpoint_arch_parse() before
+   updating registers.
+ - Increment cpu_dr7_seq in a sequence loop for NMI protection.
+ - Return -ENOENT if the breakpoint slot is not found on the local CPU.
+---
+ arch/x86/include/asm/hw_breakpoint.h |    2 +
+ arch/x86/kernel/hw_breakpoint.c      |   61 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 63 insertions(+)
 
-> diff --git a/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml b/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
-> index f0b5bea2458d5..da9bc170cd543 100644
-> --- a/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
-> +++ b/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
-> @@ -87,18 +87,6 @@ examples:
->      #include <dt-bindings/interrupt-controller/irq.h>
->      #include <dt-bindings/clock/cortina,gemini-clock.h>
->      #include <dt-bindings/reset/cortina,gemini-reset.h>
-> -    mdio0: mdio {
-> -      #address-cells = <1>;
-> -      #size-cells = <0>;
-> -      phy0: ethernet-phy@1 {
-> -        reg = <1>;
-> -        device_type = "ethernet-phy";
-> -      };
-> -      phy1: ethernet-phy@3 {
-> -        reg = <3>;
-> -        device_type = "ethernet-phy";
-> -      };
-> -    };
+diff --git a/arch/x86/include/asm/hw_breakpoint.h b/arch/x86/include/asm/hw_breakpoint.h
+index 0bc931cd0698..f35ec491f6dd 100644
+--- a/arch/x86/include/asm/hw_breakpoint.h
++++ b/arch/x86/include/asm/hw_breakpoint.h
+@@ -59,6 +59,8 @@ extern int hw_breakpoint_exceptions_notify(struct notifier_block *unused,
+ 
+ 
+ int arch_install_hw_breakpoint(struct perf_event *bp);
++int arch_modify_local_hw_breakpoint_addr(struct perf_event *bp,
++					 unsigned long addr);
+ void arch_uninstall_hw_breakpoint(struct perf_event *bp);
+ void hw_breakpoint_pmu_read(struct perf_event *bp);
+ void hw_breakpoint_pmu_unthrottle(struct perf_event *bp);
+diff --git a/arch/x86/kernel/hw_breakpoint.c b/arch/x86/kernel/hw_breakpoint.c
+index 866bbbb8918d..37896902da5c 100644
+--- a/arch/x86/kernel/hw_breakpoint.c
++++ b/arch/x86/kernel/hw_breakpoint.c
+@@ -135,6 +135,67 @@ int arch_install_hw_breakpoint(struct perf_event *bp)
+ 	return 0;
+ }
+ 
++/*
++ * Modify the address of an installed perf counter breakpoint on local CPU.
++ *
++ * This updates the debug address register and per-CPU shadow state without
++ * changing slot allocation or DR7. The core layer (modify_local_hw_breakpoint_addr())
++ * manages updating bp->attr.bp_addr and counter_arch_bp(bp)->address.
++ *
++ * Atomic: called with IRQs disabled and handles variables and registers
++ * local to this CPU.
++ */
++int arch_modify_local_hw_breakpoint_addr(struct perf_event *bp,
++					 unsigned long addr)
++{
++	struct arch_hw_breakpoint *info = counter_arch_bp(bp);
++	struct arch_hw_breakpoint hw;
++	struct perf_event_attr attr = bp->attr;
++	unsigned int seq;
++	int i, ret;
++
++	lockdep_assert_irqs_disabled();
++
++	if (this_cpu_read(cpu_dr_in_guest))
++		return -EBUSY;
++
++	attr.bp_addr = addr;
++	ret = hw_breakpoint_arch_parse(bp, &attr, &hw);
++	if (ret)
++		return ret;
++
++	for (i = 0; i < HBP_NUM; i++) {
++		if (this_cpu_read(bp_per_reg[i]) == bp)
++			break;
++	}
++
++	if (WARN_ONCE(i == HBP_NUM, "Can't find any breakpoint slot"))
++		return -ENOENT;
++
++	do {
++		seq = this_cpu_inc_return(cpu_dr7_seq);
++
++		/* Disable breakpoint in shadow DR7 and hardware DR7 */
++		this_cpu_and(cpu_dr7, ~__encode_dr7(i, info->len, info->type));
++		barrier();
++		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
++		barrier();
++
++		this_cpu_write(cpu_debugreg[i], addr);
++		barrier();
++		set_debugreg(addr, i);
++		barrier();
++
++		/* Re-enable breakpoint in shadow DR7 and hardware DR7 */
++		this_cpu_or(cpu_dr7, encode_dr7(i, info->len, info->type));
++		barrier();
++		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
++		barrier();
++	} while (seq != this_cpu_read(cpu_dr7_seq));
++
++	return 0;
++}
++
+ /*
+  * Uninstall the breakpoint contained in the given counter.
+  *
 
-[Severity: Medium]
-Is this deletion intended?  The commit message says only:
-
-    Correct indentation in the examples to consistent 2- or 4-spaces
-    indentation to fix dt-check-style warnings
-
-Every other hunk in the series is a pure whitespace shift with the brace
-nesting preserved, but here the whole mdio0 node with phy0 and phy1 is
-removed and nothing is added back.
-
-Wouldn't re-indenting the mdio0 node to 4 spaces achieve the stated goal
-without dropping the example content?
-
-> 
->      ethernet@60000000 {
->          compatible = "cortina,gemini-ethernet";
-> @@ -110,28 +98,28 @@ examples:
->          ranges;
->  
->          gmac0: ethernet-port@0 {
-[ ... ]
-> +            phy-mode = "rgmii";
-> +            phy-handle = <&phy0>;
->          };
-
-[Severity: Medium]
-Do the surviving phy-handle properties in gmac0 and gmac1 now reference
-labels that no longer exist in the file?  After this patch the file
-contains:
-
-    gmac0: ethernet-port@0 {
-        ...
-        phy-handle = <&phy0>;
-    };
-
-    gmac1: ethernet-port@1 {
-        ...
-        phy-handle = <&phy1>;
-    };
-
-but there is no longer any definition of phy0 or phy1 anywhere in
-cortina,gemini-ethernet.yaml, and the example no longer shows the MDIO bus
-and PHY topology it used to illustrate.
-
-If the mdio0 removal is deliberate, could it go into a separate patch that
-also updates the phy-handle references?
-
->  
->          gmac1: ethernet-port@1 {
-[ ... ]
-> +            phy-mode = "rgmii";
-> +            phy-handle = <&phy1>;
->          };
->      };
-
-[ ... remaining files snipped, no comments ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913122910.99457-3-krzysztof.kozlowski%40oss.qualcomm.com
