@@ -1,146 +1,353 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A8D35C68D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52188369D7C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371536; cv=none; b=mH2DwA7FfMsiqR61J4t1uN8C+Z+l8kAWKt4xHqDmwLsPeqCC0KwtiGMG/jEpNT4XyNflbki9Aw/inW7OWtqr7G53xEwEGzpEErzpvTayqudqo5FWjLtL5RyDZdwgHtziEGxCOmPVp8TzYkqexb2yk0k7KvsduIKQ985Ygv1THCY=
+	t=1789371546; cv=none; b=cDNNDtPgipW1QEkX9M1X015OvxHrhVzZwpMIosUmmoHUWoNBJste/e8pINJUSiK66xZklbq5ezQ1EtvZXnm2kPgw/MgFr6xb/5U9cWoab4O8tQkfaQWE20UfYgEcODnoURj4ASnresDM3WCz0pu7ZKvTrIfmuwHcz83a7Wnx3vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371536; c=relaxed/simple;
-	bh=IZAQs5Mbd0VHxeZKpUFNEOb0Cu6bsj2Yfmj3KWn/wQo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PxZc/gTKWW4MpRqkOeVjr9C4MJSvaLKkd8foxOmh2MIoeTBkRE0ASnpoMVFWFehsWmPSyHqCBndqQSpdUQf+wq7xp/i9C65qAHzcV2A8i0JeHm4Yl86WXbuL7wzB7z2pZEg46kXeiSbQi72AmlMr0BO6TvuBm5GoOkgl9lXRCSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KyUmKA9r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h6yfFJLp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KyUmKA9r";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h6yfFJLp"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5j46b2628351
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:38:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=HKYGjaoMC5AkTZVbZyYUvH8u
-	rS/boJ/Q+kOD1Piid8A=; b=KyUmKA9rHARHtjXsMn5js4pUi9S8yQ9bUOMBPMQY
-	CuSef5gESsVvphF6Hw03GL8jmubsV0b93rNMAZ8R3jZM+r3Tt0AN0JJZdUphynK1
-	lHDN0TyM7Xg8xlO0SvJKgmp793FTTDpM8RKkFNEMkBZfKbQRnh8uLDPpI5r+3NIN
-	+D27kZAC+BstxTyiG3fV9QfobNxqsshf/HiMODeu7k8OsoElVcY4zysx9/20q2Yv
-	nlpyxqETA7GpK3VhzJi2H5o33Z+6s1IYApeUI6DGPHIoQiS1eIVeTdJ3ZYqgllSe
-	aYOoYcVsuETD0NpCP5nVjaGbbjcPfRyhTOh4GpzaE7i9CQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmywh5dte-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:38:54 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a1de6d5c3so183126185a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:38:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789371533; x=1789976333; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HKYGjaoMC5AkTZVbZyYUvH8urS/boJ/Q+kOD1Piid8A=;
-        b=h6yfFJLpVVbxxcyELKrCL02D5/g7q15xE1oOWIltseht63m3ieYYxi2VajaDtT5mql
-         rVcRo5vnVzIisSCnh+3xOYhybEYZc3WXq+Gw0ZyEgun+w9tvgtmz7gtlDmwq4/lRxmei
-         YTG2ZoJwMVMkSQ1zfabfsl94pSH5152jq/9TaMmQgS3aWviZR4Q3tZPG7QJ9wisyYo37
-         /5kldIp5ih3/a3ULRWpKMd6HxRB0vyZNlisUftUSfhxy934R/QtSskItm+L5Gql+/PkS
-         EWbsOp9qBi68FISNl1sXIICzNv/w+6ZjKGpGCwPXHHfuxGDlf29ebskXqWgg5dr3Dm6F
-         O+Tw==
+	s=arc-20240116; t=1789371546; c=relaxed/simple;
+	bh=KR0/tcWoL/mZd12+SDEqDTB2tE8iLq+uKarTKSOpO58=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=FjaCp69AK4aFLb7BxDojxHrM+Tgw5Dqp74cCxjK4jrwfJoiSaiBFydPxcPanrU9cCYCTfjRz7ztVsh6OlIpWcKnJKuwnSTO44go++vgGAKv65zd/qNiFi/Flmm7QbKb1QRsut4L11Z+ZYQ8qI6as5Wwi3lzSoFDHT1NZcmFUUrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6c1538bc4c0so1344958eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:39:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371533; x=1789976333;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HKYGjaoMC5AkTZVbZyYUvH8urS/boJ/Q+kOD1Piid8A=;
-        b=BhnAzWOTOgGuCi4JsMXNnpzM2Dr0l9yqV4juxrVKYKw7YclWffnk+I2IUpwYaoMHoQ
-         kV24DW4S1wz9tmtG5wuiUbuFEndIAkKTplt2cAgF/IfnJOAIWM32vPQX4dYf7LuClk3/
-         LXfi8rLEqcpCC8FVEhIXLMZmobkeIZxdb2xihhuHBZ0fmfCvx47AZj683r8BZqlElRqO
-         rWsAdIoc8txB0AFqNYoVqnfJaLub5pZJTb4xcjEQzFUHSzFgP5XuL+TQPlegf3BYesCX
-         42STw/HsrZf/jTFofrM2osbPz5mc0bVl4hNzFT87GTX4Pof/mPPL0eVsZNCP1i+bhhPP
-         vPuw==
-X-Forwarded-Encrypted: i=1; AKwUvBw13hbmRFwjTmxgB7SDiR1LZ841Db2SUq+5uBoe4y5DwEvD1AdxBfFMKxt9vla8TXZno/ozOvYdmUWgXbE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kl49qSr3WHr2JTJEE/Gm+qO9ZdKiRESlquLAG40D2YoJTmX2Wa
-	eIknxAh97BKgqcjX534HGXLz5uB/37nRMf4xkWjdmGEN2StG+Sp0xRxfN1AEX6evKbXY9emPXF6
-	GakmoLoi5IvwRbm+wO4KDhicoGdcupmlB8NmK91E1WvoG3SPyvLtAwy9ZRYpqKJ7r3Mg=
-X-Gm-Gg: AYBFou250lrmwa17ICQO+0+q0T7PrmjXSXd0bWozmnmhftNW/31qAhDJigo/bXFZDEY
-	U5pqft8GZTpq3gevUSS37LETf67caX7zWR8gFzZJ57rGQ7OXX5xanKIumlraTIzNKej8e11+NVc
-	6h43CwiwERg5b44l4Fy5Y6PGqnevgyfeiI1m6I/4zd3khr5n7Pjz5bUvPgdHmiyomUUvkC3H5Cd
-	qyJiezEgTdhohpW0EFDFWmsJ66DlF1ZywoaFmhD5Gdk4PmSVvh8QkoBfvumz8fZoLxkMVFuzg9w
-	VYGP1O8UVez7pllx7yNyJ55WaLR9LeCzGed9/z7z8apmyrvDw4pq9eKi3okim8+CvYSL3PIKvyr
-	sv30iHGIzmfmki+w=
-X-Received: by 2002:a05:620a:2b9c:b0:92e:bd39:9993 with SMTP id af79cd13be357-93a299475a5mr183311585a.31.1789371533190;
-        Mon, 14 Sep 2026 00:38:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b9c:b0:92e:bd39:9993 with SMTP id af79cd13be357-93a299475a5mr183309385a.31.1789371532741;
-        Mon, 14 Sep 2026 00:38:52 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fd3bsm25373986f8f.19.2026.09.14.00.38.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:38:51 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:38:50 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 12/31] arm64: dts: qcom: sm8150: Add domain idle state
- names
-Message-ID: <7mxsmfbx6qgzfn7vaz23ylvhoixolc5ge2ie6fer3bmzydwxjd@njd22lbnyyj5>
-References: <20260914-b4-idle-state-name-v1-0-660c31187819@oss.qualcomm.com>
- <20260914-b4-idle-state-name-v1-12-660c31187819@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1789371543; x=1789976343;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vv2lvyyvEterozcPCc7dGxfOavpQPip/6EJz2S9gJRM=;
+        b=WhCIqIfdJp0BnsdjKDs3VTlfBIS7k8ofTOMxQvXizJ9xxtg7sPA+YJlgj0YrN0LUdj
+         Dv+aQlmdVjr+OTrUG953xYflIxbAbhE0OM4NbmxC27Ci2xPq6Ggq170vejh+eaTD/e/X
+         SncBaX5f+le8tqi07LAqYf+QxKqalxvxq8B5KBf3/r3rfYq+tlSHSQBVP09thwNxoyNK
+         yN81p2Nut5WARF8PJg1kbI9Rpyf9GOPZH1JYs1PADw9RaF5EBPfgbOo10XMZ1xj/AFyX
+         e12NM3sXwLgp6HP+qXnpV/WwzqsXEDf4Rn9wPl9L+RmovkXG1rs0nfR6RuZvTC7tCEmw
+         6GVg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9JMEJuC+38wu1UbuvEtootw/Vn9I7dRwh5u+GKuyyRjZ6In7x3U4q3Wv6aGwQ9sZoYX8GxAFKfTXbPEQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGFN+R2cPGlLCTGvoQIEYrvx4tMMnvnrEJ0XmeulSkhADo6bcq
+	Y4x8/LFKlTNDFdYYBhqBnkXimWONE9aH0n7YFWElhV8WBvUyYVpMSFI4+k63sf9qRA85vRbd1a3
+	AS08plkRj6N8/TEfWtkmUD7p9xlTE1gRtwR+2wJpc7+QLq+8o4Gjpka/GQxg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-b4-idle-state-name-v1-12-660c31187819@oss.qualcomm.com>
-X-Proofpoint-GUID: Q15J6xorJs2DOo4rDTO1Cq6WwCN85KOv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfX8kjHuNJ8Db0O
- fQEmZ1a0gBP+XFVOAvja0BMQylHT1B0ZClRkvQ83csB4DvunHb1CXg0rxm6mFxtRrE2/YnAZomZ
- kUELgY27u2S11gXvHzLZDqX1rnSxMeltTz6h+crUIpz2AeZ0+OQXMg+6gswls8cf0+vpYvHqtzj
- rG5eG+Y7dnOvMierbMAFouF0BV1Kli5RjQUEI71n+Pn7e4+RNyl40GW3K2cfhsBFXO2oy+XMdkr
- +BJynfTrsOkloFtQRJM7qkUhXA2FzZ3N8f1syodwFxpsj7hiv5XPl3ZuuEkUImPEYtGEPgkN39H
- Qdi7wJ1aLbuxQBCjmVV0hP1BcN2EDgEQFIs4hghuxrnEgZTJJ2dOP06mdpTjSYokM31kMOyFCeW
- eKvl4rPM22hjcA3PO/HGNvsb9rrwT8JKQsvpvW+Z+l5FDAMVvjwey9RkeigL6Ae5SJfWX1nkm0D
- f9N9MCq8F3j4MR3M4NA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfX/De52ai9aELX
- P9LgrZMI+rrfg1jIOXq40U1NBXLGCmzUaytOEga0buG6tUQU37V+L5VvRAtU6LkMvJxQOQjn82W
- kZWqkWuT5dEfT9olBk1ZSUk7niMRr+0=
-X-Proofpoint-ORIG-GUID: Q15J6xorJs2DOo4rDTO1Cq6WwCN85KOv
-X-Authority-Analysis: v=2.4 cv=PsUG/AM3 c=1 sm=1 tr=0 ts=6aa7a48e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=HAnpKfeiUU4SruykqnYA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0
- malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140106
+X-Received: by 2002:a05:6820:f022:b0:6ae:a950:9faa with SMTP id
+ 006d021491bc7-6c53ea5bfd8mr552924eaf.10.1789371542938; Mon, 14 Sep 2026
+ 00:39:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 00:39:02 -0700
+In-Reply-To: <6aa79dcd.717c4d5f.2255e.48efSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7a496.4c28b7d0.c1bba.0015.GAE@google.com>
+Subject: Re: [syzbot] [batman?] WARNING in batadv_iv_ogm_process_per_outif
+From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-09-14 12:29:44, Maulik Shah wrote:
-> Add the idle-state-name property for the domain idle state so low power
-> modes are described consistently and its name is printed in pmdomain
-> debugfs.
-> 
-> While at it, update CPU idle state names to match the low power modes
-> they describe.
-> 
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Hello,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+syzbot tried to test the proposed patch but the build/boot failed:
+
+lost connection to test machine
+
+
+
+[  104.852219][ T1219] cfg80211: failed to load regulatory.db
+Warning: Permanently added '10.128.0.93' (ED25519) to the list of known hos=
+ts.
+2026/09/14 07:37:15 parsed 1 programs
+2026/09/14 07:37:15 serving rpc on tcp://34817
+[  113.874515][ T5628] cgroup: Unknown subsys name 'net'
+[  113.950099][ T5628] cgroup: Unknown subsys name 'cpuset'
+[  113.953008][ T5628] cgroup: Unknown subsys name 'rlimit'
+Setting up swapspace version 1, size =3D 127995904 bytes
+[  115.529192][ T5628] Adding 124996k swap on ./swap-file.  Priority:0 exte=
+nts:1 across:124996k=20
+[  119.248082][ T5641] soft_limit_in_bytes is deprecated and will be remove=
+d. Writing any value to this file has no effect. Please report your usecase=
+ to linux-mm@kvack.org if you depend on this functionality.
+[  119.264382][ T5641] ebtables: xtables 32bit compat interface no longer s=
+upported in namespaces and will be removed soon.
+[  119.266018][ T5641] arp_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[  119.270470][ T5641] ip_tables: xtables 32bit compat interface no longer =
+supported in namespaces and will be removed soon.
+[  119.271534][ T5641] ip6_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[  121.334097][ T5666] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  121.338021][ T5666] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  121.338232][ T5666] bridge_slave_0: entered allmulticast mode
+[  121.341025][ T5666] bridge_slave_0: entered promiscuous mode
+[  121.353220][ T5666] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  121.353501][ T5666] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  121.353686][ T5666] bridge_slave_1: entered allmulticast mode
+[  121.355722][ T5666] bridge_slave_1: entered promiscuous mode
+[  121.434681][ T5666] bond0: (slave bond_slave_0): Enslaving as an active =
+interface with an up link
+[  121.458570][ T5666] bond0: (slave bond_slave_1): Enslaving as an active =
+interface with an up link
+[  121.515626][ T5666] team0: Port device team_slave_0 added
+[  121.531678][ T5666] team0: Port device team_slave_1 added
+[  121.573221][ T5666] batman_adv: batadv0: Adding interface: batadv_slave_=
+0
+[  121.573235][ T5666] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_0 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[  121.573249][ T5666] batman_adv: batadv0: Not using interface batadv_slav=
+e_0 (retrying later): interface not active
+[  121.581147][ T5666] batman_adv: batadv0: Adding interface: batadv_slave_=
+1
+[  121.581169][ T5666] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_1 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[  121.581195][ T5666] batman_adv: batadv0: Not using interface batadv_slav=
+e_1 (retrying later): interface not active
+[  121.732585][ T5666] hsr_slave_0: entered promiscuous mode
+[  121.733348][ T5666] hsr_slave_1: entered promiscuous mode
+[  121.937442][ T5666] netdevsim netdevsim1 netdevsim0: renamed from eth0
+[  121.945618][ T5666] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m0
+[  121.948185][ T5666] netdevsim netdevsim1 netdevsim1: renamed from eth1
+[  121.963090][ T5666] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m1
+[  121.990464][ T5666] netdevsim netdevsim1 netdevsim2: renamed from eth2
+[  121.992839][ T5666] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m2
+[  121.995183][ T5666] netdevsim netdevsim1 netdevsim3: renamed from eth3
+[  122.012233][ T5666] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m3
+[  122.065151][ T5666] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  122.065402][ T5666] bridge0: port 2(bridge_slave_1) entered forwarding s=
+tate
+[  122.066001][ T5666] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  122.066607][ T5666] bridge0: port 1(bridge_slave_0) entered forwarding s=
+tate
+[  122.130740][   T37] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  122.131846][   T37] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  122.169256][ T5666] 8021q: adding VLAN 0 to HW filter on device bond0
+[  122.190400][ T5666] 8021q: adding VLAN 0 to HW filter on device team0
+[  122.214365][   T37] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  122.214447][   T37] bridge0: port 1(bridge_slave_0) entered forwarding s=
+tate
+[  122.233900][   T37] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  122.234002][   T37] bridge0: port 2(bridge_slave_1) entered forwarding s=
+tate
+[  122.329395][ T5666] 8021q: adding VLAN 0 to HW filter on device batadv0
+[  122.380927][ T5666] veth0_vlan: entered promiscuous mode
+[  122.404874][ T5666] veth1_vlan: entered promiscuous mode
+[  122.444443][ T5666] veth0_macvtap: entered promiscuous mode
+[  122.451686][ T5666] veth1_macvtap: entered promiscuous mode
+[  122.475228][ T5666] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_0
+[  122.496834][ T5666] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_1
+[  122.540927][   T61] netdevsim netdevsim1 netdevsim1: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  122.563724][   T59] netdevsim netdevsim1 netdevsim3: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  122.565323][   T37] netdevsim netdevsim1 netdevsim2: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  122.567465][   T37] netdevsim netdevsim1 netdevsim0: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  122.773657][   T37] netdevsim netdevsim1 netdevsim3 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  122.863583][   T37] netdevsim netdevsim1 netdevsim2 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  122.928890][   T37] netdevsim netdevsim1 netdevsim1 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  124.498043][   T37] netdevsim netdevsim1 netdevsim0 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  124.548496][   T59] wlan0: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[  124.548523][   T59] wlan0: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[  124.632676][   T59] wlan1: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[  124.632699][   T59] wlan1: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[  124.765000][ T4931] Bluetooth: hci0: unexpected cc 0x0c03 length: 249 > =
+1
+[  124.780274][ T4931] Bluetooth: hci0: unexpected cc 0x1003 length: 249 > =
+9
+[  124.782685][ T4931] Bluetooth: hci0: unexpected cc 0x1001 length: 249 > =
+9
+[  124.783771][ T4931] Bluetooth: hci0: unexpected cc 0x0c23 length: 249 > =
+4
+[  124.784622][ T4931] Bluetooth: hci0: unexpected cc 0x0c38 length: 249 > =
+2
+execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
+(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
+[  126.157372][   T37] bridge_slave_1: left allmulticast mode
+[  126.157419][   T37] bridge_slave_1: left promiscuous mode
+[  126.160359][   T37] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  126.185651][   T37] bridge_slave_0: left allmulticast mode
+[  126.185682][   T37] bridge_slave_0: left promiscuous mode
+[  126.186197][   T37] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  126.473726][   T37] bond0 (unregistering): (slave bond_slave_0): Releasi=
+ng backup interface
+[  126.490305][   T37] bond0 (unregistering): (slave bond_slave_1): Releasi=
+ng backup interface
+[  126.492294][   T37] bond0 (unregistering): Released all slaves
+[  126.674816][   T37] hsr_slave_0: left promiscuous mode
+[  126.688746][   T37] hsr_slave_1: left promiscuous mode
+[  126.690592][   T37] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_0
+[  126.690805][   T37] batman_adv: batadv0: Removing interface: batadv_slav=
+e_0
+[  126.694661][   T37] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_1
+[  126.694691][   T37] batman_adv: batadv0: Removing interface: batadv_slav=
+e_1
+[  126.771268][   T37] veth1_macvtap: left promiscuous mode
+[  126.771330][   T37] veth0_macvtap: left promiscuous mode
+[  126.771660][   T37] veth1_vlan: left promiscuous mode
+[  126.771755][   T37] veth0_vlan: left promiscuous mode
+[  127.121665][   T37] team0 (unregistering): Port device team_slave_1 remo=
+ved
+[  127.162343][   T37] team0 (unregistering): Port device team_slave_0 remo=
+ved
+[  127.304149][ T5277] 8021q: adding VLAN 0 to HW filter on device eth1
+[  127.777376][ T5277] 8021q: adding VLAN 0 to HW filter on device eth2
+[  128.517336][ T5277] 8021q: adding VLAN 0 to HW filter on device eth3
+[  129.332540][ T5277] 8021q: adding VLAN 0 to HW filter on device eth4
+[  140.702987][ T1310] ieee802154 phy0 wpan0: encryption failed: -22
+[  140.703065][ T1310] ieee802154 phy1 wpan1: encryption failed: -22
+
+
+syzkaller build log:
+go env (err=3D<nil>)
+AR=3D'ar'
+CC=3D'gcc'
+CGO_CFLAGS=3D'-O2 -g'
+CGO_CPPFLAGS=3D''
+CGO_CXXFLAGS=3D'-O2 -g'
+CGO_ENABLED=3D'1'
+CGO_FFLAGS=3D'-O2 -g'
+CGO_LDFLAGS=3D'-O2 -g'
+CXX=3D'g++'
+GCCGO=3D'gccgo'
+GO111MODULE=3D'auto'
+GOAMD64=3D'v1'
+GOARCH=3D'amd64'
+GOAUTH=3D'netrc'
+GOBIN=3D''
+GOCACHE=3D'/syzkaller/.cache/go-build'
+GOCACHEPROG=3D''
+GODEBUG=3D''
+GOENV=3D'/syzkaller/.config/go/env'
+GOEXE=3D''
+GOEXPERIMENT=3D''
+GOFIPS140=3D'off'
+GOFLAGS=3D''
+GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
+ -ffile-prefix-map=3D/tmp/go-build4012198568=3D/tmp/go-build -gno-record-gc=
+c-switches'
+GOHOSTARCH=3D'amd64'
+GOHOSTOS=3D'linux'
+GOINSECURE=3D''
+GOMOD=3D'/syzkaller/jobs/linux/gopath/src/github.com/google/syzkaller/go.mo=
+d'
+GOMODCACHE=3D'/syzkaller/jobs/linux/gopath/pkg/mod'
+GONOPROXY=3D''
+GONOSUMDB=3D''
+GOOS=3D'linux'
+GOPATH=3D'/syzkaller/jobs/linux/gopath'
+GOPRIVATE=3D''
+GOPROXY=3D'https://proxy.golang.org,direct'
+GOROOT=3D'/usr/local/go'
+GOSUMDB=3D'sum.golang.org'
+GOTELEMETRY=3D'local'
+GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
+GOTMPDIR=3D''
+GOTOOLCHAIN=3D'auto'
+GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=3D''
+GOVERSION=3D'go1.26.0'
+GOWORK=3D''
+PKG_CONFIG=3D'pkg-config'
+
+git status (err=3D<nil>)
+HEAD detached at b6a5eeb7114
+nothing to commit, working tree clean
+
+
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
+og.GitRevision=3Db6a5eeb7114b1887514b0d74ca39167dfbfa4603 -X github.com/goo=
+gle/syzkaller/prog.gitRevisionDate=3D20260911-102446"  ./sys/syz-sysgen | g=
+rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
+/prog.GitRevision=3Db6a5eeb7114b1887514b0d74ca39167dfbfa4603 -X github.com/=
+google/syzkaller/prog.gitRevisionDate=3D20260911-102446"  ./sys/syz-sysgen
+make .descriptions
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+bin/syz-sysgen
+touch .descriptions
+GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
+/syzkaller/prog.GitRevision=3Db6a5eeb7114b1887514b0d74ca39167dfbfa4603 -X g=
+ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260911-102446"  -o ./bi=
+n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
+mkdir -p ./bin/linux_386
+x86_64-linux-gnu-g++ -o ./bin/linux_386/syz-executor executor/executor.cc \
+	-m32 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
+ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
+t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
+static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
+_386=3D1 \
+	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"b6a5eeb7114b1887514b0d74ca39167dfb=
+fa4603\"
+/usr/bin/ld: /tmp/cc6qZiym.o: in function `Connection::Connect(char const*,=
+ char const*)':
+executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
+KcS1_]+0x145): warning: Using 'gethostbyname' in statically linked applicat=
+ions requires at runtime the shared libraries from the glibc version used f=
+or linking
+./tools/check-syzos.sh 2>/dev/null
+[INFO] Unsupported architecture '386', skipping check.
+
+
+
+Tested on:
+
+commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D5e4e3a0e188a497=
+e
+dashboard link: https://syzkaller.appspot.com/bug?extid=3Da079f084653164a65=
+2d1
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D15ec9c8e5800=
+00
+
