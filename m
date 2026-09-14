@@ -1,144 +1,115 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta0.migadu.com (out-43.mta0.migadu.com [91.218.175.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F2947FB1E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DBE3F12D8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397040; cv=none; b=iFXPmojtYnmKiz+c4Or8oNmdgQSdHNzVv4OpkX5lDer7UZDBE0GuFYmEWmbJ43Vu09Nel+Fq7wh4oD3TFUZZSdtfRyy9ecGiCu6CpI8INiXyJ0O16fmIkE+9QfZHPc+M0uzSvbTlO0qhyUUwcPrkubd36y9SX50VX0VKtiU6zA4=
+	t=1789397042; cv=none; b=SKTUkP03zhVDHzbcOhsU7uaQe7I7L/WcVk5D0EyW4K6WasAjKHsFQhVDvYxCBBP4WtnVqg4zavy/a2TjSVEzK4TBmDDsp5Iot6fGM11KkBpMiLGxIOqFMquuKiIa0A9RitWufMcNxiJAaCFa2mDNsorisDVzAG2QqQa9GJSHcbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397040; c=relaxed/simple;
-	bh=7+JBSq1lcxjIotZlZ8H7p6Vq1EEcX6XNFUx4HjDQ4oc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J6x6GsgMAO5sD8+0D15MxrGUrdDZ0hvQhd9gkZeqPeZm0HQntokTjl+MEt8R3z+jkFSgmNjE7vImLMu6SCLD4KBm13Gycj6w9+acMjorEJ9Xo73xcvYx5jCAnjY3HqXzis31dl/5Ib5EGgGGcm3SCe8pvE2swrq/UFvjncS0cjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+egMaGu; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789397042; c=relaxed/simple;
+	bh=ZOxEFV6yKVa+U+wttltPLAq7YKcnlIAuux7OwLuKqMI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BHbuCpBVhQiBvwTMBto3E6Hj5Hd8l3k0SBVXKeC6eHMmOQPMinfJk/gSaOku1PqULiDTZNAWU97e6nip+gxY69zuJQ7N1H97jzCbPyn2N84sMOR6GsSddUU+NzULQOH4rsvG4noQmPOkaovVOWBQM/9y4o705uaK2wkgavynR98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wvmibsLh; arc=none smtp.client-ip=91.218.175.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+egMaGu"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1522128a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:43:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789397037; x=1790001837; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VbWdB1y5zAgVgUDU6C58oDPNhatCe/TzGoKd8VxEcJ0=;
-        b=T+egMaGuD3bz+QBn2wERO8n9VJKfrTem/Vt/NJWgWp0JplttvC5XteR9bqjdiWz8OL
-         Y90rU9uW+4NMpUOm1jNKOSO/i4WSXPnCPrIkL5CLBBmx0P421PyDP7flgIBMWgKk0Xg3
-         VZZk8S+1L32yklyHzJzGgYLvuirqn8cluP6GuDgherN8NxezwHb1nqJFO/uTvM8Pka0N
-         RPrZgTLfeQgTz44SKmpRN3PAZ5yZQEJjHmUlO/j792afBkQlNz66kQI7rBOo8jozeHUK
-         ErXX9wCoNiBqjDVEBaCaTMeI5mhcj1bJzo7qojKHjfmi6q5OEbqWrW2Vtjgf9y6vQjhW
-         sLBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789397037; x=1790001837;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VbWdB1y5zAgVgUDU6C58oDPNhatCe/TzGoKd8VxEcJ0=;
-        b=Eh/DrxwqFef7t0QZ9ciEc6MEpurhPZG8x9f3e0if6BJUyv28i3PaQdPizmCCuW/VgI
-         gJnzUE94BRItLZE2dXOzze7GO5aOqy+AfpecmTkez+BZSnbHggNH20yKcMAtyaXkr5PP
-         EaudhBZwyvUgzkNQl12VvpuXtdycED0SQT0B/+Z5/5ZrArorbAtYoqMQ7P2HBNjLylj7
-         UDCVhgKpCrBTsNGLKPfApWn8BqRUBoAWRsKAlOEsKh+342OGK9Z5Q4Wqq/jKUjlj0V24
-         eIEOUzzEE0Cps0ClxjlFwbjB7zkhyd4eyeoz1uOkjm1XIKsOChLEmSiy7JpwOI5kL4ey
-         4k3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwD65apMBN59zBNr6c8GSPz4PsO8u37X9Jg8yCzsDxQbAuna35k/AcpDcPpxj1YZttsjlDixorThELktdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHfWJqsgvyVKZJlkfNnAJYq/NhRJA6eUjoaHdEHBkuaO8Wr6uv
-	2exIyLk9bG5XqQcOuOKYiHCKI/tThdTM9114IUuJweguzlez1hGKp5NW
-X-Gm-Gg: AYBFou168CeYZDsBRKWrbuX9ysxtXAP2Btg+7F03hUisUmLp/bqC55dqrDYLotP18A2
-	xuWd4AgwjfBP5SxnYK0ySdeu4yZZPes83jKPUg1C9wXLBPgDUj23XkvnSOOdvt3Fhk7C5pX6M15
-	3naLLQy/k2rpBeB8vawgmmaZotd7l/3dio4ADJ8IrpROstIi5Ryki90FBZIjCSNwovGkL51M8A5
-	eBBmR0qMhFfLucxz2T8RVR/deVIMdNptfntmL7mgJf94rZk+aZoF+3Rq3PkhARWvfaiXIo5/EBY
-	Pb0zOMyz5yTcHvMKPc0O2k+go43NxduBxTmXWjMHF7wh53jBeLGDhR+GRnP0/+H9rugXLgvUb/0
-	BqFnbokhpXBXcXiY+Zur1PmppPU9QiU911u/U/5V34rkZfZ6CWJ/bsQj3W8+0sxb7NRAs7O7I1a
-	JcALYB+LmUHE2uEoxKQrF9iEWaHEM+ajHfkeCNp/P2KEUS5cNfnxUtCzrJFVhNULqfez7KJwopN
-	Mk=
-X-Received: by 2002:a17:90b:4a82:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-39dec05f681mr5602152a91.15.1789397037224;
-        Mon, 14 Sep 2026 07:43:57 -0700 (PDT)
-Received: from celestia ([2402:1980:8858:8cc0:7bda:d54a:257:22ec])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994d8af1sm22675307a91.11.2026.09.14.07.43.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 07:43:56 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH] mm/damon/core: add short circuit for esz<min_region_sz in damos_adjust_quota()
-Date: Mon, 14 Sep 2026 22:42:34 +0800
-Message-ID: <20260914144409.4592-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913162046.99109-1-sj@kernel.org>
-References: <20260913162046.99109-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wvmibsLh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZOxEFV6yKVa+U+wttltPLAq7YKcnlIAuux7OwLuKqMI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789397037; v=1; x=1790001837;
+ b=wvmibsLh5euIm+EX2e8EuQmLcO+WK0UDNnUjPd+SNMh6UGYsywEI4s1uoD768thhldVGjFHE
+ DB6N3su8UTgT/R7NwYV46xKMTq21uxLR7GOeCLCCpusx7oSofUBSCm9Aul2B0UMgIP7cgsDcnX9
+ plKEbVQD+7NdhVMi9+zK1LRs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 04651ab598b9baf7;
+	Mon, 14 Sep 2026 14:43:57 +0000
+X-Mizu-Trace-ID: 04651ab598b9baf7
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so8570e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:43:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzmsTN/tt00hNVhPdSv/MyO2uzrpiyOvZHy+QY+fGCz7nz3z44kx1Xx2otPhLNOvrdLPOuUsalhpICNUQM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgTL+QXhmoeO599lpVohPRvmg3IeMKAWRIxW5IBZbbjdQIqDVM
+	NTwDxqggu8X2eE+Wug1l+Xfu+aHPLYuq6KS6CpFziQNMbdKpuUAMMlbHQZLMmMBpCgtASvwXy80
+	XrwMsZunO+HulO24X/E2gC/PTIvfUFSEsJ0EupCkN
+X-Received: by 2002:a05:6512:1555:b0:5b1:5e30:ab4d with SMTP id
+ 2adb3069b0e04-5b8af7a5089mr55808e87.5.1789397032407; Mon, 14 Sep 2026
+ 07:43:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-13-fuad.tabba@linux.dev>
+ <8633vc6jag.wl-maz@kernel.org>
+In-Reply-To: <8633vc6jag.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 14 Sep 2026 15:43:16 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTy6F9tG=eRLMuykc12P-Oc2pjMoQqAz34iGR+Q5GzV2jQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VwPAYbkVlaO1umpV1hjCIFKM3lgcDxKxOZL3M7XeNBLkF2CpyyCPMyBJY
+Message-ID: <CA+EHjTy6F9tG=eRLMuykc12P-Oc2pjMoQqAz34iGR+Q5GzV2jQ@mail.gmail.com>
+Subject: Re: [PATCH v3 12/18] KVM: arm64: Prevent host PC adjustments for
+ protected vCPUs
+To: Marc Zyngier <maz@kernel.org>
+Cc: oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, 
+	qperret@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 13 Sep 2026 09:20:45 -0700 SJ Park <sj@kernel.org> wrote:
+Hi Marc,
 
-> Hi Liew,
-> 
-> 
-> From the next time, please complete discussions on the previous version before
-> posting a new version.  For example, in this case, you could replied to my last
-> reply to the previous version of this patch saying you will accept my suggested
-> changes and wait a reasonable time to decide there is no other opinions.
+On Mon, 14 Sept 2026 at 14:42, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> nit: it is really odd to see this 'pkvm' prefix in generic code. The
+> point of it is not only to abstract the pvkm complexity away, but also
+> to have a wrapper that may be of use in other situations.
+>
+> Don't respin the series just for this though, I may end-up changing
+> this when applying it.
 
-Thank you for your guidance.  From the next time, I will reply and say
-if I will accept your suggestions.
+Agree, if I respin I'll rename it.
 
-> 
-> I think the subject is not very clear.  How about something like, "skip quota
-> score setup when quota is full"?
+[...]
 
-Sure, it is shorter and more understandable.
+> > +   hyp_vcpu = pkvm_get_loaded_hyp_vcpu();
+> > +   if (!hyp_vcpu || hyp_vcpu->host_vcpu != vcpu)
+>
+> Under which circumstances do we get hyp_vcpu->host_vcpu != vcpu?
 
-> 
-> On Sun, 13 Sep 2026 19:01:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> 
-> > After damos_set_effective_quota(), the effective size quota may be lower
-> > than min_region_sz (e.g., when the temporal quota goal is [over-]achieved).
-> 
-> This sounds unnecessarily specific and doesn't cover all the case.  What about
-> 
-> "In damos_adjust_quota(), the quota could already be full."
+When EL2 calls __kvm_adjust_pc() on the hyp vCPU itself:
+__kvm_vcpu_run() at guest entry and inject_sync64() in nvhe/sys_regs.c
+both pass &hyp_vcpu->vcpu. There the vCPU passed is the one to adjust,
+so it's returned as is.
 
-Agree, that makes sense.  Since users who is using temporal quota
-auto-tuning should know what happens when goal is achieved.
+> > +   if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
+> > +           return NULL;
+>
+> Is it always the case that a protected vcpu cannot see its PC adjusted
+> at all? How is PC updated after an exit for MMIO? I feel there is an
+> interaction with the above, but I'm not 100% certain...
 
-> 
-> > 
-> > In this situation, damos_adjust_quota() will still calculates
-> > quota->min_score.  However, this min_score will not be used in this
-> > window, because in damon_do_apply_schemes(), damos_quota_is_full() will
-> > always returns true, preventing the scheme from being applied to any
-> > region.
-> > 
-> > Therefore, add a short circuit for 'esz < min_region_sz' schemes to
-> > early return from damos_adjust_quota() before calculating min_score.
-> > 
-> > Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-> 
-> Assuming you agree to above suggestions,
+The host can't adjust it directly, EL2 applies the host's request at
+the next entry. For MMIO, handle_pvm_exit_dabt() sets mmio_needed on
+the hyp vCPU from EL2's own syndrome, the host completes the access
+and kvm_handle_mmio_return() sets INCREMENT_PC on the host copy, and
+handle_pvm_entry_dabt() increments the hyp vCPU's PC at the next entry
+if EL2 had an MMIO pending, through the &hyp_vcpu->vcpu case above.
 
-Yes, I agree those all suggestions.
+The NULL return clears nothing, so the request stays on the host copy
+for that entry. It's reached from the epilogue of
+kvm_arch_vcpu_ioctl_run(), e.g. an MMIO completed on an immediate_exit
+run, and consuming it on the host copy there would clear INCREMENT_PC
+before EL2 sees it, so the guest would re-execute the access.
 
-> 
-> Reviewed-by: SJ Park <sj@kernel.org>
-> 
-> With the above assumption, I modified this patch with the suggestions and
-> applied to damon/next [1] tree.  I will repost it for mm.git merge after a
-> week.  So, if you are ok with the plan, no action from your side is needed.
-> 
-> Please let me know if you have different opinions.
-> 
-> [1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+"Drop" in the commit message and the adjust_pc.h comment reads as
+losing the request. I'll reword if I respin.
 
-Best regards,
-Rui Yan
+Cheers,
+/fuad
