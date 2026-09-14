@@ -1,675 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9904A3D33
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56D74A3D33
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420294; cv=none; b=fpo4Wfl3h+EBN1PnpAqhlRwHzpH3xOOnHu1EM0J88pyVKOH73OcvDK740eMToQDHATsDDQp0BPp6mfFRqNCGbT7K7tIBfmV+9ED0eU8rWSCXkXNkNHjwax+8pENPvlM08pGx0cWjGiFDzaBlciRZQ6QdhRz/7JIzF2AVm/C4KMA=
+	t=1789420303; cv=none; b=HgaMtop0DHcDRToOEc5bx2pd65cH9G0LEc0Z4CVZvDqkkp/9xoazGPtR3I7Fuwz/gEFcqkPIka+v/unAASWjwPesBUn6ZZYNRo/nif7mFVKm+TKCpEC3h15DzATlz4xaLXfZ23LFmK2ssaiHQOc4bT78ylJ7CZgGhCvbroStByg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420294; c=relaxed/simple;
-	bh=MT8sDGgmi+VnXl2CGP2Enoev1en9znyBtD06gddifuw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BF45+ZbujaxCpp/aytSxhJHqwgtqJ2Gx1RtwSc3/12sLSK6zf2SIc0nRG1wNpcP/hktO4HhF42rqUryrZcFI2oL33/98NEXLIzX9LisRmz+HKW1cS0e1APF1DsLulEhjBeJWXjNJsj36/I2x3WMA6hcNq5w4YqwxA0BhQ/hRIt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xq55Kofl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789420303; c=relaxed/simple;
+	bh=urEMJqkip8r8NUOYHF0OXc2V0NjD2LcpIt+Sm1C4lC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dyZePSTfTuqVQ4Ogg7QKP1R911YUF8L75vDv59Tad5IDIpxLMc0PuvoM0shdZw94lcNxY8W/rbxNNVnmgYG2U9I5n4Xu4T9dahEH6M8TYqDJUEmHBkCHN7eYj6fAbGoMBBEkbs9wGi4J8NDBvla4pz67DftjaxNxdd9sGMaHoY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=d39uCyYr; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xq55Kofl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1ACA1F00893;
-	Mon, 14 Sep 2026 21:11:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789420292;
-	bh=JllXSUHy+b3zdtDBvkgrDgyujMMYgJPstjjx5MbnyKk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Xq55KoflHzkIH9n+kai8ahZwNeA5gJkRu9PxA4hK5GhxkxxWbxWDNhYtzSkOzkFyL
-	 uXTp0q9eG1AtbBCXOJxQulrAmE6Dxn/vT668Cj365fWHjTET7bg8oxHqyzZTgxk9Rr
-	 jdYnt2bd0lq5WKlOeJ1LRuD72DR90MM5XbuJBSJryKxdVTx4zlAri4ZXHj4ODCvOFB
-	 tCDLfrF3hTZQvTsKakMGpN47Z2pC2/Ha8qWU2REngYVPWIeswk4mU1qvPywHEGQBW+
-	 qWoe8W0Utq/XGASjhRzyTp7pB3KRUW/SEMzjCALPVUIFHDhOTNBUNeC2p8GMo3xd99
-	 Ft/oyCsS+aZSA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 23:11:21 +0200
-Subject: [PATCH v4 08/10] regulator: ab8500: Add buck converter support
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="d39uCyYr"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so32549815e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:11:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1789420300; x=1790025100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w+vmo4SiPc4dv8Etu0O6oCuBcVgzOf6ES9F0FzCUqMs=;
+        b=d39uCyYryHOVdG26WBfKPGEIGCixeJxe0tqrkewY4zxOvkkxkHhq2pDMXfkdb0Bb1c
+         iHxxv5l5cJcJaoaWFIHyL3Ki9YVMNk6Xt8uLEM7CVAZ7X7+S7U+hWpY9Ju9l/4R0WBbR
+         6QBX+ueEkWNH8kufqZwCDPG3EnF7H79RtBNMw532HlrZw0eDcwgz+jAtP0sBReQY0beh
+         OH4Q8m3yf66rgclNYrp4yELPwbXpK3nnNbKQdqxRernI+OK8O+paHkSmC+INQxL66/8b
+         KYnEE9UK8M6vPVR96j4Ai2088SfWZvqH6LjwQkFvhEra0ycuttChCeucQTVqTMqKqvdN
+         XniA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789420300; x=1790025100;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w+vmo4SiPc4dv8Etu0O6oCuBcVgzOf6ES9F0FzCUqMs=;
+        b=QaKRpCOZu5PvCrlJ8oUUBU0WJsocEH6YzA/n+H5XggCI/c2lgBdi88zTnM+zHSec5v
+         GkDm8scby+Z/eoVQuCc0dPgvVlZVfiY3l1lnDivb7dr3r4air9tZuIVsYTvRUYBc5gMN
+         aSpn6lxXiaZQIEeqhCk4BvDgX6A8D7/i3pD3r9cDR01Q4Ww8dMeoMKWbwqWa4cIqgbdy
+         l30xBGcRPv4upsNm8JQAZhRLzc9Nb8jLwd1aWYTiGXaVUG07aYlwogXjPaWPRGmTeEEq
+         5+Nh1MhcfQDEqx4QsGPGJvdoovbrbfzysHa1QdvMkBsiFE6CMKYcuKM0HkU66toxeABR
+         edUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxlOxZntC2DUmXJed/BBrwib4v8QJixt+J+kGYEWpcCpzGG2XAVzTZ7b+GWhRvcxZ4PCQUEr1RlxBMXPEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++la07/+S85pMmFjriobofR8d0cHwqJUkJtHSTOHueyc8bgOLg9r
+	EqkjUDoamDYELi/lDM37O58CzKLI3oiBQPDOBf9DLZtiHgT+9Ks2+5ncv9zQhTd/fUo=
+X-Gm-Gg: AYBFou1Rr7L7JwEfFpS+qCzB278pK8V83kugJNY+PHqXKxqdwlxykOnCpwqtDeYY/5N
+	p0FWa6+gOjeD/nZQnHHF49ok1Wfoml0Z+V/G9SCu5PiqjTp4G/OInhQ5OPdRcG24HAO2i9xoryr
+	Ug5JJwoqEIhNtKGkjxRD+6c0k4ixJiKgkXsEGRIxYwWKvBkti7T2UwCCuDCyoPkqHPGU/CgB/jL
+	TKrsZllDBJLCXfCrb+h6O7advno8lw8tRFqcyBmp/XrS36MqA/ydZzKJPLJ6FiQOPWNdbmPs5L5
+	NYEvhBnefGPF2CdtUUtwKlFtyfaZu6OicMexpCsT+rdTCuFtUHONyhLncPwh4KsqrgVnK2jLIdx
+	COzA1pEkl0FL+sKDqJEsY0eOUNPd07nSUH95ky7XP10w5l00ZLFyJEtJAvRBd7uQbidPOucV8X7
+	Bu3Du5I/4WXP1kjize8bPCVkIIF6tRyAwbv1QZ96ZuCiiUc49ekw5GRgpoepJn
+X-Received: by 2002:a05:600c:37c3:b0:49c:fc6e:a3d9 with SMTP id 5b1f17b1804b1-49e7a678879mr63803615e9.24.1789420300103;
+        Mon, 14 Sep 2026 14:11:40 -0700 (PDT)
+Received: from remote-01 ([84.17.55.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef74a5dsm5642305e9.7.2026.09.14.14.11.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 14:11:39 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: netdev@vger.kernel.org
+Cc: linux@armlinux.org.uk,
+	andrew@lunn.ch,
+	andrew+netdev@lunn.ch,
+	hkallweit1@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: [RFC PATCH net-next v3 0/2] net: phylink: wait for a PHY that probes after the MAC
+Date: Tue, 15 Sep 2026 00:11:35 +0300
+Message-ID: <20260914211137.2760618-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ux500-dts-snowball-regulator-v4-8-dfc453a3031f@kernel.org>
-References: <20260914-ux500-dts-snowball-regulator-v4-0-dfc453a3031f@kernel.org>
-In-Reply-To: <20260914-ux500-dts-snowball-regulator-v4-0-dfc453a3031f@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Axel Lin <axel.lin@ingics.com>
-Cc: linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-Register the SMPS1, SMPS2, SMPS3, ARM, APE and MOD buck converters on
-AB8500 and the VSMPSA, VSMPSB, VSAFE, VARM, VSMPSC and VSMPSM buck
-converters on AB8505 so that the new device tree nodes can supply
-consumers. Match each variant through its own device tree node names.
+On an MT7981B board with an MT7531 switch, the Airoha EN8811H behind
+lan4 has its PHY driver built as a module on the root filesystem. The
+switch sets up its ports before that filesystem is mounted, so the port
+is validated against the generic driver, fails its phy-mode and stays
+dead for the uptime. Nothing retries it.
 
-AB8500 SMPS3 supplies Vsafe and AB8505 VSAFE occupies the corresponding
-control and selector registers at 0x0405 and 0x041b through 0x041d.
-AB8500 VAPE and AB8505 VSMPSC instead use 0x0402 and the 0x040e through
-0x0410 selector registers. Keep separate AB8505 regulator descriptors
-and identifiers so these variant-specific rails are not conflated.
+Let the PHY node say so with needs-host-firmware and have phylink poll
+for the PHY instead of giving up. Patch 1 adds the property, patch 2
+does the waiting; the reasoning behind each choice is in patch 2. On
+that board the port now attaches at 7.0 s and links up on its own.
 
-Describe the hardware selector ranges and follow the selector-control
-registers when reading or changing voltage. This accounts for AB8505
-using Sel2 after reset, its additional selector registers and its
-separate 7-bit VARM range. Use the AB8500-compatible and low-range OTP
-profiles found on the supported platforms for the other rails.
+Changes since v2:
 
-SMPS1 through SMPS3 and VSMPSA, VSMPSB and VSAFE also expose enable and
-low-power mode control. Keep the ARM, APE, MOD, VARM, VSMPSC and VSMPSM
-rails voltage-only since their on/off state is managed with the SoC.
+ - A connect that fails with the real driver bound is retried up to
+   three times at the poll rate, then given up on with one error naming
+   the PHY node. v2 did not retry and asked whether to retry unless the
+   PHY node owns a reset line. That condition does not hold up: the
+   detach asserts whatever reset the DT describes, but the re-attach
+   runs phy_init_hw() with the driver's soft reset and config_init on
+   every board, so what a retry costs depends on the board and the PHY
+   in ways phylink cannot see. It is bounded rather than conditioned.
+ - The poller returns without attaching if a PHY arrived by another
+   path while it was queued.
+ - phylink_destroy() cancels the poller before any teardown instead of
+   in the middle of it.
+ - The NULL phydev->drv window v2 asked about is not specific to this
+   series; phy_attach_direct() meets it from any caller racing a driver
+   unbind. The guard is posted for net on its own [2] and covers an
+unbind already in flight.
+ - The link_state fix v2 needed is in net-next now, as 113998aa372f
+   ("net: phylink: initialise link_state before a forced major
+   config"), so this applies without it.
+ - The MDIO device driver posted beside v2 is withdrawn [3]; nothing
+   here depends on it.
+ - Rebased onto net-next.
 
-Assisted-by: LLM
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- drivers/regulator/ab8500.c | 461 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 452 insertions(+), 9 deletions(-)
+Still needed underneath: patch 1 of the phylink/phylib pair pending for
+net [4]. A late bringup failure has to leave pl->phydev clear: the
+poller takes a set pl->phydev for a PHY that arrived by another path,
+so without it the first such failure ends the wait with no retry and no
+give-up line. It is the prerequisite listed below.
 
-diff --git a/drivers/regulator/ab8500.c b/drivers/regulator/ab8500.c
-index d1540099104c..130febf2680a 100644
---- a/drivers/regulator/ab8500.c
-+++ b/drivers/regulator/ab8500.c
-@@ -9,10 +9,12 @@
-  * AB8500 peripheral regulators
-  *
-  * AB8500 supports the following regulators:
-- *   VAUX1/2/3, VINTCORE, VTVOUT, VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-+ *   VSMPS1/2/3, VARM, VAPE, VMOD, VAUX1/2/3, VINTCORE, VTVOUT,
-+ *   VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-  *
-  * AB8505 supports the following regulators:
-- *   VAUX1/2/3/4/5/6, VINTCORE, VADC, VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-+ *   VSMPSA/B/C/M, VSAFE, VARM, VAUX1/2/3/4/5/6, VINTCORE,
-+ *   VADC, VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-  */
- #include <linux/init.h>
- #include <linux/kernel.h>
-@@ -39,6 +41,12 @@ enum ab8500_regulator_id {
- 	AB8500_LDO_ANAMIC2,
- 	AB8500_LDO_DMIC,
- 	AB8500_LDO_ANA,
-+	AB8500_BUCK_SMPS1,
-+	AB8500_BUCK_SMPS2,
-+	AB8500_BUCK_SMPS3,
-+	AB8500_BUCK_ARM,
-+	AB8500_BUCK_APE,
-+	AB8500_BUCK_MOD,
- 	AB8500_NUM_REGULATORS,
- };
- 
-@@ -57,6 +65,12 @@ enum ab8505_regulator_id {
- 	AB8505_LDO_ANAMIC2,
- 	AB8505_LDO_AUX8,
- 	AB8505_LDO_ANA,
-+	AB8505_BUCK_SMPSA,
-+	AB8505_BUCK_SMPSB,
-+	AB8505_BUCK_SAFE,
-+	AB8505_BUCK_ARM,
-+	AB8505_BUCK_SMPSC,
-+	AB8505_BUCK_SMPSM,
- 	AB8505_NUM_REGULATORS,
- };
- 
-@@ -172,9 +186,17 @@ struct ab8500_shared_mode {
-  * @mode_val_idle: mode setting for low power
-  * @mode_val_normal: mode setting for normal power
-  * @voltage_bank: bank to control regulator voltage
-- * @voltage_reg: register to control regulator voltage
-+ * @voltage_reg: first register containing a selectable regulator voltage
-  * @voltage_mask: mask to control regulator voltage
-  * @expand_register: additional register used to select an extra voltage
-+ * @voltage_ctrl_bank: bank containing the voltage selector control
-+ * @voltage_ctrl_reg: register containing the voltage selector control
-+ * @voltage_ctrl_mask: mask selecting one of the first voltage registers
-+ * @voltage_ext_ctrl_bank: bank containing the extended selector control
-+ * @voltage_ext_ctrl_reg: register containing the extended selector control
-+ * @voltage_ext_ctrl_mask: mask selecting one of the extended voltage registers
-+ * @voltage_ext_reg: first extended voltage register
-+ * @voltage_ext_regs: number of extended voltage registers
-  */
- struct ab8500_regulator_info {
- 	struct device		*dev;
-@@ -202,6 +224,14 @@ struct ab8500_regulator_info {
- 		u8 voltage_reg;
- 		u8 voltage_mask;
- 	} expand_register;
-+	u8 voltage_ctrl_bank;
-+	u8 voltage_ctrl_reg;
-+	u8 voltage_ctrl_mask;
-+	u8 voltage_ext_ctrl_bank;
-+	u8 voltage_ext_ctrl_reg;
-+	u8 voltage_ext_ctrl_mask;
-+	u8 voltage_ext_reg;
-+	u8 voltage_ext_regs;
- };
- 
- /* voltage tables for the vauxn/vintcore supplies */
-@@ -300,6 +330,40 @@ static const struct linear_range ldo_vaudio_ranges[] = {
- 	REGULATOR_LINEAR_RANGE(2600000, 7, 7, 0),
- };
- 
-+/*
-+ * AB8505 buck ranges except VARM are selected by OTP.  The supported
-+ * platforms use the AB8500-compatible profiles for VSMPSA/B and the low
-+ * profiles for VSAFE, VSMPSC and VSMPSM.
-+ */
-+static const struct linear_range buck_low_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(700000, 0, 53, 12500),
-+	REGULATOR_LINEAR_RANGE(1362500, 54, 63, 0),
-+};
-+
-+/* VSMPS3 and VSAFE have a 7-bit selector, but the same low range. */
-+static const struct linear_range buck_low_7bit_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(700000, 0, 53, 12500),
-+	REGULATOR_LINEAR_RANGE(1362500, 54, 127, 0),
-+};
-+
-+/* AB8505 VARM uses a separate 0.6 V to 1.39375 V selector range. */
-+static const struct linear_range ab8505_buck_arm_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(600000, 0, 127, 6250),
-+};
-+
-+/* VSMPS1 and the VSMPSA AB8500-compatible profile clamp to this range. */
-+static const struct linear_range buck_smps1_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(1100000, 0, 32, 0),
-+	REGULATOR_LINEAR_RANGE(1112500, 33, 48, 12500),
-+	REGULATOR_LINEAR_RANGE(1300000, 49, 63, 0),
-+};
-+
-+/* VSMPS2 and the VSMPSB AB8500-compatible profile clamp to this range. */
-+static const struct linear_range buck_smps2_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(1800000, 0, 57, 0),
-+	REGULATOR_LINEAR_RANGE(1812500, 58, 63, 12500),
-+};
-+
- static DEFINE_MUTEX(shared_mode_mutex);
- static struct ab8500_shared_mode ldo_anamic1_shared;
- static struct ab8500_shared_mode ldo_anamic2_shared;
-@@ -558,11 +622,67 @@ static unsigned int ab8500_regulator_get_mode(struct regulator_dev *rdev)
- 	return ret;
- }
- 
-+static int ab8500_regulator_get_voltage_reg(struct regulator_dev *rdev,
-+					    u8 *voltage_reg)
-+{
-+	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
-+	u8 regval;
-+	unsigned int selector;
-+	int ret;
-+
-+	if (info->voltage_ext_ctrl_mask) {
-+		ret = abx500_get_register_interruptible(info->dev,
-+							info->voltage_ext_ctrl_bank,
-+							info->voltage_ext_ctrl_reg, &regval);
-+		if (ret < 0)
-+			return ret;
-+
-+		selector = (regval & info->voltage_ext_ctrl_mask) >>
-+			(ffs(info->voltage_ext_ctrl_mask) - 1);
-+		if (selector) {
-+			selector = min_t(unsigned int, selector,
-+					 info->voltage_ext_regs);
-+			*voltage_reg = info->voltage_ext_reg + selector - 1;
-+			return 0;
-+		}
-+	}
-+
-+	if (!info->voltage_ctrl_mask) {
-+		*voltage_reg = info->voltage_reg;
-+		return 0;
-+	}
-+
-+	ret = abx500_get_register_interruptible(info->dev,
-+						info->voltage_ctrl_bank,
-+						info->voltage_ctrl_reg, &regval);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* The three hardware selector layouts all use consecutive registers. */
-+	switch (info->voltage_ctrl_mask) {
-+	case 0x0c:
-+		selector = min((unsigned int)((regval & 0x0c) >> 2), 2U);
-+		break;
-+	case 0x24:
-+		selector = regval & BIT(5) ? 2 : !!(regval & BIT(2));
-+		break;
-+	case 0x04:
-+		selector = !!(regval & BIT(2));
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	*voltage_reg = info->voltage_reg + selector;
-+
-+	return 0;
-+}
-+
- static int ab8500_regulator_get_voltage_sel(struct regulator_dev *rdev)
- {
- 	int ret, voltage_shift;
- 	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
--	u8 regval;
-+	u8 regval, voltage_reg;
- 
- 	if (info == NULL) {
- 		dev_err(rdev_get_dev(rdev), "regulator info null pointer\n");
-@@ -571,8 +691,15 @@ static int ab8500_regulator_get_voltage_sel(struct regulator_dev *rdev)
- 
- 	voltage_shift = ffs(info->voltage_mask) - 1;
- 
-+	ret = ab8500_regulator_get_voltage_reg(rdev, &voltage_reg);
-+	if (ret < 0) {
-+		dev_err(rdev_get_dev(rdev),
-+			"couldn't read voltage selector control\n");
-+		return ret;
-+	}
-+
- 	ret = abx500_get_register_interruptible(info->dev,
--			info->voltage_bank, info->voltage_reg, &regval);
-+			info->voltage_bank, voltage_reg, &regval);
- 	if (ret < 0) {
- 		dev_err(rdev_get_dev(rdev),
- 			"couldn't read voltage reg for regulator\n");
-@@ -583,7 +710,7 @@ static int ab8500_regulator_get_voltage_sel(struct regulator_dev *rdev)
- 		"%s-get_voltage (bank, reg, mask, shift, value): "
- 		"0x%x, 0x%x, 0x%x, 0x%x, 0x%x\n",
- 		info->desc.name, info->voltage_bank,
--		info->voltage_reg, info->voltage_mask,
-+		voltage_reg, info->voltage_mask,
- 		voltage_shift, regval);
- 
- 	return (regval & info->voltage_mask) >> voltage_shift;
-@@ -594,7 +721,7 @@ static int ab8500_regulator_set_voltage_sel(struct regulator_dev *rdev,
- {
- 	int ret, voltage_shift;
- 	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
--	u8 regval;
-+	u8 regval, voltage_reg;
- 
- 	if (info == NULL) {
- 		dev_err(rdev_get_dev(rdev), "regulator info null pointer\n");
-@@ -603,10 +730,17 @@ static int ab8500_regulator_set_voltage_sel(struct regulator_dev *rdev,
- 
- 	voltage_shift = ffs(info->voltage_mask) - 1;
- 
-+	ret = ab8500_regulator_get_voltage_reg(rdev, &voltage_reg);
-+	if (ret < 0) {
-+		dev_err(rdev_get_dev(rdev),
-+			"couldn't read voltage selector control\n");
-+		return ret;
-+	}
-+
- 	/* set the registers for the request */
- 	regval = (u8)selector << voltage_shift;
- 	ret = abx500_mask_and_set_register_interruptible(info->dev,
--			info->voltage_bank, info->voltage_reg,
-+			info->voltage_bank, voltage_reg,
- 			info->voltage_mask, regval);
- 	if (ret < 0)
- 		dev_err(rdev_get_dev(rdev),
-@@ -615,7 +749,7 @@ static int ab8500_regulator_set_voltage_sel(struct regulator_dev *rdev,
- 	dev_vdbg(rdev_get_dev(rdev),
- 		"%s-set_voltage (bank, reg, mask, value): 0x%x, 0x%x, 0x%x,"
- 		" 0x%x\n",
--		info->desc.name, info->voltage_bank, info->voltage_reg,
-+		info->desc.name, info->voltage_bank, voltage_reg,
- 		info->voltage_mask, regval);
- 
- 	return ret;
-@@ -726,6 +860,26 @@ static const struct regulator_ops ab8500_regulator_linear_range_volt_ops = {
- 	.map_voltage	= regulator_map_voltage_linear_range,
- };
- 
-+static const struct regulator_ops ab8500_buck_ops = {
-+	.enable			= ab8500_regulator_enable,
-+	.disable		= ab8500_regulator_disable,
-+	.is_enabled		= ab8500_regulator_is_enabled,
-+	.get_optimum_mode	= ab8500_regulator_get_optimum_mode,
-+	.set_mode		= ab8500_regulator_set_mode,
-+	.get_mode		= ab8500_regulator_get_mode,
-+	.get_voltage_sel	= ab8500_regulator_get_voltage_sel,
-+	.set_voltage_sel	= ab8500_regulator_set_voltage_sel,
-+	.list_voltage		= regulator_list_voltage_linear_range,
-+	.map_voltage		= regulator_map_voltage_linear_range,
-+};
-+
-+static const struct regulator_ops ab8500_buck_voltage_ops = {
-+	.get_voltage_sel	= ab8500_regulator_get_voltage_sel,
-+	.set_voltage_sel	= ab8500_regulator_set_voltage_sel,
-+	.list_voltage		= regulator_list_voltage_linear_range,
-+	.map_voltage		= regulator_map_voltage_linear_range,
-+};
-+
- static const struct regulator_ops ab8500_regulator_mode_ops = {
- 	.enable			= ab8500_regulator_enable,
- 	.disable		= ab8500_regulator_disable,
-@@ -967,6 +1121,137 @@ static struct ab8500_regulator_info
- 		.update_val_idle	= 0x0c,
- 		.update_val_normal	= 0x04,
- 	},
-+
-+	/* Buck converters */
-+	[AB8500_BUCK_SMPS1] = {
-+		.desc = {
-+			.name		= "BUCK-SMPS1",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_SMPS1,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps1_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps1_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x03,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x13,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x03,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_SMPS2] = {
-+		.desc = {
-+			.name		= "BUCK-SMPS2",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_SMPS2,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps2_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps2_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x04,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x17,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x04,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_SMPS3] = {
-+		.desc = {
-+			.name		= "BUCK-SMPS3",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_SMPS3,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 128,
-+			.linear_ranges	= buck_low_7bit_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_7bit_voltages),
-+		},
-+		.load_lp_uA		= 50000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x05,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x1b,
-+		.voltage_mask		= 0x7f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x05,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_ARM] = {
-+		.desc = {
-+			.name		= "BUCK-ARM",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_ARM,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0b,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x00,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_APE] = {
-+		.desc = {
-+			.name		= "BUCK-APE",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_APE,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0e,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x02,
-+		.voltage_ctrl_mask	= 0x24,
-+	},
-+	[AB8500_BUCK_MOD] = {
-+		.desc = {
-+			.name		= "BUCK-MOD",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_MOD,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x41,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x40,
-+		.voltage_ctrl_mask	= 0x04,
-+	},
- };
- 
- /* AB8505 regulator information */
-@@ -1265,6 +1550,152 @@ static struct ab8500_regulator_info
- 		.voltage_reg		= 0x29,
- 		.voltage_mask		= 0x7,
- 	},
-+
-+	/* Buck converters */
-+	[AB8505_BUCK_SMPSA] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSA",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSA,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps1_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps1_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x03,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x13,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x03,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8505_BUCK_SMPSB] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSB",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSB,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps2_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps2_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x04,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x17,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x04,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8505_BUCK_SAFE] = {
-+		.desc = {
-+			.name		= "BUCK-SAFE",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SAFE,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 128,
-+			.linear_ranges	= buck_low_7bit_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_7bit_voltages),
-+		},
-+		.load_lp_uA		= 50000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x05,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x1b,
-+		.voltage_mask		= 0x7f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x05,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8505_BUCK_ARM] = {
-+		.desc = {
-+			.name		= "BUCK-ARM",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_ARM,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 128,
-+			.linear_ranges	= ab8505_buck_arm_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(ab8505_buck_arm_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0b,
-+		.voltage_mask		= 0x7f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x00,
-+		.voltage_ctrl_mask	= 0x0c,
-+		.voltage_ext_ctrl_bank = 0x04,
-+		.voltage_ext_ctrl_reg	= 0x28,
-+		.voltage_ext_ctrl_mask = 0x07,
-+		.voltage_ext_reg	= 0x24,
-+		.voltage_ext_regs	= 4,
-+	},
-+	[AB8505_BUCK_SMPSC] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSC",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSC,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0e,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x02,
-+		.voltage_ctrl_mask	= 0x24,
-+		.voltage_ext_ctrl_bank = 0x04,
-+		.voltage_ext_ctrl_reg	= 0x2a,
-+		.voltage_ext_ctrl_mask = 0x03,
-+		.voltage_ext_reg	= 0x2b,
-+		.voltage_ext_regs	= 2,
-+	},
-+	[AB8505_BUCK_SMPSM] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSM",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSM,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x41,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x40,
-+		.voltage_ctrl_mask	= 0x04,
-+		.voltage_ext_ctrl_bank = 0x04,
-+		.voltage_ext_ctrl_reg	= 0x47,
-+		.voltage_ext_ctrl_mask = 0x03,
-+		.voltage_ext_reg	= 0x45,
-+		.voltage_ext_regs	= 2,
-+	},
- };
- 
- static struct ab8500_shared_mode ldo_anamic1_shared = {
-@@ -1740,6 +2171,12 @@ static struct of_regulator_match ab8500_regulator_match[] = {
- 	{ .name	= "ab8500_ldo_anamic2", .driver_data = (void *) AB8500_LDO_ANAMIC2, },
- 	{ .name	= "ab8500_ldo_dmic",    .driver_data = (void *) AB8500_LDO_DMIC, },
- 	{ .name	= "ab8500_ldo_ana",     .driver_data = (void *) AB8500_LDO_ANA, },
-+	{ .name = "ab8500_buck_smps1",  .driver_data = (void *)AB8500_BUCK_SMPS1, },
-+	{ .name = "ab8500_buck_smps2",  .driver_data = (void *)AB8500_BUCK_SMPS2, },
-+	{ .name = "ab8500_buck_smps3",  .driver_data = (void *)AB8500_BUCK_SMPS3, },
-+	{ .name = "ab8500_buck_arm",    .driver_data = (void *)AB8500_BUCK_ARM, },
-+	{ .name = "ab8500_buck_ape",    .driver_data = (void *)AB8500_BUCK_APE, },
-+	{ .name = "ab8500_buck_mod",    .driver_data = (void *)AB8500_BUCK_MOD, },
- };
- 
- static struct of_regulator_match ab8505_regulator_match[] = {
-@@ -1756,6 +2193,12 @@ static struct of_regulator_match ab8505_regulator_match[] = {
- 	{ .name	= "ab8500_ldo_anamic2", .driver_data = (void *) AB8505_LDO_ANAMIC2, },
- 	{ .name	= "ab8500_ldo_aux8",    .driver_data = (void *) AB8505_LDO_AUX8, },
- 	{ .name	= "ab8500_ldo_ana",     .driver_data = (void *) AB8505_LDO_ANA, },
-+	{ .name = "ab8505_buck_smpsa",  .driver_data = (void *)AB8505_BUCK_SMPSA, },
-+	{ .name = "ab8505_buck_smpsb",  .driver_data = (void *)AB8505_BUCK_SMPSB, },
-+	{ .name = "ab8505_buck_safe",   .driver_data = (void *)AB8505_BUCK_SAFE, },
-+	{ .name = "ab8505_buck_arm",    .driver_data = (void *)AB8505_BUCK_ARM, },
-+	{ .name = "ab8505_buck_smpsc",  .driver_data = (void *)AB8505_BUCK_SMPSC, },
-+	{ .name = "ab8505_buck_smpsm",  .driver_data = (void *)AB8505_BUCK_SMPSM, },
- };
- 
- static struct {
+Tested on that board, with these two patches and the prerequisite
+backported to its OpenWrt 6.18 tree, warm boots. The retry paths need a
+connect that fails after a successful attach, which this chip does not
+produce, so those runs used a debug-only module parameter that, after
+a successful attach, detaches and fails the connect with -EIO a given
+number of times, on an image without the PHY driver so the poller was
+still waiting when the driver was loaded by hand:
 
+ - one warning after the first minute naming the PHY node, then the
+   interval doubling up to the 30 s ceiling
+ - two injected failures: retried 30 s apart, the third attempt
+   attaches and the link comes up, no give-up line
+ - failures that do not stop: four attempts at 1 s intervals, one
+   "giving up on ... after 4 attempts", and with per-iteration tracing
+   on no further poll in the 237 s the capture covers after it
+
+Retries inherit the interval the wait has reached rather than choosing
+one, as the two runs show.
+
+Not tested: cancelling the poller from a teardown while it runs, because
+the only path to it on this board, unbinding the switch driver, oopsed
+earlier in mt7530_remove() until the fixes in [5]; and a PHY arriving by
+a second path, which this board does not offer - that rests on the check
+at the top of the poll body.
+
+The runs above also went through both attach branches: in the
+two-failure run the PHY attached to a port up since 15.8 s and linked
+2.9 s later, and with the driver present it attached at 7.0 s to a port
+not yet started, which linked once brought up. Not repeated on v3:
+ifdown/ifup with the PHY attached, and checking that the PHY interrupt
+fires after a running-port attach.
+
+No in-tree device tree sets needs-host-firmware yet. The board is
+supported out of tree, in OpenWrt.
+
+Still asking, which is why this stays RFC:
+
+ 1. The poller repeats what phylink_fwnode_phy_connect() does - choose
+    the interface, attach, bring up, detach on failure - with a
+    different point at which the reference is dropped. Do you want a
+    shared helper before the rest?
+
+ 2. Polling was the plan set out in [6]. BUS_NOTIFY_BOUND_DRIVER
+    gives the exact edge; do you want the notifier in this series
+    instead?
+
+[1] v2: https://lore.kernel.org/r/20260908155729.4164814-1-f@lex.la/
+[2] https://lore.kernel.org/r/20260914204200.2743251-1-f@lex.la/
+[3] https://lore.kernel.org/r/20260912130430.2246285-1-f@lex.la/
+[4] https://lore.kernel.org/r/20260909204306.2374562-1-f@lex.la/
+[5] https://lore.kernel.org/r/20260914202421.2737079-1-f@lex.la/
+[6] https://lore.kernel.org/r/a230d199-5d4d-4637-aff3-e725a37e1da1@lunn.ch/
+
+Aleksei Sviridkin (2):
+  dt-bindings: net: ethernet-phy: add needs-host-firmware
+  net: phylink: wait for PHYs that are known to probe late
+
+ .../devicetree/bindings/net/ethernet-phy.yaml |   8 +
+ drivers/net/phy/phylink.c                     | 227 +++++++++++++++++-
+ 2 files changed, 228 insertions(+), 7 deletions(-)
+
+
+base-commit: 879e280b8486d4612ad1aa050d6fada2dd80cf1c
+prerequisite-patch-id: 293623f600b825505376e5c5bf72df2ac1f58e1e
 -- 
-2.55.0
+2.53.0
 
