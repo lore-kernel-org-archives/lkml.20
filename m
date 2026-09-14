@@ -1,87 +1,135 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE5533D6D5
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456E43815FD
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:49:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372142; cv=none; b=Hj5r95gXfnY/07NpUJwkInhyb+6Lx3fh4oOLoXB89BYDs1CYKmEhuDtj9X22DBwiaOZvCT6mc4Oy1FVbHHT52THbyPwgarw/1zIdqi3xOEj0WIpIsKAugFxi3d7NHkWYlCJneAqJePMl5tFbwIW0V4dhqf3fSVOSBObhE/s5QO0=
+	t=1789372158; cv=none; b=DCGWIjGuBKhUHHkuR8vPx4d6Pz8QaX0Fa1dhrqZwChj3qSTObiC+xBbCJb8LULG7gaU12tFxS5Q7VPfbZ99ltDvPLAm6OW20k5slZyfHd6UTya9mJ72KnR65SfzPeEEh85VTkK79tvQQtzkN5f40JpowODkfaa5WboabVvYGwpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372142; c=relaxed/simple;
-	bh=TMa+OM5r+Vw1Fyw2b/6glfXwF+0n+Fc54o83E3UwZhE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XtJ/5IyzUNR5acMJCL1ScjyRzafLWhHdvGbSTAB0cUuUrAT63L2paDuX1gD/ItbSj+dZdZnQ4XqyvrSkYjudhz9J9zNxNuI+4AQ/SV3A96IxGhPzXlnKlremrCurNeNjZJgfFQ4/qMEc4ecm9q23dQOihv5TQIqhJ8iPLzCm9Cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
-X-QQ-mid: esmtpsz11t1789372072td29db936
-X-QQ-Originating-IP: a25r7OdHgSwUV56NjAw63Rnel8ssIsZih28fCd7k0+g=
-Received: from localhost.localdomain ( [175.0.204.93])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 14 Sep 2026 15:47:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12824370477255619033
-EX-QQ-RecipientCnt: 10
-From: Yingchao Deng <dengyingchao@kylinsec.com.cn>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Leo Yan <leo.yan@arm.com>
-Cc: coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	dengyingchao@kylinsec.com.cn,
-	qinyungao@kylinsec.com.cn
-Subject: [PATCH v2 0/1] coresight: syscfg: fix deadlock on device registration failure
-Date: Mon, 14 Sep 2026 15:45:24 +0800
-Message-ID: <B16F90D29FAA2B3E+20260914074524.1694-1-dengyingchao@kylinsec.com.cn>
-X-Mailer: git-send-email 2.45.2.windows.1
+	s=arc-20240116; t=1789372158; c=relaxed/simple;
+	bh=F1VjdFSl9/atwZ3hE3R7ac4wdUgSa2oHodjWqqw69dI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mctDG5IJP8VfE6WyCV85HYwFimo/yFJoa9VdySsoMLosZeZrcbGD6xFsWL3dUI/zTcYsrYdlpSbchShwKCbckLMcZGtfBVGhcicrsa5Dl6EJBYdG+IGyuN+JefwSc/5kv5H40moXLGU3A2O2g7u0W++YA+6nY2rfoonFwWKP810=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j4dK/xei; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bV+G9hnG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j4dK/xei";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bV+G9hnG"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5j5ZI063767
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:49:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ZjLBQtd7svl9wuiVQ5/yYYCt
+	Te6o0rbws3eQ4NEqK+4=; b=j4dK/xeiOzAb+5QAa/E2Fq28tsoKLnCeLalYD6L6
+	mSfppLO0hQVNqP7uOVQAZkeco4fdb+9zcxJ5B1RBzuCLsLqI9nPyBawp8OCIiTjQ
+	reBwH8gh4WztHsfYWPxzHUvpD4SBtzzjaEzzoZASCz8FmSHeDJgXjIrzxBR02fqF
+	LSQ8rJjrRD08Ejq0xnWdEzrr0WqHpbQXkOjekPzOA7eWqgtNo7FlR7tl1BG7bLsj
+	fyi9vcDalCg3FHsQ/aUnrmeoHkFsm1cq/wNYxq/z4zbM14NB9RHPSatq7IgmECrz
+	Ur4LZ38JD7GNQfMERrGTglVNT1p7d483x0ryEeVhd81XMw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dnn16-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:49:15 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a1d44c437so121807885a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:49:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789372155; x=1789976955; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZjLBQtd7svl9wuiVQ5/yYYCtTe6o0rbws3eQ4NEqK+4=;
+        b=bV+G9hnGPELImCWzvHXSD4pv826MpOm3Lnfl2RsYW+65mVFy5bd+4goEEz1w6VQrv+
+         /0MrzYJSy1dnDt3KQPdTPKBQw/sFrAKVqGAzszDYYMB8/bBkUOqw6IdHTQbF9jUOyYYM
+         q7NjLKAQWrne5R+LTSU4KJM92DpISCUL0QWmFyRKjUWVx0bKrHwarvvSLq0VvC8Rxs2N
+         V64+gOKtFVD9VSSl6fwi/mF6gSP11My2F7HYwJ9u8sh+FJz/IBPidsv/xNAyZqsWOAWI
+         j2YSlSvsit7Z6krlVlr217SbazGDrgmCvEvL4ARWopliWTfINxx9lLzTc6bxjLJL8Mmc
+         ZFMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789372155; x=1789976955;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZjLBQtd7svl9wuiVQ5/yYYCtTe6o0rbws3eQ4NEqK+4=;
+        b=m2NBcWb7lCOJgaeR6/Z9CgYGLWnr4sLGdEMUZjRcpc37dic6wKFBsiTkIVViIgV+/m
+         Q3zhJhFuKg/M1MK8Y9ubSC7uzYPHkzCZmMlS1se9KFLErznWbXuY/SCE9sOqYLBlAitq
+         2/nshx4IyljIuqioUCMADnJaM3K3XF/g/pDbtHMKXigqAgTqPAb3/5o8p4whemNlPBJV
+         LEQnI27O4OrsPJQJsxspxbD7VQUZN4SQzfI0b2aRgP4lkFek2n2TQ8V9l85tyYv82x4q
+         AnBMa4zJeKOimH01Wf1NFi38m2YOq20Qt/4rDg/D+MqCIH+GyvExJyW2vv/+o60+ebtE
+         dRpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYSFj207CSuX2cZJtFqixHBhJGH5k3gMKXXrZTF/F3PYlk29wtzThdelChCnV/AlyH9GNuwwiKm3l2LSk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkLORJURtpipWcnIxqyaCdA8z5BpGD59oauGVI3XI2qd4u0LVR
+	YSeC56HzN7+rQhmgEjO4fmJMpfmf7d2hmRl1xvjXd1EOiy7Hz+H1Mc3yGUcNEtJvLjDB03kX9FK
+	8mz6ycw93p00x2GC6bBLvS0Y+6XJHg7EhtHD2NOeoN1v4njpmU3j0tt2lNVtu7Li0f/s=
+X-Gm-Gg: AYBFou1aGbEdz9rr2Cq/tUAq20OIxiBtCkcEmI9wutQ2qItllPzz4f3mB95eoc6Smro
+	Kj1nbk16ryPUrkLutwKro7XwguJNbw3KMTzmNy0PKyii1XvIMEQOOfolNMpbnkimYiGxrMM3LAm
+	Dq4AHlImqoIfKaK2kUJ++aGLxdGzHysEx6Ql/1+T2avg3tqV2RJBPpeLGmhtABH7kk9rPUYwn7U
+	t513Z/4KMQYcrMOLgeN3g6Tu9cNdA3vxczxXCV6m8JROfPv74w7dD4zPKdMtA2tXNyX5cxPfaP2
+	L58oBSaCKNk9nfttY76Mgke1Wm6o0RxzjqCDGFnaqlBStQwPQHU3xh0zZ5L/4LTRoOhJcHCEQ21
+	7CJpaiD850EE35Q==
+X-Received: by 2002:a05:620a:6886:b0:939:9b1c:ea4c with SMTP id af79cd13be357-93a29975ae2mr193516885a.28.1789372155272;
+        Mon, 14 Sep 2026 00:49:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:6886:b0:939:9b1c:ea4c with SMTP id af79cd13be357-93a29975ae2mr193487585a.28.1789372150065;
+        Mon, 14 Sep 2026 00:49:10 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecfc3sm24108231f8f.4.2026.09.14.00.49.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 00:49:09 -0700 (PDT)
+Date: Mon, 14 Sep 2026 10:49:07 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pmdomain: core: Fall back to node name for idle states
+Message-ID: <algsevh27dlkxbqfwxogx4irhkxs5ps2itl22t2idupk4b34d3@zdh3kibxt22p>
+References: <20260914-pmdomain-idle-state-name-fallback-v1-1-e4242c409a0b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MOL6Ei/hP4VXag/PsoZ/x9ylEMqNy2KV/bQRQPx1eRU4QGhXZFYqsifn
-	HN+ICQeqUZunzZzBdi+yM08xvIb5997GOUb1EZCri8vU8hcMvJae9OB55w12FZKzypnTH4o
-	KQrGFTudbdPJYqTlW4uIeUMbs3z+MuLoZlKZj/Mo/paJX/889uXWuw+y9f8+zbbuqKDhATB
-	9KesZ9FBhlSGYsH3lL6vBVCZtdxiEPM+/S1kKI6zA0Gba9X3CZO1OJV50FiRzvwdhkYzEE2
-	FrGf7I7c+eSZQfq7WZNYPldgUkG0oHg+GHIixIhfTxJzckf7PqJJtn0KU1/9tV7mSqc3S/J
-	ck+BUJh9M+PU6JuTE2JLc0y0iHD211uXMqPGIOE0mNi50rk2nkgs/dizx0vo58Ezxdhp44s
-	vdqlpTOwEzP6G1LYBvaKtdxURWL4e7no5axlhWvq5X7H61Kcm6R/bfye/Q/kTtBs+gOXXhM
-	Rc+bHH4Qb37j52/cl+25mglJpos4dduqhb7cE+9XCUM0uxGtJs10gdxcjG0N1cFE8gw6nDn
-	g5JO/NMn4MeLcooVs7UClwvNKucalB76+/KEfl+QsLb/eNHwbBZt8wYl0PbmW5EAoCr6z4d
-	MYKYJ9gcpkEbI4YW3uvwi0gSVPMg56zWNuOm4lqOoL9COCcGgh+Kghrnc8D42a+C3EWj3iR
-	pettlIH1u5KADA9tcUesXu49jvJr/3Bap9meWhMXpCcPyGUVMJQaRal5MLoJEe3GzwiJoeP
-	wyi0YY2OJUm0Rr3qxD4Kmia2BvGB7PV6/ebRvsoSvuFpnPegH4qi9FI6YF9rRQHk7WfOX6M
-	x9klzb+xU7pakxB2zAmDd47EW1IZZnORHdKo+hN7U1sPX4V83czjHXyYPzzeFgdxH2zR8OQ
-	RQcTn8wFaYrEP7k1sw4wHgOJlqdTlDFmG1Ez51dpszYyQdXg/SP9IfxFuYRfEIFKZHOMrtC
-	opDbpYZSX/2VX0cEwqdDtFvXTmP4bWs91i4QqiQF1jAsIUJucOUo7C0bgbOGA+XPBkvmLyI
-	QYvsdESRggpw8TCxDbvJCv6Bjfyb/cg+aNYqxOnXa+LjluY1XXe1ykwubK3Zw4UEPZM+IaZ
-	3HdBU/vPSPYgV5sXRAaAOWQ3Utzmj6llKZ7Seb1mzo0nRFrpQXoMmHQ40xHeY+XdJAfAmU0
-	BeQcut3PbZk7ajduwznVoKa4wEXvijK55Dgsm4O5HW6P1fVGqUvv1umsSDApn5S86kdT
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-pmdomain-idle-state-name-fallback-v1-1-e4242c409a0b@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExMCBTYWx0ZWRfXxyaT0KCG4X4m
+ wxumQQ17KBftwLLlfZyeTdD30jYJAykGHUQ+4eE7H3O4f77SftWmv/p/0eguecG1o/da2nu3Sut
+ WS5+Qg8V/jTbMqGybKqxk1m6bCX4+6NBdtYl2DWwGE48fxc2UaJeArvzVLF3MxsmFI8fLr75zro
+ y3Gr9MiNbEDkizgH5gn57LrNfbtVHwPoNSVM2lXNGU+N/HT1lZIHRY1UUZqn0yr2k8UiEco6AS4
+ AWyIeITbhHh+SOdywcoOOU20x3DF5LI36f/FYALTQnMUenzO0bhlMbqaEItdlXFokPcY4o9L3tu
+ jSSsBmvZ1XJ8e82nNM10q47G0vdWqFhGC5j2C2CeykZJsou/UFTKmWVLP35G4jp1y6UT22ygPT4
+ it5GW/fuSKhpLpDfz94TRViIUwTpNxLwLZPcb0VqpZb4OK2K0iIJQTo/CAfZYYj6LlZ2GVAvJH9
+ nl5xl2HMnwwog4laQ4A==
+X-Proofpoint-ORIG-GUID: Da8v3qFbfcDCSQQ4t6M-ez5ZE7Z1LUy8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExMCBTYWx0ZWRfX5nkCdAQ1gSPE
+ Zt7qApw5s3AWoet8JU8a8j1pNL2GcVICqTvU+dRl9fzhGyGU9MuVT6rwqFhFMtHwt/vxzTeD/xS
+ gd92EztQUlnYl6DzX7At/6PJIwJhE/s=
+X-Authority-Analysis: v=2.4 cv=Y6htIReN c=1 sm=1 tr=0 ts=6aa7a6fc cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=5kt61lt8hwMnmxBZRvwA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: Da8v3qFbfcDCSQQ4t6M-ez5ZE7Z1LUy8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 impostorscore=0
+ bulkscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140110
 
-cscfg_create_device() calls put_device() on the error path while holding
-cscfg_mutex.  If device_register() fails, put_device() drops the last
-reference and invokes cscfg_dev_release(), which takes cscfg_mutex again,
-deadlocking.  This removes the unnecessary mutex from cscfg_dev_release().
+On 26-09-14 12:24:25, Maulik Shah wrote:
+> The dt_idle_states uses idle-state-name when available and when missing
+> falls back to the node name. Do the same for domain-idle-states.
+> 
+> This lets pmdomain idle_states_desc debugfs show a name even when
+> idle-state-name is omitted.
+> 
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 
-Changes in v2:
-- Per Leo Yan's suggestion, instead of unlocking before put_device(),
-  remove the unnecessary mutex from cscfg_dev_release() and take it
-  only around cscfg_mgr field initialization.
-- Links to v1: https://lore.kernel.org/all/604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn/
-
-Yingchao Deng (1):
-  coresight: syscfg: fix deadlock on device registration failure
-
- drivers/hwtracing/coresight/coresight-syscfg.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
---
-2.33.0
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
