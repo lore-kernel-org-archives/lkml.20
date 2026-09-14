@@ -1,344 +1,223 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE647A894
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06A92FF675;
+	Mon, 14 Sep 2026 14:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397601; cv=none; b=m6NvhymwcB0czY3F5fg7TooJ/cgad8KF4dLgavdWRWC6aIddv+QeKSzr/LLIswZ+47bQAzGf1O+CfSQw8fkQu1/BtwJevlTtMAe8NuNdpFzGM34r6obE6svJssXC55J/Pa7WQS0UVuPK1VRUWfRAFF1Vm0ASNb8l38S2fukiZow=
+	t=1789397660; cv=none; b=QhKjo9Fk/DohZNQc2+1c6m3dbSnqzp7XPvziOdnoeKO+26VQn7aXq1XVO6Vdxgnjk9nZX6DxxMcnWF42CA37Rov4w8iv+MJdOOw5tUu1BEsrMX7MWi68IWI2HIQrBEAeD0NM1Xh1Ai/SAUTCBZCge3Y8ze6tOPezO5vnfYTaOzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397601; c=relaxed/simple;
-	bh=N5IqWztkSD6d6jT8YO/ZSljhY36WERGkX/mWHbGSs8o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sT5uM2oPXwXr8OtCOY4/g8sLhXwa5v+c5LT64wXEokGLMDR0e07EgbKsn66vl/EXaEA6TFzQ3KPQrBJC/7zx0I8BMoJfevgj19B0u6t/8vFd0RJHl+IPLfPPWoShxvfrPPVwyFE84HjdHsvKgyMffFI8fUtyEg2cCg3+79sJAQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R8cnCTZU; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789397660; c=relaxed/simple;
+	bh=3j32lc+mNdjjyLLm89PyOPrpkZks+UmU89G06/sIJmI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O5L8RnyEYKmn9YAv9EuR6QFuwYCALJC7ULxnWQM0YGnvZ3L5e2f1t1i57HPgNyf284zk2l3mmglygcDdk9pIyNhKqMR8EcxLXrm/aPWEsSMgMkUi3jSvSK9m5uHICyoGSy3ahMwHTrG6o7NB9X49N+rN1BtIWJnWfTIjcme/y9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqtdz8iU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R8cnCTZU"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49e73e541d7so2458655e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:53:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789397596; x=1790002396; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vi+kgOEwQ6B298JA+n1SDDNCDc6Yrj8qSoia7I1Zars=;
-        b=R8cnCTZUIC5fTZ4g2OWHqcn6whywTygRVbKqIZCpc85wtplUOr0s8yEY/86wn55Z8p
-         jp7W9C64wZvHnQ7EUxhNidnj7/dIhMpmIzWDdb3Ncp32Xf/1SZrfS2VoHTaDq9TVZG9w
-         t49C0NqQbWV5PWlnUGql6mNiCbo00vbOgKMRs7QY1+0hcBwhSdK2k9vxwXA0gY6TqnXK
-         +tNfwulZLCTDnQOpcL107kmqezlBcNAygo2O+7g+e1iUA6BGxzJ50+/wEG4pZSinwIHO
-         vFXvtZMGYqWsgHWE9eqfiyX7YEx7LkDF7iGyzTtKtsRBQeFFhV6hbGWQX0KanuHCM3Wq
-         EyGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789397596; x=1790002396;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Vi+kgOEwQ6B298JA+n1SDDNCDc6Yrj8qSoia7I1Zars=;
-        b=CNfgP3jYp1i0uJh8idKh3pofDGLvYhgHkNMKw2xsgOD60SgVXg9yYtvM8gkIXJ87Of
-         mj77DEoYZK0pOmpr/AvUHZlgA8NM9hptCHX8/sil9zfRGx8p/A/UpWGNNbAHRkJ/UBF5
-         3vSHO5ZnhZKMaezVp2e8GP/sU4EX8Gj9IlheO5r7qT+a2jW/0s5tjcF4EfBz0x269bFR
-         cfYLezKF3kn+6B+BMa1WAzZEixowoQRgFCfeUOJWN9dS37cIzQCjTvw2ETYiEjotdtxT
-         MC/E3RUML410CeYSjDbT1wDChiYUyGwqv0yiFZB8am4EVBdYVj8PFnhuIPAPAAedm8c9
-         IYJQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLMBjZgBCT1bqBT5QMmM5QfPJDbv9UxodOB1pK2BYF6HFD3W4aY+J0OdWj53YSK2GRRg7GpnxVy34Fuxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7JA1mFv3317EpIWY/x01YxUHa4K28RpuNNWAF6nyac268MvuZ
-	9W4eXuarTz2AXhaXA+GNPa+82sgmB8UhydswbcTgFve1Ddfga/5595NP
-X-Gm-Gg: AYBFou0OrR+m9Xi5eoe8efgrNEJC8hzI3kpR/WfBd9e62ubm3+gzfnrnLLDXeChCEtJ
-	1lv5tNK1xRNqHgztYKSbcB/LaDvVp+E/rxoeijF70QrM4ViccTF9w9Xj/hDtGRqxeTNkDuJKW9X
-	ia2yOZw6I6MNMzbPC7Ap07Em9yJ9H7+7n2B7+hLpAsXFr7cbyZmMw0B83KyCqgBGS20FDUyaEA0
-	/6k6SPz478Dl0gilJgpu933SLgyzUhMTJUPZsocgl0xiqDlP+9gqNCRBUAagrNl+tw8rXETDv3x
-	PhdkI1BO8+j37peXNXzJxq8XbasMdgmh6r/vKU1rxkEUXtARM9Hvc8/4coxr1TWhocEWuJBSFro
-	eFrQ0Woige+B2Jc+4Ny0t2oTHYtPVntiU3jMiP8vmlrJEDCwHXeV8eIQC6fmdM7BbrZXlN6F9rC
-	jTDzoH3F008ZLCy5qfkiMQXI63d/Hw0XC2J+6LcaRzYhS3GRLWVigiasMudEuaCJxjfsKEDs9zi
-	kdDTU/On8FOeStU41J4ag==
-X-Received: by 2002:a7b:cb87:0:b0:49e:718f:4f2e with SMTP id 5b1f17b1804b1-49e76021236mr55872585e9.3.1789397596079;
-        Mon, 14 Sep 2026 07:53:16 -0700 (PDT)
-Received: from ubuntu-4gb-nbg1-1.. ([2a01:4f8:1c19:b0ad::1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e6f1sm26812525f8f.6.2026.09.14.07.53.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 07:53:15 -0700 (PDT)
-From: =?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: fix lines exceeding 100 columns in rtw_security.c
-Date: Mon, 14 Sep 2026 14:52:56 +0000
-Message-ID: <20260914145256.996968-1-vladurares@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqtdz8iU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE731F000FF;
+	Mon, 14 Sep 2026 14:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789397658;
+	bh=WqQv6KMy1U28ryoZhijvrEOBD1yTQeJF18hN0VAMPnU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aqtdz8iUgW6ucLIZQPX3jcGa3cZwKaxATGczLsWk5HkTtLjwNgVOr9h/zsxClIatn
+	 RuxwPSckGUkH7sXnJMOHR2il5yg1Mmtj+fDesIaZxY3V26H/wt6Q0jq5RAdoYx8P8Q
+	 AmfEwx2NI2SbMwLh1N75+IDkwaJaVqstWGbJR8ZRSCCnhsND7bLOQ/lvHIZUIebj0I
+	 cV0vZvRdZL6iogCMScFXBhExrRuDX+1JF1WBfJfJ+t35R/lLrUtUgiHsdaQhb8XgpV
+	 ZdgDwd/ixQSdc61RU2SwHW77KoPdWcLshOHIODE5EAbFiuqRYykIHD0p88nHYoBieL
+	 NLooPdayPATNQ==
+Message-ID: <25a39c58-a188-4dda-a832-5deff2c8b8c0@kernel.org>
+Date: Mon, 14 Sep 2026 16:54:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/57] mm/collapse: rebuild collapse on migration
+ primitives
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, akpm@linux-foundation.org,
+ nico.pache@linux.dev, baolin.wang@linux.alibaba.com, baohua@kernel.org,
+ dev.jain@arm.com, hughd@google.com, lance.yang@linux.dev,
+ liam@infradead.org, mhocko@suse.com, rppt@kernel.org, ryan.roberts@arm.com,
+ shuah@kernel.org, surenb@google.com, usama.arif@linux.dev,
+ vbabka@kernel.org, ziy@nvidia.com, usama.anjum@arm.com,
+ agordeev@linux.ibm.com, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jannh@google.com, willy@infradead.org,
+ pfalcato@suse.de, rostedt@goodmis.org, mhiramat@kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
+References: <20260816224609.308019-1-kirill@shutemov.name>
+ <aoLAly-oL2OAa4n8@lucifer> <aoLkMUtmzRVuv2Hx@thinkstation>
+ <aoQ77EcD3M2kjeya@lucifer> <0153303d-f9d6-45ea-a276-fbf2e5625ef9@kernel.org>
+ <aoXn1B7cPnPq7uxd@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aoXn1B7cPnPq7uxd@thinkstation>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Reformat long lines in rtw_security.c to fit within the 100-column
-limit by splitting function arguments, expressions, and moving
+Following up on some older threads (sorry, the last month was insane)
 
-Signed-off-by: Rareș-Mihai Vladu <vladurares@gmail.com>
----
- drivers/staging/rtl8723bs/core/rtw_security.c | 94 +++++++++++++------
- 1 file changed, 66 insertions(+), 28 deletions(-)
+[...]
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_security.c b/drivers/staging/rtl8723bs/core/rtw_security.c
-index 2217cffac..208aa0f31 100644
---- a/drivers/staging/rtl8723bs/core/rtw_security.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_security.c
-@@ -34,7 +34,8 @@ const char *security_type_str(u8 value)
- 
- /* Need to consider the fragment  situation */
- void rtw_wep_encrypt(struct adapter *padapter, u8 *pxmitframe)
--{																	/*  exclude ICV */
-+{
-+	/*  exclude ICV */
- 	union {
- 		__le32 f0;
- 		unsigned char f1[4];
-@@ -64,12 +65,17 @@ void rtw_wep_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 		for (curfragnum = 0; curfragnum < pattrib->nr_frags; curfragnum++) {
- 			iv = pframe + pattrib->hdrlen;
- 			memcpy(&wepkey[0], iv, 3);
--			memcpy(&wepkey[3], &psecuritypriv->dot11DefKey[psecuritypriv->dot11PrivacyKeyIndex].skey[0], keylength);
-+			int idx = psecuritypriv->dot11PrivacyKeyIndex;
-+
-+			memcpy(&wepkey[3],
-+			       &psecuritypriv->dot11DefKey[idx].skey[0],
-+			       keylength);
- 			payload = pframe + pattrib->iv_len + pattrib->hdrlen;
- 
- 			if ((curfragnum + 1) == pattrib->nr_frags) {	/* the last fragment */
- 
--				length = pattrib->last_txcmdsz - pattrib->hdrlen - pattrib->iv_len - pattrib->icv_len;
-+				length = pattrib->last_txcmdsz - pattrib->hdrlen -
-+					 pattrib->iv_len - pattrib->icv_len;
- 
- 				crc.f0 = cpu_to_le32(~crc32_le(~0, payload, length));
- 
-@@ -78,7 +84,8 @@ void rtw_wep_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 				arc4_crypt(ctx, payload + length, crc.f1, 4);
- 
- 			} else {
--				length = pxmitpriv->frag_len - pattrib->hdrlen - pattrib->iv_len - pattrib->icv_len;
-+				length = pxmitpriv->frag_len - pattrib->hdrlen -
-+					 pattrib->iv_len - pattrib->icv_len;
- 				crc.f0 = cpu_to_le32(~crc32_le(~0, payload, length));
- 				arc4_setkey(ctx, wepkey, 3 + keylength);
- 				arc4_crypt(ctx, payload, payload, length);
-@@ -112,9 +119,16 @@ void rtw_wep_decrypt(struct adapter  *padapter, u8 *precvframe)
- 		keyindex = prxattrib->key_index;
- 		keylength = psecuritypriv->dot11DefKeylen[keyindex];
- 		memcpy(&wepkey[0], iv, 3);
--		/* memcpy(&wepkey[3], &psecuritypriv->dot11DefKey[psecuritypriv->dot11PrivacyKeyIndex].skey[0], keylength); */
--		memcpy(&wepkey[3], &psecuritypriv->dot11DefKey[keyindex].skey[0], keylength);
--		length = ((union recv_frame *)precvframe)->u.hdr.len - prxattrib->hdrlen - prxattrib->iv_len;
-+		/*
-+		 *  memcpy(&wepkey[3],
-+		 *         &psecuritypriv->dot11DefKey[psecuritypriv->dot11PrivacyKeyIndex].skey[0],
-+		 *         keylength);
-+		 */
-+		memcpy(&wepkey[3],
-+		       &psecuritypriv->dot11DefKey[keyindex].skey[0],
-+		       keylength);
-+		length = ((union recv_frame *)precvframe)->u.hdr.len -
-+			 prxattrib->hdrlen - prxattrib->iv_len;
- 
- 		payload = pframe + prxattrib->iv_len + prxattrib->hdrlen;
- 
-@@ -157,7 +171,8 @@ void rtw_secmicappendbyte(struct mic_data *pmicdata, u8 b)
- 		pmicdata->L ^= pmicdata->M;
- 		pmicdata->R ^= ROL32(pmicdata->L, 17);
- 		pmicdata->L += pmicdata->R;
--		pmicdata->R ^= ((pmicdata->L & 0xff00ff00) >> 8) | ((pmicdata->L & 0x00ff00ff) << 8);
-+		pmicdata->R ^= ((pmicdata->L & 0xff00ff00) >> 8) |
-+			 ((pmicdata->L & 0x00ff00ff) << 8);
- 		pmicdata->L += pmicdata->R;
- 		pmicdata->R ^= ROL32(pmicdata->L, 3);
- 		pmicdata->L += pmicdata->R;
-@@ -418,7 +433,8 @@ static void phase2(u8 *rc4key, const u8 *tk, const u16 *p1k, u16 iv16)
- 
- /* The hlen isn't include the IV */
- u32 rtw_tkip_encrypt(struct adapter *padapter, u8 *pxmitframe)
--{																	/*  exclude ICV */
-+{
-+	/*  exclude ICV */
- 	u16 pnl;
- 	u32 pnh;
- 	u8 rc4key[16];
-@@ -467,7 +483,8 @@ u32 rtw_tkip_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 		phase2(&rc4key[0], prwskey, (u16 *)&ttkey[0], pnl);
- 
- 		if ((curfragnum + 1) == pattrib->nr_frags) {	/* 4 the last fragment */
--			length = pattrib->last_txcmdsz - pattrib->hdrlen - pattrib->iv_len - pattrib->icv_len;
-+			length = pattrib->last_txcmdsz - pattrib->hdrlen -
-+				 pattrib->iv_len - pattrib->icv_len;
- 			crc.f0 = cpu_to_le32(~crc32_le(~0, payload, length));
- 
- 			arc4_setkey(ctx, rc4key, 16);
-@@ -475,7 +492,8 @@ u32 rtw_tkip_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 			arc4_crypt(ctx, payload + length, crc.f1, 4);
- 
- 		} else {
--			length = pxmitpriv->frag_len - pattrib->hdrlen - pattrib->iv_len - pattrib->icv_len;
-+			length = pxmitpriv->frag_len - pattrib->hdrlen -
-+				 pattrib->iv_len - pattrib->icv_len;
- 			crc.f0 = cpu_to_le32(~crc32_le(~0, payload, length));
- 
- 			arc4_setkey(ctx, rc4key, 16);
-@@ -491,7 +509,8 @@ u32 rtw_tkip_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 
- /* The hlen isn't include the IV */
- u32 rtw_tkip_decrypt(struct adapter *padapter, u8 *precvframe)
--{																	/*  exclude ICV */
-+{
-+	/*  exclude ICV */
- 	u16 pnl;
- 	u32 pnh;
- 	u8   rc4key[16];
-@@ -536,7 +555,8 @@ u32 rtw_tkip_decrypt(struct adapter *padapter, u8 *precvframe)
- 			if (jiffies_to_msecs(jiffies - start) > 1000) {
- 				if (no_gkey_bc_cnt || no_gkey_mc_cnt) {
- 					netdev_dbg(padapter->pnetdev,
--						   FUNC_ADPT_FMT " no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
-+						   FUNC_ADPT_FMT
-+						   " no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
- 						   FUNC_ADPT_ARG(padapter),
- 						   no_gkey_bc_cnt,
- 						   no_gkey_mc_cnt);
-@@ -550,7 +570,8 @@ u32 rtw_tkip_decrypt(struct adapter *padapter, u8 *precvframe)
- 
- 		if (no_gkey_bc_cnt || no_gkey_mc_cnt) {
- 			netdev_dbg(padapter->pnetdev,
--				   FUNC_ADPT_FMT " gkey installed. no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
-+				   FUNC_ADPT_FMT
-+				   " gkey installed. no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
- 				   FUNC_ADPT_ARG(padapter),
- 				   no_gkey_bc_cnt,
- 				   no_gkey_mc_cnt);
-@@ -566,7 +587,8 @@ u32 rtw_tkip_decrypt(struct adapter *padapter, u8 *precvframe)
- 
- 	iv = pframe + prxattrib->hdrlen;
- 	payload = pframe + prxattrib->iv_len + prxattrib->hdrlen;
--	length = ((union recv_frame *)precvframe)->u.hdr.len - prxattrib->hdrlen - prxattrib->iv_len;
-+	length = ((union recv_frame *)precvframe)->u.hdr.len -
-+		 prxattrib->hdrlen - prxattrib->iv_len;
- 
- 	GET_TKIP_PN(iv, dot11txpn);
- 
-@@ -757,10 +779,12 @@ static void construct_ctr_preload(u8 *ctr_preload,
- 	if (frtype == WIFI_MGT_TYPE)
- 		ctr_preload[1] |= BIT(4);
- 
-+	/* ctr_preload[2:7] = A2[0:5] = mpdu[10:15] */
- 	for (i = 2; i < 8; i++)
--		ctr_preload[i] = mpdu[i + 8];                       /* ctr_preload[2:7] = A2[0:5] = mpdu[10:15] */
-+		ctr_preload[i] = mpdu[i + 8];
-+	/* ctr_preload[8:13] = PN[5:0] */
- 	for (i = 8; i < 14; i++)
--		ctr_preload[i] =    pn_vector[13 - i];          /* ctr_preload[8:13] = PN[5:0] */
-+		ctr_preload[i] =    pn_vector[13 - i];
- 	ctr_preload[14] = (unsigned char)(c / 256); /* Ctr */
- 	ctr_preload[15] = (unsigned char)(c % 256);
- }
-@@ -952,11 +976,13 @@ u32 rtw_aes_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 
- 	for (curfragnum = 0; curfragnum < pattrib->nr_frags; curfragnum++) {
- 		if ((curfragnum + 1) == pattrib->nr_frags) {	/* 4 the last fragment */
--			length = pattrib->last_txcmdsz - pattrib->hdrlen - pattrib->iv_len - pattrib->icv_len;
-+			length = pattrib->last_txcmdsz - pattrib->hdrlen -
-+				 pattrib->iv_len - pattrib->icv_len;
- 
- 			aes_cipher(prwskey, pattrib->hdrlen, pframe, length);
- 		} else {
--			length = pxmitpriv->frag_len - pattrib->hdrlen - pattrib->iv_len - pattrib->icv_len;
-+			length = pxmitpriv->frag_len - pattrib->hdrlen -
-+				 pattrib->iv_len - pattrib->icv_len;
- 
- 			aes_cipher(prwskey, pattrib->hdrlen, pframe, length);
- 			pframe += pxmitpriv->frag_len;
-@@ -1205,7 +1231,8 @@ u32 rtw_aes_decrypt(struct adapter *padapter, u8 *precvframe)
- 			if (jiffies_to_msecs(jiffies - start) > 1000) {
- 				if (no_gkey_bc_cnt || no_gkey_mc_cnt) {
- 					netdev_dbg(padapter->pnetdev,
--						   FUNC_ADPT_FMT " no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
-+						   FUNC_ADPT_FMT
-+						   " no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
- 						   FUNC_ADPT_ARG(padapter),
- 						   no_gkey_bc_cnt,
- 						   no_gkey_mc_cnt);
-@@ -1220,7 +1247,8 @@ u32 rtw_aes_decrypt(struct adapter *padapter, u8 *precvframe)
- 
- 		if (no_gkey_bc_cnt || no_gkey_mc_cnt) {
- 			netdev_dbg(padapter->pnetdev,
--				   FUNC_ADPT_FMT " gkey installed. no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
-+				   FUNC_ADPT_FMT
-+				   " gkey installed. no_gkey_bc_cnt:%u, no_gkey_mc_cnt:%u\n",
- 				   FUNC_ADPT_ARG(padapter),
- 				   no_gkey_bc_cnt,
- 				   no_gkey_mc_cnt);
-@@ -1238,7 +1266,8 @@ u32 rtw_aes_decrypt(struct adapter *padapter, u8 *precvframe)
- 		prwskey = &stainfo->dot118021x_UncstKey.skey[0];
- 	}
- 
--	length = ((union recv_frame *)precvframe)->u.hdr.len - prxattrib->hdrlen - prxattrib->iv_len;
-+	length = ((union recv_frame *)precvframe)->u.hdr.len -
-+		 prxattrib->hdrlen - prxattrib->iv_len;
- 
- 	res = aes_decipher(prwskey, prxattrib->hdrlen, pframe, length);
- 
-@@ -1269,9 +1298,14 @@ u32 rtw_BIP_verify(struct adapter *padapter, u8 *precvframe)
- 	/* mapping to wlan header */
- 	pwlanhdr = (struct ieee80211_hdr *)pframe;
- 	/* save the frame body + MME */
--	memcpy(BIP_AAD + BIP_AAD_SIZE, pframe + WLAN_HDR_A3_LEN, pattrib->pkt_len - WLAN_HDR_A3_LEN);
-+	memcpy(BIP_AAD + BIP_AAD_SIZE,
-+	       pframe + WLAN_HDR_A3_LEN,
-+	       pattrib->pkt_len - WLAN_HDR_A3_LEN);
- 	/* find MME IE pointer */
--	p = rtw_get_ie(BIP_AAD + BIP_AAD_SIZE, WLAN_EID_MMIE, &len, pattrib->pkt_len - WLAN_HDR_A3_LEN);
-+	p = rtw_get_ie(BIP_AAD + BIP_AAD_SIZE,
-+		       WLAN_EID_MMIE,
-+		       &len,
-+		       pattrib->pkt_len - WLAN_HDR_A3_LEN);
- 	/* Baron */
- 	if (p) {
- 		u16 keyid = 0;
-@@ -1300,8 +1334,10 @@ u32 rtw_BIP_verify(struct adapter *padapter, u8 *precvframe)
- 		/* conscruct AAD, copy address 1 to address 3 */
- 		memcpy(BIP_AAD + 2, &pwlanhdr->addrs, sizeof(pwlanhdr->addrs));
- 
--		if (omac1_aes_128(padapter->securitypriv.dot11wBIPKey[padapter->securitypriv.dot11wBIPKeyid].skey
--			, BIP_AAD, ori_len, mic))
-+		int keyid = padapter->securitypriv.dot11wBIPKeyid;
-+		u8 *bip_key = padapter->securitypriv.dot11wBIPKey[keyid].skey;
-+
-+		if (omac1_aes_128(bip_key, BIP_AAD, ori_len, mic))
- 			goto BIP_exit;
- 
- 		/* MIC field should be last 8 bytes of packet (packet without FCS) */
-@@ -1430,7 +1466,8 @@ void rtw_sec_restore_wep_key(struct adapter *adapter)
- 	struct security_priv *securitypriv = &adapter->securitypriv;
- 	signed int keyid;
- 
--	if ((securitypriv->dot11_privacy_algrthm == _WEP40_) || (securitypriv->dot11_privacy_algrthm == _WEP104_)) {
-+	if ((securitypriv->dot11_privacy_algrthm == _WEP40_) ||
-+	    (securitypriv->dot11_privacy_algrthm == _WEP104_)) {
- 		for (keyid = 0; keyid < 4; keyid++) {
- 			if (securitypriv->key_mask & BIT(keyid)) {
- 				if (keyid == securitypriv->dot11PrivacyKeyIndex)
-@@ -1448,7 +1485,8 @@ u8 rtw_handle_tkip_countermeasure(struct adapter *adapter, const char *caller)
- 	u8 status = _SUCCESS;
- 
- 	if (securitypriv->btkip_countermeasure) {
--		unsigned long passing_ms = jiffies_to_msecs(jiffies - securitypriv->btkip_countermeasure_time);
-+		unsigned long elapsed = jiffies - securitypriv->btkip_countermeasure_time;
-+		unsigned long passing_ms = jiffies_to_msecs(elapsed);
- 
- 		if (passing_ms > 60 * 1000) {
- 			netdev_dbg(adapter->pnetdev,
+>> Ideally, we'd get b), in small, nice-to-review chunks that incrementally improve
+>> the code without inflating it heavily or moving everything around.
+> 
+> It is not a cleanup and I would rather not sell it as one.  It replaces a
+> mechanism, so judged as (b) it fails by construction.
+> 
+> I believe the end result is much cleaner. But I might be biased. :)
+> 
+
+It should start with cleanups, though, and not moving stuff around and rewriting
+it in a rather uncontrolled manner.
+
+I saw that you started sending out cleanups, good. :)
+
+>> The current locking is nasty, so anything that moves us one step closer into
+>> something that is not only simpler but also more scalable is nice. I am a bit
+>> concerned with the churn in the series as is.
+>>
+>> After this series, mm/collapse.c itself is way larger than just mm/khugepaged.c
+>> originally, which raises some eyebrows.
+> 
+> Line count is a poor proxy for simplicity or scalability.  What the
+> engine changes is the serialization model, and that is the part collapse
+> needs changed: the PMD granularity and the exclusion both come out of
+> the locking.
+> 
+> Incremental does not reach it, though.  The old mechanism is correct
+> because it holds mmap_write_lock, the anon_vma write lock and a reference
+> from the LRU; the engine is correct because the sources are frozen behind
+> migration entries.  There is no halfway state that is correct under both,
+> so the switch lands as one patch.
+> 
+> What can be incremental is everything around it: the engine goes in beside
+> the old mechanism, patch 25 points the anon path at it, and 28 removes what
+> it replaces.  Until 28 both are in the tree with only one of them
+> reachable, so the switch can be reverted on its own.
+
+What I am saying is that there must be a way where we slowly move into that
+direction.
+
+We try to move in small, controlled increments where possible.
+
+Huge rewrites are not helpful, neither for reviewers nor for maintainers nor for
+consumers.
+
+Sure, at some point there will be a switch, and bigger changes but what has been
+presented in this RFC was way too much and way too radical for one series.
+
+Nobody can really review 39 patches of RFC.
+
+Often it's more helpful to propose an overall design idea, and then discuss if
+and how to get there.
+
+(and the design idea should not read like schlop otherwise nobody will have an
+interest in engaging with it)
+
+> 
+>> We should also be aware that people are proposing file/shmem mTHP collapse, so
+>> ideally what we refactor would naturally unify some of these code paths.
+>>
+>> I am wondering whether shmem mTHP collapse should come first. (I'm hoping that
+>> shmem mTHP collapse can unify some of the anon+file collapse code in a nice way,
+>> to similarly just look like a cleanup while enabling a new scenario.
+> 
+> mTHP collapse as it stands has limited usability: PMD-aligned windows only,
+> and one VMA has to own the PMD.  Bolting file collapse onto the same
+> structure adds to the debt instead of paying it down.
+> 
+> It would fit the new design.  The frame -- scan, candidate selection, the
+> round and its passes -- has nothing anon-specific in it; what is
+> anon-specific sits in the freeze (folio_test_anon(), PageAnonExclusive())
+> and the unshare in the fault-in pass.  A file source would bring its own
+> check, freeze, copy and install.
+> 
+> I am not sure it should, though.
+> 
+> Do we want to find file collapse candidates by walking the virtual
+> address space at all?
+
+In guest_memfd, we recently discussed that we actually would want a mechanism to
+collapse even without walking the VA space .... but maybe guest_memfd is just
+too special, not sure.
+
+You still need a mmap to identify the candidate file IIRC.
+
+> 
+> collapse_file() already works on the mapping -- it builds the folio in
+> the page cache and then repairs every mapping through
+> retract_page_tables() -- so the VMA walk only picks which inode range to
+> try, and it reaches only what a registered mm maps right now.  Large
+> folios buy more than TLB reach: fewer page cache entries, cheaper
+> writeback, natural locking batch, etc.  Those apply whether the file is
+> mapped or not, and going at the inode directly would reach them.
+> 
+>> Agreed, I think we really should unify+cleanup the existing code first before
+>> doing more drastic changes.
+>>
+>> Having a series that throws all of khugepaged.c into a mixer and pours something
+>> new into collapse.c is ... concerning :)
+> 
+> The moving around is patches 29-35 and the tracing after them.  None of it
+> is needed for the engine: 1-28 add it, switch the anon path over and delete
+> the old mechanism, without moving anything else out of khugepaged.c.  If
+> the churn is the problem, v2 can stop there and the moves can come later as
+> their own series.
+> 
+
+The churn is always the problem.
+
+Small, controlled increments please.
+
 -- 
-2.43.0
+Cheers,
 
+David
