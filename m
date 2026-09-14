@@ -1,83 +1,76 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB5047F79B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3869F4825AD
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399722; cv=none; b=XRuI2mE93lBw/a+DBHUPO+j4ICj4P6Jc2mRfznWimjrOwdI2QFW1UouiYQTQ1/MyxFqhwmh3MrJcVUJP0E0EFCA61xsxK+cElW4Ge1PAIrsU/8u6+42R7/GV7bK+3C1naY+dOqpZ7ucI5yR7RmCW023aDzquWPBaabxB+3r+KX8=
+	t=1789399765; cv=none; b=EwBdYJnKSOCE5MXpYHXjsZyIufeUFy9yv9P4LhznyusEkaZ3zoxmNqnDFd7ZdxWJrFbQn5w2suZ4YrhN/Is5IW7X22UqmwmoN5Cid/k7H3fhBHmrKdRrfjnT+rMsQwB48tB7XEWOr293NxajZEK8C/3ASqBnwpAUBHTbxre7KZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399722; c=relaxed/simple;
-	bh=/5GD500jhxrjrGdu3756syYeLWpVMCMPoBV0ibDiq+k=;
+	s=arc-20240116; t=1789399765; c=relaxed/simple;
+	bh=8P1Uav40Y8kXsjX0HdETGS4JMl9Qk6D8B70bUav+hDs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IS+VgaOVdMVqdsmKAaqrCDoWwkst6mFX2gValyCmQb0sQRRnVlgj7cRnnDlNA9rNUnGOBOGrOFiNvP2Curb1RZ5ytwYiB/yYqsUzx4xnyga0pWjchAybmeQ5GENvHjOtrh9f1fXm4Vf5e1rfpnox2adm3LI6lR2vCMnkoCYSIPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ko2q6DFA; arc=none smtp.client-ip=74.125.228.12
+	 Content-Type:Content-Disposition:In-Reply-To; b=k9dkOWBcNXnbYegiXmjSSCXBUDdhLSDcpDHBWDuXiykJdtX5UasLXIvfxDuzXbo0Vnl2H9gChgQWMhEXZBh2GWmtzQ+CXUWCFQFAN1ZwtpHIX2WQHsWMETk8WHGw1bvFnyxqjROqnFLspJbgYeaw4sqrv4CW2lWacYY2vxufuZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ykh5rSQB; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ko2q6DFA"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so2374624b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:28:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ykh5rSQB"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398a5aad413so3335708a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:29:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789399721; x=1790004521; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789399763; x=1790004563; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=P1JKkCEZE/08JY/nIzj8bs0RkzGsOhreN3VjKeZuF/k=;
-        b=ko2q6DFAjx/o+eac30ySmNqgpBKJnOfuY+7jneFK5LLdxpUzTS5AhAX4HMZEJh1kmk
-         rMG3TrXQ3NJKyBrHcaot9gRyZn4M1IOOdA5NOBQCPO+Oc5BsWRNz21VtUDO5s0iJPE6l
-         Y6YBX/AFRCiLXYyXqoSsgW2y21HQLq1OfXgCIts5oxsfh75AwEC8L3HLeqrz45QNpl9G
-         BRgc4Pt4oGPCqXMSjoxyT3UnK4qZ2Ho+92ytRb7BKCkXGAhRWbDv4KpdQ51v8fqQBTuV
-         ppjq75Sn7RQewbguvj8paaVq5H7zytk3n1nDBVYTeMO74V+2h2RRiF4e5hypORlXusUI
-         ta/w==
+        bh=8JGSgbnEFbfQWmMwF+znkBzTBmF0OUyT85pZqVYf5AE=;
+        b=Ykh5rSQBWJZoT05PgglIqa6HkClGzhc/Ykcj+r+T5KLH+kZnEfR9S9+5dFb1ImvUL1
+         HMSMDrM/DXr7bnvf5OYateicGIAvQqkBLOUpQhfUc/TF3vxQ4qNU4zi2tRabUNnw1Rjg
+         f4zv/jVJJN8FNYcxlMm3da/e9SbzXeP1XAluzseSnprHrbYnlcosy5UX3QzBPfEiG82b
+         tqfaO5PHXxCJKbJtQV1vJlmUMJ+1EysFOojWbccC8qYsvltGdal3WYHZAQyrXLxAXjdV
+         mRNiHEo+MKfkEA2OOPoTtdrbmiSwr5zZ5Oo9XSBYReCeCiwL+vBCaHPOnxbAsdHkP3pB
+         n1Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789399721; x=1790004521;
+        d=1e100.net; s=20251104; t=1789399763; x=1790004563;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P1JKkCEZE/08JY/nIzj8bs0RkzGsOhreN3VjKeZuF/k=;
-        b=r/bzUl+vt+3qlbinZKCHsOBVPNWY89lD5v2+F22/CeQzK31a7ggpaQzB8XUK+/ZjVO
-         UbgHOxTEp7f0HIMIruqFz8dhI2Fs9FYavKuOsQ70jmt2BMH7l8ObULvT6x9o1RRycezj
-         NwN0sjglP6xHi1i2f/vf7mrjLwOUyziiB7lFdbF2J2y5IRox6Npmnjf73HLo9nI0P9gp
-         YO3ujud3NOMnOMRd+mNITQiqBybFLvznpFpG8zkEFhB/yl6PRwP7CzsO6itJVurPmpfh
-         CkkPdvU972eo30r6vdwD7Qg85XDfmc9q4HcVK4qDGiM/cIreChAV26fYVRi6srx3dRvZ
-         Td2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzXyhwt7fDldOc7DwrTTnjJ71z+tUcQhsx+9idQyQ9ZL6bP6aGzAfFtdtTZo3muCEqic868bF3aNGtt+80=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlMXH1p7/AxGu+dcbp0vAAoiRmJ27X3O1iVHoCkBAVk9tSCr5/
-	WtccPwb0Z0Pd7x419Qjx0n+Vg36HuR3vkm3P98s3ABklNsFtpeDKqf14
-X-Gm-Gg: AYBFou14aqKGljJorD9MY2MwbAWQRIKJULqQkh6jWshmgwV42Gb13EJD4hRMkGwrSe+
-	4vwj+tyaUIYrYShHWldydqr5S+p7jzZ2CyNFyGNGBZxUpJL66eJsvhO2685fZ+lRP7GBBqkCVA7
-	TuXHaIDFdLresp9MysHU8/NdVayeMoRoxo9DA76O/Bnm/keC8NK1bdewW6aeZBxOMMZk26zqI3N
-	b23I5FG4mWujlpUMFHWafrMKq7lDmRjqVm2mlpV67TXaNSQRJ8iFrs1CseWyQgLK5kka+0DjSDy
-	CGEctxNh91TjETPJE2Yv1DfnXLZ6+4lGE7++mk0/j6OnRXkUHAj7pDl/5Te+a6rPp6CqHseqLkJ
-	P9pC+2Bs0j2bNlAPvFoBztsxf3avWUG3UNXwwpX+NUR8JFmYyGqzscqt2uK8DVqPnAmFmn6FlvZ
-	VpcoIayDWglvf4kUikmRkknh2f8/lpsB+KwZaXFsQv2a3SGYLH5Oi7GI5CS2XKVLwK2iIyD1M9q
-	cNSlcF8+liQ
-X-Received: by 2002:a05:6a00:1797:b0:857:72ba:ff12 with SMTP id d2e1a72fcca58-86f865b48c2mr6631339b3a.26.1789399720794;
-        Mon, 14 Sep 2026 08:28:40 -0700 (PDT)
+        bh=8JGSgbnEFbfQWmMwF+znkBzTBmF0OUyT85pZqVYf5AE=;
+        b=UiJSBwClEYMeYcnIkN22qiJ4K9ILKOYYxGNDbNp2HGfPg+F7rHmyjtRbPQqabe0MBl
+         KUJo34XyET0IugbY3aHrTerTgtM1PPNKhek3zEjDrP46Y7qB+piM7foeNJmQH81rzbfY
+         6SE+9M+Umj4/LLX/SllBDlKngjtL+y8rNs4MKc1f8jYe7hXC2lNH0N1l+SOURj646XJw
+         LzVNOqUERzuBZCXG8QIViA+BnToaN7A+S4QUna1CyphRI+GzOL3rBXSa0wmhqeTqjn7s
+         Xgy4iTVyjIO3wqMtY0Yac76iBiKI3OhM5uJYx+hlyf1y0mWP/TgByc4TzToer1WYmhh8
+         E/Tw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUTkxDlIBp4QaxFpcWv1UWUydq/3kFnpd/Ati6/AkqcKgBEA2LtuTdVs0p6BwuBB4xmmyL53Kvwdpsbn4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnDay3t0WBywilwJPoLJ7JJ8HsYxUhSIiq98YHkIafdgAboU0t
+	TgmSvanBwbGcGGYg8EmzI6gGtuEdoizylMd4HqVRvyKH9+eyHqC07Xb3
+X-Gm-Gg: AYBFou0kOkt41joUOA4U8XvjvjmIPp4bvqcTIwrn+9km/4DOtlLO/AxYfJtdpr1VaFM
+	0U3Zy51Nai2GtuZpC871W5jSTlK0aQDWbUhChsMU3sGsDlxKdd7gYZoOg0zsfUSDELivaXxz9k2
+	ABD+SxRHNM4vMcAqZdEbIseXw8WG4nS/SyEqZYd4Pc4xOeKFfkuL6FAmQpJty+1Rj0gBC1tXFbA
+	Kwgzgbl9Yf40bQhGil9Dir3BlmfTVIphOqBsfsQmTMOWXUVNp1VVo8cNduK13WnEpZLgGwKc7uM
+	CYHZu5DK2mN/JWJTbziE2WW0FQDVcWI3kVn6NGR8DH1K2ocv8HqUBQ0B4qVkD45mO0H879b8o6B
+	5y9scRlHMBfyiEMghsqtC5MREMSo34f4vOrz9FDBFWrDjPXUnE7V444DohM4e4isPaiDNd4JAS1
+	p3fBEChwlb7owoYHUxUtkxLbKgZlyNiOwwexsXDenIyiX/20ZhdLY9OGNcJ/ikeH2O20Q+Nty0u
+	bnvk2Zq71G5s9xplyE4tjQ=
+X-Received: by 2002:a17:90b:5886:b0:39d:f253:ed66 with SMTP id 98e67ed59e1d1-39df253ee28mr4127241a91.22.1789399763401;
+        Mon, 14 Sep 2026 08:29:23 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a5c052csm4929479b3a.58.2026.09.14.08.28.39
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfb6e82dbsm417472a91.0.2026.09.14.08.29.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 08:28:39 -0700 (PDT)
+        Mon, 14 Sep 2026 08:29:22 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 14 Sep 2026 08:28:38 -0700
+Date: Mon, 14 Sep 2026 08:29:22 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Troy Mitchell <troy.mitchell@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
 	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-doc@vger.kernel.org, Jean Delvare <jdelvare@suse.de>
-Subject: Re: [PATCH v5 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
-Message-ID: <db900549-54be-456e-9fae-5f04c69e7d1f@roeck-us.net>
-References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
- <20260914-ctl2301-v5-4-522def70acb4@linux.dev>
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (pmbus/max34440): Add support for ADPM12300
+Message-ID: <4f87ffd5-fefb-4301-a550-28518bc2faf1@roeck-us.net>
+References: <20260914-dev_adpm12300-v1-1-15fc8143d457@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,20 +79,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914-ctl2301-v5-4-522def70acb4@linux.dev>
+In-Reply-To: <20260914-dev_adpm12300-v1-1-15fc8143d457@analog.com>
 
-On Mon, Sep 14, 2026 at 04:18:04PM +0800, Troy Mitchell wrote:
-> Add Sensylink CTF2301 support to the LM63 driver. CTF2301 follows
-> the LM63-style temperature, tachometer, and PWM register layout,
-> while using a 12-bit local temperature register and requiring the
-> ALERT/TACH pin to be configured for tachometer input.
+On Mon, Sep 14, 2026 at 03:45:17PM +0800, Alexis Czezar Torreno wrote:
+> ADPM12300 is a quarter brick DC/DC Power Module. It is a high power
+> non-isolated converter capable of delivering regulated 12V with
+> continuous power level of 3000W. Uses PMBus.
 > 
-> Register an optional thermal cooling device when the device tree
-> node provides #cooling-cells, allowing thermal zones to control
-> the fan through the existing PWM path without changing behavior
-> for existing LM63-family users.
-> 
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
 
 Applied.
 
