@@ -1,136 +1,130 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4883A1CEA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789411418; cv=pass; b=Tj3TR0kZ+3NKnYkkyx9p1KjyVWet3S4+PxPQSMwUrxiYYRdHicseRmmMaR13uT3z1ARJVoKMjE1zZ9sg5T6uJpdqGp1x3t1FeVyCsXew15e6JvCj3qSCMYN97gdCSbBEAfxxtcDeka5avZv0y4wBpHojtvCsHg2mejbtG9Vh9qw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789411418; c=relaxed/simple;
-	bh=D60AujOfPZ0xT2zKJkyrcq2Rg0wSz8afS1KCAGi/hDw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Sk3kWUi7QNJThTZdxrEnQ9j7O3JXKt4F6yv7m0uVSGur9I+mgp+s+v5yFNyVhzVJ9qNyzzK5l08saWCTQlSbS/gh9we5kSuY7WIRU/078rGFp817SGSe+q40Xz7F9L6NDx30osaCkf2A+cWKJltPk8WLnnXcO5tUFFDcaqe1pFQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oehiCSal; arc=pass smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA3D3A05C2;
+	Mon, 14 Sep 2026 18:43:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789411433; cv=none; b=ArCddPGEHsNdQtVUKAJjVdZGSjPV5sSPBVd/jjUGOfPy/B13k2dF8Cg+q1ul7sCJVrE/yoGyN4rilYez1SIm1aw71LPMM0jf2jd78CXStLaz0mf6qLFZeh08WjGjBY2tHSTgcUraHs9cdLecH+y3ffezAEhO3FYtGhrTLXuLPNE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789411433; c=relaxed/simple;
+	bh=zy03KGEW1YeeekDBJmyUfQNa60AVoG7T/gD0XbgBOzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vqms+xFfN9PNsRmarWEbRJ3p2dW6/MzeorQGL8y3XsRrgpG3ebTjNxcp6ymd5wj2mdzPEWIppKM6MNSri0tnkC8W4KE1U9W48EYf8lh3uoOAk5JEbM1JkdAoxLpson+H8am7CD+m5/tvDErumyoVwnjKhMo9JMsxQfBzUAc6dmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0/xHYvA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oehiCSal"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-6714af30a2cso1485280d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:43:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789411413; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BVYQw72kUV0yT4TLTLKacmfwNmuAycZLfFpynqYiqOFlIjpKxgr7DZTTkOXMmOQtVx
-         kvzP5pZenF9NaGUN9YNGrGyoKDpInrSdMoJkC/BmQ20VTuegwCGWkDgZ/dZb3iYYhoNL
-         IXPGXhbqSyo6hhvZ2xn23ASZ8BEu8uTDiY0/KrjZ5vMe3MTLdcZqXBSTP2iwVy6JEGRd
-         9+O5sJkvD4791pZb4tydALpy2SxOr0IiX1CExCkD4cKY8KJgT/185jPMzoxNFYKGnf0n
-         eXOzR3ZRsfZFp7oeskiz+bMIn0JXNzX6eSf/v1TYkAvPK/Qija/YUKVjMqqzEOF4FhAA
-         Ek/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rTTwCzG+E2m003pB6kHU8/AZNGM2MnXKny9rOvXi4p4=;
-        fh=TYVlvyWxBBLslWaymrnmPOn1KM7HElx8RaSay/o7o+k=;
-        b=QWPmqVaTVc+mqZz/BMHMC0PQJx9VGwGbUygU4iqeUFRNKBMzhIe/SiF2aG0EIxjnqU
-         1XuyG9cWsto8bWDD2a5L77Vw90UjUhbeRTqffynPrXYguSjqaJBkmJc3fcel6L+1knBY
-         nZiaeE1kej0I2NOKeEq5wmAv+5z2o1ZeCY3DLJglAcB6Vt8guZxPYnWHUh1ExBOX2Z+D
-         jVRbIExD+P/02vBnPs7b/VbZP1eKD6JGJuKbfYZfTQEoGkHs0QZXhf+2E4uLEfFkNHXm
-         c/SrysOqpmBbdvqlQERkHM5si/DtenuPDVgdiMkkApABuvLBwhYdreJVLNBDL7h5zqss
-         MECw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789411413; x=1790016213; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rTTwCzG+E2m003pB6kHU8/AZNGM2MnXKny9rOvXi4p4=;
-        b=oehiCSal6mkocd3l0eyyBhL6M49PFLZaKereHNIo5IKdRfOHE+M3YJIhgLtEKXbxE4
-         m4YguuBA5Fjy6vxGvM9k2PVI2arPGhcAcUgIEslDJtyXnTt3VEqkcp2GyKBnxj5XjSoA
-         OgprWDC8XQ7QSThSf+bV7qKJD5kV4KnCwHqm2OxnB8ryopEewVbE47kPodAssBGF9eD8
-         X9xq44zO/4g+gewqab4YmfR9vjJB1JLxSvAPacrNyhpEFfGgfLWKyzsLy5epmVXyed7N
-         UbMmwPWFdRr3c0XsPIST9/hhnsCiTqZYMvmqfLiuk81/7MEcsJupEhE4MbOmTFN+SV2k
-         PNMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789411413; x=1790016213;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rTTwCzG+E2m003pB6kHU8/AZNGM2MnXKny9rOvXi4p4=;
-        b=jKPpEUiUcnFlryQFIIxXGfuMZZCtTbyVNBaDN+XrXhUHg6J9jPbe4arqdMzPyOhBLD
-         HmGqyxMS9xi+FchUVa7ZcuJDdS8V4/BEDDm4R8HMGGxJ1TjfuvZmXqo8qiPZ2u0bRick
-         a8pbYAIfNtnI68Uoze8YmwzhMwiQE/qG3ZbqB6vhhWfJnqGImfQVWFMaPc9I7WhcZElB
-         f51Oy3/Yx7JUY5hcbCRVSPhS92zmE4+7KSAcTjOtvD/QqtdHNmMAeU6jUAGoANt4QDaI
-         axdVv8oMs4HXX0+VgA9uNVjFJWqkwDQQbSlN0ScH4vrD7JIfTN+kvJQZnLetXUB39Uaq
-         uFEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVFSETfBev7jDYpi/E3umzPZaeGzsTc4CceEphVolDkRCnJ57SVfO/k87tJfniRDX7y9gVXQ6by3w4rGA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kI6iy32+5tQC4suxK2iI2pWEUVTbWJ4ExXquXqJ/wemrE3Oqru
-	5nAkv/lSvroZ1JxiaJEp3ugYDXcuqNMCeWgpKs2LnKp3q4Ua2nTCKNWXwqumxS+olP2M+cCViKE
-	NsCDqad3zd8pxHj0C6FvJaEArfrS3QOyEwLJpsDBhDA==
-X-Gm-Gg: AYBFou0I1beya/sMRQ2s5dbBeiCaS8P2U2rMyWAyXPwUaJ/L4thwo+o1zJoiEUfc6KG
-	P0ovwqEpQpgzhzuh0q7AdgnXNKN9yurZgtIaf70MNphsFvYNcvRLFCElUOUxvXxpQ18hIVHFe5X
-	indqvA79gT3VLsajFQwEXELPHlOdUvgKMLpd0m+GyhIxyFqgm19Y4SVxH5cG7ZR7jk8z2nOw/I9
-	eAeTQMiLWXwrCphKzZjJKz4wgJXFXRN1q9OWilinh7ZWoI93eMlzhxrN2z6ASPd3F+AifdhkMjc
-	qPn9wGevyK6KNflXJbcWfnvVFTZ/Xy2c+rXSwvvv/IoA1frrw8tvKDzB1owCpFSJbZUS4Nsq2sc
-	xeakAfcts5QQJoERJlSfJEHef
-X-Received: by 2002:a05:690e:43cd:b0:671:2d01:48e3 with SMTP id
- 956f58d0204a3-6714dff5dd3mr885822d50.29.1789411412494; Mon, 14 Sep 2026
- 11:43:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0/xHYvA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEDAA1F00893;
+	Mon, 14 Sep 2026 18:43:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789411430;
+	bh=bo6GJLiDf9mVwm6AXXi7iuVJHoavl3dsdCOXGh6V4XE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G0/xHYvAtQ4HOxtFGJbJlA22cMjDZl+N56G9hsoC0tQv8qT6/15zEdvADlDxeYuQh
+	 ae8Q6N4X+AKq3TVZGTbZs+4oj+vIEXo4zgpz9hevYG1TM/+/i/QF6MM11pZBxxyVq0
+	 vraPPnQ7ZUCWXbPqXPeQbWc8N1vmP5oiVA5uoJav1ICknNtIaaUdkQaW70pDvAs5vE
+	 974HTKmZo3bFjISiUMqs3buCdhMg059Qh11CETtTBafCHxBYrVccHqoUfj37NZD6rk
+	 zB9+I7SuAegOhvn9/uOVYU9JJ+Kw272HbWhBcTsqzySDRKTHj2bpbmSHp8inaUBp/U
+	 YZD68D5G/qndA==
+Date: Mon, 14 Sep 2026 11:43:50 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 00/21] kbuild: significantly speed up kernel builds
+Message-ID: <202609141139.AEF875252@keescook>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <202609140833.88C0E16E50@keescook>
+ <aqg5nvRy9nuvC78L@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-exynos850_sram-v4-0-253871de0f61@linaro.org> <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
-In-Reply-To: <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
-From: Sam Protsenko <semen.protsenko@linaro.org>
-Date: Mon, 14 Sep 2026 13:43:18 -0500
-X-Gm-Features: AcwNN1X6rEhWyvGZGxC5VaFgYQL-l7UNaKIM-imvsW05a09IZ7DLJYvbUNRH2HQ
-Message-ID: <CAPLW+4=5KqfFxUQ5Td6PXfoKG-vdTkzYDF-sDAyODdXKSripzw@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] arm64: dts: exynos850: Add acpm SRAM node
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqg5nvRy9nuvC78L@gremlin>
 
-On Mon, Sep 14, 2026 at 11:58=E2=80=AFAM Alexey Klimov <alexey.klimov@linar=
-o.org> wrote:
->
-> SRAM is used by the ACPM protocol to retrieve the ACPM channels
-> information and configuration data. Add the SRAM node.
->
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> ---
+On Mon, Sep 14, 2026 at 07:25:28PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Sep 14, 2026 at 08:41:39AM -0700, Kees Cook wrote:
+> > Did you try Clang CONFIG_LTO=y builds?
+> 
+> I tried a CONFIG_LTO_CLANG_THIN in order to check that the *.mod.S stuff
+> worked correctly, all working correctly.
 
-Reviewed-by: Sam Protsenko <semen.protsenko@linaro.org>
+Okay, thanks! I did the same just now too. It seems to be just fine.
 
->  arch/arm64/boot/dts/exynos/exynos850.dtsi | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/=
-dts/exynos/exynos850.dtsi
-> index 911643008b9f..2128749d7647 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> @@ -176,6 +176,11 @@ soc: soc@0 {
->                 #size-cells =3D <1>;
->                 ranges =3D <0x0 0x0 0x0 0x20000000>;
->
-> +               apm_sram: sram@2039000 {
-> +                       compatible =3D "samsung,exynos850-acpm-sram";
-> +                       reg =3D <0x2039000 0x30000>;
-> +               };
-> +
->                 chipid@10000000 {
->                         compatible =3D "samsung,exynos850-chipid";
->                         reg =3D <0x10000000 0x100>;
->
-> --
-> 2.51.0
->
+> I can try to get some profiling numbers for thin and full if you want?
+
+Mostly I wanted to know if it worked still, and I guess for profiling,
+I'd want to make sure it didn't regress how long it took to build. :)
+
+> Well I rewrote the majority of them, so this is a stinging critique of my
+> commit message writing I guess :)
+
+Oops! Sorry. I'll go through them again, but I felt like the objtool
+commit logs were very long, but perhaps it is justified. ;)
+
+> (N.B. I have had feedback like that on a fair few human-written commit
+> messages of mine lately so there might be some validity to that ;)
+
+And as I said, I get told I'm often too terse, so perhaps my sensing
+here is broken. :P
+
+> > One area I think might solved via an LLM is the 3-pass kallsyms stuff.
+> > If we could get a deterministic kallsyms build in 1 pass, that would be
+> > very nice. A lot of people have tried, but it has eluded upstreaming.
+> 
+> "going from three passes to one would save around 8s on an allmodconfig
+> build and 2 to 3s on defconfig, out of tails that are currently roughly 25s
+> and 8s." says the LLM :) so that actually does seem worthwhile.
+
+It's what I'm always staring at when I do incrementals. ;)
+
+> But I think best as a follow up?
+
+Yeah, I would imagine it'd be separate. (I think a few of these sets of
+changes could be landed separately too, like the pigz work.)
+
+-- 
+Kees Cook
