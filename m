@@ -1,94 +1,108 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEAC282F03;
-	Mon, 14 Sep 2026 09:02:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2F034A78E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376577; cv=none; b=X/hTmKpp3l2WoNaWN/uelFeNiVmPqhzUpGokC1insUGHLjUMGLVz90sZXiHV/gmGzHpkEE5ChPRggbCCV5tgj43E9to8Lle3j1b24e3iNheuAjL4FLS7Cv3wPEgDyWlUHogJEgvlhscCc1gnsM1Ifo1F07cE4MPdlcwwct337ZI=
+	t=1789376608; cv=none; b=nYg/Is2YVwKNntY2BlSrtSdg/ZjZGMgT9wDy1bWbk2ZvlQe7LXw5QAtUqhprTPVT9tnfh14XAtRShtdg8ALHaOUTA+vk922PLxp4WlQKqfbQrwvI0OGXyk20tUwWOW3PV0FWe1wN9815ROAU38xrxKq1GzE8sUSkfN6EBlVgPwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376577; c=relaxed/simple;
-	bh=JPEEuy2VASbVsx3jEIdlRTwkvRJCJkGKOmbHTX/386I=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=cFP83GnlFnP/dUePeAy55lhyHezbrBvpWTzpwd5gKHuW12OK4qhy/kWI2W5Ok/Dd+M8aJplhIXhTynVLHBbNnMvMbuArOpqpz3diBVfBCJdPMjcoeq7q6PJyKdHXBeYdLasycdavrHOO6l6yeomUlrAANj1KHs4Q6OQbVAU8Ohc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mmNi9O9w; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789376608; c=relaxed/simple;
+	bh=WI+TVWUFTFDe7DBtvoFy8AKTnIzHqypmjcK/F4DWbag=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WYvqu3Bu6/iP85RarXP5c0DC+oABw1IJTaU48Lr8P2rlXZjkmYsSiG3QXURUZFgXaCgb/0QplwweBV0YW2Hdu8qIGuruXfMo99hcV41JdnNcM8OqEFmRzfRGXBZX42oBHuXaWvQQLYHh2TAV2PIAwMs/1zJc+dZYBwI2jUyjKg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvpn.net; spf=pass smtp.mailfrom=openvpn.com; dkim=pass (2048-bit key) header.d=openvpn.net header.i=@openvpn.net header.b=N76Z206n; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvpn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openvpn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mmNi9O9w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=JPEEuy2VASbVsx3jEIdlRTwkvRJCJkGKOmbHTX/386I=; b=m
-	mNi9O9wzgiFzWbNSGwTzs9/l4BvV29q0D8mmxWSP2Ix35Xmhfsulp6PWAsBi2ljU
-	8sy7GPVtMXkwBXAeDxZQzDqarIzudryS4VI8BqTVOdaHMcEYqVf/qsHvck9SyjXo
-	KREy7G0+3NShMWta+fMzXbKzWz6f1FBYL9nN/F2JOc=
-Date: Mon, 14 Sep 2026 17:02:42 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] thunderbolt: page fault on ioread32 in nhi_probe
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/+cuU0t5CObZOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/GX1hxNj8GZCChCNjrywVfA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=openvpn.net header.i=@openvpn.net header.b="N76Z206n"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae52so3222047a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openvpn.net; s=google; t=1789376605; x=1789981405; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ofrWejGiR6SHoGCutK5goPX44BYR7HPIj9AuQ4bpEgY=;
+        b=N76Z206n2xCNteZ19+62Brw0emy15QDAFLlQRqyxOqZqI/RpIXtblcEDI6br4/zZA0
+         nv/WQRgKR2rfTob4xFt43b474Dpk7ijqjQR99s3p8pwUj82KLKzGMDclP8MNJH6Qgyej
+         30O0OgLRvjmIVm8CBUiAcQpJsmvO8q4Vgq0E//DnMmT56ftIHAdXwNHByWVvfqfu7JNM
+         kr8QvcO3PD7d7ha+Xb44BGvPnlQxb956enbs13s5iCfS+pC9W8irVpvDKJUfHsYCVAr5
+         nJfwD2OFEQDm+NwyZHxA8G8O/xVlL8ED8cx+w4Fvur+K4TabKuaotGFAyNpBHSpn4jl3
+         1mGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789376605; x=1789981405;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ofrWejGiR6SHoGCutK5goPX44BYR7HPIj9AuQ4bpEgY=;
+        b=WXEn4jMjs7RL7Rr60RDRdBKIA/09ePkobnvyZFGe2qy1wYpqeDeoDWx2ZllyYsFrXb
+         sY6NTQhWQGolldh+3ZGKyZHC3yLUcTYaZjeV1E5Y8vifya9YgVM5mo7SOXTabyRNw3Y7
+         FknfF80yvu/q+xpFiVQJzTjaDAauDBm2TaWRnSci+peo29XyKp/A2/RDLXVPywcqte7W
+         rIzLMDAMT6Eyr4VybB40IOq2K8TkeCv614V2gNogemiU9A+pM8ciNLI/hOt1MgyjvtuF
+         HDk/IhMuCy3QvAdNxwqHsNlA8p0cTaKnJrzzxk1DPjEnS5tIW5t9yaSzRASbfhCmBf+1
+         +DBA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+3Es9BEhderPLkX2Vg/MoOSPt9P6wxCsKsBmhCBvn6O6YAk37eWhWDtipJqPfss27acHZOa//z+nA8kM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kS8QiZSHMgpoPc/9ttT3sEDZXHYGuhy3oeOVR4SJTzw9L1o/hm
+	QFeZwpbJyyNx69O33eqoMwHdL12pE7/solo7JBXXVLnumcfRe4AcR7VzcZKdB4y/2omkOl+k8SK
+	gtzHqZdh6mHmim8Yg6/40vgDZPqFNT1oeCbgJsEOCDLEdwOeciGLiHTUHIUc=
+X-Gm-Gg: AYBFou3+RCKNFhRzZrxXOMbvLrCXlhhXFBtnNdyTjNtF6xqGWOvPbpgmG1LiIMk+7rO
+	qVQ2aIl6rR+mW8dNSZhL0fLPyuRFLrm111u1STILFUnYoQ6csZCucS5uj5gWD3Bp8pxgCwtqZOO
+	XmiYB2JRsDpUJecbed0gL2A6OB7FHXR0Sd+/PjpWEpIxF/zHgZUe2CXdKDjFKOZA4MeaMUJydBR
+	805qOKdKGNK5WpIMWCosHLJ4N13qd7isZsP34shVBJIx1+Q74lcPRyJyv08Cu6NDeo566sBLUDJ
+	mVmL+h7ccQIJ7623AjHWctMnPakVsVqRvgLF6yfuM66ZOvoRUcnhhSa2ctBDNqeLagOIQcGDYij
+	sclt0OAyvoECVWmAF4S75gmlL1hlnfput4JIpX0LDHPdo+DVrCdfPP2JAbEn5sJJVjvGk8TTR9z
+	j289lo0H4Wt3A2kdGll0BV4EFflzU+nWy517lb4Jg+1wTEtpBd8yksHaRqc2DFIm7Qc8S46G42o
+	mAALAwEcQ==
+X-Received: by 2002:a05:6402:46c8:b0:6a6:8dd:c76b with SMTP id 4fb4d7f45d1cf-6a9f61e5270mr2016134a12.1.1789376604966;
+        Mon, 14 Sep 2026 02:03:24 -0700 (PDT)
+Received: from inifinity.mandelbit.com ([2001:67c:2fbc:1:ae69:df2e:3415:7d4])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b593d7dbsm3953252a12.22.2026.09.14.02.03.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:03:24 -0700 (PDT)
+From: Antonio Quartulli <antonio@openvpn.net>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Antonio Quartulli <antonio@openvpn.net>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] ovpn: Fix the return value in ovpn_bind_from_sockaddr() kernel-doc
+Date: Mon, 14 Sep 2026 11:03:10 +0200
+Message-ID: <178937657696.1981013.15922073260198899920.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911231352.12706-1-kmehltretter@gmail.com>
+References: <20260911231352.12706-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <6947b53a.8863.1a09f2784a6.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgC3550yuKdqtkAPAA--.18966W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3RK+cGqnuDJYkQAA3P
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgcGFnZSBmYXVsdCBpbiB0aGUgVGh1bmRlcmJvbHQgTkhJ
-IHByb2JlIHBhdGgsIHRyaWdnZXJlZCBieSBhCnN5emthbGxlciByZXByb2R1Y2VyLiAgVGhlIGlz
-c3VlIGlzIHJlcHJvZHVjaWJsZSB3aXRoIEhFQUQgY29tbWl0CmNlZTkzOTVhY2Q4MDQzYmUwNjQ0
-YjI1YzM0YmZhODY2MjNmMmI5MzUgKHY3LjMtcmMxLCBMaW51eCA3LjMuMC1yYzEpLgoKClRoZSBy
-ZXByb2R1Y2VyIG1vdW50cyBzeXNmcywgdW5iaW5kcyBQQ0kgZGV2aWNlIDAwMDA6MDA6MDMuMCwg
-d3JpdGVzCiJ0aHVuZGVyYm9sdCIgdG8gaXRzIGRyaXZlcl9vdmVycmlkZSBhdHRyaWJ1dGUsIGFu
-ZCB0aGVuIHdyaXRlcyB0aGUgZGV2aWNlIG5hbWUKdG8gdGhlIHRodW5kZXJib2x0IGRyaXZlcidz
-IGJpbmQgYXR0cmlidXRlLCBmb3JjaW5nIHRoZSBkcml2ZXIgb250byBhIGRldmljZQp0aGF0IGlz
-IG5vdCBhIFRodW5kZXJib2x0IGNvbnRyb2xsZXIuCgoKVGhlIGNvbnNvbGUgc2hvd3MgIkJVRzog
-dW5hYmxlIHRvIGhhbmRsZSBwYWdlIGZhdWx0IGZvciBhZGRyZXNzOgowMDAwMDAwMDAwMDU1NmMw
-IiB3aXRoIGEgc3VwZXJ2aXNvciByZWFkIGFjY2VzcywgUklQIGluIGlvcmVhZDMyIChyZWFkbApp
-bmxpbmVkKSwgcmVhY2hlZCBmcm9tIG5oaV9wcm9iZSBhbmQgbmhpX3BjaV9wcm9iZSB0aHJvdWdo
-IGxvY2FsX3BjaV9wcm9iZS4gIFRoZQpmYXVsdGluZyBhZGRyZXNzIGlzIGEgbG93IE1NSU8tc3R5
-bGUgYWRkcmVzcywgd2hpY2ggaW5kaWNhdGVzIGEgcmVnaXN0ZXIgYWNjZXNzCmF0IGFuIG9mZnNl
-dCBmcm9tIGEgYmFzZSB0aGF0IHdhcyBuZXZlciBtYXBwZWQgZm9yIHRoaXMgZGV2aWNlLgoKCk9u
-ZSBwb3NzaWJsZSBjYXVzZSBpcyB0aGF0IG5oaV9wcm9iZSBpc3N1ZXMgTU1JTyByZWFkcyBhdCBy
-ZWdpc3RlciBvZmZzZXRzCndpdGhvdXQgZmlyc3QgY29uZmlybWluZyB0aGF0IHRoZSBkZXZpY2Un
-cyBCQVIgd2FzIGFzc2lnbmVkLCBzbyBhIGZvcmNlZCBiaW5kIG9uCmFuIHVucmVsYXRlZCBQQ0kg
-ZGV2aWNlIG1ha2VzIGl0IHJlYWQgYW4gdW5tYXBwZWQgYWRkcmVzcy4gIFRoZSBmYXVsdCBhZGRy
-ZXNzIGluCnRoZSBvcmlnaW5hbCByZXBvcnQgZGlmZmVycyBvbmx5IGluIGl0cyBsb3cgYnl0ZSBm
-cm9tIHRoZSBvbmUgc2VlbiBoZXJlLCB3aGljaCBJCnRha2UgYXMgcmVzb3VyY2UtcGxhY2VtZW50
-IGRyaWZ0IHJhdGhlciB0aGFuIGEgZGlmZmVyZW50IGFjY2Vzcy4gIFRoaXMgbG9va3MKbGlrZSBh
-IG1pc3NpbmcgcmVzb3VyY2UtdmFsaWRpdHkgY2hlY2sgb24gdGhlIHByb2JlIHBhdGguICBJIG5v
-dGUgdGhhdCByZWNlbnQKd29yayBpbiB0aGlzIGZpbGUgKDljYmM2MzQwMGY3ZCwgZjFkZTFmYzVm
-NjMyKSB0b3VjaGVkIHByb2JlLXRpbWUKaW5pdGlhbGl6YXRpb24gYnV0IG5vdCB0aGlzIHBhdGgu
-CgoKVGhpcyBhcHBlYXJzIHRvIGJlIGEgcmVjdXJyZW5jZSBvZiB0aGUgc3l6Ym90IGlzc3VlIHdo
-b3NlIGV4dGVybmFsIGlkIGlzCjZmMWQ2MjBkMTdiODQ0ZWMyY2Y3LiAgSXQgcmVtYWlucyByZXBy
-b2R1Y2libGUgb24gdjcuMy1yYzEuCgoKUmVwcm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjoKbWtk
-aXJhdCgweGZmZmZmZmZmZmZmZmZmOWMsICYoMHg3ZjAwMDAwMDAwNDApPScuL3N5c1x4MDAnLCAw
-eDFmZikKbW91bnQoMHgwLCAmKDB4N2YwMDAwMDAwMDgwKT0nLi9zeXNceDAwJywgJigweDdmMDAw
-MDAwMDBjMCk9J3N5c2ZzXHgwMCcsIDB4MCwgMHgwKQpyMCA9IG9wZW5hdCgweGZmZmZmZmZmZmZm
-ZmZmOWMsICYoMHg3ZjAwMDAwMDAxMDApPScuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDow
-My4wL2RyaXZlci91bmJpbmRceDAwJywgMHgxLCAweDApCndyaXRlKHIwLCAmKDB4N2YwMDAwMDAw
-MTQwKT0nMDAwMDowMDowMy4wXHgwMCcsIDB4ZCkKcjEgPSBvcGVuYXQoMHhmZmZmZmZmZmZmZmZm
-ZjljLCAmKDB4N2YwMDAwMDAwMTgwKT0nLi9zeXMvYnVzL3BjaS9kZXZpY2VzLzAwMDA6MDA6MDMu
-MC9kcml2ZXJfb3ZlcnJpZGVceDAwJywgMHgxLCAweDApCndyaXRlKHIxLCAmKDB4N2YwMDAwMDAw
-MWMwKT0ndGh1bmRlcmJvbHRceDAwJywgMHhjKQpyMiA9IG9wZW5hdCgweGZmZmZmZmZmZmZmZmZm
-OWMsICYoMHg3ZjAwMDAwMDAyMDApPScuL3N5cy9idXMvcGNpL2RyaXZlcnMvdGh1bmRlcmJvbHQv
-YmluZFx4MDAnLCAweDEsIDB4MCkKd3JpdGUocjIsICYoMHg3ZjAwMDAwMDAyNDApPScwMDAwOjAw
-OjAzLjBceDAwJywgMHhkKQoKCmNvbnNvbGUgb3V0cHV0OiBodHRwczovL3Bhc3RlYmluLmNvbS9y
-YXcvS1RmQ3ZOTEIKa2VybmVsIGNvbmZpZzogaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3V1RHFZ
-NnY5CgoKS2VybmVsOgoKCkhFQUQgY29tbWl0OiBjZWU5Mzk1YWNkODA0M2JlMDY0NGIyNWMzNGJm
-YTg2NjIzZjJiOTM1CmdpdCB0cmVlOiB1cHN0cmVhbSAobGludXguZ2l0KSwgdGVzdGVkIHRocm91
-Z2ggdGhlIHY3LjMtcmMxIGFubm90YXRlZCB0YWcgb2JqZWN0CsKgIMKgIMKgIMKgIMKgIMKgZTVl
-MDQ3MjZjZGQwNDNlMzA5Njc3MDcxYWIxYjY1YTRiMThmNDIyYgprZXJuZWwgdmVyc2lvbjogNy4z
-LjAtcmMxICMxIFBSRUVNUFQoZnVsbCkKdGVzdGVkIHRhZzogdjcuMy1yYzEgKExpbnV4IDcuMy1y
-YzEsIDIwMjYtMDgtMzApCgoKTGV0IG1lIGtub3cgaWYgeW91IG5lZWQgbW9yZSBkZXRhaWxzIG9y
-IHRlc3RpbmcuCgoKQmVzdCByZWdhcmRzLApDaGFuZ2ppYW4K
+
+On Sat, 12 Sep 2026 01:13:52 +0200, Karl Mehltretter wrote:
+> ovpn_bind_from_sockaddr() returns an ERR_PTR() on failure, never NULL,
+> but its kernel-doc says "NULL otherwise". Say ERR_PTR().
+> 
+> The wrong text came in with commit 80747caef33d ("ovpn: introduce the
+> ovpn_peer object").
+> 
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] ovpn: Fix the return value in ovpn_bind_from_sockaddr() kernel-doc
+      commit: 1087c84dd9554a427f6ca6e350c22688eebd3075
+
+Best regards,
+-- 
+Antonio Quartulli <antonio@openvpn.net>
