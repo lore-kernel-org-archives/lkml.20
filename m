@@ -1,143 +1,188 @@
-Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com [209.85.128.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013004.outbound.protection.outlook.com [52.101.72.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68435404BE9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407605; cv=none; b=ltpwS0P1X60BJCGAlHBPGXR0ia0KZ102uLW5qSHvUTOytgFRygyHtx5teU5Wm6dvKaAkhHOSfh2vvkTDJmPhmaHihcwwvW3oJzZhzlOv/bcVEwB1+L0Fjstrq5Ej1WEnJncjoI5SSGNy2kTQJuRw4SXq//0A5uL32UqEz8l3R0E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407605; c=relaxed/simple;
-	bh=MFBfT6hbrBgjaLc6AiG9tP3lKhRG5kGH+1HdxloStAk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=sfSA/FJhAFLLcxdOERGvFmr2XXe9lkTXWh3oIVICsr61VU7M+lKougtWut/N+0iLGRSK+mxqsrOReWOiEBJM9yNHQqXTXZWnCFjbSxDVPnWR7z17AQs6kfoLUwqV2KwXXm3+/crMDAJITAcSTNbkWsfZHvpEv+sOU0lZ0U1L+gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=JYPSfC0T; arc=none smtp.client-ip=209.85.128.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C417486BA9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789407646; cv=fail; b=s4Kmm3MXSSZmvT51Dg8Csgs53MeZyvqcfPLKicfV7HmMd5/Wp/nPq4iSvFDoZTodUnfJN16Nnuze5Qin2DDMgeQ+kWqsB73Ds3emCT4hqQ2yFPAfWprat/RFXUEwVohp5h8s9wsrtpgEqqSPPO/sncPftG8grtNo0Z3rMntT6cY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789407646; c=relaxed/simple;
+	bh=pVhr4Mn3zUfMgDCqV877xCKVdoi6yNxfFreREufXzpE=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=Azk+Y6xKX23gkY1xzAA7ibY2EQXX40bZvlJP7xNu8rm+bLlU8qW63avB4nT9+uXXU+GqWpnoUZ61k4g0scquruvrm2NBtNH7KlD8Uk2/CJqKXgklc9hFb4xF06udVGNd6/jMcg7KwfKCNok4SlLIy2KW8rIoflpbO1VJ3KfxtBY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QlSKQHky; arc=fail smtp.client-ip=52.101.72.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="JYPSfC0T"
-Received: by mail-wm1-f99.google.com with SMTP id 5b1f17b1804b1-49e77f38910so3183985e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:40:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789407600; x=1790012400; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/okP47x+ZZHs6SOk2K8F3sWioEiHJE7O4RkNBoUH35Y=;
-        b=JYPSfC0Tc33gAqqjyXIB7BwjYEDsu6Nv6QsjLdwO5P4jjmXDfnSh2PiQsNFtB9X2Ml
-         NVjbCcKBbkqCmn86uwCpNoySWG3fL9CTj++ZC8TW4ubqkrGOSyMM6SFS0aNuk5kPnkxG
-         ZIKaGMHg753DEs7ZyJFlcbc4c2GzEkXDU+fRYu9ZqYqGyU/PerRT2DumMM637mcMj/h4
-         Rb9av3GinlpedYO42pETbQ0W5P8bSUEl5P5Yac1QwZ6aWtTdFQY77YVOQDBW8i52wXZ/
-         9tho8fop0JCqamA52nbFmNkVKHrwZliR5Lqvx49AMTJRSYoVRnZDjtf8uPHm1UrBACZJ
-         quHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789407600; x=1790012400;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/okP47x+ZZHs6SOk2K8F3sWioEiHJE7O4RkNBoUH35Y=;
-        b=AUMfLs6dHLev+AyBCxgGoTYpWC1hkHOf/Kd14S9uKRASZll3mSMU7B+nxkjDp8a+qY
-         uCGcc0h3yYeqzDfPjaWIWXEvQxcwThxjbKksvyH8n2Wna7VN32sr7G84W8x+UzuO9dUp
-         z/fKSnPBTTUOMEGJwzxA/WqPtgVr0sNeqzobp3wv2mcb1Zi9orI6qUmOY3Gl9HL1l0Gf
-         v6F0uC4BSAsykXUnKpusnXCjqyDBPRnXr7XnghVXP745XoAG+APIp3cq6SrnceQ2c80E
-         j7QDiErEfznjsA3LgFao4lIv5LUZk4qBQ+sdnfRkjiXgw3OaYitduo7AiZJp4MTG/vX0
-         vq2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxaEECMVWy5A4jJEw2FuLLQwKffshXghgtr33cyLGT2/O7LcRAqLgIKnHKpj6VxyanUyE74L+v3K6XcVYI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjV48x72upwUuuiezdscqLl9QbAOSlY4BfjInpV6lUV4CzERFF
-	wWAyxsqg82f63vsWvY438iqFskd2WDgA0dD7rmKHW0xHdvBPZHkVIe7WXIcGOd0m90tNorIDNIm
-	T8QEQsjk5yn73GckYrDA79GUVKUUJ7tjlk/yN
-X-Gm-Gg: AYBFou3ATP4OquPtrSAp5cCPXjk5lqZ48y0T4hH/k25Fgjs9whmFSFx/QyAQUIxNPZG
-	YcKIIpz+He4FphuNIBNTAUgeApiE44FxPzxTHH5+DCFjOdAp5TzRJhmzN/7bMBVNnyeia1ezZS8
-	hqlir8SP6+GF+ozgYTyp0FH+kCqJwW2qFl8X8ZOJ1ZqhliOx40kaMG5FOIStze9+yupNRkAHoXB
-	OxzjcdZdZhxc6NeGcSA+VuzFZZkFN+QrLRrWCPF2C4hNmiNpHzvMv017n2QJ3RYuBzXCUp3yLuD
-	t510pyrSLnuOraRxhqx2Ko789W7GQptKFCPrJufdIzDLdbEeNJUTkWg0Bt1HTemJWYd3P/iEmw0
-	kakCe7grpUzo6OpVYWB8ggdsAvcUIAT6Wr3NAmQ==
-X-Received: by 2002:a05:600c:698e:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49e7a638778mr91528085e9.3.1789407600452;
-        Mon, 14 Sep 2026 10:40:00 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
-        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-49e7d678034sm826955e9.5.2026.09.14.10.40.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 10:40:00 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 0736C340245;
-	Mon, 14 Sep 2026 10:39:59 -0700 (PDT)
-From: tmenninger@purestorage.com
-To: Chuck Lever <cel@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	linux-nfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QlSKQHky"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XdMuVJ0/csf4+TvxIeupMo+QZWkJcF4QO5ERmfYbq6lgqdExAQsoObQxp6VxdQkV0PKAU+OvanNBTLlA2UrnJd+Rij8rebtxblAfkG+4KQ7W1EBIVjfUWog4Ze4lGcPy4GcU0BmKwipHH4cf8wPmwbXqVeez8ojvuYrWezmJVkJMdz/WbDqetR2LuNI1MXOzOpADYH5wsNu5ghMiTNV5G+Mw+hDV7RSk/LYwFRTpeovNSj8emVCoNf+3frihMZRqZL+nxmG8lp1vi84B0MHP9bKltgMUGY9MBF2pF6R83dPymPP7pu9bwxGRxsvy/GaGkzuJGI0XclqWhEExWH4SSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lFDSJ/Kea3zdi5BzKT1ulBE8Fmf4TDFqawXkdFzwVbI=;
+ b=gaz2op5vzEy761AyZZsWPK3HfwNYmYI8dKzEHb+QqQpbtNW92U4eE/1Wtv1L4nOyhV5BnETCJoIlRu0EmezqP8UDHIlqYPxWTH0vOwqcjXMa4iN3+/pTdU98esLn8rvvZrWA60Wmoz6PQfSUCm/elvGcIr2qBP2I5NjMbZ/P3YpGfljYb+iQUBHt/wRO22mxTn27ycXhQ9ukcjVwG2sHDGhMl4moUXArazkXdHMwwdOnIV73Vko7Rly+NiLeS8LkWaryrkt5UVAonsJSpFXt7EyVAhCPW5bhs6dXYi+z7mzQsIHRmsmyXWyOvTqHrjoxA7V12hMKMc+d9X1fkGix9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lFDSJ/Kea3zdi5BzKT1ulBE8Fmf4TDFqawXkdFzwVbI=;
+ b=QlSKQHkyideg+o5pOT8wf0edG7sqe0f3Vkjr+9VytQ2SJEg9tctUzWaem7fENvMZhxE/T76SBhfWb5WmoJhM+gsVg0pXHj+1+vdEcTgF7PVYmVLdzlXM/ESBx6WpGXfp46xQGM7LM0aWT33E5Rf4EMa8egfAoj60Nz/iHg2uzNKpD/FWWCHCOxgWl/ImmQnYDT2wBkorpy1K0VUb67sO14e7nDFrdicjnWzVhE0gchx65y1a7bkyMs7smiO+nIV/Z3wedUqJQh8ZbeBlc4eBzfYKVsffh0bu2/mWmO+KO64tCjW39GX4IGV6RHj9CK0kSXAAcE6d9TXuwMxcfsyX9g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13) by MMZPR04MB447860.eurprd04.prod.outlook.com
+ (2603:10a6:190:55::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 17:40:42 +0000
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 17:40:42 +0000
+From: marouene.boubakri@oss.nxp.com
+To: Jens Wiklander <jenswi@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
 	linux-kernel@vger.kernel.org,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>
-Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
-Date: Mon, 14 Sep 2026 17:39:58 +0000
-Message-Id: <20260914173958.2045683-1-tmenninger@purestorage.com>
+	op-tee@lists.trustedfirmware.org,
+	linux-riscv@lists.infradead.org
+Cc: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+Subject: [PATCH 0/3] tee: optee: prepare the driver for RISC-V
+Date: Mon, 14 Sep 2026 19:54:32 +0200
+Message-Id: <20260914175435.118303-1-marouene.boubakri@oss.nxp.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <611738b5-e115-4531-8d08-62607dc7f8ff@slotpi15m67>
-References: <611738b5-e115-4531-8d08-62607dc7f8ff@slotpi15m67>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CYXPR03CA0038.namprd03.prod.outlook.com
+ (2603:10b6:930:d2::23) To PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|MMZPR04MB447860:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0cb2f56-39cc-4681-94ae-08df12874c37
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|19092799006|1800799024|23010399003|56012099006|5023799004|11063799006|3023799007|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	do6hVAgRzg2e/iRp3XMAwu7MtmU5GBQ40zMpmvtXNjAwnR28CKDndCJZKlv4WbWiDHcP5NQ/PvnhbjMGucUPX43vwSGp1AfIaVIThVcNfmA6NyXMfCwg+9AWsjnBksAnTmOUqHxPK2820u9Nj5haXCa6mJwmFCNxpmG/IAhyTdvnKC3qLLsXtpjXWDNimr8mpzHXDGAk4hL6nMK+uXxWjzxdlgXEYYUNMU5W5PJ8O+SZDabgu+VI6xgqFtH3qBiTu9a4YfSLg34wdVO8UagFbMWEnCMXAbMxZ0CzG9BfY1dQhlhhGVOvGu8FL+q5zxeO3hGrSfVuBvUDYpaXnZjxtBBBnNOMWvS0jIz1ug170AorH22q7Ztqw1mzu8KJ1Das59R4SQmjK/D7cP2yJnqu/gVAx2ZtrGdwQzhvhGhFUlmSwlb5Z4wENa0w/RrLUZfh1iZZbib2Vk8yLtaOZNMcnsquencfy6aERmh4V/zTfH5SCvOp6ytjWsfsgOYOzO/y1ru6XVTeIY12K3yKRxV6AtHS2yC3BwLGTaZTq77zjPt63NtHjR1p0U5GKi0IGBNRKYQK3IpRd2cDCLY+IUY6urmlK31JPHWQPLAG8hun8txJuGcOumnPYV+MZ1NpJACoa1k9d1BRH8SDUA9lyKSpMWzGj2A21yDoY7nnCpXRQf0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(1800799024)(23010399003)(56012099006)(5023799004)(11063799006)(3023799007)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+U0XlpURvK0yTDSz/1f34fG2MMS3dY9vAfAa8SrqIJQw9oOPegQoDYpGQEt1?=
+ =?us-ascii?Q?QFMVi1P3HXj2SM3c/EjaS2MvUloLFVtMMpDj9KdIniay3NpCVq8Esdmk6zTp?=
+ =?us-ascii?Q?X8wE5a+Q/CokFkLMopMPJbikOY438Bxxl1kBy3ARKSAbeKIr2/fBYd4h7AfW?=
+ =?us-ascii?Q?FVwjmp604mT14A10tSBSZj5BsYiVE+goHKwVPm6PPMLqr/6SuO2ZhxtMnrUG?=
+ =?us-ascii?Q?CskYwyZXdDC18wDevzv8OFsDmlJOSr9L2JylUpnsiugO3ITtn2dEJ9OleF0A?=
+ =?us-ascii?Q?yJo1oOJJvH3jZQua1/tDHvvkZSjhXADMI30Vm+fbaoxO3znhlQNVWBvLQdNK?=
+ =?us-ascii?Q?FVbZi+WuRVmEnXo8WIMKjtAw3/g21D1QN4aLKtGLo8j7ficIg1y1eysG92N6?=
+ =?us-ascii?Q?wz+bg6OuNwx4+dqWh+TXtoSZhnt1+v+BSxCUWy23OU2AkJGOOUQGAR7j/yj+?=
+ =?us-ascii?Q?Gj4g/LJxolE54yC+UkihH1hbhL7LxjuKG2FmiW48q0tPttQIcEE1znuCu1Iq?=
+ =?us-ascii?Q?yB69URZfha831SRS3wjHmPVukOkFHK0XYhuN4en1v04HxUQPMxFTf6ka73z9?=
+ =?us-ascii?Q?e+MqFegkT3T1dkKj2woAid5f/38QnRINCURUb0wX5ZckuEfOvRBDh6AdsyQh?=
+ =?us-ascii?Q?fEu5kjgPkZfE0ht5jIdkSoHw6cXmxq2E+FE1R/7vKgX/OX+1mRgcq0cbexXv?=
+ =?us-ascii?Q?RPrc+iUZowOqUTMn1/ckx+WilzK2loDNnMvrB2XvuLoIHDi261V2dmTnQJJQ?=
+ =?us-ascii?Q?DPdRj8sNImuF67jDucVu8AVq/yM8AsytlavB28vrvWbi+ojrdOV0+dfhPrSx?=
+ =?us-ascii?Q?PvzKURlTbJrvp7GiZITY8HEG9jBxmlFu/ie5aAM/xebL5kRSQapr6sC2oD0U?=
+ =?us-ascii?Q?s5RlYH3BExaHeuEWOyyv55BvpYAM5nUs4juhANBRUlBovI9ECFtzuV8hUIw3?=
+ =?us-ascii?Q?3tq+9ykNyYelJwVQ8NUa/zSgv/j1SgXlipNVHRfFidpt0WwUY8NExfCpsu4Q?=
+ =?us-ascii?Q?xuURd6t4WzIOU52KHzeEZe+B/vxTupWIJN4oGQbRiwsUuilAJYMazI0Sn8H9?=
+ =?us-ascii?Q?Ix3ZBsd4DG4UkV6INlN2aScwghnS5Gv/v+b9DmiPpykOUEoBqAzUbgbP9/ss?=
+ =?us-ascii?Q?/4cS4Sbb91e1w4ePSdhqQWTj7gOwftbVWmx8qOcdmh5JkwJYijfrJMRkpe0Y?=
+ =?us-ascii?Q?Pivhq1oNYHEr9rIQJQCY8KPgcJciDrgZxu1lJLPgjQAvrsO75+hKAjlVS2k+?=
+ =?us-ascii?Q?J7ZCnqoPcoXhbq32L1bpzibZPmm1PihWaC6R2RiAAFANcqULtRrWFlQSfSVK?=
+ =?us-ascii?Q?TYTRKy42naYsW3OMVzpmprjg+GjEG9Pt55NqCvQK2NJotCrjKuAThOYb0E//?=
+ =?us-ascii?Q?jx0vj9zqTaz1jEj/IeepZ/kXV/fOMXU0cq3spA/6RRs6kOsEuBhOKQOkA8YP?=
+ =?us-ascii?Q?JvotR3oSAdaoWout2mhmIbb6zUFTzhgS43tfUcP3SGwKGUc0CGCG50ukNuM+?=
+ =?us-ascii?Q?d8KbecLwDJ8ckbaXPaGzecgaN7KgsMXxqJBbCgmgAx8YaLQpVhubbXTOGoTL?=
+ =?us-ascii?Q?xuLaZGBx+xD6a+OPUwQqbagoSPpFfp4gOxcB8UqmL6/BAFWc5h+7qWtCANvs?=
+ =?us-ascii?Q?qwHvA7ckSJLSZ4e7moevkSkTIhSRwbrWsOhA562EeO36nZIO/vnkTW081uF7?=
+ =?us-ascii?Q?MCUUKgRdLx/eUj0F/ogDmAESksD4N+8ZfMCmza7iO34bzUO5/a/ALn8Pj9v5?=
+ =?us-ascii?Q?GuttJkm7+IJIaW+Kc3goQ4XDgmkmiyEuFmFuDYYwWg3mLPypPzI0Y282dM7A?=
+X-MS-Exchange-AntiSpam-MessageData-1: h9tz5e5FYAIrTQ==
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0cb2f56-39cc-4681-94ae-08df12874c37
+X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 17:40:42.2777
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C9HD1WmM27yaM0doNPsuv5M0qePYw8UkQT48KOGqei6EySjHVIDY9dpNwlD1CoKng9jaEXW1Fs3ZiEaro1YcOzeEWUmDSOH5RZHFNETxGHDl9G5gKVSGWGD+VFkg3DBKZMFPHFDfz14G3csttKManQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB447860
 
-> The lock profile did not move. free_slowpath fell by four orders
-> of magnitude and __slab_free took list_lock just as often. So the
-> list_lock contention is not the remote frees, and it never was!
+From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 
-Aha! Okay, thank you for all of your time and help with this.
+The OP-TEE driver reaches OP-TEE through the SMC ABI or the FF-A ABI,
+both specific to Arm, and the TEE subsystem and the OP-TEE driver
+depend on HAVE_ARM_SMCCC. On RISC-V there is no SMC instruction: OP-TEE
+runs in a domain isolated by the M-mode firmware and is reached through
+the RISC-V Platform Management Interface (RPMI), carried on an SBI
+Message Proxy (MPXY) channel, for which Linux already has a mailbox
+driver.
 
-If I am understanding correctly, the SLUB/barn/sheaf behavior we are
-looking at here is pre-existing rather than introduced by this series.
-The SMT affinity change is what changes the placement enough to expose
-the remote-free cost on this workload.
+This series only puts the build plumbing in place for a third ABI next
+to the SMC and FF-A ones:
 
-> - Total and average wait for the list_lock address in the pinned
->   run. The unpinned run showed 5.05 min and 90 us average; if the
->   pinned run is similar, the lock absorbs the same time whichever
->   way the frees go.
+- patch 1 builds the Arm-specific code of the driver only on Arm:
+  smc_abi.c when HAVE_ARM_SMCCC is set and ffa_abi.c when
+  ARM_FFA_TRANSPORT is enabled, with stubs for their registration
+  otherwise. The SMCCC header, the SMC and FF-A specific types and the
+  SMC RPC register parameters in optee_private.h are kept under the
+  same conditions, so that nothing Arm-specific is left in the common
+  part of the driver;
 
-For the node0-pinned run, filtering the dominant lock gave:
+- patch 2 adds an RPMI ABI placeholder: an OPTEE_RPMI_ABI option built
+  when the MPXY mailbox driver is enabled, rpmi_abi.c and its
+  registration from the driver core. The transport is not implemented,
+  so the registration fails with -EOPNOTSUPP;
 
-    2,907,948   3.37 min   69.62 us   __slab_free
-      269,174  23.00 sec   85.46 us   get_partial_node_bulk
-      175,965  15.17 sec   86.22 us   __refill_objects_node
+- patch 3 lets the TEE subsystem and the OP-TEE driver be enabled on
+  RISC-V, and teaches the memory type check of the driver about the
+  RISC-V page attributes, without which the driver does not build
+  there. It is kept separate as it changes the dependencies of the
+  subsystem-wide TEE menu.
 
-So in total that is about 3.353M contentions, 4.01 minutes of
-aggregate wait, and roughly 71.8 us average wait.
+There is no functional change. On Arm, OPTEE still depends on
+HAVE_ARM_SMCCC and the SMC and FF-A ABIs are built whenever they can be
+registered. On RISC-V the driver builds without any Arm-specific code
+but no ABI registers, so it does not load. The RPMI transport will be
+implemented on top of this in a separate series.
 
-Compared with the unpinned run:
+Testing: [TODO before posting: riscv64 defconfig plus TEE/OP-TEE,
+built-in and as modules, and arm64 defconfig plus OP-TEE with FF-A
+built-in, modular and disabled, with W=1 at every step of the series.]
 
-                        unpinned       node0 pinned
-    contentions         3.346M         3.353M
-    aggregate wait      5.05 min       ~4.01 min
-    average wait        90.48 us       ~71.8 us
+Marouene Boubakri (3):
+  tee: optee: build the Arm-specific code only on Arm
+  tee: optee: add an RPMI ABI placeholder
+  tee: optee: allow enabling the driver on RISC-V
 
-So the contention count is essentially unchanged even though
-free_slowpath drops from ~70M to ~9K. The pinned case does have
-somewhat lower wait time per contention.
+ drivers/tee/Kconfig               |  2 +-
+ drivers/tee/optee/Kconfig         | 10 +++++-
+ drivers/tee/optee/Makefile        |  5 +--
+ drivers/tee/optee/call.c          |  8 +++++
+ drivers/tee/optee/core.c          |  8 +++--
+ drivers/tee/optee/notif.c         |  1 -
+ drivers/tee/optee/optee_private.h | 52 ++++++++++++++++++++++++++++++-
+ drivers/tee/optee/rpmi_abi.c      | 23 ++++++++++++++
+ 8 files changed, 101 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/tee/optee/rpmi_abi.c
 
-> - mpstat idle for node 0 in both runs, to tell whether that wait
->   is idle time being spent or throughput being lost.
 
-Averaging the node0 CPUs (0-23,48-71) in that sample gives about 66% idle.
-In the earlier unpinned/all-local bad-state samples, those CPUs were nearly
-saturated, generally around 0-2% idle.
+base-commit: 827751b699b79a6e569983359c02dce67f81b94c
+-- 
+2.43.0
 
-> - Throughput for the node 0 / node 0 run that produced the counter
->   table above. It is the one configuration missing from your
->   throughput table.
-
-Oh yeah, it was the same trend as the workload table below: unpinned was
-43.4 GB/s and node 0 pinned was 46.5 GB/s.
-
-At this point I think we have a reasonably clear separation between the
-pre-existing allocator behavior and the regression introduced by the
-SMT affinity change. I don't have any additional data I think would
-materially change that conclusion, but I'm happy to run any targeted
-follow-up you think would still be useful.
