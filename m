@@ -1,294 +1,172 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82A43B1EFE;
-	Mon, 14 Sep 2026 23:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789428968; cv=pass; b=XYw+pIR+4oKPPOIR2r1N9kDdqcHybKLqrtCgEt+ZRMaipfTCjUYwxoKkQDep2/bS7tmwXbG5P2OtfEfRS53/WTM/cyv3Jd6rsuLVLU6uBozwwU/fD+RdkqS5IZso9wvuluGrjVP13064x9+KkvCblAJB7xOtnzzjzLoSrwRbbDE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789428968; c=relaxed/simple;
-	bh=2GL7gZbRPGYP2kPYcdTfTJL1C45MXQSYyFMWWx+cP8c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sSCvHgb66ju3SMzraqV/OKJtkX5kGj7N8BUQOnddtr0f4HdLJR2o5tretrvHP5TsvQblXC9H5Pfs5SXv8DyyAKLESEv6kHzKDNUsux1BSpJeAapz7yWCTLbtRZ6+rTodCwj9hadlkHHnWao7b2XvsD7206Qs+Ok7TiqrqRLEnyE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=OoTfsuDy; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392BD3914FE;
+	Mon, 14 Sep 2026 23:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789428979; cv=none; b=j75/S+oc3IH+gcCYsCAVICIx+gRlrqkQYkGHk/VJPFLVkZA8QfvZYWsy3U4K7ll4ABWNgMAwdU7u3SqQVO8DKddoRTisS1BVLFW8zI7YfWK4v9NJqAzx8nniCnIvgGFvJFcd3X88vHLRaoAO8tuLe1RlNoas2NMJFQRYvxycfuk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789428979; c=relaxed/simple;
+	bh=0yEOZ2zm49yqhnYjPjecOuBAeUnUnX00ftqZDbWO/rs=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
+	 References:Date:Message-id; b=TeJINBM54EoVssZQFNP6h857CKVOLyogF4gxEvJqySLovzzV+7pRiIiSaTNWzUR03dSgfCZ4btx+/yx+ZtuQ3pm/E/JexXOkP6aBdwCjfrMR9mVBrfAJt9Tss3cT+CQkCEivuv82rYh7xC+NYOiXq6VtPAy+CY1yRjUiujn825k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=Hijzx9QI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sg9lLvBr; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="OoTfsuDy"
-ARC-Seal: i=1; a=rsa-sha256; t=1789428910; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LSHS6BC3dWP6eznSoy8j1egaGsjlnPjSD1CJWZPB1QTh5jo8u4sbqEAJHkWlVwcgcED4VIyaSv9+45ierbl/unAW41XYCTLl1IOsljqozUJ2sr4Gh94Pcb8T6MDKmKLsGcx7+HPLEVAYlN+xQOndiKvToWguhQ3B5IyOYte668E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789428910; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=y1+bLayvqBv4MV0slcJVabg6OUZ/SWSBRrrghbeWpKs=; 
-	b=AKAehefUruhp86yYje3KCs5BomHQQV1+06HOzveEtvLRv8LG902jy+qTWBeHuwzPhM6qHgPDGx4C4ppOdLf4wKs723Mnem+wq8Z9aj5dxkOiDYq/y68witiyEOZaGjCBecDkre/Ol3Z4mpbl2vEmjaJYE0TWQvA8VOH/fkshzNk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789428910;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=y1+bLayvqBv4MV0slcJVabg6OUZ/SWSBRrrghbeWpKs=;
-	b=OoTfsuDyiU/DVuXFCmHz9FBK+XcPRr4Rosl/MjgpL9zhdGyy7I+UrOGVY/bQ/GG1
-	r4lsUOpP/39wqktSwm82B/ZmH6p2KCsPCnIt4fee/O+cPeAhS3wuJ+15q2c9xPyRvus
-	rcCVmAeI6ytYJ2wNJQq/gPQRfu9hU8nECKoTrltE=
-Received: by mx.zohomail.com with SMTPS id 1789428909278665.3306979354372;
-	Mon, 14 Sep 2026 16:35:09 -0700 (PDT)
-Date: Mon, 14 Sep 2026 16:35:07 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Ke Sun <sunke@kylinos.cn>
-Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
-	Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v2 4/9] drm/tyr: add per-file VM pool
-Message-ID: <aqiEqzhZy6_AwSvS@um790>
-References: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
- <20260908-tyr-ioctls-v2-4-88bea777df67@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="Hijzx9QI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sg9lLvBr"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4F3861D000F5;
+	Mon, 14 Sep 2026 19:36:16 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 14 Sep 2026 19:36:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
+	1789428976; x=1789515376; bh=r8QV0ECAL46J0Whrshlcceyn+3Dh1CqZbRd
+	M9TLC4Ew=; b=Hijzx9QII0ktkv6BvAG2Y1OYto5In3tc5irR9QIrL1n56kQO7ri
+	oxy9UEoMuZM0b28C8at6/5U+tSM5DecIHDfemd5i6ITwarczw48Fo3sKlAcUIXoT
+	aCDYtrbfUa7632Ss381Mbo15eKZLrTDSfHq6Snr2BW4fv3L7o6hBldWE/zrYxfvs
+	fbmXXKIglRIaodpdLatjwmB4xad/A4g6EMWyJqMCe4vLvppFu5WkvWSIT+aF7+Ho
+	Grj6hqmEsnnJtTXf6SAw/vGWjNyh5SFqh6MvEC1+OdsaDdlgV6K8iB3muXXMnwae
+	pX+ARuButhe36Us66tMCHFhVR8gXPDRV23A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789428976; x=
+	1789515376; bh=r8QV0ECAL46J0Whrshlcceyn+3Dh1CqZbRdM9TLC4Ew=; b=s
+	g9lLvBr7AHdphse13HLm6+/+A0+UPUwTLzyphUF/nu/Nof0R62Dak5IH0MZYTtkM
+	PJuxUT3p2jEEpZGteGRo3/IwE80YWVuuS+QlOJRZuISFDTn913wUMU1uJs9ESz/3
+	5TTiRdbEUVJn7u0YXnJnrvKN+tNuYrc0t3YixR4M51wLV6goIq7b6Z6L68kLwfLZ
+	wjJlK9K0IiDldKtZ3GSBe40O5auqn52MSqxFc2LRA1+3H7+hLZL1rqT4mNRcKGkW
+	vmHK+arINMVpEUBQKJ439KkRedDoQvAo3pr2l0RgQ4gOpTVmKJlrQqjRXa/jbGyW
+	T0gvUaic6B3162f7V15Yw==
+X-ME-Sender: <xms:74SoahxPj_9vieeJESDQvkrUSxV3i2rk0FTYDaADRJCnoYsMH_pVvw>
+    <xme:74SoajjbtcXxWKxzpSv8rEf4r3pBeTxsNZsfsGcTn7e-9tQBkDmpJxQLyfU-X3RIP
+    yhCB9k-32DdknpoM4KfFMAzpKFDlr8NxWTVzYZuBEn_qZqMbA>
+X-ME-Received: <xmr:74SoatmCRiQkurez9P1Jqh_D6RhmXzWFO5mX5Ly_PFpdwnyP3EvSwwJwnj1JhxKK7Q>
+X-ME-Proxy-Cause: dmFkZTGZxJgRuErApdVWjHwJlEQdYJ6koFBphUki4WbYsrGSzd21xHQ+cdSNGEQ6vSk/pJ
+    pOzKzQYqa3+z+NjNdpyHMaNwQzaTAd/2ZNlhPBtNUuQgY5UBcfWn0BfCOfoLoxVGQbvF01
+    Zb8/F/4gwPUFI9DA/F87gSRg+5XQO/B5H00An0PetUQv/8e04LtbOtsUYfly7KPk1KFjL5
+    rwRtzj5r9RPlpsKTO6l8S42lTokGYRZcGuSo5/UmEqnLQH+0fM1O4G5L//1HT95rNKPUPq
+    4MV5OKSLBD7GdzJZHrL+iM+mcjMONQ3Tf0dzN/p3x+d2vSQ8cpOzKXvujNlbGomrzNaNPf
+    B4FDO4eeFlz2R6AYHvJvSluqHkm58IGryjSkAvmF/LeVxwmy+wny8ZWVlamGYzXAyA0nl9
+    wBX7+/iQHuw+wbp3PEX7j2Ix00hpRZSr5RdQ2ZTk/JN6DOA5yJ6tqN51ZiKrgf4+n2WPU+
+    qr3a+Yv9BDv32k7+vU4TzmlepugvcR3VcAl/YyaEvBHtx/xkof6PwEkaXF6kmSsP7HtK9R
+    As4lqbihQP/vLILk3sLRIJD98juuuMPxyPzwNKXN5T+igTdOShVb93pGE6OuX+PXWtqIZZ
+    GdaeH+YOH5N1cDfGY4xTFDUGi/E/61tXN6KbVBM4tR4Ha6TLi0gIz6bVvPew
+X-ME-Proxy: <xmx:74SoapgaUCj5WbXFov7PwEp48pNT5yYyENSS5pDR6bbeJPczyMQjAg>
+    <xmx:74Soah231L0JY9nRzmec2zt5wbT90kO8VA1RW3TN6sifw5t2xH-gvg>
+    <xmx:74SoaiJlHzcrqCQ72NsS8Tctt9yPOBKgiIQNYwKfDUGUOyZ4-3WvkQ>
+    <xmx:74Soahz3bNi9eEBclrs387ZTrB3RaUH-4kNcRSUF87WxV_xWYiHLxA>
+    <xmx:8ISoajJXlqpS_GXzvTWHO88k4JTnEMbhvRmSGKGLiOelI8VzfvbiAVLH>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 14 Sep 2026 19:36:13 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-tyr-ioctls-v2-4-88bea777df67@kylinos.cn>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.404.0
+From: NeilBrown <neilb@ownmail.net>
+To: "Mateusz Guzik" <mjguzik@gmail.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ "Mateusz Guzik" <mjguzik@gmail.com>
+Subject: Re: [PATCH 00/10] Towards safer path_* API
+In-reply-to: <20260913144918.1606123-1-mjguzik@gmail.com>
+References: <20260913144918.1606123-1-mjguzik@gmail.com>
+Date: Tue, 15 Sep 2026 09:36:09 +1000
+Message-id: <178942896971.207413.7668803121120091718@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-On Tue, Sep 08, 2026 at 12:47:51AM +0800, Ke Sun wrote:
-> From: Alvin Sun <alvin.sun@linux.dev>
+On Mon, 14 Sep 2026, Mateusz Guzik wrote:
+> Currently the handling is highly error-prone with consumers allowed to
+> arbitrarily manipulate references, notably with path_get().
 > 
-> Userspace needs multiple independent GPU address spaces per file,
-> addressed by ID through the VM ioctls as in panthor. Store them in an
-> IdPool (capped at 32 for panthor parity) plus an XArray. Each VM is
-> stored with its VmOwner, so it is killed exactly once - on destroy or
-> file close - regardless of remaining shared references.
-> 
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> ---
->  drivers/gpu/drm/tyr/vm.rs | 157 +++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 156 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-> index c5e307b1e2416..ae58135eeffdc 100644
-> --- a/drivers/gpu/drm/tyr/vm.rs
-> +++ b/drivers/gpu/drm/tyr/vm.rs
-> @@ -8,6 +8,7 @@
->  //! mapped into hardware address space (AS) slots for GPU execution.
->  
->  use core::marker::PhantomData;
-> +use core::mem::ManuallyDrop;
->  use core::ops::Range;
->  
->  use kernel::{
-> @@ -33,6 +34,7 @@
->          }, //
->      },
->      fmt,
-> +    id_pool::IdPool,
->      impl_flags,
->      io::PhysAddr,
->      iommu::pgtable::{
-> @@ -53,7 +55,11 @@
->          ArcBorrow,
->          Mutex, //
->      },
-> -    uapi, //
-> +    uapi,
-> +    xarray::{
-> +        AllocKind,
-> +        XArray, //
-> +    }, //
->  };
->  
->  use crate::{
-> @@ -154,6 +160,57 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
->      }
->  }
->  
-> +/// Owns a [`Vm`]'s destruction: the VM is killed exactly once, when this
-> +/// value is dropped, regardless of how many `Arc<Vm>` references remain.
-> +///
-> +/// Callers that only need to use the VM take an `Arc<Vm>` via
-> +/// [`VmOwner::get()`], which keeps it alive but does not kill it.
-> +pub(crate) struct VmOwner<'drm>(ManuallyDrop<Arc<Vm<'drm>>>);
-> +
-> +impl<'drm> VmOwner<'drm> {
-> +    /// A reference for callers that want to use the VM, not own it.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn get(&self) -> Arc<Vm<'drm>> {
-> +        Arc::clone(&self.0)
-> +    }
-> +
-> +    /// Transfers the VM to the pool without killing it, leaving only the
-> +    /// shared reference. The pool reconstructs the owner with
-> +    /// [`VmOwner::from_shared()`] when the VM is removed.
-> +    fn into_shared(mut self) -> Arc<Vm<'drm>> {
-> +        // SAFETY: `self.0` is initialized, and `forget(self)` below prevents
-> +        // the outer wrapper from being dropped, so the taken `Arc` is moved
-> +        // out exactly once and nothing is leaked or double-dropped.
-> +        let vm = unsafe { ManuallyDrop::take(&mut self.0) };
-> +        core::mem::forget(self);
+> In the past this resulted in preventable bugs.
 
-This looks a bit more complicated than what Daniel suggested.
-But also I am concerned that the ioctl series might not be the right place to
-rework the whole VM ownership/lifetime model. I definitely think it's
-worth looking at but I wonder if you could send the ioctl series first
-without changing VM ownership, and then follow up with a series proposing
-these kinds of changes. It is a significant change that deserves its own
-scrutiny.
+Can you provide a reference to one or two of these bugs.  That would be
+useful context.  Thanks.
 
-> +        vm
-> +    }
-> +
-> +    /// Reconstructs an owner from a shared reference.
-> +    ///
-> +    /// The caller must currently own the VM's destruction.
-> +    fn from_shared(vm: Arc<Vm<'drm>>) -> Self {
-> +        Self(ManuallyDrop::new(vm))
-> +    }
-> +}
-> +
-> +impl<'drm> core::ops::Deref for VmOwner<'drm> {
-> +    type Target = Vm<'drm>;
-> +
-> +    fn deref(&self) -> &Vm<'drm> {
-> +        &self.0
-> +    }
-> +}
-> +
-> +impl Drop for VmOwner<'_> {
-> +    fn drop(&mut self) {
-> +        self.0.kill();
-> +        // SAFETY: `self.0` is initialized and we are in `drop`, so it is safe
-> +        // to drop the inner `Arc` now that the VM has been killed.
-> +        unsafe { ManuallyDrop::drop(&mut self.0) };
-> +    }
-> +}
-> +
->  /// Arguments for a virtual memory map operation.
->  struct VmMapArgs<'drm> {
->      /// Access permissions and caching behavior for the mapping.
-> @@ -948,3 +1005,101 @@ fn pt_unmap(dev: &Device, pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>)
->  
->      Ok(())
->  }
-> +
-> +/// Maximum number of VMs a single file may hold, matching panthor's
-> +/// `PANTHOR_MAX_VMS_PER_FILE`.
-> +const MAX_VMS_PER_FILE: usize = 32;
-> +
-> +/// Per-open-file pool of VMs.
-> +#[pin_data(PinnedDrop)]
-> +pub(crate) struct VmPool<'drm> {
-> +    #[pin]
-> +    ids: Mutex<IdPool>,
-> +    #[pin]
-> +    vms: XArray<Arc<Vm<'drm>>>,
-> +}
-> +
-> +impl<'drm> VmPool<'drm> {
-> +    /// Creates a new [`VmPool`].
-> +    #[expect(dead_code)]
-> +    pub(crate) fn new() -> impl PinInit<Self> {
-> +        let ids = IdPool::new();
-> +        pin_init!(Self {
-> +            ids <- new_mutex!(ids),
-> +            vms <- XArray::new(AllocKind::Alloc),
-> +        })
-> +    }
-> +
-> +    /// Takes ownership of `vm` and stores it, returning the allocated ID.
-> +    ///
-> +    /// On failure - ID space exhausted or store failure - the VM is killed
-> +    /// here and only the error is returned.
-> +    // TODO: allocate IDs with the XArray directly (once it grows range
-> +    // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn add(&self, vm: VmOwner<'drm>) -> Result<u32> {
-> +        let id = {
-> +            let mut ids = self.ids.lock();
-> +            let unused = ids.find_unused_id(1).ok_or(ENOSPC)?;
-> +            if unused.as_usize() > MAX_VMS_PER_FILE {
-> +                return Err(ENOSPC);
-> +            }
-> +            unused.acquire()
-> +        };
-> +
-> +        let vm = vm.into_shared();
-> +        let mut vms = self.vms.lock();
-> +        match vms.store(id, vm, GFP_KERNEL) {
-> +            Ok(prev_vm) => {
-> +                drop(prev_vm);
-> +                Ok(id as u32)
-> +            }
-> +            Err(err) => {
-> +                // Drop the XArray spinlock before acquiring the `ids` mutex.
-> +                drop(vms);
-> +                // Kill the VM and release the pooled id before returning.
-> +                drop(VmOwner::from_shared(err.value));
-> +                self.ids.lock().release_id(id);
-> +                Err(err.error)
-> +            }
-> +        }
-> +    }
-> +
-> +    /// Removes the VM with the given ID, handing back its owner.
-> +    ///
-> +    /// Dropping the returned [`VmOwner`] kills the VM immediately.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn remove(&self, id: u32) -> Result<VmOwner<'drm>> {
-> +        let mut vms = self.vms.lock();
-> +        match vms.remove(id as usize) {
-> +            Some(vm) => {
-> +                drop(vms);
-> +                self.ids.lock().release_id(id as usize);
-> +                Ok(VmOwner::from_shared(vm))
-> +            }
-> +            None => Err(EINVAL),
-> +        }
-> +    }
-> +
-> +    /// Gets a shared reference to the VM with the given ID.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
-> +        let vms = self.vms.lock();
-> +        let borrow = vms.get(id as usize)?;
-> +        Some(Arc::from(borrow))
-> +    }
-> +}
-> +
-> +#[pinned_drop]
-> +impl PinnedDrop for VmPool<'_> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        let this = self.project();
-> +        // Kill every VM still owned by the pool. The ID range is bounded by
-> +        // `MAX_VMS_PER_FILE`, so this loop is cheap and runs at file close.
-> +        for id in 1..=MAX_VMS_PER_FILE {
-> +            // Release the XArray lock guard before killing: `kill()` may sleep.
-> +            let vm = this.vms.lock().remove(id);
-> +            drop(vm.map(VmOwner::from_shared));
-> +        }
-> +    }
-> +}
+NeilBrown
+
+
+> 
+> The end goal, not yet achieved with this patchset, will provide an
+> invariant that a populated 'struct path' has precisely one set of
+> references on it.
+> 
+> While consumers can still cause leaks by neglecting to path_put(), the
+> footgun of path_get() can be eliminated.
+> 
+> With this patchset instead of hand-rolling a path copy and issuing
+> path_get() on it, callers can resort to path_clone() instead.
+> 
+> Almost all path_get() consumers get converted, most of which with
+> coccinelle.
+> 
+> Few instances are left until I figure out a nice way to sort them out.
+> 
+> Overall almost entirety of this patchset is a NOP.
+> 
+> Mateusz Guzik (10):
+>   fs: unexport backing_file_set_user_path() and make it take the ref on
+>     its own
+>   fs: add path_create(), path_move() and path_clone()
+>   fs: use path_clone() in path_init()
+>   fs: use path_clone() and path_move() in vfs_open*
+>   fs: use path_clone() in backing_file_set_user_path()
+>   Coccinelle-based conversion of path_* consumers to use the new
+>     primitives
+>   autofs: use path_create()
+>   fsnotify: use path_clone()
+>   proc: use path_clone()
+>   nfsd: use path_clone()
+> 
+>  drivers/block/loop.c               |  3 +-
+>  fs/autofs/dev-ioctl.c              |  3 +-
+>  fs/autofs/expire.c                 |  4 +--
+>  fs/backing-file.c                  |  2 --
+>  fs/devpts/inode.c                  |  6 ++--
+>  fs/failfs.c                        |  3 +-
+>  fs/fhandle.c                       |  3 +-
+>  fs/file_attr.c                     |  6 ++--
+>  fs/file_table.c                    |  3 +-
+>  fs/fs_struct.c                     |  6 ++--
+>  fs/namei.c                         | 44 ++++++++++++++++++++++++------
+>  fs/namespace.c                     |  3 +-
+>  fs/nfsd/export.c                   |  6 ++--
+>  fs/nfsd/nfs4xdr.c                  |  8 +++---
+>  fs/notify/fanotify/fanotify.c      |  6 ++--
+>  fs/notify/fanotify/fanotify_user.c |  3 +-
+>  fs/nsfs.c                          |  3 +-
+>  fs/open.c                          | 10 ++-----
+>  fs/overlayfs/params.c              |  3 +-
+>  fs/pidfs.c                         |  3 +-
+>  fs/proc/base.c                     |  6 ++--
+>  fs/proc/fd.c                       |  3 +-
+>  fs/smb/server/vfs.c                |  3 +-
+>  fs/xfs/xfs_handle.c                |  3 +-
+>  include/linux/path.h               | 14 ++++++++--
+>  kernel/trace/bpf_trace.c           |  3 +-
+>  security/apparmor/task.c           |  3 +-
+>  security/keys/big_key.c            |  3 +-
+>  security/landlock/fs.c             |  3 +-
+>  security/landlock/syscalls.c       |  3 +-
+>  30 files changed, 87 insertions(+), 85 deletions(-)
 > 
 > -- 
-> 2.43.0
+> 2.53.0
 > 
+> 
+> 
+
