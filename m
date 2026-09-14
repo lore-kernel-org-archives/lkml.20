@@ -1,138 +1,199 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D7045C6FD;
-	Mon, 14 Sep 2026 12:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4045D46AA79;
+	Mon, 14 Sep 2026 12:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388822; cv=none; b=B37n8cBmM0piROKSB42ZAsgUnQ8FiQDJtaWV/IvLf/AJc+ASacfwLMoL/C5qjODWCkGxyTDvxxaNlbfKlpYMW6yuvwyhTBwopB9kgVnqghtsiUHmge+r4mLEagF46jHMk2hZWt6oVcdS2jDo3Ii/5m0nZgoLyYiP4UIML2I57Lc=
+	t=1789388828; cv=none; b=XlLKcIvbQfn8bzo+DDG2CpbgKgISBODjpBv23udAgM7q1/pCwCkFovzbWAPhpBnSblRM3DPyfxXylyBAWlVCwfVEv7zQmDrGAlnEQqEDdNJV2XpQyignbTk0xpgFbxT8NLVs2sxMhJU7FVdklACjPx3Cj8lU8PYhNr0RMG3PPG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388822; c=relaxed/simple;
-	bh=v95ZmSPumV8ibyUBT0j9UCF+T9DTnRVBKW2JB3IbtqQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZhC2IzMTOLRF8ImLvquL9Mo3Fvu+vsL3i9UvndJmIFTLZvQF3P1JLmZcvBqxNwF21jbLIGRGmpCIpDJ0cjROFqMnm9Ptt3QNUuomlT5oRCYH+ctFDz3v+IzvKE2ii6fvyznGUUbwtRSs6UzqJSirCKwRAiblWFWJCu+hWjQVgnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M3a09khj; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789388828; c=relaxed/simple;
+	bh=7h5BNF2TyNFGKTZFDAT77YrYi9+yuhGSKydMX9EZVMo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LyAj+X7rcwuSoT6Sld/Q9opJq+RI6Qosgz6RIvuRkRk2qTj33L/VXWP58EsGfgUmuMKiJ2rdudN58ezXX3ivg3u+rsKK3obyjqMW1rNDY0SzQAe7WZfqGWoJfaphBYAx7+latOeOmh3UZsgHN2uydDFi4vWPeggqjO522x0PMmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y0IwcxuX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M3a09khj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789388820; x=1820924820;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=v95ZmSPumV8ibyUBT0j9UCF+T9DTnRVBKW2JB3IbtqQ=;
-  b=M3a09khj2JiOvtsk7/+s74S6VQCBU1ad+Hk58Lhn+2MMIgwFOwyrrvbH
-   bg3fR8k/qWaM9EE6mN2/7MEUBAEVuh+J71L8ycg3q/xd8kegvaonGIrkh
-   ycdHqZ7Ttbbmlcd0MQzsJ1bqby1lYUoPqHFXG8zTLriZez0kTZyVqLBu4
-   oTy1ruymTy4XsMr6xIB3/QPXmMRqRhQwafzUctuAeTAHws1ukSQccDmlY
-   O9Jk03wzu2jxFLeFjVCNfagyU3gZ6mam/wX1q4WtNP2bwSIfNn4DE8AgT
-   r0dVqxqlc9Lq33cUw0KmKv3i8yKJBfALgDKfWBnCuD/7gqx6LpaHXVKpu
-   Q==;
-X-CSE-ConnectionGUID: G6/AjCM+QsmBJPrXZdVUdg==
-X-CSE-MsgGUID: r5CIG05hQEOGRP6sj53DWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100399737"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="100399737"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 05:26:59 -0700
-X-CSE-ConnectionGUID: 7bTCkECrQAigMLQe4BdiQg==
-X-CSE-MsgGUID: Mgpae/WrTn6LlCkj1GzK1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="296122000"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.245.60]) ([10.245.245.60])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 05:26:57 -0700
-Message-ID: <852003c6-317c-4004-ba2c-d6c4b0bd31e6@linux.intel.com>
-Date: Mon, 14 Sep 2026 15:26:34 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y0IwcxuX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667981F00893;
+	Mon, 14 Sep 2026 12:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789388825;
+	bh=kfg0Uz8+KztBDtg3H0+qNEem9pKDqqYVBa07KrFCXCA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Y0IwcxuX0w/WvGSBZT3ojW/ME7dow3oCVDawD0flWeh6jWWkI8QWODZUzZMmjwe/B
+	 4VU4fHsHZc0zyXnmq868pX14HRYBiITiw8MW2ugWOITzNFdGYpjogtppY0ixIguo5U
+	 3YNMESJ4llRoHzSJt6IwGjLIZTj81ZUdHosnMZavRsiYirgqHHmrnbdbZpBTbE+t0e
+	 cDfpNXMTZ8DEbCe2uA3r9EEIrXHVeNA3yurCq4oQqpnXcaI6fGuvvuPm7zcntOJkIr
+	 TXCADD8sujBUmxChcp5FBfa/WxOYkxnkVduYpNseGiDJqvEcxHPOaPa8AaMP9t2wlZ
+	 sWDZuCq9S6lyw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 14 Sep 2026 13:26:16 +0100
+Subject: [PATCH v2 05/13] KVM: arm64: Propagate and use kvm_s2_fault_result
+ on S2 fault
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xhci: sideband: check vdev liveness before removing
- endpoints on unregister
-To: Michal Pecio <michal.pecio@gmail.com>, =?UTF-8?B?6IOh6L+e5Yuk?=
- <hulianqin@vivo.com>
-Cc: Selvarasu Ganesan <selvarasu.g@samsung.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "quic_wcheng@quicinc.com" <quic_wcheng@quicinc.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "cpgs@samsung.com" <cpgs@samsung.com>,
- "alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
- "thiagu.r@samsung.com" <thiagu.r@samsung.com>
-References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <CGME20260910101324epcas5p1faf6f82de85c9468f42f6f9b2f13e99b@epcas5p1.samsung.com>
- <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
- <360067785.01789039502721.JavaMail.epsvc@epcpadp1new>
- <TYUPR06MB62172308C897F81F7DAFF557D2BF2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <750468423.101789103583573.JavaMail.epsvc@epcpadp2new>
- <TYUPR06MB6217F0788C14DD89D237C807D2BE2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <937773018.41789116303608.JavaMail.epsvc@epcpadp1new>
- <191ee5d5-d93d-4fa3-9654-b3735d344118@linux.intel.com>
- <20260912141837.06b2f3cf.michal.pecio@gmail.com>
- <TYUPR06MB62174110FB101AD6B7B069EBD2BB2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <20260914110949.38a46596.michal.pecio@gmail.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20260914110949.38a46596.michal.pecio@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-kvm-arm-prefault-v2-5-26fb47f74b73@kernel.org>
+References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
+In-Reply-To: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
+ Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
+ Jack Thomson <jackabt.amazon@gmail.com>, 
+ Alexandru Elisei <alexandru.elisei@arm.com>, 
+ Vincent Donnefort <vdonnefort@google.com>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Sean Christopherson <seanjc@google.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Leo Soares Passos <Leo.Bras@arm.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4228; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=7h5BNF2TyNFGKTZFDAT77YrYi9+yuhGSKydMX9EZVMo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKWP/86OaVhwydvpoC2R3t2vPXcX80gaHMmc16puUTH3
+ fajd+1aO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjAR192MDCsEvqkdEtT7Ncsi
+ 0/fLOS+2ZEn/RaI7PWu62SaouqzvSGdkeNvM3+i0/vYDa6aQpUe5rqfc/O9u8jXcMyxswwJeZwN
+ hTgA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On 9/14/26 12:09, Michal Pecio wrote:
-> On Mon, 14 Sep 2026 07:04:17 +0000, 胡连勤 wrote:
->>> It doesn't cover hub_port_reset() called by port_event() for
->>> SuperSpeed devices, not sure what that is and whether it's
->>> dangerous. I noted that the original patch talks about hub_event(),
->>> but maybe it's a mistake?
->>
->> Thanks for the analysis. A clarification on the hub_event() reference
->> in my patch:
->>
->> The crash trace shows hub_event() at the top because that's the actual
->> crash call stack from the failing device. The full sequence is:
->>
->>    hub_event()
->>      -> port_event()                           [hub.c:5966]
->>         -> usb_reset_device(udev)              [hub.c:5875]
->>            -> usb_reset_and_verify_device()    [hub.c:6183]
->>               -> hub_port_init()               [hub.c:6228]
->>                  -> hcd->driver->address_device()  [hub.c:4781]
->>                     -> xhci_setup_device()     <-- COMP_USB_TRANSACTION_ERROR
->>                        -> xhci_disable_and_free_slot()  [xhci.c:4438]
->>                           -> xhci_free_virt_device()   <-- frees vdev here
-> 
-> So not a mistake and this is indeed a dangerous case. And AFAICT, in
-> this path udev's pre_reset() routine isn't called and therefore can't
-> be used to fix your issue, unless USB core is patched to call it.
-> 
-> But xhci_discover_or_reset_device() is called: before hub_port_init()
-> calls problematic hub_enable_device() / hub_address_device() functions,
-> it calls hub_port_reset(), which calls hcd->driver->reset_device().
+When stage 2 page tables fault the net result may either be that a page is
+mapped, an error occurred or the fault should be retried (-EAGAIN).
 
-To me it looks like both drv->pre_reset and xhci_discover_or_reset_device()
-are called in this path.
+When a fault succeeds it may be upgraded to a PMD size via
+transparent_hugepage_adjust().
 
-hub_event()
-   port_event()
-     usb_reset_device(udev)
-       if (config) //and for each interface in this config: , for each interface)
-         if (cintf->dev.driver) {
-           drv = to_usb_driver(cintf->dev.driver);
-           if (drv->pre_reset && drv->post_reset)
-           unbind = (drv->pre_reset)(cintf);
+In order to support KVM pre-faulting the outcome of the fault and the
+mapping size must be recorded.
 
+Track the mapping size via new kvm_s2_fault_result struct, which is
+threaded through gmem_abort(), user_mem_abort() and kvm_s2_fault_map().
 
-Any chance you could trace the whole call path in more details and see exactly which path
-is staken before the crash.
+PKVM and SEA aren't relevant to synthetic pre-faulting so neither
+kvm_inject_sea() nor pkvm_mem_abort() are altered.
 
-port_event() should only call usb_reset_device() for usb3 devices with link stuck in
-ss.inactive for longer than ~100ms.  Is this really a usb3 audio device?
+Actual hardware faulting doesn't require this information, so
+kvm_handle_guest_abort() simply passes NULL kvm_s2_fault_result to
+gmem_abort() and user_mem_abort().
 
-Thanks
-Mathias
+A non-NULL result also tells the abort handlers that the caller is
+pre-faulting rather than a vcpu, in which case -EAGAIN is propagated to the
+caller to allow the pre-fault to be retried.
+
+No functional change intended.
+
+Suggested-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ arch/arm64/kvm/mmu.c | 37 +++++++++++++++++++++++++++----------
+ 1 file changed, 27 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index f402481e8a4e..13541218cadb 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1607,6 +1607,10 @@ struct kvm_s2_fault_desc {
+ 	struct kvm_s2_mmu	*mmu;
+ };
+ 
++struct kvm_s2_fault_result {
++	unsigned long mapping_size;
++};
++
+ static bool kvm_s2_fault_is_perm(const struct kvm_s2_fault_desc *s2fd)
+ {
+ 	return esr_fsc_is_permission_fault(s2fd->esr);
+@@ -1632,7 +1636,8 @@ static u64 kvm_s2_perm_fault_granule(const struct kvm_s2_fault_desc *s2fd)
+ 	return BIT(ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
+ }
+ 
+-static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
++static int gmem_abort(const struct kvm_s2_fault_desc *s2fd,
++		      struct kvm_s2_fault_result *result)
+ {
+ 	bool write_fault, exec_fault;
+ 	bool perm_fault = kvm_s2_fault_is_perm(s2fd);
+@@ -1714,7 +1719,13 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+ 	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
+ 		mark_page_dirty_in_slot(kvm, s2fd->memslot, gfn);
+ 
+-	return ret != -EAGAIN ? ret : 0;
++	if (ret == -EAGAIN)
++		return result ? ret : 0;
++
++	if (result && !ret)
++		result->mapping_size = PAGE_SIZE;
++
++	return ret;
+ }
+ 
+ struct kvm_s2_fault_vma_info {
+@@ -2038,7 +2049,8 @@ static int kvm_s2_fault_compute_prot(const struct kvm_s2_fault_desc *s2fd,
+ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
+ 			    const struct kvm_s2_fault_vma_info *s2vi,
+ 			    enum kvm_pgtable_prot prot,
+-			    void *memcache)
++			    void *memcache,
++			    struct kvm_s2_fault_result *result)
+ {
+ 	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
+ 	bool writable = prot & KVM_PGTABLE_PROT_W;
+@@ -2117,12 +2129,17 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
+ 		mark_page_dirty_in_slot(kvm, s2fd->memslot, gpa_to_gfn(ipa));
+ 	}
+ 
+-	if (ret != -EAGAIN)
+-		return ret;
+-	return 0;
++	if (ret == -EAGAIN)
++		return result ? ret : 0;
++
++	if (result && !ret)
++		result->mapping_size = mapping_size;
++
++	return ret;
+ }
+ 
+-static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd)
++static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd,
++			  struct kvm_s2_fault_result *result)
+ {
+ 	bool perm_fault = kvm_s2_fault_is_perm(s2fd);
+ 	struct kvm_s2_fault_vma_info s2vi = {};
+@@ -2161,7 +2178,7 @@ static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+ 		return ret;
+ 	}
+ 
+-	return kvm_s2_fault_map(s2fd, &s2vi, prot, memcache);
++	return kvm_s2_fault_map(s2fd, &s2vi, prot, memcache, result);
+ }
+ 
+ /* Resolve the access fault by making the page young again. */
+@@ -2440,9 +2457,9 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
+ 				!kvm_s2_fault_is_exec(&s2fd));
+ 
+ 		if (kvm_slot_has_gmem(memslot))
+-			ret = gmem_abort(&s2fd);
++			ret = gmem_abort(&s2fd, NULL);
+ 		else
+-			ret = user_mem_abort(&s2fd);
++			ret = user_mem_abort(&s2fd, NULL);
+ 	}
+ 
+ 	if (ret == 0)
+
+-- 
+2.55.0
+
