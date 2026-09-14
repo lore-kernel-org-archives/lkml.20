@@ -1,72 +1,76 @@
 Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670B01E7660
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:24:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81A8282F17
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:25:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789349091; cv=none; b=i87sPmjNYHaWWL50ccPZeTia5Q62wkODhJNtr4nbuXUfj5FEia1TnL+3/HTEs0gYm1EKlWk5luUna4gdSVS+mz0VcQHAxOE5SZLC6B2wl9t4ypVVrVPucAUemQd+8oWUGVUsJrBIcVxyjQmNQPKZAiPnuMn01cimIZDtS8W1ixU=
+	t=1789349130; cv=none; b=aabX4XknZfJRXZ+eqFLf3ZKFLX3uz+Aq3fSrNDjZ+guouEXf0iWoV8+3NO9EOuZ2PAWhmgIX8THlz5X5TyuoWzLuzxXKMZKn6l10pdcbewgqsA8CtLWknqMsdDiSjew0NYbHlXdS14Kw9LavFtaZtY7tvnjRXSLTwnk5Xpo8K8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789349091; c=relaxed/simple;
-	bh=EVl1dseH/hcQ6vvbH95CZ40hP0Pvxu+bkOOT1iVUm+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jwaws0GJmaU4B2J+ny+mfFpNjCjDbV2L7IXNGfa3b0dT1LH1+L6dVabm6pzDJLHHlBiFDkgDn3XFuMSK2fGjcCAj2T5UBiXnx5NNVHaKS12/bzBgBVSTfoPIvVj/WGGcGTK4C24bZMemtPkwva6M1feoBPnGaYIpJQh0ZtKb+/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HctuGOHF; arc=none smtp.client-ip=74.125.230.205
+	s=arc-20240116; t=1789349130; c=relaxed/simple;
+	bh=eXfBSuniCbak0GSWT9wfeSNolwscYW7BzECTm6dHHhM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oUPCLuFictKhBUEmWKHs3UwK2W6FV9aavBvrGgjQmHrt/85a8dX8S1OX2LZGbjrMGafr7EVr20+DfyU6jo2SHu40NnZyHUSLso/EgcPCL8Q2k8g8PrnDfA2lVp+YnOGGUhkOXvfXFbb+P2xVZXo4JVBjHKle9fCZeyJWG5iqRKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qoQ8LPrj; arc=none smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HctuGOHF"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-939eb3249c1so208352985a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:24:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qoQ8LPrj"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca6023so141686585a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:25:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789349089; x=1789953889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qJIMkfpIudRGMH24Z8qD5n1KKI9enVz4TS3USZ/AkDA=;
-        b=HctuGOHFrYU7DFaNZeCAd5DZGOIoCTDiAX8OwbEAllzjSHFd4vft41PTef3XY8VT2R
-         9bBap0BESMwhIdvMpzsiTxi7xIkxxxkJNIp+hkNUmeuO8sqZakTysNm/s3frPIet/tIo
-         GbzxZPYDg372QGKGu7Dq8AOhVOd6Gtvx2d6ev0Y7yXujoSi/63C6oOeKVIw5q5f/Kvo2
-         Dmtrc51TkngQmmfu+Fn6/e9yCSHKlqoXbucY6SrpWffU9DU65w4+JDQtgcv/jFbElJSo
-         13BE/k2BW6JQTm0D0PJcqQC6SABNFVibUi/Nu+LEkfq0v3BFELEegGHam3R3vxBe5xBt
-         AQlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789349089; x=1789953889;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789349128; x=1789953928; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qJIMkfpIudRGMH24Z8qD5n1KKI9enVz4TS3USZ/AkDA=;
-        b=qfJv6pqr0WDm8sf2Tw7vqXWlIesI+aC1AXptNnXu3A8WTksEiR60DOh6wB0zEBDwaf
-         3dXI43slC6iyl3p57MdaMaFfSHPVHq7cghP21RoWNIBXgdSFS1AnHBA+WbYFDXa6jAoG
-         5mCa4NIJyxgvgV41voeXPEjseGGjeHN9wEfXxJ5rJRVFXIHl5+7JWZtJRQcoCa3s9QN/
-         XjqOO28CNbw25ufnVuEqV7+5FC5S6Qdu/XQb/r7Un4YeLBdLIryKfe/Q2RuzCz0hXuw1
-         srUotCQZPuGAuPHHB8e1zh6eDlzzch5u6/3uHWcVf9uwmCAZ2a/russEjzDlCVzvf/LQ
-         oJxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx4u92l2z4zFJLL1nf4NZcxEm0FNLGLxJRosFGyBuVWZENfBtkfcGIhlCaEBcoi9yQjmV9mrMZX5PNpYj4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQahYmdkFlLLJnMLsxUTM/MUUDmVu0Ejww12A84qMNNW18Bxe+
-	O8GPSTuJ2rk/lasZb8WTlriyas4hadg2ruUZ7uKjahah5aJJ2Sooqc2e4d4iG7cZRFE+
-X-Gm-Gg: AYBFou2Vr2PLOYVhhzoLWpV3b/zSg6gBRGwfQaFjZ+vOXSwnue+B4UK2vwPfEEaERfa
-	ljixANbTWe0yRJnL0zBcH2s85L1rY6hTHB2UMPJeFnZa1EtzIsG+3r2RQHY/qcYyjRRcvG/T+3F
-	wY/qk+qQJ602VB1VDsedx6SN7fRQbJp5O8Xh+0bPTLksRa7EC7Z4GKYpCGVUJBo/OwZy0E1TbYG
-	UqCW+9mMx1gIv9i8duN6HXb9LulsjBWnsVDr8VDU+1jyTbjLezqjV0s70fdTHYM1f4cRL0a5OXr
-	SURWsi23Lg0iUYaUUtl1I4zkQMfPVkjBAxoJqmx871lGUG9E7eA8vKZxWeB/MCnFKBI+9JrxQ3q
-	dEbFGHnmFxK3mHijCzl+HFzA5B/CjkXWdGokgjD6HkZgzflI4tgi/4p2ktjCt/n4iDXPzm8wKV9
-	9v4W3mmk99yiN2QbWhafkQDoICljpbsRbmJvl9OUXHIEYuoOhjafk8vS9liPNnPDyy0cqAq1n5T
-	FOJjEqBrCPnSaoz/gdK5JVjyNegDgdqyr9Jhd/OLazlIW551KerwY6PkZENIDY8YyZFZ9GQSAjI
-	laXJE/S/sefvpbp96Co+4I5eyJvbSEGjCQ==
-X-Received: by 2002:a05:620a:4885:b0:939:5f4d:67b0 with SMTP id af79cd13be357-93a29766649mr86078085a.8.1789349089174;
-        Sun, 13 Sep 2026 18:24:49 -0700 (PDT)
+        bh=U2puI8JZTx0wpWRfnIxgyvB4+ydTJdupfLTFQLJ2yXw=;
+        b=qoQ8LPrjiff8RFZmmBb4DdHU6caDBL83o8vIgcz+nxH5qPVstui5r6991GOkPwBmvb
+         WnUgV3s8u+aQyXt98xHER/QTyCRTg4hEs6uAL+Ynzmq6DjUzcUrNXVFJNdbtQq2OGljZ
+         ouQ7TPACtsONfv724HvClflHfFsDERSy9xroP/Eat7GMJUzCMAbukywVripHH1tpNIKo
+         PsOHpbkGfgmC8IF1XZbwx5URUL4Z+yM3OaV5UNQowl4g7dducOPiRwBZf3sotJfX1qbo
+         BL9Chq7PIDe7wtRae8NUcvsEh6yRbG6FNu6S2H4MSA14KB3+ExAqVHsXO7upKnsbOabg
+         T3rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789349128; x=1789953928;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U2puI8JZTx0wpWRfnIxgyvB4+ydTJdupfLTFQLJ2yXw=;
+        b=TE6UoDkpIKcjEybN7LRsXblSz874Vm5bjTX4DklgCpg0jc88UVxwPH5SQ9oFtIOMAz
+         ajcyeUny7sxHTnhJ/qAwmpcrIRSJPQC2Uyul8r9q1KHAGGPTGzMrV/qlmcOx1i+WzvjR
+         6/wLRZULJchNWab76acxEjhieJ2+kGUN3q/QqRFxmGeuIauzDMNJvh9zn6+Ir+EMhQ80
+         HVrmiqQmIKQbEKzsfMwK6Dg0CZKpIfjDpgH305iwqf03bP6N2q+4Vs/KuUAzDxRVT2/k
+         XOG9DWCKTdgS9TrX2xN9A5Wo7vek6ge8ptgUDw7vzAJZoU8NDFMmOwjB87h04doQmkr5
+         RZSA==
+X-Forwarded-Encrypted: i=1; AKwUvByEqZM00Aw6G4P6ak4xeX97VrP4ZyT7Jx8/zoSVzlkWvgnHc2cql3/ADWUunJQ9j5cdeMHtV7PP7+JvQ4E=@vger.kernel.org
+X-Gm-Message-State: AFuF++khDUxHrzopllYVnrZFSHYDkaM4hUTgkHpmx1jw2JNy4BQL838J
+	SDcwzKTJrTs6U0OpgeshZ/+A6OLlbJQhm2+y++HhYK8avSG7qNWyXew3hZo/ygKFjaAd
+X-Gm-Gg: AYBFou06zMCFmiFXlmhDGLwtiZ6LVoXA1TZruaZG78MgfKKgBt50VCpxPgYst55dRSx
+	HwHRNZEj/Ma+BZBLZQd/wfAYxuhmil5uDHCcjpQltMSg80bM6KRB5HfYad8IQm9SfxyNLE4VnIw
+	c3Hi6KQAOWCl2CcRyHOZXUnN22lszhAvD3UuUc5kTqKhS1J/7KSZrPBsBQQh453nUWHzKyR98sO
+	UQgJ4TE4nutcLTOnCdEFmdn3GS0xAuQiuOW/193FdHx8+maEnSDusgqrJXQQvTeVjKklTNZ2p6D
+	i9bTXoPWeXoeT2ghiHR8VddsQbFpgIQO7cu9v9H6U3hMg8Xq40o62H6W7qPjPCQabVArYJIegoP
+	mkc8dMQmAy9liN2k5GBmehb+VvmhWsgouTIU80djurTfp14tEV6+N/Gkzy8Ja6rHC68qTaiSCA8
+	Xv6wfh9XJ1dGqkA5gSf92IiLml0TjdbbILli4Qae5+R3i6A2KPdP2AiTlCJN8se/NbSHBeu5AZf
+	52ryBSPY8bziuz5GD0Qk04keibHFFT58/qVXlnUawlCRK13Vydd2b2tuC7F6+5NNVgIUhUBwzaA
+	a9LK6idUtWMNq1269FGJ8gSqz/hvOZPq5w==
+X-Received: by 2002:a05:620a:31a6:b0:939:e6de:f0f6 with SMTP id af79cd13be357-93a29966d87mr77789385a.27.1789349127692;
+        Sun, 13 Sep 2026 18:25:27 -0700 (PDT)
 Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e809fd0bsm850352585a.33.2026.09.13.18.24.47
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e809fd0bsm850352585a.33.2026.09.13.18.25.26
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 18:24:48 -0700 (PDT)
+        Sun, 13 Sep 2026 18:25:27 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Bjorn Helgaas <bhelgaas@google.com>
 Cc: linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH 1/2] PCI: shpchp: Release MSI and MMIO resources on init failure
-Date: Sun, 13 Sep 2026 21:24:33 -0400
-Message-ID: <20260914012434.47010-1-mhun512@gmail.com>
+Subject: [PATCH 2/2] PCI: shpchp: Balance PCI device enable on teardown
+Date: Sun, 13 Sep 2026 21:24:34 -0400
+Message-ID: <20260914012434.47010-2-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20260914012434.47010-1-mhun512@gmail.com>
+References: <20260914012434.47010-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,14 +79,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If request_irq() fails after enabling MSI, shpc_init() unmaps the
-registers but leaves MSI enabled and the MMIO region reserved.
+shpc_init() enables the PCI device, but neither initialization failure
+after that point nor shpchp_release_ctlr() balances the enable.
 
-Disable MSI before unmapping and release the reserved region on the
-failure path. Reuse the region cleanup for an ioremap() failure.
-pci_disable_msi() also handles the INTx fallback where MSI was not enabled.
+Disable the device after releasing the controller resources. Route
+reservation failures directly to the device cleanup, while failures
+before pci_enable_device() succeeds continue to skip it.
 
-These omissions are already present in the initial Git import.
+The missing disable is already present in the initial Git import.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
@@ -93,43 +97,37 @@ Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 Assisted-by: OpenAI:GPT-5.6
 ---
+This patch depends on patch 1's error-unwind labels.
 Validated with an ARM64 W=1 object build and strict checkpatch.
 No hardware runtime, IRQ-failure injection or hotplug testing was done.
 
 diff --git a/drivers/pci/hotplug/shpchp_hpc.c b/drivers/pci/hotplug/shpchp_hpc.c
-index 183bf43..4492c7d 100644
+index 4492c7d..e00e4fb 100644
 --- a/drivers/pci/hotplug/shpchp_hpc.c
 +++ b/drivers/pci/hotplug/shpchp_hpc.c
-@@ -943,9 +943,8 @@ int shpc_init(struct controller *ctrl, struct pci_dev *pdev)
- 	if (!ctrl->creg) {
- 		ctrl_err(ctrl, "Cannot remap MMIO region %lx @ %lx\n",
- 			 ctrl->mmio_size, ctrl->mmio_base);
--		release_mem_region(ctrl->mmio_base, ctrl->mmio_size);
+@@ -572,6 +572,7 @@ void shpchp_release_ctlr(struct controller *ctrl)
+ 
+ 	iounmap(ctrl->creg);
+ 	release_mem_region(ctrl->mmio_base, ctrl->mmio_size);
++	pci_disable_device(ctrl->pci_dev);
+ }
+ 
+ int shpchp_power_on_slot(struct slot *slot)
+@@ -936,7 +937,7 @@ int shpc_init(struct controller *ctrl, struct pci_dev *pdev)
+ 	if (!request_mem_region(ctrl->mmio_base, ctrl->mmio_size, MY_NAME)) {
+ 		ctrl_err(ctrl, "Cannot reserve MMIO region\n");
  		rc = -1;
 -		goto abort;
-+		goto abort_release_region;
++		goto abort_disable_device;
  	}
- 	ctrl_dbg(ctrl, "ctrl->creg %p\n", ctrl->creg);
  
-@@ -1008,7 +1007,7 @@ int shpc_init(struct controller *ctrl, struct pci_dev *pdev)
- 		if (rc) {
- 			ctrl_err(ctrl, "Can't get irq %d for the hotplug controller\n",
- 				 ctrl->pci_dev->irq);
--			goto abort_iounmap;
-+			goto abort_disable_msi;
- 		}
- 	}
- 	ctrl_dbg(ctrl, "HPC at %s irq=%x\n", pci_name(pdev), pdev->irq);
-@@ -1041,8 +1040,11 @@ int shpc_init(struct controller *ctrl, struct pci_dev *pdev)
- 	return 0;
- 
- 	/* We end up here for the many possible ways to fail this API.  */
--abort_iounmap:
-+abort_disable_msi:
-+	pci_disable_msi(pdev);
+ 	ctrl->creg = ioremap(ctrl->mmio_base, ctrl->mmio_size);
+@@ -1045,6 +1046,8 @@ abort_disable_msi:
  	iounmap(ctrl->creg);
-+abort_release_region:
-+	release_mem_region(ctrl->mmio_base, ctrl->mmio_size);
+ abort_release_region:
+ 	release_mem_region(ctrl->mmio_base, ctrl->mmio_size);
++abort_disable_device:
++	pci_disable_device(pdev);
  abort:
  	return rc;
  }
