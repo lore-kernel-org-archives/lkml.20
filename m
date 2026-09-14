@@ -1,111 +1,240 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B174477F5;
-	Mon, 14 Sep 2026 11:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0BC7544470A;
+	Mon, 14 Sep 2026 11:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386264; cv=none; b=QB+ci7WDfvpwSF01/S2eE18bs6IwxRv9bvJ6/vSZwrQd2OF2tSmWnOCdr8sKUUHPhz/xmV0a5qZk9zu0gnCqkpePyo/fABjZpaXOglp6RgTgt/ci75MRJRNpl+V0DwqtmWt8g4HRkpGrMl3jmG1SkV0G8LBaamLXWs+ymdgkezU=
+	t=1789386385; cv=none; b=WzP3nwSvaAADydIV60voXa4JUD14ldKg/FXv9mOcn1X+PXNeTJEI9CuGICgelGpJ62EmLabtfzeCMH4u/k0/YN2buyJI80Su44YOTXxA4uYjm41g6cZUZC9OLmqlHPBMHXUNUp7QhgzcrcX9XcQAimI0V6syLkWEdeJICezMwIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386264; c=relaxed/simple;
-	bh=0Yr5S6bTpSLfpOUhhORGDoYAQW1Sh6O5HLDj/LGgdSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ho/n1bliWdgnHkN7sRgvLd9DDkwOMaJ+UGbAMUsFZ3yi7u+/0oXLvUlMYt0BROHDftUlcG+s+f9seOfZxo+WKdlPw9gJPjrEFCSox0WNHGEHmYUAE9nmCUFxR0jyK699q1C6Vf7UHrveWvq0JC47Il8Tv8Q3m8xgOsWTqfuLr1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DCuDAEEO; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789386385; c=relaxed/simple;
+	bh=bTE5MXIvqSiIZe5i+49lO4aoO1UQoLMV88Vli15QSPg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kXhKNKFZsFjj04c+MQ2jHtquGd4FNU3L0lM6Yy+QxJVCpdRUx5v/IL/CDOAzXdONBofmRADWiAGjPbxtlBw77Qs/9w+gXduqPM9sdhwFLIwF8Rb9e4sQ5UmiztRQw2RFGdIma325CgDnhGhjjI5DXRgoaBdmILSsvUUWLBnk2I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=RlWcAYlz; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DCuDAEEO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789386263; x=1820922263;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0Yr5S6bTpSLfpOUhhORGDoYAQW1Sh6O5HLDj/LGgdSs=;
-  b=DCuDAEEOwH/ibMxev8vFjisnyc0xrAM9oFZOoFup8P0eLVTjs0WWE9Os
-   bszAMhJ9UemDe9qTfPjKaXIC9r5ArAAQUCOHmhrSgxFRzQFpyOEo5va22
-   yesE8Azh7nUUi/LUtGH8qnk3z5cvaytJHmH0zGhziTWK68EWm/94mDNg0
-   pAKDjrAA/DyjkyPH+V0w//drFf2C5Cs1XAiuXV7f22vseYSOyZzQVQ3tJ
-   cx6oO2LgfT1X/v6l/eBDyhO2v9oMnNyIBc3RnCU8krlXJbfB+fcl57thZ
-   M+Ad8Yg/hb6oVyY+LrqVpV/rlkBPQfNAgLCVKS1qtz8Z6gYwqSbwcFaAv
-   A==;
-X-CSE-ConnectionGUID: Tp3nDIp0S2yGL86ab5L16Q==
-X-CSE-MsgGUID: syf9bMYGTMGyBBa97wgKqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100397287"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="100397287"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:44:22 -0700
-X-CSE-ConnectionGUID: wQGh43OYRKukOlA6kPUPsw==
-X-CSE-MsgGUID: i63VEpqOSFC7O0++6L862A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="274538960"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa004.fm.intel.com with ESMTP; 14 Sep 2026 04:44:21 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 5715499; Mon, 14 Sep 2026 13:44:20 +0200 (CEST)
-Date: Mon, 14 Sep 2026 13:44:20 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Linkai Gong <gonglinkai@kylinos.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Xin Ji <xji@analogixsemi.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] usb: typec: anx7411 - stop the IRQ before destroying
- the workqueue
-Message-ID: <aqfeFD-2RVMaO4u9@black.igk.intel.com>
-References: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
- <20260910011150.2966843-1-gonglinkai@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="RlWcAYlz"
+Received: from DESKTOP-TUU1E5L.localdomain (unknown [167.220.208.69])
+	by linux.microsoft.com (Postfix) with ESMTPSA id ACB6B20B7168;
+	Mon, 14 Sep 2026 04:45:37 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ACB6B20B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789386340;
+	bh=79zZtpmo8YK6M8lOBOuuMDodxRd5Y13bD5Fuxjb9XZ4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=RlWcAYlzSS1vrigLLKTk9VqMycQPw3r+6pkBLogzRLzKxNAwaimWjfroOlGH+uZCe
+	 e/xERgpSPiYlIF9LWerAL29wAPrE+ArpA3Bcr7cdXq7bNYdsBHjH5CckMwLayYl26R
+	 IqIxRirYQIBDvNfMR22IozMmUVb4UTH5y2/vamso=
+From: Magnus Kulke <magnuskulke@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Dexuan Cui <decui@microsoft.com>,
+	Wei Liu <liuwe@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Long Li <longli@microsoft.com>
+Subject: [RFC PATCH] drivers/hv: remove deposited pages from direct map
+Date: Mon, 14 Sep 2026 13:46:17 +0200
+Message-Id: <20260914114617.27628-1-magnuskulke@linux.microsoft.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910011150.2966843-1-gonglinkai@kylinos.cn>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 09:11:50AM +0800, Linkai Gong wrote:
-> The IRQ is devm-managed, so it can still queue plat->work while
-> remove() is tearing the queue down. Disable it first.
-> 
-> Fixes: fe6d8a9c8e64 ("usb: typec: anx7411: Add Analogix PD ANX7411 support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+(RFC b/c feedback from arm64 maintainers to access the impact is
+pending)
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
+guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
+ownership of those pages and per contract revokes root partition
+access to them, raising a #GP on access from the L1VH root partition.
 
-> ---
-> v3:
-> - add Cc: stable (Heikki)
-> 
-> v2:
-> - keep the minimal remove() race fix; drop the workqueue later if wanted
->   (code unchanged from v1)
-> 
->  drivers/usb/typec/anx7411.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/typec/anx7411.c b/drivers/usb/typec/anx7411.c
-> index 41df115912b9..c3d36da692e4 100644
-> --- a/drivers/usb/typec/anx7411.c
-> +++ b/drivers/usb/typec/anx7411.c
-> @@ -1566,8 +1566,11 @@ static void anx7411_i2c_remove(struct i2c_client *client)
->  	anx7411_partner_unregister_altmode(plat);
->  	anx7411_unregister_partner(plat);
->  
-> -	if (plat->workqueue)
-> +	if (plat->workqueue) {
-> +		disable_irq(plat->intp_irq);
-> +		cancel_work_sync(&plat->work);
->  		destroy_workqueue(plat->workqueue);
-> +	}
->  
->  	i2c_unregister_device(plat->spi_client);
->  
-> -- 
-> 2.25.1
+However, the pages remain mapped in the kernel direct map, so kernel
+code may still access them even though the hypervisor has revoked
+access.
 
+Helpers such as "load_unaligned_zeropad()" deliberately read past the
+end of a buffer and across page boundaries. A read into an unmapped
+page is tolerated and triggers a #PF, for which the kernel executed
+a fixup in the exception table.
+
+If such a call steps into a page that has been deposited, the access
+raises a #GP by the hypervisor from which the above handler cannot
+recover and the kernel panics:
+
+  Oops: general protection fault, maybe for address 0xff1100941a3dfffc
+  RIP: 0010:csum_partial+0xe5/0x110
+
+This condition will appear on L1VH system that have created L2
+partitions (and hence deposited pages) and exercise networking code
+paths such as csum_partial() can trigger this condition when a buffer
+ends close to a page boundary (e.g fffc in the above example).
+
+The fix is to remove the deposited pages from the direct map before
+they are passed to the hypervisor, and restore them when the hypervisor
+returns them again.
+
+We want to avoid flushing the TLB in the loop, so we use the _noflush()
+variant of set_direct_map_valid() when marking a deposited page invalid
+and flush the affected page ranges in one go ourselves. In the opposite
+direction this is not required:
+
+  > If a paging-structure entry is modified to change the P flag from
+  > 0 to 1, no invalidation is necessary. This is because no TLB entry
+  > or paging-structure cache entry is created with information from a
+  > paging-structure entry in which the P flag is 0.
+
+(Intel SDM Vol. 3, 4.10.4.3)
+
+Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
+---
+ drivers/hv/hv_proc.c           | 53 +++++++++++++++++++++++++++++++++-
+ drivers/hv/mshv_root_hv_call.c |  2 ++
+ include/asm-generic/mshyperv.h |  4 +++
+ 3 files changed, 58 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+index 57b2c64197cb..3ab02adf7efb 100644
+--- a/drivers/hv/hv_proc.c
++++ b/drivers/hv/hv_proc.c
+@@ -7,7 +7,9 @@
+ #include <linux/cpuhotplug.h>
+ #include <linux/minmax.h>
+ #include <linux/export.h>
++#include <linux/set_memory.h>
+ #include <asm/mshyperv.h>
++#include <asm/tlbflush.h>
+ 
+ /*
+  * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+@@ -15,6 +17,35 @@
+  */
+ #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+ 
++/*
++ * Add or remove a set of physically contiguous page runs from the kernel
++ * direct map. Once a page has been deposited the hypervisor owns it and
++ * revokes root partition access to it.
++ */
++static int hv_deposit_update_direct_map(struct page **pages, int *counts,
++					int num_allocations, bool valid)
++{
++	int i, err, ret = 0;
++
++	for (i = 0; i < num_allocations; ++i) {
++		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
++		if (err && !ret)
++			ret = err;
++	}
++
++	if (valid)
++		return ret;
++
++	for (i = 0; i < num_allocations; ++i) {
++		unsigned long addr = (unsigned long)page_address(pages[i]);
++		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
++
++		flush_tlb_kernel_range(addr, addr + size);
++	}
++
++	return ret;
++}
++
+ /* Deposits exact number of pages. Must be called with interrupts enabled.  */
+ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+ {
+@@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+ 	}
+ 	num_allocations = i;
+ 
++	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
++	if (ret)
++		goto err_restore_direct_map;
++
+ 	local_irq_save(flags);
+ 
+ 	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
+@@ -90,12 +125,15 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+ 	if (!hv_result_success(status)) {
+ 		hv_status_err(status, "\n");
+ 		ret = hv_result_to_errno(status);
+-		goto err_free_allocations;
++		goto err_restore_direct_map;
+ 	}
+ 
+ 	ret = 0;
+ 	goto free_buf;
+ 
++err_restore_direct_map:
++	hv_deposit_update_direct_map(pages, counts, num_allocations, true);
++
+ err_free_allocations:
+ 	for (i = 0; i < num_allocations; ++i) {
+ 		base_pfn = page_to_pfn(pages[i]);
+@@ -110,6 +148,19 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+ }
+ EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
+ 
++/*
++ * Put withdrawn pages back in the direct map. Counterpart to the direct map
++ * removal done by hv_call_deposit_pages().
++ */
++void hv_restore_withdrawn_pages(const u64 *pfns, int count)
++{
++	int i;
++
++	for (i = 0; i < count; ++i)
++		set_direct_map_valid_noflush(pfn_to_page(pfns[i]), 1, true);
++}
++EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
++
+ int hv_deposit_memory_node(int node, u64 partition_id,
+ 			   u64 hv_status)
+ {
+diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+index cb55d4d4be2e..8c21ad4ba3b0 100644
+--- a/drivers/hv/mshv_root_hv_call.c
++++ b/drivers/hv/mshv_root_hv_call.c
+@@ -69,6 +69,8 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+ 
+ 		completed = hv_repcomp(status);
+ 
++		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
++
+ 		for (i = 0; i < completed; i++)
+ 			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
+ 
+diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+index bf601d67cecb..397c8ec0ce9a 100644
+--- a/include/asm-generic/mshyperv.h
++++ b/include/asm-generic/mshyperv.h
+@@ -346,6 +346,7 @@ static inline bool hv_parent_partition(void)
+ bool hv_result_needs_memory(u64 status);
+ int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
+ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
++void hv_restore_withdrawn_pages(const u64 *pfns, int count);
+ int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
+ int hv_call_notify_all_processors_started(void);
+ bool hv_lp_exists(u32 lp_index);
+@@ -364,6 +365,9 @@ static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_page
+ {
+ 	return -EOPNOTSUPP;
+ }
++
++static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
++
+ static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
+ {
+ 	return -EOPNOTSUPP;
 -- 
-heikki
+2.34.1
+
