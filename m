@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C021C49EC76;
-	Mon, 14 Sep 2026 20:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754D249DBAC;
+	Mon, 14 Sep 2026 20:24:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789417496; cv=none; b=c2YzW+fBLCTOcun+f4U/wNCuI7iS/bu01Ko52P77N3b7C/Gj7KnHYOgsh7D3WY72YvtytOVYgdXW50ZjqnEx2tDpug1ag1CJ7cd6XcX50qydSAkGdXHbIsMHhaRP7aZa5Mw8FdYiuOFiP7cFAodvtN5aAtpT2i6qJMZ6Bf9bKpE=
+	t=1789417497; cv=none; b=sYiPenKhCxRN0uHE0Bqp76KeeLrxPrAZygh4gaMPHuWO4/FGOTZgX2JF6dXqqk2B9e243UKZesodpfUEBSl0+bTT2NWbmqI4Nsh5tsqlMQe/NkYH+yIfSYzku3RRFCyNe9KL9tnJEs1t4F/0vDpHc+X/Q1PW1Xv/OhAk77XlNUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789417496; c=relaxed/simple;
-	bh=YpOn+iA1MLOzWHJTu2Tk1TYaASk3eTRTiuPjsXIa82A=;
+	s=arc-20240116; t=1789417497; c=relaxed/simple;
+	bh=K+eVhqt7YxsQ8Q2OOisrdkJG+6p9AlEiBY4wXxo3QWQ=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qn+sd5D6EJpoH0m6+efPcvGqXKmvpVQyNzFMP65CftieefPLApd9GHsODMt5L1RoVoYnm6FwrBEwdw3l08QbqNOHa8C68uQcOHjNq2IpBHMVAG5i3DYvvF9IjW5Sd3HE3psI19LK9PglkEo7fOb80N0ax5vzF9gkC8oiMRyjWBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FT5bx3ij; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=RXARn5JHG0dwxxdfEZ9EabyhMusA0ad0qHedquH3Z9/67LdLgiB7ps51QW7PXefW/NV4G5a4BV+BKNVPMSNbB8Sm7krZWTqae/BAlRXlmn4alIoImF9evpooX5t/sWQ8CzMRYRa6ah8vKJD5+NMDvjCm0cSeJaVNZFD8m2Gn70M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KmheNl2H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FT5bx3ij"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057D01F00898;
-	Mon, 14 Sep 2026 20:24:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KmheNl2H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343821F000FF;
+	Mon, 14 Sep 2026 20:24:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789417487;
-	bh=2RoJd8ruCeOMjv7whikitY82kCP+TLKSSzWDnjVuejo=;
+	s=k20260515; t=1789417493;
+	bh=EdUGey0Y6fUygZcO3oI/pgasXv1LbqpF456UVNPI0RY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FT5bx3ij689sQ+HZYCl+7q0vCyYLKB4UxUcVCS7L0ji+eszqTc7E7ktVeZZWKCKJI
-	 FEBy3SgecMakPhYJDL7MunVofR6CdVFLJxlECCUECzmcKsMlr1ONj2KYAGdTon1eDP
-	 kadSP6fMryKbRj1kuf4kENtT5Qi6x6dSQjL9wIHFl1hIKb/P6TmifBlFo3SxgM4eny
-	 QeNKuQgqYEw4EntXJ3KD4dobstFtAJYELI0Kqq6XHmJDi8Vg2iPG3AEUSXo4O4+F8V
-	 DXLhlj7zJyA4kzREtOlInvVL4sy4zB4r07wL5HysuvHOClY92SuKkS1iE2nH59hDmB
-	 rcPebAsonsrTQ==
-Subject: Re: [PATCH net-next v5 06/11] net: pcs: xpcs: add ANRESTART support
- for SGMII link recovery
+	b=KmheNl2HmKbF7QozkgpVRgt69X5wdGL7cLO/skh5x+3JrNIJd3gG5muta106qbdx/
+	 mrPtYOlO1vnbXtrFdsb21CPmp5GhsUa0Sg3LGwwRi7fPT9pgsHsabJIBW8JkUMUONd
+	 sXCLPRDWCdHXo062eN76E/tFT9x4dRBrX1+FDT/PhzBmp7nmAKe1M+xwzULRk/TPbt
+	 qd4WgeUgaqGYgUj0XIKQxauSUnaGyTdLGnJ2yr3sM1wlI23GB3jHf5NiJsXkHSJLv8
+	 QpIC6nL/1m7H82LgjNg9Jd78DoPCj09tdA+NFKfCa6exzE8P2HTURFTmhXeEyrZUlk
+	 HhNlo2ZEk5ezw==
+Subject: Re: [PATCH net-next v5 09/11] net: stmmac: dwmac-rk: add SGMII
+ support for RK3568
 From: netdev-bot+sashiko@kernel.org
 To: coiaprant@gmail.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -41,11 +41,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
-Date: Mon, 14 Sep 2026 20:24:45 +0000
-Message-ID: <178941748560.22033.7667125492368880786@kernel.org>
-In-Reply-To: <20260913185849.907479-7-coiaprant@gmail.com>
-References: <20260913185849.907479-7-coiaprant@gmail.com>
-X-sashiko-severity: High
+Date: Mon, 14 Sep 2026 20:24:51 +0000
+Message-ID: <178941749179.22033.3182687831989800376@kernel.org>
+In-Reply-To: <20260913185849.907479-10-coiaprant@gmail.com>
+References: <20260913185849.907479-10-coiaprant@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -58,272 +58,253 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 4 · Low: 0
+Critical: 0 · High: 0 · Medium: 2 (1) · Low: 3
 
-- [High] In xpcs_get_state_c37_sgmii() the combination
-  'DW_VR_MII_AN_STS_C37_ANCMPLT_INTR set + DW_VR_MII_C37_ANSGM_SP_LNKSTS…
-- [Medium] Undisclosed functional change: besides the two BMCR_ANRESTART
-  additions the commit message advertises, the patch adds a new…
-- [Medium] Device-specific quirk applied unconditionally: the commit
-  message and the new comment at drivers/net/pcs/pcs-xpcs.c:776-781…
-- [Medium] Wrong ordering in xpcs_get_state_c37_sgmii(): the latched AN-
-  complete indication is consumed (xpcs_write(DW_VR_MII_AN_INTR_STS, 0),…
-- [Medium] The patch turns the read-only-by-contract pcs_get_state()
-  callback into a hardware-state-changing operation (BMCR read-modify-…
+- [Medium] DWMAC_ROCKCHIP gains an unconditional `select
+  PCS_XPCS_ROCKCHIP` without inheriting the selected symbol's…
+- [Medium] For SGMII the driver removes every speed-dependent clock
+  programming path (rk_gmac_probe() sets plat_dat->set_clk_tx_rate =…
+- [Low] rk_get_interfaces() (dwmac-rk.c:1570-1571) now sets
+  PHY_INTERFACE_MODE_SGMII in phylink's supported_interfaces for every…
+- [Low] The RK3568 XPCS SoC node added by the series ('arm64: dts:
+  rockchip: rk3568: add XPCS and fixed-clock nodes') omits properties…
+- [Low] rk_select_pcs() (dwmac-rk.c:1268-1275) ignores its `interface`
+  argument and returns the SGMII XPCS for every interface mode,…
+
+Pre-existing issues:
+- [Medium] DISCARDED (valid but pre-existing and below the reporting
+  threshold for pre-existing defects).
 
 --
 
-net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+net: stmmac: dwmac-rk: add SGMII support for RK3568
 
-The patch sets BMCR_ANRESTART together with BMCR_ANENABLE when
-xpcs_config_aneg_c37_sgmii() enables in-band AN, and makes
-xpcs_get_state_c37_sgmii() clear DW_VR_MII_AN_INTR_STS and assert
-BMCR_ANRESTART when the link is down with AN completion latched.  A new
-comment explains that the DesignWare databook says AN restart is not
-needed for MAC side SGMII, but that some parts (Rockchip RK3568) need it.
+Adds a set_to_sgmii()/set_to_rmii() pair for rk3568 to program GRF bit 7,
+wires up pcs_init/pcs_exit/select_pcs so the Rockchip XPCS is used as the
+PCS, and reorders rk_gmac_powerup() so the clocks are enabled before the
+interface-specific configuration.
+
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 386)
 
 A few questions below.
 
-> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> index 0337e2bcc0125..8c3875b6985b9 100644
-> --- a/drivers/net/pcs/pcs-xpcs.c
-> +++ b/drivers/net/pcs/pcs-xpcs.c
-> @@ -769,7 +771,14 @@ static int xpcs_config_aneg_c37_sgmii(struct dw_xpcs *xpcs,
->  	 *	 SR_MII_AN_ADV. MAC side SGMII receives AN Tx Config from
->  	 *	 PHY about the link state change after C28 AN is completed
->  	 *	 between PHY and Link Partner. There is also no need to
-> -	 *	 trigger AN restart for MAC-side SGMII.
-> +	 *	 trigger AN restart for MAC-side SGMII on most devices.
-> +	 *
-> +	 * Note: While the DesignWare databook states that AN restart is
-> +	 *	 not needed for MAC side SGMII, some implementations (e.g.
-> +	 *	 Rockchip RK3568) exhibit a timing quirk when integrated with
-> +	 *	 phylink and do not restart AN automatically when the link
-> +	 *	 comes back up. An explicit AN restart is required on those
-> +	 *	 parts to recover the link after a disconnect.
->  	 */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index ab3c4cf964239..c6559e749c0ce 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -170,6 +170,7 @@ config DWMAC_ROCKCHIP
+>  	default ARCH_ROCKCHIP
+>  	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+>  	select MFD_SYSCON
+> +	select PCS_XPCS_ROCKCHIP
 
 [Severity: Medium]
-The comment says the restart is only "required on those parts" and that
-there is "no need to trigger AN restart for MAC-side SGMII on most
-devices", and the commit message says "This is not a fix for an existing
-mainline platform".  The code, however, applies the restart on every
-device: no gate on xpcs->info.pma or xpcs->desc, and struct dw_xpcs gains
-no quirk flag.
+Does this select produce unmet dependency warnings?  PCS_XPCS_ROCKCHIP in
+drivers/net/pcs/Kconfig carries three dependency lines:
 
-The same function already uses that gating idiom a few lines below:
+  config PCS_XPCS_ROCKCHIP
+	tristate "Rockchip XPCS controller support"
+	default ARCH_ROCKCHIP
+	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+	depends on GENERIC_PHY || COMPILE_TEST
+	depends on PM_GENERIC_DOMAINS || COMPILE_TEST
 
-	if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID) {
-		mask |= DW_VR_MII_AN_CTRL_8BIT;
-		val |= DW_VR_MII_AN_CTRL_8BIT;
-		/* Hardware requires it to be PHY side SGMII */
-		tx_conf = DW_VR_MII_TX_CONFIG_PHY_SIDE_SGMII;
+while DWMAC_ROCKCHIP only has "depends on OF && (ARCH_ROCKCHIP ||
+COMPILE_TEST)".  ARCH_ROCKCHIP in arch/arm64/Kconfig.platforms selects PM
+but neither GENERIC_PHY nor PM_GENERIC_DOMAINS, so a config with
+ARCH_ROCKCHIP=y, COMPILE_TEST=n and GENERIC_PHY=n (or PM_GENERIC_DOMAINS=n)
+force-enables PCS_XPCS_ROCKCHIP with its own depends unsatisfied:
 
-Note that this TXGBE case is configured as PHY-side SGMII, which the
-MAC-side/RK3568 rationale in the comment does not cover.
+  WARNING: unmet direct dependencies detected for PCS_XPCS_ROCKCHIP
 
-Should the new restart be gated on the affected PMA (or on a new dw_xpcs
-quirk flag) so the code matches what the comment and the commit message
-describe?
+pcs-xpcs-rk.o is then built against the phy stubs where devm_phy_get()
+returns ERR_PTR(-ENOSYS), so the probe cannot succeed.
 
-Also, phylink already has a path for this: pcs_config() may return a
-positive value to ask phylink to call .pcs_an_restart, and
-xpcs_an_restart() in this same driver performs exactly the same register
-write:
+The select is also unconditional, so every Rockchip dwmac build
+(RK3288/RK3328/RK3399/RK3588 ...) force-enables the RK356x-only XPCS
+driver.  Would inheriting the constraints, or making the selection
+conditional, be preferable here?  Note that simply adding the two depends
+lines to DWMAC_ROCKCHIP would turn off Ethernet on existing RK3288/RK3399
+configurations, so the choice probably needs to be explicit.
 
-	xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
-		    BMCR_ANRESTART);
+The Kconfig change is also not mentioned anywhere in the commit message.
 
-Would using that framework path be preferable to open-coding the restart
-in the config and get_state callbacks?
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index 8d7042e689261..5d501ed8d1429 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 
-> @@ -816,9 +825,14 @@ static int xpcs_config_aneg_c37_sgmii(struct dw_xpcs *xpcs,
->  	if (ret < 0)
+[ ... ]
+
+> @@ -1208,6 +1237,43 @@ static void rk_phy_powerdown(struct rk_priv_data *bsp_priv)
+> +static struct phylink_pcs *rk_select_pcs(struct stmmac_priv *priv,
+> +					 phy_interface_t interface)
+> +{
+> +	if (!priv->hw->xpcs)
+> +		return NULL;
+> +
+> +	return xpcs_to_phylink_pcs(priv->hw->xpcs);
+> +}
+
+[Severity: Low]
+Should rk_select_pcs() look at its interface argument?  The mac_select_pcs
+contract in include/linux/phylink.h is to return the PCS for the specified
+interface, or NULL when none is required, but this returns the SGMII XPCS
+for any mode.
+
+On an RK3568 port probed as SGMII, rk_get_interfaces() also advertises the
+RGMII variants and RMII, and xpcs->pcs.supported_interfaces is non-empty
+(filled in by xpcs_get_interfaces()).  When phylink validates one of those
+non-SGMII interfaces, phylink_validate_mac_and_pcs() hits:
+
+	if (!phy_interface_empty(pcs->supported_interfaces) &&
+	    !test_bit(state->interface, pcs->supported_interfaces)) {
+		phylink_err(pl, "MAC returned PCS which does not support %s\n",
+			    phy_modes(state->interface));
+		return -EINVAL;
+	}
+
+Would returning the XPCS only for PHY_INTERFACE_MODE_SGMII and NULL
+otherwise avoid that error path?
+
+> @@ -1379,16 +1450,19 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+>  	if (ret)
 >  		return ret;
 >  
-> +	/* Clear CL37 AN complete status */
-> +	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +	if (ret < 0)
+> +	ret = gmac_clk_enable(bsp_priv, true);
+> +	if (ret)
 > +		return ret;
 > +
 
 [Severity: Medium]
-The commit message describes the change as "Add BMCR_ANRESTART in two
-places" plus a comment update, but this hunk adds a third functional
-change that is only visible as item "5)" in the in-code numbered list.
+This isn't a bug introduced by this patch, but now that gmac_clk_enable()
+is the first resource acquisition in rk_gmac_powerup(), its partial-failure
+path becomes more visible.  Do the bulk clocks leak when the clk_phy enable
+fails?
 
-This write is unconditional: it runs for every xpcs_config() ->
-xpcs_do_config() -> xpcs_config_aneg_c37_sgmii() call and for every
-neg_mode, including PHYLINK_PCS_NEG_OUTBAND where no AN is subsequently
-enabled.  It clears the register that xpcs_get_state_c37_sgmii() uses as
-its only source of link/speed/duplex and of state->an_complete:
-
-	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS);
-
-It also changes the value returned when neg_mode is not
-PHYLINK_PCS_NEG_INBAND_ENABLED: the function now returns the result of
-this AN_INTR_STS write instead of the DIG_CTRL1 modify.
-
-Could the commit message mention this status clear and the return value
-change?  For reference, xpcs_config_aneg_c37_1000basex() already performs
-the identical clear, so the write itself matches existing driver practice.
-
->  	if (neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED)
->  		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
-> -				 mdio_ctrl | BMCR_ANENABLE);
-> +				 mdio_ctrl | BMCR_ANENABLE | BMCR_ANRESTART);
->  
->  	return ret;
->  }
-> @@ -1093,9 +1107,18 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
->  		return 0;
->  	}
->  
-> -	/* Clear AN complete status or interrupt */
-> -	if (state->an_complete)
-> -		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +	if (state->an_complete) {
-> +		/* Clear AN complete status or interrupt */
-> +		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		/* Initiate the next round of AN */
-> +		ret = xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
-> +				  BMCR_ANRESTART);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-[Severity: High]
-Is the trigger condition here really "stuck AN"?  The state reached at
-this point is ANCMPLT latched with LNKSTS clear, taken from the same
-register read:
-
-	state->an_complete = ret & DW_VR_MII_AN_STS_C37_ANCMPLT_INTR;
-
-	if (ret & DW_VR_MII_C37_ANSGM_SP_LNKSTS) {
-		...
-		return 0;
-	}
-
-For C37/SGMII, isn't that the normal steady state whenever the partner
-PHY's media side is down?  The PHY keeps sending config words, the SGMII
-AN exchange completes and latches ANCMPLT (bit 0), and the media link
-state is carried separately in the received config word via LNKSTS
-(bit 4), per pcs-xpcs.h:
-
-	#define DW_VR_MII_AN_STS_C37_ANCMPLT_INTR	BIT(0)
+drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:gmac_clk_enable() {
 	...
-	#define DW_VR_MII_C37_ANSGM_SP_LNKSTS		BIT(4)
-
-If so, then on an unplugged port each restart re-completes within the AN
-link timer with LNKSTS still 0 and re-latches ANCMPLT, so the condition
-re-arms itself and a fresh AN restart is issued on every poll,
-indefinitely.  phylink polls pcs_get_state once per second and
-xpcs->pcs.poll is true for everything except WX_TXGBE and MP_FBNIC, so
-this affects the existing DW_AN_C37_SGMII users (stmmac/Intel mGbE, NXP
-SJA1105/SJA1110, Wangxun), not only RK3568.
-
-Two further consequences: with MAC_AUTO_SW armed, the hardware-selected
-speed/duplex is dropped on each cycle, and because the whole status word
-is cleared by writing 0, a restart that lands on a just-latched LNKSTS=1
-word destroys that link-up indication and costs an extra poll interval.
-
-For the interrupt-driven case there may also be a faster loop.  The SGMII
-AN_CTRL modify in xpcs_config_aneg_c37_sgmii() does not include
-DW_VR_MII_AN_INTR_EN in its mask, while the 1000BASE-X path sets it:
-
-	if (!xpcs->pcs.poll) {
-		mask |= DW_VR_MII_AN_INTR_EN;
-		val |= DW_VR_MII_AN_INTR_EN;
-	}
-
-so an enable programmed by a previous 1000BASE-X configuration persists
-into SGMII mode.  On txgbe the AN event is routed to the link IRQ:
-
-drivers/net/ethernet/wangxun/txgbe/txgbe_irq.c:txgbe_misc_irq_handle() {
-	if (eicr & (TXGBE_PX_MISC_ETH_LK | TXGBE_PX_MISC_ETH_LKDN |
-		    TXGBE_PX_MISC_ETH_AN)) {
-		sub_irq = irq_find_mapping(txgbe->misc.domain, TXGBE_IRQ_LINK);
-	...
-}
-
-which ends in phylink_pcs_change() -> pcs_get_state(), so the restart can
-be re-triggered at hardware rate rather than once per second.
-
-Would gating this on the affected PMA/quirk, or on an explicit "AN is not
-active" hardware condition rather than on the latched AN-complete bit,
-address this?
-
-[Severity: Medium]
-Is the ordering here recoverable if the second access fails?  The latched
-AN-complete indication is consumed by the xpcs_write(DW_VR_MII_AN_INTR_STS,
-0) before the fallible read-modify-write that actually starts the next
-negotiation.
-
-If the write succeeds and the xpcs_modify() of MII_BMCR fails on the
-register back-end, the only indication that AN completed is gone and no
-new negotiation was started.  The block that would retry is itself gated
-on state->an_complete, which is now read back as 0, so the restart is
-never attempted again.  The error only reaches xpcs_get_state(), which
-logs it from a void callback:
-
-		ret = xpcs_get_state_c37_sgmii(xpcs, state);
+		ret = clk_bulk_prepare_enable(bsp_priv->num_clks,
+					      bsp_priv->clks);
 		if (ret)
-			dev_err(&xpcs->mdiodev->dev, "%s returned %pe\n",
-				"xpcs_get_state_c37_sgmii", ERR_PTR(ret));
+			return ret;
 
-and nothing records a pending restart.  This matters most on the hardware
-this patch targets, where AN is not restarted automatically, so the port
-would stay down until a fresh pcs_config().  The failure is plausible for
-these vendor-MMD accesses: the RK3568 back-end added later in this series
-returns errors from pm_runtime_resume_and_get() inside
-xpcs_rk_write_reg()/xpcs_rk_read_reg().
+		ret = clk_prepare_enable(bsp_priv->clk_phy);
+		if (ret)
+			return ret;
+	...
+}
 
-Would asserting BMCR_ANRESTART before clearing the status word, or
-retrying independently of the latch, close this window?
+The second failure returns without calling clk_bulk_disable_unprepare() and
+without setting bsp_priv->clk_enabled, so the later gmac_clk_enable(bsp_priv,
+false) in rk_gmac_powerdown() and at the new clk_disable label is a no-op
+because it is gated on clk_enabled.  This only triggers for integrated-PHY
+setups where clk_phy is non-NULL.
+
+> +	if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_SGMII)
+> +		goto set_mode;
+> +
+>  	ret = rk_get_phy_intf_sel(bsp_priv->phy_iface);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto clk_disable;
+
+[ ... ]
+
+> @@ -1486,6 +1566,9 @@ static void rk_get_interfaces(struct stmmac_priv *priv, void *bsp_priv,
+>  
+>  	if (rk->supports_rmii)
+>  		__set_bit(PHY_INTERFACE_MODE_RMII, interfaces);
+> +
+> +	if (rk->supports_sgmii)
+> +		__set_bit(PHY_INTERFACE_MODE_SGMII, interfaces);
+>  }
+
+[Severity: Low]
+Is SGMII safe to advertise on a port that was not probed as SGMII?
+rk3568_ops populates set_to_sgmii unconditionally, and rk_gmac_setup()
+derives supports_sgmii from it, so every RK3568 port now advertises SGMII
+in phylink's supported_interfaces (stmmac_phy_setup() copies the
+get_interfaces() output verbatim into config->supported_interfaces).
+
+All the SGMII setup, though, is keyed off the probe-time DT phy-mode:
+
+  - rk_gmac_powerup() writes RK3568_GMAC_MODE_SGMII_QSGMII only in the
+    "case PHY_INTERFACE_MODE_SGMII:" branch, which runs once at init
+  - rk_gmac_probe() installs pcs_init/pcs_exit/select_pcs,
+    default_an_inband and clears set_clk_tx_rate only under
+    "if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII)"
+
+So on a port probed as rgmii*/rmii, if phylink later selects SGMII (SFP
+cage, or a PHY reporting SGMII as its host interface), GRF bit 7 stays
+cleared by rk3568_set_to_rgmii()/rk3568_set_to_rmii(), plat->select_pcs is
+NULL so stmmac_mac_select_pcs() returns NULL and there is no PCS to run
+autonegotiation.  Before this patch SGMII was not in supported_interfaces
+and such a configuration was rejected during validation.  Would gating the
+__set_bit() on the probe-time interface be closer to what the hardware can
+actually do?
+
+> @@ -1602,6 +1685,17 @@ static int rk_gmac_probe(struct platform_device *pdev)
+>  	plat_dat->suspend = rk_gmac_suspend;
+>  	plat_dat->resume = rk_gmac_resume;
+>  
+> +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII) {
+> +		/* SGMII clock always runs at 125 MHz */
+> +		plat_dat->set_clk_tx_rate = NULL;
+> +
+> +		/* SGMII requires a PCS */
+> +		plat_dat->default_an_inband = true;
 
 [Severity: Medium]
-This makes pcs_get_state() change hardware state rather than only read it,
-and phylink calls that callback from contexts with no common lock.
+The commit message says:
 
-phylink_resolve() holds pl->state_mutex (and the phy locks) but not RTNL,
-while these two callers hold only RTNL:
+  "Enable default_an_inband for SGMII and disable the generic stmmac
+   set_clk_tx_rate callback.  This forces phylink to use in-band mode,
+   where the PCS is responsible for speed/duplex negotiation."
 
-drivers/net/phy/phylink.c:phylink_ethtool_ksettings_get() {
-	...
-		phylink_mac_pcs_get_state(pl, &link_state);
-	...
-}
+Is "forces" accurate?  default_an_inband is only a default, and the next
+paragraph of the message says so itself.  In phylink_parse_mode():
 
-drivers/net/phy/phylink.c:phylink_mii_read() {
-	...
-			phylink_mac_pcs_get_state(pl, &state);
-	...
-}
+	if (pl->config->default_an_inband)
+		pl->cfg_link_an_mode = MLO_AN_INBAND;
 
-The lockset intersection is empty, and the driver holds no private lock,
-so two CPUs can run this block at once and both assert BMCR_ANRESTART,
-aborting each other's negotiation.  It can also interleave with the
-multi-transaction BMCR sequence in xpcs_config_aneg_c37_sgmii(), which
-reads BMCR, writes it with ANENABLE cleared, programs AN_CTRL/DIG_CTRL1,
-clears AN_INTR_STS, and finally writes the cached value back:
+	dn = fwnode_get_named_child_node(fwnode, "fixed-link");
+	if (dn || fwnode_property_present(fwnode, "fixed-link"))
+		pl->cfg_link_an_mode = MLO_AN_FIXED;
 
-	mdio_ctrl = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_BMCR);
-	...
-		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
-				 mdio_ctrl & ~BMCR_ANENABLE);
+and xpcs_inband_caps() advertises out-of-band as acceptable:
 
-Each xpcs_read/xpcs_write is a separate bus transaction, so an AN restart
-can land while AN is disabled and the AN configuration is only half
-applied.
+	case DW_AN_C37_SGMII:
+	case DW_AN_C37_1000BASEX:
+		return LINK_INBAND_DISABLE | LINK_INBAND_ENABLE;
 
-Both RTNL-only paths need the PCS-only case (no phydev), which is
-reachable for inband SGMII without a PHY, and SIOCGMIIREG and
-ETHTOOL_GLINKSETTINGS are unprivileged.  Before this patch these paths
-only cleared the AN status word; should the restart be moved to a context
-that is serialized with pcs_config(), such as the .pcs_an_restart op?
+so phylink_pcs_neg_mode() can settle on PHYLINK_PCS_NEG_OUTBAND for a
+fixed-link node or a PHY without in-band support.  With set_clk_tx_rate set
+to NULL, rk3568_ops.set_speed = rk_set_clk_mac_speed also becomes
+unreachable, so a 10/100 Mbps link is brought up with the clocking left at
+the 1 Gbps setting and nothing warns or fails.  Would rejecting a
+non-inband neg_mode (for example in mac_config or pcs_validate), or failing
+probe when a fixed-link node is present for SGMII, match what the message
+describes?
+
+One more observation on the series rather than on this patch: the new
+binding Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
+lists phys and phy-names in its unconditional required list, but the
+ethernet-pcs@fda00000 node added to arch/arm64/boot/dts/rockchip/rk3568.dtsi
+supplies only reg, clocks, clock-names and power-domains.  Only
+rk3568-photonicat.dts adds them:
+
+  &xpcs {
+	phys = <&combphy2 PHY_TYPE_SGMII>;
+	phy-names = "serdes";
+	status = "okay";
+  };
+
+[Severity: Low]
+Does dtbs_check report "phys is a required property" for the other RK3568
+board DTBs?  dtschema validates nodes regardless of status = "disabled".
+The neighbouring sata0 node in the same dtsi does carry phys/phy-names at
+SoC level, so would moving them into rk3568.dtsi be an option?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913185849.907479-1-coiaprant%40gmail.com
