@@ -1,75 +1,39 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B719E3DEFFA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C729347F3DD
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396708; cv=none; b=FFZyr98YxkwWMVaxfP8CwRQhedwtRQysmsKq/gdFAIuKOjymLw6x8EmNl6Qn+i8/N5kRq1gh44c7Hi35yEc+2stbA+9bgggwFlBq16Ot4t4WXXwyiGKIqNXXJ86bg2FzQQgaOpXEtqtsmmmbIe+B2PE96xoG4+NgpmkRiuM+gxQ=
+	t=1789396766; cv=none; b=ag/l9umRDPrwDVwClL5vFqvxtzdUL5e0yDyQ5R0GIhY4dUbCr/lF7pVw4C75cePvJmRCd49flEKnP+y7M92VEass6ef1GmL2A42zgAHpGMTcBa7l0+vMu3e594y1TYHIYQOhdgThXl2df3GRM9kj3CviuaESWdIzWqGoBTQ0fRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396708; c=relaxed/simple;
-	bh=TtHTqL+UFORJacBemcx0LNXtW0Z0/+7lM+21HB24SRA=;
+	s=arc-20240116; t=1789396766; c=relaxed/simple;
+	bh=S3kiUryi7ys2gWqYZn4Qj5z61a8AqX+Y1KsLFE3pDEQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IqzU7aAESA0+D7njBuKpF9KThuYeQ46CRFV6eObpN17Vl7WvPO6JuoSPqnRzSeUEApLispsSaD2tUuMgGyVCKRgwXqculS6+zE8+HZ767SOkCZuHmtIYP75ogbD/gVo3F4bJBE/2yhbnecwRDes/Jsuy5z8yQsjTpDUep6V53K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Daqay4nY; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=a3NsXCb4bmqBZaePoE6eUPq9SOYOO7GP659drv7p+DNlryksNilHSpE/EHbIiagdIpz3XYPRGZMaDlmcEf8gySikDklfGgKyRl/POKHKIDWjpYMuupmb1Izn84qQGVNH5j80LvxYRsZJYxanqDHX9mBF1ouhF0ZAKfQeQQUeKjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HexKKt3f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Daqay4nY"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9105d241693so23952406d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:38:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789396704; x=1790001504; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TtHTqL+UFORJacBemcx0LNXtW0Z0/+7lM+21HB24SRA=;
-        b=Daqay4nY2s6tbkXzJ0vN4Ka+1kIEYnajThgzwV8fysYG7Ac7jm5swh6CAppt8rsTAe
-         Vaf8nCTJFAqGhnjETEJJMQFpJuT4qkhJmO6wzJD32l5KyWMhGELxeiyezO9n4BwAjFxH
-         dlWYGyZDjxzh4kCWEMQhKIMJdp2zFU1wzoPRmccHq5ILsT23a6B64PfTZKgjuz97F1wi
-         9M9BBJF2ne4kR0x/+5qikJ87Gwv5TQuhx94YmcwSdHO5lCTsMKxzpA3ks6ZnYiYzSKlo
-         v/hkI7yMQy20vYVOze/cYbbJGyN//+9EjrQX6qqq4ro4EiJUvybo1ZNh+qwcfmXF0sIN
-         DUqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789396704; x=1790001504;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TtHTqL+UFORJacBemcx0LNXtW0Z0/+7lM+21HB24SRA=;
-        b=d7ruf41u4eAmaErnuEIs3wbT34yDE825cC+xeluTK0VcgTCoScBqAM+E+ymHqm5N+1
-         BUq/jOdVflnBW5Ass3LymNQlL08BFqaj9dc79L45TWrzyqHkqwISXCBP+Azzr62DELxN
-         J2vp8t4JiY/Mx2py2B6KLcGxF2eOSUOdVSuQWkfCUAhlxAsqwp2VFRp9uF/Zf9quajSt
-         nl9j+ZwvtBKsiRTNpSm3+Vlw42iZcFr2FJcM2QuvT7tc4xSO7HcOCmZwthOMMtjcSP7k
-         jt2xkERU2T3kCE8RIGAI8fcStOnXXLKdb7HiFomVRqUZa1JOdxOimXfBp2OMjXrmqRse
-         Jivw==
-X-Forwarded-Encrypted: i=1; AKwUvBxjMqwyvdQ36dpwQ0AzoWgwtK3WM3QiqL7TpVF59JQAmSzbvs9/tsfrF7aOpVsaYxTJTiKS/O07mDo10Iw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTpSXHj9ww6i9zn5hu14BwNmHrnQ5qGRI7xfJZUN45CPpBW0XS
-	RfJu49Gs0cw3p6fauT4TAApyKOKQDQe2eLqlxw1j6gFZ1QaPz8UiT2FmtZ/0BDcU8Z8=
-X-Gm-Gg: AYBFou3ftU/0ofkx+vWNWGP4kt4RIJLE9KbmTMFolpRhJxlcgGqqFVNwTkv5lvKVkHW
-	EU414UJo3Gp3hslaS7kSPNoxL025tw3FzZ+3PXwfpMtsNgc+mvhIlS2QoKgQs699wEpB9uZwOnP
-	1xvrj995Y4CPV14PlNunEp6/IS9QiUBq1EdHQOdz1L7gHprshNhO+I+m0Z0FAMopdHCNG7wMgO4
-	ZVmu7QTTXb89qN6szPCbdrKbVtFbasIHn+1jdYu5Jc2jFC9SL7MBJSBM5DswbKOParLjFLzTvdc
-	viR/H91Nb0sY3GiXJkQXm7ip33IVqXFLIgaKFl0aPcF5Dgwbn6lw4zqsjnHBlTduUxdFGOm6rkz
-	hcar8GonEnW3WHrTA8X+feTNaQf4OBaMSI5Ub7Uhe6MLxwRdzveVvy8LCg6jzYPZ1fXEc5WGaw5
-	QETPnNUhKbKKM8RI/ehYdpxbZaCKB1s5Z9ImmfoTM3qmzOPtCE7XOU9I5J4l8/Z1756SwA3u8rc
-	O2+GX8oV5fm2YwfOdd1MG2AeqFGPxKOckUww41shxCsadoLJ+hJ/bk=
-X-Received: by 2002:a05:6214:8613:b0:912:12cc:33d with SMTP id 6a1803df08f44-9122e552dadmr42040046d6.23.1789396704371;
-        Mon, 14 Sep 2026 07:38:24 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d389esm95618176d6.42.2026.09.14.07.38.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 07:38:23 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:38:22 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Zimo.Lu" <louis2665573906@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] mm/memory_hotplug: use public nodes for migration
- targets
-Message-ID: <aqgGVIJwV9wt8gon@gourry-fedora-PF4VCD3F>
-References: <20260914074323.3567923-1-louis2665573906@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HexKKt3f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E72B1F000FF;
+	Mon, 14 Sep 2026 14:39:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789396764;
+	bh=S3kiUryi7ys2gWqYZn4Qj5z61a8AqX+Y1KsLFE3pDEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HexKKt3fFac6sIZs49+idp+3Xm8EsD9lAHQ8szU+YT5j1zbdyHO0H1b/VMiZTyaIv
+	 v4Bhd7KPFnP0DkGoBOSbKWWBlmzazu8tkB2wcldkSc/gtD469tt70gMR4SFlt+Gk+t
+	 jHyirFXJ7pdhrDiT9bDUvYvyQo15Aa6PvOZhSBj8o1q8LhdtKD4eqfmpP5wbq52O4Z
+	 wS8XhkqjDqoaeuUkZsX611IU5Vffmz5AXrTbX2VJ4AAQeeAA7p+284KgJfz05fr/ZO
+	 LT/jctvYi0Yy5rcqBsEDOCfdA9yi+DEbHfoSgvutk6/wwHYdPEo3TTdlz4F63alVOg
+	 E4NWik788ZfQg==
+Date: Mon, 14 Sep 2026 08:39:21 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Cc: axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvme: bump genctr when cancelling a request
+Message-ID: <aqgHGefyCPcoNoB_@kbusch-mbp>
+References: <20260913124053.86565-1-mateusz.nowicki@posteo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,17 +42,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914074323.3567923-1-louis2665573906@gmail.com>
+In-Reply-To: <20260913124053.86565-1-mateusz.nowicki@posteo.net>
 
-On Mon, Sep 14, 2026 at 03:43:22PM +0800, Zimo.Lu wrote:
-> base-commit: 38c7f48162aa282dc6a9edfb7011378594057c10
+On Sun, Sep 13, 2026 at 12:41:01PM +0000, Mateusz Nowicki wrote:
+> The cancel path is taken when the host stopped waiting for the
+> controller: CSTS.CFS set (dead path in nvme_dev_disable(), no CC.EN=0,
+> no wait), or CSTS.RDY not cleared within CAP.TO. Nothing stops the
+> controller from posting completions after that, and the second
+> nvme_dev_disable() from nvme_reset_work() reaps them in
+> nvme_reap_pending_cqes().
 
-This commit is a random github hash from my v6 working branch that no
-one cares to (or should) know about.
+I think it was supposed to be that we don't cancel a request while it's
+still possible to see a natural completion. So with that in mind,
+perhaps the call to "nvme_disable_ctrl" should be called unconditionally
+instead of only on a live controller.
 
-I haven't even RFC'd this to the list yet.
-
-I'm happy to work with you if you have feedback, but you're getting well
-ahead of the work here.
-
-~Gregory
+The sequence you're describing is weird, though. Your controller
+has fatal status, the driver hasn't done anything yet to recover the
+device, so why were there no completions available the first go around,
+then completions became available on the second? The controller
+shouldn't have done anything in that time, nor should it have been able
+to since Bus Master Enable was off.
