@@ -1,219 +1,308 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5FC477286
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C59D47AF5F;
+	Mon, 14 Sep 2026 14:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396815; cv=none; b=izXM4t95Sl+d7RyhPg+sWkE7Sv2ceJG/xydp6SfgvM183+qdOp2pfkNyTKyuhKcQ9pgGSntvYZF5M26EY7n3mQbdAqRt2yB07Frik4i8sX52GKcY9JJ2F3KX3JaOcvdDOHWchu3EiM57c+Y/YaYo8nkk9bQ5+oKG6DXsTIMeEQM=
+	t=1789396873; cv=none; b=eAZeB+rEx7ncFYAto2VljuktClTgSkYwqbsHoRrwNXE+IfV2gMUeKg/I9PCDmQES31fUS18E/1NjwGm3wTmMwSK2acrlZ8QvtcVJfO2MhzNLGExFnn4j3HPLFGzgwnn5v1EpDfZ6sS70Ivzmds/hsmSs+uwdA7NkzrKSEWcmLm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396815; c=relaxed/simple;
-	bh=PchcDlD3Npn6+8wPRM9VRYzNcIBmakxNDUNZLTTsXSk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tbl2zjSUeTzde1UF36EWiN16m3X2l8XtG+vULJfqFiUV73u9kf/T2H5yEY/NPD20lzyx2F7GSKuSlcQwsgeDRQphlWf+7KpaOsJdHPNgPfWR/6K12W95v10DOL47T6vnErP8JTz+HiKfewDmN60Ja20h8hYmaDmd/Cue5uln6Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ov0r6epr; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789396873; c=relaxed/simple;
+	bh=+FD/VOEtpkJiv8RtMGh6Vj4oR48HBb21Vg/klWs5GCY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ipT/SPm5JfOdnrYHSNfSYNXwJ4KJDc7mQstyTqS9RcHaTkTPRLEsBjXSdGZV9lMUzPb6tm62F2IOawN3qCIPM5ZHR9Eab8h5lQHSDymBIkYvaknHSgxL+zI6IJ7uqv7H09ZrFoPPSlBgqciAozhV/O2sCc8Yn+yPOFTBfuvxcZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jgiJAwIo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ov0r6epr"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso4568114a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:40:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789396811; x=1790001611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/kBzFP/HpzVRM8R641fR3ZeSCydIAXhP1zBP9Whsejw=;
-        b=Ov0r6eprPvy5QIg7aXFGexQt7qTAriSmaBWATxy4Hh21HAuE+6xqi2/GyTSgJYCSl4
-         jMyGe6Gh7XfR//RWndf7ZJ+jl1/x5D8G5vsD37O4c4BH9+IIVqhaeIjzbvrsnf2VwO1f
-         A2kO+k+NrcWt9xFCuMMKu9i1Pdep0F5v18C6lPs6YPvXInVCLZ2rHMK8CLWXRqq+hn+H
-         5SnDb9Xde0En3NWVatWPp+sHv+mEJ5WVeoq+WV2cNn5lRBAQM5uYrrxGtpkCjN836+fw
-         L1LwZGedZSFoyFU1lBTx/HYGGXO7QAG9DyW1NrZYwxGk+VUaqYXbAoj/7Xotqk5K2+44
-         VscA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789396811; x=1790001611;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/kBzFP/HpzVRM8R641fR3ZeSCydIAXhP1zBP9Whsejw=;
-        b=jmr11ncCPVfsZ0+ikgsfwGFopiA5bFWj7GsW1Yxi21nSHcFbNIz6JJb0w57LFEri2t
-         Vdc1mmxH76aUbY45g9+ZRiyuFx0y5eUG9USYFlFKepTLHfSvVPOS2V0U0eHVKPVYZFfD
-         mIQ2mlOBO6oSzDZxH5tkvCp+Q5G/SLuru3cwdrlEhtzidP1pDgn7W0wnltIyq7xBlJzh
-         Zm4IsFJWJ4PSZiRbZGuTCCZSk3aubDSytKr9/Rv0wgcwbtio9dY2NdEGIJycjF083zdq
-         zgQlXCB6ukRUKM38ozQaVt1Q9Aakkd7PVmKL+VEU1W/zgQ7llMpii535B0N9zl6+l9uM
-         vbxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwRMxEImKJR/AQqyzVxSqC/B+nJELRQaVxy6gwO6K8G8CNVEt5HaKBUg9jCeric4jWoaSW5iah9bHirpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSEPSV2KNGkOOY17MMaJyTE8A0q6zCaXs90x70J5LQ+UbigAs4
-	dTuW+HAabSN4Is/f8p99RkLk93Q2yFRlG7sSk/5dA/nWXMVvj4Ttcec6
-X-Gm-Gg: AYBFou2nQuSMIeotdiRd4U7WWyJp/pOHgkJFJ2PmDSfojwCYZm7Vq6qBOR0rGsDiSiq
-	Amz9a9EjDMuLQPtVgZY5+fNCEaVfiixCb8d5EVo9ZYohAthASw+vePXZsuy71nSOY7nEd0oNEay
-	URUnFFOitvKFQdCti4bYB1r/h8tuGsAqEFWJMKLJ2m/hPAl9dAN9YT2whPrTZH2QlFs7/zoyFV9
-	MKeE/aJvJ0nOx2RlkPH4d835EsYAD6/2IilCjt+mt9EEaFa8lYsh5KQ99I7sl0lS5piXQR9ezbd
-	1P3QQQbx2Vxc1/HTHOavUn1QD8Ugf/KSC6teD2Yq3I0NKDcLsV5FopLuOwxnijHINUWumVb1Geg
-	LrvF5szDshzVeoPN/YR3/ovSrHVqjpExjHHKN5UQCba2z03sAs2Yc2RnCp8xbF0DJzzuoVM6Iv4
-	8BAffPfSEB303/hxk7ZGZ6+Kpjh66DDXJ8vsZ7F2xHV/RNeg4F2kTxOk1g0b7tsmR4c0jw9Psf5
-	pRfR8Hb7MUe0FF5DQ==
-X-Received: by 2002:a05:6a21:4d06:b0:3da:e1b5:2baa with SMTP id adf61e73a8af0-3db404b4e1dmr6402183637.2.1789396811120;
-        Mon, 14 Sep 2026 07:40:11 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6572ecasm5149444a12.22.2026.09.14.07.40.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 07:40:10 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	corbet@lwn.net,
-	akiyks@gmail.com,
-	luc.maranget@inria.fr,
-	j.alglave@ucl.ac.uk,
-	dhowells@redhat.com,
-	npiggin@gmail.com,
-	boqun@kernel.org,
-	peterz@infradead.org,
-	will@kernel.org,
-	parri.andrea@gmail.com,
-	stern@rowland.harvard.edu
-Cc: linux-doc@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	rdunlap@infradead.org,
-	skhan@linuxfoundation.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH v3 2/2] Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
-Date: Mon, 14 Sep 2026 22:39:42 +0800
-Message-ID: <20260914143943.1503066-3-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914143943.1503066-1-kunwu.chan@gmail.com>
-References: <20260914143943.1503066-1-kunwu.chan@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jgiJAwIo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5243A152B;
+	Mon, 14 Sep 2026 07:41:07 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B47243F86F;
+	Mon, 14 Sep 2026 07:41:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789396870; bh=+FD/VOEtpkJiv8RtMGh6Vj4oR48HBb21Vg/klWs5GCY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jgiJAwIoSHIjCWQqVPLqNO7n+iJfGzSlu/Ud1uOI0smhjd9zQB9s/xtX48CKL4iyb
+	 Q5PsiKuuCfBfl3SzAIlv/fg/ih8mRQrrXEQ5VxG4UfsLJC3bIOrrstYMxwcYykJHnW
+	 rt3H+NV3j1sGU2yb047zYBp1fvaUvW+YlgFDMzKI=
+Message-ID: <f71cfbcc-2e53-4e37-bb98-693996542396@arm.com>
+Date: Mon, 14 Sep 2026 16:41:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 03/10] dt-bindings: arm: Add MPAM MSC binding
+To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>,
+ Rob Herring <robh@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Ben Horgan <ben.horgan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
+ <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Drew Fustini <fustini@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, trilok.soni@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, ganapatrao.kulkarni@oss.qualcomm.com,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
+ <20260914-mpam-resctrl-dt-knp-support-v2-3-bf6645bb2f65@oss.qualcomm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260914-mpam-resctrl-dt-knp-support-v2-3-bf6645bb2f65@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-If the synchronize_srcu_atomic() fastpath instead places its lock scan
-before the grace-period anchor, the scan can miss a reader whose
-increment was already visible before the anchor.  That reader already
-existed when the grace period started, so completing the grace period
-without waiting for it would violate the SRCU grace-period guarantee.
+Hi,
 
-This litmus test models the reversed ordering, with the lock scan placed
-before the grace-period anchor.  "seq" models the grace-period anchor in
-->srcu_gp_seq and "ctr" models the per-CPU ->srcu_ctrs[].srcu_locks
-counter.  P0 scans the lock counter before writing the anchor, with an
-smp_mb() between them.  P1 models the reader-side counter increment and
-its smp_mb() from __srcu_read_lock(), which orders the increment against
-subsequent critical-section access.  P2 models an observer that sees the
-reader's increment before seeing the anchor.
+On 9/14/26 11:37, Yin Li wrote:
+> From: Rob Herring <robh@kernel.org>
+> 
+> The binding is designed around the assumption that an MSC will be a
+> sub-block of something else such as a memory controller, cache controller,
+> or IOMMU. However, it's certainly possible a design does not have that
+> association or has a mixture of both, so the binding illustrates how we can
+> support that with RIS child nodes.
+> 
+> A key part of MPAM is we need to know about all of the MSCs in the system
+> before it can be enabled. This drives the need for the genericish
+> 'arm,mpam-msc' compatible. Though we can't assume an MSC is accessible
+> until a h/w specific driver potentially enables the h/w.
+> 
+> Cc: James Morse <james.morse@arm.com>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: James Morse <james.morse@arm.com>
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+> ---
+>   .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 199 +++++++++++++++++++++
+>   1 file changed, 199 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+> new file mode 100644
+> index 000000000000..53a6fdbbf05f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+> @@ -0,0 +1,199 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/arm/arm,mpam-msc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Arm Memory System Resource Partitioning and Monitoring (MPAM)
+> +
+> +description: |
+> +  The Arm MPAM specification can be found here:
+> +
+> +  https://developer.arm.com/documentation/ddi0598/latest
+> +
+> +maintainers:
+> +  - Rob Herring <robh@kernel.org>
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: arm,mpam-msc                   # Further details are discoverable
+> +      - const: arm,mpam-memory-controller-msc
 
-The same outcome is allowed with this ordering, and herd7 reports
-"Sometimes".  The litmus-tests README is also updated to describe both
-SRCU fastpath tests.
+But that doesn't match the examples below, does it? Don't we want to 
+allow just "arm,mpam-msc", but also the memory controller string, with 
+"arm,mpam-msc" as a fallback?
+I guess the pattern should then look similar to interrupt-names below?
 
-Tested with herd7 7.58 using linux-kernel.cfg.
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: A memory region containing registers as defined in the MPAM
+> +      specification.
+> +
+> +  interrupts:
+> +    minItems: 1
+> +    items:
+> +      - description: error (optional)
+> +      - description: overflow (optional, only for monitoring)
+> +
+> +  interrupt-names:
+> +    oneOf:
+> +      - items:
+> +          - enum: [ error, overflow ]
+> +      - items:
+> +          - const: error
+> +          - const: overflow
+> +
+> +  arm,not-ready-us:
+> +    description: The maximum time in microseconds for monitoring data to be
+> +      accurate after a settings change. For more information, see the
+> +      Not-Ready (NRDY) bit description in the MPAM specification.
+> +
+> +  numa-node-id: true # see NUMA binding
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  '^ris@[0-9a-f]+$':
+> +    type: object
+> +    additionalProperties: false
+> +    description:
+> +      RIS nodes for each resource instance in an MSC. These nodes are required
+> +      for each resource instance implementing known MPAM controls
+> +
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - arm,mpam-cache
+> +          # Memory bandwidth
+> +          - arm,mpam-memory
+> +
+> +      reg:
+> +        minimum: 0
+> +        maximum: 0xf
+> +
+> +      cpus:
+> +        description:
+> +          Phandle(s) to the CPU node(s) this RIS belongs to. By default, the parent
+> +          device's affinity is used.
+> +
+> +      arm,mpam-device:
+> +        $ref: /schemas/types.yaml#/definitions/phandle
+> +        description:
+> +          By default, the MPAM enabled device associated with a RIS is the MSC's
+> +          parent node. It is possible for each RIS to be associated with different
+> +          devices in which case 'arm,mpam-device' should be used.
+> +
+> +    required:
+> +      - compatible
+> +      - reg
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +dependencies:
+> +  interrupts: [ interrupt-names ]
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    L3: cache-controller@30000000 {
+> +        compatible = "arm,dsu-l3-cache", "cache";
+> +        cache-level = <3>;
+> +        cache-unified;
+> +
+> +        ranges = <0x0 0x30000000 0x800000>;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        msc@10000 {
+> +            compatible = "arm,mpam-msc";
+> +
+> +            reg = <0x10000 0x2000>;
+> +            interrupts = <1>, <2>;
+> +            interrupt-names = "error", "overflow";
+> +            arm,not-ready-us = <1>;
+> +            /* CPU affinity implied by parent cache node  */
+> +        };
+> +    };
+> +
+> +    mem: memory-controller@20000 {
+> +        compatible = "foo,a-memory-controller";
+> +        reg = <0x20000 0x1000>;
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges;
+> +
+> +        msc@21000 {
+> +            compatible = "arm,mpam-memory-controller-msc", "arm,mpam-msc";
+> +            reg = <0x21000 0x1000>;
+> +            interrupts = <3>;
+> +            interrupt-names = "error";
+> +            arm,not-ready-us = <1>;
+> +            numa-node-id = <1>;
+> +        };
+> +    };
+> +
+> +    iommu@40000 {
+> +        reg = <0x40000 0x1000>;
+> +
+> +        ranges;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        msc@41000 {
+> +            compatible = "arm,mpam-msc";
+> +            reg = <0 0x1000>;
+> +            interrupts = <5>, <6>;
+> +            interrupt-names = "error", "overflow";
+> +            arm,not-ready-us = <1>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ris@2 {
+> +                compatible = "arm,mpam-cache";
+> +                reg = <0>;
+> +                // TODO: How to map to device(s)?
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- Documentation/litmus-tests/README             | 21 +++++++
- .../SRCU-fastpath-scan-before-anchor.litmus   | 56 +++++++++++++++++++
- 2 files changed, 77 insertions(+)
- create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
+Maybe we should remove this example, if it isn't ready yet?
 
-diff --git a/Documentation/litmus-tests/README b/Documentation/litmus-tests/README
-index 6c666f3422ea..f96eeacb002b 100644
---- a/Documentation/litmus-tests/README
-+++ b/Documentation/litmus-tests/README
-@@ -78,3 +78,24 @@ RCU+sync+read.litmus
- RCU+sync+free.litmus
-     Both the above litmus tests demonstrate the RCU grace period guarantee
-     that an RCU read-side critical section can never span a grace period.
-+
-+
-+SRCU (/srcu directory)
-+----------------------
-+
-+SRCU-fastpath-anchor-before-scan.litmus
-+    This models the synchronize_srcu_atomic() fastpath with the
-+    grace-period anchor ordered before the lock-counter scan.  This
-+    ordering prevents readers that existed before the grace period
-+    from being missed by the scan.  See
-+    SRCU-fastpath-scan-before-anchor.litmus for the reversed
-+    ordering.
-+
-+SRCU-fastpath-scan-before-anchor.litmus
-+    This models the synchronize_srcu_atomic() fastpath with the
-+    lock-counter scan ordered before the grace-period anchor.  This
-+    permits the scan to miss readers that existed before the grace
-+    period, violating the SRCU grace-period guarantee.  See
-+    SRCU-fastpath-anchor-before-scan.litmus for the opposite
-+    ordering.
-+
-diff --git a/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
-new file mode 100644
-index 000000000000..d8808571063f
---- /dev/null
-+++ b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
-@@ -0,0 +1,56 @@
-+C SRCU-fastpath-scan-before-anchor
-+
-+(*
-+ * Result: Sometimes
-+ *
-+ * If the synchronize_srcu_atomic() fastpath instead places its lock
-+ * scan before the grace-period anchor, the scan can miss a reader whose
-+ * increment was already visible before the anchor.  That reader already
-+ * existed when the grace period started, so completing the grace period
-+ * without waiting for it would violate the SRCU grace-period guarantee.
-+ *
-+ * This litmus test models the reversed ordering, with the lock scan
-+ * placed before the grace-period anchor.  "seq" models the grace-period
-+ * anchor in ->srcu_gp_seq and "ctr" models the per-CPU
-+ * ->srcu_ctrs[].srcu_locks counter.  P0 scans the lock counter before
-+ * writing the anchor, with an smp_mb() between them.  P1 models the
-+ * reader-side counter increment and its smp_mb() from
-+ * __srcu_read_lock(), which orders the increment against subsequent
-+ * critical-section access.  P2 models an observer that sees the
-+ * reader's increment before seeing the anchor.
-+ *
-+ * The same outcome is allowed with this ordering, and herd7 reports
-+ * "Sometimes".  See SRCU-fastpath-anchor-before-scan.litmus for the
-+ * opposite ordering, which forbids this outcome.
-+ *)
-+
-+{}
-+
-+P0(int *seq, int *ctr)
-+{
-+	int r2;
-+
-+	r2 = READ_ONCE(*ctr);
-+	smp_mb();
-+	WRITE_ONCE(*seq, 1);
-+}
-+
-+P1(int *ctr, int *x)
-+{
-+	WRITE_ONCE(*ctr, 1);
-+	smp_mb();
-+	WRITE_ONCE(*x, 1);
-+}
-+
-+P2(int *seq, int *ctr)
-+{
-+	int r3;
-+	int r4;
-+
-+	r3 = READ_ONCE(*ctr);
-+	smp_mb();
-+	r4 = READ_ONCE(*seq);
-+}
-+
-+filter (0:r2 = 0)
-+exists (2:r3 = 1 /\ 2:r4 = 0)
--- 
-2.43.0
+Cheers,
+Andre
+
+> +            };
+> +        };
+> +    };
+> +
+> +    msc@80000 {
+> +        compatible = "foo,a-standalone-msc";
+> +        reg = <0x80000 0x1000>;
+> +
+> +        clocks = <&clks 123>;
+> +
+> +        ranges;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        msc@10000 {
+> +            compatible = "arm,mpam-msc";
+> +
+> +            reg = <0x10000 0x2000>;
+> +            interrupts = <7>;
+> +            interrupt-names = "overflow";
+> +            arm,not-ready-us = <1>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ris@0 {
+> +                compatible = "arm,mpam-cache";
+> +                reg = <0>;
+> +                arm,mpam-device = <&L2_0>;
+> +            };
+> +
+> +            ris@1 {
+> +                compatible = "arm,mpam-memory";
+> +                reg = <1>;
+> +                arm,mpam-device = <&mem>;
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> 
 
