@@ -1,136 +1,117 @@
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A4E3D3499
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B8B3F329C;
+	Mon, 14 Sep 2026 19:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789414664; cv=none; b=jpgzZwn1rkXqtP+OUY8N9xJ/xCEOs6lRGZeBxdOZY0l6vY6oRdsHvYesjxGGH6XsRQdKVJdmfmgcs03vAY5JErEMBatokYcHAiIbR8vsRCvvNIHcsZgObDHby4iOl2SvCwz5jBZ49YwwsZ9AzORzch6TYaXvYQalM8wz3u1XL9k=
+	t=1789414679; cv=none; b=vGDOaVfpKg0ci4uA6+jInNDUc9S2cRnpOwdmw2CTOZDVT6yAmPFdWgL929Vnot5I2bIagfCiFfp6ucfPz3mECf1cKlhisxLsFRjNdxXjzlpye4bvm+6R35GEKtD48tzoYGbMvtQa4iEGXoX3/A16GOjxizD3MdxiPppFFe45NpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789414664; c=relaxed/simple;
-	bh=mNCwouhEN17Ia0dJNDPGIKLEvTsNZIAvbPqxXsUkGLI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s3lPp7vNXlE0FdZ8caas2NovdMZKfrarLj/BBaatKPGVGhR1Al0AqOubfUTZXA7LhnuYbFRa78ZMfeHi3rDnz0susY550qTqfLiGnzZeGpzG6MDSu71nRDNGHLBoejcKkBQ/44Y5a0TvvEZq2WtEoGsZzQJmb1wSq/nXSCv/R6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rggD72kC; arc=none smtp.client-ip=74.125.227.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789414679; c=relaxed/simple;
+	bh=esfTqUFnJaXqzB9sd63RRu6eFINaCWw/BiY6x3X4v3Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=e38XNLLDSHiud8U1kyR4p1rz4FEPSlp32MV3pVzXp1K/S9LcJXqI31ffD+c2XJJycmYPaCb4uHerQJaL/UWpmPwpEO6prDrSxHQUC0jse9U7KfIJl7Qla6tktlKeR4t9sgaDqkbCNFfzFuVHhxo48znkAjzjhrgI9CLSt7iz144=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=TZKarI6F; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rggD72kC"
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2ccc2e84048so16514045ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789414662; x=1790019462; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EuYJrEjbVWQ9XMhAMaw1RSdGZ7efm/cFkVNyEiVrURw=;
-        b=rggD72kCkYVJPPWRGPD4cM9CxByr6KT/cytOBS9D8QFMEUueEiC8biGMLnnhynEKIE
-         yv20cabhoiLGGQb4OtU5GRHFoNzRA40NmPrGC2Qfk7zujFeUyK9dExGBtlzXr3mj+oDF
-         Veh4UQ/AIPlz5q2+PbexSWLmeUlE7OeWQpby8BKz0V+3zzEvtUBv503PuzSSHBTGmb5V
-         4G/10Rt3A0TyLrlWNNkGutEVyLbsNM0CQSR05mZu2qZ+IRXTc9OKZnhWQtKdPLWfborQ
-         LC1MbM/LqP6NaovDecuXmkoNsiIAn9zoZKl6twStZPmR9RRjNZtwq4RKZ+o9jNB2WdXR
-         Ha9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789414662; x=1790019462;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EuYJrEjbVWQ9XMhAMaw1RSdGZ7efm/cFkVNyEiVrURw=;
-        b=HvkAtw34KxusODWf1TZwUJB4i9bi4RPhtlrkcvZqefMYPHC4zao3DOXeQE6MLmOyVb
-         4GJc5BQGb291UuLGbPsfcjv0FS6Mwa6r9FDfiwfNpFULKBiY6JYSfuI5Kknttza+FPr3
-         0jG5/+wwjyzIkMvyDmYzhbpgulktYg05ODjFWAbEp8/gahLLwHMez4kQ2Xhfxf7FKD4f
-         EhGBlG49PAKD7ppHlXFCjcQW7hCProiZZehJIORj5ljUraf9vpAshe62GOdGWJOsj8ju
-         gu0OqAAqKueK2N3GWWFXssDBXrItQ9zxJuaZXLsoD7nTFANzTqRVFA+iyha19reGU++D
-         /J8w==
-X-Forwarded-Encrypted: i=1; AKwUvByvlGT5C+pRymCdEIe1ywqMH4bLmx4pZe/NFG7xKg52xfvWuqVO/1z3Ru9inckCu/1tl17lp1ysn4mGZ/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mU8Mf/+YLa+Jqr8HXDSVU1GGTdnzvOpg2JZq3nzSJnW5jaf0gm
-	+VfGy2TBZLM6NM5JtZ6s+H2gt/B5kLQmrXNvdUhlTT/lsB8gnddMTZ3u
-X-Gm-Gg: AYBFou3SaZnn+oh6xuGHxkmgY3XmwJY11GUBF0TDxx/AXBVOC99eCvfCk8Tu8xHwlwM
-	KPGVUpq5SOQqsZV01yk5x+tGPPdbByYIAKMuzy4GWTlWgo3/QWF42oL2vFoesUQbFMtrF1fJq3r
-	Rsv2ICBlZoVJsThzgSY28SotqlcM4RusJxSBTz+LfcG6A8AqJ6K9dM3Mk158R7nZW2uzwb/BlIT
-	towMXlVCBk0DmNEpAZk4GNwKkT6pgz3ECwjyuGgvjOcDhfV1WC8qIEXi80o0HvfLumVVn90H8L6
-	QFhdNy3gW3NDTBQGAyDpV5kmOblkkjn0FBdvaJyBmGLdTLQn6C+Gx12Abkjy7xCHj8iMU8J1l7l
-	QyDNxJGa/8iSx/eLLSyPpTCImsVgipNmVzr0ZgUr9RFUKpI7h4Vs+rDW1Frrk3N7NCE7Go06aUG
-	XqXZXSnGiNBQ64fWvNo4zXQUxBSxphKY3ey5ggS2raZXjDM2HyUBNzudO5o+g0q9zk
-X-Received: by 2002:a17:903:3585:b0:2d5:2f49:b3f4 with SMTP id d9443c01a7336-2dd6c5bdd34mr93003365ad.2.1789414661060;
-        Mon, 14 Sep 2026 12:37:41 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5a::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd3f0faed5sm47949435ad.10.2026.09.14.12.37.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 12:37:40 -0700 (PDT)
-Date: Mon, 14 Sep 2026 12:37:35 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me, bobbyeshleman@meta.com, 
-	almasrymina@google.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/3] net: devmem: embed net_iov_area in
- binding
-Message-ID: <aqhMeY0r7ye0kuAw@devvm7509.cco0.facebook.com>
-References: <20260911154555.739041-1-sdf@fomichev.me>
- <20260911154555.739041-3-sdf@fomichev.me>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="TZKarI6F"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260914193754euoutp02981281706c8e3139fb5b93cfbd25526a~VRyqJA0Bb0156301563euoutp02C;
+	Mon, 14 Sep 2026 19:37:54 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260914193754euoutp02981281706c8e3139fb5b93cfbd25526a~VRyqJA0Bb0156301563euoutp02C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789414675;
+	bh=5quPaYobLEbeMOu5MqGjHlx1gGO6GYM4Ci77INCJQLA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=TZKarI6Fzswot9c4aVXuInO0XRxf9GfzbOMlt7onjkVzeL1ZbqAInBvs4atJ/oDi0
+	 AUtj/OANEEt5ewm+9Sk6Wb7zy4Ml9/IM+VLkFU4eqSkZba+0uuGUKYDcVqnkJKj0Lt
+	 oxPYASnd7d7htQ9OwYLZimxgp4UXzR/izU9JOwv4=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260914193754eucas1p1c5e933b8753ce6d75f7c5f34e3bb72d6~VRypvtokG2298422984eucas1p1x;
+	Mon, 14 Sep 2026 19:37:54 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260914193752eusmtip20be6a60002305f9f5bc9e993970a2799~VRynuwkCl0478104781eusmtip2P;
+	Mon, 14 Sep 2026 19:37:52 +0000 (GMT)
+Message-ID: <782506ab-70b8-40a0-98f6-239e74351c1e@samsung.com>
+Date: Mon, 14 Sep 2026 21:37:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911154555.739041-3-sdf@fomichev.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/19] dt-bindings: display: verisilicon: Add
+ starfive,jh7110-dc8200
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
+	Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
+	Feng <hal.feng@starfivetech.com>, Michael Turquette
+	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+	<bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley
+	<conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Brian Masney
+	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20260910-amorphous-vigilant-jaybird-d65c4f@quoll>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260914193754eucas1p1c5e933b8753ce6d75f7c5f34e3bb72d6
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee
+X-EPHeader: CA
+X-CMS-RootMailID: 20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+	<CGME20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee@eucas1p1.samsung.com>
+	<20260904-jh7110-clean-send-v3-6-484f9ae72715@samsung.com>
+	<20260910-amorphous-vigilant-jaybird-d65c4f@quoll>
 
-On 09/11, Stanislav Fomichev wrote:
-> After replacing the gen_pool with a binding-level freelist, devmem no
-> longer needs a separate chunk owner object. There is only one
-> net_iov_area for the binding, so store it directly in struct
-> net_devmem_dmabuf_binding.
-> 
-> Derive the binding from net_iov_owner() with container_of(), matching the
-> pattern used by io_uring zcrx. This removes the leftover
-> dmabuf_genpool_chunk_owner wrapper and its allocation/free path.
-> 
-> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
-> ---
->  net/core/devmem.c | 41 ++++++++++-------------------------------
->  net/core/devmem.h | 26 +++++++-------------------
->  2 files changed, 17 insertions(+), 50 deletions(-)
-> 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 4883eb7f3a95..7949f8425bcd 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-> @@ -29,15 +29,6 @@ static DEFINE_XARRAY_FLAGS(net_devmem_dmabuf_bindings, XA_FLAGS_ALLOC1);
->  
->  static const struct memory_provider_ops dmabuf_devmem_ops;
->  
-> -static void
-> -net_devmem_dmabuf_free_chunk_owner(struct dmabuf_genpool_chunk_owner *owner)
-> -{
-> -	if (owner) {
-> -		kvfree(owner->area.niovs);
-> -		kfree(owner);
-> -	}
-> -}
-> -
->  static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
->  {
->  	struct net_devmem_dmabuf_binding *binding =
-> @@ -55,7 +46,7 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
->  	     "can't destroy dmabuf binding. total=%zu, free=%zu",
->  	     binding->total_niovs, binding->free_count);
->  
-> -	net_devmem_dmabuf_free_chunk_owner(binding->chunk_owner);
-> +	kvfree(binding->area.niovs);
->  	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
->  					  binding->direction);
->  	dma_buf_detach(binding->dmabuf, binding->attachment);
-> @@ -271,23 +262,14 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  	}
->  	binding->total_niovs = total_niovs;
->  
-> -	owner = kzalloc_node(sizeof(*owner), GFP_KERNEL,
-> -			     dev_to_node(&dev->dev));
 
-There is a leftover owner var, the build fails, will repost later this week
-(to give some time to review for whoever is interested).
+
+On 9/10/26 10:34, Krzysztof Kozlowski wrote:
+> On Fri, Sep 04, 2026 at 03:27:07PM +0200, Michal Wilczynski wrote:
+>> The JH7110 embeds a DC8200. The binding requires an SoC specific
+>> compatible ahead of the generic one, so add the JH7110 to the enum.
+>>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> ---
+>>  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
+>>  1 file changed, 1 insertion(+)
+> 
+> And this one must be before patch #5 or switch in your patch #5 to
+> compatibles-style for children, instead of $ref (see some recent
+> display/msm/*mdss* bindings like sm8750).
+> 
+> Best regards,
+> Krzysztof
+
+Thanks, I think I can do both for the v4.
+
+> 
+> 
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
