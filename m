@@ -1,63 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8EE4483AF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:08:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52B349C4DB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409321; cv=none; b=PUCuprqX4gDbEzyw5PTzks2B9Djg64ga1wFMBaJJLlYjInR6vHFeP4kyQ1uhFAo93Y0ZfBkOTD6WwSni4pwj/ZDkMt22RIurwnXHITKTxFTgdj5C2etMYol3nG3/RrMmO5oxIhrdaeguIJQeDOEJAfusAC9AK4hhNNWKE8Lmuoo=
+	t=1789409329; cv=none; b=m4ShWkwJnM+kOK6cx2+vXy5LAhqNOiUEKjUzLL6YNBX2BVlyMQhQZkrVnL28XTAScvbsvzJ1LVvTqWq+182HnthAPl5weyq3chms8yB4d83LAqs0SCjNAJQaouPslIeZHV+mbx3j6fmLFD0vH8zeI6WtDTy8Y5lHm0NJaO+mekM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409321; c=relaxed/simple;
-	bh=OSAK1hNVa5X5rIoLzr5xcMNiT4leUhlTcE95GpUhczo=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=Eo4rDWzaDIAJ8U3bmTIPwhtKinAFNbrcLs7PEOnslqR+pxKIrxCmocWcANW1b9S3iu9V7YrcMGa0LoiEoo/s+2sE3qAZVhSDcuR52ADdOCsDy1mkAwnOrlqbCqOdVMzA8EwN/vjRrnmPITmwhN0ftHWZldxF5PrfqFqNWSYV2Jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xakp5jX7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789409329; c=relaxed/simple;
+	bh=gDF41yFOx97tFaKt9yMu/p6cesJWQOWXVPEIlKJajH8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K1XGHcJKzH32CPbM2pn/8R0Pk6OpIWMBxiet8ZrfAHAsMUdOeEzN4W5T4QGrZp8KpHQTPciHJ06YJyGY0u2cLM8pCRWCF+YO/aTLBhq+uCveJTuR0pCCROraVOjBXPzCA8VteeULlpYMGxiwXdKSJH4F/IJoC0Agmk4r1WXou+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4y88Y5h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xakp5jX7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FA761F00898;
-	Mon, 14 Sep 2026 18:08:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4y88Y5h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038931F00893
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789409309;
-	bh=5daMscwDaX2JwFil5lTXQITuvGSdrd4toNTeASvATRQ=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=Xakp5jX7jwvusY84gD63JmsDjXhhUehahgSy3T+yLAarj7F1FTY1QGD+zf1aLGP2z
-	 gBBmG2fDX2fChAynKn6/vXj8tjqluX+nHVamvQUCDMGcXHus2qBDGlErHvpNpSE6Pc
-	 hs59QlvuzqEgmJnfdqE9Xwltnjz9Lqw5oTEoOpLRlBLZlerRfhbRE42zen6vjKD+mG
-	 HG5ED0/4Xm4w1hItcbxOD7EkDR0kqO+xB0tpBou7UO+ccqFfX5fxhOXxgbVOJqkJXV
-	 qnXyvpR3+Hi9FoFwLJZwAAQBBmobLKBRyIGN6wcW9Ot9gl6YucJJ2CzVxKOdqll8LQ
-	 gudQDaE1dvSaQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A613924FD1;
-	Mon, 14 Sep 2026 18:07:25 +0000 (UTC)
-Subject: Re: [GIT PULL] memblock: fix for regions display in debugfs and MAINTAINERS update
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260914051534.4085114-1-rppt@kernel.org>
-References: <20260914051534.4085114-1-rppt@kernel.org>
-X-PR-Tracked-List-Id: <linux-mm.kvack.org>
-X-PR-Tracked-Message-Id: <20260914051534.4085114-1-rppt@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/mm/memblock tags/fixes-2026-09-14
-X-PR-Tracked-Commit-Id: 6e33dc90df108c76899dc544a42d17adcba61668
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: ebb58ec7f8539450804741d974acbb985da0f071
-Message-Id: <178940924446.1155813.14492190716772354611.pr-tracker-bot@kernel.org>
-Date: Mon, 14 Sep 2026 18:07:24 +0000
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+	s=k20260515; t=1789409322;
+	bh=2ckh5BO9D7YjyzIptMOKhEMsCpTGi957ZDuM/npht24=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=D4y88Y5hFeBNdnRwxIWrAcGDezT3gNgkSEyi63ibNicHZEKGis/6R3WVdUz2nRaQn
+	 Bz+Hkb1bYmgaorstkHLP6Fl0WLnlcVvkrbWsT47IE1ZJCdT1gNqN6ZdUbETCNSaMKY
+	 CB0K2ubsjQhPnkYCHzr1fklDvriPZbBK+AUpIkK38htSyhvoK/H9jGj5pyJCUgdEDE
+	 6UqxIyByTCSOf56CuxYckjDA0hM3xrNXFVQkcH1bSAfreFAaR7C7RUfzY665EC9IEL
+	 KQF0KPcXayb8Evy58L9d9KrUEx+ozAtAK3Wku1D6K3IsqBi2guo+WMMraMuabBII8r
+	 7cQWzJiCk7wVA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1651bso2047442e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:08:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxN7IUlyyeyr0nG2sDtWjJzP/C0kjxtNE4gw71eeiwpCpWjIJiWVdoJU9CJVbJW4iC6n6D8TpnuhFcvh6I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYu6OVeY7cWM3C/fgTLtuKNCyUWznGP1KJBqqFTGwFmywgf+0J
+	VrLeY3cNXHN6nrjphZGx40Ayfnek4SkgAbOUSyZ0lAvP/Ob/GR0xT2he8ITnWaUSJRs1TSkS39X
+	+NqVUVLpwn4imi4pbf7FhwWTC6tmkxCw=
+X-Received: by 2002:a05:6512:10cb:b0:5b7:674f:caba with SMTP id
+ 2adb3069b0e04-5b8ae684479mr1027893e87.13.1789409320375; Mon, 14 Sep 2026
+ 11:08:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260912113355.644238-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260912113355.644238-1-lgs201920130244@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 14 Sep 2026 20:07:22 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jiC=DOerVh+erOi204a_NN+30SYgD+a5o7eUZY=0z+Hw@mail.gmail.com>
+X-Gm-Features: AcwNN1VKf-MOOpTNz8RYadkIbdxxLgqXjwA8RxlTIM9B9768ANAzCbGe900qBnw
+Message-ID: <CAJZ5v0jiC=DOerVh+erOi204a_NN+30SYgD+a5o7eUZY=0z+Hw@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: SBS: Fix NULL pointer dereference on allocation failure
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The pull request you sent on Mon, 14 Sep 2026 08:15:32 +0300:
+On Sat, Sep 12, 2026 at 1:34=E2=80=AFPM Guangshuo Li <lgs201920130244@gmail=
+.com> wrote:
+>
+> acpi_sbs_probe() jumps to the common error path when kzalloc_obj()
+> fails, but platform_set_drvdata() is only called after the allocation
+> succeeds.
+>
+> The error path calls acpi_sbs_remove(), which retrieves the unset
+> driver data and dereferences the resulting NULL pointer when locking
+> sbs->lock, causing a NULL pointer dereference.
+>
+> Return -ENOMEM directly when the allocation fails, since no resources
+> have been initialized at that point and there is nothing to clean up.
+>
+> This issue was found by manual code inspection.
+>
+> Fixes: 9460eaae2ee42 ("ACPI: SBS: Convert the driver to a platform one")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/acpi/sbs.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+> index 86b7c7975852..4b84b3cd11e3 100644
+> --- a/drivers/acpi/sbs.c
+> +++ b/drivers/acpi/sbs.c
+> @@ -639,10 +639,8 @@ static int acpi_sbs_probe(struct platform_device *pd=
+ev)
+>                 return -ENODEV;
+>
+>         sbs =3D kzalloc_obj(struct acpi_sbs);
+> -       if (!sbs) {
+> -               result =3D -ENOMEM;
+> -               goto end;
+> -       }
+> +       if (!sbs)
+> +               return -ENOMEM;
+>
+>         mutex_init(&sbs->lock);
+>
+> --
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/mm/memblock tags/fixes-2026-09-14
-
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/ebb58ec7f8539450804741d974acbb985da0f071
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Applied as 7.4 material, thanks!
