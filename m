@@ -1,675 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4223F8243
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691893C1F43
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371978; cv=none; b=nkef5Z76zaR15+9Xa+IP9z0ZgC77vzmL1nJCcnv4HNkvucxolUJWGFblBtbgpZPQ/b14hZLhqgpkSyFPWIKspm0bibz4yndeMid9QSXZGxABMATjabKs2f4gR90SdcZAvSAiMC3ZiniylMRPAUeyUFKe7n2pAZYsm38NA45Ea2A=
+	t=1789371994; cv=none; b=chVp0DMWYMHQpHQ/4i1B/KbpAEP2zII624dvHUEaQN9RdUlThPJJrat9STX8kPl3jNL9A2qmDRaDMeH7ZUGeoXtSwF0zSTfzgkzarKOUUwpDf4XdW+W8WBimboSQGeXsC9h/rIJVSIppSVZDqKrdFPAgITQhVrGg7h7IWiHAAZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371978; c=relaxed/simple;
-	bh=MT8sDGgmi+VnXl2CGP2Enoev1en9znyBtD06gddifuw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M2Ba2vdGAmJfHCSCSiyj8Pswi3ZtfS/zXHWHTWOD4NExYNFUhHWJyyoj1BalYdc/6+o4/Rc89zobHoyEGMjefy9dGRMaBdIPMc3w1rSLSRTkmeEKYp4GyUGLdX3JtpZMCipVeUKV1b1iywqbFGoOKd2vrVG1FYqJTeuiNHuafUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kWliG36t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789371994; c=relaxed/simple;
+	bh=ce1O4pelLhDjVlJPpZ7LGe76uCma3HUAKQ1dHmclyB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DU9dlgppuD54C9AaN0RyX1x20iUsQPMsILqarCLly42LW7sWcWrYUSYGvzKdRhJMQIP5cGSaqhMLelsWM8B2C2V4xzjF/veq7dGeOtt/h+jNzvz1bVXS+ShqSDIujiGbwS6uYh5PP5mc0V/BzZbybTkBj/OEF8FoS0XHRFMubP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HkZTQ6Ko; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OmKCcAXl; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kWliG36t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341D91F000FF;
-	Mon, 14 Sep 2026 07:46:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789371976;
-	bh=JllXSUHy+b3zdtDBvkgrDgyujMMYgJPstjjx5MbnyKk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kWliG36tDIHYc8I2yrBcYz+4A6fDMgttFglDiRLU9C6o2pnKfz2UM2WYgPB1HgE5H
-	 3aU1Z/aTB+S0AqqP8NHAWyMfxLF2kr8wALPf1kcnSkWEw1GQs7ee+qQ/l6VKFRUCx4
-	 TizgSNMQd3QI+rNqZR01akbyYWc9/Sz7CV77LwzRCnLFRm3DsphIWLl4F1wMOt+Q6h
-	 E70e4q0mw+G8hPV9pWv3CnjMDveMlkWvAWNNROTfrpjUNG+/bnhzRguN4vPFfd/6qJ
-	 /lx2lP/0ufwMOwvVSDN0ebdVSdPE3uwG4DAHy9fayt/FqNWqSC5ocyBbDre0CsFnQL
-	 NrjEb2VZZlb7g==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 09:46:07 +0200
-Subject: [PATCH v3 08/10] regulator: ab8500: Add buck converter support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HkZTQ6Ko";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OmKCcAXl"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5jSWo237682
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=FtkXZcX3eCc2fMQ+ziqCcCeR
+	Nzu7i+LM1BaMpHPINhM=; b=HkZTQ6Ko2WMUAGjXUdpjHw8socpUkrDnHVs0xogo
+	6MY+t/IrFe4XbsEV0jLD9pu+XHII+jn4cMgC/9Zvda6awrPTU/+PYRfPt7CjF8ZJ
+	2RmwJ0a6RD59cOZjRynA21GiCmmk+kpt/PGDBMZr6s7Yz0tvvu+xOTJ215yE41a8
+	eD6zgTHhx5DLnXI+iQPBMI+un/nvJMfjDd8SJz8MwMOzwHLobQ7+d651EvKYrd5C
+	N7HpJqoGK8vS1t6934paMx9spwtQXFA4SUVJLSLOKynxtEKjtGYV6acs3hdH5zUk
+	0AGb7bN4JG8XjKrEqm7MohKxjhmBPKWX7gFWKf3dizNsHA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dnm6m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:32 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9394ad7f64aso487149085a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:46:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789371991; x=1789976791; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FtkXZcX3eCc2fMQ+ziqCcCeRNzu7i+LM1BaMpHPINhM=;
+        b=OmKCcAXlaUcJGoxALA45jxqmbCP6vkSQpkJy5xRUhOxTwNKNxl0I68QBustVs3qG6M
+         rRxPn/tmtuZs8AJltI6azaTvx7r0cE2u9Yi2N8ic+rBjmthFXDeMO++ztm+3oL/5bIpU
+         D19i8L55BlYcq78mbN3UErGrjJC8VbLtUPFxoQTNJ6kuy4wzPco+8i5gtLuOa4RmmUz/
+         f7TC2+tF77aCSlqOZvBlUp1j8iFtgTu2odDsGXdvYVY8edGtAlsNwqYqixD+7kf8R11X
+         hkCA4JLRGLpyvDPZZ7+hrXRCQARamuH38gB1eeei+eQKgGdM6f3R/rkgR3H2by9B4g2u
+         EYLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789371991; x=1789976791;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FtkXZcX3eCc2fMQ+ziqCcCeRNzu7i+LM1BaMpHPINhM=;
+        b=UeTT9/cKfNgGH3DEbVvg59VUtLrzM+SuAN8OOu22KbcrYzyuhEJnExa0vP11CXjRDz
+         E2oj0Gk7J+m+RkPKeN/PQ3JNw0BmkFf2dN8SgaupUnCSECOAhIr3uvxHkyHDYDPVdEU9
+         I4u6j7/gVxKn59pMTlj913RgBK6o/n6OmIS2PPepCnS1d9VIbynGtekY2/NI/lUj8pNH
+         8vYpcwSP0eUsr+iIlT7NfzRaPiHRVQ+bAl62Z4ze6Ay4QivD22nE5kxpwzDcl1zC3UA3
+         WXHT1eKKYyIgnPHBX7yrfWDilBg301jJGGt4aj8QKpQAUQ4brA4ogw02/e7HB05Iu1TM
+         8gHg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3QvaVlL8N1zfRSTOfWZTpaAMybOepDEj+tP6xVFHI+M4mPM8gt82z666MnGT8UcYMcUTbD16NadxaC0M=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfujGvgzzlu41JUJUwtxPV5xQeuQUv3XpRfldREeBjFA8M9HVM
+	pwAxJk2SORwUPDv/KPYiDGjbN4zNiLcAX1Dduw2jF3KnCe5GUpEID0ybeQqfNZ2TpmBkAIERzZZ
+	fA9j5qAXxBErgBppjrRMRxeAppPgGrAx4r5A0KLyH1JMy8OWTu+Au5tHmDr+WnwQdwzY=
+X-Gm-Gg: AYBFou3+NcqZ6hTUNASFfhLqLF87sXOzEchNjltTXQegMCwkuXA0Y6qYCXsEcNFQkPE
+	t1bCYkVZzBdZYJWpo+hpWE2MQ43O9TpghjIOTKYbF81IH8Rkvhlg3UUNHfgYIB/9HHoC1kJuEEd
+	RSSlS1JdrfwF4n8pVlDwRB56I4p4qRsx7Uxh8QzkoDSGzlfpCXGCr4knhD6KeKQgYz/2HfqeK46
+	R4F2C/ZAiJuHna/X3l+t+bHgWzjJbV0t8DeWaQwrpWfgpAbeRkGL7yKx57y94OK8oBSAi3O4/23
+	qckv5qVEbhjrfhdODtdxAbQe8Tfm1MpqVeblYXazeadONN3B/crNsl7n8uEjCQp0MK1RKoxKWZv
+	hoFlBGR85/JZRfBo=
+X-Received: by 2002:a05:620a:6f01:b0:939:c898:ce3f with SMTP id af79cd13be357-93a297e8f80mr202239985a.14.1789371991329;
+        Mon, 14 Sep 2026 00:46:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:6f01:b0:939:c898:ce3f with SMTP id af79cd13be357-93a297e8f80mr202236985a.14.1789371990860;
+        Mon, 14 Sep 2026 00:46:30 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35bed0sm25587273f8f.32.2026.09.14.00.46.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 00:46:29 -0700 (PDT)
+Date: Mon, 14 Sep 2026 10:46:28 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/2] interconnect: qcom: Make important drivers default
+Message-ID: <npsrkq442luhxv3sfwjoojzfnnv4y4knsplnfucgdwj6df6uar@gjmbzv7yyldv>
+References: <20260914-interconnect-qcom-clean-arm64-v4-0-5b2c0e6a929a@oss.qualcomm.com>
+ <20260914-interconnect-qcom-clean-arm64-v4-1-5b2c0e6a929a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ux500-dts-snowball-regulator-v3-8-7f92a365628e@kernel.org>
-References: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
-In-Reply-To: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Axel Lin <axel.lin@ingics.com>
-Cc: linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-interconnect-qcom-clean-arm64-v4-1-5b2c0e6a929a@oss.qualcomm.com>
+X-Proofpoint-GUID: i4zM72VcixVsPNi89W6Yg0VI4hPWvopN
+X-Proofpoint-ORIG-GUID: i4zM72VcixVsPNi89W6Yg0VI4hPWvopN
+X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa7a658 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=nOPaym-2Fu4dxh1hCxsA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfX7e//b1TCjNzN
+ rcUNKFhz2PRxnN7CJwpFrenfmbZR+xKx9/Nl0wVY8nowSKd2FImP8fM0osF3c8OEiKOAgUuX11S
+ uaWm7lxDFNxkH+mDnGceK+EYfcaQr0Q=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfXxSehYc4Ahrsc
+ x6Nbqg32YxLPbE00ul2aYYbTlW5QZR7o4QeGcvezlAQbPqp7OX5tcPEK8kAMkhlkC5k9u8CoXa9
+ ZxaPLGfSdhSARqkJJ1T+uyfNTxdy2qIXKxOZwmbZY4P1yN2o9mnQBdoF9Fn86+cMQ/HvKTzRZeD
+ xaNMlmc7gFVguZQUJZcZGfnGgUIJopB9NnQr5+W0150K9y+915gsoZimSYQ6QnqkVZY8LzEIFzJ
+ iPR/szeDpZoYUA2P31in4BgiID1V+K08Y4wZen9UcggrMPNVP4u6NJ5GH2RogUzJzBT8KP6oOZF
+ 6u49P7ckRsNYJjSCQ/FyllWL00UMfDTC17ROtO/T0CjUbFa6CxnCMHJgzNassk7Wdj1/Ao/RU/b
+ VyXmy9dXcKo90b8wNKeXOD+MPGsFZfH7t1T49uotpQbtbmRZDrXLC6Urlvycas6BNNnjhX2BQID
+ QsPaG24XZtfkpSb8Aaw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140109
 
-Register the SMPS1, SMPS2, SMPS3, ARM, APE and MOD buck converters on
-AB8500 and the VSMPSA, VSMPSB, VSAFE, VARM, VSMPSC and VSMPSM buck
-converters on AB8505 so that the new device tree nodes can supply
-consumers. Match each variant through its own device tree node names.
+On 26-09-14 08:44:04, Krzysztof Kozlowski wrote:
+> The interconnect drivers for Qualcomm SoC Network-on-Chip are covering a
+> basic or fundamental SoC feature: bandwidth management between internal
+> SoC blocks.  SoC can boot without these, but power management or
+> performance will be affected.  These drivers do not represent any sort
+> of buses visible to the board designers/configurators, thus they should
+> be always enabled, regardless how SoC is used in the final board.
+> 
+> Kernel configuration should not ask users choice of drivers when that
+> choice is obvious and known to the developers that answer should be
+> 'yes' or 'module'.
+> 
+> Switch all almost Qualcomm interconnect drivers to a default 'yes' for
+> ARCH_QCOM.  This has impact:
+> 
+> 1. arm64 defconfig:
+>    a. Enable as built-in INTERCONNECT_QCOM_HAWI, INTERCONNECT_QCOM_NORD,
+>       INTERCONNECT_QCOM_SHIKRA, INTERCONNECT_QCOM_SDM660,
+>       INTERCONNECT_QCOM_SDM670, INTERCONNECT_QCOM_SM7150 and
+>       INTERCONNECT_QCOM_SAR2130P, which were not selected before but
+>       should be, because these platforms need them anyway for proper
+>       functioning.
+> 
+>    b. Switch to built-in from a module INTERCONNECT_QCOM_QCS404 and
+>       INTERCONNECT_QCOM_MSM8916, which as modules would not make the
+>       platform bootable in most cases, and INTERCONNECT_QCOM_OSM_L3,
+>       which when module might slow down boot considerably by having
+>       caches running at slow speed.
+> 
+> 2. arm qcom_defconfig: Switch to built-in from a module
+>    INTERCONNECT_QCOM_RPMH, INTERCONNECT_QCOM_SMD_RPM,
+>    INTERCONNECT_QCOM_BCM_VOTER, INTERCONNECT_QCOM_MSM8974,
+>    INTERCONNECT_QCOM_SDX55, which as modules would not make the
+>    platform bootable in most cases.
+> 
+> 3. arm multi_v7 defconfig: Enable drivers necessary to boot
+>    ARM 32-bit platforms, which are already enabled on qcom_defconfig:
+> 
+>    a. Enable as built-in INTERCONNECT_QCOM_MSM8974.
+>    b. Enable as modules (other dependencies prevent from built-in)
+>       INTERCONNECT_QCOM_RPMH, INTERCONNECT_QCOM_BCM_VOTER and
+>       INTERCONNECT_QCOM_SDX55.
+> 
+> 4. COMPILE_TEST builds: Enable by default all drivers for arm or arm64
+>    builds, whenever ARCH_QCOM is selected.  This has impact on build
+>    time and feels logical, because if one selects ARCH_QCOM then
+>    probably by default wants to build test it entirely.  Kernels with
+>    COMPILE_TEST are not supposed to be used for booting.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-AB8500 SMPS3 supplies Vsafe and AB8505 VSAFE occupies the corresponding
-control and selector registers at 0x0405 and 0x041b through 0x041d.
-AB8500 VAPE and AB8505 VSMPSC instead use 0x0402 and the 0x040e through
-0x0410 selector registers. Keep separate AB8505 regulator descriptors
-and identifiers so these variant-specific rails are not conflated.
-
-Describe the hardware selector ranges and follow the selector-control
-registers when reading or changing voltage. This accounts for AB8505
-using Sel2 after reset, its additional selector registers and its
-separate 7-bit VARM range. Use the AB8500-compatible and low-range OTP
-profiles found on the supported platforms for the other rails.
-
-SMPS1 through SMPS3 and VSMPSA, VSMPSB and VSAFE also expose enable and
-low-power mode control. Keep the ARM, APE, MOD, VARM, VSMPSC and VSMPSM
-rails voltage-only since their on/off state is managed with the SoC.
-
-Assisted-by: LLM
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- drivers/regulator/ab8500.c | 461 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 452 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/regulator/ab8500.c b/drivers/regulator/ab8500.c
-index d1540099104c..130febf2680a 100644
---- a/drivers/regulator/ab8500.c
-+++ b/drivers/regulator/ab8500.c
-@@ -9,10 +9,12 @@
-  * AB8500 peripheral regulators
-  *
-  * AB8500 supports the following regulators:
-- *   VAUX1/2/3, VINTCORE, VTVOUT, VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-+ *   VSMPS1/2/3, VARM, VAPE, VMOD, VAUX1/2/3, VINTCORE, VTVOUT,
-+ *   VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-  *
-  * AB8505 supports the following regulators:
-- *   VAUX1/2/3/4/5/6, VINTCORE, VADC, VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-+ *   VSMPSA/B/C/M, VSAFE, VARM, VAUX1/2/3/4/5/6, VINTCORE,
-+ *   VADC, VUSB, VAUDIO, VAMIC1/2, VDMIC, VANA
-  */
- #include <linux/init.h>
- #include <linux/kernel.h>
-@@ -39,6 +41,12 @@ enum ab8500_regulator_id {
- 	AB8500_LDO_ANAMIC2,
- 	AB8500_LDO_DMIC,
- 	AB8500_LDO_ANA,
-+	AB8500_BUCK_SMPS1,
-+	AB8500_BUCK_SMPS2,
-+	AB8500_BUCK_SMPS3,
-+	AB8500_BUCK_ARM,
-+	AB8500_BUCK_APE,
-+	AB8500_BUCK_MOD,
- 	AB8500_NUM_REGULATORS,
- };
- 
-@@ -57,6 +65,12 @@ enum ab8505_regulator_id {
- 	AB8505_LDO_ANAMIC2,
- 	AB8505_LDO_AUX8,
- 	AB8505_LDO_ANA,
-+	AB8505_BUCK_SMPSA,
-+	AB8505_BUCK_SMPSB,
-+	AB8505_BUCK_SAFE,
-+	AB8505_BUCK_ARM,
-+	AB8505_BUCK_SMPSC,
-+	AB8505_BUCK_SMPSM,
- 	AB8505_NUM_REGULATORS,
- };
- 
-@@ -172,9 +186,17 @@ struct ab8500_shared_mode {
-  * @mode_val_idle: mode setting for low power
-  * @mode_val_normal: mode setting for normal power
-  * @voltage_bank: bank to control regulator voltage
-- * @voltage_reg: register to control regulator voltage
-+ * @voltage_reg: first register containing a selectable regulator voltage
-  * @voltage_mask: mask to control regulator voltage
-  * @expand_register: additional register used to select an extra voltage
-+ * @voltage_ctrl_bank: bank containing the voltage selector control
-+ * @voltage_ctrl_reg: register containing the voltage selector control
-+ * @voltage_ctrl_mask: mask selecting one of the first voltage registers
-+ * @voltage_ext_ctrl_bank: bank containing the extended selector control
-+ * @voltage_ext_ctrl_reg: register containing the extended selector control
-+ * @voltage_ext_ctrl_mask: mask selecting one of the extended voltage registers
-+ * @voltage_ext_reg: first extended voltage register
-+ * @voltage_ext_regs: number of extended voltage registers
-  */
- struct ab8500_regulator_info {
- 	struct device		*dev;
-@@ -202,6 +224,14 @@ struct ab8500_regulator_info {
- 		u8 voltage_reg;
- 		u8 voltage_mask;
- 	} expand_register;
-+	u8 voltage_ctrl_bank;
-+	u8 voltage_ctrl_reg;
-+	u8 voltage_ctrl_mask;
-+	u8 voltage_ext_ctrl_bank;
-+	u8 voltage_ext_ctrl_reg;
-+	u8 voltage_ext_ctrl_mask;
-+	u8 voltage_ext_reg;
-+	u8 voltage_ext_regs;
- };
- 
- /* voltage tables for the vauxn/vintcore supplies */
-@@ -300,6 +330,40 @@ static const struct linear_range ldo_vaudio_ranges[] = {
- 	REGULATOR_LINEAR_RANGE(2600000, 7, 7, 0),
- };
- 
-+/*
-+ * AB8505 buck ranges except VARM are selected by OTP.  The supported
-+ * platforms use the AB8500-compatible profiles for VSMPSA/B and the low
-+ * profiles for VSAFE, VSMPSC and VSMPSM.
-+ */
-+static const struct linear_range buck_low_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(700000, 0, 53, 12500),
-+	REGULATOR_LINEAR_RANGE(1362500, 54, 63, 0),
-+};
-+
-+/* VSMPS3 and VSAFE have a 7-bit selector, but the same low range. */
-+static const struct linear_range buck_low_7bit_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(700000, 0, 53, 12500),
-+	REGULATOR_LINEAR_RANGE(1362500, 54, 127, 0),
-+};
-+
-+/* AB8505 VARM uses a separate 0.6 V to 1.39375 V selector range. */
-+static const struct linear_range ab8505_buck_arm_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(600000, 0, 127, 6250),
-+};
-+
-+/* VSMPS1 and the VSMPSA AB8500-compatible profile clamp to this range. */
-+static const struct linear_range buck_smps1_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(1100000, 0, 32, 0),
-+	REGULATOR_LINEAR_RANGE(1112500, 33, 48, 12500),
-+	REGULATOR_LINEAR_RANGE(1300000, 49, 63, 0),
-+};
-+
-+/* VSMPS2 and the VSMPSB AB8500-compatible profile clamp to this range. */
-+static const struct linear_range buck_smps2_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(1800000, 0, 57, 0),
-+	REGULATOR_LINEAR_RANGE(1812500, 58, 63, 12500),
-+};
-+
- static DEFINE_MUTEX(shared_mode_mutex);
- static struct ab8500_shared_mode ldo_anamic1_shared;
- static struct ab8500_shared_mode ldo_anamic2_shared;
-@@ -558,11 +622,67 @@ static unsigned int ab8500_regulator_get_mode(struct regulator_dev *rdev)
- 	return ret;
- }
- 
-+static int ab8500_regulator_get_voltage_reg(struct regulator_dev *rdev,
-+					    u8 *voltage_reg)
-+{
-+	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
-+	u8 regval;
-+	unsigned int selector;
-+	int ret;
-+
-+	if (info->voltage_ext_ctrl_mask) {
-+		ret = abx500_get_register_interruptible(info->dev,
-+							info->voltage_ext_ctrl_bank,
-+							info->voltage_ext_ctrl_reg, &regval);
-+		if (ret < 0)
-+			return ret;
-+
-+		selector = (regval & info->voltage_ext_ctrl_mask) >>
-+			(ffs(info->voltage_ext_ctrl_mask) - 1);
-+		if (selector) {
-+			selector = min_t(unsigned int, selector,
-+					 info->voltage_ext_regs);
-+			*voltage_reg = info->voltage_ext_reg + selector - 1;
-+			return 0;
-+		}
-+	}
-+
-+	if (!info->voltage_ctrl_mask) {
-+		*voltage_reg = info->voltage_reg;
-+		return 0;
-+	}
-+
-+	ret = abx500_get_register_interruptible(info->dev,
-+						info->voltage_ctrl_bank,
-+						info->voltage_ctrl_reg, &regval);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* The three hardware selector layouts all use consecutive registers. */
-+	switch (info->voltage_ctrl_mask) {
-+	case 0x0c:
-+		selector = min((unsigned int)((regval & 0x0c) >> 2), 2U);
-+		break;
-+	case 0x24:
-+		selector = regval & BIT(5) ? 2 : !!(regval & BIT(2));
-+		break;
-+	case 0x04:
-+		selector = !!(regval & BIT(2));
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	*voltage_reg = info->voltage_reg + selector;
-+
-+	return 0;
-+}
-+
- static int ab8500_regulator_get_voltage_sel(struct regulator_dev *rdev)
- {
- 	int ret, voltage_shift;
- 	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
--	u8 regval;
-+	u8 regval, voltage_reg;
- 
- 	if (info == NULL) {
- 		dev_err(rdev_get_dev(rdev), "regulator info null pointer\n");
-@@ -571,8 +691,15 @@ static int ab8500_regulator_get_voltage_sel(struct regulator_dev *rdev)
- 
- 	voltage_shift = ffs(info->voltage_mask) - 1;
- 
-+	ret = ab8500_regulator_get_voltage_reg(rdev, &voltage_reg);
-+	if (ret < 0) {
-+		dev_err(rdev_get_dev(rdev),
-+			"couldn't read voltage selector control\n");
-+		return ret;
-+	}
-+
- 	ret = abx500_get_register_interruptible(info->dev,
--			info->voltage_bank, info->voltage_reg, &regval);
-+			info->voltage_bank, voltage_reg, &regval);
- 	if (ret < 0) {
- 		dev_err(rdev_get_dev(rdev),
- 			"couldn't read voltage reg for regulator\n");
-@@ -583,7 +710,7 @@ static int ab8500_regulator_get_voltage_sel(struct regulator_dev *rdev)
- 		"%s-get_voltage (bank, reg, mask, shift, value): "
- 		"0x%x, 0x%x, 0x%x, 0x%x, 0x%x\n",
- 		info->desc.name, info->voltage_bank,
--		info->voltage_reg, info->voltage_mask,
-+		voltage_reg, info->voltage_mask,
- 		voltage_shift, regval);
- 
- 	return (regval & info->voltage_mask) >> voltage_shift;
-@@ -594,7 +721,7 @@ static int ab8500_regulator_set_voltage_sel(struct regulator_dev *rdev,
- {
- 	int ret, voltage_shift;
- 	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
--	u8 regval;
-+	u8 regval, voltage_reg;
- 
- 	if (info == NULL) {
- 		dev_err(rdev_get_dev(rdev), "regulator info null pointer\n");
-@@ -603,10 +730,17 @@ static int ab8500_regulator_set_voltage_sel(struct regulator_dev *rdev,
- 
- 	voltage_shift = ffs(info->voltage_mask) - 1;
- 
-+	ret = ab8500_regulator_get_voltage_reg(rdev, &voltage_reg);
-+	if (ret < 0) {
-+		dev_err(rdev_get_dev(rdev),
-+			"couldn't read voltage selector control\n");
-+		return ret;
-+	}
-+
- 	/* set the registers for the request */
- 	regval = (u8)selector << voltage_shift;
- 	ret = abx500_mask_and_set_register_interruptible(info->dev,
--			info->voltage_bank, info->voltage_reg,
-+			info->voltage_bank, voltage_reg,
- 			info->voltage_mask, regval);
- 	if (ret < 0)
- 		dev_err(rdev_get_dev(rdev),
-@@ -615,7 +749,7 @@ static int ab8500_regulator_set_voltage_sel(struct regulator_dev *rdev,
- 	dev_vdbg(rdev_get_dev(rdev),
- 		"%s-set_voltage (bank, reg, mask, value): 0x%x, 0x%x, 0x%x,"
- 		" 0x%x\n",
--		info->desc.name, info->voltage_bank, info->voltage_reg,
-+		info->desc.name, info->voltage_bank, voltage_reg,
- 		info->voltage_mask, regval);
- 
- 	return ret;
-@@ -726,6 +860,26 @@ static const struct regulator_ops ab8500_regulator_linear_range_volt_ops = {
- 	.map_voltage	= regulator_map_voltage_linear_range,
- };
- 
-+static const struct regulator_ops ab8500_buck_ops = {
-+	.enable			= ab8500_regulator_enable,
-+	.disable		= ab8500_regulator_disable,
-+	.is_enabled		= ab8500_regulator_is_enabled,
-+	.get_optimum_mode	= ab8500_regulator_get_optimum_mode,
-+	.set_mode		= ab8500_regulator_set_mode,
-+	.get_mode		= ab8500_regulator_get_mode,
-+	.get_voltage_sel	= ab8500_regulator_get_voltage_sel,
-+	.set_voltage_sel	= ab8500_regulator_set_voltage_sel,
-+	.list_voltage		= regulator_list_voltage_linear_range,
-+	.map_voltage		= regulator_map_voltage_linear_range,
-+};
-+
-+static const struct regulator_ops ab8500_buck_voltage_ops = {
-+	.get_voltage_sel	= ab8500_regulator_get_voltage_sel,
-+	.set_voltage_sel	= ab8500_regulator_set_voltage_sel,
-+	.list_voltage		= regulator_list_voltage_linear_range,
-+	.map_voltage		= regulator_map_voltage_linear_range,
-+};
-+
- static const struct regulator_ops ab8500_regulator_mode_ops = {
- 	.enable			= ab8500_regulator_enable,
- 	.disable		= ab8500_regulator_disable,
-@@ -967,6 +1121,137 @@ static struct ab8500_regulator_info
- 		.update_val_idle	= 0x0c,
- 		.update_val_normal	= 0x04,
- 	},
-+
-+	/* Buck converters */
-+	[AB8500_BUCK_SMPS1] = {
-+		.desc = {
-+			.name		= "BUCK-SMPS1",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_SMPS1,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps1_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps1_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x03,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x13,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x03,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_SMPS2] = {
-+		.desc = {
-+			.name		= "BUCK-SMPS2",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_SMPS2,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps2_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps2_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x04,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x17,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x04,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_SMPS3] = {
-+		.desc = {
-+			.name		= "BUCK-SMPS3",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_SMPS3,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 128,
-+			.linear_ranges	= buck_low_7bit_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_7bit_voltages),
-+		},
-+		.load_lp_uA		= 50000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x05,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x1b,
-+		.voltage_mask		= 0x7f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x05,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_ARM] = {
-+		.desc = {
-+			.name		= "BUCK-ARM",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_ARM,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0b,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x00,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8500_BUCK_APE] = {
-+		.desc = {
-+			.name		= "BUCK-APE",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_APE,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0e,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x02,
-+		.voltage_ctrl_mask	= 0x24,
-+	},
-+	[AB8500_BUCK_MOD] = {
-+		.desc = {
-+			.name		= "BUCK-MOD",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8500_BUCK_MOD,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x41,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x40,
-+		.voltage_ctrl_mask	= 0x04,
-+	},
- };
- 
- /* AB8505 regulator information */
-@@ -1265,6 +1550,152 @@ static struct ab8500_regulator_info
- 		.voltage_reg		= 0x29,
- 		.voltage_mask		= 0x7,
- 	},
-+
-+	/* Buck converters */
-+	[AB8505_BUCK_SMPSA] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSA",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSA,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps1_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps1_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x03,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x13,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x03,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8505_BUCK_SMPSB] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSB",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSB,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_smps2_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_smps2_voltages),
-+		},
-+		.load_lp_uA		= 20000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x04,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x17,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x04,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8505_BUCK_SAFE] = {
-+		.desc = {
-+			.name		= "BUCK-SAFE",
-+			.ops		= &ab8500_buck_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SAFE,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 128,
-+			.linear_ranges	= buck_low_7bit_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_7bit_voltages),
-+		},
-+		.load_lp_uA		= 50000,
-+		.update_bank		= 0x04,
-+		.update_reg		= 0x05,
-+		.update_mask		= 0x03,
-+		.update_val		= 0x01,
-+		.update_val_idle	= 0x03,
-+		.update_val_normal	= 0x01,
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x1b,
-+		.voltage_mask		= 0x7f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x05,
-+		.voltage_ctrl_mask	= 0x0c,
-+	},
-+	[AB8505_BUCK_ARM] = {
-+		.desc = {
-+			.name		= "BUCK-ARM",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_ARM,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 128,
-+			.linear_ranges	= ab8505_buck_arm_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(ab8505_buck_arm_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0b,
-+		.voltage_mask		= 0x7f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x00,
-+		.voltage_ctrl_mask	= 0x0c,
-+		.voltage_ext_ctrl_bank = 0x04,
-+		.voltage_ext_ctrl_reg	= 0x28,
-+		.voltage_ext_ctrl_mask = 0x07,
-+		.voltage_ext_reg	= 0x24,
-+		.voltage_ext_regs	= 4,
-+	},
-+	[AB8505_BUCK_SMPSC] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSC",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSC,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x0e,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x02,
-+		.voltage_ctrl_mask	= 0x24,
-+		.voltage_ext_ctrl_bank = 0x04,
-+		.voltage_ext_ctrl_reg	= 0x2a,
-+		.voltage_ext_ctrl_mask = 0x03,
-+		.voltage_ext_reg	= 0x2b,
-+		.voltage_ext_regs	= 2,
-+	},
-+	[AB8505_BUCK_SMPSM] = {
-+		.desc = {
-+			.name		= "BUCK-SMPSM",
-+			.ops		= &ab8500_buck_voltage_ops,
-+			.type		= REGULATOR_VOLTAGE,
-+			.id		= AB8505_BUCK_SMPSM,
-+			.owner		= THIS_MODULE,
-+			.n_voltages	= 64,
-+			.linear_ranges	= buck_low_voltages,
-+			.n_linear_ranges = ARRAY_SIZE(buck_low_voltages),
-+		},
-+		.voltage_bank		= 0x04,
-+		.voltage_reg		= 0x41,
-+		.voltage_mask		= 0x3f,
-+		.voltage_ctrl_bank	= 0x04,
-+		.voltage_ctrl_reg	= 0x40,
-+		.voltage_ctrl_mask	= 0x04,
-+		.voltage_ext_ctrl_bank = 0x04,
-+		.voltage_ext_ctrl_reg	= 0x47,
-+		.voltage_ext_ctrl_mask = 0x03,
-+		.voltage_ext_reg	= 0x45,
-+		.voltage_ext_regs	= 2,
-+	},
- };
- 
- static struct ab8500_shared_mode ldo_anamic1_shared = {
-@@ -1740,6 +2171,12 @@ static struct of_regulator_match ab8500_regulator_match[] = {
- 	{ .name	= "ab8500_ldo_anamic2", .driver_data = (void *) AB8500_LDO_ANAMIC2, },
- 	{ .name	= "ab8500_ldo_dmic",    .driver_data = (void *) AB8500_LDO_DMIC, },
- 	{ .name	= "ab8500_ldo_ana",     .driver_data = (void *) AB8500_LDO_ANA, },
-+	{ .name = "ab8500_buck_smps1",  .driver_data = (void *)AB8500_BUCK_SMPS1, },
-+	{ .name = "ab8500_buck_smps2",  .driver_data = (void *)AB8500_BUCK_SMPS2, },
-+	{ .name = "ab8500_buck_smps3",  .driver_data = (void *)AB8500_BUCK_SMPS3, },
-+	{ .name = "ab8500_buck_arm",    .driver_data = (void *)AB8500_BUCK_ARM, },
-+	{ .name = "ab8500_buck_ape",    .driver_data = (void *)AB8500_BUCK_APE, },
-+	{ .name = "ab8500_buck_mod",    .driver_data = (void *)AB8500_BUCK_MOD, },
- };
- 
- static struct of_regulator_match ab8505_regulator_match[] = {
-@@ -1756,6 +2193,12 @@ static struct of_regulator_match ab8505_regulator_match[] = {
- 	{ .name	= "ab8500_ldo_anamic2", .driver_data = (void *) AB8505_LDO_ANAMIC2, },
- 	{ .name	= "ab8500_ldo_aux8",    .driver_data = (void *) AB8505_LDO_AUX8, },
- 	{ .name	= "ab8500_ldo_ana",     .driver_data = (void *) AB8505_LDO_ANA, },
-+	{ .name = "ab8505_buck_smpsa",  .driver_data = (void *)AB8505_BUCK_SMPSA, },
-+	{ .name = "ab8505_buck_smpsb",  .driver_data = (void *)AB8505_BUCK_SMPSB, },
-+	{ .name = "ab8505_buck_safe",   .driver_data = (void *)AB8505_BUCK_SAFE, },
-+	{ .name = "ab8505_buck_arm",    .driver_data = (void *)AB8505_BUCK_ARM, },
-+	{ .name = "ab8505_buck_smpsc",  .driver_data = (void *)AB8505_BUCK_SMPSC, },
-+	{ .name = "ab8505_buck_smpsm",  .driver_data = (void *)AB8505_BUCK_SMPSM, },
- };
- 
- static struct {
-
--- 
-2.55.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
