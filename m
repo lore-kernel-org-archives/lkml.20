@@ -1,156 +1,185 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7764963D1;
-	Mon, 14 Sep 2026 17:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99209490C02
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408351; cv=none; b=TynkmEHAIf0R0ppK6XfnNwYQvlGD1MabGociG4sGHc4Homr93F5vSbSsruCsI3GjTvQlY7sqn3gRIoQxc2sVM4s7kWbNL7CoL6oHCaAQCrzlzi8AHXaGTeFt7zNrfb5W32yQZLImPEZOtDDUBsFf7r73H1UCTTn4R3gy7+hIP6w=
+	t=1789408432; cv=none; b=IQS+qFe6G0PiyHPc08syPVNOlqEDxA6s900i3+cqX9RTeMTBfypbq0lxvvg631OHYtasa1jKGaLnhkYlwFTLYFJ0G9LXcc776eBNzTLOeCHkO0Kd3odYouX/3rP4751/03iltXeYRfW4eyrAsmfAVCr4KaHq6UWFqCwlRy/R/C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408351; c=relaxed/simple;
-	bh=hIGCNT+2LZvL+KWuscB/Q2xFWBHXWCB/eXAyk2v9S9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DAP40uT5ma+OmgSVHqAaao/+Bcv3KSiAZh7fGP7rg9hxK3GCXy0XV9tPL76ocmgGKFzqdl6VsC8nvZ2w46wQ0Fuo5KMyakrC0Mh82ObBSP2gYH7KvSZrEPoWzTmsvEZgs7xzbfsWAKeP13wQnUYEgZZEqajNNUagsdV4eR51uXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=jzDmawAY; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789408432; c=relaxed/simple;
+	bh=ieG+RhTR9N474Y5FBTFLy8BhPnT3c/uFdem+xevOlCY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=uHA3oW5p6PdJq8XZNBD9w6WrPhmtSOdwqp1V0oW6L4DaZGlXVMRZuOFt18ektGvBNsdrrdiL0A9CbT3InLqOnOLzmRzQS98aNub5HCxHAQ5sWiVrEcOT0Jmp+RdlmwjfKE1bDa2Y7HecPZp5O1SJLXZpa2RRc9xVC7trMAGAqsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UPtfU+HT; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="jzDmawAY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=R10hLRJV2usgexCzt27YZIdBumqvqsGh1RvG2sVwRR0=; b=jzDmawAYsN8mzxGnJepLG0vZJ3
-	+UyEBewVq7wgQBY7gwIbWS/DBITpIm7O3gfDYQPn9iJJ5ii24Jl0zafskVj0/ta58HSUS32hk3Owl
-	EWRM7pJZksJrj6TSGEak97OX9veG13EAvACQKp/lYQJdOneHaQjxGyhtSHcSOXQE+0u3TlnSC8Y88
-	mp11V1+dMtZPFUX72tldyUiwCbAjymuYK3lvUPh8BOUTOcPpZJAJIUZBsnOQK3agt48WuSLZNYS+y
-	To4v22lwl8zNQ5kmkH/6lUmRiQr5oSxMgo3sNe99A1QHrcH4oqppBxZ5oTe/lo2LI653lilT0p19o
-	yjoeISYA==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x6Aqb-0021Rz-Sy; Mon, 14 Sep 2026 19:52:05 +0200
-Message-ID: <b8239f0d-e5cb-459e-8ef9-d7691bfc2441@igalia.com>
-Date: Mon, 14 Sep 2026 14:51:58 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UPtfU+HT"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8701fcf40d4so612325b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:53:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789408429; x=1790013229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q5jXCqyzigjCqMuJ/T2jsSR0EfY0qyNEor9riHDlbmU=;
+        b=UPtfU+HTNO5NdfgrEQ8KdYnRqrds2gCDoc71R3kx3ZLD79hKwYZ5J1qyiOY5m7LxC2
+         wIiZn/Ho7SQvy4GJJNJEHDyCj/k1q1/OuHhmUO8og1pNF8kw2pzhFYznEbe8MPbBjvGh
+         fLumEhSxLgYCK9BQB4BVl/WyA+AHupNJ7LbqYmSjoq8xfdMihfh0vhBMGo6Q2ccY87Oc
+         uvxQcmXsT9sjFgJK4v2I0ApOShd1Ncm6fX8J2Id+2HvbVn/kVgfDwE0CnbfV9yJYzc8+
+         Qmy24fqwDoZZNGa2odmVUvq6yVaZZWIm7uMjOD7Y5z4aR6R3BKpxEz3VoJFjEJix7/zo
+         g1rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789408429; x=1790013229;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q5jXCqyzigjCqMuJ/T2jsSR0EfY0qyNEor9riHDlbmU=;
+        b=Vg94C7YjQzpU3d34UIoMaL4cTxxIg9JFGNohMA4SJjcInUcLh212IZDqdUGuvPGvoy
+         dtr4OVNQvQHjF5BHIU4U/UsTsGePEUXlk/1ubllPlEippk4xZo5lHBrgoEO9eZ3oGO/V
+         BdA8zY/GfW7RqH0jbBDUfm+jjJggBDP5ZJBwiRK095FcYah+IO27GcjPfydeTOaHeVok
+         EY/Hlv2NMOWH+8yVJfWtGR648UhOYGrLSQwlQdLpfIogU7WKjiFfGnH3nZ8yhbY9lQEw
+         7JskDivz/Lexd3ZV5h70ncUL9Q71Kyon8adPrcTkwc2JBJDGao30LXHk1supTP//A/2G
+         8niQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKNDZDlsRH/RnuO7dxxfMAsIQXgekeMcFxX+zA3viJUSGYr6w3mAmhtGBxaK8E3fLE/0YolHg3LKMuK7c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLY+8CGKLYLq+fg9y7tCLq0jB4KS0DHcH8N1rl4VZeAwnVzY24
+	tFHrGhZso199QBS/zhSnxdFXDJyIlWwXMYqmPzrryYX3LiaSzKcc0bGa
+X-Gm-Gg: AYBFou33Jb6RcL/gEJR60qsVvhLOSfG6/nJ9CsAFS63cmPBfLq6uSR8ULjuXsdQUyMF
+	CxdvL1Kw7qXXX+AK3N+GmliWPiobnXTPMsZUFvpKkbLKsfLs2mtqQKRCvpDZMez35VTiBYhycfl
+	xwXbyAHc3vfufx9Ee3Edk+pQszKxLYMZiacu1lUxFA+/IsJi7RgpC79Lha+7w4G0mgKf/F/NbMN
+	rjukZalsvBpkWZj0eloiXG0ke0MeqFBP3FrX/F33Croe6NNwdxNy/Fl9MG9UA3Z060aqcp3FCtI
+	QAk4RZDxshSLngpyKi/Iw5x2F3cOybFHknq+KML1r+R5icKUkr7XI1MSDAAEBeB2IUZCm9DL7oQ
+	7RtFJrJ9CqJBqnJRJGED0hu2KNzkE3eRbSDNyxQCxNEJqvk7PY/yhUrtkIKpjJrI14n1S4MhcBW
+	qc1//+1aI+qaXHyxfdqAnPzpHx7vMXZEW8BxBYmHXeaPXw0Etn4I13/C43wxBciytipnstEAsFc
+	A88EBrr95fgehsM5ktu3NaE8CtBJB3u1tkE3v/XEs5IJ0PRVuHq54+QUsNdFsAuiyar9+yf/bBX
+	Dt5VouwdfwLoTu9I1Sdw
+X-Received: by 2002:a05:6a21:138f:b0:3d3:adbf:7779 with SMTP id adf61e73a8af0-3db4059a9b9mr8533732637.21.1789408428674;
+        Mon, 14 Sep 2026 10:53:48 -0700 (PDT)
+Received: from NV-9MNJ414.tailae2068.ts.net (2001-b011-2005-787e-1dca-bd0c-04f0-d1fc.dynamic-ip6.hinet.net. [2001:b011:2005:787e:1dca:bd0c:4f0:d1fc])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6596d88sm5579062a12.26.2026.09.14.10.53.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 10:53:48 -0700 (PDT)
+From: Yiwei Lin <s921975628@gmail.com>
+To: Yiwei Lin <s921975628@gmail.com>
+Cc: alim.akhtar@samsung.com,
+	avri.altman@sandisk.com,
+	bvanassche@acm.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ufs: sysfs: fix current_power_mode read without SSU
+Date: Tue, 15 Sep 2026 01:53:32 +0800
+Message-Id: <20260914175332.9546-1-s921975628@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260914170032.5551-1-s921975628@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D
- unbind
-To: Fan Wu <fanwu01@zju.edu.cn>, mripard@kernel.org
-Cc: dave.stevenson@raspberrypi.com, kernel-list@raspberrypi.com,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, eric@anholt.net, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260909053509.657074-1-fanwu01@zju.edu.cn>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260909053509.657074-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Fan Wu,
+On 2026/09/15 01:00, Yiwei Lin wrote:
 
-On 09/09/26 02:35, Fan Wu wrote:
-> The hangcheck timer, which every submitted job arms and which queues
-> reset_work once a job stops making progress, and the job_done_work,
-> which the render-done interrupt queues to release completed jobs, are
-> never drained at teardown: vc4_irq_disable() cancels only
-> overflow_mem_work, and vc4_gem_destroy() runs from the drm-managed
-> release, after vc4_v3d_unbind() has already uninstalled the V3D
-> interrupt and cleared vc4->v3d.
-> 
-> A timer still armed by then reads V3D registers through the NULL
-> vc4->v3d pointer, and late callbacks run on the vc4_dev embedding
-> them after it has been freed.
-> 
-> Drain them in vc4_v3d_unbind(): shut the hangcheck timer down and
-> cancel reset_work before the interrupt is taken down, because
-> vc4_irq_reset() in a straggler reset re-enables it, then cancel
-> job_done_work once no source is left, before vc4->v3d is cleared.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
-> Cc: stable@vger.kernel.org # 6.13+: vc4->gen does not exist on older trees
-> Assisted-by: Codex:gpt-5.6
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> current_power_mode was generated by UFS_ATTRIBUTE(), which calls
+> ufshcd_rpm_get_sync() before issuing the query.
+>
+> That resumes the UFS device WLUN, and ufshcd_wl_runtime_resume() sends
+> START STOP UNIT to bring the device back to Active. As a result
+> bCurrentPowerMode always read back as 0x11 (Active) no matter what
+> state the device was actually in. Sleep could never be observed through
+> sysfs.
+>
+> Per the UFS spec, bCurrentPowerMode is the one attribute the device
+> must answer in any power mode, so there is no need to wake it.
+>
+> Tested on hardware: with the device runtime-suspended, reading
+> current_power_mode used to return 0x11; after this change it returns
+> 0x22 (Sleep), matching the device's real state.
+>
+> Assisted-by: LLM
+> Signed-off-by: Yiwei Lin <s921975628@gmail.com>
 > ---
->   drivers/gpu/drm/vc4/vc4_v3d.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-> index f32410420d3e..11d4df3164b4 100644
-> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
-> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-> @@ -9,6 +9,7 @@
->   #include <linux/component.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
-> +#include <linux/timer.h>
->   
->   #include <drm/drm_print.h>
->   
-> @@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
->   	struct drm_device *drm = data;
->   	struct vc4_dev *vc4 = to_vc4_dev(drm);
->   
-> +	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
-
-This comment provides no insight about the code, it's just describing
-it.
-
-> +	if (vc4->gen == VC4_GEN_4) {
-
-No need for this guards, as this function only runs on VC4_GEN_4.
-
-> +		timer_shutdown_sync(&vc4->hangcheck.timer);
-> +		cancel_work_sync(&vc4->hangcheck.reset_work);
+>  drivers/ufs/core/ufs-sysfs.c | 59 +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 58 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/ufs/core/ufs-sysfs.c b/drivers/ufs/core/ufs-sysfs.c
+> index 63e670d1a9d9e..36cffd535ab7d 100644
+> --- a/drivers/ufs/core/ufs-sysfs.c
+> +++ b/drivers/ufs/core/ufs-sysfs.c
+> @@ -1786,7 +1786,64 @@ out:									\
+>  static DEVICE_ATTR_RO(_name)
+>  
+>  UFS_ATTRIBUTE(boot_lun_enabled, _BOOT_LU_EN);
+> -UFS_ATTRIBUTE(current_power_mode, _POWER_MODE);
+> +
+> +/*
+> + * Per UFS spec, bCurrentPowerMode is the only attribute the device must
+> + * respond to in any power mode.  Read it without waking the device to
+> + * Active: restore HBA clocks via pm_runtime_get_sync(hba->dev) only
+> + * (avoids triggering ufshcd_wl_runtime_resume and its START STOP UNIT),
+> + * exit Hibern8 if needed so the link can carry the UPIU, then query.
+> + */
+> +static ssize_t current_power_mode_show(struct device *dev,
+> +	struct device_attribute *attr, char *buf)
+> +{
+> +	struct ufs_hba *hba = dev_get_drvdata(dev);
+> +	u32 value;
+> +	int ret;
+> +
+> +	down(&hba->host_sem);
+> +	if (!ufshcd_is_user_access_allowed(hba)) {
+> +		up(&hba->host_sem);
+> +		return -EBUSY;
 > +	}
 > +
->   	vc4_irq_uninstall(drm);
->   
-> +	/* Nothing can queue job_done_work any more; drain it. */
-> +	if (vc4->gen == VC4_GEN_4)
-> +		cancel_work_sync(&vc4->job_done_work);
-
-Check Sashiko's feedback about this.
-
-Best regards,
-- Maíra
-
+> +	ret = pm_runtime_get_sync(hba->dev);
+> +	if (ret < 0) {
+> +		pr_warn("%s: pm_runtime_get_sync failed %d\n", __func__, ret);
+> +		pm_runtime_put_noidle(hba->dev);
+> +		up(&hba->host_sem);
+> +		return ret;
+> +	}
+> +	ret = 0;
 > +
->   	/* Disable the binner's overflow memory address, so the next
->   	 * driver probe (if any) doesn't try to reuse our old
->   	 * allocation.
-> 
+> +	ufshcd_hold(hba);
+> +
+> +	if (ufshcd_is_link_hibern8(hba)) {
+> +		ret = ufshcd_uic_hibern8_exit(hba);
+> +		if (!ret)
+> +			ufshcd_set_link_active(hba);
+> +		else
+> +			dev_err(hba->dev, "%s: hibern8 exit failed %d\n",
+> +				__func__, ret);
+> +	}
+> +
+> +	if (!ret)
+> +		ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
+> +			QUERY_ATTR_IDN_POWER_MODE, 0, 0, &value);
+> +
+> +	ufshcd_release(hba);
+> +	pm_runtime_put(hba->dev);
+> +
+> +	if (ret) {
+> +		up(&hba->host_sem);
+> +		return -EINVAL;
+> +	}
+> +	ret = sysfs_emit(buf, "0x%08X\n", value);
+> +	up(&hba->host_sem);
+> +	return ret;
+> +}
+> +static DEVICE_ATTR_RO(current_power_mode);
+> +
+>  UFS_ATTRIBUTE(active_icc_level, _ACTIVE_ICC_LVL);
+>  UFS_ATTRIBUTE(ooo_data_enabled, _OOO_DATA_EN);
+>  UFS_ATTRIBUTE(bkops_status, _BKOPS_STATUS);
 
+According to [Sashiki's review](https://sashiko.dev/#/patchset/20260914170032.5551-1-s9      21975628@gmail.com?part=1), I think I overlooked the condition that the link is not forcefully active, which may lead to a race condition or unexpected behavior. 
+
+I'll provide v2 with careful review and validation.
+
+> -- 
+> 2.34.1
+>
