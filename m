@@ -1,41 +1,41 @@
 Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C14544BCBE;
-	Mon, 14 Sep 2026 11:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5391344BC82;
+	Mon, 14 Sep 2026 11:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386190; cv=none; b=C4QzTbx8q5fI5EQE8/WojGO1Gold3/Oo+Xygw3U8u5xdAqATf/U1TA8ZohIniA8UonUzTgvLjn/1jrkIefByjumf9+KuFRXj47iCreQUb6PFLaFZ6jR7wV5egrslDv514MY6IKykY4oVtaBwYl3Eomc+QVEo18FZeJKkp0BIPtg=
+	t=1789386192; cv=none; b=i2LEmwd/2hjVw0JeRaQ4E4QP8jzbef61lUq/bQa/mvuAFnr5X+3XEpVKZKLpBIuNRd99dE+VMcmg5EJ6qJA7D5E/4Tzq2MYy64QTcG6YJ/34/WLdwZqvEyTDWPq5p9SbJ5Sp8pexW4r3hkTnXsTqxDMzBsM+hE6fTxnmEx1TtRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386190; c=relaxed/simple;
-	bh=XEN5pHk3w1/hxMK0z6EV+BLRLbCPDz0QttuLY+8Ci0A=;
+	s=arc-20240116; t=1789386192; c=relaxed/simple;
+	bh=OkvBLyzd2QOHEMuSfHYwvhh6JbY910F/L4YLee/eXFI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AfroAahf26+TLxbzVvr4wC40qxeP65KayXzHgEBRaEeXrPHv1LIX4vmCkPWYSg3tWxCYG6KFMzpTcqbwB+XzG5m3ySrlm5hpcCquvyLTXBRNi95Lq+liAyhBPz9gf6zfZDm3iErK0wrkPrfcdWmgtNhg57k+BW+vGRAlPytvIiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=l1W2v5Qx; arc=none smtp.client-ip=49.212.243.89
+	 In-Reply-To:To:Cc; b=guSLgcyJ2EPEFb3md+Yz2uU4Q79mQN+P03DcJCDkzYl9XGS86gC+qFLZXdouSK2bPSZz8c3/VwjwNcb0/ZKWUoh6ItPjRPnqPx31DSyPXwWaRqTIM3YkpcMaW9E7YEX0VsKmr/Qg7+KWOlb6GyZN0kw3v4SSCiLe0Zus9fgPT3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=MlGSDuk7; arc=none smtp.client-ip=49.212.243.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="l1W2v5Qx"
+	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="MlGSDuk7"
 Received: from h183.csg.ci.i.u-tokyo.ac.jp (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
 	(authenticated bits=0)
-	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68EBfjsC084060
+	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68EBfjs7084060
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Mon, 14 Sep 2026 20:41:54 +0900 (JST)
+	Mon, 14 Sep 2026 20:41:53 +0900 (JST)
 	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=pX0Gstc1Ertc6iL8yk+ZMEZK0QXPWozbpjP8Gohxns0=;
+DKIM-Signature: a=rsa-sha256; bh=ZW/Tdj3bVLx1UwE3X/hNQWAdAvY+Hiob2QqqnLyGvfE=;
         c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
         h=From:Message-Id:To:Subject:Date;
-        s=rs20250326; t=1789386115; v=1;
-        b=l1W2v5Qx5rUm34g40Gh2o61QKWZqK2Y+nTZKFig9EJSc8cALPd/FBzaHWRREOoJ3
-         1ePP/8d6B/IZjWU9cE9ucQQGKGJEMHCZ9rwUVzgQW1HUrUKFrVqFTBpM+vmQBGSB
-         HuGhNOikoDsNu0BS1fcjzLfPJ7GYxzIP42kofrnRYZjere+8I3lg3+CFBMKXKCs/
-         Cc4zJnat1sa8LduRkFCAAPyMJ1quf9CTXwwxecK5DRqa8drAtXuSyCIpgpMh30XO
-         j0RIGZM7GvtqkkXU5254kCFlUMhEB49Ti/XcapCR3Yw2LBYpkT9DxnfPsbwG0wSU
-         tREZpVFN1wBbCHScovTRdA==
+        s=rs20250326; t=1789386113; v=1;
+        b=MlGSDuk7SKaQ8izN+dOvH2xaoA9UX8xpYXL54GdL6gVXgk+Sq1cdZsXlFr+sLJP0
+         Qe4q4XvQ4br61fjmjNFy4z7DjrTMs0gCmj9wensbeYGIcITJFSa7mU8/Qi0myRfU
+         b9PAuytGmopZpYAeJ0nHvUSkEdSn57IlXAcjoEl+Tol6GOyvu1eWFC5M/9S3k7FZ
+         wvPNHtlvKvTAqPUdMqQ4z2dKSUIyzssHDTjkRT2prvxaheGDWEPIBfhHx/LYqYYq
+         HkfaSzTIqoy8egRkA8s78Sd9FwkSksEJONbzUR60ZuRilx01PxhWTTz6y5FayXLJ
+         fOdGInMWdYRNYywdreF6TA==
 From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Date: Mon, 14 Sep 2026 20:40:49 +0900
-Subject: [PATCH v10 10/20] KVM: arm64: PMU: Recreate events after userspace
- event writes
+Date: Mon, 14 Sep 2026 20:40:44 +0900
+Subject: [PATCH v10 05/20] KVM: arm64: PMU: Keep implemented counter mask
+ EL-independent
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-hybrid-v10-10-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
+Message-Id: <20260914-hybrid-v10-5-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
 References: <20260914-hybrid-v10-0-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
 In-Reply-To: <20260914-hybrid-v10-0-92788053a691@rsg.ci.i.u-tokyo.ac.jp>
 To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
@@ -65,74 +65,58 @@ Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
         linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
         devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
         linux-kselftest@vger.kernel.org,
-        Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+        Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+        Fuad Tabba <fuad.tabba@linux.dev>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2412;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1575;
  i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
- bh=XEN5pHk3w1/hxMK0z6EV+BLRLbCPDz0QttuLY+8Ci0A=;
- b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ9byu4WfNi16ZDB1rtfCxjPn9Axa4m7e2N197uej7W+9j
- zkVyi4U6ShlYRDjYpAVU2RJKdrNrRFd+6kwIb4FZg4rE8gQBi5OAZhI6mqG/2XM37lspd8VF1yZ
- cqHSePLC3X8SUvccvJS97e9KlZPreHsZGVprXZoMGxpf7DqX9Xa5s/e1nBciZQvWei5U/L1ggqa
- AAT8A
+ bh=OkvBLyzd2QOHEMuSfHYwvhh6JbY910F/L4YLee/eXFI=;
+ b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ9byu7kxU0pKhNqKfzIrGPgYPXZkDytU2X3GR0hBudl7l
+ fsKI8GOUhYGMS4GWTFFlpSi3dwa0bWfChPiW2DmsDKBDGHg4hSAiWSdYvgfu6urzehA/b9Ej2Wc
+ EZt6MzLvM9hH8/1S7+cQfRv428OZkeG4yDxhmwD9dP2QzfzbXz1ed6Fyv0aEouSxt2U256pfXGU
+ CAA==
 X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
  fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
 
-KVM_SET_ONE_REG writes to PMEVTYPERn_EL0 and PMCCFILTR_EL0 use the
-generic raw system register assignment. If a backing perf event already
-exists, it keeps its old event selection and privilege filters.
+kvm_pmu_implemented_counter_mask() derives the counter count from
+kvm_vcpu_read_pmcr(). For a nested vCPU outside EL2, PMCR_EL0.N reflects
+MDCR_EL2.HPMN instead of the VM-wide counter count.
 
-Add a setter that preserves the raw userspace register value and
-requests deferred event recreation. This rebuilds the event on the vCPU
-thread without changing values returned by KVM_GET_ONE_REG or applying
-guest-write masking.
+Consequently, processing a PMU reload while the saved context is L2 can
+clear and fail to recreate state for counters reserved for EL2.
 
-Fixes: 9feb21ac57d5 ("arm64: KVM: Add access handler for event type register")
-Closes: https://sashiko.dev/#/patchset/20260720-hybrid-v9-0-2b713ca1b5dc@rsg.ci.i.u-tokyo.ac.jp?part=6
+Build the implemented counter mask from nr_pmu_counters instead. Keep
+the EL-dependent HPMN restriction in
+kvm_pmu_accessible_counter_mask(), where it controls guest access.
+
+Fixes: 600f6fa5c90c ("KVM: arm64: Let kvm_vcpu_read_pmcr() return an EL-dependent value for PMCR_EL0.N")
 Assisted-by: Codex:gpt-5.6-sol
 Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/sys_regs.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ arch/arm64/kvm/pmu-emul.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 2754b743da01..a5c121482c71 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -1334,6 +1334,15 @@ static int set_pmreg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r, u64 va
- 	return 0;
+diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
+index 950b7a349659..a5ccb6ae44d5 100644
+--- a/arch/arm64/kvm/pmu-emul.c
++++ b/arch/arm64/kvm/pmu-emul.c
+@@ -317,12 +317,12 @@ u64 kvm_pmu_accessible_counter_mask(struct kvm_vcpu *vcpu)
+ 
+ u64 kvm_pmu_implemented_counter_mask(struct kvm_vcpu *vcpu)
+ {
+-	u64 val = FIELD_GET(ARMV8_PMU_PMCR_N, kvm_vcpu_read_pmcr(vcpu));
++	u64 n = vcpu->kvm->arch.nr_pmu_counters;
+ 
+-	if (val == 0)
++	if (n == 0)
+ 		return BIT(ARMV8_PMU_CYCLE_IDX);
+ 	else
+-		return GENMASK(val - 1, 0) | BIT(ARMV8_PMU_CYCLE_IDX);
++		return GENMASK(n - 1, 0) | BIT(ARMV8_PMU_CYCLE_IDX);
  }
  
-+static int set_pmu_evtyper(struct kvm_vcpu *vcpu,
-+			   const struct sys_reg_desc *r, u64 val)
-+{
-+	__vcpu_assign_sys_reg(vcpu, r->reg, val);
-+	kvm_pmu_request_recreate(vcpu);
-+
-+	return 0;
-+}
-+
- static int get_pmreg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r, u64 *val)
- {
- 	u64 mask = kvm_pmu_implemented_counter_mask(vcpu);
-@@ -1584,7 +1593,7 @@ static int set_pmcr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r,
- /* Macro to expand the PMEVTYPERn_EL0 register */
- #define PMU_PMEVTYPER_EL0(n)						\
- 	{ PMU_SYS_REG(PMEVTYPERn_EL0(n)),				\
--	  .reset = reset_pmevtyper,					\
-+	  .reset = reset_pmevtyper, .set_user = set_pmu_evtyper,	\
- 	  .access = access_pmu_evtyper, .reg = (PMEVTYPER0_EL0 + n), }
- 
- /* Macro to expand the AMU counter and type registers*/
-@@ -3833,7 +3842,8 @@ static const struct sys_reg_desc sys_reg_descs[] = {
- 	 * in 32bit mode. Here we choose to reset it as zero for consistency.
- 	 */
- 	{ PMU_SYS_REG(PMCCFILTR_EL0), .access = access_pmu_evtyper,
--	  .reset = reset_val, .reg = PMCCFILTR_EL0, .val = 0 },
-+	  .reset = reset_val, .reg = PMCCFILTR_EL0, .val = 0,
-+	  .set_user = set_pmu_evtyper },
- 
- 	EL2_REG_VNCR(VPIDR_EL2, reset_unknown, 0),
- 	EL2_REG_VNCR(VMPIDR_EL2, reset_unknown, 0),
+ static void kvm_pmc_enable_perf_event(struct kvm_pmc *pmc)
 
 -- 
 2.55.0
