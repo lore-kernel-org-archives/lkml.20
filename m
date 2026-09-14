@@ -1,189 +1,252 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A6F47F3D8
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBA747AF5F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396551; cv=none; b=e96/h9HyOn9HkwLW/W3q0V1j12GhCulVOIjNl2nnvw3DlTWicOXAWlPgab+bHGyqw/lOAIsH+t1RRgv3ZJq6zLpVrhfg+ignLX6/2gevLx9bcI+X8Aaq4zW0joui80oeAH1ighB3FQ+g9+OWuvZglpiQaxVwfvsPBgItZJrRC2s=
+	t=1789396571; cv=none; b=GGPxDwgINCl57gXM+O2ouoFR7WEnjpxOjHr4aBJ94y/s+NdVP6U0t/CPrs6fW/UdIfi9iAQ+NZilWYSfCiHMHHZ/+inPwP9ESwWW5DeSXkv0EIVZCwplGpyDjr1Armi+JFZLK4ouQIqj4oWaChLtZAAUsmsjiS0dHGo/2fmtkBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396551; c=relaxed/simple;
-	bh=LglaGc1H0R+sxZA6wiKDg7CCL2SBWvqlpF/H4iHUw3I=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IwFLBdGr1lmxRW7C07wLPgAv/qg0H1wa+y/YgvUaPUCyFrVY+eSDKG99A67+NrEYMeqD7mO1eWKmPttCzE8d5e3V88d2v2xIbQ+yCvT7s0RBA29fjZpmz2GSNIZJjW1BqFigVZyNILTIu59mw0MFGAd3PBHYOmLJimijjBYome8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LtvLjXah; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789396571; c=relaxed/simple;
+	bh=JSOYkk1sGGaCjE3i0cw3Y06fiQPH0EUnCpLAagRRTWo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hG17wls+ops8nEZEQtB9JmKM8Y4FoS6gd5ItTJ5NwXPIdRdMcQqVkyGI8g0Vx3yEiGHbNz4wwBHXQfZSs4n9Zbq2lMZYL1Z3bITWyVwZJC2lKT+xsRNBA4IR4zVl8GJCR8ao9SHKIGXNqnd4va66u8CBaJboIW1pGVDvpuhw7Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y2Lpjlat; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dxHYYfhT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LtvLjXah"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-385d2703b64so4645290a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:35:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y2Lpjlat";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dxHYYfhT"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0ZBl830756
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:36:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=LfpYWv8mDIWbhQzeiTGiBs
+	vb4f261tT/LiVuOxiQSgo=; b=Y2LpjlatsReSUn8Lmwvo8O+EjbNvE5LF10GMi2
+	UgA1MQXx81/98OH7QrtcxVpelr8wzX/WiBRF1xgES4yQQELZXbRnw4KCLk7frFG0
+	QYvB8aAFbZVxzwPmb/sXg7p9ELxKenlDhdHmn7sr11sDwcJKYqy6v03VaZyReqgP
+	DnzDtkLRfblwSozDZ/TG8LAKhUR2mioEsUFTmMrjn4ztNE3PINugxpkSB+6u9/SI
+	Ur7dvEvLOykq5Oo+6KOGeBc1cgxa5RUYxUdUeq3Lr9aAHMex4wltKd6y5bcplecO
+	vGHjgAQY8sInHrGeWnkM7Iu/LnGZr29O4T2W9nwE9iurccMw==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hstvvm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:36:08 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86a74698972so3877660b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:36:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789396549; x=1790001349; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LpPRVgi7aIALsRKspaYc+kGuwDrBnRXT3lk0rEcHOXU=;
-        b=LtvLjXahCCiUglmMqRe8i5nUW1Xi3A62sVdLhtjxNGcwPyiC/ckUMG5Elscgs2f+80
-         GFiBdV/Hip1iLa64dzcGQmt5ImwJ4kgL+Ixyl7QAKzqAQyXo5FyvwXrPCmPOXHe4mWWG
-         bzclg9uXHNG2F3Aeo6sLHUAzsgtmTFFu6iAs8oTSL7T7KBX0n8bFw1mXAiP5l/uCq8ci
-         MinbxRnX377igCzZJJfxkrG3NPHP6e+7UIpLGTrKPeqgKOjjh4ZhogGMtRjIk/YUb5tS
-         ahDQsj0uzrmx42f7VHS/un1H04zgHLUW9hwNbcWGKwf3chdQNa1XCOP0hQWflaoOqPJw
-         XhsQ==
+        d=oss.qualcomm.com; s=google; t=1789396567; x=1790001367; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LfpYWv8mDIWbhQzeiTGiBsvb4f261tT/LiVuOxiQSgo=;
+        b=dxHYYfhTxTLsFWaKhT49IGxIOfxBsJFJ6rSFZ/62l/VZfdLwUPw1bP2UAKZzyWFA2M
+         SGSD3aYTCZawupKln8gDajpVbByIRJkfNTD9S3Ux/u/WIbEi6S6/WvvdNXXbYi8RYYKq
+         sBQmWrSNXBEXfDEQjFg8A3GdI9I3dllBGxIS9P292Yaq3ou13knW255CYTYYDk2jXYeG
+         LAUQGKLoB3WHlj5N9Fv12Z3c5mja5ilf1eWUb4R4Twwig+prXm9TNPBw7Cav5lC7SuGc
+         R1I3XVJ0FGoxEjkQ/rEKjhWaIMLxQgaSCmwJB3B3HqYe9AHiB5bpwW2DJfP9AQbpnau9
+         JKdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789396549; x=1790001349;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LpPRVgi7aIALsRKspaYc+kGuwDrBnRXT3lk0rEcHOXU=;
-        b=mT/yUfQ6NFZgk2BRYj5OchAk7ayW9VZ/R703M3fKqsQPqL9pX5SIW2BBGlMMPbMqGT
-         zIaSSZZEbbETsEm5twfaR2eDebdhBRZJABQXs0RNAJSsrdfxcEYnX1QJ7bbZESD8TDW1
-         MpKZY+J+iFmwgAEo4xXEkgCutkOW0eJ1bMwFD9NGfjnP+iIf9G6vWgKH7fuaoBg7Vhos
-         hrujpTBLf4F0Jo2rulLYmV0b7GRLX/X6RLhlF/ByUoYnwTD+AKCA57quXSINQ2Zr4vKK
-         F1jrjxFt8wHJR7BScmtxCk5kYqKJuExSnm59yFMhX0VgGo+O+9rHGZiB8K3m6kqAUOI7
-         Onjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwq1epW0mhEXaLEQkGBbQ1dG5I1FKOT+ngJCBE14PoMxgSf5ntDkR6Qw2HuP3agDRZUjfBHKqVEI7zRNo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyIs94o45oPch9QJLBg4gsiNyOAfdkywTT86+bYTemzPye8v36
-	3f5kxNh5JhnlQsIS5qJMm1zXiQkG32gSuh/BnyUPTuPFQXeYwS/CzguRtW52CkQ8B7ztAzDIrbl
-	Dimnp1w==
-X-Received: from pjbin5.prod.google.com ([2002:a17:90b:4385:b0:39d:8c01:3e57])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2790:b0:398:9beb:a2b7
- with SMTP id 98e67ed59e1d1-39dd56bdc08mr8132347a91.25.1789396549085; Mon, 14
- Sep 2026 07:35:49 -0700 (PDT)
-Date: Mon, 14 Sep 2026 07:35:48 -0700
-In-Reply-To: <178939019982.94750.4441254006258061798.stgit@devnote2>
+        d=1e100.net; s=20251104; t=1789396567; x=1790001367;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LfpYWv8mDIWbhQzeiTGiBsvb4f261tT/LiVuOxiQSgo=;
+        b=VIdtGdvKuDsVkCIM5AQx96rfdB+MK1Tq+POd55cn1LNA4cCnPTKSBmq7BGZdwW0t+K
+         Oe2J+iN4Xn4Aj+vMdrrZhYarCFKGIu+Sp/PYnAkleF2VESTDoZ3ZTZwiVYLh5Hz5YRuO
+         uRSsqMiIYo3II2kAU5NLOnQXkAzPR+MXj/uZ7o1/PtlRxeG72O8t/Ow8GtbCqJgTE29a
+         MjR9H8bfBMKsvJgBMkObjGw17NSnI7MOAdFigls2ePntUrG9Ve7cgfUo8MS0hYtGGBVc
+         uvDl9NrWXLCC/yxA06E59a8LSBXTj2WCxsCahALwvFwsondeafUn2mAA7qjlFeXiPzml
+         /TyA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdO5mmCHO4iq89m0PQyyGZgY3i4DQQMgXcAOAZHH17HWjEKEtFcKsvtIIULeitOaxacPE7+7oDrbg6cMA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nW46rFERbpidIr/BQoeZNCGuUScCLNuiv0RS+0AgxGhvVBNhPo
+	Pne7XE6AFrXhTTKjJHwhalXI4hBjB5dBUo2y6oAVtZdG2jb5gg5xBEIhR9To4f5nY2Gc/e/+KNu
+	sHzzkEsJ2isLjUIeDvodpsY6FFJNJ58W5I1ejbi6aTr23ip8E6S3t98JYshM9DKtVqf0=
+X-Gm-Gg: AYBFou0ODvYzoeEKQY0hTPsWF/QK3P6eZCRVcMAKPgLbsMkaRw9FwkixSSMJw9Y0qZr
+	gOrwymKwitqEBqYxCr3ksZN35gsR+K2Y22dP26ussta2kKmSoQPnPQ/6PiCJeZAdDIMTkCxJbxI
+	rHBM1HkJMWhHrpowBjIWeSGo3FYOzks/LhL73pChRovn7XuxtAbTT7mZARM2mvdWyL1klBMU1jZ
+	yyWBOI9E0AN5n3jUJ9GnOhFIW5bo0I1IYosHPLHiubk/V3eaXEroRZICQ2owf29bw63figB0fpo
+	ipdLoo9TO8XpmATGk2ivy3PGIuIoHYad4FluTh+K7RKM7eODfXeG5WcXbzTzp6g7AXuraflLSn9
+	lKuw/ppC2/J0XghBo0pzr7EwxWx0sn5sHTi5bZ/KhOBsEUz8VxfKykl9TlVYZ5jluz7dE8A==
+X-Received: by 2002:a05:6a20:918b:b0:3da:e7db:5afe with SMTP id adf61e73a8af0-3db405d3f9amr6924977637.14.1789396567139;
+        Mon, 14 Sep 2026 07:36:07 -0700 (PDT)
+X-Received: by 2002:a05:6a20:918b:b0:3da:e7db:5afe with SMTP id adf61e73a8af0-3db405d3f9amr6924867637.14.1789396566556;
+        Mon, 14 Sep 2026 07:36:06 -0700 (PDT)
+Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c652ab37sm5247998a12.11.2026.09.14.07.36.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:36:06 -0700 (PDT)
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 20:05:58 +0530
+Subject: [PATCH] usb: dwc3: qcom: Add support to skip phy management by USB
+ core
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <178939017565.94750.9431053336761330458.stgit@devnote2> <178939019982.94750.4441254006258061798.stgit@devnote2>
-Message-ID: <aqgGRKOE138ePqmX@google.com>
-Subject: Re: [PATCH v16 02/13] KVM: x86: Prevent host DR7 debug register leak
- into guest OS on NMI
-From: Sean Christopherson <seanjc@google.com>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@kernel.org>, x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-xhci-skip-phy-init-v1-1-9c46b31a5a39@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAE0GqGoC/yXMQQrCMBBG4auUWTuQVAnUq4iLJpmaXyGGTCuV0
+ rsbdfkt3ttIpUKUzt1GVV5QPHODPXQU0phvwojN1JvemcGeeE0BrA8ULunNyJg5mtH5ODhvjxO
+ 1sFSZsP6ml+vfuvi7hPl7on3/AJHu1+B2AAAA
+X-Change-ID: 20260914-xhci-skip-phy-init-d0a6bd96b13f
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789396563; l=4556;
+ i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
+ bh=JSOYkk1sGGaCjE3i0cw3Y06fiQPH0EUnCpLAagRRTWo=;
+ b=8sWib0iVeloFYe7LoOk7asVkDiJUxtbXTvn2mXHdgC6Jf40Kp6XNjvgzz3/nLHcJ8OwjX0qsr
+ aTrdpWVuUswAFrcpZ4vzvItE+kHwEgMiUMFbUn4NNFHYKqBmPE945TY
+X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
+ pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIwOSBTYWx0ZWRfX3qc+wyyxkpzA
+ 3CLjXGswT3lSjFRHIni0aRb0t3BQ/hbSJHZ+LTQeAWqk2WqwOhK+50jMEn15tY6I3wSR/ygK6ww
+ fLbKwxgjlZljDYzkKXQVQjZWTVf4v1re20SZitVVndQ3YEKNahp/O5cfXrjgmFOmaqzUMrNDEOK
+ 0x1jv18Vqh8p4Za5Xq7O30SquhG01YPFLZmycF0JDaEO5KJT4GQ1L/33PZPViL5EAj+XrxEM8ug
+ hq3l+GgKzOnkiwEkvP6gPFCIcKsdpX6ucwCX8/VTw9URUFfT6/6ijNvwerx4/vBO0RS4JMRspUM
+ oW27GFOs+JsqBHKQ4PgQd8yHwn2DvIp9v5TDt2F5JRhq5c8ZTtKFqZE3LJubiFviLMGbd/zyfFh
+ hzwJZrlK9dyUn74n3z9FyUmIk2SQ47cQe5gGBvRGjY40N58gtW6mlAEBEHJ4G2mpE5mxeqTNJYD
+ sFap3wjDJboMq/qpN3A==
+X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa80658 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Ad8HgbVwfoR85nvhAlAA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: 5uLsXszoSBkWIo4WfnqImH0ZFOkX-eRw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIwOSBTYWx0ZWRfX+uoLAsNP3ZCk
+ O67jCnaPyEluyXeekVi5i1SsgSEX8xtNfPhGoCdj/EkR5VSpE25Jh9ZibCMeKRILJz4rBdniZl6
+ TJGLgK+j/79SOnNb+1zN/qyem/4wYnw=
+X-Proofpoint-ORIG-GUID: 5uLsXszoSBkWIo4WfnqImH0ZFOkX-eRw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140209
 
-On Mon, Sep 14, 2026, Masami Hiramatsu (Google) wrote:
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> When KVM enters a guest OS, host hardware breakpoints are disabled
-> before running the guest. However, an NMI can occur during guest
-> execution, where local_db_save() or arch_install_hw_breakpoint()
-> can be invoked.
-> 
-> In particular, if local_db_save() or arch_install_hw_breakpoint()
-> is executed from NMI, hardware DR7 can be modified or restored with
-> host breakpoint settings, leaking host breakpoints into the guest OS
-> or clobbering the guest's debug registers.
+DWC3 driver does manage phys itself sufficiently for Qualcomm platforms.
+If xhci-skip-phy-init is not set, the HCD core does a phy_init and phy_
+exit is done only when roothub is being destroyed. Due to this, during
+system suspend in host mode, although phy_exit is done by DWC3 core, the
+init_count on phy is never down to zero since HCD core also did an init.
+consequently causing phy's exit routine to not be called. Hence, add
+support to skip phy management by USB core.
 
-Not for local_db_save(), at least not AFAICT.  On VM-Exit, both Intel and AMD
-purge DR7, i.e. load 0x400, so local_db_save() => local_db_restore() is more or
-less a nop.  Even if that weren't the case, actually saving/restoring DR7 would
-be the right thing to do, in any context.
+Some Exynos platforms still do rely on USB core for phy_calibrate calls,
+hence disable USB core management for Qualcomm platforms only.
 
-> Introduce a per-CPU flag, cpu_dr_in_guest, to indicate that the CPU
-> is executing in guest mode. Set this flag in vcpu_enter_guest()
-> during entering the guest with disabling host breakpoints.
-> If this flag is set, local_db_save() and local_db_restore() return
-> immediately, and arch_install_hw_breakpoint() returns an error.
-> In addition, protect cpu_dr_in_guest in within_cpu_entry() to
-> prevent recursive #DB exceptions.
-> 
-> Fixes: f85d40160691 ("KVM: X86: Disable hardware breakpoints unconditionally before kvm_x86->run()")
-> Assisted-by: Antigravity:gemini-3.8-flash
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
-> Changes in v16:
->  - Newly added.
-> ---
->  arch/x86/include/asm/debugreg.h |    6 ++++++
->  arch/x86/kernel/hw_breakpoint.c |   10 ++++++++++
->  arch/x86/kvm/x86.c              |    7 +++++++
->  3 files changed, 23 insertions(+)
-> 
-> diff --git a/arch/x86/include/asm/debugreg.h b/arch/x86/include/asm/debugreg.h
-> index 854d82b88ff4..50f830972698 100644
-> --- a/arch/x86/include/asm/debugreg.h
-> +++ b/arch/x86/include/asm/debugreg.h
-> @@ -18,6 +18,7 @@
->  #define DR7_FIXED_1	0x00000400
->  
->  DECLARE_PER_CPU(unsigned long, cpu_dr7);
-> +DECLARE_PER_CPU(bool, cpu_dr_in_guest);
->  
->  #ifndef CONFIG_PARAVIRT_XXL
->  /*
-> @@ -129,6 +130,9 @@ static __always_inline unsigned long local_db_save(void)
->  {
->  	unsigned long dr7;
->  
-> +	if (this_cpu_read(cpu_dr_in_guest))
-> +		return 0;
+Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+---
+Initially, a patch was sent adding software_node properties [1]. But it
+was causing a bootup issue as mentioned in [2]. Hence a revert was sent
+to fix it [3]. This patch uses a different approach as opposed to adding
+sofware node properties and was tested on sm8750 mtp.
 
-This is broken.  If an NMI hits between KVM writing cpu_dr_in_guest and clearing
-DR7, and there are active breakpoints, then local_db_save() won't disable breakpoints
-as it should, and the relevant code in exc_nmi() will run with breakpoints enabled.
+[1]: https://lore.kernel.org/all/20260723-dwc3-skip-init-quirk-v1-1-97682bb44ebd@oss.qualcomm.com/
+[2]: https://lore.kernel.org/all/cbb4ae94-7862-4d91-b01d-0d7f18d49a45@packett.cool/
+[3]: https://lore.kernel.org/all/20260909-xhci-fixes-revert-v1-1-7cc97fa0f307@oss.qualcomm.com/
+---
+ drivers/usb/dwc3/core.c      | 3 +++
+ drivers/usb/dwc3/core.h      | 1 +
+ drivers/usb/dwc3/dwc3-qcom.c | 1 +
+ drivers/usb/dwc3/glue.h      | 2 ++
+ drivers/usb/dwc3/host.c      | 5 ++++-
+ 5 files changed, 11 insertions(+), 1 deletion(-)
 
-	kvm_load_xfeatures(vcpu, true);
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c59..d9f4e4109abb 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -1694,6 +1694,9 @@ static void dwc3_get_software_properties(struct dwc3 *dwc,
+ 	if (properties->needs_full_reinit)
+ 		dwc->needs_full_reinit = true;
+ 
++	if (properties->skip_phy_init)
++		dwc->skip_phy_init = true;
++
+ 	dwc->gsbuscfg0_reqinfo = DWC3_GSBUSCFG0_REQINFO_UNSPECIFIED;
+ 
+ 	if (properties->gsbuscfg0_reqinfo !=
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 608daeb7ef10..b72869380933 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -1420,6 +1420,7 @@ struct dwc3 {
+ 	unsigned		wakeup_configured:1;
+ 	unsigned		suspended:1;
+ 	unsigned		susphy_state:1;
++	unsigned		skip_phy_init:1;
+ 
+ 	u16			imod_interval;
+ 
+diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+index e6b6beb38fcb..5387658dd38d 100644
+--- a/drivers/usb/dwc3/dwc3-qcom.c
++++ b/drivers/usb/dwc3/dwc3-qcom.c
+@@ -738,6 +738,7 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+ 	probe_data.res = &res;
+ 	probe_data.ignore_clocks_and_resets = true;
+ 	probe_data.properties = DWC3_DEFAULT_PROPERTIES;
++	probe_data.properties.skip_phy_init = true;
+ 	ret = dwc3_core_probe(&probe_data);
+ 	if (ret)  {
+ 		ret = dev_err_probe(dev, ret, "failed to register DWC3 Core\n");
+diff --git a/drivers/usb/dwc3/glue.h b/drivers/usb/dwc3/glue.h
+index d738e1739ae0..72c5593e657a 100644
+--- a/drivers/usb/dwc3/glue.h
++++ b/drivers/usb/dwc3/glue.h
+@@ -14,10 +14,12 @@
+  * @gsbuscfg0_reqinfo: Value to be programmed in the GSBUSCFG0.REQINFO field
+  * @needs_full_reinit: indicate the controller may not remain power during system
+  *			pm and need full initialization
++ * @skip_phy_init: skip xHCI PHY initialization on host init
+  */
+ struct dwc3_properties {
+ 	u32 gsbuscfg0_reqinfo;
+ 	unsigned needs_full_reinit:1;
++	unsigned skip_phy_init:1;
+ };
+ 
+ #define DWC3_DEFAULT_PROPERTIES ((struct dwc3_properties){		\
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index c5674161b2b0..3fb8be8be590 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -130,7 +130,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
+ 
+ int dwc3_host_init(struct dwc3 *dwc)
+ {
+-	struct property_entry	props[6];
++	struct property_entry	props[7];
+ 	struct platform_device	*xhci;
+ 	int			ret, irq;
+ 	int			prop_idx = 0;
+@@ -174,6 +174,9 @@ int dwc3_host_init(struct dwc3 *dwc)
+ 	if (dwc->usb2_lpm_disable)
+ 		props[prop_idx++] = PROPERTY_ENTRY_BOOL("usb2-lpm-disable");
+ 
++	if (dwc->skip_phy_init)
++		props[prop_idx++] = PROPERTY_ENTRY_BOOL("xhci-skip-phy-init-quirk");
++
+ 	/**
+ 	 * WORKAROUND: dwc3 revisions <=3.00a have a limitation
+ 	 * where Port Disable command doesn't work.
 
-	this_cpu_write(cpu_dr_in_guest, true);
-	barrier();
+---
+base-commit: 7f69cecb6098fada87b010c911aa736a5af8f679
+change-id: 20260914-xhci-skip-phy-init-d0a6bd96b13f
 
-  <NMI here is problematic>
+Best regards,
+--  
+Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
-	if (unlikely(vcpu->arch.switch_db_regs &&
-		     !(vcpu->arch.switch_db_regs & KVM_DEBUGREG_AUTO_SWITCH))) {
-		set_debugreg(DR7_FIXED_1, 7);
-		set_debugreg(vcpu->arch.eff_db[0], 0);
-
-> +
->  	if (cpu_feature_enabled(X86_FEATURE_HYPERVISOR) && !hw_breakpoint_active())
->  		return 0;
->  
-> @@ -157,6 +161,8 @@ static __always_inline void local_db_restore(unsigned long dr7)
->  	 * not be good.
->  	 */
->  	barrier();
-> +	if (this_cpu_read(cpu_dr_in_guest))
-> +		return;
->  	if (dr7)
->  		set_debugreg(dr7, 7);
->  }
-> diff --git a/arch/x86/kernel/hw_breakpoint.c b/arch/x86/kernel/hw_breakpoint.c
-> index f846c15f21ca..68de7ed79d88 100644
-> --- a/arch/x86/kernel/hw_breakpoint.c
-> +++ b/arch/x86/kernel/hw_breakpoint.c
-> @@ -40,6 +40,9 @@
->  DEFINE_PER_CPU(unsigned long, cpu_dr7);
->  EXPORT_PER_CPU_SYMBOL(cpu_dr7);
->  
-> +DEFINE_PER_CPU(bool, cpu_dr_in_guest);
-> +EXPORT_PER_CPU_SYMBOL_GPL(cpu_dr_in_guest);
-> +
->  /* Per cpu debug address registers values */
->  static DEFINE_PER_CPU(unsigned long, cpu_debugreg[HBP_NUM]);
->  
-> @@ -102,6 +105,9 @@ int arch_install_hw_breakpoint(struct perf_event *bp)
->  
->  	lockdep_assert_irqs_disabled();
->  
-> +	if (this_cpu_read(cpu_dr_in_guest))
-> +		return -EBUSY;
-
-If we decide this is how to fix arch_install_hw_breakpoint() clobbering DRs from
-NMI context, I would rather have more generic flag to tell perf that KVM is about
-to enter the guest, e.g. so that we don't have to separately solve the same problem
-for other perf events:
-
-https://lore.kernel.org/all/3585d823-00f3-46ae-a799-b62a95743e76@linux.intel.com
