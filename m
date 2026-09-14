@@ -1,137 +1,108 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4622D876B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789352304; cv=pass; b=aE3LCiRr7eOlAOd/gIct5WxhTUERRQUedHaG3AfY6KHHL+QiBF/o3AibnqJf2lefhlaw/dJwjsfYxkGt/4ibO4a2+tHFdyGSgj42uAUuaEE26noKlZfhV8vfuxsodb/MGgf5LIYX/ZHshNjs6dim/Q6Jrpo79iY0BY3OvXViQvY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789352304; c=relaxed/simple;
-	bh=XRzNtKPR6AKm+sBG91uXww4VHhEG5iSLy5tnfi2M7lc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QWKn/Xq+SOKP82AisYJ4mJcGINpuV1uxZXku7l4YI4s1Mf1TxOMLonaIVw530nvFd438wHKC0RrdDztxokxN624cmKyOTjXigaDLSDSVaz5mtqiEPmtiX/QN4Lwbf2XhHVG0YGK7WyUmLW/0jVYJ9pKLFCzTVdcoV+zzhJNtQtg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V8rNW4Wi; arc=pass smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9830633998
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789352421; cv=none; b=LRl2n93g2VzA87KlQRKvYB5ym++oDaFCE4vlg2orj1pE3rMywjs0ftYK1ihQM3NGwL/bXJm8cWZo5a7nfq54Tk2D48ThtI75m8cl8Rz7BXNC0W6d32q0+Q9UEB4sMJwuYYq29Ln0ZhlKAR0riw8o/S7jB5XsNxoXGiaPvwSPctg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789352421; c=relaxed/simple;
+	bh=ItUAaJ9Wdza/1n9xkRWUnVpV4ybgd/bt14CQdsSCP4o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=El1Hewcq4Fm+cHxpH/L048ljwRgAOX4AEqwTLKi17PGtqv/5piGUvXnf5hD2a4YZz7pyVZS57tbGzTgGu8zWxaVvR7KiDetEcPPJSfvFp3MShfTgl6dOnoqH/NidA+kIcqrdqEM2Us8NUumzIb2SmWD+YEvzi+ix2DbNSQ9p9Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fR4ywe9v; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V8rNW4Wi"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so1684479e87.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:18:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789352300; cv=none;
-        d=google.com; s=arc-20260327;
-        b=opgzQp3AEOqIegpIbJ6ZvJx3K/ounfwBd22bE0tzQrjY8SOfXsi8SeLsELdLjWx2O7
-         /jIu9LpVQBu8WQA7qG1mTR1lhKck8vnY2Qh3BRX1WoORB29FV6cFqmsHOOth58EW2jd2
-         ONfZFwUAeusPFs92/N8OJtSx4h4lRmSuL8Q9PKBeN3C++ixvwanHTOVYDo12PgL9xH+x
-         wOV0qDrKq7N2Gs7wsUgZbFterP4GYKh/76SvTis3zfWaqLPxQ6GYTaxKPOpuQ6/5K/As
-         Ri1vfS8ySDURCKe7A3XSjDwJnWKx1Msn/4ISoOUwY/ZT4uCMEmvZ+a3vLGkNFu03n2OX
-         MyJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yKvkuA5kghZYj6k0K2bq1InB60nQreojZmTTUXP/Hrk=;
-        fh=SsfNBMyAxafwoLepCUjGbj07Lc7+FHfpNTYaot19Bqc=;
-        b=ah9o3H4p6af3utUrsVpX2PI/iX5ZSNY2/6tlaE0cYgnZ7aVYPu3f8WSqC4nC17sHT/
-         86vBO5ck4C5Bn8y7wneFtBQgT5jTxQL/NyPipyJ8Y7uSYwRnORKAkOU9XVWGcd77CvbP
-         S39wQkvWtg4RdFcWD0WiFEx11/xdDD8hU0+e6esQyUYXhTYhIxjj5S/kAFkQmLoCK7uc
-         47gdoY6lYe9YJalrqEZ42i00C2NUl04ib66Q4/DewMA+HJOAOH/fuXJX4iWb91pvmFBo
-         8CNfUirXDgsRk2x6T2pRoNY67UeFJm7Vfu69ybCGFwuHoPotloCaxHRy28sGScxmlvkm
-         vCow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fR4ywe9v"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso28449095ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789352300; x=1789957100; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yKvkuA5kghZYj6k0K2bq1InB60nQreojZmTTUXP/Hrk=;
-        b=V8rNW4WiRdHVUWYra7yVHFYk8KAgjTBa47ph9/5xreOKTq9cfLPcKRP+gfYmo7JWsC
-         syVUByLfRLNyigdih99PoOsCZYr5HH1RZ1UrD7gPuxkwqE74t471IZLXNAuDDuACG7Dy
-         PFE7kyVep3ch16NARUjkH7Rj6fslR2lyM49X1IHL9RQ6H701CZEipE00ymBaEtT7uXg5
-         ABFtvrNo0K2FcROAi6Y5w0KHXueLAjTRj/awsvJRpFsWEnG5WAJDA6eDHqnzCMPsq4IX
-         F6nH3roc86yAqH7NCYAw/arf5oVQ9o/MMlIDVdQaiJ75618QSG8wjcU4ijfXNYIGuwqc
-         6H6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789352300; x=1789957100;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789352420; x=1789957220; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yKvkuA5kghZYj6k0K2bq1InB60nQreojZmTTUXP/Hrk=;
-        b=Ib9kbePPuzH26+0l8966pzsgk9a8KLbMyECmIiAvuK8fPkl0LmdoaksneVvm1cR4Kq
-         I5TJj+S3mNGkyjXTAK/esItBWnVnm4rG55KGXW48XLW5XlbqOd04eoi7933Ypj4iQloZ
-         Fot9ydweOdH/lSSzQvyBc4DyYrK/tKYuXn3dtD9kHXvGeUDC2shtoPbbwMUF1jYzLrcc
-         hzxvTDx4fQUUrxWdZnLGcd6MKf2EQ2X+EcYyJn+GXg5/c955yglO0wCbR2CFXJdOLbVz
-         tOd5g9HEVzb2XWHNaJcTAOxGMSrLHL5pCS1tjYjwrV9yrKieNyg/zSE5icEIkBDxdo54
-         f5cA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+00T1sNeEDJcc9sL/tby9GDSuRSlwDxTLqBxFFUMgqp1Iqe127MI5LrxmmXhXJylyi7JXRLUvXWKNtBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kr0D5yzgBIn6AdgkB5nbaVcgIeuC1RZs/wX7CbxiFTM2nj2lXe
-	ZkTOYFwvtFT5SWwzW7W7xoqsJkKdCHc6jZ6kQHKuFGO2UGtXlUUrDG15ltJvIM2tp0W9xyn6HWd
-	/+G6CtyVXVvHm0KeO7MGlYXA/vtzRG0c=
-X-Gm-Gg: AYBFou0CPudsgKHbfwV2Cf6I0rdplDDzOnzxpjbPzVgToqsk6nC0+EkRGN/wwD6wZ91
-	kCTKnUH1SS5mmEQm8eZ5Gzb36xCkPUP6epZoY10xTohqRTRU0bRVv/22POi4KN7ckct/TEUEfGr
-	MafMMMIJngd3rFcBETQWBfSIjBp9bGl7tO2D40E3KWm7P0HSWzz31wn0wSUULS8veedhTyOgCdu
-	RRm7fJE9ETlkNM+WBPatCfm+oQQ4miCZk9r3+JWWPLNsR+l+bexIaml7z25YKulRrKY7bq6azIq
-	5GJCZ6n+mxMNM3wDVnUPNTwr0G831gJixe9G5J+wSXEb0GiDD46HNY1U5nAoWdLpgPOVGrmyI7m
-	QUGS9CUMyJa0RajzxvHXr+HIl
-X-Received: by 2002:a05:6512:318a:b0:5b6:421:a8fd with SMTP id
- 2adb3069b0e04-5b8ae6b9093mr149563e87.29.1789352300428; Sun, 13 Sep 2026
- 19:18:20 -0700 (PDT)
+        bh=UfLRzFeHvv0Zv9+KpeI9Bfuaw4G1ta+ZF3c/S1UYIso=;
+        b=fR4ywe9v9RJefE+ErUkWfj95sPw9OQCOjr2bej5J0TvYTI72F0GbEdP4AAey3sCRlm
+         WY/pnZJNZvFqjKGX2rvpq1H2HiJeBLOt6NIOS6Cb6cTKVAF0hQ1XCye1Riv1bwSxatkr
+         92R3aSOLMt6d2hQXR4zCM1On4uo97x7h5URPj4tGR3WBaskEmPOdcaVm8WfYdgarbfYT
+         UVOHeiIQU9qq5J0jQt1wUIPBjKAwUo6XEhEtN/wbItDdiSY3vwSseEG9TdkVzXEoS5md
+         GAfvoFW6Owcg/i4GAMSxdWfe4T4rAWe/EPZViIRP3+ltCBLv+yRhBoE0W4V9357KzhUc
+         pwbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789352420; x=1789957220;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UfLRzFeHvv0Zv9+KpeI9Bfuaw4G1ta+ZF3c/S1UYIso=;
+        b=fprTcgdEApEkWwqgjdgbTDsHbebCylmxCUuG9WRsICIER0SRSfT/N/fS7hvRjDd2Yr
+         AM04izMa3770f14VYt4j/BV0iGyaPsImNxIYImmRu6hl4G01Y9ytLJB1UVHgpbNJGguv
+         RI6+biHyDkIIxfpZkqyH9oXc9omjYdwXVeYmp0UFSX1B6oGZtqt9JThh8/mlirNasNwU
+         1xrvqCyNdvNcXMfw0b4KtrwBe78trZYwjNtx99gWsI4rB+LPjT0T6+8MzDkSYsycX57c
+         foveqq8ewt9uFWq8iqgzHNWWK5GVWrWiaQbZ9nCGbbxJjdTUL6NdnedEmEzfJdwtBV3x
+         20Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBwPIXoXT2UgEl5facGlok2MHV94DYHq6QVXsFrPjHHz4LCHo1M49mJ9NdQCcdcKdcRua3iiRiTc+TFhnwo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPsA1iJhPscMgXYzfniXEeYKWx49EZWhFxPgU1quVMUwIwlj6r
+	GXr8Fr+81P2e1mbePJ0irfU350F1kom01PdrZ7CUpcwH3+buE4YIWaRS
+X-Gm-Gg: AYBFou0SUP0+ehR6whzCY6UgWnMdNhzxKqk4XZXorW3t5lBorFU1P4KJsJBO7XIxovZ
+	zcQ6OWSBX0kc3GPizpgagZ9W3yrHODpuKiRQXIge5O/ZXaasOhpfZECdEF7T2OcjRn5qjiVVeXI
+	ZlQPWmpRrz/O+/MI4yomncwo+ePhYvS8VsUQQGHm5X/rcZVOEk79hNy88e/vJyotQgX1BGI6Enk
+	wxUbaOfvGM2oTRsGCPaPwPoJyRTL2xyoiJgUX9+4uWz2wqnkM3hAHwfkz1U4kpUXAR0MVyl5MU2
+	hyrGiVoKhU6MNtUY2zcVUQJStOsB8O6fTIogOJiK+MA7UELEYrRQI88CF73cD0qcYmIFfyUXfNN
+	l2jyWZV7ZGu6I2zpUqAu6IoFNGFtLKAZaZl92OT/W7lMKsBoG2WcXj/recq4lWTT83v6Px4SRr2
+	Pqv9+TdrxXe0j2vwsIPks5tjMa96Btf+uOPgK7SUEq4FKv0P/8FuboMWfI9DeeFRqlvaxzqCHHn
+	IiISPIeS0dKyghZ9iNJ4VHSWCZIIuCax3uw99o5CfLCoB/VVtys96stTw==
+X-Received: by 2002:a17:90b:17cd:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-39debf88a21mr1358455a91.1.1789352419921;
+        Sun, 13 Sep 2026 19:20:19 -0700 (PDT)
+Received: from ?IPV6:2607:f598:b3da:2e70:b8cf:e0b4:f155:e178? ([2607:f598:b3da:2e70:b8cf:e0b4:f155:e178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a8a9sm22496831eec.13.2026.09.13.19.20.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 19:20:19 -0700 (PDT)
+Message-ID: <99263485-90d4-4321-a434-8c6d1da6b53d@gmail.com>
+Date: Sun, 13 Sep 2026 19:20:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912-b4-bunzip2-blocksize-fix-v1-1-c7384bbfc954@gmail.com> <20260913190904.bd6811bc8e094047017c67f3@linux-foundation.org>
-In-Reply-To: <20260913190904.bd6811bc8e094047017c67f3@linux-foundation.org>
-From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 13 Sep 2026 22:18:07 -0400
-X-Gm-Features: AcwNN1VM8XngtNQB-pgIz8uVKeDvAsmMl48FSCAoRIZeQw0QMDqfpxAw9pClylo
-Message-ID: <CAEdQ38FOnZPmhc2LYOCXS4sqpi4gqLGnkUMA7EXyDFL_9A=X0w@mail.gmail.com>
-Subject: Re: [PATCH] lib/decompress_bunzip2: fix off-by-one in run-length
- bounds check
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Alain Knaff <alain@knaff.lu>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Support WUJIE15 PRO HPT
+To: Randy Dunlap <rdunlap@infradead.org>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Armin Wolf <W_Armin@gmx.de>, Gladyshev Ilya <foxido@foxido.dev>,
+ Mingyou Chen <qby140326@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, platform-driver-x86@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <0da43a8c-1755-49fe-b8e2-403489297f06@gmail.com>
+ <38c933e8-b026-42e7-8b68-6b469e39abe9@infradead.org>
+Content-Language: en-US
+From: Bozhen Peng <bozhenpeng93@gmail.com>
+In-Reply-To: <38c933e8-b026-42e7-8b68-6b469e39abe9@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 13, 2026 at 10:09=E2=80=AFPM Andrew Morton
-<akpm@linux-foundation.org> wrote:
->
-> On Sat, 12 Sep 2026 14:17:35 -0400 Matt Turner <mattst88@gmail.com> wrote=
-:
->
-> > The run-length path rejects a block when dbufCount+t equals dbufSize,
-> > but the loop that follows writes exactly t bytes starting at dbufCount,
-> > so a block that fills the buffer exactly is legal. bzip2 allows it too:
-> > its decompressor bounds a block at 100000 * blockSize100k and checks
-> > that limit per byte appended. Use > instead of >=3D.
-> >
-> > bzip2's encoder stops filling a block 19 bytes early, so nothing it
-> > produces ever reaches the limit and the bug stays hidden. Compressors
-> > that use the full block size do reach it: an lbzip2 -9 image whose bloc=
-k
-> > ends on a run fails to decode, and a self-extracting kernel built that
-> > way does not boot.
-> >
-> > This code came from busybox, which fixed the same line in 2013 in commi=
-t
-> > 932e233a491b ("bunzip2: fix off-by-one check").
-> >
-> >
-> > ...
-> >
-> > -                     if (dbufCount+t >=3D dbufSize)
-> > +                     if (dbufCount+t > dbufSize)
->
-> Sashiko thinks there's also a potential overflow here which could be
-> addressed in this patch.
->
->         https://sashiko.dev/#/patchset/20260912-b4-bunzip2-blocksize-fix-=
-v1-1-c7384bbfc954@gmail.com
+Thanks for catching this. I'll fix the underline in v2！
+- Bozhen
 
-What's the appropriate flow to/from busybox (from which this code
-originates)? Apparently we don't sync from busybox, but do we want to
-avoid divergences?
+On 9/13/2026 7:01 PM, Randy Dunlap wrote:
+> Hi,
+> 
+> On 9/13/26 6:12 PM, Bozhen Peng wrote:
+>> diff --git a/Documentation/wmi/devices/bitland-mifs-wmi.rst b/Documentation/wmi/devices/bitland-mifs-wmi.rst
+>> index 9e86ecc29..fd966cf18 100644
+>> --- a/Documentation/wmi/devices/bitland-mifs-wmi.rst
+>> +++ b/Documentation/wmi/devices/bitland-mifs-wmi.rst
+>> @@ -7,6 +7,37 @@ Bitland MIFS driver (bitland-mifs-wmi)
+>>  Introduction
+>>  ============
+>>  
+>> +MECHREVO WUJIE15 PRO (HPT) firmware variant
+>> +-----------------------------------------
+> 
+> The underline should be at least as long as the heading line.
+> 
+
