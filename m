@@ -1,70 +1,170 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-208.mta0.migadu.com [91.218.175.208])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57153472528;
-	Mon, 14 Sep 2026 12:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC6F463B68
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.208
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389117; cv=none; b=rlax4M+3QsT0Z5x/ktK0atyuLoW6VzFnMBhvcv/NKm5KJRFOVZbMPTRYrUMSvBwr2X29nnYPaZaLOr8sfiGBMAk2QzcAulE75+VPFOxA+zWRYZMLQQC+Q4ThvCjqMraDNyxcOC7hPBrD4jYnPKblfzZmwS2O89K6qMHL/7dgtR8=
+	t=1789389118; cv=none; b=Y1WzIhP0rz+M18qfGsw1uvlo+X9iH8f1XQStr1T3g2ek0nBix82bOluRSzCc2QknUjAWnke8PPtMDPQetxenFZSapxjwQ4ViQTeSJEkfc4OcH3LOjx+AK6nBZKBdh2wk4HiNC3Wps3Qp0dHjBEj5Q8GH5r6UkPSCIN5S6SIiz+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389117; c=relaxed/simple;
-	bh=JprKAj3WcBPMjGGlKwMb7u1QmjKgBn6gWZ8gnKo1/yo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jx9YUqmk83NiNwbuueu3Gv5MytrVXU8lhhfkDQreGnJafWEkposTKd0b7OtfMmU4ghQuNlQifCgzVWttjXTISeUln9ud4kKEZkd0wqS0R6rb7Dq8GpJv81kjYAovvZp1M4BgTijRe+5S+qZqs6aida6jkCrcNlPJEUM4z8Wrph0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gFuUeK4k; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789389118; c=relaxed/simple;
+	bh=/ejeggqsmQIRp7dTYKNmiDe/IHY+KtxEWhGqQu4hgx0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tjk3nqh95EVpsIzhIO6dwvkZRjZbnKgu4uOYm+caBF4sZ0RLh1ax8Dvn3AxU0Bl57mSw6pgS8MQZT1hCtpTTQFWe2mWFoCG5DAVH/tqTUHBgiFyQTW//WwlxzopYL9R0UQbd6yOsIeDWI7to3LEsveOdyNoJenjsElvlPtHqDrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dI59SaSo; arc=none smtp.client-ip=91.218.175.208
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gFuUeK4k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789389106;
-	bh=JprKAj3WcBPMjGGlKwMb7u1QmjKgBn6gWZ8gnKo1/yo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gFuUeK4krZqgQHfcKDSyoAiSnzipqUN7ouuMdphPMobsw04OFTxt+5Mu9HPYAkASH
-	 tR2s65Q7i+1ETuV57y+xhrIbLgPZRPMwAZvJeMXbZb/TImo4m1pSyo9ap6O7VEYQw7
-	 Xk/Mh4fIw3DrKK9sHmNYe91I8glwXanJQvD/OKlI9lhsEqFoHC2qrXyCOnH/URx6tr
-	 AFE5hvIoMNjspfyGTdcxy728DGtsXkWG/emg3ljf7+ItyrlnSwBIwH80kpF4UV5djl
-	 MPGMv3iwgpiAGbEwLiKwOpWaz0zgXFQJ0JOJQR3U95gna5Ap2G6ZjFbIUbzSLubvfi
-	 DXnpIWDkg9XKg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B049A17E020C;
-	Mon, 14 Sep 2026 14:31:45 +0200 (CEST)
-Message-ID: <a8610c0e-3332-46b1-9a28-1c1ef504a727@collabora.com>
-Date: Mon, 14 Sep 2026 14:31:45 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dI59SaSo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/ejeggqsmQIRp7dTYKNmiDe/IHY+KtxEWhGqQu4hgx0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789389112; v=1; x=1789993912;
+ b=dI59SaSo3o3og/j4mLbGKRwOkjr4VqVmEocuL56p277x9h3WBHVhKnC7giJk4KtBdo8e1k3Q
+ +RYv3Y6KWkfu+e2FxN9ZOxSYjPaoMsNOzZGNM5hsqPN6M9UfBKxex3hNE48FwZ052p0EURAPZXe
+ EHEFA7wNszjB3U0eGAQwCc7g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 00067274d6bc2178;
+	Mon, 14 Sep 2026 12:31:51 +0000
+X-Mizu-Trace-ID: 00067274d6bc2178
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	david@kernel.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com,
+	Baoquan He <baoquan.he@linux.dev>,
+	willy@infradead.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	kas@kernel.org,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,
+	Nico Pache <nico.pache@linux.dev>,
+	Liam R. Howlett <liam@infradead.org>,
+	ryan.roberts@arm.com,
+	Vlastimil Babka <vbabka@kernel.org>,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	nphamcs@gmail.com,
+	shikemeng@huaweicloud.com,
+	yosry@kernel.org,
+	qi.zheng@linux.dev,
+	luizcap@redhat.com,
+	kernel-team@meta.com,
+	Usama Arif <usama.arif@linux.dev>
+Subject: [RESEND v7 19/29] mm/madvise: free PMD swap entries with MADV_FREE
+Date: Mon, 14 Sep 2026 05:28:09 -0700
+Message-ID: <20260914122950.3283997-20-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914122950.3283997-1-usama.arif@linux.dev>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: dma: mediatek,uart-dma: add mt6572
-To: rva333@protonmail.com, Sean Wang <sean.wang@mediatek.com>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Long Cheng <long.cheng@mediatek.com>
-Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/14/26 14:10, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
-> 
-> Add a compatible string for the mt6572 APDMA, that is compatible with
-> mt6577 IP.
-> 
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+madvise_free_pte_range() only calls madvise_free_huge_pmd() for a present
+THP, and its PTE loop cannot descend into a non-present PMD, so MADV_FREE
+over a swapped-out THP silently does nothing. Over the same range as PTE
+swap entries it frees every slot, which is what userspace gets today.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Free it at PMD granularity when the advice covers the whole PMD, and split
+and let the PTE path handle the subrange when it does not.
+
+zap_deposited_table() moves above its new caller; it is otherwise
+unchanged.
+
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ mm/huge_memory.c | 34 +++++++++++++++++++++++++---------
+ mm/madvise.c     |  2 +-
+ 2 files changed, 26 insertions(+), 10 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 689a1f4286471..5f3d620c64a94 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2447,6 +2447,15 @@ vm_fault_t do_huge_pmd_numa_page(struct vm_fault *vmf)
+ 	return 0;
+ }
+ 
++static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
++{
++	pgtable_t pgtable;
++
++	pgtable = pgtable_trans_huge_withdraw(mm, pmd);
++	pte_free_defer(mm, pgtable);
++	mm_dec_nr_ptes(mm);
++}
++
+ /*
+  * Return true if we do MADV_FREE successfully on entire pmd page.
+  * Otherwise, return false.
+@@ -2471,6 +2480,22 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		goto out;
+ 
+ 	if (unlikely(!pmd_present(orig_pmd))) {
++		if (pmd_is_swap_entry(orig_pmd)) {
++			softleaf_t entry = softleaf_from_pmd(orig_pmd);
++
++			if (next - addr != HPAGE_PMD_SIZE) {
++				spin_unlock(ptl);
++				__split_huge_pmd(vma, pmd, addr);
++				goto out_unlocked;
++			}
++
++			pmdp_huge_get_and_clear(mm, addr, pmd);
++			zap_deposited_table(mm, pmd);
++			spin_unlock(ptl);
++			swap_put_entries_direct(entry, HPAGE_PMD_NR);
++			add_mm_counter(mm, MM_SWAPENTS, -HPAGE_PMD_NR);
++			return true;
++		}
+ 		VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
+ 				!pmd_is_device_private_entry(orig_pmd));
+ 		goto out;
+@@ -2525,15 +2550,6 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	return ret;
+ }
+ 
+-static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
+-{
+-	pgtable_t pgtable;
+-
+-	pgtable = pgtable_trans_huge_withdraw(mm, pmd);
+-	pte_free_defer(mm, pgtable);
+-	mm_dec_nr_ptes(mm);
+-}
+-
+ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		pmd_t pmdval, struct folio *folio, bool is_present)
+ {
+diff --git a/mm/madvise.c b/mm/madvise.c
+index fbb72ab49aa64..70acb39b8b3dd 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -678,7 +678,7 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 	int nr, max_nr;
+ 
+ 	next = pmd_addr_end(addr, end);
+-	if (pmd_trans_huge(*pmd))
++	if (pmd_trans_huge(*pmd) || pmd_is_swap_entry(*pmd))
+ 		if (madvise_free_huge_pmd(tlb, vma, pmd, addr, next))
+ 			return 0;
+ 
+-- 
+2.53.0-Meta
 
