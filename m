@@ -1,226 +1,105 @@
-Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8B73ACEE0
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F36390618
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789413251; cv=none; b=e4RWtq/BsRE1fuv5VsQG1CiiHoA/7xmgf7km12qYFb+hPoa9LOh4wp3rlouoq+/WAXiNYFyUumh5TbvGo5JZtsUpfJVCpsCHDReLnjvC3nWakfGmuDK3oaxQHa9e9Y9/8vjHQMdFCez/9N2JXViNrmLrieNyrtwgCkFcl2BwMmE=
+	t=1789413377; cv=none; b=fSzBlZaIGGRIbKp7u46WN+JDxxhyEMI2Jqvc3M9c4n85YNGCNKR7O0MvWKled/3RPNv/0foIa/nDZlEjSsV9Emepj5BbC/Ufxhn3gaEqskMwSM5abzZwJ+e55kwG99x/7nXzu+2KA96DWVQEO1SfO7RgwwjLvx6+Pw7C4tD5xR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789413251; c=relaxed/simple;
-	bh=E5rD+GC6hBExNZ+C0zpz9VB7RMnNCVhPsy+cbEyF7II=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pNIojqtqXj9vlDkN+A6t9knIsN5RsX265yIXv0gA0nBwt3+1lotB+RrlNf8HGf0gnYhWHiDw5FS0roYDKlnYWgHqVgrhQna/PezM2DjTHvmG6okvIi1NhFH5KhDdQPCuUV6ajl6L9Va2NxQjM/7ShIA+6YYg47r+QVHROJxONpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=L6DoL0Vj; arc=none smtp.client-ip=91.218.175.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789413377; c=relaxed/simple;
+	bh=ONhMYUvE1AYozDi9rjskj51lOvdoeRzP5ph8TVZxPSA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sB3Yl3sl6ChOGBp5YslziDlCxhcrCj40fVhEcQfXAyptNqfOpC09aHLo6o/VXAhMxn5yRegpXP+m/CMubV1ODN3T9P90BayiNNwDKqF2mS/SDkp2TVLzIGobfKyar3XFDQWnK/9IkzDyuUqCfsCFjPzZTGs42LCEC0h3gY/bTDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cX9u8qFX; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="L6DoL0Vj"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=E5rD+GC6hBExNZ+C0zpz9VB7RMnNCVhPsy+cbEyF7II=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789413244; v=1; x=1790018044;
- b=L6DoL0VjSHJapG1NLQ9mH2HPHE4+ogacHPTDmxAUULhBrwL8lARPy/X31kC+Sb2gPOQZjFxi
- Suodqrbvhzjow5Rpcr7ZIntSVkrml2f0ZcIRyNbvLar5/TcygyirmglubDKatJvnLdlTZjBQaVp
- 6Jth1DiSh0TvngOslX7tvzQA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 7dd95a410480780c;
-	Mon, 14 Sep 2026 19:14:04 +0000
-X-Mizu-Trace-ID: 7dd95a410480780c
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: Nam Cao <namcao@linutronix.de>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v6 4/4] rv/reactors: add KUnit tests for reactor registration and dispatch
-Date: Tue, 15 Sep 2026 03:13:37 +0800
-Message-Id: <7d213b110815da45595ad8cd7bcce5641fac3404.1789412799.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1789412799.git.wen.yang@linux.dev>
-References: <cover.1789412799.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cX9u8qFX"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9c60d5so165647166b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:16:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789413373; x=1790018173; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M6MtyxxEqlr2T5M/hPkFqK6tirGQWgQ6HId4VdLZRKM=;
+        b=cX9u8qFXYhsEWGdimKxyDNjjbjRxWsrc2w5QNXPYOM9Qy7YDF5eEuely871k3EHcgC
+         RKWnwzc0+A55M+vN8AEytSYgNmQgYz7cLc4waIpHVi6ZupRw6o9qpC4tbQEgrLmxNmFZ
+         NuwDRJ+0i4k2a2Vx3KNyc4pNejWikhQBtX5+9sRlFpa8swUj31ptIcRe3cZsVf6PhRqN
+         /kD7zLjqeLs/gJJ397XXcpiMnBaITn7M+PQ964HPIQPXycFDRuNyF7zGYo3s0YixWfDs
+         yz8h5n7Tmek22+JAcrv5TJGcV6gfV6SzD7wHi4YKMnTxhwuxZsxhTp6pAgDvElNl7C55
+         kLAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789413373; x=1790018173;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M6MtyxxEqlr2T5M/hPkFqK6tirGQWgQ6HId4VdLZRKM=;
+        b=FVAnL0jH5nFcJenyiRKT6lXMcK3xaK7M4VVuxLwvVh/c8jLDKnTDHcM47vpRTS/jNH
+         t5XTDoZzTHc6S9ERyvnIBrtDg7r2zd1kuslQVmw4vNgbxv8qMi69ciRdwQvPyMDwptQV
+         se2U0CUKlGo6Bzw3khLe3GaWz1/p6lQ7tipvIvn490gAQRb7ypqRQ1VYUDupnCIpUnJz
+         Mt72DojabpXn4RGppv2oaDsE1nb00XuDbXrGZU31vTvbgb4j9uJ8OCMQ6OK+tRpOsyUL
+         ITcwetuWdodvz+AW7o1TnDNI7TnexOFfYWGorenT+b2yZU2wN6chkpbvGubORM8kMkrc
+         tiHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzTAzfQMBM+bP/yP0CFnVzsB9oLgEHMmYgJQmHSBorT39GyYpRCQk+2YSHSN0D3SzmfdEy8lhUaqnICTUQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRBka4B28hIWjeGTSSwgdjD9vz6+kaZRdd6Vw09Uw7x7EdL14c
+	J6PNUVNR0JwzfqKOK9YMApqMS3iWp4Xvj11yCK8eZEheIm49UoYQIysHO1OOCSvg8gk=
+X-Gm-Gg: AYBFou0WTgmaA9PLSFkD4RsTqQ7Kw2TDXgWQ/emPB32xmRA/iwXOkKSIK8kQEBxauNF
+	WdIpCFc938kC535+vHbe1F7hUuUsCkSm+lR9H9e7i0y6dK35uZ3LBk7111YtWHGnmCbxBafYnEC
+	7o6SbhuXOwmmrQIWQ8vtuSUWRbSf44Ieo0Lce1gry/kBkqtEkcD2mFABfk6Crq/DUspb1KfQwyN
+	+gLqoiayyVCZNE9xbzueDQGelYAeSWKSzohW3Zo63qJgIvbZt/l1AG79SpTdbdydfHkGvgRyl9e
+	83OCR23Xr74CvCgZZqQFqDFN4FeUmL25+V0LmWnzUQdHiUr60/LObfLe8tbIP+n8J3+o7nu3w1F
+	FGwjUdDdg2YVJMMAPUxHzA6kG15Cxkd700+p+Pj3Xh3wsP95Zr5W3opXCYmkeu2aFxT0rRGPN3y
+	Cz4WAYDo78jcLysAcFF/Ns0fA1Es3qhePEuOAG8XEvtDxRx+JfMDhj8NlFiwQWtd+jEYLgnON0U
+	ZPKzHxXbTo=
+X-Received: by 2002:a17:907:c16:b0:c08:580e:899a with SMTP id a640c23a62f3a-c29c89cfb88mr58253066b.10.1789413373242;
+        Mon, 14 Sep 2026 12:16:13 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.248.34])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296601f4ccsm470075666b.20.2026.09.14.12.16.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 12:16:12 -0700 (PDT)
+Message-ID: <f33eacd5-2770-4f9d-817a-9b21a8b5330e@linaro.org>
+Date: Mon, 14 Sep 2026 20:16:10 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] media: qcom: camss: drive streams-aware transmitters
+ through the streams API
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Hitesh Patel <hitesh@ebytelogic.com>
+Cc: linux-media@vger.kernel.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ravi@ebytelogic.com
+References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
+ <20260914133416.1030231-8-hitesh@ebytelogic.com>
+ <CAFEp6-1yTw+p6B_dOPAtidiNvuYXqAq3PxwWiEkCp-G7ZtVhdg@mail.gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <CAFEp6-1yTw+p6B_dOPAtidiNvuYXqAq3PxwWiEkCp-G7ZtVhdg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Wen Yang <wen.yang@linux.dev>
+On 14/09/2026 16:57, Loic Poulain wrote:
+>> Subdevs without the flag keep using video.s_stream exactly as
+>> before.
+>>
+>> Signed-off-by: Hitesh Patel<hitesh@ebytelogic.com>
+> I would like to point out that Gjorgji has recently posted a CAMSS
+> stream API series [1]. Would that series address your use case, or are
+> there requirements that it does not cover? It would be good to
+> understand whether there is an opportunity for a common solution.
+> 
+> [1]https://lore.kernel.org/all/20260911062213.195007-1- 
+> gjorgji.rosikopulos@oss.qualcomm.com/
 
-Add KUnit tests covering the reactor register/unregister lifecycle
-(including duplicate and name-length rejection) and rv_react() dispatch
-(a no-op without a callback, exactly one invocation with one).  The
-mdelay() callback keeps the CPU busy so a timer interrupt lands inside
-rv_react()'s lockdep context, exercising the LD_WAIT_SPIN wait type
-from the previous patch; a spurious lockdep splat there would show up
-in the test output.
+There's a fair difference in the volume of the code in both cases too.
 
-The dispatch tests rely on reacting_on being enabled, since rv_react()
-returns early when it is off.
-
-Reviewed-by: Gabriele Monaco <gmonaco@redhat.com>
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- kernel/trace/rv/Kconfig             |  12 +++
- kernel/trace/rv/Makefile            |   1 +
- kernel/trace/rv/rv_reactors_kunit.c | 111 ++++++++++++++++++++++++++++
- 3 files changed, 124 insertions(+)
- create mode 100644 kernel/trace/rv/rv_reactors_kunit.c
-
-diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
-index efa930f94ea4..9bfd429ffdea 100644
---- a/kernel/trace/rv/Kconfig
-+++ b/kernel/trace/rv/Kconfig
-@@ -113,6 +113,18 @@ config RV_REACT_PANIC
- 	  Enables the panic reactor. The panic reactor emits a printk()
- 	  message if an exception is found and panic()s the system.
- 
-+config RV_REACTORS_KUNIT
-+	tristate "KUnit tests for RV reactors" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	depends on RV_REACTORS
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Enable KUnit tests for RV reactor registration and dispatch.
-+	  These tests verify the register/unregister lifecycle, duplicate
-+	  rejection, and that rv_react() correctly invokes callbacks.
-+
-+	  If unsure, say N.
-+
- config RV_MONITORS_KUNIT_TEST
- 	tristate "KUnit tests for RV monitors" if !KUNIT_ALL_TESTS
- 	depends on KUNIT && RV && RV_REACTORS
-diff --git a/kernel/trace/rv/Makefile b/kernel/trace/rv/Makefile
-index cdbf68c84f5a..c895d81dfdad 100644
---- a/kernel/trace/rv/Makefile
-+++ b/kernel/trace/rv/Makefile
-@@ -25,4 +25,5 @@ obj-$(CONFIG_RV_MON_WAKEUP) += monitors/wakeup/wakeup.o
- obj-$(CONFIG_RV_REACTORS) += rv_reactors.o
- obj-$(CONFIG_RV_REACT_PRINTK) += reactor_printk.o
- obj-$(CONFIG_RV_REACT_PANIC) += reactor_panic.o
-+obj-$(CONFIG_RV_REACTORS_KUNIT) += rv_reactors_kunit.o
- obj-$(CONFIG_RV_MONITORS_KUNIT_TEST) += rv_monitors_test.o
-diff --git a/kernel/trace/rv/rv_reactors_kunit.c b/kernel/trace/rv/rv_reactors_kunit.c
-new file mode 100644
-index 000000000000..3850c6dda288
---- /dev/null
-+++ b/kernel/trace/rv/rv_reactors_kunit.c
-@@ -0,0 +1,111 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for RV reactor registration and dispatch.
-+ *
-+ * The dispatch tests rely on reacting_on being enabled, since rv_react()
-+ * returns early when it is off. It is on by default when the suites run
-+ * built-in; as a module, re-enable it if disabled via
-+ * /sys/kernel/tracing/rv/reacting_on.
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/build_bug.h>
-+#include <linux/rv.h>
-+#include <linux/delay.h>
-+#include "rv.h"
-+
-+static struct rv_reactor test_reactor = {
-+	.name		= "kunit_test_reactor",
-+	.description	= "KUnit test reactor",
-+};
-+
-+static void reactor_teardown(void *arg)
-+{
-+	rv_unregister_reactor(&test_reactor);
-+}
-+
-+static void register_test_reactor(struct kunit *test)
-+{
-+	KUNIT_ASSERT_EQ(test, rv_register_reactor(&test_reactor), 0);
-+	KUNIT_ASSERT_EQ(test,
-+			kunit_add_action_or_reset(test, reactor_teardown, NULL), 0);
-+}
-+
-+static void test_double_register(struct kunit *test)
-+{
-+	register_test_reactor(test);
-+	KUNIT_EXPECT_EQ(test, rv_register_reactor(&test_reactor), -EINVAL);
-+}
-+
-+static const char long_reactor_name[] = "kunit_reactor_name_too_long_xxx_";
-+static_assert(sizeof(long_reactor_name) - 1 >= MAX_RV_REACTOR_NAME_SIZE,
-+	       "long_reactor_name must be at least MAX_RV_REACTOR_NAME_SIZE chars");
-+
-+static void test_name_too_long(struct kunit *test)
-+{
-+	static struct rv_reactor long_reactor = {
-+		.name = long_reactor_name,
-+	};
-+
-+	KUNIT_EXPECT_EQ(test, rv_register_reactor(&long_reactor), -EINVAL);
-+}
-+
-+static struct kunit_case rv_reactor_registration_cases[] = {
-+	KUNIT_CASE(test_double_register),
-+	KUNIT_CASE(test_name_too_long),
-+	{}
-+};
-+
-+static struct kunit_suite rv_reactor_registration_suite = {
-+	.name		= "rv_reactor_registration",
-+	.test_cases	= rv_reactor_registration_cases,
-+};
-+
-+static int react_call_count;
-+
-+__printf(1, 0) static void mock_react(const char *msg, va_list args)
-+{
-+	react_call_count++;
-+	/* Busy-wait so a timer interrupt fires inside rv_react(). */
-+	mdelay(20);
-+}
-+
-+static void test_react_no_callback(struct kunit *test)
-+{
-+	struct rv_monitor monitor = {
-+		.name = "kunit_null_react",
-+	};
-+
-+	react_call_count = 0;
-+	rv_react(&monitor, "no callback");
-+
-+	KUNIT_EXPECT_EQ(test, react_call_count, 0);
-+}
-+
-+static void test_react_callback_invoked(struct kunit *test)
-+{
-+	struct rv_monitor monitor = {
-+		.name	= "kunit_dispatch_monitor",
-+		.react	= mock_react,
-+	};
-+
-+	react_call_count = 0;
-+	rv_react(&monitor, "callback invocation test");
-+	KUNIT_EXPECT_EQ(test, react_call_count, 1);
-+}
-+
-+static struct kunit_case rv_react_dispatch_cases[] = {
-+	KUNIT_CASE(test_react_no_callback),
-+	KUNIT_CASE(test_react_callback_invoked),
-+	{}
-+};
-+
-+static struct kunit_suite rv_react_dispatch_suite = {
-+	.name		= "rv_react_dispatch",
-+	.test_cases	= rv_react_dispatch_cases,
-+};
-+
-+kunit_test_suites(&rv_reactor_registration_suite, &rv_react_dispatch_suite);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("KUnit tests for RV reactor registration and dispatch");
--- 
-2.25.1
-
+bod
