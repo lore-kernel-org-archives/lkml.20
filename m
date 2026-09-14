@@ -1,155 +1,219 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C1C39EF14
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C58386568;
+	Mon, 14 Sep 2026 06:05:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365803; cv=none; b=Vcl48XQFIsnMLec0M078mzOGVOseu69+J8dIbMuVvCkWBLeSVdENUGYZ7ptlJGV6xGX3VcBhYyS59yhlPRVN7eS5a1vX2K4LaHvFxD1YlnNQ9AAo2Z8gTGPYVFXcANrLu6XNHnOuI9cnhagCzfxeXv2+1HcHnrrAw/Nlbl7Ds8g=
+	t=1789365925; cv=none; b=uTqLK12zZphE96OXQuV8nh1HJdMBXBVtYRuzbP25YnvKZ42aZJ9kttRc3XtVWyFRS352F1/nzfpoFtooo0NMQ/4RsJ58wQerN8evsl4g8G3Uty43DXV1QAIdQvzJzjhoewmpFN0OOV2C/yBVf90lCzYLrl2VomSguzldUiwEP+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365803; c=relaxed/simple;
-	bh=njoVli9hHhenuHq3sa6QXSMoKZCUPsuuYgMlcPNINFo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ovPoJPUXsSjmYIGeLqgAThtQ4uBm+NG9msLQBDhjMIkca7u9K/LEALER02astnXbIHkZRvqpWr9FjU8bGS3M5FZuC4BjrqqAMIsTqohIW77TY68oBNYY9i9RGGLuUV/rPJPZgfhrWZBO2t5w0ZCDDThJbAfZiEsO+mGcm2Vo2jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iUw30D0C; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RteeeLf6; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789365925; c=relaxed/simple;
+	bh=SYXr3v6rNpzInFw3vzjRrtjnbMKUOX/lELSBggtoZBI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MwvQB5GlJEa0fTD/cTHSLUfZpvs37pLl2CF1pcuG60ULplxT3LBxCwCeC+q9G3cE+1sN6lezjGUsyKk9+uYs3zfPkcQl4N2gmHIUdyVZXGrn4xpRJhUlyBACJbPMcatdKxB8wWRN+dPeBqQHHuEIMdXUyS3f7jhBc5zNbZ10Oeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgPMKeXL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iUw30D0C";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RteeeLf6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789365800;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IsxFcMrXf8D+H3BBw/ZjDBf99QDmuUAygALVfxwRxo0=;
-	b=iUw30D0CUljkwo+ETF6XZ9DVWtuxidPIUrtX703gP1IO3I7zvlQWJWOREp+M8/+8PZv54l
-	PuxIkSbkzerKqXnsjU1EfSa+9qECXglyD20fqdlyBlMp8QsUjZ5b3hPkc3hzQM1wElMER6
-	IbXh8GS9aLMgtQ8RbLYg4o8zHKf1/f8=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-264-mjzcEu9IPDSjQxpgoEInew-1; Mon, 14 Sep 2026 02:03:18 -0400
-X-MC-Unique: mjzcEu9IPDSjQxpgoEInew-1
-X-Mimecast-MFC-AGG-ID: mjzcEu9IPDSjQxpgoEInew_1789365798
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a45b3f0bdfso4756759b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:03:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789365798; x=1789970598; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IsxFcMrXf8D+H3BBw/ZjDBf99QDmuUAygALVfxwRxo0=;
-        b=RteeeLf65qfUjL4BjsnWcdDfeJg1LUfD1Ub2pRyuI+zMCFg16aer1vXAHSzDlSyKCc
-         CShZ67Fy0CDZep8SMnhgBkb7Cr6hKykSjiOAtpztCJmTb2Iz0RMuP+PPMBcQU7ounyAJ
-         wMiJJl0Ce7N0mZaYCyJQ3unjS8PZCJE8P7VietIbDFIhnusWsic7FR0oIrjdaz6+ALy5
-         XZy3PHDooOqcVZMducBUexwWfw/Zl8a4kg376i3+EXxPvbPba2Odkb3ECMOM4ca43gPz
-         /M9K/bV3JIwRy6Ipe+hAWb6ltSvn4gCo1ByVejQUQ6zco7ir9e8x1s9cdmY5AuXhR1Yw
-         s4aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789365798; x=1789970598;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IsxFcMrXf8D+H3BBw/ZjDBf99QDmuUAygALVfxwRxo0=;
-        b=Ee7PgG3Dz/9w3GJJaA1rJYPwC83ej7BjDidrxJoZtZ6TFLVH5fdGTOXWt1VXVW6stP
-         G4GKEEXkjStI0Kg/cT9BQTz90/RluPtpK1gWYi4aXQ04zMHi+jL9fjKOTp9rOUT4g4HV
-         D89iGy7rZs6ITu8h3gNACoQcI6qRFZjsjsafNjyRW53GCVAKMpfuCj/GFerc1Yk+nREi
-         KDgpZ6JAys+S6rt15R5l1BIv1Kc1A8+DvkS4byb22ghqpMYSkZKOEfuFoiDDY0jEXib1
-         E9lsWGMSQNAsJdXmkim1UvyDdFHNtRvLIt9EGU+9NcF10iFjUlgl4Fct8C9mCgwTQL60
-         Q6aA==
-X-Forwarded-Encrypted: i=1; AKwUvBx2Ae6s4YutlVkHKRzdJhz+dEeJ9CHziTD6Thd3q00zPEeYylleHOlm9VXsbzwvbfkk5MCCOi/74t/bURY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lu0/ORnkR5z4PL/rgBqhmEKmLTzxRVRMHMz0yGSbEMU5WBwRyP
-	7LQHDtoFDvbb/bb6ylhRML2whvc/Vgm44LD+H2ZOd+EwgOG6usef0aZXIaE0haUdK1RiqlQgLKj
-	JU9E4NCKLeB3+Ef/+P3uVnsP/nSZ5LmrdHe14xZmwgp96lUX7wtk6rM9uKAR+Lo7+AjxJnrBktA
-	==
-X-Gm-Gg: AYBFou0Nx3gmVEXHFciSPlYVWFiH8099Tmf0qWHyoDfeHQAEzZuJZcKd5mbM2VtYcqP
-	g4L5LMmk2o30DG8RIyVRI+NvIqIm3PjxbIJrwQM/snn37ueTmDZ/1U1JWfcofQ+aremNuHRL3R5
-	jzZX5N9JO8/WDKMxJ+hePIdXoXy7gRv3Jnmrh57mdNJRCu85nKHJZnx4/YrqIIkroq2JIVRn3FB
-	NFfxJmHD1QP8pTEHwK09RxCoW50+mL0LzK+nhKc5f+DeCel/JwHhliNveOzT3xec7zSvcWYu/Ax
-	KlhHpYQiGXTN49weX0Tg/pV5szpFw4cXhHdAZELd2yF0b99GpNSvTtvS0nsprIrLx96rFe5vIKH
-	V/T0kxQT9Ggtz132IIwJCwlUyHURLd7TWWwWRnpFS/g==
-X-Received: by 2002:a05:6808:1a1b:b0:4b9:e65b:8c2f with SMTP id 5614622812f47-4c7b47b9d66mr512994b6e.29.1789365797660;
-        Sun, 13 Sep 2026 23:03:17 -0700 (PDT)
-X-Received: by 2002:a05:6808:1a1b:b0:4b9:e65b:8c2f with SMTP id 5614622812f47-4c7b47b9d66mr512943b6e.29.1789365797101;
-        Sun, 13 Sep 2026 23:03:17 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9b359sm23715686eec.14.2026.09.13.23.03.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 23:03:16 -0700 (PDT)
-Message-ID: <647592d0-d488-4fae-9deb-ceca00ffe52b@redhat.com>
-Date: Mon, 14 Sep 2026 16:03:07 +1000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgPMKeXL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941491F000FF;
+	Mon, 14 Sep 2026 06:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789365922;
+	bh=B5zIRBsJq6iQL3X+P2GGrZuJeAwviBSya5l0KqfhnHY=;
+	h=From:To:Cc:Subject:Date;
+	b=SgPMKeXL1kKUhB4vKYSP6NmqhQ5x3v84ssV0eSqkTjgcHP6h5vMs68UPCRUpCIvJ8
+	 2P13PTIMoR1FkgM5w6FSz9G99Ua/yCLWkRbrCj/xztBYARfzDh3lDoI44ni+JjYJO7
+	 CLdvQJjoplfHJv48RV5NM4t5VH9O13L8OhPYf5B18Fyi8urdQkPVwg83H5Yrgi05yz
+	 ABqdXZWOvHNPaa4sOO9axRy/cB3uKG5Mam1h3hG+0vs0EaX2BMr8PSHNTU71e0qwll
+	 9MjAxlNQ6EaF10lVp4b91qFl/xkl2o3A44366jtWSvSCaxawfb5SsOfTG2cy1moyeU
+	 y/IkLsRAMdrvg==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: [PATCH v11 0/7] Switch Arm SMCCC firmware services to an SMCCC bus
+Date: Mon, 14 Sep 2026 11:35:04 +0530
+Message-ID: <20260914060511.277948-1-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] fs/resctrl: Factor MBA parse-time conversion to be
- per-arch
-To: Ben Horgan <ben.horgan@arm.com>
-Cc: james.morse@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, corbet@lwn.net, x86@kernel.org,
- linux-doc@vger.kernel.org, dave.martin@arm.com
-References: <20260911163613.1131447-1-ben.horgan@arm.com>
- <20260911163613.1131447-4-ben.horgan@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260911163613.1131447-4-ben.horgan@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/12/26 2:36 AM, Ben Horgan wrote:
-> From: Dave Martin <dave.martin@arm.com>
-> 
-> The control value parser for the MB resource currently coerces the memory
-> bandwidth percentage value from userspace to be an exact multiple of the
-> rdt_resource::resctrl_membw::bw_gran parameter.
-> 
-> On MPAM systems, this results in somewhat worse-than-worst-case rounding, since
-> the bandwidth granularity advertised to resctrl by the MPAM driver is in general
-> only an approximation to the actual hardware granularity on these systems, and
-> the hardware bandwidth allocation control value is not natively a percentage --
-> necessitating a further conversion in the resctrl_arch_update_domains() path,
-> regardless of the conversion done at parse time.
-> 
-> For MPAM and x86 use their custom pre-prepared parse-time conversion,
-> resctrl_arch_preconvert_bw(). This will avoid accumulated error from rounding
-> the value twice on MPAM systems. For x86 systems there is no functional change.
-> 
-> Clarify the documentation, but avoid overly exact promises.
-> 
-> Clamping to bw_min and bw_max still feels generic: leave it in the core code,
-> for now.
-> 
-> [ BH: Split out x86 specific changes ]
-> Signed-off-by: Dave Martin <Dave.Martin@arm.com>
-> Signed-off-by: Ben Horgan <Ben.Horgan@arm.com>
-> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-> Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-> ---
-> Changes since v3:
-> Parameter order swap (Reinette)
-> Reflow commit message to use 80 characters (Reinette)
-> Adjust comment line length (Reinette)
-> Add Reinette's R-b
-> 
-> Changes since v4:
-> Make Dave the author as he wrote the patch
-> 
-> Changes since v5:
-> Document that the rounding can be up or down
-> ---
->   Documentation/filesystems/resctrl.rst | 17 +++++++++--------
->   fs/resctrl/ctrlmondata.c              |  6 +++---
->   2 files changed, 12 insertions(+), 11 deletions(-)
-> 
+As discussed here:
+https://lore.kernel.org/all/20250728135216.48084-12-aneesh.kumar@kernel.org
 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+The earlier CCA guest support used an arm-cca-dev platform device as a pure
+software anchor for the TSM class device. That platform device did not
+correspond to a DT/ACPI described device, MMIO range, interrupt, or other
+platform resource; it existed only to make the CCA guest driver bind and to
+place the resulting TSM device in the driver model. The same pattern also
+exists for smccc_trng. Creating separate platform devices for such
+SMCCC-discovered features is misleading, because those features are not
+independent platform devices.
+
+This series adds an Arm SMCCC bus for services discovered through the SMCCC
+firmware interface. The bus provides SMCCC device and driver registration
+helpers, SMCCC function id based matching, uevent modalias generation, and
+a sysfs modalias attribute. SMCCC service drivers can use
+MODULE_DEVICE_TABLE(arm_smccc, ...) to emit arm_smccc:f<functionid>
+aliases, allowing userspace to autoload service drivers when the SMCCC core
+registers matching firmware-service devices.
+
+The series then moves SMCCC TRNG and the Arm CCA guest RSI service off the
+platform bus. When the SMCCC core discovers the corresponding firmware
+service, it registers an arm-smccc device for that service. The hwrng
+arm_smccc_trng driver and the Arm CCA guest TSM provider are converted to
+SMCCC drivers that bind to those discovered devices.
+
+The old arm-cca-dev platform device has also been used by userspace as a Realm
+guest indicator. Removing it without a replacement would leave userspace
+depending on an internal driver-binding device. This series therefore adds
+/sys/firmware/cca/realm_guest as a stable, architecture-provided ABI for
+detecting whether the kernel is running as an Arm CCA Realm guest, and then
+removes the dummy arm-cca-dev platform-device registration.
+
+Changes from v10:
+https://lore.kernel.org/all/20260904095000.1184861-1-aneesh.kumar@kernel.org
+* Collect Reviewed-by tags.
+* Add the missing linux/types.h include.
+* Update the arm_smccc_1_1_invoke() call to pass 0 as the input value for x1-x7.
+
+Changes from v9:
+https://lore.kernel.org/all/20260805063255.1638614-1-aneesh.kumar@kernel.org
+* Rename CONFIG_ARM_RMM to CONFIG_ARM_RMM_RSI to make the Kconfig option RSI-specific.
+* Update the modalias to use the SMCCC function ID.
+* Don't issue SMC64 SMCCC calls on arm32.
+* Drop the IDA usage.
+
+Changes from v8:
+https://lore.kernel.org/all/20260707081351.1680209-1-aneesh.kumar@kernel.org
+* Rebase onto the arm64 for-next/core branch.
+* Move the RSI code from arch/arm64 to drivers/firmware/arm_rmm in patch 3.
+* Add a new patch to move the Realm memory-encryption operations to the RSI code.
+* Drop the Reviewed-by tag from patch 3.
+
+Changes from v7:
+https://lore.kernel.org/all/20260611130429.295516-1-aneesh.kumar@kernel.org
+* Rebase to latest kernel
+* Add id_table check in arm_smccc_driver_register
+* Add smccc device name check in arm_smccc_device_register
+* Drop driver_data from struct arm_smccc_device_id
+
+Changes from v6:
+https://lore.kernel.org/all/20260527100233.428018-1-aneesh.kumar@kernel.org
+* Move SMCCC bus-related code to bus.c.
+* Remove CONFIG_ARM64 #ifdefs and switch device creation to use the generic function-ID support framework.
+* Move version-specific checks and other conditionals to the device driver probe routines.
+* Move RSI definitions to include/linux/arm-smccc-rsi.h.
+* Split the file and variable renames into a separate patch.
+
+Changes from v5:
+https://lore.kernel.org/all/20260514094030.42495-1-aneesh.kumar@kernel.org
+* Replace the arm-smccc platform-device plus auxiliary-child model with a
+  dedicated Arm SMCCC bus.
+* Add SMCCC module alias support so SMCCC service drivers can use
+  MODULE_DEVICE_TABLE(arm_smccc, ...) and autoload through arm_smccc:<name>
+  aliases.
+* Convert smccc_trng from a platform driver to an SMCCC driver.
+* Convert the Arm CCA guest TSM provider from the arm-cca-dev platform device
+  to an SMCCC driver bound to the discovered RSI service.
+* Add /sys/firmware/cca/realm_guest before removing the old arm-cca-dev dummy
+  platform device.
+
+Changes from v4:
+https://lore.kernel.org/all/20260427061615.905018-1-aneesh.kumar@kernel.org
+* Add /sys/firmware/cca/realm_guest for detecting realm guest
+* Convert smccc_trng to auxiliary device from platform device
+
+Changes from v3:
+https://lore.kernel.org/all/20260309100507.2303361-1-aneesh.kumar@kernel.org
+* Rebased onto the latest kernel
+* Drop pr_fmt() from drivers/firmware/smccc/rmm.c
+
+Cc: Jason Gunthorpe <jgg@nvidia.com> 
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>
+Cc: Jeremy Linton <jeremy.linton@arm.com>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Sudeep Holla <sudeep.holla@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Suzuki K Poulose <Suzuki.Poulose@arm.com>
+Cc: Andre Przywara <andre.przywara@arm.com>
+
+Aneesh Kumar K.V (Arm) (7):
+  firmware: smccc: Add an Arm SMCCC bus
+  firmware: hwrng: arm_smccc_trng: Register as an SMCCC device
+  firmware: arm_rmm: Move RSI support out of arch/arm64
+  arm64: realm: Move Realm memory encryption ops to RSI code
+  virt: coco: arm-cca-guest: Rename TSM report source file
+  firmware: smccc: arm-cca-guest: Bind the TSM provider to an SMCCC
+    device
+  coco: guest: arm64: Replace dummy CCA device with sysfs ABI
+
+ Documentation/ABI/testing/sysfs-firmware-cca  |  10 ++
+ arch/arm/include/asm/archrandom.h             |   2 +-
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/archrandom.h           |   2 +-
+ arch/arm64/include/asm/io.h                   |   2 +-
+ arch/arm64/include/asm/mem_encrypt.h          |   5 +-
+ arch/arm64/include/asm/pgtable-prot.h         |   2 +-
+ arch/arm64/include/asm/rsi.h                  |  70 --------
+ arch/arm64/kernel/Makefile                    |   2 +-
+ arch/arm64/kernel/setup.c                     |   2 +-
+ arch/arm64/mm/init.c                          |   3 +-
+ arch/arm64/mm/pageattr.c                      |  38 +----
+ drivers/char/hw_random/arm_smccc_trng.c       |  32 ++--
+ drivers/firmware/Kconfig                      |   1 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/arm_rmm/Kconfig              |  17 ++
+ drivers/firmware/arm_rmm/Makefile             |   2 +
+ .../kernel => drivers/firmware/arm_rmm}/rsi.c |  78 +++++++--
+ drivers/firmware/smccc/Makefile               |   2 +-
+ drivers/firmware/smccc/bus.c                  | 151 ++++++++++++++++++
+ drivers/firmware/smccc/smccc.c                |  68 ++++++--
+ drivers/virt/coco/arm-cca-guest/Kconfig       |   3 +-
+ drivers/virt/coco/arm-cca-guest/Makefile      |   2 +
+ .../arm-cca-guest/{arm-cca-guest.c => main.c} |  55 +++----
+ .../linux/arm-rsi-cmds.h                      |  76 ++++++++-
+ include/linux/arm-smccc-bus.h                 |  48 ++++++
+ .../linux/arm-smccc-rsi.h                     |   6 +-
+ include/linux/device-id/arm_smccc.h           |  19 +++
+ include/linux/mod_devicetable.h               |   1 +
+ scripts/mod/devicetable-offsets.c             |   3 +
+ scripts/mod/file2alias.c                      |   8 +
+ 31 files changed, 523 insertions(+), 189 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-firmware-cca
+ delete mode 100644 arch/arm64/include/asm/rsi.h
+ create mode 100644 drivers/firmware/arm_rmm/Kconfig
+ create mode 100644 drivers/firmware/arm_rmm/Makefile
+ rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (70%)
+ create mode 100644 drivers/firmware/smccc/bus.c
+ rename drivers/virt/coco/arm-cca-guest/{arm-cca-guest.c => main.c} (82%)
+ rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
+ create mode 100644 include/linux/arm-smccc-bus.h
+ rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
+ create mode 100644 include/linux/device-id/arm_smccc.h
+
+
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+-- 
+2.43.0
 
