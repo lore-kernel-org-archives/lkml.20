@@ -1,128 +1,275 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB5242F6F1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AF842F6F8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789381195; cv=none; b=m09O5/PucIGWBTO6BNghHmH+gMTEO+dZ6jVmW0pkqFEnV6C/ppqch+QNLgFr4FkDBHH++fslMl6kxdxZWNGILR+6qrrZot20KTxjKX9s0vt4/BBWZDWAGpXIiBqFfz2vaWm/cB7vnDr3leL1bMRIXIytuTe/deqVaW7tghFww5c=
+	t=1789381202; cv=none; b=GFkme9fuHkuYQMoVAsQK/utCVUNgZkRiwidCUgY+j3xSU/qzm3hpFPx3jiVM7w1WGDSF2vdc4E7IrRdTQZ1zKD4PZg377wUhCcw+0OqrHD9hMkV/49laWURzQ2p5yi311jSOi2aodT2Wc/C4NVTqCUj7UN3GzD8n3Ck7vp2WOyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789381195; c=relaxed/simple;
-	bh=Okn5IiA63cT5FQivUSCDW7onGhhTmTisHhjVmBxqor0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qw2A7v6xvSrA9ji4pCwF/PkS6zg5lhDjGo0Urq5055+8j5tCwpgyQniDeRfXo2yflFls+ektHu9i+1fH0HGzAz2R61FT24cHAccorOKjEXPBttb2VStNtZ1F56A6VFd+c4B2FHGnEv6OXnZqHqLRg/6qsD/ixm/qHp0CpwWNZu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eiWw99rf; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789381202; c=relaxed/simple;
+	bh=s1e/ociTMdVHbodmHGbhf8inhat519yZqvJY0OKPe8I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cCPlgG+mtVBTtkYAZ+EkkzwB9QuS8cVqksgXTdP16VjkPoQDomEpBV3inMDR7tlVGyGKVKcZjQ4KqM1SBQUmpjzoP9Nl/LTiet8tVxGTiqo/9knIyqmf52eMfXN7qN4hKec03JUycTj8mf68VyvnU2LAiAvEEAsXvqgO9dxteRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvuH/rMn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eiWw99rf"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BF0C21A060D;
-	Mon, 14 Sep 2026 10:19:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9046E60323;
-	Mon, 14 Sep 2026 10:19:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9244E11C7AFDD;
-	Mon, 14 Sep 2026 12:19:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789381185; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tIShQgUZ1LVGvDiP9wrSyUe0eu3Y16gHnaCYoKrpl0E=;
-	b=eiWw99rfzgdVal2nAKsbbvKMxz23mcUJA75mG31IZO0fNcud7NFV7u/qdIXU7Am/W5vXSW
-	Vros+u3XV96an9uo921WbvPn5oDPsLqaytsuRAMIhv4lLoYQL/dCMuwvtMEP/icLQBCetW
-	IvfTd2N8DVAWVX2k7zHHaemG8DxVTC8rVnnUkQtP5v04SFiahuT1z7KBPBDfWUxbVzIEbm
-	ACFm1IncGx8O4PFb8wg5CSiDXdR62tXB6vlpCUbyzCAU7mSYt2rIXzZNUWAryera77JwJS
-	3cqW+EP5WL08qIMbXE/GsTTu4s16F7gFZac2F+/7Aejs1/Wu0mFS5TYo1qSfKQ==
-Date: Mon, 14 Sep 2026 12:19:37 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <20260914121937.5b7fa2bb@bootlin.com>
-In-Reply-To: <aqS6HmkaVYbrePtN@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-7-herve.codina@bootlin.com>
-	<aqI3KnnQnUytqkEc@gractus.seuss>
-	<20260910094126.4bf4cae6@bootlin.com>
-	<aqJ5OhJcv4k-ZAj8@gractus.seuss>
-	<20260911091653.37b22b0f@bootlin.com>
-	<aqS6HmkaVYbrePtN@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvuH/rMn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12DB11F00893
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:20:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789381200;
+	bh=w4e/SHlDd98D9BE8dWRPoAwVK/lCQ3ruuHyE9FBfpjE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lvuH/rMnftdqPCCblgZ9w8GJvrhbvk3kRlhXnAXrc+KA8P57DmNuTKK/AC9+yNKBn
+	 n7oWGpoEWJsnxJ2WnC/RP99X6QntnnoFQvC9Q511d8OWFuTkc+a3mlUf5qLh2SIlVC
+	 G/bdMtmtbuHB5MCxGXzVZDQOK0kjTYRZGlh7tPvb69a/odAC3WClrgnnPVQM4jX4uE
+	 7FTgGd9RwWoL2T2zCZVcQkemtDKarGXlouJazGmipLrRMzrD9LC3GTvFz3HgEyUu8L
+	 4YyN8aW3wi2KnB3rrvmGyX2yo/AJDm2TmEE3+Fx3FDN+L1vI8+NA5F0SGRB61VriZ5
+	 dIOekFh8v5VCQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f13so1727565e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:19:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzvJ4F7t8vxbirrTGlFI7w449VsxEr8co2wk7KsKWCKNHUXTpC8VeuRbIYLk7NJ6RAwDLsMBZpgpXtkkVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqNct+Q5iULVLKSab774U8tZsyJMpMOOpipvNRvXBzR6gMNfTk
+	YbeCF3Od1EWEB1hFAhOntevdYvdpBHHV5o6gUhigqOSK96SUPO30APJLVSUxGg2H223DNnQ3eS8
+	5+dwm6+M+PmS0cbhsNNBqdOjw4B8/as4=
+X-Received: by 2002:a05:6512:1153:b0:5b8:9ee1:10fd with SMTP id
+ 2adb3069b0e04-5b8ae8a9343mr1043238e87.32.1789381198380; Mon, 14 Sep 2026
+ 03:19:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki> <8729484.T7Z3S40VBb@rafael.j.wysocki>
+ <7ef819c3-5155-48fb-828a-48d9bd72e54b@gmx.de>
+In-Reply-To: <7ef819c3-5155-48fb-828a-48d9bd72e54b@gmx.de>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 14 Sep 2026 12:18:38 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0icBLqUiU4ZF=iY6TB92syM_c7xGBJ7Ag7DGt+f7THHRA@mail.gmail.com>
+X-Gm-Features: AcwNN1XkyKQvZYUoFYUG8vIqH7KV6lfSfcLng61fglctFWAGn98xXh1evhvoXMY
+Message-ID: <CAJZ5v0icBLqUiU4ZF=iY6TB92syM_c7xGBJ7Ag7DGt+f7THHRA@mail.gmail.com>
+Subject: Re: [PATCH v1 03/10] thermal: core: Introduce thermal_cooling_device_create()
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
+	Lukasz Luba <lukasz.luba@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi David,
+On Fri, Sep 11, 2026 at 11:04=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
+>
+> Am 11.09.26 um 15:02 schrieb Rafael J. Wysocki:
+>
+> > From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> >
+> > Currently, thermal cooling devices have no parents, but it would be
+> > generally useful to be able to create them under specific parents in
+> > the device hierarchy (for instance, it may help to identify the device
+> > representing the actual cooling hardware).
+> >
+> > To make that possible, add thermal_cooling_device_create() that will
+> > work like thermal_cooling_device_register() except that it will take
+> > an additional parent argument (which may be NULL).
+> >
+> > Redefine thermal_cooling_device_register() as a static inline wrapper
+> > around thermal_cooling_device_create().
+>
+> Hi,
+>
+> i like your idea with the new registration function, this gives us more t=
+ime
+> for migrating the other drivers. Should we mark the original function as
+> deprecated?
 
-On Sat, 12 Sep 2026 12:34:24 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Well, it's not a big deal if somebody uses it in new code IMV.
 
-...
+> For the patch itself:
+>
+> Reviewed-by: Armin Wolf <W_Armin@gmx.de>
 
-> > Do you mean that we should avoid the DATA_LEN_ENCODING and always have the
-> > 32-bit value right after the tag to give the size for all "skippable" tags?  
-> 
-> Yes.
-> 
+Thank you (and thanks for all the reviews)!
 
-I did a test using a dts file available in kernel sources. I used (arbitrary
-choice) juno.dts [0].
-
-Without any new tags, the size of the compiled dtb is 27067 bytes.
-
-With new metadata tags identifying phandles in properties (FDT_PROPDATA_PHANDLE),
-the size of the dtb becomes 29027 bytes and so 29027 - 27067 = 1960 bytes for
-those FDT_PROPDATA_PHANDLE tags (+7.2%).
-
-The tags used are composed of:
-32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
-32-bit: offset in the property where a phandle is present.
-
-Removing the '1 x 32-bit' information from the tag value and adding a 32-bit
-'length' in all cases will lead 3 x 32-bit values for a FDT_PROPDATA_PHANDLE
-tag (tag + length + offset) instead of the 2 x 32-bit (tag + offset).
-
-Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE will need
-1960 * 3 / 2 = 2640 bytes (+9.7%). This leads to around +2.5% of the whole
-dtb just to have the 32-bit for length. This +2.5% can be easily avoided.
-
-Also, I will not be surprised to see more tags in the future adding some more
-metadata information and so increasing dtb sizes.
-
-Quite often you have mentioned memory constraints system where libfdt should
-be as small as possible. On those system, the dtb itself is embedded in the
-binary close to libfdt. The size of dtb should be taken into account.
-
-If the SAFE_SKIP bit is removed, I even plan to use this now free bit in the
-length encoding part:
-  0b000: No data
-  0b001: 1 fdt32
-  0b010: 2 fdt32
-  ...
-  0b110: 6 fdt32
-  0b111: On additional fdt32 to encode the length of data.
-
-IHMO, length encoding bits in tag value definition should be kept and used
-for all tags where the length is fixed and can be encoded using these bits.
-
-
-[0] https://elixir.bootlin.com/linux/v7.2.5/source/arch/arm64/boot/dts/arm/juno.dts
-
-Best regards,
-Hervé
+> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> > ---
+> >   drivers/thermal/thermal_core.c | 28 ++++++++++++++++------------
+> >   drivers/thermal/thermal_core.h |  3 ++-
+> >   drivers/thermal/thermal_of.c   |  2 +-
+> >   include/linux/thermal.h        | 19 ++++++++++++++-----
+> >   4 files changed, 33 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/thermal/thermal_core.c b/drivers/thermal/thermal_c=
+ore.c
+> > index 82e2f0d8a26d..ac928c199829 100644
+> > --- a/drivers/thermal/thermal_core.c
+> > +++ b/drivers/thermal/thermal_core.c
+> > @@ -1005,7 +1005,8 @@ thermal_cooling_device_alloc(const char *type, co=
+nst struct thermal_cooling_devi
+> >       return ERR_PTR(ret);
+> >   }
+> >
+> > -int thermal_cooling_device_add(struct thermal_cooling_device *cdev, vo=
+id *devdata)
+> > +int thermal_cooling_device_add(struct thermal_cooling_device *cdev,
+> > +                            struct device *parent, void *devdata)
+> >   {
+> >       unsigned long current_state;
+> >       int ret;
+> > @@ -1013,6 +1014,7 @@ int thermal_cooling_device_add(struct thermal_coo=
+ling_device *cdev, void *devdat
+> >       mutex_init(&cdev->lock);
+> >       INIT_LIST_HEAD(&cdev->thermal_instances);
+> >       cdev->updated =3D false;
+> > +     cdev->device.parent =3D parent;
+> >       cdev->device.class =3D &thermal_class;
+> >       cdev->device.release =3D thermal_cdev_release;
+> >       device_initialize(&cdev->device);
+> > @@ -1062,21 +1064,23 @@ int thermal_cooling_device_add(struct thermal_c=
+ooling_device *cdev, void *devdat
+> >   }
+> >
+> >   /**
+> > - * thermal_cooling_device_register() - register a new thermal cooling =
+device
+> > + * thermal_cooling_device_create() - register a new thermal cooling de=
+vice
+> > + * @parent:  parent device (optional).
+> >    * @type:   the thermal cooling device type.
+> >    * @devdata:        device private data.
+> >    * @ops:    standard thermal cooling devices callbacks.
+> >    *
+> > - * This interface function adds a new thermal cooling device (fan/proc=
+essor/...)
+> > - * to /sys/class/thermal/ folder as cooling_device[0-*]. It tries to b=
+ind itself
+> > - * to all the thermal zone devices registered at the same time.
+> > + * Allocate and register a new thermal cooling device under the given =
+parent (if
+> > + * not NULL) and with the given type, device data, and operations.  Du=
+ring the
+> > + * registration, it will be matched against all of the registered ther=
+mal zones
+> > + * and it will be bound to the matching ones.
+> >    *
+> > - * Return: a pointer to the created struct thermal_cooling_device or a=
+n
+> > - * ERR_PTR. Caller must check return value with IS_ERR*() helpers.
+> > + * Return: A pointer to the created struct thermal_cooling_device or a=
+n ERR_PTR.
+> > + * Callers must use IS_ERR*() helpers to check the return value.
+> >    */
+> > -struct thermal_cooling_device *
+> > -thermal_cooling_device_register(const char *type, void *devdata,
+> > -                             const struct thermal_cooling_device_ops *=
+ops)
+> > +struct thermal_cooling_device *thermal_cooling_device_create(
+> > +                     struct device *parent, const char *type, void *de=
+vdata,
+> > +                     const struct thermal_cooling_device_ops *ops)
+> >   {
+> >       struct thermal_cooling_device *cdev;
+> >       int ret;
+> > @@ -1085,13 +1089,13 @@ thermal_cooling_device_register(const char *typ=
+e, void *devdata,
+> >       if (IS_ERR(cdev))
+> >               return cdev;
+> >
+> > -     ret =3D thermal_cooling_device_add(cdev, devdata);
+> > +     ret =3D thermal_cooling_device_add(cdev, parent, devdata);
+> >       if (ret)
+> >               return ERR_PTR(ret);
+> >
+> >       return cdev;
+> >   }
+> > -EXPORT_SYMBOL_GPL(thermal_cooling_device_register);
+> > +EXPORT_SYMBOL_GPL(thermal_cooling_device_create);
+> >
+> >   static void thermal_cooling_device_release(void *data)
+> >   {
+> > diff --git a/drivers/thermal/thermal_core.h b/drivers/thermal/thermal_c=
+ore.h
+> > index e98b0aa5aacc..7ef7c6cab437 100644
+> > --- a/drivers/thermal/thermal_core.h
+> > +++ b/drivers/thermal/thermal_core.h
+> > @@ -270,7 +270,8 @@ void thermal_governor_update_tz(struct thermal_zone=
+_device *tz,
+> >   struct thermal_cooling_device *
+> >   thermal_cooling_device_alloc(const char *type, const struct thermal_c=
+ooling_device_ops *ops);
+> >
+> > -int thermal_cooling_device_add(struct thermal_cooling_device *cdev, vo=
+id *devdata);
+> > +int thermal_cooling_device_add(struct thermal_cooling_device *cdev,
+> > +                            struct device *parent, void *devdata);
+> >
+> >   /* Helpers */
+> >   #define for_each_trip_desc(__tz, __td)      \
+> > diff --git a/drivers/thermal/thermal_of.c b/drivers/thermal/thermal_of.=
+c
+> > index 0217a49b08ae..14dfac9359b8 100644
+> > --- a/drivers/thermal/thermal_of.c
+> > +++ b/drivers/thermal/thermal_of.c
+> > @@ -561,7 +561,7 @@ thermal_of_cooling_device_register(struct device_no=
+de *np, u32 cdev_id,
+> >       cdev->np =3D np;
+> >       cdev->cdev_id =3D cdev_id;
+> >
+> > -     ret =3D thermal_cooling_device_add(cdev, devdata);
+> > +     ret =3D thermal_cooling_device_add(cdev, NULL, devdata);
+> >       if (ret)
+> >               return ERR_PTR(ret);
+> >
+> > diff --git a/include/linux/thermal.h b/include/linux/thermal.h
+> > index 083b4f533933..306ad17aed89 100644
+> > --- a/include/linux/thermal.h
+> > +++ b/include/linux/thermal.h
+> > @@ -293,8 +293,9 @@ struct device *thermal_zone_device(struct thermal_z=
+one_device *tzd);
+> >   void thermal_zone_device_update(struct thermal_zone_device *,
+> >                               enum thermal_notify_event);
+> >
+> > -struct thermal_cooling_device *thermal_cooling_device_register(const c=
+har *,
+> > -             void *, const struct thermal_cooling_device_ops *);
+> > +struct thermal_cooling_device *thermal_cooling_device_create(
+> > +                     struct device *parent, const char *type, void *de=
+vdata,
+> > +                     const struct thermal_cooling_device_ops *ops);
+> >
+> >   struct thermal_cooling_device *
+> >   devm_thermal_cooling_device_register(struct device *dev, const char *=
+type, void *devdata,
+> > @@ -340,9 +341,9 @@ static inline void thermal_zone_device_update(struc=
+t thermal_zone_device *tz,
+> >                                             enum thermal_notify_event e=
+vent)
+> >   { }
+> >
+> > -static inline struct thermal_cooling_device *
+> > -thermal_cooling_device_register(const char *type, void *devdata,
+> > -     const struct thermal_cooling_device_ops *ops)
+> > +static inline struct thermal_cooling_device *thermal_cooling_device_cr=
+eate(
+> > +                     struct device *parent, const char *type, void *de=
+vdata,
+> > +                     const struct thermal_cooling_device_ops *ops)
+> >   { return ERR_PTR(-ENODEV); }
+> >
+> >   static inline struct thermal_cooling_device *
+> > @@ -391,4 +392,12 @@ static inline void thermal_pm_prepare(void) {}
+> >   static inline void thermal_pm_complete(void) {}
+> >   #endif /* CONFIG_THERMAL */
+> >
+> > +static inline struct thermal_cooling_device *thermal_cooling_device_re=
+gister(
+> > +                             const char *type, void *devdata,
+> > +                             const struct thermal_cooling_device_ops *=
+ops)
+> > +{
+> > +     return thermal_cooling_device_create(NULL, type, devdata, ops);
+> > +}
+> > +
+> > +
+> >   #endif /* __THERMAL_H__ */
