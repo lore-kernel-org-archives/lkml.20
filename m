@@ -1,152 +1,119 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3A14963D1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789415467; cv=pass; b=qfp3/n27e9FuaLrkTU2xPzwQysOz+e6sK6g33Uxg4x2jtQnScoAv85GXFGuTiHGC9LSGnT75MSdFe0Lz9XQFHq3lJONA8WVgibF6zm02VSC4Rfqy2pAT0Ne1KGK7jzAI6NtMsZWg+iHKSh7JKAOOz2AIt2GgEK2wDi79yv1Fbkk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789415467; c=relaxed/simple;
-	bh=QOnOeRnGa37ViBIa35zC5ovLVAbfRbTmEs8QCinKoCs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TAM8j+vQ8eLVK5cBwrJQHp8kczBmMYRoMy73lchjJ5/BAtCDhz9Y7/nWpqJOXSjg6OyLWza/x6a98kAQEAqB9ocBwK0lUT5PBUhTXDYIZvX37wy8sSlbJ6oLVlgohujckOfm7aBxUKAN2paBZRWPAkuznIASORzXDwFf4yd7rls=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BtpezNoo; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFD6496D5E;
+	Mon, 14 Sep 2026 19:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789415624; cv=none; b=JIHllI4e0jZMQCzEpwpdQzitXEf4qiAFq/CiUyVIdjlDo8pl576Kw1XmelJklvTQUb5uEHSOeyBKZ6HTX/W1sglK0vklw8BeiNKLW1gyJNcG7OdUSSh8F/oXmKYUrWEvVYIdsTX1ahcZC/qEYIPl/0fMP1j+IR3EOYugrzaeoMg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789415624; c=relaxed/simple;
+	bh=E2pDS5GaSNUQXDT27nNSw2vgkOr9Ijzb9Rp2UNGR1Ds=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=IXwMZrNFb+C/xGg3N0d363FJp5OKa2FJto3CKihiTNztr+fwGginilTxlGXK4TzNdtkpUBs0FZpW+rop3zxss5LTfxirOkOeEmuhbngrMeF5xOBwxK5YaSxC6nbLoQkKNW0fy28cdpfQ93klSERNQhjby0h9BjTYwqCyKDX3M3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=SXx7rO6q; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=X1NEAzsG; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BtpezNoo"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso2406917a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:51:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789415465; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Xt0blsQvwWFIgRZQbqU3n0LEjlPXDxmRI4Q9gr4l7NwXZHCnglf4lDMK2KsWZm0JyA
-         Jt4AfV+EqSgtCBr+RktPjBI+tKyLj04JEbRlNs7AUrclbtepnuMbe0w92okNcIwoJLuD
-         RY4h+T6fJxVANgpg0ZcUAVpzlKIcGfN2cZkTf9ZqCM/F+chRNJW7CfpCTHraAkcSJvrO
-         QOK9VTrYdg3EsM348AZMtZ+vMyTeIMaaN6SZY12/Zr1mMaJyggih2f2zbW943kLakbTq
-         h6mqBsEjLPvocOfEF0nlxBsmMCtEKnmmxN+BOZF9X/mEFu41CAQRphJsATD3eYlKip5S
-         8zFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kO+COyVynF86QFCnzCKJO2bXl/nmlPUY5lN3yUs1r+w=;
-        fh=YHtV8/z5zoxi5zNhPjgESh6IN5TU/iAmHSfmr9v7wlw=;
-        b=puSTatEyMcQuK5FyyAT1XTXB2TSgDMRnfBEBYhRIMSxfP7BbSSol0TCYx4veVPzUA5
-         G9/Is9De41azWQZaN/NRiqY6MC9433rYmfjR9LaYS7l3/SaXhKGw6nDj64s3h8cEnUs8
-         N2hROoPDzErSvdcVc2Dslxs4Cjb6ZSI+lhBd4CuUpzvnXc4He89E4FFu6kidwkoyc5b1
-         4nUsUcNIBUtnu6zwPrKXzAXk/cjEhD3YbgXFuLTBKI6+Gqo4pLtqqit9L2ssNISnP9KX
-         01LxFsU7ooORPRDE15JdUUi6dHvlK1ONk85iDkNxNEHcFWnWujcXGcHkfKU93DP06ekv
-         2PSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789415465; x=1790020265; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kO+COyVynF86QFCnzCKJO2bXl/nmlPUY5lN3yUs1r+w=;
-        b=BtpezNooGKfMY2JzTtDlmN/C/ehRSv0y9C1i+0zqO13ywjNOt5kxtRIaTGn9TcwYMf
-         5RE88VI7Y98bVovwWXX1Fsr9Zz68mAYbloAkj7gQp0Qlhb5iNjBeuQ4Z4MIq/6tfkTr/
-         xUiY55Ed2QOmiIRIMv8KQVQmQyKpWa+jxAF6llAh9PsTKHTOj1rlcYEB6H2cYpTZoFND
-         7hwfhKx2mGh1omP8sivwXg97MpqwzEnsnpRmOYbwejqfX5+4WoXvCssnK1RHUGnTOBA+
-         lcAJqYgbJ3xQKIIT/SrDH/i3CGwIJYe+bLtzaGjtn5MPkY2FoBd9t9Pa1i8oHxUf/D+E
-         X8EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789415465; x=1790020265;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kO+COyVynF86QFCnzCKJO2bXl/nmlPUY5lN3yUs1r+w=;
-        b=dZCtSi44su0x9el276K6h566pzOrIIF5ozxkhFP8tAXFJfGoVS4DEtg9PexSlP1bMA
-         lJdG5Z3niMzWZcY9ppCgvzHh5PhGjhnVBN0JRf7oggTIILHc0K5wUGED/hwHYIC5Trfu
-         bnotTjOWBcB6Uyqd4R8KxYpY9/N4z6Kku9kKo3v3vgYumEkkGmwDr7PeEKMumq93JA4V
-         DeDcGcSR0c3dBcnR3z04191Z3mpmqeEbF9RxgQOytI267LxegyYf6bQt0B6x7k8VRrpu
-         hQ8zzGefULFow3evV7a43o6Q0idQIbwK76zDvPPNySTgP5gBOJbEtXgNDmpyaoNSgIR1
-         M8tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzT/OgUytSYdUHjLBB131nlJdlNb16Xw0bs4O6i+IlbqYnJKEmMMVr1FV8zEtK2r1DJqVKQ2kGiiEYURnI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz1h46ZTKuHxJ/C8AYJb03maUJtMXrXJrYCAcGGZnFUsFHvWiO
-	KSTtWnCl4r/+aNIshfU+7UZ8jNVVhOc+guW9dah9Kk54pmou1wVLegqXJnfjCV/rdOX8LUwQJqo
-	tnwIE+jwFfFPOqZNHjfFm5btt7NrVdWopWuyzaKfA
-X-Gm-Gg: AYBFou1sw+kYEP2LOfUF1aJ4i5ZvzNU2C/IOZfHZyrGOMTLtUE54H/4Y73dMqtE7s8A
-	2LC4Fah7P21GA9PDwF14Wuo2tbI4fi3Uopahw3ZoXcbDneZsHFwm/CZLK8WaXQwpotGkObCuHLa
-	ydmJVYb7YRA4xfqn7z3c/myseZgqywohICsUS062JvU6kbVDcLgDy4r45q7V9wMUmSsiCqq1Co1
-	NnXj3PUu+uULULoi7st/07MyzCAWtPTc6owJdavr+kWkjMgzRHsk/Jjk/ZUO1ZxQMBYMyyogEi/
-	1JLHQ3dW3DGEUeDBfciYCFsVvHCTQ5u4zKlgLW8cINtCxiuX6Rhi2qxWDHmDeGSw8g52jpqkafQ
-	SHtGake+jhj13SJnvaKdBCmHauzQcYcR5t5V77T81jWKa1nFilKUmDtMkk69AnwqtPJ79HjCNhk
-	vYGzBIviUnlAsG6VJKX7PGC5h5FSquzfg=
-X-Received: by 2002:a05:6a20:7288:b0:3d3:af66:9f61 with SMTP id
- adf61e73a8af0-3db4076e3edmr7597487637.27.1789415464132; Mon, 14 Sep 2026
- 12:51:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="SXx7rO6q";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="X1NEAzsG"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 080071D00086;
+	Mon, 14 Sep 2026 15:53:37 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 14 Sep 2026 15:53:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789415617;
+	 x=1789502017; bh=opaCvCnTuRSbqkN6v+2aHUWMlgp5xCP12xi1paNZ7Uc=; b=
+	SXx7rO6qIQgZ8O0wzKw8K9aaUJzr0t0oZlP92QFKdwqH3sy4D66HQ5imYyVjHimY
+	4Q5NjIAlfuADMRh2NQgR2csXnodBozzW0fTiaCLDIioVEYt0AynT2QvdNQq97AQR
+	y0Fqw4ykudDpB2jOOm/V1N6yVJOnWAiOqGK/XIMh9UUz+1EAXuyW9v03jq4XgAP2
+	2mHLYxRRGQ6FUtBt0LyVH51Z/qUhqj39vHKlxC5B7YOLk75UVrBPAxOIs+nntDBs
+	yPIiJ+Tp1tHR0N9v9NAq8cQCqeoI0v3PVlyOkf3YKoXLiGCfViVquCUeZtF2MeTg
+	SnYRdmgdCLB/bAAivP9mAw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789415617; x=
+	1789502017; bh=opaCvCnTuRSbqkN6v+2aHUWMlgp5xCP12xi1paNZ7Uc=; b=X
+	1NEAzsG1IAZML9OZDVCbJTAd6PZiIScmF6EQz6HoillENg5x9iKA5PA6e+tdk3Bp
+	PypF9f1EZcvBnWTdclhq8+hMC5rtFMrz5P55YboUD74+Dts/ZWZbghSrXr/6DGr9
+	sJy/ZeJw3Yg/UnkAN0KUvIyMSAy6M13rEQ3njzgcsaPCgZTEtXTrpY3R5hY2d4H1
+	yHRsrNqP87qcOIXEmi1ZzBFdrzlJ0EXacUnBUUalwKvVeiVG27oNX8zTdVlYV+5G
+	BPeWDeVFPDAVKmV5Mub2cFtGdOe3sAibLjPgx0vv7otMZsLrepsonn6oX+niUPf4
+	exLakNAWHLwCmxMhJ3yAQ==
+X-ME-Sender: <xms:v1CoalVLJjEK375I8AcdnZVD6OC4H5j7V-eX8kfLza3iqkRtZodU7A>
+    <xme:v1CoagZF51gy7ynRbWZHjM4_cbvfzlRTOX3Ufyhx5H0lW2eAC7W9sRDxnpYMT7TjZ
+    EITYBhNXSKk7gf-EHLxGaKADUZCwhe04Pu6M76Fq5SAEKIo0SBmXfpW>
+X-ME-Proxy-Cause: dmFkZTFJURTY62Q7SjjrdQBiZ9cK/QsrasdOpZ0C4CYJUiQ8fvYo5xjoK5R5hMDCs5S+mQ
+    4mAz41kXkBUv1l6Ddaa2CyFUStIFEeH1kJgJXUZXCb/OB1VNX7p65ppX+f9DVlMONBQ+tu
+    flzVfJFJIHs740LfRcASx4VtYsjrCfL7Yl2YOLhpICiTIU08KSUD9RAKbSiL9fp/32SgGh
+    zL8SHSRsUNlTljWE6f7j1yPE5YJKIELrlXKP7RmGb7P/YaXFU6WwPdj7YOZvVlTjNslSVf
+    1jO4D+MTMvJbB1ZkG02tSEDwMweIH90UaaDct50l4nhV9wCsh1xG1hk0Zb2+II+9L0vufl
+    /hj0Qtgo1YMFrIf5mNeAH33MAuc4kuVjBL48lbyPzQb19vUkqkFHuhwPEW0et0VPrFaMYP
+    lt+eg6kbYVfci/rFwAh6Q435bhox3yfM+k3d3/jTl87/6UmEDI7gsu3slWu63QTCLUqz7q
+    2sNgGQ1lVHJihAlaKG75Vb0SiR2INSxfvffKh7MLcSm6qTsE1aQ7YFef7KZR3UOjfFAHXA
+    gLmHBrv6KVVDdSTHFydHLqzsfVRrLIEXmn9q/0ltU1HAvx4ZAUMQgfY7WJCm6FaVOvRuPI
+    BaIVzh0cMBzjPiaRTNsl+4dappa2Dvu8HCyCw6xjfju23e4Eznp2uABiRklA
+X-ME-Proxy: <xmx:wFCoanC0J5EtlPbP4_25RowBHhyM5I-veJHZduujJNKiIspCFs9sPw>
+    <xmx:wFCoakZacQzLrx6V3EqUzdeTs0SdXOM4s7_Kd6vzCW-XHks_MTbJSQ>
+    <xmx:wFCoaq7m-LKVRJOt8bawE0kMJeMaH7nnhhn6jMAFf0xtfLnN-D_G_w>
+    <xmx:wFCoala2Q-U8mB3lS6H1MDeuO6RvdOMLt3t4hPiMED5wX5DDI30XIA>
+    <xmx:wVCoajF7Z1GjnWQObrlfo8_TigsADRNglTK9FlQPS9NxekYjYlzzAZFt>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6595732A0084; Mon, 14 Sep 2026 15:53:35 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911073758.2714564-1-xiaolinkui@126.com>
-In-Reply-To: <20260911073758.2714564-1-xiaolinkui@126.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Mon, 14 Sep 2026 12:50:52 -0700
-X-Gm-Features: AcwNN1VDum4gOlZSbg0hzDAlTLdEEBy4SOc89xunAgFU8fCHs5BPg2Oc9Kr5JrQ
-Message-ID: <CAAVpQUAUAgAVutpQgMu4LjG1KOpm9Du0Kw1kbp2vHtHqQ5USZw@mail.gmail.com>
-Subject: Re: [PATCH] ipv4: fib: annotate data-race around nh->nh_saddr
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, idosch@nvidia.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AmIRJ1Q9JmRB
+Date: Mon, 14 Sep 2026 21:53:00 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Mark Brown" <broonie@kernel.org>, soc@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-next <linux-next@vger.kernel.org>
+Message-Id: <b6ca14bc-a4f6-477b-bbb0-da12d27b61af@app.fastmail.com>
+In-Reply-To: <aqgf5o_gSUQH1AF0@sirena.co.uk>
+References: <amY1zEUOGFe4Op6W@sirena.org.uk>
+ <fd352f58-8100-4b0f-ac8c-25b08d0e2886@sirena.org.uk>
+ <aqgf5o_gSUQH1AF0@sirena.co.uk>
+Subject: Re: Missing signoff in the arm-soc tree
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 12:38=E2=80=AFAM Linkui Xiao <xiaolinkui@126.com> w=
-rote:
+On Mon, Sep 14, 2026, at 18:25, Mark Brown wrote:
+> On Mon, Aug 03, 2026 at 06:25:57PM +0100, Mark Brown wrote:
+>> On Sun, Jul 26, 2026 at 05:29:00PM +0100, Mark Brown wrote:
+>> > Commit
+>> > 
+>> >   3edcea7f0413e ("Merge branch 'arm/fixes' into for-next")
+>> > 
+>> > is missing a Signed-off-by from its committer (and also isn't showing up
+>> > as a merge).
+>> 
+>> This issue (and the matching author signoff) is still present today.
 >
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
->
-> fib_select_multipath() compares nexthop_nh->nh_saddr against the flow
-> source address with no lock held, while fib_info_update_nhc_saddr()
-> stores a new value from another CPU as soon as the preferred source
-> address of the egress device changes.
->
-> Commit 195374d89368 ("ipv4: fib: annotate races around nh->nh_saddr_genid
-> and nh->nh_saddr") added WRITE_ONCE() on the store side and READ_ONCE()
-> in fib_result_prefsrc() after syzbot reported
->
->         BUG: KCSAN: data-race in fib_select_path / fib_select_path
->
-> but it only covered that reader. fib_select_multipath(), reached from
-> fib_select_path(), is a second lockless reader of nh->nh_saddr and was
-> left bare.
+> These issues are *still* present today.  It's making noise whenever I
+> check -next for ongoing issues, it'd be good if the branch could be
+> rebuilt.
 
-32607a332cfe added the reader after 195374d89368.
+I assume you hit this on the branch I pushed out earlier today, which
+started fresh from 7.3 with just a single merge. I've amended that
+commit with an S-o-b now, but I'm not sure if that is what you are
+asking.
 
+When you write "and also isn't showing up as a merge", do you mean
+your script has an exception for merge commits to not need S-o-b
+but fails to detect this one as a merge? I see that about half the
+merges in linux-next (including your daily merges) are not signed off,
+so I'm not sure if we are all doing this wrong the same way, or if
+there is a different problem with the soc tree.
 
-> Annotate it as well so that the value cannot be torn or
-> reloaded while the per-nexthop scores are being computed.
->
-> Fixes: 195374d89368 ("ipv4: fib: annotate races around nh->nh_saddr_genid=
- and nh->nh_saddr")
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-> ---
->  net/ipv4/fib_semantics.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-> index 7a362f2e2c2b..885c6fae5232 100644
-> --- a/net/ipv4/fib_semantics.c
-> +++ b/net/ipv4/fib_semantics.c
-> @@ -2204,7 +2204,7 @@ void fib_select_multipath(struct fib_result *res, i=
-nt hash,
->                     (use_neigh && !fib_good_nh(nexthop_nh)))
->                         continue;
->
-> -               if (saddr && nexthop_nh->nh_saddr =3D=3D saddr)
-> +               if (saddr && READ_ONCE(nexthop_nh->nh_saddr) =3D=3D saddr=
-)
->                         nh_score +=3D 2;
->                 if (hash <=3D nh_upper_bound)
->                         nh_score++;
-> --
-> 2.25.1
->
+      Arnd
