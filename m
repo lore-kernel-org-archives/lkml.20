@@ -1,396 +1,298 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012042.outbound.protection.outlook.com [40.107.209.42])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBE43EEAE2
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:53:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372386; cv=fail; b=KvGQUY5Y3gOZs7MSAxLTxBXI9MA4xqU+YyM0NhiVznUEffGrOFQB1hi7jUtnXKKR+Ow5/88prNsbtkZsg1riOmsBJGl8+u5GjQg4+7dGG8ATjaEVod54wYrmqT6rseadDk2osbSNOZzDoLidWjZ4yublhYNyOBxMFrk61QcxBVo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372386; c=relaxed/simple;
-	bh=Fc553FH0QBSxhAtg0hPd5kwEgiEjQE61tXXO5WjSwSc=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Yf26da6DQxSeSov6J3CzY8scJWx1ZGfvEPcyavVz34kN3CXbdyHMlAyBYpkryvFd3hM9pH8yXRYfJkF0AayBkA820h4Mow8SlLnsD7kwrnsA2JK0DpIZ5FduoTWX0qNXpKfVF9eN7HNW49PSLyUph8UcZFmM7WadxrPoToBS3bg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UrRRovCj; arc=fail smtp.client-ip=40.107.209.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31AA3876C7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789372397; cv=none; b=De4rYJewH0qBX5XWPUbQKXmSDFjiSy1m0dfolkZlQ7kg4SIiJX+xO33/ZrUmu9nhGp96niRWGrsYbQAxIKTJE4lwCyGJyu4oeNTT1jn8O+04JBAI4M4lXN8aZY9fdEYi0Rx6cgvwaW+gYWdT2TPp65sFIQouh2WnjIhScu+YGpE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789372397; c=relaxed/simple;
+	bh=EVjb24lAVYiF77qqXys6L35Z/ttsHp63jp+8emA2q8U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z+ix/ngBaWE4rvMfP87yLXnun7PJwCozvJXsQuklaymB5CuVjPa9Ha5UDD0qMbFE7vBU2rKgHDPvJ0sM2H3B/jVbxkVidTlQe86WmKUKONKeCbPerShSBJbYXc6obhWr+oRvJWlsQk5WOYmDXhPWlZkECj8ICloh89WtnC01vqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=C2B+m65U; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UrRRovCj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OuBPYkrLI86a4uHJo+/kdJOre67Fwgd7/hCvQKGnDIslfKWM1H8XOJah31nqsQz6OZZMpAPDmXANGOuE/cqu5a4Z26xHYqW7r7SwyZQRnLMYSSnr4ZH2rXEX4MhThLHyipAe8FoUSzlm1XBzDDsiUBa0xhuvgjRYInXMekJcUkXmt7bQkOeI5Ht1NWVQFiiUhxaB17o+tDNpH7OrWgb2hn6D9Z4211/f1AgmUDDJso+Rye/bi5VCQkM/D6zZplURnEJlKG4g5rROxZjE/7x7bbvAbCqAIjcMz8caUcLln8r+GKPSWfkkK15jOcfvriwLlen0kUiwdpOYZjb1w89mgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VIrtK84VxfQ3zxDzUlxyb1aygxwXtDmcvLsxRAA6HLY=;
- b=VfpPX4ZdcvvOSWqK0rN9tK65i24DEiwOw3MlTE1rLc1iQe0Q7H+plgwHeB/YISZuqazS8VMKYvjPTzO8NAtzONnHZtvgvw/C43cNTVIgZW+HJgQNduFOoHBXFapW1foHhvZepjq5ejNC7rvQO+0DABW0zqaX3zIPx1RexCWtZcYh+ezuDLl55QRw2BT16hBxh+iQqNiv3Qo0tfi/ZX8Lb938os2CyGfpmdpGytSgG0VZCUAxuaUSJg7oLtYFZQT3kb/mN7f/+FiheOsOBzdrzFHYkzmAWM2etOOEuO7cq+kOsN9d1AyXoW1Ul6IOjX6cPzaWryOjY5BdSr7WXuepTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VIrtK84VxfQ3zxDzUlxyb1aygxwXtDmcvLsxRAA6HLY=;
- b=UrRRovCjxNbVKiyeYOzO2fm6fakTU5PsUI8QH1m7vkinQHL+m9L8n+hjH5hmYUfMpBqnBbvrmR6Tnd+zTb4ThJWGye4WO+uTIBGBvSiH+rgBYov/WMCYDXeRrU0DEi0arXq1tY0W6Jjz3oEdNitoh1v19C88l2LCjAJjN+W9holGUyXr1IHMWkwsQQPcTrxLvQppfGEkFV10HSm6o5E75hLHgcylcX27rVz26EjY6fuponjsWbR/fudvTn7iqdkJ/DcaWN52LyKNTWu7GsI4XpAprEgJGRcmsRAMv63zzITZGsvnHNcoPE4ffWQt2wwG/exeYvnqmjHeasAjMMJATA==
-Received: from BLAPR03CA0060.namprd03.prod.outlook.com (2603:10b6:208:32d::35)
- by PH8PR12MB7279.namprd12.prod.outlook.com (2603:10b6:510:221::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 07:52:55 +0000
-Received: from BN1PEPF00018548.namprd05.prod.outlook.com
- (2603:10b6:208:32d:cafe::62) by BLAPR03CA0060.outlook.office365.com
- (2603:10b6:208:32d::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon,
- 14 Sep 2026 07:52:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN1PEPF00018548.mail.protection.outlook.com (10.167.248.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 07:52:55 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
- 2026 00:52:31 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
- 2026 00:52:30 -0700
-Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
- with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Mon, 14
- Sep 2026 00:52:23 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
-	<zhiw@nvidia.com>
-Subject: [PATCH v2 23/32] gpu: nova-core: vgpu: add GSP plugin communication buffers
-Date: Mon, 14 Sep 2026 10:48:58 +0300
-Message-ID: <20260914074907.1399629-24-zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914074907.1399629-1-zhiw@nvidia.com>
-References: <20260914074907.1399629-1-zhiw@nvidia.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="C2B+m65U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789372386;
+	bh=EVjb24lAVYiF77qqXys6L35Z/ttsHp63jp+8emA2q8U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=C2B+m65UZHRg/2mGO3axwU7GbMkzmJGnWHnLSRgP+ebnVkxuMqOyl6pf6tJ9nFNnE
+	 NwUnIg0x9G7AdvgSHPqZLw+uAFLMUvVjF9VsA5H4/eaZMako2zoZcDdhsNnP3mdRm4
+	 Rb9ZiOWyrLkUmpNGtxTpcc0+iwQdBq26C6EKcEiHpBuRjaGwHuV/UTm191mg2NvIF0
+	 MzvC6FG3+jq+VZvLACBdyo/aRmR3OQ9V4aiJvmNEQoJw1DpsG4wwaAldNofAO1uV61
+	 90e/Djiee9ei+ofwT2CIYi1ufj3qsTLRjvR4C2R1jTknWu1PV2Xqatg+xcrX5Ck9nB
+	 sZhuzGWWFDycw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6FC8317E0700;
+	Mon, 14 Sep 2026 09:53:06 +0200 (CEST)
+Date: Mon, 14 Sep 2026 09:53:00 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Adrian Larumbe <adrian.larumbe@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 17/18] drm/panthor: Fix the unplug logic
+Message-ID: <20260914095300.21633554@fedora-21.home>
+In-Reply-To: <aqRXJMCsiu3DC0_S@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+	<20260826-panthor-unplug-fixes-v4-17-982cc8f4234b@collabora.com>
+	<aqRXJMCsiu3DC0_S@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018548:EE_|PH8PR12MB7279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1127b997-4138-44bd-35e5-08df12352fe5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	CfQ435tNDFdcrzNS96JomNv3K8PAHjpVPmmQ/ii3FZON3q9wXyPOqb8VnwhYZ9220LASBrsViZ3mbqeIf1/7wcANr5fP1PIYf4btWRZl0ZD0VcZec4cFMZ8Zv21k/p+Qii+DaHFWOk1qCpWTIf0N3GcNoFQvbfMBindy8tEX/etKKysavyt2RSm3Cqi5D1QODS6axZtp5nZhO9BSp3QjcZI0zf0vUzgaEzE0gU+KfHSyoxihbJ1E0gMnmcnuqiN7GA7vIxYH4YN/gDTkl/58BTZA8KggeeRJeM2ASN7cttVJO/6/lWfl6j/nqa1oykTSXQXLI/tqNYXHXfeORUuYejhBKFWf2vXvaT7Uy8teFmMVOz5s4Yxk8Bv8/BtCGHx6SViqGRtzjo10WZAhcEEfMQWCsqvnoFesNjDzkficGsmVwlRvgst8CVZPpYkwRUvU77Q87Eo3M6ghZXesp0wld/eE9d1HMXD1wc7zg1ynmjMyDdlNlpzq2qTBVjv+dsDLMW8bHVv5tTeDrwzGAr4KM6B0YE/g1u7D/O1kjl4L278Z6nyijoht+S2Dmr3KVKrvQ/YIoJ4R2bxngUJAeHnCGPIUkHEuSW2x2LTJEDyXrzPIy+oPUkRIKzu2J0REJ/h5pYuqOd77fWkkbZ4DUL+Oi0bakkExjVLadtEXwQ5+r8ssvjWJjL2vgZ/OhXV81s1YIJrSSHFD97p3h0k75fn6kA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1f3y/2OU/aUcb5KMkWUs9/ITM5gOYDNl6lgmTuvp2JyidtxSUBg4bOrB/YkzHRlhQX/LNKKLLcOx4bLABI9dfG8fi8qTOZAxN+t3qeHo2Icos/Aqcp1qakTSOQccwtZsViHVWP3qyeTJNi11GfHAOERZ/Wrn/5reYc2wRecOeA29gxaHMb9ggXnMfWbX9/K1hwQA6p7kOh14LuTNFb4Xn2Sjps5TQ/LSTIy7tkDocAXz98dWl6wMtNG5eXGrI+pUyYr9XhjFttJaIny4M2Uolz6CbeSmaqDJpF5IGqPqsg81IWVoppdHC7QTCwL26W8Qa1jGWg/2N3wCeoM1V8JiOgbLaprJrwFACaKnPPIET6SOj8wH3DnhH+9rlL06xHOfBxJSRoHTXNirBMsvOOihlqfVQSPknEwb8be88b/hRwLCnopPOvw08eFud0fX809i
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:52:55.4146
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1127b997-4138-44bd-35e5-08df12352fe5
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018548.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7279
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The GSP plugin uses a communication region in its management heap for
-control data and logs. The vGPU manager reads its boot-ready marker through
-BAR1.
+On Fri, 11 Sep 2026 23:44:55 +0100
+Adrian Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Map this region with BarMapping and expose the firmware-defined control
-and log regions. Keep the mapping's BarUser borrow until explicit teardown.
+> On 26.08.2026 16:56, Boris Brezillon wrote:
+> > The current unplug logic is broken in multiple subtle ways:
+> > 
+> > 1. it assumes that the HW is still accessible in multiple places,
+> >    which goes against the very concept of hot-unplug
+> > 2. it doesn't take into account the fact the stop is a failible  
+> 
+> On a related note, this made me wonder whether it's the same in Panfrost.
+> It seems panfrost_gpu_power_off() can fail, leaving the GPU running after
+> the driver has been removed.
 
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
----
- drivers/gpu/nova-core/mm.rs                   |   1 -
- drivers/gpu/nova-core/vgpu.rs                 |   1 +
- drivers/gpu/nova-core/vgpu/fw.rs              |  15 ++
- drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs | 204 ++++++++++++++++++
- 4 files changed, 220 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
+Actually, by stop I meant SOFT_RESET, which shutdowns the power rails
+automatically. This makes me realize this commit message is
+out-of-date, because we now rely on the fact SOFT_RESET is considered
+non-fallible to keep things simple.
 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index 016d99608aeb..d1cad5ad52fc 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -67,7 +67,6 @@ macro_rules! impl_pfn_bounded {
- mod regs;
- pub(super) mod tlb;
- pub(super) mod vmm;
--#[expect(dead_code)]
- pub(crate) mod vram;
- 
- /// GPU Memory Manager - owns all core MM components.
-diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.rs
-index f3e40e6de6f0..8919322dc057 100644
---- a/drivers/gpu/nova-core/vgpu.rs
-+++ b/drivers/gpu/nova-core/vgpu.rs
-@@ -24,6 +24,7 @@
- 
- mod commands;
- mod fw;
-+mod gsp_plugin_comm;
- mod hal;
- mod instance;
- mod vram;
-diff --git a/drivers/gpu/nova-core/vgpu/fw.rs b/drivers/gpu/nova-core/vgpu/fw.rs
-index 23097cb13121..aabe114b55c2 100644
---- a/drivers/gpu/nova-core/vgpu/fw.rs
-+++ b/drivers/gpu/nova-core/vgpu/fw.rs
-@@ -10,6 +10,21 @@
- 
- use crate::gsp::bindings;
- 
-+pub(super) use bindings::{
-+    GSP_PLUGIN_BOOTLOADED,
-+    VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE,
-+    VGPU_CPU_GSP_CTRL_BUFF_REGION as RawControlRegion,
-+    VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE, //
-+};
-+
- pub(super) const GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE: u32 =
-     bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE;
- 
-diff --git a/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs b/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
-new file mode 100644
-index 000000000000..d2139309b6be
---- /dev/null
-+++ b/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! GSP plugin communication buffer mappings and access.
-+
-+use kernel::prelude::*;
-+
-+use crate::mm::{
-+    bar_user::{
-+        BarMapping,
-+        BarUser, //
-+    },
-+    vram::VramRegion,
-+    GpuMm, //
-+};
-+
-+use super::fw::{
-+    self,
-+    RawControlRegion, //
-+};
-+
-+/// Physical VRAM regions containing the vGPU plugin logs.
-+pub(super) struct PluginLogRegions {
-+    init: VramRegion,
-+    vgpu: VramRegion,
-+    kernel: VramRegion,
-+}
-+
-+#[expect(dead_code)]
-+impl PluginLogRegions {
-+    pub(super) const fn init(&self) -> &VramRegion {
-+        &self.init
-+    }
-+
-+    pub(super) const fn vgpu(&self) -> &VramRegion {
-+        &self.vgpu
-+    }
-+
-+    pub(super) const fn kernel(&self) -> &VramRegion {
-+        &self.kernel
-+    }
-+}
-+
-+fn take_region(region: &VramRegion, cursor: &mut u64, size: u32) -> Result<VramRegion> {
-+    let end = cursor.checked_add(u64::from(size)).ok_or(EOVERFLOW)?;
-+    let subregion = region.subregion(*cursor..end)?;
-+    *cursor = end;
-+    Ok(subregion)
-+}
-+
-+/// BAR1 mapping of the plugin communication region in its management heap.
-+///
-+/// r000 layout, with byte offsets from the management heap (not to scale):
-+///
-+/// ```text
-+/// 0x000000 +----------------------------------------+
-+///          | Control (boot-ready marker)      4 KiB |
-+/// 0x001000 +----------------------------------------+
-+///          | Response                         4 KiB |
-+/// 0x002000 +----------------------------------------+
-+///          | Message                          4 KiB |
-+/// 0x003000 +----------------------------------------+
-+///          | Migration                        2 MiB |
-+/// 0x203000 +----------------------------------------+
-+///          | Error                            4 KiB |
-+/// 0x204000 +----------------------------------------+
-+///          | Init task log                  128 KiB |
-+/// 0x224000 +----------------------------------------+
-+///          | vGPU task log                  256 KiB |
-+/// 0x264000 +----------------------------------------+
-+///          | Kernel task log                 64 KiB |
-+/// 0x274000 +----------------------------------------+
-+///          | Guest RPC trace                 64 KiB |
-+/// 0x284000 +----------------------------------------+
-+/// ```
-+pub(super) struct CommBufferRegion<'map, 'gpu> {
-+    map: BarMapping<'map, 'gpu>,
-+    control: VramRegion,
-+    init_log: VramRegion,
-+    vgpu_log: VramRegion,
-+    kernel_log: VramRegion,
-+}
-+
-+#[expect(dead_code)]
-+impl<'map, 'gpu> CommBufferRegion<'map, 'gpu> {
-+    /// Map the communication portion of a plugin management heap.
-+    pub(super) fn new(
-+        bar_user: &'map BarUser<'gpu>,
-+        mm: &mut GpuMm<'_>,
-+        management_heap: &VramRegion,
-+    ) -> Result<Self> {
-+        let total_size = u64::from(fw::VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE);
-+        let region = management_heap.subregion(0..total_size)?;
-+        let mut cursor = 0;
-+
-+        let control = take_region(&region, &mut cursor, fw::VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE)?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
-+        )?;
-+        let init_log = take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE,
-+        )?;
-+        let vgpu_log = take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE,
-+        )?;
-+        let kernel_log = take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            fw::VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
-+        )?;
-+
-+        if cursor != total_size || control.size() != u64::try_from(size_of::<RawControlRegion>())? {
-+            return Err(EINVAL);
-+        }
-+
-+        let map = BarMapping::new(bar_user, mm, region, true)?;
-+
-+        Ok(Self {
-+            map,
-+            control,
-+            init_log,
-+            vgpu_log,
-+            kernel_log,
-+        })
-+    }
-+
-+    fn region_offset(&self, region: &VramRegion) -> Result<usize> {
-+        let offset = region
-+            .address()
-+            .checked_sub(self.map.region().address())
-+            .ok_or(EINVAL)?;
-+        if offset.checked_add(region.size()).ok_or(EOVERFLOW)? > self.map.region().size() {
-+            return Err(EINVAL);
-+        }
-+
-+        usize::try_from(offset).map_err(|_| EOVERFLOW)
-+    }
-+
-+    fn io_offset(&self, region: &VramRegion, field: usize, width: usize) -> Result<usize> {
-+        let field_end = field.checked_add(width).ok_or(EOVERFLOW)?;
-+        if u64::try_from(field_end).map_err(|_| EOVERFLOW)? > region.size() {
-+            return Err(EINVAL);
-+        }
-+
-+        self.region_offset(region)?
-+            .checked_add(field)
-+            .ok_or(EOVERFLOW)
-+    }
-+
-+    fn read_u32(&self, region: &VramRegion, field: usize) -> Result<u32> {
-+        self.map
-+            .try_read32(self.io_offset(region, field, size_of::<u32>())?)
-+    }
-+
-+    /// Return the physical regions occupied by the three plugin logs.
-+    pub(super) fn plugin_logs(&self) -> PluginLogRegions {
-+        PluginLogRegions {
-+            init: self.init_log.clone(),
-+            vgpu: self.vgpu_log.clone(),
-+            kernel: self.kernel_log.clone(),
-+        }
-+    }
-+
-+    /// Return whether firmware has published the plugin boot marker.
-+    pub(super) fn is_plugin_ready(&self) -> Result<bool> {
-+        let value = self.read_u32(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_seq_num),
-+        )?;
-+
-+        Ok(value == fw::GSP_PLUGIN_BOOTLOADED)
-+    }
-+
-+    /// Invalidate the PTEs and release the communication mapping.
-+    pub(super) fn destroy(self, mm: &mut GpuMm<'_>) -> Result {
-+        self.map.destroy(mm)
-+    }
-+}
+> 
+> >    operation, and that we theoretically have no guarantee that the HW
+> >    is actually stopped after we've released the resources
+> > 
+> > Those issues are hard to reason about because Mali GPUs are on a
+> > platform bus, which is not hot-pluggable, so they are in practice
+> > always accessible as long as we can enable their dependencies (clocks,
+> > power-domain, ...). The problem is, if the GPU is in such a bad state
+> > it can't properly reset/resume, there are various operations that can't
+> > be done properly, and the unplug logic is clearly not ready for that.
+> > And more importantly, if we can't guarantee the reset was effective,
+> > we have to assume the HW still has access to the resource we passed to
+> > it, meaning we can't return these resources to the system without
+> > risking a UAF.
+> > 
+> > This patch does several things:
+> > 
+> > - it resets the GPU before calling the <component>_unplug() functions
+> > - it drops the pm_get/put that around the sub-component unplug calls  
+>                            Nit: remove 'that'?                                
+> 
+> >   (no longer needed if we assume the HW is gone and can't be accessed
+> >   anymore)
+> > - it changes the _unplug() implementations to not touch the HW anymore
+> > - it let's each component know whether it should leak resources the HW  
+>       Nit: lets
+> >   might have its hands on at the time the unplug happens
+> > - it releases all resources at unplug time even if open FDs exist. This
+> >   is needed otherwise we could have deferred cleanup work accessing
+> >   objects that have been freed
+> > 
+> > Unfortunately, I couldn't find a way to break things into multiple
+> > commits while preserving bisectability.
+> > 
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_device.c |  50 +++++++++----
+> >  drivers/gpu/drm/panthor/panthor_drv.c    | 122 ++++++++++++++++++++++++-------
+> >  drivers/gpu/drm/panthor/panthor_fw.c     |   9 +--
+> >  drivers/gpu/drm/panthor/panthor_gpu.c    |   2 +-
+> >  drivers/gpu/drm/panthor/panthor_mmu.c    |  72 +++++++++++-------
+> >  drivers/gpu/drm/panthor/panthor_pwr.c    |   2 +-
+> >  drivers/gpu/drm/panthor/panthor_sched.c  |  90 +++++++++++++++++++++--
+> >  7 files changed, 267 insertions(+), 80 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> > index 817312f598f3..328e601d80e8 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_device.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> > @@ -83,13 +83,28 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+> >  	/* Make sure we're not interrupted by resets while we're unplugging. */
+> >  	disable_work_sync(&ptdev->reset.work);
+> >  
+> > -	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
+> > +	/* Disable RPM callbacks early, so we're sure external RPM calls won't
+> > +	 * interfere with our unplug logic.
+> > +	 */
+> > +	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
+> > +	pm_runtime_disable(ptdev->base.dev);  
+> 
+> If a sysfs or debugfs knob was executing at the time device_unplug() kicks in, and they had
+> taken a PM reference, wouldn't the previous statement mean when they try to release that
+> reference they wouldn't be able to? And maybe leave the RPM reference count unbalanced.
+
+PM refs can always still be released with pm_runtime_put[_sync()] after
+that point. All pm_runtime_disable() does is skip the call to the RPM
+hooks, which is exactly what we want, because we're going to suspend
+things manually.
+
+
+> > @@ -2243,6 +2253,11 @@ static bool vm_prep_for_cleanup(struct panthor_vm *vm)
+> >  	}
+> >  
+> >  	if (!drm_dev_enter(&ptdev->base, &cookie)) {
+> > +		/* Device is gone, take the unplug lock to make sure
+> > +		 * panthor_device_stop_before_unplug() has run and
+> > +		 * ::leak_active_resources is valid.
+> > +		 */  
+> 
+> This looks like a holdover from a previous revision.
+
+Oops, indeed.
+
+
+> > @@ -3658,6 +3676,8 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+> >  	 */
+> >  	flush_work(&ptdev->mmu->vm.cleanup_work);
+> >  	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->as.cleanup_list));
+> > +	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->vm.list));
+> > +	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->vm.user_owned));  
+> 
+> Here I understand that vm.user_owned must be empty by now, but vm's are only taken off
+> the vm.list at VM release time, either in vm_prep_for_cleanup() or when disabling its
+> HW AS fails and release is delayed until the next reset. So this assumes that for every
+> user facing VM that we destroy at the beginning of this function, its refcount was 1.
+> But I'm not sure when we've made it this far we're certain no more vmbind jobs are
+> targetting those VM's, all of which take VM reference.
+
+Hm, that's a valid point. We probably need to stop the VM_BIND
+queue in vm_destroy() instead of vm_cleanup().
+
+> > diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> > index bd5dcf4cb580..7d2815b4db0f 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> > @@ -2548,7 +2548,7 @@ static void tick_work(struct work_struct *work)
+> >  		return;
+> >  
+> >  	ret = panthor_device_resume_and_get(ptdev);
+> > -	if (drm_WARN_ON(&ptdev->base, ret))
+> > +	if (ret)  
+> 
+> Why have we dropped the warning here?
+
+Because this can be executed during an unplug, and the
+pm_runtime_disable() we added in panthor_device_unplug() makes it
+so panthor_device_resume_and_get() can now return an error that's
+expected. If we really wanted to keep that WARN_ON() we'd need to
+distinguish error-because-its-disabled vs
+error-returned-by-the-resume-hook, and I thought it wasn't worth it.
+But I can find a solution to make that work if you think it's important.
+
+> 
+> >  		goto out_dev_exit;
+> >  
+> >  	/* If the tick is stopped, calculate when the next tick would be */
+> > @@ -3100,12 +3100,17 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
+> >  void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+> >  {
+> >  	struct panthor_group_pool *gpool = pfile->groups;
+> > +	struct panthor_device *ptdev = pfile->ptdev;
+> >  	struct panthor_group *group;
+> >  	unsigned long i;
+> > +	int cookie;
+> >  
+> >  	if (IS_ERR_OR_NULL(gpool))
+> >  		return;
+> >  
+> > +	if (!drm_dev_enter(&ptdev->base, &cookie))
+> > +		return;
+> > +
+> >  	xa_lock(&gpool->xa);
+> >  	xa_for_each_marked(&gpool->xa, i, group, GROUP_REGISTERED) {
+> >  		guard(spinlock)(&group->fdinfo.lock);
+> > @@ -3115,6 +3120,8 @@ void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+> >  		group->fdinfo.data.time = 0;
+> >  	}
+> >  	xa_unlock(&gpool->xa);
+> > +
+> > +	drm_dev_exit(cookie);
+> >  }
+> >  
+> >  struct panthor_job_ringbuf_instrs {
+> > @@ -3320,7 +3327,7 @@ queue_run_job(struct drm_sched_job *sched_job)
+> >  	}
+> >  
+> >  	ret = panthor_device_resume_and_get(ptdev);
+> > -	if (drm_WARN_ON(&ptdev->base, ret))
+> > +	if (ret)
+> >  		return ERR_PTR(ret);
+> >  
+> >  	mutex_lock(&sched->lock);
+> > @@ -3873,14 +3880,23 @@ int panthor_group_pool_create(struct panthor_file *pfile)
+> >  void panthor_group_pool_destroy(struct panthor_file *pfile)
+> >  {
+> >  	struct panthor_group_pool *gpool = pfile->groups;
+> > +	struct panthor_device *ptdev = pfile->ptdev;
+> >  	struct panthor_group *group;
+> >  	unsigned long i;
+> > +	int cookie;
+> >  
+> >  	if (IS_ERR_OR_NULL(gpool))
+> >  		return;
+> >  
+> > -	xa_for_each(&gpool->xa, i, group)
+> > -		panthor_group_destroy(pfile, i);
+> > +	/* If device is gone groups have been destroyed already, and the XArray
+> > +	 * contains pointers to objects that have been freed.
+> > +	 */  
+> 
+> I find this a bit confusing, but probably because I don't fully understand how groups are made
+> to go away at unplug time. All I can see in panthor_sched_unplug() is that group references are
+> put, for bound groups, idle ones and then those owned by the user. However, do we know by this time
+> that there are no more group references taken by extant scheduler jobs at queue entities?
+
+It's the group_term_work that's supposed to stop the queues and cancel
+all remaining jobs, and we queue this work for all bound, idle and
+runnable groups that remain at unplug time. We also make sure those are
+executed with a flush_workqueue(sched->wq). So, unlike the VM_BIND
+queue which is really lacking this vm_term_work step to cancel jobs and
+finish the drm_sched objects, I think the group side of things is sound.
+
+> 
+> > +	if (drm_dev_enter(&ptdev->base, &cookie)) {
+> > +		xa_for_each(&gpool->xa, i, group)
+> > +			panthor_group_destroy(pfile, i);
+> > +
+> > +		drm_dev_exit(cookie);
+> > +	}
+> >  
+> >  	xa_destroy(&gpool->xa);
+> >  	kfree(gpool);
+> > @@ -3899,11 +3915,16 @@ panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
+> >  				     struct drm_memory_stats *stats)
+> >  {
+> >  	struct panthor_group_pool *gpool = pfile->groups;
+> > +	struct panthor_device *ptdev = pfile->ptdev;
+> >  	struct panthor_group *group;
+> >  	unsigned long i;
+> > +	int cookie;
+> > +
+> > +	if (!drm_dev_enter(&ptdev->base, &cookie))
+> > +		return;  
+> 
+> Do we need drm_dev_enter() here when it's already been checked in the calling function?
+
+Probably not, I'll drop it.
+
