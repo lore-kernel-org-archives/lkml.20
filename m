@@ -1,150 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CA734A78F;
-	Mon, 14 Sep 2026 08:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E162D73A0
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375468; cv=none; b=Y4rq5zjDq+Al5D6YzKxFd1wXNCt8A0CCsoUXfQgXt77N6HfZ0+0M6OIp/qhsN1mopXo0jr2IMFvoLYB7J4LOsHR1fAdXDfDdacpdUBPLNwPdiNicGpdDWnqQXF8dP3nGQ1vUBjKcKJrDu9GkEI6GeCGsWukSbXoWmyRTL8+JPrI=
+	t=1789375499; cv=none; b=vAnkFnX24iM/8aKv/gdk+hgmmu/fOPqDhY4WX14P53D0woR8jnAdfw6iy/AuxzVuQTRbBVbhw+lGX3jeSWaDwp9dbcGW5vjd6pYayloDsmn7EqADHqdLsqSpKvQ5Z9LD6SwQw59V07XPbW+RAeqYSEQQwcbI3AMSGDhCiuXwk+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375468; c=relaxed/simple;
-	bh=FApjsybsfDSVMmw+gxb77JCNCs6u6UHTMRRkamCj8TY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jl4iOi2SlGV5Y/ZggkFrQnAXqcrJdAev90sPnzsgxx1YePzTpsKVGqZLgTd8WzX/Y2lHdf9BRGfar264dyPgJeS2IMKpWotiMDWvN78FTrkuUB5mwOoUQY8cRQOoCJ+zoM/X+ikO3jEQf00g9+Ay7cHOMEos/2zYpLJ+vJ86QOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rwj4HuiQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789375499; c=relaxed/simple;
+	bh=yxzwj7kj/0mVkRV9upaErvtPrafiX8Fq4udSHZDZcZM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pv4NzrYCmXxr/CwWbI4xPj5LsEFZLg6UScsPlp2P0bnwn59qgi9Z2qGrZIWVnw7AMiz/W+JBUQXpFRpKNw0uIF680t0kUU5uWIahOWTYi3g92cUc5smUVn5yKUW7FHIwGO8e/KjJqjuHmKAuELd5pNO3tloqkpZAmjh10DryekA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbOPq4Cx; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rwj4HuiQ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E1D461F000FF;
-	Mon, 14 Sep 2026 08:44:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789375465;
-	bh=7a2/ibp36NrABheYol3LAYhLxpjLT2pX3v2Uyuz4AvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rwj4HuiQtNd14esUdf/Qvv6aPhmoQbFJ5UaoSQmWStFL9SLmR5fdBryWldc9drqLk
-	 QWiGN58TXw15pyRwxaEGxoF0rNFbGJFPP+mKkEF2ae6xNGG63XxBSNE1oaFHToO/NB
-	 EMPwopGEl4KU/hS9vipQRcDFedNZt2V393FN3qitUdunL1/nStuR6a3U/+wuADZiDx
-	 v76HU2pRpti6w+2kCHhenVVhmkLgcCqjQ7uUOVKwy2bAJrhWetPeva8LOoqW5x3JK/
-	 1w8Kgq2Q2CsIamelzJNL4BcA5QC1s6uiGbHhhS6vSyNAVy88/0/ouOcgcUQs3mQR9o
-	 ITFRaQkcWAYRg==
-Date: Mon, 14 Sep 2026 10:44:22 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v5 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
-Message-ID: <aqexDgkF7Nqp-fML@monoceros>
-References: <20260721062308.536947-1-cwweng.linux@gmail.com>
- <20260721062308.536947-3-cwweng.linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbOPq4Cx"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4d03f95dfso1660014a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:44:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789375497; x=1789980297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OR7fP4bd0gC35uG1gm8oegHQErfRKha3ncQTYMaVg3c=;
+        b=XbOPq4CxpPYcacml93pPafPbrCtIKrSkRj0qD4kM/FhTG1JQbppkJW+yopKYbk3xN6
+         lDu25M+TFbtr0e5LGGey2CdpT1GfN/CTS30UYsG+bup2uE1EivZAlYmqjSm3yeEc05kb
+         vlTAeilAe3qmQ7o0cQA+GYokuhHdAspQQ5EV7c00/myyYvL1OznpkQ1Hqb5kpu5VuMez
+         qlYh89Px92UfFyOD9ExkQ6IOLIQ/e7GOwMaprO+22RLVaip4ZXc/1vWDOob2btNeC653
+         xavopw2XjaxnxtOs5fwficnxTRmoIJn1vgNrFVbYG9mTdZEnIj0JklRaV6emMKxcRtjq
+         Oipg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789375497; x=1789980297;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OR7fP4bd0gC35uG1gm8oegHQErfRKha3ncQTYMaVg3c=;
+        b=YmhiuvC7ElPVTgEbE985FJt90rR9B8RHlvH56TLYUcWLAnUeREJYAo7WcfnViMUQnf
+         2cPo+GkzPdDpjmafIKoFQGjOLivoORmxuNLPcQQbNw5F1Yiv4Gy/ncVf7c4wFvygB0nf
+         MNREK3CzQFnOsxRrevhUSg4TLeOAKbVukmbIXf8nAeq2ES9xgVbAI+M2NIaBlY95V3G5
+         WG+hh0x2+8/d9AwsSdOAbRpfZoRKs1diVqkd5uY0yPGXnxhuLQGcbL7OmJBrvzpaQjxX
+         bcnlf7hMujAl81Dlbq7ovP8yBisW4HDR+v7r8JcS7p02drC/X9rqUxFJ5/uu2Crkg+dq
+         a0vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz/13JetgDd87Zm7NWdqqDViQ+aSKGGeThHOqGTxJMgQfug2nbrmo30ure2tvHyBV/hji46rJ9MG5/cGoA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhwkqPFFQ9OxGzjE/BnsfmWIXzRqonAAov5lS0IFZLe+23Fto6
+	4vLWkj/ZmjMc/Ju1a0y3bRYQ+XPMVf1ATPEUMOcseONtR3HMxScXSnIV
+X-Gm-Gg: AYBFou11NBu6+UGs0I60a/n4Hhpc/P8MydjPSzE2HNOBDEKC5fAf6j5pCUGBpfESMO9
+	jacabWD3OUYGj9c49PD3ZLWBWg1ir/bRa7qv0QEf8/tvmgYjq2/cPHawBHAEHzPq0Pq+AJS9xf6
+	CVezniokzVb63+dA+yov52R7OHQLNre9l0i/1N62o6lPMh2fFQi4kLXTnP+LSq3Wa3R6Vb/gTD9
+	3IRz3X5aL4fS27FmowhontSfanECY1Dveewo0ZzRLlIUSNutBoxahPU7PkQqTqZ5l8qJcS3bFDK
+	6+GqsDBw7mz3G32cgmLO5HGdXCUbwrUAUxwksAdbVS4bel99cYFIXVKmoiAZpp5aO/p0CGP/CsY
+	4w1UKEACZxZMPYE/Y8MGvTRSda5elgvKX0WQFDYdbDtYvSFKdWv930CP4rMjlVtVa63TMr358vi
+	CtzyvWr8fgrt99irRLCmiZHcsa/V4qAp7LJbs1a1Z29Py1PHiMG+GLyg==
+X-Received: by 2002:a17:90a:d2cf:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-39debf86d29mr3926198a91.2.1789375496577;
+        Mon, 14 Sep 2026 01:44:56 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d99531b16sm21128646a91.14.2026.09.14.01.44.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 01:44:55 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Eddie James <eajames@linux.ibm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Wolfram Sang <wsa@kernel.org>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	linux-i2c@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] i2c: fsi: fix device node reference leak on remove
+Date: Mon, 14 Sep 2026 16:44:43 +0800
+Message-ID: <20260914084443.1664635-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gj7lpiutmh7njnbh"
-Content-Disposition: inline
-In-Reply-To: <20260721062308.536947-3-cwweng.linux@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+fsi_i2c_find_port_of_node() returns a referenced device_node for each
+port. When an adapter is registered successfully, the node is stored in
+port->adapter.dev.of_node and the reference remains held for the
+lifetime of the port.
 
---gj7lpiutmh7njnbh
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v5 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
-MIME-Version: 1.0
+fsi_i2c_remove() deletes the adapter and frees the port, but does not
+drop this device_node reference. As a result, each registered port
+leaks a device_node reference when the driver is removed.
 
-Hello,
+Save the node pointer before calling i2c_del_adapter(), since
+i2c_del_adapter() clears the adapter device structure, and release the
+reference with of_node_put() afterwards.
 
-On Tue, Jul 21, 2026 at 02:23:08PM +0800, Chi-Wen Weng wrote:
-> +static int nuvoton_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-> +			     const struct pwm_state *state)
-> +{
-> +	struct nuvoton_pwm *nvtpwm = nuvoton_pwm_from_chip(chip);
-> +	unsigned int ch = pwm->hwpwm;
-> +	u64 duty_cycles, period_cycles;
-> +	u64 divisor;
-> +	u32 cmpdat, period, prescale;
-> +	int ret;
-> +
-> +	if (!state->enabled) {
-> +		nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_POEN,
-> +				MA35D1_PWM_POEN_EN(ch), 0);
+This issue was found by manual code inspection.
 
-Does this mean the output pin goes High-Z on disable?
+Fixes: 095561f476ab ("i2c: fsi: Create busses for all ports")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/i2c/busses/i2c-fsi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> +		nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_CNTEN,
-> +				MA35D1_PWM_CNTEN_EN(ch), 0);
-> +
-> +		return 0;
-> +	}
-> +
-> +	prescale = nuvoton_pwm_get_prescale(nvtpwm, ch);
-> +	divisor = (u64)NSEC_PER_SEC * (prescale + 1);
-> +
-> +	period_cycles = mul_u64_u64_div_u64(nvtpwm->clkrate,
-> +					    state->period, divisor);
-> +	if (!period_cycles)
-> +		return -EINVAL;
-> +
-> +	if (period_cycles > MA35D1_PWM_MAX_CYCLES)
-> +		period_cycles = MA35D1_PWM_MAX_CYCLES;
-> +
-> +	duty_cycles = mul_u64_u64_div_u64(nvtpwm->clkrate,
-> +					  state->duty_cycle, divisor);
-> +	if (duty_cycles > period_cycles)
-> +		duty_cycles = period_cycles;
-> +
-> +	ret = nuvoton_pwm_config_channel(nvtpwm, ch);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (state->polarity == PWM_POLARITY_NORMAL)
-> +		nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_POLCTL,
-> +				MA35D1_PWM_POLCTL_INV(ch), 0);
-> +	else
-> +		nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_POLCTL,
-> +				MA35D1_PWM_POLCTL_INV(ch),
-> +				MA35D1_PWM_POLCTL_INV(ch));
-> +
-> +	/*
-> +	 * In up-counting mode the counter counts from 0 to PERIOD inclusive.
-> +	 * With zero point high and compare-up point low actions:
-> +	 * - CMPDAT = 0 produces 0% duty.
-> +	 * - CMPDAT > PERIOD produces 100% duty.
-> +	 *
-> +	 * period_cycles is limited to 0xffff, so PERIOD is at most 0xfffe
-> +	 * and a 100% duty cycle can be represented by CMPDAT = 0xffff.
-> +	 */
-> +	period = period_cycles - 1;
-> +	cmpdat = duty_cycles;
-> +
-> +	nuvoton_pwm_writel(nvtpwm, MA35D1_REG_PWM_PERIOD(ch), period);
-> +	nuvoton_pwm_writel(nvtpwm, MA35D1_REG_PWM_CMPDAT(ch), cmpdat);
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index b2dc5ae1d0e4..0c022e79ddbf 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -748,8 +748,11 @@ static void fsi_i2c_remove(struct fsi_device *fsi_dev)
+ 	struct fsi_i2c_port *port, *tmp;
+ 
+ 	list_for_each_entry_safe(port, tmp, &i2c->ports, list) {
++		struct device_node *np = port->adapter.dev.of_node;
++
+ 		list_del(&port->list);
+ 		i2c_del_adapter(&port->adapter);
++		of_node_put(np);
+ 		kfree(port);
+ 	}
+ }
+-- 
+2.43.0
 
-This is racy, right? (i.e. if a period end happens between these two
-writes, we see (probably) one period with the new period length and the
-old duty_cycle.
-
-The result of the two questions should be a comment describing the
-behaviour, otherwise the code looks fine on a quick glance.
-
-Best regards
-Uwe
-
---gj7lpiutmh7njnbh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqns+QACgkQj4D7WH0S
-/k5FSwf+Nk29Si7VT23M1ciM84MTOv3o0aAx6Syxa/FAYB/wGsbfOQfdrahzYO6y
-/0gU4Zjql0+4nu6sNrz9e9AJWqSljze9z/j1zdZQ1qAqlKH0Vfph85hrqW2CnJrA
-CwZiYCffuIHrITmJXG7ACtd2jTcdY8/YeUJQ3MuQlT4O67As/9VF+6RW+DUW4iFA
-L9vWx4Y7hhWGz4+TozTipkFBAX3ResmC/fPpPr15T1NxLYiFZrZS0Mh8bHbj//7Y
-5GmgHeuNqdiWWod/DN9iCDh9X1r8pu4ZewvCF+kDPYsQtZEgNZgi9I3QgadzaD1L
-rihEHMMi/YGrk/xiXD4TragJYmBS6A==
-=B1Dh
------END PGP SIGNATURE-----
-
---gj7lpiutmh7njnbh--
