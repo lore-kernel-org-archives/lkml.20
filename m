@@ -1,148 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A12F43DA4B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE225468C19
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391937; cv=none; b=VNFwCb8VAMZv6DGCSJ+LINZPW/hvGR9ehfUZ9d2iGRVIJMguXoHlmDTL3VTxOtWrnJbdEKSgr688xXSCYFFGBj9rXlWtzbVjS2t/odCnSh9wEXXBM32hnAVuANEc34YdZs7yXc2ek9J38mJUDoJCm8n2joBFfzbVeNqlR3O+nFs=
+	t=1789391940; cv=none; b=gGC8fNOq1KkNqLAi2CAkFTpfAFRc9XLRrVMbPTYgBtYSJ/T+cFr0LxpdBFmPoWLazDmRqpAsEblDZxwVM93X+HVK/tyehylii44NtJrNhcO3rzhae25BHclhGxvj+usBXOOggAbe9EfMlmLgTsNEsbFPndq/K9qqjp0LNNDC4SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391937; c=relaxed/simple;
-	bh=G1zooFoW5kaSsGSngkHqHlHRXKzhQm5z2OiUqt60jmI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T+M51Z7eU6hcEpUPRwMZ/4REIpz1mzok8U1FyxBKVYb8NvBluzClPsX1mXOvlPJmtUoc/PaC5dhtvGQeHZ+IRgEy68gdYIm2XXNafIf7PJO7x7fQBj/R6EY+rsvXxJ0wdi99zdVf/sxEqk0VDs49SEaDarOZc3pMWKppE5xJREI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4OURtAM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789391940; c=relaxed/simple;
+	bh=KdKxNSK2EqzOJkxmWBpgLJOR0R0yxWfK4EduhOCNn/U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sZwHZ8bOukWhORc7dPCp4I15W43ifYgx92bw1Bqj/y5zTedqbnuKE7k2P9UBz1h9uiN4xDUYYMPQhwDJNeP6z5QEZqjOlmkptOxwB5O9he3k+vwngR2T6MS39o/j0TwyyT1Bj35ImoBJxsXX5fX5qqd6YkD+aLEgplYGkDsLTHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KDCfSrOS; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4OURtAM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45161F000FF;
-	Mon, 14 Sep 2026 13:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789391935;
-	bh=H4lgleji7/TmSk0WiBbJhXNt3/OfbliY0H4ZtIu5kjs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q4OURtAMJ3WIuw4GPiestiZF4uXn0oGBo5lUmL6A1m4WHhQ1Xhd+ZeAREkD3IfzrT
-	 6qeS5AkuSZUGIAA2i+1j0dsYCqR+WeGXHU/bihFSEAIh0e6+8L7gxlucpeD58ZvCQj
-	 Vt7nLXPexITTAy8F3+TKcJYv4VlZ2dmrvSNuwhQ2SN7ijplxGeg6/xWidjY+FsE4sp
-	 ztMsI91Rmx9NolHJ8YX/yK8GONQYoU1mFTDly3i6hWBrQ3uD2piOww1XuKIQMBsuYk
-	 iUqRUbcSxiYivlvpMbR1E7j/XVRDomayankndy8+9AW8HG8h+F7O9WcGujWVtauiWP
-	 aSfnL9+MDc9EA==
-Message-ID: <8578fa96-14f0-4c3e-bd7f-a2a626f79f2c@kernel.org>
-Date: Mon, 14 Sep 2026 15:18:43 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KDCfSrOS"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eefae4so5755755ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:18:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789391938; x=1789996738; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+CtYN0tgKPETVlmb678BLgBAA4im2S7f1euATyuMTj0=;
+        b=KDCfSrOSQ//Xg3o3nxSj+DFByzN8ywv2juXCbxy/6m8sURpOxDB4hOeYTKmqw15w5u
+         6UQZlHxNlQtik8GYKeQfdoXnvhbC0yom1cL/A5ToPd6hlehj82qsHnV1FzwTT5dvrJIW
+         5TmAk9+Bv+WYzMXYCvLSt73O4Pf53cD+zWaCm4wOLhlTWJgXxTJXgq2DdfE6U4/3APCp
+         wMqegRCVpZGiafYisp/fBYHPEe+/WfWj05PU8489F6xiyzy3ea5yIl/iv4RTLlJfgaFo
+         zTElNEJwmb52arj4HQJw794S4r6zMlHKMtqNxRs5apq/XRO1wZKbz6GhJRjbgNTTCVEw
+         vkHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789391938; x=1789996738;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+CtYN0tgKPETVlmb678BLgBAA4im2S7f1euATyuMTj0=;
+        b=BCBhxvm6mfBzXu/rf3rk4WGaFdja/ErshaO7R6lFbzL93ZYO/eYDFX+L6sSCqpyC6j
+         aVAh1r7X9J7VD9XAKrEK/666dPMfTtk8U6lhjVjk1qR+j7rFmmycbS38RtM0CTdVrSs+
+         whzQGhzgD3UYl83zJwh5L9cOx/WFzM+MEMYR/EW8RCDqjbaQt1vW5v5jVDexlQgxkkrj
+         p7VElLfpwEK61XO7u7kdz5TROUUvYfdkSXonGgysGQvPenxqXdmsoyxBqb8uG6rBHvtZ
+         A4lJ94100hSX16FKsFFayb5e7GnJAnTLwr9qOMGecHax6oEdPA9odoFZzLniEBetdVG/
+         SK1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxFxHCcat/KO0u/yCy/XLbcyJ65M+1x7MlpbAUeuQCoXZC23D3NOBLH+mfEAYLEZ9Y9DOfFEpwpldnHQkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKFh6inQbrFH7jD4Jxqfr3w3KxcKfLpxrIOj1X/Dz/jMR9A8x1
+	LoPABF2JhqpCY+Y3ffCAE9w2+8+DQtjIaZEWXmqVLm2yugcOUW+uVu2W48v9ag==
+X-Gm-Gg: AYBFou0g7KOGQaaey9gSlppGkgPYcKJm/RNB5cHJIXtFlT3G3y6twvhi5VDVNIjSB4r
+	C4JF7hJFINYJR/uLFzY/IgLHD7bxraTb4bMcpj6QdC15uywamyBlC9yAvRyCBTEpXogCDzCE60j
+	5a/Lkyl06vKIAdY9wPpzAjluQMX9b1CUSUpnfPrhI3B5zJNQlj84k4rlgLHDRaASQugcfaMzKl6
+	FDJgR+gJKjp0Y+6zCNSLyFSk20W/inr/n4Y/dQ2WAM7+fibbr7xGjZpH50y8/ZaC4jFtBTlsrVX
+	b/xcZ3SoHtkg8LKoihtIxO943z6ix6JxAwh8g5QLLBEm/QJ6Rxenm9rY5kO5KgIakRIY+MSNDko
+	sSZLXH9Via74g1tbSet7l2/2dJnNCRZJmxdFOCea5UJGmC2ygm/pBNmI9O6IS4EnABs/n1Nr+gD
+	dH01FzRooQ6ucfsOXxXDJZW1Qe3Y8SZpN7pjm6MCsfQuypN+h0Dgm0bd4BCDAhPvFuRuso8/pu5
+	oOVRtMj3NuqSCq/
+X-Received: by 2002:a17:902:f791:b0:2dd:7370:e19e with SMTP id d9443c01a7336-2dd7370e21dmr12996905ad.16.1789391938060;
+        Mon, 14 Sep 2026 06:18:58 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd4007bd4dsm40753855ad.4.2026.09.14.06.18.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:18:57 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Jacky Huang <ychuang3@nuvoton.com>
+Cc: Shan-Chun Hung <schung@nuvoton.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rtc: ma35d1: fix permanent clock reference/enable-count leak in probe
+Date: Mon, 14 Sep 2026 20:18:50 +0700
+Message-Id: <20260914131850.2331670-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/16] erofs: use folio_attach/detach_private() instead
- of direct assignment
-To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
- Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
- Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>,
- Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org
-References: <20260913-remove-pg_private-v4-0-848550f7574e@nvidia.com>
- <20260913-remove-pg_private-v4-9-848550f7574e@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260913-remove-pg_private-v4-9-848550f7574e@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/14/26 04:24, Zi Yan wrote:
-> erofs_onlinefolio_init/split/end() use folio->private without setting
-> PG_private or increasing folio refcount and it works. But after PG_private
-> is replaced by checking folio->private in a future commit, it can break
-> folio_expected_ref_count(), since the folio has private data without
-> elevated refcount. Change them to use folio_attach/detach_private().
-> Folios during this process are locked as they are in the process of
-> readahead, so no parallel migration/folio split can happen.
-> 
-> Furthermore, because folio->private is used to store in-flight I/O counter
-> and the counter reaches 0 when all I/O completes successfully without error
-> or being dirty, ->private=0 causes folio_detach_private() to not drop the
-> elevated folio refcount. Solve this issue by using bias=1 for the counter,
-> so that ->private stays non NULL throughout every attach-to-detach process.
-> Add a macro EROFS_ONLINEFOLIO_BIAS=1. While at it, fix the comment about
-> ->private bit layout and add EROFS_ONLINEFOLIO_COUNT_MASK.
-> 
-> It prepares for a future commit that removes PG_private.
-> 
-> Assisted-by: LLM
-> To: Gao Xiang <xiang@kernel.org>
-> To: Chao Yu <chao@kernel.org>
-> Cc: Yue Hu <zbestahu@gmail.com>
-> Cc: Jeffle Xu <jefflexu@linux.alibaba.com>
-> Cc: Sandeep Dhavale <dhavale@google.com>
-> Cc: Hongbo Li <hongbohbli@tencent.com>
-> Cc: Chunhai Guo <guochunhai@vivo.com>
-> Cc: linux-erofs@lists.ozlabs.org
-> Cc: linux-kernel@vger.kernel.org
-> Reviewed-by: Gao Xiang <xiang@kernel.org>
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> ---
+ma35d1_rtc_probe() gets the RTC clock via of_clk_get() and enables it
+via clk_prepare_enable(), but the struct clk * is a local variable --
+never stored anywhere, and the driver has no .remove. So on every
+probe, success or failure, there's no way to ever call
+clk_disable_unprepare()/clk_put() on it -- a permanent leak, and since
+CONFIG_RTC_DRV_MA35D1 is tristate, each module load/unload leaks
+another one.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Replace of_clk_get() + clk_prepare_enable() with
+devm_clk_get_enabled() -- same clock (both route through
+__of_clk_get(np, 0, ...)) but devm-managed, so it's released
+automatically on unbind or any probe-failure return.
 
+Fixes: dc0684adf3b6 ("rtc: Add driver for Nuvoton ma35d1 rtc controller")
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+---
+ drivers/rtc/rtc-ma35d1.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/rtc/rtc-ma35d1.c b/drivers/rtc/rtc-ma35d1.c
+index cfcfc28060f6..43358d68565a 100644
+--- a/drivers/rtc/rtc-ma35d1.c
++++ b/drivers/rtc/rtc-ma35d1.c
+@@ -221,14 +221,10 @@ static int ma35d1_rtc_probe(struct platform_device *pdev)
+ 	if (IS_ERR(rtc->rtc_reg))
+ 		return PTR_ERR(rtc->rtc_reg);
+ 
+-	clk = of_clk_get(pdev->dev.of_node, 0);
++	clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(clk))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(clk), "failed to find rtc clock\n");
+ 
+-	ret = clk_prepare_enable(clk);
+-	if (ret)
+-		return ret;
+-
+ 	if (!(rtc_reg_read(rtc, MA35_REG_RTC_INIT) & RTC_INIT_ACTIVE)) {
+ 		ret = ma35d1_rtc_init(rtc, RTC_INIT_TIMEOUT);
+ 		if (ret)
 -- 
-Cheers,
+2.25.1
 
-David
