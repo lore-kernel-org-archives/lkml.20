@@ -1,127 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4B6380FFB;
-	Mon, 14 Sep 2026 18:18:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CEB384245;
+	Mon, 14 Sep 2026 18:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409893; cv=none; b=eWFCnGfWliimf7mUZJE90wjJm6Rs8CD8fZ2C5HvFi2kWsypLG4/UDpwU520/FFONJ6cm/cw6ARx/YCraSq7klqluIV4LKpbkRs4GG9Ow8v1tpDfKHFl1GpFTvelArzQytqhifF0tRiBiH9cVsTpmATBbYZBMNn0D53nqlStsQ9c=
+	t=1789409983; cv=none; b=hCZooqgUYK+3w1G2JeZQ8ZsEAlKCNNrwTaHl9TrwcFTI34i4wF6K8Txchcd3bH10gxw3dwmM24bEHqc5C3A3EBgv9q0QzAHwv6eznAv/B+UdzdahX1ZI799jXrTeDSWiLhA7lKk6fC9PBILq3MP4OrOb2QHKgG9e/eh7Q2+AXrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409893; c=relaxed/simple;
-	bh=LeGJVJUrFccUrTCqBYPQTfeXCn2hPt8IfFObYNGk4eU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LETLpUPFWmRH2iIUobkRC7JtUxPPB1hFNatFKEB4ucN6gS65FgSF3k32coRXsUNebqnneucapRZCvvimfuaflZf3ClBDQIlOQ5XICxOD5/0QWw0rh+L2fCEc/JKq54Tbic+3SrApT6U7uSP5kC/yBHa1/nrr3SzoeCalcE3K8bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDpojIh2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789409983; c=relaxed/simple;
+	bh=G0mIIrJvt2wcv6ID4m2Trh4N74dGIV1/R1kU7vWY/zE=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=kRWByUkX+IRyOJuDtJPcCQzCLj62rm5RSJwV9O1yMve8rlNqnd0DGUgiuIbNkB9j3haRaiMsP+9PBxiI+S/NBzrVc9hx4/l1u1fK/tzA5xhUCkDTswYMlYiVS2nYdNZ1J0Co3dh4k2+1t64RKh6Tex3qXJ3iLIj8J8LEtc5lHko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1AbA6KGu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDpojIh2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE94A1F00893;
-	Mon, 14 Sep 2026 18:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789409891;
-	bh=UfV2+3ufoodcnS2hr2MvymVG9xMpLrrAfO1Pi9klSVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nDpojIh2i5FVIFYzzVAshOI8GnTHsdKHqfOhmt4+rDQ8byU+w+2gVVVqlik8hIy6K
-	 35AwBNdW/FhoJf2pIszi34Jfkr97mkz6sVSNjxocSuqf2u0gzNR97iy/oZv3X50Foc
-	 cxpJLldl6TiTpdS1N28tSkzl1MV/WAVkffi4mT71XLg8N8kyUPwRF0iUrSR3re5v7b
-	 6J3flpuzkP0Yx1DQVaYJ6zfCPjy1HNwJekjW66mO46h5p3UJPZCfZfQ6fCvkWNbwq+
-	 6+yj5QSrhJ5MZjydlDKliQLVCmZgQIvdefuUXRWsJsx+NFqIRhtZu/2w5X7Qz8ZF7W
-	 nGs0jHncwc+iQ==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id EAE67FDACBA; Mon, 14 Sep 2026 19:17:57 +0100 (BST)
-Date: Mon, 14 Sep 2026 19:17:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Khanh Le <khanh.le.xr@renesas.com>,
-	Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
-	patches@opensource.cirrus.com,
-	David Rau <David.Rau.opensource@dm.renesas.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Yingkun Meng <mengyingkun@loongson.cn>,
-	Trevor Wu <trevor.wu@mediatek.com>,
-	Julien Massot <jmassot@collabora.com>,
-	Jiaxin Yu <jiaxin.yu@mediatek.com>,
-	Shane Chien <shane.chien@mediatek.com>,
-	Daniel Beer <daniel.beer@igorinstitute.com>,
-	Sebastian Reichel <sre@kernel.org>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2] ASoC: dt-bindings: Use consistent indentation in the
- example
-Message-ID: <aqg6VUKriyVANv6u@sirena.org.uk>
-References: <20260914093657.61218-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1AbA6KGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1621F000FF;
+	Mon, 14 Sep 2026 18:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789409980;
+	bh=VsN3qekiQiOy09Vr8Cs8x5ZTMlfTLINzP6aEinGBmkQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=1AbA6KGuVDMishj6sWpf+J0Yo8lpG41mjxhzMvhE4n/2vzd6pSMPclU1hqG7IBrEj
+	 wFwinYN1rKC+IPUWW4zmpuNC75nrU+ShelM6YUViiCar2Mr6EUTbekti8s1lj0Ibz5
+	 lf05BQ8f4aek3KJ/cqOmZg1bvjb79gPZha2U3Ouc=
+Date: Mon, 14 Sep 2026 11:19:40 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, surenb@google.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge
+ zero PMDs
+Message-Id: <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
+In-Reply-To: <f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
+References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
+	<20260913072312.52111-1-lance.yang@linux.dev>
+	<aqfRCPheDYTgTdAk@thinkstation>
+	<f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lBcZ00JTkHLtIO8U"
-Content-Disposition: inline
-In-Reply-To: <20260914093657.61218-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Cookie: Orders subject to approval.
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 14 Sep 2026 16:29:00 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
---lBcZ00JTkHLtIO8U
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On 9/14/26 12:59, Kiryl Shutsemau wrote:
+> > On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
+> >>
+> >> On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
+> >>>
+> >>>
+> >>> That's the sort of thing we'd prefer to avoid.
+> >>>
+> >>>
+> >>> How real is this?  Is there a reported-by:?  Do you have a reproducer? 
+> >>
+> >> Yes, I reproduced it on x86 with a small test module. It sets
+> >> VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
+> >> huge_zero_pfn, without touching the page tables directly. A full-PMD
+> >> munmap() crashes before the split series[1] as well.
+> > 
+> > Ah. So there's no real bug upstream, right?
+> 
+> Matches my understanding.
 
-On Mon, Sep 14, 2026 at 11:36:58AM +0200, Krzysztof Kozlowski wrote:
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
->=20
-> While changing the lines, correct also node name to be generic in
-> cirrus,cs35l45.yaml, cirrus,cs42l42.yaml and dialog,da7219.yaml.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Can you rebase this against current for-7.4 please?
-
---lBcZ00JTkHLtIO8U
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoOlUACgkQJNaLcl1U
-h9CLWQf/VFTw/qe/g+8peqE05M8nHdQKkYqM+VK25BVf7NMl4rlEDI4nR8k4bWEW
-17u4cI3rTrRngHBJYjWjjUC0UiYUR7325nlIvtC30fNLDIctjAGClIGzHVQK2hPB
-XJ7EI7rdJhwcimKRi1SfB7zbKG4fCKI8LWaAQ/mGdleTtwEsCOT44F6Kyx5fVfkX
-0RtEzTl7X6PnR1BwjiB4jGSUObEPfPTr5144+S7TCCfzAzAQClmOtcIwyGqZekNu
-ByUbfJcB5JGDnHnLkn9NL/QU3J4jNOAwEs54z3SUk1hQoQro8UQc6Jh2KUeNGIHG
-CdWnP+p/QA1EiUgQEJpb6pMeRUj3AA==
-=TYrF
------END PGP SIGNATURE-----
-
---lBcZ00JTkHLtIO8U--
+Thanks.  I'll remove cc:stable, move this into mm-unstable as a
+next-merge-window thing.
