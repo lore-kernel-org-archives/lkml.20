@@ -1,89 +1,186 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from a14-43.smtp-out.amazonses.com (a14-43.smtp-out.amazonses.com [54.240.14.43])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1549C28506C;
-	Mon, 14 Sep 2026 01:55:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4102FD696
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.14.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789350940; cv=none; b=lKbNzSyZcP93mA28hhUcAEzOEs4FVJyTmxhsNCAvzoXvZEgV3G2fG4wDfsSqem0GqE8PCTXucusHrDodYSwwXW5pfPjFlGwJJ+Z+Bo4Kl64jTX7Zj68gJSmMlcyBRUauUiWYnBx8gvR//1Fhus2IDW2Ek2c0VcbFcij2nIXF1D0=
+	t=1789351108; cv=none; b=Zm9rskwOokssMb0PkZPku+Y79gvBBp3E4OvVYhgFQ8N9Az0MbpW1ZKjkv6c8sEFq+/09BCU+Mv9zxhHFOc2muOEws6rzZRq7SEb/i8tZ+WQTZUC89Q8/WayfbLigY/IVnFgGmpNaR5/35BAP0dC+PrOjC3GuTvMO4JObDo3zO14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789350940; c=relaxed/simple;
-	bh=eyp+LXoRW4iqSZraAKpyA8TC1CLbJr6Go640TKxR4FM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TTPsYQ3zYOpr3eKt5uDJI9bc56sVILtLL3OkNMHIaQ1ZD+05uu+NEYAOKRORTjSIU7Z2v7mygwxbz+pEZJ5TrXeD+zNsyb7Kc6sZmdbSZ12m23tutCi8HOWPFeVFeMErbljDr9IkysDPJEoTJO6BduoBbJapLqwczLeaLPoMOQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=St//JtXS; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789351108; c=relaxed/simple;
+	bh=TxnJBVDzFfOMxrhRpL8fujJTb8wSqSKpVLfJzJ0voEo=;
+	h=In-Reply-To:From:To:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type; b=IgcHRajEgau1i6d6wzt4lfyAYJhhIJjXSz1SPWZa3q4+6AtRPNQDD9pcKtCPsnf+vZktNgh3SAWvt3YhHg6LI7JyiQLl3pTRmFL25Cpd7IP/TrYrGPfHNs+LmY9QlFUU5VjvUwvJrdnTSkinBp3Fk0VrV418uYOagMkCLYUDOVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=send.bugs.sh; dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=dxXm2lKJ; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=k36aX3dC; arc=none smtp.client-ip=54.240.14.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="St//JtXS"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8CE84103D80;
-	Mon, 14 Sep 2026 03:55:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789350930;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Mucwfkb4MzJMIfmg7+6JU7Zg3V6BD7CxMn7XJa8cbwQ=;
-	b=St//JtXSrpBfl6a044eOJX7wXKwW/NvqVvqNMLkAIacBn3IgyiRLeposLxrmEA5j3/CItC
-	R29CfmGgbweGu3yyVoU8e4MhTtHpfQv/vl2TbHBWICgMdbrVrCdYJuTgx0ODEZ22Du+UyU
-	Pj64o/cnaOn1bFGhuQ8MB4VQIjVdDo/2daMCaGZZVbpC6kPeKPkSvzYI5pPDVV+QlRZn8s
-	wbqYbOkizltkVNSpCeRPN2bDrW3QA2vCj682LC28jfPIYei4PMOvd2r+EIPvHIac8MQjvz
-	Up6Q7TRy8qjt7naIgl/S01jTNf4tKYfMgD+l++6LYwgPNtHC9HXV45R7Tz8yWQ==
-Message-ID: <00acb35f-ea7c-465c-96da-4eb5dac9e2cc@nabladev.com>
-Date: Mon, 14 Sep 2026 03:55:28 +0200
+	dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="dxXm2lKJ";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="k36aX3dC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=bugs.sh; t=1789351106;
+	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=TxnJBVDzFfOMxrhRpL8fujJTb8wSqSKpVLfJzJ0voEo=;
+	b=dxXm2lKJk5HBpyCicQ1ip8PmRDBYnqSAs1t3pJKdKGK69ojtCS3EITd0B/YBOs+W
+	jlLzfK/8RXiUhMp7GSq1Bg2cdeM5yiflAk/ZcntDyZc6uNfUTRcq7QcbQ7TEDhcrhhl
+	pifQKrrge6dRGStzOmwRCho57giS+eIdvc90AUYA=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1789351106;
+	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=TxnJBVDzFfOMxrhRpL8fujJTb8wSqSKpVLfJzJ0voEo=;
+	b=k36aX3dC3+ZYPCQdStS4NowP13o1GUtl79LhEFoiB1guRWK9nK9sqkuNPgswuMKd
+	TCk05dyX1RGmd7+Hg/GJY7FKbMrVBi8yAuf+4mYDdZ05cOOGSAYw9ldLXHUVCB2WDMB
+	GeuZwWYbjKbVF1lM7cQAXlkLYHYYiuihsmrgOIzc=
+X-Forwarded-Encrypted: i=1;
+ AKwUvByR7eMGoux34l/iR6AMwp6NFRi2/eUzkCVzsOVs1w+o84kLVi7ITlpPWpSiIp2gnpZ3RsuY+hlvn9cwJ0A=@vger.kernel.org
+X-Gm-Message-State:
+ AFuF++ltF2c0K10RzJTSi5oeeVEB83MtMNV6hMGpv+CNCsAIP43eFZQ6
+ KPJ+b2jo68X5QFb8eGD3HuTjS8y5hT8gwNSjQH8JnICTeYGxCir4Bsx50GiIiU6QTG+0p0zpktk
+ VNmMXIk7I9LttnSCI1rssnFFCjnVtUI9fN4wRH9B8
+X-Received: by 2002:a17:90b:2586:b0:38e:fea2:df53 with SMTP id
+ 98e67ed59e1d1-39debf6f4a1mr1192985a91.4.1789351104062; Sun, 13 Sep 2026
+ 18:58:24 -0700 (PDT)
+In-Reply-To: <aqZALi7GdVprcNOh@cronus.toxiclabs.cc>
+X-Gmail-Original-Message-ID:
+ <CAPpSM+QVz8-kioqnWZTgK-h=9M1+kF=x2V4tZDoUaryw+v+d_A@mail.gmail.com>
+X-Gm-Features:
+ AcwNN1XHWWLPVHVDfa5oHDbSV_RgR139yo3Y0348QaQjD803Dohgi6AFM_7E5UA
+From: CO <co@bugs.sh>
+To: linux-kernel@vger.kernel.org
+Subject: Re: [BUG] fs/xfs: out-of-bounds in xlog_recover_buf_reorder()
+Message-ID: <010001a09da3140e-32324171-70ca-4699-9497-35e6f68eba68-000000@email.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 01:58:25 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
-To: Peter Korsgaard <peter@korsgaard.com>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909182641.165383-1-marex@nabladev.com>
- <20260909182641.165383-2-marex@nabladev.com>
- <874ifwjff2.fsf@dell.be.48ers.dk>
- <fdf07bc2-428f-4055-97fa-61a302f57a6b@nabladev.com>
- <87wlspb50g.fsf@dell.be.48ers.dk>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <87wlspb50g.fsf@dell.be.48ers.dk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.us-east-1.yL0noGNZdXCKlJHw27bHz8/I7/GZTaYDRe4l4bGvzjPa1Q4S+kzxKgpyYIxfCxOFAjHX6QJhZdsZN1SP8V3NfEiLJ34m58z2/mmJDZ5RtdRTZ06dzneIWyoUkJ1DSaTbU2HlPz+Zb2/NZ41D3j4FLWNy2FyGjUOa4qpft7gzKcs=:1.us-east-1.QSNtDRXSTq9sAuvRl56h5mypgasnQ5yDLNpVzTnziu0=:AmazonSES
+X-SES-Outgoing: 2026.09.14-54.240.14.43
 
-On 9/13/26 4:27 PM, Peter Korsgaard wrote:
+On Sat, Sep 12, 2026 at 11:28=E2=80=AFPM Carlos Maiolino <cem@kernel.org> =
+wrote:
+>
+> Thank you for the report... A few suggestions below:
+>
+> >     Everything in this mail is validated by the reproducer below.
+> >
+> >     We also hold an unreviewed LLM-generated analysis and candidate
+> >     patch. The same reproducer panics the unpatched kernel and runs
+> >     clean with that patch applied. Use it as a starting point, or =
+ignore
+> >     it and write your own:
+> >
+> >         patch.diff  =
+https://bugs.sh/b/af981e62f5c7171a/patch.diff
+>
+> If you have a suggested =
+patch, include it inlined in the message, do not
+> expect somebody to go =
+and click on some random link sent to the mailing
+> list.
+>
+>
+> >         report.md   https://bugs.sh/b/af981e62f5c7171a/report.md
+>
+> If you have no capacity to review your generated AI reports, then don't
+> send them to the list, we are not your AI-slop moderators/reviewers.
+> Neither your lab rats.
+>
+> >
+> >     Happy to test patches. Complaints =
+and suggestions about our work
+> >     are welcome at:
+> >
+> >         cedalion@bugs.sh
+> >
+> > =3D=3D Environment =
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+> >     Reproduced on  2709dd5ae32f ("Merge tag =
+'sched-urgent-2026-08-22' of git://git.kernel.org/pub/scm/linux/kernel/git/=
+tip/tip")
+> >     VM setup       https://bugs.sh/b/af981e62f5c7171a/run.sh
+> >     config         https://bugs.sh/b/af981e62f5c7171a/config.gz
+> >     poc            https://bugs.sh/b/af981e62f5c7171a/repro.c
+>
+> Again, same as above. Include everything in the email, do not expect
+> people to go and keep clicking on random links to access whatever
+> information you provided.
+> A reproducer is appreciated, but it should be=
+ in the email message not
+> at some random URL. This is not safe and is a =
+security risk for
+> maintainers and developers to just go and click on =
+random links.
+>
+Thanks so much for these comments. They are valuable to us!
+(We didn't realize including links in the email raises security concerns)
 
-Hi,
+We'll make bug reports:
+1. External-link-free
+2. No AI-generated analysis
+3. The patch would be inlined at the end of the report, and we'll
+state the patch's limitations clearly.
 
->   >> > +	chosen {
->   >> > +		bootargs = "clk_ignore_unused";
->   >> Why?
-> 
->   > This can be dropped, thanks.
-> 
-> Good.
-> 
->   >> > +	gpio-line-names =
->   >> > +		/* GPIO 0 - 77 */
->   >> > +		"", "", "", "", "", "", "", "", "", "",	"", "", "", "", "", "",
->   >> > +		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
->   >> > +		"", "", "", "", "",
->   >> > +		"ifm_device_info_eeprom_wp",
->   >> NIT: The dts references a number of other GPIOs, any specific reason
->   >> to
->   >> only name this one?
->   > The legacy userspace tooling used to depend on it, used libgpiod to
->   > look up this GPIO by name.
-> 
-> OK, but why not add all the referenced GPIOs if you fill out
-> gpio-line-names anyway?
-Because the userspace depends only on this one line name. But since 
-eeprom node contains wp-gpios DT property now and the kernel controls 
-the nWP GPIO, I can also turn this around and drop the gpio-line-names 
-entirely. What do you think ?
+Best,
+Xiang
 
-Thank you for your help !
+
+> Carlos
+>
+> >
+> > =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > BUG: KASAN: slab-out-of-bounds in =
+xlog_recover_buf_reorder (fs/xfs/xfs_buf_item_recover.c:164)
+> > Read of size 2 at addr ffff88800beee384 by task exploit/147
+> > Call Trace:
+> > dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.=
+c:120)
+> > print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+> > kasan_report (mm/kasan/report.c:595)
+> > xlog_recover_buf_reorder =
+(fs/xfs/xfs_buf_item_recover.c:164)
+> > xlog_recover_reorder_trans =
+(fs/xfs/xfs_log_recover.c:1929)
+> > xlog_recover_commit_trans =
+(fs/xfs/xfs_log_recover.c:2053)
+> > xlog_recovery_process_trans =
+(fs/xfs/xfs_log_recover.c:2319)
+> > xlog_recover_process_data =
+(fs/xfs/xfs_log_recover.c:2510)
+> > xlog_do_recovery_pass =
+(fs/xfs/xfs_log_recover.c:3253)
+> > xlog_do_log_recovery =
+(fs/xfs/xfs_log_recover.c:3340)
+> > xlog_do_recover (fs/xfs/xfs_log_recover=
+.c:3377)
+> > xlog_recover (fs/xfs/xfs_log_recover.c:3502)
+> > xfs_log_mount (fs/xfs/xfs_log.c:617)
+> > xfs_mountfs (fs/xfs/xfs_mount.=
+c:1031)
+> > xfs_fs_fill_super (fs/xfs/xfs_super.c:1987)
+> > get_tree_bdev_flags (fs/super.c:1887)
+> > vfs_get_tree (fs/super.=
+c:1947)
+> > fc_mount (fs/namespace.c:1198)
+> > path_mount (fs/namespace.=
+c:3772 fs/namespace.c:3848 fs/namespace.c:4168)
+> > __x64_sys_mount =
+(fs/namespace.c:4181 fs/namespace.c:4397 fs/namespace.c:4374 fs/namespace.=
+c:4374)
+> > do_syscall_64 (arch/x86/entry/syscall_64.c:61 =
+arch/x86/entry/syscall_64.c:84)
+> > entry_SYSCALL_64_after_hwframe =
+(arch/x86/entry/entry_64.S:121)
+> > The buggy address belongs to the object=
+ at ffff88800beee380
+> > which belongs to the cache kmalloc-8 of size 8
+> > The buggy address is located 0 bytes to the right of
+>
