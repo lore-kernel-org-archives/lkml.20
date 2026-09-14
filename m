@@ -1,151 +1,347 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011006.outbound.protection.outlook.com [40.107.74.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8D017A314;
-	Mon, 14 Sep 2026 00:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789345760; cv=fail; b=RP4lu5XAjtvstC2Y2XHfLQ/0zybURjBkYFiU++w4QyjkKPPgDO3vLHXVLIMqVhPt1wzQubqDU1W9+VqBDfbP6iXL6fPUe2l8kZET/H69y5F1rXdl8NmWqWML6KvejYIglCsNw+cVyIVlp5u8Ux2o65sQat2YXgExQLlhEGTSgdU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789345760; c=relaxed/simple;
-	bh=ezGQC7XRJPP/TyuQ40Lj5cErhKpomgsH+SRUY7jmldo=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=H3gAtwIQP3Omy6CnEvLjeg5cMWuz86TbnrNAZRub5e9jbdz03cYGA35L7GZxrnH+lTKyQTyOrYZt1VpdTRfLf72hy8ZiEl75sq7qbLMLo1NsQlppN/ynKRXn0Dr054OjmrTUXcBGSD0N/OT7kKBkVoGS7aZBsQNsOOQLZYIYHx4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=GJ9mhuXR; arc=fail smtp.client-ip=40.107.74.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2D02AD2E;
+	Mon, 14 Sep 2026 00:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789346082; cv=none; b=q2JR9A8V24yQJD6M/GKu+2pN+HFm0vnCJE/DJk1y+jfjKh4GZR3BwYk/Ngrn3L4XV7Bq79PwLUGeR4JPIIC6jCb35FFp9IHzsV3pQoYHT/f0ov6WGTXppz1phukmiW86BEDvluGF5L67piSEnhK5sXQKwQ8RlGYQJ4vsPtcPJoQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789346082; c=relaxed/simple;
+	bh=BtQkPZRan5S/umjTnVznurcGvARVHlL4Wknlh/1UqK8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jh28p/eR1mOcpbFtuwIZ3LrGod5wTn6asxpUUPL23457Bv/MvPRstFt94+fl0Ifx1MkWG39blM5c6BaY6y2y4l11WJ0SUtQvcKFx23fwjg04tie29DaYCJnxJzVjpAlqguh/xV13kn7mZ5TYGEaqTG5AghPVX5QIY0sQTegOktw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QNzf4QPY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="GJ9mhuXR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XEoh+3Xn+bf1FPQZGaFumL1Y+ac0na289UynXghmNMckyYPvlELa5ZYbgKJ5cDNrX3lLDtbzdy7ODawZ/GdZzG9fv9hyWrDh1z+otNkQS/954VWfbAsPW2kBiUSNe46NzV0U0H2ridMthheRbY7eFxZM0/yUIpfUDx+2bkFj9pgEUr+sWrWWgeB0miwuS5eDjrzg5OrsK4XaAHX2ZuAD85qexjFtlxaxzauwVVeCEDu+xArzXWA+b5NhsV02tOv+duYCNTANam3irV1MB+clG4ss7aRPLMfFf2qPXOS9O490zhereLs9xmOsxGCihnv2NTLcY9VggHQHZ1gl/33+UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qcV5OMaUktQy5OX4J8G61ToIG6Geb+EWieR0vAcNKT4=;
- b=Do6f0CsQaYEBd4fBJJPTPjA6248yecYkl8ECFlk51jqjJZg83eY3dsZZAIKwN99+NEaizSunK94p+GaDfFqJ8dZPd6DBsgufIoSJHPl8EAxSr33F23jS0fmDBzXIsKMOhqv6F/qOKdGL4ISQsTT8kHbAQtNSydleYZtVBXvFDDTc/eIripWHebgH06XBp+CY/s1XM8yVC3GccVZXenS3V9vsUv7QHp8gBuRbhRReLlZIL/tO8RISt+zsVL85ZSVl5GKrfY7QVBfIZ26PvDyjuLwCYZ6EFIooX68x/6l0Qy6WL1ay3DjByPRuY1r/K22kJhHgL++414B8roPIuwp4vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qcV5OMaUktQy5OX4J8G61ToIG6Geb+EWieR0vAcNKT4=;
- b=GJ9mhuXRgzVhkEeJJLntL3fHCmUHtpiXS5y6FTq8yL3bRtkD3vRsmP9TC6dXb6955A/55pCIihI5u23DVvZ5kNomT4tHgiJHoE7gdt5IS3BpkseKvgYlnD8rwhqp+dRtGIrY0u6zK+yCIbDBQFGWo/oKWv7gH6YNwuSG3NtY+LY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYYPR01MB14118.jpnprd01.prod.outlook.com
- (2603:1096:405:214::12) by TYYPR01MB8046.jpnprd01.prod.outlook.com
- (2603:1096:400:f8::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 00:29:16 +0000
-Received: from TYYPR01MB14118.jpnprd01.prod.outlook.com
- ([fe80::846f:9035:6a33:1f45]) by TYYPR01MB14118.jpnprd01.prod.outlook.com
- ([fe80::846f:9035:6a33:1f45%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 00:29:16 +0000
-Message-ID: <87wlsollph.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Chancel Liu <chancel.liu@oss.nxp.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] ASoC: audio-graph-card: Free jack GPIOs on card remove
-In-Reply-To: <20260913102502.2805912-4-chancel.liu@oss.nxp.com>
-References: <20260913102502.2805912-1-chancel.liu@oss.nxp.com>
-	<20260913102502.2805912-4-chancel.liu@oss.nxp.com>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 14 Sep 2026 00:29:14 +0000
-X-ClientProxiedBy: TY4P286CA0097.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:369::12) To TYYPR01MB14118.jpnprd01.prod.outlook.com
- (2603:1096:405:214::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QNzf4QPY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4001F000FF;
+	Mon, 14 Sep 2026 00:34:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789346080;
+	bh=v4Ox6U/+NtM+3THu8Sd+9cBneWL99suQ45q+URHWWwI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QNzf4QPYm6zeLZ7hEeV7OTMtA4SEy3s9kCK5ed533sxPTmQg8ExUt0tJj9DPKcxV3
+	 ANah/48kaBiaPKZGA/LAK80WsZaK3PC4zSrNFMzwH2XaVbCMDgPAYVot5BK5YD5oM/
+	 iJYUAvpaj1Uay4BrSFTZkhA5laqgVyBv6b1rRn63vVtFtEFnkgg/P2fyiZGoIABVBi
+	 vK8ODk+dlH0azW9WyARyaeE90EvyI25u7jEWfuLTAr9XgqdZt+VFHvEgglfQh43r15
+	 UYL6xMMgtfgjp/r4Zuk8xtQVAhFixqlvUBxR9xZqyFAGKlClScjYFI9OnYN6wVlq6G
+	 IqHsNSqlVb7Eg==
+Date: Mon, 14 Sep 2026 01:34:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Conor Dooley <conor@kernel.org>, Marcelo Schmitt
+ <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
+ nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document
+ SPI connection mode
+Message-ID: <20260914013433.0763e7f0@jic23-hlaptop>
+In-Reply-To: <aqF4kfOCKcZhDZui@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+	<d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+	<20260903-liquefy-prologue-9ec914cccf04@spud>
+	<apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
+	<aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
+	<20260906202630.64d8fa75@jic23-huawei>
+	<aqF4kfOCKcZhDZui@debian-BULLSEYE-live-builder-AMD64>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYPR01MB14118:EE_|TYYPR01MB8046:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39877e20-b28d-41da-345f-08df11f734c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|23010399003|1800799024|366016|38350700014|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	csDFXPU15tWHS7MVKnGE2Cd8uA6b7GvRzwJ+r++It87/O5SUfcfguJLeoIAiUffgOUxae9eqgWkWhAh/OS/bAX80mfSPyyQEo4zS98e8ViYK9wRHpKxMt1eJb+oQNXV4ZYvgPgf1mBkDN0tLyJjtyE5RIyS3IpkVaAkeMNPdXdE5z1L68FoGGVQC6X/gx5fz6NelRcznCmNU3XnqeXP5bM/ZTNOiUDYBvubRzSa+508mf+Jv5CE9CNME4SaZ9fbzUa4ZfNM/JoQKpgbP/0tQdwUmbKGnBcTeFsaoGkhgqthhaXfkMdGWY3v6Cl6+r+mbScl8cixfHHqCkDfFu3uaFsgw+hzMjJRFSzzhGRhbLnOtD/9mmXcOPAYbW+373Ct8N0XWLT2tz8g3gyVGinLgNxtFA0s0HyBQX0UK5e5aCoLHLwewRqmMjkrmof6cQKd4KSNQPHGfdshXBHBo6DJLjedjKV/HWK2hBMgP20kzsVhrDRCl2/AlmX/2IyP41Ge6wos4qK06QtKyWl9eFqIfW64wPE4blZMzYjt8Wm2GdT/mDoZcjfiV8TLYl6wC/+BlZOFQcW8uwSl22ZalD4AJCWJGwoa//pC734/c18dcgOslz6uUl1JL9BKtZ89hTbXIsjnvG5YQlr0YgJ9khzsGXaNqCXHxFhIl42ufEq7bjAUBqXNfVw3etyA/rXI0jaQ00HgmXgdrrUcUkv6k6RSB4pP1Z5ZGY/Tzqh44hor8OFQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB14118.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(23010399003)(1800799024)(366016)(38350700014)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Fh4xA+6nqTY8NqcuClGgx8TglcVpw0D4m/3P3Y8f4RarjxzLhJ9iKbJtLOzd?=
- =?us-ascii?Q?8jMjeFy9zRtq3J3Q2SM5qphXOS1hal8tbCRcw0NIkI/eJQd2z0SAu0O47yrR?=
- =?us-ascii?Q?5DSfvBGvUOR5dQfX3bECQ647Yrkaue24l25N4mHPVHFUa/dY/o6s9EVE0p0f?=
- =?us-ascii?Q?28CgjlDJt9icWASBEMXrErVBFdbLjp3/T34nz1xNcrrwpjHG8WOjg+HXrihz?=
- =?us-ascii?Q?m4crVUUO3FSRhE6ucaj256rlAexRUvILvNKKbibvlgtazhzj151dlL1oOErU?=
- =?us-ascii?Q?qYUMw1X7XKrbe4qv6fKUYCnqSaadKpWZcBQzElWXlmhA9QLZOtPMOGSLDVvR?=
- =?us-ascii?Q?BQRlCHCPYF1SAPIVUjhaLXKoSq25HNkachNqn9nMEXspPY5NUuQpaMe1ppdr?=
- =?us-ascii?Q?xLuDewcOCFsLec72VlyVO0UpfTUAbdaQRQ/UPD+GL/nYK8rF2H4wbI0vFAvt?=
- =?us-ascii?Q?erYC/OBTgSf0CJzLKABmXQp26dyh4wrkN4tYEQWURkEYzBeYM15tgZBwIpOA?=
- =?us-ascii?Q?pnOtMaJYwwa5ZFDq9ANi7CPJi9vOQFZOCxB6rZI+PNvWvfoSWMjoGXpn+r+f?=
- =?us-ascii?Q?vvAOomzokZkmlnYW6DJ1toW00qJL+LMY990pXt8KjV/3whQCg1vOOgW6rtS2?=
- =?us-ascii?Q?GO4wDg/YozpKFWTkk328Br0XSzY2w7nxzj5wkBkv8bNjeRjhmWN1Qv7MyRaf?=
- =?us-ascii?Q?9IOdpSvGiw2iFu0lfe41PjkqjNJwgdjwzfZ40ijupa9lU76x0Nfi4KfQ8L42?=
- =?us-ascii?Q?p1XQvASoVm8Ly0CrFtBZ+7R4caDWWb9MPS7cPxiWRFtFBB21fTnqGjbFYFB0?=
- =?us-ascii?Q?OQxZaX+28zanPgSOZFDomRb0gW1QrmTS6Sb+ItUqAZQQRXN7kiNAS9bjFIk9?=
- =?us-ascii?Q?sfjBeKzE3k36CTYJOEj7qmmb0FvJbg5QU1iaXD/pVQcoJq7DTB1oVF9yyalJ?=
- =?us-ascii?Q?pV801zXA32AvDEduwm4gDGYUrN8OiSSJ14WVzO6nQ+rfWAirUD3XAW3LQ2K4?=
- =?us-ascii?Q?Xi0rWasnMIq1aCSm3y7KIRaCuSmKaBiiuisFTJ3OCFr4OoZRUsgvNV8/9oa6?=
- =?us-ascii?Q?WNQut/5wndU1wnyySi3EZkaLqacHehSmiQjnkiyINvBHUIBwxzPxUgS2vPSW?=
- =?us-ascii?Q?Ndpz8gfq3WCwYDTDYHae4fa3FN2Z3MToMbXu0UeOid8JmE5AXwu1clt2VJEw?=
- =?us-ascii?Q?DTuLyHMjB0Por5Pz9eiT+9Cw0Ksooc3rTc/ES/zUCh+WNxOvp29uYllYX2Bt?=
- =?us-ascii?Q?wqkcq6LqtdKcwaaQTQQVF8hSyReFnPWClMGIIql3Imza9U/6AAeNesHdP9XT?=
- =?us-ascii?Q?QhT9SufYNx5i9xFdnLwjlCRjYlBBYh7lpCPKMIRVmIKMumGf5bxGFTe1pQe5?=
- =?us-ascii?Q?d7WpWSLtJy5RofF2QbhjCWChjTVidxbg9jo7NAyxBzwY0w3gZCVtDcBHKuxG?=
- =?us-ascii?Q?8misF/Kv8LQN7o5nvWaothE2TmrcyW0rs3wX5DNZYzKzMA7IB7BEW+zn8l3s?=
- =?us-ascii?Q?ajBWYtvid+jU0D+TV+KK1mP/1E3nSiVZ5KFzJL/W1FygXO+Zy4MHlAV3ng6a?=
- =?us-ascii?Q?PAscUG/MOV1BaEIAmxQG1vJteZM45cgH8IckeTJ7UgBPZxMRW4EJ+me89aMa?=
- =?us-ascii?Q?wU9nvRPb25Bcs+GW69W3urKN+78bPQIQJ8SeIaEku2pCiH3NLc0urXx9n14I?=
- =?us-ascii?Q?RfMn6KQH7ktN4xEHWkxAqmTU60UHzDsBzCkvO3OfVaA5Ig+1ZkI12YL4ua85?=
- =?us-ascii?Q?uVr023BwbgK4dX7f/9XY/7G9v8+RyVs=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39877e20-b28d-41da-345f-08df11f734c1
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB14118.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 00:29:15.1779
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HnDnisFaKvJVVLFJh1+pDWXmRU9uy/RLby7sBGYGaOEb7fLcLvkxz6dZKVMFttIJsX7dGhYxgLxUQoI98OAO/BeCaGotOFkR8zEL4OADm+YGhxEDaHOzDSQd4hZvQql+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB8046
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, 9 Sep 2026 12:17:37 -0300
+Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
 
-Hi Chancel
+> On 09/06, Jonathan Cameron wrote:
+> > On Fri, 4 Sep 2026 19:06:44 -0300
+> > Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
+> >  =20
+> > > On 09/04, Marcelo Schmitt wrote: =20
+> > > > On 09/03, Conor Dooley wrote:   =20
+> > > > > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote: =
+  =20
+> > > > > > Document how AD4134 chips are connected to the host SPI control=
+ler
+> > > > > > according to different wiring configurations.
+> > > > > >=20
+> > > > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > > > > > ---
+> > > > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++=
+++++++++
+> > > > > >  1 file changed, 22 insertions(+)
+> > > > > >=20
+> > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad41=
+34.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > > index ea6d7e026419..d843c02a394a 100644
+> > > > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > > @@ -131,6 +131,28 @@ properties:
+> > > > > >      enum: [ free-running, gated ]
+> > > > > >      default: gated
+> > > > > > =20
+> > > > > > +  adi,spi-mode:
+> > > > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chai=
+n ]
+> > > > > > +    description: |
+> > > > > > +      This property indicates the SPI wiring configuration.
+> > > > > > +
+> > > > > > +      When this property is omitted, it is assumed that the de=
+vice is using
+> > > > > > +      'no-cs' wiring. When this property is present, it indica=
+tes that the
+> > > > > > +      device is using one of the following wiring configuratio=
+ns:   =20
+> > > > ...   =20
+> > > > > I'd also really appreciate a dts example for a system
+> > > > > with one-channel-chain or two-channel-chain looks, given the seco=
+nd
+> > > > > device may require different supplies etc. I have no impression i=
+n my
+> > > > > head of how the dt would be constructed, so I'd like to see wht y=
+ou have
+> > > > > in mind.   =20
+> > > >    =20
+> > > ...
+> > >=20
+> > > Realized what I said doesn't make much sense. The peripherals can all=
+ have
+> > > the same configuration and thus share CS, SCLK, and controller SDO. T=
+he wiring
+> > > would be like the following =20
+> >=20
+> > That mux in the middle is controlled how? =20
+>=20
+> The mux is controlled by a GPIO. I ended up drawing the GPIO among SPI li=
+nes in the
+> connection diagram but the mux controll signal is not part of the SPI con=
+troller.
 
-Thank you for the patch
+Ok. So we are effectively making that mux part of of the ad4134 controlled =
+hardware.
+I guess I don't mind that but shout about it a lot in the driver as anyone =
+coming
+in will wonder where the magic mux appeared from :)
 
-> --- a/sound/soc/generic/audio-graph-card.c
-> +++ b/sound/soc/generic/audio-graph-card.c
-> @@ -629,6 +629,7 @@ static int graph_probe(struct platform_device *pdev)
->         card->dapm_widgets      = graph_dapm_widgets;
->         card->num_dapm_widgets  = ARRAY_SIZE(graph_dapm_widgets);
->         card->probe             = graph_util_card_probe;
-> +       card->remove            = graph_util_card_remove;
+>=20
+> > I'd assume we still have separate chip selects and SDO/SDI shared. So I=
+'d expect
+> > those to be on one SPI bus and the data to be going into separate buses
+> > (maybe all that can be hidden in the backend, not sure).
+> >=20
+> > Or are you suggesting we are just letting all the chained devices see t=
+he
+> > same register writes?  That might work I guess with no ability to read =
+any register
+> > state back other than for first device. =20
+> Correct, that's the proposed configuration for daisy-chaining. Since all
+> peripherals will receive the same write commands they shall all retain th=
+e same
+> register configurations (except maybe for error indication registers). Re=
+ading
+> from the topmost device in the chain would be enough to figure out the st=
+atus
+> of the other chained devices.
 
-Basically it looks good to me, but tegra_audio_graph_card is
-using graph_util_card_probe(), too. Please care about this driver.
+It's errors that concern me about this.  Maybe it's the best we can do.
+=20
+>=20
+> > If you want to do the
+> > mux magic below you are going to need to treat it as an SPI mux - just =
+with
+> > some lines shared. That means this device ends up split into multiple d=
+evice
+> > (even if only one ad4134 which is messy). =20
+> You mean spi-mux.yaml/spi-mux.c? So the goal/intent would be to have one =
+IIO
+> device for each peripheral in the chain? I think that would also work. Th=
+ough,
+> the only device bringing ADC sample data is the topmost one so that would=
+ be
+> the only one buffer capable.
 
-	${LINUX}/sound/soc/tegra/tegra_audio_graph_card.c
+We went through that discussion IIRC for the original chaining devices and =
+it
+ends up too odd as there is no way for userspace to know that we have this
+strange interacting set of devices.
 
-Except above,
+>=20
+> >=20
+> > So to me this has a simple SPI bus, potentially connected to multiple d=
+evices
+> > and an IIO backend that deals with DOUT0 etc and the chaining. =20
+> Yeah, the benefit of having the mux is being able to connect both AD4134
+> interfaces to a single bus while being able to have ADC sample data on al=
+l SDI
+> lines as the diagrams in patch 13.
+>=20
+> Alternatively, we could have something like
+>=20
+>                                                               +----------=
+---+
+>   +----------------------+                                    |  DATA HOS=
+T  |
+>   |       AD4134         |                                    |          =
+   |
+>   |                      |                                    |          =
+   |
+>   |Data interface  DOUT0 |----------------------------------->| SDI1     =
+   |
+>   |for ADC data    DOUT1 |----------------------------------->| SDI2     =
+   |
+>   |sample read     DOUT2 |----------------------------------->| SDI3     =
+   |
+>   |                DOUT3 |----------------------------------->| SDI4     =
+   |
+>   |                DCLK  |<--------------+        +---------->| CS       =
+   |
+>   |                ODR   |<------------+ |        | +-------->| SCLK     =
+   |
+>   |                      |             | |        | | +------>| SDO      =
+   |
+>   |                      |             | |        | | | +---->| SDI      =
+   |
+>   | SPI interface   CS   |<-------+    | +--------|-|-|-|-----| DCLK     =
+   |
+>   | for register    SCLK |<-----+ |    |          | | | |     |          =
+   |
+>   | access          SDI  |<---+ | |    |          | | | |     | TRIGGER  =
+   |
+>   |                 SDO  |--+ | | |    |          | | | |     +----------=
+---+
+>   +----------------------+  | | | |    +----------|-|-|-|---------+
+>                             | | | +---------------+ | | |
+>                             | | +-------------------+ | |
+>                             | +-----------------------+ |
+>                             +---------------------------+
+>=20
+> The downside of the above is we would need an SPI_MULTI_LANE_MODE_STRIPE =
+to read
+> only from SDI1 to SDI4.
 
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+I don't totally follow that detail, but indeed the control SPI plane would =
+be independent
+and so we'd need to do something to get that from the binding in a way that=
+ distinguishes
+it from other spi controllers.  The device would be sitting on two SPI buss=
+es, one
+of which had the multi channel properties.
 
-Thank you for your help !!
+To me this one is more natural but I can see both might get built and the c=
+omplexity
+of representing that as an SPI mux would be you'd be using part of a wider =
+spi controller.
+Hence I guess maybe the hidden (ish) mux is the way to go.
 
-Best regards
----
-Kuninori Morimoto
+Jonathan
+>=20
+> >=20
+> > Jonathan
+> >  =20
+> > >=20
+> > > ::
+> > >=20
+> > >   +-----------------------+                               +----------=
+-------+
+> > >   |         AD4134        |                               | SPI Contr=
+oller  |
+> > >   |                       |                               |          =
+       |
+> > >   |                       |                               |          =
+       |
+> > >   | SPI interface    SCLK |<--------------------+---------| SCLK     =
+       |
+> > >   | for register       CS |<--------------------|-+-------| CS       =
+       |
+> > >   | access            SDI |<--------------------|-|-+-----| SDO      =
+       |
+> > >   |                   SDO |------->|=C2=AF=C2=AF=C2=AF=C2=AF\       |=
+ | |     |                 |
+> > >   |                       |        |MUX  >------|-|-|---->| SDI0     =
+       |
+> > >   | Data interface  DOUT0 |------->|____/<------|-|-|---- | GPIO     =
+       |
+> > >   | for ADC sample  DOUT1 |---------------------|-|-|---->| SDI1     =
+       |
+> > >   | data read        DCLK |<-------------+------|-|-|-----| DCLK     =
+       |
+> > >   |                 DOUT2 |<-+           |      | | |     |          =
+       |
+> > >   |                 DOUT3 |<-|-+         |      | | |     |          =
+       |
+> > >   |                   ODR |<-|-|---------|--+   | | |  +->| Offload T=
+rigger |
+> > >   +-----------------------+  | |         |  |   | | |  |  +----------=
+-------+
+> > >                              | |         |  |   | | |  +--| PWM1     =
+       |
+> > >                              | |         |  +---| | | ----| PWM0     =
+       |
+> > >                              | |         |  |   | | |    +-----------=
+------+
+> > >                              | |         |  |   | | |
+> > >   +-----------------------+  | |         |  |   | | |
+> > >   |         AD4134        |  | |         |  |   | | |
+> > >   |                       |  | |         |  |   | | |
+> > >   | SPI interface         |  | |         |  |   | | |
+> > >   | for register     SCLK |<-|-|---------|--|---+ | |
+> > >   | access             CS |<-|-|---------|--|---|-+ |
+> > >   |                   SDI |<-|-|---------|--|---|-|-+
+> > >   |                   SDO |  | |         |  |   | | |
+> > >   | Data interface        |  | |         |  |   | | |
+> > >   | for ADC sample  DOUT0 |--+ |         |  |   | | |
+> > >   | data read       DOUT1 |----+         |  |   | | |
+> > >   |                 DOUT2 |<-+           |  |   | | |
+> > >   |                 DOUT3 |<-|-+         |  |   | | |
+> > >   |                  DCLK |<-|-|---------+  |   | | |
+> > >   |                   ODR |<-|-|---------|--+   | | |
+> > >   +-----------------------+  | |         |  |   | | |
+> > >                              | |         |  |   | | |
+> > >                              | |         |  |   | | |
+> > >                              | |         |  |   | | |
+> > >   +-----------------------+  | |         |  |   | | |
+> > >   |         AD4134        |  | |         |  |   | | |
+> > >   |                       |  | |         |  |   | | |
+> > >   |                       |  | |         |  |   | | |
+> > >   | SPI interface    SCLK |<-|-|---------|--|---+ | |
+> > >   | for register       CS |<-|-|---------|--|-----+ |
+> > >   | access            SDI |<-|-|---------|--|-------+
+> > >   |                       |  | |         |  |
+> > >   | Data interface        |  | |         |  |
+> > >   | for ADC sample  DOUT0 |--+ |         |  |
+> > >   | data read       DOUT1 |----+         |  |
+> > >   |                 DOUT2 |              |  |
+> > >   |                 DOUT3 |              |  |
+> > >   |                  DCLK |<-------------+  |
+> > >   |                   ODR |<----------------+
+> > >   +-----------------------+
+> > >=20
+> > >=20
+> > > So we would set them as only one daisy-chained device.
+> > >=20
+> > >     spi {
+> > >         ...
+> > >         adc@0 {
+> > >             compatible =3D "adi,ad4134";
+> > >             reg =3D <0>;
+> > >             spi-rx-bus-width =3D <1>, <1>; /* 2 lanes of 1 bit each */
+> > >=20
+> > >             <supplies, clock, and other properties ...>=20
+> > >=20
+> > >             #daisy-chained-devices =3D <2>;
+> > >=20
+> > >             adi,spi-mode =3D "two-channel-chain";
+> > >         };
+> > >     };
+> > >=20
+> > > Thanks,
+> > > Marcelo =20
+> >  =20
+
