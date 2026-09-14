@@ -1,125 +1,198 @@
-Received: from mail-yw1-f225.google.com (mail-yw1-f225.google.com [209.85.128.225])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99209388E60
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CBA544684F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789414138; cv=none; b=Xodn5s++FJKOdwwTg/wgGW1+rbnGLhK1y564a5ehWnrt1UyPyNLhCQAb9o+UVCv8Hzn9YwFcjPgfxBUg9O3ZltqNBjW1OljiKLMDKWmvOQ3FwPafaGhp81M7WUfDWGNlZZ6AIRglSV0qEniIsWk1OQ2S7p9AgNq1owR8y+ibP7g=
+	t=1789414174; cv=none; b=oa7szGfb/mHU1HpQz3iQxptp2yw9ooV8jMcLum9xHmATUr23vFP/mkVI0eDUWQUKFhcaxtyZF3xd3DyqQMSIL1uhOoqsD7G3y00u35ih338nq2KwwmBpOoHd1VAvjPoVifhO4LnBl9Lcf9FPgy0EeF3CxG4Rns/MSpiJ1rtC8Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789414138; c=relaxed/simple;
-	bh=5OtJlbo1g405q1D1BITxmn/8MyRCpCH3TkKVn6gDP+E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XbbvExoLvdKordKfMaJ5yDMFfE+sz/O0/fEXFmEyPg1qUQQ7p8f9VCmz8AiUkXKCZtMxPlqNTzoCrwXKmZtaRQWWE3QGMgNiMjSutXYzdbl+1VZv4mKpMxVSom7WP2+fsycC1WhDsmIi/I+ZYCn3HIXv60qQKVxvQRFPRyUcH5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=AgHhkf/+; arc=none smtp.client-ip=209.85.128.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789414174; c=relaxed/simple;
+	bh=7BfBo4bSrQKPySmGfB8WjDBoz0v+gox7MbGpfymR+zw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rvf5rb0rtPs5ppJ5dIsxS9xJnbUW6ypOXX2r3iTPt7DZ95zbhk4WuMxzjvdfrwXkYkY0mcD2/UbrSw9EuDIHs2vzWhFjfUwnPCh0b+VK3mVzaSxnocQe5qLRqDHM0Tu8EvFTbo4Gl+45+N9cBzkRmQt76Qa4Ktxacdir1IDT6bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=syGmAkW6; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="AgHhkf/+"
-Received: by mail-yw1-f225.google.com with SMTP id 00721157ae682-855c26cf490so23033037b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:28:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789414136; x=1790018936;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9YxMJU2uyU0a0FLYWALkWE9MV7WU7H3DtorqV6/NVsg=;
-        b=Y/SKnadX0BaOQRXo3rGi0D+MAlp3nSgqJbXDoPQ/3McPet+A6zMmrMO4k7sNyped2P
-         Lor4U143Z5g1NHZRoxWZ2A594fjPN9Xx6uSKBt33Rpw5v+bSzWWGhKhEzVoRk0MuNB02
-         6kiRSzC90v/JxXNEj121seq4z227hqQuUq80cpEBPS3QRt76iYWs9JmeN9lyGdJyHfw8
-         XyqdOhBKPCC/JfpaHiC+l3MNQf2BHibMDJNJNXfYzQC9myuzKBje5Ao+m27BhJbF/4O9
-         I1Y4Dmfgg2qRJKP+m9OLjcRXTzh0pfwNcYA4DcFm1n2fntwghy5E0HBiRPakLMT+jbDO
-         GPMA==
-X-Forwarded-Encrypted: i=1; AKwUvBwzHVgH0dFSkP0nMj9pubi7WOr00kMhp8PwRgNLDHyC7pfPbEfs08n22kqP7soeBcscbnLcXzDboJyrXks=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3F3udndPIS5u4Vz0sYOO12i3G3vQ0pKLZaP7RKHiqCjJljTxZ
-	4iDZEJXqlyer5S39VgASgFy5Av1kqO8mtBrHrz6KvGuhCoo4d2O2Xc12s8zyOKMVGk3ZVXO/MVC
-	HLxImmL4CQexcU6LTl5eN+T7+X4J1ozLWNOeXm+Rxd9iqTG2JZ1Y/vAXgXmZOVHH/qqPj1nkqxR
-	FCmCJ/Ge/1d4IX3xUsjfrAPXuHicdZ420dsaQ19evLmytAZbI13dnJeuxaXh6sGRNjaOauit+KF
-	FX+XH2ab86eicBlZA==
-X-Gm-Gg: AYBFou287sjrwUYoBP7oGddwBxfn2cQ1h9OhWCEEdfRbTKYFJGcW0ilzXjudaLc8GKV
-	gKFO0YGlHNGSbMtbicEfq089gciklyqW07AKv1PbTzkLG8xHXjFudTJStHTbQYi7V2bAkUei56i
-	ATwLvQT0gNIvTYHSp0pUsxBqBcpbXaz0cZcb0qfP8lbxGySqaenn6hEYoSURbjA8muuoA44cq13
-	nrrxydVlo0RPW9nuWW8JYCvEkAm4j2kvdslns5u7Mbrsgdcdyx1tcaJiustec/hIZIuFI/qEH2b
-	EMdvacFrh9bdAbaKs5WrjtU7pD4LF9bcgghc9iz26N1fEc+S99ZZoki9GclzWX5FZ20Me5Jh081
-	YA63QxXxk/Mu4yS+gLFhdQbrfF10PBVIAOC0QSZOtLD/APB3BFomdMwIwfSYk3iX659VpyREJcc
-	YGnj4tJjWP8+TgVty1e4nwrYoWx7w8Bl/fQQ==
-X-Received: by 2002:a05:690c:438c:b0:873:5ddf:d860 with SMTP id 00721157ae682-88d21843151mr11099127b3.43.1789414136354;
-        Mon, 14 Sep 2026 12:28:56 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id 00721157ae682-88c5671402asm819937b3.14.2026.09.14.12.28.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 14 Sep 2026 12:28:56 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc4b524ce78so2736056a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:28:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="syGmAkW6"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so12953535e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:29:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789414135; x=1790018935; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9YxMJU2uyU0a0FLYWALkWE9MV7WU7H3DtorqV6/NVsg=;
-        b=AgHhkf/+1ACEf5iQfuxP5grJtDB7FYBC++zuoGrF1SUFEyW/zCINhDNLO73g1JsuEA
-         Q21nXSK8lY2RNI/ZOnWRUUrZ45lVMwQy8OMx117RPm9Zj/L2EXLHLkateJrNVeGmcwAF
-         e84rbE6wBfJsIr/cNL1udKTwdxNGdqRmBvD20=
-X-Forwarded-Encrypted: i=1; AKwUvBxlak9FbQgC+oQ6GG4+jmqnqbz1o6ANldeOJE57/IwGH1+XRAH+WC2uPhu0cguzT3xfjpBmDCpE/bWjty8=@vger.kernel.org
-X-Received: by 2002:a05:6a20:7492:b0:3d3:adbf:7777 with SMTP id adf61e73a8af0-3db40575ec4mr8180453637.19.1789414134972;
-        Mon, 14 Sep 2026 12:28:54 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7492:b0:3d3:adbf:7777 with SMTP id adf61e73a8af0-3db40575ec4mr8180371637.19.1789414134382;
-        Mon, 14 Sep 2026 12:28:54 -0700 (PDT)
-Received: from [10.14.5.171] ([192.19.161.248])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed79absm31155602eec.17.2026.09.14.12.28.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 12:28:53 -0700 (PDT)
-Message-ID: <059e9e23-418b-4779-b959-06336f9b18d1@broadcom.com>
-Date: Mon, 14 Sep 2026 12:28:52 -0700
+        d=gmail.com; s=20251104; t=1789414171; x=1790018971; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZxJ4bLJ7cXBKPY/voOIJSEHogHuTv+PG+lQi8LKJRVc=;
+        b=syGmAkW6xxdg5UmFnnErn0Qiba7fOvpanWJPB3QgrRa9xm30n0TPWC4lTRtMEYbk0R
+         uKvIPWLtrKDu3BBbc4qzOqieJEJMyRra/XGnudMZUWEN8zgqQU5MwplSlFpJHKoqCK9a
+         B7c8Xe6qsgtWh4WAhYBaYW5J4LqJPwnbCiiPZoJ7auyYyCH+F6mxeDcNPDApdDE1IPDM
+         vp5plOBaipUqKrNBFAvOyt1bAdl8tmi27KZ87asSlF3CEmJwoYEwS2Lmtm/Ob0nEqND9
+         MeEMUYSDAz8jQnoQrhtvpAAGfLilkRkNSfvlkBBxnOmzBPhjLaQiy0b42SfslBo8Uk+T
+         e6Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789414171; x=1790018971;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZxJ4bLJ7cXBKPY/voOIJSEHogHuTv+PG+lQi8LKJRVc=;
+        b=ihr4XSFAmR8HvS0CGk6IRCMQYuKSZruvJlOeJIl4GOqqIIauZ8aQiix5jio9kPVCRY
+         k/mCZTAfaaC8NAe6ApHKldRSdbkeCPXxWflvq3HSLVvVSQurNArkBL5saRgYgKqGzvsD
+         ZFct+CzB6dAsjFUsJaGMnnIMOEeTY4e2cWeo9LOZ5Eb6J9Yt9L+4BN7/cDzVss9BrsMx
+         p6q+gF62yb0nkLGPMUPLUM8q6bZ+QAPh/EHxIjLWG56xCoJpWxMPHL836t1fz8LE7/t7
+         bj5QB55GlgEnCNkHc3ZO5pyCS0RlJrEyFaf7kTWoYvuFVnZhdVgAJaP0oAe7MMOGlbTO
+         OZtw==
+X-Forwarded-Encrypted: i=1; AKwUvBw2ftdzGxhoR2TLEfKXMKrxxtOya66He6N4b14Vtz/lZrtoyh5QPh6fO1RTvvLVJ86+Z+kTzXnj6s3s5UI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnd/B4asGmG+ITQGi5Lwuj9vjzvJWjMSXye3EUQe9CHj2oNhQv
+	9T/mYqKmEDsVVJXx2qtN1i4ixBIr3k2pLox+HMV/uhSxI7OzNK4xjd7S
+X-Gm-Gg: AYBFou3TALyQJfHTOJaBXywxqCnm61KRVN07jFz7B9Xb2Qwymizi5CuzVaJRj+6qKkf
+	JHMOjRBUvyUbjpQ2zdEJkqYPgWsoAf5opgevD7+FIZZipf5AijqBLyufTi2ZmuF6aYmkCc6U6qs
+	mN9lzwU9o9JBGhezyEufIJ4Q66fLi0KkpGAZxJMkkB7mjKA++cXxAHmlm9hYueulD9PrqqDarD4
+	R1PVU3JxGHdkD1JAv+5A4VdjZYa7Hi17thCSAcBgDhMyFpV5VLsO9dgJysMKzYHNDLPqsXXCr/5
+	rzMIQNNyCe8hT/S1Q8b0sfRIEysdrNfn8Z9jyNkf1xaxIOK8xwVlqXSAO8waUkcBPX8huu88rgg
+	uHpFYqMvHUNxzESUhFVIvMJfdKdNzIDzVgtIEQ4Nzb0G+W7PN+kAxjCt/93IWxGL1YOEf34nd9U
+	dnXuzjbEb1mcQRlisN5GVR8yOpUGF6JQ+1MLssz2rvJ6+raAuuqizoXejXhZ3re/qywib4i72+q
+	q1cmnszDNN0kUeGDZYC2cj7iYA2dX6xXyCwquBEK7esJICBpg==
+X-Received: by 2002:a05:600c:34c1:b0:49c:e3c3:5efd with SMTP id 5b1f17b1804b1-49e7a67e4d5mr105035245e9.9.1789414171099;
+        Mon, 14 Sep 2026 12:29:31 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.102.196.87])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d66e77csm14496205e9.5.2026.09.14.12.29.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 12:29:30 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com,
+	glider@google.com,
+	dvyukov@google.com,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Subject: [PATCH v2] dcache: fully initialize the inline name in __d_alloc()
+Date: Mon, 14 Sep 2026 20:29:26 +0100
+Message-ID: <20260914192926.1591-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260913152802.13413-1-drifabdelmalekmohamedsaid@gmail.com>
+References: <20260913152802.13413-1-drifabdelmalekmohamedsaid@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: bcmgenet: restore the hardware filters on open
-To: Nicolai Buchwitz <nb@tipi-net.de>, netdev@vger.kernel.org
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, linux-kernel@vger.kernel.org
-References: <20260913190052.939955-1-nb@tipi-net.de>
-Content-Language: en-US
-From: Justin Chen <justin.chen@broadcom.com>
-In-Reply-To: <20260913190052.939955-1-nb@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
+syzbot reported:
 
+    BUG: KMSAN: uninit-value in dentry_string_cmp fs/dcache.c:291 [inline]
+    BUG: KMSAN: uninit-value in dentry_cmp fs/dcache.c:322 [inline]
+    BUG: KMSAN: uninit-value in __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
 
-On 9/13/26 12:00 PM, Nicolai Buchwitz wrote:
-> bcmgenet_hfb_init() runs INIT_LIST_HEAD() on priv->rxnfc_list, which drops
-> every rule off the list, and bcmgenet_open() calls it on each ifup. Every
-> rule the user configured is silently lost:
-> 
->    # ethtool -N eth0 flow-type ether dst $MAC action 0
->    Added rule with ID 0
->    # ethtool -n eth0 | grep -c Filter:
->    1
->    # ip link set eth0 down && ip link set eth0 up
->    # ethtool -n eth0 | grep -c Filter:
->    0
-> 
-> Initialise the lists once at probe and restore the rules on open, as
-> bcmgenet_resume() already does.
-> 
-> Fixes: 3e370952287c ("net: bcmgenet: add support for ethtool rxnfc flows")
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+     dentry_string_cmp fs/dcache.c:291 [inline]
+     dentry_cmp fs/dcache.c:322 [inline]
+     __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
+     lookup_fast+0x194/0xa40 fs/namei.c:1854
+     lookup_fast_for_open fs/namei.c:4545 [inline]
+     open_last_lookups fs/namei.c:4579 [inline]
+     path_openat+0x9ef/0x6540 fs/namei.c:4856
+     do_file_open+0x2aa/0x680 fs/namei.c:4888
+     do_sys_openat2+0x17c/0x390 fs/open.c:1395
+     do_sys_open fs/open.c:1401 [inline]
+     __do_sys_openat fs/open.c:1417 [inline]
+     __se_sys_openat fs/open.c:1412 [inline]
+     __x64_sys_openat+0x240/0x300 fs/open.c:1412
+     x64_sys_call+0x2445/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:258
+     do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
+Uninit was stored to memory at:
+     copy_name fs/dcache.c:3031 [inline]
+     __d_move+0xd29/0x21f0 fs/dcache.c:3099
+     d_move+0x71/0xf0 fs/dcache.c:3147
+     vfs_rename+0x2619/0x2770 fs/namei.c:6085
+     filename_renameat2+0xa59/0x1230 fs/namei.c:6188
+     __do_sys_rename fs/namei.c:6232 [inline]
+     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
+     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
+     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
+     do_syscall_x64 arch/x86/entry/syscall_64.c:63
+     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Reviewed-by: Justin Chen <justin.chen@broadcom.com>
+Uninit was created at:
+     slab_post_alloc_hook mm/slub.c:4617 [inline]
+     slab_alloc_node mm/slub.c:4939 [inline]
+     kmem_cache_alloc_lru_noprof+0x376/0x1230 mm/s
+     __d_alloc+0x52/0x9f0 fs/dcache.c:1902
+     d_alloc+0x57/0x300 fs/dcache.c:1981
+     lookup_one_qstr_excl+0x19d/0x7a0 fs/namei.c:1806
+     __start_renaming+0x341/0x850 fs/namei.c:3888
+     filename_renameat2+0x625/0x1230 fs/namei.c:6163
+     __do_sys_rename fs/namei.c:6232 [inline]
+     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
+     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
+     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
+     do_syscall_x64 arch/x86/entry/syscall_64.c:63
+     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Thanks,
-Justin
+The race happens between a concurrent open() and rename() of the same
+path.  __d_alloc() initializes only the name itsel
+of the inline buffer; the tail in between is left uninitialized.
+copy_name(), called from rename(), copies the enti
+including that uninitialized tail - into the moved dentry.  Meanwhile
+__d_lookup_rcu(), called from open(), is an optimi
+it checks d_name.hash_len first and leaves the seqcount retry to its
+caller, so a lookup of the old (longer) name racin
+compares with a stale length.  While copy_name() is rewriting the name
+in place, the walker can transiently step past the
+terminating NUL and read bytes from the uninitialized tail, which KMSAN
+reports.
+
+The race is benign by design - the read stays in bounds and the lookup
+result is discarded by the seqcount retry - but th
+is real.  Fix it by zeroing the entire inline buffer in __d_alloc(),
+so every byte a racy walker can touch is defined;
+past a mid-rewrite name now simply stops at a NUL.
+
+Reported-by: syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7ff3adde89dd795ad4c4
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+---
+v2:
+  - Screwed up by using memcpy in v1, fixed it here by using memset, only change
+ fs/dcache.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 1b1a81f10da6..730571e92af8 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -1910,12 +1910,17 @@ static struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
+ 		return NULL;
+ 
+ 	/*
+-	 * We guarantee that the inline name is always NUL-terminated.
+-	 * This way the memcpy() done by the name switching in rename
+-	 * will still always have a NUL at the end, even if we might
+-	 * be overwriting an internal NUL character
++	 * Fully initialize the inline name buffer.  copy_name() and
++	 * swap_names() copy d_shortname in its entirety, so any
++	 * uninitialized tail would propagate to the other dentry, and
++	 * __d_lookup_rcu() may transiently read any byte of the inline
++	 * name while rename() rewrites it in place.
++	 *
++	 * This also keeps the inline name NUL-terminated: the name
++	 * switching in rename will still always have a NUL at the end,
++	 * even if we might be overwriting an internal NUL character.
+ 	 */
+-	dentry->d_shortname.string[DNAME_INLINE_LEN-1] = 0;
++	memset(dentry->d_shortname.string, 0, DNAME_INLINE_LEN);
+ 	if (unlikely(!name)) {
+ 		name = &slash_name;
+ 		dname = dentry->d_shortname.string;
+-- 
+2.43.0
+
