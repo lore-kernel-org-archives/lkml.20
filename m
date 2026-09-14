@@ -1,150 +1,194 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C61A414A20
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BD7424D74;
+	Mon, 14 Sep 2026 09:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379859; cv=none; b=u140vUfNXCppBCz5g3vjsbmRvqHVFz4lWcE59iaqPy29oDKBKK92q7TwGxU1yoVCME4sk/BOgWkF2+AM01TWB4F+ZGHSLTocKR1lVi4q/KrDOWYLQK9HP0Y7Be1fHjaUSDW8vuEKBxBmI0T0o3T1fJcIw+ygYHsPcGhBGbZ7HII=
+	t=1789379869; cv=none; b=dD4ZqEjXt6NIDLNz55tbqLA4qgLLf83cdGqOxhHycR/DZ8nK1VVEgOx3jFDjiVb9gk5hXzjFSxBsWaeVzI1AMOzNF1PeWmuzIN9+THk6nCaE8NU9Ah4gvm4GPjeXUA3UTlqUI2RXHtp0UbJdpCUeNST5LKAy8EJeCJLLPuGxCmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379859; c=relaxed/simple;
-	bh=3qiAnH7OuYwzpG0yK4SgScObKktr+6Jrd70bQk5EbQw=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=o/q1OgDU6BDYh2w27atpnIeqluB2U0/rfsaMhAsNwV99BrXRnUGbcfGboY57zKs6z3CNFfbjakHgbfhGdC7DN974L0WAWXg4WVjhqemKLhzRfiHfT/bpqpUt/uguIcQ/mGcb+frdXMliy485IJaQntngSqL3Gcg8vB9I0yK0mD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6b1bebb3ae8so1274849eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:57:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789379857; x=1789984657;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W6oIk7l4eRnUyhdSeBU9s1lynDeZBJ7umO0EhfBWYFk=;
-        b=Xe3iPld8r7sYXwYIaz5N67Imf4cPr1fZe7ZWoKHNfZW6O5dTbnlKlbiRjPp9oWZG4X
-         KHcUkQxRKMyazUOEvg0wRG3ftj2/UVSXd5bAXfk/4CkZ59t2xcNUUXLGiMOXDc0EHWzv
-         CGOxA9VswhLEUVarEAZDzSj1cbYG9kMpp0qJiBPQ9jt7stlCBILeioOXr+LvbXydJfDW
-         Zt+gzzBTd9AztGa+5dRi6gAeiX+7CItUJAIxAcfywNSzOuTb5Wm65/sV9wwS4C+bqeGC
-         wFQP/j+3KivNB+G9qtt0RV4iSRjTrIJnW78rmIWI22e8itLbwznMhJQcGyZ8dlgfOCcI
-         /5mw==
-X-Forwarded-Encrypted: i=1; AKwUvBzLEVLaLZvjznAtWzVmXvnK1mQrLVv4WvsQtJt0L4gO+PHW0IZ8ei0BqujWa1PUllhKdh57Ti7KprHSJJ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3ZPL71PmQgFtbfHhPYw+oIqoIHxZ9w5FbsvlUU3X1mGm6/APz
-	YH9A2oghuZHJmZTL1NEhRzLEXGcimeV0vYqPnqLK3KiGn/fK/q1X7ri84Ug0A2Z1KpOeUkQ4Pqi
-	GX8jaNkOEznrKLIxPxihc5ePuRjS82bQoDEINyrn+QJTG4HJ0Wjosw7MOpuc=
+	s=arc-20240116; t=1789379869; c=relaxed/simple;
+	bh=cUWGQyihlntV9QIyD5z00X9p3zOZTj570Hp2nWynBQQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n431ZB0KRaQ85kWjQlCTydBG2A81Cm0fIdGetEYN4fyzUGcS0fzKOj4yMib/GReCQ8W9NM7zZiFBriPVGoIcKBb0KBnGhM/UNiM8nqiOZEMzjyY9lRmX+iXoCu3GHqkRa57/98JgRgRippclpnwhgWPLYIxXkX8iCnSfjphzqBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bVo0we9i; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=snfxtuF/; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=C0tmwS9O; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=f3yhWP0z; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bVo0we9i";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="snfxtuF/";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="C0tmwS9O";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="f3yhWP0z"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C269621BC9;
+	Mon, 14 Sep 2026 09:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789379861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
+	b=bVo0we9iSTuHF633BV5n0XXQs4PSCNMYhElpdzJ6NAs6s1QkDYVSocT9G2VM1j4qAzUCSU
+	0dpQCp0QXPqOT6M+dy4NoenKwiAj0eW21Rofrvr3hChSSQ2/r2cpDgwT7AdTFNUTwASo2J
+	67q0HTO0HdOupD0vC9grFiXl+h84mog=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789379861;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
+	b=snfxtuF/wJ4uUcEv5jqslNOPo7M8iCywDanF9FR8ekwSSayUBWIXBRulnxvaQn0fkRCNWJ
+	flwpxj5IEfMUpYAg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=C0tmwS9O;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=f3yhWP0z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789379856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
+	b=C0tmwS9O9EaoshMDvZ6TrBChumcdy+H/YwPEGXKYZQVZPDE+VRwTv0Ijb6gh27GB+itjWw
+	9LbQoZrM/1Ah3joZS2upDL1ovqyhVuBI5/9+ohCGm29C/G5sIKDQ0PzUUqgA5/pqjdDCUa
+	0523B1OoRnHwPcW7+ftJ8PQNSceLw6k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789379856;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GfZ17qPc6iNuudiafU0lJgdH/xNGEAzxZw482VkSFrI=;
+	b=f3yhWP0z1+nlOzZOpnXjUSUv8Vt6ScrWylxUvDiNGmhPAR5iUfH8++iLqgvghFVW3tgrXS
+	6DvKk1/ioLS+EKBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 98AEE13515;
+	Mon, 14 Sep 2026 09:57:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id r+04JRDFp2qleAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 14 Sep 2026 09:57:36 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 25A23A12E4; Mon, 14 Sep 2026 11:57:32 +0200 (CEST)
+Date: Mon, 14 Sep 2026 11:57:32 +0200
+From: Jan Kara <jack@suse.cz>
+To: Yichong Chen <chenyichong@uniontech.com>
+Cc: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
+	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>
+Subject: Re: [PATCH] ext4: fix the logical block counter overflow in indirect
+ migration
+Message-ID: <yd23jmljtzvw7xuzvwfq5jbsjfx4hjuoukv2bsk3gx5kzpagvf@tpd2pmceqgay>
+References: <20260914065544.3438431-1-chenyichong@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1988:b0:6c1:fd93:5292 with SMTP id
- 006d021491bc7-6c541d3ff08mr1639726eaf.17.1789379856953; Mon, 14 Sep 2026
- 02:57:36 -0700 (PDT)
-Date: Mon, 14 Sep 2026 02:57:36 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7c510.4c28b7d0.c1bba.0017.GAE@google.com>
-Subject: [syzbot] [wpan?] WARNING in hwsim_hw_xmit
-From: syzbot <syzbot+adb0bf16414b8bb2d799@syzkaller.appspotmail.com>
-To: alex.aring@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-wpan@vger.kernel.org, miquel.raynal@bootlin.com, netdev@vger.kernel.org, 
-	pabeni@redhat.com, stefan@datenfreihafen.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914065544.3438431-1-chenyichong@uniontech.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C269621BC9
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,linux.vnet.ibm.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-Hello,
+On Mon 14-09-26 14:55:44, Yichong Chen wrote:
+> update_tind_extent_range() advances lb->curr_block, an ext4_lblk_t, by
+> max_entries * max_entries for every empty triple-indirect slot.  One
+> triple-indirect block spans max_entries^3 logical blocks, which exceeds
+> 2^32 as soon as the block size is 8K or larger (16384^3 = 2^42 with 64K
+> blocks), so the counter wraps while that block is walked.
+> 
+> A wrapped counter makes the migration store a block number that is 2^32
+> blocks away from the one the pointer block describes.  Two ranges can then
+> end up with the same ee_block, which trips
+> BUG_ON(newext->ee_block == nearex->ee_block) in ext4_ext_insert_extent(),
+> and without that collision the data is still moved to the wrong logical
+> block while the migration reports success.
+> 
+> Keep the counter in 64 bit so that it cannot wrap, and refuse the
+> migration with -EOPNOTSUPP when a data block is found after the last
+> logical block an extent can describe, which only a corrupt block map can
+> contain.
+> 
+> Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
+> Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
 
-syzbot found the following issue on:
+Yeah, I guess this is the easiest way how to deal with this. Feel free to
+add:
 
-HEAD commit:    fd73f4a66598 Linux 7.3-rc3
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15319905580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=adb0bf16414b8bb2d799
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Unfortunately, I don't have any reproducer for this issue yet.
+								Honza
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/03bdb0f533e9/disk-fd73f4a6.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/b8afef97d54e/vmlinux-fd73f4a6.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c5ec38325318/bzImage-fd73f4a6.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+adb0bf16414b8bb2d799@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-current_phy->suspended
-WARNING: drivers/net/ieee802154/mac802154_hwsim.c:266 at hwsim_hw_xmit+0x1606/0x1630 drivers/net/ieee802154/mac802154_hwsim.c:266, CPU#0: syz.5.2158/11621
-Modules linked in:
-CPU: 0 UID: 0 PID: 11621 Comm: syz.5.2158 Tainted: G             L      syzkaller #0 PREEMPT_{RT,(full)} 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/08/2026
-RIP: 0010:hwsim_hw_xmit+0x1606/0x1630 drivers/net/ieee802154/mac802154_hwsim.c:266
-Code: c6 05 af 7a e6 08 01 48 c7 c7 a0 ae 0c 8c be 0d 01 00 00 48 c7 c2 40 af 0c 8c e8 15 fe ec fa e9 e8 eb ff ff e8 4b 78 11 fb 90 <0f> 0b 90 e9 d2 ea ff ff 89 d9 80 e1 07 38 c1 0f 8c b7 ea ff ff 48
-RSP: 0018:ffffc90004a07280 EFLAGS: 00010283
-RAX: ffffffff86b51de5 RBX: ffff88802592d018 RCX: 0000000000080000
-RDX: ffffc9001660b000 RSI: 00000000000001b2 RDI: 00000000000001b3
-RBP: ffffc90004a073f8 R08: ffff88802592c823 R09: 1ffff11004b25904
-R10: dffffc0000000000 R11: ffffffff86b507e0 R12: dffffc0000000000
-R13: ffff88802592c900 R14: ffff88802592cf80 R15: 1ffff11004b25920
-FS:  00007f56c49766c0(0000) GS:ffff888125bcb000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000001b2d91fff8 CR3: 000000004052a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- drv_xmit_async net/mac802154/driver-ops.h:16 [inline]
- ieee802154_tx+0x26d/0x510 net/mac802154/tx.c:89
- ieee802154_hot_tx net/mac802154/tx.c:207 [inline]
- ieee802154_subif_start_xmit+0x110/0x190 net/mac802154/tx.c:239
- __netdev_start_xmit include/linux/netdevice.h:5429 [inline]
- netdev_start_xmit include/linux/netdevice.h:5438 [inline]
- xmit_one net/core/dev.c:3937 [inline]
- dev_hard_start_xmit+0x2df/0x870 net/core/dev.c:3953
- sch_direct_xmit+0x257/0x4c0 net/sched/sch_generic.c:372
- __dev_xmit_skb net/core/dev.c:4262 [inline]
- __dev_queue_xmit+0x16ce/0x3880 net/core/dev.c:4884
- dev_queue_xmit include/linux/netdevice.h:3461 [inline]
- raw_sendmsg+0x4a2/0x9c0 net/ieee802154/socket.c:299
- sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
- __sock_sendmsg net/socket.c:815 [inline]
- ____sys_sendmsg+0x565/0x870 net/socket.c:2713
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
- __sys_sendmsg net/socket.c:2799 [inline]
- __do_sys_sendmsg net/socket.c:2804 [inline]
- __se_sys_sendmsg net/socket.c:2802 [inline]
- __x64_sys_sendmsg+0x1b7/0x290 net/socket.c:2802
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f56c671e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f56c4976028 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
-RAX: ffffffffffffffda RBX: 00007f56c69a5fa0 RCX: 00007f56c671e159
-RDX: 0000000024004014 RSI: 0000200000000080 RDI: 0000000000000005
-RBP: 00007f56c67b503b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f56c69a6038 R14: 00007f56c69a5fa0 R15: 00007ffd99396d38
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> ---
+>  fs/ext4/migrate.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
+> index e06d847033a1..8043959c19ef 100644
+> --- a/fs/ext4/migrate.c
+> +++ b/fs/ext4/migrate.c
+> @@ -14,7 +14,7 @@
+>   * represented by a single extent
+>   */
+>  struct migrate_struct {
+> -	ext4_lblk_t first_block, last_block, curr_block;
+> +	u64 first_block, last_block, curr_block;
+>  	ext4_fsblk_t first_pblock, last_pblock;
+>  };
+>  
+> @@ -65,6 +65,10 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
+>  			       ext4_fsblk_t pblock, struct migrate_struct *lb)
+>  {
+>  	int retval;
+> +
+> +	if (lb->curr_block > (ext4_lblk_t)-1)
+> +		return -EOPNOTSUPP;
+> +
+>  	/*
+>  	 * See if we can add on to the existing range (if it exists)
+>  	 */
+> -- 
+> 2.51.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
