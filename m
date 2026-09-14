@@ -1,90 +1,153 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBCB3BCD38
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C61439F7F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393323; cv=none; b=If0Y06jslVVxoQGU9gD7288a6ZzRs62nKWrJkdezDZgkTdqXJa/+OOCeo1+rTijlLezbE55lX95BN+R3U5kYzG0iwQEWNN90pcFExgsXKK6Xkrkf1prbWRe67mgOu+i0Cj3gAvKGPT6ywq+e6S33x1QaCIs1PnZmkmga1EYitq0=
+	t=1789393329; cv=none; b=ikAaT6NaBK1tQC0sOiTH5E4rkfKbXK7HhcGVtvSCxJoxgH+TSif+4jmFX8qfssRkfjTPOZGuQy4D0OzXEf/crbFkUoAx5hcGe+xzbh9cq/FNm6K9DHs2gmAkAWdDOOgEIPIoQqsleWvzyA+yxhWHAx3P0K9jEDlEK8wwJPeLKdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393323; c=relaxed/simple;
-	bh=PddB/J9MtdYNRVBKmIC2rQyphN1yaVNjGXFOy6TLFHI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O8ctrpBaBNevnGKm0g1eqsvVjWylfvRBwy0jWvDBvnV2MSBIqGTUeLdcFIjtpeWBRTu5fauHphAImBM3Ls6GDSHDSWDZsUVyo2k8FRK+ti38LW/5HD/08j5dM+uCyQX01JbWkFIwnU+ek/lPrs/lyd0qZbX8o//jcew+gP0mehs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sTOfUo6b; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789393329; c=relaxed/simple;
+	bh=CawgkxGKJ3UxmVB/3oUOcDhftc9MGZruLp+O+HF6Ukg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aL61Hhw7S7soXiq71eRHaHyEG6JowhGzZ5ETc7OaxZG0+iNoVrrgDN0ceqA/QB8nGdLfGx5A6MU4D3scYhHGKlmKFSu3pGCsi7bv/4pixOY1PUp+5v4RrLrlh5oZJH6hhRwpNxAbB9F5sFKw3Yh9iz4CA0dkQYuBetQVTuGdN+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pT2Ycofu; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sTOfUo6b"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db425c8ff1so3338055ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:42:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pT2Ycofu"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso40276655e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:42:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789393322; x=1789998122; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PddB/J9MtdYNRVBKmIC2rQyphN1yaVNjGXFOy6TLFHI=;
-        b=sTOfUo6byFjMoOmtCTEjE2sCm8r3Q0o7rmKpF5b2pDvKFgeOZRwb6dMVkAbyXItHtD
-         EypDeDEHiFVA290NrYjc2/Fm8D863mXGP0L7jQ3gBoUAlOqi/w5dCNMHGS1TJL8As2x7
-         x/mvupNB3g4P+HVwJz56tb8tA/pQcU5jjHiKmM0COdMVImfD7E5Z5MeqvTws7W1YzfNo
-         AujjK+VAIwnvbB/qz9tezTK3+PEwOmAx/efp5pF4WgAPgHplRH3NSrnL1xsc792Faopv
-         Qkf53r2YqUNxHRD8i6jULGTmXmQQhVbOyR4ks3mbNpsjeyxmXw4ujQtbCHecN0/CrP2i
-         dl+Q==
+        d=gmail.com; s=20251104; t=1789393326; x=1789998126; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8Hg2g/k6LjK6PKUxnUuBlrddBnQ+AWzC6JwaHgy/hfc=;
+        b=pT2YcofujVTFumGc9Btch1YhhPmBTZjmEHVA55JnGPjVnbsvSnE9eRriE44vkqIC6U
+         IiARbAbQZx3op2aoGs/2KGe/YLOX6wrfFuEC0BE39VIFF1Jj4gzf3zdaWQXnmNpbQlq9
+         /fP4oydVkCw7Fld7SqzZL1yGDRmF08cgumOabi2SdCADcHUooo1ad6ipePtwM35Bbxft
+         fL8X8zejMmWhasiHDlKZ0irwkDdJ8npVHO0IwYz1vLSyzuNflXtraBSJBDBr82Hrt3iN
+         T7jGVCQ+3Bph8EiWqZdEXgKQEzxd+N/XlcswIMcl60tOL0D8OQtqgjSyD2e7iDNp7jxZ
+         3EYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789393322; x=1789998122;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PddB/J9MtdYNRVBKmIC2rQyphN1yaVNjGXFOy6TLFHI=;
-        b=JP7Ks3vZEhTjYYAj4J4SnRV55RRuI/0mCII12rT8U+4B4QmBvm2yTdJxuX6PduZkFF
-         CkNj3W4IH5gHuvaZ3QjHWdHtzmUCTUlnDm4ozCx8zvjWvFcSJQGdjWOIdqZOpR+s4TOK
-         N+35Tm217x2esQqmXWWqsSvZwskJsx1mdyCZ/lkUcorz8R5XJyFWKUDaN1r0yoK4wYno
-         QfJX9lhF+I8HE2BuHUKPfbh0KzfmbeD43Xexw6XOE3RmI+Em2yALcQnFJPWFZ/hXVGIe
-         xOVBolwWUtoJiuGa49f6+Yxl+FwhgkpKBBbi3HiDCZGH8tf3TG/QP/o79lOaqRDdZLlW
-         jVTg==
-X-Forwarded-Encrypted: i=1; AKwUvBxcMiMkncyaVCKrRi5XLSOYNb8T07rabomhH3TLxNzUjviSTyF8Y7d1kB/l1jGqnZDQyDHLP43NZkRDLMQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA1UDp+hAmXlwtTwGRUuSRQ5IqCURG0ihxSTlQF+nG6VGX72Uw
-	LsyctVtjPwRZxMCAAVipSbzvTbvK1+o8Exd0HUH/CjpXuUKeywl3znl1
-X-Gm-Gg: AYBFou0y/k28q4HsGBRvjl1Y0VXVZ14MNVlGz/bcbZWvRl9xtkMXdRe76SVS9BXgP6b
-	qjoDYebEfU9sO9CeFB7h+9B6qN/jFIWm7DB3wX7G5O932vLkbAWkZa1NWpUE3Pzz1pEZ2nGZuLv
-	PdsUIC8L8srtePtGsRf3f4AFhuyGKdcgyZvTOA+cRb3PtbOhcoLq0LI6951gJytDUCw2Wx+8+d0
-	UzFAL2v4ud+yJk/23h1r29wWNG4eoqTsExh7aCFE3rhqoNVP1+sgsePYXn3QsPAeBRTR80m+lns
-	lRqf8hgcOfhRoCdvXOhTqQdOLKMRixfSFjvVMgBCo4lsY6Vhuoj5SBkviDQ+kLznzA3tV+8rB7Y
-	ADXfOx46k1/NiG3tuG1GcBodtXkJMDVKOsrbyVqNKj2A9V+bIwot9hK2a9mIwZTjVRgBAU5grX1
-	vph6mm0WeliLMeMtJ1/RPeaEevBugDgddgOTZ1Lx+lJEe+fPo1csnR7jj9nc8adisl85lNwd85z
-	U1U6rH2TLSgAYymJM2ORoVWlhxSAlW/mn974vznWiL0NDoxD1H67p2D1U+ZJnPdhMkSHpXvZ7ZF
-	xNxyMJHiUb1wHf6Odyj4lZBUDzn7S5c=
-X-Received: by 2002:a17:903:4585:b0:2dd:190e:28b6 with SMTP id d9443c01a7336-2dd6c6e2812mr38152905ad.2.1789393321736;
-        Mon, 14 Sep 2026 06:42:01 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.109])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff6e80sm48982875ad.78.2026.09.14.06.41.57
+        d=1e100.net; s=20251104; t=1789393326; x=1789998126;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Hg2g/k6LjK6PKUxnUuBlrddBnQ+AWzC6JwaHgy/hfc=;
+        b=Cze/TqlK8StDXT9TZ+BMqoBw8e6wTwxZ7bG4JdSklYycv9tcGrtsYi8Buv7P9Ns5UM
+         B0VVs9mIJdQnZiX3KvACjQ63eKeBZArynyXX13BfTJE2qu8jN/AF6j39UKYOL8OE5GgW
+         EgeyCCDWGkfEEl3Y3W8YS/INgUntAHo8M/tQ0kJRxWo+sooNNq5ykGM6XHt1K2RTgBMt
+         JMS2ch0x5z0fc1m1Ei04TkCofgS7tMQjWXbwh7NBM2bnOIwdcKMpsR8RsX4fhBqIeeWk
+         LEuWuOzJmtGFwy3KfHWUO4KQcQjthndy2fGnK1Auj5FpyyHUTm5QfEA+tWnRPY2zaFeF
+         wbGg==
+X-Forwarded-Encrypted: i=1; AKwUvBy6YeOZ/KNJnsbFWaFPUIp39ciMLQjObH7A31Jjden9vMQstn86bOaj9QrQmcnth/c68de7lqfzBlAbfco=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLi4unrHafDPmiRgMLJOSUT4HdhQUsmQbDzVpDPt7/Ymj1hvSG
+	lDntI0EijhuEZSaIYi2mpMLswP+Y/3gFt6eGWWiRWqVpsjIlGhUMaslw2v8c0w==
+X-Gm-Gg: AYBFou2f7q035ZgdhZbeZMj9E4OB5Kpb25f0OZlIPoudXfVPcRwUmVU+KF79AIyLwZP
+	OMgXUrzqaHqb0QX03Ev5Zocl7jCCeHcw+FR6sTOaLCX/ELYfoky+29eG1u463ph2VpFle44wOS+
+	91Ccq7WrbWOZVqzbc01fa1+3BTfvBJt0ReG6g+2P0qS2UGTuxlGXaIfR/LXVV+RdM1dtyOHAPGL
+	nUQRMNaPLsM12VAov3PSaX20Yxz/iU8ttNvxtmZplPOdUggL1oCK6gNPq4fWxQiWp4tqaREPJP+
+	AbqqeHwfPZopcwyLAbvM5prpsZDb9r6JDO156E76c+ZnO9+tBTIByVgaPbmz4cFoOQ0QHR63TGg
+	OLDhAZYRr6C0hUlGc+4t6ixDKw4GvzY6CJ57kajxXVvO9eDfKoz5aLnXPB8Apvf162O/goj5XH1
+	25bNFBgOifyDmJ70Gqm6d/p9HwqDJGtRSaiXK2VSpGfIhsbhmnuNcAcQhpBh3P2gavBkZOf8QuQ
+	vi9jAvc8mG2J5PBwsD0Nzbuv49JhvyWmknNR8CZNsQuMZ0XxeX0Tf2RRUSEzpVPAOTkx+wwU3Fc
+	RqY4OiW0vHsZ473Y0n7vDAbnu4QruCHb35WqYZbm0PlcvpAZPQsGQGGA64hnl87G96A0gffC3md
+	rrCxpwREVxQY9cOvsFB4xHWZtRMHvdWEI8ymX0FJ5lFJhRpzJ7b3OuSlqvGppkzb1pOBr8/w+u5
+	bZ86Ai
+X-Received: by 2002:a05:600c:a012:b0:49e:799a:8952 with SMTP id 5b1f17b1804b1-49e7a67798fmr33274475e9.26.1789393326105;
+        Mon, 14 Sep 2026 06:42:06 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e71e300f3sm224253015e9.7.2026.09.14.06.42.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:42:01 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: rf@opensource.cirrus.com,
-	david.rhodes@cirrus.com
-Cc: Navon John Lukose <navonjohnlukose@gmail.com>,
-	broonie@kernel.org,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: ALSA: hda/cs35l56: same calibration condition logged at dev_info() and dev_err()
-Date: Mon, 14 Sep 2026 19:11:54 +0530
-Message-ID: <20260914134154.1295196-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <4621b455-9460-4f45-88d7-303b6243ad45@opensource.cirrus.com>
-References: <20260914000308.108995-1-navonjohnlukose@gmail.com> <4621b455-9460-4f45-88d7-303b6243ad45@opensource.cirrus.com>
+        Mon, 14 Sep 2026 06:42:05 -0700 (PDT)
+Date: Mon, 14 Sep 2026 15:42:04 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Kees Cook <kees@kernel.org>, Daniel
+ Baluta <daniel.baluta@intel.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: dummy: free software device on configfs release
+Message-ID: <20260914154204.000028fa@gmail.com>
+In-Reply-To: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+References: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 14/09/2026 11:09 am, Richard Fitzgerald wrote:
-> However, I can reword this to say that in most cases they
-> indicate the same problem, though not necessarily.
+On Mon, 14 Sep 2026 19:54:04 +0800
+Guangshuo Li <lgs201920130244@gmail.com> wrote:
 
-That covers it, thanks!
+> iio_dummy_probe() allocates struct iio_sw_device with kzalloc_obj().
+> The error paths free it, but after successful registration the normal
+> removal path only frees the contained IIO device, leaving the software
+> device allocation behind.
+> 
+> The software device embeds a config_group. device_drop_group() calls
+> iio_sw_device_destroy() and then drops the config_item reference with
+> config_item_put(). Therefore, freeing the software device directly from
+> iio_dummy_remove() would free the embedded config_item before that
+> final put.
+> 
+> Configfs requires dynamically allocated config_items to provide a
+> release callback which frees the containing object when the reference
+> count reaches zero.
+> 
+> Add a release callback to iio_dummy_type and free the software device
+> there.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 3d85fb6f8104 ("iio: dummy: Convert IIO dummy to configfs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/iio/dummy/iio_simple_dummy.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
+> index 19fcdbbc11c6..7d2ff1d4a06e 100644
+> --- a/drivers/iio/dummy/iio_simple_dummy.c
+> +++ b/drivers/iio/dummy/iio_simple_dummy.c
+> @@ -23,7 +23,19 @@
+>  #include <linux/iio/sw_device.h>
+>  #include "iio_simple_dummy.h"
+>  
+> +static void iio_dummy_release(struct config_item *item)
+> +{
+> +	struct iio_sw_device *swd = to_iio_sw_device(item);
+> +
+> +	kfree(swd);
+> +}
+> +
+> +static const struct configfs_item_operations iio_dummy_item_ops = {
+> +	.release = iio_dummy_release,
+> +};
+> +
+>  static const struct config_item_type iio_dummy_type = {
+> +	.ct_item_ops = &iio_dummy_item_ops,
+>  	.ct_owner = THIS_MODULE,
+>  };
+>  
+
+Seems legit.
+
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+
+Sashiko also pointed out that the same issue is in industrialio-sw-trigger.c:
+
+https://sashiko.dev/#/patchset/20260914115404.1691763-1-lgs201920130244%40gmail.com
+
+-- 
+Kind regards,
+Joshua Crofts
