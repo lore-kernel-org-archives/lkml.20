@@ -1,133 +1,113 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E723DB332;
-	Mon, 14 Sep 2026 19:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789414737; cv=none; b=EsJiy5ywc3Gz4hjDQ78BBzx98lM7DdbAQoHLQpHhBwdUpmBRkilKF9JOSV6O4JzMDuWtspfFCpdWmaHBzArQjRizSEohyQ7DgVwp69QnUMtb1DqGYXkePot6+e1pfBNxkO731+RX/dEFAMUhjXqcF0lSf4fKfbGgYhlBw19q2lo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789414737; c=relaxed/simple;
-	bh=slQN8zGDUmYs9br0zIMXRpsNo5O7uLthjpuA9U0b8rM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Vp/e1PJvm2SfLmALqW0ClQANvlbUudx6mC/lLXcn0NHMGMR+13oVGmqy54RINJt+FilvjEG04lzMSnNkQ863xmDHvM3BTRQ6nB68CWM7RGRb/IjZlcbaUtoVGHowD+IBmaLpDvUSSbqyIY5rpdTFXv/PEES+yi86UTwOF0jeYac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=WTY8xEi6; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0C3390CAA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789414843; cv=pass; b=oZG4vo6GQLfe3G2ZjTPSD7nb6ImQ/r5BvX08mhC+q4chRoAhFQjM0iVhCfLMKyPKlj5Cy1H5PLsNerZUfOwtrSanK50xOjpYrQW9UZSYZZUXAPCTUZw20MvOWPF9/v4q8EqGSJqmTha5oovwXRAY80y/eH+hN6i8DGTF5/Jm7Hk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789414843; c=relaxed/simple;
+	bh=IOrLEilFHhnJxPSxRVHThux+VKNAZpXoN8B5i5lUFcU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AYOQqsHDVMToRMeTZPl6ig586gTpwVg6MYcNaJtup3brdwvHrK3jw1IzI4pL4ELROEMzGJytH1v2O86XzWuvSE0bNGizXxmdGbwQd8s+GGeDeOefHqiFMuBbuE3f/EmMYCUwlyZoJYGJIFqyCWVryhyAmMkum3P6Rse0i0mnKs0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=J1GTsN2k; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="WTY8xEi6"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260914193842euoutp01953e61d38ec40643bc4d7157964f6df4~VRzWra7uK0314903149euoutp01E;
-	Mon, 14 Sep 2026 19:38:42 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260914193842euoutp01953e61d38ec40643bc4d7157964f6df4~VRzWra7uK0314903149euoutp01E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789414722;
-	bh=l4wDoWVeNywfcIR5L4rg3J/vDfSoW2zWF07vjDkO78A=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=WTY8xEi6jJOa1gLnOSUBPvlQpMk4v2dS5Nlb2zkZtStSIF1Pr3VZihsDFbmaj+Y4h
-	 48ffokqJfJoWOeBrkZRq1liliRT+IYnxf1/b09yAMsjlsgBoE69rhThGKgRG7auZzS
-	 XuVmAtFsH2iSO/zueW7kE3R3lnmCSs0qp5222L1M=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260914193842eucas1p27f2871f925584e946f2bb24c04b38b90~VRzWUs-Iu3205232052eucas1p2N;
-	Mon, 14 Sep 2026 19:38:42 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260914193840eusmtip1c6e3388713b55ee3f14ee6a855ba8b6e~VRzUiiOIx1812818128eusmtip1N;
-	Mon, 14 Sep 2026 19:38:40 +0000 (GMT)
-Message-ID: <fcfdd9da-8425-4cf9-94ba-23b06cd06185@samsung.com>
-Date: Mon, 14 Sep 2026 21:38:40 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="J1GTsN2k"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d88so16828a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:40:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789414838; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N5UFTWBnkVpfbXtzOCcx4SrMLO3upWB9JcTe4E5kQWawKhheM7YNXeYo7d9o+y2+lv
+         yRijZ1dBeME8GB8V2RM/S4/LmRXu/KI1Rq8c/9zA4eDenOBPootY0cmqrddvvTt/B17j
+         JsOx35jxGpK3TcTx/B9TXLZJD7LygUpnHpZJIwG7rLtsfoQkoqpsbH5sUB1jenmYXSTq
+         NjbTbXVVTKFQ0V4hnPsPm+58d/SPELce8wl94taaN5j8+Z9t4DjNMmi5Hv7GfxW0KoGP
+         rfaJMo8YFsKAib34RjjeGMNcH7sQL92pygVwahEpisMNAsVazKGVLAluITiD4DpuOnah
+         p6HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eZUBkwIq/fO/gxt56/XDzAsEFFKgZRRoosZ19gkheFQ=;
+        fh=/LD6lv+x5t/PEGab/Yvpsi7diOSeIRWX3cvN8UY917c=;
+        b=atWjIawtyBms0PF5MdGqm6XRtYZb30AHUhXOjTNJgJs9DaZ++WH2qRvsPbo6s4Zxuy
+         YPHDHh1kSeQOOlH13whgT92o6GzdvWgQHvjldS1PtCWiqHzrFMS4krmtxp9tQ1LB02TI
+         BLhJj3ymJsoboxBKNoljW/pr9OSUtXAusqG0pYE4OhtkJWFpU0vxpwS+frx14+lg/18C
+         THkXZVJT8Mv4GRYt6OJy7ZYNMO3B6fScn7sJF/AH8Ym2ZkYKv1tuUOiAO1FrMUwMyCVf
+         LcRzheIJIzdde07dWZBuvx3tcuGm7eWv7dluaRnKwWZEjFS98rEEq2lTXqYOAjhAPVXQ
+         3ysA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789414838; x=1790019638; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eZUBkwIq/fO/gxt56/XDzAsEFFKgZRRoosZ19gkheFQ=;
+        b=J1GTsN2kVknyCzdDaEHMj+c1Max/oEEuJNkiiyGK2zH0OcZLZMAkbyk+z+/qWhtBNX
+         nTmb9FpFY7euvMvL4whqstyqFzLc5f+Sa3nJmIi+Wu6IONirPudVcrSNhcMRa27xSgwl
+         pkuwnkOdIq+m/B8u4eaQ2w7BaCzSjZufWFBTLmykU/vu+edqyu211NR+B+2blC9cs4eB
+         8IpgIfwKY3T1MFonCwT0HJiLmuscfg8HImF7BrkBhzAjtS2SwO1FAuPvmVaPBh+uUz1v
+         aiWtdhG0rbe3xhPUxytNNFeNpUnYrt07A/eIgOIPyuYN+zh/PUCUEJyvLEQD1BeMrwqh
+         dksw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789414838; x=1790019638;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eZUBkwIq/fO/gxt56/XDzAsEFFKgZRRoosZ19gkheFQ=;
+        b=bblF0w/inssjoQ/xtSp+8JG8j5hErCrlJRRJ8PvfDlGQ0QRCt7GD0WN9rV2+WAI5+m
+         P0DL2yg1Aa8w+AKGfXy5sP+T7iBCEEwWWaCknTviuqvJWEH0pKe7TdOxlGJyot9G3U0F
+         Mn9rcMsVzdEuMW9Gten5ReBsoLLB0YSSDwKAIU+lTyRU8JzqNKYvjqNZfIBgM2LGEBN/
+         2rnm3/3NqDu9WlP6pe+1Q9aU3ZLf6egIQHDK9QUN3lRR1jUbtX1/hv8sDeMa5Gv25LnK
+         URo0hivhzbbbo5GXZ2CnUx0QsUjxGg1U+VCXyjHBRc1NbAgNLkBeydLu3VOFoUnKNzXl
+         saSw==
+X-Forwarded-Encrypted: i=1; AKwUvBzoso3tXX9+rpRLTXf0lpSE+yddTQALpd+746KnpGkr4MnLflHXdku0235Gn1fqHPFC+qclwgsYVCVSjhM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOjvLAZH6vGPNITKjtde3I1vIifcZ8Zxe7ivfbG3bqMNHjZI8E
+	Pzt5No0e6bp1ad76b19K36hKE0Fnh7uP0GGTk0Rqg7lVHbI7+vbDj5h/u+GLbD+MSbtP0G4ba/r
+	shyUy9aogBmX+mR53QZU2Wzxfim2NekNNpoR0/WU3pyCJlp5n4ALBJXLX
+X-Gm-Gg: AYBFou0Adnz4TQA4+Eddf16MHYLp2xDObAvaS+gJNLNTHq2c0fe7pjCf6TggrvcINt5
+	wEIjh4rkTdeLsbgbfH8aLf6hds6etfBPgJoyjbHj5CJ/Yu27/wNbrTVcVm1Bl9zL5MfttS9MvTr
+	Olzt/NrM+ZCEDMkivxJQSTcWg143KRmuso6X2GEexFO4aWa8wa7jV/0MZo5AOMXSI8uNIu+ItTF
+	phQF649tGOZmDDBgXh4syJvVBrH4XI9Dc89mikLjT7tWXjV6sybVyh8qr9O54dV8pSjCTyUkLsL
+	/KPa4kOY4SCU/xD2xca89kSk9EjosEXoGVAmr9MHNnOzJY+ocfIa1xGo
+X-Received: by 2002:a05:6402:691:b0:6a6:9d10:f52b with SMTP id
+ 4fb4d7f45d1cf-6aa043db7d9mr8757a12.12.1789414837491; Mon, 14 Sep 2026
+ 12:40:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 18/19] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
-	Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
-	Feng <hal.feng@starfivetech.com>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
-	<bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley
-	<conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Brian Masney
-	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260910-determined-fantastic-seriema-3ff701@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260914193842eucas1p27f2871f925584e946f2bb24c04b38b90
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-	<CGME20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab@eucas1p1.samsung.com>
-	<20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
-	<20260910-determined-fantastic-seriema-3ff701@quoll>
+References: <cover.1789281096.git.zhang_wei@open-hieco.net> <40f8ac084021e48fbadd5697ef16f674554a4480.1789281096.git.zhang_wei@open-hieco.net>
+In-Reply-To: <40f8ac084021e48fbadd5697ef16f674554a4480.1789281096.git.zhang_wei@open-hieco.net>
+From: Jim Mattson <jmattson@google.com>
+Date: Mon, 14 Sep 2026 12:40:24 -0700
+X-Gm-Features: AcwNN1VTxREYw7yGA-RG3H7Iferx9bVJ6dEoqU2hzDKLAla5Isbu_EYHtunu4hY
+Message-ID: <CALMp9eQq0-YwL6-jV_ZJke==J1dHa4YFs+xncN-ue0vr9Me2=w@mail.gmail.com>
+Subject: Re: [PATCH v6 4/8] KVM: nSVM: Propagate hardware DecodeAssist bytes
+ to VMCB12
+To: Tina Zhang <zhang_wei@open-hieco.net>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 9/10/26 10:37, Krzysztof Kozlowski wrote:
-> On Fri, Sep 04, 2026 at 03:27:19PM +0200, Michal Wilczynski wrote:
->> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> index 9c3e4598747eb5541effe697044484715569a285..0f981f4c89586269b987be8591037c9461e04703 100644
->> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
->>  		#clock-cells = <0>;
->>  	};
->>  
->> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
->> -		compatible = "fixed-clock";
->> -		clock-output-names = "hdmitx0_pixelclk";
->> -		#clock-cells = <0>;
->> -	};
->> -
->>  	i2srx_bclk_ext: i2srx-bclk-ext-clock {
->>  		compatible = "fixed-clock";
->>  		clock-output-names = "i2srx_bclk_ext";
->> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
->>  		#clock-cells = <0>;
->>  	};
->>  
->> +	xin24m: xin24m {
-> 
-> Other clocks are called foo-clock, so follow this as well (even though
-> it does not follow recommended practice of clock-foo, but at least some
-> consistency).
-
-will rename to to xin24m-clock
-
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
-
+On Sat, Sep 12, 2026 at 11:44=E2=80=AFPM Tina Zhang <zhang_wei@open-hieco.n=
+et> wrote:
+>
+> DecodeAssists provides instruction bytes for nested page faults and
+> intercepted page faults caused by data accesses.  When the feature is
+> exposed to L1, copy fresh hardware-provided instruction bytes from VMCB02
+> to VMCB12 for these exits.
+>
+> Leave the VMCB12 instruction-byte state untouched when DecodeAssists is
+> not exposed.  Otherwise, invalidate the state for instruction-fetch page
+> faults, unrelated exits, and exits without fresh hardware bytes.
+>
+> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+Reviewed-by: Jim Mattson <jmattson@google.com>
