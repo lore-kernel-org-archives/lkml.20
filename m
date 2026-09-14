@@ -1,156 +1,97 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCEA36606A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C55417BC3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376427; cv=none; b=QHev5sW15tuybD0lGG5CzjmCh1n6lueilbSU6pDGTn8Q9u/qtbrd/LdYF9tvLMrVPhBYPeui8t6XmC/yhg2yjeklNDWUUkjdP8BW/Ymcy+fzxN154x7QlZK167fumewhn1PHMn1T5e2NsKTD+PrMEgmo8O7YSQ2USJvwgTkJ3q4=
+	t=1789376437; cv=none; b=I1iKPn/wQkDZdp5uWDA8l2F9ARyqq6Ap9aeYjSUaYSVu4dMjpQz017Od1Qnge2dYa7GAxm+dRESjnZ29ymlDF25aG7XAHvi0iOOVCNUXttxt0kSyfRX9V6v8Z8TA1oIxK5rUA0ocIj+KyaOpPKIrz1npoWsBzngW8YVhr5d353Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376427; c=relaxed/simple;
-	bh=ZThK6w33sNeSJm6i+TcvTGH7nC9nR7E1kVeNR9qy2n8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rwXzwVw3sn8XfCbb7ESqoFfzc3mZP9QCy4nAa/RypRqkARsEkV8av7JUp0eI/WHHzUMHOcxfK4e9DHQQyJZdmdCW+Xw7zHI3Rzm31mi+gQkgqMKw7jIlx/UhhxjeJs6d4GtShAHUqNMAc8VpjheK5A52Nb9mmlzE/FqFxiX5GxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tHQ+GRaj; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789376437; c=relaxed/simple;
+	bh=Sp6yCaNOU6D36IYfo4LZXO9ayD+FqlfUmdMqZKlPKAQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gw5haCvWmOvuf0AzWsk5DUxoy0pknaxmic315dVPVHjD0GgV+AiMqgetQ9TjGIwfbwAQjsEpVLm2p5X61O9xtorgd1kLaP/F5WbzI+CQg/TN5YAz3m/sSCVwvP7bSqCL39EtymPvZWITQYAj1qWDfJ4//VyUtN0620x6FZTB/Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmiFeC57; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tHQ+GRaj"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so901674f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:00:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789376419; x=1789981219; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JkGTDT04pW78/8HwUzjAbakPSC/5O9ox51K5klLa3hc=;
-        b=tHQ+GRajkKYQKWHFzXoLVGcbAldVtcqZIpfQxBR2MmUS6RB3fAJZjs5taHciQCFDTO
-         iaxndw+jbbJh8ukbOHaFF5+hAiM8UgeZo7eN9Oio/weWefkrTAQhTEpUd8xR6yZeCgIZ
-         iKpuf7sBRNCj8eL+WVBONpAbGajyk5v//yo3xDToe4w0xndBtRnZH21yM5KM69YYOR8Z
-         J8suBSTkjWF/j+S3F7pVOaVAbJteu5bm4bigWswsT6AHea3J2ngctX22ccFFpQkYUCw3
-         ZHHU/hAuCr45GtGcaUiopMFou3g5d2YqEngGBqVJbDcu75F5annlbp5io3Nsam6/a+nT
-         jgJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789376419; x=1789981219;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JkGTDT04pW78/8HwUzjAbakPSC/5O9ox51K5klLa3hc=;
-        b=G0nonFtaYgHBJr3PNt3z4oG2gnCZlkXMIk6QgG1TF7re+q6ItV2fEL54Dr81iMcEoH
-         yhkG0VD6s55UzOoM/Aq0D68NiAIOeC4CaOR4eXWv+Lvla0tx6Dt+IZwNLkfJk1LEXJ+q
-         yL4T9K9qnr/LwY7GvFf/POivtv8Tt3C+TRMk1xY0lpyVm4n6LL3/01e/RSROs0FwmEuC
-         6TOROGbt+SyoL489+18Fm1dHRShtg6D16f+V0jc5HtHEYiwV+iFdXbgQev5/c+dgRmJd
-         BOjJxDGh0mRdUaZpO+7w9YPRJb6eGAt3f3Y4bFKPAR+dQYfwwhJaFA9nYoHICYMnnN6z
-         85zA==
-X-Forwarded-Encrypted: i=1; AKwUvBxGTDYba1KN0aUKhpdWUlIazS7O3UyO7y07emMNgwM9XQ5Ne7m9Kqbh0Da6aEFpPx7hIzlYNeyNGUYQWk0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRFjzOTCM0MgeVCPAcHkRj430HPR7mNmWE6n3gS3gdO9e4wyn6
-	h2ETIWIGlvugZwThjmfJ9KuIXi857gCrKKs9tBrNFGmwUlhZ0C7TRCny
-X-Gm-Gg: AYBFou00qkrExnKugfrL5aJLGEOQkUIZ4m1p5oZQG4X8YxE4jxZP8rmRz3KXg325Shs
-	utO3r5QumlLPe+rDyvBiog9V9ZBry1B6o6Svt4rl0OjlunJRkUpoZFFAWpjy8OJ5+rLa8nITdu4
-	rup+x5xV7aZq1i7529pFGFn9/FFu0We2JcVQYfeL5NEW6mpJ2ILIXsgYmLAZGVSqoFmBHP7ik+L
-	lo4GUXlOw7AQu7k5g64IXbxTqFT4AsJ3d7wbN+nAFZjk8sxJmqxxPdfqwyzDR2tyd92JonqfD/J
-	2Uex17XPP8AwYSevM7A8zlG4bOkGzLMAEdEl0P11DB1HIL5MtcVkX6G78vTXOq/qtecF9SzD+Z0
-	G2ekrJZL48Aq0662YGAlCAScbKhVoXG76b9vnn8sXC7N5sFtAKlBYltoOZfYR50lp7tlrDWueow
-	i4XRygr3O+n/8Uhpuo5ohsFvVsEPisSy/gFcc5L46P5ILuWLL2cLY9XRunej18Tr7HqRyLoA==
-X-Received: by 2002:a05:6000:491e:b0:485:b1db:5a58 with SMTP id ffacd0b85a97d-48702b18bcdmr3736086f8f.14.1789376418642;
-        Mon, 14 Sep 2026 02:00:18 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:9cc4:c200:33d8:8ea2:e077:ebe1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm25245851f8f.9.2026.09.14.02.00.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:00:18 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: javierm@redhat.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: andriy.shevchenko@intel.com,
-	holofermes@gmail.com,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	amit.barzilai22@gmail.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v6 1/6] dt-bindings: display: Add Solomon SSD1351 OLED controller
-Date: Mon, 14 Sep 2026 11:59:26 +0300
-Message-ID: <20260914085931.66857-2-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914085931.66857-1-amit.barzilai22@gmail.com>
-References: <20260914085931.66857-1-amit.barzilai22@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmiFeC57"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575BE1F00899
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789376429;
+	bh=B4ztkW1Okj1yGPF8RnnaTFZyUekE6CEG7rfr7FQh/R8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lmiFeC57Qlcphe+dLmol+E1ble8uqPT7WC3Nw43acN6MEDWBJ5GtI5Y8eNcOp64YB
+	 xeNn/qqojOacSCYyhb1zPNdTCt/8vfE4F3BNgnSJgADMOj4xgkvkYsKdp7hUv5eksF
+	 TumSRArpae4UWysWYpjm8an9Q4Fj3eAkMMEMThwzkKRNeQaivGyRUFsedXEiTo/rSD
+	 NDtdjss4/Sdo9nI2Yrxfz09iKk3NOc1OktQCi/aeee+HvNbc46ScmXoytrfg2Q7d1t
+	 HNRM8kkCCZSlrRHSnOQdrWZHZEsUofNiEqmkMquyX71T41nYBQjMEgaVRB539iPtNN
+	 zvV80bH9lxBVg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1979066e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:00:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx/OMPJJRp+tcbcMqUkZXOsXuApGFyuysayJzTzdzkzYRClSni0gB4zBrb8PeMz6QhYZrPlsRoVggR92R4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQ4FyGq7EaUhhODwOFLTHpG8JWtRLtAM641MjDml+MsVRHnP4I
+	H7wAQ1wrweyDrsLXIjab6qV7NoRp0T7mhmSG0bP10s1YduIrQEHjdZiZ633eRQnCpxpvYL7E9MN
+	uSjKxjfj/ewSzzzvOtPABp9OIYJXoKwk=
+X-Received: by 2002:ac2:51c3:0:b0:5b4:ac1b:89bc with SMTP id
+ 2adb3069b0e04-5b8ae66c59amr467116e87.24.1789376428079; Mon, 14 Sep 2026
+ 02:00:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828155820.4002492-1-sarah.emery@canonical.com>
+In-Reply-To: <20260828155820.4002492-1-sarah.emery@canonical.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 11:00:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmi8q1xduxj_y3hq=8s_0533VPhCknzewBN=w9FmoZKxQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WNB9oxZwGTAu8hR8E4yJHjKHse8FPgibB3-3nuDSKB-nChRVnEc8wW69k
+Message-ID: <CAD++jLmi8q1xduxj_y3hq=8s_0533VPhCknzewBN=w9FmoZKxQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: generic: serialise pinctrl_generic_dt_node_to_map()
+To: Sarah Emery <sarah.emery@canonical.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Yixun Lan <dlan@kernel.org>, 
+	Jia Wang <wangjia@ultrarisc.com>, Emil Renner Berthing <kernel@esmil.dk>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
-RGB OLED display controller driven over a 4-wire SPI bus. The binding
-builds on the shared solomon,ssd-common.yaml properties already used by
-the other Solomon display controllers.
+On Fri, Aug 28, 2026 at 5:58=E2=80=AFPM Sarah Emery <sarah.emery@canonical.=
+com> wrote:
 
-Assisted-by: LLM
-Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../bindings/display/solomon,ssd1351.yaml     | 42 +++++++++++++++++++
- 1 file changed, 42 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+> pinctrl_generic_add_group() documents that the caller must take care of
+> locking, and pinmux_generic_add_function() needs it too, but
+> pinctrl_generic_dt_node_to_map() calls them without holding
+> pctldev->mutex, and the core caller in create_pinctrl() does not take it
+> either.
+>
+> The driver core calls pinctrl_bind_pins() before probing a device, so
+> two devices that reference the same pin controller can run
+> pinctrl_generic_dt_node_to_map() on one pctldev at the same time.
+>
+> Both `add` functions take the new selector from pctldev->num_groups or
+> pctldev->num_functions, and radix_tree_insert() at that index.
+> Two racing callers can read the same selector before either
+> has inserted, so the second insert collides and fails:
+>
+>   k1-pinctrl d401e000.pinctrl:
+>   error -EEXIST: error adding function pcie2-0-cfg
+>   k1-pinctrl d401e000.pinctrl:
+>   does not have pin group pcie0-0-cfg.pcie0-0-pins
+>
+> leaving one consumer without its pin configuration.
+>
+> This was hit on a SpacemiT K3 board, where PCIe devices probe in parallel
+> against the single shared pin controller.
+>
+> Take pctldev->mutex across the whole function, so that the groups and the
+> function referring are in a single critical section.
+>
+> Fixes: 43722575e5cd ("pinctrl: add generic functions + pins mapper")
+> Signed-off-by: Sarah Emery <sarah.emery@canonical.com>
 
-diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-new file mode 100644
-index 000000000000..80850c2ab5b3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-@@ -0,0 +1,42 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/solomon,ssd1351.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Solomon SSD1351 OLED Display Controller
-+
-+maintainers:
-+  - Amit Barzilai <amit.barzilai22@gmail.com>
-+  - Javier Martinez Canillas <javierm@redhat.com>
-+
-+allOf:
-+  - $ref: solomon,ssd-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - solomon,ssd1351
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        oled@0 {
-+            compatible = "solomon,ssd1351";
-+            reg = <0x0>;
-+            reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
-+            dc-gpios = <&gpio2 8 GPIO_ACTIVE_HIGH>;
-+            spi-max-frequency = <10000000>;
-+        };
-+    };
--- 
-2.55.0
+Patch applied for fixes, sorry for taking so long to respond.
 
+Yours,
+Linus Walleij
