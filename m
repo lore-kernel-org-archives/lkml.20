@@ -1,83 +1,135 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F66143F8B8
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABB637997E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386836; cv=none; b=AOENgYOhrrHMHYeKJNmA2/Vj7C0pGe0stuZ4DbasRCRopnC6qrzZuVq/NJj4gV6XOCNWqrbsiOKO5+NITq7N2PUasUKYP62bk4B2P2YwAnYCguJYMoI+PA7VY4/wHU0MTqG4wyhXmyAPumx0Xr+G9/3Jd7+cv1Tt+1pHU7+16Ak=
+	t=1789386858; cv=none; b=svYefPXPRDOx40gG7uREwQC0vSlpZFhBxH6QH+z9awuBQ1uKTH4y3MXR926OYI/oIUspJWpBPnY39ZZzroOg3azCuImDhKXU174P6WEy5pGGwOyGXLsjdgJkkQ8kbo1iXA9s1DhkezJk0QjQZrf9EE7j752VeOiGEz03pxJ5TLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386836; c=relaxed/simple;
-	bh=Oy9g0Rm6pD4S64HJdm3CjnBlSj9nP4TkYubvGXXUt20=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=b4nF4g/SiGFWNIdjTSzpGednHtkUNRZC4t0XxIzACxoEu/unUFZxy9mzRDjgDMSPo6L+/kAKNWy4tZuqEfsbpLIOjwHJ0X+jvczXT2EZvVU74Y6lo1/CZeblEVjTt7Sp/oL6LZyPsD2W/PDEY66wR3lsowy+s8sCE4fXXvO0if0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c34cd4bffbso851341eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:53:54 -0700 (PDT)
+	s=arc-20240116; t=1789386858; c=relaxed/simple;
+	bh=HHcwdsUXEm2ayaVu7SSBBQ8NDirWwcRsDg4gbWZ/4ak=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iLPBJ+K+MQGAm7gF21A+8fRqX9dZUG2WrILm9yMck+K0PqRYioPQCJwuA1z4XfU5Hl9CR8YMDpSf80tBRZsu1FW4UsYlq49/yjCAe1Xw5qHKBHNs25jiwBAxsqyxu1Qd3C8IdNZUSqM/p7CsFI6I/cOuJtl5fm1VcvthvZwzJlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KPg28wpb; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KPg28wpb"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8871ada1a26so15897707b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:54:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789386855; x=1789991655; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vvOpnlEvc0lDTY/fJ/50aU18KEAzaXSSdE1MwD9cp2Y=;
+        b=KPg28wpbhqcywZNrpCMyZUph12lU+ataZdQcM+1ZZZvqPcmAXy3DW89af7FGZ1ySBY
+         7jPQjBkEAW6AZqJQmAXT+veQrH9sgj/Crs8qyna0R0fS9KFEfjdmV8F6yratCHUFjWZv
+         gCAuUAhkSnsX/iIOmKF7WF8Y5WBbB/HSq5HrYQTHyn7mYhcqfD9258OBsEgA0h4oRb6D
+         gpowLoZnyz83JYjcabD4UOoQSzE1Tt+Ka88RSaM5NhTzs+Vj5HCHj4R3JL0WQPePm1Pk
+         i0LkaN/lPUXq327nql1CnCF4RqJNwEZjhCpDpIvTJlPRNp2IwgWkGpMkK+XN56FP7Ol/
+         O0Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789386833; x=1789991633;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3wo7UwFKH7eZA0tNkfsZQYrFComugpOZXW7NZrfaLKg=;
-        b=rTPqzPMsvy58E3Cc3g4Upp1Xbsj5OibqfWbT/m6JAf2CKAMxEGFtYW5+EDfgAqgBed
-         7ke9NSJ0sPXfNRN3i+VXhN+CsyS32zICmBU6FseVWkMl/ib7+HPA9yX/u309F3za6F4Z
-         zMPmzI21HC2oO1hxbhTdIvKZtLXGltkL7ZA3NbzBaWJnhunXIvPVmbjZbfF3bxvUe+zx
-         1aIPv0efFV4kh+WGu0uLVc76wCfM+UIGQpiaECEJbedUblVeeS3g1PY6UCDCapFj0FWd
-         t7RqmHAyKWPs8gBsOImhYAzuhvfdSG5gQqK1NoArTLWYnMkXVF5pp/YOcackDUyF8wya
-         BRcA==
-X-Gm-Message-State: AFuF++nd5J8AdNAhXrPgcubMoj+Qz8U9ulNvrOf901zqLnuf7Th6oXsr
-	GdyVBDV+RQY2xjNT2zveRgtSbG5u1qlhUc4QLQUFUHvoKwW/zyOgu1WDpxYb8TD+ZUSx1If1m9w
-	fI/4jR68SbuQOelQeStGf9y9i6EwdgFVrI5cBRqUIDgEqHN8qjBfcQW1E4Og=
+        d=1e100.net; s=20251104; t=1789386855; x=1789991655;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vvOpnlEvc0lDTY/fJ/50aU18KEAzaXSSdE1MwD9cp2Y=;
+        b=jxYtEy5ddDOn0kL9JnAOttsykdKnx6kRCoz+2V7ecLeIEXvqUW0vpfz67clgmSVZ4l
+         Vm8n12qAAuqYgr2ifO6MEv9q0uubTjhPK5nvxdAx1V43LFWVRHhUPX/tQBYRcJmAiuI2
+         W9iJu3h80U3Uzc38yuijZZ5STW0q5p0U0xWxqsAk9uZO/p9ONXKpruof4pRBTQcq2R2v
+         YVxdLmv24nRD/NKT20IAdG27Hv6L6LExG81Ag54h9UPRCxZVl9d4e3NXYm55ZlYsPk71
+         ni1/UISTIbqJiHKMnQdvWVi/E19D+94uDp3DtFZcMge2pqUBEptanE9f/ocR+4QFb1hC
+         BfbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzH2foJiNqZJ9tcuop1hRoq80NsjeZcT2iBwjZ4l2KUK4kI3rt4jgrQVCczasEcwhVglak3/oRyOSCGEZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzncPG3fQHZwxcXo0aOSxq9ENbUOhqB1i1MzAAQAuvjbGD17D8
+	8lBC4YeWEwptit0EJfHk1lViOMz2uDnGB6HCtDUbNCazaAzqgqd3PBuU
+X-Gm-Gg: AYBFou3Jfv+h62V5MtDGV8QuZtxE0OCyulj9sn97o1gULyi1Atd+nsYksaVJWF7ocyH
+	OaMxw10NVQKR96CWxETLnOM/Yyu02yUT3WHcnXR3cki3RxVvyRfQZ0wLdVqkTnYDzda05rifn2b
+	eWUYmAQxV8ZL+gqvxjVFw4HF8I2sK2ztYEKV/NDwZCgQqLDlNGz/mi7AZ1ZxBbh2pOnPSvr6y83
+	6KAYrICo3jQgfCNwY/oadua2aiCG0Gmw+gFAG/7SiYoHFq1xhrp4ztcb7x7coCKEed5hg/q4WI+
+	FyNOl6f9nE6Zt4Bg8N6olEz7u3uvn7EY9ufXwqanqfvX1CSeHkSCMKX2bw+7CqMj7FCUt6CZkMU
+	2xTS56RuL/OT/0vinI/ZM05v533FIZQMbiD+Yn11f2QI+fWish/OEGsknMqdXJbL+aclB7aLjfy
+	cYXsPEixWRDoljmBVrki/qkLODkUE5kKnr++DPddrD/UZ0k6z7jYG2Kw==
+X-Received: by 2002:a05:690c:e15b:b0:873:5bb2:6c37 with SMTP id 00721157ae682-88d2426b390mr3468467b3.62.1789386855441;
+        Mon, 14 Sep 2026 04:54:15 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88487ea9478sm34802197b3.34.2026.09.14.04.54.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 04:54:15 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Daniel Baluta <daniel.baluta@intel.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] iio: dummy: free software device on configfs release
+Date: Mon, 14 Sep 2026 19:54:04 +0800
+Message-ID: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3091:b0:6b7:8396:f3d4 with SMTP id
- 006d021491bc7-6c541d435aemr900088eaf.54.1789386833520; Mon, 14 Sep 2026
- 04:53:53 -0700 (PDT)
-Date: Mon, 14 Sep 2026 04:53:53 -0700
-In-Reply-To: <6aa4a377.f81106d8.2ab401.0024.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7e051.016ef6ab.da411.001e.GAE@google.com>
-Subject: Forwarded: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
-From: syzbot <syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+iio_dummy_probe() allocates struct iio_sw_device with kzalloc_obj().
+The error paths free it, but after successful registration the normal
+removal path only frees the contained IIO device, leaving the software
+device allocation behind.
 
-***
+The software device embeds a config_group. device_drop_group() calls
+iio_sw_device_destroy() and then drops the config_item reference with
+config_item_put(). Therefore, freeing the software device directly from
+iio_dummy_remove() would free the embedded config_item before that
+final put.
 
-Subject: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
-Author: jchuang26@m.fudan.edu.cn
+Configfs requires dynamically allocated config_items to provide a
+release callback which frees the containing object when the reference
+count reaches zero.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git 15071f2a1263e82150c77eeb1e94dbfc31950a8e
+Add a release callback to iio_dummy_type and free the software device
+there.
 
-Reported-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
+This issue was found by manual code inspection.
 
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 9b4e29557..2449df2e9 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -3390,7 +3390,13 @@ static bool expect_iter_name(struct nf_conntrack_expect *exp, void *data)
- 	struct nf_conntrack_helper *helper;
- 	const char *name = data;
+Fixes: 3d85fb6f8104 ("iio: dummy: Convert IIO dummy to configfs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/iio/dummy/iio_simple_dummy.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
+index 19fcdbbc11c6..7d2ff1d4a06e 100644
+--- a/drivers/iio/dummy/iio_simple_dummy.c
++++ b/drivers/iio/dummy/iio_simple_dummy.c
+@@ -23,7 +23,19 @@
+ #include <linux/iio/sw_device.h>
+ #include "iio_simple_dummy.h"
  
--	helper = rcu_dereference(exp->helper);
-+	/* This iterator runs under nf_conntrack_expect_lock (see
-+	 * nf_ct_expect_iterate_net()), which serializes changes to exp->helper.
-+	 * Use the protected accessor to document that lock-based protection and
-+	 * avoid a bogus RCU lockdep splat.
-+	 */
-+	helper = rcu_dereference_protected(exp->helper,
-+					   lockdep_is_held(&nf_conntrack_expect_lock));
- 	if (!helper)
- 		return false;
++static void iio_dummy_release(struct config_item *item)
++{
++	struct iio_sw_device *swd = to_iio_sw_device(item);
++
++	kfree(swd);
++}
++
++static const struct configfs_item_operations iio_dummy_item_ops = {
++	.release = iio_dummy_release,
++};
++
+ static const struct config_item_type iio_dummy_type = {
++	.ct_item_ops = &iio_dummy_item_ops,
+ 	.ct_owner = THIS_MODULE,
+ };
  
+-- 
+2.43.0
+
