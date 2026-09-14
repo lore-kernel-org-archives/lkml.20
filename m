@@ -1,131 +1,93 @@
-Received: from out28-123.mail.aliyun.com (out28-123.mail.aliyun.com [115.124.28.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD96486433;
-	Mon, 14 Sep 2026 18:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA62F3C1F54;
+	Mon, 14 Sep 2026 18:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409049; cv=none; b=CwjtfRH3ur2hJcfx6Bb4EeCOVoHdWkROlotte/03gqNvl+3uhtEEFpyRzs9STqqkknOEQFDqansJ3JJ557+mAsvgYeUY9vNenLNIZhraDJ8vVnVP7Ey+xoYtryOpMTG8PpgywBJxFH2ymSyX5OsjpJTGzcgNu9RB4KsaJoNSk7E=
+	t=1789409061; cv=none; b=RCi235+t0lGvhzPVaAogFqPvAD0Togy7xhyBNp5p6csGDJStwMkJOYcfW/tvZDI3ygCLNALUbrTbsM512vGfet4ulAY9vLm58rB0FZSS0J4bfUb0K1zev9R1/JGzhPE8imeaBRoQT2NAIm2PWlLaia7h7NdIvsYF2I3BaTgy3hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409049; c=relaxed/simple;
-	bh=ZUnyJvSfvQf/+1qB1TzF9Mo2CZ07AJi/g0lVpvGkQ2c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dwlc6OiIQpwWCTvSA6ra2nHyv4jxUMRTDREjMPmFVICpB8ar57fXPcr+B5jtEWFcXvy4uWWq2uu6tmaob2jW+VdrPjQueXsSUAOjnnVfI4uYZLtFSqbJUhHVenwP78rrU/q/+xc+vCgrU2CmxLsAs2Zpkw7uNdsWnfb8zKEyjhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=GLx9D2Gd; arc=none smtp.client-ip=115.124.28.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789409061; c=relaxed/simple;
+	bh=e5EHZnJEudxj23KEVU051RrBry6GEJZlmkFjnDSbDJc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GC3a9ousza/DVv96OAjdCR6UvpTU9ECMuR88NqeUIhQUoC5bMnIFx2JnEmgq8xbaboSd2PLu1FIUiIV67v6kicvnaS5hVL2v4CI1EUIxDYC2lBoLc8kTyUOy1GaxrCnx0asi/Pp51XOqGCW4m98ktgIJSSdDLK5PSgZ+tx9QmwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7RWN5DC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="GLx9D2Gd"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789409043; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=KoqZItCTin+6stOEbAOp7G8XLkIXJ9u/snZJG1JONh0=;
-	b=GLx9D2Gd+80Sf2zdV5htgldO3yDOcZYfJxp3bfxk7c6ZJu+mzbQ/py6Q9Q0/c01fyGaD91zxahqBb3YhKBmZhotlDMhDcsCZno/yLRH4UWLlWCiIyB2Q+8W9yjEQ6CudisWhnvOKh5t1wMDGKnYew6XEaSG0T2bHTcXJ+OVtOi8=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04477426|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0082244-0.000528985-0.991247;FP=10884422329824779518|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jDU33YF_1789409024;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jDU33YF_1789409024 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 02:04:02 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: jason.wessel@windriver.com,
-	danielt@kernel.org,
-	dianders@chromium.org
-Cc: kgdb-bugreport@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] kgdb: Fix buffer overflow in the 'm' packet handler
-Date: Tue, 15 Sep 2026 02:03:44 +0800
-Message-ID: <20260914180344.15485-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7RWN5DC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438FE1F000FF;
+	Mon, 14 Sep 2026 18:04:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789409060;
+	bh=L3yt4SH6FG/aYpnjHKzd41eoZ6vWH95ac12xmt22LQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K7RWN5DCmCyzzkwIfh9nwocBt9pqrIFS6cMZ0ZaeITLYBO5wQRV+1Nq3Izz6ljzwd
+	 SD6m/r8vwBoJpg3T/Af+PY8k0mP92XmDooTDNOaNH0OPxnFegBMElDs3n+/Z3dJRfT
+	 jn/z8csddG/68TG1ZgHDQzc6QfLz/SS19klKUGHVoZQr9Uyro4Rfd2kNdxjMQ3TBD/
+	 9I0imjB8lcXRg6b0ErTHTuaFjX/GPS2qCsT+70XNRpGo/S0aBPDIlhCAPxDY+XHLdb
+	 vqWnAVeEP9niUD3JDz4R55d7TGQBGpA2zt+Eu9IWeG6GByhog/vkT6MWd5kWBJlLpE
+	 DQHGDxDJTooiw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id C0FA8FDA61E; Mon, 14 Sep 2026 19:04:04 +0100 (BST)
+Date: Mon, 14 Sep 2026 19:04:04 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jonas Rebmann <jre@pengutronix.de>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de
+Subject: Re: [PATCH 6/7] spi: spidev_test: add option to split message into
+ multiple transfers
+Message-ID: <aqg3FFSZDLe_WI9Q@sirena.org.uk>
+References: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
+ <20260914-spi-sun4i-spidev_test-v1-6-72d6a3b38cee@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mhc4C4tSAt/lUq8E"
+Content-Disposition: inline
+In-Reply-To: <20260914-spi-sun4i-spidev_test-v1-6-72d6a3b38cee@pengutronix.de>
+X-Cookie: Orders subject to approval.
 
-gdb_cmd_memread() passes the length of the 'm' packet straight to
-kgdb_mem2hex(), which hex-encodes the reply into
-remcom_out_buffer[BUFMAX] without checking that the reply fits. A
-client on the KGDB I/O console can ask for a read of any size, and
-the hex encoding runs off the end of the buffer. kgdb_mem2hex() takes
-that length as an int count, so 2^31 truncates to a negative value
-and copy_from_kernel_nofault() is handed buf + count as its
-destination.
 
-On x86 BUFMAX is 1024, so a read of 512 bytes overruns by the single
-byte that terminates the hex string:
+--mhc4C4tSAt/lUq8E
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-  BUG: KASAN: global-out-of-bounds in kgdb_mem2hex+0x1dd/0x230
-  Write of size 1 at addr ffffffff87651780 by task sh/1
-  ...
-  The buggy address belongs to the variable:
-   remcom_out_buffer+0x400/0x420
+On Mon, Sep 14, 2026 at 04:50:45PM +0200, Jonas Rebmann wrote:
 
-Bounds check the length before the hex encoding:
+> SPI_IOC_MESSAGE() submits a single SPI message containing one or more
+> transfers. Introduce an option to allow splitting the message into
+> multiple transfers.
 
-		if (length > (BUFMAX - 1) / 2) {
-			error_packet(remcom_out_buffer, -EINVAL);
-			return;
-		}
+> +	size_t bytes_per_word = DIV_ROUND_UP(bits, 8);
+> +	int effective_transfers = min_t(int, transfers, DIV_ROUND_UP(len, bytes_per_word));
 
-gdbstub_msg_write() already bounds the count it hex-encodes
-against BUFMAX. Reads over the limit never returned valid data,
-so an error reply loses nothing.
+We divide by this and nothing stops us triggering a divide by 0.
 
-Fixes: dc7d55270521 ("kgdb: core")
-Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
+> +	struct spi_ioc_transfer tr[effective_transfers];
 
-The scanner is a taint-style review of the packet handlers in
-kernel/debug/gdbstub.c. write_mem_msg() ('M' and 'X' packets) trusts
-the same length field and looks like the same class of problem; I can
-send that separately if there is interest.
+This could easily get very big if someone decides to test lots of small
+transfers, it's probably worth moving off the stack at this point.
 
-Reproducer: attach to a kgdboc console and send an 'm' packet with a
-length above (BUFMAX - 1) / 2, e.g. "m<addr>,200" on x86. Before this
-change the hex encoding runs off the end of remcom_out_buffer; after
-it the stub answers E22 and the guest resumes.
+> +	size_t len_per_transfer = ALIGN(DIV_ROUND_UP(len, effective_transfers), bytes_per_word);
 
-Both cases were run on 704340f1cd0d (v7.3-rc4): x86_64 defconfig plus
-CONFIG_KASAN_GENERIC, gcc 13.2.0, QEMU under TCG. The two kernels are
-built from byte-identical .config files and differ only by this patch.
+The kernel's ALIGN() macro only works for powers of two.
 
-Two details of the setup are not obvious. CONFIG_KGDB_KDB has to be
-off: dbg_kdb_mode starts at 1, so with kdb built in a sysrq-g break
-lands in kdb_stub() and the packet is never parsed.
+--mhc4C4tSAt/lUq8E
+Content-Type: application/pgp-signature; name="signature.asc"
 
-A minimal over-the-limit length reproduces better than a large one.
-copy_from_kernel_nofault() copies through raw asm accessors that KASAN
-does not instrument, so length = 0x10000 writes 64 KiB past the buffer
-with no report at all and the kernel simply stops answering. length =
-0x200 keeps that copy inside the buffer, which leaves the terminating
-store as the only out-of-bounds access and gives the report above.
+-----BEGIN PGP SIGNATURE-----
 
- kernel/debug/gdbstub.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoNxMACgkQJNaLcl1U
+h9Auvgf/WJ8s/5tRNU0WphxKl6Mh8DpRPKc55J6F1m5hdThSFVVO+wh8A0VPZIUb
+SP8aBcX9OIaShk9JmsXmpKl5vCKMFMIXg967yQmfg7/h/dKLDS7Wd2QLM3JzfmFB
+8qzPFHr0juGhEGTmvsOQ/Ignky46E9qYOsq41sHdT9qmMgj8zrU/LLzzxHYsC3BG
+PdeznFFwN3IwIaMlNQZbDhrJxkkfWDtTtp+WIRrg8KnX3aDVL5/c6w1IsTpTLUhG
+WmeHVhoEF7dn6nI25JbtsXpvpXVwuyhebBt9wqM90TWRLMjaYCUVUJ/ASP62ENP1
+S2Gb2o6pIa6JIoguAFnfme5mLzG2KQ==
+=tS+k
+-----END PGP SIGNATURE-----
 
-diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
-index e271a43..5774292 100644
---- a/kernel/debug/gdbstub.c
-+++ b/kernel/debug/gdbstub.c
-@@ -563,6 +563,14 @@ static void gdb_cmd_memread(struct kgdb_state *ks)
- 
- 	if (kgdb_hex2long(&ptr, &addr) > 0 && *ptr++ == ',' &&
- 					kgdb_hex2long(&ptr, &length) > 0) {
-+		/*
-+		 * The hex-encoded reply needs 2 * length + 1 bytes
-+		 * in remcom_out_buffer[BUFMAX].
-+		 */
-+		if (length > (BUFMAX - 1) / 2) {
-+			error_packet(remcom_out_buffer, -EINVAL);
-+			return;
-+		}
- 		err = kgdb_mem2hex((char *)addr, remcom_out_buffer, length);
- 		if (!err)
- 			error_packet(remcom_out_buffer, -EINVAL);
--- 
-2.50.1 (Apple Git-155)
-
+--mhc4C4tSAt/lUq8E--
