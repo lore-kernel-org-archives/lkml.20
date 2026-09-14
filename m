@@ -1,222 +1,221 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A484F414437
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B39341441B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420774; cv=none; b=igjchdTtMUWRaFj1TDpGJyufb39Ht5KMrIzT4kDGLwZtu3+kJ6T6j3YNbXMnfIuRxTxhewHcgos4eGO7DEmmZNnpyKr2K9GnobMTCk8sY6DV+pP6wNE5b9CkenpQiHZAygAz+k6nD1HxdjoIKOTwvguZGjalKYDyPdLMKF+DqLE=
+	t=1789420904; cv=none; b=TFVfeczcu0CCY5yOjQ7piTir9PtkPaIXV1p1VVCGP0kxKQEmi4wZ4jDX09mX/2t8s8jycMg0IVQGdALQJUBgfiAlqgLmN/e7fTiLeAb8MBC0Nan/nLBEo5saDHpIGjipIYZg+seMizeSl/uML/Tahtb77pmOMV/SziCwUFJXaI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420774; c=relaxed/simple;
-	bh=6S82DVredtucyesmlNsD6LttbkPj4FqwkwqGgMhpDdI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A26Jy0pEpdtUj+9gOmfHmxfnQdAkMDFYjk4DQMDrm5//DRoNjt7sNVH6qu9b+l/N0zeDpSuZCN5qZY6K7iXSUYiY4EIZfdj+2VBAkjL/ax9vraDbCO+4nw+8JByX+7pnLesUzPa0L6JwDZWBwDfTDp1vhXJZ9wNiD78MddtOmLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Gvd+4FWZ; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Gvd+4FWZ"
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 0E1723F322
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1789420763;
-	bh=e9c5Lc0MvQFExiINqSmAM4SmgxHPisXxegde3km6nbg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=Gvd+4FWZhoaTqwQHlJasm/ni3IUcSaWOReFynxKr/nZ9U3/WQQO6J4FfzxzQOiivY
-	 DaKbCJYY2SlCkyzLYqLxJWQNph9h9D8OHsVwdGAS1MlUgjaaa22a0OCSQdwvoTPWCR
-	 WKVVLK2mo+AREliG+DzSIt/WGZ5d7k2c3H37ui3RLQzV1DknqjhMJjQ3g8gnmsDFuG
-	 A/zV6B8+GwNaMOg/cGJgY/hMmOi7AB6qQzMcXHxI+6zsAuYKOe3Y9CkkNddL9lWb5m
-	 13+OXr8Usfpe2llZobfzIGmPbkPA8+Oz6F5bbh//5xAZao4FgwLiaeqWPTK8ODxiI5
-	 GtYsoQvGv/CvTnTLlBhLSEQdqdKOswbbRMJAO8ARHat2/UjryltDOIOQkL8+sKJRDc
-	 VITfGGsPNS9YYqEvOKFqnBjfrD8hgtDI0Sn5jWIKr/2nNd4jgN0jbyH48uOCjMywjc
-	 eI9U3m84uQ+W5ZdhQIm9LJEXPwcPCiH2KbU7RwuDuOnamN8BzKgOKPN4FusYzEUJDY
-	 OUnavKkh+3L8aZFcd6eC68jfPqnpU3FTWXSEUcDoMSP1JV2S0k1fPaedkIgalbuBI5
-	 kFbeSBuDUqLd9gHGdsypWbNiQJpQYXxgqUiDKunAodfL0NJNH7xOaxzmj+yXAzO2QT
-	 SH1NGGhA7jN5j4w6BosHAjSM=
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e6ceb2d54so2223735e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:19:23 -0700 (PDT)
+	s=arc-20240116; t=1789420904; c=relaxed/simple;
+	bh=7AipFZiuIX6H9VaRrR5s6pZahTpna7iGdA2XXv+rnLI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=GQtf40Dg+v4qyX2s6edVBB9w1LkSLSCfYgmG6ydkoOoZz4r/kQNamb+ENTQAGaqOb0NaTf+kDe6nr+llb6AzwA0uBlIqg8zRMDyfKznKP6wtzRBXbt1unXmwAW/EqaG7WamZp0InygUnuU+H9KN/mkAr3AYUXiJidVACeFN6jrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4bfec71901fso1428119b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:21:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789420762; x=1790025562;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e9c5Lc0MvQFExiINqSmAM4SmgxHPisXxegde3km6nbg=;
-        b=ag8mV+2nAwJNn1m9r5VgLvSv4BNgytAEHHckQ4VS6HXrmv4xBczkly3pfqJld1wav8
-         N4kcOYnd1gEO9iWnMfF/pgfL/es/zwNu8Z07mBcgON7ltesIfCwKgVxUsmrTrXbTQrUh
-         9vK+M4nA3K+h74lbc7TAQMtv/9QUMcNs7AHjSmENePQh/E198EoVk0Xt4H+8kUqLh6pb
-         Hz+7ZdTvbGHOh2GZiDGLiwz7kJBay32M4SE4Kt2fvrUTA4tBBBp6/eBp0DgbsUbpm08l
-         9HxmQS79bU8ner1vdPyFx9SrHjjkzfvLmG8rahf21Ur8+p22Waytr9o5fFGCPR3MO5BZ
-         9idw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTRcuyys/xJPDj5ktnjqdLg1M7/CRXwBVwaboeW85NtmLI+tJFNU7H6h4Si7Tma/yvrq5KgFmt9bFnDFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUyYoPOu7Kz+1/u3KqF9VkbzYBkz7PRGANYENGPZhvmApk6MBD
-	7R69kh9RZJQv8fRYXUpUoNreZwshPC9CZ/9dRqCvnEy+X+xWs2uFKM5b7yZgnQzYBGQ8T1wwQqw
-	STHT2tS0PRd3k0AyFjFCkzyr7d33FAQRzrSpumABupkv1U2uzPXlqVyq2qPfXhZzguTOU/bcrFr
-	qJB0dWNw==
-X-Gm-Gg: AYBFou3rHglFYTsfISvcocYss7wwQCTCkakO8fbeuv1o6WCYKBzZEJ4y4KMIfCNzDwy
-	pd/tr8PahJkfpc8t4f/2E0Ut1VDw3uR8iedYS8K6zeJOOQ+dRCVxQCpuNTTWxcPOpTYSutu3w2c
-	VMnnOoCweOYjdo7LtlRidmVBMYbg5GIZNzL2JqL4trWpWVAb5fuKtQBm1WCDD+7959T2bUsA7Lx
-	bfXMJM1aqFS4Zau/C4fZBY0amAr63FvF7k6oqFkLxqOiMfj8248xlgUsPglIBgdzievBrFSc7KR
-	zKHg3eABjGhlArN1yI8A7CTtMsXeOddlPkbHBTcA/n+SSQ4UaDXW6TE6AVzjSvl4LFk0DDqgHlg
-	l8wuphvVhS5GKM7rkAEI6Y6mR4Gr/l21hLKLCvJW2VUYCL+sxuOAO
-X-Received: by 2002:a05:600c:35cb:b0:49e:479b:c13b with SMTP id 5b1f17b1804b1-49e7a66b723mr56977135e9.1.1789420762622;
-        Mon, 14 Sep 2026 14:19:22 -0700 (PDT)
-X-Received: by 2002:a05:600c:35cb:b0:49e:479b:c13b with SMTP id 5b1f17b1804b1-49e7a66b723mr56976975e9.1.1789420762316;
-        Mon, 14 Sep 2026 14:19:22 -0700 (PDT)
-Received: from localhost (host-79-46-33-118.retail.telecomitalia.it. [79.46.33.118])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d2bb40asm10871855e9.3.2026.09.14.14.19.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 14:19:21 -0700 (PDT)
-From: Edoardo Canepa <edoardo.canepa@canonical.com>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Xu Du <xudu@redhat.com>,
-	Po-Hsu Lin <po-hsu.lin@canonical.com>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] selftests/net: run tun tests in a dedicated network namespace
-Date: Mon, 14 Sep 2026 23:19:20 +0200
-Message-ID: <20260914211921.3786609-1-edoardo.canepa@canonical.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1789420902; x=1790025702;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9VeItKbl45Jm7bqObM1L7eopLnqU0YHTMZpvnbTuOzc=;
+        b=gzn4LRQA/xZDxOZ1jXtPNHjNZHTfqijFYbcSdDQcanjrngeRwJh+SAyfKlkDxxvTvu
+         BF6SE9wn3weDm8/VYJyHnTYtlIKg+iqaiGBTfy5YRkra4AF1Co2LQ1KT7vhXPE3ezv4q
+         bOvU6f7QEV0OJLxmy3//gRAXuP6PAebnZu/jcSLEFg4X4Sh6drKId6nmE0ABGLb6TaRV
+         DGSlkIorRtwpLxl8w2yWXwnh1lQr7HCMoeZj4Y+LHK+3v0cgkSKx3DsakZ02N7g/5FSA
+         F6HGJi+AUs6Zigu4k6W6dF9r+LoZ6pthPr8E8yCLaJckbBme7F6p0DWTuXcuvfKrDNxA
+         Qm4g==
+X-Forwarded-Encrypted: i=1; AKwUvBxBXjiYxtP7zQ50sQghU94A8QRJ9aBW9iqV1AOA2V1eONwMCB+3tt/H1dlL6hB57haN97O4EcuMasNsmmU=@vger.kernel.org
+X-Gm-Message-State: AFuF++leYtDkpqV7awp/2Tq+XSLPp6E/eGxAOPAgSINboJ1iTxeGkgWO
+	//V5HKRuhv4+kwtV0wErtRLpwLd6z6bSsruO2k1HCeiXuRJDxiA8jyTU7oXktGOjQOZuy0DotzH
+	hF6Y3eO+5Udyq+L5jN4sq6Be8iJk3rawQnNZT0SBlA3NTAPDXPILgu1asKyg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1988:b0:6b1:b31f:132e with SMTP id
+ 006d021491bc7-6c540088804mr2643760eaf.6.1789420901903; Mon, 14 Sep 2026
+ 14:21:41 -0700 (PDT)
+Date: Mon, 14 Sep 2026 14:21:41 -0700
+In-Reply-To: <6a6e88a1.13bfb6d0.1ecdd5.0261.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa86565.f670cee1.72fc4.0021.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] possible deadlock in md_start_sync
+From: syzbot <syzbot+13eb8132f7693fe21d7d@syzkaller.appspotmail.com>
+To: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, mingo@redhat.com, song@kernel.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-The tun_vnet_udptnl fixture creates a fresh tap device and installs an
-IPv6 outer neighbor entry as NUD_PERMANENT before sending packets.  On
-systems where systemd-udevd is running and a systemd .link file sets
+syzbot has found a reproducer for the following issue on:
 
-    MACAddressPolicy=persistent
+HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14051925580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=13eb8132f7693fe21d7d
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12a5bdf9580000
 
-(the default shipped by systemd in 99-default.link, so this is what
-most systemd-based hosts inherit), systemd-udevd's net_setup_link
-builtin asynchronously sends an RTM_SETLINK to reassign the freshly
-created tap device's MAC to a machine-persistent value.  When that
-netlink message races the test's ip_neigh_add() call, the address
-change kicks the following path:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/192c594c6096/disk-704340f1.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/79d1488deb4b/vmlinux-704340f1.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/fd108c2b8ca0/bzImage-704340f1.xz
 
-    do_setlink
-    -> netif_set_mac_address
-       -> call_netdevice_notifiers_info
-          -> ndisc_netdev_event
-             -> neigh_changeaddr
-                -> neigh_flush_dev(tbl, dev, /* skip_perm = */ false)
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+13eb8132f7693fe21d7d@syzkaller.appspotmail.com
 
-which flushes every neighbor entry on the interface, including the one
-the test just installed as NUD_PERMANENT.  The subsequent packet
-therefore hits __neigh_create(), triggers NDISC, and times out with:
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kworker/0:0/9 is trying to acquire lock:
+ffff888026076358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: mddev_lock_nointr drivers/md/md.h:734 [inline]
+ffff888026076358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: md_start_sync+0xc4/0xea0 drivers/md/md.c:10275
 
-  tun.c:947:send_gso_packet:Expected ret (0) == variant->data_size (1423)
-  tun.c:948:send_gso_packet:Expected r_num_mss (0) == variant->r_num_mss (2)
+but task is already holding lock:
+ffffc900000e7d08 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
 
-The failure is non-deterministic and can affect both directions.  Both
-recv_gso_packet and send_gso_packet variants can hit it; the failure
-reproduces on a plain systemd-based VM with no containers, and is
-triggered whenever the udev worker's RTM_SETLINK lands after the test
-has installed its neighbor entry.
+which lock already depends on the new lock.
 
-Fix by calling unshare(CLONE_NEWNET) from both fixture setups.  The
-harness runs each test in its own forked process, so every test gets a
-private network namespace that is torn down with it, and all tap and
-geneve devices are created in a namespace that systemd-udevd (running
-in the init netns) does not watch, so its RTM_SETLINK never fires
-against them.
 
-Creating a network namespace needs CAP_SYS_ADMIN in the current user
-namespace and CONFIG_NET_NS=y, neither of which the tests required
-before.  Where they are unavailable the unshare() is reported with
-SKIP() rather than aborting, so the binary still emits a full TAP
-stream and a runner can tell "network namespaces unavailable" apart
-from a real tun/tap regression.
+the existing dependency chain (in reverse order) is:
 
-Verified on a plain systemd-based VM running the affected kernel, with
-the tap and geneve devices removed between iterations so that each one
-starts from a clean state.  1000 repeated invocations of
+-> #3 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       process_one_work+0xa32/0x1b10 kernel/workqueue.c:3372
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-  tun -r tun_vnet_udptnl.4in6_nogsosz_1byte.recv_gso_packet
+-> #2 ((wq_completion)md_misc){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       touch_wq_lockdep_map+0xad/0x1c0 kernel/workqueue.c:4111
+       __flush_workqueue+0x131/0x1200 kernel/workqueue.c:4153
+       md_alloc+0x30/0x10a0 drivers/md/md.c:6334
+       md_alloc_and_put drivers/md/md.c:6423 [inline]
+       md_probe drivers/md/md.c:6439 [inline]
+       md_probe+0x73/0xf0 drivers/md/md.c:6434
+       blk_probe_dev+0x149/0x1e0 block/genhd.c:888
+       blk_request_module+0x16/0xc0 block/genhd.c:901
+       blkdev_get_no_open+0x9b/0xf0 block/bdev.c:870
+       blkdev_open+0x141/0x4f0 block/fops.c:665
+       do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+       vfs_open+0x82/0x3f0 fs/open.c:1101
+       do_open fs/namei.c:4837 [inline]
+       path_openat+0x19fa/0x2440 fs/namei.c:5000
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-produce 266 failures without the fix and zero failures with it, and a
-full run of the test binary fails in 20 out of 20 attempts without the
-fix and in zero out of 20 with it.
+-> #1 (major_names_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       blk_probe_dev+0x28/0x1e0 block/genhd.c:885
+       blk_request_module+0x16/0xc0 block/genhd.c:901
+       blkdev_get_no_open+0x9b/0xf0 block/bdev.c:870
+       bdev_file_open_by_dev block/bdev.c:1091 [inline]
+       bdev_file_open_by_dev+0x70/0x210 block/bdev.c:1079
+       md_import_device+0x120/0x360 drivers/md/md.c:3847
+       md_add_new_disk+0xdbf/0x1820 drivers/md/md.c:7656
+       md_ioctl+0x2bec/0x36d0 drivers/md/md.c:8499
+       blkdev_ioctl+0x5ad/0x6f0 block/ioctl.c:798
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl fs/ioctl.c:583 [inline]
+       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Note that without the fix a failure is not self-contained: the fixture
-setup aborts before FIXTURE_TEARDOWN runs, so the tap and geneve
-devices are left behind in the init netns and every later run fails
-right away in geneve_create().  Running in a private namespace also
-removes that, since the namespace is torn down with the test process.
+-> #0 (&mddev->reconfig_mutex){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       mddev_lock_nointr drivers/md/md.h:734 [inline]
+       md_start_sync+0xc4/0xea0 drivers/md/md.c:10275
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-Reported-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
-Closes: https://bugs.launchpad.net/bugs/2158217
-Fixes: 24e59f26eef2 ("selftest: tun: Add helpers for GSO over UDP tunnel")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Edoardo Canepa <edoardo.canepa@canonical.com>
+other info that might help us debug this:
+
+Chain exists of:
+  &mddev->reconfig_mutex --> (wq_completion)md_misc --> (work_completion)(&mddev->sync_work)
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock((work_completion)(&mddev->sync_work));
+                               lock((wq_completion)md_misc);
+                               lock((work_completion)(&mddev->sync_work));
+  lock(&mddev->reconfig_mutex);
+
+ *** DEADLOCK ***
+
+locks held by kworker/0:0/9: 2, last CPU#0:
+ #0: ffff88801fadf140 ((wq_completion)md_misc){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
+ #1: ffffc900000e7d08 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: md_misc md_start_sync
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+ mddev_lock_nointr drivers/md/md.h:734 [inline]
+ md_start_sync+0xc4/0xea0 drivers/md/md.c:10275
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
 ---
-v2:
-  - Add the unshare(CLONE_NEWNET) to FIXTURE_SETUP(tun) and
-    FIXTURE_SETUP(tun_vnet_udptnl) instead of replacing
-    TEST_HARNESS_MAIN with a hand-written main(), as suggested by
-    Jakub.
-  - Report an unshare() failure with SKIP() instead of aborting the
-    binary before the harness starts, so the TAP stream stays complete
-    and a runner can tell "no network namespaces" apart from a real
-    tun/tap regression (raised by Sashiko).
-  - Mention the new CAP_SYS_ADMIN / CONFIG_NET_NS prerequisite in the
-    commit message (raised by Sashiko).
-  - Use the Assisted-by: format documented in
-    Documentation/process/coding-assistants.rst.
-  - Redo the measurements in the commit message.  The v1 numbers were
-    taken without cleaning up the tap and geneve devices that a failed
-    run leaves behind, which made runs after the first failure fail in
-    geneve_create() rather than on the race being fixed here.
-v1: https://lore.kernel.org/netdev/20260905085318.3416670-1-edoardo.canepa@canonical.com/
- tools/testing/selftests/net/tun.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/tools/testing/selftests/net/tun.c b/tools/testing/selftests/net/tun.c
-index abe488bac50b..6db21dad0efe 100644
---- a/tools/testing/selftests/net/tun.c
-+++ b/tools/testing/selftests/net/tun.c
-@@ -4,6 +4,7 @@
- 
- #include <errno.h>
- #include <fcntl.h>
-+#include <sched.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -488,6 +489,10 @@ FIXTURE(tun)
- 
- FIXTURE_SETUP(tun)
- {
-+	if (unshare(CLONE_NEWNET))
-+		SKIP(return, "Cannot create network namespace: %s",
-+		     strerror(errno));
-+
- 	memset(self->ifname, 0, sizeof(self->ifname));
- 
- 	self->fd = tun_alloc(self->ifname);
-@@ -732,6 +737,10 @@ FIXTURE_SETUP(tun_vnet_udptnl)
- 	struct sockaddr_storage ssa, dsa;
- 	void *sip, *dip, *smac, *dmac;
- 
-+	if (unshare(CLONE_NEWNET))
-+		SKIP(return, "Cannot create network namespace: %s",
-+		     strerror(errno));
-+
- 	flags = (variant->is_tap ? IFF_TAP : IFF_TUN) | IFF_VNET_HDR |
- 		IFF_MULTI_QUEUE | IFF_NO_PI;
- 	features = TUN_F_CSUM | TUN_F_UDP_TUNNEL_GSO |
--- 
-2.53.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
