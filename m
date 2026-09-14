@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2999481A8B;
-	Mon, 14 Sep 2026 14:31:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DC2480DC5;
+	Mon, 14 Sep 2026 14:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396278; cv=none; b=GKz7aZmBV8vFn702kDJmyXCpN+ZNiWpSdmJR8rdRuHEALaQwithZAATUGOLHwAQHQ7Edmw5WY9znfJ+TDt36uU3JQITuB2jP3nZfy6YYDZFHq71+BCxsQi0odxmsLPFDi4EfrSzkTKH02apIs0Ii7RgNysPRDi2/Eh0fr1YGQI0=
+	t=1789396281; cv=none; b=u/LSRwsDVL3xqheSkE2wN7Iwpeu3wu/3e9nzt/Sv0gxT7N2NFN/6mzqC9tbnnHsQp/w7OCwqlk4vEGmwZxjKuKI30pgOL3aAoSLQLGQvHrUf79EkJoVic7e89ptAHsFPTQrnLjnlpX+lvjHhW1PTcUH/y4Y8OA0WnIb8vzkDIhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396278; c=relaxed/simple;
-	bh=KVdtTKp8zrkgxT30KQuJrFANdaiwogDsJRwu0kndxmQ=;
+	s=arc-20240116; t=1789396281; c=relaxed/simple;
+	bh=bTN2l5ZIqKiJqWKlOiKKp2TQhRUJd/+y0OheEe4PP0c=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=T3RXqw/m4fNyD9SywK3rlT0dAoG5ilJcorDRw+XtJpb2twxbWQf1Pfr+vtSfvx6fT/HphB00giv+9b0ZauFKjVGhQmqPDhuCo7Rz5wkGxCGDj5kbwf0/fgs+JhxqqEZtb95QwBGNre9F08LvuwASo9tne1U6heSSnrztgTMKjv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWwiPNa/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=desWEmNfKLrpZ9d5pdrsnN6jDLEbadEftJJnOaKunYZtp01bRzvSBLHydXn4Q3QJ4PAtCX3ZC+BZm1nRef3uyZx4BA+tp5b4/rI7EZ8MKkhTRv3DO6YcQqr4SNlTW0CpTnDVdHC7tD9SvwH6dSowPdX32GgChb52Dk7MFhMlcTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3nRC8BU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWwiPNa/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69E631F00893;
-	Mon, 14 Sep 2026 14:31:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3nRC8BU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E593A1F000FF;
+	Mon, 14 Sep 2026 14:31:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789396275;
-	bh=gJNF53PmLPj5deMp9Pjgqq4wyAuMv2TkvIXcYDN6iXs=;
+	s=k20260515; t=1789396279;
+	bh=EFD2D4SPUxeBlh2KahNZJGsfd6oAGLjB0oeZGtqFbpE=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=EWwiPNa/sqkyk1XcGKzh+JowcwmjL/ub2Cu93weo+1G843YiepsRydTEtTkBlCU/G
-	 a3Alwiw0ccPeij90qwsdhY9qz9tvnYFowK3aSHn7oRtvt9N4A5GJsa/oYFZ12u8ZEE
-	 I4mBulYBtO1T1zXPEmKVoHnkkY/hpi1vawSTfyXvu5OViZ8i5pixzhq3eVMKPUQB0w
-	 OqPSRSZuiFlIujjTQx6vifKXG+EN2/hi1svjwBUxqJmtLeZopV36TrFlR5vktQVDlY
-	 4yBcdo/5dHLpGPYthJITizGVXgYlDSmANvV3iVuGpnSC/ZESey2SoERp8bWO5vY2Vg
-	 vA4opJprAiJng==
+	b=G3nRC8BUmc6wcIVIgTfqQ38RRfmqa0aSZIrNF9zmIcvHrs9JXDVLHgSu+qrGgjsu2
+	 OjNqa5WwRU/j8jsQbzh0y3kjhsMe5hf6hiVX+dg8rgq/0C3XcBtYF7vV1oC4iuyvH9
+	 Cc9EEb+DnFG1keqZOVaMFnqV5AtZTwzPZ65RzZVAaJA1jmG3WKw3Ht/yIZDjEeePGt
+	 yH3znpn7jL+Lp1ilrTG+6PEsaO6M6rlFyoOcQNrKKWYjujDewF7+eCjGk/7mXa56q0
+	 EaBC1WtP0yKz8Q62gLC0tn9VOzErm3Bb25pLNoQF0WgSbhzCj/dixeMWG1DHPkpNi/
+	 MLXtQGokG+HQw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B133924A67;
-	Mon, 14 Sep 2026 14:30:11 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56BA23924A67;
+	Mon, 14 Sep 2026 14:30:16 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,41 +37,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: RFCOMM: avoid socket lock inversion in
- listener
- cleanup
+Subject: Re: [PATCH] Bluetooth: btmtksdio: Fix spurious ownership error logs
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <178939621037.604238.10748160763592538123.git-patchwork-notify@kernel.org>
-Date: Mon, 14 Sep 2026 14:30:10 +0000
-References: <20260913030945.4011-1-jcperdomo100@gmail.com>
-In-Reply-To: <20260913030945.4011-1-jcperdomo100@gmail.com>
-To: Juan Perdomo <jcperdomo100@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com
+ <178939621487.604238.1920363248100368230.git-patchwork-notify@kernel.org>
+Date: Mon, 14 Sep 2026 14:30:14 +0000
+References: <20260914094631.3222026-1-tzungbi@kernel.org>
+In-Reply-To: <20260914094631.3222026-1-tzungbi@kernel.org>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
 
 Hello:
 
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Sat, 12 Sep 2026 23:09:45 -0400 you wrote:
-> rfcomm_sock_cleanup_listen() closes unaccepted child sockets through
-> rfcomm_sock_close(), which takes the child socket lock before
-> rfcomm_dlc_close() acquires rfcomm_mutex. The RFCOMM worker takes these
-> locks in reverse order while handling connections and DLC state changes,
-> so lockdep reports a possible deadlock.
+On Mon, 14 Sep 2026 09:46:31 +0000 you wrote:
+> In btmtksdio_fw_pmctrl(), if an early operation fails (like clearing
+> the mailbox ACK), it jumps to the `out:` label and spuriously prints
+> "Cannot return ownership to device".
 > 
-> Close dequeued children without taking their socket lock. The accept queue
-> owns a reference to each child, and bt_accept_dequeue() locks the child
-> while unlinking it and clearing its parent pointer.
+> Evaluate the ownership return errors locally to ensure the error log is
+> only printed if the actual ownership transaction fails.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2] Bluetooth: RFCOMM: avoid socket lock inversion in listener cleanup
-    https://git.kernel.org/bluetooth/bluetooth-next/c/0186e4e1e5c2
+  - Bluetooth: btmtksdio: Fix spurious ownership error logs
+    https://git.kernel.org/bluetooth/bluetooth-next/c/382fe279b7de
 
 You are awesome, thank you!
 -- 
