@@ -1,129 +1,100 @@
-Received: from mail.tkos.co.il (guitar.tkos.co.il [84.110.109.230])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E3D27FD43;
-	Mon, 14 Sep 2026 05:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.110.109.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB1E37F73E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365249; cv=none; b=k54oAxv+ii3jlNhwOodVYo/x8Z3Xj4te9o7deTBqpxy0Tas8GsqO/HH5hjKF+9+SGcLbnIoz1oxPzvp3CYhvSEL47mDbc0H5wEeVLrwsiScoDF+ikkOJTn1Saqr1IjVyt/xk8QhdMoimLvJReFZzmwtZ6461of+axNuJBVHX5aU=
+	t=1789365375; cv=none; b=QBsfY7leiywJlR2OBqbW1eXo9bHcgh/0O3ntx5Fh/RmWa78srytUziSELKA08ZXNeVK0aEgzkDdHb1dEux0fMLg7Bto06N3Qnj5+PzlmEAIr1yKlrJENbTgjm4vIykOwHQNU6yfdD86Rcw6XmhmuAJVYP/OK33VAQWvv+7Ho0AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365249; c=relaxed/simple;
-	bh=kU3DjBXVPjnJithhh/EnnmDaRkjpkuJ1OIfEWmfJJ7c=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ZZ+SzEsnwzfJWI0gQt47k03oUuzJc4V7PTYHvYyIHlyZC1EiApD9gKwaHRcLZhHwkueiQi79JaQyNcsPqunStofBZRt6WgsBWOzquHOjuzxIkr6IVRP7HxX37RqKrfKBuf0/OetNTIxOjKt3DTK79RXGRADu7DJNezJoa1KSXFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tkos.co.il; spf=pass smtp.mailfrom=tkos.co.il; dkim=pass (2048-bit key) header.d=tkos.co.il header.i=@tkos.co.il header.b=U2O5l5rl; arc=none smtp.client-ip=84.110.109.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tkos.co.il
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tkos.co.il
+	s=arc-20240116; t=1789365375; c=relaxed/simple;
+	bh=2NIH5sckKiyKYgVHO+Lr0Z/nlTKniZCjvUdTu4bZWDQ=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=eO/FoC6uw6g9R3iRML9fva7GCShXH4LrvFQMUf8XpvMZ4ZNxZgIECaStGmfRdEP4IZCJBNQoztHxuKih8Y2KN8qf7lx31bv3LLOgbigrFSve9qV66fwx8auosE1Ap/eU6aZkOKfqpXL9NW1owjwHaOXbtevYPL90L0hgJK039Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=L4pNNG0Y; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tkos.co.il header.i=@tkos.co.il header.b="U2O5l5rl"
-Received: from localhost (unknown [10.0.8.2])
-	by mail.tkos.co.il (Postfix) with ESMTP id 4220844083B;
-	Mon, 14 Sep 2026 08:45:34 +0300 (IDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tkos.co.il;
-	s=default; t=1789364734;
-	bh=kU3DjBXVPjnJithhh/EnnmDaRkjpkuJ1OIfEWmfJJ7c=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=U2O5l5rlMnHBmr9HnKPnEK+cuO3n/LE3kssp1A2Bbb4bnh0bCZoADkx4V9cKvXFpl
-	 YhcRLBAopfTNAQEA2Fbrywg42BF3czK1pmZX02Eq0HNBq8k5lcFwUb6lu66gE5g0ra
-	 a742Y5qzalEWot78JwvKIAuFDnTCQ0H0Bag+HAMIH003BD9mErWWm4a2hcYYkn1pN0
-	 AAAXS4HUPv/hANo3KmanQdGvh9BOUlg/kZDYtmBcy4MI2yuYVWkrwsA2Mcf3aneY20
-	 PURpiEVGO25XO9H+f840TYy7rcKL+mp/dse3tjYn1LPxSUjwqNmuVAo5TGDHQ9jW2i
-	 vlQjgzQBNtnnQ==
-From: Baruch Siach <baruch@tkos.co.il>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,  Guenter Roeck
- <linux@roeck-us.net>,  linux-watchdog@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] watchdog: digicolor: Avoid division by zero
-In-Reply-To: <20260913064851.8239-2-tzungbi@kernel.org> (Tzung-Bi Shih's
-	message of "Sun, 13 Sep 2026 14:48:49 +0800")
-References: <20260913064851.8239-1-tzungbi@kernel.org>
-	<20260913064851.8239-2-tzungbi@kernel.org>
-User-Agent: mu4e 1.14.2; emacs 30.2
-Date: Mon, 14 Sep 2026 08:46:03 +0300
-Message-ID: <87a4pkgzc4.fsf@tarshish>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="L4pNNG0Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=2NIH5sckKiyKYgVHO+Lr0Z/nlTKniZCjvUdTu4bZWDQ=; b=L
+	4pNNG0YYLj8xtdjTuV/zYRcnN0I+42fs5S6L7GH6BNt9m21hzDhAbYiR1KXTd0Os
+	bauI9gxcATSe40R8jlUPyYI0Mne3SkSYGd55FpMktNCczwqXE/pGPXcuH7G1LuuW
+	4aaWHMhwW62zN4jPwrQj5XavSA0VxTB7DZkA9Wr9D0=
+Date: Mon, 14 Sep 2026 13:55:06 +0800 (CST)
+From: CJ  <firefly0158@163.com>
+To: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com
+Cc: ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+	syzbot+09184149c7c0d9e6f83a@syzkaller.appspotmail.com
+Subject: [BUG] ocfs2: kernel BUG in ocfs2_populate_inode still reproducible
+ on v7.3-rc1
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/+duksr4CCZYekdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/Vakg9bNRE+PuQtvtOZvlGw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Message-ID: <c4e7b8a.4e41.1a09e7bc2a9.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3H7M6jKdqTPIOAA--.18118W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3hq1Z2qnjDqyLgAA3x
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Hi Tzung-Bi Shih,
-
-On Sun, Sep 13 2026, Tzung-Bi Shih wrote:
-> clk_get_rate() could return 0.  Avoid a division by zero panic.
->
-> Since get_timeleft() cannot propagate errors, check the clock rate early
-> in probe() and cache the rate in the driver data as it is unlikely to
-> change at runtime.
->
-> Fixes: 336694a01dae ("watchdog: digicolor: driver for Conexant Digicolor CX92755 SoC")
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
-
-Acked-by: Baruch Siach <baruch@tkos.co.il>
-
-Thanks,
-baruch
-
-> ---
->  drivers/watchdog/digicolor_wdt.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/watchdog/digicolor_wdt.c b/drivers/watchdog/digicolor_wdt.c
-> index 073d37867f47..de1a3267a972 100644
-> --- a/drivers/watchdog/digicolor_wdt.c
-> +++ b/drivers/watchdog/digicolor_wdt.c
-> @@ -25,6 +25,7 @@ struct dc_wdt {
->  	void __iomem		*base;
->  	struct clk		*clk;
->  	spinlock_t		lock;
-> +	unsigned long		rate;
->  };
->  
->  static unsigned timeout;
-> @@ -61,7 +62,7 @@ static int dc_wdt_start(struct watchdog_device *wdog)
->  {
->  	struct dc_wdt *wdt = watchdog_get_drvdata(wdog);
->  
-> -	dc_wdt_set(wdt, wdog->timeout * clk_get_rate(wdt->clk));
-> +	dc_wdt_set(wdt, wdog->timeout * wdt->rate);
->  
->  	return 0;
->  }
-> @@ -79,7 +80,7 @@ static int dc_wdt_set_timeout(struct watchdog_device *wdog, unsigned int t)
->  {
->  	struct dc_wdt *wdt = watchdog_get_drvdata(wdog);
->  
-> -	dc_wdt_set(wdt, t * clk_get_rate(wdt->clk));
-> +	dc_wdt_set(wdt, t * wdt->rate);
->  	wdog->timeout = t;
->  
->  	return 0;
-> @@ -90,7 +91,7 @@ static unsigned int dc_wdt_get_timeleft(struct watchdog_device *wdog)
->  	struct dc_wdt *wdt = watchdog_get_drvdata(wdog);
->  	uint32_t count = readl_relaxed(wdt->base + TIMER_A_COUNT);
->  
-> -	return count / clk_get_rate(wdt->clk);
-> +	return count / wdt->rate;
->  }
->  
->  static const struct watchdog_ops dc_wdt_ops = {
-> @@ -130,7 +131,11 @@ static int dc_wdt_probe(struct platform_device *pdev)
->  	wdt->clk = devm_clk_get(dev, NULL);
->  	if (IS_ERR(wdt->clk))
->  		return PTR_ERR(wdt->clk);
-> -	dc_wdt_wdd.max_timeout = U32_MAX / clk_get_rate(wdt->clk);
-> +
-> +	wdt->rate = clk_get_rate(wdt->clk);
-> +	if (!wdt->rate)
-> +		return -EINVAL;
-> +	dc_wdt_wdd.max_timeout = U32_MAX / wdt->rate;
->  	dc_wdt_wdd.timeout = dc_wdt_wdd.max_timeout;
->  	dc_wdt_wdd.parent = dev;
-
--- 
-                                                     ~. .~   Tk Open Systems
-=}------------------------------------------------ooO--U--Ooo------------{=
-   - baruch@tkos.co.il - tel: +972.52.368.4656, http://www.tkos.co.il -
+CgoKSGksCgoKSSBhbSByZXBvcnRpbmcgYSBrZXJuZWwgQlVHIGluIG9jZnMyJ3MgaW5vZGUgcG9w
+dWxhdGlvbiBwYXRoLCB0cmlnZ2VyZWQgYnkgYQpzeXprYWxsZXIgcmVwcm9kdWNlciB0aGF0IG1v
+dW50cyBhIGNyYWZ0ZWQgb2NmczIgaW1hZ2UuICBUaGUgaXNzdWUgaXMKcmVwcm9kdWNpYmxlIHdp
+dGggSEVBRCBjb21taXQgY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQoo
+djcuMy1yYzEsIExpbnV4IDcuMy4wLXJjMSkuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgc21h
+bGwgb2NmczIgZmlsZXN5c3RlbSBpbWFnZSBvbiBhIGxvb3AgZGV2aWNlLiAgVGhlCmltYWdlIGNh
+cnJpZXMgYSBkaW5vZGUgd2l0aCB0aGUgT0NGUzJfU1VQRVJfQkxPQ0tfRkwgZmxhZyBzZXQgdGhh
+dCBzdGlsbCBwYXNzZXMKdGhlIGV4aXN0aW5nIGlub2RlLWJsb2NrIHZhbGlkYXRvciwgc28gdGhl
+IG1vdW50IHBhdGggYWNjZXB0cyBpdCBhcyBhbiBvcmRpbmFyeQpkaW5vZGUuICBEdXJpbmcgc3Vw
+ZXJibG9jayBzZXR1cCB0aGUgbW91bnQgaW5pdGlhbGl6ZXMgdGhlIGdsb2JhbCBzeXN0ZW0KaW5v
+ZGVzLCByZWFkcyB0aGF0IGRpbm9kZSB0aHJvdWdoIG9jZnMyX3JlYWRfbG9ja2VkX2lub2RlIGFu
+ZCBoYW5kcyBpdCB0bwpvY2ZzMl9wb3B1bGF0ZV9pbm9kZS4KCgpvY2ZzMl9wb3B1bGF0ZV9pbm9k
+ZSB0aGVuIHJlYWNoZXMgdGhlIGJyYW5jaCB0aGF0IGhhbmRsZXMgYSBkaW5vZGUgZmxhZ2dlZCBh
+cyBhCnN1cGVyYmxvY2sgYW5kIGNhbGxzIEJVRygpIHVuY29uZGl0aW9uYWxseS4gIFRoZSB0YXJn
+ZXQgY29uc29sZSBzaG93cwoia2VybmVsIEJVRyBhdCBmcy9vY2ZzMi9pbm9kZS5jOjQ0OCEiLCBh
+biBpbnZhbGlkLW9wY29kZSBPb3BzLCBhbmQgUklQIGluCm9jZnMyX3BvcHVsYXRlX2lub2RlLiAg
+VGhlIHBhdGggaXMgdGhlIG1vdW50LXRpbWUgc3lzdGVtLWlub2RlIGluaXRpYWxpemF0aW9uOgpv
+Y2ZzMl9yZWFkX2xvY2tlZF9pbm9kZSAtPiBvY2ZzMl9pZ2V0IC0+IG9jZnMyX2dldF9zeXN0ZW1f
+ZmlsZV9pbm9kZSAtPgpvY2ZzMl9pbml0aWFsaXplX3N1cGVyIC0+IG9jZnMyX2ZpbGxfc3VwZXIg
+LT4gbW91bnQuCgoKT25lIHBvc3NpYmxlIGNhdXNlIGlzIHRoYXQgbm90aGluZyBvbiB0aGUgcmVh
+ZCBwYXRoIHJlamVjdHMgYSBkaW5vZGUgY2FycnlpbmcKT0NGUzJfU1VQRVJfQkxPQ0tfRkwgYmVm
+b3JlIGl0IHJlYWNoZXMgb2NmczJfcG9wdWxhdGVfaW5vZGUuICBUaGUgY29tbWVudCBhdCB0aGUK
+QlVHKCkgc2l0ZSBub3RlcyB0aGF0IHJlYWRfaW5vZGUgY2Fubm90IGhhbmRsZSBzdXBlcmJsb2Nr
+cywgYnV0Cm9jZnMyX3ZhbGlkYXRlX2lub2RlX2Jsb2NrIG9ubHkgaW5zcGVjdHMgaV9mbGFncyBm
+b3IgT0NGUzJfVkFMSURfRkw7IGl0IGNoZWNrcwp0aGUgRUNDLCB0aGUgZGlub2RlIHNpZ25hdHVy
+ZSwgaV9ibGtubywgaV9saW5rc19jb3VudCwgaV9tb2RlIGFuZAppX2ZzX2dlbmVyYXRpb24sIGFu
+ZCBuZXZlciBsb29rcyBhdCBPQ0ZTMl9TVVBFUl9CTE9DS19GTC4gIEEgY3JhZnRlZCBpbWFnZSB0
+aGF0CnNldHMgVkFMSURfRkwgdG9nZXRoZXIgd2l0aCBTVVBFUl9CTE9DS19GTCB0aGVyZWZvcmUg
+cGFzc2VzIHZhbGlkYXRpb24uICBUaGlzCmxvb2tzIGxpa2UgYSBjYXNlIHdoZXJlIHRoZSBpbnZh
+cmlhbnQgdGhlIEJVRygpIGFzc2VydHMgaXMgbm90IGVuZm9yY2VkIG9uIHRoZQpvbi1kaXNrLWlu
+cHV0IHBhdGguICBJIG5vdGUgdGhhdCByZWNlbnQgd29yayBpbiB0aGlzIGZpbGUKKGJiODgxMzFj
+OTgzMSwgYjJkMzFhY2JkM2IxLCA4OTE0YTMzMzBiNzIpIHRpZ2h0ZW5lZCBhZGphY2VudCBkaW5v
+ZGUgdmFsaWRhdGlvbgpidXQgZG9lcyBub3QgY292ZXIgdGhpcyBmbGFnLgoKClRoaXMgYXBwZWFy
+cyB0byBiZSBhIHJlY3VycmVuY2Ugb2YgdGhlIHN5emJvdCBpc3N1ZSB3aG9zZSBleHRlcm5hbCBp
+ZCBpcwowOTE4NDE0OWM3YzBkOWU2ZjgzYSAodGl0bGUgImtlcm5lbCBCVUcgaW4gb2NmczJfcG9w
+dWxhdGVfaW5vZGUiKS4gIEl0IHJlbWFpbnMKcmVwcm9kdWNpYmxlIG9uIHY3LjMtcmMxLiAgSSBh
+bSBhd2FyZSB0aGF0IHR3byBwYXRjaGVzIHdlcmUgcHJvcG9zZWQgZWFybGllcgoob25lIHJlcGxh
+Y2luZyB0aGUgQlVHKCkgd2l0aCBvY2ZzMl9lcnJvcigpIHBsdXMgbWFrZV9iYWRfaW5vZGUoKSwg
+b25lIHJlamVjdGluZwp0aGUgZmxhZyBpbiBvY2ZzMl92YWxpZGF0ZV9pbm9kZV9ibG9jaykgYW5k
+IHRoYXQgYSByZXZpZXcgYXJndWVkIHRoZSBleGlzdGluZwpCVUcoKSBpcyBhY2NlcHRhYmxlIGZv
+ciBtZXRhZGF0YSBjb3JydXB0aW9uLiAgSSBhbSByZXBvcnRpbmcgdGhlIHJlcHJvZHVjdGlvbgpv
+bmx5OyBpZiB0aGUgY3VycmVudCBiZWhhdmlvdXIgaXMgY29uc2lkZXJlZCBjb3JyZWN0LCBwbGVh
+c2UgZGlzcmVnYXJkIHRoaXMuCgoKUmVwcm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjogaHR0cHM6
+Ly9wYXN0ZWJpbi5jb20vcmF3L0MzQmR0cWZFCmNvbnNvbGUgb3V0cHV0OsKgaHR0cHM6Ly9wYXN0
+ZWJpbi5jb20vcmF3L0xkN2RxRWM0Cmtlcm5lbCBjb25maWc6wqBodHRwczovL3Bhc3RlYmluLmNv
+bS9yYXcvU0dBMUhLOTUKCgpLZXJuZWw6CgoKSEVBRCBjb21taXQ6IGNlZTkzOTVhY2Q4MDQzYmUw
+NjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKZ2l0IHRyZWU6IHVwc3RyZWFtIChsaW51eC5naXQpLCB0
+ZXN0ZWQgdGhyb3VnaCB0aGUgdjcuMy1yYzEgYW5ub3RhdGVkIHRhZyBvYmplY3QKwqAgwqAgwqAg
+wqAgwqAgwqBlNWUwNDcyNmNkZDA0M2UzMDk2NzcwNzFhYjFiNjVhNGIxOGY0MjJiCmtlcm5lbCB2
+ZXJzaW9uOiA3LjMuMC1yYzEgIzEgUFJFRU1QVChmdWxsKQp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMSAo
+TGludXggNy4zLXJjMSwgMjAyNi0wOC0zMCkKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3Jl
+IGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0IHJlZ2FyZHMsCkNoYW5namlhbgo=
