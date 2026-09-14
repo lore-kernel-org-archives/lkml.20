@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC1448EC7E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:31:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BB848F85F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:31:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399878; cv=none; b=RpxXGF+89R2eQKTDO9yeEV3oHhXcglw2fSrbaeGMcb5MnQOlhIG+xBew7PRoWTgMvnyfUDFGPY5BSSHO2Udh7aWyFQCf55AXYHk5SxCEBUasPFO//+UWkUkqSlmyu8W1d7zUeFHptXIRlozJ4AMbrdd/CSbSfA/p+0ryfe94MsI=
+	t=1789399879; cv=none; b=pwYvtJgodDNYsAbMenvQW/8OORVnkGuHtmwnyQCe9KaEXw6Rg2b+7e1wq/dUkbdBjPvzwzIeUBSm3XNY3G0dEtZwH3vUwONOwRB4lN78Se2TMgdfZZ1/5FZlDZ6D+J8nW2Exq+zQj1dW1IA7E5ya21otTjn70Ri2IYlMAgh4RWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399878; c=relaxed/simple;
-	bh=ZcY8SABgPXkKny6oz5BHftfuclktYgM9jHIQ0TexRls=;
+	s=arc-20240116; t=1789399879; c=relaxed/simple;
+	bh=SthltkVaMfrxnSzd4k2+dCJ2fJ2LDymgzQIQU5tpdFI=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=B6oXJucL3rr3imugYThDuUJIHyL/Iyk+BMBB9crI0w82uHxffLmcF7m/NyDmQDgIltLkIogE/t6JHw7TWNewdP9IcL3zGN49S19rWvyPEPdj6/1eZyw85DvN3ALz6GFRXVhRmQAPjFDnnxArx9cUGAur1kgZMv9Eijrv5wcAWlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZZjLU4/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=cq0F1199HxFrzb65865jisOGH189NYflo/VnazHgngTIOpq4tllbhg68FrfbE2XJ3jrcnB3McBQ7/aSCoWzKLX8ATNu+TCFHR5d+63qi3XQroJ8OTMKmHMyXjId1B4Hd9SmB/QeBhVmKHACq6A5W6mMt0St7gddpBX0RJ7/wA/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=em6UoMxy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZZjLU4/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4371F000FF;
-	Mon, 14 Sep 2026 15:31:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="em6UoMxy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A3C1F00893;
+	Mon, 14 Sep 2026 15:31:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789399876;
-	bh=Re1i4sxxoleOm+ySs5id+c1pqQekipxz63TkYx1a97Y=;
+	s=k20260515; t=1789399877;
+	bh=IIaU1MK4mUN1n2LJQplC+wDgs0ECojrkK1qlSDjfHIM=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=iZZjLU4/h5KOpGUjbl5lDSX2WJE3orl6Lqu+uEH2s1bJaILl8Fr9dLU/fcLRJ1ioI
-	 JONqn4kvX4j9Y5avy2xHVVg9oa+7EywBMxlLefGNrRpRdlTHESO1aXAFh1qVktTB69
-	 qU6aE/fmV+oFFkurd3mBJJthRUT3tP7i7W2oSV8rv3Q7mEWVQkVJpq9DNGzGDVPfxi
-	 3CqTVZsUx9vx12Ce1Nh7uAHOWqPWJRGbFqftWADOsmxcgVOemZgBUZXw2kqh5k8wrN
-	 Gl4ppbGtSnYp5LIQ0KEPTkkvc2ydGm5FcD3aAZP6rqPYioMcYxWk4WHjRFzKpVsq1q
-	 /ijvCBQOnWjpg==
+	b=em6UoMxyMnzmhg0SAmr0kTTa0/oAR3ZodYmMK036WejTwDZSILrnGBNl+5r2ul3tr
+	 1fqiw/3BHG9Yudkxo0QMZwJBuujU9h+AxQ0WzmG6zRrntcHVmNrSJMw9EeQD+cdt3Y
+	 gKBGWzWADt74mnx13kjivD1I9R6uyRe1RhN8bmK8bDh5Tazg7/znLdjkfD4qO9BhKn
+	 R8PB+EksPrC5oiaECyZfG1xVQfr2ne+GP4seNAZ6qHrNvBsUMdv64qhOux3VsypGGb
+	 Q8uao4clw4RJUrV8nFMuUkmHFC2nyl3ayd+DwyCSrXkum3ashl8q46oT2/cmqDxsjY
+	 Db5sx6AbOgIHA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A063924A79;
-	Mon, 14 Sep 2026 15:30:12 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0CA33924A79;
+	Mon, 14 Sep 2026 15:30:13 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,46 +37,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH v2] f2fs: compress: fix to handle race between
- truncate and writeback
+Subject: Re: [f2fs-dev] [PATCH] f2fs: skip node_change lock for inline data
+ writes
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <178939981087.647967.11998154111003241428.git-patchwork-notify@kernel.org>
-Date: Mon, 14 Sep 2026 15:30:10 +0000
-References: <20260910141126.1309794-1-chao@kernel.org>
-In-Reply-To: <20260910141126.1309794-1-chao@kernel.org>
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, zhiguo.niu@unisoc.com, stable@kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net
+ <178939981237.647967.4356162890529018525.git-patchwork-notify@kernel.org>
+Date: Mon, 14 Sep 2026 15:30:12 +0000
+References: <20260906145614.2749-1-jsjlee1020@gmail.com>
+In-Reply-To: <20260906145614.2749-1-jsjlee1020@gmail.com>
+To: Seongjae Jeong <jsjlee1020@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
 
 This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Thu, 10 Sep 2026 22:11:26 +0800 you wrote:
-> From: Chao Yu <chao@kernel.org>
+On Sun,  6 Sep 2026 14:56:11 +0000 you wrote:
+> The node_change lock serializes block reservation in the PRE_AIO path
+> against checkpoint preparation, since block reservation can create
+> dirty node pages and update checkpoint accounting.
 > 
-> fsstress reports a kernel BUG in f2fs_truncate_partial_cluster():
-> 
-> kernel BUG at fs/f2fs/compress.c:1238!
-> RIP: 0010:f2fs_truncate_partial_cluster+0x292/0x2a0
-> Call Trace:
->  <TASK>
->  f2fs_truncate+0xf6/0x210
->  f2fs_setattr+0x6b7/0x770
->  notify_change+0x33b/0x520
->  do_truncate+0xc2/0xf0
->  vfs_truncate+0x153/0x1d0
->  ksys_truncate+0x78/0xd0
->  __x64_sys_truncate+0x16/0x20
->  do_syscall_64+0xbe/0x540
+> However, writes that remain within the inline data area return before
+> the block reservation path. Thus, they do not call
+> inc_valid_block_count(), change a node mapping from NULL_ADDR to
+> NEW_ADDR, or create a dirty node page as a result of block reservation.
+> They also do not update total_valid_block_count or
+> alloc_valid_block_count.
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev,v2] f2fs: compress: fix to handle race between truncate and writeback
-    https://git.kernel.org/jaegeuk/f2fs/c/c0337e331b06
+  - [f2fs-dev] f2fs: skip node_change lock for inline data writes
+    https://git.kernel.org/jaegeuk/f2fs/c/66eec36c2421
 
 You are awesome, thank you!
 -- 
