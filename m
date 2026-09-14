@@ -1,175 +1,127 @@
-Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazon11022077.outbound.protection.outlook.com [40.107.40.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAEE44A403;
-	Mon, 14 Sep 2026 12:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.40.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389356; cv=fail; b=Ct5E6JasLvPSOyihdVdraL3EKMYEm948cHsUNOJlbDedZsoAAZmq48ki9B+nsGnvVwAEBGR9soEHT/EPK+NMke+m1zeMoua87NW2O5BB6aN/QWRBrgr5gvaWPaU0Sj+QPVaNtBtEFAe20UXVApr52qpFXjkFXye/l/0fFhyUFiI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389356; c=relaxed/simple;
-	bh=Q11u85dRZedGZpHkzfRqDnKMCPktDmC5PoC1O7gnRTU=;
-	h=Date:From:To:Cc:Subject:Message-ID:Content-Type:
-	 Content-Disposition:MIME-Version; b=e+b2kU01MpZU3LObl08iSCCK7hryB3b9H5DU3iXhkNXdre/0Hk92nsKB+IcrYR9PVGjWsxGbid0NCxrCtnbttxHxtd0cck8Qcp+DACuU+53qXLRtprvK7f4eKGye/hL6Hl62fisd4lKyq68REeHPNwyu7nh5kDRADE3HmfIU5vg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com; spf=pass smtp.mailfrom=heitbaum.com; dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b=E/2kkizr; arc=fail smtp.client-ip=40.107.40.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=heitbaum.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EC844781F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789389379; cv=none; b=sniwEwuZmTPSe/z8xiVpyWdGQfo7JA8oGr7S25NtK9UQgXFgbVWJ+kTB4nIWDKPCb5LjEXW9wrfL1NMf/TDK7xUgPl6hnbHeM80n/fnZArB7yIqT1qSwi8FZeu9Fye9eMZa+i+mRwIBqr1ts5CPBFrE07kDVMibJ8PuaE0XlCns=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789389379; c=relaxed/simple;
+	bh=aLewbFs8FlsksoxGpUNdIM/fU4VhPzZwmbdBRBeVyRs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AL8aLri21EXbxSU8qB104ffzEdNWbL0DBi0WgnzY815XZ29Lf4R1jNxcWhdg1t4qxlQ+w66VIwERu9OBzZgHW1CP0/e9WBiRW/7yYyV8u+HlFhsQu+2PmiQy/UlMtCN/tkQZwqA0E5kbmWK6MIa1lD4e1l1A8+WpqKrrk4eaZSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sZpiDfYa; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b="E/2kkizr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=liJJ7AMHUelOuYpkzKLGEZB69JPTwpDLy3ettXTN019bTSp177ryjZ4t+R6RbxuPnYmQ7DGaPqscKF7vGlTAEUj8C4nGGb9onFZVSi/tYdwrv/2m0ywEE4qvbw93lzWnDeCcnN0qVc2VyJXhVYWB+gIl9KGB8NmIPGgSevLFR9BNgeozuvUL0Il9IiDc42bxFVppr88PFyVbCgpWlrflpk4FmL0l7MXaDZWpOlsQhZK5taXlCyjLM3RKEpUT0ht4AP5GMMuVh35Hm5Rv+X+CKi/ELny8s3Vu4UHV2yaSsm9E1lZNyHLJ6411qeYi/351YvZJQYnzNfPTJB+zzPPJew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JxwdgAYf8qumvyZPyrlj4fssq1NeJmda/2oztAp8sMg=;
- b=dyZeSfgI1Z/5NL7pGHugDc1XdvQJgxSimqYeQQDKP+hScrN8FmAvDYACJIevNGwb7pGl6y5/qw1wT5QZMEJ9/ghPFr6j+RqzfqINEqRdnsN1LZNVk69ETv88L/xLEGfuq8767+OyFT6xO7XDK4xkZRRZ1qu72u/rAbtkYseOO22pZ8gMHp+GnEkNf6dB+Q5ItBLUL8aKq8XVU2kdbSycFnRMZwKrkR/+9jg5Tj0S4MWVXVKC16rbJVi6jn1mqL4yfoY/MQ4xvFVRjiW0q++z9MjOk2g6pOLbmUVqL79DGNzYggUqksM3EWHAnVvn/ot2oQxIgZRTOI9RlkhgvWr4WA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
- dkim=pass header.d=heitbaum.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=heitbaum.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JxwdgAYf8qumvyZPyrlj4fssq1NeJmda/2oztAp8sMg=;
- b=E/2kkizr/9vikfHVtqFajF0MiSd0ILJD7msvAiJ8hoVSVo5KiYeLnXoe/2jT0YzbEhO+gtvrBaojw2ZmNGGhah39pWjNult1bBuvZQsItjHHgr7u+kjw7vinjtYH2Ly8riCsLl21lXNjA1sKPn5zfGL7y7zqtUlUmVfHI+bSlTzzci1hrbWR+y7KM57YaRoSeLpyLaj821w7A3Rb8SgpUMa/JB2f1VPS3yfBY18Jtm6G4RHM9r0YPZDOunjXhrw0BLtkL5w3WqK0Fa14DcAbKXlqSq+1iuVIVPCdcBQwJ5UQcOR36WAuO323ONq2CnlZ31GROka+XtVUzT5CKQWh1w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=heitbaum.com;
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
- by SY3PPFB162C4180.AUSP282.PROD.OUTLOOK.COM (2603:10c6:18::325) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 12:35:47 +0000
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 12:35:46 +0000
-Date: Mon, 14 Sep 2026 12:35:31 +0000
-From: Rudi Heitbaum <rudi@heitbaum.com>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Richard Zhu <hongxing.zhu@nxp.com>
-Cc: Rudi Heitbaum <rudi@heitbaum.com>, Lucas Stach <l.stach@pengutronix.de>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] PCI: imx6: Avoid dereferencing a NULL clock name
-Message-ID: <aqfqE4OLhnN4a1lW@b65e9c1eb12f>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-ClientProxiedBy: MEWPR01CA0048.ausprd01.prod.outlook.com
- (2603:10c6:220:1df::16) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:279::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sZpiDfYa"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c2c08ff3f8so1117188b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:36:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789389376; x=1789994176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YavU6eZ3BhhanoEPKol5pZZFs/bg8KvofxNp5pSA/U4=;
+        b=sZpiDfYa7lYQuSGZr0q9aErXy5zvwyWYkKlBRzgfMGd03tbqo4G5r5iErnEFTVWEf0
+         8d/UQ2Sygls59rz+LCpsoXSNDqH4V+G3wU8YM6nmTUm5b5rZWQgL+CR0adP3fcL4rf+C
+         9ycJ+PnkUo82oNkgIgy2NMyT5cDjiNxpko14CU9/7vaIfYszkUN6srOVtq2bh4Y5Tps/
+         I1wusHxJC2FiI8b1H8vZe7M9WI6+blOk//FfsZd9Fx+ydHewUzuuX01EsQzjtIdfAtxl
+         EghFTMHJFQ9gzSyEzymwPKFol6s/NK2haDV3iQkMdSft6o+XHjoiP2h1ugCG1P0S5CBG
+         PREA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789389376; x=1789994176;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YavU6eZ3BhhanoEPKol5pZZFs/bg8KvofxNp5pSA/U4=;
+        b=itCeK8/airHiVTkFHiZjsr6I4UzbdA221PqkvqfxaAv/3swVRtF4wZnhcc4cfXzTSz
+         z7scD7qEUeP7etZZ0Cyx7g+LlRAOS71WcmUiXtehWg7xf402tEbPHtZJKdQ/UAn0EbaR
+         KqDyK5RgFvFUxZB/qmio/pJiPleaFMcMAfq962hx8g6r+0F5JmHsTZvV0Q8+WZ16oi40
+         b26ZR30nle2xyRZ8sIwVk0KjC337VSWf4112LHqje4k7Ab39pldTcLvIvHSaOzksdEP9
+         PQQPg8X5zbPs8c0jVdw+KxED2U2Zadsg19WhxASflYqK6vPWxFFlSaOxWnwkzfrXDLIR
+         0vJA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3NyqbNT9IbUIZxom5yjCWKCeYVp3EvDviMX4yqczAEzx1ATC+nHQ8hdQgofh+JiF76C7D6romNT7B7ec=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+NYVeyW1zzdAy97j08VoCZL7+YMI6mgEV0NGQ3L8vz526mlHw
+	5rA3Op14nR//nFrnZSsw4GdGgwNR/CeI691thoihNeLg4r+CSVICBcs8qvniDQ==
+X-Gm-Gg: AYBFou16U/5253R5Y57mtcL2TdVtFXUvhxfzfr5X7/R02f0SrNRWBtw5zuWAwF/zAH2
+	g5IGRxmTB6nmWY7hPRRrJAzIhmNWEwP/gojbyvTk23DpAND0coIz759PvotA2aLVlEazRNscn9s
+	XzfMHYf1cfu3VhlLSQehIPKefZtPVr8ZxTcMhvNMo89gVzvQq4QS0X1Oue9ts/DMwjD5RJgbdT9
+	AqMUx+kO9hGciFGxNRxpmjAK3U8eUOLAdjIIo3sByUtBlCVLLhBS0bJrTuVJZMWyeKmns31WXND
+	pBIR6fVFUgu29ZuImi7HhwcVH2JnvwZmc7qlgXZrshXUF/KdSAz+N6m3EYxXyvBlDnRAZq/7Csd
+	ib0Y71lWUh+ridPSBhxOZot2kIKSU23Cvyaaanjv1HA76jYbruaga1Kz0XYogdQpOv/LMYhNbwo
+	G+cRGiaXZqcbmxXgHCldBtGIbhsQT1aIAPq8SWBZ5rS32Cf2vnriKIL5BItRsaEXSlzy1TQkMJd
+	Dwsbxgy3fwsRwih
+X-Received: by 2002:a05:6808:6d97:b0:4b3:1a95:4160 with SMTP id 5614622812f47-4c7b3ed4b22mr1318687b6e.18.1789389376449;
+        Mon, 14 Sep 2026 05:36:16 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c3315b19afsm10256886b6e.10.2026.09.14.05.36.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 05:36:16 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] watchdog: shwdt: register device only after full driver init
+Date: Mon, 14 Sep 2026 19:36:09 +0700
+Message-Id: <20260914123609.2186477-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|SY3PPFB162C4180:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a5de2e2-4788-4284-00c1-08df125cb329
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	pZCQd8xh3y/9fceZeYnGdQvFkgLHvnRi+VX2vqxR0WJHV2CAkLVHB1WZ5oWwLVhhV9d+Fgdp5XSZJoqKeKqwNBoLxZTBSPh6W41U5N7Sn9Y/ac3TvgNkUd2OekKzBSM2pG6GQpMxepCyjlBweuhbjHOLueCIDCZgg1jrsV6Y2t2v3vx5CWfc+KVX5tEpoWLAuHY3FuuumZuYawfrogyqWw2uLesuFIGulWysj6LzQnhz8OfjdagWoRmEN7S4N/ggTHRIfW17TkLdlPXehwMWYzMixOplHoyb+iwAxF/OVlCepNuVyqI7uVh3scL930ptoJhKyXeSLPIJuXkEp7UcjKdMW7rfW0Epq/JVUeB3b6JS862YkI78W6qPzU/ExFteW5EU7vaqdNJBb4+zWVP5HXF8kkuCMWaGz50iKh8PKz4cdHkHKDzcCjQz19gGmx5R+APGmQnHwPiWEsv6TL27c9iGGryjU2tgJPhKyv2b53ZkIc3QvegJyT8a5vKkvONd9fPws24g8tWTU3VN7MzVYmfU9hhWFn/rVx63fHmD4cTMnAKP97MKnrhqzxVisMzNQG0KCohcKeIb+TC+sPwBZ/jTN0+nqPuf4c/fEYDCpeUCRNd3fdVPreef94NQaShd1ueVUXxofCjvoC17QHCzBtoPJBuuBwygRtVUgs2G7no=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/69SPYWlMD9uDVKiQhf98MUHWpiujou+ShkAkE8mOzJd78FbPJAKhjgSUCd2?=
- =?us-ascii?Q?iwXXDw4korfvKyrs57fNAYi/vCMn7ZRqFgGZs3A5IgG3b2gAOic9sT9ccE//?=
- =?us-ascii?Q?nsGEEz9RXJFkP3A9FBLrtjARwjMim8Z0qoWfASotxiklACLbiwMKvY88Auu3?=
- =?us-ascii?Q?eo5WO5QYvDC/HojHY1fnbqqjQAr83a30I19JrpiKh++4aGCkOxNgS7yEtcSz?=
- =?us-ascii?Q?20+QRTIyCSYUMMWk8HdSjfRkxhBv/t6obMuZlj19s+0cnX71IrFniiNwd9Ma?=
- =?us-ascii?Q?fMY38Z66i+OE4Dk6VzrB9o6t3mA+SLWYTQxR5zlrBCQ5T1+zhkddP1ASiXaN?=
- =?us-ascii?Q?lloCAwNR+a0ikrkJwbZ6NM20KePxRIwcJp6Q/YoFio4YZn3kc4KFZ3TJPhR5?=
- =?us-ascii?Q?drCZQrSmMIWyP6PnAyoeJkWNa0qJd0JBSKDJeXp2meqQRqkLp/pk1RImp5eE?=
- =?us-ascii?Q?gkg8ShwHDUdXm2HazUWshdrukYThYewUhj1KSp+mndnAE1F/Y/u9mzbuSf/f?=
- =?us-ascii?Q?I9jTJ3TsjVJtbVyNIyUSFliGXlAiLOfeUszKZc5OpBWpH+rnatJg4UMFuQvK?=
- =?us-ascii?Q?twvnfx0DM8spnAMeJ7P0u4lEVsBBxhNSkQyxnrTT2ElSmqXhrAj9bE1dheox?=
- =?us-ascii?Q?YZhAhJWJCtNEUY+NybyPL88f5YGuu4DVLdUEB3oCe5hAYyx/gOeJCCszbJ23?=
- =?us-ascii?Q?SGUykAyERlKXQVuGEulc/kjXX5BYFHm2okpMk11akQa/GR7+n1xdV/Gha/2p?=
- =?us-ascii?Q?UrxBQH+vvdnFmHyQJi0s9v4hB5TAMR64jZ5VKJSFwJS9p/kMbnzPDRWjdPGH?=
- =?us-ascii?Q?8ZV7zKB227ddcGnG8oako5YBPlznP+Q6IXmrweFLpsO9Z6n8HY1Yhg7RRtHU?=
- =?us-ascii?Q?xnqFWhOU61thDGg2MzAWd2v3BkbfZTQWboVgu6ry9MtzoZmw6jJM7IxqVTah?=
- =?us-ascii?Q?xHa373GPpearDUjxPxYYx7x+B8p5KNWzjf2XjGHBJ0quzUYBI0HzDLsTY4La?=
- =?us-ascii?Q?eVDIfh3O0XBBlOJCtGYzAESitqyrG3psd1foHIK7kuM6zo99xe4xsU70iKA9?=
- =?us-ascii?Q?qZGpgTMrJdIVbPnPS5jM1t9qcFyKe8zzusD6aeEbW/Pd9OP2EzGYXhR+kBbs?=
- =?us-ascii?Q?CkZZoJFyq3o/f1Kg6O+wf6iZMJhkrHnuV8WGmGozGXXD1OASxM2AlnPo8Ve6?=
- =?us-ascii?Q?KqaOH/e4GKOj2lpRS2Xx1LTMIUjXcGyf/kfcTHSgJjPKShWxyJAEk6NHj0PO?=
- =?us-ascii?Q?U3KjlAbjbiZ2WZo6ORJ9Qtmr4W68L3Vao1T4ZLXrgbFXxNRgouBHPwFC0Mgm?=
- =?us-ascii?Q?8A8/JNWLQodpLbrbGHW2FZRPVXcOooXthMdg+9PyhjqpbxTWjDrxWDvhSi+J?=
- =?us-ascii?Q?hgMGNSNYpTWBI1SF4tb5rkMbF8HqdQzd4FM1tZIqllSt2vYmVxoJ9PCDrXLS?=
- =?us-ascii?Q?CNd60A6ivizEKacjWO7z2+WShQ177mkrHvF3h/gDe6V9IiMblOYgoHbznYnZ?=
- =?us-ascii?Q?R50NRsRsjIxXJ3GcI3fBYN0cpXOTgYlZoeQHz8cu+j+vJkec6n96AP4gQHvB?=
- =?us-ascii?Q?kA0cs60ZW5nUOqnCYIr6EOlQtBFFrxfJuV9Xa/vnUDmvH5CsB/bDKYipKB1M?=
- =?us-ascii?Q?ITDHuLaWAxvvdkXa6q2av6acb/bbYo23SfwomOuMJSuxaBh8nd1d5FXxEcQO?=
- =?us-ascii?Q?A6WN1P4GiZib6K05LehCmuW2l9gqnwUmg7Z4+Dc7fVyh+GOA?=
-X-OriginatorOrg: heitbaum.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a5de2e2-4788-4284-00c1-08df125cb329
-X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 12:35:46.2804
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eY8rjEVm4dJIJjK+bRGwYCr9czi8IBdpCa7Vfc/QfciaMoMXi7TBLIz7kONCooHJRBDEnLplwjtAIbJw511ZLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY3PPFB162C4180
+Content-Transfer-Encoding: 8bit
 
-of_clk_bulk_get() leaves clk_bulk_data::id as NULL for every clock that
-has no matching entry in "clock-names", which is legal: a node may list
-more "clocks" phandles than it names. Both scans of the bulk array
-dereference that id unconditionally, so such a node oopses during probe.
+sh_wdt_probe() calls watchdog_register_device() -- exposing
+/dev/watchdogN -- before timer_setup() and pm_runtime_enable() run. A
+start command landing in that window calls mod_timer() on an
+uninitialized timer (NULL ->function) and resumes via
+pm_runtime_get_sync() before PM is enabled.
 
-The loop in imx_pcie_probe() has been wrong since it was written. The
-loop in imx_setup_phy_mpll() was not: it read a fixed clks[] whose ids
-came from the driver's own clk_names[] and were never NULL, and only
-became wrong when the driver moved to the bulk array.
+Move timer_setup() and pm_runtime_enable() before the register call,
+matching the order already used by rzg2l_wdt.c/rzv2h_wdt.c. Add
+pm_runtime_disable() on the now-possible post-enable register-failure
+path.
 
-Check clk_bulk_data::id before dereferencing it in both.
-
-Fixes: f6a1fdfc78e2 ("PCI: imx6: Use devm_clk_bulk_get_all() to fetch clocks")
-Fixes: d8574ce57d76 ("PCI: imx6: Add external reference clock input mode support")
-Cc: stable@vger.kernel.org
-Acked-by: Richard Zhu <hongxing.zhu@nxp.com>
-Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
+Fixes: 8f5585ec3d17 ("watchdog: shwdt: driver model conversion.")
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 ---
-Changes in v2:
-- Also guard the identical unchecked dereference in imx_setup_phy_mpll(),
-  reported by Sashiko and requested by Manivannan Sadhasivam.
-- Add the Fixes: tag for that site.
-- v1: https://lore.kernel.org/all/am8iBwJSEhYhWTqk@6cfee64030a6/
+ drivers/watchdog/shwdt.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
- drivers/pci/controller/dwc/pci-imx6.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 39790e66b98d..f8dd83a88ddf 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -542,7 +542,7 @@ static int imx_setup_phy_mpll(struct imx_pcie *imx_pcie)
- 		return 0;
+diff --git a/drivers/watchdog/shwdt.c b/drivers/watchdog/shwdt.c
+index 719f100aae60..c22b8e760476 100644
+--- a/drivers/watchdog/shwdt.c
++++ b/drivers/watchdog/shwdt.c
+@@ -263,19 +263,20 @@ static int sh_wdt_probe(struct platform_device *pdev)
+ 	dev_info(&pdev->dev, "configured with heartbeat=%d sec (nowayout=%d)\n",
+ 		 sh_wdt_dev.timeout, nowayout);
  
- 	for (i = 0; i < imx_pcie->num_clks; i++)
--		if (strncmp(clks[i].id, "pcie_phy", 8) == 0)
-+		if (clks[i].id && strncmp(clks[i].id, "pcie_phy", 8) == 0)
- 			phy_rate = clk_get_rate(clks[i].clk);
++	timer_setup(&wdt->timer, sh_wdt_ping, 0);
++	wdt->timer.expires	= next_ping_period(clock_division_ratio);
++
++	pm_runtime_enable(&pdev->dev);
++
+ 	rc = watchdog_register_device(&sh_wdt_dev);
+ 	if (unlikely(rc)) {
+ 		dev_err(&pdev->dev, "Can't register watchdog (err=%d)\n", rc);
++		pm_runtime_disable(&pdev->dev);
+ 		return rc;
+ 	}
  
- 	switch (phy_rate) {
-@@ -1836,7 +1836,8 @@ static int imx_pcie_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, imx_pcie->num_clks,
- 				     "failed to get clocks\n");
- 	for (i = 0; i < imx_pcie->num_clks; i++)
--		if (strncmp(imx_pcie->clks[i].id, "extref", 6) == 0)
-+		if (imx_pcie->clks[i].id &&
-+		    strncmp(imx_pcie->clks[i].id, "extref", 6) == 0)
- 			imx_pcie->enable_ext_refclk = true;
+-	timer_setup(&wdt->timer, sh_wdt_ping, 0);
+-	wdt->timer.expires	= next_ping_period(clock_division_ratio);
+-
+ 	dev_info(&pdev->dev, "initialized.\n");
  
- 	if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_PHYDRV)) {
+-	pm_runtime_enable(&pdev->dev);
+-
+ 	return 0;
+ }
+ 
 -- 
-2.53.0
+2.25.1
 
