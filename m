@@ -1,190 +1,214 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F08415B6E;
-	Mon, 14 Sep 2026 21:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7322640B373
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789419902; cv=none; b=NGvsVRZDy49kUV6arKtJIXHCjOyZBVP2I0jstf+xf3G6Wq2+4EAys6HNcHS5uVV6n9UD8Kup3wblPhqlVHOzv605sy/g4/+cSsqEIWwqqdK3bGVags/UnHuqF+qkdMsEwOEzXAEyEqjQfqDWKFaPTfIHB701YTrGTyU1PK9F+/E=
+	t=1789420201; cv=none; b=GAVY2G0BGPaiOZUnaFdrjV0xbDxyjrGBywI+ICeY6M3XhanWmo7snqVgww6pSBLcl6OEFQX5bN19PpOOq2P1iAWqZ+gbdQqtQ1IyzQfTigPkb4gxXKMUzFINPO3bK38rg9ULjKPbY0lwO2S8jCpP5wunh+EV9kk8cYaQT6GEouw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789419902; c=relaxed/simple;
-	bh=ihzL+l2KI7XVSNewbML1ta9wvrsrafmVC9sc5kiBTMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oNQk+gCK2XkjmjQc4C5XkEYP9UVBgRsmxQ2GtdlahpolH+EtJveYYjPNTcR1EXHY//drQmQwh9Bz+wWP4aVMZT5gBeQzg8vaCrI59VZa2TG5gEUQqoO0Un5rr1HJVj3s6qfP3pYvYz3cKbSFN84r/y4Dn7oRQ0+RzByUh4ZFPqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=s8kSuDxh; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1789420201; c=relaxed/simple;
+	bh=Lpu8BYiYZNteYXFlDSxlBr4C2CnU/Gx0SiTFgcn6nP0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=aI80agxcCk6aVj+9BfyvgXPYahEmVSegH/YktD4P1GGu0kDRIJRiu5pD+GxXNzGqDO20MqqUM4AKlpLVMuvI2DO2z4YZY0YF7EtgZCG64PGbUsBw5hSziUFdDdGWSpmawbcMg4oglG7JiWCvWN3w/xC1GRkDoiPkRLtfPm7VzW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ESj1jxDE; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="s8kSuDxh"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 3C05E534032A;
-	Mon, 14 Sep 2026 23:04:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789419897;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Ucz9EKe46ScLEmo/7CYnL5FFLCA5CmnkIuajSNz4/sM=;
-	b=s8kSuDxhBCJOBKfjaXao3nCX/kanfcxEbJQGfERqu72Y9OPDhA7T1om6S56G9uzZNjYufm
-	3uH3/Ldk+1uUYJLbPm8bwI/LbZFzyrswqY+2Lw20PrH7cQPp/q6AfJMf9Gm7K/g+Jf6Pwp
-	EKyUFr+/wb27p9Prc8yTKYjUaanUOQo=
-Message-ID: <cd90572c-e1f3-47a0-829e-9b3d8097a62f@ixit.cz>
-Date: Mon, 14 Sep 2026 23:04:56 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ESj1jxDE"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6b4bff33ceaso1582196eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:09:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789420196; x=1790024996; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EsI+dpw6vMR742jYDR1gddCVyVHs7LTF48bPd8UEx9g=;
+        b=ESj1jxDEdiHSeFw3lDieeXpPuAefVmMpIAIIciJkypCfYQgHlVRYZ9C3caqNiGHkg2
+         DsibmWK7k/EXsbddZvTopM2CLO1xA2cx7OsQW+iMhcHgM9xV0cDfD4g4V0ksxVbWyLD3
+         YYPZ2CiRlQkwU/l7eAo/BsGbfSWCAbXDHjwo06o4ZQymHwfMcdQn6AdUWzzoCLttvL7N
+         Jb8MccZUNvHo76t7ZqTr/JbYp1X1gOkLrmhKA+fUta6zBgHBMhB5eGnynjCimKf2g0n5
+         ijvjnFGRMgqTKtReFk8MMj6sDYjRP/5Ty430yUqY+9xbmIMblcpE+Dhgo6R1mJJLdhHt
+         bUxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789420196; x=1790024996;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EsI+dpw6vMR742jYDR1gddCVyVHs7LTF48bPd8UEx9g=;
+        b=FC6m7OaE+4VsLLoBoAJrBTti8K5Zb2WiligWhYH/oLiUUxrbDL+z8DQXOmDSGFHjTN
+         MiGDfpIQVXFSrtUJm4allCKYjoJW6tsKRA1dh1AeUiSMWNhdD0UgLjzeh5AfBTVH5x4c
+         fz23KeMv3juRIg0JLDbv5LiJt+UX8VFtG/jMxhinn3ON1SjiKloe548HbsgZkHy6eMdh
+         KR0yQF1u6/m0FAPYbBlxaSBuZ129w0FmGQMyM8ViSlY2hFPpIP/UChbX/UmGA5ro5ot1
+         yi/fpeI5/xe2jC0/kaFp3Nnn/H8Kr25Q12Gx0w+M4jBU8ljVRZe4iefdH3kafF3h9RYv
+         cIGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwV3SiMv2OLcHxfpynVSe50vycFko9DrdeYPQ2dOAi0hDmFUD8TsFp5sdcR2qpDzRDAmLPE8DVF7X/GeKU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lI4M3G/ZJYWwKgG81SqoyIOKSUHo/FMt2lRqJqYYorQWuISCY7
+	BLC7xbQFsP0sBEhi8Vdo/GvghJhLKvi5fd4WcjnpWHPSXiAf3s4DC4ya
+X-Gm-Gg: AYBFou1iVhh3HfVA1XgNus2tQcyJegC5Bbxd9vTxl6W5XCD6HMQ6qkpFaoLk5qKpItv
+	jC9hLNbf8AxizXFh1PT/4uYFWMlE9tydy+sV0UHq1Y3F1ZEx9S0k/bSSAGjE7GhueuWbkPM1G1U
+	+IcU4fRKsbqA50/EqzsJ8M9zmDDYq8lH/G6JcbO8nKfHN3pnhY7PMYYNTYwHqnGbjNp7m6seaWN
+	vOpfZgS72nRXEIA20VtZdnKbnLUSuZNyZG6I5EDHyTdx/OA+8rXMzS/PuzTkalJzTY3KBXhrSSl
+	E1qjGvhXJEQ9cZLYlGrvRxJI4kxyNtIT6qeMmqoYQVqcky4XkPu15wKor1deqAXvzvTJQlpE4f4
+	y+GCsoAwdjQow0pudDQ97rdsJhbeaF4OBeNeKHHc1edZ1gpnOyeQFwTiyJlOWYZH+yx0Shdqs3a
+	NnLv6vDvFQM1u7DMrBihZVV5hKsCkVay2VrTMEBosq1vZUMfaAfryCADGFQ7QjWzS07A0EHUWc9
+	c9d7t84Pjf6Dy7TPeB1Au3xaJjH3yGhl90oCFvK6omwIpv+Az4lTtt/jr1eIpOvBoTbLe8Or6Y5
+	DlxTph4U7KSznJcMIvpq1h6yIAflaCgpKlb2MclXXaHUivx0u0cLKVtnNsNC7Xz9pWDbLXGlUZi
+	flw1etFC85VDvqNFrYMt1EdK8mHyw
+X-Received: by 2002:a05:6820:4d01:b0:6a1:4507:3544 with SMTP id 006d021491bc7-6c540d62bbfmr2624632eaf.28.1789420196428;
+        Mon, 14 Sep 2026 14:09:56 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-157-145.hlrn.qwest.net. [184.96.157.145])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c45bfc3fe9sm4698544eaf.15.2026.09.14.14.09.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 14:09:55 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 14 Sep 2026 15:09:47 -0600
+Subject: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/panel: lg-sw43408: do not assert reset across
- unprepare
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul <vkoul@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260810-fix-blueline-panel-v2-0-9344dfdbc3f9@ixit.cz>
- <20260810-fix-blueline-panel-v2-1-9344dfdbc3f9@ixit.cz>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260810-fix-blueline-panel-v2-1-9344dfdbc3f9@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+In-Reply-To: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, 
+ Brian Norris <computersforpeace@gmail.com>
+Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On 10/08/2026 11:55, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> Asserting the reset GPIO in unprepare() and leaving it asserted puts
-> the DDIC into a state it never recovers from: after the following
-> prepare() the panel answers all DCS commands, reports display-on with
-> clean self-diagnostics, and its configuration registers read back
-> identical to a working panel, but it never lights up again.
-> 
-> On the Pixel 3, vddi is shared with the touchscreen controller and
-> remains powered while the panel is off, so with this driver the DDIC
-> sits in reset with its logic rail up for the whole blank period - a
-> state the vendor stack never creates: the vendor firmware only toggles
-> reset as part of a full power-on sequence, and the vendor OS never
-> power-cycles the panel at all (LP mode is used instead).
-> 
-> Leave reset alone in unprepare(); prepare() performs the regular reset
-> sequence anyway.
-> 
-> Without this, the Pixel 3 display never comes back after the first
-> blank/unblank cycle.
-> 
-> Since there isn't any other panel or device using this DDIC, this
-> approach seems resoanble to address the issue.
-> 
-> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->   drivers/gpu/drm/panel/panel-lg-sw43408.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
-> 
+A timed-out wait can return while the interrupt handler is still using
+the previous operation's interrupt status and enable mask. Starting the
+next wait calls init_completion() on the same object, which can reset its
+waitqueue lock while the old handler calls complete(). The old handler
+can also complete the new wait or restore an obsolete interrupt mask.
 
-Good news is, that this patch really doesn't make panel power-off fatal for the 
-phone, but recent testing got me into state where I observed:
+Initialize the completion once in probe and use reinit_completion() for
+each interrupt-driven wait. On timeout, disable and synchronize the IRQ
+before masking controller interrupts and acknowledging the waited-for
+events. Draining the handler first also prevents a partial-event handler
+from rewriting the enable mask after it has been cleared. Flush these
+register writes before re-enabling the IRQ line, leaving the controller's
+interrupt sources masked.
 
-10 hours, display on, phone operating normally.
+For successful waits, move complete() after the handler's register updates
+so that the next operation cannot race with those updates. Keep polling
+unchanged and leave controller and DMA abort handling to the existing
+callers.
 
-display on (various time), display off, display on OK, but sometimes
+Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller support")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-display on, display off (for longer time), after pressing power button (to wake 
-up) the phone reboot into bootloader.
+diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
+index f41feebe4257..e50cf5b6a730 100644
+--- a/drivers/mtd/nand/raw/sunxi_nand.c
++++ b/drivers/mtd/nand/raw/sunxi_nand.c
+@@ -374,6 +374,7 @@ struct sunxi_nfc_caps {
+  * @chips: a list containing all the NAND chips attached to this NAND
+  *	   controller
+  * @complete: a completion object used to wait for NAND controller events
++ * @irq: NAND controller interrupt
+  * @dmac: the DMA channel attached to the NAND controller
+  * @use_mdma: use an internal MBUS DMA backend
+  * @mdma_desc: H6-style MBUS DMA descriptor
+@@ -393,6 +394,7 @@ struct sunxi_nfc {
+ 	unsigned long clk_rate;
+ 	struct list_head chips;
+ 	struct completion complete;
++	int irq;
+ 	struct dma_chan *dmac;
+ 	bool use_mdma;
+ 	struct sunxi_nfc_mdma_desc *mdma_desc;
+@@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq, void *dev_id)
+ 	if (!(ien & st))
+ 		return IRQ_NONE;
+ 
+-	if ((ien & st) == ien)
+-		complete(&nfc->complete);
+-
++	/* Finish updating the interrupt state before waking the next operation. */
+ 	writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
+ 	writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
+ 
++	if ((ien & st) == ien)
++		complete(&nfc->complete);
++
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc *nfc, u32 events,
+ 		timeout_ms = NFC_DEFAULT_TIMEOUT_MS;
+ 
+ 	if (!use_polling) {
+-		init_completion(&nfc->complete);
++		reinit_completion(&nfc->complete);
+ 
+ 		writel(events, nfc->regs + NFC_REG_INT);
+ 
+ 		ret = wait_for_completion_timeout(&nfc->complete,
+ 						msecs_to_jiffies(timeout_ms));
+-		if (!ret)
++		if (!ret) {
++			/* Drain the handler before it can restore an old IRQ mask. */
++			disable_irq(nfc->irq);
+ 			ret = -ETIMEDOUT;
+-		else
++		} else {
+ 			ret = 0;
++		}
+ 
+ 		writel(0, nfc->regs + NFC_REG_INT);
+ 	} else {
+@@ -457,6 +463,12 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc *nfc, u32 events,
+ 
+ 	writel(events & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
+ 
++	if (!use_polling && ret) {
++		/* Flush the mask and acknowledgment before re-enabling the IRQ. */
++		readl(nfc->regs + NFC_REG_INT);
++		enable_irq(nfc->irq);
++	}
++
+ 	if (ret)
+ 		dev_err(nfc->dev, "wait interrupt timedout\n");
+ 
+@@ -2617,6 +2629,7 @@ static int sunxi_nfc_probe(struct platform_device *pdev)
+ 	nfc->dev = dev;
+ 	nand_controller_init(&nfc->controller);
+ 	INIT_LIST_HEAD(&nfc->chips);
++	init_completion(&nfc->complete);
+ 
+ 	nfc->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &r);
+ 	if (IS_ERR(nfc->regs))
+@@ -2625,6 +2638,7 @@ static int sunxi_nfc_probe(struct platform_device *pdev)
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
++	nfc->irq = irq;
+ 
+ 	nfc->caps = of_device_get_match_data(dev);
+ 	if (!nfc->caps)
 
-Nothing printed into dmesg (I'll try enable drm-debug, but not having high hopes.
-
-So far, this is still heavy improvement comparing to instant crash, but not the 
-perfect solution either.
-
-David
-
-> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> index 293826c5006b9..0bf8e08f10b9c 100644
-> --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> @@ -50,18 +50,24 @@ static int sw43408_unprepare(struct drm_panel *panel)
->   	int ret;
->   
->   	mipi_dsi_dcs_set_display_off_multi(&ctx);
->   
->   	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
->   
->   	mipi_dsi_msleep(&ctx, 100);
->   
-> -	gpiod_set_value(sw43408->reset_gpio, 1);
-> -
-> +	/*
-> +	 * Keep reset deasserted: vddi may stay powered (it is shared with
-> +	 * the touchscreen on Pixel 3) and holding the DDIC in reset while
-> +	 * its logic rail is up puts it into a state that no init sequence
-> +	 * recovers from - the panel keeps answering DCS commands and
-> +	 * reports display-on, but never lights up again. The vendor stack
-> +	 * only ever toggles reset as part of a powered-up init sequence.
-> +	 */
->   	ret = regulator_bulk_disable(ARRAY_SIZE(sw43408_supplies), sw43408->supplies);
->   
->   	return ret ? : ctx.accum_err;
->   }
->   
->   static int sw43408_program(struct drm_panel *panel)
->   {
->   	struct sw43408_panel *sw43408 = to_panel_info(panel);
-> 
+-- 
+2.53.0
 
