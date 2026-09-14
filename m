@@ -1,178 +1,139 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-234.mta0.migadu.com [91.218.175.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40221339363
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6961C33A9F3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789355389; cv=none; b=CVsJZyPCbR8uhzXpqnXeBX8MNaDWgSa6CQFAgynQX5xJ6y3kbmlisdI4j92hwmdndQyPi0vJeNX96pJo8i8EsNJzrgxYr75j52pcTrSpWB5yH7223EbwLgOzX90snIhDOoeVWUgnMXOPmz03bHWmVhEkV76r+pxTA9BiiClXMbU=
+	t=1789355406; cv=none; b=BvYdA2y2o85J548FSMVec7oilxL1WeNQaeth1t3+0e4WXobl51dCsY1bPsEWsDUwcK4TzeElwSnlFH7pnV9ZwVHFo2hGLANZwjxxF35S9VVWXKmxclfOCr84ffpHizCQWehMflZ3fQ0SpOyBWSpWquAQ3r365btSSMCcHfYkGkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789355389; c=relaxed/simple;
-	bh=9m+jQtL5I8TsNmSDCStEThpTwVkOj5tDKOewGACrNKU=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=f+xPhzSMDjt48om+T/nmB3zLTWQ7QRwtXHpEOTYH0gPRSB3ipPTBBgFewEn2RMzGGGRljvNkNJ0llpPjJGppQsOYu3CEQv4IygCjBjYrunr323mJBrMP0VDszi/2eUUUPMg9LlNEicX9xmDKjrieozP0Bv8j0r/CmBEVn2NQF7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=VtA423Yi; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789355406; c=relaxed/simple;
+	bh=x/tlIljtHGaFtS3P5GHlgvAiIORLGAfsGhOXJcwnhL0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PiNFEPx3GZO7pVgK0cgOEQ2tWa9/sdCF6md9hpsyXX84Suk5dqytNmW3lBn/XfTxq6KIHB6dxClfM1/XXvNcgu19Ers0KUxjLfT0fDh8MuBoU638A9bHPKpZcBnpOeYuoLzN/Z7Mw5gu0WntFUQap5UW8Ln7oJy6vabBK1j08g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jXTseMJL; arc=none smtp.client-ip=91.218.175.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VtA423Yi"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Y9N6gaJR2vJOsZjjclQfE1bobd9p7/9wtxiewg0sEGo=;
-	b=VtA423YikAc4SOwGutUyAa1ayWYYa1oG7HNN1zslMabwEZ7nNrirH4xNz64wP77MS6qVF2wu5
-	GWVERnST/Zs9hTbqnWC0hCl9v0X9pUjudQID4Ga863RQKzFPIlTR264e+81NUdEooIKQzy+lEbv
-	UmeGd7qjrnyyHMuR5M27C2c=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hjqbX22SKzKm6j;
-	Mon, 14 Sep 2026 10:58:32 +0800 (CST)
-Received: from kwepemr500001.china.huawei.com (unknown [7.202.194.229])
-	by mail.maildlp.com (Postfix) with ESMTPS id 36B8A40578;
-	Mon, 14 Sep 2026 11:09:33 +0800 (CST)
-Received: from [10.174.178.9] (10.174.178.9) by kwepemr500001.china.huawei.com
- (7.202.194.229) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 14 Sep
- 2026 11:09:32 +0800
-Message-ID: <fd88104a-982a-4c73-9a5f-8c67ded3d5ca@huawei.com>
-Date: Mon, 14 Sep 2026 11:09:31 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jXTseMJL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=x/tlIljtHGaFtS3P5GHlgvAiIORLGAfsGhOXJcwnhL0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789355391; v=1; x=1789960191;
+ b=jXTseMJLVp8W4g1LiZKvA19lpBMXNr6h0PgyKXgwInP9AuOm7b5plYTQEvqxeF4+ej5tBjF8
+ yDiELf82g7Vunw13F9YjLO9oTX1H22bCtHDTG5uHhJniP3o0EtwKk74BQ+PLYRSAmJDTTcMJ9Sw
+ aVap5p64XoEv8lzNKsB3/kmc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id febf35c63c55aa0e;
+	Mon, 14 Sep 2026 03:09:51 +0000
+X-Mizu-Trace-ID: febf35c63c55aa0e
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Mon, 14 Sep 2026 11:09:35 +0800
+Subject: [PATCH net v4] bonding: fix slave_cnt leak on XDP error paths
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] mm/ksm: use per-VMA locking for find_mergeable_vma()
-From: Jinjiang Tu <tujinjiang@huawei.com>
-To: <xu.xin16@zte.com.cn>, <akpm@linux-foundation.org>, <david@kernel.org>,
-	<liam@infradead.org>, <surenb@google.com>, <rppt@kernel.org>,
-	<ziy@nvidia.com>, <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
-	<dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
-	<chengming.zhou@linux.dev>, <usama.arif@linux.dev>, <gourry@gourry.net>,
-	<harry@kernel.org>, <vbabka@kernel.org>, <peterz@infradead.org>,
-	<borntraeger@linux.ibm.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-References: <20260913121716693wiN5osmShywgtitghSm7G@zte.com.cn>
- <a19a0c1d-d2bf-4c40-9308-e815f925f87a@huawei.com>
-In-Reply-To: <a19a0c1d-d2bf-4c40-9308-e815f925f87a@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemr500001.china.huawei.com (7.202.194.229)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-bond_slave_cnt-v4-1-d14864a39e60@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XPQQrDIBAF0KsU17UYTaLpqvcoJagZG2nQokEaQ
+ u5ecZU2yz/D+8OsKEKwENH1tKIAyUbrXQ71+YT0KN0TsB1yRpTQlgjCsfJu6OMkE/TazVgI4EI
+ 3hkjVoYzeAYz9lMI7cjCjRx6ONs4+LOVIqsqq9HWE/velCleYtdA1ytSyNeb2WibrfLxoV7oS3
+ Xt28DR7QoFyRmotWXvwbO8P/ySWfcMHwxTThmr147dt+wIcKFkAMgEAAA==
+X-Change-ID: 20260807-bond_slave_cnt-88e78c5f0ab9
+To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Jussi Maki <joamaki@gmail.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-在 2026/9/14 11:03, Jinjiang Tu 写道:
->
-> 在 2026/9/13 12:17, xu.xin16@zte.com.cn 写道:
->>>>     Patch 1 removes an unused 'vma' member from struct folio_walk.  
->>>> It has
->>>>     never been used since its introduction and is pure cleanup.
->>>>
->>>>     Patch 2 adds a 'walk_lock' member to struct folio_walk and extends
->>>>     folio_walk_start() to assert the required locking mode. Existing
->>>>     callers are converted to pass PGWALK_RDLOCK, so there is no 
->>>> functional
->>>>     change.  This prepares folio_walk_start() for callers that hold a
->>>>     per-VMA read lock instead of mmap_read_lock(), which is needed 
->>>> by the
->>>>     Patch 4. No functional change.
->>>>
->>>>     Patch 3 tranforms the boolean 'lock_vma' into the enum 
->>>> 'page_walk_lock'
->>>>     without any behavior changed, which is prepared for the Patch 4 
->>>> to use
->>>>     per-VMA locking. No functional change.
->>>>
->>>>     Patch 4 introduces find_mergeable_vma_locked(), which uses the
->>>>     universal per-VMA locking helper vma_start_read_unlocked() to 
->>>> look up
->>>>     and read-lock a VM_MERGEABLE VMA without taking 
->>>> mmap_read_lock().  All
->>>>     KSM call sites that previously used find_mergeable_vma() under
->>>>     mmap_read_lock() are converted to the new helper, and the 
->>>> locking in
->>>>     get_mergeable_page() is switched to PGWALK_VMA_RDLOCK_VERIFY so 
->>>> that
->>>>     folio_walk_start() can verify the per-VMA lock is held.
->>>>
->>>> A microbenchmark was run to measure the time KSM takes to merge a
->>>> victim region under mmap_lock contention. Under interference from 4 
->>>> churner
->>>> threads, the merge time of the per-VMA KSM-optimized kernel is
->>>> significantly reduced by 50%.
->>> Hi.
->>>
->>> During task exiting, __ksm_exit() uses mmap_write_lock() to 
->>> synchronize with ksmd.
->>> see the comment of ksm_test_exit().
->>>
->>> void __ksm_exit(struct mm_struct *mm)
->>> {
->>>     ...
->>>
->>>     if (easy_to_free) {
->>>         mm_slot_free(mm_slot_cache, mm_slot);
->>>         mm_flags_clear(MMF_VM_MERGE_ANY, mm);
->>>         mm_flags_clear(MMF_VM_MERGEABLE, mm);
->>>         mmdrop(mm);
->>>     } else if (mm_slot) {
->>>         mmap_write_lock(mm);
->>>         mmap_write_unlock(mm);
->>>     }
->>>
->>> }
->>>
->>> When ksmd currently is scanning the exiting mm, we should guarantee 
->>> the mm pagetable
->>> still valid (i.e., mm_users > 0). However, ksm_mm_slot only holds 
->>> mm_count, which only
->>> guarantees the mm_strcut isn't freed. So, __ksm_exit() uses mmap 
->>> write lock to synchronize
->>> with ksmd.
->>>
->>> IIUC, vma_read_lock cannot be exclusive with mmap_write_lock().
->>>
->> Nice catch. Thanks for pointing this out. Indeed, the original 
->> exclusion between
->> __ksm_exit() and ksmd relied on mmap_write_lock() blocking 
->> mmap_read_lock(),
->> and per-VMA read locks do not provide that exclusion.
->>
->> A possible approach to restore the necessary guarantee is to pin 
->> mm_users while
->> ksmd is walking the page tables:
->>
->> Before scanning a given mm, try to take a reference with 
->> mmget_not_zero(mm).
->> If it fails, the mm is exiting, so we skip it.
->>
->> Hold that reference for the entire duration of scanning that mm (not 
->> per-VMA),
->> and drop it with mmput() when done.
->>
->> On the fallback path where we need to acquire mmap_read_lock(), drop 
->> the mm_users
->> reference before waiting, to avoid delaying an exiting mm.
->
-> We should avoid holding mm_users ref too long. Otherwise, when the 
-> task being scanned
-> by ksmd is OOM-skilled, even though the victim task has responsed 
-> SIGKILL signal and
-> exited, the mmaps aren't released due to mm_user > 0.
+When bond_enslave() succeeds up to the XDP setup stage, slave_cnt is
+already incremented. If XDP setup subsequently fails, the error paths
+jump directly to err_sysfs_del, bypassing the slave_cnt decrement.
 
-In this case, we have to relying on OOM reaper to work. But it need to wait OOM_REAPER_DELAY
-(2s) to response.
+This causes slave_cnt to drift upward on each failed enslaving attempt,
+which would lead to unbalanced traffic distribution with round-robin
+mode.
 
->
-> We should check whether the mm_user has dropped to 1 during scanning, 
-> like what
-> ksm_test_exit() has done.
->
->>
->> This directly guarantees that mm_users > 0 while ksmd is accessing 
->> the page tables,
->> so __mmput() cannot reach exit_mmap() and free them. It is more 
->> precise than the
->> old mmap_write_lock() synchronization and should not introduce 
->> noticeable delay,
->> since the reference is only held for the scan duration.
+Add an error out to make sure slave_cnt gets decreased correctly.
+
+Fixes: 9e2ee5c7e7c3 ("net, bonding: Add XDP support to the bonding driver")
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+Changes in v4:
+- Revert to v1 version as the bond_select_active_slave() just under
+  slave_cnt increase also calls bond_update_slave_arr() (sashiko)
+- re-run all bonding selftests with debug kernel, all passed.
+- Link to v3: https://lore.kernel.org/r/20260907-bond_slave_cnt-v3-1-57df3b3cf2cb@kylinos.cn
+
+Changes in v3:
+- move the slave_cnt increasement before bond_update_slave_arr() (selftest)
+- run all bonding selftests on debug kernel to make sure no regression (Jakub)
+- Link to v2: https://lore.kernel.org/r/20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn
+
+Changes in v2:
+- move the slave_cnt increasement after XDP setup (Nikolay Aleksandrov)
+- balance-xor mode is not affected, not mention it (Nikolay Aleksandrov)
+- Link to v1: https://lore.kernel.org/r/20260902-bond_slave_cnt-v1-1-36e95bf4a6ff@kylinos.cn
+---
+ drivers/net/bonding/bond_main.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index a9bff7663eec..577d85c83804 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -2305,7 +2305,7 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
+ 				     "Slave does not support XDP");
+ 			res = -EOPNOTSUPP;
+-			goto err_sysfs_del;
++			goto err_slave_cnt;
+ 		}
+ 	} else if (bond->xdp_prog) {
+ 		struct netdev_bpf xdp = {
+@@ -2319,14 +2319,14 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
+ 				     "Slave has XDP program loaded, please unload before enslaving");
+ 			res = -EOPNOTSUPP;
+-			goto err_sysfs_del;
++			goto err_slave_cnt;
+ 		}
+ 
+ 		res = dev_xdp_propagate(slave_dev, &xdp);
+ 		if (res < 0) {
+ 			/* ndo_bpf() sets extack error message */
+ 			slave_dbg(bond_dev, slave_dev, "Error %d calling ndo_bpf\n", res);
+-			goto err_sysfs_del;
++			goto err_slave_cnt;
+ 		}
+ 		if (bond->xdp_prog)
+ 			bpf_prog_inc(bond->xdp_prog);
+@@ -2348,6 +2348,9 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 	return 0;
+ 
+ /* Undo stages on error */
++err_slave_cnt:
++	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt - 1);
++
+ err_sysfs_del:
+ 	bond_sysfs_slave_del(new_slave);
+ 
+
+---
+base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
+change-id: 20260807-bond_slave_cnt-88e78c5f0ab9
+
+Best regards,
+-- 
+Hangbin Liu <liuhangbin@kylinos.cn>
+
