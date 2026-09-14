@@ -1,123 +1,132 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF68043F8B6
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C529440A3E;
+	Mon, 14 Sep 2026 11:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385102; cv=none; b=iG98e//tmpdrJuyYkWzDlkpbtDTktNJJNPTPK4+YJfpowK5dSTsHIjREH8nIgz8v9m+H8JEDCj9/mLigaAUZH3LBGJytPvDDk4s48OIF682aJKrtZ5u22jKJlBMzHcvgLtQ1IGN4hvAPIhOX9A8d5vnxMJ2wx2/Tte34eAJRWS4=
+	t=1789385177; cv=none; b=Co6nIC37ykpa5aFuDuZPb6dxBXy4N5/slW2UMHUG3Jx+KvqW42r92wRnQrp/udGo+vPpNkXfBwTJYodshuAhMpYsxLuP6phe58N/MmB2WLEhOAIK+3FzxE1c/cNGHXCAdONxO7p6Riyf6Y+2n8S0zCufOWxgY0TC+QOiro8w04M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385102; c=relaxed/simple;
-	bh=m4FGhaq8a+nWJ/uaFh8Slz+kDyjA89yddHRxow0Aw0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ym2xdeL5T3nsnVz860b8ZVytqHtVoT87LQwbw39wLX+2kxrnQ9587UomQ9MdTzGTlRJwRYpmQGD6teSl6B7tBkpmJw3tZNxjy7fXZOvbAy7fzHNN3NSJu1k1aQ/a+fQbwXJWReN0gbdMvgP6GzCX+HrCMpqP6uJI1aiYHDkw8VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AJRGU/SL; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789385177; c=relaxed/simple;
+	bh=lXVPwq7s2VUOFgW7l33ir3TRXWPIYSzWJPDJTQ63R+U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KIleHfjJT/NaPFt2F2fk83Jz5/IZ23haXOkZi28FoPj1zpaBaOWUpEPq54x0EdJ4ZnAclgHYeyEmLsbvXMfHvz9L5KnnI0vx62ThsQqv0gL66hTWTTe6aOn6cPFGB6hL7RrNXrGhIrLQQMDVUNRoJiw3PssW0jQ8vOf+csKkaW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cGGB0QNM; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AJRGU/SL"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso32847075ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:25:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789385100; x=1789989900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ok3Mywemwoiloo46/07KIkWHT3aySpVf35ol5uj0s9I=;
-        b=AJRGU/SLIRnyupW/xdeRu8jWd2r2g98r46bAaTo7KJZB7ouy+INlQWrdjtUDClR7mg
-         RfDS8xvCPFDunyD4HQTak3d83PvjNmmhZ/JspQeJ3N6Hhc7EYhY6K5hfmF5SV6Y6f2+o
-         mOhESJ2WZXsxqwghXHz7l7QmHRvS7WAQnzoCGc6rF+JMm6Q07CIOwmj2Ozc5CBnHWg5l
-         eHMNLmG2mthgVSuoBFZvRtF54a+jTJMs7caxLdOrDry3dPV0n/nyEnl3BZmJbS/rrAyv
-         yG3KHgSvYNw1+nPeY484XI5ZTMf6PfNL/bmunPqEIzPtnScnt+G0zINJnCp5P8sZfgbr
-         yh5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789385100; x=1789989900;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ok3Mywemwoiloo46/07KIkWHT3aySpVf35ol5uj0s9I=;
-        b=GbHsLi4git7i/OGBlqbpDY/p5+cJuHPMjK+G7f81LlFJY7XuMchr+FUdQ/18C373gU
-         7jFU4D7wVUuIM2wf9Gxm50r1x/OAqymBmU9Y1GT1Q2srQIf85rpu1UCCKi+tcVeiwfTK
-         mp2bYDz/dgO/8nVcs2AlxMGuKO3OxuFimKBSO3F4MB8QSS72MciYEIp3v8uvQKDqMn4n
-         n1sgr2fsDl5zxpGOMx8GTgIIaVjjjjJTH986dlM8InMdjf+JhAXfMf6lZa+yYk6CgPKd
-         kQX/MvVV2f5CKKjP1h1kDY3ZeWWaJXLkrX2Fi5IIMOYF6FPlszVh918e6z5n1qvhOb7Q
-         ZY/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzMWPzp+U8T8zXZTX/tHhLn+KiACB1G6h18Psw4V+e2IaElpVyK0wv9r0tGu2yVZL6kozFK3ElHALxmahs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyys84uaGPx6XqZb8HSFtR6ItenE68s8BcRSJmdbRtJPjyw/kZ
-	gP3NX89jZGel8+0jZqq0FHsVeNLTxMTuuGJ/OAQFS9etzx16ay8s3/pU
-X-Gm-Gg: AYBFou0u0EV0ftVEs3YuiFkHKlxhkloENRanld5APWP6QA+IIXDBM1OmGvAIfXU4F4m
-	kHVORc2eCRr5ms9ArnGacUX1JLYHoM7CliMIxbISDKHj/49z6Vl2a3uJwc4NUlJ0neSJVB4+s2k
-	wmxOXCFZLcHGvP7phrjbGdeBzO5Z+ipWyKbX22Gtf/miMuLNK3Tn9x6o0zHxzeVjUGiEkrn3fZ8
-	zxTyB+P8IDTE/zzpiQ90yuhTbqYTdWMWUhb1fc6MFJc4/JzTc2bnzVg7RBo0Iv6AOHhb/GdV7Vi
-	B7shHURGkGKDelfFKSVe6uzkqVb5Vwtat4t4vqjlaltJLER2NsTryhBeS8QNHh5ca7e7DIe4l2E
-	5wd4u+0p+Nm3UIb+eLc2jLTeaffiPgXT4N4I5PhsaZk9e78r9a2nJCugS8wy8uwd/FLdXf6g8cb
-	fAMlwYyp/HHOrkLFFGZpWp6uxtdKjUo+P+LWHJkj0m9zi5mJUveGv9lw==
-X-Received: by 2002:a17:902:ecc6:b0:2da:eb8f:b4e4 with SMTP id d9443c01a7336-2dd6c5f3a7amr41335295ad.7.1789385100156;
-        Mon, 14 Sep 2026 04:25:00 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd69745cb5sm10810585ad.43.2026.09.14.04.24.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:24:59 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Siratul Islam <email@sirat.me>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Pan Chuang <panchuang@vivo.com>,
-	Irina Tirdea <irina.tirdea@intel.com>,
-	Vlad Dogaru <ddvlad@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] iio: accel: mma9551: disable autosuspend on remove
-Date: Mon, 14 Sep 2026 19:24:47 +0800
-Message-ID: <20260914112447.1686972-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cGGB0QNM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789385173;
+	bh=lXVPwq7s2VUOFgW7l33ir3TRXWPIYSzWJPDJTQ63R+U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cGGB0QNMA3UGaFW+2zS9yJ2f0H9CIkbzniMnzaf5CY35eK4B6hGXWbzssm1GNP0XA
+	 kLXyg/waZcQo6l7/lZGAV6gRv/HHyDq4BIxldXCaL8BFmyRdoH4TwIz3vEuvOdg9Jf
+	 E+dx868sHUpJfNl5Gi7YIOfkrYwliAvLDiRcoU8+0WffH0urqgo0B8lwnK0av25B8n
+	 PNUDXcX67mvM+ZVVesjNycvTIHj5EmTQmyz5HcyLnqPCfcY9wP8TYdxRG0O0sCKXeQ
+	 IImkggd+Z3tGxYzxuts56gFpuORikG2V8XMgdKOFsqlv9BfvyrAIFuYUC24rg6GTW4
+	 v10dtaDm5DakA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D193C17E0894;
+	Mon, 14 Sep 2026 13:26:12 +0200 (CEST)
+Message-ID: <69562510-23f3-4993-b740-60ba83979237@collabora.com>
+Date: Mon, 14 Sep 2026 13:26:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 11/11] drm/mediatek: Add Write DMA (WDMA) Engine for
+ Writeback support
+To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+Cc: "kernel@collabora.com" <kernel@collabora.com>,
+ "robh@kernel.org" <robh@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+ <mripard@kernel.org>, =?UTF-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+ <jitao.shi@mediatek.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+ =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+ <20260715135703.46540-12-angelogioacchino.delregno@collabora.com>
+ <232cbc7ff5f2c50230eddf4db1f8eb7145a41d23.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <232cbc7ff5f2c50230eddf4db1f8eb7145a41d23.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-mma9551_probe() enables runtime PM autosuspend with
-pm_runtime_use_autosuspend(). The probe error path correctly undoes
-this setting with pm_runtime_dont_use_autosuspend(), but the normal
-remove path only disables runtime PM.
+On 8/27/26 07:33, CK Hu (胡俊光) wrote:
+> On Wed, 2026-07-15 at 15:57 +0200, AngeloGioacchino Del Regno wrote:
+>> Add a basic driver for the Write DMA Engine and initial compatible
+>> for the MediaTek MT8173 and MediaTek Dimensity 1200 MT6893, and
+>> hook it up to the mtk_ddp_comp and mtk_drm_drv in order for it to
+>> probe.
+>>
+>> This display controller component is used to enable the writeback
+>> engine that can be used for faster display image capturing in the
+>> userspace (for example, screenshots and screen recording).
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   
+>> +static const struct mtk_ddp_comp_funcs ddp_wdma = {
+>> +	.clk_enable = mtk_wdma_clk_enable,
+>> +	.clk_disable = mtk_wdma_clk_disable,
+>> +	.config = mtk_wdma_config,
+>> +	.start = mtk_wdma_start,
+>> +	.stop = mtk_wdma_stop,
+>> +	.register_vblank_cb = mtk_wdma_register_vblank_cb,
+>> +	.unregister_vblank_cb = mtk_wdma_unregister_vblank_cb,
+>> +	.enable_vblank = mtk_wdma_enable_vblank,
+>> +	.disable_vblank = mtk_wdma_disable_vblank,
+>> +	.layer_nr = mtk_wdma_layer_nr,
+>> +	.layer_config = mtk_wdma_layer_config,
+>> +	.get_formats = mtk_wdma_get_formats,
+>> +	.get_num_formats = mtk_wdma_get_num_formats,
+> 
+> I does not see you modify mtk crtc.
+> mtk crtc would use some interface only on 'first' ddp component of a pipeline.
+> WDMA would not be the first component,
+> so register_vblank_cb, unregister_vblank_cb, enable_vblank, disable_vblank, layer_nr, layer_config, get_formats, and get_num_formats are useless.
 
-The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-set therefore leaves the runtime PM state incompletely cleaned up after
-the driver is unbound.
+It's true in this specific case, but this was done while performing the big
+mediatek-drm restructuring.
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
+I decided to split the full changes in two separate series, because the one
+restructuring mediatek-drm is literally huge... and this series is adding
+only things that can be applied before the full restructuring takes place.
 
-This issue was found by manual code inspection.
+That was done in order to speed up the upstreaming and nothing else - so you
+can safely ignore the fact that there is extra functionality in this driver,
+because those extras will be used once the other big series is merged.
 
-Fixes: 6da93a6710a3 ("iio: accel: mma9551: Add runtime pm support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/iio/accel/mma9551.c | 1 +
- 1 file changed, 1 insertion(+)
+It's a lot of code, please-please-please don't make me split things up even
+more, because then the commit log becomes messy :-)
 
-diff --git a/drivers/iio/accel/mma9551.c b/drivers/iio/accel/mma9551.c
-index 7e01427fd9c4..182f488edab1 100644
---- a/drivers/iio/accel/mma9551.c
-+++ b/drivers/iio/accel/mma9551.c
-@@ -500,6 +500,7 @@ static void mma9551_remove(struct i2c_client *client)
- 
- 	iio_device_unregister(indio_dev);
- 
-+	pm_runtime_dont_use_autosuspend(&client->dev);
- 	pm_runtime_disable(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
- 
--- 
-2.43.0
+As for the comments on 8189/8196 (link rate and qos), you're right in that it
+makes sense to split the algo additions from the soc addition: I've done that
+already and will come in v7.
+
+Cheers,
+Angelo
 
