@@ -1,152 +1,94 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256FA39CD1B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5D3496D4F;
+	Mon, 14 Sep 2026 20:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416419; cv=none; b=m0PTeeDogsmrl6OjINQUW4HVz1aX4JcaCym3mbFx5TwMPo+4nhxMjalFu8KnZM9N+NbaHwpQWMnB/yRPHqv5ZBKSznaCunL3/i5OqKx+Ys8s4lPIEKUu+rNjgE7uxDp6OID8Sy7cbIbF1g2Y2VvFveVEzztnnxNh0I4owphgj1g=
+	t=1789416645; cv=none; b=hm7TBTt5RFbKUDhJDfOofDafFTY0tONRkZwlDNiCqvywhgJBsorf6zwjBhzUOs4iasOI9UbbCB/Cws80J08t/yBP/8nZ0CS4br7nRhuk+Sen3qgBYGKyZQnXsnkDFdpzhFYZn6B/TT+NgWUnK6UVmBvm3E5i4tWHkCY5jYXGn9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416419; c=relaxed/simple;
-	bh=g8JbSv2uB9OVHPX6mK0/xKaLA1R5JXVM4OnU1gOEgUU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bhV7zPYY5GQTtsp1KRQVmPUWNYOkBX9EjXYK0HCnVGGRsiWjOmUPK2laUHrriwOC6DBzC859gMEU43JI6xdme8hVaEuGojgA7fWLPz1jM4UTWaRRAEcUet5vAO4lzKM93GDDRR4PckYopMe0pyaKgKNnC1A5G8B1gYl6b31H/K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ctPbnhjC; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1789416645; c=relaxed/simple;
+	bh=EYs16lc+M/ljFt1dPBaln9KK7rypDaywzMZ6hGy5UyE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qaSZee7Q6hAo38RaunKGUrw8uh/zV/lmxqN6qZDMug2+6YvmcogxQ4F+oPE/5tIJIDYur64eGdXSlIfV3cEtO0FJoj/OUEYUkqn2Kxw1lgyq1uI0W1FEIe5roR1mJF+K0cs3zVVXv4EmYZbxjBO08Vlmwi7MCnWFIOEw432udZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=I6yof3Ep; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ctPbnhjC"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98505364aso3739955a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:06:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1789416415; x=1790021215; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FhpCYoKplrM1IaRlncQiHxwpj03BaeP0oenEDpXOAEg=;
-        b=ctPbnhjC5nNkPpyEFHa+xHk6lUSpwN3QndIA1IGic+ja8P9h12Ii2lyHHbUefQNNxs
-         qqIoe8XMXjj38UPOYF7zb3gBo8ggkwnN/M64+vnA14PqLGYgNjP+xgMmb+s9BmNu38qi
-         BRpEbF2UlVmIo0RX+gLGZF3e9jOzGihI/82BI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789416415; x=1790021215;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FhpCYoKplrM1IaRlncQiHxwpj03BaeP0oenEDpXOAEg=;
-        b=KRxhq3ntWXTqpx3AZrtz4seKcdGBit0hImPxRWh2EU0t8FSWnB+/vA1hAXPy14pQ+p
-         ofF9d5JUi23crd9eD0bDrqSae6qn22pewwZjqMCQ25f4HNjm0pJYfrmR9/OyAVHr9Mpw
-         7YfwSLipb+pt/btU2AgucNbqofdTikJ5Dxq0dfoXNQrqIt8vr48gs+JlrKswDN4eMWJy
-         covBPb608uH/LlmD064QR6EDIsviypVVIzAkgoCm7g2Pze9ueFP/Po6prIAytc31kkxs
-         mrlUD10ToeDCgP8FegS0lHp8hHHN2Nw8LZaUJDFMYusOEonn7v9urwlgp7b50R61mh5+
-         vcGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxePe4JhwFW5kSsvrialodZ3GCWP1Ng2XTXOcdyMZlg1BYtRbwEYKMyGWkPt7H8hD5jWfhCADcz8K/vz8M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYrssG5YxCQqxfUjKWg+z3GLrmlraoORDQttSI+IJeC2q+Ryoq
-	aU3w4//1NU12eTh5p3CWkX6DMmf5/68LNgyMMAJv+NT2LCO5vVZG7wSb2Sxkydt2y8b8Fy2Rtkc
-	iLPOkrJ1Dlw==
-X-Gm-Gg: AYBFou0Ke0uTobiPiqJCOloltQXa7ZKDJpNHJxM3P+bviY9yvpHrO3eTPN6bZaa542o
-	fC4aA1OrQSVb91sl0urNz+1rB+qTOdvdIcdYjxydgzAEyWNkRD3BfCkn3TYMJFHFBOXxK8G/6BC
-	arC9hUu28AVEHmHolYktqdNp4lxdwuFU0ElqXoMLTtB75m7lE88OYAjZ+Y+616a0KGB1tEqY5MW
-	lL2mlcKNEtbELWemZmA8d1afTyXPzRcNGnce0Su581Uy6GhyJKWmwjE5eGki0MfjWbd0IMA0y5Q
-	ndHZXh8OZ4ihpdsAbLO5hliDHTU4B5s1WjCFoiGnCVYDzwsjZxFxLO5lUNd3EecI10kV+iXlHt0
-	Cd/RrPu4Vr9eIu5WNRTwKEBrta0T1sRAo9r+DuzVWDDo0SgFSR9E+5dIih5+irVZ5/EZb6I+7GQ
-	UjoFR4DQdq+3nVo7YVZ72zFQInAddDEdhdD8ndgMk2hOKMZ96P/XeG3upCmkbK5mIzXrSR60m1U
-	uyKSTx4/lbaX6VyAQjnAoLVGP7rbn9f4wjgIKt4QZsYuNIZjg==
-X-Received: by 2002:a05:6402:3245:b0:6a9:d755:82a9 with SMTP id 4fb4d7f45d1cf-6a9f626d30fmr2050409a12.24.1789416415081;
-        Mon, 14 Sep 2026 13:06:55 -0700 (PDT)
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com. [74.125.228.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b59149dcsm4876090a12.13.2026.09.14.13.06.53
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 13:06:54 -0700 (PDT)
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55eff0so307451866b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:06:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzrBDRhldCBN8aeT/6c4yodlphhIemcRzAiArmNJZ5g6vRbfwKG5NDdwvfZN4s6+hktukTcp/LU80d8UJo=@vger.kernel.org
-X-Received: by 2002:a17:907:6d1f:b0:c25:5faf:b207 with SMTP id
- a640c23a62f3a-c29b84c9a48mr280688866b.3.1789416413732; Mon, 14 Sep 2026
- 13:06:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="I6yof3Ep"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Cyd15aqCLL0C9quDANCZs0xeT7O/8tEjoydez/zTO+U=; b=I6yof3Ep5KUDsHQ/icDBFQXFnD
+	p7QpgIOZJheciXfj6QK8rja0JdDVNFoSv//elPq7ISffQ2tLzQzFdBwvoMzZ2P/PFbZhJAmMl8Kxg
+	GvKy77wQ9rjoVur9ohXSWXbNI16yQ5fs/rYi4UsEMOU1+0nN6u7Wm4dOH2BypBXfr69s=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6D0T-00588c-Oz; Mon, 14 Sep 2026 22:10:25 +0200
+Date: Mon, 14 Sep 2026 22:10:25 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Michael Chan <mchan@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] tg3: clean up PHYLIB resources on probe failure
+Message-ID: <2b1101ed-ee5c-4a44-bdaf-a789964dfd0b@lunn.ch>
+References: <20260913012148.9800-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-15-39817ec5db23@kernel.org> <aqhLhVMkNzf_4oJw@jpoimboe>
-In-Reply-To: <aqhLhVMkNzf_4oJw@jpoimboe>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 14 Sep 2026 13:06:37 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiB9MX7vBDQ+WHTUVfSYubLhR-PbABewscqTsxRhg-LbQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XwkDuRyfqGBvPSv1hGEYJIl2TPFZFoOf2g9mdtKKeoU1aAJmlE5veL8PE
-Message-ID: <CAHk-=wiB9MX7vBDQ+WHTUVfSYubLhR-PbABewscqTsxRhg-LbQ@mail.gmail.com>
-Subject: Re: [PATCH v2 15/21] objtool: cache relocations, do less work
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913012148.9800-1-mhun512@gmail.com>
 
-On Mon, 14 Sept 2026 at 12:44, Josh Poimboeuf <jpoimboe@kernel.org> wrote:
->
-> BTW, I found another initialization bug: klp-post-link.c uses
-> elf_create_section() to create a reloc section, so it missing the
-> initialization of rsec->hashed in elf_create_rela_section().  But that's
-> moot if we just get rid of the hashing.
+On Sat, Sep 12, 2026 at 09:21:48PM -0400, Myeonghun Pak wrote:
+> tg3_get_invariants() can register an MDIO bus and connect a PHY for
+> USE_PHYLIB devices. If tg3_init_one() later fails, its common error path
+> releases the mappings and netdev without undoing those PHYLIB resources.
+> 
+> Disconnect the PHY and unregister the MDIO bus before the remaining
+> teardown. The existing IS_CONNECTED and MDIOBUS_INITED flags make both
+> helpers safe when initialization only completed partially.
+> 
+> This issue was identified during our ongoing static-analysis research while
+> reviewing kernel code.
+> 
+> Fixes: 158d7abdae85 ("tg3: Add mdio bus registration")
+> Assisted-by: OpenAI:GPT-5.6
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/net/ethernet/broadcom/tg3.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
+> index 73a4b569b..4662e0e92 100644
+> --- a/drivers/net/ethernet/broadcom/tg3.c
+> +++ b/drivers/net/ethernet/broadcom/tg3.c
+> @@ -18047,6 +18047,11 @@ static int tg3_init_one(struct pci_dev *pdev,
+>  	return 0;
+>  
+>  err_out_apeunmap:
+> +	if (tg3_flag(tp, USE_PHYLIB)) {
+> +		tg3_phy_fini(tp);
+> +		tg3_mdio_fini(tp);
+> +	}
 
-Talking about "getting rid of the hashing": the instruction hashing is
-obviously a big deal judging by the hash size expansion in that other
-patch.
+Looking at tg3_get_invariants(), tg3_mdio_init() is not conditional on
+USE_PHYLIB.
 
-Do we actually look up all instructions by hash in the first place?
-From a quick glance, it looks like almost every user of "find_insn()"
-is looking for just certain *kinds* of instructions: calls, branches,
-returns, endbr.  And branch targets.
+    Andrew
 
-Maybe stack updates? I didn't check.
-
-Yet we seem to hash them all - even if they are just some random
-ALU-only instruction that is in the middle of a function and never a
-target of anything and has no impact on any code flow.
-
-So the question becomes: do we actually need to hash those
-instructions at all? Are they ever actually looked up?
-
-I don't know this codebase at all, so maybe that's just a really
-stupid question. Feel free to look at me condescendinly, shake your
-head and say "Poor Linus has lost the plot".
-
-[ And yes, I see that whole "next_insn_same_sec()" thing, which
-obviously *does* look up all the instructions when you iterate over
-that function, but it strikes me that using a hash table for that is a
-bit strange when the natural way to do it would be with juyst a
-"struct instruction *next" field instead.. ]
-
-So if hashing was such a big deal that it showed up clearly on
-profiles, maybe the answer isn't just a "make the hash table larger".
-If a "next" field were to not only make the hash table much smaller,
-but also mean that next_insn_same_{func,sec}() would become a "follow
-one pointer", mayeb hashing would become rather cheaper?
-
-Stupid? Or maybe "not completely stupid, but too painful to change"?
-
-         Linus
+---
+pw-bot: cr
