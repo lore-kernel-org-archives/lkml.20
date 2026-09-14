@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-114.mta0.migadu.com [91.218.175.114])
+Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6478C442369
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E312A442FA0
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386242; cv=none; b=eQcUqXdg4dwykYK9GaUCHqAIYwqiRXMy6pZU+KTOVqkw2TNyJrL+aCKJ+JhywEaMozQ3ydqlocVzVs3Hf0LSxdIaB55qxqmSPHq28msjz8dOHInsp0lYQ2r7yA3CkbzeBQtf99znk625EjWCPyb2UbNZBxS1eIWT/P+sgRvC64o=
+	t=1789386247; cv=none; b=fxAgku06qNBh4JptIbMrRaKjilFr6M/iVela8GGRaxIAVbwByzQh62winEpWvVuHVusN2xb/mrFKJ2K4wJnNThsxFEZttzFegiCA8kKrKJpzPKtufFHPhhlmou7rnowFIepPMqmYwuEuJicjbduqt7LyFGovOaJHNWs7DkD1S30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386242; c=relaxed/simple;
-	bh=N+dRbJAiKiCxpTGr27ho63g/6orT5YaFsO8QYoCGDoE=;
+	s=arc-20240116; t=1789386247; c=relaxed/simple;
+	bh=m3zofWqXNwwubO6EsHPEBwbDlkXPNebnA/BZT3Zr5yk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V3w47b4OQjCOJq1cW73WndN8hy/N6DackCZXg7/0liD8PqypsIeoQwIcFAedU8/yxJB01hDcR2Fzpr17f0/lb+WWbZWZxClYpyx2u3yhiEI5rVOSRCXJd1yEtRezB+41l0JmIGE6uTr6oWOAmfaf57H9wz0faKEMM/h+AEhkYqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kjmzxUBU; arc=none smtp.client-ip=91.218.175.114
+	 MIME-Version; b=hyzxc6Xdpety5jyZpoUH9DWIO9ukFEvKohIx9YBTxiNFqGbaQt9NED6uaA6gHSuionYSECAydPY8mPR/YTZcbDcJBbb52r/K1MRx7QtwyY2WBgezaXT+yqP3W6NGDDLaNVs6ck2lL/R8zt/yAbrt//248rEKTInL2DE0sgBa9MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ONt0a/jw; arc=none smtp.client-ip=91.218.175.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kjmzxUBU"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ONt0a/jw"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=N+dRbJAiKiCxpTGr27ho63g/6orT5YaFsO8QYoCGDoE=;
+DKIM-Signature: a=rsa-sha256; bh=m3zofWqXNwwubO6EsHPEBwbDlkXPNebnA/BZT3Zr5yk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789386237; v=1; x=1789991037;
- b=kjmzxUBU2iQUdeBTLej9Kb4RLRkXidKFp3pWrExf0h6c79YFxSK3fURyNvl3mghBFZFcHF71
- XO8AUH7boJ/6zlGsbsxL2vd24ctXbuUmBoQk+ARlkV0I/G+wWl/7kxhIKKJEBQUIWRaq10oh53k
- 4/+ugpPudakdr66jNpzwaskQ=
+ t=1789386243; v=1; x=1789991043;
+ b=ONt0a/jw7tfJdUHOv6+2nLmRjfU0MWIU7IIKQLtddo5S6i9iYku/450AMUHftEs8PwfwR3Qs
+ t7U+iQPx0ysvxdr7Xat267zTuybuJGd0kzybqbqXS6Q29lSUU7xLnsKCrxXvbv8GyuJb1L4HU2P
+ 5LieswihxSkgK85tRp2Hzrmc=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 8319a445ae2ffcea;
-	Mon, 14 Sep 2026 11:43:57 +0000
-X-Mizu-Trace-ID: 8319a445ae2ffcea
+Received: by mta10.migadu.com with ESMTPS id 91b9be05c6e28011;
+	Mon, 14 Sep 2026 11:44:03 +0000
+X-Mizu-Trace-ID: 91b9be05c6e28011
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -62,13 +62,14 @@ Cc: ying.huang@linux.alibaba.com,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Subject: [PATCH v7 06/29] s390: mm: add PMD swap-exclusive helpers
-Date: Mon, 14 Sep 2026 04:41:58 -0700
-Message-ID: <20260914114320.12988-7-usama.arif@linux.dev>
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Subject: [PATCH v7 07/29] x86: mm: add PMD swap-exclusive helpers
+Date: Mon, 14 Sep 2026 04:41:59 -0700
+Message-ID: <20260914114320.12988-8-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260914114320.12988-1-usama.arif@linux.dev>
 References: <20260914114320.12988-1-usama.arif@linux.dev>
@@ -84,82 +85,49 @@ A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
 swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
 not just in a swap PTE.
 
-s390 is the one architecture where a swap PMD is not a swap PTE in
-disguise: it is an RSTE with its own layout, converted to a fake PTE swap
-entry for the common code. Give it its own exclusive bit rather than
-borrowing the PTE-format macro. The two happen to have the same value, but
-that is a coincidence. Bit 52 was documented as unused; document what it
-is now.
+x86-64 encodes a swap PMD exactly like a swap PTE, so the new helpers reuse
+_PAGE_SWP_EXCLUSIVE, bit 3, which the swap-entry layout already reserves
+for PG_anon_exclusive. 32-bit x86 aliases that bit to _PAGE_PSE and does
+not select ARCH_HAS_PMD_SOFTLEAVES.
 
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- arch/s390/include/asm/pgtable.h | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ arch/x86/include/asm/pgtable.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
-index 2d5c2ab06de98..0790a0884cfab 100644
---- a/arch/s390/include/asm/pgtable.h
-+++ b/arch/s390/include/asm/pgtable.h
-@@ -333,6 +333,7 @@ void setup_protection_map(void);
- /* Common bits in region and segment table entries, for swap entries */
- #define _RST_ENTRY_COMM		0x0010	/* Common-Region/Segment, marks swap entry */
- #define _RST_ENTRY_INVALID	0x0020	/* invalid region/segment table entry */
-+#define _RST_ENTRY_SWP_EXCLUSIVE 0x0800	/* SW exclusive swap bit, see mk_swap_rste() */
- 
- #define _CRST_ENTRIES	2048	/* number of region/segment table entries */
- #define _PAGE_ENTRIES	256	/* number of page table entries	*/
-@@ -859,6 +860,28 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
- 	return clear_pte_bit(pte, __pgprot(_PAGE_SWP_EXCLUSIVE));
+diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+index d551120a7c889..a2d1cd03cba23 100644
+--- a/arch/x86/include/asm/pgtable.h
++++ b/arch/x86/include/asm/pgtable.h
+@@ -1525,6 +1525,23 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+ 	return pte_clear_flags(pte, _PAGE_SWP_EXCLUSIVE);
  }
  
 +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-+/*
-+ * A PMD swap entry is an RSTE, not a PTE, so it needs its own exclusive bit
-+ * rather than the PTE-format _PAGE_SWP_EXCLUSIVE.  The two happen to have the
-+ * same value; see the RSTE swap layout above mk_swap_rste().
-+ */
 +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
 +{
-+	return set_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
++	return pmd_set_flags(pmd, _PAGE_SWP_EXCLUSIVE);
 +}
 +
 +static inline bool pmd_swp_exclusive(pmd_t pmd)
 +{
-+	return pmd_val(pmd) & _RST_ENTRY_SWP_EXCLUSIVE;
++	return pmd_flags(pmd) & _PAGE_SWP_EXCLUSIVE;
 +}
 +
 +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
 +{
-+	return clear_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
++	return pmd_clear_flags(pmd, _PAGE_SWP_EXCLUSIVE);
 +}
 +#endif
 +
- static inline int pte_soft_dirty(pte_t pte)
+ #ifdef CONFIG_HAVE_ARCH_SOFT_DIRTY
+ static inline pte_t pte_swp_mksoft_dirty(pte_t pte)
  {
- 	return pte_val(pte) & _PAGE_SOFT_DIRTY;
-@@ -1900,15 +1923,16 @@ static inline swp_entry_t __swp_entry(unsigned long type, unsigned long offset)
-  * Bits 59 and 63 are used to indicate the swap entry. Bit 58 marks the rste
-  * as invalid.
-  * A swap entry is indicated by bit pattern (rste & 0x011) == 0x010
-- * |			  offset			|Xtype |11TT|S0|
-+ * |			  offset			|Etype |11TT|S0|
-  * |0000000000111111111122222222223333333333444444444455|555555|5566|66|
-  * |0123456789012345678901234567890123456789012345678901|234567|8901|23|
-  *
-  * Bits 0-51 store the offset.
-+ * Bit 52 (E) is used to remember PG_anon_exclusive
-+ * (_RST_ENTRY_SWP_EXCLUSIVE), mirroring bit 52 of a swap pte.
-  * Bits 53-57 store the type.
-  * Bit 62 (S) is used for softdirty tracking.
-  * Bits 60-61 (TT) indicate the table type: 0x01 for REGION3 and 0x00 for SEGMENT.
-- * Bit 52 (X) is unused.
-  */
- 
- #define __SWP_OFFSET_MASK_RSTE	((1UL << 52) - 1)
 -- 
 2.53.0-Meta
 
