@@ -1,110 +1,94 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B153EC6A4
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF2E3B19B5;
+	Mon, 14 Sep 2026 08:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373906; cv=none; b=o46Wdnu+qYg96mvx/KmkLfqBZehZl3Jy4ig1xCjxMw0OFjrKqvOEQ9RoyYefh2WqayLDyqrB4XkDURl3+p7QhMI/FyjrDlsH1B1jr2kSSWPjuh+QhcZCjGVxdh1k4zQOP8LgTpMndgIOCSWtQiLgRuBMYDHpgDtFP/0DMFnwm9o=
+	t=1789373927; cv=none; b=S5/enQOdM8fzGrpLdiKx60019LtBJ+VZkuDEpxnEpcWo4Wdlkub2/gQslUwOMkgsFgYkv1B1jR8QMEeqKZ0Kgk/zpPsLEJ5uBt4VGORTp3Phlb3+Ujld4VJT8MLgBChEQecELlxdlI7dYWCt1gdIxFpZVXfWVQ/xIB0EWXgj4VA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373906; c=relaxed/simple;
-	bh=DWggKVY8dMTtllAFA52TbFspZ6he1PLAFTJ0dJKkSDk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tO+meYRuwiCbJzRYgmmjo7FpP36XrdQV3uSB9ouqMdpWYHB8sVggsXwsz4nZvWJGZNMgP17xaMaCm4ggaX3+alefbyjvYqZVc4gq3JG4Tu60KAFVxenFPcWWcPn5nIQf3i7BHOd3L04vP0iyoC7QzFDjkru+/u16u3tQ5/TUbPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=I25XpAC0; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789373927; c=relaxed/simple;
+	bh=HSTVGACL4y92fxENAWrSotM1ZWJTJr8vPVzH7e3JESo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HsFAYuHBvvvq+aZH4V4VmJaMVCl0xQVV/RK3DOsZM679pAVcitZH6Wl/mCeC5Alt7/XZxv9l2nC+nTzjp1Kpx1KPrjKNzoxHNveBOEgt504yqD3NKQviZWL30KcfbHppDwsTqZVzMaqUGvaUQ8u8ckziI1oUoZ6vqqMpHwGWqBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bGcBEmuW; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="I25XpAC0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789373902;
-	bh=DWggKVY8dMTtllAFA52TbFspZ6he1PLAFTJ0dJKkSDk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=I25XpAC06/I3GfHLgZt/v9IewDM52y/atTzc4iP6NsBkhEcubS81cw/KOMU9IzYZD
-	 TdzCWfEYrcLUNsM9x0IMC3EvudaVv9uQ7SsvVtaE+Bi1H8Xg+jCkuzV6bpb3G6M3PA
-	 cC5+Wr3zzOixAPGFCzH50qNxdIsS7uUxGVvm/BSN8fF/VesB3rD39ERE/YexmxsfIC
-	 MEby6kGFk+MdwrsaJ4PDtqqGYd4fMT88WQLGkozyvX9/CUnVmH6XdM9iP4Nd7or5h6
-	 0rUaA3jwfphEhZxr3gbtDE09jzGxMmO1+ZunKkHYyABuLAJTnq7PY5khliM1lo6IRD
-	 0Yvv0wu3jhV+g==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id F311717E020C;
-	Mon, 14 Sep 2026 10:18:21 +0200 (CEST)
-Message-ID: <e28acd6b-aac6-4e2e-8d0b-b9ed22820d73@collabora.com>
-Date: Mon, 14 Sep 2026 10:18:21 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bGcBEmuW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789373926; x=1820909926;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HSTVGACL4y92fxENAWrSotM1ZWJTJr8vPVzH7e3JESo=;
+  b=bGcBEmuW9U+hyCDFnZsLPf/lrisM8lpoWJ8UFmQwJKBSWaGkemi4XP3Z
+   aky5F3CtIUaWiJgbQKZUrJohHboNTuiTWvMmywd1c7tjzAcO4H6XAsetN
+   hx3ERHlGsrZ4Bz7iCCBjwSYYXg980MinXd9frS6aeiYHYKxPfgqq60bhQ
+   m/92z4XmA7Gqmu1iwmcPwaP2rUeztNnxyAQhA6mxGYSI53AtV5Qy8M8nm
+   DPz4BixLxTOmTqNfiGyHi/mOTY40JWqGHLWTusN7Txi5igZOqprqSzh0T
+   XL04qpuewqeYeoVj7zerg4hPufBKgUYSyBRZNirfIWWixRnfK5jPjr1sC
+   Q==;
+X-CSE-ConnectionGUID: PoaGpGLkS721Jtb9dcA5VA==
+X-CSE-MsgGUID: 5QQiMC4USsqnTVOfj9YG1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="112493230"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="112493230"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:18:45 -0700
+X-CSE-ConnectionGUID: wCTH24emS0O2A597s3NrpQ==
+X-CSE-MsgGUID: ZE2lm9ESRRC4sNw3twiUqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="276734201"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:18:41 -0700
+Date: Mon, 14 Sep 2026 11:18:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, gregkh@linuxfoundation.org,
+	linux@analog.com, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] iio: accel: adis16201: add SPI device ID table
+Message-ID: <aqet3xwqe1jfhXpW@ashevche-desk.local>
+References: <20260913085307.13846-1-shehryar.amd@gmail.com>
+ <20260913085307.13846-2-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: phy-mtk-dp: Fix pdata array members initialized as
- pointers
-To: Sasha Levin <sashal@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-References: <20260913172930.1150324-1-sashal@kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260913172930.1150324-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913085307.13846-2-shehryar.amd@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 9/13/26 19:29, Sasha Levin wrote:
-> Building arm/arm64/i386 allmodconfig with clang fails:
-> 
->    drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: incompatible pointer
->    to integer conversion initializing 'u16' (aka 'unsigned short') with
->    an expression of type 'const u16[4]' [-Wint-conversion]
->    drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: initializer element
->    is not a compile-time constant
->    drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: suggest braces around
->    initialization of subobject [-Werror,-Wmissing-braces]
-> 
-> 14 errors in total, one set per offending member.
-> 
-> off_ana_lane, off_dig_lane and driving_params are declared as arrays in
-> struct mtk_dp_phy_pdata:
-> 
-> 	u16 off_ana_lane[MTK_DP_PHY_MAX_LANES];
-> 	u16 off_dig_lane[MTK_DP_PHY_MAX_LANES];
-> 	u32 driving_params[PHYD_DIG_NUM_DRV_PARA_REGS];
-> 
-> but the SoC data instances initialize them with compound literals. A
-> compound literal is an object, not an initializer list, so this is not
-> an array initializer: the member is initialized element-wise from a
-> scalar, the first element gets the address of the literal truncated to
-> u16/u32, and the remaining elements are zeroed. Hence the three
-> diagnostics above - the pointer-to-integer conversion, the address not
-> being a compile-time constant, and the missing braces.
-> 
-> Arrays are the right type here, since both members are indexed per lane
-> and driving_params is sized with ARRAY_SIZE(), so drop the casts and use
-> plain braced initializers.
-> 
-> Found by KernelCI builds of the linus-next tree.
-> 
-> Fixes: ae859204b519 ("phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata")
-> Fixes: 7cf38eb0ab59 ("phy: phy-mtk-dp: Add support for digital and analog calibration")
-> Fixes: 6fe4d5beac72 ("phy: phy-mtk-dp: Add support for MT8196 eDP PHY")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+On Sun, Sep 13, 2026 at 01:53:02PM +0500, Shehryar Ahmad wrote:
+> Add spi_device_id table for ADIS16201. Replace MODULE_ALIAS()
+> with MODULE_DEVICE_TABLE() which automatically generates the same
+> module alias.
 
-Whoops, sorry.
+> +static const struct spi_device_id adis16201_ids[] = {
+> +	{ .name = "adis16201", 0 },
+> +	{ },
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Learn the style what we use (hint: check last max half a year old new code
+in IIO).
+
+> +};
+> +
+
+This blank line is also the subject of the common style.
+
+> +MODULE_DEVICE_TABLE(spi, adis16201_ids);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
