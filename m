@@ -1,86 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7A73914FE;
-	Mon, 14 Sep 2026 23:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF85A3914FE;
+	Mon, 14 Sep 2026 23:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789429020; cv=none; b=QlLUT2u+PrLVsyd802w/BfiWJHEZFXQIiHbQRefr+5I9iwasQfpG0RQ5oHOkJImPTh1z16XWX/keUG9rCa0lcuCQCxS7IsscW4NlkKPVmDNUV7CymWUBdRJZJSgBfCY3c8241W+TTWi7NAnDfhSBnL87a5w+W39VxPhw3d6dBI8=
+	t=1789429072; cv=none; b=TtKXOBLWitrnjBycwIoYGU/PIn1HCmiNPDD/w4IL8y1Ws3Bcu7ESNxXZcn0H5UpGrvakXhY3jWEQHB86S7R6S54E8GFZ24wST8H1Vesz8xNemw2GGXfCgHNgdPc1BUPKI5FaKKEol/+nkjG9QjLJTyPuBYIHou4x1gGj7USCiYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789429020; c=relaxed/simple;
-	bh=zChASyt3c4gbOlGfP0flNC4hW93w+vYYOw4HlhzpcVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uG5RW4+FmJKaH29t/3yo3ywZ8zigblI6h0XnUEcutgI9BOIci05L6n3s8MD1D2+XNA53VqMaFRbP61REFliRQQggmFLGLjWsmF4yNduoJERyTFWcFnpIhVpx+Yh2lVHQn/I5HVcHi6NNxP+WcqgbIA4dNeGP+/bJXnEXpoTHhR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWcYaacy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789429072; c=relaxed/simple;
+	bh=QAUxjGI5TxT/Xrun8/+iXgykTgc7YxBk6r5VOLa/my8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PcQQZgM0yn5IrGC8l/hqn4CqpEsbDJYF58jlnwz+ajqAGbCYjx2uEJZwtD5UgfRCTb/AxuVfPDMpT0voV4/3LwjdOP0+kpGc1G7xM50Wlz8tB/fa2StAiacqcfi7LRn4LgUanqO7vBpilMDbMXdJbexGPvDHJPaR72OkArXA4Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc; spf=pass smtp.mailfrom=vasily.cc; dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b=aGzQ055d; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vasily.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWcYaacy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE871F000FF;
-	Mon, 14 Sep 2026 23:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789429019;
-	bh=DpRQcQ1yh6Ro17NbHd2nqARNl9jC+rX/Kbcw2AVgXJ8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dWcYaacyJ3ddoGso3kMjasMschxmd0u4/EWkC7f+W19V3iOYKXYrMcSlwXDPkPmWZ
-	 xW2Kak+8u8ts+n9Vsk+rDb9A7YCC/88Z4u/4CTXBuX9Z9QRjm6EzOvIAl9m7+7LypC
-	 Oxbus/ocXfIBX55+0s8TT8LzJRp/QcFt8O3ZQhsrBnTedKFX3Eq9JR2pjRDW6o2sEh
-	 s3QiNqBzJptmzrfDwwc0isuOeJjZ6YFuntD09dEc4qyeRWeYsX50dmicQVLkM0Tpk9
-	 MrvBcv8y2uCaR8Md+jUWolCOavkHwC5rBQpOSpS2o6/xO8VMX6c0rCNO4AC4N6kZQa
-	 PdRYo0oI9hDag==
-Date: Mon, 14 Sep 2026 16:36:58 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Murali Krishna <muralikrishna2444b@gmail.com>
-Cc: mani@kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, horms@kernel.org, linux-arm-msm@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] net: qrtr: fix coding style issues flagged by
- checkpatch
-Message-ID: <20260914163658.13cff637@kernel.org>
-In-Reply-To: <20260913180342.8948-2-muralikrishna2444b@gmail.com>
-References: <20260913180342.8948-1-muralikrishna2444b@gmail.com>
-	<20260913180342.8948-2-muralikrishna2444b@gmail.com>
+	dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b="aGzQ055d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vasily.cc;
+	s=protonmail2; t=1789429067; x=1789688267;
+	bh=YSVnX4Jvacy6T1gV7Hqcr9WgSmXcyvrQmUksEOriBYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=aGzQ055d3xo0qaK483INjdPOl690K6aRZ6asItwSQI0sRNc//sFyclt0hFuPvxrc3
+	 82jcVeV3YNoAgdlSH/XPnfs6ozuoTtD6fEaEzci2pOJv3Tr9ecUjKEWqT4dizVC70I
+	 VMEkkSp7MI/fKbBUtgEerv/fW2aoVxjRGq14nsWsAQskMqknounYrFE3NZajb3qMCx
+	 TPqsO6L9/MVNfhMoiJZIeqBGODYpbNk1HrZmL+imNy/zMpaiQMwYx3juVt/5CyeFmn
+	 MdlQ41U4fLAQIZ/1ndSqNkTfnZowLDO22CMpqSfbYFH6dXvp88fPnriLjtZODDUBHe
+	 VAvu1o5QOIF/A==
+X-Pm-Submission-Id: 4hkM5P3V9yz1DDKv
+From: Vas Zayarskiy <contact@vasily.cc>
+To: linux@roeck-us.net,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	Jack Doan <me@jackdoan.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH v3 0/4] hwmon: AMPINEL support and shared fixes
+Date: Tue, 15 Sep 2026 02:37:24 +0300
+Message-ID: <20260914233728.22725-1-contact@vasily.cc>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 13 Sep 2026 23:33:42 +0530 Murali Krishna wrote:
-> Fix several coding style issues in the QRTR subsystem detected by
-> checkpatch --strict:
-> 
-> - af_qrtr.c: fix missing space in pointer cast, "(u8*)" should be
->   "(u8 *)" (ERROR)
-> - af_qrtr.c: move trailing "*/" to a separate line in two multi-line
->   block comments to match kernel comment style (WARNING)
-> - af_qrtr.c: add missing parameter names to the enqueue_fn function
->   pointer declaration in qrtr_sendmsg() (WARNING)
-> - ns.c: remove unnecessary return statement at end of void function
->   service_announce_del() (WARNING)
+This revision addresses Guenter's review by separating shared fixes from
+AMPINEL support and leaving the keyboard interface with hid-generic.
 
-You seem to have ignored all the automated messages telling you to slow
-down. And we do not accept checkpatch fixes, please see below.
+Changes since v2:
+- Add a HID prerequisite: hid-generic must consult a specialized driver's
+  match callback before yielding. ID-table matching alone makes it yield
+  the keyboard even if the hwmon driver rejects that interface. The AMPINEL
+  match callback accepts only USB interface 1 and retains the transport
+  check before accessing the parent. HID maintainers are copied for review.
+- Widen the shared power/current caches, clamp overflowing power to
+  LONG_MAX, handle unavailable power, and prevent negative Aquastream XT
+  calibration results from wrapping into the unsigned current cache.
+- Expire the initial cache for every device in a separate patch.
+- Use the existing raw-event path for serial numbers, temperatures and
+  timestamps. Store AMPINEL values in hwmon units during decoding.
+- Omit current deviation until its semantics are established; remove
+  AMPINEL keyboard callbacks and the unrelated expiry documentation.
 
-Please do not send any more patches to networking for a month.
+Validation:
+- Both modules build and link against Linux 7.2.5. Both changed objects
+  build on this 7.3-rc3 base for x86_64 and i386 with W=1 and Sparse.
+- All 995 captured AMPINEL reports pass the C replay harness with ASan/UBSan.
+  Shared regression cases cover High Flow Next power and unavailable data,
+  existing fan/pump power paths, Aquastream XT current, and initial expiry.
+  The tests reproduce failures with the previous conversion/cache code.
+- A userspace harness extracts the actual core/generic/AMPINEL match
+  functions and tests both driver registration orders, keyboard fallback,
+  non-USB rejection and special-driver overrides. The original hid-generic
+  fails the fallback test. Probe descriptor validation is also covered.
+- All seven Python tests pass. Strict checkpatch passes for all four
+  signed patches. The changed RST renders without warnings.
+
+Both revised modules are now installed on Hearth, Linux 7.2.5. Their loaded
+ELF build IDs match the packaged binaries. All 60 raw USB/hwmon comparisons
+matched across initial loading, telemetry-driver reload, persistent
+activation, deep suspend/resume and reboot. The AMPINEL keyboard stays bound
+to hid-generic, with its input registration unchanged through the reload
+and resume. HID input names and capabilities were preserved across reboot.
+The reboot selected both revised binaries without manual intervention.
+The installation journal had no warnings or faults. Resume reinitialized
+the USB controller and reset several devices including AMPINEL; the same
+warning pattern is present in logs from 2026-08-29, before v3. Both interfaces
+recovered without intervention. No Oops, BUG or call trace was found during
+resume or reboot. Boot had no AMPINEL failure or USB-controller reset warning;
+it retained the expected out-of-tree module notice and existing system
+warnings. Live loading used generic-first order; the opposite order is
+covered only by the userspace harness. Power-off cold boot and alarm-generated
+keys remain untested. Shared-device numeric tests are synthetic. The HID
+prerequisite needs review with the AMPINEL patch.
+
+Telemetry units were checked against the device display at idle and under
+load. Channel labels are report order. Alarms, protection configuration,
+negative hotspot temperatures and other firmware remain unverified.
+
+AI assistance: Codex assisted with the implementation, tests and submission
+text; Sparse was used for static analysis.
+
+V2: https://lore.kernel.org/linux-hwmon/20260914220128.287145-1-contact@vasily.cc/
+
+Vas Zayarskiy (4):
+  HID: generic: Respect specialized drivers match callbacks
+  hwmon: (aquacomputer_d5next) Avoid truncating scaled sensor readings
+  hwmon: (aquacomputer_d5next) Expire the initial sensor cache
+  hwmon: (aquacomputer_d5next) Add AMPINEL support
+
+ Documentation/hwmon/aquacomputer_d5next.rst |  11 ++
+ drivers/hid/hid-generic.c                   |   8 +-
+ drivers/hwmon/Kconfig                       |   4 +-
+ drivers/hwmon/aquacomputer_d5next.c         | 121 ++++++++++++++++++--
+ 4 files changed, 132 insertions(+), 12 deletions(-)
 
 
-Quoting documentation:
-
-  Clean-up patches
-  ~~~~~~~~~~~~~~~~
-  
-  Netdev discourages patches which perform simple clean-ups, which are not in
-  the context of other work. For example:
-  
-  * Addressing ``checkpatch.pl``, and other trivial coding style warnings
-  * Addressing :ref:`Local variable ordering<rcs>` issues
-  * Conversions to device-managed APIs (``devm_`` helpers)
-  
-  This is because it is felt that the churn that such changes produce comes
-  at a greater cost than the value of such clean-ups.
-  
-  Conversely, spelling and grammar fixes are not discouraged.
-  
-See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#clean-up-patches
+base-commit: 46fde107b4e881f179bf02bca69d8a0020561b3c
