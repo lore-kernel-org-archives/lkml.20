@@ -1,179 +1,104 @@
-Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0D518A93F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30BC3D9DC9;
+	Mon, 14 Sep 2026 11:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=24.134.29.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385672; cv=none; b=rGNsWUNrqgcTA205k4FpvLakECDiSb+GX6Y0KQzLPrgUyMXJ8PM7+sOiR1a5e6vq3w62E7PuI4yF/UN527+xNeKA+nnK4pgYEa2VA9yzhk1vGoeywR4Telo3Md9RUDezuP6zBezbsYgXXQ882fJmeonH9RLXxclJH0L622kqVNM=
+	t=1789385674; cv=none; b=sDTjbrOtOrVOejTNuAj8GcU5rWuymnVS27LnwUKjGMKGh522vEDOhuBwwfpGmpQEyPabNvM2m1USIwdWdaB5KY6x1PW11ncsjEgQH3vADiE9uADx6KYfQDYJgsr7TJZlDGHjUNl5D4ftz8UVoKnTjcNZnUeUFGxm3sqGfX6wQUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385672; c=relaxed/simple;
-	bh=oTsKMUDCOl715EkCy23EGBmVp7/ht+R8heXxmY1NxEI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dzXNHMnqbda4JRjCSj+eFc0OU51JvcH8wx+5UdPDxr+jSKm9ViuSuhWa1KZjmv+VjUOENhQgnNkVVUSn1YRt6OyXg2vF84YjnJ60MASvBEWheN1HikAntDn5tPsIAJUp1tPg5hFju1GQc8NHa2fqlUXocxlWldVNTQPk+CeBL+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SdgK5F7v; arc=none smtp.client-ip=91.218.175.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789385674; c=relaxed/simple;
+	bh=PpE900YYTup0zjX0/okVz2oU4lPrmeJ3iBMQI4+6hUA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UBbJqM1HetKNNgn3qAXmSFeI0ow+E1foU1YyYKKW0NhhINphyf7vU1rhBrIqfoYDDPQdwAl8DYx8D8YAqJLD6UVfYmX/W5NeQ3ls27mqYhsDGB5Cku+SIqDe6jRDyKahK8nvbVclxyw4z9paVzHiKf6ZS6djr0MmSzPCgKtVfQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigxcpu.org; spf=pass smtp.mailfrom=sigxcpu.org; dkim=pass (2048-bit key) header.d=sigxcpu.org header.i=@sigxcpu.org header.b=eXt2uK6E; arc=none smtp.client-ip=24.134.29.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigxcpu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigxcpu.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SdgK5F7v"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oTsKMUDCOl715EkCy23EGBmVp7/ht+R8heXxmY1NxEI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789385668; v=1; x=1789990468;
- b=SdgK5F7v8bdJUL+xFNSX0eAci3t7aBPfwj2rtiFeBNzf3xugOeC69IIl14kobZKnfWUJzSHe
- DaOwVJQ45KpX6gY/uxHRUcdCy928jV/99RV/jJzDJLYMKhm7cAq/ArF8//kz4M3k4sHzBj0uC/f
- N0M+jEn865s73AMDckSF3IEM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e6bab9579a540251;
-	Mon, 14 Sep 2026 11:34:28 +0000
-X-Mizu-Trace-ID: e6bab9579a540251
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: [PATCH v3 06/18] KVM: arm64: Skip fixed-feature state flush for protected vCPUs
-Date: Mon, 14 Sep 2026 12:33:26 +0100
-Message-Id: <20260914113338.159227-7-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260914113338.159227-1-fuad.tabba@linux.dev>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=sigxcpu.org header.i=@sigxcpu.org header.b="eXt2uK6E"
+Received: from localhost (localhost [127.0.0.1])
+	by honk.sigxcpu.org (Postfix) with ESMTP id 41378FB04;
+	Mon, 14 Sep 2026 13:34:27 +0200 (CEST)
+Received: from honk.sigxcpu.org ([127.0.0.1])
+ by localhost (honk.sigxcpu.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id L2-6ixqJmWgU; Mon, 14 Sep 2026 13:34:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sigxcpu.org; s=2024;
+	t=1789385665; bh=PpE900YYTup0zjX0/okVz2oU4lPrmeJ3iBMQI4+6hUA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eXt2uK6ET6OmQAl0AHF96DnJPXD6K1mJgX5C+K7pwwntUyjd2vUgdexDNnfbHgJJb
+	 2QW4IQQ9kKcLjgYMUWqAzyVDB8oMjtbS2QZj8piXcXmjNZKgtBxDTSVtD2osX+Uhsj
+	 7wPoMerGU1kNWdxIZ07l28aRSr66ZH/HYdgZSNX71fsetPCvTF0c5Mkb2mef19Zvhl
+	 +5my7Fn2LRLxD4HJNAf26WW3lFCm6g3v/LTF9b8YJBjibQADMy8kQx1jJMxeYHBizT
+	 eZFSDghpu+Vk4It72IHi/sVcO93w5BioRtEiapkZ6EIqkLoj8ZVJJXGLiArB/RghCO
+	 NV5A50eRRtMuQ==
+Date: Mon, 14 Sep 2026 13:34:24 +0200
+From: Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Val Packett <val@packett.cool>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] ASoC: soc-core: use the device tree card name as
+ long_name
+Message-ID: <aqfbwDUegHcx-kDn@quark2.heme.sigxcpu.org>
+References: <20260506041112.412871-2-val@packett.cool>
+ <aqfT4ZzmxtxM2Dn0@quark2.heme.sigxcpu.org>
+ <aqfYM0svh1mDZtqj@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqfYM0svh1mDZtqj@sirena.co.uk>
 
-flush_hyp_vcpu() copies the host's mdcr_el2, TWI/TWE and debug state
-into the hyp vCPU on every entry, so for a protected vCPU the host's
-trap configuration overrides the one pkvm_vcpu_init_traps() computed
-at EL2. Move the mdcr_el2 and TWI/TWE copies into the non-protected
-branch, and return early from flush_debug_state() and
-sync_debug_state() for a protected vCPU: its debug registers are
-hypervisor-owned, and it takes the host's TWI/TWE at vCPU load.
-MDCR_EL2.TDA traps only the guest's own accesses; it doesn't stop the
-world switch from loading host-supplied breakpoints and MDSCR_EL1.
+Hi Mark,
+On Mon, Sep 14, 2026 at 12:19:15PM +0100, Mark Brown wrote:
+> On Mon, Sep 14, 2026 at 01:00:49PM +0200, Guido Günther wrote:
+> > On Wed, May 06, 2026 at 12:58:55AM -0300, Val Packett wrote:
+> > > When setting the model property for the sound card on an OF/DT system,
+> > > the expectation is that that model name would be used in the UCM config
+> > > path lookup. However, the DT model name was only used as the "short"
+> > > name, which gets overriden by the "long" name during loading, and
+> > > the "long" name is automatically set based on DMI data if available.
+> > > As a result, adding an intermediate bootloader such as U-Boot which
+> > > provides DMI data on a device that didn't have it before would break
+> > > the UCM config loading by suddenly looking at the "wrong" path.
+> 
+> > > Fix by assigning the DT model name to the long_name field as well.
+> 
+> I'm not convinced that there is a clear expectation here, any change
+> will doubtless upset some other user (for example someone using a system
+> derived from a reference board that happens to work with it's device
+> tree, or something where the firmware puts discovered information into
+> DMI).  Really you're just not supposed to combine DMI and DT based
+> discovery methods, having a system shipping both is just going to lead
+> to confusion and there's no way we can possibly get it right.  You have
+> decided that for your systems the DMI information is bad and you want to
+> override it but that doesn't mean that the next person won't make the
+> opposite choice.  Any decision here should be policy based in userspace
+> based on the full system information.
 
-EL2's mdcr_el2 starts from 0, and HPMN == 0 is reserved without
-FEAT_HPMN0. Set HPMN at vCPU load to PMCR_EL0.N on a PE whose
-ID_AA64DFR0_EL1 implements PMUv3, the value the host's copy carried,
-read as kvm_init_host_debug_data() reads it: the PMUv3 cpucap is
-system-wide and off without CONFIG_HW_PERF_EVENTS. A protected guest's
-PMU accesses trap regardless.
+Thanks for the hint. So that would mean we should do something similar
+to what Lenovo does in UCM (that Val pointed to)?
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 34 ++++++++++++++++++++++--------
- arch/arm64/kvm/hyp/nvhe/pkvm.c     |  2 +-
- 2 files changed, 26 insertions(+), 10 deletions(-)
+https://github.com/alsa-project/alsa-ucm-conf/blob/980fb83651e82c3e53d3a0ab7fa9b7d6fc2d809b/ucm2/Qualcomm/x1e80100/x1e80100.conf
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index ef65c3cd6f810..229a4877d14f5 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -200,6 +200,9 @@ static void flush_debug_state(struct pkvm_hyp_vcpu *hyp_vcpu)
- {
- 	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
- 
-+	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
-+		return;
-+
- 	hyp_vcpu->vcpu.arch.debug_owner = host_vcpu->arch.debug_owner;
- 
- 	if (kvm_guest_owns_debug_regs(&hyp_vcpu->vcpu)) {
-@@ -218,6 +221,9 @@ static void sync_debug_state(struct pkvm_hyp_vcpu *hyp_vcpu)
- {
- 	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
- 
-+	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
-+		return;
-+
- 	if (kvm_guest_owns_debug_regs(&hyp_vcpu->vcpu))
- 		host_vcpu->arch.vcpu_debug_state = hyp_vcpu->vcpu.arch.vcpu_debug_state;
- 	else if (kvm_host_owns_debug_regs(&hyp_vcpu->vcpu))
-@@ -241,6 +247,12 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
- 		if (vcpu_get_flag(host_vcpu, PKVM_HOST_STATE_DIRTY))
- 			flush_hyp_vcpu_state(hyp_vcpu);
-+
-+		hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWI | HCR_TWE);
-+		hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
-+							 (HCR_TWI | HCR_TWE);
-+
-+		hyp_vcpu->vcpu.arch.mdcr_el2 = host_vcpu->arch.mdcr_el2;
- 		hyp_vcpu->vcpu.arch.iflags = host_vcpu->arch.iflags;
- 	} else {
- 		hyp_vcpu->vcpu.arch.ctxt = host_vcpu->arch.ctxt;
-@@ -249,17 +261,13 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	/* __hyp_running_vcpu must be NULL in a guest context. */
- 	hyp_vcpu->vcpu.arch.ctxt.__hyp_running_vcpu = NULL;
- 
--	hyp_vcpu->vcpu.arch.mdcr_el2	= host_vcpu->arch.mdcr_el2;
- 	/*
--	 * HCR_EL2.VSE is host-owned (a pending virtual SError to inject), not a
--	 * trap-control bit, so it must flow to the hyp vCPU alongside TWI/TWE
--	 * for the vSError to be delivered. sync_hyp_vcpu() reflects it back.
-+	 * A host-injected vSError is masked by the guest's own PSTATE.A, so it
-+	 * applies to protected guests too.
- 	 */
--	hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWI | HCR_TWE | HCR_VSE);
--	hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
--						 (HCR_TWI | HCR_TWE | HCR_VSE);
--
--	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
-+	hyp_vcpu->vcpu.arch.hcr_el2 &= ~HCR_VSE;
-+	hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) & HCR_VSE;
-+	hyp_vcpu->vcpu.arch.vsesr_el2 = host_vcpu->arch.vsesr_el2;
- 
- 	flush_hyp_vgic_state(hyp_vcpu);
- 
-@@ -326,9 +334,17 @@ static void handle___pkvm_vcpu_load(struct kvm_cpu_context *host_ctxt)
- 		return;
- 
- 	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
-+		u64 dfr0 = read_sysreg(id_aa64dfr0_el1);
-+
- 		/* Propagate WFx trapping flags */
- 		hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWE | HCR_TWI);
- 		hyp_vcpu->vcpu.arch.hcr_el2 |= hcr_el2 & (HCR_TWE | HCR_TWI);
-+
-+		/* HPMN == 0 is reserved without FEAT_HPMN0. */
-+		if (pmuv3_implemented(FIELD_GET(ID_AA64DFR0_EL1_PMUVer_MASK, dfr0)))
-+			u64p_replace_bits(&hyp_vcpu->vcpu.arch.mdcr_el2,
-+					  FIELD_GET(ARMV8_PMU_PMCR_N, read_sysreg(pmcr_el0)),
-+					  MDCR_EL2_HPMN);
- 	} else {
- 		memcpy(&hyp_vcpu->vcpu.arch.fgt, hyp_vcpu->host_vcpu->arch.fgt,
- 		       sizeof(hyp_vcpu->vcpu.arch.fgt));
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index 9bdc7a9b84b8c..d52c26c0959a8 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -104,7 +104,7 @@ static void pvm_init_traps_mdcr(struct kvm_vcpu *vcpu)
- 
- 	if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, PMUVer, IMP)) {
- 		val |= MDCR_EL2_TPM | MDCR_EL2_TPMCR;
--		val &= ~(MDCR_EL2_HPME | MDCR_EL2_MTPME | MDCR_EL2_HPMN_MASK);
-+		val &= ~(MDCR_EL2_HPME | MDCR_EL2_MTPME);
- 	}
- 
- 	if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, DebugVer, IMP))
--- 
-2.39.5
+> 
+> Please don't send content free pings and please allow a reasonable time
+> for review.  People get busy, go on holiday, attend conferences and so 
+> on so unless there is some reason for urgency (like critical bug fixes)
+> please allow at least a couple of weeks for review.  If there have been
+> review comments then people may be waiting for those to be addressed.
+
+The original mail was from May so I figured ~ half a year would be o.k.?
+Sorry I got that wrong.
+
+Cheers,
+ -- Guido
+
+
 
