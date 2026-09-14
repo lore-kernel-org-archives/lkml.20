@@ -1,79 +1,76 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F333A453F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:29:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6A83E5A0E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374557; cv=none; b=NIn4HVWm7cWeH05G8qcjJKKQ2z4n6N61ekmGWk6vs68G2MenrfYut8FXloDcYSAOz7Nkk5/49nWSPyc/KNd02m8f2dFIFi0JIknmxxYyBzldDbLC9nhzx9VmRfG/B01IOwWhUy3ob1mqjs/nJhmS4olymdjcu8GfAep9sUmKZCo=
+	t=1789374603; cv=none; b=dIUfaf2rMVieHXMIHEBhHMsRRxc/rDPlaBdSfMKfgVJK3knUJt1Wh4CjuyCDV3xEYm5kFFGcL8dVKGGby4RXp0FtZwVQgge35M3Ycsbl1o/nytX/eGOQuOj/zcuIQj0hlOqnMq+184E+w4fN9XCWUC7d9nBwllFon2rnUGFnLKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374557; c=relaxed/simple;
-	bh=ThjuJJIilkFnb3x21CQlJpZVJrdeK0DbvDM3qFJoTpc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a0S+ZwNvk0HdOELqfuM51Iv4dKWF6fEd0t4H4NRtoKATUWBHJoPWTw6REafqla7mBAxr8eMYXL1XwVpP+aE3hatltDr0VxH4SsUEKsGGb3s7csNaJk/bFEA334TI2NT6n2PsNPk2SvuRWBtDhXdX66ojPIT8XCopSZrQ4gDVg/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sHroQjuI; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789374603; c=relaxed/simple;
+	bh=5Dm600bPPTKtyrUOHXhYpa9N1nPifHMEOCkAWXwfLx4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eJBosyT9LVcMgh7RrL60QkQD+kq1kPY5k/jsRlKlO4Ph9Nu+4P/3YN6ltCxPORV78MBKajA73Mc0Z8phIKJ9EIpCzYfkWlGZdy/qUaCs2yToaH9I+xWPhMY0svaYKLgEwJ57KdaUlDJA9nZn/aTqPsFpBYo1LkGNkquJmlAAWgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MrHk/JKV; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sHroQjuI"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea48edcso1117017a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:29:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MrHk/JKV"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso14308415e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:30:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789374555; x=1789979355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VIqJAEv0wE0GewharGE+LoF/XSc70c9h3/w9GQFRHEs=;
-        b=sHroQjuIbiEQXSi22SU9sWidRXpp5zHr7SJ6AsJNq9LF1pd3/023NoAUtdDkYCcxiJ
-         49KTlwKA6UeVZTkn4CAbe5vlA7q94Ybk9pkOkVp9aQ51rhCEgbMUlZF6duFaNngUXmP/
-         ekRFobmrIYqjF5ZgNudTj1Ne1nA8/WGIY8yHv47Ab0bs32M/ImQKJ4RbYanlV0WntBse
-         BvxS4PkVUzW0A33Q0qvkDVjLLmHUTIerDMltROeuh/5ZIuZY3CwzY5T9SRDO0UWx/AO4
-         xufhw4hJH04yjTr9TGp+waczB/JJ0mYa6vgT/cUxma7RHu/TqSp+u+cxaWLMDNqfPO1T
-         +kfQ==
+        d=gmail.com; s=20251104; t=1789374599; x=1789979399; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ygduNeN8JV9frRntM5qlOGqrIEENJQh2+4j84dc0190=;
+        b=MrHk/JKV63eWsxXiwSMvRuGT9aF54r77L6NN2Luj95rMcl3Am0GjHA+4DzQgUyqf2C
+         VuvHggZLyn5mmhSl+zUxjp6VhtRaw0Fye/KwTycMwVm90J8Wb+pAiK/Mn4BIgTRZZky9
+         tHXHwIdXB8BAqbA3jb4UQlr+LkpW1xTIwRmfnK3OHTQ8TEC3xhFtouihYCdGYDTb52jd
+         4032Iycp5cc9Th/r/M3bQt3mvQ/8mSgZirLH1jFuiYFa8o88JmgY7KnZvHjIkPMW6h/C
+         MzXMSWJ/qzwVrpQ02nAW23vNsokTTjHVUNrYneumOmVhXA52ByPb7Is4Xztlw3Cs69xf
+         zeNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789374555; x=1789979355;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VIqJAEv0wE0GewharGE+LoF/XSc70c9h3/w9GQFRHEs=;
-        b=sizPLSlNeXg9jK97PZLi+bcfJF/DZv/lYHpeNFTYLM4Qv6RZdR9P5p71s44mejunKa
-         vPaV8X0W2IyF/Wan16IVmnq4zbSdCS8F+9lijDJRTAiKPzpXU0q7w2IJUQimQ69n1/8T
-         zgtuNUJ8JQ2X8fqhoyEPgDx3lvYAn1NB3FyRU/WPgKz/UHzwEypL7qwIe9aYpG+fyYR2
-         XqelfC8kMLI4Ymw7CpIdBwafQpKGyXJvec/3FfHeLrySb5Hei6FKDzhoWfINxpuGyH6C
-         gODfF2b3FEQD6aLJHvcM8Aaj/jqiHDOWDL7DMqtYCS7TXh8j9xOw8EN1fjcwQwdmA89X
-         Xi1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwzVWTioPp6bkK2wjOOB8zTBaC20Feo0KouJAf7fvx8ObVBl+O6OOz3jQ2qg6PUMjsUxR4eEx4NKUGjOuI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnvFbiq1AfQoyzH76z0a310T8XTG62U8NyOekLbjZByZOxIxmJ
-	vKXHCyTuht+2MAz1YBF2QcdRtaNH2OalPl5UKlFhvmvOLmQeha3SM1Jk
-X-Gm-Gg: AYBFou2c4vUYbBbt+GeCMfndtbaz6+QD6VE0O8pWFlDIHyPuoamV1D8w0uK2J6DCc71
-	kO9Yzx5g3XiqYA/Uc5+AzpbBbOIHwL8BZRvQLWglGOTyaFi3FBFtUB7j2nMVd50nr3xvzLqQ/5V
-	XNH2tsG5ud9UH/zHtfvso7iHNx1cm3mXBP+zg2JZMdwyCcAnKJPWH0CtXEAwouYGk1BYsAc5a8h
-	ZrTNxZyC/kcD6I2a2c9h2bxn+29fHOuwRjLCLgvBIPrce5ViK2E/vRqx+4xtNAV2LH8+EPmwAwo
-	wG43F7KLPxZ+0VLKV5rdK34zOG76vkwvJcMERli8Fli9UQTLHn4yhTW70OxNxQzaBvaVmg8O1AN
-	WwKcOs7izTL373pYlenHmaonMc6zbbGMv2MDTZM/20B5iGFgN8V5WX2ItmIb8wyoxMnjk1Vrt0+
-	AdIqLxCNRee8r0l55HJlENcfSOjTom8Y+YKmcfS45IAB8WflDtvpyN49npYfni/WrOVTV0Pvjek
-	q/NH/Rwq6X9n3i29Y7jpgmsN6YNC3OwM7uaefuAB6ZVK9y/drq9tmkBbQtvdRTXepKenqTmdSr8
-	gO2xsLPBz576YhrEWj9SJEGw5iGYt8Hou5VT5FZy4EZTfOH7ml50bcZxjZ87zr3b0Ji10e+gRRC
-	lIpuDVE3f
-X-Received: by 2002:a17:90b:1a85:b0:38e:2517:5d1f with SMTP id 98e67ed59e1d1-39debf9ca9cmr3433982a91.9.1789374555059;
-        Mon, 14 Sep 2026 01:29:15 -0700 (PDT)
-Received: from cs-1047136853211-default.asia-southeast1-b.c.t54fbfa9bf0658dcb-tp.internal (189.207.21.34.bc.googleusercontent.com. [34.21.207.189])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm19843658a91.8.2026.09.14.01.29.12
+        d=1e100.net; s=20251104; t=1789374599; x=1789979399;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ygduNeN8JV9frRntM5qlOGqrIEENJQh2+4j84dc0190=;
+        b=osaLsZuOsgWgzaoyANOHiDkAsZ8+Cpa39mrh4MdNi5LT7kly1n/5NGBtgYHVCXp0zX
+         HbKZiONsH116hkqV+wgmxAzaAOmRnW7kpYaExrIYv/KQIRw4c6jQ6kQQ4T7SkCc2w0NS
+         EvIshSX4Toa+ecoF0KnbQ5qHDv2BJYiNMt9VcheCar3ba+iVfhm8FsArvwVCw864CEbY
+         IRP+3/8c7ZAHtINZHZmjOkRNB+njZlzOtryS395GYD7FabGMpPuYUMYCsPLkyALshB4f
+         nwKmOFAnKe6FX+YrzfkkO7yiQ8qPlJyLb6DRA9WY66RBsX2QnQWB2lJqJ/P7FJ9o3Rfa
+         OVsw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsA+m8omKY/x131t2S2h+GR1+QjgbiQLsXP4rGZXZqGB4r1aiuQuk5LYOSbAt04Wrm8V2oOmywAMmt25U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEnJ3x46e6mVzBW59dzjMoDxgvfTFYQ4sO3YUQJKXP93ZvgK3f
+	4rXTJAy3T+u1T/9Dh6ZSzsfJLF0ToEDJgYLOLDRN6JC4JqhS9E5ZP+Ms
+X-Gm-Gg: AYBFou1awa9pYJteETbvdID11pTL5GqoYgrznouriDairHQwSoKbmnHibnIAl2VWvtv
+	0OeR7aC7r7X/Sa8xT4Db9NllFO8yX1E9LZUxJh1rJd8mmEMtwPVls0P4e6AsIM2jFeSUcpEQ7W+
+	ok2fWJRynHESvplaVnqzdIVP2gea+zdTDuRIl3h1Y7nH8fEv7ddKKdMaNUl2eeAi1zVTdKnRH/v
+	crZS0stTL2rQf81ZEYrpXQepAsOv6q8vRKLp88udLV31gtSTD4xbLnX07gsc+gjVXMYxYTUTHrb
+	J3Y6FWjEc9ubYIGj3uc5TNlh2lbHNpFr3mXAT1Q1Z7zaHJpR0STzRk8hCBVrbiP5YMf1X9s4x5b
+	IWCGzUKg6y3KtKKyEGV3G8QO7ilfPFyZ0fX4a/R5Ttnq44EXlRvwGQqeETBBRiuC5pfuxVv7FuX
+	gB7Q4TAxrn9a1Ou+5+YezIRIl0U1d+VdyqvO7gMdng3OOc2pFwg7BUkDmPjXeKEgUDdnq9Drfyw
+	ojqdg4NXtaGhdvgvA==
+X-Received: by 2002:a05:600c:198f:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49e7a66b2c5mr24553115e9.10.1789374599199;
+        Mon, 14 Sep 2026 01:29:59 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.25])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-486eb359f38sm23378826f8f.30.2026.09.14.01.29.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:29:14 -0700 (PDT)
-From: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
-Subject: [PATCH] xfs: prevent close() from hanging on frozen filesystems
-Date: Mon, 14 Sep 2026 08:28:36 +0000
-Message-ID: <20260914082836.1658-2-aditya.ansh182@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914082836.1658-1-aditya.ansh182@gmail.com>
-References: <20260914082836.1658-1-aditya.ansh182@gmail.com>
+        Mon, 14 Sep 2026 01:29:58 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded controller
+Date: Mon, 14 Sep 2026 10:29:50 +0200
+Message-ID: <20260914082950.9393-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,55 +79,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a file is closed, xfs_file_release() attempts to trim speculative
-post-EOF blocks. This requires allocating a transaction, which blocks
-indefinitely if the filesystem is frozen.
+Describe the Compal embedded controller on I2C at address 0x70. It
+provides the board thermistors, the battery cell voltages and the CPU fan
+speed, and drives the keyboard backlight. Its interrupt line is TLMM
+gpio66, falling edge, for which the file already carries a pin state.
 
-Fix the hang by wrapping the preallocation cleanup block with
-sb_start_write_trylock() and xfs_ilock_nowait() to bypass the trim
-best-effort when the filesystem is frozen or locking fails.
+That state leaves the pin without a bias. gpio66 has no external pull
+and floats when the EC is not driving it, which shows up as a steady
+stream of spurious edges; the vendor ACPI tables describe the same pin
+as GpioInt(Edge, ActiveLow, Exclusive, PullUp). Enable the pull-up.
 
-Suggested-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+The binding and the driver are under review separately [1]; this node is
+inert until they land.
+
+[1] https://lore.kernel.org/all/20260908183403.2107-1-okerixx@gmail.com/
+
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
 ---
- fs/xfs/xfs_file.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ .../dts/qcom/glymur-lenovo-yoga-slim7x.dts    | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index d8202da15aca..dd6d2e08faff 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -1872,17 +1872,21 @@ xfs_file_release(
- 		return 0;
+diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+index ecc8c34..30dcffd 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+@@ -652,7 +652,15 @@
  
- 	/*
--	 * If we can't get the iolock just skip truncating the blocks past EOF
--	 * because we could deadlock with the mmap_lock otherwise. We'll get
--	 * another chance to drop them once the last reference to the inode is
--	 * dropped, so we'll never leak blocks permanently.
-+	 * If we can't get the iolock or if the filesystem is frozen, just skip
-+	 * truncating the blocks past EOF because we could deadlock with the
-+	 * mmap_lock or hang the close() call. We'll get another chance to drop
-+	 * them once the last reference to the inode is dropped, so we'll never
-+	 * leak blocks permanently.
- 	 */
- 	if (!xfs_iflags_test(ip, XFS_EOFBLOCKS_RELEASED) &&
--	    xfs_ilock_nowait(ip, XFS_IOLOCK_EXCL)) {
--		if (xfs_can_free_eofblocks(ip) &&
--		    !xfs_iflags_test_and_set(ip, XFS_EOFBLOCKS_RELEASED))
--			xfs_free_eofblocks(ip);
--		xfs_iunlock(ip, XFS_IOLOCK_EXCL);
-+	    sb_start_write_trylock(mp->m_super)) {
-+		if (xfs_ilock_nowait(ip, XFS_IOLOCK_EXCL)) {
-+			if (xfs_can_free_eofblocks(ip) &&
-+			    !xfs_iflags_test_and_set(ip, XFS_EOFBLOCKS_RELEASED))
-+				xfs_free_eofblocks(ip);
-+			xfs_iunlock(ip, XFS_IOLOCK_EXCL);
-+		}
-+		sb_end_write(mp->m_super);
- 	}
+ 	status = "okay";
  
- 	return 0;
+-	/* EC @ 0x70, irq = TLMM 66 */
++	embedded-controller@70 {
++		compatible = "lenovo,yoga-slim7x-gen11-ec";
++		reg = <0x70>;
++
++		interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
++
++		pinctrl-0 = <&ec_int_n_default>;
++		pinctrl-names = "default";
++	};
+ };
+ 
+ &lpass_vamacro {
+@@ -983,7 +991,7 @@
+ 	ec_int_n_default: ec-int-n-state {
+ 		pins = "gpio66";
+ 		function = "gpio";
+-		bias-disable;
++		bias-pull-up;
+ 	};
+ 
+ 	kybd_default: kybd-default-state {
 -- 
-2.47.3
+2.55.0
 
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
