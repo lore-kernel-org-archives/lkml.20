@@ -1,153 +1,121 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC99446820
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2493BE179;
+	Mon, 14 Sep 2026 13:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392476; cv=none; b=eSpQUHKhE65uaXl4C8uaZgwYFzEWhpY+uZmFZYcFJihROh1qSYTCPsYYSjD4cAn9AV/QtGL0zS7qktQ5BhOzGZjys4GlsIuAVRrKJuxlV79YSnMfT5F4Qje8hl4DVknDeTxU1zvR3Ekoq/UqXtKoCKolo8DzZtMxy1teiZsyLw4=
+	t=1789392509; cv=none; b=McAc5GPpTzt/c+FBzv7OZMqVSi7enYqXO+1lj4fCLFDIr4LqXUIf4KhgKcG0Lxby22xUw/1ilMrCATX1ko5ytj4jinjdvI0v989do+3rbgDKRa3wjebM7DOUIdK8oEJynTYzTo2xvMDX5MGMpkTqf78tvLLOGf8uRb+Cdnh8584=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392476; c=relaxed/simple;
-	bh=fiwEphd9S1oE1F35wXKS6z4c/fPTVw+0/Jzu6wOUWwo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zk/urGg/EC4+0U7K69ST5isDRnKI8gImLjTwnqeidLhhtU0bTwIcH4Y2g/jlCzjYqm3201Kf+E0fpbvHWSL+Dim0r6qgr0hZCzRTyM4e2RQ2vJkNm1OxRbvf7N1TMpClrkEYzpVW7UpzORfeeNNjqtZ1l9b7xlQoJcemYtlUtrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J70udI0t; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789392509; c=relaxed/simple;
+	bh=+j5uJ/paHPgKfTYlvJPjdKLR3qhSH1k8kbNnhD7XBTk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=upYd2Ns/rsp6hYFdSZQOZhc8aJ0t5JemvrnFc5UgPy7rlAkU3wYhv3h2IRjPZHbi7i6PdzD6gmMVkTFv1mqKLTMCy+V/thTpNNBtJYvtlYSp4wbUZaBApCVYmBMQ95okuQ8VMevcHqqTxAuw+V4wAGAUivP0yVrgBG++U/NNXeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YugA27sG; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J70udI0t"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe433fso13358605ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:27:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392474; x=1789997274; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kLko4nhJEbxfZ3Fn8wxISTNiqWP9VB1x/ln8iy3awyo=;
-        b=J70udI0tUd+BWQBEdV1Uk+AQCBp/IE5kiHZ6Ul5BAJHrTAnZrltuHEIooRWax9RB7W
-         gbqZmofc9AjDM9hLSrZ4UhrN9h1CGrprt1Mp/tRDOLc7I99XN7bgiqBhU9COXrjZBYm/
-         4DVJyN3ytRH+gSfTGgL/Bju6JMjM5Ajfbu4WocCYxmEIswMWpPVTfFaj0ic8WXhUyN1I
-         fwmE1xvfcIhRHUxvLmG/6INnIiAgikah1p+CPqWa4v33WgiNsFVzpZSgUlTfJW11YRAB
-         /I4/MePITrD9wofqfMkdxq4JKfR6jOQUEzuuNffAy+qeNu+QEh5ylzyhUcquoG03i46u
-         j20w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392474; x=1789997274;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kLko4nhJEbxfZ3Fn8wxISTNiqWP9VB1x/ln8iy3awyo=;
-        b=ArgPQYFSD102Ul0nwZuwekR4H8iNQ05r/FjmSMDXlcBc8cU9xbtU4ADUEQpQTMF0Zd
-         Qq73vjlBJWHolWEdmQoJ2HMDj4hSkbDzNKCWP+gH/XTh1gZA0LKlSeklsxzVX/5+QGRq
-         iFa+/A0BXrSDxwu9snqXy6D82rpTyORLuc3LpymQXMrkfWsKRvspPF78BX+zVDMfn17z
-         +E3glw92lDjotpOsfrLtk12QLmxbULZ5KJKzqXl5oL/H/ab0WwpAwbvklQvNnPrbMv6R
-         fGI8kIbYtozsmDv5DtG6YUxhAGPWlOAeMCkPkkVOPhUOIZA3IoXN9qfwo9CnBdqBaTFd
-         ftOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGmjC5uk+A3n/457K3D75rYrI+00vZOZOqgYzQZdsjYgJmd1hvFYn7+5k0ITJxm5yV8Y2d9whXNoaivas=@vger.kernel.org
-X-Gm-Message-State: AFuF++mW2lTw0snMMIuduLvrM4EGXE4oO2a+2Jwt1ULP3Vk7xbyLM/EA
-	ypt+AOBK9Ovv82Pp6q8J+S19je9uSU/5tXV/4YYmWLA+10bgNfw5z1v8
-X-Gm-Gg: AYBFou0jGRiXx2o8JuioSMdMGX7S0FYiw8umj53KCjLosIOdjeSp1mPTvX8rCkxo+4g
-	zy5mUXQxs1hUAImJN0jDANdb+oSXDL2Qj84CbCRPhgxSWJ3XP/Czd24bBBC+F3ipkjSx/ApYS6l
-	+RJyXMRCOhJdVYo0oHdVFkVHb7AcPGvZ5dKrYKsv6H08GmZ/frI8vF27RaZbaozU4TGgFECVHwQ
-	YiMjHsW0Ro7b8v2mnQYsIDVlMNfzvk+4BZh2HkRgFn8ELxOtecbFo3OareClICNM9v/+v+IErZQ
-	/TJp3inmLj+FAx/E4L5IBqaf4qMOlL8J263v0fmFl7LmvANwT+MMMC9F7zSW+HEx4HA9fQ7EMbI
-	IP3n6BwynnKiuRL8f+LkL5jJdrZdowykT9Pt63tXPl1UpJINhN7hiv9YUQINQNmUEFkXB1vWLLY
-	4hIbpt4+QeLQNbzMXHQpPaRn/CwkmohCF/Mufcy4WFWmBZBFYaKnjP5M9gYxtrpIIrs+z5jfuYd
-	WhL
-X-Received: by 2002:a17:902:f691:b0:2ca:6c8:abd8 with SMTP id d9443c01a7336-2dd6c6df7e0mr52399065ad.12.1789392473892;
-        Mon, 14 Sep 2026 06:27:53 -0700 (PDT)
-Received: from user ([2405:201:c052:b00b:dfba:aa04:857a:222b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd428ede1dsm39769495ad.13.2026.09.14.06.27.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:27:53 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:57:28 +0530
-From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>,
-	Nicholas Bellinger <nab@linux-iscsi.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Andrzej Pietrasiewicz <andrzej.p@samsung.com>,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] configfs: fix NULL dereference in
- configfs_depend_item_unlocked()
-Message-ID: <aqf2QDbZK5RgktFA@user>
-References: <20260914094426.25595-1-pavankumaryalagada@gmail.com>
- <aqfGt6OFIRuqMC6H@gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YugA27sG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789392505;
+	bh=+j5uJ/paHPgKfTYlvJPjdKLR3qhSH1k8kbNnhD7XBTk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YugA27sGvRUNH5aTiXpX2t9yIBHy651sJsM53vhworyOFppqlH0VeNtxu7TUYm8/p
+	 iQ7FEhZUxn79GRC/6Tk2QTheXdfp7F9CIM/fNbEdpEkOo3w0C03RkqJc4KoazHEWha
+	 L52KEKY6xh6IASeYSlsII0hRxOLdO6Wspkp+6HplXWOn2fvIDvm5DfcvchdHQS2LHn
+	 Bn+FxdxGAske9sfDaSlU920Cw+8vtzibS+bd9fKQIAzKS8z9AB2zkz5gJBppx6+jYZ
+	 EsOzb3fLPtbgTdD7F6qf53MxjGjPAnAYpz1kEoDGhpA0rgdcXmeVEDKEg23e3bxD6Y
+	 guhZ9rkOheGNw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 594EA17E031C;
+	Mon, 14 Sep 2026 15:28:25 +0200 (CEST)
+Message-ID: <d6ef72b3-f928-42ad-9317-5fe1e44b9f31@collabora.com>
+Date: Mon, 14 Sep 2026 15:28:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqfGt6OFIRuqMC6H@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/13] ASoC: mediatek: mt8189: Propagate MCLK errors
+To: phucduc.bui@gmail.com, Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cyril Chao <Cyril.Chao@mediatek.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Dan Carpenter <error27@gmail.com>, cassiogabrielcontato@gmail.com,
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260914072842.24420-1-phucduc.bui@gmail.com>
+ <20260914072842.24420-11-phucduc.bui@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260914072842.24420-11-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 03:05:26AM -0700, Breno Leitao wrote:
-> On Mon, Sep 14, 2026 at 03:14:26PM +0530, pavankumaryalagada@gmail.com wrote:
-> > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> > 
-> > configfs_depend_item_unlocked() can dereference a NULL parent when
-> > the configfs item is still being created.
-> > 
-> > The item can be found before it is linked to its parent group,
-> > so ci_group can still be NULL. Check ci_group before using it
-> > and return -ENOENT if it is NULL.
+On 9/14/26 09:28, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> The crash itself looks real, but this reads like a fix in the wrong
-> place.  include/linux/configfs.h already documents the opposite
-> contract for this API:
-
-I agree, I checked the code path again. The race is in f_tcm. The function
-instace is published before its configfs item is linked, so usbg_make_tpg()
-can see it while ci_group is NULL and pass it to configfs_depend_item_unlocked().
-
-For v2, I will fix the caller in f_tcm.c by checking ci_group before calling
-configfs_depend_item_unlocked().
-
+> mtk_mclk_en_event() currently ignores errors returned by the MCK
+> enable and disable functions.
 > 
->  /*
->   * These functions can sleep and can alloc with GFP_KERNEL
->   * NOTE: These should be called only underneath configfs callbacks.
->   * NOTE: First parameter is a caller's subsystem, not target's.
->   * WARNING: These cannot be called on newly created item
->   *        (in make_group()/make_item() callback)
->   */
->  int configfs_depend_item_unlocked(struct configfs_subsystem *caller_subsys,
->                                    struct config_item *target);
+> Propagate these errors.
 > 
-> "cannot be called on newly created item" is exactly the case being
-> patched here. 
+> Fixes: 7eb153585598 ("ASoC: mediatek: mt8189: add platform driver")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+>   sound/soc/mediatek/mt8189/mt8189-dai-i2s.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-> If configfs is now going to accept a not-yet-linked item and return
-> -ENOENT for it, shouldn't that comment be updated in the same patch?
-> 
-> And if the contract is meant to stand, shouldn't the caller stop handing
-> over an unlinked item instead?
+> diff --git a/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c b/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+> index 4826ee250d70..f20dbb410223 100644
+> --- a/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+> +++ b/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+> @@ -519,6 +519,7 @@ static int mtk_mclk_en_event(struct snd_soc_dapm_widget *w,
+>   	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
+>   	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
+>   	struct mtk_afe_i2s_priv *i2s_priv;
+> +	int ret = 0;
 
-Yes, the existing configfs API contract should remain unchanged. I will not modify it.
+int ret;
 
-Instead, in v2 i will add check before passing it to configfs_depend_item_unlocked().
+>   
+>   	dev_dbg(cmpnt->dev, "%s(), name %s, event 0x%x\n",
+>   		__func__, w->name, event);
+> @@ -529,17 +530,17 @@ static int mtk_mclk_en_event(struct snd_soc_dapm_widget *w,
+>   
+>   	switch (event) {
+>   	case SND_SOC_DAPM_PRE_PMU:
+> -		mt8189_mck_enable(afe, i2s_priv->mclk_id, i2s_priv->mclk_rate);
+> +		ret = mt8189_mck_enable(afe, i2s_priv->mclk_id, i2s_priv->mclk_rate);
+>   		break;
+>   	case SND_SOC_DAPM_POST_PMD:
+>   		i2s_priv->mclk_rate = 0;
+> -		mt8189_mck_disable(afe, i2s_priv->mclk_id);
+> +		ret = mt8189_mck_disable(afe, i2s_priv->mclk_id);
+>   		break;
+>   	default:
 
-> 
-> > Fixes: 4bb8548df632 ("usb: gadget: f_tcm: add configfs support")
-> 
-> This tag and the diff do not agree.  4bb8548df632 only touches
-> Documentation/ABI, drivers/usb/gadget/Kconfig and
-> drivers/usb/gadget/function/f_tcm.c; it does not add or modify anything
-> under fs/configfs.
+ret = 0;
 
-You're right. My previous fix was in wrong place.
+>   		break;
+>   	}
+>   
+> -	return 0;
+> +	return ret;
+>   }
+>   
+>   static const struct snd_soc_dapm_widget mtk_dai_i2s_widgets[] = {
 
-For v2, i will move the fix to drivers/usb/gadget/function/f_tcm. I will keep the
-Fixes: 4bb8548df632 ("usb: gadget: f_tcm: add configfs support") tag because this
-commit introduced the f_tcm configfs dependency handling involved in this bug.
+...after which:
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Thanks,
-Pavan
-
-> 
-> --breno
+Cheers,
+Angelo
