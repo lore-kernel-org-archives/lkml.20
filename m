@@ -1,25 +1,25 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A877B309EFC;
-	Mon, 14 Sep 2026 03:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA78C3346BE;
+	Mon, 14 Sep 2026 03:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789355338; cv=none; b=P3TIZIoLzFNbIE6b1w4k9aRq/rj4kIs5lzJDGWiromFS5Pg5qENerNeZA5RS4ZEbCXERp2TL0sX7Z3Kmndz8cb6kf1lGh1e999tzYHhPngv+WTPHtAHyyyeZgRJF/31QIGWkkdg0slg+M2BGrEl9PS6BmeDoc4wrEts+9I5OOKA=
+	t=1789355339; cv=none; b=cqFuje8qcY/1OwIoQriHt9lDUm2F0QOUC/fmXEM6EJrJSXF+c8+HSRpRlUHT07hApWWHuvuGrHIynpr5oAVsFO86+QiiTSivLaxqSuHFRQeRilSDYxE9yuyu/5qulOOqZrvu489qvpc6LCfX0YhpFXxWRglHroJYeP/uuzk4Q/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789355338; c=relaxed/simple;
-	bh=uptId5k+YVSOOa7XT+eqPnKSj+g74WfcsvXMwKlWOvA=;
+	s=arc-20240116; t=1789355339; c=relaxed/simple;
+	bh=QQObOG0X6gJxmNWcQcvZmyJeQ22KMlKBkyckB09GF2A=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nvE8Z1bauI81ptCG7cR9JPE+SQX7mJNGWIXksrlc8CtyPFaK+Up6WkbHqnbwcykfZHujmwPJ9SPdJMDA/DmSmF+sy2RvPrEr9AS0bfpnKx0xW1zINDfAAPft2J+SyEYRQHcdpxNGLeKzF7bmy6g/W4hOmvvBCSzDUiSDRJi00ps=
+	 MIME-Version; b=Q4XhVShGzyy8m5Y6I08YGINY5ZkhdXSy7SyxM2g/09s3bXou7a40hyiPovpwEbM6ZGXDs2JjALSkR4dSczg5f6UrCP1GJO922N8qqWx48uZb6pOyVfEy/gfvOycvMb3w5k7y4Ftzicjc0wZzcr9nxfYBWKErLnGY2EX+B56bBu0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9a9265e0afe911f19a56ed5b684f684d-20260914
+X-UUID: 9ae4cc0eafe911f19a56ed5b684f684d-20260914
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:8a8bb62f-8436-411f-a149-8af15ba0deb5,IP:0,U
+X-CID-O-INFO: VERSION:1.3.19,REQID:6e32516b-71a4-4f6c-a6d2-f2b2b1622c59,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:d39e68999e0e87270e06733f6eb3ed68,BulkI
+X-CID-META: VersionHash:7db8b62,CLOUDID:a5de13244f17ba9435f878ee58d1fc76,BulkI
 	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
 	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
 	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -27,12 +27,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9a9265e0afe911f19a56ed5b684f684d-20260914
+X-UUID: 9ae4cc0eafe911f19a56ed5b684f684d-20260914
 X-User: zenghongling@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <zenghongling@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 2110238593; Mon, 14 Sep 2026 11:08:48 +0800
+	with ESMTP id 1709984037; Mon, 14 Sep 2026 11:08:48 +0800
 From: Hongling Zeng <zenghongling@kylinos.cn>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -42,9 +42,9 @@ Cc: ntfs@lists.linux.dev,
 	Hongling Zeng <zenghongling@kylinos.cn>,
 	Baolin Liu <liubaolin@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v10 4/6] ntfs: persist the dirty state after the final put_super() commits
-Date: Mon, 14 Sep 2026 11:08:39 +0800
-Message-Id: <20260914030841.46389-5-zenghongling@kylinos.cn>
+Subject: [PATCH v10 5/6] ntfs: do not clear the volume dirty bit during sync
+Date: Mon, 14 Sep 2026 11:08:40 +0800
+Message-Id: <20260914030841.46389-6-zenghongling@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260914030841.46389-1-zenghongling@kylinos.cn>
 References: <20260914030841.46389-1-zenghongling@kylinos.cn>
@@ -56,143 +56,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The just-in-case mftmirr/mft commits and the final write_inode_now()
-in ntfs_put_super() can record NVolErrors() after the dirty state has
-been persisted, so errors from those points would leave the volume
-unmounted with a clean on-disk dirty bit - contradicting the "cannot
-unmount clean" guarantee ntfs_sync_volume_dirty_state() is meant to
-provide.
+ntfs_sync_fs() clears VOLUME_IS_DIRTY while the volume is still mounted
+read-write, so a sync running concurrently with an in-flight metadata
+modification can clear and persist a bit that was just set: the
+modification then lands on a volume that is clean on disk, and a crash
+does not run chkdsk.  Closing this from the writer side would mean
+holding the $Volume mrec_lock across the whole operation.
 
-Move the persistence to the end of ntfs_put_super(): keep the gated
-re-commits and the tail commits where they are, run
-ntfs_sync_volume_dirty_state() and the $Volume commit after the last
-write_inode_now(), and release vol->vol_ino only after the sync.
-
-The release order of the special inodes matters for the $Volume
-commit: writing the $Volume record mirrors it through
-ntfs_sync_mft_mirror() (record number 3 is below vol->mftmirr_size),
-which fails with -EIO and leaves the mirror stale once
-vol->mftmirr_ino is gone, so the mirror inode is released only after
-that commit.  vol->vol_ino is then put before vol->mft_ino is dropped:
-if the commit failed before it could clear the dirty flag,
-ntfs_evict_big_inode() commits the inode again on its way out, and
-__ntfs_write_inode() resolves the runlist through vol->mft_ino.
+Drop the ntfs_sync_fs() persistence point and leave the clearing to the
+remount-to-read-only path, which the VFS reaches only after
+sb_prepare_remount_readonly() has drained in-flight writers, and to
+ntfs_put_super(), which runs after evict_inodes() on a quiesced
+filesystem.  A mounted read-write volume now keeps the dirty bit until
+it is dismounted cleanly, which matches the NTFS semantics; the cost is
+a needless chkdsk if the machine crashes between a sync and the unmount.
 
 Reported-by: Baolin Liu <liubaolin@kylinos.cn>
 Cc: stable@vger.kernel.org
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- fs/ntfs/super.c | 75 ++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 52 insertions(+), 23 deletions(-)
+ fs/ntfs/super.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 733565953302..3574c224fe28 100644
+index 3574c224fe28..f58b9cd86b27 100644
 --- a/fs/ntfs/super.c
 +++ b/fs/ntfs/super.c
-@@ -1812,26 +1812,13 @@ static void ntfs_put_super(struct super_block *sb)
- 	ntfs_commit_inode(vol->mft_ino);
+@@ -1963,11 +1963,14 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 	if (!wait)
+ 		return 0;
  
- 	/*
--	 * If a read-write mount, persist the error state in the volume flags:
--	 * mark the volume clean if no volume errors have occurred, and make
--	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
--	 * next mount.  Also, re-commit all affected inodes.
-+	 * If a read-write mount, re-commit all affected inodes once more.
-+	 * The dirty state itself is persisted at the end of ntfs_put_super(),
-+	 * after the last commits and the final write_inode_now(): those can
-+	 * still record errors via __ntfs_write_inode(), and the sync must
-+	 * evaluate NVolErrors() with the last setter already run.
- 	 */
- 	if (!sb_rdonly(sb)) {
--		if (ntfs_sync_volume_dirty_state(vol)) {
--			ntfs_warning(sb,
--				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NVolErrors(vol)) {
--			/*
--			 * The dirty bit is on disk now; only warn when the
--			 * sync actually succeeded, or this message would
--			 * contradict the one above.
--			 */
--			ntfs_warning(sb,
--				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
--		}
--		/* Commits the updated volume flags if they were written. */
--		ntfs_commit_inode(vol->vol_ino);
- 		if (!NVolErrors(vol)) {
- 			ntfs_commit_inode(vol->root_ino);
- 			if (vol->mftmirr_ino)
-@@ -1840,9 +1827,6 @@ static void ntfs_put_super(struct super_block *sb)
- 		}
- 	}
- 
--	iput(vol->vol_ino);
--	vol->vol_ino = NULL;
--
- 	/* NTFS 3.0+ specific clean up. */
- 	if (vol->major_ver >= 3) {
- 		if (vol->extend_ino) {
-@@ -1872,8 +1856,6 @@ static void ntfs_put_super(struct super_block *sb)
- 		/* Re-commit the mft mirror and mft just in case. */
- 		ntfs_commit_inode(vol->mftmirr_ino);
- 		ntfs_commit_inode(vol->mft_ino);
--		iput(vol->mftmirr_ino);
--		vol->mftmirr_ino = NULL;
- 	}
- 	/*
- 	 * We should have no dirty inodes left, due to
-@@ -1883,6 +1865,53 @@ static void ntfs_put_super(struct super_block *sb)
- 	ntfs_commit_inode(vol->mft_ino);
- 	write_inode_now(vol->mft_ino, 1);
- 
+-	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_sync_volume_dirty_state(vol)) {
+-		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
+-		err = -EIO;
+-	}
 +	/*
-+	 * If a read-write mount, persist the error state in the volume flags:
-+	 * mark the volume clean if no volume errors have occurred, and make
-+	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
-+	 * next mount.
++	 * The volume dirty bit is deliberately not cleared here: a sync
++	 * running concurrently with an in-flight modification could clear
++	 * and persist a bit that was just set, leaving the modification
++	 * on a volume that is clean on disk.  The bit is only updated at
++	 * quiescent state transitions: remounting read-only and clean
++	 * unmount.
 +	 */
-+	if (!sb_rdonly(sb)) {
-+		if (ntfs_sync_volume_dirty_state(vol)) {
-+			ntfs_warning(sb,
-+				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
-+		} else if (NVolErrors(vol)) {
-+			/*
-+			 * The dirty bit is on disk now; only warn when the
-+			 * sync actually succeeded, or this message would
-+			 * contradict the one above.
-+			 */
-+			ntfs_warning(sb,
-+				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+		}
-+		/*
-+		 * Commits the updated volume flags if they were written.
-+		 * The mft mirror must still be around for this: the
-+		 * $Volume record (mft record number 3, below
-+		 * vol->mftmirr_size) is mirrored by write_mft_record()
-+		 * through ntfs_sync_mft_mirror(), which fails with -EIO
-+		 * and leaves the mirror stale once vol->mftmirr_ino is
-+		 * gone, so the mirror inode is only released after this
-+		 * commit.
-+		 */
-+		ntfs_commit_inode(vol->vol_ino);
-+	}
-+
-+	/*
-+	 * Release $Volume while the mft inode is still available: if the
-+	 * commit above failed before it could clear the dirty flag,
-+	 * ntfs_evict_big_inode() commits the inode again on its way out,
-+	 * and __ntfs_write_inode() needs vol->mft_ino to look up the
-+	 * runlist of the record to write.
-+	 */
-+	iput(vol->vol_ino);
-+	vol->vol_ino = NULL;
-+
-+	if (vol->mftmirr_ino) {
-+		iput(vol->mftmirr_ino);
-+		vol->mftmirr_ino = NULL;
-+	}
-+
- 	iput(vol->mft_ino);
- 	vol->mft_ino = NULL;
+ 	sync_inodes_sb(sb);
+ 	sync_blockdev(sb->s_bdev);
  	blkdev_issue_flush(sb->s_bdev);
 -- 
 2.25.1
