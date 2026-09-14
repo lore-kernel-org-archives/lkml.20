@@ -1,88 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61548415F23;
-	Mon, 14 Sep 2026 10:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5F943149D
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789381056; cv=none; b=eBmi1fTTDfFnC2IM62mUhgjs4RUptrrqr/ioELfGYZ+bAIT1C86hnJHbYDydqyk32CbaXkqhmZ+k5mD/hYzD6ZrTYu/hlfN/j9i3HUYYnnJhYep8m1eb7rz+fdZMcOu7nkjFAk7LvMuWXRJEDXm5uAoFKVjMGba+y8acTUY2NS0=
+	t=1789381187; cv=none; b=CLLL+hiJ8v78gCxzQAiJUfANuN4WogYJWLN+BvPTlCbx5CDPdRlfdyaOCC4XxqCD+pvPLGCw9KSAlpeYxJzs0X1yk3v81UV7KTIl1yFiOwWtPP4BDRIdg8slJI2NcoBDA/bVJM1nhw8QCE2VRctIP1ykt1kcfHmtKhxKFC5wA7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789381056; c=relaxed/simple;
-	bh=YgwMSL2DfS6Z71Ol2dt2Xh64k0FHnIYhlRjZmBPc0hg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ERNuYNwrAPsP+7g7PxFINvRVtZIpKNP7tZgYEAUS4J+hrAqlZFqb5WLnJNPTdYfA1HpW9F3v0lA6Y9aga4EZmWJIPmIbPfC9VTab3PjQqMsnz35DK9Jh3sc0Ng10BUWnJVRZPqmjoufFUuP0mRWt3K8Z4GIBKawVcUOIS3t2kbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lYDq+mGJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789381187; c=relaxed/simple;
+	bh=rDGcdjgbm/CAUdK7EL0dgXysoeNtXkRXZp/pdyGDwHc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oqqZ+dAfGIjvv/bCrb5vCjp0UhhO9gIRWnx1OzjGQvCvfBx/vbGUrLTDQ1slbFw6VNIJHnxAEnYX/s3WFrKGxjj/at0FlOFekTJJCGbIfJ2Hbr/glHd4xYnx2CMh86skx1s3UDPDTkmxaOLEp0zRQ17HzFemYu3ztxG5zYL4xDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=EI505bum; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lYDq+mGJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7D91F000FF;
-	Mon, 14 Sep 2026 10:17:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789381051;
-	bh=YgwMSL2DfS6Z71Ol2dt2Xh64k0FHnIYhlRjZmBPc0hg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lYDq+mGJqr9IgENqdrucgdgVBVO8BcmPTAGLx01IfET8Xw/MrpJTu8OLqtfTql80a
-	 9WYWsD1y/tupjxF9WI8uuUuHBBlIs5EndFVgOL3SKxrqoXqJH1sIYXpKjV4n9Q/8Ic
-	 4tqypts+zYeSQbcuyfbwUSHQGEdXAP5F+HoGDba6yXMRcB4WzfBl5ZwDpz+2yVH2Sy
-	 c/Krj3PXqjzks5UNih2jJQNp/pkjtWNUfIJqWY+q3UHrV/hSSFPf4TpTjwmxIHI/e5
-	 uXuwG4EncvwTu3gjbsngvHOmeXiylJf975/pj7GVjwOqnRkC/x7i1udR6YOmSzcU9x
-	 TCpS6EUFzXJ4g==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 390AE1AC52F1; Mon, 14 Sep 2026 11:17:27 +0100 (BST)
-Date: Mon, 14 Sep 2026 11:17:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Carlos Song <carlos.song@nxp.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Aisheng Dong <aisheng.dong@nxp.com>,
-	Frank Li <frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: linux-next: regression in i2c-imx-lpi2c.c after rust-i2c-next
- merge (next-20260910)
-Message-ID: <aqfJtxvw6MM6l9s-@sirena.co.uk>
-References: <AM0PR04MB68023742F715A3BB3DEC1929E8BB2@AM0PR04MB6802.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="EI505bum"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789381183;
+	bh=rDGcdjgbm/CAUdK7EL0dgXysoeNtXkRXZp/pdyGDwHc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=EI505bum8bVbquLp0u1D2ErvxoyPBW5EHp4nJ33M9Fy/NlvMCVdOFHnlkXR3K5Vuu
+	 dawNLw/fo4YVJ9lHh9k4UG8N0i21hYWi4u59L2YVwFzHoVH/dscJInzjrJPnFa/MsR
+	 tacrn+xL4iTaHc3YQK88xf1W8bMyuGqz9ZYrVRipD81TJcwX+Nw6kv/It+Wv3srzZu
+	 9XYlCsYK7Zmh9lwQ12MZZ6YX+tWBD4WdZ9bwi2ZyyX32nJXS+GVKJTXMndJPlFgMpa
+	 daMVNxdTHxETTf5yCLF9pdLOEK6IQlWYszZaLFR5vu6DnuElSHcZS12uAcZfKoKuPA
+	 BubScWAV4tnXg==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 09C9F17E091A;
+	Mon, 14 Sep 2026 12:19:43 +0200 (CEST)
+Date: Mon, 14 Sep 2026 12:19:37 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 16/16] drm/panfrost: Bump driver minor to reflect new
+ DUMP IOCTL req field
+Message-ID: <20260914121937.6f75e87b@fedora-21.home>
+In-Reply-To: <20260912-claude-fixes-v9-16-e588feaa61ef@collabora.com>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+	<20260912-claude-fixes-v9-16-e588feaa61ef@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="c6yA6j/BNL4mrRfs"
-Content-Disposition: inline
-In-Reply-To: <AM0PR04MB68023742F715A3BB3DEC1929E8BB2@AM0PR04MB6802.eurprd04.prod.outlook.com>
-X-Cookie: My vaseline is RUNNING...
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, 12 Sep 2026 00:28:17 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
---c6yA6j/BNL4mrRfs
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> Expose expanded PERFCNT_DUMP IOCTL interface to user mode.
 
-On Mon, Sep 14, 2026 at 03:28:29AM +0000, Carlos Song wrote:
+I don't think it makes sense to have the version bump in a separate
+commit when the changes adding support for a uAPI extension are all in a
+single commit, so I'd squash this commit into patch 15.
 
-> The root cause is:
-> Change to lpi2c_imx_probe() from this patch[1] was replaced back with the old logic during the merge conflict resolution(2edfbdfb8f9c).
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_drv.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 571a26b84126..de9b1c115181 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driv=
+er_fops =3D {
+>   * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
+>   *	   PANFROST_IOCTL_QUERY_BO_INFO and
+>   *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
+> + * - 1.7 - adds PERFCNT_DUMP req state field
+>   */
+>  static const struct drm_driver panfrost_drm_driver =3D {
+>  	.driver_features	=3D DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
+> @@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver =
+=3D {
+>  	.name			=3D "panfrost",
+>  	.desc			=3D "panfrost DRM",
+>  	.major			=3D 1,
+> -	.minor			=3D 6,
+> +	.minor			=3D 7,
+> =20
+>  	.gem_create_object	=3D panfrost_gem_create_object,
+>  	.gem_prime_import	=3D panfrost_gem_prime_import,
+>=20
 
-> Could you help pick these missing codes back?
-
-If you think there's a fixup needed for the merge please send me a patch
-with that fixup.
-
---c6yA6j/BNL4mrRfs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqnybYACgkQJNaLcl1U
-h9AZxAf/WfLXO+qKCuJZWHuf+qHA9f53nQcqvQKtj+NBJ4Eg7ut014zJbEMZBfAE
-CXozba/agwGLQ1uUWk7qtmFuZlY6NKsutbJN4w1xyTYMgR9uJczv4D5rEouOcRPw
-emAvd51FZrOUv5sN7Q7GYaGEHy+MZb16iU5Rvr52IMAZCW8mhks7VZQEWtoJ9juu
-9RRsGZ31Cv1uZPN0v9nOrcIG9gVgENjW/SXuzcnkf8GfB92VF/VVK/F0zCERLahT
-JCkQyCC2uvtASmkwMx7SYBiYJUGQbew6HwChABfS1cfTjTE62MjWi244Hp8+UNCF
-X3UhcxFkhWtrwSDcbm4RZFnTKWvhpQ==
-=j71t
------END PGP SIGNATURE-----
-
---c6yA6j/BNL4mrRfs--
