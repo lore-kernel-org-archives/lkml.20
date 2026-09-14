@@ -1,227 +1,305 @@
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010016.outbound.protection.outlook.com [52.101.193.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE397332EA2
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.153.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A383B8949
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.16
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372259; cv=fail; b=WYJhWFDn+5DKcVlUWTnxtKrDCZtGYYU1Lx1O4U29P5OoGfpg/uHXN/XAF3swUtQJZPxAJxMudgMjePQjl2pDGMgsQEZEif4wlP2uZbX2BiUJS5ngldRK3zNp5cCpTU49tb4UHBiKfVFGtbkDCmNLKnSZ+Bt/X6hv6YOLAfdKKFk=
+	t=1789372267; cv=fail; b=TrtZn7wpEF2mVjgWvT3nQmVQPw2AC8ycMx+AaisUpgHQ8HKNwwGcr+BcP36g+WNRPGatixeodQnMt2P48BqQJbJzPZATPFSYO5wjS2I5hNLKwaOnW8y/i7o4IM1qRqtd8r3X6I1J8qfuM2Db/z8Oax/dx6MwKiG2ajV8npGXGUI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372259; c=relaxed/simple;
-	bh=ja06hZRWozrjKmrBxPlahys/wkv+PRDbW4qJDRTZi8k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sfdCkHQb7BFOFsUQe802rKxp4uvTG6VQG1PH9Ktj9iL1lKutFsaLt7E9l66A2hKiPfBOGSPApELF0CR+mboQCzIdlfYbzXZ1mx7QjDCn6sXe2wYiVjYUk3MWwA5KzvFa1izxOuZIqxuDgoJJpu3iUFMEjxHV+zQq/QLYts3r4jY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=WCFguKN3; arc=fail smtp.client-ip=67.231.153.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1789372267; c=relaxed/simple;
+	bh=bqC6cGxzgozquakKX8563BGFsUwod76h8O6m6zVUKYI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e35PpS7+MDUZ0vLLcF1Gi/xTx+LO3nQTDhFAiaBVbGMQNL5QcOvikqokoiqrwDI/Ku/zUdp+jFY+d/wCoqltAs63903UPta6a66ko4qrGDX3vY6UW4r+GCcmRpHajuIAqmmvLYWOsAh4GbnI4cgtC11K/zxX7xjpwEA3wUIkhy0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JaGb7x76; arc=fail smtp.client-ip=52.101.193.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="WCFguKN3"
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5iEUw800276
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:56 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=NDOIHgRCA92fBXr4xcQP2Sz2dW6sDDwTFYVMg
-	oMYlcs=; b=WCFguKN3aEEwflv8ror5uZKo6cmU7rFOYUyrhkHaXhwbfgu/10bre
-	/RIqLx6XQ+UfkHiamM4+KrEiC1lluU6TZHEe2VjYHcoaHewvVPaqDqon4tUihXRf
-	DzKB4y/+twXTjzgrGKbAihp11yQ2bDHSASDcjU/v4pNk2XUQz8a1R5jkXJzefoeD
-	7/DL8aTU7Uqc4PO15WwNgw72HZVFuBGWWDBixr6v6R0NIADx0h4A00KlL4dZEoR6
-	PtDTyRr/V+9mKFbdX687c2fMWBJWhVVmg+yiQXPlJrpXIfi9KxmKWFqu0FP6N3of
-	7J3S/+7uEydaQ6N+VnHXGaFVFF0Hc2/Sg==
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gn48br1c9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:56 -0700 (PDT)
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c25edb54d22so57852466b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:50:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789372255; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rnDrkCEunNR2avntl5UiNoyySnwEshOKbjRWQGfEWm3sZX7KHn+MgRy2+9hpBqfwNp
-         ip5cZqCclraAPXGKfx/eBIzLKsAjbssISOwoVGA2mJs/3quNw7C16On53hxuS7Kdog2h
-         qvFvNubAXn2MjoD3V3NOyJitQmnXP24lgSPHX1B1o8oXgOw/zf7Otcegd0ZT4Lb3b7+a
-         wB26t48eG7iut27tciMA0ZBMTDy95ZoArWAjZqjS2Xbx31bOGXGxsRkVKrIq/2OTDiWw
-         nKhg5B0May6Feci7Ik4/HR2MHVZG7hepMNZ6SQlOKbF6+Bh7UgvJSdOF6NeQLtO/t/ht
-         X54w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=b5IHm3fbXcJn7XNfv0FO+D+UbV/ZMp7hfv/7cooIizg=;
-        fh=qirJlND8u9MQXVNUYZn7zYkYaOlMQKezEhHb1Bs0rqs=;
-        b=aEG2EJXF0QtxjoJ1XG2Dv6LfOTwVb2XSz1txNOaX01Sg7PnacnyfBFB8f5LuE5Xa7j
-         IybCqyPKeJYZNrl3oVfwxSbjr//WedYf3mNqDgur/83Xp8PTmqfpOoIbFZ3694aaco6I
-         64k3CEiNrWDDhNE7ORI7vU0NLNmXUzntWX46lNJKbqTVwfjolLoTnL9jSGgzMkCNG6AG
-         r2HoBRG8RLX9EFo4KtjY1j/Ry4vA5g82JzyEK+kpWk9iUbnLElbAEvqck77mOTnIoxcI
-         mNiJn3L41XvD1073/BajEJs/728/BM8goLPYBJ72qFFghxTW18hadV5jCS9DlhdbsRmo
-         IKSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789372255; x=1789977055;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b5IHm3fbXcJn7XNfv0FO+D+UbV/ZMp7hfv/7cooIizg=;
-        b=BgM8JlS6wnmqCjePkfaoDTORRZjnuRglVtyzlVH1ijvYdxDHPztRg7Xfau/tZy7Yvd
-         Ry7ibSnng+peOie18KRbKZiHYFEY8/leCeHUP4ZUsNOt+tynUBbgmolNFrYMoOee9/eL
-         mN5S+VenTZ5Qe6V7gBicYsYaVTpxuq3QfuUB+E7nowqWnauA4jhxQMRrOt2vR0Y+O9j5
-         VGOAQMrM3Cs1h8HhzoLP4ETksS9ZX/ANqxewm/J/8gERJT0MKhL4P/mxbH9VCRRuFi4I
-         vttf8DTPCVdiCRzXyH6awy2XLfFehT6gtWVcUHHAUKfzRXqVY2UATHiqnxCWD5cXh1G9
-         gBPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwiYPfb88CztJQ0zOgJH4hZ00hGm4NKVZsNVhGIoiK+iI8bpfhTIZ5e3bJt4ZnwYaEQTAajD7dKuaj0QYg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkqswHNitDV3IrZBS9xerLaoc74AhkKc5yZCRZrXU0fYmg19Iy
-	+WRKP1yC1Qmfqv7jvdJiBl/tQhiVl2VOkLwV3Dw7DDcoPa5hukgcupQaUyY/bysXoB6heiJTSYY
-	u/UNAuXE8h5wpLBa3VOZ99vcHjWSeLGt5Hv0Z2/ReQCF94Fktic5ovOTo+XO5y9K+ePnqBATvV6
-	qAOFFneOFaF46Xwj24sYi+hZxM+YRfs0V9N3B8rTw=
-X-Gm-Gg: AYBFou3sB4+c8hIoAQgcEnQOSkWf/P4TtqaFof0HVIKBO6Ke282szNicj5GHIC5joic
-	uFAt6ob7EiCzKQ+bn1VDh2yv5VylUGQ+peJMvqm6f9Higritl1vLcULonRQH40l1eewTH6izo3V
-	kjx7Gcm6hRmJGsc+QZVdaCbjlZOof8v2tiFBIt+IR2GyGMrvP9AZMBLMGr4JpbVuoMPf4Fr6y2j
-	4POts+5DLyQ5pmrnQ==
-X-Received: by 2002:a17:907:c18:b0:c25:8e53:45ca with SMTP id a640c23a62f3a-c29b87655b6mr140823766b.21.1789372255326;
-        Mon, 14 Sep 2026 00:50:55 -0700 (PDT)
-X-Received: by 2002:a17:907:c18:b0:c25:8e53:45ca with SMTP id
- a640c23a62f3a-c29b87655b6mr140819366b.21.1789372254932; Mon, 14 Sep 2026
- 00:50:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JaGb7x76"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u5Vior34/D2hU/8AM7qyK3kwrRxjDzbStcMEdxK7fdPAzxToRagVD5KKQLYeKEnseJbIm+9GG49Dd8yeWBZzMWlONWQHhbOaqYim44dw2gwk0p5dZxMko9mwKWG0NNnLsWhHnB8yL2f2UtJQvDr0uM5LqkMVAkhHm/FJbHfWNB1qSaJ5sOu5cVkgFMtnRq579JhR91qZexoACLnCIzaLW4gGQeOnwiU4j96T0Gc8uaEgFzKJAAbV9DjDGlS2Rz9jnOBaBsfgOy+vCGM0S5ynRA0opq/Hcx6cgPyrdq7aB2vIuh5FFJJHTSfHnUg1s3CUEq/AvwtzCodRaV4Y4XRxig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RKIFgrdhLIseUzDu9MwYpLHHcMsfAFCgnSs5hjJ4uUM=;
+ b=inGM30XH6tesM8wVy03sb0eRmqprzsAnBhSAHk2SuP05yOTlKDtDuWn0KkUglRqjLUaqmeJIwj7k92o38L1jmjMCjxpMxK7J8ot2Bia+0tHGeoEIQ2GpSAj4oBMtRLyWMxLpHTEf7xPGYOx3/OoFtMITR+ectHbhEUSVOH+6Us9DQg4sgeK5dB+F3+fVIXJbTgwnxQskyiZUM5AhOhmzAeM9VgBB4XFncsghqNXYW+NsYLbCK1Re8tfwupTuox2Wj2RNvq5/lCXnO9Qxj5Uu9cqEDvSjpO9QwZ+gjVO3fpp3XrabrnbnFhm6T9mZ6c8+P1J5ovgaIWU9bZeGC+dcCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RKIFgrdhLIseUzDu9MwYpLHHcMsfAFCgnSs5hjJ4uUM=;
+ b=JaGb7x76wt6cUkPtZX6cwKolz9idYjuq8z5VZoo7TpjX+m1/2XtefNmFmlqYcyfKbSoeh3cbLMvhabsVc2KgD6rRT4Dt4LcBvyD/Mx+KOdJgtoyzLDB1XOWlIA3PjezhAmcmlBePSBzeeyIaoCzCSR6ueuf1nk/7ifsqwD4QlTn9SmY5fdSqkMAWIK7ZIDHmW8F9sosgHLVMWeBmZ1U7Q9wo3b1jHQlfbgq8DEf39D+C4/VftAWESc6T+eTX/KGc0WdA9M1Bybg6J/r3IOwmNE32U2gWhhIILxlKin9v6Ca2r2YbA1oexejx2w1u9HqbIeKOk5leqAyBAWNowM2i7g==
+Received: from BL1PR13CA0149.namprd13.prod.outlook.com (2603:10b6:208:2bb::34)
+ by SJ0PR12MB6784.namprd12.prod.outlook.com (2603:10b6:a03:44f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Mon, 14 Sep
+ 2026 07:50:56 +0000
+Received: from BN1PEPF00018547.namprd05.prod.outlook.com
+ (2603:10b6:208:2bb:cafe::94) by BL1PR13CA0149.outlook.office365.com
+ (2603:10b6:208:2bb::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Mon, 14
+ Sep 2026 07:50:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN1PEPF00018547.mail.protection.outlook.com (10.167.248.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 07:50:56 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
+ 2026 00:50:35 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
+ 2026 00:50:34 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Mon, 14
+ Sep 2026 00:50:27 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+	<zhiw@nvidia.com>, Alistair Popple <apopple@nvidia.com>
+Subject: [PATCH v2 09/32] gpu: nova-core: mm: borrow BarUser for temporary BAR1 access
+Date: Mon, 14 Sep 2026 10:48:44 +0300
+Message-ID: <20260914074907.1399629-10-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914074907.1399629-1-zhiw@nvidia.com>
+References: <20260914074907.1399629-1-zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911121341.178028-1-alex@ghiti.fr> <20260911121341.178028-3-alex@ghiti.fr>
- <CAGsJ_4z3bSfMTKvkXsKAz=+dzhmdGOerSfL33t2RkN0CXZV-hw@mail.gmail.com>
-In-Reply-To: <CAGsJ_4z3bSfMTKvkXsKAz=+dzhmdGOerSfL33t2RkN0CXZV-hw@mail.gmail.com>
-From: Alexandre Ghiti <alexghiti@meta.com>
-Date: Mon, 14 Sep 2026 09:50:43 +0200
-X-Gm-Features: AcwNN1U5dS5EtcARkFGKnblzleHf1kNpbwhWpFFrqeypIiGrF-7Hdyx4M88AHOc
-Message-ID: <CAEmasaX64UPFX=OTQ6pC_XqjMqiuj+fD76-7TFWBaZFE+LODew@mail.gmail.com>
-Subject: Re: [PATCH v5 2/3] mm: swap: drop dropbehind swap cache folios on
- writeback completion
-To: Barry Song <baohua@kernel.org>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, Johannes Weiner <hannes@cmpxchg.org>,
-        Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kairui Song <ryncsn@gmail.com>,
-        Chengming Zhou <chengming.zhou@linux.dev>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        Jan Kara <jack@suse.cz>, Kemeng Shi <shikemeng@huaweicloud.com>,
-        Baoquan He <baoquan.he@linux.dev>,
-        Youngjun Park <youngjun.park@lge.com>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <brauner@kernel.org>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        Michal Hocko <mhocko@kernel.org>,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
-        Wei Xu <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>,
-        Kunwu Chan <kunwu.chan@gmail.com>, Tal Zussman <tz2294@columbia.edu>,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=JMCuIMKb c=1 sm=1 tr=0 ts=6aa7a760 cx=c_pps
- a=D+UBI74RbQA8i2EYnbuvxw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=JnKecZnUtZousrUlYMGU:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=ufHFDILaAAAA:8 a=TYz18Bk7nizorY65d84A:9
- a=QEXdDO2ut3YA:10 a=PsfoTyiJ_72bb7xyA04f:22 a=ZmIg1sZ3JBWsdXgziEIF:22
-X-Proofpoint-GUID: _Y3LFU0RRBAtpmfukGgKa_ZhogSCc_-Q
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfX/baODt+z7ahb
- 1t0fmtP+Wy0erXFiL/2DxdCHcggZBIf2eJ3Zg6rykCkvXVYNxqBgD31iogrOgKIjMGA1hqvBlLY
- LTi6eDRYXtXta5W1LPeG7n/IgNQNjlE=
-X-Proofpoint-ORIG-GUID: _Y3LFU0RRBAtpmfukGgKa_ZhogSCc_-Q
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfXy8glQ9Wc/hJY
- /oBc6kH5vhdzbSrFPntME7dsaZK1iNaZ6HMcMfKVw+541mVc0kCGEfWIgXfC0xQxVtR6dlJOFnq
- 1kxhe5DFmpDh1fxZ7VJ704Y7as7k9J2Qlxj9KDy+DFaet2+TQlGpo5UExjqxuoraVtorZ7+/M5f
- KrHOGY76nXeY7Qu26EHJMi91tI2F7MJCoILGFi+FpH7eOGOqIBLSeJeTeZSEF32DFE+NQ0ixnup
- nRAmh3ObyzN5aPv5KQ8eYhu0IS9Catz4gc2G+T5g5tdDHwqdFe602kBnZEY3tVQQJjcea1Mhlc2
- g6Q8EGYE7tkIPSAI5D/KwQJ73W7m59OPYHOfqXcj4Wmz9SYINONkp60tqOVTDtOALLLySjXE6GU
- t+q7aneetDcWIDVXfk3XVW5feHBgwDSJGniCNdjAeVu1K7CRjcA/XhWzuuLo4V7lmeT7ew5g1Z7
- 0xKmwS6oqpQUMJTTd+g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018547:EE_|SJ0PR12MB6784:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67756681-2525-4c48-0455-08df1234e8ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|36860700016|23010399003|6133799003|18002099003|22082099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	WlhoqYg4SdtulgOKuG8Oe2yQFsEg1Nmu8PJDE68qCjyGMqvw9YdnpOvQ6Rn2bo3OwspB4QIjrU6OPAJPG65JaROvNxuQy08x/pBTgQ9rp+ySrBTN/g40oa0AbqbIu6+9uRU+7iqQ24jBbqrjGdcPL+CdrNJiO4CYf9XfMR/9NdJmykJ2044gzPDywmZ62BfI9K+j9LNjKAVcuGrWaugI7VJ8X5yxov8enud13kUm2pr2mySB7T/Pq1hXRuiYsW034PDHc7qIdXaeuzH/S1QY+dGW08xRuxRCvcM4Vg88AhGcZ1DYvZ9CEOly4Z8DoHjpiNCiag8/zrdxqUNwXaOl/jUlWCRsEzEnVQ8SIJPjfYupnXtBT714TPmkChyKuAUed9E7oYD+UUSYDukEMQgoIaM9ebBz+QH9bT9qdi03tA5Iy2m/VtRQQzBcqodisB+m3uZn1P/zV3fMk1eOZbpV8Sxwjxwr6+Jx7dHlO8en1WhWsLhyWQufK4Zf1glkRlVyQ0JmC7zTU+BCdcPdevQ0MkxgIm2YhpYQ0xwOn4Golvx9VarRmBmFzTEE0rcjQ216vTUSFQ1BWrIf5mOMbUjnbQkrJMbSQDRZuFKs7Lt3cnyc47lSzFbAwikIe6ouG5Qb+ScfvBsrlVdQIckx5XC4/J0b9FqwAU3XeMRp911EgEnLnxGVp/7/uzGMXXbNN7HzHnhiDYlpJveV8SMt5QkL4g==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(36860700016)(23010399003)(6133799003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SXFxBKgIwi+s2AxlKK72hd6jORKIhfaU2a+ArX+pF6lMTgwG6PWittbZwGc2vkaTVvZo2UCTmpAKKzL0xoY2N8e2p0XhXnMeYEZsMMxiMLfKDIMXM6YaXQoqce0ut8ELB81O757Vq5bGDUMPTiDHRnZ1s1JPY3d+q3cCajg5cgJ2DvX0tt484W9PgFqIYvVLh2Bauu3C85VvVdpuoQbHGmHq3/4b2+YjXlOBnSstZRbXf9b3O5tA8XsC0n5Kodj3qYaKL4P7eDccsNrwunHUnqM5Gho9IEFDT98tEOj64SDG3a30ZFsXYEDyRS9JqRkiPrlg7jXVOdrjTfSuul/fQnO+no2heEiNYeDDRPIwhgvAws2RdtpSy1fU+IXB0Hiswp0BuLh+14keISZ5zHrqHFTo2nz3wDfJGfuXt48LKakxXt60FCAQyN/71BFwNKPh
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:50:56.0205
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67756681-2525-4c48-0455-08df1234e8ba
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018547.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6784
 
-Hi Barry,
+Temporary BAR1 access needs a borrow of the GPU-owned BarUser. Store
+BarUser inline in Gpu and borrow it in BarUserAccess, avoiding a separate
+allocation and reference counting for these accesses. Update the existing
+self-test entry points to accept the borrowed interface.
 
-On Mon, Sep 14, 2026 at 1:01=E2=80=AFAM Barry Song <baohua@kernel.org> wrot=
-e:
->
-> >
-> On Fri, Sep 11, 2026 at 8:16=E2=80=AFPM Alexandre Ghiti <alex@ghiti.fr> w=
-rote:
-> >
-> > A PG_dropbehind folio is dropped from its cache once writeback completes
-> > rather than left for reclaim to find later; this is implemented for file
-> > folios in folio_end_dropbehind(). Extend it to swap cache folios.
-> >
-> > The drop takes the folio and swap cluster locks and may sleep, so it
-> > cannot run in interrupt context. Set BIO_COMPLETE_IN_TASK on the write,
-> > as the file dropbehind paths do, and drop the folio directly from
-> > folio_end_writeback().
-> >
-> > Suggested-by: Yosry Ahmed <yosry@kernel.org>
-> > Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> > ---
-> [...]
->
-> > diff --git a/mm/page_io.c b/mm/page_io.c
-> > index 88962571cb93..52eae99de6e3 100644
-> > --- a/mm/page_io.c
-> > +++ b/mm/page_io.c
-> > @@ -602,6 +602,15 @@ static void swap_bdev_submit_write(struct swap_io_=
-ctx *ctx)
-> >                 submit_bio_wait(bio);
-> >                 end_swap_bio_write(bio);
-> >         } else {
-> > +               int p;
-> > +
-> > +               for (p =3D 0; p < sio->nr_bvecs; p++) {
-> > +                       if (folio_test_dropbehind(bvec_folio(&sio->bvec=
-s[p]))) {
-> > +                               bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
->
-> Thanks very much, Alexandre. I find the code is really much,
-> much better, but I=E2=80=99m still struggling to understand why we need a
-> sleepable context after Wenjian=E2=80=99s commit:
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/commit/?id=3D=
-848d2ce2fce15fbdc083fbf9691bfa72911033c4
->
-> With this question:
->
-> https://lore.kernel.org/linux-mm/CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz=
--cHaDWLkxaQ@mail.gmail.com/T/#u
->
-> In short, it still feels a little strange to me that we need a
-> sleepable context, especially now that we no longer call
-> `folio_unmap_invalidate()` for unmapped folios.
+No functional change is intended.
 
-The thing is the zswap writeback folios are not on lru: that's because
-if we put them on lru at allocation, the perpcu lru cache holds a
-reference and it prevents remove_mapping() from freeing the folio (I
-measured that with on-lru folios, the freed rate collapses from 99.9%
-to ~3%).
+Cc: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ drivers/gpu/nova-core/gpu.rs         | 21 +++++++++------------
+ drivers/gpu/nova-core/mm.rs          |  5 ++---
+ drivers/gpu/nova-core/mm/bar_user.rs | 27 ++++++++++++---------------
+ 3 files changed, 23 insertions(+), 30 deletions(-)
 
-So if we use the folio_trylock() approach, we'd need to put the folio
-back on lru otherwise it would be "lost". But I don't think we can do
-that while someone else holds the folio lock.
-
-That's why I use folio_lock() which can sleep and then needs the
-sleepable context.
-
-What do you think?
-
-Thanks,
-
-Alex
-
->
-> Best Regards
-> Barry
->
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 227531b28541..ebf29b06a8e1 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -16,7 +16,6 @@
+         SizeConstants,
+         SZ_4K, //
+     },
+-    sync::Arc,
+ };
+ 
+ use crate::{
+@@ -327,7 +326,8 @@ pub(crate) struct Gpu<'gpu> {
+     /// the GSP is still operational.
+     mm: GpuMm<'gpu>,
+     /// BAR1 user interface for CPU access to GPU virtual memory.
+-    bar_user: Arc<BarUser<'gpu>>,
++    #[pin]
++    bar_user: BarUser<'gpu>,
+     /// GSP and its resources.
+     #[pin]
+     gsp_resources: GspResources<'gpu>,
+@@ -523,19 +523,16 @@ pub(crate) fn new<'a>(
+             },
+ 
+             // Create BAR1 user interface for CPU access to GPU virtual memory.
+-            bar_user: {
++            bar_user <- {
+                 let pdb_addr =
+                     VramAddress::from_raw(gsp_resources.boot_result.static_info.bar1_pde_base);
+                 let bar1_idx = crate::driver::bar1_resource_index(pdev)?;
+                 let bar1_size = pdev.resource_len(bar1_idx)?;
+-                Arc::pin_init(
+-                    BarUser::new(
+-                        pdb_addr,
+-                        gsp_resources.spec.chipset,
+-                        bar1_size,
+-                        bar1,
+-                    )?,
+-                    GFP_KERNEL,
++                BarUser::new(
++                    pdb_addr,
++                    gsp_resources.spec.chipset,
++                    bar1_size,
++                    bar1,
+                 )?
+             },
+         })
+@@ -552,7 +549,7 @@ pub(crate) fn run_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bou
+             dev,
+             this.mm,
+             regions,
+-            this.bar_user,
++            this.bar_user.as_ref().get_ref(),
+             this.gsp_resources.boot_result.static_info.bar1_pde_base,
+             this.gsp_resources.spec.chipset,
+         ) {
+diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+index a5bc4042577b..8a934c55169f 100644
+--- a/drivers/gpu/nova-core/mm.rs
++++ b/drivers/gpu/nova-core/mm.rs
+@@ -298,8 +298,7 @@ pub(crate) mod selftest {
+ 
+     use kernel::{
+         device,
+-        sizes::SizeConstants,
+-        sync::Arc, //
++        sizes::SizeConstants, //
+     };
+ 
+     use super::*;
+@@ -309,7 +308,7 @@ pub(crate) fn run(
+         dev: &device::Device<device::Bound>,
+         mm: &mut GpuMm<'_>,
+         usable_fb_regions: &[Range<u64>],
+-        bar_user: &Arc<bar_user::BarUser<'_>>,
++        bar_user: &bar_user::BarUser<'_>,
+         bar1_pdb: u64,
+         chipset: Chipset,
+     ) -> Result {
+diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
+index 1bef01d147ad..2e6d229b1a23 100644
+--- a/drivers/gpu/nova-core/mm/bar_user.rs
++++ b/drivers/gpu/nova-core/mm/bar_user.rs
+@@ -7,10 +7,7 @@
+     io::Io,
+     new_mutex,
+     prelude::*,
+-    sync::{
+-        Arc,
+-        Mutex, //
+-    },
++    sync::Mutex, //
+ };
+ 
+ use crate::{
+@@ -60,12 +57,12 @@ pub(crate) fn new(
+     }
+ 
+     /// Map physical pages to a contiguous BAR1 virtual range.
+-    pub(crate) fn map(
+-        self: &Arc<Self>,
++    pub(crate) fn map<'access>(
++        &'access self,
+         mm: &mut GpuMm<'_>,
+         pfns: &[Pfn],
+         writable: bool,
+-    ) -> Result<BarUserAccess<'gpu>> {
++    ) -> Result<BarUserAccess<'access, 'gpu>> {
+         if pfns.is_empty() {
+             return Err(EINVAL);
+         }
+@@ -73,22 +70,22 @@ pub(crate) fn map(
+         let mapped = vmm.map_pages(mm, pfns, None, writable)?;
+ 
+         Ok(BarUserAccess {
+-            bar_user: self.clone(),
++            bar_user: self,
+             mapped: Some(mapped),
+         })
+     }
+ }
+ 
+ /// Access object for a mapped BAR1 region.
+-pub(crate) struct BarUserAccess<'gpu> {
+-    bar_user: Arc<BarUser<'gpu>>,
++pub(crate) struct BarUserAccess<'access, 'gpu> {
++    bar_user: &'access BarUser<'gpu>,
+     /// [`BarUserAccess::release`] [`Option::take`]s this; `Some` at
+     /// drop time means `release()` was never called.
+     mapped: Option<MappedRange>,
+ }
+ 
+ #[expect(dead_code)]
+-impl BarUserAccess<'_> {
++impl BarUserAccess<'_, '_> {
+     /// Tear down the BAR1 mapping.
+     pub(crate) fn release(mut self, mm: &mut GpuMm<'_>) -> Result {
+         let mapped = self.mapped.take().ok_or(EINVAL)?;
+@@ -162,7 +159,7 @@ pub(crate) fn try_write64(&self, value: u64, offset: usize) -> Result {
+     }
+ }
+ 
+-impl Drop for BarUserAccess<'_> {
++impl Drop for BarUserAccess<'_, '_> {
+     fn drop(&mut self) {
+         if self.mapped.is_some() {
+             kernel::pr_warn!(
+@@ -180,10 +177,10 @@ fn drop(&mut self) {
+ /// address space. Uses the `GpuMm`'s buddy allocator to allocate page tables
+ /// and test pages as needed.
+ #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+-pub(crate) fn run_self_test(
++pub(super) fn run_self_test(
+     dev: &device::Device<device::Bound>,
+     mm: &mut GpuMm<'_>,
+-    bar_user: &Arc<BarUser<'_>>,
++    bar_user: &BarUser<'_>,
+     bar1_pdb: u64,
+     chipset: Chipset,
+ ) -> Result {
+@@ -386,7 +383,7 @@ pub(crate) fn run_self_test(
+     drop(vmm);
+ 
+     // Test 4: Exercise `BarUser::map()` end-to-end.
+-    let bar_user = Arc::pin_init(
++    let bar_user = KBox::pin_init(
+         BarUser::new(pdb_addr, chipset, SZ_64K.into_safe_cast(), bar1)?,
+         GFP_KERNEL,
+     )?;
