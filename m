@@ -1,154 +1,138 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA63F443E4E;
-	Mon, 14 Sep 2026 14:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3EA47ECC8
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395440; cv=none; b=t6FXAcvobNgg/rlErQHhyLUZl90pgVnJHQgI+HRrDJOI2uiBmiFbf49lNAzT5C8+dJph6/mSqFVLkQKPAy1TRT0/3LNseT9y4EXEaFg31a6gHn4wjAHSr6EiJpgsgZfy0mV80PUeeXanJuFNNQ5XEyQ9ytyFtvyV5AVVS5eXDbM=
+	t=1789395443; cv=none; b=AgWGkQhPaAIVhZsILr8L9mNcZr87iN9SYjhGB7zv1yBjrGQLd0WgKWvFtd2lTbs6jWxdeBqffNqdby5UD/M/QKMH2qYRAoLnvAzbISESBm1JUB+XGc67dyQQrzZVR4caR6xCqz2gB2BP1bJ5Vul6Qnj3uyF/5arxlgCnyM0dwJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395440; c=relaxed/simple;
-	bh=WwyemPfCGtGpaGhIaw8oeDMtCAwfUBPK7mE2W6HoOzA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=THYgZdmmJVV8y3khWdVMJGhUUgsZog3hJ9nMVOkusJfhgD5xngy7IjRc4Kq1ifDEJ1qsdc6vqzCsGIneUQAwuIr9T+ORI9XQCDQilSIrTWYPL4dYEYPD7s07+jlR23ksbBNcvLlC1qAmDZcf//ANDykeG9Vowo4X+UVI5WhAAY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=EOMZj8c5; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="EOMZj8c5"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0A01A02A9;
-	Mon, 14 Sep 2026 16:17:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789395436; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=LV2rFuTqxnUvpT2kKgZ/ZRhHzzkTqV9h4yZ9JGUnT6w=;
-	b=EOMZj8c5UtgRvJy+/sEDZwAeK5OGNoYne0yZIcNvi7ZvnMeLwrFBjk4gtfpTcPxwH7GAwO
-	eEtkw9QWZQS3fIEW2B0+CpzoBwWN1ac2TLKrOW6bES/wVwmdNYI5bIKMM1CEo8hVXYzfce
-	q4V/i1zD6jZNO7Tpy/eXIqoNVm91RtSjeTIxI+Ml3g8t2jWy14REoGLY6A8T1BCzGQ51S7
-	K9aHbmMBaYfXUBRwc0hBJcH5DaKihoJiC9ocoiISkvjAuNOqUNOCeEJRhOknnaSAoexVqm
-	nB12Vr8k/uGS1/+TWBKPA0ITc9lBlbfDDvbRB/3eDn6uWkNRfchrE195KUONZA==
+	s=arc-20240116; t=1789395443; c=relaxed/simple;
+	bh=8ceMByd673naR3PwEiJsfobu32L4XCtKVcpdbpqYa5Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=M0YDDdkYsbkZgil3JD/t1Yv8LW1UxT+09eF082oWLpA/NLEzTe5tWcg6OasKy9SlF4ivace9ZwYJQFD9SkrcFxPXP8tubsKijYFolaywGM6V+OhTOqYwZc/he0QuD+OHYlKHifdn74urPhzo8zWtDcT6eIa/nAwSe6IuqeotJdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4be07e7c54dso2904711b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:17:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789395440; x=1790000240;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/0GO/2vfF/XubgIzu8oiJogl7L+f/XkIHsO6TluNVPc=;
+        b=ETSiQsMyNkJ4vBOWY83DC0UiRYBuVOsJBfNB1+bdI5WpFuBOHgDYKDNLQOQH84B71A
+         3WG6Dm2bIyrrEIdhjWVBj2hXszFltnyMgqXJSUaP8qAFM+uPp7qc+YKrxyxVSg1Cxh91
+         OC+F0rLBiazIZDpDmpnZOomx+UuKUalQFZWVIUzThyuQFMJ9iM4QLe2WidMq+MmLrD2r
+         4JqU7WodOzZRBjJzJ8g7lKP3yY9TQ8sc7AXOZnZI+pTVdUEpOd0rdtZmoPgiLy40jFV+
+         phqCWTaxusqYLMJq8IN0ZcGLNACrPZuF01sWITCS0avSdI9G3qV99+PLGWhxvJGz85xq
+         RuvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwA0wu8cmkBHPr3GbGPUf14aj2ta2amJW0p1adIn7y4e4hL4SsUvmQ07UckUgw9+F7A/3hAdlnKBFw2zY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMX42bKBZfVmMnNShV64lxqzXss/arZDdYDjtTuCPBfvZt2YdG
+	v1vpYYDXyEzDH5G/vNeHhTs05R9+I3jON38AKsJVMTF6WQZecECQAEQQJbjmkOEj
+X-Gm-Gg: AYBFou34Od+VRqQLlu8LOrsnbIyLDgeEWweI3C5eGr2GaJVO75RxxajPcE/UQ2dy0RD
+	ypM724oV1QwRJtA/FllniL4kUBKaCg81/dLbkatqqoP8c5aypWj5apMvbUWCf4UTFeJ6R/Um7l+
+	eGDrn8QSOOg638pdTpsFcPfaOGffmTko3KudKW0MR41bLhGRNuLGwYl0RJVfaEF2/ugJnDV7in8
+	O+9tao5SgNtQ3/mMKk+E1uwZQ7o99/smfColCouxvhOoLdSMYLUH4c7AWJOOknmFs2zlAmsyW8Z
+	TRDS6SBtxnPO1+Oi9bjAC1912InpSrW6/iKnAan23DJHYypmlLjaYfgkh4cqFMi3RrY3oSi3aDD
+	RxCjAr5+6Q+veTlazl6luMD/KUrrkhCLUPYmWj6xqH4uru5Atvjvhj85wuvFZn0y3lOXNQz0mBc
+	eKLKZIqesS0POKUA1ClJRhaGWt+AAvzkYz1G6l/5R46OuMqPQgXA92ojfsvxY6TnpnemsGW6hbZ
+	9pQwqrd2Xk61tOljx7rXEbAj73H9pPDodylYEtAIQHi1hfx
+X-Received: by 2002:a05:6808:5088:b0:4b8:4703:db88 with SMTP id 5614622812f47-4c634d51a07mr2464203b6e.17.1789395440154;
+        Mon, 14 Sep 2026 07:17:20 -0700 (PDT)
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com. [74.125.231.171])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c330da5ad4sm10956409b6e.3.2026.09.14.07.17.19
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 07:17:19 -0700 (PDT)
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7fd8ecf2ef3so454314a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:17:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxhgEqyiZCnFrKztU8fPUWaLvI+0wMzXJt4RQspWlomzCxX6ATRJxMHerKBTOqs4qpwIR5A9TN2JpXKMAI=@vger.kernel.org
+X-Received: by 2002:a05:6122:5315:b0:5c6:65e5:99a8 with SMTP id
+ 71dfb90a1353d-5c9749fed16mr2500859e0c.3.1789395132980; Mon, 14 Sep 2026
+ 07:12:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 14 Sep 2026 16:17:15 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Birger Koblitz <mail@birger-koblitz.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
-Subject: Re: [PATCH net-next v11 13/15] ax88179_178a: Update driver name and
- information
-In-Reply-To: <20260914-ax88179a-v11-13-5ea7a925ba6d@birger-koblitz.de>
-References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
- <20260914-ax88179a-v11-13-5ea7a925ba6d@birger-koblitz.de>
-Message-ID: <d60ef2f11fa4806fe9ed449c927702c8@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260911073058.253000-1-den@valinux.co.jp> <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+In-Reply-To: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 16:12:02 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWDJac0Soob+Cf-dgwWPBpGrfCwHDN_nWTyE84pXJSoGg@mail.gmail.com>
+X-Gm-Features: AcwNN1Uyp_yKSLQHdhola9oXjT2PLkCEjRN0YsdOH8kD2k3alY3_Suk4gIB3dpw
+Message-ID: <CAMuHMdWDJac0Soob+Cf-dgwWPBpGrfCwHDN_nWTyE84pXJSoGg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a779f0: Set UFS lane count
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marek Vasut <marek.vasut@mailbox.org>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Palash Kambar <palash.kambar@oss.qualcomm.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, scsi <linux-scsi@vger.kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 14.9.2026 14:46, Birger Koblitz wrote:
-> Add additionally supported devices to Kconfig description, add
-> further requirements such as PHYLINK.
-> 
-> Update driver name in usb_driver and update MODULE_DESCRIPTION
-> to include the additionally supported chips.
-> 
-> Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> ---
->  drivers/net/usb/Kconfig        | 10 +++++++---
->  drivers/net/usb/Makefile       |  2 +-
->  drivers/net/usb/ax88179_178a.c |  8 ++++----
->  3 files changed, 12 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/net/usb/Kconfig b/drivers/net/usb/Kconfig
-> index 
-> 115990b0d9537aea2776544c9768b034f32aa7a4..4158455a2da76cd43a9a9d9d0e8c66028d57b095 
-> 100644
-> --- a/drivers/net/usb/Kconfig
-> +++ b/drivers/net/usb/Kconfig
-> @@ -195,11 +195,12 @@ config USB_NET_AX8817X
->  	  This driver creates an interface named "ethX", where X depends on
->  	  what other networking devices you have in use.
-> 
-> -config USB_NET_AX88179_178A
-> -	tristate "ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet"
-> +config USB_NET_AX88179
-> +	tristate "ASIX AX88179/179A/178A USB 3.0/2.0 to Gigabit Ethernet"
->  	depends on USB_USBNET
-> -	select CRC32
->  	select PHYLINK
-> +	select AX88796B_PHY
-> +	select CRC32
->  	default y
->  	help
->  	  This option adds support for ASIX AX88179 based USB 3.0/2.0
-> @@ -207,6 +208,9 @@ config USB_NET_AX88179_178A
-> 
->  	  This driver should work with at least the following devices:
->  	    * ASIX AX88179
-> +	    * ASIX AX88179A/B
-> +	    * ASIX AX88279
-> +	    * ASIX AX88772D/E
->  	    * ASIX AX88178A
->  	    * Sitcomm LN-032
-> 
-> diff --git a/drivers/net/usb/Makefile b/drivers/net/usb/Makefile
-> index 
-> 2ecead0181eaf8d66fb6f5dbd6f2905b22b6eb57..4026f19ecb826a6465de38f1d9bb0e4c0af80421 
-> 100644
-> --- a/drivers/net/usb/Makefile
-> +++ b/drivers/net/usb/Makefile
-> @@ -12,7 +12,7 @@ obj-$(CONFIG_USB_HSO)		+= hso.o
->  obj-$(CONFIG_USB_LAN78XX)	+= lan78xx.o
->  obj-$(CONFIG_USB_NET_AX8817X)	+= asix.o
->  asix-y := asix_devices.o asix_common.o ax88172a.o
-> -obj-$(CONFIG_USB_NET_AX88179_178A)      += ax88179.o
-> +obj-$(CONFIG_USB_NET_AX88179)      += ax88179.o
->  ax88179-y := ax88179_178a.o ax88179a_devices.o ax88179_lib.o
->  obj-$(CONFIG_USB_NET_CDCETHER)	+= cdc_ether.o
->  obj-$(CONFIG_USB_NET_CDC_EEM)	+= cdc_eem.o
-> diff --git a/drivers/net/usb/ax88179_178a.c 
-> b/drivers/net/usb/ax88179_178a.c
-> index 
-> 44a768c5808ac1f7071e186d9c86cd6149601971..1d35ef90eceb77b27e8d96e64a008c63b40f4bd7 
-> 100644
-> --- a/drivers/net/usb/ax88179_178a.c
-> +++ b/drivers/net/usb/ax88179_178a.c
-> @@ -1341,8 +1341,8 @@ static const struct usb_device_id products[] = {
->  };
->  MODULE_DEVICE_TABLE(usb, products);
-> 
-> -static struct usb_driver ax88179_178a_driver = {
-> -	.name =		"ax88179_178a",
-> +static struct usb_driver ax88179_driver = {
-> +	.name =		"ax88179",
->  	.id_table =	products,
->  	.probe =	usbnet_probe,
->  	.suspend =	ax88179_suspend_wrapper,
-> @@ -1353,7 +1353,7 @@ static struct usb_driver ax88179_178a_driver = {
->  	.disable_hub_initiated_lpm = 1,
->  };
-> 
-> -module_usb_driver(ax88179_178a_driver);
-> +module_usb_driver(ax88179_driver);
-> 
-> -MODULE_DESCRIPTION("ASIX AX88179/178A based USB 3.0/2.0 Gigabit 
-> Ethernet Devices");
-> +MODULE_DESCRIPTION("ASIX AX88179/179A/178A based USB 3.0/2.0 Gigabit 
-> Ethernet Devices");
->  MODULE_LICENSE("GPL");
+On Fri, 11 Sept 2026 at 10:44, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> On Fri, 11 Sept 2026 at 09:31, Koichiro Den <den@valinux.co.jp> wrote:
+> > Since commit e72323f3b09f ("scsi: ufs: core: Configure only active lanes
+> > during link"), the following error is observed on R-Car S4:
+> >
+> > ufshcd-renesas e6860000.ufs: Tx lane mismatch [config,reported] [2,1]
+> > ufshcd-renesas e6860000.ufs: link startup failed -67
+> > ufshcd-renesas e6860000.ufs: error -ENOLINK: Initialization failed with error -67
+> > ufshcd-renesas e6860000.ufs: probe with driver ufshcd-renesas failed with error -67
+>
+> This is very unfortunate...
+>
+> > R-Car S4 has one UFS lane per direction, as described in section 152.1
+> > of its hardware manual. Without lanes-per-direction, the UFS platform
+> > driver defaults to two lanes.
+> >
+> > Previously, the core used PA_CONNECTEDRXDATALANES and
+> > PA_CONNECTEDTXDATALANES to configure the link without checking them
+> > against lanes-per-direction, so the missing property did not prevent
+> > initialization.
+> >
+> > Explicitly set lanes-per-direction to 1, now that the validation is in
+> > place.
+>
+> Given this breaks backwards compatibility with existing DTBs, I think
+> this new check should be relaxed iff the DT property "lanes-per-direction" is
+> not present. Are any other platforms affected?
+> Possible solutions I see are:
+>   1. Skip the check completely, like commit 06a34d9c1f47b923 ("scsi:
+>      ufs: core: Skip link param validation when lanes_per_direction is
+>      unset") does for ufshcd-pci?
+>   2. Correct hba->lanes_per_direction based on the actual values of
+>      PA_CONNECTED[RT]XDATALANES?
 
+Both solutions would modify the core, instead of the platform-specific
+driver.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+> Alternatively, ufshcd_init_lanes_per_dir() could override
+> hba->lanes_per_direction to one if "lanes-per-direction" is missing
+> and the device is compatible with renesas,r8a779f0-ufs.  Or perhaps
+> hba->lanes_per_direction could be preset in ufs-renesas.c, and not
+> overwritten by UFSHCD_DEFAULT_LANES_PER_DIRECTION when non-zero?
 
-Thanks,
-Nicolai
+As ufs-renesas.c does not have early access to hba, I went with
+handling the quirk in ufshcd_init_lanes_per_dir() in
+"[PATCH] scsi: ufs: pltfrm: Add quirk for R-Car S4 lacking lanes-per-direction"
+https://lore.kernel.org/ae0cc2bd764e6dfffce99db3d8b44a55887c508c.1789394185.git.geert+renesas@glider.be
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
