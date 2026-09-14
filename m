@@ -1,64 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7A93BB9FE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1CA3F65F7
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789426392; cv=none; b=WVDWPc1+zcwpxUQ2UMLKcTqzNvNiek5XxIYWk7l8de/MyKb1fn+Qu0bLNzluHqT4XqyCdNRs5IcT1L2oHdiNsUJnWZQ24ju0YkoBHjHq1tK5fV++FI43nCokvirRSYr2HDrKDRIAR3Y7TU67IB+JFcN5Dbr5htStExZQgaS8RTs=
+	t=1789426393; cv=none; b=QVwkOffkK47J7KVC4mGRgghsg95iwNp53lELa1syA71awPkWOepwHb/Q+cbtfgA9UgsMqwOaLQx5PLDRGnfRlPTlDtsDB4ec7ivWII2lcBkfGfNa+4sVAfNhJ+wkdDVFqJDPRnRR+V+l/bZ7lnjb8eANc9o7NIL+Ofu9Sywkjoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789426392; c=relaxed/simple;
-	bh=sQJ/u2rNyU4WncAchMkJyd33mci0D0EaX8SmWcggEZU=;
+	s=arc-20240116; t=1789426393; c=relaxed/simple;
+	bh=ZuOq9RLAaVoK2JQN1iRsIvHe30yGLSunUDOxw5csnQE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pu38Uai1EBuxZnZaR4Nc9Y/4T8SX7viq/AlmCH+4cl2JSgL9wSHKLfeIejmplYRMvqBw9i2/WEh3pWO6yyIoGilmZ5LT5+DP9ZeDwpwn9cRpbDbBXPRAtUsul1gAh0NjrSDtoVR8Pz/Wjo007BvCVq5uTD1SXCWS8lAGvOdtYc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qt+vZ2ap; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=GBfYo0dOQw0ydHepsAeUTtTs/qTRNBoiUcP4oqTDkSc6mSdDCT3UJ/PA/ylgifhPPZ3yoEJMu0yD37GkYYWP1FFMK7NhEqZrWeS0CLbW9HpJlIod0AdxWsHzgw1S/L6uFe7BIS3mqsvWAVVDnwN7fR6jUiAaqhSAeJZqIr2M4XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOdYmtPr; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qt+vZ2ap"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c08393dfso1801587a12.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOdYmtPr"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so25043085ad.1
         for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:53:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1789426391; x=1790031191; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8UwDJJPT/BxnAm3lVbun062kxESY5uvQ+2QAo4pBXeo=;
-        b=qt+vZ2apH6fkvr4RlVP9L2UE0yV9X4g8qRG+Ox8I4T5WkYLisWJAq1rbUBEI76h8db
-         /DbbNVHlFzKmOwl7/9E9yEt9HZMqBWWRVT2kbdbpoPi67SM1Xx/ZB+QIHbmcYUh/L2Y6
-         ezQ2ImBfYByerusbSz6kUEXsUKk/4IxFr8j4MoTYMhSyLvFhH/D5CW1EoY8fw/5Iu8Uy
-         MPuLxzpVEV+WdGl07W0EvQmVtRxNFDYFBmyfUFWzPfaDkpAbuAIe+xUjwD4ZMXtWa5ZE
-         mioU3rDi50xGe8mNhfAPefbk1lMZ02koX+IcpvsynjU5k1xUjxjOif1anZvMhljpEs5X
-         J4/Q==
+        bh=SXpVCxEknnDOBO2wgTMiDMSPtQ3J/1cRefmdmIu8XSU=;
+        b=KOdYmtPrPd0p5M2Ao1rK3dJUTCUCQv7Ie+HD3s8ML2u9XtrWwSp4kU2LFz2Xd2M86K
+         bnVaW4/8K5J1kLWOT6KFZn8z9FhIfIqHVCWQPDISifiFOxA0A1KRhUv5KJPtUtPcd3dA
+         xRo6zMiVLhKIg8+LrCWhtXVjYHWS8lprCT65JtSq+BrMn1XdWLES1BkoQOh8Znyq11BD
+         eQnnCRpYn+cd64S/ohSj147bWxgNx1J8XydzzHz1Qd4ZxbG1XmQSUIx0fkhJCkimv9UF
+         7Y0ZLPFfIxSf24DK3xAXqoBPAyV74euO1t239CLMvkAPSwsnU5t75lGZ3fYe1SFmx5Yf
+         qsPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789426391; x=1790031191;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8UwDJJPT/BxnAm3lVbun062kxESY5uvQ+2QAo4pBXeo=;
-        b=EtYethjVC2RDT/n5KtlCIkhd4m6k8YKyYmknqOxNJC+YC0LD1ygNWXR5HqZqCJdxqu
-         v6R3Y76460WXV+uVtWNkh0TNtuhQ0Fj3DS15hpqGcK7H+uEhZFh6Ah7Fy7t7FL7iXldk
-         F3ZtrIl81vUT9gMbwiRSqeOCvlBgn338FhQmcvyu1CkNBWLgv4k2DYYiDZB4cY9yDE4V
-         c186LOBwJCMtytQ4pAcb8H8rbEGlvOk2zhGijmHC9eA/RNo7eU593xTJwZoHjALCu1a/
-         caq9CKkK4ikUYxSHbKW+y7uDGOaO5368yz0/phNtzJY9y8ExtMCKSJ7A2O73A0xWchKf
-         HrbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwAOP8h0hlXIExM8BU7USJiK9uSH8k3p2VYVGCjAuuWb0Irnm48gbDVyqSx2+wrqQq3daU3u29B4qofPLU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBhUwou6yNE2TiIXIZPuZgMLbqOuZ9e+sl8wd/iiz4Xo1QW2JZ
-	dR59Yia/HcYVs4VC08hdJJ7BeINg/jtFlOIwxr9K2r7YMADvILypC+MK
-X-Gm-Gg: AYBFou39m5E85fI1pEIsg1+yibwGCFNrRvVXg+3ap64Byo2UStGY1Hsr0hdG6mQF73W
-	EKXl4bh5rspe/KbHKquKa9nCeAGDDt4HGXQUaJ5K46U5eprWrGB9f41t6QzKh+20esfdLTrTKCv
-	SfhU0zmnMz8e3Wz6lNSwE9vwTVQD/ROI2kT8I7mdKTg+S2B/EJ1EHsOUrojRLgR/PIZJwSKbzpe
-	0xZv8G0+6bAlVGWEHjgeR2fiv2s9cxAKaNwL2dUF9dw0+VwMMv+bX4vB1YBp/LOkCCe1wq6o41T
-	eWR8b1+ZIRvCdmPdwBrKqjqEr1Ncyj9TrSWX7vJwP6x+16wQpaPnOSYZC/FA2PWiuWz6lxRI3yd
-	SYVfHXPqGqbWS9dKdV2cr3MUzQSBTBU0yyxRHNKmLfxivvFMWrx23PzkNw9D+dMqXVGQBwnAE9N
-	yvBd55C0RUs0/46kmfNXRHdSrd0TDvwk1/QAm06RjXaVjgsLPIYzhxqCyUBkdXwSTAiMmbIQGWz
-	32ZReQlDe+dfPTzKJ3y2SNK+y3V114WWsAI1rZVKUoS9qk+xSLY
-X-Received: by 2002:a05:6a20:d28b:b0:3d3:ae0f:5269 with SMTP id adf61e73a8af0-3db406d1734mr9636215637.21.1789426390747;
-        Mon, 14 Sep 2026 15:53:10 -0700 (PDT)
+        bh=SXpVCxEknnDOBO2wgTMiDMSPtQ3J/1cRefmdmIu8XSU=;
+        b=fDnc30VozKaL2DylwbJpbSJVgXVRLUybwxRP8kLUPKqj+QnJY1HXt64xMOaEUMrm3M
+         +Qj5V/j7YKXGsjMuBl0pB77eYJdSSYwARcT4FIRGvZlhW3p+Viw86zmWzaHkH145N61H
+         iKZkEI9RfX7TbIiEEvfbg9Yi9SBZFq1m+6JX6Q0hnJZDiDicxeWTUc1DjLv3mbPCNseM
+         ZxIE+dQd2K2E9I0famBDBti9pqhtMT/Ko4NwFsRxhjPMTi3ETNvBRJ7WuLFIHwObbZOX
+         TxU4IuNVe+e0uCt9XjegN62h9alb1d9yIoF2PZhBO6atnvGtGmBaMYLz4FY+a/LE95Zi
+         ofLA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7hDZIGdWWGvYn70iUFZg6FzPuGs7hMCAG9+QQdgYXRd1lznsZM8GYSJGoiklH7ifbV3AEpQ6fMW2UA2k=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8UQdtCBLKYJtmQRd101zt79c3b3MtshKLRb2mhzpCINjLQVsv
+	T0AkMsL/5X4YxW427DnhV4W1Zokv9B1lAf9oAukwNZVsv9+Kyz8FsmVx
+X-Gm-Gg: AYBFou2l49qCsXP5LWt6nMcJUOKZKtahsNNI2zi68yFI4tWFtBsAyB2R7Xh+q4PurL3
+	rcgGnFQ/QSc2xq3hQc/WjWBjEIN1F+FG19xOPAPYQrHEGvWda8hCwQbUabt81pvSK0DI1FwF/QD
+	m/AqMWPy4PxRpYlHWOGnPPWnlM4F1/KWmWzVrQvHNJ5Mki/SGWfO7cAwbRdctWjJHKI3FAnaXHG
+	gxncWLcRIr31a8gOIlEBWBsnUvkl1VPtMs8Zmk2mA7rTAIgl+/LfbEbI/R+MNZHuakVtTaQggq0
+	VesDedhpcZCsHG52dJHZoRMpZn3SNAJcSwTPtoY1hKWF+VoX7WJo+7nobdi14b80pnlHsMpc1q2
+	FRuUmCMes6tCZm8govmfgxXSqTmJJn5Wv/SkE/Jq+F/o+HWYyGvgUOMSzL3Vq3k79/gA1uzZ7Nk
+	q8B11mEQzijkShXk0ClRsUZTt3eouP2mcMG/On0jdAUKnKYZAF5hdm2bKYuSstPzpDQ5aFFjj07
+	0b6TzgVJ2enGtwddmsW8Ej+OpqjFR4USkqAbrRxNDosx9VnwK+Yy8VbsacSB94=
+X-Received: by 2002:a17:902:d485:b0:2dd:78d1:65c9 with SMTP id d9443c01a7336-2dd78d16661mr9457075ad.19.1789426391520;
+        Mon, 14 Sep 2026 15:53:11 -0700 (PDT)
 Received: from lappy (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
         by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bbeb053a5sm14924296eec.27.2026.09.14.15.53.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 15:53:10 -0700 (PDT)
+        Mon, 14 Sep 2026 15:53:11 -0700 (PDT)
 From: "Derek J. Clark" <derekjohn.clark@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -68,9 +68,9 @@ Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
 	linux-kernel@vger.kernel.org,
 	kernel@lists.opengamingcollective.org,
 	stable@vger.kernel.org
-Subject: [PATCH 02/10] HID: hid-lenovo-go-s: Bound stale reply window before reusing send_cmd_complete
-Date: Mon, 14 Sep 2026 15:52:55 -0700
-Message-ID: <20260914225303.868569-3-derekjohn.clark@gmail.com>
+Subject: [PATCH 03/10] HID: hid-lenovo-go-s: Prevent deadlock if device removed during setup
+Date: Mon, 14 Sep 2026 15:52:56 -0700
+Message-ID: <20260914225303.868569-4-derekjohn.clark@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914225303.868569-1-derekjohn.clark@gmail.com>
 References: <20260914225303.868569-1-derekjohn.clark@gmail.com>
@@ -82,71 +82,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mcu_property_out() reinits send_cmd_complete immediately after a
-timeout is detected, before the next command that reuses it is sent.
-If the MCU's reply to the timed-out command arrives after this reinit
-but before the next command's wait begins, it silently satisfies the
-next, unrelated command's wait instead of the one it actually answers,
-handing that caller stale data with no way to detect the mismatch.
-
-Track when a command has timed out via cmd_orphaned. Before the next
-command reuses the completion, wait a bounded 25ms for a stale reply
-to arrive and be consumed, then unconditionally clear the flag and
-reinit the completion. This does not fully eliminate the window in
-which an unrelated reply could still be received, but bounds it to
-a short interval right before a new command is sent. Behavior matches
-the solution to the same problem in hid-msi.
+hid_gos_cfg_remove() calls a mutex before canceling delayed work. That
+delayed work function calls mcu_property_out(), which holds the same mutex.
+Prevent deadlock my removing the mutex prior to stopping the work.
+Additionally, since cancel_delayed_work has the potential to re-arm,
+switch to disable_delayed_work.
 
 Fixes: a23f3497bf208c59ad ("HID: hid-lenovo-go-s: Add Lenovo Legion Go S Series HID Driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
 ---
- drivers/hid/hid-lenovo-go-s.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/hid/hid-lenovo-go-s.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/hid/hid-lenovo-go-s.c b/drivers/hid/hid-lenovo-go-s.c
-index 68301d4c762a..36505d8402ff 100644
+index 36505d8402ff..8b16fc7d151e 100644
 --- a/drivers/hid/hid-lenovo-go-s.c
 +++ b/drivers/hid/hid-lenovo-go-s.c
-@@ -37,6 +37,7 @@ static struct hid_gos_cfg {
- 	struct completion send_cmd_complete;
- 	struct led_classdev *led_cdev;
- 	struct hid_device *hdev;
-+	bool orphan_ack_pending;
- 	struct mutex cfg_mutex; /*ensure single synchronous output report*/
- 	int cmd_status;
- 	u8 gp_auto_sleep_time;
-@@ -454,6 +455,19 @@ static int mcu_property_out(struct hid_device *hdev, u8 command, u8 index,
- 		return -EINVAL;
+@@ -1442,8 +1442,7 @@ static int hid_gos_cfg_probe(struct hid_device *hdev,
  
- 	guard(mutex)(&drvdata.cfg_mutex);
-+
-+	/*
-+	 * A reply to the previous command may still be in flight. Give it a
-+	 * short window to arrive and be consumed before this call reinits the
-+	 * completion, so a late reply can't be mistaken for this command's.
-+	 */
-+	if (drvdata.orphan_ack_pending) {
-+		wait_for_completion_timeout(&drvdata.send_cmd_complete, msecs_to_jiffies(25));
-+		drvdata.orphan_ack_pending = false;
-+		drvdata.cmd_status = -ETIMEDOUT;
-+	}
-+	reinit_completion(&drvdata.send_cmd_complete);
-+
- 	/* We can't use a devm_alloc reusable buffer without side effects during suspend */
- 	dmabuf = kzalloc(GO_S_PACKET_SIZE, GFP_KERNEL);
- 	if (!dmabuf)
-@@ -479,7 +493,9 @@ static int mcu_property_out(struct hid_device *hdev, u8 command, u8 index,
- 							msecs_to_jiffies(timeout));
- 	ret = ret > 0 ? drvdata.cmd_status : ret ?: -EBUSY;
- 
--	reinit_completion(&drvdata.send_cmd_complete);
-+	if (ret)
-+		drvdata.orphan_ack_pending = true;
-+
- 	return ret;
- }
- 
+ static void hid_gos_cfg_remove(struct hid_device *hdev)
+ {
+-	guard(mutex)(&drvdata.cfg_mutex);
+-	cancel_delayed_work_sync(&drvdata.gos_cfg_setup);
++	disable_delayed_work_sync(&drvdata.gos_cfg_setup);
+ 	sysfs_remove_groups(&hdev->dev.kobj, top_level_attr_groups);
+ 	hid_hw_close(hdev);
+ 	hid_hw_stop(hdev);
 -- 
 2.55.0
 
