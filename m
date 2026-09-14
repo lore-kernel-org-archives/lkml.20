@@ -1,98 +1,87 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27783F482F;
-	Mon, 14 Sep 2026 08:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B249A409632;
+	Mon, 14 Sep 2026 08:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373623; cv=none; b=GDCy8lFZ+XmCYlZ6hkqY9DHKAmiWXgXdqdG3S/ZT5EFc76cY+ekGjOqIoOjGMcYpvNo7hnPXW6y+wGLLZx+JD6VcAiM15zEbn32lYKdmvPWYtPsSdii8l+NMJ9M+SerfXTq0KFkPYzrZnDKkVqWmZwORI8/dzTlyH8JXvPzD5A0=
+	t=1789373628; cv=none; b=LRYGdwBZwRut8agemcx040kOlqtcZpIITpQha85iTyhwZyI1zIj6vnb2fql5/dqEqojODSJ1Rm6+O3UTVxGPqcsSpOm3/pPxUAUGQp7UfXN5LxrznpXDAJX4arA28ISuTAwai8ZqO/FKSzjfDxzbgw24EmCPGyaV2iyYnPUZTXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373623; c=relaxed/simple;
-	bh=w6LFFT4ah61/bN/ZRxmcseqysWCf9cQShtrkPgzMYkQ=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=EmjwRKFRSq7zaj93djZhchIYH8wJC6lviwbkcwSHDqNAYJPGVmtqY8Tzy+vZRcG5e99fNjTXBQGRNWpf6RSfW9xC1unWHSggD+pHpuVx16VN5J5lvLGn6sJgxJEkVNvbUik40By/VFyfBeD3QW91BSZ+6/vwRHn1yzdiyWMtSp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=beQ2Dmsx; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789373628; c=relaxed/simple;
+	bh=IUx9npSbM6aOGbT981H4LjgrA0kKmEs/fDvfjpfynoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pTO9ADwfWBDcCLeQZa0kWcpfGAteLjIwIkvSGpVpCryTQJfbk0UHU4CToZ4G8mu/86BrWrpd3ytzRg0fls91jBUKE7XXLmqIseqNb1F67Q76LRtQXkgTOyPPRcy85zhohJqFH+0bd2E9rX0gUtR35l8O1fn4Fh+vnBAx+InUD0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ie0F5Yrz; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="beQ2Dmsx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=w6LFFT4ah61/bN/ZRxmcseqysWCf9cQShtrkPgzMYkQ=; b=b
-	eQ2Dmsx1nFfHbVn9BTTc6oDwNEOIgcxVAcjTdVMA4baY9f2xw9bAzJlENz6kCktv
-	rrSCZeTy5LmtULvTaDxOimThbKRjbxwa3kvn9QqNrTWJYIHH0tskJfv04WmZQM62
-	wVfcs2/cljMHcSkSFyE94e+YQIZg5L0OwQ3Zr1lE1k=
-Date: Mon, 14 Sep 2026 16:13:19 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: gregkh@linuxfoundation.org, marco.crivellari@suse.com
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] usb: f_hid: WARNING in usb_ep_enable for endpoint with
- maxpacket 0
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/+cvE0i7imQbOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/rKtQ4u+tudGg0TVFZ/3X7g==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ie0F5Yrz"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 294771570;
+	Mon, 14 Sep 2026 01:13:42 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 65B693F7B4;
+	Mon, 14 Sep 2026 01:13:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789373625; bh=IUx9npSbM6aOGbT981H4LjgrA0kKmEs/fDvfjpfynoU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ie0F5Yrzn4+JUTJXdJ59qKHeSnntkVs/evhaYFzCMI5fXmKYH+ALw+LAaNOIZflIx
+	 cchmn6Qw7oauzbwstdIZIrMFDU5g5YkP0LZS323YQUWkpNicFH6hRlQqRd42sDydXD
+	 VqDiywdnOT+pXi0AJXMsRgbNU6Aemrf8+CG/mmpE=
+Date: Mon, 14 Sep 2026 09:13:43 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: James Clark <james.clark@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Leo Yan <leo.yan@linux.dev>,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 00/14] perf cs-etm: Per-thread mode fixes and snapshot
+ wrap support
+Message-ID: <20260914081343.GF200420@e132581.arm.com>
+References: <20260811-james-cs-unformatted-per-thread-fix-v1-0-90565318f5f8@linaro.org>
+ <aqdL33fw9AoxTrPq@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <79ccbb66.77bd.1a09efa4d1a.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3N8agrKdqjCkPAA--.18724W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3gDXiWqnrKBrcQAA3b
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqdL33fw9AoxTrPq@x2>
 
-wqAKSGksCgoKSSBhbSByZXBvcnRpbmcgYSBXQVJOSU5HIGluIHRoZSBVU0IgZ2FkZ2V0IGVuZHBv
-aW50LWVuYWJsZSBwYXRoIHJlYWNoZWQgZnJvbSB0aGUKSElEIGdhZGdldCBmdW5jdGlvbiwgdHJp
-Z2dlcmVkIGJ5IGEgc3l6a2FsbGVyIHJlcHJvZHVjZXIuICBUaGUgaXNzdWUgaXMKcmVwcm9kdWNp
-YmxlIHdpdGggSEVBRCBjb21taXQgY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2Yy
-YjkzNQoodjcuMy1yYzEsIExpbnV4IDcuMy4wLXJjMSkuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRz
-IGNvbmZpZ2ZzLCBjcmVhdGVzIGEgZ2FkZ2V0IHdpdGggYSBoaWQudXNiMCBmdW5jdGlvbiwgbGlu
-a3MKaXQgaW50byBhIGNvbmZpZ3VyYXRpb24sIGFuZCB0aGVuIHdyaXRlcyAiZHVtbXlfdWRjLjAi
-IHRvIHRoZSBnYWRnZXQncyBVREMKYXR0cmlidXRlLiAgVGhhdCB3cml0ZSBkcml2ZXMgdGhlIGdh
-ZGdldCBiaW5kIG9uIHRoZSBkdW1teSBVREMgYW5kIGVuYWJsZXMgdGhlCmZ1bmN0aW9uJ3MgZW5k
-cG9pbnRzLgoKClRoZSBjb25zb2xlIHNob3dzIHRoZSBtZXNzYWdlICJ1c2JfZXBfZW5hYmxlOiBl
-cDEyOSAoZXAxaW4tYnVsaykgaGFzIG1heHBhY2tldAowIiBmb2xsb3dlZCBieSBhIFdBUk5JTkcg
-YXQgZHJpdmVycy91c2IvZ2FkZ2V0L3VkYy9jb3JlLmM6MTI0IHdpdGggUklQIGluCnVzYl9lcF9l
-bmFibGUsIG9uIENQVSAwIGluIHRoZSBjb250ZXh0IG9mIGt3b3JrZXIvMDozLiAgVGhlIGVuZHBv
-aW50IGJlaW5nCmVuYWJsZWQgY2FycmllcyBhIHplcm8gbWF4aW11bSBwYWNrZXQgc2l6ZSBpbiBp
-dHMgZGVzY3JpcHRvci4KCgpPbmUgcG9zc2libGUgY2F1c2UgaXMgdGhhdCB0aGUgSElEIGZ1bmN0
-aW9uIGJ1aWxkcyBpdHMgZW5kcG9pbnQgZGVzY3JpcHRvcgp3aXRob3V0IHZhbGlkYXRpbmcgdGhl
-IHBhY2tldCBzaXplIGl0IGRlcml2ZXMgZnJvbSB0aGUgY29uZmlnZnMtcHJvdmlkZWQKcGFyYW1l
-dGVycywgc28gYSB6ZXJvLXNpemVkIGVuZHBvaW50IGRlc2NyaXB0b3IgcmVhY2hlcyB1c2JfZXBf
-ZW5hYmxlLCB3aGljaAp3YXJucyBvbiBpdC4gIFRoaXMgbG9va3MgbGlrZSBhIG1pc3Npbmcgc2Fu
-aXR5IGNoZWNrIGluIHRoZSBmdW5jdGlvbidzCmRlc2NyaXB0b3Igc2V0dXAgcmF0aGVyIHRoYW4g
-YSBVREMgcHJvYmxlbS4gIEkgc2hvdWxkIG5vdGUgdGhhdCB0aGUgdGFyZ2V0CmNvbnNvbGUgZm9y
-IHRoaXMgY2FzZSBpcyB0cnVuY2F0ZWQgaW1tZWRpYXRlbHkgYWZ0ZXIgdGhlIHdhcm5pbmcgaGVh
-ZGVyLCBzbyB0aGUKY2FsbGVyIGZyYW1lcyBvbiB0aGUgdGFyZ2V0IHNpZGUgY291bGQgbm90IGJl
-IGNvbXBhcmVkIHdpdGggdGhlIG9yaWdpbmFsIHJlcG9ydDsKdGhlIHdhcm5pbmcgdGV4dCwgdGhl
-IGZpbGUsIHRoZSBmdW5jdGlvbiBhbmQgdGhlIHJlcHJvZHVjZXIgYXJlIHRoZSBzYW1lLCBhbmQg
-SQphbSBkZXNjcmliaW5nIHRoaXMgYXMgYSBsaWtlbHkgcmVjdXJyZW5jZSBvbiB0aGF0IGJhc2lz
-LgoKClRoaXMgYXBwZWFycyB0byBiZSBhIHJlY3VycmVuY2Ugb2YgdGhlIHN5emJvdCBpc3N1ZSB3
-aG9zZSBleHRlcm5hbCBpZCBpcwo1YmQ0MTJiYWEyYzQyMTFiZGM3YS4gIEl0IHJlbWFpbnMgcmVw
-cm9kdWNpYmxlIG9uIHY3LjMtcmMxLgoKClJlcHJvZHVjZXI6CgoKc3l6IHJlcHJvZHVjZXI6Cm1r
-ZGlyYXQoMHhmZmZmZmZmZmZmZmZmZjljLCAmKDB4N2YwMDAwMDAwMDAwKT0nLi9jb25maWdceDAw
-JywgMHgxZmYpCm1vdW50KDB4MCwgJigweDdmMDAwMDAwMDIwMCk9Jy4vY29uZmlnXHgwMCcsICYo
-MHg3ZjAwMDAwMDAzMDApPSdjb25maWdmc1x4MDAnLCAweDAsIDB4MCkKbWtkaXJhdCgweGZmZmZm
-ZmZmZmZmZmZmOWMsICYoMHg3ZjAwMDAwMDA0MDApPScuL2NvbmZpZy91c2JfZ2FkZ2V0L2cxXHgw
-MCcsIDB4MWZmKQpta2RpcmF0KDB4ZmZmZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMDkwMCk9
-Jy4vY29uZmlnL3VzYl9nYWRnZXQvZzEvY29uZmlncy9jMS4xXHgwMCcsIDB4MWZmKQpta2RpcmF0
-KDB4ZmZmZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMGEwMCk9Jy4vY29uZmlnL3VzYl9nYWRn
-ZXQvZzEvZnVuY3Rpb25zL2hpZC51c2IwXHgwMCcsIDB4MWZmKQpzeW1saW5rYXQoJigweDdmMDAw
-MDAwMTMwMCk9Jy4vY29uZmlnL3VzYl9nYWRnZXQvZzEvZnVuY3Rpb25zL2hpZC51c2IwXHgwMCcs
-IDB4ZmZmZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMTQwMCk9Jy4vY29uZmlnL3VzYl9nYWRn
-ZXQvZzEvY29uZmlncy9jMS4xL2hpZC51c2IwXHgwMCcpCnIwID0gb3BlbmF0KDB4ZmZmZmZmZmZm
-ZmZmZmY5YywgJigweDdmMDAwMDAwMTUwMCk9Jy4vY29uZmlnL3VzYl9nYWRnZXQvZzEvVURDXHgw
-MCcsIDB4MSwgMHgxZmYpCndyaXRlKHIwLCAmKDB4N2YwMDAwMDAxNjAwKT0nZHVtbXlfdWRjLjAn
-LCAweGIpCgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9TSnlHS0pM
-awprZXJuZWwgY29uZmlnOiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvNTBKc3FiN20KCktlcm5l
-bDoKCgpIRUFEIGNvbW1pdDogY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkz
-NQpnaXQgdHJlZTogdXBzdHJlYW0gKGxpbnV4LmdpdCksIHRlc3RlZCB0aHJvdWdoIHRoZSB2Ny4z
-LXJjMSBhbm5vdGF0ZWQgdGFnIG9iamVjdArCoCDCoCDCoCDCoCDCoCDCoGU1ZTA0NzI2Y2RkMDQz
-ZTMwOTY3NzA3MWFiMWI2NWE0YjE4ZjQyMmIKa2VybmVsIHZlcnNpb246IDcuMy4wLXJjMSAjMSBQ
-UkVFTVBUKGZ1bGwpCnRlc3RlZCB0YWc6IHY3LjMtcmMxIChMaW51eCA3LjMtcmMxLCAyMDI2LTA4
-LTMwKQoKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoK
-CkJlc3QgcmVnYXJkcywKCkNoYW5namlhbgoK
+Hi Arnaldo,
+
+On Sun, Sep 13, 2026 at 10:20:31PM -0300, Arnaldo Carvalho de Melo wrote:
+> On Tue, Aug 11, 2026 at 04:30:03PM +0100, James Clark wrote:
+> > Fix a few issues with per-thread mode:
+> >   - With TRBE, thread migrations hit a queue without a decoder assert
+> >   - On nVHE, everything looks like guest trace instead of host
+> >   - Tracing multiple threads didn't really work
+> 
+> This series applies cleanly to perf-tools-next but has no Reviewed-by
+> nor was processed by Sashiko.
+> 
+> Can somebody from the ARM camp take a look at it, please?
+
+James has sent v2 [1] and I gave some words on it. Adrian also has one
+comment for snapshot callbacks refactoring.
+
+Sashiko also sent out review on the series.
+
+Thanks,
+Leo
+
+[1] https://lore.kernel.org/linux-perf-users/20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org/
