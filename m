@@ -1,122 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFA33D7D82;
-	Mon, 14 Sep 2026 10:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B2A3CB8FC
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789383593; cv=none; b=QoTxmgd5/LA8c7OqQ04T/37oCBqa+bKt/pKgh+PddNKcBtVZUtZ+XlyMFNlOOHLmOI7Gvhx22lxyKl5RY/RaE+44Yt+0COuvfVWdoZigrF+Lo7ppuFB6H+gQ/fDQ9F9a9QVpPnJIUvbQ8emhEMrWc8C4JyJGp7d1UL8MMZKA74g=
+	t=1789383626; cv=none; b=V85tvirPUtO9224STIMVcF66YEw3CTdHbFMLgpeUuE06awzEMg70ZCRGOB18m+JeqgAsi2oYlREd9ZXKtPPMY6AY9Fcxxjt41vHI5jn8DpEoWJuYTvWV6DkhXbSvAd7tvZD0JY9fHggOV3442TeMvjmL6KUMAB1xjCXCY7umDew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789383593; c=relaxed/simple;
-	bh=wUSWOAwuv8WbftY13eJFY7cdsmtZr8wHtpJzTjHjQ/Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=efdFGDBvXP1xBdwe3dLlmKffZOJcVnJpCBMzaWTm9HtLdoG0NzQ8aX9REQi87kSpnLxC5CcO0bXDF8HgweJGxknWWMw3lt55uaZlIIrB84joiRRehAZOvM5AaCOAlKrAWUTGnEgN4dTm2ReW53L9KjlLMso8qT3rp0owLZUE+TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBL5qrZj; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBL5qrZj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23AD1F000FF;
-	Mon, 14 Sep 2026 10:59:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789383586;
-	bh=x2TjAAutncf4ENJcUmccneQn3Qg+/E7cvgwW0tmXPMk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=EBL5qrZjbspf5FkLQhjiVy7hzqgCmL59PoJuMGnaWKDfZlptnSGuagixTWHt3lyUu
-	 2k1VsTlu+pP1HI2Hl1O5fmH1dHU3tzjH01zfnCF85kh0irtERdNHBBgYu7V1pMLawG
-	 PUs50NoRsmuPbKy9gpjPX0+al4tGAWc/25XUwLeARG8VD7W2lFUrXLRZLmWo5yueXV
-	 lJyzphuH5oudrbRRYFRXqrstGxHQAgQ7fEfayZsaZGj3nEHWDZIz/5hwPmeqN7fcX+
-	 qnfNpIOdWBx+CSYP5wSDIw6UjUXGkKtOVBS8eMu4du0YpQ80pxF8KbjDkjS0pxW6CF
-	 zJ9lItFesuZ1Q==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Yilin Chen <1479826151@qq.com>, ojeda@kernel.org
-Cc: boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
- dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
- acourbot@nvidia.com, work@onurozkan.dev, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yilin
- Chen <1479826151@qq.com>
-Subject: Re: [PATCH] rust: configfs: require Send data for Subsystem
-In-Reply-To: <tencent_05937A22D2DA2BAE808EF19E491AA109BC09@qq.com>
-References: <ImeI6ab12UCXAZVW3-KRxc7AELF-et3TKlpmchMSeMieBMVekE65n2sM9LYa_WyA8qkaiWeN-9_zkIFlad047Q==@protonmail.internalid>
- <tencent_05937A22D2DA2BAE808EF19E491AA109BC09@qq.com>
-Date: Mon, 14 Sep 2026 12:59:38 +0200
-Message-ID: <87v788t7xh.fsf@kernel.org>
+	s=arc-20240116; t=1789383626; c=relaxed/simple;
+	bh=lJXyURU0Z5/ezwRnRzY+CCGdJU7n/e5330H9UmC9GMg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=uvFuwPGAMakYG8GKVpkLY4fhXwimJ1CqzqliwBpQ5IGm4pkN6dI9CsBJsRUsd5IeItrhH4c0EpFGwwnMRLnUVpohm5OnNJz0qH4Bia582ZheKFnEBx4qmyjK46XNhVycIWgEMYDX/kipwBdXC4PSbWEPJSstoODhFQycMsU0a20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-80139a2495aso5514263a34.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:00:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789383621; x=1789988421;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jsY326XUJHXK21sqO0ksKFfvd8wO2J4YASv0PCYoaMY=;
+        b=LzzRLhyBZRBM1e2iSXDyfvvV3Ri/kYxM22ZbGLqV7k/B3PZAaXwGxq/jbpUcTkevOg
+         Wt0DeNsUGktWllqaUp77c5karFgUjxBAYC67s8odkVQ/Y5QIOTAeiTow0TFKjMkFc+Ul
+         0vgVjxttgsELSqQXg3aUUtPfP36ul/Qli4upS1XLFm7RSIdIP4K3A4RjnJKiQVMB6wG+
+         urNg4vdaHgWxHGBIbJtEAlUgB5rsNlMV3qDYdEr/tCPE6zEwAsq3jX7Xt40tSsvcjyMe
+         pQqKl/+KyTI0ycTdmB7kmkltpGVi1c2Ry3d/0moQNtZ4oT4zSQvRKmVWIZFL0gPGnfoS
+         n9Ig==
+X-Gm-Message-State: AFuF++l2aJrajTxC0nDKjkTLDqz+OQijuBvexZGVSPlWS6Fm6Vz3j5nf
+	AGZiOL25E4pn9iPVh3jW5F8Z/RrD0gomE1SqMXqhVVqjkvhwvIG/jg7ItpQjikrvv/Afdn6Q+Ec
+	wYplyN18QcO1eSqzBKBH8DIMgeWkPQ5wrLhOjkx6FIsb9Fyeq6920Bcc6p9A=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-Received: by 2002:a05:6820:4cc1:b0:6b3:5537:8dbe with SMTP id
+ 006d021491bc7-6c53f74b87cmr950493eaf.11.1789383621213; Mon, 14 Sep 2026
+ 04:00:21 -0700 (PDT)
+Date: Mon, 14 Sep 2026 04:00:21 -0700
+In-Reply-To: <6aa42297.f2639fcc.29487d.002f.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7d3c5.a211d2ce.1a5198.028e.GAE@google.com>
+Subject: Forwarded: [PATCH] INFO: task hung in kvm_gmem_release (2)
+From: syzbot <syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-Thanks for the patch.
+***
 
-"Yilin Chen" <1479826151@qq.com> writes:
+Subject: [PATCH] INFO: task hung in kvm_gmem_release (2)
+Author: jchuang26@m.fudan.edu.cn
 
-> Subsystem stores its data by value, but its blanket Send implementation
-> did not require the data to be Send. This allowed a configfs subsystem
-> containing a non-Send value to be transferred across threads.
->
-> Link: https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/Should.20add.20Data.3A.20Send.2FSync.20bounds.20in.20configfs.3A.3ASubsystem.3F/with/623719979
->
-> Fixes: 446cafc295bf ("rust: configfs: introduce rust support for configfs")
->
-> Assisted-by: Gpt-5.6 Sol
->
-> Signed-off-by: Yilin Chen <1479826151@qq.com>
-> ---
->  rust/kernel/configfs.rs | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
-> index cd082b83e9e7..f8ca5fc03bf1 100644
-> --- a/rust/kernel/configfs.rs
-> +++ b/rust/kernel/configfs.rs
-> @@ -135,8 +135,9 @@ pub struct Subsystem<Data> {
->  // SAFETY: We do not provide any operations on `Subsystem`.
->  unsafe impl<Data> Sync for Subsystem<Data> {}
->
-> -// SAFETY: Ownership of `Subsystem` can safely be transferred to other threads.
-> -unsafe impl<Data> Send for Subsystem<Data> {}
-> +// SAFETY: Ownership of `Subsystem` can safely be transferred to other threads
-> +// if its data can be transferred as well.
-> +unsafe impl<Data: Send> Send for Subsystem<Data> {}
->
->  impl<Data> Subsystem<Data> {
->      /// Create an initializer for a [`Subsystem`].
->
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
 
-Re our discussion on zulip [1], I think your observation is correct, but
-there are a few more issues we should fix:
+Reported-by: syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com
 
-- AttributeOperations: require AttributeOperations::Data: Sync. This is the
-  point where the user implements a method that receives &Data from a
-  foreign thread, so the requirement is visible close to the use site.
-
-- GroupOperations: add Sync as a supertrait, since make_group and
-  drop_item receive &self the same way.
-
-- Change type GroupOperations::Child: 'static; to
-  GroupOperations::Child: 'static + Send;, because release drops the
-  child group on an arbitrary thread. The child's own Sync needs are
-  already covered by its own AttributeOperations and GroupOperations
-  impls.
-
-- Update the SAFETY comments on the FFI callbacks that call
-  get_group_data to cite these bounds as the justification for handing
-  out &Data on this thread.
-
-An alternative is to put Data: Sync on Subsystem::new and Data: Send +
-Sync on Group::new. That is simpler but less precise, and it does not
-document the requirement next to the trait methods that receive the
-reference. I prefer the trait-level bounds.
-
-Can you send a new version with these fixes?
-
-Best regards,
-Andreas
-
-[1] https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/Should.20add.20Data.3A.20Send.2FSync.20bounds.20in.20configfs.3A.3ASubsystem.3F/with/623192434
-
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 65eb26a05..8843dc35c 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2534,6 +2534,52 @@ static bool kvm_pre_set_memory_attributes(struct kvm *kvm,
+ 	return kvm_arch_pre_set_memory_attributes(kvm, range);
+ }
+ 
++/*
++ * Reserve or store @entry for every gfn in [@start, @end) that is backed by
++ * a memslot.
++ *
++ * Only gfns that are backed by a memslot are tracked; attributes for any
++ * other gfn are meaningless, as such gfns cannot be mapped into the guest.
++ * Walking the entire, user-controlled range instead would let userspace
++ * force KVM to hold slots_lock for an unbounded amount of time while
++ * allocating an unbounded amount of memory.  That can starve other
++ * slots_lock users, e.g. kvm_gmem_release() can get stuck waiting for
++ * slots_lock and trigger a hung task splat.
++ */
++static int kvm_set_mem_attributes_walk(struct kvm *kvm, gfn_t start, gfn_t end,
++				       void *entry, bool store)
++{
++	int as_id;
++
++	for (as_id = 0; as_id < kvm_arch_nr_memslot_as_ids(kvm); as_id++) {
++		struct kvm_memslots *slots = __kvm_memslots(kvm, as_id);
++		struct kvm_memslot_iter iter;
++
++		kvm_for_each_memslot_in_gfn_range(&iter, slots, start, end) {
++			gfn_t gfn = max(start, iter.slot->base_gfn);
++			gfn_t gfn_end = min(end, iter.slot->base_gfn + iter.slot->npages);
++
++			for (; gfn < gfn_end; gfn++) {
++				int r;
++
++				if (store)
++					r = xa_err(xa_store(&kvm->mem_attr_array,
++							    gfn, entry,
++							    GFP_KERNEL_ACCOUNT));
++				else
++					r = xa_reserve(&kvm->mem_attr_array,
++						       gfn, GFP_KERNEL_ACCOUNT);
++				if (r)
++					return r;
++
++				cond_resched();
++			}
++		}
++	}
++
++	return 0;
++}
++
+ /* Set @attributes for the gfn range [@start, @end). */
+ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 				     unsigned long attributes)
+@@ -2555,7 +2601,6 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		.on_lock = kvm_mmu_invalidate_end,
+ 		.may_block = true,
+ 	};
+-	unsigned long i;
+ 	void *entry;
+ 	int r = 0;
+ 
+@@ -2571,24 +2616,17 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 
+ 	/*
+ 	 * Reserve memory ahead of time to avoid having to deal with failures
+-	 * partway through setting the new attributes.
++	 * partway through setting the new attributes.  Note, only gfns that
++	 * are backed by a memslot are reserved, see the walker.
+ 	 */
+-	for (i = start; i < end; i++) {
+-		r = xa_reserve(&kvm->mem_attr_array, i, GFP_KERNEL_ACCOUNT);
+-		if (r)
+-			goto out_unlock;
+-
+-		cond_resched();
+-	}
++	r = kvm_set_mem_attributes_walk(kvm, start, end, entry, false);
++	if (r)
++		goto out_unlock;
+ 
+ 	kvm_handle_gfn_range(kvm, &pre_set_range);
+ 
+-	for (i = start; i < end; i++) {
+-		r = xa_err(xa_store(&kvm->mem_attr_array, i, entry,
+-				    GFP_KERNEL_ACCOUNT));
+-		KVM_BUG_ON(r, kvm);
+-		cond_resched();
+-	}
++	r = kvm_set_mem_attributes_walk(kvm, start, end, entry, true);
++	KVM_BUG_ON(r, kvm);
+ 
+ 	kvm_handle_gfn_range(kvm, &post_set_range);
+ 
