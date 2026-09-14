@@ -1,357 +1,143 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B02226738D;
-	Mon, 14 Sep 2026 19:58:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE943B9616
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789415893; cv=none; b=TiU/CiKOmOf+7Y9MjYYMKA0ZHIloNizpeX7SWmF06uvd0QLQhNi+SPKPbnIJsKS1fmfbR6WBDpZJoWoI3EGZh3pI91D2SWZAkjr0zfUgJD4+Ddr7hdcgA4MBAwPMyjUv4oOeuUpYW15rt78b0rc8iSIXdycY2+0dw8k0CPmW+Oc=
+	t=1789415920; cv=none; b=TYI5FZvZPInysRSx3jPQOeLrNCCyQYrVSi3AGunnp7uehje71P+pRF7V/2EYYOdiLzVw9ncDPldBcps3idFJrWHGcGK5iOgVlK6+z86nKF4o9EHxwvAsJYk6Qn+C8D4X6jwyOluVKRJrcNmgJ915WQMSSuXHkP2N20c3m9LRPgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789415893; c=relaxed/simple;
-	bh=5O+u/WkZwtK+ZRxxPGQu6s989h2cIFmRGK6fPkaqJyY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SxcrOvHo91gO51/mv8VljtHbp+bTalYDLRdrOftMmixlwWvD+yOJvBSJ5pvdCEMmZGUL61/nFrtIBZ6/9YdMCIP+N85A4V8umE1SD8W/GiR88L8eWTPwlAkXzTWgh8M+5A4WOMbMCtRiWIXtsT1Rskcm1NfErzRXoP+w+mPJf2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=4EKOph5h; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="4EKOph5h"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=A1jj+rte+HzSNdiID1ynf84XVNTuG9rbHGT4RLFdd18=; b=4EKOph5hz37A1d+0RcgSBku27f
-	IqpsypOB0bUGpvJ4l02quRcCj+Sh5JfwaAJP9N2oT//a0vtM5dUd0FYtGJqtvqq7PPBDel45PFmAu
-	H1YbMeIniV7aKe7e5jVbHI7S1G1jeqMz6oUrZFR/0aOF+/kKOQyDRf6UK5QzRl8WXAn6Zo4Zrrp7b
-	f+ybKri0BVrg92rhYTEfeIPfo/tl7cv0VzuUvPSKGm9eEkpswUyBnnSgBgVs0dEWLFJUJOVJ2lNsl
-	dWJCTZxewHJjF3sBwp0F5X0e6ZREvptTBHSlJ0RpNNJ455OpOL7IciW/GA6O0sztKZToRNkIW3Qiy
-	VELtXZvQ==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x6CoY-00000004ZDh-3soq;
-	Mon, 14 Sep 2026 19:58:06 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org
-Subject: [PATCH v2] docs: sound: hdspm: clean up driver doc.
-Date: Mon, 14 Sep 2026 12:58:06 -0700
-Message-ID: <20260914195806.1544938-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1789415920; c=relaxed/simple;
+	bh=3kqEkvVCEbgErecUwuK/wE0yb7FqRpWXJcs5N/PL2bs=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=UwreyDyCin+6luBHZEIOWqzBXpMefUE5ijL+kCqpacIqgXCfK81mLJ59TblVk05ZVZzUqbtqZKhFjIjoqWfXly/Lr5JvHPdFObYVgeVzUU51laoqu7J3AVtVBruXxyaKoyvfCC4LDVH5zQtSZ4U4Zh2B9uAQDBJv1qcGw86Eapw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so854645b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:58:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789415916; x=1790020716;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qARFW0MIy4Ie65GCDNTf4BdO5sA+2DVEUTUWVMiEKtM=;
+        b=yoV9PL4JHwEbCvPKx+wbXNzXMwKl4mU/4t/tePShjiE+MWME72U1iF6AnjwThDdMvD
+         6Q/1hBasizJupW4+XrRsdIeSL7JRmErWxviJb5PHLikQHWgRmQK8pvTMLuLj4KFL0dbX
+         x3OcPw7yQQ37crCLMm5RC8G620whRCgAoVha4Hck+QucVf0kk5U+3Z+Z9tE4DTq6Zz/B
+         4yuNH+JyCeDyXiMA/snDN2SYVi/6FM7aWMr2ya4FKSpTn6Gm0/zkvLbP3dEm6HKPLb6v
+         h4pwqHwGSudC7/7ei6ocUJwdKtWLFgkOusxQ1BOxVSPae71Yubwe/7oYbqwVcbIyALmv
+         sCcw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwi3IrkeN7mwWkffwTBWPB4WlQ4BptJAhOj6oFxJrwyMjXwN+EWerB3AlNJcMFj4FSd8v+p3S1QM3ZrUg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKgLVoKT1TOV2bbmwQ5XYhlrLkuLOYebXe9ygZYBz+PKBvg4ZY
+	xVj21P3ouF/EyZldOvxD3V/BIrVJIAbwxaO4dgET0/E9Op0S1b9APbTUyXuE1FP8lstmFXxbNZS
+	YXoUozXi2mvjrMDKv1EeiFR5QGRUwasLrTwSLsCd8Fs2N3axfVGgewwBoM4w=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:2013:b0:6c3:3f02:7514 with SMTP id
+ 006d021491bc7-6c53fa6fb02mr4204858eaf.5.1789415915775; Mon, 14 Sep 2026
+ 12:58:35 -0700 (PDT)
+Date: Mon, 14 Sep 2026 12:58:35 -0700
+In-Reply-To: <6a459145.52c20a74.1f8b39.0005.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa851eb.4c28b7d0.c1bba.001f.GAE@google.com>
+Subject: Re: [syzbot] [comedi?] possible deadlock in comedi_do_insn (2)
+From: syzbot <syzbot+acd959f649966559199c@syzkaller.appspotmail.com>
+To: abbotti@mev.co.uk, hsweeten@visionengravers.com, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Do some overall document cleanups:
+syzbot has found a reproducer for the following issue on:
 
-- add driver name for clarification
-- fix some punctuation issues
-- correct some capitalization
-- correct some grammar
-- convert a few words from German to English
-- eliminate double use of "note:"
-- unindent Precise Pointer bullets so that they are not part of the Hint
-- drop precise_ptr documentation since it has been modified to be
-  "always on"
+HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=165c9901580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=acd959f649966559199c
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12aa2471580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15f26601580000
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-704340f1.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e02afc1c5927/vmlinux-704340f1.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/09cb4a8b3309/bzImage-704340f1.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+acd959f649966559199c@syzkaller.appspotmail.com
+
+comedi comedi0: comedi_test: 1000000 microvolt, 100000 microsecond waveform attached
+comedi comedi1: comedi_bond: 0:2  attached, 32 channels from 1 devices
+============================================
+WARNING: possible recursive locking detected
+syzkaller #0 Not tainted
+--------------------------------------------
+syz.0.17/5908 is trying to acquire lock:
+ffff8880339978f0 (&dev->mutex#4){+.+.}-{4:4}, at: comedi_do_insn+0x2e/0x360 drivers/comedi/kcomedilib/kcomedilib_main.c:183
+
+but task is already holding lock:
+ffff8880339970f0 (&dev->mutex#4){+.+.}-{4:4}, at: comedi_unlocked_ioctl+0x180/0x3310 drivers/comedi/comedi_fops.c:2290
+
+other info that might help us debug this:
+ Possible unsafe locking scenario:
+
+       CPU0
+       ----
+  lock(&dev->mutex#4);
+  lock(&dev->mutex#4);
+
+ *** DEADLOCK ***
+
+ May be due to missing lock nesting notation
+
+locks held by syz.0.17/5908: 1, last CPU#1:
+ #0: ffff8880339970f0 (&dev->mutex#4){+.+.}-{4:4}, at: comedi_unlocked_ioctl+0x180/0x3310 drivers/comedi/comedi_fops.c:2290
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 5908 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_deadlock_bug.cold+0xbd/0xca kernel/locking/lockdep.c:3085
+ check_deadlock kernel/locking/lockdep.c:3137 [inline]
+ validate_chain kernel/locking/lockdep.c:3939 [inline]
+ __lock_acquire+0x13f4/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+ comedi_do_insn+0x2e/0x360 drivers/comedi/kcomedilib/kcomedilib_main.c:183
+ comedi_dio_bitfield2+0x3c0/0x420 drivers/comedi/kcomedilib/kcomedilib_main.c:314
+ bonding_dio_insn_bits+0x2b9/0x570 drivers/comedi/drivers/comedi_bond.c:100
+ parse_insn+0x1326/0x19f0 drivers/comedi/comedi_fops.c:1613
+ do_insn_ioctl+0x152/0x4e0 drivers/comedi/comedi_fops.c:1790
+ comedi_unlocked_ioctl+0xf68/0x3310 drivers/comedi/comedi_fops.c:2422
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f9368f9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffcaf8c9638 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f9369225fa0 RCX: 00007f9368f9e159
+RDX: 0000200000000400 RSI: 000000008028640c RDI: 0000000000000004
+RBP: 00007f936903503b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f9369225fac R14: 00007f9369225fa0 R15: 00007f9369225fa0
+ </TASK>
+
+
 ---
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org
-
- Documentation/sound/cards/hdspm.rst |  109 +++++++++-----------------
- 1 file changed, 40 insertions(+), 69 deletions(-)
-
---- linux-next-20260911.orig/Documentation/sound/cards/hdspm.rst
-+++ linux-next-20260911/Documentation/sound/cards/hdspm.rst
-@@ -6,9 +6,11 @@ Software Interface ALSA-DSP MADI Driver
- 
- 2004 - winfried ritsch
- 
-+driver name - snd-hdspm
-+
- 
- Full functionality has been added to the driver. Since some of
--the Controls and startup-options  are ALSA-Standard and only the
-+the Controls and startup options are ALSA-Standard, only the
- special Controls are described and discussed below.
- 
- 
-@@ -18,7 +20,7 @@ Hardware functionality
- Audio transmission
- ------------------
- 
--* number of channels --  depends on transmission mode
-+* number of channels -- depends on transmission mode
- 
- 		The number of channels chosen is from 1..Nmax. The reason to
- 		use for a lower number of channels is only resource allocation,
-@@ -29,29 +31,29 @@ Audio transmission
- * Single Speed -- 1..64 channels 
- 
- .. note::
--		 (Note: Choosing the 56channel mode for transmission or as
-+		 Choosing the 56-channel mode for transmission or as
- 		 receiver, only 56 are transmitted/received over the MADI, but
- 		 all 64 channels are available for the mixer, so channel count
--		 for the driver)
-+		 for the driver.
- 
- * Double Speed -- 1..32 channels
- 
- .. note::
--		 Note: Choosing the 56-channel mode for
--		 transmission/receive-mode , only 28 are transmitted/received
-+		 Choosing the 56-channel mode for
-+		 transmission/receive-mode, only 28 are transmitted/received
- 		 over the MADI, but all 32 channels are available for the mixer,
--		 so channel count for the driver
-+		 so channel count for the driver.
- 
- 
- * Quad Speed -- 1..16 channels 
- 
- .. note::
- 		 Choosing the 56-channel mode for
--		 transmission/receive-mode , only 14 are transmitted/received
-+		 transmission/receive-mode, only 14 are transmitted/received
- 		 over the MADI, but all 16 channels are available for the mixer,
--		 so channel count for the driver
-+		 so channel count for the driver.
- 
--* Format -- signed 32 Bit Little Endian (SNDRV_PCM_FMTBIT_S32_LE)
-+* Format -- signed 32-bit Little Endian (SNDRV_PCM_FMTBIT_S32_LE)
- 
- * Sample Rates --
- 
-@@ -67,30 +69,6 @@ Audio transmission
- 
- * fragments -- 2
- 
--* Hardware-pointer -- 2 Modi
--
--
--		 The Card supports the readout of the actual Buffer-pointer,
--		 where DMA reads/writes. Since of the bulk mode of PCI it is only
--		 64 Byte accurate. SO it is not really usable for the
--		 ALSA-mid-level functions (here the buffer-ID gives a better
--		 result), but if MMAP is used by the application. Therefore it
--		 can be configured at load-time with the parameter
--		 precise-pointer.
--
--
--.. hint::
--		 (Hint: Experimenting I found that the pointer is maximum 64 to
--		 large never to small. So if you subtract 64 you always have a
--		 safe pointer for writing, which is used on this mode inside
--		 ALSA. In theory now you can get now a latency as low as 16
--		 Samples, which is a quarter of the interrupt possibilities.)
--
--   * Precise Pointer -- off
--					interrupt used for pointer-calculation
--				
--   * Precise Pointer -- on
--					hardware pointer used.
- 
- Controller
- ----------
-@@ -104,7 +82,7 @@ hwdep-interface.
- Also all 128+256 Peak and RMS-Meter can be accessed via the
- hwdep-interface. Since it could be a performance problem always
- copying and converting Peak and RMS-Levels even if you just need
--one, I decided to export the hardware structure, so that of
-+one, I decided to export the hardware structure, so that if
- needed some driver-guru can implement a memory-mapping of mixer
- or peak-meters over ioctl, or also to do only copying and no
- conversion. A test-application shows the usage of the controller.
-@@ -112,9 +90,9 @@ conversion. A test-application shows the
- * Latency Controls --- not implemented !!!
- 
- .. note::
--	   Note: Within the windows-driver the latency is accessible of a
--	   control-panel, but buffer-sizes are controlled with ALSA from
--	   hwparams-calls and should not be changed in run-state, I did not
-+	   Within the Windows driver the latency is accessible via
-+	   Control Panel, but buffer sizes are controlled with ALSA from
-+	   hwparams calls and should not be changed in run-state. I did not
- 	   implement it here.
- 
- 
-@@ -127,12 +105,12 @@ conversion. A test-application shows the
-   * Values -- "Master" "Slave"
- 
- .. note::
--		  !!!! This is a hardware-function but is in conflict with the
--		  Clock-source controller, which is a kind of ALSA-standard. I
-+		  !!!! This is a hardware function but is in conflict with the
-+		  Clock-source controller, which is a kind of ALSA-standard. It
- 		  makes sense to set the card to a special mode (master at some
--		  frequency or slave), since even not using an Audio-application
-+		  frequency or slave), since even not using an Audio application
- 		  a studio should have working synchronisations setup. So use
--		  Clock-source-controller instead !!!!
-+		  Clock-source controller instead !!!!
- 
- * Clock Source  
- 
-@@ -145,11 +123,11 @@ conversion. A test-application shows the
-     "Internal 96.0 kHz"
- 
- 		 Choose between Master at a specific Frequency and so also the
--		 Speed-mode or Slave (Autosync). Also see  "Preferred Sync Ref"
-+		 Speed-mode or Slave (Autosync). Also see "Preferred Sync Ref".
- 
- .. warning::
--       !!!! This is no pure hardware function but was implemented by
--       ALSA by some ALSA-drivers before, so I use it also. !!!
-+       !!!! This is not a pure hardware function but was implemented by
-+       ALSA by some ALSA drivers before, so I use it also. !!!
- 
- 
- * Preferred Sync Ref
-@@ -165,7 +143,7 @@ conversion. A test-application shows the
- 		 chosen. If it is not available another is used if possible.
- 
- .. note::
--		 Note: Since MADI has a much higher bit-rate than word-clock, the
-+		 Since MADI has a much higher bit-rate than word-clock, the
- 		 card should synchronise better in MADI Mode. But since the
- 		 RME-PLL is very good, there are almost no problems with
- 		 word-clock too. I never found a difference.
-@@ -179,12 +157,12 @@ conversion. A test-application shows the
- 
-   * Values -- 0 1
- 
--		 Using 64-channel-modus (1) or 56-channel-modus for
-+		 Using 64-channel mode (1) or 56-channel mode for
- 		 MADI-transmission (0).
- 
- 
- .. note::
--		 Note: This control is for output only. Input-mode is detected
-+		 This control is for output only. Input mode is detected
- 		 automatically from hardware sending MADI.
- 
- 
-@@ -200,7 +178,7 @@ conversion. A test-application shows the
- 		 Don't use to lower 5 Audio-bits on AES as additional Bits.
-         
- 
--* Safe Mode oder Auto Input
-+* Safe Mode or Auto Input
- 
-   * Name -- "Safe Mode"
- 
-@@ -222,7 +200,7 @@ conversion. A test-application shows the
-   * Values -- optical coaxial
- 
- 
--		 Choosing the Input, optical or coaxial. If Safe-mode is active,
-+		 Choosing the Input, optical or coaxial. If Safe mode is active,
- 		 this is the preferred Input.
- 
- Mixer
-@@ -240,7 +218,7 @@ Mixer
- 		 Here as a first value the channel-index is taken to get/set the
- 		 corresponding mixer channel, where 0-63 are the input to output
- 		 fader and 64-127 the playback to outputs fader. Value 0
--		 is channel muted 0 and 32768 an amplification of  1.
-+		 is channel muted 0 and 32768 an amplification of 1.
- 
- * Chn 1-64
- 
-@@ -250,14 +228,14 @@ Mixer
- 
- * Line Out
- 
--  * Name  -- "Line Out"
-+  * Name -- "Line Out"
- 
-   * Access -- Read Write
- 
-   * Values -- 0 1
- 
- 		 Switching on and off the analog out, which has nothing to do
--		 with mixing or routing. the analog outs reflects channel 63,64.
-+		 with mixing or routing. The analog outs reflects channel 63,64.
- 
- 
- Information (only read access)
-@@ -280,7 +258,7 @@ Information (only read access)
- 
- 
- 		 Should be "Autosync Rate", but Name used is
--		 ALSA-Scheme. External Sample frequency liked used on Autosync is
-+		 ALSA-Scheme. External Sample frequency like used on Autosync is
- 		 reported.
- 
- 
-@@ -315,19 +293,19 @@ Information (only read access)
- 
- 		 Sync-Reference is either "WordClock", "MADI" or none.
- 
--* RX 64ch --- noch nicht implementiert
-+* RX 64ch --- not yet implemented
- 
--       MADI-Receiver is in 64 channel mode oder 56 channel mode.
-+       MADI-Receiver is in 64-channel mode or 56-channel mode.
- 
- 
--* AB_inp   --- not tested 
-+* AB_inp --- not tested
- 
- 		 Used input for Auto-Input.
- 
- 
- * actual Buffer Position --- not implemented
- 
--	   !!! this is a ALSA internal function, so no control is used !!!
-+	   !!! This is an ALSA internal function, so no control is used !!!
- 
- 
- 
-@@ -352,22 +330,15 @@ Calling Parameter
- 
-      note: ALSA-standard
- 
--* precise_ptr int array (min = 1, max = 8)
--
--     Enable precise pointer, or disable.
--
--.. note::
--     note: Use only when the application supports this (which is a special case).
--
- * line_outs_monitor int array (min = 1, max = 8)
- 
-      Send playback streams to analog outs by default.
- 
- .. note::
--	  note: each playback channel is mixed to the same numbered output
-+	  Each playback channel is mixed to the same numbered output
- 	  channel (routed). This is against the ALSA-convention, where all
- 	  channels have to be muted on after loading the driver, but was
--	  used before on other cards, so i historically use it again)
-+	  used before on other cards, so I historically use it again.
- 
- 
- 
-@@ -375,5 +346,5 @@ Calling Parameter
- 
-      Enable Analog Out on Channel 63/64 by default.
- 
--.. note ::
--      note: here the analog output is enabled (but not routed).
-+.. note::
-+      Here the analog output is enabled (but not routed).
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
