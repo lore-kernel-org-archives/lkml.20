@@ -1,117 +1,92 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08CB36B916
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF42F33A9E9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789361930; cv=none; b=dP3+JawS1Kwpq/XUY2jeZHUQs5FrdWyDBUeKxNxst7lVM7PlhlfsG2hP+eJiSd0Zt5eva6sUgq2vIubACxXCqWjMXQVtn8K/gP1aZjd8+7DFLFUGKYuF7FbxLm5yKQ3RG91n1VqVKNQ54nAPe44Jz1IEGWAttN6derKSw4wCee0=
+	t=1789361938; cv=none; b=jb3+BMm3vvcoVyiOnzyWBRED89jlmwXY2Zcp5fMqeTq0MWMdFubWczXkVjsUks/pHLwGCBI7JbdOHeQBY6l8E1JLDEAVGzJVye64+kBDCinSHPcxhpoRa0y2czOQiU/ko7fFrXi+u5AOp5IaoCtrPZMIDH1sYcSZo+X2EZYmf1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789361930; c=relaxed/simple;
-	bh=wIKDRymzQlNqiI3neHO05niMh3+n1GiNrKsaPpSmgGw=;
+	s=arc-20240116; t=1789361938; c=relaxed/simple;
+	bh=ivzW9O1B+kKbfvN7U57mVrtlqcx+Tw/f8WeE3wV4YCQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IFqpbu9hKzisTpIXmPS1SPHRZ2if26bNq6LZFDFRgkEUCpcApC9ckL2T+IrxY/GOEyN4mu1u5E+3l15kuQe8S4MF6ozG901Zm/7WzayPFPaPMUGJJAUzIZPU+RTTUL5SqR+yFob/PKmSNzINQW7PNkFgxlHxz7rrFOBMBsKKIjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hqJpFhe3; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=jrV6G+PgEG4sgji3DK31hFMulpxWkSYUegBc1g5BKJTWbaUr78Qg8BL+Mo5qN0kOp0udQJJcilDdUwYRUZyZZqrqIHfpBxRIqD9CN3fDOEhtTIDXDcuP/CIO+a5K9SrQUENes2yluyqnCHDk9JtPGdnkxSGtyqfB7eLVAH6TYxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=emOzayVK; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hqJpFhe3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789361928; x=1820897928;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wIKDRymzQlNqiI3neHO05niMh3+n1GiNrKsaPpSmgGw=;
-  b=hqJpFhe3ZJrL/PFXu69FIO8bHYUdX2gIHtYIkQJPWakB6nu8fzD5fgkQ
-   eyGTDj7xVpzMnrWYllEayoHjxMpxXNE4+sIMDkp+xLgrLdHRIuy5Rw5iV
-   BRzMXLcDgxgxI6P9n4W7uNoC1RcfA/e5U0C6voHGGLgT/PdBoRgqtgQ4K
-   cld4x/b/2ajh1DQLs1xyfV1ZY6T4JZCo6VrUziH5MxuXsX+ma7skLqi/q
-   h+O1c+fsRmNP1ms80HT88OwQDppePXAPvbc3cMUd8tlHIaET7saR09wZw
-   hAKupO68aupm6lCyub8FZbfiXCe97sdbcGl31zdTA4Q0dzTjgfQMW4+xS
-   g==;
-X-CSE-ConnectionGUID: lfhXu4VySF2fjzmrEcn9iw==
-X-CSE-MsgGUID: UiK499XBSYKfdfGHkluzIA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="77275643"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="77275643"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 21:58:48 -0700
-X-CSE-ConnectionGUID: j7uHzTY8T2OciiBrqqXJTw==
-X-CSE-MsgGUID: YV+y0UKzTJmq4UPflVP7ow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="268246721"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa006.fm.intel.com with ESMTP; 13 Sep 2026 21:58:44 -0700
-Date: Mon, 14 Sep 2026 12:58:44 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Kishen Maloor <kishen.maloor@intel.com>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kas@kernel.org,
-	rick.p.edgecombe@intel.com, dave.hansen@intel.com,
-	dave.hansen@linux.intel.com, yilun.xu@intel.com, djbw@kernel.org,
-	linux-coco@lists.linux.dev, chao.gao@intel.com,
-	peter.fang@intel.com, xiaoyao.li@intel.com
-Subject: Re: [PATCH v3] x86/virt/tdx: Formalize SEAMCALL version encoding
- support
-Message-ID: <aqd/BGL7MPGKVoqc@yilunxu-OptiPlex-7050>
-References: <20260722084634.131020-1-yilun.xu@linux.intel.com>
- <a9eb5e96-1e2f-4662-9863-61317c163800@intel.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="emOzayVK"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4E54C40E022C;
+	Mon, 14 Sep 2026 04:58:54 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 0czUiISd8Vrj; Mon, 14 Sep 2026 04:58:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789361924; bh=2WOFjO2fdvMz0OO58EhbrWJxHx9DSBuvepSqrzuGqx4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=emOzayVK7TRCfEVRncy6y1i+skAq8WrqXrsJaSQRJVglFcgUkMvW0KFBoZNFDKK5A
+	 X+q6majh+EgTN87BKHRsBshYNjyFENGRCN3suVHCbaw0D+urnZcBvmAnBIQry1tDk1
+	 /j7lBRf9HPdq8HHB4FgGFo7oyKPaaKeaIkbC00tUvPhOBXoN5nwTB2d6B5VFgkBl+C
+	 LYQUrupEx6UwgeDx5hM/jAjAB0h7VmkUviQnuWB3CuKKVh2xN8iikhQk47ZgYv8U2W
+	 P9bASzIt7ZyWLAEmXAsEckM9LkZibfTjG3LyKDgc+Qk7MtbTvVAo/M+xFi7w9jI4Qo
+	 BAz0SUjs+E+3NSz7eHV5FEwERNKRPGWGCYXs7P+iR/67In1i/BEBeadgwNXIb6kUcC
+	 dCsXRnf6Zxz7OWB+R5yF97kZSzPYG0F5cGNBXeZZqnYqDLRTb7jHTqeeu93W4YS0xG
+	 C89CnoP/NXSM0WGF54N68oKhs9YidGelQmKz3iL/mYc4Et3OZlDLqULyLM+Ld7/i69
+	 lJVRcYRaPbJAcrVmbpBOQjgkGmn8YW6m0pnZNOKUe420Kns4T5AGbzEAQTXeJ4xbmg
+	 mV7PZl4oPNecPfOBN9eAIOx49PvNj58CXiZiaW16kqfRW1ORhd9XVX4oTTjNi4StkQ
+	 CIF+CTdVAEi6jWf5sIWZHMTk=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 897AC40E0173;
+	Mon, 14 Sep 2026 04:58:26 +0000 (UTC)
+Date: Sun, 13 Sep 2026 21:58:23 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Rik van Riel <riel@surriel.com>, Matt Fleming <matt@readmodwrite.com>,
+	Henrik =?utf-8?Q?B=C3=B6ving?= <henrik@lean-fro.org>,
+	Dave Hansen <dave.hansen@intel.com>, dave.hansen@linux.intel.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>, david.kaplan@amd.com,
+	Ingo Molnar <mingo@redhat.com>, luto@kernel.org,
+	peterz@infradead.org, Sebastian Ullrich <sebastian@lean-fro.org>,
+	Joscha Mennicken <joscha@lean-fro.org>, kernel-team@cloudflare.com,
+	kernel-team@meta.com, linux-kernel@vger.kernel.org
+Subject: Re: PROBLEM: Probabilistic segfault on AMD hardware with INVLPGB
+Message-ID: <20260914045823.GFaqd-7yDf6aK4JUQr@fat_crate.local>
+References: <CAAuFnRTyva1_3tsF3vrMBL+TLS1YL4EgUPT2c3O9k7A9hWUMnA@mail.gmail.com>
+ <20260708112718.13323f59@fangorn>
+ <20260708155146.GAak5yEiHU-YM1Wid9@fat_crate.local>
+ <20260914022055.1639690-1-tz2294@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <a9eb5e96-1e2f-4662-9863-61317c163800@intel.com>
+In-Reply-To: <20260914022055.1639690-1-tz2294@columbia.edu>
 
-On Fri, Sep 11, 2026 at 12:58:58PM -0700, Kishen Maloor wrote:
-> On 7/22/26 1:46 AM, Xu Yilun wrote:
-> > ...
-> > +/*
-> > + * SEAMCALL leaf:
-> > + *
-> > + * Bit 15:0	Leaf number
-> > + * Bit 23:16	Leaf ABI version number
-> > + * Bit 24	Pending interrupts detection mode
-> > + * Bit 63	1 for P-SEAMLDR leaf, 0 for TDX module leaf
-> > + */
-> > +#define SEAMCALL_LEAF_MASK		GENMASK_U64(15, 0)
-> > +#define SEAMCALL_SEAMLDR_MASK		BIT_U64(63)
-> > +
-> >  static __always_inline u64 __seamcall_dirty_cache(sc_func_t func, u64 fn,
-> >  						  struct tdx_module_args *args)
-> >  {
-> > +	/*
-> > +	 * fn contains base leaf number for TDX module calls and P-SEAMLDR
-> > +	 * calls. Other fields in SEAMCALL leaf like leaf ABI version number
-> > +	 * are in struct tdx_module_args.
-> > +	 */
-> > +	BUILD_BUG_ON(fn & ~(SEAMCALL_LEAF_MASK | SEAMCALL_SEAMLDR_MASK));
-> The changelog lists the SEAMLDR flag among the RAX fields that are not a good fit
-> for the function number definition, but 'fn' still carries it. Why does 'version'
+On Sun, Sep 13, 2026 at 10:20:55PM -0400, Tal Zussman wrote:
+> Is there any update on either a fix from AMD or merging Rik's double TLBSYNC
+> workaround?
 
-Yeah, it makes confusion. I deleted these words in v6 [1].
+There will be an official thing Soon(tm).
 
-> get a field in struct tdx_module_args while the SEAMLDR flag stays in 'fn'?
+In the meantime, 
 
-Because SEAMLDR flag is now defined as a part of the leaf number for
-SEAM loader calls, for example:
+"tlbi=ipi"
 
-/* P-SEAMLDR SEAMCALL leaf function */
-#define P_SEAMLDR_INFO			0x8000000000000000
-#define P_SEAMLDR_INSTALL		0x8000000000000001
+Thx.
 
-> 
-> Otherwise, looks fine.
-> 
-> Reviewed-by: Kishen Maloor <kishen.maloor@intel.com>
+-- 
+Regards/Gruss,
+    Boris.
 
-I assume you are also good to the v6 and added your RB, please let me
-know if you object.
-
-[1]: https://lore.kernel.org/all/20260910104347.625378-1-yilun.xu@linux.intel.com/
-
-Thanks,
-Yilun
+https://people.kernel.org/tglx/notes-about-netiquette
