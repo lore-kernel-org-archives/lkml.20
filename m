@@ -1,172 +1,159 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59612931F7
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28C3258EF9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789346744; cv=none; b=fI6WjscQreZuu5SGQpS6jh7qF98v++lyFQjuib6SFz+1CXp+09OYljXqgVxDWPnpWV0fbNrWLA+yixKe1NIbbxgQa3kO4MmVoOK8U3xhdJyNPUsULZUWklCqOkflSVDgS89Q7gqA8oVFEV63a54p6qKs69n8pT8W74e398hd5iE=
+	t=1789346753; cv=none; b=g7oK+OXz8bV6FE/GbP5MD8soUcBpm/pHZB2g8sRL3TKU9kyY5byoWVZSkxgASLOUYy8lqq4ZTb8+co4BJIFB+7S6mMAmdnqgmqI6k0W1Cb0C071ccvyZYjxI+rgIq2L0tsuy+pk0iTXLvQkhepxNye0nHtRRXyssTWPb5vsVZHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789346744; c=relaxed/simple;
-	bh=HEzr018Zg9zeDMFyAi99qcjka/aNhAhdWDPG3d6Uc0c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=F/DsHSz1Rb/UlGySG7yclmx2g70KDEk6oJpWrDdCkFBMrnCLBJUeTR/RNrobY37dQudWY/Vk8ndoqCZyHfAkeuV71qQAqtnUrUnMksMrhqy2PVRrIU+DPpyj1h3ivHFjzX/W7pwYZUwQ2BFTRrpO03StgcpurHdSABYpaElmOSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gs.ncku.edu.tw; spf=pass smtp.mailfrom=gs.ncku.edu.tw; dkim=pass (2048-bit key) header.d=gs-ncku-edu-tw.20251104.gappssmtp.com header.i=@gs-ncku-edu-tw.20251104.gappssmtp.com header.b=ORuQkuqm; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gs.ncku.edu.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gs.ncku.edu.tw
+	s=arc-20240116; t=1789346753; c=relaxed/simple;
+	bh=11XAC7IHohnLExbynXhQgqZRwfRLEUClDfxcSWmZ3EA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m4uMpmVoURi6ur8OTQs2Oh+bcA6iNIKZEQxLCyMe7MIbuZkyJuv6zprQ3lfnDTvUOVAR96hoFpDwKKP5BICwHr4NauxrZ1K8xRyDrJYN39kX1CTH3oRxF2RTXtdYheR0lbojz7O9XgsC0NkWZIApU6JcdGDY63wmre1lO2p8CXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WeyTfrQW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QLpxyiXb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gs-ncku-edu-tw.20251104.gappssmtp.com header.i=@gs-ncku-edu-tw.20251104.gappssmtp.com header.b="ORuQkuqm"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d942c7cc2fso25723475ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:45:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WeyTfrQW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QLpxyiXb"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E06OEu2660933
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:45:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=QODTxX750UA4HDn/zUk4Bheg
+	1ca4Dh3QMwnpyqlFlbw=; b=WeyTfrQWQtxC7P+0lvyYoIAo37ADFwFqHxG8VhED
+	3p5Vkma8T5Sas1eGuUM0PzPhyhMpNBrXUcKhwgt0E1Dzho7Mspo0XsJW7/SkzqDE
+	NeqvMIY4oHX9vaLwxqSMSBaHFa6PVAM95/aYhak4r2HaMlppf2dwDqUMM4d0rKkX
+	S0omk2f0Rq+jRIbq1Lf8yzgZMafTff8B7+e/CBHn+LOgYI3z5K+p8un4C2+7Ia6a
+	cmQyhItAqar78egyuUSQVKx0V9aqqGYQAQ0uElefmuDzAO9xxBFOsaDbt5mdUDjW
+	m0r5ngygOLIRnzTV19TJ9hTp+eoqw2YR1vQWgUchujrM+Q==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmygd4g7a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:45:51 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-98087b0c5deso1981610241.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gs-ncku-edu-tw.20251104.gappssmtp.com; s=20251104; t=1789346742; x=1789951542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oHfRQlL8Oc4xb+7dfHHHoFotMCf8gFX4P34jeATJRIQ=;
-        b=ORuQkuqm0YxOAGj8Lix5KphZcJ0+Hqj1zZBmW1hy/eXL4v8AJW5vfTZcSzDP+OTuDq
-         7S8j6A9HbXL9NIj3lPnUw1dwZIQPFSgREFmHv9V+TCaXr9zomIW9/PRpgvMhYFJUavqG
-         je8xFnwwoG+dmAmgUPiwPBW/udx1CP0zwQxhU05jm2okszDKfi4xKU0QGXKYDTBS6jfZ
-         b76nfn0HhPHUiQKvdFDpaJCQEobn2klpAYrUXKh6JjKMS5A1ptm6U76HV4tH+ItEF1FZ
-         CsgCp1TaxoEtjTNayaIvhSRQKntMSRS12ukLGV5TINUqr45m033DaNE4Om0cr4BHru/s
-         jRag==
+        d=oss.qualcomm.com; s=google; t=1789346750; x=1789951550; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QODTxX750UA4HDn/zUk4Bheg1ca4Dh3QMwnpyqlFlbw=;
+        b=QLpxyiXb389DgTZPqyACu2ROyG2PBr78/tmWDY8jqe3uxPqBBe3Cf16GHpRX32yUVr
+         SC6ERndbH2AT1v/H6b9Gg3BZr7RTg5osmQPd2OfN04cGtC2KkzI+twqxodtZklO6rJa6
+         nxPHyr1+GB89Adkqa/0rUJF7nAUBm7B6OaHhjy1ILv6Uw5ELAeZQI7uhmu3Wwy6/4E83
+         szHOcu8tMxJa0H7Li23i4jg8V4Hh28rybMA4KDxdN8YTVPp0CM0Bc2BtDTmEcYIps6hY
+         XnT30MwmbNRglVF8r2zUIp+NgkKnFxq1ACnssdKarbaARl/TvL1sPW31fPAfkOt+d0gY
+         xaAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789346742; x=1789951542;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oHfRQlL8Oc4xb+7dfHHHoFotMCf8gFX4P34jeATJRIQ=;
-        b=rDd1d2K/rHMa8jQ5TIZ9cfqXkvhWiBVadiNCdRMTejsxeFsFaXZFnPWSEipVVHOHmD
-         lWJdFqTmTZmBKObgj8Z9SxGqqVr5DaSvRuVQ3IZpjICCLz+qenSpPzHmxznnSS2JRIlW
-         biV6SOG4GApyveWn3YT4KAGm4L95bN9FX+wFvVM4jyytjanwtyhEO+7xAnuZLoyW25Kj
-         uIcsF5FeS6LWvzkFr9075TFb1A6KWIuVfa9ga/YV7GcvilEIkg2ULWd/FUOCywbJSEIO
-         cS6jEBQihYSo6T8plAPfBvmJ8IgUWKolN8zW0Id0sp9yXj91HLGUTKs8hgg1tHsGbXGD
-         uNbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzjK3/hB5+zmnY4vHsTGDFQv9RSZnA8FABRgunkRQ2V8d+Otq/+9z6c0CneYCPJ/VkZtXtPpfNzFcDying=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHZ7VkggYzDTMCdJpnCHt+s9tY69nhJQTxdNv44K99MlhfB2HB
-	SFlmw0V090duiI/8Y6uXOyLmQmsoFOPctdGbeFtVljaPvGBaRtFXAuhkbaeo/b/DQwg=
-X-Gm-Gg: AYBFou2xTvCzoOhuCyYXK6HBr6Yfi0IEf91cLkDXjaViy18d9dVFXWsMeYbp8kDpHmj
-	lnUO4cFJKb7ulE21gvqkopPzFtQjKHrLmIZTvxjo8FFmFQ3ExVZOzyS7sQo2h2FjRv1Gp3i3r8G
-	1lyr0z2IgJgjkPG0finMH3ufCEn4CTYWP5p73Qz3Y1wG4Q0eMlbKx5aBC/u4tixdhI+mI2KRsDb
-	cf61TcZB9Uuzw6QyhAMvXDSiGMbfbhPPLN8Omr81MUySOdirNsH0sKWKPHnpIoIKM273bPkR+2S
-	Yd6WeyqY5oeZkbsWXbcTdXIARjN1Of2V3eaLlmv8cW/5fVAPjN7/DSDGsS63IaV4xoe50qzvQS7
-	Ps+NN3ylNEuDPLHlyq3oynLAQFAZgcNKo/Q2NQC+5wcDjDBwVlgr3hcp2tpqCusDWQDily3dMik
-	UlXvfKoKG/POudZq8glRsgIBSqPXB7znHc8v8vDeLltn/Ia89aqy6PFXZgQPpTqwyyoGM0nWrfD
-	LOGs5lXQTCvs23xY27M2eYAvusAzJ6DS+F51IUmZlyZ2v5hhoF25DjMXw==
-X-Received: by 2002:a17:903:1b0b:b0:2db:31d5:1448 with SMTP id d9443c01a7336-2dd6c763100mr5649905ad.22.1789346741862;
-        Sun, 13 Sep 2026 17:45:41 -0700 (PDT)
-Received: from localhost.localdomain (111-240-141-218.dynamic-ip.hinet.net. [111.240.141.218])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd3f0faf19sm32604465ad.12.2026.09.13.17.45.38
+        d=1e100.net; s=20251104; t=1789346750; x=1789951550;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QODTxX750UA4HDn/zUk4Bheg1ca4Dh3QMwnpyqlFlbw=;
+        b=No5FDCRFLK/tvIHwP2/WnawSzvXTEGjoYLdVG3gngNWV6KedURB3K57lsg8e2Sx4NC
+         Y+qUYY4t84Xi+Mqh3Hj84Y+iFl63hfPHt7Xww0UpVMPlU43FtxkXETeoiyevgRDKKRhj
+         Eafe5iqk+m5FX4LR+SJMIKz/WfsvxZgtCGytt0xBsuigUvPx022ZXOafJhx6jSSHqkoj
+         hllkqaakAP+j5gi2pNU5GGa5gaudHG/goweifFFwGNZiREl7BnHvzA4cwdAZpV0L6Xyu
+         L6ZUG0ivjYKI0QIeQiSu0c/07tR3+982MhyDkL+3i5hjwG+DjefhUeZ04oYAoZ/Nvvp7
+         O2ww==
+X-Forwarded-Encrypted: i=1; AKwUvBwiTs4jaXt17bch3j1xwQA2ItFDC9fWpI46VpGCUNOghxJrohuSN6zxwAaHhJivHipYveLAbXM06ur1Cns=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/Q2OP9iA6u9ibxZi/b+03Ij/mfpoHcDMNhZs+n0Ousx9vm5LM
+	QnIrWwHT2G3WKVILDPqRPr0K/KIGWmLpEcqz6UK0X8RRiPxrCY8Wt9OCTst74Hgv54yWeWv7Uzh
+	aZfo5Mf1x/n7Sxspwj+x2H+j2eb6wvt/vrnytKpJWs3SErTkQaBJc99ZTTbTVnLhmo5I=
+X-Gm-Gg: AYBFou1mNzzy9qcXf+TAswBywz9jx1erZnO/szWY41J8zaOMcoy2NZ4gk3W5NgUmM+z
+	AW81QnhOA2m7/UAdTHzMrZKzS9lmglTNEnJ+pVyOPNxKyV/Dgv4DmB/2RvHfagCldDtXLyz45D9
+	tQDFXHrVbmgDlLhm1vK2lPA+KrjmDrUkNNZddJqxYhEPln1naCSet1SU4ZSLIjpE5aeMenYHtx0
+	5vg/oSSHLSwIt/Y8JDya42UZRuwLEVyO9t162HFDDow/3/m6N1Ouopfqe7OdCnYjg0U7IR+wulS
+	AYvxQQDKtZbztgIDACE0lVdWpwWsll92eW4E41gU0pLArum0NFgTV0jbp+U/0i6tT3WdpOjm5ZI
+	gogxMnlQ0ItMXGdR7tv8l7H9r1Vo2xLKxaP3zdCNfIGPLL8ypIl3BOZZICuLocEUfQ+g4lm5TwK
+	PZD+fjfF+M0CYa
+X-Received: by 2002:a05:6102:a4a:b0:77f:9278:af6e with SMTP id ada2fe7eead31-79b5b196caemr117951137.9.1789346745154;
+        Sun, 13 Sep 2026 17:45:45 -0700 (PDT)
+X-Received: by 2002:a05:6102:a4a:b0:77f:9278:af6e with SMTP id ada2fe7eead31-79b5b196caemr117928137.9.1789346744772;
+        Sun, 13 Sep 2026 17:45:44 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a03a86f2sm2002489e87.4.2026.09.13.17.45.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 17:45:41 -0700 (PDT)
-From: shuo huang <f64116045@gs.ncku.edu.tw>
-To: netdev@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	jiayuan.chen@linux.dev,
-	f64116045@gs.ncku.edu.tw
-Subject: [PATCH net-next v3 2/2] selftests: net: Exercise TCP payload verification in udpgso_bench.sh
-Date: Mon, 14 Sep 2026 08:45:25 +0800
-Message-Id: <20260914004525.46597-3-f64116045@gs.ncku.edu.tw>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260914004525.46597-1-f64116045@gs.ncku.edu.tw>
-References: <20260914004525.46597-1-f64116045@gs.ncku.edu.tw>
+        Sun, 13 Sep 2026 17:45:42 -0700 (PDT)
+Date: Mon, 14 Sep 2026 03:45:40 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Archit Taneja <architt@codeaurora.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 4/7] drm/msm/hdmi_bridge: Drop redundant
+ initialization in msm_hdmi_bridge_init()
+Message-ID: <vzr4mqf3opzusmbz42fwr4m5bbmpu7imrwzsuhhmxcz4klklme@anqfxjg2a55h>
+References: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com>
+ <20260911-drm-msm-hdmi-fixes-before-eliza-v4-4-87bdb9f1987f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-4-87bdb9f1987f@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=RY0FmFtv c=1 sm=1 tr=0 ts=6aa743bf cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=P84uMFOcKlMy4IiKK0cA:9 a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwNyBTYWx0ZWRfX2wVfd+jqdroG
+ G+xxjFiimxVIpxby6bCYN2JkBWTqvc558H451qMnBObLecfikw9/3ccpEMmK5SlOetRP1L8PLGA
+ byxx2cGtmwEbUvXddh8d02EMvGcEZe+1Rnzgf/HDCEvLw34H3Xms5iA7E8oxLGqv4seEIZLzbig
+ /71iLJzKX3Sp9mBdgPemmuUex+mxhz/+s7lSB+289BmPwzDP9w6PNNqPvwO2+xkeX1RJsQPUL7n
+ axyhsv8wOSlGdUPirgw5fjYueXDLpnOj9QFWI9CsHPJMH7wLPO1hvNDmjc4XRUO4Ff0h+vNlbfs
+ W5v1YB+CgLn4S0K3V8H93DJ/9ubI9bZkm4cyA2LImJddKWVzeDxrhEcmM2MtmdV9cGg7N1E6OF7
+ G+RxJ6gYBY2e8i3WzMUl1S78T1OCbsn8G9VQ/XSY0sK2/FyAEi+/xA8O/+OXOg0W+hlJeyO3Lrk
+ 710571/tGiHIb8kAPTg==
+X-Proofpoint-ORIG-GUID: M03q9f9flWfJM5nAE_67cz3lGarqWMZ6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwNyBTYWx0ZWRfX0gYmv7LNGxWx
+ lVm+WjsfyVUNEVpGNETe2F0IKcy1BTGreGKbo0A/l7+B1t7qV/j1mIu6mGnWoyInQ51w/GqDdX4
+ OFPXwTwoqHM2q9VAilNussPtcr1pg7E=
+X-Proofpoint-GUID: M03q9f9flWfJM5nAE_67cz3lGarqWMZ6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_08,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140007
 
-The benchmark script does not exercise TCP payload verification.
+On Fri, Sep 11, 2026 at 12:29:37PM +0200, Krzysztof Kozlowski wrote:
+> Local 'struct drm_bridge *bridge' variable is assigned in ~13th line of
+> the function, before any first use, thus explicit NULL initialization is
+> not necessary.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-Add a verification case for IPv4 and IPv6 using 100 4 KiB payloads.
-The payload length is not a multiple of 26, allowing the test to
-detect missing per-payload pattern resets.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Wait for the receiver and propagate verification failures. Bound
-both processes with timeouts and leave the existing benchmarks
-unchanged.
 
-Signed-off-by: shuo huang <f64116045@gs.ncku.edu.tw>
----
- tools/testing/selftests/net/udpgso_bench.sh | 35 +++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/tools/testing/selftests/net/udpgso_bench.sh b/tools/testing/selftests/net/udpgso_bench.sh
-index 88fa1d53b..4d1938282 100755
---- a/tools/testing/selftests/net/udpgso_bench.sh
-+++ b/tools/testing/selftests/net/udpgso_bench.sh
-@@ -8,6 +8,8 @@ readonly YELLOW='\033[0;33m'
- readonly RED='\033[0;31m'
- readonly NC='\033[0m' # No Color
- readonly TESTPORT=8000
-+# Avoid a multiple of 26 to detect missing payload resets.
-+readonly TCP_VERIFY_LEN=$((4 * 1024))
- 
- readonly KSFT_PASS=0
- readonly KSFT_FAIL=1
-@@ -79,6 +81,32 @@ run_one() {
- 	./udpgso_bench_tx -p "$TESTPORT" ${args}
- }
- 
-+run_tcp_verify_one() {
-+	local tcp_rx_pid
-+	local i=0
-+	local -r timeout=10
-+
-+	timeout -k 1 30 ./udpgso_bench_rx -p "$TESTPORT" -t \
-+		-v -l "$TCP_VERIFY_LEN" &
-+	tcp_rx_pid=$!
-+
-+	while [ "$i" -lt "$timeout" ]; do
-+		ss -lnHt "sport = :$TESTPORT" | grep -q . && break
-+		i=$((i + 1))
-+		sleep 1
-+	done
-+	if [ "$i" -eq "$timeout" ]; then
-+		echo "timed out while waiting for udpgso_bench_rx"
-+		return 1
-+	fi
-+
-+	timeout -k 1 30 ./udpgso_bench_tx -p "$TESTPORT" "$@" \
-+		-t -s "$TCP_VERIFY_LEN" -M 100 || return $?
-+
-+	# A successful sender does not imply that payload verification passed.
-+	wait "$tcp_rx_pid"
-+}
-+
- run_in_netns() {
- 	local -r args=$@
- 
-@@ -123,6 +151,10 @@ run_tcp() {
- 	echo "tcp zerocopy"
- 	run_in_netns ${args} -t -z
- 
-+	echo "tcp verify"
-+	./in_netns.sh "$0" __verify_tcp ${args}
-+	kselftest_test_exitcode $?
-+
- 	# excluding for now because test fails intermittently
- 	# add -P option to include poll() to reduce possibility of lost messages
- 	#echo "tcp zerocopy audit"
-@@ -149,6 +181,9 @@ if [[ $# -eq 0 ]]; then
- elif [[ $1 == "__subprocess" ]]; then
- 	shift
- 	run_one $@
-+elif [[ $1 == "__verify_tcp" ]]; then
-+	shift
-+	run_tcp_verify_one "$@"
- else
- 	run_in_netns $@
- fi
 -- 
-2.34.1
-
+With best wishes
+Dmitry
