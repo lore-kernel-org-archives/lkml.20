@@ -1,157 +1,146 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2A34825BF;
-	Mon, 14 Sep 2026 14:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7313947A89B;
+	Mon, 14 Sep 2026 14:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397478; cv=none; b=fbZEBUBln6A6BQmJ0O2Vjg14krf1YVVuYyh4j79bp8vVYWPpdd+pftLw+5a/LmcOaP2y17JBpBram2VzsZwU54y2ACr/HsFhGk85Tn0iAga+G0Ry0tG5nbTL3CEu5txqlmfNOQ6MOcuHKqbaAnQl8gl7wzuOzFz6bSuUA3hvbvQ=
+	t=1789397474; cv=none; b=e6UFeKiosQMI30CSR9fwd0OxjwNk57pd7ZIP4rZFjOevawiA9kNsrVyr+ErD8h0G9WxspEK9TQUYjJVTr8eE8f1RdK/AgpwdK/FVsdslKDd4f+KHg30BRh7VBOOGZNYALBjQjAYfbIY39z9hoUIz4uomnZIqY+uODce/zBX3xxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397478; c=relaxed/simple;
-	bh=btyTcGPaP8SY8f7pIEybVB2fgyhjoMTv2WLbDP5WQiI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dtNhnk4r0AaVxH1edXSGFqN0VLGfscSBheeJoxbmT9301QelTEI6pqT3rTFRTBMiTBsio6I2SdSE5AaXXfWZEda6u0HKLOa8SaLU3SJJeZtjb03D1xMeo8um2DUzbLMmP5Qak78Kh5VcNAZgJh9+V+WHyyHfXEtM7eBIdkxj01E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: linux-spi@vger.kernel.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: broonie@kernel.org
-X-PTX-Original-Recipient: jre@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: mkl@pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 40993202892;
-	Mon, 14 Sep 2026 16:50:55 +0200 (CEST)
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <jre@pengutronix.de>)
-	id 1x681H-000v8b-0X;
-	Mon, 14 Sep 2026 16:50:55 +0200
-From: Jonas Rebmann <jre@pengutronix.de>
-Date: Mon, 14 Sep 2026 16:50:44 +0200
-Subject: [PATCH 5/7] spi: spidev_test: send predictable data
+	s=arc-20240116; t=1789397474; c=relaxed/simple;
+	bh=4eY6nSFOq/Va/DPcpboYKZBk7jH8z6qFhz7/XnF2Xng=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jMyBEHGGMLgMQn09TGXHmCLRZoyApuNbdd1aFGYOgG6K/MLzu96rWloKyLsAuTk7J1l+/ebZtpfZDIWi2wm9EHfKjhlTnap7yGNjCoB5VAj+m59rMxDzbOhfZEPXbTJoNhF3C8qM2COvwpSRVSGSCm4LY2iJ1C3Ke7x3kKNNU2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mjlA8VU3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mjlA8VU3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99FD91576;
+	Mon, 14 Sep 2026 07:50:53 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 14DF33F86F;
+	Mon, 14 Sep 2026 07:50:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789397457; bh=4eY6nSFOq/Va/DPcpboYKZBk7jH8z6qFhz7/XnF2Xng=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=mjlA8VU3/wPr4fGHLHOy27VUoOJLDK1Md9hbXusyenIG6Msi/NrGc576r3T5+P3ND
+	 v3aAKee9OQwjnzEy+PLeuoA6Uj242BSoJDCG6X0rq92iZ1mhcCsy//bagStF39M71f
+	 Btik+Fsx1UPmE+fqdCbNXgGpBvJqqxxifhkIAvA4=
+Message-ID: <07d32b4c-1f00-45e5-b318-0f28bbb46f33@arm.com>
+Date: Mon, 14 Sep 2026 16:50:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-spi-sun4i-spidev_test-v1-5-72d6a3b38cee@pengutronix.de>
-References: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
-In-Reply-To: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
- Jonas Rebmann <jre@pengutronix.de>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3393; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=hyW09/s5603f18FDZkFHpbL0CwnQrbEs+ELS75Vgv7s=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshawXl2e0pz0895RlPOHY2aqek7d3Pion+f3ub9anLzT
- Iq+YBR0tqOUhUGMi0FWTJElVk1OQcjY/7pZpV0szBxWJpAhDFycAjCRL58YfrNN60rYlrBf7eO/
- RFOJH+8PZTRc/ClZkBYzw+QQq8m0a6oM/5QbQgN6d23JfsGcKbqs7IRmVpaEwpdl/tsvXMx90Xg
- /lhMA
-X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
- fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 03/10] dt-bindings: arm: Add MPAM MSC binding
+From: Andre Przywara <andre.przywara@arm.com>
+To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>,
+ Rob Herring <robh@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Ben Horgan <ben.horgan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
+ <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Drew Fustini <fustini@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, trilok.soni@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, ganapatrao.kulkarni@oss.qualcomm.com,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
+ <20260914-mpam-resctrl-dt-knp-support-v2-3-bf6645bb2f65@oss.qualcomm.com>
+ <f71cfbcc-2e53-4e37-bb98-693996542396@arm.com>
+Content-Language: en-GB
+In-Reply-To: <f71cfbcc-2e53-4e37-bb98-693996542396@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Marc Kleine-Budde <mkl@pengutronix.de>
+Hi,
 
-Introduce a flag to test on a predictable byte sequence instead of
-random bytes. This is useful when comparing multiple runs e.g. with an
-oscilloscope.
+On 9/14/26 16:41, Andre Przywara wrote:
+> Hi,
+> 
+> On 9/14/26 11:37, Yin Li wrote:
+>> From: Rob Herring <robh@kernel.org>
+>>
+>> The binding is designed around the assumption that an MSC will be a
+>> sub-block of something else such as a memory controller, cache 
+>> controller,
+>> or IOMMU. However, it's certainly possible a design does not have that
+>> association or has a mixture of both, so the binding illustrates how 
+>> we can
+>> support that with RIS child nodes.
+>>
+>> A key part of MPAM is we need to know about all of the MSCs in the system
+>> before it can be enabled. This drives the need for the genericish
+>> 'arm,mpam-msc' compatible. Though we can't assume an MSC is accessible
+>> until a h/w specific driver potentially enables the h/w.
+>>
+>> Cc: James Morse <james.morse@arm.com>
+>> Signed-off-by: Rob Herring <robh@kernel.org>
+>> Signed-off-by: James Morse <james.morse@arm.com>
+>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 199 +++++++++++ 
+>> ++++++++++
+>>   1 file changed, 199 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml 
+>> b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+>> new file mode 100644
+>> index 000000000000..53a6fdbbf05f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+>> @@ -0,0 +1,199 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/arm/arm,mpam-msc.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Arm Memory System Resource Partitioning and Monitoring (MPAM)
+>> +
+>> +description: |
+>> +  The Arm MPAM specification can be found here:
+>> +
+>> +  https://developer.arm.com/documentation/ddi0598/latest
+>> +
+>> +maintainers:
+>> +  - Rob Herring <robh@kernel.org>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: arm,mpam-msc                   # Further details are 
+>> discoverable
+>> +      - const: arm,mpam-memory-controller-msc
+> 
+> But that doesn't match the examples below, does it? Don't we want to 
+> allow just "arm,mpam-msc", but also the memory controller string, with 
+> "arm,mpam-msc" as a fallback?
+> I guess the pattern should then look similar to interrupt-names below?
 
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
----
- tools/spi/spidev_test.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+Just seeing that you fix this and other things up in patch 08/10 later.
+I think it's confusing to have this split now for a v2 still. I wouldn't 
+be aware of previous review of this original patch, so it doesn't really 
+matter. Please squash them.
 
-diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
-index 235b267c02f2..4d35ac0d9a48 100644
---- a/tools/spi/spidev_test.c
-+++ b/tools/spi/spidev_test.c
-@@ -49,6 +49,7 @@ static int interval = 5; /* interval in seconds for showing transfer rate */
- static int compare;
- static int nonzero;
- static int do_tx = 1, do_rx = 1;
-+static int predictable;
- 
- static uint8_t default_tx[] = {
- 	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-@@ -176,7 +177,7 @@ static void transfer(int fd, uint8_t const *tx, uint8_t const *rx, size_t len)
- 
- static void print_usage(const char *prog)
- {
--	printf("Usage: %s [-2348CDFHILMNORSZbdilctropsvwz]\n", prog);
-+	printf("Usage: %s [-2348CDFHILMNORSZbdilctropsvwzP]\n", prog);
- 	puts("general device settings:\n"
- 		 "  -D --device         device to use (default /dev/spidev1.1)\n"
- 		 "  -s --speed          max speed (Hz)\n"
-@@ -201,6 +202,7 @@ static void print_usage(const char *prog)
- 		 "  -o --output         output data to a file (e.g. \"results.bin\")\n"
- 		 "  -p                  Send data (e.g. \"1234\\xde\\xad\")\n"
- 		 "  -z --nonzero        Don't send 0x00 or 0xff bytes\n"
-+		 "  -P --predictable    Send a predictable sequence instead of random numbers\n"
- 		 "  -S --size           transfer size\n"
- 		 "  -I --iter           iterations\n"
- 		 "additional parameters:\n"
-@@ -246,12 +248,13 @@ static void parse_opts(int argc, char *argv[])
- 			{ "no-cs",         0, 0, 'N' },
- 			{ "ready",         0, 0, 'R' },
- 			{ "mosi-idle-low", 0, 0, 'M' },
-+			{ "predictable",   0, 0, 'P' },
- 			{ "verbose",       0, 0, 'v' },
- 			{ NULL, 0, 0, 0 },
- 		};
- 		int c;
- 
--		c = getopt_long(argc, argv, "D:s:d:w:b:i:o:lctrHOLC3ZFMNR248p:vS:zI:",
-+		c = getopt_long(argc, argv, "D:s:d:w:b:i:o:lctrHOLC3ZFMNR248p:PvS:zI:",
- 				lopts, NULL);
- 
- 		if (c == -1)
-@@ -328,6 +331,9 @@ static void parse_opts(int argc, char *argv[])
- 		case 'p':
- 			input_tx = optarg;
- 			break;
-+		case 'P':
-+			predictable = 1;
-+			break;
- 		case '2':
- 			mode |= SPI_TX_DUAL;
- 			break;
-@@ -441,9 +447,13 @@ static void transfer_buf(int fd, int len)
- 		if (!tx)
- 			pabort("can't allocate tx buffer");
- 		for (i = 0; i < len; i++) {
--			do
--				tx[i] = random();
--			while (nonzero && (tx[i] == 0x0 || tx[i] == 0xff));
-+			if (predictable) {
-+				tx[i] = i - iterations;
-+			} else {
-+				do
-+					tx[i] = random();
-+				while (nonzero && (tx[i] == 0x0 || tx[i] == 0xff));
-+			}
- 		}
- 	}
- 
-@@ -480,8 +490,8 @@ int main(int argc, char *argv[])
- 
- 	parse_opts(argc, argv);
- 
--	if (!!input_tx + !!input_file + !do_tx + !!nonzero > 1)
--		pabort("only one of -p, -i (--input), -t (--no-tx), -z (--nonzero) may be selected");
-+	if (!!input_tx + !!input_file + !do_tx + !!nonzero + !!predictable > 1)
-+		pabort("only one of -p, -i (--input), -t (--no-tx), -z (--nonzero), -P (--predictable) may be selected");
- 
- 	if (compare && (!do_tx || !do_rx))
- 		pabort("-l/-c conflict with -t or -r");
+So I think you should merge 07/10 and 08/10 into their original patches, 
+otherwise reviewers might just get confused.
 
--- 
-2.55.0.806.gb8242b093d
+But you might wait for a bit with a repost, to see if there are more 
+generic comments on DT support.
+
+Cheers,
+Andre
+
 
