@@ -1,486 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2090417BCA;
-	Mon, 14 Sep 2026 00:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789346425; cv=none; b=d2YPM2Mt9oc3/TECPrqyI8vPq8DtdS3/87rp7ff9DGUDmPCtea0XkAx6a9b/xvWW3Luci7EeX3kXYYYML/sjP8z+1+Xnvf2unjs5sTDRa3Abw1E4IEfXIlgV39wqw4UAoQwLGdxDwAdvs/gq5oXMXmFBtVQMr4uMQC+f7tIt5NE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789346425; c=relaxed/simple;
-	bh=fZnbyD8rRFuFpPYCkE6Hd9ubmFfpcn/WdAUWZG6iaSQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NwQyw7H522wE2SY8Hweg/X4PO5v4z/gMsQVz4uUqZwUlh0a0fcEpzfLehi9wCJgCC24krF2omRBTsvYknC9XBpFSQIqpdicIFJqKSSVfxuLa2Yf9O1QPy9IcOlwMI0npm5wtso5OTHE534bd/W0AiYBVPe7aGL3epNR5FLiHK5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CuHOjlvH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA4A26A0A7;
+	Mon, 14 Sep 2026 00:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789346482; cv=fail; b=k4R/gCr2pNRk+ZEf2fJDuYIRb3kERRe47uLJtTWbK6X/6kIjECYyZVENp1zvbbrucXRNDax5j8Yboq8Zvo8VSjhHM1UcwqnSmIuQ3w2od3YOSwVTQ4g+ubotLsLDEPc20iSQnahyIRiAIdjhkgD/dCMpNixcOw+HOAVaP4ZyP0M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789346482; c=relaxed/simple;
+	bh=/OrFlBqrdT6PwKf9p4S30Plz3Vh4wBblht12WF8vFuo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fU7MbEhA9t9x1slB8EkWKk0zAArg5RvrpJgT2oxJ38dGSQiaSmGnxC5rPsE9BlZgcznK2UIfZpxzhT9y1Q+nPdm/Z75xPjClrw5ZM6aW9qI5yRhvJTSsIT6EPoiuo+xssAe7qyQX8wZh83nC5ekDGy+CrmUIZBDinv7z4GdvoTk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WokfFaaz; arc=fail smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CuHOjlvH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1745A1F000FF;
-	Mon, 14 Sep 2026 00:40:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789346423;
-	bh=2zx8is5ict6RE822fBqKtkYDIcyzD32uO+8Bz42gMDg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CuHOjlvH7z2rOKy/EF0/Nm2CkpiudpF0C7xAitkRDexb5UcdH+jaSypGUfFIfyWdC
-	 EZBfw9hiKhDFZm9zCT19pVrhrGQGRVnYhtGkHLtLhTATDc2Mye+RcfSiJfTbRnyo2o
-	 eE1DC+8ucaAjZzVKmrw4pkpcmF5huhahNswYcDmElCAwOIEyJbS8RBn62pIOoM4FSN
-	 GAeaJyAEod6rPSB7zmpfaJdmKfwg2xBQWKtbaYEJRnVkWD21d86CgSP8mhXOAm8sjq
-	 eGCpJ+gMhnBD/6F6PL8TjVSdPfdx4lHnLZ7nikkZqJzldtmB/ypAkibua7f4VtlBhI
-	 GgD6heaY/dYxw==
-Subject: Re: [PATCH net-next] net: phy: marvell: wake the system only from the
- WoL event
-From: netdev-bot+sashiko@kernel.org
-To: rosenp@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
-Date: Mon, 14 Sep 2026 00:40:22 +0000
-Message-ID: <178934642262.22033.16222092605762772756@kernel.org>
-In-Reply-To: <20260912235125.151370-1-rosenp@gmail.com>
-References: <20260912235125.151370-1-rosenp@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WokfFaaz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789346481; x=1820882481;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=/OrFlBqrdT6PwKf9p4S30Plz3Vh4wBblht12WF8vFuo=;
+  b=WokfFaazWcjGM/UfVQi1Er7G18LZfNX8hTJAabEe0LkxYcped8ts+DOD
+   lSc0RHNeKFgqPPqf7LSG7hYP31ENTeQJKeQQkFjshSClfx4PTloqlcpwd
+   xYkGRypYF37vjqFCPYgR+Hidf9bZqmxwdxYZ99J/kv1WfhZ1dfq7VWydm
+   Or1dIp5F12Ni0rLs4xL47rxieY4bqrUNOXuRQCEMGpanbErjFDG/MT9J1
+   irvtpXXI1TR0gYx8ikEbelhoJVCTjt/gukVmPxIwh6Yk4Qo4VS2AWlBmu
+   6HnwQfVoqTJ0rOGL3IxBC4XVy22gppFNjUsPlxB0QQ+p7VPfckDXSosbw
+   g==;
+X-CSE-ConnectionGUID: 7eVEueXbTLiUnpTll5JedQ==
+X-CSE-MsgGUID: DJLoMcARQnqpCV3M980q7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="88645488"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="88645488"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 17:41:20 -0700
+X-CSE-ConnectionGUID: kdchkdhKRdyPGUo4dfwKNg==
+X-CSE-MsgGUID: LFRLEH8ASnKNF1N0uyjwww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="269862455"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 17:41:20 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 13 Sep 2026 17:41:19 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Sun, 13 Sep 2026 17:41:19 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.59) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 13 Sep 2026 17:41:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b1qp5DEE9k5ZLg8w2GFzkhbt2I5Bo9otW3Za/Nfc1pGX2FPzznj8zLlkrx2w3onuXncZoWA9lsew9PjN/ZFVozXXBYfKtJjmQaXtCJcpQth/mMnFarB28bnJ0FP+NbHs7JeBtH2bO1OQNGc4kccz1Wm5sVRae4bRm5ArhweHQufk9hBcrikUNhkSjS288qHbrxWt/WiMZVDNWAOim0stNuEnK5lWBK8bBlOUTxCSCWNE7jjViga+NWc+wxN8FtIh2fzlGu6SklWqtvmFwP0Vq+9MqMfyns6EqdCd9a1BSt1RpLNJ6VGIM4+L4MURsMdB/v3ApDbWg7iR12q7QOk9DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P68euCaUySmHRVL+8iyITAmgO52RAnu9wiuM6a938Us=;
+ b=iXRNf0ykgiGlERW9Fh6AUIHgMelLnpVIhq4je7Nxyg/Az4fRE//HG78oxzsqJI3vknYVSOKNjd6A6NLtUDgzICVBqiPERURdOMLBEG/FQyUaDnZXqkqtXoAvIvzwNo93rAKec+5A3W5Fgcc377q9EGb4O+9J1x1mMv7nsm9RhjlKqtbzHP2nedFtdubF7s709da2EsGeudeC/itoKrUxU1L7g4cUsojxClrUVWuhcEyhDlLh5qtoPw22swAOYuNPk7MCaEZLkdmj1B3efghmpuf7oMTHWnGgjnPfmwwM2E5/QNL0FSth3eEVe6Cg1fC5MuhVNEJXVDiViGr8a3VOsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SJ0PR11MB7704.namprd11.prod.outlook.com (2603:10b6:a03:4e7::5)
+ by SJ0PR11MB4848.namprd11.prod.outlook.com (2603:10b6:a03:2af::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Mon, 14 Sep
+ 2026 00:41:16 +0000
+Received: from SJ0PR11MB7704.namprd11.prod.outlook.com
+ ([fe80::a8b5:7722:c11b:63c5]) by SJ0PR11MB7704.namprd11.prod.outlook.com
+ ([fe80::a8b5:7722:c11b:63c5%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 00:41:16 +0000
+From: "Xu, Even" <even.xu@intel.com>
+To: Jiri Kosina <jikos@kernel.org>, HyeongJun An <sammiee5311@gmail.com>
+CC: "Sun, Xinpeng" <xinpeng.sun@intel.com>, Benjamin Tissoires
+	<bentiss@kernel.org>, "linux-input@vger.kernel.org"
+	<linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH 0/2] HID: intel-thc-hid: intel-quickspi: two DMA buffer
+ overflows
+Thread-Topic: [PATCH 0/2] HID: intel-thc-hid: intel-quickspi: two DMA buffer
+ overflows
+Thread-Index: AQHdMJVZZCoWysqO7026rpLYvXmXjLbJrokAgAOzpGA=
+Date: Mon, 14 Sep 2026 00:41:16 +0000
+Message-ID: <SJ0PR11MB77046AB5B386A2AC2DCA98DFF4BB2@SJ0PR11MB7704.namprd11.prod.outlook.com>
+References: <20260820111558.475304-1-sammiee5311@gmail.com>
+ <43o49041-0nr0-2298-s10r-032r566s3ps7@xreary.bet>
+In-Reply-To: <43o49041-0nr0-2298-s10r-032r566s3ps7@xreary.bet>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR11MB7704:EE_|SJ0PR11MB4848:EE_
+x-ms-office365-filtering-correlation-id: a1f14ef4-7386-4e52-30a7-08df11f8e2c0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|18002099003|22082099003|11063799006|4143699003|56012099006|38070700021;
+x-microsoft-antispam-message-info: 7Gd6R/P7v+z+Q8ixBkyaPIKyQathnEYwyxTTlZyl+y4v/ZiVFmpbFqH3zc44h5JfITV3dqlvtvJoLhJbCs2ZNA/BFoHimniREAounQuqTOgVgtwmA06Wx8Gb5CrxiYANyx0pgMdygjcogxmBDJnJnDQAVdhzX93UwfqWSFGv4rRZB6VtymjPVdJ2BbzHgdj13X4mn2p2JeeUWSrsBW40KFiWgwyKfbOckP2z/55pHlVqkUzSZiW/GJTRCYxNEcgcZX3IAubMhX5j+oSDHgfVaWt+F4PjjRFejqlB4D3H/eN0eUeMY2raWgey4vYpJ6DslntUbj9SgPOQ7Es6f+3e0CjddLnl2H2/yTEIYbrjgyNKwPOeC/ovVjL2ym4+BzKgovsIwMWfJ6HH3zEAr4yYSdslqGh+K/U8GyQ4haxyNWA/vCqUAa4/vMYkHfrq4GYXh+o1wYd56mgd9vlsAGrA1jrguAF1oWZKo9RxIbE8zVYoy0a6oDly0OBNMSXLAzbR2T0xF0qj+UVdF7S4jdXnPMbFjlRPq0zmpLyHBK5WNkixG/RNFHkhYZDP2PcS9FDqQbLHN/kCY3CbC18b6DB8zBcT0wdrIiOudFXY7geNflHKVThu5A8FyDshCKy94JDkIk2CLUMEhd2Navd1LyWKDce4Hzhelnfaqa7xFGt7mPF9jvt2aASDfS2ZXrEcYqothsJq5XRTyAKkUFsFs5Lk41rRUnyozRunNBVahO8Iqsg=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB7704.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?P4bY/hD0HIkPx+9JR7PxvJUKmQveYtimtoSBWtHCBUAy99T2Kq6irZra3oD1?=
+ =?us-ascii?Q?fFs1eh/U5nT6ZtDCgcGkBjG7/owcIKf2BcZfMXrUEc/UNWXZIIKDCPLcWTZz?=
+ =?us-ascii?Q?hYZMN8Y+iae3W7AngeVMfjuATJ4mEsW81AP21leo4jOHvDSSgKMndxHqwmFz?=
+ =?us-ascii?Q?bRNBCKKA2LQHiRri0e0uqf2V0TlB/AV40u5McsOGBCLo2WzmjQ3DiPvky9KU?=
+ =?us-ascii?Q?9RP6g4dxNChJXBx17E0Xn5GmqSA0wSHTxj6DDbyUizVGmyjKkn1El9CJNN78?=
+ =?us-ascii?Q?iPIsb9lstGDBoOR/2aNyVYINJRfhBvr3US3B2rM9RoQe6lYAjCE0A7xxb5to?=
+ =?us-ascii?Q?gTQ+GmyAerZ/53oUs/Ahn/JrMiYe4SH4NRpnhhEzHyKMgdBBUHv3kiZ2G2+C?=
+ =?us-ascii?Q?7VuyfVatuRmkN4eVr9ZSDk3PT/kFFnb5lqv6xdEGJk+9rQsL4mL9UcbOXYTF?=
+ =?us-ascii?Q?MoxWaQJip9X1wk5bNGmRsRqNptAD+y687rC8YsPW/XCBNiJrEi5zOKinORkP?=
+ =?us-ascii?Q?gFMmdPWz1XMRoQnVAigCPKqcRptUzPBylAKz9TejOShUsLjmf8tnZIzrFxlq?=
+ =?us-ascii?Q?PXYFAQwXPjaBlT1+5YnPqnkO3bpSq2/DQ1y7SLYipqQSSfqcKgnWaDA6tGhf?=
+ =?us-ascii?Q?gc8Uj+Ceu0vidEcqKerk3LYbQPptSD0RKr1Q9P2cNZjGxEYR4SRaLyKJVvaW?=
+ =?us-ascii?Q?DUNb1IuUSl+3bTrIl/opdIDFD9fyltktqL9bPAPz2dX+HN1wg1RSIcXLWW13?=
+ =?us-ascii?Q?Gsoky6H9C7n/oJRR1C1ExdYK73iNnOhKiR0q9beetVr9g061vurpWhXURBfC?=
+ =?us-ascii?Q?4CgtaF4vXa7B9UcfGHdABSF3vf4pDU0DtMxXGgrVxqeHdkfkDSvRMiyTk2t9?=
+ =?us-ascii?Q?JQMPxM84wXoAmV8FW0VOeXcPFvNE5MVMojTsJUhV1s1n6kbUgj/okmmZFpOU?=
+ =?us-ascii?Q?jrUS5L+Hf7lp8BncCURvWjVClaSW2o9cWlrSrkFK77xFzCNTcvUd9bmXsN92?=
+ =?us-ascii?Q?qVwnY6x+4j+1IU/uJzz9gAa4x5WaPvUx5feCRClFYVtvCTovjugTZYt7yR8O?=
+ =?us-ascii?Q?GKw0chCeSiOnnL1l3/lwp0VPL4b+j/jqWgGVvAu8U3Nnc8ahMj85QMspRaSG?=
+ =?us-ascii?Q?/dFEz2gt2BkcGcwLzup/pZwZJFZKakO+JCl3xwrMTwZYGslMtJhXhP7k033N?=
+ =?us-ascii?Q?cyEzUDEy+aWGAOQC82IsE9HossFupZGj0gNxX2UlXizBWyJ4Hf9QL98z4CY3?=
+ =?us-ascii?Q?CuWeb7YWxwVDRFZHEseICGgXYR06gy47f7jyMwVKSGZk+ifIDNTSscM/c6uO?=
+ =?us-ascii?Q?B51iWm5mQcLAFQTOuKJqyXxnpm756llzhRnQNfSgEUFnmM3i9HHkYuGHd6S6?=
+ =?us-ascii?Q?EHkskciZpud6n1PS4r1U6KyTtCrLG+iDvlwHMX8p5s5N02Ks0JH69icMZaPr?=
+ =?us-ascii?Q?MGyOaigmNw09BAhOCdeZrXyYIQj5yaUyn5ICdWh+iOTxQfzdqHHJmF3u0NHL?=
+ =?us-ascii?Q?jKju99uV25WisXhqJCvbuMXOvDwqEObrG6v96pu+PklEPqBpRq3iyynzsTmq?=
+ =?us-ascii?Q?l43aTrmWmnPDIMpxtXIOHcn9Cws77oQq4NAQk9MZT3JHUAioIlucGdfEB5Xs?=
+ =?us-ascii?Q?yXK/R7gh1w4wlBKY9HupfaSWTEELAG175HBhGyCJBHBKuSooaavLL3s3G2W1?=
+ =?us-ascii?Q?VQngvHWxkF5qmncsQp9T5+4mTHKve1nD2cZZ0fiHgkGI3bCl?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: V40UC4O6CW04y+ioH1QCigOsgRtRXkgUD8QEGhpZ84ibDLI/uSC0uU8sjIBJhLRJcBLJ78IDjm27nLwhuSfk8sTKvEW46wmqKiE2nFfZvGAgaAj+ozGQ/vrLh1Gdb8FX9cwopCOon+vr+9JVd6+1gW55hQxDxqlKtiSzDPpf487YkmWXpwLfMnGcurg6LwVsEYhJI67/D9J3/5qk8a99HEo2LzeLdpE7OvoCn1mVNX26H8vX7r5QPEH6JuBgpStq5zjvsbz4jP6eNPbpUKf77ZdpQwyFc8NZpmhFaRs8JNMXL9mXF9zXtY+b2l3ojS7yVDEGE0TXn53S6gvdWqF03A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB7704.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1f14ef4-7386-4e52-30a7-08df11f8e2c0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2026 00:41:16.3113
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Bfue98l36NKFxXQHkeI0FTP2Ua8Cg4ZtzA1tKYdlsBlgYN+E+R4EoZbvr1P6fHM2FlDXusLko1Jh7hEtB1rLkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4848
+X-OriginatorOrg: intel.com
+
+Sure, sorry for missing these.
+
+Best Regards,
+Even Xu
+
+> -----Original Message-----
+> From: Jiri Kosina <jikos@kernel.org>
+> Sent: Saturday, September 12, 2026 12:09 AM
+> To: HyeongJun An <sammiee5311@gmail.com>
+> Cc: Xu, Even <even.xu@intel.com>; Sun, Xinpeng <xinpeng.sun@intel.com>;
+> Benjamin Tissoires <bentiss@kernel.org>; linux-input@vger.kernel.org; lin=
+ux-
+> kernel@vger.kernel.org; stable@vger.kernel.org
+> Subject: Re: [PATCH 0/2] HID: intel-thc-hid: intel-quickspi: two DMA buff=
+er
+> overflows
+>=20
+> On Thu, 20 Aug 2026, HyeongJun An wrote:
+>=20
+> > Two heap overflows on the QuickSPI receive path, both from a
+> > controller that declares one length and sends another.
+> >
+> > The first is the DMA landing buffer, sized from the device descriptor
+> > while the THC DMA rounds its packet size up to 4K.  The second is the
+> > GET REPORT response, whose length is checked against what the DMA
+> > delivered and never against report_buf.  Each has a sibling in-tree
+> > that already gets it right, named in the patch.
+> >
+> > Neither was reproduced on hardware.  Both turned up while working on
+> > commit 035ec4a71cb8 ("HID: intel-thc-hid: intel-quickspi: bound
+> > GET_REPORT response to the caller buffer"), which covers neither.
+> >
+> > A fuller fix for the first would give thc_rxdma_read() a capacity
+> > argument, but that changes a shared API and touches intel-quicki2c, so
+> > this keeps to the driver.
+> >
+> > HyeongJun An (2):
+> >   HID: intel-thc-hid: intel-quickspi: size the input buffer for the DMA
+> >   HID: intel-thc-hid: intel-quickspi: bound the GET REPORT response to
+> >     report_buf
+>=20
+> Even Xu, can you please review this? Thanks,
+>=20
+> --
+> Jiri Kosina
+> SUSE Labs
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issue(s) to consider:
-
-Critical: 0 · High: 3 · Medium: 5 · Low: 0
-
-- [High] The interrupt-masking mechanism the commit relies on is bypassed
-  on the standard phylib PM route.
-- [High] `marvell_wol_suspend_intrs()` overwrites the whole Copper
-  Specific Interrupt Enable register with `__phy_write(phydev,…
-- [High] Both new helpers, `marvell_wol_suspend_intrs()` and
-  `marvell_wol_resume_intrs()`, return early when `phy_save_page()`…
-- [Medium] Commit message does not match the code, and an undisclosed
-  firmware/DT dependency gates the whole feature.
-- [Medium] `marvell_wol_suspend_intrs()` rewrites the interrupt enable
-  register (CSIER/IMASK, page 0 reg 0x12) but never reads…
-- [Medium] `marvell_probe()` is the `.probe` of ~25 entries in
-  `marvell_drivers[]`, but only the 88E1318S and 88E1510 entries gained…
-- [Medium] The new suspend callbacks branch on `phydev->wol_enabled`, but
-  the core defines that field as "the PHY *or the attached MAC* have…
-- [Medium] The new wakeup-state check-then-update in `m88e1318_set_wol()`
-  races with the MDIO device's `power/wakeup` sysfs control and, on a…
-
---
-
-net: phy: marvell: wake the system only from the WoL event
-
-This adds system wakeup support for WoL on the 88E1318S/88E1510 by
-registering the PHY interrupt as a wake IRQ, marking the MDIO device as
-wakeup capable, and adding suspend/resume callbacks that narrow the copper
-specific interrupt enable register down to the WoL event bit.  A few
-questions below about the interrupt enable handling, the MDIO bus lock, and
-the commit message.
-
-No Link: tags are present in the commit header.
-
-The commit message says:
-
-> When WoL is enabled, m88e1318_set_wol() now calls enable_irq_wake()
-> on the PHY's IRQ and marks the MDIO device as a wakeup source so the
-> underlying GPIO interrupt raises the system from suspend, and reverses
-> both on disable.
-
-[Severity: Medium]
-Does m88e1318_set_wol() do either of those things?  In the patch it only
-calls device_set_wakeup_enable(), and only when device_can_wakeup(dev) is
-already true.  The wake IRQ is registered in marvell_probe() via
-devm_pm_set_wake_irq(), gated on the firmware property "wakeup-source",
-and device_set_wakeup_capable() is called there too.
-
-Without "wakeup-source" in the PHY's DT node, device_can_wakeup() is false
-and the new block in m88e1318_set_wol() is skipped entirely, so on existing
-device trees nothing is armed.  Could the message mention the required DT
-change?  The property is also not described in
-Documentation/devicetree/bindings/net/ethernet-phy.yaml.
-
-The message scopes the change to "the 88E1318S/88E1510", but marvell_probe()
-is the .probe of every entry in marvell_drivers[].
-
-> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-> index f71cffa884062..70aaa09f20478 100644
-> --- a/drivers/net/phy/marvell.c
-> +++ b/drivers/net/phy/marvell.c
-
-[ ... ]
-
-> @@ -1902,6 +1904,61 @@ static int marvell_resume(struct phy_device *phydev)
->  	return err;
->  }
->  
-> +/* marvell_wol_suspend_intrs
-> + *
-> + * With WoL enabled the PHY has to stay powered to keep detecting a WoL
-> + * packet, so instead of entering low power mode, mask all interrupt
-> + * sources except the WoL event. On the 88E1318S/88E1510 the interrupt
-> + * mask (MII_M1011_IMASK) is the same register as the Copper Specific
-> + * Interrupt Enable Register (MII_88E1318S_PHY_CSIER), so writing only
-> + * the WoL event enable bit unmask just that event.
-> + */
-> +static int marvell_wol_suspend_intrs(struct phy_device *phydev)
-> +{
-> +	int oldpage, ret;
-> +
-> +	oldpage = phy_save_page(phydev);
-> +	if (oldpage < 0)
-> +		return oldpage;
-
-[Severity: High]
-Can this return leak the MDIO bus lock?  phy_save_page() takes the lock
-before it reads the page register:
-
-drivers/net/phy/phy-core.c:phy_save_page() {
-	phy_lock_mdio_bus(phydev);
-	return __phy_read_page(phydev);
-}
-
-Its kernel-doc states that phy_restore_page() must always be called after
-this, irrespective of success or failure, and phy_restore_page() is the only
-caller of phy_unlock_mdio_bus() (it already handles a negative oldpage).
-
-__phy_read_page() can return -EOPNOTSUPP or propagate an MDIO transfer
-error, which is not unlikely in the suspend/resume window.  If that happens
-here, the same task then continues to issue MDIO accesses
-(m88e1510_resume() -> marvell_resume(), downshift handling, the state
-machine), so would it block forever on a mutex it cannot reacquire, taking
-the rest of the bus with it?
-
-The existing code in this file uses the documented idiom:
-
-	oldpage = phy_save_page(phydev);
-	if (oldpage < 0)
-		goto error;
-
-The same question applies to the identical early return in
-marvell_wol_resume_intrs() below.
-
-> +
-> +	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = __phy_write(phydev, MII_88E1318S_PHY_CSIER,
-> +			  MII_88E1318S_PHY_CSIER_WOL_EIE);
-
-[Severity: High]
-This is a full-register write to CSIER, which is the same register as
-MII_M1011_IMASK, so it discards the MII_M1011_IMASK_INIT (0x6400, link
-status change and aneg complete) enables programmed by
-marvell_config_intr(), without saving them.  Is anything restoring them?
-
-marvell_wol_resume_intrs() only ORs WOL_EIE back in.  drv->config_intr is
-reached from phy_init_hw() and phy_config_interrupt() (attach/detach), not
-from phy_start() -> __phy_resume(), and mdio_bus_phy_resume() returns early
-when phydev->mac_managed_pm is set.
-
-So after an ifdown/ifup cycle with WoL enabled, which now reaches the
-suspend callback thanks to PHY_ALWAYS_CALL_SUSPEND:
-
-	phy_stop()
-	  _phy_state_machine()			/* PHY_STATE_WORK_SUSPEND */
-	    _phy_state_machine_post_work()
-	      phy_suspend()
-	        m88e1510_suspend()
-	          marvell_wol_suspend_intrs()	/* CSIER = WOL_EIE */
-
-does the PHY come back with only WOL_EIE enabled while phydev->interrupts
-still reads PHY_INTERRUPT_ENABLED and phy_polling_mode() is false?  In that
-state marvell_handle_interrupt() bails out early:
-
-	if (!(irq_status & MII_M1011_IMASK_INIT))
-		return IRQ_NONE;
-
-and INTn is not asserted for link events at all, so would link up/down go
-undetected and the interface never regain carrier?  rtl8211f_suspend()
-saves the enable register in priv->iner and restores it in rtl8211f_resume().
-
-[Severity: Medium]
-Should this sequence also read MII_M1011_IEVENT to clear already-latched
-events before going to sleep?  marvell_config_intr() acks via
-marvell_ack_interrupt() before every mask change, and the comment in
-m88e1318_set_wol() says the LED[2] interrupt pin "will not be cleared unless
-we reading the interrupt status register".
-
-If a link status change latched while the interface was being taken down,
-can INTn already be asserted low when the GPIO wake IRQ is armed, so the
-suspend aborts or the system wakes immediately?  rtl8211f_suspend() does:
-
-	/* Read the INSR to clear any pending interrupt */
-	phy_read(phydev, RTL8211F_INSR);
-
-> +out:
-> +	return phy_restore_page(phydev, oldpage, ret);
-> +}
-> +
-> +/* marvell_wol_resume_intrs
-> + *
-> + * marvell_config_intr() rewrites the whole MII_M1011_IMASK register
-> + * (which is MII_88E1318S_PHY_CSIER) with MII_M1011_IMASK_INIT on
-> + * resume, clearing the WoL event interrupt enable bit. Re-arm it if
-> + * WoL is still enabled so a later WoL event keeps waking the system.
-> + */
-> +static int marvell_wol_resume_intrs(struct phy_device *phydev)
-> +{
-> +	int oldpage, ret;
-> +
-> +	if (!phydev->wol_enabled)
-> +		return 0;
-> +
-> +	oldpage = phy_save_page(phydev);
-> +	if (oldpage < 0)
-> +		return oldpage;
-> +
-> +	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = __phy_set_bits(phydev, MII_88E1318S_PHY_CSIER,
-> +			     MII_88E1318S_PHY_CSIER_WOL_EIE);
-> +out:
-> +	return phy_restore_page(phydev, oldpage, ret);
-> +}
-> +
->  /* m88e1510_resume
->   *
->   * The 88e1510 PHY has an erratum where the phy downshift counter is not cleared
-
-[ ... ]
-
-> @@ -1934,9 +1991,25 @@ static int m88e1510_resume(struct phy_device *phydev)
->  
->  		/* downshift enabled, with previous counter value */
->  		err = m88e1011_set_downshift(phydev, cnt);
-> +		if (err < 0)
-> +			return err;
->  	}
->  
-> -	return err;
-> +	return marvell_wol_resume_intrs(phydev);
-> +}
-> +
-> +/* m88e1510_suspend
-> + *
-> + * If WoL is enabled the PHY receiver has to keep running to detect a
-> + * magic packet, so keep it awake and unmask only the WoL event at the
-> + * PHY. Otherwise suspend both the fiber and copper interfaces as usual.
-> + */
-> +static int m88e1510_suspend(struct phy_device *phydev)
-> +{
-> +	if (phydev->wol_enabled)
-> +		return marvell_wol_suspend_intrs(phydev);
-
-[Severity: Medium]
-Is phydev->wol_enabled the right condition for "PHY WoL is configured"?
-include/linux/phy.h documents it as "Set to true if the PHY or the attached
-MAC have Wake-on-LAN enabled", and phy_suspend() assigns:
-
-	phydev->wol_enabled = phy_may_wakeup(phydev) ||
-			      (netdev && netdev->ethtool->wol_enabled);
-
-With a MAC-only WoL configuration, does this branch write CSIER = WOL_EIE
-even though m88e1318_set_wol() was never called, i.e. no magic packet
-address and no LED[2]/INTn setup, masking the real PHY events and unmasking
-a WoL source that is not armed?  rtl8211f_suspend() uses
-device_may_wakeup(&phydev->mdio.dev) for this decision instead.
-
-The same question applies to m88e1318_suspend() below.
-
-> +
-> +	return marvell_suspend(phydev);
->  }
->  
->  static int marvell_aneg_done(struct phy_device *phydev)
-
-[ ... ]
-
-> @@ -2075,7 +2152,49 @@ static int m88e1318_set_wol(struct phy_device *phydev,
->  	}
->  
->  error:
-> -	return phy_restore_page(phydev, oldpage, err);
-> +	err = phy_restore_page(phydev, oldpage, err);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	if (device_can_wakeup(dev) && wol_enable != device_may_wakeup(dev)) {
-> +		err = device_set_wakeup_enable(dev, wol_enable);
-> +		if (err < 0) {
-> +			/* Roll back the PHY WoL config if the PM state update failed */
-> +			struct ethtool_wolinfo wol_off = { .wolopts = 0 };
-> +			int rollback_err = m88e1318_set_wol(phydev, &wol_off);
-> +
-> +			if (rollback_err < 0)
-> +				phydev_err(phydev,
-> +					   "Failed to disable WoL after wakeup enable error %d\n",
-> +					   rollback_err);
-> +		}
-> +	}
-
-[Severity: Medium]
-Can this check-then-update race with the MDIO device's power/wakeup sysfs
-control?  phy_ethtool_set_wol() holds phydev->lock, but
-drivers/base/power/sysfs.c:wakeup_store() calls device_set_wakeup_enable()
-on the same device without that mutex.
-
-The read of device_may_wakeup(dev) and the later
-device_set_wakeup_enable(dev, true) are not one transaction, so if the sysfs
-path enables wakeup in between, device_wakeup_enable() ->
-device_wakeup_attach() returns -EEXIST.
-
-Does the error handler then treat that as a real failure and recursively
-call m88e1318_set_wol(phydev, &wol_off), tearing down the magic packet
-matching and WOL_EIE that were just programmed?
-
-> +
-> +	return err;
-> +}
-> +
-> +/* m88e1318_suspend
-> + *
-> + * If WoL is enabled keep the PHY awake so it can detect a magic packet
-> + * while the system is asleep, unmasking only the WoL event at the PHY.
-> + * Otherwise suspend the PHY normally.
-> + */
-> +static int m88e1318_suspend(struct phy_device *phydev)
-> +{
-> +	if (phydev->wol_enabled)
-> +		return marvell_wol_suspend_intrs(phydev);
-> +
-> +	return genphy_suspend(phydev);
-> +}
-> +
-> +static int m88e1318_resume(struct phy_device *phydev)
-> +{
-> +	int err = genphy_resume(phydev);
-> +
-> +	if (err < 0)
-> +		return err;
-> +
-> +	return marvell_wol_resume_intrs(phydev);
->  }
->  
->  static int marvell_get_sset_count(struct phy_device *phydev)
-
-[ ... ]
-
-> @@ -3587,14 +3706,25 @@ static int m88e1318_led_hw_control_get(struct phy_device *phydev, u8 index,
->  
->  static int marvell_probe(struct phy_device *phydev)
->  {
-> +	struct device *dev = &phydev->mdio.dev;
->  	struct marvell_priv *priv;
->  
-> -	priv = devm_kzalloc(&phydev->mdio.dev, sizeof(*priv), GFP_KERNEL);
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->  	if (!priv)
->  		return -ENOMEM;
->  
->  	phydev->priv = priv;
->  
-> +	if (device_property_present(dev, "wakeup-source") &&
-> +	    phy_interrupt_is_valid(phydev)) {
-> +		int ret = devm_pm_set_wake_irq(dev, phydev->irq);
-> +
-> +		if (ret)
-> +			return ret;
-> +
-> +		device_set_wakeup_capable(dev, true);
-> +	}
-
-[Severity: Medium]
-marvell_probe() is the .probe of every entry in marvell_drivers[], but only
-the 88E1318S and 88E1510 entries get .set_wol, PHY_ALWAYS_CALL_SUSPEND and
-the masking suspend callbacks.
-
-For the other entries (88E1111, 88E1118, 88E1121R, 88E1116R, 88E1540,
-88E1545, 88E3016, ...), a DT "wakeup-source" property now registers
-phydev->irq as a dedicated wake IRQ and adds the power/wakeup sysfs
-attributes via device_set_wakeup_capable() -> pm_wakeup_sysfs_add().
-
-If root then writes "enabled" there, dev_pm_arm_wake_irq() arms INTn while
-those drivers' genphy_suspend()/marvell_suspend() leave the enable register
-at MII_M1011_IMASK_INIT:
-
-	#define MII_M1011_IMASK_INIT		0x6400
-
-Would any link event during sleep wake the system on those models, and does
-phy_may_wakeup() also change for them from the register-derived state to
-device_may_wakeup()?  Should this block be restricted to the models that
-received the masking callbacks?
-
-> +
->  	return marvell_hwmon_probe(phydev);
->  }
->  
-
-[ ... ]
-
-> @@ -3813,6 +3943,7 @@ static struct phy_driver marvell_drivers[] = {
->  		.phy_id_mask = MARVELL_PHY_ID_MASK,
->  		.name = "Marvell 88E1318S",
->  		/* PHY_GBIT_FEATURES */
-> +		.flags = PHY_ALWAYS_CALL_SUSPEND,
-
-[Severity: High]
-PHY_ALWAYS_CALL_SUSPEND only affects the -EBUSY check inside phy_suspend().
-On the mdio-bus PM route, is phy_suspend() reached at all when WoL is
-enabled?
-
-drivers/net/phy/phy_device.c:mdio_bus_phy_may_suspend() {
-	...
-	if (netdev->ethtool->wol_enabled)
-		return false;
-	...
-}
-
-mdio_bus_phy_suspend() calls phy_suspend() only when that helper returns
-true, and both ethtool_set_wol() and ethnl_set_wol() do:
-
-	dev->ethtool->wol_enabled = !!wol.wolopts;
-
-after any successful ->set_wol, including PHY WoL configured with
-ethtool -s ethX wol g, where the MAC delegates to phy_ethtool_set_wol() ->
-m88e1318_set_wol().
-
-So for the exact configuration this patch targets, do m88e1318_suspend() and
-m88e1510_suspend() ever run from system suspend?  Meanwhile the wake side
-still takes effect, since m88e1318_set_wol() sets device_set_wakeup_enable()
-on the MDIO device and dpm_suspend_noirq() arms the wake IRQ registered by
-devm_pm_set_wake_irq().  Does that leave an armed wake source on a PHY whose
-link status change and aneg complete interrupts are still enabled?
-
-The same applies to the 88E1510 entry below.
-
->  		.probe = marvell_probe,
->  		.config_init = m88e1318_config_init,
->  		.config_aneg = m88e1318_config_aneg,
-> @@ -3821,8 +3952,8 @@ static struct phy_driver marvell_drivers[] = {
->  		.handle_interrupt = marvell_handle_interrupt,
->  		.get_wol = m88e1318_get_wol,
->  		.set_wol = m88e1318_set_wol,
-> -		.resume = genphy_resume,
-> -		.suspend = genphy_suspend,
-> +		.resume = m88e1318_resume,
-> +		.suspend = m88e1318_suspend,
->  		.read_page = marvell_read_page,
->  		.write_page = marvell_write_page,
->  		.get_sset_count = marvell_get_sset_count,
-> @@ -3920,7 +4051,7 @@ static struct phy_driver marvell_drivers[] = {
->  		.name = "Marvell 88E1510",
->  		.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
->  		.features = PHY_GBIT_FIBRE_FEATURES,
-> -		.flags = PHY_POLL_CABLE_TEST,
-> +		.flags = PHY_POLL_CABLE_TEST | PHY_ALWAYS_CALL_SUSPEND,
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260912235125.151370-1-rosenp%40gmail.com
