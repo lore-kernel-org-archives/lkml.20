@@ -1,178 +1,393 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12793B71A4;
-	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9E43AA19B;
+	Mon, 14 Sep 2026 06:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365931; cv=none; b=KwodMoBGLuUVtl8voOLouM8SAXzJLY0zyzZe/SlPI46b6xRm07cu4sYt3y1D4yjDnLMn+jOWbWqE4asEfA+CVcTv9+jOTKKBxS3p8uVm1y9BPSAg19CIfUE2A5VEfOsJ55cnHg67/rJ6EtE2zLzmlK9keac/9pDl9DGJje7zNew=
+	t=1789365932; cv=none; b=BOveDZ+qJbxqIwbo1EWpYk9osD9XID/AZXy8sPlopjOM6u8xMekhyvFfyejO5zppmu6i/0qvFlvFy/Jt95Z/BF649A2tBKrxwTrGrsOnNtplxABw+YLBummRoIgU9YQ3/bvcS1njJRsuyElDi5Pr3EHbzd9rnAv/WvOFXt6jH1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365931; c=relaxed/simple;
-	bh=U1A1gEcdldWjSFjB/80mZnQF0foGfDZaAUpMsrJ03Ow=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RzcnEnVLGjCIGTRJ6DkbNLl3gkxS5wMvOwA80NM4Dfp6ig5McADFw2FWAbC7tBvRq4wcepq3L+JWSwnlo5SvT4SaLSxluWkK+/CrOsrIgXGEimK7kzV+rwYQGtY116cLeFJ9HNYJf+zEgtPs0wxBUMyaXNWp+U1K+wkSK4O29qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/Zp/l36; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789365932; c=relaxed/simple;
+	bh=NgR71CS7TMBTwhhn9vN4yOcTVsuPu2+/fmjXg0l30/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k3nPnrs9isUQ9DxpwivCdQ8LuvOuMYKCN/Y60uua5RSDUhjdd5DD2tTQaNI1R9nqfuluVym9zfmvRv3BuKDTX4tXN7bwXoKNdxwOHcEMTEwQo/o4zj7BQ5ht6YHzywQAvSK44P74u+5HeecP+YFqUq21JRqx4IPAfuSJxsyzBpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZOBHATM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/Zp/l36"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4D461C2BD01;
-	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789365930;
-	bh=U1A1gEcdldWjSFjB/80mZnQF0foGfDZaAUpMsrJ03Ow=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=g/Zp/l36gfuUPD0VlEsFgWhe41JzTU8EoiGpbcNamYemNWhb8ZZtU51ImGWqCPuy8
-	 if4j+taYzW/6JckovIIv+DeirgjNWWr8FPL1QHNU6yCfb1tD2m0vdKb2j3hpy+ZnPH
-	 XWYSzARIlevOdCMTBu29kpQ/xrsWfVfN8QTDoQDS8ROMKdzrpOf8u3J8kAVrI7x5tf
-	 4gir41yM/6+rf7cL2OsbaM/b8C6MSFyQ+CThk5sXKg5fKIsSvhU888gWSu3XiF39bu
-	 Lh5aqTd9gC1hPB2bJ8Dvvq2J16Qoe60cNW9Y1QfJ97Y4mk0+orJPszi925wDmlAw2p
-	 KxsWLaMjCyvkg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C0C8C88E50;
-	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
-From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Mon, 14 Sep 2026 08:05:03 +0200
-Subject: [PATCH v2 3/3] usb: typec: mux: ps883x: disable USB4 on incomplete
- USB4 platforms
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZOBHATM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33321F00893;
+	Mon, 14 Sep 2026 06:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789365928;
+	bh=ZcIQ/j6jngQU4pqR+oILh/o4b2CteWgR3HPJyPNCyfU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oZOBHATM+mcPoxMX8iMxvr0SRTskmiMeOaXwIsh4sAbIDf3AK+r2v7f6qQpV7SAKR
+	 LHtCAzmI8L7ui9SS3iHYASV1js4RKjy5cHQ/5crhXtyd956+peGuurWooaOxSFnXf0
+	 5XssmRQwrf03Y+WdvdAqX1utBBYy7Bf1tSrpxX/mZJ6Nr1gNhGXBZM8iHkSjIx6aRu
+	 bJsT7l4zkQBQPFaJlqrgAv5gO1jMMgw5RyGRVsGSZWmo8tapFlV2k2oUFDnMfdKjb4
+	 c8swGYcZ6da6kxioW++4GKx40GN7OZCqYqXYaQflfCDBM0N5gJRioRawDTSV3AtPWT
+	 vVLxujuLghymw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Subject: [PATCH v11 1/7] firmware: smccc: Add an Arm SMCCC bus
+Date: Mon, 14 Sep 2026 11:35:05 +0530
+Message-ID: <20260914060511.277948-2-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914060511.277948-1-aneesh.kumar@kernel.org>
+References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ps883x-disable-usb4-v2-3-523c32b4e4d7@oldschoolsolutions.biz>
-References: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
-In-Reply-To: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, stable@vger.kernel.org, 
- "Dr. David Alan Gilbert" <dave@treblig.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789365928; l=3509;
- i=jens.glathe@oldschoolsolutions.biz; s=20240919;
- h=from:subject:message-id;
- bh=HRk3TIyrVTGkkKEOnXE4mHkcveZPYCjC1Zdr4f5RWYg=;
- b=zCUBwAHzk08hBIQU+5xVnHBwU7lTo8jJiVxv48unaNA89Zf54gJQG8W/uOTJL5i7Vxo1o/zl2
- jMQw9apC7ERAOlTQ9VBSYzAoghBfoDdpePgJ9sXOR0Ik4di7sSAcRI8
-X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
- pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
-X-Endpoint-Received: by B4 Relay for
- jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
-X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Reply-To: jens.glathe@oldschoolsolutions.biz
+Content-Transfer-Encoding: 8bit
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+SMCCC-discovered firmware services are currently represented by separate
+platform devices, such as smccc_trng and arm-cca-dev. Those devices do not
+represent independent DT/ACPI-described platform resources; they are
+features of the SMCCC firmware interface.
 
-On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
-retimer, hotplugging USB4-capable docks such as the Lenovo 40B0 can
-result in working USB but no DisplayPort output.
+Add an Arm SMCCC bus for services discovered through the SMCCC firmware
+interface. The bus provides SMCCC device and driver registration helpers,
+name-based matching, modalias generation, and a sysfs modalias attribute so
+SMCCC service drivers can bind to discovered firmware services and autoload
+as modules.
 
-When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
-and forwards it via typec_mux_set(). The qmp-combo PHY then selects
-USB3-only because no classic DP altmode SVID is present in the state,
-leaving the DP transmitter and AUX channel disabled.
+Follow-up changes can then register SMCCC firmware services as arm-smccc
+devices instead of creating independent per-feature platform devices.
 
-Reject USB4 with -EOPNOTSUPP on platforms whose USB4 / DP-tunneling
-stack is not ready yet. The Type-C stack then falls back to USB3 + DP
-Alt Mode. DP altmode configuration continues to use the existing
-ps883x_set() path.
+Based on arm_ffa code
 
-Use a machine-compatible table rather than a DT property so the quirk
-stays inside the kernel and can be removed later without creating ABI.
-
-Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapati@oss.qualcomm.com
-Assisted-by: Grok(xAI):4.6
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
- drivers/usb/typec/mux/ps883x.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ drivers/firmware/smccc/Makefile     |   2 +-
+ drivers/firmware/smccc/bus.c        | 151 ++++++++++++++++++++++++++++
+ include/linux/arm-smccc-bus.h       |  48 +++++++++
+ include/linux/device-id/arm_smccc.h |  19 ++++
+ include/linux/mod_devicetable.h     |   1 +
+ scripts/mod/devicetable-offsets.c   |   3 +
+ scripts/mod/file2alias.c            |   8 ++
+ 7 files changed, 231 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/firmware/smccc/bus.c
+ create mode 100644 include/linux/arm-smccc-bus.h
+ create mode 100644 include/linux/device-id/arm_smccc.h
 
-diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-index e93e958065f6f..02d6c04d45ae3 100644
---- a/drivers/usb/typec/mux/ps883x.c
-+++ b/drivers/usb/typec/mux/ps883x.c
-@@ -13,6 +13,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/usb/pd.h>
-@@ -42,6 +43,22 @@
- #define CONN_STATUS_2_TBT_UNIDIR_LSRX_ACT_LT	BIT(4)
- #define CONN_STATUS_2_USB4_CONNECTED		BIT(7)
- 
+diff --git a/drivers/firmware/smccc/Makefile b/drivers/firmware/smccc/Makefile
+index 40d19144a860..68bbff1407b8 100644
+--- a/drivers/firmware/smccc/Makefile
++++ b/drivers/firmware/smccc/Makefile
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0
+ #
+-obj-$(CONFIG_HAVE_ARM_SMCCC_DISCOVERY)	+= smccc.o kvm_guest.o
++obj-$(CONFIG_HAVE_ARM_SMCCC_DISCOVERY)	+= bus.o smccc.o kvm_guest.o
+ obj-$(CONFIG_ARM_SMCCC_SOC_ID)	+= soc_id.o
+diff --git a/drivers/firmware/smccc/bus.c b/drivers/firmware/smccc/bus.c
+new file mode 100644
+index 000000000000..caba1a03c997
+--- /dev/null
++++ b/drivers/firmware/smccc/bus.c
+@@ -0,0 +1,151 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Platforms where the USB4 / DP-tunneling stack is not ready yet. Rejecting
-+ * USB4 here lets the Type-C stack fall back to USB3 + DP Alt Mode instead of
-+ * negotiating USB4 and then failing to drive DisplayPort.
-+ *
-+ * This is a temporary, kernel-contained quirk (not DT ABI). Drop the entries
-+ * once the corresponding USB4 support is complete.
++ * Copyright (C) 2026 Arm Limited
 + */
-+static const char * const ps883x_disable_usb4_compats[] = {
-+	"qcom,x1e80100",
-+	"qcom,x1p42100",
-+	"qcom,hamoa",
-+	"qcom,purwa",
-+	NULL,
-+};
 +
- struct ps883x_retimer {
- 	struct i2c_client *client;
- 	struct gpio_desc *reset_gpio;
-@@ -63,8 +80,21 @@ struct ps883x_retimer {
- 
- 	enum typec_orientation orientation;
- 	bool in_reset;
-+	bool disable_usb4;
- };
- 
-+static bool ps883x_should_disable_usb4(void)
++#include <linux/arm-smccc-bus.h>
++#include <linux/slab.h>
++
++static int arm_smccc_bus_match(struct device *dev,
++		const struct device_driver *drv)
 +{
-+	const char * const *compat;
++	const struct arm_smccc_device_id *id_table;
++	struct arm_smccc_device *smccc_dev = to_arm_smccc_device(dev);
 +
-+	for (compat = ps883x_disable_usb4_compats; *compat; compat++) {
-+		if (of_machine_is_compatible(*compat))
-+			return true;
++	id_table = to_arm_smccc_driver(drv)->id_table;
++	if (!id_table)
++		return 0;
++
++	while (id_table->func_id) {
++		if (smccc_dev->func_id == id_table->func_id)
++			return 1;
++		id_table++;
 +	}
 +
-+	return false;
++	return 0;
 +}
 +
- static int ps883x_enable_vregs(struct ps883x_retimer *retimer)
- {
- 	struct device *dev = &retimer->client->dev;
-@@ -262,6 +292,9 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
- 			cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
- 			break;
- 		case TYPEC_MODE_USB4:
-+			if (retimer->disable_usb4)
-+				return -EOPNOTSUPP;
++static int arm_smccc_bus_probe(struct device *dev)
++{
++	struct arm_smccc_driver *smccc_drv = to_arm_smccc_driver(dev->driver);
 +
- 			eudo_data = state->data;
- 
- 			cfg2 |= CONN_STATUS_2_USB4_CONNECTED;
-@@ -391,6 +424,10 @@ static int ps883x_retimer_probe(struct i2c_client *client)
- 
- 	retimer->client = client;
- 
-+	retimer->disable_usb4 = ps883x_should_disable_usb4();
-+	if (retimer->disable_usb4)
-+		dev_info(dev, "USB4 disabled until platform USB4 support is complete\n");
++	return smccc_drv->probe(to_arm_smccc_device(dev));
++}
 +
- 	mutex_init(&retimer->lock);
++static void arm_smccc_bus_remove(struct device *dev)
++{
++	struct arm_smccc_driver *smcc_drv = to_arm_smccc_driver(dev->driver);
++
++	if (smcc_drv->remove)
++		smcc_drv->remove(to_arm_smccc_device(dev));
++}
++
++static int arm_smccc_bus_uevent(const struct device *dev,
++		struct kobj_uevent_env *env)
++{
++	const struct arm_smccc_device *smccc_dev = to_arm_smccc_device(dev);
++
++	return add_uevent_var(env, "MODALIAS=" ARM_SMCCC_MODULE_PREFIX "f%08X",
++			      smccc_dev->func_id);
++}
++
++static ssize_t modalias_show(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	struct arm_smccc_device *smccc_dev = to_arm_smccc_device(dev);
++
++	return sysfs_emit(buf, ARM_SMCCC_MODULE_PREFIX "f%08X\n",
++			  smccc_dev->func_id);
++}
++static DEVICE_ATTR_RO(modalias);
++
++static struct attribute *arm_smccc_device_attrs[] = {
++	&dev_attr_modalias.attr,
++	NULL,
++};
++ATTRIBUTE_GROUPS(arm_smccc_device);
++
++const struct bus_type arm_smccc_bus_type = {
++	.name = "arm_smccc",
++	.match = arm_smccc_bus_match,
++	.probe = arm_smccc_bus_probe,
++	.remove = arm_smccc_bus_remove,
++	.uevent = arm_smccc_bus_uevent,
++	.dev_groups = arm_smccc_device_groups,
++};
++EXPORT_SYMBOL_GPL(arm_smccc_bus_type);
++
++int arm_smccc_driver_register(struct arm_smccc_driver *driver,
++		struct module *owner, const char *mod_name)
++{
++	if (!driver->probe || !driver->id_table)
++		return -EINVAL;
++
++	driver->driver.bus = &arm_smccc_bus_type;
++	driver->driver.name = driver->name;
++	driver->driver.owner = owner;
++	driver->driver.mod_name = mod_name;
++
++	return driver_register(&driver->driver);
++}
++EXPORT_SYMBOL_GPL(arm_smccc_driver_register);
++
++void arm_smccc_driver_unregister(struct arm_smccc_driver *driver)
++{
++	driver_unregister(&driver->driver);
++}
++EXPORT_SYMBOL_GPL(arm_smccc_driver_unregister);
++
++static void arm_smccc_release_device(struct device *dev)
++{
++	struct arm_smccc_device *smccc_dev = to_arm_smccc_device(dev);
++
++	kfree(smccc_dev);
++}
++
++struct arm_smccc_device *arm_smccc_device_register(const char *name, u32 func_id)
++{
++	int ret;
++	struct arm_smccc_device *smccc_dev;
++
++	if (!name)
++		return ERR_PTR(-EINVAL);
++
++	smccc_dev = kzalloc_obj(*smccc_dev);
++	if (!smccc_dev)
++		return ERR_PTR(-ENOMEM);
++
++	smccc_dev->func_id = func_id;
++	smccc_dev->dev.bus = &arm_smccc_bus_type;
++	smccc_dev->dev.release = arm_smccc_release_device;
++
++	ret = dev_set_name(&smccc_dev->dev, "%s", name);
++	if (ret) {
++		kfree(smccc_dev);
++		return ERR_PTR(ret);
++	}
++
++	ret = device_register(&smccc_dev->dev);
++	if (ret) {
++		put_device(&smccc_dev->dev);
++		return ERR_PTR(ret);
++	}
++
++	return smccc_dev;
++}
++EXPORT_SYMBOL_GPL(arm_smccc_device_register);
++
++void arm_smccc_device_unregister(struct arm_smccc_device *smccc_dev)
++{
++	if (!smccc_dev)
++		return;
++
++	device_unregister(&smccc_dev->dev);
++}
++EXPORT_SYMBOL_GPL(arm_smccc_device_unregister);
++
++static int __init arm_smccc_bus_init(void)
++{
++	return bus_register(&arm_smccc_bus_type);
++}
++subsys_initcall(arm_smccc_bus_init);
+diff --git a/include/linux/arm-smccc-bus.h b/include/linux/arm-smccc-bus.h
+new file mode 100644
+index 000000000000..cde268fc2930
+--- /dev/null
++++ b/include/linux/arm-smccc-bus.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2026 Arm Limited
++ */
++#ifndef __LINUX_ARM_SMCCC_BUS_H
++#define __LINUX_ARM_SMCCC_BUS_H
++
++#include <linux/device.h>
++#include <linux/device-id/arm_smccc.h>
++#include <linux/module.h>
++
++struct arm_smccc_device {
++	struct device dev;
++	u32 func_id;
++};
++
++#define to_arm_smccc_device(d) container_of(d, struct arm_smccc_device, dev)
++
++struct arm_smccc_driver {
++	struct device_driver driver;
++
++	const char *name;
++	int (*probe)(struct arm_smccc_device *sdev);
++	void (*remove)(struct arm_smccc_device *sdev);
++	const struct arm_smccc_device_id *id_table;
++};
++
++#define to_arm_smccc_driver(d) \
++	container_of_const(d, struct arm_smccc_driver, driver)
++
++int arm_smccc_driver_register(struct arm_smccc_driver *driver,
++		struct module *owner, const char *mod_name);
++void arm_smccc_driver_unregister(struct arm_smccc_driver *driver);
++struct arm_smccc_device *arm_smccc_device_register(const char *name, u32 func_id);
++void arm_smccc_device_unregister(struct arm_smccc_device *smcc_dev);
++
++#define arm_smccc_register(driver) \
++	arm_smccc_driver_register(driver, THIS_MODULE, KBUILD_MODNAME)
++#define arm_smccc_unregister(driver) \
++	arm_smccc_driver_unregister(driver)
++
++#define module_arm_smccc_driver(__arm_smccc_driver) \
++	module_driver(__arm_smccc_driver, arm_smccc_register, \
++		      arm_smccc_unregister)
++
++extern const struct bus_type arm_smccc_bus_type;
++
++#endif /* __LINUX_ARM_SMCCC_BUS_H */
+diff --git a/include/linux/device-id/arm_smccc.h b/include/linux/device-id/arm_smccc.h
+new file mode 100644
+index 000000000000..a8579832fc1c
+--- /dev/null
++++ b/include/linux/device-id/arm_smccc.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __LINUX_DEVICE_ID_ARM_SMCCC_H
++#define __LINUX_DEVICE_ID_ARM_SMCCC_H
++
++#ifdef __KERNEL__
++#include <linux/types.h>
++#endif
++
++#define ARM_SMCCC_MODULE_PREFIX "arm_smccc:"
++
++/**
++ * struct arm_smccc_device_id - Arm SMCCC bus device identifier
++ * @func_id: SMCCC function identifier
++ */
++struct arm_smccc_device_id {
++	__u32 func_id;
++};
++
++#endif /* __LINUX_DEVICE_ID_ARM_SMCCC_H */
+diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
+index a397213bedac..318c4b5c3451 100644
+--- a/include/linux/mod_devicetable.h
++++ b/include/linux/mod_devicetable.h
+@@ -16,6 +16,7 @@
+ #include "device-id/amba.h"
+ #include "device-id/ap.h"
+ #include "device-id/apr.h"
++#include "device-id/arm_smccc.h"
+ #include "device-id/auxiliary.h"
+ #include "device-id/bcma.h"
+ #include "device-id/ccw.h"
+diff --git a/scripts/mod/devicetable-offsets.c b/scripts/mod/devicetable-offsets.c
+index b4178c42d08f..1492e9fdc7cb 100644
+--- a/scripts/mod/devicetable-offsets.c
++++ b/scripts/mod/devicetable-offsets.c
+@@ -254,6 +254,9 @@ int main(void)
+ 	DEVID(auxiliary_device_id);
+ 	DEVID_FIELD(auxiliary_device_id, name);
  
- 	retimer->regmap = devm_regmap_init_i2c(client, &ps883x_retimer_regmap);
-
++	DEVID(arm_smccc_device_id);
++	DEVID_FIELD(arm_smccc_device_id, func_id);
++
+ 	DEVID(ssam_device_id);
+ 	DEVID_FIELD(ssam_device_id, match_flags);
+ 	DEVID_FIELD(ssam_device_id, domain);
+diff --git a/scripts/mod/file2alias.c b/scripts/mod/file2alias.c
+index 8d36c74dec2d..980d7da456bb 100644
+--- a/scripts/mod/file2alias.c
++++ b/scripts/mod/file2alias.c
+@@ -1349,6 +1349,13 @@ static void do_auxiliary_entry(struct module *mod, void *symval)
+ 	module_alias_printf(mod, false, AUXILIARY_MODULE_PREFIX "%s", *name);
+ }
+ 
++static void do_arm_smccc_entry(struct module *mod, void *symval)
++{
++	DEF_FIELD(symval, arm_smccc_device_id, func_id);
++
++	module_alias_printf(mod, false, ARM_SMCCC_MODULE_PREFIX "f%08X", func_id);
++}
++
+ /*
+  * Looks like: ssam:dNcNtNiNfN
+  *
+@@ -1519,6 +1526,7 @@ static const struct devtable devtable[] = {
+ 	{"mhi", SIZE_mhi_device_id, do_mhi_entry},
+ 	{"mhi_ep", SIZE_mhi_device_id, do_mhi_ep_entry},
+ 	{"auxiliary", SIZE_auxiliary_device_id, do_auxiliary_entry},
++	{"arm_smccc", SIZE_arm_smccc_device_id, do_arm_smccc_entry},
+ 	{"ssam", SIZE_ssam_device_id, do_ssam_entry},
+ 	{"dfl", SIZE_dfl_device_id, do_dfl_entry},
+ 	{"ishtp", SIZE_ishtp_device_id, do_ishtp_entry},
 -- 
-2.53.0
-
+2.43.0
 
