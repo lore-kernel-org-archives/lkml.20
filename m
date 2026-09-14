@@ -1,91 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5A1265620
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7D1435EF0;
+	Mon, 14 Sep 2026 09:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378060; cv=none; b=h9Nvs3v7OpUwlrAJWDsJFJe/7JRSYm4DilN1jCSZg9qGHPK5M4hzm1chA3e9suAnNOpurDbF61cUBgPA9MaYZocrTCkZ9a5JehRhXaGsMHIylXbh2Oo4kyljeKPg6xqIzBSsCHwt5Zc/9kdyV4Tz7eTwP2VTjkoPLWM6sxbo6x0=
+	t=1789378062; cv=none; b=PC4hIYKGomHDCMOazWQasRTBvOH0MBdaPwnM4Y+VxA9ybckXzUYerJGCQr+BzMic1oqzW+O9LZlEARjQvOEvYotCvQIKi3XwVsndRAn67XpHZ4W5mY8TbE1G1lhfk2e6oJJs6dKQUdMlDjvj2mToJML3wokQaC0lEAcSBANzuj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378060; c=relaxed/simple;
-	bh=mP/l5Do4YJ7IRKmOSzDfTfkwiYAM0VDD1IfC3wKE9Js=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fecopnPIQnGBe6+JpjvT+dyHb379g4brDYuONF3/pZbO2CYj+rN/K2ajMeckKnH5RdO1A7+lQf3oAbiickcAgjWl+2qkUcGeWLhwyHa0OWsp9qo67c386o8T+BbGeWCyqTcswibYChLQm+/y4yGOBY0tMIDHxe6aCzzm3jLNfKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ur1HjN52; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789378062; c=relaxed/simple;
+	bh=uyXY0JhqdY04u4gvXcwlNliDhIT7V48/3Ky+SA0t1gU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cKRK38ef7w3KxhlQqbIhzwz5s9206ajgBzCph8VfnzCzGlHrBggrvQCdkc/AaRr1VWt9xFcxytU4ATjc7q3ZhS2xTcaMe6KYwfgcVVHiiBt/RTnqgM42R8O2vT1a3SnRrp+diM+D7V4ew5ZqfCQZ081T7pSqgNMZIa4VEyRDfAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=CTYtwTSb; arc=none smtp.client-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ur1HjN52"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B471F000FF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:27:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789378055;
-	bh=+EKK5mZN/Z88F3qSalRQdpIe1kQRO9isxPVk2e1xkaU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ur1HjN52JEtDmwrp6C07kQ1Cdpj2A7qLwlCyaGMqCRBwBTb0j0t9NXb6d4Dfj0HCt
-	 qnpk1JIh7nfUVx05gtYhalu0y7MzZI2YnpC00qbhPCU+0+9RoZckVt/Sj/ZLnx0ufL
-	 6ii9jXER2PZDBgECWm1KvYn9ws0YM650hyvoHJPPNZ2boS1Ae4xnbFSorHjm6jEUJW
-	 KIrrELf1a8Itan7p2MupPgw1b0LLHXDY7BfVQfOHcAtbCxj4jZDzoFz/6qE03UBd8M
-	 4krfBaEPt4RPBi4qtw05JSIBwnPbKMTdrC0J6fUI55GWFTZtsW3CDJb/TeVyium0GX
-	 lLocGxPvSI9uQ==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso2742005e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:27:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByHSW8777szo+6cSzYGw9as7dYj8loch6dQbgzjOenCnZdFR/SWGIExBNZMsGQCmw3PgVhrGz4LLmXvbUg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCwjGcN59dHbHyn/EFsJ6x68p7clVf4EbAAGY3A70Wy99jeblZ
-	+zRsWS7XSndkWz9qFzfUy7gVA0DRGn4i2MvyoOqBhDz5Z5xXQkghJjnddknBSB9YhqzpFGhUMLr
-	yIYjxmWaioPosZkFn0FUoF/TU0SBNGhU=
-X-Received: by 2002:a05:6512:3ba2:b0:5b8:9a95:e251 with SMTP id
- 2adb3069b0e04-5b8abb02f33mr1155329e87.25.1789378054325; Mon, 14 Sep 2026
- 02:27:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="CTYtwTSb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=V4
+	0l4BEPJi0x3bSRqBmren6BviAFly+T5dJ5Wff1QSU=; b=CTYtwTSb/XrkAUZ6sT
+	2oi6wGcZyRf7o/jJbigd/pfNqv5wATq2VvLjnL0XS1Oo7ZMXogW7ROfSp1Zw6Jb5
+	M5vSFSE0AAANSuoHnLG4BjIcJHBFSX/BD1yhF4TnRm9TGXRaN89JhM3c9/C66GCF
+	Ix+Xs5VuHqKTk7vxEmBPyTm08=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCkvCgD337LEvadqgTuQFw--.32944S2;
+	Mon, 14 Sep 2026 17:26:28 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: [PATCH] ixgbe: do not busy wait in ixgbe_devlink_reload_empr_finish()
+Date: Mon, 14 Sep 2026 17:26:26 +0800
+Message-Id: <20260914092626.263886-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827205116.GJ2943942@google.com> <20260827222550.24634-1-michael.zaidman@gmail.com>
- <apaLLD4ZXhNV-Dph@beelink>
-In-Reply-To: <apaLLD4ZXhNV-Dph@beelink>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 11:27:21 +0200
-X-Gmail-Original-Message-ID: <CAD++jLng_gdqoehT+c8sXoqy+tdUc7eAXXpAvhC_zJZwnX5tzA@mail.gmail.com>
-X-Gm-Features: AcwNN1XIGrJI8kEt6FJvsnfO1yo_Nk4ZdgQyT1yCMtF0ThsxbTGwmmYyu4htGIU
-Message-ID: <CAD++jLng_gdqoehT+c8sXoqy+tdUc7eAXXpAvhC_zJZwnX5tzA@mail.gmail.com>
-Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C fixes
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: Michael Zaidman <michael.zaidman@gmail.com>, lee@kernel.org, jikos@kernel.org, 
-	brgl@kernel.org, linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCkvCgD337LEvadqgTuQFw--.32944S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7trW7AryUuw13JF1rAr1fWFg_yoW8tFWrpF
+	WUWasayw17Xr4Fg340vayUuF9xX3WagrW5GFyfK3y5C3Wktw1DKF1rtFyaqrWUArZ5Wr4I
+	qr1Y9rZ5Aan8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07ULFxUUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlAQl+2qnvcRXfwAA3S
 
-Hi Benjamin, Lee,
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-On Tue, Sep 1, 2026 at 4:03=E2=80=AFPM Benjamin Tissoires <bentiss@kernel.o=
-rg> wrote:
+ixgbe_devlink_reload_empr_finish() is the .reload_up devlink operation,
+so it always runs in process context with the devlink instance lock held.
+Its polling loop delays with mdelay(500), i.e. it busy waits for half a
+second per iteration and, because the loop bound is 20 iterations, for up
+to ten seconds with preemption and interrupts to the timer subsystem
+effectively blocked on that CPU. That is long enough to trip the soft
+lockup detector and to stall RCU grace periods, and it keeps a CPU fully
+occupied while the firmware performs the EMP reset.
 
-> TBH, I'm not a big fan of having multiple subsystems children into HID.
-> Mostly because I can't review the best practive in each of them. However,
-> for quite a long time, HID was mostly for input devices, and input is a
-> different subsystem.
->
-> That being said, there are 2 types of HID devices:
-> - ones with defined standard usages (keyboards, mice, touchscreen,
->         battery, etc) and using MFD for those would certainly be overthin=
-king
-> - others use raw HID device with a custom protocol (cp2112, mcp2221,
->         ft260), these could be MFD candidates
+Use msleep() instead, the loop does not need to be atomic and nothing in
+it holds a spinlock.
 
-Surely, as HID start to attract chips which clearly fall into the MFD
-category of things, with a plethora of subsystems hooking into the
-same HID device, we must find a way for HID devices to spawn
-MFD cells?
+While at it, rename IXGBE_DEVLINK_RELOAD_TIMEOUT_SEC to
+IXGBE_DEVLINK_RELOAD_TIMEOUT_TICS: the value counts 0.5 s tics, as the
+comment right above it already explains, so the _SEC suffix is
+misleading.
 
-MFD solved and evolved a system for handling exactly this type
-of situation.
+Fixes: c9e563cae19e ("ixgbe: add support for devlink reload")
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+ drivers/net/ethernet/intel/ixgbe/devlink/devlink.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Whether there should be an MFD device in the middle spawning
-each a HID, GPIO, I2C, UART cell or whether HID device itself should
-sit in the nexus and gain the ability to simply spawn out MFD cells
-from itself is what we need to figure out.
+diff --git a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+index cf8908b82f8a..7ce0a0cbf9d2 100644
+--- a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
++++ b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+@@ -430,7 +430,7 @@ static int ixgbe_devlink_reload_empr_start(struct devlink *devlink,
+ }
+ 
+ /*Wait for 10 sec with 0.5 sec tic. EMPR takes no less than half of a sec */
+-#define IXGBE_DEVLINK_RELOAD_TIMEOUT_SEC	20
++#define IXGBE_DEVLINK_RELOAD_TIMEOUT_TICS	20
+ 
+ /**
+  * ixgbe_devlink_reload_empr_finish - finishes EMP reset
+@@ -460,11 +460,11 @@ static int ixgbe_devlink_reload_empr_finish(struct devlink *devlink,
+ 		 * may be not cleared yet, so begin the loop with the delay
+ 		 * in order to not check the not updated register.
+ 		 */
+-		mdelay(500);
++		msleep(500);
+ 
+ 		fwsm = IXGBE_READ_REG(hw, IXGBE_FWSM(hw));
+ 
+-		if (i++ >= IXGBE_DEVLINK_RELOAD_TIMEOUT_SEC)
++		if (i++ >= IXGBE_DEVLINK_RELOAD_TIMEOUT_TICS)
+ 			return -ETIME;
+ 
+ 	} while (!(fwsm & IXGBE_FWSM_FW_VAL_BIT));
+-- 
+2.25.1
 
-Yours,
-Linus Walleij
