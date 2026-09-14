@@ -1,57 +1,79 @@
-Received: from mta0.migadu.com (out-157.mta0.migadu.com [91.218.175.157])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E614A4457A9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD9F3D9DC9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:34:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385678; cv=none; b=TTlPS/uLQOSn5PL0Cq2yEzEd1GVlaY2U92wWtNQdSurV2rAk/ldKe8IrUejmkB4AHVcIBU0TAba8g6ElvxLdopBEg0pKa1MjIlCUuHWS04E5IMzkoJIHPdcImhtep9dWRfkA+O9julgnkUDQPy3BydBainhW8NC1TtS41QKJxWU=
+	t=1789385680; cv=none; b=BlLu2J7j3uBfkCK1EUCaBCE8HfNS374boKHSVXz9zF/XlcHxu7udXgbbmTk/X3tulwgiysFGEQVik+qDdZUT5t0QfgMkRJ65ma6S9myirUNLLrhb9HUNrK761HnxTPDV6MWxKWX3PkYGHClQxaDHakeF4xt3OVhBGEs45uG3ZNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385678; c=relaxed/simple;
-	bh=Tt0RaxTPBRzjk8pmJ1SZNy1FJeaoqVNbaM1Fzi/5QNk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ygp4TOy33Fbhal4Fn1OVWImthUStXo1pITQ41mzut+MogFXSS1feE7NvSGrDoyNJK6OGKzVMnu4JU4qMupdC3/Zd09uvCaTiZYM5XmmHTFg29XWUfqteDr5KCaSw5GSAaWNv39bn6/S6nedRUboUqI7QpJyW6tTFmIcSHxyZGZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QAvOhrjo; arc=none smtp.client-ip=91.218.175.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789385680; c=relaxed/simple;
+	bh=XS+qH/RTSkMc4RPHuQ3J2MtXlQ8fdRg7aQKWU3v+L4U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UDsOI/bW2vXGd4OowcZdwxdw6tUCQG3+/ixGDxEY1+lHybCnBHmNU5aL6o0F6BytdKXRcufi3DSTQCj6SLBTJKkpSOsiQtmxITKbjjeb0b29r1+CCxcRLbgxImfPvlbc8v/q8RnAryvoA0DInZj+JGIQ6bqPCtP9fGEjNxT7VnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cumMyjk0; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QAvOhrjo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Tt0RaxTPBRzjk8pmJ1SZNy1FJeaoqVNbaM1Fzi/5QNk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789385674; v=1; x=1789990474;
- b=QAvOhrjoprA3lIAk1xlbo2oo0OWJB+fY1CAAS9Dh9bK6nRcUmwKku9e5StPvWMHPc6RmeF6I
- TcGt15BA8GAoXRAAb1RfIwhokAIiyJCsSrqZ1yMY2QKKG5k32LneNtmVkwZdzwa28KLtgedP1Ak
- 2ba5L+VPBvjH+cBoagGUbW5w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b01b2d8f1823b2c1;
-	Mon, 14 Sep 2026 11:34:34 +0000
-X-Mizu-Trace-ID: b01b2d8f1823b2c1
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cumMyjk0"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8701fcf40d4so131685b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:34:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789385679; x=1789990479; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D98Mt2BThELnUozhvWQ+a9TWWTndWMHSpzuyilayST0=;
+        b=cumMyjk02O8OWFnRksPZrF3LJjp2MEi5FT64cOF2+jECzmrdW9tRR7MN/nAKlEiNda
+         hdANBdeJLorjyjNjO1gzcDlKhj8Mu6tEZbfInoCT9KHedDNfLJDfwR4ojnqLDdmXPWsb
+         4pL8mUSDk6DZ7G1NKpn2tU+gffS1atzQ0mrZuthDf2vNy3nOTMGVfzbplAcsSsrC60rG
+         T7w69PI1aRQioNoN8YzBMZT+5099iB+Ojf6zg/Q5MGCw6qrBijBXKoK611m0+rYdd4si
+         2quAY4lG5QhOjogL82PH7fZrbqAQhNp0jqZZ3+Dr1i6O1Ze2/PES8JxubqT7HUxCR5b8
+         7itQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789385679; x=1789990479;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D98Mt2BThELnUozhvWQ+a9TWWTndWMHSpzuyilayST0=;
+        b=Amhg2uv9zWkwJDK/MjXJOCBa/SKqwdQqhnVmP9OciCqBp24BjIYlIiKi/wcTiRZE8h
+         yOzbu1q8bLPJ8m4qq234wr9sBjlU+Bn+V5pmw3gk3hIpuT/v6A54JaAPstVOI+Ue8NSf
+         31jB/dys5cYrpDdlV9d9vC97F44evSTtSUBue+KXEtdHzsWHCcjw8iKOGNrmzQewtsSu
+         N9FmwURT7iNAcW84obkae8SIpHGRAPrRlR0SrepwCTe43RhM5XRZV61/pMKGMf8zhJPy
+         mOYa0ai0IIAOWlSRIk0Kp09Mv83cGdXFrET35ujCxtHjQtc8x/atU0DlZ2o+92Lp8D1G
+         zqWg==
+X-Forwarded-Encrypted: i=1; AKwUvByCkzgWTE9cjiIvztR/1x8z/bJcM+lFnB99FSS62bl+6LNukxvBrUhAuR8uLqqPSsaQB4SITWydXWXYKt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++llZZmsMqaGP6vJV/90ALbyOWLKiznvLTbStHeQiZAXNIZ9ZWtX
+	oq3LKd26tUHBkKJOgu8VSGjvCmeyuN8mdcX3/geltsa5unOrS853j4ox
+X-Gm-Gg: AYBFou1oOcJ/qcR7HxMj9LQXVx+nH6eJ1y0A2+Qn22Nh9hfAAWZHD0b+OzAc+F7VPs4
+	OASolW2b9qI6ntcPWER66GbNGmEQnyI72KmhAAcHwG6brtCW7/RaLscvlGqTjx1UQKnFQKtwXaC
+	xlHTuuTojdrU4FVXNkC5C3kz32w4S9MqrR6IJUH7nfw1V4Opyo1zWlJ9KK+M6MAcNjNv9GWCoEO
+	OJJsRnCttCZkYhg7uDnvBbQeb4DNOceklWgDE7zjdUpKAL0zIXqCNztieEswX3bfI9u2wtyhjps
+	5qlBOIJ7ulTiUTo13+B0jUEArhkX6vLJ03V9JW9HjPuq9JW01QgIcgOw4/zwBOLZO1GcrRWqcVt
+	GVCH9d0NULMaD5e0oLVdbrDd+A0izUpSYU6p+CSpcmYO/odlHQk9yqKguL3+PbV/GOq8MRS3LKF
+	YIKiC+2Eo0xms9HyoeqDRaZCIYVTXHnkr1Rohx54T3LfgcHk7OD+7Ivw==
+X-Received: by 2002:a05:6a00:1741:b0:868:f03a:70d9 with SMTP id d2e1a72fcca58-86f82f516b2mr4191540b3a.4.1789385678538;
+        Mon, 14 Sep 2026 04:34:38 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250c019dsm4440557b3a.7.2026.09.14.04.34.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 04:34:38 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Eugen Hristev <ehristev@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	linux-iio@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: [PATCH v3 08/18] KVM: arm64: Add system register reset framework for protected VMs
-Date: Mon, 14 Sep 2026 12:33:28 +0100
-Message-Id: <20260914113338.159227-9-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260914113338.159227-1-fuad.tabba@linux.dev>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: adc: at91-sama5d2: disable autosuspend on remove
+Date: Mon, 14 Sep 2026 19:34:22 +0800
+Message-ID: <20260914113422.1689331-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,143 +82,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add kvm_reset_pvm_sys_regs() and the pvm_sys_reg_reset_vals[] table
-that drives it, and call it from init_pkvm_hyp_vcpu() for protected
-vCPUs. The table holds the registers KVM resets that EL2 loads for a
-protected vCPU: the ones __sysreg_restore_state_nvhe() restores, and
-CNTV_CTL_EL0, which flush_hyp_timer_state() loads from a copy the
-host's kvm_timer_vcpu_reset() doesn't write. The ptrauth keys, which
-entry.S loads, are not in the table: sys_regs.c resets them to
-UNKNOWN, and a vCPU that CPU_ON brings back keeps the keys the guest
-last set, one UNKNOWN value in place of another.
+at91_adc_probe() enables runtime PM autosuspend with
+pm_runtime_use_autosuspend(). The probe error path correctly undoes
+this setting with pm_runtime_dont_use_autosuspend(), but the normal
+remove path only disables runtime PM.
 
-A register that resets to 0 still needs an entry: a later patch calls
-kvm_reset_pvm_sys_regs() again for PSCI CPU_ON at EL2, on a context
-that has run.
+The runtime PM API requires pm_runtime_use_autosuspend() to be undone
+with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
+was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
+set therefore leaves the runtime PM state incompletely cleaned up after
+the driver is unbound.
 
-A poison value stands in where sys_regs.c resets to UNKNOWN, and for
-VBAR_EL1 and CONTEXTIDR_EL1 in place of the 0 it uses.
+Add the missing pm_runtime_dont_use_autosuspend() call to the remove
+path.
 
-MPIDR_EL1 is derived from vcpu_id, as for any KVM guest.
+This issue was found by manual code inspection.
 
-AMAIR_EL1 resets to 0 where sys_regs.c reads the hardware: the host
-writes it freely before the hypercall, and it's loaded on every guest
-entry.
-
-Until the per-EC marshalling patch removes the host's full-context
-copy from flush_hyp_vcpu(), that copy overwrites these values on every
-entry. It preserves CNTV_CTL_EL0, whose entry writes the zero the page
-already holds. So this patch has no observable effect on its own.
-
-No functional change intended.
-
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Fixes: 75d7556ac0e4 ("iio: adc: at91-sama5d2_adc: add runtime pm support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  1 +
- arch/arm64/kvm/hyp/nvhe/pkvm.c         |  5 +++
- arch/arm64/kvm/hyp/nvhe/sys_regs.c     | 60 ++++++++++++++++++++++++++
- 3 files changed, 66 insertions(+)
+ drivers/iio/adc/at91-sama5d2_adc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-index 49a0a992047ba..a04b7c04d5135 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-@@ -95,6 +95,7 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code);
- bool kvm_handle_pvm_sysreg(struct kvm_vcpu *vcpu, u64 *exit_code);
- bool kvm_handle_pvm_restricted(struct kvm_vcpu *vcpu, u64 *exit_code);
- void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
-+void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
- int kvm_check_pvm_sysreg_table(void);
+diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sama5d2_adc.c
+index e8a5285bb6d4..e68632e628c7 100644
+--- a/drivers/iio/adc/at91-sama5d2_adc.c
++++ b/drivers/iio/adc/at91-sama5d2_adc.c
+@@ -2487,6 +2487,7 @@ static void at91_adc_remove(struct platform_device *pdev)
  
- #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index d52c26c0959a8..0252f28cca300 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -590,6 +590,11 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
- 		goto done;
+ 	pm_runtime_disable(st->dev);
+ 	pm_runtime_set_suspended(st->dev);
++	pm_runtime_dont_use_autosuspend(st->dev);
+ 	clk_disable_unprepare(st->per_clk);
  
- 	ret = pkvm_vcpu_init_sve(hyp_vcpu, host_vcpu);
-+	if (ret)
-+		goto done;
-+
-+	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
-+		kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
- done:
- 	if (ret)
- 		unpin_host_vcpu(host_vcpu);
-diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-index 8758c68017765..87557d1b3bf07 100644
---- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-+++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-@@ -525,6 +525,66 @@ static const struct sys_reg_desc pvm_sys_reg_descs[] = {
- 	/* Performance Monitoring Registers are restricted. */
- };
- 
-+struct sys_reg_desc_reset {
-+	int reg;
-+	void (*reset)(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *rd);
-+	u64 value;
-+};
-+
-+static void reset_mpidr(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *r)
-+{
-+	__vcpu_assign_sys_reg(vcpu, r->reg, kvm_calculate_mpidr(vcpu));
-+}
-+
-+static void reset_value(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *r)
-+{
-+	__vcpu_assign_sys_reg(vcpu, r->reg, r->value);
-+}
-+
-+#define RESET_VAL(REG, VAL) {  REG, reset_value, VAL }
-+
-+#define RESET_ZERO(REG) RESET_VAL(REG, 0)
-+
-+#define RESET_UNKNOWN(REG) RESET_VAL(REG, 0x1de7ec7edbadc0deULL)
-+
-+#define RESET_FUNC(REG, FN) {  REG, FN, 0 }
-+
-+static const struct sys_reg_desc_reset pvm_sys_reg_reset_vals[] = {
-+	RESET_FUNC(MPIDR_EL1, reset_mpidr),
-+	RESET_UNKNOWN(TPIDR_EL0),
-+	RESET_UNKNOWN(TPIDRRO_EL0),
-+	RESET_UNKNOWN(TPIDR_EL1),
-+	RESET_ZERO(CNTKCTL_EL1),
-+	RESET_UNKNOWN(PAR_EL1),
-+	RESET_ZERO(DISR_EL1),
-+	RESET_ZERO(CPACR_EL1),
-+	RESET_VAL(CONTEXTIDR_EL1, 0x00000000dbadc0deULL),
-+	RESET_VAL(SCTLR_EL1, 0x00C50078ULL),
-+	RESET_ZERO(TCR_EL1),
-+	RESET_UNKNOWN(AFSR0_EL1),
-+	RESET_UNKNOWN(AFSR1_EL1),
-+	RESET_UNKNOWN(ESR_EL1),
-+	RESET_UNKNOWN(MAIR_EL1),
-+	RESET_ZERO(AMAIR_EL1),
-+	RESET_ZERO(MDSCR_EL1),
-+	RESET_ZERO(CNTV_CTL_EL0),
-+	RESET_UNKNOWN(TTBR0_EL1),
-+	RESET_UNKNOWN(TTBR1_EL1),
-+	RESET_UNKNOWN(FAR_EL1),
-+	RESET_VAL(VBAR_EL1, 0x1de7ec7edbadc000ULL),
-+};
-+
-+void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu)
-+{
-+	unsigned long i;
-+
-+	for (i = 0; i < ARRAY_SIZE(pvm_sys_reg_reset_vals); i++) {
-+		const struct sys_reg_desc_reset *r = &pvm_sys_reg_reset_vals[i];
-+
-+		r->reset(vcpu, r);
-+	}
-+}
-+
- /*
-  * Initializes feature registers for protected vms.
-  */
+ 	regulator_disable(st->vref);
 -- 
-2.39.5
+2.43.0
 
