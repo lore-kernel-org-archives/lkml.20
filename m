@@ -1,116 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C335623EAB3;
-	Mon, 14 Sep 2026 02:34:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F972EEE75
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789353251; cv=none; b=LmNjCYth6POqhFG/xMJq+zU3yYbKIATSG1kUlQ9yIi/HW2FerMKPdXwJ3Ff8eg9a163eMrGq4nfPhY216d4FUqzxVGVpR+56PVzy/xa+ATQu9q/X7qXSnHRc8Xq/09+yO7Eyd3k1FK1bXG9WnPiM2ImCFKy1b6QVAPbREnu/h7s=
+	t=1789353547; cv=none; b=ePw7RG6Q4KC9f1ZbiTJRnU7MrQ+0L+RHln+Fy7StEAMnFmfoIPopiyQI8ZSyvOBNrVUc1sOBwE2IzX6Jim08BxUWJ8K1r0ypdaYjG9grokARZT2GZp7da5U9wuxKYGaCnYszdyLnzgSTLCDQNyjEXEpAxnquHEd3cp6KBoiolP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789353251; c=relaxed/simple;
-	bh=gDPynbvaFXlIaeZuhaCZccO2AqwyBkyI5yxUQ+EN3Xc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=IpBx/uX9JIq5MIuFrIwiSI2FesEYFXfLFR38KPLkc/SqAhaRwsAFuo02jF4fMPLDy/NNY3/IYcOoMIbUQLXMe5KiUGuI8PtnNZwr/p1Upc/1Zfe5uRAHUe34q5ZGT89U67x7baATyh61GRD2dKPMGagku7+e/1qLGBYWZrLZyic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ci84Nhq7; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ci84Nhq7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789353248; x=1820889248;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=gDPynbvaFXlIaeZuhaCZccO2AqwyBkyI5yxUQ+EN3Xc=;
-  b=Ci84Nhq7FBE2IXSji+36qF35Fn0EyUPUzP83d5tV+RZXw34Yi5ZA6Z/V
-   gQ9uVpKaWys+I6Gq1nzlvWmI4ya4HipR2jNF8Ze7dlTSmmQ0ZLi8vnDt2
-   iYMrewxiimWBef7VcuR86THuyefBxx5Oy2r53XLu6k8x4nY2xtKblnkBN
-   pI6cmC8glv9rzgqPJAlayfbyKAP4H2HAnf5nRd059YtXReRicsEi7PBG+
-   873lM0Mw9ZnfaFvscl9WtGELtcndSsShy8S8791J26WaoS7pQw0VIVEkG
-   Lm7YESd/dPT1tNO5DsbBlNbvAyt7ANZBsg86UWLNHIJfcC+nD8OkPPdyK
-   A==;
-X-CSE-ConnectionGUID: lGYmXC8BSJ2eMlwgFXCHMA==
-X-CSE-MsgGUID: NKfYe6mXRZy/zu7U2jamlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89585514"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="89585514"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:34:07 -0700
-X-CSE-ConnectionGUID: K5XA3zMQQU6WtxE+3LaaHg==
-X-CSE-MsgGUID: 6w+VRTKBRHWVz/kAXWB6Vw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="922092"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:34:05 -0700
-Date: Mon, 14 Sep 2026 10:34:02 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Anisse Astier <anisse@astier.eu>, linux-efi@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [linus:master] [efivarfs]  b2326338dc: stress-ng.sysinfo.ops_per_sec
- 19.5% improvement
-Message-ID: <202609141037.779d7909-lkp@intel.com>
+	s=arc-20240116; t=1789353547; c=relaxed/simple;
+	bh=X+r26DZeXGkG4Gm6JHRMLQCtkRNZcoO1td8ymPS5HRI=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=gilfDfNEY78NsXkaIDwXkQDJWZa+uMvKE9Goqk91wLJiCAIDHPgN3cDNFnmgVDJ4d5YQfVcCxIGnmcxDL1IEO6E9BMEXF8N5/Gxcf60XXtSr/Z47bN4sC2cdoTsmTl0LU/r8bE9thY9O4RosdNpD3D4Fca/5PdgeT1xmkHVXOXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hjq911jHXz5B13b;
+	Mon, 14 Sep 2026 10:39:01 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 68E2cu3o020377;
+	Mon, 14 Sep 2026 10:38:56 +0800 (+08)
+	(envelope-from xu.xin16@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 14 Sep 2026 10:38:57 +0800 (CST)
+X-Zmail-TransId: 2afa6aa75e413e0-9f4f4
+X-Mailer: Zmail v1.0
+Message-ID: <20260914103857462iSBgwGihbRU3F3tXr8zwW@zte.com.cn>
+In-Reply-To: <20260914020944.664339-1-xialonglong2025@163.com>
+References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn,20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn,20260914020944.664339-1-xialonglong2025@163.com
+Date: Mon, 14 Sep 2026 10:38:57 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+From: <xu.xin16@zte.com.cn>
+To: <xialonglong2025@163.com>
+Cc: <xialonglong2025@163.com>, <david@kernel.org>, <akpm@linux-foundation.org>,
+        <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+        <vbabka@kernel.org>, <baohua@kernel.org>, <ljs@kernel.org>,
+        <ziy@nvidia.com>, <xialonglong@kylinos.cn>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCA0LzRdIG1tL2tzbTogYWRkIGZpbmRfbWVyZ2VhYmxlX3ZtYV9sb2NrZWQoKSB0byB1c2UgcGVyLVZNQSBsb2NraW5n?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 68E2cu3o020377
+X-TLS: YES
+X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 14 Sep 2026 10:39:01 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AA75E45.000/4hjq911jHXz5B13b
 
+> Thanks for working on this.
+> 
+> Patch 4 addresses the mmap_lock contention problem in
+> get_mergeable_page() that I reported in [1]. In that thread, David
+> suggested switching to per-VMA locking [2].
+> 
+> Could you please consider adding the following tags to the commit
+> message of patch 4/4 in the next revision?
+> 
+> Reported-by: Longlong Xia <xialonglong@kylinos.cn>
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> 
+> It would also be helpful to reference the original discussion in the
+> commit message.
 
-
-Hello,
-
-kernel test robot noticed a 19.5% improvement of stress-ng.sysinfo.ops_per_sec on:
-
-commit: b2326338dc683e8c1067c0cbf7a47986c4190902 ("efivarfs: Rate limit statfs() handler") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
-parameters:
-
-	nr_threads: 100%
-	testtime: 60s
-	test: sysinfo
-	cpufreq_governor: performance
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260914/202609141037.779d7909-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-spr-r02/sysinfo/stress-ng/60s
-
-commit: 
-  eb01ffabeb ("efi: apple-properties: validate setup data header length")
-  b2326338dc ("efivarfs: Rate limit statfs() handler")
-
-eb01ffabeb52251f b2326338dc683e8c1067c0cbf7a
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-      5824           +19.2%       6944        stress-ng.sysinfo.ops
-     96.86           +19.5%     115.73        stress-ng.sysinfo.ops_per_sec
-      3.00          +100.0%       6.00        stress-ng.time.percent_of_cpu_this_job_got
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Of course. But the series is still under review at the moment, so let's
+hold off and see what other maintainers have to say.
