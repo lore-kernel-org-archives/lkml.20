@@ -1,120 +1,111 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EF146F4BC;
-	Mon, 14 Sep 2026 16:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1474948BD29
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403749; cv=none; b=hp/+R73FCHSJjWtObJZY0CTPd4lRf2WezxxcPRuWDieYkKnTpA9Cu/Z4aRADvoFSZREjIM8YCOq75WKJFPTyjNxF/hiNGev9RfbPcVmWcyiMeB6nnz7RmmLqniBK5cEP9DrsrhOf+DQb3BjYiuZqHeT48Hfs1j6cQr5rHOw5ua8=
+	t=1789403800; cv=none; b=j2s6qI3Tjhx6SoxLvBAK0BLCBJI/QU901u19W3+aQQbsX1Ldhm1LU4uxCvtEnn6Q9egcQ7wOleZMQROHtgQcEaDcZ8Dk87X0fCXyyUQz4IGNTN3Up4D5AfGObVe0FIquvTtG1Xvlr4AvScYgQ+bjvsgCjWjD6lFmqLc0RqbXmPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789403749; c=relaxed/simple;
-	bh=FsrBZkxZUTTveNgjKASkkUC5M0AfPjHcXlNk/TvQH0w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TeSDJD549rZGhZoyQP5xHZPmO9MQzsybxyYSCqZpflGcz3c4raD0QfGxcIs1NFwtiOtrJRLdsn8t/GPn8SphIrVgxS7FgnHsVWOhtXHex0cUxU0pKJpttsKw+PXJC7HfHy6iMqewWg5Fy2A6c9oR6sJ25OteKgTB9yaKNBkMETU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=lr7oqeV2; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789403800; c=relaxed/simple;
+	bh=VU6XSoDNyYs2RYhP1KvaM5xmSoV/t6Q+v10+XYG9mxk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sceUEDwITiNbT8M34HmM6gPhdx9aoZzRaWtnHTG1PZZDHjURpyBfrwO5co8jiQ3GDrjGoA7EEzN64yGsgF3GFVpY45S+qN5hTl4Xg27Q3+UjJLT3cbUHmjp0NF4oKn0VfULlQc02Yq9RXVztnFN0d/74qfU9GS9qGA5Gm/lOzI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Jzw91H1T; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="lr7oqeV2"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EFwEpJ2516100;
-	Mon, 14 Sep 2026 16:35:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=9MxaMTP2fA+GkO6+QaRKgKFrIvyrX7
-	Mj51Kt+04Xe1g=; b=lr7oqeV2XAA7XKb//fWHYMPne/AWZST0Lia9/NYyIwX6CK
-	76XmCv9Z09NrcDbKUEP/5+yo/IGsxIMUiN0LyN6oK6TW8BCNNTR/1LJ7jgy9XdE2
-	P0WDbZQQClOS1fQkpfq1zUqZanR8ZF2Gkv92poSNNDLe+5Dnr0R6cd9n1o578k25
-	BqGSKIk08D8TTTwwgE1HZPKfb6N1YALfl2FJCiQBxT9ABNje1wany4139Mk/xHgw
-	WTHxnEALCLnm+E/hGyFeOzXV5FvzEr725hzHWWLI0S+NP2VMyRoMypOe0esCH5vt
-	YxwWQBF31YlXZ83vkCD22fnwfDpoP0gC/wpDXWog==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcutetd-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 16:35:46 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68EGZUPE2352730;
-	Mon, 14 Sep 2026 16:35:45 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gnkry6scd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 16:35:45 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68EGZfdi52953560
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 14 Sep 2026 16:35:41 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B589220043;
-	Mon, 14 Sep 2026 16:35:41 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5F4A120040;
-	Mon, 14 Sep 2026 16:35:41 +0000 (GMT)
-Received: from osiris (unknown [9.87.150.220])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon, 14 Sep 2026 16:35:41 +0000 (GMT)
-Date: Mon, 14 Sep 2026 18:35:40 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Stefan Haberland <sth@linux.ibm.com>,
-        Jan Hoeppner <hoeppner@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] s390: fix typos in comments
-Message-ID: <20260914163540.14910Ac8-hca@linux.ibm.com>
-References: <20260907063856.27600-1-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Jzw91H1T"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c294183384fso569373266b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:36:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1789403796; x=1790008596; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wmTFxmEmG/1tF7ZdBl682LQbn7LRjy+UTZgvHJaQIf0=;
+        b=Jzw91H1TJQWaAvIUZTR5oYkRLe0rmuLsBcZD7oCH8oX6dk+diRSz9tW5+cmIcs8O2a
+         wwrWr5UJib835/6ATjYNQwK2ITglIOJHuzp5oj3tokVp+MIh9uXuwRdhcflt6uXFczrA
+         V4N8sapnUWDhrFEu4l+G3ouy3o9GAZrpHJA3k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789403796; x=1790008596;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wmTFxmEmG/1tF7ZdBl682LQbn7LRjy+UTZgvHJaQIf0=;
+        b=1X1xU+hVE8yFFEOlQW9b9HSTVBzxcMKn3x1uBJENowd9SbrZCXLA/ZqWL9wKBJvKDp
+         ZxvTzcJh/JCIG9hQfvGmvs2p/0vbpLLplRR1P+KUlgYQp5GV4a7kJjkACzOxNKBNUjwa
+         FY3ap7OEwUtQu2FeyjpIIG7Jtgun/RoZqLkpJ/IBTDbsDDc19JUD8OZXBnRKd2Obe3Ym
+         AU5q3GfRrtjBjGpWZYXtmDB4k2kyK2ewA4blYTvjg79QmWNmewXLKP2DfdKghfxCdVGf
+         QJEQHICxKhwsX2NEo3N/YNYoqkjBaJZ8+rSn32W7lgyYrYn1es0pQWsXXivwKGv4T37o
+         h8PA==
+X-Forwarded-Encrypted: i=1; AKwUvByq7pBskobBeJaewA6ZF8cHymT1jed5j8yFtGu1iO20J9ciLLJyr0rGHikdejs7cePq0G9Gw67yv6y2oOE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPC9xaU/k5zOx36FzaxyKH9AJ3sq+4JOEpWN2tLuB3fNFvnJOB
+	DHo3lKShEEqSM2uaKRPZhEWZUM7GILT+E6P0GjiIBoXgj3US1pMKfhIcSn2fT7lfqK2K6LprOmw
+	JNcmczI6gzA==
+X-Gm-Gg: AYBFou0uIfqC7laTHdBU/ZvoMWh9SOsjbhSI5QQeOaqX+IZCFDOKtfvKTXQBu36nazt
+	n9hj4tWe64FvYumcGUaIfrV0UFjtPlBOIM/sbwvX7fMtnaQzYOQjnN3wGdCMC0BbD5wSsjwkMaP
+	M/5Qqo3hkeAm2HddZdyJpGj+Gh7SXO1IAw1C1f8JtoHvaiMk1eLhe6oniPO16fU4GBxukO6TANB
+	eqRejcqj8fsOHTLlKDIIOS4qTlC0RD0EXOHn04REEc3CNgD4+cIxmD2aszFvFCqkTYvNw+81vAG
+	V4vKcBHclZtGvBHs6acf28wim4JooVJlnRK7XYtOvLwXq0vJvMprtKWXiBU0uXeXa/18wMt99R1
+	uvKWmtWRcHyJCyILl5ci/TvvMe7rKCREi0kzAAhG8Llz0Gb5uikIi8HWh5UlKLFOCkW+TYEHZ5n
+	v805JBb0QNllHwczfbKffXUBaF3saAf4JShSxuKCT9o+/Fb4U8WJlfDftgZ0c2Y/hOoFDG5Y2qN
+	lCheUO8eTcsNLXmkwVGIq59X+H9bXk7YQakDfQkmLyjw/N20BLiLii86es=
+X-Received: by 2002:a17:907:9486:b0:c24:adf4:5c73 with SMTP id a640c23a62f3a-c29b861e801mr222761966b.1.1789403796211;
+        Mon, 14 Sep 2026 09:36:36 -0700 (PDT)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e1ffsm445564766b.7.2026.09.14.09.36.34
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 09:36:34 -0700 (PDT)
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c294183384fso569361966b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:36:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwbppRmOM+rvvV9sOhRSxFsrpxyuNkeP58cR4CRMzspNPCqaRXXBNeA2FeIfj0dnLGmZl/FHTETpfkfiUA=@vger.kernel.org
+X-Received: by 2002:a17:907:d8f:b0:c25:c54d:d1a2 with SMTP id
+ a640c23a62f3a-c29b864787dmr222496666b.18.1789403794342; Mon, 14 Sep 2026
+ 09:36:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907063856.27600-1-hemanth.selam@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIzNyBTYWx0ZWRfXwkAAPa4TzF5L
- IzSMjTTcW2vhZ39IY9RAnVcdloJ77kvOIeW7mEFiQy3gBTdDtc3CtNq3MLGzQeVW4WbpGeN1cn7
- a1mjFWGcOTEOt4VGYCZjc1rvFaq39zM=
-X-Proofpoint-ORIG-GUID: 79Ife5TWJ5zVkId5j_SKZs9XlH_oIvmD
-X-Proofpoint-GUID: payRPa5pUnLdMDyva5qcS4WOpsPQlPR0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIzNyBTYWx0ZWRfX5CE4jPRKF+7z
- VuCe0JjgSZs4g0QwxfaDRlo0b0ZZ9kzOOCivKF3CzqEjKE3YrNCz0AN5HcG6pJ/iK5gCoEcVNRq
- B5vf5acR0yZO89VuszEhBTDDMctLF+xDby7TCGKQMaHb7ezYRAJ7a11ojHXYaTuFY9LcW6TTMHj
- KVSLJfjnmulbm1T52ReMV5niaIkZaJvEvyY/skI38ZDIxz9EIGLrscW3qumNJWy8u3SCxv6a7RD
- 3Uy9pUfsta2x3hIbyMAE3uCEjF6IMWwZXDZGKpxMuCEOnsrJAbBidqc9CqfdQ/Zr5Lm5gNsesoF
- s2lOMR4lDKn8gn9YyOtqW2MeOSbWHFizZwjM9GDSe2wIzbweG9SlE8rLH2576yMflu28qLSH25y
- xMS5Unk7rTy2aPfnOlpY2U9lgETdyCQlZg47L+8JVRMc+bY3if8SKrgLNb/0AXmC54pYKqZuLsy
- n2v04DDQn+eRLtt3Rmw==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aa82262 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=pGLkceISAAAA:8
- a=wbSmXUBKm7kmP3h1SjcA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140237
+References: <20260913225356.1033865-1-dave.hansen@linux.intel.com>
+ <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
+ <2a15ec49-7b83-4881-a9ec-a1193602eb4f@intel.com> <CAHk-=wj3H5DdeRqnWWz7PwH1Qzb1PgQWf9S0Ce3BjZ+68LjXuQ@mail.gmail.com>
+ <CAJxLxMXGE64kSaTRZq-HkVTzM8eKwJRDhGNM_-sy2n03hj_Wfw@mail.gmail.com>
+In-Reply-To: <CAJxLxMXGE64kSaTRZq-HkVTzM8eKwJRDhGNM_-sy2n03hj_Wfw@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 14 Sep 2026 09:36:17 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiK3neZvhjQr4SZw86i_D-PWJK74HRkMe2JGkGMYrSb6A@mail.gmail.com>
+X-Gm-Features: AcwNN1VPxrdUKAO1fldEtwntBZVwxNaa3tgBb6Fqqx6O4mYOJ_zNslxIH1x8bN4
+Message-ID: <CAHk-=wiK3neZvhjQr4SZw86i_D-PWJK74HRkMe2JGkGMYrSb6A@mail.gmail.com>
+Subject: Re: [GIT PULL] x86/urgent for 7.4-rc4
+To: Orson Peters <orsonpeters@gmail.com>
+Cc: Dave Hansen <dave.hansen@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	linux-kernel@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 07, 2026 at 12:08:56PM +0530, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/s390/block/dasd_3990_erp.c | 6 +++---
->  drivers/s390/block/dasd_eckd.c     | 4 ++--
->  drivers/s390/char/raw3270.c        | 2 +-
->  drivers/s390/char/vmlogrdr.c       | 2 +-
->  4 files changed, 7 insertions(+), 7 deletions(-)
+On Mon, 14 Sept 2026 at 03:12, Orson Peters <orsonpeters@gmail.com> wrote:
+>
+> My minimal reproducer did explicitly call mprotect() to make the
+> reproduction deterministic. But on a multi-NUMA-node machine
+> pmd_modify can get called entirely transparently in the background
+> with memory pressure.
 
-Applied, thanks.
+I guess any of the paths that end up calling pmd_modify() will trigger
+it, and mprotect() is just the most explicit one.
+
+At the other end of this argument, I tried to find something else that
+does what MADV_FREE does. I think the trigger is simply that "clear
+dirty bit, but leave it writable".
+
+And a shared mapping writeout will do exactly that - but I don't think
+anybody does writeback at the hugepage level.
+
+So it may be that MADV_FREE is indeed the only case that actually can
+trigger the bug that otherwise looks pretty much like a generic thp
+issue.
+
+                 Linus
