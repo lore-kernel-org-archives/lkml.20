@@ -1,155 +1,118 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D7D4A99A1
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4558C3DA7D4;
+	Tue, 15 Sep 2026 21:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506947; cv=none; b=R3RccvJlNg8iSFBKUEa7cLN0PKH6Llp7AbFwET+tIynFpwViju6XoPhwmIr/bmRrW2n+7kGklrSgcZ9b68RHIacz+YxQWUinaWBd3KiAVahNIYlvsVKYbD5gGmwdxu45CkbwtT4LyUVDIogx9Dc3aSE6BX8JfNVlSn7CwWOXmUA=
+	t=1789506967; cv=none; b=onTHkbteiVjIRzqBQc0UNuK7t2noXexML598MUqbHeGSj9UTqvUhxT1/KMsTdJn3qCLQoSAYWKbgrbOX0Q+gSbL3HPe0Hu/q82COaIOdoleW38KGWX1dHC1Equ4JsMydQOBZjg7M3TYVJp1edaOFz8bEU8W0lZLkI0HLvbZoEL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506947; c=relaxed/simple;
-	bh=cB2vOu8SCkke832JTEkB7KTN21438Mvph7EGHh8hGh0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cgm1eKe2iMwFs70+rOmnIdS1TrFYc+ED50Wc+hZgvkHCxiw1ttSWhuptDTYWVw8v/t5VEm1k/BzLj+1g5/GLSWFtnxu3vsjrNyVq3g/fO240qKQrHAkCDHDENYrwMI4kTq24VfDq9sBJk0AjnOPwXlG6PShwJudZtRvK5mv9S/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=DUW8aNf2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ps7OgllX; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
+	s=arc-20240116; t=1789506967; c=relaxed/simple;
+	bh=aGntX6w8kluabbFMMzhP3I9EzAtyYA295B8Ixh1KU2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=spSj84ItW+WJMLdhOWmGSD9sWQsoXjuHgrTwO8BI6qQU2C6cdibjjjRtis3vl+d1vqnGgvafzq5nNfZbkqnzFwHwcEC1XTg1N6VxPQe9C3aeaVk476S6uDGi/zAZfXrdUtMl8nttshfEBltbqarRy7iN21Q/zXCxuCHcXTAYI8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qb1kbmC9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="DUW8aNf2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ps7OgllX"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 52317EC07D8;
-	Tue, 15 Sep 2026 17:15:44 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 15 Sep 2026 17:15:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1789506944; x=1789593344; bh=C97HYBalGs
-	NCZXhkZbNbxgbXvtevHKoKbIlgLMz3x2E=; b=DUW8aNf2UWhr5Xl7IXYV5bv8Eo
-	ifHVde9p2lndgdTS7AvF2c8NTuOKHzLDDPpNt9JJiu3IKXmQ3VbJ+VDpauoVpVQV
-	Gb2dsvyB0JvUwxAu2TDTzfv3ln7uDS7MUtIynQBsJcWeNtZj+ozLh+sd1LT9JFAc
-	fa6tgJiyeGx8Y9Uj9XNr4Fy91RM6uJ7vl0L/FxN2gXGKmVzdv0mtZtD4Mty4w8Df
-	jKPcD9WxhClHlElRMpPDsArsXiXdhMrbWeMh6FSZK8rtXTW0q7yV9YrKnnFQYm6s
-	1bjB4J/KKPXfEmWLteIwu1AHB4xaf18FpExxMow3rLxeI/MHoTYtowmbmnVg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789506944; x=
-	1789593344; bh=C97HYBalGsNCZXhkZbNbxgbXvtevHKoKbIlgLMz3x2E=; b=P
-	s7OgllXhwyIHyQfXr7a5Ib8gESIfrwRm/IDgL8p4d8V2FuWt5SbOJyR2wKXkdnlP
-	3rB7abvWC0OwLeGqGuNbIRlmmu3pB5IwbgzsJKyLfd/iLW8Iq1ob5N2L2tL8c1nn
-	dmjyFk7+HXSFYcX09oAMmzlkKqPzuCiqK21xgzPz15bBU01ZhO8LlkF415hGqxk2
-	L/9nIt8mZh/gHwPpTiuzC6CeO1tshYWL5ItLb0xUeJ0cQkmyJJQAxgaE+vvZzyUz
-	xE9eLzzoUSzkJ3l1CJRLiJyajBDQf/Knjfh3wK5I8ZmzSymlXbsJvSLNbdThCTu+
-	UOgPSRZNMzT5kGcir4Uuw==
-X-ME-Sender: <xms:f7WpagoZFbQiVF9QMQHHBQ7XwsS8ekjLAWNSSE2N-FfSxZBcbjasKQ>
-    <xme:f7WpanFbVHT9lvwsKJ89Vq-9CD83h9Us3RYy-6UknY0or0btjWdQ2tqll2HZIFQSc
-    y2O7_WSCnOukc3mL5xckmSkY9RAe0kKarmhKTdoaQArVKWclR5->
-X-ME-Received: <xmr:f7Wpal5xRWUZL2cps2E4vamZQ6dgPGRdgDcl09-uo10ynv0cC4E55jP6vtWFhV-bOm6caYSQ0_DDlL2fpuON8TWavddswA2l6A>
-X-ME-Proxy-Cause: dmFkZTFaZBlKXrQ3RAdCqzhwYVRj9tUqA33278D0sbjZjCo5mHBj8KO3wGudGXYUi5j8gb
-    3UM5JjJTBnou2L2pvhuLlqPRFX2ELepnvCv9OpDEX+aIW+baWI1Akf6Bn+HNCOKwBMope2
-    qX70AQ/pOgrQXBHONaEujRHOUVUkk5C3MHngtUjnltCMlBnv2ESbH9WDQdbyjOBXXFg8/B
-    04ae3X1RO32NTPvlLVp6jo0nctrfIrHbAMmWui/ldCvB5bxgMDdHjTTO4N51/XHxuEaHwt
-    llvFneQrcJo3b4eKBGpf/7RhIrxh9+72WS7zK0e5CbLDDmUtGTejfqcOEKFlcgl3csMLj/
-    W/bKWTLNXgYLRa0oz2eKq/rvlb94E+mMiTCJ4gZAjD8cCEsNeKhBKVPKn2oabbLnYdPBHS
-    JnVMxdX3/VZ+9q9HBhAniFVQhtDan1+OxUBz5uCW9bZvb5YC3AFLm/4R16PCl1G2XmNcqX
-    6SHDh3Q/sjzjcDBXvmigAEHu6G+efbAf2Ey378sH/9AJkwCewCYcClR3TKAa0sr0ygPzkm
-    G4Qes8A7hKYBOioCpZinOGyfqmyC22B0oHTT3E6mJiWG1rRrcS6oGEG6fL03O7FS6L7wsj
-    d913k9WD2tvq9jyzBvQmU9G7E/Ly9TEthA8sD3VoXLBEoJ709k2O0Jomytxw
-X-ME-Proxy: <xmx:f7Wpavef3wAXeJXh4HzSaOPq2yJPi8NNkQ6XQh9pzmk-hL7LtmgnRQ>
-    <xmx:f7Wpag4_SWYW2yE6mBpqXRObDJJerkdZZdPtKiK4f_ujVtsUO5q8_Q>
-    <xmx:f7Wpak9uM9FnTTec0SVyqo4CynVvmolpDkqi4OfOeH4smnsf2NKm2w>
-    <xmx:f7WpaqHJ8tYP6qrn0D3OV0z5Q16R7liGTKCjR1BECJdyhEXJ47bsMg>
-    <xmx:gLWpanm871F2Os2jLU2qGEd4w1XtcgwvVEFJb31IrDKMY6dtL7eTc7GP>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 17:15:41 -0400 (EDT)
-Message-ID: <579d804b-d548-4c8d-8350-e1e181a612ae@invisiblethingslab.com>
-Date: Tue, 15 Sep 2026 18:15:38 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qb1kbmC9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3D11F000FF;
+	Tue, 15 Sep 2026 21:16:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789506965;
+	bh=Dt5qo0fyrir/Ya9vzhG5+FUOK66K1vdNIl09fWEfOY0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Qb1kbmC9lZ2gnrmOyrYEi9NP6V2XzWeOxOwRxRXwwIRJlrjGeL4HgrPN2QeVN13Ey
+	 f79nxREhK51NQd717NzgrfBqxIP7NdHtd6Z3+4tTjy874R0IC1DOxPygHThpnu/uzW
+	 KBvAkYYAOrogfPvrqhMWacUiynlb9e0si03ruHL4VBEqqxFDuXUvqXvBNDRhjUqJPt
+	 1T3vwLDA00tYZ1Nz8j5SorN/34LBomvh+g8OvL4P3dD+mpFb6lZY1q8yuoDMLDe/Tp
+	 OinBf014ulgfHnUsHXIUcciOuyAfsejdLjuiBiwEG3ho3/1re+VXpisWyhN69Ki39r
+	 bFCfT7WBsQG3A==
+From: Arnd Bergmann <arnd@kernel.org>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] [net-next v3] net: remove ndo_do_ioctl handler
+Date: Tue, 15 Sep 2026 23:14:04 +0200
+Message-ID: <20260915211538.1519815-2-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915211538.1519815-1-arnd@kernel.org>
+References: <20260915211538.1519815-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] Revert "drm/virtio: Allow importing prime buffers when
- 3D is enabled"
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Yiwei Zhang <zzyiwei@gmail.com>
-References: <20260911144204.2089401-1-dmitry.osipenko@collabora.com>
-Content-Language: en-US
-From: Val Packett <val@invisiblethingslab.com>
-Autocrypt: addr=val@invisiblethingslab.com; keydata=
- xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
- jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
- NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
- OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
- Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
- pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
- nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
- dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
- d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
- aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
- /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
- UDOwAqdfvuF3w8QMPw==
-In-Reply-To: <20260911144204.2089401-1-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Arnd Bergmann <arnd@arndb.de>
 
-On 9/11/26 11:42 AM, Dmitry Osipenko wrote:
-> Guest userspace may import udmabuf to vrend. Vrend doesn't support guest
-> blobs, and thus, further 3d operations with the imported blob are failing.
-> Typical scenario of the problem shown with mouse cursor RGBA image imported
-> into virtio-gpu, which previously was rejected by virtio-gpu driver.
-> Revert enabling guest blobs importing into vrend to fix the regression.
->
-> Link: https://gitlab.freedesktop.org/virgl/virglrenderer/-/work_items/674
-> Fixes: df4dc947c46b ("drm/virtio: Allow importing prime buffers when 3D is enabled")
-> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> ---
->   drivers/gpu/drm/virtio/virtgpu_prime.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> index 149e6bcb5878..ebf471044d06 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> @@ -349,7 +349,7 @@ struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
->   		}
->   	}
->   
-> -	if (!vgdev->has_resource_blob)
-> +	if (!vgdev->has_resource_blob || vgdev->has_virgl_3d)
->   		return drm_gem_prime_import(dev, buf);
->   
->   	bo = kzalloc_obj(*bo);
+All of the references to the callback pointer are gone, so remove the
+pointer itself before we grow new references to it.
 
-Oops, right, didn't think the back-compat issues all the way through on 
-that one..
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ Documentation/networking/netdevices.rst | 7 -------
+ include/linux/netdevice.h               | 7 -------
+ 2 files changed, 14 deletions(-)
 
-Reviewed-by: Val Packett <val@invisiblethingslab.com>
-
-
-BTW, to clarify wrt the original use case this was intended for— I got 
-it all working, but it adds new feature flags:
-
-https://lore.kernel.org/virtio-comment/20260903021442.423274-1-val@invisiblethingslab.com/
-
-So I'll "unlock" this again in new patches but not unconditionally of 
-course. Rather, gated on the new F_CREATE_GUEST_HANDLE flag which would 
-indicate that the device backend *does* support creating guest blobs 
-with host handles (dmabufs).
-
-
-Thanks,
-~val
+diff --git a/Documentation/networking/netdevices.rst b/Documentation/networking/netdevices.rst
+index aac33497813f..6a87f09e7015 100644
+--- a/Documentation/networking/netdevices.rst
++++ b/Documentation/networking/netdevices.rst
+@@ -222,13 +222,6 @@ ndo_stop:
+ 	Context: process
+ 	Note: netif_running() is guaranteed false
+ 
+-ndo_do_ioctl:
+-	Synchronization: rtnl_lock() semaphore.
+-
+-	This is only called by network subsystems internally,
+-	not by user space calling ioctl as it was in before
+-	linux-5.14.
+-
+ ndo_siocbond:
+ 	Synchronization: rtnl_lock() semaphore. In addition, netdev instance
+ 	lock if the driver implements queue management or shaper API.
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 707b2e51c2b9..da388cfdc1f2 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -1154,11 +1154,6 @@ struct netdev_net_notifier {
+  * int (*ndo_validate_addr)(struct net_device *dev);
+  *	Test if Media Access Control address is valid for the device.
+  *
+- * int (*ndo_do_ioctl)(struct net_device *dev, struct ifreq *ifr, int cmd);
+- *	Old-style ioctl entry point. This is used internally by the
+- *	ieee802154 subsystem but is no longer called by the device
+- *	ioctl handler.
+- *
+  * int (*ndo_siocbond)(struct net_device *dev, struct ifreq *ifr, int cmd);
+  *	Used by the bonding driver for its device specific ioctls:
+  *	SIOCBONDENSLAVE, SIOCBONDRELEASE, SIOCBONDSETHWADDR, SIOCBONDCHANGEACTIVE,
+@@ -1480,8 +1475,6 @@ struct net_device_ops {
+ 	int			(*ndo_set_mac_address)(struct net_device *dev,
+ 						       void *addr);
+ 	int			(*ndo_validate_addr)(struct net_device *dev);
+-	int			(*ndo_do_ioctl)(struct net_device *dev,
+-					        struct ifreq *ifr, int cmd);
+ 	int			(*ndo_eth_ioctl)(struct net_device *dev,
+ 						 struct ifreq *ifr, int cmd);
+ 	int			(*ndo_siocbond)(struct net_device *dev,
+-- 
+2.53.0
 
