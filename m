@@ -1,250 +1,73 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E0F485501
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145973921DE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470700; cv=none; b=dtzY4hy18caw27PcgDhlA3LJ7aEF4wkaVfDoGGniJlTPWZ8QXLKf+1GWcDV1y4zW3b9Nk8tYsinuDXsw1CXs31WGuW9CGdAZ3b0ZXK8kJ+Pf3qJXqRkYPv28LInLyRiXZ/DHiyh1J70EJXMfT/xorC2xJ1J0UPhG0547BL30nUs=
+	t=1789470786; cv=none; b=Bxs87qFuT4W1u3gtLaps88rCBXK1NDHNIoDE7eDPFXIKaWJlkPs3U3Wo8gcMaEJYfqWvvlH+Eu3MJYQ7XhOJIPhahgjwPv4/0Q0njPmOWeHwCrof8H8bziFBFbGH6i/gKFgyluG3n4gKr5KbH/Lwn/A9Q8DYd+Zm9d3w3kMkSVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470700; c=relaxed/simple;
-	bh=DHpCLSJC7pl3RCMJfd71Cl2q/KwysooUKUQlgFsLhes=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pmSMw9k9CqA+Ds+MR9R/r8H6dboiyK3cw3uihgxFpg9gp5aCfdydeAamj5dG4mRCAdvAq6rw/+/qHxrKqm5yMjWKu4CIJDs0Z8FninibOz01jgWc36vkOqyBnomGPnDeQ/HfwAH9ZW7TGkU3QnyaJWhvcR11wwOAtdc1jfm64Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iPDjBtd6; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iPDjBtd6"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7355e411so23081445e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:11:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789470696; x=1790075496; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MLBbtif5YejFjj+3Ug6G1Fl4ObZO4HNvoqv00SoxZyg=;
-        b=iPDjBtd69Xg/1I2/rRhpgGmyxm3NPQnJpwWFdn/OGJ/h6x61BTzZi4QZ1AVJJHeQj3
-         L9qIlc8bRettpIpqZSijN02chBOjVXLfU0D9PrNe5lmUQPkPhA+bFBjUUpGqCkeXCvpJ
-         proPlwNMLIyNiQ4xvSvtls5cBvFHdO++qu/a6xaGDXcYvIekYRyPKq+mEK0dlKyo1UX8
-         xVK2u92vzokhi9Xqu8DnjWx/Ho0VuhT5QA8XxTLAp+GR4mvxitqRXAAgvmBHF8PInzsT
-         r8Tc2SF4LjiwLko2pIQikUo4bIxXgR9T1LVU+dlN70wWQX+xcfYNUiRLjWQov86Xcbhf
-         6kTQ==
+	s=arc-20240116; t=1789470786; c=relaxed/simple;
+	bh=9cXrit1kfcbJSrZtKyz+gstEEfVMByvk6L/z7kbpuRY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=LVXpYBuJZeqedKmfhd4PTbwTClbySMyKDVAAz3dc5gPMhjjrwKGrCewg0tEWespm4mYNyHJPToh+GoQUuRnXwFOWRdTYReq9XjYW/RxR3sgsLWL2ciEEsbzS+TM1n6nCf0xdvHJIkrDdunafgtFsg7hSJfO9aQ+ETJWpaPq5y2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6c1e5079d43so3812271eaf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:13:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789470696; x=1790075496;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MLBbtif5YejFjj+3Ug6G1Fl4ObZO4HNvoqv00SoxZyg=;
-        b=KzbwHp5/tPBBHhWeytnM2bJWK+3ueeMpI3gcG5UwhuIp+q+Y+pDLMxgg6Ztbxz9SdZ
-         FK0v7k7e+9jnTVh8frGssSc6/16yZsEkn2jeCpe3a8a29QsZOkBNmyLDGH9ZycvoKWid
-         L15cTjJ7YYy9ibk++bgeOWg3+Wi5UEGK0wQGKLLg28xbUXqyQQPik8jbP07Wb9ee6vCa
-         wwfeC5UT/HSgpdFMcrSYrm1KHcE2jndrYd/Vm4GVuiddQ+fpiMLCnAd4a0lj/FJxNnbl
-         DmpxgOIJDU66zTtFeRIvUqiBaM7oXtlgUos1ohLnt1GwhsVy1giHdhJu4UgOe07xpBPe
-         0gGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwkA8jXGFq4kB6YpHLV9I+HaveSNqzQ4iECNCkK1Wxk1LpANgabHxZQP9sCZlIQoplxuUjJJTzQfcSxLY4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lF3dBXqa0J8u11xDrH7EGrbBtUeyHBiql8GAKkurIR1UQtnaoz
-	poWV+GV6NB8yH2QpLJ5cUfzROOcUI+0UUYcH7HxdCUn1Vbi2c2MNO1Ll
-X-Gm-Gg: AYBFou1jGc/3EAQ2zTEX3hT2WlN/QTzQHsfaKVuvEyoD461Jv4j6EpsHWCEpqWFSf51
-	3Uukz6uX2mw0som9V2SLuSH5lQ0LKkpA+8GVZQeeOM2fC/LKZL7xw+Szbc4/HgPhh1LVwAZTQCM
-	DLTKr/5qzfbO+EpGYaohYnvVf6wmKs6GknRiKU4PD3yzGPVAtMrBJCLrZyCpyBeorZX/WfgQFD9
-	9jCrYhUa2NTYVP09Ru7HunxztmyPUv8/zsTPvx5YVl6TUDTs1mXlP5E2cH5Bl4TCIzlid1qO3a2
-	nmQwYm19EqAh8VPwGN2OKTrl931Ykj7TANvbCxpRmz+vA+FCVpS/LTWDztXjDU3IB2lSwbI4X8D
-	nBFyLzcwl4S1FZ5AW7kdhQ5wqvjfXSwdWnNzf5O6fXMuNCqdBPFtRHZdQR9ynKKfZB50utZ+yv+
-	qjptrk1p7rUmSXGSO2dtI6e5ZBcgUVHdPwiLqycFqmPXZ6i6cvntOJBmdZ1XZL5KED8SQR8TGE1
-	vBLnHiyI0mtSR3MoPH5+aIml1kJmt1iiUfi
-X-Received: by 2002:a05:600c:3548:b0:49e:602a:b4ec with SMTP id 5b1f17b1804b1-49e7a656bf6mr137799465e9.8.1789470695669;
-        Tue, 15 Sep 2026 04:11:35 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e8249e3e8sm9658675e9.12.2026.09.15.04.11.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:11:35 -0700 (PDT)
-Date: Tue, 15 Sep 2026 12:11:33 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>, Will
- Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- linux-kernel@vger.kernel.org, Linus Torvalds
- <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
- Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 2/9] locking/osq_lock: Save the cpu number for
- 'prev' not the node address
-Message-ID: <20260915121133.7aaaed4a@pumpkin>
-In-Reply-To: <20260915102602.GC4121620@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
-	<20260907084133.3696-3-david.laight.linux@gmail.com>
-	<20260915083340.GY4121339@noisy.programming.kicks-ass.net>
-	<20260915102602.GC4121620@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        d=1e100.net; s=20260707; t=1789470784; x=1790075584;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fOaPb7/DHR4mx8YChgTzdptMApYKxvfnW91QbnVAxY0=;
+        b=BeE9NmThkhbTX7i3yvdLlBXFPu7P1k9nEaEh1ZbjsLAFHDRP96q4b6kbPGAdyBCIpS
+         hi+YKUTgwKWQv4Y7BEJGyX6w7T+HJsVnBXM3F2TtqdHOUTvO7rMAOTQ5zp175pEajvfq
+         tG1FzYtIwDas0y+whKyHxbITc/XUsQdvwfFXxw6hhcyvAEeVwMpzCyZ5XbAKl1dwUPzE
+         9RaxfpkZHCjPLcK0KCgO95kQOAeCHYvL7WH2+sgVeHRc3lvCSw1IfEy9wk7fx7conMiz
+         ALJWHAzlYqijQ9PYqcXd32uZvxK75gwjsvIDq5ic6sUu826kr3w3mtZxf968zbYsAyUp
+         r7cQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrpx6ptSmeIlKN0NOPh6rXyAE79FFKD4NTb6MxeHWdCseYdGzhABhJqGLtJSBC7g7sck7tF+EclWbjHTo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mctnUF311kDIaLjPCShv6SjXodRO6Brhk5RYkoJ8rnSNXqNB6q
+	i/giNz19TgSmAJswmxQmkvyT3CD6o+h2KGYNjo89uJ+lpMmnEtRhOpaIElB8muPK2OY3YEzmQxT
+	JpvCnzHT/15llhCM6jIORccXTYgmJPrsbMvmgL3Spp5A4iGacEcSrp/m4oQI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:a09:b0:6b1:c6d8:8358 with SMTP id
+ 006d021491bc7-6c541c4afddmr7411691eaf.22.1789470783851; Tue, 15 Sep 2026
+ 04:13:03 -0700 (PDT)
+Date: Tue, 15 Sep 2026 04:13:03 -0700
+In-Reply-To: <20260915034957.10332-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa9283f.f81106d8.2ab401.0062.GAE@google.com>
+Subject: Re: [syzbot] [ext4?] KASAN: use-after-free Read in
+ ext4_read_inline_data (2)
+From: syzbot <syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 15 Sep 2026 12:26:02 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
+Hello,
 
-> On Tue, Sep 15, 2026 at 10:33:40AM +0200, Peter Zijlstra wrote:
-> > On Mon, Sep 07, 2026 at 09:41:26AM +0100, David Laight wrote:  
-> > > The cpu number of node->prev is needed for both the vcpu_is_preempted()
-> > > test and to update lock->tail.
-> > > This saves reading the cache line for the other cpu's per-cpu data.
-> > > 
-> > > The cpu member of optimistic_spin_node is no longer needed.
-> > > 
-> > > Merges patches 2 and 3 from v3.
-> > > 
-> > > Signed-off-by: David Laight <david.laight.linux@gmail.com>
-> > > ---
-> > >  kernel/locking/osq_lock.c | 33 ++++++++++++++-------------------
-> > >  1 file changed, 14 insertions(+), 19 deletions(-)
-> > > 
-> > > diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
-> > > index b17aa704c449..01988d00c480 100644
-> > > --- a/kernel/locking/osq_lock.c
-> > > +++ b/kernel/locking/osq_lock.c
-> > > @@ -34,9 +34,9 @@
-> > >   */
-> > >  
-> > >  struct optimistic_spin_node {
-> > > -	struct optimistic_spin_node *next, *prev;
-> > > +	struct optimistic_spin_node *next;
-> > >  	int locked; /* 1 if lock acquired */
-> > > -	int cpu; /* encoded CPU # + 1 value */
-> > > +	int prev; /* CPU number offset by 1 */
-> > >  };
-> > >  
-> > >  static DEFINE_PER_CPU_SHARED_ALIGNED(struct optimistic_spin_node, osq_node);  
-> >   
-> > > @@ -114,13 +109,12 @@ osq_wait_next(struct optimistic_spin_queue *lock,
-> > >  bool osq_lock(struct optimistic_spin_queue *lock)
-> > >  {
-> > >  	struct optimistic_spin_node *node = this_cpu_ptr(&osq_node);
-> > > -	struct optimistic_spin_node *prev, *next;
-> > > +	struct optimistic_spin_node *prev_ptr, *next;
-> > >  	int curr = encode_cpu(smp_processor_id());
-> > > -	int old;
-> > > +	int prev;  
-> > 
-> > I'm not a fan in the asymmetry of the naming, that is very confusing at
-> > best.  
-> 
-> Maybe something like so?
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-I was trying to avoid changing lines that weren't affected by the patch.
-So I left the original variable names alone.
+Reported-by: syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com
+Tested-by: syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com
 
-Every time I come back to this code it makes my head hurt.
-Perhaps I should do an early patch to rename everything to this/prev/next_cpu/ptr
-(although maybe without the _ptr).
+Tested on:
 
-At one point I considered using OSQ_UNLOCKED_VAL (instead of 0) for
-node->prev/next_cpu but decided against it because it make the code
-even harder to read.
-I think it was added when the list tail was changed from a pointer to
-the cpu number to reduce its size - the value changed from NULL to 0.
-Having a non-zero initialiser (eg -1) is just asking for trouble!
+commit:         58785836 Merge tag 'nfsd-7.3-1' of git://git.kernel.or..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1610fdf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=085a394c92518a04fd09
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=14d27df9580000
 
-David
- 
-> 
-> ---
-> --- a/kernel/locking/osq_lock.c
-> +++ b/kernel/locking/osq_lock.c
-> @@ -34,9 +34,9 @@
->   */
->  
->  struct optimistic_spin_node {
-> -	struct optimistic_spin_node *next, *prev;
-> +	struct optimistic_spin_node *next;
->  	int locked; /* 1 if lock acquired */
-> -	int cpu; /* encoded CPU # + 1 value */
-> +	int prev_cpu; /* CPU number offset by 1 */
->  };
->  
->  static DEFINE_PER_CPU_SHARED_ALIGNED(struct optimistic_spin_node, osq_node);
-> @@ -50,11 +50,6 @@ static inline int encode_cpu(int cpu_nr)
->  	return cpu_nr + 1;
->  }
->  
-> -static inline int node_cpu(struct optimistic_spin_node *node)
-> -{
-> -	return node->cpu - 1;
-> -}
-> -
->  static inline struct optimistic_spin_node *decode_cpu(int encoded_cpu_val)
->  {
->  	int cpu_nr = encoded_cpu_val - 1;
-> @@ -116,11 +111,10 @@ bool osq_lock(struct optimistic_spin_que
->  	struct optimistic_spin_node *node = this_cpu_ptr(&osq_node);
->  	struct optimistic_spin_node *prev, *next;
->  	int curr = encode_cpu(smp_processor_id());
-> -	int old;
-> +	int prev_cpu;
->  
->  	node->locked = 0;
->  	node->next = NULL;
-> -	node->cpu = curr;
->  
->  	/*
->  	 * We need both ACQUIRE (pairs with corresponding RELEASE in
-> @@ -128,12 +122,12 @@ bool osq_lock(struct optimistic_spin_que
->  	 * the node fields we just initialised) semantics when updating
->  	 * the lock tail.
->  	 */
-> -	old = atomic_xchg(&lock->tail, curr);
-> -	if (old == OSQ_UNLOCKED_VAL)
-> +	prev_cpu = atomic_xchg(&lock->tail, curr);
-> +	if (prev_cpu == OSQ_UNLOCKED_VAL)
->  		return true;
->  
-> -	prev = decode_cpu(old);
-> -	node->prev = prev;
-> +	prev = decode_cpu(prev_cpu);
-> +	node->prev_cpu = prev_cpu;
->  
->  	/*
->  	 * osq_lock()			unqueue
-> @@ -165,7 +159,7 @@ bool osq_lock(struct optimistic_spin_que
->  	 * polling, be careful.
->  	 */
->  	if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() ||
-> -				  vcpu_is_preempted(node_cpu(node->prev))))
-> +				  vcpu_is_preempted(node->prev_cpu - 1)))
->  		return true;
->  
->  	/* unqueue */
-> @@ -200,7 +194,8 @@ bool osq_lock(struct optimistic_spin_que
->  		 * Or we race against a concurrent unqueue()'s step-B, in which
->  		 * case its step-C will write us a new @node->prev pointer.
->  		 */
-> -		prev = READ_ONCE(node->prev);
-> +		prev_cpu = READ_ONCE(node->prev_cpu);
-> +		prev = decode_cpu(prev_cpu);
->  	}
->  
->  	/*
-> @@ -210,7 +205,7 @@ bool osq_lock(struct optimistic_spin_que
->  	 * back to @prev.
->  	 */
->  
-> -	next = osq_wait_next(lock, node, prev->cpu);
-> +	next = osq_wait_next(lock, node, prev_cpu);
->  	if (!next)
->  		return false;
->  
-> @@ -222,7 +217,7 @@ bool osq_lock(struct optimistic_spin_que
->  	 * it will wait in Step-A.
->  	 */
->  
-> -	WRITE_ONCE(next->prev, prev);
-> +	WRITE_ONCE(next->prev_cpu, prev_cpu);
->  	WRITE_ONCE(prev->next, next);
->  
->  	return false;
-
+Note: testing is done by a robot and is best-effort only.
