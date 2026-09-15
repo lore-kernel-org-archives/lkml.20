@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9D7481233;
-	Tue, 15 Sep 2026 08:42:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA4847DD56;
+	Tue, 15 Sep 2026 08:42:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461743; cv=none; b=DM8mBSsb3Vd1UUB6KVl5Zs+d90CfXkCB42PF6R0qWxgNly5lJ5XjMzrrk2ovNFUZ2/2oJx3imzMpqaP0YfappSLEpP/a1bbGcpodD+hTV5MO8GsY0dwp5aWekM7TOkD8BddUBEU/SB2EXIpyq54LkuU9yyh+eKYerZ4CKA87qc4=
+	t=1789461743; cv=none; b=BwxlQnBshZF5+6uXhGDxOM0cTM7gihooW9K8HX6uxsJ0mdQ4W+zhO4eOa+Ol//6X0RTuZofupLl2GtZ07DONd8YGoT0kU1SXfycGRa7WcAh4cRblth1+e7GWKzHKw+AEfpAc6udEEb/cnz3lULg/b0xqj1LSWu8DGZSGuyTGP4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789461743; c=relaxed/simple;
-	bh=fTieI8NXtjf84c6bHqlL+x2GwkSSrjWo1eGphSfuE7k=;
+	bh=43A1BM9waMG6ewhWBGIC1XAm5wq/Dw6qxwtteFBu24Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r2aj8kbYGXJFtG8rJUcvLqoVyb9QjaS+fozwfwx5G9UmeiKo9eF+0zBtj2zxC4T53LhxLlUz2uAO74kanaZsF77OLA9nLq+FktkNx6+UGYuXy/GCnUDhi4hN9FwEysyhHFJJeziiZJR+oSWKLcsXh5xc6W4YPsbxG9YFXZoJvxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gFcdnO/9; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=d2QwBmghqzlBxA/fhofe9o09OMr3jcXkK0Pom+GguM9SqUZkfpnNzvQCqZKHMtg0ozQkeARmtQWNL8wjlrB3OWLYksiF/PKJNmaWevopY0pM3wF8AG4C6c8muGXplOtEJW/YPa2vk3pqsnxnSSwM0ss+hxi+wnO3JDRwQEMABrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YkFJ/15b; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gFcdnO/9"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YkFJ/15b"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789461737;
-	bh=fTieI8NXtjf84c6bHqlL+x2GwkSSrjWo1eGphSfuE7k=;
+	s=mail; t=1789461739;
+	bh=43A1BM9waMG6ewhWBGIC1XAm5wq/Dw6qxwtteFBu24Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gFcdnO/9Sni43ITNgywyZ8NzX+2O49XhxQ/QwaxM5QuC9LvxO7YLbreALrmbBCUIl
-	 Rw0HEztPkpcgaf8id3vQ1pusZ5qV+n7XimPyStoyEAFaaLbq2RXPJ70fctvm2kbiz9
-	 Gj0a4dySJlfFhpkbcFc5A+/Cnp0URkrn3oNXm7P3a4EtOetZwiDidXH8DeFFA1RdVr
-	 Uu+LGmrw0Vqnxk19/Zu4+f8g4BDPu0ycwcMvmG3u6dy/3RDFtK1AJJTBqIKSHKnArS
-	 HM6ZuF61G2VsXCcU7R5zx/FkJEtjOYNpRV/Gh1FRMcDCILKSXTHxV5P2xm52Q6VOvs
-	 5VuVKbI7Wg3LQ==
+	b=YkFJ/15bRhHTE3uiJHWxNrWwH3ueQHRC4QHhskffYYEybssCoqomdjV5mDQnwrxlk
+	 Gi3gRRKLV6YGf/pJQZy1V7Yg14TxIQzmr86rU02ZUm8aVtkIBvoW3Q4s/vATZ9hFNL
+	 CnnXbbx2OZTD197SKs3IigtpTDgOb6B5gASHTW6cdqLhfaKuCnWSjEn4j/9BZpZ58V
+	 ZgQbjBG6ER94HtVUCXAlzr7jTN+p2iNiZETvkWhCIgKeeu+58/OpooN7Jy9v82pf1D
+	 AeXKC6T4+at+oZYf2kYtMFNewUiB9Ri8MSZqksp3W9bpZpLMM+0cZkstx77CcNmmMG
+	 6F5ui1YCfzhBw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D44C217E10D8;
-	Tue, 15 Sep 2026 10:42:15 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C45A917E1054;
+	Tue, 15 Sep 2026 10:42:17 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -55,10 +55,11 @@ Cc: p.zabel@pengutronix.de,
 	kernel@collabora.com,
 	justin.yeh@mediatek.com,
 	jason-jh.lin@mediatek.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	CK Hu <ck.hu@mediatek.com>
-Subject: [PATCH v8 11/13] drm/mediatek: mtk_dsi: Enable PM Runtime on probe
-Date: Tue, 15 Sep 2026 10:41:46 +0200
-Message-ID: <20260915084148.11385-12-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v8 12/13] dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+Date: Tue, 15 Sep 2026 10:41:47 +0200
+Message-ID: <20260915084148.11385-13-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
 References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
@@ -70,36 +71,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enable PM Runtime at the end of mtk_dsi_probe() so that the
-mediatek-drm mtk_ddp_comp_power_on() function is able to do
-pm_runtime_resume_and_get() and, analogously, the function
-mtk_ddp_comp_power_off() to pm_runtime_put() for the DSI
-device.
+Multiple MediaTek SoCs have the Write DMA hardware in their Display
+Controller: add the missing compatibles for Dimensity 1200 (MT6893)
+and for Kompanio 500/520/820/1200 (MT8183/MT8186/MT8192/MT8195).
 
-This makes sure that the power domains for the DSI IP are
-turned on and off when necessary.
+Note that MT6893 is not compatible with MT8173 as it introduces
+support for destination addresses larger than 32 bits by adding
+one additional register for the upper 32 bits of the address.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../devicetree/bindings/display/mediatek/mediatek,wdma.yaml  | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index d930cb3c4d74..b668814b9200 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -1734,6 +1734,10 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+index 97d052b0fb61..c3ed867d058d 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+@@ -22,11 +22,16 @@ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - mediatek,mt6893-disp-wdma
+           - mediatek,mt8173-disp-wdma
+       - items:
+           - enum:
+               - mediatek,mt6795-disp-wdma
+               - mediatek,mt8167-disp-wdma
++              - mediatek,mt8183-disp-wdma
++              - mediatek,mt8186-disp-wdma
++              - mediatek,mt8192-disp-wdma
++              - mediatek,mt8195-disp-wdma
+           - const: mediatek,mt8173-disp-wdma
  
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
- 	ret = mipi_dsi_host_register(&dsi->host);
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+   reg:
 -- 
 2.55.0
 
