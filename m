@@ -1,108 +1,114 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22C1480979
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C7A483BC8;
+	Tue, 15 Sep 2026 11:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470384; cv=none; b=VouMsmdKgZO7Jp2xL7znoMqOK2vaYw990SpujQHennruSD8raUa9/D5ySl5sEwRiXb9hSqh+qpMvPH4Mrhabyii2ulwDEcdCNLtzp4fGLof+lQvRsO4XPY7lW5HJHq/fS79LDkA9W6fdVHgIClXt92Zb0Brs5cDLCZNTcMF50t0=
+	t=1789470396; cv=none; b=XL9OsrsKnpVmBA1sGUAnk5tf94cKEI8CZYZ/VinGMhgL2QvBcmLYZo24mGypnfOipJqb2OiIUoc/JR65OKxg/Xyt50ElqWb7K0qILR3D4QIXSXAlZmruC7R3XDsXBo+n0pZ97Hb597Ms+MwbQzWfoOg02KVP4nE3qBJUpATqJhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470384; c=relaxed/simple;
-	bh=SwGT1ue3NrclFz32IMmz/0KP1N54e49zdf/kxMLrg14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i75ha6e4kZZyf6tBWF3nSj+bTWwM0v9VIKZQhG0sh6/q8CRqM3yvNI5KxMS1SwU9ZnLLpXAw3G/CLgRdhJEDwazLbc/PwOQKgyz8PAbCf40CX0h2p95zZrjDcYCehoGh1ya/XSBkJf8wVAxGA7N/kje9xzps2tMUMmUnKhAcm0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=b842Xixv; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Osh64gYf; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789470396; c=relaxed/simple;
+	bh=V13g0+Uke6D4CA3CcJ2M/uZwFY+U6Dxry5wlbo/vs48=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aheKtz5mGSOhiPFVF9ku4vRVk6abyiIG/LXB0BQi3/jtAh2l71KAPqeAHwFfcyiRQLsLbSxiFoydYTI5AtgAJ4EQkhVlhzwvBF6ZcJa4QxMgXgFWQk7hVregdNQp6f6g7Lg8qLaCnentGjCm4Cn00iy1ycpD6ytP8FFPaDE2EcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnRqQJ3l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="b842Xixv";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Osh64gYf"
-Date: Tue, 15 Sep 2026 13:06:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789470380;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GgvYPDERGUDDD187+s+8fLXpvXru4u0gVBJ4Z7ZGolg=;
-	b=b842XixvxZd98TFOLVfl+ZDH4+riR5CQcPMdYTYd9QBbPA4xxEh6NLGQzG8bTKnVh9wi/w
-	VO2EKMH9VipabiGkG3bdpYuOlgLhszac49b0R+K2s0CsCfiFbYPPbDdidbT4TbWT6O0aEt
-	M/My6v+DVqd6yoPsoI/C4vVuBbIy0MwniK690amNXBZ38ilyBrTP+EKUWyWEsoD23FgfII
-	lY8wTQ/h2HO/EkSXxPd4nioXafxVQ7FpEVTMJDke2Th4+GfKQFCnuP4A3t2Bu8YVtPlH+x
-	qzEk4se3wFSKb65jwzljMK2K7DHCAi5hyeGjLuA+j7rDbfx6ypGVm8M11YnvZA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789470380;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GgvYPDERGUDDD187+s+8fLXpvXru4u0gVBJ4Z7ZGolg=;
-	b=Osh64gYfnu897wmyg8UiQnTNKrjRJt/FlB863OrDSC/7XosqS+XQu3Y+j0thYOXMOpkIm4
-	feu9fV1d9Jn2GeCw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Jann Horn <jannh@google.com>, Hyunwoo Kim <imv4bel@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
-	kernel list <linux-kernel@vger.kernel.org>
-Subject: Re: [BUG] futex: scheduling-while-atomic because nested vfork can
- break guard(private_hash)
-Message-ID: <20260915110619.Zp_jM61a@linutronix.de>
-References: <CAG48ez26PrUOb8er9TP1gWLsqVLU8TEDr+1Zs25fgH0++=zhUQ@mail.gmail.com>
- <20260911083639.GX776954@noisy.programming.kicks-ass.net>
- <20260911090447.GT788244@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnRqQJ3l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E4F1F000FF;
+	Tue, 15 Sep 2026 11:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789470394;
+	bh=Uvb5cxcO7eMkL843RdmqZjWRFbWi3Vw/jEhdtXm7mm8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hnRqQJ3luuJg20LS6BMVWqJJWDatC0RXOD49BI9u66fBvGejUqzjolS8YbWqtz14h
+	 ipvSB6KppLhnJsNNizkHBukfRwj1G3ZuRAsdy/pst6Nms7/tuDiS7bIsirFzsZqOyl
+	 VXwW1eWggV/yFn8t0GjNyAjZ2PQeFTyihgSSXw9vBivV9dCjTTmvzQW8s38h//niFN
+	 S36N5GHkD/0xV0LhB0k+MTZc6REumaGK0RVYFz08muHkThXgp5bfiM7yJb8Ep4lYh2
+	 TTxu47FeoOT2BerbisF1euvDg2QRhWe9C6/qUMavkw/byJBK76aBB6ROhf3jNAUHJo
+	 h6O9mjEKCyFyg==
+Message-ID: <7b6dd295-602c-488c-a3c0-b0fefc5c2cd2@kernel.org>
+Date: Tue, 15 Sep 2026 13:06:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911090447.GT788244@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: ov2735: fix power cleanup on remove
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+ Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260915085031.2331315-1-lgs201920130244@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260915085031.2331315-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-11 11:04:47 [+0200], Peter Zijlstra wrote:
-> So I can confirm that the below does in fact cure your testcase.
+On 15/09/2026 10:50, Guangshuo Li wrote:
+> ov2735_probe() explicitly powers on the sensor before enabling runtime
+> PM. The probe failure paths call ov2735_power_off(), but the remove path
+> does not perform the corresponding power-off operation.
 > 
-> Per commit: ee9dce44362b ("futex: Drop CLONE_THREAD requirement for private default hash alloc")
-> the reason for excluding vfork() was performance and thinking this
-> would/could not matter, which you've proven to be clearly false.
-> 
-> Thomas?
+> The managed runtime PM helpers only clean up the runtime PM state.
+> devm_pm_runtime_set_active_enabled() disables runtime PM and restores
+> the suspended state during device resource release, while
+> devm_pm_runtime_get_noresume() drops the runtime PM usage reference.
+> Neither helper invokes ov2735_power_off().
 
-in v2 I moved everything struct signal because the private hash should
-live there as per review. This explains the original check in
-need_futex_hash_allocate_default(). In v3 I moved to mm while the check
-remained unchanged.
+AGAIN, you send patch by one, instead of grouping them in a patchset.
+I already asked you to stop this and fix your workflow.
 
-The mm is cloned on CLONE_VM. Kernel threads don't get a private hash
-due to mm == NULL check in futex_hash_allocate_default() which was added
-in v4 with auto-resize.
+Please read submitting patches document.
 
-To get the whole magic to work, we need to create the private hash once
-the first "parallel" user is created, the first thread.
-Skipping it for CLONE_VFORK violates this. I don't see why we shouldn't
-do what you just suggested.
-
-> ---
->  kernel/fork.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 416758c8a3d4..bc32ea19099e 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -1996,9 +1996,9 @@ static bool need_futex_hash_allocate_default(u64 clone_flags)
->  {
->  	/*
->  	 * Allocate a default futex hash for any sibling that will
-> -	 * share the parent's mm, except vfork.
-> +	 * share the parent's mm.
->  	 */
-> -	return (clone_flags & (CLONE_VM | CLONE_VFORK)) == CLONE_VM;
-> +	return clone_flags & CLONE_VM;
->  }
->  
->  /*
-
-Sebastian
+Best regards,
+Krzysztof
