@@ -1,149 +1,123 @@
-Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
+Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A493B44A3F8
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.236
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6409343CEDD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:43:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501415; cv=none; b=QxSPsR1wMFVTVRN2waZSQR3phbQzNAISuH1JFEKQzkcsC9VfcqUwzDzfLHkoBAeUY9esnaL6jLTU9faKc5wdNqAcrOBJY7F5k4OJnesf6RGZllO6CC8lD97pIMoclX+Q3CaeX1AaKzMdkLM4FEVCuqLaBfbP5GP0WTKh2ciT1tU=
+	t=1789501415; cv=none; b=sngFMTytaz/j7Tlp7iCnIbidjELLTVTUWaY4a/zCKoXA3JPQmvbJBHatET6I7AE0zol/VcgK0+PX5oqa+Rg/M6urbUqDhzp0BLN3OTB/aJ1encFb7PlmKbKjvjfL/GOGWJHjaOwnyXw326tOzBYFrCdG/xzm0Lhq6EwsuapPnWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789501415; c=relaxed/simple;
-	bh=bejGejOi3XB0BD4iPs0eKkqgKaLzUvW7zzsFhINP+rQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FjsS3VdO2nqVB1pZJu45IS+OO/ZZDB1LW307BRE2Q23C8mjIkG6oD28ubNqVuOYnPV/k42V8RNLp0YZ1eFbyrK2jul2Z9L1tuw0Ms+XYqWfjWK9Ucn9m+Ita4QjsdcmE57zs4/AF0GQzTDoY/mJhsfXJeJX20jYk/LxivHbjCwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mzarfBSs; arc=none smtp.client-ip=91.218.175.236
+	bh=kqtv/2VwyzcGajyJF4+6+waY4Kr0pfKWR/tdU0S+w7o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qYcH44EsLlMay7TdkLC+I2HE84M8AN2sy/rcmAv1pk5OnkGMknex4SQVF3gXowxiRKuQWVwzBNbfT+9uIJ4M9dYEZ0W9ZB/WyuEUgWNsoHu7d3YiVyvYY5E706Ny4KXNMHePNJlm6R38TbmzLNEjEQj/o5aUdnX0XH1sz3uGnoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HMeAoDdh; arc=none smtp.client-ip=91.218.175.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mzarfBSs"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HMeAoDdh"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bejGejOi3XB0BD4iPs0eKkqgKaLzUvW7zzsFhINP+rQ=;
+DKIM-Signature: a=rsa-sha256; bh=kqtv/2VwyzcGajyJF4+6+waY4Kr0pfKWR/tdU0S+w7o=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789501411; v=1; x=1790106211;
- b=mzarfBSsurAgX+9ZPBZ1JsfY3ss/8IUE855sjmGmGZBl0u6bDhXt4QldIFhKgJV7GrQj3BwV
- E2MMtuk8L4bxaDuxj+Pjr4hseAaTQL1zce/Qpu8F0lN+QsGwZsGzEoRvdtDKw76DH+A8zO3kq1i
- PFANYhFACPLGA+CZYtHZx320=
+ t=1789501410; v=1; x=1790106210;
+ b=HMeAoDdh7OKRIW8IL6MV3DsAi9DZuQpfHITqkcnrVTJmmMie+Jxn7ye3jSmE7ucQOZPFHV8U
+ fpdYjtQBB2/kBUpfG7fjk4JFeCqe4auAeexWuvy/bpChE/dXtpf4Q0n94NCHQjZqBJVzlLUFidH
+ 9wfeG+ZBwAMJb7x/pMaKauVg=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 42a97ccdf7443d1a;
-	Tue, 15 Sep 2026 19:43:31 +0000
-X-Mizu-Trace-ID: 42a97ccdf7443d1a
+Received: by smtp.migadu.com with ESMTPS id 18a50799a8a562de;
+	Tue, 15 Sep 2026 19:43:30 +0000
+X-Mizu-Trace-ID: 18a50799a8a562de
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <f4512c6a-8ae3-4cb2-8a50-c2b1d2b55e53@linux.dev>
-Date: Tue, 15 Sep 2026 21:43:30 +0200
+Date: Tue, 15 Sep 2026 21:43:24 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 10/10] media: i2c: ov9282: clamp flash_duration default
+ to its maximum
+Message-ID: <aqmfvIyVMxLdAaQw@bombadil>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
+ <CAPY8ntDWF53Zv1yspiYH29TWEUODW1PPU4dcBig-ssa-e15jPw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] platform/x86: asus-wmi: Add mute LED support
-To: patryk.dankow@protonmail.com, platform-driver-x86@vger.kernel.org
-Cc: corentin.chary@gmail.com, luke@ljones.dev, hansg@kernel.org,
- ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org
-References: <20260915174110.67871-1-patryk.dankow@protonmail.com>
- <20260915174110.67871-2-patryk.dankow@protonmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <20260915174110.67871-2-patryk.dankow@protonmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntDWF53Zv1yspiYH29TWEUODW1PPU4dcBig-ssa-e15jPw@mail.gmail.com>
 
+Hi Dave,
 
-On 9/15/26 19:41, patryk.dankow@protonmail.com wrote:
-> From: Patryk Dańków <patryk.dankow@protonmail.com>
->
-> Add support for WMI device 0x0004001c and register it as the
-> platform::mute LED using the audio-mute trigger.
->
-> The device ID is present in the PM3406CKA DSDT and is also used
-> by GHelper for controlling the same LED.
->
-> Tested on ASUS ExpertBook PM3406CKA.
-Hi Patryk,
+thanks for your feedback!
 
-Thank you for this! I haven't received the 2/2 but I saw it on lore,
-please next time also send to me :)
+On Tue, Sep 15, 2026 at 04:09:13PM +0100, Dave Stevenson wrote:
+> "media: i2c: ov9282: clamp flash_duration default to its maximum"
+> took me a moment to parse as to be the control maximum, not the default maximum.
+> "clamp flash_duration default to valid range"?
 
-Also I think that since this is a cross-subsystem patchset you
-are supposed to send the patchset as a whole to both
-lists.
+Sure. That makes sense. I will adapt the patch title accordingly in v2.
 
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
-> Signed-off-by: Patryk Dańków <patryk.dankow@protonmail.com>
-> ---
->  drivers/platform/x86/asus-wmi.c            | 26 +++++++++++++++++++++-
->  include/linux/platform_data/x86/asus-wmi.h |  1 +
->  2 files changed, 26 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-> index a65090429ca7..d7c100dc2020 100644
-> --- a/drivers/platform/x86/asus-wmi.c
-> +++ b/drivers/platform/x86/asus-wmi.c
-> @@ -262,6 +262,7 @@ struct asus_wmi {
->  	struct led_classdev lightbar_led;
->  	int lightbar_led_wk;
->  	struct led_classdev micmute_led;
-> +	struct led_classdev mute_led;
->  	struct led_classdev camera_led;
->  	struct workqueue_struct *led_workqueue;
->  	struct work_struct tpd_led_work;
-> @@ -2054,6 +2055,16 @@ static int micmute_led_set(struct led_classdev *led_cdev,
->  	return err < 0 ? err : 0;
->  }
->  
-> +static int mute_led_set(struct led_classdev *led_cdev,
-> +			enum led_brightness brightness)
-> +{
-> +	int state = brightness != LED_OFF;
-> +	int err;
-> +
-> +	err = asus_wmi_set_devstate(ASUS_WMI_DEVID_MUTE_LED, state, NULL);
-> +	return err < 0 ? err : 0;
-> +}
-> +
->  static enum led_brightness camera_led_get(struct led_classdev *led_cdev)
->  {
->  	struct asus_wmi *asus;
-> @@ -2084,6 +2095,7 @@ static void asus_wmi_led_exit(struct asus_wmi *asus)
->  	led_classdev_unregister(&asus->wlan_led);
->  	led_classdev_unregister(&asus->lightbar_led);
->  	led_classdev_unregister(&asus->micmute_led);
-> +	led_classdev_unregister(&asus->mute_led);
->  	led_classdev_unregister(&asus->camera_led);
->  
->  	if (asus->led_workqueue)
-> @@ -2176,7 +2188,19 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
->  		asus->micmute_led.default_trigger = "audio-micmute";
->  
->  		rv = led_classdev_register(&asus->platform_device->dev,
-> -						&asus->micmute_led);
-> +					   &asus->micmute_led);
-> +		if (rv)
-> +			goto error;
-> +	}
-> +
-> +	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MUTE_LED)) {
-> +		asus->mute_led.name = "platform::mute";
-> +		asus->mute_led.max_brightness = 1;
-> +		asus->mute_led.brightness_set_blocking = mute_led_set;
-> +		asus->mute_led.default_trigger = "audio-mute";
-> +
-> +		rv = led_classdev_register(&asus->platform_device->dev,
-> +					   &asus->mute_led);
->  		if (rv)
->  			goto error;
->  	}
-> diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
-> index b5ed8c83ace1..3810c4a0da23 100644
-> --- a/include/linux/platform_data/x86/asus-wmi.h
-> +++ b/include/linux/platform_data/x86/asus-wmi.h
-> @@ -54,6 +54,7 @@
->  #define ASUS_WMI_DEVID_LED5		0x00020015
->  #define ASUS_WMI_DEVID_LED6		0x00020016
->  #define ASUS_WMI_DEVID_MICMUTE_LED		0x00040017
-> +#define ASUS_WMI_DEVID_MUTE_LED	0x0004001C
->  
->  /* Disable Camera LED */
->  #define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on (unused) */
+regards;rl
+
+> 
+> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> <richard.leitner@linux.dev> wrote:
+> >
+> > Currently the OV9282_STROBE_FRAME_SPAN_DEFAULT is always passed as default
+> > to the flash_duration v4l2 control, where the maximum is dynamically
+> > changed. This may lead to situations where the default is above the
+> > maximum.
+> >
+> > Fix this by setting the maximum value as default when
+> > OV9282_STROBE_FRAME_SPAN_DEFAULT is above the maximum value.
+> >
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> 
+> With or without that changed:
+> Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> 
+> > ---
+> >  drivers/media/i2c/ov9282.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > index be38ecfad8c82..1c5bed85781ce 100644
+> > --- a/drivers/media/i2c/ov9282.c
+> > +++ b/drivers/media/i2c/ov9282.c
+> > @@ -11,6 +11,7 @@
+> >  #include <linux/i2c.h>
+> >  #include <linux/math.h>
+> >  #include <linux/math64.h>
+> > +#include <linux/minmax.h>
+> >  #include <linux/module.h>
+> >  #include <linux/pm_runtime.h>
+> >  #include <linux/regmap.h>
+> > @@ -556,12 +557,15 @@ static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+> >         u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> >         u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+> >         u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
+> > +       u32 fd_default;
+> >
+> >         if (fd_max_us < exposure_us)
+> >                 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+> >
+> > +       fd_default = min_t(u32, OV9282_STROBE_FRAME_SPAN_DEFAULT, fd_max_us);
+> > +
+> >         return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
+> > -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> > +                                       1, fd_default);
+> >  }
+> >
+> >  /**
+> >
+> > --
+> > 2.53.0
+> >
+> >
