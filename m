@@ -1,221 +1,174 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA1143DEA1;
-	Tue, 15 Sep 2026 19:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86E34BA1C0;
+	Tue, 15 Sep 2026 19:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789500057; cv=none; b=ZT+Wm4xYXt1P3PCUnYghvHPSO2BD9cnfJHekFTI386YrWIWSfo+e/HQ+QpxyTeLiAihelcHyUPN7+0i8y4pJGqoyVduSaQZGlF3whUS8Olas8QRvotWL4IW4IhCO7O3IRUNo+ft2x0Vhhm0kt1Vncjd/sH/tkv+tpv/1p0DZ0KQ=
+	t=1789500224; cv=none; b=TwDVbi7v8SVEsE58no7ZRZFSbGA0Or3fPgS3cnmaD6Rh8r3GjUQqBt+X0aAT+uQ60Prvm8UTZuuu1Gp/6QMeyEiWYs/hz4+sfZA8uhLXsJnqG+0m/arTUEJHelAQexxMQPKUpVGZtW1uDINxUabduhrk0I5VwgvrUaJuO5wP8wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789500057; c=relaxed/simple;
-	bh=3dYTqMTOtv3m5K5bwYPMulkTKBm7xa4wYqkVVTqK4qQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a86tinHE+gvNQXQLL7kMhce2RZrLYWO33nJEEDP524gnLm9jD/qIiI3Bw8fAIEzzHwFIEUXPuBaM/nK19asRABdArbamqV2TbeYkMGg1U7LWo1YE0+gBlV6+FacTKl5FkCam7Q1uXah6RFd656HRzzEf2C8/ereaGIG4v6m+7yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=lbVTw9wb; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1789500224; c=relaxed/simple;
+	bh=1MIevAfHM5K5iw332pB8+Y9zFGyDX9IH2psKfT5c5b4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=h5RJejj7Am3mBjHyjUllDw41Mbi4EjHx7L7YxEu2rwwwE47beA1Cddu3DDBqD04s+SH/NRvuK+4LlrKbhJ0vxxyVtLmOoCcyT4FG0KqgNh5sETW/qfP8RTtlj1ztQMLKVAygtirxcPG8A61RJHEB5oIQP3CvdXUbnwyNLsKYS10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d72voMF7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="lbVTw9wb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1789500045; x=1790104845; i=w_armin@gmx.de;
-	bh=PPuFUINuhV/rG1wnVX8mHFYWiFz98IZCHupfwMFolm8=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=lbVTw9wbyX2NDL+nMPkPRqbIqQkdTCDsU1HF4oBQvqVU9ncdvu4QXtUzygtPVht6
-	 nnWZVQFsOSOVChsxcaRFe21yLfmcoqYHetcURbVZ3Smjye+ZWzgBj9Mxe+fTDyjBO
-	 6N3OY0bARFIE+whzSTxGksaUz6mmpdRxzRN3bSy5vRpHjej/NUHywjAb43bYaNR0O
-	 QHENFtJAsxRJO9d4hZvkp+qgfozXhq+IY1z0haPCCsVru3KTqbRR1lEQi+DXwBP6s
-	 hB3Krk8y4u8O3RwEhvAmNBRHnNXZM09JR2TBHE8DnvGS1lw+62K4HBjmC+d0ryBrI
-	 bNfm2AXiFVoIuTj7RQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mqb1W-1wSqBZ09Ee-00oqQe; Tue, 15
- Sep 2026 21:20:45 +0200
-Message-ID: <77b1542a-5f3d-4d8f-bf97-67e2c2805927@gmx.de>
-Date: Tue, 15 Sep 2026 21:20:43 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d72voMF7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2781F000FF;
+	Tue, 15 Sep 2026 19:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789500222;
+	bh=P2knxmIitZ0itXJwlI3/QX3icsplTeO1zg3vhlKYQ4w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=d72voMF78l8B/VnCZENezTakU91AfHZsX/s9y6g5X3e1G+Jy+ngmxZDU/tWwRMT0P
+	 QX+5AMs2Tsz35v4GT/WwfhOHv7X7+Yv0cOLMHMB5Zh+0uq9pI5BZ7/ds5wXiIdiLbi
+	 WB6bPNGs1ELDOQ4Axd8btOwdZ36qrYD5yhGvUVD3RpsdLYyx9vpRIN798A5mYqXRkP
+	 q28HXM51T5ZH/0tnR4t7kcw/Z4wdR0MsK/EvZ14udY1PN+yihLVz49O3/ZH3GkkFfD
+	 wl9z178glFG6ceUtT7k9tADKNx9WXFkMq4RX3M8gb6pMmStNBwR9YqeCnv/DwUL/nG
+	 xcvpNSdk83TuQ==
+Message-ID: <4bc95fa04f46b65a6ac6c494f008426571b7b873.camel@kernel.org>
+Subject: Re: [PATCH] nfsd: use xdr_encode_opaque_fixed for all GETXATTR
+ fragments
+From: Jeff Layton <jlayton@kernel.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Chuck Lever
+	 <chuck.lever@oracle.com>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Tue, 15 Sep 2026 15:23:40 -0400
+In-Reply-To: <20260915173902.3184534-1-qwe.aldo@gmail.com>
+References: <20260915173902.3184534-1-qwe.aldo@gmail.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 00/10] ACPI: thermal: Register thermal class cooling
- devices under parents
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede
- <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Linux PM <linux-pm@vger.kernel.org>, Lukasz Luba <lukasz.luba@arm.com>
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
- <951189ad-71b6-4776-8484-a207f1efe415@gmx.de>
- <CAJZ5v0gLWT4x44Vbruaf0cKWp0jPTkLuh0pLQ29_O5vfNC4q_A@mail.gmail.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <CAJZ5v0gLWT4x44Vbruaf0cKWp0jPTkLuh0pLQ29_O5vfNC4q_A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:pwNkncHwmr78olvv9wFxney+VYyEHmG2TGci576xDE5+P8w5q6z
- XzAAh23+U0sibBFUS1jqnBeL21p370IMb9RaeolQDjv9CO3wttFKhdzEyoynRvKBwE7QvqE
- 1K0Irnpv55vNk8KygnSWUrcKVv14Lj43IvGa6ie72CnfFTSG2qcxR/gfbjAhiWtd/Kja3kF
- PGvxfdLQj5Wi2WrAjM28A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ZXObKeBDjWQ=;T3kMKJYT3OZECq3G9+bBpcVKmD5
- 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
- 0n+NFYkXx2ejcWGYzDzKD+
 
-Am 12.09.26 um 15:34 schrieb Rafael J. Wysocki (Intel):
+On Tue, 2026-09-15 at 14:39 -0300, Aldo Ariel Panzardo wrote:
+> nfsd4_vbuf_to_stream() already uses xdr_encode_opaque_fixed() when the
+> final fragment is shorter than a page, but the preceding memcpy() in the
+> loop body does not clear XDR padding.
+>=20
+> When the last fragment happens to be exactly PAGE_SIZE the short-fragment
+> branch is never entered, and the loop exits through the normal buflen
+> path.  If that final page-sized reservation is not word-aligned within
+> the XDR stream, its padding bytes are left stale.
+>=20
+> Convert the loop memcpy to xdr_encode_opaque_fixed() and drop the now
+> redundant short-fragment padding block, matching the first-fragment fix.
+>=20
+> Suggested-by: Jeff Layton <jlayton@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>  fs/nfsd/nfs4xdr.c | 10 +---------
+>  1 file changed, 1 insertion(+), 9 deletions(-)
+>=20
+> diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+> index XXXXXXX..XXXXXXX 100644
+> --- a/fs/nfsd/nfs4xdr.c
+> +++ b/fs/nfsd/nfs4xdr.c
+> @@ -5963,15 +5963,7 @@ nfsd4_vbuf_to_stream(struct xdr_stream *xdr, char =
+*buf, u32 buflen)
+>  		if (!p)
+>  			return nfserr_resource;
+>=20
+> -		memcpy(p, buf, cplen);
+> -
+> -		if (cplen < PAGE_SIZE) {
+> -			/*
+> -			 * We're done, with a length that wasn't page
+> -			 * aligned, so possibly not word aligned. Pad
+> -			 * any trailing bytes with 0.
+> -			 */
+> -			xdr_encode_opaque_fixed(p, NULL, cplen);
+> -			break;
+> -		}
+> +		xdr_encode_opaque_fixed(p, buf, cplen);
+> +		if (cplen < PAGE_SIZE)
+> +			break;
+>=20
+>  		buflen -=3D PAGE_SIZE;
+>  		buf +=3D PAGE_SIZE;
+>=20
+> --
+> 2.43.0
 
-> On Fri, Sep 11, 2026 at 11:35=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wro=
-te:
->> Am 11.09.26 um 15:00 schrieb Rafael J. Wysocki:
->>
->>> Hi All,
->>>
->>> This series generally changes the way in which thermal class cooling d=
-evices
->>> are used by ACPI device drivers registering them (ACPI processor, ACPI=
- fan,
->>> and ACPI video) and by the ACPI thermal zone device driver.
->>>
->>> First, it causes the thermal class cooling devices to be registered un=
-der
->>> parents in specific locations within the device hierarchy which allows
->>> their relationships with other devices to be recognized more easily.  =
-It
->>> also drops custom sysfs attributes registered by the users of the ther=
-mal
->>> class cooling devices because they are not particularly useful any mor=
-e
->>> when those devices get proper parents.
->>>
->>> Second, it modifies the ACPI thermal zone device driver to use thermal=
- class
->>> cooling device parent information for binding cooling devices to trip =
-points
->>> in thermal zones, which was previously done with the help of the devda=
-ta
->>> pointers of the cooling devices and effectively prevented drivers from=
- using
->>> the devdata pointers for their own purposes as originally intended.
->>>
->>> Finally, it updates the ACPI processor and ACPI fan drivers to use the
->>> devdata pointers of thermal class cooling devices in a bit more effici=
-ent
->>> way.
->>>
->>> The first two patches in the series are preliminary fixes preventing
->>> Sashiko from reporting "pre-existing issues" in the subsequent patches=
-.
->>>
->>> The third patch is a thermal core update allowing thermal class coolin=
-g
->>> devices to be registered under proper parents.
->>>
->>> The other patches update the ACPI processor, ACPI video, and ACPI fan
->>> drivers as per the above.
->>>
->>> The details are covered by individual patch changelogs.
->>>
->>> Thanks!
->> Nice patch series, it looks mostly good to me.
-> Thanks!
->
->> Do you plan something similar for thermal zones?
-> I do overall, but that is a bit harder due to the hwmon involvement.
-
-I understand, maybe we can discuss this on the LPC.
-
-Thanks,
-Armin Wolf
-
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
