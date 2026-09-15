@@ -1,505 +1,138 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013040.outbound.protection.outlook.com [40.107.201.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFFB49EC4D;
-	Tue, 15 Sep 2026 20:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789505962; cv=fail; b=L5ljX6zocFyYdLWLhaZGbTFF/767cXBOnig1tiPnA5x+KpFrCf28mn//ovfg6mgZmxzyGBtviASZ/XHIFGeZNTXEDeVCdymlr87QwE5D03uzL/SyMJrJEEbg8jr0dF8NhqWGKocl7jAHbimRNZYBEZduDgplDUs7dhGEjVy68XE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789505962; c=relaxed/simple;
-	bh=Ks811RhNsdB+AEOzsClsav3MBw7URUSZuTenKi8LtwM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E0oyb4LWWVOc5GoIqb8USbMT0t3in/b0gMl2IlTODRcDpZMz63m43AmtvBeWbpRzXlgGUGRSyu9l5gYSayDjqLyJALOm4WplSFw6TlQILa8RfEjrdGdPDatdR+dbzUF8aq68Ww9hLMx8vXaoklVv4OMEh/avcRhRG0YQeRFCfkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sxIK/qf8; arc=fail smtp.client-ip=40.107.201.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F95029B781
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789506000; cv=none; b=dF9SalA4TFg4p5iwKchnY5pkq6Nd7JsVEK/Hl4K7y5u5s5YQSGWa9LfMKemuqdHuZ+a6kK1lkH6tIf1hLeKMSs93ru5p2ZIXXRGm3oRfWradJ4/Bqs/g/HarXOtdlo1rcwrRFmDnMPa8Fwe2S45Eb8C3oyOOh1ViFZ/+9fCuda8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789506000; c=relaxed/simple;
+	bh=kPo2A4/G1RUw2GNBKxEWcUW5EjGZfPFUjXA4aA4hoPA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=U1fupHyB1/CzvmOcvPZPfVYqLoQ3KNerjtZ9a0UPQE0C7DJt/wRmAzyUuPPGj5WxD/MmHgQjEBTJ5di6NIUFKHJ7n1agPtHGiHK4eU4u6KdAgnf6JPnK0Ddf/j0nk8Mts0gxSyfY91/DHBTEd1Hgu8X2h1In95zfgI89zqOlFyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NAG9PKun; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sxIK/qf8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nAIsriIDLzccv5roAdIJsJmArQ2C2XJ171hFRGJ5NDqLqHH8fRJRBkHjsl3eZWWLkwpvapybdBIeD30Ol7lZQufU5mMrjV814y8dEJ2qHu9lZ5r//pOi9DYYNSKL+V6GA9OiD4lQFxTudvhJf+eRgUz6w7ufOKwy4/oWxChTvMOQfAjVkejjMMLznd0WLhwP7kPjozjWbYyXPkicjsK+Nf2p/Qh0xWeRPE/QN2IoxgULw00s1y+FftFwOEUamp8nhxHfrI4Sl7rr9BHLaEwDt4OoXndBwRpT6kIlKahmtsIy3pHClfU5Jw9OoudSvxS2hmlJUbXTIn5X1M95bR0QQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=59MoSNbF2i54C1QGr5kXh03IIvaul41eARPdGXDdk3I=;
- b=unSMYS9Yy2+lbMALk4sgYRurA4wNsK5wyYY1S3CUmI1Orzw78xcZgO0uPiMeQFqcS8WbPeaoeB2hZ+7XKaMkKkpCGUEQRiY7mpfzJrlIK5UuEJTCcNGKBrc8tNOTPwlfQctCxb3p3/LBQRqo3MB6z2wMZ/zYXqXngdG+xx3l0ZwclL1bKhk2aveauBjd8XcdpfCVxqXx/pRLz9Vb22OO9KDn0bVaLd8sBkQF1EfoHt+2DtB+HfS/JcuQNPRX6Y0i5D4iVVrjpEg6/RR9m3JmncmLLfsszHeuYMoKTpZBjnIj6gG/j28vOKKAI5RXItx0C0YyRu9HGZNn/ddcnYcc3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=59MoSNbF2i54C1QGr5kXh03IIvaul41eARPdGXDdk3I=;
- b=sxIK/qf8ixNuHwEfRIUeMtZMw11tGiuUSQ2Ukr/Y2VkRuQlQZHBH8Z2H5JiB4NGBSQDwtbizMBWrSH9svBdFNuDhqyR/VDrBKkRodI6tDJATiDfrOwpz5S0F69tVPFQCxpwZcySYdXtlWHltSV8sl+yAvNGNaikvym53ywhpgTZgddASicWytP5csfkjco79Ya+MgZJ8/p84XpkDrFl5Rjw5YdbQc6CltUtDqGzGiJiGT4wPpqx9bvl9UxifqxMnHPZcZYN/8U8akuSViLtohT3R0oWeHDq+lf7e3rauJ18QLumszoz4IqKdegIcRYcDrY/VpbW3f7+0g3DwVYxjtA==
-Received: from SJ0PR05CA0060.namprd05.prod.outlook.com (2603:10b6:a03:33f::35)
- by SJ0PR12MB8167.namprd12.prod.outlook.com (2603:10b6:a03:4e6::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 20:59:10 +0000
-Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
- (2603:10b6:a03:33f:cafe::5a) by SJ0PR05CA0060.outlook.office365.com
- (2603:10b6:a03:33f::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 15
- Sep 2026 20:59:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 20:59:10 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
- 2026 13:59:00 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 15 Sep 2026 13:59:00 -0700
-Received: from inno-dell.home (10.127.8.9) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Tue, 15
- Sep 2026 13:58:52 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
-	<zhiwang@kernel.org>, Zhi Wang <zhiw@nvidia.com>
-Subject: [PATCH 14/14] Documentation: rust: explain SR-IOV PF data sharing with VFs
-Date: Tue, 15 Sep 2026 23:56:58 +0300
-Message-ID: <20260915205659.76841-15-zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915205659.76841-1-zhiw@nvidia.com>
-References: <20260915205659.76841-1-zhiw@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NAG9PKun"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4ca696d43so38243a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:59:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789505998; x=1790110798; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mAXq3UY78M5fghzpC0/2Ye65vKnLicW7UPWpfKj82yw=;
+        b=NAG9PKunNszE+K5DKrWZdzgdXN5/w6EFNZ/eO38oA/0DXP7yEVxYFoYDBfXTK87AOF
+         mhLziy4gSUYVurgi3zgvZvTx8ZywnJZ9jmU7H/h6VLAV4SFzKDQoSuCegc6bfNjtFvFC
+         fwDVd3NLn6wPB/auH3W9CFoRRnZlsbTfVn690VpN2whVMxMDEVoOYQQnmpGmVRgtEPMh
+         QXq9MnTDbGtyRNltse8RacCm6QYolf1zErIlpgVzUA0kbsaxaRqSTrRXmCN4VTEKnngu
+         nSfS7DpqhHTMExfj+YbmrSPtzweboWWKwDSTmRnUsSevOhYO6x2cEmSoWIn9qQng1s8V
+         YJ8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789505998; x=1790110798;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mAXq3UY78M5fghzpC0/2Ye65vKnLicW7UPWpfKj82yw=;
+        b=GFVlDarS5Tj/NVq/R39v1EdE7JIXxSBJyr16pJHW8ieXE1z/GdcwItLS3GtD+eDOJd
+         dIHsZaKQbslstg6id3i9xpWhL+MlsCJDglsfIBb6syAtyyiUoL7a301dWcHa+6GIbrwa
+         VrQRI+2fEZtnirwOe1255sS5kRnWHp0ITgLxEluZ6t7KXgeaAbItanllokkYyAWRitBK
+         9LyWxpf9r8qenV0TanXWIPVI1gXNe4lRZ/6pc3BM+zXMe2rcXj6Ud1Z1pFTgioIbbi/x
+         tuliXAwoL+w7SCCPbgtY/0EsfGSF1m9p6ofh+Jl74JtAi/7ZPOIv2FJyt4vQnb3tnB/k
+         OIUw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6MeZ7zfHRWjkIedSH4RIDcpGk3AmQkJ6qfNxgdRfu+YIrKIhy7eSnYxwbvlP/LmDYDBkCqW92E9O+qZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0NKOXm8FzdVmLD5iooHR+X0+PsP9zwuJM/yxAFrVKBKs47uA3
+	vHKYDGdoYAMnd0bbs8E3PVIwPLY1IdJP3g8+96c+G3cjjJsXxXRoFVEM
+X-Gm-Gg: AYBFou1ZD8VXTdGPesawC4sjQgY1rGzhe1wyAO9xnAhdkwhNfTt8G0ZBCqMBh/UYKbR
+	sGo9ewCl09q0aaA+m/F2qpTCI7MQUva4uxjP7JYO2W8EeDNVR9FfT6UMjEPyS7SoRZ2Wn4MlUx2
+	BIdLsTMt19p2KzQc5sKRbUqB5ql4+INxa9cCKsG9IGF3j+gmBUA4Fxh552p8Qp/ffnO/be82aTl
+	hgnqQi4k71kZWRoAnjM2383wxYNB3fesITqW2TMuuZzhkUJ4E3D8k25GV7Vy6Ufn0u25o+fiaoM
+	ryw989GahxHFcywHVr9Ktnh0h9ZpMGBWOufqvxl7gmFOjzIveZhY2WYj/61cSfnKqUjXofy1sg2
+	tLS5GnrTpcfrtJ2nY0tBjIZD2AHfvDkCgnxJJ4jmbFr30XdW/Rm2fOll1mO4hPfCBA8mDaK9WXN
+	fj9wIkAluaAznHeFMaPsbo28BXTNDCXsE62m2CFjS/XTc0i//502okcTVuEDxUfQO3HH1iFVhdj
+	cUULho85Lc=
+X-Received: by 2002:a05:6a20:9c8c:b0:3c3:2dc0:7cbd with SMTP id adf61e73a8af0-3dd5f550a29mr144628637.1.1789505998304;
+        Tue, 15 Sep 2026 13:59:58 -0700 (PDT)
+Received: from [10.107.92.252] ([2409:40c2:5413:87f7:9fa7:eb18:a8e7:30a7])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50abb1483sm465432a12.26.2026.09.15.13.59.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 13:59:57 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH v2 0/4] ARM: dts: ti: Clean up OMAP crypto bindings and dt
+Date: Wed, 16 Sep 2026 02:29:37 +0530
+Message-Id: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|SJ0PR12MB8167:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d75c8a0-999c-4bdd-2fec-08df136c30fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|7416014|22082099003|18002099003|56012099006|11063799006|5023799004|3023799007|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	h+qspjJNgF02t5ztOkdcOZFiLZL7K7g36HcGmlKnNvYUh4q672R9PV/HxnB7Szd+qqOYsNfEEJ4a5zUAlJgYNBOcyvMg1/MdbWwtK2xoh22nSgdqSOrFfpNsE/VOQJjX9aT3oC8zFknP0dG46k2CmNQUa2OBtz+ZrUrg0XqFGQqNcEGnfRQt3/jnNYEpeNnxud+xUPPnIf4/yYdJrLMKrcQZxAMSs4idL1FH5ie9LuTJWFuokJpy+LiKL9exlVH1h2FVrxMFyK7ck5hEcA6rRuxcNVnpw0xHB2+rh9WH+gdb2wGoDVBpoms1BZ7+3m2zYCWQcTdhr0XB4JOLoHy1fWMFa7omwcsZdT1jAog37s8HwSWQH5uuEZPOVGhvjf7cjvW5b+daMBBfKOGfaKTFEhSgW4xEC7vKnJbCr4o/Yw82EW64j5yTpbsAKfoZy+EVz+Mci0U1Qu+rS77js2YeCKLnSK4i1KewF+zUi2tohJv/ay2u9xdMxZpx3ZWEGj8S03p71qLmZjKI1I4kUzP9Djr4ROFzGGgZMVcCT10jbjY8wwauHzJ2wn8XeYBWg4QhsZ0W9hTKaeEs0JSfs67xFEMxnwtvs02Ni0N9s8Cj6r/dAetalBfWQPe7UHc68+J1fsrU2R1lfBXZjOLOAiYwbnAJmzhBZPJ2Cx6a7apjxIKieTlLcwYLgFfhafrIgsaMgKkEruu7MbH/RpVhfZ/31A==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(3023799007)(10067099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HlLQFtmQpoZssBrkH2OUbkDXI7L1+fd+asPsxnHuzYS9ijhNJVRXqptLhaeo2zo2BJ9G9U8mHbPEHP0fwpj6rzJg2miL49pPurSBI5vx7Rp2VR8xZUJxRrSkaGJxfxoxm4cmz9i/zSQ3S3TYO6JqEOWGaoD/os0UBtg1dctJw8BcmCcvBF0lfCDdVYNEHULcebBPOgH605tFjbZ3AZ0EZY8ARYm9sPhf62oU6lMV/37GJMxODfeXLZXJrhSTxbYjAFihnsJP4ByTiovW0p/aalT3V2jVOm/vM+O7DetI9e/96GJ+YOm/guwWacfjWFtfGOZRcoMmGdm+MCqDFwFjGhxticokB/R0F40wgMXoCQkkZe7poa0WHwh06N6H0cPQb7pQ3biRJy/YAR1BROgEs82X2t79IOd+teB1zY1yPKoXl5K4mJUKSbLfMNLfR10d
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 20:59:10.9059
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d75c8a0-999c-4bdd-2fec-08df136c30fd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE17.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8167
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNSwqDMBRFtyJv3FfyscY66j6KgxijPmiMJBJaJ
+ Htv6gY6PAfuuQdEG8hG6KoDgk0Uya8FxKUCs+h1tkhjYRBMNOzOOe6EY9AKvdMbxkU7nOiNsm0
+ 1a9RNiUFC2W7BFn12n33hheLuw+e8Sfxn/xUTR4amlmxifKgtl4/ZaXpdjXfQ55y/CD8La7oAA
+ AA=
+X-Change-ID: 20260911-ti-dra7-omap-sham-fix-388a067572b3
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Animesh Agarwal <animeshagarwal28@gmail.com>
+Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789505986; l=1647;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=kPo2A4/G1RUw2GNBKxEWcUW5EjGZfPFUjXA4aA4hoPA=;
+ b=rVqx5jSUyDMJKczoDv0lUuW775dpSmBSwHDpyYUPOKXi71Z9GGR9Z5DxWjAzK4aw0MNKiGMNO
+ +7Jea75W2TsAIasIU5Yj7avrZj2Dhk79O7x+B/PhUf6rIZh4jQ3TlWI
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Rust and C VF drivers may need a narrow PF-owned interface without
-gaining access to all private data belonging to the PF driver. The
-typed PF registration and C FFI abstractions span PCI topology, type
-checking, driver lifetime, and synchronization, which need a single
-explanation.
+Patch 1 removes redundant properties clocks and clock-names from
+omap4-des bindings.
 
-The design embeds one pinned PF/VF contract inline in ordinary PCI
-driver data. Rust consumers borrow it as `Pin<&T>`; C consumers borrow a
-checked operations table and context. Both paths invoke the same Rust
-implementation, while managed SR-IOV orders VF teardown before PF data
-destruction.
+Patch 2 removes redundant "clocks" and "clock-names" properties from the
+DRA7 crypto dt nodes.
 
-Document the ownership and borrowing model, in-place initialization,
-publication and teardown rules, FFI versioning and trampolines, locking
-and asynchronous drain requirements, and limitations. Illustrate the
-storage, lifetime, and Rust and C call paths with ASCII diagrams.
+Patch 3 updates the ti,omap-sham YAML binding to add the missing
+"ti,omap3-sham" compatible, deprecates "ti,hwmods" and removes it from
+the required properties list.
 
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+Patch 4 Adds missing subdirectory in $id path for omap2-aes and omap4-des.
+
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- Documentation/rust/index.rst             |   1 +
- Documentation/rust/pci-sriov-pf-data.rst | 330 +++++++++++++++++++++++
- MAINTAINERS                              |   1 +
- 3 files changed, 332 insertions(+)
- create mode 100644 Documentation/rust/pci-sriov-pf-data.rst
+Changes in v2:
+- Add patch 1 that removes redundant properties from des.
+- collect tag for patch 2
+- Add patch 4 to add missing subdirectory in $id path.
+- Link to v1: https://lore.kernel.org/r/20260911-ti-dra7-omap-sham-fix-v1-0-c430f01b4e13@gmail.com
 
-diff --git a/Documentation/rust/index.rst b/Documentation/rust/index.rst
-index b78ed0efa784..a3e8924d678a 100644
---- a/Documentation/rust/index.rst
-+++ b/Documentation/rust/index.rst
-@@ -37,6 +37,7 @@ more details.
-     coding-guidelines
-     arch-support
-     testing
-+    pci-sriov-pf-data
- 
- You can also find learning materials for Rust in its section in
- :doc:`../process/kernel-docs`.
-diff --git a/Documentation/rust/pci-sriov-pf-data.rst b/Documentation/rust/pci-sriov-pf-data.rst
-new file mode 100644
-index 000000000000..acc6f3582386
---- /dev/null
-+++ b/Documentation/rust/pci-sriov-pf-data.rst
-@@ -0,0 +1,330 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+.. _pci_rust_sriov_pf_data:
-+
-+===========================================
-+Sharing Rust PF data with SR-IOV VF drivers
-+===========================================
-+
-+An SR-IOV Physical Function (PF) and its Virtual Functions (VFs) are
-+independent PCI devices.  Their drivers may live in different modules, and a
-+VF driver may be written in either Rust or C.  Nevertheless, a VF often needs
-+to invoke a small PF-owned interface for coordination with the physical
-+device.
-+
-+This document describes how a Rust PF driver can publish pinned data for its
-+VFs without exposing its complete private ``drvdata``.  It supplements the
-+general SR-IOV description in :doc:`../PCI/pci-iov-howto`.
-+
-+The idea
-+========
-+
-+The PF publishes one deliberately chosen data object through
-+``VfRegistration`` before enabling VFs.  The registration and object are
-+initialized inline in the PF's pinned driver data.  A Rust VF receives a typed
-+``Pin<&T>``.  A C VF receives a checked ``struct rust_ffi`` descriptor whose
-+operations call the same object through generated C ABI trampolines.
-+
-+The published object is an explicit PF/VF contract, not a replacement for PF
-+``drvdata``.  PCI supplies the route to the correct PF and orders driver
-+teardown; the chosen object supplies only the data and operations that the PF
-+intends to share.  VFs borrow that object and never own it.
-+
-+There is no global interface registry.  PCI topology selects the provider:
-+the consumer is a VF and its ``physfn`` identifies the PF.  The consumer path
-+then checks that the selected PF published the expected Rust type or C ABI.
-+
-+::
-+
-+        PF driver data (pinned)
-+        +--------------------------------+
-+        | VfRegistration                 |
-+        |  +-----------------------------+
-+        |  | rust_ffi (at offset 0)      |<----+
-+        |  | TypeId | pinned T           |<--+ |
-+        |  +-----------------------------+   | |
-+        | remaining PF data              |   | |
-+        +--------------------------------+   | |
-+                                             | |
-+        PF struct pci_dev                    | |
-+        +----------------------------+       | |
-+        | vf_registration_data_rust -+-------+ |
-+        +----------------------------+         |
-+                                               |
-+        Rust VF: TypeId check -> Pin<&T> -------+
-+        C VF: token/ABI/size -> ops/context ----+
-+
-+The design separates four concerns:
-+
-+* PCI topology selects the actual PF for a VF.
-+* Rust ``TypeId`` or the C FFI token and version check the requested
-+  interface.
-+* A managed device link and the inline registration determine the lifetime
-+  of the borrow.
-+* The published data type supplies any synchronization needed by concurrent
-+  callers.
-+
-+The FFI descriptor does not hold a second copy of the PF data.  Its
-+``context`` points at the same pinned object that a Rust VF borrows directly.
-+For example, both Rust and C VFs in the SR-IOV sample eventually call
-+``PfApi::submit()``.  The C path adds only an ABI trampoline and return-value
-+conversion.
-+
-+Lifetime foundation
-+===================
-+
-+The published pointer is borrowed; it is not a reference-counted handle.
-+Its lifetime is based on managed SR-IOV and a persistent managed device link
-+from each VF consumer to its PF supplier.
-+
-+The PCI core creates that link before the VF is allowed to probe.  The link
-+remains after a failed probe or a normal driver unbind so it also protects a
-+later bind.  The driver core consequently waits for an in-progress VF probe
-+and unbinds every bound VF consumer before unbinding the PF supplier.  On PF
-+removal, managed SR-IOV also invokes ``sriov_configure(0)`` before the PF
-+driver's remove callback if VFs are still enabled.  VF unbind, including
-+destruction of its driver data, completes before PF removal proceeds.
-+
-+::
-+
-+        PF probe
-+           |
-+           +-- initialize and pin VfRegistration and its data
-+           |
-+           +-- publish as the registration's final initialization step
-+           |
-+        PF probe returns and installs all PF driver data
-+           |
-+        sriov_configure(n) enables VFs
-+           |
-+           +-- PCI creates each VF
-+           |
-+           +-- PCI adds a managed link: VF consumer -> PF supplier
-+           |
-+           +-- VF probe borrows and uses the PF data
-+           |
-+        PF unbind is requested
-+           |
-+           +-- driver core unbinds every VF consumer
-+           |      |
-+           |      +-- VF remove stops and drains all PF calls
-+           |      |
-+           |      +-- VF driver data is destroyed
-+           |
-+           +-- if VFs remain, PCI invokes sriov_configure(0)
-+           |
-+           +-- disabling SR-IOV destroys VF devices and links
-+           |
-+           +-- PF remove runs
-+           |
-+           +-- PF driver data is destroyed
-+                  |
-+                  +-- registration disables any remaining VFs
-+                  |
-+                  +-- registration withdraws and drops the data
-+
-+Disabling VFs through ``sriov_numvfs`` follows the shorter part of the same
-+ordering: VF drivers are removed before their VF devices disappear, while the
-+PF driver remains bound and its registration remains published.
-+
-+If ``sriov_configure(0)`` does not disable all VFs during PF unbind, the PCI
-+core warns and forcibly disables SR-IOV.  The lifetime guarantee therefore
-+does not depend on a successful driver callback.
-+
-+A successful VF probe may retain the borrow in its driver data for the
-+duration of that binding.  A failed probe must discard the borrow before
-+returning.  A VF remove callback must stop and drain all work that could use
-+the PF data before the callback returns.  These rules also apply to raw
-+descriptor and context pointers retained by a C VF.
-+
-+Publishing PF data
-+==================
-+
-+PF and VF drivers use the ordinary ``pci::Driver`` abstraction.
-+``VfRegistration::new()`` publishes ``ForLt``-encoded data for Rust
-+consumers.  ``VfRegistration::new_ffi()`` publishes the same data and adds a
-+C-callable FFI descriptor.  Both return a pin-initializer rather than an
-+allocated registration handle.  The PF embeds it with ``<-`` in a
-+``#[pin]`` field of its driver data::
-+
-+        #[pin_data]
-+        struct PfData<'a> {
-+            #[pin]
-+            vf_registration: pci::VfRegistration<'a, MyApiForLt>,
-+            // Fields borrowed by MyApi follow the registration.
-+        }
-+
-+The constructor rejects a VF.  On a conventional PCI function without an
-+SR-IOV capability it creates an inactive registration, allowing one PF-side
-+driver to continue supporting devices with and without SR-IOV.
-+
-+The constructors are unsafe because the PF driver establishes conditions
-+that cannot be expressed entirely in the type system.  A provider must:
-+
-+* Call the constructor during PCI probe, before any VF can be enabled.  It
-+  publishes only when that function is an SR-IOV PF.
-+* Publish at most one registration for a PF.
-+* Initialize it in the pinned PF driver data and do not forget that data.
-+* Enable VFs only after PF probe has returned and installed that driver data.
-+* Use managed SR-IOV so VF consumers are unbound before the registration is
-+  dropped.
-+* Declare it before any PF driver fields borrowed by the published object, so
-+  the registration is dropped first.
-+
-+The published type must be ``Send + Sync`` for every lifetime because VFs may
-+call it from different threads.
-+
-+The Rust PCI adapter opts drivers into managed SR-IOV.  Its
-+``sriov_configure`` callback receives a checked ``pci::sriov::Device`` and a
-+pinned reference to the PF driver data.  It enables or disables VFs with
-+``enable_sriov()`` and ``disable_sriov()``.
-+
-+Rust VF consumers
-+=================
-+
-+A Rust VF implements ``pci::Driver`` and explicitly requests PF data during
-+probe.  The accessor verifies that the PCI device is a VF, follows its PF
-+relationship, checks that data was published, compares its ``TypeId``, and
-+returns a pinned shared reference.  The VF does not receive the PF's
-+``pci::Device``, the PF driver object, or an untyped pointer.
-+
-+PF and VF drivers may be registered by separate modules.  They must share the
-+exact ``ForLt`` type that identifies the PF data.  Defining look-alike types
-+independently does not work because they have different ``TypeId`` values.
-+When separate Rust crates are used, put the shared definition in a crate that
-+both can import.
-+
-+``vf_registration_data()`` is the direct accessor for data encoded by
-+``CovariantForLt``.  ``vf_registration_data_with()`` supports invariant
-+data; its higher-ranked closure prevents that data from escaping with a
-+shortened lifetime.  A domain-specific VF handle may store only the VF device
-+and use the closure accessor for each operation, rather than retaining a
-+separate raw PF pointer.
-+
-+If one module registers both drivers, register the VF driver first.  This
-+ensures that it is ready before the PF can enable VFs.  PF-only and VF-only
-+modules register their ordinary PCI drivers independently.
-+
-+C VF consumers
-+==============
-+
-+The common C descriptor is declared in ``include/linux/rust_ffi.h``::
-+
-+        struct rust_ffi
-+        +---------------------------------------------------+
-+        | token | ABI version | ops size | ops | context    |
-+        +---------------------------------------------------+
-+
-+The token identifies the type and semantics of an operations table.  It is
-+not a PCI device identifier, a secret, an authorization check, a registry
-+key, or a lifetime handle.  PCI locates the PF before comparing the token.
-+
-+A driver-specific header defines the stable token, ABI version, and C
-+operations structure shared by the Rust provider and C consumers.  ABI
-+compatibility follows these rules:
-+
-+* The major version must match exactly.
-+* A provider's minor version must be at least the consumer's requested minor
-+  version.
-+* A minor-version update may only append operations to the table.
-+* ``ops_size`` must cover the table prefix used by the consumer.
-+
-+The Rust provider implements ``interop::ffi::Abi`` and applies
-+``#[ffi_vtable]`` to methods on its PF data.  The macro verifies the complete
-+bindgen operations-table layout and generates a private static operations
-+table and private C ABI trampolines.  It does not generate the C header.  A
-+trampoline recovers ``Pin<&T>`` from ``context`` and invokes the same Rust
-+method used by Rust VFs.  It converts ``Result<()>`` into zero or a negative
-+errno, and ``Result<c_int>`` into its successful value or a negative errno.
-+
-+::
-+
-+        Rust VF                                  C VF
-+        vf_registration_data()                   borrow + ABI checks
-+             + TypeId check                               |
-+                   |                                      v
-+                   v                         ops->submit(context, id)
-+              Pin<&PfApi>                                |
-+                   |                            generated trampoline
-+                   +------------------+-------------------+
-+                                      |
-+                                      v
-+                             PfApi::submit() -> Result
-+                                |                 |
-+                           Rust error         C 0 or -errno
-+
-+A C VF includes ``linux/rust_ffi.h`` directly or through its driver-specific
-+header and borrows the interface during probe.  The essential call sequence
-+is::
-+
-+        const struct my_pf_ops *ops;
-+        const struct rust_ffi *ffi;
-+        int ret;
-+
-+        ffi = pci_iov_borrow_rust_pf_data(vf, &my_token,
-+                                          MY_ABI_MAJOR,
-+                                          MY_ABI_MINOR,
-+                                          sizeof(*ops));
-+        if (IS_ERR(ffi))
-+                return PTR_ERR(ffi);
-+
-+        ops = ffi->ops;
-+        if (!ops->submit)
-+                return -EOPNOTSUPP;
-+
-+        ret = ops->submit(ffi->context, pci_dev_id(vf));
-+        if (ret)
-+                return ret;
-+
-+The PCI helper verifies that the device is a VF, that its PF is bound to a
-+managed SR-IOV driver, and that the descriptor satisfies the requested token,
-+version, and size.  It returns a borrow, so there is no matching ``put``
-+operation.  The size check does not prove that an individual operation is
-+implemented, so the consumer must still check each callback it needs.  The
-+pointers must not be used after VF probe fails or after VF remove returns.
-+
-+Synchronization and teardown
-+============================
-+
-+All VFs of a PF borrow the same object and may call it concurrently.  Pinning
-+keeps the object's address stable; it does not serialize access.  The PF data
-+must use interior synchronization appropriate for each operation, such as a
-+mutex for sleepable methods or an atomic for a simple counter.
-+
-+The sample uses ``Mutex<u64>`` for its request count to demonstrate shared,
-+synchronized PF state.  The count is an internal implementation detail and
-+is not returned through the C ABI.  Both consumers see only whether
-+``submit()`` succeeded.
-+
-+Document for every C operation whether it may sleep and which calling
-+contexts are permitted.  Before VF removal returns, cancel or flush any work
-+that could still call an operation.  Do not wait for such work while holding
-+a lock that the operation itself needs.
-+
-+Disabling SR-IOV through sysfs removes VFs synchronously while holding the PF
-+device lock.  A VF remove path must not wait for an FFI operation that must
-+acquire that same lock, or the two paths can deadlock.
-+
-+The managed device link supplies driver-presence and teardown ordering, but
-+not runtime-PM integration.  Operations that access powered PF hardware must
-+arrange runtime PM separately.
-+
-+Examples
-+========
-+
-+The complete examples are:
-+
-+* ``samples/rust/rust_driver_sriov.rs``: a Rust PF and Rust VF sharing a
-+  pinned PF object with a mutex-protected counter;
-+* ``samples/rust/rust_driver_sriov.h``: the C ABI token, version, and
-+  operations table;
-+* ``samples/rust/rust_driver_sriov_c_vf.c``: a C VF borrowing and calling the
-+  Rust PF object; and
-+* ``drivers/gpu/nova-core/driver.rs``: a regular Rust PCI driver publishing
-+  unit data as a typed PF-readiness marker without a C ABI.
-+
-+The Rust and C sample VF drivers match the same device ID, so only one can
-+bind to a given VF.  Use the module ordering described by their Kconfig help
-+or ``driver_override`` to select the C path deterministically.
-+
-+See also :doc:`../driver-api/device_link` for the general device-link model.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e03ebe44c341..922cfddcb2dc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21137,6 +21137,7 @@ L:	linux-pci@vger.kernel.org
- S:	Maintained
- C:	irc://irc.oftc.net/linux-pci
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
-+F:	Documentation/rust/pci-sriov-pf-data.rst
- F:	rust/helpers/pci.c
- F:	rust/kernel/pci.rs
- F:	rust/kernel/pci/
+---
+Bhargav Joshi (4):
+      dt-bindings: crypto: ti,omap4-des: Remove redundant clock properties
+      ARM: dts: ti: omap: dra7: Remove clocks from crypto nodes
+      dt-bindings: crypto: ti,omap-sham: Add OMAP3 compatible and deprecate ti,hwmods
+      dt-bindings: crypto: ti,omap: Fix missing subdirectory in $id path
+
+ Documentation/devicetree/bindings/crypto/ti,omap-sham.yaml |  3 ++-
+ Documentation/devicetree/bindings/crypto/ti,omap2-aes.yaml |  2 +-
+ Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml | 13 +------------
+ arch/arm/boot/dts/ti/omap/dra7-l4.dtsi                     |  2 --
+ arch/arm/boot/dts/ti/omap/dra7.dtsi                        |  8 --------
+ 5 files changed, 4 insertions(+), 24 deletions(-)
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260911-ti-dra7-omap-sham-fix-388a067572b3
+
+Best regards,
+-- 
+Bhargav
+
