@@ -1,102 +1,102 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766BC3CF049
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BBD3CF1E1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437472; cv=none; b=HEtWWiJE2xe7O//T0VQ7lIx/CJdwOerzGdLfARMXJv9h1TBqi98NYcPsYt0AS4WIyNdAlfXeCcU2rMgeVTdZRiCPwKFfXxwQV8KdOdSLZHA+tJRp2bw782uuFlxdqVbmaTRLGQ+/G4ijcEx40IOMIMo9Zab8oaz0v5ohm2Djjec=
+	t=1789437475; cv=none; b=VwK0CuIZbzGTcNN3AucYr07aLv/nuWGmdWN0DkiY4ekXU+nfAf4TUdHv7o7a/6XlCAU+jjFoRJOKAYaSuMKpQpwx26nOZuS6eeS7ENjzqvEYqBqY4OkabjCnwrQIKzUVjDrwQdPCb/M4w1lG2XAaGEpKw6tmcUa6Vna9L4h6amQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437472; c=relaxed/simple;
-	bh=cDTEaYFdU4bsYd6oOIV2rW4rMgwTR2VRJE7sbO0BfZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sF72GCgubxFFPKx7AD4rKsVUDOce6qoT/o1sia20jrQqevyzdgUORswiLIYq8iab+tvxjJakkXN3AffRC951soSFk9Zx3mTRokwHKuiRTXWmgbK8AjLQbGuiLfypWB47FXVbcd051QyGgn8wzlv7eHUj/R1ouCYZsb2ruWScS3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KriK7TYk; arc=none smtp.client-ip=209.85.222.170
+	s=arc-20240116; t=1789437475; c=relaxed/simple;
+	bh=RzPgH/3eGo+TdM3AJC5ylErp3efZkoBM2RxE6XOg6z8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cK/ePNrnSmC4fH+tKJ/lLpMtQlRmX22qXEu+g5CbkhFv4tCw1c7QxERFpj4aEPQqx5/CNRuI5VXDNPBrCGMbFzWw+8+GpkWyhZPvS/BKNUxD2Rpu8US3iWrIrKwU9yY8KlL5dGlRqHQKO275NpQvpmtjyFS+gKxs4yX3+C1oXew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oTquKce7; arc=none smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KriK7TYk"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93a0bf264a4so242058485a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:57:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oTquKce7"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-86ec25cf7ecso459585b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:57:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789437470; x=1790042270; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mjFWFVeGJngDPSHgQVYhBNSO+sPnzoNj0Nr7+08rl1w=;
-        b=KriK7TYkSUUmUoE/M3U6utZJQQFiHhWypUyG0qPRxkH5boSZ5qoj5ExzFStbncJzns
-         pmUh6FBpuUUIiox+NJYSXRO5TBYm08Tw6W7m15/e3HNxz48huIoWcdEMVLgqs9yeT2KZ
-         sEzT/elw3adWe5eWxPq64ck4dHLXxOGAruHULoOV/UYu9WBrkcJErCf6hpaOygfgaEU2
-         qyACuarYMFT/S1PSPAhwp0+uEgCw8VE4IpVndpdE+FC3DRCxn+vai6+NqWtvIptLNPgF
-         9JvICkUe9p5OoM64Dps2dkYScq+RWCiVychODafsGUy04vUqfeJk4epWNpRQMs2lmec1
-         aFGA==
+        d=gmail.com; s=20251104; t=1789437473; x=1790042273; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8LtHfoqQuWljZWMj5fNvShJKWJ7Eo3q2bY3EGg9Y51M=;
+        b=oTquKce7kKml8UudqBdJjRYYXkK7xVBS0OZtZssEc4L6A8jL91zwz31t7CCC2AfJ9Z
+         M6F4E01S2fn/GKHTMMVFxIOZWofX6DrXzM3ILW+siPw8AOLa6PutVF8DwY7lkBmZ1KjL
+         3BUeL4nljRO+69XLDcCYzoTyhMaU9DShKdjHA4bl0Bc/GAaohyhYb1StPRgvGdc7Sudh
+         +6fz4fEmatET/8zD5q541u5TQcuHAcb3wtfPgA3B8oG64DfAWAXpbYq4s6MsO9L70aiv
+         oAKLAQBYwHQH8nlxVXejuT++l3BtE43uKUXqQAQOsHwH3/55s3wRd94FgbWVBWvWpAT9
+         c31A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789437470; x=1790042270;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mjFWFVeGJngDPSHgQVYhBNSO+sPnzoNj0Nr7+08rl1w=;
-        b=TXfD+/5Nmrnk1PhBv86gMDpK6o9JCQYmxcGspMXkJxYhoPyiD4DDRx5EbB+Z5pBveJ
-         sUvXBRJuVGxrIimQS6/J1Otaojy4EvS2AXOKsSHKA8rtD9ce/kuyj3E1bHE8y8gMRvKx
-         ykPijJVM22+m1UoIPdR0g8OlTnPW51sOybnHZESNCvBxd6cobEucWVj1qtJTsR9QQovY
-         lSqkmOKBJ//2r0sjo5hlNOPRe8Qd7B9BPcZM0wDUG7Urx4GoCBz1k+ZbnvMYHnWMFqY9
-         gHiyRjkC3z0W0tDfi1ABh3/eoqCikr9HqBwqMpXy5gwnp0eKoUGKVWUf/UKBQZlfyVdx
-         Wt/A==
-X-Forwarded-Encrypted: i=1; AKwUvBwH/vl3bRwEL4xBzNsbFLN+58VuiLQRmpoBJgwYQD5ElOHu/G9RHaDLdK4WsQeRQmqDGWpFHK/dPNoMYoQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nts8roRbHAqrvgIIqydOj2itI0V27VNQfcoTlLG5Qpr6or6i+E
-	sU/D5yc7unO131nkzwLH2THu7PqJVYK9HhK6Eu+ngIlUgFSImOjd+yw=
-X-Gm-Gg: AYBFou0HyJwWkHuEG6GD5riiSfAsQWYpLKym8LoGGPKdRzH5vo8aVMhd//hQezM4rue
-	l6E3GV+U7Lcji+wkM9/JLmJL6a3IDqtFFAs5ketHB0VnaKB6sW01v7Xh/G4S75JK5mkyXVwPIzx
-	g6np6rAGuC1oPVJ2YETBrOdFndYQJfgqVrzYuXMWVmFd9N1bvuaHGI3xaHD8pnNupAmv990vr0F
-	8zZViGyoj2RpsdRh0U5u0MiyYGpHlLIUoDR2CQP5Gdln3RqD5WHXPR5GuFxdOAUNUfubFTF8nA1
-	/ixGbvG7C7PR6o8PFzhXYnaVLFBIfZA4nUrLk8HE4Qm0A9thlTRWeuponSSRRReI8sUQw6XTLBE
-	Ese7j2kcwnNP8/FTW97pyYDvfVZwogLSjs6V4gA7hhcgmlZvw9HWa1nCoA0BF9zq1sqBIlYQBDl
-	PlX53hXNhG56Vs21xDh5+v85og6uPiyCTPkafDi/B2dkk4+DI2qxdB2B3vqzuWgEVeAh2Y8wdv2
-	/aIx4z2HUJcgNxiP5cF2WP1z9aBRHwsgNYaBXP9/u68p747EgmctZu522xdL6HbS7pHFnkPOuep
-	8XnZQNrEitwdnk102XrCfgDlvbdh8dikoVAWy07QAn2anhPDUlhqhsWu9x/H7CNFupHiUg==
-X-Received: by 2002:a05:620a:260d:b0:939:1483:55c with SMTP id af79cd13be357-93a2977f5admr780633485a.19.1789437465389;
-        Mon, 14 Sep 2026 18:57:45 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a00da28absm863266285a.27.2026.09.14.18.57.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 18:57:44 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1789437473; x=1790042273;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8LtHfoqQuWljZWMj5fNvShJKWJ7Eo3q2bY3EGg9Y51M=;
+        b=Ll7Dvf0HreDs0uIX4ZJdQFJoQgeqtN+oVVQjRDsqbZrl+sSHR9ybVACsuQPzNL1Str
+         uOQ1FhfceXfa5kt4HX5vAnx1d4yVr3j/DEaLc0ng+GwLkyMxt9uWEqslG75b/eIrUYJE
+         Ci3Mhzhh01HjOYOBOq+yY1Ux63/07ARHcn4yBn0JxIYu/gk+CaG07vjVuq/YF8cIBUXw
+         HVaXP27Z4OPRR76+G0A8xVcbEy0aqBBoXqvAiv9d7QMzhS4ZssusTOt6j8LgWcwn5/Um
+         MTRvLXg75prUEkREEubYO+eIkgH4tQEaM2bwIYWdCIG4m/qT98ge0KVLKZbO+STiPrqY
+         FH1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxVaIZQ46RmAgM/XLLITVbI3i6Tv223rdCTHuqw5BzFE9/ygLxDYAarMri+/Ehmi09dhQT890FYTVYNa6s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMlxiy1o/gG9AEY5pZrerflNkbj+ed7i1it2imD82565YbTXai
+	b6dbYMi0f0qUls8gzCkYfx+rSZ1yIbRMn1nvnLK8sQm1yGQDyepf9zRh
+X-Gm-Gg: AYBFou1jL/0UtMLsffqR1OB99GfJTVdpoome/l8XBakL6pZCPMcyX1rt0OCwg1EJxXJ
+	A0tl2Fn80vvenWgQE0pzIi5wTXqcZutwSpCVR/nm8uNRvEghl507Yc8n6zIf4PN0MNNlxX9r2+V
+	4iO3n9iAROYfbUg2fnU2FArDciPFp62heWQmW/orRc4h5n/VZvnABbraHFZIzuo/EpcoqKHq5+c
+	Qp4PHvlRDpYsLWWXWbuLkc8lFH9zwLnFGxd1s6U2rNWa6BYEF2eJn6nrtuyOtFAW+vjLn1RahU5
+	YLitNem6Sgd2VBNf2zAUU/x0s/gPuML1gFvNhCjLkEeBe6FyYEGNNTe+tFuh1A16tO3cGu0rYTK
+	X51inO7XW4gRJKO77va9SvzV+eYEvlITufIY+M/gf0DOvazkXlV6k1wciKOr1eAOSavdv7G5f4B
+	NbaOSmwEfP5noHFt9eZ3aYl1gm72DQce9FNHdMrQtHPFvLlMJl7i8vrR2SnUctMS4HDEu4UnSgt
+	4RQ1ur8SJiR0ZX+TbmKkdwjerzxqlq9
+X-Received: by 2002:a05:6a00:3a01:b0:86d:117e:5db3 with SMTP id d2e1a72fcca58-8708c45f131mr2265230b3a.26.1789437472373;
+        Mon, 14 Sep 2026 18:57:52 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b6139e3bfsm5231011b3a.50.2026.09.14.18.57.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 18:57:51 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: radio-sf16fmr2: unregister v4l2 device on tuner init failure
-Date: Mon, 14 Sep 2026 21:57:36 -0400
-Message-ID: <20260915015736.85420-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	hch@lst.de,
+	jack@suse.cz,
+	axboe@kernel.dk,
+	tz2294@columbia.edu,
+	baohua@kernel.org,
+	linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: Re: [PATCH v5 0/2] f2fs: enable buffered RWF_DONTCACHE
+Date: Tue, 15 Sep 2026 09:57:45 +0800
+Message-ID: <20260915100000.1789437600-1-qwjhust@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1788795700.git.qiwenjie@xiaomi.com>
+References: <cover.1788438786.git.qiwenjie@xiaomi.com> <cover.1788795700.git.qiwenjie@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When snd_tea575x_init() fails, fmr2_probe() releases the I/O region
-but leaves its v4l2_device registered. Unregister it before returning
-to the caller, which frees the containing fmr2 allocation.
+Hi Jaegeuk and Chao,
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+Friendly ping on this series.  v5 includes the mixed-bio completion update,
+the syzbot NULL-kiocb fix, and the additional memory-pressure data.
 
-Fixes: d4ecc83b79cc ("[media] tea575x-tuner: update to latest V4L2 framework requirements")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-diff --git a/drivers/media/radio/radio-sf16fmr2.c b/drivers/media/radio/radio-sf16fmr2.c
---- a/drivers/media/radio/radio-sf16fmr2.c
-+++ b/drivers/media/radio/radio-sf16fmr2.c
-@@ -241,6 +241,7 @@
- 
- 	if (snd_tea575x_init(&fmr2->tea, THIS_MODULE)) {
- 		printk(KERN_ERR "radio-sf16fmr2: Unable to detect TEA575x tuner\n");
-+		v4l2_device_unregister(&fmr2->v4l2_dev);
- 		release_region(fmr2->io, 2);
- 		return -ENODEV;
- 	}
+Please let me know if this direction is acceptable or if another revision is
+needed.
+
+Thanks,
+Wenjie
