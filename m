@@ -1,113 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73651419303
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAA73B42C9;
+	Tue, 15 Sep 2026 09:46:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465566; cv=none; b=ec0UFv8vXU9Gf++lTL7RokXgYYdQEfhMZHVHUolBymu85pJiPChssTjuejqQXU0Ba29JEPvMzFjEAXJo+1sXbmNWN4ur1WesRZhxbEUkv6eB0fODHrmrFYGZRKJgCojB6fRWuyxdD50AlfGJuTfRETRgmFePotyl8yV3rKbxho8=
+	t=1789465610; cv=none; b=gUEy8V1SAqJUOMXquB7oTWH2owiGfG1lwswm9IvHAT354xOf3MIjr/hGgFu3hfacMrsyH4bhIj4a4ni7q+vrA8FvupkfMcH6jfIQW+bq9HsZMLrT2aSBzXbkyT7zIYQt+BPQ96/lWOEqhmrbOK7JsrS7UlAzxwvO3WIGLq71dpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465566; c=relaxed/simple;
-	bh=TYjlm49BcWGKYpnUBnCMfZXgukHwMwdEfFaJhxbKT68=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YnIsSrex72KfCiogRxv4Jy6UkXDGdiAK9CSqBtlcyxo7GdpPSrNGTqVoMBN3eaHB34GwEnNWy/UTAFqWo5Ciu1B6DinvEgBIDrcOepMoQOHLIq4K89ovoEmS8PNUi3T17/y07JLWbU0uVslGnmIyfNzF9+Rclh0MGpp5fFYbPsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyfnwXLX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789465610; c=relaxed/simple;
+	bh=1q5dv6Vrxtkj8evu/VjYKuCf2t54zRo341nxUJ7nfuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jTQxKK8FMEHMEyHk34CpKlNzOlh44dp6d+zEKkMkBK7oAxrhBu77FSdWfywgWERNTMasxo5nsaTMTua2fWy3iYl7HhyOHtkXaKsxv1EL50FSuWTd2XRFp4indusfCZDsHhi8U7PIKPF3wFyuLqVRu2l5vTr757TDQEl7C9NwgLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LndAkwqy; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyfnwXLX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E111F0089A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:46:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789465565;
-	bh=xStObR1AHBg+HAP7HHBUo5VDjO6oJ/f1Z1Tj8oztVU4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=oyfnwXLX48RQwrS1wsfWxQwmFFFAH0izC6vi9efX6StFqPtqfK7nB+twLT/kIDZwB
-	 5r9YhH2t3a0BBMv7zPc0TsCX6H7ooHhXrdZiWelsWgzy7ICWlL8ktNWIx3Xh0J2DeY
-	 urldKxypsr7wEjiCmKn9yzws5061Tzxk8kWbgJdSFhdEHkTPvqgZhhhTZe9MKvySnf
-	 mizJwZQgR57exQUy0aN5DikXTxe+ZAsjQwtFzp9xg7/FqZ/cYg3X9IzwwNZyfr4Z+4
-	 6AR+OKCMSVe8fvE+BDWs6IiYtS083UTETU0RjPvGeRuyRrMHHFcvAb6Bn1iuhwe38J
-	 NxZfqH+tnPCEA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a318299b38so609371fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:46:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxOUODXipFI7A9CHdrhmq9/OoJQqfiD1635DY2z2nIlQt/BepP+gcSEcMTEi/zhDhJg77IW+aAFxM+hfy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxUUzVh/6SEjmR+Sw0P9Tcfxlyn83RwYWT/YRWkzIDqxBE69B5
-	JLFFyqd3bMRfBzHa6rbWAecEusDXc/nyrNlR8gAEjNap5AM59YpVEoqRH9DJ7ZJjpEgyidJDEwW
-	/8O+lwBoi+Niq6QMO8i8T/bqXr1ItA09mDGqaxW5VpQ==
-X-Received: by 2002:a05:651c:1508:b0:3a3:7680:67fa with SMTP id
- 38308e7fff4ca-3a5d854ea14mr822991fa.25.1789465563847; Tue, 15 Sep 2026
- 02:46:03 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Sep 2026 04:46:02 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Sep 2026 04:46:02 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LndAkwqy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789465608; x=1821001608;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1q5dv6Vrxtkj8evu/VjYKuCf2t54zRo341nxUJ7nfuk=;
+  b=LndAkwqyMXpssuOK44ue3J7tQJ7O5aCj772F/sRahill5/NDSH1TsZhn
+   m8e4FTu71GTVOk7FdYGzR4GT89HO6qZN7wOg/Rliuvd7G/LoGe8kwEUwt
+   W/uaazJFUFGBtf8BuzbU0VE61g9j8Jwsk2w3znRaKdoFUGcHXjCgWgdN0
+   SQ6pA+zG9XAahzVj8Qb3DFrG5ght6zeF5AdEgewDbkZRVoH1zAg1e3UE3
+   grymICBulBhhBIF+fJGZC2bWasYG5WXBVD0BqInunB6A6tWDloMBQXUvb
+   uEqKh1/tUHOINR7zbGyf+SVnDvqp6zV7eRDV+OEnkBtTlBOq9VdSHG9ew
+   w==;
+X-CSE-ConnectionGUID: 7Qc1gvzzRJy75XUsKaAKsg==
+X-CSE-MsgGUID: oB2VsmybQA+Qaeaj8LJJGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89838824"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89838824"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:46:47 -0700
+X-CSE-ConnectionGUID: 8dio+FLkSQuOK5bw0BabTQ==
+X-CSE-MsgGUID: XBIPLSyDQaa3gz7Op/8gdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="270288882"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.227])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:46:45 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3C25311FB58;
+	Tue, 15 Sep 2026 12:46:52 +0300 (EEST)
+Date: Tue, 15 Sep 2026 12:46:52 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@intel.com>, Hans de Goede <hansg@kernel.org>,
+	Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov13b10: fix power cleanup on remove
+Message-ID: <aqkUDJ03uWCAoSrh@kekkonen.localdomain>
+References: <20260915084436.2329278-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
- <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
- <20260910143140.GA5719@quark> <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
- <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
-Date: Tue, 15 Sep 2026 04:46:02 -0500
-X-Gmail-Original-Message-ID: <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
-X-Gm-Features: AcwNN1V4irG-4tqXUxafIvp3ue4djdPcZGWZ9wnurkMI_vMMG3_EP65uAHzLt8c
-Message-ID: <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
-Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
-	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Eric Biggers <ebiggers@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915084436.2329278-1-lgs201920130244@gmail.com>
 
-On Fri, 11 Sep 2026 20:35:58 +0200, Demi Marie Obenour
-<demiobenour@gmail.com> said:
-> On 9/11/26 07:14, Bartosz Golaszewski wrote:
->> On Thu, 10 Sep 2026 16:31:40 +0200, Eric Biggers <ebiggers@kernel.org> said:
->>> On Thu, Sep 10, 2026 at 03:00:50PM +0200, Bartosz Golaszewski wrote:
->>>> All self-tests now pass.
->>>
->>> Have the other bugs that were reported been fixed?  For example:
->>> https://lore.kernel.org/linux-crypto/20260723202704.GB110634@quark/
->>> https://lore.kernel.org/linux-crypto/20260723183438.GB93534@quark/
->>> https://lore.kernel.org/linux-crypto/20260723205342.GC110634@quark/
->>>
->>
->> I will get to these too. For now, the series allows the self-tests to pass,
->> I assume it it's enough to not keep the BROKEN label.
->
-> Personally, I think the driver should stay BROKEN until all the
-> known bugs have been fixed.  The self-tests aren't enough for HW
-> crypto drivers.
->
->>>>  	help
->>>>  	  This driver supports Qualcomm crypto engine accelerator
->>>
->>> As this patch would make the kconfig option visible again and would
->>> result in everyone running "make oldconfig" being asked about it, it
->>
->> I don't mind changing the symbol if you prefer it to avoid any accidental
->> `make oldconfig` carry-overs.
->>
->>> needs to be fixed to accurately document why anyone would want to enable
->>> this option.  As you've stated, it's actually just for "testing".  The
->>> false claim that it's an "accelerator" also needs to go.
->>>
->>
->> "Offloader" for lack of a better word?
-> Could it be called a "decelerator"?  That would give users an idea
-> of what to expect from the driver.  Maybe explicitly mention that
-> you will take at least a 50x performance hit?
-> --
+Hi Guangshuo,
 
-Yeah, very funny. Jokes aside: "Offloader" says what it both *aims* to do and
-really *does* without claiming it *accelerates* anything.
+On Tue, Sep 15, 2026 at 04:44:36PM +0800, Guangshuo Li wrote:
+> ov13b10_remove() disables runtime PM and marks the device suspended, but
+> does not power off the sensor if it is still runtime active.
+> 
+> pm_runtime_disable() prevents further runtime PM callbacks, but does not
+> force the runtime suspend callback to run. If the sensor is active when
+> the driver is removed, pm_runtime_set_suspended() only updates the
+> runtime PM state while the imaging clock and regulators can remain
+> enabled and the reset line can remain deasserted.
+> 
+> After disabling runtime PM, check whether the device is already
+> suspended and call ov13b10_power_off() if it is still active. Avoid
+> calling the power-off helper for an already suspended device to prevent
+> unbalanced clock and regulator disable operations.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 6e28afd152280 ("media: ov13b10: add PM control support based on power resources")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/media/i2c/ov13b10.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+> index b0d34141a13a..6d57da39c371 100644
+> --- a/drivers/media/i2c/ov13b10.c
+> +++ b/drivers/media/i2c/ov13b10.c
+> @@ -1688,6 +1688,8 @@ static void ov13b10_remove(struct i2c_client *client)
+>  	ov13b10_free_controls(ov13b);
+>  
+>  	pm_runtime_disable(ov13b->dev);
+> +	if (!pm_runtime_status_suspended(ov13b->dev))
+> +		ov13b10_power_off(ov13b->dev);
+>  	pm_runtime_set_suspended(ov13b->dev);
 
-Bart
+pm_runtime_set_suspended() in fact also needs to be called conditionally,
+depending on the Runtime PM status.
+
+>  }
+>  
+
+-- 
+Regards,
+
+Sakari Ailus
