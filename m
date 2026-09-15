@@ -1,149 +1,148 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731A348821F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C5F49CF22
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789489988; cv=none; b=hzDbRKSj+iCkjETPf4hnpddGh6UwptjOTz+XZKBJaRFpfjIr9rsHCaGuyvz01s79KP8qvIOmWNjNW0tGnRaEeefOvOgjoaEOErEui+RBuQWkBtM3LbenMlPUgBIXE/6AcImt7KV9cZbxrIEu8qMHdIDn2XFsCU6UZ0wJc7HezGM=
+	t=1789489991; cv=none; b=t73fZWnJc5AOQ8r/r00dTywrLIGsRCWiP5muY4ldqKVXPDwLDvGgihci57AvmVNlVRnzH1Ve8faC21nI3kqDOH6NcTd9mUB/NY7yK8A0KOpVCAHTM6Oh/Rgkw8W3Oibi/XUem5y0d2QVJbkQHd7+ZsgA8OlLt/8ny0oKT9fbbyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789489988; c=relaxed/simple;
-	bh=Xzgz+4tsqdIJiJ44u0qBX2B1GLvXUOfXVH0aIZzJ9Ts=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n2rZ7yX13Tsc69dS2jSp/QlGoWtSvd3Rkpkb+U6RXYe9XRRypZFmWKLl4qjiL/4uM4FgFBUFxFwF/90a1Gu3ccGI10PUZcvR7Z3IATBMotsY9iiT030Ua5O+1xSrXmESugsD6yO3jsJDBHi9He30IHlwtnmWX466Q+6vItD3bv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EMuy/4E5; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NiyXGILZ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789489991; c=relaxed/simple;
+	bh=KGDGqPgNd/OBpYdXIpCYKiPmB5qT0ahrc/xo97yUpqE=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To:Cc:Content-Type; b=MJMRLTqtWDEa7TnwJQDJ76XFbyR3Sm8+eo1azMQNy1x3On3hr0CdZItXnHwWNrpM69woQRgiNpusAQ8IMwN2EPGKD7DXPwkk37DFSssa+2JZWDlLASGCkveg9hTqiAazcl3s207PJ0/VMMIE7t+dB1X89Ni62NSeMpt6PxMNPvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe; spf=none smtp.mailfrom=sne.moe; dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b=jayifd32; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sne.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EMuy/4E5";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NiyXGILZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789489985;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zGgRa3VPDYgehvQnqiC0LfcNhzBWNqGieMYcbjfd6B4=;
-	b=EMuy/4E5cIH/zpPjsfVnZ+f5iluwYV677C8HfFeKeG3iEOEdWFUFD6XYcEO4kVRTG365m4
-	tj52mKho/n8mdZIwPPwwDHwU7AxHJQjeaIWqZ4mkS7XEEONP4wlsRoL+EmcSGTYq1blYZ9
-	cY1wlFYBiMLi0iA7CLJkoK0mpSb6GHI=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-621-X_QUg94UORKJXEB_7EPWWw-1; Tue, 15 Sep 2026 12:33:04 -0400
-X-MC-Unique: X_QUg94UORKJXEB_7EPWWw-1
-X-Mimecast-MFC-AGG-ID: X_QUg94UORKJXEB_7EPWWw_1789489983
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49e6683d48fso40406195e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:33:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b="jayifd32"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff23d82eso5612765ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:33:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789489983; x=1790094783; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zGgRa3VPDYgehvQnqiC0LfcNhzBWNqGieMYcbjfd6B4=;
-        b=NiyXGILZXXkYsKiUM8gekg0NdAkMrNWfZPRNbtbyW0Jch4fUcvZyglEloXy0rv3pmg
-         fjTxNQAxhRHszyeHFb53qxpBptHq1S+TL73LcZ8Mmprmzjt2kd8xVqN1oRPcw0loo1JT
-         Y++A4c5bTIrSGd1vjjI1mIDIRhZh92dXxs/T7TyKmYNqMmW6LBqVnffvpvK4NYQiCncs
-         IxjWdBOIfo0s5uB6DyklvFZWg8iXUfenDDoOK7p2jo6YbcAK5XmooCbDw1qLiN6Z/S3M
-         dkjLid/MZfcr4KGHRvmdPpOWFRxZ8P7bPMdWByyUzKFIrFhE7p56InXjyfjlNLtzb2oQ
-         H9fg==
+        d=sne.moe; s=google; t=1789489989; x=1790094789; darn=vger.kernel.org;
+        h=content-type:cc:to:message-id:mime-version:subject:date:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5l6w9DGPU8Uin85r0NsK8D3bCXIsOpHOKl9nAzEtDoc=;
+        b=jayifd32mBKr3qiNEsyIGux4oLqJY8XIxw+kDBsMALFfuvf+InEIGIFtA2DprN0Lxh
+         pmzn7TzQLQNRbPyh8XFVbrH3kv2qg9VfXyc/N2OFbt7Zbig7uMfA8Q13mg6AGCvkYq+G
+         hrPmfuGI9UzrY6Y8Lhy+RFnhbNNMT8bDaLfxRDHHuJXjhFYTuBytkLDnXmny7pyWRdJB
+         cXApzToltRyVaQEODthC+6qmEJ6InAVACa/KBNj4K0CePkgH61gtyNdv+ex9O0iuT3Ut
+         c4NoEauRHyRb+BMQDcSbwg77HKVNmKMZvUrPRn26Zn6OCyuihZXiqqPj9EiDoBCwT74s
+         OHcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789489983; x=1790094783;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zGgRa3VPDYgehvQnqiC0LfcNhzBWNqGieMYcbjfd6B4=;
-        b=HHVq7PwnsCd/aeV5sz2hC5BE6ynw+JsiqWbtSGgpEokkkw1MLlcDwMkDzwh+pXRrXC
-         vakrDRb4GygSJAmptRdri/iPEkk3diAG2RKOuh/bo3EL5SDSbwc7XZz4TUcGQ+vJnvu9
-         i1QzQajEskS/5jQ+dfcuCKKXlsV39O2QfGjFeWWj9YqSOx8hrPPJ5i5DhyzHuNR89zW/
-         QfG456uyILCKOR72gSUZMw8xQSEkirvY7LYOD9tJ+fDwxucS9oXCxaBXt9386KM2fDKS
-         HGQeXrmtqiUZhoOiQqK707BMZEbSBBLObqW/zbcxlkphnr5s4mlDYM0fhuqq3N0vzPtO
-         hjbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgfrQvEhaddyPdT6570z1cZwkjTvyNbwNr969nQAC7oA3uHO0qs8emWBLMwKDiJLThtBhiK5yU19n7ssc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4HvIvq0Ogu6+CGibs1HmzIhXWkuRVZbKzxPKVF22Fl6sYhT0V
-	eHs92vT7xbJbwA9WTt1aSSE/IsLPwScIAIRKfxp0DOuBWxVLRFRUVaMtwEx9IkJW5mwlUTg4mdp
-	lrCTcYmbIwA4EVOVNuUIuUnkQPuKu6Bxd/wqF28n843mB1RCo3O/k0B5noT00yPi1cezfjrlSKd
-	Ac
-X-Gm-Gg: AYBFou0lgbp54u24UdvEU2YJ+TRmw/ZHmFSoq15yL5piJWGKvIzpewtcyHbfEzodfiN
-	Ishau2PmXjdIII4wIE+NRrl0E0Fc5NV+TbgEhISWUQQ+TKO0sxY2LzvT7MhiTdKSTilYKsnW/1N
-	wNCryTagPWjNFFiV7gL1vDKH4W97FF6vrsQyFEp+KwwjjC0RSAcNtjLBsOiZjjz/xCQ3y9zfPzM
-	FO0uF+Nn3JCb5rBmPbs0OcmVlbOkjdB7pyGTZe2sin3rDchvwNIVcmal8GmB62b6fXqF2loBGe/
-	ypAULZtwoL8gC30p6Zj/+g3N15UoSaTYNFCa3ZKwmklbXem9esM1pbqS6hYV4XumJGIRWpbu9zJ
-	n0mslkqH0ZJis0z/xDu9AUR4v7HAqDc010ec=
-X-Received: by 2002:a05:600c:548b:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-49e8227eb75mr26724415e9.19.1789489982820;
-        Tue, 15 Sep 2026 09:33:02 -0700 (PDT)
-X-Received: by 2002:a05:600c:548b:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-49e8227eb75mr26723975e9.19.1789489982463;
-        Tue, 15 Sep 2026 09:33:02 -0700 (PDT)
-Received: from leonardi-redhat ([151.29.41.106])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83dba8f4sm1920305e9.13.2026.09.15.09.33.00
+        d=1e100.net; s=20260707; t=1789489989; x=1790094789;
+        h=content-type:cc:to:message-id:mime-version:subject:date:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5l6w9DGPU8Uin85r0NsK8D3bCXIsOpHOKl9nAzEtDoc=;
+        b=xLZpGrOjUkgV1NBhEYgWxIMUj18vsyuUt/F1s0KrNsObgtGdyR1fXQIeIMc2u2/4BU
+         03PpDrNtCqDQX2NlPA8gqeZPjm0om0+kmCnRshR1lAV7tPI0t0oHF4QfkpOHW3+S1/Fc
+         /od/EQh3YdHLkAIrQWFFCtmJBYM4pYkESOmdCyX/OPVMSgRfKAm1yvD4Z7bdrztQktf8
+         /s3dBDPo7C+LTO8zxyerY81n4lndaNYfq7f37I6gRlDZb6z+tQa35Nx4wPehvQ8KK2ix
+         QZLAGFxUUc92SDNqYWTXiUtohIFHSKFOKyntafyI9nWvDoUIsTpSimbjghifxCk64mS7
+         DCyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwePiprCwEFm9FSKdKt6Ypp2qN3GU09ytHsu3iPDuZCSKK/LOYggKvakdjEfzzaw2LYMviBLuB7SEsBR0o=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6WTSzqDf+o3Uo1nGmO4lUPa1lOZqHvM+t5qadn5KRUDeaw+Ih
+	0jEU3iWlYHb0qSyVViJ21bnWs2SxY7eciEJX1pzGCvqLSeEPr4r/PD6X8vsjDWFUbEyjhoeMilF
+	7pX2etpkGgHqqKia4O9IAThm0FuAVaJvGKOZzaml2eTyIPGu4X/MLNU1PQiqwzU0SOIgf41+itk
+	XIzYVPkUQ=
+X-Gm-Gg: AYBFou0zFpfnRt9dpVV/LZM+JLtN9unb8DzRMwOb9ysfzRx1R02IApc/SwP2PyUcAUI
+	n7cYTGtNFN/DxbQorS72+ObNyFjVxklC6Hv1wC3OJnUvZD3+Umqn66qwLoNRt1+gT0CKds2yTFf
+	zykv9A/wKgkptc9qQKWwzYif/aGjB3oNyCYdH03NQtldyGgwe9OhZvS6GtvmeGn1Cb7a5OaBS3v
+	be0M0DL7CsuvIt0WOZ2UQJx321M5GH5sjeV1jo5XHHJrfOC2ryENvXy6u5Ms/nVNK48PS4rtgne
+	f62p855J4pwPRm92BeJvfShORDCmMXEogwWxlv15Kf1n8KvRoWWUmLMBiVflmar6GzOnk/pXHCN
+	1RJm8m2PG1zcH0VM1jT+qffJkABczW88Dnu4p02LPVpeAwKRhObNL1sgtT1PfeDuKDuENEPCJcL
+	D9Uy+IJuMC7nlf5/T9VNUJtG5kFGHhxatZheYqtZR9tAWtnUxFGcwztEwWm8ITeYk=
+X-Received: by 2002:a17:903:4585:b0:2dd:190e:28b6 with SMTP id d9443c01a7336-2dd6c6e2812mr113112105ad.2.1789489988615;
+        Tue, 15 Sep 2026 09:33:08 -0700 (PDT)
+Received: from [127.0.0.2] ([2403:18c0:1001:3a:74ea:baff:fe97:d2e7])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab9679fsm206727a12.21.2026.09.15.09.33.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:33:02 -0700 (PDT)
-Date: Tue, 15 Sep 2026 18:32:59 +0200
-From: Luigi Leonardi <leonardi@redhat.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: Stefano Garzarella <sgarzare@redhat.com>, 
-	virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] vsock: ignore empty child namespace mode writes
-Message-ID: <aqli0Mq_jv28h7eW@leonardi-redhat>
-References: <20260915111417.2726515-1-qwe.aldo@gmail.com>
- <20260915141547.3010692-1-qwe.aldo@gmail.com>
+        Tue, 15 Sep 2026 09:33:07 -0700 (PDT)
+From: Asai Neko <sugar@sne.moe>
+Date: Wed, 16 Sep 2026 00:32:56 +0800
+Subject: [PATCH] platform/x86: asus-wmi: don't warn when LPS0 is
+ unavailable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260915141547.3010692-1-qwe.aldo@gmail.com>
+Message-Id: <20260916-asus-wmi-lps0-unavailable-warn-v1-1-9bd6fb4c10f9@sne.moe>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQqDMBBA0avIrDsQg1jSq5QuJjptp6RRMkYF8
+ e6mdvk2/2+gnIQVbtUGiWdRGWJBfamge1N8MUpfDNbY1ri6RdKsuHwFw6gGc6SZJJAPjAuliI6
+ u1nPTeMc9lMiY+CnrObg//tbsP9xNvyrs+wHmvTxDggAAAA==
+X-Change-ID: 20260916-asus-wmi-lps0-unavailable-warn-9a72be44b9ed
+To: Corentin Chary <corentin.chary@gmail.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Asai Neko <sugar@sne.moe>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1902; i=sugar@sne.moe;
+ h=from:subject:message-id; bh=K0x/j1qpu8TtCs+QlqY6lETYbSNLA9xxbk2O3vU1jgg=;
+ b=owJ4nJvAy8zAJfZHZ3FlRAEbJ+NptSSGrJXFDlu7Mnsbrppl1X3/28QY5cxg0RC84IDc81V31
+ G7/WPMlSqSjlIVBjItBVkyRpfNIV+GT1/M+HHDR5YOZw8oEMoSBi1MAJsL8kpFhm89M/mrvuocn
+ zrzeeXvSQq6KEIGzt55bJPf/Tl8nELhgCyPD2snsiz7/jNt9j7X/xLbVhj/+7F5tyly96UXO/Ql
+ +l3tDeABTWkzi
+X-Developer-Key: i=sugar@sne.moe; a=openpgp;
+ fpr=89C48A71E4EB9EF0C0442D0EFC2CA37958700609
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Aldo,
+asus-wmi attempts to register its LPS0 suspend-to-idle callback during
+probe. acpi_register_lps0_dev() returns -ENODEV when the LPS0 interface
+is unavailable or explicitly disabled, but the driver treats this
+expected condition as a registration failure and prints:
 
-On Tue, Sep 15, 2026 at 11:15:47AM -0300, Aldo Ariel Panzardo wrote:
->__vsock_net_mode_string() returns success without updating new_mode when
->the transfer length is zero. Its caller then reads the uninitialized enum
->and may permanently store a stack-derived value in the write-once child
->mode.
->
->Return before inspecting or storing new_mode when no bytes were
->transferred. This also prevents an empty write from locking the current
->mode.
->
->Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
->Cc: stable@vger.kernel.org
->Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
->---
-> net/vmw_vsock/af_vsock.c | 2 ++
-> 1 file changed, 2 insertions(+)
->
->diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
->index 622dbd0467..816d25b314 100644
->--- a/net/vmw_vsock/af_vsock.c
->+++ b/net/vmw_vsock/af_vsock.c
->@@ -2883,6 +2883,8 @@ static int vsock_net_child_mode_string(const struct ctl_table *table, int write,
-> 				      vsock_net_child_mode(net), &new_mode);
-> 	if (ret)
-> 		return ret;
->+	if (!*lenp)
->+		return 0;
->
-> 	if (write) {
-> 		/* Prevent a "local" namespace from escalating to "global",
->-- 
->2.43.0
->
+  failed to register LPS0 sleep handler in asus-wmi
 
-Code LGTM.
-Reviewed-by: Luigi Leonardi <leonardi@redhat.com>
+This occurs on the ASUS ROG STRIX X670E-A GAMING WIFI with BIOS 2704.
+The system exposes no PNP0D80 ACPI device and uses deep suspend. The
+warning therefore misleadingly suggests a sleep-related malfunction
+on a platform where the LPS0 callback is not applicable.
 
-To reproduce it, I suppose we need a kernel that does not come with
-`CONFIG_INIT_STACK_ALL_ZERO` set.
+Suppress the warning for -ENODEV while retaining it for other errors.
+Leave callback registration and suspend/resume behavior unchanged.
 
-@Stefano do you think it's worth adding a test for this case?
+Signed-off-by: Asai Neko <sugar@sne.moe>
+---
+Avoid the misleading ASUS WMI warning when LPS0 is unavailable.
+The diagnosis and rationale are included in the patch commit
+message.
+---
+ drivers/platform/x86/asus-wmi.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Just out of curiosity, how did you find this bug?
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index a65090429ca7..f7d009b742b3 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -5421,8 +5421,11 @@ static struct acpi_s2idle_dev_ops asus_ally_s2idle_dev_ops = {
+ 
+ static void asus_s2idle_check_register(void)
+ {
+-	if (acpi_register_lps0_dev(&asus_ally_s2idle_dev_ops))
+-		pr_warn("failed to register LPS0 sleep handler in asus-wmi\n");
++	int ret;
++
++	ret = acpi_register_lps0_dev(&asus_ally_s2idle_dev_ops);
++	if (ret && ret != -ENODEV)
++		pr_warn("failed to register LPS0 sleep handler in asus-wmi\n", ret);
+ }
+ 
+ static void asus_s2idle_check_unregister(void)
 
-Thanks,
-Luigi
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260916-asus-wmi-lps0-unavailable-warn-9a72be44b9ed
+
+Best regards,
+--  
+Asai Neko <sugar@sne.moe>
+
+
+-- 
+Asai Neko
+
 
