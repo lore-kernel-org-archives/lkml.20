@@ -1,132 +1,65 @@
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E3E4B26FA
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3E64A843F;
+	Tue, 15 Sep 2026 12:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474577; cv=none; b=WQ6gnYNCQsrGcjFzLOBtRCmkI0abwHMffGPJ6m6NKPBR6oLFq+ePhz57Pves1Thj3VrZyYdYUrUg5W2HNg6Me2Je6RbepF2KLCNCvpI0nBPm2FUfLdtU0fo1KdxOR076tp2Ae0Sa+4s6geYe/1Cy9+cKNr3CrdpBXacl1LwOfhg=
+	t=1789474578; cv=none; b=G1D5ynBUvR4T5tLltRev/zplB+aTf65nAO+PCOJ6aaBWRTe70enlNgxwL626qn7FanLcuMqLFSqrYaa5SW5m+xHS/LsGUgzuttJiTmOA5PHAeTk9MrLZhWsP6qIXY5QX18n05wt9532lmgnIl2Nr/d6VVXaIKpsfnDaLaLlpQ3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474577; c=relaxed/simple;
-	bh=/2de0qT3tE2DvWbC8/sdd91Bn+tqbAupthlzsqErbMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VCLEjlp1TzSR/Qi/fuvohKSVYUp7i3q206W9fOp6nxixlsnORFJ4Aam0FDZundnBESni+2yD81955kj+11RxHjCnLLG2OIigIqiytONog6lyWe4ziYi8Yv/aUnqLdF0zt6TskP4BV8Gj8IKj1/jdLhRSdl9PxMd9OZUTFu9kJUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RHfh1Xap; arc=none smtp.client-ip=91.218.175.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789474578; c=relaxed/simple;
+	bh=NXoYVTwqvD2Mc3uJ8C8rBTgBxVVEvgW7tv7MPPRhfTM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DWr+hFaEKF7hzyn33RpEzsRMP5E5LlufTXsRCjM0V1tvAnCcN24WIxsoipXcD7cptMEVL2KMb3wjMzlkNPPbktuRFm83EFdiOC1QsYp8FY6eyqJYnHplZ8P9OayDM14WcWYpM1cdiAn4G17pmewKniDx0KBm+5rZLWoY9jRqwKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNterPT/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RHfh1Xap"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/2de0qT3tE2DvWbC8/sdd91Bn+tqbAupthlzsqErbMs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789474573; v=1; x=1790079373;
- b=RHfh1XapC8buEnfJLZUICSjUZS8FA3UScB6AhM9MUxsnNnqEj5G0yWobgofN03miacVFVo5q
- KauSLakBTcEKb0mc9R7ztxR6pL8oVSgESEGbez18rCm1S2EIpacJ1zCNLHDklCJEGl5/2KKh1e/
- MdJC3lPlW/89WpqjyuKphPyg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 13a02cce9c9514ee;
-	Tue, 15 Sep 2026 12:16:13 +0000
-X-Mizu-Trace-ID: 13a02cce9c9514ee
-X-Migadu-Flow: FLOW_OUT
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Dong Chenchen <dongchenchen2@huawei.com>,
-	David Ahern <dsahern@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Subject: [PATCH net-next v1] net: gro_cells: move backlog drop handling outside the local lock
-Date: Tue, 15 Sep 2026 20:14:58 +0800
-Message-ID: <20260915121458.214961-1-xuanqiang.luo@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNterPT/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99711F00893;
+	Tue, 15 Sep 2026 12:16:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789474576;
+	bh=NXoYVTwqvD2Mc3uJ8C8rBTgBxVVEvgW7tv7MPPRhfTM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CNterPT/ZD51jedu2KNQ9rOU/4D4o9j+Aviy118d7ID4ZpJ7DN5B0QTVxpbOLDEcp
+	 WjkOW+IygybTEM7hIhEUp9B9F8q2tKZJbdjojW7c1kYBcsALaPVXdNvNpseaoF6sxz
+	 d08hoYd15gcHpNwA06y/3FcZ6xOwqFvsocjr/EGRM5cC9tuus0kDJdaqEQg3Qm4M18
+	 ZeSXiq47TwxgervFWeMWsQkRc5DykbFskWfeoeMxtxMfVCAG1jD+nF5Voy10SVLA4z
+	 9vITY1nHgUqKUhmEPiCFbTS/22e9+k7WoslJgfuFNfW4pirOY8jtykHYXqI9jsapd+
+	 +JW1ZdYPtifnA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 41/50] KVM: guest_memfd: stop putting the
+ descriptor back on failure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Brauner" <brauner@kernel.org>, "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, sparclinux@vger.kernel.org, "Jan
+ Kara" <jack@suse.cz>, "Jens Axboe" <axboe@kernel.dk>, linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, "Jann
+ Horn" <jannh@google.com>, linux-sh@vger.kernel.org, "David Airlie" <airlied@redhat.com>, "Michael
+ S. Tsirkin" <mst@redhat.com>, linux-csky@vger.kernel.org, linux-parisc@vger.kernel.org, bpf@vger.kernel.org, linux-snps-arc@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-hexagon@vger.kernel.org, "Eugenio
+ Perez" <eperezma@redhat.com>, "Ingo Molnar" <mingo@redhat.com>, "Peter
+ Zijlstra" <peterz@infradead.org>, dri-devel@lists.freedesktop.org, kvm@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-um@lists.infradead.org, linux-mm@kvack.org, virtualization@lists.linux.dev, kexec@lists.infradead.org, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, linux-hyperv@vger.kernel.org, "Oleg
+ Nesterov" <oleg@redhat.com>, linux-openrisc@vger.kernel.org, io-uring@vger.kernel.org, linux-fsdevel@vger.kernel.org
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-41-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-41-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:16:14 +0000
+Message-Id: <20260915121614.A99711F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> Rely on the fd exit path machinery.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-When the GRO cell queue length exceeds max_backlog, gro_cells_receive()
-holds bh_lock while updating the RX drop counter and freeing the rejected
-skb. The skb has not been queued, and the counter is updated with
-this_cpu_inc(), so neither operation requires the queue lock.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Release bh_lock before accounting for and freeing the dropped skb to
-shorten the critical section.
-
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
----
- net/core/gro_cells.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/net/core/gro_cells.c b/net/core/gro_cells.c
-index d8c0a28671201..f46cecd246aab 100644
---- a/net/core/gro_cells.c
-+++ b/net/core/gro_cells.c
-@@ -14,7 +14,6 @@ struct gro_cell {
- int gro_cells_receive(struct gro_cells *gcells, struct sk_buff *skb)
- {
- 	struct net_device *dev = skb->dev;
--	bool have_bh_lock = false;
- 	struct gro_cell *cell;
- 	int res;
- 
-@@ -26,32 +25,33 @@ int gro_cells_receive(struct gro_cells *gcells, struct sk_buff *skb)
- 
- 	if (!gcells->cells || skb_cloned(skb) || netif_elide_gro(dev)) {
- 		res = netif_rx(skb);
--		goto unlock;
-+		goto out_rcu;
- 	}
- 
- 	local_lock_nested_bh(&gcells->cells->bh_lock);
--	have_bh_lock = true;
- 	cell = this_cpu_ptr(gcells->cells);
- 
--	if (skb_queue_len(&cell->napi_skbs) > READ_ONCE(net_hotdata.max_backlog)) {
--drop:
--		dev_core_stats_rx_dropped_inc(dev);
--		kfree_skb(skb);
--		res = NET_RX_DROP;
-+	if (skb_queue_len(&cell->napi_skbs) > READ_ONCE(net_hotdata.max_backlog))
- 		goto unlock;
--	}
- 
- 	__skb_queue_tail(&cell->napi_skbs, skb);
- 	if (skb_queue_len(&cell->napi_skbs) == 1)
- 		napi_schedule(&cell->napi);
- 
-+	local_unlock_nested_bh(&gcells->cells->bh_lock);
- 	res = NET_RX_SUCCESS;
- 
--unlock:
--	if (have_bh_lock)
--		local_unlock_nested_bh(&gcells->cells->bh_lock);
-+out_rcu:
- 	rcu_read_unlock();
- 	return res;
-+
-+unlock:
-+	local_unlock_nested_bh(&gcells->cells->bh_lock);
-+drop:
-+	dev_core_stats_rx_dropped_inc(dev);
-+	kfree_skb(skb);
-+	res = NET_RX_DROP;
-+	goto out_rcu;
- }
- EXPORT_SYMBOL(gro_cells_receive);
- 
-
-base-commit: 1142eb185b05db61a78130890fc4ed268f4cb4e6
--- 
-2.43.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D41
 
