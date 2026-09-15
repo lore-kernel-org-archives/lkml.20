@@ -1,83 +1,89 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690C04CC60C;
-	Tue, 15 Sep 2026 18:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E86B4CC292;
+	Tue, 15 Sep 2026 18:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789498530; cv=none; b=nMc0Oizo76FPCyKTC1NFZUHR/QrT0ooc9gw7ABNpgKPD0B5WApi8Ook9m9KjtIgJ4AvC9k1aMdHz1NGIcuFCvz4/1uqJDjzGCfVtlysRpBA51iwesM1usQMXaNOt1VOF4d9eeulUgPeeY7rTFoUSJvCdtl0Be2ZNGADw2VkBlyc=
+	t=1789498602; cv=none; b=LloNnKY9A0yDreY1m0jnEXrOr818QKdLAX0sHebC9V+g3O/EWzHyeAJslkWWAeU7iPOSTrxRSXc9VrujHct2EXrO5LzXYKRIsJAU74xFeO7GPclqM6qr3xFzc/DLC6FzvuI9Zh3MWI7bdxbomHcVKzgCqN+u9ViRR6jiapug5CM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789498530; c=relaxed/simple;
-	bh=t/KHLRhmhmuKBX8bF+8VIDj6oCnSEBQh311H5lqOPek=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=Nn7027bAXzjhcP5vlRT1Us3isBTKELU0GcoasW7chf0g+DOzThlP8yJBKuh21relt13+oQ3FTuZiuip0RO6vCVHXRfnz7WgormPkM9Nj/XCrHnQhCoXjX8PoQ59JRrfHHSaIggB7Hl+f40LbH8QDNHxjHU75m369qZ9VRLDS0hM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=aZJ0szJM; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1789498602; c=relaxed/simple;
+	bh=EDn0+1E7Yshbd0kRZWyFRJ9+bGgFoE73iFEDBFw05Yk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=cxpmtE1raTFEwShhGm067mx+jRNYdq3MfruqKYTQBLF0N+VTPiCBT245i44hIDiF1kuXimU+bAPBIbprhvnddsxwp4lB9Zyf3aq8hEqV69SHPnPg0liskoI9yRYrDYq53B7xpMSoReK24yhnxIA6Ps7pg6xqJTfk/hPA84gaGDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=UzRWKz/g; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="aZJ0szJM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=fyO9XAWR64DykI6KokwiFtXo+VX4c8FM668+QfO/kXk=; b=aZJ0szJMhoKEbwaItpholzX8DD
-	hZShwOtcyxEJTgVRE11c/bfn4G/hPVWBFXn23fnLdI/EYuiCiTdItZXqDEc5bkjR7bRzsOLLdeSc/
-	de2Mip7inuSSe0+kC2y0XfqFjJZ3mIn2kvYLg0nhE4dHDsWRmd75L9LjUogNP2YvQC/Yu7Y9sR9r+
-	qGTdlYuKgvGpV0kGudSBvymM+NJZC+SjgfYPy3+SkutoeQGNnk00BcVV1b3OSTutHvEZ3NbzoGmZW
-	SvVYT95oCEGklNbduEVduWoPsp/gE40Nah8atD944PG1BRT6tU+pIj49BceUq64L4Qcc7CvTWBDcm
-	GR/COL/w==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x6YJR-0000000AYkL-1PQD;
-	Tue, 15 Sep 2026 12:55:26 -0600
-Message-ID: <932bedee-b070-4c18-bb56-83830a11d2b4@deltatee.com>
-Date: Tue, 15 Sep 2026 12:55:23 -0600
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="UzRWKz/g"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net BADDF4090B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1789498600; bh=Rsepp53wmdFvcjhxH+SZlO9xP8vtYlvbJCuU3Gb4BxE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=UzRWKz/gL76bsYRzmkkw/cMgDVoueXkuRGyY22r868vyVRyL4uuDAFl/JkG7Ug52l
+	 99PnMEG5jFR5yrrXVGSCn1cHcIkuGShrvhhpDXGpeMJZ949ZjXtqGzC5k0rI6JCcat
+	 f45CC2dmBV6xGKorRvqwj9liU09AT6gO1D2xu3I2jRHpJ+jbVXXfDVsXOmVVfrkgfA
+	 q1cLQJbqzUYUdbez6d8MUZUOACBWXYWGWVF2SZcZDmxsLbetTtHqXSFJ5LTN3q/VP1
+	 CBLKOYDgX9X5GaQd/CsL9n1gKOv4hdaNC5DPUPaLw1TJEEl5wzgPbbDNw02q5PTy6X
+	 A3KZZAVwdKAcg==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id BADDF4090B;
+	Tue, 15 Sep 2026 18:56:40 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Michal Simek
+ <michal.simek@amd.com>, Ronak Jain <ronak.jain@amd.com>,
+ linux-arm-kernel@lists.infradead.org, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH] firmware: zynqmp: use literal blocks for commands
+In-Reply-To: <20260914060615.1398531-1-rdunlap@infradead.org>
+References: <20260914060615.1398531-1-rdunlap@infradead.org>
+Date: Tue, 15 Sep 2026 12:56:39 -0600
+Message-ID: <87ik469wd4.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-7-den@valinux.co.jp>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260910040836.3792333-7-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v2 06/14] NTB: ntb_transport: Clear link state before QP
- cleanup
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain
 
+Randy Dunlap <rdunlap@infradead.org> writes:
 
+> Use literal blocks for 'cat' and 'echo' commands to separate them from
+> the surrounding text. Otherwise the lines run together, without any
+> clear break before or after the commands.
+>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+> Cc: Michal Simek <michal.simek@amd.com>
+> Cc: Ronak Jain <ronak.jain@amd.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Shuah Khan <skhan@linuxfoundation.org>
+> Cc: linux-doc@vger.kernel.org
+>
+>  Documentation/ABI/stable/sysfs-driver-firmware-zynqmp |   70 +++++++---
+>  1 file changed, 50 insertions(+), 20 deletions(-)
+>
+> --- linux-next-20260911.orig/Documentation/ABI/stable/sysfs-driver-firmware-zynqmp
+> +++ linux-next-20260911/Documentation/ABI/stable/sysfs-driver-firmware-zynqmp
+> @@ -141,32 +141,44 @@ Description:
+>  
+>  		Usage:
+>  
+> -		Select over temperature config ID to enable/disable feature
+> +		Select over temperature config ID to enable/disable feature::
+> +
+>  		# echo 1 > /sys/devices/platform/firmware\:zynqmp-firmware/feature_config_id
 
-On 2026-09-09 22:08, Koichiro Den wrote:
-> Cleanup leaves the transport link marked up after releasing its MWs.
-> A subsequent client link-up request can therefore start QP link work
-> before the transport has been set up again.
-> 
-> Clear link_is_up before cancelling QP work and releasing the MWs.
-> Have QP link work return if the transport went down after it was
-> queued.
-> 
-> Fixes: e26a5843f7f5 ("NTB: Split ntb_hw_intel and ntb_transport drivers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+I was sure that this wouldn't work, since the literal block is not
+indented relative to the containing text.  Sphinx does the right thing,
+though... so applied, thanks,
 
-This makes sense to me:
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+jon
