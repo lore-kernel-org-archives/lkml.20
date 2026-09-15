@@ -1,322 +1,106 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC092D2382
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF15B3B6BFD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459475; cv=none; b=PG7WKox1fiYEA9jEZ45quHY7SAwPKX+56XckKb3bWnw2/mK8fTpLa+jmd0uqQ8OGlb3jUG8fdCoM71GVkDbm3ubeJTbI7qGHdYiEBDpv+Y/eNxOOdSXoQiy+wHmeUpSzezl1one0PKPVH/gPv1RXb+t67AGvj2teV8naoNuafqI=
+	t=1789459481; cv=none; b=bre27CKFboeGOc9IG6Ji4LFFQdlKLpaoUsux+IhEGRYweXqKfO6QsnyFDj/OKl0JPnPiQZbLezZhy/Lw8JJF9/e8xPiCK8F9ITcNZrwGjmq6GCCAa3FJaRqHaL8ijhtbhIc6ceIwyqroJIK1/mq5prWlA+H7f3YmeHVt/uw8xik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459475; c=relaxed/simple;
-	bh=j+YAiGvl2JG4UjbeMp8SIBAc1PmgNN9bCnYbRXNfpWs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=bDG3cWgwqaIC/sE8qkR2rvBywMbTSLZLIVhtuCMumoYyFccGzZeJGDpQXkg5AdiqLk0cj48vlK6Evl8DkP3fnlIqJwx4rG6m/TK9g0/hAfTyCqgyzD8PgypA2l8pioURMdslJlItkgrCBtcjr07JWmveVtB+N6XzJTlBDnUUBZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=v21lziyf; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1789459481; c=relaxed/simple;
+	bh=MrgS91ShigTmW6eO46xSubcaE3kR1feFb31hbEANW+E=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AW/HMi2ckCXhsdVJx9rsMNqhdVh++g6Zw+9Cu2Q6hNCOrU45ExZ7lz32iY21pxcmhepjozENgO/AOZp26rFUbFNUJd7d5rF9LDJPuj8Um7YHvb/mNu1Gk0WHuFlf5TjtTQoVYjwDeMqn9B4aS0Neh8yYERU6sa8etqrAItzu3Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ionagze+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="v21lziyf"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Yfbs2004317;
-	Tue, 15 Sep 2026 09:04:07 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=g
-	t8CFlTZ8f2cjImnjHsOKyv54nZJ16Xn11i4nyYU8co=; b=v21lziyfqbECbUlE6
-	zEWVSm8defp2OGcwNrlLohwt+4vlktsZPMprjmLKxBk1jy3HZzj/+d66ch2TyZZS
-	pIqeHSHDZh3XFCkEuPDLVHuddm9ojP2V40RKaL0l6SyG7AGz5qGv0gJ+B0+DH3Ij
-	mGlUfASViVS2qbbzcMeWF487oVv0nhvo6G4hknNNRzfesvRhhVFYcJmSWYKNyxsU
-	F5Nn9fwAk1c4Hf4slq8WflPRtOTTCFwOHzfTyFwhLV4Yvq3l61i6pYzkjvNk2VWI
-	bd/ZBxf0/jCoh/V0pv9IY573JliZLfd7gFQI9LuD1madRm8tFXluFi6em9VtH5yG
-	qv2Lg==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtujca9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 09:04:06 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
- 2026 09:04:04 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 15 Sep 2026 11:03:46 +0300
-Subject: [PATCH 2/2] drm/imagination: Don't map FW interface structures
- unnecessarily
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ionagze+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A081F0089C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789459479;
+	bh=rsG00H3X29c/2KMDCujSblcz4vgqgpQDzlk45QaDBZc=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Ionagze+rDB8EyNkY8VHTNtJMcsROcNXHMeukzeG0xymUV+zRFL/CvraJSSX6rpmj
+	 rjI6lGa7ZRBH1VPxMrSeZvNCGxc1Qh08m2XcFEQTHfDIJYfh94hc++tH2yJW/8hZmL
+	 OYpshaUQMQhqOkUkx029RmOw4gyD4sduVpQXuLwR9LWPW9NOYN+Za7sVtwESrGtL/E
+	 v6lrx8S4/vwGCCv+9BWfCr7T9ES3gy352El+KXafwpAtcoJNYBmcLIKJ9ZEaG6Oq0d
+	 tad3PwnKgzXhr4d/mmt2fUNHyckrNkfgeeip2hziLYICBeOnCMUu5JzAY7ffWNTPdM
+	 MG11fv0q7YjrQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b845so8461e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:04:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxM/nvGNtIcZ7vXg33olxG/4/wP84/5wfdAOMgdpqJxSxSAUpDyZ98uvwAMfqSZZVNuP/1Szurbp4WxWN4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrWnyFtm0c3f881vcpKQBmlB7t2ywCKczzV4txGPTGeOZB4mJQ
+	68YEz9lSHy0QQojlXaJiI62iUZXqEX+Iv1nmBO1pgCkTYClZTOuiuiyd+zzAD1a5KGHcJC10xF0
+	3ECj6giq3KS10lY0wRzJARJfY65ycVlgcLHm6RBy+YA==
+X-Received: by 2002:a05:651c:a382:10b0:3a3:a3:3560 with SMTP id
+ 38308e7fff4ca-3a5d836a18dmr196901fa.6.1789459478071; Tue, 15 Sep 2026
+ 01:04:38 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 15 Sep 2026 03:04:37 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 15 Sep 2026 03:04:37 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260915051948.1727882-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260915-b4-do-not-map-if-structs-unnecessarily-v1-2-a0e2ccee154a@imgtec.com>
-References: <20260915-b4-do-not-map-if-structs-unnecessarily-v1-0-a0e2ccee154a@imgtec.com>
-In-Reply-To: <20260915-b4-do-not-map-if-structs-unnecessarily-v1-0-a0e2ccee154a@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789459442; l=8607;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=TSvRkcCjfXhus5FZdojub+lNae7bXbvLSXaDKaZJ+dg=;
- b=/dWD8nNleg0HdNBapX53iZ/J64UVcJV6W93uaVboxfUd5czpqtuQOvEeRrzxA/NqLzedHYpYp
- 6Mdp9TvFud5BQkri3l03c6xGnIg/97x4MWbozSbBAgezCjrYbsTbmVm
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aa8fbf6 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=Z8F9gRzKEWkVkQCTrYAA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: SCXy-ITqIdzmh4r76-W9gU9OWU6OFAlB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfXyJ1z7twm4z8K
- KQ8Npue7cHZL5v1gIWE4XUQQ0PQcDj6Hk+UvQnwWHWWH2SY1tQ+GvTKeFBwe50CY5vsXaoI9Ps3
- arQiTHOp1bg3F5yj45d7g/cV9vrUOkxiEHyoI01URPstftVSdsAhZ0pLlpbID2FLrAYKCcExa6P
- qfRg/KTuFzlG43kLa8pwguL9oi3mwM7+xgW03U0ompiPyaYD0Wp/cla4ScxxWPISXnBcoWjzB9s
- vc8W41CVjsFzwAsx/YbyT8V20SZNCDlj9SR0EWc8miPQqHono+WxtR7Weu/VciNWbYivF3VVVe7
- ibB4FfO8azQQTf0h3PxGEVxOG9JTiQwK8JBTwrSL3/d0LnP+30z3f00+i7Jz6kA/cCRitaTyWk/
- gtFwKCrsgK34JAd2GDBWEiSFyPvaba8/aI3TJRxA3zvb0kFV3jEujliWT5eBiYKp5AH/VvwYAZR
- j69DRpWE8q/0g4VfKSQ==
-X-Proofpoint-GUID: SCXy-ITqIdzmh4r76-W9gU9OWU6OFAlB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfX/sbpqAw61ING
- cmEcYlclFWi2OOMrFROxN0ulOBSS9hilfDV+hoFW+gbMLOKWbsgNCTw/hON3Ix5ApTgf3Up3xin
- Ks66F3ivRngR/3NcQtADYYuSgZo+uj0=
+References: <20260915051948.1727882-1-vulab@iscas.ac.cn>
+Date: Tue, 15 Sep 2026 03:04:37 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
+X-Gm-Features: AcwNN1XW7NfnANW-I2Zs8w7V-vdvlDVqSq069SE8R4u2kbHCng7fsug6QCK_Y7Y
+Message-ID: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
+Subject: Re: [PATCH 4/6] clocksource/drivers/davinci: Fix clock reference leak
+ in of_davinci_timer_register
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org, tglx@kernel.org, 
+	lkml@vger.kernel.org, stable@vger.kernel.org, brgl@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+On Tue, 15 Sep 2026 07:19:48 +0200, Wentao Liang <vulab@iscas.ac.cn> said:
+> of_davinci_timer_register() looks up the timer clock with of_clk_get(),
+> which takes a reference on the clock, and passes it to
+> davinci_timer_register(). That function enables the clock and keeps it
+> enabled for the lifetime of the timer, but it never takes ownership of
+> the reference and never calls clk_put(); only the error paths of
+> of_davinci_timer_register() dropped the reference, so on success the
+> reference obtained by of_clk_get() leaked.
+>
+> Drop the reference unconditionally after davinci_timer_register()
+> returns: on failure the clock has already been disabled and unprepared
+> by davinci_timer_register(), and on success the clock stays enabled
+> while the consumer reference is released.
+>
+> Fixes: 721154f972aa ("clocksource/drivers/davinci: Add support for clockevents")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/clocksource/timer-davinci.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/clocksource/timer-davinci.c b/drivers/clocksource/timer-davinci.c
+> index 16ee0687ef31..54700738fcd4 100644
+> --- a/drivers/clocksource/timer-davinci.c
+> +++ b/drivers/clocksource/timer-davinci.c
+> @@ -376,8 +376,11 @@ static int __init of_davinci_timer_register(struct device_node *np)
+>  	}
+>
+>  	rv = davinci_timer_register(clk, &timer_cfg);
+> -	if (rv)
+> -		clk_put(clk);
+> +	/*
+> +	 * The clock is left enabled on success, but the consumer reference
+> +	 * taken by of_clk_get() is not needed anymore in either case.
+> +	 */
+> +	clk_put(clk);
+>
+>  	return rv;
+>  }
 
-Connection control, OS init and HWR info buffer structures are
-currently not accessed by the driver during or after firmware
-initialisation.
-OS init is accessed during hard reset, but the common hard reset logic
-already takes care of temporarily mapping it again.
+I'm not following. If we keep the clock enabled, we must keep the reference. We
+just never disable it anywhere, so you correctly don't see the clk_put() in
+success path.
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_fw.c | 97 ++++++++++++++++++++++++------------
- drivers/gpu/drm/imagination/pvr_fw.h | 18 +++----
- 2 files changed, 72 insertions(+), 43 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index b2a5ea001474..ad5e8d68defe 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -428,19 +428,17 @@ pvr_fw_create_structures(struct pvr_device *pvr_dev)
- 	struct pvr_fw_mem *fw_mem = &fw_dev->mem;
- 	int err;
- 
--	fw_dev->fwif_connection_ctl =
--		pvr_fw_object_create_and_map_offset(pvr_dev,
--						    fw_dev->fw_heap_info.config_offset +
--						    PVR_ROGUE_FWIF_CONNECTION_CTL_OFFSET,
--						    sizeof(*fw_dev->fwif_connection_ctl),
--						    PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--						    NULL, NULL,
--						    &fw_mem->fwif_connection_ctl_obj);
--
--	if (IS_ERR(fw_dev->fwif_connection_ctl)) {
-+	err = pvr_fw_object_create_offset(pvr_dev,
-+					  fw_dev->fw_heap_info.config_offset +
-+					  PVR_ROGUE_FWIF_CONNECTION_CTL_OFFSET,
-+					  sizeof(struct rogue_fwif_connection_ctl),
-+					  PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
-+					  NULL, NULL,
-+					  &fw_mem->fwif_connection_ctl_obj);
-+	if (err) {
- 		drm_err(drm_dev,
- 			"Unable to allocate FWIF connection control memory\n");
--		return PTR_ERR(fw_dev->fwif_connection_ctl);
-+		return err;
- 	}
- 
- 	fw_dev->power_sync = pvr_fw_object_create_and_map(pvr_dev, sizeof(*fw_dev->power_sync),
-@@ -452,13 +450,12 @@ pvr_fw_create_structures(struct pvr_device *pvr_dev)
- 		goto err_release_connection_ctl;
- 	}
- 
--	fw_dev->hwrinfobuf = pvr_fw_object_create_and_map(pvr_dev, sizeof(*fw_dev->hwrinfobuf),
--							  PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--							  NULL, NULL, &fw_mem->hwrinfobuf_obj);
--	if (IS_ERR(fw_dev->hwrinfobuf)) {
-+	err = pvr_fw_object_create(pvr_dev, sizeof(struct rogue_fwif_hwrinfobuf),
-+				   PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
-+				   NULL, NULL, &fw_mem->hwrinfobuf_obj);
-+	if (err) {
- 		drm_err(drm_dev,
- 			"Unable to allocate FW hwrinfobuf structure\n");
--		err = PTR_ERR(fw_dev->hwrinfobuf);
- 		goto err_release_power_sync;
- 	}
- 
-@@ -521,16 +518,14 @@ pvr_fw_create_structures(struct pvr_device *pvr_dev)
- 		goto err_fw_trace_fini;
- 	}
- 
--	fw_dev->fwif_osinit =
--		pvr_fw_object_create_and_map_offset(pvr_dev,
--						    fw_dev->fw_heap_info.config_offset +
--						    PVR_ROGUE_FWIF_OSINIT_OFFSET,
--						    sizeof(*fw_dev->fwif_osinit),
--						    PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--						    fw_osinit_init, pvr_dev, &fw_mem->osinit_obj);
--	if (IS_ERR(fw_dev->fwif_osinit)) {
-+	err = pvr_fw_object_create_offset(pvr_dev,
-+					  fw_dev->fw_heap_info.config_offset +
-+					  PVR_ROGUE_FWIF_OSINIT_OFFSET,
-+					  sizeof(struct rogue_fwif_osinit),
-+					  PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
-+					  fw_osinit_init, pvr_dev, &fw_mem->osinit_obj);
-+	if (err) {
- 		drm_err(drm_dev, "Unable to allocate FW OSINIT structure\n");
--		err = PTR_ERR(fw_dev->fwif_osinit);
- 		goto err_release_osdata;
- 	}
- 
-@@ -550,7 +545,7 @@ pvr_fw_create_structures(struct pvr_device *pvr_dev)
- 	return 0;
- 
- err_release_osinit:
--	pvr_fw_object_unmap_and_destroy(fw_mem->osinit_obj);
-+	pvr_fw_object_destroy(fw_mem->osinit_obj);
- 
- err_release_osdata:
- 	pvr_fw_object_unmap_and_destroy(fw_mem->osdata_obj);
-@@ -574,13 +569,13 @@ pvr_fw_create_structures(struct pvr_device *pvr_dev)
- 	pvr_fw_object_destroy(fw_mem->mmucache_sync_obj);
- 
- err_release_hwrinfobuf:
--	pvr_fw_object_unmap_and_destroy(fw_mem->hwrinfobuf_obj);
-+	pvr_fw_object_destroy(fw_mem->hwrinfobuf_obj);
- 
- err_release_power_sync:
- 	pvr_fw_object_unmap_and_destroy(fw_mem->power_sync_obj);
- 
- err_release_connection_ctl:
--	pvr_fw_object_unmap_and_destroy(fw_mem->fwif_connection_ctl_obj);
-+	pvr_fw_object_destroy(fw_mem->fwif_connection_ctl_obj);
- 
- 	return err;
- }
-@@ -599,11 +594,11 @@ pvr_fw_destroy_structures(struct pvr_device *pvr_dev)
- 	pvr_fw_object_unmap_and_destroy(fw_mem->sysinit_obj);
- 
- 	pvr_fw_object_destroy(fw_mem->mmucache_sync_obj);
--	pvr_fw_object_unmap_and_destroy(fw_mem->hwrinfobuf_obj);
-+	pvr_fw_object_destroy(fw_mem->hwrinfobuf_obj);
- 	pvr_fw_object_unmap_and_destroy(fw_mem->power_sync_obj);
- 	pvr_fw_object_unmap_and_destroy(fw_mem->osdata_obj);
--	pvr_fw_object_unmap_and_destroy(fw_mem->osinit_obj);
--	pvr_fw_object_unmap_and_destroy(fw_mem->fwif_connection_ctl_obj);
-+	pvr_fw_object_destroy(fw_mem->osinit_obj);
-+	pvr_fw_object_destroy(fw_mem->fwif_connection_ctl_obj);
- }
- 
- /**
-@@ -1402,6 +1397,46 @@ pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev,
- 						   fw_obj_out);
- }
- 
-+/**
-+ * pvr_fw_object_create_offset() - Create a FW object and map to firmware
-+ * at the provided offset.
-+ * @pvr_dev: PowerVR device pointer.
-+ * @fw_addr: Base address of desired FW mapping, offset from start of FW heap.
-+ *           If a specific FW address is not required, pass %U32_MAX.
-+ * @size: Size of object, in bytes.
-+ * @flags: Options which affect both this operation and future mapping
-+ * operations performed on the returned object. Must be a combination of
-+ * DRM_PVR_BO_* and/or PVR_BO_* flags.
-+ * @init: Initialisation callback.
-+ * @init_priv: Private pointer to pass to initialisation callback.
-+ * @fw_obj_out: Pointer to location to store created object pointer.
-+ *
-+ * %DRM_PVR_BO_DEVICE_PM_FW_PROTECT is implied for all FW objects. Consequently,
-+ * this function will fail if @flags has %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS
-+ * set.
-+ *
-+ * Returns:
-+ *  * 0 on success, or
-+ *  * Any error returned by pvr_fw_object_create_and_map().
-+ */
-+int
-+pvr_fw_object_create_offset(struct pvr_device *pvr_dev, u32 fw_addr,
-+			    size_t size, u64 flags,
-+			    void (*init)(void *cpu_ptr, void *priv),
-+			    void *init_priv, struct pvr_fw_object **fw_obj_out)
-+{
-+	void *cpu_ptr;
-+
-+	cpu_ptr = pvr_fw_object_create_and_map_offset(pvr_dev, fw_addr, size, flags,
-+						      init, init_priv, fw_obj_out);
-+	if (IS_ERR(cpu_ptr))
-+		return PTR_ERR(cpu_ptr);
-+
-+	pvr_fw_object_vunmap(*fw_obj_out);
-+
-+	return 0;
-+}
-+
- /**
-  * pvr_fw_object_destroy() - Destroy a pvr_fw_object
-  * @fw_obj: Pointer to object to destroy.
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 3390c84e4fd3..67d1e63669f1 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -349,30 +349,18 @@ struct pvr_fw_device {
- 	/** @fw_mm_base: Base address of address space managed by @fw_mm. */
- 	u64 fw_mm_base;
- 
--	/**
--	 * @fwif_connection_ctl: Pointer to CPU mapping of FWIF connection
--	 *                       control structure.
--	 */
--	struct rogue_fwif_connection_ctl *fwif_connection_ctl;
--
- 	/** @fwif_sysinit: Pointer to CPU mapping of FW SYSINIT structure. */
- 	struct rogue_fwif_sysinit *fwif_sysinit;
- 
- 	/** @fwif_sysdata: Pointer to CPU mapping of FW SYSDATA structure. */
- 	struct rogue_fwif_sysdata *fwif_sysdata;
- 
--	/** @fwif_osinit: Pointer to CPU mapping of FW OSINIT structure. */
--	struct rogue_fwif_osinit *fwif_osinit;
--
- 	/** @fwif_osdata: Pointer to CPU mapping of FW OSDATA structure. */
- 	struct rogue_fwif_osdata *fwif_osdata;
- 
- 	/** @power_sync: Pointer to CPU mapping of power sync state. */
- 	u32 *power_sync;
- 
--	/** @hwrinfobuf: Pointer to CPU mapping of FW HWR info buffer. */
--	struct rogue_fwif_hwrinfobuf *hwrinfobuf;
--
- 	/** @fw_trace: Device firmware trace buffer state. */
- 	struct pvr_fw_trace fw_trace;
- 
-@@ -430,6 +418,12 @@ void *pvr_fw_object_create_and_map(struct pvr_device *pvr_dev, size_t size, u64
- 				   void (*init)(void *cpu_ptr, void *priv),
- 				   void *init_priv, struct pvr_fw_object **pvr_obj_out);
- 
-+int
-+pvr_fw_object_create_offset(struct pvr_device *pvr_dev, u32 fw_addr,
-+			    size_t size, u64 flags,
-+			    void (*init)(void *cpu_ptr, void *priv),
-+			    void *init_priv, struct pvr_fw_object **pvr_obj_out);
-+
- void *
- pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev, u32 dev_offset, size_t size,
- 				    u64 flags, void (*init)(void *cpu_ptr, void *priv),
-
--- 
-2.43.0
-
+Bart
