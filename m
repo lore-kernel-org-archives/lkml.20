@@ -1,147 +1,207 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010023.outbound.protection.outlook.com [52.101.193.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD4235292A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:40:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6164562A9
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789508428; cv=pass; b=g/W7tMbSx5vc2/Y2WPp5zR4K8cied2Ced5rpxDa2duwp0uPRkwwn4tjtrE+lEdPsZg/hrNoC8/hYuMHTzu+bZdzx1nlpsA24BF3nQSn2u+bt8lwhGt6OjyBnbvqwSRKCiCmeAJsgxq9CeCOTvkFzJRPIiHhytIVifnvzeAwesqU=
+	t=1789508441; cv=fail; b=daAbZgKIKlX+OY+ofrTOKcIucO2br2+U7Fjh5UhvTwSE3v2AGI2F4eGOpVGwJggooGCnLG6fWavOjAg7a8dj+9pQ0diXvl8B6nTmrOeSfM24VMeDiHEeu4al1Cr73L21FtTOxA9j/KXphGRQpasqRiJpppSEoJw6no9TintSZFs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789508428; c=relaxed/simple;
-	bh=B4rm2n9bkZJZbYTVAiewnOQ5BwSCBdnF2JacTEh3hM4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QAmkqm4PabHlGF40Jr7oS/SlP12WeyjLOF5AaXMIymQ6AHVn7fotc1QAAJukuLVpni9lTuMNLI9N3zsNW4sHdI6X8k5KBxRf53PzyZosYvgP0AkvnVowruw9toK88oVsWR9mD2fKw2M/Y/YCVH0sMBOzPzRcEBfL+JbQRdkI4dc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=Qf5rLs7Y; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	s=arc-20240116; t=1789508441; c=relaxed/simple;
+	bh=qgLGJhuxLMw4wvvDVOjSXrEr8NeRhIk8/H23WZqnv5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Y1tZO3eplO+9iSHQaDx1EeNg444ocYE793QXJVUAAw+JrKBWRugFWBlGjgA8bULF/+OP5L8Jw3mQrK/bgPK1rBBJgtM0P1QY0xfgcWb81WB3XxS+bK+7xJ7Q5CsZqA0ff5yyIOJzP7HbOk8nyErWLORiI1+9uiYNhzJ/twRkTtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=a0unn3i3; arc=fail smtp.client-ip=52.101.193.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="Qf5rLs7Y"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so2787995ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:40:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789508427; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Cc7trxEKcGNXeYwrlidPawuKOEgGcvoS+ej5GYvjo4hrC2w2XsBo1iuOee28tu7a0v
-         aMnD/tIgRlb0fuJxwu2z7FHG1roa47+HlRubL2QZwm6imNW7l29bCDTbkXZ7Jl3pH0QK
-         A6YS6Cc3YmjamBvgtskNfUb84gx+Q0OLhkL2q9wwxmFkbpd6+JkhAXdL1VuNczkqLRmx
-         GnJAY++aJR1AV9hBE9c28UJAEbtnC0K65bHn4d81FaMvUlMVxP07hYFGGTsNcUJ/gaS3
-         pKMdaMusupzw6OrhrDxA4f9mp+RSisardHTQVIr/PYMSbhGw31ZWh3+TADBLumnhPTGQ
-         Wo5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Tf2DDHiSLUuWU4s6Fj0OpIRO1A/JoEg2bToB3dREFOs=;
-        fh=bhTHjtbF1tRxKXT+TkdF8HKUtrw4sMW6HQ8uTy0zY4M=;
-        b=Tj2wzpRqhGyGkhZvwm7cpW9dELnvuOwZcsaNwunKXkZoGJxRbnQUGUIQE5D2uVlceu
-         tnWzoHJIbFuaORyatwygFfJRcTmuF26n7I8U8w8bOjcSnL2icUOxquN53UAoQGb/aXYn
-         jAc4S4XGGzKjC4A2HsXSscP3yHIYr/s2J6TjYS905QvJ3ahohClqd31BBkjVPZ8ozq4y
-         cdhyFMWeuzeZSuxzNuR8t8LyWURe4d5pwpTdfw9e8Hprnlj0kJWfNrz7etmhcv0az/pG
-         w9ZfbWiCut87ZZLzS9weQdiEFa9KtKORWrZSmpZ0crSdjSkOlY1uZ21nscCbGpYYdpX2
-         M56g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1789508427; x=1790113227; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Tf2DDHiSLUuWU4s6Fj0OpIRO1A/JoEg2bToB3dREFOs=;
-        b=Qf5rLs7YgypFzjotuw1km2vr38WPeBwCSdKt9JpkY8JwPbBrf4B+fSWQllPhY8rqhl
-         q1Lt+sJCRiehPT5ToA1MW/13hInq02t+HpUbvXNVAI72ComrivyepYsKAZYuctw60M2r
-         FeoDSwsj0+SfWdlk1203ERYxXYbukUUM6TTIC7x9H0GzGcKTnQc0QEmQC6lAaPaptP80
-         BPRZDH621h+nGRMTOlbmMKoSCYIxXFywKqv9vXoshu60Ype9eLAdMo/tqG9l6eqkEGCS
-         HBl2ws018B8ndrWt9OvpM15cS8X0BbAi+YUuAPj+mL/0OYtuLrp1Yv9Bra9u1n/36mSj
-         ObsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789508427; x=1790113227;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tf2DDHiSLUuWU4s6Fj0OpIRO1A/JoEg2bToB3dREFOs=;
-        b=sKQvZO+HAHu3/svmsXlUufW0apGjavkxAgHD/ej197hv3BJfsbupXySYLeZ+NgUwWB
-         Tjklbw36p4GjxYbDeglU4UdYndHo9AA0DkYyoO8aDQR0+gH38cTrhT4//UAvEnvEgjDe
-         pO98/ts/LJ4lgGqQw/ViWFqJqMjiWlfHoqP7OV8mBL+VdV2ZNIG2Vwr2Zkgfc9xrBy1P
-         Up1dkgPWtldvizyidNrFN2wIQsN2WiTJTwwOqChFx4iDHp638jAiNlQs44dmWX0DHHLm
-         o3jvzEzRO3o/aRWmHh0H0mW8R8i9Movzdn1JMR25fEpEFMU6q0WJdFf1Dc4jFMs2UiAF
-         Izqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwFluDMUSvhTloQr2tblkbkpgGc+/7UoO0saxhWVIcsyhSUT5lktjME0RgM4UGrd/Y14yPxA16qVAHpdi0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSjAZlzejr/HpCHh8vUpa/9dmFE6xuYMKcarVUfqwDDz/Tsvu4
-	L7iI1JEqlZFdf2k9jLKc/o3hzh9IS42gHY6bZF5N/WWjb7yFlGQpkQTBDViMNX6dOevSDfEy0EY
-	61Vf8zzfEIbfsJ9xOSehxKntkCWw+2MPCdnIFe/dc
-X-Gm-Gg: AYBFou0q5veybsto0ONTHc+7HUitBv4jtTX5FrtctfJHN6ofZ422PVhD2hsOs5M2Zr9
-	D3ByPs1WcwSgLWNHK6Mf7i4gQlOE+frRd/G2IJQVEcX364rd0uM87ssILhts5toeNzS+oW25k2h
-	bS6jPyRgNp6nYOrA9EJstRbrAcjAp8bQPrRsz/khWZ7yTTDH5tKT5hXVIFc3bZZDGfdgxMk/gHw
-	KS55RK02FZZkIqDCkBay+rf7t1vJCreQ7GoJtvMaaiOR9gVKbvSBgxtbDC4Lg6yzb8rsKtcR28k
-	HQcvQIwJtde2NSc+6LgvCyiVePJ9ozwkSXg4PeBM9iCUyvbihoATNFzFhnZA1uPbDZPLGrGsHby
-	3lN8vaDJQ1FU=
-X-Received: by 2002:a17:903:1983:b0:2d9:4871:393d with SMTP id
- d9443c01a7336-2dd8e77e51fmr2057485ad.21.1789508426906; Tue, 15 Sep 2026
- 14:40:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="a0unn3i3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oLJ3ErtBc0q1QYkieAqE0Qn/M9CVEIlskn1mL7oxitxLvSKRAGZXhkbjEaj/E4QQckSZV1FxJsnDKvhCgJjL5DFkdSrDtLuhaTqC0GEo7vn/7qfj21boWFqgBN9VYwN+RUh/YMgh8hW26FyHnUvesv5vTj1Q0euOEMu6VgbTmqJ+7oX7RZixZIx9e1ArH9Wl82pRLCFMSlSquUFQ/MeNSfR+38qM2+FtUOHYH7vBURC0Ty+RngHIaXnSP6mTvwIcp74WgSUoRQTEFy/n4/QMRMiZhGVByRbsmEXwpskfeMnydXDGIyGBc/1/TN1f7CJ/Gq+FqIQnWAythYw1MK80aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gJASmszuvAq2B+eQCaH/6PmIhFC+ljx7xTDSx+wnUUY=;
+ b=cQgyJi0KFwYOJqWY7FNUMMuKwBgUTGGsNiVm4ueacscoGRmsqCK1A2iOPhHC5vo58E/ho78tZ2Uwt/TG5Mb4uiOjyWbrCnwpCY37vlpyW0Xz6uEV6/YWTMYRz7NSTxiyDll46A5g9hxGWrmIFsRM3KHpkRzVC2DGwaiJdam9YTny5v20ML2SZvBfnCk+uORofmNytDyy3NF54TJdA21G9SsdPdVORzQDEOqPs9h/hrzZdgUAtJ/kICHQt/y49DCyB/FwnPXu5k4XAji67yI2VjhkF8KIS4oT5xqA6Aqi/s5d4ieWnaxdzuE0EZoyRXavZ/kdMM1U4mZiq+xHibiN0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gJASmszuvAq2B+eQCaH/6PmIhFC+ljx7xTDSx+wnUUY=;
+ b=a0unn3i3psoJ1X6JVVfxGywAvEoFQPPvk3r99GlM2eQPbB75gIaZDqbm+ME7CLfpGsOoEVy6s0mxzQ+j8mNTulT6g3sAmPyi0JTt5ISIwryfBcqfGi9010ehZgN5w3qVrnK32T0PzHRWqj+A1kqHkodGV0Wlwwue5HYj1tpw7xI+ytmdnhZMuI+sNrnBwHfumsxjTCzhzZ3Qes5EXRcH7kEnll7VI3vFF9IeZULnjfyNDJrX2K/dC9ci+Mr4JPlnH3SzLAhZwd4dWjj3+Lpq9xU9EHSUXmJCWSRZ90iGFDCd1lVschu1BbQS+GW5b/tw1bSKcVxPMwIxNzH4q4VOaQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by SA1PR12MB8858.namprd12.prod.outlook.com (2603:10b6:806:385::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Tue, 15 Sep
+ 2026 21:40:33 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 21:40:33 +0000
+Date: Tue, 15 Sep 2026 23:40:22 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 09/18] sched_ext: Block proxy donors across scheduler
+ transitions
+Message-ID: <aqm7Rpp_xyWER5Y2@gpd4>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-10-arighi@nvidia.com>
+ <20260910105335.GJ4120091@noisy.programming.kicks-ass.net>
+ <20260910114158.GS788244@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910114158.GS788244@noisy.programming.kicks-ass.net>
+X-ClientProxiedBy: MI0P293CA0012.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:44::20) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915195728.3519469-1-arnd@kernel.org> <CAHC9VhQwkwrEgnuyP-u_NJxmjgy3Zp9XN4cAqCMqH3ugV+jrsA@mail.gmail.com>
- <5a285431-9b60-4d87-87c4-a5b52021ea65@app.fastmail.com>
-In-Reply-To: <5a285431-9b60-4d87-87c4-a5b52021ea65@app.fastmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Tue, 15 Sep 2026 17:40:15 -0400
-X-Gm-Features: AcwNN1XFRHlUUDTBceDCE7_aMUsMY6ed2e061kcuq0vG9XSfwVJaXL4EmZTGKQY
-Message-ID: <CAHC9VhQH16yo-w1kGDTyQw5S4a9+04NwsC6Mmp1LP_X_kti6Aw@mail.gmail.com>
-Subject: Re: [PATCH] selinux: use explicit 64-bit division
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Arnd Bergmann <arnd@kernel.org>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	selinux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SA1PR12MB8858:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77a745cb-1604-4cce-2a21-08df1371f872
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|366016|23010399003|376014|56012099006|4143699003|11063799006|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	JQV+4/Hg0sgeRhbLhiHDUC71eyocjjTZ6dW3SgarhHKJgfOZiw2s1hWc6hbCgBI8iFyIuXEAYCymh627KPHntvCWV4EpOkbIRjXBuyjmTT30hUUrqbtgrWPNUXrU+rMWqnc08xPbe6tAskiSjmUPqGZe5dN3WWSVT6oOLQ8OoWFFWVqhB4TdilfFWmfXgN6bUIuZIW/RcSyl5gVvpt1OT8XOAzgDvTcJKr8bXwDkXNZVN/f6leEmywHfLIja1fSGyBM4t8IMdthhK+RpNrEABxJmj2UpauGBJJJ0NFPkJefQLJmjd55Zk3vK2MYzQaTT3dJ6I5oEEWeTZGRtwNJnKP6u7BIyjWqy/H3TPsqXTKCAMwNsVIZDXRPwyv4r8LESeatljB27aJf3MQ77q1sVVgId0DZvJ/AXAVcwkvUP4abv/nfShEnbwpzVJOYGvB0BkCyhDS4iCAsQ02pEGhyTUxmEVAqKh/adW+c9g+6N4/5jYg9ld28ONgxztGqjOzdMtWrQ3FoMhcLKUoeu/yvrM3lsWeaOrUYyuQhKOGeqm9Dlljx7PQsmWl7G236Ngy/FKcS03pXTgxvqXH6u25GNihMpGKXxBNfu8hwxXjt3rfN3+g9PIspiTvjJV3Z3zaGQ8+tezfA1Ub6fSzXu0CfzG8bnVx/WFIGbnolBeWsaeNY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Ibfoo/m64y3ITuRnz6MqFyi1ZV6qIDMEPYmltDXFAd7WdmR7kePmV7W+diqp?=
+ =?us-ascii?Q?eCoWX0c60+aG1UzzJlFS6TW73RdC9f1rLGbEdCnyihvHDDkBqbL+qE8KxMWS?=
+ =?us-ascii?Q?vW/H+D0sqk5iR13Xb7kHGr3CM8UfjOGokFPC+Pq7C2FF/iJAi1r8j0Dre64q?=
+ =?us-ascii?Q?n5kzICNVdf0nUwq9n5C4gKye3IrIFxHSOAHN0A9dVZLOnyebDHc70sHOzcQF?=
+ =?us-ascii?Q?pp1jrjNgY2trH5nbBx/FD/AD7jlXobhvRyA1jT1S+OM1G9doqkQNFrU0GTvg?=
+ =?us-ascii?Q?M2xEGVhkyOld+1WJN9JJtU+76aFLmCUXwUtSpRh7epNR5awl4K9ZVIFDT0sh?=
+ =?us-ascii?Q?4erR85pz+KXsFJX71GRuD2J/hV1ymWooQWaz8uPPGzgLcRos3XIMPZdtjrI+?=
+ =?us-ascii?Q?HypViWmCMM87Qg026YsRz20IR1hjhGOeMlgUa3IBZ56ZjpCTjc2UKL2fDHXh?=
+ =?us-ascii?Q?UBiQf7o6twC8aGJhWQpmL2O7BAd6NgQuh7PZRqm8G3b9mgXt2v01WY114hgV?=
+ =?us-ascii?Q?BOwvc9pwwawwyvpUkEJjVqAEsXgemdMyDq4M4dNcRfx3m9UkMHiauSz3yNLz?=
+ =?us-ascii?Q?TFdHPoWbdXiiAD0md2QF25KFaQKBOCs9hoYnF5uukFqD5DbDUZs36CIVrPip?=
+ =?us-ascii?Q?TI4laS2tbgOlIpUWnL4wCxfjvltLYCMYOzEG6WuCigRgPdSfOe3hKqFUp77X?=
+ =?us-ascii?Q?0hP7s4bNMPXoyV5XQHJuvEUuQDazf67MHIfitmZVtQhJdVs/tfD+A498kkQt?=
+ =?us-ascii?Q?FHSQmZdE41QBRsSag5IwavAGLTSA52NY9jHOGT20EMVM5HPSYkSvKCeu6rmT?=
+ =?us-ascii?Q?Ja/Xt+yb+89Mp1/dgXUQa0TA5rqndslrYegxkHCZ32nmoBlbdJPWALzdfGM1?=
+ =?us-ascii?Q?9mgage8XyPMO95VUjkubT3nb0X+7tKBF/tk+QLWHDrDfBxOEK6B3rTQSDkBQ?=
+ =?us-ascii?Q?yM/Zmw1/MmknYZ0Xn9MBZiPTmP3xDHUL6uu+FViLN6mosZXy00fMl+Ao/9md?=
+ =?us-ascii?Q?VL1vwZ/mjbFcUShnr3k6ne6Dd0fPSMsu5FhbnwPMfM8DVzhlZqtu9rWfoge/?=
+ =?us-ascii?Q?Q9uAhNMfQRrigLxxW6KesqMY/5jbtyH8okHih+3djoJnGJ2udapReyP0oLmX?=
+ =?us-ascii?Q?jPInjTB5olq1lK63QcF2LpnBApfSe6aPlJMXIck9eWGvrIy2W/VM8vJxAaB6?=
+ =?us-ascii?Q?6QnivFbtuTg+l1Z9B65pIVaTwojxuWzbBy3PF/3mTS5CX1SGVhQd6PX1fiEb?=
+ =?us-ascii?Q?Re1HLK5fpaU4ca3yPzeCM3FlIn4GapNaKdWbcge6D+9XEwikZ6fPiqlLaJDY?=
+ =?us-ascii?Q?ZgZLNgXulxqzosRXBqOF3ivVX8/Q/XXPdxaqcPA2tzbgH+N9eWR4XJYQxljy?=
+ =?us-ascii?Q?FxiNwlXzWzzIjHgYyhPtzFg6lnnsc0BkQtmPKfV1znU9ogfe331FC4COxw/S?=
+ =?us-ascii?Q?seHLrfhmzPK7XQNTHakDhO8ff6rDMyGkWALTjYGa+HTWPq5rkEIEI64v7vsw?=
+ =?us-ascii?Q?FJn0pCXCe06HmhMfDWrrBGiAq5p/hUdhzlEkhVYulLztWHEt45ncNB16ERV9?=
+ =?us-ascii?Q?eHWWm+uKuxROB4aJHBrfz73PpwtN6+8fke19FXT/bQH/9cr+HDspH4Y+5KZn?=
+ =?us-ascii?Q?82hltFSBis6z2keSSUFazPLAq2xpUy7z4nNRAsp5uBiun9mPiPBiDFLmzB/t?=
+ =?us-ascii?Q?sqHRRGuawS9PsQhPhHr4e+5KGbmjfRommBtKdRdDcjHS2OjOnMzvJKD1Swai?=
+ =?us-ascii?Q?WsmbpR7BZQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77a745cb-1604-4cce-2a21-08df1371f872
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 21:40:33.2073
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: poFRMqUafgl+eIlU+xwxSzw53vkeHOTvh3VZ8HIG8jvsThW3CQIxfQI+q3v1LUeg+lZ10HIavpCSlBCu/4gydA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8858
 
-On Tue, Sep 15, 2026 at 4:43=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wrote=
-:
-> On Tue, Sep 15, 2026, at 22:36, Paul Moore wrote:
-> > On Tue, Sep 15, 2026 at 3:57=E2=80=AFPM Arnd Bergmann <arnd@kernel.org>=
- wrote:
-> >>
-> >> From: Arnd Bergmann <arnd@arndb.de>
-> >>
-> >> On 32-bit targets, the division of a 64-bit integer by 33 causes a
-> >> function call:
-> >>
-> >> arm-linux-gnueabi-ld: security/selinux/selinuxfs.o: in function `sel_r=
-ead_class':
-> >> selinuxfs.c:(.text+0xdcc): undefined reference to `__aeabi_uldivmod'
-> >> arm-linux-gnueabi-ld: security/selinux/selinuxfs.o: in function `sel_r=
-ead_perm':
-> >> selinuxfs.c:(.text+0xed0): undefined reference to `__aeabi_uldivmod'
-> >>
-> >> Replace this with an explicit call to div_u64() and div_u64_rem() to
-> >> annotate that these are potentially very slow.
-> >>
-> >> Fixes: fc68b6a45f16 ("selinux: convert selinuxfs inode numbers from un=
-signed long to u64")
-> >> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> >> ---
-> >>  security/selinux/selinuxfs.c | 8 ++++++--
-> >>  1 file changed, 6 insertions(+), 2 deletions(-)
-> >
-> > Thanks Arnd.
-> >
-> > As sashiko pointed out[1], since we don't really use the full 64-bit
-> > inode space, what do you think about the following fix instead?
->
-> Ah right, I hadn't checked the actual value of SEL_INO_MASK, and the
-> description of your patch made it sound like the 64-bit space
-> was actually required.
+On Thu, Sep 10, 2026 at 01:41:58PM +0200, Peter Zijlstra wrote:
+> On Thu, Sep 10, 2026 at 12:53:35PM +0200, Peter Zijlstra wrote:
+> > On Mon, Aug 31, 2026 at 03:42:19PM +0200, Andrea Righi wrote:
+> 
+> > > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > > index f142ab455b797..4bd956182af8d 100644
+> > > --- a/kernel/sched/core.c
+> > > +++ b/kernel/sched/core.c
+> > > @@ -11302,6 +11302,15 @@ sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
+> > >  		flags |= DEQUEUE_NOCLOCK;
+> > >  	}
+> > >  
+> > > +	/*
+> > > +	 * Don't carry retained proxy state across scheduling class changes.
+> > > +	 * Compatible RT/DL PI transitions could preserve the session so that a
+> > > +	 * boosted donor continues proxy-executing its lock owner. Defining which
+> > > +	 * class transitions can safely retain that state is left for future work.
+> > > +	 */
+> > > +	if ((flags & DEQUEUE_CLASS) && next_class != p->sched_class)
+> > 
+> > That's a tautology, having DEQUEUE_CLASS means next_class !=
+> > ->sched_class.
+> > 
+> > > +		sched_proxy_block_task(rq, p);
+> > > +
+> > >  	if ((flags & DEQUEUE_CLASS) && p->sched_class->switching_from)
+> > >  		p->sched_class->switching_from(rq, p);
+> > >  
+> 
+> > Hmmmm... I don't like this. I was expecting this
+> > sched_proxy_block_task() thing to be called in the big switcheroo
+> > function when loading one of these ext thing. (scx_root_enable_ or
+> > somesuch).
 
-No worries, selinuxfs is a bit odd sometimes.
+Agreed. The cleanup is required when sched_ext takes ownership of a task, not
+for every scheduling-class transition.
 
-> Your patch is better then, you can treat my mail as Reported-by.
+Calling it from sched_change_begin() also breaks proxy exec across FAIR/RT/DL
+transitions. I'll move it into the sched_ext enable and task-ownership
+transition paths and test that approach.
 
-Done, patch link below.  Thanks again!
+> > 
+> > We most certainly don't want to do this on every sched class change. It
+> > isn't even gated by scx_allow_proxy_exec().
+> 
+> Why not do:
+> 
+> switching_to_scx():
+> 
+> +	if (!scx_allow_proxy_exec(p))
+> +		sched_proxy_block_task(rq, p);
 
-https://lore.kernel.org/selinux/20260915213807.481355-2-paul@paul-moore.com
+The scx_allow_proxy_exec() gate makes sense, but switching_to_scx() is called
+from sched_change_end(). At that point, sched_change_begin() has already saved
+ctx->queued = true for the retained donor and removed it from the old class.
 
---=20
-paul-moore.com
+Calling sched_proxy_block_task() there is too late: sched_change_end() would
+still see the saved ctx->queued value and enqueue the blocked task in to EXT.
+Also, p->sched_class already points to EXT even though the task has not yet been
+enqueued there, while sched_proxy_block_task() dequeues through the current
+class.
+
+I think the cleanup needs to happen in the sched_ext ownership-transition path
+immediately before sched_change_begin(). In this way ctx->queued is recorded as
+false and the task is not restored into EXT.
+
+I'll rework it along these lines and test the sched_ext enable /
+ownership-transition paths.
+
+Thanks,
+-Andrea
