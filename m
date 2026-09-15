@@ -1,133 +1,229 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E657947F3DD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8BD38C438;
+	Tue, 15 Sep 2026 10:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468437; cv=none; b=Z0OZ1d1LxBTskx+RmOy/KbLrY6rAoC3sighlZHmBE3kKBRq9rN4j3xZqTvbIb/jP8MfFoXbhewEy6FpVnD97vK86J+ZFdfOfa/4bjpeffRlzMcN7dGUnPcq49zkQ3Lbli478zUDJQqt3iMhKG68XSGgqToEI2y4xJjOKMeOjmi0=
+	t=1789468457; cv=none; b=LUZMPaSykWwSU89Pw5ltNqxnaLc27zfvV/UTAMU4pZA/+kuYXpmB34+XwsWTz4FVCB6Fo57q9WbS4OTkCw4cF+JtZFWUhc0i16cjPy7dL4BZf7g1Wg2idvNZliG52lSyoOUw/noK0m1YeZeRZzfdUQc7L8UwcvduIE3wlNhaXEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468437; c=relaxed/simple;
-	bh=24iyB0qQIhRBRLcksSKKzm9eIHZVgNfeEOfit53HP7A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=csSQQV5nM7nt+zR8u8IMRKhRlwvxTQXzTkc1mOBV7lICODvvFCYurtjVl+LlRKEUfYBWpwxobuCS9O54fHW2grFfWeeKPduAHu+HqeMRnx72TYdG+K1/Qwomh3Ca+2lqNDNFOosBnh31GlUPLCV7ciweQknOTNY4baPoxfllkQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U0hxpsZO; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789468457; c=relaxed/simple;
+	bh=UBzkm8sfFlelF87j09jVlqAKMXd3gOjZixvTSW1iNUM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XeXWNCcgII8NAyjNpVCYQb8mdEJ56BldYgJcPZi4HqI0GnhqJkBP7OwPIJFiQoT4BrBRT4kcp3EVZiXHXyCukYXtfgQhAlsNCIhZ4iK9M7QkyjZ/h7VpzZRxWQLrinYF+CPUwK1ssoE9knHL7Z074SGF1SrfCHSWCz9KX7Cs63E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=UdDZpaPr; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U0hxpsZO"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so19964666b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:33:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789468432; x=1790073232; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vA9NWFMPC9pCLE/rtR1qK/Zvon8swdWRLmKM7jQZ0lo=;
-        b=U0hxpsZOV2ZwRr8HuCE/aCrFM/LucWFFC6+C12Ye+qwO8JjW9GfiSc8BgMy+aAWQio
-         DcB7dehQ6+si7t9BFzEzgW99jtBOtzZ7MYeA/5xDjxCEPe/bmYO2tFVuUEW3B0w4rOxS
-         Bm8eSt1VPJPeV2wHzohX8z5ywXAcFDl/DAGhxx+KnNyQMEOTiIYDCjbye8NQStjQMW6h
-         C7GW/xO9ZVxdIGc8W4xRwIARxbLe5RNYJlEXymRVvrxLogS20hnauwXGdzLl0jISPJav
-         7MAZbXSIZj5QfDQjIlgJVA9s2Cx/p/mEh/jyB1M/ELEVhgOMOGg4Kyf3/Ndd1/zExlHr
-         YcbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789468432; x=1790073232;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vA9NWFMPC9pCLE/rtR1qK/Zvon8swdWRLmKM7jQZ0lo=;
-        b=BleAzmS/wi2aHNkSR536OKN8uZDyUxCYbbCac/nKqUSceeKyRoniMSBRvKHE+kQAZb
-         sbhyyB+BXJvNm/1yXoTpLCsjfS81HwrBYfbO2gJcark5Hb2urRQV+Z11i/xL+Bd1O37G
-         3AfBshcpkgejITvJlc1fO8cnPOJi2Cz5loYv6XPsi0aY8TaA2UyIpkuzwDUEpZ7EzoQ2
-         IxkKmOT0a+OcLWkIa2JMa0GOFDCa7fPXaSwPsjx6UJKV/Z2gtCkfys+cgcOZ2ix0f1og
-         4gTft/Xr31EtlpQHjAS50e2VID6WsVe2aCcCszsFzBuLxDtK6mh260+YxQSQa81Bu8fX
-         t2tQ==
-X-Forwarded-Encrypted: i=1; AKwUvByB4pMU7alC1Q1S5e0Tr562i1mSIAIw1rbz+lgQNC24e80eVN/O1cLGDtvjbhlVzQT6wCRmHvEjliqboCU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEl/DMjxEZj3FH8JZG50XWcgLRAfmShVImgxRSwWKxR2AFalmJ
-	XlBg849GTyv+Zo3GfqnxJ18+UkAaTVoXEQ6TV3WMzWQl6sGr4Yui09+9
-X-Gm-Gg: AYBFou1G+ov1f3lusIr+fpcfFtbic9LOZCXnHj3GnAwfsBVJSz4EQ8K8kDtrec1xkzE
-	X81itszR7Gac3YCBR26sKdQ9jRYc6WY3q1IT71AiT0IGi3PvqCMWKmiHX+gZ6CSN97P0hBci2wj
-	nrxhmCsers7ZQQEyGeyyBMS+F3lw7lLHHp1IwR5oJyixlJ/ldx+O/woL2Sm+aheqUqzqGHZIC+p
-	sPyfVF+0rnCRYuOFaXT4cL3PIqKaUIgKXwCl49kvKLOdtp4+1ua3U50GFMraLNjAGseInlditoj
-	jpgNeOoF2lxATuO8yoP6PAE9GgTYyHwUDjgNRPlsUXumgOMqESl8RakLNM8paNUhaQkNvBKf8Wt
-	IbB0/oIjvUtbATl4ahkmM4b0noW3h0zLFhkpwIVtA0zgR9Sz3kevPYZ4XNuDxHEtPXTzHb1yRGO
-	6LOz2hrJjnUKggi006/yRLMNudNqWi1fWlQIq3qvOI+0RW5xT4/NC2bYgTWvoVyrhap4BM+Rc3d
-	gk1zW/mErJe4xZxi1WSdkS/VWAzaOYe04e7SF2FevMmQvcBDXjq27217RqZxF7sMTVQ9yw04CYC
-	Vn87qGUfe9hIbkAXg19jXDXaiuTG4PG5nRbz16c9nTCzng55pXcQGnJ3ZjsRa9+QoOY0WAKYOcs
-	3ObxfaGaICztHEBBYQ9lVFL4939Lp0tKhKblC/gdUtsVxEhcnveHPA+86IrfuPHYmXKY6nVwdgs
-	je4OHujEdG/4bPcRbVSj8YB97VtRoit/XbZl2W4PHKXsEw/SnyqR2lMMukUUwwSGYJJXSH5UIcc
-	SMyh+tm24ESojrk
-X-Received: by 2002:a17:906:7307:b0:c29:5a76:72be with SMTP id a640c23a62f3a-c29d78fed36mr38938066b.24.1789468431681;
-        Tue, 15 Sep 2026 03:33:51 -0700 (PDT)
-Received: from cs-280612103108-default.europe-west4-a.c.oa7bb030819b2a894-tp.internal (219.40.147.34.bc.googleusercontent.com. [34.147.40.219])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e8a1sm566041866b.6.2026.09.15.03.33.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:33:51 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Peng Fan <peng.fan@nxp.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: linux-clk@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] clk: imx: scu: add missing pm_runtime_dont_use_autosuspend() call
-Date: Tue, 15 Sep 2026 10:33:45 +0000
-Message-ID: <20260915103345.1334-3-joshua.crofts1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915103345.1334-1-joshua.crofts1@gmail.com>
-References: <20260915103345.1334-1-joshua.crofts1@gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="UdDZpaPr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789468456; x=1821004456;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=UBzkm8sfFlelF87j09jVlqAKMXd3gOjZixvTSW1iNUM=;
+  b=UdDZpaPrMhy9UxNDYdUQ2B9Vo+zb2aigrZK2mF/dN1kszowqBeQRZ+Ej
+   dH9izaiNg1Lf8B81lRq6JXWs5TCCI58ZNEqoQbdbgrOyAP+UIcS0x/E+l
+   EQNxbLCkU4L0CN+W/hrgzwhj3y/FTwtouppmpYkaY6KyWtHqDrGApMlGO
+   BkP0/QiRwF9N3/VQgAQmP6Q98oWaJJVUPuxHratEEH8yqkCkQFwcapCQ4
+   ZoMuYehqRKuOOf3AZi08YvI5wDztnGtAc/5UPpelIdurt/KO49rsCSkGx
+   04Qjvb5/JUymDoIXY7W5dNXAi/Owf16rcsTCu6rC9dljFVzpBmGRujT/I
+   w==;
+X-CSE-ConnectionGUID: 1ACFrffETBiX3sMYoaXxFA==
+X-CSE-MsgGUID: 0wEdiCWwSIuMmHBlYohsAQ==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="295033993"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 15 Sep 2026 03:34:15 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 15 Sep 2026 03:34:14 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 15 Sep 2026 03:34:10 -0700
+Date: Tue, 15 Sep 2026 12:34:09 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
+	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
+	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
+	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
+	<richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH net-next v6 12/14] net: lan966x: add PCIe FDMA XDP support
+Message-ID: <20260915103409.6cwnskzb2bl43mxv@DEN-DL-M70577.microsemi.net>
+References: <20260909-lan966x-pci-fdma-v6-12-6f48dab9d671@microchip.com>
+ <178904555117.219967.2055099842496630976@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <178904555117.219967.2055099842496630976@kernel.org>
 
-imx_clk_scu_probe() disables PM runtime on failure, but doesn't call the
-pm_runtime_dont_use_autosuspend() function, causing potential resource
-leaks.
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> - [Medium] Inconsistent XDP frame presentation between the two RX hooks
+>   of the same driver: after this patch lan966x has two in-tree XDP RX…
+> 
+> --
+> 
+> net: lan966x: add PCIe FDMA XDP support
+> 
+> This adds XDP support to the lan966x PCIe FDMA path, using contiguous
+> ATU-mapped buffers and a memcpy-based XDP_TX instead of the page_pool
+> scheme used by the platform path. The IFH and FCS are stripped before
+> the BPF program runs, and lan966x_xdp_setup() now skips the page_pool
+> reload for the PCIe case. Only XDP_ACT_BASIC is advertised for PCIe.
+> 
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> > index 6cabbb8b47f2..02c021617a3e 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> 
+> [ ... ]
+> 
+> > @@ -126,7 +127,123 @@ static bool lan966x_fdma_pci_rx_size_fits(struct fdma *fdma, u32 blockl)
+> 
+> [ ... ]
+> 
+> > +static int lan966x_xdp_pci_run(struct lan966x_port *port, void *data,
+> > +                            u32 data_len, void **xdp_data, u32 *xdp_len)
+> > +{
+> 
+> [ ... ]
+> 
+> > +     xdp_prepare_buff(&xdp,
+> > +                      data - XDP_PACKET_HEADROOM,
+> > +                      XDP_PACKET_HEADROOM + IFH_LEN_BYTES,
+> > +                      data_len,
+> > +                      false);
+> > +
+> > +     act = bpf_prog_run_xdp(xdp_prog, &xdp);
+> 
+> [ ... ]
+> 
+> > @@ -158,38 +275,33 @@ static int lan966x_fdma_pci_rx_check_frame(struct lan966x_rx *rx, u64 *src_port)
+> >       if (!lan966x_fdma_pci_rx_size_fits(fdma, blockl))
+> >               return FDMA_ERROR;
+> >
+> > -     return FDMA_PASS;
+> > +     /* Present the Ethernet frame (no IFH, no FCS). HW re-inserts the
+> > +      * FCS on TX; see lan966x_fdma_pci_xmit_xdpf(). May be overridden
+> > +      * by XDP. The FCS strip is unconditional because NETIF_F_RXFCS
+> > +      * is not advertised in hw_features.
+> > +      */
+> > +     *data = virt_addr + IFH_LEN_BYTES;
+> > +     *data_len = blockl - IFH_LEN_BYTES - ETH_FCS_LEN;
+> > +
+> > +     return lan966x_xdp_pci_run(port, virt_addr, *data_len, data, data_len);
+> >  }
+> 
+> [Severity: Medium]
+> Should the two lan966x XDP receive hooks agree on whether the FCS is part
+> of the window handed to the BPF program?
+> 
+> On the PCIe path, lan966x_fdma_pci_rx_check_frame() subtracts the FCS
+> before calling into the program:
+> 
+>         *data_len = blockl - IFH_LEN_BYTES - ETH_FCS_LEN;
+> 
+>         return lan966x_xdp_pci_run(port, virt_addr, *data_len, data, data_len);
+> 
+> On the platform path, lan966x_fdma_rx_check_frame() passes the raw BLOCKL
+> value and lan966x_xdp_run() only removes the IFH:
+> 
+> drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c:lan966x_fdma_rx_check_frame() {
+>         ...
+>         return lan966x_xdp_run(port, page, FDMA_DCB_STATUS_BLOCKL(db->status));
+> }
+> 
+> drivers/net/ethernet/microchip/lan966x/lan966x_xdp.c:lan966x_xdp_run() {
+>         ...
+>         xdp_prepare_buff(&xdp, page_address(page),
+>                          IFH_LEN_BYTES + XDP_PACKET_HEADROOM,
+>                          data_len - IFH_LEN_BYTES, false);
+> }
+> 
+> That BLOCKL value still contains the FCS, as shown by the trim done later
+> on the same path:
+> 
+> drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c:lan966x_fdma_rx_get_frame() {
+>         ...
+>         skb_put(skb, FDMA_DCB_STATUS_BLOCKL(db->status));
+>         ...
+>         skb_pull(skb, IFH_LEN_BYTES);
+> 
+>         if (likely(!(skb->dev->features & NETIF_F_RXFCS)))
+>                 skb_trim(skb, skb->len - ETH_FCS_LEN);
+> }
+> 
+> So xdp.data_end points four bytes past the end of the Ethernet payload on
+> the platform path, and exactly at the end of the payload on the new PCIe
+> path. Both windows stay inside the DMA buffer, so this looks like a
+> behavioural difference rather than an out-of-bounds access.
+> 
+> A program that parses backwards from data_end, compares data_end - data
+> against an L3 length field, or trims via bpf_xdp_adjust_tail() would get
+> different results depending on whether the switch is platform- or
+> PCIe-attached. The PCIe framing matches the usual XDP convention of no
+> FCS, which would make the platform hook the one that differs from
+> convention.
+>
 
-Add the missing function calls.
+They should, and the PCIe framing is the one to keep. The strip was asked for by an
+earlier round of this review, in v3, because the PCIe hook honours the post-program
+window - lan966x_xdp_pci_run() writes back xdp.data_end - xdp.data and XDP_TX uses
+it - so an FCS left in there would be delivered as payload whenever a program
+touched the tail. The platform hook does not use them for XDP_PASS or XDP_TX at
+all - it passes the pre-program length instead.
 
-Found using Coccinelle.
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> > index e089c08b9c37..9ada497767c6 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> > @@ -874,11 +874,13 @@ static int lan966x_probe_port(struct lan966x *lan966x, u32 p,
+> >
+> >       port->phylink = phylink;
+> >
+> > -     /* XDP is not supported on the PCIe FDMA path. */
+> > -     if (lan966x->fdma && !lan966x_is_pci(lan966x))
+> > -             dev->xdp_features = NETDEV_XDP_ACT_BASIC |
+> > -                                 NETDEV_XDP_ACT_REDIRECT |
+> > -                                 NETDEV_XDP_ACT_NDO_XMIT;
+> > +     if (lan966x->fdma) {
+> > +             dev->xdp_features = NETDEV_XDP_ACT_BASIC;
+> > +
+> > +             if (!lan966x_is_pci(lan966x))
+> > +                     dev->xdp_features |= NETDEV_XDP_ACT_REDIRECT |
+> > +                                          NETDEV_XDP_ACT_NDO_XMIT;
+> > +     }
+> 
+> [Severity: Medium]
+> Both paths now report the same NETDEV_XDP_ACT_BASIC bit from
+> lan966x_probe_port(), so is there anything in the uAPI that lets a
+> program distinguish the FCS-included window of lan966x_xdp_run() from
+> the FCS-stripped window of lan966x_xdp_pci_run()?
+> 
+> Would it make sense to make one of the two hooks match the other so that
+> the frame presentation is the same for identically-advertised netdevs?
 
-Fixes: 18a50f82cd2f ("clk: imx: scu: Do not enable runtime PM for CPU clks")
-Fixes: 78edeb080330 ("clk: imx: scu: add runtime pm support")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
- drivers/clk/imx/clk-scu.c | 2 ++
- 1 file changed, 2 insertions(+)
+Same as above - the correct handling is removing the FCS, so the platform hook
+is the one to move. There is no uAPI signal to describe the difference with
+either, so converging is the only option.
 
-diff --git a/drivers/clk/imx/clk-scu.c b/drivers/clk/imx/clk-scu.c
-index 44220e9c5c2a..18f73e679331 100644
---- a/drivers/clk/imx/clk-scu.c
-+++ b/drivers/clk/imx/clk-scu.c
-@@ -525,6 +525,7 @@ static int imx_clk_scu_probe(struct platform_device *pdev)
- 		if (ret) {
- 			pm_genpd_remove_device(dev);
- 			pm_runtime_disable(dev);
-+			pm_runtime_dont_use_autosuspend(dev);
- 			return ret;
- 		}
- 	}
-@@ -533,6 +534,7 @@ static int imx_clk_scu_probe(struct platform_device *pdev)
- 			   clk->rsrc, clk->clk_type);
- 	if (IS_ERR(hw)) {
- 		pm_runtime_disable(dev);
-+		pm_runtime_dont_use_autosuspend(dev);
- 		return PTR_ERR(hw);
- 	}
- 
--- 
-2.47.3
-
+> 
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-lan966x-pci-fdma-v6-0-6f48dab9d671%40microchip.com
