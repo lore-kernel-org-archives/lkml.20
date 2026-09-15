@@ -1,101 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A955D3C0634;
-	Tue, 15 Sep 2026 12:12:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B4C3C062D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474378; cv=none; b=FnzAqxJ0qPIrFSd9c+6l+J/6Fnjd2XVrSfsLaBfM+KdCv+vFpWt7hsH4PRppPc1o3V9IENKD6xWjwm1kE59ytnm736VtKs4C0p6Qmq6SbC7GO6hxYURWesQUYZprTLyt6M5HCkC3FFBlNCNr4KeFhzPt48BOmAngQi8avEp4Hp0=
+	t=1789474379; cv=none; b=aGpr3/Z+q2LfZCdPgEI37UO5a9uS+uqXoEEmpTQv1dHYGKGqnaF3HNmqdaUwRKlH52wzwQDa4Wig8gaKxTPGVGyfq+EDUERZIXinT0MYGpN/0E0UxAYPOwN8z96CusOlPdjTwg8dVq/rKvd/sz0GJaeXRbbU0k1ioZ4Tt1+CbYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474378; c=relaxed/simple;
-	bh=NpGI2bqE37VIAM71gUv+Uu10+QoYkdrbqDH2oYhLvs4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pjPoV/Rmf3Yr/krNjjNQA6RWMKFFvdJ1kUNH+dzqRBjIJvAVlFn1xrQZdjCcIZaKpas0ls4iUad8jQxcDvLBSZ/W0CKM6OCPis6HXIUhmtNY/SgDvgcOM5MRQehnCGucz88QQEQ/yf09CWShFShVX/ADJsLoWTJJwRle0kVzq/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dMecOfkG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789474379; c=relaxed/simple;
+	bh=gw8YgWsYGT7lofU04wNq0RsE/wO4Kqm6A07sl/aqbHI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a/GOHHXqO10hHkc1Ow3QWRrhZPp3SFHk8XLg1aRUx2yxhRS9xvU3Yat29FzYINs9PpNd21O4F/mRMRjqGI/JGJy6520ufULt5Vvli+AF4T/SGa3FVdiKl+DjDaPcMvmy+x+ki0s2Uh1OwKsuUuDPyaEzKqdiAk3rm1UwWK190YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=X5pW1zjC; arc=none smtp.client-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dMecOfkG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8041F000FF;
-	Tue, 15 Sep 2026 12:12:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789474376;
-	bh=TyC2gpsaXN4JBLWKNmm7J702tnSFqXToNgpiVHAQLkg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dMecOfkGD9IVBc5A1wOJ7RaGIcLenu0fPPaNj6ULgetn0QKiid3SmCobziHh5dth/
-	 nsDFEIkSHNG8yfPhdRtOGhuiglEEp7ZCUa/9k5QBoF5PdykrhfAZSEXZHUgx1U1BVK
-	 xGkTFAq/PNyGxR26wFeby3W2dyLnU3iQBk2jD4P50ZyW+dlHVBfMUvzMpwJaiHHOfs
-	 K2RpX/7yFozlGNknDOJ672FQSl3wdlWEAAzJJOS7dXtYw4h5/AJzF587NEwZ4BMyPj
-	 9pfv4RMOw/V3LIbDZ0K3TuOXdj2r4FW+lleHFXb0J74YtGlz0qeP1Rx8Bjz9BMVApD
-	 0vMrkjCKJ1HWA==
-Date: Tue, 15 Sep 2026 13:12:54 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	rmikey@meta.com, riel@surriel.com, kernel-team@meta.com
-Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the
- poisoned-memory EFI table
-Message-ID: <aqkyT0Ui9h5KWuzn@thinkstation>
-References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
- <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
- <2c9a7bef-3189-4f78-a6cb-61d2f7afd643@app.fastmail.com>
- <aqKhgPKzRf0e22s3@gmail.com>
- <aqkIdVhoG2wwVBtb@gmail.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="X5pW1zjC"
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hkgrN6ls0z4RKN;
+	Tue, 15 Sep 2026 14:12:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789474357;
+	bh=gw8YgWsYGT7lofU04wNq0RsE/wO4Kqm6A07sl/aqbHI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=X5pW1zjCo4C1yvF5uU2SDe5awS4ZJsVVyMc9nYCe0hYcop1sIpbtXLwJz+DBL7W5w
+	 Vim6RriwEvJ/1DwQoAkV/8nzymlF85q2Ue9l8XkC1I9BL3Ae8OzaXVnwLIz0O/sqqK
+	 If/4eUtiMRQ4N0KX7C73CYkGuwSLE8C3SWJBCjoej7fRR78wK+jNPUDcS4tXZ1QHCK
+	 L7Xt1VLK7afM5bSo888qEPgovD7/SkOsfNQqi3dR2au9q3oSNhmRlXcZFymqzeniQF
+	 oLd3CnSRtNBW/V0SbQlXwKfDS1IBrp58+UGSq7bz7BI+WvcrdwAX57gu19MfSlZ++N
+	 2Mp4zKOoEmnPw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hkgrN62smz7xkH;
+	Tue, 15 Sep 2026 14:12:36 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hkgrM2dx2z8tJf;
+	Tue, 15 Sep 2026 14:12:35 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 7F3425F9C8;
+	Tue, 15 Sep 2026 14:12:30 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <e84587e5-904a-4cd1-bbc1-408a674ec1d2@leemhuis.info>
+Date: Tue, 15 Sep 2026 14:12:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqkIdVhoG2wwVBtb@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] interconnect: qcom: icc-rpmh: Add opt-out parameter for
+ QoS settings
+To: Marc Zyngier <maz@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Mostafa Saleh <smostafa@google.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20260907171729.1735641-1-maz@kernel.org>
+ <v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
+ <87ld9c4vc2.wl-maz@kernel.org>
+ <6iixty74opjqkegpdmtytffgrllcjvrmhlsv53xtackdqzvwge@6fh5onz27p6c>
+ <867bkw3zic.wl-maz@kernel.org>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <867bkw3zic.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178947435100.1590392.4866281565346045528@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 7F3425F9C8
+X-NC-CID: X8yQY5b46QOGgkRC7KMh3x3Dn9ay1/I95uA+3TcajQiagkk/Udk=
 
-On Tue, Sep 15, 2026 at 02:03:48AM -0700, Breno Leitao wrote:
-> On Thu, Sep 10, 2026 at 06:11:53AM -0700, Breno Leitao wrote:
-> > So I'd say we have two options:
-> >
-> > 1) Keep it similar to unaccepted memory, with 2M granularity.
-> >    - Pro : Similar mental model as unnacepted memory
-> >    - Cons: 2 MB might be a bit wasteful
-> >
-> > 2) Move to a linked list like the RFC, keeping it outside of the EFI
-> >    table.
-> >    - Pro: Reduce the memory granularities to page instead of 2M blocs.
-> >    - Cons: Another way of passing memory information between kexec
-> >      kernels.
-> >
-> > Any any other option or strong preference?
+On 9/8/26 10:42, Marc Zyngier wrote:
+> On Tue, 08 Sep 2026 08:34:18 +0100,
+> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+>> On 26-09-07 22:15:09, Marc Zyngier wrote:
+>>> On Mon, 07 Sep 2026 21:21:44 +0100,
+>>> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+>>>> On 26-09-07 18:17:29, Marc Zyngier wrote:
+>>>>> Recent addition of QoS configuration to the X1 variants resulted in
+>>>>> systems that spontaneously reset at boot time or under load.
+>>>>>
+>>>>> Given that this is both very unpleasant and hard to debug, give the
+>>>>> affected user the option to survive such event with a module parameter.
+>>>>>
+>>>>> Passing "icc_rpmh.enable_qos=0" to the kernel command-line will skip the
+>>>>> offending QoS setup.
+>>>>
+>>>> Lets not start doing this, please.
+>>>>
+>>>> Can we figure out which platform deosn't work and then maybe we can 
+>>>> add a quirk in DT per platform?
+>>>
+>>> We have at least 3 machines that are dysfunctional since [1] was
+>>> merged (mini-x, sp12 and devkit). Probably some more, but I'm not
+>>> going to be the one doing a survey.
+>>>
+>>> What really should happen is [1] to be reversed until QC figures out a
+>>> set of parameters that actually works, instead of making this platform
+>>> even more unreliable than it already is.
+>>
+>> I'd rather have the patch reverted than adding a module parameter which
+>> users might not know about and distros will probably never addopt.
+>>>
+>>> Just like [2] should have been reverted.
+>>>
+>>> Until then, we'll have to paper over this stuff.
+>>
+>> But a module parameter complicates things rather than just papering over.
+>>
+>> I suggest we get both reverted if they break existing platforms.
 > 
-> Since nobody voiced a strong preference, I will stick with option (1),
-> the bitmap, for these reasons:
+> We're in violent agreement.
+Did anyone submit those reverts? Doesn't look like it from what I see.
+Do we maybe need to poke the subsystem maintainers?
 
-Not sure if this was discussed already, but perhaps we need to have
-a chain of struct linux_efi_poisoned_memory rather than a single
-bitmap, to easily add support for hot-added memory later?
+Side note for the record (noticed it just by chance): afaics one fix for
+[2] was submitted meanwhile:
 
-Also, I wonder if some architectures have a scattered set of pfn
-ranges so that the span from the start pfn to the end pfn being much
-larger than the actual physical memory size.
+https://lore.kernel.org/all/20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz/
 
-If so it might make more sense to have a bitmap for each pfn range.
-
--- 
-Cheers,
-Harry / Hyeonggon
-
-> 1) It follows the same mental model as unaccepted memory, which people
->    are already familiar with.
-> 
-> 2) It is simpler to query at boot time, especially as the number of
->    poisoned memory regions grows. Walking a bitmap is easier than
->    walking a linked list when freeing memory back to the buddy
->    allocator.
+Ciao, Thorsten
