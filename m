@@ -1,140 +1,64 @@
-Received: from mta0.migadu.com (out-16.mta0.migadu.com [91.218.175.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B2848F034
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667E44A5C33;
+	Tue, 15 Sep 2026 12:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474549; cv=none; b=OtXHCW/xbmDlTivizK+u35AksX4XTVJA5BynfxZOjBo3KAaTAsoFqcSrjpUYPGMZfVKNCvf6TJ2az5+f1NqdRLzWgu+d7Kjxhfq5MiA+IJ+H3sN4qsnCblDq2aGVgBe1HKtRMikeBv506la1L3n+qawtX5l3K0TIkUXIDcjVsHA=
+	t=1789474550; cv=none; b=AlIISyd3mPu1MozqA9Qv9umFW0xxUQ2Z3ahOEKaowQt0EEmV5d3szmDTc5poFsp66A6PV8h+T7rKbPGDMauAyXVmlr2NJf9LUu9t1eIAoxiaHHVMA/UgJVIjQvK/CSN4VdfdO+QlJmb9Stml/NFu5PbgMtdgE+m1JgwH62SpI/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474549; c=relaxed/simple;
-	bh=yD/VKUzBUPe8qzu3tI1cnR3m5pe15RIsxpBEfPbnlJQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nn/oEnZ1Qz00LJWRQLPyk/xNKyDox2w9AteKPqKvItIZfQOOiDiuy8VJBqBFv6BKOzNEJzPh+CaJQqbM9Q/bevdffKaz4xYNxgimMmORE519PWLLu4RAWwEB1ncTmloCItqvsHEDTWrGyf9QF9MTEGcgnho+1s5VgGFKP2W/fqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZS8yyYB6; arc=none smtp.client-ip=91.218.175.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789474550; c=relaxed/simple;
+	bh=xCl8jNs77PZZdSIvmzClNS4N5YJKQYnamGutVTepnCk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jovCp5g6ir/3zmeLVsMYgU5LHaEG8ZThWwGPsSr3KJfHNMf9W08E0dwe4tg6vOPU3WzQ1lw5PiczBYhJyKrLmQOGwFrjdsLywDoueXN1fwepw+OWk5rRVRajxbSIJvjVNJ1na3zDCcRhVcOfayhf9fSiR0frbkHduRk1lCmXk94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngAb15T/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZS8yyYB6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yD/VKUzBUPe8qzu3tI1cnR3m5pe15RIsxpBEfPbnlJQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789474544; v=1; x=1790079344;
- b=ZS8yyYB6CE7FFoFO6ToV/hG/AdyVT3BrYdRT0q292ybWaR2Fwk4qPpmASgh/a/FJ3lT+aGiR
- R+vS+sL8/QRIkZB05hH69mVnwVBwUPqj6EKnegrmLyIFqDJbemz/VWvUm0IJ+3+bNXCzGpVAhnv
- YcWoQRvwU1SCQ05T7rTNxpWE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 511656c09317b8de;
-	Tue, 15 Sep 2026 12:15:44 +0000
-X-Mizu-Trace-ID: 511656c09317b8de
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 15 Sep 2026 14:15:38 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org, 
-	Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>, Pankaj Gupta <pankaj.gupta@nxp.com>, 
-	Gaurav Jain <gaurav.jain@nxp.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] crypto: caam: map job ring registers without claiming
- region
-Message-ID: <aqk1cesWMScL4-uL@bombadil>
-References: <20260901203736.13248-1-rosenp@gmail.com>
- <ap7ZnqCqpfRTLfUF@bombadil>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngAb15T/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D50C1F00893;
+	Tue, 15 Sep 2026 12:15:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789474549;
+	bh=xCl8jNs77PZZdSIvmzClNS4N5YJKQYnamGutVTepnCk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ngAb15T/yAkTwE1+YE6SOVKj8Rli4aHVUkDtOhNqgXnslknQomnBjXDhGUUHHgw5c
+	 t1KNN6ZH3zr5Gtf1iBmlLvi1+EedRg6qAtTNkQ7kQMdZyxrotp61A/kxMP1IsoWP3Q
+	 0HPEwAzkXmBRniukPUCUyctzd9pxcukzIZA+ewzHxw/boCKe1Jar8qJFg1/aKtu5I/
+	 dpLp1T084yx8feJuPVTuB36srOvPtJerVeDd4qv1zFiywDAW7LoZnflX7kr4TjuMev
+	 HM37MdMxXfwNOlWakuuKYP5RXCJcKz7vv76rj0gWBeGPIn4OJc58aAB53O2zHvFgkb
+	 1XTJ0zBTt12SA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 40/50] KVM: stop putting descriptors back on
+ failure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Brauner" <brauner@kernel.org>, "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: linux-alpha@vger.kernel.org, bpf@vger.kernel.org, kexec@lists.infradead.org, dri-devel@lists.freedesktop.org, "David
+ Airlie" <airlied@redhat.com>, "Ingo Molnar" <mingo@redhat.com>, linux-snps-arc@lists.infradead.org, linux-parisc@vger.kernel.org, sparclinux@vger.kernel.org, linux-um@lists.infradead.org, linux-hyperv@vger.kernel.org, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, linux-mm@kvack.org, "Peter Zijlstra" <peterz@infradead.org>, linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, linux-m68k@lists.linux-m68k.org, "Jann Horn" <jannh@google.com>, "Oleg
+ Nesterov" <oleg@redhat.com>, linux-openrisc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-csky@vger.kernel.org, "Jens
+ Axboe" <axboe@kernel.dk>, kvm@vger.kernel.org, "Jan Kara" <jack@suse.cz>, io-uring@vger.kernel.org, linux-arm-msm@vger.kernel.org, "Eugenio
+ Perez" <eperezma@redhat.com>, linux-fsdevel@vger.kernel.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, linux-hexagon@vger.kernel.org, linux-sh@vger.kernel.org, virtualization@lists.linux.dev, linux-mips@vger.kernel.org
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-40-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-40-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:15:47 +0000
+Message-Id: <20260915121547.9D50C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ap7ZnqCqpfRTLfUF@bombadil>
 
-Hi everybody,
+> Rely on the fd exit path machinery.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-just a friendly reminder that this patch is now on the mailing list for
-14 days and was not included in the 2 rc's which were released since then.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-As this essentially breaks CAAM on multiple i.MX SoC variants, is there
-any possibility to get this included in v7.3-rc4?
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D40
 
-Would be great :-)
-
-Thanks!
-
-regards;rl
-
-
-On Mon, Sep 07, 2026 at 05:35:51PM +0200, Richard Leitner wrote:
-> Hi Rosen,
-> 
-> On Tue, Sep 01, 2026 at 01:37:36PM -0700, Rosen Penev wrote:
-> > devm_platform_ioremap_resource() ends up calling request_mem_region(),
-> > which fails with -EBUSY on i.MX SoCs:
-> > 
-> > There the job rings are modelled as sub-regions of their parent
-> > fsl,sec-v4.0 register window, and caam_probe() already reserves the
-> > whole window exclusively via devm_of_iomap() before the children are
-> > populated.  Every job ring therefore collides with its own parent and
-> > fails to probe, taking the hardware RNG offline (seen on i.MX6, i.MX7
-> > and i.MX8 boards such as colibri-imx7 and verdin-imx8mp).
-> > 
-> > Map the job ring registers with devm_ioremap() instead, which does not
-> > claim the (already owned) region.
-> > 
-> > Fixes: 9a955c0a7d11 ("crypto: caam - simplify probe resource and IRQ handling")
-> > Assisted-by: opencode:big-pickle
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> 
-> thanks for that fix!
-> 
-> Tested-by: Richard Leitner <richard.leitner@linux.dev> # i.MX8MP
-> 
-> regards;rl
-> 
-> > ---
-> >  drivers/crypto/caam/jr.c | 23 ++++++++++++++++++++---
-> >  1 file changed, 20 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/crypto/caam/jr.c b/drivers/crypto/caam/jr.c
-> > index f9e029945b51..2ed8229d4733 100644
-> > --- a/drivers/crypto/caam/jr.c
-> > +++ b/drivers/crypto/caam/jr.c
-> > @@ -583,12 +583,29 @@ static int caam_jr_probe(struct platform_device *pdev)
-> >  	struct caam_drv_private_jr *jrpriv;
-> >  	static int total_jobrs;
-> >  	void __iomem *ctrl;
-> > +	struct resource *r;
-> >  	int error;
-> >  	int irq;
-> >  
-> > -	ctrl = devm_platform_ioremap_resource(pdev, 0);
-> > -	if (IS_ERR(ctrl))
-> > -		return PTR_ERR(ctrl);
-> > +	/*
-> > +	 * The job rings live inside the register window of their parent
-> > +	 * fsl,sec-v4.0 node, which caam_probe() already reserves (and maps)
-> > +	 * via devm_of_iomap().  A requested region that overlaps that
-> > +	 * reservation, e.g. from devm_platform_ioremap_resource(), would
-> > +	 * therefore fail with -EBUSY, so map the registers without claiming
-> > +	 * the region here.
-> > +	 */
-> > +	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > +	if (!r) {
-> > +		dev_err(&pdev->dev, "platform_get_resource() failed\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	ctrl = devm_ioremap(&pdev->dev, r->start, resource_size(r));
-> > +	if (!ctrl) {
-> > +		dev_err(&pdev->dev, "devm_ioremap() failed\n");
-> > +		return -ENOMEM;
-> > +	}
-> >  
-> >  	irq = platform_get_irq(pdev, 0);
-> >  	if (irq < 0)
-> > -- 
-> > 2.55.0
-> > 
-> > 
