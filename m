@@ -1,77 +1,64 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9C63B7767
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0759F4A3F1C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461914; cv=none; b=BB6NGAtowOmOy9OF/I2c0zHbJofEb3VFhqAxacTLoZLqX0GjGWzgWq4jqqCQ9eNdwdVLzZw21XyK4FFIj6034PY8izvmJKNoSsNax2vPxodKQM4py09HupSdAP0mApBbl6RTHJYTFtvU1nkBOBRbJEDAmk2KTv+X8WgtStAduh0=
+	t=1789461913; cv=none; b=lzopPwcVofDJTfnfuN9IW/NLoYV5tNgcMMg3PKgI0DroNNYIyA1G+4aFvcoz1M5+rTm4ee8JXcrHqbfHjimSUFl2T8L0QpYlp4fKdMMwdwNVUuuxjDVOt5isz+5zInxISoJu3mm94VwHmN3Ksk7gWigf1/hk1VPl4M3RsHaCkiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461914; c=relaxed/simple;
-	bh=mTix+tHFqz/K6EHXch/VXgMJzAY/s6N3yALq3Rr1p2g=;
+	s=arc-20240116; t=1789461913; c=relaxed/simple;
+	bh=n01FY5o+GO5C64Irv1p+UvT3ad9BDV2sd38DYKwHISw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W44UPCZ0wSiKqyC0nt5PhGbnpKUn7ZEMN0tRbnRU4Bg5qOCckDw1gW30F7VSgOB5azS+nzEHyg9n1I0xs3iwWpKU6bamgwv4BjFzXKX7a0cfWvzzEWXIjmjoPrf63e9OSpfGuE6DE1aOLdd8DZFOnlt8ixfJjJnVic0ureH4CL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JBl37h9y; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=iGAywOY8CRVL+jzN4Nt83yDQGbeStrlFeoGQnPPKpynXu3Z6QEXq5tXG1IFDzuadPbyiYkTHeXhX2cBCTIySRbBQW7rfIyiB910g+BBDh2euLsExPyqx/uXiciSlPiN5I0HhfTvW4u01ouMaiCmEz0JX7tZ7DjIDoEAoXWIvwcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AFmoTOhq; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JBl37h9y"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a990so2592106a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789461912; x=1790066712; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n9TZDSMbnuEhFGKGm7MDVdWVy6UrGTdWqyN+axgcMGY=;
-        b=JBl37h9yCKJZHoObtnW+g2mGo7vxu+J7lJtC3SJ7uEaOki8O73hfFwyBgq0EshkBao
-         Flir/lwzmAf80rNapV4br6lOI6dikVEGFpI7K904saXPq2js6SoKZ83AVkyAchiegT8X
-         z1F/aGriSGawUeAC0YLRUuu2fWudCE/H1JnokJY29x/QZ1OBIGJAmnnkQMmg+QD0W3Ei
-         ClOm6TvecQOj44bmRTExkDi7JoWt4XR/jcHXd0TIpgUcNrR5/8fJSXiWyyrll/Yy4qwA
-         tAIMPqoEnR5rHgduwOtsGTN4b/SfwYJeoXCxxRU8yTBkPeFtEfCzVvrtdunoPCH38WYo
-         Ugmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789461912; x=1790066712;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n9TZDSMbnuEhFGKGm7MDVdWVy6UrGTdWqyN+axgcMGY=;
-        b=MA90u1wL2fEsnEAv/LsYYp5lmoLT46ZWwmNixafvO4kqcmH9VRKu9n/xFIUMZhaTZj
-         L5VIfyU5H/TrW8lSA3Ug0D7WTTMCk9oTSbO/w0LAxyZEbL3HcW6m1EH0PGZoYvrfYDUT
-         2GCckiT8huQziwGk6ZSpEhplPy3Z5051zoUP10aG64mbx0waoTIrDCfR25WB7yzq0V+E
-         +0rEJXMpNdhPvXytjhJDkKDAhmWW2sjEGXt7w3JP237uhxJm8YsDB6gqieiKMYISpc3e
-         PLIIeWXPBBejPxM/FAJtYeR4GE4t+ocN4yjqsxvdte1+rU08LNrwocYj0M2IGwnReMgI
-         r6NA==
-X-Forwarded-Encrypted: i=1; AKwUvBxi6cBHoUH3zrlQegon6nf9F9h9S1txReTcIhWh6Z1DVk7wq7qswnJsC3VY0/AbLYRCGthcRWOTe9Re/b8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2MWlRzwNMGH/CXBT6TEIjDz5smg1fPkfG10hcycmIpmKHI8rY
-	k979QBHzi/7850cCSBlASJKccxnGHnG3gjLFewga5HuqNuL0iDYY1riX
-X-Gm-Gg: AYBFou2DfYwqqKWaQRotSysV/wvtWf9VcQ2sg+7gcn3ATAfFAWr6CdlZ7NPE8LYwrkn
-	X/z5O7fjM7D0GIPdT0WwWxy85zCFn2WfnyVwSkSDv8gnEcLi5/I8fcdIefXMg5EnXdpPt8Mg+Ax
-	CWh1iS4va5M6q80hFvgLl1/+2npuRW9QGvV6B6/K7BfKA2LClMPvuDO9h1i8cvAaFsukdBnvR+l
-	BX16915jmWxcZhPRUKRKxkRRagVW+SVK3o2q4EZvJnDGCHrvWTqO9iWf8a1/0rDlrQHUkyFX0/T
-	p9xJvtWUFLd7WTzrgE7GUiaCALqmyXctVxTPGne5LkEvuU3LkDFTxaLcS3P+OTdz8C+kBX8SdL/
-	OT/5vH66h/KyusC1rIkPKQKUrRzGPwIKSv3FuSx9I3DcDZ0O1cTI1nCFh7BIjqcb+91UnUd1zMV
-	8QdEBhQoXkgqKhahgcc6I0aRkw59E8s9AwcshZVX7qvTI7XhHRxCxQT5Q04xFXQ8uoYJcKdAEDG
-	WHZCsj/b7yfgJO134d1IEZV0A==
-X-Received: by 2002:a17:90a:c2cd:b0:39d:f2a1:3a with SMTP id 98e67ed59e1d1-39df2a10424mr10369646a91.15.1789461911702;
-        Tue, 15 Sep 2026 01:45:11 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm34718935eec.3.2026.09.15.01.45.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:45:11 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Clemens Ladisch <clemens@ladisch.de>
-Subject: [PATCH v2 15/23] ALSA: cs46xx: fix typos in comments
-Date: Tue, 15 Sep 2026 14:14:16 +0530
-Message-ID: <20260915084424.1007757-16-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260915084424.1007757-1-hemanth.selam@gmail.com>
-References: <20260915084424.1007757-1-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AFmoTOhq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789461910;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V7/oozdRrzfelXfsglh8Hfb9OORRp47+WOib7pc6U2g=;
+	b=AFmoTOhqPUr9KQ3pVxNF6qeUo7G1fdcKWcJiO+CJJWIeBqcIUAHtaVN/gz+8PXcQHoMsc1
+	N6TcQ6VN6eT7//7Fq32Dg9xUioE4xPr9s8COfA0TvUpGbyvoHZ5tybh6nCDbESz49Tm5GO
+	i4PviyZMAM/USpINwtVeWBXTaT3PZ/k=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-329-7lU-r5hLP7C9T5ONUmjI3w-1; Tue,
+ 15 Sep 2026 04:45:05 -0400
+X-MC-Unique: 7lU-r5hLP7C9T5ONUmjI3w-1
+X-Mimecast-MFC-AGG-ID: 7lU-r5hLP7C9T5ONUmjI3w_1789461903
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 58B351955D69;
+	Tue, 15 Sep 2026 08:45:03 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.48.83])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 09093180049F;
+	Tue, 15 Sep 2026 08:44:59 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: 5mghybrid@khu.ac.kr
+Cc: netdev@vger.kernel.org,
+	theo.lebrun@bootlin.com,
+	conor.dooley@microchip.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	richardcochran@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net RESEND 2/2] net: macb: Use all-frame timestamping for PTPv1 RX filters
+Date: Tue, 15 Sep 2026 10:38:49 +0200
+Message-ID: <20260915083849.72030-1-pabeni@redhat.com>
+In-Reply-To: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
+References: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,78 +66,178 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Correct spelling mistakes in comments. No functional change.
-
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
 ---
- sound/pci/cs46xx/cs46xx_lib.c       | 6 +++---
- sound/pci/cs46xx/dsp_spos_scb_lib.c | 8 ++++----
- 2 files changed, 7 insertions(+), 7 deletions(-)
+net: macb: Use all-frame timestamping for PTPv1 RX filters
 
-diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
-index 19a6927c079d..a16586f7d913 100644
---- a/sound/pci/cs46xx/cs46xx_lib.c
-+++ b/sound/pci/cs46xx/cs46xx_lib.c
-@@ -315,7 +315,7 @@ int snd_cs46xx_download(struct snd_cs46xx *chip,
- 	dst = chip->region.idx[bank+1].remap_addr + offset;
- 	len /= sizeof(u32);
- 
--	/* writel already converts 32-bit value to right endianess */
-+	/* writel already converts 32-bit value to right endianness */
- 	while (len-- > 0) {
- 		writel(*src++, dst);
- 		dst += sizeof(u32);
-@@ -474,7 +474,7 @@ int snd_cs46xx_clear_BA1(struct snd_cs46xx *chip,
- 	dst = chip->region.idx[bank+1].remap_addr + offset;
- 	len /= sizeof(u32);
- 
--	/* writel already converts 32-bit value to right endianess */
-+	/* writel already converts 32-bit value to right endianness */
- 	while (len-- > 0) {
- 		writel(0, dst);
- 		dst += sizeof(u32);
-@@ -3039,7 +3039,7 @@ static int snd_cs46xx_chip_init(struct snd_cs46xx *chip)
- #endif
- 
- 	/*
--	 *  Assert the vaid frame signal so that we can start sending commands
-+	 *  Assert the valid frame signal so that we can start sending commands
- 	 *  to the AC97 codec.
- 	 */
- 	snd_cs46xx_pokeBA0(chip, BA0_ACCTL, ACCTL_VFRM | ACCTL_ESYN | ACCTL_RSTN);
-diff --git a/sound/pci/cs46xx/dsp_spos_scb_lib.c b/sound/pci/cs46xx/dsp_spos_scb_lib.c
-index fd19365026b4..71eee5cb478f 100644
---- a/sound/pci/cs46xx/dsp_spos_scb_lib.c
-+++ b/sound/pci/cs46xx/dsp_spos_scb_lib.c
-@@ -160,15 +160,15 @@ void cs46xx_dsp_remove_scb (struct snd_cs46xx *chip, struct dsp_scb_descriptor *
- {
- 	struct dsp_spos_instance * ins = chip->dsp_spos_instance;
- 
--	/* check integrety */
-+	/* check integrity */
- 	if (snd_BUG_ON(scb->index < 0 ||
- 		       scb->index >= ins->nscb ||
- 		       (ins->scbs + scb->index) != scb))
- 		return;
- 
- #if 0
--	/* can't remove a SCB with childs before 
--	   removing childs first  */
-+	/* can't remove a SCB with children before
-+	   removing children first  */
- 	if (snd_BUG_ON(scb->sub_list_ptr != ins->the_null_scb ||
- 		       scb->next_scb_ptr != ins->the_null_scb))
- 		goto _end;
-@@ -1656,7 +1656,7 @@ int  cs46xx_dsp_disable_spdif_out (struct snd_cs46xx *chip)
- 		return -EBUSY;
- 	}
- 
--	/* check integrety */
-+	/* check integrity */
- 	if (snd_BUG_ON(!ins->asynch_tx_scb))
- 		return -EINVAL;
- 	if (snd_BUG_ON(!ins->spdif_pcm_input_scb))
+The two PTPv1 L4 filters used to be accepted by gem_set_hwtst() while
+leaving rx_bd_control at TSTAMP_DISABLED, so receive timestamping ended up
+off even though a nonempty filter was reported back. They are now folded
+into the existing all-frame arm alongside HWTSTAMP_FILTER_PTP_V1_L4_EVENT,
+which reports HWTSTAMP_FILTER_ALL.
+
+No Link: tags in the commit header.
+
+A few observations on the surrounding code in gem_set_hwtst(), all of them
+about behaviour that predates this change.
+
+> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+> index 51659bbdfac9a..2ffc46b81264e 100644
+> --- a/drivers/net/ethernet/cadence/macb_ptp.c
+> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
+> @@ -430,10 +430,6 @@ int gem_set_hwtst(struct net_device *netdev,
+>  	switch (tstamp_config->rx_filter) {
+>  	case HWTSTAMP_FILTER_NONE:
+>  		break;
+> -	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
+> -		break;
+> -	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+> -		break;
+>  	case HWTSTAMP_FILTER_PTP_V2_EVENT:
+>  	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
+>  	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but while the new arm reports
+HWTSTAMP_FILTER_ALL (which is advertised), the sibling PTPv2 arm right below
+reports a filter value the driver never advertises:
+
+drivers/net/ethernet/cadence/macb_main.c:gem_get_ts_info() {
+	info->rx_filters =
+		(1 << HWTSTAMP_FILTER_NONE) |
+		(1 << HWTSTAMP_FILTER_ALL);
+}
+
+drivers/net/ethernet/cadence/macb_ptp.c:gem_set_hwtst() {
+		rx_bd_control =  TSTAMP_ALL_PTP_FRAMES;
+		tstamp_config->rx_filter = HWTSTAMP_FILTER_PTP_V2_EVENT;
+}
+
+That value is then stored in bp->tstamp_config and handed back by
+gem_get_hwtst() on every later SIOCGHWTSTAMP, so ethtool -T and
+SIOCGHWTSTAMP describe different capability sets. Should the PTPv2 arm
+either report HWTSTAMP_FILTER_ALL too, or should gem_get_ts_info() advertise
+HWTSTAMP_FILTER_PTP_V2_EVENT?
+
+> @@ -448,6 +444,8 @@ int gem_set_hwtst(struct net_device *netdev,
+>  		regval = macb_readl(bp, NCR);
+>  		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
+
+[Severity: High]
+This is a pre-existing issue and not something this patch introduces, but is
+this read-modify-write of NCR safe without bp->lock? Every other NCR
+read-modify-write in the driver is serialized, and macb_tx_lpi_set() even
+states the rule:
+
+drivers/net/ethernet/cadence/macb_main.c:macb_tx_lpi_set() {
+	lockdep_assert_held(&bp->lock);
+
+	ncr = macb_readl(bp, NCR);
+	old = ncr;
+	...
+}
+
+drivers/net/ethernet/cadence/macb_main.c:macb_start_xmit() {
+	spin_lock(&bp->lock);
+	macb_tx_lpi_wake(bp);
+	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
+	spin_unlock(&bp->lock);
+}
+
+gem_set_hwtst() runs under rtnl from ndo_hwtstamp_set, which does not
+exclude the xmit path, the EEE LPI work, macb_mac_link_up(), or the hardirq
+RXUBR workaround. Can the unlocked write back lose a bit another context
+just set? For example the RXUBR errata path in macb_interrupt() toggles RE:
+
+drivers/net/ethernet/cadence/macb_main.c:macb_interrupt() {
+		ctrl = macb_readl(bp, NCR);
+		macb_writel(bp, NCR, ctrl & ~MACB_BIT(RE));
+		wmb();
+		macb_writel(bp, NCR, ctrl | MACB_BIT(RE));
+}
+
+If gem_set_hwtst() samples NCR inside that window and then writes back with
+RE cleared, does receive stay off until the next reconfiguration? The same
+question applies to gem_ptp_set_one_step_sync(), which this function calls
+for TX_ON and ONESTEP_SYNC, including for the two filters added here:
+
+drivers/net/ethernet/cadence/macb_ptp.c:gem_ptp_set_one_step_sync() {
+	reg_val = macb_readl(bp, NCR);
+
+	if (enable)
+		macb_writel(bp, NCR, reg_val | MACB_BIT(OSSMODE));
+	else
+		macb_writel(bp, NCR, reg_val & ~MACB_BIT(OSSMODE));
+}
+
+Since the RXUBR handler runs in hardirq context, would the irqsave variant
+of the lock be needed on the configuration side?
+
+>  		break;
+> +	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
+> +	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+>  	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
+>  	case HWTSTAMP_FILTER_ALL:
+>  		rx_bd_control = TSTAMP_ALL_FRAMES;
+
+Two more items in the same function and driver, outside the hunks:
+
+[Severity: Medium]
+This is a pre-existing issue that this patch does not touch, but in
+gem_set_hwtst() the HWTSTAMP_TX_OFF arm is a bare break:
+
+	switch (tstamp_config->tx_type) {
+	case HWTSTAMP_TX_OFF:
+		break;
+	case HWTSTAMP_TX_ONESTEP_SYNC:
+		tx_bd_control = TSTAMP_ALL_FRAMES;
+		break;
+
+and OSSMODE is only touched for the other two values:
+
+	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
+		gem_ptp_set_one_step_sync(bp, 1);
+	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
+		gem_ptp_set_one_step_sync(bp, 0);
+
+After HWTSTAMP_TX_ONESTEP_SYNC followed by HWTSTAMP_TX_OFF, does NCR.OSSMODE
+stay set so the MAC keeps rewriting originTimestamp in transmitted Sync
+frames while SIOCGHWTSTAMP reports transmit timestamping as off? Should the
+TX_OFF case call gem_ptp_set_one_step_sync(bp, 0) as well? The symmetric
+case, NCR.SRTSM never being cleared when moving away from the PTPv2 arm,
+looks like the same shape of problem.
+
+[Severity: Medium]
+Also pre-existing rather than something this patch changes: is the
+timestamping configuration lost across suspend/resume? macb_resume()
+rewrites NCR from scratch:
+
+drivers/net/ethernet/cadence/macb_main.c:macb_resume() {
+	macb_writel(bp, NCR, MACB_BIT(MPE));
+	macb_init_hw(bp);
+	macb_set_rx_mode(netdev);
+	macb_restore_features(bp);
+	...
+}
+
+which clears SRTSM and OSSMODE, and none of the callees reprogram the
+descriptor capture registers. gem_ptp_set_ts_mode() is the only writer of
+GEM_TXBDCTRL and GEM_RXBDCTRL:
+
+drivers/net/ethernet/cadence/macb_ptp.c:gem_ptp_set_ts_mode() {
+	gem_writel(bp, TXBDCTRL, GEM_BF(TXTSMODE, tx_bd_control));
+	gem_writel(bp, RXBDCTRL, GEM_BF(RXTSMODE, rx_bd_control));
+}
+
+and it is reachable only from gem_set_hwtst(). Does that leave the hardware
+at its reset default after resume while gem_get_hwtst() still reports the
+pre-suspend filter, now including HWTSTAMP_FILTER_ALL for the two PTPv1
+filters remapped here? Should the resume path replay bp->tstamp_config
+through gem_ptp_set_ts_mode()?
 -- 
-2.48.1
+This is an AI-generated review.
 
