@@ -1,237 +1,203 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD8B3655FA;
-	Tue, 15 Sep 2026 13:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA4435CB7C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477882; cv=none; b=Rjibnol0mG6Ypge1+RAS3DRLla2/ZpxeCGKQEoxNr1yVsHOn0m2CbN7lYLg/cJI+vRWisflXypU0hIV2Yi2uiycwmW7LobNLqfAMREwbD9viWizErE4Yq6UAX+WXplvTpBcXezfC83P1VZNPrlCZntaSra80TrAxmpP7uV0tZSo=
+	t=1789477913; cv=none; b=QaRrmNXeiBHWOmgey9PeROSPDV0zQhnGQDlXQoLUS14V1/cXdcc4g9bihOFG3rZhbg6YewPoyghUxBOJDvoXHF/PVu9K+MHz82i+EcdxZUfoIiogy8OAHXPUQf0cakoKbQkvo66CuYoBq8MoEQ8fp2tRujSecHSmxBXx99Ri0XY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477882; c=relaxed/simple;
-	bh=+dgCnqZ4UITNFg9myT2OOr0eyNbFaLGNHEr72cMkMgU=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JjGrGXPQulI6L3JvtEGDX0bLbxNcIzl8xt/aOXPoNOWFpt7QIHnfRLQXiy17T0FZV7s1bjYARHRSDofr/ujZUCBw2MFTju0CNZlzpKZTwW3L75CToVJBeDxPITKKLw2bv8aeNCTzRr2k1z9s7eavr4YkbI8seoJYYk5zHfeOQs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1x6SwM-000000000GX-3PM7;
-	Tue, 15 Sep 2026 13:11:14 +0000
-Date: Tue, 15 Sep 2026 14:11:11 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: [PATCH net-next v16 6/6] net: dsa: mxl862xx: document devlink flash
- and info support
-Message-ID: <593c60c6ebaa2526fd1e2d06cd8bd6910cd3ad92.1789477568.git.daniel@makrotopia.org>
-References: <cover.1789477568.git.daniel@makrotopia.org>
+	s=arc-20240116; t=1789477913; c=relaxed/simple;
+	bh=dJIpLG7rWyh8df7B17Ve+WIWPViliazZmnq6Gw510oU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kXLAJgR+PfgF2hvzsBMyejaSXsLpKYfln5Nd6y647IjBd0PlE7ro3Vc0zwakgGMoiMQyc/8YVuKUx77r4jMscTN7pTc6IV0sVJ/j8ZJfuf6NYq4MxPKFix4d22ywNx6XkPz6REEp1SfNJcg6G3f54Cql8ebw1GS8h7a7ZA+DbJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rV+LRg4O; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rV+LRg4O"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso30635005e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:11:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789477910; x=1790082710; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:from:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eh3LDHsIzCU2/5CFMWOjBf/zXaCZZA/0hmDU111rhjw=;
+        b=rV+LRg4O2RSaiIwvoddovYspkNkX46209zrY4YlBt2tF3Bbbk+R/LxeMPQbcMsyfA1
+         vwANPY3UhfgKvIQ4SIlEePT2JLw/t/2bEoHm8vEbc9EO2BhMkhEpHLaZaUGXfnpWMEbh
+         FFBChUMNIf7FhL+P9TKbY1NNALfCpQE0G/RwfRcBa3KhRQUj9Ewle1tdnhKWCO62Wd+o
+         rYOXnc7hybGb/kbGvST49E/WK9bpZEN21fF1BEbHa8qGu3BRZBjs2HSa1iUqSayqiAPA
+         OyVZU0UjooC3PX7/VgEbzVbSHHtHdmluL2e426vQ+P1Ew5/Eia+SChVJ2h8lmjcFYBDR
+         6uYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789477910; x=1790082710;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:from:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eh3LDHsIzCU2/5CFMWOjBf/zXaCZZA/0hmDU111rhjw=;
+        b=2m/wSKGDwa0Pz0oVdjuqWvjluagyVCybOB//awkvKNlwVasKz9sP6lX38EvCuzAcSD
+         26q6KIVKAOR+6U8W+UMYUElqq5Csow3rRJmkR2cU5ynTwSixjobZDylLvsb80K5mIDo5
+         RaIJ0CcQjARcR352N6buHRpAglKTcLteQw4xBESae2t9taJtd9dS0fT9amWgOym8NTjm
+         4aiV57bKxcfah7nNpwndtvZIRuvuY0drAE2PyWIPHiDfn79A0+7HJ3txJffo/xRxR+Kv
+         dWVd7G7Ln3MY0/BaS5nUH2opE2YSC7Axu9Tj+YdZnnr7ZJKCbQorb3fpgjc+f9OvKFRC
+         j3pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx6bQg6a3NYom7KqmyqFxV77j3+7OgW4tQ82WXBxijNLrwb60jpVLw4QPDJA6ZOvSNA1QtqmDr+AhOFOU4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0P7AUcYSUxx4LMX4eqU7Dvp6BPKEeFUX+54jsv0ReYg05ELXC
+	DNjR253hC3A2AZkE4A0QXg3Bwh5usw8w68vC/ibkS20PG8hTqh1y9KuJ9q5YsLA7Zd/6UwcHmO7
+	wcTTr
+X-Gm-Gg: AYBFou1D40dQNkwW/5TGK4nIoBPHo4A1Ib1umiplnwvuDcjibY2KEAzHQubV5TJy8pn
+	LW+by1OmCYwM6S7I8IHXeNXt6tIbXMZEGtXUhJag6oXoZmS4uGgEF3Y2TwsiX+hZwcuLOAVt8NR
+	DzhJXivuiGWgmPW4X29vC7JCw4sdQValnAF6dyctLM4vAjaUMs2F1t4/Y0VMI2QtWpuD52WX/HZ
+	NtcxsKz3DoHm1BS9NYhTVTaloWpnHmI9aFh9iUvpdvESUiEoI3mT9WZjYxQXcoNu/1hWtPwP7IC
+	1W5rPVteyoS4zLWB/hzOFqqq2lv4F+McqVs7Z8C76n3YgJp6G7nftkmnhDbih4EVikIxIayREQa
+	YZ9/BgpfoGmZDQq/PcaqrRJSXFYsvO7G9HoU/xZs0GBSBb177JGZDi8pxItEnN9mJc7mXdVTzjw
+	IsY8mvw+0dLNeR92yk23ZgKWNd2/DZ1RAEZ3BsY4nMmynhRD3TZ/ksBYqqu5LAaIYrSDL3tCpTk
+	SzUJMlBcr3CgWzKVhTAXaYNXr+A9nROV8giQPRBG7nKtsYcmc1V
+X-Received: by 2002:a05:600c:81ca:b0:49e:642a:4f6f with SMTP id 5b1f17b1804b1-49e7a69ba24mr89417055e9.33.1789477909851;
+        Tue, 15 Sep 2026 06:11:49 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:ff86:16e:fede:9407? ([2a01:e0a:106d:1080:ff86:16e:fede:9407])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7eed9d00sm58506615e9.0.2026.09.15.06.11.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 06:11:49 -0700 (PDT)
+Message-ID: <0d0ee38b-8ded-480d-a586-d26b3c292427@linaro.org>
+Date: Tue, 15 Sep 2026 15:11:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1789477568.git.daniel@makrotopia.org>
+User-Agent: Mozilla Thunderbird
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] pinctrl: qcom: spmi-gpio: make direction changes
+ exclusive
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Yu Zhang
+ <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
+ <20260915014447.282121-3-shengchao.guo@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260915014447.282121-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Describe the devlink info versions and the flash update behaviour,
-including the MCUboot rescue mode recovery, in a dedicated file under
-Documentation/networking/devlink/ and link it from the index. Add the
-new file to the driver's MAINTAINERS entry.
+On 9/15/26 03:44, Shawn Guo wrote:
+> pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
+> the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
+> DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
+> buffer enabled.  Neither direction callback clears the opposite buffer:
+> .direction_output() only packs PIN_CONFIG_LEVEL, which sets
+> output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
+> which sets input_enabled.  Requesting either direction on such a pad
+> therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
+> direction.
+> 
+> That silently breaks both directions.  After gpiod_direction_input() the
+> pad keeps driving the line, since the output buffer is never disabled.
+> And after gpiod_direction_output() pmic_gpio_get_direction() still reports
+> GPIO_LINE_DIRECTION_IN, because it cannot tell plain input from
+> input+output, which makes gpiolib consider the line an input while the
+> driver is driving it.  On a board where several regulator-fixed nodes
+> share one PMIC GPIO the shared GPIO proxy reads that direction back and
+> rejects every consumer after the first:
+> 
+>    reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
+>    reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
+> 
+> Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
+> direction so that the resulting MODE_CTL is DIGITAL_INPUT or
+> DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
+> once after walking all configs, so this stays a single register write.
+> 
+> Pads that are genuinely bidirectional can still be described that way
+> through pinconf, which is the interface that has always been able to
+> express it; the gpiolib direction callbacks now mean what gpiolib says
+> they mean.
+> 
+> Assisted-by: LLM
+> Fixes: eadff3024472 ("pinctrl: Qualcomm SPMI PMIC GPIO pin controller driver")
 
-Assisted-by: LLM
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v16:
- - document that a reboot waits for a running flash and that one
-   requested afterwards is refused, and that a bus error ends the
-   download recovery for good
- - title-case the "Flash Update" heading, as the other devlink driver
-   documents do
- - say that the ports come back down from a flash, that a reprobe which
-   cannot be scheduled needs a rebind, and which of the two recovery
-   failures needs a power cycle and which a rebind (found by Sashiko AI
-   review)
+You should add:
+Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
 
-v15:
- - asic.rev is read from the CHIP ID registers as well, not from one
-   register word shared with asic.id (found by Sashiko AI review)
- - -EIO says the driver gave up on the recovery, which may need a driver
-   rebind rather than a power cycle, and an interrupted opening
-   handshake is reported the same way (found by Sashiko AI review)
+Since my change added the get_direction callback.
 
-v14: no changes
+Personally I would prefer patch 1 instead of this change.
 
-v13: no changes
+Neil
 
-v12: no changes
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>   drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 16 ++++++++++------
+>   1 file changed, 10 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> index f6dc43e27b38..eb4431591331 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> @@ -741,22 +741,26 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
+>   static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
+>   {
+>   	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+> -	unsigned long config;
+> +	unsigned long configs[2];
+>   
+> -	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+> +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
+> +	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+>   
+> -	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
+> +	return pmic_gpio_config_set(state->ctrl, pin, configs,
+> +				    ARRAY_SIZE(configs));
+>   }
+>   
+>   static int pmic_gpio_direction_output(struct gpio_chip *chip,
+>   				      unsigned pin, int val)
+>   {
+>   	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+> -	unsigned long config;
+> +	unsigned long configs[2];
+>   
+> -	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+> +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 0);
+> +	configs[1] = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+>   
+> -	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
+> +	return pmic_gpio_config_set(state->ctrl, pin, configs,
+> +				    ARRAY_SIZE(configs));
+>   }
+>   
+>   static int pmic_gpio_get(struct gpio_chip *chip, unsigned pin)
 
-v11: no changes
-
-v10: document that a switch power cycled on its own needs the driver
-     unbound and rebound before a failed recovery is re-examined
-
-v9: no changes, picked up Andrew's v5 Reviewed-by
-
-v8:
- - asic.id and asic.rev are omitted whenever the part number reads
-   zero, not only in MCUboot rescue mode (found by Sashiko AI review)
- - drop the claim that "0.0.0" marks a switch that never ran firmware;
-   rescue mode always reports it (found by Sashiko AI review)
- - document devlink dev flash as the signal that says whether a
-   recovery is still running, including the -EIO it returns once the
-   recovery has failed (found by Sashiko AI review)
-
-v7: no changes
-
-v6: no changes
-
-v5: new patch, splitting the devlink documentation out of the flash
-    update and rescue mode recovery patches so each keeps to code
-    (Jakub Kicinski asked for the documentation)
-
- Documentation/networking/devlink/index.rst    |  1 +
- Documentation/networking/devlink/mxl862xx.rst | 91 +++++++++++++++++++
- MAINTAINERS                                   |  1 +
- 3 files changed, 93 insertions(+)
- create mode 100644 Documentation/networking/devlink/mxl862xx.rst
-
-diff --git a/Documentation/networking/devlink/index.rst b/Documentation/networking/devlink/index.rst
-index d4a83fdcff7f..145cb8a4becf 100644
---- a/Documentation/networking/devlink/index.rst
-+++ b/Documentation/networking/devlink/index.rst
-@@ -95,6 +95,7 @@ parameters, info versions, and other features it supports.
-    mlx5
-    mlxsw
-    mv88e6xxx
-+   mxl862xx
-    netdevsim
-    nfp
-    octeontx2
-diff --git a/Documentation/networking/devlink/mxl862xx.rst b/Documentation/networking/devlink/mxl862xx.rst
-new file mode 100644
-index 000000000000..793f3521f505
---- /dev/null
-+++ b/Documentation/networking/devlink/mxl862xx.rst
-@@ -0,0 +1,91 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+========================
-+mxl862xx devlink support
-+========================
-+
-+This document describes the devlink features implemented by the
-+``mxl862xx`` device driver.
-+
-+Info versions
-+=============
-+
-+The ``mxl862xx`` driver reports the following versions
-+
-+.. list-table:: devlink info versions implemented
-+   :widths: 5 5 5 85
-+
-+   * - Name
-+     - Type
-+     - Example
-+     - Description
-+   * - ``asic.id``
-+     - fixed
-+     - 8628
-+     - The chip part number read from the CHIP ID registers. Omitted
-+       when the part number reads as zero, which happens for a switch
-+       sitting in MCUboot rescue mode (the registers need a running
-+       firmware), for an unfused part, and after a failed flash.
-+   * - ``asic.rev``
-+     - fixed
-+     - 0
-+     - The chip version, read from the CHIP ID registers as well. Both
-+       values are published behind the same check, so it is omitted
-+       whenever ``asic.id`` is.
-+   * - ``fw``
-+     - running, stored
-+     - 1.0.70
-+     - Version of the firmware running on the switch, reported as both
-+       running and stored since the switch boots it from its own flash.
-+       It is omitted while no firmware version is known: after a failed
-+       flash, and in MCUboot rescue mode while an interrupted download
-+       is still being recovered in the background. Once the loader is
-+       ready to accept a new image the version appears as "0.0.0",
-+       which no released firmware reports, so version-comparing tools
-+       offer any available release as an upgrade. Use ``devlink dev
-+       flash`` to tell a recovering switch from a ready one, see below;
-+       a missing version on its own does not say why.
-+
-+Flash Update
-+============
-+
-+The ``mxl862xx`` driver implements support for ``devlink dev flash``.
-+The signed firmware image is transferred to the switch over the same
-+MDIO bus which is also used to manage the switch, then verified and
-+installed by the MCUboot bootloader running on the switch. All ports
-+of the switch are closed for the duration of the update and the driver
-+reprobes the switch after it has rebooted into the new firmware; they
-+come back registered but down, so userspace brings them up again. A
-+complete flash and reprobe cycle takes about one minute. In the rare
-+case that the reprobe cannot be scheduled at all, ``devlink dev
-+flash`` reports that error and the driver stays bound to a switch it
-+no longer tracks until it is unbound and rebound. A reboot started
-+while an update is running waits for the transfer to finish, and an
-+update requested after the system has begun shutting down is refused
-+with ``-ENODEV``.
-+
-+A switch stuck in MCUboot rescue mode, e.g. after an interrupted
-+update, is registered without user ports. If the previous download was
-+interrupted mid-transfer the loader is wedged; the driver drains it
-+back to a clean ready state in the background, one byte at a time,
-+which takes tens of minutes for a large image and is reported through
-+the kernel log as it progresses. During that recovery ``devlink dev
-+flash`` returns ``-EBUSY`` with an extack message saying so, and
-+``devlink dev info`` reports no firmware version. Once the loader is
-+ready the firmware version appears and flashing a firmware image
-+through the regular update flow recovers the switch.
-+
-+If the driver gives up on the recovery, ``devlink dev flash`` returns
-+``-EIO`` and says so in its extack message. The drain runs once and is
-+never resumed, so a failed MDIO transaction ends it as well. A loader
-+that stops answering the drain needs a power cycle; a completed drain
-+whose reprobe could not be scheduled, and a drain a bus error cut
-+short, need only a driver rebind. The driver re-examines the switch
-+when it binds and at no other time, so a power cycle on a board where
-+the switch can be cycled on its own still has to be followed by an
-+unbind and rebind for the recovered switch to be recognised.
-+
-+A download interrupted during its opening handshake, before the image
-+header reached the loader, is reported the same way. The loader waits
-+for a header that no later session can supply, so that state needs a
-+power cycle.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0e04d92d1b09..43137dee4331 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16248,6 +16248,7 @@ M:	Daniel Golle <daniel@makrotopia.org>
- L:	netdev@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/maxlinear,mxl862xx.yaml
-+F:	Documentation/networking/devlink/mxl862xx.rst
- F:	drivers/net/dsa/mxl862xx/
- F:	net/dsa/tag_mxl862xx.c
- 
--- 
-2.55.0
