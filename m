@@ -1,116 +1,59 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E646427FB0;
-	Tue, 15 Sep 2026 03:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8277337F30C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789444524; cv=none; b=SsK4aQohmqUY87A4Te8Y5oiFptf1UHPdlorV3CsFy4kzYk9dqTbdOy0HWrm5kUPg5bIh57qsppToFSwmhsPAgWxC8Yis0QA+TKQRpWhGHh9pQ2LEYd+5bymm24XIMA1QUrOu9VmMaX9bcVZEDF2KxdZw4hTEg5VOYVEJg2lmY2w=
+	t=1789444533; cv=none; b=Trs2pjaysCyiHsEOiqUsbWT1j6nODffTm6GkhcLqDWD4gpCEAz1//4QeIBMMv3Q+Hcb6Ao1P+PeTpekaqjh3AM/12GvqWtcZ3fSNclvm6XQxyaa/2O1ieZ9nGblCmI3eb5DU7ksH5P1vJQscayVF3+MyToen0OLUZ9xIhFL/Xwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789444524; c=relaxed/simple;
-	bh=aX810VIgDUenKlA/jmx7LeoAcvdkWpseNbN7UJNsoek=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Z4iI7xygTybOq7TpU0klxjCtgkDh89P+a6A22pFprXoWLDM6iE3EFoFN3KbBTgdClfaojTHHvWxR3wpw5wbr73/FZY7HqNkV4pSK92ETV57csfXmJ7zwInpumUINRU1QNDVTsge+UclqWdN8ClllcZR1EHPOnlMqV2rFY8si7aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowAAX7O+lwahq7NkHCA--.60773S2;
-	Tue, 15 Sep 2026 11:55:17 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: herbert@gondor.apana.org.au
-Cc: jenny.zhang@starfivetech.com,
-	jiajie.ho@starfivetech.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	olivia@selenic.com,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/4] hwrng: starfive - Fix runtime PM leak in starfive_trng_read()
-Date: Tue, 15 Sep 2026 03:54:48 +0000
-Message-Id: <20260915035448.1724327-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789444533; c=relaxed/simple;
+	bh=WKKgC7V9WHENiLW2zr8syw+nvBe1aLYA7AIgRulA+2A=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=NUMo2p5NjWu23xXHMeZJgsbGt0GLyqfT/uTsd5WSnZhne2Un6WHeiMGnqMvxtAwrGBluC9hudUPTnGkZJy+TlWu1m7wabBEDOa0IoeUtJnVtcWE//xRXnhoxQ3Rkut0eyLFcMW9OWupDdWtF9Zm7xOFNiSEo1vD4X1V5m4wj/l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KpKWC26q; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KpKWC26q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074F01F000FF;
+	Tue, 15 Sep 2026 03:55:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789444532;
+	bh=lwXzEuLD3SmIEvHNiDMhry3K3dBXkrZSJCANq2gUbt8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KpKWC26q4hmfYRbMTa0MEhfrXmHtyTB9tSbfsmd8VNVECKGSFuW3pP10Jiii7Ae3U
+	 SF8I8CCAVhMbJfQtqrmwjPnNYoL5gQvbJlBMrR4Zxkzb8X8SlzPc7pp75QuI4ZV6mP
+	 1Ax4N5ZRrXaTt7OR7MrUPrXe5mY7MbzHmuuglBEk=
+Date: Mon, 14 Sep 2026 20:55:31 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Maninder Singh <maninder1.s@samsung.com>
+Cc: linux@armlinux.org.uk, linusw@kernel.org, mark.rutland@arm.com,
+ kmehltretter@gmail.com, vbabka@suse.cz, elver@google.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ r.thapliyal@samsung.com, Hariom Panthi <hariom1.p@samsung.com>
+Subject: Re: [PATCH 1/1] lib/stackdepot: add __irq_svc to irq text section
+ to filter it from traces
+Message-Id: <20260914205531.2894876437403f43e300b5b4@linux-foundation.org>
+In-Reply-To: <20260914103218.1125401-1-maninder1.s@samsung.com>
+References: <CGME20260914103226epcas5p4832171ae7e2b5e19ab4eaaf66a6e6768@epcas5p4.samsung.com>
+	<20260914103218.1125401-1-maninder1.s@samsung.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAAX7O+lwahq7NkHCA--.60773S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZrW7Zw4fZr13Aw4kWryUWrg_yoW8ZFy7pr
-	W5XayjyFWrJrW2yrs3AF4DZFyru3yftay8CFWIgas7Zws5G3Wvqa1UWFyYqF10yrZ3Aw45
-	tw4aq3y3AF45tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1go2U
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwELA2qoi338RgAAsA
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-starfive_trng_read() takes a runtime PM reference with
-pm_runtime_get_sync(trng->dev), which leaves the device's usage
-count incremented even when it fails, and balances it with
-pm_runtime_put_sync_autosuspend() on the success path only.  If
-starfive_trng_wait_idle() times out or starfive_trng_cmd() fails,
-the function returns early without dropping the reference, leaking
-it on every failed read.
 
-Convert the pm_runtime_get_sync() call to
-pm_runtime_resume_and_get(), which drops the reference again on
-failure, and release the reference with
-pm_runtime_put_sync_autosuspend() before the two early returns.
+> Subject: [PATCH 1/1] lib/stackdepot: add __irq_svc to irq text section to filter it from traces
 
-Fixes: c388f458bc34 ("hwrng: starfive - Add TRNG driver for StarFive SoC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/char/hw_random/jh7110-trng.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+fyi, this choice of subject may cause the relevant maintainers to
+delete the email unread.
 
-diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_random/jh7110-trng.c
-index 9776f4daa044..01024145afb5 100644
---- a/drivers/char/hw_random/jh7110-trng.c
-+++ b/drivers/char/hw_random/jh7110-trng.c
-@@ -247,7 +247,9 @@ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wai
- 	struct starfive_trng *trng = to_trng(rng);
- 	int ret;
- 
--	pm_runtime_get_sync(trng->dev);
-+	ret = pm_runtime_resume_and_get(trng->dev);
-+	if (ret)
-+		return ret;
- 
- 	if (trng->mode == PRNG_256BIT)
- 		max = min_t(size_t, max, (STARFIVE_RAND_LEN * 8));
-@@ -256,13 +258,17 @@ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wai
- 
- 	if (wait) {
- 		ret = starfive_trng_wait_idle(trng);
--		if (ret)
-+		if (ret) {
-+			pm_runtime_put_sync_autosuspend(trng->dev);
- 			return -ETIMEDOUT;
-+		}
- 	}
- 
- 	ret = starfive_trng_cmd(trng, STARFIVE_CTRL_GENE_RANDNUM, wait);
--	if (ret)
-+	if (ret) {
-+		pm_runtime_put_sync_autosuspend(trng->dev);
- 		return ret;
-+	}
- 
- 	memcpy_fromio(buf, trng->base + STARFIVE_RAND0, max);
- 
--- 
-2.34.1
+>  arch/arm/kernel/entry-armv.S | 2 ++
 
+Those maintainers.
+
+This is an ARM patch, so label it that way!
