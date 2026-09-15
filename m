@@ -1,132 +1,136 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3464A3F36
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483685; cv=pass; b=dlpco/HtdmJpED9JYdGZBAzr4Aimu9s9/ffUiNqyw0OhZWndsg0VJhdX9IKuEUUbJU4xY3RM2/WMpd9yO8ES5M1Gi9tEnGv9+GuCjYX3egBPoF3TBY/m+ZY4MELQOj0JHUHq+gCy6epKbfOzUdrwiXufjofYw6fQssJs1VOhLcA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483685; c=relaxed/simple;
-	bh=JB4dzeW0yCT23fi0FjS+30+ACBaQQqxXbdSdVPolKf0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hCfT8AL4ngYwTnMmuaxbJdBZ8XMM+3DWBx/BqrJ5O1sp2gSk2RLVZwg4pYXgXHmpWV04lHY7q1FbYC3GnUtSLHpOx+TJohMnv3gYrFQhfm5lh0NZbFX8/6pAOCcWJQBBK0FiOCshoZ8AIguyVRdG1Mmhe6fiSJYHgJ9wf3WmRbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NZKXz3cT; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NZKXz3cT"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso6583424a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:48:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789483681; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GUyXKP+0UR9HQyIDq8PcQ/o6QqbLelaHRqb6xjd2Ow5IiM1qWepGlvWjAeZuUEDKPW
-         KD94aZIFJADPzMpsYYlGD2i8GE6gXjDIO5qy926h64RLYbjfPtwoqCX/IJrFWuHUnCma
-         HsP8Ke8an3Omo39ir3WIHYS9oOeJXrIe7fBFaKmOeZ0dRKMYnf03o0e8nIEKbEKvj+xP
-         EwOMaCYmReeBIVP5ML2ftOW8ym8n5NrcnuyzbEtuDmdojQ8/RntOMmYQBNnxSEdwSKoG
-         p1WVpEZi1kyTqnlBlwry/y0rLmNenXx6Mc2DqtQn81zVgv2Z/7vfxJSiiRPhi6aYD4QT
-         5IjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=N31h1AzvLTVLE4JkZfUHMakRC7JrcK8cme37Ix1dV/I=;
-        fh=Upo3D9LRXK9mJ61LOIk+Ko70QESYAk0YpkIly6lJOl4=;
-        b=L/kIln95/3coBM256kNMkb5DPZ28QlFlNY49f+nw+Xcuz/ekVD7mJg/SdgA3eUnsA/
-         FIud5PzqvX/skOxbC25tSdYYaMCiuYnp9IL44+iXOUm9VQ+O1IY9kpUVoYH6g6KBdv1Y
-         49PPt0/R848v8wODXvGC7IDHNb/6TYTsy0c87SU4Md06qYQGLZ45x1zQR8IIm4Lje7H0
-         7MvfKOcY9l1XpKut2pYvMGqcMMWv7jeORMJ/QEtgM1dhPS3VOM7HNJHG4pVXgs7OGLUk
-         ZFcXgW1slz68qqwxT9EZ0lsJtMXYvuUtUsrf6XEVcRfnUNXsEMuTTZVah/aMtzH39BNi
-         z+YA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789483681; x=1790088481; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N31h1AzvLTVLE4JkZfUHMakRC7JrcK8cme37Ix1dV/I=;
-        b=NZKXz3cTotnfq00AS34AmyHOBfyDkhsvaDZXsw6X96vIV68mn5K0vhHL5CQYc4/LDW
-         YviLpKo0WS5QZiEc0LS/6oC7AR98DYTor5endBqbkObnRvwl0x0NIIzCmWXgMrBf4kBu
-         Y/59uPVwYi6o7jl1C2EQUBpbXij/A0YxnukfY6iFPM8BVFFCgL80tfxCmYjZWYe/vb6w
-         jOGII2D93BB0EneiKrx5l5jf02NIbjugqvCDlMV8u7V3iKBLmfntYYauJWtAhY9QvBtM
-         oPAIA2xOTiRnLR0F7nOrDx6fzqV/yLFPjGW63iVoz8VfQ7hF1jVa8Pswogr/7JPj9b9k
-         2ytw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483681; x=1790088481;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=N31h1AzvLTVLE4JkZfUHMakRC7JrcK8cme37Ix1dV/I=;
-        b=DDpMEcU7a5H2ranGouUi+gJbeiIcI2/wmLF4ix65cKWhcSSRWZiaFiwvidM1jk0Mo6
-         +w88jg2F4JT4SiDnlAG0H1h4tGTK3ynE37N0aXERFQE/LCi3r5fd/45rdy1dfXC3CrLz
-         6rLjdaKgdafMFA16/qpLy/7/9jmefhz8AOfFL/xg+0Kw6FudGM79Zgguz0huEdrxgWwq
-         KOjpnUlnk6pwwgKwiAjw0FwVaYhl8I2WAdD5SRHLnO84aWbzjY9kdY0Rk/k1XKz0w+j/
-         nAe2LDQFVgaPQPA/xSQF5K0qb1YaSIWLPn5DbDnIyCiy2sQSAWyHtny61SXAzGaLg6Cf
-         Gd7w==
-X-Forwarded-Encrypted: i=1; AKwUvBxrIzzWWmktwYfS9Jbbfj1Tq756K84u1AzuXTjg7gIwR1nm9ypIZYtRQJieejFfpeQqiTVWLkKs4Z5uFCI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8drWbLVGpUPTTg8cS+CslGjV95Sf5K1yESc7LWe9k4wq3ObbH
-	QvERA5pOclkSf3BAMaGJFo9Q/ZcFtrT/a1aErWWE1VUsBPJp5SClvh2edBIG/4bslYKtcT7LieX
-	RWAmzdMk8SI6gpO+OQc6FYvshgo7FvA3QehQLPzMtug==
-X-Gm-Gg: AYBFou0RkyjzfiyS0CEmjRRzZBzoPl8ukNL91V4fH1EEOowI8lfyIwgCT1EXxNnaJL3
-	fRsfWKh8h9uitMrY6SjHGd5P7elNqIPZcuoxF4LbUVoFAqVhKC9ypMw0rErgtpV/P/WcDjTvMyQ
-	1RPgGL4nctpYTqfw7XZzLZfE1OL1fmPWduZzfmU1sWrv/kQAKIB5DLDe3wqkynFztnXUofSy8dV
-	GE8cvSPOxO3yNYxOOCa4/4dfIlaoeQVzPhYwjpoYKa/9iS+/GrCKBaJ7mvz/rwsEC9YzYDmUEQA
-	dM00iD0msMLMqLjCltGwGnHBRXem4uGluiPzV9i8b+nUVz6sJVEJcPWH8pCQNmDmUiXJ3PWleC+
-	h5qc0AvAAJQCQCtLGFVAj4I8f
-X-Received: by 2002:a05:6402:4404:b0:6a9:98b1:6c36 with SMTP id
- 4fb4d7f45d1cf-6a9f63e0d39mr5145656a12.31.1789483680985; Tue, 15 Sep 2026
- 07:48:00 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C426D4A3D44;
+	Tue, 15 Sep 2026 14:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789483710; cv=none; b=GNncd4mrbDhcUmmDGePo+gL0HazGvfUmH1wUMQXinzXYqccTLaOcki9gMrs1IDKXqS/gZT/N9DeV8OC8J1RvEwFwiOeeE0DYB03Jbg1PTFAcHBIlB4ZyolQO2eE397Sp3LNBNd5w0ffflg90HAiP6WeDQXy4Lb+VKPkHCpUaqO4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789483710; c=relaxed/simple;
+	bh=U4V+Mnx5yBT8muMDdf8O89ESb1sfYJqsFhQw2mJn+B8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uhEYIoOmpiKDd5Tqjzh2WiINXaHJq6KnMbGN+lGGPSSMesjMT/0hKid2ihq7DrAuYvkSmKkUk4IKfkr3WiBbceM8EjbhyexiSZdG+OPtXeNhG+qPvRguss1suclCSe8OTLzxQ0IE2WGjvnQn6qoTrzPnNmzW7gM8lgJHBQj3uT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip4t1789483661t5fd737bd
+X-QQ-Originating-IP: WsbpIfDhMJsGXWn3oz+rP65P3m3zbFHSIzYe+z2lHOw=
+Received: from [192.168.30.32] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 15 Sep 2026 22:47:35 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10969957875995836888
+EX-QQ-RecipientCnt: 9
+From: Xilin Wu <sophon@radxa.com>
+Date: Tue, 15 Sep 2026 22:47:32 +0800
+Subject: [PATCH v2] media: iris: Support HFI Gen2 on VPU2 4-pipe platforms
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-exynos850_sram-v4-0-253871de0f61@linaro.org> <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
-In-Reply-To: <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Tue, 15 Sep 2026 15:47:49 +0100
-X-Gm-Features: AcwNN1WgvUO9gVcyHHtQQpCHP6veTmxEFNeRoziGdiQtPJVZo1SV7WyKK3oIExw
-Message-ID: <CADrjBPr8EROpwaXsuqNBgyiJV5b041poTKzFRfrx-rCvH1CyRQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] arm64: dts: exynos850: Add acpm SRAM node
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-sc8280xp-hfi-gen2-v2-1-c52075bc284a@radxa.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4Xs2TVthaZ48j8Mh9puYU0E0iLBE
+ P7dgnePbzLzZoVEkSnBtVgh0syJhz6DOhXgOtu3hOwzgxJKi1oKTM4oI5YRu8DYUq+w1pXTZZl
+ TU0PejZECL4fz3vw4vR9PctMu2hsdp2mIn+N0lnvvn3+WKJFsJb24GB18uEXrF3t2wwuabdu+T
+ zh+y8QAAAA=
+X-Change-ID: 20260910-sc8280xp-hfi-gen2-965c64428089
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2215; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=U4V+Mnx5yBT8muMDdf8O89ESb1sfYJqsFhQw2mJn+B8=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkrozp2hk0/sj8m0rx4geI5F/83HsZpZSdjBDxXL2Iqn
+ PaC1a2go5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwETSjjP84Zxlo/duQ+PL2G1N
+ Et8s9p3t7XIsXbJ91j/zOslnWr7JwYwM+7Kal1lL/L+sGxy60cqreP2zM54iGlFN7516s6d98ZX
+ iAQA=
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NQSdGtztsEMuzM6+TTxRk06hwThoGJXs3SC6Pfv8k63GdbkUu07xrbCi
+	/fi2SlvBR5G27V0HRZMzC6kkQPKgBTb6FcSGqHcdpJsWTc8a3gQNrYIhMNgv5XevsoyUc44
+	ajMQaNL5dOD/gUMxgQWhenfDKUaq7nZEh1D+3Jc9jzFC3wuXYMZIxmHshQEnuUTMtlS6InL
+	jxqxBMc3MJZF1n2vRNg2WjfHrwjX92NsTFXKSwfAqWqT+5zHqeGi42LQaF5vf8o3zqiG6H5
+	vVmPtEwuGTMlhEB3HlzWlYhrWoJvcE2tEvQYjVYHobMDd4mABSRQWpYwB6D7ZVv0uuTQKfH
+	xhntIQmRc9At93948IQb9dNlHHA4Cj8DkHzqnLhD8ByOkhVwS5xSqEn8gxR9h5gTyQlvPv4
+	WXm8GGsKqTArXKvd2SEbukukG3eUGapFfNVv3JwIQUDjNYsxgAwplMQwJNW/zREeu3B1m29
+	MDjU3XfRoLQPUrZ4zbU/sWIoOaoiausJljOx5SWA5s9edqBK0/zLAig4B/ps1yMNA73h32O
+	2LlxaeYvukp+epXAZ0zov1DVt1KItesNQCE4zPu8Eb88f0K5r4N9qBYLR/UprzKqIKOQXhZ
+	Rb8JWGAydPX8286HZnmS4wVIwTPejdWtcC48uUm05mOwoFqmCBeLdpIkXwny2b1Raes9Qtx
+	DoTVWjvc+Fe1TkLwS1R/5fpAZw9EP7pVxaRSa0zsFLxh22ar4IK8ktGMbTakBwLkSClt7+v
+	wn+EPQFTfQ6jPXxRX0mlk2QSsU0efdAD1cVs10yhJs8UYmQzUgE1ySSC+t6qmf4zxm9mS6H
+	sdyUrQmBSS2eCXi41nKq0PCi03oIpniPrLUlTlBSFsAxWNyRlDIUMte1+8yeI6H5pMHG1fX
+	6MjN1B9Wm9Q6Z+VA+UCkeYLwn1QxeYXlND7YEGJw9Ra0NRlZENoUhrc4KM74lhILzGhWttZ
+	Cql2OUxoF91SfU0CW5gHQxFQuGDywilSrlsT0auUECh8n78s2PEA1daJNg0A1Eqw5Iy2xqy
+	8oOnuUkNLWzlYssNTAkBVcUGWDqU5NB3iGFB8PA0BjwiIS9ct/PyK1IuGwveA=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On Mon, 14 Sept 2026 at 17:58, Alexey Klimov <alexey.klimov@linaro.org> wrote:
->
-> SRAM is used by the ACPM protocol to retrieve the ACPM channels
-> information and configuration data. Add the SRAM node.
->
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> ---
+Some VPU2 platforms with four VPP pipes, such as SC8280XP, can use
+HFI Gen2 firmware.
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+Add the Gen2 firmware descriptor to the existing sm8250 platform data.
+This lets every platform sharing the VPU2 4-pipe entry select either
+firmware generation at runtime.
 
->  arch/arm64/boot/dts/exynos/exynos850.dtsi | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> index 911643008b9f..2128749d7647 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> @@ -176,6 +176,11 @@ soc: soc@0 {
->                 #size-cells = <1>;
->                 ranges = <0x0 0x0 0x0 0x20000000>;
->
-> +               apm_sram: sram@2039000 {
-> +                       compatible = "samsung,exynos850-acpm-sram";
-> +                       reg = <0x2039000 0x30000>;
-> +               };
-> +
->                 chipid@10000000 {
->                         compatible = "samsung,exynos850-chipid";
->                         reg = <0x10000000 0x100>;
->
-> --
-> 2.51.0
->
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+Changes in v2:
+- Extend the sm8250 entry instead of adding a new one. (Dmitry)
+- Link to v1: https://patch.msgid.link/20260910-sc8280xp-hfi-gen2-v1-1-ea51d0386fdf@radxa.com
+
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Bryan O'Donoghue <bod@kernel.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/media/platform/qcom/iris/iris_platform_vpu2.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+index bbdbf21961d7..0bc559b7a072 100644
+--- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
++++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+@@ -41,6 +41,12 @@ static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
+ 	.fwname = "qcom/vpu/vpu20_p4.mbn",
+ };
+ 
++static const struct iris_firmware_desc iris_vpu20_p4_gen2_s6_desc = {
++	.firmware_data = &iris_hfi_gen2_data,
++	.get_vpu_buffer_size = iris_vpu33_buf_size,
++	.fwname = "qcom/vpu/vpu20_p4_gen2_s6.mbn",
++};
++
+ static const u32 iris_fmts_vpu2_dec[] = {
+ 	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
+ 	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
+@@ -137,6 +143,7 @@ const struct iris_platform_data sc7280_data = {
+ 
+ const struct iris_platform_data sm8250_data = {
+ 	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
++	.firmware_desc_gen2 = &iris_vpu20_p4_gen2_s6_desc,
+ 	.vpu_ops = &iris_vpu2_ops,
+ 	.icc_tbl = iris_icc_info_vpu2,
+ 	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260910-sc8280xp-hfi-gen2-965c64428089
+
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
+
