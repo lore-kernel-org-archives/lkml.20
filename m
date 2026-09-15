@@ -1,287 +1,157 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D5B408623
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:38:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789450740; cv=pass; b=kkUlsi2rSMRl+3LfFNSo8cWBbDgFZ2ljQcOvEyz0D5CKmR7Hnx2DRXEB9mapUdZnISVTWwpvp1ZlecpGeOghnFMk3bTTnxlxoV6bopKxpOM4MTCnSpwOV/NACUl8344fJJ+AdZ7JiigM8F/rqQoPnvtGd5Ml6OHzZThjnvSEIBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789450740; c=relaxed/simple;
-	bh=ctq15q9vuXdtapn+1jvjsL4Fe4jW/9k6nil8aHesrjc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zu5WAiJYgjy9yVlJCdEno2WKXIE5gdoZCa42RJAW5vcQxTEMpKo8T6N7o3qIPR+yeLoL1s/6UT1AuyqxaGxkCifGDp6c07FLterarDoLvF9PHm3HRqmL0ivrm8rIQUupI2sXTwqbPbS3PffE2B33NjKG3oDc8cbG6ZBlPlrYxoQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MTt9GBOJ; arc=pass smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8563B5310
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789450870; cv=none; b=Q1RRRVIt+61yHXDf5JWru6lAFGxWl3DwZz4PZRdUNHAcKnRIulyZVFP0Qw/yMUGfM9FeW7oii75bRe5CGzn0z55GtubkeCHLfB6NNVmDFfH4CO01X6QuNoeG9LJ1fjRrzkvZEuKwM3zmSVmxA8uEBY9+oo4pwlQmBA4AA82LRiQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789450870; c=relaxed/simple;
+	bh=JpO4JBE1VNxT+lBQjWYB0XPRrR/gMl2Dly0MPBZmz+c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HtkH8ons/URmvoaAp/4FEMTcAhLl19OqTDB99twg87FkC1K8ELaKjrXkpRMjElQEhBuXK/IB81ctuNIrx+3Q2GUon5nN+kGR1nzy9F8Q1hl3SPniLJS/k+HDI1q/wAHgswsgXW343IMD1WmjloBuBSPpL4WStcsxpHXYKRf9tP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZeQoQz7X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D5U7X3TA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTt9GBOJ"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so4870158e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:38:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789450735; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jxTmduTiB4+6WbkRyeBUaq1PLgHYnwctsu/d5gYzKv+CHuJR+BuZRxdzWAQrgGH0Q7
-         LLXsj2b+eKrcsdpUDtCbnDMmqVTlDgyaSF/mofwTDB0mKj4seTvGVd5t+mtk21jrBnXG
-         XXoPKs4P3DvhAh2OdrJ/7MT2bu/4ZMjjBkBbr5FjJ0Piq9k9ogw4KIX8vMcYXuEmHzgN
-         qZDrrVXLOJcrQtvQf+1jD+viqqxsB9J9N0+GSgRockYBKP9gqWwF/O3/+W6SAjDZmZrf
-         MCGJ0UaDoumMWeDCMsaJmxfPL4FT5evW3lN4Q7lVgURCqPk3ghg/DOd+MwFVnPQxZrje
-         z2PA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jW4iMh872ncBE1163LdNJ4ys+tDD8zaqJqYzr5q/Y+8=;
-        fh=EZjEM0n/2dM00YI0QR7C5tKvz5xuUYV5Dvp7BsQYlFc=;
-        b=UUz7QhMRTa+FTZPhWWQAdlm7gaERm9EmFNa3u2pwKHJnRURCXrBUuHlGfd77OEkoeV
-         vKiQqwugiUqIeEzCmJY56MM/qytJ+IPXGHJLiAajCo0aJQEiq/6utCInCD0+c3zwoW4P
-         uB95ZFJnm8YtZJHWpWfizL5M8MDSKjMPWYyKdAWmP6N3zxh4Iwj4wdiK2g/Q8bBDMqOs
-         2UzuUcBKLV47M62xVYDrfhzvBXPrU7gPDU3Ib7og6x8R3Jsmm05hy3gC26MnOkHr0vhC
-         eLAedVvXwTkYMEgtVVvzDXmP0oVsomtqGG1ABD4zdqev6D4DKYUZV50S6U6uvRshXU+k
-         9P1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZeQoQz7X";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D5U7X3TA"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F2nR802623200
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:41:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=2KABN47JNikjdc7PIx0sNg
+	UCf68WcstqIF1Q/UcAcbY=; b=ZeQoQz7XHja5/7/tPpDKVRJ/NfU2VzPSzjq4N8
+	dZckksdX95zbuEFvsJkiKCT8G2hhACxKZ0ShZG8N8OEYfM7tay8u4szgjfhpNq6s
+	svjEuSthPTbZ/WqNkSQ4d2PZPL9rMRlie9NCfyaOrarPUB8R5keja79JTjx0/IjD
+	SHA1mv9ViXzW9LOuVwm+PWhaYsl91+rIDtGXMrWUvWS2P2mdHdvSj1vzsVWYI4jO
+	54ZX1LHapDDJV+VK4Cbn3W0ZWxXHeFQhCWpS4DHW6ZTVBHWzwqUuj7hrHgT7niQG
+	ClPMHMQScUAeeOBNUxEwg+vUocI+1cg7I+oizY8WqK376mgw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpmx9tk4r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:41:08 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8d1600b3so1064744a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:41:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789450735; x=1790055535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jW4iMh872ncBE1163LdNJ4ys+tDD8zaqJqYzr5q/Y+8=;
-        b=MTt9GBOJJynuDkjKtncKdNHF1bUTu3PVWVSqTh8ttcRSU2Ro0QPmEkWHjANz5POCYa
-         FfurkZv9F05ZrwvxMk9BtNpTofnU1pWpYwT1W/fdopH1CpsBsJDez8B0nu9ovSfaRUe8
-         L47KNEI2yBxzY7aXaPSuSPqoXR4fFVNIO9ANKduC8jpsWv9V8jXDU5NR463T/AAL3d3M
-         yFzbgzri6f8OlhkANsVcfSlYfWyhcJIvwo41gyL8XrNGztnDWiJD/TC7HAizuTdT9TjK
-         J0GCrq0i8OWoYfVaS7c1cNXP/B83UAVZgB3NlLYP82WONGV/mYKmrrUNVHxqgOE6qbwF
-         tiUQ==
+        d=oss.qualcomm.com; s=google; t=1789450867; x=1790055667; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2KABN47JNikjdc7PIx0sNgUCf68WcstqIF1Q/UcAcbY=;
+        b=D5U7X3TAqubyZzfy/r2TTcwr1XSihXR3GjTvborA+RXhFzLefEUEvR3BKL6CpMBA0a
+         BKXcG603B3VNrhLI+7LU3cW3QeJYWr6dP6iO64IDs/Q8LBOuh1OaPwDwJEo7xJiANcX/
+         BgMzi0gv//UT3PQde6baPfYTufYUkBaHgrCAVKYa90l+QRvh9DOEFEhaa5w4pXfARub0
+         sV68bWm/O5X627lRY40pspPKkoKzITJumaZ5goGwyxciOG5RBGhzbOau1S6LQhx9w+GF
+         WNtB5vmaEHUWY6S2a6V6g7CqGLgp5Z+wnmpMUKThUuyOLZGJyAXO+5EGJBQRwVauBw3a
+         OjHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789450735; x=1790055535;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jW4iMh872ncBE1163LdNJ4ys+tDD8zaqJqYzr5q/Y+8=;
-        b=VT8GMzU2WZ35QvuOfITPB3bY0If46+CdCHJj1jzPCbr+4DKnHHUVv3rAnl8GVGlagx
-         Br2RtBLq6qYceUdra/wA2PY3QyiMybuGuXNKo1Tk5cN2Y0scjBq+PPz4XXy5cKwwfTan
-         t9Pi1xbQLPxl3PFnqWwugfz4Fjv/fUp9Gypvp3QWGtVAyK8Wu69YEFbuI1fmsA5TosL0
-         f22QASB7voAUKqCE2CErZ4lKzZz+6znD43FkoqMytXydP2hA2AA9sDyHOtLq7yYp8fZb
-         hEc87Oo6JpoGvHKbNqHNZl/jhhNlW4V24No8R7ZMI++i2EY7TYu+U++G4DoxRyCGC1Cz
-         AkIw==
-X-Forwarded-Encrypted: i=1; AKwUvBxyJUloZLkCV9bTCMBfWSsypHoRUJlBivENlFDQtp0q9vRuu2EqKvRKW+oAFSMVWnLwmxfuUt5M/oWwNFI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUurZer4OxWFNHuYmgsvHxLJDwbUHb+COpOQG1vRUrr4q/N78V
-	+SmPIDC7DLVdyyH9ekjFz+shdht+29x1FAKwg34zxi7RZ9ZFUSH2jHhEFZPREFRqAT4LtXdHYPI
-	Hh5EhXaLlsYjsGJ2PuavFNICCoSYqrhs=
-X-Gm-Gg: AYBFou2bAYquAX/M60xrwy4zrFA6VL32v+YpI/y8Hwt70OmnTkt+ywT81637JAHcbdn
-	uaJSsm0N6PKQXt18JTNQILJt8+/Iaj0kfL2MGP5FVTRMYCG2WOv+NQSscNVQGlsasLKSuz1loGA
-	lTVWzWE5r9pzVOK1tiIAu0YBW436vCcIpGD8I+kPs0cuVgDfWDqDqa7B4Wq8/e2XVPv1l3PK50z
-	SK59ZxCUWzwGeSn3MNsGb/bHLa1DK12kP1M2lNg0dW3nnCKU5clJQdfOrc0zeIkHg6jE4Dmy1PH
-	beGtlUcRNcTYXOcfvYxLwXvxvE/GxCKCu3skaHbpbaoQkKIzhDM/HxIo3XXFHJSFeolhHtdhIiq
-	aUS/E6ROfBWch
-X-Received: by 2002:a05:6512:1151:b0:5b6:1a7c:59e7 with SMTP id
- 2adb3069b0e04-5b8ae6af924mr1316575e87.65.1789450734927; Mon, 14 Sep 2026
- 22:38:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789450867; x=1790055667;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2KABN47JNikjdc7PIx0sNgUCf68WcstqIF1Q/UcAcbY=;
+        b=hxve6g1gwi3Y4BF7Q4s7NiooGHn6/Ht4ZTneDU6rlJ494APHbK41cG9Vg59gQAJp1q
+         r6PU4iBoKIqMfsaMfBthASH+KSb0X/nahdnXNTv6CHc5Cz2pxN66XZq3qUXeLZIZWAtO
+         uLw4b5z9vlmcLkKWFfmgghg8VLoaHT8nW/roscK0TY8DlO2Cear/IjswRfwZsyLngJ+S
+         77B5gni4cnwOfNHG26lzW33HQp+WRa0zkw2uUFMdzclH0JzykLfbUzi3dvxtIFX+CZv2
+         M345wN9XCfYLXmysRa85bplU2OFvh4cMsZFHFdX3LIYcaFNexVYIcm06nGMZeGa0mWMr
+         Q7lA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhI2V4a3VCSvRTLShHjR2vp+eYFgJUh/nu1QKSuzd6RyCesNMWs/ASfKw9kFShqSHLhSniGV7fqUCI3mI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5RSfa91TL11RpiGQc/2YxyLoxGYf52nF7KZ90uF94bitckTAA
+	1UmnLi1ekBlocJkUerCEqQs2NKWMKOuPhSymzgUV3NUK1CkzbSgEtmy5rszuzvPrqOcFWqs9XOG
+	Fuh1pt9INrBl83qwbWngxdN2MX1TFr7CDqTahMOVJq08/0Hkl0ojoNAmiTI7gZ+MNvVw=
+X-Gm-Gg: AYBFou1Bb0qS3trYW0O3xU8ZNLfKezwFgryrHtHyUrSPIsHUBKT6tJaWx7LPOF30NQm
+	C6h8wahtMS5Tymam6KVk++AGDNSAnWpYzIm7UCJrvTo0U2Fz0IT8lKOQBbPQ0/uoloLfHxAd5gd
+	xor1qQInElCWp4DTo4yQH/wmnmKGrfIxWTyHtHRIxq9Zll6FPEcLekTR42JNbyM6gS+Skd2DXjU
+	GvfKnLSg4wjI4R2SKcVlX3U2wjuKhlmaVOD128md9EEuNKcrNVBEZW6a+nA78r15u9vCw9gT+7D
+	uYkfd3TQxlCSaXqiq73J3HIBKgYTAJFsoOe5AvjdlCY8XedZdkYWceTfETSSJgVRExMf2kwZgS5
+	+k33AFXizOZos0I6OidGtTxAUFDJJONfyDmOxxHDa9bDhA70=
+X-Received: by 2002:a17:90b:538c:b0:39e:b7:cbee with SMTP id 98e67ed59e1d1-39e00b7d2d5mr2590264a91.6.1789450867540;
+        Mon, 14 Sep 2026 22:41:07 -0700 (PDT)
+X-Received: by 2002:a17:90b:538c:b0:39e:b7:cbee with SMTP id 98e67ed59e1d1-39e00b7d2d5mr2590247a91.6.1789450867005;
+        Mon, 14 Sep 2026 22:41:07 -0700 (PDT)
+Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14390c0be29sm1589960c88.9.2026.09.14.22.41.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 22:41:06 -0700 (PDT)
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Bluetooth: btnxpuart: Simplify ACL handling and fix
+ skb leak
+Date: Mon, 14 Sep 2026 22:40:50 -0700
+Message-Id: <20260914-misc_fix-v2-0-6178d838c946@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914083741.146689-1-zenghongling@kylinos.cn> <20260914083741.146689-7-zenghongling@kylinos.cn>
-In-Reply-To: <20260914083741.146689-7-zenghongling@kylinos.cn>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Tue, 15 Sep 2026 14:38:41 +0900
-X-Gm-Features: AcwNN1X9ywn0xoGclv5EIhEmjFjX494HRAMx0y0nTSehdk26qA0e1w3tcGtoOgc
-Message-ID: <CANFS6baYPAN8WS+5Fh8gSr-0iFraaKE2KTft6oFZPP+m3A_RZw@mail.gmail.com>
-Subject: Re: [PATCH v12 6/6] ntfs: check the dirty-state commit on remount and unmount
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, Baolin Liu <liubaolin@kylinos.cn>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAGLaqGoC/22NQQ6CMBBFr0JmbUlbbQOuvIchBupUxgjVDhAN4
+ e4W3Lr5yZu8+X8GxkjIcMxmiDgRU+gT6F0Grq37Gwq6JgYttZWl2ouO2F08vYX11htVeLSNgaQ
+ /I6bzVnWufsxjc0c3rP+r0RIPIX62rUmt3p/aSQkpjCmcwoPURVOeAnP+GuuHC12Xp4BqWZYvy
+ JGT0LkAAAA=
+X-Change-ID: 20260913-misc_fix-6f6f518fe6b5
+To: Amitkumar Karwar <amitkumar.karwar@nxp.com>,
+        Neeraj Kale <neeraj.sanjaykale@nxp.com>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+        Zijun Hu <zijun.hu@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Authority-Analysis: v=2.4 cv=G+KJgNk5 c=1 sm=1 tr=0 ts=6aa8da74 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=jqfNI8RexKxqlRSoiHwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDA3OSBTYWx0ZWRfX9Zakvaf3ajJy
+ mOuBw/6UaL6C/n+ZynrZvu0KS0rSMgO5iU86ahda1QHROGheU1MNzkbyafCJtStCW7v7O2coJJL
+ K9acj3mrbSEsOFKYTAtNUKrwIFPfvN+NyFQnpHXBtgo1C4m4R9TcfCubncl+KNm81mgO1QJwXUH
+ 1f704WFoPoOzHwEKFRJ6T27YCCX7OZFbj+DpAjXvOL5lCttTombsLBsM/lSOgFhJw+uFpfW1Tia
+ JXu6I/nojovJ0dwUolr2lqZM/dWnAftHowIccvHZNA0BMRS8xRly7QTtQWXe4OGGFXzwmO7W1uO
+ kdDnhKK46WoJcX9VbT9e9FCSxY5qAU9q70/JFYFAUVYJi1M/tE9Cni1uXtpxgU1mgbVgd1zu4oG
+ AefausKVK3WDYZK0DNUiZRnN/aP2/dBVG8e0WhCDPqPKhY4BdibgOTjomM/c+unMVcjhuaXdkyW
+ zWtQn05J8dt5XCWvNRg==
+X-Proofpoint-GUID: 3SwnCwG7HBXgklLHqpQVt1kZcCW5HUmX
+X-Proofpoint-ORIG-GUID: 3SwnCwG7HBXgklLHqpQVt1kZcCW5HUmX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDA3OSBTYWx0ZWRfX6uV/yfxLJXC8
+ AcShLr8QlnWgGWd0HWDQWXKrNxMq/hvVuZz62TrCyljwZEG4RfwvPC+JikuvQ39GRqHdd2aocvK
+ q84p5aIo2Qa7g3pWzybZpWXiHjaUrkk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_01,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 phishscore=0 adultscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150079
 
-Hi Hongling,
+This series simplifies ACL handle extraction in btnxpuart and fixes
+an skb leak when devcoredump support is disabled, — all simple.
 
-2026=EB=85=84 9=EC=9B=94 14=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 5:37, H=
-ongling Zeng <zenghongling@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
-:
->
-> The remount-to-read-only path commits the updated volume flags with
-> ntfs_commit_inode(), a void wrapper around __ntfs_write_inode(), and
-> ignores the blkdev_issue_flush() return value, so a failed commit or
-> flush is reported as success.  Once the remount has succeeded no
-> persistence point is ever reached again: ntfs_put_super() skips
-> read-only superblocks and the VFS never syncs one, so fail the
-> remount unless the commit and the flush succeed.  The superblock
-> then stays read-write and ntfs_put_super() retries the persistence
-> at unmount.  The errors=3Dremount-ro downgrade does not go through
-> ntfs_reconfigure() and is unchanged.
->
-> A zero-return commit is not trusted blindly: write_mft_record()
-> redirties the record on allocation failure and reports success, so
-> the $Volume inode is required to be clean afterwards.
->
-> ntfs_put_super() discards the same commit error.  Call
-> __ntfs_write_inode() there with the same dirty re-check and warn on
-> failure, as put_super() cannot return an error.  The commit is
-> skipped when the dirty-state sync itself failed, as that could write
-> back an inconsistent flag state; a record left dirty by an earlier
-> update is still committed at evict time.
->
-> NVolErrors() is deliberately not used to detect the failure: it is
-> sticky for the lifetime of the mount, so it cannot distinguish a
-> fresh commit failure from errors recorded before the remount.
->
-> Hibernated volumes: ntfs_sync_volume_dirty_state() is a no-op for
-> them and never dirties the $Volume inode on such a mount, since the
-> on-disk flags are already dirty and ntfs_set_volume_flags() has
-> nothing to change.  The commit only runs if something dirtied the
-> inode independently, as before this patch; mounting hibernated
-> volumes read-only removes even that.
->
-> Reported-by: Baolin Liu <liubaolin@kylinos.cn>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->  fs/ntfs/super.c | 76 +++++++++++++++++++++++++++++++++++--------------
->  1 file changed, 54 insertions(+), 22 deletions(-)
->
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 463050ae1b0e..0228d7429596 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -268,6 +268,7 @@ static int ntfs_reconfigure(struct fs_context *fc)
->  {
->         struct super_block *sb =3D fc->root->d_sb;
->         struct ntfs_volume *vol =3D NTFS_SB(sb);
-> +       int err;
->
->         ntfs_debug("Entering with remount");
->
+---
+Changes in v2:
+- Add a minor ACL handle-extraction simplification in btnxpuart.
+- Fix the skb leak in btnxpuart when devcoredump support is disabled.
+- Link to v1: https://patch.msgid.link/20260913-misc_fix-v1-0-558c1e4028b9@oss.qualcomm.com
 
+---
+Zijun Hu (2):
+      Bluetooth: btnxpuart: Simplify nxp_recv_acl_pkt() by hci_acl_handle()
+      Bluetooth: btnxpuart: Fix skb leak in nxp_process_fw_dump()
 
-The initial sync_filesystem() call in this function  still ignores
-the return value.
+ drivers/bluetooth/btnxpuart.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+---
+base-commit: 0186e4e1e5c26a21058a263cccd878fbf894677e
+change-id: 20260913-misc_fix-6f6f518fe6b5
 
-And the emergency remount(SB_FORCE) does not drain writers
-that are already in progress. This function can commit the
-clean flag while a writer is still modifying metadata.
+Best regards,
+--  
+Zijun Hu <zijun.hu@oss.qualcomm.com>
 
-It seems fine not to clear the flag for SB_FORCE.
-
-> @@ -324,14 +325,39 @@ static int ntfs_reconfigure(struct fs_context *fc)
->                  * and ntfs_put_super() skips them, so the only remaining
->                  * write would be the evict-time commit at unmount, which
->                  * a crash never reaches.  An error recorded only after
-> -                * the remount is still never persisted.
-> +                * the remount is still never persisted; a failed commit
-> +                * or flush fails the remount, leaving the superblock
-> +                * read-write so ntfs_put_super() retries at unmount.
->                  */
-> -               if (ntfs_sync_volume_dirty_state(vol)) {
-> +               err =3D ntfs_sync_volume_dirty_state(vol);
-> +               if (err) {
->                         ntfs_warning(sb,
->                                 "Failed to update dirty bit in volume inf=
-ormation flags.  Run chkdsk.");
-> -               } else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> -                       ntfs_commit_inode(vol->vol_ino);
-> -                       blkdev_issue_flush(sb->s_bdev);
-> +                       return err;
-> +               }
-> +               if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> +                       /* ntfs_commit_inode() would discard the error. *=
-/
-> +                       err =3D __ntfs_write_inode(vol->vol_ino, 1);
-> +                       if (err) {
-> +                               ntfs_warning(sb,
-> +                                       "Failed to commit volume informat=
-ion flags.  Run chkdsk.");
-> +                               return err;
-> +                       }
-> +                       /*
-> +                        * write_mft_record() redirties the record on
-> +                        * -ENOMEM and still reports success.
-> +                        */
-> +                       if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> +                               ntfs_warning(sb,
-> +                                       "Volume information flags remain =
-dirty after commit.  Run chkdsk.");
-> +                               return -EIO;
-> +                       }
-> +                       err =3D blkdev_issue_flush(sb->s_bdev);
-> +                       if (err) {
-> +                               ntfs_warning(sb,
-> +                                       "Failed to flush volume informati=
-on flags.  Run chkdsk.");
-> +                               return err;
-> +                       }
->                 }
->         }
->
-> @@ -1876,26 +1902,32 @@ static void ntfs_put_super(struct super_block *sb=
-)
->                 if (ntfs_sync_volume_dirty_state(vol)) {
->                         ntfs_warning(sb,
->                                 "Failed to sync dirty bit in volume infor=
-mation flags.  Run chkdsk.");
-> -               } else if (NVolErrors(vol)) {
-> +               } else {
->                         /*
-> -                        * The dirty bit is on disk now; only warn when t=
-he
-> -                        * sync actually succeeded, or this message would
-> -                        * contradict the one above.
-> +                        * __ntfs_write_inode(), not the void
-> +                        * ntfs_commit_inode() wrapper: the error can onl=
-y
-> +                        * be warned about here.  The mirror inode is onl=
-y
-> +                        * released below: writing the $Volume record (mf=
-t
-> +                        * record number 3, below vol->mftmirr_size) mirr=
-ors
-> +                        * it through ntfs_sync_mft_mirror(), which fails
-> +                        * with -EIO once vol->mftmirr_ino is gone.
->                          */
-> -                       ntfs_warning(sb,
-> -                               "Volume has errors.  Leaving volume marke=
-d dirty.  Run chkdsk.");
-> +                       if (__ntfs_write_inode(vol->vol_ino, 1)) {
-> +                               ntfs_warning(sb,
-> +                                       "Failed to commit volume informat=
-ion flags.  Run chkdsk.");
-> +                       } else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> +                               ntfs_warning(sb,
-> +                                       "Volume information flags remain =
-dirty after commit.  Run chkdsk.");
-> +                       } else if (NVolErrors(vol)) {
-> +                               /*
-> +                                * Only warn once the commit has succeede=
-d,
-> +                                * or this could contradict a failure
-> +                                * reported above.
-> +                                */
-> +                               ntfs_warning(sb,
-> +                                       "Volume has errors.  Leaving volu=
-me marked dirty.  Run chkdsk.");
-> +                       }
->                 }
-> -               /*
-> -                * Commits the updated volume flags if they were written.
-> -                * The mft mirror must still be around for this: the
-> -                * $Volume record (mft record number 3, below
-> -                * vol->mftmirr_size) is mirrored by write_mft_record()
-> -                * through ntfs_sync_mft_mirror(), which fails with -EIO
-> -                * and leaves the mirror stale once vol->mftmirr_ino is
-> -                * gone, so the mirror inode is only released after this
-> -                * commit.
-> -                */
-> -               ntfs_commit_inode(vol->vol_ino);
->         }
->
->         /*
-> --
-> 2.25.1
->
-
-
---=20
-Thanks,
-Hyunchul
