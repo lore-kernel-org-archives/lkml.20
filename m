@@ -1,113 +1,83 @@
-Received: from mail-vs2-f21.google.com (mail-vs2-f21.google.com [74.125.227.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED084388E7E
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185103A63F2;
+	Tue, 15 Sep 2026 14:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481767; cv=none; b=WUfMJSyPUp4lH2uuR5Ab5L9GacMSg9Z42pnJnJQio9Zrr9CnxFTlkJPZV6R1qIf3S0bCKbSyKbb18y9TXIknsGqwqblyazvkFc0DgAOvsB4V9vbuAM1aoqkhD/akAQXWaUh+TMXzNnEEX3bPBht31jFIONAFbkSz0S7Uoeyiy2c=
+	t=1789481768; cv=none; b=fSFq91I34Mj1Rl1Bb2WPxY5mkj2p8r+0RJXZZVuVEZpG7EV+LUwGhmLBC3bzjciXrbXd8r4xrtzkLWFDnWenzmrUsUrlDw6Cq4LPjoguJhvrDllS24vog953J3/wfxIoP/dtCff2mpE3WtnxlC3AxisEph+8B847y18jkTvmypo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481767; c=relaxed/simple;
-	bh=fZFg/j3pb6twOqqBfqfH5ANDxZSW/qTsavhnzB5RzzA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bRUc0Zz0jhOGUFblX3hoc43fTR/TF7LZjZ/B2A2ZkjrUfZiAZa51Gc+xft1YamNbA9RVJEPl/vl9lkZHe7S1wi5qYBvx08qzUam+XTznWGPI/tJTLQ1PnNjXSmXVrRU0JaMHO1fiJkYdSl8TAq6Pyd9YhUhDoE7tdJnUSdO7onA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U24A1ncC; arc=none smtp.client-ip=74.125.227.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789481768; c=relaxed/simple;
+	bh=PTbxpPFOxDQ8xv3WRyCj1KIRouewlTe+7MQl0VvICic=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=HBKcw+5Swrafisz/yAlSGlIFZfjb9bYa2Kw9m/9jizFwllDAaVi1f+j/DoWJgMt2a6zkfwrG9ehaGsAiFc7/uNguAuFlKnVTRse5v9tkoP5122iC53FWtXRXacbIZx0F0DhVa82l8ZnpUZNMZcXOzg42fUQndVtCVcDLploOL00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=KRUCyAoc; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U24A1ncC"
-Received: by mail-vs2-f21.google.com with SMTP id 71dfb90a1353d-5c83397eeeeso2085607e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789481765; x=1790086565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8fJS//1ZgrWfO+Hpg+mD2bvTEqYipgvOVKK1VwTdF1g=;
-        b=U24A1ncCjpfO8XOmtRMh28g2L+lTBAGTlv+QcNj9KFJk68ZIU0Y/Fq0ndUKjPkqNnm
-         1UL0n7benzscYi2KCnQUNbKOptZVb8LXamMrh7fRL1XSUj2ACM0XOaMSe9BXhcx/G3ZE
-         EaXjDGm0Z1wn1xQXtRdFBfy7xVcL8VzqCeS88vKhwoEhIHy2mL1Btxn0GttZrpsWZopF
-         pj17+4hzLKQWnktNdO7gKm3USS/+ALSjOKOjGFqKZ84XKJQfJfXSKvQAQlWAReZ/XZ0w
-         GhFx7GYSA+quru3czgBrLrxMsPEeeMHiWFTncYDa8m3j25X0sogZ1PPrjEc5M9Gh+0dB
-         2AnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789481765; x=1790086565;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8fJS//1ZgrWfO+Hpg+mD2bvTEqYipgvOVKK1VwTdF1g=;
-        b=1TgHeQsw1fgDNzsuzFQa+78dE6IXRiw8CILrdYYwEHZhEWAh/FQeHLf1AUY6PLDoab
-         Q8kuRv3GTu5oRinVqvOjxHBcCWy/v33EYWurGWpQ3qkcvqPd2Mf0ZS4oNG7e065hLTx+
-         03Kb0SosU6ALALbTMC78qetQ4svcy7xOKOWFuqFrqtkgMvZU4U/ntdd9kbR7BMsHBwdo
-         ZphbFpxhxUCz1+dY2H+eO1KC6Pzq05n4TnKl3xP/u6BhPT+t2d/Bf073znQYlj2wZ6BR
-         mmHw93kEgjrtWQOhGPkkpTUTJAgP6vnjLGLWagYfUJmhRR+L4R4jyrDjpG5Je3yHneWj
-         p9ng==
-X-Forwarded-Encrypted: i=1; AKwUvBwHQG12F4TAQsmf2XnrBg/Jef7F7sOtIYEmYNYD9upxskRSe0Lw1S/Rwda9qVrih7rsUAFz0zsUXOo/Sn4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG6XvWt6vDBGivUul8zSlWGiTv/hV5GiEcvQ44s0aKPlRp7hTo
-	2fZ/jyjZFuGIhf4/on/TOlx19GaaoclMlZROnNCqgjUgzwrDdZfpmBRs
-X-Gm-Gg: AYBFou0M2ZQRzYJe2KDzILaSWTEkpwT2ObDDQIjhL5CMJciSmte2rd6wNwEGl1Pf4lM
-	RLb9NEI60bbHPTN1n/nrUrhBKCGLyS/3A8zNXEYnRzaOTffR98XaDDTAJ8RrwHgE/X7rxvxcKKp
-	0pST7RaKNqKqYLm448+uONGQO1Hh8LiRHi0sRqW0KOCoEJqNTINB88kSMv0LMEQGt1AKiqN74go
-	grTXCAXdm+HSHRxWS/NrKvIEqYX2AM9CHk0euK0Ig2VaMmpBTXkIyX19qvrt8qiYOqETER/BtqC
-	6rQXdeSZg9tbhPcO5lNF5QPgwkHqN0/N8/0BMI2dc5S9Q3pqoVJdfA0IWY5hr17GOjv8gJcVBdE
-	Ibj4zifL9xEWThZ/9oY0mz3qioDYkvt3fbOemtL+HB1E6xPeeB3IRh3lpiyJdmJ4/NltcUccjFs
-	ZraiVlZbh9TqP1WocRWEORL38zvZPsvRDi7vvMzeR3m9s0Cd8bMcfMu3raJ/bLK1yN
-X-Received: by 2002:a05:6122:2056:b0:5c9:82a1:a6a3 with SMTP id 71dfb90a1353d-5c982a1ad55mr8136390e0c.6.1789481764710;
-        Tue, 15 Sep 2026 07:16:04 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c84716a167sm16029131e0c.18.2026.09.15.07.16.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:16:04 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v2] vsock: ignore empty child namespace mode writes
-Date: Tue, 15 Sep 2026 11:15:47 -0300
-Message-ID: <20260915141547.3010692-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915111417.2726515-1-qwe.aldo@gmail.com>
-References: <20260915111417.2726515-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="KRUCyAoc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789481764;
+	bh=PTbxpPFOxDQ8xv3WRyCj1KIRouewlTe+7MQl0VvICic=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=KRUCyAocjxgVBz3HulW75LFARuyrG+119/V5KXj4ptEBwVuz+JDHiZet+PUE5I0IQ
+	 qoy7VqAKh+MD6vKt02YWiG+VFikVc68ZjvuDBCMsJoa+vk+Azx+NRdAMf1ZDxvMFCk
+	 1RW4txL2x7YYjWoElHWCLKxAZ5QoWcdaN7Gm80yo6u6PbSoBh+1k2YRqzerZjkZ57V
+	 rcKpYgnNz/DI7qUhMi3jatG4TUpAFf1mthq+htbk8Ia+cv1QKt91/AjAkjS6MERzb8
+	 42k50eoz5tHYt1tdyYmuf1ZL8TZ0SpWy5vYn6PFbarvsPRF0er/Cnwb0IW4jXWWeJf
+	 BrvV6ODCSIQ6w==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id AF8E317E089A;
+	Tue, 15 Sep 2026 16:16:03 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ Martino Dell'Ambrogio <tillo@tillo.ch>
+Cc: linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kees@kernel.org, tony.luck@intel.com, 
+ gpiccoli@igalia.com
+In-Reply-To: <20260915135722.566918-1-tillo@tillo.ch>
+References: <20260915135722.566918-1-tillo@tillo.ch>
+Subject: Re: [PATCH v4] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add
+ ramoops region
+Message-Id: <178948176365.42253.18334352766065751313.b4-ty@b4>
+Date: Tue, 15 Sep 2026 16:16:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-__vsock_net_mode_string() returns success without updating new_mode when
-the transfer length is zero. Its caller then reads the uninitialized enum
-and may permanently store a stack-derived value in the write-once child
-mode.
+On Tue, 15 Sep 2026 13:57:22 +0200, Martino Dell'Ambrogio wrote:
+> Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
+> (0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
+> allowing post-panic console output and oops dumps to be recovered after a
+> reboot. Without it, kernel crash logs on this board are lost when the SoC
+> warm-resets and the on-chip console buffer is reinitialised.
+> 
+> With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
+> pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
+> (640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
+> reserving a small Reed-Solomon parity block from each zone's own
+> allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
+> even when the panic path truncates writes mid-record.
+> 
+> [...]
 
-Return before inspecting or storing new_mode when no bytes were
-transferred. This also prevents an empty write from locking the current
-mode.
+Applied to v7.3-next/dts64, thanks!
 
-Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- net/vmw_vsock/af_vsock.c | 2 ++
- 1 file changed, 2 insertions(+)
+[1/1] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
+      commit: b71dd71f0965358d33a4c5c93789e46795f0f49d
 
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index 622dbd0467..816d25b314 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -2883,6 +2883,8 @@ static int vsock_net_child_mode_string(const struct ctl_table *table, int write,
- 				      vsock_net_child_mode(net), &new_mode);
- 	if (ret)
- 		return ret;
-+	if (!*lenp)
-+		return 0;
- 
- 	if (write) {
- 		/* Prevent a "local" namespace from escalating to "global",
--- 
-2.43.0
+Cheers,
+Angelo
+
 
