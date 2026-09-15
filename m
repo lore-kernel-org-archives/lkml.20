@@ -1,48 +1,65 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E448F3B7767
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730204772A4;
+	Tue, 15 Sep 2026 08:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461186; cv=none; b=Yq/X/J4eCySphIMbqxXaEDycApW591E6cwzDmtmyTNj9ryA0QgpLPqjTZ0VFCAYdEkawtLvxsUfcuN+cGWA2e15b5GY3QNmehhfsJgBaKzQki7oQFyQcwC9PxKRtQSYG4va78y1y/dOWsD75lm1c2qwjLB+gZb6kxce5V7vVCVI=
+	t=1789461188; cv=none; b=Pm38mGf1PyxKnEOfgaCzxQv3RsdFqKBbfY/2Rlv5/PqHLwSwagbfO1+k5ipO7//9+F80grc1cDeK/AuPXnXDAijOgrFrZyzB33L5c7miCD77OizYP6Seu+G/C12xFijTnI9On0B+fUNTxhASTpzf9Ld5hH5GtMnnKkoaaZ9wwlQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461186; c=relaxed/simple;
-	bh=i7/7ap1qDbWwLmNiKmhnwLiuOjmEbfQukj8qbjMfwzQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M4sYXjqgIO6ClUSYPmyQC9FTJiQdD/CXanFIR7EtKadgshiiyrnSFL8CMe4rDGLu84l2JSf7PJzVGId5OFuooPvVrLwsCd01mQIgj5/Ql5/g8nxDQuoK08313TZ2TLqg3lKWp5QYCYaNHgu+Pn+Lb836Pm68erxU2TDtHSbLRZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 0e3d7c0eb0e011f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ed6baaae-3be3-479c-833c-994c6d4dbdff,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:8f5d9d8bb805b62a3d7119d99f07950e,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0e3d7c0eb0e011f19a56ed5b684f684d-20260915
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 997502701; Tue, 15 Sep 2026 16:32:58 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1789461188; c=relaxed/simple;
+	bh=RCzmVR5nKblaNJ6RNGAmHUUCM7Igg9ZLLONFiT3MVrA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oihPuNGO7RGrg6FxLQCcq4H4edWgF2yBUCAcz+G2cUTfW2alsfGu1lSR9K7sTe8cW96h1YQZfmhtLhNTYt/BR2sJj4Qpp/E7JK2joQUuNDBd63TUfMSKB+cdgw2WOkTZRRjSB62saReSSsSmPNc7KrIhiyjTXC873a3fzzZzwtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=hsE9KTiz; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ocSBUl/m; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="hsE9KTiz";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ocSBUl/m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461184; bh=RCzmVR5nKblaNJ6RNGAmHUUCM7Igg9ZLLONFiT3MVrA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=hsE9KTizFhRMXswkGNdcrp33R5bgnqDWKohWlRcIxQXsEu4ewQLT6WaLiaSdsc+il
+	 LvZkZfSsGK6KZQRhrW2tnb0BhbcZWYk4xYFrAjDmO/RcroBWza9FV3h6IRxe+AJ7b2
+	 ZITqkkRNsq8DQGEVqgpgRJZMM4Vc+XiKbwThNA0UC6sa8PTESPicPQsbyGjQiBF4k8
+	 OPSxHeaj4fZVwygMxaqoHEIqKZg9jUzag/XzdigJzuGNMjPjVHNPyEkaFcrqjLw8OZ
+	 wWMtRPzHlhiQF6TosTTTXfrdQ8A9BEHRoZi2O/HsLHW5WcQa4vj0WW0kByejmpLNBd
+	 1rEY/WNMxdrPA==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id 9481140B87; Tue, 15 Sep 2026 09:33:04 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461183; bh=RCzmVR5nKblaNJ6RNGAmHUUCM7Igg9ZLLONFiT3MVrA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ocSBUl/mZN90LBso7rCOc434pz/AOUJ6UFzS4qengI5fLwV349QXxkpmAToAToVKj
+	 RNr8UXwbzfooBUx0YE0i2n+nxCU2crOakTg5lNv56QpNwkvLbpYgudA8U06DkkmZsR
+	 wHqgzSLqKXlcW7dQlloO0c+oL32XTvYeVaaSlIWxhsGv4XilDh24oTH+uPoVqX/vc5
+	 C3emNKGYt9q4sufWonIwJiPAi57FAxiE1AOpjWxMlmugQE/CWk5q0m1T4SmCsEbcG0
+	 Zu++5Q9EntgOxbUvvN74vaVPTecA0AQ9+FSJAW+CT54WDld0oFWQT1UZdSWl2++oFS
+	 /O7CD/2nMNEog==
+Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 789AC40BA4;
+	Tue, 15 Sep 2026 09:33:03 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>,
+	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>
-Subject: [PATCH v13 0/7] ntfs: fix volume flag races and persist the recorded error state
-Date: Tue, 15 Sep 2026 16:32:45 +0800
-Message-Id: <20260915083252.812126-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	bpf@vger.kernel.org
+Subject: [PATCH v5 06/20] media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
+Date: Tue, 15 Sep 2026 09:32:16 +0100
+Message-ID: <a6e028d16704a606a6439aab0f65df888d9c84b7.1789460680.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1789460680.git.sean@mess.org>
+References: <cover.1789460680.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,60 +68,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+Mark the device as unregistered before tearing down raw IR/bpf
+state, so that racing bpf(BPF_PROG_{ATTACH,DETACH,QUERY}) calls
+cannot slip in between ir_raw_event_unregister() completing and
+dev->registered being cleared.
 
-The fs/ntfs runtime metadata-corruption paths only record the in-memory
-NVolErrors() flag, and the dirty-bit persistence used to race with
-ntfs_sync_fs(): a volume could end up with a clean on-disk dirty flag
-despite modification or recorded corruption, so chkdsk would not run on
-the next mount.  This series fixes that.
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+Signed-off-by: Sean Young <sean@mess.org>
+Cc: stable@vger.kernel.org
+---
+ drivers/media/rc/rc-main.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-   1/6 makes the volume flag read-modify-write atomic under the
-      $Volume mrec_lock;
-   2/6 marks the volume dirty unconditionally on metadata changes,
-      dropping the racy caller-side checks in file.c and namei.c;
-   3/6 derives the on-disk dirty bit from the recorded error state at
-      the persistence points (sync_fs, remount-ro, put_super) and never
-      writes a hibernated volume;
-   4/6 persists the dirty state after the final put_super() commits so
-      late errors cannot unmount clean;
-   5/6 stops ntfs_sync_fs() from clearing VOLUME_IS_DIRTY: the clearing
-      moves to the quiescent transitions, a recorded error state is
-      still persisted at sync time, and sync now reports writeback and
-      flush errors instead of discarding them;
-   6/6 checks the dirty-state commit on remount and unmount.
-   7/7 ntfs: fail remount on sync errors and keep the dirty bit on
-      SB_FORCE
-
-Changes in this revision, from the review:
-
-  - 5/6: with the clearing gone from the sync path, a recorded error
-    state is persisted without ever clearing the bit, and
-    sync_blockdev() and blkdev_issue_flush() are both called with the
-    first error returned.
-
-  - The IOCB_NOWAIT behavior and the per-operation $Volume mrec_lock
-    acquisition are outside the scope of this series.  The series keeps
-    the unconditional ntfs_set_volume_flags() call to preserve the
-    ordering that marks the volume dirty before the metadata
-    modification; a RWF_NOWAIT write still blocks in the marking when
-    the volume looks clean, as it already did on the base.  The
-    non-blocking and contended-lock handling (mutex_trylock, GFP_NOWAIT)
-    will be addressed in a separate follow-up patch.
-
-Hongling Zeng (4):
-  ntfs: fix volume flag update races
-  ntfs: set the volume dirty bit unconditionally on metadata changes
-  ntfs: sync the volume dirty bit with the recorded error state
-  ntfs: persist the dirty state after the final put_super() commits
-
- fs/ntfs/file.c   |  20 ++---
- fs/ntfs/namei.c  |  24 ++----
- fs/ntfs/ntfs.h   |   1 -
- fs/ntfs/super.c  | 191 ++++++++++++++++++++++++++++++++++++-----------
- fs/ntfs/volume.h |   4 +
- 5 files changed, 171 insertions(+), 69 deletions(-)
-
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 67d86b8ea5e0..37ba19164875 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -2056,18 +2056,18 @@ void rc_unregister_device(struct rc_dev *dev)
+ 	if (!dev)
+ 		return;
+ 
++	mutex_lock(&dev->lock);
++	dev->registered = false;
++	if (dev->users && dev->close)
++		dev->close(dev);
++	mutex_unlock(&dev->lock);
++
+ 	if (dev->driver_type == RC_DRIVER_IR_RAW)
+ 		ir_raw_event_unregister(dev);
+ 
+ 	timer_delete_sync(&dev->timer_keyup);
+ 	timer_delete_sync(&dev->timer_repeat);
+ 
+-	mutex_lock(&dev->lock);
+-	if (dev->users && dev->close)
+-		dev->close(dev);
+-	dev->registered = false;
+-	mutex_unlock(&dev->lock);
+-
+ 	rc_free_rx_device(dev);
+ 
+ 	/*
 -- 
-2.25.1
+2.55.0
 
