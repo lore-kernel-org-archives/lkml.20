@@ -1,116 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B793B6BF4;
-	Tue, 15 Sep 2026 12:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A993B7757;
+	Tue, 15 Sep 2026 12:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475995; cv=none; b=kRn9PmmeYSMfhNmXdDFavoSc+g1JTLmRj75JJEnklYrMiOgzW6f9OAnAQKFh4EEkxbL32pB2O0xEpxmGqD0JUnvnx5A95iVvhlmoUyPiKfq5VIcqrhQl5WIW/R/l9ElMYuHPyc58C1qx0omTxMQIhnxMLlGoIcVcyy+hBkOXLL0=
+	t=1789476000; cv=none; b=H2MITnlA3uDw/98OSOKg1e4Liy87afozLLwxmL/XZSHMpNahAzo/z1Iq/Q3C+Ef84nUwREf6ILeYN9kISDsauSYGkf5k9CZP4ysE+zKmTebC72hZx++/YaE+TzQiMGi7//flmD6Gdj7kRf7U3jJ011JmLL4L1MFD7XzJOjTYLwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475995; c=relaxed/simple;
-	bh=Egakq25gJHXak7LQY+RvqVAB11rZnHQIMgMrzAVXNFo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=HbW3gDX9ilOVPQvBSk6GiTkSdtIKha/GN433zkZZ//YdUiU3nUPBJ5ZGCFzlcsYWSFs98+SHMvbmbPu8AQnNDGmNieyBBJShk4ocyWRxvnJyO8xvpKBy79Nf5I8UnSWYwIM79xZSapODitMvn7KswOkxCcWX1J2alJOXUu3E8m0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IB2omJI2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789476000; c=relaxed/simple;
+	bh=6xo7YgWEi2KBLR3Lf7s3tkoITi10S8/cK3L7oyHpsWM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bwjw5UBan1UsMUkXEJ0gF6V4/RuWCLczdYsIxbEfYJz04191MDEGb/Y1CnPoOtZi0+xjatmXghIRzrc8oKBZpuBuPiUigMDpit96RBOPRmTpxu33Wt5cWk+Q/brFw/sdfzpMEgb+MThumaHW6mr7pBv4rzR93YkhdeWjU21s+a8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYpdTtkI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IB2omJI2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30EBD1F00893;
-	Tue, 15 Sep 2026 12:39:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYpdTtkI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60A51F00893;
+	Tue, 15 Sep 2026 12:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789475994;
-	bh=CwbRfgd9dCZvkwIasjy8dmwPwy2Eynj7KtzOQj5ZzZM=;
-	h=Date:From:To:Cc:Subject;
-	b=IB2omJI2R+o+j8lxKswhkpaXw0QTrkihl77TNs5lOOUcHvD5RvKv4CMssR2YfzBwg
-	 uA61lUBHeaXngXUbgJ5Zv8R15LUOzfnYMauhhEMncyrbYxOpprNHrdbHzvie7tWu0u
-	 tojCGLAu1vT7lg183QTx3V+g/muIiDZhpPYz/vtCvNZaAxyYxhk5EC5umPFojuN9Lp
-	 HvmMg/E4klAB823Mf2E9zirfaKV+j2Aewkw4xXaHsWGGBkqj9ZmySJVWsJTVWhI4ff
-	 BVlyNUjk2L4AlS8hg7n+iOIAhs5Feg6sfMgY0vwNR9XsMXHbs6xR0iU1Y61CzRFmCR
-	 eFxtqhDChv/nQ==
-Date: Tue, 15 Sep 2026 13:39:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the vfs-brauner tree
-Message-ID: <aqk8lgbBXNArYeia@sirena.org.uk>
+	s=k20260515; t=1789475998;
+	bh=R8PNvrtawzXe5CSJXiS0tWjjyZcYLcdqMXVzqN9aktE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DYpdTtkIyT89BtoYbA26HmTbG1wRH0HZPUbi3mxtljq0uQdcNW7jp5xSnjObKI8qC
+	 0J284u8A1rRGkKKzLs8o31HBanlwlOQX9soSlH0/YCjI8dOxBWjAZ95Nyw+rOE7Um9
+	 /B0LFwBvtKjSKma93zgkQX5yWW0ehTfs4KJTWUQ8wPzLkmt3f05A0WeueSXoftI8f0
+	 vugBSsjDVaPc5Sr5LD7aYjKbKL61jDCbwE67SwXzDEY9GUwxEWbscInua0lvc5GdGE
+	 xBJo9s6iCtRcaHiuzTausKEXW+y91wCo1su5wuKSNcY8a08Xce7rn+B/augKrAo0I5
+	 hAEjNWr230+yg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6SS5-000000098Ca-0O2A;
+	Tue, 15 Sep 2026 12:39:57 +0000
+Date: Tue, 15 Sep 2026 13:39:56 +0100
+Message-ID: <86wlsm663n.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [PATCH] interconnect: qcom: icc-rpmh: Add opt-out parameter for QoS settings
+In-Reply-To: <e84587e5-904a-4cd1-bbc1-408a674ec1d2@leemhuis.info>
+References: <20260907171729.1735641-1-maz@kernel.org>
+	<v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
+	<87ld9c4vc2.wl-maz@kernel.org>
+	<6iixty74opjqkegpdmtytffgrllcjvrmhlsv53xtackdqzvwge@6fh5onz27p6c>
+	<867bkw3zic.wl-maz@kernel.org>
+	<e84587e5-904a-4cd1-bbc1-408a674ec1d2@leemhuis.info>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3y3XF04vbQKK4b/n"
-Content-Disposition: inline
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: regressions@leemhuis.info, abel.vesa@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, raviteja.laggyshetty@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, abelvesa@kernel.org, andersson@kernel.org, smostafa@google.com, regressions@lists.linux.dev
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
+On Tue, 15 Sep 2026 13:12:30 +0100,
+Thorsten Leemhuis <regressions@leemhuis.info> wrote:
+> 
+> On 9/8/26 10:42, Marc Zyngier wrote:
+> > On Tue, 08 Sep 2026 08:34:18 +0100,
+> > Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> >> On 26-09-07 22:15:09, Marc Zyngier wrote:
+> >>> On Mon, 07 Sep 2026 21:21:44 +0100,
+> >>> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> >>>> On 26-09-07 18:17:29, Marc Zyngier wrote:
+> >>>>> Recent addition of QoS configuration to the X1 variants resulted in
+> >>>>> systems that spontaneously reset at boot time or under load.
+> >>>>>
+> >>>>> Given that this is both very unpleasant and hard to debug, give the
+> >>>>> affected user the option to survive such event with a module parameter.
+> >>>>>
+> >>>>> Passing "icc_rpmh.enable_qos=0" to the kernel command-line will skip the
+> >>>>> offending QoS setup.
+> >>>>
+> >>>> Lets not start doing this, please.
+> >>>>
+> >>>> Can we figure out which platform deosn't work and then maybe we can 
+> >>>> add a quirk in DT per platform?
+> >>>
+> >>> We have at least 3 machines that are dysfunctional since [1] was
+> >>> merged (mini-x, sp12 and devkit). Probably some more, but I'm not
+> >>> going to be the one doing a survey.
+> >>>
+> >>> What really should happen is [1] to be reversed until QC figures out a
+> >>> set of parameters that actually works, instead of making this platform
+> >>> even more unreliable than it already is.
+> >>
+> >> I'd rather have the patch reverted than adding a module parameter which
+> >> users might not know about and distros will probably never addopt.
+> >>>
+> >>> Just like [2] should have been reverted.
+> >>>
+> >>> Until then, we'll have to paper over this stuff.
+> >>
+> >> But a module parameter complicates things rather than just papering over.
+> >>
+> >> I suggest we get both reverted if they break existing platforms.
+> > 
+> > We're in violent agreement.
+> Did anyone submit those reverts? Doesn't look like it from what I see.
+> Do we maybe need to poke the subsystem maintainers?
 
---3y3XF04vbQKK4b/n
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Done: https://lore.kernel.org/r/20260915123703.3228329-1-maz@kernel.org
 
-Hi all,
+> Side note for the record (noticed it just by chance): afaics one fix for
+> [2] was submitted meanwhile:
+> 
+> https://lore.kernel.org/all/20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz/
 
-After merging the vfs-brauner tree, today's linux-next build
-(arm64 kselftest) failed like this:
+Ah, nice one. Hopefully this gets eventually merged.
 
-  CC       acct_syscall
-  CC       cgroupstats
-  CC       taskstats_fill_stats_tgid
-  CC       breakpoint_test_arm64
-  CC       step_after_suspend_test
-  CC       test_cachestat
-  CC       wait_inotify
-  CC       test_pids
-  CC       test_hugetlb_memcg
-  CC       test_kill
-  CC       test_cpuset
-  CC       test_kmem
-  CC       test_cpu
-  CC       test_zswap
-  CC       test_core
-  CC       test_freezer
-  CC       test_memcontrol
-  CC       clone3_clear_sighand
-  CC       clone3
-  CC       clone3_set_tid
-  CC       clone3_cap_checkpoint_restore
-  CC       proc_filter
-  CC       unshare_test
-  CC       close_range_test
-  CC       coredump_notify_signal_helper
-  CC       coredump_socket_test
-coredump_socket_test.c: In function 'coredump_socket_coredump_thread':
-coredump_socket_test.c:677:35: error: implicit declaration
-of function 'get_peer_pidfd_thread'; did you mean
-'get_peer_pidfd'? [-Wimplicit-function-declaration]
-  677 |                 fd_thread_pidfd = get_peer_pidfd_thread(fd_coredump);
-      |                                   ^~~~~~~~~~~~~~~~~~~~~
-      |                                   get_peer_pidfd
-coredump_socket_test.c:752:17: error: implicit declaration
-of function 'crashing_child_thread'; did you mean
-'crashing_child_memory'? [-Wimplicit-function-declaration]
-  752 |                 crashing_child_thread();
-      |                 ^~~~~~~~~~~~~~~~~~~~~ crashing_child_memory
+	M.
 
-Caused by commit
-
-   b956027e73bee (selftests/coredump: check the dumping thread's pidfd)
-
-I have used the tree from next-20260914 instead.
-
---3y3XF04vbQKK4b/n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqpPJUACgkQJNaLcl1U
-h9Btqgf/Z9ElleHfyVBtUQW7D/Bxrr2/kmm8qWdKCUOremTzzs/c5zq0czuzBtQ0
-sQ2EcUHDPN4lrusAjtmxgm3N10guHjPt0TpIpvm3KEjYUkm88Ki2VIiwVUhyuINf
-UVi1fiDoECu/FSAn4xow6TNoC7FQVBWwaokkjJzyKhYUV9fQnq7GGdUP1rrIJAoJ
-/rDf28zVa7gWixrMyKoZNm2dgQT+JS5LwujgJb7PzHYD5Xun3dpy3c/v7UVfAGMt
-YGG4QyQNEs6tMraKRwwm5Ol0vlcPEAEihd/lHZSiCWxFzq3cZCk1W6bjEwrQPH13
-Q7xqxNM4N66NfGtLmOBZLVdH6KrjVw==
-=0VmY
------END PGP SIGNATURE-----
-
---3y3XF04vbQKK4b/n--
+-- 
+Without deviation from the norm, progress is not possible.
