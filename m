@@ -1,203 +1,163 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EA7361954
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40654766BF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461862; cv=none; b=QADC6l5Dx97xnXy/MeEc4sTbANs6Dr1AAYrvHH2oNbbk7eJwZRO6t/Xqmz2AIU1/y3AnHl80gDS9+TCkZo4kq8KFyZvTynwR9jLl5mAB3WLTSv7a8nfl9Xs4T5LLhdyoy73Gt5zAAN6hsLZ+wtOeoahj3xlWTOB/ahlmlsKnuA4=
+	t=1789461872; cv=none; b=FxcW3boHtvNSNgPAxp50TRVZvMfyKZKb68FSMXMMcwRD4B7ikR/lStegrpkYdnU7Oqv4H9oXr9VMdB86Mhch5rOSYLgX0d0sMwePgDhwPdbgtG4SjW58afkmFVmj1TwaLeZLlV7j5YLEYpd3oCjgyWBOlaQ7FyNi+cCqGo94Vcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461862; c=relaxed/simple;
-	bh=Rp9HFCeTpaamawVvosZkxvLwFJvE26dAepDe6I9U1TE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qk7WLWfzG9fCBdOYWMK8NHyfal0F2VaI4RnWFw+3kcwa8dQ6hctutE71vTxREKQk8eW2jBIhavKY8MQSgmhWkkpO5G67qJqbLL5m61LLjbwFRVKQfAdrBT9F6ZxaNqLVuI1A8xhWMEumxuaFyBuLoNv1Mv3wYyfsi/4u3maK7CM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KboxuY70; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FBZB5UKk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789461872; c=relaxed/simple;
+	bh=huYEm3HAtHnskymK5Sr7LQqVOdSLUWWrK2v7Z5zXVzg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t3brGyMJmDi2lt2MVBCb8+w+Ezu2gtsQEn7zEzs9Vvc4pWGIj7A//x+BjrXKCtwXfaOrT8TuisD5PCCV2YrO43gHvoCH/kfENy4oVCMgeu9GT3S017LYHD/B0/Yc2SK4a/RXe8N8jkwoFfp8ZGiUg/P5/nKe9b/LQdkhT3an+VI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btcQ3/zo; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KboxuY70";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FBZB5UKk"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Z3jd3486817
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=0udQrLqzKNhbHFqrd87zHb
-	u2tdMfn1BRnc1snQGcn38=; b=KboxuY70AI2Vp4VL5UYHMUssxlmZSlsDnPaDw4
-	nVAtnnU5AGMDPRtdskF+MZUh4ulIk3x5vYVOaPSPckSoPCkw2ugIAJ8rpdd9Ma7y
-	BGSa+OSrW8vIiQV+hWtwDXpO9hpEDvBwO+YeLk78Q/YQT0R0R4Xt8FTl2tNrJTyQ
-	SEbiGfk7++JlYvf0+yC2k8VrYrpc2sLIKPJ4EE9hpiYQcP+h3IgaudKBc0ob2SUv
-	shK4jOZFt4ZGmHsOAVXxPwurb+Ux7prUUPYbPri26ZxNNiwFh+vql+a6yhcoLtNd
-	qFPK+HM6xKu+x5EYWonxVpKMcmAkYZogNPqqAm/MAkk804ow==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq0jerm4m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:19 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91043af01d9so84040986d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:44:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btcQ3/zo"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b355ffso1766981b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:44:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789461859; x=1790066659; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0udQrLqzKNhbHFqrd87zHbu2tdMfn1BRnc1snQGcn38=;
-        b=FBZB5UKkKKHn0fYct6RHIUMa3Ygu+Q5AxE93cd3Z+h3pvgjm0sEuAEPKVKq2sATA+m
-         3BEXDJDhlfkz8ii5/3JckYRGsKBDpMRNs+BmExzqf0TCiXz9J0VnzeUckrvsJZgofbJA
-         DQRIztsK/aBmVjFNRk7YJerVoiiQyV7puqigSnETNpmqovB9sLPPzUhNQINLZHXwYEBZ
-         QNWBErKEJsI8YFSK5RG1nLVdakBDhjbnUABetN2Uq+TW6DMWfaqSb/1CnQMl1rRHUrnx
-         XSk7GsQaQ3k/KmgyTuc3sK+uPXR+qigXq212Fkog4f/m4ukPTkgi2NuKUlmaWPF46x12
-         Ybpw==
+        d=gmail.com; s=20251104; t=1789461870; x=1790066670; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3qGtMJ8rOmaLVkBVwgGLv1rCNJV422A9E6Q4kREBYoI=;
+        b=btcQ3/zo0uHer4KwRY5acEFiraCMasoh7ivDV/j4wRbQT8pFaej7mo2Ud2teOqopRI
+         V/lLLadpSCTZ/pCnkWQeD/uMoAUKA/QADmyrsdyu7LCbMRL7Zsnz9EgBtKlN0SWGiWdc
+         jaLFJmv8SQXlobExdWvOwp9wb22aauHsvHOjdMIZ3kh/EPRonVXIRJlm4uletJnmjsc7
+         g6ZYSqRXilsG+tpNUdrEtFOLaHE0GwgwJ27i+vODTPtFw8/Mmx7iy4feQ9R8WtoKXxQ6
+         s8mUwFqNMBbJHXh6rnjFYeoQfW50zzLek5AsH6BjfI28FIEyMBiZ3aX5Z3qbHf+ZVX6+
+         eN+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789461859; x=1790066659;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=0udQrLqzKNhbHFqrd87zHbu2tdMfn1BRnc1snQGcn38=;
-        b=XUGqDvZFXG7mpSh2hUw5fhdiamjPxsatZfjFDoZxUkLJas7YGUDMSMJw8o1P2hcL1M
-         +Hv3TcsvpVuK7kJYWoN02IB/AGQpi10E4bXl37W3KQG43jUTtyCPs4uESAWKFPiGdzkf
-         Ni6IloAbN4v46qRh58y3StHTscO/W0RlrFU6t35ke5nZ+R3HRiLyZ2kw2cMpWE2myh+0
-         S1DvnviuxWfv549kLO1DAWMEnf84pyIlUXC2090PqWF16VWk7G1WdjU2rroGvnC/CoTf
-         NO0VVWooYkCvOmslJ2VYLYG58cCW+QPieEnB/T/i4OBwSsTUv4gFTXx3+WpB0ZRXJK2Y
-         vlWg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmxUTeP0wquuA9E/L64lmAhKFE0PA2jonJ622yGuiUweHPFVt4HG61GfClO4/cx7hFfCRHkhPfTunLiaw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPHxx3LA5rOJpw/c7mInnzoZqrfNB1IECrEP2GL9l1FSvPUaey
-	FVTmmWAiD5iz6ytnGvrL/SZ+MbJNxD8cjgsWpBcdxXcavJ8KZdQIX6JBoq1lL2J12YOJ4yju4gC
-	7hlAICiXBuAPz9yzhXfpAS1xTRovBtN/Q3OksgQeaJkL11X7qlhZdLCxoZmTKb3z8g3E=
-X-Gm-Gg: AYBFou2lbb8mB+636zhOWsbPX1j9BS7ZEE25097NOy97cEJrVDZjk+MSUhXN8hV/MtB
-	1Q0saI2cDkSd2VwYG/T3AGT9sDDD6YxfoZykaYhkqu71WehUkD//5GgBh1WsXUP9hcaVY+rlQ9z
-	FdMEAXuCIW97AjCwmtf/toTxfQhhY1iGFQM/8B7CBOB+CDbMdWX10yGs4bp3ry0kOC+eheGoGKV
-	frG43yJe7tHdPzgLvjU6ZNQSWqhXbQktCPvI1YgPjhdJedXB7a6Dy8IkgUaTQ9KK8V7TOAZJnZ9
-	nIGv/SeZEv+dGL4iNTifQ+G1HijbYI4lBslRUT3hDfDKVUXQPrsEyzFvAJaHXsAdfPYSO8ey5gI
-	apMeJYx0=
-X-Received: by 2002:a05:620a:6892:b0:939:896f:3d8f with SMTP id af79cd13be357-93a29939afdmr874519485a.33.1789461858816;
-        Tue, 15 Sep 2026 01:44:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:6892:b0:939:896f:3d8f with SMTP id af79cd13be357-93a29939afdmr874515885a.33.1789461858328;
-        Tue, 15 Sep 2026 01:44:18 -0700 (PDT)
-Received: from [127.0.1.1] ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm36597707f8f.27.2026.09.15.01.44.16
+        d=1e100.net; s=20260707; t=1789461870; x=1790066670;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3qGtMJ8rOmaLVkBVwgGLv1rCNJV422A9E6Q4kREBYoI=;
+        b=M/RBGuy6v8CeGZls2haO7ZTMxyhZSAnRlhiP9dTegbW6nf1i87jsLTPGDYXxgwsUry
+         KgNcsyR8no1x1gEwdNHo1dxIyYVmldk14qpU6iyLBWU+nyZj54d1HZiYZOId3RgxFgPB
+         ETIDCJI4AjruISwhnd1XLBI2aJVQ1r10gX1EnrjPijkHRKv+tmtQ08RXw87LMgsu4I+s
+         nyUmu9jWJJnqeL1hZHDoHV39xOJ88wpTGsKoqdHOZJhRWQRR9QwNf24V5dm7869QLv+6
+         Q+vKKibnau6QlQjQnRJ1zOk5TXoyO4Hu3swJ4jaGn/aR/FJqKWGqiMnSsWfIMEKwPcRH
+         L2UQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzIkRYaYyVfx3C0I0Ew4gMGPW49pBdnLRv92QTYuOqB3gZs3ipxxEyepmlM4ZBtD/0br9bw9GVrf9d1RnA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIMgCrTu+QuFovdlsexS/tViJ+mwaIuVScuqAFIHQ2NILON8sQ
+	91SABxmgkGuomqtw0s1S1K8a3NJk9HFp8K9Ye1QUfGavcqP71bEQRmEE
+X-Gm-Gg: AYBFou2f7Uy8hYzNqJ06Gd6wPFC/veLN7YjZUT53HWq4TMRhEZJ+FHmDfHTSu2EEuCl
+	ahU9veM8RIrxQZeqh3+dL+okjYbMXA3uDiFqgOcU+DgSvuIe7Z9oC2+cSINjNtihLhzPmHVY+5c
+	XpOFxFvMybFaWpJr3PvivOSIFnnmkiIK3VMI2QfO4ejAfhENBk/49nmMtIBemqnvFwa5I8d4gpQ
+	aImJ4oX2W+dY/NenzmNgjiyeHrusPNasasnzwQ5Or5wAgZnDRHyJdL7g+Fnxxwzk8wBbvvkt2Zb
+	GJFI+OyYGXl8i9INNvWAPx6QtYqTHdb35TcmHiDsFQihHW9kiyhkzpJXKGAUNnvbvv9UVrLGQiE
+	YdqEri3iMUKurhaCsNbTNaOllMwH6ea9I0V9c6tfS3gyGrK4QCR88AgvgMk1k1CFBnTzmKas4i+
+	W9yL5wttTv9OOpYfPm25v7e4DKb/8RjunKQLRrcT+j2t8k4c6igctg8e91zXvx/GjoxmOjhUAs/
+	U7CrjFifKTCCuPOPgBdqLj1kg==
+X-Received: by 2002:a05:6a20:2587:b0:3d1:c99f:efbf with SMTP id adf61e73a8af0-3db405a991dmr13424081637.14.1789461869656;
+        Tue, 15 Sep 2026 01:44:29 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm34718935eec.3.2026.09.15.01.44.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:44:17 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 11:44:14 +0300
-Subject: [PATCH v2] arm64: dts: qcom: sm8150: Use SM8150_CX for the SDHC
- power domain
+        Tue, 15 Sep 2026 01:44:29 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Clemens Ladisch <clemens@ladisch.de>
+Subject: [PATCH v2 00/23] ALSA: fix typos in comments
+Date: Tue, 15 Sep 2026 14:14:01 +0530
+Message-ID: <20260915084424.1007757-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-v2-1-a8610199483d@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAF0FqWoC/52OQQ6CMBBFr2K6dkhbqFRX3sOwgHaQGqHQAYIh3
- N2CN3Dzk5f8mfdXRhgcErudVhZwduR8F0GeT8w0ZfdEcDYyk1xe+FUosCPBYHwL1GqhOJBtDEy
- E0BJB7QP0FlxncQGj01xVujJKI4v/+oC1Ww7Xo/gxTdULzbgL9kbjaPThc4yZxd77xzsLEGCyO
- tUqlzyr7d0TJcNUvuN5m8RgxbZtX9n8bnj7AAAA
-X-Change-ID: 20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-c8375b8bc58e
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, sashiko-bot <sashiko-bot@kernel.org>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bhupesh Sharma <bhupesh.sharma@linaro.org>
-X-Mailer: b4 0.16-dev-0e65f
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1900;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=Rp9HFCeTpaamawVvosZkxvLwFJvE26dAepDe6I9U1TE=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqqQVfAYCAckf4p3mnsz78/zkq2+9hkAy+IIgP3
- pA2AHguZUiJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaqkFXwAKCRAbX0TJAJUV
- VtfQEACHpV0l8DOxsEPgF78hpbnLGSEfP/kPBBLQHEkPJtjdCvFeZZAnS3gPF1ld0HOJUm3CJNL
- JcUIDl/wdnFb2OA1C+cBeNkgjx+0b4ZqZpqGDXVXLECgYHOQEUbJyenkuml+jb6fdHeUaHl6ScL
- hxp85KrBY5wC7LZv4zAqytApWHJVzigICQbnBVKrh8fIzKwdSzyygK/Pc2Hv4hxnaMgNaiSZsRC
- wxBd1JCzd8JpeUoRj05Y4IWhO1CBPaB4xTRFwNfjorBOWBulQcPg2aCv2RI3zciXvCYshBd5dby
- SSm7mZDXuHs9PBEcWCdEvVuHYPqLqw8fTbICAjwTy4PnEwbehC+ci6YezahLf7tpU2jdBX0FgC+
- oF6Layb1L63iMHlWEp5xadR7qkGmeeWM5qu5dPJQwEWEciJEoJfBOXpN0AfTszXAQ4TVtBqfTMm
- DF3JsHrgo6MICrQfVuLR1Z5Y1ckHB4AwuXK9LyHBsdwg1LotbfO3Pp9sVC2ho2Y1M3NfqG/SCVk
- 70P+td1WcmvXNEcLlxuvx9ExvPjoCRw5Z5AgqZXupc8uvViZG3jjwkbgXjBWZ8dE9CZ3ICUKJqH
- CbrjTLY5F6dvHzfK8M6cQzuXhzZj3TsIzwwTnVQ2IwXhwsyX1waMm10xJzx8NtSGmFmgu4c7zJk
- fjbs4Qz4WG2QS4A==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEyNSBTYWx0ZWRfX2EElPegXJzvh
- gV4rXzj7wX0yo82MegGiRJGyMn0bB+HdeG9J/f5ScTGRjxOPTPj2Fe0oV33Nn4Yr+boAn+rQXyz
- QjyD+BFAyqSuTA5Auc4gY4ekA9XPWy8=
-X-Authority-Analysis: v=2.4 cv=Kr/YSmWN c=1 sm=1 tr=0 ts=6aa90563 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8
- a=KKAkSRfTAAAA:8 a=SzSwJUkbDmbpeLrXXHcA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=GvGzcOZaWPEFPQC_NcjD:22 a=FO4_E8m0qiDe52t0p3_H:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: cQoNOypOC-h4H8JPOhmlrKd3jBjv03X5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEyNSBTYWx0ZWRfX/Zu7X0fUDArh
- eTdLaL3L7aD9aVSuF52778/7LYmCxmmEiSR9iuVH4WGnZc3d2WRlBeCPuZcG6esTjo9HrBHFWgp
- jqexj6cb5T6vGTL4HmHtUZsI7BhXQ1QlfDkQjjfWGyPFc3Qc7IIZWgDupu9Pqz/cyK2rQQyG9Gx
- dY6rWByabAo8GgSsMyxKYJM3NahlVp7NwBOq8TZV1X/OfQY/UDgzkDhKGFJYZtkskhD6u98hgQb
- MQ1dejYV8dQBO29YohYM2WqtutTehdWDQysZT1oCZv0o59kqH3/NtBMoKbUAZpfAMxwnwRm4UuT
- B0yL0uIrMfWEH6gsvEgxfEDyA17wFObm3bEiOL19R+Bppd8ylglWEZlDoTeAprRGEtQM8xHoUUn
- 74N3vm9niaRxGgmTS8tEjorl3waqUxfllzr9VTuA8xFP8fvXYYij5T0LPyI7ifk9Ak62HiX7wJJ
- tkzRTSI7YvB9I5zBVSQ==
-X-Proofpoint-ORIG-GUID: cQoNOypOC-h4H8JPOhmlrKd3jBjv03X5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150125
+Content-Transfer-Encoding: 8bit
 
-Replace the raw power-domain index of SDHC2 with the SM8150_CX binding
-constant, which is the correct power domain in this case.
+v1 was a single patch touching 35 files, which was too coarse and would
+get in the way of backporting real fixes later on.
 
-Fixes: 876644c76034 ("arm64: dts: qcom: sm8150: Add support for SDC2")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com?part=45
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-Changes in v2:
-- Changed from MSS to CX, which is the right power domain for SDHC,
-  as Konrad rightfully pointed out.
-- Link to v1: https://patch.msgid.link/20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-v1-1-c4f3857204fd@oss.qualcomm.com
+This v2 splits it per driver, so each patch stays confined to one driver
+and can be dropped or backported on its own.  Drivers made up of several
+files (hda, usb-audio, i2c, ac97, ...) are kept together in a single
+patch rather than going all the way down to one patch per file.
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Bhupesh Sharma <bhupesh.sharma@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/qcom/sm8150.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Comments only, no functional change.  The combined diff of this series
+is identical to v1 except for a trailing whitespace dropped from one
+cs46xx comment line that checkpatch complained about.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index 94a3b02cb289..e83fe8daa7c2 100644
---- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-@@ -3574,7 +3574,7 @@ sdhc_2: mmc@8804000 {
- 			iommus = <&apps_smmu 0x6a0 0x0>;
- 			qcom,dll-config = <0x0007642c>;
- 			qcom,ddr-config = <0x80040868>;
--			power-domains = <&rpmhpd 0>;
-+			power-domains = <&rpmhpd SM8150_CX>;
- 			operating-points-v2 = <&sdhc2_opp_table>;
- 
- 			status = "disabled";
+Built with allmodconfig on x86, sound/ compiles clean with no new
+warnings.  sound/mips/hal2.c and sound/ppc/tumbler.c are arch-gated so
+they were not compile-tested here; both are comment-only as well.
 
----
-base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
-change-id: 20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-c8375b8bc58e
+v1: https://lore.kernel.org/all/20260907063202.20577-1-hemanth.selam@gmail.com/
 
-Best regards,
---  
-Abel Vesa <abel.vesa@oss.qualcomm.com>
+Hemanth Selam (23):
+  ALSA: core: seq: oss: fix typos in comments
+  ALSA: hda: fix typos in comments
+  ALSA: usb-audio: fix typos in comments
+  ALSA: i2c: fix typos in comments
+  ALSA: emu10k1: fix typos in comments
+  ALSA: emux: fix typos in comments
+  ALSA: firewire: bebob: fix typos in comments
+  ALSA: opti9xx: fix typos in comments
+  ALSA: hal2: fix typos in comments
+  ALSA: ppc: tumbler: fix typos in comments
+  ALSA: ac97: fix typos in comments
+  ALSA: au88x0: fix typos in comments
+  ALSA: aw2: fix typos in comments
+  ALSA: cs4281: fix typos in comments
+  ALSA: cs46xx: fix typos in comments
+  ALSA: echoaudio: fix typos in comments
+  ALSA: lx6464es: fix typos in comments
+  ALSA: pcxhr: fix typos in comments
+  ALSA: riptide: fix typos in comments
+  ALSA: rme32: fix typos in comments
+  ALSA: hdsp: fix typos in comments
+  ALSA: trident: fix typos in comments
+  ALSA: vx: fix typos in comments
+
+ include/sound/emu10k1.h             | 4 ++--
+ include/sound/emux_legacy.h         | 2 +-
+ sound/core/seq/oss/seq_oss_init.c   | 2 +-
+ sound/firewire/bebob/bebob_hwdep.c  | 2 +-
+ sound/hda/codecs/hdmi/hdmi.c        | 2 +-
+ sound/hda/codecs/realtek/alc882.c   | 2 +-
+ sound/hda/codecs/sigmatel.c         | 6 +++---
+ sound/hda/common/codec.c            | 2 +-
+ sound/i2c/other/ak4113.c            | 2 +-
+ sound/i2c/other/ak4114.c            | 2 +-
+ sound/i2c/other/ak4xxx-adda.c       | 2 +-
+ sound/isa/opti9xx/opti92x-ad1848.c  | 2 +-
+ sound/mips/hal2.c                   | 4 ++--
+ sound/pci/ac97/ac97_codec.c         | 2 +-
+ sound/pci/ac97/ac97_patch.c         | 2 +-
+ sound/pci/au88x0/au88x0.h           | 2 +-
+ sound/pci/au88x0/au88x0_mpu401.c    | 2 +-
+ sound/pci/aw2/aw2-saa7146.c         | 4 ++--
+ sound/pci/cs4281.c                  | 2 +-
+ sound/pci/cs46xx/cs46xx_lib.c       | 6 +++---
+ sound/pci/cs46xx/dsp_spos_scb_lib.c | 8 ++++----
+ sound/pci/echoaudio/echoaudio.c     | 4 ++--
+ sound/pci/echoaudio/echoaudio.h     | 4 ++--
+ sound/pci/lx6464es/lx_core.c        | 2 +-
+ sound/pci/lx6464es/lx_defs.h        | 2 +-
+ sound/pci/pcxhr/pcxhr_core.c        | 4 ++--
+ sound/pci/riptide/riptide.c         | 4 ++--
+ sound/pci/rme32.c                   | 2 +-
+ sound/pci/rme9652/hdsp.c            | 2 +-
+ sound/pci/trident/trident_memory.c  | 2 +-
+ sound/pci/vx222/vx222_ops.c         | 2 +-
+ sound/pcmcia/vx/vxp_ops.c           | 2 +-
+ sound/ppc/tumbler.c                 | 2 +-
+ sound/usb/mixer.c                   | 4 ++--
+ sound/usb/mixer_us16x08.h           | 2 +-
+ 35 files changed, 50 insertions(+), 50 deletions(-)
+
+
+base-commit: 2e4c9ab2574eeaa7b893c7d35b4a9f60fd681ddd
+-- 
+2.48.1
 
