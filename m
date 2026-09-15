@@ -1,84 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B506423645D;
-	Tue, 15 Sep 2026 17:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951954B66D1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493518; cv=none; b=WUjMVWOLZc37PomBS7nfXdKTGi1qT16+48imZ01usmq1cnkkaGbHDKf/YpiWL22ovtrEZ6eNxLfoADqaSn8wlX5vPd6cUQ6irY+I2EBmt7BY8UMXewpi2O5PXrYG2NVw+DN860WK6eiuadOWc6cunuAWLdG69MjjsAIMMdNEdSE=
+	t=1789493529; cv=none; b=JRpMzzunk24Ff1o2ZXvAs7h0U0QJPvl3IAGQ996nOTnsaQSjnlIwUXHQA0bi1Yw9i3XkYdRuMXqtFJW5pBbPX0PNl/UM2r2LZWkA8HIWauK8zv6GN5oL7hCOT5nMySZlL8+UNgcjMkFq4OhyDEjZFmTPA7/Q5AyUlyS2EyMpshY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493518; c=relaxed/simple;
-	bh=COL+eeLxqw5NTAJ2YIlB4B9vdfhxDmT/atOwnDq2bI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iJDlZFASfORkBXuBA9yk/Tv5KT1HnUvNyIrt7Q1WV0w+9b4rsZWQKEQIZhFfk5LOaw2Z+5ESXv0pbQMwg8+/azKKUl02YuCceuhlqUB8a+6G3SzSJWmsYyZ7g6SqbA/4j86u/tZZ2NApm0i3NPF5tStPlwUFIGVgoaXmynEXVfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIQhufCg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789493529; c=relaxed/simple;
+	bh=lywlvxyNF5ZYqpbb5YtEFG35Q3vRqvrSIjvw4XwxHtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cXzC7Yyxa4nEWmXMW/G70sDq8EajNSYmmMzsNylg/xShYxrPrUCsAlAzNssS0gA2wVuKyz+ZAf2SpHQoLcipU+DVmNZU+Bygs0uVMJ+Cs0TbGEPhh7glZSVDrhxy0clQQoTwp6lJpkgcFdZVyEu94obhUyG0XA+RHcYTlx6b1Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GMSQ3Yse; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIQhufCg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4E11F000FF;
-	Tue, 15 Sep 2026 17:31:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789493517;
-	bh=iFo2sfXq+Vmx91S6RId8JHf6RX8qogWnl0ZNBXPfgk8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lIQhufCgxDUfqD04F3wR0FvLT5Dp/oZd1f4za8hLykQV+EpTbG9q/nno/1zrqal+F
-	 FJTxs9W0xcKDyG2kLT8kFseb4ZtoaKXC22h9tjUzrgPb89vjcSGuuYMvaIP+pAxXEz
-	 CQ0iwwtoYWihNv1mt3QFlBkHYkLuHBw9EwFbxdnsINLBer1bPCJfkMf/BcGlZHNG2i
-	 c9YyMbgesw/+3bFgD4ZaQpGx5WQya2ExLC3a2OqbfrSbJZ4Aea1fXU0Oha54nuZ8vq
-	 jfLNfRtkO0McneH1VoqLa0oM76uFPfHImbXRy48gdahZqB3RfjfKOGAUY/KDbBG/IS
-	 wlOFcFaasmHjA==
-Date: Tue, 15 Sep 2026 23:01:52 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 0/2] dmaengine: fsl-edma: Scatter/gather improvements
-Message-ID: <aqmBCMb8JbYsjpTX@parshuram>
-References: <20260911-fsl-edma-dyn-sg-v10-0-700eb72def57@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GMSQ3Yse"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d249c4so3430942b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:32:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789493527; x=1790098327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TllSv8C91B6/5oyiPgB3bIf4ptvSZ4N3RPUetFlm1DM=;
+        b=GMSQ3YseyO3ssrgNLENHYQyCxYXWFenrCK5YT1QUl86Hje4Qur/vhErzLNzlRch7fE
+         J2SFNhfc+D+z1CjZOggzqatuJcG1HCLxmGTciMWzZop+7x29/uKfEij8/L+i80ujkT6K
+         ZLHQRivU6CrE+mWFTZK2aojjTjW94IaDof87/ohoUJ0IIeoPKxNayjnEvcfVoD1Yvtxp
+         EyuOANU4P/KdtOKXTwzFybiEdk0GP9xsTJRhQZ++Pr0gZmGVpzOuBBJnO6DCI+IU18Na
+         PFXz7MrF58Mvc12R7KJAp7aIxbYtt5UxNlF1NwgbNujoc1WqOUSZdchrVNtkdaV8g//D
+         Gl1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789493527; x=1790098327;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TllSv8C91B6/5oyiPgB3bIf4ptvSZ4N3RPUetFlm1DM=;
+        b=ySpCO5V4aX5rgWTALavkCQhDcppXZiRULEMeXo7/6Y9wd2uttVjm3g7N29uY8VEbgm
+         +k5U0ZbvKfaB8fkb2HEZVcTW1xHUXHkaJX9VNTN1KVexyIKEFMm83v9Cos1y7d6Ye7gN
+         q7YOnvFF/cClz7kWf+t+vq030fBXVwO2EE6tRpwFbRUGrPfDQ1psZvft3l/p4Vz8uSyp
+         u4x+TPaPXnUEN0NUGE3RujlvwDrr97JpBmEzeAJck+TiK++v0x81Ant1be5+3R7Pdcvh
+         MeAqdjqv8et313Su2lCCzZRzZGL/rGGfcrJTXn6+9OyHGqBzUcOVWI7O3OHc49EO4+wZ
+         W5BA==
+X-Forwarded-Encrypted: i=1; AKwUvByJag/vmIOcRioBcfBPuye+8Og+E4O8U8FMioYhsXVj9huq5EDMSDW5Yo3gM+rtJfZj7lRWQG7dO6hw4A4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBqINgdx+NR7kN3Y14e431gSU870XR9H5byR4kLfOwONAJBgbc
+	Ug3uGpgO+JX8jZDaPHlRj8fay44FKNE7IpybFFXXqPGn9kp0pucwb4Uy
+X-Gm-Gg: AYBFou09xQELJVW3v0CySmwquXVtnZbEI8S/WkiTUf4/JbRYCKqFfM1x0j/FVnKw448
+	1cl9IAjWwZWRx+c+JjffsOoU9QbOIix0Jc1NFmc7roY7E7eVdCs26Ii+hF3S3I9kMBJ3aSN/l3U
+	qeMMcnTp0mQUH3TE0VBPji9Ee0k5/JM6VEYplDysypFL4pm1mPR86oBJ9EfV7ONuqDt2Q5vwGEH
+	ufyUMwnmYtPNVxZQbb3u85Ig4yrYGbaad+p44o9K3rFUze4EyRtAYVOBYYdCEhqYc7H/dmPcZzD
+	/qDsw/qVz43SFlncld2vMkXF6FSgPUVsVBSFK+5PMs3u/bkXjqnGXJ2x3VFhXXi1pQ2Kg4/MxDE
+	41Gv3qtmRcUIl0P0Tl+kuFfWm+Cyy3YUQw0c2O3iwrOsnNZ5Mv7w6JQ7O3Ge5axx1US8hxvaQNi
+	e2CkhEKAodEyQNxqdoIClYiNfaWU/Uo710F23zezSl9jNCjPGeC01FvQ==
+X-Received: by 2002:a05:6a00:4fcc:b0:871:9e1b:8a75 with SMTP id d2e1a72fcca58-8719e1b8ef7mr2506620b3a.20.1789493526504;
+        Tue, 15 Sep 2026 10:32:06 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29bbdca0sm6609486b3a.45.2026.09.15.10.32.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:32:06 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	=?UTF-8?q?St=C3=A9phane=20Grosjean?= <s.grosjean@peak-system.fr>,
+	Kees Cook <kees@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Wolfgang Grandegger <wg@grandegger.com>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] can: peak_pci: fix PCIeC cleanup on probe failure
+Date: Wed, 16 Sep 2026 01:31:57 +0800
+Message-ID: <20260915173157.2510375-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-fsl-edma-dyn-sg-v10-0-700eb72def57@bootlin.com>
 
-On 11-09-26, 15:11, Benoît Monin wrote:
-> This series adds support for scatter/gather DMA transfers via dma_vec
-> and dynamic descriptor chaining to the Freescale eDMA controller driver.
-> 
-> The first patch implements the .device_prep_peripheral_dma_vec() callback,
-> enabling the DMA engine to accept an array of dma_vec structures. This
-> callback supports both regular and cyclic transfer modes.
-> 
-> The second patch introduces dynamic scatter/gather chaining, which allows
-> multiple DMA descriptors to be linked together without stopping the channel.
-> This optimization eliminates idle periods when back-to-back transfers are
-> submitted, improving throughput and reducing latency. The implementation
-> carefully preserves cyclic transfer semantics and respects hardware
-> constraints on platforms with split register layouts.
-> 
-> I tested it on the i.MX93. The dynamic scatter/gather chaining should
-> work with other eDMA controller with split register layout.
+peak_pci_probe() initializes the PCIeC resources before registering the
+SJA1000 network device.
 
-This fails to build for me, needs bitfield header
+On the probe error path, the registered channels are freed with
+free_sja1000dev() before peak_pciec_remove() is called. Since chan is
+part of the netdev private data, accessing chan->pciec_card after
+free_sja1000dev() results in a use-after-free.
 
-drivers/dma/fsl-edma-common.c: In function ‘fsl_edma_tx_chan_handler’:
-drivers/dma/fsl-edma-common.c:59:33: error: implicit declaration of function ‘FIELD_GET’ [-Wimplicit-function-declaration]
-   59 |                 u8 link_sg_id = FIELD_GET(EDMA_TCD_CSR_LINKCH, csr);
-      |                                 ^~~~~~~~~
-drivers/dma/fsl-edma-common.c: In function ‘fsl_edma_prep_peripheral_dma_vec’:
-drivers/dma/fsl-edma-common.c:784:55: error: implicit declaration of function ‘FIELD_MAX’ [-Wimplicit-function-declaration]
-  784 |                 if (!nbytes || vecs[i].len / nbytes > FIELD_MAX(EDMA_TCD_ITER_MASK))
-      |                                                       ^~~~~~~~~
-drivers/dma/fsl-edma-common.c: In function ‘fsl_edma_link_sg’:
-drivers/dma/fsl-edma-common.c:1015:24: error: implicit declaration of function ‘FIELD_PREP’ [-Wimplicit-function-declaration]
- 1015 |                 csr |= FIELD_PREP(EDMA_TCD_CSR_LINKCH, fsl_chan->link_sg_id);
-      |                        ^~~~~~~~~~
+There is also a similar cleanup issue when peak_pciec_probe() succeeds
+for the first channel but register_sja1000dev() subsequently fails. In
+that case, the netdev is freed without releasing the PCIeC resources.
 
+Clean up the PCIeC resources before freeing the first channel, matching
+the ordering used by peak_pci_remove(), and also release them when
+registration of the first channel fails.
+
+This issue was found by manual code inspection.
+
+Fixes: e6d9c80b7ca1 ("can: peak_pci: add support of some new PEAK-System PCI cards")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/net/can/sja1000/peak_pci.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/can/sja1000/peak_pci.c b/drivers/net/can/sja1000/peak_pci.c
+index 69c61ccf621d..28b94e642170 100644
+--- a/drivers/net/can/sja1000/peak_pci.c
++++ b/drivers/net/can/sja1000/peak_pci.c
+@@ -697,6 +697,8 @@ static int peak_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	return 0;
+ 
+ failure_free_dev:
++if (!chan->prev_dev && chan->pciec_card)
++	peak_pciec_remove(chan->pciec_card);
+ 	pci_set_drvdata(pdev, chan->prev_dev);
+ 	free_sja1000dev(dev);
+ 
+@@ -704,20 +706,18 @@ static int peak_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	/* Disable interrupts */
+ 	writew(0x0, cfg_base + PITA_ICR + 2);
+ 
+-	chan = NULL;
+ 	for (dev = pci_get_drvdata(pdev); dev; dev = prev_dev) {
+ 		priv = netdev_priv(dev);
+ 		chan = priv->priv;
+ 		prev_dev = chan->prev_dev;
+ 
++		/* do that only for first channel */
++		if (!prev_dev && chan->pciec_card)
++			peak_pciec_remove(chan->pciec_card);
+ 		unregister_sja1000dev(dev);
+ 		free_sja1000dev(dev);
+ 	}
+ 
+-	/* free any PCIeC resources too */
+-	if (chan && chan->pciec_card)
+-		peak_pciec_remove(chan->pciec_card);
+-
+ 	pci_iounmap(pdev, reg_base);
+ 
+ failure_unmap_cfg_base:
 -- 
-~Vinod
+2.43.0
+
