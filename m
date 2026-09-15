@@ -1,96 +1,111 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDFD4746C8;
-	Tue, 15 Sep 2026 08:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCFD49B219
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460820; cv=none; b=fsHrYvPPAKUKr9mL4mtcAKpXA/vxltCC0E4V/mkNbdT7uI3otr7Qfhkjy4a0Hc159upK1EzD/A9KytnULIILP2ThunLxi1XoFPAeIASnwJJpfg04YMn2jlGhY3Zz7tOq+UCY8vi6ajT9mJppHq94kO7CnGHLAnUL7IBRA/PMGC0=
+	t=1789460827; cv=none; b=nvNsCTuKWAcc7X788axdgd8rG17Th5b0FpcQkJIK+uEh3iOcJyqyBDcvz3rT+lU9mHBpziui/hpC//Ai4OJ2d9Rk36M0i379YRjN/1L0yEEf2ZOJD1FIuem7ulWntq2zvDfP+JnhcHe3HJ2ydq8BjSPanKaNE6WALu+eWBE+eYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460820; c=relaxed/simple;
-	bh=k/kXBbvUnsR2JZE7L5PkepCXLAnreHT5OcvsBEAggn4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DaPjcFCBhxTGSLTXfllXKt2i9kKhSvBXwHJkpi3h7LoW1qY1bFRk7QSVQppx8MqDS5qsF2kP6FBJTA65B6+FIuQMA8N0+o/NrMWUvcSwk4GOAM2orlrE1tyqFQUm4Cm6TrQejq24U4tZjMnklwZPHDlCtB0ozhG0pJQNXfgacdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=O37J8NVR; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789460827; c=relaxed/simple;
+	bh=zTS5eRWIqKfrse8vsXTFlR8VwOwpFGwImMR8yK/g31M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c0z/lIneXcnV8H066SuFaSq+f+JHC30hmox/qeO7Byo3Q6pnKcYcMToo9ATdWZ73UHy52UcREpwOm/w4D3m7qbH3EHVd9uS1p5Mb46k9nWPlSTjUNBLqO65BMqx7lmF/xYq4HjNfQgv5CB2BHHZ1ThRhhFW1AXlnWQhTe7EL83M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=U5oBSp1F; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="O37J8NVR"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4dd202c5e;
-	Tue, 15 Sep 2026 16:26:44 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Lars-Peter Clausen <lars@metafoo.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hans.verkuil@cisco.com>,
-	Federico Vaga <federico.vaga@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	jianhao.xu@seu.edu.cn
-Subject: [PATCH] media: adv7180: Initialize mutex before ancillary clients
-Date: Tue, 15 Sep 2026 16:26:38 +0800
-Message-Id: <20260915082638.1319954-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="U5oBSp1F"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=KnRkjJQ7ldPXI0H4z/sA0HKZKioad7psEwo6kUVI9KQ=; b=U5oBSp1FSl8CaRftbR46EvQPK1
+	RvZ/NmnzizKmk9lpW175SumBQHsGU7uG3hUmWZ3EZJxF+D+4zyY1epYEwdtCwXFf1BSzSL8unYGUB
+	z+xWR32b7VtmtODT8LoMq7M3f3q4Hp88fLTmDQIhy9Zu4FspOkHAjhZ146i60NoLFMnmnbnksaRrZ
+	AWzQEfrUR49kDUi+b6k7FmHbMNl02V9PMC32Ccd6lPOHPxzpOK159hdAs2OcBW8UFwz8IHCPjmBwL
+	hKq5wod+Nuu7Yu5aQ7fIts36kSnlZ/N0Dhe6xQ0vg2+tpU6e4mUjVlM67o2MMLb3VfVpfv59hGCzz
+	KzFtBTVQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x6OVE-00000006QkG-0N0l;
+	Tue, 15 Sep 2026 08:26:56 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 65DD03012C6; Tue, 15 Sep 2026 10:26:55 +0200 (CEST)
+Date: Tue, 15 Sep 2026 10:26:55 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Waiman Long <longman@redhat.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Haakon Bugge <haakon.bugge@oracle.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v3] locking/osq_lock: Ensure proper locking semantics for
+ osq_lock/osq_unlock()
+Message-ID: <20260915082655.GX4121339@noisy.programming.kicks-ass.net>
+References: <20260914202102.551333-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0a42cf3e103a1kunmab96dc082cab21
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGk9PVk4aGU5KHUsaQhpLHlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=O37J8NVRpE0hIv8XdkWxdyI9wVehzOR9TI3pBmGql6Hr/E1wOAVzEDWfZKORRt0GLb9onNMO5f/ntFdVmPugTg1nDp4A81y8aGoIMsuvFxn6U/eNrMIPO/TkMvZ/ZK4d1PeVIf0rIZ+wBeUwa5Ph6DpX2c9NsfcHI46Y0C5VgvE=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=2hxudm3/8OerbnXxJeguxeo2vni+wS29uEEipI4Ld0w=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <20260914202102.551333-1-longman@redhat.com>
 
-The VPP ancillary-client error path unregisters the CSI client before
-destroying state->mutex. For I2P variants, the failure can occur before
-mutex_init(), so cleanup destroys an uninitialized mutex.
+On Mon, Sep 14, 2026 at 04:21:02PM -0400, Waiman Long wrote:
+> The osq_lock is special in the sense that lock transfer from one CPU to
+> the next can happen either over the common optimistic_spin_queue.tail
+> value with uncontended lock or over a lock waiter's own percpu
+> optimistic_spin_node.locked flag when the lock is contended.
+> 
+> To ensure proper lock synchronization, we need to provide
+> the acquire/release semantics for the osq_lock/osq_unlock()
+> functions in both cases. This is currently the case for the
+> common optimistic_spin_queue.tail value, but not for the percpu
+> optimistic_spin_node.locked flag as the proper barriers can be missing.
+> 
+> The "node->locked" read in osq_lock() was relaxed by commit 036cc30c6b6a
+> ("locking/osq: No need for load/acquire when acquire-polling") a while
+> ago as the smp_load_acquire() loop was causing a performance hit due to
+> the repeated acquire barriers in the loop and it argued that an earlier
+> atomic_xchg() call could provide the needed barrier and reordering
+> wasn't a problem in the way osq_lock is being used by mutex and rwsem
+> for queuing purpose only. That atomic_xchg() barrier does not work
+> as a proper acquire barrier for osq_lock() if the lock hasn't been
+> acquired or isn't ready to be acquired when the barrier ends. So an
+> acquire barrier is still needed in order to have proper locking semantics.
+> 
+> The performance impact stated in that patch is due to repeated issuance
+> of acquire barrier which can be expensive depending on the architectures
+> and the actual processor used. It was not clear what machine and what
+> benchmark was being used to produce the performance data. Anyway, with
+> the new smp_cond_load_acquire() helper, only one acquire barrier is
+> issued at the end of the loop. So even if there is a performance impact,
+> it should be less than a repeating one.
+> 
+> As for the two percpu optimistic_spin_node.locked setting in osq_unlock(),
+> they are currently preceded by a full barrier xchg() call which can
+> provide the needed release barrier. Add comments saying that a release
+> barrier is needed for the proper functioning of the unlock operation
+> to alert people from accidentally remove the barrier when the code is
+> updated.
+> 
+> Fixes: 036cc30c6b6a ("locking/osq: No need for load/acquire when acquire-polling")
+> Tested-by: Håkon Bugge <haakon.bugge@oracle.com>
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/locking/osq_lock.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+> 
+> [v2] Reword the commit log and keep the WRITE_ONCE() in osq_unlock()
+>      with comments.
+> [v3] Fix the comment above smp_cond_load_acquire().
 
-Initialize the mutex immediately after allocating the driver state, before
-creating any ancillary clients. This keeps every cleanup path matched with
-a completed mutex initialization.
-
-A QEMU x86_64 test using an i2c-stub bus instantiated an ADV7280 client
-at address 0x21 and occupied its VPP ancillary address 0x42. This forced
-i2c_new_ancillary_device() to return -EBUSY. An instrumentation oracle
-observed an uninitialized mutex on the buggy kernel and an initialized
-mutex on the fixed kernel. The failure was deliberately injected to
-exercise the error path; no natural crash was observed.
-
-Fixes: 851a54effbd8 ("[media] adv7180: Add I2P support")
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/media/i2c/adv7180.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/adv7180.c b/drivers/media/i2c/adv7180.c
-index a1c7f6822..8c2cf3f53 100644
---- a/drivers/media/i2c/adv7180.c
-+++ b/drivers/media/i2c/adv7180.c
-@@ -1454,6 +1454,7 @@ static int adv7180_probe(struct i2c_client *client)
- 	if (state == NULL)
- 		return -ENOMEM;
- 
-+	mutex_init(&state->mutex);
- 	state->client = client;
- 	state->field = V4L2_FIELD_ALTERNATE;
- 	state->chip_info = i2c_get_match_data(client);
-@@ -1497,7 +1498,6 @@ static int adv7180_probe(struct i2c_client *client)
- 	}
- 
- 	state->irq = client->irq;
--	mutex_init(&state->mutex);
- 	state->curr_norm = V4L2_STD_NTSC;
- 
- 	state->input = 0;
--- 
-2.34.1
-
+I still see no reason why this should be applied. Or even have this
+Fixes tag.
