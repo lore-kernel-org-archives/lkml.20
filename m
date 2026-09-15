@@ -1,107 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7246A3B42C6;
-	Tue, 15 Sep 2026 13:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76743BB136;
+	Tue, 15 Sep 2026 13:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477760; cv=none; b=B9ipyAwcivElmKSZQBu8N7q/TbIKiihSUIRw49j1ySOQGG5IbIuMe9Bi/5/c/Q2c3uA9Byt+kTDTsisYYQomvFuoTbfbH4oyn6WICob5+MhUIx/vUQwmbuAhJ40UvH5p0Txcwxf75Qpsp3/WhV9Fu3UdL0tuEk6/3FxxcQHWei8=
+	t=1789477766; cv=none; b=thjGpojS3Hlmoq/exw4rFy7hMO/2jSXfJkisDi9zCMIdow6wFBSTQiLIrAyqB+k426LG5PsKabj9ypzzQwpzL5thST1RJd6ho7OZOtxxE38umo6acfVXBv3+VJ+tYhiCId7dfiTKOGmjkx1qIpITPjVnfWMf7Hsd93daFls8vEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477760; c=relaxed/simple;
-	bh=+qUh6fasgwRc7Vsuew6TapD8CkKSediEhZVKjK3W+sA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QHRsxxOKx3GA550/lZ1hzbf2USLnRs1LIZo3zN+gSvG+b8ew0RDgmkgYSY9r7Xqz9osx7/w2+kYyMq8YRKsXYuIAVbWlJnQMCmdCrFNQN9z9nRAwvj7qhVYlxKqM/wDEyQTqa7MSaXSq31sqUxcJXVXfQUe36xzrATMnp+UWrns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTTls6qE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTTls6qE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED421F00893;
-	Tue, 15 Sep 2026 13:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789477759;
-	bh=lAexU2F58ncYg4n/wbz5EAbRz3rhuDpKo8r2YS1HMpA=;
-	h=From:To:Cc:Subject:Date;
-	b=YTTls6qEyd+SaTauKEBqc9LWw4Vuha3EvHqBQAOB32uqJAC9x4xVZT4bOHsje+gX+
-	 qcP+GnVWDVqEsgbr0RHaZXSkXzf9t6AvjX9RnA2zI/IpjbAOiziKArSshso5JJfLNs
-	 Bc+HMKAuG2C2UYuzzWCKzJcPHryYLpzCpspdqI1R/TpJmFUl/76VFo4bJ//ksHno5C
-	 OhTCSdFY4iJb+26kALL8lqdzHNoX5h1FSW6/8OfMjo/DnXhAq0zXBRmqrvh2mdRN0f
-	 w4B5QTlCAdo0KTquJgWJGB/SNsHUkGJDEgi1Fr6ejwi02lFQsXcpwdBAXnPHXUGtzp
-	 S4ph1n5k1UlrA==
-From: Leon Romanovsky <leon@kernel.org>
-To: Selvin Xavier <selvin.xavier@broadcom.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Doug Ledford <dledford@redhat.com>,
-	Devesh Sharma <devesh.sharma@broadcom.com>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next] RDMA/bnxt_re: Limit SRQ depth to the firmware command field
-Date: Tue, 15 Sep 2026 16:09:11 +0300
-Message-ID: <20260915-silent-16-bit-truncation-of-srq-size-v1-1-3199f8fe94bc@nvidia.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1789477766; c=relaxed/simple;
+	bh=bFAPpX6w1Fe8GbyYI1ud4qT6ompgjC4/11AnVPQw0Po=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T4etxNM2hE7UNQ06eNWMI8AC7f6xzXUHSeMHVVzjBZpmEMFuMIC7enIOhZ7BSzfbo4oLahM2v0WPJlWerUhjfrKQFnxpPBOxkkwOfWLYpm/7M40ncJdagCPLK8uwgKCZGT4faVD0nkO6aroeiEOfA8t6lEXjyF/JGkY8pA6BBIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x6SuV-000000000Cv-07aB;
+	Tue, 15 Sep 2026 13:09:19 +0000
+Date: Tue, 15 Sep 2026 14:09:16 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: [PATCH net-next v16 1/6] net: dsa: add devlink flash_update callback
+ to dsa_switch_ops
+Message-ID: <38abd1efa0da34be260c5799a18df401b7494a0a.1789477568.git.daniel@makrotopia.org>
+References: <cover.1789477568.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260915-silent-16-bit-truncation-of-srq-size-a1495f0bf133
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1789477568.git.daniel@makrotopia.org>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Add a devlink_flash_update callback to dsa_switch_ops so that DSA
+drivers can support devlink dev flash without open-coding the devlink
+plumbing. Like the other trampolines in net/dsa/devlink.c, the op
+returns -EOPNOTSUPP when the driver does not implement the callback.
+The devlink core takes a non-NULL ops->flash_update as the capability
+gate, so on a switch without the callback a flash request now fetches
+the firmware file first: a missing file fails with -ENOENT instead of
+-EOPNOTSUPP, and a file that is found reaches the trampoline inside a
+FLASH_UPDATE/FLASH_UPDATE_END notification pair. Both are acceptable
+for an operation as infrequent as a firmware update.
 
-Firmware can report an SRQ depth above 16 bits, but CREATE_SRQ carries the
-allocated depth in a 16-bit field. Requests near the advertised limit can
-therefore truncate the command value and make firmware use a different
-depth than the allocated queue.
+The devlink core calls the op with the devlink instance lock held and
+without rtnl_lock, whereas DSA serialises its switch and port ops
+under rtnl_lock, so a driver has to serialise a flash against its own
+ops itself.
 
-Cap usable work requests so the reserved empty-ring entry still fits in the
-command field. Accept the capped maximum and correct the associated
-diagnostic.
-
-Fixes: 37cb11acf1f7 ("RDMA/bnxt_re: Add SRQ support for Broadcom adapters")
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/infiniband/hw/bnxt_re/ib_verbs.c | 4 ++--
- drivers/infiniband/hw/bnxt_re/qplib_sp.c | 3 ++-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+v16:
+ - commit message: name the errno and the notifications the shared ops
+   table changes for switches without the callback (found by Sashiko
+   AI review)
+ - commit message: a missing firmware file fails before the
+   notification pair, which wraps only the call into the trampoline
+v15: no changes
+v14: no changes, picked up Andrew's v13 Reviewed-by
+v13: no changes
+v12: no changes
+v11: no changes
+v10: no changes
+v9: install the flash_update op unconditionally and return -EOPNOTSUPP
+    from the trampoline like the other DSA devlink trampolines,
+    instead of a second devlink_ops permutation (Andrew Lunn)
+v8:
+ - retitled: this patch adds the callback, its first user is patch 3
+ - describe the op's calling context in the commit message
+v7: no changes
+v6: no changes
+v5: no changes
+v4: only install the flash_update op for drivers implementing the
+    callback so the devlink core keeps rejecting unsupported flash
+    requests before fetching the firmware file
+v3: no changes
+v2: align continuation lines with the open parenthesis
 
-diff --git a/drivers/infiniband/hw/bnxt_re/ib_verbs.c b/drivers/infiniband/hw/bnxt_re/ib_verbs.c
-index ef08d42f377e..43ff3e7a459f 100644
---- a/drivers/infiniband/hw/bnxt_re/ib_verbs.c
-+++ b/drivers/infiniband/hw/bnxt_re/ib_verbs.c
-@@ -2229,8 +2229,8 @@ int bnxt_re_create_srq(struct ib_srq *ib_srq,
- 	dev_attr = rdev->dev_attr;
- 	srq = container_of(ib_srq, struct bnxt_re_srq, ib_srq);
+ include/net/dsa.h |  3 +++
+ net/dsa/devlink.c | 13 +++++++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 7507d632e7c6..9babab92a0fc 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -1174,6 +1174,9 @@ struct dsa_switch_ops {
+ 	int	(*devlink_info_get)(struct dsa_switch *ds,
+ 				    struct devlink_info_req *req,
+ 				    struct netlink_ext_ack *extack);
++	int	(*devlink_flash_update)(struct dsa_switch *ds,
++					struct devlink_flash_update_params *params,
++					struct netlink_ext_ack *extack);
+ 	int	(*devlink_sb_pool_get)(struct dsa_switch *ds,
+ 				       unsigned int sb_index, u16 pool_index,
+ 				       struct devlink_sb_pool_info *pool_info);
+diff --git a/net/dsa/devlink.c b/net/dsa/devlink.c
+index ed342f345692..25311a87cbc5 100644
+--- a/net/dsa/devlink.c
++++ b/net/dsa/devlink.c
+@@ -20,6 +20,18 @@ static int dsa_devlink_info_get(struct devlink *dl,
+ 	return -EOPNOTSUPP;
+ }
  
--	if (srq_init_attr->attr.max_wr >= dev_attr->max_srq_wqes) {
--		ibdev_err(&rdev->ibdev, "Create CQ failed - max exceeded");
-+	if (srq_init_attr->attr.max_wr > dev_attr->max_srq_wqes) {
-+		ibdev_err(&rdev->ibdev, "Create SRQ failed - max exceeded");
- 		rc = -EINVAL;
- 		goto exit;
- 	}
-diff --git a/drivers/infiniband/hw/bnxt_re/qplib_sp.c b/drivers/infiniband/hw/bnxt_re/qplib_sp.c
-index ec9eb52a8ebf..63dcbb9d80f4 100644
---- a/drivers/infiniband/hw/bnxt_re/qplib_sp.c
-+++ b/drivers/infiniband/hw/bnxt_re/qplib_sp.c
-@@ -159,7 +159,8 @@ int bnxt_qplib_get_dev_attr(struct bnxt_qplib_rcfw *rcfw)
- 	attr->max_ah = le32_to_cpu(sb->max_ah);
++static int dsa_devlink_flash_update(struct devlink *dl,
++				    struct devlink_flash_update_params *params,
++				    struct netlink_ext_ack *extack)
++{
++	struct dsa_switch *ds = dsa_devlink_to_ds(dl);
++
++	if (!ds->ops->devlink_flash_update)
++		return -EOPNOTSUPP;
++
++	return ds->ops->devlink_flash_update(ds, params, extack);
++}
++
+ static int dsa_devlink_sb_pool_get(struct devlink *dl,
+ 				   unsigned int sb_index, u16 pool_index,
+ 				   struct devlink_sb_pool_info *pool_info)
+@@ -169,6 +181,7 @@ dsa_devlink_sb_occ_tc_port_bind_get(struct devlink_port *dlp,
  
- 	attr->max_srq = le16_to_cpu(sb->max_srq);
--	attr->max_srq_wqes = le32_to_cpu(sb->max_srq_wr) - 1;
-+	attr->max_srq_wqes = min_t(u32, le32_to_cpu(sb->max_srq_wr),
-+				   U16_MAX) - 1;
- 	attr->max_srq_sges = sb->max_srq_sge;
- 	attr->max_pkey = 1;
- 	attr->max_inline_data = attr->max_qp_sges * sizeof(struct sq_sge);
-
----
-base-commit: f7d28791433d373ecdab7b00f60ddb504e858e0a
-change-id: 20260915-silent-16-bit-truncation-of-srq-size-a1495f0bf133
-
-Best regards,
---  
-Leon Romanovsky <leonro@nvidia.com>
-
+ static const struct devlink_ops dsa_devlink_ops = {
+ 	.info_get			= dsa_devlink_info_get,
++	.flash_update			= dsa_devlink_flash_update,
+ 	.sb_pool_get			= dsa_devlink_sb_pool_get,
+ 	.sb_pool_set			= dsa_devlink_sb_pool_set,
+ 	.sb_port_pool_get		= dsa_devlink_sb_port_pool_get,
+-- 
+2.55.0
