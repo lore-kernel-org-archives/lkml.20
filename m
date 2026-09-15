@@ -1,88 +1,197 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838104CE690;
-	Tue, 15 Sep 2026 19:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9FF4CCDF7;
+	Tue, 15 Sep 2026 19:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789499431; cv=none; b=BB5Udm9vF3m522421FFy65vc3erOhi4lZQgOQ5WrGu//fafnYHztvCllXJbDwkc8psWPxzNRvv0wlagAaAxWet82NuyvZVAf4AvQKqAN+jbF8vFwWRjuScL+8E6EfXGPV9sgSkDAQ5D9q3Q1ow6R2vinkMs/pv0HgAj5eQCsxJs=
+	t=1789499511; cv=none; b=EqLoRx67Zm50HiT/1YG8oX9BZ3l1kBLt4AmawkEuC6L0nProX9NEzhgDTLNGy9JF9G6+lx4I7ns5zP0nnOeR5BJUFRtCIb8/U693lgtgtSgxeYL8XqT95OdV7BncHVawCbeg1zTnfARNEmxpFTCFxqYBo9DWLjcM3FFtvGtzkEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789499431; c=relaxed/simple;
-	bh=QXPF+LWACvBR0a+zgwCS16Pxa2nXVYmxwBKbI0jFp9U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=X4gnN9fo3XUK+f9HA6GqxrWmqRwWHTYUT4vYzVdn47G7kYL2oGhkHDp8yp0ctCtEopiniLfojRjbahrexbe0OhW9RTo703LReb25HOzUJXqBhjLr8vOPGvwOda7/Ad1cyM1LgBCraV2etD2Z3PtvYIHTClTiSvpfdk3W6o1EV94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=i7d1hEWH; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1789499511; c=relaxed/simple;
+	bh=90xPWqAdb/r9Jqg0b764vPjI8KHRN3w4U7wN92DvqZ8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y1rfCe1VSWEM9LfgEufHMzP0T8dkUiJcEw0SBIeDlzPix/MlEojqX652ENJ7HIwsmUyF9657I6cJ3Dw2/v44CTCc/R7ixKHC/PVvjW8d9Tiw7qYssssmx8RcLTnMJ7mbZ+N8AJ2BfaEZshPCjuGVnaUopJq7xqD6m0SlZ4u9St4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=KiVfC53U; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="i7d1hEWH"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net D622F4090B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1789499426; bh=9KuEiuYGPagJlZgo8YJa5ZXBSRDh56B4CM4Kt4acBWQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=i7d1hEWH5c32DIQ3GLYw0DrqbotuUZ83K8ZRORxHemoPL6T7Oi0b6XNKgSV4PpAy9
-	 12PvHYtoWKCtU1eZBRGGTEcG0hz/e3HG6Flaee6HTy6njpfstb2Xj02EV/MU8kj6gL
-	 /P5AXJ3FpNVt4Xiq0GA1bz9bv1KC9V/OpxpBmmeZcySbVyuuQYCsZxHkM0+A58rsC6
-	 4tlUcKmssI6mNBTV7pgfwjBYbM6mrjhlJ35UhDCETnP1ozLzuOYFtoizdtADwjzNDM
-	 Agapol7fPGEV1jb6h7sH8T1kfX/fxhapRZTSOyU0gHHxPwnEt6tr7Si3dUA5dWjLRz
-	 q4I9ceXPaMkLQ==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id D622F4090B;
-	Tue, 15 Sep 2026 19:10:25 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Manuel Ebner <manuelebnerli@mailbox.org>, Thorsten Leemhuis
- <linux@leemhuis.info>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] docs: verify/bisect: fix typos, formatting and
- punctuation
-In-Reply-To: <20260909134135.1358766-2-manuelebnerli@mailbox.org>
-References: <20260909134135.1358766-2-manuelebnerli@mailbox.org>
-Date: Tue, 15 Sep 2026 13:10:24 -0600
-Message-ID: <87wlsm8h5r.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="KiVfC53U"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FIsrFZ1755525;
+	Tue, 15 Sep 2026 15:11:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=PvnR9uqvPLxE+bne+9bG7RcIMwv
+	tt+8dp5fE4ZXg0Wc=; b=KiVfC53UQlrllJP2q/LKR+ZSw6lW6ktiS7o+G/qNpsC
+	RuDtjTrymVKU8eOI+vXs/pXCpZqbefH6DvdHrAQJochfVoMUQ3u+bkJNWVK8DDNR
+	Ft57ygcCUTjdHsNwR1U55qXU3dvrmKsnwkHhCBdiL1652GRyMXWwkbXXUWmvm2PY
+	k4WoKPEn2ettadgEj7G4qw5zGIo6UkPDM2Sgw8bwrJwhCNnHh9YSRZrpw+r+e5xQ
+	ZP26ggv4uqpAyS80mi4NMdxOyYQ6+FhEXBXg/18kQO521VvrrsatkNVg90x4m8yP
+	hqn7Ve1oShxr9vT0dOtwxiB1rphbNo2wPgAzphqCAig==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gq43rjpv7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 15:11:41 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68FJBerS018822
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 15 Sep 2026 15:11:40 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 15 Sep 2026 15:11:39 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 15 Sep 2026 15:11:39 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 15 Sep 2026 15:11:39 -0400
+Received: from work.maxim-ic.internal ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68FJBPma028079;
+	Tue, 15 Sep 2026 15:11:28 -0400
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>
+CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
+        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
+Subject: [PATCH v2 00/15] iio: adc: ad4134: Enable greater sample rate data capture
+Date: Tue, 15 Sep 2026 16:11:19 -0300
+Message-ID: <cover.1789494473.git.marcelo.schmitt@analog.com>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: mtUOAYmPB_IjGEix6dWPRCHxVogc5pDv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI3OSBTYWx0ZWRfX3Ksl3XXkIiUa
+ 0us4V1voh4b8Gxeas1Yn3HTJuuRlQJh1SQNv9iX2impFzVrlvqVrfYBxnGAwClXdtbQ6ahDeT4m
+ mvfQq2IF58C1yOkeQt3UdltJQYj4JcsK5y7evZqrP3A1YGsjp02k
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI3OSBTYWx0ZWRfXztL+CiyCMUYV
+ tCRPc796EE7HmlHunRGuosnqvSvarQtyqPhYCt0bWW2YCj1o3xmDrGfFkrvji/UaB7H8Q5sqqkY
+ uRWYMmRrwedCeGSqXGzb4M/rDIIpfGd2weqr+q7dYWHon2d1Cdt8AZGvZgW6JPF7HKpyfMmPens
+ Lx5dqv3I9b3kJQH4frjBQjzlVJ3fifLavn9FPiOk0zMB2ie+kH07JlNw8rr0LBHnrTHGwslZ4OS
+ jVktND8L44C+2HLOsUsuANY2np/tVSobXF0PzoHPE62xgFcxCVXr+R+FQa6QXX3MaWaHCp7L1b7
+ 5xWi1XSZzo/p9pa0mZr5nObgXggtzE9eNVqQANiRGCVqxBjIvKupTwBxXzUweIM7b71vWUyY2Rv
+ 7nE9gLjagdrXk7jdoKjS0zLT8JsnkdRgm+UbNC3n2tQjrOHL/kg1pr6jyVZyHSs84HIvoyXVf3l
+ hZXV+HdurwG5s+UPaXQ==
+X-Authority-Analysis: v=2.4 cv=HZeB3SE8 c=1 sm=1 tr=0 ts=6aa9986d cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
+ a=5ww8hBo5wzc8OBkiUfgA:9
+X-Proofpoint-GUID: mtUOAYmPB_IjGEix6dWPRCHxVogc5pDv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 suspectscore=0 malwarescore=0 priorityscore=1501
+ spamscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150279
 
-Manuel Ebner <manuelebnerli@mailbox.org> writes:
+Extend AD4134 support to enable greater sample rate data capture. To achieve
+that, provide control of digital filter type selection. The default filter
+type on device power up only supports sample rates up to 374 kSPS. In addition
+to that, enable interfacing with AD4134 in SPI 4-wire mode that can support
+reading ADC sample data through multiple wires. Finally, use SPI offloading
+to speed up data transfers at up to 1.49 MSPS.
 
-> Fix a few typos, formatting and some grammar issues.
->
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> Acked-by: Thorsten Leemhuis <linux@leemhuis.info>
-> ---
-> [v5]
->  - fix changelog
->
-> [v4]
->  https://lore.kernel.org/all/20260904114606.756700-3-manuelebnerli@mailbox.org/
->  - remove 'Reviewed-by: Randy Dunlap'
->
-> [v3]
->  https://lore.kernel.org/all/20260903154336.732305-3-manuelebnerli@mailbox.org/
->  + incorporate Thorsten's suggestions
->
-> [v2]
->  https://lore.kernel.org/all/20260902115121.687986-2-manuelebnerli@mailbox.org/
->  + one more 'your' -> 'you'
->  + 'it'
->  + incorporate Randy's suggestions
->     https://lore.kernel.org/all/0475c09c-e165-41a5-b654-5c6aefeaab0b@infradead.org/
->  + Reviewed-by: Randy Dunlap (added by mistake)
->
-> [v1]
->  https://lore.kernel.org/all/20260829055501.581856-2-manuelebnerli@mailbox.org/
-> ---
->  .../verify-bugs-and-bisect-regressions.rst    | 26 +++++++++----------
->  1 file changed, 13 insertions(+), 13 deletions(-)
+Features being added:
+- Data filter type selection.
+- Triggered buffer data read.
+- SPI 4-wire mode.
+- High speed data capture with SPI offloading.
+- Device tree doc updates to reflect previously missing chip characteristics.
 
-Applied, thanks.
+Minor improvements (introduced before the new features):
+- Sign extend sample data. [NEW FIXES PATCH]
+- Fix typo in vendor name.
+- Drop import to empty name space.
+- Update include list to comply with IWYU principles.
+- Serialize single-read operations.
+- Run shorter transfers when CRC is disabled.
 
-jon
+
+The updates in v2 tackle all applicable suggestions from reviewers and from
+automated tests/reviews/AI.
+
+Change log v1 -> v2:
+[device tree]
+- Set default for adi,spi-mode property.
+- Added '#daisy-chained-devices' property.
+- Documented constraints for adi,spi-mode + #daisy-chained-devices combinations.
+- Documented external multiplexer usage. [NEW PATCH]
+[IIO]
+- Sign extended ADC sample data for correct delivery of negative ADC input
+  difference.
+- Now also fixing Analog Devices possessive suffix usage.
+- Added {} to delimit scoped mutex usage context in single-sample read.
+- Tidy up code for filter select support. 
+- Fixed IIO scan buffer size and single-read loop.
+- No longer memcpy() with same pointer for source and destination.
+- Always delimit guard()() with a blank line.
+- Fail on unsupported adi,spi-mode.
+- Now properly initializing access mode mutex.
+- Highlighted usage of hardware external to AD4134 chip.
+- Added comment about mux state switch logic.
+- Suggestive name for auxiliary local variables.
+- Updated preparation flow for ad4134_data_read().
+- Error out on min I/O + offload config (currently not being supported).
+- Preserved triggered buffer setup callbacks.
+- Used pahole to reduce memory holes in ad4134_state struct.
+- Improved PWM setup readability, update allowed scan_mask codestyle.
+- Docs: Improved AD4134 connection diagrams.
+
+Previous submissions:
+  v1: https://lore.kernel.org/linux-iio/cover.1788368334.git.marcelo.schmitt@analog.com/
+
+
+With best regards,
+Marcelo
+
+Marcelo Schmitt (15):
+  iio: adc: ad4134: Sign extend sample data
+  iio: Fix typo in vendor name
+  iio: adc: ad4134: Drop import to empty name space
+  iio: adc: ad4134: Update include list to comply with IWYU principles
+  iio: adc: ad4134: Serialize single-read operations
+  iio: adc: ad4134: Run shorter transfers when CRC is disabled
+  iio: adc: ad4134: Add support for digital filter type selection
+  iio: adc: ad4134: Support buffered data read
+  dt-bindings: iio: adc: adi,ad4134: Document SPI connection mode
+  dt-bindings: iio: adc: adi,ad4134: Document external multiplexer usage
+  iio: adc: ad4134: Support SPI 4-wire mode
+  dt-bindings: iio: adc: adi,ad4134: Document PWM usage
+  dt-bindings: iio: adc: adi,ad4134: Add high data throughput example
+  iio: adc: ad4134: Support high-speed data capture
+  Docs: iio: Add AD4134
+
+ .../bindings/iio/adc/adi,ad4134.yaml          | 111 ++-
+ Documentation/iio/ad4134.rst                  | 130 +++
+ Documentation/iio/ade9000.rst                 |   2 +-
+ Documentation/iio/adis16475.rst               |   2 +-
+ Documentation/iio/adis16480.rst               |   2 +-
+ Documentation/iio/adis16550.rst               |   2 +-
+ Documentation/iio/adxl313.rst                 |   2 +-
+ Documentation/iio/adxl345.rst                 |   2 +-
+ Documentation/iio/adxl380.rst                 |   2 +-
+ Documentation/iio/index.rst                   |   1 +
+ MAINTAINERS                                   |   1 +
+ drivers/iio/adc/Kconfig                       |  20 +-
+ drivers/iio/adc/ad4134.c                      | 751 +++++++++++++++++-
+ drivers/iio/dac/ad3552r.c                     |   2 +-
+ 14 files changed, 985 insertions(+), 45 deletions(-)
+ create mode 100644 Documentation/iio/ad4134.rst
+
+
+base-commit: 9c464e7473f762cee4c031a09da04f65a1c65d49
+-- 
+2.53.0
+
