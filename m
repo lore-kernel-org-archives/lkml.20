@@ -1,109 +1,126 @@
-Received: from mta0.migadu.com (out-200.mta0.migadu.com [91.218.175.200])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3316D36B067
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C61D42903F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493178; cv=none; b=nVYwQMGjwZr0TQhqPPsrDtPlSE4W4uNFSkf7XNxZiFA1LcURuWTWNIZgaZ3vAfHFvL0mbmZGs2admQdjZth5nbxenjZW2Oo+YOupa4Fqbqmr9H0lxmLQd92gfZtmOEWIB8aBUeHNGfl9lezHvrSD9k0WcVlunnPfnxDazVD7OUI=
+	t=1789493195; cv=none; b=KO9Jmdr1Dtaeq4X9bPLtUGrmX10Dqaekw4qot72QPO/TPk+WXM+yogdO7JEFkGvGxaJB6CWyqUxBvRyUltOBV5dfTjkqIZeUJ1z9uYR9VQdDGTRGDHS9iQtiS8vxz5DMDfjfI812ARbMaTn2d+JizXHAwfPUlb6wBXbe9qQ294U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493178; c=relaxed/simple;
-	bh=IObySP5kGPDx4B1PIEfAuPC/D06sFocz/fzz4DvddHY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PrstQ1PriG1hyC9ahfXm3ZGIuCNFOtqj3XjtAZ7Vz4OOg4gTA9OohZ1F2eHmmtsG+IpoVP3XUyVIC2PLDJnPGmIn5Q9BUckBlIPTE1ppQlDJA5whGMrfebq4Zu4ace5JAFnnXonlfjO4mFKjHo3pcRkVO25CBJi0TZRB9a1xMUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T//im3oM; arc=none smtp.client-ip=91.218.175.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789493195; c=relaxed/simple;
+	bh=8UbkferCh4G7xJ08bKzrNxvUDkn0u7D9hP2PlhUAMfE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YqFRg2gH+vlLakO5QqJvEGFZv/+isdOsG/zvg9YbjB1fukDfky+ELBYKB3NSv434FjcEL01rW0L/vWS0//TH+ne/KYCDFsWpyEUuMyaXAkhq9e48euvCN3UDpUWWCbXkM33u27zoSo1ez+gDULPJDd87lOU68NuKwD7m9nhaA1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=K2Joys22; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T//im3oM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IObySP5kGPDx4B1PIEfAuPC/D06sFocz/fzz4DvddHY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789493174; v=1; x=1790097974;
- b=T//im3oMY91OOlQ6SC8Arc87Av+Sx/CPTCA3WXsQZ71m8wZG0wRqlGQ0YE2tj6KDb8mkbCbZ
- 5TFIxh0Jy8NFdGQyVRtBvtQ5rHKJ3wY6lUhH1OAK8MVBm8XiLX5kjZ/mBPi0t7sPL8POX14vP99
- ChkkKz/l0xUx4EJ87IUDLsFU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7af38004fbef57db;
-	Tue, 15 Sep 2026 17:26:14 +0000
-X-Mizu-Trace-ID: 7af38004fbef57db
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: platform-driver-x86@vger.kernel.org,
-	"Hans de Goede" <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schyboll" <dragonn@op.pl>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	Denis Benato <denis.benato@linux.dev>,
-	Hugo Baigue <hugobaigue2004@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] platform/x86: asus-wmi: fix use-after-free unregistering kbd_led led
-Date: Tue, 15 Sep 2026 17:26:07 +0000
-Message-ID: <20260915172608.14234-1-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="K2Joys22"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a147688bso512311a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:26:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789493193; x=1790097993; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IqiqAKtP9jwo6b7c6fPqWn0LoPHF2A3cHgQdurIrJGg=;
+        b=K2Joys22+UG4d7VH2+S+pQp0xPmLgm1sHebBAUEYFzMjNWcKDkVQABsguAB0fzA3qQ
+         6EhPY0CZtm+dY9UpNsFrCiCsQ8kcBK4HOehdHLnX4nXzFXn6Zv3clMXcKnvURmijhyIh
+         5CZ6MEVUhIafM6peLLkFezF1hTi5czS2byymk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789493193; x=1790097993;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IqiqAKtP9jwo6b7c6fPqWn0LoPHF2A3cHgQdurIrJGg=;
+        b=fc9n40qKofFcfOTxtYDlQNHkyD8VjKb5srP1BalF1Rq1dCj7qwplb0IzWJw0LX/GbJ
+         Gr4dwHI2KmVnylnC79YjzK93znoOxpBElDtbiZJppaL1Gx1e72rR6jNbY1smWwkqqPHv
+         ga9NLD98xCAAUIRJd2uxdApAKU0Swc8uRX82NJkm2Um8oH+VljaK2dlAYfcW1gMR6+4v
+         OWi8GphZTEbte6aPTwGISe5hQcf41I2VdH60Yb+SkfXt5FN03Dsu7G8qcHbKt/OPxwRX
+         oRKKC0QQAYW0obCrHZMuSw8L7FunlMtm1Bu0f6rjJ9UyCIecLHFxHDUOPilNW/4g9viY
+         bU5A==
+X-Forwarded-Encrypted: i=1; AKwUvByZInxRnDKoC9tafyQc7/BR1A/RK3UPeyUqRyWIIkcgVav9O0HMgq8l0aGrbcsqTSDxuBUq2BgTawbKMe0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kY3qBjjpURQbW4WbAzriPEjhLFY4/qNqlTnRznLKt8fNMdLO75
+	x9ceSDt1z/bqAQp/6E0FJZintIL0RH6x3km4qw5eU8f5tz1Eo3+/loYI9KIpiupWng==
+X-Gm-Gg: AYBFou2WHjsOWFvtVLXzH9xSy2cIBbteGqgCjc4dppVehYB/Ci3VCwpujjL+htABpkO
+	gCE7J2Szer7l89ZUP2PsVgI7o7fSCK+1OTq9ZUf7C9erw6bP0kNL29IWIOnxWRGRQda1K6sv6kY
+	zRY6rA5RRNJ6wS1vldN2aeQ1C1e0pjsyi0JG5kde5XuTpTVtih/cecodBAGEo5Tx/eGuaGcnItb
+	WxeVraMSkcq5Jigdw9TGFK5js4E6ed7SFZmFWU0nilffFN8CGSK5knepQ/5nl29RtLXOuK1Eab4
+	2BJYSbgPqwaNPBHnhh+Zpuy1yuXOw94CXBA2fzBsANmnAt2MzMTKCG9x0tt9cB73DJWx1Y6Cld1
+	pX1fABUeiJjq5hxS6ldwoyavER4yGvQw3q/IU0m20uWQ/xydjetJy7vhRYlVKjkKoVOo2shn9hV
+	2EQ7Qrt5MoSBKMivD7l+H5DWuKs9b9OVQg9uYCzzt09OBZyKepQGSSC/3sWfa7PC2dOgfrhh6+D
+	ehgHW4hiqy8UYKgjzgC6KwDrEA21wanP6AMag==
+X-Received: by 2002:a17:90b:17cd:b0:39d:e75d:f33 with SMTP id 98e67ed59e1d1-39e110961c1mr3185168a91.19.1789493193520;
+        Tue, 15 Sep 2026 10:26:33 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:60c4:eed3:a48a:b9f4])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-39dfdd0ba9bsm6560457a91.7.2026.09.15.10.26.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 10:26:32 -0700 (PDT)
+Date: Tue, 15 Sep 2026 10:26:31 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Jeff Johnson <jjohnson@kernel.org>, Kalle Valo <kvalo@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Govind Singh <govinds@codeaurora.org>,
+	Niklas Cassel <niklas.cassel@linaro.org>,
+	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ath10k: clear QMI if failed during init
+Message-ID: <aql_xwEy5POcVmyU@google.com>
+References: <20260914-fix-ath10k-dangling-v1-1-15c5089682b1@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-fix-ath10k-dangling-v1-1-15c5089682b1@redhat.com>
 
-kbd_led_update_all() registers asus->kbd_led with
-devm_led_classdev_register() on the platform device, but kbd_led is
-embedded in struct asus_wmi, which asus_wmi_remove() frees at its end.
-The driver core calls .remove() before devres_release_all(), so the
-deferred devres release runs led_classdev_unregister() on memory that
-has already been freed. Whether that faults depends on whether the
-slab has been reused in between, which makes the crash on module
-unload intermittent and silently corrupts the led classdev state in
-the remaining runs.
+On Mon, Sep 14, 2026 at 03:05:19PM +0200, Albert Esteve wrote:
+> A failed ath10k_qmi_init() left a dangling
+> pointer (ar_snoc->qmi) in the cleanup path.
+> Clear the pointer on the way out for hygiene
+> and consistency with deinit().
+> 
+> Fixes: ba94c753ccb4 ("ath10k: add QMI message handshake for wcn3990 client")
 
-Unregister the led classdev explicitly in asus_wmi_led_exit(), after
-the led workqueue has been destroyed: kbd_led_work can then neither
-run nor be queued anymore, since asus_ref.asus is NULL too, so
-kbd_led_registered is stable and the classdev can be released while
-the memory embedding it is still alive. devm_led_classdev_unregister()
-also drops the devres entry, leaving nothing to run at unbind cleanup
-time; it warns when no devres entry exists, hence the
-kbd_led_registered check.
+It's all going away (probe failure / removal) if we get here anyway, so
+this hardly qualifies as a "fix". In fact, in a cursory check of the
+driver, it seems the NULL-ability of the ar_snoc->qmi field is totally
+irrelevant to this driver -- it never is actually checked.
 
-Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
-Closes: https://lore.kernel.org/all/CAO84+x+P2_xyHP89+nGVSMV6bL+dy0P9=vyEEfZGnFhv0hBNWw@mail.gmail.com
-Reported-by: Hugo Baigue <hugobaigue2004@gmail.com>
-Tested-by: Hugo Baigue <hugobaigue2004@gmail.com>
-Cc: stable@vger.kernel.org
-Assisted-by: zcode:glm-5.3-flash
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
----
- drivers/platform/x86/asus-wmi.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+I suppose you can still call it "hygiene" though, and it's probably
+reasonable to do the same here as we do in deinit().
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index a65090429ca7..daf8bd17e638 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -2088,6 +2088,18 @@ static void asus_wmi_led_exit(struct asus_wmi *asus)
- 
- 	if (asus->led_workqueue)
- 		destroy_workqueue(asus->led_workqueue);
-+
-+	/*
-+	 * kbd_led is registered lazily by kbd_led_work: now that the
-+	 * workqueue is destroyed and asus_ref.asus is NULL, the work can
-+	 * neither run nor be queued anymore, furthermore leaving it to
-+	 * devres would run the unregister from devres_release_all(),
-+	 * after .remove() returned and the struct asus_wmi embedding
-+	 * kbd_led has been freed.
-+	 */
-+	if (asus->kbd_led_registered)
-+		devm_led_classdev_unregister(&asus->platform_device->dev,
-+					     &asus->kbd_led);
- }
- 
- static int asus_wmi_led_init(struct asus_wmi *asus)
--- 
-2.47.3
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
 
+Reviewed-by: Brian Norris <briannorris@chromium.org>
+
+> ---
+>  drivers/net/wireless/ath/ath10k/qmi.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/net/wireless/ath/ath10k/qmi.c b/drivers/net/wireless/ath/ath10k/qmi.c
+> index 0d74548a5f34..08a64f737fb4 100644
+> --- a/drivers/net/wireless/ath/ath10k/qmi.c
+> +++ b/drivers/net/wireless/ath/ath10k/qmi.c
+> @@ -1128,6 +1128,7 @@ int ath10k_qmi_init(struct ath10k *ar, u32 msa_size)
+>  
+>  err:
+>  	kfree(qmi);
+> +	ar_snoc->qmi = NULL;
+>  	return ret;
+>  }
+>  
+> 
+> ---
+> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+> change-id: 20260914-fix-ath10k-dangling-15676d427cbb
+> 
+> Best regards,
+> -- 
+> Albert Esteve <aesteve@redhat.com>
+> 
