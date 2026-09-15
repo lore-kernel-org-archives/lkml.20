@@ -1,139 +1,223 @@
-Received: from outbound.ms.icloud.com (ms-2002f-snip4-11.eps.apple.com [57.103.74.63])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D06143F8C9
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:51:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.63
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451489; cv=none; b=TmpIzJC0VmetbBF3eW+NZhIeb+L5TAdbi60DDd9Kan4wyDiTNrw/pZR0ekNlr1s8aoLBXzF4KB2Gu/HaoH99LuOyjKXYgCuTtozwXg3KRkBTJz/dP6id7pYWuUPlq5YjAjnU5pl0wwHvJIf6qYU+v/0pgQIFaHmBygvnsHPVOKE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451489; c=relaxed/simple;
-	bh=GosjDa+aWNTVNHBk7jWrJ0E3dvmD6NnNslRI8KHXCeY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uFaGajGaTP6oDu7ylpCpznUMXnYU/QiZR2m8PG2ltJhL8Th3xC1KiLb1VAtxyzGXYQZv0kEkdldKQY2ez2BL7W7/NIwzmE52l3KK2SSYq/yLSj/29KBCtDJk7dYe96EEaLLPmIpZZPLRPSEiGDhrtFzVmxwYkqJBbtz7UNnGslU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.linjama.com; spf=pass smtp.mailfrom=dev.linjama.com; dkim=pass (2048-bit key) header.d=dev.linjama.com header.i=@dev.linjama.com header.b=YE4KXlGX; arc=none smtp.client-ip=57.103.74.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.linjama.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.linjama.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BDF374170;
+	Tue, 15 Sep 2026 05:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789451593; cv=fail; b=VIPiX1Q3D7HqTMmBWPhNMm90UI0xNiSFpBjaBAgEeDO/POUBoHQGVjiNGhUDmPbKm67oGw6e4gXuIRtugAaUN9qMv1g4KWJHB45+D98RAnJdA+18+3N5iHYh2zdbMSrwLciI4mRusO9IMtCsHpHcaLYPW7+/HXOOi9RRV1PLAXk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789451593; c=relaxed/simple;
+	bh=YE+EeT61/CNqXzVCHSpCb+LT3xazsAJR58ugU653CuI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=PscbzcZHkOguA8e/BzdafTR7qjwltRKp+M8Mhl0pHeKiJu5zObsDXWtmrOQEVEEAVarqlBaEZtc3nmF06ENMIKOcHchhZaYzV4Eb8ouevjuHBljjL0sNk1VkyNGY70RWbuXjQq9SQICBY1Nt2CAgwNKVUUFugWVIfbT+2C8zORo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=OdIDh/np; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Ug67+uWs; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dev.linjama.com header.i=@dev.linjama.com header.b="YE4KXlGX"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-3 (Postfix) with ESMTPS id 27B0618000E7;
-	Tue, 15 Sep 2026 05:51:21 +0000 (UTC)
-X-ICL-RepId: 01a0a39e-b00e-7d38-a371-2f93ee041d6f
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQ9KHVwHXRxBDFYCXgRLVxQEHFIDXg5eMF0dRUNbAlwaWBVSQ1QEX1BfHA4JUh0cHFAWWQxaChwTVhUTH1RWBFBRHV8CCgRHBFsXRgNTRV8DFxFQAVgeVl5aF15NRx9ATWJJAVoZWxxAF0puTVMPDxRcDh0BXgVYEVQZHQ5YBhIdUBwOUQVbAEYJQQJYB14HQQlBHV4GWgpDAFUCQFMKXBlcFHMJUh0cHFAWWQxaChwTVhUNTUMSQhUEG0YeQwRfL10XXgxeBQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dev.linjama.com; s=sig1; t=1789451486; x=1792043486; bh=5PmhG4SEYu8aXgW3Njr9QPn446ZmFHsjOJ4OX0Jighk=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=YE4KXlGXqv/karD4ruPgRiuMysEEg3Bx2Od6Q0BGi6QgYWuzYi/eMik9xqSRIb3zgNueshmmI9mgTUmlmfh4vqJLrAUtQNC1uEeZzvpoEX29qoglayLi7YnRhvX04q/kScqUsYUUVUpFqFJ3Ixa6BBkS4LNJWtA5EyOfsKyz+3r03W7L37jqY91VZs6VDAcOt0eP7AAtCDSJOfQtBTH8HuXna+sDPFDuTS7b2NANdOnt2xtjEDEbXOfUK/BL7smWORc7uA1/33gCqullXCp52oAJ9fIFM0aqpjthOm1CPsdMa4ZU666E0kcU3ckuSE7LWYynmwjWt2MZklZKc4hOvQ==
-mail-alias-created-date: 1690913137769
-Received: from dev.linjama.com (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-3 (Postfix) with ESMTPSA id 4DDBA18000D1;
-	Tue, 15 Sep 2026 05:51:19 +0000 (UTC)
-From: Daniel Linjama <daniel@dev.linjama.com>
-To: linux-btrfs@vger.kernel.org
-Cc: David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Qu Wenruo <wqu@suse.com>,
-	Daniel Linjama <daniel@dev.linjama.com>
-Subject: [PATCH v2] btrfs: handle lack of space when cleaning up verity items
-Date: Tue, 15 Sep 2026 08:51:09 +0300
-Message-ID: <20260915055109.311839-1-daniel@dev.linjama.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="OdIDh/np";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Ug67+uWs"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68F2ldL5683759;
+	Tue, 15 Sep 2026 00:52:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=/8DciEgSQ6dDPr6Mjh648Xrj5YiOUDY8mnK1VcMs6
+	ck=; b=OdIDh/npsjmdCmtlwerOGdoCDHLnL4imkfODMQd3bBDzCGT4h31dZbW7q
+	XH1ALQuBqvLn5Fqk1Ekg6o+iJZQ0Xgep3rqZdoJBCpO3IqVtr1wgHR3PXauV58oC
+	7dkk6AXLfuz4BKigmTX50WzFDi34qdRN/mudIlsmBhvAOYATIlhaRcmajdYbZhgD
+	1OKkystEqAGFtXeCHMzbgyrfyn5q2leFeOexIq0Q4Cnr/wp2CRQjdjV/xhaMPzd2
+	5eLI+MSBjpRh59TU4wIm6Mion9Ujqe8AnVkP6xSGozz6+L0riSjGjVDxsksJObo/
+	dk0zRMf9EDpRzOQcU43kJ6miJJ2bg==
+Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11011060.outbound.protection.outlook.com [52.101.52.60])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gpvpa183r-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 00:52:51 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C2RnEUJqr8DrZcQs+fu7hHUpKDoZfnx/mhRrdTapeuBCcmVCjPGVRlSFD/y0FT/jG9K7Z5odaHygBQTRr/k435z0oUHrdUFkCnMrbttFFiF9QhB1zSbRm3NT2mUy0qupMMdBcriB0doe9rjBnGxVe8tbg77PLTlLUs4ZWPjYkItZj3ldy8Pxp+znUcL/VpznVj7quKauuo3NLQR6+mEYzSvS3s1Rjgcvbz9SM5yuyPAHHqBJ5WZU5zUnAjf1qszomlCQFOJyANdGEFcWlhdHsesEnZU47tDWqZ7cW9cfRtsC9RGhnEoJRvz/IAZsfHgGaLuUurGuFKJtZUVAKegxTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/8DciEgSQ6dDPr6Mjh648Xrj5YiOUDY8mnK1VcMs6ck=;
+ b=jhrHqYtJzIzAEuIcaMuA0fsJsSG0TI9+2gfwU1n17bBuDVR/Fly395lGCXEYiBt5Agg1rtLaSeUcwqEmbxFgvVPW7hStlyOVSuWtL9uUBWdPPgGSevv0gLw3M/rzIF74toZwrw516vE33xWvVAh45lA8qQCPbo8qAwlEYP6uw+uc1YGdIX/cBwLEMgVKnkIdSTl6DM9EwDo/2gIWaP1+fGBmIaEj4ddoShKOrIe0f03vyBhhudxezFogFjOvvLaE6EDn8o5Ris2rw0fIgoW0zy9jknOXASPdv+Qy8d8ljkf+0Q0n8H65k3G8HmkZCPbIv4hBXtK3mZu7E/t6XFeYPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/8DciEgSQ6dDPr6Mjh648Xrj5YiOUDY8mnK1VcMs6ck=;
+ b=Ug67+uWsCZ8PfY8NkAChfjzAhLT4fb9czZ3CgH3DxjTtOpjty5YvcTT9Ymn+/ny7kno7obNUyNHqdfUJibPjNEnUcD9aVdrONjpKryRVbst2Oq1juZ4CIGuSboliqFHJnMm0x/dEoSIEbrCA32r+UVdU530lVp3SRwtvx37YiJ4=
+Received: from MW4PR03CA0037.namprd03.prod.outlook.com (2603:10b6:303:8e::12)
+ by CC6PR10MB079336.namprd10.prod.outlook.com (2603:10b6:170:207::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 05:52:49 +0000
+Received: from SJ1PEPF000023D4.namprd21.prod.outlook.com
+ (2603:10b6:303:8e:cafe::ab) by MW4PR03CA0037.outlook.office365.com
+ (2603:10b6:303:8e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
+ 15 Sep 2026 05:52:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SJ1PEPF000023D4.mail.protection.outlook.com (10.167.244.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.1 via Frontend Transport; Tue, 15 Sep 2026 05:52:46 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 15 Sep
+ 2026 00:52:05 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 15 Sep
+ 2026 00:52:06 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 15 Sep 2026 00:52:05 -0500
+Received: from [10.24.68.129] (a0507033-hp.dhcp.ti.com [10.24.68.129])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68F5q2hI2635670;
+	Tue, 15 Sep 2026 00:52:03 -0500
+Message-ID: <14112866-62d3-43f5-985f-942baa5b5637@ti.com>
+Date: Tue, 15 Sep 2026 11:22:01 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=EJoLElZC c=1 sm=1 tr=0 ts=6aa8dcdc
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=olXNNK5aAAAA:8 a=7YfXLusrAAAA:8 a=bKtKrkIbznRyHLuInHoA:9
- a=U4UmX7kblY_o6ZOM_jyP:22 a=SLz71HocmBbuEhFRYD3r:22
-X-Proofpoint-GUID: oRxtibKSBbLZXRzAYXvr4CICI9ivJUMM
-X-Proofpoint-ORIG-GUID: oRxtibKSBbLZXRzAYXvr4CICI9ivJUMM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDA4MiBTYWx0ZWRfXw79BMRNMYtu6
- NI00Ef+hF2RYjC7GpYDekz18pM+cGYqdI9LCeuLGczTxJPC4Xxv+xGGWqxTDc7yvij8tBMwpJT7
- dsDJVFMxkHkC7IvLLlDfCQgdwRel9KGQsUv/VXD5FTGOVjC7ibcS5qQoctn+5v5TrP2BUVKZ9aQ
- nRtw/A0LTldpSi+9l0UW/pMLhkx2IBTuS+MSdQ+gZf7cPJIL1V2BA8MoK97cQVwMQWDIBe7Mtzv
- 4LacSvjQTVPkkruXCdcUJe/3SoaM1UnUPVTdM10QuU3Wn3UDJ/hZ/QI/h+rl2hMtqId4BU1Z6Eg
- Cl6Upb/TnjGEjWF9ivmDd0DqESv5xn77fzF7sFn+3T5k1t/9eR/gkiHznOYF50=
-X-JNJ: AAAAAAABmU0S8vhH1osebWphTeAfy/85CT8jOWu4Sn4F/GSvfRhssBZ2Dz2AzSp30rXy0/YLcNiLE+yxxHomCjDHqs7pw7HY3d/E97QIbn60u6QvUo0ZSpnpOg7UCeTzAT7QKO8MILgGVrMpDSm80eYQjZpaiUUPF1j/UBR1QZZlR1Nt1j84DWLnJ2yJr68zBBoOWSzlO9CO3dKON7Rbg4mlgjX46VvTejGyvXC0yJuhaOi30noaHiSF/gcYyOgOZEmglrtxT8opCTN5WU7LynYGu/WVOISl0ow4A4CegZRXiW+S9CTdrYF/DCGWsgSmVeKRvV+yCCLn11Tya3oevsx/t2zddbtjwboCZeOMEHSTtOGUDkRCmniaG9q71IzQ8a55eRjoGqs5NXYAIBCVIWA0B3FNaFmR9PuV6N975W7NmFbrRUnJa0wPTxh7bsdYxMT36UkvVI0omtxOOJLGH3dbEpuukjOw/w2VvBRY7fXR62/o+VIu0iJBYa/lRRUTsUmSC8V+imsy1N4+e+0ppe5bVHCUvHYtsORCYwZ4JlNx80I8QPBPtWyXlK8hE+b7F4szfDxn8K8Lnhqk93Y6iFfsHe9rJXebIbGZ6qo0P3lwyzbaSusXHhXhY75V880XJzw3RFS4TL8ckOHdiNWJJiNzm84/dUzDXxSy8dMpQL3FwHcX0NVbM5/cihdZR6fkFY4UYzs4hR71L89DQLTPxCQ1I6VQ1Q7AO4r+9tN7cf8tI/uCh+2QdQkCjBck6xpi1gnknY8kpMeB1KD3KORhVLdODyQvdZpInIE/1buy6i3ZN7bD3SP+/ki98ra+1MfqSBFpCs1Xnxw7EAageUmB+qtjXbIHj9UtELjZa9a2nvQzTJUaNM5nQCxphj2k62dZrIFccjFfNU4I0g204yxIIqgJ8MCeSuf2B6JICfM9TX6V5abJwCJlU6n4xVKa6/YK35UAvnW7BoAJqCG9JMQNelBx/1j32Zw
- EaSvCPaIQpoxU2X5jIyfiK+5F7nBrAzCRGw2G8hiY59q5b8xuXV6zqMHuX3eagQll2mLxmd3l2QhOIYDbN7xdYUmjBuzZAf30tb5fygsOLioz6OQowwZY3gYaDpqvGepjsQ443UE37P8hNQXf+++9anRtbH1kp3icRTT+FWOFl5dyiv4y8dMOvdVWhCC5xCcn/RR+la1BbyhFbJyqKZ2nD3Mq3KmdqbN2odzHclA6F+S+rl3R4aQwMipTAa0EgQDhoGsgmuVdX/bXzDmBBww=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: cadence: Store the core controller in platform
+ drvdata
+To: Linmao Li <lilinmao@kylinos.cn>, Bjorn Helgaas <bhelgaas@google.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        "Manivannan
+ Sadhasivam" <mani@kernel.org>
+CC: Rob Herring <robh@kernel.org>, Tom Joseph <tjoseph@cadence.com>,
+        "Vladimir
+ Oltean" <vladimir.oltean@nxp.com>,
+        <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260915030044.4019259-1-lilinmao@kylinos.cn>
+Content-Language: en-US
+From: Aksh Garg <a-garg7@ti.com>
+In-Reply-To: <20260915030044.4019259-1-lilinmao@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D4:EE_|CC6PR10MB079336:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3ef5dc5-260c-495c-7938-08df12ed917d
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|23010399003|376014|1800799024|82310400026|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	SS/m8GEANTfBm9u2MfpqljHYzBcVHwcCWVZk48uvp2dh/vCbgLPPX1thUdlYHRhPffijXAfmjtTaBfLSAGsf8o6//A5dBOo5CJnyiC4WlV++NnOydOyap3ETZIk/OtyWFhNyXddNX346jqcPJqB5zNXTIXe2nx1Joo/1eOIA5GR7lmGDp3cken6cjINLbxkVEoE7gswo5aEidcFHh8/EOv7D361bx09bCoTuNJ5rlq5MjWvLkQm9wMog5taBfwQgKGF2gppy75HdWiTr+uqY/fALZFGfDqHIkheosYWFH/pc6vTr/EJODDv+5OZYEuJkm98HwJ9Xd/ezxdAlfRYuoUo7A0WeBtOqts9qVeje87fcb5zn0e1owQe49w5P1fNeTnjtZHfVolkXo8f4kx05wof1Aw9wJ47H+VZs8pXq5iWuojF8ZWApIGqR0FrNsxAQ/YTzWbD2lDQFbxBxgUok6FKOOXci/HGqH0GkwpPk+C42oc3FVdDPpJFX3O9ZSgoXS5MaRPHlJwdq+t9XQRSvrTgfSIDgoUBq36cbYQqqUDgQ+EAROWLZR3zgQZwr6dQxcGcDwAylAvmw3de2W8evZgT09covskx4D7S0uyhDpihVNJ3b5bKMTwetRJdPMdHlQ3VvCoTqrxewEZBrVrO7A/liFuStdukZ6EC+Lt3Z0xlrGcvpr3U+qjd1AKpSsAsMtSdGTQhDyBPOEbe36fnCDQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(1800799024)(82310400026)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	uic1w2Am6LqMGMRqe9rwOe9+1wOCb1Jg6E8n/BUuS6ZaPdZgbWB6aoPw+Xe7cT6ehHo65klsYjQ0A59xT3H9UspmRYGwOvQWImTsRq4rAjy63XIvG7g9hWIZB2aJG9arp1zlZfEo9MzsPar9QmuGJHkqlEeIbxsIC5HyGlxiJ+TdN5x56NOvXrpru9CiDcQ3RXN1rJ5+/G+OpYQuAW7BXg/iGLvKgVX/IydsggTLsdlETVlF7I0y1xIs2oeNMi2PR43Quno6zogebeGummj99ZtRxo7vRSiadfs5STInJUQ3ZgYiBPI9w1ya4fTVL+rRJb1frmf0XpCYc+DPFx96eTLhh0fWr0ZRgllyOwFXUIonflgfWkrwCkIHVtQvsVeWmHAwq5wXgVQlvq3oNuI2S9wZjL8pMMhr/r5+NSr+UoQeV+bHN8N+CjN56fKyJwuu
+X-Exchange-RoutingPolicyChecked:
+	GPVRr1/D4agdDQdkR6kcTJ3EaSKFJf4zlKEySV4ZYakgGA655QeV18LXVat2hhotT4qfyX8Y6rmyFF81S2aDGQLRpxA4c72HRWo9E8V9tEIAD+lQl/7awa1rk+DnN8Rm8595TLIZlJ6cSwVGEx2WfwqpxLGoPHAC9UZIgzItuJZoP/ISmuzvazuNFewhlfwILhUD6Cq+9A2iSAUGeV+cdOL1uuJu75bIJpGSyRlRWrWEeiy9QA7IzrHeUB8EDOS1FgZ7XkbpgixqBVrywMFikTzYa0H9+iionuIFsKAXox/CWuV51h1DEHETp+jy5YWxeYZp/gYuLKwky1WEGDZ+YA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 05:52:46.6108
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3ef5dc5-260c-495c-7938-08df12ed917d
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D4.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CC6PR10MB079336
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDA4MSBTYWx0ZWRfX2Ggmrv7XvvtW
+ vXtVdqEpefV7gmg69fIOaRTRAw5uOlJQrDFGIaxDBB/v7/hBfuBH8HvJzDoK2I8NWf+NByRtccA
+ DfpfYeBHRGxkpHxoCy8WIX1aWbWS8fgCUyCRS2WYSeWI2WENGu/sfQFWXMQcjcPgDWEqPcrrfmO
+ 66thqL2nSICoJdZBlAs5hugD0IahaS5IZ7TmZv/DPTZdzMacXoqqxOgiQCxaffJzwl+ryztAZut
+ 0M8jQibDJnL4dsoxs14DEFHUQJ/OBeF0gGLee+o9FVV3kNDIZqvmf1bZIfJrGdgZ5G3fUp5Q7h5
+ ddm8OCKnjjHUmF7VdG1lK1u9XMClz1IpHEJQwY63Ya5IhzXT0kZkKVkzvj7hBYD8S94eVQOYbot
+ GfrH2QOpOTTdmg5JWH/xUVsY+SXQ7yMIXtKr3NI5lPt5NgxU1SaUOMtOEqsLZgjHAW5RIwZbF8/
+ 5UVaBWYyqumcZAVg+3w==
+X-Proofpoint-ORIG-GUID: iyTsU5S6EkDztE_gSgGyoKLkpf1mdigY
+X-Authority-Analysis: v=2.4 cv=U7cHnuru c=1 sm=1 tr=0 ts=6aa8dd33 cx=c_pps
+ a=AqWYtYKdvuqIQX7AE/aD9Q==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=EAFpj99wLUtKhCG8CcAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: iyTsU5S6EkDztE_gSgGyoKLkpf1mdigY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDA4MSBTYWx0ZWRfX4TvN6totDW/9
+ CyCiZhBT200v0UikSn5c2AbpnjGJOeLX8sQZbKN7AwAhRIfQBkI0gHbIb8oCXZMIL1pAZeH0o8M
+ 0gQHnEqKl6rwIh1bL8u+5rDqL61mFWA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_01,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1011 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150081
 
-When enable_verity() hits the qgroup limit, rollback_verity() needs its
-own metadata reservation. When the qgroup limit or lack of space refuses
-the rollback, the whole filesystem is forced read-only even though the
-qgroup limit was for one subvolume only. Also orphan cleanup at the next
-mount fails the same way, so the leftover items are never removed: with
--EDQUOT the subvolume stays unreachable, and with -ENOSPC on a full
-filesystem the next read-write mount fails.
 
-Start transactions with btrfs_start_transaction_fallback_global_rsv() in
-btrfs_orphan_cleanup(), drop_verity_items() and rollback_verity() to
-resolve the situation.
 
-Fixes: 146054090b08 ("btrfs: initial fsverity support")
-Signed-off-by: Daniel Linjama <daniel@dev.linjama.com>
----
-Changes since v1:
-- Revert the v1 change and fix the reservations on the cleanup path
-  instead, as Qu suggested. Sashiko was right that v1 left the orphan
-  for the next mount.
-- Cover the three transactions on the rollback and cleanup path to
-  handle -EDQUOT and -ENOSPC correctly.
-- fstests: btrfs/354 (qgroup at its limit) and btrfs/355 (full
-  filesystem), sent separately to fstests@vger.kernel.org:
-  https://lore.kernel.org/fstests/20260915053815.307674-1-daniel@dev.linjama.com/
+On 15/09/26 08:30, Linmao Li wrote:
+> cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
+> platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
+> cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() and
+> use it as a struct cdns_pcie pointer. This makes them read phy_count
+> and phy beyond the wrapper.
+> 
+> Store the wrapped struct cdns_pcie pointer instead.
+> 
+> Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
 
-v1: https://lore.kernel.org/linux-btrfs/af99a1d5-25b0-4e39-9f66-a2dd8e1425c5@gmx.com/T/#t
+Hi Linmao,
 
- fs/btrfs/inode.c  | 3 ++-
- fs/btrfs/verity.c | 9 ++++++---
- 2 files changed, 8 insertions(+), 4 deletions(-)
+Since commit e111ac7025cb ("PCI: cadence: Drop unused member from struct
+cdns_plat_pcie"), struct cdns_plat_pcie only contains a pointer to
+struct cdns_pcie.
 
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 93ef3cec191e..d377f4ca5207 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -3877,7 +3877,8 @@ int btrfs_orphan_cleanup(struct btrfs_root *root)
- 				if (ret)
- 					goto out;
- 			}
--			trans = btrfs_start_transaction(root, 1);
-+			/* Only deletes the orphan, must not fail on a full qgroup */
-+			trans = btrfs_start_transaction_fallback_global_rsv(root, 1);
- 			if (IS_ERR(trans)) {
- 				ret = PTR_ERR(trans);
- 				goto out;
-diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
-index 4e0ab5842274..189b36e5fc29 100644
---- a/fs/btrfs/verity.c
-+++ b/fs/btrfs/verity.c
-@@ -119,8 +119,8 @@ static int drop_verity_items(struct btrfs_inode *inode, u8 key_type)
- 		return -ENOMEM;
- 
- 	while (1) {
--		/* 1 for the item being dropped */
--		trans = btrfs_start_transaction(root, 1);
-+		/* 1 for the item being dropped, must not fail on a full qgroup */
-+		trans = btrfs_start_transaction_fallback_global_rsv(root, 1);
- 		if (IS_ERR(trans))
- 			return PTR_ERR(trans);
- 
-@@ -465,8 +465,11 @@ static int rollback_verity(struct btrfs_inode *inode)
- 	/*
- 	 * 1 for updating the inode flag
- 	 * 1 for deleting the orphan
-+	 *
-+	 * Must not fail on a full qgroup either: the reservations for the
-+	 * items dropped above are only released at commit.
- 	 */
--	trans = btrfs_start_transaction(root, 2);
-+	trans = btrfs_start_transaction_fallback_global_rsv(root, 2);
- 	if (IS_ERR(trans)) {
- 		ret = PTR_ERR(trans);
- 		trans = NULL;
+As sashiko pointed pointed, struct cdns_plat_pcie now becomes redundant
+and should be removed.
 
-base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
--- 
-2.55.0
+Regards,
+Aksh Garg
+
+>   drivers/pci/controller/cadence/pcie-cadence-plat.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> index 13edc6be21f5..7fef237cdbb7 100644
+> --- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> +++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> @@ -55,7 +55,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+>   	if (!cdns_plat_pcie)
+>   		return -ENOMEM;
+>   
+> -	platform_set_drvdata(pdev, cdns_plat_pcie);
+>   	if (is_rc) {
+>   		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
+>   			return -ENODEV;
+> @@ -114,6 +113,8 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+>   			goto err_init;
+>   	}
+>   
+> +	platform_set_drvdata(pdev, cdns_plat_pcie->pcie);
+> +
+>   	return 0;
+>   
+>    err_init:
+> 
+> base-commit: 9a9d18547ddc97a73d5d90cff4d5aef90bd8c15d
 
