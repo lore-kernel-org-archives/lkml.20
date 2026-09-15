@@ -1,189 +1,139 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20704503FA
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501419; cv=none; b=MJyTHnLUFogOl9BnSSsNMQZDyceSsOpVRXCReni7c7jEajzlNNCmNMEsQKpKbjIlULjFXV+gEOVcnrSe48COR13PsrOYCECWnyJQWloWANmFdLKb/V09e3oyfcguNtOfO0pzXuXsMDnjlu2RkCv9/PKlfD3IqkOr57f2Ssjg1zM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501419; c=relaxed/simple;
-	bh=cQDi/khXp22kaDJp+dEsEBqmjhvlz1g67boyZ/PQrd0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JsSk22h0Gz4MtozECVFQSzt/6PqWfOFXM0PDQWUUTbmx/Xi6Oi815ZyfuW1021wuYJooRMkqeP87e6lPDUjltZVNBZeWXkpF/ZFp9VHLh/41JL3r25UdyhaSw2GmgdqkzFXh7Gp507pRk9FeXa9q/w11jy+437MBJmyT+47m9n0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=Wc8TZqp2; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C741234AB03
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789501455; cv=pass; b=rNj2esLJM1WT6klfC+O8Rech0DFGJ7VTaVgLzuMVrTlGEJv+mZsKN1/m7gN/sMtHvIeD9DdW0QwrZrb9wdP2VVp+LYtNKfc2XxoBsFCCJ9LtyQ/oi19D5HrXPDu2hmjwJELD4udg48MMHDdG1hSlR88hMrmA7+YNjdV5S2IMDZE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789501455; c=relaxed/simple;
+	bh=H3qSjQGi76PgVHeND0Z40zDpqLslWmiK07Q51ZTkBWw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eEru8CIzCrPFvOc1+XZZTs9JhVvLZ8gGqRb0NSs2+gE0141ee5Gp+dzNastgszrZfczs7rCALgUOGFEFVHfyS5npmuXe45gPufciQ9Bw756oRuSEaWZ58qpRkVz5DHG4JB8dBheQmKRyOMhm/FEDaVrP9/49fF+xcn4l0A9lYsQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TwmGE52Q; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="Wc8TZqp2"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d4ddd1d91so1156207b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:43:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TwmGE52Q"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so67941cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:44:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789501453; cv=none;
+        d=google.com; s=arc-20260327;
+        b=crcfebpez3lku6SgkRzJ798xPRwi+WqPxRCy6NFsimq09r3Ee8ytbJcIT7fePM0VHe
+         Dtd799VEXLwTaZbmZcJXHePkGyewNSJA4/7J+BAiTwQanfVVVYs3zvvi6UJc+uhVh0JW
+         7vwuHZflKqBbOcETpC8XiIya1+8S305Wi7DoFX2GH0mqJBX+4sS1KdEPqMGugsyobOWF
+         VHgTf2hr3R8KRRbzgEPZfMG8tNhx/NeCYz3bQVjbwGSoOpfJf0CW3jdU7aIn+NrR+nhm
+         AAsMVDWMAUSikMmVCEH8O1B5S3IA9avAg1nXjSn6zeSn0wAFvJPsxo8cqWZWrhi3nY8T
+         EyEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=STuNBH/M2NDqA51kDqdq9V/ip/zqwavA2GBjIvz0ZeA=;
+        fh=iYvFSfhKkIUguUvM6DSP3h9RIIOXUasxcPnS36ztIzw=;
+        b=mFbgZXqa0zHKSOVv21hgjfYWlY00RF+0KodR4UMTLrENv6CZPXtnPXzoU2gQEZBExW
+         lGCFa9Hi38K4d84EfUxacX2dNpGOzD24Ihu6/K5wPKBwskTncT1JwNaYLPuLAbZTjfpI
+         6ixZ7FEyS0gPzSVRKS9iHWn6fEwVhywOl3sCMxQXWBpm4loMMRvKYUaTiWmBwfui43/B
+         CKb/vpAjLIOUOwwYlCFIF9iCq2CIJXPbFufbv5tddeF8hZVh/Nq8QtPAHW5osjjogfBy
+         JUK4meTc+JbrQPQSJg1W1dcn7ouAdqUBTXFnPQoySKEHWjxjBYGyUfrcuB0JOkB3bKdW
+         vGlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789501416; x=1790106216; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i2LOI0WXXV1VVEC/9ThlMXobGg1l5GAIdV/ERsV+q64=;
-        b=Wc8TZqp2fPQJ979amKHsD0hu7IeYyfoeXwMFVxXsXH7khIe6lWfHHuf1u1wcTvcw3f
-         ZkFhAfT5M5YPY2afFUKGQ/B7MzILkvkTqIpAo1BHYGdejVJFtNezhvj0GjflPjIl7Frk
-         nP2Vi+AHh+ISr3OlgTqbPAaMeV2ghY/6d3KPcQykLK/SZu04G2UlqQPZ/UaS3Gl8JMzo
-         QeFSL9JUl6q2f168LHzzQdn0aqtL8xQ8LfjQ0Z1qrD26AASbD/qNWoLmIvkwvaxQxv58
-         Kk6GYragnd+eb/W9PcRwoMW4bNXFmXKe5S3yW4iXx9ATzRCNjAlq2Z9HlnrgzZdLoMgJ
-         pjNw==
+        d=google.com; s=20251104; t=1789501453; x=1790106253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=STuNBH/M2NDqA51kDqdq9V/ip/zqwavA2GBjIvz0ZeA=;
+        b=TwmGE52QVqevX+CIr2YvoqOxDfAEWaSiCuf5eNF2Zvr8hO3Jct0D/qW73E9eAGm/Pv
+         IZnIm2jHcJT6F/dS9cBk/DiY9clpDnKKZIwxXZNriZ/cTELVNMBbcnTwktTrluF4rkoN
+         Yh8oIVhXEoEMlJAkr25biocsMJhEzMkThhADcGQuzn1BRWbIDlSa5osyp3gkDlOLJfaq
+         CQf4LyO8BoklJxCiikLuNYlSKYJVJgnOh+KUdlcAx1JSGuY2TuGULSjIZjsPLKXlA0dg
+         3/+4/aT9qZH74DjkJg/xSTnb4FM6a17/S+nQdenKXC1FesS3C5vnb2BxFXpGrT+hX3W9
+         qNVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789501416; x=1790106216;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=i2LOI0WXXV1VVEC/9ThlMXobGg1l5GAIdV/ERsV+q64=;
-        b=OQ98Ma2wQ06jNf7DoLoHxgPQ/CbVP7nsG7HVQoL/btmfP01BE9YhR1lH78j8WmO2G5
-         y5H7ubRabHppwKvqB+4iMesfl2/TQjKgTH5wvdCOUIrIKc1hXe+SGwmhezCHlaKUk/nd
-         uyaOuTUAWNytnsVIZ9BfX3Dz8LcS+NYvLuxoEr3HCsmxrIvQT1nO/XHtXC7jAuH2GGZs
-         oH613cCRKYwr4t0Cmz7mef53XZWW72rqSiFEdAOgftXhK5ySWoV0JKJrx5AiYuB6I1hD
-         saOBLJYEPR176xnYVBRF6eXkQC1YSsnqrG0FmfQIOpemFOLEBBr9LZzrXbs9RV/xuMNe
-         E1cg==
-X-Forwarded-Encrypted: i=1; AKwUvBwECV+z+wsFFHT6gEeJEdgsO9RPpI3cJONrt16IP9siwVFDEe3sL72iDjZkVZeWdZokyaPcYr5bsUrawqY=@vger.kernel.org
-X-Gm-Message-State: AFuF++muI6iJbEsTVrUFd+6UgiqTGEQhziEWMQ7KKi5TXxHUZ0ZNFMIg
-	g3LY1Re53EQIQd053JGk9FtdbShgLkW37m0dgWmtTIQ302sn+nx5aJYTClawAf4FvT4=
-X-Gm-Gg: AYBFou1H6zFMZbHQRdKRTN9HorcmJwat3itlWrOn0fZ3O90upromyrkF1xTprl0k84X
-	aOZwVwhP0KEzLVBCWIki5vI8YulNSSfRrop0RnXXn5dzMmk4Vc+RJ//wtsOBmDqGTFV86tG0EKP
-	cqYMctTS8lrpJ/9Wlw7Ig5VSKQalMqutVzsv1png4Vt89m03VbZlAl1AT5vtpqbWJ5IoOYtG5hH
-	xoMiuzfLGLfRCNSfH7UNMik54lvh+y6mhBamsKvRd8suYWafiAs9ApLslOShXXOSqd3U461/X5J
-	cLWIjN+JEVakJCxNbP+q/K5gjyJISCrqZ/ukrniWvwPdmaXYLf+btPbpFH3S7MhO5msrGJvV1xV
-	VXXHQMJ9ln1o/hfP8cn8U9CNKHFlccwxzKDQR2Wga3q8uDAi38TSRObau+n2OFssinLtesdzi1D
-	z5GeTOzy0qjB5OjGArptgZGsqnFsAji1V8hk8fia8g0B4xu2JTd/+5iz+GneDu+62Vv8x38VKgj
-	6S5NSNG/iyMG2/lPW4IYqRPQmKLL9J/tavC5CZofb3eim/5/9AbQTl7LV/lC0IdZ27hqObg6GBc
-	NLrPICJG/iWsQ1yhZXlgJlMMEk8dBwlya/QCB9oc8cxhzac4jKVTwjR8FP0Xlx8wRmHmE4Rhk1U
-	=
-X-Received: by 2002:a05:690c:c511:b0:841:e9e4:8ab9 with SMTP id 00721157ae682-88d234ae9aemr34479907b3.25.1789501416583;
-        Tue, 15 Sep 2026 12:43:36 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:e9c6:4a77:70a9:9f1d? ([2600:1700:6476:1430:e9c6:4a77:70a9:9f1d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-891ee4a536asm922997b3.10.2026.09.15.12.43.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 12:43:35 -0700 (PDT)
-Message-ID: <6423c0290e4a92dd0ad4757b896dfebc570a7aae.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: validate segment number in
- nilfs_sufile_get_suinfo()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
-	 <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Tue, 15 Sep 2026 12:43:34 -0700
-In-Reply-To: <20260915111304.2725651-1-qwe.aldo@gmail.com>
-References: <20260915111304.2725651-1-qwe.aldo@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1789501453; x=1790106253;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=STuNBH/M2NDqA51kDqdq9V/ip/zqwavA2GBjIvz0ZeA=;
+        b=xQ2TcB0Y61JMAADTiX76K1IAg0B6Ucv5ZzFT+75WOrvHfWpYhYp0A4O8n8YhR6pn2p
+         jEJGuB6855e/E0srnE8ZocEK//5nlCQkpARqzMhkr5ziQ8hk5xe6xph7iU/ACQpdlmjv
+         HJFhfhEYZF87KEd78Yh8K1wNXcQJzcmM0kug5Fai6rz/xhCZVtcmjsGhMZdX8QKNZUd5
+         7ZPYt59vpOHuzj9UgQkDOTiuvVGqbu7gf8VE1YSutk0j7FskKzAI+rt8g13W0gONcNWY
+         CP8c1xoFai4CRFnNp9ISFNKgOmeH3tgUWgdH1D/1j4fuxmRBH4yEC3P2px5ZCXo4RQG2
+         oj0A==
+X-Forwarded-Encrypted: i=1; AKwUvBz5xd4OPdvMRR0Jl7xOevqkNSppk/cBtj/CpoYtzotcGSmOpJgEXI0eoG0OHpluqGClI0B41/jFUJnA6gc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6iK2h4uELh90YNydpFmwxcrRJqQH/9/ymCWnl9BsLK+qTbE5a
+	IASV+GtbWLV/LxGiBeTcSpZ7x8UhiCK+v/7IgU3xhdta7HmFaLu0LsjSr9Ptn44W5rQAqTEUUIw
+	PKcn0evfAGIH/DcSHP/N59uvIbF8IS08/68s+dBFE
+X-Gm-Gg: AYBFou3UFisZ6gq3R4gkYO0Locd/xTEekRY5d01oJ1QjN2gPXW4yEd3Q9q1DdnDVvHZ
+	1jwKmqnZyrFx6ktReNg5RtRW7Ri3/xqmF3iuZ9vHU6gcqry4p9hflTX61lgpiwV3MXOF3vj3aUx
+	NzDPkci7gk8V8uxZDLJCcjCKwaPY3vgVtu2D+NxtZgoRbORAAcniRsoFbxeyIWS5efvn/0DA3DY
+	mo8VOcVa/Kjy4XqR9cgl0UFiFATktTDtHbnyTH+9o/iZ4CE3pTNPe4773Gyl0ZH1C98EqEzfer3
+	SLdTt7W9SkfXvm6RCVcTs5V6Gi7QscY8TOkteaG8JHhPBLLp3B71WJop4dpauAe5zAOUIxc01KL
+	wn83N7oD5dQ==
+X-Received: by 2002:ac8:5a4e:0:b0:531:282:6560 with SMTP id
+ d75a77b69052e-53259b49c10mr2158041cf.15.1789501451815; Tue, 15 Sep 2026
+ 12:44:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260903112835.1694260-1-nanshuaibo811@163.com>
+In-Reply-To: <20260903112835.1694260-1-nanshuaibo811@163.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 15 Sep 2026 12:43:59 -0700
+X-Gm-Features: AcwNN1VVU0mXc4k_HpwEgXzGNEMH97BhLgpNu8B-eFOs4SAp8P0d4b-6zKavSUc
+Message-ID: <CAP-5=fVBi=VSnGQ_uNAb5+Y=mVi5mBz+Zazgw-kS173hR5vDrQ@mail.gmail.com>
+Subject: Re: [PATCH] perf sched: Make output_name variable static
+To: nanshuaibo <nanshuaibo811@163.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-09-15 at 08:13 -0300, Aldo Ariel Panzardo wrote:
-> nilfs_sufile_get_suinfo() subtracts the caller-provided segment
-> number
-> from the total number of segments without first checking its range.
-> If
-> the requested number is greater than the total, the unsigned
-> subtraction
-> wraps and the function may process segment numbers outside the
-> filesystem.
->=20
-> Cache the total while holding the metadata semaphore and return no
-> entries
-> when the starting segment number is at or beyond the end.
->=20
-> Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+On Thu, Sep 3, 2026 at 4:28=E2=80=AFAM nanshuaibo <nanshuaibo811@163.com> w=
+rote:
+>
+> The output_name variable is only used within builtin-sched.c for the
+> stats subcommand, so declare it static. This fixes a sparse warning:
+>
+>   builtin-sched.c:4140:12: warning: symbol 'output_name' was not
+>   declared. Should it be static?
+>
+> Signed-off-by: nanshuaibo <nanshuaibo811@163.com>
+
+Reviewed-by: Ian Rogers <irogers@google.com>
+
+Thanks!
+Ian
+
 > ---
-> =C2=A0fs/nilfs2/sufile.c | 10 ++++++++--
-> =C2=A01 file changed, 8 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-> index eceedca026..e3733d2be1 100644
-> --- a/fs/nilfs2/sufile.c
-> +++ b/fs/nilfs2/sufile.c
-> @@ -864,15 +864,21 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
-> *sufile, __u64 segnum, void *buf,
-> =C2=A0	struct the_nilfs *nilfs =3D sufile->i_sb->s_fs_info;
-> =C2=A0	size_t offset;
-> =C2=A0	void *kaddr;
-> -	unsigned long nsegs, segusages_per_block;
-> +	unsigned long nsegments, nsegs, segusages_per_block;
-
-The nsegments has the same meaning as nsegs. Why not reuse it? I think
-we can do this. I think that introducing another local variable doesn't
-make sense.
-
-Thanks,
-Slava.=20
-
-> =C2=A0	ssize_t n;
-> =C2=A0	int ret, i, j;
-> =C2=A0
-> =C2=A0	down_read(&NILFS_MDT(sufile)->mi_sem);
-> =C2=A0
-> +	nsegments =3D nilfs_sufile_get_nsegments(sufile);
-> +	if (segnum >=3D nsegments) {
-> +		ret =3D 0;
-> +		goto out;
-> +	}
-> +
-> =C2=A0	segusages_per_block =3D
-> nilfs_sufile_segment_usages_per_block(sufile);
-> =C2=A0	nsegs =3D min_t(unsigned long,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufile) - se=
-gnum,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsegments - segnum,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
-> =C2=A0	for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
-> =C2=A0		n =3D min_t(unsigned long,
+>  tools/perf/builtin-sched.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
+> index dd39a4fb..22486df2 100644
+> --- a/tools/perf/builtin-sched.c
+> +++ b/tools/perf/builtin-sched.c
+> @@ -4137,7 +4137,7 @@ static int disable_sched_schedstat(void)
+>  }
+>
+>  /* perf.data or any other output file name used by stats subcommand (onl=
+y). */
+> -const char *output_name;
+> +static const char *output_name;
+>
+>  static int perf_sched__schedstat_record(struct perf_sched *sched,
+>                                         int argc, const char **argv)
+> --
+> 2.43.0
+>
