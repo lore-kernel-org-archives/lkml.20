@@ -1,97 +1,276 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A3B3C09F2
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6502B3C13F1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485980; cv=pass; b=o0uugvF+Vfd2qv2vR0y3U6l3cck7NgbGh6SBhsQUEYJdtOBQ1MOpnVLWOJpAm4LU88ZK5Nk3lwDDlvw2TlPlh2K+bfS4ROxroP81pk0g7Vf8OgMekHrMdDDhQDudAeHCbWmbZb/O1vxii6xilZwB3wfEWHr8VnFSZdm+/3j3TtE=
+	t=1789485990; cv=pass; b=pws8AGaKI6H9NzMCTNm/QCcGCFjIy9hV8hvLRuWFUnctwJ2l2Ntr8hNmZEauwgJOMtZs1x1e/y90oGtfW0bjwKVf58bLp4d3g7Hq/FNX7Xi70U16xoWS74UAFrIIprMHIqhVIA+DSqf51IlP3FRXYwTMjENrGfQQEYjd+a609OM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485980; c=relaxed/simple;
-	bh=04fmncXiznmgA07ISCSGYRT/QDNH7yTRBIsIsR+2C0A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ijZMlOWRJpeGYIDeuq/7e0dyXpFq14IaSgxuTlyR++ZGk5eaogbIrktrxHzHsDTMeyPfYtMSWkoAwB8hJ/VDf6MVyx1WheV+YTDteh2F2VFeHm/7we3u8+JJqGICNKCbvOFD50T8akWxkeH1ZBLZecZ99VhWQq2zcun/HEuh+wU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=coLl47DN; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	s=arc-20240116; t=1789485990; c=relaxed/simple;
+	bh=jIeDsPrHmbiiXFFaYJvd/WqEYmNkFNH/DqJyCXr1uWs=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=PADhZcM31Tp5dsCbPMoOPPDYccmMEK9GEWXFoiVvzlWSuSQQry5tpxSOc0mc5T8E8bmR6OY1m31ahjMWpLo5Rnzdr8HljVvnUCCBFKoDxw365/a+xwexMOu2ci3iNvl5/WVdw8lk2SjuBzHXMYDiwHf5hPIUt/7VYT7+aKzz1YY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edE+ZqaX; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="coLl47DN"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab22370so490357d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789485978; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edE+ZqaX"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff04155bso4073161fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789485986; cv=none;
         d=google.com; s=arc-20260327;
-        b=JV+EifJnsO7ilClqRJOwbJpCCFFilWaD80R5HBJ6ZXMotYHJjHO02hsULHSbCaE9va
-         kUXwHVY38y8xG1BLGwUAt2nfuH9nzo+YuI0v6A32aO90FucWD8rENwKyuCrX+QuXc7sJ
-         R2VOAA3G13kR62rfHnu+N92AumJRx2iG5qDbt6paalAHZHa2VT/RTuN1/6zFjJjzlC+9
-         DjjMAdgnaE3e/N19Fu4g7cd5FhYKEhIkceiUexQ7sei03mQb1EAa/+WaK2wLw9M5Q6YO
-         QrE+q+7Olk+ZCD/3xGmw+0nWh8JgbQ2almalKrzY0fYFRQWQ0WXA9nryPd8crWt5Uejq
-         q2Bw==
+        b=VmJMRaxBwhGwoYJ1TRoBTDpokZYb3H0Xslz9h/wEH8SZ1pKz3fcdPciTad9wED16Qf
+         lmsxTq1Y4r8FCmXt+Cyu3AYk2xk90w+TVYh5rlgqlJeZtAXnZ4vRwdJ6Tlv3Jgr0eH4r
+         z8DGsNXwKg7Ia4HzCsjb9QAS05CKQL2E6xCb3IKCV4r3N/US1dYyFezpzuJE+swIPgbN
+         EyTbb5uAWboxtS44gno5MDNwymQvxnxpRFdnyvS27+FSXIqqtLvX1LLHLfLQl5NB4PqH
+         IdLdaLmJNqPAmBazZ+q7qNLhtnveoZyJNNrfpZZH/x6+ipMhZgQ3snrM0WLxVa5Tc1EW
+         L7ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :mime-version:dkim-signature;
-        bh=04fmncXiznmgA07ISCSGYRT/QDNH7yTRBIsIsR+2C0A=;
-        fh=jrnz5HGMBH2I2XCfx4axECAXDYKUazB3fwYhjJ1hz9E=;
-        b=D9yqzEG89W9pSn1J1MFmOD97npOyM7gYXjhv/IaRBcKPB7kwLBYLzYpcJt0noMBrjZ
-         5ctYf2heMLmHs49ankDI1EJfFA8Z+P0EmAj+aVJzKtmZT+HR2G4r3dS6rJU4S351ojNq
-         i7neLlKmclW9WmjVYC6fRR0ZEiz3bHd99HP3yNAw4vUF8X4IDeYofw1wLKA7CmYfRISv
-         oh8YLBv7DWStEAf0HgmIUbVGpBrmKwtiSscPIMicH5ouh7Hp1QNkaJtj1eSCGnpL++Bx
-         uQZdZkql90TCJC2vyjTc84KLda831rh8P01oPFWXJTxA7ukFXLeZ8HTeuLZWjEF+/ADI
-         srAg==;
+        bh=2dTXBcl4xpkc0pmu2+DSHTNRZ+nnnblY3RMBasOVP00=;
+        fh=evxKe3X1gwhQ5WTgxwMxnfuRw6NwTahi0foy2EogC9k=;
+        b=MhjGySRgP9hZAM2tIcDl7gljWbxgCzO3IAmvTruynr88BhWlgRG8MtolnN7MO8TXRv
+         hTYbB0nfOnK0YSPqpygm0yVy8Sfm4vaJmaEbA4yckdAjVW6YeplEUJ7FSbYpIMpl2258
+         FTYDptdwMou4VICTp/i5txLXq0RQ30l1aQ1jBRfiwGKxW+HwQ7B15LN0BFldyitIFsJN
+         lqxaTWdgVQmpQ0LPe9UFNpQxtIQJgYJ733LUf1neRTAuVnVJ1h+UIEyryYyq3Xg8Y+qH
+         i+P9ylQk5xQqsgtOmu+Hv36Wa+3BVYfvdOxAW2nDIq9BU0up/q3GBpDBZvIvHH8b1CnA
+         iQrQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789485978; x=1790090778; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789485986; x=1790090786; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=04fmncXiznmgA07ISCSGYRT/QDNH7yTRBIsIsR+2C0A=;
-        b=coLl47DNbab8N6oy62v9UEOJ4GVmJ2Zmq+PkImIgJKENTWLBnpavC2m3WYdBcgdqdp
-         wmzO0Vd+1O8kFp2HKRo8k1IZV9HszVJv5HsWfobpc5CxyZ+2VjRXc+fmQRSjsIgCfZ2C
-         yuBMx0wg4fys2KSpSGKg44mpU9vK1UO+55HqpCuIhJOG96cQiktHRv7ln1QzatwHdHra
-         RmOP+Q7x0E14FzwG7YnfC2A/4xlu0ATKs8bD3wg7NeZk0W/BLKj+NqlSa2vkTVWOqLqq
-         6/Xf5cU5WdsXyyEZB88Sev61M6X3rn5mwvCooSTb+fNY22xj4uDFIgp4wXT7kGHGAa3b
-         2nEA==
+        bh=2dTXBcl4xpkc0pmu2+DSHTNRZ+nnnblY3RMBasOVP00=;
+        b=edE+ZqaXw3q+1wWjYhpfXny4pP3d7nm49FGJ+Qcw/kKkgr2GaPcfUssZpqoeBnqDXK
+         hbDBSlJtw0evw+DStFy+Z3hdho/52pK1LU6XcPYRDucvUtA1ACG5QIsH08Gu7cB6RmgV
+         nc/mur/ERoDhULetLUmZsv4r71oF7ppGf9jbuxKMq4XvAnQ4JSKe9C3oubRNaPYF9RG2
+         nsbC5c4nXCFVttbCO7yrdSYw3TcvtLX7tif3QBjBHne7gNljHbOP2ptxS7XpEi3qtMiy
+         vfnWMIs2WyfiCpfzpvInO8QTwTpTzcEffeVDXl5aKANzX29JnSD3/X2aCD5MLlLBrViQ
+         vlrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789485978; x=1790090778;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1789485986; x=1790090786;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=04fmncXiznmgA07ISCSGYRT/QDNH7yTRBIsIsR+2C0A=;
-        b=inagSZsFoaMfN0W7fKYpaYwK3SjyZhWlUrur3/2kqI32Bed974oDrbRKaFLa0bM5wp
-         8VHUd/M1HPho46opFssGiIAxhMYKD5BP4iQ84cdmNoWLmvmW8Qk5KMzv3sg8CYOFO+UD
-         dR7U9Lnd+r2UNTCiBllJ0mCyPqB3foCPmRXLS679NTCViR9o/MhNfr6mKVu6M/VxydWf
-         x88Fqy4etW9Ffe71FzMZ91EC3otagII0LJc0kcMIc9eFD1ggsH6NmQlrbeExYp0aMZtn
-         uEEwa+SRKeojNuH26eM3IrYFtADn2Y2RupZXuRTdsUfr4YzPCWbMg+t7TzCVphEvY5sc
-         1dyg==
-X-Forwarded-Encrypted: i=1; AKwUvBzTMZ597FQcSjSGyc41B8TPeYJJpkWAL7kHgiUZR2SKPDJtAbJwIN4FPRY21SQB7dHFpEyg4R3CNWfQ/m0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwNPrj6LdeLHD2gCJ+GJ/x1lNCEkodxg2kacTCkMIFjRCAn7Ab
-	vc721tw6B32+Vi+9XoQHaWl7K8ih7/HiweekdO4FWAtFPjD8O1JdSqEzoNhp3wBo8BBQngo1hBa
-	JD6hjInheL0WtB+OM5GiOEjsM1KRABQFBRduGOEDD/fgzPxcye8sWXbM=
-X-Gm-Gg: AYBFou0CYx4GzNt0EuBleSS1RXivC6I9k3O/iuabVdkRiQIuYHyvkhMZF50goyoEq/E
-	TCLw+ObnJLecG36j98Lbv5RUGGCQ3ShtbjMJAL1K5c4sMAKylK79ogTl8W1AcceglPy+Ts+E/cB
-	kAa5KyFWEYGT1K4OqZi+XizdDRpYg3l62KpbhjPHLnl1i8x26zSyB34xgben98/nNDjIb0s8HdR
-	qhv3zDKpbSkigH0YnBX0udFGx0Yuh1Us2vBwJNVZ+r6NFZ8RzA+lH2Dv8LrTrGdkVwLa9mwp0DE
-	YXLDBcoY79COlI3Gy+i/alksxgjmBD992ZC47KuKBu5UI3du5di5OjAB+Ozj+urRaxmC2FAg0+v
-	eyD2SA9etGLfy+H+k3l2Nh4le
-X-Received: by 2002:a05:690e:bc2:b0:66f:c770:2936 with SMTP id
- 956f58d0204a3-6715cbaf3aemr667877d50.58.1789485977258; Tue, 15 Sep 2026
- 08:26:17 -0700 (PDT)
+        bh=2dTXBcl4xpkc0pmu2+DSHTNRZ+nnnblY3RMBasOVP00=;
+        b=Gd7i4f47dKge0FUlWZPFUA/btLtKMoT5/CrELwZ8hab5bDUkA5UdJuCvXHPz0C5ovb
+         7kJ5UcKGRO5JCi0bpRg92f7HSUFV3Ezfa1m/YPg9dcdDwaESFaiEzUr/IOFNy9PWpOmG
+         9ewP1HHF2MQUz1YtcynMnWZyJQtTRRzYUNVtrnBlBaemZMgUiMWAV5y+PVXoXpCqdiTv
+         Y9Zgx5PbZTwMUGN9ZOfz/4mXvuy20ZWZo++aDKlzCPSuyRBIZ0Rzq0sgIN57tR83NGwY
+         zcye2AGFFl6T9mo7SxIIJCF6YwU4C87Qenk0aLQ31F0tIwnWUv83Qlc0Le1+83y2mDYI
+         uK3g==
+X-Gm-Message-State: AFuF++k1BKYTtIYB2yxzatYCqGjnDq8eDwtcqmeR1AdcNg+PL9WaQLev
+	aN0fKxWU+uX7NEOqoXSIsF2CyE6xVYzT0BWHPKRppZ0Hnk+0wtEivib7w5miXCcpqXdMe+Oc2eC
+	8Z8ZNozKAk7cXU3fk6ie3gpSjW4oGnbA=
+X-Gm-Gg: AYBFou1ayhhfIBEab+eA9cth+d8C15s0BVKCKKtEXpdM7rtsU872ljLWzJsGLUqQv9B
+	GNHVGADU9AsK7hDmJyVZt0lTs0hH16OTAxwPQPGveifZJiNJkIwYlrr9nsWwt7hjnM8OIaC9yql
+	zjy2pPW9IPuT1cHsdgyEDOXaS7CJDIOi1hOn2bD3gPPQ5W7mxFuYsHstGUjYh3XllvSq+Yxi8jy
+	lvETq42cbNrMtNDSXGH9MWOhXo7yuX4zVnNrIFR7sS+SkOaLdbSexe+Zv4+kvTg3ABtLB9JCNW3
+	/2G2Pazu2aC4zK6H1bQe0JzByPvPIY7WVI7bZR/hXJjXaCUntKGzefFN2UikW9oeO72CfF21/K4
+	jTnB8wekKozN5ln2E4N/DO/k=
+X-Received: by 2002:a2e:be14:0:b0:3a5:86d:cc95 with SMTP id
+ 38308e7fff4ca-3a5d836a181mr3616851fa.3.1789485985787; Tue, 15 Sep 2026
+ 08:26:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-acpi-hwmon-v1-1-20747f6fd218@thegoodpenguin.co.uk> <4b314524-c0f9-4528-b86d-645747b59ac9@roeck-us.net>
-In-Reply-To: <4b314524-c0f9-4528-b86d-645747b59ac9@roeck-us.net>
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Tue, 15 Sep 2026 16:26:06 +0100
-X-Gm-Features: AcwNN1XxYX75NCsGDaObHIJqn3mwhz-qjmKssIPNQcXV87DmDaAKScfTBr8_0y0
-Message-ID: <CAA6zWZJvWAcwnZaO7F-bBEejf0Qn7gFh1fWHLq598Uzz+zzLzA@mail.gmail.com>
-Subject: Re: [PATCH] hwmon: acpi_power_meter: use named initializers for acpi_device_id
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>, 
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+From: =?UTF-8?B?6auYIOS/iuaWhw==?= <btx342@gmail.com>
+Date: Tue, 15 Sep 2026 23:26:12 +0800
+X-Gm-Features: AcwNN1XLI-S8Qri36KguHBABgP6A7DQrLH0F9Q1qg0RpxEQlptTw_i6Ri3nwkQI
+Message-ID: <CAL-my2kByQ9LEkXwRbPJLR=B3szj4oZ73PVfQoTtiXfj3XZW6A@mail.gmail.com>
+Subject: =?UTF-8?Q?=5BBUG=5D_Redmi_Book_Pro_14_2024_=28TM2307=29=3A_fans_never_sp?=
+	=?UTF-8?Q?in_under_Linux_=E2=80=94_root_cause=3A_EC_gates_fan_engine_on_OSTP_b?=
+	=?UTF-8?Q?yte_=28tested_workaround=29?=
+To: platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, qby140326@gmail.com, W_Armin@gmx.de, 
+	ilpo.jarvinen@linux.intel.com, hansg@kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yeah I know, v2 is already there, messed up the fix up.
+Hi,
+
+This follows up on the report from Milo=C5=A1 Vlku about the Redmi Book Pro=
+ 14
+2024 (TM2307), where the fans never spin under Linux although the same
+hardware works fine under Windows:
+
+  https://lkml.iu.edu/hypermail/linux/kernel/2608.1/13832.html
+
+We have now root-caused the problem on an identical machine (second TM2307,
+Core Ultra 7 155H) and have a one-byte, experimentally verified workaround.
+Summary: the EC only runs its autonomous fan engine when the OSTP "OS type"
+byte in its shared memory window indicates a detected host OS. Under Window=
+s
+the DSDT _REG handler writes OSTP=3D6; under Linux nothing writes it, OSTP
+stays 0, and the EC never spins the fans. All OS-side fan paths (MIFS WMI
+fan functions, ACPI PNP0C0B fans) are separately broken on this board, so
+fans are unreachable from Linux even at 100 degC.
+
+Machine / software
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+  DMI: XIAOMI / Redmi Book Pro 14 2024 / TM2307
+  CPU: Intel Core Ultra 7 155H (Meteor Lake-H)
+  BIOS: XIAOMI RMAMT4B0P0A0A (06/04/2024)
+  Kernel: 7.2.3-arch1-3 (bitland-mifs-wmi incl. d3666875c75e)
+
+Symptoms (all verified)
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+  - Fans physically never spin under Linux, even with the package at
+    101 degC for minutes (verified by microphone recording: no acoustic
+    change; user-confirmed silence; multiple independent load tests).
+  - hwmon (bitland_mifs): fan1/2/3_input always 0, temp1 always 0.0 degC.
+  - fan_boost sysfs attribute (WMI function 20): write succeeds, no effect.
+  - No WMI fan events (26/32) ever fire (no hwmon uevents under load).
+  - Writing cur_state=3D1 to all five PNP0C0B cooling devices: no effect.
+  - acpitz thermal zone (SSDT23 TZ00) reports a constant ~26.9 degC while
+    coretemp reads 56-101 degC.
+  - Under Windows, fans work normally (per Milo=C5=A1 Vlku's dual-boot test=
+ on
+    the same board).
+
+Root cause =E2=80=94 DSDT/SSDT evidence chain
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+1) The EC's memory window and the OSTP byte
+
+   Under \_SB.PC00.LPCB.Q_EC (PNP0C09):
+
+     OperationRegion (ERAM, SystemMemory, 0xFE0B0300, 0x0100)
+
+   Q_EC._REG (fires when EC region space becomes available) maps the OS
+   version (OSYS) to an OSTP byte and writes it:
+
+     OSYS 0x03E8 -> OSTP =3D 2      (Linux)
+     OSYS 0x07D9 -> OSTP =3D 3      (Windows 2009)
+     OSYS 0x07DC -> OSTP =3D 4      (Windows 2012)
+     OSYS 0x07DD -> OSTP =3D 5      (Windows 2015)
+     OSYS 0x07DF -> OSTP =3D 6      (Windows 2021)
+
+   On this machine OSTP (ERAM offset 0x64) reads 0x00 under Linux: the
+   _REG write never happens (verified by dumping the window via /dev/mem;
+   the rest of the window is demonstrably live, e.g. live temperature
+   fields TSR0-TSRB at offsets 0x08-0x13, exposed to Linux via the SENx
+   DPTF sensors whose _TMP read these bytes directly).
+
+2) OSTP gates the EC's autonomous fan engine =E2=80=94 experimentally verif=
+ied
+
+   Writing OSTP=3D6 (/dev/mem, single byte) at idle, then running an
+   all-core load:
+
+     OSTP=3D0 (control):  101 -> 83 degC clamp, fans silent (no airflow)
+     OSTP=3D6:            fans audibly engage and follow the EC's own
+                        temperature curve; package temperature bends down
+                        mid-load (83 -> 70 degC) instead of plateauing
+     QFAN (ERAM 0x60)=3D4 ("full speed" performance mode value): fans spin
+                        at full speed regardless of temperature
+
+   After writing OSTP=3D6 once, fan behavior matches Windows (moderate ramp=
+,
+   full speed only near the EC's high thresholds). A systemd oneshot that
+   writes OSTP=3D6 at boot and after resume has kept the machine cool and
+   correctly fan-cooled since installation.
+
+3) The MIFS WMI fan functions are not implemented in this firmware
+
+   The MIFS WMI method is WMAA in SSDT20 (device WMID, _UID "MIFS"; _WDG
+   entry for GUID B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B, object id "AA").
+   Its GET (0xFA) and SET (0xFB) switches implement only functions 0x08
+   (SystemPerMode), 0x0A (country/kbd, sub 5) and 0x10 (misc). The fan
+   functions used by bitland-mifs-wmi fall through to
+
+     Default { SGER =3D 0xE000 }        /* unsupported, zeroed buffer */
+
+   i.e. function 0x0D (WMI_FN_FAN_SPEEDS) returns an all-zero buffer
+   (hwmon zeros incl. WMI_FN_CPU_THERMOMETER 0x16), and functions 0x14
+   (WMI_FN_MAX_FAN_SWITCH / fan_boost) and 0x15 (WMI_FN_MAX_FAN_SPEED)
+   are silently ignored =E2=80=94 exactly the observed behavior. So this bo=
+ard's
+   firmware is "MIFS reduced" in the same sense as the MIFS v2 machines
+   discussed in Yuming Sun's series, except here the WMI method exists
+   but the fan function cases are absent.
+
+4) The ACPI fan path is gated on a device this board does not declare
+
+   SSDT23 declares the five PNP0C0B fans (FAN0-FAN4) with PowerResources
+   FN00-FN04. Their _ON/_OFF only set software flags CVF0-4 and call
+   FNCL(), which ends in:
+
+     \_SB.PC00.LPCB.UPFS (ETMD, Local0, Local1)
+
+   and LPCB.UPFS (DSDT) does nothing unless
+
+     If ((CondRefOf (\_SB.PC00.LPCB.H_EC) && Arg0)) ...
+
+   H_EC is not declared anywhere in any table on this machine, so the
+   entire ACPI fan-control path is a silent no-op. This is why writing
+   cur_state=3D1 to the cooling devices changes nothing.
+
+5) The ACPI thermal zone yields to the (disabled) firmware controller
+
+   SSDT23 TZ00._TMP:
+
+     If (!ETMD) { Return (0x0BB8) }          /* constant 26.85 degC */
+     Return (\_SB.PC00.LPCB.MXTP ())
+
+   SSDT16 IETM._OSC sets \_TZ.ETMD =3D Zero when the firmware reports
+   native trip-point capability (CAP1 bit0 | bit1), selecting "firmware
+   manages thermals" mode. Combined with (1), the firmware never enables
+   fan control and the ACPI zone never reports real heat =E2=80=94 the kern=
+el
+   never sees a reason to act.
+
+6) Tachometer caveat for this generation
+
+   The ERAM offsets 0x69/0x6B used by the MIFS v2 fan-tach patch do
+   exist here, but they do NOT live-update on TM2307: they hold stale
+   values (fan1=3D2, fan2=3D0) even while the fans audibly spin. Reading
+   tach on this model will need a different mechanism (or none).
+
+Proposed fix
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Short term (upstream): have bitland-mifs-wmi write OSTP=3D6 (or evaluate/
+replicate the _REG OSYS mapping) at probe time for boards where the
+firmware leaves it at 0 =E2=80=94 ideally behind a DMI quirk. Note the pend=
+ing
+DMI-matching problem reported by Milo=C5=A1: this board (DMI_SYS_VENDOR
+"XIAOMI", DMI_BOARD_NAME "TM2307") matches neither "Redmi" nor "TIMI"
+entries, so any Redmi-specific quirk table needs an explicit TM2307/XIAOMI
+entry.
+
+Longer term: a hwmon pwm/fan interface for boards with the reduced
+firmware could drive QFAN (0x60) and read the SENx temperatures (ERAM
+0x08-0x13 / TSR0-TSRB), giving Linux users real fan control on this
+generation.
+
+Current workaround in place (for reference):
+
+  systemd oneshot service, runs at boot and after resume:
+
+    python3 - <<'EOF'
+    import os, mmap
+    f =3D os.open('/dev/mem', os.O_RDWR | os.O_SYNC)
+    m =3D mmap.mmap(f, 0x1000, offset=3D0xFE0B0000)
+    m[0x300 + 0x64] =3D 6   # ERAM offset 0x64 =3D OSTP
+    m.close()
+    EOF
+
+I have full acpidumps (DSDT + all 27 SSDTs, disassembled), the ERAM
+window dumps before/during/after experiments, and the load-test
+temperature logs. Happy to provide any of these, test patches, or help
+however useful.
+
+Thanks
+
+--=20
+@gaojunwen
