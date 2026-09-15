@@ -1,154 +1,157 @@
-Received: from mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCD137DAA2
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992C038E5E9;
+	Tue, 15 Sep 2026 14:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482311; cv=none; b=taju51yX1n/os7hc7psdlzXYHwh0XSU+AJfACdlmAyqaJ8haKphRVzLXfQNKFNx544NBHAP6Kzj63zT+HCo9e/hTjECrPvSLsNpzHpA52V1DLh/WaSd2pecLGS7nm+v1xqmOk825QLkDFhSskLWMO54yBykOPQ0gu3X4mwtiv9w=
+	t=1789482346; cv=none; b=DDuDeGISV6gsmNe8eujF76sJdj7Fd8rPl96Js2zZ9030VUbWk/PP2NgoN51xNmmSEssrm5D39o/L/azMQ/wmNkCxH/lmHSLb+fRrtuGYDPTCmn5yCcA/gJ1caPqK5NqJZaGW9geB5Bv/i8/OAMl6/MAOrmicPkxxb/drp5eHu84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482311; c=relaxed/simple;
-	bh=8mB/84XSzLWci86yLhGv7ckIJ/MKNaS0kbBnHtIQq3I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HhYuEaHU+sAo4auLCXyrz3Jk2E1uf0OqycPkdviM/LMw7hXjRKosjcVludh+5cIrqdg3hSfxojI5Q/oyJdig5SXseHZLgrwS0/oHqTWvnqFctAxQHVwmMHxgo1od24PlLwYKH7LWMBIx4Y/wqdb0SdMLsiTFu80ywcykT+16gLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mTwxcGGG; arc=none smtp.client-ip=91.218.175.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789482346; c=relaxed/simple;
+	bh=ucTHnbc9VTTokMhg4Q89YI/1gofGkYgVEHd0h0Jm5lk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bJRS2FTVoyZSxEk4y7ak3hr9CJKoQgzN7drkXPqJsCmzuvShLOo/u3vQxCTfU2JfN54BA0lHrH5jiOWiudQ/NZ4dWFDMRtVL553JCgWCuPGeoi4bB1CW21+sorloQqTViZA9845wukM2oibOQ6QOidKsHH/U570lbPoiyxVyvb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpOWlEX6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mTwxcGGG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8mB/84XSzLWci86yLhGv7ckIJ/MKNaS0kbBnHtIQq3I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789482307; v=1; x=1790087107;
- b=mTwxcGGGw3Ui4kxUrKsU3vv7X8oX0b/JvLmyUHbX3uEx6npAWp1v9yyGCOZ66MxIlNTCPqyF
- 7xJAvUvnnX5cTPMPCRi0HX3ztr0u+t+9Y+4HmM+H/RAX1pmB9FpYIZQQggNmmb+DPcMcT1kgfM0
- tO/vFPIjnyvTlzzMtzkAoD9c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9d3e11ce2a81f597;
-	Tue, 15 Sep 2026 14:24:57 +0000
-X-Mizu-Trace-ID: 9d3e11ce2a81f597
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so491e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:24:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw88mTrdveio3k5CQYDRy+gH3PXEUjygPboeFXFcmDpZcqiiK+XDyfsi0t+aIH4+qUyrRyY+ZFaPJfdUxM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbag1N0I/VTc6XSWAfJZFpG7IZCyaRe3FHxtIuZH+nLLZwZVk8
-	EuEbpBRTtNYKy9u1ZiGyrk1UuSNyx7zTSbH0+Vm5BboTyqJZMelqXRrMPfP/XXJlatLeoDjNldf
-	KbpFDyOJ+rZXQn1J3nNGXj5dkrtmQmn4swVbnolH9
-X-Received: by 2002:a05:6512:224d:b0:5ae:b9c5:f29f with SMTP id
- 2adb3069b0e04-5b8b2d0dd46mr158308e87.2.1789482295897; Tue, 15 Sep 2026
- 07:24:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpOWlEX6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5154C1F0089E;
+	Tue, 15 Sep 2026 14:25:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789482344;
+	bh=41P4RsZFtpH5NGFfQV+UZfxuwGC9lxZAIr1dw8RbTR4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XpOWlEX6GlUhNRuKshbD4eV+VEWBxo/aZrSmcGDmlWldOIv2oE0bi2PvRXl6eBz4P
+	 RDmTK0sJjLksTMFuzt/fanlQTp8CDwd2ASUZcxjD/mPd5LSu6/vz+2kf3z+RKdoR4Y
+	 54d8u34R+rtJn7lOtpEg9sezQx4Fuw88RI/i+JGwTrYovq9jfevfBhs+nfQ+ARliu+
+	 bnwHo5WZKnXl9omRdCilRPgX4vGWWWL8czheQi9hZ7UGe570w/e7MBIC5hu5h5OuDi
+	 OBpOv3iOs3URkcWqtnKKa+I3OAdzpd7wzPITmwFaT5iKV/8N33zzqTPaKd6nio9Zit
+	 SCuNzx4N2FHUw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 9/9] mm/memory-failure: keep inherited poisoned
+ frames out of the buddy allocator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zi Yan" <ziy@nvidia.com>, hannes@cmpxchg.or, "Danilo Krummrich" <dakr@kernel.org>, "Oscar
+ Salvador" <osalvador@suse.de>, "Vlastimil Babka" <vbabka@kernel.org>, "Thomas
+ Gleixner" <tglx@kernel.org>, shakeel.butt@linux.dev, "Ard Biesheuvel" <ardb@kernel.org>, "Michal
+ Hocko" <mhocko@suse.com>, "Dave Hansen" <dave.hansen@linux.intel.com>, "H.
+ Peter Anvin" <hpa@zytor.com>, "Andrew Morton" <akpm@linux-foundation.org>, "Borislav
+ Petkov" <bp@alien8.de>, "Ingo Molnar" <mingo@redhat.com>, x86@kernel.org, "Miaohe
+ Lin" <linmiaohe@huawei.com>, kas@kernel.org, "Mike Rapoport" <rppt@kernel.org>, "Naoya
+ Horiguchi" <nao.horiguchi@gmail.com>, "Brendan Jackman" <brendan.jackman@linux.dev>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Johannes
+ Weiner" <hannes@cmpxchg.org>, "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, "David
+ Hildenbrand" <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Breno Leitao" <leitao@debian.org>, "Suren
+ Baghdasaryan" <surenb@google.com>
+Cc: kexec@lists.infradead.org, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, riel@surriel.com, harry@kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com, linux-mm@kvack.org, rmikey@meta.com
+In-Reply-To: <20260915-hwpoison-kho-v5-9-3bc7a57bd503@debian.org>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <20260915-hwpoison-kho-v5-9-3bc7a57bd503@debian.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 14:25:41 +0000
+Message-Id: <20260915142542.5154C1F0089E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260807164322.2970811-2-sebastianene@google.com> <20260807164322.2970811-8-sebastianene@google.com>
-In-Reply-To: <20260807164322.2970811-8-sebastianene@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 15 Sep 2026 15:24:19 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxCEfXeS+HHyZTcz2noKDXpWh9ZNdKUvnKoRhsDh5gwGQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WdffUDGaH0K4qtZGCCLrjwJKbs1nT14K5OlGCk62Z_-efTBPCTagEvW6Y
-Message-ID: <CA+EHjTxCEfXeS+HHyZTcz2noKDXpWh9ZNdKUvnKoRhsDh5gwGQ@mail.gmail.com>
-Subject: Re: [PATCH v2 06/13] KVM: arm64: Shadow the ITS command queue and
- setup emulation
-To: Sebastian Ene <sebastianene@google.com>
-Cc: catalin.marinas@arm.com, joey.gouly@arm.com, mark.rutland@arm.com, 
-	maz@kernel.org, oupton@kernel.org, rananta@google.com, 
-	Sascha.Bischoff@arm.com, suzuki.poulose@arm.com, will@kernel.org, 
-	kvmarm@lists.linux.dev, android-kvm@google.com, bgrzesik@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	nathan@kernel.org, perlarsen@google.com, seiden@linux.ibm.com, 
-	smostafa@google.com, tglx@kernel.org, vdonnefort@google.com, 
-	vladimir.murzin@arm.com, yuzenghui@huawei.com, zenghui.yu@linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Seb,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] mm: panic when accepting clean pages sharing an unaccepted unit wi=
+th poisoned pages
+- [Medium] mm: lost memory failure stats due to lockless update in hwpoison=
+_boot_page()
+--
 
-The approach looks right to me. A few things I'd fix, though:
+commit 92cea9db628cbe8f9651b225628684a39c80ddd4
+Author: Breno Leitao <leitao@debian.org>
+Subject: mm/memory-failure: keep inherited poisoned frames out of the buddy=
+ allocator
 
-On Fri, Aug 07, 2026 at 04:43:16PM +0000, Sebastian Ene wrote:
+This commit intercepts inherited poisoned pages before they enter the buddy
+allocator. It processes memory blocks by checking for poisoned pages, flagg=
+ing
+them, and passing the remaining clean pages through the allocator. This
+prevents unaccepted memory blocks with poisoned frames from being mistakenly
+re-merged.
 
-[...]
-
-> Co-authored-by: Bart=C5=82omiej Grzesik <bgrzesik@google.com>
-> Signed-off-by: Sebastian Ene <sebastianene@google.com>
-
-Could you switch this to Co-developed-by: and add Bart=C5=82omiej's
-Signed-off-by after it?
-
-[...]
-
-> +void pkvm_its_emulate_handler(struct pkvm_protected_reg *region, u64 off=
-set, bool write, u64 *reg,
-> +                              u8 reg_size)
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index b07b5f4751cb9..cca67a2702a42 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+[ ... ]
+> @@ -1597,6 +1597,25 @@ static void __meminit accept_and_free_block(struct=
+ page *page,
+>  	__free_pages_ok(page, order, FPI_TO_TAIL);
+>  }
+> =20
+> +static void __meminit free_poisoned_block(struct page *page, unsigned in=
+t order,
+> +					  enum meminit_context context)
 > +{
-[...]
-> +        for (reg_handler =3D its_handlers; reg_handler->access_size; reg=
-_handler++) {
-> +                if (reg_handler->offset > offset ||
-> +                    reg_handler->offset + reg_handler->access_size <=3D =
-offset)
-> +                        continue;
+> +	unsigned long i, nr_pages =3D 1UL << order;
 > +
-> +                if (reg_handler->access_size < reg_size)
-> +                        return;
+> +	for (i =3D 0; i < nr_pages; i++) {
+> +		struct page *p =3D page + i;
+> +		phys_addr_t phys =3D page_to_phys(p);
 > +
-> +                if (write && reg_handler->write) {
-> +                        hyp_spin_lock(&priv->its_lock);
-> +                        reg_handler->write(region, offset, *reg);
+> +		if (range_contains_poisoned_memory(phys, PAGE_SIZE)) {
+> +			hwpoison_boot_page(p, context);
 
-The match could require the offset and size to be exact. The handlers
-ignore offset, so a 4-byte access at GITS_CWRITER + 4 matches this
-entry and runs as a full 64-bit one. (Sashiko)
+[Severity: Medium]
+Is this call to hwpoison_boot_page() safe from data races during memory
+hotplug?
 
-> +static int pkvm_setup_its_shadow_cmdq(struct its_host_state *host_state)
-> +{
-> +        u64 start_pfn, num_pages, i;
-[...]
-> +        start_pfn =3D hyp_virt_to_pfn(host_state->cmd_host_copy);
-> +        num_pages =3D host_state->cmdq_len >> PAGE_SHIFT;
-[...]
-> +        ret =3D __pkvm_host_donate_hyp(hyp_virt_to_pfn(host_state->cmd_o=
-riginal), num_pages);
+When called during hotplug (where context =3D=3D MEMINIT_HOTPLUG),
+hwpoison_boot_page() calls update_per_node_mf_stats() which performs
+non-atomic read-modify-write operations on the node stats:
 
-Should setup take the base and size from GITS_CBASER and reject a
-mismatch? Nothing ties cmd_original or cmdq_len to it, so a wrong base
-leaves the ITS on the real queue the host still writes, and a short
-cmdq_len runs the cwriter_write() memcpy past the donated pages.
-(Sashiko)
+mm/memory-failure.c:update_per_node_mf_stats() {
+    ...
+    ++mf_stats->recovered;
+    ...
+}
 
-> +unshare_cmd_host:
-> +        if (i =3D=3D 0)
-> +                return ret;
+Since hwpoison_boot_page() does not acquire mf_mutex, could a concurrent
+memory_failure() execution on the same NUMA node corrupt the recovered and
+total counters?
+
+> +			continue;
+> +		}
 > +
-> +        for (i =3D i - 1; i >=3D 0; i--)
-> +                __pkvm_host_unshare_hyp(start_pfn + i);
-> +        return ret;
+> +		/* this part of the block is not poisoned */
+> +		accept_and_free_block(p, 0);
 
-while (i--) would do it. i is a u64, so i >=3D 0 always holds and the
-loop wraps at zero instead of ending. (Sashiko)
+[Severity: High]
+Can this sequence cause a kernel panic when accepting clean pages that share
+an unaccepted memory unit with poisoned pages?
 
-> +        priv_state->base =3D (void __iomem *)__hyp_va(dev_addr);
-> +        priv_state->cmd_original =3D host_state->cmd_original;
-> +        priv_state->cmd_host_copy =3D host_state->cmd_host_copy;
-[...]
-> +        its_reg->priv =3D priv_state;
+When a clean page belongs to an unaccepted memory region,
+accept_and_free_block() invokes accept_memory(). However, accept_memory()
+operates at the unit_size granularity (typically 2MB) and rounds down the
+start address to this boundary before calling arch_accept_memory():
 
-An smp_store_release() here would order those writes and the memset
-above against the region->priv read pkvm_its_emulate_handler() does
-locklessly on other CPUs.
+drivers/firmware/efi/unaccepted_memory.c:accept_memory() {
+    ...
+    arch_accept_memory(phys_start, phys_end);
+    ...
+}
 
-> +        ret =3D __pkvm_host_donate_hyp(hyp_virt_to_pfn(priv), priv_num_p=
-ages);
-[...]
-> +err_with_priv:
-> +        WARN_ON(__pkvm_hyp_donate_host(hyp_virt_to_pfn(priv_state), 1));
+Because the clean page and the poisoned page share the same unaccepted
+unit_size block, won't arch_accept_memory() be inadvertently executed on the
+poisoned page as well?
 
-priv_num_pages should come back here, not one, or the rest stay
-hyp-owned. (Sashiko)
+If arch_accept_memory() attempts to accept physically poisoned memory (such
+as via TDX TDG.MEM.PAGE.ACCEPT), could this trigger an unrecoverable Machine
+Check Exception?
 
-Cheers,
-/fuad
+> +	}
+> +}
+> +
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-hwpoison-k=
+ho-v5-0-3bc7a57bd503@debian.org?part=3D9
