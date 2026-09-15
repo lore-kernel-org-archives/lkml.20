@@ -1,140 +1,313 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B809C37D12E;
-	Tue, 15 Sep 2026 14:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BBD4A4EE1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:54:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484016; cv=none; b=TyW48riov+3rDgrX2m+YrF5NcgbH0yiyAOt2wG4/vQLhEeQDcOPKIc+E8whdhH66/179y875sxwWy2bHkmDiMbRuKffLXv5SBClJn5n+Bu2PaNlQ03yJaDgnTT15Z/UIviWT05eQni0LTtUbDEDmDMCDG4uuYbw/v65EF2Twm4o=
+	t=1789484050; cv=none; b=IN+FyQPBJ9R6PChMjE9R78ByYr5xfG6OhglB5t2SCvDScSUH/RNdH+X/NFPadCP0uei5J2WUSg9ImsKQhZt1kufTu0wDMWWT1LgKLoVHqaCxovDOJF+PDlXJGBt5RbUFI8eSbUVbnQ7McCbYwaU0osg1eF/gg9Rjo7YyMS5gt0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484016; c=relaxed/simple;
-	bh=PeCPQwsh+qKGrcT3bTdkFKnhdBA1fVZf3KBFD/Bg9AY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eH6D+Rf4VPPwVjnW+9cjeYaxzemGKNRTlQ/FMfiUc5cGSf2m5atZcuCEDTTntM1hyzSFIvSm61WafJWu57M40+MsDCd/UJNhCKZZMrB1g2rVD6WFgifcVyN2p2ge++ELArPMJh/G7GM/KC5nDyy60hEBhbKh1LrKnibNVXFrAA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Tc9Dk6Yy; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789484050; c=relaxed/simple;
+	bh=OspN7MKSFmprrrS2PxdNlMmUOibbtdADDRJnLjEgeMQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Pr/B6PZCbqTdBSifqqKanJIeGlBM3RlHEPF16rAhHJP0Lqo0Ha8tqqx8wZdi7Y7slKdtylQzX6cwrXqKMk4z4yt5ZzPwzt2R3tjS5hCgh8GOf2ZzhCPko4H7uuO8jqSvlg5ZWlmOCAwPg6TVBWtzW7+uG/R/Me9Qty4gNAa/M98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eP/Gw6sO; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Tc9Dk6Yy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789484015; x=1821020015;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=PeCPQwsh+qKGrcT3bTdkFKnhdBA1fVZf3KBFD/Bg9AY=;
-  b=Tc9Dk6YyScGEtemGXaTh9nko1vd+MmLxHp0f+fRLtzZjZwSoUoanPi4a
-   ISgxOZcTDwk8zAtiWRjSgQGt56ttaIahGcbcgdqg2dOn7amwn6V0Ulrrx
-   KRodF9Z6j4qNpC75xH7FFGn9bBp4rYRX4cXsNxVbYUT2dBd1zNoxfJGC0
-   +5hnAPGqQEXQ2O4dhGMwqV69QGwnEdGawo9bgJ6A/h10ChAY+CzdbEva2
-   Vh24SbsY+tmUgcou1/fANVZSR/AAb2m6S27yWduTztipHkO8t7udx4S60
-   gfNu6bJSTqYLK8JoAHh/YPv2CKYs4gNleDXoZM31TJoa2dXKcVKxDF8pj
-   A==;
-X-CSE-ConnectionGUID: xjQH2LblSqWHRjGFDAU1/w==
-X-CSE-MsgGUID: tkMc6KQWSiW+FeMThGZ7DA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112619422"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="112619422"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:53:34 -0700
-X-CSE-ConnectionGUID: pD+gpyMUTpWXizQXOXxYtA==
-X-CSE-MsgGUID: MNUHoTn5StWYHXkAWDsF7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277156120"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.57])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:53:29 -0700
-Date: Tue, 15 Sep 2026 17:53:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
- new header
-Message-ID: <aqlb5iZQ07Xicq0m@ashevche-desk.local>
-References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
- <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
- <aqgCQvRw9fns__0d@SMW015318>
- <aqjzvxI4ecoFvRLT@ashevche-desk.local>
- <aqlYOHIFU_dB72I3@SMW015318>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eP/Gw6sO"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f38so36424525ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:54:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789484048; x=1790088848; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dMa7SuymF3JpSxZj/WgqSEvagr3KGVZWyIDh4Tap88k=;
+        b=eP/Gw6sO7TcCjNS7FfkEjVNfwIPnx+hYEEZrh7f56v8Z87oHSBODy0vuRo0jWozWpN
+         Pje5pd/1ufqGJwx3DkRT0Q1MccNBLYzbVqDHNmlP/8Ky3x4XL4W8kAumgt0+5rj48Uul
+         mg5Nmk3Bw+W/Y5FwEFpi3qWfbuSLhZ+W9+Ro8Pq4K2t5AQQ8hnrWihlYhr7Gc0fm7Qg+
+         ajSU4/WH9/ZFJmmAkiIxJIIDwdCmtAl0Yyre3RhoNlR9QN8mmYQ2XZ/V6zjfAbS9XNYR
+         Eu9PWZSctvhbzHniWuDVw3ukhAEPRgkpbE/q+73dpx6EWwfZ8+q8WDqj7gG38GmJmyaO
+         DtDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789484048; x=1790088848;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dMa7SuymF3JpSxZj/WgqSEvagr3KGVZWyIDh4Tap88k=;
+        b=Mrlzd+cQyMGpQq8TqIHKyH4nGQtuxuJ1ktFTAE9131C2vPlY+VbbHQtvKq+RfMPRT4
+         bqhbuKG48/RnToeItnzEpG7oY5tfQE65023ja7d8iqx5i20t6wfI+Zsm66puUg1pXTNP
+         N3qOqLiEOhomdz3NDcCcZBUF7bShJfkb7jYlMkv7c/+TUkRxOo0Vx6bz3j3OZFT+qXgD
+         n4PSSoRlpbYQ04ei7beON67eycopHw4zxsgpyloF4sMmo0xq+JR2vsW0Ky60WVKg1shQ
+         0wG1bTP/5ZZDCUNGpRi6EGNol50g9iUUl012YkDY7Pqu7jCiNcmhmwGz1W7kncVwuC8w
+         f5Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBycfcYK5Alv+qqZnRHg4fsCzSRYXmWGkb2nRuwhiHPqERtB6D68mGHHDRE+4qf7qXQL3aRhsXACxBWYUtc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mX0pRbW1oR7fwUpHtmrREd0Y/w4UyTCn1XEU9LCzvP4R80WBCO
+	qU2gao+4HEHVjebdcui7Ci6MkYKVYIaM3UQotQ/4ViLPk6gg4PZq0Z1H
+X-Gm-Gg: AYBFou1ikqmDQP/o+jnl3ftVv80IdZV4JnWfLZ27a1AJuBhROoai63l7up7l9EYOhrx
+	h/v8fqgHyQvQB2pSY9YbP7gJGnzdbwQVfI07Oh2/TmRLNT0rjzjMA/rZ7O36cd5e+QzWub6oxSH
+	g7ws20gTYEErukpXBNoEBzxsa2db0QcB51Yp2BtfTrY/L8YUv6pyTfby3mpqLDFApopaXXotg0u
+	62qTUYte7btqqgQw7p4yTTs0vgJbZ11t8xssYkd3XljLhwsBMAyS41Cv8TdB8MNPux93Hhy5Pay
+	STB9ShKyntA9ppuv5mp6Fn9m3R/dKa9GWlaTlsDzIe9DyIGEosC7Zh4saazEQ0k3XxqjukJ7AGh
+	s8ZcBhsuM3dfjhDppwZqxzKcdFytlqDoHK8Pm1woKzbcagY7gzW409rz+lrNkR4ly/DuAaMI8uQ
+	aByVQ26Ic3x47rx5yVbAm/+lFcPYKvVnkrKJINMb2kl6o4YkmXIAPSEDmJlHt0o5kRlEm1Lu32S
+	doN02W+jNJdlu1b0CWwr+gl/kZDVQNnI1ki4moTmJVte4Unb2feQ2fd1QA4NcEcXFLL/67mnNFw
+	GY9ES2cAr3Zj4gPHla0DBcAwvhvGRkY=
+X-Received: by 2002:a17:903:240d:b0:2d8:d4cc:be68 with SMTP id d9443c01a7336-2dd6c75858dmr177039915ad.21.1789484047919;
+        Tue, 15 Sep 2026 07:54:07 -0700 (PDT)
+Received: from NV-9MNJ414.tailae2068.ts.net (2001-b011-2005-787e-21e6-43b5-0185-f167.dynamic-ip6.hinet.net. [2001:b011:2005:787e:21e6:43b5:185:f167])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff297esm68555405ad.73.2026.09.15.07.54.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 07:54:06 -0700 (PDT)
+From: Yiwei Lin <s921975628@gmail.com>
+To: alim.akhtar@samsung.com,
+	avri.altman@sandisk.com,
+	bvanassche@acm.org
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robelin <robelin@nvidia.com>,
+	Yiwei Lin <s921975628@gmail.com>
+Subject: [PATCH v2] ufs: sysfs: fix current_power_mode read without SSU
+Date: Tue, 15 Sep 2026 22:53:54 +0800
+Message-Id: <20260915145354.8194-1-s921975628@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqlYOHIFU_dB72I3@SMW015318>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Sep 15, 2026 at 09:37:44AM -0500, Frank Li wrote:
-> On Tue, Sep 15, 2026 at 10:29:03AM +0300, Andy Shevchenko wrote:
-> > On Mon, Sep 14, 2026 at 09:18:42AM -0500, Frank Li wrote:
-> > > On Fri, Sep 11, 2026 at 06:25:36PM +0100, Nuno Sá wrote:
-> > > > In preparation for the bitmap based bus width capabilities, move
-> > > > enum dma_slave_buswidth out of linux/dmaengine.h into a new
-> > > > include/linux/dma/engine/types.h.
-> > > >
-> > > > linux/dmaengine.h is included nearly everywhere, so growing it with the
-> > > > new interface would make every one of its users pay for it. Keeping the
-> > > > basic types in a separate header lets the new interface live next to it
-> > > > without that cost. linux/dmaengine.h includes the new header, so its
-> > > > users are unaffected.
-> > > >
-> > > > While at it, add the missing kernel-doc for the enum members. The block
-> > > > already opened with /**, so kernel-doc expected every member to be
-> > > > described and warned about each one of them. Describe the UNDEFINED case
-> > > > in particular, as its meaning depends on where the value is used.
+From: robelin <robelin@nvidia.com>
 
-...
+current_power_mode was generated by UFS_ATTRIBUTE(), which calls
+ufshcd_rpm_get_sync() before issuing the query.  That resumes the UFS
+device WLUN, and ufshcd_wl_runtime_resume() sends START STOP UNIT to
+bring the device back to Active.  As a result bCurrentPowerMode always
+read back as 0x11 (Active) no matter what state the device was actually
+in: the act of reading the attribute woke the device, so Sleep could
+never be observed through sysfs.
 
-> > > >  include/linux/dmaengine.h        | 20 +++-----------------
-> > >
-> > > I think it is good to split dmengine consumer and provider header files to
-> > > hidden dmaengine's detail.
-> >
-> > It's indeed desirable change. but isn't it a bit out of scope of the series?
-> > I suggest to do one step at a time. Would it work for you?
-> 
-> Yes, but I hope the file name is finial expected file name. it is okay
-> just move enum dma_slave_buswidth to there now.
+Per the UFS spec, bCurrentPowerMode is the one attribute the device
+must answer in any power mode, so there is no need to wake it.  Give
+current_power_mode its own show function that deliberately does not
+resume the WLUN.  It only resumes the host controller then reads the
+attribute over whatever link state the WLUN suspend left behind:
 
-Hmm... The whole split as is in this series is due to bitmap.h and the whole
-train wreck with headers we have. I haven't checked that particular enum, but
-if it's possible to gather it in one of provider.h/consumer.h at the end, then
-yes, we may name file accordingly from day 1.
+ - link active: query directly.
+ - link in Hibern8: exit Hibern8, query, then re-enter Hibern8 so the
+   link is left exactly as rpm_lvl requested.
+ - device powered down or link off (rpm_lvl 4/5/6): fail, the device
+   cannot answer without a full resume.
 
-> > > suggest name
-> > > 	dma/engine.h
-> > >
-> > > so we can start move more API to this files.
-> > >
-> > > after all user include this consumer header file,  old
-> > > include/linux/dmaengine.h rename to include/linux/dmaengine-provider.h,
-> > > which only include by dmaengine drivers.
-> >
-> > Traditional naming would be
-> > dma/engine/provider.h
-> > dma/engine/consumer.h
+Tested on hardware: with the device runtime-suspended (wb_on=0, so the
+device actually reaches Sleep instead of being held Active for a WB
+flush), reading current_power_mode used to return 0x11; after this
+change it returns 0x22 (Sleep), matching the device's real state.
 
+Assisted-by: LLM
+Signed-off-by: Yiwei Lin <s921975628@gmail.com>
+
+---
+Change-Logs in V2:
+- Synchonize the race between WLUN suspend/resume and other contexts
+  that change the link power state.
+- Restore UFS link if exiting Hibern8 for the query, then re-enter Hibern8 so the link   is left exactly as rpm_lvl requested.
+
+---
+ drivers/ufs/core/ufs-sysfs.c   | 74 +++++++++++++++++++++++++++++++++-
+ drivers/ufs/core/ufshcd-priv.h | 11 +++++
+ drivers/ufs/core/ufshcd.c      | 12 +++---
+ include/ufs/ufshcd.h           |  3 ++
+ 4 files changed, 94 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/ufs/core/ufs-sysfs.c b/drivers/ufs/core/ufs-sysfs.c
+index 63e670d1a9d9e..a500ca697e5d3 100644
+--- a/drivers/ufs/core/ufs-sysfs.c
++++ b/drivers/ufs/core/ufs-sysfs.c
+@@ -1786,7 +1786,79 @@ out:									\
+ static DEVICE_ATTR_RO(_name)
+ 
+ UFS_ATTRIBUTE(boot_lun_enabled, _BOOT_LU_EN);
+-UFS_ATTRIBUTE(current_power_mode, _POWER_MODE);
++
++/*
++ * Per UFS spec, bCurrentPowerMode is the only attribute the device must
++ * respond to in any power mode.  Read it without waking the device to
++ * Active.
++ */
++static ssize_t current_power_mode_show(struct device *dev,
++	struct device_attribute *attr, char *buf)
++{
++	struct ufs_hba *hba = dev_get_drvdata(dev);
++	bool exited_h8 = false;
++	u32 value;
++	int ret = 0;
++
++	down(&hba->host_sem);
++	if (!ufshcd_is_user_access_allowed(hba)) {
++		ret = -EBUSY;
++		goto out_unlock;
++	}
++
++	pm_runtime_get_sync(hba->dev);
++
++	ufshcd_hold(hba);
++	scoped_guard(ufshcd_wl_pm, hba) {
++		if (ufshcd_is_link_off(hba) || ufshcd_is_ufs_dev_poweroff(hba)) {
++			/*
++			 * Device is powered down (rpm_lvl 4/5) or link is off
++			 * (rpm_lvl 5/6): nothing to query until a full resume.
++			 */
++			ret = -EINVAL;
++			break;
++		}
++
++		if (ufshcd_is_link_hibern8(hba)) {
++			ret = ufshcd_uic_hibern8_exit(hba);
++			if (ret) {
++				dev_err(hba->dev, "%s: hibern8 exit failed %d\n",
++					__func__, ret);
++				break;
++			}
++			ufshcd_set_link_active(hba);
++			exited_h8 = true;
++		}
++
++		ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
++			QUERY_ATTR_IDN_POWER_MODE, 0, 0, &value);
++
++		if (exited_h8) {
++			int h8_ret = ufshcd_uic_hibern8_enter(hba);
++
++			if (h8_ret) {
++				dev_err(hba->dev, "%s: hibern8 enter failed %d\n",
++					__func__, h8_ret);
++				ret = h8_ret;
++			} else {
++				ufshcd_set_link_hibern8(hba);
++			}
++		}
++	}
++	ufshcd_release(hba);
++	pm_runtime_put_sync(hba->dev);
++
++	if (!ret)
++		ret = sysfs_emit(buf, "0x%08X\n", value);
++	else
++		ret = -EINVAL;
++
++out_unlock:
++	up(&hba->host_sem);
++	return ret;
++}
++static DEVICE_ATTR_RO(current_power_mode);
++
+ UFS_ATTRIBUTE(active_icc_level, _ACTIVE_ICC_LVL);
+ UFS_ATTRIBUTE(ooo_data_enabled, _OOO_DATA_EN);
+ UFS_ATTRIBUTE(bkops_status, _BKOPS_STATUS);
+diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
+index e55c2a02c1f50..df61074843f06 100644
+--- a/drivers/ufs/core/ufshcd-priv.h
++++ b/drivers/ufs/core/ufshcd-priv.h
+@@ -3,6 +3,7 @@
+ #ifndef _UFSHCD_PRIV_H_
+ #define _UFSHCD_PRIV_H_
+ 
++#include <linux/cleanup.h>
+ #include <linux/pm_runtime.h>
+ #include <ufs/ufshcd.h>
+ 
+@@ -15,6 +16,16 @@ static inline bool ufshcd_is_user_access_allowed(struct ufs_hba *hba)
+ 
+ void ufshcd_schedule_eh_work(struct ufs_hba *hba);
+ 
++DEFINE_LOCK_GUARD_1(ufshcd_wl_pm, struct ufs_hba,
++	({
++		mutex_lock(&_T->lock->wl_pm_mutex);
++		_T->lock->pm_op_in_progress = true;
++	}),
++	({
++		_T->lock->pm_op_in_progress = false;
++		mutex_unlock(&_T->lock->wl_pm_mutex);
++	}))
++
+ static inline bool ufshcd_keep_autobkops_enabled_except_suspend(
+ 							struct ufs_hba *hba)
+ {
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 2ba244cf40ac7..7431c0ae9ce74 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -10294,7 +10294,8 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 	enum ufs_dev_pwr_mode req_dev_pwr_mode;
+ 	enum uic_link_state req_link_state;
+ 
+-	hba->pm_op_in_progress = true;
++	guard(ufshcd_wl_pm)(hba);
++
+ 	if (pm_op != UFS_SHUTDOWN_PM) {
+ 		pm_lvl = pm_op == UFS_RUNTIME_PM ?
+ 			 hba->rpm_lvl : hba->spm_lvl;
+@@ -10467,7 +10468,6 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 		hba->clk_gating.is_suspended = false;
+ 		ufshcd_release(hba);
+ 	}
+-	hba->pm_op_in_progress = false;
+ 	return ret;
+ }
+ 
+@@ -10475,9 +10475,11 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ {
+ 	int ret;
+-	enum uic_link_state old_link_state = hba->uic_link_state;
++	enum uic_link_state old_link_state;
++
++	guard(ufshcd_wl_pm)(hba);
+ 
+-	hba->pm_op_in_progress = true;
++	old_link_state = hba->uic_link_state;
+ 
+ 	/*
+ 	 * Call vendor specific resume callback. As these callbacks may access
+@@ -10568,7 +10570,6 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 		ufshcd_update_evt_hist(hba, UFS_EVT_WL_RES_ERR, (u32)ret);
+ 	hba->clk_gating.is_suspended = false;
+ 	ufshcd_release(hba);
+-	hba->pm_op_in_progress = false;
+ 	return ret;
+ }
+ 
+@@ -11256,6 +11257,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+ 	INIT_WORK(&hba->eeh_work, ufshcd_exception_event_handler);
+ 
+ 	sema_init(&hba->host_sem, 1);
++	mutex_init(&hba->wl_pm_mutex);
+ 
+ 	/* Initialize UIC command mutex */
+ 	mutex_init(&hba->uic_cmd_mutex);
+diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+index dfd302f2dc7c1..ac7da4bd260cb 100644
+--- a/include/ufs/ufshcd.h
++++ b/include/ufs/ufshcd.h
+@@ -1010,6 +1010,8 @@ enum ufshcd_mcq_opr {
+  * @is_powered: flag to check if HBA is powered
+  * @shutting_down: flag to check if shutdown has been invoked
+  * @host_sem: semaphore used to serialize concurrent contexts
++ * @wl_pm_mutex: serializes WLUN suspend/resume against other contexts that
++ *	change the link power state while the WLUN may be suspended
+  * @eh_wq: Workqueue that eh_work works on
+  * @eh_work: Worker to handle UFS errors that require s/w attention
+  * @eeh_work: Worker to handle exception events
+@@ -1176,6 +1178,7 @@ struct ufs_hba {
+ 	bool is_powered;
+ 	bool shutting_down;
+ 	struct semaphore host_sem;
++	struct mutex wl_pm_mutex;
+ 
+ 	/* Work Queues */
+ 	struct workqueue_struct *eh_wq;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
