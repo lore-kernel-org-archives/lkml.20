@@ -1,210 +1,90 @@
-Received: from mta0.migadu.com (out-109.mta0.migadu.com [91.218.175.109])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.systemli.org (mail1.systemli.org [93.190.126.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4658E450909
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0942637E5E9;
+	Tue, 15 Sep 2026 19:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501873; cv=none; b=ETF/0SV0KtInKbJ745j1bEhv8L543hyEmbRrVaHtFaQ7bmiLSVGZLuNwUQhe71axZj9N376RpsuiGHXJHo5PLXx1WI5W7DVsShgF1SKmSchiQa+xd85WhlJ8ficE2GvO99t85x3B2CiYJIoD7bxZY53IuUlr5ADibg1uCCJxmDk=
+	t=1789501891; cv=none; b=QW+VjxmNRvoR5h4DiXyUe7mlM4SyQjEyvJfoJOCmsLwZtxy20r32iy45vbso7yzCRXvqeLZr8JNOVKjDwG2STH+jbk3wY/JjgIwtWNOakR1IxY9oytyHIg39rTlgaNKKMDDUpXDkz5RzOGoZJQhXDtI3SvrsEQMRVP0/VInA8CM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501873; c=relaxed/simple;
-	bh=uAf2DJcdhrhTYI1UJ6GNxaESDfQLXKd+SMlyrQoroTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dZLdWGkhYBp1l0mLoSIzYEBOuavSeT2/sPfLbo6hXWKJGSMVZuAcNInlmkpFWWK+ItMp0aC+8msa2L1CFoMM2vutXF/YbYEST557rEPqa2JzPmL3PNbARqCf74j1xSUFx7IZoovM8rzlOFRstSlJF/csY4U8DtBFyoZSM72pASE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nsj8AtOt; arc=none smtp.client-ip=91.218.175.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789501891; c=relaxed/simple;
+	bh=/LzEA/vfK9gBlWZYzjnqlgIBNIC6LZn4m26JyPUQNw4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g7OGznVVKZ6nuCTVma2EGNNDq3QKY5GW+kl9RNhUZdvPxF2XQCzIftWSADZGiUULYqs6H1zX/hN7WDr+JXRrQoBZmU289O4crmemMa7IHO7Zvdnf7rnwwyCPtrZLhKCxDhn7tWVmn8ECPCO5yHG+qWDLl2DEnGthwugR9cuWOWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=systemli.org; spf=pass smtp.mailfrom=systemli.org; dkim=pass (2048-bit key) header.d=systemli.org header.i=@systemli.org header.b=pPYmGx7b; arc=none smtp.client-ip=93.190.126.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=systemli.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=systemli.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nsj8AtOt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uAf2DJcdhrhTYI1UJ6GNxaESDfQLXKd+SMlyrQoroTM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789501869; v=1; x=1790106669;
- b=nsj8AtOtPOgMApO0KqyHXvOYlEPTN8afxEZ27h/qxar0Ia4CYNAKqzFVWTd8hq/rMEZZWlhA
- 8HZNq8O1Y6emzDzslFPnxL7R6E9NgSrxF10YI1RLZoflX/ahjLiolNQurCGGHi5eGZxcpTb1DUj
- dDtI1QlNTbzdFPgJTnVd0zw4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id df467dddeed73729;
-	Tue, 15 Sep 2026 19:51:09 +0000
-X-Mizu-Trace-ID: df467dddeed73729
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 15 Sep 2026 21:51:03 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/10] media: i2c: ov9282: harmonize dev_err_probe usage
-Message-ID: <aqmhSapyl1p7rTpK@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-8-f520af59df1b@linux.dev>
- <CAPY8ntB-vJR-Z-x3NV18NHueVGuo6zd8J7Mf6GQDYgZuJq8LDw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=systemli.org header.i=@systemli.org header.b="pPYmGx7b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
+	s=default; t=1789501446;
+	bh=VgOKdKh1SL/E+wcXifPjZ8hXUr7i0WUXSAq45A/JBs8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=pPYmGx7b9KiXmZJ6El4YMx7he/Y0JNr0X/4xicQHrRwEm6NtdDs1Zyq5mgqdMY3Na
+	 lJC+qSD9dp6VIOf26R6aIzKnkXo0Aebyh3dtS+mZyLY7PuTsigUQKRqwy5BL4LJvYC
+	 g1RhBg/SG3/fc6Rq0/Dsg5Jw70rURVyeoW+Wx2QM4Tf1ZJVzC44GNtiM6+ySxITmIi
+	 UUV9J71u65rJAwhtc44Hr9cMIgj8NvVmoXwi9GZXfwhHLR/wTDItLMN01Rwc3yUyqf
+	 STkxghHNsZZ5JEhzs1XIzNBIHJf2s6/V5tPYWhFTQ3/CRdRzxDDKL+nRaP+RUALqJo
+	 WSgnEHoQD1+1Q==
+From: Nick Hainke <vincent@systemli.org>
+To: linux-wireless@vger.kernel.org
+Cc: Nick Hainke <vincent@systemli.org>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] wifi: ath9k: restore background spectral scan after reset
+Date: Tue, 15 Sep 2026 21:43:27 +0200
+Message-ID: <20260915194327.30397-1-vincent@systemli.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntB-vJR-Z-x3NV18NHueVGuo6zd8J7Mf6GQDYgZuJq8LDw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Dave,
+A reset leaves spectral_mode set to SPECTRAL_BACKGROUND, but resets the
+spectral registers and receive filter. The driver therefore still reports
+a background scan even though the hardware no longer produces FFT samples.
 
-thanks for the review!
+Re-trigger background spectral scanning after reset recovery so the
+software and hardware state match again. Do not re-trigger spectral
+scanning in disabled, manual, channel-scan, radar, or off-channel modes.
 
-On Tue, Sep 15, 2026 at 03:55:01PM +0100, Dave Stevenson wrote:
-> Hi Richard
-> 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > Use dev_err_probe() for all error messages during probing. This ensures
-> > there's a common "look-and-feel" in the drivers source code as well as
-> > the system log.
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  drivers/media/i2c/ov9282.c | 38 ++++++++++++++++++--------------------
-> >  1 file changed, 18 insertions(+), 20 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index 28f8b05b4c09e..f728709fcf0a6 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -1109,26 +1109,25 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
-> >         ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
-> >                                                      GPIOD_OUT_LOW);
-> >         if (IS_ERR(ov9282->reset_gpio)) {
-> > -               dev_err(ov9282->dev, "failed to get reset gpio %pe",
-> > -                       ov9282->reset_gpio);
-> > -               return PTR_ERR(ov9282->reset_gpio);
-> > +               return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
-> > +                                    "failed to get reset gpio");
-> >         }
-> >
-> >         /* Get sensor input clock */
-> >         ov9282->inclk = devm_v4l2_sensor_clk_get(ov9282->dev, NULL);
-> >         if (IS_ERR(ov9282->inclk))
-> >                 return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->inclk),
-> > -                                    "could not get inclk\n");
-> > +                                    "could not get inclk");
-> 
-> My understanding is that dev_err_probe should always have the \n on
-> the end of the log text.
-> Admittedly "failed to get reset gpio %pe" above is missing it, but
-> removing it off all the other instances seems to be the wrong fix.
+Assisted-by: Claude:opus-5
+Signed-off-by: Nick Hainke <vincent@systemli.org>
+---
+ drivers/net/wireless/ath/ath9k/main.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Thanks for the pointer. I wasn't aware of this convention. Also the
-documentation of dev_err_probe mentions nothing. Nonetheless when
-grepping through the kernel source I totally agree. "\n" is definitely
-preferred.
+diff --git a/drivers/net/wireless/ath/ath9k/main.c b/drivers/net/wireless/ath/ath9k/main.c
+index 740a6fc7b067..00e587fe6ee3 100644
+--- a/drivers/net/wireless/ath/ath9k/main.c
++++ b/drivers/net/wireless/ath/ath9k/main.c
+@@ -231,6 +231,17 @@ static bool ath_prepare_reset(struct ath_softc *sc)
+ 	return ret;
+ }
+ 
++static void ath_restore_spectral_scan(struct ath_softc *sc, bool start)
++{
++	struct ath_common *common = ath9k_hw_common(sc->sc_ah);
++
++	if (!start || sc->cur_chan->offchannel || sc->hw->conf.radar_enabled ||
++	    sc->spec_priv.spectral_mode != SPECTRAL_BACKGROUND)
++		return;
++
++	ath9k_cmn_spectral_scan_trigger(common, &sc->spec_priv);
++}
++
+ static bool ath_complete_reset(struct ath_softc *sc, bool start)
+ {
+ 	struct ath_hw *ah = sc->sc_ah;
+@@ -269,6 +280,7 @@ static bool ath_complete_reset(struct ath_softc *sc, bool start)
+ 		ath_restart_work(sc);
+ 		ath_txq_schedule_all(sc);
+ 	}
++	ath_restore_spectral_scan(sc, start);
+ 
+ 	sc->gtt_cnt = 0;
+ 
+-- 
+2.55.0
 
-I will adapt this for v2.
-
-regards;rl
-
-> 
-> Otherwise the patch looks fine.
-> 
->   Dave
-> 
-> >
-> >         ret = ov9282_configure_regulators(ov9282);
-> >         if (ret)
-> >                 return dev_err_probe(ov9282->dev, ret,
-> > -                                    "Failed to get power regulators\n");
-> > +                                    "Failed to get power regulators");
-> >
-> >         rate = clk_get_rate(ov9282->inclk);
-> >         if (rate != OV9282_INCLK_RATE) {
-> > -               dev_err(ov9282->dev, "inclk frequency mismatch");
-> > -               return -EINVAL;
-> > +               return dev_err_probe(ov9282->dev, -EINVAL,
-> > +                                    "inclk frequency mismatch");
-> >         }
-> >
-> >         ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
-> > @@ -1144,16 +1143,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
-> >                 bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
-> >
-> >         if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
-> > -               dev_err(ov9282->dev,
-> > -                       "number of CSI2 data lanes %d is not supported",
-> > -                       bus_cfg.bus.mipi_csi2.num_data_lanes);
-> > -               ret = -EINVAL;
-> > +               ret = dev_err_probe(ov9282->dev, -EINVAL,
-> > +                                   "number of CSI2 data lanes %d is not supported",
-> > +                                   bus_cfg.bus.mipi_csi2.num_data_lanes);
-> >                 goto done_endpoint_free;
-> >         }
-> >
-> >         if (!bus_cfg.nr_of_link_frequencies) {
-> > -               dev_err(ov9282->dev, "no link frequencies defined");
-> > -               ret = -EINVAL;
-> > +               ret = dev_err_probe(ov9282->dev, -EINVAL,
-> > +                                   "no link frequencies defined");
-> >                 goto done_endpoint_free;
-> >         }
-> >
-> > @@ -1382,14 +1380,14 @@ static int ov9282_probe(struct i2c_client *client)
-> >
-> >         ret = ov9282_parse_hw_config(ov9282);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "HW configuration is not supported");
-> > -               return ret;
-> > +               return dev_err_probe(ov9282->dev, ret,
-> > +                                    "HW configuration is not supported");
-> >         }
-> >
-> >         ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
-> >         if (IS_ERR(ov9282->regmap))
-> >                 return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->regmap),
-> > -                                    "Failed to init CCI\n");
-> > +                                    "Failed to init CCI");
-> >
-> >         ret = ov9282_power_on(ov9282->dev);
-> >         if (ret)
-> > @@ -1399,7 +1397,7 @@ static int ov9282_probe(struct i2c_client *client)
-> >         /* Check module identity */
-> >         ret = ov9282_detect(ov9282);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "failed to find sensor: %d", ret);
-> > +               dev_err_probe(ov9282->dev, ret, "failed to find sensor");
-> >                 goto error_power_off;
-> >         }
-> >
-> > @@ -1409,7 +1407,7 @@ static int ov9282_probe(struct i2c_client *client)
-> >
-> >         ret = ov9282_init_controls(ov9282);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "failed to init controls: %d", ret);
-> > +               dev_err_probe(ov9282->dev, ret, "failed to init controls");
-> >                 goto error_power_off;
-> >         }
-> >
-> > @@ -1422,14 +1420,14 @@ static int ov9282_probe(struct i2c_client *client)
-> >         ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
-> >         ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
-> > +               dev_err_probe(ov9282->dev, ret, "failed to init entity pads");
-> >                 goto error_handler_free;
-> >         }
-> >
-> >         ov9282->sd.state_lock = ov9282->ctrl_handler.lock;
-> >         ret = v4l2_subdev_init_finalize(&ov9282->sd);
-> >         if (ret < 0) {
-> > -               dev_err_probe(ov9282->dev, ret, "failed to init subdev\n");
-> > +               dev_err_probe(ov9282->dev, ret, "failed to init subdev");
-> >                 goto error_media_entity;
-> >         }
-> >
-> >
-> > --
-> > 2.53.0
-> >
-> >
