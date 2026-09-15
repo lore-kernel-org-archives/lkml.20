@@ -1,179 +1,186 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DBD3955D1
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD845394EB7;
+	Tue, 15 Sep 2026 07:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458728; cv=none; b=mtlAC/dtBezCnQrOAQ+rHV3z72HC2Cemrdhj+V7YItGJTnVKR5BuqTtVFvSkvh8w+4zkVluzrM3RdVJkR1zXrVzl2j0Wu49Q8F8S95CKX9KL6wOhvYHEMhFyqWZi7KSXqskE4Y8D6D+FbaB9el7qJ9k9CY58RL6pB7/31PkWJrM=
+	t=1789458883; cv=none; b=Zismas3jsTRhqqlivAMMe0b00KqBA7ghzxLVhMYdZGgcdwldGTHOsmcHihP2so2EQkI1rhT/OyLnPVrq3G5RQxWwz1iicqBXinnHDPDa0NhGgRYRS9FFIJ8rrrr5h6vs+EFGWdbTXzAKtEnSZMamixK6vXe7zhmlbfM0N7KYdLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458728; c=relaxed/simple;
-	bh=nUrrJ67BvVR5ReXOWw06MC+NIt4Yqnp5jRGHZjfrxAw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=R+gjZ9/pTu26G7hS3gidL9bpfCLEJRweQgXt6LDbG0n9FhxW1gGlStH/w2y68PIzJLXOwNgHrsnh37FyCL6SRwNPtfMNgmEAorVxs7q6MeMWOn+GOmVXz96axKs9+i7BuBYoQ3uc3u9j6mP2c3AdY1Yh4ZcSKtGY2OAyfjRk4VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GKOgCUBl; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789458883; c=relaxed/simple;
+	bh=+5UWXHwJeOt0Hc8dPnMATDTS2OAN7EFFOL08oPuC3l8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=beR6iyAmypbJkbUdCfG0oKnmRG7rKnGTS7IhtvgUMpgC0XuS6FbBUNIxRzCQT3ZVkAdrWcjatReunoaVC/vmJhp2861ZBoIdgVIILgftst5EDoL0c2vqrStdm/aZYRsjrKtoz9d3Rxgkp6TMBbiLf1Fa2rHqaYEG00vogRuyzUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bFyiLNRv; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GKOgCUBl"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so2705685a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:52:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789458725; x=1790063525; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=InihkQshOO4cHzIVJSU1wlqwaITpxYmllW34k3TOqVo=;
-        b=GKOgCUBlhvAOZxYTpENTtNzGYQDf+waVYTfMFec7GM+fuIBB0KsJxlYoc5/UPafxlR
-         byBO5PvsmhRgYjoBXKKTjrtQ+J2EzGa1LFYLqnjHRFg7PtS9uTO53gZgBEKPa8VHOyA5
-         MxG0YFAXbrBFNfFW6fAy98LF2cWwN8tQJPSre1fe9npmQac2J7by265amyIzVbvgjK2V
-         oyxlpGcJSYCXkAptbBMovyaKQyyvkEu84x2GNPrUwJE3rPBh6TKJD97kz0jFjknpMo5u
-         xCow9ZIrqOOgfsVltcNb0BwjD3q7eJB//c2XBFYKeN7LRQt/wWytendQEBVrlB2LQTHW
-         qnvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789458725; x=1790063525;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=InihkQshOO4cHzIVJSU1wlqwaITpxYmllW34k3TOqVo=;
-        b=q/Zwb2wz3RzOJyTYe+pV11vXAVoDgQ8ittmKVl/CwCjnbGPv0s2Sz8HA5Eyi6HOOPQ
-         aljIBcSwX4xi1ATyqVsJAWM/70+GtMzlEMotT5IogYZAjdMGmDe4n61ybzlRxcRvwaZn
-         7LY3g+aLvt2/4mAQZMzMuZE1Ybk9ILwcUmUseIUFAZB64zgvHHq+R84kvZfMar0wDB4S
-         GcuZ21UT4c4NZba2aUJvrcGDWc+3GaPWxGT2NzywpAaGdwEN9Eemb8kfwBcsxcp7qw+j
-         qoqyx/QfuuLoB1HvpMUlVDRUSXCIH8xge9ObHA14VJ8bJhiNXoq0ukaOBrzwFluB68KR
-         IXvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZwk/2I30S4K4f3M8n2oRjIyR4rm3l5pp4zwhHBowTxe6cvqkSsTrgaQ2g2yYkIp3oVTWvw92+gVzZADA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWj1bI+GYW59LDNQpL+jvlOkXZLXNNVCcd9HzPEZ8V+e1fPR8k
-	ZrJcAIsiApqWLHpKMdnlvCnapT+p6uBelEipXOa/Ljft0QpLQUg+73qS
-X-Gm-Gg: AYBFou38G/dBHWw2RL7uNrONxHoIfrpedpdHMtDi6JgZMJnqoAWW6J22P2jG2sPGt1o
-	HpBjQ7PEWUYMB6bWyjtvFpBlWXVYukZ4Dad+FKGm8P/ujcw9BYBkOFhQsF8VEsTgTbBelSEySKA
-	7onbiG3ipvQJN1Em/gQ6e8Pap/opkOV43kbwwFGCG3UbDMhc1ElPton1rf2OROxq/P+gh1swYbG
-	N0hbVZhjkSSwprWWt2UFTcpVb7Kr7WdueXOAQI+IlxAo2yo7VBYK2QFbft75DDPulQo/GJwTUkc
-	JXXIUf0srbB5C27pRscGgFEFzfRM/YyfnQufiajkCRby3BrNaBLmKDLLm/fo8S0DAr8jsxWHrm9
-	sEthOmTUgzhop4L4j5okkwMQeQWASyE02ddNZiJ4lpg6bvawXir+1cgeD7RI+9YBkQN3SlAN4Nq
-	4fcKWwZ01n6J3sN1KTsiVTLu03ie0F35kEgDUhXICjwj7ZhSauIvzYVldkcZFtvU4XFyRS19DRa
-	BT/DTbRrIB6JKGIaMOV4C8XfNWn5kOMEJDdotvZ/Z6w
-X-Received: by 2002:a17:90a:e704:b0:39a:e002:f192 with SMTP id 98e67ed59e1d1-39dec0d27f3mr13913010a91.22.1789458725101;
-        Tue, 15 Sep 2026 00:52:05 -0700 (PDT)
-Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp. [106.167.137.155])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdb3045bsm4141912a91.17.2026.09.15.00.52.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 00:52:04 -0700 (PDT)
-Message-ID: <b5df5eee-661e-4f46-9abf-1bd9cec8069d@gmail.com>
-Date: Tue, 15 Sep 2026 16:52:03 +0900
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bFyiLNRv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789458882; x=1820994882;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=+5UWXHwJeOt0Hc8dPnMATDTS2OAN7EFFOL08oPuC3l8=;
+  b=bFyiLNRvDLGWDXsWOmLi6wcgU48iluxZoq+2vlCTsHMVph1xRKQUDmsO
+   lQivLj4H51ZxujJ0/dzzSo4AR8XAhMVZdpKyvVKeUNxIsKXp5N4+nMRU6
+   iafCy3hhvoqZg3aNAPnxhJm6dWm2q0G5adH4IkICXPjvIe7toaT3zOXF8
+   /EafiHk5alnT827ec0AAnv6xhTizblgLTeLNZRq3UDERyHxtq9x8KR4g0
+   f1qgrmjeIxWvWMcxu7I+gQFHYbSXp7rGG0zfH/Ps8Lyx5t1ReGHMhGuSK
+   68szQ+jOl+AitDBT8+PswRjzIW4RdOljCDyEYFMHF5Lj2Ptb6ytcgK3w7
+   w==;
+X-CSE-ConnectionGUID: zdEUbtUTSzGdwsfTok4qRw==
+X-CSE-MsgGUID: eP1XA8zjTtK17IaLGmHlIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101163762"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101163762"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:54:41 -0700
+X-CSE-ConnectionGUID: ntZYtCX7R7KkXpBIwLfNWw==
+X-CSE-MsgGUID: 496booTBRXe/ga0RmXoyoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269205397"
+Received: from allen-box.sh.intel.com ([10.239.48.101])
+  by fmviesa010.fm.intel.com with ESMTP; 15 Sep 2026 00:54:36 -0700
+From: Lu Baolu <baolu.lu@linux.intel.com>
+To: iommu@lists.linux.dev,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Cc: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	yilun.xu@linux.intel.com,
+	xiaoyao.li@intel.com,
+	Chao Gao <chao.gao@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Lu Baolu <baolu.lu@linux.intel.com>
+Subject: [PATCH 0/5] iommu/vt-d: Introduce trusted DMA initialization support
+Date: Tue, 15 Sep 2026 15:42:28 +0800
+Message-ID: <20260915074235.1219183-1-baolu.lu@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Akira Yokosawa <akiyks@gmail.com>
-Subject: Re: [PATCH v2] docs: sphinx-pre-install: warn about unsupported
- Docutils versions
-To: Masaharu Noguchi <nogunix@gmail.com>
-Cc: Chen Miao <chenmiao.ku@gmail.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>
-References: <20260914-docs-sphinx-pre-install-docutils-v2-1-6a2a6deedd19@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260914-docs-sphinx-pre-install-docutils-v2-1-6a2a6deedd19@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 Hi,
 
-On Mon, 14 Sep 2026 19:35:40 +0900, Masaharu Noguchi wrote:
-> Sphinx declares the range of Docutils versions it supports, but that range
-> does not always describe what its LaTeX builder can take: a distribution
-> may relax the upper bound to ship a newer Docutils, and Sphinx 9.0.x
-> declares support for a Docutils its LaTeX builder cannot cope with. Either
-> way the pair installs happily and htmldocs builds without a complaint, so
-> nothing looks wrong until pdfdocs is run, where four of the books fail:
-> 
->   ! Dimension too large.
->   \fb@put@frame ...p \ifdim \dimen@ >\ht \@tempboxa
->   l.86321 \end{sphinxVerbatim}
-> 
-> That is arch, core-api and translations; admin-guide runs out of TeX
-> memory first and stops 13 pages in, and fails on the same boxes once given
-> more.  Each of the four includes a large literal file whole; the one in
-> core-api, memory-barriers.txt, is 3016 lines.  Docutils 0.22 is what puts
-> those blocks into sphinxVerbatim rather than sphinxalltt, and
-> sphinxVerbatim is framed, so they hit the size limit of
-> sphinx-doc/sphinx#3099 [1] -- open since 2016 and fixed only in Sphinx
-> 9.1.0.  None of the three is at fault on its own: it takes the Docutils
-> version, the Sphinx version and blocks this large.
-> 
-> Keeping everything else fixed -- one Debian 13 container, one TeX Live, an
-> unmodified texmf.cnf, one kernel tree -- and varying only the two Python
-> packages:
-> 
->   sphinx   docutils   core-api   admin-guide
->   ------------------------------------------
->   8.2.3    0.21.2     ok         ok
->   8.2.3    0.22.4     FAILS      FAILS
->   9.0.4    0.22.4     FAILS      FAILS
->   9.1.0    0.22.4     ok         ok
-> 
-> The 9.0.4 row needs no help from a distribution: 9.0.0 through 9.0.4
-> declare "docutils>=0.20,<0.23" themselves, so a plain "pip install
-> sphinx==9.0.4" resolves Docutils to 0.22.4.  Fedora 44 reaches the same
-> state from the other direction, shipping Sphinx 8.2.3 -- which declares
-> "docutils>=0.20,<0.22" -- patched to accept "<0.23".  Upstream ships this
-> sort of work in a new minor rather than backporting it -- the Docutils
-> 0.22 support went out as 9.0.0 after a backport to 8.2.x was asked for and
-> declined [2] -- so neither 8.2.x nor 9.0.x will grow the #3099 fix in a
-> point release.
-> 
-> Check for it, since sphinx-pre-install exists precisely to catch a
-> documentation build environment that will not work.  Ask the interpreter
-> behind sphinx-build for its Docutils version -- a venv and the system
-> install can differ -- and warn when Sphinx is older than 9.1.0 while
-> Docutils is 0.22 or newer, naming both ways out -- a newer Sphinx or an
-> older Docutils.  Only warn: the build is left to proceed, and htmldocs is
-> unaffected.  The bound Sphinx declares is no use here: it is either what
-> the distribution changed, or, for 9.0.x, wider than what the LaTeX builder
-> delivers.
-> 
+This series adds Intel VT-d trusted extension support to the host Intel
+IOMMU driver as groundwork for TEE I/O trusted DMA (e.g. TDX Connect).
 
-As this is expected to be resolved in Fedora 45, I didn't see much
-point in adding this warning.  I now see Ubuntu 24.04 LTS has the
-problematic pair of Sphinx and docutils ...  So it might be worth
-to have. 
+The trusted extension introduces a parallel, extension-specific path for
+trusted DMA assets used by confidential device assignment. Existing VT-d
+functionality remains unchanged for regular host DMA paths.
 
-That said, with your approach, under a build env with a problematic
-pair, this is what you'd see in "make htmldocs":
+From the TDX Connect architecture perspective, VT-d is enhanced with:
 
-$ make htmldocs
-Warning: Sphinx 8.2.3 with Docutils 0.22.4 produces
-   broken LaTeX for the large literal blocks in this
-   documentation: pdfdocs will fail. Building them needs
-   Sphinx 9.1.0 or later, or Docutils below 0.22.
-   HTML builds are unaffected.
-[...]
+  1) Trusted DMA translation root table
+     - A second root-table address register, restricted to SEAM SAI.
+     - Programmed by the TDX module with the root of TDX-managed DMA
+       translation tables for TD-assigned devices.
 
-I think this can annoy people who only care HTML docs.
+  2) Trusted invalidation queue
+     - A second invalidation-queue address register plus dedicated
+       head/tail registers, also restricted to SEAM SAI.
 
-Why not do this check after the PDF doc builds have actually failed.
+  3) IOTLB / DID isolation
+     - When TDX Connect is enabled, VT-d restricts VMM DID usage and
+       reserves the DID MSB namespace bit for TDX-module use.
 
-That is what sphinx-build-wrapper is doing with LatexFontChecker().check()
-(see line 557 of tools/docs/sphinx-build-wrapper), which is to
-show the way to work around PDF build errors caused by "variable font"
-flavor of Noto CJK fonts [3].  (Fedora and openSUSE have started to
-deploy such fonts in 2024.)
+This posting focuses on VT-d-side enablement only: it enables those
+extension-defined resources and control points while preserving existing
+host VT-d behavior for non-trusted flows. Higher-layer integration
+(TDX guest/device flows) will be posted separately.
 
-[3]: https://bugzilla.redhat.com/show_bug.cgi?id=2271559
+The trusted IOMMU extensions establish an architecture where only
+TEE-I/O DMA requests can access TD private memory, and only the TDX
+module can configure TEE-I/O access-control permissions. The host
+allocates memory for data structures used by the TDX module to 
+manage trusted DMA, then requests the TDX module (via SEAMCALL) to
+enable the extension in each IOMMU. 
 
-Regards, Akira
+Non-TEE-I/O DMA requests are unaffected and continue to be managed 
+by the host through existing IOMMU interfaces.
 
-> [1]: https://github.com/sphinx-doc/sphinx/issues/3099
-> [2]: https://github.com/orgs/sphinx-doc/discussions/14055
-> 
-> Signed-off-by: Masaharu Noguchi <nogunix@gmail.com>
-> ---
+Patch Breakdown:
 
-[...]
+- Patch 1: Implements low-level SEAMCALL wrappers (TDH.IOMMU.SETUP/CLEAR)
+  to interface with the TDX module.
+- Patch 2: Parses platform global metadata fields to calculate required
+  IOMMU metadata page requirements.
+- Patch 3: Introduces the core driver entry points.
+- Patch 4: Implements the metadata page allocation and SEAMCALL
+  sequences required to configure and release IOMMU units in trusted
+  mode.
+- Patch 5: Restricts the domain ID (DID) space allocated to the host by
+  reserving the MSB for exclusive use by the TDX module.
+
+ABI History:
+
+TDH.IOMMU.CLEAR previously required the host to provide, as input, the
+parameter page used for TDH.IOMMU.SETUP. This ABI has changed to remove
+that requirement. Because this ABI change is not yet public, it may
+cause confusion when referring to the ABI specification.
+
+Reference:
+
+Implementation details follow the interfaces and behavior defined in the
+TDX Connect Application Binary Interface (ABI) Reference Specification
+and Intel TDX Connect Architecture Specification:
+
+Link: https://cdrdv2.intel.com/v1/dl/getContent/858625 # [1]
+Link: https://www.intel.com/content/www/us/en/content-details/862706/intel-tdx-connect-architecture-specification.html # [2]
+
+This is part of the effort to implement the TDX PCIe Link Encryption
+feature, which includes the following components:
+
+[ ] TDX module extensions initialization, posted in [3]
+[X] Introduce trusted DMA initialization support
+[ ] SEAMCALL helpers for TDX PCIe Link Encryption
+[ ] PCIe Link Encryption Establishment via TDX platform services
+
+A full preview of these dependencies and follow-up changes is avaiable
+at [4].
+
+Link: https://lore.kernel.org/r/20260618081355.3253581-1-yilun.xu@linux.intel.com # [3]
+Link: https://github.com/intel-staging/tdx/tree/tdisp_phase1 # [4]
+
+Please review. Any feedback is highly appreciated.
+
+Thanks,
+Baolu
+
+Lu Baolu (5):
+  x86/virt/tdx: Add SEAMCALL wrappers for IOMMU setup/clear
+  x86/virt/tdx: Read global metadata for trusted IOMMU
+  iommu/vt-d: Add interfaces for trusted DMA initialization
+  iommu/vt-d: Add helpers to set up and tear down TDX extensions
+  iommu/vt-d: Reserve MSB of domain ID space for TDX module
+
+ drivers/iommu/intel/Kconfig                 |  14 ++
+ drivers/iommu/intel/Makefile                |   1 +
+ arch/x86/include/asm/tdx.h                  |   3 +
+ arch/x86/include/asm/tdx_global_metadata.h  |   5 +
+ arch/x86/virt/vmx/tdx/tdx.h                 |   2 +
+ drivers/iommu/intel/iommu.h                 |  24 ++
+ include/linux/dmar.h                        |  12 +
+ arch/x86/virt/vmx/tdx/tdx.c                 |  56 +++++
+ arch/x86/virt/vmx/tdx/tdx_global_metadata.c |  20 ++
+ drivers/iommu/intel/dmar.c                  |   3 +
+ drivers/iommu/intel/iommu.c                 |  11 +
+ drivers/iommu/intel/tdxc.c                  | 248 ++++++++++++++++++++
+ 12 files changed, 399 insertions(+)
+ create mode 100644 drivers/iommu/intel/tdxc.c
+
+-- 
+2.43.0
+
