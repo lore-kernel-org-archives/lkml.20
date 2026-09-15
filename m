@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFFE38423A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECBD45D935
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456597; cv=none; b=tSVVY+w7tfzoSxnguFdDj8008gKFz8iaDZscp+0ujNEuo6jiuM2IyyOF54UwNDB/4DkW5koX4v9RN3RD5lAlTF49vbyvSnRH3fNtjktHmoIPeNPq6IVIe/GTEdn+ewIPQaJd5Ot1IcTw+jaiaADnkhcklOYE5vyOJQWKuXBEF6c=
+	t=1789456610; cv=none; b=la8j9a0x0D5EhPKE5r34+zsZ9Oh9BoZqTNIEUcAWeMGlf8bGbIxlU3+sD0ZcJreAZ0/1jOXGYGzowsccExRN+9zjnfLNEEnrBcv9SBkgE45zvUIKxMUB/FR1GOY3BINUMI4KIBDn7w8CVZrqckPkdtU+iD0D5hDKn1tDQEMZCtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456597; c=relaxed/simple;
-	bh=NF3ddzUfo/3eIQKDC/wsRnOuXvG5lgOW1mkc/KT7w9Y=;
+	s=arc-20240116; t=1789456610; c=relaxed/simple;
+	bh=ly0eko061Qlf/uDE0HQLjreuewjv2PPwW/vrF9/DA5g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Bg/RrAWQuCa0/P73JrPTcNIGly1ucVqCCSB02WhN5tabDqufaNe/6VgwrlgkWHvQWYQbVQxwqLKZ/gEVE3LUJpvYdsigLrzoWFoou80CwIsp4FtqFbfo6GnUhH7dFfPHcFQfpSZ1WwDUJ50stgAfwBADyl9N/xhTltI3XhUxKOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VfUftpWX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g/lMlBvQ; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=rCUVHswappJAI6Uvz6ZqnyJkzY+3Q/mGpSKZwguuMLAjKsjjPrne7zjxnbuT+Dc+Ujg8beZtGqUu4o3XtoKtViYdeIQmErFkqhQOucoJvGkFc3T3XY/X0SZCHhVDY+1XaE96prM3gQEofcYQysRTvHWO2YTPJOoEP9P4IP5Gt7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JG0KXhnR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bX2MQc3a; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VfUftpWX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g/lMlBvQ"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZbaP3824012
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:34 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JG0KXhnR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bX2MQc3a"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZOoc1661442
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0qgmlv3XWxHqYEcDtaQStAaCiJTua/7d1HfjcjuBqWI=; b=VfUftpWXJpGHZevx
-	5UfeudRRRp4y2BVM5eZc9U3nHz0ehqU78Sh1jKTgPHEW5q+rJYa/fQdS6WoQMULf
-	228jVwdemQSI0HtwEmMO0WuFqWoW6lKplxl9ezpgy+GBmQnYiJuPSQSbTVGGmMW8
-	0GcCCjp7yKqEHSSMNiYNKn4x4gD23uNYzUiuF8KcDLQWyfgIzpswozAnLjAMV/x6
-	42hwBQ4W4vYFcM+UtAPrDWc1YvfV0vtYz7CIvXIg3fRAeezfDyU53t9hPUN95JUv
-	0+/A29x44bgmraiQLwp9PTWvelYo7Rd9cEIRXZ5+R8HkkCeYxXxDVqrcAvNhe53D
-	FBPN+w==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpn41u0nr-1
+	fTqVRfaAxudbHUUsHz0djLyzEwtkEiMK6H/EzB30hZM=; b=JG0KXhnRe0WnZHAP
+	iUwfZ62ONv6ZsdeAK6dTLq1BJcen0HiH6g3V1hiQ9+VnZNF13voELp9kDi+kXwCo
+	SUdeDsE6FA+vxtStPRfFq6nRNdHCo9Xd34/Z5yALRpmTjlNwNSSAFTiOixo1iu2K
+	mL8zZXy8vIPJ223PNqJpEZhDQyIb/n1aPh6qWUyMNa9wxpKBPf5taHKAa5nraqB8
+	jkBUqlL0xzY0FibgASXsziXaHfkUV+aZczhzYtCfP3hYHXJCjyvJbpi/q1AyEuRQ
+	whQ/sMJ2ROYjmH+irENNvIV59lQMzu+weiiE8tfi4TYAukhlnw3uhChigZe37Bon
+	Eaukqg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpergcg1t-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:34 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so3141131a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:16:34 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:42 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso7707670a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:16:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789456594; x=1790061394; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789456602; x=1790061402; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0qgmlv3XWxHqYEcDtaQStAaCiJTua/7d1HfjcjuBqWI=;
-        b=g/lMlBvQxislesSKnATRFOLvLlRTy/TD55bJvkJQ8LCRkir9zIjNs4GiHf/PTwcYLV
-         xzPaodhOYPWaYKkMXPDLLGvhUxgGPOZ1rDiH8Ar8se786W1eT019NS2MpGoEsJdyq+/n
-         Eni8ysRPik/+EX29JeNZP1FEra4ol5+kh9AI9mIiimINMHpsCHRIqt2d5+pKuuLKcJRe
-         4pX1WSRFbjPCpCEnLlUg7YnluYQn6LUmW+Aa1aUes2rk2ueOY1/CveWagCRFslhMnEXa
-         CIDftTg+P9bC98GGeXfpKhy5OCvun8yCsatOcO7UnlBfBimLzLjNa92Vmps/sBRlqOE0
-         D23Q==
+        bh=fTqVRfaAxudbHUUsHz0djLyzEwtkEiMK6H/EzB30hZM=;
+        b=bX2MQc3awKvcgs/OdGpoEyOSzl0T0SzEXMxnq+lhSWFLhxieVgCkGF1Z6w8n3WmKBW
+         4njIBneY65hh/qwXxZ8OTsBAT+te/ZuuJn/U/07lPB5ImVDKM21ck9m06Fa835Gtah1h
+         l9nv2nU3c2VsbsbK0dxzMz0LgBSByLlBeFOAPmKoYzGgUGtHGRxXPko4uhgrE8DvSnh/
+         eQ+wEZtwu+60NTMD7ZlSZIq6vuoyGASGD23eXnCFHTmaaModX6TZsv5Gtx7G+/18Lqnp
+         4wamj1prAgJweNQegZ5/UlufBHudU1VKbgH/6uAYEzbV40bMANF+8ye+w76CkESqmZMU
+         2poQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789456594; x=1790061394;
+        d=1e100.net; s=20260707; t=1789456602; x=1790061402;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0qgmlv3XWxHqYEcDtaQStAaCiJTua/7d1HfjcjuBqWI=;
-        b=J3ojBuOM/aU/3k1PKVbXPsAlZb3PLPOg1JGdpDB6egVQzbeTGtrLMLClfsP8MeDhMu
-         xTxLm+jIt+mBztKjh08H9kfZ9q/YT/58aUoksqNQCOSG2vIm+PBHuus4N4UX6rHHUiFo
-         DelLJfNgteln1lGWHOsdqG5VupGyvGJDOhE7wxDw0BJriStTMjg7sqAkcprW+JbP5Fej
-         nXw5DVcglwqIk/ADRmR0OntXiyTcWuGadNaPPi5vpt8yg4mgI8+VWjsPIBz07ucgblgr
-         cGs3PgISHRHovQQyHrn5/REpnd99w9gzfuozIPDRQUEO9QRmqKzwLU6QO6oEW/Py1lRN
-         O9MA==
-X-Forwarded-Encrypted: i=1; AKwUvBynnE5bQcMDmPCJQ/CH4rvuBIkwocSnAOJiJBnAShob5uGtAvImzIROQwszZBVT48vptXeUuUYnz3qpAFk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAMY3CasvC7aVOKNKGKqNLlcHfB+/4ZqGpSJzZXCZ5fYcLgXyU
-	Cog7WRLiac0fj2yIaKl8oowegbGZBwHfqyiiq5sdD185fZZRzPHmEkkejMQJEyPrn9Wnky4CshU
-	Ci7ofPKducFhqKcW1pPU+kAC59X/8p3WLewNjzr0e3I6Y9QafM3yDSTDn/nggu9enb5U=
-X-Gm-Gg: AYBFou08pff11OABexsprpxtm0x0Cktbfz3OrctWVxq7dJ3QlBRNk3zxH+ssMZxhsOa
-	hIjCauRyKyV4db9Bn8YTmC9kk2h4bAgM9HWvUOuNqUo5DNKvCJ5MwfZFS5efGNb0J+O40NmdsHS
-	9Dp1ura3pSwHPl0e8ApxEHj3UDCZutDCwFTAem9slayb/s/7jQmt5gzwg391tT7OoB/C0sVrKJs
-	Tg7zeFvc0e3oGKDgwDyq9tEjFKwEcWh5TO4vC5Q2hBhaD+aCTLFQ1BB7ZkFdL9h91TIA02sqKXB
-	QN3kgtJLHdc3HGOIMNGzT0dgE5giBj4ikj19CouvV0G88RDnOcgfFvLgoo4I
-X-Received: by 2002:a17:90b:2d85:b0:39d:f247:bab with SMTP id 98e67ed59e1d1-39df2470c15mr9173001a91.6.1789456594021;
-        Tue, 15 Sep 2026 00:16:34 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d85:b0:39d:f247:bab with SMTP id 98e67ed59e1d1-39df2470c15mr9172925a91.6.1789456593323;
-        Tue, 15 Sep 2026 00:16:33 -0700 (PDT)
+        bh=fTqVRfaAxudbHUUsHz0djLyzEwtkEiMK6H/EzB30hZM=;
+        b=egr45ksYgDVieLhivpaUhvRJoIj5yQ8CHXNG+9zo3DdI6qf56IdcAEu1i+0m4dbc8r
+         hXjpObR6xPT8lJGpPlL5BxvMrrYmghgELyjrGTmeNtNxE83LR1CGhN5lY6fSaHi+qOmA
+         DkF+eU39tr6iDcRWTAOpklDTntp/ra5EgBDYjH1YgPSeYP9/xazqW9u3wa246Xq5bpos
+         shG9Mis/7OeO4dfPY7hn/VrcuDueNdz6JpWbbdSgtuOEj8DRd+aOOgmrzxKZGYTfG5fZ
+         oVAwMswHfLa2mJ1Qe86XkAL+ARapVt02fn0iAGdAP8u7taiGGZrk53/hwienLmyR7iv+
+         EvTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzUE07PIcdEbwal26pGcuGY6ZS/qEZJ47TDZ9izg/b3E9XXcbzCGG0MppwmynC9tQXVpe2tS3SDLEvVop0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvGkTcLZTGTrSkbj0TMZ/18dJBc0maq93heVPqLlOWhXb3FhY0
+	hc6DVdM2mXeOp6Cd7cQqVmtL61Bai4hqQ8biFhIiPpOPgqtzzNz3sBR59MViW3niunYMtykXl5Y
+	//iA4bmuV1c85EnoeVq6n4daJL8X57pCkMwGDvI9AvWvA86MUOxQiREqoLBQGGwH0+/U=
+X-Gm-Gg: AYBFou0O1iP8ts7DzPWLDhvq6uGkJY04Zr8hLqqRSDpTLam7cp8jfa/Ez8naFzmj9Ko
+	KhCmz7V33NCjab6EzJicSvQcw/HIDhE9BYH3lCM48IG0/wjqFp3xcCMZOUaBZfBzAZWn3XWyKE/
+	bH3Qdl5RK9B2rcrEq3GTTVw9Kq+2ljw4qh5yDWhITcRtqFnAFPGev4ZkQLruaxKNLNkTfy1Y8Og
+	dbD0lzVwwhQg4hCZXocruGgJ8Vwr4AYtqb3hXGuKNs7YeE+DRVVCMGvKmzab8FHsGltdqs/Sn+X
+	d45yRIJTFWrhbzy5RAB7tkPA5Ef39kqtyEUELAS7L/VDvH3Ov9jgOlYI+i5w
+X-Received: by 2002:a17:90b:5102:b0:398:9bd5:490b with SMTP id 98e67ed59e1d1-39dec0bf7b0mr12098918a91.18.1789456601581;
+        Tue, 15 Sep 2026 00:16:41 -0700 (PDT)
+X-Received: by 2002:a17:90b:5102:b0:398:9bd5:490b with SMTP id 98e67ed59e1d1-39dec0bf7b0mr12098875a91.18.1789456601134;
+        Tue, 15 Sep 2026 00:16:41 -0700 (PDT)
 Received: from [127.0.1.1] ([2a12:a305:4::30fb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdaccc0fsm3447120a91.15.2026.09.15.00.16.25
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdaccc0fsm3447120a91.15.2026.09.15.00.16.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:16:33 -0700 (PDT)
+        Tue, 15 Sep 2026 00:16:40 -0700 (PDT)
 From: Guodong Xu <guodong.xu@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 03:15:28 -0400
-Subject: [PATCH v7 02/11] dt-bindings: riscv: Require block-size for
- Zicbom, Zicbop, and Zicboz
+Date: Tue, 15 Sep 2026 03:15:29 -0400
+Subject: [PATCH v7 03/11] dt-bindings: riscv: Add Zic64b extension
+ description
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rva23u64-hwprobe-v2-v7-2-aa35ebd9ae96@oss.qualcomm.com>
+Message-Id: <20260915-rva23u64-hwprobe-v2-v7-3-aa35ebd9ae96@oss.qualcomm.com>
 References: <20260915-rva23u64-hwprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com>
 In-Reply-To: <20260915-rva23u64-hwprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com>
 To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
@@ -114,107 +114,112 @@ Cc: linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
         Guodong Xu <guodong.xu@oss.qualcomm.com>,
         Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2144;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2823;
  i=guodong.xu@oss.qualcomm.com; s=default; h=from:subject:message-id;
- bh=NF3ddzUfo/3eIQKDC/wsRnOuXvG5lgOW1mkc/KT7w9Y=;
- b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhqwVHzZ/n6Trr5fvI564+4nNYeGWkuYyO99AjSSOC9LtS
- fy32g51lLIwiHExyIopshw+2pK99ZVPtO9zzh8wc1iZQIYwcHEKwEQEtzL8M71hEnLuQoO9upod
- l829vIBZyU1mC7U8ls91zHLd5GCjw8iwuozTenZW2cvGB/xhk4Ky6zR41rBdPMvi9/bcxhMVC0/
- xAwA=
+ bh=ly0eko061Qlf/uDE0HQLjreuewjv2PPwW/vrF9/DA5g=;
+ b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhqwVH7bsm35G913HBN81Wzf3a3bs1NpjtdIlcEWMnePXp
+ 2bxH8y+dJSyMIhxMciKKbIcPtqSvfWVT7Tvc84fMHNYmUCGMHBxCsBEVjczMtzMub34xnGn9l7W
+ /zcszmg/suqdseqESdThgMxjHitq5Scx/NNguprSlHnxx8zrkRXyn5eY79dXUuDZkRtiENp39/e
+ 2T4wA
 X-Developer-Key: i=guodong.xu@oss.qualcomm.com; a=openpgp;
  fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwMiBTYWx0ZWRfXw/t+1DBJ348d
- GUynIonpj5q8fZdEKvY3XCB2qmGsxnFAl17YzdNTQNTkfxP6jhC8Kt+S4bXaBMH32ilyot1+0Qs
- 7/E0oM8xmD6mvEra//i1vpInCOP8WwEofIMO81Smush8ynwbS6Ewn+90jKkbQHPwP5Xck+4MuD5
- 3w9LsTDrVnxfIH37BYY0oGxiu2/LbbtvVDf/O2mMJzhVvuXd/Fr7EsbQaSAWUoI/VLal9JJtO1C
- 1HV5lb3JfWT7f86e/qxlkMAdpngVsDUOPJxufRAfsP/Sus2yDzL7VDlGPePoqnSU+j301SFRibz
- 5ZT1A5EvOA7s1vhUvuUZbgPADEvxDgY+8n2kT/R3DgMMAD7VUvQXP72c8d5eqtpb/lqjmcOSFYb
- 3oK+sKnssfwGjkVNbVX5w/mKqHTqXevUsFKCVjn8h6NDpmWcOqWUW1vVogbWEhTsDNtxrdBq45B
- Bqsh/jKkU6dXf0HwAkw==
-X-Proofpoint-GUID: Czmh_RUi_-LAR3w_MJBFcyP16EISBbXn
-X-Authority-Analysis: v=2.4 cv=cqQOAF4i c=1 sm=1 tr=0 ts=6aa8f0d2 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=QK/91QLL c=1 sm=1 tr=0 ts=6aa8f0da cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=XYAwZIGsAAAA:8
- a=EUspDBNiAAAA:8 a=JwNH_LCS6ezfG0-7a8gA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-ORIG-GUID: Czmh_RUi_-LAR3w_MJBFcyP16EISBbXn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwMiBTYWx0ZWRfX5q1OAu10Bae1
- APhpXkzun6RPiCZZJl6i2iIKK2p/tJ1DSTbebPykN094zWTUiK66peZpWmXJ8qG0zRRbX7jnJsv
- DoJ/SqjHWUbw8YeLpmmGXbdyZ2HvODc=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=XYAwZIGsAAAA:8
+ a=EUspDBNiAAAA:8 a=B0juqsJzrbe9EOqzv1oA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-GUID: tMHbBLy8E-i4iVJdazzblD1cF1UcLxPq
+X-Proofpoint-ORIG-GUID: tMHbBLy8E-i4iVJdazzblD1cF1UcLxPq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwMiBTYWx0ZWRfX7VB+uJGalQPm
+ tafj3vXwGjOn14WMeq8MR1Q/3+JvQslm/ZamQR3eYLxAcOlX4Ip51teEaJ/oaX5/noy3W9jbTmR
+ FD/PAAUmH4jBa7SKDDIQJ9ZT1dB19kAHs8eQ52HJuG6S7W40wDicDJSi7kppg9YsmcI+KUhAp02
+ VbIa8oLlHTpJWVHI699K7mIw4t9CkY6jD+NGGoyIQPMPzYZ/MMCLwtXC284jBvylYKD4dOmM9bj
+ Ucg4ZFtB68lbNUScVitbrkn/hbHY4qAGNXgt6tF7GdM7CkgrOTqGz4JR8M994TYmC5RbMhZVkkh
+ VBy4YUJY8YdOa+QuCzvuQ4OkMEUkV8nHXWb/JJDsfIk2qFRNSXcptI51GsgDuIC1spk+BknVOTk
+ GhaoVS7mDXwnCe4rGVS9+BY79HRKP3ld/c2Qo2f/cgDWlMqDip8z8vTEMV57OJg7LOJXzlDJbOg
+ b7JgiAEO8riYAgL+ezw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwMiBTYWx0ZWRfX/qlend0TMqoC
+ svxNyEiWju1xfAgTH+kiMg/k/RhukDlaq46obK56gz3kQI9Gr+59sEsIb4yDUXWapy3Z205xdpW
+ gRCWz7cX1PyjFkC77Z++RyGhoKYoFT4=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150102
+ phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150102
 
-Zicbom, Zicbop, and Zicboz have no default cache block size, so a
-devicetree that declares one must also provide the matching
-riscv,cbom/cbop/cboz-block-size property. Make it required so a
-missing block-size property can be caught by dtbs_check.
+Zic64b mandates that cache blocks are 64 bytes in size and naturally
+aligned in the address space. It is a mandatory extension of both the
+RVA22 (U64/S64) and RVA23 (U64/S64) profiles, ratified with RISC-V
+Profiles Version 1.0.
 
-Match only nodes that use riscv,isa-extensions, so nodes carrying just
-the deprecated riscv,isa string are not affected.
+Document it so it can be described in the riscv,isa-extensions property,
+alongside the related Zicbom/Zicbop/Zicboz cache-block extensions. Since
+Zic64b fixes the cache block size at 64 bytes, also add a schema check
+requiring any present cbom/cbop/cboz block size to be 64. The check
+matches only nodes that use riscv,isa-extensions, so nodes carrying
+just the deprecated riscv,isa string are not affected.
 
-Suggested-by: Conor Dooley <conor.dooley@microchip.com>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
 ---
 v7: Collected Acked-by from Conor Dooley.
-v6: Only match nodes that have riscv,isa-extensions, fixing
-    dt_binding_check errors on legacy riscv,isa-only nodes (fix
-    suggested by Conor, breakage reported by Rob's bot).
-v5: New patch.
+v6: Guard the zic64b rule with required: riscv,isa-extensions so it
+    cannot match nodes using only the deprecated riscv,isa string
+    (same defect class as Rob's bot reported against the Zicbo*
+    block-size patch).
+v5: Commit message clean up, fix a double space (Conor).
+v4: Insert zic64b at its sorted position (before zicbom).
+    Update the commit message.
+v3: New patch.
 ---
- .../devicetree/bindings/riscv/extensions.yaml      | 32 ++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ .../devicetree/bindings/riscv/extensions.yaml      | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
-index 577d7ae5576b..d4cde2a7b8b2 100644
+index d4cde2a7b8b2..79491ef8f86a 100644
 --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
 +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-@@ -1211,6 +1211,38 @@   - if:
+@@ -537,6 +537,12 @@   riscv,isa-extensions:
+             in commit 64074bc ("Update version numbers for Zfh/Zfinx") of
+             riscv-isa-manual.
+ 
++        - const: zic64b
++          description:
++            The standard Zic64b extension for 64-byte naturally aligned cache
++            blocks, as ratified in RISC-V Profiles Version 1.0, with commit
++            b1d806605f87 ("Updated to ratified state.")
++
+         - const: zicbom
+           description:
+             The standard Zicbom extension for base cache management operations as
+@@ -1211,6 +1217,22 @@   - if:
            not:
              contains:
                const: zilsd
-+  # All three Zicbo* extensions require their block size property as there's no
-+  # default.
++  # Zic64b mandates 64-byte naturally aligned cache blocks
 +  - if:
 +      properties:
 +        riscv,isa-extensions:
 +          contains:
-+            const: zicbom
++            const: zic64b
 +      required:
 +        - riscv,isa-extensions
 +    then:
-+      required:
-+        - riscv,cbom-block-size
-+  - if:
 +      properties:
-+        riscv,isa-extensions:
-+          contains:
-+            const: zicbop
-+      required:
-+        - riscv,isa-extensions
-+    then:
-+      required:
-+        - riscv,cbop-block-size
-+  - if:
-+      properties:
-+        riscv,isa-extensions:
-+          contains:
-+            const: zicboz
-+      required:
-+        - riscv,isa-extensions
-+    then:
-+      required:
-+        - riscv,cboz-block-size
- 
- additionalProperties: true
- ...
++        riscv,cbom-block-size:
++          const: 64
++        riscv,cbop-block-size:
++          const: 64
++        riscv,cboz-block-size:
++          const: 64
+   # All three Zicbo* extensions require their block size property as there's no
+   # default.
+   - if:
 
 -- 
 2.43.0
