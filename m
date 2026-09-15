@@ -1,165 +1,357 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8E53515F1;
-	Tue, 15 Sep 2026 08:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76713DFC6D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460927; cv=none; b=CqEU/lzPJczOE07b51L93/ejYM5ZZSr50qS7Adluyv6zi09eL3hh2EvBMn7d2wKWytJe7C9LVe7QUCqP8J795c28A94LTWtLkhOGUpIvVvvdMw5eeujoISFFFeODPaYefswj2gPueLyPIUYkad307FJET2rK/s++ClqcMjuN2pU=
+	t=1789461108; cv=none; b=uqdxbZIHSHftAWuAHSrGeQh6XkSIRgAzeU8log7Yg+POQ4Aj56+kY96cKHLLZ5rvGNIW/eAtz3bD4TO2UNt2ycH/0R2hVh4YxavKR2U+0gZE5Vo1Sd/OGv61rHfi9+PoHkBnNjalTLtO+pg9fIFSuGqeWoAUQlknEl2w+pts5WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460927; c=relaxed/simple;
-	bh=6DFX5EHsc3kZbkxlD3BSWbEya4idlWUBiU3+3hZIVN4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fdOyjsc1av+AUjoCLMjcYZVVWkFs1OuXJknYBAF/T1qZxcJee6+libFoe+pEtGcqNpLtS7sp9jX7fgqjsSbCwieARgNOwTeyG1mdJPZ57E+OLvI7CXHgw8AVSknpLT6q2Rz9N6jP52tNf8OZ1Q7Gi5EteqKX3LDVA2xub2nobFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 71ca4c80b0df11f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2bf64f99-0be0-4f1f-b4d8-6db001d4099b,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:6c4b5a1387fed50d946b92379747ef9d,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
-	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 71ca4c80b0df11f19a56ed5b684f684d-20260915
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1606268940; Tue, 15 Sep 2026 16:28:35 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Aksh Garg <a-garg7@ti.com>,
-	Tom Joseph <tjoseph@cadence.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH v2] PCI: cadence: Store the core controller in platform drvdata
-Date: Tue, 15 Sep 2026 16:28:26 +0800
-Message-Id: <20260915082826.4135665-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1789461108; c=relaxed/simple;
+	bh=Wj1rYYk5eAXwBvucNre4TjfpPQdXYZM0DWC4mH7g9mk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JLBXaKVPdwZiSemWbuiIFH5jhPRNO8BvVAUZI01tlci8PqcVYBEjRkuC6wk9jCx3Bd4JG1wI1Kc19BV7+R1N5e+BLFcwRNHriQdUDY8U/Amf4gGN4Y6rlzJbs/sSiG7FtiKLbqeQDG5bDXFzAicaV1LhiaP6PIfhNCLkBwW3Veg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=VZpjbEeT; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="VZpjbEeT"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c25ef7a3ce9so371488166b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:31:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789461104; x=1790065904; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=srZnYOZh38wMRO1+hbACREA44r35OdzHMy0XMVlEyHw=;
+        b=VZpjbEeTgtK41A7t4oW26nQjbyOW2cKW7HVAp/AE1DoBxv2I/oKGZNbaQodQKgyztX
+         /mrpwRY87ciQ+PJfyQe1dSvxNbsB72CUkdK+QtjuK70i+nbGkR9W/XYJiElg9lfca++2
+         qFVFkZPTH/JRJXbyxOE05UEq/r32xAoP2WnIV0Oli8eF9Eqfbnh/5SbFEtNDxMp9+Xry
+         wUPo2NIAaR5WaoaHjUpAwZp9V9yi+6b7VV5nBJICkruMWpBKe1kbngntQiCIgoGwAnpY
+         X6bNASsAfWseYcATthNENpViqF1ZvkSvgWmosl33E4dHZ93N4ieXJeMGMfZ+z1sKbil8
+         dOSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789461104; x=1790065904;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=srZnYOZh38wMRO1+hbACREA44r35OdzHMy0XMVlEyHw=;
+        b=Yl2b8TEYSC3AyzhcLnCgEGGM5k6kdcROZfkH86buqg70bA9yav9FVHRX+JOYSyau6l
+         irVhI8YCoa4g/Z2B+RL5BlFrSQ7EJpYESJKoiJ9lmO7dGo7I4ASyUpomhQSpyi9LOjih
+         2ywFDTPTv6VZctBHn8jLSVsojzdgUGQupslKqmFjwBcJDBEAJ90+IpOE5Ila+JIwaCtB
+         Kjy4Bkt3fsmp7AG123SQBZEYObBh6esmS+0LrAGFHmUPoJyIWcWXkJruQdXoaQv6GLki
+         ZDoBVjam1Qvbdfqp6KKGaOb8xq4yVeKUEuqTuEXZ316iob9o+EIjErDwrnrOnWchDjiy
+         dRRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySTcVAVqtOiaspxrlVJZZBpsf2xmbqQU9SZsYqA0/HeF+QQLnAfVa81egu7DIO251ffNJz6KhhqXOqswk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/hLK1GtmercrQXBDGg8+5dMQJ9swm79/98g8l+Dr4LwZihCe1
+	Dqvn75LMMdU6Dg9Md3KN70PheSIsz74TGRVHJ5NF1A3l4qGSE78ZUqyeJ4kPOFFSLM0=
+X-Gm-Gg: AYBFou2r8hmh1ZZfRrafmdORbwA3dmdnzSCLkgUvHShLykXlRHfsxUMkyl77zzzlTyb
+	kT7buxkf3dESZ+2fuoKfmQjuduHycxZPtRQXkO7PlDNiHM9B1YMtFFiMd3AnTafhk389+T9awKH
+	ehrXUPjlI1aCJjf0WvCEFdXwD3IX5pj8abYPDvP7EQUHxYjnC/4P8lZcEgkU7o7HIpu9ZKKUI7k
+	d1/3wKxo9BYng8FmxpRB8QJjADfPXGHG4Ucw0tHZg+IUt2CyNPqyeptxYcEtT9Dfr+FU3nnQYYO
+	CPwnUs9Ds6eq/tfa7sXMx/JPM4IlSTmnwR//CFZeHWNe+5TGjZWJ7bedz8Av55BnBoIhvJ/t7Ax
+	chEKP4SG/XsBOp+UA3+DHLrXa/mFzlWCuKt3nTbofqjyjh17MwD0Sa99d/4OsX5thOncg5Ytd3D
+	MriffuVZml6Z/ra5kHSxvb+U0BljeLbwwbvDANW4HIWNGgQZzQYnr4Gy4JxMK+
+X-Received: by 2002:a17:907:3f1a:b0:c21:601:6501 with SMTP id a640c23a62f3a-c29b86059e6mr437931366b.20.1789461103956;
+        Tue, 15 Sep 2026 01:31:43 -0700 (PDT)
+Received: from localhost ([2a02:aa7:4656:2314:c23c:9eda:81d:3])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296613c3ebsm529983366b.57.2026.09.15.01.31.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:31:43 -0700 (PDT)
+Date: Tue, 15 Sep 2026 10:31:42 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Kyle Meyer <kyle.meyer@hpe.com>
+Cc: akpm@linux-foundation.org, corbet@lwn.net, david@redhat.com,
+	linmiaohe@huawei.com, shuah@kernel.org, tony.luck@intel.com,
+	jane.chu@oracle.com, jiaqiyan@google.com, Liam.Howlett@oracle.com,
+	bp@alien8.de, hannes@cmpxchg.org, jack@suse.cz,
+	joel.granados@kernel.org, laoar.shao@gmail.com,
+	lorenzo.stoakes@oracle.com, mclapinski@google.com,
+	nao.horiguchi@gmail.com, osalvador@suse.de,
+	rafael.j.wysocki@intel.com, rppt@kernel.org, russ.anderson@hpe.com,
+	shawn.fan@intel.com, surenb@google.com, vbabka@suse.cz,
+	linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v3] mm/memory-failure: Support disabling soft offline for
+ HugeTLB pages
+Message-ID: <aqkCbgHmMGxI_GLG@tiehlicka>
+References: <aqiIEkrc6aDBOqRg@hpe.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqiIEkrc6aDBOqRg@hpe.com>
 
-cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
-platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
-cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() and
-use it as a struct cdns_pcie pointer. This makes them read phy_count
-and phy beyond the wrapper.
+On Mon 14-09-26 18:49:38, Kyle Meyer wrote:
+> Soft offlining a HugeTLB page dissolves it, permanently reducing the
+> HugeTLB page pool. This can be problematic for workloads that depend on
+> a fixed number of HugeTLB pages.
+> 
+> Currently, soft offline must be disabled to prevent HugeTLB pages from
+> being soft offlined.
+> 
+> This patch allows soft offline to be disabled for HugeTLB pages while
+> remaining enabled for non-HugeTLB pages.
+> 
+> Commit 56374430c5dfc ("mm/memory-failure: userspace controls
+> soft-offlining pages") introduced the following sysctl interface to
+> control soft offline:
+> 
+> /proc/sys/vm/enable_soft_offline
+> 
+> The interface does not distinguish between page types:
+> 
+>     0 - Soft offline is disabled
+>     1 - Soft offline is enabled
+> 
+> Convert enable_soft_offline to a bitmask and support disabling soft
+> offline for HugeTLB pages:
+> 
+> Bits:
+> 
+>     0 - Enable soft offline
+>     1 - Disable soft offline for HugeTLB pages
+> 
+> Supported values:
+> 
+>     0 - Soft offline is disabled
+>     1 - Soft offline is enabled
+>     3 - Soft offline is enabled (disabled for HugeTLB pages)
+> 
+> Existing behavior is preserved.
+> 
+> Update documentation and HugeTLB soft offline selftests.
 
-struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
-the redundant wrapper and store the struct cdns_pcie pointer directly.
+This is adding a lot of user interfaces to control something you can
+disable by config option for an admin only functionality.
+I fail to to see any actual justification for all of that. If an admin
+can disolve a hugetlb page it has power to allocate a new one as well.
+Not to menation that the whole soft offlining is mostly a testing
+feature so adding a lot of fine grained configuration space seems
+excessive to me.
 
-Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
-Suggested-by: Aksh Garg <a-garg7@ti.com>
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
-Changes in v2:
-- Drop the redundant struct cdns_plat_pcie wrapper (Aksh Garg).
----
- .../controller/cadence/pcie-cadence-plat.c    | 27 ++++++-------------
- 1 file changed, 8 insertions(+), 19 deletions(-)
+> Suggested-by: Tony Luck <tony.luck@intel.com>
+> Signed-off-by: Kyle Meyer <kyle.meyer@hpe.com>
+> ---
+> 
+> Tony's patch:
+> * https://lore.kernel.org/all/20250904155720.22149-1-tony.luck@intel.com
+> 
+> v1:
+> * https://lore.kernel.org/all/aMGkAI3zKlVsO0S2@hpe.com
+> 
+> v1 -> v2:
+> * Make the interface extensible, as suggested by David.
+> * Preserve existing behavior, as suggested by Jiaqi and David.
+> * https://lore.kernel.org/all/aMiu_Uku6Y5ZbuhM@hpe.com
+> 
+> v2 -> v3:
+> * Minor documentation updates.
+> * Use page_folio(page) instead of pfn_folio(pfn) for HugeTLB page check.
+> 
+> ---
+>  .../ABI/testing/sysfs-memory-page-offline     |  3 +++
+>  Documentation/admin-guide/sysctl/vm.rst       | 27 +++++++++++++++----
+>  mm/memory-failure.c                           | 17 +++++++++---
+>  .../selftests/mm/hugetlb-soft-offline.c       | 19 ++++++++++---
+>  4 files changed, 54 insertions(+), 12 deletions(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-memory-page-offline b/Documentation/ABI/testing/sysfs-memory-page-offline
+> index 00f4e35f916f..19aa539fb910 100644
+> --- a/Documentation/ABI/testing/sysfs-memory-page-offline
+> +++ b/Documentation/ABI/testing/sysfs-memory-page-offline
+> @@ -20,6 +20,9 @@ Description:
+>  		number, or a error when the offlining failed.  Reading
+>  		the file is not allowed.
+>  
+> +		Soft-offline can be controlled via sysctl:
+> +		Documentation/admin-guide/sysctl/vm.rst
+> +
+>  What:		/sys/devices/system/memory/hard_offline_page
+>  Date:		Sep 2009
+>  KernelVersion:	2.6.33
+> diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
+> index 5b318d17aa4b..ee1941e44643 100644
+> --- a/Documentation/admin-guide/sysctl/vm.rst
+> +++ b/Documentation/admin-guide/sysctl/vm.rst
+> @@ -309,16 +309,33 @@ physical memory) vs performance / capacity implications in transparent and
+>  HugeTLB cases.
+>  
+>  For all architectures, enable_soft_offline controls whether to soft offline
+> -memory pages.  When set to 1, kernel attempts to soft offline the pages
+> -whenever it thinks needed.  When set to 0, kernel returns EOPNOTSUPP to
+> -the request to soft offline the pages.  Its default value is 1.
+> +memory pages.
+>  
+> -It is worth mentioning that after setting enable_soft_offline to 0, the
+> +enable_soft_offline is a bitmask:
+> +
+> +Bits::
+> +
+> +	0 - Enable soft offline
+> +	1 - Disable soft offline for HugeTLB pages
+> +
+> +Supported values::
+> +
+> +	0 - Soft offline is disabled
+> +	1 - Soft offline is enabled
+> +	3 - Soft offline is enabled (disabled for HugeTLB pages)
+> +
+> +The default value is 1.
+> +
+> +If soft offline is disabled for the requested page type, EOPNOTSUPP is returned.
+> +
+> +It is worth mentioning that after disabling soft offline, the
+>  following requests to soft offline pages will not be performed:
+>  
+> +- Request to soft offline pages from sysfs.
+> +
+>  - Request to soft offline pages from RAS Correctable Errors Collector.
+>  
+> -- On ARM, the request to soft offline pages from GHES driver.
+> +- Request to soft offline pages from GHES driver.
+>  
+>  - On PARISC, the request to soft offline pages from Page Deallocation Table.
+>  
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index a8b03e2920ba..6c4ce39f46df 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -69,11 +69,14 @@
+>  #include "page_alloc.h"
+>  #include "internal.h"
+>  
+> +#define SOFT_OFFLINE_ENABLED		BIT(0)
+> +#define SOFT_OFFLINE_SKIP_HUGETLB	BIT(1)
+> +
+>  static int sysctl_memory_failure_early_kill __read_mostly;
+>  
+>  static int sysctl_memory_failure_recovery __read_mostly = 1;
+>  
+> -static int sysctl_enable_soft_offline __read_mostly = 1;
+> +static int sysctl_enable_soft_offline __read_mostly = SOFT_OFFLINE_ENABLED;
+>  
+>  static int sysctl_panic_on_unrecoverable_mf __read_mostly;
+>  
+> @@ -157,7 +160,7 @@ static const struct ctl_table memory_failure_table[] = {
+>  		.mode		= 0644,
+>  		.proc_handler	= proc_dointvec_minmax,
+>  		.extra1		= SYSCTL_ZERO,
+> -		.extra2		= SYSCTL_ONE,
+> +		.extra2		= SYSCTL_THREE,
+>  	},
+>  	{
+>  		.procname	= "panic_on_unrecoverable_memory_failure",
+> @@ -2982,12 +2985,20 @@ int soft_offline_page(unsigned long pfn, int flags)
+>  		return -EIO;
+>  	}
+>  
+> -	if (!sysctl_enable_soft_offline) {
+> +	if (!(sysctl_enable_soft_offline & SOFT_OFFLINE_ENABLED)) {
+>  		pr_info_once("disabled by /proc/sys/vm/enable_soft_offline\n");
+>  		put_ref_page(pfn, flags);
+>  		return -EOPNOTSUPP;
+>  	}
+>  
+> +	if (sysctl_enable_soft_offline & SOFT_OFFLINE_SKIP_HUGETLB) {
+> +		if (folio_test_hugetlb(page_folio(page))) {
+> +			pr_info_once("disabled for HugeTLB pages by /proc/sys/vm/enable_soft_offline\n");
+> +			put_ref_page(pfn, flags);
+> +			return -EOPNOTSUPP;
+> +		}
+> +	}
+> +
+>  	mutex_lock(&mf_mutex);
+>  
+>  	if (PageHWPoison(page)) {
+> diff --git a/tools/testing/selftests/mm/hugetlb-soft-offline.c b/tools/testing/selftests/mm/hugetlb-soft-offline.c
+> index bc202e4ed2bd..9837c315a81e 100644
+> --- a/tools/testing/selftests/mm/hugetlb-soft-offline.c
+> +++ b/tools/testing/selftests/mm/hugetlb-soft-offline.c
+> @@ -5,6 +5,8 @@
+>   *   offlining failed with EOPNOTSUPP.
+>   * - if enable_soft_offline = 1, a hugepage should be dissolved and
+>   *   nr_hugepages/free_hugepages should be reduced by 1.
+> + * - if enable_soft_offline = 3, HugeTLB pages should stay intact and soft
+> + *   offlining failed with EOPNOTSUPP.
+>   *
+>   * The test allocates 8 default hugepages
+>   */
+> @@ -31,6 +33,9 @@
+>  
+>  #define EPREFIX " !!! "
+>  
+> +#define SOFT_OFFLINE_ENABLED		(1 << 0)
+> +#define SOFT_OFFLINE_SKIP_HUGETLB	(1 << 1)
+> +
+>  static int do_soft_offline(int fd, size_t len, int expect_errno)
+>  {
+>  	char *filemap = NULL;
+> @@ -55,6 +60,7 @@ static int do_soft_offline(int fd, size_t len, int expect_errno)
+>  	ksft_print_msg("Allocated %#lx bytes of hugetlb pages\n", len);
+>  
+>  	hwp_addr = filemap + len / 2;
+> +	errno = 0;
+>  	ret = madvise(hwp_addr, pagesize, MADV_SOFT_OFFLINE);
+>  	ksft_print_msg("MADV_SOFT_OFFLINE %p ret=%d, errno=%d\n",
+>  		       hwp_addr, ret, errno);
+> @@ -82,7 +88,7 @@ static int set_enable_soft_offline(int value)
+>  	char cmd[256] = {0};
+>  	FILE *cmdfile = NULL;
+>  
+> -	if (value != 0 && value != 1)
+> +	if (value < 0 || value > 3)
+>  		return -EINVAL;
+>  
+>  	sprintf(cmd, "echo %d > /proc/sys/vm/enable_soft_offline", value);
+> @@ -128,13 +134,17 @@ static int create_hugetlbfs_file(struct statfs *file_stat)
+>  static void test_soft_offline_common(int enable_soft_offline)
+>  {
+>  	int fd;
+> -	int expect_errno = enable_soft_offline ? 0 : EOPNOTSUPP;
+> +	int expect_errno = 0;
+>  	struct statfs file_stat;
+>  	unsigned long hugepagesize_kb = 0;
+>  	unsigned long nr_hugepages_before = 0;
+>  	unsigned long nr_hugepages_after = 0;
+>  	int ret;
+>  
+> +	if (!(enable_soft_offline & SOFT_OFFLINE_ENABLED) ||
+> +	    (enable_soft_offline & SOFT_OFFLINE_SKIP_HUGETLB))
+> +		expect_errno = EOPNOTSUPP;
+> +
+>  	ksft_print_msg("Test soft-offline when enabled_soft_offline=%d\n",
+>  		       enable_soft_offline);
+>  
+> @@ -165,7 +175,7 @@ static void test_soft_offline_common(int enable_soft_offline)
+>  	// No need for the hugetlbfs file from now on.
+>  	close(fd);
+>  
+> -	if (enable_soft_offline) {
+> +	if (expect_errno == 0) {
+>  		if (nr_hugepages_before != nr_hugepages_after + 1) {
+>  			ksft_test_result_fail("MADV_SOFT_OFFLINE should reduced 1 hugepage\n");
+>  			return;
+> @@ -190,8 +200,9 @@ int main(int argc, char **argv)
+>  	if (!hugetlb_setup_default(8))
+>  		ksft_exit_skip("not enough hugetlb pages\n");
+>  
+> -	ksft_set_plan(2);
+> +	ksft_set_plan(3);
+>  
+> +	test_soft_offline_common(3);
+>  	test_soft_offline_common(1);
+>  	test_soft_offline_common(0);
+>  
+> -- 
+> 2.51.0
 
-diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-index 13edc6be21f5..4a24302cc5b2 100644
---- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
-+++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-@@ -14,14 +14,6 @@
- 
- #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
- 
--/**
-- * struct cdns_plat_pcie - private data for this PCIe platform driver
-- * @pcie: Cadence PCIe controller
-- */
--struct cdns_plat_pcie {
--	struct cdns_pcie        *pcie;
--};
--
- static const struct of_device_id cdns_plat_pcie_of_match[];
- 
- static u64 cdns_plat_cpu_addr_fixup(struct cdns_pcie *pcie, u64 cpu_addr)
-@@ -36,9 +28,9 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
- static int cdns_plat_pcie_probe(struct platform_device *pdev)
- {
- 	const struct cdns_plat_pcie_of_data *data;
--	struct cdns_plat_pcie *cdns_plat_pcie;
- 	struct device *dev = &pdev->dev;
- 	struct pci_host_bridge *bridge;
-+	struct cdns_pcie *pcie;
- 	struct cdns_pcie_ep *ep;
- 	struct cdns_pcie_rc *rc;
- 	bool is_rc;
-@@ -51,11 +43,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 	is_rc = data->is_rc;
- 
- 	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
--	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
--	if (!cdns_plat_pcie)
--		return -ENOMEM;
--
--	platform_set_drvdata(pdev, cdns_plat_pcie);
- 	if (is_rc) {
- 		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
- 			return -ENODEV;
-@@ -67,9 +54,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 		rc = pci_host_bridge_priv(bridge);
- 		rc->pcie.dev = dev;
- 		rc->pcie.ops = &cdns_plat_ops;
--		cdns_plat_pcie->pcie = &rc->pcie;
-+		pcie = &rc->pcie;
- 
--		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
-+		ret = cdns_pcie_init_phy(dev, pcie);
- 		if (ret) {
- 			dev_err(dev, "failed to init phy\n");
- 			return ret;
-@@ -94,9 +81,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 
- 		ep->pcie.dev = dev;
- 		ep->pcie.ops = &cdns_plat_ops;
--		cdns_plat_pcie->pcie = &ep->pcie;
-+		pcie = &ep->pcie;
- 
--		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
-+		ret = cdns_pcie_init_phy(dev, pcie);
- 		if (ret) {
- 			dev_err(dev, "failed to init phy\n");
- 			return ret;
-@@ -114,13 +101,15 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 			goto err_init;
- 	}
- 
-+	platform_set_drvdata(pdev, pcie);
-+
- 	return 0;
- 
-  err_init:
-  err_get_sync:
- 	pm_runtime_put_sync(dev);
- 	pm_runtime_disable(dev);
--	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
-+	cdns_pcie_disable_phy(pcie);
- 
- 	return ret;
- }
-
-base-commit: 9a9d18547ddc97a73d5d90cff4d5aef90bd8c15d
 -- 
-2.25.1
-
+Michal Hocko
+SUSE Labs
