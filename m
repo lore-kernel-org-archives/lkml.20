@@ -1,172 +1,172 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mta0.migadu.com (out-59.mta0.migadu.com [91.218.175.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868F737B01F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561CA37B01F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436402; cv=none; b=fLZH+h85jvcuy5mCsIZehL1mV2THm0ThlzbBAeiVJWgDEBzBXWcjxBlR0q2BjASeB7Fe3cLX+sKC+K9hDkgHm5t1W1KEXRuaWk26H/3qryCL5cm+1rcCNn4lfNHgdOgN+LAd1fjDWRJ5Ly8LJ5KgcPPI/hjj07TSCIuxohrxsfQ=
+	t=1789436442; cv=none; b=o2CsPpofUQ2TlgCL8mcRafrSVqyrRHdAtXkcJzbLCCNFD3nfiPvvdy0Hqk5oZDgPipzJHhYMoGdTZBTXZKFHIjM5QzIfvn3m0BWvccmIG8qJE1OnIy2KgqlUzS8PLhxxUWaSQ7czhgiNvk0KUPWnsk782lK9Fsak8dg7kFFoiLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436402; c=relaxed/simple;
-	bh=vGrgc1V20xnDibYfrrIi8qa8Tu+oEf6Obx12JO0LlVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TH7PSi6Ia/M4CnlgLT8HWCZOVSdOgu21gL2mO0lLfukbbeJKM2YFVOjBNkX+r0+9Hs8b6z+3EXtwJ16oC1MchtiPnUePuT/aoa63Kp2o3540V8nyoKQBSxyEOAtfBgrBRpTlLsa6SALYo7tVeEBKCaLhPACj6B5YeNQ4rKGjsfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dFNVeVq+; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789436442; c=relaxed/simple;
+	bh=05uRaWUcaOG/Q/CWJc/l3BnefdP/MWiBuuzMMUHj9ko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qc1RN5DdISv6sa9qf93P6JyjlyBX80a+nzkqZZlNGbhgZEJcqtfvgNoOp5SV9QN6sopTaGntBKMGYULHCnE5cr41VrOwLc33rXxAhDRODS8ZBLMndkS19x5JQ77KZWqwBPFioivWo0fjfX6vDP8IOsKZzM6E8pLi7N6DWWbz1+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xG6JBmrM; arc=none smtp.client-ip=91.218.175.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dFNVeVq+"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9121fe38733so26937636d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:40:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789436399; x=1790041199; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jA+Gm6Df8SoCPT+Ci3PSWeT1OW/hMiB/+pCm2kOG6rI=;
-        b=dFNVeVq+M/lMHuKPWkDAebAOWy5lUJ4EYn1ppVLqLZbvAzxwlA/fDuvxb9YL3WZAhC
-         TFL7crcWSSH9FRa6A3g8ISjHUWRnbP2HoVnCiGfp3uE6auWW+0DS53iPcVNjR6MvFRd7
-         2mxqxDQSHC4jL4kIGYjhmCGNmUqLmzAR1UwT2LTf0ZGcvWVZcFiCLpLl40Wx/3i4RuWJ
-         WTSUY3r92fF7bUgppjVIVO97i1/J1j/27U2xh7U/yGWQWVFhqJoPiuW45GuHud0VOEG8
-         KHlX10MT28HyM5lx5u5C6j2C9XqfhRql5wssJe5evUoBAwcUGHIgJcT4GMXYy8yX5MGF
-         LoRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436399; x=1790041199;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jA+Gm6Df8SoCPT+Ci3PSWeT1OW/hMiB/+pCm2kOG6rI=;
-        b=QYjwE4VdCwSnYEl8r3CFHOC1+4bzhQmwyRuZVlzixE44N6vfIQGYSP6SNPbqTNsKZf
-         rWjOktLUTkzTQjeAc2XcLpqIgeQZK2V07jAR6sut7x60YCLodN+aTwevAk25Xlcqxy2h
-         HJDJiuWo+ZLrmpM4X0s5M3A11qFQo0PniayjBJvEBy1cBkJjdPRdGOT9PG7/vUOYt8Fw
-         H3bpNrLmxhwQSqD21UaioHnfJUH1764gCwp3F3IKZefM3jgVjicUW7o2X6CZnHdibciP
-         /OaSL298GVeHU6TG42j1CdOfEPRu4KEAtZ+n6xGUwsjaXNTl/z+awm7Jek5lPYtylcbp
-         8X4g==
-X-Forwarded-Encrypted: i=1; AKwUvByXPRhQAmo6bhdA5OFsNgiYtQbiUCQXODIZ9NyMdHzV/TI9q97Hkjgk3YrGKIg2Wx+/4eWTjGVylpDUnUs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kS+J0voAjfb9EKcwjNyg/4fKm7RA/dx2fAPS8nZdBpX9SFgtFm
-	jjjpZ04k5q4jX9DredOHj9YVAlFYrxx7D/n4APpf5n/SHMVGMGg4o00=
-X-Gm-Gg: AYBFou1ojEa2nUw95nOerCwODq6zcda34PolRLOHBQGX+oywXQ2ICDb1KlfqyntCC7a
-	VcT0j4Hz0VAm4pULBdftAfyPkIB6KWXwPaOj3vTQRwX/pvffBTiFi0Bi0Hi2PYLJJiNP8kK5XM1
-	IJjNoCQycenFmjtzGIt802bU01ZopFVcZQiUOOWtfqzOgaRxennWPiwNdWvaOXCk9DobyRWYinS
-	1Fu2TffZdX0vVN1w6Ato8pRDoTebWi0Y9OJZgXVy3pw8N9XUKpOR7GVWV74tYjADvMu1XhNSiqS
-	oDZzApHNLdR1A+OFg+eExW75bGEBXXlmnF4hECDkelJz15sffy9cPkU84ox09dGbrSIFft0Evx9
-	I2t7C6JdT1O42ipdKb0uL9Z+e3BdupYRSLPgi5q7ssjrz04B9AEkWRT3EJQauhncmRMBDJjlWIm
-	FGLtliNIu0HI2sbDg/b58eKtlHHfgmeUEHs5UqJA7k6q1+mDJ/BIJkvNQ/XHiH7rXB6ScybclVE
-	xFNDhl5ANPi+e5Uvs0pmclGYi/ivmJ7Ckc1MCrI8N6YL3hoe4GY9Tc8HcdEFPunKC+RKpcgz0rJ
-	sID7GqCfSbiFzKiQb5o1Mbx4gS2pqAY58oFiitjJ70bH5mUjT99feal+b9aHUBuQhd6E8A==
-X-Received: by 2002:a05:6214:5f05:b0:910:6339:1888 with SMTP id 6a1803df08f44-9122e4d4ab3mr103911166d6.2.1789436394569;
-        Mon, 14 Sep 2026 18:39:54 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4787eesm108637906d6.21.2026.09.14.18.39.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 18:39:53 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Michael Grzeschik <mgr@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net 1/2] net: arcnet: com20020-pci: clean up failed channels
-Date: Mon, 14 Sep 2026 21:39:45 -0400
-Message-ID: <20260915013946.73963-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xG6JBmrM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=05uRaWUcaOG/Q/CWJc/l3BnefdP/MWiBuuzMMUHj9ko=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789436438; v=1; x=1790041238;
+ b=xG6JBmrMklm9hb4prYYVKhT91g9W8p/yh24RxHsUyes/Efqo68xd1mIPhyqat/8RSxqSv/gB
+ RBzYZxWBJ8naglS9uPzcsXgY9qTEsqov1G6p0D1Yw2BecHxXJR8FtaGkDtyXLoXF/WgkbYgMtNO
+ YSq0O1Hd8W6GLCpIN8A10vCg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 98afbac615a21c5e;
+	Tue, 15 Sep 2026 01:40:38 +0000
+X-Mizu-Trace-ID: 98afbac615a21c5e
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 14 Sep 2026 18:40:34 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Shuah Khan <shuah@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v10 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+Message-ID: <aqihfvKMqJAudSQK@linux.dev>
+References: <cover.1789091855.git.zhuhui@kylinos.cn>
+ <e00910f328c129fea716e9fd031dada328e60313.1789091855.git.zhuhui@kylinos.cn>
+ <DLF8UFBL6NEL.MAD9F5418DIG@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLF8UFBL6NEL.MAD9F5418DIG@gmail.com>
 
-After com20020_found() registers a netdev and requests its IRQ, seven
-allocation or LED-registration failure paths free the netdev without
-unregistering it or freeing the IRQ. The unfinished channel is not yet
-on list_dev, so the common remove path cannot clean it up.
+On Mon, Sep 14, 2026 at 08:17:09PM +0200, Kumar Kartikeya Dwivedi wrote:
+> On Fri Sep 11, 2026 at 4:20 AM CEST, Hui Zhu wrote:
+> > From: Hui Zhu <zhuhui@kylinos.cn>
+> >
+> > BPF programs can observe memory pressure on a cgroup (e.g. refault
+> > stats via bpf_mem_cgroup_page_state()), but cannot act on it:
+> > triggering reclaim on a chosen cgroup requires writing to
+> > memory.reclaim, which BPF cannot do. Add bpf_proactive_reclaim(),
+> > a sleepable kfunc which performs one proactive reclaim pass on a
+> > given memory cgroup, similar to a write to memory.reclaim but
+> > without retrying until the target is reached, so that when and how
+> > hard to reclaim is BPF policy rather than hard-coded thresholds.
+> >
+> > Since some bpf program types may be invoked while holding fs locks,
+> > limit the kfunc to BPF_PROG_TYPE_SYSCALL only, to avoid deadlocking
+> > in filesystem shrinkers on the reclaim path. A SYSCALL program can
+> > invoke the kfunc directly, or asynchronously from its bpf_wq or
+> > task_work callbacks, which run in process context and keep the
+> > SYSCALL program type.
+> >
+> > The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+> > following the precedent of high_work_func(), the memory.high
+> > workqueue fallback. Note that only the reclaim target is capped: the
+> > actual scanning work and its duration are not bounded. Reclaiming more
+> > than one batch is left to the BPF program rather than enforced by the
+> > kfunc: with one call per bpf_wq callback and the same work item
+> > requeued for the next batch, the program can also stop submitting
+> > batches in between, e.g. once the target cgroup is dying.
+> >
+> > Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> > ---
+> >  mm/bpf_memcontrol.c | 88 ++++++++++++++++++++++++++++++++++++++++++++-
+> >  mm/internal.h       | 10 +++---
+> >  2 files changed, 93 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+> > index 716df49d7647..d8827bc388ef 100644
+> > --- a/mm/bpf_memcontrol.c
+> > +++ b/mm/bpf_memcontrol.c
+> > @@ -8,6 +8,8 @@
+> >  #include <linux/memcontrol.h>
+> >  #include <linux/bpf.h>
+> >
+> > +#include "internal.h"
+> > +
+> >  __bpf_kfunc_start_defs();
+> >
+> >  /**
+> > @@ -159,6 +161,74 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+> >  	mem_cgroup_flush_stats(memcg);
+> >  }
+> >
+> > +/**
+> > + * bpf_proactive_reclaim - proactively reclaim memory from a memory
+> > + *                         cgroup
+> > + * @memcg: the target memory cgroup to reclaim from
+> > + * @size:  the amount of memory to reclaim, in bytes, clamped to
+> > + *         MEMCG_CHARGE_BATCH (64 pages)
+> > + * @swappiness: the reclaim swappiness, in the range
+> > + *         [MIN_SWAPPINESS, SWAPPINESS_ANON_ONLY], where
+> > + *         SWAPPINESS_ANON_ONLY means anon-only reclaim, or -1 to use
+> > + *         the memcg's own swappiness
+> > + *
+> > + * Trigger one proactive reclaim pass on @memcg, similar to a write to
+> > + * memory.reclaim, but without retrying until @size is reached.
+> > + *
+> > + * Only the reclaim target is capped: @size is clamped to
+> > + * MEMCG_CHARGE_BATCH, following the precedent of high_work_func(),
+> > + * the memory.high workqueue fallback, which bounds each reclaim
+> > + * request the same way. The actual scanning work and its duration
+> > + * are not bounded. To reclaim more, call this kfunc repeatedly
+> > + * instead of passing a larger @size.
+> > + *
+> > + * The kfunc can be called directly from a BPF_PROG_TYPE_SYSCALL
+> > + * program, synchronously in the context of the thread running the
+> > + * program, or from the bpf_wq and task_work callbacks of a SYSCALL
+> > + * program, which run in process context and keep the SYSCALL program
+> > + * type. It is registered for BPF_PROG_TYPE_SYSCALL only, because
+> > + * generic sleepable programs may run with filesystem locks held or
+> > + * in NOFS/NOIO contexts, where the reclaim path could deadlock on
+> > + * those locks via filesystem shrinkers.
+> > + *
+> > + * For asynchronous reclaim of more than one batch, driving the
+> > + * reclaim from a bpf_wq callback is recommended: call this kfunc
+> > + * once per callback and requeue the same work item for the next
+> > + * batch, instead of looping inside the callback and monopolizing a
+> > + * workqueue worker, and give each target memcg its own work item,
+> > + * as high_work_func() does with one work item per memcg. Whether
+> > + * to submit the next batch is up to the BPF program, which can stop
+> > + * at any point, e.g. once the target cgroup is dying.
+> > + *
+> > + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
+> > + * smaller than a page, or (unsigned long)-1 if @swappiness is out of
+> > + * range.
+> > + */
+> > +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
+> > +						unsigned long size,
+> > +						int swappiness)
+> 
+> I'm going to have to request one final change, sorry.
+> 
+> I think long is more meaningful as return value than unsigned long. It's already
+> restricted to MEMCG_CHARGE_BATCH. We return error for various arguments, we
+> should probably change to -EINVAL.
+> 
+> Apart from that it looks ok to me, but please, also wait for Shakeel to review
+> the set before you respin v11.
 
-Route those failures through unregister_netdev() and free_irq() before
-free_arcdev(). Keep failures before successful com20020_found() on the
-existing free-only path.
+My only feedback is: please don't write essays in the comments. Just couple of
+sentences should be sufficient. (Please ask your AI to be very very concise for
+the comments and commit messages.)
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: 6b17a597fc2f ("arcnet: restoring support for multiple Sohard Arcnet cards")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/net/arcnet/com20020-pci.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/arcnet/com20020-pci.c b/drivers/net/arcnet/com20020-pci.c
---- a/drivers/net/arcnet/com20020-pci.c
-+++ b/drivers/net/arcnet/com20020-pci.c
-@@ -243,7 +243,7 @@ static int com20020pci_probe(struct pci_dev *pdev,
- 				    GFP_KERNEL);
- 		if (!card) {
- 			ret = -ENOMEM;
--			goto err_free_arcdev;
-+			goto err_unregister_netdev;
- 		}
- 
- 		card->index = i;
-@@ -256,14 +256,14 @@ static int com20020pci_probe(struct pci_dev *pdev,
- 							dev->dev_id, i);
- 			if (!card->tx_led.default_trigger) {
- 				ret = -ENOMEM;
--				goto err_free_arcdev;
-+				goto err_unregister_netdev;
- 			}
- 			card->tx_led.name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
- 							"pci:green:tx:%d-%d",
- 							dev->dev_id, i);
- 			if (!card->tx_led.name) {
- 				ret = -ENOMEM;
--				goto err_free_arcdev;
-+				goto err_unregister_netdev;
- 			}
- 			card->tx_led.dev = &dev->dev;
- 			card->recon_led.brightness_set = led_recon_set;
-@@ -272,24 +272,24 @@ static int com20020pci_probe(struct pci_dev *pdev,
- 							dev->dev_id, i);
- 			if (!card->recon_led.default_trigger) {
- 				ret = -ENOMEM;
--				goto err_free_arcdev;
-+				goto err_unregister_netdev;
- 			}
- 			card->recon_led.name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
- 							"pci:red:recon:%d-%d",
- 							dev->dev_id, i);
- 			if (!card->recon_led.name) {
- 				ret = -ENOMEM;
--				goto err_free_arcdev;
-+				goto err_unregister_netdev;
- 			}
- 			card->recon_led.dev = &dev->dev;
- 
- 			ret = devm_led_classdev_register(&pdev->dev, &card->tx_led);
- 			if (ret)
--				goto err_free_arcdev;
-+				goto err_unregister_netdev;
- 
- 			ret = devm_led_classdev_register(&pdev->dev, &card->recon_led);
- 			if (ret)
--				goto err_free_arcdev;
-+				goto err_unregister_netdev;
- 
- 			dev_set_drvdata(&dev->dev, card);
- 			devm_arcnet_led_init(dev, dev->dev_id, i);
-@@ -299,6 +299,9 @@ static int com20020pci_probe(struct pci_dev *pdev,
- 		list_add(&card->list, &priv->list_dev);
- 		continue;
- 
-+err_unregister_netdev:
-+		unregister_netdev(dev);
-+		free_irq(dev->irq, dev);
- err_free_arcdev:
- 		free_arcdev(dev);
- 		break;
+Other than that please follow Kumar's suggestion and send the next version.
