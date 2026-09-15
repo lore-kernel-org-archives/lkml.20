@@ -1,64 +1,77 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0759F4A3F1C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB8A4A4980
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461913; cv=none; b=lzopPwcVofDJTfnfuN9IW/NLoYV5tNgcMMg3PKgI0DroNNYIyA1G+4aFvcoz1M5+rTm4ee8JXcrHqbfHjimSUFl2T8L0QpYlp4fKdMMwdwNVUuuxjDVOt5isz+5zInxISoJu3mm94VwHmN3Ksk7gWigf1/hk1VPl4M3RsHaCkiA=
+	t=1789461917; cv=none; b=nNnOiWPUArX5aAqswjGjlUAWGdgbG71GlF/r5+AYggl01UErazZLO4zNSVfkQ8qcug/NZKQ+Nrc2XJbWXzZQ1XAcbuvtp+Z0VAm77T2drZz1jLdQnWDyCGidAeWfS8KN7Q9lhj/8kh945rVFEy9yul3spS7DAfAL5Ebx8Wy/vl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461913; c=relaxed/simple;
-	bh=n01FY5o+GO5C64Irv1p+UvT3ad9BDV2sd38DYKwHISw=;
+	s=arc-20240116; t=1789461917; c=relaxed/simple;
+	bh=voXUBxTQFlhO/ruRKWE/wANERiCFiYTPDr8M0VRsiyU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iGAywOY8CRVL+jzN4Nt83yDQGbeStrlFeoGQnPPKpynXu3Z6QEXq5tXG1IFDzuadPbyiYkTHeXhX2cBCTIySRbBQW7rfIyiB910g+BBDh2euLsExPyqx/uXiciSlPiN5I0HhfTvW4u01ouMaiCmEz0JX7tZ7DjIDoEAoXWIvwcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AFmoTOhq; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=nY4ScoUmsCKG+D22ukJ9AUDsZJd5xJGHauQJ06hIhkjiI09bMJSH8MrL+Pdgy4pLS+nhySOuvOfwf5+cpLwybJIcYa3epB5qb/5SYsGMC6JYYaxuNSgnpwCMmMsZJCkxHk8FHEVuMOfIBg9nwlXOLnvCAPR60tSr5x0JgjIF9gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XgIBQw7N; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AFmoTOhq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789461910;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V7/oozdRrzfelXfsglh8Hfb9OORRp47+WOib7pc6U2g=;
-	b=AFmoTOhqPUr9KQ3pVxNF6qeUo7G1fdcKWcJiO+CJJWIeBqcIUAHtaVN/gz+8PXcQHoMsc1
-	N6TcQ6VN6eT7//7Fq32Dg9xUioE4xPr9s8COfA0TvUpGbyvoHZ5tybh6nCDbESz49Tm5GO
-	i4PviyZMAM/USpINwtVeWBXTaT3PZ/k=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-329-7lU-r5hLP7C9T5ONUmjI3w-1; Tue,
- 15 Sep 2026 04:45:05 -0400
-X-MC-Unique: 7lU-r5hLP7C9T5ONUmjI3w-1
-X-Mimecast-MFC-AGG-ID: 7lU-r5hLP7C9T5ONUmjI3w_1789461903
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 58B351955D69;
-	Tue, 15 Sep 2026 08:45:03 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.48.83])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 09093180049F;
-	Tue, 15 Sep 2026 08:44:59 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: 5mghybrid@khu.ac.kr
-Cc: netdev@vger.kernel.org,
-	theo.lebrun@bootlin.com,
-	conor.dooley@microchip.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	richardcochran@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net RESEND 2/2] net: macb: Use all-frame timestamping for PTPv1 RX filters
-Date: Tue, 15 Sep 2026 10:38:49 +0200
-Message-ID: <20260915083849.72030-1-pabeni@redhat.com>
-In-Reply-To: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
-References: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XgIBQw7N"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304784so2610607a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789461915; x=1790066715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=//NjZ5Gv6gZcU0sp0wzzMfVpLXREGk7SX2zQqubPTP4=;
+        b=XgIBQw7NrQdfdiNqgLQyZ6t0FblRM20k5icslBJifLr1P1d9G2JcQKURHIvu4AHmt1
+         1m1XdltiK3clBbP/7QkwlLduV3LwmqMTdaVWXOjVNKjTWpQfmhtBWtqo8ZtsIws+abPn
+         g5Xe86Z5QyqYBEOidBUpixP1+Cn31xBieIRt48IKuErZRThHM4D2wcQ0zmrIi3pJPKY5
+         ymJCU7itIPvUxJCcsfyyQVBcQahFF6doMn8BjMd/XInYazGlt00ROl46E+wAL3ULScGX
+         3jPChS/D+h3zxJC56FVPdXRRYx+rBV9za6hkBOgkiQKTpbw0WIoBGPfGuqSuZeO/LSH/
+         q8Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789461915; x=1790066715;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=//NjZ5Gv6gZcU0sp0wzzMfVpLXREGk7SX2zQqubPTP4=;
+        b=XsvrDbbhA3AL4/Rbp8vRokreYtCotMiRLwUFHYPA1wK+nsLBVDMKPxzvgfVBcydNwx
+         2N+1qreN+p5cWnspTE60/pBR3ndkkxzK8PPVeAHa5Eq8/PcppjmljcgXlwboXDCidJDa
+         ZqdtlEyf+/IIlsJNrrvlFxTc/ETdQbvI7uQTXoM/ILjJ/irsh9o+RcnUVIKcQMiDLWOF
+         DUkZDxZUc6HvkHB6REe1A6h5rdsoC9IxIS6/NOlnZzmLErQS6iFFFd9khwalAEWBtTEq
+         KnaoiPd55iRLWjUIbUhNh5wjhMeBq8WmmUQmDlIgee1dqDsqL0Blu+vFZ2mnhtnlVgG2
+         VMYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxF4O84Wo2F0w5TP6QwS1oTkxQ/1Oat/i36GeXKj/A+gMg8Up4ztC8FF4wJOTIVMg0KsJqMyfTOlwN7eq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lz3TkULgHPZFJ7i/He0chSuNec+OlyxGkGU7BB8AN/WmB6yVAT
+	uJdJQ0YxmFPU3baSLiZPKIZj/LeLT0hTejE1IYrpwVnaMyFbLgrmsUdB
+X-Gm-Gg: AYBFou1e0GOgM7dYTcJWRm1JUytXhM569qMCpeeuwKc6hOsvZqwUezxVDgzvWxgcZSe
+	CXCXgA2TwwvcvKJN3k5Z5n3pk105i1B+qXzy96JnHS7NUup2JrO8/YxSTMweZDB7Wj8PCYUaKyU
+	nX/UJmJpyRKqtE+bN7Rj6ypxXe0dsxrbuHj0/bYWdGmtCqx1Y0oEWG22OBQNzBsEfyNCl7uaxm2
+	7L3N76fZceum+6EnWz4tyGy6NNkI9ujJ/eowmCASADRmq4s/YiaVKrsqSt8sRvkhzv86iwKJAyx
+	8wSn4sbGwvOc7RT7hUHdAh/xFzwhxsMvK/dyZQSK7MsLyZU/eY1juNVEaewbJ1PPQhpMbmFoBnf
+	z88zbH4gJsntNblikob8uvvxb1qdfQflMqxZ0Y9MFghqXlaDP2EnDsbK9E7gNf42Ksk86E7mxhH
+	uDHP+vNnpvqI/nY/PEZuQmm+doifiXr0EJ9UKv5gUt1bFW+7/ncoayK7VBQLTFCBQOvKFu7k5pv
+	ZKb1NXuy1RhLcsyp10+OrgD
+X-Received: by 2002:a17:90a:d610:b0:39d:f06f:79be with SMTP id 98e67ed59e1d1-39df06f80c8mr13101038a91.15.1789461914624;
+        Tue, 15 Sep 2026 01:45:14 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm34718935eec.3.2026.09.15.01.45.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:45:14 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Clemens Ladisch <clemens@ladisch.de>
+Subject: [PATCH v2 16/23] ALSA: echoaudio: fix typos in comments
+Date: Tue, 15 Sep 2026 14:14:17 +0530
+Message-ID: <20260915084424.1007757-17-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260915084424.1007757-1-hemanth.selam@gmail.com>
+References: <20260915084424.1007757-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,178 +79,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+Correct spelling mistakes in comments. No functional change.
+
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
-net: macb: Use all-frame timestamping for PTPv1 RX filters
+ sound/pci/echoaudio/echoaudio.c | 4 ++--
+ sound/pci/echoaudio/echoaudio.h | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-The two PTPv1 L4 filters used to be accepted by gem_set_hwtst() while
-leaving rx_bd_control at TSTAMP_DISABLED, so receive timestamping ended up
-off even though a nonempty filter was reported back. They are now folded
-into the existing all-frame arm alongside HWTSTAMP_FILTER_PTP_V1_L4_EVENT,
-which reports HWTSTAMP_FILTER_ALL.
-
-No Link: tags in the commit header.
-
-A few observations on the surrounding code in gem_set_hwtst(), all of them
-about behaviour that predates this change.
-
-> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-> index 51659bbdfac9a..2ffc46b81264e 100644
-> --- a/drivers/net/ethernet/cadence/macb_ptp.c
-> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
-> @@ -430,10 +430,6 @@ int gem_set_hwtst(struct net_device *netdev,
->  	switch (tstamp_config->rx_filter) {
->  	case HWTSTAMP_FILTER_NONE:
->  		break;
-> -	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
-> -		break;
-> -	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
-> -		break;
->  	case HWTSTAMP_FILTER_PTP_V2_EVENT:
->  	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
->  	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but while the new arm reports
-HWTSTAMP_FILTER_ALL (which is advertised), the sibling PTPv2 arm right below
-reports a filter value the driver never advertises:
-
-drivers/net/ethernet/cadence/macb_main.c:gem_get_ts_info() {
-	info->rx_filters =
-		(1 << HWTSTAMP_FILTER_NONE) |
-		(1 << HWTSTAMP_FILTER_ALL);
-}
-
-drivers/net/ethernet/cadence/macb_ptp.c:gem_set_hwtst() {
-		rx_bd_control =  TSTAMP_ALL_PTP_FRAMES;
-		tstamp_config->rx_filter = HWTSTAMP_FILTER_PTP_V2_EVENT;
-}
-
-That value is then stored in bp->tstamp_config and handed back by
-gem_get_hwtst() on every later SIOCGHWTSTAMP, so ethtool -T and
-SIOCGHWTSTAMP describe different capability sets. Should the PTPv2 arm
-either report HWTSTAMP_FILTER_ALL too, or should gem_get_ts_info() advertise
-HWTSTAMP_FILTER_PTP_V2_EVENT?
-
-> @@ -448,6 +444,8 @@ int gem_set_hwtst(struct net_device *netdev,
->  		regval = macb_readl(bp, NCR);
->  		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
-
-[Severity: High]
-This is a pre-existing issue and not something this patch introduces, but is
-this read-modify-write of NCR safe without bp->lock? Every other NCR
-read-modify-write in the driver is serialized, and macb_tx_lpi_set() even
-states the rule:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_tx_lpi_set() {
-	lockdep_assert_held(&bp->lock);
-
-	ncr = macb_readl(bp, NCR);
-	old = ncr;
-	...
-}
-
-drivers/net/ethernet/cadence/macb_main.c:macb_start_xmit() {
-	spin_lock(&bp->lock);
-	macb_tx_lpi_wake(bp);
-	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
-	spin_unlock(&bp->lock);
-}
-
-gem_set_hwtst() runs under rtnl from ndo_hwtstamp_set, which does not
-exclude the xmit path, the EEE LPI work, macb_mac_link_up(), or the hardirq
-RXUBR workaround. Can the unlocked write back lose a bit another context
-just set? For example the RXUBR errata path in macb_interrupt() toggles RE:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_interrupt() {
-		ctrl = macb_readl(bp, NCR);
-		macb_writel(bp, NCR, ctrl & ~MACB_BIT(RE));
-		wmb();
-		macb_writel(bp, NCR, ctrl | MACB_BIT(RE));
-}
-
-If gem_set_hwtst() samples NCR inside that window and then writes back with
-RE cleared, does receive stay off until the next reconfiguration? The same
-question applies to gem_ptp_set_one_step_sync(), which this function calls
-for TX_ON and ONESTEP_SYNC, including for the two filters added here:
-
-drivers/net/ethernet/cadence/macb_ptp.c:gem_ptp_set_one_step_sync() {
-	reg_val = macb_readl(bp, NCR);
-
-	if (enable)
-		macb_writel(bp, NCR, reg_val | MACB_BIT(OSSMODE));
-	else
-		macb_writel(bp, NCR, reg_val & ~MACB_BIT(OSSMODE));
-}
-
-Since the RXUBR handler runs in hardirq context, would the irqsave variant
-of the lock be needed on the configuration side?
-
->  		break;
-> +	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
-> +	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
->  	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
->  	case HWTSTAMP_FILTER_ALL:
->  		rx_bd_control = TSTAMP_ALL_FRAMES;
-
-Two more items in the same function and driver, outside the hunks:
-
-[Severity: Medium]
-This is a pre-existing issue that this patch does not touch, but in
-gem_set_hwtst() the HWTSTAMP_TX_OFF arm is a bare break:
-
-	switch (tstamp_config->tx_type) {
-	case HWTSTAMP_TX_OFF:
-		break;
-	case HWTSTAMP_TX_ONESTEP_SYNC:
-		tx_bd_control = TSTAMP_ALL_FRAMES;
-		break;
-
-and OSSMODE is only touched for the other two values:
-
-	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
-		gem_ptp_set_one_step_sync(bp, 1);
-	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
-		gem_ptp_set_one_step_sync(bp, 0);
-
-After HWTSTAMP_TX_ONESTEP_SYNC followed by HWTSTAMP_TX_OFF, does NCR.OSSMODE
-stay set so the MAC keeps rewriting originTimestamp in transmitted Sync
-frames while SIOCGHWTSTAMP reports transmit timestamping as off? Should the
-TX_OFF case call gem_ptp_set_one_step_sync(bp, 0) as well? The symmetric
-case, NCR.SRTSM never being cleared when moving away from the PTPv2 arm,
-looks like the same shape of problem.
-
-[Severity: Medium]
-Also pre-existing rather than something this patch changes: is the
-timestamping configuration lost across suspend/resume? macb_resume()
-rewrites NCR from scratch:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_resume() {
-	macb_writel(bp, NCR, MACB_BIT(MPE));
-	macb_init_hw(bp);
-	macb_set_rx_mode(netdev);
-	macb_restore_features(bp);
-	...
-}
-
-which clears SRTSM and OSSMODE, and none of the callees reprogram the
-descriptor capture registers. gem_ptp_set_ts_mode() is the only writer of
-GEM_TXBDCTRL and GEM_RXBDCTRL:
-
-drivers/net/ethernet/cadence/macb_ptp.c:gem_ptp_set_ts_mode() {
-	gem_writel(bp, TXBDCTRL, GEM_BF(TXTSMODE, tx_bd_control));
-	gem_writel(bp, RXBDCTRL, GEM_BF(RXTSMODE, rx_bd_control));
-}
-
-and it is reachable only from gem_set_hwtst(). Does that leave the hardware
-at its reset default after resume while gem_get_hwtst() still reports the
-pre-suspend filter, now including HWTSTAMP_FILTER_ALL for the two PTPv1
-filters remapped here? Should the resume path replay bp->tstamp_config
-through gem_ptp_set_ts_mode()?
+diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
+index 214d68657707..8b4637231deb 100644
+--- a/sound/pci/echoaudio/echoaudio.c
++++ b/sound/pci/echoaudio/echoaudio.c
+@@ -270,7 +270,7 @@ static int pcm_open(struct snd_pcm_substream *substream,
+ 		return -ENOMEM;
+ 	pipe->index = -1;		/* Not configured yet */
+ 
+-	/* Set up hw capabilities and contraints */
++	/* Set up hw capabilities and constraints */
+ 	memcpy(&pipe->hw, &pcm_hardware_skel, sizeof(struct snd_pcm_hardware));
+ 	dev_dbg(chip->card->dev, "max_channels=%d\n", max_channels);
+ 	pipe->constr.list = channels_list;
+@@ -1720,7 +1720,7 @@ static const struct snd_kcontrol_new snd_echo_vumeters = {
+ 
+ 
+ 
+-/*** Channels info - it exports informations about the number of channels ***/
++/*** Channels info - it exports information about the number of channels ***/
+ static int snd_echo_channels_info_info(struct snd_kcontrol *kcontrol,
+ 				       struct snd_ctl_elem_info *uinfo)
+ {
+diff --git a/sound/pci/echoaudio/echoaudio.h b/sound/pci/echoaudio/echoaudio.h
+index 7a5744bf3155..ac4507b7cc78 100644
+--- a/sound/pci/echoaudio/echoaudio.h
++++ b/sound/pci/echoaudio/echoaudio.h
+@@ -394,8 +394,8 @@ struct echoaudio {
+ 
+ 	u16 digital_modes;		/* Bitmask of supported modes
+ 					 * (see ECHOCAPS_HAS_DIGITAL_MODE_*) */
+-	u16 input_clock_types;		/* Suppoted input clock types */
+-	u16 output_clock_types;		/* Suppoted output clock types -
++	u16 input_clock_types;		/* Supported input clock types */
++	u16 output_clock_types;		/* Supported output clock types -
+ 					 * Layla20 only */
+ 	u16 device_id, subdevice_id;
+ 	u16 *dsp_code;			/* Current DSP code loaded,
 -- 
-This is an AI-generated review.
+2.48.1
 
