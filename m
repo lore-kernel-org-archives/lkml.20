@@ -1,90 +1,331 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E15399346
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1230B37DEBB
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481735; cv=none; b=JlUgWaWZtUQST/wTzsbrvc+xtu864mVrx3RtcYkBrPScBXS/iCYtc+oegGHVtGYlik2IPxDq0+02hdalA5+B5axmMXpGXufNZvYOAdOCRcxloZ9pM3ZdoGbSj/Hf+kKAVbSLvZ9EAxkHcRJ3yaFATHqMocUfiALZrEPwog6c86E=
+	t=1789481753; cv=none; b=tH8wjeltLDMTaCYV87owoU+r/VrzOgcpHB3/87p4f34+imz/j6MrrXnpd3S3oylRNeu6RFFhG2EUtUOcHbw03IRkS27/zl3vZdiDDZxpAdG5Zf5azhzzuiL6/Mn7nAgfnWNni3Sf2VOPzhbd88yndY2dFWELZYldirdxRVR+ObQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481735; c=relaxed/simple;
-	bh=vOV7bWjrFa4ZVA9xuj/sBvJYyAeu13Y/UVCcL9X9cOY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FQkPe6+AewRiNvWf345wCph9sD6Je5BbaWHku3H/+49wt18R5GRz14N031D2ehdmf9bUsdCsTSteAw8+8d9NI1f0S0NLRw35aGVXg5vbm+cWra2AeyB01mlFbfUhkDpE3cpuFbt8aTXf1jyPSyE0UDXy4hgDu15ezTgtAmNJgG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Xlh7ZHEA; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789481753; c=relaxed/simple;
+	bh=rp9xGLJoVTbX/Bo3f7RiBLcFONxwv536yPbHGAGENOI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LTaCdvd/4VPmQe5NGq/IyRKoTONpo/DxllP891B+3qsbDEnGrKSR15TVkrIY+CAtTalCds0u1i0HeXLDQbyeKJXB7+wSGR2uPL94I0CL3uYUjtYw6dnsNJJOCbptAgae2WEZMRZ7HS20LGfHT5Ai52f0NYxbAuGWUEfBqyqzh14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N7kaYotR; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Xlh7ZHEA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ylui/XjdIqNugBdG26QbOKnDWAYQin+Cyhkytw4ndUk=; b=Xlh7ZHEAsBJ22vgeUB51ako/aJ
-	9lptC5YUcw91WkRi6f01lghOPfWunSMZg7tFkIyiNAUW1P5FKh+Ua8Sr7s60avarr4XIA1WA+1zoJ
-	mh2W35oU2ugPlX7r6GaeIIvSKSQ6K+4wrsjP+Ss7vij3vt9jmF9RWpO9hh6mxI2Jjw2Y96/Sj1mea
-	cfeYIAV7sRBJe63VX33c4gIumOH4mt1D1TCbv6D65p1iR9XYRGd3o39rcEF5zujzyc6zplQMUrIuM
-	OaaDFTh0mdTMjDqRkJTOeEZ0W7N42P92lC3Fn46fOyLX2kQ0/uqHai7xWCvTkrIA6Pwr/xxX+FULi
-	gE6F0XhQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x6TwT-00000006s9O-0syW;
-	Tue, 15 Sep 2026 14:15:25 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7C085300969; Tue, 15 Sep 2026 16:15:24 +0200 (CEST)
-Date: Tue, 15 Sep 2026 16:15:24 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N7kaYotR"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so2533810a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:15:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789481749; x=1790086549; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kOMN7WbXNoD/8k1zWl/hwVthFpjXE395mG1LMqSNTGo=;
+        b=N7kaYotRYGnRDbdR6fWmxkU4dvmahICBUEbO9jlgUiC4ldTqiVMZ6CvyANuiVx2rSS
+         cxvXTyqMwoGWdo+aYDzOJSUatYDFvK5oRPR4IcgyX47mHUsq+XvoTVw6t/uTn7JzdbvU
+         G5m4V6KqkRn0pxO4hGqYxKWeqjYUDB4v38HG4mCivJJOgZemWhbC1c1Qm61tLtW0t2ry
+         DI02iG6y8skHAikoOVsligRUpx/5Pywpip2EBqXTlxazOsZvAK/2secmjL49XxsY8qyS
+         Bd2u+pZ45hlbLVeQiCQ+JZTcgtuG0O3HrmlaSKuBDkiyQNLGoiqBDEoW938qPisE+d/A
+         OsgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789481749; x=1790086549;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kOMN7WbXNoD/8k1zWl/hwVthFpjXE395mG1LMqSNTGo=;
+        b=WUqgzpEU50jEaTkjOlzTGTvZZGwOHYAaso8N95Q/OBmXAurfBbsz0ChfYPmLmk9Rld
+         Djvp97BfUbeOKLVn1xTDUdBFuILm1psOs5GFkWPNmx3htNR8syfCdfON0aFc4kwMr4s/
+         8L3CQv7TzgVg1CIWL6w0K1JYmAJ9/B5+pVhXQPInhO+MD0CodAS6aEQNSquXt6ab7H9N
+         2iXgjqFOaLJw0RtAW7PIxeP+1+AAU09W4+hos2LKcGcBKA08F1TLwn905WTPfqdNWFR6
+         EhQ8i9h2W+HPYzKLpeDalooR5IdTLXAlCeiaHqI1SHBttGmA3mtVsAkuO7XWZW5yskN/
+         glrg==
+X-Forwarded-Encrypted: i=1; AKwUvBw43AK6nuYrxbKOt4SVGNCzKvlKBWVrw5bwLBSa506+lzis+pX0Q0HJShML8mxx3Sq/UpF64k1lY2YNbDA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzlMlYYc1N1O1mltX5/fpxFlTWqI1B1y+bB7+kcJUviZUYPGt0
+	WK1BWQT+DumXZqK7gk06mla/QUzzr8k4/7/Q08YvIgD9VpvvZyvc7sjzkIXtsw==
+X-Gm-Gg: AYBFou0t74Zx675r2dhjvEkBQxt0NqidvTwmpFV2naV6RtBSbfh/D8epW1j/VmCU7H5
+	OmPbDVQMmyU+oyhJZGj+2+mdsVU+X5KfCifGiL7F9qKAppynBFRS+11q4z0TTU9ehZ1tMBjTFRu
+	RLm0SIBasYp+BZfVh8htt+04tbOpbndjasIUnWVSgQP6K/NGpejyeRwzm7uXMPtPUpICCu31Dnf
+	zaTqXHFpxir+OW4NAHvcboSmWf3AIweQm8AORXL+0snneCQvA085yBjHMk9VKNgg2vG7eFpe2Zw
+	VtwC42EV9pjFRHII1eef1A/ckQZlaKClTnfY5AGZzlxsEiIblRctHClYQuFyNr6pVot5DPSAyTK
+	nAwiUC/cOaFSMHMgyNCId7F/BEjUHVNFBg/kx230nkGfSIvXtsLqy7EwPe30R6hDAE3/lhftLL5
+	iSEf7KI4t0PSeCxfirDdni/j9bP+MKrzcTLfNY6/EdRtpCaDfP+ol+ydM+AFlCBpsYmZRPEbLHT
+	MRIdjiLUIoXiZPPWbh0jk2K3aKs
+X-Received: by 2002:a17:90a:1182:b0:39d:ec76:585 with SMTP id 98e67ed59e1d1-39dec76710emr10758844a91.24.1789481749129;
+        Tue, 15 Sep 2026 07:15:49 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2bac:b2b4:e60b:1459])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdb3045bsm6603220a91.17.2026.09.15.07.15.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 07:15:48 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 4/9] locking/osq_lock: Delete 'fast path' code
- from osq_unlock()
-Message-ID: <20260915141524.GD4121339@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
- <20260907084133.3696-5-david.laight.linux@gmail.com>
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: Re: [PATCH v4 2/2] hfsplus: validate b-tree fork extents at mount time
+Date: Tue, 15 Sep 2026 21:15:43 +0700
+Message-ID: <20260915141543.24335-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cbc98010b9f6657e162cfcc6ac5ba6032e7b729d.camel@dubeyko.com>
+References: <cbc98010b9f6657e162cfcc6ac5ba6032e7b729d.camel@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907084133.3696-5-david.laight.linux@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 09:41:28AM +0100, David Laight wrote:
-> The 'fast path' code in osq_unlock() is pretty much exactly the same as
-> the first pass of the loop in osq_wait_next() except that it doesn't
-> have the optimisation to avoid the locked RMW when not the tail of
-> the list.
-> So just call osq_wait_next().
-> 
-> Move the assignment next->prev_cpu = old_cpu into osq_wait_next()
-> as it is always the next line.
-> Rename osq_wait_next() to osq_unlink_from_next() since that is what is does.
-> 
-> Change osq_wait_next() to use atomic_cmpxchg_release() (not _acquire)
-> on lock->tail.
-> This is what osq_unlock() did and seems right to me.
-> 
-> Add an smp_wmb() before the 'prev->next = next' assignment when cancelling
-> a lock. The previous 'next->prev = prev' assignment lets the 'prev' cpu
-> complete an unlocking sequence and do its 'next->prev = prev' assignment
-> first - corrupting the list.
-> 
+Hi Slava,
 
-This is horrible. From the Changelog alone this should be at least 4
-patches.
+Thanks again for the review, replies inline, v5 diff (applies on top
+of the v5 1/2 I just sent) at the bottom.
 
-I've tried to recreate this one patch and ended up with 5.
+> If we return error code for corrupted fork (that makes more sense),
+> then we don't need in switch here.
+>
+> > +     case -EIO:
+> > +             pr_err("%s (cnid 0x%x) fork's first extent is
+> > corrupt\n",
+> > +                     hfs_btree_name(id), id);
+> > +             goto free_inode;
+> > +     case 1:
+>
+> I don't see the point returning 1 from the function. It should be error
+> code.
 
-Please, small steps, no random changes and definitely no
-maybe/perhaps like comments when talking about memory barriers.
+Agreed, done. hfsplus_check_fork() now returns 0 (consistent),
+-EUCLEAN (corrupt past the first extent, tree still locatable, mount
+read-only), or -EIO (first extent corrupt, or no used extent at all --
+see below). hfs_btree_open() now just checks the return value with
+if/else instead of switching on it.
 
-See here:
+> Why not struct hfsplus_fork_raw here for check?
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git/log/?h=locking/osq
+I looked into this, but the b-tree's inode only keeps the decoded
+first_extents/first_blocks fields (see hfsplus_iget()), not the raw
+hfsplus_fork_raw (total_size/clump_size/total_blocks as a struct) --
+that only exists transiently while reading the volume header. Passing
+the raw fork through would mean plumbing it from hfsplus_fill_super()
+into hfs_btree_open() as an extra argument, which felt like a bigger
+restructuring than this patch should take on. I'd rather scope that as
+a follow-up than guess at it here -- let me know if you disagree and
+I'll take a pass at it.
+
+> Ditto. Related to hardcoded value.
+>
+> > +     for (i = 0; i < 8; i++, ext++) {
+
+Uses HFSPLUS_EXTENT_COUNT now too (same constant added in patch 1/2).
+
+> I think that current logic of check looks complicated. [...] For
+> example, fork cannot be completely empty. Could we rework the logic
+> to be more clear? Maybe, we need to introduce the function for extent
+> check, function for checking the extents are logically contiguous?
+
+Fixed the empty-fork case: hfsplus_check_fork() now tracks seen_used
+and returns -EIO if no extent was ever in use. Note hs_btree_open()
+already guarded against this indirectly via its existing
+`!first_blocks` check right before calling hfsplus_check_fork(), so
+this makes the function correct on its own instead of relying on that
+caller-side check.
+
+I held off on splitting per-extent-check and contiguity-check into
+separate functions -- the loop is short and the two conditions
+(garbage in an unused slot vs. a used extent overflowing/following a
+hole) share the same start/count/seen_hole state per iteration, so
+splitting it looked like it'd add indirection without really
+clarifying anything. Happy to revisit if you still think it's worth
+it.
+
+> Ditto. Related to 1. I prefer to have error code instead.
+
+Same fix as above (-EUCLEAN).
+
+> I don't want to say that this direction is wrong. However, we have
+> flags: [...] Potentially, we can introduce the HFSPLUS_I_CORRUPT_TREE.
+
+Done -- dropped struct hfs_btree.corrupt, added HFSPLUS_I_CORRUPT_TREE
+next to the existing HFSPLUS_I_*_DIRTY flags, tested via a new
+HFSPLUS_TREE_IS_CORRUPT(tree) helper macro on the tree's own inode.
+
+> Currently, only hfsplus_fill_super() can detect the b-tree
+> corruption. Why do we have the check here? Do you mean that xattr
+> b-tree can be created and to be corrupted?
+
+No -- corruption is only ever detected once, in hfs_btree_open() at
+initial mount. The hfsplus_reconfigure() check isn't detecting
+anything new; it's re-reading the flag hfs_btree_open() already set,
+so that a remount to rw can't silently clear SB_RDONLY on a volume
+that was already known to be corrupt at mount time. Added a short
+comment there to make that explicit.
+
+> If we fail to check any b-tree, then logic should stop. Why haven't
+> we checked the error code of hfs_btree_open()?
+
+I checked -- hfsplus_fill_super() already does check every
+hfs_btree_open() call (out_close_ext_tree / out_close_cat_tree /
+out_close_attr_tree gotos) before it ever looks at
+HFSPLUS_TREE_IS_CORRUPT(), so no change was needed there.
+
+One more from the previous mail I noticed while redoing this: there
+was also a checkpatch --strict alignment nit on the pr_err()
+continuation line in hfs_btree_open() itself (not one you'd flagged,
+but same category), fixed that too while I was in there.
+
+Thanks again for the thorough review -- v5 below.
+
+---
+Changes since v4:
+ - hfsplus_check_fork() returns real error codes (0/-EUCLEAN/-EIO)
+   instead of 0/1/-EIO; hfs_btree_open() uses if/else instead of a
+   switch.
+ - A fork with no used extent at all is now treated as corrupt.
+ - Use HFSPLUS_EXTENT_COUNT instead of hardcoding 8.
+ - Track per-tree corruption as an HFSPLUS_I_CORRUPT_TREE inode flag
+   instead of a bool on struct hfs_btree.
+ - Comment explaining the corrupt-tree check in hfsplus_reconfigure().
+ - Fixed a checkpatch --strict alignment nit in hfs_btree_open().
+(all per Slava's review)
+
+diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
+index 2ea8cd5658e1..2dbbb8096575 100644
+--- a/fs/hfsplus/btree.c
++++ b/fs/hfsplus/btree.c
+@@ -274,6 +274,7 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
+ 	struct inode *inode;
+ 	struct page *page;
+ 	unsigned int size;
++	int res;
+
+ 	tree = kzalloc_obj(*tree);
+ 	if (!tree)
+@@ -293,6 +294,17 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
+ 		goto free_inode;
+ 	}
+
++	res = hfsplus_check_fork(sb, HFSPLUS_I(tree->inode)->first_extents);
++	if (res == -EIO) {
++		pr_err("%s (cnid 0x%x) fork's first extent is corrupt\n",
++		       hfs_btree_name(id), id);
++		goto free_inode;
++	} else if (res) {
++		pr_warn("%s (cnid 0x%x) fork has corrupt extents, forcing read-only.\n",
++			hfs_btree_name(id), id);
++		set_bit(HFSPLUS_I_CORRUPT_TREE, &HFSPLUS_I(tree->inode)->flags);
++	}
++
+ 	mapping = tree->inode->i_mapping;
+ 	page = read_mapping_page(mapping, 0, NULL);
+ 	if (IS_ERR(page))
+diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
+index f3a4b8fd567f..d98261c01b13 100644
+--- a/fs/hfsplus/extents.c
++++ b/fs/hfsplus/extents.c
+@@ -101,6 +101,39 @@ static bool hfsplus_ext_fork_full(struct hfsplus_extent *ext)
+ 	return true;
+ }
+
++/*
++ * Validate a fork's extents. Returns 0 if consistent, -EUCLEAN if only
++ * extents past the first are corrupt (safe to mount read-only), or
++ * -EIO if the first extent is corrupt or the fork has no used extent.
++ */
++int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent *ext)
++{
++	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
++	bool seen_hole = false;
++	bool seen_used = false;
++	int i;
++
++	for (i = 0; i < HFSPLUS_EXTENT_COUNT; i++, ext++) {
++		u32 start = be32_to_cpu(ext->start_block);
++		u32 count = be32_to_cpu(ext->block_count);
++		bool bad;
++
++		if (!count) {
++			bad = start != 0;
++			seen_hole = true;
++		} else {
++			bad = seen_hole || start + count < start ||
++			      start + count > sbi->total_blocks;
++			seen_used = true;
++		}
++
++		if (bad)
++			return i ? -EUCLEAN : -EIO;
++	}
++
++	return seen_used ? 0 : -EIO;
++}
++
+ static int __hfsplus_ext_write_extent(struct inode *inode,
+ 		struct hfs_find_data *fd)
+ {
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index 7c53832f2784..3290812c0fea 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -230,10 +230,15 @@ struct hfsplus_inode_info {
+ #define HFSPLUS_I_EXT_DIRTY	2	/* has changes in the extent tree */
+ #define HFSPLUS_I_ALLOC_DIRTY	3	/* has changes in the allocation file */
+ #define HFSPLUS_I_ATTR_DIRTY	4	/* has changes in the attributes tree */
++#define HFSPLUS_I_CORRUPT_TREE	5	/* tree's fork had corrupt extents at open time */
+
+ #define HFSPLUS_IS_RSRC(inode) \
+ 	test_bit(HFSPLUS_I_RSRC, &HFSPLUS_I(inode)->flags)
+
++/* Test HFSPLUS_I_CORRUPT_TREE on the tree's own inode */
++#define HFSPLUS_TREE_IS_CORRUPT(tree) \
++	test_bit(HFSPLUS_I_CORRUPT_TREE, &HFSPLUS_I((tree)->inode)->flags)
++
+ static inline struct hfsplus_inode_info *HFSPLUS_I(struct inode *inode)
+ {
+ 	return container_of(inode, struct hfsplus_inode_info, vfs_inode);
+@@ -443,6 +448,7 @@ int hfsplus_free_fork(struct super_block *sb, u32 cnid,
+ 		      struct hfsplus_fork_raw *fork, int type);
+ int hfsplus_file_extend(struct inode *inode, bool zeroout);
+ void hfsplus_file_truncate(struct inode *inode);
++int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent *ext);
+
+ /* inode.c */
+ extern const struct address_space_operations hfsplus_aops;
+diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
+index ff7d6b3336a6..a1669bd45701 100644
+--- a/fs/hfsplus/super.c
++++ b/fs/hfsplus/super.c
+@@ -400,6 +400,14 @@ static int hfsplus_reconfigure(struct fs_context *fc)
+ 			pr_warn("filesystem is marked journaled, leaving read-only.\n");
+ 			sb->s_flags |= SB_RDONLY;
+ 			fc->sb_flags |= SB_RDONLY;
++		} else if (HFSPLUS_TREE_IS_CORRUPT(sbi->ext_tree) ||
++				HFSPLUS_TREE_IS_CORRUPT(sbi->cat_tree) ||
++				(sbi->attr_tree &&
++				 HFSPLUS_TREE_IS_CORRUPT(sbi->attr_tree))) {
++			/* Re-checks the flag hfs_btree_open() set at mount */
++			pr_warn("a b-tree fork was corrupt at mount time, leaving read-only.\n");
++			sb->s_flags |= SB_RDONLY;
++			fc->sb_flags |= SB_RDONLY;
+ 		}
+ 	}
+ 	return 0;
+@@ -564,6 +572,11 @@ static int hfsplus_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	}
+ 	sb->s_xattr = hfsplus_xattr_handlers;
+
++	if (HFSPLUS_TREE_IS_CORRUPT(sbi->ext_tree) ||
++	    HFSPLUS_TREE_IS_CORRUPT(sbi->cat_tree) ||
++	    (sbi->attr_tree && HFSPLUS_TREE_IS_CORRUPT(sbi->attr_tree)))
++		sb->s_flags |= SB_RDONLY;
++
+ 	inode = hfsplus_iget(sb, HFSPLUS_ALLOC_CNID);
+ 	if (IS_ERR(inode)) {
+ 		pr_err("failed to load allocation file\n");
+--
+Thanks,
+Nguyen Ngoc Thang
