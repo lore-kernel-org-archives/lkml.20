@@ -1,53 +1,78 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAAE37475C;
-	Tue, 15 Sep 2026 07:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3185A3812F0
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458593; cv=none; b=Q9lF4sXBF4rLWhKJIFh/rfQoug1J4I/QgprhXBCgBNO0+70CPp699W2+FgYouLlYkcedbdHp4rQdJeCW0SDKPf4o4g3eMuT5dpUb2CaFoWde4DIPqxXBaTha1KlsRCmvIQoiGv0JyqkLfbyl1rPe5SKEdhK5tlGNXyudFeJkylM=
+	t=1789458635; cv=none; b=EOwbVShKvbR+5GzlsT8ITWc8boOA0iWwH1XvnMpfx9OyIi63Y1ZCVFUBjfFUP8mHcR/+UASJvvx5S+hN1lowy0wyQVkqYpk8OTPdZQ02P7C+7mvsCXj/Hh4lA4DWHfx/0EhNHyrJ7Dy63j2qMRJb5Bm2QnS4GUrf6pH5vc5h52A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458593; c=relaxed/simple;
-	bh=cw7gLlAxbZuTtB38KE0IoqDYFKA/59Z/vrsA+PUuN44=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HJwh4X3YsCtIGCl9xPzVsDXkGCJbOu2qclgUcEI+Ojl2rhN7Nsz2gHqIS1lw0Lvn1PCncmn34GjZle8tb300WyQZXzcUT8v8pm1wpkAlLkHqoKXRQNi7QkjqQ3FqFVZ4epVQFTR3KmPHz/H8ojfq+YlHhLF3mp1eqpnWLzj3GG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 03a7a7cab0da11f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:8f2ab040-5536-41ad-8532-fb9d25d4391b,IP:0,U
-	RL:25,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:50
-X-CID-META: VersionHash:7db8b62,CLOUDID:698a00d3bc0c39f0ec6b3b8d823d0796,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|11|95|82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 03a7a7cab0da11f19a56ed5b684f684d-20260915
-X-User: liuqiqi@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuqiqi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 2140594793; Tue, 15 Sep 2026 15:49:43 +0800
-From: Qiqi Liu <liuqiqi@kylinos.cn>
-To: akpm@linux-foundation.org,
-	vbabka@kernel.org
-Cc: surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org,
+	s=arc-20240116; t=1789458635; c=relaxed/simple;
+	bh=NaaBUlaZxUHYV/sta9bMc3Cha7Do+uBNhPwb01okJ4c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UrkoWolzzWaWwKqsxBJZ1CcLhwd5vp5iyxXVAIuBYeBEe05Z/j/6vJVXb0tXi9py41bCI4bi972HgdM6OV1+Fu9pVx3jUiwdEJbKtHLnIIqzpz/5cgTyyY4IFWWglVpfr5mm6XxL2ICKLs1iQdXaMWMlCDCVSvG+07TZm4ICm54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CtUKer/E; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CtUKer/E"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so15361665e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:50:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789458631; x=1790063431; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VSuOuej5g477D9OeKfutLbsPFz58l20HxXCWVB4U9S4=;
+        b=CtUKer/EJXrYT1sEP7OxSiwKpnABASS19oMEttbXSJ0dZM0P7PJOXiEY0a03+NDy+n
+         HMuqTx3bWGkoBD+9WGQdQadD2aJAoAJeh46Vd1TR9B1VaF+iDlK+JPpWR49x1H62fnSY
+         GxDWhyxH798kcXBHvljicU8HQ2my1k7kOb4Sict1wWIVTgstFCKqHSCjd6WTypp5SKDc
+         0LRVD0zFqalMt6BuxyIo30eMs80NE317lKM/V4PhIXwsqSbS+k75IttQhnZWbZSRBw1N
+         pb1tRWltQUjjuQ8VKW5ThupYC5zgqz/tiinYnyBYqkxZwzTmVc4GLJafZSEnHOEB1K5I
+         ZGog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789458631; x=1790063431;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VSuOuej5g477D9OeKfutLbsPFz58l20HxXCWVB4U9S4=;
+        b=QCSpyawt2m3gc8QY/jiwUywjBg/cGGJWxq+FlPySVQ44RJN5fvcx1LSRuF0nQG2YqS
+         kFPFeum9FZLHecLwlqxXFIGCMN81/bnyThSiYZAD0LABtolPceeKB3EbLlKzkiekgMzi
+         YNbPSauYu/IP93ifqEJDOYHny9QvX9aHp/A+KwJvN7vKJxi/syASKLBlS6UJvaTFVHr+
+         ouJLPGiKiA55MVzeP3qmrqBwwQKpuiChjqUe/AdYJR05FkMvVhA2LILmtp/qptNTUldE
+         SZU2GwYw0m8xRR4eCM+KCR3dnkTFd4ZW+SFaVz7gc4CIxQqEhIpBoqjwEuYb5gGjYKpp
+         +W6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxuUUVAEGI48ahD+QILjBRrs0K0+C1OrDm80PqUxXlq+c7i5UEv9+mFZskBPltpj2kXkG52IfHp4q6a5Gk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAal3II6zQmbX7/C1bLROES2Tn4j0CPqChS/uUvKjeBVNiEDDT
+	XCK0rtNr5fVem5VlSQ/OjIJW8N/kMp+61VvGiF3uxG/n3shGJQaULf/J+O1CvO3CeAE=
+X-Gm-Gg: AYBFou1+8U+ItsmVoS3g/+cHJE7FitPRrsluIfkK45Q6+ygfM7uZoCgBSQn/1I5ITAr
+	bq0TpewDxWjyE8TTJsQIBEXF1CKQZI/qGxdMFujtSFqmiyN+5NJCcij90JkFxJ82dx2HcECzosz
+	1zTCZ3noGqsM8O6nknHTyF7C06+xQAr9oXGCWjSYFPwlYTszP3Ckl4rM7MmvyxeMLxLOTDZpxnM
+	ebO+irpFl2qlFQMLoyekDWT8t/n/9m1QkcsLMlcjmOfWaidyBs8w3ksQ/SsXxAvUa3QKbyrrgle
+	eI2VKdizdWFAuoEvsFhPGfONQiLVxg8KG1+aXRESPYHkKhqNkqFnizNjrOt/Vh1Fh+eKUORmUcL
+	VzvidrAZf5r/g6UU9PySOlNGiP0MyzM0fdJhMyAz7JNIxt1HB6pqhz2434onyACTDHdS/32zX8L
+	rxoAn3UqQPzqBrTzMeViZaEk8Cr0TiOLdgl18ch1Wt+IK7JssPBtRFr2SiJzFSfTXHRjLTAzFR8
+	fvSvPAIelKA9J/0uwvdqzEBP3ctGD+I1VvQawIN5XQ9eKwtbT0nmIqDN03aPl8/4DyFHy+AZ+GY
+	gC8wq7FG+BYyYjTq
+X-Received: by 2002:a05:600d:8649:10b0:49e:8191:e5cb with SMTP id 5b1f17b1804b1-49e8191e921mr3226255e9.5.1789458630987;
+        Tue, 15 Sep 2026 00:50:30 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef74a5dsm39657655e9.7.2026.09.15.00.50.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 00:50:30 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Qiqi Liu <liuqiqi@kylinos.cn>
-Subject: [PATCH v3] mm/page_alloc: apply per-task GFP context in bulk allocator
-Date: Tue, 15 Sep 2026 15:49:28 +0800
-Message-Id: <20260915074928.327471-1-liuqiqi@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	stable@vger.kernel.org
+Subject: [PATCH v2] mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an x8 device
+Date: Tue, 15 Sep 2026 07:50:03 +0000
+Message-ID: <20260915075028.21658-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915071339.15172-1-orgads@gmail.com>
+References: <20260915071339.15172-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,47 +81,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-alloc_pages_bulk_noprof() does not call current_gfp_context(), so
-per-task scoped allocation constraints (PF_MEMALLOC_NOIO,
-PF_MEMALLOC_NOFS, PF_MEMALLOC_PIN) are not applied on the bulk
-fast path.
+The word count of the Write to Buffer command is a single bus word per
+device, so an x8 device can be told to program at most 256 bytes
+regardless of the buffer size it advertises.
 
-By ignoring PF_MEMALLOC_NOIO and PF_MEMALLOC_NOFS, the allocation can
-theoretically result in a deadlock.
+A Micron M29EW (an x16 part wired in x8 mode) advertises a 512-byte
+write buffer. cfi_amdstd_write_buffers() used the full 512, CMD(511)
+truncated the count to 0xff on the way out, and the chip aborted the
+program on the 257th data byte. Every full-size chunk failed while the
+partial ones at the start of a write went through:
 
-Ignoring PF_MEMALLOC_PIN also has consequences: without clearing
-__GFP_MOVABLE, prepare_alloc_pages() selects MIGRATE_MOVABLE for
-the PCP list, and a task with PF_MEMALLOC_PIN set receives movable
-pages from the bulk allocator.  Once pinned, these pages can no
-longer be migrated but remain in MOVABLE pageblocks, violating the
-mobility contract.  This can increase fragmentation and interfere
-with compaction or contiguous-memory allocations, eventually
-surfacing as higher allocation latency or allocation failures under
-memory pressure.
+  MTD do_write_buffer_wait(): software timeout, address:0x03278bff.
+  jffs2: Write of 4164 bytes at 0x02c789b4 failed. returned -5, retlen 68
+  jffs2: No space for garbage collection. Aborting GC thread
 
-Found via review of the bulk allocation tracepoint hooks [1].
+Clamp MaxBufWriteSize in the write-buffer fixup for x8 devices, and keep
+mtd->writebufsize (computed before the fixups run) consistent with it.
 
-[1] https://lore.kernel.org/all/20260907120949.418450-1-liuqiqi@kylinos.cn/
-Link: https://sashiko.dev/#/patchset/20260907120949.418450-1-liuqiqi%40kylinos.cn
-Fixes: 387ba26fb1cb ("mm/page_alloc: add a bulk page allocator")
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
+The bug predates the git history, so there is no Fixes: tag.
+
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
- mm/page_alloc.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..3be7288a1aa7 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -5207,6 +5207,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 
- 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
- 	gfp &= gfp_allowed_mask;
-+	gfp = current_gfp_context(gfp);
- 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
- 		goto out;
+v2: test the device width (cfi->device_type) instead of the aggregate bus
+    width. map_bankwidth_is_1() is false for x8 devices interleaved on a
+    wider bus, which have the same 256-byte ceiling: do_write_buffer()
+    sends CMD(words - 1), and CMD() replicates that count into each
+    device's lane, where it is truncated to 8 bits - so two x8 chips with
+    a 512-byte buffer are told 255 words and are still sent 512 bytes
+    each. device_type is also immune to map_bankwidth_is_1() compiling to
+    a constant 0 when CONFIG_MTD_MAP_BANK_WIDTH_1 is off. Caught by the
+    Sashiko review bot.
+
+diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_cmdset_0002.c
+--- a/drivers/mtd/chips/cfi_cmdset_0002.c
++++ b/drivers/mtd/chips/cfi_cmdset_0002.c
+@@ -283,6 +283,21 @@ static void fixup_use_write_buffers(struct mtd_info *mtd)
+ 		pr_debug("Using buffer write method\n");
+ 		mtd->_write = cfi_amdstd_write_buffers;
+ 	}
++
++	/*
++	 * The word count of the Write to Buffer command is a single bus
++	 * word per device, so an x8 device can be told to program at most
++	 * 256 bytes however large a buffer it advertises - including when
++	 * several of them are interleaved on a wider bus, where CMD()
++	 * replicates the count into each device's lane and it is truncated
++	 * there.
++	 */
++	if (cfi->device_type == CFI_DEVICETYPE_X8 &&
++	    cfi->cfiq->MaxBufWriteSize > 8) {
++		cfi->cfiq->MaxBufWriteSize = 8;
++		mtd->writebufsize = cfi_interleave(cfi) <<
++				    cfi->cfiq->MaxBufWriteSize;
++	}
+ }
+ #endif /* !FORCE_WORD_WRITE */
  
 -- 
-2.25.1
-
+2.47.0
