@@ -1,276 +1,157 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011034.outbound.protection.outlook.com [52.101.52.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6502B3C13F1
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0544137DAA9;
+	Tue, 15 Sep 2026 15:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485990; cv=pass; b=pws8AGaKI6H9NzMCTNm/QCcGCFjIy9hV8hvLRuWFUnctwJ2l2Ntr8hNmZEauwgJOMtZs1x1e/y90oGtfW0bjwKVf58bLp4d3g7Hq/FNX7Xi70U16xoWS74UAFrIIprMHIqhVIA+DSqf51IlP3FRXYwTMjENrGfQQEYjd+a609OM=
+	t=1789486040; cv=fail; b=th98LGAO3cprMdic56u7NnabYj/QVsg11pt1sKpcqVyIG/PZAHPMPdQMrDhXXc5E+0eaqMZxVapsc4itLEqzl0aiPyKfQjFbP7/8quqOZygd5/qB7b6L/13P5k7gjJIeM+8Zg3S0Cp340ZZygfzl4knfNmYsVlYD7Vz+eZ4uOzo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485990; c=relaxed/simple;
-	bh=jIeDsPrHmbiiXFFaYJvd/WqEYmNkFNH/DqJyCXr1uWs=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=PADhZcM31Tp5dsCbPMoOPPDYccmMEK9GEWXFoiVvzlWSuSQQry5tpxSOc0mc5T8E8bmR6OY1m31ahjMWpLo5Rnzdr8HljVvnUCCBFKoDxw365/a+xwexMOu2ci3iNvl5/WVdw8lk2SjuBzHXMYDiwHf5hPIUt/7VYT7+aKzz1YY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edE+ZqaX; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789486040; c=relaxed/simple;
+	bh=Yin4FILHf/Aie+tgxPdtchPQXFd6oGKhSbo7km3NjFs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=sl4hpHD3dJU9Tr1+oUlwlEOr4K/XKHzFsRoF5fpjcWpCjBAfdK8qnKoF00NoYcg1hVGA43EnHAI51qQPvpIF+PmtH1yRMaxtt3YWEazqKtpHrqqSXr2J9KmnrgDXRRtpjwlKOCWVS1upDpjI30LsKcvveXLaDK3YbTKnLxgYobk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Z6Z3ecvn; arc=fail smtp.client-ip=52.101.52.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edE+ZqaX"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff04155bso4073161fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789485986; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VmJMRaxBwhGwoYJ1TRoBTDpokZYb3H0Xslz9h/wEH8SZ1pKz3fcdPciTad9wED16Qf
-         lmsxTq1Y4r8FCmXt+Cyu3AYk2xk90w+TVYh5rlgqlJeZtAXnZ4vRwdJ6Tlv3Jgr0eH4r
-         z8DGsNXwKg7Ia4HzCsjb9QAS05CKQL2E6xCb3IKCV4r3N/US1dYyFezpzuJE+swIPgbN
-         EyTbb5uAWboxtS44gno5MDNwymQvxnxpRFdnyvS27+FSXIqqtLvX1LLHLfLQl5NB4PqH
-         IdLdaLmJNqPAmBazZ+q7qNLhtnveoZyJNNrfpZZH/x6+ipMhZgQ3snrM0WLxVa5Tc1EW
-         L7ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=2dTXBcl4xpkc0pmu2+DSHTNRZ+nnnblY3RMBasOVP00=;
-        fh=evxKe3X1gwhQ5WTgxwMxnfuRw6NwTahi0foy2EogC9k=;
-        b=MhjGySRgP9hZAM2tIcDl7gljWbxgCzO3IAmvTruynr88BhWlgRG8MtolnN7MO8TXRv
-         hTYbB0nfOnK0YSPqpygm0yVy8Sfm4vaJmaEbA4yckdAjVW6YeplEUJ7FSbYpIMpl2258
-         FTYDptdwMou4VICTp/i5txLXq0RQ30l1aQ1jBRfiwGKxW+HwQ7B15LN0BFldyitIFsJN
-         lqxaTWdgVQmpQ0LPe9UFNpQxtIQJgYJ733LUf1neRTAuVnVJ1h+UIEyryYyq3Xg8Y+qH
-         i+P9ylQk5xQqsgtOmu+Hv36Wa+3BVYfvdOxAW2nDIq9BU0up/q3GBpDBZvIvHH8b1CnA
-         iQrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789485986; x=1790090786; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2dTXBcl4xpkc0pmu2+DSHTNRZ+nnnblY3RMBasOVP00=;
-        b=edE+ZqaXw3q+1wWjYhpfXny4pP3d7nm49FGJ+Qcw/kKkgr2GaPcfUssZpqoeBnqDXK
-         hbDBSlJtw0evw+DStFy+Z3hdho/52pK1LU6XcPYRDucvUtA1ACG5QIsH08Gu7cB6RmgV
-         nc/mur/ERoDhULetLUmZsv4r71oF7ppGf9jbuxKMq4XvAnQ4JSKe9C3oubRNaPYF9RG2
-         nsbC5c4nXCFVttbCO7yrdSYw3TcvtLX7tif3QBjBHne7gNljHbOP2ptxS7XpEi3qtMiy
-         vfnWMIs2WyfiCpfzpvInO8QTwTpTzcEffeVDXl5aKANzX29JnSD3/X2aCD5MLlLBrViQ
-         vlrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789485986; x=1790090786;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2dTXBcl4xpkc0pmu2+DSHTNRZ+nnnblY3RMBasOVP00=;
-        b=Gd7i4f47dKge0FUlWZPFUA/btLtKMoT5/CrELwZ8hab5bDUkA5UdJuCvXHPz0C5ovb
-         7kJ5UcKGRO5JCi0bpRg92f7HSUFV3Ezfa1m/YPg9dcdDwaESFaiEzUr/IOFNy9PWpOmG
-         9ewP1HHF2MQUz1YtcynMnWZyJQtTRRzYUNVtrnBlBaemZMgUiMWAV5y+PVXoXpCqdiTv
-         Y9Zgx5PbZTwMUGN9ZOfz/4mXvuy20ZWZo++aDKlzCPSuyRBIZ0Rzq0sgIN57tR83NGwY
-         zcye2AGFFl6T9mo7SxIIJCF6YwU4C87Qenk0aLQ31F0tIwnWUv83Qlc0Le1+83y2mDYI
-         uK3g==
-X-Gm-Message-State: AFuF++k1BKYTtIYB2yxzatYCqGjnDq8eDwtcqmeR1AdcNg+PL9WaQLev
-	aN0fKxWU+uX7NEOqoXSIsF2CyE6xVYzT0BWHPKRppZ0Hnk+0wtEivib7w5miXCcpqXdMe+Oc2eC
-	8Z8ZNozKAk7cXU3fk6ie3gpSjW4oGnbA=
-X-Gm-Gg: AYBFou1ayhhfIBEab+eA9cth+d8C15s0BVKCKKtEXpdM7rtsU872ljLWzJsGLUqQv9B
-	GNHVGADU9AsK7hDmJyVZt0lTs0hH16OTAxwPQPGveifZJiNJkIwYlrr9nsWwt7hjnM8OIaC9yql
-	zjy2pPW9IPuT1cHsdgyEDOXaS7CJDIOi1hOn2bD3gPPQ5W7mxFuYsHstGUjYh3XllvSq+Yxi8jy
-	lvETq42cbNrMtNDSXGH9MWOhXo7yuX4zVnNrIFR7sS+SkOaLdbSexe+Zv4+kvTg3ABtLB9JCNW3
-	/2G2Pazu2aC4zK6H1bQe0JzByPvPIY7WVI7bZR/hXJjXaCUntKGzefFN2UikW9oeO72CfF21/K4
-	jTnB8wekKozN5ln2E4N/DO/k=
-X-Received: by 2002:a2e:be14:0:b0:3a5:86d:cc95 with SMTP id
- 38308e7fff4ca-3a5d836a181mr3616851fa.3.1789485985787; Tue, 15 Sep 2026
- 08:26:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z6Z3ecvn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fZkCMgkYVTNd+yhmz7p8b+nW8G4Qqk09G+h2aM3M5M83sDhgrv7NMv3xja4MMfp/+ZubRzVe5nOUWBbHt5EU52h0hSePuMfRXnWhyl0cWvZtEZT1BiN9YNzPRtlfFOmhRnuscpbYKbPeOdPy0NDUObMq3bYEJy4uTqRnx6KksI46GHeVYZ5gi3TNxQv1WN0vgsRRQAt0+ftwd9YwyRR+WE3WPW03ziCZIbojeTRTxu+1ZtInIWmc61EllTHnhorW+uWfZ42Nhx2qHMzByolcA2kg8TM+jldCEDBmvbiBTeSaXR+plHFD1W3cmGxxzt9O7PiyXeeAsup/VeBB3s8V+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mP9+Dbd0DZx2XJ+VuxJ9/kD75nWyP+A4oRwHBEkpl7g=;
+ b=y7GU2XziS53KFkm46up2gnHmZaE6HMq7c5Fw5ph0Z2Tg38PAlIQbmfMrJR+c87nggN5fxbZmMgG7Oy3n9xihTJUl1uQqghDR5zG0s0WJpGsmzA/S8R6SyFf1QU0xrFnwBmmfXzorZ0BY0BKn8hXL5MQoMzcIHpYOvwcK341/vj6caBX0tbj3Epcyl5zfYSkKwzoCalkbtWxiyNCx6Od2HY1o0eUAqcrpQFLO1Trwk4zb6/VebDMYsy0D7M2o5Z945hvJOvQ1MmhXT10p2yrH1Fh77xmkkd0Bn0vBbij23xeim/r+kLAS2cNJlJlpp7IlghXqQEEJ3AQSjwMsKo9KAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mP9+Dbd0DZx2XJ+VuxJ9/kD75nWyP+A4oRwHBEkpl7g=;
+ b=Z6Z3ecvn8GrN17kFGPt0GohpDB8IXngSsP5l7wP9f9ZfAmsdCTz1OQ/t7163sqPNMUGfnpAnZaL3Fz9/EsUSKaMz31U7iHNQPRvoteR+Xdp0HFtJzLjANZ25CJA2tsRgdBKJLpe3nRUn4QXjboSMQaF4vWwl2OM0rDO8c1nER9yppLIjRihMHnmVAEC57kZ82gvC4LEGNYewL6rUkMmyHLqZMqK7FFtuMOmhMlK6hT9K2EXXUP+kc674WyMfq+OdZUrVYP8wwKAtl3UhT8/Vsi20lvEvORJP68tpFUqpNql71k5ztEliUaktR5vGS0MpKtzg68nJkF/GV93OZUhPKw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by SJ0PR12MB6992.namprd12.prod.outlook.com (2603:10b6:a03:483::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 15:27:14 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 15:27:12 +0000
+Date: Tue, 15 Sep 2026 18:27:01 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: markdamirkan@gmail.com
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexander Aring <alex.aring@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] ipv6: rpl: fix loop detection for separated
+ local addresses
+Message-ID: <20260915152701.GA723831@shredder>
+References: <20260911-sympwn-rpl-send-v1-0-1753993bb584@gmail.com>
+ <20260911-sympwn-rpl-send-v1-1-1753993bb584@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-sympwn-rpl-send-v1-1-1753993bb584@gmail.com>
+X-ClientProxiedBy: FR4P281CA0162.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ba::16) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: =?UTF-8?B?6auYIOS/iuaWhw==?= <btx342@gmail.com>
-Date: Tue, 15 Sep 2026 23:26:12 +0800
-X-Gm-Features: AcwNN1XLI-S8Qri36KguHBABgP6A7DQrLH0F9Q1qg0RpxEQlptTw_i6Ri3nwkQI
-Message-ID: <CAL-my2kByQ9LEkXwRbPJLR=B3szj4oZ73PVfQoTtiXfj3XZW6A@mail.gmail.com>
-Subject: =?UTF-8?Q?=5BBUG=5D_Redmi_Book_Pro_14_2024_=28TM2307=29=3A_fans_never_sp?=
-	=?UTF-8?Q?in_under_Linux_=E2=80=94_root_cause=3A_EC_gates_fan_engine_on_OSTP_b?=
-	=?UTF-8?Q?yte_=28tested_workaround=29?=
-To: platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, qby140326@gmail.com, W_Armin@gmx.de, 
-	ilpo.jarvinen@linux.intel.com, hansg@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|SJ0PR12MB6992:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a3a95e0-8f17-4e6f-fe71-08df133dd097
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	ru66fVvZ1GRjwLsSBCza2IGmCFISO4xkIRzu0ISISG16A7hp6jqrehRNW5wRcpBUI3PSEn4aVMu9MG/2O5GP6EQnVzyITcZUbEr+TrMT0t0LBTOYTqgj4FNfxb/Aw9mqQZ7SYco0yjZiUhyHtxc87ZE5EsXZO2oOlHLoCWeSg/pMyXtWC0mCGn8zvnYkxYCSHhsypZA5KzOxF2H7LVn1GVCZUKnt2zKjkSXwmp8AA93PL9t7nJfJDjBTFJmaOiWS1pERJtr0WJy9WsiPYMqHJdVbytMLFb1BU6OFxha1kpv4qKVPvbf/2eN2N7jwpE6R9+wqtrMSKpty0Y0QI0eidW4oNjI3/viWpLOHAyHnGIEb84l7RxVDdjvx53+YHwTQecK7tMv8t0JtrfKbuxzt7hVKC4QZhyxP4OIFDUv46qQmnRFi8/3/tEaFa1IuS9glwU3TXCwSTclziRLQGx/+CjCFL+m+375gQOTktvze5JGuWYsLMOenG8aB/TYTUTqBw4BIjrpTVASEVpLWJeqM0nz6xW9BGnzl/An9sMwsLoZBjlQKhEkRR/09FZYp/Is6oVCnKrw8CTWGGHbAFIBZvPnn0u/feMWNFBMLYSpDbrlq39OTlHWdldgU2esIY2vi1pBLG0fmONK0FYXssRNA31LHLemCkAXY0brJxeMN0Tg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ypBAYqJvLUkZS5yVsd/Ng5rSYh+HHNHZMes6TXGyMjf3rcQGjhcMv56SL5gS?=
+ =?us-ascii?Q?CAynP5QctuCIcu4jbMuoAegCm10WkQeoFGdmwkQxiKUW12HZihTOi7HS18Mc?=
+ =?us-ascii?Q?Q2MrXOXxTZvWcUW2UlZzuBY/EUNFPP2SbmJzYlm7jsZVgTopF7Yko6G4Mxf7?=
+ =?us-ascii?Q?g6DBLmkr3BfUMZAQHVRa875+BVCnNcUM99GkB8OLOKUv62Seb+yEVoLvJAWc?=
+ =?us-ascii?Q?e/0wMMwIxnYCbYWbLKq+wAehKaXAlHwAUhVz0Q+4FuLXnM+RINKzjfqbV/6y?=
+ =?us-ascii?Q?DmgFnUlhMskGgnXLoxbF+Jx62yXj0AMcRV1t7UVarrOpfFue5zO6w7WCTaVt?=
+ =?us-ascii?Q?NAb/IC4ifKpq37R9KB4Gw5douuQgeI4L7i9luJfTXNQvavp3y/TVr0dLMh8f?=
+ =?us-ascii?Q?9wyDqY8/Ehl0eKA/7NhWXCrKL8lxgHO3IH3Rvi44AZj+TqTWsAai6JcG5Cb8?=
+ =?us-ascii?Q?hbRd6iF5VR6cF9rlSx8yWmTcfbjb7m1s8Lq+5sM8SyWd/hRVBb6+V4yPxp07?=
+ =?us-ascii?Q?swEb3RBle0/4Ds/lvf9bmtQ4wPiZbJE5RhR89xu4bzZ1PvvHHZM3hrc7+GO5?=
+ =?us-ascii?Q?lggqaboAi6cb0qWA4j72xi/gRD+ZtcizZO6vSrXTmEsFvLbNuCrTw0FF38m7?=
+ =?us-ascii?Q?N97r61nbroklHzZZwpHGcJLJ8o7AuYFLkS/iLx9112JhczFtZnGool3zWzyk?=
+ =?us-ascii?Q?6OcFKslwVum6OhKkvMekxXv+PZdOKoYVqbuhd/4z7qvq3Cb3gF2akRJ46YlQ?=
+ =?us-ascii?Q?Lq31sZV7j3J8bZiSA0xRpKR38jywwvlLd8lMB4gnDsSdg3v1NH6Oyeg7NyIx?=
+ =?us-ascii?Q?dHysCn8LcQ+r67BtBXIkC89ageVSaO+eO/mj3xx42VUl+O+4WHALGmR1dCsn?=
+ =?us-ascii?Q?2YH1fEiJT+9UUlSmHtYI+Vz2KtsB7SSp7Nwv7DbAq2XAzLpyZ903gDgB9fm/?=
+ =?us-ascii?Q?VFyVb7CX1eS+mKE6yqiTGy2KGQ206FZA/SUt2aPc3WUY14UWYIChh4BPheKu?=
+ =?us-ascii?Q?qk9mB2/iyQPJFNzmTdmc0gA+645tMcy2HZTemYMJrggvnj6WKC8sjaDjlgFQ?=
+ =?us-ascii?Q?uaDjmvnL9eJvcOgHJlMMIc8CKiWGhHWjIoxj3jNbZdlVD04Tsa44aSj6BSyx?=
+ =?us-ascii?Q?W4AngHP9KlxSMalZ5yGbzxQg1hkp+II8tK+oHt6eOJg8173zbWwIA5SzlDdl?=
+ =?us-ascii?Q?e7CDTbChIbqzSye9+FgqNsM48JeZOEBKH0jv93x4H3uhfKwNNVN12qRtcJ/P?=
+ =?us-ascii?Q?33ZAKkp8xPYBb89F+jUfmd/ooR6Pw3hBn2W7q9u4HK5e7yTxpdRqoDA3urSo?=
+ =?us-ascii?Q?CVQ/fShrT9zPp5MqHslEvhNYvhfITIhXlGtRW57/Y4YwuqBWwjQJlKkV1KmR?=
+ =?us-ascii?Q?p8Kkke2lMuEGlvXrKbvr9FJKTGqFcopkGVw+EiYuQant0drZVkiPz7+gmkJL?=
+ =?us-ascii?Q?5skfBq6MJnnG+TrJiinE/pV35NM2SjFtnypjW6olf5eMsU871qQphrBisFP0?=
+ =?us-ascii?Q?m8czhZG1zl9yOlMeEfQ8kHXRbRDU0EvKvXxVmxvXLfGof/jQob0ub9PMdJnq?=
+ =?us-ascii?Q?YOCnrafS3ZDEnbnfwrIQz9APN80BJm5nEz17dz0EjH6b0Asi00qVSp1N/0vl?=
+ =?us-ascii?Q?hizWw+C2EnF8deoSxN/uPYWVY0SgHbC09QnIK0Y6zD+GreC7YZkE9TR2uS66?=
+ =?us-ascii?Q?HWgYrI988Mn+8IpGMDVSXr8/bCoKeuAMXvKjQj07vuUhVB0LJjwN6pPCrdXU?=
+ =?us-ascii?Q?8X/KuQNtHQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a3a95e0-8f17-4e6f-fe71-08df133dd097
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:27:12.7275
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QFlt34gZx8uMHhTM/2rqFqZexNyq5NhWaPLj+1RPOZpIY0mGQ0E+t7ex3bQVxJtJx5tINUZhnud1sGR2gXeOug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6992
 
-Hi,
+On Fri, Sep 11, 2026 at 04:11:21PM -0700, Mark Amirkan via B4 Relay wrote:
+> From: Mark Amirkan <markdamirkan@gmail.com>
+> 
+> RFC 6554 requires an RPL router to drop a packet when two or more
+> addresses assigned to the router are separated in the SRH by an address
+> not assigned to it.
+> 
+> ipv6_chk_rpl_srh_loop() checks found > 1 before counting the current
+> local address. For the shortest invalid sequence -- local, non-local,
+> local -- found is 1 at the second local address and the SRH is accepted.
+> 
+> Check whether a local address was seen before the separation instead.
+> The receive path calls this helper before forwarding an RPL SRH, and
+> RFC 6554 requires the check to mitigate bandwidth-exhaustion attacks.
+> 
+> Fixes: f37c60593634 ("addrconf: add functionality to check on rpl requirements")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+> Assisted-by: Symbolic
 
-This follows up on the report from Milo=C5=A1 Vlku about the Redmi Book Pro=
- 14
-2024 (TM2307), where the fans never spin under Linux although the same
-hardware works fine under Windows:
+Code looks fine, but your SoB should be the last tag. Also, if
+"Symbolic" is an LLM, then please use:
 
-  https://lkml.iu.edu/hypermail/linux/kernel/2608.1/13832.html
+Assisted-by: LLM
 
-We have now root-caused the problem on an identical machine (second TM2307,
-Core Ultra 7 155H) and have a one-byte, experimentally verified workaround.
-Summary: the EC only runs its autonomous fan engine when the OSTP "OS type"
-byte in its shared memory window indicates a detected host OS. Under Window=
-s
-the DSDT _REG handler writes OSTP=3D6; under Linux nothing writes it, OSTP
-stays 0, and the EC never spins the fans. All OS-side fan paths (MIFS WMI
-fan functions, ACPI PNP0C0B fans) are separately broken on this board, so
-fans are unreachable from Linux even at 100 degC.
+See:
 
-Machine / software
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-  DMI: XIAOMI / Redmi Book Pro 14 2024 / TM2307
-  CPU: Intel Core Ultra 7 155H (Meteor Lake-H)
-  BIOS: XIAOMI RMAMT4B0P0A0A (06/04/2024)
-  Kernel: 7.2.3-arch1-3 (bitland-mifs-wmi incl. d3666875c75e)
-
-Symptoms (all verified)
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-  - Fans physically never spin under Linux, even with the package at
-    101 degC for minutes (verified by microphone recording: no acoustic
-    change; user-confirmed silence; multiple independent load tests).
-  - hwmon (bitland_mifs): fan1/2/3_input always 0, temp1 always 0.0 degC.
-  - fan_boost sysfs attribute (WMI function 20): write succeeds, no effect.
-  - No WMI fan events (26/32) ever fire (no hwmon uevents under load).
-  - Writing cur_state=3D1 to all five PNP0C0B cooling devices: no effect.
-  - acpitz thermal zone (SSDT23 TZ00) reports a constant ~26.9 degC while
-    coretemp reads 56-101 degC.
-  - Under Windows, fans work normally (per Milo=C5=A1 Vlku's dual-boot test=
- on
-    the same board).
-
-Root cause =E2=80=94 DSDT/SSDT evidence chain
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-1) The EC's memory window and the OSTP byte
-
-   Under \_SB.PC00.LPCB.Q_EC (PNP0C09):
-
-     OperationRegion (ERAM, SystemMemory, 0xFE0B0300, 0x0100)
-
-   Q_EC._REG (fires when EC region space becomes available) maps the OS
-   version (OSYS) to an OSTP byte and writes it:
-
-     OSYS 0x03E8 -> OSTP =3D 2      (Linux)
-     OSYS 0x07D9 -> OSTP =3D 3      (Windows 2009)
-     OSYS 0x07DC -> OSTP =3D 4      (Windows 2012)
-     OSYS 0x07DD -> OSTP =3D 5      (Windows 2015)
-     OSYS 0x07DF -> OSTP =3D 6      (Windows 2021)
-
-   On this machine OSTP (ERAM offset 0x64) reads 0x00 under Linux: the
-   _REG write never happens (verified by dumping the window via /dev/mem;
-   the rest of the window is demonstrably live, e.g. live temperature
-   fields TSR0-TSRB at offsets 0x08-0x13, exposed to Linux via the SENx
-   DPTF sensors whose _TMP read these bytes directly).
-
-2) OSTP gates the EC's autonomous fan engine =E2=80=94 experimentally verif=
-ied
-
-   Writing OSTP=3D6 (/dev/mem, single byte) at idle, then running an
-   all-core load:
-
-     OSTP=3D0 (control):  101 -> 83 degC clamp, fans silent (no airflow)
-     OSTP=3D6:            fans audibly engage and follow the EC's own
-                        temperature curve; package temperature bends down
-                        mid-load (83 -> 70 degC) instead of plateauing
-     QFAN (ERAM 0x60)=3D4 ("full speed" performance mode value): fans spin
-                        at full speed regardless of temperature
-
-   After writing OSTP=3D6 once, fan behavior matches Windows (moderate ramp=
-,
-   full speed only near the EC's high thresholds). A systemd oneshot that
-   writes OSTP=3D6 at boot and after resume has kept the machine cool and
-   correctly fan-cooled since installation.
-
-3) The MIFS WMI fan functions are not implemented in this firmware
-
-   The MIFS WMI method is WMAA in SSDT20 (device WMID, _UID "MIFS"; _WDG
-   entry for GUID B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B, object id "AA").
-   Its GET (0xFA) and SET (0xFB) switches implement only functions 0x08
-   (SystemPerMode), 0x0A (country/kbd, sub 5) and 0x10 (misc). The fan
-   functions used by bitland-mifs-wmi fall through to
-
-     Default { SGER =3D 0xE000 }        /* unsupported, zeroed buffer */
-
-   i.e. function 0x0D (WMI_FN_FAN_SPEEDS) returns an all-zero buffer
-   (hwmon zeros incl. WMI_FN_CPU_THERMOMETER 0x16), and functions 0x14
-   (WMI_FN_MAX_FAN_SWITCH / fan_boost) and 0x15 (WMI_FN_MAX_FAN_SPEED)
-   are silently ignored =E2=80=94 exactly the observed behavior. So this bo=
-ard's
-   firmware is "MIFS reduced" in the same sense as the MIFS v2 machines
-   discussed in Yuming Sun's series, except here the WMI method exists
-   but the fan function cases are absent.
-
-4) The ACPI fan path is gated on a device this board does not declare
-
-   SSDT23 declares the five PNP0C0B fans (FAN0-FAN4) with PowerResources
-   FN00-FN04. Their _ON/_OFF only set software flags CVF0-4 and call
-   FNCL(), which ends in:
-
-     \_SB.PC00.LPCB.UPFS (ETMD, Local0, Local1)
-
-   and LPCB.UPFS (DSDT) does nothing unless
-
-     If ((CondRefOf (\_SB.PC00.LPCB.H_EC) && Arg0)) ...
-
-   H_EC is not declared anywhere in any table on this machine, so the
-   entire ACPI fan-control path is a silent no-op. This is why writing
-   cur_state=3D1 to the cooling devices changes nothing.
-
-5) The ACPI thermal zone yields to the (disabled) firmware controller
-
-   SSDT23 TZ00._TMP:
-
-     If (!ETMD) { Return (0x0BB8) }          /* constant 26.85 degC */
-     Return (\_SB.PC00.LPCB.MXTP ())
-
-   SSDT16 IETM._OSC sets \_TZ.ETMD =3D Zero when the firmware reports
-   native trip-point capability (CAP1 bit0 | bit1), selecting "firmware
-   manages thermals" mode. Combined with (1), the firmware never enables
-   fan control and the ACPI zone never reports real heat =E2=80=94 the kern=
-el
-   never sees a reason to act.
-
-6) Tachometer caveat for this generation
-
-   The ERAM offsets 0x69/0x6B used by the MIFS v2 fan-tach patch do
-   exist here, but they do NOT live-update on TM2307: they hold stale
-   values (fan1=3D2, fan2=3D0) even while the fans audibly spin. Reading
-   tach on this model will need a different mechanism (or none).
-
-Proposed fix
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Short term (upstream): have bitland-mifs-wmi write OSTP=3D6 (or evaluate/
-replicate the _REG OSYS mapping) at probe time for boards where the
-firmware leaves it at 0 =E2=80=94 ideally behind a DMI quirk. Note the pend=
-ing
-DMI-matching problem reported by Milo=C5=A1: this board (DMI_SYS_VENDOR
-"XIAOMI", DMI_BOARD_NAME "TM2307") matches neither "Redmi" nor "TIMI"
-entries, so any Redmi-specific quirk table needs an explicit TM2307/XIAOMI
-entry.
-
-Longer term: a hwmon pwm/fan interface for boards with the reduced
-firmware could drive QFAN (0x60) and read the SENx temperatures (ERAM
-0x08-0x13 / TSR0-TSRB), giving Linux users real fan control on this
-generation.
-
-Current workaround in place (for reference):
-
-  systemd oneshot service, runs at boot and after resume:
-
-    python3 - <<'EOF'
-    import os, mmap
-    f =3D os.open('/dev/mem', os.O_RDWR | os.O_SYNC)
-    m =3D mmap.mmap(f, 0x1000, offset=3D0xFE0B0000)
-    m[0x300 + 0x64] =3D 6   # ERAM offset 0x64 =3D OSTP
-    m.close()
-    EOF
-
-I have full acpidumps (DSDT + all 27 SSDTs, disassembled), the ERAM
-window dumps before/during/after experiments, and the load-test
-temperature logs. Happy to provide any of these, test patches, or help
-however useful.
-
-Thanks
-
---=20
-@gaojunwen
+https://docs.kernel.org/next/process/coding-assistants.html#attribution
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=816d9992d9ed434ec52cfbd63080d518e535a41b
