@@ -1,123 +1,108 @@
-Received: from mta0.migadu.com (out-207.mta0.migadu.com [91.218.175.207])
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AF13CB2E0
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14387285CB9
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789441587; cv=none; b=MJC/Ud668pfsMQUliurCdNyI2QJ5J8ycAPL1c225EyE1poEkXpgmrhq4ujEHpoe+6J9boGGMw4lpRaWtjDvQ1lLWSvc/iCwzoJ7faggPAxFUKU1Skf9wtIsk6qCGNvEKW+pl6Qao+2SaEd8L7vmbpqLLF8urDQNvTtELeR0rNIY=
+	t=1789441804; cv=none; b=K42NMx7MVHcFFICWyfeK5pHmE8EGGbxDEyUqKF9cx4GS87nPobkpAsXM4/2aZz1j8O8/TONpGTuBqSi0d2m3a/bt5A8R+3KNIXwREnoT9/jDJzjwBfpFYg7AM6rdkd5RoXMHIKgk+LYbSwn3ywnbHmZbcF87PyPcjo+xxEPY28k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789441587; c=relaxed/simple;
-	bh=uXNMDvyO4kl4ltOhJ8oInY+Sy61HJ839sxYVp5QCT/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kNq1eqg3hDVBWDupp7VFQVWVf2OqOiuZP2dIapT2PyhnHPw7KYtUhcUImHzx/w9FYxZ1+UXiugwxEGEuHhiHwOlZN/fD46bCKzeGClrgBuuBRd71q6XUF7gCg9ANRPiQlB5nwnJz/I46rWdQO2/aNSSDiW/vSHBoCLavrtrOdpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CRCsoEYU; arc=none smtp.client-ip=91.218.175.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CRCsoEYU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uXNMDvyO4kl4ltOhJ8oInY+Sy61HJ839sxYVp5QCT/o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789441583; v=1; x=1790046383;
- b=CRCsoEYUECttlVZWyUKGf7DOwzORbBibH9Lqi/vOuv/QypPfxEN9xpSx1KflR56gHBNJNzUB
- cdjXJAJ2WJyxYZtkU5LJ6rRMWdaZfm6gB+jtehF3urMbvOb8oUguQy8ltEF8pBOU/N/6g1t0a07
- 637icX+Khjd27+J4CKPFkM74=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 5e95220afe937ecf;
-	Tue, 15 Sep 2026 03:06:23 +0000
-X-Mizu-Trace-ID: 5e95220afe937ecf
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 15 Sep 2026 11:06:20 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org,
-	chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org,
-	ziy@nvidia.com, linux-mm@kvack.org, ying.huang@linux.alibaba.com,
-	willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
-	riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr,
-	kas@kernel.org, baohua@kernel.org, dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com,
-	Vlastimil Babka <vbabka@kernel.org>, lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org, nphamcs@gmail.com,
-	shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
-	luizcap@redhat.com, kernel-team@meta.com
-Subject: Re: [RESEND v7 01/29] mm: rename pmd_to_softleaf_folio() to
- pmd_softleaf_to_folio()
-Message-ID: <aqi2LBchW2ehBhCA@fedora>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-2-usama.arif@linux.dev>
+	s=arc-20240116; t=1789441804; c=relaxed/simple;
+	bh=XGXDHS/8qTY7POdguc23dOxyxJdACUy4xs2gylI3iBE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=TW7pZYyQrCQw+RHKCqRhkKFWUI9Kwd2FeHj1G1uRjmYw9keoQ4gKay0rCYBWk7Km7Zlgmbz990KrdlzX9f+OoaY6T3ognfvijJTtY7tJ693VEJA7b24dDFVnFAkKIt3JxiCZCViaEnKFp6ydmEVaCU9jgMkNAK0M6tQWuLYCh5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6c2d5235ac3so669621eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:10:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789441802; x=1790046602;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vBY6NIdVOOZBN2W6MjW/2GpDpEwGqqnOlZ+t9S+p1CE=;
+        b=MSWvDz7X3MWgL5vs9qroz0Q6Tg+cDvCmOFb90j309n5jWRPyY/03XfYZhk22upYfBp
+         fXwcQoGYgepqbkt2f22X6fneDfy9m1wIfRsZuv7RrG8PxQ4uwTtY21yKEtOlfYi1423h
+         tYfazKhG8zQtbyMekS2mCeTnYfv8uxzmwM5Lw2OmA46XCd71toh5T4W0B+5TXFcwU9MC
+         DMEuuo3qh9mJJH80lGTd0EPQ9RRT5XIjMOyjiB79746KyiFB30WnK8YM1KQBaVHQH5Qf
+         yuJh5wqePrpup5j16fa1GdveG9cs8Gkud/6ef8E2bNzlVfF/K7hVYmGdiS8vjFiaGsfW
+         tOmg==
+X-Forwarded-Encrypted: i=1; AKwUvBzIpx0YlkL60lZFKgRc8fAofGovNVgobmbKKl93KX/5j7BmGC6JvE+ay37J1Qli1lY2veKbaZidkpHB+oA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8bdKuJ7CgkSRroioTGb35y/CC5mvNS+7ILMiucL5JLbFu9uQX
+	fFGqRltyiyPnlPkAqQs/ZNSgVK4rF3GotAW1kMAOI9hS3AofMNKMYO/7dOOPdfqsQlxyPd8JbhV
+	urmYGVNF1WZqHRbHWLHa3v/R3hbk+FYevSZ2Srs78Ih4xJ9MvWxtlvu+b4/o=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914122950.3283997-2-usama.arif@linux.dev>
+X-Received: by 2002:a4a:e90d:0:b0:6b1:9b72:213c with SMTP id
+ 006d021491bc7-6c636f2b000mr1082973eaf.3.1789441801898; Mon, 14 Sep 2026
+ 20:10:01 -0700 (PDT)
+Date: Mon, 14 Sep 2026 20:10:01 -0700
+In-Reply-To: <6aa8a1b4.5dbb337e.688b9.09f4SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa8b709.4c28b7d0.c1bba.002d.GAE@google.com>
+Subject: Re: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
+From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 09/14/26 at 05:27am, Usama Arif wrote:
-> pmd_to_softleaf_folio() reads as if it converted a PMD into a folio. What
-> it does is decode the softleaf entry stored in the PMD and return the
-> folio that entry references - the direction softleaf_to_folio() already
-> spells out.
-> 
-> No functional change intended.
-> 
-> Suggested-by: Dev Jain <dev.jain@arm.com>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  include/linux/leafops.h | 4 ++--
->  mm/huge_memory.c        | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
+Hello,
 
-Nice cleanup.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+UBSAN: array-index-out-of-bounds in super_90_sync
 
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+loop0: detected capacity change from 0 to 4096
+md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
+------------[ cut here ]------------
+UBSAN: array-index-out-of-bounds in drivers/md/md.c:1702:17
+index 124 is out of range for type 'mdp_disk_t [27]'
+CPU: 3 UID: 0 PID: 6041 Comm: syz-executor385 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+ __ubsan_handle_out_of_bounds+0xcc/0xf0 lib/ubsan.c:455
+ super_90_sync+0x1eed/0x1ff0 drivers/md/md.c:1702
+ sync_super drivers/md/md.c:2510 [inline]
+ sync_sbs drivers/md/md.c:2752 [inline]
+ md_update_sb+0xbba/0x2840 drivers/md/md.c:2928
+ state_store+0x31e/0x1340 drivers/md/md.c:3250
+ rdev_attr_store+0x1d9/0x560 drivers/md/md.c:3773
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff84eda46f7
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffd0ac102f0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00005555643c0400 RCX: 00007ff84eda46f7
+RDX: 0000000000000008 RSI: 00007ff84ede0c12 RDI: 0000000000000003
+RBP: 00007ff84ede0c12 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffd0ac103c0
+R13: 00007ff84ede0b5f R14: 00007ffd0ac104d0 R15: 0000000000000002
+ </TASK>
+---[ end trace ]---
 
-> 
-> diff --git a/include/linux/leafops.h b/include/linux/leafops.h
-> index 4c1476ae32343..7c13c58a5e218 100644
-> --- a/include/linux/leafops.h
-> +++ b/include/linux/leafops.h
-> @@ -657,7 +657,7 @@ static inline bool pmd_is_valid_softleaf(pmd_t pmd)
->  }
->  
->  /**
-> - * pmd_to_softleaf_folio() - Convert the PMD entry to a folio.
-> + * pmd_softleaf_to_folio() - Convert the PMD softleaf entry to a folio.
->   * @pmd: PMD entry.
->   *
->   * The PMD entry is expected to be a valid PMD softleaf entry.
-> @@ -665,7 +665,7 @@ static inline bool pmd_is_valid_softleaf(pmd_t pmd)
->   * Returns: the folio the softleaf entry references if this is a valid softleaf
->   * entry, otherwise NULL.
->   */
-> -static inline struct folio *pmd_to_softleaf_folio(pmd_t pmd)
-> +static inline struct folio *pmd_softleaf_to_folio(pmd_t pmd)
->  {
->  	const softleaf_t entry = softleaf_from_pmd(pmd);
->  
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 7140a1031fb2e..ee8d46827ffdc 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -2518,7 +2518,7 @@ static struct folio *normal_or_softleaf_folio_pmd(struct vm_area_struct *vma,
->  
->  	if (!thp_migration_supported())
->  		WARN_ONCE(1, "Non present huge pmd without pmd migration enabled!");
-> -	return pmd_to_softleaf_folio(pmdval);
-> +	return pmd_softleaf_to_folio(pmdval);
->  }
->  
->  static bool has_deposited_pgtable(struct vm_area_struct *vma, pmd_t pmdval,
-> -- 
-> 2.53.0-Meta
-> 
+
+Tested on:
+
+commit:         58785836 Merge tag 'nfsd-7.3-1' of git://git.kernel.or..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=151c7df9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=16c69901580000
+
