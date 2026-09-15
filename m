@@ -1,124 +1,125 @@
-Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1E84CCDD7;
-	Tue, 15 Sep 2026 11:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8772540B11C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473453; cv=none; b=mGHdiCAc2XIyzjJjtyQFFgSZ3aTsvVnemW2s5OYMZBvFZjx+wV5ziODKG92tAvMqzQS7IA3MtXrJvZx3yYfWC5ssH18mIN7ovewpULPZpBNvopVJrzLI5Isgk+tf5One9DhXtlDkw38A2iIG3C/umb0jRsKhE+X20zVfhjzVan8=
+	t=1789473493; cv=none; b=FEJe9rGDqFgpCO5uDSzIdzJnwJX7wKSy/k2R0FYHX2YkyHgG+k9VzLXY6JpzgZpqQq4IN1NRUTH98YA6yD9ntMNXxQxXFp5a41ZAL9qKxWPP8mOab5C159PNFOjs4L4SBDPrExbauoSjaBFldPburRL8cgmPWKhMEbj/87DYDio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473453; c=relaxed/simple;
-	bh=w0/sqQdV5L2MXSUk2dbZhKLqc6Kp58uAF7F8IyQm15w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aDZ6shh4LqfWa5jLdp8vaIsEv4cYVntiQr8EBY8V3iPCV0f9sRwkqBaw1VSUM4Vk6pEMBvnnUIqD7frQsRmpQppj5MQ8SPlyevupyx+8cfS4aJ1QrzCjX49NKIwkDHjuUjVOiO4aOPT23i0VVbT8zJYFWkaUACes0L7bD+F+6kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=TcnRn/N7; arc=none smtp.client-ip=31.3.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
+	s=arc-20240116; t=1789473493; c=relaxed/simple;
+	bh=8g5Sd3uFifK3ZVwdy+TGQIZh+jmWxcGuzGLJlv4ed50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T0ij8QCGrQK3xbhotIKctEtJhqSqxjMJgp+wykof7+YYW6bWLpMGh5sGLo9GEl2RTzVDkfLRvxUONN5nNahRu5PxMrVdx3dKKT3Uqp9v7PJJCvEle7EiPVoX8weauk25Atsd4Iwl4ksMJlkZUEyoFq3dKxCNn2kIKod608qe7rA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UJOgV5xm; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="TcnRn/N7"
-From: Martino Dell'Ambrogio <tillo@tillo.ch>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
-	t=1789473448;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=9/vr+uEAwXqjHzhWPbfgMVFBA8wvT21ni08gYcXTbW0=;
-	b=TcnRn/N7eio1rumCna9E2hOlUg85z27ktR/9xzJWXB/eqBFbzLgl1KuGuu60JAlrKekp4P
-	UP4bXDPOdI8OzjzC1eO7UXzcdFepjzZsRHNryjqxTF86JpwC5gtj4R+MIjV6RLsrYRx8yK
-	YCRsBXZwJwMoNwCusPbraZAIrZPsI+QQIDL+L2+bbEWNM1dPD7bvLF5P1AtCE9yED2WzXi
-	ULPsDpi2xOoZYAQS1FjMyk9szDsbbJVx8b1KI3iits7yjLWvvx9N85L5G+nOdptTR79HvO
-	ioIc1iVLqKf1rgFJ78BD23oh7fueSRU8+PWbqY/2XUMa0ebGSybuKUym98lzFg==
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJOgV5xm"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea48edcso2146898a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:58:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789473492; x=1790078292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BrGTdKyYWPDzcFJDUsLHUxteyx4n5jj5bbwXZChmZq4=;
+        b=UJOgV5xmpcexrx8WPOzF9+dgeAnoI4fLkiJQBwICqMb4rqapGLQSNET7cz+2SLajNI
+         WDg+PsecXJMOVrUsub/T31Ol1fpThGMqBdexgwxa0hsnCSEWa8QCmlPmE12vyDDeVMD/
+         +7RHE2w+yrWIcffX13f3zwkHpnz+99yldeqfXvPvNDa6ckxAxOVmUTCBmuST1RfdOW8C
+         0XAE6rKzw+0JtIAzqwUytVkFRSvh1htg7Ow00kMDHACP87Dfq5JscoWCAMZAMCmHyMZB
+         fmBQAmcIO+DypvpTOLciOnZADrXzLR00iIyQOgPR4Y8eYQx93Lo483onOkYrYZvXCWUg
+         G55Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789473492; x=1790078292;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BrGTdKyYWPDzcFJDUsLHUxteyx4n5jj5bbwXZChmZq4=;
+        b=tR+GmPP7YWEpMK5AzK2HLuj8POAA+VAq8hMzYzQ+v2QpiNeCbIhPx+N/onhRfHiUEW
+         PpWgYDvOx7tWGIuGI9/cEpoDfTWXquBy6x9ZohbXpQtUROGrhmgwKG56goU1B5SC9k4/
+         +SXhCgI0wEV5fYFAjpiO2ZI3iiWlSrLOnG8l4hPONU67sB5NqaNO5rbbOwTcQVh17By9
+         y26eJ4LiwiTtQCsPARuzyZTuBJ9Fy94xiE3GmQKT6nUZKla6rmLbhLt82ByzbmcBEXMS
+         i/f9jeKCxsFA5NODITNAIr/1m59NJ6slWp2TxbZzToRdEu9nmFLgtCNP1lttP2cYA7L7
+         kVCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqe5P6Q5YBjPhTkzKFe3zk5RCvdveLLxj+HuSRVYEElOimM2xeMD8N/CFkonBHTXH2xe8vwbdVlv1ppz0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPExMoy4HrRKJUA4DWAXjPphjfzl1JOHcgAo13VaGR/pe2Izz1
+	NlDawGbSWVHUDAEtoFj9kPM79ml5wTD3I89s4k4qoti+c6uAijOzIn3f
+X-Gm-Gg: AYBFou1O0q14VU5aw2tN0QhDcftk6X2zq5tuNMnjVfhQN7Sr/995Q0s9PiYqacSjML+
+	W0gq6QqkaCPWqUHh9CMFGCMOXOfGvnvcOkrnmoHhtEtTiJG/WF+m91movnrcz9My6cgVArX0VF+
+	P/DH4z8ggrgeTpGxBCdRpsEOGb81VgpUeE7KD3biV8gc+rCOaWqbnnD2/PYSiOBMUke6ohbIf4l
+	iPsobf+I0fD3FhhCVeLHV0RG0xh5rrO7U/My0kwl3JFDcnElH9taK0b9rRnCR0Tfz9SZChtw+rR
+	gmlMRTz6aRUCuJ52uILz1OfAQ0uab8VC3ReMUssSEMlaUFdPBCCIjjCXT4KTl09nYvDKJPqx6qb
+	kCDRtx4lZ5ZmjVwP09tZLk1hsQTEOcdpfNO0g3dvTGVxnv7AlefmE9o6U5dy0lVY0NazHB5Wgi1
+	emKw/YN9c7YXxVOqv9dYHzejI8Mv+fmbyK5Cgsw/nSFtOL591dY8bjsg==
+X-Received: by 2002:a17:90a:d648:b0:39d:cbb1:c96f with SMTP id 98e67ed59e1d1-39dec09a779mr13558544a91.18.1789473491565;
+        Tue, 15 Sep 2026 04:58:11 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdacba6bsm4953697a91.14.2026.09.15.04.58.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 04:58:10 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Fei Shao <fshao@chromium.org>,
+	Kees Cook <kees@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Steve Cho <stevecho@chromium.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com
-Subject: [PATCH v4] arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add ramoops region
-Date: Tue, 15 Sep 2026 13:57:27 +0200
-Message-ID: <20260915135727.567145-1-tillo@tillo.ch>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] media: mediatek: vcodec: destroy core workqueue on remove
+Date: Tue, 15 Sep 2026 19:57:53 +0800
+Message-ID: <20260915115753.2411047-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Reserve 64 KiB of RAM just below the ARM Trusted Firmware secmon region
-(0x42ff0000-0x43000000) for persistent kernel log storage via pstore/ramoops,
-allowing post-panic console output and oops dumps to be recovered after a
-warm reset. Without it, kernel crash logs on this board are lost when the
-SoC reboots.
+The decoder probe allocates core_workqueue for latency-based decoder
+architectures. The probe failure paths destroy the workqueue, but the
+normal remove path only destroys decode_workqueue.
 
-The zone sizes (record-size=8 KiB, console-size=32 KiB, ftrace-size=8 KiB,
-pmsg-size=8 KiB) consume the full 64 KiB carve-out. The requested ecc-size=16
-reserves a small Reed-Solomon parity block from each zone's own allocation
-in persistent_ram_new(), which lets pstore recover dumps even when the panic
-path truncates writes mid-record.
+As a result, removing a latency-based decoder leaves core_workqueue
+allocated after the device lifetime has ended.
 
-The no-map property is required so the reserved region is kept out of the
-kernel linear map. ramoops remaps the carve-out write-combine via
-ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
-the linear map at the same time is an attribute-mismatch and risks losing
-panic data to dirty cache evictions from the linear alias.
+Destroy core_workqueue during remove for latency-based decoder
+architectures, matching the cleanup performed by the probe failure
+paths.
 
-The region sits immediately below the ATF block already declared at
-0x43000000 in mt7986a.dtsi, so no other reserved-memory child is moved or
-resized. BPI-R3 ships with 2 GiB of DRAM starting at 0x40000000, well above
-0x43000000, so the region is always within installed memory.
+This issue was found by manual code inspection.
 
-For the carve-out to actually preserve content across a reset, the boot
-loader must avoid touching this region on warm reset; on standard BPI-R3
-boards with the stock OpenWrt U-Boot fork this already holds.
-
-Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
+Fixes: 365e4ba01df4 ("media: mtk-vcodec: Add work queue for core hardware decode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
-Changes in v4:
- - Use a plain reserved-memory node inside the root node instead of the
-   &{/reserved-memory} path reference, as AngeloGioacchino pointed out. dtc
-   merges it with the node from mt7986a.dtsi, so the resulting DTB is
-   identical; this is a syntax change only. Same change made to the BPI-R4
-   patch.
+ .../media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-No rush on my account for the earlier silence - the v2 postings were
-cross-threaded into each other's v1, so they were easy to miss.
-
-v3: https://lore.kernel.org/all/20260915064302.1595204-1-tillo@tillo.ch/
-v2: https://lore.kernel.org/all/20260528123655.2650868-1-tillo@tillo.ch/
-v1: https://lore.kernel.org/all/20260528093038.1945245-1-tillo@tillo.ch/
-
- .../boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts   | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-index 637e556..150b794 100644
---- a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-@@ -140,6 +140,19 @@
- 		tx-disable-gpios = <&pio 15 GPIO_ACTIVE_HIGH>;
- 		tx-fault-gpios = <&pio 48 GPIO_ACTIVE_HIGH>;
- 	};
-+
-+	reserved-memory {
-+		ramoops@42f00000 {
-+			compatible = "ramoops";
-+			reg = <0 0x42f00000 0 0x100000>;
-+			no-map;
-+			record-size = <0x20000>;
-+			console-size = <0x40000>;
-+			ftrace-size = <0x10000>;
-+			pmsg-size = <0x10000>;
-+			ecc-size = <16>;
-+		};
-+	};
- };
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index e936ed8dffba..426d060d937c 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -570,6 +570,8 @@ static void mtk_vcodec_dec_remove(struct platform_device *pdev)
+ 	struct mtk_vcodec_dec_dev *dev = platform_get_drvdata(pdev);
  
- &cpu_thermal {
+ 	destroy_workqueue(dev->decode_workqueue);
++	if (IS_VDEC_LAT_ARCH(dev->vdec_pdata->hw_arch))
++		destroy_workqueue(dev->core_workqueue);
+ 
+ 	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
+ 		media_device_unregister(&dev->mdev_dec);
 -- 
-2.47.3
-
+2.43.0
 
