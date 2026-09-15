@@ -1,94 +1,87 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A07481657;
-	Tue, 15 Sep 2026 08:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7BB38550C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460787; cv=none; b=ay8oP+cDU6/L92r4clRb+88KGeJoZEZWJgVZ0hPIN1xEFRgaevzwW8LsLHq0l1zvaNPZUvmgQYRQAy3Nyx9ax4mb11DrPe0rS2sqSCPvAz2s+4zKLFbtGhLvT2xb9EknTbJcB49fM+xqgTvT0UihHJcelvKFL7lGHJis6TvH6xQ=
+	t=1789460791; cv=none; b=MmiTnJ1rBGdeYlpNvjxtZnsVaEFCY/pz7eurRKoiG1Cc7gcTC3GKAHXUOzuP8odeGyRPIlIzz9hCGKS78mi75rqjiAnSICkoUVAsBbdzxz3cAakW/7++iBMDY8lRPj6xoS287SqacaSikJ++xFs99LnfBUhcueyh54VFOaVB9Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460787; c=relaxed/simple;
-	bh=1ckF/L3urk2n6oHITPJi0BcW5E39fkQSC+zncpJCzso=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=loG0J6TmgX+ib/MctPXBosgJ1wlFxHWLgjz8QbD2sTd/YNl9fo9OOkm0fFVq75gxC1ZlQWbm03aIrA4k0CjeKugrY7rM9X1362GwZXEOBVjq16b8ZF2lptdR7v0frZkUKpuS16xbCnOZF3Z7i8FF7f5IXhzpVhtsMlBf98iFQ3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ob55COYR; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789460791; c=relaxed/simple;
+	bh=FCYAM/+IxeOfbu8JaL0+BYZVm7VgF32pKJdWlGO2l/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p1MCVaJsUfdnlPpSLatyacDh81vO6zNR3AAskE+YMOK5Ow81KD05qtZwF/dOrQPib5I+2t2hA+p2Mtil9Mr1aMh27QnQhlO7d3obO87bypnMdyevnQUHCZoLt44Mkn9BQglhmqM01REWBcW2GJ9mp3DA0HgW4DwOKuGijuITgBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=NLb5pd16; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ob55COYR"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=b8FfZtbdk0pD+jldYTWN4mi2ipQ+Z6OiTFztjZe4500=;
-	b=ob55COYRPCLBJiU35z2yECpdJZ6rV+hRLeyP5hZ4MAAeGRLy0v1t8WoGa0Z1GADbl9gQpJiw1
-	+nRLmoOVkB/n+2KtD65a5SKIP5ULDXattvPlskB8C1Eexa7XZKpGp1Nr6+UTTKUUf4NMRpmV7Ah
-	SiFvxxcUjbJzAnlpxoyjUE4=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hkZZX2ZW5z1cyVL;
-	Tue, 15 Sep 2026 16:15:16 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id B1AD140565;
-	Tue, 15 Sep 2026 16:26:13 +0800 (CST)
-Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
- (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 15 Sep
- 2026 16:26:12 +0800
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-To: <song@kernel.org>, <yukuai@fygo.io>, <artur.paszkiewicz@intel.com>,
-	<shli@fb.com>
-CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: [PATCH] md/raid5: setup_conf: Fix null-ptr-def in error handling path
-Date: Tue, 15 Sep 2026 16:17:31 +0800
-Message-ID: <20260915081731.122933-1-chengzhihao1@huawei.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="NLb5pd16"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=FCYAM/+IxeOfbu8JaL0+BYZVm7VgF32pKJdWlGO2l/g=; b=NLb5pd16eFlLJbxjBcDozgPEQh
+	S7zrUGJy0WtXetEcCXgnNdB3oQHlu7bTJ03zzfEWpSqujGAY+uGyLgBy9bf1wkt2yYIbRWH0m+lqi
+	66bimd8iwb9iYUSEmjj9dqPNwO+Sozbtho5BPj5fcwXwJSNyfsKieEOkWJf42i2A8sDaCtNiBT6no
+	cUE2b90fjAYAqtml3fpUpfUcK+HevGvlGBcHnoQpUfvJFpJtMAZhAaTUbpZrSnLKf2610yXJmXs9d
+	mU03g9f7kUiyT3Gu4nbbiXprhO2PzdWpwHw0asY6yCgeYyKkpzoh01cxjYNMycMKW+6mMVATnXfMq
+	sHDtSjBQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6OUT-0000000FFcb-19Vg;
+	Tue, 15 Sep 2026 08:26:09 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 52F7C301BD5; Tue, 15 Sep 2026 10:26:08 +0200 (CEST)
+Date: Tue, 15 Sep 2026 10:26:08 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Waiman Long <longman@redhat.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Haakon Bugge <haakon.bugge@oracle.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH] locking/osq_lock: Ensure proper locking semantics for
+ osq_lock/osq_unlock()
+Message-ID: <20260915082608.GW4121339@noisy.programming.kicks-ass.net>
+References: <20260910141908.592414-1-longman@redhat.com>
+ <20260914112225.GA3500130@noisy.programming.kicks-ass.net>
+ <eeb26779-1423-4487-80d9-bcf6d6fbe097@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemo200011.china.huawei.com (7.152.185.179)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eeb26779-1423-4487-80d9-bcf6d6fbe097@redhat.com>
 
-For raid5 setup_conf, if an error(eg. bioset_init fails) happens before
-'conf->mddev = mddev', following error handling path could trigger a
-null-ptr-def problem:
+On Mon, Sep 14, 2026 at 10:30:12PM -0400, Waiman Long wrote:
+> On 9/14/26 7:22 AM, Peter Zijlstra wrote:
 
- free_conf
-  log_exit
-   raid5_has_ppl
-    test_bit(MD_HAS_PPL, &conf->mddev->flags) // conf->mddev is NULL !
+> > > The "node->locked" read in osq_lock() was relaxed by commit 036cc30c6ba
+> > > ("locking/osq: No need for load/acquire when acquire-polling") a while
+> > > ago as the smp_load_acquire() loop was causing a performance hit due to
+> > > the repeated acquire barriers in the loop and it argued that an earlier
+> > > atomic_xchg() call could provide the needed barrier. That may not be
+> > > enough especially if we have to loop for a while before the lock is
+> > > released. Now with the new smp_cond_load_acquire() helper, only one
+> > > acquire barrier is added at the end of the loop. So it shouldn't have
+> > > the performance hit noted in that commit.
 
-Fix it by initializing conf->mddev in advance.
+> > You need to substantiate this *should*.
 
-Fixes: 3418d036c81d ("raid5-ppl: Partial Parity Log write logging implementation")
-Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
----
- drivers/md/raid5.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> I don't have a good benchmark that can show any noticeable performance
+> difference by adding an acquire barrier. My suspicion is that a repeating
+> acquire barrier can be expensive depending on the actual processor used.
+> Anyway the other osq_lock/osq_unlock() entry and exit points all have
+> suitable barrier. I doubt adding one more acquire barrier will have a
+> noticeable impact given that it is one-off at the end instead of a repeating
+> one like the original osq_lock() code.
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index b91545ce090d..c091bba95c31 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7675,6 +7675,7 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	if (conf == NULL)
- 		goto abort;
- 
-+	conf->mddev = mddev;
- #if PAGE_SIZE != DEFAULT_STRIPE_SIZE
- 	conf->stripe_size = DEFAULT_STRIPE_SIZE;
- 	conf->stripe_shift = ilog2(DEFAULT_STRIPE_SIZE) - 9;
-@@ -7743,7 +7744,6 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	ret = bioset_init(&conf->bio_split, BIO_POOL_SIZE, 0, 0);
- 	if (ret)
- 		goto abort;
--	conf->mddev = mddev;
- 
- 	ret = -ENOMEM;
- 	conf->stripe_hashtbl = kzalloc(PAGE_SIZE, GFP_KERNEL);
--- 
-2.52.0
+The obvious benchmark is the one that got used for 036cc30c6ba, no?
+
 
