@@ -1,129 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC383115AE;
-	Tue, 15 Sep 2026 13:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD46A3AE1BC
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479101; cv=none; b=IudSRz/JFyd0hgBhKSZ5eOrZG4ribLMtPvMqY2k9+yeEYfBaaAROA07fn1wi25XibdHA9aJ/VARyAqEVa5SPvKUbHiAszA2L6lsE+tFLPsH7+A7PuoCl+h9zYCVeRamF3CcmnuJk3Jy2b36dBAukWkvGoae+kBZtRSIuOz9qjZs=
+	t=1789479133; cv=none; b=uBreXAFvWqCksOK6FSbRvVLHkLpxLQzOMxWrgWXXZ2Ur1HV/gTM54q04ViXGf3Nq7K696utOG+Dw+YsDEDJBaCJ0kKIRdIpCwjjXwDd/37q4QxfasStvRu/505IZF4ZCZFU1Pg13/o9THnkwXEvVBVgz8umIPJWwIWMpvGGhhYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479101; c=relaxed/simple;
-	bh=RfwwC2+Zez1tPpO2uzngk8MVBZQTEo9cPOqnv9hB2dc=;
+	s=arc-20240116; t=1789479133; c=relaxed/simple;
+	bh=x5HiqYFKHRuwy2OEv3uAUh5ZieUJ005qiTjbTzehe0M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RtRrxN/qtiXmCID/QFzK1PDlRmPiqFspbBdJrzrHWxDZtYeqK3UWTGpKekFDlrV9dvyG7snv6lBXjqg+QW4RtO9mRt6/5S0gnGT9UMPbSHPd9qNQmtp7NyIFy/quyo922aXdm0mDk+ED1f1f+JKIxYHaOBK4gndsdT88aDW4FFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bxgsy2BH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HyLROW02V5ro3hM0XmyiiPcSUnWWJFgFt3b7PGEBw0Tpd198NGmJwbDCdCfMIr7jXZM3h1gnjdz0ARITo7SKWYQ28MrV9AUalMTYLmWgeSkGbnH4AOaCur6hQnEA83Xx/X/sFFr/2lEDTxhOnES0BCFoEs9AuEm9t5LQbz1gEG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FED0R6us; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bxgsy2BH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE8D1F000FF;
-	Tue, 15 Sep 2026 13:31:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789479100;
-	bh=szNMGe0DObGeR+SwRrUoeZsesJIvyvHlKuWjShKq/XM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bxgsy2BH8vB1k6x/MwDXjlbNVwjyZEYkY8k9e3PdVaD+xjsGtBcSM9mJabPOrJUzz
-	 kd+tHYqRrKZEq87R5a8vsjCkYvifnJ8NtGCJawmHnVkZckYqaVj42qfBwQldxWKjGN
-	 lGHVDHinmGCkNbzgPmoE22Y75nwCu0vz4nOwIRCQC+CkloWdVLGFpJuKkkt6yR3sjn
-	 nFZNRopmz55BHRoMcDgESNpOC07YvQkifLyL9ERd9uVTHuFnJV5FTShXlo1wH1UfV3
-	 opo03/Dn1lTUHe5SWpC77GI5+3vj4S6E08Us84DlyhteMV2n/GNLKKz3llO3ZNCFst
-	 ILzESzN/1go0Q==
-Date: Tue, 15 Sep 2026 14:31:38 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	rmikey@meta.com, riel@surriel.com, kernel-team@meta.com
-Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the
- poisoned-memory EFI table
-Message-ID: <aqlFnuIIECOyaweo@thinkstation>
-References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
- <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
- <2c9a7bef-3189-4f78-a6cb-61d2f7afd643@app.fastmail.com>
- <aqKhgPKzRf0e22s3@gmail.com>
- <aqkIdVhoG2wwVBtb@gmail.com>
- <aqkyT0Ui9h5KWuzn@thinkstation>
- <aqk4NUnq92ftuUuJ@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FED0R6us"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789479133; x=1821015133;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=x5HiqYFKHRuwy2OEv3uAUh5ZieUJ005qiTjbTzehe0M=;
+  b=FED0R6usk83MRrFeH3+g1SZOPxWaO9eiWTP01dKrKIUokJYtIIdHMS6t
+   6io7fU40AO1x510AQpzOb+70A+rd2DRTa+sLbNH2HyoR/1FYe7PBLmhFP
+   UyKeFMCVBwBhvKvcPswxaga+XCbiB2gbOFiNo5ynspglFVq9Bljv9GTEk
+   FTp4MbGrYT8++MuhzXnnTeUB4I6NrVBad4TnUGF5ZvlhfekPA2ufOi/gb
+   vUrTw3h7h55tCyTOhIe+YkAN3GLz2h65hxsEmJV2d/XPbkRIH+eB+PZv7
+   tGVEFKdIFcaJh1Qu66teM06GRC9EP9eUWzHb5UPH/71SvbAc3n8ii4Gl1
+   A==;
+X-CSE-ConnectionGUID: VWj1T+ieR3aNYWZdU/wV7A==
+X-CSE-MsgGUID: uecelx3SR6W4MKEZTCCMGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89684318"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89684318"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:32:13 -0700
+X-CSE-ConnectionGUID: PmsPTjqBTfihcvQvl5XfoQ==
+X-CSE-MsgGUID: Pn0bhtKBSoiccnMNVL9iFg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="278275809"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.57])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:32:11 -0700
+Date: Tue, 15 Sep 2026 16:32:08 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: sekoohaka.sarisan@gmail.com, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mfd: intel-lpss: Fix DebugFS initialization
+Message-ID: <aqlI2HgMCVyF1Xci@ashevche-desk.local>
+References: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
+ <20260915110222.GA11487@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqk4NUnq92ftuUuJ@gmail.com>
+In-Reply-To: <20260915110222.GA11487@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Sep 15, 2026 at 05:39:44AM -0700, Breno Leitao wrote:
-> Hi Harry,
+On Tue, Sep 15, 2026 at 12:02:22PM +0100, Lee Jones wrote:
+> On Sun, 13 Sep 2026, Maria Lisina via B4 Relay wrote:
+
+...
+
+> >  static int __init intel_lpss_init(void)
+> >  {
+> >  	intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
 > 
-> Thanks a lot for the feedback.
+> Why not move this and everything else debugfs related to
+> intel_lpss_debugfs_add()?  Then we can get rid of the awful global
+> variable, have everything nicely compartmentalised and ensure that we
+> handle each fault gracefully?
 
-Hi Breno, no problem!
+This creates a directory under the root of the debugfs, so if you want to have
+that not at the driver level, but at the device, it must be a singleton op.
+We may achieve this by doing DO_ONCE_SLEEPABLE() from once.h.
 
-> On Tue, Sep 15, 2026 at 01:12:54PM +0100, Harry Yoo wrote:
-> > On Tue, Sep 15, 2026 at 02:03:48AM -0700, Breno Leitao wrote:
-> > > On Thu, Sep 10, 2026 at 06:11:53AM -0700, Breno Leitao wrote:
-> > > > So I'd say we have two options:
-> > > >
-> > > > 1) Keep it similar to unaccepted memory, with 2M granularity.
-> > > >    - Pro : Similar mental model as unnacepted memory
-> > > >    - Cons: 2 MB might be a bit wasteful
-> > > >
-> > > > 2) Move to a linked list like the RFC, keeping it outside of the EFI
-> > > >    table.
-> > > >    - Pro: Reduce the memory granularities to page instead of 2M blocs.
-> > > >    - Cons: Another way of passing memory information between kexec
-> > > >      kernels.
-> > > >
-> > > > Any any other option or strong preference?
-> > >
-> > > Since nobody voiced a strong preference, I will stick with option (1),
-> > > the bitmap, for these reasons:
-> >
-> > Not sure if this was discussed already, but perhaps we need to have
-> > a chain of struct linux_efi_poisoned_memory rather than a single
-> > bitmap, to easily add support for hot-added memory later?
-> 
-> Agreed, that's a good point. We could extend linux_efi_poisoned_memory
-> with a ->next pointer, so that if we ever add hot-plug support later, we
-> can link in another linux_efi_poisoned_memory. 
-> 
-> That said, I'm not sure hot-plug memory is really relevant here. Hot-plug
-> is mostly used in VMs, while this feature is more host-side, so it doesn't
-> seem like a great fit. Maybe it would only matter for servers where
-> physical memory can be added while running (do those still exist? I
-> recall IBM offered that feature at some point, but I'm not sure there are
-> real customers for it).
+Also note, this won't give us the possibility to kill the global variable, as
+that one is per-driver, not per-device.
 
-IIRC CXL memory modules can be set up either by firmware or hot-plugged
-after boot. Not sure how common the latter case is (or will be) in
-practice, though.
+> > +	/* Ensure intel_lpss_debugfs stays NULL on error,
+> > +	 * so intel_lpss_debugfs_add() exits properly.
+> > +	 */
+> > +	if (IS_ERR(intel_lpss_debugfs))
+> > +		intel_lpss_debugfs = NULL;
+> > +
+> >  	return 0;
+> >  }
+> >  module_init(intel_lpss_init);
 
-> > Also, I wonder if some architectures have a scattered set of pfn
-> > ranges so that the span from the start pfn to the end pfn being much
-> > larger than the actual physical memory size.
-> >
-> > If so it might make more sense to have a bitmap for each pfn range.
-> 
-> Agreed, having a ->next in linux_efi_poisoned_memory is a good idea that
-> we can lean on depending on whatever problem comes up down the road.
-> 
-> Very good point — let's keep this linux_efi_poisoned_memory chain idea in
-> mind for whenever we need to expand it.
-
-You mean 1) keeping the structure as-is for now (and expand later with
-new EFI table version) or 2) adjusting the structure in the future
-revision of this patchset?
+In any case it's orthogonal to the purpose of this patch AFAICS.
+If you still think we definitely need to use probe (which I think
+doesn't buy us anything but troubles with singleton), I can do it
+later on.
 
 -- 
-Cheers,
-Harry / Hyeonggon
+With Best Regards,
+Andy Shevchenko
+
+
