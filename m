@@ -1,83 +1,134 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185103A63F2;
-	Tue, 15 Sep 2026 14:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99DE3B14A2
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481768; cv=none; b=fSFq91I34Mj1Rl1Bb2WPxY5mkj2p8r+0RJXZZVuVEZpG7EV+LUwGhmLBC3bzjciXrbXd8r4xrtzkLWFDnWenzmrUsUrlDw6Cq4LPjoguJhvrDllS24vog953J3/wfxIoP/dtCff2mpE3WtnxlC3AxisEph+8B847y18jkTvmypo=
+	t=1789481771; cv=none; b=nrOM938+xi3XREpJlNunRSsGXwiTbPK0zx0hm4C5sow3I05ylRTi9dp3CZg8vJb7iuBroZVPwF4ZhAU8OAFfqTxuWa/FpHyG282OjmZdu7Dbh51aqt2QVX1zedgepQuQUtyLup/scWr5HrOyVzjuSXGFxmLJfxAV2MqM22g+wWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481768; c=relaxed/simple;
-	bh=PTbxpPFOxDQ8xv3WRyCj1KIRouewlTe+7MQl0VvICic=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HBKcw+5Swrafisz/yAlSGlIFZfjb9bYa2Kw9m/9jizFwllDAaVi1f+j/DoWJgMt2a6zkfwrG9ehaGsAiFc7/uNguAuFlKnVTRse5v9tkoP5122iC53FWtXRXacbIZx0F0DhVa82l8ZnpUZNMZcXOzg42fUQndVtCVcDLploOL00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=KRUCyAoc; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789481771; c=relaxed/simple;
+	bh=cQUpihWQioTqstYxEXwVnyTIzezJVnL2wsOroTfdHY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kc44+arqHJi3ATT5S1myA4fvcmm+vpTqp368Mi1bBMgLNxGOzZBmXkIiqklp1v12cf57Hr+rSpsK927tbtAdHa+8ZbMUyfOPpJn3OKRRvad1k5VDwxEgb8V5rl9g4pmBm6QtNu2FrhqrtnXm0nngbUoZcXp09dxniEwm/hHgQvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JIMg5q6p; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="KRUCyAoc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789481764;
-	bh=PTbxpPFOxDQ8xv3WRyCj1KIRouewlTe+7MQl0VvICic=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=KRUCyAocjxgVBz3HulW75LFARuyrG+119/V5KXj4ptEBwVuz+JDHiZet+PUE5I0IQ
-	 qoy7VqAKh+MD6vKt02YWiG+VFikVc68ZjvuDBCMsJoa+vk+Azx+NRdAMf1ZDxvMFCk
-	 1RW4txL2x7YYjWoElHWCLKxAZ5QoWcdaN7Gm80yo6u6PbSoBh+1k2YRqzerZjkZ57V
-	 rcKpYgnNz/DI7qUhMi3jatG4TUpAFf1mthq+htbk8Ia+cv1QKt91/AjAkjS6MERzb8
-	 42k50eoz5tHYt1tdyYmuf1ZL8TZ0SpWy5vYn6PFbarvsPRF0er/Cnwb0IW4jXWWeJf
-	 BrvV6ODCSIQ6w==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AF8E317E089A;
-	Tue, 15 Sep 2026 16:16:03 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- Martino Dell'Ambrogio <tillo@tillo.ch>
-Cc: linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kees@kernel.org, tony.luck@intel.com, 
- gpiccoli@igalia.com
-In-Reply-To: <20260915135722.566918-1-tillo@tillo.ch>
-References: <20260915135722.566918-1-tillo@tillo.ch>
-Subject: Re: [PATCH v4] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add
- ramoops region
-Message-Id: <178948176365.42253.18334352766065751313.b4-ty@b4>
-Date: Tue, 15 Sep 2026 16:16:03 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JIMg5q6p"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dcb8so261348f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789481768; x=1790086568; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c6nXn9QszvDuxbC4bOSKyL0/hzlZ75yA+JSfjiylQcQ=;
+        b=JIMg5q6prxl7f9V8AmVU//Et9nhxOQ/KsomRNTlxLGqdaZyTZxw4U6VBTHvk4XH0BV
+         R8nXfRqvjgLdxEzyN3LXb+Bgxtsqi0bdCuemI3yK39pIE+5EqkpgW0paKoTPGp0g78oU
+         4jZuSfO4WJ+DcCgzVd0kKKivYLKuU9t+lCH/xnNZUZ9cEroFW5kPYQX3dK0SVYnMJ5uw
+         m+tJI9dSJNhegNiFD3vuIFrMzaSSo+Lr5zlZR2Rdqgg/WAAo9ee0jYbKmfApi/n5vQPR
+         nmpIivN4crg1eD9EhUKBJWMso28EdLEonRNFJDzpr9fPeu+oW+b2pVnv2IBLiYE3Ghba
+         sXCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789481768; x=1790086568;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c6nXn9QszvDuxbC4bOSKyL0/hzlZ75yA+JSfjiylQcQ=;
+        b=2uVlYzgS3xDIpR6C/O4GF0wO66ms2ofXeRaagSy2dwhcfaCOyJjV3ZiB4wGq3x7h1i
+         GQbbS3Bp2xtt+NxK0bWPXVcq2LB0ZF3yho5eBovjPT0mKtKeYPNMBi2D4NczVdsVduW+
+         BUg89DBlraJFrYHlzCkbLfLpKc7+1nQXyuh2AeRXTMWroSlKwdxJc9pbJZ3FzBYq24Bd
+         Q1Wa+0go6a/TK33skAyVHkeFfKXxf4C5uxuRjpm4Yj9lAQuOVGi30PVwXItizJE9WVUf
+         h6u6Ss7mumM/vGbkLFFOg1b3K9qM8ZtH5ns80MN4sIV00SZ+ezYD4+aTmwO+HHutl9Gc
+         +N4w==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ85eaO/aY4fzk3WrQYgtEjigcVf3GtM9AEUZK/EWF7syVPcQ8xlrhUJB2yAmLDocg5mmkQ8IGzUvEDJ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/MuUXWaBG3UA02Rmd4dvb/M9C1qBOwZcU7Y/d1Y+qv+cdM2Et
+	E9N/fUoyZTjt0ADPZ3Zwg5Vh7mDmtl1c+eoNI5HKCpOzrgCyCzlsDbLK
+X-Gm-Gg: AYBFou1KDZYhnxa0ZwGkxlqpIFDp5RuWjOao3bCmMSfhNFTHXMuXl3gqqh9CfU1LrOp
+	bLkP9q1l5JveGh/Uai67BxWtL29cwyUKe3oqXRrSn8tFkiKl1ApUqwHn7cAQkLy5b1PyE5Md6wh
+	aD/SQJYi4iPv+0hYnIDFF9Lxqu0VPP7ZzUAEEJ38dCkFDUVaYMMOc3Hm0r2+3Y4f/7gr5WKufCg
+	VArenwvjYrpVoBpZRAN6DSl6L6pnnsT+pcU2P/xMPnfpF8CcC3dx6AaUy+heP22CqSdmgft3Oy0
+	/sWRycL9erC83kzHCgLfdJ6ywsC/96Kn62gJJ4Q++exaNeWegtwfijY5ONOo97f5kWGRUMY0bO7
+	WuabH/KQZzJkzPdgNhgIOSatHFHHMfJHL1P9cRaZigof1Cm9md6ohX9uzMCFS+eEfvbG5fnaH6I
+	IoXy+dLC7nef6Qgz4/biVuaus7IPsbOUG9MdoX2QHL6MDzo4fJKZg9FD0ZOzg541grfdtCqkokU
+	aSSVbpxsBxZQlmc4Gjeyfgz
+X-Received: by 2002:a05:6000:188b:b0:487:73c:3f9 with SMTP id ffacd0b85a97d-4870a99c862mr1258242f8f.22.1789481767808;
+        Tue, 15 Sep 2026 07:16:07 -0700 (PDT)
+Received: from egonzo (82-64-73-52.subs.proxad.net. [82.64.73.52])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb357288sm35209776f8f.29.2026.09.15.07.16.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 07:16:07 -0700 (PDT)
+Date: Tue, 15 Sep 2026 16:16:05 +0200
+From: Dave Penkler <dpenkler@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Mark Brown <broonie@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	Tianchu Chen <flynnnchen@tencent.com>, linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Subject: Re: [PATCH v1 6/7] gpib: fmh_gpib: Replace
+ dma_request_slave_channel() by dma_request_chan()
+Message-ID: <aqlTJcVHi5CXTyjy@egonzo>
+References: <20260915100931.3593242-1-andriy.shevchenko@linux.intel.com>
+ <20260915100931.3593242-7-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915100931.3593242-7-andriy.shevchenko@linux.intel.com>
 
-On Tue, 15 Sep 2026 13:57:22 +0200, Martino Dell'Ambrogio wrote:
-> Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
-> (0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
-> allowing post-panic console output and oops dumps to be recovered after a
-> reboot. Without it, kernel crash logs on this board are lost when the SoC
-> warm-resets and the on-chip console buffer is reinitialised.
+On Tue, Sep 15, 2026 at 12:04:27PM +0200, Andy Shevchenko wrote:
+> Replace dma_request_slave_channel() by dma_request_chan() as suggested
+> since the former is deprecated.
 > 
-> With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
-> pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
-> (640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
-> reserving a small Reed-Solomon parity block from each zone's own
-> allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
-> even when the panic path truncates writes mid-record.
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/gpib/fmh_gpib/fmh_gpib.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-> [...]
+> diff --git a/drivers/gpib/fmh_gpib/fmh_gpib.c b/drivers/gpib/fmh_gpib/fmh_gpib.c
+> index 5e10e9353fed..3fdcc673ec8b 100644
+> --- a/drivers/gpib/fmh_gpib/fmh_gpib.c
+> +++ b/drivers/gpib/fmh_gpib/fmh_gpib.c
+> @@ -1458,10 +1458,11 @@ static int fmh_gpib_attach_impl(struct gpib_board *board, const struct gpib_boar
+>  	e_priv->irq = irq;
+>  
+>  	if (acquire_dma) {
+> -		e_priv->dma_channel = dma_request_slave_channel(board->dev, "rxtx");
+> -		if (!e_priv->dma_channel) {
+> +		e_priv->dma_channel = dma_request_chan(board->dev, "rxtx");
+> +		retval = PTR_ERR_OR_ZERO(e_priv->dma_channel);
+> +		if (retval) {
+>  			dev_err(board->dev, "failed to acquire dma channel \"rxtx\".\n");
+> -			return -EIO;
+> +			return retval;
+>  		}
+>  	}
 
-Applied to v7.3-next/dts64, thanks!
-
-[1/1] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
-      commit: b71dd71f0965358d33a4c5c93789e46795f0f49d
-
-Cheers,
-Angelo
-
-
+Reviewed-by: Dave Penkler <dpenkler@gmail.com>
