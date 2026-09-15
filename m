@@ -1,627 +1,312 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38834AE8B2
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974443AFCF4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487227; cv=none; b=cxdVRB/9fk5/71iQbMNK6K3FlSVMvxbueYo/ikGWI9RfENKf1E0s+q3ORCFuZPS5VEvIDMbnjltQCppXkWfsxfJlLqCHLQzmc8mh3J9p+NhMBoW7sIgdC619lJPIy5MMMplUExmGpMPXYVVMHtJ2dZmzCoPvUwEizNImQDjmWWc=
+	t=1789487239; cv=none; b=KmrWwJwDxxAVR42/dCfYJsYyAP6op4AZ0Kq1tefV38g+fj6drTZQqcTssAufMfyZfZR83uyZ8jFo/YJT+J6A9YTTldahDS+ucruVukITSCFB1o1Hy46NzrmrzyV4HcgoX4SCUDEN33wgA+atnZiRvx9HSWp8OUy8QDumip3h9yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487227; c=relaxed/simple;
-	bh=rLGSnt01pkV/qpgbMPc32jphznOsqYG0nK8jRGVoTH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GrzIvSj+0tvNo+efc+2U+ZxQU20dv3zctFRWhVde83r0xgLLh0Q7IjeKA2o05c2VRYV0eIWR6hDNdrX7rB9lttXOIfWPrdNTSOjeHyRY2xdeiakqBzs/c3V9wGcJZk8qIzna/c1nn9Gsriu3muwi6nLKZUgcIaqvERClIYr6XoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C5xkMmsv; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789487239; c=relaxed/simple;
+	bh=8MNWOZVbUM9+qIbH/qe53BIN87Z+DiijyIQXccjKz0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YOYpWf3K1deYD8FuqNGZJGltzr9HIRqsAvY4eDrtTzyYMvwACnIYYIC4VfI0bFi19O+ohXjS+J9Fu4HcoUthF3w74+NEsOtNjYgwRYK8LsB70WobgNRXy0ZxuZbB0lbl2ymU458Awqb6sJdFfm68ikYT6xHBw7F2w4JeFBTXSx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FFq6Wa1C; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pe5AqwX5; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C5xkMmsv"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so1620526f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:47:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FFq6Wa1C";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pe5AqwX5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789487232;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BBSTiFiICLW/KYf65rwgeCPALG3azRBCohXrrfoupYc=;
+	b=FFq6Wa1C9QoUrGEONZR/8xu6edRk4w1rzsU1K4Q1inaBTN20E7DhkttFF4Q7QGx6OTzJ+t
+	qyyWdLaMrI1P3/22m3cA3DvvXI/ClRGFHmpXfECOJ8QwIsB8nS99gS5E10IqWIolWlTRMu
+	MJMce5d0eg9X6NXX0mtZV6fpWmRjukM=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-618-sPdi8xDjOJCixhRMzB1YZw-1; Tue, 15 Sep 2026 11:47:10 -0400
+X-MC-Unique: sPdi8xDjOJCixhRMzB1YZw-1
+X-Mimecast-MFC-AGG-ID: sPdi8xDjOJCixhRMzB1YZw_1789487229
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4994cf6cdb9so34747145e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:47:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789487223; x=1790092023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uzCg6OBZUcUYAx3OaMdOACh0u4h8Pv6g2Vq3JQp8FD4=;
-        b=C5xkMmsvlt+eVMIWELPWNMtDYxRCRTxinl3xzUrDNWqSNqmoLpJiSTXghig3Od5qMz
-         qH/g65RlKQ1/W9siCgafJ7bCWKcUFMbWLG7Lk5Gz6I6+ey2L03BMKJbWk8ykVSQD/Lrs
-         w1kRCik4oh03OrstV6Fy6DAHXTqU8BmkiNYKkXb1Ids3GpT/zDvvleN77qYz21BKB7kh
-         qGYe/wmOo7uo5CnIj8NRE9Rxleuo8Mz3K2QAUk4UcEs5/eBsqSwGHPVA3j1rfksOKkIK
-         JNnVi0ysz6P9K78lRD1AAfIQAuwadfQwoy2p1osJ2wdDMVmc2LLIznwsh/0bvds4PJ/5
-         +EAg==
+        d=redhat.com; s=google; t=1789487229; x=1790092029; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BBSTiFiICLW/KYf65rwgeCPALG3azRBCohXrrfoupYc=;
+        b=Pe5AqwX5dlJipFc3223AWSKxxmKaPKm2FkdolAL3qcxYge5Xgr1zgwz0VNdzx+PSDi
+         IMl5e2q4I90AMyB+oVnLHVk9UFuejosjajEbNLUV//eYrtLYIjKjUF3jeUlk5XcV/NPl
+         XtZS1cltelWfK8QX3PyfUd+N4Bca4GMoauTGZamczUgprlYmXNCDftySN5wC0XeVSM3F
+         46I8Wu28XRLvevNhmZgOwsBqM7afDzfmoddb2vvhFbMujAGCpHvRTQTyj9jqa5dNO6mM
+         94I+vzMZDNhyG6LikDD7+mLUTVp+A8xCq43XaD2Tycn7pUnQ4K/DKtpo4auqd0YOprKQ
+         t2OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789487223; x=1790092023;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uzCg6OBZUcUYAx3OaMdOACh0u4h8Pv6g2Vq3JQp8FD4=;
-        b=aQL9vq/p7reIUMKMc0VNX2ZROdVN9KD9A0ha/x3WgqHVuHpVD96ClWcaXCjnLgNzbA
-         tK5HHmDbfd71AOdaApFRhUFluq/x439Od22tXD+0lNuNfRVOxIxriigAa7Or28X9v8ps
-         fc6dBrsPzmTfAyTodyqnWXMEBNQ7q1ddFoXHsKxf5c/KxY6Xog08G9IaNrO1g/mKosb/
-         WFRZpJaX/AHEq8oNFF1IeQVFanT4FJUoZoqi7z58PEv0yJHUc+WHTSRoNrYfyGzwRzVe
-         S5khPCYYzXjg5fzZD7R48gipgrW7SWMTD8wq6fBrfP/532LWosGt/N6YEVRvKYk1choT
-         QvAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfBC3FZ9Evtyn8eMlvY+X7MGJEJx6K6nk/bLAZNJTmejCy5PlRKauG+DxUdzq/1uxXYYHUnWHv06xNC2Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9P8J79e37t0MG7UwMKFTScwx+ZVhWADANgR/thfn64YLtyF6i
-	v1GQ8dUo7AM4Gukt/C//ZuGB772kac/NMwynbeJSk192MPu49EKVk8/G
-X-Gm-Gg: AYBFou2OaGgaAOttam9W8swMoSXjayi/cLhyoKG4r63WTZQqGYP+3eWMBfWyj/7lWXw
-	Y+feiftF3Jbruf3MtYUPpDejQH4scvlrl63d6+tUbSk0lt4HzefYsGgzSBHN+gCrTIy8QPim2/4
-	VCd45TKWRUhnK2oLC/ted7yfpdGUZX7M93whE7sy2PTdJILeHTxSL66q9dnRmxl89Kur8pT3Yeu
-	GV1N9k5jN4Yg0Ul6vcvOucZQl9GuzgroDEwK0g1CL3UjYETunn4Tiamytr3Hlo5VZYkA2I1MLvs
-	1foxE7sBMHjclkshBqKusvnTwT+ompdwy+uVXuyJE9zIf7GtmTTsEJ6Pg8EQt3iemWO2kxYupKS
-	RJCDuSHSfXoiiQQvzutngdJeyZ+BNwCflfIo8cHOSz5SPsTy9+/dWg9/CjzOeMnKCBqO0YcsZhf
-	IHlg9ejqoJ0ne9q4E0myeJk+L5LzzQQLIBNqCXgf7xUgbyd1KF681ifADSBDHlrGKwJq606e7YD
-	76TArYbvk3A4RbUg2PqHiqqJwMRv/66Ydk=
-X-Received: by 2002:a5d:6f17:0:b0:486:f980:2367 with SMTP id ffacd0b85a97d-48702b6f168mr9963505f8f.48.1789487222696;
-        Tue, 15 Sep 2026 08:47:02 -0700 (PDT)
-Received: from osama.. ([156.223.70.89])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fc02sm34160468f8f.16.2026.09.15.08.47.00
+        d=1e100.net; s=20260707; t=1789487229; x=1790092029;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BBSTiFiICLW/KYf65rwgeCPALG3azRBCohXrrfoupYc=;
+        b=RNYCL7RNWX/cW4MaAI9ZdXC9e6IA305taptk9G/Wwf6DVqgtAZK/65Bbkjm6HtPOcM
+         7tG8XzsSH9nqtWffsYi7A7FqVGl2YwTbOxtDRdL3PLsQh6HDtMF2vpFSRSNp46xP+v01
+         gubpEmzF4t2VBEgTvIW6X84O31eW1HTrO+3ym3cIuOnVipjdc1qIK7Zf8qTnlE0xzUZJ
+         YLjl/LDX2M+gYaMnan2Mt5B+rmBRfkwpOjVAIsbdiohlD1BwDEqOSokuSo6xWcn3Sn+N
+         9oRJ0m2whyLa4IzJhZhWVk9JXwMQtWBgrpok/oGWc0SJB7MJCMWOZyZt0hII6ChFCiQc
+         KrrA==
+X-Forwarded-Encrypted: i=1; AKwUvBwzUWCokbJU41oNVErnVMae6Sl5+5FGhembRo2cfqcUiC1pIiE3JqpLty3mOMFe4ckpeQH/SheWDB1G3p8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7TwXgqDVk0IfwSUKIM/75gr2YnOjcoIz0n9TehPC+fsLWJYDz
+	JqUA7dMlF+wQxTZUwvsPyrnNW416FBO4q7fj0jh1PrVVhqESWdI7ivldDkQVT4xQQMuzEolbwnd
+	wRTB+828jubj1uJoBSMAxW0f9pEn1+9/Ub2fJhSIS8r59HemL9nI6gtgNq288StuLMw==
+X-Gm-Gg: AYBFou0IdKHQSsm4zIWfpgv5Qd6/KmQTY7Jer5NUEsgP44C1IhjyZSsMnOjgt/6WrR8
+	v67thItOOBUMnxOSGvlYg1XPz/pXmFarahkVAhE2OAeVI2F5YkXjRjXf0eySJIqIObuCGROwklQ
+	B0RC3u1HY8AeG7l87kuIVhZYmXmyncaxUEPGasTbDz3tnaXOFKPVAMFbO+ooucB+iorPm34xurm
+	gDzkihjyuA0QxH35v5iFMEP12WdxS3W59e/mqV6sTuT+pha7dY/6pN2QRivRLwE5mBKfCy+VAMf
+	iHTyKT/Rk/GHjpWK12QxOBj9BNvMInxW067VN7DGd1sEYYezve1RS2wUdNoCnB273ZfAdQZrAaI
+	dWyzeUoVS4GTDQINNFFThQMV2Sw+8gB10zQXwnR92bMMSOw==
+X-Received: by 2002:a05:600c:19cb:b0:49c:eb17:cf3b with SMTP id 5b1f17b1804b1-49e7a6692afmr89061555e9.8.1789487229312;
+        Tue, 15 Sep 2026 08:47:09 -0700 (PDT)
+X-Received: by 2002:a05:600c:19cb:b0:49c:eb17:cf3b with SMTP id 5b1f17b1804b1-49e7a6692afmr89060745e9.8.1789487228579;
+        Tue, 15 Sep 2026 08:47:08 -0700 (PDT)
+Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d23b7e7sm52958155e9.1.2026.09.15.08.47.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 08:47:02 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: luca.ceresoli@bootlin.com,
-	Linus Walleij <linusw@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Cristian Cozzolino <cristian_ci@protonmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Robert Chiras <robert.chiras@nxp.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH v6 2/3] drm/panel: Use managed helpers in Novatek and Raydium panels
-Date: Tue, 15 Sep 2026 17:46:39 +0200
-Message-ID: <20260915154644.104460-3-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915154644.104460-1-osama.abdelkader@gmail.com>
-References: <20260915154644.104460-1-osama.abdelkader@gmail.com>
+        Tue, 15 Sep 2026 08:47:07 -0700 (PDT)
+Date: Tue, 15 Sep 2026 17:47:02 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Shuah Khan <shuah@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com, 
+	Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next 3/6] vsock/virtio: support guest device network
+ namespace
+Message-ID: <aqlkWGyoUYrgQUzz@sgarzare-redhat>
+References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
+ <20260902-vsock-guest-ns-v1-3-9995383e9a8b@meta.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260902-vsock-guest-ns-v1-3-9995383e9a8b@meta.com>
 
-Use the managed MIPI DSI attach and panel add helpers in Novatek and Raydium
-panel drivers and drop the corresponding manual detach and panel remove
-calls from remove paths.
+On Wed, Sep 02, 2026 at 04:00:49PM -0700, Bobby Eshleman wrote:
+>From: Bobby Eshleman <bobbyeshleman@meta.com>
+>
+>virtio-vsock did not have namespace support (the device was always
+>accessible to any global namespace).
+>
+>Make the virtio-vsock device assignable to a namespace and initialize it
+>to init_net. Because virtio-vsock and init_net are both hardcoded to
+>global mode, nothing changes until the assign ioctl is issued.
+>
+>When the device's local-mode namespace is being destroyed, received
+>packets are reset until new valid a namespace has been assigned and/or
+>automatically returned to, and the next RX batch begins (in
+>virtio_transport_rx_work). They are reset rather than dropped because
+>vsock does not retransmit, so a silent drop would leave the host waiting
+>for a timeout, and a connection request arriving in that window has no
+>socket whose teardown would tell it otherwise. This requires making
+>virtio_transport_reset_no_sock() available outside of the common code.
+>
+>When a device is assigned to a namespace, every already established
+>vsock socket that is no longer able to reach the device is forcibly
+>reset. For that reason, adding new sockets to the connected table must
+>be performed atomically with regards to namespace assignment. This
+>ensures that when the socket is added to the connected table that it
+>actually passes the new reachability conditions set by ns assignment. If
+>it wins the race to the table and does NOT pass the reachability tests,
+>then the reset sweep will correctly catch it. This is the purpose
+>of the new helper 'vsock_maybe_set_connected()'.
+>
+>Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+>---
+> include/linux/virtio_vsock.h            |  2 ++
+> net/vmw_vsock/virtio_transport.c        | 28 ++++++++++++++++++++++------
+> net/vmw_vsock/virtio_transport_common.c | 28 +++++++++++++++++++++-------
+> 3 files changed, 45 insertions(+), 13 deletions(-)
+>
+>diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+>index f91704731057..9c68ce1d7fb4 100644
+>--- a/include/linux/virtio_vsock.h
+>+++ b/include/linux/virtio_vsock.h
+>@@ -286,6 +286,8 @@ void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *
+> u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
+> void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
+> void virtio_transport_deliver_tap_pkt(struct sk_buff *skb);
+>+int virtio_transport_reset_no_sock(const struct virtio_transport *t,
+>+				   struct sk_buff *skb, struct net *net);
+> int virtio_transport_purge_skbs(void *vsk, struct sk_buff_head *list);
+> int virtio_transport_read_skb(struct vsock_sock *vsk, skb_read_actor_t read_actor);
+> int virtio_transport_notify_set_rcvlowat(struct vsock_sock *vsk, int val);
+>diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+>index 4f9aa9c4c3aa..a453a4f828dc 100644
+>--- a/net/vmw_vsock/virtio_transport.c
+>+++ b/net/vmw_vsock/virtio_transport.c
+>@@ -540,9 +540,14 @@ static bool virtio_transport_msgzerocopy_allow(void)
+> 	return true;
+> }
+>
+>+static bool virtio_transport_netns_assign_allow(void)
+>+{
+>+	return true;
+>+}
+>+
+> bool virtio_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
+> {
+>-	return vsock_net_mode_global(vsk);
+>+	return vsock_g2h_net_reachable(sock_net(sk_vsock(vsk)));
+> }
+>
+> static bool virtio_transport_seqpacket_allow(struct vsock_sock *vsk,
+>@@ -587,6 +592,7 @@ static struct virtio_transport virtio_transport = {
+> 		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
+>
+> 		.msgzerocopy_allow        = virtio_transport_msgzerocopy_allow,
+>+		.netns_assign_allow       = virtio_transport_netns_assign_allow,
+>
+> 		.notify_poll_in           = virtio_transport_notify_poll_in,
+> 		.notify_poll_out          = virtio_transport_notify_poll_out,
+>@@ -616,7 +622,7 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
+> 	struct virtio_vsock *vsock;
+> 	bool seqpacket_allow;
+>
+>-	if (!vsock_net_mode_global(vsk))
+>+	if (!vsock_g2h_net_reachable(sock_net(sk_vsock(vsk))))
+> 		return false;
+>
+> 	seqpacket_allow = false;
+>@@ -634,6 +640,9 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> 	struct virtio_vsock *vsock =
+> 		container_of(work, struct virtio_vsock, rx_work);
+> 	struct virtqueue *vq;
+>+	struct net *net;
+>+
+>+	net = vsock_g2h_net_get();
+>
+> 	mutex_lock(&vsock->rx_lock);
+>
+>@@ -682,10 +691,14 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>
+> 			virtio_transport_deliver_tap_pkt(skb);
+>
+>-			/* Force virtio-transport into global mode since it
+>-			 * does not yet support local-mode namespacing.
+>-			 */
+>-			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
+>+			if (unlikely(!net)) {
+>+				virtio_transport_reset_no_sock(
+>+					&virtio_transport, skb, &init_net);
 
-Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
-v5:
-- nt35510: keep mipi_dsi_attach()/mipi_dsi_detach() manual instead of
-  devm_mipi_dsi_attach(), since nt35510_remove() also powers off the
-  panel; deferring the detach to devm would run it after the power-off
-  instead of before it, changing the teardown order. (Luca)
-v4:
-- use devm_drm_panel_add instead of drm_panel_add.
+Why init_net?
 
- drivers/gpu/drm/panel/panel-novatek-nt35510.c | 13 ++++++----
- drivers/gpu/drm/panel/panel-novatek-nt35532.c | 23 ++++-------------
- drivers/gpu/drm/panel/panel-novatek-nt35560.c | 19 +++-----------
- .../gpu/drm/panel/panel-novatek-nt36672a.c    | 25 ++-----------------
- .../gpu/drm/panel/panel-novatek-nt36672e.c    | 21 ++++------------
- .../gpu/drm/panel/panel-novatek-nt37700f.c    | 23 ++++-------------
- drivers/gpu/drm/panel/panel-novatek-nt37801.c | 23 ++++-------------
- drivers/gpu/drm/panel/panel-raydium-rm67191.c | 22 +++-------------
- drivers/gpu/drm/panel/panel-raydium-rm67200.c | 23 ++++-------------
- drivers/gpu/drm/panel/panel-raydium-rm68200.c | 16 +++---------
- drivers/gpu/drm/panel/panel-raydium-rm692e5.c | 20 +++------------
- 11 files changed, 49 insertions(+), 179 deletions(-)
+>+				kfree_skb(skb);
+>+				continue;
+>+			}
+>+
+>+			virtio_transport_recv_pkt(&virtio_transport, skb, net);
+> 		}
+> 	} while (!virtqueue_enable_cb(vq));
+>
+>@@ -694,6 +707,9 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> 		virtio_vsock_rx_fill(vsock);
+> out_nofill:
+> 	mutex_unlock(&vsock->rx_lock);
+>+
+>+	if (net)
+>+		put_net(net);
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35510.c b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-index 3189d89c7ca0..86d1a19afb7b 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-@@ -1173,11 +1173,13 @@ static int nt35510_probe(struct mipi_dsi_device *dsi)
- 		nt->panel.backlight = bl;
- 	}
- 
--	drm_panel_add(&nt->panel);
-+	ret = devm_drm_panel_add(dev, &nt->panel);
-+	if (ret)
-+		return ret;
- 
- 	ret = mipi_dsi_attach(dsi);
- 	if (ret < 0)
--		drm_panel_remove(&nt->panel);
-+		return ret;
- 
- 	return 0;
- }
-@@ -1187,13 +1189,14 @@ static void nt35510_remove(struct mipi_dsi_device *dsi)
- 	struct nt35510 *nt = mipi_dsi_get_drvdata(dsi);
- 	int ret;
- 
--	mipi_dsi_detach(dsi);
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
- 	/* Power off */
- 	ret = nt35510_power_off(nt);
- 	if (ret)
- 		dev_err(&dsi->dev, "Failed to power off\n");
--
--	drm_panel_remove(&nt->panel);
- }
- 
- /*
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35532.c b/drivers/gpu/drm/panel/panel-novatek-nt35532.c
-index edea766a3c44..752144220514 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt35532.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt35532.c
-@@ -752,29 +752,17 @@ static int nt35532_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		drm_panel_remove(&ctx->panel);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
--	}
- 
- 	return 0;
- }
- 
--static void nt35532_remove(struct mipi_dsi_device *dsi)
--{
--	struct novatek_nt35532 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct of_device_id nt35532_of_match[] = {
- 	{ .compatible = "flipkart,rimob-panel-nt35532-cs", .data = &rimob_panel_desc },
- 	{ /* sentinel */ }
-@@ -783,7 +771,6 @@ MODULE_DEVICE_TABLE(of, nt35532_of_match);
- 
- static struct mipi_dsi_driver nt35532_driver = {
- 	.probe = nt35532_probe,
--	.remove = nt35532_remove,
- 	.driver = {
- 		.name = "panel-novatek-nt35532",
- 		.of_match_table = nt35532_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35560.c b/drivers/gpu/drm/panel/panel-novatek-nt35560.c
-index 6e5173f98a22..be42eb9ef423 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt35560.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt35560.c
-@@ -433,23 +433,11 @@ static int nt35560_probe(struct mipi_dsi_device *dsi)
- 		return dev_err_probe(dev, PTR_ERR(nt->panel.backlight),
- 				     "failed to register backlight device\n");
- 
--	drm_panel_add(&nt->panel);
--
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		drm_panel_remove(&nt->panel);
-+	ret = devm_drm_panel_add(dev, &nt->panel);
-+	if (ret)
- 		return ret;
--	}
--
--	return 0;
--}
--
--static void nt35560_remove(struct mipi_dsi_device *dsi)
--{
--	struct nt35560 *nt = mipi_dsi_get_drvdata(dsi);
- 
--	mipi_dsi_detach(dsi);
--	drm_panel_remove(&nt->panel);
-+	return devm_mipi_dsi_attach(dev, dsi);
- }
- 
- static const struct of_device_id nt35560_of_match[] = {
-@@ -467,7 +455,6 @@ MODULE_DEVICE_TABLE(of, nt35560_of_match);
- 
- static struct mipi_dsi_driver nt35560_driver = {
- 	.probe = nt35560_probe,
--	.remove = nt35560_remove,
- 	.driver = {
- 		.name = "panel-novatek-nt35560",
- 		.of_match_table = nt35560_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 464d9ce47d87..da466cdd9354 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -428,9 +428,7 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
- 
--	drm_panel_add(&pinfo->base);
--
--	return 0;
-+	return devm_drm_panel_add(dev, &pinfo->base);
- }
- 
- static int nt36672a_panel_probe(struct mipi_dsi_device *dsi)
-@@ -458,25 +456,7 @@ static int nt36672a_panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	err = mipi_dsi_attach(dsi);
--	if (err < 0) {
--		drm_panel_remove(&pinfo->base);
--		return err;
--	}
--
--	return 0;
--}
--
--static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
--{
--	struct nt36672a_panel *pinfo = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
--
--	drm_panel_remove(&pinfo->base);
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
- }
- 
- static const struct of_device_id tianma_fhd_video_of_match[] = {
-@@ -491,7 +471,6 @@ static struct mipi_dsi_driver nt36672a_panel_driver = {
- 		.of_match_table = tianma_fhd_video_of_match,
- 	},
- 	.probe = nt36672a_panel_probe,
--	.remove = nt36672a_panel_remove,
- };
- module_mipi_dsi_driver(nt36672a_panel_driver);
- 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-index c5e00eb55722..85902338f10d 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-@@ -561,27 +561,17 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
- 
- 	ctx->panel.prepare_prev_first = true;
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
--		goto err_dsi_attach;
-+		return ret;
- 	}
- 
- 	return 0;
--
--err_dsi_attach:
--	drm_panel_remove(&ctx->panel);
--	return ret;
--}
--
--static void nt36672e_panel_remove(struct mipi_dsi_device *dsi)
--{
--	struct nt36672e_panel *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(ctx->dsi);
--	drm_panel_remove(&ctx->panel);
- }
- 
- static const struct of_device_id nt36672e_of_match[] = {
-@@ -599,7 +589,6 @@ static struct mipi_dsi_driver nt36672e_panel_driver = {
- 		.of_match_table = nt36672e_of_match,
- 	},
- 	.probe = nt36672e_panel_probe,
--	.remove = nt36672e_panel_remove,
- };
- module_mipi_dsi_driver(nt36672e_panel_driver);
- 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37700f.c b/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
-index c221dd498fed..c2d219e52f6a 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
-@@ -257,29 +257,17 @@ static int nt37700f_tianma_probe(struct mipi_dsi_device *dsi)
- 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
- 				     "Failed to create backlight\n");
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		drm_panel_remove(&ctx->panel);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
--	}
- 
- 	return 0;
- }
- 
--static void nt37700f_tianma_remove(struct mipi_dsi_device *dsi)
--{
--	struct nt37700f_tianma *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct of_device_id nt37700f_tianma_of_match[] = {
- 	{ .compatible = "novatek,nt37700f" },
- 	{ /* sentinel */ }
-@@ -288,7 +276,6 @@ MODULE_DEVICE_TABLE(of, nt37700f_tianma_of_match);
- 
- static struct mipi_dsi_driver nt37700f_tianma_driver = {
- 	.probe = nt37700f_tianma_probe,
--	.remove = nt37700f_tianma_remove,
- 	.driver = {
- 		.name = "panel-novatek-nt37700f",
- 		.of_match_table = nt37700f_tianma_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-index 5e46c4c6d771..4db560b66f4d 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-@@ -270,7 +270,9 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
- 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
- 				     "Failed to create backlight\n");
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
- 	/* This panel only supports DSC; unconditionally enable it */
- 	dsi->dsc = &ctx->dsc;
-@@ -283,27 +285,13 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
- 	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
- 	ctx->dsc.block_pred_enable = true;
- 
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		drm_panel_remove(&ctx->panel);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
--	}
- 
- 	return 0;
- }
- 
--static void novatek_nt37801_remove(struct mipi_dsi_device *dsi)
--{
--	struct novatek_nt37801 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct of_device_id novatek_nt37801_of_match[] = {
- 	{ .compatible = "novatek,nt37801" },
- 	{}
-@@ -312,7 +300,6 @@ MODULE_DEVICE_TABLE(of, novatek_nt37801_of_match);
- 
- static struct mipi_dsi_driver novatek_nt37801_driver = {
- 	.probe = novatek_nt37801_probe,
--	.remove = novatek_nt37801_remove,
- 	.driver = {
- 		.name = "panel-novatek-nt37801",
- 		.of_match_table = novatek_nt37801_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm67191.c b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
-index 2af6aa47a551..62062ae0ebe3 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm67191.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
-@@ -590,26 +590,11 @@ static int rad_panel_probe(struct mipi_dsi_device *dsi)
- 
- 	dev_set_drvdata(dev, panel);
- 
--	drm_panel_add(&panel->panel);
--
--	ret = mipi_dsi_attach(dsi);
--	if (ret)
--		drm_panel_remove(&panel->panel);
--
--	return ret;
--}
--
--static void rad_panel_remove(struct mipi_dsi_device *dsi)
--{
--	struct rad_panel *rad = mipi_dsi_get_drvdata(dsi);
--	struct device *dev = &dsi->dev;
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
-+	ret = devm_drm_panel_add(dev, &panel->panel);
- 	if (ret)
--		dev_err(dev, "Failed to detach from host (%d)\n", ret);
-+		return ret;
- 
--	drm_panel_remove(&rad->panel);
-+	return devm_mipi_dsi_attach(dev, dsi);
- }
- 
- static const struct of_device_id rad_of_match[] = {
-@@ -624,7 +609,6 @@ static struct mipi_dsi_driver rad_panel_driver = {
- 		.of_match_table = rad_of_match,
- 	},
- 	.probe = rad_panel_probe,
--	.remove = rad_panel_remove,
- };
- module_mipi_dsi_driver(rad_panel_driver);
- 
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm67200.c b/drivers/gpu/drm/panel/panel-raydium-rm67200.c
-index b2ba006c06f6..e16f9ad6d193 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm67200.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm67200.c
-@@ -420,29 +420,17 @@ static int raydium_rm67200_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return ret;
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
--		drm_panel_remove(&ctx->panel);
--	}
- 
- 	return ret;
- }
- 
--static void raydium_rm67200_remove(struct mipi_dsi_device *dsi)
--{
--	struct raydium_rm67200 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach DSI host: %d\n", ret);
--
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct regulator_bulk_data w552793baa_regulators[] = {
- 	{ .supply = "vdd", },		/*  2.8V */
- 	{ .supply = "iovcc", },		/*  1.8V */
-@@ -479,7 +467,6 @@ MODULE_DEVICE_TABLE(of, raydium_rm67200_of_match);
- 
- static struct mipi_dsi_driver raydium_rm67200_driver = {
- 	.probe = raydium_rm67200_probe,
--	.remove = raydium_rm67200_remove,
- 	.driver = {
- 		.name = "panel-raydium-rm67200",
- 		.of_match_table = raydium_rm67200_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-index c535dc931903..f235cb4ae071 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-@@ -360,26 +360,19 @@ static int rm68200_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return ret;
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach() failed: %d\n", ret);
--		drm_panel_remove(&ctx->panel);
- 		return ret;
- 	}
- 
- 	return 0;
- }
- 
--static void rm68200_remove(struct mipi_dsi_device *dsi)
--{
--	struct rm68200 *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct of_device_id raydium_rm68200_of_match[] = {
- 	{ .compatible = "raydium,rm68200" },
- 	{ }
-@@ -388,7 +381,6 @@ MODULE_DEVICE_TABLE(of, raydium_rm68200_of_match);
- 
- static struct mipi_dsi_driver raydium_rm68200_driver = {
- 	.probe = rm68200_probe,
--	.remove = rm68200_remove,
- 	.driver = {
- 		.name = "panel-raydium-rm68200",
- 		.of_match_table = raydium_rm68200_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm692e5.c b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
-index 8e9484768657..4065cdf690f9 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
-@@ -315,7 +315,9 @@ static int rm692e5_probe(struct mipi_dsi_device *dsi)
- 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
- 				     "Failed to create backlight\n");
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
- 	/* This panel only supports DSC; unconditionally enable it */
- 	dsi->dsc = &ctx->dsc;
-@@ -331,28 +333,15 @@ static int rm692e5_probe(struct mipi_dsi_device *dsi)
- 	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
- 	ctx->dsc.block_pred_enable = true;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
--		drm_panel_remove(&ctx->panel);
- 		return ret;
- 	}
- 
- 	return 0;
- }
- 
--static void rm692e5_remove(struct mipi_dsi_device *dsi)
--{
--	struct rm692e5_panel *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct of_device_id rm692e5_of_match[] = {
- 	{ .compatible = "fairphone,fp5-rm692e5-boe" },
- 	{ }
-@@ -361,7 +350,6 @@ MODULE_DEVICE_TABLE(of, rm692e5_of_match);
- 
- static struct mipi_dsi_driver rm692e5_driver = {
- 	.probe = rm692e5_probe,
--	.remove = rm692e5_remove,
- 	.driver = {
- 		.name = "panel-rm692e5-boe-amoled",
- 		.of_match_table = rm692e5_of_match,
--- 
-2.43.0
+put_net() should handle NULL net, right?
+
+> }
+>
+> static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+>diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+>index 88df82364f77..313ef263fd2d 100644
+>--- a/net/vmw_vsock/virtio_transport_common.c
+>+++ b/net/vmw_vsock/virtio_transport_common.c
+>@@ -1315,8 +1315,8 @@ static int virtio_transport_reset(struct vsock_sock *vsk,
+>  * loopback, this is the namespace of the socket. For vhost, this is the
+>  * namespace of the VM (i.e., vhost_vsock).
+>  */
+>-static int virtio_transport_reset_no_sock(const struct virtio_transport *t,
+>-					  struct sk_buff *skb, struct net *net)
+>+int virtio_transport_reset_no_sock(const struct virtio_transport *t,
+>+				   struct sk_buff *skb, struct net *net)
+> {
+> 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+> 	struct virtio_vsock_pkt_info info = {
+>@@ -1355,6 +1355,7 @@ static int virtio_transport_reset_no_sock(const struct virtio_transport *t,
+>
+> 	return t->send_pkt(reply, net);
+> }
+>+EXPORT_SYMBOL_GPL(virtio_transport_reset_no_sock);
+>
+> /* This function should be called with sk_lock held and SOCK_DONE set */
+> static void virtio_transport_remove_sock(struct vsock_sock *vsk)
+>@@ -1478,9 +1479,14 @@ virtio_transport_recv_connecting(struct sock *sk,
+>
+> 	switch (le16_to_cpu(hdr->op)) {
+> 	case VIRTIO_VSOCK_OP_RESPONSE:
+>-		sk->sk_state = TCP_ESTABLISHED;
+>+		/* An assign cannot see a socket that is not connected yet. */
+>+		if (!vsock_maybe_set_connected(vsk)) {
+>+			skerr = ECONNRESET;
+>+			err = -ENETUNREACH;
+>+			goto destroy;
+>+		}
+>+
+> 		sk->sk_socket->state = SS_CONNECTED;
+>-		vsock_insert_connected(vsk);
+> 		sk->sk_state_change(sk);
+> 		break;
+> 	case VIRTIO_VSOCK_OP_INVALID:
+>@@ -1736,8 +1742,6 @@ virtio_transport_recv_listen(struct sock *sk, struct sk_buff *skb,
+>
+> 	lock_sock_nested(child, SINGLE_DEPTH_NESTING);
+>
+>-	child->sk_state = TCP_ESTABLISHED;
+>-
+> 	vchild = vsock_sk(child);
+> 	vsock_addr_init(&vchild->local_addr, le64_to_cpu(hdr->dst_cid),
+> 			le32_to_cpu(hdr->dst_port));
+>@@ -1758,7 +1762,17 @@ virtio_transport_recv_listen(struct sock *sk, struct sk_buff *skb,
+> 	if (virtio_transport_space_update(child, skb))
+> 		child->sk_write_space(child);
+>
+>-	vsock_insert_connected(vchild);
+>+	/* An assign cannot see a socket that is not connected yet, and the
+>+	 * check in vsock_assign_transport() above has since dropped
+>+	 * vsock_register_mutex.
+>+	 */
+>+	if (!vsock_maybe_set_connected(vchild)) {
+>+		release_sock(child);
+>+		virtio_transport_reset_no_sock(t, skb, sock_net(sk));
+>+		sock_put(child);
+>+		return -ENETUNREACH;
+>+	}
+>+
+> 	vsock_enqueue_accept(sk, child);
+> 	virtio_transport_send_response(vchild, skb);
+>
+>
+>-- 
+>2.53.0-Meta
+>
 
