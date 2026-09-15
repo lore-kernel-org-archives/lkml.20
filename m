@@ -1,170 +1,72 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E083812FB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B53E44AB81;
+	Tue, 15 Sep 2026 19:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501029; cv=none; b=RLJh+DN/eWhFfxSVzQH0oLH8xnk6wOZgIcXK8ff4b9S5xR4INqKz1GOCveNaU8wvEvgx4YrfmIQWmBqWdOQ/Cs5K6kXducyS4nU/6K8837sI6ifTmVLGWeHSLXLKzNYvQAWblK8yB01YmcR9uXQ4L81tG00YNMKTJzQOCMUSKAw=
+	t=1789501040; cv=none; b=tPZk2IspG92vssqbjOif2MdhCPZqd9RlEbUqG+Nm1Y23NwFYp2eLi9xn3M6fYL5lQQYVWj3mHbEgSRkaHRrZhsvNls95r40d+kDXsKjDkmm6YzPTrnWgEZBDgqjC9QEVnDF+cr2EeWWWsQ8xxeeD0n4lE7l2Gb6NXUkYC+qossI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501029; c=relaxed/simple;
-	bh=iQpFxkadxuZthWNzpNDmq94Hthwi+6Tsc7gHXxzEn3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Tx9O8QbaALagfdfFmeNwfbr4SF6t1qHN37Y5IWVexZBYmIK2Jb9liC8/Djy7EdeIR1G1ra+qNC0iwTsLOoWa5ABla8CkaSLUMIAOo9B4o4EQYazBxkaGSAV2u7NMLGsf798t3Qil2s+IsvNKUdnt9odsJrbndIhhBgqjxDVom20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QEnjNWOj; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789501040; c=relaxed/simple;
+	bh=/zS2E4DbP6ytnjyakX6GxndaMsVS2D/+Wc9ZjtPH7U0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=UZ64hjzpjg9onD+xt9exN350Wxd2+bCWWKlMxzpucl27qv+yMhi9/gIuwmSFhPUmcTk9nl647IA3vUruEJiN/6Qeiw/mQfdMj42A0NB+z1hzdNHD8ApD732d37Ask0aYH3uKk7Dxg28cbGBInINK00gS+5qFKc6JERMYzCp7lLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=Nsdy0ngz; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QEnjNWOj"
-Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-78a7003f94fso33921137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789501026; x=1790105826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Fv2qyWJdbrcJvcqAwpcW93SKoGJg7N/Guzup2THPVL4=;
-        b=QEnjNWOj6178noHTDnNBoB2Ol/RwIhbNowHaIau87hbSioWk0PULq+aicSI1czJmjI
-         n6B8DdUd6UXI4tnHq1+9rBjpGiGlILED009hK36JEfJj1xDd/gLOXCX5cW/ze1nFEqPZ
-         O5XlyxRh/s0JuJL/iIz0Zup7S5yabHeEIf7a//bnfTd2XdriH0zxFrpc7NVf1ekK7qxR
-         EFJNO6psC2eZxBVReJ1me4WW+d9BiqAgxhoyOOQcVgYHzZv8aiCokAq1dtaqeXeNIr+x
-         Hh0IMmvGye0864punvMZa8VaeebU+s5ccgn78opWl1lR9Z6dhiKDtCxMOhRlJDbYk9zP
-         OA2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789501026; x=1790105826;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fv2qyWJdbrcJvcqAwpcW93SKoGJg7N/Guzup2THPVL4=;
-        b=xP7WSl+2G4RkUU6tu9JA+1oxMtLjxbRD3kKmRlr3Sf0KIuOINgtc1Hi7R3ANNlEOVz
-         +zxd/adCYfFs62px1bPoq9d5j7FwqBCxZcfXlmZzlcmkZy3N7MvThxqnnPuoMKxk6sje
-         0B0hibO5NJe04cX7MBMaVpOkVSiIxvQw40cBcZ248bSBI/2KQ0z78FdqXDi5cfTs7IS3
-         KiLjb5r9W9l3uClCXHix7EbS36UQGhQkYrWof5HWTstm6kGWwSeVMFmeKdPZreiUcsxv
-         +VVSb9Co/nGv2MD2FWLlpIaVxbyO3f10Oa4d9tEE5fwOM+HWdIuljzaGHKznIj9CR0vs
-         ERVg==
-X-Forwarded-Encrypted: i=1; AKwUvBw4IBxxwAPM8wEKFJYaUMDGa3LVVGDGqkXbeh4/kpYILJrrakdYC8/bpcTk2sNUf1V2wZ12HCkmESfroNI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kr+DV/8sLhqCfYGuAbRRqHil5VBj6N1vvtv5U7z3VpMNYh6ilh
-	RY3iQjMfNWyWjQVOlL3S8nV2W6ZAXKYQfmuSg8rLF+wLAzeqvRn9/8w=
-X-Gm-Gg: AYBFou18xLxTarC6YozJDN6TQM0rbZTsmiXN+e2P9WQWsZuSF3mch8wmv/GJZXPTea0
-	jWzxx83rGf2rqYhB0InK5e5TdhuaFmLpHI9/LADD5DEMASHkBKZrBkWd6plBFOyQEMd8viNVVB6
-	vn37PIRTE05s5ZXSdtsqtZxxJ+cBJiUsc+ZuHOXKhkb8Qh4AeVCslxJjISnWLV1ZijBkLtJhfS5
-	dGNLrRIlEz2Jq8WpwgR0fFmKNxpfz2KofM2hhlEiqHzzp5isyyFzJhInEDAnPqydTh/6rluZYSS
-	uaFg3DXI4JCnCeuPZtx5tRVhPieBtATJrxjHoLFOuS/1hV+4LN7EEzaKYJUXFfBk+W/FykQhPR2
-	vwQGkNs3rtQsElMb3GHsCq2sHtmb3W+90ialE0rBD2slPgk6R3lr0v1Sk4ciACb2eCs2vTapAc+
-	OhT8d7GAdiykbESE+4flCrTrE7IQyRgkvxcTnx9i/ZqEbOvVwPG5xzACuX1cIdv8zMQp8MopwVA
-	Jp+1kfG+yZx+BI57u0FsqjMrctPSLgnX/Ne5svfkCe2+Gy4Rw==
-X-Received: by 2002:a05:6102:5607:b0:790:c7bb:43fd with SMTP id ada2fe7eead31-79b5bf316f7mr12420909137.8.1789501025587;
-        Tue, 15 Sep 2026 12:37:05 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79fb1148f57sm691450137.4.2026.09.15.12.36.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 12:37:05 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Alice Ryhl <aliceryhl@google.com>,
-	Burak Emir <burak.emir@gmail.com>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Benno Lossin <lossin@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Rae Moar <raemoar63@gmail.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Yury Norov <yury.norov@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH RFC 3/3] rust: bitmap: kunit: uncomment owned_bitmap_out_of_bounds panic case
-Date: Tue, 15 Sep 2026 16:33:54 -0300
-Message-ID: <1a319df6587bfdcfa497fc964a9a6d21a8988e54.1789500084.git.nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1789500084.git.nico.antinori.7@gmail.com>
-References: <cover.1789500084.git.nico.antinori.7@gmail.com>
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="Nsdy0ngz"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 158CE408B4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1789501036; bh=inm8Ih+/T2kfBW/aDAbkP84VqD0uHU+f+HG+z2efPXk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=Nsdy0ngzhuqr8F7WM33MCjGS8Nmb0Br6maICdRGe8yjkNN5dYNBxtNdO8bEu26dvE
+	 LJzH0ak/V+Lhl7b3BdrZpP2yKaSpwaU6G0XZfmbwLvN8r0Un4KAQOLKOyfvnX5xIYd
+	 nBkoEFLaae0jktygf/Ha83cBofa7pvyK8y+TCB/y3NxuRrKcAsG5oGxOis5FKw+W4o
+	 fQD1jmt5PxNwlZAwOPtPf+YxL1JTlNJCgBW77F9k/Jl8v2aLhOiL6B9z2EONVLWVVO
+	 FkwXrOGSB+byrPU8N2tF57HXvNmDsajfyHExrtun8cfO4Ow2woPLblzsrt/+BhYGph
+	 TtCWZP8M9SqOg==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 158CE408B4;
+	Tue, 15 Sep 2026 19:37:16 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Kees Cook <kees@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, James
+ Morris <jamorris@linux.microsoft.com>, Ke Wu <mikewu@google.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] loadpin: Fix stale KEXEC_VERIFY_SIG reference in
+ documentation
+In-Reply-To: <20260905013655.58665-1-kmehltretter@gmail.com>
+References: <20260905013655.58665-1-kmehltretter@gmail.com>
+Date: Tue, 15 Sep 2026 13:37:14 -0600
+Message-ID: <87v78671cl.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Rust KUnit tests now support `#[should_panic]` attribute. Uncomment the
-test so it can be run when CONFIG_RUST_BITMAP_HARDENED=y.
+Karl Mehltretter <kmehltretter@gmail.com> writes:
 
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
----
- rust/kernel/bitmap.rs | 40 ++++++++++++++++++----------------------
- 1 file changed, 18 insertions(+), 22 deletions(-)
+> Commit 99d5cadfde2b ("kexec_file: split KEXEC_VERIFY_SIG into KEXEC_SIG
+> and KEXEC_SIG_FORCE") removed CONFIG_KEXEC_VERIFY_SIG but left the
+> LoadPin documentation pointing at it. Refer to CONFIG_KEXEC_SIG instead.
+>
+> While at it, clean up the grammar of the sentence.
+>
+> Fixes: 99d5cadfde2b ("kexec_file: split KEXEC_VERIFY_SIG into KEXEC_SIG and KEXEC_SIG_FORCE")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>  Documentation/admin-guide/LSM/LoadPin.rst | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-index b27e0ec80d64..a9935b2be8c5 100644
---- a/rust/kernel/bitmap.rs
-+++ b/rust/kernel/bitmap.rs
-@@ -571,33 +571,29 @@ fn bitmap_set_clear_find() -> Result<(), AllocError> {
-         Ok(())
-     }
+Applied, thanks.
 
-+    #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
-     #[test]
-     fn owned_bitmap_out_of_bounds() -> Result<(), AllocError> {
--        // TODO: Kunit #[test]s do not support `cfg` yet,
--        // so we add it here in the body.
--        #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
--        {
--            let mut b = BitmapVec::new(128, GFP_KERNEL)?;
--            b.set_bit(2048);
--            b.set_bit_atomic(2048);
--            b.clear_bit(2048);
--            b.clear_bit_atomic(2048);
--            assert_eq!(None, b.next_bit(2048));
--            assert_eq!(None, b.next_zero_bit(2048));
--            assert_eq!(None, b.last_bit());
--        }
-+        let mut b = BitmapVec::new(128, GFP_KERNEL)?;
-+        b.set_bit(2048);
-+        b.set_bit_atomic(2048);
-+        b.clear_bit(2048);
-+        b.clear_bit_atomic(2048);
-+        assert_eq!(None, b.next_bit(2048));
-+        assert_eq!(None, b.next_zero_bit(2048));
-+        assert_eq!(None, b.last_bit());
-         Ok(())
-     }
-
--    // TODO: uncomment once kunit supports [should_panic] and `cfg`.
--    // #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
--    // #[test]
--    // #[should_panic]
--    // fn owned_bitmap_out_of_bounds() -> Result<(), AllocError> {
--    //     let mut b = BitmapVec::new(128, GFP_KERNEL)?;
--    //
--    //     b.set_bit(2048);
--    // }
-+    #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
-+    #[test]
-+    #[should_panic]
-+    fn owned_bitmap_out_of_bounds() -> Result<(), AllocError> {
-+        let mut b = BitmapVec::new(128, GFP_KERNEL)?;
-+
-+        b.set_bit(2048);
-+        Ok(())
-+    }
-
-     #[test]
-     fn bitmap_copy_and_extend() -> Result<(), AllocError> {
---
-2.47.3
-
+jon
