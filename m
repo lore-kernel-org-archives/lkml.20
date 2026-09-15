@@ -1,32 +1,86 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31753D525F;
-	Tue, 15 Sep 2026 05:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451058; cv=none; b=PKB/w149FIgPBJOIvxcB6VJ1ZY7dhHxlSKM0lP5lSbdct29yyVEM8VoIORnv1woIg44+44uVAPojn6mI5o74Jdaxuog61gf+LGjEQVlGwWjVxU6fQfZYGLwqrQ+npr2cUcqyB9nux3R2BIPnlP3WhgwtLfV4rvhYjpbIBHZnv6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451058; c=relaxed/simple;
-	bh=JxEGlL2Fe4sOoBlicNb9mbOHCZrVz3d/Ivv2x7t83n4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BON3uiYRdKGcJVMWghXNl2wD2otDgNCBhmffolMkl3FvnkqRjSydQLhocRxzo9y25hhgX1XmwEvaq5aytwtFTDOcc9RxSjRdTNOoxVEo1HdAuZ0P+PvQunC0SyZtSSP4zNp+IKVXpYd0oaJxD3RVHVu0d+Ug/kqWzQXoRFkyEk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowACneu4u26hq_QgKCA--.60433S2;
-	Tue, 15 Sep 2026 13:44:14 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: daniel.lezcano@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	robert.jarzmik@free.fr,
-	tglx@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] clocksource/drivers/timer-pxa: Fix clock reference leak
-Date: Tue, 15 Sep 2026 05:43:45 +0000
-Message-Id: <20260915054345.1729471-1-vulab@iscas.ac.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C6543E063;
+	Tue, 15 Sep 2026 05:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789451068; cv=pass; b=GsjH78/RoUuShpeCBAeIUX/ff9zGQwUsBEA4WLuqooSASOZzDt7xUfSCFCHCqiUDlfLgYXkp1X7SAw9Qa3KH+4zbQmB2wCjc94LHxbLngAeRka07G6q5uoncXD0cTHc+R8QU+jTgmZCm5nytcBgeJxRQBieCuPr9eBvKs4wVPi0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789451068; c=relaxed/simple;
+	bh=ePdcpjW/kLvFZnLJetnASTkIonTXjx3cf8nqDnz7rQY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=IGcdQk2dBuv3Dmmpr9vOcpjWeD3YuBApK0XZ3bFY9MElAyx087xNdveFKvRliyTbvGWmvPo1NNYanrS6gBQcHlQqekRVe38gelvmrXwo/TvPTE5hwPXRroLpoFQc1yDfyNtoNcAj6etZd4odFpbqxYyCGXsjeygLhxvMpfY4YIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=ajsiIfNC; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="ajsiIfNC"
+Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hkWDK4krFzySb;
+	Tue, 15 Sep 2026 08:44:17 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1789451059;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v6GkYk0HZBFKkX376VoqF+8xKuVMeoSo1m24bvpn9Wg=;
+	b=ajsiIfNCO9hm2npmFbvhPirjGVcAczP0wbWRAS1dswu6oKlgl9rogZQ+Ryg9EiXtO86E5W
+	mB1HiV8QXHvAx9q6ZzTfoMMJ5zBVgS6INmI1WcaK2DVoTwPJFImf56GD+5q0BS+KB+Ow3n
+	S0nvyFBbDBDLOyUvdPtSDstiIy+OsgM=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1789451059;
+	b=dLmSL19LgGognTGhdycfQ/y3+GiybIa6A1YSWFYVaH/fj/NK0tUUdYmZux4OozCZC36RXr
+	rGAn1gxLgAmovx6SNRoxfk9h1U4KJ7MSH4+dNOl0nBjsww5iJ/MuURu7C/bdgg1qvTL8cW
+	JxBSze+PknetOz8eMB0py0DeyAXt/IQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1789451059;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v6GkYk0HZBFKkX376VoqF+8xKuVMeoSo1m24bvpn9Wg=;
+	b=v7iPlidOcOVDpHBsQTK+fn5WKR77Z+TyY81OXnhw13khm6VDXfe+1jsQdg5zadFV/QhY97
+	l2HgqakrwzOtptFsm2YxdeyO5SMoTsLdyNjT5ZmQsUpBl2YqfslSLO4SloKJama67hYatA
+	w53DSa4aBJhXH3pBrn+sMWjapHpjMTo=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	linux-arm-msm@vger.kernel.org
+Cc: Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Mihai Moldovan <ionic@ionic.de>,
+	Denis Kenzior <denkenz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Andy Gross <agross@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	mhi@lists.linux.dev,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	netdev@vger.kernel.org
+Subject: [PATCH v7 04/15] net: qrtr: use only low 16 bits of node/port in 32-bit systems
+Date: Tue, 15 Sep 2026 08:41:56 +0300
+Message-Id: <20260915054207.2513877-5-juha-matti.tilli@iki.fi>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
+References: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,68 +88,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACneu4u26hq_QgKCA--.60433S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrW3ur1kZFWfXw48ZrWxXrb_yoW8Wr18pr
-	Z5CayYyr13Wr4Igw48tF4DJF9Ikw1xCFy7G3yFkF929rs3CryUAFW2vFyjvF4YkFs7uw43
-	tr4Fy3WkuFyUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbmhF3
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgALA2qowR1bvgAAs1
 
-pxa_timer_dt_init() obtains the timer clock with of_clk_get() but never
-releases the consumer reference: the clk_prepare_enable() failure path,
-the irq_of_parse_and_map() failure path and the success path all return
-without clk_put(), leaking the reference on each init attempt.
+The node id is generally a single fixed value hardcoded into device
+firmware. If it happens to be larger than 16 bits on a 32-bit system,
+using the value modulo 65536 is enough. It is not necessary to check it
+for being in range. Evidence of this is a prior implementation that fit
+node_id (u32) and port (u32) into unsigned long in 32-bit systems, in a
+manner that completely discarded all bits of node_id. Do the same for
+port: don't check for it being in range.
 
-Call clk_put() on all three paths. The clock is left prepared and
-enabled, so the timer behaviour is unchanged.
+This arguably creates a bug where node_id could clash with a node_id
+that has the same low-order 16 bits, or a port could clash with a port
+that has the same low-order 16 bits. But it's probably better than
+discarding all bits of node and using only bits from port. It's probably
+also better than failing if either node or port is out-of-range.
 
-Fixes: ab5354c48d58 ("clocksource: pxa: Add device-tree support for PXA timer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
 ---
- drivers/clocksource/timer-pxa.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/qrtr/af_qrtr.c | 22 +++++++++-------------
+ 1 file changed, 9 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/clocksource/timer-pxa.c b/drivers/clocksource/timer-pxa.c
-index 7ad0e5adb2ff..8bb473b75b48 100644
---- a/drivers/clocksource/timer-pxa.c
-+++ b/drivers/clocksource/timer-pxa.c
-@@ -195,6 +195,7 @@ static int __init pxa_timer_dt_init(struct device_node *np)
- 	ret = clk_prepare_enable(clk);
- 	if (ret) {
- 		pr_crit("Failed to prepare clock\n");
-+		clk_put(clk);
- 		return ret;
- 	}
+diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+index f2edbd2e9dea9..b2cb05f2480e0 100644
+--- a/net/qrtr/af_qrtr.c
++++ b/net/qrtr/af_qrtr.c
+@@ -252,9 +252,9 @@ static int qrtr_tx_resume(struct qrtr_node *node, struct sk_buff *skb)
+ 	struct qrtr_tx_flow *flow;
+ 	unsigned long key = 0;
  
-@@ -202,10 +203,14 @@ static int __init pxa_timer_dt_init(struct device_node *np)
- 	irq = irq_of_parse_and_map(np, 0);
- 	if (irq <= 0) {
- 		pr_crit("%pOFn: unable to parse OS-timer0 irq\n", np);
-+		clk_put(clk);
- 		return -EINVAL;
- 	}
+-	if (remote_node > QRTR_INDEX_HALF_UNSIGNED_MAX ||
+-	    remote_port > QRTR_INDEX_HALF_UNSIGNED_MAX)
+-		return -EINVAL;
++	/* Don't check node/port for the valid range, use only low
++	 * 16 bits on 32-bit architectures.
++	 */
  
--	return pxa_timer_common_init(irq, clk_get_rate(clk));
-+	ret = pxa_timer_common_init(irq, clk_get_rate(clk));
-+	clk_put(clk);
-+
-+	return ret;
- }
- TIMER_OF_DECLARE(pxa_timer, "marvell,pxa-timer", pxa_timer_dt_init);
+ 	key = ((unsigned long)(remote_node) << QRTR_INDEX_HALF_BITS) |
+ 	      ((unsigned long)(remote_port) & QRTR_INDEX_HALF_UNSIGNED_MAX);
+@@ -295,11 +295,9 @@ static int qrtr_tx_wait(struct qrtr_node *node, int dest_node, int dest_port,
+ 	int confirm_rx = 0;
+ 	int ret;
  
+-	if (dest_node < QRTR_INDEX_HALF_SIGNED_MIN ||
+-	    dest_node > QRTR_INDEX_HALF_SIGNED_MAX ||
+-	    dest_port < QRTR_INDEX_HALF_SIGNED_MIN ||
+-	    dest_port > QRTR_INDEX_HALF_SIGNED_MAX)
+-		return -EINVAL;
++	/* Don't check node/port for the valid range, use only low
++	 * 16 bits on 32-bit architectures.
++	 */
+ 
+ 	key = ((unsigned long)(dest_node) << QRTR_INDEX_HALF_BITS) |
+ 	      ((unsigned long)(dest_port) & QRTR_INDEX_HALF_UNSIGNED_MAX);
+@@ -369,11 +367,9 @@ static int qrtr_tx_flow_failed(struct qrtr_node *node, int dest_node,
+ 	unsigned long key = 0;
+ 	struct qrtr_tx_flow *flow;
+ 
+-	if (dest_node < QRTR_INDEX_HALF_SIGNED_MIN ||
+-	    dest_node > QRTR_INDEX_HALF_SIGNED_MAX ||
+-	    dest_port < QRTR_INDEX_HALF_SIGNED_MIN ||
+-	    dest_port > QRTR_INDEX_HALF_SIGNED_MAX)
+-		return -EINVAL;
++	/* Don't check node/port for the valid range, use only low
++	 * 16 bits on 32-bit architectures.
++	 */
+ 
+ 	key = ((unsigned long)(dest_node) << QRTR_INDEX_HALF_BITS) |
+ 	      ((unsigned long)(dest_port) & QRTR_INDEX_HALF_UNSIGNED_MAX);
 -- 
 2.34.1
 
