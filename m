@@ -1,121 +1,139 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBED641D4F3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABE5499F25
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480461; cv=none; b=uLHJLr0+0D1qdx8WzssT42Mh3zzFKY4UDA2RmanNCMvmnFBdYmTPllymw4nLHRoDtMn7iLQUxUOmhyVk/Cs+drgrHa666MnxxSxy0s/B+eaRdkIF81KJmmkkRGPzujJTjZ6KM+/OsbzX35EkcWBBDkbbeetXWN4psfxMPyejTEk=
+	t=1789480522; cv=none; b=J6KpYjSbz3hrv3TvyT4EkfwONfAB/Nk277HpCfQ0x39VEaKOBV3/F7ZPDEgx/LyUne9aKYYTI4sJUFFGWWm04ZFaVhp980HO0hwA8QvqoFV0SLClNHyh7jQxaTtsYYV+w1oOzyxF+X45F3a49t4HL1mIt926pmDarxG39FJm/1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480461; c=relaxed/simple;
-	bh=Ag5tfz00fBg6YXo3im7agg0lkNAqHNZutLBmML/rBjs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JltK61Lgec9HRsmajtb2f9NxPgTteQ5CEaDh009V9c1liKSjhRFMbA77RhamZk7lkV7jZ2xBLzNLxEH4zj5+xTid99SISAU/3AccEGXu174wepdyZTNETx6ELMPEZooBV19U/CxhI4VBt/5GwvLOxSPBCfP9eb0wqfuvr6YpcOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0mwRs89; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789480522; c=relaxed/simple;
+	bh=9r+YwCe0F6qQf4PCsOUIPhvQctMI+l83i76fbj6mtRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G1Bc8tIR0id8FFKi/Jj45cg2BHS3Itf51fzqwEX4qqKekKvxmqtUcFrPV2WWua2Ul/Z3zaxK+LVWbbrjvL2NtXCYMzuYhwslqaDjDLgJIwm18gsFAZlBKJy48YxeOCX4ib7cOY8E5peUE4/IUrpiHmKxPem76HqoagHtM67W4Dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IULD8UVV; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0mwRs89"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so43743605ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:54:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IULD8UVV"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356f6bso2635972f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789480459; x=1790085259; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
-        b=H0mwRs89+UPb/DZtvXtW8tJ20Ms+Ff2SLVKSuZT+nARB6Ady+AbKw5jJno08CkCoKz
-         YzPdklCHVLFOWbKc8Mucu7fCEGzR+RcfikB6msm9o5MP1gtuw+3J0//uPLTXlMPmgCIT
-         LeqdVVvUrvHH81iyaMwADOZizOjW8ddC4QrN0UEpNg4TJ2bToX75cHcdycb8L3pvas3M
-         V1eF3OwY3ykCg7nLieG2uaHDq5b8OcYW5nNaIDb01fUP0t2X7by+SVwNUUD+cF3et6io
-         tjzFL4CYZkOGYAHSFXcLQAVood0pF87e2j6+OvcwoHP8Xt21ihO4sy5ATv34hh8h9mFU
-         qCDQ==
+        d=gmail.com; s=20251104; t=1789480518; x=1790085318; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gNNkP5OrQ+lux9cj9RwRKi095yys31ZEfJvxuKIb5tQ=;
+        b=IULD8UVV3GbeXLi4YxTTcBetIs1JGsG1J6bfZVgsbKUEVWGw57i8VZsizS7qHcw2jb
+         EeLCXkI1EJx6ZLmaD0l7VL/Dn3D6mnw4H4ADHMwSSso1SgY28aah4u0uEDeSaoAPIATk
+         V97OoHN5HjDrz9pcBsS8slNOfz2y5vrJSCnhboSPvhHqbGhG7SqQ6oix7swKN/3bZ1Kl
+         aDT5/nrux1UwUBMB95NW+SxvUzz1iYKBAvMuwn5Kw5VLtbFEFdF41UeuApcY2pNxQSXL
+         qShb5s/nPQQrURfFhZMnWSaXFHG+OThdtE7M06QDU3/xsxNMW9CKaYvAs9f3MhkEViV3
+         H7wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789480459; x=1790085259;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
-        b=n9ZNh47mp4nzgL2PBYzw+Me6JAvolE+lJ6ejD86i1ayk5aIyiOXp4up35iNZMDLk4p
-         CEuDoSWDRZfxkMWTxspCuoukeX4ikEd1WEKsuRa2niVIoJ6OulKaCeX86FZWXOlpgtIN
-         vUZR3/KjuY/aSc1+UcloiUDkK5d9ivVYmXCYmx+FTgSl+v4S5xI3xmylh6eahQm+OjQZ
-         1AhWq2TJIgkK6u3sp1YdlcZSyEFkYZKHyr+eZLGwvAoVfauBKQLufyR1peSEg+fgbuyW
-         nI4zzlCyq4dwaPBHXzdJHEzfl00XrnJ8qBOENPjWnn28eggn6g0EfTyGof7dfiQ4WIPh
-         qKEw==
-X-Forwarded-Encrypted: i=1; AKwUvBw+LN3pTqAe0LvqAaQkRwozhz0BoOonZahbgiW5yOyBZF9XIBp/SaCHw1PKZDzZUi0eI+AbMYksixWxT24=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUI2fXoUMO7vSKupfsfAoVROG7gZY/ROzlTDjITiMNoW4hzmjL
-	eZT0wdvfYmfiPHoL2xRgTtBi71D6a9MSYpSQFKVodNpiAXzzg4jnzLrh
-X-Gm-Gg: AYBFou0/wG/qcuL1GXxNvs1P7A+y71YgvKiwsr3bEfxGif8vHfZmCl3dQQwP7ZR2h8j
-	P2iBHZ/N4CzCsBA6SPQCPW1t2YL6dZhUOqJabt6IHzxizZcyNuqEtBsgvBg85e/yYRVkkUVOSkS
-	t0twpt0ipjYdQCGofHCuMqJ4fSBrScDEfSPhyLwWr9kW11GgPYWp3jWvG/kf5YdJ3O+U50qxAvE
-	RyiHkY6oyw1lbUqAv+JXuPltPXsnZ0kLXXTZezB/rMsMOSa/FcWwU2dga0yjc72fRmg9C19vLOZ
-	BRcB4oVTAsM+KwLHiCwwKd3EhQPz07r/thBsIsXcrKRuadUp+Bge3wY8WuStKrhrQbvryq3w7ap
-	PCt3029OEkpu3Ou16jo/6jqH+isRtJ8FNuXJQ12M5J67M4mL5tXkNHKeEiURUJlkH0t8/DY3eug
-	dZMJ47gOcapZnAFs1LZKtSd1Pf4yrJYrS9kljuM9rYY8I1gd55JvOryvQ=
-X-Received: by 2002:a17:90b:39ac:b0:39e:261:4e0d with SMTP id 98e67ed59e1d1-39e026159e9mr5815662a91.25.1789480458971;
-        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd0ba9bsm5533757a91.7.2026.09.15.06.54.12
+        d=1e100.net; s=20260707; t=1789480518; x=1790085318;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gNNkP5OrQ+lux9cj9RwRKi095yys31ZEfJvxuKIb5tQ=;
+        b=CenXPuhIvdm2k4o+aPctOU7gV1bBMyIg7vGsQCCoW+/098+sljYgnR1/XztBLt2Fns
+         GqWSKpWHcXloilAwEzYipsyTYqaxqEj3yAVvQze/RWQngNmGgnJvbS92pJLFXmXxPJF7
+         /uWflp8VB+2nFtNuxPtA+WsG68/QEVrVFPrDTfCk5vURPAmIKwQsF/CHsU5OFDN51c1C
+         YlB4vvvLu953p+aT2rtoKXm3/oVJZAkZacirkkVpdT4+yaKrV7l74AFsQiRt68u9+/nW
+         IpiAjEYfRZtbA96+zuhXiuzbQv9TeR9jrcl2FMHUiffrVSjPEMH/6AJP2LZgF0VLf74E
+         dDxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRV/4pINwCrfreg7rqOBzulSl1sjXuPVou5wB3d7cJTgjnQZs63V7JnhSlukAJcbuwK0FPSJyviCvIkWs=@vger.kernel.org
+X-Gm-Message-State: AFuF++niGiW3oRHL2Ewl8y2eDAm8LBl0E52Y3QnMkXFP07OQ8EnTDZsx
+	wtwVmhtbgGTJAmLRUypR0u94OdGGEU3v6SoR/3d9ItTptIqjLwEVUMqX
+X-Gm-Gg: AYBFou1X9QpMPo4Iqd3Qz/jWSMX1RIIj20AALsC2USU3hsIjTyoiK4zmRALFWnBoiOI
+	9/XBCorT5BgVGljhfRZycA6cy/pZNr/dKqQ1l2cm5zP8Th6V6xkuXzhklXDsOUEWJtO8bPPdeel
+	KhJ9wA438ozUGQapFlKhOalFRsz/iXfaEyi9bVkBgsGR2lIcrQMvbNOdbCN+TuUbSUYhUqF/owQ
+	t7G8olc0ky/kLnyvn6dMPqhW1zPK01HM1ulfJ1zjqze8MHwrkH3aUuUiomnIBvnkHa7lGJjvI1q
+	z7yzRopccpBosTLcJCsA86XjMtny65obh1q+sAKHW+NCTZZksINa/wPRrPq3zqX+3GtAQVzckX0
+	9xGQvd0gLh/tXnhoBeLFTB82AE/XhTFblw7npIEGwAkZ/CkaNXZiPuyKwjY6UxGHacRc6K+Xc6j
+	S725r0JStb/xvS/u6LYZ7Bvq2lqQP4JlvDaSYZb3TRPs5B71gDhlQr2QNLi2Gp3+U/YY38tjCLJ
+	6wv9TN1XPvrImTSo1nyGSdogqPxM73gJyOlxmfMJzQn34g=
+X-Received: by 2002:a05:6000:1786:b0:487:88b:4681 with SMTP id ffacd0b85a97d-487088b4ce6mr6076258f8f.10.1789480517949;
+        Tue, 15 Sep 2026 06:55:17 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48707e00133sm4695178f8f.11.2026.09.15.06.55.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jacopo Mondi <jacopo@jmondi.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: renesas: ceu: free device data if video device is unregistered
-Date: Tue, 15 Sep 2026 21:54:06 +0800
-Message-ID: <20260915135406.2423337-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 15 Sep 2026 06:55:17 -0700 (PDT)
+Date: Tue, 15 Sep 2026 14:55:13 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>, Will
+ Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ linux-kernel@vger.kernel.org, Linus Torvalds
+ <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
+ Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
+ locked=1
+Message-ID: <20260915145513.111c4a23@pumpkin>
+In-Reply-To: <20260915131510.GD4121620@noisy.programming.kicks-ass.net>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+	<20260907084133.3696-4-david.laight.linux@gmail.com>
+	<20260915131314.GB2009045@noisy.programming.kicks-ass.net>
+	<20260915131510.GD4121620@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-ceu_probe() allocates ceudev, while ceu_remove() does not free it if the
-video device has not been registered.
+On Tue, 15 Sep 2026 15:15:10 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-The video device is registered from the async notifier complete
-callback, and its release callback is responsible for freeing ceudev.
-If the device is removed before the notifier completes, or before video
-device registration succeeds, video_unregister_device() does not invoke
-the release callback and the ceudev allocation is leaked.
+I'm glad you are actually going through these patches.
 
-Check whether the video device was registered during remove. Unregister
-it normally when registered so that its release callback handles the
-final free, otherwise free ceudev directly.
+> On Tue, Sep 15, 2026 at 03:13:15PM +0200, Peter Zijlstra wrote:
+> > On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
+> >   
+> > > +	/*
+> > > +	 * If 'prev' tries to remove itself from the list before we write
+> > > +	 * a new value to prev->next it will spin in osq_wait_next().
+> > > +	 */  
+> > 
+> > This comment pertains to what? 
 
-This issue was found by manual code inspection.
+IIRC, perhaps it needs:
+	Having written prev->next = NULL ...
 
-Fixes: 32e5a70dc8f4 ("media: platform: Add Renesas CEU driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/platform/renesas/renesas-ceu.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> >   
+> > > +	/* Invalidate prev_cpu matching osq_unlock() */
+> > > +	node->prev = 0;  
+> > 
+> > I'm confused, osq_unlock() does no such thing.  
 
-diff --git a/drivers/media/platform/renesas/renesas-ceu.c b/drivers/media/platform/renesas/renesas-ceu.c
-index 65f7659a9e02..5015b7837381 100644
---- a/drivers/media/platform/renesas/renesas-ceu.c
-+++ b/drivers/media/platform/renesas/renesas-ceu.c
-@@ -1705,7 +1705,10 @@ static void ceu_remove(struct platform_device *pdev)
- 
- 	v4l2_device_unregister(&ceudev->v4l2_dev);
- 
--	video_unregister_device(&ceudev->vdev);
-+	if (video_is_registered(&ceudev->vdev))
-+		video_unregister_device(&ceudev->vdev);
-+	else
-+		kfree(ceudev);
- }
- 
- static const struct dev_pm_ops ceu_pm_ops = {
--- 
-2.43.0
+osq_unlock() sets it to zero on the node that it passes the lock to
+(since that node is now at the head of the list).
+The comment probably need a few more words.
+
+> The next patch adds a comment stating that this store is not strictly
+> needed. And only serves to ensure node->prev ends up being 0 in all
+> paths.
+
+I need to look again (the system with the patches is off) to see why
+it might be non-zero after this patch.
+The original unlock code just set 'next->locked' and left 'next->prev' pointing
+into the abyss.
+(One of the AI bots reported something about locked and prev getting
+out of sync.)
+
+> That comment *should* obviously have been here. Also, I would *much*
+> rather have this store at the top, next to node->next = NULL; That is
+> much saner.
+
+
+Part of the original reason I started these patches was to remove
+the writes to the current cpu's 'node' in the fast path acquire.
+That completely saves reading the cache line.
+It also means the initial xchg need only have acquire semantics.
+
+David
 
