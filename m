@@ -1,69 +1,33 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128BE3D6CC3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7DAD2F3C37
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789443975; cv=none; b=oYAPYiir9i8TVhpcOBY2/YXTBDlPH4S1RHOPlgn9zxLNCeZDgVChb1X9yTizCnaAm+VMp0ZfNEQuWQZD5FAtfpwdSukc5iJSjaEorW8+H4m/jAdtrjPvqW1jJJC5EP9wLihLUP9efR6z9XY3UwjXjmPXLrK9jYU7S2WY1xsgrNo=
+	t=1789444099; cv=none; b=NZPBcFG/0XPc2OEMQePbM0DcHS3S8w4rB7MF1wugfqEx8fYSp0TRnf5beBlRbsberSeWLJJq7pNCwK36OB41QCs83EKknNKzU19UfqEueRf4Lr02lgNCL98OVoeTiqZ3GXOYaCmJZy6IbxT7BMSzZiw4UvfJfJXKs0Si6b6whKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789443975; c=relaxed/simple;
-	bh=Rk2+fOE5KgAtRJVquq4yLgBaVLkXRGPSoIYM0ZKmm4E=;
+	s=arc-20240116; t=1789444099; c=relaxed/simple;
+	bh=KgjqZoWoWF2qzt6t1QQEyEyqBSmp/mCKv/Xm4NSLhic=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HksHn9RpxFzkOFQqocUaApp4miEj6HVyaMo2G9CSFRN71IFPabUJfhRN22QKWj57TnKvMvdJmrgHLSnmDRuoaahEO6JFry73WmkAttH1bpdL1L5zcIxfzp2jzFCVAC6ksU3k4sK2DHshxHwNkEWMmX96g2aQalmyUGgcko6Gt3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KIhd9U9r; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=aaMJbyCoF3EyeXQui4dphgdJamrF1pSQfNMefeelxb7nMHO+hGK9tTe8pl7RUd/4+bCXU8WMTD1mzAIukPUnnrpz5k2LETbgihw90TppqkD+N0n2TZ3AVCCCtpgsQDnOHnaUtRyfOEHYzQYY2EB0V7DIVEeHjCV0NwE1VUqfbkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gtMBSMt7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KIhd9U9r"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso2845855a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:46:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789443973; x=1790048773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y9xUSer/IeB4JO3MW1K6IRBMq4yOCTNbup2h4OtNttE=;
-        b=KIhd9U9rN0CzfNLc4+6B4gKRzjsevJL5I58ez1uBD0EznhiONJdOL0pJZiKDT9qyDB
-         gkAurdKk72A+xpKhKd8avsCeKbmMCq3ePoCM99v5I88GBvpSMvec+UygGWshEFoBNfLl
-         NoCn+MbV6qefgkfOTOEVV5V6N//9UjNKZ2OsHqXWDhD3lNzPjKER3GtkwK6jL+5jwb4d
-         2UgLFG1k4oBi2rcC2MqWvzo6M/CV/R5mb16VjF2y1W+lkkDzue0stto7Uy2OJnU5DHy9
-         3Eg51ZTLvEjPdLFsFbKsNTyUO5gleuV/2EklAcTlI80ITQDsVX0ibMBy4CQ12spTww5w
-         eHhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789443973; x=1790048773;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Y9xUSer/IeB4JO3MW1K6IRBMq4yOCTNbup2h4OtNttE=;
-        b=jx6QB/7+e4byvHGwZrRqN1sB31dz88zLnrflVNSTogZYPGLg4xYmk+k44pY+APSs3D
-         dL/Zoq9dMmS7T+HYmzOxUkTrG10u4n72oc1gT+U11DWe5ph0Ug2gsz/b6zSCg9SPEY+h
-         4DDDSCE1J2kChmU91tbCF8sO9TQNJgOVdb7UdgV2flGMuiXYcqVbkA8/E59QsCXIJYGO
-         e3GOJktut3/BBQlTMUjxB+uyUmhmob24az1PAfqM4Xttsx6+BdOxOPxC5xO4ydYGAKyW
-         6HWzCC0OjtqSyNRrTdkapOFQbsxBYq7frtxoDvcjlco445Bpwlabw+bV+RUWbGN/6DFw
-         Z0Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBxJbvfxCh0s8z2lSZNEYJG8Erw9Rfmvy1z+MRH2SAnqNQ6nK+9+A7kPGCv416r8WJveOLhHx28nLY6T1vM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7pdcJhfCg80rWSHIx4rCnmM7OAGnYWDPzKqy8aLn503d3U4y1
-	jzgDcaCa3g1M51A4rhuMnBdMT+YU93sZCzrVNhW/+sXKaKAr+wVqGTgT
-X-Gm-Gg: AYBFou2Enu5cgG4/Md7JMZU4lKezMaAdUUiuleT+2XJTKKSFB9zjPYxGcM4xhj2bKu4
-	YHeQIRLPx8XhUedlKu1LaHzPrL4enfrNB6VZoP4rRtSzdY3sJC28xa6T9JmdYroeRGLvZwce0Zi
-	gdPAaHiWGlqtLAPW2v5Mr1MCRi3ihhB6nJ4ImwpZRg2vOMhzi+ZVw5VkZ3Kk4Uc8spNgJxdJh8r
-	KFXMbEwv1/AH7go5Z/y2KuIZbWPptlSrq5dwa2CzvfMo8ienvWgsIh3hKCXoce6fvsvISaUSu22
-	WIdC1QVbHd3ylTAN3gv8XjWbpkTGYXbSicfAASjdxjWAQgQ00dDp7/7UphYsfGfgm+d5X3aYphi
-	DBiYNil15HTHFOAt2OJOWn/LW+yjGoADWcfifz3ffwdhHnDxkNLAbDKPz5w5vsMWD4R8GU3TDKO
-	KK7xYMMWzkgcQhZNOX0iIP5bn7VUmbgAkiecTZeImTeRs6ACWLcqHA5da5IAZB40ysG0rOpHYvL
-	7fTzpgCN0/O92t6blcRBJM7pVNgULfr78kCiAPDlTWt/QVG
-X-Received: by 2002:a17:90b:4a45:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39dec10b1f1mr10913104a91.24.1789443973309;
-        Mon, 14 Sep 2026 20:46:13 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda24dcbsm2413948a91.5.2026.09.14.20.46.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 20:46:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <c1d89f34-099d-447c-8e7f-1cba94366659@roeck-us.net>
-Date: Mon, 14 Sep 2026 20:46:11 -0700
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gtMBSMt7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F11791570;
+	Mon, 14 Sep 2026 20:48:10 -0700 (PDT)
+Received: from [10.164.19.33] (unknown [10.164.19.33])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E17253F7B4;
+	Mon, 14 Sep 2026 20:48:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789444094; bh=KgjqZoWoWF2qzt6t1QQEyEyqBSmp/mCKv/Xm4NSLhic=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gtMBSMt7KQpkpEw4uf2tV+eK0xJnhIK+UUdPXXSlgHaKB+doyn1hf0yIbcbxVkeB7
+	 gZ1GkGl+e4POIgoV86zRSfkJa/jcGhzGkpiswTbEjIPWcJXI5jFPP01aZfXhFDylb9
+	 dCn3om+7wQ5Fg4wBewetvePHdKhyIny513KDRR2Q=
+Message-ID: <5bafc4c7-6902-4015-8f74-e2f5773086de@arm.com>
+Date: Tue, 15 Sep 2026 09:18:10 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,98 +35,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] watchdog: starfive-wdt: fix PM reference leak in probe
- error path
-To: Ivy Lopez <skunkolee@gmail.com>, xingyu.wu@starfivetech.com,
- ziv.xu@starfivetech.com, wim@linux-watchdog.org
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260914165022.169877-1-skunkolee@gmail.com>
- <20260915032032.222665-1-skunkolee@gmail.com>
+Subject: Re: [PATCH 2/3] mm/vmalloc: extract vmap_insert_free_area helper
+To: Ye Liu <ye.liu@linux.dev>, Uladzislau Rezki <urezki@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ye Liu <liuye@kylinos.cn>
+References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
+ <20260914-vmalloc_study-v1-2-526f68559706@linux.dev> <aqgow3u0GSlj0P1Y@milan>
+ <fc999f45-fcbc-4d6c-a0b6-2bea4da98013@linux.dev>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260915032032.222665-1-skunkolee@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <fc999f45-fcbc-4d6c-a0b6-2bea4da98013@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/14/26 20:20, Ivy Lopez wrote:
-> pm_runtime_resume_and_get() increments the runtime PM usage counter
-> and, via starfive_wdt_runtime_resume(), enables the clocks. If a
-> later step in probe() fails (reset_init, clock rate check,
-> watchdog_start, or watchdog_register_device), control reaches
-> err_exit, which calls pm_runtime_disable() but never balances the
-> earlier get, leaking the PM usage count.
-> 
-> Track whether a PM reference is currently held (pm_ref_held) and
-> whether the clocks are currently enabled (clocks_on), and use them
-> in err_exit to release exactly what was acquired:
-> 
->   - if a PM reference is held, put it via pm_runtime_put_sync();
->     only fall back to a manual clock disable if the resulting
->     suspend transition did not actually run (put failure), since
->     the runtime_suspend callback already disables the clocks on a
->     successful put and a redundant call would double-disable them
->     and underflow the clock enable count.
->   - if no PM reference is held but the clocks were enabled directly
->     (runtime PM disabled case), disable them manually.
-> 
-> Also propagate this accounting to the existing pm_runtime_put_sync()
-> call at the end of a successful probe: its usage-count decrement
-> happens regardless of the call's return value, so pm_ref_held must
-> be cleared immediately after calling it to avoid a second,
-> unbalanced put_sync() call if a later step in that path fails and
-> falls through to err_exit.
-> 
-> Fixes: db728ea9c7be ("drivers: watchdog: Add StarFive Watchdog driver")
-> Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
 
-I really don't get it. People keep sending new patch revisions as response
-to previous patch revisions, even though that is discouraged, but no one
-admits where they get the idea from.
 
-I am going to just ignore such submissions in the future. Last warning.
+On 15/09/26 7:55 am, Ye Liu wrote:
+> 
+> 
+> 在 2026/9/15 01:02, Uladzislau Rezki 写道:
+>> On Mon, Sep 14, 2026 at 11:34:01AM +0800, Ye Liu wrote:
+>>> From: Ye Liu <liuye@kylinos.cn>
+>>>
+>>> The allocation and insertion of a free vmap_area is duplicated
+>>> between the loop body and the tail of vmap_init_free_space.  Factor
+>>> it into a small helper so the main function only deals with computing
+>>> the free gaps between busy regions.
+>>>
+>>> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+>>> ---
+>>>  mm/vmalloc.c | 41 ++++++++++++++++++-----------------------
+>>>  1 file changed, 18 insertions(+), 23 deletions(-)
+>>>
+>>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>>> index 117483dd048c..797933ba9451 100644
+>>> --- a/mm/vmalloc.c
+>>> +++ b/mm/vmalloc.c
+>>> @@ -5433,11 +5433,23 @@ module_init(proc_vmalloc_init);
+>>>  
+>>>  #endif
+>>>  
+>>> +static void __init vmap_insert_free_area(unsigned long start, unsigned long end)
+>>> +{
+>>> +	struct vmap_area *free = kmem_cache_zalloc(vmap_area_cachep, GFP_NOWAIT);
+>>> +
+>>> +	if (!WARN_ON_ONCE(!free)) {
+>>> +		free->va_start = start;
+>>> +		free->va_end = end;
+>>> +		insert_vmap_area_augment(free, NULL,
+>>> +					 &free_vmap_area_root,
+>>> +					 &free_vmap_area_list);
+>>> +	}
+>>> +}
+>>> +
+>>>  static void __init vmap_init_free_space(void)
+>>>  {
+>>>  	unsigned long vmap_start = 1;
+>>>  	const unsigned long vmap_end = ULONG_MAX;
+>>> -	struct vmap_area *free;
+>>>  	struct vm_struct *busy;
+>>>  
+>>>  	/*
+>>> @@ -5447,32 +5459,15 @@ static void __init vmap_init_free_space(void)
+>>>  	 *  |<--------------------------------->|
+>>>  	 */
+>>>  	for (busy = vmlist; busy; busy = busy->next) {
+>>> -		if ((unsigned long) busy->addr - vmap_start > 0) {
+>>>
+>> This line gets removed and then re-added below because of removing space
+>> after (unsigned long). Maybe it is better to keep that space.
+> However, the '{' is still there, but I'll add a space anyway.
 
-Guenter
+
+Just mentioning in the commit message "while at it, drop redundant whitespace
+in "(unsigned long) busy->addr" should suffice.
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 
