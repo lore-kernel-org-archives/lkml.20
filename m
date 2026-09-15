@@ -1,150 +1,209 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855C244160F;
-	Tue, 15 Sep 2026 07:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458021; cv=fail; b=UxN+Z6VztsHBNCAHhkRzgaHRgPIxqPw1U2EAJ+Sz2Y9frxNRQvhbCOv1hFxl0bteyio8prNPaCyBki/yVAJKrNsjnIWAzxwyXDY6uRHIvgZF5h40TF7vRsxzoNBVziYCt1ytmi/hRFlIYJmg9hpQNsoqKQNCXFo0xIUvKpfKdXQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458021; c=relaxed/simple;
-	bh=n3YEw6fw7TZ1bnVYrHG2KZTnTuIGR684yGfO9JdlAJQ=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=A9hRzd53XxrrZ6IcltAyvgi7nYy6/WvoD0jrHTbf5K5oJah+DqnOTxWJF5l9mDMvmXiefPi0sZuzQvRy2wr2Rwv1c+w6OyRpbpEsmFcw2tNtVtq7TiSeaXbI67hMTtaPrkkmKm6TWaqk2iieBEr33hM7cqE+bOApe/h+FvuMDXU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=U3YjFnCG; arc=fail smtp.client-ip=52.101.62.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E1835F5ED;
+	Tue, 15 Sep 2026 07:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789458064; cv=none; b=TVlMOLREJM7iCXStu0WEmYVB7Q0y+oh7CeKolsKFhwUz7xhDnsH6A4xjaperNbmYl8IGdvo+nK+E7CUEJYW/+9qhmMxcM3m3cvdIX58vBtLY0mL3N8h/+25+hhoC0TvpaIwYBtQJOpC0ChUOlZk1WMFrOldipb0LoB0mH8YKFBs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789458064; c=relaxed/simple;
+	bh=qfDWUeRelUxKXgNRJ8+qbWmR+Gvpk1QYDIF+nJ+BzN4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o/CtGgGhVKDIHE71IkwfbookIfg6ZoxCvNWY1shwGzjEGjb6z+3/lbO6euCNqlq0MeesJqxnarDUP0tgGak+vyva42OmH1yjY3yWonc/PEzoVmEjKlkccn2xGaNlQ0az91qfubJdO6wpjqyeIg1WKrCD2fWCl6+0K0UXC7L22Go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lqCPmnNn; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="U3YjFnCG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kvflh2tcMVuF6ZxcCXPXKRXE5T0fBk+t+OsJ//7UdgfWFDHlpy3dUMdKuAJcat+HT0uCSLuPiyMbXk9oSAvQDmgyhWCpXsOF9mUytlbMOt8nw79egPVCuNcUlD6mI2ZIiQWD9H6YJ6v0+7VFWYiGt+83uGxV7hmgE3Ayw9ijosTrW7bCwwhiZL7axlkdgxbNXzJxRP7ZO1m2lM5TQ+4jfiKUydjDpe01e1WvGXoiwyUtv3SdYLnCyG5D6wJPF4IUC0B2cuDHCNFprpGVYeCMEi0MAn0mBbhEklUJMyu7MN8DND+tthESMliVJK9Qq8/cEaIkBPaoiHv9uIDDJrm5TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n3YEw6fw7TZ1bnVYrHG2KZTnTuIGR684yGfO9JdlAJQ=;
- b=KtixcT9GqNbt42YiPPS0Qud9gI//3EUnzzEw12kip4GYIHdeUuC8C7UcHmnOOV8L/8uOrvwjpig6Zh0wsyPGzf/VAHe31XYl0zQiY8qnlZdS0JbjzCdqis5I/j209hpWq3xFaVIZ3/gD4r1DrJERJ4kV+zZOcE2kfUH/kbcS5svlhLGcKGq4RZLUX/0SGfJWBrpRWXWis/wUfseC+uorRwk4YTdleLZWT6tCYy/MCqBIfhcLK4GmFKRxOZkKfAMwJiOQJEo+9trydce+bzEH+EKlE9U6+6Hfqsa+IlJreMX6TOaJgGkztfLqXcb8ZQG9pE5AqFrbUbKwhSqOxky+uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n3YEw6fw7TZ1bnVYrHG2KZTnTuIGR684yGfO9JdlAJQ=;
- b=U3YjFnCGHGj4PJediLtN9iQiZ2xqJflqKOGVze/q/sujos05o12+evOFX4cwl0dZvUuYhmY8B/y09XJQ0GduUmm3jZ0th8dr4s9JIP4qXlD6JAL2qaUNfMp1ZV7E3jgjnwhV8acDW5o7JzKD/ieexRuXeNzbANjEXTAw7+klQpkUww/d1b0voTaT7hPeC5mM9FUAhDmOJJXN69mpPEGBSgPp7Lu83kcYa6V1qTp6Cx7pTRBb/BlMITMgzxMzXDzcX2N96VUS4UtMtUbC1i6EHHI0EY2QvrtxAT2o0oTfBelDatgT1U6fSoosl6DCx5+H5hqXX/QbyJg99M2aURAQfg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DM3PR12MB9436.namprd12.prod.outlook.com (2603:10b6:8:1af::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 07:40:15 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 07:40:13 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 15 Sep 2026 16:40:10 +0900
-Message-Id: <DLFPX99IXAOX.39ZAHT24TBD3O@nvidia.com>
-Cc: "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] rust: prelude: add `num::cv`
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
- <20260902-cv-v3-2-0f90659e711d@nvidia.com>
-In-Reply-To: <20260902-cv-v3-2-0f90659e711d@nvidia.com>
-X-ClientProxiedBy: FR3P281CA0136.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lqCPmnNn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789458060;
+	bh=qfDWUeRelUxKXgNRJ8+qbWmR+Gvpk1QYDIF+nJ+BzN4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lqCPmnNn94nzLoeRNuw5t6W8Y5wfP4BuOKrFNlYN9Q43mnNVjgMnXkjvoCRw/mFgZ
+	 eXw56YNhPC/0u/UWTj0AE5m7EJA4qaqgepo4oAbtZuZhUydGptEpA+JS32J8sYLk0X
+	 wgup3gAAUn4Xdqx4yv4k6lae6MMSWQ6u8lyX3NwCyukJHs7aeNy8vk6XxDa6yej8ou
+	 ychnDDqQzDkKt4j+CLHL/lIu8QAWf6hSsO8NZvfv3QjKwD5DEHFzsBCR/nzDDpCylO
+	 jNN9r/ZXWQjkazZ5rs3nyQnrBgDz2wSP+uP8A0HNgXhkIjEPyyU12WZKr84kkW8ZI8
+	 3pqz33rFZHgzw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CF2E317E090C;
+	Tue, 15 Sep 2026 09:40:59 +0200 (CEST)
+Message-ID: <351ce005-b7d9-4333-adce-896248c2d7dc@collabora.com>
+Date: Tue, 15 Sep 2026 09:40:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM3PR12MB9436:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7c48e60-89a7-4fcc-40b5-08df12fc940b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	VwplJvDX9xGBk5t+VTIXtpGC3DGilF7j/1to4ekElK69zg14h2Q+Z2jS+7lOu9w4Z6eJXyFgvkDvMhEFEnRMmb4F1IIkbHGlzQ87YqEwTMW+7LdacV4PHNjHIxd3w/AiqKaYkdKwuAvCU82WycuWyiW8HeLHViPwKK0vHm1WD7NJrxwNN5dxJj5lIcEpMm3ltEy1Ef9DcOs/osFx0C3po/H5Vvzp+3+c7Nl2f/Syx+9wzJ6aqIFA4zSOd/wi5ZgEHSqYi3kb5SExJhJXoOeQVUx97LSHrf2NW3pyo1Qtu+eUosgrmXcjjEmZT72xeZqVxsIleRW+a4fc/iCgDTns73padq3xaVg9vVQDIRkbF1ZAZDLYC8gCbyo1mrKe0xUb4PgjUkeid7hqE2xj+gTp02+QXqUUEf/EIwjIIuAgfNLBSn93rTu6BJvQ42l/evD4IpZ9bgfLuvYF2rPTuabPV3oxGCdjBuxgPPj8M1ZkPm8Yc9WCCkNHL1vsmG32OBKfKBvmif3BGD09jXMYzc+zYKoBytWdxQzUIMlxLJ/aQ1WZLsV/jmy7UaLpubusFNCfpSzMj9nEHyjhYRqt+DLZHFUCXjs1Duv5fgIXgVVvNHiJ4bHyXBDh/8NY5FojZfnN87D2Rl55kGFOT6qQGUdnKqwdBfesJ0jf4XxGc+aSUpw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3RialR2Q0ROd0x1aEJtUUROKzF3VEt0ZERXK2xCMS9CY0RxZXVWUzUvUkJ5?=
- =?utf-8?B?NGpyRytIUE1ncTNiTC9IbTlpN3BaZVNSYU9XWC8vSWRiYWR4bWhWZUlQQjNl?=
- =?utf-8?B?TUhPT0liRTdTQzFZb1k2ZUNvODdESDBDL3dYc29VY0lENk5Bcm1lcjdnL3gw?=
- =?utf-8?B?K3ZvMEVjQXByVDRIakdzZFNQWjhJcG02ZXE2Y2pJbjZDdmJmS2t3VnNyVFZM?=
- =?utf-8?B?enhjT3FKRUFXZVU1T0lRK1FWZlFWdk5KYWFVMjhoSEUwVzd4TWNhdXRNbDNW?=
- =?utf-8?B?STZKYjkzR0hJYVl5VUR5Z1p6TTM5MzdEaEppN09iWFpvdmxIRFhEMnVjd3Ru?=
- =?utf-8?B?OFoyRWhKNG41U0dOdmlpaTNVelVjekRDYkx6SXQwMWlNOW56TUxUdWZld09E?=
- =?utf-8?B?ZTdrZWlCd0prOXFzeUF3NFNDTVpWZ0E2ekhqOUp2NUVjWlpZMHNZZTl1SHhZ?=
- =?utf-8?B?SlJ3T2JEMnhIc0dFR3R2MTBQVnZGcjQxU0ZFeC9uK2JFV1VDMEtxT3VJM05W?=
- =?utf-8?B?RGVwS0pua1RpZHpDVlMxeDZXb0JVNjRQMktNZjJLTThuYkc1ejN6Z25Eb3VF?=
- =?utf-8?B?NTZDcFdZS1ZNWCtsRWliSlRnK2dBSW1aRWxlY1FBeGRVK0UrWHRNTlFia1FX?=
- =?utf-8?B?Rlhxd3VaYXlFMjI0cWY1RDJpSHo4TllFZDdEM3h0ZDdEUEpsbkVVUjQxOWpS?=
- =?utf-8?B?ejh5ZEFtM2ZBYjdqbmdwOUtXY0piNGtJazY1MG51c1pGVjJFc0JvNmp6di81?=
- =?utf-8?B?U3lwQWJBSWdMRnBCVUxvR3VMYXFOK216SlJrODZKaTI4K1lwZVFCclYvNVNu?=
- =?utf-8?B?d3Bac2RoK2FMeFZibDlna2szTmpBb1I2L1hLVDBCN0xOQStSYXJyM0NkdVpO?=
- =?utf-8?B?WWU3aTA0RlhUYlJPYkdITTdPT0dKUUNnbUNpM1BmNXgrNDhlWnV2bTkraTJn?=
- =?utf-8?B?cGRyTGlGT2ZLVElhY0JyTVRxTDRVTndUM24wWVNHWWRpZksvTUpoazExVTlv?=
- =?utf-8?B?OS9uT0hzR092MCtiRTlvcndVTGpwajQvaGR3T0g5d2dRK0s4YXdCQUdsNEd4?=
- =?utf-8?B?OC9xSTdVR2xmdTZ6Nm9pemxYMDdPemtJVnhaelVpMlhDdFBXU0M4Z3pyeUNU?=
- =?utf-8?B?dFpHR1dJQmVaRlRRb2ppazV0WU4rc2tOM3dxc3pyWnFzb0JUWHBTMlVSMmZD?=
- =?utf-8?B?NEtYa2xBWkpGcFNHcnUxcUZvODdHdjZIdzVCMFJkemkwVEszSG1hZWw5YXlt?=
- =?utf-8?B?eUhITHptSE1LOWlTYXhoRXozK05MaVlndGEwbXd6dG5FUm4zeG40Rk9xU285?=
- =?utf-8?B?NmRJWVY2VmNGUTZsSTRIMmFYVDduZUFGMzIrbjdxWVdZWEkrSnRiRnQ1cUIz?=
- =?utf-8?B?d1hpU0JTUFBxY0d5WGdWMXExaFVtaTZyamJZUUJsaHQ1Z0hONjg3eFNIaTJ5?=
- =?utf-8?B?MXR1QnRRNGt3UzBnSWhKbUxpUHVja1NTS3MzaERSOGxBQ3lxZVhrOXR6Wkto?=
- =?utf-8?B?b3BsWXpCYzhheitQWXIwVjIwRWo2QTYzOW5iWjEzYlZ1VUs1SEYrOVlMM3JV?=
- =?utf-8?B?MVZyTEZOUDlsQ0twOHlBS1lRL3VkTjdKOFlBMGp1d2ttZ2dzbUtlZnRYNEtQ?=
- =?utf-8?B?NmpDZElvcVY5NlMvcjVVQmxLd2xNeENDYWduaXY0djNUdjFDYkNZYmFEY2JF?=
- =?utf-8?B?ZU1YNFJvZW80dzkwYXhGc0dvN1I1c25XK2hBY1c4QnEwelFEZkJ3VGNxRzJv?=
- =?utf-8?B?NzlTVnVESFlmVEZ2cUNYYzNWVnNxZ2hrNUliMk1CMmZuQmsyZS9aWkJ3M25T?=
- =?utf-8?B?bnFQbDZCTVZmdGlialB5M1NOWEN6VXF1V0dwWW1qNktqalc5YW8vNTVNdHoy?=
- =?utf-8?B?Y0dKWndtUlJQWDdvM0J5WWNnbnY5QVNEVHh1bDJScVExQ2ppeWhyYThWYkRJ?=
- =?utf-8?B?UVorVVd4SnVPYmo0eXpoSExhbklBNFBWeVhFcC9sc01nSmpKMFFGcTNaTjkr?=
- =?utf-8?B?SUVlYzBPYm5kSnVyVmpUUVI1cG85QXFKcko0eWpPOFQzY2JycjhOV1Zhc3dB?=
- =?utf-8?B?dnpyS293eFNxNlBaYjJZZ2dhRTdKaUx4RnlNOU5ZWG1wM2JrN252c3J0WWJi?=
- =?utf-8?B?YmhZMUExNW0wK3N5N0Q5U2dlSy9KN1Z3M0FiUFNNbVBqbDI5ZjNiN0dwVUIx?=
- =?utf-8?B?dWhxTnoyRDNLMnU3aWpsRXBWcUJrblFnU1l2Z3czeDFmZHFxUWRGcG9uN0lB?=
- =?utf-8?B?bjlyZ05UYWV5VlF6LzY0cElCeEI1RjBUcC90UVVyeFRNWEZ5c3dTdjRRaito?=
- =?utf-8?B?RHM1a2xZQS9LYnhKNkxvcTladlhwYjN6VWxZTTlGdWI3bVYwY2t6UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7c48e60-89a7-4fcc-40b5-08df12fc940b
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 07:40:13.6125
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zW38K5PxePsEtH1yNI+X3UfjDl10yOpSewFxEeV/Wqn0vq5eMRbZusMjnlYP0V+9wi7WB3h2mXVFplOzlfWoZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9436
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: build failure after merge of the phy-next tree
+To: Mark Brown <broonie@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <aqgKDgDpqlnQPgDz@sirena.co.uk>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <aqgKDgDpqlnQPgDz@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed Sep 2, 2026 at 6:16 PM JST, Eliot Courtney wrote:
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
->
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+On 9/14/26 16:51, Mark Brown wrote:
+> Hi all,
+> 
+> After merging the phy-next tree, today's linux-next build (x86_64
+> allmodconfig) failed like this:
 
-I believe this can be squashed into patch 1, there is no need for a
-state where `cv` exists but isn't in the prelude if we agree it should
-be there.
+There's a fix already:
+
+https://lore.kernel.org/all/20260913172930.1150324-1-sashal@kernel.org/
+
+Sorry about that
+
+Cheers,
+Angelo
+
+
+> 
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: incompatible pointer to integer conversion initializing 'u16' (aka 'unsigned short') with an expression of type 'const u16[4]' (aka 'const unsigned short[4]') [-Wint-conversion]
+>    761 |         .off_ana_lane = (const u16[]) { 0x100, 0x200, 0x300, 0x400 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: suggest braces around initialization of subobject [-Werror,-Wmissing-braces]
+>    761 |         .off_ana_lane = (const u16[]) { 0x100, 0x200, 0x300, 0x400 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>        |                         {                                           }
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:763:18: error: incompatible pointer to integer conversion initializing 'u16' (aka 'unsigned short') with an expression of type 'const u16[4]' (aka 'const unsigned short[4]') [-Wint-conversion]
+>    763 |         .off_dig_lane = (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:763:18: error: suggest braces around initialization of subobject [-Werror,-Wmissing-braces]
+>    763 |         .off_dig_lane = (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>        |                         {                                               }
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:776:20: error: incompatible pointer to integer conversion initializing 'u32' (aka 'unsigned int') with an expression of type 'const u32[9]' (aka 'const unsigned int[9]') [-Wint-conversion]
+>    776 |         .driving_params = (const u32[]) {
+>        |                           ^~~~~~~~~~~~~~~
+>    777 |                 [0] = 0,
+>        |                 ~~~~~~~~
+>    778 |                 [1] = 0,
+>        |                 ~~~~~~~~
+>    779 |                 [2] = 0,
+>        |                 ~~~~~~~~
+>    780 |                 [3] = MT8195_DRIVING_PARAM_3_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    781 |                 [4] = MT8195_DRIVING_PARAM_4_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    782 |                 [5] = MT8195_DRIVING_PARAM_5_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    783 |                 [6] = MT8195_DRIVING_PARAM_6_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    784 |                 [7] = MT8195_DRIVING_PARAM_7_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    785 |                 [8] = MT8195_DRIVING_PARAM_8_DEFAULT
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    786 |         },
+>        |         ~
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:776:20: error: suggest braces around initialization of subobject [-Werror,-Wmissing-braces]
+>    776 |         .driving_params = (const u32[]) {
+>        |                           ^~~~~~~~~~~~~~~
+>        |                           {
+>    777 |                 [0] = 0,
+>        |                 ~~~~~~~~
+>    778 |                 [1] = 0,
+>        |                 ~~~~~~~~
+>    779 |                 [2] = 0,
+>        |                 ~~~~~~~~
+>    780 |                 [3] = MT8195_DRIVING_PARAM_3_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    781 |                 [4] = MT8195_DRIVING_PARAM_4_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    782 |                 [5] = MT8195_DRIVING_PARAM_5_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    783 |                 [6] = MT8195_DRIVING_PARAM_6_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    784 |                 [7] = MT8195_DRIVING_PARAM_7_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    785 |                 [8] = MT8195_DRIVING_PARAM_8_DEFAULT
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    786 |         },
+>        |         ~
+>        |          }
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: initializer element is not a compile-time constant
+>    761 |         .off_ana_lane = (const u16[]) { 0x100, 0x200, 0x300, 0x400 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:791:18: error: incompatible pointer to integer conversion initializing 'u16' (aka 'unsigned short') with an expression of type 'const u16[4]' (aka 'const unsigned short[4]') [-Wint-conversion]
+>    791 |         .off_ana_lane = (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:791:18: error: suggest braces around initialization of subobject [-Werror,-Wmissing-braces]
+>    791 |         .off_ana_lane = (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>        |                         {                                         }
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:793:18: error: incompatible pointer to integer conversion initializing 'u16' (aka 'unsigned short') with an expression of type 'const u16[4]' (aka 'const unsigned short[4]') [-Wint-conversion]
+>    793 |         .off_dig_lane = (const u16[]) { 0x1000, 0x1100, 0x1200, 0x1300 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:793:18: error: suggest braces around initialization of subobject [-Werror,-Wmissing-braces]
+>    793 |         .off_dig_lane = (const u16[]) { 0x1000, 0x1100, 0x1200, 0x1300 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>        |                         {                                               }
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:806:20: error: incompatible pointer to integer conversion initializing 'u32' (aka 'unsigned int') with an expression of type 'const u32[9]' (aka 'const unsigned int[9]') [-Wint-conversion]
+>    806 |         .driving_params = (const u32[]) {
+>        |                           ^~~~~~~~~~~~~~~
+>    807 |                 [0] = 0,
+>        |                 ~~~~~~~~
+>    808 |                 [1] = 0,
+>        |                 ~~~~~~~~
+>    809 |                 [2] = 0,
+>        |                 ~~~~~~~~
+>    810 |                 [3] = MT8196_DRIVING_PARAM_3_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    811 |                 [4] = MT8196_DRIVING_PARAM_4_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    812 |                 [5] = MT8196_DRIVING_PARAM_5_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    813 |                 [6] = MT8196_DRIVING_PARAM_6_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    814 |                 [7] = MT8196_DRIVING_PARAM_7_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    815 |                 [8] = MT8196_DRIVING_PARAM_8_DEFAULT
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    816 |         },
+>        |         ~
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:806:20: error: suggest braces around initialization of subobject [-Werror,-Wmissing-braces]
+>    806 |         .driving_params = (const u32[]) {
+>        |                           ^~~~~~~~~~~~~~~
+>        |                           {
+>    807 |                 [0] = 0,
+>        |                 ~~~~~~~~
+>    808 |                 [1] = 0,
+>        |                 ~~~~~~~~
+>    809 |                 [2] = 0,
+>        |                 ~~~~~~~~
+>    810 |                 [3] = MT8196_DRIVING_PARAM_3_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    811 |                 [4] = MT8196_DRIVING_PARAM_4_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    812 |                 [5] = MT8196_DRIVING_PARAM_5_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    813 |                 [6] = MT8196_DRIVING_PARAM_6_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    814 |                 [7] = MT8196_DRIVING_PARAM_7_DEFAULT,
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    815 |                 [8] = MT8196_DRIVING_PARAM_8_DEFAULT
+>        |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    816 |         },
+>        |         ~
+>        |          }
+> /tmp/next/build/drivers/phy/mediatek/phy-mtk-dp.c:791:18: error: initializer element is not a compile-time constant
+>    791 |         .off_ana_lane = (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 
+> Caused by commit
+> 
+>     6fe4d5beac728 (phy: phy-mtk-dp: Add support for MT8196 eDP PHY)
+> 
+> I have used the tree from next-20260911 instead.
