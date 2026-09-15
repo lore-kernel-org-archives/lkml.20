@@ -1,210 +1,64 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F3A3B6341;
-	Tue, 15 Sep 2026 12:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C913B2FC0;
+	Tue, 15 Sep 2026 12:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474302; cv=none; b=jo9d9DnaUZwOxqV3AkY32CZH7d8KZDWbD1zNZgF47HkhPWBkPVeNHTduAHWSro4JkTIEA1SjxukU+24nFpclMgRCZaJF6g7OXAAqa1v0RLcyeWG/qE0++QBGBU/zSPyqugfnSU81HI6UpR3qe/sp8QSxmysNT6hc1W94JHaDyq8=
+	t=1789474334; cv=none; b=IqDapYj+bc8yI/Yg7QI4mPK58hSOIV2nPdYIxMWExTqthbhL8V1sp/x5ymt6OoEaHBweJthPG8z5ETeiJEjzKcQWizPG+GOUAttDjaj6OESF3aX4YHGLtOpTUvQE9PhwpTtjtLYhpRUvLnIVHXPxUPHA76tKYDgmUuSJ+1R3HgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474302; c=relaxed/simple;
-	bh=jMLrK+lnLNr5zpQBvJwxK8szsU9jhDM7xBvhzPvnFEY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Kvd3F/hdc57tIh+ST9s3JGy1WLTDyEWJZnk4mvp5aPitI64ti29xKXymHONfquQZdx4+COK8oanblBO9jEwWgxVoOn0haztK9Kmx1RsriY+1V5U8YX8B7xR4t7V8HLa+lIMk2kAn4QAwoT+gS6G5fd1Y1udowbIgnP6IDNQA7M8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gJGWVKrD; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789474334; c=relaxed/simple;
+	bh=dTvFOp6vSGe4AZsCgKO980b0BeYwtUxBQL5x62d5jw8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KSjkVtJ25ClHzafuRGNnQw2M1/6mDeDC1Fh2VIrkXR6+QS6ad60DmnUwCLUN/2KbWPjsvyuOSWxmYcfjSrL1H4R91njSzmEofm8Nu5Lo7F88j/xMT2FaarmiW8hm8LScYUQ1rFHHj6U0DIb1cadw8Wpxue4klAEPZAf/cr1F2oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFlkG4kl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gJGWVKrD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789474301; x=1821010301;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jMLrK+lnLNr5zpQBvJwxK8szsU9jhDM7xBvhzPvnFEY=;
-  b=gJGWVKrDQB8FwvbfE+C/qo2OCaxwRFEKFrum6MfV+K9yQKIB7FZg4avP
-   uVG5sf2+RYmf8mxebaX1dFarl3onKTogcXs5OmMrn5mlflvkFM+LqLAah
-   gwBZTsGKq0ln0+tGFCuFCX96CN0N/Y1MmX40ojlXfmkdFbBTHzVBPHa1i
-   /B53fqYh88QKxO9LqlDStt8UQiWRLC3b3pKfwqDPofhN1KwKE2FwCRyY6
-   VCCLnlMtN61U0fOgLgf9H003AqztwR83ynRj+N0j5WF0i/L4TVnoG6OOy
-   A9HTdEOFqjpjYlTt3fmzHc/gH6tNYwQ8uTBCBnbSjg3kZwzZ8M7xH3W1L
-   Q==;
-X-CSE-ConnectionGUID: 5TYjET26TT2xSzJB3rHY5A==
-X-CSE-MsgGUID: R3ShnZxjT/Sy70Id5RU0AQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89775331"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89775331"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:11:40 -0700
-X-CSE-ConnectionGUID: j7d6bjSnR8G79vggcDZCiA==
-X-CSE-MsgGUID: f6yFv09+T7ikiFnYrMgU9g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="296496946"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.247]) ([10.245.245.247])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:11:37 -0700
-Message-ID: <aaf0e818-32b5-41f2-a2a2-fdf9b32ea892@linux.intel.com>
-Date: Tue, 15 Sep 2026 15:11:35 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFlkG4kl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7195B1F000FF;
+	Tue, 15 Sep 2026 12:12:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789474333;
+	bh=dTvFOp6vSGe4AZsCgKO980b0BeYwtUxBQL5x62d5jw8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EFlkG4klTh9q0ksv7M1hSJKTTDQQe7H5iyO2zHATvBU+UXti67y8RU1/odOq/zhGR
+	 VYQ/UthUrZvWy+XndwZ77DKsyT/9Ri6pFxYRhTSWuJI+DH+4yLpyuhu8mAIrHMk8t/
+	 6kDv1q8AwhLZ6F1rb+P8f3KP0PwnSljmvJWSc46nWvAQt32cRvhQ+HBCxLIdV4HK1y
+	 DBbf6pk3x8FN6xy4faUytIL4oO+ojk8F8MkK5f1LgG4gC4ZmwrIhyHU1W79T6CKby7
+	 mQNMHJsClSUixl8DuKxj7EGI22mNfTcwiHmk42y9GBCpJ9M/rUqbu9RbXfhHzUFMg4
+	 vNY+QKqLhGlQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 38/50] perf: stop putting the event descriptor
+ back on failure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
+Cc: "Eugenio Perez" <eperezma@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, "Peter
+ Zijlstra" <peterz@infradead.org>, kexec@lists.infradead.org, linux-um@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-snps-arc@lists.infradead.org, io-uring@vger.kernel.org, linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, "David
+ Airlie" <airlied@redhat.com>, "Ingo Molnar" <mingo@redhat.com>, linux-arm-kernel@lists.infradead.org, linux-m68k@lists.linux-m68k.org, linux-hyperv@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-alpha@vger.kernel.org, "Oleg
+ Nesterov" <oleg@redhat.com>, kvm@vger.kernel.org, bpf@vger.kernel.org, "Jens
+ Axboe" <axboe@kernel.dk>, linux-hexagon@vger.kernel.org, linux-mm@kvack.org, virtualization@lists.linux.dev, "Jann
+ Horn" <jannh@google.com>, linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, linux-sh@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-csky@vger.kernel.org, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, "Jan Kara" <jack@suse.cz>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-38-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-38-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:12:11 +0000
+Message-Id: <20260915121211.7195B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] early: usb: xhci-dbc: Handle out of bounds xhci-xdbc
- capability
-To: Umang Jain <uajain@igalia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Lucas De Marchi <demarchi@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com
-References: <20260915074049.613842-1-uajain@igalia.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20260915074049.613842-1-uajain@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/15/26 10:40, Umang Jain wrote:
-> Currently, the early xhci-dbc assumes that the entire PCIe memory IO
-> can be entirely mapped  within the fixed boot time mappings
-> dictated by NR_FIX_BTMAPS. This patch handles the case where the PCIe
-> memory IO size can be larger than the fixed boot time mappings and
-> query the xhci debug extended capability in xdbc_map_pci_mmio().
-> 
-> This commit ensures that the xHCI debug capability can still be queried
-> when the PCIe memory IO space exceeds the fixmap size. In this scenario,
-> the base address is mapped uptil fixmap size and debug capabilities are
-> queried thereafter. Iterating over the entire PCIe BAR address size is
-> left for future improvement as and when, such a case arises.
-> 
-> Additionally, this brings the need to track the early_ioremap() mapped
-> size separately hence, introduce additional struct member xhci_base_length
-> in struct xdbc_state.
-> 
-> Signed-off-by: Umang Jain <uajain@igalia.com>
-> ---
-> Changes in v2:
-> - Commit message update
-> - Changed and tested behaviour for mapping only first fixmap_size
->    of PCIe Base address size instead of iteration over entire BAR size
-> - Updated comments
-> - Updated XDBC MAPPING SIZE to 64
+> Rely on the fd exit path machinery.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Thanks, this starts to look good.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Some small fixes and cleanups still needed.
-
-> 
-> v1:
-> - https://lore.kernel.org/all/20260720191249.1272328-1-uajain@igalia.com/
-> ---
->   drivers/usb/early/xhci-dbc.c | 78 ++++++++++++++++++++++++++++++++----
->   drivers/usb/early/xhci-dbc.h |  1 +
->   2 files changed, 71 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/usb/early/xhci-dbc.c b/drivers/usb/early/xhci-dbc.c
-> index 41118bba9197..d2e6ae410b0d 100644
-> --- a/drivers/usb/early/xhci-dbc.c
-> +++ b/drivers/usb/early/xhci-dbc.c
-> @@ -35,10 +35,23 @@ static bool early_console_keep;
->   static inline void xdbc_trace(const char *fmt, ...) { }
->   #endif /* XDBC_TRACE */
->   
-> +/* Size of xHCI debug capability structure as per section 7.6.8 of xHCI spec. */
-> +#define XDBC_MAPPING_SIZE	64
-> +
-> +enum xdbc_capability_flags {
-> +	XDBC_CAP_FLAG_NONE		= 0,
-> +	XDBC_CAP_FLAG_LEGACY		= 1 << 0,
-> +	XDBC_CAP_FLAG_PROTOCOL		= 1 << 1,
-> +	XDBC_CAP_FLAG_DEBUG		= 1 << 2,
-> +};
-> +
->   static void __iomem * __init xdbc_map_pci_mmio(u32 bus, u32 dev, u32 func)
->   {
-> -	u64 val64, sz64, mask64;
-> +	u64 val64, sz64, mask64, fixmap_size, mapped_size;
-
-mapped_size in no longer needed. Can be removed
-
-> +	enum xdbc_capability_flags cap_flags = XDBC_CAP_FLAG_NONE;
-> +	bool found_all_caps = false;
->   	void __iomem *base;
-> +	int offset;
->   	u32 val, sz;
->   	u8 byte;
->   
-> @@ -85,7 +98,56 @@ static void __iomem * __init xdbc_map_pci_mmio(u32 bus, u32 dev, u32 func)
->   
->   	xdbc.xhci_start = val64;
->   	xdbc.xhci_length = sz64;
-> -	base = early_ioremap(val64, sz64);
-> +
-> +	fixmap_size = NR_FIX_BTMAPS << PAGE_SHIFT;
-> +	if (sz64 < fixmap_size) {
-> +		xdbc.xhci_base_length = sz64;
-> +		return early_ioremap(val64, sz64);
-> +	}
-> +
-> +	/*
-> +	 * Base address size is greater than fixed size boot time mappings
-> +	 * hence, map maximum allowed fixmap size from base address and
-> +	 * determine if the required extended capabilities lies within the
-> +	 * fixmap.
-> +	 */
-> +	base = early_ioremap(val64, fixmap_size);
-
-if (!base)
-	return NULL;
-
-> +	offset = xhci_find_next_ext_cap(base, 0, 0);
-> +	mapped_size = fixmap_size;
-
-mapped_size not used
-
-> +
-> +	while (offset < fixmap_size) {
-> +		val = readl(base + offset);
-> +		switch (XHCI_EXT_CAPS_ID(val)) {
-> +		case XHCI_EXT_CAPS_DEBUG:
-> +			if (offset + XDBC_MAPPING_SIZE < fixmap_size)
-> +				cap_flags |= XDBC_CAP_FLAG_DEBUG;
-> +			break;
-> +		case XHCI_EXT_CAPS_PROTOCOL:
-> +			cap_flags |= XDBC_CAP_FLAG_PROTOCOL;
-> +			break;
-> +		case XHCI_EXT_CAPS_LEGACY:
-> +			cap_flags |= XDBC_CAP_FLAG_LEGACY;
-> +			break;
-> +		}
-> +
-> +		if ((cap_flags & XDBC_CAP_FLAG_DEBUG) &&
-> +		    (cap_flags & XDBC_CAP_FLAG_PROTOCOL) &&
-> +		    (cap_flags & XDBC_CAP_FLAG_LEGACY)) {
-> +			found_all_caps = true;
-> +			break;
-> +		}
-> +
-> +		offset = xhci_find_next_ext_cap(base, offset, 0);
-> +		if (!offset)
-> +			break;
-> +	}
-> +
-> +	if (found_all_caps) {
-> +		xdbc.xhci_base_length = fixmap_size;
-> +	} else {
-> +		xdbc.xhci_base_length = 0;
-> +		base = NULL;
-
-we need to early_iounmap() in this fail path before returning NULL.
-
-> +	}
->   
->   	return base;
->   }
-
-Thanks
-Mathias
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D38
 
