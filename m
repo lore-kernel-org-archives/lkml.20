@@ -1,139 +1,95 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C741234AB03
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501455; cv=pass; b=rNj2esLJM1WT6klfC+O8Rech0DFGJ7VTaVgLzuMVrTlGEJv+mZsKN1/m7gN/sMtHvIeD9DdW0QwrZrb9wdP2VVp+LYtNKfc2XxoBsFCCJ9LtyQ/oi19D5HrXPDu2hmjwJELD4udg48MMHDdG1hSlR88hMrmA7+YNjdV5S2IMDZE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501455; c=relaxed/simple;
-	bh=H3qSjQGi76PgVHeND0Z40zDpqLslWmiK07Q51ZTkBWw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eEru8CIzCrPFvOc1+XZZTs9JhVvLZ8gGqRb0NSs2+gE0141ee5Gp+dzNastgszrZfczs7rCALgUOGFEFVHfyS5npmuXe45gPufciQ9Bw756oRuSEaWZ58qpRkVz5DHG4JB8dBheQmKRyOMhm/FEDaVrP9/49fF+xcn4l0A9lYsQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TwmGE52Q; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0631A44BCB4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789501471; cv=none; b=oG4AV4ozvNKGoWBvClHeUI1uZNyH20xMpbPyPqcCPS6JhLhDrqEvJx8xRSbtvjdRAc90GLuCXMVmYLX4HtIdPi+810G0Y1zTWEj3Td39Fk6IXG3/m2uE67287Z/OiBcF8zJ+OKcXrt0uAnXQaAB0ZMxU6vww7lNBHhf31DSAKTk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789501471; c=relaxed/simple;
+	bh=urDHZl8WwDf2LHgRSrUhtMBRlsSjHVTZIirmLX8Q1zM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dYyZeBjikApQLIGyiK1cOKhwPbOeBPT3Tlswmmm9TCwJT9l0M4Sfo3ljXKvoumtwLzDnh8iFBST6LdtbBcuu/ic1a4Q0hKAqi0KB63sU3y2nvpPNFD/Fb1eRO9kfkRVn+UeTEdLLZAA6MoEkMUYfJBecI35Ff7mprChHmGJf9+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+5ReGLS; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TwmGE52Q"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so67941cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:44:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789501453; cv=none;
-        d=google.com; s=arc-20260327;
-        b=crcfebpez3lku6SgkRzJ798xPRwi+WqPxRCy6NFsimq09r3Ee8ytbJcIT7fePM0VHe
-         Dtd799VEXLwTaZbmZcJXHePkGyewNSJA4/7J+BAiTwQanfVVVYs3zvvi6UJc+uhVh0JW
-         7vwuHZflKqBbOcETpC8XiIya1+8S305Wi7DoFX2GH0mqJBX+4sS1KdEPqMGugsyobOWF
-         VHgTf2hr3R8KRRbzgEPZfMG8tNhx/NeCYz3bQVjbwGSoOpfJf0CW3jdU7aIn+NrR+nhm
-         AAsMVDWMAUSikMmVCEH8O1B5S3IA9avAg1nXjSn6zeSn0wAFvJPsxo8cqWZWrhi3nY8T
-         EyEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=STuNBH/M2NDqA51kDqdq9V/ip/zqwavA2GBjIvz0ZeA=;
-        fh=iYvFSfhKkIUguUvM6DSP3h9RIIOXUasxcPnS36ztIzw=;
-        b=mFbgZXqa0zHKSOVv21hgjfYWlY00RF+0KodR4UMTLrENv6CZPXtnPXzoU2gQEZBExW
-         lGCFa9Hi38K4d84EfUxacX2dNpGOzD24Ihu6/K5wPKBwskTncT1JwNaYLPuLAbZTjfpI
-         6ixZ7FEyS0gPzSVRKS9iHWn6fEwVhywOl3sCMxQXWBpm4loMMRvKYUaTiWmBwfui43/B
-         CKb/vpAjLIOUOwwYlCFIF9iCq2CIJXPbFufbv5tddeF8hZVh/Nq8QtPAHW5osjjogfBy
-         JUK4meTc+JbrQPQSJg1W1dcn7ouAdqUBTXFnPQoySKEHWjxjBYGyUfrcuB0JOkB3bKdW
-         vGlw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+5ReGLS"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97eaa1155fdso50693241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:44:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789501453; x=1790106253; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789501468; x=1790106268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=STuNBH/M2NDqA51kDqdq9V/ip/zqwavA2GBjIvz0ZeA=;
-        b=TwmGE52QVqevX+CIr2YvoqOxDfAEWaSiCuf5eNF2Zvr8hO3Jct0D/qW73E9eAGm/Pv
-         IZnIm2jHcJT6F/dS9cBk/DiY9clpDnKKZIwxXZNriZ/cTELVNMBbcnTwktTrluF4rkoN
-         Yh8oIVhXEoEMlJAkr25biocsMJhEzMkThhADcGQuzn1BRWbIDlSa5osyp3gkDlOLJfaq
-         CQf4LyO8BoklJxCiikLuNYlSKYJVJgnOh+KUdlcAx1JSGuY2TuGULSjIZjsPLKXlA0dg
-         3/+4/aT9qZH74DjkJg/xSTnb4FM6a17/S+nQdenKXC1FesS3C5vnb2BxFXpGrT+hX3W9
-         qNVQ==
+        bh=urDHZl8WwDf2LHgRSrUhtMBRlsSjHVTZIirmLX8Q1zM=;
+        b=N+5ReGLSd938RPHUWoSZViAsymxZQKNGC5K7+7+uVDKFPGgHQHBAAxNT8UxWUvFnfy
+         sgCMXmhnB7eJ+pxTqDyF1wMjKDDCGwkbBsh60IqzJxBQezxXGHNw6tLAhsJPa3rc1Uqq
+         EEUxPYopsQX+HI2B6IGC7wmk0j+bQ8UUYhO8KvIvgdz1A1W/HW0UDPBRtOrGG0K6Hm1D
+         okGAV+8pOOTpOUqybj/5tRWqYv7TthnOVos+WV61Z//YDsDkfTINxwLeiSwCaW7YRfc1
+         OiGcsG+UW2XCQ+2nwGzhOGUwzXDOpBKfYsnCKU8IJzgUS4FZdQEdCUuO9bOmEyySFc3q
+         4HGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789501453; x=1790106253;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789501468; x=1790106268;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=STuNBH/M2NDqA51kDqdq9V/ip/zqwavA2GBjIvz0ZeA=;
-        b=xQ2TcB0Y61JMAADTiX76K1IAg0B6Ucv5ZzFT+75WOrvHfWpYhYp0A4O8n8YhR6pn2p
-         jEJGuB6855e/E0srnE8ZocEK//5nlCQkpARqzMhkr5ziQ8hk5xe6xph7iU/ACQpdlmjv
-         HJFhfhEYZF87KEd78Yh8K1wNXcQJzcmM0kug5Fai6rz/xhCZVtcmjsGhMZdX8QKNZUd5
-         7ZPYt59vpOHuzj9UgQkDOTiuvVGqbu7gf8VE1YSutk0j7FskKzAI+rt8g13W0gONcNWY
-         CP8c1xoFai4CRFnNp9ISFNKgOmeH3tgUWgdH1D/1j4fuxmRBH4yEC3P2px5ZCXo4RQG2
-         oj0A==
-X-Forwarded-Encrypted: i=1; AKwUvBz5xd4OPdvMRR0Jl7xOevqkNSppk/cBtj/CpoYtzotcGSmOpJgEXI0eoG0OHpluqGClI0B41/jFUJnA6gc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6iK2h4uELh90YNydpFmwxcrRJqQH/9/ymCWnl9BsLK+qTbE5a
-	IASV+GtbWLV/LxGiBeTcSpZ7x8UhiCK+v/7IgU3xhdta7HmFaLu0LsjSr9Ptn44W5rQAqTEUUIw
-	PKcn0evfAGIH/DcSHP/N59uvIbF8IS08/68s+dBFE
-X-Gm-Gg: AYBFou3UFisZ6gq3R4gkYO0Locd/xTEekRY5d01oJ1QjN2gPXW4yEd3Q9q1DdnDVvHZ
-	1jwKmqnZyrFx6ktReNg5RtRW7Ri3/xqmF3iuZ9vHU6gcqry4p9hflTX61lgpiwV3MXOF3vj3aUx
-	NzDPkci7gk8V8uxZDLJCcjCKwaPY3vgVtu2D+NxtZgoRbORAAcniRsoFbxeyIWS5efvn/0DA3DY
-	mo8VOcVa/Kjy4XqR9cgl0UFiFATktTDtHbnyTH+9o/iZ4CE3pTNPe4773Gyl0ZH1C98EqEzfer3
-	SLdTt7W9SkfXvm6RCVcTs5V6Gi7QscY8TOkteaG8JHhPBLLp3B71WJop4dpauAe5zAOUIxc01KL
-	wn83N7oD5dQ==
-X-Received: by 2002:ac8:5a4e:0:b0:531:282:6560 with SMTP id
- d75a77b69052e-53259b49c10mr2158041cf.15.1789501451815; Tue, 15 Sep 2026
- 12:44:11 -0700 (PDT)
+        bh=urDHZl8WwDf2LHgRSrUhtMBRlsSjHVTZIirmLX8Q1zM=;
+        b=acbxu/1U2lYzocTPW7XA8CAFqk3Lty+XOuMEqC2zxJ4WCq3rbGYWtlWO6xO8DZZwSv
+         hXzr8z4DBTlJlQqlxRfrlRDZy8RxmHEg4EyY/4Iy9L3+rBMHm1vguMpl81H+AwUKjj2h
+         9iUuj7UnSoi1bXSk2mWB7sHzmTBkH8rZetR7SxH/4ZWaU5gYaMZ89s/irWpCMuLLU3D0
+         t7qYas84nYbkbmVTUEuDI4RcPoIL3Mbu1OkYUjZKSmoMI3o/HG73A0fmu7TqQK4U1o8K
+         UUjv1rc9Bez0yUsil2eFHTE0VV7JJM72tCRz4aDnXwrkyvaHi3idP+L/HLpRDf9Vl9/J
+         fOlg==
+X-Forwarded-Encrypted: i=1; AKwUvByJdKvcazeF1RFnfZFe89buvBFgQwrrxEOTHLyR1E21Tv9hAMkL352YH7fYxYM1wuTVd6E6ksOmcN2AYqU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4sKwfotIALFlOBRx9xCZSuHC+azmLe/lq2DJaSv3Qv8ndUPuF
+	5eGyh9JjvERFKgs0QeOngcQHO431YMqVQEUsQTSI4wO8Fabz1ZBvVTtZ
+X-Gm-Gg: AYBFou0lj5XQDJcBnroh20kwzr1DscjP6UuyLekhnHskKSdVMtBt/OT//Q4F/a+vitP
+	8ULGQcMVYWpLnwg5cYJLvZ/F3rIFVugjU7UmiHY9T2ZnXPx2zTPLdtNUCw+8Ds46nk5GAjBkKUR
+	cXL3mbkrCWkYz8jTQOaJPrtN5ybxpyDyY5K9WIN3tqCihgIA+iJj0qec47aZddfN2fqjwITq2bz
+	V8uqppDeHmLAqkZcj/CCrRT6Fx0iB70qwtH0KMJQdrcvRFz/9JfrCWGmkphCGJk2ahjwbqNmMbC
+	ifOd5oV8QuCi5em3on5+U7upnnyoPm0D3lpIviIWfFCOZElt5jMO/LLG/VWlhDBV6AxahNDoced
+	qTzgQ20+H8X3SQUertolDN6fQEG6kS95HRMLzb/YgqnyfuD73njZi29uS4SXRCa3wU72RXLK1yX
+	VDpMhoMnsVQn7tsWehWGfysFeSyXXpKlWlqsJGXkhg0cyiK4kbsBWJgWuwUx23BeYW
+X-Received: by 2002:a05:6102:956:b0:79b:b696:d625 with SMTP id ada2fe7eead31-7a0250c0fe7mr1440137.2.1789501468421;
+        Tue, 15 Sep 2026 12:44:28 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98314dd7ceasm498589241.1.2026.09.15.12.44.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 12:44:27 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH] nilfs2: fix checkpoint root lifetime on sysfs errors
+Date: Tue, 15 Sep 2026 16:44:13 -0300
+Message-ID: <20260915194413.3314842-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903112835.1694260-1-nanshuaibo811@163.com>
-In-Reply-To: <20260903112835.1694260-1-nanshuaibo811@163.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 15 Sep 2026 12:43:59 -0700
-X-Gm-Features: AcwNN1VVU0mXc4k_HpwEgXzGNEMH97BhLgpNu8B-eFOs4SAp8P0d4b-6zKavSUc
-Message-ID: <CAP-5=fVBi=VSnGQ_uNAb5+Y=mVi5mBz+Zazgw-kS173hR5vDrQ@mail.gmail.com>
-Subject: Re: [PATCH] perf sched: Make output_name variable static
-To: nanshuaibo <nanshuaibo811@163.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 4:28=E2=80=AFAM nanshuaibo <nanshuaibo811@163.com> w=
-rote:
->
-> The output_name variable is only used within builtin-sched.c for the
-> stats subcommand, so declare it static. This fixes a sparse warning:
->
->   builtin-sched.c:4140:12: warning: symbol 'output_name' was not
->   declared. Should it be static?
->
-> Signed-off-by: nanshuaibo <nanshuaibo811@163.com>
+Hi Slava,
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+You're right, the extra mutex is unnecessary. I checked and all
+callers of ns_cptree_lock are in process context, so converting it
+to a mutex is safe. nilfs_put_root() can then use
+refcount_dec_and_mutex_lock() instead of refcount_dec_and_lock().
 
-Thanks!
-Ian
+I'll send a v2 that replaces the spinlock with a mutex rather than
+adding a second lock.
 
-> ---
->  tools/perf/builtin-sched.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
-> index dd39a4fb..22486df2 100644
-> --- a/tools/perf/builtin-sched.c
-> +++ b/tools/perf/builtin-sched.c
-> @@ -4137,7 +4137,7 @@ static int disable_sched_schedstat(void)
->  }
->
->  /* perf.data or any other output file name used by stats subcommand (onl=
-y). */
-> -const char *output_name;
-> +static const char *output_name;
->
->  static int perf_sched__schedstat_record(struct perf_sched *sched,
->                                         int argc, const char **argv)
-> --
-> 2.43.0
->
+Thanks for the review,
+Aldo
