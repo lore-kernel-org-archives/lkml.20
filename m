@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668EE41A504;
-	Tue, 15 Sep 2026 11:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8571C41A504;
+	Tue, 15 Sep 2026 11:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473077; cv=none; b=mlW0wdx9T5kuXrlvROi2titcJS7Uu8HyUW3QV1KnXmY38zZtjQEZmo8gB2Cw1rh0Hvg7bbZt7H1J8CLqOHoohWGOXZRozcst82wbzSb57L9h5sjQ2jSuXrObkkTbzlFS9aL/cQpHNwRx6a9lkZjopY5JZjBYnVaBa0/S41TVTCo=
+	t=1789473128; cv=none; b=j5spMxV3nXOn+oyk7IfRpqGumzb8S5EY1gsHTCc4YoBYLyw/7sfQUGZ73ORlRYXQYmZ6pF+fHGfIVsPvZsi0XmvvGd0vNsQtJLI5Qd69SIzizWnlCKIp4c5yuJiTlxYymMSqNE2sjtqss9nBCjIlxpZzqK+sLOBwKkwgz4IDNrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473077; c=relaxed/simple;
-	bh=K7W4k2f+iekuoISuCnJPGAGoUblnu8UWzRlx4C8OH84=;
+	s=arc-20240116; t=1789473128; c=relaxed/simple;
+	bh=xYV/wPCpIvfx2FoorpIIu84nztuuW+0aduAUUjXtr5o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=beUk/eeUAvZHZmdCRowU9ii+UnpuitmUAv4Hfnbi0tLmWzovWknALHwNYzWTlh4EWij/iDhIvIggfr2djTUALm+vltG8Vtv0KiRh4f3hS18IrEmFKExvFfsyFD9rkm6sfFAALUbbG3jLXlJy0LGMMNB9RpSIYe6QwvjHbRtbGyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IA0xWGnH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gwV71HdvnYJRSxJX/pxhjJdcqFB2TtXVnNsU75ihs2z353ZRF8Z7EiYfbJfV4Ly18EOWWoWDIdcXvSt3TpzLbRxYH2bFA2U29y/HuNOc0ygp50p7k/rocS1TGEsFGBBDYai7m8xGZi5H+lQcpC8nJ2SD2DLh7V6awENHZxv0Ke8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKs/ruNI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IA0xWGnH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B2A1F000FF;
-	Tue, 15 Sep 2026 11:51:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKs/ruNI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEE41F000FF;
+	Tue, 15 Sep 2026 11:52:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789473076;
-	bh=Gys+iiTGtcVUDYXX47MKmXZ3Eu5eRKpeRpf14iNffWk=;
+	s=k20260515; t=1789473127;
+	bh=minwQhNSeXpWaT0uHf4QAacB8I8tdz+K6aY9uTKMnis=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IA0xWGnHm5bsyEBgBHLM2QBB4mBs6SIxkviW1aq1JnGvgyZAdg3r3k8X6WVFSVRx9
-	 8kqxsk+FQqXQWc+zxPmlX7F8g4CUgx57LOGlaQLaBaHEf9/m1WaWz1zyaNc/qa9ZYW
-	 zye8vSB6G4NqsfwkFN3/QfDbi4pFPyESgB5psuFPtNlfsjnV7y/M2k1CKwweRko5bp
-	 b7Q1LvyVIyo84+FhGoL4EnI6ekLyj5VWsPGGBIOAp07ACihKXHNdtSVWe/SVQlcEzi
-	 ltjiddVznZT77d3iccIxA35iKkkY+td1nmaphtMCdFJXUu8ErKQyMCDyadsAoF3g8+
-	 bkT+8UyFohwrQ==
+	b=IKs/ruNIjPp8RAB0L1pOI7H22Y8Yiif1iOXio4sxHFjBOsd7iJXA9OfVe0qNrPBeJ
+	 OA9RerOC7J4qNa4U0ZjuDpsiiEbI7qrnvYykxb4tg75ZUbUe+TLGug9LYhaMwholnH
+	 BLQfuJNmYhzUe1fQVl2ccCWjYc8zeFMI8JOv6suA5P1TsqNz2iC5BAu0wTtTnhuogs
+	 Q3o4P47RD0fDdyTAF/zlu5SjTWO+EpgqXFlHy2b9T9gjft9BU5690299V/3BfQq54o
+	 sUzX29eE0BwM1xcuuiEyg6b7RwIAtpHlyPysNIvchn6N60lI8qbXAXfxcqf2/LKfZU
+	 GcjOC3AG+V4zA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 1/9] coresight: etm4x: prohibit modifying ss_status
- and cntr_val while session is enabled
+Subject: Re: [PATCH v3] mtd: spi-nor: take the flash lock around
+ spi_nor_restore()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260915-separate_etm_cfg_v2-v11-1-d2b258d51747@arm.com>
-References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
- <20260915-separate_etm_cfg_v2-v11-1-d2b258d51747@arm.com>
+To: "Itai Handler" <itai.handler@gmail.com>, mwalle@kernel.org, pratyush@kernel.org
+Cc: linux-kernel@vger.kernel.org, vigneshr@ti.com, linux-mtd@lists.infradead.org, takahiro.kuwano@infineon.com, richard@nod.at, stable@vger.kernel.org, miquel.raynal@bootlin.com
+In-Reply-To: <20260915113811.2429311-1-itai.handler@gmail.com>
+References: <20260915113811.2429311-1-itai.handler@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 11:51:15 +0000
-Message-Id: <20260915115115.E6B2A1F000FF@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 11:52:06 +0000
+Message-Id: <20260915115206.CCEE41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,104 +46,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] coresight: NULL pointer dereference in sysfs stores during device =
-initialization
-- [Medium] coresight: TOCTOU race in sysfs store functions bypasses session=
- check
+- [High] mtd: spi-nor: skipped flash restore on fatal signal breaks boot
+- [High] mtd: spi-nor: shutdown hang due to ongoing erase operation
 --
 
-commit e0461b6a1ca35a227d37c4654e32e424dc9d60f7
-Author: Yeoreum Yun <yeoreum.yun@arm.com>
+commit c0578fac7581b63c39bfd99ac3a6f934256685d3
+Author: Itai Handler <itai.handler@gmail.com>
 
-coresight: etm4x: prohibit modifying ss_status and cntr_val while session i=
-s enabled
+mtd: spi-nor: take the flash lock around spi_nor_restore()
 
-This commit adds checks to prohibit modifying ss_status and cntr_val via sy=
-sfs
-while a trace session is enabled. It prevents changes to these values from
-being silently overwritten and lost when the session is disabled.
+This commit changes spi_nor_shutdown() and spi_nor_remove() to acquire
+nor->lock around spi_nor_restore(). It aims to prevent operations like
+reads from overlapping with the restore, which could leave the chip in
+3-byte addressing mode.
 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/driver=
-s/hwtracing/coresight/coresight-etm4x-sysfs.c
-> index cc6cdd3ae29d5..8d73248b840a6 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> @@ -1613,6 +1613,8 @@ static ssize_t cntr_val_store(struct device *dev,
->  		return -EINVAL;
->  	if (val > ETM_CNTR_MAX_VAL)
->  		return -EINVAL;
-> +	if (coresight_get_mode(drvdata->csdev))
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index ccf4396cdcd04..c891197ffa5b3 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -3849,11 +3849,26 @@ static int spi_nor_probe(struct spi_mem *spimem)
+>  				   data ? data->nr_parts : 0);
+>  }
+> =20
+> +/*
+> + * Restore between operations, not during one. Removal and shutdown both=
+ run
+> + * with MTD users still attached: a busy flash silently ignores the comm=
+ands
+> + * spi_nor_restore() sends, and a restore landing inside a read changes =
+the
+> + * chip's address width under the transfer.
+> + */
+> +static void spi_nor_restore_locked(struct spi_nor *nor)
+> +{
+> +	if (spi_nor_prep_and_lock(nor))
+> +		return;
 
 [Severity: High]
-Can drvdata->csdev be NULL here if this sysfs attribute is accessed during
-device initialization?
+Does this code silently skip the flash restore if a fatal signal breaks the
+lock acquisition?=20
 
-If userspace writes to this sysfs attribute immediately upon device creation
-(e.g., via udev rules), coresight_register() might not have returned yet to
-assign drvdata->csdev in etm4_probe(), leading to a NULL pointer dereferenc=
-e.
+For example, if a privileged user runs rmmod while an erase or read operati=
+on
+is actively holding the RWW lock, and the rmmod process receives SIGKILL,
+spi_nor_prep_and_lock() (via wait_event_killable()) will return -ERESTARTSY=
+S:
 
-Could we use to_coresight_device(dev) instead to avoid this?
+drivers/mtd/spi-nor/core.c:spi_nor_prep_and_lock() {
+    ...
+    if (!spi_nor_use_parallel_locking(nor))
+        mutex_lock(&nor->lock);
+    else
+        ret =3D wait_event_killable(nor->rww.wait,
+                                  spi_nor_rww_start_exclusive(nor));
 
-> +		return -EBUSY;
-> =20
->  	raw_spin_lock(&drvdata->spinlock);
+    return ret;
+}
 
-[Severity: Medium]
-Is there a race condition here since the mode check happens before acquiring
-the spinlock?
+Bypassing the hardware teardown path here leaves the flash in 4-byte addres=
+sing
+mode. This might cause the bootloader to fail to read the kernel on the next
+reboot, soft-bricking the device until a power cycle.
 
-If Thread A writes to cntr_val and passes the mode check, Thread B could
-concurrently enable the session (taking the spinlock, configuring the hardw=
-are,
-and changing the mode). Thread A would then acquire the spinlock and modify
-the software configuration, leaving it out of sync with the active hardware.
+> +
+> +	spi_nor_restore(nor);
+> +	spi_nor_unlock_and_unprep(nor);
+> +}
+> +
 
-Should the mode check be moved inside the spinlock?
-
->  	idx =3D config->cntr_idx;
 [ ... ]
-> @@ -1797,6 +1799,8 @@ static ssize_t sshot_ctrl_store(struct device *dev,
+
+> @@ -3863,7 +3878,7 @@ static void spi_nor_shutdown(struct spi_mem *spimem)
+>  {
+>  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
 > =20
->  	if (kstrtoul(buf, 16, &val))
->  		return -EINVAL;
-> +	if (coresight_get_mode(drvdata->csdev))
+> -	spi_nor_restore(nor);
+> +	spi_nor_restore_locked(nor);
 
 [Severity: High]
-Does this suffer from the same NULL pointer dereference risk during device
-initialization as cntr_val_store()?
+Could this hang the system indefinitely during shutdown if an erase operati=
+on
+is ongoing?
 
-> +		return -EBUSY;
+Erase operations (like spi_nor_erase_multi_sectors) hold nor->lock
+continuously for their entire duration, looping over spi_nor_wait_till_read=
+y()
+with cond_resched(). A large chip erase can take several minutes.
+
+Because device_shutdown() iterates devices synchronously without a timeout,
+this synchronous wait for nor->lock could hang the reboot process until the
+erase finishes, forcing the user to hard-reset the machine.
+
+>  }
 > =20
->  	raw_spin_lock(&drvdata->spinlock);
-
-[Severity: Medium]
-Is this check also vulnerable to the same race condition by being outside
-the spinlock?
-
->  	idx =3D config->ss_idx;
-[ ... ]
-> @@ -1847,6 +1851,8 @@ static ssize_t sshot_pe_ctrl_store(struct device *d=
-ev,
-> =20
->  	if (kstrtoul(buf, 16, &val))
->  		return -EINVAL;
-> +	if (coresight_get_mode(drvdata->csdev))
-
-[Severity: High]
-Does this suffer from the same NULL pointer dereference risk during device
-initialization as cntr_val_store()?
-
-> +		return -EBUSY;
-> =20
->  	raw_spin_lock(&drvdata->spinlock);
-
-[Severity: Medium]
-Is this check also vulnerable to the same race condition by being outside
-the spinlock?
-
->  	idx =3D config->ss_idx;
+>  /*
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-separate_e=
-tm_cfg_v2-v11-0-d2b258d51747@arm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915113811.2429=
+311-1-itai.handler@gmail.com?part=3D1
