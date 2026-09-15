@@ -1,173 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705D44399CC;
-	Tue, 15 Sep 2026 18:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA0B3DCD9B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495532; cv=none; b=scEk3jaJqbfeet0JDqfFF0hblNplzvmS+1lPz5NwnsVrm4u1kVOCfExiYi/g6Hcz/08l4v56diz5hEAm6GLeiPHgwD5vF0ECUh6ZHM6V+9zH5qgIzxHNOxKGwTLx8eYsV+cO0V34F90js4GWpfA4rKUMxDgVeEre50pX0LwffPE=
+	t=1789495562; cv=none; b=YpA4iAA/DA7+VlNr4XXdgXQK2lJVY1y7T+lB7zf9+4ZTtiT8DmTOb+2gAT1ZsMCqLmpNXOP6btJdjP/SA9ykTu4RsnJSsed6v+NHHBNvI5MqhZwxNqAT/zlG4yB/mg7265bBYbuiXAodMf4SCpJbI49TcDEw3wDu2U/VzjDREyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495532; c=relaxed/simple;
-	bh=V6K4OlMCnUsCbDMREVaUa2vUImH9KQWys0wgaxngXJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gfuPf03J7lxn0tqT5OuVYHZ4DS/aVd4KrSy2EDRM8b982EshWCpuzHWUr+D9KdPANs83cOFX09kIsaIw7aDm2lEcsp6xot0jmqiCR0NzNGmwbnunVarZnX3eiEP4fnf2GnWnQ/YsopuMzFiqjYgckczMy+23ng8N45508TCOPxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTo4X3Om; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789495562; c=relaxed/simple;
+	bh=MHo3SVN3JzTzB3Ql8QrvRVmVeVwVBI9gx5VnZOQtbLs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PPis4EgunvwGQW/WU8WAKjSoFyI3+1iM/eXxydXFfnpbRKj/unuO9ninLrNd2pQecCiQ/wir+n5MJ5fS66S7MAIM4tJNEfOz0BiV3cO8nixRLNjHPlQay3ALTOLw5Dn+As1AFcgjS5PpoJ2IFDKaGlw5R+F5uZTujBU0EDHrvZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KPlnzpg/; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTo4X3Om"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF23A1F00898;
-	Tue, 15 Sep 2026 18:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789495529;
-	bh=mPeI+6lTU/Y8EitQI5ZfnrfapFmX8wWN22xo6A7UJaE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jTo4X3Om6pjYJxMpPsXGw742bcwi+fNKt1WirPMCjMB3CN4+QeGCMAad0HowUYo27
-	 zkPX73/bpXrtYTMe0XsfHOKvy0auvvNyZSnejxr33FwP5Y4EAzd8YeVUzA5p/dgDEw
-	 5cFlE/iE3GLNGT0ByRP+/biS9WQfT2P4HJ97Jm9P9K/qgKyfL5uH3H46GOijU3awQE
-	 U05QkDGXb1dMAlMiuCtrF46H69n28W2iJaBayGHH26y3LSBp2/268of5pUNUCjMz6C
-	 lP5HOIiL9QmsIGugbJJQ+XSzW3eNNY7uy3+IQE3mKC77JsHqvgv78X1PoCadcnYcJG
-	 U7RPeBeWp4lDg==
-Date: Tue, 15 Sep 2026 11:05:29 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	nikitash.mariiaw@gmail.com, linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	linux-input@vger.kernel.org, linux-media@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org,
-	devel@lists.orangefs.org, linux-hardening@vger.kernel.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 00/28] Replace remaining strlcat() call sites with
- snprintf()/seq_buf()
-Message-ID: <202609151055.AFC6267@keescook>
-References: <20260915081910.4142719-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KPlnzpg/"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4858bc96fabso2483959f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:06:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789495559; x=1790100359; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xmeya5OBJcKfgRicqkLy50yUpMs4UjoGw54+LR7wm0I=;
+        b=KPlnzpg/lu3yRM4Ps/nc3qEkXmIDD4Sd6fkR4qHmQxF1VCOOqRzFgWGF6x2WwTDoJx
+         6/GP5VDC5AAilONp5J4DV7Wo9/B8hCnaY82rM2GcXaOr4VDSQMngacrDH4g6iSfN0erq
+         Yq+HjggRKz4xih2Q6nHF82I+fN+wKu1Sjg8Nokc1+ZVxWpopUiFnckkm3X22DODioPUx
+         OpEXJU/1ybFvetL6ChiviZC6k1gNQFTViKFpVBI3ELSTIn+SME0v5zpISzyH37Tj0oPl
+         Pn6Renuu2GF3dC04JTKcAZBasEp67NGMHO+c0XZlIU5attiEyUGc7/wZcNLaIWrI8Rlj
+         4MXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789495559; x=1790100359;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xmeya5OBJcKfgRicqkLy50yUpMs4UjoGw54+LR7wm0I=;
+        b=nT5OG0r6OsxojRGKjIEUcB2a0jsSKM9UmAsK/ntQn5XvJU6S2QmJbA2tENTrFP5gUd
+         hlEHx67zUSxT81dZ0f6N9LvOLel0+D6tlSApRumyb7PAHg9ozvMIVDinrgnQmtLX7jHn
+         TZD9mPsV5OHuvy/M6ATvBcVqkDCKzwZxFYEYNQifHEhu4fnC47kkYNXCNgVWo7mQgW/7
+         JjV6A+KOjsOjxHzEhCx6Z+eJ5/tz8Z9vDjnyrPOa9Mc447P7sRlEC37Gm/ybgKLujd6A
+         1nOO9GNEkr5bE4lJB/fJRF2aviTi4xN21QCFUXX8QJjzXDfur8vJhYTWDL1aBXziM1hB
+         pUdA==
+X-Forwarded-Encrypted: i=1; AKwUvByfw8GhIzBXztaJNi06ScWo2jEk6w6yx1QVEiM3iY/87I5O7gFPmb8m/BY0Opkwt9iVE5rJJH7nJVqaE4Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWqXRtlMEV0qvZ9U+lb7z/QZBfV75cJmFACU+M9uRrCzAAur2v
+	A7xfyOhBynf2yWOxGNdzAKkZZ0CnFjMoMCuWnGRgJUY02O6GF5qqMhET
+X-Gm-Gg: AYBFou1gDfRTE7AK8Mg6k6C5C/Wl562vDZS4SBmua1sTz+0agvOe1Uy0JZX3kJxLPu0
+	LHf3Z2XUDXOJYl7zge0Jpn4QoR/BSsq+QmPRTAGhAO9TzGhIhvdyt027fqaG4y7dVKJI0cwG2EY
+	yFX+5RKffwLBoTSzaMs+St4ZxUMbM4bqBtJ8pQ6/+1I64/ucd0re8nUZBGusxrjOK+eJfxufFwu
+	6hW/qnqrZt0iijWFW9DYh0JSvRPYbwJGjYIVoQXATI8fzKkAE13NtEI39ta3Vl/Ny5UyeoLkmcY
+	cStLxVQ0MJVKI6wmus4hvPjTIO7+lbeIy6gozu8fFPJV0sUMY0MsIqvAa1ClitBRb339Y1VMkKL
+	d7OWeHEQDJMUf9SWPNRPABdWGTdAyIHlEDJkgpJtLWWSbWo6MJupy0f05U+TC2e6h4JHXxPhn1v
+	EsymItaCuVgJqbsz1dy7g7zNLvqQGXKd3Ae0WEVbNBFTWy1mE1aR8c4aLuanMCcS/rBpsaxHoUN
+	94iPEsbaif/3Sw8vwzr5DmFkbMeFbm8HEanidKI55JDZi9DqzYn51inMfDF7To1QdjavCgPrA==
+X-Received: by 2002:a05:600c:1c1b:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-49e7a692563mr115056015e9.26.1789495558736;
+        Tue, 15 Sep 2026 11:05:58 -0700 (PDT)
+Received: from PC-Ubuntu.home (2a01cb0082e4ed0062a44cfffeccdd1d.ipv6.abo.wanadoo.fr. [2a01:cb00:82e4:ed00:62a4:4cff:fecc:dd1d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf4161fsm681883f8f.34.2026.09.15.11.05.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 11:05:58 -0700 (PDT)
+From: yolezz <yolezz.secret@gmail.com>
+To: mario.limonciello@amd.com,
+	yazen.ghannam@amd.com
+Cc: x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	yolezz <yolezz.secret@gmail.com>
+Subject: [PATCH v4] x86/amd/node: Release reserved config regions on init error
+Date: Tue, 15 Sep 2026 20:05:43 +0200
+Message-ID: <20260915180543.112708-1-yolezz.secret@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
+References: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 08:18:17AM +0000, Bill Wendling wrote:
-> strlcat() is deprecated: like strcat(), it requires re-scanning the
-> destination string from the beginning on every call, which is O(n^2)
-> when used to build up a string incrementally, and its truncation
-> behavior is easy to get wrong. See:
-> 
->   https://github.com/KSPP/linux/issues/370
-> 
-> This series removes the remaining strlcat() call sites in the tree
-> (plus the one inside fortify-string.h's strcat() implementation
-> itself), replacing each with snprintf(), scnprintf(), or the seq_buf()
-> API, whichever best fits the surrounding code.
+In amd_smn_init(), if pci_request_config_region_exclusive() fails or
+if kzalloc_objs() fails to allocate memory for amd_roots, the already
+reserved PCI config regions are left allocated.
 
-Thanks for tackling this!
+Use a __free() cleanup helper to automatically release all reserved PCI
+config space regions on error exit paths.
 
-A few global notes:
+Fixes: 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
+Signed-off-by: yolezz <yolezz.secret@gmail.com>
+---
+v4:
+ - Remove unnecessary braces around the kzalloc_objs() error check (as suggested by Yazen Ghannam).
 
-- This series almost certainly needs to be sent as separate single
-  patches to each subsystem maintainer (rather than a giant CC list).
+ arch/x86/kernel/amd_node.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-- As others noted already, we don't want to do anything as just an
-  open-coded strlen/sprintf; this doesn't gain us anything. If we can't
-  use seq_buf or some other solution, we need to figure out what we _can_
-  do for a given use.
-
-- There are some collisions with other in-flight patches, e.g.  Mariia's[1]
-
-- The "Assisted-by:" trailer doesn't need the level of detail you've
-  got, which changed recently[2]. Now the desired trailer would just be:
-    Assisted-by: LLM
-
-- Please avoid including the Cc list in the email body (above or below
-  the "---" line), as it ends up being redundant.
-
-I'll go look through the individual patches...
-
--Kees
-
-[1] https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786411026.git.mariianikitash@google.com/
-[2] https://git.kernel.org/linus/816d9992d9ed ("coding-assistants: simplify attribution")
-
+diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+index b7926ba3610a..a1db03d3777b 100644
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -239,6 +239,22 @@ static struct pci_dev *get_next_root(struct pci_dev *root)
+ 	return root;
+ }
+ 
++static void amd_smn_release_config_regions(u16 *num_roots)
++{
++	struct pci_dev *root __free(pci_dev_put) = NULL;
++
++	if (!num_roots)
++		return;
++
++	while (*num_roots && (root = get_next_root(root))) {
++		pci_release_config_region(root, 0, PCI_CFG_SPACE_SIZE);
++		(*num_roots)--;
++	}
++}
++
++DEFINE_FREE(amd_smn_release_config_regions, u16 *,
++	    amd_smn_release_config_regions(_T));
++
+ static bool enable_dfs;
+ 
+ static int __init amd_smn_enable_dfs(char *str)
+@@ -250,9 +266,11 @@ __setup("amd_smn_debugfs_enable", amd_smn_enable_dfs);
+ 
+ static int __init amd_smn_init(void)
+ {
+-	u16 count, num_roots, roots_per_node, node, num_nodes;
++	u16 count, num_roots = 0, roots_per_node, node, num_nodes;
+ 	struct pci_dev *root __free(pci_dev_put) = NULL;
+ 
++	u16 *config_regions __free(amd_smn_release_config_regions) = NULL;
++
+ 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+ 		return 0;
+ 
+@@ -261,7 +279,8 @@ static int __init amd_smn_init(void)
+ 	if (amd_roots)
+ 		return 0;
+ 
+-	num_roots = 0;
++	config_regions = &num_roots;
++
+ 	while ((root = get_next_root(root))) {
+ 		pci_dbg(root, "Reserving PCI config space\n");
+ 
+@@ -315,6 +334,7 @@ static int __init amd_smn_init(void)
+ 		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
+ 	}
+ 
++	config_regions = NULL;
+ 	return 0;
+ }
+ 
 -- 
-Kees Cook
+2.53.0
+
