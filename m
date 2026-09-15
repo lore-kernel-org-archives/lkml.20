@@ -1,125 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECD24AD7C9;
-	Tue, 15 Sep 2026 17:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B573C819E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493978; cv=none; b=IUIpQkjchlujr53eaXjzFNsDqc/WcEoGQLMhv1p5j3zO8GsO8rpfRVQGgKO3ksu9GXSJsORS1bXph2f91YDh7yNmO2aR4W2INvp48bC9D42we/CL5hIGI3uBWnvhww/FxlCWONZXcdu7xvY/O/wQtaMyozSa5Dx4H2oThzjHGZc=
+	t=1789494097; cv=none; b=blgKwiE9G4QqnPQ+kCG071/b+FUnzDUgwRDxR5WE6sT4NfUy0/dmDdY53Hcw+MWk2SVrFmqbhytc9vn5s675+wJcGJItK97OVT/faJ7npRaxzfYwneXCt2piLIlwxH3W10TpLqRHcytgivvDuxRYLfm9CTQV/YdHi+De8yJmcgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493978; c=relaxed/simple;
-	bh=k3o0pUm1vkitaQ04BRZu8jhi1odWhw+CYvPHVqLuKjI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QCiW5j+malIppDtcg+m5npwFj1XInwfrQ8o3kV7gJkFGsATjPUVrPphfwg947lCdICZfY6qWDCQUkrWwLo63Pa1CuPiUNNYMD8s234cgx65mBd8gyPyhuV6HHBZA5xHnQRXJZE0yQ4MBVkVaSd6Ste0vcqkWIW22uovg/PqkC7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C34B+qHk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789494097; c=relaxed/simple;
+	bh=VHfGtWoinQrMM97ejRTtIlWyNV7swPR2DUVZHmqAprE=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Ctg1pdqdt3vpsoB0w8LIMePtMI7QPmydFj9y671q7O4pS5onlBIoWk3rlRCdlAZi4mjoTaAuODihtXnygn97ctI21vNHXd5eBW8ZOxn1O8BY7d0kdWsaWaO5LdnMZbMEPPa0IG87yt+IuaQSfcf465sC5o9X30i9nSMc4mr273w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=pcR2s1C0; arc=none smtp.client-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C34B+qHk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A902EC2BCF5;
-	Tue, 15 Sep 2026 17:39:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789493977;
-	bh=k3o0pUm1vkitaQ04BRZu8jhi1odWhw+CYvPHVqLuKjI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=C34B+qHkBckr9RDyRlUkM5aZF3orDZh/FgknGHbpCNfjlE0Yxti4ph/D6aHCj37Jc
-	 XQs6sWp7ZMZwfXhQOkLrc7FpiHzApcf1ytnbrNbMnQtvywZZLtS0WO4FOYOPu2kXSO
-	 akC+JrWh5jnig5W4fvrSIXxPQzBx3RlcKp51YBSQQPgXh8dGZWwKt2Lb0vg9+r4uXt
-	 Wjz+QVEk7VJapvTMon8HvXEvy1LlPjr1rHLGPgKRh9gjQ5YFMFVhYP8RyP9kUs2cIj
-	 V/KS0vSlr7sruQfAFfwntYbNb7Dij23iN8xKlyYJ3+Y2m8e4s1Fg4YvEC31wdB6U/c
-	 C+xS0arwP5ViQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80609C88E7D;
-	Tue, 15 Sep 2026 17:39:37 +0000 (UTC)
-From: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>
-Date: Tue, 15 Sep 2026 10:39:20 -0700
-Subject: [PATCH net v5] net: pcs: rzn1-miic: Fix config array
- initialization
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="pcR2s1C0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789494088; x=1789753288;
+	bh=O5e2TrZxGxcTGjWmSi86bJ+J0cJpI5jihZoK+vn0DVc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=pcR2s1C0jn0eo7+DeayHlnzFDid3Ixi0j3q4cxRD/Cvx8tF1nsCmul074I3jsaCqn
+	 UT0W6D/Kfe8VpbOip9bY4bYc1JW1913znobNzz2pcaKTZlihCs2TE6Seras0reZ3/L
+	 Bf3Onz75iuOD+Lm8HR+Ni5vQoW8aLjsqcErWbXGg4UZN3DECJUzIQxuHp91PaIfInm
+	 e4I3HIq1igqOHxa3RVaDkfvqPsffR3H8TrJhQZKVCX3oTO+s5dk2SoJQOrLJczuq77
+	 ck76aDsKwGXX2ST22AGVSZNcgAm+MoAHxLWWuB+8qzZ1ZlqvaCMi1f/ZdNp7MwcNHP
+	 /Te1U4kEcNtZA==
+Date: Tue, 15 Sep 2026 17:41:20 +0000
+To: platform-driver-x86@vger.kernel.org, linux-sound@vger.kernel.org
+From: patryk.dankow@protonmail.com
+Cc: =?utf-8?Q?Patryk_Da=C5=84k=C3=B3w?= <patryk.dankow@protonmail.com>, corentin.chary@gmail.com, luke@ljones.dev, denis.benato@linux.dev, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, perex@perex.cz, tiwai@suse.com, zhangheng@kylinos.cn, dnaim@cachyos.org, damien.dagorn29@gmail.com, kailang@realtek.com, habilerenturker@hotmail.com, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Add ASUS ExpertBook mute LED support
+Message-ID: <20260915174110.67871-1-patryk.dankow@protonmail.com>
+Feedback-ID: 221603438:user:proton
+X-Pm-Message-ID: 9b762a85624742ddfb9d3852884b0e6035fad857
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rzn1-miic-fix-array-v5-1-b7173fd5b97d@reliablecontrols.com>
-X-B4-Tracking: v=1; b=H4sIAMeCqWoC/33NQW7CMBAF0KsgrzvI4zhx3FXvUbEww7hYCnZlR
- xEU5e412cAiZPnn67+5i8I5cBGfu7vIPIUSUqyh/dgJOrv4wxBONQslVSd7bCD/RYRLCAQ+XMH
- l7G7AnWOtW0USjajL38y1XNRvEXkUh3o8hzKmfFs+TbhUm+iEgHBse3KeyKLhr8xDcMeBKcUxp
- 6HsKV0WelJPzkpc5xRIaNhKI7VlY+QG17xyap1rHpw3JyLvnW/dBqdfONTrnK6c7Cyi8szUd2+
- 4eZ7/AVtCHJuzAQAA
-To: =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>, 
- Kyle Hendry <khendry@reliablecontrols.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789493977; l=2005;
- i=khendry@reliablecontrols.com; s=20260813; h=from:subject:message-id;
- bh=I5i1St31oPo6d7N+HMb7ky+0UtXFiiyAOVC61bDQiwI=;
- b=zw5AD/zG7P/DBb2uXZ1IYVXEZMobeYcifInldvzVGBL52emRFgSyi7IJ1pn44x6B0axvooYqo
- dEOoW+Taqm+B5/AuG/p3mZow7Mk4GGOPHFaQnSF97FCcD+aX+0UGj2r
-X-Developer-Key: i=khendry@reliablecontrols.com; a=ed25519;
- pk=gbK6oghz3qBlBiaGCsEzALLOtj5VklmsuolHQNhDV5M=
-X-Endpoint-Received: by B4 Relay for khendry@reliablecontrols.com/20260813
- with auth_id=946
-X-Original-From: Kyle Hendry <khendry@reliablecontrols.com>
-Reply-To: khendry@reliablecontrols.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Kyle Hendry <khendry@reliablecontrols.com>
+From: Patryk Da=C5=84k=C3=B3w <patryk.dankow@protonmail.com>
 
-Fix memset parameters to initialize the entire DT value array
+This series adds speaker mute LED support for the ASUS ExpertBook
+PM3406CKA.
 
-Fixes: f39e968dc168a7bd ("net: pcs: rzn1-miic: Move configuration data to SoC-specific struct")
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
----
-Fix issues when populating dt_val array from device tree values
+The first patch adds the ASUS WMI mute LED endpoint and registers it as
+the platform::mute LED using the audio-mute trigger.
 
-Changes in v5:
- * Target memset patch for net 
- * Drop port number validation patch for later submission to net-next 
+The second patch enables vmaster mute LED handling for the PM3406CKA in
+the Realtek HDA codec driver. The existing CS35L41 I2C fixup is retained
+by chaining the new fixup to it.
 
-Changes in v4: https://lore.kernel.org/r/20260914-rzn1-miic-fix-array-v4-0-069112feec86@reliablecontrols.com
- * Fix lines longer than 80 char
- * Add of_node_put() before returning
+The WMI device ID 0x0004001c is present in the PM3406CKA DSDT and is also
+used by GHelper for controlling the same LED.
 
-Changes in v3: https://lore.kernel.org/r/20260902-rzn1-miic-fix-array-v3-0-3f7dccffaf5a@reliablecontrols.com
- * Make invalid port number return error
- * Update commit tags
+Tested on ASUS ExpertBook PM3406CKA.
 
-Changes in v2: https://lore.kernel.org/r/20260901-rzn1-miic-fix-array-v2-0-3e907049e770@reliablecontrols.com
- * Use a more correct array size in memset
- * Ensure that write to dt_val is in range
+Patryk Da=C5=84k=C3=B3w (2):
+  platform/x86: asus-wmi: Add mute LED support
+  ALSA: hda/realtek: Add mute LED support for ASUS PM3406CKA
 
-Link to v1: https://lore.kernel.org/r/20260813-rzn1-miic-fix-array-v1-1-b58cafcc917e@reliablecontrols.com
----
- drivers/net/pcs/pcs-rzn1-miic.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/platform/x86/asus-wmi.c            | 26 +++++++++++++++++++++-
+ include/linux/platform_data/x86/asus-wmi.h |  1 +
+ sound/hda/codecs/realtek/alc269.c          | 18 ++++++++++++++-
+ 3 files changed, 43 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
-index 2b72fa98ddf1..cb74861e823c 100644
---- a/drivers/net/pcs/pcs-rzn1-miic.c
-+++ b/drivers/net/pcs/pcs-rzn1-miic.c
-@@ -683,7 +683,8 @@ static int miic_parse_dt(struct miic *miic, u32 *mode_cfg)
- 	if (!dt_val)
- 		return -ENOMEM;
- 
--	memset(dt_val, MIIC_MODCTRL_CONF_NONE, sizeof(*dt_val));
-+	memset(dt_val, MIIC_MODCTRL_CONF_NONE,
-+	       sizeof(*dt_val) * miic->of_data->conf_conv_count);
- 
- 	if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf) == 0)
- 		dt_val[0] = conf;
 
----
-base-commit: 83a945a529d6e002dd7339c532288a931f463dba
-change-id: 20260813-rzn1-miic-fix-array-e6ae4452c017
-
-Best regards,
--- 
-Kyle Hendry <khendry@reliablecontrols.com>
+base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
+--=20
+2.55.0
 
 
