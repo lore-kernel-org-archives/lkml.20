@@ -1,54 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11012026.outbound.protection.outlook.com [40.107.75.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB273CB54D;
-	Tue, 15 Sep 2026 01:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436999; cv=none; b=B8VOQ2LXcUa5rqLw9nxKo2Ui9l6NM1Elq105O7zV7DEyTEVJH+UvShRVXEj/PZ8+WDATDF3swE2ObYPXkEFIbJdTO6Fz0/Usz5eueAe1HGZuKO0Ak42ARZpkE0AvTH6z3JMWAJ64sYK7/seSE6IxnrfrylRvjeduCN3eFXdG0Kk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436999; c=relaxed/simple;
-	bh=1sN5FyPeI8RgfC9wlaPzqVnv++yeOf+rB15MnndVGM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z/CvIF/eFcsTO/LaPZhuL9nSpQWQGY1GhLGVW/3W+j2C9YybqabY1C0SlKGURQTtGradh/n8RT/w/5cKbMcbV6jhYGbSohpS9DF0dLCet3skX4W+ri4kJO9ChtxYPljdTYR3uLyQLiFtkDz50cpqEFV5xLOurltGNsYndAzEi9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4Q8UBwk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D062EEE7C;
+	Tue, 15 Sep 2026 01:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789436996; cv=fail; b=ZjlaOV08BqSpFBf4+1jFZ0cjWHrRFnEZUV1s8cRMq/dZcN07ZW9R+hzqYNwvHFIOK/TPPBxuWqFMEoMaVzh8isbOwpxpHijlS5OcZIatmGbhXstxwXV+vC9XzAhMrUBSlAVTak9cchcLaBhyetTDfDzNL0XLsBOQFrJ6vx67KCo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789436996; c=relaxed/simple;
+	bh=+RQIbKVsrqCIMOzKvAlrA8pe40NvtkjW/HFi2CXHuQY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MuZ/rZurk4fvnLqHasuJsVvijl+SGXsJJgm1MB47k/8Qo2eGsUbmv9JodkthKgnpnQEmk/4XmBo1rGKg5CDf1WJWAF6KT1K2HHsbAxtnRbOzd3pBOwShRG89new8dSa360rldmpSIb1ta0utNle3WzYjsEiyh2P2Z4IkoF6Hn4s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=cFSQkLR+; arc=fail smtp.client-ip=40.107.75.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4Q8UBwk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5F7E1F000FF;
-	Tue, 15 Sep 2026 01:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789436995;
-	bh=KEjRpuiPoM3YCn07cLeuZo1dk5pw+ZehBoPJPSHAXmA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n4Q8UBwkTzN2q6d/hTDJ6UT6qaIyZGzQpeJIVOQDW1/QlQJHp0iXYh81gUtBR6ZCr
-	 DeMqliK0+BLaIrz0b1xtrmPxJkBatu3LtUdn4mT5PvUz7VGUrd++fVHlPdv6F30azG
-	 46eMa7eFZvMN/SojwGw0Mn9IGu2I7LDHsIIFt9LUjokFMuQw8EtYW35hEnTEMXAMem
-	 zSjaR7km/rn4BSU5zghblVzQh7cT30qYh1R1eiABHH/s6F6LOaeGgzbcJ4WpdrmBU0
-	 f4E/R5hCU7QO2ENZZ/2Q+slBKzsmUshN8JHqbYHAK6YJUjSA7dtSYAGqgnAhkXsQ34
-	 +TfM8QIo2TX1w==
-From: Jakub Kicinski <kuba@kernel.org>
-To: zxyan0222@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	richardcochran@gmail.com,
-	maxime.chevallier@bootlin.com,
-	muhammad.nazim.amirul.nazle.asmade@altera.com,
-	rohan.g.thomas@altera.com,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5 1/2] net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
-Date: Mon, 14 Sep 2026 18:49:32 -0700
-Message-ID: <20260915014931.873912-2-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910081020.86227-2-zxyan0222@gmail.com>
-References: <20260910081020.86227-2-zxyan0222@gmail.com>
+	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="cFSQkLR+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xfGaa3WDU2eJ6A952y+bqwW3ERTy7VOe0dYQuGY7hr6rxFyn97cHebxvHJOgxXkucF1bj66qygEUoyLnLZZMlpIj+thebJCmQW3Gda4mFuButtTE15UNQf7NiYK/tQ1d4+UeTsLGGNdPHsk8DN1i5q4sr6JD6sXtTXAUk6ILdQFoyCrGDU94U8Xt07qjRw+I1yr7bRtZ5cQO9fksVpqiV6mAoa/aLDQ/IXSxVSCTsV6pfUeOTczHRzySEZbAvhJ3P6Q4xu+DqSowqp5+sbfyMecFkie80ZNCwkhKbV/KzG00lrzM6vJDQx1v3UKmP/Sv10LiyFkk2Vjdk+K4dG9Tyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nw6X/AXi717HwZnGg0/86xf1nXOmhQRT/GdgTfhGpe0=;
+ b=I1x1J0WjNfZlMmfEPeJehHIReFVTJ4WJGjm7lnmVoMJ+0aQXlQuGnvIbwQQ1aoCnm+h3aCbVm39xMoH1XyHz42OcRQDGUaib+qHBrmr/qkHvyJCDOydWI8aZgov5aXSrgKhXezkc5RNLXlKtbWE7/MRcQmgmcC4flyHwhEGOipJvM/Vhp6TuNK569OUv9ybLoPC22mZrb2h0Ll0J5imttt3rQrxzs1GbuZs8wj5wmrta2XUPKezgf1th/9Sg/9606xieepSrs+NEMc0OvIWK66rws00Z6toc4SZapyWSLXNO9Ppep2rEB6afBKRovO3yyJ5xlRCyz6Cg8iCC3HxgQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 211.75.126.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nw6X/AXi717HwZnGg0/86xf1nXOmhQRT/GdgTfhGpe0=;
+ b=cFSQkLR+ncWy9goRwQnkdl+30hRfPb+ZqgKxQEQxe0Skr2VILRD25nvRE2Y1hFqdZclroCwrzgfaWgAHjRjIPRy3Gr6ATHjyFI9SFWmEtBuv0hC8M5kNKng2pLWPJ0r8n5nFMyflOsmTgukob71Qkc05WSZVlTe/VcF0K3OSVKej6qDQIikNQuZrGqWTv6reRrpI7Cbh3FgljfPtFjdWCzNYrJFM1YMsKoJyR9gleOQ8vWzqUXhcKm4cYXZUkEo7q2Xu/f222KYlc8HXqza2gByRmczF/4ckgorK4RlgeFLimi+XTPcVglVw+DxgoI0v7onvo4Kmu2PwWfATW80b5A==
+Received: from JH0PR06CA0023.apcprd06.prod.outlook.com (2603:1096:990:77::12)
+ by KU4PR03MB9832.apcprd03.prod.outlook.com (2603:1096:d10:7d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 01:49:45 +0000
+Received: from OSA0EPF000000C9.apcprd02.prod.outlook.com
+ (2603:1096:990:77:cafe::41) by JH0PR06CA0023.outlook.office365.com
+ (2603:1096:990:77::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
+ 15 Sep 2026 01:49:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 211.75.126.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 211.75.126.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.75.126.7; helo=NTHCCAS01.nuvoton.com; pr=C
+Received: from NTHCCAS01.nuvoton.com (211.75.126.7) by
+ OSA0EPF000000C9.mail.protection.outlook.com (10.167.240.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 01:49:45 +0000
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Tue, 15 Sep
+ 2026 09:49:43 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Tue, 15 Sep
+ 2026 09:49:43 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Tue, 15 Sep 2026 09:49:43 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>
+CC: <error27@gmail.com>, <lkp@intel.com>, <perex@perex.cz>,
+	<krzysztof.kozlowski@oss.qualcomm.com>, <linux-kernel@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>, <neo.chang70@gmail.com>, <kchsu0@nuvoton.com>,
+	Neo Chang <YLCHANG2@nuvoton.com>
+Subject: [PATCH] ASoC: codecs: nau8360: Fix misleading return in nau8360_message_to_dsp()
+Date: Tue, 15 Sep 2026 09:49:40 +0800
+Message-ID: <20260915014940.317403-1-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,152 +79,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C9:EE_|KU4PR03MB9832:EE_
+X-MS-Office365-Filtering-Correlation-Id: 950b1472-1d10-4644-b8ab-08df12cb9e2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|7416014|376014|23010399003|18002099003|13003099007|3023799007|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	D0SQx7GJKFgaYcVsx/9BWDL9tkBQ7eOuPqyCFwDSX1hab4enD9PgRffJowhWbAbUAccSuOhxF8kVi2sM12kaF1GixdSypWYjqp1KOW5pBVDgKBWXkf0hW/nGvKqnJgwH/x3Y48O52MF0sktgL+h1hRdPl7ASAdcvIQkXobpENIhgkrwOvWzWn8CIXVgRgDRM0pX/5G+aAZJDXEaPMGydEKuLgNDEO3Sun+te3jgj5snxjjWqh1ms/VyWStpQcp7WCH4T8dST9VJP3GXF/5R6Q6mgQAI4cU37v8vIlfylU3rjiB/eYDQDEeg4HKdh1tZWpL1IjRBu7BjsnTOqbKCvMEi6880ZZ6Y7ZHnRx6gnTcl7ygnYW6O0qp6oR6K00KzuaKh3lg5+LHCmK2l8lvABt1d7+8dXPT5kdJJOgVsaw34FdV1LQXDyNGIG5efgs9eJ6mvx0kPz7GLHD6fRu+0UCUhO7XMrf2ndxiwizfkpTTPacgKqh2x01QhZe88TIoArURKhFMHNjRvr2zy38ANYbYLRj24CSXrqOlBkXjza+uYnCpXdZjDTxs5d28nBsesFY9eXhcgA1ALZ+1oaWWkkTHecTxcK5Pb9n3JP1AXJO5pMX9yzC0i5G6YaWjkwwKMmzjItZt80UFGxzKTIyDy27IplV6URVVh5GdY4SNf97co=
+X-Forefront-Antispam-Report:
+	CIP:211.75.126.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS01.nuvoton.com;PTR:211-75-126-7.hinet-ip.hinet.net;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(7416014)(376014)(23010399003)(18002099003)(13003099007)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HbgyU7b5UX+tlN5Wh0EzcCYvI9v9nxFEqORpABgJmHBjKLt+YgjCGSl+TkI7zyCentAklz2I0zwoR3qHlpRsw7bYrNvB/0H62XuhdptPV7BCvzxMrSDu4mQAng6y423uasTPHYVPDg+AnRhvwLN8zSF+YMOMB9wK8w5P7/1LQ4thWa4Az2cILxynxQ6umAvpeqkiqKMBTCn+v1GU10EQUEoFA1Qpe8uTgvWBmHpsjyY04sYom9zwAoZMZzvH2Tor1VUYBnUmkc4S5lFNZJVhuxuC2DderfJcW4EeoyWsv08MtHsapVcRZW+GHtPhlcuULilBtRa+DRbuj9KlCyLW/yQ2GfjBiNoXzOKNACrQlj8JL+HaugJqV6fY+UuOgCDutshI34sLZx49jqbMzqu9z5inaf71Afd5GB7pSZuZv/jaVdmW3kLbU3vWNdq30SFe
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 01:49:45.0461
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 950b1472-1d10-4644-b8ab-08df12cb9e2f
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[211.75.126.7];Helo=[NTHCCAS01.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C9.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KU4PR03MB9832
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+Fix a smatch static analysis warning: "missing error code? 'ret'".
+
+When there are no message parameters (!cmd_info->msg_param), 'ret' is
+guaranteed to be 0. Return 0 directly.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/r/202609081933.K4tVJnyh-lkp@intel.com/
+Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
 ---
-net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
+ sound/soc/codecs/nau8360-dsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This changes the Agilex5 smtg_crosststamp() handler so that it waits for
-the PTP_ACR_ATSFC FIFO clear to finish, then polls the ATSNS count in
-XGMAC_TIMESTAMP_STATUS instead of the transient TSIS bit in
-XGMAC_INT_STATUS.  The snapshot count used for the FIFO pop loop is now
-taken from the value the poll read back rather than from a fresh register
-read.
+diff --git a/sound/soc/codecs/nau8360-dsp.c b/sound/soc/codecs/nau8360-dsp.c
+index 2e5b61bfc303..65ffec8b3a39 100644
+--- a/sound/soc/codecs/nau8360-dsp.c
++++ b/sound/soc/codecs/nau8360-dsp.c
+@@ -211,7 +211,7 @@ static int nau8360_message_to_dsp(struct snd_soc_component *cp,
+ 	snd_soc_component_write(cp, dsp_addr, payload);
+ 
+ 	if (!cmd_info->msg_param)
+-		return ret;
++		return 0;
+ 
+ 	/* sending payload + padding */
+ 	payload = nau8360_pack_param(param_offset, param_size);
+-- 
+2.25.1
 
-A few questions below.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> index 1d7f0a57d2889..ee6f28637878a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> @@ -340,6 +340,18 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  	/* Release the mutex */
->  	mutex_unlock(&priv->aux_ts_lock);
->  
-> +	/* Wait for the FIFO clear to complete so a stale ATSNS count from
-> +	 * a previous snapshot cannot satisfy the poll below before the new
-> +	 * snapshot is latched.
-> +	 */
-> +	ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
-> +				 !(acr_value & PTP_ACR_ATSFC), 10, 10000);
-> +	if (ret) {
-> +		netdev_err(priv->dev, "%s: Failed to clear snapshot FIFO\n",
-> +			   __func__);
-> +		return ret;
-> +	}
-> +
->  	/* Trigger Internal snapshot signal. Create a rising edge by just toggle
->  	 * the GPO0 to low and back to high.
->  	 */
-> @@ -349,9 +361,17 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  	gpio_value |= XGMAC_GPIO_GPO0;
->  	writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
->  
-> -	/* Poll for time sync operation done */
-> -	ret = readl_poll_timeout(priv->ioaddr + XGMAC_INT_STATUS, v,
-> -				 (v & XGMAC_INT_TSIS), 100, 10000);
-> +	/* Wait for the auxiliary snapshot to be latched.  TSIS is a
-> +	 * transient status bit that is set by any MAC timestamp event and
-> +	 * cleared by reading XGMAC_TIMESTAMP_STATUS, so it is not a
-> +	 * reliable completion condition.  Poll the persistent ATSNS count
-> +	 * instead: it is cleared only by setting PTP_ACR_ATSFC, so
-> +	 * nothing can clear it while we wait, and it reflects exactly the
-> +	 * snapshot latched by this trigger.
-> +	 */
-
-[Severity: Low]
-Is the "cleared only by setting PTP_ACR_ATSFC" part of this comment (and
-the matching "ATSNS is cleared only when the FIFO clear bit
-(PTP_ACR_ATSFC) is set" in the commit message) accurate?
-
-ATSNS is the auxiliary snapshot FIFO fill level, and popping the FIFO
-decrements it.  get_ptptime() in stmmac_hwtstamp.c does the pop:
-
-	ns = readl(ptpaddr + PTP_ATNR);
-	ns += (u64)readl(ptpaddr + PTP_ATSR) * NSEC_PER_SEC;
-
-That is also why both timestamp_interrupt() and the loop just below in
-smtg_crosststamp() iterate exactly num_snapshot times:
-
-	/* Repeat until the timestamps are from the FIFO last segment */
-	for (i = 0; i < num_snapshot; i++) {
-		read_lock_irqsave(&priv->ptp_lock, flags);
-		stmmac_get_ptptime(priv, ptpaddr, &ptp_time);
-
-Would it be more precise to say only that ATSNS is not cleared by reading
-XGMAC_TIMESTAMP_STATUS, rather than that nothing can clear it while the
-poll runs?
-
-> +	ret = readl_poll_timeout(ioaddr + XGMAC_TIMESTAMP_STATUS, v,
-> +				 FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v),
-> +				 100, 10000);
->  	if (ret) {
->  		netdev_err(priv->dev, "%s: Wait for time sync operation timeout\n",
->  			   __func__);
-> @@ -364,8 +384,7 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  		.use_nsecs = false,
->  	};
->  
-> -	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK,
-> -				 readl(ioaddr + XGMAC_TIMESTAMP_STATUS));
-> +	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v);
->  
->  	/* Repeat until the timestamps are from the FIFO last segment */
->  	for (i = 0; i < num_snapshot; i++) {
-
-[Severity: Medium]
-Can this reuse of the polled value hand a fabricated timestamp back to
-userspace?
-
-Everything from the ATSFC-clear wait through the GPO0 trigger, the ATSNS
-poll and this pop loop runs after aux_ts_lock has been dropped:
-
-	/* Release the mutex */
-	mutex_unlock(&priv->aux_ts_lock);
-
-The STMMAC_FLAG_EXT_SNAPSHOT_EN test at the top of smtg_crosststamp():
-
-	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
-		return -EBUSY;
-
-is done without that mutex, while stmmac_enable() in stmmac_ptp.c sets the
-flag and writes PTP_ACR under it:
-
-	priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
-
-	/* Enable External snapshot trigger */
-	acr_value |= PTP_ACR_ATSEN(rq->extts.index);
-	acr_value |= PTP_ACR_ATSFC;
-
-The PTP core does not serialize the callback either:
-
-drivers/ptp/ptp_chardev.c:ptp_ioctl() {
-	...
-	case PTP_SYS_OFFSET_PRECISE:
-	case PTP_SYS_OFFSET_PRECISE2:
-		return ptp_sys_offset_precise(ptp, argptr,
-					      ptp->info->getcrosststamp);
-	...
-}
-
-So after the poll observes ATSNS = N, a PTP_CLK_REQ_EXTTS enable or a
-second concurrent smtg_crosststamp() can set PTP_ACR_ATSFC and flush the
-FIFO, or drain it itself.  The loop then still runs N iterations against an
-empty FIFO, sets *device from whatever those reads return, and returns 0.
-
-Note the read_lock_irqsave(&priv->ptp_lock, flags) inside the loop is a
-reader lock, so two concurrent drains can interleave pops of the same
-FIFO.
-
-Before this patch the count was re-read immediately before the loop, so the
-same race produced num_snapshot == 0 and a skipped loop, i.e. a detectable
-failure rather than a stale value.  Given that, does the commit message
-claim hold?
-
-	"derive the count for the FIFO pop loop from the value the poll read
-	back so it is guaranteed non-zero on the success path"
-
-Would holding aux_ts_lock (or another writer-exclusive lock) across the
-ATSFC wait, the trigger, the poll and the drain, and re-checking the count
-at drain time, be needed to make that guarantee real?
