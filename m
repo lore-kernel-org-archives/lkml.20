@@ -1,183 +1,309 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEEC40F8F8;
-	Tue, 15 Sep 2026 16:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789490205; cv=fail; b=ThyJeGzA61QGvxonXntn5WR6ADmjsYzrAIw1jC6dxsiW91U5jfjs7wSLJVjMOr9j4Rgbb+nr/bHIkn9IVgqv58TPCNDr530MoSKX/XU735BIizVGNqAmJHAMJB0YvorH5LGYjqqeNwJZqvsgf8OoxVhuooApymZpjN6w+HvtifI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789490205; c=relaxed/simple;
-	bh=cbas84s6WZf1JEIVd1/GVLdi4sMrlB8h1Oy77vvy4Fw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=nui+63Hwhx7alyFqDC9G8IlAOp0BiYKmzyMrD8eF7HwlzBkPZCnjsvj40WltqALN3Tnjfk7kX4y89bKierYjnZzib4cJrCHN2zErzEPllOsinCGoPRp54OET+q5lvxbPn2qz3s/Yfwce/Idn8VBtMHBg6XEBQI6EHrs1FT/6nzo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Oyg/LvzH; arc=fail smtp.client-ip=40.93.196.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291774A8A0C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789490226; cv=none; b=W1Qh7D2J4R73/qe+/WqMZsg+QckuLWWxEXwV4G9haKpjQXf8jW+BJR3dyF7COx+QwV0yOlMhBcvW8vLjl/+MgBGe7Bdk/hFUdhqbeF2MpTHFc7ogIC2t5hVQ654/M+qGJyyYfR3WOX13OTE3WFi9POd2Jm/rrdVxA//EGt1qhP8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789490226; c=relaxed/simple;
+	bh=hrcSslWf9OV1pzTYNNc/FvrI/OBOg/id/uu0chl4jlA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=t85JAH5QJY6t/Dw3HGJONptd1vVcJuuT2IDiq/KwyXNuNEeruvKyuiB19TTaXBNpZOo/xtlWBz4ST8VD9VvdUiFDaPBbqM7XL7On0q7reWkQoh/BWzdCvcJO7mvAc9aM1OyxXL0ec7Y8TWH9GflmGHVlPiRx6N1uqP+KioA72us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ee4PlLgx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jww+IfRm; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Oyg/LvzH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DR+h1OwFcRreUPXHgWr1GT0mer1FiwdAzA3cAyWWpBu4f3sj93NmjEKyoSPgIkHwHqsiwG5hwkikd6w/+GCPfizYhvq61wg/n4B0F285bqjksp1zildZvZ36w3n8hRckUsuo7+VJ7ZbQhhd5S6fpS7wN9RieQvQAGu7QMuKEyp9zh6sNG1Urdt+BaKs3vGp0WbHyCXkBgBMefyoU6WSVBNch8Ds2BR2XpOzpJ14iBHAuTx4pG3ysZTzM8vSNm/4katodCR2AcbTz82L5nla8cH5WnP/BxjJLBuVcgYc73ulOQzb31+2GQ5eeL+7qFr2D88tr4tUMJpWG5W9bNml8ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VLmNN5RCOQ+yVJ3Dx87p9vxHxyDAoBc+eq4UvUdyagk=;
- b=PGrJN05dT2tBG0WXJHgFP/DNBi1yLOJHmFlvzcjLJkc0j6W1GEJiwKl0dVmxMcTpbWdctmVy5c8fd4y2HMUD0RqeEEROfWfFyXW/tw4YUdN2IWfXDRpplfkm+m9nFIAoGRD4U46jcPmDkmLdjtUP/rycHRtGKtUd5Sa+7y3duuf48CL2bKE0VnA2TCKHT0uK06KcXXt8Ji7k0FxAsBvwRpuRFl+0qTnEQovwYqjPbaHhlwoXXXKa/mCLr5I8SXXZ751DCaMCA/rikfN4A8ZlQzKVG1yw0YP+EdM3otXmK5fZ+5nH+wcUhgopAPB+QcwBQ+Ub4f0EHoO4lCbbfcb22A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VLmNN5RCOQ+yVJ3Dx87p9vxHxyDAoBc+eq4UvUdyagk=;
- b=Oyg/LvzHgND1ikMtdYB3ULExBtXrU0gipBm48MNsKmQpiTGMWQppLmx9MT8Iy2tJxZvZtKy95xRvayQgum/txJJj3mwMy08tDqCR50AhVL65Jp/d+q8kui6uFYtZPZBF/Esq1yNr8eebrxDCO/XonZ5MOMtoHsi3wmop49Ox/EE=
-Received: from MW4PR04CA0127.namprd04.prod.outlook.com (2603:10b6:303:84::12)
- by CH3PR12MB7620.namprd12.prod.outlook.com (2603:10b6:610:150::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 16:36:34 +0000
-Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
- (2603:10b6:303:84:cafe::73) by MW4PR04CA0127.outlook.office365.com
- (2603:10b6:303:84::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
- 15 Sep 2026 16:36:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 16:36:34 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
- 2026 11:36:33 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 15 Sep 2026 11:36:33 -0500
-Message-ID: <e9fd6957-306b-a649-0352-1beabb91c60a@amd.com>
-Date: Tue, 15 Sep 2026 09:36:33 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ee4PlLgx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jww+IfRm"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFApjT125473
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:37:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=hdV3KIhCi7YCLPaq1KLzAv
+	xgX5n5+ED+mUKoBQ8kj0E=; b=Ee4PlLgxSyihIgMYwMYoGjH0BFkEazxbaP5o5d
+	cV1UT5sZ+SrQvv2ZEoOHMnTo8l9z5wwUeMfI3Q1tqlbJ1ZrAuPmXBsnmVw/mgBT/
+	J96iS0UvNaQCrclTXEZkv3sFO3bNWvYWxJm0Pgmrn3KP/sUs8NBabOKAG/b1eOgG
+	DB5RJrodZOqJ+p4Kzoz911XZcbO6NjDPhbfTyUayQQgKnR05QYMyaZWhLy042yQK
+	nNotqVhUA33QxMhYJP3Bn1qkjNvEYTmWrLtoQ8GHS9QVzte24CpNVehw8tC56fsz
+	wI5hSyMpbY6IenT7iPg3GlnQtJpLuqKB9d9j7v2Gin6VWbIw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq3xtt81k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:37:02 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbf293831so10169206a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789490222; x=1790095022; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hdV3KIhCi7YCLPaq1KLzAvxgX5n5+ED+mUKoBQ8kj0E=;
+        b=Jww+IfRmosDnqb4MCic+uhgWDubmJCun5nMUI/Ag4SQc9aoOSgMAQqeL90HwWUFDRW
+         jNRLJh8EGyeLJjxhFnJEwIwobEvd/KqPoLxJ2EoD/fv4faswfU8BDq/BT2uo1+Pi0YJw
+         rW9gx4uVU/PpGr/H4XEalNBGooioWhPyAhGuzPCgOPHkimrBnPL+zVN6hypls2mX4r93
+         2Md7+EopcuOzTcDIDSqMlVxrX9eC7OypamI4Le6g5pB3lzTU944K7ST1mXoZLMQmZJ7d
+         gl52jOzZ1sXPZbYagFwwRdISeCPy4tAc/YmlH/1xKd3zXcL8Pqq4kxBPEEQlfF1O7gNw
+         p3VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789490222; x=1790095022;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=hdV3KIhCi7YCLPaq1KLzAvxgX5n5+ED+mUKoBQ8kj0E=;
+        b=HVo7SPAtDBa2iQ2UeMygQhUAiwGsNCGtkD7YxeUpkNQSqlx7Jrg/3wHg6VlZ3hJF7T
+         UvM9tqWVFlTZ6BzoMHoINez9hRo8l8bExvv5EpFuVumAPjwU7KZrh+TlgdDIWtpr53g6
+         MXE+AcSVcYLQvuSvy3F+z2dz8iOyv0Er/D8zkPblI+KNa7Hgv/+LU04wpdBk846H/IgE
+         qB7lZFWaI0FD3UqQu9YDEOude5GyPKGudrQIzTcG11fYoCOgqp4q/XTcHR8OwDDBBgct
+         YlI96XdNSAJYel0ZCWdx7ClK6kc+R/h1V4PMR7nYQCjWhaoeC4pEj2yL/ioIsmSTk09w
+         pqzg==
+X-Gm-Message-State: AFuF++ltM9QntIidH7vZ4P2giGwxdjLpnq+77REjPq8brO4GhW73kQ97
+	znAhrVo3gkON0KFxjnFC9t52GqsxPI2OnvCscFWbnhBfkh92GiqVhWQ3kL23g6Id8wdFQSfvSmB
+	+ppDkNnXIQlBTiFZPIcVnXJMx4v41W/Y3rG/C8kJn2G08zbZy8P/Y0n7iOClZm7ysZ1TQ+woVHa
+	E=
+X-Gm-Gg: AYBFou2shpB7ILdpFlF7EEmRKpqAPY3p/M2xCljQlJfua+I4zM6rwScZ1us683fMi9K
+	STAvatDsUoanb0OKDyYvTyJb23WJKgwomoRvRTk24hHZAkEa+KPMUkX2NB3K3FjSJ8LJgTxf76D
+	TNow6gEGbwL84zL7yQFSOjURPr51zfi4d6g2A5Zpvc+n1I+EIK33Mh+TXfd1YXMlPPDS61Qaoxz
+	iflGeMp6KSt4SlATnmYOUMGTH+90KTbp9Oxq6+pY/30qsugCVpQCwsE0ra0yYP52TfjVnewghfz
+	XivjsTAmPwk0jBkkteTOtGRCiP+EIDxN2JDsneEIACbYunrcV4Z40/9uyzadjKeOtxGiMuz0oYc
+	rud2fT5o05i0QJZXjAZ5k44m51p4vPC0BCC0olpZF66INtiBwMshwiQg=
+X-Received: by 2002:a17:90b:3f4e:b0:396:6344:3b63 with SMTP id 98e67ed59e1d1-39e10ce07c7mr3609048a91.2.1789490221370;
+        Tue, 15 Sep 2026 09:37:01 -0700 (PDT)
+X-Received: by 2002:a17:90b:3f4e:b0:396:6344:3b63 with SMTP id 98e67ed59e1d1-39e10ce07c7mr3608981a91.2.1789490220919;
+        Tue, 15 Sep 2026 09:37:00 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd7545asm6324529a91.14.2026.09.15.09.37.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 09:37:00 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 09:36:48 -0700
+Subject: [PATCH wireless-next] MAINTAINERS: Replace
+ wireless.wiki.kernel.org links
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 1/2] accel/amdxdna: clear the mailbox channel pointer
- when starting it fails
-Content-Language: en-US
-To: Eva Crystal <0xiviel@gmail.com>, <min.ma@amd.com>, Min Ma
-	<mamin506@gmail.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <cover.1789334558.git.0xiviel@gmail.com>
- <2fcf0eca215090dbbd95cb86e1bf5076056d3818.1789334558.git.0xiviel@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <2fcf0eca215090dbbd95cb86e1bf5076056d3818.1789334558.git.0xiviel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|CH3PR12MB7620:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5ff1a93-9216-49ea-8881-08df1347815a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	0v/UCIR2XNMqr8IFt3OTob5TJ1g48/c3H18SliASbr+7gxe4sFdkq6SWTR0ifzYDBYCIorhPhgxJxbwnrRLnLXKzT4D+CFGLuous5SiOMG54jL8qRWd9HvKTNk1Jx9f89jyjI7r6UZlUgkvCQw/R9hUxQJUu623z0FXR44bVnI7XWaUXIcz0jlK9Xilrfcbb6H0PAXMzWkkwK/pKVJ8FARBWkxCzFqdFJxuHD19THFRO/4G+F6O1RvVD3s/ok+WAkEoEFhQ2+8Fd3YMl7CcpTPt49Yupvne3tKRwY+6c5g7PDp0ROGd0hD5gjgsN3rOMZh4eDOTeEN9y7+rCS+FmisjDyN3MesoRiP3cHu+029KuZdmRcdEMKxpk1+d+JCFkiw4UP/LJ43IBJ+4aPku4jld3o/6oeKZS96wNuj5wJMi/PfVu8NIUxqbo/vvHl5z4Q0zW4N9erne4XQO0vlvV8N7oprKgolG9Bfn0oANR5z/zf34hL4YggwVwuSpdIKoJVpAGJf40RQlFZGb9cTGgodp20g2/E73c59NFiEYaaRJw8qT5KGcVNG93QfQEkhjhL2qPW4Zl7WoEvEcwfVIyKziIEKFBtVh+6Uhlg0r+YiCmL4UbVM1MXcwQH8XGoIYNGJJtSA2oSu3UbosR3pt0w44mtLuN/yfrQikMWKc+RTsDQ3g3M4Ujzl/h3stCyTd7SK7ja6APcWBK+f46sKPlDQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mVFcH9rnvJhihppdHnaN8BnUrNBUc0K9rL7DjHY+cQcdHd7/TuGvh2yz3el1Fg3DO7DUbZX88ZZfezCiOeVW9iSSLPOr08s1orPnUsxTfO8wiN3PsVRCaJGFpqDNfw1QBFZuFTkQdJlWhM4rz4PEju7kc0k38DwmtWjwJ4YwxySZEiHnnjDRR7OmZV/1eXNwssUSvW6zJPgsI3DYAWx2mKYpgeNOmGvvJU9z/S37j9b3WAfRyXNcafQeLxxs818slLuzTZB5Ch3a5kehxpI2grwCt2fnPqEQyL7Cud93tN87milEi2n3kqEvuTyDJCYnjC4Cy1IZgWZKL2FIgbFx4ee5ul+6lmyuypRb1nvWk8lfWNoFh7OKVEyKGdsAZbwnz08PsOlvSO0my2Me+LBscqcJVDao+7kwnkyCXrJ6fgUbVZk9XLZqt4ec1geQGMq9
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 16:36:34.2367
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5ff1a93-9216-49ea-8881-08df1347815a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6194.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7620
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260915-wireless-wiki-v1-1-21dc76684b44@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAB90qWoC/z2MOwqAMBAFryJbG4jxR7yKWCS66qJEyYoGxLsbL
+ OxmYN67gdETMjTJDR5PYtpclCxNoJ+Nm1DQEB2UVJXUWSku8rgic4SFhDGm0LbQea0sxM3ucaT
+ w/bXwpw7DAd3zvOobIFBuAAAA
+X-Change-ID: 20260915-wireless-wiki-aaa49b49372b
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: HoEk7b64Da-s0cQWMy01Cg4c2EslcMPF
+X-Proofpoint-GUID: HoEk7b64Da-s0cQWMy01Cg4c2EslcMPF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI0MiBTYWx0ZWRfX77sM3CzdEvMX
+ cA6p9sqFRpMix7uiOgPkITbfattzsf1cWuh7wRe5P8IePxFHJcO1V3fOKlspNevsevQH+vGp40M
+ pvmaDQ+DxzlE3j6InoL/plOdiJhM+zw=
+X-Authority-Analysis: v=2.4 cv=As97T+9P c=1 sm=1 tr=0 ts=6aa9742e cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17 a=VwQbUJbxAAAA:8
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=stkexhm8AAAA:8 a=pGLkceISAAAA:8 a=JfrnYn6hAAAA:8
+ a=mK_AVkanAAAA:8 a=QyXUC8HyAAAA:8 a=uSTmyDH8MVGYOsSRgaMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=pIW3pCRaVxJDc-hWtpF8:22
+ a=1CNFftbPRP8L7MoqJWF3:22 a=3gWm3jAn84ENXaBijsEo:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI0MiBTYWx0ZWRfX+k2Pdaelh2Qu
+ +QujA/pxosC62bY5/SBOKNg9JQr8NeqvHqLoocgIYEdWrz68IamMLCSNT4eXg+BiRkwEs+0RZRv
+ f3d1zmtaNjtpKhlyrVZkSz7BkZWMKwCghGRk/xYWIrdJHlGz8VNoALwOGq3kqGTu2qHjWvoUDNi
+ cy7htL+4/ri1q4ILTSidvfYvKIEvDVJjOZNGUuPGXxpe2bFW4Q1aKFIztL/hYZ7Jg+Il4I8MDON
+ BSRugPz5/QmCo9im77o0msWoH3EO1leK/6+JdNokIhCpzascLILB9uP44ebZL83MO5ThWARVZTN
+ 4V7VfDLPvQtsYqjiVr5HqUT/s3yBO5r4tlNZ/vsC7Z9SmI9MWDOwjx4fvRITfpCX5v3MIINjuaV
+ cltU7y8G70YofiF/4JOx7uz0GKyyaMjNTKAYZrKvqCUJvBS6PCKpwrqObxSPmGgFFute2/zBckn
+ J8r+OnplJ6z+f91Dnhw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150242
 
+wireless.wiki.kernel.org has not existed for a while. Update all links to
+point to the current rendered pages at wireless.docs.kernel.org.
 
-On 9/13/26 14:31, Eva Crystal wrote:
-> aie2_create_context() allocates a mailbox channel, starts it, and on a
-> failed start frees it again:
->
-> 	hwctx->priv->mbox_chann = xdna_mailbox_alloc_channel(ndev->mbox);
-> 	...
-> 	ret = xdna_mailbox_start_channel(hwctx->priv->mbox_chann, ...);
-> 	if (ret)
-> 		goto free_channel;
-> 	...
-> free_channel:
-> 	xdna_mailbox_free_channel(hwctx->priv->mbox_chann);
->
-> hwctx->priv->mbox_chann keeps pointing at the freed channel. That
-> pointer is the driver's own test for whether a hardware context has a
-> usable channel: aie2_destroy_context() returns early on NULL,
-> aie2_sched_job_run() refuses to run a job on NULL, and the message
-> helpers return -ENODEV on NULL. A stale pointer passes all of them.
->
-> It matters on the restart path. aie2_hwctx_restart() calls
-> aie2_create_context() again on a hardware context that is already live,
-> after aie2_hwctx_stop() has torn its channel down, and the context
-> survives a failure there: aie2_sched_job_timedout() discards the return
-> value entirely, and aie2_hwctx_resume() only propagates it. What is
-> left is a live hardware context holding a freed channel, and every
-> later user of it takes the non-NULL branch:
->
->    - the next job submitted reaches xdna_mailbox_send_msg() on the freed
->      channel, via the !mbox_chann guard in aie2_sched_job_run(),
->    - a second command timeout reaches aie2_hwctx_stop() ->
->      aie2_destroy_context(),
->    - closing the device reaches aie2_hwctx_fini() ->
->      aie2_release_resource() -> xrs_release_resource() ->
->      aie2_xrs_unload() -> aie2_destroy_context(),
->
-> and aie2_destroy_context() then calls xdna_mailbox_stop_channel()
-> followed by xdna_mailbox_free_channel() on memory that was already
-> freed: a use-after-free, and a second free of the same channel.
->
-> The AIE4 management channel already does this correctly -
-> aie4_mailbox_start() clears ndev->aie.mgmt_chann right after freeing
-> it. Do the same here.
->
-> The create path itself is not affected: when aie2_xrs_load() fails,
-> xrs_allocate_resource() removes the solver node without calling
-> ->unload, and aie2_hwctx_init() frees hwctx->priv, so the stale pointer
-> never outlives the structure holding it.
->
-> Starting a channel can fail today without this patch: the ring buffer
-> sizes firmware reports are rejected unless both are powers of two, and
-> request_irq() can fail.
->
-> Fixes: d5b8b0347fa8 ("accel/amdxdna: Split mailbox channel create function")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eva Crystal <0xiviel@gmail.com>
-> ---
->   drivers/accel/amdxdna/aie2_message.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
-> index b4c49259a1a2..f658760c3d48 100644
-> --- a/drivers/accel/amdxdna/aie2_message.c
-> +++ b/drivers/accel/amdxdna/aie2_message.c
-> @@ -277,6 +277,7 @@ int aie2_create_context(struct amdxdna_dev_hdl *ndev, struct amdxdna_hwctx *hwct
->   
->   free_channel:
->   	xdna_mailbox_free_channel(hwctx->priv->mbox_chann);
-> +	hwctx->priv->mbox_chann = NULL;
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   del_ctx_req:
->   	aie2_destroy_context_req(ndev, hwctx->fw_ctx_id);
->   	return ret;
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+---
+ MAINTAINERS | 40 ++++++++++++++++++++--------------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b23fb6f2f4ef..f6ead73ab92d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -113,7 +113,7 @@ F:	net/6lowpan/
+ M:	Johannes Berg <johannes@sipsolutions.net>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/
++W:	https://wireless.docs.kernel.org/en/latest/
+ Q:	https://patchwork.kernel.org/project/linux-wireless/list/
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless-next.git
+@@ -4260,13 +4260,13 @@ M:	Nick Kossifidis <mickflemm@gmail.com>
+ M:	Luis Chamberlain <mcgrof@kernel.org>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/ath5k
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath5k.html
+ F:	drivers/net/wireless/ath/ath5k/
+ 
+ ATHEROS ATH6KL WIRELESS DRIVER
+ L:	linux-wireless@vger.kernel.org
+ S:	Orphan
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/ath6kl
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath6kl.html
+ F:	drivers/net/wireless/ath/ath6kl/
+ 
+ ATI_REMOTE2 DRIVER
+@@ -4535,14 +4535,14 @@ B43 WIRELESS DRIVER
+ L:	linux-wireless@vger.kernel.org
+ L:	b43-dev@lists.infradead.org
+ S:	Orphan
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/b43
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/b43.html
+ F:	drivers/net/wireless/broadcom/b43/
+ 
+ B43LEGACY WIRELESS DRIVER
+ L:	linux-wireless@vger.kernel.org
+ L:	b43-dev@lists.infradead.org
+ S:	Orphan
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/b43
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/b43.html
+ F:	drivers/net/wireless/broadcom/b43legacy/
+ 
+ BACKLIGHT CLASS/SUBSYSTEM
+@@ -5919,7 +5919,7 @@ CARL9170 LINUX COMMUNITY WIRELESS DRIVER
+ M:	Christian Lamparter <chunkeey@googlemail.com>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/carl9170
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/carl9170.html
+ F:	drivers/net/wireless/ath/carl9170/
+ 
+ CAVIUM I2C DRIVER
+@@ -13560,7 +13560,7 @@ INTEL WIRELESS WIFI LINK (iwlwifi)
+ M:	Miri Korenblit <miriam.rachel.korenblit@intel.com>
+ L:	linux-wireless@vger.kernel.org
+ S:	Supported
+-W:	https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/iwlwifi.html
+ T:	git https://git.kernel.org/pub/scm/linux/kernel/git/iwlwifi/iwlwifi-next.git/
+ F:	drivers/net/wireless/intel/iwlwifi/
+ 
+@@ -15661,7 +15661,7 @@ MAC80211
+ M:	Johannes Berg <johannes@sipsolutions.net>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/
++W:	https://wireless.docs.kernel.org/en/latest/
+ Q:	https://patchwork.kernel.org/project/linux-wireless/list/
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless-next.git
+@@ -18920,7 +18920,7 @@ NETWORKING DRIVERS (WIRELESS)
+ M:	Johannes Berg <johannes@sipsolutions.net>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/
++W:	https://wireless.docs.kernel.org/en/latest/
+ Q:	https://patchwork.kernel.org/project/linux-wireless/list/
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless-next.git
+@@ -20592,7 +20592,7 @@ P54 WIRELESS DRIVER
+ M:	Christian Lamparter <chunkeey@googlemail.com>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/p54
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/p54.html
+ F:	Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
+ F:	drivers/net/wireless/intersil/
+ 
+@@ -22282,7 +22282,7 @@ M:	Jeff Johnson <jjohnson@kernel.org>
+ L:	linux-wireless@vger.kernel.org
+ L:	ath12k@lists.infradead.org
+ S:	Supported
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/ath12k
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath12k.html
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/ath/ath.git
+ F:	drivers/net/wireless/ath/ath12k/
+ N:	ath12k
+@@ -22292,7 +22292,7 @@ M:	Jeff Johnson <jjohnson@kernel.org>
+ L:	linux-wireless@vger.kernel.org
+ L:	ath10k@lists.infradead.org
+ S:	Supported
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/ath10k
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath10k.html
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/ath/ath.git
+ F:	drivers/net/wireless/ath/ath10k/
+ N:	ath10k
+@@ -22302,8 +22302,8 @@ M:	Jeff Johnson <jjohnson@kernel.org>
+ L:	linux-wireless@vger.kernel.org
+ L:	ath11k@lists.infradead.org
+ S:	Supported
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/ath11k
+-B:	https://wireless.wiki.kernel.org/en/users/Drivers/ath11k/bugreport
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath11k.html
++B:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath11k/bugreport.html
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/ath/ath.git
+ F:	drivers/net/wireless/ath/ath11k/
+ N:	ath11k
+@@ -22312,7 +22312,7 @@ QUALCOMM ATHEROS ATH9K WIRELESS DRIVER
+ M:	Toke Høiland-Jørgensen <toke@toke.dk>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/ath9k
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath9k.html
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/ath/ath.git
+ F:	Documentation/devicetree/bindings/net/wireless/qca,ath9k.yaml
+ F:	drivers/net/wireless/ath/ath9k/
+@@ -22654,7 +22654,7 @@ M:	Loic Poulain <loic.poulain@oss.qualcomm.com>
+ L:	wcn36xx@lists.infradead.org
+ L:	linux-wireless@vger.kernel.org
+ S:	Supported
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/wcn36xx
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/wcn36xx.html
+ F:	drivers/net/wireless/ath/wcn36xx/
+ 
+ QUANTENNA QTNFMAC WIRELESS DRIVER
+@@ -23413,7 +23413,7 @@ RFKILL
+ M:	Johannes Berg <johannes@sipsolutions.net>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+-W:	https://wireless.wiki.kernel.org/
++W:	https://wireless.docs.kernel.org/en/latest/
+ Q:	https://patchwork.kernel.org/project/linux-wireless/list/
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless-next.git
+@@ -27508,8 +27508,8 @@ F:	drivers/media/platform/ti/vpe/
+ TI WILINK WIRELESS DRIVERS
+ L:	linux-wireless@vger.kernel.org
+ S:	Orphan
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/wl12xx
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/wl1251
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/wl12xx.html
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/wl1251.html
+ F:	drivers/net/wireless/ti/
+ 
+ TIMEKEEPING, CLOCKSOURCE CORE, NTP, ALARMTIMER
+@@ -29386,7 +29386,7 @@ F:	drivers/hid/hid-wiimote*
+ WILOCITY WIL6210 WIRELESS DRIVER
+ L:	linux-wireless@vger.kernel.org
+ S:	Orphan
+-W:	https://wireless.wiki.kernel.org/en/users/Drivers/wil6210
++W:	https://wireless.docs.kernel.org/en/latest/en/users/drivers/wil6210.html
+ F:	drivers/net/wireless/ath/wil6210/
+ 
+ WINBOND CIR DRIVER
+
+---
+base-commit: 85437f88642d72cb82e5707918dc4da95c2653de
+change-id: 20260915-wireless-wiki-aaa49b49372b
+
