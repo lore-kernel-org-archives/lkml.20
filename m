@@ -1,312 +1,324 @@
-Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C88836AB57
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.171.57
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789509649; cv=none; b=HMWGG94/xFeO6/dcaU9rKMaFnyOTWexZgJBQkR1C76f3h4rCQqikcuuVKPAqPN85D2nEsjVS/Oulbi17aYBWxNfeBM1Jb7YgM52MPhaStvNzKjkrG5ylAoPXlU949GOiXOh5ABmw5gnvflQ2ewrXTY3anXUNIphCwKZMIY6uOO0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789509649; c=relaxed/simple;
-	bh=Ix8NITcu+4ybhu56RWNyaDTxgxHUpYM7smt11ghVdtY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2413343899
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789509715; cv=pass; b=gSVOE4pnBsCwPvmSz9WzlwZ5L0kNVeYwkiHLdVzXMtmFe1NXB7UDvvZK0XQzX4fGApFijG1PCsbc76MZgEXrbDR1d9Bymtr2DW82lZBhJsTX+wMQD56PAVF9mrNCPGVC/t6zr9aL7cTnbhqW7GfcCy6yzEKkPAuY4QrDf0uOzOI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789509715; c=relaxed/simple;
+	bh=2bFHoxerUuuTMPiNSVaba8huLGLUhURz8QymLN/E2BA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GAOjPpc8hIw3VMnWmGE/bKa8qUqqvI2fwPFFdzpZ/9bTnjwVDcoQqPnyCyE9lP+pXp66ye3pbqdzLwnhlk61mrDNc+vjMr2TdUV9pQlJCNy0VtGTsRA49cNDu0+WapCND+/Txoncxj2CA7EvSqHMJ7tIqJQ9JyUe2HSDU0l5h1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=hqWwNcCz; arc=none smtp.client-ip=78.46.171.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	 To:Cc:Content-Type; b=PP8zK8OkChaG2LytHbfBWmC2nLBUC/88yNyRZAmGzbUxNnol2avF7oh5es+z5SmLmM/PA1pE3DipPE/4JY3+ZNnI9iUIGcYEAM/y2VLFPeoWeadZgMVjGXFgCBBljyLJpwtQEHIij7adX3ESFBj8Ua0+FxXFudq2hH0tbVFm3Co=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wlo5F0Wd; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="hqWwNcCz"
-Received: from relay11 (localhost.localdomain [127.0.0.1])
-	by relay11.grserver.gr (Proxmox) with ESMTP id 4EF07BCE0C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:53:00 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay11.grserver.gr (Proxmox) with ESMTPS id 55ED5BCE2D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:52:59 +0300 (EEST)
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 6C7BE20214F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:52:58 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1789509178;
-	bh=51gBxGogJFAaezkdy9z+JZ/z/T2z0OizgJhVelphwVE=;
-	h=Received:From:Subject:To;
-	b=hqWwNcCz/8a//LE85IfMVqnqgWML0X/8WlKboSsvQoSQQbrJgH3WdJca6+RFK7K2i
-	 QMV428g912LRxzlkLj5K6NsYrm3V6xZ2ZyTVSPCWRhLBZpyIH14A1+PrItJK1oBwcv
-	 2akA4wSLtPKe+rB7x71k0mfeD/nJQA4Y4CnLjI3qLwFU7fTd/zDX7t9Ej/z0veqVo8
-	 oJF6NQyoWQYhCte9mOxaLVDi0cTI2Yopejp//0hB7IBSdAsDl6vl8KdMHwMgHrcWd2
-	 SL9ZE8HPwPYf3Hx70t+LI3VRQGp5QpjL5lU6dSoK4+GJ2a+kc862956MSLtEh28UtI
-	 fw03D1fXXJN1w==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.227.171) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f43.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pj2-f43.google.com with SMTP id
- d9443c01a7336-2d747ed6d6eso2343395ad.2
-        for <linux-kernel@vger.kernel.org>;
- Tue, 15 Sep 2026 14:52:58 -0700 (PDT)
-X-Gm-Message-State: AFuF++mCa63eYcKgV5Q3+dJP+n3N9Ly2Z8FF7vPZYc622uOO3OEA2VKZ
-	cMIpwDaD4r6GemFZrAUQiUodRFO9nqpVNkl8mxzokRlsllpmuJCUabxxlbSZGUsEA5yOsbQUGDX
-	JorTh4tKLpGRC/LC8jMJ/f3kPbxA9jGM=
-X-Received: by 2002:a17:903:4b4f:b0:2d6:f6ba:263d with SMTP id
- d9443c01a7336-2dd8e00565amr3284085ad.7.1789509176805; Tue, 15 Sep 2026
- 14:52:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wlo5F0Wd"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cda5e048fso8985e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:01:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789509711; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oKdHB36DtUbt42ELKhISYehNxgY0n3wiqT9BLb/wVT7X9quY9PTuRnyqYs9gSLjyz5
+         oy5E1o5UQ2jFHCEGIKEDTmWVsaf4m+//KX6Cw2q54IEBUXUI6u8ahsK41hniS+5s61FN
+         dl0d4x93zgG+IMFPUfk8/Ux1lCFJeJWUeB4KOaK4y+8Ig0QhKVYkhNsLuBNHSQukglVE
+         ggOftDvUXZf8xj6QdHvObQy0oEcY6n4UEgdbhHQ2U7HlZY8uNTCDrU8zjs/AWIadmFqW
+         9h9z62OJjfTd6xnBSosBeylx9WkgzUaFKYxFM7+M5dRgRBYqqRRJRPAiA3WCsqZKO+LY
+         v+sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=D3QLcS+REcTWvfYukjwwXF89kB5VlKY7f569FzTw3Sg=;
+        fh=QYDz6E3yCZimaYaBkHnTPx3yzfGd3k+PX0ZkC3pnkgo=;
+        b=mhP0BWLxDTiZhvzGFZ8f0SZsixwgWB2/ghdxk8+rQrbaC+OgpK+cHC5qNrKGnZaL6o
+         oQ3X6SiazI7QLWwNOAQr1Aux2ZGrHVgBn3NlJ/iBbMR6CJkn6ZSPf84lYVWkC8XzjQeq
+         J/MzielwhP6pUBqKcYS6mlEBfHW2pQyLS9S9mzMNw2pXpDfwVMdnW9z5wpPuRZqdPkHe
+         0lCqoyeIlguqiU09Wj+p8ZWCkkiC+0pSVDYM6AS42kwqnp+P81KEveRB6xiOtyuCy/es
+         U4RKRpXXcjHs5chZ+IPYb6w13KK+diPCwms73l//w/yx0N4F2ofus9N+6S6DxLNfTeyE
+         duzA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789509711; x=1790114511; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D3QLcS+REcTWvfYukjwwXF89kB5VlKY7f569FzTw3Sg=;
+        b=Wlo5F0Wd1vYS+3y87+zGzNmQYLWA1PR5ej5tcZ4nfNJage0ENF2wVOiHR1YdkAsqNe
+         NZ4lK8WPH/BWWplXuT5N0IZ00j4xurqESUcuXk5iSN5BgEYldlHzaCUqDTzYmveH4vuS
+         BUzLHVaJN9kRcsEoGqLKzdxKkVCUgD4DHAVMTB4+1HUj2eT2mDcMPvwIITLo85yXbGtM
+         UvxWxt4ggdqLvwpqweVv1Z6DsIwckBraO2Tyxkuygr76PGWNje2/9MqdzsUNTCYn2TN/
+         ZRfGkFgqfWk3gaaKHvaagFGekfZ5z69vlKyMN1vi5Vn6VX1gcFQ+aMGgbcaX25I9rF5d
+         FABg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789509711; x=1790114511;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D3QLcS+REcTWvfYukjwwXF89kB5VlKY7f569FzTw3Sg=;
+        b=bYEaIZRec9GJLtjO9MQG74H2pErd4XD7wJKMtlq91T8mnj8qP65E0qWksUX8WHcthj
+         fEQ5WgFqHEkMh1ybVWIHh/DkAv1VwBNTLj/acNgbLKCM4MsTPJvr6v/eObiLal6IvShj
+         rD1CXXT83SONKTNQnE/9gKSecgA8OB8LgaHtvH5N4rWW9CpEOsOqTu0tpjJrkI9BoL5+
+         ode0x/XuvJVMiNQTeZHY+KoCSRCk9lo+//MQuFBFLcMxdw3YESx3j5zVsZHEsIxXIeiQ
+         C5i5uI6fgNDp+yp8F1PbH9fdvXI9jBQYWIITsTiQ28BMEyJGC9bahIiuMoGcg2ILdRGL
+         E9Zw==
+X-Forwarded-Encrypted: i=1; AKwUvByVnf44z329lPaDjOepZQgFxb/2Szoa8dcMKEXlM0zdmOvZ0PKCbEIlTVE1oKvRzJUgHjP5vRMcYyD8Syg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lugH+U1NCF9PQoap9htc76x6yRIG32hCy381fkV1sibWjyHoyB
+	5XJk/p8vXXT+i/OmayG0AQVUuUjhgN7uJAXXUrUXga/rmwO292iV2vnoK2KZCwx/jKMp9McPuel
+	XsKmaa75XFmD7GMdLKfRYXbwvil7cOa2K6lpKkonJ
+X-Gm-Gg: AYBFou230xmlyYXMWy/KwAQEK5iym0v+Vo8KtPF4qErojFDrISJ71/8jO/YrCxWtkzW
+	pJKcDZMdi+ynwEfe9AvWlmoDRHM7n4l0uahCFpLxAVJO9iFSJFeSQyA3CPpBlusX5p+wbp4oywL
+	Ez06URMFiLPjYC9eLhZimAzzneBu9a7WunUlMXmhq28FyZGtDSTJf8emQRR3jw2fRSUdbHNXojI
+	5C7UbbaLIuCaem4L2wWr+t3iesLmaG+hxDdlNsvgUKCYtTRoG4MGTG7zziKU+Czv4gjWhR5l4te
+	PfVOIq4yq7W8wafl4lYeAqh860GBjfX4x5/chPsd+xWBXWBWB/MImgf6PQ8Ah8NVuhJqYfQ4Lf5
+	coluKmxxQMbCIUeR20bOaYiUCRmvQs6dsuBoxWVa8Xg==
+X-Received: by 2002:a05:600c:2943:b0:49e:b733:7277 with SMTP id
+ 5b1f17b1804b1-49eb73372f9mr1535e9.2.1789509710403; Tue, 15 Sep 2026 15:01:50
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915181200.18086-1-denis.benato@linux.dev>
- <20260915181200.18086-4-denis.benato@linux.dev>
-In-Reply-To: <20260915181200.18086-4-denis.benato@linux.dev>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Tue, 15 Sep 2026 23:52:44 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WubovSigBopQ6HqhsaZYeO7rOessUJCsqQ43pEWdUjzQtYDNp6sUoH1Ds
-Message-ID: 
- <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] HID: asus: add support for xgm led
-To: Denis Benato <denis.benato@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
-	Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>, Mateusz Schyboll <dragonn@op.pl>,
- Denis Benato <benato.denis96@gmail.com>
+References: <CANGjgdn=H50AaA-+O_GA-hkE9UwLANmkjx1zRsKUzxF5za8VfQ@mail.gmail.com>
+ <aqa7KgIJYGgf7INk@slm.duckdns.org> <CANGjgd=f9n7zEZS=xi71y_dY6Uk75_qgP9qVDkYBusNz9sp2sg@mail.gmail.com>
+ <CABdmKX2Oer9wrxWdR8s48Czro8H51HY+S_mfnUj-RvhjCM1RgA@mail.gmail.com> <CANGjgdmKg1_QyzhCSh03T4RStw5_znnhqmFFS8TVwQbm-sZZbA@mail.gmail.com>
+In-Reply-To: <CANGjgdmKg1_QyzhCSh03T4RStw5_znnhqmFFS8TVwQbm-sZZbA@mail.gmail.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 15 Sep 2026 15:01:38 -0700
+X-Gm-Features: AcwNN1VIb8TTEgPexXQPpWCvVpRTIrvOssLFmKmDhlzeafbGOiUocgUp_QNXLZU
+Message-ID: <CABdmKX3g7+GTfSBKB42Tr2CDusCNXb5+oPc7TcC1RpVndUzVpw@mail.gmail.com>
+Subject: Re: [REGRESSION] kernfs: empty cgroup rmdir latency after
+ delete-notification changes
+To: Chengfeng Lin <lin2530632123@gmail.com>
+Cc: Tejun Heo <tj@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jan Kara <jack@suse.cz>, 
+	driver-core@lists.linux.dev, cgroups@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <178950917866.3474117.3423862637390314217@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 15 Sept 2026 at 20:12, Denis Benato <denis.benato@linux.dev> wrote:
+On Mon, Sep 14, 2026 at 11:08=E2=80=AFAM Chengfeng Lin <lin2530632123@gmail=
+.com> wrote:
 >
-> XG mobile stations have very bright leds behind the fan that can be
-> turned either ON or OFF: add a cled interface to allow controlling the
-> brightness of those red leds.
-
-Hi Denis,
-as of last month, I am also the proud owner of a XG Mobile (2025 in my
-case). Therefore, I can now comment on this series and give you
-feedback.
-
-First, I have some interim patches that are not ready yet to post. The
-device still has some led behavior that I need to investigate, but I
-attach them here for your reference. You may send them on my behalf if
-you want to see them sooner though.
-
-https://github.com/anatase-org/patchwork/commit/af3e5e1755f720a2fffd1b67cb1253e11efbc5bb
-https://github.com/anatase-org/patchwork/commit/7718c4b64b03ca9be043e8c56f1833e5c4880fff
-
-Note that these two patches are essentially a replacement for this
-patch essentially, except for the binding, where your device is I2C
-where mine is thunderbolt, so that still needs to be added. There are
-still leftover issues with the LED I have to investigate before I
-submit these patches.
-
-As you know, USB keyboards in Asus laptops are connected over WMI
-through s2idle as well, which is what makes them turn off their
-backlight during suspend. However, our devices are external and cannot
-use the same path. I suspect that there is a different notifier for
-these devices over armoury crate we need to investigate first.
-
-> Let the led core manage the power transitions: the classdev is flagged
-> with LED_CORE_SUSPENDRESUME, so it is switched off at suspend and its
-> last brightness is restored at resume. The EC drives its own blinking
-> pattern during s2idle anyway, so the led state while the machine is
-> asleep is not meaningful.
+> Hi T.J.,
 >
-> Cc: Antheas Kapenekakis <lkml@antheas.dev>
-> Signed-off-by: Denis Benato <denis.benato@linux.dev>
-> ---
->  drivers/hid/hid-asus.c | 84 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 84 insertions(+)
+> Thanks for the patch. Your changes reduced rmdir() latency by
+> 21.87-22.86% in the same empty-cgroup benchmark, with sched_ext disabled.
 >
-> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-> index 03150d29eec5..a427e272563d 100644
-> --- a/drivers/hid/hid-asus.c
-> +++ b/drivers/hid/hid-asus.c
-> @@ -51,6 +51,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
->  #define FEATURE_KBD_LED_REPORT_ID1 0x5d
->  #define FEATURE_KBD_LED_REPORT_ID2 0x5e
+> I tested these two states on 2f0c1cf72f46 (7.3-rc2):
 >
-> +#define ROG_XGM_REPORT_SIZE 300
-
-Here, you define an additional report size var. This is not necessary,
-as ROG_ALLY_REPORT_SIZE is only used for reads currently in the driver
-and we defer to hid core to set the write length. Therefore, you might
-increase ROG_ALLY_REPORT_SIZE to 300 universally instead, as a
-correctness fix. This way, when Aura devices attempt to write 300
-bytes, they still work regardless of the quirk. This is what
-af3e5e1755f720a2fffd1b67cb1253e11efbc5bb.
-
-> +
->  #define ROG_ALLY_REPORT_SIZE 64
->  #define ROG_ALLY_X_MIN_MCU 313
->  #define ROG_ALLY_MIN_MCU 319
-> @@ -144,6 +146,11 @@ struct asus_worker {
->         bool removed;
->  };
+>   A: baseline + Shakeel's file-handle decoding read-lock fix [1]
+>   B: A + your INODE_INITED changes, without modifying your code
 >
-> +struct asus_xgm_led {
-> +       struct led_classdev cdev;
-> +       struct hid_device *hdev;
-> +};
-> +
->  struct asus_touchpad_info {
->         int max_x;
->         int max_y;
-> @@ -170,6 +177,7 @@ struct asus_drvdata {
->         unsigned long battery_next_query;
->         struct asus_hid_listener listener;
->         bool fn_lock;
-> +       struct asus_xgm_led *xgm_led;
->  };
+> I used the original binary on the bare-metal i7-12700KF, pinned to CPU0,
+> with full preemption, the performance governor and Turbo disabled.
+> Both kernels used GCC 15.2 and the same config except LOCALVERSION.
 >
->  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
-> @@ -1161,6 +1169,26 @@ static int asus_battery_probe(struct hid_device *hdev)
->         return ret;
->  }
+> The clean timing sequence used four fresh boots: A1 -> B1 -> B2 -> A2.
 >
-> +static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
-> +{
-> +       const u8 buf[ROG_XGM_REPORT_SIZE] = {
-> +               FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
-> +       };
-> +       struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
-> +       int ret;
-> +
-> +       ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
-> +       if (ret < 0) {
-> +               hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
-> +               return ret;
-> +       } else if (ret != ROG_XGM_REPORT_SIZE) {
-> +               hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
-> +               return -EIO;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-
-Moreover, as this is an Aura device, and by setting
-ROG_XGM_REPORT_SIZE to 300, you can now reuse the initial inits and
-brightness handler instead of adding new ones as you did here. This
-way, for asus laptops with a wmi handler, the brightness keyboard
-shortcut of the device will also control the eGPU, which is preferable
-behavior. This is what 7718c4b64b03ca9be043e8c56f1833e5c4880fff does
-in part.
-
-I have not tested the common path yet. I have been travelling so I
-have not flashed the new kernel on my z13. I have been using the eGPU
-with a different device.
-
-7718c4b64b03ca9be043e8c56f1833e5c4880fff also fixes the "blinking
-pattern" of the EC, as you note in your subject. With the init,
-suspend and resume handlers sending the init of that patch, during
-boot the light blinks, it becomes solid once hid-asus binds, then
-during the transition to sleep, it starts to blink until it turns red,
-and does the reverse during resume. It would be good for you to give
-feedback for that. I have not verified the Windows behavior there, and
-we should do that for correctness. The init is referenced from
-g-helper in Windows, but maybe there is another command that signals
-sleep better.
-
-I do not have an answer to the sleep leds unfortunately. My XG's RGB
-stays on while there is a device plugged in, regardless of whether its
-sleeping or shutdown. This makes me think that we are missing a
-notifier command, and the brightness patch you propose here just
-papers over the issue. So we should investigate that first.
-
-Let me know how you'd like to proceed.
-
-Best,
-Antheas
-
-
->  static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
->  {
->         struct input_dev *input = hi->input;
-> @@ -1406,6 +1434,49 @@ static void asus_initialize_reports(struct hid_device *hdev)
->         }
->  }
+>                      A1       B1       B2       A2
+>   rmdir (us)        9.727    7.600    7.548    9.784
 >
-> +static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
-> +{
-> +       const char *name;
-> +       int ret;
-> +
-> +       drvdata->xgm_led = devm_kzalloc(&hdev->dev, sizeof(*drvdata->xgm_led), GFP_KERNEL);
-> +       if (drvdata->xgm_led == NULL)
-> +               return -ENOMEM;
-> +
-> +       name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "asus:xgm-%s:led",
-> +                             strlen(hdev->uniq) ? hdev->uniq : dev_name(&hdev->dev));
-> +
-> +       if (name == NULL) {
-> +               ret = -ENOMEM;
-> +               goto asus_xgm_init_err;
-> +       }
-> +
-> +       drvdata->xgm_led->hdev = hdev;
-> +       drvdata->xgm_led->cdev.name = name;
-> +       drvdata->xgm_led->cdev.brightness = 1;
-> +       drvdata->xgm_led->cdev.max_brightness = 1;
-> +       drvdata->xgm_led->cdev.brightness_set_blocking = asus_xgm_led_set;
-> +       drvdata->xgm_led->cdev.flags = LED_CORE_SUSPENDRESUME;
-> +
-> +       /* LED state is arbitrary on boot, set a default */
-> +       ret = asus_xgm_led_set(&drvdata->xgm_led->cdev, drvdata->xgm_led->cdev.brightness);
-> +       if (ret) {
-> +               hid_err(hdev, "Asus failed to set xgm led: %d\n", ret);
-> +               goto asus_xgm_init_err;
-> +       }
-> +
-> +       ret = devm_led_classdev_register(&hdev->dev, &drvdata->xgm_led->cdev);
-> +       if (ret) {
-> +               hid_err(hdev, "Asus failed to register xgm led: %d\n", ret);
-> +               goto asus_xgm_init_err;
-> +       }
-> +
-> +       return 0;
-> +asus_xgm_init_err:
-> +       drvdata->xgm_led = NULL;
-> +       return ret;
-> +}
-> +
->  static int __maybe_unused asus_resume(struct hid_device *hdev)
->  {
->         struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-> @@ -1545,6 +1616,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
->         if (!drvdata->tp)
->                 asus_initialize_reports(hdev);
+> Each value is the median of nine sample means. Each sample contains
+> 128 measured removals after 16 warmups. All four B/A comparisons showed
+> the improvement above. Removal CVs were below 2.03%. The drift between
+> boots was +0.59% for A and -0.68% for B. The improvement held after
+> dropping the first sample from each boot.
 >
-> +       if (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID) &&
-> +           ((hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2022) ||
-> +            (hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2023))) {
-> +               ret = asus_xgm_init(hdev, drvdata);
-> +               if (ret) {
-> +                       hid_err(hdev, "Failed to initialize xg mobile: %d\n", ret);
-> +                       goto err_stop_hw;
-> +               }
-> +       }
-> +
->         /* Laptops keyboard backlight is always at 0x5a */
->         if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
->             (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
-> @@ -1594,6 +1675,9 @@ static void asus_remove(struct hid_device *hdev)
->         if (drvdata->listener.brightness_set)
->                 asus_hid_unregister_listener(&drvdata->listener);
+> Separate, untimed traces showed the same 26 kernfs nodes per removal,
+> but ilookup() calls fell from 26 to 1. Deletion lock counts were unchange=
+d.
+> Basic checks of file/directory deletion notifications and link counts
+> with FDs held open passed on both kernels.
 >
-> +       if (drvdata->xgm_led)
-> +               devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
-> +
->         asus_worker_stop(drvdata->worker);
->         hid_hw_stop(hdev);
->  }
-> --
-> 2.47.3
+> I also timed the full mkdir() -> stat() -> rmdir() sequence using a
+> separate binary on the same kernels. The latest continuous follow-up used
+> four fresh boots, with nine samples per boot. Each sample had 16 warmups
+> and 32 measured sequences, with no pauses between them. The full sequence
+> fell from 30.07-30.65 us to 27.97-28.34 us, a 5.77-8.76% reduction.
+> The maximum CV was 1.76%, and boot drift stayed below 2% in both states.
+> In the earlier continuous follow-up with 128 operations per sample, the
+> full sequence was 5.15-6.52% shorter, but CVs of 4.52-6.46% were too high
+> to establish a stable overall improvement percentage.
 >
+> Untimed tracing placed the added write lock in first stat(), during inode
+> initialization. The patch skips lookups for nodes whose inodes were never
+> initialized; it does not move those lookups into stat(). The individual
+> mkdir() and stat() timings remained too variable to quantify their change=
+s.
 >
+> I also checked whether the benefit persisted with less frequent operation=
+s.
+> For this diagnostic, I added 50 and 200 ms pauses between sequences,
+> outside the timers. I kept 16 warmups and 32 measured sequences per sampl=
+e.
+> rmdir() still saved 2.10-2.58 us, but its baseline rose from about 10 us
+> to 18 us, reducing the percentage gain. The full sequence was 0.66-2.85%
+> shorter, with a maximum CV of 1.53%.
+>
+> I included [1] because the file-handle path on this base lacks
+> kernfs_rwsem protection. Source review suggests a possible wait cycle
+> when that path recreates an evicted inode. Initialization waits for
+> kernfs_iattr_rwsem, while removal holds it and waits for I_NEW to clear.
+> I have not reproduced this possible deadlock in the kernel.
+> Does the base for your diff already include [1] or equivalent locking?
+>
+> [1] [PATCH v2 3/4] kernfs: don't lose IN_DELETE_SELF
+>     when decoding a file handle
+> https://lists.openwall.net/linux-kernel/2026/09/05/828
+>
+> Results and reproducers:
+> https://github.com/lcf0399/linux-regression-evidence/tree/f101b1b9c0d3dfc=
+e07f81b11ca2da2c252150e4c/kernfs-empty-cgroup-removal/bare-metal/inode-init=
+ed
+>
+> Thanks,
+> Chengfeng
 
+Thanks for testing. I was also not aware of Shakeel's fix [1] so it
+was not in my base; I used 2d3090a8aeb5 ("Merge tag 'v7.1-p5' of
+git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6").
+
+I think you are correct about the deadlock. The synchronization
+requirements here are more difficult than I initially realized.
+kernfs_iattr_rwsem can't be used because of the deadlock you
+mentioned. Additionally, kn->flags is non-atomic and only modified
+under down_write(&root->kernfs_rwsem). Inode allocation runs under a
+read lock (or locklessly before Shakeel's fix), so setting a flag
+there races with writers and risks lost updates on other flags.
+Grabbing a write lock in kernfs_init_inode() would add contention to
+normal lookup and stat paths. So I'm not seeing a simple way forward
+with the KERNFS_INODE_INITED idea.
+
+This is a more straightforward but even less exact way:
+
+@@ -1526,8 +1527,12 @@ static void kernfs_clear_inode_nlink(struct
+kernfs_node *kn)
+        lockdep_assert_held_read(&root->kernfs_supers_rwsem);
+
+        list_for_each_entry(info, &root->supers, node) {
+-               struct inode *inode =3D ilookup(info->sb, kernfs_ino(kn));
++               struct inode *inode;
+
++               if (!fsnotify_sb_has_watchers(info->sb))
++                       continue;
++
++               inode =3D ilookup(info->sb, kernfs_ino(kn));
+
+I'm not sure that's really worth a few microseconds though.
+
+> T.J. Mercier <tjmercier@google.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=8814=E6=
+=97=A5=E5=91=A8=E4=B8=80 00:17=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > On Sun, Sep 13, 2026 at 8:47=E2=80=AFAM Chengfeng Lin <lin2530632123@gm=
+ail.com> wrote:
+> > >
+> > > Hi Tejun,
+> > >
+> > > Thanks. I found this during research into kernel performance regressi=
+ons,
+> > > using a microbenchmark of cgroup creation and removal. This was not
+> > > prompted by a production issue.
+> > >
+> > > I reported it to document the added removal cost and ask whether some
+> > > of it could be reduced while preserving the fixes. I agree that the
+> > > roughly 3 us increase per removal does not, by itself, demonstrate a
+> > > significant impact on real workloads.
+> > >
+> > > Thanks,
+> > > Chengfeng
+> > >
+> > > Tejun Heo <tj@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=A5=
+=E5=91=A8=E6=97=A5 23:03=E5=86=99=E9=81=93=EF=BC=9A
+> > > >
+> > > > Hello,
+> > > >
+> > > > On Sun, Sep 13, 2026 at 10:43:04PM +0800, Chengfeng Lin wrote:
+> > > > > I found an increase in empty cgroup removal latency across 507d8c=
+e13f5b
+> > > > > ("kernfs: Don't set_nlink for directories being removed") and eea=
+5d2bb34ba
+> > > > > ("kernfs: Send IN_DELETE_SELF and IN_IGNORED"). With sched_ext di=
+sabled,
+> > > > > rmdir() went from about 6.5 us to 9.6 us, an increase of 46-47%.
+> > > > > The result held in two independent runs.
+> > > >
+> > > > I don't want to make cgroup removal unnecessarily expensive but at =
+the same
+> > > > time it's not an operation that I consider to be a hot path, so as =
+long as
+> > > > the operaiton can finish in a reasonable amount of time and single =
+digit us
+> > > > definitely is, performance of rmdir usually isn't something which i=
+s high in
+> > > > priority. Can you please detail why this matters for you?
+> > > >
+> > > > Thanks.
+> > > >
+> > > > --
+> > > > tejun
+> >
+> > Hi Chengfeng and Tejun,
+> >
+> > We use this kernfs IN_DELETE_SELF feature on Android where multiple
+> > cgroups are created and removed frequently on a per-application basis,
+> > but we hadn't noticed a significant delay due to the inotify
+> > functionality during cgroup removal. It's probably masked by much
+> > larger delays (milliseconds) we regularly see due to unreleated issues
+> > with cgroup locks like priority inversion with cgroup_mutex, and
+> > contention for cgroup_threadgroup_rwsem.
+> >
+> > As far as what we can do, I think avoiding inode lookups for kernfs
+> > nodes that never had an inode created should improve the situation. It
+> > doesn't eliminate the locking overhead, which I don't think can easily
+> > be eliminated. The code below doesn't deal with inode eviction either,
+> > but at least files which are never accessed won't introduce the inode
+> > lookup overhead.
+> >
+> > diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+> > index 4f9ade82b08a..3ec9f79b1aa2 100644
+> > --- a/fs/kernfs/dir.c
+> > +++ b/fs/kernfs/dir.c
+> > @@ -1523,6 +1523,9 @@ static void kernfs_clear_inode_nlink(struct
+> > kernfs_node *kn)
+> >         struct kernfs_root *root =3D kernfs_root(kn);
+> >         struct kernfs_super_info *info;
+> >
+> > +       if (!(kn->flags & KERNFS_INODE_INITED))
+> > +               return;
+> > +
+> >         lockdep_assert_held_read(&root->kernfs_supers_rwsem);
+> >
+> >         list_for_each_entry(info, &root->supers, node) {
+> > diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
+> > index 38b28aa7cd02..f8b4a8b8ade4 100644
+> > --- a/fs/kernfs/inode.c
+> > +++ b/fs/kernfs/inode.c
+> > @@ -208,6 +208,10 @@ static void kernfs_init_inode(struct kernfs_node
+> > *kn, struct inode *inode)
+> >         set_default_inode_attr(inode, kn->mode);
+> >         kernfs_refresh_inode(kn, inode);
+> >
+> > +       down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+> > +       kn->flags |=3D KERNFS_INODE_INITED;
+> > +       up_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+> > +
+> >         /* initialize inode according to type */
+> >         switch (kernfs_type(kn)) {
+> >         case KERNFS_DIR:
+> > diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
+> > index e21b2f7f4159..87f074ce19d3 100644
+> > --- a/include/linux/kernfs.h
+> > +++ b/include/linux/kernfs.h
+> > @@ -113,6 +113,7 @@ enum kernfs_node_flag {
+> >         KERNFS_EMPTY_DIR        =3D 0x1000,
+> >         KERNFS_HAS_RELEASE      =3D 0x2000,
+> >         KERNFS_REMOVING         =3D 0x4000,
+> > +       KERNFS_INODE_INITED     =3D 0x8000,
+> >  };
+> >
+> > -T.J.
