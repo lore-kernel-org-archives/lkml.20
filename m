@@ -1,305 +1,166 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81382389E07;
-	Tue, 15 Sep 2026 18:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C08E3BBFB9;
+	Tue, 15 Sep 2026 18:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495320; cv=none; b=gpzk6rf/vVbvHxaiiE2z/4F1xyskZgRDdR1tt1kX2swPExlBSoTHtOXoiJqj4W+W9uNjX81EFAX5+octfGUhggaPli7TxYQKmPiEzhzhgmQcwdxSlP6vpRFSvDqsVZWifnn/r8x6ztGEKaqfyET+nThiYqQSgHo33MIH8QqQH0Y=
+	t=1789495416; cv=none; b=bf96vjaKA5lFwSz8Cfq/IPk+2pUIl9Kg0nELMnQTUoGstI0n2AaeBYjoTi+vnmfSVx80l+rcazafBgVU49jk+CDhCSY7LC0XbA7HXXWwUg5Or66OeQoFLPrM2cHAimZXi7YzsXBIpd79l/HgbC/Wr3GnyurLL9EOkF//0zERMjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495320; c=relaxed/simple;
-	bh=fKdtexK2tjqwgZC6UBPDUwOYcj+8rOgQ3rItFKL5jBk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=El9GxQo/GRTQOgtZHiaYMcgpUS653ChUdViqvpTgF7Pyh5EmTrylcObzmfO8qAJx8BZ0X8pJ8uICDhq7sCl8XVvJl6yZvp7tHxJYx/PGE9bsbbTMeIK2rfePJSsKGYUiQ3b/I0QWtM7q6zJFpR/iVmmWb68AiOnyJajf4Dq3TqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=J7gCj3gQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GYEx2CvT; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1789495416; c=relaxed/simple;
+	bh=acA8Pl0ra8uGRhaY3yUxU7JeUeRVK1VSh+mJtBE56Dw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ZdhWVAeTmgXJaVzuBy3taytPjhZuR6CNWa0xOArT6gbV4GkQnegx3TGoye28qio4OTKAwcqcChEO9OSHl3AZp/T1Wf3BTfUEEZ1j/a3qTEDhD1nSkJUGL8Ic5xPbHGg8rvNaq4h7+g9GojidXb53wGGeRM4hCAmNDqrLie8yFWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=bfzeMig/; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=oZOUFFuD; arc=none smtp.client-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="J7gCj3gQ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GYEx2CvT"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id D4EFB7A01E7;
-	Tue, 15 Sep 2026 14:01:55 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Tue, 15 Sep 2026 14:01:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="bfzeMig/";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="oZOUFFuD"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id ACCCF1D0021E;
+	Tue, 15 Sep 2026 14:03:32 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 15 Sep 2026 14:03:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789495315;
-	 x=1789581715; bh=897+qm17sL3v0FP/MXszEOUStPXgIyHus6lgEd1AaDM=; b=
-	J7gCj3gQ8T1YMxOrybpfM3eJeu+7dLzxdSPDUqlqdjUyj5dIiPAPu9txVyDp3UbN
-	X8I1/ZvbguBtP24VYZxRirAX1PMsPkOzXlGGZ2hVGFG7tFzSn8TP8wQS/Qv0DiHi
-	rkkAE9OpFNm1SlhiBv5OngbVZoiYCYba1z1VZ+3ocJdHc7yQDhr0l9zeVdWSpS1E
-	I3sx2AfobqgcWvXNegog6h2BinwKSzIjS8AiaB9q67el/wlqf4pECTRuM26+9ay6
-	NbMRtwbW9wsI069dmrWY079J1niPTavcNxqIbiSPv7Yqnv2iKvh/nDwsJjUrajHx
-	swsiMsg3xHm0BSgzf+D24A==
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789495412;
+	 x=1789581812; bh=M+18z9TRevaxtOpUOsKP4yasoi0N4a+EiZHqRi1jYdY=; b=
+	bfzeMig/Y+tGM1+bYmo0BbhIVS0y9dIGMrA4LwRTf2Lpje/Kfm8S570bfH/QjUqL
+	6/a3eiCelvTXGqhVquzIsr4cr0lUv3ospVpRgXtP4LZbhaVeTzfcbSaGwHa3vtxs
+	BcqqDiGb2M6gEjECAzLQuPz0yP99Kk1u011d5pP+gbGS0GiMHg4PRfXQDFoacDOz
+	mUF3+J6mkqpifQzxfE5vToAQ+ss3hXjYEHX/9CCuXLtEPcvajpXjy5o6HO5hC5+F
+	SRPnzQnKKQAFxx2KqQsMFLmwjSHntR0zRO7nbwOKsRHGNJZYVXFl6AbfAkK1wvXY
+	tWR6d95RnBDQpPokvuZ/FA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789495315; x=
-	1789581715; bh=897+qm17sL3v0FP/MXszEOUStPXgIyHus6lgEd1AaDM=; b=G
-	YEx2CvTQP99/MV3tTWrdbpaG43TPFrUVmjGrmZ1l2TLfzxnJkApW2mSArxA71Xih
-	kVYcfXO1Jtl9yqOAqqtHQPmIQizeq5BBgClqJVJrwLfsR91ZzvvgvEY+HgQL7xVL
-	Mg7UGOmysCbop4Ucqx/i8xT8JTPESeMG572F0lky66g/0TcfZQFn6oYHnPhBP8ol
-	VaTsRGDdkTtiaMBtAoEfa+M/QedYgKznii4iIfUwe+qrx2njDBs25GGR8WP3RKU4
-	6POk6qRErfFTWuluNxD3LTzrvLrbPTTbZX7E7nbPIZ2nHOAMdi3WFQBhqrScizTC
-	4nSgRF4Q3jOvBpzdh2Exg==
-X-ME-Sender: <xms:E4ipaopPeXZAXgWmXKzlDRjn6yffNqooY7ikhbvy33BcNRKRxm9crQ>
-    <xme:E4ipag9-TgvcUMnXlWve1lI5bZ3KyqCTREQnUF6BJga1WpemDaof38xoRun1EXrvO
-    7DBjSDJ35eTA6ZxR3j9d0HQ1495NU_w31VSCFxSjK1MSvhGtBQ--w>
-X-ME-Received: <xmr:E4ipar6DVKq4ItyMYgMbHwO2cMgvFa7fbhc9O5M9jjv-rN5qci2lJ6-CbydAZg>
-X-ME-Proxy-Cause: dmFkZTFrwg/AmzJDC2h9TGXdHq7epJk+TWr6gcC4uNj3nLfncBMy7wyNCRNwIHDDhN2FMv
-    HVj36YZNRMssben7AyJ2T9X7Y3vS6FzNIEartcApiYw9lKZsCKHE9I2peGX9yCt0OqJF6i
-    ZYU8fjaMzSRXShG0SUxqzgcxzpeF6gRg5Ml2UeWGy8dlfZm1osMEVJr90fc5sqZuF3PE5A
-    KfDhUypFxWvM32W7sGAKH/E7L6SX7fKOi2xJftKxUNrjmDdowJ6SLs7oemlmVIJ8gcdudX
-    7YbGIqRnJE2550dwDamMuh/Li1OQbuet+YoML56aZV30RM2hx2MQ7j3kctY32rkBOOebjd
-    Dp3Sri6n5D3cJO204Gl9ugI7DWMQDrjIQSY2B6vbxBuXgYX1F/JLSrJ8lxTo6rLj6IfDWJ
-    vIJxXlsTEzgWwseolk6CCvnrRB9CvBD13/lkB5xHjYiVO7fj1Bwr5RdpuUhoNSWzuZM8zK
-    fisTt0hvonavAf3gNHeB2PxiRoxY11ublPU2pXVxZsLDJKK03/IESTVZQJqSUR5ox9yfcx
-    ptE3XlQ4R0oNA8U0jjAi7FvCshNtHd/muBXwgeSMtfpLwQPkppNUtq8pSHUrSMlcCXRJMp
-    MK2ndT6YpfIksn48Sp1HmBE4jEAt/vAw5BB8Cm9q/PTbMPUdjvHrvYU5X0qg
-X-ME-Proxy: <xmx:E4ipas3hrST8h-AwAsa-qI7ObI9eICSUQHV3MVNB_dgonZ9sB1YdaA>
-    <xmx:E4ipalhvdGOocJQwexgRHqc2XNrqz2hVFUR44WB9mKTkjulbi-uU1A>
-    <xmx:E4ipangojBnbKKm3-r-rAro-IDWMxq0tcLuyQXEpprsHtrwKyk3Q8g>
-    <xmx:E4ipahIhHjbDseO8xs06MVHiIqbhEDYyIzw6froE5hhiM_cPc1yHMQ>
-    <xmx:E4ipaoDcLUURKCOzO6J6ZHvyF9KmgQZFKhRAdUTpdZVlGzil6OQuuMM_>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 14:01:52 -0400 (EDT)
-Date: Tue, 15 Sep 2026 12:01:48 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
- <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>,
- <kvm@vger.kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
- variant driver
-Message-ID: <20260915120148.7548a8ca@shazbot.org>
-In-Reply-To: <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
-References: <20260905081116.106613-1-zhiw@nvidia.com>
-	<20260905081116.106613-13-zhiw@nvidia.com>
-	<DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
-	<20260914121217.70fa0d93@shazbot.org>
-	<DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789495412; x=
+	1789581812; bh=M+18z9TRevaxtOpUOsKP4yasoi0N4a+EiZHqRi1jYdY=; b=o
+	ZOUFFuD6XnpqFUSEJsY2ku4+E5wCoyzzuuGjDK3VOLtNoMZpIRvRxVprQ9i/22II
+	jG1jG15qMEzvpaLpECfgkboC8JdgLp9Q39mqgTcR8lYXn/d83bLIcQ5dXDL+TemW
+	klIRqMV8FflS6YTNzEQwkIfn2xX1LkA7dmLFMj4E00Q1CW0JkSLBLf2Zk1/g8U4A
+	ejyIqZLoetKA/i/YaBFIiwJjewrsmt2inIMSFgG6e+QsHc3VL/1ujnHfQDpawgEm
+	I0nYSDFstqFLf3IPHvTqv/TfrIzepp3oweewt4zuJrTzNSjkToeN7dZvBMpDoMyQ
+	3pfG1/3YATpk1jIhSkoew==
+X-ME-Sender: <xms:cYipaqE_AZTIyS7ZUScZTZ4wde-IC-i3ZyB5ji0kH44t1e0B3LSclg>
+    <xme:cYipamKRrUVZH90_QVcnKEsG_cZ2n0jvO7k-iE1vh3ku8J-yTzn_jXbvbJU5AFnEV
+    JytVsriQCYwRwPPY87Xo4C9mG4acZP8NtAqXcTtz16YbQpFQW1ivg>
+X-ME-Proxy-Cause: dmFkZTEqhHjzH1soeTRI55HShuI0NwF6ztlzSeEa6rdk6X/pP/Jtsnp/rah2tHi5jjcKB2
+    lusLwR9l1hsFDHtzVzUwOj5TctfcRlmmLokL8SZY0QOvkDneEL8NNm5kzUhlGtnnIOSY+k
+    QYkqiKZp2SLcPCb3DscDI2fJXz78s3/4Ckjem3nv0+Ua+COftzMGlwTptdt88qWV3osb7T
+    T5ye+RBTmyxZgFvcLaWtdcO7CFvSIKyHLXrBshilUZxavJSyPA7zRqFPUfEURGFWUZJwOc
+    cWn5hWkzyz2adzsNIlzBWhO/OFUO8SAd3243e1XMNMZRUA2r3QWhWls6hiFMwBaPqqSRSe
+    dt0T6ZGZOm8+lgAsiZUthxmJtKEmZLaACB/aj4Zn0jPxFJskSxiS/dKB0+K99b18stM6E/
+    MGYZZD4Dbbl6ZPwnUdzZbbxWoRg1HxbTeB9DH1iSzXuIw6R3mn9qYrAHsC28FsDlXckeL8
+    r0g684T9Dc21Nc1FenOYOwWBi9QUvertwK2jfjyZXgANc9pSFa8KxijA9exEgC/NQSabNT
+    N1yuOPdlP61ofVBk3S/9gx/HFxtGHAvc0zRoG7U84I8l0OAHiBmxyobTjsVL3y5sCwVQlM
+    pKS/rS0rLj0nsA6qufToAQrMqBJeRG3FxWPhepx4hFOQeYS2c1YC0XYKUYcQ
+X-ME-Proxy: <xmx:coipary-7p7j1Kt0qU7OG_-8DDJhBtgPod0au9RKw52o1qZnSESppw>
+    <xmx:coipaqIEgSO4ryECQ4vjQQxF3TkIFmqQ9ZxieSNK2v8s1f25VovtPQ>
+    <xmx:coipatoXg2wUi6tLNO5bNikhZjmnI5yJjun9dPQztNmowsDc-CeI6Q>
+    <xmx:coipahIu2IlxV-XBevCCTOyDFXx89QoUF0csr5hA57H2JIoH8rSBww>
+    <xmx:dIipanoLEVa1nmatRE4Cfwr0jAv58eY7-FZDBV9fHKFGa4SlCFozRXvG>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 2D5C132A0081; Tue, 15 Sep 2026 14:03:29 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-ThreadId: ArHA-gVR6p-N
+Date: Tue, 15 Sep 2026 20:02:38 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Kees Cook" <kees@kernel.org>
+Cc: "Lorenzo Stoakes" <ljs@kernel.org>,
+ "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Nathan Chancellor" <nathan@kernel.org>,
+ "Nicolas Schier" <nsc@kernel.org>, "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>,
+ "Masahiro Yamada" <masahiroy@kernel.org>,
+ "Alexey Gladkov" <legion@kernel.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Ard Biesheuvel" <ardb@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Josh Poimboeuf" <jpoimboe@kernel.org>,
+ "Peter Zijlstra" <peterz@infradead.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ "Benno Lossin" <lossin@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Jonathan Corbet" <corbet@lwn.net>,
+ "Randy Dunlap" <rdunlap@infradead.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ Linux-Arch <linux-arch@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ "Jens Axboe" <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Message-Id: <90006ad1-73df-4bd0-a434-61875edd5bb9@app.fastmail.com>
+In-Reply-To: 
+ <CAKwvOdmgeyqivO4pVa=30XDWpXvdRzBR8f13rfuPzDx=LJ1Tsw@mail.gmail.com>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-21-39817ec5db23@kernel.org>
+ <202609140844.FA7E848A@keescook> <aqk9gakQhxToLnDI@gremlin>
+ <202609150955.A51C9F7A20@keescook>
+ <CAKwvOdmgeyqivO4pVa=30XDWpXvdRzBR8f13rfuPzDx=LJ1Tsw@mail.gmail.com>
+Subject: Re: [PATCH v2 21/21] kbuild: use pigz for gzip compression if available
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 14 Sep 2026 23:36:24 +0200
-"Danilo Krummrich" <dakr@kernel.org> wrote:
-
-> On Mon Sep 14, 2026 at 8:12 PM CEST, Alex Williamson wrote:
-> > Hi Danilo,
-> >
-> > On Fri, 11 Sep 2026 22:39:16 +0200
-> > "Danilo Krummrich" <dakr@kernel.org> wrote:
-> >  
-> >> Hi Alex, Jason, Zhi,
-> >> 
-> >> On Sat Sep 5, 2026 at 10:11 AM CEST, Zhi Wang wrote:  
-> >> > NVIDIA vGPU VFs require their open, reset, and close lifecycle to be
-> >> > coordinated with the PF-side nova-core driver.    
-> >> 
-> >> [...]
-> >>   
-> >> >  drivers/vfio/pci/nvidia-vgpu/main.c   | 253 ++++++++++++++++++++++++++    
-> >> 
-> >> This is going to be a longer response; sorry about this in advance.
-> >> 
-> >> Looking at the FFI boundary introduced in the previous patch, I'm concerned that
-> >> it translates the driver model relationships we've expressed through Rust's
-> >> ownership and lifetime model back into raw pointers and lifetime assumptions
-> >> that callers must uphold. It also introduces manual lifecycle management across
-> >> the boundary, rather than preserving nova-core's RAII-based ownership model.
-> >> 
-> >> I think implementing the NVIDIA vGPU driver in Rust would let us preserve those
-> >> relationships across the interface, make lifecycle management less error-prone,
-> >> and fit naturally alongside nova-core and nova-drm.  
-> > [snip]  
-> >> 
-> >> If you've made it this far, thanks for reading through this long write-up. I
-> >> hope you find it useful. Please let me know if you have any questions or
-> >> thoughts.  
-> >
-> > I can't really say I made it this far with comprehension, but thanks
-> > for the effort ;)
-> >
-> > The one piece here that I can actually review is [5], where
-> > dev_get_drvdata() is replaced with a vfio-pci-core struct pointer
-> > embedded in the struct pci_dev, which is a non-starter as far as having
-> > a common PCI-core shared by various drivers.  
-> 
-> Well, that was just a quick hack to get it out of the way. :)
-> 
-> I think there are a couple of options.
-> 
->   (1) Make the PM helpers take a struct vfio_pci_core_device * in the first
->       place and let the driver forward to the helpers in its own PM callbacks.
-> 
->   (2) Provide an (optional?) driver callback that translates a struct pci_dev to
->       struct vfio_pci_core_device.
-> 
->   (3) Provide a macro for drivers to define PM ops, letting drivers provide the
->       function that translates struct pci_dev to struct vfio_pci_core_device.
-> 
->   (4) Give struct vfio_pci_core_device its own PM domain (which is probably a
->       bit overkill :).
-> 
-> I understand that the idea is to hide the PM handling in the vfio-pci framwork,
-> but I think the existing implementation is a bit of a layering violation, since
-> class device implementations shouldn't impose requirements on the bus device
-> private data layout.
-> 
-> I also think that the approach to fully hide it in the framework is only really
-> worth if it doesn't otherwise impose subtle requirements on the driver (such as
-> the layout requirement of the bus device private data).
-> 
-> Thus, I'd personally just go with (1) as it is the most honest approach in terms
-> of driver layering. But I think (2) is a good alternative that is not more
-> invasive than asking drivers to set the bus device private data to
-> struct vfio_pci_core_device *.
-
-I'd position this more as a library convention than a class layering
-violation.  vfio-pci was originally one driver, vfio-pci-core was
-pulled out to enable device specific support, ex. migration, in a more
-manageable way.  struct vfio_pci_core_device is not strictly a class,
-it's the object used by the library that variant drivers opt to use
-rather than re-implementing vfio-pci from the ground up.
-
-The conventions of that library mean variant drivers get things like
-VGA routing and power management for free, in adherence with how these
-features are exported by the core, and can choose to opt-in to common
-error handling.
-
-The use of drvdata is part of that convention and audited by the core
-such that failed compliance is rejected on registration.  Clearly we
-could allow variant drivers to provide ops for their own callbacks and
-export core helpers they can use, but only a Rust driver requires this
-and we need to figure out how to do this without degrading the audit in
-the core.
-
-Turning vfio-pci-core into a proper class to be able to have a real
-layering violation claim seems like a much larger project.
-
-> > My concerns are of course who is going to review the Rust vfio-pci
-> > variant drivers from a vfio perspective, not just a drm driver
-> > viewpoint.  
-> 
-> I did put some considerations about this; I think Zhi would be a great candidate
-> for this. :) And as mentioned I can also take some of the responsibility, but I
-> also want to be honest about the fact that I have a lot on my plate already.
-
-And that's part of the problem, there are bandwidth issues all around
-and neither you nor Zhi are, as of yet, core vfio contributors.  Rust
-may well be the better approach relative to the interface to Nova-core,
-but it's not clear it's the right approach for a subsystem that can't
-maintain or evaluate it and only has a sketch of what it looks like.
-
-> > Who is going to be responsive when the interfaces break and
-> > monitor vfio proactively to prevent such breakages, and how do we avoid
-> > derailing feature development in the core code base.  
-> 
-> In practice we shouldn't see any breakages with the Rust code that wouldn't also
-> break the C VFIO drivers. If this would be the case it would mean that the Rust
-> code relies on guarantees that none of the C drivers rely on, which would likely
-> mean that is was never a guarantee that was actually promised by the VFIO core
-> code.
-
-s/practice/theory/
-
-> There may be cases where Rust code breaks, and C code won't, but those should be
-> mechanical things, such as a type mismatch where Rust is more careful, e.g. if
-> we'd change a CPP define to an enum, etc.
-
-This seems like a very optimistic outlook.  I don't have experience
-with Rust to claim otherwise, but I do have general software experience
-to be suspicious of anything sounding so clean.
-
-> > Can a Rust vfio-pci variant driver be self-contained, or to what extent does
-> > it impose on the framework, such as the drvdata idiom.  
-> 
-> As mentioned above, I think this one is more of a layering violation in the
-> vfio-pci-core; class devices shouldn't impose layout requirements on bus device
-> private data.
-> 
-> The reason C drivers can get away with it more easily is e.g. that C relies on
-> procedural cleanup and that all responsibility for managing lifetimes sits on
-> the drivers themselves, so it is easier for them to adjust. But in general, it
-> wouldn't work out if all class device registrations or other core primitives
-> would have the same expectation.
-> 
-> For Rust specifically it is that the driver core controls the lifetime of the
-> bus device private data, which is a fundamental requirement to e.g. represent
-> registrations as RAII types. E.g. the vfio::pci::Registration has to be stored
-> in the bus device private data, such that it is guaranteed to be correctly
-> destroyed on driver unbind.
-
-I see, so driver core has its own convention for how Rust drivers must
-use drvdata.
-
-> To get back to your question, a Rust vfio-pci variant driver should be
-> self-contained. The interface sits in the abstraction that translates the C
-> driver API to a Rust driver API. It sometimes can help quite significantly (e.g.
-> in terms of how complex the Rust code needs to get in order to actually be safe)
-> if the C code does a minor adjustment, but it shouldn't be necessary.
-
-It's not clear to me to what extent these abstractions hinder our
-ability to evolve and refactor the C code.  It may not "lock in" the
-core API for variant drivers, but it seems it raises the bar that any
-significant code refactor likely needs to refactor the abstraction
-layer, potentially the Rust variant driver itself, which imposes a
-burden on the vfio community that has so far not introduced Rust into
-the code base.
-
-> For instance, the only addition to the driver core we have is an additional
-> callback in struct device_driver, and in the future an additional pointer in
-> struct device_private; none of those couldn't be worked around in some way
-> though.
+On Tue, Sep 15, 2026, at 19:47, Nick Desaulniers wrote:
+> On Tue, Sep 15, 2026 at 10:31=E2=80=AFAM Kees Cook <kees@kernel.org> w=
+rote:
+>> On Tue, Sep 15, 2026 at 03:30:43PM +0100, Lorenzo Stoakes (ARM) wrote:
+>> a)
+>> My main concern is the lack of respecting the -j make argument. In my
+>> mind, this is a blocker, because it means a build will now _always_ s=
+pin
+>> up max CPUs (not what -j has limited it to), and for CIs, shared comp=
+ute
+>> systems, or whatever, this violates the requested parallelism level. =
+For
+>> example, if I'm doing a long-running Coccinelle replacement in one tr=
+ee
+>> (which uses half the CPUs), any builds I launch I'm asking for the ot=
+her
+>> half of my CPUs to be used so they don't thrash my cache.
+>>
+>> This is the kind of "why are all the CPUs spinning up?" question I
+>> helped track down with commit 51e46c7a4007 ("docs, parallelism: Rearr=
+ange
+>> how jobserver reservations are made") forever ago.
 >
-> On the other hand there are examples where the Rust introduction motivated
-> design improvements on the C side, or bug fixes for issues that were caught
-> while writing a safe abstraction. For instance, we recently had some fixes
-> around dyn IDs in the PCI and USB core, which both were motivated by Rust code.
+> Parse -j from MAKEFLAGS (https://stackoverflow.com/a/76517886),
+> forward it to pigz?
 
-I have no doubt that integration with a more structured language would
-lead to various improvements.  However, it doesn't seem there are
-resources to support it in the short term.
+That still has a potential O(n=C2=B2) problem: if one builds N kernels
+with a top-level jobserver on N CPUs, and they all take the same
+amount of time, you end up with N pigz processes each trying to use
+N cpus at the same time. Ideally we'd use the equivalent of
+-flto=3Dauto in the compiler, which respects jobserver settings,
+but I don't think pigz supports this at the moment.
 
-> > FWIW, AI can only go so far to support reviews.  Having the code
-> > insight to ask the right questions is essential.  A human in the loop
-> > is a requirement.
-> >
-> > Additionally, if we can't narrow the device matching to only the
-> > Nova-core supported VFs,  
-> 
-> Agreed, and I think that should be possible. Is there a particular case you
-> think of where this wouldn't hold?
-
-The modalias scheme only matches on vendor/device ID, subsystem IDs,
-base/sub class, and interface.  Nothing in the PCI spec requires that
-the VF device ID is different from the PF device ID.  Variant drivers
-will often present a larger match surface to avoid the ongoing
-maintenance overhead of listing explicit device IDs.  Such an approach
-here would put us in the position I noted in the previous reply where
-the Rust variant driver needs to fully support these devices via
-vfio-pci-core on day one.  Binding GPU PFs to vfio-pci is a current,
-valid use case (VFs for some vendors as well).  Thanks,
-
-Alex
+      Arnd
