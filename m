@@ -1,56 +1,77 @@
-Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
+Received: from mail-pz2-f19.google.com (mail-pz2-f19.google.com [74.125.228.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6050E43B6C5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9694908A6
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461886; cv=none; b=GvZhW+bV6Db2gFurFRsLTiLIDcIW5q63jGvtdjDl/MBCllce6Z7evzCb9zpB8fQQ3v0ICgemguN2SHxd36G8g6o/t5omWc1i72xjTAMgva8KOjcxEwFg024CjNncNEMX6siTEf472dxQ2TsuLi0s2N1bwxuUEp16w2lr3H0x4GE=
+	t=1789461889; cv=none; b=IPes6ngCSwFu8RDHWLxZvvs4cXxASgtXmDzZeY7NLK5MFfcEtx5Wzbjf/rke6T2BgGZbcxB/FhGtnRWYSIQdOuLwBc49pbdxb7LsLrxfb0cvyiXzC7j9HrN6QEljY1JHWQhZYgVQA2ZfQTGIt3dVmh00tmbpuWFHZX6noFVXUe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461886; c=relaxed/simple;
-	bh=5VNjXBdl2JBF32g6/pFWNc4t2873DtQP3kDUrQxNzQc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KPl68kQjwMoHg8HY0yzbND7CkDUTS6DZYnvE4dyKwWgmKnUOMX1YdP8P22FFsWtE3oAaEvxaihURUFbEvOrCbaySpzMCTF7O1s60SfsBAXO5tmdI2EmrmRMXSKWYcjHd4folttjqIqa2c0h357Kt0XK9MbseJKvMT9l8JjDCLdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=diFC/f5l; arc=none smtp.client-ip=91.218.175.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789461889; c=relaxed/simple;
+	bh=leZEl63TX4V3e89rTQIVfJwcmOeBEc/iPm6Jejpg450=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r1KLykHKbQCCxcGijB7XqYYSWpeP1l+bChlbtaHjuyfVEZDmeFz+apGg6a3Fo18zB8P20ZNPQ/MiIHQIu7DTrsHoIKxFYNqY779czbTuuLrRe4yhkI79ia0pWNMZt6oumZ9VKAOS3AZNXmSMQzzPkOYhLNIFBJzVgd1v/EneV5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SkdB57K8; arc=none smtp.client-ip=74.125.228.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="diFC/f5l"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5VNjXBdl2JBF32g6/pFWNc4t2873DtQP3kDUrQxNzQc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789461882; v=1; x=1790066682;
- b=diFC/f5lFbLNJYpoWifyzgIGcvjI9vZzJNepeCiqnWVLfh+Cn90Du9CxuGt+eXqsZzKfGZWa
- jypgTva2rJCEb3uFvn0yAusc/U8liDil5UwFczBDjxUKl9tMl+19rRlUs0ikchveX2g5lLcale0
- Xu8dY1wItei6OGfaHDyrwCA8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c21aa090cc761614;
-	Tue, 15 Sep 2026 08:44:42 +0000
-X-Mizu-Trace-ID: c21aa090cc761614
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Sean Christopherson <seanjc@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] KVM: Replace VCPU_RUN with KVM_RUN in comments and docs
-Date: Tue, 15 Sep 2026 09:44:38 +0100
-Message-Id: <20260915084441.3846947-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SkdB57K8"
+Received: by mail-pz2-f19.google.com with SMTP id 41be03b00d2f7-cc1cea48edcso2026372a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:44:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789461886; x=1790066686; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J9q5GLhEmb8pBQpgxh9LfIHNEQ3BulUKIglALGzPomE=;
+        b=SkdB57K817vqh+qu8qQlwuuOlPEAYjFHPIXPNA2oq4gh2HGf8B9Rlz0Vn4KKN9YwNK
+         svXqMuBYK+MkP3Gbhi1vs8NpixyOUWl9WIjHF+pCqT6SSnf4As8IJgbRs5TyRy82gDMV
+         mUTDI4jHw3jl9Jy7/YWloXalbNx3Nr2cHIxrQohrU8Q5t/HDuge18/VjsWPSnNqhCDUI
+         /S1JlW6r7wXvcAA0JEVeh16o63ctJke1FOE5a/uPg/RsAODzWnTi/ou+nfvRtuilbuj6
+         g5YCn/CPPh7mjxKARR4vV4esbj0mc0DTPKqpwOz1B24lfzds3B6ByJfGakBJEWBWYceT
+         oSCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789461886; x=1790066686;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J9q5GLhEmb8pBQpgxh9LfIHNEQ3BulUKIglALGzPomE=;
+        b=NKygmR75z1FLWw0I7DIGVkVIEwLOsHmEgXhxgL8zEaKz1d4avPpRCSHyJdh+DarOUT
+         RAnpsxnG/n/jOGIgmcy2Hs7SVnz6W0FO/Kb27F+wqSZMQy5qQEiFk03MrFa+g2nGcWGz
+         uXqgjoJtYOnDTp6jpjn1zFSCLbGN7tQI70HFWToyLkTQ0V+oZeODKkV9BzOC8unEPsif
+         lseY3S8si2DSBEEcV6+6/gc8yejO/smgCcyUg1coh3Q5E9gEW5orXqSobPx0F9am00Ig
+         qS7LySSiw+PeXJBRNSzkl9QnKUiRoCMMPjDuuzJEyny0QzCyViBqMY0i4nwjGAG58UWy
+         1D/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwTuluome+tse4hanyOS+aXWLd24su1DqOtKNVFUw2PHA4vx1xJ76OQnknJ9+wh7D2enrTxtFcLGMo2R60=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9VpSyJjocJv8n5BiiM+PP+5RZaJowne5WwluV3Qg16/weusmE
+	IQi2OC5b2NFZXzVsBksb0D+F7bH/rhWiEDBlFgu32b9sC22mVMonZMbB
+X-Gm-Gg: AYBFou2VwswqJh/aG/lWvB4DthzeP0UX43kEnY3M41fttA1G5RMK9eEKIBe4DSImeeZ
+	R1I8D7cHiCZWVzOZdk6dE/b9QuqYS8dffbd/BiHzWoPwfD5uCfZu0S1mMFMTJOKE2k9XaI8lXs9
+	HVdx/7B+fqAGeNkKct4whZt51yvh1wOYMtJTkNBj4AE23STA0MRX2lK+vYmlEarv6oslea1DIH2
+	dsVF453ENkm3u5vNwXruO/l4rvatp/UjT1XFWngyEtECjqb5ecwyHc3L93fbjsZ/j8UlC89EO/F
+	LgGhC0mBO5bDLlzz9RZZdYqAz97fARurRw07ISDwFrjhzBLy3Q6Gg7ijCPj2mRkaqhz+HVRjOmi
+	2hsFxaA9k8oK77os+pGM52GVU5t0LdgHNcjornp9J05pGi7QXnK2FDbf0v03d/SBTw6anQm/qKT
+	yTh4nc4IUYGqXv9NNXQVSCqLhIeK5yWWTnUEBG3vlo3dGn6rntK455LgEsavTQCaxYGzt3NMofS
+	NNh4G9e9Ti4ndI9RNw2qD/yvg==
+X-Received: by 2002:a05:6a20:2443:b0:3c3:8c91:5da0 with SMTP id adf61e73a8af0-3db4061e3ddmr13173703637.15.1789461886434;
+        Tue, 15 Sep 2026 01:44:46 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm34718935eec.3.2026.09.15.01.44.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:44:46 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Clemens Ladisch <clemens@ladisch.de>
+Subject: [PATCH v2 06/23] ALSA: emux: fix typos in comments
+Date: Tue, 15 Sep 2026 14:14:07 +0530
+Message-ID: <20260915084424.1007757-7-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260915084424.1007757-1-hemanth.selam@gmail.com>
+References: <20260915084424.1007757-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,37 +80,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+Correct spelling mistakes in comments. No functional change.
 
-This one has been bugging me for a while. Five comments and doc lines
-name a VCPU_RUN ioctl (KVM_VCPU_RUN in book3s_hv.c, VCPU RUN in
-kvm_host.h). The ioctl that enters the guest is KVM_RUN.
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ include/sound/emux_legacy.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The patches are independent and split by tree, one each for generic
-KVM, KVM/arm64 and Book3S HV, so each can go through its own
-maintainer. Nothing else in the tree refers to the ioctl by a wrong
-name.
-
-Based on Linux 7.3-rc3 (fd73f4a665989).
-
-Cheers,
-/fuad
-
-Fuad Tabba (3):
-  KVM: Fix comments that refer to the non-existent VCPU_RUN ioctl
-  KVM: arm64: Fix references to the non-existent VCPU_RUN ioctl
-  KVM: PPC: Book3S HV: Fix comment naming a non-existent KVM_VCPU_RUN
-    ioctl
-
- Documentation/virt/kvm/arm/pkvm.rst | 2 +-
- arch/arm64/kvm/arm.c                | 2 +-
- arch/powerpc/kvm/book3s_hv.c        | 2 +-
- include/linux/kvm_host.h            | 2 +-
- virt/kvm/kvm_main.c                 | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
-
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+diff --git a/include/sound/emux_legacy.h b/include/sound/emux_legacy.h
+index 1127e30d33bb..55a7fbfb9bfa 100644
+--- a/include/sound/emux_legacy.h
++++ b/include/sound/emux_legacy.h
+@@ -5,7 +5,7 @@
+ /*
+  *  Copyright (c) 1999-2000 Takashi Iwai <tiwai@suse.de>
+  *
+- *  Definitions of OSS compatible headers for Emu8000 device informations
++ *  Definitions of OSS compatible headers for Emu8000 device information
+  */
+ 
+ #include <sound/seq_oss_legacy.h>
 -- 
-2.39.5
+2.48.1
 
