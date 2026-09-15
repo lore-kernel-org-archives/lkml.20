@@ -1,151 +1,82 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6493CF034
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902184BEE58;
+	Tue, 15 Sep 2026 02:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789439459; cv=none; b=Wu79u7NEwnKcNIp4IfgccBMQIBMFcWR+ve6C/9wr12ocu2WeeoWIuEVi4NaLd089Yeq8xd3Eq9S56RPewkfrjxoKG3s24envLuKRz1dmmIxKbxVg8KHIRmhkNYz8zhRw+7dWvaYSD/pbG1EqXbMwkpYl4CjVJfo+qPqv8dpnh3s=
+	t=1789439470; cv=none; b=rir1ylLCFjKV1avevioFAhv8kAgYCJm+lLMm4vnupBT7zO7zKnZOEGGIYths8emc2DqwSuComo6aCHhlvbmaeD8keUD1JdTcQnlkdk8IJ59XISx+nvUe4mFqk3KmIbqNrl7sPTqUbRYSiEJzahP0hAFwWVijsAjLBIOrW2d+Tc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789439459; c=relaxed/simple;
-	bh=TTDis9ovYCa/CjE7QJ8gTmBYn6XUwoHXtCest6ptaS4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c6a2V3ga3dUNPUw4NJ6326925sBpRSnujj5BVJHInpmAqj5gSDhTCGxebe4ueyzVhuTB/Yh69H8ZLyitCmrFU9lLrQmubldUBvIArMDbK9cKOogIhBcbD0qOrfrv42EoTsq5OKWln+KWOw3BJqRKJbSFj1z3/O6LtaWdG1tC5iQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=O7pd9AfI; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789439470; c=relaxed/simple;
+	bh=zFND42HEiSFkMuPzbTMZQRJP2AeJRtWlekxB52noHe0=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=rw1c7mzT22NaHoUE8UqFQz+302DDF4He3wjfGSrlZLYY2llqwuT/7fWt1OIrBZXNOodQVNqWAJKjvumWQ9+gdFRN8tzCxV0rxHs5zsEG4AfHOu6O5V66F2jH30+t+ogyNhJjxt7KB3amv77sNIt4Rzb0c6+dqs8c8l7Kg7Jgkys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S6BVmp05; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="O7pd9AfI"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789439453; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=T3zoP75eshcusIq4zAJHkrJgPYj9IyXUMvCpsktAJxc=;
-	b=O7pd9AfIgtYbImyUqcgdfTd/kU1pD3tcmgyORWOAwOezi23+WcEtoxewhwXzKH0jtEF3YjsOqBQwR4VG8jlvVHNNPiV73mqVflOMPJtFciAnxVwfjuVl1yMWyBJd1UuxbB60UrflcV59K+urm9Z2Xa9aVRAwQViGilmHIu9sGII=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XB.cn-a_1789439451;
-Received: from 30.74.144.126(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XB.cn-a_1789439451 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 10:30:51 +0800
-Message-ID: <1abcc4cf-fc84-4dcc-947f-8733df44e625@linux.alibaba.com>
-Date: Tue, 15 Sep 2026 10:30:50 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S6BVmp05"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375661F000FF;
+	Tue, 15 Sep 2026 02:31:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789439469;
+	bh=gv5LBlaojcS+9Yw3CljDaM6/vinyztrz0NN70y6VBlc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=S6BVmp05ab0zUmAhhWNCB2hiHTv2m3/7+dhoaRoTz9h2ubLsTl47dW52EI97R6Rd1
+	 bCne4xX0DH3CkYJ4Eolq9vi+Uq9dw3Bne1y8iIOpFz9vRKXKmPA+aU+fcmjd11wWeW
+	 +AIazJpdIEsupC3iOFxz8emLWp2L1MyEXiPKbl3c/+8HkCbZckoPjjxVprSAReoaR9
+	 GxV1fKqFqQ/ua6Y+dcg2Ix0V2l19DGD8LnImPOA2OYcmjMiinYXqD1LNaSk84jmcpT
+	 ZDPBaCMWFJ0L0vh8pJVSw94Z1n0xnp4bv3vzQMUEd6aUjoQDXKcZu3ZvUf1DqEAwhZ
+	 H/C7sjLWr7fqw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568B23924FFE;
+	Tue, 15 Sep 2026 02:30:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2] mm: Improve pgdat_balanced() to avoid
- over-reclamation for higher-order allocation
-To: Lian Wang <lianux.mm@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>
-Cc: "Barry Song (Xiaomi)" <baohua@kernel.org>, akpm@linux-foundation.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <zhengqi.arch@bytedance.com>, Shakeel Butt
- <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Wang Lian <wanglian@kylinos.cn>, Kunwu Chan <chentao@kylinos.cn>,
- liz2nku@gmail.com, xueyuan.chen21@gmail.com
-References: <20260422021842.78495-1-baohua@kernel.org>
- <aejtfpBUu7gNV6Tk@cmpxchg.org> <20260914113353.94964-1-lianux.mm@gmail.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260914113353.94964-1-lianux.mm@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: bcmgenet: restore the hardware filters on open
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178943940413.1322157.6253547859106825351.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Sep 2026 02:30:04 +0000
+References: <20260913190052.939955-1-nb@tipi-net.de>
+In-Reply-To: <20260913190052.939955-1-nb@tipi-net.de>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: netdev@vger.kernel.org, opendmb@gmail.com, florian.fainelli@broadcom.com,
+ justin.chen@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
 
-Hi Lian,
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sun, 13 Sep 2026 21:00:52 +0200 you wrote:
+> bcmgenet_hfb_init() runs INIT_LIST_HEAD() on priv->rxnfc_list, which drops
+> every rule off the list, and bcmgenet_open() calls it on each ifup. Every
+> rule the user configured is silently lost:
+> 
+>   # ethtool -N eth0 flow-type ether dst $MAC action 0
+>   Added rule with ID 0
+>   # ethtool -n eth0 | grep -c Filter:
+>   1
+>   # ip link set eth0 down && ip link set eth0 up
+>   # ethtool -n eth0 | grep -c Filter:
+>   0
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: bcmgenet: restore the hardware filters on open
+    https://git.kernel.org/netdev/net/c/23ca4ddc4fce
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-On 9/14/26 7:33 PM, Lian Wang wrote:
-> From: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
-> 
-> Hi Johannes, Barry, Baolin, Kairui, everyone,
-
-Thanks for raising this issue again.
-
-> We revisited the thread and Johannes's earlier analysis on the kswapd/kcompactd
-> handoff. We agree that a single static `compact_gap()` cannot represent
-> hundreds or thousands of concurrent higher-order requests. In such workloads,
-> repeated kswapd wakeups often reflect real unsatisfied demand, and stopping
-> kswapd too early can shift the burden to direct reclaim and direct compaction.
-> 
-> At the same time, related reclaim issues are still appearing in several
-> environments:
-> 
->    - Barry observed order-3 network allocations causing persistent kswapd
->      activity and device heating on phones, even though requesters can fall back
->      quickly to order-0.
->    - Baolin and Kairui have seen similar fragmentation-driven reclaim behavior
->      on servers.
->    - We have reproduced on PCs and VMs that order-0 memory and total available
->      memory can remain plentiful while order-3 blocks are scarce, yet kswapd
->      consumes substantial CPU and runs heavy reclaim/scan loops. We have not yet
->      reproduced this consistently on our server systems.
-> 
-> There is a useful parallel in Johannes's production work on reclaim storms in
-> defrag_mode:
-> 
-> https://lore.kernel.org/20260626182215.1107966-1-hannes@cmpxchg.org/
-> 
-> The allocation paths differ, but both threads expose a similar feedback problem:
-> reclaim may report progress in the number of freed pages, while not making useful
-> allocation progress for the order, migratetype, or fallback intent that triggered
-> it.
-> 
->> The compaction gap is sized for a single allocation, but
->> kswapd/kcompactd are a shared resource for potentially hundreds or
->> thousands of incoming requests.
-> 
-> We share this concern and do not want to replace the existing incremental
-> pipeline with one fixed value. We would like to separate two possibilities:
-> 
->    1. One high-order kswapd wakeup overshoots `compact_gap()` substantially
->       before `sc->order` is reset and kcompactd is woken.
->    2. Each wakeup makes bounded progress, and the total overhead comes from
->       repeated wakeups after best-effort callers have already fallen back to
->       order-0.
-> 
-> For the first case, limiting the high-order reclaim scan or per-wakeup reclaim
-> budget when order-0 watermarks are already satisfied may preserve the repeated-
-> wakeup pipeline while avoiding a large single-pass overshoot. For the second,
-> we may need stronger accounting of outstanding higher-order demand, instead of
-> treating every repeated best-effort attempt as a request that still needs
-> background progress.
-> 
-> Would it make sense to align on a common, parameterized reproducer and trace set
-> before choosing between changing `pgdat_balanced()`, bounding the high-order
-> reclaim budget, or improving demand accounting? A useful matrix could cover:
-> 
->    - best-effort order-3 allocation with immediate order-0 fallback;
->    - sustained and concurrent THP or pageblock-order demand;
->    - default mode and defrag_mode;
->    - phone, PC/VM, and NUMA server environments.
-> 
-> We can share our reproducer and the PC/VM traces, and adapt the workload to
-> collect per-wakeup `nr_to_reclaim`, `nr_reclaimed`, `nr_scanned`, order reset,
-> kcompactd activity, allocation success, and fallback path details. It would be
-> very helpful if Barry, Baolin, Kairui, and Johannes can tell us which parts of
-> this matrix and which counters best represent the phone and server cases. Then
-> we can compare scenarios with aligned measurements and work toward a solution that
-> does not trade mobile reclaim storms for server direct-reclaim/compaction storms.
-
-Like I said before [1], the problem we ran into is that in scenarios 
-where fragmentation caused kswapd to be woken up and reclaim too many 
-file folios (even when free memory was sufficient), leading to severe 
-I/O contention that impacted some applications.
-
-In such fragmentation scenarios, I don't think we should reclaim a large 
-number of file folios, instead we should wake up kcompactd to perform 
-defragmentation. So in theory, I prefer Barry's earlier proposal to 
-adjust 'sc->nr_to_reclaim' [2]. But let's see what Johannes thinks.
-
-Based on our problem, I think we can setup a simple test scenario: one 
-workload tries to allocate THP under fragmentation (and free memory was 
-sufficient now), while another fio workload accesses file folios 
-periodically. In this scenario, kswapd's reclaim should not affect the 
-fio workload's performance.
-
-[1] 
-https://lore.kernel.org/all/8d4df864-2954-4eb6-b8d7-ae6595646e6e@linux.alibaba.com/
-[2] 
-https://lore.kernel.org/all/CAGsJ_4x9vkv2G7d-gANf8kqUJVxQh_P9=AJxr98LFUgQeOTqow@mail.gmail.com/
