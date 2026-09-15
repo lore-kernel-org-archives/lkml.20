@@ -1,175 +1,159 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089554746D4;
-	Tue, 15 Sep 2026 09:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF05367B9B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465163; cv=none; b=gbmyAbHjEej0shBTl2Pc4g70hv4oehrpuOjpus45vyeOptPmrDkhDQBnVagXXQ3wbuGriCo0iXmXZIQA7p960WW5CkCkqnN5bamZxgbafe2XOGYX5ElbLe+t1cwrZ9CBCZgP3PTTMRPCdWo/JWBi5LisZSU/oGp/eFDaZ3ztGuk=
+	t=1789465165; cv=none; b=gE0GqsPw6ERKYkzZodHnxY58OF1XHVOtac2+D7urClNqpNrQJvZRbvPsV1DWYbv/F9JkfXqLzAvkuZCBzFg42DNaE7z1NnYn2/j95gSP5PZZD6CeQU+RM5NpJNw+2R5sEXmEeuxZZfuSH4MnfrA0IGnuWEuuYvfS89aKqQ9bvGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465163; c=relaxed/simple;
-	bh=noYAqu5xMjXDOTIOkXkUYkfPFO4k5elaJ4Dn1+myvNE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LzpExvyAt2+K5JSUBVmRduEnYIOu70MicXxRuYFaNUrfJ2FMytoKwT428U+GuTMBhxUJ707knV9GfOvOfULdqLDr0SWqPWtO4xD8b5m3eQaNDOFzzr8KfLLRGNSCXyzWC3VE7BVBo8KJj5lQwk9VaKJkN5N8tSXROsIjKbTjY2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UwkVdtU4; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789465165; c=relaxed/simple;
+	bh=hzhTHbbuhlaLXp1NMcukmmnntT/l3IaAz30Dj5qvjZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CRPpUX9xVoK/JXKw6HmNMdWoTWx/0JpRHZBTmYf8r89LroxQaj5jhlvkzonmZFt9vVCcy9HYbfRkBkVerTNMLcJ0SjWo6cpwymHub44wnnfkjou0n9cPr3jLqz9rqTj9A0xhA60PCVcZO9zuxfQ3XGw6pcqy7/ovsK+QUlnQXcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GA9/zt99; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q/Gj5hDr; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UwkVdtU4"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F71SFK150546;
-	Tue, 15 Sep 2026 09:39:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=ezRQPvyWo9HKe4O3lW/Kc1sT6/UBrv
-	tIblzKloT6GXk=; b=UwkVdtU4opqwdFfSknr0pPx0f2W1OgSrqwTI0oT0vseHc3
-	qRwd0BBLLRqRWQzPOO/ELCFjsUJSHiBkAtm9ejHaU0qsYbgPoN/3Ds5f7PCf2eJR
-	RPzoa5BPijOlTQmvKTYDzKt4pf6W3f230qyjSLZZU7QDxSHg9duE0Tp/s6cuUq4z
-	44K09F3dXH8pjIli6V9XJY88DxZOqRqRdUVFY0N/aoYuEEr3cov0ZPe99TBdX027
-	9E7Joy56vDqHWJuz/1Vqs+5/ycyEkRcL2e3jR6xGTZsvzkNjwz71dahDaeDzKd5d
-	foWVbjDqHCNaYbsHxNoWDGXbyaPOwcE1/Vw4zbFg==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4xb19-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 09:39:02 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZG1j3594819;
-	Tue, 15 Sep 2026 09:39:02 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gq03v8q7n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 09:39:02 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68F9cwbB17826142
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 15 Sep 2026 09:38:58 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 55BD42004E;
-	Tue, 15 Sep 2026 09:38:58 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3D66420049;
-	Tue, 15 Sep 2026 09:38:56 +0000 (GMT)
-Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue, 15 Sep 2026 09:38:56 +0000 (GMT)
-Date: Tue, 15 Sep 2026 15:08:53 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Narayana Murty N <nnmlinux@linux.ibm.com>
-Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, tpearson@raptorengineering.com,
-        linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: PPC: Book3S HV: Avoid triggering an extra interrupt
- for a vCPU
-Message-ID: <aqkSLYpdCLpccFAR@dhcp-9-123-3-18.bl1-in.ibm.com>
-References: <20260915060146.33410-1-gautam@linux.ibm.com>
- <647f3494-1e79-43ea-a8ed-157b3f0e6c54@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GA9/zt99";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q/Gj5hDr"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZLJd2415435
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:39:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=f5Zjmw6qUFD
+	CsBfmlr6XY1L1oGfIgEXoh02cSpUE4f8=; b=GA9/zt99H7aeh13ApRGUM4FGjJ2
+	qUaBNUbUpwFNeASf3rYgOLSzaiFMIkOtPUXVoKv7J1V+URsnLF4T6QoC8nzVxrCg
+	U7W68T6jbnw752MWatIrWAjtxyRft1XU7+XAzmztnlI2/t13HdqcSzwjQ26brU8Y
+	qs9mbmgnWh3xUA9l3hsRRaY+pV4PCQ5MfDL4dvEufIXvZ+NZsVEVcPe70UGGO+6p
+	eyscnjxs2D30h1VQCs0EVuNUpQ0sKmubdGUyMEsan2va8eIuhKyLggy8Mhv1qOv4
+	xysNphh7+QOLubDhWtuBPthT1seuBxTYZQU09isOKGaZsFJYClvnoEKWQ2w==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpxyd95e0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:39:19 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6bc8f608979so3386650eaf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:39:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789465158; x=1790069958; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f5Zjmw6qUFDCsBfmlr6XY1L1oGfIgEXoh02cSpUE4f8=;
+        b=Q/Gj5hDrDNx0O1BVxpU4i18uQwYd2VgXOleOz9qIJ/0cqcno0qBWur0GkeAlDT/7Jf
+         VXKa/gHN59/k2IDhSwjO83jLMDYf9LYEbVvINqQe5C9KYO0siyDSQ/8Mytgh4S0TMxDm
+         Zra2DkuYUCP8TgZNOAc0DbiHLxBL5aNKHrdyu6HTz/YXP4U9l5BxKOMZipc4CpVXPym2
+         1lJz3u51EX3LrH/WfLP8aUO+ML4XitgMpMb9XG5tHE7Um+kF5nQrOimmpUvMZmTAcmzd
+         LD7Hq0gTkSKkgKx7FO1VC1EKmx8zM+nFZXe8rliUDcC82I02Q/HNWKC8WyiVIpF5bnUv
+         NWNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789465158; x=1790069958;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f5Zjmw6qUFDCsBfmlr6XY1L1oGfIgEXoh02cSpUE4f8=;
+        b=i/kT8o/ogrjVQImg65H7vwhxhs5nio79fhopctbyoq0A3MqWIUnpne7J/Tz99m/5EZ
+         TaSwudBqB8mQGLPk3/c0jnI2cHkeg96vu5iifCX1QUsjSJXvg1fjBytYBi/OEXXjKJyk
+         fFW4HHWvrgh3pPswv4KAI6kwm+YxJlm3ZYTAm9L0lXp1iQRyAcc0WuGgNtxOJ5qgXpIQ
+         CCVx52Vyb5H3+sFdz21d1wGxuN0A2l1sYrs1lF7SQSJx7sixEhI13u7GrWb9xs5VwJn2
+         rTpjyuZ3lelXhPcC2dfXPd4cyI3QVHEgyketO8bdqlToyl7k+FIn2zo4q8J9IMeGHCE4
+         LYjg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUZsuey9aJOyAZbLrgshUHz/gKKmFTdfhN2aKAT60wUE6yhpJ7IwXr9sQPf5KZQKZnLekUgURakgNGgyU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l812aaVaZnJmAoEycAh0LI1MRSBOvC+14lNtuq3GjlWBnLylKY
+	23SiAvtNlY0OwwSTGJ6pX4H4BnkpQGkPkPdV73Prli5Cn2y1LeSgnSSvXBzBWI1BaIzj1Umf/Y/
+	PP3zRUxpPRQYhHUdslEDMhktOognTy4Qfvk+vpUeaHNylt1d9ASBtyYJ9c4fzC90CsXKGu+6aT0
+	U=
+X-Gm-Gg: AYBFou0lX13zkr8Ik67WKUyMC1LHecF7nad0uMKR2t5x52HK5Cg9wUFIkS5NcKjnp4b
+	/jVAZOBCrX4i/AdfsvrHyyo//1OrX6fXuTibr5yBpgu4SPIIXlmhLGOgKwTpfMmoER0bf1YVQwp
+	DMAs8J9cRXkpaRGqyH06VSI7D4g3p8btxuo8E6IQxD2CuBSaPao9+OPIgtk1xSTLtbYAQq0LUIe
+	Dpi8sR0ZDCTAlEU2ulJ8KHJvEWUdnXpseTi/OmsbWljIN8tLQYSUupEbgtdpTb75huFNAaT5uzr
+	dxbrTzVDPQ2/8h49bnx6gIDYOawrlwe/EyjZ0odrvV463g3vGxl4gUSo3uN9V+s4jFKDl4jYLto
+	obTjfQvz3/VjDfr6dygpk4SD+7eT/vMyHGDrr9YQexReAruRHl6ntP3yeZYcCBQLE9us+gJUDnD
+	EKjpbVIhFxOVrHWaMyq0OVjg==
+X-Received: by 2002:a4a:e841:0:b0:6b9:740a:290e with SMTP id 006d021491bc7-6c542d27db7mr4193287eaf.65.1789465158134;
+        Tue, 15 Sep 2026 02:39:18 -0700 (PDT)
+X-Received: by 2002:a4a:e841:0:b0:6b9:740a:290e with SMTP id 006d021491bc7-6c542d27db7mr4193259eaf.65.1789465157287;
+        Tue, 15 Sep 2026 02:39:17 -0700 (PDT)
+Received: from hu-sivagupt-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365a59b18sm30325876c88.2.2026.09.15.02.39.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 02:39:16 -0700 (PDT)
+From: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Subject: [PATCH v2] mailbox: qcom-cpucp: read mbox hardware register using readq()
+Date: Tue, 15 Sep 2026 15:09:10 +0530
+Message-ID: <20260915093910.2487018-1-sivansh.gupta@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <7527e6c7-82ad-48f1-8329-5b9222c347e4@oss.qualcomm.com>
+References: <7527e6c7-82ad-48f1-8329-5b9222c347e4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <647f3494-1e79-43ea-a8ed-157b3f0e6c54@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: ENni7bObFnMqkn-srT6ImvacDnsnq4DT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEzNyBTYWx0ZWRfXziwMaQTv+bS9
- fUEDYoOzbUTpX/EE7CwbcBn+e8ZeT9BbBBbbGFT/hsrs4sdr8FyNPQnG7rD3dyXU/F4cxXPd6nc
- 0vEBjUzJ9SXCqqidZ5JtmlB4ksbk5MM=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa91237 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=gj-Ntr6HeOcHXmKXbbwA:9
- a=CjuIK1q_8ugA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
-X-Proofpoint-ORIG-GUID: uu7ZSZFdrprEij4rEY3SnoNd3XkCBrpz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEzNyBTYWx0ZWRfX+yQM9tETzD0Y
- Yd/XxhYxvLf5Ar9u1v8mkkRR5TuY8nE6hE0uVsgFvS3mU5va1PA4SxA9BC7AGJ/vz8ke51Af4cn
- e1wNuGqZrDVTnz8PfmKR0OMKPd0p3kcX/EjV/DigwBSxotSm7v1NkePfgSD5AjGDXZpL9xxo2Q4
- TI078ubQ12wSVstWy3Vq3xFN9EPfW7iAPNq/nIP3+KzJT9wihPTPOqwdy25nqvdDSH/ZEeVvblo
- qmedcRi848EuI3uQQLyzPaOTQLNXK2Yr6Y4EzqmQ5QXVKlxOIVja/HTcfrvEpa85W7urwZrAWjG
- a6cOt3mA/LyJm5UlmXDze6MErnLA5nJ6qusDL4dIvgR0SdDTY8aDajig5WgZEGgRHz/IBk6Ldpk
- uXPl4pPIJ3A8qLifD0pKeysurd11Ga8rc9w7BylWAyy/CNyAyJieJR9ThacBqOnq9HpPOBTqUNY
- DcIP8HqaGkRGOTaL2Iw==
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEzNyBTYWx0ZWRfXwBphgFOchDP8
+ J7tFV2hU2yOTW+nY49NMHXEBJbNFtbsE8AeR5BUwHjev9jcn0WyTEc8B4xSXzJx+MpR0BN0ex2r
+ hwTrDbizXrNX5XKrOEO0lXfWL7AgQ5E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEzNyBTYWx0ZWRfX3ry4O+J5ZNXP
+ fjewEK1EzcLR5djzF3UhjTSsZSzvr8w1pJp8tjasflrqQ5xuVg484hXbaWCyq5wywD0h5AEfz69
+ 88xJEgPUqFqiqsam/xILF4vVyR54rg87oOMwU271MNGkN9WhmIpO9qD6bVPOp8iLJwS6hfjRpKk
+ nt5AjQffW2Y8KDNO1mGKrSZgxKFr2dBDr7P4qrEoS2rnKY3qgiOk+S5TT/55l9YtSysI90ObXLf
+ uLnL8FFzw0w5hfZ7DGL8Jir4mSym67QY5nWJ4AgcR0wAEkEsm4ZY1OmwhdpErWo4BzmfIW/lTf9
+ G22FlPRVwK+zmtSZs1EzCYlqx85AX+VeTik092xxuaLRiAbwIsI5kR+xzFjdVFrOzLPWvZHN9qR
+ 1zI7dvinitS/AY1Mts6Oes9N2YW9LVjfAnKaZ0X8zGkseTiBVlunelrddf0+1GUdMlYoFHxQk8J
+ pTaP15bl2kyhscVg+ZQ==
+X-Proofpoint-ORIG-GUID: q6mFZqhnNkuRxzk3qh77nATXJAjo8n4c
+X-Authority-Analysis: v=2.4 cv=LYepeTfi c=1 sm=1 tr=0 ts=6aa91247 cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=zVvgFSUyQItoBg7ASCAA:9 a=WZGXeFmKUf7gPmL3hEjn:22
+X-Proofpoint-GUID: q6mFZqhnNkuRxzk3qh77nATXJAjo8n4c
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150137
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0 impostorscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150137
 
-On Tue, Sep 15, 2026 at 02:08:28PM +0530, Narayana Murty N wrote:
-> Hi Gautam,
-> 
-> On 15/09/26 11:31 AM, Gautam Menghani wrote:
-> > A huge number of spurious interrupts can be seen immediately after a KVM
-> > on PowerNV guest boots up in XIVE mode.
-> > 
-> > $ cat /proc/interrupts  | grep SPU
-> > SPU:     223705     192439     273526     147623   Spurious interrupts
-> > 
-> > This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> > Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> > is that when there is an interrupt pending for a vCPU
-> > (xive_interrupt_pending() returns true) and MSR_EE is disabled for the
-> > vCPU, LPCR_MER ends up getting set for the VCPU. When the vCPU starts
-> > running, the XIVE hardware presents the pending interrupt to the vCPU
-> > (since the KVM guest has native XIVE support) and then a second spurious
-> > interrupt gets presented to the vCPU due to the LPCR_MER bit being set.
-> I agree that we should avoid setting LPCR_MER when the pending interrupt
-> will already be delivered natively by XIVE on PowerNV.
-> > 
-> > Fix this behaviour by not queuing up any extra interrupts with LPCR_MER
-> > if there is an interrupt already pending in the case of KVM on PowerNV.
-> > This reduces the number of spurious interrupts drastically.
-> > 
-> > Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
-> > Cc: stable@vger.kernel.org #6.8+
-> > Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
-> > Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
-> > Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
-> > ---
-> >   arch/powerpc/kvm/book3s_hv.c | 5 ++---
-> >   1 file changed, 2 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-> > index 7667563fb9ff..fda3767ebc9e 100644
-> > --- a/arch/powerpc/kvm/book3s_hv.c
-> > +++ b/arch/powerpc/kvm/book3s_hv.c
-> > @@ -4937,9 +4937,8 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
-> >   	if (!nested) {
-> >   		kvmppc_core_prepare_to_enter(vcpu);
-> The current code handles two different indications of an external interrupt:
-> > -		if (test_bit(BOOK3S_IRQPRIO_EXTERNAL,
-> > -			     &vcpu->arch.pending_exceptions) ||
-> > -		    xive_interrupt_pending(vcpu)) {
-> > +		if (!xive_interrupt_pending(vcpu) && test_bit(BOOK3S_IRQPRIO_EXTERNAL,
-> > +							      &vcpu->arch.pending_exceptions)) {
-> >   			/*
-> >   			 * For nested HV, don't synthesize but always pass MER,
-> >   			 * the L0 will be able to optimise that more
-> This means xive_interrupt_pending() now gates the entire block, including
-> the BOOK3S_IRQPRIO_EXTERNAL handling, rather than only avoiding the LPCR_MER
-> which causes the duplicate interrupt.
+Mailbox hardware registers are 64 bit wide, but the interrupt handler
+currently reads only 32 bits with readl() at 0x4 offset (upper 32
+bits). This does not return the correct value expected by PDP log
+driver. Reading the register with readq() at the base address
+returns the correct value expected.
 
-Yes valid point. If both conditions are true, we'll never get inside the
-if block, which is undesirable. I'll fix this in v2.
+Use readq() to access the 64-bit register and pass the correct value
+to the mailbox client.
 
-> 
-> Also, the changelog describes the issue as specific to KVM on PowerNV, while
-> this condition also affects the pSeries/nested handling in the same block.
+Fixes: 0e2a9a03106c ("mailbox: Add support for QTI CPUCP mailbox controller")
+Signed-off-by: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+---
+v2:
+- Expanded the commit message to explain why this change is required.
+ drivers/mailbox/qcom-cpucp-mbox.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-No, xive_interrupt_pending() always returns false for KVM on Pseries. So
-effectively, we end up only checking for the BOOK3S_IRQPRIO_EXTERNAL
-bit. So this is not a problem for KVM on LPAR / nested guests on
-PowerNV.
+diff --git a/drivers/mailbox/qcom-cpucp-mbox.c b/drivers/mailbox/qcom-cpucp-mbox.c
+index 7ffc40acea9b..f56a05149281 100644
+--- a/drivers/mailbox/qcom-cpucp-mbox.c
++++ b/drivers/mailbox/qcom-cpucp-mbox.c
+@@ -61,7 +61,7 @@ static irqreturn_t qcom_cpucp_mbox_irq_fn(int irq, void *data)
+ 	status = readq(cpucp->rx_base + APSS_CPUCP_RX_MBOX_STAT);
+ 
+ 	for_each_set_bit(i, (unsigned long *)&status, cpucp->mbox.num_chans) {
+-		u32 val = readl(cpucp->rx_base + APSS_CPUCP_RX_MBOX_CMD(i) + APSS_CPUCP_MBOX_CMD_OFF);
++		u64 val = readq(cpucp->rx_base + APSS_CPUCP_RX_MBOX_CMD(i));
+ 		struct mbox_chan *chan = &cpucp->chans[i];
+ 		unsigned long flags;
+ 
+-- 
+2.43.0
 
-> 
-> Thanks,
-> Narayana Murty N
