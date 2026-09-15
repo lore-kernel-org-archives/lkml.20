@@ -1,151 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045464C8C60;
-	Tue, 15 Sep 2026 18:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7934CA271;
+	Tue, 15 Sep 2026 18:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789498351; cv=none; b=alcDSUINcR6GrxpLQFSP6Uaj/3gp1BpXx133odrAtc5dn49un4Lrmr9h4xByNYw43xnHPpMM6SzoL56HIK7DUBS+zTXwDXL7qsa20eO/yM4USvvLcdXK04lchJRLxGhr+R26aaI5jhlDa+i5ayzgvXLm+FTK9zF86S4k2dKiXzA=
+	t=1789498414; cv=none; b=LueUwkE64LGXf6ZE0xDF/bhikNnogu1LJ/88FqDSTIFz/4xACR/3jVTJ3eA5Uvr9NkFj+lyAu18aRRFAjjLXIjOD3tgtQNiGcsskLHAt+FxSs8nAlKRB8t7Dyk/xvtjkhLAqXHgZ7EltGo7cRTkL/Yv4irFq6V2lgmX30xqNjGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789498351; c=relaxed/simple;
-	bh=Prs0G2qMbzM31E2yP359tw1C4Ebd+MCYjUJPZTIyZus=;
+	s=arc-20240116; t=1789498414; c=relaxed/simple;
+	bh=sdsbEFsssWzRsphZE7H3Fpxb+1wQm7XXnSOm/1wxa2E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jg/dibIZRwVrsyCfTynz3YocUmAmsWk3l9tHn2ehBGvCN2zY+YTKR7AFGGvM9ABdqlAqKfC0kWBnHeED7jqoeMSw90Un2c2KaKgJkR3b5QQRKb5OJSofdRNevrqduFPatoPnMbII33nUDxsb6atVhzW6A6FNDand+se+mRXN8Wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dj46Dqgm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Siw/KUjkrV46ZwB/ZrHkxd8h9Dn5jrgwDp9Bl0pT1kPSVwAVZZTeoTUA5VF46NXxXX21qGx+Un4BpgrFjcP7KaUIttdFDMrNQ1nhetKgHZhfUB1NNCo7zQc+vB2i62GaOiGtIuqpUFMryqEIi37YJxCBBZ3gg4qXCDYVaBovVv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ad3xzv5k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dj46Dqgm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65A61F00898;
-	Tue, 15 Sep 2026 18:52:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ad3xzv5k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D981F00893;
+	Tue, 15 Sep 2026 18:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789498349;
-	bh=72tlQhpdmngB3szUrALiHxqSz5LmQFAfQZTFPwAJsm8=;
+	s=k20260515; t=1789498413;
+	bh=UFz2xTqyV2U6wfcs/i9b3YVTZ8YTwk7BzSeH8eOOjLo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dj46DqgmsACSwFq9HJ3ISBz0v7KQClcuynuO9qvwXog58wO/ScSuYdaGZKHgXWvfQ
-	 MNIiLR6/CWGcs2B0MhbCRK2aMTRY6dtK71/bGZdxyT8HaMz+gX3i3TsfrQcfD9O/2g
-	 F9R5HI4ZwuLIC/dDLbKGewTrvAWtmj2/uWtbnlwRjy3UiF9zVvG3Q4LlI0NpvD8aAJ
-	 DJrMkybpP4frmHg9A0BF8idW56jNNHHMO4Q37zU7dBONYMBSpnYs1SU5pr9ZdsZbOO
-	 Z8bm6ke0y1pxqCSk41Eg0cXZYLGeU6SHZOeCpu7UYnxm14Kt0coiGxiIX/45p1elM6
-	 JGYqDbDSmP+rQ==
-Date: Tue, 15 Sep 2026 11:52:29 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>, nikitash.mariiaw@gmail.com
-Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 21/28] NFS: nfsroot: Refactor root_nfs_cat() to use
- snprintf()
-Message-ID: <202609151147.C5B45CB@keescook>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-22-morbo@google.com>
+	b=Ad3xzv5kIRyrCADPmet22+fj+2ISqrCrDr5m31Ba/PcUnEYlOfx32rLqdpJHhz+eO
+	 Yi2Jh0x9slMUyWy+OIFBuU47emq0P+Xc2o6Q2Z6lRy24AnNQVit+QYhz4wq1d+DkWu
+	 bb4p1mUlCBfPqUA8K00tTNell0dBAK0TbDoOkNZUS7BkbCQSTqfy1LXXtm8nL1z/uf
+	 1eKnPvNCefHbGo1l6a6j5j+ZU2o2RJ0e+XNfMXQRLxXAzNvWs0oQNKA16Jx07sNb3U
+	 ognu484HQKt6mAOuW2OoGm4sGdcVAtEW89AuaTXw1ZBe6a+W16/EnilN/cJYN7MKx8
+	 MPJyaEy44lh8g==
+Date: Tue, 15 Sep 2026 19:53:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Baojun Xu <baojun.xu@ti.com>
+Cc: tiwai@suse.de, andriy.shevchenko@linux.intel.com, 13916275206@139.com,
+	alsa-devel@alsa-project.org, shenghao-ding@ti.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	k-yi@ti.com, henry.lo@ti.com, robinchen@ti.com, niranjan.hy@ti.com,
+	pin-hao.huang@hp.com, Syed.SabaKareem@amd.com
+Subject: Re: [PATCH v4] ASoC: tas2783-sdw: add firmware download status check
+Message-ID: <ed7fd58d-e36d-4d40-afda-fb9937ed1e5f@sirena.org.uk>
+References: <20260915035223.1518-1-baojun.xu@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pCJcuhKfiYZaJZ3I"
+Content-Disposition: inline
+In-Reply-To: <20260915035223.1518-1-baojun.xu@ti.com>
+X-Cookie: Void where prohibited by law.
+
+
+--pCJcuhKfiYZaJZ3I
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-22-morbo@google.com>
 
-On Tue, Sep 15, 2026 at 08:18:38AM +0000, Bill Wendling wrote:
->  fs/nfs/nfsroot.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
+On Tue, Sep 15, 2026 at 11:52:23AM +0800, Baojun Xu wrote:
+> Currently, the firmware download is unnecessarily triggered on every
+> system resume from suspend, causing significant wake-up latency. However,
+> this step is redundant if the AMP remains powered on.
 
-This collides with:
-https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786411026.git.mariianikitash@google.com/
+> -	tas_dev->fw_dl_success = false;
+> +	regmap_read(tas_dev->regmap, TASDEV_REG_SDW(0, 0, 7), &val);
+> +	/* Check if the AMP is in reset status. */
+> +	if (val == 0x20) {
+> +		tas_dev->fw_dl_success = false;
 
-> +	ret = snprintf(dest + len, destlen - len, "%s%s",
-> +		       (len && dest[len - 1] != ',') ? "," : "", src);
+Don't we also need to set the flag to true if we're skipping download,
+what'll happen if we get here if the firmware was downloaded prior to
+the driver starting (eg, you can probably trigger that with a bind/unbind)?
 
-I prefer Mariia's version because this inline ternary is difficult
-to read.
+--pCJcuhKfiYZaJZ3I
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I was expecting to land hers soon if the NFS folks don't pipe up. It is
-one of the rare cases of still being open-coded, but the strlen() usage
-was pre-existing to check for the trailing comma, so it's not a clean
-seq_buf() conversion candidate...
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Kees Cook
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqplCcACgkQJNaLcl1U
+h9BAKAf7B64HpvTg8P8ErHFv0eDDiBJO00Ta4EUvgOzDvIImM3RRbxEu9b7oSUvL
+beaFxVa25q36Nfm/+WwGfk4IzOV4NgbieJePGrDFAXNCMi+9b60/yx8uhZzrPEJm
+iD22VMhvMgHCVfvZJ7WhYN385Yvt+yrqnGoFvTgdXhLF1jsjIu94yhexqcu4vYko
+YUAkLzHnIz9meIYvH3xvUX8RyUozTdO2uE9FYHXpMKHFBjVjIiSyvhibYEHhhJw6
+uw0Ihl/0ZhLsqEz3Z//swUR5l1wAV1F1w2nHz8ifwPZDIAEscMcUXBz/NuDTVdZV
+JycYnQQREcemniKKvVaWBjIg5HcOhg==
+=zuyA
+-----END PGP SIGNATURE-----
+
+--pCJcuhKfiYZaJZ3I--
