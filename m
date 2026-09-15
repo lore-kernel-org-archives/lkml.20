@@ -1,49 +1,51 @@
-Received: from mout-b-112.mailbox.org (mout-b-112.mailbox.org [195.10.208.42])
+Received: from mout-b-202.mailbox.org (mout-b-202.mailbox.org [195.10.208.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4314A2E1B;
-	Tue, 15 Sep 2026 11:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2E94A384F;
+	Tue, 15 Sep 2026 11:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472471; cv=none; b=iVDu+X2OXIgLkoYQSPVrEEJ04dtx24FUuuccA25lbuhMM1B/xS0VfvpMaUZscuma2oVE/hOs7sE0h8cC51EyrIT7sttkRqAeuqIRPF/0N7Z7euod5R+M+U9ff3YiFmdILUVxTN7chIP2WgoDhbgvUjNZx6yF2Ayu3vSTIn1r3Rg=
+	t=1789472474; cv=none; b=k09FGC4qZh8RPwBSv4K9JBrN3gviUCgSVuZKVcvE1jBBExh06hrdvYfftSGXqO56x4Eojm/pCgamTbbK1e2tOLMkKGo06eNbbKJlPGoA6hbidsGRvxU5C790LPuk+UmO84oOu1vN++VE2ZUUPRTrYFJvxthm8XscFnODkHvdE8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472471; c=relaxed/simple;
-	bh=IjJuKqKXLxU/0JYjaYVkBnwO9uU6V1vq++HA926zpMM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LS31FL1ReS5fJPUAGCpKN8J0c4JuCcHcZqoywwrk7aJl4MbLTK5zpplTNgouDsUfy+jrBgI+qVCSAOST0V7+j83qGmPLGH3Ma22+k+UMlR9dCvy6P4PUyaWGvzAr2iGpdrwjee857DmLeiVJDWB6OC0pV0F96pucyAB0epUSxN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=x5QQo9EN; arc=none smtp.client-ip=195.10.208.42
+	s=arc-20240116; t=1789472474; c=relaxed/simple;
+	bh=IAs3OiIJo3O5rPcXmlXJ2KBpC52K1tzgEIoVpSwYIVM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IdFtYj8UPDOD0ZW78aLp6d6TG0ZsjemT5edoXn0geaKgyvAxYbq2eBQRISk6cXaqjfi4jF8O539fPJbyKVaBnJ9O/ZsW5+paGbZos/vPG4y9DktCM8JKNhGsHh+vYWPKeEbIycVPO5l81sVQOgk1B5OGDpQ09QaNlMv+lc3ZDoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=UU7kjnEs; arc=none smtp.client-ip=195.10.208.62
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="x5QQo9EN"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="UU7kjnEs"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-b-112.mailbox.org (Postfix) with ESMTPS id 4hkfxw693Nz5wwK;
-	Tue, 15 Sep 2026 13:32:20 +0200 (CEST)
+	by mout-b-202.mailbox.org (Postfix) with ESMTPS id 4hkfxz3vT4zKnfJ;
+	Tue, 15 Sep 2026 13:32:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1789471941;
+	s=MBO0001; t=1789471943;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=5NUlqAM6Yy/s3cndoxdYdrvWqEeQ2TNloNsVjiACbWY=;
-	b=x5QQo9ENm9ky01mXEXPizTWwM/E7XWiC1MmEtmLYmeP7bNSGt+uUC77cz2KGUMb+IWLoGK
-	ZbWpeTe63iauypormSpsgqGe3iimXepN6MP2qHX+u8of4Jy2aMR6pwHNgVPCsmBE519YPi
-	KIkDS7bMG5O8GR30SwDWKpFF0B/OEKuEwvK8P0HMZ6tfLMWXpMiyI5Q2J6oPOTq6eHvBrM
-	+NiRHwv8IMI8mDvN//3GCSaYknbVaqxZyCfu1Zl3ja0rW11K4fILKkwE60DM0nf/18RJ4k
-	XZ52HwyGActDyfML0czwdtIbiJg7K5g5HLGqQHWevDWDAdIBzZvAADdjy1j5og==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YId96aUBJA7Q13QK1MT0jzDtqKXA7u5TmZO3FZ6Urlw=;
+	b=UU7kjnEs0SSavvAgSRmqS5mZ7HPZZNkobDOE3InBJnCuaWWJ5o3Cbiupeqg/FuQEwxIDj3
+	S+fGq0BjU9k1e5UYDPiede7aUAwpIgMemjLEGhQUeadAJI8DahLBfankQtNeYpHIR2ZjJs
+	xH/RUBoMaU5GGnnj0s6h3yS4FMjBZqtkBkhQz82F2HfCfwOv7Nkn5LLO13S7/513vdWm3K
+	kbYff8uzXL0kpAcBVrk1A7nMXgyucSFbqQygcjrgx9X9iwt3lKI/8ldTKkFvnjoyEMf7zW
+	WUOCcp9VWQgAl0IfLS+uHNV9HQ062kpVgJrCZMYrTmmsNayWfq3C7EjXKLE4bQ==
 From: Ralf Lici <ralf@mandelbit.com>
 To: linux-crypto@vger.kernel.org
 Cc: Antoine Tenart <atenart@kernel.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	"David S. Miller" <davem@davemloft.net>,
+	Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH crypto 0/2] crypto: safexcel: fix AEAD DMA mapping and cleanup
-Date: Tue, 15 Sep 2026 13:32:10 +0200
-Message-ID: <cover.1789469436.git.ralf@mandelbit.com>
+Subject: [PATCH crypto 1/2] crypto: safexcel - Avoid unmapping failed DMA mappings
+Date: Tue, 15 Sep 2026 13:32:11 +0200
+Message-ID: <88b0d054b0518f324f3d62ee7ffab589a61fcda6.1789469436.git.ralf@mandelbit.com>
+In-Reply-To: <cover.1789469436.git.ralf@mandelbit.com>
+References: <cover.1789469436.git.ralf@mandelbit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,75 +53,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4hkfxw693Nz5wwK
 
-Hi,
+dma_map_sg undoes any partial mapping before returning zero. If mapping
+the destination of an out-of-place request fails, safexcel nevertheless
+reaches its common cleanup path with a positive destination SG count and
+calls dma_unmap_sg on the already-unmapped list.
 
-This series fixes a couple of bugs that affect the safexcel driver with
-the first one targeting a double unmap path and the second one (more
-important) mapping AEAD buffers with finer granularity.
+Track which mappings completed successfully and restrict error cleanup
+to those lists.
 
-While testing ovpn (the OpenVPN data channel offload kernel module) on
-two GL.iNet GL-MT6000 routers (using the MT7986 EIP97 on a non-coherent
-Cortex-A53 system), once the kernel selects the hardware AES-GCM
-provider, traffic became unreliable in ways that were difficult to
-explain from the ovpn side. This is not the first such report: OpenWrt
-users had described tunnels that stopped passing traffic when kernel
-ovpn or ipsec and safexcel were loaded together.
-
-During the tests I noticed that the stock driver reported successful
-crypto completion, yet the reproducer found damaged output. At data
-offsets 0, 32 and 66 modulo 128, respectively, the first 40, 8 and 38
-payload bytes were wrong. Those lengths match the part of the payload
-sharing a 64-byte cache line with the small AAD mapping. Fragmented
-out-of-place encryption also failed with only one request in flight.
-
-The problem is that safexcel describes too much of an AEAD request as
-device output. It maps every entry of an in-place request as
-DMA_BIDIRECTIONAL and every entry of an out-of-place destination as
-DMA_FROM_DEVICE, even though AAD is read-only and a decrypt tag is
-input-only. On these routers, an unaligned, small entry can be bounced
-by SWIOTLB. Unmapping that entry as device output copies unchanged
-bounce contents back; cache maintenance on the neighboring payload
-mapping can then write stale CPU bytes over ciphertext or plaintext
-which the EIP97 had produced correctly. The fixed SWIOTLB pool is only 1
-MiB, with 512 slots of 2 KiB each, so these tiny entries also have a
-disproportionate bounce cost under network load.
-
-Thus, the second patch in this series gives each AEAD entry the
-direction its contents require: input-only entries use DMA_TO_DEVICE,
-pure out-of-place output uses DMA_FROM_DEVICE, and mixed or in-place
-output uses DMA_BIDIRECTIONAL.
-
-I also checked whether other network users of the accelerator behaved
-the same way. With the corrected driver, RFC 4106 AES-128-GCM ESP passed
-transport-mode tests with one, two and four SA pairs, without
-authentication or replay errors.
-
-kTLS revealed a different limit. Sustained TLS 1.2 AES-128-GCM still
-corrupts when multiple 16 KiB records are live concurrently, both with
-stock safexcel and with the corrected prototype. Serializing records
-made 256 MiB transfers pass. I think the remaining issue is of the same
-class: kTLS can place neighboring records in regions of shared pages,
-making concurrent cache-line-sharing DMA mappings the leading
-explanation, although I have not captured an exact cache-line trace.
-These patches do not claim to fix that separate kTLS failure.
-
-Cheers!
-
-Ralf Lici
-Mandelbit Srl
-
+Fixes: 87e02063d077 ("crypto: safexcel - Add error handling for dma_map_sg() calls")
+Signed-off-by: Ralf Lici <ralf@mandelbit.com>
 ---
-Ralf Lici (2):
-  crypto: safexcel - Avoid unmapping failed DMA mappings
-  crypto: safexcel - Map AEAD buffers with accurate DMA directions
+ .../crypto/inside-secure/safexcel_cipher.c    | 36 ++++++++++++-------
+ 1 file changed, 23 insertions(+), 13 deletions(-)
 
- .../crypto/inside-secure/safexcel_cipher.c    | 173 +++++++++++++++---
- 1 file changed, 150 insertions(+), 23 deletions(-)
-
-
-base-commit: 60892a384aa1e65d0e703e1c513417bdf0c80777
+diff --git a/drivers/crypto/inside-secure/safexcel_cipher.c b/drivers/crypto/inside-secure/safexcel_cipher.c
+index a8349b684693..4982c64bf236 100644
+--- a/drivers/crypto/inside-secure/safexcel_cipher.c
++++ b/drivers/crypto/inside-secure/safexcel_cipher.c
+@@ -695,6 +695,7 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+ 	struct safexcel_token *atoken;
+ 	int n_cdesc = 0, n_rdesc = 0;
+ 	int queued, i, ret = 0;
++	bool src_mapped = false, dst_mapped = false;
+ 	bool first = true;
+ 
+ 	sreq->nr_src = sg_nents_for_len(src, totlen_src);
+@@ -746,9 +747,12 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+ 				max(totlen_src, totlen_dst));
+ 			return -EINVAL;
+ 		}
+-		if (sreq->nr_src > 0 &&
+-		    !dma_map_sg(priv->dev, src, sreq->nr_src, DMA_BIDIRECTIONAL))
+-			return -EIO;
++		if (sreq->nr_src > 0) {
++			src_mapped = dma_map_sg(priv->dev, src, sreq->nr_src,
++						DMA_BIDIRECTIONAL);
++			if (!src_mapped)
++				return -EIO;
++		}
+ 	} else {
+ 		if (unlikely(totlen_src && (sreq->nr_src <= 0))) {
+ 			dev_err(priv->dev, "Source buffer not large enough (need %d bytes)!",
+@@ -756,9 +760,12 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+ 			return -EINVAL;
+ 		}
+ 
+-		if (sreq->nr_src > 0 &&
+-		    !dma_map_sg(priv->dev, src, sreq->nr_src, DMA_TO_DEVICE))
+-			return -EIO;
++		if (sreq->nr_src > 0) {
++			src_mapped = dma_map_sg(priv->dev, src, sreq->nr_src,
++						DMA_TO_DEVICE);
++			if (!src_mapped)
++				return -EIO;
++		}
+ 
+ 		if (unlikely(totlen_dst && (sreq->nr_dst <= 0))) {
+ 			dev_err(priv->dev, "Dest buffer not large enough (need %d bytes)!",
+@@ -767,10 +774,13 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+ 			goto unmap;
+ 		}
+ 
+-		if (sreq->nr_dst > 0 &&
+-		    !dma_map_sg(priv->dev, dst, sreq->nr_dst, DMA_FROM_DEVICE)) {
+-			ret = -EIO;
+-			goto unmap;
++		if (sreq->nr_dst > 0) {
++			dst_mapped = dma_map_sg(priv->dev, dst, sreq->nr_dst,
++						DMA_FROM_DEVICE);
++			if (!dst_mapped) {
++				ret = -EIO;
++				goto unmap;
++			}
+ 		}
+ 	}
+ 
+@@ -903,14 +913,14 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+ 		safexcel_ring_rollback_wptr(priv, &priv->ring[ring].cdr);
+ unmap:
+ 	if (src == dst) {
+-		if (sreq->nr_src > 0)
++		if (src_mapped)
+ 			dma_unmap_sg(priv->dev, src, sreq->nr_src,
+ 				     DMA_BIDIRECTIONAL);
+ 	} else {
+-		if (sreq->nr_src > 0)
++		if (src_mapped)
+ 			dma_unmap_sg(priv->dev, src, sreq->nr_src,
+ 				     DMA_TO_DEVICE);
+-		if (sreq->nr_dst > 0)
++		if (dst_mapped)
+ 			dma_unmap_sg(priv->dev, dst, sreq->nr_dst,
+ 				     DMA_FROM_DEVICE);
+ 	}
 -- 
 2.55.0
 
