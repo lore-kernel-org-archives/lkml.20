@@ -1,132 +1,112 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611AC36308D;
-	Tue, 15 Sep 2026 14:08:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80585368D65
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481329; cv=none; b=SUhM49hi/67ZkYeVIGUsSW2lUptpCp7Zy3GBvp/G8qXonOjvzoeqHazvzGJTbqKJ+3LzezfeUMdMRFXjav7TaCPLH8wsn8fkY08MBDEje35ia+egJ82GXrZJ9rMMeyFqBEIniadN87bK8I9+Q41NMRmI8PLQReIy1J5Ej5TBJmU=
+	t=1789481332; cv=none; b=PltSGToj77QDhiFSVL0/IAikt5AqmAyT0Z/W0g7ravIX/uq2i5F/VjfZo/jOLYD0JnAS8iafKooX5aoBK97lRGIhC2H8BfZmnLebDOZCPO/EpidpQcRbUL1rtK1K1fpR1Q1XayR6nRerxr6kTSrLdi6NXTNJs6tuybrOrUwL0GA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481329; c=relaxed/simple;
-	bh=4v6n+xqh5GZs4GinReU0YRNIA+IVQq/XiGYlNXPEvfo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qcHxrkp5Ly08zPqrzoQaNZdBrbC7xuXh0Ynpt+ZrdGZ4/PXGhs0LqAQNZyecsiJe46zMVhmWlxzKmD5VS259Fn2LOFLP4k0oqk4TMlBBId1VVLOUEHi6x0bnhkV2h8tl1N7wT5DqNJdrFT90JEbVrkOZ1gOkHqz5qidCOnsce5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=X+DtQoUk; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789481332; c=relaxed/simple;
+	bh=bx4DSXNCIULw2FUncUSRqfYmz85DyjyUcd9/xdHxYPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FHwrd5AZRJvjJ2S1hY1jmXUoR5t6j42zGFSh1xrXnGy/MQlajkW14kfccjCuBaIG/020Y/QEFlMGnBqBeYAD9FRTe8wicvXrFmPdsojNzaEu2fgwT+5MRzPRdNJYzGh1EmbNXOU1/7NDu1V+Oc8Srdm+ku/L5u7g2QB9L9eLCbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ANjEIaCU; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="X+DtQoUk"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 87AD04E40639;
-	Tue, 15 Sep 2026 14:08:44 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5384F602B0;
-	Tue, 15 Sep 2026 14:08:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6880E11C7B007;
-	Tue, 15 Sep 2026 16:08:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789481319; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=1v8WmV1lzmVvxTEijsOq/fqJH2jWLGKp2l9KoEWhH+I=;
-	b=X+DtQoUk58tgwjATpWdhlg3I/XDyP5aatscFgJHmFwtLrjBeAZKIOosjzmuv3VLncgoEWy
-	5wULR1RU4884i6EDzcJIJDOmzddzTcgnPcS+v/gFVVo9kzXXpCRHijfFNVnVfrdmtyUmeI
-	9rgtimCcIYes3PqVMSUbsCCIvV2EpOsGSZUY9z2+WHHiR2y9KTYy4CS0Cx5Wvjwhlg0CvG
-	uo2VsHzFlOjTP0PrbxEG0vXXYP+I84KtsGvEXHJlMui2ivgPd41ou89JyvSLYYlHhf6Up/
-	r3J/7AzSmA2jCSeaf1TaK0Q21HneUgAQOP5Yd6ZsgDs1fa7DbtOnOZqCqKhpNw==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 15 Sep 2026 16:08:32 +0200
-Subject: [PATCH 5.15.y] macvlan: inherit needed_headroom and
- needed_tailroom from lowerdev
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ANjEIaCU"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so482195a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:08:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789481331; x=1790086131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dfdpMft+Taz5w+O+/iQK+gDuE29kZk9QP9FYpppeBn4=;
+        b=ANjEIaCUbN+pJRfCyOHqMgw0W+d0iBadgcnNs4uUkevs/f9q9j8/+DLNhrvoK+Gij6
+         zWO0O1/6MPRGc1LHs0khFw3c592czQ1PEyZ+jHTSqqtdIFfyI0N4Cwh+Pm8SOn8uloJI
+         rM0oKnmxyKeqa8j47JKfHuMwdjz3BHdhDbScNJQjrQcBEUXHwU0Z8aZBQcJjTA7sjO4F
+         ZbmKHAgBPqnbkjGV21pZ2y5xRIcEGQY3hYYCV5FxOHG2LfLC5+Q1HGiZP6Kijkf4Xn0z
+         K8O210nZ+7BE9q9kuRslvg7ZL3TUfpRA3t8IjsbNE372X/QqYxfoJP+vz14efJMocbXw
+         jMPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789481331; x=1790086131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dfdpMft+Taz5w+O+/iQK+gDuE29kZk9QP9FYpppeBn4=;
+        b=iN/xADhOViPnkH88NxLbzOfp2hDhyDAtPs2Q49mFk8Jm796MRI9+WdRq5w2qZahU4W
+         35BXqe4AC1QdD838nO84K0YpNhL9Xwe+uQNYQm3R77/gBecvFB1sT0xpwYg6d2hef+El
+         GUYtmGl9Sw6hOdDOqKbw5XyCqm9rVDV3E8A82M4xwitQhctNLmqPgd7+FgN1SnJ04aAw
+         cByUWadQ/O/yOeiHz3IT9ARqGgsWWp418OlACt6JX3ecSgjgFRbCOloASY+bBb5ITKJ2
+         jnTqAFE21s8eoVk6b/WnylyOiCUGnCJbSBzFz9UayuB/AGRfFmsEqALsZVU8Iv2wIS19
+         VSvw==
+X-Forwarded-Encrypted: i=1; AKwUvBydrSGMaoVdHf6MUB54Sfy9eHWuaxvnslixoukvE83ktIf12DZ7ags0LiyQZ1ZM/1GqqLHlviWmbL9RVt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpywO2xDOotnmMw4bZA8YbliLmk8J5m7OO83fvhZsoLBezIDRF
+	njdB3zuzjNxUIxQx3y80YANRWzRi9DJCrSZgAtY8olMaJJQb84/gHdQN
+X-Gm-Gg: AYBFou37ik3O0ob4m/ptxEvyUmOQDaaWCVIl0WoRtAGasj2oOcZopH3qWRkxVxgefp6
+	4l2+lsJ+8OO5/DH++EIeCbp9kgRdmMnQs34ouDhWBT2uOLPkAiddsp9OSFC0nT9RT+v8NI6avwZ
+	4qAeG5XpEnKX8zLEGjhJY1gaPVmCRxRo9ucv+PaFkrEv/5xcsAJqvG5pdzoFMMCetfWrK73ojgY
+	JSACRYKB3W84PSFuTvks5AA87rbx+w4Y63O0Jjz9IGvmYc0z/qghzhy/J7K1PFBxw3M67aaxSAf
+	segMruI95vw9qJHis4nhYJGA6a1IcthbxEIqg0T2JAmEjK7/dmtbmKn8uVjHqXyvCE+pdBu2xqx
+	rF/rgx7F8K0mf56OoqSnd8EuOomTdQAPshNNh3MuUYAVELwa6aCpRHpPhEnelmswllTqyOdgbMy
+	k7IXYlc+hmsFcEQ7Ylij235yfG+UeZZSSw1/v12rbIJqczTxCNvdqexHkMyklWAC9/y6obEDvHI
+	nzUBNz645EsMkwGTs86jIgVl/t+2av5I0Puv+M=
+X-Received: by 2002:a17:90b:5646:b0:390:84db:888e with SMTP id 98e67ed59e1d1-39dfe097622mr4709299a91.7.1789481330561;
+        Tue, 15 Sep 2026 07:08:50 -0700 (PDT)
+Received: from localhost ([2401:4900:1c6f:fd8f:123a:b4ef:d8b:c604])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd58b30sm5863118a91.11.2026.09.15.07.08.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 07:08:50 -0700 (PDT)
+From: Punnay Sharma <punnaysharma805@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1] media: atomisp: ov2722: Return after failed pad initialization
+Date: Tue, 15 Sep 2026 19:38:28 +0530
+Message-ID: <20260915140828.25537-1-punnaysharma805@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-cve-2026-74743-5-15-v1-1-bacf32f2651c@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ6CMBAFf4W8s0sosG70VwyHUhZdD2haIRrCv
- 1v0OJPMrEgaTRPOxYqoiyV7TBncoUC4+emqZENm1FV9rE6OKSxKO5C00jbElJ2wNF78GAbfI5f
- PqKO9f9cLuHRcftD9fZr7u4bXvsS2fQG2hSJHfwAAAA==
-X-Change-ID: 20260915-cve-2026-74743-5-15-7573a7afcdab
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, Patrick McHardy <kaber@trash.net>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
- Tangxin Xie <xietangxin@h-partners.com>, 
- Hangbin Liu <liuhangbin@kylinos.cn>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789481314; l=2806;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=JSAEZ6HJlTAJcObiAa6N//lRVUWeIEAORotoJeReHSA=;
- b=bgRDsGyWNa8uQsb9c25jnb8S9g7H/sFC2cv1x/lIl+I6LpRuO+Ud4RLJ99J/IE/jKIoB7QrBI
- HMWLPpiae2OD5uxA5PWo8pYFZK5su+4dkV47cKgmLKI93NXdqbVNfp/
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+If media_entity_pads_init() fails, ov2722_probe() calls
+ov2722_remove(), which frees the device structure. The probe then
+continues into atomisp_register_i2c_module() with a pointer to the
+freed subdevice, causing a use-after-free.
 
-[ Upstream commit cef51860becd9700217c81732ca1eb1ea6ed6fe1 ]
+Return the original error immediately after cleanup to prevent
+registration from accessing the freed device.
 
-macvlan devices inherit hard_header_len from lowerdev during macvlan_init(),
-but leave needed_headroom and needed_tailroom set to 0.
-
-When the underlying lowerdev requires extra headroom or tailroom for
-headers/trailers (e.g. macsec, ipsec, wireguard, tunnels, or veth with rx
-headroom), upper layers calculating packet headroom and tailroom fail to
-reserve sufficient space.
-
-This can result in reallocation overhead, skb headroom underflows, or KASAN
-slab-use-after-free crashes when dev_hard_header() / macvlan_hard_header()
-prepends header data or when lower devices append tailroom.
-
-Fix this by:
-1. Inheriting needed_headroom and needed_tailroom from lowerdev in macvlan_init().
-2. Propagating needed_headroom and needed_tailroom updates to attached macvlans
-   in macvlan_device_event() when receiving NETDEV_FEAT_CHANGE events.
-
-Fixes: b863ceb7ddce ("[NET]: Add macvlan driver")
-Reported-by: Tangxin Xie <xietangxin@h-partners.com>
-Closes: https://lore.kernel.org/netdev/CANn89i+1EW-sFNK8xoq98gMbPCeLS7e=+rs9gHfLg5Wj+4x0sw@mail.gmail.com/T/#m16adf0ff972cbfd8066c3a8e656e75eaeb12d021
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Link: https://patch.msgid.link/20260806141938.287660-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
 ---
- drivers/net/macvlan.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-index 86a531ffe9fc..c8c1761908c1 100644
---- a/drivers/net/macvlan.c
-+++ b/drivers/net/macvlan.c
-@@ -913,6 +913,8 @@ static int macvlan_init(struct net_device *dev)
- 	dev->gso_max_size	= lowerdev->gso_max_size;
- 	dev->gso_max_segs	= lowerdev->gso_max_segs;
- 	dev->hard_header_len	= lowerdev->hard_header_len;
-+	dev->needed_headroom	= lowerdev->needed_headroom;
-+	dev->needed_tailroom	= lowerdev->needed_tailroom;
- 	macvlan_set_lockdep_class(dev);
+diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
+index 2c41c496daa6..0748247ca42c 100644
+--- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
++++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
+@@ -979,8 +979,10 @@ static int ov2722_probe(struct i2c_client *client)
+ 	dev->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
  
- 	vlan->pcpu_stats = netdev_alloc_pcpu_stats(struct vlan_pcpu_stats);
-@@ -1769,6 +1771,8 @@ static int macvlan_device_event(struct notifier_block *unused,
- 		list_for_each_entry(vlan, &port->vlans, list) {
- 			vlan->dev->gso_max_size = dev->gso_max_size;
- 			vlan->dev->gso_max_segs = dev->gso_max_segs;
-+			vlan->dev->needed_headroom = dev->needed_headroom;
-+			vlan->dev->needed_tailroom = dev->needed_tailroom;
- 			netdev_update_features(vlan->dev);
- 		}
- 		break;
-
----
-base-commit: 0248c33e835ecbec3a591f93fdaae53f7b90a4d6
-change-id: 20260915-cve-2026-74743-5-15-7573a7afcdab
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+ 	ret = media_entity_pads_init(&dev->sd.entity, 1, &dev->pad);
+-	if (ret)
++	if (ret) {
+ 		ov2722_remove(client);
++		return ret;
++	}
+ 
+ 	return atomisp_register_i2c_module(&dev->sd, ovpdev);
+ 
+-- 
+2.55.0
 
