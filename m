@@ -1,216 +1,197 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010038.outbound.protection.outlook.com [52.101.201.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7A9455184;
-	Tue, 15 Sep 2026 20:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789505790; cv=none; b=FCGGwrE3u8R90Du5XyoPOwfhUSyJ016cUIlc4HyssDdxKU5MqdPxH7/1hEH9RwlGhQORRzOLnXpRFs24uCiFXj35koeQ3zqr00L50CyDLSK071fwxBdRxryzquZqJ67OW2NNIuWzptVU4fKvhL9m9k+x+jNqDEJBjhjsvUi7wCI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789505790; c=relaxed/simple;
-	bh=YmSm6uUiRGSBUorMyzVSyj4LFelQ+7u9nHh6pb/5p1E=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=sD+JIBh2y3dlfwPxAF/HDzy82SDoevaqjfzxdIzl+9yjXNA3Jn7KjHh9VzehC6glzGB6qPgUApxz1omV9mKT0O5TqxIL9QONKpK5bbnBiyNOc6vEgEFcaIrTqvBidHdVoTSoTDC1gszDdBOG6XXpu4TJW4y/Aux2bzwpOUjiyuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dKxsZo8U; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701D539021A;
+	Tue, 15 Sep 2026 20:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789505857; cv=fail; b=FUnkT6n0uZe12JiQ3BGmVlHcipseD+/tZJ0kAzZjpKYyyoT9TDLp9xVTclMa/3RL0BZw+2OfRnTOg50Uo75FR7iYwVc3FgbDI4J7L2qXjjF/d2rO7Ere9OPasXWdm/oGJ+dnkWrKZ8BwM+AK3jDHwIs4jJnGMk5GmeAjym2/KOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789505857; c=relaxed/simple;
+	bh=JMxTOmUI+KM6DfhS94K6tOVUJd+UGC6bP6dRvWFurG8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hEx42SPM6XMpo65riy/cXl5z1VkNH8hzksbqPi5K7t3s3v5ZjuvYJHfr7np1TysN8kcUzPoXGglPDFdYvxqyi4x3VB5wnzIRID1NW4+fT8Q2pkHqY5QyFAnBWGTkdR9mCaogHQ11MeZkPlqqoMly0FoPRRWHJylRQaRYWtYOaWA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sbHFovWn; arc=fail smtp.client-ip=52.101.201.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dKxsZo8U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789505788; x=1821041788;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=YmSm6uUiRGSBUorMyzVSyj4LFelQ+7u9nHh6pb/5p1E=;
-  b=dKxsZo8UHIcADPUipVBaQkhmIBbm3Yz6SCd2ECO9h+DruyZmA/pVRd1H
-   /E0gt9KHHWLgVlbv6/Ac50SPyf/PpMMaxv7sYiHZA2jcXDjS5t59EuAkd
-   r9qQAaeO+4Ia0c2YsDK5JsevrdpEjYo0tqaEWwloZVEeIO2QNQVBvM7hf
-   nydb7HjxR4b8d35aVQWRfwOm0OlyWbfgaMDrCx72jRB1jRMAW6o1PBf8y
-   VkgUYr6ucNCcn9HtCyPXixqfCeRi9i7T/JVcGSBwBoHpAg0XTVI8fAYFS
-   jWxfwS//z99fqt4QSOmZa0ojFg4fkpCUAysrF7mms9UUM9EdD4oZV2/3h
-   w==;
-X-CSE-ConnectionGUID: /P7h0ScXTricWDYYzhK2uw==
-X-CSE-MsgGUID: sQfwahz6T6aDRq+AMs/sAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90017815"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90017815"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:56:26 -0700
-X-CSE-ConnectionGUID: EZoOcekBSZ2koO8wh6qEPg==
-X-CSE-MsgGUID: NZUC+kvPTuGuzETeXuRoNA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270499703"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:56:23 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 23:56:21 +0300 (EEST)
-To: Denis Benato <denis.benato@linux.dev>
-cc: busybox11 <busybox11th@gmail.com>, 
-    Corentin Chary <corentin.chary@gmail.com>, 
-    "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] platform/x86: asus-armoury: add dGPU disable fallback
- DEVID for ProArt H7606 series
-In-Reply-To: <b647e0a5-4122-4772-b317-d2d7a8cb4d31@linux.dev>
-Message-ID: <c2d620e4-25ba-c31b-0143-4a53ff3edd8b@linux.intel.com>
-References: <20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com> <40f1840a-e3e4-29d3-66b5-a13737224f99@linux.intel.com> <b647e0a5-4122-4772-b317-d2d7a8cb4d31@linux.dev>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sbHFovWn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hd+jfhD/e2kOcRF1xvYrojQq6NWTXu+4Qeo6qVPd2Esti0Z6QO7U3MCt1NLVuEt2gD902izY1hi9WGUeiBTHK0QTTJdFjACae5DzQb6FbuJdOd9v/xOkC0pTXM1FSrqDF0k8ld18JT64eC3ZTV4zrpDeuqwBw6i92f/+5861jI+cL+YIHmRzaXBYKf2AY7PLKHpXgnNrj6bOtTBt+4M4+l3rRB3gNFdos+6FX+kllUoEsYBZxLvBuxqagaEnMqW0V/bHD2d+xIQk5t9sz+kk/LfccUNG9fhOyGlABeSUBIVuD4FtTfKEFWGYKwhj51fdCK8wb0b5eYfSUHFzbm24fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kF6I2bVwKx9QCaToOGE/IeThRJPW8s2vGrmB7NfWS9o=;
+ b=IpC0JpTI6+PkCjKND2oGA4IS5IlRxkTiUQNQx9eS05ybzOXaaTbslZK317341vl3N3ZtziwIWS0KRmCjDnU4XEgUDgLxusNa6z4YIfi8Pu/9bT+3hDC8+JrfaZbvgR5e/aaZmuOWuQ1zpZORDXw38pzRWT7coyeveAOnYSLIRSfqWaFNJLkFI24xU8IIEgBIpBVR3u1vqKzS46MjmrA4NagNFSHDlj6jwJiQGlY415xffTEnJlzX0LMzlg3X5qS1QumnaXBYUVZ5NyE+4jGIIETY8d47ssfb8FBvh1TGcvrjbNUDOjPIVmrg9KCSGiBt5pWTMlIqQ8lsVxGa5wI4LA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kF6I2bVwKx9QCaToOGE/IeThRJPW8s2vGrmB7NfWS9o=;
+ b=sbHFovWnkHiakTjDYbUAlNmmJdOiXtZkyNnfzB2/9gqHf7rbD8hKgyGOk6npfUAkqbaPXK4UUzYbjJFja/Yh7K8e1W4uqFXswIuYRk/4V+sGh4KbfzpMjrwiaflXCfaoMCr94mbj1jc2xXTGPMrnrewcjVVK/sHfuGUdTcHeDSnPSHRBnCGQVgu5hI4vUj5rPZ+1ATXw5J73D4n0mfUUqeUsSmmC4o1BQ0tIzgh2AbytnI3ivMCZLX6HXdLjhMc5DjJjxZmcYqMdRidpLvxirjX6RXBpw7ukL4V7iAC9PeoTWBDlC2rP9mUTbKrv5cVYpvSS69lEOeY9sdMyE3azAA==
+Received: from DS7P221CA0042.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25e::18) by
+ DS4PR12MB9684.namprd12.prod.outlook.com (2603:10b6:8:281::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Tue, 15 Sep 2026 20:57:26 +0000
+Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
+ (2603:10b6:8:25e:cafe::8f) by DS7P221CA0042.outlook.office365.com
+ (2603:10b6:8:25e::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
+ Sep 2026 20:57:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 20:57:26 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
+ 2026 13:57:09 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 15 Sep 2026 13:57:08 -0700
+Received: from inno-dell.home (10.127.8.9) by mail.nvidia.com (10.126.190.180)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Tue, 15
+ Sep 2026 13:57:01 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+	<zhiwang@kernel.org>, Zhi Wang <zhiw@nvidia.com>
+Subject: [PATCH 00/14] Add Rust PCI SR-IOV support
+Date: Tue, 15 Sep 2026 23:56:44 +0300
+Message-ID: <20260915205659.76841-1-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-138060363-1789505781=:27301"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|DS4PR12MB9684:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce757b31-7a05-4918-e7c6-08df136bf2a2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|82310400026|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	CJu7j3SpA4rcXRAADRLf3qePcM7M6HxqW5El+qHamgZpHAON2uvY3+75SLFqfVwEHtixDlXW4+vA4BI6Xjna+oZ4NGMahUd9/+Qu3axNWHlc9w+R81cb0Jzsn81UQHqOI7y8wM89s+Zyn2vSC5EHtGlL7RHULvhOgfekxi9yI4a8nCJkiHQ0bR/aqldmhwkIeikGF6aYFBOZAFZ9DbANa3mc+HPLL0bO32ljJX+DKPUccAYy5Hst/rmmKeQ1EoUfdqfKX8Zd+xxPoTvcIU5DqPUs+ZwGOVADfH74rxtmv2ZXUenksZacIoGJI4CbLEq+dj4XJNqCR/PyA7pchjjT3lUSTBM3XKCjUSRFd4hRWN8HN//fPjpLJUBqXqq28i0W6zH+IYXUmH0qbZpd/T3MrKA4zPqUuPCP/4/ydSl7AZoKzS3FKLdTW7f70EssivS8ic+6613p2pzkBN00/NPUrYfNTSEZxUOABAvzRb4nXvSNOZT+kzhGKqFauPOk/hNqC7vFp17aDfrxHdDV/vrGxXVOwSUnrMef3xuWTmheQ/7xO8QW5+3An8LH3f7F54TAhBOvFBbQVjntmM6itG3U+Gtb17+zfFpcl2Pavw+yX+DT6TU23FGksJVSvo1K0PeIQbrjGcDukphSefUymAW0Vea1JQYUtmiD9lSBvN796DKEXPY56VU1Lj/JBJfVK9BIUD4tYs4NxITVIjHBudkEYg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(82310400026)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HrA+kuKvH7DbjsSHa6M6wTBcAH3SJeYM51tbxOHQFki9x4nT84qPKiMhRVt8uFPXxVrn+IiORojKRY+N5xkB2VrjqgTaFtFf/CqMCCy+Pzxd33tVK1erHVBFWST+SDie+FO40Cf3zp2dN2lDf+eEN5qMGPZeocKoa0iENydyuet2fBTZRbF/uA2Ttpv6qRGsr79tS4F4sKlVbn52+MmqdkN8eYaz5OEBFgOomZL3Ka9bOJ4cadWbOxJEoYCfRab+qZqbmR/X3iZmNh58500DWrur4JIVCe5T6mSB8L3qKwGLSP+pf86HjbwO7axM+BgBO8MDYj1PGFPLQ4MjAKF5Na/qbc3OMoaDJWcwBCJh/zbM1qSNI0/FGir6eP7ts+4sx6wHEgmQaxQYORLo4lDYnM+QzHkqr0mb+o02NP2NKwb0PNiFr+86spj+pYuGdh55
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 20:57:26.1732
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce757b31-7a05-4918-e7c6-08df136bf2a2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9684
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Rust PCI drivers need to enable and disable SR-IOV and share selected
+PF-owned functionality with their VF drivers. The shared data must remain
+valid while a VF driver is bound, including when the VF driver is in C.
 
---8323328-138060363-1789505781=:27301
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+This series builds on Peter Colberg's Rust PCI SR-IOV v3 series [1],
+extending it with typed PF registration data and C FFI support. The
+registration design follows Danilo Krummrich's Rust vGPU/VFIO PoC [2].
+As the discussion on Rust/VFIO support is still ongoing [3], this series
+supports both C and Rust sample VF drivers.
 
-On Tue, 15 Sep 2026, Denis Benato wrote:
+Add the PCI SR-IOV operations and callback, managed VF removal during PF
+unbind, and typed PF registration data. A pinned registration publishes
+the PF payload. Rust VFs borrow the typed data directly; C VFs use an
+ABI-checked descriptor and generated C-to-Rust trampolines.
 
->=20
-> On 9/15/26 22:38, Ilpo J=C3=A4rvinen wrote:
-> > On Mon, 10 Aug 2026, busybox11 via B4 Relay wrote:
-> >
-> >> From: busybox11 <busybox11th@gmail.com>
-> >>
-> >> Newer ASUS ProArt laptops (e.g. H7606 series) implement dGPU power
-> >> control on WMI DEVID 0x00090120 instead of the usual 0x00090020.
-> >> The default DEVID returns 0xFFFFFFFE on these models, so the
-> >> dgpu_disable firmware attribute is never created and the dGPU cannot
-> >> be re-enabled from Linux at all.
-> >>
-> >> Add a fallback probe for device ID 0x00090120 following the same
-> >> approach as the gpu_mux_dev_id probe.
-> >>
-> >> Details for 0x00090120 (confirmed on H7606W using direct WMNB calls
-> >> and inspecting the DSDT DEVS handler):
-> >>   - Reading DSTS returns 0x00010001 when the dGPU is off (CUMA=3D1),
-> >> =09or 0x00010000 when it's on.
-> >>   - Writing DEVS: 0 enables the dGPU (calls PG00._ON() + Notifies
-> >> =09PEGP, Device Check), and 1 disables or ejects it.
-> >>
-> >> This behavior matches the dgpu_disable attribute (1 =3D disabled).
-> >>
-> >> Signed-off-by: busybox11 <busybox11th@gmail.com>
-> > Unfortunately, we cannot accept anonymous or pseudonym signed=20
-> > contributions so please sign off with your real name. For more=20
-> > information about signing of patches, please see:
-> >
-> > Documentation/process/submitting-patches.rst
-> >
-> >> ---
-> >>  drivers/platform/x86/asus-armoury.c        | 32 +++++++++++++++++++++=
-++++-----
-> >>  include/linux/platform_data/x86/asus-wmi.h |  3 +++
-> >>  2 files changed, 30 insertions(+), 5 deletions(-)
-> >>
-> >> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x8=
-6/asus-armoury.c
-> >> index 495dc1e31..f39b52451 100644
-> >> --- a/drivers/platform/x86/asus-armoury.c
-> >> +++ b/drivers/platform/x86/asus-armoury.c
-> >> @@ -93,6 +93,7 @@ struct asus_armoury_priv {
-> >> =20
-> >>  =09u32 mini_led_dev_id;
-> >>  =09u32 gpu_mux_dev_id;
-> >> +=09u32 dgpu_disable_dev_id;
-> >>  };
-> >> =20
-> >>  static struct asus_armoury_priv asus_armoury =3D {
-> >> @@ -452,8 +453,8 @@ static ssize_t gpu_mux_mode_current_value_store(st=
-ruct kobject *kobj,
-> >>  =09if (err)
-> >>  =09=09return err;
-> >> =20
-> >> -=09if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
-> >> -=09=09err =3D armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU=
-);
-> >> +=09if (asus_armoury.dgpu_disable_dev_id) {
-> >> +=09=09err =3D armoury_get_devstate(NULL, &result, asus_armoury.dgpu_d=
-isable_dev_id);
-> >>  =09=09if (err)
-> >>  =09=09=09return err;
-> >>  =09=09if (result && !optimus) {
-> >> @@ -507,7 +508,8 @@ static ssize_t dgpu_disable_current_value_store(st=
-ruct kobject *kobj,
-> >>  =09}
-> >> =20
-> >>  =09scoped_guard(mutex, &asus_armoury.egpu_mutex) {
-> >> -=09=09err =3D armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_=
-WMI_DEVID_DGPU);
-> >> +=09=09err =3D armoury_set_devstate(attr, disable ? 1 : 0, NULL,
-> >> +=09=09=09=09=09   asus_armoury.dgpu_disable_dev_id);
-> >>  =09=09if (err)
-> >>  =09=09=09return err;
-> >>  =09}
-> >> @@ -516,7 +518,7 @@ static ssize_t dgpu_disable_current_value_store(st=
-ruct kobject *kobj,
-> >> =20
-> >>  =09return count;
-> >>  }
-> >> -ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
-> >> +ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disab=
-le_dev_id);
-> >>  ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU"=
-);
-> >> =20
-> >>  /* Values map for eGPU activation requests. */
-> >> @@ -790,7 +792,6 @@ ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATT=
-R_NV_BASE_TGP, ASUS_WMI_DEVID_
-> >>  static const struct asus_attr_group armoury_attr_groups[] =3D {
-> >>  =09{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
-> >>  =09{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
-> >> -=09{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
-> >>  =09{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
-> >> =20
-> >>  =09{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
-> >> @@ -934,6 +935,21 @@ static int asus_fw_attr_add(void)
-> >>  =09=09}
-> >>  =09}
-> >> =20
-> >> +=09asus_armoury.dgpu_disable_dev_id =3D 0;
-> >> +=09if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
-> >> +=09=09asus_armoury.dgpu_disable_dev_id =3D ASUS_WMI_DEVID_DGPU;
-> >> +=09else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MODE))
-> >> +=09=09asus_armoury.dgpu_disable_dev_id =3D ASUS_WMI_DEVID_GPU_MODE;
-> >> +
-> >> +=09if (asus_armoury.dgpu_disable_dev_id) {
-> > Now I started to wonder why are we doing it like this and not using=20
-> > .is_visible?
-> >
-> > This question applies to the similar, existing cases as well.
-> >
-> > Denis?
-> >
-> >
-> I don't understand the question. There are a bunch of .is_visible in the =
-kernel and
-> I'm not sure if I am looking the right one and therefore if I understood =
-the question correctly.
->=20
-> It is written as this to memorize what the correct id is and therefore wh=
-at
-> to do.... but I doubt this answers you.
+Include Rust and C VF samples and integrate the registration into
+nova-core. Nova implements sriov_configure() and publishes PF-readiness
+data before VFs are enabled. Document the sharing interface, its borrow
+lifetimes and teardown ordering.
 
-No, it doesn't.
+[1] https://lore.kernel.org/rust-for-linux/20260303-rust-pci-sriov-v3-0-4443c35f0c88@redhat.com/
+[2] https://lore.kernel.org/nova-gpu/DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org/
+[3] https://lore.kernel.org/nova-gpu/20260914121217.70fa0d93@shazbot.org/
 
-With sysfs, .is_visible callbacks are normally used to hide attributes=20
-when feature is not supported or for other reasons, which simplifies the
-setup code. This one checks manually asus_armoury.dgpu_disable_dev_id !=3D =
-0=20
-in the setup code.
+John Hubbard (1):
+  rust: pci: add is_virtfn(), to check for VFs
 
-(In addition, sysfs could even be asked to change the visibility=20
-on-the-fly so it would re-execute the .is_visible callbacks to determine=20
-which of the attributes to show.)
+Peter Colberg (7):
+  PCI: add driver flag to opt into disabling SR-IOV on remove()
+  rust: pci: add {enable,disable}_sriov(), to control SR-IOV capability
+  rust: pci: add vtable attribute to pci::Driver trait
+  rust: pci: add bus callback sriov_configure(), to control SR-IOV from
+    sysfs
+  rust: pci: add is_physfn(), to check for PFs
+  rust: pci: add num_vf(), to return number of VFs
+  samples: rust: add Rust SR-IOV VF driver sample
+
+Zhi Wang (6):
+  rust: pci: add typed SR-IOV PF registration data
+  rust: add C-to-Rust FFI descriptors and trampolines
+  rust: pci: add C FFI support to typed SR-IOV PF registration data
+  samples: rust: add C SR-IOV VF driver that calls into a Rust PF driver
+  gpu: nova-core: publish typed SR-IOV PF data for VF drivers
+  Documentation: rust: explain SR-IOV PF data sharing with VFs
+
+ Documentation/rust/index.rst             |   1 +
+ Documentation/rust/pci-sriov-pf-data.rst | 330 +++++++++++++++++++++
+ MAINTAINERS                              |   4 +
+ drivers/gpu/nova-core/driver.rs          |  34 ++-
+ drivers/pci/iov.c                        | 103 ++++++-
+ drivers/pci/pci-driver.c                 |   3 +-
+ drivers/pci/pci.h                        |   2 +
+ include/linux/pci.h                      |  44 +++
+ include/linux/rust_ffi.h                 |  88 ++++++
+ rust/bindings/bindings_helper.h          |   5 +
+ rust/kernel/interop.rs                   |   5 +-
+ rust/kernel/interop/ffi.rs               | 252 ++++++++++++++++
+ rust/kernel/pci.rs                       | 126 ++++++++
+ rust/kernel/pci/sriov.rs                 | 355 +++++++++++++++++++++++
+ rust/macros/ffi_vtable.rs                | 148 ++++++++++
+ rust/macros/lib.rs                       |  90 ++++++
+ samples/rust/Kconfig                     |  26 ++
+ samples/rust/Makefile                    |   2 +
+ samples/rust/rust_dma.rs                 |   1 +
+ samples/rust/rust_driver_auxiliary.rs    |   1 +
+ samples/rust/rust_driver_pci.rs          |   1 +
+ samples/rust/rust_driver_sriov.h         |  27 ++
+ samples/rust/rust_driver_sriov.rs        | 270 +++++++++++++++++
+ samples/rust/rust_driver_sriov_c_vf.c    |  61 ++++
+ 24 files changed, 1972 insertions(+), 7 deletions(-)
+ create mode 100644 Documentation/rust/pci-sriov-pf-data.rst
+ create mode 100644 include/linux/rust_ffi.h
+ create mode 100644 rust/kernel/interop/ffi.rs
+ create mode 100644 rust/kernel/pci/sriov.rs
+ create mode 100644 rust/macros/ffi_vtable.rs
+ create mode 100644 samples/rust/rust_driver_sriov.h
+ create mode 100644 samples/rust/rust_driver_sriov.rs
+ create mode 100644 samples/rust/rust_driver_sriov_c_vf.c
 
 
---=20
- i.
-
---8323328-138060363-1789505781=:27301--
+base-commit: 34a8ecc902e907d7b0596a8d38b437e90eac0701
