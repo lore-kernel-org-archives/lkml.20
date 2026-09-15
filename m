@@ -1,184 +1,198 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8602EC56E;
-	Tue, 15 Sep 2026 21:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAA63C2B80;
+	Tue, 15 Sep 2026 21:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506698; cv=none; b=kYiGvxVWqetXaxttuwVLKcwtDUk+w2FFoAC4wOIlBy1EVBcZ/FOCC1dp1uQ8dJs7WSTAYqYkNv4vgaI8elQeCUE8PpBPDZBbd4ArqMZ5uPgDSaK/4hB4FBWZnpymX7cxVWGY0/77KK3WjLqxJtLMuvpG3OWqIgl53bMZndJMock=
+	t=1789506700; cv=none; b=drAIzUtdHOkOOKyEi9At6oS8gB/HN12tPQzDo5AFfLEHPB9S47siioYV1GFTtLEKyw1kE59KmglzKSw/32IZGGpL0YgbAoGK/SjSr/cZapSltE+2eXJ9fCGUksUgngFxkjVA1J/wzGqTZYjkwObiiVA+L/zGx0NisRq+2RjlrJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506698; c=relaxed/simple;
-	bh=7m/LfB5eqSXSTcWcaok29C/d53QcpBaw0BchZMXFQn0=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=jM8UO+uFmX0O2LAjk7DC1PwQYnCeLIx9oInSSYTaeGXqsmUMJwBnkz82DtVl20uCBsyVesCyhpgcorn2XxhFgPmBI0WcZVwziE7UWn2Bc+oJ12L4UFeLWXmrYC1rKhWZUbvvWKoFQx1klkch1XWdOAL7s9o68kzQjufHFnbfoR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=jLsx+uQh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YPAMGe4+; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1789506700; c=relaxed/simple;
+	bh=AoCsTzTXHNFuc1Q3z61KajNZO1vb0aiiUflGwAKK9as=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=GfT1FgkMD/kRspSmU1qMG6IkNVl0Ow1jK2yX7qnjFvPdJLLKRoTQLuIbWJheNbr6DjZmo3oR3vYbVm2lCIDl3yqbFh9MrTNOn6UlwFe4woOoaMREAc6PdPbrc0MZ9X+B/8ECPVBJM97bBuNPeChfvwxMiM7PX81vmlAGHJgahrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SIEZ9YIX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="jLsx+uQh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YPAMGe4+"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 719EA1400B1E;
-	Tue, 15 Sep 2026 17:11:35 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Tue, 15 Sep 2026 17:11:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
-	1789506695; x=1789593095; bh=wlRPC++UeFPy4gQOfeKea0ETgVx3aJhWLrd
-	IDhSMnCA=; b=jLsx+uQhizaM3h4Xu7W8ubL8JES3+vIXIg4vdtl6UyNEM/JC+1o
-	kIt6z2BH7fTwuIpEaXYnq4/clFrqK4Z2Ai9m8M1K0ENoAMaWnrU+/yETRYt0RcRZ
-	6mvqRXAgK2xrLs/JWqWXHBRexm8Bes/w617PuQCmwph4cukF8u7SvwkXxxZ+PuNi
-	9b4YYJ8yS+YCOJqKRS+yjSaBjavEh9LNFNz8eMp3JeYaYAmeTlO+5unJxvissYxf
-	NApQWsY0qBAoCSv4i9d5rs0KUay1UxE5yAX4WS7leohe2W1EFmu1l5O1Hu6yuKqa
-	92Qcx8C9R4zlgh3onqPoaEunXq+MONkPiug==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789506695; x=
-	1789593095; bh=wlRPC++UeFPy4gQOfeKea0ETgVx3aJhWLrdIDhSMnCA=; b=Y
-	PAMGe4+qnQO7L3gwwGIY7XEvMcyg9V0ZLOPmIT7CyO0LYR4DFZAiPAdMYhVYTOTN
-	uhcy6dZhs4iJkmvQCMnBJd/EsJgLQ2j3zIpGCebcutTPTUGrmCSB2x3Eu2Wqm8OK
-	VoeJsGnuHAkLRHDnXEwoudmaYcN3tQnoA+iK+ypaJi8bITtu+RgtQiOUjiZ0Z6Oe
-	6apkRkIt/VKYtkRdp+I110McyTgeMW0Jg58I3n1RQdSsXa+8acPVSXNTTDtSy0KQ
-	HOpSk+ccbD5Q7qXSgtH6qauaaZrilmbzE5RVcbyMYyTDLMiyJuBnRhgOUYjFAG0o
-	Io7bvQF/eCBqo7ONSnsGw==
-X-ME-Sender: <xms:hrSpalNUYkJ7SaVOe68I1D970n_o2OySkbW-Wc3FldR3EIgPgZggDQ>
-    <xme:hrSpaqhZ2IRe4yyuAUqUmyjNzpPEHn-agmGlf_Jj6OCkwX1AYq-_ggeU_HUgcNfQb
-    2H9YLC1Ugjpx6hl8xj6_yJt7TW4EORv840CRYw2LF1n1EUOCv4>
-X-ME-Received: <xmr:hrSpan7xqM6i2219bZFj2f06S-e2SdAJZ6VK2Rjn6MSSa72XmYXOt4FbhY2Wj6vhdv4_TfrLtDnJUVlqYyyagZFvFUpG8eI>
-X-ME-Proxy-Cause: dmFkZTEquclsFPOAisLAp25DF0TVJ9SQ0uyDeSOaqpRwt+7y1FvvDa/T1/q9no/c7OhXst
-    T/qdPKim4gMePkid7BtrmwX2QCRvmqDX7v+XKVfJiyew3WsJsUgQ8ISEzg78z0fgucXpTV
-    KkU2tnkNy+oKM/QNqc1O3xt2bKEoSWx8R5AjcdLXXycvIMCA+TNwEGY4Pj/pJq2sn8cFdW
-    jgXJeSyR0JHXB1qnigSQ9Kj/PCr0S9Qiay/Ifd1aLKgy0cMU0+kK25cwckq0VLfmRHhAIQ
-    MAFuLWNhwmA53RfdTqBRhfYF+AjVEDmBYPX47PwgC5jnVukr3B4HTrCNGl89NSqBp23loS
-    QWo1r+HwYhr2EC1nOaTHQjb1L6+X+C1XGnllz1xm6GyFs+NDUdVa3gFUpFsZlx/wlh3Zzg
-    MiN64+Qe7ka454OvZIzE0HdqkujHXyHgtU/D0k4kYtuETl9zvHtqmf0CtOIxDJ+AwL2ejL
-    fA/DOVVLDEBnVY/tse6MAIg7mr7UUHP43KBU08vWfBi3oL+tw/0mS8sUuRIVlSWkMe5BxY
-    c3WAe9wFFzi9NNtzgdFpuCIYJMDF2imIXPmTeyi4XEvEBuBgy6c5pTquEZBNKfwHBk6MTQ
-    q5BmXLVXZTuaeABo2nXVtnPBP6jAVQNWyaYhgorjQzKLQEvSajacbNS81tyA
-X-ME-Proxy: <xmx:hrSpah28mri2aH_0Dj7RXnYzSrBGmQHm3tSnWB6CpMmKKMogpBWMsg>
-    <xmx:hrSpaitWILEHVSkPfUfCsfL6Rla1Ql_qjnknRIGJWYgbNPLzUivEMA>
-    <xmx:hrSpan4IdUOcd4C0DZ_VPjBLxQv6izK2jiLHBMoEb1C7M_mxAJrfcw>
-    <xmx:hrSpaufNpL9-0Wmaka1M6kQbzV7T3HA-k2OrDdXWtoZp7SOYITTc0Q>
-    <xmx:h7Spak3YlHa5tYS6Weex3vAL5g5nkq2hDXq5lTdopx0T_wRK5pzLXIt7>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 17:11:32 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SIEZ9YIX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 901E71F000FF;
+	Tue, 15 Sep 2026 21:11:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789506698;
+	bh=+pGd8JfDOqITlxuT8mGbAoIqAGn1R9IUwsi4Nnx1v8A=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=SIEZ9YIXnJSKYliDIq0pkMpKkt5XBWybSSL5ndE8Ce8Z4N4CpYIhkn0bdLCD0cDgL
+	 S7U41qJG8WEvp25guKpcMFmRFnT5yh9e4msDj89j2LHbqeMEaK44+D+bG3Go/9AxdZ
+	 aedHkjCQw9TwD9eNY6J6u3kw0kKafeOFUePmoh1XCOtJ8gZSVPampUfAEAx0mEr3sP
+	 +CnPljEoImnCAXZ4x84fTksdHG2ZFpAdeENACnliu7EwdUmUc5GN8BexBOBxyg6EYc
+	 pnqFD88Bo1DLAVZZ1Cyb5sPnLk3uC+ZJ8Q9iIF5L/jIIwYN6NUkCJ+xx1+QupCkN6Z
+	 N1EJl7E30Mbqg==
+Content-Type: multipart/mixed; boundary="===============4666062696086601469=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>
-Cc: "Jan Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
- "Jeff Layton" <jlayton@kernel.org>, "Amir Goldstein" <amir73il@gmail.com>,
- "Miklos Szeredi" <miklos@szeredi.hu>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/7] VFS: prepare for changes to directory locking
-In-reply-to: <20260904215142.1060510-1-neilb@ownmail.net>
-References: <20260904215142.1060510-1-neilb@ownmail.net>
-Date: Wed, 16 Sep 2026 07:11:29 +1000
-Message-id: <178950668966.207413.3037594112799627037@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Message-Id: <640ebe4456fcfd59b05e5fdf3c7870a2514c76bbcb2fe4a111243911ac38a100@mail.kernel.org>
+In-Reply-To: <20260915202220.3535321-1-arnd@kernel.org>
+References: <20260915202220.3535321-1-arnd@kernel.org>
+Subject: Re: [PATCH] bpf: add printf attributes
+From: bot+bpf-ci@kernel.org
+To: arnd@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: arnd@arndb.de,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,ameryhung@gmail.com,kees+treewide@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 21:11:37 +0000 (UTC)
+
+--===============4666062696086601469==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> commit 5d37f3f1dd68e8bbee421b3d0871994907f9e35d
+> Author: Arnd Bergmann <arnd@arndb.de>
+> Date:   Tue Sep 15 22:21:55 2026 +0200
+>
+>     bpf: add printf attributes
+>
+>     Building with extra warnings enabled shows some missing printf attributes:
+>
+>     kernel/bpf/diagnostics.c: In function 'bpf_diag_source':
+>     kernel/bpf/diagnostics.c:828:9: error: function 'bpf_diag_source' might be a candidate for 'gnu_printf' format attribute [-Werror=suggest-attribute=format]
+>       828 |         msg = bpf_diag_vfmt(env, fmt, args);
+>
+>     Add these to shut up the warning and allow the compiler to check the
+>     format strings.
+>
+>     Fixes: a8f427835394 ("bpf: Report Program Structure CFG errors")
+>     Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+Does the Fixes tag reference the commit that introduced the warning?
+Looking at the compiler warning, bpf_diag_source() triggers the warning
+because it calls va_start(args, fmt) and passes those to bpf_diag_vfmt(),
+which already carries __printf(2, 0) in kernel/bpf/diagnostics.h:50.
+
+Both halves of that trigger existed before commit a8f427835394. The
+parent commit a8f427835394~1 already had:
+
+kernel/bpf/diagnostics.c:795
+    static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
+                                const char *fmt, ...)
+
+with va_start(args, fmt) and msg = bpf_diag_vfmt(env, fmt, args) in the
+body, and kernel/bpf/diagnostics.h:50 already had __printf(2, 0) on
+bpf_diag_vfmt.
+
+Commit a8f427835394 changed only kernel/bpf/diagnostics.c by 19
+insertions, adding bpf_diag_program_structure() without touching
+bpf_diag_source() or any format attribute, so the warning already
+existed before that commit.
+
+Should the Fixes tag instead name the commit that introduced
+bpf_diag_source() together with the __printf(2, 0) annotation on
+bpf_diag_vfmt?
+
+> diff --git a/kernel/bpf/diagnostics.c b/kernel/bpf/diagnostics.c
+> index a2cac59c6639..b069fe73d3dc 100644
+> --- a/kernel/bpf/diagnostics.c
+> +++ b/kernel/bpf/diagnostics.c
+> @@ -291,7 +291,7 @@ char *bpf_diag_fmt_buf(struct bpf_verifier_env *env, size_t size)
+>  	return buf;
+>  }
+>
+> -const char *bpf_diag_vfmt(struct bpf_verifier_env *env, const char *fmt, va_list args)
+> +__printf(2, 0) const char *bpf_diag_vfmt(struct bpf_verifier_env *env, const char *fmt, va_list args)
+>  {
+>  	va_list copy;
+>  	char *buf;
+
+Is this attribute needed here? bpf_diag_vfmt() already carries
+__printf(2, 0) on its prototype in kernel/bpf/diagnostics.h:49-50:
+
+    const char *bpf_diag_vfmt(struct bpf_verifier_env *env, const char *fmt, va_list args)
+            __printf(2, 0);
+
+kernel/bpf/diagnostics.c includes that header at line 17, so the
+compiler was already applying the format attribute before this patch.
+The attribute was present in the parent of the Fixes-referenced commit
+(a8f427835394~1:kernel/bpf/diagnostics.h:50), and the compiler output
+in the changelog reports exactly one warning, for bpf_diag_source()
+only.
+
+This hunk silences no warning and enables no new format checking, but it
+pushes the line from 86 to 101 columns, exceeding the kernel's
+100-column limit, so checkpatch will now emit "WARNING: line length of
+101 exceeds 100 columns" on a line that was previously clean.
+
+> @@ -309,7 +309,7 @@ const char *bpf_diag_vfmt(struct bpf_verifier_env *env, const char *fmt, va_list
+>  	return buf ?: "";
+>  }
+>
+> -const char *bpf_diag_fmt(struct bpf_verifier_env *env, const char *fmt, ...)
+> +__printf(2, 3) const char *bpf_diag_fmt(struct bpf_verifier_env *env, const char *fmt, ...)
+>  {
+>  	const char *buf;
+>  	va_list args;
+
+Same redundancy here. bpf_diag_fmt() already carries __printf(2, 3) on
+its prototype in kernel/bpf/diagnostics.h:51:
+
+    const char *bpf_diag_fmt(struct bpf_verifier_env *env, const char *fmt, ...) __printf(2, 3);
+
+Both translation units that call it include that header
+(kernel/bpf/diagnostics.c:17, kernel/bpf/verifier.c:38), so all call
+sites were already format-checked. The attribute is present in the
+parent of the Fixes-referenced commit (a8f427835394~1), so this hunk
+adds no checking and silences no warning.
+
+The changelog says "shows some missing printf attributes" and "Add these
+to shut up the warning", but the quoted compiler output reports a single
+warning and only bpf_diag_source() was actually missing an attribute.
+
+Could the patch be reduced to the bpf_diag_source() change alone?
+
+> @@ -794,7 +794,7 @@ static void diag_print_insn_context(struct bpf_verifier_env *env, u32 insn_idx,
+>  	}
+>  }
+>
+> -static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
+> +__printf(4, 5) static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
+>  			    const char *fmt, ...)
+>  {
+>  	struct bpf_diag_scratch *scratch;
+
+This is the hunk that is actually needed, but was the prefix inserted
+without re-wrapping the declaration?
+
+Adding the 15-character __printf(4, 5) prefix causes two formatting
+issues:
+
+1. Line 797 grows from 90 to 105 columns, exceeding the kernel's
+100-column limit, so checkpatch will emit "WARNING: line length of 105
+exceeds 100 columns".
+
+2. The continuation line 798 is no longer aligned with the open
+parenthesis. Before the patch, the first argument sat at column 29 and
+line 798 (3 tabs + 4 spaces) also started at column 29, matching
+exactly. Adding the prefix moves the open parenthesis so the first
+argument now sits at column 44, while line 798 still starts at column 29
+-> checkpatch "CHECK: Alignment should match open parenthesis".
+
+The five nearest in-tree uses of this exact __printf(N, M) static form
+all avoid both problems by re-wrapping the parameter list:
+
+    kernel/bpf/btf.c:1536-1537   len=75, continuation at col 47
+    kernel/bpf/btf.c:1560-1561   len=80, continuation at col 52
+    kernel/bpf/btf.c:8334-8335   len=79, continuation at col 41
+    kernel/bpf/verifier.c:7656-7657  len=92, continuation at col 50
+    kernel/bpf/verifier.c:8457-8458  len=92, continuation at col 50
+
+Should the parameters be split across the two lines (or move label down)
+to bring line 797 under 100 columns and re-indent line 798 to the new
+parenthesis column?
 
 
-Hi,
- is there any chance these might land this cycle?  I was hoping to add a
- bunch of follow-on per-fs patches, but I cannot without this prep.
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Thanks,
-NeilBrown
-
-
-On Sat, 05 Sep 2026, NeilBrown wrote:
-> The only change in this v4 over v3 are to replace lock_sync with an
-> acquire/release pair which builds correctly when lockdep isn't enabled,
-> to add the 7th patch which I previously mentioned, and to include
-> linux-kernel so that sashiko gets to see the series.
->=20
-> Previous intro:
->=20
-> Hi,
->  As you know I am working on changes to locking for directory operations
-> such as lookup/create/remove/rename.  The ultimate goal is for the VFS
-> to lock the dentry, not the parent directory, and to push the i_rwsem
-> parent locking down into the filesystems where it can be kept, removed,
-> or adjusted as best fits each filesystem.
->=20
-> The next step is to change the order of locking for d_alloc_parallel() -
-> which allocates a locked (in-lookup) dentry or waits for an existing
-> dentry to be unlocked.  Currently d_alloc_parallel() is ordered below
-> i_rwsem on parent, so you cannot wait on i_rwsem while holding a locked
-> (in-lookup) dentry.
->=20
-> To push i_rwsem into filesystems I need to push i_rwsem below d_alloc_paral=
-lel(),
-> so code can wait for i_rwsem while holding an in-lookup dentry, but won't be
-> able to wait in d_alloc_parallel() while holding i_rwsem.
->=20
-> There are two broad changes that are needed before that order can be
-> swapped.  This series sets the direction.  Subsequent patches which I
-> hope can also land this cycle spread those changes throughout
-> filesystems.
->=20
-> The two changes are:
-> 1 - don't call d_alloc_parallel() while holding i_rwsem.
->    This involves introducing d_alloc_trylock() and changing
->    some places to drop i_rwsem before taking d_alloc_parallel()
->    for this to work they will need to know if the lock is shared
->    or exclusive so LOOKUP_SHARED is added.
->=20
-> 2 - don't d_drop() a dentry while it being worked on.  This might
->    not be entirely needed yet, but it will be needed soon and doing it
->    now is a convenient time, and it helps make the end result clearer.
->    Calling d_drop() effectively unlocks an in-lookup denty.
->    It is OK for a filesystem to do this *after* an operation has
->    completed, whether in success or failure.  Doing it before completion
->    will allow another dentry to be allocated maybe too early.
->=20
->    Enhancing d_splice_alias() to handle hashed dentries is key to
->    removing the need to d_drop() in filesystems.  Though not strictly
->    necessary, this allows d_add() to be removed as there will be nothing
->    that d_add() does which cannot be done with d_splice_alias()
->=20
-> This set of 6 patches makes core-VFS changes. After this I have
->  - 7 nfs patches
->  - 6 afs patches
->  - 4 smb/client patches
->  - 3 cephfs patches
->  - 2 fuse patches
->  - one each for shmem, code, configfs, hostfs, procfs, ovl
-> and a patch to d_add_ci() which affects xfs and ntfs.
->=20
-> Once all of those have landed I have 4 patches to remove deprecated interfa=
-ces.
-> All of these can be found at
->    https://github.com/neilbrown/linux/commits/pdirops
->=20
->=20
-> If all goes to plan, then in the next cycle a few patches will invert the
-> lock order and remove LOOKUP_SHARED.  Then we can get on to the really
-> fun stuff! (branch pdirops-next)
->=20
-> Thanks,
-> NeilBrown
->=20
->=20
->  [PATCH v4 1/7] VFS: fix various typos in documentation for
->  [PATCH v4 2/7] VFS: enhance d_splice_alias() to handle hashed
->  [PATCH v4 3/7] VFS: introduce d_alloc_trylock()
->  [PATCH v4 4/7] VFS: add d_duplicate()
->  [PATCH v4 5/7] VFS: Add LOOKUP_SHARED flag.
->  [PATCH v4 6/7] VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP lock.
->  [PATCH v4 7/7] VFS: reserve a d_flags bit for fs-specific usage
->=20
->=20
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35020865259
+--===============4666062696086601469==--
