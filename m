@@ -1,228 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52A18396588;
-	Tue, 15 Sep 2026 07:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DC5370D43
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459168; cv=none; b=Pqmsd6tVynF7Vc5q6GLWjIqjpoXI3K19G06H64jrvg1mD9lWNcc+fCWN0Ok3M54KJJITNoFb2v7ty+2BmN4ZUopGQ0Ed2j/jNtMiR5Ez5zzSrYx3smVk0pqK79Chd3GKrbHN/ImQBl6VG+Bs0XRv0MSENToiBUdi1qtieJ5zaes=
+	t=1789459205; cv=none; b=bEQXUy2IvWN/RuSVsOCQPWgrEsai63WSeTUdxXcJxRJNOb54n/2czwIBIxjTKBvoX3Jnr7+vUC73JDiSTiTO+KrSczcY7MbW31A49cksXUhTgDNkCSyjuPBCjs3JXml8kGuvJ76dKCGkay73QZy2refe5WgOillJYyTM6Ihh6NA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459168; c=relaxed/simple;
-	bh=NFm/Bmw3lQZ0sZ9bbnHxw99/b8GrSXW/d3Xz1RSCeO4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RdQa54QP+JW9BhwalTzQnbaHD/pjZK7irX7MzVitR50PREJ596OPQR1G2lKMWSxf16oTo56uZk/QocygKAgPgEntzRQw2r0WPuM0hEO5J9R35+QYt3t+4W1Y8PhaWf9qB/nhX8DiElftenUryrGxl9W0AyhZRABcl7WEwoHGx8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Dl75BtWV; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789459205; c=relaxed/simple;
+	bh=GILNLQIt4Kvkzuaw/uizZLn8SlGgfvSI7pdRyWR4a7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r9F35MvZDh3gu/LJ7egCO7tuXVLw5VS9jFqa0yPMT6QrfdpE5B7MK03qkoHpmec/Yh0xw8Yqx0VFde73w5XLLQEMaiIQD0LZ1WfRjXyIsi0MNJPJ+LRyso1qmJA4BHoQsIHBrgweavfvO9I9KiD5VAXkhljIGo9FEYvzpKdrIhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eXntUWX/; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Dl75BtWV"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BC03B169C;
-	Tue, 15 Sep 2026 00:59:20 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 348883F86F;
-	Tue, 15 Sep 2026 00:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789459164; bh=NFm/Bmw3lQZ0sZ9bbnHxw99/b8GrSXW/d3Xz1RSCeO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Dl75BtWVkvlLYgY6l9WA7uPXRoT36D3Nt7r8pBsnRpQzSfsxZ8hAg/k19yyxEGfHA
-	 v/ge4Im8TagH1qzW4ufriEcxpI2b0Hd6EAEbehfcnqoax2CIBigQYzbRxndv0M6905
-	 EFTt/crJfNSMvMY0W42CbEU4dMdrirLdoXlddr3s=
-Message-ID: <e8a33eea-c54d-471c-9936-41762453feb7@arm.com>
-Date: Tue, 15 Sep 2026 09:59:17 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eXntUWX/"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so66165e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:00:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789459201; x=1790064001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0lHkGbv3xQAD2AcFEaHFNC5cNK+7NTF1uSPhL3tTLDI=;
+        b=eXntUWX/2NmuT3oyAmiXdtbNrFyaJd6PdR/1zXy2C7vDVNy5Vse7rOn0kNBA9pIb2u
+         tUf6Sjq8I8VAD4sb8fLcJDwh6P+9+F87r8bUkVRMzEnHUX/GiiRE2uu6F0Y0dBrwKXTA
+         njksgifG9qA4RLuTsrcP0ylgSRZ3LsIP2q94UDv1OJSx6zB1cu8YoknSPL6c+lIgz+Pn
+         N8qNLs4js0ZLxy3oBVVfu9C2YKPg9Gu115xitO6rzN/r1ZJ+50xJJNey09CjudjdtW0V
+         XD3nTioCTbgoRBl678as7e5NpnYVAVbNDqPavQ+WxZKZFds6u+0BaGa5D6WpfXSKqUaS
+         8UMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789459201; x=1790064001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0lHkGbv3xQAD2AcFEaHFNC5cNK+7NTF1uSPhL3tTLDI=;
+        b=Tw5plSMd16rM7SbRIPL7C9ZXtBvNjtpxRG3TP5/2UupdiWu66IJPZR105Bq7B2GVPO
+         z6OTKhnWoS+LJ+ivt8N7mvuPtXJZBghoRjzm2Mrmzf9LOarhH1eQyy0Ee826J1Q5SdL2
+         J/10+AndYO2tyQQRd92A6rozftd6nUaW5fs/bgVRtJr2AJe4gwNXUjGNFdL412zpIDaB
+         5Ot12IjH1GoVteBDg9fm28DsAn62pFp0+XYYaeh0m8fYXqL2qGO2pGxwtDuZHvIq8kbp
+         yVMKBvXl689AnQhcoZ2l2To5QVBw5/qd+4dWQKOo6qQQym8Id/PvC8Tsl5H22LX2F8cj
+         ZxjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAZMWjhqa3xx9wrQQE2jqzSjB5LlgkFzPsUzRkvDgxCm0Fj/Y0SsbY4nIRhRoFMv8K9cFIu8x9YavCJAk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNyfpadCe4seyxmz8rvlsFJsBEhfF773TfSqkUJFNq185TDEX0
+	4uChk87yfGSpQe9pnBrRmhKZqdViqRoLDkMC+Yhm6e2QH+N2TQFTWXaX
+X-Gm-Gg: AYBFou2dHWAp6EXOlAoO5e0TaFJ25IZn9wCuTzQrMQh2JX1jkVSCGhn3o5zvMKpKJSJ
+	B965BInvwzfBBZV5vd3KeJZ5QAMWNkOocEgs2zMZ130NVW/Apph1nxHdEw62y2xur8i3aSjCc3n
+	cUkMhZenI0fPU4IAFEEvUBSUoZ3uyv0ZUL2jJy92awxFkiiv+ZBGw9Rm8OA8eryFxi4e+IAt1Tu
+	3+fvU+XNt4KPoJjGgeDMJ7GZ4E97JTJ5OthPYFTqMADgJpIHrNdM5QdafoUVAze+T4CvozwaKK9
+	XzZjOquQepUYaU0s5ird5fhZya63dQkIZX1gJtAEs6pp6ZXLZrVgqog0+TRTMc6GjBoRO4xeLcb
+	HDakQFBwnbX+WWQzY/U/GWdfYX/in+Fe3i5s0goIdYfTUE6wXhpP4R1thZT+lbqu9/Q6OPuR741
+	I//kKd79qPZEZcXMVNo3h06IiSr0ZrBpUiw98oTPGxqHesp9DGKD31/5nrCgqoqNc0Hec8j0TU7
+	dqCQprN0dxgNxbqmAs=
+X-Received: by 2002:a05:600c:4f4b:b0:49e:70b2:66ab with SMTP id 5b1f17b1804b1-49e82176603mr1629885e9.0.1789459200433;
+        Tue, 15 Sep 2026 01:00:00 -0700 (PDT)
+Received: from fedora ([154.182.99.41])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6bf4desm64112155e9.15.2026.09.15.00.59.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:00:00 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	gregkh@linuxfoundation.org,
+	nuno.sa@analog.com,
+	Michael.Hennerich@analog.com
+Cc: dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	joshua.crofts1@gmail.com,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v7 0/3] staging: iio: adc: ad7816: Fix SPI operations race condition and DMA safety
+Date: Tue, 15 Sep 2026 10:59:36 +0300
+Message-ID: <20260915075939.18180-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 04/10] cacheinfo: Expose the code to generate a
- cache-id from a device_node
-To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>,
- Rob Herring <robh@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Ben Horgan <ben.horgan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
- <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: Drew Fustini <fustini@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, trilok.soni@oss.qualcomm.com,
- aiqun.yu@oss.qualcomm.com, ganapatrao.kulkarni@oss.qualcomm.com,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- devicetree@vger.kernel.org
-References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
- <20260914-mpam-resctrl-dt-knp-support-v2-4-bf6645bb2f65@oss.qualcomm.com>
- <317682e8-63e7-4047-9106-deea7bf96388@arm.com>
- <a340505d-9495-4f68-8ed1-c7e8772c28e4@oss.qualcomm.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <a340505d-9495-4f68-8ed1-c7e8772c28e4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Yin,
+This series addresses separate issues in the ad7816 driver regarding
+race conditions and DMA safety across all SPI operations.
 
-thanks for the reply!
+Changes in v7:
 
-On 9/15/26 08:49, Yin Li wrote:
-> 
-> 
-> On 9/14/2026 8:26 PM, Andre Przywara wrote:
->> Hi,
->>
->> On 9/14/26 11:37, Yin Li wrote:
->>> From: James Morse <james.morse@arm.com>
->>>
->>> The MPAM driver identifies caches by id for use with resctrl. It
->>> needs to know the cache-id when probe-ing, but the value isn't set
->>> in cacheinfo until device_initcall(). Even after device_initcall(),
->>> the cache-id is only available if at least one CPU associated with
->>> the cache is online.
->>>
->>> Instead of making the driver wait, expose the code that generates the
->>> cache-id. The parts of the MPAM driver that run early can use this to
->>> set up the resctrl structures before cacheinfo is ready in
->>> device_initcall().
->>>
->>> Signed-off-by: James Morse <james.morse@arm.com>
->>> [ Yin Li: fix context conflicts in cacheinfo.c and cacheinfo.h; guard 
->>> the
->>>    cache_of_calculate_id() declaration with CONFIG_OF to prevent build
->>>    errors when CONFIG_OF is not set ]
->>
->> You can shorten that part in square brackets: doing adjustments due to 
->> rebasing is surely implied, and you can shorten the rest, like:
->> [ Yin Li: guard cache_of_calculate_id() prototype ]
->>
->> Speaking of which ...
->>
->>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
->>> ---
->>>   drivers/base/cacheinfo.c  | 17 ++++++++++++-----
->>>   include/linux/cacheinfo.h |  3 +++
->>>   2 files changed, 15 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
->>> index 9f9c72727a05..f75e7f64038b 100644
->>> --- a/drivers/base/cacheinfo.c
->>> +++ b/drivers/base/cacheinfo.c
->>> @@ -226,8 +226,7 @@ static bool match_cache_node(struct device_node 
->>> *cpu,
->>>   #define arch_compact_of_hwid(_x)    (_x)
->>>   #endif
->>> -static void cache_of_set_id(struct cacheinfo *this_leaf,
->>> -                struct device_node *cache_node)
->>> +u32 cache_of_calculate_id(struct device_node *cache_node)
->>>   {
->>>       struct device_node *cpu;
->>>       u32 min_id = ~0;
->>> @@ -238,15 +237,23 @@ static void cache_of_set_id(struct cacheinfo 
->>> *this_leaf,
->>>           id = arch_compact_of_hwid(id);
->>>           if (FIELD_GET(GENMASK_ULL(63, 32), id)) {
->>>               of_node_put(cpu);
->>> -            return;
->>> +            return ~0;
->>>           }
->>>           if (match_cache_node(cpu, cache_node))
->>>               min_id = min(min_id, id);
->>>       }
->>> -    if (min_id != ~0) {
->>> -        this_leaf->id = min_id;
->>> +    return min_id;
->>> +}
->>> +
->>> +static void cache_of_set_id(struct cacheinfo *this_leaf,
->>> +                struct device_node *cache_node)
->>> +{
->>> +    u32 id = cache_of_calculate_id(cache_node);
->>> +
->>> +    if (id != ~0) {
->>> +        this_leaf->id = id;
->>>           this_leaf->attributes |= CACHE_ID;
->>>       }
->>>   }
->>> diff --git a/include/linux/cacheinfo.h b/include/linux/cacheinfo.h
->>> index fc879ac4cc4f..c33bb3c8bd63 100644
->>> --- a/include/linux/cacheinfo.h
->>> +++ b/include/linux/cacheinfo.h
->>> @@ -113,6 +113,9 @@ int acpi_get_cache_info(unsigned int cpu,
->>>   #endif
->>>   const struct attribute_group *cache_get_priv_group(struct cacheinfo 
->>> *this_leaf);
->>> +#ifdef CONFIG_OF
->>
->> Why is that, exactly? First IIUC it's quite uncommon to use #ifdef 
->> guards around prototypes (unless they are stubbed without the symbol 
->> defined). Using types protected by those symbols if certainly another 
->> reason, and it looks like this would be the case here, but I had no 
->> trouble building the kernel for x86, where CONFIG_OF is not defined.
->> So can you share a .config example (or give a hint) as to where this 
->> fails building?
->> And if it does, wouldn't it be better to always include <linux/of.h> 
->> in that file instead? I think I see a similar pattern elsewhere 
->> (rfkill- gpio.c, sound/ac97/bus.c).
->>
-> 
-> Hi Andre,
-> 
-> On the #ifdef CONFIG_OF: I also verified that removing the guard doesn't
-> break the build. However, since the implementation in cacheinfo.c is
-> itself guarded by #ifdef CONFIG_OF, exposing the prototype
-> unconditionally could cause a link error on CONFIG_OF=n builds if called
+    Patch 2: Moved the mutex to the top of the ad7816_chip_info struct
+    (right after the pointers) to prevent struct padding/holes, as
+    pointed out by Andy Shevchenko. Also expanded the mutex to serialize
+    ad7816_spi_write() to prevent race conditions.
 
-How so? Just exposing a prototype wouldn't be a problem, as long as you 
-don't try to call that function. And that would be caught by the linker, 
-and then you have a different problem anyway (the caller).
+    Patch 3: Dropped the dedicated rx_buf. Switched all spi_write() and
+    spi_read() calls to use spi_write_then_read(..., NULL, 0) to safely
+    handle DMA using an internal bounce buffer, avoiding cacheline sharing,
+    as guided by Jonathan Cameron.
 
-The only reason to protect the prototype would be if a type used in the 
-parameters is not defined. And on the face of it "struct device_node" is 
-an OF specific type, declared in include/linux/of.h, but as mentioned, I 
-can't produce a compiler error, and even if so, would prefer to include 
-of.h instead.
+Changes in v6:
 
-> from outside the ARM64/MPAM path. A more idiomatic approach might be to
-> use a stub to keep the header consistent with the implementation:
-> 
->    #ifdef CONFIG_OF
->    u32 cache_of_calculate_id(struct device_node *np);
->    #else
->    static inline u32 cache_of_calculate_id(struct device_node *np)
->    {
->        return ~0U;
->    }
->    #endif
-> 
-> Would that work for you?
+    Separated the alphabetical sorting of include headers into a dedicated
+    precursor patch (Patch 1).
 
-That's not necessary and doesn't solve the problem: the struct 
-device_node would be present in both branches, so that doesn't help. And 
-given there are no preprocessor protections for OF or ACPI in the whole 
-of mpam_devices.c, that's a non-issue, I'd say.
+    Kept the mutex addition strictly focused on serializing the read
+    operations without modifying the sizeof() argument (Patch 2).
 
-> Otherwise I'm happy to just drop the guard in
-> the next version.
+    Moved the sizeof() argument fix to the DMA-safe buffer patch where
+    it logically belongs (Patch 3).
 
-So can you say whether you have a .config that does not build? Or was 
-that issue just pointed out by some picky AI review tool?
-Otherwise I would drop the guards, and wait for the kernel test robot or 
-Arnd's infamous randconfig builds to show up the exact problem.
+Changes in v5:
 
-Cheers,
-Andre
+    Split the changes into separate patches for bisectability.
 
->>
->>> +u32 cache_of_calculate_id(struct device_node *np);
->>> +#endif
->>>   /*
->>>    * Get the cacheinfo structure for the cache associated with @cpu at
->>>
->>
-> 
+    Replaced stack buffer with a dedicated rx_buf aligned with
+    IIO_DMA_MINALIGN.
+
+Abdelnasser Hussein (3):
+  staging: iio: adc: ad7816: Sort headers alphabetically
+  staging: iio: adc: ad7816: Serialize SPI operations
+  staging: iio: adc: ad7816: Fix DMA safety issues in SPI transfers
+
+ drivers/staging/iio/adc/ad7816.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
+
+-- 
+2.54.0
 
