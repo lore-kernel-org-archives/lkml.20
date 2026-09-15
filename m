@@ -1,123 +1,109 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936A34AE101
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E646344C51C;
+	Tue, 15 Sep 2026 21:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789509451; cv=none; b=XwwbMWMC0sMiv3FTzcn/2PUgLMYhi3ixoh7EeKaEbdHffsClA1nYlb4+Mph0xp9pHxjlqAkfMCLKmgWUigy64Nftau9A/m2KULTtkjvm6H6KCZ1rdufg94hdDVnynKdylId/+e7R+v7mHR00zcYhN6YYHFyzWRm/vJqnRrGX7uw=
+	t=1789509478; cv=none; b=GtPaYhKpF7u7Hdp9dAyHHJnBzQZkLNauyv7+byGoYfeOuB6gzoFabx0GGxxpGaPJXMGp843wqVUn11hbV7/7gaSHiIQEuzWjFLeTR8TPgn2+Byi+roIfNZbyxgOI9vmNdVuRmQc2iVzUqi5ki9hav3IS0r0yCsInueA1kjYc6xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789509451; c=relaxed/simple;
-	bh=Lt8qyrqJYc7cQtJe32wNNIxLi9HPtu1msWByVRtr87Y=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=KyF/bE4HlYTZAE2Hdveynm/maLygvhis4yxBH/Xxle5U6Qg7d9lf4KVjYN36mcE3IBP8NYdEpSR9ksZ7UO1Ii8PbO2d4NNPkHLRrnwLt7jitNhDy9rmcb5RtIJfjw4vOT97fk11l8LpItpQxw+vv+TYq6iWGGTcPMEJgkJgMK34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=DT2XibuD; arc=none smtp.client-ip=195.121.94.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1789509478; c=relaxed/simple;
+	bh=KSRSukBJ7+z5WMKLZHiQkBBo8o2QH2dcCZtfvgcj/xg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=SOp1n9pZhzRn6Oee/MKnOBvnijnbtAbiGa59pwSteyFSy7Sjpi6LmSM2cp8Jd0oqTnq2gxXIAYxXM6JUA7Y2V+MzPhgYlhNT6yyZGA16rauSHTu05VLoFxyk0gVi2UzzW+V3Rz8bzrNy3SWs4dJHBZw4K5m1TUfsrOBTlAdAZkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZG9jUqRz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="DT2XibuD"
-X-KPN-MessageId: 465c6649-b150-11f1-a5a2-005056994fde
-Received: from mta.kpnmail.nl (unknown [10.31.161.191])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 465c6649-b150-11f1-a5a2-005056994fde;
-	Tue, 15 Sep 2026 23:56:16 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id 465bc48e-b150-11f1-9202-00505699891e;
-	Tue, 15 Sep 2026 23:56:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=a0u+GbFOErpHePUx6+BI03U2sMvyd1zwQqxiBlKg7VA=;
-	b=DT2XibuDIiyd7iJ053ua69Jt2ODdzNoOW7NCavtZZ3+oT4tBI6eTUD6wjCcp8sV+if1K2hz8HGidD
-	 +tpYOZf3CzEV+rcknXT2kvxqY+QggKleNqbeVy3HIxIHfEPIPAtmdOn7XtzXK8SgfMvx5L/J51Merh
-	 chtM5w9zQNTOC1vxv0Pb3exj0VGJsL0boaddBo/R+5TxfF0cXJaus3zvUdQzhqV0XDhpdlrbQg5Phx
-	 S2kutYs4hf3ur86WEKeZR8fXe9AEaZyQTkEBJIrEbiDKzTbu4ZIV5Mq5j/phJrn552bm2TxP3eK9Kl
-	 +FSNqKqNv2yGNwVtPwPKBuzeLcxXUow==
-X-KPN-MID: 33|hKTD0EDuwhRhNaWcuXfiGcqODChJZ1fJcoc7DkNAErAfnSKm5IeiJZsNeeYSNDd
- Gs1JuRStdxTDOcknHmnRjzmyuMOw6z+nHpBKt+K6vYyU=
-X-CMASSUN: 33|C+AJVU/bsno60VidSRcGj9m4Ai0QkFg1pbcKbK8HxySbj5Po4bY7Xssi8hO3ZdB
- jfln7omMohXrCmcC6E0PBSQ==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh08 (cpxoxapps-mh08.personalcloud.so.kpn.org [10.128.135.214])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id 464fb62a-b150-11f1-916a-005056995d6c;
-	Tue, 15 Sep 2026 23:56:16 +0200 (CEST)
-Date: Tue, 15 Sep 2026 23:56:16 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Jan Kara <jack@suse.cz>, Dan Carpenter <error27@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Message-ID: <1913061521.1120051.1789509376030@kpc.webmail.kpnmail.nl>
-In-Reply-To: <hftpz62zoc7rjn3xdcaqgnujjnicpgv6betqbqfyvp45tynmep@l7m75b46jxpz>
-References: <aql0YTgwtRI0VZyG@stanley.mountain>
- <hftpz62zoc7rjn3xdcaqgnujjnicpgv6betqbqfyvp45tynmep@l7m75b46jxpz>
-Subject: Re: [PATCH] vfs: clean up indenting in lookup_open()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZG9jUqRz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC581F000FF;
+	Tue, 15 Sep 2026 21:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789509476;
+	bh=+6kruBY6BSoJ8J6yTkBc3PXegyXTnrySEzokuashekU=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=ZG9jUqRz+UhtqswynhPgoVamZxHLGtN85OOaEEyZXlifjFR5oVIVC+jrYGLW44q46
+	 KTOiGeZ4cwSyYMUeD9E2+js8v9KseS9zSfUfVDXJNwxC4RwFxZUmteBY7b8P07eoOx
+	 zxfBve950Vv0mQKOWw22U8RpcE6+3xQVwE2OMAhgZTc0zy7Od2r449Ozfy+E7cTKV5
+	 L7u8zRshh52zJs3Q1BNZnGSRQ4tCkH7TOrxUAjagwXM1iOmdbTGHpk2YPdRI820O8i
+	 BapmzaEifIbLR9WbNwOYkRMjJ7AfXHYj+/AHIxYRbBv6LHE2guLYHQhP5/vR115V8Q
+	 SlTJHfdq/dlrg==
+Date: Tue, 15 Sep 2026 16:57:54 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ patches@opensource.cirrus.com, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, 
+ Maciej Strozek <mstrozek@opensource.cirrus.com>, 
+ linux-sound@vger.kernel.org
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260915165652.914893-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com>
+Message-Id: <178950938407.3847226.1050939911266528360.robh@kernel.org>
+Subject: Re: [PATCH v3 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
+ SDCA codec
 
-This is about linux-next, right?
 
-This should not have been pulled into next yet. I rebased this series after
-Neil's vfs_lookup_open() landed in 7.3. There were some rebasing conflicts that
-I fixed, but I left something out, which I fixed later but forgot to format-patch
-again when sending out (including this whitespace). Christian pointed this
-out to me, and I have fixed these things in v6 of O_CREAT|O_DIRECTORY.[1]
+On Tue, 15 Sep 2026 17:56:49 +0100, Srinivas Kandagatla wrote:
+> Describe the WCD9378 SoundWire peripheral which is SDCA compatible
+> soundwire device. It provides SDCA SimpleJack for headphone playback
+> headset mic capture and MBHC jack detection.
+> 
+> The same silicon is integrated in two ways and enumerates with the
+> same SoundWire class ID:
+> 
+>   mobile mode: two slaves (tx, rx) on separate SoundWire masters.
+> 
+>   SDCA / compute mode: one aggregated slave on a multi-lane
+>   master.
+> 
+> Note: both of them have different bus toplogies 1 device vs 2 devices.
+> 
+> Currently only compute mode is supported by this bindings, mobile mode
+> will extend this binding as required.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 91 +++++++++++++++++++
+>  1 file changed, 91 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+> 
 
-Please, pull that into vfs tree and then next. Some of the patches also need an
-explicit review still, although Neil looked through most of it. Maybe you want
-to take a look as well, Jan? :)
+My bot found errors running 'make dt_binding_check' on your patch:
 
-[1]: https://lore.kernel.org/linux-fsdevel/20260913185016.523376-1-jkoolstra@xs4all.nl/
+yamllint warnings/errors:
 
-> Op 15-09-2026 22:40 CEST schreef Jan Kara <jack@suse.cz>:
-> 
->  
-> On Tue 15-09-26 19:37:53, Dan Carpenter wrote:
-> > These lines are indented too far.  Delete a tab.
-> > 
-> > Signed-off-by: Dan Carpenter <error27@gmail.com>
-> 
-> Looks good. Feel free to add:
-> 
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> 
-> 								Honza
-> 
-> > ---
-> >  fs/namei.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/fs/namei.c b/fs/namei.c
-> > index 1dd4ec7d0e62..48b28ed44a9e 100644
-> > --- a/fs/namei.c
-> > +++ b/fs/namei.c
-> > @@ -4636,9 +4636,9 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
-> >  	if (create_dir) {
-> >  		struct dentry *res = vfs_mkdir_no_perm(idmap, dir_inode, dentry,
-> >  						       mode, &delegated_inode);
-> > -			error = PTR_ERR_OR_ZERO(res);
-> > -			if (!error)
-> > -				dentry = res;
-> > +		error = PTR_ERR_OR_ZERO(res);
-> > +		if (!error)
-> > +			dentry = res;
-> >  	} else {
-> >  		error = vfs_create_no_perm(idmap, dentry, mode, &delegated_inode);
-> >  	}
-> > -- 
-> > 2.53.0
-> > 
-> -- 
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.example.dtb: soundwire@7630000: audio-codec@0,3:compatible:0: 'qcom,wcd9378c' does not match '^sdw[0-9a-f]{1}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{2}$'
+	from schema $id: http://devicetree.org/schemas/soundwire/soundwire-controller.yaml
+Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.example.dtb: soundwire@7630000: audio-codec@0,3:compatible: ['qcom,wcd9378c', 'sdw20217011000'] is too long
+	from schema $id: http://devicetree.org/schemas/soundwire/soundwire-controller.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
