@@ -1,156 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C783F3288;
-	Tue, 15 Sep 2026 06:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5DD2F8E98
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454299; cv=none; b=YSNflli8Rkti+athzz332V7YoDwGvq9PfeBrAfiMgxkMtfErCswcI7Q2Xr8HKLniBPotip9dv9QwucTelY/ZXH2/5A0VvOgilEcphmbBb4XfjUELdj/XTMI3jEIqMGzm4kVBvDexoBXY6cQO6C464aluOPWFCPG4Y/aNGz/5d0Q=
+	t=1789454426; cv=none; b=hX2qWr0I/UET4I+2JnT44XJRs0hG+hvM0Y853LSFzNe2Inekj5NekmEz4tgmPz5wbm/Xhd9A6phjbPq1XJAIm2UJFRI8dIGajgV16OSBdj0iS+Ls7/BcwxkLBjhaJV3BJzZdhrsG9hyVwo8ddQUzio62kcUpQe1ULit10zysAFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454299; c=relaxed/simple;
-	bh=PgjRTvTAHrwKCDdjNiJHiFkJhHXrCmPKkGWxNpnWORw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ace8rJyWsJZPu6sLdzv8yzoJEvN39c6KJm20dXqWNBxujcZIyQz8YV2gQLrHpqSaJ1Lk6mHCMR5fkb001bMN5CLkdxEfEZb4IvwdoXQGnZ4RE+k+LGEWM769kQ3GIwAYcGaxuWQM3na3s6Y9klg8R1rNPtRTU2wnGae9HjoP6Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YY1bG9dA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789454426; c=relaxed/simple;
+	bh=unkA0ssih9z87yxpeGe0v6wkVWdw3JKhLGifgjgbCQE=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=X1p+/6f4EG+pxyVyxdoNraM7Tt7Oz3U0YN8mwQsb5+Q3Hb+hujEtB1giWncRl0aG9CjjrWLsf6SKaounCs+93Vy3h3gFjfOqcisOFP7mDsXv1PzN/JtgzTyeep8sEfF6a8T6wWm9R+nXlw55J1S3FRqgAeWlJVAmFf8vz84cAOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KqGxrlaR; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YY1bG9dA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF37D1F000FF;
-	Tue, 15 Sep 2026 06:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789454297;
-	bh=LWPrHZnTBm1zbpSh+cz5mP04/qKKlvCYU336N/nh6J4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YY1bG9dAry15f+VVA7k2SUjSdp9V9IWbEvIRZ9fsMcEXe3OfekmLKznzCqjvY0e4c
-	 MCGgOup4TRxZt39+J3wTo+tmapq0eAigaHhgpBnbCd1idM2G49P4iYOk/K66EkwTZ9
-	 RILLMsV5K2Sw5ZNaagq9lVN6JUj+MFS/gpeu0hFo=
-Date: Tue, 15 Sep 2026 08:36:23 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Xiang Mei <xmei5@asu.edu>
-Cc: co <co+66c3f58096d0bde8@bugs.sh>, linux-usb@vger.kernel.org,
-	Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
-	Suwan Kim <suwan.kim027@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] drivers/usb: NULL pointer dereference in
- stub_recv_cmd_submit()
-Message-ID: <2026091546-spoiler-borax-ed6c@gregkh>
-References: <J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7@bugs.sh>
- <2026091217-almighty-slouching-de2c@gregkh>
- <CAPpSM+TjBEDy0zpkeNfz2ZeCZxYBHSKrw3spDBYS-kBw=EXL8g@mail.gmail.com>
- <2026091348-sheep-showman-5a20@gregkh>
- <CAPpSM+RR1ztW_iCnSkYCm62VWsLYygXr2hWEeoikKk9Q8HKR3Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KqGxrlaR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=unkA0ssih9z87yxpeGe0v6wkVWdw3JKhLGifgjgbCQE=; b=K
+	qGxrlaR/3tQwDIpeyKnfvT9G/+f3B4lLXNKrNgIbNEXwc2bKyBe0cuFw6W7aoJUf
+	r7aqDDhCE/8FE+8GmT+u01HIQq1KTBKZYMcB0W7j4RRqsS2t4oDM9vGfTZHXGVru
+	UGbZvXjTa+fXQgH47QNUYaFLSjoQ2CXGpfgPqAk6B0=
+Date: Tue, 15 Sep 2026 14:39:39 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: dwmw2@infradead.org, richard@nod.at
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [BUG] jffs2: kernel BUG in jffs2_del_ino_cache
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/ieu0ss7yeaYekdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/D9mcTQS6k5QcvGt6dplP9A==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPpSM+RR1ztW_iCnSkYCm62VWsLYygXr2hWEeoikKk9Q8HKR3Q@mail.gmail.com>
+Message-ID: <23469bd6.56e9.1a0a3caead6.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3378r6KhqN+4PAA--.21301W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+QsJumqo6CtZKwAA3y
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Mon, Sep 14, 2026 at 03:11:08PM -0700, Xiang Mei wrote:
-> On Sun, Sep 13, 2026 at 2:19 AM Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Sat, Sep 12, 2026 at 11:41:00AM -0700, Xiang Mei wrote:
-> > > On Fri, Sep 11, 2026 at 10:47 PM Greg Kroah-Hartman
-> > > <gregkh@linuxfoundation.org> wrote:
-> > > >
-> > > > On Sat, Sep 12, 2026 at 02:06:13AM +0000, co wrote:
-> > > > > This is a bug report, not a patch submission. See
-> > > > > https://bugs.sh/reporting.html
-> > > > >
-> > > > > We found a bug reachable in:
-> > > > >
-> > > > >     path    drivers/usb/usbip
-> > > > >     crash   NULL pointer dereference in stub_recv_cmd_submit()
-> > > > >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
-> > > > >
-> > > > > Config, environment, the sanitizer report and a C reproducer follow.
-> > > > >
-> > > > > == Notes ===============================================================
-> > > > >     If you fix this bug, this tag credits the report and lets us
-> > > > >     close it on our side:
-> > > > >
-> > > > > Reported-by: co+66c3f58096d0bde8@bugs.sh
-> > > > >
-> > > > >     Everything in this mail is validated by the reproducer below.
-> > > > >
-> > > > >     We also hold an unreviewed LLM-generated analysis and candidate
-> > > > >     patch. The same reproducer panics the unpatched kernel and runs
-> > > > >     clean with that patch applied. Use it as a starting point, or ignore
-> > > > >     it and write your own:
-> > > > >
-> > > > >         patch.diff  https://bugs.sh/b/66c3f58096d0bde8/patch.diff
-> > > >
-> > > > Please just submit patches like normal, in a format that can be applied,
-> > > > and do not make us go to random links to attempt to get any information.
-> > > > That's not how kernel development works at all.
-> > > >
-> > >
-> > > Hi Greg,
-> > >
-> > > Sorry about this. We may have misunderstood your earlier reply in this thread:
-> > >
-> > > "But sure, posting bug reports is fine, but again, patches are better :)"
-> > >
-> > > https://lore.kernel.org/all/2026090139-shortlist-junkie-9bee@gregkh/#t
-> > >
-> > > We interpreted this as meaning that sending bug reports without
-> > > patches was acceptable. We understand your concern with the current
-> > > format, and we will stop sending reports in this format to you and
-> > > linux-usb@vger.kernel.org.
-> > >
-> > > To make sure we understand correctly and follow the appropriate
-> > > practice going forward, should we:
-> > >
-> > > 1. Send pure bug reports without any LLM-generated analysis or
-> > > candidate patch, similar to the bug reports syzbot sends to kernel
-> > > mailing lists;
-> > > 2. For USB, do not send bug reports and only submit patches in the
-> > > normal kernel format; or
-> > > 3. More generally, do not send bug reports to Linux kernel mailing
-> > > lists and only submit patches in the normal kernel format?
-> > >
-> > > Sorry again for the misunderstanding, and thanks for taking the time
-> > > to clarify this despite your busy schedule.
-> >
-> > Think about what _you_ would want to see if you were on the receiving
-> > end of hundreds of patches a week.  Would you want to see a vague email
-> > with links required to dig stuff out to potentially have to make up a
-> > fix yourself for an unknown and poorly worded description, or would you
-> > want a real patch, in mergable format, that describes the problem and
-> > how it is being resolved?
-> >
-> > I think the latter :)
-> >
-> 
-> 
-> 
-> > Right now, most developers just ignore syzbot reports, as we are
-> > drowning in real fixes from developers instead.  There's no need for us
-> > to go research new fixes when we are having a hard time keeping on top
-> > of the stuff people are sending us that are in mergable state already!
-> >
-> 
-> You are right. We understand how overloaded maintainers and reviewers
-> are right now.
-> 
-> It's true that bug reports without a mergeable patch still take
-> maintainers' attention, even when no response is expected.
-> 
-> We'd still like to make one last request: would it be okay to continue
-> sending a small number of reports to other lists, with no external
-> links (just PoC and crash sanitizer log)? We'd take responsibility for
-> each report and follow up with a patch, even if no one responds. We
-> just hope that contributors who know the subsystem better might be
-> interested in helping us check the issues.
-
-Why not just send patches to resolve the issues?  That's the best thing
-to work from, especially as you have ways to test if your patch is
-correct or not.
-
-thanks,
-
-greg k-h
+CkhpLAoKSSBhbSByZXBvcnRpbmcgYSBrZXJuZWwgQlVHIGluIHRoZSBqZmZzMiBpbm9kZSBjYWNo
+ZSBoYW5kbGluZywgdHJpZ2dlcmVkIGJ5IGEKc3l6a2FsbGVyIHJlcHJvZHVjZXIuICBUaGUgaXNz
+dWUgaXMgcmVwcm9kdWNpYmxlIHdpdGggSEVBRCBjb21taXQKY2VlOTM5NWFjZDgwNDNiZTA2NDRi
+MjVjMzRiZmE4NjYyM2YyYjkzNSAodjcuMy1yYzEsIExpbnV4IDcuMy4wLXJjMSkuCgpUaGUgcmVw
+cm9kdWNlciBtb3VudHMgZGV2dG1wZnMsIG1vdW50cyB0aGUgamZmczIgZmlsZXN5c3RlbSBmb3Vu
+ZCBvbgovZGV2L210ZGJsb2NrMCwgYW5kIHRoZW4gc2V0cyBhIHRydXN0ZWQub3ZlcmxheS5yZWRp
+cmVjdCBleHRlbmRlZCBhdHRyaWJ1dGUgb24KdGhlIG1vdW50IHBvaW50LiAgTm8gY3JhZnRlZCBp
+bWFnZSBpcyB1cGxvYWRlZCBieSB0aGUgcmVwcm9kdWNlcjsgdGhlIHRyaWdnZXIgaXMKdGhlIGF0
+dHJpYnV0ZSBvcGVyYXRpb24gb24gdGhlIGpmZnMyIG1vdW50LgoKVGhlIGNvbnNvbGUgc2hvd3Mg
+Imtlcm5lbCBCVUcgYXQgZnMvamZmczIvbm9kZWxpc3QuYzo0NjIhIiB3aXRoIGFuCmludmFsaWQt
+b3Bjb2RlIE9vcHMgYW5kIFJJUCBpbiBqZmZzMl9kZWxfaW5vX2NhY2hlLiAgVGhlIHBhdGggcmVh
+Y2hlcyBpdCBmcm9tCmpmZnMyX2RvX2NsZWFyX2lub2RlIGR1cmluZyBpbm9kZSBldmljdGlvbiwg
+d2hlbiB0aGUgaW5vZGUgY2FjaGUgZW50cnkgaXMgYmVpbmcKcmVtb3ZlZCB3aGlsZSB0aGUgZmls
+ZXN5c3RlbSBpcyBzdGlsbCBob2xkaW5nIHJlZmVyZW5jZXMgcmVsYXRlZCB0byB0aGUKYXR0cmli
+dXRlIG9wZXJhdGlvbi4KCk9uZSBwb3NzaWJsZSBjYXVzZSBpcyB0aGF0IHRoZSBleHRlbmRlZC1h
+dHRyaWJ1dGUgb3BlcmF0aW9uIGxlYXZlcyBhbiBpbm9kZSB3aXRoCmFuIHVuZXhwZWN0ZWQgY2Fj
+aGUgc3RhdGUsIHNvIHRoZSByZW1vdmFsIHBhdGggdGFrZXMgYSBicmFuY2ggdGhhdCBhc3NlcnRz
+IHRoZQppbm9kZSBpcyBwcmVzZW50IGluIHRoZSBjYWNoZSBsaXN0IHdoZW4gaXQgaXMgbm90IChv
+ciBpcyBwcmVzZW50IHR3aWNlKS4gIFRoaXMKbG9va3MgbGlrZSBhIHN0YXRlLW1hbmFnZW1lbnQg
+cHJvYmxlbSBpbiB0aGUgamZmczIgaW5vZGUgY2FjaGUgcmF0aGVyIHRoYW4gYQpib3VuZHMgZXJy
+b3IuICBJIGFtIHJlcG9ydGluZyB0aGUgYXNzZXJ0aW9uIGFuZCB0aGUgcGF0aCBhcyBvYnNlcnZl
+ZC4KClRoaXMgYXBwZWFycyB0byBiZSBhIHJlY3VycmVuY2Ugb2YgdGhlIHN5emJvdCBpc3N1ZSB3
+aG9zZSBleHRlcm5hbCBpZCBpcwo5M2Y2YmZlZDZhNGE3MDJiNDhjYy4gIEl0IHJlbWFpbnMgcmVw
+cm9kdWNpYmxlIG9uIHY3LjMtcmMxLgoKUmVwcm9kdWNlcjoKCnN5eiByZXByb2R1Y2VyOgpta2Rp
+cmF0KDB4ZmZmZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMDAwMCk9Jy4vZGV2XHgwMCcsIDB4
+MWZmKQptb3VudCgweDAsICYoMHg3ZjAwMDAwMDAwMDApPScuL2Rldlx4MDAnLCAmKDB4N2YwMDAw
+MDAwMTAwKT0nZGV2dG1wZnNceDAwJywgMHgwLCAweDApCm1rZGlyYXQoMHhmZmZmZmZmZmZmZmZm
+ZjljLCAmKDB4N2YwMDAwMDAwMjAwKT0nLi9tbnRceDAwJywgMHgxZmYpCm1vdW50KCYoMHg3ZjAw
+MDAwMDAzMDApPUBmaWxlbmFtZT0nLi9kZXYvbXRkYmxvY2swXHgwMCcsICYoMHg3ZjAwMDAwMDAy
+MDApPScuL21udFx4MDAnLCAmKDB4N2YwMDAwMDAwNDAwKT0namZmczJceDAwJywgMHgwLCAweDAp
+CmxzZXR4YXR0ciR0cnVzdGVkX292ZXJsYXlfcmVkaXJlY3QoJigweDdmMDAwMDAwMDA0MCk9Jy4v
+bW50XHgwMCcsICYoMHg3ZjAwMDAwMDAwODApLCAweDAsIDB4MCwgMHgwKQoKY29uc29sZSBvdXRw
+dXQ6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy93ZkNLVWlVWQprZXJuZWwgY29uZmlnOiBodHRw
+czovL3Bhc3RlYmluLmNvbS9yYXcvMVRpS0tTOWEKCktlcm5lbDoKCkhFQUQgY29tbWl0OiBjZWU5
+Mzk1YWNkODA0M2JlMDY0NGIyNWMzNGJmYTg2NjIzZjJiOTM1CmdpdCB0cmVlOiB1cHN0cmVhbSAo
+bGludXguZ2l0KSwgdGVzdGVkIHRocm91Z2ggdGhlIHY3LjMtcmMxIGFubm90YXRlZCB0YWcgb2Jq
+ZWN0CiAgICAgICAgICAgZTVlMDQ3MjZjZGQwNDNlMzA5Njc3MDcxYWIxYjY1YTRiMThmNDIyYgpr
+ZXJuZWwgdmVyc2lvbjogNy4zLjAtcmMxICMxIFBSRUVNUFQoZnVsbCkKdGVzdGVkIHRhZzogdjcu
+My1yYzEgKExpbnV4IDcuMy1yYzEsIDIwMjYtMDgtMzApCgpMZXQgbWUga25vdyBpZiB5b3UgbmVl
+ZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCkJlc3QgcmVnYXJkcywKQ2hhbmdqaWFuCg==
