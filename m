@@ -1,101 +1,212 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214A23B6BFD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FD2488201
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461229; cv=none; b=RB/FeHi+SZRj1Wct2tEMpTlIVDaJbQlZRmjyhv1MDwy9BExFWrQDlGgXKDh81gev9XHGoxAWabzPd9ir4V4Eau54fDEzOkU3BMMG5QcXx5UoFpbZ9dpqyNissWBgI3GovpOV8GnvHaGRJdPKleXlJ9SOXNE2EVu2e+tULEhDvXc=
+	t=1789461245; cv=none; b=fZdyoRSXg77h9VOXOnsCq19tQv0RCWCo8HFk3oXxjmjbf8Ah8QmSDt6WldsA/dmidGGOcggO5HXY1nhHMY06xEo7y3+vQAGk+39DGY/r5ZM1M1G8kXaySamOScNR/+yhHtFMSeDPBi2TgGlUjXErJc0yWDq+JmLZYTGny9P8UBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461229; c=relaxed/simple;
-	bh=0gX1iY8HfKAY3g+8rB2lct4xHb4HdMgYzQRHaNBCdfw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O0eFOq5ivKfG0UjM+YsXKL5c7WWkTaoOKuX1xt6XmkZA7nj7EqAI0+dkUNm5B/u1v98Vp+La8NJVAtlOWnDDpy8WQlhzhgj6wc/3KxKurZ/z2dPXImO6WfxMF+bZ2IKVvwwa9dCTT36wsgYFtWsY2w1kpyxRCSFEFdEeUIum+4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KL3gvNS2; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789461245; c=relaxed/simple;
+	bh=6oazE5lyXKugirOnKSHAnIRQytAaJZ5lnjV8psy6s3o=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=E3UTZusMuFZAHhUn/QePXWLWbxU5FzuZ+aEZ+heYwXEzy13xD4GgpuXUhg5Lib15qQ0kJVD0nOC2dHkEt5PyQtVfvLyEyOuc4uY7yLOh7PPG0cyNE6PEjvlYTO9zZ5irs6X4+IPC/KA6+RUrI6OsSaRI8RXTfnotQ7LkSsvP7nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lv9HSILP; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KL3gvNS2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=tn9GJN/0WaH2zgn6xcwy+ShM9iDmjXHgO4C0IvbLhaI=; b=KL3gvNS2ubQrnaDYJpnMWrY4LB
-	zXRVOnn62AzGlWf1WfsCuqTviuamK/4/upYFEMRX+w6xFLMLFlNxkg5Sj6OVZD+auiW+2SXvzB+Fp
-	cGRxIK6CNhKfOwbit1U51Nf6JmEz0enP5pdphyZ6Ixc6lyk38x5/C5H4KxUvWUp6UaoHGSAUIUakl
-	nrhSonh3P3TpkM+M6Jiiak8Gt/4q0TXhJmjRQVpOjFcm8rWTUMSwGba2zkgu8kMOFtwTXQckecgar
-	rPb5ydUl7ztJpTDgAB8Q5i/2/nnuGTG/rWXXkpeR1YSl+YPQ294qAqqQ1ecBteKVgIkmB9fp+MqXq
-	6qMo6ukA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x6Obk-0000000FH2Y-30TO;
-	Tue, 15 Sep 2026 08:33:40 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 46EEF3012C6; Tue, 15 Sep 2026 10:33:40 +0200 (CEST)
-Date: Tue, 15 Sep 2026 10:33:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 2/9] locking/osq_lock: Save the cpu number for
- 'prev' not the node address
-Message-ID: <20260915083340.GY4121339@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
- <20260907084133.3696-3-david.laight.linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lv9HSILP"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cf02so14325a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:34:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789461243; x=1790066043; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hpbLL6EWSOuJK30L0ZNRx6vvSYbzSqSPnWalwqYVt2E=;
+        b=Lv9HSILPLnHuKbxt6mga2pl32QOF55q2Kqi4InTfgt5dc2LKcxHM2kMp6pD/bufxGR
+         IYNErJ6dWYlED2qwNRyK2xzX6jcdK0cFXoDCHeMXqR6WNUQWFc+0A3QRp/mdmDjzqPip
+         etwN04Z4Vu7EGQzWZswRS1GXXixhQme3U/an0cpeEzBPAl0xolIlH0d4IiRlwDzJMP34
+         EmmTX+5VAZCeRMe7hPRcET+WbjYqbZdhxJJcHnyz28h/ZlkA4b4ca/qS2v9QmDgZbbnf
+         oPsWUTwbjJqnzMu03wFKec+PhZ2nJOsoRiWTFS7tWrKAyIXe4YzMNFxEBfjH4NIZziX0
+         evPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789461243; x=1790066043;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hpbLL6EWSOuJK30L0ZNRx6vvSYbzSqSPnWalwqYVt2E=;
+        b=YKVnL3+FKpQKlGm1iRe07f9gH8apgFjoC1Z2MipzJQZEnRoZd4sFyWR4vzOLHNip0V
+         ZAXbfm6gjWG1xK03Y8/9paUDOqtsgUzQXj+LrUZrzCIYKVV15yHTKGh6CIzb7GcOWs8M
+         Cl6ZQ0/zxRKc5ile42953I6GsRfJnNUNsem2Iy8c/AVdtXx+RIZTzH66ZIGJLWEvlR6p
+         lriovG8rjZrM5aMIighIwXiKM8AI/fBc10YN/2bqMs5rY1QgX2/FxTE0KPOh96ieGYMe
+         pCuXtPiVxM/3n5VlC9wQTpnqs23enc9K/ZV3+9ZVtrck06OlahO68w3odcUStMAihjFb
+         aH/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxJpqb0sbPWXbl5PLeuBZpkCfQl/fMEc/yuMUW9O336Ls0eXSYF6F1ze+ND05uqGbEB4UvOjeHmStUlkAI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAY4eLJI1Fku9ENSsg04OQJ0djIU1Jg5P4GBjDVz09S7gqo6+I
+	ZFTC0e7ldqA/sHG4ObUalPFTBbIT9fuvnCik1ZgTlsGF06sNGHgQqkEm
+X-Gm-Gg: AYBFou37n6pHpE1X66rfFTXuXaBGA+Xz4g8fIyli5VQl7X3pN/v14iubYphrh+/hjMn
+	bipgNQ5VQ6Q9m3jIyOptFSDDzawhAUePLJZmOp1lkhIDCriA73mvgKr/a69sd6gjLQD7bQ6xqY7
+	FkGyvaZshBdJyBwllmqp91UH+d/uBj7dho99la6Gyz0Y50JpH3vrHjjogCQCcBoLDOeDssCmWO4
+	HCaA1XCko+Z/7fcPJ8c/XzbGsF5sPG/WJ6EAsmp1+XYexsh24swQFHsBX36bLowQkyLtE0/JEhy
+	NITDTFcNat/rzw4Mtp0kIIH3Tsm7z5sggp6AcX7rPCOW9U4zwN6BNAcPVscKS9rH5rnPmVJqpq2
+	h1DsZpkfUjhARsRQGhwrnIhb1g9D5mI/DStpTuHdfIpdPqwy4kMe+pWm9IG7Mi9EcLT0Qu3gnd4
+	+vD5Ux0vU5IuMXW28U1rafxe4WxIyAH8jyuQdbhGHzgJWC6xCoC6oAwiwTeQtuALFJZhEkGygkx
+	TuD3a1FOpiOUa33y0044sV09YTGRaiXftDWIk25s8CHhQ==
+X-Received: by 2002:a17:903:b88:b0:2da:e967:7953 with SMTP id d9443c01a7336-2dd8384d004mr1520765ad.12.1789461242775;
+        Tue, 15 Sep 2026 01:34:02 -0700 (PDT)
+Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp. [106.167.137.155])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50e3sm34165946eec.29.2026.09.15.01.33.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 01:34:02 -0700 (PDT)
+Message-ID: <9106d07e-a8e5-4379-bec6-eb4ee9f0df5c@gmail.com>
+Date: Tue, 15 Sep 2026 17:33:59 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907084133.3696-3-david.laight.linux@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Akira Yokosawa <akiyks@gmail.com>
+Subject: Re: [PATCH v3 1/2] Documentation/litmus-tests: Add SRCU fastpath
+ anchor-before-scan test
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: linux-doc@vger.kernel.org, lkmm@lists.linux.dev,
+ linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, skhan@linuxfoundation.org, paulmck@kernel.org,
+ dlustig@nvidia.com, joelagnelf@nvidia.com, corbet@lwn.net,
+ luc.maranget@inria.fr, j.alglave@ucl.ac.uk, dhowells@redhat.com,
+ npiggin@gmail.com, boqun@kernel.org, peterz@infradead.org, will@kernel.org,
+ parri.andrea@gmail.com, stern@rowland.harvard.edu
+References: <20260914143943.1503066-1-kunwu.chan@gmail.com>
+ <20260914143943.1503066-2-kunwu.chan@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260914143943.1503066-2-kunwu.chan@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 09:41:26AM +0100, David Laight wrote:
-> The cpu number of node->prev is needed for both the vcpu_is_preempted()
-> test and to update lock->tail.
-> This saves reading the cache line for the other cpu's per-cpu data.
+Hi,
+
+On 9/14/26 23:39, Kunwu Chan wrote:
+> synchronize_srcu_atomic() may end its grace period immediately when
+> its scan of the per-CPU lock counters finds no readers.  Correctness
+> requires the grace-period anchor written by srcu_gp_start() to precede
+> the smp_mb() ordering the lock scan.  This ordering ensures that any
+> reader whose lock increment is missed by the scan cannot have
+> incremented its lock counter before the grace-period anchor, and
+> therefore cannot be a pre-existing reader of this grace period.
 > 
-> The cpu member of optimistic_spin_node is no longer needed.
+> This litmus test models the key ordering between the grace-period
+> anchor and the lock counter scan, where "seq" models the
+> grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
+> ->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
+> smp_mb() and the lock scan.  P1 models the reader-side counter
+> increment and its smp_mb() from __srcu_read_lock(), which orders
+> the increment against subsequent critical-section access.  P2 models
+> an observer that sees the reader's increment before seeing the
+> anchor.
 > 
-> Merges patches 2 and 3 from v3.
+> The outcome is forbidden by LKMM, and herd7 reports "Never".  See
+> SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
+> which permits this outcome.
 > 
-> Signed-off-by: David Laight <david.laight.linux@gmail.com>
+> Tested with herd7 7.58 using linux-kernel.cfg.
+> 
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 > ---
->  kernel/locking/osq_lock.c | 33 ++++++++++++++-------------------
->  1 file changed, 14 insertions(+), 19 deletions(-)
+>  .../SRCU-fastpath-anchor-before-scan.litmus   | 58 +++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+>  create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
 > 
-> diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
-> index b17aa704c449..01988d00c480 100644
-> --- a/kernel/locking/osq_lock.c
-> +++ b/kernel/locking/osq_lock.c
-> @@ -34,9 +34,9 @@
->   */
->  
->  struct optimistic_spin_node {
-> -	struct optimistic_spin_node *next, *prev;
-> +	struct optimistic_spin_node *next;
->  	int locked; /* 1 if lock acquired */
-> -	int cpu; /* encoded CPU # + 1 value */
-> +	int prev; /* CPU number offset by 1 */
->  };
->  
->  static DEFINE_PER_CPU_SHARED_ALIGNED(struct optimistic_spin_node, osq_node);
+> diff --git a/Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus b/Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+> new file mode 100644
+> index 000000000000..e0492a4d8e07
+> --- /dev/null
+> +++ b/Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+> @@ -0,0 +1,58 @@
+> +C SRCU-fastpath-anchor-before-scan
+> +
+> +(*
+> + * Result: Never
+> + *
+> + * The synchronize_srcu_atomic() fastpath may end its grace period
+> + * immediately when its scan of the per-CPU lock counters finds no
+> + * readers.  Correctness requires the grace-period anchor written by
+> + * srcu_gp_start() to precede the smp_mb() ordering the lock scan.
+> + * This ordering ensures that any reader whose lock increment is missed
+> + * by the scan cannot have incremented its lock counter before the
+> + * grace-period anchor, and therefore cannot be a pre-existing reader
+> + * of this grace period.
+> + *
+> + * This litmus test models the key ordering between the grace-period
+> + * anchor and the lock counter scan, where "seq" models the
+> + * grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
+> + * ->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
+> + * smp_mb() and the lock scan.  P1 models the reader-side counter
+> + * increment and its smp_mb() from __srcu_read_lock(), which orders the
+> + * increment against subsequent critical-section access.  P2 models an
+> + * observer that sees the reader's increment before seeing the anchor.
+> + *
+> + * The outcome is forbidden by LKMM, and herd7 reports "Never".  See
+> + * SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
+> + * which permits this outcome.
+> + *)
+> +
+> +{}
+> +
+> +P0(int *seq, int *ctr)
+> +{
+> +	int r2;
+> +
+> +	WRITE_ONCE(*seq, 1);
+> +	smp_mb();
+> +	r2 = READ_ONCE(*ctr);
+> +}
+> +
+> +P1(int *ctr, int *x)
+> +{
+> +	WRITE_ONCE(*ctr, 1);
+> +	smp_mb();
+> +	WRITE_ONCE(*x, 1);
+> +}
+> +
+> +P2(int *seq, int *ctr)
+> +{
+> +	int r3;
+> +	int r4;
+> +
+> +	r3 = READ_ONCE(*ctr);
+> +	smp_mb();
+> +	r4 = READ_ONCE(*seq);
+> +}
+> +
+> +filter (0:r2 = 0)
+> +exists (2:r3 = 1 /\ 2:r4 = 0)
 
-> @@ -114,13 +109,12 @@ osq_wait_next(struct optimistic_spin_queue *lock,
->  bool osq_lock(struct optimistic_spin_queue *lock)
->  {
->  	struct optimistic_spin_node *node = this_cpu_ptr(&osq_node);
-> -	struct optimistic_spin_node *prev, *next;
-> +	struct optimistic_spin_node *prev_ptr, *next;
->  	int curr = encode_cpu(smp_processor_id());
-> -	int old;
-> +	int prev;
+Another knee-jerk reaction with exaggeration  :-)
 
-I'm not a fan in the asymmetry of the naming, that is very confusing at
-best.
+Why does P1() have an access to an un-shared variable x ?
+smp_mb() in P1() can't pair with any of other thread's smp_mb().
+This doesn't make sense!
+
+Let me rephrase.
+
+Litmus tests is supposed to be minimal.
+Every memory access and memory barrier is expected to
+have some effect in the outcome of the test. 
+
+In this case,
+
+P1(int *ctr)
+{
+	WRITE_ONCE(*ctr, 1);
+}
+
+should be good enough, I guess.
+
+(That is, IF I understand what you are testing here...)
+
+Regards, Akira
+
