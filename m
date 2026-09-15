@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0105F3E022D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E108A3C1406;
 	Tue, 15 Sep 2026 15:18:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485491; cv=none; b=U26AnMzMk+w2TMtAwnoQ2HibhpbB6WKsPNcIJWdPpe5yB4d5ncKCUQzQFgvfzg2EJwXczeo5outlv9AGSALFmpNlNtYT3JfmFe4hApdIkTYhDcCmZdhp7kaSm47SCoKrZEiK1TvTCYOkK2v9ZmE2q8T4cYIj/hsyXmLHZ65wJIA=
+	t=1789485491; cv=none; b=SrAPHrKkpLLThUUIvWL5mcuQIK5+QzPJpGB4lfEyhzY+7Coa/6SueymeKzQZIFNKqrtbaMx11GmAbq79XEIMQ5nIJ9H4RxZnOs7Pc2e1El2aDBxCnsSA8MYlq0jHME9BXMermSa9MPFJKvF78guUZZfcaUZjlHKDfxM9GWafAZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789485491; c=relaxed/simple;
-	bh=MYz6XguZYRFZ4/3nNJ/XuJ1PYCEYaFIUdFf95sJVHvM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iX80VSgnHyrdbEvnnaN4NTqPKz+9XYZK6yEwYSZJvi0Ncii0j6nAuMBgS44TxW9OYJ8Wk/k3bxHVFaoDtZ8TS4+dAcipEftCA9YwPzZk8xUGcfR+ltt/o6F8H1I89l9E21veO31jPpxKE8MxcdYzBMLuXYdRYgxAkvnhb9rsOUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HlffO9R0; arc=none smtp.client-ip=148.251.105.195
+	bh=jgdWifKPcWdMtqmrqZ3Slx0WzB872SaeXohnnWZg518=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=q2KK3ppUhYR1Vlz+WMWY0ggeXAOQ/SUBkK54UHeIX0CU/Ka7Ocl9amPtObqWv+rF5k6NQ8Yqmp0u/jkwelftGvQ2LXHc6kXd3TZdbPpWLUzWLW+DKtxH1aR5ssigH4jKaekK0CVyGL/N4eEmyMPDU/qjwGscd4Fu7f4UAUOqWBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TGEJ7Wg0; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HlffO9R0"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TGEJ7Wg0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789485488;
-	bh=MYz6XguZYRFZ4/3nNJ/XuJ1PYCEYaFIUdFf95sJVHvM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=HlffO9R0nkIt8kdPbWs85LU4bd1vKP40e/JICj4qRcGgdF5Rx4ROVk4mGXX+8HsZk
-	 JjyH3cue1+TtjQIWP8I2RgeVevfIPEDO/uuhXcd5hebdml/DogsWCXDyUCL8FFbYhf
-	 S+jWDsElqQW9llGqLYhP62MQmQoeVIHs2u7i6l17RvbONcIsNZCE0d0L2ZzcNHCewj
-	 zDGqK0iLoJPChW7QkZaVftU4P0aMLzGxidpm4Tn+tNk6Ccd70UQ3T5Ui6C/9Wp1hPE
-	 hC3nXfTvRpyt3HGAtpV+zz7H79M3udazCq7CaRNmbS8bhQZVYU00/a7Lz+PMW7Sd++
-	 hKvS3zamxAEUw==
+	bh=jgdWifKPcWdMtqmrqZ3Slx0WzB872SaeXohnnWZg518=;
+	h=From:Subject:Date:To:Cc:From;
+	b=TGEJ7Wg05p6fh+Z8loFcMiM9GN5kHSCv/Jir9Tgk3zOHnZre4M/hKtBjn8HkTxUdZ
+	 27qAXK6yKAq4M4v/hdmtY6qRB2a7STO+r2ry5HgnVWTzYLZB0iKIbMcptsMWWWqaB/
+	 KE8tnmoQQJANTNf1oWo2Yw0GcEIO4Vd6q8w36vCxK7azB1Hin+zgnOf9M3GQg6nEqk
+	 RPpVYjtklKtbh1MayUddWDVPX6kHBtpOnLyTZX7bMskPAgFJEcvS10OiJSyjs07JZf
+	 kvtp/T82yXmvFgn7JUOLyQnjzD8fRM0azx5aC0b3xgFhOtSPihW3HSME6YZi8jMiPT
+	 /8GkKxblGz87A==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0FE1B17E0B0F;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0A6F417E015A;
 	Tue, 15 Sep 2026 17:18:08 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id C0339480030; Tue, 15 Sep 2026 17:18:07 +0200 (CEST)
+	id BC02348002B; Tue, 15 Sep 2026 17:18:07 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 17:17:43 +0200
-Subject: [PATCH 3/5] usb: dwc3: core: add post PHY registration hook for
- platform glue
+Subject: [PATCH 0/5] usb: dwc3: introduce Rockchip glue driver
+Date: Tue, 15 Sep 2026 17:17:40 +0200
+Message-Id: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,9 +46,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-3-763bb546824e@collabora.com>
-References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
-In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WNQQ6CMBAAv9Ls2RpK0aZ8hXCAZYVVodgCmhD+b
+ hUTj5NMZlYI5JkC5GIFTwsHdkMEdRCAXTW0JLmJDGmSnhOrMlln0ju8YcejbJ6o/9TeZ5LWWKq
+ 00acm0xAjo6cLv76Dotw5zPWVcPpUf4anxxzP065BXQWS6Pqep1ws5hgfqKDctjdAVniurgAAA
+ A==
+X-Change-ID: 20260914-b4-rockchip-dwc3-rockchip-glue-979ea3735d43
 To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
@@ -61,80 +62,72 @@ Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2023;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2372;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=MYz6XguZYRFZ4/3nNJ/XuJ1PYCEYaFIUdFf95sJVHvM=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpYa/BGNBrdPkstSJPufa+Kj1IefMXRoHk0
- fWH1gVhwkYvxokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqWGvAAoJENju1/PI
- O/qanX0P/iCmrS/h4fj6sLF5rrWdGs5mYFbqm81Q8fMVgHaz5p5xKnTP2PQl8oxyLOayEp53VDm
- Qf1Z4bE1xVKGhhkW5nh/CtPtnF/ZYXuF5SARN8JKafFS1T5pSKlPB5VrOXga8pyoC2JoZJIw6hi
- VYN5w9a5SbWl8gUCdZR3MoOERkwf9LAouV7xv0p2PuEldQRKUSxUzwZw9sjfJTEhv6iYVI7N+Ai
- sfy64yc8KIu5x7dLXrwu558iGQnObiVgWxXopRtf9zKFVWI7GpMux6VlCSG5x2lGaLs6nDlRRHY
- /KWCigOROGHVDRgy4XTiH7LnkdVqOzr1JAYVIA5xIcJmelr/cEOuX7hx0Fe55DMhp7Z42yYdBB4
- Mga6h0iA6PTifQg4fPL9X2JDgHeRlKzSQNxNZMdD+U3mv4H86AdD/Q1aaJz7czxRmEP1/mrcOnj
- oFoOMp45FEttkvlfVZ5LtjtFNJ7ZrRzVpIQP7KPOE1fXk8E7twef2t/EIFPVkGVqQjnB3eWuhSr
- o/QzG9kByhcaXiTxIh3bUjGuQGKno5AdZLJzmRERBW4M9Xqyc9Z52WTCNsM15XO6LmDRO8d2tov
- FUOubk21rcQnYwtrqCLSJ2pagO8Nn4ankvzs/qerljBsMMvjiGC97EFZIUETW67zwBk6x5cD7xP
- uwbJlXkp49MZra9HC8Qkwiw==
+ bh=jgdWifKPcWdMtqmrqZ3Slx0WzB872SaeXohnnWZg518=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpYa9phPuAtZmEodicGIBpyvzuNcZhYi3ZR
+ CWpfFQoDysxz4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqWGvAAoJENju1/PI
+ O/qakiUP/1HqzGnpqVuhIU6EcsoD2XGnnvkaPnzhq/V0pnbVD2yTcaX4ddS3Ya4Z+RVBD0c3Ubs
+ grubOhpN7meIkxoaiz3xozzR9hE0oAaLS6riZ1vIrBysjURQeHbrZlnNfPIGnzt5jVM+xQxhDH9
+ KkIs8nDFqys0su6ayx7TMpARtNkVnbRXcQPxdgjlYFOD9SR66T0dHsP58EfVsMR2GOD6hK8A/hX
+ 2rgF26qhC2fllrZxRh0bvwfwl0xhB+yyvDQiyzSyy19b+7mPfBpqb4CgihisHaNTs15i2aJ4muy
+ YEI0btSjA01P1hek/g7Im/o/84jWlECmrIXYgXm6YNFHY7+Vk479i1VgaQxMOFhODCNNCqR6np7
+ PgEqdP3F3lh5hgTambwkvYZRx8rFJcYI1vahKFNBxYKhfrX0qkVb74r54ezNn3872kUcqt/Z1g1
+ E9TbpcYrZFgNlrRmtYXqcwG+Q3ch5y54UFvTkg2LVPAKLfx4O7JD0F1Q6sNMrVh1Dt2gLRqWqpO
+ satKM8/yzwNxxh6E+ZE6j2+2FIHF/Kr5kwkgeDo0BRDXxoYIyQDJCJ3OkXe+HkvmTRtssJ68A7I
+ Rh9g+21m3arpO8qAc0bccgajwtYXVns98LZiX9O5P29i89xBTfPrLGAB2o2P+PWPka9l+eypAn2
+ MA4o7Qw1hruyNTHGcG2UqfQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add support for custom PHY handling steps in platform glue code
-by adding a post registration hook. This will be used for handling
-PHY reset notifications on the Rockchip platform.
+The recent Rockchip platform have a combined PHY, which does USB3 and
+DisplayPort as well as muxing the lines in arbitrary order. Changing
+its enabled functionality requires a PHY reset and as the PHY provides
+a clock to the DWC3 controller, this can result in an SError. Apart
+from that the PHY might not start up correctly when the DWC3 PIPE
+interface is running. This series prepares a Rockchip specific DWC3
+glue driver to help out with these problems. To become useful more
+patches are needed on the Rockchip USBDP PHY side, which are send
+separately.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+This was split from the USBDP cleanup series. It has no dependencies,
+but is required for part 3 for the USBDP cleanup series (which will
+be the final part).
+
+Changes in v15:
+ - Link to v14: https://patch.msgid.link/20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com
+ - Avoid #ifdef for CONFIG_PM in the new glue driver (Thinh Nguyen)
+ - Do not add #if IS_ENABLED around the DT compatible blacklist in the
+   generic driver, using the glue driver should be mandatory as the
+   generic driver results in arbitrary system hangs. Thinh Nguyen suggested
+   updating Kconfig for this, but did not clarify what that means.
+   Current Kconfig works the same way as the other mandatory glue
+   drivers.
+ - Split series to simplify review
+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/usb/dwc3/core.c | 2 +-
- drivers/usb/dwc3/core.h | 9 +++++++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
+Sebastian Reichel (5):
+      phy: core: add notifier infrastructure
+      usb: dwc3: rockchip: introduce glue driver
+      usb: dwc3: core: add post PHY registration hook for platform glue
+      usb: dwc3: rockchip: support PHY reset notifications
+      usb: dwc3: rockchip: fix USB-C reconnect in gadget mode
 
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index 4b7132887a03..daf5aec07fbf 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -1613,7 +1613,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
- 		}
- 	}
- 
--	return 0;
-+	return dwc3_post_phy_registration(dwc);
- }
- 
- static int dwc3_core_init_mode(struct dwc3 *dwc)
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index 608daeb7ef10..e9d8df0a298e 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -995,10 +995,12 @@ struct dwc3_scratchpad_array {
-  *				need to be passed on to glue layer
-  * @pre_set_role: Notify glue of role switch notifications
-  * @pre_run_stop: Notify run stop enable/disable information to glue
-+ * @post_phy_registration: Called directly after PHY got registered
-  */
- struct dwc3_glue_ops {
- 	void	(*pre_set_role)(struct dwc3 *dwc, enum usb_role role);
- 	void	(*pre_run_stop)(struct dwc3 *dwc, bool is_on);
-+	int	(*post_phy_registration)(struct dwc3 *dwc);
- };
- 
- /**
-@@ -1655,6 +1657,13 @@ static inline void dwc3_pre_run_stop(struct dwc3 *dwc, bool is_on)
- 		dwc->glue_ops->pre_run_stop(dwc, is_on);
- }
- 
-+static inline int dwc3_post_phy_registration(struct dwc3 *dwc)
-+{
-+	if (dwc->glue_ops && dwc->glue_ops->post_phy_registration)
-+		return dwc->glue_ops->post_phy_registration(dwc);
-+	return 0;
-+}
-+
- #if IS_ENABLED(CONFIG_USB_DWC3_HOST) || IS_ENABLED(CONFIG_USB_DWC3_DUAL_ROLE)
- int dwc3_host_init(struct dwc3 *dwc);
- void dwc3_host_exit(struct dwc3 *dwc);
+ drivers/phy/phy-core.c           |  65 ++++++++++
+ drivers/usb/dwc3/Kconfig         |  11 ++
+ drivers/usb/dwc3/Makefile        |   1 +
+ drivers/usb/dwc3/core.c          |  17 ++-
+ drivers/usb/dwc3/core.h          |   9 ++
+ drivers/usb/dwc3/dwc3-rockchip.c | 254 +++++++++++++++++++++++++++++++++++++++
+ drivers/usb/dwc3/trace.c         |   3 +
+ include/linux/phy/phy.h          |  40 ++++++
+ 8 files changed, 399 insertions(+), 1 deletion(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260914-b4-rockchip-dwc3-rockchip-glue-979ea3735d43
 
--- 
-2.53.0
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
