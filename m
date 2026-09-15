@@ -1,35 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17EB64C4F76;
-	Tue, 15 Sep 2026 11:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5B7F4C4F7D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472090; cv=none; b=pWeB3nPdEpEyxX+wX8VI0eaN/70CO4wJ/SsJ68glcPe+TwkqyB5eW1/UJXopOOpFJZk+n3LGyxHO6O1tZvMe9OCNV6FlMxeqv3FUrhNfAr8yCY93hLwfMGT3S2VT23U3TJxn2Y8qxHDsF0iprub65hK4M2fkhV6a0MLrev/Z1rI=
+	t=1789472093; cv=none; b=MRW0HaLe3jcWbRy5ekZvaXiXcoieMO2yBPHijxSFG3jvhqxsSU7nBbiul8n2h7D2jGNkMtjcI+vzHyM62u/5qZ1h/ak4F5uvOJOX5fy/R6gRrI5KxsPuuqUjX8Ru3jO0JGNX8uoOaiFD6pp3ZBf4ax+2qfBZlJhF5cPc3EtUXmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472090; c=relaxed/simple;
-	bh=Uhm5pGuH1u5xvAiYltqyiEc1yitYtbQkVnEw911bZpc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mL/cRSHSberk093ha/o/WeCnvcIQa947mGMITRqCGnLgCBaa/ndj09HnvsiHcSqZKNQSmnh3X7SK5paC4KGYziuc/V0au9pI0HaZUqoSy/htruUkRSkYrF4HelO8EQtKtKVkpbY3ceNkqTYLLuqWIBsnR2iHilVIBjuDCgMN6PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Flsbpaaf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789472093; c=relaxed/simple;
+	bh=ASSjsXnuAzfqz0oWZqhM1o3UsUzefrnFTTMP5w2pCFk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m5ItqM3Se1kLbyEMtq/7KPQ9LiTeabyr39GrKwV+wcbyMm4yRJDDUhlDPeio2/vmoeoZbdxqu+UZmPKJtm+eZX0b5QN54IUIaDPeJT/4cvwT/751S/vDooTf8Ca13lkJMyfgzh74R1xuUAKZAsdfvkkLUkhPz1Agz2i6uVFpkxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NQKTWTzc; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Flsbpaaf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3EE1F0089A;
-	Tue, 15 Sep 2026 11:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789472087;
-	bh=hTcFPD5nJ4+2LMtt0zaRlcDz8pb9ncWK9jLD+CuAEYQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FlsbpaafsIOIgMpG7HCaM1DGGB+32ZzKmdnN26bxlcjfIBYeSqjg7SV0fHdam08z6
-	 UPHMCKlmukOmWEHllUecx7o++e5Lh3XRpN7AoTUW08gMYmF+pJlT/fJIqly9PGTq+Q
-	 uS8J8PziF121Z3kDQMB072y+lW4FQwZm+xGXX0ts1HmNDiDLjcAfccLqn5D3mHANLN
-	 CqNXVBrP5dfz3b/gqBl92UwVJ+JI45K95UWmPc4kdiJc8xu1YSfVfi7VzrYDrKL8fJ
-	 epFtYGN9LUEdiCXHagpzqxt2EfM73ZpJkAjsDTURRWezAHawT/pR7B3JghREyKTwwX
-	 W4GQ4hx051nWA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 15 Sep 2026 13:31:13 +0200
-Subject: [PATCH RFC POC 27/50] drm/amdkfd: stop collecting CRIU dma-buf
- descriptors for a final install
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NQKTWTzc"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5958D153B;
+	Tue, 15 Sep 2026 04:34:46 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 34FEF3F86F;
+	Tue, 15 Sep 2026 04:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789472089; bh=ASSjsXnuAzfqz0oWZqhM1o3UsUzefrnFTTMP5w2pCFk=;
+	h=From:Subject:Date:To:Cc:From;
+	b=NQKTWTzczili1mqN98mR45xKrLn/c4BJ83oQqCk1DUuAoWu1qWdkuobV3gO6r8RXN
+	 3hqhSh/IOIdsShyaRJhVE9bqDkYdJR/V4Fy4tl2mKrxnuFf96+M3ke1w41EjOnh5eS
+	 4Zg0WDpLPwQZf+x+9h1p3z1lx8ScVTKuyF8gCa+Q=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v11 0/9] fix several inconsistencies with sysfs
+ configuration in etmX
+Date: Tue, 15 Sep 2026 12:34:35 +0100
+Message-Id: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,207 +38,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-work-fd-reserve-unify-folded-v1-27-4d5217d6b246@kernel.org>
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
- Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, 
- io-uring@vger.kernel.org, netdev@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
- virtualization@lists.linux.dev, kvm@vger.kernel.org, 
- kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5171; i=brauner@kernel.org;
- h=from:subject:message-id; bh=Uhm5pGuH1u5xvAiYltqyiEc1yitYtbQkVnEw911bZpc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1KnLvXpYsF3fqHGS4YdPk5Xs9qW0bU/n3sgcUJuWL
- yu8Wl+zo5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgFYCLz5jIynODjjVis7j19ziS2
- AGmxAyL/v9W4StwoyMiZ+y5dYVWsNSPDvtpDpbc/Xihcun6Paoagrpdv5G6xV3U64XVmjU+13Lp
- ZAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-B4-Tracking: v=1; b=H4sIAEwtqWoC/32NTQqDMBCFryKzbkomxZ905T2KSIwTnYVGkiAt4
+ t2beoAu38d73zsgUmCK8CwOCLRzZL/mgHgrwM5mnUjwmAEoqSqpEUWkzQSTqKe09NZN/a7Eo8T
+ GYNXYwTnIyy2Q4/elfXU5zxyTD5/rZUf5w/+FuSSkwKHGctSlVrVpTVju1i/Qnef5BTAch1a3A
+ AAA
+To: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4871; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=ASSjsXnuAzfqz0oWZqhM1o3UsUzefrnFTTMP5w2pCFk=;
+ b=kA0DAAoBbdXD0VrFMTMByyZiAGqpLVGij0h5BDqLSBuiBFYD4Nv4RnptiWxeS4smV8yGblVep
+ okBswQAAQoAHRYhBC2D4JLdBTO4WHWknW3Vw9FaxTEzBQJqqS1RAAoJEG3Vw9FaxTEzTZYMAMlA
+ 7SScm6mCVsze05suXyXFxjPgk29htCaMe3/+PalNPJj4TzuTDB1TYITaGpquyXHqZh+P4zBPo8u
+ 8aANH1W8myAF9gCPP9lLhmzMH6FxWdvLY5v08eWF5yw2CAYcRpKUo+M0JRP2JOGncgnRM6G75w9
+ da8E/nssLH9WDPl7VS8/AxHiM7QiBwyg8Zsuro0h/SpuRXc91HpMecwtepjcjrqLmKmcT+Wnho2
+ 4WPjUP1pDHQ/XUtlrz10vVTcg14E9CjgTNcH5NWsbw/LPueoYUuZ+T+StijRWcU9QJMoMmuPr2Z
+ NLgufhL1inGouZ29e6hDJAztc2ZX1uYMEMsZm3PwqBJbtbLK7oHN+QbfuE93kjnFpv/1DgukgfX
+ eOsQwy2KPX47NgUVfjIimcJjnLQCxrkbNnVBcUHoeknGfAFlYMx6mWSJNndM5hSM5IPHb3IJX+G
+ g+TZKjcO3UyUuk0Qx1Gb/WtHCLgphoQZH+drW1BlM0CxXKjAuOTaYX5k2BJw==
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-Rely on the fd exit path machinery.
+The current ETMx configuration via sysfs can lead to the following
+inconsistencies:
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+  - If a configuration is modified via sysfs while a perf session is
+    active, the running configuration may differ between before
+    a sched-out and after a subsequent sched-in.
+
+  - If a perf session and sysfs session tries to enable concurrently,
+    configuration from configfs could be corrupted (etm4).
+
+  - There is chance to corrupt drvdata->config if perf session tries
+    to enabled among handling cscfg_csdev_disable_active_config()
+    in etm4_disable_sysfs() (etm4).
+
+To resolve these inconsistencies, the configuration should be separated into:
+
+  - active_config, which is applied configuration for the current session
+  - config, which stores the settings configured via sysfs.
+
+and apply configuration from configfs after taking a mode.
+
+Patch History
+=============
+from v10 to 11:
+  - replace direct register read from etm3 sysfs with IPI.
+  - fix issue cntr_val and others field which required to be shown after
+    sysfs session disable.
+  - prohibit the write for some etm3 sysfs while sysfs session is
+    enabled.
+  - drop locktype change in etm3
+  - Link to v10: https://lore.kernel.org/r/20260911-separate_etm_cfg_v2-v10-0-1b715d95927a@arm.com
+
+from v9 to v10:
+  - rebase to coresight/next
+  - https://lore.kernel.org/all/20260725113645.57519-1-yeoreum.yun@arm.com/
+
+from v8 to v9:
+  - add feat_csdev_lock guard interface.
+  - set feat_csdev->drv_spinlock as NULL for etmv4_drvdata.
+  - https://lore.kernel.org/all/20260629090007.1718746-1-yeoreum.yun@arm.com/
+
+from v7 to v8:
+  - accept @Leo Yan' suggestion to handle error.
+  - small minor fixes following @Suzuki' suggestion.
+  - https://lore.kernel.org/all/20260519154812.254884-1-yeoreum.yun@arm.com/
+
+from v6 to v7:
+  - rebase on coresight/next
+  - add ETM_MAX_SEQ_TRANSITIONS define
+  - remove redundant patch relavent cpu-hotplug as coresight-pm patch
+    merged.
+  - https://lore.kernel.org/all/20260422132203.977549-1-yeoreum.yun@arm.com/
+
+from v5 to v6:
+  - fix missing of calling cscfg_csdev_disable_active_config()
+  - add rb & fixes tags.
+  - add ss_status field in etm4x_drvdata to expose STATUS and PENDING bits.
+  - https://lore.kernel.org/all/20260415165528.3369607-1-yeoreum.yun@arm.com/
+
+from v4 to v5:
+  - add rb-tag.
+  - fix underflow issue for nrseqstate.
+  - fix wrong check in etm4_sspcicrn_present().
+  - remove redundant fields on etmv4_save_state.
+  - rename caps->ss_status to ss_cmp.
+  - fix wrong location of etm4_release_trace_id.
+  - https://lore.kernel.org/all/20260413142003.3549310-1-yeoreum.yun@arm.com/
+
+from v3 to v4:
+  - change etm_drvdata->spinlock type to raw_spin_lock_t
+  - remove redundant call etmX_enable_hw() with starting_cpu() callsback.
+  - fix missing trace id release.
+  - add missing docs.
+  - https://lore.kernel.org/all/20260412175506.412301-1-yeoreum.yun@arm.com/
+
+from v2 to v3:
+  - fix build error for etm3x.
+  - fix checkpatch warning.
+  - https://lore.kernel.org/all/20260410074310.2693385-1-yeoreum.yun@arm.com/
+
+from v1 to v2
+  - rebased to v7.0-rc7.
+  - introduce etmX_caps structure to save etmX's capabilities.
+  - remove ss_status from etmv4_config.
+  - modify active_config after taking a mode (perf/sysfs).
+  - https://lore.kernel.org/all/20260317181705.2456271-1-yeoreum.yun@arm.com/
+
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 67 +++++++-------------------------
- 1 file changed, 13 insertions(+), 54 deletions(-)
+Yeoreum Yun (9):
+      coresight: etm4x: prohibit modifying ss_status and cntr_val while session is enabled
+      coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
+      coresight: etm4x: fix inconsistencies with sysfs configuration
+      coresight: etm3x: fix inconsistencies with sysfs configuration
+      coresight: etm3x: remove redundant cpu online check on etm_enable_sysfs()
+      coresight: etm4x: introduce struct etm4_caps
+      coresight: etm4x: exclude ss_status from drvdata->config
+      coresight: etm4x: remove s_ex_level from config
+      coresight: etm3x: introduce struct etm_caps
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 7fcfc150a7fc..158abe7e3da6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1988,11 +1988,10 @@ static uint32_t get_process_num_bos(struct kfd_process *p)
- 	return num_of_bos;
- }
- 
--static int criu_get_prime_handle(struct kgd_mem *mem,
--				 int flags, u32 *shared_fd,
--				 struct file **file)
-+static int criu_get_prime_handle(struct kgd_mem *mem, int flags, u32 *shared_fd)
- {
- 	struct dma_buf *dmabuf;
-+	const struct fd_slot *fd;
- 	int ret;
- 
- 	ret = amdgpu_amdkfd_gpuvm_export_dmabuf(mem, &dmabuf);
-@@ -2001,38 +2000,17 @@ static int criu_get_prime_handle(struct kgd_mem *mem,
- 		return ret;
- 	}
- 
--	ret = get_unused_fd_flags(flags);
--	if (ret < 0) {
-+	fd = fd_prepare(flags);
-+	if (IS_ERR(fd)) {
-+		ret = PTR_ERR(fd);
- 		pr_err("dmabuf create fd failed, ret:%d\n", ret);
--		goto out_free_dmabuf;
-+		dma_buf_put(dmabuf);
-+		return ret;
- 	}
- 
--	*shared_fd = ret;
--	*file = dmabuf->file;
-+	/* Installed or dropped with the ioctl's result, nothing to put back. */
-+	*shared_fd = fd_stage(fd, dmabuf->file);
- 	return 0;
--
--out_free_dmabuf:
--	dma_buf_put(dmabuf);
--	return ret;
--}
--
--static void commit_files(struct file **files,
--			 struct kfd_criu_bo_bucket *bo_buckets,
--			 unsigned int count,
--			 int err)
--{
--	while (count--) {
--		struct file *file = files[count];
--
--		if (!file)
--			continue;
--		if (err) {
--			fput(file);
--			put_unused_fd(bo_buckets[count].dmabuf_fd);
--		} else {
--			fd_install(bo_buckets[count].dmabuf_fd, file);
--		}
--	}
- }
- 
- static int criu_checkpoint_bos(struct kfd_process *p,
-@@ -2043,7 +2021,6 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- {
- 	struct kfd_criu_bo_bucket *bo_buckets;
- 	struct kfd_criu_bo_priv_data *bo_privs;
--	struct file **files = NULL;
- 	int ret = 0, pdd_index, bo_index = 0, id;
- 	void *mem;
- 
-@@ -2057,12 +2034,6 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 		goto exit;
- 	}
- 
--	files = kvcalloc(num_bos, sizeof(struct file *), GFP_KERNEL);
--	if (!files) {
--		ret = -ENOMEM;
--		goto exit;
--	}
--
- 	for (pdd_index = 0; pdd_index < p->n_pdds; pdd_index++) {
- 		struct kfd_process_device *pdd = p->pdds[pdd_index];
- 		struct amdgpu_bo *dumper_bo;
-@@ -2105,7 +2076,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 				ret = criu_get_prime_handle(kgd_mem,
- 						bo_bucket->alloc_flags &
- 						KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ? DRM_RDWR : 0,
--						&bo_bucket->dmabuf_fd, &files[bo_index]);
-+						&bo_bucket->dmabuf_fd);
- 				if (ret)
- 					goto exit;
- 			} else {
-@@ -2156,8 +2127,6 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 	*priv_offset += num_bos * sizeof(*bo_privs);
- 
- exit:
--	commit_files(files, bo_buckets, bo_index, ret);
--	kvfree(files);
- 	kvfree(bo_buckets);
- 	kvfree(bo_privs);
- 	return ret;
-@@ -2504,8 +2473,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
- 
- static int criu_restore_bo(struct kfd_process *p,
- 			   struct kfd_criu_bo_bucket *bo_bucket,
--			   struct kfd_criu_bo_priv_data *bo_priv,
--			   struct file **file)
-+			   struct kfd_criu_bo_priv_data *bo_priv)
- {
- 	struct kfd_process_device *pdd;
- 	struct kgd_mem *kgd_mem;
-@@ -2557,7 +2525,7 @@ static int criu_restore_bo(struct kfd_process *p,
- 	if (bo_bucket->alloc_flags
- 	    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT)) {
- 		ret = criu_get_prime_handle(kgd_mem, DRM_RDWR,
--					    &bo_bucket->dmabuf_fd, file);
-+					    &bo_bucket->dmabuf_fd);
- 		if (ret)
- 			return ret;
- 	} else {
-@@ -2574,7 +2542,6 @@ static int criu_restore_bos(struct kfd_process *p,
- {
- 	struct kfd_criu_bo_bucket *bo_buckets = NULL;
- 	struct kfd_criu_bo_priv_data *bo_privs = NULL;
--	struct file **files = NULL;
- 	int ret = 0;
- 	uint32_t i = 0;
- 
-@@ -2588,12 +2555,6 @@ static int criu_restore_bos(struct kfd_process *p,
- 	if (!bo_buckets)
- 		return -ENOMEM;
- 
--	files = kvcalloc(args->num_bos, sizeof(struct file *), GFP_KERNEL);
--	if (!files) {
--		ret = -ENOMEM;
--		goto exit;
--	}
--
- 	ret = copy_from_user(bo_buckets, (void __user *)args->bos,
- 			     args->num_bos * sizeof(*bo_buckets));
- 	if (ret) {
-@@ -2619,7 +2580,7 @@ static int criu_restore_bos(struct kfd_process *p,
- 
- 	/* Create and map new BOs */
- 	for (; i < args->num_bos; i++) {
--		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
-+		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i]);
- 		if (ret) {
- 			pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
- 			goto exit;
-@@ -2634,8 +2595,6 @@ static int criu_restore_bos(struct kfd_process *p,
- 		ret = -EFAULT;
- 
- exit:
--	commit_files(files, bo_buckets, i, ret);
--	kvfree(files);
- 	kvfree(bo_buckets);
- 	kvfree(bo_privs);
- 	return ret;
+ drivers/hwtracing/coresight/coresight-config.c     |  18 +-
+ drivers/hwtracing/coresight/coresight-config.h     |  22 ++
+ drivers/hwtracing/coresight/coresight-etm.h        |  46 ++-
+ drivers/hwtracing/coresight/coresight-etm3x-core.c | 126 +++---
+ .../hwtracing/coresight/coresight-etm3x-sysfs.c    | 104 +++--
+ drivers/hwtracing/coresight/coresight-etm4x-cfg.c  |  14 +-
+ drivers/hwtracing/coresight/coresight-etm4x-core.c | 426 +++++++++++----------
+ .../hwtracing/coresight/coresight-etm4x-sysfs.c    | 210 ++++++----
+ drivers/hwtracing/coresight/coresight-etm4x.h      | 196 +++++-----
+ 9 files changed, 676 insertions(+), 486 deletions(-)
+---
+base-commit: 9e3604d7369cfc0110100eb1a0acab1865ee2d18
+change-id: 20260911-separate_etm_cfg_v2-3518a168cbff
 
+Best regards,
 -- 
-2.53.0
+Sincerely,
+Yeoreum Yun
 
