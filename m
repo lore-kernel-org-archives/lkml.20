@@ -1,203 +1,71 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA4435CB7C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9613BB9F7
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:13:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477913; cv=none; b=QaRrmNXeiBHWOmgey9PeROSPDV0zQhnGQDlXQoLUS14V1/cXdcc4g9bihOFG3rZhbg6YewPoyghUxBOJDvoXHF/PVu9K+MHz82i+EcdxZUfoIiogy8OAHXPUQf0cakoKbQkvo66CuYoBq8MoEQ8fp2tRujSecHSmxBXx99Ri0XY=
+	t=1789478005; cv=none; b=s49lREqCX8F8MzVrqKFl46Cj4hPHeblUDJUm2EdbPck6TyqwHIU7bLIWL7549iIuUpEWe//Wf5+Beg65sG/tehYH89IVcLsqMr4HTKkpBEwSgxOH8p5juY5DgHyxhRxvejrQSLxGtccKoOvcBua2C6Uz3iWfnpHdROnopbbGHyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477913; c=relaxed/simple;
-	bh=dJIpLG7rWyh8df7B17Ve+WIWPViliazZmnq6Gw510oU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kXLAJgR+PfgF2hvzsBMyejaSXsLpKYfln5Nd6y647IjBd0PlE7ro3Vc0zwakgGMoiMQyc/8YVuKUx77r4jMscTN7pTc6IV0sVJ/j8ZJfuf6NYq4MxPKFix4d22ywNx6XkPz6REEp1SfNJcg6G3f54Cql8ebw1GS8h7a7ZA+DbJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rV+LRg4O; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789478005; c=relaxed/simple;
+	bh=WK1m4iUpBi4TgQB3LFuoDYXYcCzFmj+S5FH1IYywWQo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pAkZ4bx2/9DBZrB/Qi2HJfbPOiJzRzEgIO4Ggrc9faaPQp9/Uux+/FhptVb0NGTtyXRPFF0mWyFWw4E0cLBwsE4eagAyZSq7kWc1uHgQuHyA/h6MgOP3Uyf2pvpZzvYo/YppG5GU+WeZzgtgrZaMNs21lLhC3MgS4narA2tjG7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=iy0Z7NLq; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rV+LRg4O"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso30635005e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:11:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789477910; x=1790082710; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:from:references:cc:to:subject:reply-to
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eh3LDHsIzCU2/5CFMWOjBf/zXaCZZA/0hmDU111rhjw=;
-        b=rV+LRg4O2RSaiIwvoddovYspkNkX46209zrY4YlBt2tF3Bbbk+R/LxeMPQbcMsyfA1
-         vwANPY3UhfgKvIQ4SIlEePT2JLw/t/2bEoHm8vEbc9EO2BhMkhEpHLaZaUGXfnpWMEbh
-         FFBChUMNIf7FhL+P9TKbY1NNALfCpQE0G/RwfRcBa3KhRQUj9Ewle1tdnhKWCO62Wd+o
-         rYOXnc7hybGb/kbGvST49E/WK9bpZEN21fF1BEbHa8qGu3BRZBjs2HSa1iUqSayqiAPA
-         OyVZU0UjooC3PX7/VgEbzVbSHHtHdmluL2e426vQ+P1Ew5/Eia+SChVJ2h8lmjcFYBDR
-         6uYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789477910; x=1790082710;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:from:references:cc:to:subject:reply-to
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eh3LDHsIzCU2/5CFMWOjBf/zXaCZZA/0hmDU111rhjw=;
-        b=2m/wSKGDwa0Pz0oVdjuqWvjluagyVCybOB//awkvKNlwVasKz9sP6lX38EvCuzAcSD
-         26q6KIVKAOR+6U8W+UMYUElqq5Csow3rRJmkR2cU5ynTwSixjobZDylLvsb80K5mIDo5
-         RaIJ0CcQjARcR352N6buHRpAglKTcLteQw4xBESae2t9taJtd9dS0fT9amWgOym8NTjm
-         4aiV57bKxcfah7nNpwndtvZIRuvuY0drAE2PyWIPHiDfn79A0+7HJ3txJffo/xRxR+Kv
-         dWVd7G7Ln3MY0/BaS5nUH2opE2YSC7Axu9Tj+YdZnnr7ZJKCbQorb3fpgjc+f9OvKFRC
-         j3pQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6bQg6a3NYom7KqmyqFxV77j3+7OgW4tQ82WXBxijNLrwb60jpVLw4QPDJA6ZOvSNA1QtqmDr+AhOFOU4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0P7AUcYSUxx4LMX4eqU7Dvp6BPKEeFUX+54jsv0ReYg05ELXC
-	DNjR253hC3A2AZkE4A0QXg3Bwh5usw8w68vC/ibkS20PG8hTqh1y9KuJ9q5YsLA7Zd/6UwcHmO7
-	wcTTr
-X-Gm-Gg: AYBFou1D40dQNkwW/5TGK4nIoBPHo4A1Ib1umiplnwvuDcjibY2KEAzHQubV5TJy8pn
-	LW+by1OmCYwM6S7I8IHXeNXt6tIbXMZEGtXUhJag6oXoZmS4uGgEF3Y2TwsiX+hZwcuLOAVt8NR
-	DzhJXivuiGWgmPW4X29vC7JCw4sdQValnAF6dyctLM4vAjaUMs2F1t4/Y0VMI2QtWpuD52WX/HZ
-	NtcxsKz3DoHm1BS9NYhTVTaloWpnHmI9aFh9iUvpdvESUiEoI3mT9WZjYxQXcoNu/1hWtPwP7IC
-	1W5rPVteyoS4zLWB/hzOFqqq2lv4F+McqVs7Z8C76n3YgJp6G7nftkmnhDbih4EVikIxIayREQa
-	YZ9/BgpfoGmZDQq/PcaqrRJSXFYsvO7G9HoU/xZs0GBSBb177JGZDi8pxItEnN9mJc7mXdVTzjw
-	IsY8mvw+0dLNeR92yk23ZgKWNd2/DZ1RAEZ3BsY4nMmynhRD3TZ/ksBYqqu5LAaIYrSDL3tCpTk
-	SzUJMlBcr3CgWzKVhTAXaYNXr+A9nROV8giQPRBG7nKtsYcmc1V
-X-Received: by 2002:a05:600c:81ca:b0:49e:642a:4f6f with SMTP id 5b1f17b1804b1-49e7a69ba24mr89417055e9.33.1789477909851;
-        Tue, 15 Sep 2026 06:11:49 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ff86:16e:fede:9407? ([2a01:e0a:106d:1080:ff86:16e:fede:9407])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7eed9d00sm58506615e9.0.2026.09.15.06.11.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 06:11:49 -0700 (PDT)
-Message-ID: <0d0ee38b-8ded-480d-a586-d26b3c292427@linaro.org>
-Date: Tue, 15 Sep 2026 15:11:48 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="iy0Z7NLq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=r/at6QZ3Yb69xOIrWqNlstKOMB33EJOfW7za0wXrTFw=; b=iy0Z7NLq1R37O9xL1QoHROM6Dy
+	D15Z2geNen9RlC+BQ1dy3xm0iVZjf+xZZ3MnZMArhjowuvl+d1oDaSdZ/2zc33zmu1gkIioU7tRqq
+	XnI50YiBNcZ9vFu7otf8UnBVJhnw2peUfUsxlvUljEM8VJCg20GWT7HVgYMa2jgmjVhTUr0AP5eKS
+	bbUlE1yNHzBPRxrl18v/zMeHJk+ciVkollxTbL9v8xFDoZgZjoKIBLSywWnCuUGPEtdAKuTRMPXsG
+	dH1kk25ywsI6sHzlc8INEz/R+8l6S+zJBPey1QVHkkb0Pn8k9Oz8DqGD4YpTn0f4h4t2fjfqGocjv
+	tMLnWPTQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6SyK-0000000G9qo-0dWC;
+	Tue, 15 Sep 2026 13:13:16 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 0EFC2300969; Tue, 15 Sep 2026 15:13:15 +0200 (CEST)
+Date: Tue, 15 Sep 2026 15:13:14 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
+ locked=1
+Message-ID: <20260915131314.GB2009045@noisy.programming.kicks-ass.net>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+ <20260907084133.3696-4-david.laight.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] pinctrl: qcom: spmi-gpio: make direction changes
- exclusive
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Yu Zhang
- <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
- <20260915014447.282121-3-shengchao.guo@oss.qualcomm.com>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260915014447.282121-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907084133.3696-4-david.laight.linux@gmail.com>
 
-On 9/15/26 03:44, Shawn Guo wrote:
-> pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
-> the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
-> DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
-> buffer enabled.  Neither direction callback clears the opposite buffer:
-> .direction_output() only packs PIN_CONFIG_LEVEL, which sets
-> output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
-> which sets input_enabled.  Requesting either direction on such a pad
-> therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
-> direction.
-> 
-> That silently breaks both directions.  After gpiod_direction_input() the
-> pad keeps driving the line, since the output buffer is never disabled.
-> And after gpiod_direction_output() pmic_gpio_get_direction() still reports
-> GPIO_LINE_DIRECTION_IN, because it cannot tell plain input from
-> input+output, which makes gpiolib consider the line an input while the
-> driver is driving it.  On a board where several regulator-fixed nodes
-> share one PMIC GPIO the shared GPIO proxy reads that direction back and
-> rejects every consumer after the first:
-> 
->    reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
->    reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
-> 
-> Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
-> direction so that the resulting MODE_CTL is DIGITAL_INPUT or
-> DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
-> once after walking all configs, so this stays a single register write.
-> 
-> Pads that are genuinely bidirectional can still be described that way
-> through pinconf, which is the interface that has always been able to
-> express it; the gpiolib direction callbacks now mean what gpiolib says
-> they mean.
-> 
-> Assisted-by: LLM
-> Fixes: eadff3024472 ("pinctrl: Qualcomm SPMI PMIC GPIO pin controller driver")
+On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
 
-You should add:
-Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
+> +	/*
+> +	 * If 'prev' tries to remove itself from the list before we write
+> +	 * a new value to prev->next it will spin in osq_wait_next().
+> +	 */
 
-Since my change added the get_direction callback.
+This comment pertains to what? 
 
-Personally I would prefer patch 1 instead of this change.
+> +	/* Invalidate prev_cpu matching osq_unlock() */
+> +	node->prev = 0;
 
-Neil
-
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->   drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 16 ++++++++++------
->   1 file changed, 10 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-> index f6dc43e27b38..eb4431591331 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-> @@ -741,22 +741,26 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
->   static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
->   {
->   	struct pmic_gpio_state *state = gpiochip_get_data(chip);
-> -	unsigned long config;
-> +	unsigned long configs[2];
->   
-> -	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
-> +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-> +	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
->   
-> -	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
-> +	return pmic_gpio_config_set(state->ctrl, pin, configs,
-> +				    ARRAY_SIZE(configs));
->   }
->   
->   static int pmic_gpio_direction_output(struct gpio_chip *chip,
->   				      unsigned pin, int val)
->   {
->   	struct pmic_gpio_state *state = gpiochip_get_data(chip);
-> -	unsigned long config;
-> +	unsigned long configs[2];
->   
-> -	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
-> +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 0);
-> +	configs[1] = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
->   
-> -	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
-> +	return pmic_gpio_config_set(state->ctrl, pin, configs,
-> +				    ARRAY_SIZE(configs));
->   }
->   
->   static int pmic_gpio_get(struct gpio_chip *chip, unsigned pin)
-
+I'm confused, osq_unlock() does no such thing.
