@@ -1,53 +1,52 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D8A34676F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492813905F5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436315; cv=none; b=q2TQRPLWV0/E11qIX82QEvCDaKyDjxgXD84z3NffUtuNzbo2P+rUw+RvuAjVJHFvb9NSlFgP3oToRWtUgwtU9tKGHTUxqzdE0CXh1pYezJ3JuFmQ0dVFwHVCb7wfN3T3IE9UkYbsI5geGQNJmuQfgZpkNdxp6jpJP2idO93CcaY=
+	t=1789436317; cv=none; b=P1IH20zBDoDcz2xZGCgVNJJLx8rxLre1aA91Kfwjnflll0LuegFea4aCHeiKsiVKdvFeARyf+H8NX+dLxRWwCU8KD+cXo0E8U5ePhaJ5Dldfxtyjdspt9PLwMkg0ioEDVWB7JLjpmtmGEmF/JAOHSejm5u+MGXrvZLFO8sxFVk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436315; c=relaxed/simple;
-	bh=OYPwEzIwiGt/ZTffibNRUfnNb5BHgXyZfKhBGJTD4lE=;
+	s=arc-20240116; t=1789436317; c=relaxed/simple;
+	bh=kcX7W3KJm7uim0L4A7sIQZnxPQj1jpVE5S7W7qnhh68=;
 	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=QjjxGDva9EswAHdKu8pXjzpeFxmBKiNc4Qr9gzsFJUnXZYNIHXHvLqqB9jQlHF5X9q4uKkYVxcCEqIVBlmC+JUF0djMKcJW3F51QghhMS9bz4PhAH3L1UPhkqqnUZ+0blafJ8QOMODbo1AnYCRUHp74XO+QbhaCkGlxO92kGdlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+	 Content-Type; b=tk8yvquhfMhuzK/WtLkiWtFBzNGlPBTuILW+QlbTW2fQVYmTByvt2z8wdTFzbiKKuf+rGRtvX909f6p6zTNkmY60s+2/2i5+GZMTHmZnqwH/xndzjjL6UokpckCMaNs8D4LJ3NtMOFhzTrTSINaWjvRkl9OsMSFkcszdurQyjn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1b27d7ab2so4679431eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:33 -0700 (PDT)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c7f887ac6bso1615820b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436313; x=1790041113;
+        d=1e100.net; s=20260707; t=1789436315; x=1790041115;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=7MpkYnDZncdX42AkUQsCi+nS/mOeknbxn1IPtAp3x0M=;
-        b=zYethn2wpCSZohsLuXwuKXs8Rom5NrKc+zuTTT6H6TxGb6vb/T4ivbHMeNImzR6oyg
-         5h3Q9v4aYNm3zNqElE4uZkeafMYRZJu8wP+x2PEU1vSCETdlI3izJ6CVg1MLObBQVKFx
-         ejeWF/zINJABPiHYsDmo3zIYiVTZgkqRuebaXWlkCm6qtBCYn4qnAiZ3z8NEnNAQDVZ3
-         Yb6FGSCrZPC4bU4GDjr9WMwFUb3e25nuULNZfKRbV079MgttS1Gm8hZR1OJvXkDPv+Vj
-         L03tMw99AkOuy75KLj9xTMWFtga64/Ja/Fb80NcWMfEWCeX+Sgiz0tjZdFlllRsbi7F0
-         i64w==
-X-Gm-Message-State: AFuF++lRQKaUQUZmGpwwtt3/etMkf7HRbsafmcoBG5u4L4P0tTslgHsv
-	WSkSj3ARGtHQqt9WaXFHUiHSsEa/+av1Xmeny1wEK5rJKJBkF7J55oJMqhA5w68T0oAGvqwyjXF
-	MUN5Ix7qkLQdrVDeWMzqFt8xYsoZjLa6CKsy8vUfN35jpfQ9kjvTxgHoNe4k=
+        bh=D/OXlmXDzhSBOUUUa+pw8bKsS/MS8eRqek6rym3Li40=;
+        b=l3isZtsNbXu1WiJyDayEfvqCjy70u1L6N1hiArrq4wskjkU9Qmv2vBY+YcBgODAjwS
+         pVNLm5lUfY8eTA1F9iHA6nMeh5h/jjtHlcIoGAAWWl/TIl5NeEJLZSApcB3uT/EqZ3x7
+         9mFew/jCk61sFjDX4kMUwqM55K4yTzULDdFgsjQAWsK0fu5DD76fT2WXQY1hrMqJ1pQm
+         /Z1Q+WsVWzO+E2y7ySsKbpR09x9OqMh1lOSABv+wP8m6PVsNbXyJmi5vXlhdmpjC+m5z
+         VFov9zj0xBGhuxX2/ZI2AfxzzDE0oMtyn6C/2zpVffiT59b1oaLi+PpMDd22QK9/5j5G
+         cJqA==
+X-Gm-Message-State: AFuF++mubWdzc7iU0XicfPpQixvTUq2tQRDA2BhHsBmaGAE4tYoD61y5
+	CUX67VaFCckuNPegSfmUwrqYgoefkTiH+DymdegR8kbKDdLGDwo+Yb5JjYSGA6ZUa5TcuIqQLSK
+	ktwrHysrUfCM9D/vYWKVUuwWja6XFMevetkR6xdU867ujQKLnvgYHfwC9iwg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4d09:b0:6b1:858:28a9 with SMTP id
- 006d021491bc7-6c53f44bbd4mr2876597eaf.9.1789436312816; Mon, 14 Sep 2026
- 18:38:32 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:38:32 -0700
-In-Reply-To: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
+X-Received: by 2002:a05:6820:1791:b0:6b6:5bf3:e201 with SMTP id
+ 006d021491bc7-6c541b40973mr4981727eaf.30.1789436315284; Mon, 14 Sep 2026
+ 18:38:35 -0700 (PDT)
+Date: Mon, 14 Sep 2026 18:38:35 -0700
+In-Reply-To: <6aa52208.f81106d8.2ab401.002a.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa8a198.a211d2ce.1a5198.029f.GAE@google.com>
-Subject: Forwarded: [PATCH] BUG: sleeping function called from invalid context
- in null_insert_page
-From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
+Message-ID: <6aa8a19b.4c28b7d0.c1bba.0028.GAE@google.com>
+Subject: Forwarded: [PATCH] INFO: task hung in ieee80211_register_hw (8)
+From: syzbot <syzbot+c92af8613ad38696ff09@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -56,32 +55,30 @@ linux-kernel@vger.kernel.org.
 
 ***
 
-Subject: [PATCH] BUG: sleeping function called from invalid context in null_insert_page
+Subject: [PATCH] INFO: task hung in ieee80211_register_hw (8)
 Author: jchuang26@m.fudan.edu.cn
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git master
 
-Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
+Reported-by: syzbot+c92af8613ad38696ff09@syzkaller.appspotmail.com
 
-diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
-index 6beb1f5b7..e22e79b02 100644
---- a/drivers/block/null_blk/main.c
-+++ b/drivers/block/null_blk/main.c
-@@ -1861,8 +1861,15 @@ static int null_init_global_tag_set(void)
- 		tag_set.flags |= BLK_MQ_F_NO_SCHED_BY_DEFAULT;
- 	if (g_shared_tag_bitmap)
- 		tag_set.flags |= BLK_MQ_F_TAG_HCTX_SHARED;
--	if (g_blocking)
--		tag_set.flags |= BLK_MQ_F_BLOCKING;
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+index 02b6d81cc..de3bfeaa3 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+@@ -7156,6 +7156,15 @@ static struct genl_family hwsim_genl_family __ro_after_init = {
+ 	.resv_start_op = HWSIM_CMD_REPORT_PMSR + 1, // match with __HWSIM_CMD_MAX
+ 	.mcgrps = hwsim_mcgrps,
+ 	.n_mcgrps = ARRAY_SIZE(hwsim_mcgrps),
 +	/*
-+	 * Shared tag sets can be used by memory-backed devices, which may
-+	 * sleep in ->queue_rq() while allocating a page.  The flag cannot be
-+	 * changed after the tag set is allocated, so always mark shared tag
-+	 * sets as blocking.  blk-mq will then use an SRCU read lock instead
-+	 * of an RCU read lock around dispatch and the allocation is allowed
-+	 * to sleep.
++	 * HWSIM_CMD_NEW_RADIO goes through ieee80211_register_hw(), which
++	 * acquires the RTNL mutex.  Without parallel_ops the generic netlink
++	 * core serializes all of these handlers with genl_mutex, so a task
++	 * would hold genl_mutex while waiting for RTNL and can deadlock with
++	 * code that holds RTNL and needs genl_mutex.  The radio list is
++	 * protected by hwsim_radio_lock, so the handlers can run in parallel.
 +	 */
-+	tag_set.flags |= BLK_MQ_F_BLOCKING;
++	.parallel_ops = true,
+ };
  
- 	error = null_init_tag_set(&tag_set, g_poll_queues);
- 	if (error)
+ static void remove_user_radios(u32 portid, int netgroup)
