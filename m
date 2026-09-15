@@ -1,109 +1,103 @@
-Received: from mail3-166.sinamail.sina.com.cn (mail3-166.sinamail.sina.com.cn [202.108.3.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA79C3CB552
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942091FB1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789443811; cv=none; b=KqiTT7YZrEzcMoRA/cO+BHSW/E4rOHsxnKBaZgkJdB6jPe/aDgfJMvnI4FQ4vOQe2Qxo603RLUggVtmcx1MCaur1JhTn8lZRa6cyy0zdanW0/HUlEy/QEaHz1lKEz2YQ1fjaRlIOQ0l6C2h/ZeS+ZLrAecmnOFSnpjmoNXcyKbM=
+	t=1789443856; cv=none; b=gO1oN3YBTuqXVqmhC6JetUrjOOUDRgVvLzHt0GFkqXfrCFn1YOblMF6eIapMgU+fztm/0MB0gA/6WRcT10VmYJNsnauJCPe5CMnmjRuiF0LGjhl3E30+ph7sGUZQDKB5k7TZa1DQ+zEfPFYCcAmcD8BGYuRR1Q8Kuh7PmcFQvKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789443811; c=relaxed/simple;
-	bh=igaduFXx/1aS4F7ppjGItMaPBgQdk3zG+tpstYX/q3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ntdD13ZLYYVnnQ1O8mlDF7m2nhhXVfc2ix2Mglbtgms5W19hsA4uGuXYGBJ8TPeSKaOsm9c4pC1uNLzEPvrETO60yJql0QtRB4fEgRMTwkcXvnt0RwYrE2YIMJ0epxLpJBQhFWbBma4nB/rz84Zbd/VtDtrsPjtjgDqyxFInuPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=T8ZT0TcV; arc=none smtp.client-ip=202.108.3.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1789443856; c=relaxed/simple;
+	bh=2jbiWJDhwAbn+oByjgdLcODIoTIBG0rf4hLnt0gIZpg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wc5Vq42Fab1folS7Ucx14kfUl6rm2bZjkjSyE0YX0F+3+cag1cT7I3vu6zAM9+VPENjafNJs53gC0qPZdEu/nBmkgIgclTPTwnQRvCKdnFQ19JP/ola50SgsxdOyvyjDy23U/n0KrHVuODNgKmtKp6NpQ4tc4tiIR2QAinFRwyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VDGPRjWV; arc=none smtp.client-ip=91.218.175.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="T8ZT0TcV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789443807;
-	bh=FHFuWzKQsLwy3FwhOlWV07CuPwUNamUbN/ImZyKfNss=;
-	h=From:Subject:Date:Message-ID;
-	b=T8ZT0TcVBE3jkqEFBnlgNG0toDd1PvwCvYVQ8rPK7JJRiv3KkTJeCTxjumq/aJIk8
-	 0u1uq6zZ9t43bPjYTsbf+n57eOeFqbnZDTN5rtlZ3I1iW/HsSMc191eMybWwK77RUf
-	 lFa1V43X9EnKHKbZR5jZeRxqgjuZR4Hz158gTG9k=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6AA8BC9900001333; Tue, 15 Sep 2026 11:33:46 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 8545546815976
-X-SMAIL-UIID: B93E1268A5A44C9688278E9D19B9E722-20260915-113346-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+237f670105a254a230d4@syzkaller.appspotmail.com
-Cc: andreyknvl@gmail.com,
-	glider@google.com,
-	dvyukov@google.com,
-	boqun@kernel.org,
-	tchibo@google.com,
-	linux-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com,
-	paulmck@kernel.org,
-	peterz@infradead.org,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH] kcov: add a missing bound check in write_comp_data()
-Date: Tue, 15 Sep 2026 11:33:45 +0800
-Message-ID: <20260915033345.904567-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6aa87111.f81106d8.2ab401.0057.GAE@google.com>
-References: <6aa87111.f81106d8.2ab401.0057.GAE@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VDGPRjWV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2jbiWJDhwAbn+oByjgdLcODIoTIBG0rf4hLnt0gIZpg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789443848; v=1; x=1790048648;
+ b=VDGPRjWVRw5huhHU3D6rBe5Sbi6KjQupuEJp8oKy8akPkGU+PNEdzDSkmeq3XrJv199PHLyY
+ l0uxxWK16+YzvU1RBYzybSDTJoaA+tZ5oL9PNAN9/YTKelwHlncFPb+Li6AvhLDXm0uAbf2nzQX
+ +YM6Ko5qoWZrEVrvQwnK68Hw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 83cc88a87bac19b3;
+	Tue, 15 Sep 2026 03:44:08 +0000
+X-Mizu-Trace-ID: 83cc88a87bac19b3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <02a03893-b092-433b-8b28-586dcb5a54bc@linux.dev>
+Date: Tue, 15 Sep 2026 11:43:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] riscv: lib: Fix ZBB strnlen wrap-around regression on
+ huge counts
+To: shao.mingyin@zte.com.cn, pjw@kernel.org, mikey@neuling.org
+Cc: jiangfeng@kylinos.cn, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+ alex@ghiti.fr, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, zhang.yue5@zte.com.cn,
+ david.laight.linux@gmail.com
+References: <20260914162123230u1y1M4UHrO8E-cU-opJ_7@zte.com.cn>
+From: Qingfang Deng <qingfang.deng@linux.dev>
+In-Reply-To: <20260914162123230u1y1M4UHrO8E-cU-opJ_7@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-A missing bounds check in write_comp_data() can lead to an out-of-bounds read
-or write in the adjacent memory area, since the start_index is not validated
-before accessing area[] in the function later, potentially hitting:
+Hi,
 
-BUG: unable to handle page fault for address: ffffc90003792fe8
-RIP: 0010:write_comp_data+0x7c/0xa0 kernel/kcov.c:263
-Call Trace:
- __do_sys_rseq kernel/rseq.c:549 [inline]
- __se_sys_rseq kernel/rseq.c:547 [inline]
- __x64_sys_rseq+0xc2/0x2e0 kernel/rseq.c:547
+On 2026/9/14 16:21, shao.mingyin@zte.com.cn wrote:
+> diff --git a/arch/riscv/lib/strnlen.S b/arch/riscv/lib/strnlen.S
+> index a8911605c248..528ee7995969 100644
+> --- a/arch/riscv/lib/strnlen.S
+> +++ b/arch/riscv/lib/strnlen.S
+> @@ -67,7 +67,7 @@ strnlen_zbb:
+>   	 *   a1 - Max length of string
+>   	 *
+>   	 * Clobbers
+> -	 *   t0, t1, t2, t3, t4
+> +	 *   t0, t1, t2, t3, t4, t5
+>   	 */
+>
+>   	/* If maxlen is 0, return 0. */
+> @@ -87,9 +87,22 @@ strnlen_zbb:
+>   	 * Aligned boundary.  Use the address of the last valid byte
+>   	 * (s + count - 1) to avoid loading a word past the count
+>   	 * boundary in the loop below.  count == 0 is handled above.
+> +	 *
+> +	 * Saturate the boundary when s + count wraps around (very large
+> +	 * counts, e.g. SIZE_MAX passed by FORTIFY strcat/strlcat with a
+> +	 * destination whose size is unknown at compile time).  Without
+> +	 * this, the wrapped boundary lands before s and the pre-loop
+> +	 * guard below always exits, returning a truncated length.
+> +	 * Saturating makes the scan equivalent to strlen().
+> +	 *
+> +	 * Keep the saturation branchless so that the normal path does
+> +	 * not carry a taken branch that could be mispredicted.
+>   	 */
+>   	add	t4, a0, a1
+>   	addi	t4, t4, -1
+> +	sltu	t5, t4, a0	/* Did s + count wrap around? */
+> +	sub	t5, zero, t5	/* -1 if wrapped, 0 otherwise */
+> +	or	t4, t4, t5	/* Saturate to the top of the address space */
+You can save one instruction by using Zbb minu instruction.
 
-Fixes: ded97d2c2b2c ("kcov: support comparison operands collection")
-Reported-by: syzbot+237f670105a254a230d4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=237f670105a254a230d4
-Tested-by: syzbot+237f670105a254a230d4@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
- kernel/kcov.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Equation: saturating_add(s, count - 1) == s + min(count - 1, ~s), given 
+that count >= 1.
 
-diff --git a/kernel/kcov.c b/kernel/kcov.c
-index 35420f0ac524..479a84921833 100644
---- a/kernel/kcov.c
-+++ b/kernel/kcov.c
-@@ -236,7 +236,7 @@ static void notrace write_comp_data(u64 type, u64 arg1, u64 arg2, u64 ip)
- {
- 	struct task_struct *t;
- 	u64 *area;
--	u64 count, start_index, end_pos, max_pos;
-+	u64 count, start_index, end_pos, max_pos, tmp;
- 
- 	t = current;
- 	if (!check_kcov_mode(KCOV_MODE_TRACE_CMP, t))
-@@ -254,7 +254,9 @@ static void notrace write_comp_data(u64 type, u64 arg1, u64 arg2, u64 ip)
- 	count = READ_ONCE(area[0]);
- 
- 	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
--	start_index = 1 + count * KCOV_WORDS_PER_CMP;
-+	if (check_mul_overflow(count, KCOV_WORDS_PER_CMP, &tmp))
-+		return;
-+	start_index = 1 + tmp;
- 	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
- 	if (likely(end_pos <= max_pos)) {
- 		/* See comment in __sanitizer_cov_trace_pc(). */
--- 
-2.43.0
-
+     addi    t4, a1, -1
+     not    t1, a0
+     minu    t4, t4, t1
+     add    t4, a0, t4
+>   	andi	t4, t4, -SZREG
+>
+>   	/* Get the first word.  */
+Kind regards,
+Qingfang
