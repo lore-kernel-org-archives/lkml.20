@@ -1,90 +1,75 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A80B32D7F8;
-	Tue, 15 Sep 2026 07:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458340; cv=pass; b=EH8T4f0empi5PpB8xDc/vXwbcQbBC/n5Iq7/WR01hoUux0JFzCuvPyvnDH1RN322sCJt3iRh5DK9MZ0QVfMuQUPbIha39SO+ZQOrpG1vIItNUjC0lOBb3sDKxUTucSjCS2XViEFG2boFSKVy6G99PWeUv4nrTbvV1Byq94hQZNY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458340; c=relaxed/simple;
-	bh=on9XxVhWLOh5qBhiXVNTYYMYu4a7lEGjwAwi7dwFPvA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CWwznPuXZMni1a0ckWv/SVc2YdTuvfaP7Jkxm71y6+CVtAR9q9JJgUpa4CAvlxoqpe9NEs1aiMu3Va9iwu4Ul2j5skcP1Amskc7z1lu/nMQ9Bcjz4TxvGZudI/1OIMWgUf3ZMgITsWxwi7oHPzwNWahgyGgUmMbiStOtV6RzkiU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=GFI9TFNc; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B360539EF33
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789458344; cv=none; b=PY181o3Cdu0B7mB1KfyPHNNPx0nO2MWpKJ8755NLEBdi+uIB5LJGWtAtqmmNFHrgDm5/eZOu7D6ck11jWb0dfCDJd05KPJ7nzXLYDjzzTk4Scx4hQWQOAn3S8/1MtGtKoc43gT0euJDjiIJFKJCMIso0mKM/5/LJCZPJngoOAyE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789458344; c=relaxed/simple;
+	bh=0q5TYPEfU84TUtHIpVpq1q9mIMVjpkW5D5F84PgxMEs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M4EfvwG/tEPHky7IoploZ/o8BtUpAmZ04yUL0Btt+tBzA7yxXcH9gsOSVmDAeWEaKq7SngIEGxM4o6bWDKkQYKLsP3o2YdTJF1YhhcIeQ0KOiVT/EsfHZyEg6JdsXv2t7acUDaFT668KgrEoh7VyyKl/psAz6mJfF8IsZoFcjWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=raA+ysyO; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="GFI9TFNc"
-Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hkYwD17PFz49Q6x;
-	Tue, 15 Sep 2026 10:45:32 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1789458332;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YLt+l40Q3PpFquTJGHV0pr4yqekDZGuuw51X1SrFTE8=;
-	b=GFI9TFNcwhRqA62Hr5qFGhZk+U388b3j0kbMGyCuLGxBhTr/19T/9e+nPa8iNhBawQp2Sc
-	MnpEev0653GuSc82GOh5Weg9S4hkbWTxWjNs43k4p7hgFV7+ZC7QiISEFMQey/ShYczJ/G
-	maKE7x960QmIF/IPuC5HsbosnokbEvO05AjG3lHSSZ8KWz/XvbuOHKwZb98ltl65R6WdSN
-	CVKfmkjxXODe2l6oQ/Q9NjrqZBPcW5R69jn4iztYHuJTGyZvP/ELwjaqLpWzBaChK/pVkC
-	juSvSjuv3YE1RPVDTHW3d7yoMXiDshBUUK7woKTUZTaJq42pmNAmdUdcj2tBhg==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789458332;
-	b=vGV1q9uOCXnIAbiq6g+n8Fh4+pyPnn4ZVSgSZyj5krs4bh/LxhPnoGuq1nEM8YtU1hydhb
-	qzxPR2BJFtWVCxcATV2gWHt34RMIrJYPyosamsMUUfcVuXg7+p51oFFnB0fsMm88IH1xfl
-	jTdyl8GrbG5uQy+yq2obKhMMR+NGm2um1A/SImm8dpAVUP+ldxTQpjitxdmTtJGrGD2ce6
-	gbhSTzXd5cWgvztLl+Y1FT4H0dKz14TFInNaiRpZQ/KXzRbFHFmcbOM8WF5xDcilhCrEY6
-	7hxN5LDLtExhI3SvqoZJ36qyULPaApZ6LSDhU+DpzM7V9l51M5mYIgz+BTDv+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1789458332;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YLt+l40Q3PpFquTJGHV0pr4yqekDZGuuw51X1SrFTE8=;
-	b=HYZo5SK+l0RWK0daZpPhBvo5TCKGKM4SkrIV0W+0vIzM7GSQa7kTwt2jfIWVmLgwUvhTXL
-	r2bu/np+f2G2T1YE+HNIF6dnajxYmmGnq6C3xwC/70SWHCVX7ynzXJWQ9u5bd79NCXaqud
-	mbVnlSAxR/PrSYuEloCgyaCl0xtTHXRp6uxLf2R457uZTs0IiOPLfcXMLJl8pLp9xT4SC/
-	V9sMx2ptlaqATniV27GwpY+UgefB3P6Sm0FDdsOQMrlYTIvVT03zM2A5MG/AQW3Tp6IhHO
-	U81xEUTLiP896fOJy9p8VcjHad2iI9CN1UVJFizweYGPkQIOxpgQvyvNTb+Gcw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-To: ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>
-Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-	Mihai Moldovan <ionic@ionic.de>,
-	Denis Kenzior <denkenz@gmail.com>
-Subject: [PATCH v4 10/12] wifi: ath12k: add QRTR endpoint ID hif feature
-Date: Tue, 15 Sep 2026 10:41:33 +0300
-Message-Id: <20260915074135.2567411-11-juha-matti.tilli@iki.fi>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
-References: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="raA+ysyO"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469a3490bso2844392b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789458342; x=1790063142; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l9ECc5+a41AFo2eBSy7WthuxX+hdHIx1RiULVK1OybM=;
+        b=raA+ysyOwHeDc1rUo95GLLwd+Q0lmvXPXgPMeREeLP2DFOoDL/KMUwRt+AfPk7Z+W4
+         +HB1W1PZGQRSpLZj5tWMlsLmumSnPEwgU/y7Nd/YDGIo4VOYgP/NUydL8fGjp5aVJM3S
+         niNOk4R1h9pW75DKtpxE4GvHJu2QJsPdZT497t7xhhWWbT9mosFQVTPat0m4f2pmdP39
+         vKILU6Oz6rurbBVmZ7OJ00ZSqXKvaGVY2YIncyAoWfoX3GvbLjPw9lZ/LxDYeC9pXSBd
+         OefjGfRGqnAEeNUw2GqEUoyb3ge7Ccb7DUHdP+2QF7RdStNSWojTT/AYoIunskNbzkzo
+         zcdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789458342; x=1790063142;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l9ECc5+a41AFo2eBSy7WthuxX+hdHIx1RiULVK1OybM=;
+        b=piICEc8wgUw+G2D6NLu5LqX1YrXTRdJhRkGVvFLDjxdboU39JFakPs8Fz0QU+tZ8z2
+         sLwUmYH60lp3fmievjzvJe5FEnGLQDoJOloeRyrD2bA3/n1i6ny91D8SRr5hxsu2DrEI
+         DxXelRyU5SVZNGUjurELLS06DeR52QuTw5jwXWY2xyC1wq5gB8qbkVid502yepzmjaTe
+         e0uAOPinElWXqh8s7iG5z88j65Nk6FvnSCz9AurInZcM3CWS/2Ge2eV1sUH4XvQmm5OA
+         fcp81FfVFqly3JthY/8r5a+X7xFvizB33pZTwLLqE9DsFHUcyHZpaDJ5c9ifz3LWrw6U
+         +Znw==
+X-Forwarded-Encrypted: i=1; AKwUvBxOoulIEyqeuwmwmvu7AvfrBhLinB3Pw6hC82AYpBjrI6srzGtM5W4Y98ns9AZ3sBWiU85lizDSP9DBfz8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIGfHUYHB1TDYrD9FQp5WeCiM8fT7dAKdpM/4yg84Leyn/8oXq
+	GyAwcG8WgMvFz/N3XNGwnGBcovHybqNWcLCiUWs8zEMFYe4OC8H/CAAS
+X-Gm-Gg: AYBFou2fUC0tEZYTJGPvhKfbwnoJGL0v9XLLKun47VkA6Gg5UUuiM0a+l0nerOh4EBZ
+	kSqij5rSLh7KNGAudUSB0hwLcNnfrCVrFXMDHPNBFvHyl2JTuxsZS89IG+Cc8TEPUaHH+LR8zKA
+	et8EqmTsPTU85e2Ioxt4yqTjmZT3lWefk4CU00Wlg3HzUifVWMwXmNERG1XBATtXGrEc/vJkPEs
+	uLNcatdF6sD3ahsuyEXnimmDD4rwO6Q/mWql92cxfUlsPZT/Xavr7MrptY9XpIT9HReBTk4zAJX
+	e+Q2nSx/wC8EtxtibvGxrSNb8QRKmlnX6rKNAKAT09TiaeKcxj/yKous0FZFjYCvhEqZb3c3c1/
+	JpznPwGgKgEHtX5JF8DXScA6wfoBPPxlpQddTBIGg84ZjYQkuO56rkWVJtY8hOjZA4wGSj6zJq1
+	gWZpMkctcXGoYV9rp/R73LD0gPzYS5zsTpo6GcCZghYOadGxYRKULU4g==
+X-Received: by 2002:a05:6a00:44c3:b0:848:62ab:7b7 with SMTP id d2e1a72fcca58-86f84b1d7d7mr12325942b3a.16.1789458341946;
+        Tue, 15 Sep 2026 00:45:41 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b4c39ebfbsm5795970b3a.54.2026.09.15.00.45.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 00:45:41 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Tommaso Merciai <tomm.merciai@gmail.com>,
+	Martin Hecht <mhecht73@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: alvium-csi2: balance runtime PM usage count on remove
+Date: Tue, 15 Sep 2026 15:45:30 +0800
+Message-ID: <20260915074530.2081225-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,43 +78,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mihai Moldovan <ionic@ionic.de>
+alvium_probe() increments the runtime PM usage count with
+pm_runtime_get_noresume() before enabling runtime PM. The probe error
+path correctly balances this reference with pm_runtime_put_noidle(),
+but the normal remove path only disables runtime PM.
 
-This will allow fetching the QRTR endpoint ID via hardware-specific
-means.
+pm_runtime_disable() does not decrement the usage count, so a
+successful probe followed by driver removal leaves the runtime PM
+usage count unbalanced.
 
-Signed-off-by: Mihai Moldovan <ionic@ionic.de>
-Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+Add the missing pm_runtime_put_noidle() to the remove path, matching
+the existing probe error cleanup.
+
+This issue was found by manual code inspection.
+
+Fixes: 0a7af872915e ("media: i2c: Add support for alvium camera")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/net/wireless/ath/ath12k/hif.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/media/i2c/alvium-csi2.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/ath/ath12k/hif.h b/drivers/net/wireless/ath/ath12k/hif.h
-index 4de8667690e91..4591660519efb 100644
---- a/drivers/net/wireless/ath/ath12k/hif.h
-+++ b/drivers/net/wireless/ath/ath12k/hif.h
-@@ -32,6 +32,7 @@ struct ath12k_hif_ops {
- 	void (*get_ce_msi_idx)(struct ath12k_base *ab, u32 ce_id, u32 *msi_idx);
- 	int (*panic_handler)(struct ath12k_base *ab);
- 	void (*coredump_download)(struct ath12k_base *ab);
-+	int (*set_qrtr_endpoint_id)(struct ath12k_base *ab);
- };
- 
- static inline int ath12k_hif_map_service_to_pipe(struct ath12k_base *ab, u16 service_id,
-@@ -162,4 +163,13 @@ static inline void ath12k_hif_coredump_download(struct ath12k_base *ab)
- 	if (ab->hif.ops->coredump_download)
- 		ab->hif.ops->coredump_download(ab);
- }
-+
-+static inline int ath12k_hif_set_qrtr_endpoint_id(struct ath12k_base *ab)
-+{
-+	if (!ab->hif.ops->set_qrtr_endpoint_id)
-+		return -EOPNOTSUPP;
-+	else
-+		return ab->hif.ops->set_qrtr_endpoint_id(ab);
-+}
-+
- #endif /* ATH12K_HIF_H */
+diff --git a/drivers/media/i2c/alvium-csi2.c b/drivers/media/i2c/alvium-csi2.c
+index f51f9b987759..f218999e0ed9 100644
+--- a/drivers/media/i2c/alvium-csi2.c
++++ b/drivers/media/i2c/alvium-csi2.c
+@@ -2523,6 +2523,7 @@ static void alvium_remove(struct i2c_client *client)
+ 	 * make sure to turn power off manually.
+ 	 */
+ 	pm_runtime_disable(dev);
++	pm_runtime_put_noidle(dev);
+ 	if (!pm_runtime_status_suspended(dev))
+ 		alvium_set_power(alvium, false);
+ 	pm_runtime_set_suspended(dev);
 -- 
-2.34.1
+2.43.0
 
