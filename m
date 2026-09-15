@@ -1,125 +1,73 @@
-Received: from esa6.hc1455-7.c3s2.iphmx.com (esa6.hc1455-7.c3s2.iphmx.com [68.232.139.139])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0019469847
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.139.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089F4BCABA;
+	Tue, 15 Sep 2026 23:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789514861; cv=none; b=oCVWKSsBxvefmqLxV3YPkQKS6IWZKp7MKyfn4P9WHDZuWf0jQ6fpjG5cvMpkdBRXDKCd3g+DSzVvGiH2k9+OHN0ex0KzFW3ebs4kXtNRLX6cj1kWjZtqute0/JItw+aY2Ccsvp72nfIEllZv8bdcb2Zf+VQKWWTtqUkvpmyboTE=
+	t=1789514934; cv=none; b=IIS9cMWWFqtRJh6sVBfkzqtv1cUI4CQnLrgSpL959DPcWg9PDXMhXqxO/eNTz2TJjOn9MTgMcEuI8Bf9as1YUB36CyJjzLpHwDEoz8OPZFPiFS5RJ+M9cqAv79RmNGe+AL1LQuzEUAe8WoCBHRn88mYgGLTxb3rJmdCGBzSH/gA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789514861; c=relaxed/simple;
-	bh=KSim44TEkk941GEs+6Vkv7QcLI3hbxOBT/IOZZGSsEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o8SJ+PzcsfGDr0Ryz7wWQu6MyleTE2rPEZlqq+baCNt+uYE4U2npC07D4RmB4YmfXxptIKslncOHj/cig6lxNKIqKvC9e2oHaWAiwHm6NJUvO9zrphbHVBTS2T0KL6T9dX1jbnru2UcE2QMeI2VblFmH2SgRge5nvlaCgIfuZkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=XqmQMjrl; arc=none smtp.client-ip=68.232.139.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1789514934; c=relaxed/simple;
+	bh=qKoWvplAH6DgwyVkxaNOoPP54cwOiVLVAMhemT7u5CQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F1FlyvIfmDfADapN+9OBCNGfRTgVAycpO0KjgfYtf+3nTjiGzwTD+IEPsauZwkWpWq4cX0+fp7kLT6hHWEBud15DGOwBndcvHPGyEcnfVitY7XkcAEs0GUmwsX3B4ixfDsF0FT2cBFf8HppUwq2Q+NNZfF4eLwqaOYOC0AbD/f0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXQdE+GS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="XqmQMjrl"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1789514860; x=1821050860;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KSim44TEkk941GEs+6Vkv7QcLI3hbxOBT/IOZZGSsEc=;
-  b=XqmQMjrlSA5aoYx7md0VxEdtLX6gRTMjGpZkQuCvB9TYxmAah5x5UPjw
-   pwPUCuSyh/PJtXx10SdYYKZFFHeAsIjHD6phFrLNasmR3EFqn+j+/0qLM
-   R04sdIlvl+VLNCa8vs1gYb1JyTnYm3LHcKzmNcrQFPfUb0R9Oesl7sm8g
-   GcgcCs+/47XN7wlULIWWI+Wb8wWamGZtmO4M8YHCVT+qVujdRsW4FNRo4
-   aQOvIJ5HevUdy8UeSh1olntCq21kNL44uYI5uwvQ0/J8QdlY5LuAjRb3W
-   bU19vebZ6LQU8cGiO8xCxJ1MjgCBJgu54J0Ghss+2Wx2HZ3G4B8wiv5CA
-   A==;
-X-CSE-ConnectionGUID: qWoNP8X1TvO+J10CkyJbSg==
-X-CSE-MsgGUID: PvGFiSJmQv2GgWchSL2d/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="258939262"
-X-IronPort-AV: E=Sophos;i="6.27,103,1786978800"; 
-   d="scan'208";a="258939262"
-Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
-  by esa6.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:27:31 +0900
-Received: from az2uksmgm2.o.css.fujitsu.com (unknown [10.151.22.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id B42571C1C722
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:27:31 +0000 (UTC)
-Received: from az2nlsmom1.o.css.fujitsu.com (unknown [10.150.26.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 67B731800274
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:27:31 +0000 (UTC)
-Received: from sm-arm-grace07 (unknown [10.124.178.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmom1.o.css.fujitsu.com (Postfix) with ESMTPS id 4878A8288F1;
-	Tue, 15 Sep 2026 23:27:25 +0000 (UTC)
-Date: Wed, 16 Sep 2026 08:27:22 +0900
-From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Wang Han <wanghan@linux.alibaba.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse
- map
-Message-ID: <aqnUWp_VJXUCcJnQ@sm-arm-grace07>
-References: <20260915154305.3852871-1-weilin.chang@arm.com>
- <aqm9hXB6X9IQ8wHz@sm-arm-grace07>
- <m6ldbr7hdafmoycx7xjcbsg62mblcakcu52ndowwzqgxdjb3q3@huv4i5bfxtza>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXQdE+GS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903F61F000FF;
+	Tue, 15 Sep 2026 23:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789514932;
+	bh=nsnqk+K9KcVSTLlwNYyLqXbWMQBB5C/cAddubGUzGOo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lXQdE+GSJSpOCX16sf+zbxKx16qkPkj+y3jKRksmoi3CuyPsZ5u7rLHkpZuE3cc9D
+	 A5Aw6T2wOxtKTf4Y6SBcK+sqMyJB/Gvqssc6IrWOoiIcQ51y5ljWPVyX1Z45dzhNP5
+	 D7xcyTEf4W2f7xzbiM6S8h0ZOQUwoULtaWUN7q0tX4B1uMUll9bnJ7F/rcPFPvXLxd
+	 ClnxLSn67gsK8AqTylwROhWwz01o29W266RYQmcUuIH20zVqBoIJarBS1bMDWH6Sc0
+	 tV2oajUsF3OL5Umx8G3AF/o47P1bWvTz4Pok3R/NMx+cjy2K3N2TwKokBPZu8pyh+b
+	 jg/YA3IlkAV2Q==
+Date: Wed, 16 Sep 2026 00:28:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny
+ <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, anisa.su887@gmail.com,
+ benjamin.cheatham@amd.com, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] cxl/events: Return IRQ_NONE when no event is pending
+Message-ID: <20260916002851.4407b04f@jic23-hlaptop>
+In-Reply-To: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+References: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <m6ldbr7hdafmoycx7xjcbsg62mblcakcu52ndowwzqgxdjb3q3@huv4i5bfxtza>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 12:22:30AM +0100, Wei-Lin Chang wrote:
-> On Wed, Sep 16, 2026 at 06:49:57AM +0900, Itaru Kitayama wrote:
-> > On Tue, Sep 15, 2026 at 04:42:58PM +0100, Wei-Lin Chang wrote:
-> > > Hi,
-> > > 
-> > > This is v6 of optimizing the shadow s2 mmu unmapping during MMU
-> > > notifiers.
-> > > 
-> > > This version fixes a few issues, and adds Marc's space optimization
-> > > for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
-> > > 
-> > > Tested by booting L3, and running in-kernel targetted tests described
-> > > in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
-> > > carry them over since some bugs fixed in v6 are non-obvious. Some
-> > > retest would be much appreciated!
-> > 
-> > How did you boot into L3, with KVM selftest or recrusively boot on HW?
-> 
-> I just recrusively booted VMs on hardware. :)
+On Sat, 12 Sep 2026 15:08:15 +0530
+Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
 
-Good. Then I actually tried that on Grace CPUs, but letting L1 boot 
-with nested mode did not print "VHE+NV2" KVM init log in dmesg, thus not
-able to boot L3. Do I need to add other than kvm.arm-mode=nested to command line?
-
-Thanks,
-Itaru.
-
+> CXL event interrupts may share an MSI/MSI-X vector with other event
+> logs or device features. Consequently, cxl_event_thread() is registered
+> with IRQF_SHARED and must determine whether the event-log facility
+> claimed the interrupt.
 > 
-> Thanks,
-> Wei-Lin Chang
+> The handler masks the Device Event Status register to the event logs
+> supported by the driver. However, when no supported status bit is set,
+> it exits the processing loop and still returns IRQ_HANDLED. This
+> incorrectly reports that the interrupt was claimed and prevents the
+> generic spurious-interrupt detector from accounting it as unhandled.
 > 
-> > 
-> > Thanks,
-> > Itaru.
-> > 
+> Track whether the CXL event handler claimed the interrupt and return
+> IRQ_NONE when no supported event is detected. If no handler sharing the
+> vector claims a sustained interrupt storm, the generic spurious-
+> interrupt detector can eventually identify and disable the affected
+> IRQ.
 > 
-> [...]
-> 
+> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
