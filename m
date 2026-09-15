@@ -1,161 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006233B7B98
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:52:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACF53BA225
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476748; cv=none; b=BjYFyG6Hd5aIOVA6j7KLpbBKQzu/WyPWERFyIv+Yr7azfXkJW+Haf1u1/lvxXI8io7/T6IlAHF0A+jSOFawU5XUOxsf6VS30aONMiooPATbzy37E4y1wq2C/KR1XjuJ1Myc5eVNs0tYr2+YOjoWehJLIa9oVdO+L/Z+1z5oeSqs=
+	t=1789476756; cv=none; b=JbqOeDqXOdaZ3zYl051d2IuDEQX9OveB444pHvC7wHBFpQSgbzdnPaUu0D8++vSVQoU4YseI9YU6oIdwnY8ib+cwf7w6UThKvMr0QF6hkUFnsQKBkY09jxlgkcrKa8c9Uapj+We8fm1PnoDhVokmXWswqBXh37sUL3LoNvfTc94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476748; c=relaxed/simple;
-	bh=WWF/4smeRnfirh4nYNTP9cLXbnNRFoO23Fnip8I7muc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n+8exmQjh8c/rtnyOiUXk0L5QF4w32wQqyVfR0tWwoGP2jtYSu87tkpUXd/xLcQvSDz9RRFGTvAggOuLRv4u11hvfFTQjJNMJHQYyl7YROdcTUw+DIzluN+LuqYxmmaE2B5KYpRpaBVgCUAdFAVNrxkm6CAWggo6B9xVNGRk1yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W70QDnQs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789476756; c=relaxed/simple;
+	bh=7t0Ob9QL+Lqj43veSyZ1VQ/kSUPHAcWqtSh+yfu47sM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=dhgLeoK/m6d35sWOjba+TltdMgtTA4dyaDcJw9egOUBtVSwPiYOKdHXUVElj5iWZNskvtoObubEOUMK3eoefKRzu35ZcCt1DEIbchvRFT0HXGxtH1tD/ExIke7UXtDlIGhZj1IBhN5JybXjnUEUQ9G2MY+4WVS4a2ZL9d6XO4vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e7Dr3foY; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W70QDnQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8361F000FF;
-	Tue, 15 Sep 2026 12:52:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789476746;
-	bh=xxbZuNqffFNOIdaT0/KALBdxjs/EeQM9S6uRMEGgp/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W70QDnQstn6nkN/6eJiK2L4CeDsYQO7VSfN7e5dtSZ9Ip+oOiS4tiuercU+j1EL0A
-	 gF+UjpVEYA1DcaJ4esEkfojNun5QzqHaHSgaqvE4BJkRmC0dsCKiGA3dcfX0NtwulD
-	 FIUeb+eHkwdo6ox84GTqw6Bw0FMqiazL/tSZ31KRkXk6TAN3a+rFXIC3gMJHzTz91I
-	 duvpOe4F6k2PLkHX2wDNgb9YQc2iR3BpMSeRiWY73IG5FxkzTVFzLoQQdOuaZp9IYC
-	 agaxHZ1CCCLbjb3uWuLCJoNfjMOGCvR5qAaOaHtNZOPFSExjrWcuzFpyHUZt0fLjTD
-	 NudaPCN+36Vcg==
-Date: Tue, 15 Sep 2026 15:52:20 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "Liu, Yuan1" <yuan1.liu@intel.com>
-Cc: David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"Zou, Nanhai" <nanhai.zou@intel.com>,
-	Chen Zhang <zhangchen.kidd@jd.com>,
-	"Zeng, Jason" <jason.zeng@intel.com>,
-	"Chen, Yu C" <yu.c.chen@intel.com>,
-	"Deng, Pan" <pan.deng@intel.com>,
-	"Li, Tianyou" <tianyou.li@intel.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v9 2/2] mm/memory_hotplug: optimize zone contiguous check
- when changing pfn range
-Message-ID: <aqk_hNZCVCyx5Mj_@kernel.org>
-References: <20260914072929.1883794-1-yuan1.liu@intel.com>
- <20260914072929.1883794-3-yuan1.liu@intel.com>
- <aqjfyGeQaL4g2EcA@kernel.org>
- <PH7PR11MB69325D48C3419508FFD8B8BEA3BA2@PH7PR11MB6932.namprd11.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e7Dr3foY"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f705536so743486066b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:52:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789476753; x=1790081553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mMhbkaK56jStijIJwruuJ1OSsbc7L9grsNYLwWglYKA=;
+        b=e7Dr3foYNUiVKDtNfkO1Jjpqy75RXD9879XNYDTVRebzR6WkMxaGOlwjyLgXcrWwZL
+         aIeaFiA/S+mE6Xfe+0SHz+u+x5rds7bFpOeQtjGyf+R7yMLXjA3zGwaR0lnYrBPbP5hl
+         caQ52KaV1C/rThNHiU4JsApOPmvlR7YIPLnRRV/WJuN10dYimIqUvjzM3Fd33dDFT5RD
+         Z3BXQrONJtWatFbNbilT3+o8MvyThqMdVsGQT9YFBWshwKf5zs24shvbyypTDZCOTbz6
+         3PZEsTrF6y/iGb72h2XPfyEXgKSAjWIaq9x6ltdFRIXSVOGvW9j1UYly7fCw6aFFalYK
+         g+qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789476753; x=1790081553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mMhbkaK56jStijIJwruuJ1OSsbc7L9grsNYLwWglYKA=;
+        b=OcQiG+DDU0hgWwjdij4zFlHfIKamzlS2QtEQjtDQQkZ2JY6OBN8MFAyYuMUsJYNjAB
+         aSa5SaKtClt1O7sPmvCs9K7PHZIKneabc2FGNWn2A/kegXlDWerVZnvDc8AaeiMZ9wHR
+         aR8+eICY7gBQ5kfYa80+IgnkjzdEKkLi3tim5sj6XpV1blUqdbFU27/L0GG8/xESOBJb
+         kvTR3n+OLrZOYWhiTNhgdIrIPbPAyHBTsyfNWLcjIUnHnScjBMamd/NWd3BfcKM+i1Ci
+         uWuyTbrv6RIuQVzs7Pg2V9elnV6KMvSd+CuR7RLpfqh4KjKA1BM6RoqNNNP+r6ALMKy7
+         JeKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxF1mrtPkQ2Dt3Rjm5Jeel2Gdi/v4q7b0a+auKmYXVgDsUD4r6P0cN0L9V14Ze1e0b+Wr5Gu2edMljJwmI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWz8ShkhXp6L927kTVbTICrX47X5lo3QJRyZeBk3Da+qHNG2Xv
+	8EszyOAAp2X0RJ74c2u994J/FwnQpR5oFZHpf59k2cWZWfbSz9Qs83+4
+X-Gm-Gg: AYBFou0DLSMCf7uzZPwej8U2zdtcUBRHac9xUJ2qpIYI+SBk8hKNvObidYFq9W1bgwy
+	zY7TGjlO5+rEwohqv8jf2r28jDSU0srRJpTQ8gAVqfAvK0P1ZpbjrBb6GZoH9EMLi2JiJkFROPx
+	3ByRmFEKS9Ratkivu0DyBuotoyJ2LKosOvu+e1LBZOyRzUq1KZLSpgQlcrVAugE1jRUalp9OI1J
+	c+DHXXVoDmm90u6wPCwer0eGpvlUPflTgoTXxt5wognUgWGrAUvF7hkBG+Qy0oWo+BO8DLFHL79
+	YUcTwjDTGe62wjTvBZg85lFrJeWrFrF0pD8b42P8DzdlqqbRrJ8aoxzVBEz4jR702UFjcQcma1W
+	4CoaQU/JucprRC5TWKiUhyitkXLZlJiqXwZS4nxcR1PPBuP++44rRBQSl7PE8EfXxvvvqtI3rRf
+	t5ZTa+YwUXyzdyiJXcHwnpnE4ax4RfbgJFy5fUOwA/2LKyNYd8O0mgWb5CgM72A3yiFnF0zphS4
+	KJ7gYxALRyM9rEi22/t5xAB8OjMePVUqd685E3o7PNducmgsGOz1eTw0h1CA6ez
+X-Received: by 2002:a17:906:c103:b0:c29:4357:2321 with SMTP id a640c23a62f3a-c29b8600014mr462144366b.1.1789476752775;
+        Tue, 15 Sep 2026 05:52:32 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c296605b9a6sm587969266b.25.2026.09.15.05.52.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 05:52:32 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] clk: en7523: Add support for selecting SCU serdes
+Date: Tue, 15 Sep 2026 14:52:22 +0200
+Message-ID: <20260915125226.20579-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PH7PR11MB69325D48C3419508FFD8B8BEA3BA2@PH7PR11MB6932.namprd11.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 10:40:01AM +0000, Liu, Yuan1 wrote:
-> > -----Original Message-----
-> > From: Mike Rapoport <rppt@kernel.org>
-> > Sent: Tuesday, September 15, 2026 2:04 PM
-> > To: Liu, Yuan1 <yuan1.liu@intel.com>
-> > Cc: David Hildenbrand <david@kernel.org>; Oscar Salvador
-> > <osalvador@suse.de>; Wei Yang <richard.weiyang@gmail.com>; linux-
-> > mm@kvack.org; Zou, Nanhai <nanhai.zou@intel.com>; Chen Zhang
-> > <zhangchen.kidd@jd.com>; Zeng, Jason <jason.zeng@intel.com>; Chen, Yu C
-> > <yu.c.chen@intel.com>; Deng, Pan <pan.deng@intel.com>; Li, Tianyou
-> > <tianyou.li@intel.com>; linux-kernel@vger.kernel.org
-> > Subject: Re: [PATCH v9 2/2] mm/memory_hotplug: optimize zone contiguous
-> > check when changing pfn range
-> > 
-> > Hi,
-> > 
-> > On Mon, Sep 14, 2026 at 03:29:29AM -0400, Yuan Liu wrote:
-> > > When move_pfn_range_to_zone() or remove_pfn_range_from_zone() updates a
-> > > zone, set_zone_contiguous() rescans the entire zone pageblock-by-
-> > pageblock
-> > > to rebuild zone->contiguous. For large zones this is a significant cost
-> > > during memory hotplug and hot-unplug.
-> > >
-> > > diff --git a/mm/mm_init.c b/mm/mm_init.c
-> > > index 1533aebafb68..d40a8ff23370 100644
-> > > --- a/mm/mm_init.c
-> > > +++ b/mm/mm_init.c
-> > > @@ -817,22 +817,39 @@ void __meminit init_deferred_page(unsigned long
-> > pfn, int nid)
-> > >   *   zone/node above the hole except for the trailing pages in the last
-> > >   *   section that will be appended to the zone/node below.
-> > >   */
-> > > -static void __init init_unavailable_range(unsigned long spfn,
-> > > -					  unsigned long epfn,
-> > > -					  int zone, int node)
-> > > +static unsigned long __init init_unavailable_range(unsigned long spfn,
-> > > +						   unsigned long epfn,
-> > > +						   int zone, int node)
-> > >  {
-> > > +	unsigned long next_chunk_pfn __maybe_unused = spfn;
-> > >  	unsigned long pfn;
-> > > -	u64 pgcnt = 0;
-> > > +	u64 online_pgcnt = 0, pgcnt = 0;
-> > > +	bool is_online = true;
-> > >
-> > >  	for_each_valid_pfn(pfn, spfn, epfn) {
-> > >  		__init_single_page(pfn_to_page(pfn), pfn, zone, node);
-> > >  		__SetPageReserved(pfn_to_page(pfn));
-> > >  		pgcnt++;
-> > > +
-> > > +		/*
-> > > +		 * With vmemmap, at this stage all pages in an early section
-> > > +		 * have a valid memmap and are marked as online. However, only
-> > > +		 * subsections in the subsection map are actually online.
-> > > +		 */
-> > 
-> > I'm having trouble parsing this comment. Shouldn't is say that some
-> > subsections in a section can be offline because of holes?
-> > 
-> > Other than that
-> > 
-> > Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> 
-> Maybe we could add some more comments here
-> /*
->  * With vmemmap, at this stage all pages in an early section
->  * have a valid memmap and are marked as online. However,
->  * subsection-sized holes within a section are offline, only
->  * subsections in the subsection map are actually online.
->  */
+This small series is a split from the Airoha AN7581 USB PHY series [1].
 
-I don't see how adding almost identical cryptic comment in another place
-helps.
- 
-> > > +#ifdef CONFIG_SPARSEMEM_VMEMMAP
-> > > +		if (pfn >= next_chunk_pfn) {
-> > > +			is_online = pfn_section_valid(__pfn_to_section(pfn),
-> > pfn);
-> > > +			next_chunk_pfn = min(SUBSECTION_ALIGN_UP(pfn + 1),
-> > epfn);
-> > > +		}
-> > > +#endif
-> > > +		if (is_online)
-> > > +			online_pgcnt++;
-> > >  	}
-> > >
-> > >  	if (pgcnt)
-> > >  		pr_info("On node %d, zone %s: %lld pages in unavailable
-> > ranges\n",
-> > >  			node, zone_names[zone], pgcnt);
-> > > +	return online_pgcnt;
-> > >  }
-> > >
-> > >  /*
-> > 
-> > --
-> > Sincerely yours,
-> > Mike.
+[1] https://lore.kernel.org/all/20260702093812.15918-1-ansuelsmth@gmail.com/
+
+Changes v2:
+- Rebase on top of linux-next
+- Add review tag for Documentation patch
+
+Changes v10 (from previous series):
+- Rework if condition and reject #phy-cells for
+  econet,en751221-scu compatible.
+
+Christian Marangi (2):
+  dt-bindings: clock: airoha: Add PHY binding for Serdes port
+  clk: en7523: Add support for selecting the Serdes port in SCU
+
+ .../bindings/clock/airoha,en7523-scu.yaml     |  24 +-
+ drivers/clk/Kconfig                           |   1 +
+ drivers/clk/clk-en7523.c                      | 218 +++++++++++++++++-
+ include/dt-bindings/soc/airoha,scu-ssr.h      |  11 +
+ 4 files changed, 248 insertions(+), 6 deletions(-)
+ create mode 100644 include/dt-bindings/soc/airoha,scu-ssr.h
 
 -- 
-Sincerely yours,
-Mike.
+2.53.0
+
