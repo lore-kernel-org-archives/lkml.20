@@ -1,120 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B019E3B42F6;
-	Tue, 15 Sep 2026 13:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F69E33C536
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:30:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478996; cv=none; b=uj+Q7YgO6sg7w+fYijeG9rJdC8DkDNHrG4QaQRTPjV6rtGk6367k0wNqBsbdPCw1/nSK6upenOcDoYtTcMkaq8/DTTWUJzjcOHYRZ0uQmeaQGWf56TDfKGJ5FSsn5ZufyvOwGpxwomOWcue3Rdudna7OgKK7vIaVqYWbV5XxOB0=
+	t=1789479012; cv=none; b=u+IIG/NTlyp/NIW4vqbj2Xf3+eP2rfavLPAmREKKcmaM/0JZrZIpGWxLuKaBhtaa9dIjiT/b3drQ3pePL4/9Njaf/VlVMpioSLGphWXFXv+v5Z4bjO3a4e55B4GfkBOfTBfog0clQINdvMbPM0Svca/5LfdSUzTHdRWKyrhdB0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478996; c=relaxed/simple;
-	bh=ri2qq/jw753mYH6odikXnKMl5T5shxFd/q4wWGQpaeo=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=IIZZUNwakI7wkkiFKrwRKJdfPyaNMrvSgGC+Trk+EFUGNuJTWpexA3QBNnEgHsSQuZft5lNts3vHA3YDsQLd27iDmys4H9ubjdOtxLy5nQpupp4gyyBdXo1jwtlSxidP2OnmEI3WNzMFyT1vSgT91WRaNQTQxqqTuZ6HWWASqtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D3u9b6D1; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789479012; c=relaxed/simple;
+	bh=pUMdwBaUhJX8d1gHyLTTcvDeEXHvZcyE1FodWuvhRZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IbNBs/nfhbZxKqcsSgB5gfx9qGnRfP9Sx81OMo+hU27zkXzOaBEQmrZiaXnBWKYa6yaK8P/K+kyyZvP3FtW2VP9Rt3q+gRFTkKbZev75Gub1i27TM4vBMsjkS6W8fRF1wFOK9eY/CeouteGmGpzM9ppu7MAwGbv8Fk9jWt/4y4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m8+m84wa; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D3u9b6D1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789478994; x=1821014994;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ri2qq/jw753mYH6odikXnKMl5T5shxFd/q4wWGQpaeo=;
-  b=D3u9b6D1ziHHgGKXDaiUb0wkvZM6FK25g5sfNj9vHsbsOnLSoCuYnnW7
-   ITTcLIkxeCandZpJ/No7BA3SoL3UvMoKI0xpW3bwnYnYTFAX6yQ4wiuzy
-   b1DyFLvBFnkG/Z6tiw+NHuTL2t33T0QFEJkEm6Phdu+XbhLbOM+c00tIr
-   TPcfgQoNeAst1HYJgc/ysBgPMy/x6MhSY9lay2Nb12EA/iii2tsFmIK1P
-   v+uNP5pIeoVbL2gaGvrK29kUxg5PtnbSMfgeGAzfL97h8HqGLe5m8PD1M
-   OYJStd2VkFtYXyO8hTJKVEXDxAwHcuhno53tMexd2HtU/W1okXONfixfR
-   A==;
-X-CSE-ConnectionGUID: 9GtwQ6SySQ+6BqpsU+5wPg==
-X-CSE-MsgGUID: LrqCwuO1TqeDaAjObliwfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89856400"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89856400"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:29:54 -0700
-X-CSE-ConnectionGUID: XBhhIZMoRIagdjbPA+9aZg==
-X-CSE-MsgGUID: weR6e0KnQxaIIBX4A36w7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269333808"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:29:50 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 16:29:45 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: hp-bioscfg: fix slab-out-of-bounds write
- in hp_convert_hexstr_to_str
-In-Reply-To: <20260802010921.7487-1-meatuni001@gmail.com>
-Message-ID: <7a2fd1e1-6ed3-778f-2182-e4c199567599@linux.intel.com>
-References: <20260802010921.7487-1-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m8+m84wa"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3AD8915A1;
+	Tue, 15 Sep 2026 06:30:06 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F8463F7B4;
+	Tue, 15 Sep 2026 06:30:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789479009; bh=pUMdwBaUhJX8d1gHyLTTcvDeEXHvZcyE1FodWuvhRZ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=m8+m84waG523xweVwbBzZrU9XQz8UvhYF6SMam6oEgpSutJKYhl7yxdKS0qr89RSR
+	 u+U1FGsaroPhL15m9Qd0WB/aaWVO16Aiq0oZULqefwRE7iXLm5NVokVOPpoerGNIFb
+	 NtDcDUmmMFc1CByQ8WOzUQTEyqowD4lK9anho2Xc=
+Date: Tue, 15 Sep 2026 14:30:06 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v11 2/9] coresight: etm3x: prohibit modifying cntr_val
+ and reset while session is enabled
+Message-ID: <aqlIXrqCCkpNmv6y@e129823.arm.com>
+References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
+ <20260915-separate_etm_cfg_v2-v11-2-d2b258d51747@arm.com>
+ <20260915114845.CFA601F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915114845.CFA601F000FF@smtp.kernel.org>
 
-On Sun, 2 Aug 2026, Muhammad Bilal wrote:
-
-> hp_convert_hexstr_to_str() sizes its output buffer using the raw
-> hex-encoded input length, but the decoded string written into it can
-> need up to two bytes of output per five bytes of input when escaping
-> '\\', '\r', '\n', or '\t', plus one more byte for the NUL terminator
-> written unconditionally after the decode loop. For a short encoded
-> value the decoded length plus terminator can reach or exceed the
-> allocated size, causing an out-of-bounds slab write.
-
-Please try to improve the wording so that I don't have to figure the 
-input and output formats from the code.
-
-Does the input format contain leading 0x "0x09 0x.." which is decoded to 
-"\t..." as that is the only way I can make the 5 -> 2 relation make sense?
-
-I suppose you could add an example input and the resulting output. ...That 
-might be enough.
-
-> KASAN caught a one-byte overflow during BIOS attribute enumeration
-> on boot, triggered by a one-byte encoded input value:
+On Tue, Sep 15, 2026 at 11:48:44AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] coresight: TOCTOU race in sysfs configuration store functions
+> --
 > 
-> BUG: KASAN: slab-out-of-bounds in hp_convert_hexstr_to_str+0x6d8/0x710 [hp_bioscfg]
-> Write of size 1 at addr ffff8881032e5d81 by task (udev-worker)/520
-> The buggy address is located 0 bytes to the right of
-> allocated 1-byte region [ffff8881032e5d80, ffff8881032e5d81)
+> commit 9a331a4cd5a9fd51e7380e92ed6bdd6d8e20d5e4
+> Author: Yeoreum Yun <yeoreum.yun@arm.com>
 > 
-> Size the allocation to the worst-case decoded length, two bytes per
-> five-byte input chunk, plus the terminator, instead of the raw input
-> length.
+> coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
 > 
-> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
->  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> This commit attempts to prevent modifications to cntr_val and reset while
+> a CoreSight trace session is enabled. It adds a check for the current
+> mode using coresight_get_mode() before proceeding with the sysfs store
+> operations.
 > 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> @@ -442,7 +442,7 @@ int hp_convert_hexstr_to_str(const char *input, u32 input_len, char **str, int *len)
->  	*len = 0;
->  	*str = NULL;
->  
-> -	new_str = kmalloc(input_len, GFP_KERNEL);
-> +	new_str = kmalloc(2 * DIV_ROUND_UP(input_len, 5) + 1, GFP_KERNEL);
->  	if (!new_str)
->  		return -ENOMEM;
->  
+> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > @@ -74,6 +74,8 @@ static ssize_t reset_store(struct device *dev,
+> >  	ret = kstrtoul(buf, 16, &val);
+> >  	if (ret)
+> >  		return ret;
+> > +	if (coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> >  
+> >  	if (val) {
+> >  		spin_lock(&drvdata->spinlock);
 > 
+> [Severity: Medium]
+> Could this lockless check introduce a time-of-check to time-of-use race?
+> 
+> If a concurrent thread starts a trace session via the enable_source sysfs
+> file right after coresight_get_mode() returns false, it might win the race
+> before spin_lock() is acquired here.
+> 
+> This could result in resetting the configuration of an active trace session
+> and erroneously releasing its trace ID, potentially leading to trace ID
+> collisions and hardware trace stream corruption.
+> 
+> [ ... ]
+> 
+> > @@ -744,6 +746,8 @@ static ssize_t cntr_val_store(struct device *dev,
+> >  	ret = kstrtoul(buf, 16, &val);
+> >  	if (ret)
+> >  		return ret;
+> > +	if (coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> >  
+> >  	spin_lock(&drvdata->spinlock);
+> 
+> [Severity: Medium]
+> Is this susceptible to a similar race condition as reset_store?
+> 
+> Since coresight_get_mode() is checked outside the spinlock, a concurrent
+> thread could enable the session just before spin_lock() is acquired,
+> allowing the counter value to be modified while the session is active.
+
+Anyway, the reset interface is nausty. but yeap it would be better to
+check after grabbing *lock*  in here.
 
 -- 
- i.
-
+Sincerely,
+Yeoreum Yun
