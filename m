@@ -1,118 +1,158 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B698266576;
-	Tue, 15 Sep 2026 10:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0DAF34EF07
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789466722; cv=none; b=eHMzthicM3z8rWTfvmUv4MK0ErMLDKkIQppstlUoseLdS6w4sJz1tcc16ipGAtlw58V31UbCdaazBjgFqisZ6F7z55yMNZKJMUGoZYen47HNMuOE7Ch52HbDgMdHpzQ7lKnwhH0adQrsi0f1ZZ/S5Bo4vvNO32QpUqhLKMRLl/s=
+	t=1789466778; cv=none; b=efnz9nULxNoY3TVnv/kBw3Jz69AClas1TlG3KhbWJGpDJVoy3yYEsdWJtXw8MxWFGt8Xnzu5CPuwPOcPyedpw3dffbscLTSNtrE4etfJwG2/FXwwHEWwQcWIkcA4pL1kWDmMOHC9ncC9Xzf0R6pKKbFnDiW5xiAokQ6ULBCiVDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789466722; c=relaxed/simple;
-	bh=QxaOOxrY/HNWkOuqj7hmTAKTaG77yAH6aXBwJtzUEqk=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=NWmg+Gs3RREZes3adfjO08Fwrf0SiNZNTBySa13NTU4mTSV/TkYywCPV0EJbrDlV1qAktIAi1g0CAkeN2DiWyY7+BHhMMqgLVGhWZNnZSjTKb3ScFTbolK/Wy5onJ7c45UpRhCKBD2nBgjH51dDI+n0hpDNGmE4m/T/xDA71a+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P+oxlGkD; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789466778; c=relaxed/simple;
+	bh=lZY8PEQMxZwNeRP+M2mx9Irl59nxADkhMylYACKmFdE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N8KU4Ikh3g+EcsVXpS+oh1ZncaKwt1figlA2gDOn7f+JTotOfmzyYD4jc6CSQhg7o7xF5SXLwoxPI1azg0Fma5kFB+WvLo7v/Hu7B/g7s9EEAqBKQdrl8297plTvxB+f0nvMTVw/l+b2jYu+qYFcBWKVMc9uaOe4QWXNPkkg+zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CO5lggKQ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P+oxlGkD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789466721; x=1821002721;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=QxaOOxrY/HNWkOuqj7hmTAKTaG77yAH6aXBwJtzUEqk=;
-  b=P+oxlGkDQyn16Ej/ixbJK2WZ+e9qRswoI1Y+JeE014NQ96Vwko9ca3Bk
-   2hVqAFYrOrCIkXmqFVQ09a0XkmzNtlnrTqL4JdWxIlzriamADlolwT+W1
-   jgSQQoOb3EHkrE+5uQOJOdQMGHgjTNO+NjblI/9Tv2CZxH63RFEJCxtur
-   Nx7cTBHXcDQG8/QiXp6WeFNH+5r+50fZ0yIbFhmLCICSv4PGmk/VxaZ5u
-   oB3ohizyUO+pzyTuQCJQX1M10io01/sGt6JYfSS6052Qbmu5hyTvjOZjz
-   +Qrv0oFE2+5mDlZCzy4lYeIMyvoJjKNYrbmXi2kQVM+rSVT5wJADqTFSL
-   w==;
-X-CSE-ConnectionGUID: vrX1ZvGYTW+1nNEwgSc6mA==
-X-CSE-MsgGUID: ZCHXoZ8HQomFE0ipHJioRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89841241"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89841241"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:05:21 -0700
-X-CSE-ConnectionGUID: m4pwH9yURqmuJ4ubn5UHzg==
-X-CSE-MsgGUID: E3shFvVGTDSIvo32Jtxm2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1170964"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:05:18 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 13:05:13 +0300 (EEST)
-To: Mario Limonciello <mario.limonciello@amd.com>
-cc: Hans de Goede <hansg@kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-    "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>, 
-    Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
-In-Reply-To: <10788f18-2229-4165-ba5f-f2e2811281d9@amd.com>
-Message-ID: <f591b4d6-9619-42fd-31f5-639bf7bea8f9@linux.intel.com>
-References: <20260826163611.2268377-1-mario.limonciello@amd.com> <10788f18-2229-4165-ba5f-f2e2811281d9@amd.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CO5lggKQ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7520C153B;
+	Tue, 15 Sep 2026 03:06:11 -0700 (PDT)
+Received: from [10.0.138.126] (unknown [10.0.138.126])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E3B1E3F7B4;
+	Tue, 15 Sep 2026 03:06:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789466775; bh=lZY8PEQMxZwNeRP+M2mx9Irl59nxADkhMylYACKmFdE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CO5lggKQ9OauzYT6JTbaa5f5RvJthgkEsgDqzjFSfZu0q0XZmvVKhfyhWZiRnRgTU
+	 riKWRf0JoRXzJQY2uqZ/cU6LBsC0Yu/dwkZW0+sPf+nKdCKzVOYJl6u8l5wi28yBm6
+	 eCrABeEarRaF1GFR8ypFAbXX9plolzLhxgwoPqrw=
+Message-ID: <2710a283-aee2-495b-b941-3868f4461d6e@arm.com>
+Date: Tue, 15 Sep 2026 11:06:12 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
+To: Andrew Morton <akpm@linux-foundation.org>, Petr Mladek
+ <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
+ John Ogness <john.ogness@linutronix.de>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Rio <rioo.tsukatsukii@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+References: <20260915100140.3631650-1-ryan.roberts@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260915100140.3631650-1-ryan.roberts@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Sep 2026, Mario Limonciello wrote:
-
+On 15/09/2026 11:01, Ryan Roberts wrote:
+> Netconsole registers with CON_NBCON_ATOMIC_UNSAFE, so its write_atomic()
+> callback is only usable during nbcon_atomic_flush_unsafe(). Previously
+> this was only called by vpanic() if panic_timeout=0 - i.e. if the system
+> was configured not to reboot on panic. So if the system was configured
+> to reboot on panic, netconsole would never receive the panic logs.
 > 
+> Move vpanic()'s emergency_restart() call to after the call to
+> nbcon_atomic_flush_unsafe() to solve this problem. The downside is that
+> potentially unsafe operations are now performed prior to
+> emergency_restart() which could theoretically reduce the chances of the
+> restart succeeding. But we are already in a panic situation so it could
+> be argued that everything is best effort already.
 > 
-> On 8/26/26 11:36, Mario Limonciello wrote:
-> > The AMDI0112 ID is used to bind the PMF driver to some platforms.
-> > It doesn't have any Linux side code changes relative to the most
-> > similar AMDI0105.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > ---
+> In older kernels (v6.19 and earlier) netconsole is able to print these
+> panic logs while the system is configured to reboot on panic. So from a
+> user perspective this is a regression caused by commit 7eab73b18630
+> ("netconsole: convert to NBCON console infrastructure").
 > 
-> Hi Ilpo,
+> We have automated test systems without BMC access, which rely on these
+> two features working together.
 > 
-> I sent this a few weeks ago, just want to make sure it wasn't lost in the
-> merge window and is still on your list.
+> Fixes: 7eab73b18630 ("netconsole: convert to NBCON console infrastructure")
+> Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+> ---
+
+Oops forgot to add commentary to the bottom:
+
+I've set this as RFC because I'm not sure if the current behaviour is a
+deliberate design decision? I guess if we flush the unsafe console, there is a
+possibility it deadlocks, preventing the subsequent reboot. If people are
+concerned about this, perhaps this needs a cmdline flag?
+
+Thanks,
+Ryan
+
+
+
+>  kernel/panic.c | 35 ++++++++++++++++++-----------------
+>  1 file changed, 18 insertions(+), 17 deletions(-)
 > 
-> Thanks!
-
-Hi,
-
-Please don't worry, my plan is to process most of the patch queue this 
-week.
-
-I've been busy in dealing PCI regressions until now and still am one quirk 
-short to finish that work.
-
---
- i.
-
-> >   drivers/platform/x86/amd/pmf/core.c | 1 +
-> >   1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/drivers/platform/x86/amd/pmf/core.c
-> > b/drivers/platform/x86/amd/pmf/core.c
-> > index b4eae65e675b8..5966190d1496b 100644
-> > --- a/drivers/platform/x86/amd/pmf/core.c
-> > +++ b/drivers/platform/x86/amd/pmf/core.c
-> > @@ -454,6 +454,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] =
-> > {
-> >   	{"AMDI0107", 0},
-> >   	{"AMDI0108", 0},
-> >   	{"AMDI0109", 0},
-> > +	{"AMDI0112", 0},
-> >   	{ }
-> >   };
-> >   MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
-> > 
-> > base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
+> diff --git a/kernel/panic.c b/kernel/panic.c
+> index 213725b612aa..473dc7d13b23 100644
+> --- a/kernel/panic.c
+> +++ b/kernel/panic.c
+> @@ -732,32 +732,22 @@ void vpanic(const char *fmt, va_list args)
+>  			mdelay(PANIC_TIMER_STEP);
+>  		}
+>  	}
+> -	if (panic_timeout != 0) {
+> -		/*
+> -		 * This will not be a clean reboot, with everything
+> -		 * shutting down.  But if there is a chance of
+> -		 * rebooting the system it will be rebooted.
+> -		 */
+> -		if (panic_reboot_mode != REBOOT_UNDEFINED)
+> -			reboot_mode = panic_reboot_mode;
+> -		emergency_restart();
+> -	}
+> +	if (panic_timeout == 0) {
+>  #ifdef __sparc__
+> -	{
+>  		extern int stop_a_enabled;
+>  		/* Make sure the user can actually press Stop-A (L1-A) */
+>  		stop_a_enabled = 1;
+>  		pr_emerg("Press Stop-A (L1-A) from sun keyboard or send break\n"
+> -			 "twice on console to return to the boot prom\n");
+> -	}
+> +			"twice on console to return to the boot prom\n");
+>  #endif
+>  #if defined(CONFIG_S390)
+> -	disabled_wait();
+> +		disabled_wait();
+>  #endif
+> -	pr_emerg("---[ end Kernel panic - not syncing: %s ]---\n", buf);
+> +		pr_emerg("---[ end Kernel panic - not syncing: %s ]---\n", buf);
 > 
-
--- 
- i.
+> -	/* Do not scroll important messages printed above */
+> -	suppress_printk = 1;
+> +		/* Do not scroll important messages printed above */
+> +		suppress_printk = 1;
+> +	}
+> 
+>  	/*
+>  	 * The final messages may not have been printed if in a context that
+> @@ -767,6 +757,17 @@ void vpanic(const char *fmt, va_list args)
+>  	console_flush_on_panic(CONSOLE_FLUSH_PENDING);
+>  	nbcon_atomic_flush_unsafe();
+> 
+> +	if (panic_timeout != 0) {
+> +		/*
+> +		 * This will not be a clean reboot, with everything
+> +		 * shutting down.  But if there is a chance of
+> +		 * rebooting the system it will be rebooted.
+> +		 */
+> +		if (panic_reboot_mode != REBOOT_UNDEFINED)
+> +			reboot_mode = panic_reboot_mode;
+> +		emergency_restart();
+> +	}
+> +
+>  	local_irq_enable();
+>  	for (i = 0; ; i += PANIC_TIMER_STEP) {
+>  		touch_softlockup_watchdog();
+> --
+> 2.43.0
+> 
 
