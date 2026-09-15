@@ -1,166 +1,203 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950A33B4EB2
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA9A26F288;
+	Tue, 15 Sep 2026 08:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459554; cv=none; b=e5hiCwiPoXNo3vU7l/Ru2Iwz2siHiuVjfI2Z0UFd7HMQJdVUse/01Hw+8yNPnGp5VP+vRnwZKu377OSJWcRGo5tA7SL+HdomsbgOgXXsIXtYMQXJG2DWyolLna5q4EKAzfIPCoZLQf3yWbA3jk2/iM2w0mdVTL4bQXilUo+rNFk=
+	t=1789459586; cv=none; b=X4Ueohc/uouvRng02uAVM1QtW9ryoa3EEirHMsdCcjYucpVYzxX6GdNsJ1GwYuwpOOOJ9ZyLi1UtI+2K9pxLKvfu7fWKp5F82FpmX29XT+so8uI9jwLdkvxUX6gOnJcuea3A5MlkHjdA7vSFB9kH+7EnrVizIL5iT/k5TtT/ceA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459554; c=relaxed/simple;
-	bh=zUR5ieW/1xeMro3AUcJkNuU5g5wF7tcrOcN9Xqi85C4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kv25+neJ8v26eSbLhQzfYlY3f3/grK0jVKee+Wktib3HCYiOG9nl8c3GzoZ7elB1iR1CiVeDefVvJH5hEwn1SmkOTQ/uImM/3Qj2PJAatc7t/+ZYRrwD75irRvJu+2deqTtPPU3bpnnWQ/HHi1KWkebZo3a3CsPqbrP7QM5A5Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=edpY8qm6; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789459586; c=relaxed/simple;
+	bh=UU0C32StnmcZOmS56b0hIrUs1r6rNmrUSZ+lRJl/HmQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mYfwHlQUemhbdZ/okegKFWofb2ECWf9YKu533LnzPtYoI4BC4xLb/8JDyDQtAZGaWnvC/fwOVFYR5QyYwDgY78iBoRqdAmHblc9URvhAt4aM6CR4EuYZinoXF6B9EdLAl2qmwteDc2+bDjZKbmVgMCiopy930v8+6FHNfVUbYsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=LXantVmz; arc=none smtp.client-ip=217.70.183.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="edpY8qm6"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4870a3dbdd2so5897f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:05:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789459551; x=1790064351; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fFvjfvuRHyiDs9ZL0ZSGaphdyLSM272ZOZkijKnwP9w=;
-        b=edpY8qm6xz8j9w/4OMP+/X9E5LFuJX8xep8D5ygE+ILyYCEa/cSdym5s63RpXp7sCe
-         TFIrmSNKtIqZaa6cm1077jOVRJ7pGfN4+socmUGNfj1mVdzvzZM738bgmrjsPTRgD6XR
-         KIo+2QWacmghvxx9S8aLWzPGZwguibatesbtdg5xI0tB4kD++3CxL3w16311o2X99E6N
-         MxKByS9PW12ayfIxafvZb34zQVaGcLgwYk7IpjB5jkg/X2bWTC+em7H7JjMCTv+orHap
-         9lB1vuyJ3/syTvnN+aH7mhoM7lcBQdPzceGxRGGEsENTJrTNFnuD+FdMzV28wbm6jGjK
-         33BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789459551; x=1790064351;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fFvjfvuRHyiDs9ZL0ZSGaphdyLSM272ZOZkijKnwP9w=;
-        b=zTdpdNGzlvVoNN2m+1ioPJL1siBTC+EAWF8ixKaAQBMKuOqB7vrAzrbfP/51W5IEAK
-         G1OXZpI4JIj6aKmzPVkHbFHnzGVHwNTdOmEGCz6DnjWyqc2TF8utAEg5wG1ydoeKgcaN
-         p0LJa+bgsa37t32SWUyt4iHoz2nwruTbpNG3/Riv9n/mKQI1dNyPzqb0YN5p+mQOHdyu
-         CVyueHaQBlgbxHJ2MduKTlvwAbi0Wgl7sJYbTBCn8rvz6nXOnCe6NX7BZaL/bp+0UR3m
-         7GI8ORbLtZhwL3JYg+HMBvcLtJnEiueuNWXnukb7HFL7Bc8xuyIjLkDbY5TvMZKkItQf
-         KC5A==
-X-Forwarded-Encrypted: i=1; AKwUvBw8tFHEGMqtUR0DzvANBvFqywr6ugdewwm7ux5N/2y5De9d7wRFOhX0UUiTCXrFTneSB2VWNm+4jIhYujA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/1EWCZuS2VoBTPYoEx5hgdI+cQm0VyOEEDywDw1W22nuIkmbh
-	+/hz2XiqAkpp+cMN8ORroRkoB09BcWaoJXvQ08gBawz9aBRt8EsvzM/ORKiKqHZqP7E=
-X-Gm-Gg: AYBFou0pnfJRvRHosH4RiqQsR6PRfUuAtOr/+4p0nTZzHxyKKyUcccrpbYfdXwGxm5l
-	jvO48W2LYPkYBEC9VC7A6XNwpjE1iN0ROccCl/cxbyyV7IOhiC28uoqmExOIAoKNDtX+ENHKVAE
-	dvOSp1FAvGWd4WYO0QCbTHN7bMYF8uOnnZGrUGJOT5xj7qEn8Wmcpm2ATFM8/ZMIsnP1SbTMAnq
-	lDe760KNXlSXyJjgTjpRPSM3JlUrt1Uwr7e/PAE3WQQ6s/tJzlcjw8Bz19cD2L/FDb7Es+o2VSe
-	GVyST4OuO56/4MnH5r+TMvmfKDPga8Fw/RN0BsxIgKRPCs0NUtoKHttdsbNrkZsV9MJNzR+Y+sA
-	bhZexXnEbwY0OmRPQph5onJhYDMxp0a12y8qy0AKELdKitqM8Gx/DcCigBuRhpDz93WpSXV30eb
-	SGL/h1aoFwSV057Pjkl6Qz4+q/gyDRlUf+tBgzlsd61TavzoEOOBX39jtvKUsQ7b/pyWqh3Ked5
-	1WYwWdQFnLfMsChxJvSf0rK5e7nAxoMzISLhI57LO0JK9Htj7c=
-X-Received: by 2002:a05:6000:41c3:b0:485:85d5:7ac7 with SMTP id ffacd0b85a97d-48702b0e846mr6483949f8f.26.1789459550628;
-        Tue, 15 Sep 2026 01:05:50 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ff86:16e:fede:9407? ([2a01:e0a:106d:1080:ff86:16e:fede:9407])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm32371402f8f.9.2026.09.15.01.05.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 01:05:50 -0700 (PDT)
-Message-ID: <107fc574-ecfa-42ef-b576-227dd5bae2c2@linaro.org>
-Date: Tue, 15 Sep 2026 10:05:49 +0200
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="LXantVmz"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6EA0B3EDC5;
+	Tue, 15 Sep 2026 08:06:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1789459575;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=NYa+Xp7+0OhWxKPAeNGbQ8TsgkzfpTwSxc+u7sC95co=;
+	b=LXantVmzdQRKAyMxL3XVTXIWeJsGrZGGkma1L62WvRDaQr33uTA88YMUpk/TapnmFSaWrH
+	ryUMYn/b1iSq5GY14II1T7/rrFYUN4nV9P+MQmFSRjVU8DtGdWqbs8eDEwXXELnGzFzKvn
+	vv1SKHYUWpIjGbwVsrGN0nLoURy6pm2yvCdFMdZcovKkLGVOTpWre8S25dMuDMlnd1MUmw
+	pGMsaxNI8L+jgYipl/pzPWNceXcBzy6o/Y4MtDOM/X+aDMVhGJJXSO359v5Z93G00NiWq+
+	zPXaIXq4lnmYFBvWtfJ2wxH4fRBFk14dp41vk+N0SGhLmoq1ji8Ym5HlkTigFQ==
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+Subject: [PATCH net-next v8 0/3] w5100: restore GPIO-based link detection
+Date: Tue, 15 Sep 2026 10:06:01 +0200
+Message-Id: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 0/3] ASoC: qcom: allow SM[456]50 HDK board to play
- audio via I2S
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260831-topic-sm8x50-next-hdk-i2s-v4-0-a224aa073f9d@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260831-topic-sm8x50-next-hdk-i2s-v4-0-a224aa073f9d@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGn8qGoC/4XQy07DMBAF0F+pvMbIz7HDiv9ALPxsDTSpYjdtq
+ fLvOGFBhIxYjnznXNt3lMOYQkZPuzsaw5RyGvo66IcdcgfT7wNOvs6IEQZEE4Ev6bMPBX+k/h3
+ vT2nAqoPIwXkqYofq2mkMMV1X8gUt0T5cC3r9Psln+xZcWcQle0i5DONtbZ/ouvF30UQxxRYYR
+ C+ics4+H814HEo558eaXCsm9h/CMMHcUk+cViRy2UL4FoEGwisiOfPCUME1aSJig1DaQERFhJd
+ ReaO1NLqFyC3CG4isiHH1qRCZEJS3ENggvHUTWBAbAjjpOoDQQtQP0jU/VlUEukioVaQq8Tcyz
+ /MXt5tYPW4CAAA=
+X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arthur Crepin Leblond <arthur@marmottus.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTE8fWi5zv/QCllA7nxKJSW4r4Y1wPKHmrL73BTozW5Nm1AIw1swA0Zca483q7ZSmlPGTOsjKrfevEC/wArZ0BuDqsg/tRKcMFnMHW/GptC6WR2ObCXrNzMn0r3RE2MosB0FV+NNan4GKmc8uq9bLxBiULu1xpXGV1mReBvjcCVVczFpMRHAAymmUo+TEl2KQvY9nlyJELX0dvcuNe9DUL1i3K36J+asYsmunsNX8VKQVjWZe4Ffjy4fj4DccEeYWN+AWszURLAVK4xg8JeLqwOsE3ynSWi1QyaDtDT01ayakpyPwFkZq4HjATbzxMLdFjvvb4LCbylJRNYqyMvyigq1GqbzMJe0MbFLeyrcZGEiUH34dbkc97g08qJ2R5fXs83NiTPL08teqbY/koMHHtvyAZmBHy0B22WT1tVhSTauJky+jmYS4sn1B45AaVtV4DblADif43Qbib5U/LMnAIGx7ORKniSvPZ09Z3jzK3O/iy1hH4biIlaAClwSIGpgogfJWVK+VlgmqdMrFO1fut704mcBci0lTJfTgdc4+hv01ANekjXyhl62hyRCJoyanAuTYeNEoYdO8yqd2rPHTzvZigacLKVQWwJEbFUEa40gw8t2YCjq7c8sdHq3OUbqOlGiMRIGKwB+SJnwJBzeCDl0ynVFwGHwqck7ggtmvXR6lw
 
 Hi,
 
-On 8/31/26 11:13, Neil Armstrong wrote:
-> Following [1], this adds the necessary settings to setup
-> the I2S link to the HDMI bridge to allow audio playback.
-> 
-> All dependencies are merged v7.3-rc1
-> 
-> [1] https://lore.kernel.org/all/20260724182446.1484894-1-mohammad.rafi.shaik@oss.qualcomm.com/
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
-> Changes in v4:
-> - Rebased on v7.3-rc1
-> - Link to v3: https://patch.msgid.link/20260805-topic-sm8x50-next-hdk-i2s-v3-0-07a6483c430f@linaro.org
-> 
-> Changes in v3:
-> - Fixed node unit number on patch 3
-> - Link to v2: https://patch.msgid.link/20260731-topic-sm8x50-next-hdk-i2s-v2-0-42c1acee5a2d@linaro.org
-> 
-> Changes in v2:
-> - Dropped applied patch 1
-> - Fixed node unit number
-> - Reversed clock names order to respect bindings
-> - Link to v1: https://patch.msgid.link/20260728-topic-sm8x50-next-hdk-i2s-v1-0-2393a0fe4aa9@linaro.org
-> 
-> ---
-> Neil Armstrong (3):
->        arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
->        arm64: dts: qcom: sm8550-hdk: Enable I2S for HDMI
->        arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
+In the previous version of the w5100 driver, the LINKLED pin could be
+wired to a GPIO to detect the link status changes via an interrupt.
+This only works on w5500 as it is the only one documenting its LINKLED
+pin to hold the link status (on w5100 the LINKLED pin is changing with
+RX/TX activity).
 
-Gentle ping, this has been out for a while and the related ASoC changes were merged fro v7.3 already.
+This series of patches is bringing back the link status detection on
+w5500 using the Link Status bit of the PHY Configuration Register.
+Additionally, the LINKLED pin can also be wired to detect link status
+changes and read the register in the interrupt handler.
 
-Thanks,
-Neil
+Arthur Crepin Leblond
 
-> 
->   arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 36 +++++++++++++++-
->   arch/arm64/boot/dts/qcom/sm8450.dtsi    | 40 ++++++++++++++++++
->   arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 36 +++++++++++++++-
->   arch/arm64/boot/dts/qcom/sm8550.dtsi    | 73 +++++++++++++++++++++++++++++++++
->   arch/arm64/boot/dts/qcom/sm8650-hdk.dts | 35 +++++++++++++++-
->   arch/arm64/boot/dts/qcom/sm8650.dtsi    | 40 ++++++++++++++++++
->   6 files changed, 257 insertions(+), 3 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260728-topic-sm8x50-next-hdk-i2s-6d63c25eceac
-> 
-> Best regards,
-> --
-> Neil Armstrong <neil.armstrong@linaro.org>
-> 
+Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+---
+v7 -> v8:
+- dt-bindings: net: wiznet,w5100: convert to DT schema
+ - Add a myself in MAINTAINERS
+ - Address Sashiko reviews
+  - Change edge-falling to level-low
+  - Clarify the spi max frequency for all devices
+  - Add main interrupt description
+
+- dt-bindings: net: wiznet,w5100: add link status interrupt
+ - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review changes
+  - Make the interrupts property conditional
+
+- w5100: detect carrier state using link status bit and optional
+  interrupt
+ - Add myself in the MAINTAINERS file
+ - Address Sashiko reviews from online bot and locally run
+  - Add a mutex to synchronize the link state read and interrupt
+  - Return last known carrier state (netif_carrier_ok) in
+    w5500_get_link on SPI error or if the device is not present
+  - Only set ops .get_link on w5500
+  - Check the netif state, disable/enable the irq and re-check the
+    carrier state in w5100_restart
+  - Cancel the restart work on stop/suspend
+  - Only set carrier state to off in w5100_stop/suspend  when a link
+    irq is present
+  - Warn on fwnode_irq_get errors for the link irq
+  - Free the main irq and flush queues before resetting the hardware
+    in w5100_remove
+
+Link to v7: https://patch.msgid.link/20260904-wiznet-link-gpio-v7-0-69f01b70c96f@marmottus.net
+Sashiko : https://sashiko.dev/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+Netdev Sashiko : https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+
+v6 -> v7:
+- Address Sashiko reviews
+ - Propagate spi read error to the caller
+ - Do not change the state of the carrier on SPI read error
+ - Enable the link IRQ before reading the PHYCFGR bit
+ - Call unregister_netdev before reset
+ - Update commit message
+
+Link to v6: https://patch.msgid.link/20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net
+
+v5 -> v6:
+- Fix DT error: use minItems
+- Remove conditional properties
+- Put back the reviewed by tag from Krzysztof Kozlowski from v4
+- Revert to the reviewed v4 version by Arnd Bergmann with a few
+  changes based on Sashiko's review
+- Address Sashiko reviews
+ - call netif_carrier_off in open if there is no link_irq or  get_link
+   returns false
+ - call register_netdev at the very end of probe
+ - call unregister_netdev before destroying work queue
+ - handle link irq probe defer error
+ - call netif_device_attach in resume before re enabling the link irq
+ - disable the link irq first in suspend
+ - log netif_err when PHYCFGR cannot be read
+ - enable link irq in open
+ - disable link irq in stop
+ - free irq and invalidate it in remove
+
+Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
+
+v4 -> v5:
+- Remove gpio/gpio.h include from DT example
+- Make the DT interrupts property dynamic from the compatible one
+- Fix DT bindings errors
+- Address Sashiko review
+ - Read the link status register only on w5500 instead of checking
+   link_irq 
+ - call netif_carrier_off on w5500 link status off in open
+ - enable/disable the link irq in open/stop
+ - enable/disable the link irq in resume/suspend
+ - handle link irq probe defer error
+ - register the netdev last
+
+Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
+
+v3 -> v4:
+- Update interrupts in DT bindings
+- Use directly an interrupt line instead of gpio -> irq
+- Address Sashiko reviews
+ - drop devm_ on request_threaded_irq to avoid use after free
+ - disable/enable the link_irq in the suspend/resume
+ - only call netif_carrier_on|off if the link interrupt is present
+
+Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
+
+v2 -> v3:
+- Fix DT binding errors
+- Use the Link Status bit of the PHY Configuration Register
+- Use the LINKLED gpio binding for change detection only
+
+Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
+
+v1 -> v2:
+- Convert device tree binding to YAML
+- Use devm_request_threaded_irq instead of request_any_context_irq
+- Use devm_gpiod_get_optional instead of gpiod_get_optional
+- Call dev_err_probe on gpiod_to_irq failure
+- Remove link_irq from priv
+- Use a fixed string for the IRQ name
+- Remove empty new lines
+
+Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
+
+---
+Arthur Crepin Leblond (3):
+      dt-bindings: net: wiznet,w5100: convert to DT schema
+      dt-bindings: net: wiznet,w5100: add link status interrupt
+      w5100: detect carrier state using link status bit and optional interrupt
+
+ .../devicetree/bindings/net/wiznet,w5100.yaml      |  92 ++++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 ------
+ MAINTAINERS                                        |   7 +
+ drivers/net/ethernet/wiznet/w5100.c                | 192 +++++++++++++++++++--
+ 4 files changed, 272 insertions(+), 69 deletions(-)
+---
+base-commit: 272a65db243bfa34b9277632830e0e06d7e3518e
+change-id: 20260804-wiznet-link-gpio-796f36cd14f9
 
