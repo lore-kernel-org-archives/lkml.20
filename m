@@ -1,104 +1,131 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87239411FB8;
-	Tue, 15 Sep 2026 19:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161894078CE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501702; cv=none; b=pBgDUhOQ+drf+/1Xv5WlWYsLVURUMZqJXM8TRswhp7T5pNuNJeEpI14LtHDD0rHnPrxjISkKUkh2Ha3r50/EQkjEplfQWkpB24O70E1ZdPPZWW+cBBCklEHx5Py92M58cKdg0NIi3BjczzOcUQyh8S3CMfp+aQRj+0Q7xb14my4=
+	t=1789501715; cv=none; b=tINtBOyLizxRX7lXuAT9tX9iterMg60ovW3mqiwNbXENmHpSZV6WvTr5ODNoIPQFgULk4U8jhoKE+exzqZpXJjFZ/Bc+LqJTPtICztmdsfQ5sGAB3/Np0wIXHTQft/FJjo92Tm3Ni2det1XrML3idtn6rbK1zxzw6ZGaitYUIgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501702; c=relaxed/simple;
-	bh=nXCt5s8XHSIzz3K0qwyItk5NRAka6jgRI04dMtUHlgw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ukQXKbqIajze+NB9L2cLLPimetqUcQaQQtsGADUamtluZrLbJ0/5qSq0WjqL0jNX/xfII+SbrFFtrkrtY3Xr+WZJ9WL7Tr23Jf4c31IAhEZWEvv2u6AYdyht9cdEa+YTVNKx7L0F/Fk51m8N+ETpyjvrbQ7O1IDdS7jvxpTPw3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=VGKT2qpc; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1789501715; c=relaxed/simple;
+	bh=Kz59GHhkcamBTvO5OZA+8aUrnfhaG4JmoWSr9Dzi4Xw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cHg8CpFiJVp6WLKkFFtt1CYHM2203E4d4BrBnC4SjFR3FDqGzgmqTI+H+NjvlC40sb2kVmoq+9psyGdKjcimCMyvAAcXTej8dfB9Wu4OYRuGnaUqkmWKPPNMhT6cUtQO133ra4YXeYcww4NAVJIvc9ywplbP3sbkkNIzGktbmzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bA84eQ8k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="VGKT2qpc"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 8E0DF408B4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1789501700; bh=reat9UBLUIspNcqaDN08N7POgOUe2gEEG998iMnROHo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=VGKT2qpci20UYfKNfLrAebhbJ8uguhiOb1F8B/6oC9thcBJzMkSfig5PoWh74K3l7
-	 fTmtmR23vkqOcoCkwgW93NTuGvGX5zNg+r1mboTwELMEBSO8VaUoNuE3KBUCKEAEtT
-	 jfFd/D/xG++TpT9dRm3s3Ymgltgh0nNZ6c2dZ7yxumOPLfRgQq35KTMVsTK6niDnzk
-	 hCDvbYn1MbJmrcX+X1WdyJXwnVsat76CvQhYclBUl9G1seJq8k2ZrQ4KIi9hDU4By6
-	 lrEulQki8kVMVsb0/Np3JHOd9qHo9CqwOLvzKnw4xQKa9RTO1iPeqtpSmTgTLVyZs3
-	 KD+9ehee64O5g==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 8E0DF408B4;
-	Tue, 15 Sep 2026 19:48:20 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: =?utf-8?Q?Iv=C3=A1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>, Bartosz
- Golaszewski
- <brgl@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?=
- <mic@digikod.net>, Jason Wang
- <jasowangio@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Iv=C3=A1n?=
- Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Subject: Re: [PATCH 5/7] docs: vduse: align documentation with current uapi
- and driver
-In-Reply-To: <20260831143125.151360-6-ivanrwcm25@gmail.com>
-References: <20260831143125.151360-1-ivanrwcm25@gmail.com>
- <20260831143125.151360-6-ivanrwcm25@gmail.com>
-Date: Tue, 15 Sep 2026 13:48:19 -0600
-Message-ID: <87ik4670u4.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bA84eQ8k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245E51F000FF;
+	Tue, 15 Sep 2026 19:48:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789501713;
+	bh=TZZHSnTPH2xbRY+C/0wr5szLzimCe4mAHjjDiV7zCkU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bA84eQ8kNm2xFEDJHaAu4/0FsNfa2dIGw688NVxMv5ztnZWcMONlCDyXVd5iS0GQ3
+	 YPU3JQfOebHH47I9SKmiJYpbxRe0e/+MT3rUKvTb79N1+JXX4/0kR5lSXxcNOeXPoa
+	 mFZcx9vpcSnzoQ4m/ZkR96b1BYdf2P4eLvJe8W6A9yweadHnRQEyfI6jv82NXEaVXh
+	 jR7u68ZVgELGIIt2dSp/Jfd3oppLD4kQWCQERpWYS+xt/kknGaS/HK/O4ceiKoIwr7
+	 66mxhSF4j+qp5p/kEtuCjvX1sYIaZhwkoq6CmUfiTbwzjyNnz2LmLiKkIWquz9SsQv
+	 wtobLZFeiH+wA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] mtd: spi-nor: reduce stack usage in
+ spi_nor_parse_sfdp()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michael Walle" <mwalle@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, "Richard Weinberger" <richard@nod.at>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>
+Cc: "HyeongJun An" <sammiee5311@gmail.com>, "Arnd Bergmann" <arnd@arndb.de>, "Tudor
+ Ambarus" <tudor.ambarus@linaro.org>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>
+In-Reply-To: <20260915194203.3511147-1-arnd@kernel.org>
+References: <20260915194203.3511147-1-arnd@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 19:48:32 +0000
+Message-Id: <20260915194833.245E51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com> writes:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] mtd: spi-nor: mixing goto and scope-based cleanup in spi_nor_par=
+se_sfdp()
+- [Low] mtd: spi-nor: split definition and initialization of __free() varia=
+ble
+--
 
-> Update supported device IDs (block, net, fs), all six read/write message
-> types, the VDUSE_VQ_INJECT_IRQ ioctl name, and VQ_SETUP group vs asid
-> usage per include/uapi/linux/vduse.h.
->
-> Signed-off-by: Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-> ---
->  Documentation/userspace-api/vduse.rst | 33 +++++++++++++++++----------
->  1 file changed, 21 insertions(+), 12 deletions(-)
->
-> diff --git a/Documentation/userspace-api/vduse.rst b/Documentation/usersp=
-ace-api/vduse.rst
-> index 81479d47c8b9..d316857ca5bd 100644
-> --- a/Documentation/userspace-api/vduse.rst
-> +++ b/Documentation/userspace-api/vduse.rst
-> @@ -11,11 +11,10 @@ to make the device emulation more secure, the emulate=
-d vDPA device's
->  control path is handled in the kernel and only the data path is
->  implemented in the userspace.
->=20=20
-> -Note that only virtio block device is supported by VDUSE framework now,
-> -which can reduce security risks when the userspace process that implemen=
-ts
-> -the data path is run by an unprivileged user. The support for other devi=
-ce
-> -types can be added after the security issue of corresponding device driv=
-er
-> -is clarified or fixed in the future.
-> +Note that virtio block, network, and filesystem device types are support=
+commit 1f040dc109ef8aa4b9fc1c81bcaa8f6e6a5a27c0
+Author: Arnd Bergmann <arnd@arndb.de>
+
+mtd: spi-nor: reduce stack usage in spi_nor_parse_sfdp()
+
+This commit reduces stack usage in spi_nor_parse_sfdp() by replacing an
+on-stack struct spi_nor_flash_parameter variable with a dynamically allocat=
 ed
-> +by the VDUSE framework. Other device types may be added after the securi=
-ty
-> +implications of the corresponding device driver are clarified or fixed in
-> +the future.
+one. It utilizes the __free(kfree) scope-based cleanup helper to manage the
+allocated memory.
 
-So that paragraph was somewhat impenetrable before, but I think this
-change has made it worse.  What are "the security implications"?  This
-has the look of a mechanical change that isn't really concerned about
-what is supposed to be communicated...?
+> diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+> index 641f17ad51a09..466558ea528d8 100644
+> --- a/drivers/mtd/spi-nor/sfdp.c
+> +++ b/drivers/mtd/spi-nor/sfdp.c
+> @@ -1521,7 +1521,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+>  {
+>  	const struct sfdp_parameter_header *param_header, *bfpt_header;
+>  	struct sfdp_parameter_header *param_headers =3D NULL;
+> -	struct spi_nor_flash_parameter params, params2;
+> +	struct spi_nor_flash_parameter __free(kfree) *params =3D NULL;
 
-Thanks,
+[Severity: Low]
+Does this split definition and initialization of the params pointer violate
+the cleanup subsystem guidelines?
 
-jon
+The guidelines recommend defining and initializing scope-based cleanup
+variables in a single statement (such as at the kmemdup call below) rather
+than initializing to NULL at the top with assignment later. While this
+specific case might not trigger a LIFO ordering bug since there are no
+guard() locks present, it does bypass the subsystem recommendation designed
+to prevent those ordering mistakes.
+
+>  	struct sfdp_header header;
+>  	struct device *dev =3D nor->dev;
+>  	struct sfdp *sfdp;
+> @@ -1533,7 +1533,9 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+>  	 * Get a backup of all the parameter to roll back to in case of an
+>  	 * error.
+>  	 */
+> -	memcpy(&params, nor->params, sizeof(params));
+> +	params =3D kmemdup(nor->params, sizeof(*params), GFP_KERNEL);
+> +	if (!params)
+> +		return -ENOMEM;
+> =20
+>  	/* Get the SFDP header. */
+
+[ ... ]
+
+> @@ -1712,7 +1716,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+>  free_param_headers:
+>  	kfree(param_headers);
+>  	if (err)
+> -		memcpy(nor->params, &params, sizeof(*nor->params));
+> +		memcpy(nor->params, params, sizeof(*nor->params));
+> =20
+>  	return err;
+>  }
+
+[Severity: Medium]
+Is it safe to mix goto-based error handling with scope-based cleanup in
+this function?
+
+The kernel cleanup subsystem guidelines dictate that goto-based error
+handling and scope-based cleanups should never be mixed in the same
+function. Retaining the free_param_headers goto label and other manual
+cleanups in spi_nor_parse_sfdp() while introducing __free(kfree) for params
+violates the 'all-or-nothing' conversion rule and can create confusing
+ownership semantics.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915194203.3511=
+147-1-arnd@kernel.org?part=3D1
