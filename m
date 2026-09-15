@@ -1,159 +1,191 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E20471D0C;
-	Tue, 15 Sep 2026 08:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A170732B137;
+	Tue, 15 Sep 2026 08:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462469; cv=none; b=gkRiNq/yGZJH6vI+hQRZUCAQs9b5hg7p8SRK3qEV9tgNMVa79NRi5h2hdN3J7/hkuyvb2u0p6M9+uHbZJ0c2DwzfVPmjAcSma8xdainwJ7lA7W/0k/OCdazJZuop0W5XXayFz3/7WKIYXu0kqVqx/uljkfnC3BY812cP3ph+XEw=
+	t=1789462493; cv=none; b=CahxOF2gOtCdWcdORpkLRHgL1EddQ+liohPl0hk91oT0SkxuY+iHB1N8t3f5IZKS5guSWg1Zy9K5OCRnvyiGEwRo+TVWOZKK74+DgvN9405imZ77M+duZE7ZF6P8Ys1Uyt7FUErsfl3lLmXFRDNc9PW55PxfasJ7fUlrE0Jx8Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462469; c=relaxed/simple;
-	bh=TrFy84WFLihamQ2UtPEIp9cWrnbixhLsx/cx/JOsURw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=tK9j1ZqMGZLqTppcGNNMHYC+GEyfuWsFrlo8IHPBqM0dgKkekX4hV7kmlB8t67CW5YF7iLH54FDYxHv+fl3ObS1hrtZJrVc0RDgaTPCBG6xOKeeh0WeVf5ckdtKxooL4cX3L8badtgq+CM2ncgHCImlgeR2EEgSndY7RE2gKfCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=B4js3Hku; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rqq6TufP; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789462493; c=relaxed/simple;
+	bh=g/XQZFRhvArqwyhYQQsYV1oxzReIaJfAkZh939ydge0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sEsKnPdyPGAYTNshOkUkTDU4PipudXr+9hBMQ6ZOmKTVnRP2PoiTiRVOM8J0e2eS56p8r2+rKlEAHjAU0xjqhpWKsGv6vpOcJ/emJdt2eSmaKE3rcuR2mn2cD5fRNgDk8JKHJGTux8zK4YmhhkF2nM1WNOkkhz9wPhM+4h9ux4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ozfiu/qA; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="B4js3Hku";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rqq6TufP"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 2A14514000B8;
-	Tue, 15 Sep 2026 04:54:25 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 15 Sep 2026 04:54:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789462464;
-	 x=1789548864; bh=l+Dca6AU7f0s7A11m75QKiePhth6dKEUN646ZUyOcxw=; b=
-	B4js3HkurMcjrD15QoLpxP9Izw+a0J+045jNlya+vsO+95WeBQL1fNx/gv3H1D7K
-	hxkadaMiyKhro+swwkPcN1YS0uYXOSLVBXOtPLXRTlnJmZV/AR0b1m99NL0u9ODj
-	1cgIK5fxz1k+aSyS7qFDZY6BmSAywWMF4uNr4WZfAJwjjQ7txOCzif/YFSFd7DW+
-	Qreot+xLqAeO6zioJbeNMVQ6RyK8Ry4J6vk12VSZWNDpjCWpkc3KaX2/lDS1z/c6
-	5/FXmzlOdjR+0f5GayGR26Yc6HPdFo6gCUiUM+sBTvfFqaSTrAM4DfXOAOkQlcjU
-	ad+BRAd/MLuDV6lqZ8Q2WA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789462464; x=
-	1789548864; bh=l+Dca6AU7f0s7A11m75QKiePhth6dKEUN646ZUyOcxw=; b=r
-	qq6TufPoUIIuHcmsX7aVe9rzHQZRHBxGupo9objyRo0+XC3ikxeBM0Lcr9zpl32D
-	cv0t55sm7qfS338Arbieyc7fRqfEVBvfemqYwLRV66yxHRS4D3IHnZsp9nGIRV+j
-	x36Ev2kX2jjr8cAp5H2yPSFC7xksz/HhU7tR4OowE+NBfrUlW6vCYQ+xBjNrKw4P
-	4zm+WBp3H23K0/SNB+QOLgqsKKDF11N+8o/DxiohqYtbypEv+TKY0yh0QiP4Yt6I
-	FdyyVDlnhYvp/szNCcxyX5k0BARgketiwNCzFGUy/34mf9Z6CpUIEJuuC2wzuaS6
-	frsCfEznq81YG0oXNr2rg==
-X-ME-Sender: <xms:vgepaqzeg64cmmemSKaxQz9rnHZKsUyEL31h1eHIIn8ssri5JUwu1w>
-    <xme:vgepahErUxLO-YzklAOx8jr3iVnktubA6trM7JY3QYonHXjl24WwKuxwQMI1QH5-b
-    OtPZZDq6kCpXF971wkvINaUhwNSkW8NxiVJvKiGV8JosTU6zVr5aaOi>
-X-ME-Proxy-Cause: dmFkZTEM1a2UcAhXVAnqAiYsoLYvUmMbm3oKeLzqzU27v1LolMVltFpdkPXIAGpYET3aMq
-    e/mezrvvuN6yFzn2xUZeCr+P5O4KK4LO5fWCnz8zDMbiPtdpc6CeI0P9rWe1zHc6yduqyu
-    6EHuk3EMQpfeExDSBuwV5sp/AUNxp9areRa5+0HlaGu1a4Gxa61ykRHooEzI/RsA8oujQ3
-    soJcTW3fybToBsw9p3eyo+obxO7vaTJVWGhirArFyxjRMa9zEFAIoZym/Qb3t13xYKlqlj
-    IIO7Lw0XbgJ7VXfd8bZ0NJZwUpMjeYy9w4WmzuWuDpTkkLZn15PCouHIjti9Z5FlAsk+eW
-    0Df0liZt0TK8KAUh2G/16mx0db+WU4osmsi31TwApJmKX3nBUFSdNqtU8xLCJRQN6ge618
-    cUMQDRblYOceUFLIYEYr1AXMbGy7rJ4a4q3+MH87Hu2aoZIOhM37GUJSeCQv8+5pcJdOL6
-    QO5kRU/DkQVdJVOi6OGN6+CGdwpr4WgXynF6L1eDrMuXo7uqUWq2UVrZ4N5Lzd3Zbi66Dy
-    q/cliTRITTXkh/y1UQYStGzs/HcsdWrS3Zv5KircaQDvV0D5PNWk9q7cnsLOAue3LzFO65
-    N7rFnO/JpW3vaPTsy6Gk+nBYWhX8fPfSTZ/+7QVxe0/vV4MaxzuZ2NT+Mn5Q
-X-ME-Proxy: <xmx:vwepake_XBqqsiICtHm_CdVKovj1z196lUy87fv0LmoFA-dml9zeEQ>
-    <xmx:vwepatEh-I_ujuAOe7kwLpXSjWgzJ5Y0CNPoaU8zAN599HihlD4ffA>
-    <xmx:vwepat2-xkj_SVtYCfCQEPYLap7TtzJdgHNgPlS6P1RTaiHWv5RXNA>
-    <xmx:vwepaln8dqt0-c--zPm3rtS2dwauNp4UGSeGvBuNggE8FnMYb3iU3Q>
-    <xmx:wAepakkhiEke_PLtrSIwhL1QL1uakU1QQicYb9JQjkkwnVAjWq71GSmi>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 268F432A0081; Tue, 15 Sep 2026 04:54:22 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ozfiu/qA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789462492; x=1820998492;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=g/XQZFRhvArqwyhYQQsYV1oxzReIaJfAkZh939ydge0=;
+  b=ozfiu/qA9i+bUT2LT1IbFprxUsdEcL/AKUXj3vv/DJ5y5lQAQ+ZNLiUB
+   VzLk4nh3V/fbLJ/5VPN+zH7e+vGIdj4VAOd4zQVCwIwj76MVbuZFPKMB0
+   4VLWiGUu7ddQW4uNRSXU5UGMWc4DOvXQ7YqLBJfZdC1z0Qt6MmwkllRvJ
+   /+qwU8V/ChNNuPvfn1S1zAdoCN/8Yg33tYBOBSWe5lwCcn2ED78JiDzJn
+   oU/IZF8sU1erwt3Xk/YGaHZmqpLOT3kEtaGaZKlwKef+JNve/00JUPX/7
+   ych/VfXWc5kVtgQGDJnD9G1SoKyUkUM1Sj0JF6wc8mbadJzzDdLtRROqq
+   g==;
+X-CSE-ConnectionGUID: BntAm97SSBGPRL8iNTiP5w==
+X-CSE-MsgGUID: 3Byspm3MRBS9EZyigKLLFA==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="63612037"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:54:51 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Tue, 15 Sep 2026 01:54:49 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 15 Sep 2026 01:54:46 -0700
+Date: Tue, 15 Sep 2026 10:54:45 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
+	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
+	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
+	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
+	<richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH net-next v6 10/14] net: lan966x: add PCIe FDMA support
+Message-ID: <20260915085445.sajcj75jexgkkrvj@DEN-DL-M70577.microsemi.net>
+References: <20260909-lan966x-pci-fdma-v6-10-6f48dab9d671@microchip.com>
+ <178904554750.219967.2010862453597890441@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AGrkui6Nx9zw
-Date: Tue, 15 Sep 2026 10:53:51 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Kees Cook" <kees@kernel.org>
-Cc: "Lorenzo Stoakes" <ljs@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nicolas Schier" <nsc@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>,
- "Masahiro Yamada" <masahiroy@kernel.org>,
- "Alexey Gladkov" <legion@kernel.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>,
- "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- "Catalin Marinas" <catalin.marinas@arm.com>,
- "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
- "Ard Biesheuvel" <ardb@kernel.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Josh Poimboeuf" <jpoimboe@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "Jonathan Corbet" <corbet@lwn.net>,
- "Randy Dunlap" <rdunlap@infradead.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
- Linux-Arch <linux-arch@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- "Jens Axboe" <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Message-Id: <7646eb0c-7c4a-4ec2-9562-66a74c4d9858@app.fastmail.com>
-In-Reply-To: 
- <CAHk-=whB0X28MNAg71it=1SfFyV7rB+PK3qajpRyWoxXHW81fw@mail.gmail.com>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <202609140833.88C0E16E50@keescook>
- <CAHk-=whB0X28MNAg71it=1SfFyV7rB+PK3qajpRyWoxXHW81fw@mail.gmail.com>
-Subject: Re: [PATCH v2 00/21] kbuild: significantly speed up kernel builds
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178904554750.219967.2010862453597890441@kernel.org>
 
-On Mon, Sep 14, 2026, at 17:53, Linus Torvalds wrote:
-> On Mon, 14 Sept 2026 at 08:41, Kees Cook <kees@kernel.org> wrote:
->>
->> One area I think might solved via an LLM is the 3-pass kallsyms stuff.
->> If we could get a deterministic kallsyms build in 1 pass, that would be
->> very nice. A lot of people have tried, but it has eluded upstreaming.
->
-> Even the three-pass one hasn't apparently always been entirely
-> deterministic. We've had random reports over the years of it failing
-> in some circumstances.
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 (1) · Medium: 1 (1) · Low: 3
+> 
+> - [Medium] DISCARDED — fixed later in the series.
+> - [Low] DISCARDED — fixed later in the series.
+> - [Low] DISCARDED — fixed later in the series.
+> - [Low] DISCARDED — fixed later in the series.
+> 
+> Pre-existing issues:
+> - [High] Use-after-free in the new PCIe receive path:
+>   `lan966x_fdma_pci_rx_get_frame()`…
+> - [Medium] DISCARDED — pre-existing shared-library ordering weakness.
+> 
+> --
+> 
+> net: lan966x: add PCIe FDMA support
+> 
+> Adds a second FDMA backend for lan966x used when the switch is reached over
+> PCIe, using contiguous ATU-mapped DMA buffers and memcpy-based frame
+> transfer instead of per-page mappings. XDP and PTP are not advertised or
+> allowed on this path.
+> 
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> > new file mode 100644
+> > index 000000000000..f1f3c789d3a6
+> > --- /dev/null
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> > @@ -0,0 +1,404 @@
+> 
+> [ ... ]
+> 
+> > +/* Return true if blockl is a valid RX frame size. */
+> > +static bool lan966x_fdma_pci_rx_size_fits(struct fdma *fdma, u32 blockl)
+> > +{
+> > +     return blockl >= IFH_LEN_BYTES + ETH_HLEN + ETH_FCS_LEN &&
+> > +            blockl <= fdma->db_size - XDP_PACKET_HEADROOM;
+> > +}
+> 
+> [ ... ]
+> 
+> > +     skb->protocol = eth_type_trans(skb, skb->dev);
+> > +
+> > +     if (lan966x->bridge_mask & BIT(src_port)) {
+> > +             skb->offload_fwd_mark = 1;
+> > +
+> > +             skb_reset_network_header(skb);
+> > +             if (!lan966x_hw_offload(lan966x, src_port, skb))
+> > +                     skb->offload_fwd_mark = 0;
+> > +     }
+> > +
+> > +     skb->dev->stats.rx_bytes += skb->len;
+> > +     skb->dev->stats.rx_packets++;
+> > +
+> > +     return skb;
+> > +}
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch - lan966x_fdma_rx_get_frame() in
+> lan966x_fdma.c has the same caller pattern - but can lan966x_fdma_pci_rx_get_frame()
+> touch skb after lan966x_hw_offload() has already freed it?
 
-This tends to break whenever a linker (rather than the compiler) starts
-creating a new type of symbols that show up in pass 2.
+Yes, but pre-existing. I think this deserves a proper fix through net and
+updates for all callers.
 
-> Maybe we've fixed it all, or maybe the failures just go imperceptibly
-> rare. Regardless, it has definitely been fragile.
-
-The rate seems to be once every few years, looking at the list
-of exceptions added to scripts/kallsyms.c (now scripts/mksysmap):
-
-efe6e3068067 ("kallsyms: fix nonconverging kallsyms table with lld")
-516d980f8541 ("scripts/kallsyms: skip ppc compiler stub *.long_branch.* / *.plt_branch.*")
-b9b74be163a2 ("ARM: 8555/1: kallsyms: ignore ARM mode switching veneers")
-
-I'm sure there are other instances on architectures that get less
-build coverage.
-
-     Arnd
+> 
+> lan966x_hw_offload() replaces the buffer and reports only a boolean:
+> 
+> drivers/net/ethernet/microchip/lan966x/lan966x_main.c:lan966x_hw_offload() {
+>         ...
+>         if (eth_type_vlan(skb->protocol)) {
+>                 skb = skb_vlan_untag(skb);
+>                 if (unlikely(!skb))
+>                         return false;
+>         }
+>         ...
+> }
+> 
+> and skb_vlan_untag() frees the caller's skb on failure:
+> 
+> net/core/skbuff.c:skb_vlan_untag() {
+>         ...
+>         if (unlikely(!pskb_may_pull(skb, VLAN_HLEN + sizeof(unsigned short))))
+>                 goto err_free;
+>         ...
+> err_free:
+>         kfree_skb(skb);
+>         return NULL;
+> }
+> 
+> So on the false return the caller's pointer is dangling, and
+> lan966x_fdma_pci_rx_get_frame() then does:
+> 
+>         skb->offload_fwd_mark = 0;
+>         skb->dev->stats.rx_bytes += skb->len;
+>         skb->dev->stats.rx_packets++;
+>         return skb;
+> 
+> with the returned skb going to napi_gro_receive() in
+> lan966x_fdma_pci_napi_poll().
+> 
+> Is the new lower bound in lan966x_fdma_pci_rx_size_fits() wide enough to let
+> this happen? IFH_LEN_BYTES + ETH_HLEN + ETH_FCS_LEN is 46, so a BLOCKL of
+> 46..51 is accepted, and after skb_pull(IFH_LEN_BYTES),
+> skb_trim(skb->len - ETH_FCS_LEN) and eth_type_trans() there are only 0..5
+> bytes left. For a frame with h_proto 0x8100 on a bridged port that has IGMP
+> or MLD redirection enabled, the pskb_may_pull(VLAN_HLEN + 2) inside
+> skb_vlan_untag() then fails and the buffer is freed.
+> 
+> Would it make sense to have lan966x_hw_offload() take a struct sk_buff **,
+> or to have the caller stop using skb once it returns false?
+> 
+> >  static int lan966x_fdma_pci_xmit(struct sk_buff *skb, __be32 *ifh,
+> 
+> [ ... ]
+> 
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-lan966x-pci-fdma-v6-0-6f48dab9d671%40microchip.com
