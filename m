@@ -1,82 +1,122 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E343AFD05
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6174471CF2;
+	Tue, 15 Sep 2026 09:27:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464361; cv=none; b=kpDFuGAXyig9goyT7hAaB+t+6hVJTtpElgBe+C4vxuow8ai9DlfNaPI+0WKKSbninOy+l37glQ1Sc4Y2Ga5/t9vP/mWAB2eDwzeY7BUY/xJD1qckyAqKkG2YQ7Gl3Y/5H63kaiCKCC3e3B+tqIMNxlkudJOESZUi5B32u3TyoQw=
+	t=1789464428; cv=none; b=i4NJtLRsFYY48gpCZZOz3iKO1PxNko3jovGxDFr9J6LkJAxOBpOrXQ5092ObMo2JfG77IaYh0DpJUqWiiQRKb5vTb6bxb3isKXTHxwNk+FFSCZlfwRpD66aG4kCXMdsAlk/vovFiBPyFupjEQsgSZijp5GYjUXym2hi49nc3Mik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464361; c=relaxed/simple;
-	bh=GHHsrZIB+poW6H55aoLeqQcet8zMlrq7Lbt0vt+UVyg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=s3bUnvvkFNMSRmm55In7k6BfhBuagBSWkYbOCkx7T3it/OBe59uw86EeiUIsM2Rx42mhYrEVG7/LC+CD6BcJ8jLerSjfNfWn+cJZM5VF2Dfw490fAb9Xs4MOY/QXJRFiHYKpJdQNQT+fF/MIx3IvNrKeCFsIb5jC7Yb0MO8BqfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnUDsaD6lq_ENOCA--.52528S2;
-	Tue, 15 Sep 2026 17:25:46 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: brgl@kernel.org
-Cc: daniel.lezcano@kernel.org,
-	tglx@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/6] clocksource/drivers/davinci: Fix clock reference leak in of_davinci_timer_register
-Date: Tue, 15 Sep 2026 09:25:18 +0000
-Message-Id: <20260915092518.1868587-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
-References: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
+	s=arc-20240116; t=1789464428; c=relaxed/simple;
+	bh=jrav296c2HpTz0k20Kl+5LAjON8gv8iFrRCvB255baQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NgJbGHEK5BTMUupBHx94cfst9KGOvD6auCS2yOxQS1gvu4a2++y5DWIJntdYR0edNqc8vwugsNl+OqEBMJ3frHZTxrF7VboXVxnr2rT0n+opSoSM7fzb3l4vo81gsPHLwGtEv/FfSz28768Bl+e4n1qZGJml0cWN7gI7jsMbcNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=d8dIyBcA; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="d8dIyBcA"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789464420; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=0OZtua8DFLNJVs4PID79pkEn6QrqMiWm6otoJFtXXVc=;
+	b=d8dIyBcAtd/cSg8QhK+EGJgF5E8xuHWFDNEIWvSoTHIG8/WbfwPdgvzvwCqiFuOnA88Kid/YEvcXGU57Tj6eTv6UPMaj9wxGurRgB242z9L6UyqfDhmXKOFEA/ZWAjDRkASuD3d3alkBEjAkSIzXa3pxdeSz12MbM7o49u1LYeM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XB1Au2f_1789464419;
+Received: from 30.166.1.13(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XB1Au2f_1789464419 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 15 Sep 2026 17:27:00 +0800
+Message-ID: <aeb6c68d-5c76-4e0d-b49b-d5a14345aa79@linux.alibaba.com>
+Date: Tue, 15 Sep 2026 17:26:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnUDsaD6lq_ENOCA--.52528S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrW7Cryxtr48Cw4UZr1fWFg_yoW8JFWDpr
-	Z5Kw40kF4kGF4S9Fs7tFsrur1Fvw12yFW3Gr93CasrZ3yfJ34fKFyrKFyqvFWUCrZYvwnF
-	yr1IqF1kCr45AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUyvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F
-	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64vIr41l
-	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU86VbDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcLA2qo-tpJxgAAsg
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: fix chunk number of the first chunk in a local
+ quota file
+To: Jiaming Zhang <r772577952@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: jlbec@evilplan.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, syzkaller@googlegroups.com,
+ stable@vger.kernel.org
+References: <CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com>
+ <20260914034940.4070970-1-r772577952@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260914034940.4070970-1-r772577952@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 15 Sep 2026 07:55:06 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
-> I'm not following. If we keep the clock enabled, we must keep the reference. We
-> just never disable it anywhere, so you correctly don't see the clk_put() in
-> success path.
 
-Hi Bart,
 
-Thanks for taking a look. Let me clarify the point about ownership:
-prepare/enable state is tracked on struct clk_core and is orthogonal to
-the consumer reference. clk_put() merely unlinks the consumer and drops
-the kref on the core clock (see __clk_put() in drivers/clk/clk.c) -- it
-neither disables nor unprepares the clock. So releasing the reference
-does not change the clock's state; the timer clock stays enabled for the
-lifetime of the system either way. This is the same reasoning used by
-callers that enable a clock and then put the consumer handle.
+On 9/14/26 11:49 AM, Jiaming Zhang wrote:
+> The local quota file in OCFS2 is divided into chunks, and each chunk
+> begins with a header block holding a bitmap of the quota entries that
+> chunk has handed out.  Chunks are numbered from zero, and that number is
+> used to convert the file offset of an entry back into a bit position in
+> the bitmap. ocfs2_local_quota_add_chunk() appends a new chunk to the
+> in-memory list and numbers it one past the chunk that was last:
+> 
+> 	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+> 	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+> 				   struct ocfs2_quota_chunk,
+> 				   qc_chunk)->qc_num + 1;
+> 
+> The predecessor is looked up after the new chunk is added to the list,
+> so if the list was empty, the prev pointer is the list head itself.  The
+> head is the dqi_chunk member of struct ocfs2_mem_dqinfo and is not a
+> chunk, so reading qc_num through it lands 16 bytes past the start of the
+> head, on the dqi_gqinode pointer that follows it.  The first chunk of
+> the file is then numbered with the lower half of a kernel pointer
+> instead of 0.
+> 
+> The list is empty when the local quota file header claims the file has
+> no chunks.  ocfs2_local_read_info() takes dqi_chunks from that header
+> without validating it, so an image with dqi_chunks == 0 takes this path
+> when the first quota entry is allocated.
+> 
+> ocfs2_create_local_dquot() turns the bad number into a file offset with
+> ol_dqblk_off(), which shifts a 32-bit block number left by the block
+> size bits, so the top bits of such a large block number are lost.
+> ocfs2_local_release_dquot() turns the offset back into a bit index with
+> ol_dqblk_chunk_off(), using the full chunk number, so the lost bits push
+> that index far outside the bitmap, and clearing it corrupts unrelated
+> memory.
+> 
+> Compute the chunk number before putting the chunk on the list, and use 0
+> when the list is empty.
+> 
+> Fixes: 9e33d69f553a ("ocfs2: Implementation of local and global quota file handling")
+> Closes: https://lore.kernel.org/lkml/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude Code:claude-opus-5
+> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
 
-That said, I do understand the convention for these early boot timers
-that are never disabled -- dw_apb_timer_of, timer-owl and asm9260_timer
-also keep (or simply never put) the reference on success. If you consider
-the reference intentionally retained as a subsystem convention, I'm fine
-with dropping this patch; alternatively I could send a version that only
-adds a comment documenting the intent. Please let me know which you
-prefer.
-
-Best regards,
-Wentao Liang
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
+>  fs/ocfs2/quota_local.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
+> index f55810c59b1b..d351cda9211f 100644
+> --- a/fs/ocfs2/quota_local.c
+> +++ b/fs/ocfs2/quota_local.c
+> @@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk *ocfs2_local_quota_add_chunk(
+>  		goto out;
+>  	}
+>  
+> +	if (list_empty(&oinfo->dqi_chunk))
+> +		chunk->qc_num = 0;
+> +	else
+> +		chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
+> +					   struct ocfs2_quota_chunk,
+> +					   qc_chunk)->qc_num + 1;
+>  	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+> -	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+> -				   struct ocfs2_quota_chunk,
+> -				   qc_chunk)->qc_num + 1;
+>  	chunk->qc_headerbh = bh;
+>  	*offset = 0;
+>  	return chunk;
 
