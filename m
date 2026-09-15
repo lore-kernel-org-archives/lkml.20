@@ -1,117 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4803E4D2EC3;
-	Tue, 15 Sep 2026 11:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841EB4F0543;
+	Tue, 15 Sep 2026 11:36:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472167; cv=none; b=kAswy1JAT/UnrrNLBVprN3EdwcojInfe7HhwYmPRCT+BxVXpp6yfCrCvj0iNcYpmUObwYAaiEA7O2BK9OFOryJeiHN2uxs0BKFnhCFgFSX1h3EKefFvLXrOzBTgTOzGy5ahbfNm1uZ7s7hjLGs/yzXf4wAGHQI4SqCx5OKn98tY=
+	t=1789472168; cv=none; b=Ewc3fXUcIYI2xXekio6oaEgInWPQFp2bNWhKZXRiEFAxQ/wdzXWXgFvPfqo7LAPSgA0gpWjbTYXvWkGg1RhmCXxZOubEmL1DukPvRycFho+Q+UdeULWpXszXnah3o31io0gUPhBvmRZRyY1iR2yAJ3vCjioXOvFb6Zf/C00CR8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472167; c=relaxed/simple;
-	bh=f6k58a+kyyJlKOysXGIm7+YVKxFPsWG0XnA963ZSmGs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P5wzn5BD/7W+UjIy7MF7NOm2JoIT8KFUT15vDVCMQ9KpsVDlXMyL9SH+mtnM6krC13Q23M7xcDkDMYu7S/m8vQA6lrd+1wpcQHA08t5v0IfrwEIKaoMGJ7RafOY4ChZ74aUOM37/Fs7nW1DLxXJKtdHHk1/ibMGBok33VoNa2pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GYZsbVig; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789472168; c=relaxed/simple;
+	bh=WL6iBvGKSQMcLT8fyxBve2m38vKajd88XKUitLJDfoo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qV80s87RLhZ/sNAjav0RoQ/Qc1XmKUL1QEQvtZdQeqlFq3Mm+ICgPsWLG19Udp5/XPU7KnUUIDs9xWjpTryKB9GpDlR1pboYRgYo431hT+MQVLeYTR6y0JRnUy9tvKZKR52kXd1bsxi9xFloZN+0b5DWm5ESb7iBbaCknElH8Ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMJ+b7mB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GYZsbVig"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1D91F00893;
-	Tue, 15 Sep 2026 11:35:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMJ+b7mB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA1E1F00898;
+	Tue, 15 Sep 2026 11:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789472164;
-	bh=4BVB43/k5lHtsFkUgtZDywdRjbEBMWb9Mg6O6YdeHrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GYZsbVigjxwfzphIbqofaPFJmaKXOkEJuH9NfOFwlWENp60vpodSbVNNMVPrnsCGh
-	 mKkYFPjcJBJCWstEr5ZbUWw1p8gupBALyutxo/nsXoXJJVjfsUUEDeTeRzg9vNDFKw
-	 QyLxl+67I5PApcQALeqp8arjqQrJPg8lKGehuzOG7XGzc750cxvm391kPGZaHUEXVh
-	 rRpJvi2VXfCOPb4wIvdWYnRC2MlJNBFBn7hGBAKR93OKepAk7efnXRPGiZufX/FUGN
-	 bMk95QWIuEMEbgWtoC+OwCCABis9Vc8v3v1aLMq5PD8Vs1rzrsq653sDeKOiCR8bmb
-	 RSzE6TAD8kDPw==
-Date: Tue, 15 Sep 2026 12:35:53 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, Linux-Arch <linux-arch@vger.kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 00/21] kbuild: significantly speed up kernel builds
-Message-ID: <aqks-ZmauZMcOELA@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <202609140833.88C0E16E50@keescook>
- <CAHk-=whB0X28MNAg71it=1SfFyV7rB+PK3qajpRyWoxXHW81fw@mail.gmail.com>
- <7646eb0c-7c4a-4ec2-9562-66a74c4d9858@app.fastmail.com>
+	s=k20260515; t=1789472166;
+	bh=o2lQ5Ka+5N2KnUU5FmxbFpjzBp5OWSe8vXNiFGVP9wo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=OMJ+b7mBI0Q8O65xdljhCPY3wAhJtYK6vRviUYwoOTOfvpAhVhrNZ1kCsXQAqmv7v
+	 3GuPhfOQ15Waw0FL/v7cPGU1CKFB0vIzNSBGpVjd2qBgP1hQ3swVBB0qsd708/I1v5
+	 vg/o9z55oXEAHcBz+9R03GejIoqfhheuysEBDKH6SjqNuu/M7QucGgMkPeQdb5GX9n
+	 uQNmyO/vVkhVONQwgr/tUv50HwF7x4nXtsyG+xs9H48A8Y+g/iDSD50VrmcEX/KGAo
+	 6x7qUbImLs8LGWOMAtx7W/94RYq1+vZrklFF1JGznEjJF5X02jojdwcWqWCWnxH6Bc
+	 DQcVPuaGmWDvQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Tue, 15 Sep 2026 13:31:23 +0200
+Subject: [PATCH RFC POC 37/50] tpm: vtpm_proxy: install the server
+ descriptor when the ioctl returns
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7646eb0c-7c4a-4ec2-9562-66a74c4d9858@app.fastmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-work-fd-reserve-unify-folded-v1-37-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
+ Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, netdev@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
+ virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2398; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=WL6iBvGKSQMcLT8fyxBve2m38vKajd88XKUitLJDfoo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1KkLDfGbfS6nzTDW3+CR3ZeWem2mM3pd9c9eC2/x8
+ KvW8xPoKGVhEONikBVTZHFoNwmXW85TsdkoUwNmDisTyBAGLk4BmMhPNYb/Ude3PmqXNzFcrfTk
+ c5TA/YXTT8zPT3uZ3v9yqU5S93XBRYwM/34c1tN5sX7LjoD5b9gnnuLVilnzKtv7cqb0mf/eLA+
+ 5+AA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Tue, Sep 15, 2026 at 10:53:51AM +0200, Arnd Bergmann wrote:
-> On Mon, Sep 14, 2026, at 17:53, Linus Torvalds wrote:
-> > On Mon, 14 Sept 2026 at 08:41, Kees Cook <kees@kernel.org> wrote:
-> >>
-> >> One area I think might solved via an LLM is the 3-pass kallsyms stuff.
-> >> If we could get a deterministic kallsyms build in 1 pass, that would be
-> >> very nice. A lot of people have tried, but it has eluded upstreaming.
-> >
-> > Even the three-pass one hasn't apparently always been entirely
-> > deterministic. We've had random reports over the years of it failing
-> > in some circumstances.
->
-> This tends to break whenever a linker (rather than the compiler) starts
-> creating a new type of symbols that show up in pass 2.
->
-> > Maybe we've fixed it all, or maybe the failures just go imperceptibly
-> > rare. Regardless, it has definitely been fragile.
->
-> The rate seems to be once every few years, looking at the list
-> of exceptions added to scripts/kallsyms.c (now scripts/mksysmap):
->
-> efe6e3068067 ("kallsyms: fix nonconverging kallsyms table with lld")
-> 516d980f8541 ("scripts/kallsyms: skip ppc compiler stub *.long_branch.* / *.plt_branch.*")
-> b9b74be163a2 ("ARM: 8555/1: kallsyms: ignore ARM mode switching veneers")
->
-> I'm sure there are other instances on architectures that get less
-> build coverage.
+Rely on the fd exit path machinery.
 
-Yeah, it's stuff like this that makes it more sensible in general to use
-existing tooling where that makes sense, e.g. also the .mod.S stuff.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/char/tpm/tpm_vtpm_proxy.c | 30 +++++++++---------------------
+ 1 file changed, 9 insertions(+), 21 deletions(-)
 
-Though I also think dropping some of these arches would be a good idea ;)
-*ahem*.
+diff --git a/drivers/char/tpm/tpm_vtpm_proxy.c b/drivers/char/tpm/tpm_vtpm_proxy.c
+index b81fd2a537df..8eb87044596a 100644
+--- a/drivers/char/tpm/tpm_vtpm_proxy.c
++++ b/drivers/char/tpm/tpm_vtpm_proxy.c
+@@ -531,8 +531,8 @@ static struct file *vtpm_proxy_create_device(
+ 				 struct vtpm_proxy_new_dev *vtpm_new_dev)
+ {
+ 	struct proxy_dev *proxy_dev;
+-	int rc, fd;
+ 	struct file *file;
++	int rc;
+ 
+ 	if (vtpm_new_dev->flags & ~VTPM_PROXY_FLAGS_ALL)
+ 		return ERR_PTR(-EOPNOTSUPP);
+@@ -544,20 +544,15 @@ static struct file *vtpm_proxy_create_device(
+ 	proxy_dev->flags = vtpm_new_dev->flags;
+ 
+ 	/* setup an anonymous file for the server-side */
+-	fd = get_unused_fd_flags(O_RDWR);
+-	if (fd < 0) {
+-		rc = fd;
++	FD_PREPARE(fdf, O_RDWR,
++		   anon_inode_getfile("[vtpms]", &vtpm_proxy_fops, proxy_dev,
++				      O_RDWR));
++	if (IS_ERR(fdf)) {
++		rc = PTR_ERR(fdf);
+ 		goto err_delete_proxy_dev;
+ 	}
++	file = fd_prepare_file(fdf);
+ 
+-	file = anon_inode_getfile("[vtpms]", &vtpm_proxy_fops, proxy_dev,
+-				  O_RDWR);
+-	if (IS_ERR(file)) {
+-		rc = PTR_ERR(file);
+-		goto err_put_unused_fd;
+-	}
+-
+-	/* from now on we can unwind with put_unused_fd() + fput() */
+ 	/* simulate an open() on the server side */
+ 	vtpm_proxy_fops_open(file);
+ 
+@@ -566,16 +561,13 @@ static struct file *vtpm_proxy_create_device(
+ 
+ 	vtpm_proxy_work_start(proxy_dev);
+ 
+-	vtpm_new_dev->fd = fd;
++	vtpm_new_dev->fd = fd_prepare_fd(fdf);
+ 	vtpm_new_dev->major = MAJOR(proxy_dev->chip->dev.devt);
+ 	vtpm_new_dev->minor = MINOR(proxy_dev->chip->dev.devt);
+ 	vtpm_new_dev->tpm_num = proxy_dev->chip->dev_num;
+ 
+ 	return file;
+ 
+-err_put_unused_fd:
+-	put_unused_fd(fd);
+-
+ err_delete_proxy_dev:
+ 	vtpm_proxy_delete_proxy_dev(proxy_dev);
+ 
+@@ -640,13 +632,9 @@ static long vtpmx_ioc_new_dev(struct file *file, unsigned int ioctl,
+ 		return PTR_ERR(vtpm_file);
+ 
+ 	if (copy_to_user(vtpm_new_dev_p, &vtpm_new_dev,
+-			 sizeof(vtpm_new_dev))) {
+-		put_unused_fd(vtpm_new_dev.fd);
+-		fput(vtpm_file);
++			 sizeof(vtpm_new_dev)))
+ 		return -EFAULT;
+-	}
+ 
+-	fd_install(vtpm_new_dev.fd, vtpm_file);
+ 	return 0;
+ }
+ 
 
-In any case, I think the bigger picture ideas like a single pass kallsyms is
-stuff for the future.
+-- 
+2.53.0
 
-The way I see it: grab the really low-hanging fruit (this series), then the
-medium-hanging fruit, and only then enter the pits of hell to fight the
-satanic hordes which clasp on to what remains.
-
->
->      Arnd
-
---
-Cheers, Lorenzo
