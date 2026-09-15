@@ -1,65 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E654AA1E6;
-	Tue, 15 Sep 2026 12:09:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BD4367F58;
+	Tue, 15 Sep 2026 12:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474192; cv=none; b=mE4wQx0qVsZ6wJX2Iz6o1SEKnbFRFHURzCHb2e3Fpefw3Xe/a3YbgBFSqNVix3dWF2FNuE2o3sxpmsl6GU9P2IDq29HpjzSiddJvAn44XU66waKYNjTZzg7wMvg5FdPyEXQi2cwnsf7ivJ1wMuFjNIzz6la4822OhQtgTK/ZWc8=
+	t=1789474230; cv=none; b=ZWpkEPgozk8HKX+F5Y05n6PxaUTkqTSVpHaf4sTJqznMRtbfnnXXwqeZaurtxz79WbPUtTLx5MHxVaZ6FKpp+Kid7UOZG8gkhvLUC9ECxVdRfTVkTVcRd27OH9FbjC56564nOG5gNP1aNv3BXCRQuAiAjavfJnDWbHriaOo4CRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474192; c=relaxed/simple;
-	bh=zv1rNZvSCHkzISCnzIgvhR1XdclekSPPoj8rLv8Qezg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LHrItDUbBnls/uXjHrKCPMzP7U0R3qT1+XmJnse6Uny2lK01EE6PVnNl0eO7Br02+ed5d68G3aogyFXRouw65A/SXsiMNZ79PqA5wAMCa1xOctyNeJrceXszZtDWRarlxii6PgDPbrAUm9dGlPng/FSny81fBKMQeh+AhzjE9RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4ZZV63E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789474230; c=relaxed/simple;
+	bh=ZGYe6w2pPCKtnhvFXoWByjdANZZAKeh6RT4pCiKErwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PyO69HHw1hotA7ydeIjgsjtuF+fSebWNQpYYvQgphuwdqGTxMYJOtiHoqCP+KeJeBPB2PVmOCNjBCJaKP7nTEDOIGgE/iJmAgUx6lf3JlDd1PTMTwIMaw5U7F6vvI6PZRAa3rWTbe/kT4mGHrtyDgMSblm7q0zy62Y46O5MPqLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XMDz9J0i; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4ZZV63E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464481F000FF;
-	Tue, 15 Sep 2026 12:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789474190;
-	bh=zv1rNZvSCHkzISCnzIgvhR1XdclekSPPoj8rLv8Qezg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a4ZZV63EloWFTnOUlHK58XwOK2rkeCsu03ufhBV72Tiipl5qWiGg8pKw75jRnalat
-	 Px+Ej4QbTLpchvWen5UHVg+abfR3qMIoHWKRq5zOfC+6fvUdhpGBml50Plsl14BxoA
-	 MD9L1UkPG2s8tttZuNhCrGp0Ac838MyFzPadcw7MIZBEqZ9CQQXdlYMZFCITTIwQVR
-	 e8ZVbA+QeVGcVPqWoOLbEKnwhY2HpmkZP6Db2SJHGUaetI9dgl3FBXgJQQpNHkGFqv
-	 7oyl/HjPvr3DAOtUTzbk2i14RAaCiMZAvTqJbij4737kik3jJY1RQy1e4vJFFsF6gN
-	 uDBgNLmQTLN+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC POC 32/50] liveupdate: install the session
- descriptors when the ioctl returns
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Jan Kara" <jack@suse.cz>, linux-gpio@vger.kernel.org, "Oleg
- Nesterov" <oleg@redhat.com>, io-uring@vger.kernel.org, bpf@vger.kernel.org, linux-openrisc@vger.kernel.org, kexec@lists.infradead.org, "Eugenio
- Perez" <eperezma@redhat.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, linux-arm-kernel@lists.infradead.org, "Ingo
- Molnar" <mingo@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>, "Jann
- Horn" <jannh@google.com>, linux-hexagon@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org, linux-mips@vger.kernel.org, linux-um@lists.infradead.org, kvm@vger.kernel.org, "Jens
- Axboe" <axboe@kernel.dk>, virtualization@lists.linux.dev, linux-snps-arc@lists.infradead.org, linux-fsdevel@vger.kernel.org, "David
- Airlie" <airlied@redhat.com>, =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRh?=
- =?utf-8?b?YmxlKQ==?= <brauner@kernel.org>, linux-parisc@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-sh@vger.kernel.org, linux-csky@vger.kernel.org, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org, "Alexander
- Viro" <viro@zeniv.linux.org.uk>
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-32-4d5217d6b246@kernel.org>
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
- <20260915-work-fd-reserve-unify-folded-v1-32-4d5217d6b246@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 12:09:48 +0000
-Message-Id: <20260915120949.464481F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XMDz9J0i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=aE
+	PJwYLN1OZnlAgx3iNSRwk/r3LrjTJvf045dXFvlQI=; b=XMDz9J0isqY5XLTW+3
+	AWHx1by/oCOU5sfGA52zb7FD9GqhZKOPeiaraKsyTLyuPB4c5qJsIKWnvdgAcfXZ
+	qMHkTb7WogWOw7ucmPA/tk3FbvWnSzZ3PqKaHSNFYx7tdP+io5AtlCQ3kPZgZ97H
+	MvCHE538kA2iu7t/tiaY4Bsyg=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnL7mNNalqxvxTAw--.38045S4;
+	Tue, 15 Sep 2026 20:09:52 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: Shyam-sundar.S-k@amd.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	mario.limonciello@amd.com
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] platform/x86/amd/pmc: Fix RTC reference leak in amd_pmc_verify_czn_rtc()
+Date: Tue, 15 Sep 2026 20:09:43 +0800
+Message-ID: <20260915120943.3988720-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnL7mNNalqxvxTAw--.38045S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFW7ArWUGrW3tr1kuF4Durg_yoW8XFWkpa
+	nxCF4fGrZ8CF4UG3WxW3Wqya1Uury2vr4jkFyY9w1ava4SqFn3J3sY9w1aqr1DArWkCF17
+	XFZxt395ZFs8W3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUfwIhUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC0xF2gWqpNZEZFwAA3c
 
-> Rely on the fd exit path machinery.
->=20
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+amd_pmc_verify_czn_rtc() opens the RTC with rtc_class_open(), which
+takes both a device reference and a module reference on the RTC
+driver. rtc_class_close() is the matching release, but it is not
+called.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Use a __free() to cleanup call on the declaration
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
-serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D32
+Found by code review.
+
+Fixes: 59348401ebed ("platform/x86: amd-pmc: Add special handling for timer based S0i3 wakeup")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+---
+Changes in v2:
+- modified the patch, thanks for developer's suggestions.
+---
+ drivers/platform/x86/amd/pmc/pmc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+index 6792aa2c6187..b1ad79b22c07 100644
+--- a/drivers/platform/x86/amd/pmc/pmc.c
++++ b/drivers/platform/x86/amd/pmc/pmc.c
+@@ -14,6 +14,7 @@
+ #include <linux/array_size.h>
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+@@ -646,9 +647,11 @@ static int amd_pmc_wa_irq1(struct amd_pmc_dev *pdev)
+ 	return 0;
+ }
+ 
++DEFINE_FREE(rtc_class_close, struct rtc_device *, rtc_class_close(_T));
++
+ static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev *pdev, u32 *arg)
+ {
+-	struct rtc_device *rtc_device;
++	struct rtc_device *rtc_device __free(rtc_class_close) = NULL;
+ 	time64_t then, now, duration;
+ 	struct rtc_wkalrm alarm;
+ 	struct rtc_time tm;
+-- 
+2.43.0
 
