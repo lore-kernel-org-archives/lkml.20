@@ -1,63 +1,63 @@
 Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FE23CF1FF
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8071A3CF680
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:14:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789438453; cv=none; b=L9yiZO8SX2yoIDhFCHKJCKCQL6KTt4Yg1oEXQp+dJF2YvBtl4MBeP0QHDCrnpNGsitWritXnL2yv6w2uov5qCvvni8xXjD0SL9eSrur9x5JNIGjboxHG8dB7DMs6CCOA2oaPCaWtUSk2oaZAuK3jRkYnSjHY0M9sJnJL7q8jxnQ=
+	t=1789438456; cv=none; b=SLgpB+JsTiNSHcrDSbTnuTl10HXUCdhDpMwm47gHhsStjMnRup4nkoUEEp4BFRLQrsB5sODOVS574CRLcsi4kBn/TGABM5+pGqoDjxyWPxWJYXjZWUCoVgZJaYZIoEaRn8VgZPPYRunYDmR/6cvbc6ulBvGQjV1oSbJiGIgcEA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789438453; c=relaxed/simple;
-	bh=ZDux8IWKTR+nMiDaW8QlWTXplfoJrXXpLbQBsYiak+k=;
+	s=arc-20240116; t=1789438456; c=relaxed/simple;
+	bh=TdqvwGyPTSdjX8dTecFU8bgsVtp8D+qt1YBdhE4JhsI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LrMAADDRaj1vx26yqgMF0moJcRg3PeOmvX4f2guA/0Dl6BfJMx7bkfuPykuJPVqn+cmMjLpMYLiQEfEGaxlEqyweZ01dI7uGpjgKCOrgmb/sHsvJAyab0/U0WHuFKsA5rzpF/YWOBN/BpDC3hcCKtb4oohI97KiuTKytSnYMx+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MiOLVFo9; arc=none smtp.client-ip=74.125.230.140
+	 MIME-Version; b=Z0h2AnBtFQ5wem1hTCghirRar4c+SyqsP++MAGumKL8uX3drK6S4zOWWD+m3I9qcFxdlNx5OUjRhqncOcYptcafgiNxzWpxPOnh3ajmwRUD4G5hDzJZJ0jQOVDG2Y1BtFbhZweVDA5J5BXbeihuWor8w1wYFF+wjep/bbkVWdN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOXQJcnO; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MiOLVFo9"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9121fe38733so27115996d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:14:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOXQJcnO"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91064d2d54fso34020746d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:14:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789438450; x=1790043250; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789438453; x=1790043253; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HuFmciVjVBaKzPczWLuz+SOkqXuntlpMYqQwvPavVgE=;
-        b=MiOLVFo9jPrdk6TvdKflUMp7YIGRImk7AJMAqH+E5IWo7E9qPFjfMd6YdE9ytre+yB
-         Vx2uP+Pel/KV9Lf5A4jMZHBJXbFjLySiG1wINdkxbyonHp7H1wwwVYM+2Oq0Jhev79Yb
-         CjFNa+Jvlmd6l6uHZCgo3k4K9hOxttXRoMyYgBhz0uCtbXF+ky4xWLVWr2vpNzSp972b
-         sQJCRTS3+6sxyf8ESAzayjrnugyyzr/qZTg3NaTul5VY2VqeMGqxoHhOGwklZGi8JfoM
-         z8wG3UUfEOAM0d3QKsgmrnudZuVD4ig+V+PvD5j2nH3EdHGyoFzDIYWg78mDeQulfEv4
-         jZfQ==
+        bh=U2Vegq3Ok1ZpjxSq9TiA3YgOUyAjEHN8flyn+dvT4jU=;
+        b=iOXQJcnOj3ZYKBpYqoSVup3V6JBEb2k7+QNojlfaQBdzh81vzoxqjkHMRgYwjIxBBO
+         zXF/PB4t6i3qR6RIm2ZelkkhktJ+oVB/JSdgH87rkUXhj/G1M1feiTBRiPAImDlEkVpA
+         DmGrICof+9XlCgot3vai/rOZyvU1pMpMFeUSMNXwyMN+xRnGg5EYblfUoh0Zujxuas+z
+         oGbYHqpj8lTXxDAoTuoCjNr32kKRY8O3tIVkr+uPt1cmeVQkX+TWPUakBQZrgi+mq18Z
+         vAAM+Wkk+MCT+oPmA8bNIWb8NlDhzft7p66UCGbCSw9q8HaKVNrQ15OOYVYYqTCwyglE
+         k//A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789438450; x=1790043250;
+        d=1e100.net; s=20260707; t=1789438453; x=1790043253;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HuFmciVjVBaKzPczWLuz+SOkqXuntlpMYqQwvPavVgE=;
-        b=HpvRSix2+K/2kpvfUCnuINtVh64eEie6N2tIT/FKTLBTmn4E4RtrS+ULbpJR33jU6h
-         ZXU/bj3qsb6BdJo7cVd0l+PgJ8nRKFJfA1pg7cJZvw/GNOGs08bax4rnewvv3P32t6tw
-         /DQva/VshWlSjpqKphsuKbWAKTX9jHbC9n9tIK7gdBtyOo3sj1C000Z25xVSJVKuecry
-         9H15ARRT//Khe3m9s6O9C8V/bb4f84WkSVeT8rS2HpYGrWcjpOHA8WDBRsvH8O82lqSb
-         xNMh0ahtyyImT+l0DuUy30M5Sp27/dUOlUrS51npHVdguOYGQSD1MhGOb0KkKV5AEL0S
-         8xmA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtsmGSpYYxZJDDxdXnDgdyXezfp+tY1aOMnPIzpb8Wl/km514ApzPq3pz4C03NB7dI4+mTgHYZ1mUkDrI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS1Tg4L/e3Se7StIC5jL9s4eN/fw6GAYsZqe2uzNZ0ZpL3ioJc
-	Byc05/KZLWEYqeIZiMPkYQkjk8sx+1nsp+aPb43k5n/gRhh8Dxl2Oo2x
-X-Gm-Gg: AYBFou2UMcA5Zn0nfJCdnmHe3yM5gqnXFEIeaxilgnMEsoRjSn8bjyI4DjoWD+SVpSd
-	fIRbZUC1pGqJb6yz3dmdkhYA9TWiCz9wQdCs+BJrmEbwOLZP9txRYEvxneZJHMEwirXLC/YD1VX
-	tOzo9VcJ0fu6sFgkhGwPETBe+hoB5eTQPm/eFoDAc1sCROxmAq1Vn4BNe5JDWOF3aOrL1wx387C
-	OCg7hN6pDrCIQCOl75/435lYAgTA7DnLcpXBDQiw17p21nuqgou8N3CtYdLTanNJeM1IHrEPBYO
-	Thuu4ywxmteCbXk7Zc+3G5mbDRoFMk31ChhB/h6Y5J09V+GeUaNmxeGHuXjSWZMDsV6NBd1dos1
-	oWQvybh9+q2+NpJuCyTpZoct40GpAqg0ZFPklfcsermLDxzMUd/PoM3Nf00HFPbM4y+nfJp9pG9
-	U3inm6esPGXP5eERiBmuH+32jDYYmW/3vrX34Cx2u8L+vphkmyUDcfTvh9hzQc26uD
-X-Received: by 2002:a05:6214:4289:b0:910:63b6:fc60 with SMTP id 6a1803df08f44-9122e4ec8f2mr115365286d6.11.1789438449826;
-        Mon, 14 Sep 2026 19:14:09 -0700 (PDT)
+        bh=U2Vegq3Ok1ZpjxSq9TiA3YgOUyAjEHN8flyn+dvT4jU=;
+        b=xz45syO+Z1HScG2m60+v1kXq9ioOnXMXk68qdeBrCoxo+OLPjVpbuZeBGbAsmhlUqL
+         6NQbRpobKvFyQTTDqtKoYLuNRcKmVkuXCnU8uFmlWILhWJ+1tV8S5N+cpi7xJg07vBaW
+         7Q0lIRslTO/WKkuJFnkmnUx1KiAx9Fu9ENI2gvlh3Sc83XTKfQTO5VPDUwqk6BjWMgrs
+         mqRMHXiyVF6Vag0e8IkBeutiFOOcd57ZD+Gntm1iFMFPVs6RS12JHKsT2SN8l6rtmDYY
+         7ECMqSx+Y5rjef1sOen9myz6LGmvWcI1mUIRvXkyQfj8Adpjmb/O8o2tn3dDKfcowc+y
+         PFEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPmyc3Z78NXOPXVkQrAGHvWnobV8pXYJeZX2xwtBG/pZhj6hNK4DLf3iAyGdxN1EuE1L8iTzh7j3VSe6U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHOxYcIHxWJ7dF7wPpqRYX+GNWpqf19FM9SkwHXmGuNRn2DPt6
+	R2x52ZZD96DIIGETBLCtP880lNvK0U9C1z7eDeL00yHee/GBrmsDPyXq
+X-Gm-Gg: AYBFou1t6SN82eu4TgjRHmNu9dqFcCoTYB3FjsJ+sWtAwwOmdX1tlMEYGV+P2+NXWc8
+	aqxOqXnQavOGlK2IeV3R0/9NAxkyvCi7o5Tz9RA+SQSXHeOw7xstdazkGR67DTnE/ofFiip9wls
+	RVQ9H5noVQjxmNGMfBbaPdpGyPlMRGcrNvM99KBGlzPYqqcuAOFoXr2DR/5JcGxJ1UJ8JYYCsoV
+	9WaMKTpN8OVb5x2Fe8205gWFFxMFWvCNAqIQkB/0xQRTZvvlOgJeSk1Zksdynanl+SiyhUapNPs
+	rtFonenGt3MjJlJaLO0VVQ0bFKXAfVyVvhlxx2dxIe9K5FEaQqtxtS/dqWsx7bwWjKyZJedJy0P
+	LHx6FlcmZkD4OI7kfprJSk/nxKz2JYDT10oztMu3HLDS/o4xXdunIcJmDK22IFVgxA4sllHYgw7
+	0iyvBB8llXm/dMgISnEdOOP4NEM4EeXci2lYjfr46uh7rJQSJVFCZ7+JbfkPEd/8q5
+X-Received: by 2002:a05:6214:5f11:b0:912:bd1:49f5 with SMTP id 6a1803df08f44-9122e4e2154mr80192546d6.10.1789438453123;
+        Mon, 14 Sep 2026 19:14:13 -0700 (PDT)
 Received: from Turin ([187.15.143.6])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47e800sm113147306d6.27.2026.09.14.19.14.07
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47e800sm113147306d6.27.2026.09.14.19.14.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 19:14:09 -0700 (PDT)
+        Mon, 14 Sep 2026 19:14:12 -0700 (PDT)
 From: Nicholas Dudar <main.kalliope@gmail.com>
 To: ast@kernel.org,
 	daniel@iogearbox.net,
@@ -80,9 +80,9 @@ Cc: martin.lau@linux.dev,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	visitorckw@gmail.com
-Subject: [PATCH bpf-next 2/5] bpf, x86: Extract the i386 JIT load emitter
-Date: Mon, 14 Sep 2026 22:13:35 -0400
-Message-ID: <20260915021338.1520964-3-main.kalliope@gmail.com>
+Subject: [PATCH bpf-next 3/5] bpf, x86: Add BPF_MEMSX support to the i386 JIT
+Date: Mon, 14 Sep 2026 22:13:36 -0400
+Message-ID: <20260915021338.1520964-4-main.kalliope@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260915021338.1520964-1-main.kalliope@gmail.com>
 References: <20260915021338.1520964-1-main.kalliope@gmail.com>
@@ -94,183 +94,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move ordinary LDX lowering into an instruction-owned helper. Keep address
-staging, displacement encoding and register-pair completion together,
-including verifier-managed zero extension for narrow loads.
+The i386 JIT rejects BPF_MEMSX byte, halfword and word loads.
 
-Use the helper for the existing BPF_MEM cases before adding signed loads.
-This separates the code movement from the MEMSX instruction handling.
-The emitted instructions are preserved.
+Use signed byte and halfword loads, then extend the loaded low word's
+sign into the upper word for all three MEMSX widths. MEMSX defines a
+64-bit result, so complete both halves regardless of verifier_zext.
+Ordinary loads retain their existing zero-extension handling.
 
 Assisted-by: Codex:gpt-6
 Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
 ---
- arch/x86/net/bpf_jit_comp32.c | 148 +++++++++++++++++++---------------
- 1 file changed, 84 insertions(+), 64 deletions(-)
+ arch/x86/net/bpf_jit_comp32.c | 71 ++++++++++++++++++++++-------------
+ 1 file changed, 44 insertions(+), 27 deletions(-)
 
 diff --git a/arch/x86/net/bpf_jit_comp32.c b/arch/x86/net/bpf_jit_comp32.c
-index 9cbeabac4f27..6839c233cb73 100644
+index 6839c233cb73..bbe48b15850f 100644
 --- a/arch/x86/net/bpf_jit_comp32.c
 +++ b/arch/x86/net/bpf_jit_comp32.c
-@@ -1214,6 +1214,89 @@ static inline void emit_ia32_mul_i64(const u8 dst[], const u32 val,
- 	*pprog = prog;
- }
+@@ -1221,6 +1221,7 @@ static void emit_ia32_ldx(const struct bpf_insn *insn, u8 **pprog,
+ 	const u8 *src = bpf2ia32[insn->src_reg];
+ 	bool dstk = insn->dst_reg != BPF_REG_AX;
+ 	bool sstk = insn->src_reg != BPF_REG_AX;
++	bool sign = BPF_MODE(insn->code) == BPF_MEMSX;
+ 	u8 *prog = *pprog;
+ 	int cnt = 0;
  
-+static void emit_ia32_ldx(const struct bpf_insn *insn, u8 **pprog,
-+			  const struct bpf_prog_aux *aux)
-+{
-+	const u8 *dst = bpf2ia32[insn->dst_reg];
-+	const u8 *src = bpf2ia32[insn->src_reg];
-+	bool dstk = insn->dst_reg != BPF_REG_AX;
-+	bool sstk = insn->src_reg != BPF_REG_AX;
-+	u8 *prog = *pprog;
-+	int cnt = 0;
-+
-+	/* Stage the address in EAX; dst may alias src. */
-+	if (sstk)
-+		/* mov eax,dword ptr [ebp+off] */
-+		EMIT3(0x8B, add_2reg(0x40, IA32_EBP, IA32_EAX),
-+		      STACK_VAR(src_lo));
-+	else
-+		/* mov eax,src_lo */
-+		EMIT2(0x8B, add_2reg(0xC0, src_lo, IA32_EAX));
-+
-+	switch (BPF_SIZE(insn->code)) {
-+	case BPF_B:
-+		/* movzx edx,byte ptr [eax+off] */
-+		EMIT2(0x0F, 0xB6);
-+		break;
-+	case BPF_H:
-+		/* movzx edx,word ptr [eax+off] */
-+		EMIT2(0x0F, 0xB7);
-+		break;
-+	case BPF_W:
-+	case BPF_DW:
-+		/* mov edx,dword ptr [eax+off] */
-+		EMIT1(0x8B);
-+		break;
-+	}
-+
-+	if (is_imm8(insn->off))
-+		EMIT2(add_2reg(0x40, IA32_EAX, IA32_EDX), insn->off);
-+	else
-+		EMIT1_off32(add_2reg(0x80, IA32_EAX, IA32_EDX), insn->off);
-+
-+	if (dstk)
-+		/* mov dword ptr [ebp+off],edx */
-+		EMIT3(0x89, add_2reg(0x40, IA32_EBP, IA32_EDX),
-+		      STACK_VAR(dst_lo));
-+	else
-+		/* mov dst_lo,edx */
-+		EMIT2(0x89, add_2reg(0xC0, dst_lo, IA32_EDX));
-+
-+	switch (BPF_SIZE(insn->code)) {
-+	case BPF_B:
-+	case BPF_H:
-+	case BPF_W:
-+		if (aux->verifier_zext)
+@@ -1235,12 +1236,12 @@ static void emit_ia32_ldx(const struct bpf_insn *insn, u8 **pprog,
+ 
+ 	switch (BPF_SIZE(insn->code)) {
+ 	case BPF_B:
+-		/* movzx edx,byte ptr [eax+off] */
+-		EMIT2(0x0F, 0xB6);
++		/* movsx/movzx edx,byte ptr [eax+off] */
++		EMIT2(0x0F, sign ? 0xBE : 0xB6);
+ 		break;
+ 	case BPF_H:
+-		/* movzx edx,word ptr [eax+off] */
+-		EMIT2(0x0F, 0xB7);
++		/* movsx/movzx edx,word ptr [eax+off] */
++		EMIT2(0x0F, sign ? 0xBF : 0xB7);
+ 		break;
+ 	case BPF_W:
+ 	case BPF_DW:
+@@ -1262,26 +1263,10 @@ static void emit_ia32_ldx(const struct bpf_insn *insn, u8 **pprog,
+ 		/* mov dst_lo,edx */
+ 		EMIT2(0x89, add_2reg(0xC0, dst_lo, IA32_EDX));
+ 
+-	switch (BPF_SIZE(insn->code)) {
+-	case BPF_B:
+-	case BPF_H:
+-	case BPF_W:
+-		if (aux->verifier_zext)
+-			break;
+-		if (dstk) {
+-			/* mov dword ptr [ebp+off],0 */
+-			EMIT3(0xC7, add_1reg(0x40, IA32_EBP),
+-			      STACK_VAR(dst_hi));
+-			EMIT(0x0, 4);
+-		} else {
+-			/* xor dst_hi,dst_hi */
+-			EMIT2(0x33, add_2reg(0xC0, dst_hi, dst_hi));
+-		}
+-		break;
+-	case BPF_DW:
+-		/* mov edx,dword ptr [eax+off+4] */
+-		EMIT2_off32(0x8B, add_2reg(0x80, IA32_EAX, IA32_EDX),
+-			    insn->off + 4);
++	/* MEMSX defines both halves, regardless of verifier_zext. */
++	if (sign) {
++		/* sar edx,31 */
++		EMIT3(0xC1, add_1reg(0xF8, IA32_EDX), 31);
+ 		if (dstk)
+ 			/* mov dword ptr [ebp+off],edx */
+ 			EMIT3(0x89, add_2reg(0x40, IA32_EBP, IA32_EDX),
+@@ -1289,9 +1274,38 @@ static void emit_ia32_ldx(const struct bpf_insn *insn, u8 **pprog,
+ 		else
+ 			/* mov dst_hi,edx */
+ 			EMIT2(0x89, add_2reg(0xC0, dst_hi, IA32_EDX));
+-		break;
+-	default:
+-		break;
++	} else {
++		switch (BPF_SIZE(insn->code)) {
++		case BPF_B:
++		case BPF_H:
++		case BPF_W:
++			if (aux->verifier_zext)
++				break;
++			if (dstk) {
++				/* mov dword ptr [ebp+off],0 */
++				EMIT3(0xC7, add_1reg(0x40, IA32_EBP),
++				      STACK_VAR(dst_hi));
++				EMIT(0x0, 4);
++			} else {
++				/* xor dst_hi,dst_hi */
++				EMIT2(0x33, add_2reg(0xC0, dst_hi, dst_hi));
++			}
 +			break;
-+		if (dstk) {
-+			/* mov dword ptr [ebp+off],0 */
-+			EMIT3(0xC7, add_1reg(0x40, IA32_EBP),
-+			      STACK_VAR(dst_hi));
-+			EMIT(0x0, 4);
-+		} else {
-+			/* xor dst_hi,dst_hi */
-+			EMIT2(0x33, add_2reg(0xC0, dst_hi, dst_hi));
++		case BPF_DW:
++			/* mov edx,dword ptr [eax+off+4] */
++			EMIT2_off32(0x8B, add_2reg(0x80, IA32_EAX, IA32_EDX),
++				    insn->off + 4);
++			if (dstk)
++				/* mov dword ptr [ebp+off],edx */
++				EMIT3(0x89, add_2reg(0x40, IA32_EBP, IA32_EDX),
++				      STACK_VAR(dst_hi));
++			else
++				/* mov dst_hi,edx */
++				EMIT2(0x89, add_2reg(0xC0, dst_hi, IA32_EDX));
++			break;
++		default:
++			break;
 +		}
-+		break;
-+	case BPF_DW:
-+		/* mov edx,dword ptr [eax+off+4] */
-+		EMIT2_off32(0x8B, add_2reg(0x80, IA32_EAX, IA32_EDX),
-+			    insn->off + 4);
-+		if (dstk)
-+			/* mov dword ptr [ebp+off],edx */
-+			EMIT3(0x89, add_2reg(0x40, IA32_EBP, IA32_EDX),
-+			      STACK_VAR(dst_hi));
-+		else
-+			/* mov dst_hi,edx */
-+			EMIT2(0x89, add_2reg(0xC0, dst_hi, IA32_EDX));
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	*pprog = prog;
-+}
-+
- static int bpf_size_to_x86_bytes(int bpf_size)
- {
- 	if (bpf_size == BPF_W)
-@@ -2065,70 +2148,7 @@ static int do_jit(struct bpf_prog *bpf_prog, int *addrs, u8 *image,
+ 	}
+ 
+ 	*pprog = prog;
+@@ -2148,6 +2162,9 @@ static int do_jit(struct bpf_prog *bpf_prog, int *addrs, u8 *image,
  		case BPF_LDX | BPF_MEM | BPF_H:
  		case BPF_LDX | BPF_MEM | BPF_W:
  		case BPF_LDX | BPF_MEM | BPF_DW:
--			if (sstk)
--				/* mov eax,dword ptr [ebp+off] */
--				EMIT3(0x8B, add_2reg(0x40, IA32_EBP, IA32_EAX),
--				      STACK_VAR(src_lo));
--			else
--				/* mov eax,dword ptr [ebp+off] */
--				EMIT2(0x8B, add_2reg(0xC0, src_lo, IA32_EAX));
--
--			switch (BPF_SIZE(code)) {
--			case BPF_B:
--				EMIT2(0x0F, 0xB6); break;
--			case BPF_H:
--				EMIT2(0x0F, 0xB7); break;
--			case BPF_W:
--			case BPF_DW:
--				EMIT(0x8B, 1); break;
--			}
--
--			if (is_imm8(insn->off))
--				EMIT2(add_2reg(0x40, IA32_EAX, IA32_EDX),
--				      insn->off);
--			else
--				EMIT1_off32(add_2reg(0x80, IA32_EAX, IA32_EDX),
--					    insn->off);
--
--			if (dstk)
--				/* mov dword ptr [ebp+off],edx */
--				EMIT3(0x89, add_2reg(0x40, IA32_EBP, IA32_EDX),
--				      STACK_VAR(dst_lo));
--			else
--				/* mov dst_lo,edx */
--				EMIT2(0x89, add_2reg(0xC0, dst_lo, IA32_EDX));
--			switch (BPF_SIZE(code)) {
--			case BPF_B:
--			case BPF_H:
--			case BPF_W:
--				if (bpf_prog->aux->verifier_zext)
--					break;
--				if (dstk) {
--					EMIT3(0xC7, add_1reg(0x40, IA32_EBP),
--					      STACK_VAR(dst_hi));
--					EMIT(0x0, 4);
--				} else {
--					/* xor dst_hi,dst_hi */
--					EMIT2(0x33,
--					      add_2reg(0xC0, dst_hi, dst_hi));
--				}
--				break;
--			case BPF_DW:
--				EMIT2_off32(0x8B,
--					    add_2reg(0x80, IA32_EAX, IA32_EDX),
--					    insn->off + 4);
--				if (dstk)
--					EMIT3(0x89,
--					      add_2reg(0x40, IA32_EBP,
--						       IA32_EDX),
--					      STACK_VAR(dst_hi));
--				else
--					EMIT2(0x89,
--					      add_2reg(0xC0, dst_hi, IA32_EDX));
--				break;
--			default:
--				break;
--			}
-+			emit_ia32_ldx(insn, &prog, bpf_prog->aux);
++		case BPF_LDX | BPF_MEMSX | BPF_B:
++		case BPF_LDX | BPF_MEMSX | BPF_H:
++		case BPF_LDX | BPF_MEMSX | BPF_W:
+ 			emit_ia32_ldx(insn, &prog, bpf_prog->aux);
  			break;
  		/* call */
- 		case BPF_JMP | BPF_CALL:
