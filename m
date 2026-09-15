@@ -1,225 +1,116 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41BB46C83E
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4A523AF647;
+	Tue, 15 Sep 2026 08:49:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462151; cv=none; b=D5/SJrl+06/xW/9X1i9LK3Rrw/is9xysJtRbBkabc3IRNgBoH97gw+Bkms3EAb/SuoIlGma58VOfRU6VOWcnJhbOHv31knsMUqaRynyRPErKtAXoYBpLojTdlEJsDKbr6gQlTaPxL2v4uvxJ/FV2NB0/6LDkBEoMvAUYbe7Z/T4=
+	t=1789462185; cv=none; b=thqFYEU5J2cIZQJkWBXL1zE80kXB5v0rVgaaXTt+ZN7RVxStOsC2IqnoBr5oyPxcwjw4KIcXrMGkMhOST7y0DFQhVCLbIOr4/1PYM/mp03dbtTqQbBMY8hItZABajAfMbivCy24EEHixismaiDRsxuR7hcVsvUgH6+cnyG/BQ1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462151; c=relaxed/simple;
-	bh=RM4LDmfKFGK73do6/gb46bD7wd1gb1ydtCtOaLRCVj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l+Dog61hmVXwWq7nFjxdf2fff/VIFo2E6oR1axFUYn7uKPP1FJGywY+sbtgo4egJFahr/6V4JEbyzlZpZ4OSLETlNf/OLwhtXlY711Hu3QqJOuTbBMPWmEmzOzFOBxCNrqml0zsykFgCQNHSNpqpMYB9kUjhPryXqZHiwoAP9Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KktpPCss; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789462185; c=relaxed/simple;
+	bh=oyNHMyZYqpDoIcovpuHq/8xHd5nxJXQeaDtXcCz49N0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HNsfm+GZpgkT1r/5MbBdMIwta/4w/ucYhGp1m2Dtt1ZAkaDeUo0ymOybcz1qjqU2zG+AcZg+IkXB7oPXSZWiiEdULlLuiDDKS449dHUSCj9Jehez21hHXPdaH8J6JY189rMgZQdTiRaWrEKLrfxl6X9j/XIEt4cT9xOhuDLYzhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=H5C5ag1n; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KktpPCss"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbeso5086566b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:49:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789462147; x=1790066947; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Okn9/8O1LREB/jJobsvVn4jcYarpZ/VFVWZ8aLiwsI=;
-        b=KktpPCssJreyDDQzViiVOFxY2tZiG2nZfX/fuEO2p25pOhCtPfGfP+GQJNipKF01Cv
-         zH/N83vsKqJVTaILZ/M6RQW5Sm2eYqYvk2zETQcuNSLbW4ys+Kp7x+FwmRbKUXicQyLj
-         yzqICVKJ8zmlJSAXmUUu7Oe368EMyy5SJjaFXxYBz07RIZcjPOy8B/wu8N1TvPuFUwq3
-         V/tHkcKVz6x6oiQjzHynLRCbLmTJ8aBXQCTT9pNdAHYgozy/xM5JXa/x+XD0EsMekaBH
-         IgIfWImU2fgspjOUrR3TaJ9xFsid7Ssg9DQWAt1gd/af6/4pdOnKv6r0ufjHOE4EMYB1
-         0JMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789462147; x=1790066947;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Okn9/8O1LREB/jJobsvVn4jcYarpZ/VFVWZ8aLiwsI=;
-        b=HPYk535sY+RoyjxCBzpMUWOaK+XUXfIOMMmrlkk4Br/E+mrvbQE9agwHD/fcB2Hy20
-         +xZtzPgDLKrJi1g5iU8dUXEPouJ3BrJB9QsDjpQroZJ57IyR+X7WUcmlZ9nfW4DMuw9e
-         Sjqs9JwnD5yCoZyNzJ0WiurJxrHcYYg/EkSm2sLUXqowcmdH5GA7oTamxOVGFLeZSAVi
-         S+Exe72qpWMOtExfn8G4gdxY4i6BE7oY3oYcLktq76vX3+SKi67wb3N42TVj84p6lq9V
-         hkgrQog9mSxXaVUMIx3c93CUvY0B11KUpDIsZv2fW9pk4ns2PLpnYhDeaIplHd1NEwMD
-         mg4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwEXT5XBtVbrspd8Xy04RlVe1qkeKKqntmZAdAIF/Q8mzNYOU1wo8ITV3UIak+LBwP7IvVFvjDGqtstwOE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjTW4ZZqNbWlC/jC2GZpDuP8ur1V3HfWgugDpiFeWr/SbJiRoS
-	szhfSrnUZ/ggojze9N1AN1Z9PkSUh4X5cSyvSHgEtoNgEkWHRZ4ryeDT
-X-Gm-Gg: AYBFou3/SXA15PbnA8YNYwKtsvwezLheGIVQYFcdVGDweXjhbugz4P0bUM8d5qkZU8x
-	XqNMhNnDxwaAEYN5JqpiNdk7upzDxiQc0oxLbWGiqCm4nHaYZG94tJ368JgPIldzP/iAAHU5r/1
-	6eao/tGLgbaj/TChVNXCV7NHs32t44mi8I/WsgrCkAxuMWgSJm7JBQmssQWJKDFFkLQfpGmtDK6
-	TSp0R8mcqmGW6YQOXIxN93NzqUA7+hxn+fApqETeJpJDPUAqghSwh8nfR2kP8fb3c74sGYokAR8
-	1kRzcPCqcZnitQf63ZcoNY/Z77tNC8kyLpfkcMH+OlyzGMmtxViiYnDFVtHyAIPIEdrgCVdYzqA
-	vwYddtDvokx0uQapTDwgLyq2GsRCO9+k47ow2iVur/chHWqIiHEPxIMbqflKgbs87HK/jbGOHFj
-	n09yBqpAVbWRYbHEceBxqT2p/ID4S5CSZJv39VPN89a2zrl8K1a0ntDNvZc8k+v6QRUUOTJz8EG
-	8F7DGry2HdPfSsKcQxjmi5PyVM+Q63TchQzMU+NQP4=
-X-Received: by 2002:a17:907:3e29:b0:c29:583a:c291 with SMTP id a640c23a62f3a-c29d77ed37cmr13864166b.21.1789462147034;
-        Tue, 15 Sep 2026 01:49:07 -0700 (PDT)
-Received: from workstation (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966067101sm552702966b.35.2026.09.15.01.49.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:49:06 -0700 (PDT)
-From: Stanislav Zaikin <zstaseg@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="H5C5ag1n"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 725DA169C;
+	Tue, 15 Sep 2026 01:49:38 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1C1A53F7B4;
+	Tue, 15 Sep 2026 01:49:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789462182; bh=oyNHMyZYqpDoIcovpuHq/8xHd5nxJXQeaDtXcCz49N0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=H5C5ag1nVPLPhe55qsjBPQBbtGvhwI+EZy4hOGcyjOPWYcUe0GpC4S0V9JgcZN0nb
+	 obKGCOQNx/hPY4kiy/lcgwTHy3lNzQowHJtLPL4gljGbLWzPav4p4nS+1oGuQbStlp
+	 QVdzo86jLuagwOj0unB4MjzirpKKKS0SsTW4ZI4s=
+Date: Tue, 15 Sep 2026 09:49:38 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-efi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Stanislav Zaikin <zstaseg@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v4 2/3] power: supply: qcom_battmgr: add Xiaomi taoyao support
-Date: Tue, 15 Sep 2026 10:49:00 +0200
-Message-ID: <20260915084901.56622-3-zstaseg@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915084901.56622-1-zstaseg@gmail.com>
-References: <20260915084901.56622-1-zstaseg@gmail.com>
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Breno Leitao <leitao@debian.org>,
+	"sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
+Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
+Message-ID: <aqkGohQYChzkBPZ7@e129823.arm.com>
+References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
+ <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
+ <apl_29t7Jxr2mv9C@e129823.arm.com>
+ <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
+ <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
+ <apmFpUvkRBgMdOH2@e129823.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apmFpUvkRBgMdOH2@e129823.arm.com>
 
-The Xiaomi taoyao firmware defines an additional BATT_CONSTANT_CURRENT
-property (ID 12) between BATT_CHG_CTRL_LIM_MAX and BATT_TEMP, shifting
-all higher battery property IDs by one.
+> > On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
+> > > On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
+> > >> Hi Ard,
+> > >>
+> > >>> Hello Yeoreum Yun,
+> > >>> 
+> > >>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
+> > >>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
+> > >>> > may immediately write a firmware image to persistent storage.
+> > >>> > This operation can take longer than EFI_RTS_TIMEOUT.
+> > >>> >
+> > >>> > Use a separate timeout for the UpdateCapsule() runtime service. By
+> > >>> > default, wait indefinitely to avoid interrupting an ongoing firmware
+> > >>> > update. Administrators may configure an appropriate timeout, in seconds,
+> > >>> > through /sys/firmware/efi/capsule_update_timeout.
+> > >>> >
+> > >>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > >>> > ---
+> > >>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
+> > >>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
+> > >>> >  include/linux/efi.h                     | 10 ++++++
+> > >>> >  3 files changed, 55 insertions(+), 10 deletions(-)
+> > >>> >
+> > >>> 
+> > >>> Given that UpdateCapsule() is rarely used these days at runtime, I
+> > >>> wonder if we should just call it synchronously instead of via the
+> > >>> EFI workqueue.
+> > >>> 
+> > >>> I assume that would also solve the timeout issue?
+> > >>
+> > >> Might be. But it would make *non-preemptible* for UpdateCapsule().
+> > >> AFAIK the purpose of running runtime service with efi_queue to
+> > >> run it in indepdent context and to be preemtible in case of arm64.
+> > >>
+> > >
+> > > No.
+> > >
+> > >> Since most of UpdateCapsule() will be called via capsule-loader's misc
+> > >> device, if UpdateCaspule() is called synchronously, It would be
+> > >> non-preemtible in arm64 platform.
+> > >>
+> > >> But, some platform could be preemptible while updating firmware so
+> > >> I think it would be better that it would be called via EFI workqueue.
+> > >>
+> > >
+> > > EFI runtime service invocations are preemptible on arm64, so this is
+> > > not a problem.
+> > 
+> > Ah wait - you're right, they are only preemptible when invoked from the
+> > work queue.
+> 
+> Yes. That's why I think it would be better to call via EFI workqueue
+> when I see arch_efi_call_virt_setup().
 
-Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/power/supply/qcom_battmgr.c | 86 +++++++++++++++++++++++++++--
- 1 file changed, 82 insertions(+), 4 deletions(-)
+Hi Ard,
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 490137a23d00..1ff079750807 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -23,6 +23,7 @@ enum qcom_battmgr_variant {
- 	QCOM_BATTMGR_SC8280XP,
- 	QCOM_BATTMGR_SM8350,
- 	QCOM_BATTMGR_SM8550,
-+	QCOM_BATTMGR_TAOYAO,
- 	QCOM_BATTMGR_X1E80100,
- };
- 
-@@ -451,16 +452,87 @@ static const u8 sm8350_bat_prop_map[] = {
- 	[POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD] = BATT_CHG_CTRL_END_THR,
- };
- 
-+/*
-+ * Xiaomi Taoyao firmware has BATT_CONSTANT_CURRENT (ID 12) inserted
-+ * between BATT_CHG_CTRL_LIM_MAX and BATT_TEMP, shifting all subsequent
-+ * IDs by one.
-+ */
-+static const u8 taoyao_bat_prop_map[] = {
-+	[POWER_SUPPLY_PROP_STATUS] = BATT_STATUS,
-+	[POWER_SUPPLY_PROP_HEALTH] = BATT_HEALTH,
-+	[POWER_SUPPLY_PROP_PRESENT] = BATT_PRESENT,
-+	[POWER_SUPPLY_PROP_CHARGE_TYPE] = BATT_CHG_TYPE,
-+	[POWER_SUPPLY_PROP_CAPACITY] = BATT_CAPACITY,
-+	[POWER_SUPPLY_PROP_VOLTAGE_OCV] = BATT_VOLT_OCV,
-+	[POWER_SUPPLY_PROP_VOLTAGE_NOW] = BATT_VOLT_NOW,
-+	[POWER_SUPPLY_PROP_VOLTAGE_MAX] = BATT_VOLT_MAX,
-+	[POWER_SUPPLY_PROP_CURRENT_NOW] = BATT_CURR_NOW,
-+	[POWER_SUPPLY_PROP_TEMP] = BATT_TEMP + 1,
-+	[POWER_SUPPLY_PROP_TECHNOLOGY] = BATT_TECHNOLOGY + 1,
-+	[POWER_SUPPLY_PROP_CHARGE_COUNTER] = BATT_CHG_COUNTER + 1,
-+	[POWER_SUPPLY_PROP_CYCLE_COUNT] = BATT_CYCLE_COUNT + 1,
-+	[POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN] = BATT_CHG_FULL_DESIGN + 1,
-+	[POWER_SUPPLY_PROP_CHARGE_FULL] = BATT_CHG_FULL + 1,
-+	[POWER_SUPPLY_PROP_MODEL_NAME] = BATT_MODEL_NAME + 1,
-+	[POWER_SUPPLY_PROP_TIME_TO_FULL_AVG] = BATT_TTF_AVG + 1,
-+	[POWER_SUPPLY_PROP_TIME_TO_EMPTY_AVG] = BATT_TTE_AVG + 1,
-+	[POWER_SUPPLY_PROP_INTERNAL_RESISTANCE] = BATT_RESISTANCE + 1,
-+	[POWER_SUPPLY_PROP_STATE_OF_HEALTH] = BATT_SOH,
-+	[POWER_SUPPLY_PROP_POWER_NOW] = BATT_POWER_NOW + 1,
-+	[POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD] = BATT_CHG_CTRL_START_THR + 1,
-+	[POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD] = BATT_CHG_CTRL_END_THR + 1,
-+};
-+
-+/*
-+ * Reverse mapping from Xiaomi Taoyao firmware property IDs to canonical
-+ * kernel property IDs.
-+ */
-+static const u8 taoyao_to_canonical[] = {
-+	[BATT_STATUS] = BATT_STATUS,
-+	[BATT_HEALTH] = BATT_HEALTH,
-+	[BATT_PRESENT] = BATT_PRESENT,
-+	[BATT_CHG_TYPE] = BATT_CHG_TYPE,
-+	[BATT_CAPACITY] = BATT_CAPACITY,
-+	[BATT_SOH] = BATT_SOH,
-+	[BATT_VOLT_OCV] = BATT_VOLT_OCV,
-+	[BATT_VOLT_NOW] = BATT_VOLT_NOW,
-+	[BATT_VOLT_MAX] = BATT_VOLT_MAX,
-+	[BATT_CURR_NOW] = BATT_CURR_NOW,
-+	[BATT_CHG_CTRL_LIM] = BATT_CHG_CTRL_LIM,
-+	[BATT_CHG_CTRL_LIM_MAX] = BATT_CHG_CTRL_LIM_MAX,
-+	[BATT_CHG_CTRL_LIM_MAX + 1] = 0xff,	/* BATT_CONSTANT_CURRENT - never requested */
-+	[BATT_TEMP + 1] = BATT_TEMP,
-+	[BATT_TECHNOLOGY + 1] = BATT_TECHNOLOGY,
-+	[BATT_CHG_COUNTER + 1] = BATT_CHG_COUNTER,
-+	[BATT_CYCLE_COUNT + 1] = BATT_CYCLE_COUNT,
-+	[BATT_CHG_FULL_DESIGN + 1] = BATT_CHG_FULL_DESIGN,
-+	[BATT_CHG_FULL + 1] = BATT_CHG_FULL,
-+	[BATT_MODEL_NAME + 1] = BATT_MODEL_NAME,
-+	[BATT_TTF_AVG + 1] = BATT_TTF_AVG,
-+	[BATT_TTE_AVG + 1] = BATT_TTE_AVG,
-+	[BATT_RESISTANCE + 1] = BATT_RESISTANCE,
-+	[BATT_POWER_NOW + 1] = BATT_POWER_NOW,
-+	[BATT_POWER_AVG + 1] = BATT_POWER_AVG,
-+	[BATT_CHG_CTRL_EN + 1] = BATT_CHG_CTRL_EN,
-+	[BATT_CHG_CTRL_START_THR + 1] = BATT_CHG_CTRL_START_THR,
-+	[BATT_CHG_CTRL_END_THR + 1] = BATT_CHG_CTRL_END_THR,
-+};
-+
- static int qcom_battmgr_bat_sm8350_update(struct qcom_battmgr *battmgr,
- 					  enum power_supply_property psp)
- {
- 	unsigned int prop;
- 	int ret;
- 
--	if (psp >= ARRAY_SIZE(sm8350_bat_prop_map))
--		return -EINVAL;
--
--	prop = sm8350_bat_prop_map[psp];
-+	if (battmgr->variant == QCOM_BATTMGR_TAOYAO) {
-+		if (psp >= ARRAY_SIZE(taoyao_bat_prop_map))
-+			return -EINVAL;
-+		prop = taoyao_bat_prop_map[psp];
-+	} else {
-+		if (psp >= ARRAY_SIZE(sm8350_bat_prop_map))
-+			return -EINVAL;
-+		prop = sm8350_bat_prop_map[psp];
-+	}
- 
- 	mutex_lock(&battmgr->lock);
- 	ret = qcom_battmgr_request_property(battmgr, BATTMGR_BAT_PROPERTY_GET, prop, 0);
-@@ -1381,6 +1453,11 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 	switch (opcode) {
- 	case BATTMGR_BAT_PROPERTY_GET:
- 		property = le32_to_cpu(resp->intval.property);
-+
-+		if (battmgr->variant == QCOM_BATTMGR_TAOYAO &&
-+		    property < ARRAY_SIZE(taoyao_to_canonical))
-+			property = taoyao_to_canonical[property];
-+
- 		if (property == BATT_MODEL_NAME) {
- 			if (payload_len != sizeof(resp->strval)) {
- 				dev_warn(battmgr->dev,
-@@ -1617,6 +1694,7 @@ static const struct of_device_id qcom_battmgr_of_variants[] = {
- 	{ .compatible = "qcom,sc8280xp-pmic-glink", .data = (void *)QCOM_BATTMGR_SC8280XP },
- 	{ .compatible = "qcom,sm8550-pmic-glink", .data = (void *)QCOM_BATTMGR_SM8550 },
- 	{ .compatible = "qcom,x1e80100-pmic-glink", .data = (void *)QCOM_BATTMGR_X1E80100 },
-+	{ .compatible = "xiaomi,taoyao-pmic-glink", .data = (void *)QCOM_BATTMGR_TAOYAO },
- 	/* Unmatched devices falls back to QCOM_BATTMGR_SM8350 */
- 	{}
- };
+Could there be any issues with doing it this way, or would there be
+a better approach?
+
 -- 
-2.53.0
-
+Sincerely,
+Yeoreum Yun
