@@ -1,173 +1,160 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610FF440A31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB6443C7C1
 	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511521; cv=none; b=VVqKZwXpW48Wqv9ZwfuBKJXowbqeEgDQLObBxqPEqOTILZRDfaf171za6orc/V3ZpAZdDTCpkGgqbGSivb8eXKJXvWOiJ7E/S1NRfQQNMbXqROSB22IW8cVZF7JvBFmpsFzAcY2wao8HeGRDdGWEDHtaWBAExuBrgVxF4NlKPs4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789511521; cv=pass; b=o+Dg33qMVaaFC/iMSigmfvAD1VQw472i1XqarV5Mn5qzOM89/Y7/DPFiVXVEXaVsksnpf7HAJY0+j7TMSkty0F/WJnZ6061KRPUggg++/guHqQcO45Ti05tR1bo/mDuz6PDdtrBh6LsJ5d7EFxGm6u/sBmUAECwBLAr6BeNpDPY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789511521; c=relaxed/simple;
-	bh=S2XZh3VaVySPUgw4QBLbbko84fncUIEkPW+FJJvR2HE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e6uWP9QDWLczD616v2HcYllM2GEqCZ1UIONFKxWGvFKmGFt79xsLTLYC3Dl/7GYj8u+PKm5kSFDjnCUzvKmnu2vo+mXs2cXqMk3clhwHtaEN82L0tunOLtvFgXCdIy3KtNfBqfSw7kUxI9TVUFhptOYV4LbIVWwRSG5ZQ3hFIbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LNkeHs8j; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=HwkUmEeMNJIDc9Gel3SUVMVZAqVSKw+L0prI4S18Yvk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KRYUOOw8r/trO2+g0gBeAyY0dEcFjkYMSmIDcrkZzejYcHmz1CC4GTzeu8QFdM4BmyjJXid2gxGlHzVWH1KlKvTFpgD3kILtetfr58YaG6oiL6cU1FyXd5gfQsrs0PCxM3g8FOe/hlTKRzg5ZYYNDXH07Foca2DPEe+xuFCE4pU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rmGLTiyT; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LNkeHs8j"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso220035a91.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rmGLTiyT"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so48631cf.0
         for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:31:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789511518; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PvypG7KdC0C2BqWjhTT85iB2MoR1cvdjTI4EW165iVvnb42JCZd1ywSJww4Zblv56a
+         eEL0BsCwV4IpwL3CdrgM933DDklcuVQbEcVbTIXvjsgSpU76BR/b4TJzyvnyq4ECp9QN
+         BcZCWW/a1eHCIUQl4qD/Doqwx3vDu77o1hupi0EzNES6XAfPGP5599WZVhzvebA0Cd1L
+         /s9OvtxpSEiNqbaJ0GLFjm9HyQykzgoaQBMovjwuWttiY9B+nL0r7xHB9ATNk0mgHue6
+         Pr3HAFt7Xk8G+8dsq9BCjSG2/NpOkFqP7S6WbTQ05m+bb9imjWLPR77v2mh54exn6bKH
+         5pSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rF3d1NpRpJqESqzYc95bKbTV6mFlbMcr7RivfQo41c8=;
+        fh=iUx4k0qcHULyM8I5pB7HP901PUQHuEYBAjf2+TmRRfc=;
+        b=SGJCdQoMWqsBhqJkLWok0DF/L/z/YdFhtxb3Kva50aJrffUCyRKTJZGYg1cSyMUrzp
+         r8B2ZM3E3JNrLDBXTcCueY35Q5VchXnRvmMaskwXbqKNczqDYPGGbA9ZyLuyayjeqjBk
+         GGv+08+KyY3Bm+ybSJw76PjdSULWZ9bJn8qijndw8aLHdTKYJEn1h+5gz6Ow5ujgI+Tu
+         FZ3309eNb0dcBcrBc9D6t1aHCDls5uicz7UdTIn8OpmQioQcnjpnVKaEWEgcJOveDDaM
+         SSv8q+ncnG/5aRD8PSR+QY+dh5JNTmh5BsvyVkba6Y2MueEbjaUTE0uj059ONcqL+5ne
+         FPPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789511519; x=1790116319; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zK0dUXrqiJhS7PWIeZXjl74BNkmdl+RVL7V4FpfahtM=;
-        b=LNkeHs8jkAWzaqimW1OpBHWwQNsm+sLb77nTBTJGV5LR3jTczF2e0+CkQCZhlzUlbj
-         iS7n+9Hw/z2HXrDHgVPOrJ6PppGzEE7iZU49fIDqiETzZMvGt+toBGcYbqythvErLwiQ
-         V89wTt3b4I5AncYD+eZ/DaTqPxiADZTO91PNXLk7bkmg+WDhS9V15mjPEgrnIEWXEHgb
-         wOc97lFR7JANpZSLumUNVVUxCet264RrsI9W5mUP1ynWcXiZNo0zrgA9919724XfToEG
-         kIOQnNamI86owC9HRLibIW/OOkT3SrSnlgmyuSQ5/2l1C8guaytIteW1wa7C51WFZp8F
-         sLVw==
+        d=google.com; s=20251104; t=1789511518; x=1790116318; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rF3d1NpRpJqESqzYc95bKbTV6mFlbMcr7RivfQo41c8=;
+        b=rmGLTiyT872aZ7Gv3kYRsdGVVc3aKjEAJwTRbugk1jh3QssVHVzdKVtNJFA3kjgZuf
+         mk2gZqUQVhzl9hYPCSX0qDi3UrG4zEZiFBu/L2x3zRgOSBcYzYiQwmyFtuZyG4aa+c0W
+         A79j1YeCp9cD5WIDD2D42uwnhmEOKCupj/R613kru1BsCQLyFUht2SfHdd+IPtXdeGRU
+         JgQkmSclhfXvYm0G2DChEyUWty0lh+SYNwdDV6pZiHzh2pelutzIDf0b0idIrDOgN/Xu
+         j2922DpwX/zgoIL3dEaQ+L5BYiSupjszabRyVJ+E59+ufLnyVEhnI7VEN10UxWIkGaIw
+         Qlsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789511519; x=1790116319;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zK0dUXrqiJhS7PWIeZXjl74BNkmdl+RVL7V4FpfahtM=;
-        b=qExIEDF9HlVulNp2yXnN7ANk5feWjwPT2iRkGfLus1DW8KqBKtMHDCvLCM8tYHeMj3
-         1l/r6zimzuCY5K1TITv8nPheiEK2AhBG+Fm7j3FJL4oAEhNvcIqGTl62yKUl21MzZFNf
-         0LNilXK6bVDNYnVENv61XnWzGstupoN0cjEjxw3E2CVIcJ/aBAW/UB/g/IFWUILsXbMQ
-         uWv87ulcN6NZwXNq7+chdkmJPyQhc7ekjEB8RBHPh3A9A4yg5rcBamrTiIn2Mkwd6c/u
-         QQwzmsF5xJSeGQyskmDVWzWWfjO5OoXvFxXWzI15sEBADmU0V3uPrdZO5Oyuh+nEs0WE
-         6YlA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7I31R97uHfm7qYGTOV11TN0aTaWMGdnrIrfx0Y1vYGBBQuFQ4hJQ++6THpBA/95TlWr01mAHPYVJi1Ks=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxICSZqIq1fFBRWqtkAi92XUvL6/V+7Xmj5SzhCk47Zd1gteWA
-	uuTAxZD8vrBoEQKUIN5GDMNnGFOxr+PEzlutfhG5Merz+zhoezSHGE8=
-X-Gm-Gg: AYBFou3UfvAgNcxxYWarprzfp2DSv/YfoZNvOHlithzz7YeAwAQKNiOFQYTlSiVvIZa
-	39/pPKp5Gt5rUPyUbqXKuY5G3qRoAvhub46Xjhsqx1qdaI+oO2MS6emJnKO58zxNNVwmxpdmbWb
-	tkGH+130DbU/uBmmRRvL1MDdQ8UIrwZaAWIgZgz13J3Z7GML9OHNHOhXGHoTHGOk3m6qqZ+qJhA
-	ekWw5Uqjd5u3K+4crVkS6tmCx7A9rboM0bSboGSlsUPdrWPaQQ5swDNKB9fkGFs+iTNI3NeHvqP
-	gh2vExNBvsZ74OmF/Oh9LhQlp5cY+tYBiZ6m2ktmZ61TS/JeggrU6gjVHKbAG24lBjxq6f985Jm
-	u+QqzP4Vm0krNlCXSfXX7sLmYd4YBnYShwQ5i22ELoayHWVxlI8nW9K3cEv1h+xL5bzzNmkZtBl
-	qn+0VwSQN/21qae1bDhZJvV7P3c3rKeHWQyjRJWN5RPI0hExfKci9kZZdRIPmePzGgABKfzZ+C2
-	j4rr4Ww9YeCOaKYxjD8ga8w3A==
-X-Received: by 2002:a17:90a:d650:b0:39d:f7dd:4e4f with SMTP id 98e67ed59e1d1-39e1e300ab8mr779291a91.10.1789511518725;
-        Tue, 15 Sep 2026 15:31:58 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:556:537c:f7cd:8a1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1c337e97sm208036a91.2.2026.09.15.15.31.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 15:31:58 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [PATCH net v3 2/2] net: phy: qca808x: keep an explicit active-high LED across the reset
-Date: Wed, 16 Sep 2026 07:31:38 +0900
-Message-ID: <20260915223138.321307-3-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
-References: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
+        d=1e100.net; s=20260707; t=1789511518; x=1790116318;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rF3d1NpRpJqESqzYc95bKbTV6mFlbMcr7RivfQo41c8=;
+        b=ois43vMtYXUH+oAVbfq1oziLOvF8ByBvvnC4Hr+1skufSNZTredUT8G9WcJFPw1qAE
+         XcU9ywow+JsAk2+SBrQu99COJlR17FHOl4rjEX3bJCVIXaiMa/KcvcfGrMbKBRcJbM5J
+         yEzwoh2+5tpxSlrR6RB3DmFJf+V+Hzatyn7irr7NgCI7Ev02GpnTEvgWfyl04hnSIkps
+         8v/oIbeI5cm1J+AddKeo5wOiAoQlE99RsLAPZmtRGzTdcp3L7b44XGLAY31BkQ0rInRj
+         8wjD0UV23i3EG5JtHi2HXunwpSu3c75U4RbfiTZyL3VWTkm94vc++RDzeF5TFjgdJI4W
+         i6XA==
+X-Forwarded-Encrypted: i=1; AKwUvBxfi17t6xaKf7gqLKR9xwf35CQ4BrslYsWPM1GMAoBv9rBS+/OdZGMnn9DyPjaZgNKqtC4+V8Rvahi7mtw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvqBf5iUkV59bLxkLTCUmp1b1UQ/KBUxDnbND5cRQ2Snj4yChz
+	9FcO93p133RB6WTjf9SphPUkv1K6IOjgyzJi80ry7bM6FhslstW5SJRvj1RtMhFn7RTkBuV0vnh
+	08xUqu6/OcslHYNEirRoIsTbJlfob9D+Kj55aWDNC
+X-Gm-Gg: AYBFou0he8FzhfFeEiperdpnyBFm6cTEyGxQtbZ7dUXDoNh/GbqSl2bmMbgSyFHpzJi
+	nQy8XqVRvA9uKK/zqqyAOn0489g2AVRcJk/SStfW2YjdQyIwrbGK0dPfkEuBfH5H7eVnWxHiIwD
+	JNunp6qjghYHDDP7AMqJ4lcQcwp7UTN4GjaoL12cNgFGaaptS+eee0BGvH28qBR+bFfBlB4J1ne
+	Rg2bl1MdUNIcCb8axq4zD8Q7PDj+HbEnMhV3ScDJysP7njktvRNlQcFVpUU8oUmj6oHNfo4nM6o
+	AHzj/0zeT3kxauI8UnJVEHIaDV6y0eJHuFGGGR2igPNuuA9i8A+KKDKJg1K3BV38WK4zrVBafDD
+	aLAJPMxo/Nw==
+X-Received: by 2002:a05:622a:260f:b0:51c:ca9:3d17 with SMTP id
+ d75a77b69052e-5325087c7f5mr5483341cf.12.1789511517300; Tue, 15 Sep 2026
+ 15:31:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1786728929.git.sandipan.das@amd.com> <10376263-f9e7-4419-9042-074b3a36cfab@linux.intel.com>
+In-Reply-To: <10376263-f9e7-4419-9042-074b3a36cfab@linux.intel.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 15 Sep 2026 15:31:45 -0700
+X-Gm-Features: AcwNN1UnN_Tnwq8QQ1u5fl9Yt3ytKf6W3FXRQdA0drJuJRJdASR59wa4A4UogVw
+Message-ID: <CAP-5=fX5zYcb4=q_BqM+h+5g3ZnuSjEWg1=f5LrtfOfcgtHetA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] perf/x86: Fix perf_event_print_debug() on
+ non-Intel PMUs
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>, Sandipan Das <sandipan.das@amd.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Petr Tesarik <ptesarik@suse.com>, Zide Chen <zide.chen@intel.com>, 
+	Ravi Bangoria <ravi.bangoria@amd.com>, Ananth Narayan <ananth.narayan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-With the previous patch an 'active-high' LED node is accepted, so
-led_polarity_mode can now hold 0. qca808x_config_init() only re-asserts
-QCA808X_LED_ACTIVE_HIGH when the mode is -1, the value that means device
-tree asked for nothing, so an explicit active-high does not reach the
-register.
+On Sun, Aug 16, 2026 at 6:12=E2=80=AFPM Mi, Dapeng <dapeng1.mi@linux.intel.=
+com> wrote:
+>
+> The whole patch series looks good to me. Thanks.
+>
+> Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-That matters because the bit does not survive a reset. phy_init_hw() runs
-.soft_reset before .config_init on every attach and resume, and
-commit f203c8c77c76 ("net: phy: qcom: qca808x: default to LED active High if not set")
-records why: "on PHY reset, the Active High bit is not set resulting in
-the LED driven as active-low". The polarity written from device tree
-during phy_probe() is therefore gone by the time the link comes up, and
-the LED runs inverted.
+Ping.
 
-Re-assert the bit for anything other than an explicit active-low, which
-is the one case that wants it clear and gets that from the reset for
-free. Name the unset value while here: led_polarity_mode otherwise
-holds a PHY_LED_ACTIVE_* value, so spelling the comparison
-PHY_LED_ACTIVE_LOW says what it means where -1, 0 and 1 did not.
+Thanks,
+Ian
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908105959.70453-1-donggeunyoo.kernel%40gmail.com
-Cc: stable@vger.kernel.org
-Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
----
-Tested in QEMU against a synthetic MDIO bus answering as a QCA8081, with
-the reset clearing BIT(6). With only 1/2 applied an 'active-high' node
-comes up inverted; see the cover letter.
-
- drivers/net/phy/qcom/qca808x.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808x.c
-index 3ba58f14e248..bab26e4c6140 100644
---- a/drivers/net/phy/qcom/qca808x.c
-+++ b/drivers/net/phy/qcom/qca808x.c
-@@ -87,6 +87,9 @@
- 
- #define QCA8081_PHY_ID				0x004dd101
- 
-+/* led_polarity_mode otherwise holds a PHY_LED_ACTIVE_* value */
-+#define QCA808X_PHY_LED_UNSET			-1
-+
- MODULE_DESCRIPTION("Qualcomm Atheros QCA808X PHY driver");
- MODULE_AUTHOR("Matus Ujhelyi");
- MODULE_LICENSE("GPL");
-@@ -187,8 +190,7 @@ static int qca808x_probe(struct phy_device *phydev)
- 	if (!priv)
- 		return -ENOMEM;
- 
--	/* Init LED polarity mode to -1 */
--	priv->led_polarity_mode = -1;
-+	priv->led_polarity_mode = QCA808X_PHY_LED_UNSET;
- 
- 	phydev->priv = priv;
- 
-@@ -200,8 +202,8 @@ static int qca808x_config_init(struct phy_device *phydev)
- 	struct qca808x_priv *priv = phydev->priv;
- 	int ret;
- 
--	/* Default to LED Active High if active-low not in DT */
--	if (priv->led_polarity_mode == -1) {
-+	/* Set LED Active High unless active-low was requested in DT */
-+	if (priv->led_polarity_mode != PHY_LED_ACTIVE_LOW) {
- 		ret = phy_set_bits_mmd(phydev, MDIO_MMD_AN,
- 				       QCA808X_MMD7_LED_POLARITY_CTRL,
- 				       QCA808X_LED_ACTIVE_HIGH);
-@@ -615,7 +617,7 @@ static int qca808x_led_polarity_set(struct phy_device *phydev, int index,
- 	 * To detect this, check if last requested polarity mode
- 	 * match the new one.
- 	 */
--	if (priv->led_polarity_mode >= 0 &&
-+	if (priv->led_polarity_mode != QCA808X_PHY_LED_UNSET &&
- 	    priv->led_polarity_mode != active_low) {
- 		phydev_err(phydev, "PHY polarity is global. Mismatched polarity on different LED\n");
- 		return -EINVAL;
--- 
-2.53.0
-
+> On 8/15/2026 1:48 AM, Sandipan Das wrote:
+> > Petr Tesarik reported that reading MSR_ARCH_PERFMON_FIXED_CTR_CTRL
+> > raises a #GP on AMD processors that support PerfMonV2, and proposed
+> > skipping that register when no fixed counters are implemented [1].
+> >
+> > However, perf_event_print_debug() also dumps the global control and
+> > status registers whenever x86_pmu.version >=3D 2, and reads Intel
+> > Architectural PerfMon MSRs to do so. That condition used to be
+> > Intel-specific, but since commit 21d59e3e2c40 ("perf/x86/amd/core:
+> > Detect PerfMonV2 support"), x86_pmu.version is also set to 2 on AMD
+> > processors that support PerfMonV2, where none of those registers are
+> > available.
+> >
+> > The same reasoning therefore applies to the other registers read here,
+> > so rather than special-casing each one or reinstating a vendor check,
+> > this series makes the global register dump a vendor-specific operation.
+> >
+> > [1] https://lore.kernel.org/all/20260717150315.2868314-1-ptesarik@suse.=
+com/
+> >
+> > Previous versions can be found at
+> > v1: https://lore.kernel.org/all/cover.1786010408.git.sandipan.das@amd.c=
+om/
+> >
+> > Changes in v2:
+> >   * Address build issue reported by Sashiko.
+> >   * Use a static_call as suggested by Dapeng.
+> >   * Pick up Tested-by from Petr.
+> >
+> > Sandipan Das (3):
+> >   perf/x86: Add x86_pmu::print_debug
+> >   perf/x86: Move MSR_CORE_PERF_GLOBAL_* dump to vendor code
+> >   perf/x86/amd: Implement x86_pmu::print_debug
+> >
+> >  arch/x86/events/amd/core.c     | 20 ++++++++++++
+> >  arch/x86/events/core.c         | 60 ++++++++++++++++------------------
+> >  arch/x86/events/intel/core.c   | 32 ++++++++++++++++++
+> >  arch/x86/events/perf_event.h   |  4 +++
+> >  arch/x86/events/zhaoxin/core.c | 18 ++++++++++
+> >  5 files changed, 102 insertions(+), 32 deletions(-)
+> >
