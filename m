@@ -1,42 +1,75 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51C919D07E;
-	Tue, 15 Sep 2026 05:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D61343A7E4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789449544; cv=none; b=SsoZHQWGa6JJ090dVt5yomGUrescWib5+6SEoRgOHe/7YoquhDaMpRyJYdSKlGvUG4mAkqi3j9DLVmd5QbnfKK65L8Zpp3PGPTkqM9EzBPUukaaRJMABkvP6HohQn6LVtRiE4YudTtFOS45AicBp95yeoepoDdLv3dd4gf6m894=
+	t=1789449577; cv=none; b=vC14gJHG+ZY5DtHtUVZbS8/huy7dRnOI0+/6uKYhHUSST0w6TOv0yRKJpdwOX9ccnoOTemV/ngoYfBXM7akp/vQoR8yhsE1CKh/h7U9ZYpmT/98gnhvgmfoeVcMlgoHe+wsJQcTBQnjlgR+SB0Q4MVegdOuzgUIpP83PWuR7tb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789449544; c=relaxed/simple;
-	bh=snjCU7lY4TdigLqJUysIJChWniLuOVIhrBLifY7QtEY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RFKZuEMu7EQNWogfrA/tgXUnPOiR7SRv5YW0/hi/3ZkccgUVHitRJjUW6oVXZvxsoITH+p4oG7Delkt+LINxgOdBxuP8BZIzy3YPktTVeY6XMvm0k1cW4tJA4xVU57wUjTSoqBpwu0eJOvGOY8aZygddmh8QrRt9F/xvDynFN78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowADHn_M61ahqqZgJCA--.50750S2;
-	Tue, 15 Sep 2026 13:18:50 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrew@codeconstruct.com.au
-Cc: avifishman70@gmail.com,
-	benjaminfair@google.com,
-	daniel.lezcano@kernel.org,
-	j.neuschaefer@gmx.net,
-	joel@jms.id.au,
+	s=arc-20240116; t=1789449577; c=relaxed/simple;
+	bh=tRK/WLCmOL9yWhdP5u7X+a8hOKx87CLe/k7xw0s+QCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=or1mEZz5XLCPY3q+CThe2w0PGPkFNROyKsXHnWx0vDffscyuKMlcnZLRq8H5Ogk4dP2ONxyvWkuHmweobkLjK1/CKrEIAxQH8bgcvLq3xgnAEmDAiHMNMADV3PWGP9oSLw1uWBVG827Zk2NAYyW7hVSsb3nt5kMGqYd6cEhQVJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=q7rAe4ly; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="q7rAe4ly"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc147d86bebso731846a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:19:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789449567; x=1790054367; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8OOwy7c+zcjkAyM/C1EYhF9ectrxzXXceO/PRGImhvE=;
+        b=q7rAe4lyJRGIY1qra+QwabZXXcVkexZdsB7FW/7cl1ndR7E0EisBYCtvRJG49n6oaV
+         cPRTRyvN9KdMjleC7i0MgCg3eeN6Qv2s7WoZ60GmHMVoRAwKqU4SFMyQFNobznZciBy7
+         qDbGzs+W987wXO1BvnTvqmBQl5S5Z5i4NF7K5LmaQwuvxCywg7B3jsQS9KUvj7rpCqdj
+         FUQzAWbsFDlXCchxBNQUH7suXnHSsZOmxZ2FkH0jfogHQMsiMlAOEDW6MM++NoYrd4GU
+         tWGRc06SO5ZPNsmYzhtS1SFoo7DYzirfo6DCgpsRJMINIaFs7+3t5/UOz6ba03YLjpCe
+         eMFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789449567; x=1790054367;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8OOwy7c+zcjkAyM/C1EYhF9ectrxzXXceO/PRGImhvE=;
+        b=UsLN9GemWrR4SIr5Mybr47NrrEEzFYDiKMLiWV0h/tJtNMhVsnv0s56goMjmCdZrD5
+         Jj5jr6GcJAgKZiQl6/HefDDqSGYuIuCeYSGA5fSQ6BMrvF3xQ6A3F3j9+vHlpXzE1hmh
+         3u/+IgS5ZdwXO7SFUv/chxrAGFY5o6jQnEWgh3lvghxPC0pj8iXAFXn4xuVIZ7ZDw1GR
+         +F+fzeW9o7khuPzpY9EzO2QzghpdOoxw5m6kh1sp+wxNmyIjGI616s4jC6F3J4fHDJYV
+         ehPoYOBz54xURgaCwWZ2QPEtxr2UZz9Me5ta6LZMRUuO+wbIOLTMYCjDdHpkaMPMdD5g
+         OBRw==
+X-Forwarded-Encrypted: i=1; AKwUvBykr4b5mncsIKDy/MZKC9Di9E5WEPlZd+offcGaRpWFFIAP3jaC74xIO/hPnTSl4DaLFuOUAel7NjaN4Hc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgdm6yTlW0IORmv/+ohGfTVO3DBauRKSuTGfQmdnDwl3k8xZ2I
+	1gDoJELyU+WO9R/Uo69TpxnF/iQdq3vMZ9SQy2rFGhd/XuNF6aLsfn1q7eCNabGFtw==
+X-Gm-Gg: AYBFou1BGIKE4s/eS6jFIl4bfrt0yzeN27F6v0jYpJeKFqpx95NXuDTnR+zRsbAjLoc
+	RBWf7ARCHpev8nbCGsCCGaheBkr/AN4Z7lmVyweR/UYInhzoxV8/+SlLwiRMDwXAKbVk4a471jF
+	u9XU7bpu4uQur9jy8sLuQz6maIFHUjJUbwt899joZuwAoWB2UNK9GtkB960fLUMLLr29YC9E0MD
+	per8uJcUaJOjSNXq8xP2I4oNJGquTQbNJQhEsErT6npGhw5sKhfzx8iFo0fg0B/wYVCQMNSPJrG
+	WRrVTALB7KKW47eHYpZGirHn+lcidd6d8OG9G0h9iJ9RyMcxGE0D7qCH/IETPwLsqDa2wuh9boI
+	bfFWJzoB5yNcKq0kZIsOHGkGJHarAuO/Bn7UlKv3VnHCfC7S6tJaMMbr/bBmmk8fxLGM52B+5VI
+	RfGbpvNeFMAJezcisO8XEiw253NiJ/TONyo4GbZznLxJF4gWE2dQqAqGsro0CrNgLWsvkq0motk
+	WinDv2m9ANMXonj9/EwsRrgJpaVMNKXQ9JAmg==
+X-Received: by 2002:a05:6a20:7493:b0:3d3:aed2:6f28 with SMTP id adf61e73a8af0-3db501db9afmr3325689637.28.1789449567479;
+        Mon, 14 Sep 2026 22:19:27 -0700 (PDT)
+Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e4fb3esm30593846eec.7.2026.09.14.22.19.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 22:19:26 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	slava@dubeyko.com
+Cc: ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	tali.perry1@gmail.com,
-	tglx@kernel.org,
-	tmaimon77@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/6] clocksource/drivers/timer-npcm7xx: Fix clock reference leak in npcm7xx_timer_init
-Date: Tue, 15 Sep 2026 05:18:21 +0000
-Message-Id: <20260915051821.1727787-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org,
+	co+f8e3e01d8dda8689@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH] ceph: reject mdsmaps that claim more than CEPH_MAX_MDS ranks
+Date: Mon, 14 Sep 2026 22:19:24 -0700
+Message-ID: <20260915051924.737109-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,62 +77,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADHn_M61ahqqZgJCA--.50750S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFyDtw48uFykGF1kKr1xKrg_yoW8Gw17p3
-	93C3yayrn8Z3yIgwsxKa1qyFnYvayxKFy5Gwn5Cas0vwsxGr95JF9xWF9FqF47uF1kC3ZF
-	qan5tF43AFyUAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
-	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
-	IYCTnIWIevJa73UjIFyTuYvjfUr6wZDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQLA2qowpBDBQAAsd
 
-npcm7xx_timer_init() looks up the optional timer 1 clock with
-of_clk_get(), which takes a reference on the clock, and prepares and
-enables it. The clock is meant to stay enabled, but the local clk
-pointer is lost when the function returns and clk_put() is never
-called, leaking the consumer reference on every boot when the timer 1
-clock is present in the device tree.
+check_new_map() sizes its export-target bitmap from CEPH_MAX_MDS but walks
+it with newmap->possible_max_rank, which comes straight off the wire:
+ceph_mdsmap_decode() sets it to max(m_num_active_mds, m_max_mds), then
+overwrites it with the size of the "in" set.  Neither is bounded by
+CEPH_MAX_MDS, only by m_info allocating, so a monitor announcing more ranks
+than the bitmap holds makes test_bit() read past the end of targets[].  The
+clear_bit() loop above indexes the same bitmap, though it is additionally
+bounded by mdsc->max_sessions.  The map arrives on the monitor connection,
+which is unauthenticated in legacy msgr mode.
 
-Drop the reference with clk_put() right after the clock has been
-prepared and enabled; this keeps the clock running while releasing the
-reference.
+CEPH_MAX_MDS is a protocol constant from src/mds/mdstypes.h, and the
+reserved inode ranges in super.h are laid out one rank apart over that
+span, so a map claiming more ranks is corrupt.  Reject it where the rank
+space is established rather than letting the count reach check_new_map().
 
-Fixes: db78539fc95c ("clocksource/drivers/timer-npcm7xx: Enable timer 1 clock before use")
+  BUG: KASAN: stack-out-of-bounds in check_new_map (fs/ceph/mds_client.c:5968)
+  Read of size 8 at addr ffffc90000ac7798 by task kworker/1:2/127
+  Workqueue: ceph-msgr ceph_con_workfn
+  Call Trace:
+   <TASK>
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+   check_new_map (fs/ceph/mds_client.c:5968)
+   ceph_mdsc_handle_mdsmap (fs/ceph/mds_client.c:7060)
+   extra_mon_dispatch (fs/ceph/super.c:802)
+   mon_dispatch (net/ceph/mon_client.c:1483)
+   ceph_con_process_message (net/ceph/messenger.c:1424)
+   ceph_con_v1_try_read (net/ceph/messenger_v1.c:1430)
+   ceph_con_workfn (net/ceph/messenger.c:1576)
+   process_one_work (kernel/workqueue.c:3396)
+   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+   </TASK>
+  The buggy address belongs to stack of task kworker/1:2/127
+   and is located at offset 288 in frame:
+   check_new_map (fs/ceph/mds_client.c:5846)
+  This frame has 1 object:
+   [32, 288) 'targets'
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Fixes: d517b3983dd3 ("ceph: reconnect to the export targets on new mdsmaps")
+Reported-by: <co+f8e3e01d8dda8689@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
 ---
- drivers/clocksource/timer-npcm7xx.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ fs/ceph/mdsmap.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/clocksource/timer-npcm7xx.c b/drivers/clocksource/timer-npcm7xx.c
-index 9af30af5f989..1ac6424fe879 100644
---- a/drivers/clocksource/timer-npcm7xx.c
-+++ b/drivers/clocksource/timer-npcm7xx.c
-@@ -203,10 +203,12 @@ static int __init npcm7xx_timer_init(struct device_node *np)
- 	/* Enable the clock for timer1, if it exists */
- 	clk = of_clk_get(np, 1);
- 	if (clk) {
--		if (!IS_ERR(clk))
-+		if (!IS_ERR(clk)) {
- 			clk_prepare_enable(clk);
--		else
-+			clk_put(clk);
-+		} else {
- 			pr_warn("%pOF: Failed to get clock for timer1: %pe", np, clk);
-+		}
- 	}
+diff --git a/fs/ceph/mdsmap.c b/fs/ceph/mdsmap.c
+index 53079ef34c3a..5e3b8c3ca502 100644
+--- a/fs/ceph/mdsmap.c
++++ b/fs/ceph/mdsmap.c
+@@ -170,6 +170,10 @@ struct ceph_mdsmap *ceph_mdsmap_decode(struct ceph_mds_client *mdsc, void **p,
+ 	 * and the mds rank >= m_num_active_mds.
+ 	 */
+ 	m->possible_max_rank = max(m->m_num_active_mds, m->m_max_mds);
++	if (m->possible_max_rank > CEPH_MAX_MDS) {
++		err = -EIO;
++		goto corrupt;
++	}
  
- 	npcm7xx_clocksource_init();
+ 	m->m_info = kzalloc_objs(*m->m_info, m->possible_max_rank, GFP_NOFS);
+ 	if (!m->m_info)
+@@ -316,6 +320,10 @@ struct ceph_mdsmap *ceph_mdsmap_decode(struct ceph_mds_client *mdsc, void **p,
+ 	{
+ 		int num_laggy = 0;
+ 		ceph_decode_32_safe(p, end, n, bad_ext);
++		if (n > CEPH_MAX_MDS) {
++			err = -EIO;
++			goto corrupt;
++		}
+ 		ceph_decode_need(p, end, sizeof(u32) * n, bad_ext);
+ 
+ 		for (i = 0; i < n; i++) {
 -- 
-2.34.1
+2.43.0
 
