@@ -1,94 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F45D455600;
-	Tue, 15 Sep 2026 19:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3B339E9BD;
+	Tue, 15 Sep 2026 19:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789502256; cv=none; b=u6wreIc7yKQAchH7g7g7oqIU/qvZabWysLS4o3wh2y3Fpto+N1R7CqgqIE2edDAAqJ94T6litrqS/6T5q4RKoKKmLWrjIkSJ/NvOvkvGslW5XSnUEakwdxANhhxHKca4JwvmfsCCofhjDnnBEtLiyiZwxNrtK9Z8SqqFXMTBqYE=
+	t=1789502288; cv=none; b=UzLpq+ZtJtn3prcBzFPEqAPa+Jg4kgn8I24hBzEPNe3pfZd6flENK120NgtUX9rBPv3ZOnyefyqqXI6CUoqesFm/2WglmWP4b1/G5W5RQzciJaqGxdMRqFxPp2Nr9xh2RNOPhcRosgENAzK3Oke1TZHa9P7RdjfBZJ7zxOd5g7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789502256; c=relaxed/simple;
-	bh=2CGS/t8DA8vfBtW4EHrRiuFBezhCMywT9x1eRe9O6wk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GzOTPpRVAWAWlAMFgtA2gtG9XoTRN/5FciXpBk0g6cceWMbGl5H21pxRnI23EwgLeq7zZbNxYbq9HFZwpKWcm/C6X69qfpHp0Mu0cf0NHM4Hl4uE5I/2PDbAoKh36vWXkqLhp2OwSR81kytLpXBXiHf6Cwhkw1C21V1jSlfqOnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMy6Rhhb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789502288; c=relaxed/simple;
+	bh=tuEsb7t+iPkmurfk4TspyYYvhwvZorPB3oh02pjpuGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xr11UjULaJAWjrxFmq+b0TEVkgtat5PWHfve8rPpY0LbsbwTu+R8NG4wwiJ/wbWonx1bJLRC/iObL9pCyHTayln7pfDedyS36SKvoVM9+Xt07l+hGPUn3BWNQl/lLz54CmkOlbllp/XaFp0uPJNWx17lCVtItj8UbU/B2Y33zmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bsCxyAg7; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMy6Rhhb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98C4A1F000FF;
-	Tue, 15 Sep 2026 19:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789502253;
-	bh=6xYx2jriqfg+A4oKe7ohrNrTOC4SS1hvaWMVgrCyzfY=;
-	h=From:To:Cc:Subject:Date;
-	b=aMy6Rhhb9A5CPk9Vt12ufwBIireiYpfSdjfnMWYhOObXtjgLeGkoA6fj4giOTk2A7
-	 Vly2ewS4fphYImd9I684K0TuVr9FgBGbFsOePYcFYwCpHU0IrjxnkVeibDNvTPWPIY
-	 tVTdGduJzyVNtIcmMivZSbd0hT0nJWpdGWJqH+tk9awIiV6NrAxjekGN3xsfqMw/Ng
-	 tmud59qMhdGGpbRvwaqUs1AqtJfKbgB3ceE5R4U80/cJdwn1+1wTkv3LviiOmria1h
-	 0r63Z8P0M+m+JwHDmwtLV2H3dzhB9jrQdlDL0Pqj1RHOB8pyT2ENaJpmvJjVg0jC7G
-	 6lv5DZoF1rudw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
-	selinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selinux: use explicit 64-bit division
-Date: Tue, 15 Sep 2026 21:56:40 +0200
-Message-ID: <20260915195728.3519469-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bsCxyAg7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=3hXn1baUNhRBy6ZdAycWNIKKqnZoz6mdI1Ok9vpRhU4=; b=bsCxyAg7Vr88tUywNVj/X/NAlB
+	F1JWOCIYcR6qiIsC8AWkNSB8NA/itPjfBE1/4jB4GvKFB3rAWKBy2xVvPWncbnN7nMmVrtBtgVTNL
+	CA/a9Nv5jaK4B7zfk+WJ+GIw0jl2CnP3uWHYog6NGsE7EPcy1LVsRk/2SvVeEQoRNaE4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6ZHw-005LFQ-Mk; Tue, 15 Sep 2026 21:57:56 +0200
+Date: Tue, 15 Sep 2026 21:57:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <42ed88a6-d208-482b-94aa-2e45b69c173e@lunn.ch>
+ <20260915132806.GA226756@francesco-nb>
+ <100eef7b-e1d6-411b-bac5-98790e8f9ea7@lunn.ch>
+ <aqmG91HwmKe-enfy@francesco-nb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqmG91HwmKe-enfy@francesco-nb>
 
-From: Arnd Bergmann <arnd@arndb.de>
+> Would you mind to articulate in which situation such race condition can
+> happen?
 
-On 32-bit targets, the division of a 64-bit integer by 33 causes a
-function call:
+Most PHYs have a number of interrupt sources. Taking a random example:
 
-arm-linux-gnueabi-ld: security/selinux/selinuxfs.o: in function `sel_read_class':
-selinuxfs.c:(.text+0xdcc): undefined reference to `__aeabi_uldivmod'
-arm-linux-gnueabi-ld: security/selinux/selinuxfs.o: in function `sel_read_perm':
-selinuxfs.c:(.text+0xed0): undefined reference to `__aeabi_uldivmod'
+/* DM9161 Interrupt Register */
+#define MII_DM9161_INTR_DPLX_CHANGE     0x0010
+#define MII_DM9161_INTR_SPD_CHANGE      0x0008
+#define MII_DM9161_INTR_LINK_CHANGE     0x0004
 
-Replace this with an explicit call to div_u64() and div_u64_rem() to
-annotate that these are potentially very slow.
+#define MII_DM9161_INTR_CHANGE  \
+        (MII_DM9161_INTR_DPLX_CHANGE | \
+         MII_DM9161_INTR_SPD_CHANGE | \
+         MII_DM9161_INTR_LINK_CHANGE)
 
-Fixes: fc68b6a45f16 ("selinux: convert selinuxfs inode numbers from unsigned long to u64")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- security/selinux/selinuxfs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+and a completely made up example which results in problems...
 
-diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
-index f60f92e2ac34..7894a2f480f7 100644
---- a/security/selinux/selinuxfs.c
-+++ b/security/selinux/selinuxfs.c
-@@ -1573,7 +1573,7 @@ static inline u64 sel_class_to_ino(u16 class)
- 
- static inline u16 sel_ino_to_class(u64 ino)
- {
--	return (ino & SEL_INO_MASK) / (SEL_VEC_MAX + 1);
-+	return div_u64(ino & SEL_INO_MASK, SEL_VEC_MAX + 1);
- }
- 
- static inline u64 sel_perm_to_ino(u16 class, u32 perm)
-@@ -1583,7 +1583,11 @@ static inline u64 sel_perm_to_ino(u16 class, u32 perm)
- 
- static inline u32 sel_ino_to_perm(u64 ino)
- {
--	return (ino & SEL_INO_MASK) % (SEL_VEC_MAX + 1);
-+	u32 rem;
-+
-+	div_u64_rem(ino & SEL_INO_MASK, SEL_VEC_MAX + 1, &rem);
-+
-+	return rem;
- }
- 
- static ssize_t sel_read_class(struct file *file, char __user *buf,
--- 
-2.53.0
+Three interrupts are enabled. Say the PHY reports a duplex change
+first. That causes the interrupt line to go low, giving a downward
+edge. The interrupt handler fires, and reads the interrupt status
+register. In order the clear the interrupt you need to access another
+register about duplex. Before you do that, the link interrupt fires,
+setting the link bit in the status register. However, there is not
+another edge, because the duplex interrupt has not been cleared
+yet. The PHY driver does clear the duplex interrupt and exits the
+interrupt handler.
 
+The interrupt line is still low, indicating a link interrupt, but
+without an edge, no interrupt handler is triggered. The interrupt has
+been lost, and the link is reported down, despite being up.
+
+If however you are using level interrupts, as soon as the interrupt
+handler exits, and reenables the interrupt in the parent interrupt
+controller, it fires again, and the link interrupt is handled.
+
+If you have multiple interrupts indicated by a single line, you should
+use level handling in the parent interrupt controller.
+
+	Andrew
