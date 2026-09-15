@@ -1,140 +1,142 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B021A3932C4;
-	Tue, 15 Sep 2026 02:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311F136167B;
+	Tue, 15 Sep 2026 02:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789439866; cv=none; b=NOH2WrDtWv8AnKunM6LffSmcLLo+FThLPLxxzwf4HYzBxe/hiVjxPvht0N3RZnK6UX5+X5GdbgrS+cKz6VASu79SyNXhufmavC7Wx5bzAOuOREOmQBABWSj7g1VkRWSNhntmwhNThnhxPE4k2bR4G+kMeTVlm8YepTZ7xtX1zt0=
+	t=1789439921; cv=none; b=IpUCRmYzF4vavTkEIEd16hl9Ev1p8pb4xEjEKkuPDLhHZbwU/kJGdhBJwYBtao530C8I2p/3YXE+LBI3dqUX33GIpsq4S0tAF65FTb0L8oPrZ1XylZHrVGUfc/W7vZc/rXjBbpIDB06UDAbjDzELU+gW/+XY54WGuHQBeQNNYQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789439866; c=relaxed/simple;
-	bh=jiSJQ7E4lJiit7qoFo7su9yMGXIuFlfm1acbBBrUB8M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uG+Z1rv0uyL7pcWvNXHR9tvynd/wE9q/EzYXqI77pfMwp6LQkFfedAh6+Nexk7qlKMB8rQh0fb3o/CU/AhHxykcRLWKxuQ3GJB5ATyEHLH0zGq0pn4FAkSczw02LvXLSlF9UWrjG7dhYHtrzZVyGaGn7k3nQkI6Ib77/4yo278g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Tq8NPD4v; arc=none smtp.client-ip=117.135.210.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Tq8NPD4v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=28NwV2vVlHtAdkRsxG+/ANtYLWRXJRqvNQbGV/81xgg=;
-	b=Tq8NPD4v8mzwCFBXh1fLTRYca04q15eX59GU2imrTeI7mrpMlb6jcG4JkZPn5m
-	dPqJ5iUQNC7E5qs/MNDEPC0EA4eiHJ7NRsbLzkhGbp07yHMP0JGdpUEZ8rugNcGF
-	4SE4JoD51z2s6LVj4CfePWf/vLv1SWeIhQe5ECVx8CIME=
-Message-ID: <182acfbd-d03a-4847-8fb8-4d0d29f22107@126.com>
-Date: Tue, 15 Sep 2026 10:36:58 +0800
+	s=arc-20240116; t=1789439921; c=relaxed/simple;
+	bh=sD0CbVZjYfuUt/1x+eCqpicKdhNo1b84q+U0C9cb7is=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BAVpMFECJJ5jH3xaiEMRDxWWUEOMF8GsA/o9Ywt+HURULP/1Dq3G8QolEqXrBHZI2NQrI+nAs0furlJc1TwXatihLFgNelnZ2lLQMGK42Ecem42VYi1JKSFCLE4QhwjbXaQfSOHikxoWRVgKbnb8hO3JssbftOO73Hw7A/Q/mQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 861834d0b0ae11f19a56ed5b684f684d-20260915
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:81b7f636-eab6-4434-a11c-21b69845b48c,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:bebd3ff60e7db9e85ad101ac9f87eb23,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 861834d0b0ae11f19a56ed5b684f684d-20260915
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 319589923; Tue, 15 Sep 2026 10:38:24 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ntfs: mount hibernated volumes read-only regardless of errors=
+Date: Tue, 15 Sep 2026 10:38:20 +0800
+Message-Id: <20260915023820.621797-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ipv4: fib: annotate data-race around nh->nh_saddr
-To: Eric Dumazet <edumazet@google.com>, Kuniyuki Iwashima
- <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, idosch@nvidia.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
-References: <20260911073758.2714564-1-xiaolinkui@126.com>
- <CAAVpQUAUAgAVutpQgMu4LjG1KOpm9Du0Kw1kbp2vHtHqQ5USZw@mail.gmail.com>
- <CANn89iJTMxWERqz1tdxuQ2jW6Rr7xN_ceh_yejtrBTPwN_YEeg@mail.gmail.com>
- <CANn89iJfphTDBFKdNkgmBHDybc8wV2EGSJoiHvzR0ht4V2bMAA@mail.gmail.com>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <CANn89iJfphTDBFKdNkgmBHDybc8wV2EGSJoiHvzR0ht4V2bMAA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3HxpLr6hq5rZWBQ--.4839S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCw4kGr4DWrWfAFWDtry5Arb_yoW5Aw1UpF
-	W8Jasrta47XFW7AFs2q3WUA3W09w1rtFy0g34Ika4avrn0qr13JFySgr95uas8ZF4kXw43
-	AF4DWr17A345Ka7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxDGOUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlAzDmmqor0y6ewAA3h
 
+The hibernation check in load_system_files() only converts the
+superblock to read-only under errors=remount-ro.  With the default
+errors=continue (and with errors=panic), a hibernated volume is
+mounted read-write and the mount-time $LogFile emptying writes to it,
+although a hibernated volume must not be written to at all.
 
+Drop the on_errors term so that a hibernated volume, or a volume whose
+hibernation state cannot be determined, always mounts read-only.
+NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+remounts to read-write, and the $LogFile emptying is skipped by its
+!sb_rdonly() check.
 
-On 2026/9/15 04:21, Eric Dumazet wrote:
-> On Mon, Sep 14, 2026 at 12:57 PM Eric Dumazet <edumazet@google.com> wrote:
->>
->> On Mon, Sep 14, 2026 at 12:51 PM Kuniyuki Iwashima <kuniyu@google.com> wrote:
->>>
->>> On Fri, Sep 11, 2026 at 12:38 AM Linkui Xiao <xiaolinkui@126.com> wrote:
->>>>
->>>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
->>>>
->>>> fib_select_multipath() compares nexthop_nh->nh_saddr against the flow
->>>> source address with no lock held, while fib_info_update_nhc_saddr()
->>>> stores a new value from another CPU as soon as the preferred source
->>>> address of the egress device changes.
->>>>
->>>> Commit 195374d89368 ("ipv4: fib: annotate races around nh->nh_saddr_genid
->>>> and nh->nh_saddr") added WRITE_ONCE() on the store side and READ_ONCE()
->>>> in fib_result_prefsrc() after syzbot reported
->>>>
->>>>          BUG: KCSAN: data-race in fib_select_path / fib_select_path
->>>>
->>>> but it only covered that reader. fib_select_multipath(), reached from
->>>> fib_select_path(), is a second lockless reader of nh->nh_saddr and was
->>>> left bare.
->>>
->>> 32607a332cfe added the reader after 195374d89368.
->>>
->>
->> Indeed, please put in V2:
->>
->> Fixes: 32607a332cfe ("ipv4: prefer multipath nexthop that matches
->> source address")
-> 
-> Adding Willem
-> 
-> It seems that this code also lacks a check against genid?
-Thanks Eric and Kuniyuki for the correction. I'll send a V2 with Fixes: 
-32607a332cfe.
+Also change the ntfs_error() calls inside
+check_windows_hibernation_status() to ntfs_warning(): they run before
+SB_RDONLY is set, so errors=panic could panic there, while the warnings
+preserve diagnostics for already read-only mounts.  The read-only
+fallback message is logged unconditionally: with SB_RDONLY set, or on
+an already read-only mount, ntfs_error() cannot panic, and the reason
+for NVolErrors() stays visible.
 
-Kuniyuki, good catch on the missing genid check. nh_saddr is only 
-meaningful when nh_saddr_genid matches dev_addr_genid, and 
-fib_select_multipath() currently skips that validation. I'll fold the 
-genid check into V2 along with the READ_ONCE annotations, unless you'd 
-prefer to send it as a separate patch. Let me know.
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-Best regards,
-Linkui Xiao
-> 
-> diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-> index 50e96f86ca59ab164f764f5d2185d158c14a4a6a..5a8bbcb65daaada1c3ae96339cabc2e801653dac
-> 100644
-> --- a/net/ipv4/fib_semantics.c
-> +++ b/net/ipv4/fib_semantics.c
-> @@ -2185,6 +2185,7 @@ void fib_select_multipath(struct fib_result
-> *res, int hash,
->          bool use_neigh;
->          int score = -1;
->          __be32 saddr;
-> +       int genid;
-> 
->          if (unlikely(res->fi->nh)) {
->                  nexthop_path_fib_result(res, hash);
-> @@ -2193,6 +2194,7 @@ void fib_select_multipath(struct fib_result
-> *res, int hash,
-> 
->          use_neigh = READ_ONCE(net->ipv4.sysctl_fib_multipath_use_neigh);
->          saddr = fl4 ? fl4->saddr : 0;
-> +       genid = saddr ? atomic_read(&net->ipv4.dev_addr_genid) : 0;
-> 
->          change_nexthops(fi) {
->                  int nh_upper_bound, nh_score = 0;
-> @@ -2205,7 +2207,9 @@ void fib_select_multipath(struct fib_result
-> *res, int hash,
->                      (use_neigh && !fib_good_nh(nexthop_nh)))
->                          continue;
-> 
-> -               if (saddr && nexthop_nh->nh_saddr == saddr)
-> +               if (saddr &&
-> +                   READ_ONCE(nexthop_nh->nh_saddr_genid) == genid &&
-> +                   READ_ONCE(nexthop_nh->nh_saddr) == saddr)
->                          nh_score += 2;
->                  if (hash <= nh_upper_bound)
->                          nh_score++;
+---
+Changes in v3:
+ -Use ntfs_warning() for the hibernation diagnostics so that
+  errors=panic cannot fire on this path.
+ -Always log the read-only fallback message, including on already
+  read-only mounts.
+---
+ fs/ntfs/super.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f4a73e45773d..d1edf1a891e8 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1169,7 +1169,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
+ 			return 0;
+ 		}
+ 		/* A real error occurred. */
+-		ntfs_error(vol->sb, "Failed to find inode number for hiberfil.sys.");
++		ntfs_warning(vol->sb, "Failed to find inode number for hiberfil.sys.");
+ 		return ret;
+ 	}
+ 	/* Get the inode. */
+@@ -1177,7 +1177,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
+ 	if (IS_ERR(vi)) {
+ 		if (!IS_ERR(vi))
+ 			iput(vi);
+-		ntfs_error(vol->sb, "Failed to load hiberfil.sys.");
++		ntfs_warning(vol->sb, "Failed to load hiberfil.sys.");
+ 		return IS_ERR(vi) ? PTR_ERR(vi) : -EIO;
+ 	}
+ 	if (unlikely(i_size_read(vi) < NTFS_HIBERFIL_HEADER_SIZE)) {
+@@ -1188,7 +1188,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
+ 
+ 	folio = read_mapping_folio(vi->i_mapping, 0, NULL);
+ 	if (IS_ERR(folio)) {
+-		ntfs_error(vol->sb, "Failed to read from hiberfil.sys.");
++		ntfs_warning(vol->sb, "Failed to read from hiberfil.sys.");
+ 		ret = PTR_ERR(folio);
+ 		goto iput_out;
+ 	}
+@@ -1581,11 +1581,16 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 		const char *es1;
+ 
+ 		es1 = err < 0 ? es1a : es1b;
+-		/* If a read-write mount, convert it to a read-only mount. */
+-		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
++		/*
++		 * A Windows hibernation image is not a filesystem error, so
++		 * this is a safety interlock rather than something the
++		 * errors= policy may downgrade: always convert a read-write
++		 * mount to read-only.
++		 */
++		if (!sb_rdonly(sb))
+ 			sb->s_flags |= SB_RDONLY;
+-			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+-		}
++
++		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 		NVolSetErrors(vol);
+ 	}
+ 
+-- 
+2.25.1
 
