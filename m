@@ -1,157 +1,245 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850CC414418
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D743D6CB6;
+	Tue, 15 Sep 2026 17:00:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789491643; cv=none; b=LHbY4OPqnoUK4eR2fYdAwuywirYkxCIakSK7r5hkCcA+HhFw04lnL/KCk3/2HF3Cznnyjp1uLK7EHeiXvVCqf58NpxrD7dfGHyCmV2MQO4hgH/9Mec8d5GsPbs6oPosSixP52bgX8P5eXcHrMO+S3AZHo5E1QJaosIIOAmQIW78=
+	t=1789491656; cv=none; b=knOdQlA2BckhXz44RP4EspcWaU5DgglFS9wRHRSC/ZZUqqh6BbdOUVlngKop80s9rbfKobmW6Gk9bYKP87jHJ4W9D1EF091V8092rqE/yvMIL2iruCVsttfJ4zyA4fqbXd0291SV9UYweKN22/QAP6reYbxM5K1yKvVo0Z1YLt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789491643; c=relaxed/simple;
-	bh=OnuZ+BwkSdhjDschQ2BAweRJ8IwvXb1/GKs0Z+4e8Gg=;
+	s=arc-20240116; t=1789491656; c=relaxed/simple;
+	bh=rWJyeMjnNnhlHrBFTQ3oDghU5Y5DHu+FjmkUyF+00+g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AzN9cM/PDyvS31QiMBtflqjShixc4UvF7QI7tD7gIoIHKK2q+BnIEtqaxC8K1GZ9cvB3WTi+5s556pnVrSwK5Uxj9xpcBcaaoZutKk/V1z0XWdpYR1rnAkb6Zj3FtU2dxybzet2/zpyYdMEPPyyej3HBHcyFRlAuEZeFWP52q2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=iZVMgkKo; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=tPy+MIjAJ6TuW/gd9cPbFuHYfNngOcarHpJSeQw6oMdYRqSrNG4ZPWqoFPKgIeE5nMhNUyy8xAeQJ+JrvaP5CMSjsJmzZd4DFDGM99BsT+iMoMusxcWXiBB3g0MUd8vD7KHcTaK2c41IjZk53CgER4M8UyseTxxrunZB4Ivq+ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REzWFWmq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="iZVMgkKo"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcb5cb3so41356446d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:00:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789491638; x=1790096438; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7OHDMKW8AHHfxeSwNE6rmRPVcZ+sv/FI4h4eXB3h1kY=;
-        b=iZVMgkKoNk5E1J1NjCon471jyV4Ju+MJ6mSFOyJ98N5lNkjcSuxp1hly5qjtC6y0Uk
-         rMHKn5VhYiwCMa0B/0k+SGeIBXqnYMU7g0Zd39LICvG80sFb/SwiTROh79S/ipO+9bp4
-         UJcgVsH88AdG6JQIxX/Jux9yi18Iv7XOoVzm0TyqwIoYnP6l/Fo11UFBslLSpFN1P845
-         qzKZQIvkzkZMuQG+BHC/Tks6fxetrsZe6NIAe8bKJfSBCiC7s8PhtaYpfLIG3riLxbro
-         LdzJ082AuYdGbFiG9LTvPRWRdeeYoOdco1cVXogljts+6XTG84ZUHdN2WmEaEfXmtDjD
-         7B6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789491638; x=1790096438;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7OHDMKW8AHHfxeSwNE6rmRPVcZ+sv/FI4h4eXB3h1kY=;
-        b=btscLc/T1UXeqxLwGPNjTiH3iSmARIuNqISqX3u5G5pqAoU0ODyhv62pu1RicscSfI
-         hpC6OT1pxhW9ntpOSWAmZ3Gvn329uCikFDs7YTDvD7Ts+0q1MoASlOI/B20BFgX6YKA8
-         vTwGPuJeG0WVIpAIC/B1+qR7+q3X+yD6Zx4lnGDy3JyDE4MV+bnAWHT6QMq/tL2avWrG
-         5v0C2zl1o5uq9QecZwMDFzRrvkkfNjklH7ZI9kt8wIoBHvtoDYWm8AD42m2OkqNvlx3i
-         901E97UQYsrmOXM8JtffixF5kzz4y9WRqHEn4zxHWHIFhUpJ9mdxANhD8DlzyOWfQTp/
-         gZpA==
-X-Forwarded-Encrypted: i=1; AKwUvByqSNd0NYb8DDSMkvivppFcR7VB5KM1KoTzvPAvl1vs3nCRQIwLEDrUYCTJxvnrVtIfkNIP/u+Ora0WG5U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBbriYRyZVPOIbWXQUq8viB4oEf96Kh3IRhFfHsju6sNmQ/NHL
-	/iCcBwbUjpvPSRyIZTR9o5LRMbV2lxs+ZsPmh8K3TBK1h5M7tTqxzA5dp5syYM4cA8Q=
-X-Gm-Gg: AYBFou12KPsywI8VnEy/f4K00sDj1ZGVUEz8+Zhevh9k4H8nrVE6uiR/aDvibcoXn1S
-	T5YQ0W/esgetQ6VPw200DpwCOVuMhZiRnoCfTMelWE9SvCcC4OYrFTZIwzD7lijgOBxvNK2JhkY
-	aBh0V+3o9n8iOu/dRoLqWJOzcOYiwU/fEnztkYDRyXZ0wlVUpU60fa3Qr7AYydBCAe0qIhuWWAs
-	EHo1oAdNjVVMn8rsRQmsJu/RwfBznWl8KJT3npgKQFROXnIGNHNUCNoJzMx2giIXI51gHqZIkCL
-	dfLlz3pFCEtuv2ef9qlA91LxMiNnQ4iUFvszSm/1iztixb9WxfGVbYCnRDdy17NzN17Rru3q3vx
-	X7cJ9r9X/WRsBMHujKlTXb2VCrvYjVii+uoFWHxxi7vxyZnGjPMM86Pi5bN0y9j3mIVmx21RhXl
-	pFgs00SAOT+9bG4YgGbvK6CkZG7vGnP9jTvq33TwFi0FiOiIxWEWbnL9Wp9a+uEFKiUTDVD61zQ
-	+h2D2TQqrXzHMqz5m7wm2GsRt6ACL+Z9NCafDOBLLTdoB31nxb3jl8=
-X-Received: by 2002:a05:6214:2e47:b0:910:345a:f453 with SMTP id 6a1803df08f44-9122e65cc6dmr128613806d6.36.1789491633607;
-        Tue, 15 Sep 2026 10:00:33 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bed0aaesm2890416d6.41.2026.09.15.10.00.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:00:33 -0700 (PDT)
-Date: Tue, 15 Sep 2026 13:00:31 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aqlzzwLOVT79Ti_7@gourry-fedora-PF4VCD3F>
-References: <20260912110832.3203902-1-gourry@gourry.net>
- <aqloB0zm3RjJ47m1@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REzWFWmq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B65661F000FF;
+	Tue, 15 Sep 2026 17:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789491655;
+	bh=/623ZrNSr/NNkkOaUlzLpOh/WJ5q0YOw9HHlwcR7lpg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=REzWFWmqJB7gg7z3UPQwLTCSegtjhYoOjs81dh3UjpdtZQwtUuMjOTj9hAiqbv5yk
+	 Pnm15fn0rfjwCeMnQ40sthdZsvuxZVfA0by9ryKBbwDVJ6HS6Hx3BGtZZtfe6peMA/
+	 95un70rR3Nc5udEbA10EbZwgXMhZSb5b+3S27m11VHDg3uVcuAKIJcxlAntY/HrdSJ
+	 Phd0/tq/tgiqADyYeN7l8e5GSdXWB10sgk/BDpR6l4an1J2+DSz5WFolVQjD8RGd6y
+	 zOHNx7cNztjz2z/5CL4M5AsC+KJohpj9etO6CE0xRldOI/UmZJZt69nK/R+gp0u8I6
+	 YBeM6+wkwjjeQ==
+Date: Tue, 15 Sep 2026 18:00:50 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Colin Huang <u8813345@gmail.com>
+Cc: Colin Huang <colin.huang2@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Grant Peltier <grant.peltier.jg@renesas.com>,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: isl68137: Add Renesas
+ RAA229639 and RAA229640
+Message-ID: <20260915-showcase-reorder-e3c4d45eff60@spud>
+References: <20260907-add-raa229639-and-raa229640-v1-0-8f7218cba85d@gmail.com>
+ <20260907-add-raa229639-and-raa229640-v1-1-8f7218cba85d@gmail.com>
+ <20260907-chimp-pectin-20f4ea3b772c@spud>
+ <CAPBH0A9GZSD5R657xo1woijKfgS6gecUND4uabguaqUON2exXw@mail.gmail.com>
+ <20260908-dinner-atrophy-757595146656@spud>
+ <CAPBH0A9yKhvDA_pda45Me1c0tXcSj3zLqLoFgUOQj3MES0Mk1A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1lIC8xGFLHT1w+hO"
 Content-Disposition: inline
-In-Reply-To: <aqloB0zm3RjJ47m1@gremlin>
+In-Reply-To: <CAPBH0A9yKhvDA_pda45Me1c0tXcSj3zLqLoFgUOQj3MES0Mk1A@mail.gmail.com>
 
-On Tue, Sep 15, 2026 at 04:55:47PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > diff --git a/mm/madvise.c b/mm/madvise.c
-> > index 574aa2bb7c7e..ba5a3d77241a 100644
-> > --- a/mm/madvise.c
-> > +++ b/mm/madvise.c
-> > @@ -464,7 +464,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
-> 
-> This function is truly some of the absolute worst code I've read in
-> mm. Shocking.
->
+--1lIC8xGFLHT1w+hO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-relevant meme: https://i.imgur.com/W0N40BK.png
-
-No argument here. This function in particular is really horrendous.
-
-I think i'm now 4 or 5 stacks deep on the "Thanks for fixing a bug, but
-while reviewing your fix sashiko found yet another CVE-worthy bug".
-
-I'm convinced (like you below) madvise needs some attention.
-
-> >  restart:
-> >  	start_pte = pte = pte_offset_map_lock(vma->vm_mm, pmd, addr, &ptl);
-> >  	if (!start_pte)
-> > -		return 0;
-> > +		goto out;
-> >  	flush_tlb_batched_pending(mm);
-> >  	lazy_mmu_mode_enable();
-> >  	for (; addr < end; pte += nr, addr += nr * PAGE_SIZE) {
-> > @@ -568,6 +568,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
-> >  			folio_deactivate(folio);
-> >  	}
+On Mon, Sep 14, 2026 at 08:06:25PM +0800, Colin Huang wrote:
+> Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=889=E6=97=
+=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=8812:57=E5=AF=AB=E9=81=93=EF=BC=9A
 > >
-> > +out:
-> 
-> Seems odd to put this here for a condition that explicitly guarantees
-> !start_pte? It should be before the if (pageout) reclaim_pages(...);
-> surely?
-> 
+> > On Tue, Sep 08, 2026 at 02:31:40PM +0800, Colin Huang wrote:
+> > > Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=888=E6=
+=97=A5=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=881:01=E5=AF=AB=E9=81=93=EF=BC=9A
+> > > >
+> > > > On Mon, Sep 07, 2026 at 03:03:29PM +0800, Colin Huang wrote:
+> > > > > From: Colin Huang <u8813345@gmail.com>
+> > > > >
+> > > > > Add Device Tree compatible strings for Renesas RAA229639 and
+> > > > > RAA229640 PMBus devices.
+> > > >
+> > > > Driver change suggests fallback compatibles could be used.
+> > > > Why aren't they? If they can be, add them. Otherwise, explain why n=
+ot in
+> > > > your commit message.
+> > > >
+> > > > pw-bot: changes-requested
+> > > >
+> > > > Thanks,
+> > > > Conor.
+> > > >
+> > > Hi Conor
+> > >   Thanks for the review.
+> > >
+> > >   I didn't add a fallback compatible because I only have document for
+> > > RAA229639 and RAA229640
+> > >   and could not verify full DT level compatibility with any existing
+> > > supported devices. While both devices
+> > >   are handled by the existing raa_dmpvr2_2rail driver variant, I don't
+> > > have sufficient information to establish
+> > >   a compatible fallback relationship.
+> >
+> > Given that the match data table looks like this:
+> > static const struct of_device_id isl68137_of_match[] =3D {
+> >         { .compatible =3D "isil,isl68137", .data =3D (void *)raa_dmpvr1=
+_2rail },
+> >         { .compatible =3D "renesas,isl68220", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl68221", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl68222", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl68223", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl68224", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl68225", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl68226", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl68227", .data =3D (void *)raa_dmp=
+vr2_1rail },
+> >         { .compatible =3D "renesas,isl68229", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl68233", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl68239", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >
+> >         { .compatible =3D "renesas,isl69222", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69223", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl69224", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69225", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69227", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl69228", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl69234", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69236", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69239", .data =3D (void *)raa_dmp=
+vr2_3rail },
+> >         { .compatible =3D "renesas,isl69242", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69243", .data =3D (void *)raa_dmp=
+vr2_1rail },
+> >         { .compatible =3D "renesas,isl69247", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69248", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69254", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69255", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69256", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "renesas,isl69259", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "isil,isl69260", .data =3D (void *)raa_dmpvr2=
+_2rail },
+> >         { .compatible =3D "renesas,isl69268", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >         { .compatible =3D "isil,isl69269", .data =3D (void *)raa_dmpvr2=
+_3rail },
+> >         { .compatible =3D "renesas,isl69298", .data =3D (void *)raa_dmp=
+vr2_2rail },
+> >
+> >         { .compatible =3D "renesas,raa228000", .data =3D (void *)raa_dm=
+pvr2_hv },
+> >         { .compatible =3D "renesas,raa228004", .data =3D (void *)raa_dm=
+pvr2_hv },
+> >         { .compatible =3D "renesas,raa228006", .data =3D (void *)raa_dm=
+pvr2_hv },
+> >         { .compatible =3D "renesas,raa228228", .data =3D (void *)raa_dm=
+pvr2_2rail_nontc },
+> >         { .compatible =3D "renesas,raa228244", .data =3D (void *)raa_dm=
+pvr2_2rail_nontc },
+> >         { .compatible =3D "renesas,raa228246", .data =3D (void *)raa_dm=
+pvr2_2rail_nontc },
+> >         { .compatible =3D "renesas,raa229001", .data =3D (void *)raa_dm=
+pvr2_2rail },
+> >         { .compatible =3D "renesas,raa229004", .data =3D (void *)raa_dm=
+pvr2_2rail },
+> >         { .compatible =3D "renesas,raa229621", .data =3D (void *)raa_dm=
+pvr2_2rail },
+> >         { },
+> > };
+> >
+> > It's probably pretty safe to assume that a fallback would work here,
+> > given how many devices are served by the same data structures but
+> > maybe one of the Renesas folks on CC can confirm that for us.
+> > At the very least, you have documents for two devices and should be able
+> > to confirm if they're compatible with one another.
+> >
+> > Thanks,
+> > Conor.
+> >
+> Hi Conor,
+>   Thanks for the review.
+>   I found a very similar precedent here:
+>       Link: https://lore.kernel.org/r/20260325090208.857-2-dawei.liu.jy@r=
+enesas.com
+>       RAA228942 and RAA228943 use renesas,raa228244 as fallback compatible
+>=20
+>   Therefore, I plan to followthe same approach:
+>   RAA229639 and RAA229640 also use renesas,raa228244 as fallback compatib=
+le.
+>=20
+> ```
+> @@ -60,13 +60,13 @@ properties:
+>            - renesas,raa229001
+>            - renesas,raa229004
+>            - renesas,raa229621
+>=20
+>        - items:
+>            - enum:
+>                - renesas,raa228942
+>                - renesas,raa228943
+> +              - renesas,raa229639
+> +              - renesas,raa229640
+>            - const: renesas,raa228244
+>=20
+>    reg:
+> ```
+> Does this look reasonable?
 
-I wanted to prevent any future use of the label from skipping the
-start_pte check.  The function is so bad I was err'ing on the side
-of being a bit defensive without making it worse.
+It does, thanks for the update.
 
-I suppose reasonable to say the goto is worse.
+Conor.
 
-> I honestly wonder whether, rather than adding yet another label/goto into this
-> absolute bloody mess, whether we should just live with a bit of duplication and do:
-> 
-> 	if (!start_pte) {
-> 		if (pageout)
-> 			reclaim_pages(&folio_list);
-> 		return 0;
-> 	}
-> 
-> I actually think that'd be clearer at this point than throwing in some more
-> indirection.
-> 
+--1lIC8xGFLHT1w+hO
+Content-Type: application/pgp-signature; name=signature.asc
 
-I'll spin a v2.
+-----BEGIN PGP SIGNATURE-----
 
-> That's for the backport but somebody needs to rework this entire bloody
-> function going forwards...
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaql5wgAKCRB4tDGHoIJi
+0sqCAP9IpczqByFr8qC434W0Icf8xrHmhnnYECkMY/UVsU6SIgEA57dUl7bML3Ae
+eAj5/7705FnI8GkI6auKSgTG2c5pHQw=
+=CLsO
+-----END PGP SIGNATURE-----
 
-The longer I look at madvise, the more I think it is a wart on mm/
-as-written.  A userland-driven page table walker that requires all
-the special-casing of Yooj Pages, zone device, swap, soft leafs, a
-bunch of tlb flushing 5-tabs deep...
-
-Scary surface.
-
-I've been trying to think about how we might make this more reasonable,
-but generalizing the different walkers across mm is pretty hard.
-
-~Gregory
+--1lIC8xGFLHT1w+hO--
