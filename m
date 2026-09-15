@@ -1,149 +1,139 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E937D38DC57
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D67C43F8DE;
+	Tue, 15 Sep 2026 07:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458366; cv=none; b=DZiRFkFGwHMel5q8/krKGXP7ZDi4tO3L7LqUu5tc91beb2TnkHvNHK5zZo4Z7cuRot51HVHkuV9dzpI1pcChxGwSFhl+jHsDLwGcB5nUmS9m29omAzCeKo8E/He7MBH8GSEwsSp9VqFJ7Rt7LItWBGsbA9TVrgyVHr81bVvjwos=
+	t=1789458370; cv=none; b=Zah4MN7tbwh8UumK8zt21Sb0sp9U/rer4Ac0BkzOFrFAh1AftyK77krmji5aBHfDNJ1YsHR/1JNMoUjLx+dWVq4JX13DFKiueQlg8SnC1VyQ8oBQjb6ugJojxNevETidPbmW7JLiDWK4vj+3JxwpuV9Z7nqYW/aAKKvhK/8KHwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458366; c=relaxed/simple;
-	bh=HHzMD2AylVtdJpnUMRpnfNdvO19MdlSmTAiLFrp1k5s=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MOIw5N14acw3/Cjj1TBO4bCQjwKb1tyhoF5ZX4ovs++oRNAvRR3a6X3uPov3k231o271DNP/CCEZHbw5VYRAdvMyIWA1VOMOyFpcurHrjb4/kIDL+PIHgYB5Az+/aErzU+PgKYBVyLpPIP16Ce/YEKyr0id0CwZ725HixFfRjd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QFXjD7lO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tlxq/FwR; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789458370; c=relaxed/simple;
+	bh=R2xJrxl6upO9LEZweJ/1XyeQgzkDVimk0RD2c0Xhaos=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XnlVYLLxGABqtt61iw+iKoZzb0R2Mza9B1wzefoHzPoSwOagkkWn1nREMRi4UKPjAc1ys5wbjN8tMi9vuab2xhVolNx2bDitwxUmz+sjC7Bn0VeYhJAwry3Lf6TSZZNSlSHOpoWTpa+Gn9Ql4Pjooa4fVuyhyKu75mrSNmp+zV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RuHpU7fE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QFXjD7lO";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tlxq/FwR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789458363;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=HHzMD2AylVtdJpnUMRpnfNdvO19MdlSmTAiLFrp1k5s=;
-	b=QFXjD7lOT9YkhSZ0L0NXVAip/XyD6VB2FruyGON8OTjwdnIH+qD57WtUDqnz30tWoIkKe1
-	UVKTihc9R37Dg4YcbWvyoGrQFhCqGryXGspe2L409uc7dyclgt5IbOHOZ5fN367vwYZ9SR
-	aD+Lx3t59xssraEy4HygTtWnDyJxhvw=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-224-FwswMB2CMgSU7NMigGYRLw-1; Tue, 15 Sep 2026 03:45:59 -0400
-X-MC-Unique: FwswMB2CMgSU7NMigGYRLw-1
-X-Mimecast-MFC-AGG-ID: FwswMB2CMgSU7NMigGYRLw_1789458359
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e735659b7so14756645e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:45:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789458359; x=1790063159; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HHzMD2AylVtdJpnUMRpnfNdvO19MdlSmTAiLFrp1k5s=;
-        b=tlxq/FwRKbCbtV9rnMsZAklDIpM9vE5LCL7dAISgnWFPrQ1Cui8vYsSkLnZU2mnehy
-         7WngUwNpHA7qtuQkvsS6dc+NAIOsDTDCa9frQLujsQKCO3Rx6jPGMZux8DDbvWX/tRSL
-         vGWTEBViLa8giNG9KDEw4XTIo83lEX47xU3ifIN52VS2GUBLw61hf3hi2R5MnqmFqVQJ
-         H9Zr6QXUov1j/JIo3OsW70pBpTnAw1Lb+J3xkYIsman6UaLgNxJDBoQ6K26YMX1XJn4x
-         CxnC62zgcURs6cs/MeKxUrFvGftm64RruhYqZzlMcDkKpnABmZn/wot49lM+d7UrsA7P
-         5mjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789458359; x=1790063159;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HHzMD2AylVtdJpnUMRpnfNdvO19MdlSmTAiLFrp1k5s=;
-        b=OiVU6PWKvxyCPRcjEkOWZYdvLhf/BhP+rbH2xq9XGcDIojC2+wog7MAgg7G0RFelx3
-         BtuXdvZ9GV/pBs9FJVdHMkOH29AARgExEPsC499bJy/YhcfsP/GdHRbITU7rci/tqJ3r
-         mcI5BHSe8fw+jFbE9wW9CyW1UsTT1aBQ35OyzS+FoQAjR2XX22IZScFK/+9YfFUM2luu
-         ZAEbKfUEbn3b7tdg+Z4RPl2ZGyu05wTecSEzpufi+Y6O1fIkUc51PBTqHAfa1p66ad4r
-         Mzy6k5SAhYIBRrTYP7wxa2yV8bhqWjoKHvMhDKXy8nQFR6e2a9xAcmpG7hnCynYFHdmE
-         nlDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpKNUxIDVGjv4A/A/0Ox9qtIykX/4BSFnTZLtow+4W7Wand4JlCEsb6l86IES94NUTzDuCsL/b60syH+8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvjM/ckECwm888xY2Uy2ZZauysWUMIjwFFpTAOOlZnL6NU59Ib
-	LG5Ig/ZjidPuy4Bh5mfvMinD5J+Nd/0mqZtALOMf8Faqs7HNFMWAKxZOcKRNyq5bE7TyPoTkJ9d
-	6ug/M5reoT7xHcszbO4yLJKtKyEs4cncujTVnuu/UFzIrJ6S3jRf2sW66/+VXHrTrEYXw5y71S/
-	vDPbk=
-X-Gm-Gg: AYBFou32rPHbYGAoGNNfihMxiXQJL7tz4HbrUJw4F3DBdhpK2yUgTFWJpISgi8/3gyo
-	6pU5nUpZkb8OivqU0Ph/VZzEoD8VPSXb9tK3Vqx968tX+J1ooc70Dq5a/NSyK8IuyAcCV3ksL/4
-	wPpo/9mujoAY8jsX21q9hxQq416qabvo9To4bqWXl+vvETz6uZM376wf8jdddft3SwDvqI/1LVV
-	qCKZakht14KnvI5hHi7VjVSRhSeETrvGEsJqiG8wKTXyfaaqlN673vEnDniazKbLb2hNMrtKnYt
-	p6eY9axXFGpcOrhcTSqxfCQ828H4B+XxfhdvFFZD+/HsRnSo5flRJA47B8RjeW/qgw6jFHfgn7+
-	QGP6u3JBW64vSN/rTHmApctl8JW+IUw==
-X-Received: by 2002:a05:600c:5487:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-49e82244b0emr463195e9.10.1789458358735;
-        Tue, 15 Sep 2026 00:45:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:5487:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-49e82244b0emr462895e9.10.1789458358358;
-        Tue, 15 Sep 2026 00:45:58 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6b4ee3sm59231025e9.12.2026.09.15.00.45.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:45:56 -0700 (PDT)
-Message-ID: <542f1065c1daf5167f77e160de90e9a04eb20159.camel@redhat.com>
-Subject: Re: [PATCH v5 3/5] rv/reactors: export rv_register_reactor() and
- rv_unregister_reactor()
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Wen Yang <wen.yang@linux.dev>
-Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 15 Sep 2026 09:45:55 +0200
-In-Reply-To: <2c408ff5-9a13-438e-9068-21b3f1516fbd@linux.dev>
-References: <cover.1788705281.git.wen.yang@linux.dev>
-	 <7c931773dacd7c3da35a22629c3d7dc286b5a0fe.1788705281.git.wen.yang@linux.dev>
-	 <b5ec9da630968a5f801623c8d6e2aaeb0bb509d8.camel@redhat.com>
-	 <2c408ff5-9a13-438e-9068-21b3f1516fbd@linux.dev>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RuHpU7fE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789458366;
+	bh=R2xJrxl6upO9LEZweJ/1XyeQgzkDVimk0RD2c0Xhaos=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RuHpU7fE5Z3XY4d1RQw7AynI1G6BDoB5xPNNPepviV3HvXt+ms0L31xc6+SHCLzxK
+	 3iRHWRkSFYEfTowlf3WpUsYCHq943JD2sONUO1hchsQvSRXeRQOLwyeaRjXmmcwKeK
+	 lvKFHWIqsyWUAEMvz0NjGq0oTNlLts5iy/XigFtwbrt/jhfrWIH/lP/zuskE79bnAG
+	 hW7dKYFXKbQjRIIr1WoJkGK6o9MeiSO5wrdanTLQ7QT0171MdWICbAN5KtAVQkvRw2
+	 azvGzRVR3aLd6f1gYWkrhED0LRtpdOb8Al3muwKT1CBvuc7+BAkaNlAkNttyau6+1K
+	 cx1vOKlGON/6A==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 80C3417E007B;
+	Tue, 15 Sep 2026 09:46:05 +0200 (CEST)
+Message-ID: <a465210b-cd9c-4c5b-a54d-54d4b62b0706@collabora.com>
+Date: Tue, 15 Sep 2026 09:46:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add
+ ramoops region
+To: Martino Dell'Ambrogio <tillo@tillo.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kees@kernel.org,
+ tony.luck@intel.com, gpiccoli@igalia.com
+References: <20260915064254.1594808-1-tillo@tillo.ch>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260915064254.1594808-1-tillo@tillo.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2026-09-14 at 00:33 +0800, Wen Yang wrote:
-> Thanks for the review, Gabriele, I agree with your points and will=20
-> follow them.
->=20
-> Just to clarify the background : the struct module * field and the=20
-> try_module_get()/module_put() logic were added to address the point=20
-> raised by sashiko. After this change sashiko no longer complains about it=
-.
+On 9/15/26 06:42, Martino Dell'Ambrogio wrote:
+> Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
+> (0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
+> allowing post-panic console output and oops dumps to be recovered after a
+> reboot. Without it, kernel crash logs on this board are lost when the SoC
+> warm-resets and the on-chip console buffer is reinitialised.
+> 
+> With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
+> pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
+> (640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
+> reserving a small Reed-Solomon parity block from each zone's own
+> allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
+> even when the panic path truncates writes mid-record.
+> 
+> The no-map property is required so the reserved region is kept out of the
+> kernel linear map. ramoops remaps the carve-out write-combine via
+> ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
+> the linear map at the same time is an attribute-mismatch and risks losing
+> panic data to dirty cache evictions from the linear alias.
+> 
+> The carve-out sits immediately below the ATF region already declared at
+> 0x43000000 in mt7988a.dtsi, so no other reserved-memory child is moved or
+> resized. BPI-R4 ships with at least 4 GiB of DRAM starting at 0x40000000,
+> so the region is well within installed memory on every variant.
+> 
+> For the carve-out to actually preserve content across a reset, the boot
+> loader must also avoid touching this region on warm reset; on standard
+> BPI-R4 boards with the stock OpenWrt U-Boot fork this already holds.
+> 
+> Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
+> ---
+> Changes in v3:
+>   - Resend; no functional change. Rebased on v7.3-rc3, where the v2 diff
+>     still applies unmodified.
+>   - v2 drew no review comments. It was also sent, in error, as a reply to
+>     the BPI-R3 patch's thread rather than its own, so it is likely to have
+>     been read as a duplicate of that board's patch. This version starts a
+>     fresh thread to avoid repeating that.
+> 
+> The matching BPI-R3 (mt7986a) patch is being resent as v3 at the same time.
+> 
+> v2: https://lore.kernel.org/all/20260528123645.2650085-1-tillo@tillo.ch/
+> v1: https://lore.kernel.org/all/20260528092807.1936177-1-tillo@tillo.ch/
+> 
+>   .../boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi  | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+> index 0ff69da..6a8dc89 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+> @@ -80,6 +80,19 @@
+>   	};
+>   };
+>   
+> +&{/reserved-memory} {
 
-Yeah I imagined it, sashiko has a point, whatever is EXPORTed can be used b=
-y
-modules, so it may imply modules are supported.
-What sashiko ignores is maintainability requirements.
-A human is reviewing anyone trying to use reactors as modules, and adding t=
-hat
-change without properly advertising it may do more harm than good.
+It's just
 
-> The module-based reactor support, together with its kselftest, will be=
-=20
-> send as a separate series in a few days.
+	reserved-memory {
 
-Sounds good, so I can review and test it as it deserves.
+Sorry about missing your patch for all this time; the comment applies to both btw.
 
-> As a side note, we are looking into using the rv framework for=20
-> functional safety in autonomous driving.=C2=A0 Depending on how internal=
-=20
-> validation progress, there will likely be further changes to the rv=20
-> subsystem in the near future. I'll be glad to discuss them as they come.
+Cheers,
+Angelo
 
-Nice, thanks for sharing, I had a few conversations about RV in functional
-safety domains over the past weeks, I now better understand the challenges.
-It'd be very interesting to discuss your requirements too.
-
-Thanks,
-Gabriele
-
+> +	ramoops@42f00000 {
+> +		compatible = "ramoops";
+> +		reg = <0 0x42f00000 0 0x100000>;
+> +		no-map;
+> +		record-size = <0x20000>;
+> +		console-size = <0x40000>;
+> +		ftrace-size = <0x10000>;
+> +		pmsg-size = <0x10000>;
+> +		ecc-size = <16>;
+> +	};
+> +};
+> +
+>   &cci {
+>   	proc-supply = <&rt5190_buck3>;
+>   };
