@@ -1,338 +1,586 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA6F38C438
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7518A33DEF7;
+	Tue, 15 Sep 2026 10:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468506; cv=none; b=FxXTJij5Pz0vcXba9MhI3FoIJKDkFIByQZ4JuDizuumuIDp0FxAbYSJGInDUo0gMTkFyOTaI3vtCLUegmKeIuwvgCDtRo72TIRBK3A+TOenSyqM6MJNNl2O9x7UMprLBNRJ1blbSku5TokYhIb41n9cjSBxCNEBDrlFgIH0+3Sw=
+	t=1789468533; cv=none; b=p53BA+it3sskn/m1mPi7s+FYSkT12hu0i0D0Y/xFhiPgQFiLicYQqEPQfqmKpYmWWvBiYRkBaoS+7YYFIO4tQo+37XA1A9pKHaYmOyxu/7bPvciPE9g/4b8exhe21lCeQf5MWKF7La3SMT/3oqWZBdErFfyRc5NJaIzkkIL4JRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468506; c=relaxed/simple;
-	bh=k5wsIxWZlCCm+zBCiy2Xg9RXJFsK16kuEX6gTF/iiVs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gQh+NCjEKA04UUIYuUqezBekeSZZsDBhbkreojuOspSPgfD1GJtWRPBaLvThEE3lqWJWnEMPt+ZYDBtjL55wdBRIYfJGo0ETF0/d7KB3R45g+uroy6bgcC5orzVjipFu3SY1DuMVa13sG+fnl4Ns1ffv+7Gol47ok5r95rgVyvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BrQiXsRo; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789468533; c=relaxed/simple;
+	bh=bM81tirtSmwGyjBwmoXV8Yupepz8ZpEgzZNcnp1pKa8=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=SQs1r7Q+B1JadF0xSpU9gxv95GAsGPIBJgHlxcQJnbB+z5p2XVKBQvlbgxD2cHlBUKLg7DkHzvTnUj3vn5f/vDnU3Sco/NUwu+KpVHNDzb99naWA4ji6Mr/h1CRML8AWkSqcPu5JkAIBzxvUtlAbzQPUXUnG2ixOv6nZmUlmZeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l33ystsO; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BrQiXsRo"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff23d81cso3596015ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:35:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789468504; x=1790073304; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1ct/p5G8yFAnha3FVWj3nnL27FNsWn5+Pk7HzweSOSA=;
-        b=BrQiXsRotSMlxANC1SPiJ5jTllc49hyLifIa6o95A6YM70m39vFkfIBIt0OO2DSDXh
-         kWu7D7xPPkOzpNS/Ajdth2oVTk+cAFK4roDK01ooSfCNNPfFhnezE+dpL8JFXA6sWls7
-         qrd5PTwlsHotEdJeCRzA/Ga1nsagrcrk5LaE0ZErnYJ885L3a/96v8OaIWu61WEk0ac3
-         8Uh9bO+LdRMYZu30BSvYLQoOOHmGcA0yjYr2Q8goVebzdRd1L3fNleToLlEX5XmDSO9y
-         Omp+zefWw1y0WYiFGw/kXGedUYmL+4J+fhVdrDHOkq1ZfYtTzUajNkviZttZZtrvXnog
-         Ah6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789468504; x=1790073304;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1ct/p5G8yFAnha3FVWj3nnL27FNsWn5+Pk7HzweSOSA=;
-        b=LgSb/HO+O8aMKO8+86/TzBIqomV//lAF5TjyP2GsTtHGwD5Ai6mFW79wWPJxE853Ch
-         dnSRVtXoMWec65cPBt2DBuVVacFF4SI6vAS90YKQBOI1V6boBWGBblIJdMyr18NMjEPQ
-         lKXeTVBHYCMjH60L19jVB5d9uoZ9EvanfJVTipRElKanWVW7kpCBW+67oN/bxY5teInk
-         adyfFB1Dlmy3C2hdUc0KP0Wa2KYvrjayfgjD0XEfovDM6Tfc4cUtGcPcSLjGBf2YgG5J
-         GbfFUkdB2rzb8GiWRFbjJTt8f5EmC4jaAfkv1y3CBGCVVgQDVk76mllkph/N0xcx8bqN
-         Ga5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxpB7BgkCysV7HPYRzk9Mvm8X6BJ7qFSIgeN6reNBpyDHkS16FS52gT7Wn+gtuE8j5Hj5d5+/s2ShOAcpo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKlXCJiHVmDi7LUAJPJAnaetRYBfRmktkfBMApjSMH919z6rv9
-	4kJxhFoj6Lw8Dd5iurWW1AMUknLKLuWajR617NYPgYQ0wsD9r7Clq96N
-X-Gm-Gg: AYBFou1njRJuxBK9U1nOleV8f8vNOVxNoQinBrr7EX9VS75MILCn5hB8cGL9EJF0paY
-	MRFN1k5c+/9862j4g6P/khnDMsFu/kzs4cjHlLCK47Yk6efWqKtbo1tPzPgXGvCFU+QfksyV68h
-	IeyNW7PHKBn5jZF899t2kCj1XoLxu+myTzIH0Un90IOKMwuahJGs3s5/zu7UZLFZQstE+DnlMhJ
-	kkbJKDWAWTjWtyj2CgDa1KvUNY6MSMRWMm0f7Uzx+ziIu0DTKkPCNPwR3VuLqQdCScs1tcdJ7fz
-	sM+c9lgsl/FKxYAdgtg7yHXGj8GJOoDpBKF3xAxQAbcaf+xyBjPTlDVcPPlET0xVBL5R2/cXCXz
-	fIJokfIDqOtFBM2fiG/H1ewWbawAr2CLLUDNeGFbl7uJFSXE9Mv/ivoBkivC8fdJl3hJm/rdC9c
-	uD0r40YLbbp1+ZZAI2wnC71zp6A2Z86iBp2EHrmYLj3/picd3Ot+oiTfrRjq+9rKUyQNkcVx+JI
-	iiu69Iu9+YPfmaadwcM5Vaa
-X-Received: by 2002:a17:903:b0e:b0:2d6:3c1a:85ef with SMTP id d9443c01a7336-2dd6c848391mr95107925ad.4.1789468504342;
-        Tue, 15 Sep 2026 03:35:04 -0700 (PDT)
-Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cca6b8asm64721195ad.5.2026.09.15.03.34.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:35:03 -0700 (PDT)
-From: Frank Zhang <rmxpzlb@gmail.com>
-To: royalnet026@gmail.com,
-	Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	luca.ceresoli@bootlin.com,
-	cristian.ciocaltea@collabora.com,
-	daniels@collabora.com,
-	detlev.casanova@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	sebastian.reichel@collabora.com,
-	macromorgan@hotmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6] drm/bridge: dw-hdmi-qp: serialize HDMI audio callbacks with PHY enable/disable
-Date: Tue, 15 Sep 2026 18:34:33 +0800
-Message-ID: <20260915103433.13163-1-rmxpzlb@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l33ystsO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789468531; x=1821004531;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=bM81tirtSmwGyjBwmoXV8Yupepz8ZpEgzZNcnp1pKa8=;
+  b=l33ystsO1/78UJ9gceX8lTSoPPed0p2096Ttx6gaOIG3kMPbBvewGoHk
+   jCKNgpXyvMBHd83vCVxggwnYpzOgObnYY+kyQIgdy06KSDy32hA7iOaZg
+   haGwe/TMh7UiuBJiPYzniwwTuN17Je/0wkb08tMS0P6Yo0nesf8WUP8Jd
+   FrKNg7gzWp2TCBPxR35UcLSovOYD7rgsekN+YlNs9xk3lO10yYcbxwZf8
+   Vgk1xzv8TRzJ1B3wRrDza038Ok9GOLTwT/q9V/3BT2gCHo1BpqT6qnaEk
+   PiMJC8/gsYh1Uh4fmJagtLnlKSCNUnq9Uq6yA5dkvXp1+hMQDgrZYbpil
+   Q==;
+X-CSE-ConnectionGUID: wW3Ozep/RcmlaSo++9tGTw==
+X-CSE-MsgGUID: 5wtT7MimT06fbl96gHFfFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93527036"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93527036"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:35:30 -0700
+X-CSE-ConnectionGUID: EtaKCYlMSa2dRYet//d2dA==
+X-CSE-MsgGUID: E2UZQzUKQN6mwumDHV0EXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="268678181"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:35:28 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 15 Sep 2026 13:35:24 +0300 (EEST)
+To: =?KOI8-R?B?68/Oxc7LzyDhzsTSxcog98nL1M/Sz9fJ3g==?= <admin@aquinas.su>
+cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v11] platform/x86: hp-wmi: Add multicolor LED support
+ for HP keyboard backlight
+In-Reply-To: <0Ja9VPr1QTSihXZrbKAgzg@aquinas.su>
+Message-ID: <b667bdb7-1820-8f5f-9ca9-a34ab84b93bf@linux.intel.com>
+References: <0Ja9VPr1QTSihXZrbKAgzg@aquinas.su>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323328-22868414-1789467513=:1365"
+Content-ID: <12930871-30b1-147a-6a60-0e291293e71d@linux.intel.com>
 
-The following panic was observed during system reboot:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Kernel panic - not syncing: Asynchronous SError Interrupt
-CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-Call trace:
- ...
- regmap_update_bits_base+0x70/0xa8
- dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
- drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
- ...
- dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
- drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
- drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
- hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
- ...
- snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
- snd_pcm_release+0x4c/0xc0 [snd_pcm]
- ...
+--8323328-22868414-1789467513=:1365
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <0035d782-7438-ce1c-4361-d2045b467d6d@linux.intel.com>
 
-The crash occurs when HDMI audio callbacks access registers after DRM
-atomic framework disabled the PHY.
+On Mon, 14 Sep 2026, =D0=9A=D0=BE=D0=BD=D0=B5=D0=BD=D0=BA=D0=BE =D0=90=D0=
+=BD=D0=B4=D1=80=D0=B5=D0=B9 =D0=92=D0=B8=D0=BA=D1=82=D0=BE=D1=80=D0=BE=D0=
+=B2=D0=B8=D1=87 wrote:
 
-The root cause is a race condition exists between ALSA and DRM atomic
-framework. During a modeset disable sequence, the DRM path disables the
-PHY, while ALSA may still execute HDMI audio callbacks such as
-audio_shutdown(), leading to accessing registers while the PHY is down
-and eventually a kernel panic.
-
-Fix this by introducing a mutex lock and PHY enabled state to serialize
-PHY state transitions and HDMI audio callbacks. This ensures that HDMI
-audio callbacks can only access registers while the PHY is enabled.
-
-Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
-
----
-Changes in v2:
-- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
-  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
-- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
-
-Changes in v3:
-- Add a tmds_char_rate guard in clear_audio_infoframe path.
-- Decouple write_audio_infoframe from clear_audio_infoframe.
-- Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
-- Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
-
-Changes in v4:
-- Update panic stack on 7.0.5
-- Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
-
-Changes in v5:
-- Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
-  tmds_char_rate guard in new callback function.
-- Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
-
-Changes in v6:
-- Add mutex and state to serialize HDMI audio callbacks with the PHY enable/disable
-- Link to v5: https://lore.kernel.org/all/20260908070220.41574-1-rmxpzlb@gmail.com/
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 1c214a8e6dc2..a4789050a09e 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -159,6 +159,8 @@ struct dw_hdmi_qp {
- 	struct {
- 		const struct dw_hdmi_qp_phy_ops *ops;
- 		void *data;
-+		struct mutex lock;
-+		bool enabled;
- 	} phy;
- 
- 	unsigned long ref_clk_rate;
-@@ -467,6 +469,10 @@ static int dw_hdmi_qp_audio_enable(struct drm_bridge *bridge,
+> Add support for the HP keyboard RGB backlight found on HP OMEN and
+> HP Victus laptops. These keyboards expose per-zone RGB control through
+> WMI commands.
+>=20
+> Register multicolor LED class devices for each keyboard zone (up to 4
+> zones, depending on the keyboard type). Each zone exposes individual
+> red, green, and blue channels via the multicolor LED subsystem.
+>=20
+> Also hardware-initiated brightness changes (e.g. via the keyboard
+> backlight hotkey, mostly fn+f4) are reported.
+>=20
+> The color data is stored in a 128-byte color table managed by the
+> firmware, with RGB values starting at offset 25, packed sequentially
+> per zone.
+>=20
+> Signed-off-by: Konenko Andrey Viktorovich <admin@aquinas.su>
+>=20
+> ---
+> Changes since v10:
+>  - adapted for current linux-next (20260914)
+>  - Added Named Constants:
+> =09HP_BACKLIGHT_EVENT_ON =E2=80=94 replaces magic number for backlight en=
+able event
+> =09HP_BACKLIGHT_EVENT_OFF =E2=80=94 replaces magic number for backlight d=
+isable event
+> =09HP_KBD_RGB_COLORS =E2=80=94 replaces universally used literal 3 as RGB=
+ color/channel count
+>  - Refactored hp_kbd_brightness_set_by_hwd Function - Eliminated reliance=
+ on magic numbers in event handling logic (bugfix)
+>  - Event Filtering (critical bugfix):
+> =09Added event type filtering in hp_wmi_notify() before calling hp_kbd_br=
+ightness_set_by_hwd()
+> =09This prevents EC flooding and keyboard malfunction on some devices
+>=20
+> Changes since v9:
+>  - Fixed corrupted long lines
+>  - Fixed changelog
+>=20
+> Changes since v8:
+>  - No changes (It was mistake to resend email without any fix)
+>=20
+> Changes since v7:
+>  - The LED class device names changed to be consistent with the documenta=
+tion.
+>=20
+> Changes since v6:
+>  - The LED class device names have been made more consistent with the=20
+> documentation, in accordance with patch https://lore.kernel.org/linux-led=
+s/
+> 20260504145434.12746-1-johannes.goede@oss.qualcomm.com/
+> underscores have been replaced with dashes where indicated.
+>=20
+> Changes since v5:
+>  - LED class device names changed from a number to using a descriptive na=
+me=20
+> for each zone.
+>=20
+> v4: https://lore.kernel.org/all/20260303084022.7223-3-edip@medip.dev/
+>=20
+> Changes since v4:
+>  - Fix circular dependencies
+>=20
+> Changes since v3:
+>  - Merge the changes into a single commit
+>=20
+> Changes since v1:
+>  - Fix mentioned style errors
+>  - Add Kconfig dependencies
+>=20
+> ---
+>  drivers/platform/x86/hp/Kconfig  |   2 +
+>  drivers/platform/x86/hp/hp-wmi.c | 298 ++++++++++++++++++++++++++++++-
+>  2 files changed, 299 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/platform/x86/hp/Kconfig b/drivers/platform/x86/hp/Kc=
+onfig
+> index dd51491b9bcd..2a1841cbec76 100644
+> --- a/drivers/platform/x86/hp/Kconfig
+> +++ b/drivers/platform/x86/hp/Kconfig
+> @@ -45,6 +45,8 @@ config HP_WMI
+>  =09select INPUT_SPARSEKMAP
+>  =09select ACPI_PLATFORM_PROFILE
+>  =09select HWMON
+> +=09select LEDS_CLASS
+> +=09select LEDS_CLASS_MULTICOLOR
+>  =09help
+>  =09  Say Y here if you want to support WMI-based hotkeys on HP laptops a=
+nd
+>  =09  to read data from WMI such as docking or ambient light sensor state=
+=2E
+> diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/h=
+p-wmi.c
+> index 615b4cf6fc45..cf57b6b00b01 100644
+> --- a/drivers/platform/x86/hp/hp-wmi.c
+> +++ b/drivers/platform/x86/hp/hp-wmi.c
+> @@ -28,6 +28,8 @@
+>  #include <linux/kstrtox.h>
+>  #include <linux/limits.h>
+>  #include <linux/minmax.h>
+> +#include <linux/led-class-multicolor.h>
+> +#include <linux/leds.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+>  #include <linux/platform_device.h>
+> @@ -61,6 +63,10 @@ enum hp_ec_offsets {
+>  #define HP_FAN_SPEED_AUTOMATIC=09 0x00
+>  #define HP_POWER_LIMIT_DEFAULT=09 0x00
+>  #define HP_POWER_LIMIT_NO_CHANGE 0xFF
+> +#define HP_COLOR_TABLE_PADDING  25
+> +#define HP_BACKLIGHT_EVENT_ON   0x2
+> +#define HP_BACKLIGHT_EVENT_OFF  0x0
+> +#define HP_KBD_RGB_COLORS       3
+>  #define HPWMI_MUX_MODE_UMA=09=09BIT(0)
+>  #define HPWMI_MUX_MODE_HYBRID=09=09BIT(1)
+>  #define HPWMI_MUX_MODE_DISCRETE=09=09BIT(2)
+> @@ -106,6 +112,14 @@ enum hp_thermal_profile {
+>  =09HP_THERMAL_PROFILE_QUIET=09=09=09=3D 0x03,
+>  };
+> =20
+> +enum hp_keyboard_type {
+> +=09HP_KEYBOARD_TYPE_NOBACKLIGHT=09=09=3D 0x0,
+> +=09HP_KEYBOARD_TYPE_FOURZONE_WITH_NUMPAD=09=3D 0x1,
+> +=09HP_KEYBOARD_TYPE_FOURZONE_WITHOUT_NUMPAD=09=3D 0x2,
+> +=09HP_KEYBOARD_TYPE_RGB_PER_KEY=09=09=3D 0x3,
+> +=09HP_KEYBOARD_TYPE_SINGLEZONE_WITH_NUMPAD=09=3D 0x4,
+> +=09HP_KEYBOARD_TYPE_SINGLEZONE_WITHOUT_NUMPAD=09=3D 0x5,
+> +};
+> =20
+>  struct thermal_profile_params {
+>  =09u8 performance;
+> @@ -433,16 +447,27 @@ enum hp_wmi_gm_commandtype {
+>  =09HPWMI_GET_GPU_THERMAL_MODES_QUERY=09=3D 0x21,
+>  =09HPWMI_SET_GPU_THERMAL_MODES_QUERY=09=3D 0x22,
+>  =09HPWMI_SET_POWER_LIMITS_QUERY=09=09=3D 0x29,
+> +=09HPWMI_GET_KEYBOARD_TYPE_QUERY=09=09=3D 0x2b,
+>  =09HPWMI_VICTUS_S_FAN_SPEED_GET_QUERY=09=3D 0x2D,
+>  =09HPWMI_VICTUS_S_FAN_SPEED_SET_QUERY=09=3D 0x2E,
+>  =09HPWMI_VICTUS_S_GET_FAN_TABLE_QUERY=09=3D 0x2F,
+>  };
+> =20
+> +enum hp_wmi_backlight_commandtype {
+> +=09HPWMI_BACKLIGHT_COLOR_GET_QUERY=09=09=3D 0x02,
+> +=09HPWMI_BACKLIGHT_COLOR_SET_QUERY=09=09=3D 0x03,
+> +=09HPWMI_BACKLIGHT_BRIGHTNESS_GET_QUERY=09=3D 0x04,
+> +=09HPWMI_BACKLIGHT_BRIGHTNESS_SET_QUERY=09=3D 0x05,
+> +=09HPWMI_BACKLIGHT_SET_OFF_QUERY=09=09=3D 0x64,
+> +=09HPWMI_BACKLIGHT_SET_ON_QUERY=09=09=3D 0xE4,
+> +};
+> +
+>  enum hp_wmi_command {
+>  =09HPWMI_READ=09=3D 0x01,
+>  =09HPWMI_WRITE=09=3D 0x02,
+>  =09HPWMI_ODM=09=3D 0x03,
+>  =09HPWMI_GM=09=3D 0x20008,
+> +=09HPWMI_BACKLIGHT=09=3D 0x20009,
+>  };
+> =20
+>  enum hp_wmi_hardware_mask {
+> @@ -450,6 +475,24 @@ enum hp_wmi_hardware_mask {
+>  =09HPWMI_TABLET_MASK=09=3D 0x04,
+>  };
+> =20
+> +struct hp_kbd_led_priv {
+> +=09int zone;               /* Zone index (0-3) */
+> +=09enum led_brightness last_brightness;  /* Brightness before turning of=
+f */
+> +};
+> +
+> +struct hp_mc_leds {
+> +=09struct led_classdev_mc devices[4];
+> +=09struct hp_kbd_led_priv priv[4];
+> +};
+> +
+> +/* zone naming for 4-zone keyboards (HP Omen) */
+> +static const char *const hp_zone_names_4[] =3D {
+> +=09[0] =3D "zoned_backlight-right",
+> +=09[1] =3D "zoned_backlight-center",
+> +=09[2] =3D "zoned_backlight-left",
+> +=09[3] =3D "zoned_backlight-wasd",
+> +};
+> +
+>  struct bios_return {
+>  =09u32 sigpass;
+>  =09u32 return_code;
+> @@ -530,6 +573,7 @@ static DEFINE_MUTEX(active_platform_profile_lock);
+>  static struct input_dev *hp_wmi_input_dev;
+>  static struct input_dev *camera_shutter_input_dev;
+>  static struct platform_device *hp_wmi_platform_dev;
+> +static struct hp_mc_leds hp_multicolor_leds;
+>  static struct device *platform_profile_device;
+>  static struct notifier_block platform_power_source_nb;
+>  static enum platform_profile_option active_platform_profile;
+> @@ -1338,6 +1382,8 @@ static struct attribute *hp_wmi_attrs[] =3D {
+>  };
+>  ATTRIBUTE_GROUPS(hp_wmi);
+> =20
+> +static void hp_kbd_brightness_set_by_hwd(u32 event_data);
+> +
+>  static void hp_wmi_notify(union acpi_object *obj, void *context)
+>  {
+>  =09u32 event_id, event_data;
+> @@ -1438,6 +1484,16 @@ static void hp_wmi_notify(union acpi_object *obj, =
+void *context)
+>  =09case HPWMI_PROXIMITY_SENSOR:
+>  =09=09break;
+>  =09case HPWMI_BACKLIT_KB_BRIGHTNESS:
+> +=09=09/*
+> +=09=09 * Only handle actual backlight events (0x0 and 0x2).
+> +=09=09 * Other event_data values (like keyboard scan codes, e.g. 0x20 fo=
+r 'd')
+> +=09=09 * are keyboard events and should be handled via sparse_keymap,
+> +=09=09 * not treated as brightness control commands.
+> +=09=09 */
+> +=09=09if (event_data !=3D HP_BACKLIGHT_EVENT_ON &&
+> +=09=09    event_data !=3D HP_BACKLIGHT_EVENT_OFF)
+> +=09=09=09break;
+> +=09=09hp_kbd_brightness_set_by_hwd(event_data);
+>  =09=09break;
+>  =09case HPWMI_PEAKSHIFT_PERIOD:
+>  =09=09break;
+> @@ -1700,6 +1756,244 @@ static int __init hp_wmi_rfkill2_setup(struct pla=
+tform_device *device)
+>  =09return err;
+>  }
+> =20
+> +static struct hp_kbd_led_priv *hp_led_get_priv(struct led_classdev *led_=
+cdev)
+> +{
+> +=09struct led_classdev_mc *mc_cdev =3D lcdev_to_mccdev(led_cdev);
+> +=09int zone =3D mc_cdev - hp_multicolor_leds.devices;
+> +
+> +=09return &hp_multicolor_leds.priv[zone];
+> +}
+> +
+> +static int hp_kbd_backlight_set_rgb_color(int zone, int red, int green, =
+int blue)
+> +{
+> +=09u8 color_table[128];
+> +=09int ret;
+> +
+> +=09/*
+> +=09 * Get the current color table and then change only the relevant part=
+s.
+> +=09 */
+> +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_COLOR_GET_QUERY,
+> +=09=09=09=09  HPWMI_BACKLIGHT, color_table,
+> +=09=09=09=09  zero_if_sup(color_table),
+> +=09=09=09=09  sizeof(color_table));
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09/*
+> +=09 * RGB color data starts at offset 25 +3 per zone (r g b)
+> +=09 * e.g. if zone 1 starts in 25 zone 2 starts in 28
+> +=09 */
+> +=09color_table[HP_COLOR_TABLE_PADDING + zone * HP_KBD_RGB_COLORS]     =
+=3D red;
+> +=09color_table[HP_COLOR_TABLE_PADDING + zone * HP_KBD_RGB_COLORS + 1] =
+=3D green;
+> +=09color_table[HP_COLOR_TABLE_PADDING + zone * HP_KBD_RGB_COLORS + 2] =
+=3D blue;
+> +
+> +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_COLOR_SET_QUERY, HPWMI_B=
+ACKLIGHT,
+> +=09=09=09=09  color_table, sizeof(color_table), sizeof(color_table));
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +=09if (ret)
+> +=09=09return -EINVAL;
+> +
+> +=09return 0;
+> +}
+> +
+> +static bool hp_kbd_backlight_is_on(void)
+> +{
+> +=09u8 data;
+> +=09int ret;
+> +
+> +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_BRIGHTNESS_GET_QUERY, HP=
+WMI_BACKLIGHT, &data,
+> +=09=09=09=09sizeof(data), sizeof(data));
+> +=09if (ret)
+> +=09=09return false;
+> +
+> +=09return data =3D=3D HPWMI_BACKLIGHT_SET_ON_QUERY;
+> +}
+> +
+> +static int hp_kbd_set_brightness(struct led_classdev *led_cdev,
+> +=09=09=09=09=09enum led_brightness brightness)
+> +{
+> +=09struct hp_kbd_led_priv *priv =3D hp_led_get_priv(led_cdev);
+> +=09struct led_classdev_mc *mc_cdev;
+> +=09struct led_classdev_mc *device;
+> +=09int red, green, blue;
+> +=09int ret;
+> +
+> +=09if (!hp_kbd_backlight_is_on()) {
+> +=09=09u8 data =3D HPWMI_BACKLIGHT_SET_ON_QUERY;
+> +
+> +=09=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_BRIGHTNESS_SET_QUERY,
+> +=09=09=09=09=09   HPWMI_BACKLIGHT, &data,
+> +=09=09=09=09=09   sizeof(data), sizeof(data));
+> +=09=09if (ret)
+> +=09=09=09return ret;
+> +
+> +=09=09/*
+> +=09=09 * Turning the backlight on via WMI turns all zones,
+> +=09=09 * so we need to restore the other zones' off state.
+> +=09=09 */
+> +=09=09for (int i =3D 0; i < ARRAY_SIZE(hp_multicolor_leds.devices); i++)=
  {
- 	struct dw_hdmi_qp *hdmi = dw_hdmi_qp_from_bridge(bridge);
- 
-+	guard(mutex)(&hdmi->phy.lock);
-+	if (!hdmi->phy.enabled)
-+		return -EOPNOTSUPP;
-+
- 	if (hdmi->tmds_char_rate)
- 		dw_hdmi_qp_mod(hdmi, 0, AVP_DATAPATH_PACKET_AUDIO_SWDISABLE, GLOBAL_SWDISABLE);
- 
-@@ -480,13 +486,23 @@ static int dw_hdmi_qp_audio_prepare(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = dw_hdmi_qp_from_bridge(bridge);
- 	bool ref2stream = false;
-+	int ret = 0;
- 
--	if (!hdmi->tmds_char_rate)
--		return -ENODEV;
-+	mutex_lock(&hdmi->phy.lock);
-+	if (!hdmi->phy.enabled) {
-+		ret = -EOPNOTSUPP;
-+		goto err_res;
-+	}
-+
-+	if (!hdmi->tmds_char_rate) {
-+		ret = -ENODEV;
-+		goto err_res;
-+	}
- 
- 	if (fmt->bit_clk_provider | fmt->frame_clk_provider) {
- 		dev_err(hdmi->dev, "unsupported clock settings\n");
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto err_res;
- 	}
- 
- 	if (fmt->bit_fmt == SNDRV_PCM_FORMAT_IEC958_SUBFRAME_LE)
-@@ -495,9 +511,13 @@ static int dw_hdmi_qp_audio_prepare(struct drm_bridge *bridge,
- 	dw_hdmi_qp_set_audio_interface(hdmi, fmt, hparms);
- 	dw_hdmi_qp_set_sample_rate(hdmi, hdmi->tmds_char_rate, hparms->sample_rate);
- 	dw_hdmi_qp_set_channel_status(hdmi, hparms->iec.status, ref2stream);
--	drm_atomic_helper_connector_hdmi_update_audio_infoframe(connector, &hparms->cea);
-+	mutex_unlock(&hdmi->phy.lock);
- 
--	return 0;
-+	return drm_atomic_helper_connector_hdmi_update_audio_infoframe(connector, &hparms->cea);
-+
-+err_res:
-+	mutex_unlock(&hdmi->phy.lock);
-+	return ret;
- }
- 
- static void dw_hdmi_qp_audio_disable_regs(struct dw_hdmi_qp *hdmi)
-@@ -526,6 +546,10 @@ static void dw_hdmi_qp_audio_disable(struct drm_bridge *bridge,
- 
- 	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
- 
-+	guard(mutex)(&hdmi->phy.lock);
-+	if (!hdmi->phy.enabled)
-+		return;
-+
- 	if (hdmi->tmds_char_rate)
- 		dw_hdmi_qp_audio_disable_regs(hdmi);
- }
-@@ -754,6 +778,7 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 	struct drm_connector_state *conn_state;
- 	struct drm_connector *connector;
- 	unsigned int op_mode;
-+	int ret;
- 
- 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
- 	if (WARN_ON(!connector))
-@@ -763,6 +788,7 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 	if (WARN_ON(!conn_state))
- 		return;
- 
-+	mutex_lock(&hdmi->phy.lock);
- 	if (connector->display_info.is_hdmi) {
- 		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u\n", __func__,
- 			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
-@@ -774,10 +800,19 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		op_mode = OPMODE_DVI;
- 	}
- 
--	hdmi->phy.ops->init(hdmi, hdmi->phy.data);
-+	ret = hdmi->phy.ops->init(hdmi, hdmi->phy.data);
-+	if (unlikely(ret)) {
-+		dev_err(hdmi->dev, "failed to initialize PHY: %d\n", ret);
-+		hdmi->phy.enabled = false;
-+		hdmi->tmds_char_rate = 0;
-+		mutex_unlock(&hdmi->phy.lock);
-+		return;
-+	}
-+	hdmi->phy.enabled = true;
- 
- 	dw_hdmi_qp_mod(hdmi, HDCP2_BYPASS, HDCP2_BYPASS, HDCP2LOGIC_CONFIG0);
- 	dw_hdmi_qp_mod(hdmi, op_mode, OPMODE_DVI, LINK_CONFIG0);
-+	mutex_unlock(&hdmi->phy.lock);
- 
- 	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
- }
-@@ -787,9 +822,10 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
-+	guard(mutex)(&hdmi->phy.lock);
- 	hdmi->tmds_char_rate = 0;
--
- 	hdmi->phy.ops->disable(hdmi, hdmi->phy.data);
-+	hdmi->phy.enabled = false;
- }
- 
- static enum drm_connector_status
-@@ -880,10 +916,8 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
--static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+static int dw_hdmi_qp_clear_audio_infoframe_regs(struct dw_hdmi_qp *hdmi)
- {
--	struct dw_hdmi_qp *hdmi = bridge->driver_private;
--
- 	dw_hdmi_qp_mod(hdmi, 0,
- 		       PKTSCHED_ACR_TX_EN |
- 		       PKTSCHED_AUDS_TX_EN |
-@@ -893,6 +927,17 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
-+static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+
-+	guard(mutex)(&hdmi->phy.lock);
-+	if (!hdmi->phy.enabled)
-+		return 0;
-+
-+	return dw_hdmi_qp_clear_audio_infoframe_regs(hdmi);
-+}
-+
- static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
- 				 size_t start, size_t len, unsigned int reg)
- {
-@@ -987,7 +1032,11 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
--	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+	guard(mutex)(&hdmi->phy.lock);
-+	if (!hdmi->phy.enabled)
-+		return -EOPNOTSUPP;
-+
-+	dw_hdmi_qp_clear_audio_infoframe_regs(hdmi);
- 
- 	/*
- 	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
-@@ -1299,6 +1348,8 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
- 
- 	hdmi->phy.ops = plat_data->phy_ops;
- 	hdmi->phy.data = plat_data->phy_data;
-+	hdmi->phy.enabled = false;
-+	mutex_init(&hdmi->phy.lock);
- 
- 	if (plat_data->ref_clk_rate) {
- 		hdmi->ref_clk_rate = plat_data->ref_clk_rate;
--- 
-2.55.0
+> +=09=09=09if (i =3D=3D priv->zone)
+> +=09=09=09=09continue;
+> +
+> +=09=09=09device =3D &hp_multicolor_leds.devices[i];
+> +=09=09=09if (!device->led_cdev.name)
+> +=09=09=09=09continue;
+> +=09=09=09hp_kbd_backlight_set_rgb_color(i,
+> +=09=09=09=09device->subled_info[0].brightness,
+> +=09=09=09=09device->subled_info[1].brightness,
+> +=09=09=09=09device->subled_info[2].brightness);
+> +=09=09}
+> +=09}
+> +
+> +=09led_cdev->brightness =3D brightness;
+> +
+> +=09mc_cdev =3D lcdev_to_mccdev(led_cdev);
+> +=09led_mc_calc_color_components(mc_cdev, brightness);
+> +
+> +=09red =3D mc_cdev->subled_info[0].brightness;
+> +=09green =3D mc_cdev->subled_info[1].brightness;
+> +=09blue =3D mc_cdev->subled_info[2].brightness;
+> +
+> +=09return hp_kbd_backlight_set_rgb_color(priv->zone, red, green, blue);
+> +}
+> +
+> +static void hp_kbd_brightness_set_by_hwd(u32 event_data)
+> +{
+> +=09struct device *dev =3D &hp_wmi_platform_dev->dev;
+> +=09struct led_classdev *led_cdev;
+> +=09struct hp_kbd_led_priv *priv;
+> +=09u8 brightness;
+> +
+> +=09for (int zone =3D 0; zone < ARRAY_SIZE(hp_multicolor_leds.devices); z=
+one++) {
+> +=09=09if (!hp_multicolor_leds.devices[zone].led_cdev.name)
+> +=09=09=09continue;
+> +
+> +=09=09led_cdev =3D &hp_multicolor_leds.devices[zone].led_cdev;
+> +=09=09if (!led_cdev->dev)
+> +=09=09=09continue;
+> +
+> +=09=09priv =3D hp_led_get_priv(led_cdev);
+> +
+> +=09=09switch (event_data) {
+> +=09=09case HP_BACKLIGHT_EVENT_ON:
+> +=09=09=09brightness =3D priv->last_brightness ? : LED_FULL;
+> +=09=09=09break;
+> +=09=09case HP_BACKLIGHT_EVENT_OFF:
+> +=09=09=09priv->last_brightness =3D led_cdev->brightness;
+> +=09=09=09brightness =3D LED_OFF;
+> +=09=09=09break;
+> +=09=09default:
+> +=09=09=09dev_warn(dev, "Unknown keyboard backlight event - 0x%x\n",
+> +=09=09=09=09 event_data);
+> +=09=09=09return;
+> +=09=09}
+> +
+> +=09=09led_cdev->brightness =3D brightness;
+> +=09=09led_classdev_notify_brightness_hw_changed(led_cdev, brightness);
+> +=09}
+> +}
+> +
+> +static int __init hp_mc_leds_register(int num_zones)
+> +{
+> +=09u8 color_table[128];
+> +=09int ret;
+> +
+> +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_COLOR_GET_QUERY, HPWMI_B=
+ACKLIGHT,
+> +=09=09=09=09  color_table, zero_if_sup(color_table),
+> +=09=09=09=09  sizeof(color_table));
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09for (int zone =3D 0; zone < num_zones; zone++) {
+> +=09=09struct led_classdev_mc *multicolor_led_dev;
+> +=09=09struct led_classdev *led_cdev;
+> +=09=09struct mc_subled *mc_subled_info;
+> +=09=09struct hp_kbd_led_priv *priv;
+> +=09=09struct device *dev;
+> +
+> +=09=09dev =3D &hp_wmi_platform_dev->dev;
+> +=09=09multicolor_led_dev =3D &hp_multicolor_leds.devices[zone];
+> +=09=09led_cdev =3D &multicolor_led_dev->led_cdev;
+> +=09=09priv =3D &hp_multicolor_leds.priv[zone];
+> +
+> +=09=09if (num_zones =3D=3D 1)
+> +=09=09=09led_cdev->name =3D devm_kasprintf(dev, GFP_KERNEL,
+> +=09=09=09=09"hp::kbd_backlight");
+> +=09=09else if (num_zones =3D=3D 4 && zone < ARRAY_SIZE(hp_zone_names_4))
+> +=09=09=09led_cdev->name =3D devm_kasprintf(dev, GFP_KERNEL,
+> +=09=09=09=09"hp::kbd_%s",
+> +=09=09=09=09hp_zone_names_4[zone]);
+> +=09=09else if (num_zones > 1)
+> +=09=09=09led_cdev->name =3D devm_kasprintf(dev, GFP_KERNEL,
+> +=09=09=09=09"hp::kbd_zoned_backlight-%d",
+> +=09=09=09=09zone);
+> +
+> +=09=09if (!led_cdev->name)
+> +=09=09=09return -ENOMEM;
+> +=09=09led_cdev->brightness =3D hp_kbd_backlight_is_on() ?
+> +=09=09=09=09       LED_FULL : LED_OFF;
+> +=09=09led_cdev->max_brightness =3D LED_FULL;
+> +=09=09led_cdev->brightness_set_blocking =3D hp_kbd_set_brightness;
+> +=09=09led_cdev->flags =3D LED_CORE_SUSPENDRESUME |
+> +=09=09=09=09  LED_RETAIN_AT_SHUTDOWN |
+> +=09=09=09=09  LED_BRIGHT_HW_CHANGED;
+> +
+> +=09=09mc_subled_info =3D devm_kzalloc(dev, sizeof(*mc_subled_info) * HP_=
+KBD_RGB_COLORS,
+> +=09=09=09=09=09      GFP_KERNEL);
 
+Thanks for the update.
+
+This looked very much devm_kcalloc() to me so I made that conversion=20
+while applying.
+
+PLEASE CHECK and yell loudly if you think I made an error while=20
+converting it.
+
+The patch is applied to the review-ilpo-next branch.
+
+--=20
+ i.
+
+> +=09=09if (!mc_subled_info)
+> +=09=09=09return -ENOMEM;
+> +
+> +=09=09mc_subled_info[0].color_index =3D LED_COLOR_ID_RED;
+> +=09=09mc_subled_info[1].color_index =3D LED_COLOR_ID_GREEN;
+> +=09=09mc_subled_info[2].color_index =3D LED_COLOR_ID_BLUE;
+> +
+> +=09=09for (int i =3D 0; i < HP_KBD_RGB_COLORS; i++) {
+> +=09=09=09int off =3D HP_COLOR_TABLE_PADDING + zone * HP_KBD_RGB_COLORS +=
+ i;
+> +
+> +=09=09=09mc_subled_info[i].channel =3D zone * HP_KBD_RGB_COLORS + i;
+> +=09=09=09mc_subled_info[i].intensity =3D color_table[off];
+> +=09=09=09mc_subled_info[i].brightness =3D LED_FULL;
+> +=09=09}
+> +
+> +=09=09multicolor_led_dev->subled_info =3D mc_subled_info;
+> +=09=09multicolor_led_dev->num_colors =3D HP_KBD_RGB_COLORS;
+> +
+> +=09=09ret =3D devm_led_classdev_multicolor_register(dev, multicolor_led_=
+dev);
+> +=09=09if (ret) {
+> +=09=09=09dev_err(dev, "Failed to register multicolor RGB backlight\n");
+> +=09=09=09return ret;
+> +=09=09}
+> +
+> +=09=09/* Initialize private data */
+> +=09=09priv->zone =3D zone;
+> +=09=09priv->last_brightness =3D LED_FULL;
+> +=09}
+> +=09return 0;
+> +}
+> +
+> +static int __init hp_kbd_rgb_setup(void)
+> +{
+> +=09u8 keyboard_type;
+> +=09int ret;
+> +
+> +=09ret =3D hp_wmi_perform_query(HPWMI_GET_KEYBOARD_TYPE_QUERY, HPWMI_GM,=
+ &keyboard_type,
+> +=09=09=09=09sizeof(keyboard_type), sizeof(keyboard_type));
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09switch (keyboard_type) {
+> +=09case HP_KEYBOARD_TYPE_FOURZONE_WITH_NUMPAD:
+> +=09case HP_KEYBOARD_TYPE_FOURZONE_WITHOUT_NUMPAD:
+> +=09=09return hp_mc_leds_register(4);
+> +=09case HP_KEYBOARD_TYPE_SINGLEZONE_WITH_NUMPAD:
+> +=09case HP_KEYBOARD_TYPE_SINGLEZONE_WITHOUT_NUMPAD:
+> +=09=09return hp_mc_leds_register(1);
+> +=09default:
+> +=09=09return 0;
+> +=09}
+> +}
+> +
+>  static int platform_profile_omen_get_ec(enum platform_profile_option *pr=
+ofile)
+>  {
+>  =09int tp;
+> @@ -2541,7 +2835,9 @@ static int __init hp_wmi_bios_setup(struct platform=
+_device *device)
+>  =09=09return err;
+> =20
+>  =09thermal_profile_setup(device);
+> -
+> +=09err =3D hp_kbd_rgb_setup();
+> +=09if (err)
+> +=09=09dev_err(&device->dev, "Failed to initialize keyboard RGB\n");
+>  =09return 0;
+>  }
+> =20
+>=20
+--8323328-22868414-1789467513=:1365--
