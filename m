@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 415F04BD0ED;
-	Tue, 15 Sep 2026 16:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EE0A84BD7A8;
+	Tue, 15 Sep 2026 16:02:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488145; cv=none; b=kTbGp9vshPlzLQL/NMoLrJrNyeM6nUMqO9igfrRcoO2LXCIzX8hK72Qa5pJwqVCimY7wKKB8tzN9zInxOCGm7HVFDWLMnyBbjBhpSieNl5k+0f4O/tEgF4qhASACjspZ3OsBiRV2Y+vo0e25sWSF0vnUkv4eg4eULTAo9VDhzzU=
+	t=1789488149; cv=none; b=etn6LqgH7AxEJss1EGc/kfSzuJyrI8ILwRIbMNZEQtKVzxgLngDBMfWkISyQ7zLh/GTjABfUtOk16kAQdwJL3DQnSOS/d8JwbdT2c48VA2BtW5nZM2Dr91B5yPxYU4hSMXpBFXLeeHkrFF7q6Trgfw8S5h3jEcSoVQ7MBPxYGXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488145; c=relaxed/simple;
-	bh=3VMx5MwIoQDjnI9Qu/OvOYrvB82xGQiLBVLLsk3Gcx8=;
+	s=arc-20240116; t=1789488149; c=relaxed/simple;
+	bh=O20Il//CEz/+ccfyPp5fc/rnwGtdVWyTBiPY+ldH7Bk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FwOed/qKs645HxXPMJdxkDZc+FlfGv3VJbA2ufHyxnhJw6aHN1QaOFiciLhlvLcCm5rqodbPtzPBNDkrcspWctdJZrOXU/Xmv+ZHGrNakQPKW5ON6KXpqpvmvoIE6QmkbvVBs8VWgT5axtkGT+OnTphrMESA+vDhZ14m1B7Cy2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DRI2zR/s; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=LMyBsk65HxPH0Xy+Cog9qV7guTBNJuf7vsiDbFexcB4rUg8GHCvH0NS8nleafGV1uIWCMkl9/TLFm/ojkSKICLwCPAX9kiP7oH1KepUNPL+/QhbImQz2+I/6B70vJLVga65eunQvNAoT3UczhowBB6K+fX4QFRxM2oqFFrhStlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XqAo4y5x; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DRI2zR/s"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XqAo4y5x"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A339315A1;
-	Tue, 15 Sep 2026 09:02:16 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9BF6915A1;
+	Tue, 15 Sep 2026 09:02:22 -0700 (PDT)
 Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8BF253F882;
-	Tue, 15 Sep 2026 09:02:17 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 82C8D3F882;
+	Tue, 15 Sep 2026 09:02:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789488140; bh=3VMx5MwIoQDjnI9Qu/OvOYrvB82xGQiLBVLLsk3Gcx8=;
+	t=1789488146; bh=O20Il//CEz/+ccfyPp5fc/rnwGtdVWyTBiPY+ldH7Bk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DRI2zR/sQ3OywYBjEfa4m7sT3HReSjGgyJzGexBbYZDleQIwmFPXMqlmDoJ6xJUaj
-	 p1/mMOHS7nQ+bpt7azVo5UigJZT3UVCLXn+MypdoF+UD9nXc53fDfDjWfKleebBR0O
-	 yxGQc+1uEyevJQtq7QWD5k1fj+qG36Q38bwM8ENU=
+	b=XqAo4y5xDcLPy/SIM1ag+uNsHiVFPkhOybAkt1H7ifo9uJeJ0ZxAIbaflRaCpAqRY
+	 t5ePwLFllZ6a7snHTFb1SfpEBlJorXlNCETpp2gF2FvPrMTDhACTrFW/nUDHVySWEk
+	 jy5yHQHBYcVfHhitR71wOHtzml+p5kNu6OERGSKk=
 From: Suzuki K Poulose <suzuki.poulose@arm.com>
 To: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev
@@ -50,9 +50,9 @@ Cc: maz@kernel.org,
 	lpieralisi@kernel.org,
 	enju.kohei@fujitsu.com,
 	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v18 09/23] KVM: arm64: Add VM specific callback for S2 MMU operations
-Date: Tue, 15 Sep 2026 17:01:27 +0100
-Message-ID: <20260915160141.3543048-10-suzuki.poulose@arm.com>
+Subject: [PATCH v18 11/23] KVM: arm64: Use kvm_vm_is_unprotected() for !kvm_vm_is_protected()
+Date: Tue, 15 Sep 2026 17:01:29 +0100
+Message-ID: <20260915160141.3543048-12-suzuki.poulose@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260915160141.3543048-1-suzuki.poulose@arm.com>
 References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
@@ -64,269 +64,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add VM type specific S2 MMU operation backends which can be initialized per VM
-flavor, to keep the handling cleaner. Realm VM ops will be added gradually.
+Now that we have a flavor to check, use the helper to explicitly check
+the type for an unprotected PKVM guest. We don't convert all of the
+!kvm_vm_is_protected(), but only the ones that target unprotected PKVM
+guests.
 
 Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 ---
- arch/arm64/include/asm/kvm_host.h |  15 ++++
- arch/arm64/kvm/mmu.c              | 137 +++++++++++++++++++++++++-----
- 2 files changed, 131 insertions(+), 21 deletions(-)
+ arch/arm64/include/asm/kvm_pkvm.h | 2 +-
+ arch/arm64/kvm/arm.c              | 2 +-
+ arch/arm64/kvm/handle_exit.c      | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 8601103717643..ad3b34ba0b805 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -155,6 +155,19 @@ struct kvm_vcpu_ops {
- 	void (*vcpu_put)(struct kvm_vcpu *vcpu);
- };
+diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
+index a1f3e05e75dc1..e4ea80711bec6 100644
+--- a/arch/arm64/include/asm/kvm_pkvm.h
++++ b/arch/arm64/include/asm/kvm_pkvm.h
+@@ -49,7 +49,7 @@ static inline bool kvm_pkvm_ext_allowed(struct kvm *kvm, long ext)
+ 	case KVM_CAP_ARM_SUPPORTED_BLOCK_SIZES:
+ 		return false;
+ 	default:
+-		return !kvm || !kvm_vm_is_protected(kvm);
++		return !kvm || kvm_vm_is_unprotected_pkvm(kvm);
+ 	}
+ }
  
-+struct kvm_gfn_range;
-+
-+struct kvm_vm_s2_ops {
-+	bool (*vm_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
-+	bool (*vm_test_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
-+	int (*vm_flush_remote_tlbs)(struct kvm *kvm);
-+	int (*vm_flush_remote_tlbs_range)(struct kvm *kvm, gfn_t gfn,
-+					  u64 nr_pages);
-+	void (*vm_stage2_unmap_range)(struct kvm_s2_mmu *mmu,
-+				      phys_addr_t start, u64 size,
-+				      bool may_block);
-+};
-+
- struct kvm_s2_mmu {
- 	struct kvm_vmid vmid;
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 36bd1c6c04899..42d9385f5e329 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -1082,7 +1082,7 @@ int kvm_arch_vcpu_run_pid_change(struct kvm_vcpu *vcpu)
  
-@@ -331,6 +344,8 @@ struct kvm_arch {
- 	 */
- 	u64 fgu[__NR_FGT_GROUP_IDS__];
+ 	if (is_protected_kvm_enabled()) {
+ 		/* Start with the vcpu in a dirty state */
+-		if (!kvm_vm_is_protected(vcpu->kvm))
++		if (kvm_vm_is_unprotected_pkvm(vcpu->kvm))
+ 			vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
+ 		ret = pkvm_create_hyp_vm(kvm);
+ 		if (ret)
+diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
+index db37678dcb05c..384c5d258c7f8 100644
+--- a/arch/arm64/kvm/handle_exit.c
++++ b/arch/arm64/kvm/handle_exit.c
+@@ -490,7 +490,7 @@ static void handle_exit_pkvm_state(struct kvm_vcpu *vcpu, int exception_index)
+ {
+ 	int exception_code = ARM_EXCEPTION_CODE(exception_index);
  
-+	const struct kvm_vm_s2_ops *vm_s2_ops;
-+
+-	if (!is_protected_kvm_enabled() || kvm_vm_is_protected(vcpu->kvm))
++	if (!kvm_vm_is_unprotected_pkvm(vcpu->kvm))
+ 		return;
+ 
  	/*
- 	 * Stage 2 paging state for VMs with nested S2 using a virtual
- 	 * VMID.
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 67852acf7a6f8..3d8b6e5b811ed 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -37,6 +37,8 @@ static unsigned long __ro_after_init io_map_base;
- 
- #define KVM_PGT_FN(fn)		(!is_protected_kvm_enabled() ? fn : p ## fn)
- 
-+static int kvm_vm_init_vm_s2_ops(struct kvm *kvm);
-+
- static phys_addr_t __stage2_range_addr_end(phys_addr_t addr, phys_addr_t end,
- 					   phys_addr_t size)
- {
-@@ -166,6 +168,18 @@ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
- 	return memslot->dirty_bitmap && !(memslot->flags & KVM_MEM_READONLY);
- }
- 
-+static int pkvm_flush_remote_tlbs(struct kvm *kvm)
-+{
-+	kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
-+	return 0;
-+}
-+
-+static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
-+{
-+	kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
-+	return 0;
-+}
-+
- /**
-  * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
-  * @kvm:	pointer to kvm structure.
-@@ -174,26 +188,36 @@ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
-  */
- int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
- {
--	if (is_protected_kvm_enabled())
--		kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
--	else
--		kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
--	return 0;
-+	if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
-+		return 1;
-+	return kvm->arch.vm_s2_ops->vm_flush_remote_tlbs(kvm);
- }
- 
--int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
--				      gfn_t gfn, u64 nr_pages)
-+static int pkvm_flush_remote_tlbs_range(struct kvm *kvm,
-+					gfn_t gfn, u64 nr_pages)
-+{
-+	return pkvm_flush_remote_tlbs(kvm);
-+}
-+
-+static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
-+					 gfn_t gfn, u64 nr_pages)
- {
- 	u64 size = nr_pages << PAGE_SHIFT;
- 	u64 addr = gfn << PAGE_SHIFT;
- 
--	if (is_protected_kvm_enabled())
--		kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
--	else
--		kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
-+	kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
- 	return 0;
- }
- 
-+int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
-+				     gfn_t gfn, u64 nr_pages)
-+{
-+	if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range)
-+		return 1;
-+
-+	return kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range(kvm, gfn, nr_pages);
-+}
-+
- static void *stage2_memcache_zalloc_page(void *arg)
- {
- 	struct kvm_mmu_memory_cache *mc = arg;
-@@ -337,13 +361,20 @@ static void __unmap_stage2_range(struct kvm_s2_mmu *mmu, phys_addr_t start, u64
- 				   may_block));
- }
- 
-+static void kvm_vm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
-+				      phys_addr_t start,
-+				      u64 size, bool may_block)
-+{
-+	__unmap_stage2_range(mmu, start, size, may_block);
-+}
-+
- void kvm_stage2_unmap_range(struct kvm_s2_mmu *mmu, phys_addr_t start,
- 			    u64 size, bool may_block)
- {
--	if (kvm_vm_is_protected(kvm_s2_mmu_to_kvm(mmu)))
--		return;
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
- 
--	__unmap_stage2_range(mmu, start, size, may_block);
-+	if (kvm->arch.vm_s2_ops->vm_stage2_unmap_range)
-+		kvm->arch.vm_s2_ops->vm_stage2_unmap_range(mmu, start, size, may_block);
- }
- 
- void kvm_stage2_flush_range(struct kvm_s2_mmu *mmu, phys_addr_t addr, phys_addr_t end)
-@@ -983,6 +1014,12 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
- 	int cpu, err;
- 	struct kvm_pgtable *pgt;
- 
-+	/* Initialize the VM ops for the VM instance for the first time */
-+	if (mmu == &kvm->arch.mmu) {
-+		err = kvm_vm_init_vm_s2_ops(kvm);
-+		if (err)
-+			return err;
-+	}
- 	/*
- 	 * If we already have our page tables in place, and that the
- 	 * MMU context is the canonical one, we have a bug somewhere,
-@@ -2447,34 +2484,46 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- 	return false;
- }
- 
--bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-+static bool kvm_vm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- {
- 	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 
--	if (!kvm->arch.mmu.pgt || kvm_vm_is_protected(kvm))
--		return false;
--
- 	return KVM_PGT_FN(kvm_pgtable_stage2_test_clear_young)(kvm->arch.mmu.pgt,
- 						   range->start << PAGE_SHIFT,
- 						   size, true);
-+}
-+
-+bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-+{
-+	if (!kvm->arch.mmu.pgt || !kvm->arch.vm_s2_ops->vm_age_gfn)
-+		return false;
-+
-+	return kvm->arch.vm_s2_ops->vm_age_gfn(kvm, range);
- 	/*
- 	 * TODO: Handle nested_mmu structures here using the reverse mapping in
- 	 * a later version of patch series.
- 	 */
- }
- 
--bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-+static bool kvm_vm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- {
- 	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 
--	if (!kvm->arch.mmu.pgt || kvm_vm_is_protected(kvm))
--		return false;
- 
- 	return KVM_PGT_FN(kvm_pgtable_stage2_test_clear_young)(kvm->arch.mmu.pgt,
- 						   range->start << PAGE_SHIFT,
- 						   size, false);
- }
- 
-+bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-+{
-+
-+	if (!kvm->arch.mmu.pgt || !kvm->arch.vm_s2_ops->vm_test_age_gfn)
-+		return false;
-+
-+	return kvm->arch.vm_s2_ops->vm_test_age_gfn(kvm, range);
-+}
-+
- phys_addr_t kvm_mmu_get_httbr(void)
- {
- 	return __pa(hyp_pgtable->pgd);
-@@ -2796,3 +2845,49 @@ void kvm_toggle_cache(struct kvm_vcpu *vcpu, bool was_enabled)
- 
- 	trace_kvm_toggle_cache(*vcpu_pc(vcpu), was_enabled, now_enabled);
- }
-+
-+static const struct kvm_vm_s2_ops protected_pkvm_vm_s2_ops = {
-+	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
-+	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
-+	/*
-+	 * Not supported for Protected VMs under pKVM
-+	 * .vm_age_gfn
-+	 * .vm_test_age_gfn
-+	 * .vm_stage2_unmap_range
-+	 */
-+};
-+
-+static const struct kvm_vm_s2_ops pkvm_vm_s2_ops = {
-+	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
-+	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
-+	.vm_age_gfn			= kvm_vm_age_gfn,
-+	.vm_test_age_gfn		= kvm_vm_test_age_gfn,
-+	.vm_stage2_unmap_range		= kvm_vm_stage2_unmap_range,
-+};
-+
-+static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
-+	.vm_flush_remote_tlbs		= kvm_vm_flush_remote_tlbs,
-+	.vm_flush_remote_tlbs_range	= kvm_vm_flush_remote_tlbs_range,
-+	.vm_age_gfn			= kvm_vm_age_gfn,
-+	.vm_test_age_gfn		= kvm_vm_test_age_gfn,
-+	.vm_stage2_unmap_range		= kvm_vm_stage2_unmap_range,
-+};
-+
-+#define KVM_VM_S2_OPS(flavor, ops)		\
-+		[flavor] = ops
-+static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
-+	KVM_VM_S2_OPS(VM_VHE, &kvm_default_vm_s2_ops),
-+	KVM_VM_S2_OPS(VM_NVHE, &kvm_default_vm_s2_ops),
-+	KVM_VM_S2_OPS(VM_PKVM, &pkvm_vm_s2_ops),
-+	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, &protected_pkvm_vm_s2_ops),
-+};
-+
-+static int kvm_vm_init_vm_s2_ops(struct kvm *kvm)
-+{
-+	BUILD_BUG_ON(ARRAY_SIZE(arm64_vm_s2_ops) != VM_FLAVOR_MAX);
-+
-+	kvm->arch.vm_s2_ops = arm64_vm_s2_ops[kvm->arch.vm_flavor];
-+	if (WARN_ON(!kvm->arch.vm_s2_ops))
-+		return -EINVAL;
-+	return 0;
-+}
 -- 
 2.43.0
 
