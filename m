@@ -1,169 +1,165 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD583AC0ED
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785FE46EF69
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789463743; cv=none; b=lGHmpqeLpCqoi7ef2B9DSWoHZnUIdUXxZzdZwmqpedR2mEfXBesgomu/J7aM4r2WAGETNKLOmuZZwbONfXrFHck+xOigq31akTCuf/mqBVLzyIBVanaxiS0fya8hVeX+8z0cIXLpro2dj3vx02o78mZ/OV2NrQa5Ux+2qeB1ySM=
+	t=1789463748; cv=none; b=lMa/O8xwE5HIw3QfDhsv5P7KWmJGIL2zhWAV6QIU8sQhA2RJgac7oobFVBZf3M1tCOqTEcyNmw3XzmKOmN474Xd3UKBclLlegO1e28t+3AMUcjfAfeu275WN6NfDq472mtlssMs/iYKcA975qnP2STgnNKtoM70OrjAt06VbuTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789463743; c=relaxed/simple;
-	bh=ZQjUpbvPNMZwfic8zaI4fhkcmsRJfcKo65tVhd5bCBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pzsu2Gjgklv/KWbBPVtVSX6VjaCrBVa278PHyjzneeoXhuZywoFPCaiRru80Qiw33qL8VFcbqRA14ZWlSorugu2zh0D2UkD+Y+v7H7oEyDp8YRdaHyiza6zxBW585QkO+mU3oc2J2PbjLGwwV0DmmfEr1xd5GRC1/W8x1TOnf5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zr3QNWEv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OjWR50Qa; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789463748; c=relaxed/simple;
+	bh=EmGj/TYa9cvf9jUjTZ/nRlWvKu/6pQ6qezCBwlaGwXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hZTaCCJmiZRhE2UUO1JL05B1QLEsmXeCxfb0BUN9GKiMHg/P7qUV7jDPzyLiLN4OdMQV7ZgdNJirjy36WDdBLvkBtjP7pyhn/ityxtpp/hduZd0moFh6VFrSczDGPfNgzRubiMfyrXUq9O8cLmj7fvp3Cn76HV0qK1uy6BFbbxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kc6OsMVy; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zr3QNWEv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OjWR50Qa"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZT7Z3316536
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:15:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QlrYwvQRqmwFO+AM5q4m76fOowfyDk4X6RZEHpgqDyo=; b=Zr3QNWEv+0LPVA8J
-	0NC2+9zU4cWHw7EGdcDRJYnttjGmB/SyQO3QhRU/pdV8lo6b6nR7v8AwzQdOOcZ7
-	QvnpHLkmoYkQ+lj40Q53RrT+OIPvHLTirKRV5d3n6Yw5juIGcfa0OTMassLTQ6Bk
-	Q0kMd8uS27U8z0duz9vqvKQ+UmzIC6odLt+dFSxjujWffZhhkgMhZI0tCjrxHtvn
-	8d7LZar/sQfYrFJgORQAG7iQGwnS2iR2++mur/9IA0W7H70j2y7NXwjV0I4dktUf
-	m/OLvdY/8V7tcJqbXwCsN5bc4EGkh3X/p3hWaNxykD01ulHVxIB2gEiJPG9BuVHA
-	e2h5TQ==
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpyux0x45-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:15:40 +0000 (GMT)
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4959c49e054so3318843b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:15:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kc6OsMVy"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d9004a1ac0so316835ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:15:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789463740; x=1790068540; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QlrYwvQRqmwFO+AM5q4m76fOowfyDk4X6RZEHpgqDyo=;
-        b=OjWR50QaoVKBtU8k6MKsX6EbqCngP5WocCDsGYZAQp686qweEVTMPZIxXo6EhGtPKs
-         o2j82MpuQxjPrP4fkf8/hh+TG6FNxcAIblvkhXjJK1DopSXEEro+kBGPiEGKhZorCW4S
-         Aw/GEcOdvVybSRjRAgKHGBcE0j6+mopay7OLBZR0SR83okYbZBQEHGnTpFbVeiI3WuO/
-         L4B9DDtsjB3ETOdMXViIUhkMrh+nk8KJbQDg28JAIGKgtiQCrg73Z1hHK/b6UzhyzHie
-         oz94N+ALyAgpFdwvhrmtzoaSmyA7+3Ih/xPNPuqr7czBbegHnMeOKGI/0TyDXlzPziUA
-         JxDA==
+        d=gmail.com; s=20251104; t=1789463746; x=1790068546; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KyTzZj9bu9m6y51EDmw17tS/R3K9wAgV1FMAvLd0wJ0=;
+        b=kc6OsMVycQ7iZOSO9GlXWurDyYsmU3T86/G2VsCSnP8XnTzQ6Po1urUzAzsWAILgfO
+         Te160Nh8FQ43Wc5VgnG36h39TvIv+x4rXJA7tdHztpr9I9BC2a6cLyKhVw/wF2fId8yj
+         VabC9CCGhMdrGN7+U0LvvIZ2xyrh0CpM78nMr+xVBya0Qq9xQI+U8Qv1EDOb0q71rVMV
+         ZOY2VPdoJ+U0S+oi6Lej66sj4QljXH9NFrt35FW0mbe+Wl/8P6fca1A7ZXPZJaRGvUgq
+         G25l2VL/VrHibI3dmRwF+Wb+5buSaJY3hB5UrN8si0AhmUK+1X21VsGPfKM5UclDOCmm
+         QB+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789463740; x=1790068540;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QlrYwvQRqmwFO+AM5q4m76fOowfyDk4X6RZEHpgqDyo=;
-        b=iF1JiickOrPq9igMSfuZSYkx3efqyzvlCsk+yZhZRhC6+Ut3fquSAPhokxpGPBpsLQ
-         j/C/rF0ctoUBKXlKyGoQTOfUNi3IdsujfpexMVhVytUEv0vZnnPqL5VnxR8yLl3Msd3b
-         3QOtkVIHq4RCaQwjqgA2Pp4FMa3BQCavg7xSdXtQxu1B5gOQa4paxxy1ao+/x2GoXIx/
-         ltZ/tHpe+flb/wrYTuN2Fo7IlVcH5B8iazx3H3VPWdB+oGlppCkYYb7ReFgDSeDyZX4D
-         0BZcUFR5F5Gn3Zu+gIGRn12sH1jDC2E5XBKk+2EAaY3k++utk4VX1zj/JKLBt1YMPELY
-         NEHg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuzyJA4d3L2fy5mU3tz+5JWoVPXEjNZnQ3ZoRYMlXkDosK2sQIsbn9N67nPWpCK6535VjkV8c866agRic=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNYXe3awQlOsnI1sdEYHhtPM5EzfDgQsgVH8xpkzDLBqYJWPaJ
-	kmS981oUSmZJQO68RsPSzbEaZintXVWiISrIgnt/8QZzPXx1RnCK62OUiJBCu4Dr84FVVApxbLY
-	pQtCV5fgLYElrRMTTsNzTRFilIsl9ci2UW6ru30QHT0brBWQ6eETg+XGgeUlOtW31VaY=
-X-Gm-Gg: AYBFou0S9dIjmrTWJ++BQwqh/Ttz/TNpsf692IPXOdjJfDWbzIIoPwfbUvBXiUp3MNj
-	sdRCqQAij9Q8XjkHFT2k5I2LUjjokDf2dTTEMPMD8ACUjTjUxLFFziLOreK8BWj/0t/UiMgunYn
-	7xS9Ilna+HwNaDCnzZpcAkOcdYToc1vpnFsQVwEV97KfeTWHVQ1UDQiD1Jb9lwiEaiZYLOqK9Cg
-	fBUFog+Z7L4cUopIU0ps46xym/1VNWZOj3DA0chg7Sjz7CINQ0aV31XkzC3WXJHpVi8o0Sh9sE9
-	wkprZ8KDOltxsQjFc7N3kMCvfgSzTPvM5vg2cjfgrfwkCQ/gjiE+DLo/8+l7F7YVfSMJl8z36to
-	EeVREdQk3mcxH3kTJsugPgugHo9G6kg==
-X-Received: by 2002:a05:6808:4fc6:b0:4c3:b3e:4e72 with SMTP id 5614622812f47-4c7b37d8de2mr4884089b6e.12.1789463735140;
-        Tue, 15 Sep 2026 02:15:35 -0700 (PDT)
-X-Received: by 2002:a05:6808:4fc6:b0:4c3:b3e:4e72 with SMTP id 5614622812f47-4c7b37d8de2mr4884074b6e.12.1789463734770;
-        Tue, 15 Sep 2026 02:15:34 -0700 (PDT)
-Received: from [192.168.0.195] ([124.123.194.25])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c85a621db0sm3015261b6e.6.2026.09.15.02.15.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 02:15:34 -0700 (PDT)
-Message-ID: <b86bd3a4-ed4a-4c7a-8cfd-d3e07e5808a3@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 14:45:20 +0530
+        d=1e100.net; s=20260707; t=1789463746; x=1790068546;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KyTzZj9bu9m6y51EDmw17tS/R3K9wAgV1FMAvLd0wJ0=;
+        b=wbXyq4DHlUHX2bb9qGxLFDdEoyNIf5UNoll6VYQy4p4aSCq5YJK0Da2w4jy+GISAAy
+         73c8uVwNWywNY1/VdCkhkjpGONYye7h1sE2bXcMVehD3JN7KJ2KWBG1YtxrAV9qkX4Hm
+         vf/mbsM/1qnhNTs7HMdxjtqmd418A6s29hy9ujXcoKQvt7UvchYUAKOoZaCLTPPb8H0I
+         BCMA67QOhwDeY3N2UAbwywDt+ua/SFn/bWJ0cn1Ca9yWtyn2DWE22slfW20QkepXeRmq
+         pMGgEcIF1jRAxwIELzeoWdGmoVlMciGHpv1Y1VKmot32NCGEjpY6pz1vrufKBOTwJwn1
+         Oqvg==
+X-Forwarded-Encrypted: i=1; AKwUvBxlOINLCCIQrpAmyefM5qCcWCUlAPHl+dL4GeCtsuNSNDfxqwXcnw/b7T6ysCzJ2PKLs13PgvHy1fbf0yE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8mtPyG1uycL1bLE0bU9shIxYORNp8M/sDr7g3FOPje8bh/fnN
+	hFt0W9Dgme0VKgw83x4af+IoQr9+i00ZgJZhfZF9Y/xwBXgkkCH5MHNz
+X-Gm-Gg: AYBFou0s9qJ8JdswNEWui/65cmHg5kj9J8DYrWENXAziT31b6XIdpbrH5X/4BsK6Pn2
+	6YADh3sHc7iNAe+bMLreZw2wVoVgurF5XbQ8FiXds34YXtXndoEtT93zqBacRvAQC5vu2vRswTi
+	ohg3g6baoZuXwTMk50qZeiVzGhCngg8A2p+gpE0l0+zcbKUyphMv0SUfgd6BXyda7KLOfpUhn7W
+	vP2D8IQerbCuuNE98u3qCqVCpP6ibdgQNOrCe+SjXGWGIIq6mLfFzAyGsA1041acL7MWEsM03ML
+	TuuHKS0/cJU9gJfi1PgqI6unaOkp32zkW3qn0aw8iNOnPQXYbdp6up42ePel7uyJvU4VJb13MXc
+	Oa+bXZFKLjX6XMQ6I1GMDfXlCa/6QeK90PX4Se/1iUMpd/KjQdV8aM3wgOJdvRRHTBKkugn8ofQ
+	9z8vinayHBODjIi8XXZ1/VhZZGgLX5HI+cqST85tPKRK3mm/ecJM3xioRpYv7aVZFVWGxXrYHjz
+	wHDvVrtpvFkhT+6VBdUiSym9HZ02hGoDpnaySMk/BU=
+X-Received: by 2002:a17:903:3b86:b0:2cf:9347:f445 with SMTP id d9443c01a7336-2dd83851a2emr4167135ad.10.1789463745776;
+        Tue, 15 Sep 2026 02:15:45 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd4a7f17ecsm47233025ad.14.2026.09.15.02.15.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 02:15:45 -0700 (PDT)
+Date: Tue, 15 Sep 2026 14:45:34 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com, dvyukov@google.com, 
+	vincenzo.frascino@arm.com, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, kees@kernel.org, ritesh.list@gmail.com, amachhiw@linux.ibm.com, 
+	mahesh@linux.ibm.com, nikhilks@linux.ibm.com, robh@kernel.org, sayalip@linux.ibm.com, 
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
+	linux-riscv@lists.infradead.org, linux-hardening@vger.kernel.org, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: Re: [PATCH V2] powerpc/kasan: require memintrinsic prefix support
+ for KASAN
+Message-ID: <aqkMYJXu7mV40baM@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260911180536.3234640-2-mkchauras@gmail.com>
+ <508afce0-d479-46f3-a2af-d7e6cdb65232@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/52] dt-bindings: clock: qcom: qdu1000-gcc: Add CX
- power domain
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Ajit Pandey <quic_ajipan@quicinc.com>,
-        Konrad Dybcio
- <konradybcio@kernel.org>,
-        Imran Shaik <quic_imrashai@quicinc.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Tengfei Fan <tengfei.fan@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
- <20260914-qcom-tie-cx-to-gcc-v4-13-9d5a606ada33@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-13-9d5a606ada33@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEzMiBTYWx0ZWRfX4pn6Mpb8+Mf7
- 6+P3k9PYNNDqVogTWd/ffhC6zYZOjohxihoF+XgM0XaTaEVuEwIPWyfKBmO2KO5DKFLR3YwJ5Kb
- g5b7o1nIwv2WZYhY2NVrzAYNRmJ5y7wkQXuwSKMLD6eSQBnYNFIS/wKeZkzRZwZfE8TdFJIF2Bb
- 9lBqanAwh/oUox6n8d5PJX80nDyuKWmVvItK97QZUUQaD25QPXV5xjAEpSZpUP4VD+26kQdkTKh
- wEOcjUX+cVddz7qW6l6D1SIjMZrzRQO23NsBONenMk4+3+1/B3VFbAMLc7Vq5+jsSF7YOcSZ1Ii
- 7hnbp1VkgXMweLbgktOqyOkTsUFDMgC7vooFqe4XtrRPyjMfo7DfqLRw3VxQwL738pSmfxRrdy2
- rLB+67JNc2eUSuuEHSH8UdsCARBewc0j/Q0+n7J6uVl+a7/J71oS5Tur+jD9vVMgbvrhwmZoYlc
- 2QBEhG1TLJpIvvw1o/g==
-X-Proofpoint-ORIG-GUID: A0nUEodYzKa5JSVRAq90AxtBNnTvhfVi
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEzMiBTYWx0ZWRfXx0gBuc3nSCoP
- Hy920x7nKYzNhRetMqpYmAdreKM8rfYNuP8bsgxGb1aMkLEYBI2b6GdEmYgB4MrLZGS8NAPxDuf
- neP2/cPUMtx8eePcxg3fbl2UiEN/tCk=
-X-Proofpoint-GUID: A0nUEodYzKa5JSVRAq90AxtBNnTvhfVi
-X-Authority-Analysis: v=2.4 cv=QYLzLcbv c=1 sm=1 tr=0 ts=6aa90cbc cx=c_pps
- a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=ZurMxzgV9Xw1nvs9fmaK6w==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=3nyXIwnAc1TS01hV9xEA:9 a=QEXdDO2ut3YA:10 a=efpaJB4zofY2dbm2aIRb:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150132
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <508afce0-d479-46f3-a2af-d7e6cdb65232@kernel.org>
 
-
-
-On 9/14/2026 6:17 PM, Abel Vesa wrote:
-> The GDSCs provided by the QDU1000 GCC are supplied by the RPMh CX
-> power domain. Model that parent domain in the GCC binding so the
-> provider can describe the dependency in devicetree.
+> > - cputable.c, prom_init.c: the original comments said "use memcpy() so
+> >    GCC emits __memcpy() under KASAN". The real reason is that these run
+> >    pre-relocation: the destination pointer is PTRRELOC-adjusted to its
+> >    current physical address, and the kernel is loaded at a different
+> >    address than it was linked at. A struct assignment (*t = *s) may cause
+> >    the compiler to emit an implicit memcpy() call that resolves through
+> >    the unrelocated virtual symbol address -- before the MMU mapping is set
+> >    up -- jumping to garbage. An explicit memcpy(t, ...) uses the already-
+> >    corrected pointer and is safe. Update the comments accordingly.
 > 
-> Add a single CX power-domain entry to the binding and make it required.
-> Without this dependency, GCC GDSC consumers cannot vote for CX and RPMh
-> may undervolt it.
-
-
-This is a always powered device and the minimum Operating level for this
-target is NOMINAL and does not scale any further down. This target does
-not follow our regular PMIC for the CX rail. It is better to drop this
-target.
-
--- 
-Thanks,
-Taniya Das
-
+> Nope, see my other email.
+> 
+Got it. I'll remove this.
+> > diff --git a/arch/powerpc/kernel/cputable.c b/arch/powerpc/kernel/cputable.c
+> > index 6f6801da9dc1..233b5c650d1e 100644
+> > --- a/arch/powerpc/kernel/cputable.c
+> > +++ b/arch/powerpc/kernel/cputable.c
+> > @@ -36,8 +36,12 @@ void __init set_cur_cpu_spec(struct cpu_spec *s)
+> >   	t = PTRRELOC(t);
+> >   	/*
+> > -	 * use memcpy() instead of *t = *s so that GCC replaces it
+> > -	 * by __memcpy() when KASAN is active
+> > +	 * Use memcpy() instead of *t = *s because t is a PTRRELOC-adjusted
+> > +	 * pointer and this code runs before the MMU mapping is established.
+> > +	 * A struct assignment is a compiler-generated aggregate copy whose
+> > +	 * implementation is not under our control in relocation-sensitive code;
+> > +	 * memcpy() ensures the adjusted pointer is explicitly passed to the
+> > +	 * copy routine.
+> 
+> This comment is wrong, see my response to your explanation. I think the
+> comment should be removed completely, now it is possible to use *t = *s
+> without any issue again.
+> 
+> 
+yeah i'll fix this.
+> >   	 */
+> >   	memcpy(t, s, sizeof(*t));
+> > @@ -55,7 +59,11 @@ static struct cpu_spec * __init setup_cpu_spec(unsigned long offset,
+> >   	/*
+> >   	 * Copy everything, then do fixups. Use memcpy() instead of *t = *s
+> > -	 * so that GCC replaces it by __memcpy() when KASAN is active
+> > +	 * because t is a PTRRELOC-adjusted pointer and this code runs before
+> > +	 * the MMU mapping is established. A struct assignment is a
+> > +	 * compiler-generated aggregate copy whose implementation is not under
+> > +	 * our control in relocation-sensitive code; memcpy() ensures the
+> > +	 * adjusted pointer is explicitly passed to the copy routine.
+> 
+> Same
+> 
+Sure.
+> >   	 */
+> >   	memcpy(t, s, sizeof(*t));
+> > diff --git a/arch/powerpc/kernel/prom_init.c b/arch/powerpc/kernel/prom_init.c
+> > index eb9f556b0937..d6d7f1ede319 100644
+> > --- a/arch/powerpc/kernel/prom_init.c
+> > +++ b/arch/powerpc/kernel/prom_init.c
+> > @@ -1363,10 +1363,12 @@ static void __init prom_check_platform_support(void)
+> >   				       "ibm,arch-vec-5-platform-support");
+> >   	/*
+> > -	 * First copy the architecture vec template
+> > -	 *
+> > -	 * use memcpy() instead of *vec = *vec_template so that GCC replaces it
+> > -	 * by __memcpy() when KASAN is active
+> > +	 * First copy the architecture vec template. Use memcpy() instead of
+> > +	 * a struct assignment because this code runs before the MMU mapping
+> > +	 * is established. A struct assignment is a compiler-generated
+> > +	 * aggregate copy whose implementation is not under our control in
+> > +	 * relocation-sensitive code; memcpy() ensures the adjusted pointer
+> > +	 * is explicitly passed to the copy routine.
+> 
+> Same.
+> 
+Sure.
+> >   	 */
+> >   	memcpy(&ibm_architecture_vec, &ibm_architecture_vec_template,
+> >   	       sizeof(ibm_architecture_vec));
+> 
