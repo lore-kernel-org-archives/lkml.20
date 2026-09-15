@@ -1,778 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78CC3C1D6E;
-	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482749; cv=none; b=N8h5erBrs3/89AyjL8jOF04FMKGc26A9WRje7ABJTwRlgMMf80RoqosUwZesVadE1qc43mbBifN3fsrvVotCBqdke7Jumlh1nHGXQbWUcm0JSaIrWvoYa+CbFhqE+MdZKistBg+KZmgBhZA7FVX5Lvw7u67eQBt3Pwg8dHQFulU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482749; c=relaxed/simple;
-	bh=X7Q3c+ZSN+QOLfScJ8eSM4UWwZCRFILJ0fLlwlE4AZE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M5NdJMj58OZRUOsi8c4BNDoGrnMLTRQhCQ7j9HK269HgvrU0KKaKllATKJ2sPW19Jr7zjgSst6j2dDryz/qDiJrDYtN3lwMTlaxj62z32dB32e0zgkl79I2WKQXA447nJwp2Uc0ZkirKeINVZ36uqVQNOnW7PWSfTvtAuX4K7+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m87q9dAh; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD72D3C37A5;
+	Tue, 15 Sep 2026 14:32:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789482765; cv=fail; b=gv3PqO/EVV6tbWN7eCAehPLVGLjDPe/oDAFW5IzbRxH/t+0+i2/8bZ6Rf0A1hzdhIPqYrOHfyEGWUTJKdLIk3KaC3K+3TgfvBI9UF7FANApsKfmfKKrvLHlq3CyNpotMfnbIBUS2SqRxz+3wQwfIs4p+ynTlzsK6hPCx/ddrJhE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789482765; c=relaxed/simple;
+	bh=By9AxK19SerZN3zsj9+DevCmc1L47JfBXMNW4H8mWNg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=dxFSNNWNmthCa4pAIVRGSR3QfJwO4S3ey7wgbCVisU2/AX1EUdDWMLUETdgEJrLSyVqtci+MqNnZ7vmHF7i+iNbIlrTgfJVl+aiy+vh8JuwjbH8gVBZZfI9n24P/TiQwdPOF2IUrsz46VSEpmAozt6ojLqUbI3PQv//WNtHfT1c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=m1JGhYlj; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=XQyvHYON; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m87q9dAh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8E309C2BCFB;
-	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789482748;
-	bh=X7Q3c+ZSN+QOLfScJ8eSM4UWwZCRFILJ0fLlwlE4AZE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=m87q9dAhQzwlBgOGkxhu/PwCUalqQKHQJCr+IVMnwffLaU6Qkbvf4NO7v1EyVxEUR
-	 n5pMDyNHMc6YJJrejop5ouDyomOM/SGEAQlqs3xuCgEi9BBV+8eOzip+ALoV6T8X6U
-	 X6TTEvNXfVD/j639z9WDK6O7KOjPrB5aXU2BYGq3wPR7YaVYRsFxw7ddH7mqr0in22
-	 QJCSCs4JkAxbeH4/7tTHi9r9DZgPMUlvuNjXXBLxwN2pUvvXDAp1VIWdEPM4yxqxU8
-	 tR3Tv25l2x6uayr5vsHy7heo6P9C5oqQ9wazyFhz1PzHln2m9DXcCw5IPhrEuA5Z1/
-	 1NPQmVIphO6dg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ECA5C982C3;
-	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 15 Sep 2026 16:32:25 +0200
-Subject: [PATCH v2 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="m1JGhYlj";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="XQyvHYON"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FD1CF8013389;
+	Tue, 15 Sep 2026 09:32:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=qzu5P9ft0DhUnTabfvmGCgIWohixBXPt25Z3Yckld
+	Sc=; b=m1JGhYlj5Ri6MwPSFovuMAhw8CI9yTQIIn3uxu3kaPOt3p7H/GOgP1/S7
+	gizJVi7dOAEpYn9BWJ9+bap4sjWPYnfrVCBQ72bzGJTfIV3VLxF4bweyPAWHFrdi
+	PT76hRi1ZG8sWhFY5EXquUNBbSvcPQNUOrUxw3gI+ZLgpWgTPRdr+l9SbdBUwaxr
+	Djb/0UGvdurk10TkWDeJC0CGCLOwLlc37Hs+Avk9x91pA4tDjYBVqZO1czhgJe7g
+	FB5te+3Sg00iGJhZHnldUefSCOnNpOZwPj+Wmbh8pJ3XXN8gS8IAwYG6QjRbn61m
+	s0HRMW6eSm6yftbEr+fD9jntqU7Ww==
+Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010034.outbound.protection.outlook.com [52.101.201.34])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gq362sy9d-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 09:32:38 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A7DlPD9MarFZrOMS7u5UqOPjmaRN1Nl7CwYLRIOaLJJcfNBz6Khioc+Z9J5UsM4Yf7g8ArhZkfYxHk1oTmfb3grGZWHEu7QMSalTcyHg3ma5Bs4cCz/fdSHnb4YHHpbHIy8Jt7+j01u1Un6S7Cj2f09SeWXHPC970E0CKF95CxDSviFn/kEo/onAOV12bDSm06qzUOGLGmPrrt66hqFHi92DGBejycmxPGhv/CGwxmibv7G+anIVN8RctPoVi/NGulAFOXuMSeKfnRmViP6E/7FUrWla0eSJ5Pu2UZ7pe5NPrg7TFjZbgYsfc7KWU9uWa8c0fE+nw76Wb1ps2a42sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qzu5P9ft0DhUnTabfvmGCgIWohixBXPt25Z3YckldSc=;
+ b=Qi+d1j59iBzrxEpN7QybU68xmame+advYOV6vWrvjkTUxRFcsOCrVdf1kepi88TpzIKJubQJIdD3r4quVswzSM4F/uhNykYejW3M+1qEOlKyH8PtQR0ScHEeqsSW6bz3KpPX0C7RhK/zhKMEquENPOgtKd/RQlVhGx4ba1EFoESOLlhZu4lk7RaiVaO7f0jT1APJQroKrh6DPVA8dllsskA/ZS5/p0c9Igh56lSzDos8dbHLkbvM6pSu9wHIozB5iT88RxVdu+buBQ6Q1t5vV6rAi8z76lFvwDK+bAxAhIwiIl00zv5y3cRIFksMlO4/x4KS1l0/OKZbSWzYNkwV1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qzu5P9ft0DhUnTabfvmGCgIWohixBXPt25Z3YckldSc=;
+ b=XQyvHYON7MRxBh3wnAZhnbINE9qCERy43CLhIagSokyuN/Vj/IzZl7VgHAeGPqy6VkMmRkri1BOpyRBdRQCWgJpUVWKhAezNcyp6PzS1MxAQtL+HVVPet4XA5sUlsLuGU10MaP+0Q+feCIRfAraiUUj3y6WjtB0Cplc7L36xbkc=
+Received: from BL1PR13CA0269.namprd13.prod.outlook.com (2603:10b6:208:2ba::34)
+ by SA1PR10MB997737.namprd10.prod.outlook.com (2603:10b6:806:4bd::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 14:32:17 +0000
+Received: from BN2PEPF000055E0.namprd21.prod.outlook.com
+ (2603:10b6:208:2ba:cafe::77) by BL1PR13CA0269.outlook.office365.com
+ (2603:10b6:208:2ba::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
+ Sep 2026 14:32:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BN2PEPF000055E0.mail.protection.outlook.com (10.167.245.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.0 via Frontend Transport; Tue, 15 Sep 2026 14:32:15 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 15 Sep
+ 2026 09:30:59 -0500
+Received: from DFLE212.ent.ti.com (10.64.6.70) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 15 Sep
+ 2026 09:30:59 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 15 Sep 2026 09:30:59 -0500
+Received: from [10.249.144.74] ([10.249.144.74])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68FEUupx3400452;
+	Tue, 15 Sep 2026 09:30:57 -0500
+Message-ID: <9ab22cc8-69fe-4f76-819e-71ce480c867a@ti.com>
+Date: Tue, 15 Sep 2026 20:00:56 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] remoteproc: k3: Include what we need and only what we
+ need
+To: Andrew Davis <afd@ti.com>, Bjorn Andersson <andersson@kernel.org>,
+        "Mathieu Poirier" <mathieu.poirier@linaro.org>
+CC: <linux-remoteproc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260904195634.2275867-1-afd@ti.com>
+Content-Language: en-US
+From: "Padhi, Beleswar" <b-padhi@ti.com>
+In-Reply-To: <20260904195634.2275867-1-afd@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-dipper-v2-2-cbade54919ee@ixit.cz>
-References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
-In-Reply-To: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=17116; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=n9jwcsyr4Nk3pbkjLDxXbjXxJBdnsWTux9XZ+JhkE6o=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqVb606KthIO8B7xOJvrk+qNtdKQRq9VO8s/uV
- IbpyEShIeGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqlW+gAKCRBgAj/E00kg
- ctKCD/4jEJKN3QzJtxFfiSRJb85yQy8i1/3KRPa2UvtLu/ZZULV2erak97RliZeX1/jPwvOKYnV
- qTfORr/UciR1CLSMaf7kR9I4/zOycmKSoH0XcqStRBjZpgGVYaVOxq4xYrJ/bjwEmfSa/4z4vir
- TNSoyAWJBUKETeNN9931/CVBxeM+9MGLNjMZhEC+iFE78jUk0n2hmPi4eAQT1YB4FtPk0a2qj8l
- kiqMK3v9pn+02GQPUNX6msbBypGahLIIkOrftvi31IfeKwjs4s1EK/1+9Ss+snNSVVNwdSohVSL
- X+6Tj2ivLIQNJhS/pjufNvsRrK2X7SmJVvh8RYSsxSoFVDb0nPa+Vka+D6PfrEtrLH7yv7tGY8q
- DHCSKWzdQj1QKs53xudcDcxT5hyIms6eQHfx5lUz0nL8E4wrS6gxt5vYoLc1N1+3OaQjwCDIq9B
- NRm00J7ayBWNNe5jBDV6k50E+12w7YFm/mYSApNv+tqTLon1Fw/jbQ6fIp7u+EXGUa0cgudwrUf
- 8GSAjQmlRcQspObbQIpt9BWCkf91k7zDFHNUrACDWYtJKUXV6b7iqfPlngS9YkWmn2k/FJs/i9T
- FuyjsRyo/5vCAd400AAldbkolJks0QzXon30j3wphg+7wfm/CY0AdOki/3zXPjPZcHz+j9O5mER
- Nr5hJo6luFjLjqw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-
-From: David Heidelberg <david@ixit.cz>
-
-Initial submission for one member of the prime Xiaomi Mi 8 family.
-Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
-Known differences are battery capacity and fingerprint sensor placement.
-This submission includes basic abstraction for other developers to be
-able easily extend it to support other variants.
-
-What does work: framebuffer, USB, UFS, Bluetooth, Wi-Fi.
-
-Based on work of multiple people trying to bring the device in the past.
-Last attempt was done by Max Furman.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi | 607 +++++++++++++++++++++
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper.dts  |  36 ++
- 3 files changed, 644 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c86e7e98f55d..02793d00503e3 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -325,16 +325,17 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-oneplus-enchilada.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-oneplus-fajita.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-samsung-starqltechn.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-sony-xperia-tama-akari.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-sony-xperia-tama-akatsuki.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-sony-xperia-tama-apollo.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-beryllium-ebbg.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-beryllium-tianma.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-dipper.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-polaris.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-shift-axolotl.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-huawei-matebook-e-2019.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-lenovo-yoga-c630.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-samsung-w737.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi
-new file mode 100644
-index 0000000000000..eb4243e7f2c07
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi
-@@ -0,0 +1,607 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Xiaomi Mi 8 family common device tree source.
-+ * Covers Mi 8 Explorer Edition (equuleus), Mi 8 (dipper), Mi 8 Pro (urza).
-+ *
-+ * Copyright David Heidelberg.
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/arm/qcom,ids.h>
-+#include <dt-bindings/firmware/qcom,scm.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/linux-event-codes.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/phy/phy-qcom-qusb2.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include "sdm845.dtsi"
-+#include "pm8998.dtsi"
-+#include "pmi8998.dtsi"
-+
-+/delete-node/ &adsp_mem;
-+/delete-node/ &cdsp_mem;
-+/delete-node/ &mba_region;
-+/delete-node/ &mpss_region;
-+/delete-node/ &rmtfs_mem;
-+/delete-node/ &slpi_mem;
-+/delete-node/ &spss_mem;
-+/delete-node/ &tz_mem;
-+/delete-node/ &venus_mem;
-+/delete-node/ &wlan_msa_mem;
-+
-+/ {
-+	chassis-type = "handset";
-+
-+	qcom,msm-id = <QCOM_ID_SDM845 0x20001>;
-+
-+	aliases {
-+		serial0 = &uart9;
-+		serial1 = &uart6;
-+	};
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer {
-+			compatible = "simple-framebuffer";
-+			memory-region = <&cont_splash_mem>;
-+
-+			vci-supply = <&vreg_panel_vci>;
-+			vddio-supply = <&vreg_panel_vddio>;
-+
-+			width = <1080>;
-+			height = <2248>;
-+			stride = <(1080 * 4)>;
-+			format = "a8r8g8b8";
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		autorepeat;
-+
-+		pinctrl-0 = <&volume_up_gpio>;
-+		pinctrl-names = "default";
-+
-+		key-volume-up {
-+			label = "Volume Up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			gpios = <&pm8998_gpios 6 GPIO_ACTIVE_LOW>;
-+			wakeup-source;
-+			debounce-interval = <15>;
-+		};
-+	};
-+
-+	vreg_panel_vci: regulator-panel-vci {
-+		compatible = "regulator-fixed";
-+		regulator-name = "panel_vci_vreg";
-+
-+		regulator-min-microvolt = <3000000>;
-+		regulator-max-microvolt = <3000000>;
-+
-+		gpio = <&tlmm 35 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		startup-delay-us = <4000>;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_panel_vddio: regulator-panel-vddio {
-+		compatible = "regulator-fixed";
-+		regulator-name = "panel_vddio_vreg";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 23 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		startup-delay-us = <4000>;
-+		regulator-boot-on;
-+	};
-+
-+	vph_pwr: regulator-vph-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph_pwr";
-+
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+	};
-+
-+	vreg_s4a_1p8: regulator-vreg-s4a-1p8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s4a_1p8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+
-+		vin-supply = <&vph_pwr>;
-+	};
-+
-+	reserved-memory {
-+		/*
-+		 * It seems like reserving the old rmtfs_mem region is
-+		 * also needed to prevent random crashes
-+		 */
-+		old-rmtfs@88f00000 {
-+			reg = <0 0x88f00000 0 0x200000>;
-+			no-map;
-+		};
-+
-+		adsp_mem: adsp@8c500000 {
-+			reg = <0 0x8c500000 0 0x1e00000>;
-+			no-map;
-+		};
-+
-+		wlan_msa_mem: wlan-msa@8e300000 {
-+			reg = <0 0x8e300000 0 0x100000>;
-+			no-map;
-+		};
-+
-+		mpss_region: mpss@8e400000 {
-+			reg = <0 0x8e400000 0 0x7800000>;
-+			no-map;
-+		};
-+
-+		venus_mem: venus@95c00000 {
-+			reg = <0 0x95c00000 0 0x500000>;
-+			no-map;
-+		};
-+
-+		cdsp_mem: cdsp@96100000 {
-+			reg = <0 0x96100000 0 0x800000>;
-+			no-map;
-+		};
-+
-+		mba_region: mba@96900000 {
-+			reg = <0 0x96900000 0 0x200000>;
-+			no-map;
-+		};
-+
-+		slpi_mem: slpi@96b00000 {
-+			reg = <0 0x96b00000 0 0x1400000>;
-+			no-map;
-+		};
-+
-+		spss_mem: spss@97f00000 {
-+			reg = <0 0x97f00000 0 0x100000>;
-+			no-map;
-+		};
-+
-+		cont_splash_mem: splash@9d400000 {
-+			reg = <0 0x9d400000 0 0x950000>;
-+			no-map;
-+		};
-+
-+		ramoops@b0000000 {
-+			compatible = "ramoops";
-+			reg = <0 0xb0000000 0 0x00400000>;
-+			record-size = <0x40000>;
-+			console-size = <0x40000>;
-+			ftrace-size = <0x40000>;
-+			pmsg-size = <0x200000>;
-+		};
-+
-+		rmtfs_mem: memory@f7300000 {
-+			compatible = "qcom,rmtfs-mem";
-+			reg = <0 0xf7300000 0 0x202000>;
-+			qcom,use-guard-pages;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
-+		};
-+	};
-+
-+	wcn3990-pmu {
-+		compatible = "qcom,wcn3990-pmu";
-+
-+		pinctrl-0 = <&sw_ctrl_default>;
-+		pinctrl-names = "default";
-+
-+		vddio-supply = <&vreg_s4a_1p8>;
-+		vddxo-supply = <&vreg_l7a_1p8>;
-+		vddrf-supply = <&vreg_l17a_1p3>;
-+		vddch0-supply = <&vreg_l25a_3p3>;
-+		vddch1-supply = <&vreg_l23a_3p3>;
-+
-+		swctrl-gpios = <&pm8998_gpios 3 GPIO_ACTIVE_HIGH>;
-+
-+		regulators {
-+			vreg_pmu_io: ldo0 {
-+				regulator-name = "vreg_pmu_io";
-+			};
-+
-+			vreg_pmu_xo: ldo1 {
-+				regulator-name = "vreg_pmu_xo";
-+			};
-+
-+			vreg_pmu_rf: ldo2 {
-+				regulator-name = "vreg_pmu_rf";
-+			};
-+
-+			vreg_pmu_ch0: ldo3 {
-+				regulator-name = "vreg_pmu_ch0";
-+			};
-+
-+			vreg_pmu_ch1: ldo4 {
-+				regulator-name = "vreg_pmu_ch1";
-+			};
-+		};
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8998-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-s9-supply = <&vph_pwr>;
-+		vdd-s10-supply = <&vph_pwr>;
-+		vdd-s11-supply = <&vph_pwr>;
-+		vdd-s12-supply = <&vph_pwr>;
-+		vdd-s13-supply = <&vph_pwr>;
-+		vdd-l1-l27-supply = <&vreg_s7a_1p025>;
-+		vdd-l2-l8-l17-supply = <&vreg_s3a_1p35>;
-+		vdd-l3-l11-supply = <&vreg_s7a_1p025>;
-+		vdd-l4-l5-supply = <&vreg_s7a_1p025>;
-+		vdd-l6-supply = <&vph_pwr>;
-+		vdd-l7-l12-l14-l15-supply = <&vreg_s5a_2p04>;
-+		vdd-l9-supply = <&vreg_bob>;
-+		vdd-l10-l23-l25-supply = <&vreg_bob>;
-+		vdd-l13-l19-l21-supply = <&vreg_bob>;
-+		vdd-l16-l28-supply = <&vreg_bob>;
-+		vdd-l18-l22-supply = <&vreg_bob>;
-+		vdd-l20-l24-supply = <&vreg_bob>;
-+		vdd-l26-supply = <&vreg_s3a_1p35>;
-+		vin-lvs-1-2-supply = <&vreg_s4a_1p8>;
-+
-+		vreg_s2a_1p125: smps2 {
-+			regulator-min-microvolt = <1100000>;
-+			regulator-max-microvolt = <1100000>;
-+		};
-+
-+		vreg_s3a_1p35: smps3 {
-+			regulator-min-microvolt = <1352000>;
-+			regulator-max-microvolt = <1352000>;
-+		};
-+
-+		vreg_s5a_2p04: smps5 {
-+			regulator-min-microvolt = <1904000>;
-+			regulator-max-microvolt = <2040000>;
-+		};
-+
-+		vreg_s7a_1p025: smps7 {
-+			regulator-min-microvolt = <900000>;
-+			regulator-max-microvolt = <1028000>;
-+		};
-+
-+		vreg_l1a_0p875: ldo1 {
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2a_1p2: ldo2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-always-on;
-+		};
-+
-+		vreg_l5a_0p8: ldo5 {
-+			regulator-min-microvolt = <800000>;
-+			regulator-max-microvolt = <800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7a_1p8: ldo7 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12a_1p8: ldo12 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14a_1p8: ldo14 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-boot-on;
-+			regulator-always-on;
-+		};
-+
-+		vreg_l17a_1p3: ldo17 {
-+			regulator-min-microvolt = <1304000>;
-+			regulator-max-microvolt = <1304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l20a_2p95: ldo20 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l22a_2p864: ldo22 {
-+			regulator-min-microvolt = <2864000>;
-+			regulator-max-microvolt = <2864000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l23a_3p3: ldo23 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3312000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l24a_3p075: ldo24 {
-+			regulator-min-microvolt = <3088000>;
-+			regulator-max-microvolt = <3088000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l25a_3p3: ldo25 {
-+			regulator-min-microvolt = <3300000>;
-+			regulator-max-microvolt = <3312000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l26a_1p2: ldo26 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-boot-on;
-+		};
-+
-+		vreg_l28a_3p3: ldo28 {
-+			regulator-min-microvolt = <2856000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_lvs1_1p8: lvs1 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pmi8998-rpmh-regulators";
-+		qcom,pmic-id = "b";
-+
-+		vdd-bob-supply = <&vph_pwr>;
-+
-+		vreg_bob: bob {
-+			regulator-min-microvolt = <3312000>;
-+			regulator-max-microvolt = <3600000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+			regulator-allow-bypass;
-+		};
-+	};
-+};
-+
-+&dispcc {
-+	/* Disable for now so simple-framebuffer continues working */
-+	status = "disabled";
-+};
-+
-+&gcc {
-+	protected-clocks = <GCC_QSPI_CORE_CLK>,
-+			   <GCC_QSPI_CORE_CLK_SRC>,
-+			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>,
-+			   <GCC_LPASS_Q6_AXI_CLK>,
-+			   <GCC_LPASS_SWAY_CLK>;
-+};
-+
-+&gpi_dma0 {
-+	status = "okay";
-+};
-+
-+&gpi_dma1 {
-+	status = "okay";
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sdm845/Xiaomi/dipper/a630_zap.mbn";
-+};
-+
-+&ibb {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-over-current-protection;
-+	regulator-pull-down;
-+	regulator-soft-start;
-+};
-+
-+&ipa {
-+	firmware-name = "qcom/sdm845/Xiaomi/dipper/ipa_fws.mbn";
-+
-+	status = "okay";
-+};
-+
-+&lab {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-pull-down;
-+	regulator-soft-start;
-+};
-+
-+&mdss {
-+	/* Disable for now so simple-framebuffer continues working */
-+	status = "disabled";
-+};
-+
-+&mss_pil {
-+	firmware-name = "qcom/sdm845/Xiaomi/dipper/mba.mbn",
-+			"qcom/sdm845/Xiaomi/dipper/modem.mbn";
-+
-+	status = "okay";
-+};
-+
-+&pmi8998_charger {
-+	monitored-battery = <&battery>;
-+
-+	status = "okay";
-+};
-+
-+&pm8998_gpios {
-+	sw_ctrl_default: sw-ctrl-default-state {
-+		pins = "gpio3";
-+		function = "normal";
-+		input-enable;
-+		bias-pull-down;
-+	};
-+
-+	volume_up_gpio: vol-up-active-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		input-enable;
-+		bias-pull-up;
-+		power-source = <0>;
-+	};
-+};
-+
-+&pm8998_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&qup_uart9_rx {
-+	drive-strength = <2>;
-+	bias-pull-up;
-+};
-+
-+&qup_uart9_tx {
-+	drive-strength = <2>;
-+	bias-disable;
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+
-+	/* tas2557 @4c */
-+};
-+
-+&i2c14 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+
-+	/* stmfts5 @49 */
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = < 0 4>, /* SPI (Goodix Fingerprint) */
-+			       <81 4>; /* SPI (Synaptics Fingerprint) */
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 150 GPIO_ACTIVE_LOW>;
-+
-+	vcc-supply = <&vreg_l20a_2p95>;
-+	vcc-max-microamp = <600000>;
-+	vccq2-supply = <&vreg_s4a_1p8>;
-+	vccq2-max-microamp = <600000>;
-+
-+	status = "okay";
-+
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1 {
-+	qcom,select-utmi-as-pipe-clk;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_dwc3 {
-+	/* Until we have Type C hooked up we'll force this as peripheral. */
-+	dr_mode = "peripheral";
-+
-+	maximum-speed = "high-speed";
-+	phys = <&usb_1_hsphy>;
-+	phy-names = "usb2-phy";
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l12a_1p8>;
-+	vdda-phy-dpdm-supply = <&vreg_l24a_3p075>;
-+
-+	qcom,imp-res-offset-value = <8>;
-+	qcom,hstx-trim-value = <QUSB2_V2_HSTX_TRIM_21_6_MA>;
-+	qcom,preemphasis-level = <QUSB2_V2_PREEMPHASIS_5_PERCENT>;
-+	qcom,preemphasis-width = <QUSB2_V2_PREEMPHASIS_WIDTH_HALF_BIT>;
-+
-+	status = "okay";
-+};
-+
-+&uart6 {
-+	pinctrl-0 = <&qup_uart6_4pin>;
-+
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn3990-bt";
-+
-+		firmware-name = "Xiaomi/dipper/crnv21.bin";
-+
-+		vddio-supply = <&vreg_pmu_io>;
-+		vddxo-supply = <&vreg_pmu_xo>;
-+		vddrf-supply = <&vreg_pmu_rf>;
-+		vddch0-supply = <&vreg_pmu_ch0>;
-+
-+		max-speed = <3200000>;
-+	};
-+};
-+
-+&uart9 {
-+	status = "okay";
-+};
-+
-+&wifi {
-+	vdd-0.8-cx-mx-supply = <&vreg_l5a_0p8>;
-+	vdd-1.8-xo-supply = <&vreg_pmu_xo>;
-+	vdd-1.3-rfa-supply = <&vreg_pmu_rf>;
-+	vdd-3.3-ch0-supply = <&vreg_pmu_ch0>;
-+	vdd-3.3-ch1-supply = <&vreg_pmu_ch1>;
-+
-+	qcom,snoc-host-cap-skip-quirk;
-+
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper.dts
-new file mode 100644
-index 0000000000000..bf45fe8fde80b
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper.dts
-@@ -0,0 +1,36 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Xiaomi Mi 8 (dipper).
-+ *
-+ * Copyright David Heidelberg.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sdm845-xiaomi-dipper-common.dtsi"
-+
-+/ {
-+	model = "Xiaomi Mi 8";
-+	compatible = "xiaomi,dipper", "xiaomi,dipper-common", "qcom,sdm845";
-+
-+	qcom,board-id = <55 0>;
-+
-+	battery: battery {
-+		compatible = "simple-battery";
-+
-+		charge-full-design-microamp-hours = <3400000>;
-+		voltage-min-design-microvolt = <3400000>;
-+		voltage-max-design-microvolt = <4400000>;
-+	};
-+
-+};
-+
-+&adsp_pas {
-+	firmware-name = "qcom/sdm845/Xiaomi/dipper/adsp.mbn";
-+
-+	status = "okay";
-+};
-+
-+&wifi {
-+	qcom,calibration-variant = "Xiaomi_dipper";
-+};
-
--- 
-2.55.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|SA1PR10MB997737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04550437-a074-4c00-1030-08df1336237c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	V8/yBZwmS4yFQ2iupDhrIlgcsYuLyUx0z7VARRYMSyET0eV8+K2nsOzKybf59f8XNTLy2pw4SMAloQVCGDsO5wFCi1eCtQ2FvczClEADXRLTucJexABmEoxrOb9S2e2ZCAhvNna24Cuhlq/4J8RE/CUBVmJ/MzzWGIY85BV3OhNyCLp+1BvWn0RRZjhKyycNgFqArmNFHVSb9LzBY9EbzSlcBW5IskRTLpfF4UpzqXpCZTIeYJU2446umsLCRkfEt0E9+QazWck2UsPlCTRuKkMUHMCggqXmfmt5BSr2yvkiFA6ft9c9tGw/UU1O22LZejLWThSL42OxWYBB5D5wBUe/lwLE9G09LvcpahQnBx2WTtHwYB51DmkF2enWeAcig7w7amU/4QfLRLzg9+UnsFUQTjL/JujPCRwgv/deS4vap8PzgRbZ1bpzo/rM3CY1P2GUIXFKjJYuHaxceWNLOlS2NNaguzN4JjEffq5QOA5jRl6IFFSELfJqxqu5BUm9zxX0L+gSjylILeWQZ0lPKduPUb9uM4SJGj8X5YbhzWzj6pubo+14nUi/MXPzgQArKBq9P13a471U2Babk2lE5pYkgnpRbzWQ4UW1e3NtLRpAfBM3yC8WPf38xbQfAFCzucZc+Y0vJvx+B3iIUt+mFKE0pBoR0G21NUdh7LR32RpMRE3+6hYWgnL9ui7LCVdM
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	2U6CXEVnmUc3kwhyGPMn0MxRR9Q0zcWzxWudjg9nxsXvT/Zz+6t6yRDblVkTGpfH+lcmR5iNQgQTjAMt0tmgWb57n7spD2E59RXe8LYocOR4UKhj3lMf42z+LWuJWU3S9oLOQhkDOloauHqniG2WkOuqTyK1OK29yDFI60Z+lq4m0/0Ys93/DOJ7tZt0Q5BV00cuJLQR3F0yFz26ktNkKG6qzUk6k/hN3Zi/7tQE4jDSkYJhwz/WejsKEBQV0SNLZvv/T5gZP9ftm0+kp7yT/d1zPQtE/X+LyrjdSLFFisYwh2gHG7MbxQ/mXV4ew1dC26fDnElWyD9ZhWpsSMkr4Ts0qv5xHlQuH5xXSTxVKSK7VVsJ3eOqUExwmn01UwNIbeyJPt80Ksk0AvWfeaG0XqC/b8M53oIUAtY5Jc5Wa2ktU0agACzqeha2WslqvRWM
+X-Exchange-RoutingPolicyChecked:
+	aOHrTsQmshBp0PNfsboFLUbD0BNqafIaCBwRbj+3RZBZWyuXtcYpHvEX3MvRBKy4CfqmIkBX1oO+ucU9I9JLROFqD16TyaMSJIkgyHXhzz2raxJ5mTGFqlgErpvAgF3DarTODMpurDP2cvcIblEtz4NIdypF9tc7DnINu391SqPajOMC0ZxNns8es7pygYXi4FLSz0ancbt8jYQgJLsjmtRMUbDvY5RKScOwfNYQJC/8AyjjTdyrupYEZ+4e2q+0IgKlr8FImPO2odt4xnzIo3lV2mDTkUA1xGCTDNhx+L3YDXnXOhPNoyaUKdVMY726kFe8S12A0olFcF8KuxpJ+g==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 14:32:15.3264
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04550437-a074-4c00-1030-08df1336237c
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055E0.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB997737
+X-Authority-Analysis: v=2.4 cv=P9yvFSAu c=1 sm=1 tr=0 ts=6aa95706 cx=c_pps
+ a=p9IRwfs10qZ2nHdxx/cwJw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=UBZWY0DgWjV9GpcX:21 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8
+ a=UYwgWJugbqnFbEsF1LoA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: pt-7EH0ZD8lawgXbYN-RL_-V-i6qY-rD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIxMSBTYWx0ZWRfX8i9d9cNYW2H3
+ toToMI6WibhBw0N+dAFqDk2IdphNvsqvl/7W9fSDrYl75Dwu35K0opG7P9Gfvqjw4vLZmY1S43c
+ fcRsABX8LkSRNYdxsiGEvkZwSsT78p8cT+PD0Yb0aN2fEeQvwL9B2h8ELUGmd30LV7/Y1c4U6wG
+ 8Rs85fZdirNUvSpWW45Ut0GOFd8gpcGclyiOfER4dr4g0Mcnumc/G7QkbevXWM35wtfPeR3IpYW
+ JiNIRR99mZvNVS+6NGdU//Pcdff4TNvKLrZbjeaRxA19QeOzQSsxnJZhZCLXdvs5+MMqbEY3Jvg
+ wPL9ly/ASi8Ul+5mWlhQj71Udm+M0r/b/3pk0pynmNTngAGsMPIZEVEup91MQ/CIGC3hyGIkAU1
+ teHQkspDnQNIpDCzNA9tlXZ1M50Hfa/2u7eIhLhll0Ls+IcIjuv953C2RdwnbB2Ks+FMJZE5Elq
+ jrcmurLsmNQTzAYyBbQ==
+X-Proofpoint-ORIG-GUID: pt-7EH0ZD8lawgXbYN-RL_-V-i6qY-rD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIxMSBTYWx0ZWRfX3Sbq0oSYUTol
+ lBTYQgNLi+GByh3er92Z6lGh4l3UjMv2BPe93Nd8e8U0zRzDHxaHOtXCu7erKTPJFAs9SvR8OK1
+ HHSHIaNxs1xZBb3qBBv9E1brp43PsPs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501
+ spamscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150211
 
 
+On 9/5/2026 1:26 AM, Andrew Davis wrote:
+> The header ti_k3_common.h uses several definitions in headers it does not
+> include itself, this makes users of this header responsible for including
+> the right headers first. Instead include what we need here. Then go and
+> remove some headers that we do not use from the K3 Remoteproc drivers.
+>
+> Signed-off-by: Andrew Davis <afd@ti.com>
+
+
+Thanks for cleaning this up. Test suite is happy.
+
+Reviewed-by: Beleswar Padhi <b-padhi@ti.com>
+Tested-by: Beleswar Padhi <b-padhi@ti.com>
+
+Thanks,
+Beleswar
+
+> ---
+>   drivers/remoteproc/ti_k3_common.h         | 4 ++++
+>   drivers/remoteproc/ti_k3_dsp_remoteproc.c | 3 ---
+>   drivers/remoteproc/ti_k3_m4_remoteproc.c  | 4 +---
+>   drivers/remoteproc/ti_k3_r5_remoteproc.c  | 5 -----
+>   4 files changed, 5 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/remoteproc/ti_k3_common.h b/drivers/remoteproc/ti_k3_common.h
+> index aee3c28dbe510..c8430e42225fe 100644
+> --- a/drivers/remoteproc/ti_k3_common.h
+> +++ b/drivers/remoteproc/ti_k3_common.h
+> @@ -21,6 +21,10 @@
+>   #ifndef REMOTEPROC_TI_K3_COMMON_H
+>   #define REMOTEPROC_TI_K3_COMMON_H
+>   
+> +#include <linux/mailbox_client.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/types.h>
+> +
+>   #define KEYSTONE_RPROC_LOCAL_ADDRESS_MASK	(SZ_16M - 1)
+>   
+>   /**
+> diff --git a/drivers/remoteproc/ti_k3_dsp_remoteproc.c b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> index d6ceea6dc920e..c916a86bc8294 100644
+> --- a/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> @@ -7,11 +7,8 @@
+>    */
+>   
+>   #include <linux/io.h>
+> -#include <linux/mailbox_client.h>
+>   #include <linux/module.h>
+>   #include <linux/of.h>
+> -#include <linux/of_reserved_mem.h>
+> -#include <linux/omap-mailbox.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/remoteproc.h>
+>   #include <linux/reset.h>
+> diff --git a/drivers/remoteproc/ti_k3_m4_remoteproc.c b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> index 3a11fd24eb52b..4c46f4a256a92 100644
+> --- a/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> @@ -7,10 +7,8 @@
+>    */
+>   
+>   #include <linux/io.h>
+> -#include <linux/mailbox_client.h>
+>   #include <linux/module.h>
+> -#include <linux/of_address.h>
+> -#include <linux/of_reserved_mem.h>
+> +#include <linux/of.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/remoteproc.h>
+>   #include <linux/reset.h>
+> diff --git a/drivers/remoteproc/ti_k3_r5_remoteproc.c b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> index b1d04d082e44c..404acc1a9bb7c 100644
+> --- a/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> @@ -6,17 +6,12 @@
+>    *	Suman Anna <s-anna@ti.com>
+>    */
+>   
+> -#include <linux/dma-mapping.h>
+>   #include <linux/err.h>
+>   #include <linux/interrupt.h>
+> -#include <linux/kernel.h>
+> -#include <linux/mailbox_client.h>
+>   #include <linux/module.h>
+>   #include <linux/of.h>
+>   #include <linux/of_address.h>
+> -#include <linux/of_reserved_mem.h>
+>   #include <linux/of_platform.h>
+> -#include <linux/omap-mailbox.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/pm_runtime.h>
+>   #include <linux/remoteproc.h>
