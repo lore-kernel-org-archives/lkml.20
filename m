@@ -1,131 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B240F3EB0F0;
-	Tue, 15 Sep 2026 09:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66A9470128
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789463819; cv=none; b=nGmWzNmo9lKpSCL9O3yQwc0XFU9+KxuXN/ehS2mrrMaP3JArCBIa9Nj7SO23ZEneS4iU8pgnwUri/iLZjiXXrnAE+vSeCLApUTgOo9fzkjyVvD3/e2UUHHPvhC+n2mgup/MrA45dkWOsBzT8ijn/MGa9WyFMoVcHdrXGQQSTeQQ=
+	t=1789463874; cv=none; b=RRpiYecqOITmc5TaeQcuCT4ekdPSnOgX6jcIdCwbmILeoquM3ukwqSsYero8SVfIzxbR09hiI3jSq0ZLNwUe9DN6z+sDDSNnjMBhOUW16nqVFDoHD0vTQBfrWfZFK/K3B7irS6pte7LVku4Hj0zyaHd7a1TGm6M3bBYI9mtVDIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789463819; c=relaxed/simple;
-	bh=pcH3XAVzOC1I/f/8RPm1k6RDkOcG5wRk5USkgfCB2xo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b/UBb4gyapzFLjH4E80FhA+GpQBTW9Kc4GNzwiBsl7dzhT62xkZB24iOx9OafREgNX71kmAnbQLokcRtwXuK+eDS35yvW2ZDJD1Gfpkhv6Ja2g5Th1hakedjJLFRQcGfPRRCxVVZl2Y3MwEslAdYbJCeSFW3XSxolGAE4y45c2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbdQ3iVe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789463874; c=relaxed/simple;
+	bh=ugEfg7AXlHxdKcviED0e+xDhN7V4+8EYzdt0Vszv3Zk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lK8LOxNSmrP0xCHR8JqIEHxEQTZoV975ORWtZxEEFvC60A6zDItYkaPOO7+OjILxE6DwIpvTRF1Zd3EOkOTBT49uyKCQL0Xz5tfuefTWOm6iAsE4nbm4qdEwfdiss63DSFoo9HfhOu4nO8TlH/krhIPSNEjXmm/ITbI6Y5ZXCEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=lNODUYXM; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbdQ3iVe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCC21F000FF;
-	Tue, 15 Sep 2026 09:16:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789463818;
-	bh=YmxwUrqc4VJ5KAOw2GSuOBCANnF+5FCzRAmFJpPfNdo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jbdQ3iVej2dnSAzbZWY3Nnupv6rCtcC0KDyEEnw9D9Y1OIzAPf5X76nXbSevSOJrz
-	 L5MRxvOioy9yEMsxnISuAMitVY3u4dVct6HckGCT1Q06zn8gzA6L9435vcCpV0aQhq
-	 /2jj4IeSLYtjJgi5jlPh1ogspGgKD8GgqnHx6FpDa19ydTgB3p+2RzyaXVQotwxGLS
-	 LnzTQHIH3XCjWdnnfJEnwLbAOXfO6yKI7oZomQY5ORTkYUFRbsZbcGIEk5v43hP2b1
-	 pnvMOqelsTEn2Eb8qTVbKkL0A+Xb4oMP0PZbwt4M8cSUNAeLyKCWOapdcx4NuO36F2
-	 /ivqwG/gySQFw==
-Message-ID: <321725f2-7012-4fc9-8889-33ea7cef1b65@kernel.org>
-Date: Tue, 15 Sep 2026 11:16:49 +0200
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="lNODUYXM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789463816;
+	bh=zSn6/Xt03VlF5C2px1uerRteZ5rlSNoUnzRPAIMuVYs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=lNODUYXM1dZ2pT0bllCorQTuxXCnevfjvWwX5cBhEQvlFLomHJRa+kzbtL6AivXW0
+	 qPsM+jy+bITP+QDKO2xUj4w0tHbwLFwVlwus7kyydIZ879cp9uM0WsL2o5l1Tfql1X
+	 wW9bD1ngjEWQK1fmI19qXL6o8f/O+qgfMQpUBWu0=
+X-QQ-mid: esmtpgz13t1789463779t0a40db71
+X-QQ-Originating-IP: R5lNfAsjNhsm7RrOxcFq1g2DszbpyFUq5YMcKgY8/CQ=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 15 Sep 2026 17:16:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 5476555254069493490
+EX-QQ-RecipientCnt: 10
+From: Wentao Guan <guanwentao@uniontech.com>
+To: chenhuacai@kernel.org,
+	lixianglai@loongson.cn
+Cc: kernel@xen0n.name,
+	tglx@kernel.org,
+	jiaxun.yang@flygoat.com,
+	loongarch@lists.linux.dev,
+	guanwentao@deepin.org,
+	shaoyang@uniontech.com,
+	linux-kernel@vger.kernel.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: [PATCH] LoongArch: Clear the pending timer interrupt when the clockevent stops
+Date: Tue, 15 Sep 2026 17:15:43 +0800
+Message-Id: <20260915091542.1701069-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v18 1/3] dt-bindings: net: Document Motorcomm
- YT8824 PHY package
-To: Kyle Switch <kyle.switch@motor-comm.com>, Frank.Sae@motor-comm.com,
- andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com, jie.han@motor-comm.com
-References: <20260915082152.3104633-1-kyle.switch@motor-comm.com>
- <20260915082152.3104633-2-kyle.switch@motor-comm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260915082152.3104633-2-kyle.switch@motor-comm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M7OGOwGJ/FwKALPUPKeWVCkEehMsNHrukxaQlqFNBYzY3Ut2A+7i0L4E
+	Mih3q4FNJTbUEymlLopcTxGfMHZylTezu438VHRMe4m4GxA8brpgJ4v6ACixTG+yerX8q2X
+	PZnja50Bxw1FXbZTRMXwZKAgHUxtgePN1jjOmQP3RjDeEI4vAp94D3qNAZAQ8XFS+QdUrYE
+	dEt4clneIHgg0LGbl5lDeywi7NPEtQtnRZ/dUZ+weZ7/MghfZX3xg9aq8rWAhHbi2pBlLWa
+	ZrFKBWSUUKCfJjg0ch5OtAFXxuGwjxxtTyKj0oVw1lfoylc7TE1XN7yPO/nGhE2DtiPQcU5
+	Pqx6Y/XNPZqNS2drATnQZZe3B8UUCqB9B5UWWMqb2XkO3YDmLwgJ+mnmReW9D+d3Mqv0cjx
+	PqiRQloQu/zwfDanLML3D1plUMk6HAgc/XT0BLkm333btrba4ajJOOzlOJbrdk778CssM/g
+	EqjagYAaz7PDQdoQ57KN2vuA40xp4nO6LQYU0icseAB8NBYAldvijOsnKGb0ULfNYE/Pxwc
+	4bs2QYorsgUE5CKEvYwa0OyTY4uui6H5ONdGKudjWjSWQWBFTQZ8pVklTVcUUe4D5yxM7Va
+	5twbDlPkbdghrzzbEuXU9iaCW0BZQJEJd92OHX905gEeZmV7E7IO90e+oQb9FQlLRAERJsJ
+	24zgkwniw6YB8qiJIBowbHFj2SzrTK2G74B3gtASME9mykNXXTiGfPUj+3i83lVHATI5SCB
+	6bHv9Z6wjoWdPIWU/iRhAjXmqdQyWDX9MBaGTB/mWNf22Hxmee638Mn2CgbbIxzW0ZN1vUl
+	g8sKqGK/lOWWPKm/n9t9aZf+cesDnVgKvOtC5pH9rMrUq81vVosg10i85Njywvq8Sbuu2hw
+	ZU7pjGQResEfQUHln4f4N45ATvVMvbqILpfFnaeNwbRdJlXx3RreElXasFJJ/QOYmzlWHV3
+	0foibEKRe3CR1qTy5xuaSvwSk2WHTGD/1X5om/cYcEw0dxhomi2fXFbkIXeWHeOkjokEMFI
+	f09C6GFJJBp07+G9ZbsbSYwRY5VbsBso7GtzH1ClY+VA3bKh5YfTSXuR4ggFhfzIXq/I0hz
+	A==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On 15/09/2026 10:21, Kyle Switch wrote:
-> Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
-> 
-> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+commit 8ef7f3132e40 ("LoongArch: Add cpuhotplug hooks to fix high cpu
+usage of vCPU threads") clears a latched timer interrupt from a cpuhp
+teardown callback, because a pending timer interrupt keeps waking an
+offline CPU up again right after it entered the idle instruction.
+Clearing a pending timer interrupt is part of stopping a clockevent
+device on other architectures: lapic_timer_shutdown() masks the local
+APIC timer and zeroes its counter, and riscv_clock_shutdown() calls
+riscv_clock_event_stop(), which clears the timer interrupt.
 
-I already asked you to Cc the right addresses. That was two months ago.
-I don't understand why can't you just use tools which do all this
-correctly, but repeating same feedback and expecting different results
-is pointless, so shortly:
+Clear the pending timer interrupt in constant_set_state_shutdown()
+instead. The clockevents core already stops the device before the CPU
+is parked, through the generic tick teardown (tick_cpu_dying(),
+registered on CPUHP_AP_TICK_DYING), so the cpuhp hooks have nothing
+left to do: the startup callback only repeats what
+loongson_init_secondary() does on every bring-up, and the teardown
+callback only did the write_csr_tintclear() that now happens when the
+device is stopped. CPUHP_AP_LOONGARCH_ARCH_TIMER_STARTING is not
+needed any more and is removed.
 
-NAK
+Assisted-by: atomcode:deepseek-v4.1-flash
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+---
+ arch/loongarch/kernel/time.c | 23 +++--------------------
+ include/linux/cpuhotplug.h   |  1 -
+ 2 files changed, 3 insertions(+), 21 deletions(-)
 
-Longer explanation below.
+diff --git a/arch/loongarch/kernel/time.c b/arch/loongarch/kernel/time.c
+index dbaaabcaf6f09..64136a541b049 100644
+--- a/arch/loongarch/kernel/time.c
++++ b/arch/loongarch/kernel/time.c
+@@ -5,7 +5,6 @@
+  * Copyright (C) 2020-2022 Loongson Technology Corporation Limited
+  */
+ #include <linux/clockchips.h>
+-#include <linux/cpuhotplug.h>
+ #include <linux/delay.h>
+ #include <linux/export.h>
+ #include <linux/init.h>
+@@ -88,6 +87,9 @@ static int constant_set_state_shutdown(struct clock_event_device *evt)
+ 	timer_config &= ~CSR_TCFG_EN;
+ 	csr_write(timer_config, LOONGARCH_CSR_TCFG);
+ 
++	/* Clear Timer Interrupt */
++	write_csr_tintclear(CSR_TINTCLR_TI);
++
+ 	raw_spin_unlock(&state_lock);
+ 
+ 	return 0;
+@@ -104,21 +106,6 @@ static int constant_timer_next_event(unsigned long delta, struct clock_event_dev
+ 	return 0;
+ }
+ 
+-static int arch_timer_starting(unsigned int cpu)
+-{
+-	set_csr_ecfg(ECFGF_TIMER);
+-
+-	return 0;
+-}
+-
+-static int arch_timer_dying(unsigned int cpu)
+-{
+-	/* Clear Timer Interrupt */
+-	write_csr_tintclear(CSR_TINTCLR_TI);
+-
+-	return 0;
+-}
+-
+ static unsigned long get_loops_per_jiffy(void)
+ {
+ 	u64 lpj = const_clock_freq;
+@@ -189,10 +176,6 @@ int constant_clockevent_init(void)
+ 	lpj_fine = get_loops_per_jiffy();
+ 	pr_info("Constant clock event device register\n");
+ 
+-	cpuhp_setup_state(CPUHP_AP_LOONGARCH_ARCH_TIMER_STARTING,
+-			  "clockevents/loongarch/timer:starting",
+-			  arch_timer_starting, arch_timer_dying);
+-
+ 	return 0;
+ }
+ 
+diff --git a/include/linux/cpuhotplug.h b/include/linux/cpuhotplug.h
+index 0fb3a2a62eb00..6e4bac0bf811a 100644
+--- a/include/linux/cpuhotplug.h
++++ b/include/linux/cpuhotplug.h
+@@ -167,7 +167,6 @@ enum cpuhp_state {
+ 	CPUHP_AP_QCOM_TIMER_STARTING,
+ 	CPUHP_AP_TEGRA_TIMER_STARTING,
+ 	CPUHP_AP_ARMADA_TIMER_STARTING,
+-	CPUHP_AP_LOONGARCH_ARCH_TIMER_STARTING,
+ 	CPUHP_AP_MIPS_GIC_TIMER_STARTING,
+ 	CPUHP_AP_ARC_TIMER_STARTING,
+ 	CPUHP_AP_REALTEK_TIMER_STARTING,
+-- 
+2.30.2
 
-
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
-
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
-
-Please kindly resend and include all necessary To/Cc entries.
-
-Best regards,
-Krzysztof
