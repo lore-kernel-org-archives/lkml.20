@@ -1,130 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7771D3B0AED;
-	Tue, 15 Sep 2026 14:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D60C356771;
+	Tue, 15 Sep 2026 14:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481878; cv=none; b=m17/Qa5hc3Hh85VJBX6MvileRRby2A0maRDAEzsvxLaXu38wy0uHVKUI2t42gkMQpC0gkNJLB+Nfhk5GHAPNyzNChu6F+Lo9lG07Rsklzm78Ak1Wz7C7+aU87QlCh6jqNnOmw20llqe1m7smJMDOdhZbNCQsSgYZPH6tuP5cePo=
+	t=1789481985; cv=none; b=jhMe1O9SiSS7SCim9RBhmXpQg6t+4rieWk6vQLZ3O90Y8xNdtoA6/nXmrbOVC7Dg6zqi195Ewmc4q0hXojwkz28q6fLWKkDhpOUyCFapPcKQP7vpbtaKUalUltoEqsAOzfRagG3xS/tIN4TO2XGJtbvEpOx/d43byPA1R6BQsmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481878; c=relaxed/simple;
-	bh=jKmKjY2sjPRLjEh0wzQXbnulhf+a/ZQFsEMtVhHBMBs=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=o4mc5vVj35SdQ7X5u6e+3Gl9BfOaezaAHnZeaiA1+GQ4P+DVRjh8DNV/IBxSc7nofUObsuFdH8mMt4qepwwx9FaxP/rUDAoBdC9E9techUuRH4HCLXZt2lILMF/KLEdhApYdlakdX5Y5bagWWq4FnLs/ERQxY024GgRn0Vlkd2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8QviNNr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789481985; c=relaxed/simple;
+	bh=yiWTc9LuPY4Vs2RQHH7eG4n7l73EBdVHK/sOZd2JowA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=J1Hg+QtSHfPAu1motlg1pZe6e+BYOYVUywEFsPUxTTVg7+yLYB1UlsM+k7EpgyvHEgJtN99fShiln/Jk7FBkhK5+Di+pK5I8M05YSi9HyD6sC1JS1Rugkn86TyHYo1mlRvf2b4tvIiEzarf8DgLWOCoKYP0U1ARgncGio45Be50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XbhVIxDl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xuDkaryW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Gjq6ND1t; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=f9UONYJZ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8QviNNr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F7A1F00893;
-	Tue, 15 Sep 2026 14:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481877;
-	bh=37WI6Bj/Ggz3/9zO2SR1BHA0D09BihoVO8j7O418CP4=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=L8QviNNrTmMpIqQxxWm+1VskqSUHJhnuf0/rYUwn4D42ISdoJmFjdazUlkGx8ggjD
-	 X9a5oqOjNa/CDI0U1C0R5QjHTXlgPr/67Rld+0Hyr0uJ/7kc3460S3rv7/jkol6ScQ
-	 +IDquEBZlfhgOQp6PB69iJ4aD7kdmPXVcZA+RIUuxHxgEsToRDVkNmvLsX0odMc+Rw
-	 nuEvkdqjxbWUYQZihz9u2BVhArW2qXa3JsNJNFwxqYCKBT6wR0d7kywT/XE6mpf1b3
-	 xzVVYFhiewYfFNfuT8Uq0rEA4UxyGjpPPEsrojRib0d1ehB27wSNo+4fQ7hHW5u7Gn
-	 OzxzjqzdwP2cg==
-Content-Type: multipart/mixed; boundary="===============0488351286812016447=="
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XbhVIxDl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xuDkaryW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Gjq6ND1t";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="f9UONYJZ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1DEC71FDD2;
+	Tue, 15 Sep 2026 14:19:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789481977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lpTF3HCWm12/Df5Z7XVrVxBzYG39F++JBUDpesAaNp0=;
+	b=XbhVIxDlfQkOaUws4wy2XYvCIvwjGToovSMJppSx5L9PoLoAX+U+MqfBsHCVY4xrxqABI3
+	EKNmwydAWivX/lyskT2QHRVap1kBl6JWrLuxB2fzAOepVirn+ipUQmyNwL65Bl/8HI6i7/
+	7Q7kNabcCLIEhPRnONyx6YbUHJasKNQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789481977;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lpTF3HCWm12/Df5Z7XVrVxBzYG39F++JBUDpesAaNp0=;
+	b=xuDkaryW1uSR0gKx3HbbSgAihFIfmw5ExY2Avd7LTUZ4kUaYUOC2w1qMW3AoLmJRWJfvCO
+	9BS5SDmyC3xEv0Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789481973; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lpTF3HCWm12/Df5Z7XVrVxBzYG39F++JBUDpesAaNp0=;
+	b=Gjq6ND1tJJ04npn4WsEN/n4SjaDmnlZBHDaxyPf0X1UpOxaPVgci8exRLKTjMaAO9cNAId
+	zkNzlwne2lOXG0yLsah0tVFlIyMpgfS2GooKhvRcnLR4nNZWuwo6wRFRxlLN4YWsyANtc+
+	HFfAkQ/WHn0BjaHww4H9KoeusP0q4BE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789481973;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lpTF3HCWm12/Df5Z7XVrVxBzYG39F++JBUDpesAaNp0=;
+	b=f9UONYJZZV83vXHAYhXMTOIeYyqH7Z2uweoDxsHOpUzJrBRYVXZgeq5FOcytaNFnNNnpjP
+	hyzcetGFQmC6iqBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C19F913432;
+	Tue, 15 Sep 2026 14:19:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FAO8JfRTqWpiLAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 15 Sep 2026 14:19:32 +0000
+Date: Tue, 15 Sep 2026 16:19:32 +0200
+Message-ID: <8733vamwaz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Zipdox <zipdox@zipdox.net>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	linux-kernel@vger.kernel.org,
+	tiwai@suse.com
+Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR and RANGE
+In-Reply-To: <59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
+References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
+	<87bj9yn55n.wl-tiwai@suse.de>
+	<59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-Id: <99771250491ac7c5568e688eacca866676565a40f18f1189b8937472f4aba91e@mail.kernel.org>
-In-Reply-To: <20260915-b4-rcu-tasks-preempt-qs-v3-13-0ad30c4c5ee7@toxicpanda.com>
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-13-0ad30c4c5ee7@toxicpanda.com>
-Subject: Re: [PATCH RFC v3 13/13] x86, arm64: Build Tasks RCU on Tasks Trace readers in trampolines
-From: bot+bpf-ci@kernel.org
-To: josef@toxicpanda.com,paulmck@kernel.org,frederic@kernel.org,neeraj.upadhyay@kernel.org,joelagnelf@nvidia.com,boqun@kernel.org,tglx@kernel.org,peterz@infradead.org,rostedt@goodmis.org,mhiramat@kernel.org,mark.rutland@arm.com,jolsa@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,x86@kernel.org,catalin.marinas@arm.com,will@kernel.org,puranjay@kernel.org,xukuohai@huaweicloud.com,paulmck@kernel.org,frederic@kernel.org,neeraj.upadhyay@kernel.org,joelagnelf@nvidia.com,boqun@kernel.org,tglx@kernel.org,peterz@infradead.org,rostedt@goodmis.org,mhiramat@kernel.org,mark.rutland@arm.com,jolsa@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,x86@kernel.org,catalin.marinas@arm.com,will@kernel.org,puranjay@kernel.org,xukuohai@huaweicloud.com
-Cc: luto@kernel.org,josh@joshtriplett.org,urezki@gmail.com,mathieu.desnoyers@efficios.com,jiangshanlai@gmail.com,qiang.zhang@linux.dev,jgross@suse.com,mcgrof@kernel.org,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,rcu@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-arm-kernel@lists.infradead.org,xen-devel@lists.xenproject.org,luto@kernel.org,josh@joshtriplett.org,urezki@gmail.com,mathieu.desnoyers@efficios.com,jiangshanlai@gmail.com,qiang.zhang@linux.dev,jgross@suse.com,mcgrof@kernel.org,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,rcu@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-arm-kernel@lists.infradead.org,xen-devel@lists.xenproject.org,josef@toxicpanda.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 15 Sep 2026 14:17:53 +0000 (UTC)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
---===============0488351286812016447==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, 15 Sep 2026 14:54:38 +0200,
+Zipdox wrote:
+> 
+> On 9/15/26 1:08 PM, Takashi Iwai wrote:
+> > Hmm, for UAC2, UAC_GET_CUR & co isn't passed as is at all, but the
+> > call is translated to UAC2_CS_CUR and UAC2_CS_RANGE accordingly in
+> > get_ctl_value_v2() (that is called from get_ctl_value()
+> > conditionally).  So this translation path was skipped somehow with
+> > your device...?
+> 
+> The request is translated yes, but wValue is incorrect. UAC2 uses a
+> Mixer Control Number ("mcn") in the low byte to identify the mixer
+> control, along with a control selector in the high byte (UAC2_MU_MIXER
+> in this case). UAC1 on the other hand uses the low and high byte to
+> identify the mixer control. It seems get_ctl_value_v2 doesn't change
+> wValue to the appropriate format (mcn and control selector). This code
+> was, as far as I understand it, never correct to begin with for UAC2.
 
-> diff --git a/Documentation/RCU/Design/Requirements/Requirements.rst b/Documentation/RCU/Design/Requirements/Requirements.rst
-> index 8101fe6229d57..34b81512cc5f3 100644
-> --- a/Documentation/RCU/Design/Requirements/Requirements.rst
-> +++ b/Documentation/RCU/Design/Requirements/Requirements.rst
-> @@ -2756,6 +2756,26 @@ synchronize_rcu(), and rcu_barrier(), respectively. In
->  three APIs are therefore implemented by separate functions that check
->  for voluntary context switches.
->
-> +Architectures that select ``CONFIG_HAVE_RCU_TRAMPOLINE_READERS`` keep the
-> +same three APIs but implement the grace period differently
-> +(``CONFIG_TASKS_RCU_TRAMPOLINE_READERS``).  There, every trampoline whose
-> +lifetime Tasks RCU guards enters a Tasks Trace RCU read-side critical
-> +section (rcu_read_lock_trace() or its assembly equivalent) before calling
-> +out and leaves it before returning, so a task anywhere inside such a
-> +call-out is an ordinary Tasks Trace reader whether or not it is
-> +preempted.  The few trampoline instructions outside that reader can only
-> +be occupied by a task that was interrupted there, so the grace period
-> +additionally waits for each CPU to pass through a context switch, and the
-> +irq-exit preemption path, the only switch that can catch a task inside
-> +such text (rcu_tasks_trampoline_text()), briefly makes such a task a
-> +holdout until it is next seen elsewhere.  On such kernels an involuntary
-> +context switch outside trampoline text *is* a Tasks-RCU quiescent state,
-> +a Tasks RCU grace period no longer depends on how long any task runs
-> +without sleeping, cond_resched_tasks_rcu_qs() is unnecessary, and the
-> +obligation moves to the trampolines: anything that relies on
-> +synchronize_rcu_tasks() to protect code a task may be preempted in must
-> +take the Tasks Trace reader (see register_ftrace_direct()).
-                                                               ^^^^^
+OK, point taken.
 
-Does this paragraph describe the complete set of options? The series
-itself includes kernel/kprobes.c:kprobe_optimizer(), which relies on
-synchronize_rcu_tasks() to protect instructions a task may be preempted
-in, but instead of taking a Tasks Trace reader it registers an address
-predicate and calls rcu_tasks_wait_irq_preempted(kprobe_in_optimized_region)
-before synchronize_rcu_tasks().
+> To get the MIN, MAX, and RES, get_min_max_with_quirks currently calls
+> get_ctl_value three times to get the values separately. It looks like
+> get_ctl_value_v2 was written to send RANGE requests and extract the
+> appropriate part of the RANGE response, depending on the request. This
+> doesn't actually work though, because wValue is incorrect as I stated
+> above. It also unnecessarily sends three requests instead of one. That's
+> why I bypassed it entirely and wrote the get_ctl_range_16 function. This
+> could in theory be consolidated, but there's quite a bit of other code
+> so I'm hesitant to touch it. Supplying the correct wValue to
+> get_ctl_value in get_cur_mix_raw fixed getting the current value, and
+> the same applies to the call to snd_usb_mixer_set_ctl_value in
+> snd_usb_set_cur_mix_value.
 
-kernel/kprobes.c:526-539 documents that alternative: "kprobe_optimizer()
-relies on synchronize_rcu_tasks() to wait for tasks that ... the
-quiescent-state check asks this instead."
+But your code also blindly assumes the MU_MIXER_CONTROL that doesn't
+fit with other units like feature unit?  I guess we have to set the
+proper Control Selector value depending on the unit type.
 
-Since this paragraph is the single place in Documentation/RCU that
-describes the new contract for HAVE_RCU_TRAMPOLINE_READERS architectures,
-a subsystem author reading it would conclude there is one way to comply
-and would get no pointer to rcu_tasks_wait_irq_preempted() or
-rcu_tasks_trampoline_text() for code that cannot take a reader.
-
-Could the paragraph mention the rcu_tasks_wait_irq_preempted() escape
-hatch, or soften to "must take the Tasks Trace reader or otherwise make
-its text known to the quiescent-state check"?
-
-> diff --git a/Documentation/RCU/checklist.rst b/Documentation/RCU/checklist.rst
-> index 4b30f701225fd..7082686cbd66d 100644
-> --- a/Documentation/RCU/checklist.rst
-> +++ b/Documentation/RCU/checklist.rst
-> @@ -252,7 +252,12 @@ over a rather long period of time, but improvements are always welcome!
->  	a.	If the updater uses synchronize_rcu_tasks() or
->  		call_rcu_tasks(), then the readers must refrain from
->  		executing voluntary context switches, that is, from
-> -		blocking.
-> +		blocking.  On architectures that select
-> +		CONFIG_HAVE_RCU_TRAMPOLINE_READERS a reader must in
-> +		addition be a Tasks Trace RCU reader (that is what the
-> +		trampolines there do around their call-outs); an
-> +		arbitrary stretch of preemptible kernel code is not
-> +		protected.
-                        ^^^^^^^^^
-
-Same question here. This text also states the obligation in absolute
-terms ("a reader must in addition be a Tasks Trace RCU reader"), with
-no mention of the rcu_tasks_wait_irq_preempted() alternative that
-kprobe_optimizer() uses.
-
-[ ... ]
+After all, this is about the correct setup of wValue.  Let's try to be
+minimalistic at first -- just tweak wValue in get_ctl_value_v2() and
+snd_usb_mixer_set_ctl_value() at first.  If this becomes too ugly, we
+can think of redesigning.
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+> > Could you try to reformat in a proper patch format?
+> > Also, it looks containing many unnecessary / unrelated changes that
+> > make review more difficult.  Please try to concentrate only on the
+> > change you really need.
+> 
+> Perhaps you are referring to the indentation changes resulting from
+> wrapping existing code in an if statement? I can't really do anything
+> about that. I don't think I changed any unrelated code itself. If there
+> are unrelated changes, please point them out to me.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34975311706
---===============0488351286812016447==--
+Well, get_ctl_value_v2() changes look all unrelated and just breaking
+indentations.
+
+> In any case, I
+> changed the patch to the "canonical patch format" as written in the
+> kernel docs.
+> 
+> From: Zipdox <zipdox@zipdox.net>
+> 
+> The USB Audio Mixer Unit driver (sound/usb/mixer.c) sends audio class
+> 1.0 format control messages to devices, regardless of the actual audio
+> class version. This means audio class 2.0 devices will receive incorrect
+> messages, stall, and cause the driver to error (e.g. alsamixer exits
+> with a broken pipe error). This patch implements the GET_CUR, SET_CUR,
+> and RANGE control requests for mixer units according to the Audio Class
+> 2.0 specification.
+> 
+> Subject: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR and RANGE
+
+The subject line must be at the beginning right after From tag.
+
+
+> Signed-off-by: Zipdox <zipdox@zipdox.net>
+
+... and both From and Signed-off-by should be with a real name (or a
+known identity).  It's a legal requirement.
+
+
+thanks,
+
+Takashi
