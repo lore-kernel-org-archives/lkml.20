@@ -1,144 +1,108 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C79472F9B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A39747ACC6;
+	Tue, 15 Sep 2026 10:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467663; cv=none; b=tIKbYMRxnfvZxRd4kiioy2FKhLrQaxTMCr+R//qp06NWQSV/gNAXHeKtXwdhRdmo77nDzB/bMu9F5bYag3E+bQKpozj68OGOFPhCJI8Tf16a/xvkuqSARP2hKKCjVNtOkGG9e8x/n0qV9Q5hv6VvproCmYNbypAG4T7Cvym9lWw=
+	t=1789467673; cv=none; b=JURvwjevQy2R6cpE6dNeCwVwXn71Fp2NzsqVWAqv+zvn/gpTWUehqYon3Kjnsw6LJHY7ZNFP0lGb2+dCBxjrDrIe2JVm7/4vPGaiKOLnQWCUFou28pkiwpG3gJcbrS+dgjz5jnU3biclEiNabXmoL+Af224uidLlQsO3KfWNe9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467663; c=relaxed/simple;
-	bh=rQ9ykEiVzccIKYlTgtQ0NJiCeyYilAfD/J3UJMBPADo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mpIY38Qi1LKjbSCvFtslB/TwS3x0iazViFVBOG2PU5XeyknH++gD6a2igTge9iXfLeY9V0uGLyBdTIRhztXe6mRvkbqrGmW9tpFrIpiELeNd8V2qfzVjLZv6NVos1T+SIc5GBgyjL2cGAAgHEHLoYafQBEZHcrDmUb/KqiEKqSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHXkwYtO; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789467673; c=relaxed/simple;
+	bh=j2FwAU6Oc/8C613M05UKW5TkX/+ZWeoDiJRoL501X3M=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=YuEeHXlNyqHpUEiV165SveEkIyIWQh/9vm/2b3FZHxH2sIsjm4eGvXTPuh46ogX6p1osPuqdYE7DKb2k6VJnW07528HdYQ42g3L+ZlG+ePNy/4W026D2qLxEILtp7samOGZlEQA2g1lchGNgyWm/nKEL+PH/dKk6UKWscJlI70g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NrTewRqY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHXkwYtO"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so26330065e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:21:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789467660; x=1790072460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8JpWf/51zRf1hN559QYIV4FyXsUZULp13ULs8b+al10=;
-        b=YHXkwYtO+0cOUNV3w+sKeFg1RIGLOMiKOWk3w7b2BvaIRPwJuzBjNkJzEVTaNCfFFn
-         Wa4pKSTxNqnNsXlfPCd71NqSEx9M1nQyJW2EeRbi/20RYEBmIXL3ZypnmSXHts5PsVjC
-         bT2foHeEYs58dJobpLq/UjlWdHHV63A88BeBz5AE3mYws7AlVTkIVE8JTGV5MMAjEO8d
-         E+LMyxyYiwupMQjfQoGQYYU9D3HWS695WUKZzlfkIc5J00kbeLk/Il7GxXblaDDwpBN7
-         awxDC6wNKs9AHcRpcQtENMpEdBHQIiy8D11E1Cd15oAFYOla+A+wLPgLHeqnGuVX7lKD
-         g6yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789467660; x=1790072460;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8JpWf/51zRf1hN559QYIV4FyXsUZULp13ULs8b+al10=;
-        b=Lie/OLRZHw2FuRo/q+oSDwBEzS9hi6JBzCk83qSgAzmz6tSNK8QDMhb5rFvf0k/PR2
-         a5wYC+A5UYswanQpCA0xbeIOBAICYWVaGJzDX2k44yls9NAf5n0DBbpM5W3A2iHKqbWg
-         /MG4J77P66fEvsEqs27E/4G+2eiVulWJv8KZU7ZQJdtQ3Vw7BVs3sPjBFY0KBhNmEt0A
-         qFnteWgR0ekICgUXNLkzGdVxtZSp8g4w7o+b+4WNBTLLCh5DlFQeaPXqT2MRRTV3E+Up
-         wlKhtAWO7HfHduvFqjexU3+m7uj7t5ljpVPVSGIG+QAI2IiCea6JT8iFPhFGac9CyF+8
-         rCVA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/04vDH7FLiOs9Xa8Rwl52/UtJ0thPDUJRqrT1VVZE5o7rmEeM0dYZ6600ycQgKeVTMA0lHN5bHkOuIYM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbTM74LAeaIYurqgDaj4JSvnAXKEISHImZd/ZEn3r3ASx+8QDk
-	10do0vFBYanZyALz4bBA93LvsDDSrEMhuZFTrVSZpzTtr1BDX3K8A6y2
-X-Gm-Gg: AYBFou3Sl+brMFJYQxjcMTXZLim5bBZE5K7eAa8BqLUXWQskfaLTzyLS7dqeH7cWHq7
-	EHwXz78uTCR1EeUU/xZnsAuKWq5/Ny0yERz1kiPpwwA9GHVKdX3MmtXTPm2ljPQV0q0CWij3ap6
-	VQtMhkObPAFmFSzOisZC4PtZgetWUrXdGR16dYcQmP0Pt1vm20ixBSNwKNFUeF2/O7agwpXyg5S
-	xwZ5CegZjtXOriKM50VxlwFdT86toQzNEgc7Cq2aRZou2fhveeyE1xenj6L7NwX9NAQPzdEfFsL
-	T/ugYWUvkyuBEOA6E24Pbjs9z/lW4rcM8mf8yk7tpvMtDYUcSIsyQUnuE/1iM2BqQsUXznx/+6I
-	p00QFjUyzjXX8OydvtDWDifNSkZM92vyDI2NTKMsZdwmUsGBPnvknAZmTc8fb3SfTrozBvuJHZC
-	G+kaQBLDdvVVt+f6DGF0aTlnJDHiqT1YYuiHZQm+k3C+EpxBJsl4CSVADxTqbbYW/G53EfeOZzs
-	x3BRBv1D6bTel2DiDvVlkiPCOoFpmjWZf/a
-X-Received: by 2002:a05:600c:630c:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49e7a662f3bmr70114175e9.6.1789467659704;
-        Tue, 15 Sep 2026 03:20:59 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef2e117sm54270165e9.1.2026.09.15.03.20.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:20:59 -0700 (PDT)
-Date: Tue, 15 Sep 2026 11:20:58 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>, Will
- Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- linux-kernel@vger.kernel.org, Linus Torvalds
- <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
- Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
- locked=1
-Message-ID: <20260915112058.309b5317@pumpkin>
-In-Reply-To: <20260915085013.GA4121339@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
-	<20260907084133.3696-4-david.laight.linux@gmail.com>
-	<20260915085013.GA4121339@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NrTewRqY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD67E1F000FF;
+	Tue, 15 Sep 2026 10:21:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789467671;
+	bh=20/7wnbF8nfIl3EGX+jvo0C3k5EWfhud03KDBQFoyEg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=NrTewRqYp2tmxhdV4vca9LV/gg5fBNLwrcLjECSN+V1lZ3KyI3pcMYEi0NhQzbMhb
+	 H6LkLgFKvk+I8mDZ2yt8OIrPjKKsTT4+CBSVbcXo5yGpFuj2l++weSewuKhJeS4a4c
+	 Emj5VyzR5c5EyyrMz0n5UUR0zmmbI5ITPwobqWKFtlNCa17UvF3f4Vf0NAeM1J4Vrs
+	 3106/MERHkyzuM51yXJ/uOuD/yA2enafGoEePHpfTOo8v7VLUPXxXs7CmgByqPeVw9
+	 eJR4boyWvLxYwOWBjIChdQYS7MoSKcoQGX4dLKGZEeLf9XZoW5Og4xqxQGVy1e7Gz0
+	 eVELDL7I1nO0A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09B03926263;
+	Tue, 15 Sep 2026 10:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 net-next 00/15] net: enetc: SR-IOV improvements and
+ ENETC
+ v4 VF support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178946760664.1496640.10712113445214724532.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Sep 2026 10:20:06 +0000
+References: <20260909100733.1139689-1-wei.fang@oss.nxp.com>
+In-Reply-To: <20260909100733.1139689-1-wei.fang@oss.nxp.com>
+To: Wei Fang (OSS) <wei.fang@oss.nxp.com>
+Cc: claudiu.manoil@nxp.com, vladimir.oltean@nxp.com, xiaoning.wang@nxp.com,
+ andrew@lunn.ch, olteanv@gmail.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, wei.fang@nxp.com, imx@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Tue, 15 Sep 2026 10:50:13 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
+Hello:
 
-> On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
-> > There is no need for separate prev_cpu and locked members of
-> > struct optimistic_spin_node.
-> > Using a single field simplifies the code slightly.
-> > It also removes any possibility of the two values being out of sync.
-> > 
-> > When cancelling a lock request explicitly set prev_cpu to zero.
-> > Nothing actually looks at the field, but it means that it will be zero
-> > after a subsequent 'fast path' osq_lock() call making things consistent.
-> > The cache line is likely to be dirty (or be dirtied) so there shouldn't
-> > be a performance hit.
-> > 
-> > Signed-off-by: David Laight <david.laight.linux@gmail.com>
-> > ---  
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Wed,  9 Sep 2026 18:07:18 +0800 you wrote:
+> From: Wei Fang <wei.fang@nxp.com>
 > 
+> This series enhances SR-IOV support for ENETC v1 and adds VF support
+> for ENETC v4. For ENETC v1, the trusted VF management and per-VF
+> configuration query via ndo_get_vf_config() are added. For ENETC v4,
+> preliminary VF support is introduced for i.MX94 and i.MX95 platforms.
 > 
-> --- a/kernel/locking/osq_lock.c
-> +++ b/kernel/locking/osq_lock.c
-> @@ -170,10 +170,11 @@ bool osq_lock(struct optimistic_spin_que
->  	 * is per-cpu data the memory can always be read.
->  	 */
->  
-> -	for (;; prev = READ_ONCE(node->prev)) {
-> -		if (!prev)
-> -			/* Lock acquired */
-> +	for (;;) {
-> +		if (!prev) {
-> +			smp_acquire__after_ctrl_dep();
+> [...]
 
-Do you think the equivalent might fix the existing code?
-I think it is only going to matter if there isn't another read barrier
-before the osq_unlock() - which is unlikely except for the test program.
+Here is the summary with links:
+  - [v4,net-next,01/15] net: enetc: add trusted VF support
+    https://git.kernel.org/netdev/net-next/c/aeb505f83f7b
+  - [v4,net-next,02/15] net: enetc: move msg_task and msg_int_name to struct enetc_si
+    https://git.kernel.org/netdev/net-next/c/99ace7602482
+  - [v4,net-next,03/15] net: enetc: add link status message support to PF driver
+    https://git.kernel.org/netdev/net-next/c/83d385c67af5
+  - [v4,net-next,04/15] net: enetc: add link speed message support to PF driver
+    https://git.kernel.org/netdev/net-next/c/f7e86f8ae699
+  - [v4,net-next,05/15] net: enetc: use enetc_set_si_hw_addr() to set VF MAC address
+    https://git.kernel.org/netdev/net-next/c/fba13302b996
+  - [v4,net-next,06/15] net: enetc: relocate enetc_pf_set_vf_mac() for common PF support
+    https://git.kernel.org/netdev/net-next/c/f37718e9210b
+  - [v4,net-next,07/15] net: enetc: add .ndo_set_vf_mac() to the enetc v4 driver
+    https://git.kernel.org/netdev/net-next/c/18c66a9a4fae
+  - [v4,net-next,08/15] net: enetc: move mac_filter from struct enetc_pf to struct enetc_si
+    https://git.kernel.org/netdev/net-next/c/261be512194d
+  - [v4,net-next,09/15] net: enetc: add MAC address filtering support for VFs of ENETC v4
+    https://git.kernel.org/netdev/net-next/c/e7ac83644e28
+  - [v4,net-next,10/15] net: enetc: simplify and rename PSIIER enable/disable helpers
+    https://git.kernel.org/netdev/net-next/c/76fb8ad66d3d
+  - [v4,net-next,11/15] net: enetc: restore VF MAC promiscuous mode after FLR for ENETC v4
+    https://git.kernel.org/netdev/net-next/c/f539a68b0aa1
+  - [v4,net-next,12/15] net: enetc: add VF support for i.MX94 and i.MX95
+    https://git.kernel.org/netdev/net-next/c/fd793705e62f
+  - [v4,net-next,13/15] net: enetc: implement ndo_set_rx_mode_async for ENETC v4 VF
+    https://git.kernel.org/netdev/net-next/c/e05f2902925e
+  - [v4,net-next,14/15] net: enetc: add PSI-to-VSI link status notification support for VF
+    https://git.kernel.org/netdev/net-next/c/36a16ed591b3
+  - [v4,net-next,15/15] net: enetc: add ndo_get_vf_config() support
+    https://git.kernel.org/netdev/net-next/c/5822ab0f3e89
 
->  			return true;
-> +		}
->  
->  		prev_ptr = decode_cpu(prev);
->  
-> @@ -185,8 +186,8 @@ bool osq_lock(struct optimistic_spin_que
->  		 * 'prev' must have unlinked (or be in the process of unlinking)
->  		 * itself from the list.
->  		 */
-> -
->  		cpu_relax();
-> +		prev = READ_ONCE(node->prev);
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-A matter of taste, I prefer it at the top.
-
-David
-
->  	}
->  
->  	/*
 
