@@ -1,164 +1,252 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24F74A498F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BF74A482F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478297; cv=none; b=fhvpzl+HG/6Lmp46UhAl9S0HSMZNh+o49PlQY2TPtX9lb6q6Cq9bzxHOkT7e4YUiT5TkP1CQ54pLpfhrlSdV6XC/MLgZ/4FmK4iIJap6QyvrO3w+Qq2+Vc3LedP6oat1GlkPEr04J59qpUROHSawsn4EQDhmfzxHsShB5QyPV6M=
+	t=1789478297; cv=none; b=oNASqiHpGTZRted2TA8/HyPG8+ggJVpATM/EmROilS3PPEob12k4BFar+sxt8cPSaKthojiT2fSFSTbd0A6NO0p5/R5amJrCdb8+9OcxgB+w9/Ov2pIkRAgPDyopOvlQJx6UiO3KLTxrgz14S6XEtxnSsJY8UUl2/M/yaCrgrxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789478297; c=relaxed/simple;
-	bh=fMMT7KDyQsoYNCmheCV7pMEdLKReWz7gdFZDpKI1mGk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f1eZc8NQbMVSOlpeR6qgdkPVNIdaFJgv0ZIZQBg1enVe0jMJjO9k4O8DFFNZIzBKEDoui/PyreXbMbH0PBpyiWiFJCzmcF8uS/z8XPgBJz73jFncy1Y57i77vkKqw1lAhkBLcSaHPDXpNh1xoVfD8faR4LuLIxdXMFMkOp1kM4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OksDAJrh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z8FhoUyu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=R9t47tbzDpBlKabnqSyLf9h+YtCy+mgQn2kYE1SNKlg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TlOjE1T7X4c9N7GJlGFyiwhmjXDypaOqI/ZnVfI++c2URndZrFvfCfGoppwl06Z6/qYbDvfGfxEIX39AlrkCd3hTZ8fY3H5cL1CmzKerX8w6HBaya8bv7QX+5ayOyMIZsID8yKyWEB+2PVXG9ZViXiNirjf4ofnJCtngdFdYmLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=kFiJqUSa; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OksDAJrh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z8FhoUyu"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FD04fj3654709
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:18:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LaXbQxZaYTp04ZjcgnSY3dyQBKVpM6KCTQHDul4VEyI=; b=OksDAJrh7ug1q5t5
-	xcJdL08GNas8SYYTIuGuT7iztPVflBn8nCP6xLNqJ4yW9AjA1jJ6W4Z2ykM7mPby
-	/b33Nl7dOIhIh3RztKQEPkmYEkM0qzq96ivGjVXFjP5x4dZeoPqvZQCWs6YVKdog
-	JfymjtlpDoDKUaEF3vpiqWlnSlHNbI37OaT9WBsQNiAQqDRUAItMKg+eU5xLjoAC
-	LPtbrt60R6uby97mA25Wqvz+pMl+nSwucY/s5Jhzf+YG7vAlnEO4gm95z31wU6IQ
-	eWFRfZwjC8EoEVR+5B6sxDFERzSt+i6MurqPikoP9frM+LcaNodKNFGgfOzHPIR1
-	148WOw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq2y2h2uc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:18:14 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so181819585a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:18:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="kFiJqUSa"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb767cc7fso1726301cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:18:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789478293; x=1790083093; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LaXbQxZaYTp04ZjcgnSY3dyQBKVpM6KCTQHDul4VEyI=;
-        b=Z8FhoUyuOLGvFXbcHnebjO8Jrefc5K1afkJbXvJsMIWxYu3B4Q1O0RKCPFkEy0KhNc
-         0eMbIIMPZm72XIeA6EjQ7q1KkUExGcP/CWovjcSgMtX+C4lnAieAqtFtCAqi/ltjALGy
-         aYtb6XC2BdHaP/unB5m9o1CYvGEMxIIKuLJ6Dn5J+rFr9O1S5qZo9wJyDJ3LQSgDUtZu
-         nC1JD4j/ve77/WI4Ck8ZRWo4a1VcLXK7QpHat2RaKQv5wnp2WZYPnkNX2NlPfKa/iM3v
-         VjxiXYRCe6rNBFH/HZahiP/5p9mSV7Z4zH2yFvfLOeFSC+N4zYP5Gc9QW8ntxCXQCkig
-         XgIw==
+        d=toxicpanda.com; s=google; t=1789478293; x=1790083093; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dyunHw12Wk9XaltfwN7bGL3PCRgKnyr3LfmugMg8Gj0=;
+        b=kFiJqUSaNikHJYMEPzTggnxBXpK7rMLLDNVTmH1cC8JJgb50CIn5TUSeyjhJ1sVxbQ
+         HlljZCvMm+WAQnYp/kmz7GlfD6ldCHEHR8bR4cXdw2m68qnh9Dh+am+IbmjhFXNGBy45
+         /z904sk2ET0G3cHwElQ9qgld2s0lHe3024NR1ChhyMYhEP5iDaUAgmPYO9RonbnyvK3Z
+         FEN7dy+GKhQyPFRQphHubVi0XlNm9KSUBpf654zm5kdWKHuRvC1El5gA66hfbYNf9OFm
+         4dC1d7wCKm2msW5gsFkYkt5npCQ1lbQnQVD44iKvLoytjd4CSv1dn5I1zdxZKymWBd+P
+         h/XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789478293; x=1790083093;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LaXbQxZaYTp04ZjcgnSY3dyQBKVpM6KCTQHDul4VEyI=;
-        b=ANQQBGyKS2IyCkTmROnPiT68J921tzt67PEzQjQ/Ak/FhdOv8BTAFqDG3MJ82oAXKQ
-         lMGL2BBwC2h2hYr5f43BsZ02R9l7VJXaxS5DxN1v2aji8gQ8hHEAV2Irm8dhDdvO3ZrI
-         TNWN220IfuCTRQwZIAT8mRHXLx2CfiKrqOW6kKwVAqc8pdQv7cmlbQA4WVj2ptmOStEe
-         ylmN+C1glHPNisz2ZGF0dX0UM4U+Px6SpeIl6iLh4PvHkIuxQppOPQKbp2VwBfJrk06M
-         aFDz0gnEUpHD6YxGmSjZsmAK6tQn4DwGp4o8FhnzqTARCL8kKoeMnN4tghiJT5xLuuZq
-         53OQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzl0KTz+Sl9/zB1ZVhfiIkneldwOVzlWMWiW5NdEaP5Q+vz//Z2zO1kYVksm7kcv1IGHMu69ulDFk0D50s=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/ijpO/eYAxx5fLLqs6U8tQXMd9bKFa6wJDDR4Yg9qtLux6sAn
-	j7Eum9WRQqF/0IUbyQjWaUX6kpMG7BgVUgong4hLdXbrd79i6vT4om7MnLzFK9qv0d+qI8mDWSb
-	YZtFzdbaT/Bv7TgDHin1Czr0BaLDa/aLOAz0BYk7N96OD7HA519gjTQYkyVv/hME6240=
-X-Gm-Gg: AYBFou2zlpzgBZsPdXuGQsvG2cPstynnJOhxLZUId0vHtZfDq5BKa9s/E3AE953+MIA
-	Jlz4FWVMLb39pX/6Fh2NHKv+2NXnQ+WC4oaYTDElCUF27Vya1GP+wIMlMJUJyCE4rh/S8sHivSf
-	6eowbtBCRamg/N7y2F/ZK1ksHFdmhvfxquvLMnZjPwLSBYtz8jbdpdJ23oSH/uLBbXVN//ENRce
-	4i6BORn2pr3AQaqrhqEPXglYd1mIoKg2jrRG/M8GC7NdeES0cHGKGNBeuvIUrVhwRggyBvwxLBH
-	Pls0gwPjbJBhgcX0fJfuk7NNSREVW3Tpgb5RpbBBJC/eW98RMHlAsJPZchcYkcFe+Ol+g/vXDJW
-	x7Inh0uiLz/4XILtUPUSIwvdvvxg=
-X-Received: by 2002:a05:620a:7018:b0:93a:3257:34b with SMTP id af79cd13be357-93a346fa956mr478721385a.29.1789478293289;
-        Tue, 15 Sep 2026 06:18:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:7018:b0:93a:3257:34b with SMTP id af79cd13be357-93a346fa956mr478716285a.29.1789478292807;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dyunHw12Wk9XaltfwN7bGL3PCRgKnyr3LfmugMg8Gj0=;
+        b=QmYJjRn+d3JxepSzv8gJn3iPQP/C+750iHtQOpkexLm/xCAdamT0dalewLI9zc3uH8
+         kzLUPgOxjxqd+NdoyGEyWXSN0Tip7rNtdnn6nCfpnUR/4de8fkUDGN4byG6USvnFzv9N
+         EhzLMseU+tWzRLWZjYESgfX1S6+NRNwCcAwZqL0fhc45NjSYQzOYrwftBV1usZizRDgi
+         K7O/pF+NdutFWVoIvc+yanZY0B+SRCvBnG6vHqmHBmG5yHe63sHtWbUkrmIzsy1uCbkG
+         N1+gyGfD2Atc7nIsfPXOl2YWau+kKliuJAK0c/gczTz/JKwaF3vprudK13pidlT36Q6g
+         1lQw==
+X-Forwarded-Encrypted: i=1; AKwUvBygRqxWy1uOQ0r4aUEfgNGbNwOSzc3T4GbCe5Ne4LAOCsMJdfiRDiOXrC97Cuo4NEo3xG4z57+KkgTXTdI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7XMuDaZ/Um/bXKprAxpfh4YAdF0wh8S/ub2rgQO1/mowUO7kD
+	Smlj3lWAieA6zXzQH/EvB3elAB4mAVY9jwYcCcBq2XfRoqW6LW/Ctoo8m51NS+FfgwE=
+X-Gm-Gg: AYBFou3Lf5g0DG6OAgxfmoqSnpFqVfNqh4kqRwbse84cSL0i1P9tvmcxvYihcmntLqA
+	HRAgdtu09FiUN+rN1qLwjnPWx5kPdn/LdNTIS5Z5KHsuUTo8i1IiMV3U060BOaJws2l9Hh483h7
+	5Me83vbnz47fG1rAdJKCjxGpd1Znz/go7oxw4xz+glj5F+QkD8REaniDtouz37FaK6J/IpsBruu
+	hCvhJN2ebK7KlTFHQHEu7taxFYpM94SdQJNB7CHfqtmYOXF/XIH6WGMsVC5mDY6kf/cU4xic8r0
+	E1uSaZtZ9va690u+qhPtUxz1x3xC+pfckGxZf18ruwlmlkx46y1y5iF4KV0fN51WNiXdpSN/G2T
+	ZfwqqcEkaMNbEB7oMjSpEQw3AwY0h6pFaWdjobzgmkcMQTW0rfGNPIb6bIt8lmUS+Zdr/Aps2kG
+	lbs236PxI0MHpdZW6rvbwpiaOlLsAYkJyrS3ZRmQR67kV+PUwqLBtsAyg9O70A22aIPFmGN9lS2
+	4ImOwmZKjkLWWznodR8SPZ8e1v3/1m4AgBbCdSoT7c0SIBPIe9NU4OG
+X-Received: by 2002:ad4:594b:0:b0:910:4c56:76d8 with SMTP id 6a1803df08f44-9123a42ec8fmr14508336d6.1.1789478292499;
         Tue, 15 Sep 2026 06:18:12 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c2966067117sm597020266b.33.2026.09.15.06.18.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45cb06sm120943296d6.11.2026.09.15.06.18.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 15 Sep 2026 06:18:11 -0700 (PDT)
-Message-ID: <bef1437d-6ff3-436e-bd18-2a430fbb355e@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 14:18:11 +0100
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 15 Sep 2026 13:17:40 +0000
+Subject: [PATCH RFC v3 13/13] x86, arm64: Build Tasks RCU on Tasks Trace
+ readers in trampolines
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] soundwire: qcom: add multi-master support
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, robh@kernel.org,
-        vkoul@kernel.org
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
-        yung-chuan.liao@linux.intel.com, prasad.kumpatla@oss.qualcomm.com,
-        jingyi.wang@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
-        quic_srivasam@quicinc.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-sound@vger.kernel.org
-References: <cover.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
- <0097b59e2b96d692b9fb542e207ee43f9dd44a7f.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
- <8c6bfa54-83a7-4d37-bbc8-d3384dfc6ce2@linux.dev>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <8c6bfa54-83a7-4d37-bbc8-d3384dfc6ce2@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: smsE6crPGbO1Wk_5moZjaox2bGKZbn2V
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE5MiBTYWx0ZWRfX2rdZMQA7DYwW
- WL8SMx/egNgTncnYrRST8b8fkaAu/v4lMS1XK7VQN5rz2vUc40TwT6m2kaK+fGKXpzvi/MTo7My
- KgdY+WvjZpOuBZll6sPF0qFkp1OFcpkal6zfho7OcMMQbjfabWr4bxKZl7nPraWHBiJp2Ss5uOd
- eAHPazDvopBnX0KMOggyRHauSfeyml3F8u9RYI7++Mc+8i1MpUtTswR+jsS5KQD68Bdh2xBTuc9
- 5IhRKzdAg7Sjjn3iv0vox81led4yWuLsj5L8JwMZIo7UrFWYhuaosQ9UfnuX9pC74Dnk5VyxRMC
- ebu3HJcch1Zo25yM98pT1F1Z+WjGOOZo3Ji4inmdXyy7e7cFE7IdjjccmcDraqx1uCCMgJxALDF
- MInLCV6H0eRZ8bmHc1xfQdON3oDk/s1qauNeCJyIVObJ9jC7yyv/RQ/esbO3T9+hqlqmre9HhbG
- DfWHezm7rU1V++RW39g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE5MiBTYWx0ZWRfX1RoZTsMhjSGi
- 6qdC1njE11V5dBFlNcBcEk+897ad5emjq/b0pt4Y4rBGmzInAtE+YjSqCg8jtGdk2pgmPX7O851
- R9ghUOTCOEqJDEUw9tGRkV0q4yBwLWE=
-X-Proofpoint-GUID: smsE6crPGbO1Wk_5moZjaox2bGKZbn2V
-X-Authority-Analysis: v=2.4 cv=IcISymqa c=1 sm=1 tr=0 ts=6aa94596 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=Oxe59_bkntSI8SC7MgYA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150192
+Message-Id: <20260915-b4-rcu-tasks-preempt-qs-v3-13-0ad30c4c5ee7@toxicpanda.com>
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
+In-Reply-To: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ Xu Kuohai <xukuohai@huaweicloud.com>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ Xu Kuohai <xukuohai@huaweicloud.com>
+Cc: Andy Lutomirski <luto@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ xen-devel@lists.xenproject.org, Andy Lutomirski <luto@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789478262; l=5993;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=R9t47tbzDpBlKabnqSyLf9h+YtCy+mgQn2kYE1SNKlg=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QLrYYFTmT4yc2HnPNOm135tMG3u8qPYsi+9GRPNIPdwz0QfAjvOD+lsxTwptmj0sG65nDpJ4ULX
+ TbSFHTaStyQI=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On 9/14/26 6:21 PM, Pierre-Louis Bossart wrote:
-> On 9/11/26 10:21, Srinivas Kandagatla wrote:
->> v3.1.0+ Qualcomm SoundWire IPs can be paired to expose one logical
->> bus with more than two DATA lanes. One IP owns SWR_CLK and drives
->> the bus; the other contributes DATA lanes only.
->>
->> Support this pairing on the driver side. A device link between the
->> two IPs enforces correct unbind ordering and keeps the peer resumed
->> while the primary is active.
->>
->> Single-master deployments (no qcom,multi-master-mode in DT) are
->> unaffected.
-> 
-> It'd be good to clarify how the command protocol is handled. Each IP is
-> probably capable of handling PING/READ/WRITE commands in Column0, but in
-> the paired option the primary IP is the only one that deals with Column0
-> and all other DATA lanes are just data?
-All the control/command is only handled by Primary controller, dependent
-controllers only contribute to additional data lines.
+With the preceding patches every trampoline whose lifetime Tasks RCU
+guards on x86-64 and arm64 -- ftrace_caller and its copies, the optprobe
+template, BPF trampolines via their glue, and the sample direct-call
+trampolines -- is a Tasks Trace RCU reader around its call-out, and the
+text outside that reader is known to rcu_tasks_trampoline_text().
+Select HAVE_RCU_TRAMPOLINE_READERS on both (x86-64 with SMP for Tree
+SRCU and DYNAMIC_FTRACE, which is where its ftrace_caller changes and
+arch_rcu_tasks_trampoline_text() live; arm64 with
+DYNAMIC_FTRACE_WITH_ARGS likewise), which switches CONFIG_TASKS_RCU to the
+implementation added earlier in the series: a Tasks RCU grace period
+becomes a per-CPU pass over context switches and irq-exit reschedules
+outside trampoline text plus a Tasks Trace grace period, bounded by a
+few jiffies and preempt-off latency instead of by the longest stretch
+any task runs without sleeping.
 
-only Primary handles slave register reads/writes.
+Other architectures keep the classic implementation.  Update
+Documentation/RCU and the FORCE_TASKS_RCU help text to describe the
+variant and the obligation it places on trampolines.
 
-I will clarify this in next version.
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ .../RCU/Design/Requirements/Requirements.rst         | 20 ++++++++++++++++++++
+ Documentation/RCU/checklist.rst                      |  7 ++++++-
+ arch/arm64/Kconfig                                   |  1 +
+ arch/x86/Kconfig                                     |  1 +
+ kernel/rcu/Kconfig                                   |  6 ++++--
+ 5 files changed, 32 insertions(+), 3 deletions(-)
 
-thanks,
-Srini
-> 
+diff --git a/Documentation/RCU/Design/Requirements/Requirements.rst b/Documentation/RCU/Design/Requirements/Requirements.rst
+index 8101fe6229d5..34b81512cc5f 100644
+--- a/Documentation/RCU/Design/Requirements/Requirements.rst
++++ b/Documentation/RCU/Design/Requirements/Requirements.rst
+@@ -2756,6 +2756,26 @@ synchronize_rcu(), and rcu_barrier(), respectively. In
+ three APIs are therefore implemented by separate functions that check
+ for voluntary context switches.
+ 
++Architectures that select ``CONFIG_HAVE_RCU_TRAMPOLINE_READERS`` keep the
++same three APIs but implement the grace period differently
++(``CONFIG_TASKS_RCU_TRAMPOLINE_READERS``).  There, every trampoline whose
++lifetime Tasks RCU guards enters a Tasks Trace RCU read-side critical
++section (rcu_read_lock_trace() or its assembly equivalent) before calling
++out and leaves it before returning, so a task anywhere inside such a
++call-out is an ordinary Tasks Trace reader whether or not it is
++preempted.  The few trampoline instructions outside that reader can only
++be occupied by a task that was interrupted there, so the grace period
++additionally waits for each CPU to pass through a context switch, and the
++irq-exit preemption path, the only switch that can catch a task inside
++such text (rcu_tasks_trampoline_text()), briefly makes such a task a
++holdout until it is next seen elsewhere.  On such kernels an involuntary
++context switch outside trampoline text *is* a Tasks-RCU quiescent state,
++a Tasks RCU grace period no longer depends on how long any task runs
++without sleeping, cond_resched_tasks_rcu_qs() is unnecessary, and the
++obligation moves to the trampolines: anything that relies on
++synchronize_rcu_tasks() to protect code a task may be preempted in must
++take the Tasks Trace reader (see register_ftrace_direct()).
++
+ Tasks Rude RCU
+ ~~~~~~~~~~~~~~
+ 
+diff --git a/Documentation/RCU/checklist.rst b/Documentation/RCU/checklist.rst
+index 4b30f701225f..7082686cbd66 100644
+--- a/Documentation/RCU/checklist.rst
++++ b/Documentation/RCU/checklist.rst
+@@ -252,7 +252,12 @@ over a rather long period of time, but improvements are always welcome!
+ 	a.	If the updater uses synchronize_rcu_tasks() or
+ 		call_rcu_tasks(), then the readers must refrain from
+ 		executing voluntary context switches, that is, from
+-		blocking.
++		blocking.  On architectures that select
++		CONFIG_HAVE_RCU_TRAMPOLINE_READERS a reader must in
++		addition be a Tasks Trace RCU reader (that is what the
++		trampolines there do around their call-outs); an
++		arbitrary stretch of preemptible kernel code is not
++		protected.
+ 
+ 	b.	If the updater uses call_rcu_tasks_trace()
+ 		or synchronize_rcu_tasks_trace(), then the
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index b5a51b0ef944..bf0e56006863 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -218,6 +218,7 @@ config ARM64
+ 	select HAVE_PERF_REGS
+ 	select HAVE_PERF_USER_STACK_DUMP
+ 	select HAVE_PREEMPT_DYNAMIC_KEY
++	select HAVE_RCU_TRAMPOLINE_READERS if DYNAMIC_FTRACE_WITH_ARGS
+ 	select HAVE_REGS_AND_STACK_ACCESS_API
+ 	select HAVE_RELIABLE_STACKTRACE
+ 	select HAVE_POSIX_CPU_TIMERS_TASK_WORK
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec5ecac..64c3814eb745 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -288,6 +288,7 @@ config X86
+ 	select MMU_GATHER_RCU_TABLE_FREE
+ 	select MMU_GATHER_MERGE_VMAS
+ 	select HAVE_POSIX_CPU_TIMERS_TASK_WORK
++	select HAVE_RCU_TRAMPOLINE_READERS	if X86_64 && SMP && DYNAMIC_FTRACE
+ 	select HAVE_REGS_AND_STACK_ACCESS_API
+ 	select HAVE_RELIABLE_STACKTRACE		if UNWINDER_ORC || STACK_VALIDATION
+ 	select HAVE_FUNCTION_ARG_ACCESS_API
+diff --git a/kernel/rcu/Kconfig b/kernel/rcu/Kconfig
+index bbab14bc14c3..341b68b972ef 100644
+--- a/kernel/rcu/Kconfig
++++ b/kernel/rcu/Kconfig
+@@ -95,8 +95,10 @@ config FORCE_TASKS_RCU
+ 	help
+ 	  This option force-enables a task-based RCU implementation
+ 	  that uses only voluntary context switch (not preemption!),
+-	  idle, and user-mode execution as quiescent states.  Not for
+-	  manual selection in most cases.
++	  idle, and user-mode execution as quiescent states, or, on
++	  HAVE_RCU_TRAMPOLINE_READERS architectures, the variant built on
++	  Tasks Trace RCU readers in trampolines.  Not for manual
++	  selection in most cases.
+ 
+ config NEED_TASKS_RCU
+ 	bool
+
+-- 
+2.55.0
 
