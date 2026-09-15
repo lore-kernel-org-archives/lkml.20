@@ -1,99 +1,114 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E250368968
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839463F7ABD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495088; cv=none; b=epLu0+D2t3W/G4pNhJr7UvwA9KLBSUbhoyazDi8lxxqC7NRvrXujMo5cplqTq8FAvINLw1R2hsynhVILoJJehlMwtp2piCp8eBciOLcqcFunjhnPYhJhCwr2BGsnbdMbpYxSK+vyCQhqr9vG3bFLbwMNYUpT3zXx5MK/PicPvis=
+	t=1789495111; cv=none; b=XkLd61EauNO1s8de4KbGkRp3mlSWSRtmb+M4WA6a3razG+K/BiPzDSMKB0uNKQJRPOzcqyajwQZSN8sdvcIKFfKWkSWBdHOtWIaG5yDmumHLIFjvMDjCs94jRuFFkpSqhGzGd/c88CH3JasBEZLz5A/Q3AMnLj2F+ARMFXZ+oQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495088; c=relaxed/simple;
-	bh=FpcB0kpub2fAPepSq3HX3yXszymBy81A3aqkeOms5sc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gqPy+SJ2Bsyx2KMDdYgw4q5qoBk9Y8wWKG6BVvboNvBUIuAfJX2yEnITh90+09vZatRr+gxPy7Ed9qQkCgMV593DUczDBr2CGrcJNJsTWzKWWi0AmgNsh9Wd6Nz8xU0JRFq1e0/FloRkaRfThjdIJCNMQ/E9kdz5+vzatZ0C49g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SztJ4aEI; arc=none smtp.client-ip=74.125.227.12
+	s=arc-20240116; t=1789495111; c=relaxed/simple;
+	bh=SfG8vwTqe4TcUJSbsJF8gE20YotoiJTOyVPoOfSALB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eBt/S9TWEGoLXmwIz5B7Vmgddqv28qCju43g4Vq2XEL08ElTP42DZK63VfHziJOHKpfvlJEmXzXiCWXH6poptgH7jxpOFtVuQtJKEwBjudU13ff2HD5MOp2SPCaeUlvRstgfwXdwWb2EZBK8LbQ8GEjvLSFY/dePxFh+CoYn74g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GawNDlmf; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SztJ4aEI"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c7e8a176c1so20481e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:58:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GawNDlmf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so435405e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:58:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789495086; x=1790099886; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FpcB0kpub2fAPepSq3HX3yXszymBy81A3aqkeOms5sc=;
-        b=SztJ4aEI0HsTYYIuKgKDe/84lw9hZLsYt2dU57XhIp7wZ8mV0SJlsloSubuumYUB28
-         gnZYFE5mz7S85Xh7JyKvA4x0kzSxELmLw1WDAtE4hJo7o2zO8+ayjc5QWYgD7zUxd0kK
-         YGRrUSUCXkqUmQwdJAqiVVrqRz2mpLdbfQPUrQxosPbhX/SYNsbKx5iDzdCU6/+Ztd62
-         ktbGOtvO8kOjwO/ItWqW7gKqBCM8s0DljB0CI5f9XeeeSRIdq889uBhv7AkkZ0iEZCeB
-         G6bNvQoG5Dd24OVlfKG24m/k1+EP/KcttHP28qnn23eU1+Mo/hSCsPoJZmw7qbYkV7Wx
-         czog==
+        d=gmail.com; s=20251104; t=1789495108; x=1790099908; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+H1sTCqogfHVEMIyxU/sX424jivm8nyc1UeMZaa0E9w=;
+        b=GawNDlmfWcfonlHpEv2QPnsToubye99ITpC660uVyOUma1lJLN78dEdi+5662J3aKA
+         S1mYuOg/zwuGe9AN816/bn50SZYks2gLdey6NS55vJ53FMScFef4PX1t9St1T80V8Iyy
+         odS1aPShkw2ucHTwxxARWKq3BSh1+yPTs4UCjlDmiaGAJqMpSeQyHZFOYp5RuHwhb3q5
+         NYe/cnr0uzUTPH9ZCXFTwDGwoGRuRBW3Se3090XcrGcNAMs6+eoKURuGjwxM9WsRLOHW
+         oB2VlmhwF1IQM0/3Pe4RnrwEFP8637NIILAhkAyULEUiTlW14QyEuAJHCiz5LRlyQk7y
+         yqAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789495086; x=1790099886;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FpcB0kpub2fAPepSq3HX3yXszymBy81A3aqkeOms5sc=;
-        b=cgfVW5ONdpk0qy1FHQskPKXu3AIV0ext4FV2thk4IfKHS7hNuftp5HEgOE0dpvkowd
-         4hzfM9QkEFZLThd85FNzn5bMOhzWoFiJdLV/Cs+9uEjR8h35XBPs6QlEwLJ3uLv3WbAx
-         vRImF2ZSVQGhYfUotn8nm/vW3PNPrpRkPZWJzVli+XLu81lHHKU6rcdNOozTl0o7I0jv
-         CWcKJRpDcQUeZBKZSoLxSeUE1rus35G26izMoThbQm+sjfcC/1d+ix9g99/H9QzxAoIl
-         duhYxg51DjIRUHaJ2Eu6xb9+qTZguXWi4r/qXQbMP2qeTIwLZHPE9USJoP2ytncRCTLW
-         F8kg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmB9iGwUbTuaACYL1UkD0dWEYZXjhminZxB2gK46RLpGsrDbpsh0fNEUD6x3Ct892ZWDNi6OOmM5dffRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsnNUifnlHKFh2gpRxfAnAeGqXQtXrygy3j8NDIg6wUe7LQo0v
-	ACHo3YHWoMinwbXxRG6xFJu41JLKFtWIoC9CmxAiug7mHnoL7Cetg5L5
-X-Gm-Gg: AYBFou0lA0Yj4bznn7z6085XPSjKpjjzgBzavDdlFQF0mMODt/AlijJK77Z6MfWhafv
-	vuTsk3AqCXHd2A7MW+rI93CFHvDK7F/+tLfy/H+rb1CNEpf1sHeimKV8uQ8d+PNxmKiFx42murJ
-	mF94uc/WzMsa14VfobHIrzVdMzWkc2VYJ2fmIOLYuCHWXPxBQlYWq5fwuCQ656m0VBbGPnXA19c
-	aH2jzVweZKRUDrYpM8vK3qexMfLAgHIzdOBxZq5/NBl4+pa+Gubqsj+EHy2FSQOxjFQoPHFfZNv
-	bI5wQiCD/afYRtRi+ggr1inReFUQxtxTrgj/o57Eus990REbWdkcC1AzQ6pCO5uEIV5Y0g2mWpb
-	ZsYFJ8CEEBdZz7niMe8v9UMSdxdOwaBwMivcJ/Gvq1H5gUvmML3Uc27zV/1JzhKNphUE/m6A+Px
-	xs06Rslein754xNgm5058c27oy9kGVm1i3TW5LSP8E0dAtlzOC8aBOwGRvDhsxGiRN5kyHwQljh
-	2p28kFE6ExxkwTgk7J9Je1oJso=
-X-Received: by 2002:a05:6122:d86:b0:5c9:54c6:b4c6 with SMTP id 71dfb90a1353d-5c981a92cbfmr11794778e0c.2.1789495086269;
-        Tue, 15 Sep 2026 10:58:06 -0700 (PDT)
-Received: from localhost ([200.151.1.221])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9831522ab39sm159391241.7.2026.09.15.10.58.02
+        d=1e100.net; s=20260707; t=1789495108; x=1790099908;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+H1sTCqogfHVEMIyxU/sX424jivm8nyc1UeMZaa0E9w=;
+        b=uL4F+EMfsXmch4iRDywiKbgP2ShPRQeZEOCu9rxR7PjM+bQ6tDtTzIP+1nOwkMP35O
+         E9PTWzitpfVDP7quP7bsi/SmqbJzcD4nzC4NLikzWvz0ICJwxzl8YFkp32eRhTAztrCR
+         ySYSKhwVofivHR0nJIE5q+LIjU7C7cb//MC8G44YCCT7E4QqwUToeN4499x/39p8qAe3
+         PT+eqn7qqiEajZXFBxqLGb2QQlZQLCKDWdFPL8zNkgMj/LebhA/kc3S3MKTA/7SJqooI
+         UzNPuJ4mBlzt3In/2Nnu6kBMH8IhvqVTJa0PI6Mzf1B1P9j21ZruC1LPotkq8wU+PlcR
+         g/vg==
+X-Forwarded-Encrypted: i=1; AKwUvBwTz63Pk5ynyacffwX5RazybtAvTDZ8WnnD6SV3n+SyMDndOYjgBdA4ty9kqkEazQbzqYzC836My5cQweE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1u02qpXXymXPmQX+Nh76HuUe/L/hmaKvt2OgD+unW09wStaF1
+	oDotSxaC+pBiK2rQWLBHA2fX61cSzCmsDbun0E3h2matO/DFN8UW9WYy
+X-Gm-Gg: AYBFou0DpS2lDpTLmgfCChI1Ts373w13LVRoU+i+z8RNO85cfoJwEqUyaF6+FGEtNv3
+	OTAGVZDgYlGsL3g7qOuBe/eBbPj+pAdSi1mdQmsTFeRJRRC88RA/p/7dVpQxMQt5HeJh4VRZ34F
+	CMyEMQqixeVM4rr3d+Ti9YXcVvPlMzcCmWH6ANfCpaY4A0B4z9iUOxP7ynfkYJJGIEsXfI+t+u4
+	9FGsUc6ToiSsp+8kaXcO3kA58syF9Y9m6xXx33jGWKnzzi8KvjjVX7XQTbhEpAVn0zHtfeQRKVO
+	Tl91b6iVXJRHe85iEgvXipMVP+jz5rRmglsWmYemJ4cGw1CFrQhGEOVsL2Va/tsWpyAu4pahaMY
+	TFyRt1vwSCuvF4W2KCIUIA7yyRzL+X4FtTBxLoaKu9DeHAcK3EhBg38bmhSklGej9BrIhB8YKg/
+	KRPpQ8MC3Y3bTW7gMNxgzSM2GP2/zhpFkX88JwiIoWmuemrIeLauMW0lmKaP1TmSg7WlP1vh4d7
+	brkLg==
+X-Received: by 2002:a05:600d:8652:10b0:49e:6ca6:d40f with SMTP id 5b1f17b1804b1-49e7d73dcf2mr47539035e9.9.1789495107673;
+        Tue, 15 Sep 2026 10:58:27 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fa70sm755687f8f.9.2026.09.15.10.58.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:58:05 -0700 (PDT)
-From: Davi Chaves Azevedo <davichazbh@gmail.com>
-To: kprateek.nayak@amd.com
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	chen.yu@linux.dev,
-	driver-core@lists.linux.dev,
+        Tue, 15 Sep 2026 10:58:27 -0700 (PDT)
+Date: Tue, 15 Sep 2026 20:58:23 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] sched/cache: Refresh LLC capacity across CPU hotplug
-Date: Tue, 15 Sep 2026 14:57:14 -0300
-Message-ID: <20260915175714.2015751-1-davichazbh@gmail.com>
-In-Reply-To: <20260911220229.1368887-1-davichazbh@gmail.com>
-References: <20260911220229.1368887-1-davichazbh@gmail.com>
+Subject: Re: [PATCH 1/1] clk: Document of_clk_get_by_name() return values
+Message-ID: <aqmHP5QaqfC_St6_@stanley.mountain>
+References: <cover.1789451862.git.error27@gmail.com>
+ <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
+ <aqmGLBRaLwQ5GpXS@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqmGLBRaLwQ5GpXS@stanley.mountain>
 
-Hi Prateek,=0D
-=0D
-Thanks for the review and testing. I've added both tags to my local patch,=
-=0D
-with no code changes.=0D
-=0D
-Tim, may I include your Reviewed-by? Chenyu, may I include your Tested-by=0D
-for the Ryzen and Xeon checks you reported too?=0D
-=0D
-Thanks,=0D
-Davi=0D
+On Tue, Sep 15, 2026 at 08:53:48PM +0300, Dan Carpenter wrote:
+> On Tue, Sep 15, 2026 at 07:38:23PM +0300, Dan Carpenter wrote:
+> > Callers should test the return from of_clk_get_by_name() with IS_ERR().
+> > The function returns a valid clock on success and an error pointer on
+> > failure; NULL is not a valid return value.
+> > 
+> > Document this explicitly to prevent callers from treating NULL as a
+> > separate failure case.
+> > 
+> > Assisted-by: ChatGPT:gpt-5
+> > Signed-off-by: Dan Carpenter <error27@gmail.com>
+> > ---
+> > There are a few other functions which look like they return NULL but
+> > never actually do.  This is one which has caused some confusion in
+> > the past.
+> 
+> Sashiko says that it looks like it can return NULL.
+> https://lore.kernel.org/all/20260915164913.597D51F000FF@smtp.kernel.org/
+> It does *look* that way, which is why I'm adding the documentation
+> to say that looks are confusing.
+> 
+> It's pretty normal for these types of functions to return an error pointer
+> for errors and NULL for not found, but the of_clk_get_by_name() returns
+> -ENOENT on error.  https://lkml.iu.edu/1810.1/06936.html
+
+Doh.  I meant -ENOENT on not found.  Error pointers for errros and also
+for not found.
+
+regards,
+dan carpenter
+
