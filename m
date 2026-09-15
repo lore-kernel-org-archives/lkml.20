@@ -1,279 +1,191 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFD344B0CA4;
-	Tue, 15 Sep 2026 16:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E8F4AF68A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488130; cv=none; b=eSEy9IwZHoGywdPB7yXqr1kgrUW0IPAhQmcS8VwR08Da3umy0VkgOUxEu12q6qc8gtgIfj9qXaY09dvtchxqvhlcoFQ7PZBIcuAOzdeV0RpkKeQUcO/BiGDBOLcS2FyXRjX7bJmNM80AGv3tGeZfx9+wM4MRJ42FYoj26USBF9w=
+	t=1789488131; cv=none; b=KP6MqdWXLb5QkbwVqOrU34jyOBOjWPZDcWyF8+e1lmZpfiDgaB/Hn+HesH5kb6kx3A5S8jcXQ/KueEOgJ7Peio1wd0FrWzS+ug5S8/VGChsrGzuY2K8qJVArG9x1mODIZ4YW6ZArjwgduDqdmBdhieqO+h+vPdEtglGlllhcvXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488130; c=relaxed/simple;
-	bh=jG9ihcxiEJTt7tVd2KyBPA5CREP/rxRtBAPkiF4QgJg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m8yF2zbP0/NIs3ZQNuArYaprWseT8kMyHppG+yXbbSrhml97zArVr9zJXiM0YdRMBsbmLxe/4i0dg9GevQnqogsNWkURFK4lU2pXIsE9KSnvqdGAnf265Vq3Uw4coEHCEdzhH8wW7BetlbDqL2NpkHufXQ0HaorbGJEUNPd/J+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CTVCxqCp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789488131; c=relaxed/simple;
+	bh=NKJuB0TIpLrtUCM0wUQ3aJBmWdnBf3WJenqkw3nEnrU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nWkBY0LDsIGyzMwh9y6G41sFt9dS6Z8nwZyZFlN4Yr+qmtCcpP0sjra2yhdvd5YbU1n+Qo1h8Qq78UDOJdBnDT5g6YrUwVF59iuC5wwwR3IqYnHqENC38wily0byk+XqwpQvrQJF2PM1fjEYWWaZROUsJnCyQgV5vAS196UeOiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eycpzX0V; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GLZDE79e; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CTVCxqCp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D7C91570;
-	Tue, 15 Sep 2026 09:02:04 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6B2F63F882;
-	Tue, 15 Sep 2026 09:02:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789488128; bh=jG9ihcxiEJTt7tVd2KyBPA5CREP/rxRtBAPkiF4QgJg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CTVCxqCpkgfesirYjDxLbvAxgs0+ftv7Bx8zVL9k11e6M5M8hJbtkdj4pyglAjjd5
-	 eYGmGau1EcL7TTaBOmNFHnBDkV4ThR95WTnkw8NrGPo0VExydt0aBgx27F7gTPgayx
-	 GV6K+aoIop/KEI27gKobUkvPGjzLWOAhMe/gyXik=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Subject: [PATCH v18 05/23] KVM: arm64: Track the type of VM in kvm_arch
-Date: Tue, 15 Sep 2026 17:01:23 +0100
-Message-ID: <20260915160141.3543048-6-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915160141.3543048-1-suzuki.poulose@arm.com>
-References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eycpzX0V";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GLZDE79e"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAfkL3567058
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:02:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	siGkS8tDMM+UyATikY5KKD95rNCtSbqtQYlyLRx/Exw=; b=eycpzX0VnxykGJNS
+	EGyXe31E4ta5U+T4OafNRm4SfX1w/Yy3tHqqklKVLnR0f8SEdqgeBxstJGqnAtqQ
+	yu9wKqyYDEDwHcTDeDZiIw5iomem/kVVz7MFsfXzjadCiAXVMMOh8JDPSwSCuryE
+	dTS847DBS0+ewmjo1q7xah/LjqiRpu88PjLWJP6ga/BKj8qSGHtu1SlbSdRYMLcm
+	eBp0M2Ko0an+f+/+iAMZ9Jr2CpzClirqCsy5qfDgKUBPX1bhEkIiC+Brh5jDrQ3v
+	XRoouy2cIZD3f5gGim5wqpDmmS/F593l1GMR1RPK5XAA5aS9pvoJ8Yal/PWS1XWk
+	ycCb2A==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpxydaupv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:02:08 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d7443e0f0bso85104685ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:02:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789488128; x=1790092928; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=siGkS8tDMM+UyATikY5KKD95rNCtSbqtQYlyLRx/Exw=;
+        b=GLZDE79eqAsBTa4Zb5SwepVYwKnF8OiN+EgBISHQXJSG20xYo4EEw+ngUFSVF01zCP
+         1g3v1N0HPNr/jxo63y5m+vx4b04MUPo7NwhJZFmg9XyOO+psn9WFRjhtCokV9KC/sPcB
+         Dj+On+R58SGzBcGLHq8LH4eMBr9U8G/1/ueB+Jeze6rCcnYAx39P8wKyUcA8NrIbNsOn
+         GhVU4HX+/jbhB5XyQiOe8cy+/YfeMtDE3PZjG0TX6vBnwS/7Y5zk+CJoHOZjiqTYH3VY
+         3zjUjDmyXn5PnF2GfwOEH3tvORLRLOd3oxfywDCZZ/B0eMZ5s3ZtRjXZCOnGeUqKzNaJ
+         sO+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789488128; x=1790092928;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=siGkS8tDMM+UyATikY5KKD95rNCtSbqtQYlyLRx/Exw=;
+        b=dBUGS+4CIwCnDrBt/piDq14/vCL9yM1Rr2ch8LX8iNnqInxHU/Xx1+s6nRl9INZsYJ
+         Tojno42IGVhsgjkX4h0KqW31IbnWL86nAc/qTtWXBJEjpvW6u6SGtxlUQ1T4H8D4lWz3
+         wP7owxmGdox916wqAHHC7zhYhB01zV/MEDwDG7tdG11Uq221TtoEt5Jg3TUoJCZj6/dw
+         yBfIfQOVg7BFYCsKIpSRL2cyczzgkXdbDWR2X2gZg1kBBXRlWPZvS9X90cEF7P8ERAjR
+         7BIAL5Xinz001VZAyK62HYejKaIbcYe5MQHTR46cc480jdaCGWffnRj8N0SDLSSKkQ8A
+         A/tg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOXXhKXEr0xKo/Hy6vfMd9qOuoHGVtDTtGw9W7Bj2MnHxxB1FJTARctKeJ4p4CU7ixmPXB9ZCKupgMF3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+Zmhc8q5XVkBxeZIZshZ0Qq/QADoJfgO1mRDAbu73JcQ0Kr7c
+	itQPnfHaOyZ7fLJ8oNibI3xvDHQPyStKTBq/8yiQf1hVIrMFunxOVKUdCQbe1eulS4YdKCZ73jN
+	RiffeUNr/4MGQNbP3LPxr+Sed3h1gp6ipKfmf3wpaycIMK3YZ//yjpmCWfxThBGoTUp4=
+X-Gm-Gg: AYBFou0JNrdbdov8t8bmCoI49acF84OU3ILg0xSjMpqvLBf2ZzF7kDc2QhuGD6hRa2d
+	om0ehWk+uObXQHcjAIiuamT7Qchs2N0MXziDTnT++HPf9XN59+Vsa+pe74DYLcQ2klrmD8lLm1V
+	0VJ+rEUZGh4JUf33+ESjBgk1ILbfM+W8h6Xmy8RZ06+j7MJJR8DgmvbIqe/UI9WnlhbVdAwO5yc
+	AD9+kqsY3wlG91Gd98YYLw0IPS9SyfJCk8V2WiS/dBEsHvbhQNlLJl00Vc05PQ+fE3OAlJm+oTq
+	wo2YwWWx5//VF0pjxYIf037JKh6Cd/H6NL9+AzhcuRK2UsUzm3udzrdCio6aeqrDLGNirluB/Ro
+	6cuvtu9+03x1yIkdJmPJMJ7P/DCMR4TJ8oFyZtEpy
+X-Received: by 2002:a17:902:d488:b0:2d7:f0:896b with SMTP id d9443c01a7336-2dd6c6c0d27mr138819845ad.13.1789488127779;
+        Tue, 15 Sep 2026 09:02:07 -0700 (PDT)
+X-Received: by 2002:a17:902:d488:b0:2d7:f0:896b with SMTP id d9443c01a7336-2dd6c6c0d27mr138819005ad.13.1789488127162;
+        Tue, 15 Sep 2026 09:02:07 -0700 (PDT)
+Received: from [192.168.1.5] ([122.169.220.106])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ccadb4fsm69974165ad.2.2026.09.15.09.02.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 09:02:06 -0700 (PDT)
+Message-ID: <f67b20ec-4c5d-4fb6-aa91-f3ab616e80b4@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 21:31:59 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 4/5] ASoC: dt-bindings: qcom,sm8250: Add Nord Ride
+ sound card
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Lars-Peter Clausen <lars@metafoo.de>,
+        =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>,
+        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com>
+ <20260907-nord-asoc-driver-support-v1-4-997d3b20cf43@oss.qualcomm.com>
+ <aqFzPyDT_va9VP-i@QCOM-aGQu4IUr3Y>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <aqFzPyDT_va9VP-i@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIzMyBTYWx0ZWRfX8Hv3/FLfZhi3
+ rYpo5g84z9l35bScFOKoD7nqYAL0fZ+z3gIP9yJvO8jxxl+AAXpkyGRdVhJKGUEpYiWoTUr/GVL
+ VPdvPK1dfA+bPdIoEvSvYun6p6J10Gw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIzMyBTYWx0ZWRfX/KvtwIJkSqFB
+ UQODvR+PzNsLNj8iMhnMz6MQFOk4BQLessf+u3mGMTF9SaAzZHU2iIBjGjHJtPHipLiZEb2+9Jj
+ RJtX8jywGklQhg9+spAXBvnzNuZX1M+mP9On/UR9ErBCqYLwlOZbD+zr1x6iJJhGAkoYP5szuVZ
+ zKqrsTWkcgsZ5ZpydqL6CcHhFNNRAPTBfpg8NtsmV5y+HnIvfX1ijb1iE48XUaNc+/OFQE7U4s8
+ o9tcrPS8CfLCa+622ZfQW05Acorz1rCWQtD6j45jkxT2dDPPY+l+DPIvgDO61Eo42yigoYl/HBM
+ DkQuyI7HfnaJ8Iwz52iyex/Ov7h0Nr9fU1tuEUE4+Pc2wUlB6eMejyLNoce1lwSNAqch1aCRKcy
+ Zavoqamhl/63kBX0LhIrI1Z4AEIFZjq3atqdmaYB/haiTt9GyaH8BEU/pjMQADsu9h/D8/qBE7d
+ sFv1HIWYSpsdjp2zwuQ==
+X-Proofpoint-ORIG-GUID: dDJwAK6aP3Gw1RzuSarxEIm19QvW6Hdh
+X-Authority-Analysis: v=2.4 cv=LYepeTfi c=1 sm=1 tr=0 ts=6aa96c00 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ww153nmMuBeTcjqybhOiGw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=xBKF7SBF3-SEUEZML9sA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: dDJwAK6aP3Gw1RzuSarxEIm19QvW6Hdh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0 impostorscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150233
 
-KVM arm64 has different types of VMs with all the different modes in which the
-hypervisor code can be run. e.g., VHE, nVHE, PKVM etc. Then there is protected
-VM and normal VMs with PKVM. We might soon add other types, e.g., Arm CCA Realm.
-So in an effort to make the handling of these different types of VMs a bit more
-friendly to the eyes, add a VM flavor to the kvm_arch and we could then add
-handlers for different operations based on the VM type.
 
-Keep the flavor initialisation at the beginning to allow for the detection
-early enough and fail out on any unsupported requests. (e.g., protected on !pKVM)
 
-With that, use the vm_flavor to detect if a VM is protected VM on PKVM. A later
-patch would generalize the "protected" VM predicate to cater for all
-confidential compute VMs.
+On 9/9/2026 8:24 PM, Shawn Guo wrote:
+> On Mon, Sep 07, 2026 at 11:39:45PM +0530, Mohammad Rafi Shaik wrote:
+>> Document the bindings for the Qualcomm Nord Ride board
+>> specific sound card.
+>>
+>> The bindings are the same as for other newer Qualcomm ADSP
+>> sound cards, thus keep them in existing qcom,sm8250.yaml file.
+>>
+>> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+>> ---
+>>   Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+>> index 1536fcd96d68..bdbaa8c822fc 100644
+>> --- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+>> @@ -38,6 +38,7 @@ properties:
+>>             - fairphone,fp5-sndcard
+>>             - qcom,apq8096-sndcard
+>>             - qcom,glymur-sndcard
+>> +          - qcom,nord-ride-sndcard
+> 
+> I wonder whether we can make it SoC specific like qcom,nord-sndcard,
+> so that it servers both Ride and RRD reference boards.
+> 
 
-Based on a patch by Marc Zyngier
+Ack,
 
-Suggested-by: Marc Zyngier <maz@kernel.org>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
----
-Changes since v17:
- * s/PKVM/pKVM for the comments
- * Drop type argument for pkvm_init_host_vm and also drop protected variable.
- * Add helpers for checking if the VM is running on pKVM (kvm_vm_hyp_is_pkvm())
- * Use kvm_vm_hyp_is_pkvm() to replace is_protected_kvm_enabled() with valid
-   kvm instance
----
- arch/arm64/include/asm/kvm_host.h | 14 +++++++++++--
- arch/arm64/include/asm/kvm_pkvm.h |  2 +-
- arch/arm64/kvm/arm.c              | 35 ++++++++++++++++++++++++-------
- arch/arm64/kvm/hyp/nvhe/pkvm.c    |  2 +-
- arch/arm64/kvm/pkvm.c             |  6 ++----
- 5 files changed, 44 insertions(+), 15 deletions(-)
+Sure will move to qcom,nord-sndcard.
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 286489a69dff5..39d04ff702bc1 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -257,7 +257,6 @@ struct kvm_protected_vm {
- 	pkvm_handle_t handle;
- 	struct kvm_hyp_memcache teardown_mc;
- 	struct kvm_hyp_memcache stage2_teardown_mc;
--	bool is_protected;
- 	bool is_created;
- 
- 	/*
-@@ -306,9 +305,18 @@ enum fgt_group_id {
- 	__NR_FGT_GROUP_IDS__
- };
- 
-+enum kvm_arm_vm_flavor {
-+	VM_NVHE,
-+	VM_VHE,
-+	VM_PKVM,		/* Normal guests on pKVM */
-+	VM_PROTECTED_PKVM,	/* Protected VM */
-+	VM_FLAVOR_MAX,
-+};
-+
- struct kvm_arch {
- 	struct kvm_s2_mmu mmu;
- 
-+	enum kvm_arm_vm_flavor vm_flavor;
- 	/*
- 	 * Fine-Grained UNDEF, mimicking the FGT layout defined by the
- 	 * architecture. We track them globally, as we present the
-@@ -1504,8 +1512,10 @@ struct kvm *kvm_arch_alloc_vm(void);
- 
- #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
- 
--#define kvm_vm_is_protected(kvm)	(is_protected_kvm_enabled() && (kvm)->arch.pkvm.is_protected)
-+#define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM)
-+#define kvm_vm_is_unprotected_pkvm(kvm)	((kvm)->arch.vm_flavor == VM_PKVM)
- 
-+#define kvm_vm_hyp_is_pkvm(kvm)		(is_protected_kvm_enabled())
- #define vcpu_is_protected(vcpu)		kvm_vm_is_protected((vcpu)->kvm)
- 
- int kvm_arm_vcpu_finalize(struct kvm_vcpu *vcpu, int feature);
-diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
-index 54a618d887fa4..a1f3e05e75dc1 100644
---- a/arch/arm64/include/asm/kvm_pkvm.h
-+++ b/arch/arm64/include/asm/kvm_pkvm.h
-@@ -17,7 +17,7 @@
- 
- #define HYP_MEMBLOCK_REGIONS 128
- 
--int pkvm_init_host_vm(struct kvm *kvm, unsigned long type);
-+int pkvm_init_host_vm(struct kvm *kvm);
- int pkvm_create_hyp_vm(struct kvm *kvm);
- bool pkvm_hyp_vm_is_created(struct kvm *kvm);
- void pkvm_destroy_hyp_vm(struct kvm *kvm);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 3fbdfce926475..4329c49fe49da 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -228,6 +228,26 @@ static void kvm_arch_fix_timer_offsets(struct kvm *kvm)
- 	set_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &kvm->arch.flags);
- }
- 
-+static int kvm_init_vm_flavor(struct kvm *kvm, unsigned long type)
-+{
-+	bool protected = type & KVM_VM_TYPE_ARM_PROTECTED;
-+
-+	if (is_protected_kvm_enabled()) {
-+		if (protected)
-+			kvm->arch.vm_flavor = VM_PROTECTED_PKVM;
-+		else
-+			kvm->arch.vm_flavor = VM_PKVM;
-+	} else if (protected) {
-+		return -EINVAL;
-+	} else if (has_vhe()) {
-+		kvm->arch.vm_flavor = VM_VHE;
-+	} else {
-+		kvm->arch.vm_flavor = VM_NVHE;
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * kvm_arch_init_vm - initializes a VM data structure
-  * @kvm:	pointer to the KVM struct
-@@ -250,6 +270,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	mutex_unlock(&kvm->lock);
- #endif
- 
-+	ret = kvm_init_vm_flavor(kvm, type);
-+	if (ret)
-+		return ret;
-+
- 	kvm_init_nested(kvm);
- 
- 	ret = kvm_share_hyp(kvm, kvm + 1);
-@@ -266,17 +290,14 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	if (ret)
- 		goto err_free_cpumask;
- 
--	if (is_protected_kvm_enabled()) {
-+	if (kvm_vm_hyp_is_pkvm(kvm)) {
- 		/*
- 		 * If any failures occur after this is successful, make sure to
- 		 * call __pkvm_unreserve_vm to unreserve the VM in hyp.
- 		 */
--		ret = pkvm_init_host_vm(kvm, type);
-+		ret = pkvm_init_host_vm(kvm);
- 		if (ret)
- 			goto err_uninit_mmu;
--	} else if (type & KVM_VM_TYPE_ARM_PROTECTED) {
--		ret = -EINVAL;
--		goto err_uninit_mmu;
- 	}
- 
- 	kvm_vgic_early_init(kvm);
-@@ -341,7 +362,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
- 
- 	kvm_vgic_destroy(kvm);
- 
--	if (is_protected_kvm_enabled())
-+	if (kvm_vm_hyp_is_pkvm(kvm))
- 		pkvm_destroy_hyp_vm(kvm);
- 
- 	kvm_uninit_stage2_mmu(kvm);
-@@ -603,7 +624,7 @@ void kvm_arch_vcpu_postcreate(struct kvm_vcpu *vcpu)
- 
- void kvm_arch_vcpu_destroy(struct kvm_vcpu *vcpu)
- {
--	if (!is_protected_kvm_enabled())
-+	if (!kvm_vm_hyp_is_pkvm(vcpu->kvm))
- 		kvm_mmu_free_memory_cache(&vcpu->arch.mmu_page_cache);
- 	else
- 		free_hyp_memcache(&vcpu->arch.pkvm_memcache);
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index e7b38eff63bd1..9b69228f8402c 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -432,7 +432,7 @@ static void init_pkvm_hyp_vm(struct kvm *host_kvm, struct pkvm_hyp_vm *hyp_vm,
- 
- 	hyp_vm->host_kvm = host_kvm;
- 	hyp_vm->kvm.created_vcpus = nr_vcpus;
--	hyp_vm->kvm.arch.pkvm.is_protected = READ_ONCE(host_kvm->arch.pkvm.is_protected);
-+	hyp_vm->kvm.arch.vm_flavor = READ_ONCE(host_kvm->arch.vm_flavor);
- 	hyp_vm->kvm.arch.flags = 0;
- 	pkvm_init_features_from_host(hyp_vm, host_kvm);
- 
-diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
-index 8e4c6e4bec123..8e9176a700926 100644
---- a/arch/arm64/kvm/pkvm.c
-+++ b/arch/arm64/kvm/pkvm.c
-@@ -229,10 +229,9 @@ void pkvm_destroy_hyp_vm(struct kvm *kvm)
- 	mutex_unlock(&kvm->arch.config_lock);
- }
- 
--int pkvm_init_host_vm(struct kvm *kvm, unsigned long type)
-+int pkvm_init_host_vm(struct kvm *kvm)
- {
- 	int ret;
--	bool protected = type & KVM_VM_TYPE_ARM_PROTECTED;
- 
- 	/* Reserve the VM in hyp and obtain a hyp handle for the VM. */
- 	ret = kvm_call_hyp_nvhe(__pkvm_reserve_vm);
-@@ -240,8 +239,7 @@ int pkvm_init_host_vm(struct kvm *kvm, unsigned long type)
- 		return ret;
- 
- 	kvm->arch.pkvm.handle = ret;
--	kvm->arch.pkvm.is_protected = protected;
--	if (protected) {
-+	if (kvm_vm_is_protected(kvm)) {
- 		pr_warn_once("kvm: protected VMs are experimental and for development only, tainting kernel\n");
- 		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
- 	}
--- 
-2.43.0
+Best Regards,
+Rafi
+
+> Shawn
+> 
+>>             - qcom,qcm6490-idp-sndcard
+>>             - qcom,qcs615-sndcard
+>>             - qcom,qcs6490-rb3gen2-sndcard
+>>
+>> -- 
+>> 2.34.1
+>>
+>>
 
