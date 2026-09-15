@@ -1,128 +1,149 @@
-Received: from mail-pz2-f28.google.com (mail-pz2-f28.google.com [74.125.228.28])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D999545A2B4
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:22:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA82E3F164C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460563; cv=none; b=n33V6KQ0smpURWYuakQfpKTFAEYfwavOM1f8/QlwtUbCMrDIhzy5rUabGSJNhJpfe/6J5j/tJfnppapsvvBl8wmzpKW99dbQ7+2oBEWUE3B0lmbZBnTg1cC1I6UMwVBf+9T2V82gOhVBq0AhYpUw6FYLZnW0vS72jVkGaLtNoz0=
+	t=1789460593; cv=none; b=eweHOEi2pjGUI2xzNt5s1ONzq8ROVcXjnJ8CQNAvXxibqaYN9M/2UOrXcTc1vnmJXEDEsJI+yk+SIMSD7mwP/kMofbX3SEF+0WlJEWyPKI33ZS8NktoWk+ctQiLDpaG4jdgODcob7bj1yOkoetL+fHRMMhhJeUGse8zYWAb1qBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460563; c=relaxed/simple;
-	bh=C9KYtPlI7ZMCyFQ9z0YFTlmCZFRzUMM33buNbWt5z4U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p03Q2V0gkkj/mRIDSvA+Kh8m3xxXVJ8zTaOuB5TmivBqHXQdoaq0tu8gpvlVIK4Vf1QOUVeusyG0fUpJNsyHxIp60RuOxNi6YoFUudRZId96WT4UpynVprTTJM5JF/d9nrU0aV7Jr1EezLKXXy5pgWo5X6JG0LFah2agCc9fCsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ELK0ebjI; arc=none smtp.client-ip=74.125.228.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789460593; c=relaxed/simple;
+	bh=OHmeWTg5UnkwtJXkIWcjYJ5eFEhks4gEc2HTrQKWZJ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HCubX6NFjc889oJ7cdt47X7ia+iUl8IsBhA9kPy2uPg4eL5fiLLLQzI61LF+lYHyxEJwyVfNCWHBqH35rOWdOxtU7UZpp/1S1UHMan4m2aFMfnzb6Y6GWaONkjdf+dYJ5oFAAVh4JevJGPcpYcJlRmTIaLG7zQjQOmJfxAhv3yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=crfWPVTR; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ELK0ebjI"
-Received: by mail-pz2-f28.google.com with SMTP id 41be03b00d2f7-cc4ab4fe290so713379a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:22:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="crfWPVTR"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso519985766b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:23:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789460561; x=1790065361; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vnJp0gFL0rnbjTXBsTtZtrnRTdihrTDqa0f0ZnMfF0M=;
-        b=ELK0ebjIerWSvbTWmvxCOMc++ii+a61Ul0rJ1Z8Arju0vBNDUk3FS1CD2LKG8PvkRq
-         f3qFcDs8GnIk+DSQJW38UXFMyE3euIlVR0E8/BWBjTAzmHV1DJCDyV6YoxWquL69hL2c
-         218vBGhDlb8jEgAG12xuGkUWuVwtrtOdTN8xBNMJgou9ke2V3dvBzjM+VIzEbgyOpj0o
-         lfmh1QGBkgSsca0VyrDiGAvpqI62mKsyICApKjxTp+UJSg0bqx9xXqxAfZQUbZ3T0uiB
-         juBwC+NUuKqEODdkVxBM8HLHAiVn4T8XJTjyp4vvbuqG7CcEdULzDoYJdtvpU25Ji1To
-         FpEg==
+        d=suse.com; s=google; t=1789460590; x=1790065390; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w6qc6m4ClgS/DLLK2dhqaClRHVdlT2q0YP0qs+LnEzs=;
+        b=crfWPVTRlcpohQ2hDY33c8DsSS2nY4DDoGf3aE7cEkGK2yrfkcDo2qfdZmysFMB1zG
+         3cdFoQf5YH6T+FWGLG5NgGTtMVeAcMvA31JFyMIxRWP5Nyv2umtNsRba/NTamfZ/09Wa
+         bh51z7J46D/v+B77fhyDcdFIBbu3X2jp8Sw+6GOZm8/T86Mk8aa98GBAINiFpMjD0Kmi
+         RCBSJ8oa16TyeBy9DSLuBj5QSqUY+xFaZuvokk2IwQgE0tMBZ42VRJaTQI5jzHB0TC3R
+         vADURe/jxSaPs7XaAZxY9/kp3pxkkvXBSoZYfP7YW+GjpaG74Rig2xnVWnK4JjOMepfe
+         tYqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460561; x=1790065361;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vnJp0gFL0rnbjTXBsTtZtrnRTdihrTDqa0f0ZnMfF0M=;
-        b=FM84wdJ3itYxerxH7Zcr0D0zKwgNV9dBrBLxlUaKzk4FMoBdv6+fcCpIILfl69wHl/
-         9aWqRMwtq6Tb1lmoQLeYg4YFKJKlteUdfg7rEA1heLs0a2sX85VHKx+ZqTTRUr3mvKBa
-         44BxG59jnV1xFxRsRIS5CrYPWNU3/w8fiMfKTp9lyFKYi4lXYIyK82F//xQXyeTHxvzD
-         njHW6CjEg54ptLQar8OwZxO1HLISI0q0kxP1EMTBiaGEpcMhyl13DT+iX0+TkO0hyRMN
-         6NRjp+YCuHrq872pUdgjvEDnqh+FvA05mjNY+zkXeEnRIUR/0dLGl4uTKlElAYjfoJ/B
-         mSSg==
-X-Forwarded-Encrypted: i=1; AKwUvBygEZmtnEgAIdI6dh/uYC6ioeib9BbbnWbRapiSjMuliAObUY3YZi7zstgEDmiU5/xMaficqQfreNTpZME=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPruk2JOmMaIjtw36FPNJyrUXcgKxgEUv9d985ZipKtRz9neUx
-	8iZ98YDou308Op6bpc3aCPwJFBz8FqTOq9gAANwCM2E6lgHn274G8RNe
-X-Gm-Gg: AYBFou0pTxYF6FjylT9rcvOHOD7a9uKJF3MIxZ0sqkFGaThJLREWu0goGVpy4W72S4X
-	6BC1GWM9EDoczpjNrIi86IR+QSav+eLAlSVxqL6JL2pfzLfHphsJHoSC07zro8zMEfZui+92TJU
-	S1NvAMElHVmlWaxV3ieOhj5l0zhnoP9gtru3yYIRySIJfg6CRX1Mg1LS1oJwiuY3KSStQdxNbfo
-	U6VJEFXUMeWD0n9ZSaABwMCHBSsznz9wtPFEm0esJTvBSaELGggk99dxL2QubGRBpzMUEzWrgD6
-	tD5smq2Wo+dUZBv8k28j2VUHVJ1sg9bS4ySuARVnzU54aihRlINieSeHkyICm0O7rwOgLoCA3di
-	/RP1ZSxTYBLneCxpsl0aCCUOZx5Cx4zKFmoXaQCnPqGWDikrUoZSZ55P768uCnFDM4ds01WiJqW
-	ld+hc9n0y+Z5aYDBNaN3cmJHQLDKA6ql9mHvJjcfD7eXaQZ+9R6V80CQ==
-X-Received: by 2002:a17:902:ebd1:b0:2db:2c05:5d92 with SMTP id d9443c01a7336-2dd764ea0abmr38594445ad.8.1789460561120;
-        Tue, 15 Sep 2026 01:22:41 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cca26cdsm63466485ad.7.2026.09.15.01.22.38
+        d=1e100.net; s=20260707; t=1789460590; x=1790065390;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w6qc6m4ClgS/DLLK2dhqaClRHVdlT2q0YP0qs+LnEzs=;
+        b=mVEMcOlI70juL0ovM2EmrCqe/vT8yU7GxAls1zi5RSSesoG0oCfHD5beWI5ay7SglA
+         muQWhs8X49gN9wm3gZq1uy5O25k0flXxn9qFpm3anmUEKPW6EIpomNZACle/wZWnkOcp
+         gYpBztkiS1vb0MCvPVoh3RL8iaryXlmCwePIBBKqgSHezTXscedhf4TrYKLOpvKiynCU
+         S8DkVbadinysPwCJLMqjQBAc9/YSf7IHACE6L2dW2JPd4lqSsmA0P5ddMA71RX1XN4Ba
+         aiDTESgFNW7PHzD4B0bRRhZiCgdoypz5opPBGF/4euLqutc1D6Ar3gAlgTXEAKinmqsC
+         cipQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPbw327dv7ep0EhuV6DiBnIBP46jY3D6FLskO9ZpK7uXVg4X5AKysz/tTxSSuEG6t1QQ/gJHNFExGxihc=@vger.kernel.org
+X-Gm-Message-State: AFuF++meYsgut4b+rQCT2jimfXTyHNBGduZfLc9QWatMUI9zGIYw0ICw
+	KcrahWIo0HmN2wt+Yrbt5OiBs+eQpZK7P3Vkzzr98m+EAuweJOQxtWEbz+0DfKjKboY=
+X-Gm-Gg: AYBFou3rqpRbwLTP2q6R+Y8byNhkBaA/+mfKg3FUgS2pDRhPy7C1k8uwAEAZ9C+nz6j
+	FZwPha7/g8qbOXqC0/Rr7sua3Zpq/VrPvR4CtDraQxyyB8XkLA5hI/avveMC+ocToliYQUaP5sj
+	ID8XDqdrQ6QuiG1tSFVoMwhNDLfTr91vvTiJgy7j30juq3kZKyPaPsgSpN0p3+XZQ+7BbgPgE8e
+	E3rDpCZnOVBqi77JrHOKtvuuU/Zj40mmW/CwLDFp9yYhs/7rWJqqYDJjFgQLUD6oySOQcD9ZtRm
+	VPPp9nQwPD9w9FMzeMMixhdjIBhTEOfGq7tcVYSZ1SR2CkuiUVujIdLnglJnxGKnZdx5fpLauLh
+	1OSqVaBWxNHTd4UEx29iqFzWr95SYRgpDdG/1hRXNd7xw+C5TIKRtPOVNIcr5OhkuxKbAPDeY4n
+	FTAb0WCHmpV+dE+sYKzs206V6aKKquTjio6Sa9YQtTp/zIIpNPL6qFbdlGseHt
+X-Received: by 2002:a17:907:c18:b0:c25:32b0:e56c with SMTP id a640c23a62f3a-c29b85fff39mr363642766b.4.1789460589999;
+        Tue, 15 Sep 2026 01:23:09 -0700 (PDT)
+Received: from localhost ([2a02:aa7:4656:2314:c23c:9eda:81d:3])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966148d25sm536702166b.61.2026.09.15.01.23.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:22:40 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Benjamin Bara <benjamin.bara@skidata.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: imx290: fix runtime PM reference handling on probe errors
-Date: Tue, 15 Sep 2026 16:22:29 +0800
-Message-ID: <20260915082229.2235439-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 15 Sep 2026 01:23:09 -0700 (PDT)
+Date: Tue, 15 Sep 2026 10:23:08 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	Jiayuan Chen <jiayuan.chen@shopee.com>,
+	Zhou Yingfu <yingfu.zhou@shopee.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	David Rientjes <rientjes@google.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/oom_kill: fix hung tasks queued on mmap_lock behind a
+ long reap
+Message-ID: <aqkAbBpYheX2DEHg@tiehlicka>
+References: <20260914113239.367200-1-jiayuan.chen@linux.dev>
+ <aqg-oG2HDIUeK5Us@tiehlicka>
+ <20260914203533.3544ae8dd0903c7603b385c6@linux-foundation.org>
+ <aqjsPW92SgcHONKO@tiehlicka>
+ <3c8d1d8e-0e67-4d1a-b73d-4eadd6266aa6@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <3c8d1d8e-0e67-4d1a-b73d-4eadd6266aa6@linux.dev>
 
-imx290_probe() takes an initial runtime PM reference with
-pm_runtime_get_noresume(). Historically, the probe error path balanced
-that reference with pm_runtime_put_noidle().
+On Tue 15-09-26 16:13:11, Jiayuan Chen wrote:
+> 
+> On 9/15/26 2:57 PM, Michal Hocko wrote:
+> > On Mon 14-09-26 20:35:33, Andrew Morton wrote:
+> > > On Mon, 14 Sep 2026 20:36:16 +0200 Michal Hocko <mhocko@suse.com> wrote:
+> > > 
+> > > > > Call Trace:
+> > > > >   <TASK>
+> > > > >   __schedule+0x487/0x1870
+> > > > >   schedule+0x28/0xb0
+> > > > >   schedule_preempt_disabled+0x16/0x30
+> > > > >   rwsem_down_write_slowpath+0x1d4/0x750
+> > > > >   down_write+0x60/0x70
+> > > > >   __ksm_exit+0xb4/0x230
+> > > > >   __mmput+0x12c/0x150
+> > > > >   mmput+0x1e/0x30
+> > > > >   do_exit+0x283/0xa30
+> > > > >   do_group_exit+0x34/0x90
+> > > > >   get_signal+0x952/0x960
+> > > > >   arch_do_signal_or_restart+0x41/0x250
+> > > > >   exit_to_user_mode_loop+0xd3/0x560
+> > > > >   do_syscall_64+0x385/0x470
+> > > > >   </TASK>
+> > > > > 
+> > > > > KSM is just the one LTP happened to hit: __khugepaged_exit() has the
+> > > > > same write lock cycle ahead of exit_mmap().
+> > > > Why is this a practical problem we need to care about? It is kind of
+> > > > natural that the oom victim exit path might race with the oom reaper. They
+> > > > share the same lock that is mutualy exclusive. The whole point of the
+> > > > reaper is to ensure there is a forward progress achieved. So before we
+> > > > start modifying this let's talk about any practical/real life problems.
+> 
+> Hi Michal, Andrew
+> 
+> Agreed, the hung task warning itself is harmless, especially for a dying
+> task. The real problems are what sits behind it.
+> 
+> With a 500G swapped-out victim the reap takes ~600s, and for all of it:
+> 
+> 1. The victim cannot exit. __ksm_exit() needs mmap_lock for write and
+>  queues behind the reaper, so the process stays alive in D state for
+>  10 minutes and whoever waits for it (parent, container runtime)
+>  waits too.
+> 
+> 2. ksmd and khugepaged stall. Once that writer is queued, their
+>  mmap_read_lock() on this mm queues as well, so both daemons stop
+>  for the whole system for the same ~600s.
 
-The change that moved the successful-path pm_runtime_put_autosuspend()
-into imx290_subdev_init() made the initial runtime PM reference get
-dropped once imx290_subdev_init() is called.
-
-The longest probe error path, however, still falls through to err_pm
-and calls pm_runtime_put_noidle(). Failures from imx290_subdev_init()
-or v4l2_async_register_subdev() therefore decrement the runtime PM
-usage count a second time.
-
-Move pm_runtime_put_noidle() to the imx290_stop_streaming() failure
-path, which is the only error path taken before imx290_subdev_init()
-drops the initial runtime PM reference.
-
-This issue was found by manual code inspection.
-
-Fixes: a92651b8e288 ("media: i2c: imx290: Avoid communication during probe()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/i2c/imx290.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/imx290.c b/drivers/media/i2c/imx290.c
-index 21cbc81cb2ed..c2cdb1557dea 100644
---- a/drivers/media/i2c/imx290.c
-+++ b/drivers/media/i2c/imx290.c
-@@ -1634,6 +1634,7 @@ static int imx290_probe(struct i2c_client *client)
- 	ret = imx290_stop_streaming(imx290);
- 	if (ret) {
- 		ret = dev_err_probe(dev, ret, "Could not initialize device\n");
-+		pm_runtime_put_noidle(dev);
- 		goto err_pm;
- 	}
- 
-@@ -1662,7 +1663,6 @@ static int imx290_probe(struct i2c_client *client)
- 	imx290_subdev_cleanup(imx290);
- err_pm:
- 	pm_runtime_disable(dev);
--	pm_runtime_put_noidle(dev);
- 	imx290_power_off(imx290);
- 	return ret;
- }
+Right. But why is that a problem we need to fix? OOM reaper is taking a
+prortion of the exit time by doing the leg work of tearing down the
+address space. Exiting task would need to do the same so it is unlikely
+to terminate much faster.
 -- 
-2.43.0
-
+Michal Hocko
+SUSE Labs
