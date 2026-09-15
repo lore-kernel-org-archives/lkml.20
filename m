@@ -1,123 +1,149 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F98380FD5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF3A4446E1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457174; cv=none; b=HabrkdY2UTAIe0Jnw5pZnX2ByrlO9xDn6Lpo5DBe2qBBrk2DfD7MwVf3i/LbEzqx4Mde2NLaGT8LL4v+2aPiuS55Mwt2yg8wNnOOnp2S4/Sxi0y7H2eRFljQ3YCT6K3ghKOqVE0JnOOMPrv7XNltlQPHIfLa3RVXLWr8v0XCsNc=
+	t=1789457238; cv=none; b=Xc7KIK4Z5jYSpzkCckQ7IfVFbDy5cCh+347PrqoPLuIvTgtjGxWrCP5in8D36wnUgj5jBt+q6i+gQgvpU5DPNg7qY5kAZH/NvGbHOKACPdZYHGQYLFZTNp006e4FPAYF6bvaUSvnMusxK+BaBUlfZ0yBG8OAmQf+tCJmm3sVXrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457174; c=relaxed/simple;
-	bh=EITwAMi94+L/rAtKaV6SFtQcSSqz9GoIdJNwb5xLs7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fJvIkDW27QuiaRc9jfR8IIK9SME67UO/PmMt+yc2CVCrHH9Lq2/Bn0gNK8UjF7wnsVxkJL72IXbe8PVfP1bx+15SaOGfzRirCH8kyhah203/olfvi9aUsdX3MN8viWhkg4F/wTCbjhN28j+XqQyZa1zXl7oHMJIQnaEvrnuyP9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H8V6xl6y; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H8V6xl6y"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so28403735ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:26:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789457172; x=1790061972; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c5/n9buj4EljOW9mw9PWRJPUglpJ6jbEEIafd9TEaCs=;
-        b=H8V6xl6ydoQRNGb8BY7JJ/943mLRjLOdGfsMzo941VL76sKa1gVCELR7urQB48a/Ng
-         KMNwBOJOj19fAn+/IzuIthPb7OSyxWqzb3HxIgYxS09CYieK9UyHGdWGkVrxZvUJkzr6
-         NIVuPIf2u6rmoTH0NaX3Pyq4pGrd9Hb2sMijR4eCH9FGTppToYALY114OmwGlgktB0rA
-         CjZLxblflPTlpW/4MxgYvtFcrvdWsi1R+MsDCRTxX92Clf6F27WV0jYWfVG8eSgiB6V3
-         sQQcGYdxe3MGj1JfzurSEVaNZV0imaAxlhLijpFt5rLoGzGM8cRiyivvpOsVs5w6m14w
-         cd8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789457172; x=1790061972;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c5/n9buj4EljOW9mw9PWRJPUglpJ6jbEEIafd9TEaCs=;
-        b=LDfVQUEOr5rFB0ChcI/d/zIJuH2THfsVcyQn5rSGI8JQ8ay8DeCFRf/Fw6U8H0MAhe
-         o6bxTxgPKq0OBcvmd0DA8hpW+I+s+6+RnVvQTIEyB7dLvz1qeyhI7x59vRJzcRDqDhAd
-         YI2yBvIsemHAB+ER3mWJwXxK99hQDdZJm8dlkaZ74HpMRll3cNC1lkdw1hTMZZEt80Lo
-         +nCrIe/NfA95Yt6QI+PLmIhgzwuKOwgZwkYUi+8Ab1Bb3PEtabnHFzWfo8KbNfZn0vJl
-         ThfBBnTubsQbiti3oe6CpN2TjmMh2/tzdja6v2nN1GGkPmccfcQKpLROq7/FPOtHo0Mp
-         cZ0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwcpz9qhYKRzyngvS6GvKiqj5I0c9OuAqt4ycESILCBfeJiiohW56MxL0xUtPGAPxVGExFgeYZpqOhwFi0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1cqBdF1JLwlgMtTDPd00s6v6iPtr6gB+Ysd1O9zaYoAxjJIZq
-	fCVB6gJ0G9yP/Wp+WnvMNczErrqpacSUgx707a6WwixXPAQ0bPZFY/4n
-X-Gm-Gg: AYBFou0bkWilQIKymQ4X/wSM3qOIgafzaysjrewrUKOHpIHNCW5tIZWq8SgxS0EwKA6
-	TpGok0kBro63cMBcbu90dIZGQtQzlNeeW+xYiOd8ifopb9dFjS9oTTTofMTr/YPXAkRQlEmBLPM
-	Q4JU0l36OXUkvfKx0mAjhqicAQduZmOduOvq3T4403tGvZSe316LyMwOMkbxqX5PAcnGnowx4VS
-	Wzu9w1HeB72vW2LqTYp8I2rHjYITLqSVL7QisqYXrYN9sZkRPRObNhB68Lo4TkLRZU0x+2kNO95
-	pNSchileqt/3p4JOEYemARkdpNKUaR4KMUiOE8cQs1ISGFz4nQMWPnkpG4WelxeYCzOHCP2kEuy
-	atqWkjJy5yExD8BuQO+Us7wzGb8vLXGzTj5lrvdUfs9LQIrHVZMyaRxr9SNlUSMKkG1UKNN06TS
-	AiqZ+NKIuclqlQP8r3r0SKnw/VYd/u9dHfcnW8AfAts1s8yDi26akMfwPAoCARCkI9E8Ou/VN1s
-	oWNebrEhqYCnKEoJ3EVa6lS6bZpSsK1HRRPKzmo5lfVTFXT2oaem2xQSWl3H+tV6uyaH22E23zl
-	x+gBVbdPmShHcknz0ZlQXZVliM9F/YkjFXL3SPp00WIT5L6f
-X-Received: by 2002:a17:903:32cb:b0:2db:39dc:48af with SMTP id d9443c01a7336-2dd6c757b6bmr116752735ad.17.1789457170179;
-        Tue, 15 Sep 2026 00:26:10 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ccadb4fsm61248325ad.2.2026.09.15.00.26.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:26:09 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv4] dmaengine: bestcomm: gen_bd: fix out-of-bounds access in PSC parameter lookup
-Date: Tue, 15 Sep 2026 00:26:08 -0700
-Message-ID: <20260915072608.57887-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1789457238; c=relaxed/simple;
+	bh=ahrYY11mJTkQU0QzOygWS5gatI38eVNrce34N4PSn5E=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=ZhNwoKolbzw2PWzi9HHVJG/+JvpggBx03L7nfdOmcYfaFTKvJGaHaKMR3GepYMTxMAXupscR4BJFfWbMtAKpFi7ov77hpfgZs7OW7HRmP0uhwr+/S7F09GfIYdqqX5ha7/O96n3F1feKPAvUK9cZdA4ORWU9qUUw7ReLxXhdgKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hkYVw5BXdz4x69s;
+	Tue, 15 Sep 2026 15:27:04 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 68F7Qsdi053927;
+	Tue, 15 Sep 2026 15:26:54 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 15 Sep 2026 15:26:56 +0800 (CST)
+X-Zmail-TransId: 2afb6aa8f34035a-cfb46
+X-Mailer: Zmail v1.0
+Message-ID: <20260915152656708z04s4oSYY2BGj34F36RZa@zte.com.cn>
+Date: Tue, 15 Sep 2026 15:26:56 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <pjw@kernel.org>, <mikey@neuling.org>
+Cc: <jiangfeng@kylinos.cn>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+        <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+        <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <mikey@neuling.org>, <zhang.yue5@zte.com.cn>,
+        <david.laight.linux@gmail.com>, <qingfang.deng@linux.dev>
+Subject: =?UTF-8?B?W1BBVENIIHY0XSByaXNjdjogbGliOiBGaXggWkJCIHN0cm5sZW4gd3JhcC1hcm91bmQgcmVncmVzc2lvbiBvbsKgaHVnZSBjb3VudHM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 68F7Qsdi053927
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 15 Sep 2026 15:27:04 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AA8F348.000/4hkYVw5BXdz4x69s
 
-The bcom_psc_params[] array has 6 entries (indices 0-5), but
-bcom_psc_gen_bd_rx_init() checked against MPC52xx_PSC_MAXNUM which can
-be 12 when CONFIG_PPC_MPC512x is set, allowing indices 6-11 to pass
-and read past the array. The tx init function had no bounds check at
-all.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-A malformed device tree with a large cell-index could therefore trigger
-an out-of-bounds read. The garbage initiator and ipr values would then
-be used for MMIO writes via out_8(&bcom_eng->regs->ipr[...], ...),
-potentially causing out-of-bounds MMIO accesses.
+The aligned scan boundary is derived from the last valid byte,
+(s + count - 1).  When count is huge (e.g. SIZE_MAX, which FORTIFY
+strcat/strlcat pass when the destination size is not known at compile
+time), s + count wraps around and the boundary lands before s, so the
+ZBB path returns a bogus length.  The original implementation
+(5ba15d419fab) had the same wrap-around in its (s + count) & ~7
+boundary computation; after 5d588c684833 the wrapped boundary is caught
+by the pre-loop guard "bgeu t0, t4, 2f", which then always exits for
+aligned strings of 8 or more characters and strnlen() returns 8
+instead of the real length.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+This silently truncates strings built by fortified strcat: the dm
+sysfs name attribute shows "live-bas" instead of "live-base", the
+truncated name pollutes the udev database, and blivet/anaconda (as
+well as LVM/dm-crypt/multipath userspace) break on RISC-V systems.
+
+Detect the wrap-around and saturate the boundary to the top of the
+address space, making the scan equivalent to strlen().  The saturation
+clamps the increment to ~s, so it stays branchless and wrap-free:
+
+	s + min(count - 1, ~s) == saturating_add(s, count - 1)
+
+Normal counts are unaffected.
+
+Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
+Cc: stable@vger.kernel.org
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Suggested-by: Qingfang Deng <qingfang.deng@linux.dev>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Acked-by: Michael Neuling <mikey@neuling.org>
 ---
- v4: actually bcom_psc_gen_bd_tx_init is still needed.
- v3: reduce bounds check to single function. It's not used anywhere anyway.
- v2: fix title
- drivers/dma/bestcomm/gen_bd.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Changes in v4:
+- Use Zbb minu to clamp the increment (addi/not/minu/add): one
+  instruction less than the sltu/mask/or sequence and no extra
+  register (Qingfang Deng).  Clobbers stays t0-t4.
 
-diff --git a/drivers/dma/bestcomm/gen_bd.c b/drivers/dma/bestcomm/gen_bd.c
-index 61b5746e1a97..7bbe9cd7b39c 100644
---- a/drivers/dma/bestcomm/gen_bd.c
-+++ b/drivers/dma/bestcomm/gen_bd.c
-@@ -321,7 +321,7 @@ static const struct bcom_psc_params bcom_psc_params[] = {
- struct bcom_task * bcom_psc_gen_bd_rx_init(unsigned psc_num, int queue_len,
- 					   phys_addr_t fifo, int maxbufsize)
- {
--	if (psc_num >= MPC52xx_PSC_MAXNUM)
-+	if (psc_num >= ARRAY_SIZE(bcom_psc_params))
- 		return NULL;
- 
- 	return bcom_gen_bd_rx_init(queue_len, fifo,
-@@ -342,6 +342,9 @@ EXPORT_SYMBOL_GPL(bcom_psc_gen_bd_rx_init);
- struct bcom_task *
- bcom_psc_gen_bd_tx_init(unsigned psc_num, int queue_len, phys_addr_t fifo)
- {
-+	if (psc_num >= ARRAY_SIZE(bcom_psc_params))
-+		return NULL;
-+
- 	struct psc;
- 	return bcom_gen_bd_tx_init(queue_len, fifo,
- 				   bcom_psc_params[psc_num].tx_initiator,
+Changes in v3:
+- Replace the taken branch in the saturation with a branchless
+  sltu/mask/or sequence (David Laight).
+- Update the Clobbers list for the additional t5 register.
+- Michael's Acked-by is kept: the patch semantics are unchanged, only
+  the saturation sequence is branchless now.
+
+Changes in v2:
+- Point Fixes: at the original implementation (5ba15d419fab) and reword
+  the commit message accordingly: the wrap-around exists since the
+  original implementation, 5d588c684833 only changed how it surfaces
+  (Michael Neuling).
+- Add Acked-by from Michael Neuling.
+
+v3: https://lore.kernel.org/all/20260914162123230u1y1M4UHrO8E-cU-opJ_7@zte.com.cn/
+v2: https://lore.kernel.org/all/20260914145205778-sZJbZc1D-XBfWRXO2f-o@zte.com.cn/
+v1: https://lore.kernel.org/all/20260828145152578tXQPUG9lxxgbJjmfpuaQz@zte.com.cn/
+
+ arch/riscv/lib/strnlen.S | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/arch/riscv/lib/strnlen.S b/arch/riscv/lib/strnlen.S
+index a8911605c248..5b3bbf0a3098 100644
+--- a/arch/riscv/lib/strnlen.S
++++ b/arch/riscv/lib/strnlen.S
+@@ -87,9 +87,25 @@ strnlen_zbb:
+ 	 * Aligned boundary.  Use the address of the last valid byte
+ 	 * (s + count - 1) to avoid loading a word past the count
+ 	 * boundary in the loop below.  count == 0 is handled above.
++	 *
++	 * Saturate the boundary when s + count would wrap around (very
++	 * large counts, e.g. SIZE_MAX passed by FORTIFY strcat/strlcat
++	 * with a destination whose size is unknown at compile time).
++	 * Without this, the wrapped boundary lands before s and the
++	 * pre-loop guard below always exits, returning a truncated
++	 * length.
++	 *
++	 * Clamping the increment to ~s (== SIZE_MAX - s) keeps the
++	 * computation branchless and wrap-free:
++	 *
++	 *     s + min(count - 1, ~s) == saturating_add(s, count - 1)
++	 *
++	 * Saturating makes the scan equivalent to strlen().
+ 	 */
+-	add	t4, a0, a1
+-	addi	t4, t4, -1
++	addi	t4, a1, -1	/* count - 1 */
++	not	t1, a0		/* SIZE_MAX - s */
++	minu	t4, t4, t1	/* clamp, so s + t4 can never wrap */
++	add	t4, a0, t4	/* saturated s + count - 1 */
+ 	andi	t4, t4, -SZREG
+
+ 	/* Get the first word.  */
 -- 
-2.55.0
-
+2.27.0
