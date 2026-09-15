@@ -1,65 +1,41 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21FE13C062D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3603B71B2;
+	Tue, 15 Sep 2026 12:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476843; cv=none; b=hLOUQ+Y5mfLl18RtFp8daUbelZBk9dWkPEZWzaWRY4LAD4IqkRWF4jqCHmn78G3dQ7ikURRNf/lE2cpfmcMfGR1ac/i0OHfMl5F93bneHoAP09b360QzYZ084hb6Zr1KYFVazTIGS176aJmLu5qufcswNUntebKKC5f3nG+mxTM=
+	t=1789476852; cv=none; b=ZPREgijl2KuhVPmaEA+I5xqtpIo2PfPU8Lb8GQrA0xbNJoxgAb+3iaS5lPFpsU33nRV785q9ZmXVrSIlmv96USfIV4nxsAyAL1owWKpZdXSUcA86DIrJlfd+yio45ITh/ELQ6I5p7sPoaq8TXg1d3sPgfYZR3P49pwYeNT638M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476843; c=relaxed/simple;
-	bh=M0IzIsWiPP1002jx1x32ohvsScyH0p5PmYjJWCPWxCs=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=r7PdCpnOgcJkohQ2shX4INroS6tMy6Ndr5h7q3BnmqVh+xXLCdG6iWI1S/uinBuzg+WJwpR3x3jNznYMtkJz1taz6zyYgdemn0rN1LyHNP4Tg0NEGDJ4YxaNMwNeXCjZh2Hl9CXHJ7OGC4aE6nZ/Tx32Dj2UGxlrqvo5EF2DyJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FiVME32X; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789476852; c=relaxed/simple;
+	bh=QndDTWh5bGLYFpgTzNsBMcjtlSoq6B2ZnR6/EP1pCQo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PTZJEMiQZXwnZiutAzBHljys5DXx3asz2i/p8NdfeQoNxe3gENm+4eXLzEe/w4CINXz2zgXZM0sStAzkUzOl66HfZLyzchKKlwvuyqrR4iZw4+SPv7n0Iflq1Hyhp15lD3A+qq5NYDpNWGsOK6gBYiyV+rWk8JOwktdS0FTcgGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=QY0GrUg+; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FiVME32X"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so1818045e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:54:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789476839; x=1790081639; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ruipU1u5W9byyxX9qPeGPH+nhoQRgzgXh/OFxRteDPg=;
-        b=FiVME32XVD1iAVGitvogCHAwq/awfFUzLl+DoXa52u4fOQuVTx8ZhEGNI4Xb7ba2da
-         ceMRzg8zkPzVG19uUCv7IAVzfq+2HI3gFKdCAUPLJp+wfWouKTmUNezoFuSTl+ImliKX
-         Xj/00EFOcmMIpXWnJUDN00mtQANb1Q+EKbaQTlp48R2d3PyY7PQejbAwcgw7tGtalX3N
-         SE8sffIsMOWoc1EREk8yQ8Ozzas3X7Mzz2Y2nMaVZuUfh+1LGvZqHMlUYClePVzx7iAz
-         nzcyb0J68+LzrKA+lBqeSlP0Ao0NZVodFRdXYcGwzahnP6ydTZsy9DoY+USM7gE1wGPI
-         J4JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789476839; x=1790081639;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ruipU1u5W9byyxX9qPeGPH+nhoQRgzgXh/OFxRteDPg=;
-        b=M4gEon8tDoH8SiLGEmPe3uNeiXsIDPZw74lqwZxodtLrLyHjTj6PI6GL/8UhCPtt8u
-         VulIK5c/sZe8yh4syoS6Vm+CWMjGu91uMPsrpBMOEpuwXEeIA/641c+Wy0hZwF6twfNQ
-         LnOGOywXfsagHkXOXLz3hr9pKbla/otEShb59QLlUHXnfCpEc2u2JDbU9hPBMFzRwKA2
-         7CcfIHyXl7RcC+mXFB2LJcEy1Yl0q1HFrrri/thMF6yiOb1KtWXU89Q1oJVd4IH/Se+M
-         E/29fNc/7Lhrc+OcRvsGk7RIVdk5FeEyaqUjkvowhmVvGc37AITOvGVvbEAcca5aF4q7
-         nu4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzL14BJfoQLxKLzbf5uHDB91egU7+2v0HXWd2CCoFKclZL3Rl7spNPxumwVrkaui6dpWNu292sNc0qEEFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXxyYy4+GBoN1tKmFD4hb6Y0Jea3imMfUikb8C1qi4KKLxdivZ
-	lLr/vhSKZxGGLJ7vpUV8YDDwGREcnAhCouielPp9RhONpckv+g4pEKEfRJsTiw5z7zI=
-X-Gm-Gg: AYBFou3gIuQlvMjEB0bQT1b8QFOPB6jFfnp0QzpjkxfPOUkjNdOlf+H/r7JHQxfM5lw
-	IQ+GgXWrdU4OUg+BC5tmBzBVwPWHZOjvPXji6QzVAxQOvzuT4hp5p/LDPyZ/xPuTw+2adJVscRd
-	MPggOnxd04FqVdf8yPDfzhX8dBnDCSqkANZMeOnM0dBG0ygiHZdtJvHT3WLf46R/WE/Fgv+HzyW
-	kAXDKWNKT/HgYLsuJvEToTKIbPiwBTKJNyPrm08FkHfJ2bsC70JEST+5oHbkcc8K9jC1OpdisBB
-	5NKGgPCkx1uXqqI5VTZbgx2QyRoov0rxi0aSmXI7AxfYd8juROrMRnGarWs4/iWXzbjA2c2X3V6
-	m5KhhEznKQencS4mIcwZ0BFyXWY5P0fjQWuTwVsveHA83IZ3WEKZfUkdNYqxF1E0h2bQJvridhZ
-	XFO9Un5eoMmZgsqQLlQV/XH01R4d3xKrLGzTkp2+Z8JiUeJCLQQ3i+Dj3PF9oOkS+u7qFD7dVBw
-	/tcI/NZG3Ac4uRjRQ==
-X-Received: by 2002:a05:600c:1c26:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49e82213842mr16348805e9.5.1789476839476;
-        Tue, 15 Sep 2026 05:53:59 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6a9d1dsm73406825e9.10.2026.09.15.05.53.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:53:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="QY0GrUg+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=txqh/4dMVNkv3jAnEFkWYzpJcEFlwoVpdz1x6TA4rUQ=; b=QY0GrUg+hg2FpxWgJ8xxZXb26i
+	a40KcG1CY1FLiZgOkpyJzp7DOw1gx1xQpWXRtn5i+i0aRmh548I+laXxHuxipkTKTvSiRNGRa5cCa
+	15eEcGqTe1tBJvKRukwl9HWsRnOCulnpK4y+qO0fhIOzcDFrlMZl+0CfRcEvuSOcPBgro4LJ8Yp5T
+	+W95tZNqEZYj0PJvLqiJ78uIB6UGaw0dgkHbkpn2unqZVyAM2xLbbEbzam7ULQANjEZAiAHBDlgK7
+	ZG96j8aQrDleLqQAt/XRd2xXSUxwLy+Qib1h43v3kLn4zpG6CtscsiWn1xAmBwv68+/Wm51M3Kvks
+	hdLJbdeA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x6Sfl-004P5U-0I;
+	Tue, 15 Sep 2026 12:54:05 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 15 Sep 2026 05:53:35 -0700
+Subject: [PATCH v5 1/9] mm/page_alloc: factor out the accept-and-free tail
+ of __free_pages_core()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,176 +44,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v14 07/11] clk: realtek: Add support for mux clock
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- p.zabel@pengutronix.de, cylee12@realtek.com, afaerber@suse.com, 
- jyanchou@realtek.com, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
- cy.huang@realtek.com, stanley_chang@realtek.com, 
- Brian Masney <bmasney@redhat.com>
-In-Reply-To: <20260901072446.2563145-8-eleanor.lin@realtek.com>
-References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
- <20260901072446.2563145-8-eleanor.lin@realtek.com>
-Date: Tue, 15 Sep 2026 14:53:56 +0200
-Message-Id: <178947683646.448573.8652586338644531668.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4922; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=M0IzIsWiPP1002jx1x32ohvsScyH0p5PmYjJWCPWxCs=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqqT/kIj2H05/TQ42wyCS3cLOfpVaD8wrOMQ3y+
- Ny8dTCQUReJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqk/5AAKCRDm/A8cN/La
- he81D/45r9CNZwZIVBcLR0EH1/ZBwuxMLr2LG9h4TeHpWHTcEMtRCnWHjpnlVR9r/MRkZM/5dxv
- J3ITQ2RCLm0YArSa+h6lzIQPyon1HsMu4WhNvHt3IxjliQ3r9VWrn5hSP8YARJZBP7EddBboad5
- LHVi0mWjIh8j8DsGUMs8ShpLE5W8AOmaR62C9AViwhEznxzyz3w9MCDnq5hgmSzpYVHS3aDat5Q
- d5c/L+INQNYBIEY3DmSfV2CiY50Xg3NZYhEnv0ZjYtOEQ4v/A1VVR7+yZxxA0hRDhEYYLJfqpyL
- 2JGmOm9ST3nEPTB2QVJHrRXFcVWJzrz1S1lkaaczkzQa7w9x/72P0AaFv2JdQ5PDnTgZBelgylG
- DzH1uZXCIkxIsvUwHJMv/iDRwA52DphXgdiXzUZzmNc0FdL0txxPPNJ0eBixDbuMn7T8VMhemIt
- OA3NDET+hDgzz+xCJ7F2sOyLhqpXVl0SB4DL4aaz/MQjDPsr0/XOh0J/9C7tJcCFzn0YmvWdEtp
- /CZi/IbgYuw04Ql+j+Izsr2UmSk005u7rzwGXa2c25RYrUD2FoedEUTwbx6aSzO81pW9e97gooZ
- EriyMjYVl2D+cYSRN1YGN77gxpz/aOvAXq0F6zBCgedZ0Tt4YLY200PqACAI4be+lZE/9S8maXx
- 4xTnCvcV44d+iVA==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Message-Id: <20260915-hwpoison-kho-v5-1-3bc7a57bd503@debian.org>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+In-Reply-To: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+To: Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, 
+ kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ hannes@cmpxchg.or, shakeel.butt@linux.dev
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, 
+ Breno Leitao <leitao@debian.org>, harry@kernel.org, 
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ kernel-team@meta.com
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2075; i=leitao@debian.org;
+ h=from:subject:message-id; bh=QndDTWh5bGLYFpgTzNsBMcjtlSoq6B2ZnR6/EP1pCQo=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqqT/e/q5/cYr405F2RzQcKhfWFrisnYG55iAgq
+ UvT/67s8SiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqk/3gAKCRA1o5Of/Hh3
+ bceTEACgTXdW1ZYLhwiIgzpNy3/tIJlO0t6mQw1xMfw4l9nQV4a9dvbY/XfEh5CoXZ1SxwevYyr
+ jYhT3krAmc4hkLt0U0WC3K64jg+VIQ1OpVudj7jjOnaFTFoQCk+Wco/JApTvPg0TXGejrmXZnAA
+ 7bmbJKaGYUBr0k+GH132hy4tzAGPNsbMghbh0+ZOx+CUZOLCAJ1OW+tW8seGCZ1H1iOZb33i/cN
+ yfqd5+3JA5PFya4Rq4iDZ+h+fhXelxujWlvkWhenA1TReHsfprrwXMK5NAlwxaOUqqy2mhKpzfd
+ WWyC+BjxTCT1RAF47MCnkAAi3/QAS8UDySy7+N26+WFvGImkuhmkRHw+Fb+yqxmn9erNjh6i2Da
+ pkX0o7jatRDIeeA0Tc6nEDsHerPH/Ao+Ph2vjQVWkC42Hy0Criep/Mi5EcLHD16RcBqgbyGCVHZ
+ Zmh4ahHaN07+XvCyatxhM9P3MiIQK+etSZDTegputerYeHbzVpCcMCTOkBz2i3R7GmpRoq/7IGf
+ u3uZYqGtBbqF5p5463cbsewXIL75U79WBO5rTMPMvegvHF85MkpAbTtQK5N/RZckds3O02TLBIY
+ ttKp3I2XptzsAjyHnmWewT1GB5fAUo2ahpu2ryFEAHzvDUf6GoZMUUMxTP39H4en8Sr4iglVSmT
+ l5jNgyb+RfmoLoQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On 2026-09-01 15:24 +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
-> 
-> Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
-> 
-> The implementation supports parent selection and rate determination through
-> regmap-backed register access.
-> 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v14:
-> - Move Reviewed-by tag to the correct position.
-> ---
->  drivers/clk/realtek/Makefile         |  1 +
->  drivers/clk/realtek/clk-regmap-mux.c | 41 ++++++++++++++++++++++++++
->  drivers/clk/realtek/clk-regmap-mux.h | 43 ++++++++++++++++++++++++++++
->  3 files changed, 85 insertions(+)
->  create mode 100644 drivers/clk/realtek/clk-regmap-mux.c
->  create mode 100644 drivers/clk/realtek/clk-regmap-mux.h
-> 
-> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-> index 840aff067b61..217ccaf5644a 100644
-> --- a/drivers/clk/realtek/Makefile
-> +++ b/drivers/clk/realtek/Makefile
-> @@ -4,4 +4,5 @@ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
->  clk-rtk-y += clk-rtk-common.o
->  clk-rtk-y += clk-pll.o
->  clk-rtk-y += clk-regmap-gate.o
-> +clk-rtk-y += clk-regmap-mux.o
->  clk-rtk-y += freq_table.o
-> diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/clk-regmap-mux.c
-> new file mode 100644
-> index 000000000000..1069c95595aa
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-mux.c
-> @@ -0,0 +1,41 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#include <linux/clk-provider.h>
-> +#include <linux/export.h>
-> +#include <linux/regmap.h>
-> +#include "clk-regmap-mux.h"
-> +
-> +static u8 rtk_clk_regmap_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
-> +	unsigned int num_parents = clk_hw_get_num_parents(hw);
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret = regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
-> +	if (ret)
-> +		return 0xff;
-> +
-> +	val = (val >> clkm->shift) & clkm->mask;
-> +
-> +	return val >= num_parents ? 0xff : val;
+__free_pages_core() ends by accepting the block if it is still
+unaccepted and then handing it to the allocator. The poisoned-memory
+replay later in this series needs that same tail for the parts of a
+block it does not withhold.
 
-This is not really useful, the core already rejects val >= num_parent.
-So returning a higher number changes nothing as it stands
+Move it into accept_and_free_block(). This will be used later, when
+we need to accept and free a subset of a order-block that is
+not-poisioned.
 
-> +}
-> +
-> +static int rtk_clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-> +	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
-> +
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->mux_ofs,
-> +				  clkm->mask << clkm->shift, (u32)index << clkm->shift);
-> +}
-> +
-> +const struct clk_ops rtk_clk_regmap_mux_ops = {
-> +	.set_parent = rtk_clk_regmap_mux_set_parent,
-> +	.get_parent = rtk_clk_regmap_mux_get_parent,
-> +	.determine_rate = __clk_mux_determine_rate,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_mux_ops, "CLK_REALTEK");
-> diff --git a/drivers/clk/realtek/clk-regmap-mux.h b/drivers/clk/realtek/clk-regmap-mux.h
-> new file mode 100644
-> index 000000000000..ad524bb86a19
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-mux.h
-> @@ -0,0 +1,43 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#ifndef __CLK_REALTEK_CLK_REGMAP_MUX_H
-> +#define __CLK_REALTEK_CLK_REGMAP_MUX_H
-> +
-> +#include "clk-rtk-common.h"
-> +
-> +struct rtk_clk_regmap_mux {
-> +	struct rtk_clk_regmap clkr;
-> +	unsigned int mux_ofs;
-> +	unsigned int mask;
-> +	unsigned int shift;
-> +};
-> +
-> +#define __rtk_clk_regmap_mux_hw(_p) __rtk_clk_regmap_hw(&(_p)->clkr)
-> +
-> +#define __RTK_CLK_REGMAP_MUX(_name, _parents, _ops, _flags, _ofs, _sft, _mask) \
-> +	struct rtk_clk_regmap_mux _name = {                                    \
-> +		.clkr.hw.init =                                                \
-> +			CLK_HW_INIT_PARENTS(#_name, _parents, _ops, _flags),   \
-> +		.mux_ofs = _ofs,                                               \
-> +		.shift = _sft,                                                 \
-> +		.mask = _mask,                                                 \
-> +	}
-> +
-> +#define RTK_CLK_REGMAP_MUX(_name, _parents, _flags, _ofs, _sft, _mask)               \
-> +	__RTK_CLK_REGMAP_MUX(_name, _parents, &rtk_clk_regmap_mux_ops, _flags, _ofs, \
-> +			     _sft, _mask)
-> +
-> +static inline struct rtk_clk_regmap_mux *to_rtk_clk_regmap_mux(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap *clkr = to_rtk_clk_regmap(hw);
-> +
-> +	return container_of(clkr, struct rtk_clk_regmap_mux, clkr);
-> +}
-> +
-> +extern const struct clk_ops rtk_clk_regmap_mux_ops;
-> +
-> +#endif /* __CLK_REALTEK_CLK_REGMAP_MUX_H */
-> -- 
-> 2.43.0
-> 
-> 
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ mm/page_alloc.c | 31 +++++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 404896b53003ef..b07b5f4751cb95 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1579,6 +1579,24 @@ static void __free_pages_ok(struct page *page, unsigned int order,
+ 		free_one_page(zone, page, pfn, order, fpi_flags);
+ }
+ 
++/* Accept the block if it needs it, then hand it to the allocator. */
++static void __meminit accept_and_free_block(struct page *page,
++					    unsigned int order)
++{
++	if (page_contains_unaccepted(page, order)) {
++		if (order == MAX_PAGE_ORDER && __free_unaccepted(page))
++			return;
++
++		accept_memory(page_to_phys(page), PAGE_SIZE << order);
++	}
++
++	/*
++	 * Bypass PCP and place fresh pages right to the tail, primarily
++	 * relevant for memory onlining.
++	 */
++	__free_pages_ok(page, order, FPI_TO_TAIL);
++}
++
+ void __meminit __free_pages_core(struct page *page, unsigned int order,
+ 		enum meminit_context context)
+ {
+@@ -1613,18 +1631,7 @@ void __meminit __free_pages_core(struct page *page, unsigned int order,
+ 		atomic_long_add(nr_pages, &page_zone(page)->managed_pages);
+ 	}
+ 
+-	if (page_contains_unaccepted(page, order)) {
+-		if (order == MAX_PAGE_ORDER && __free_unaccepted(page))
+-			return;
+-
+-		accept_memory(page_to_phys(page), PAGE_SIZE << order);
+-	}
+-
+-	/*
+-	 * Bypass PCP and place fresh pages right to the tail, primarily
+-	 * relevant for memory onlining.
+-	 */
+-	__free_pages_ok(page, order, FPI_TO_TAIL);
++	accept_and_free_block(page, order);
+ }
+ 
+ /*
+
+-- 
+2.53.0-Meta
 
