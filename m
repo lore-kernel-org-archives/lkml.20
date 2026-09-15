@@ -1,78 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04114078D1;
-	Tue, 15 Sep 2026 23:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08AD471CFC
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789514472; cv=none; b=hij3rajWz3gwZH0Ij5J0TGX/jY1GvRkzfKXQr+Fq+B2HTHIvQZPQ+NdYtO3ab+1mtJ6F7nVfd7d9s3j85bEtJmRThDRnP77jP7n8prKdie4OyV7/qITLbWEZIccw6nFUUKs4LEYO8WUiBqQbCkkotlwKWYqJLiHdbnehRXKRUHM=
+	t=1789514479; cv=none; b=BPB8Sv3kK3UUSXbqCm+yrXzCdvLiLyCyOydcx1ORXOSXF4g24OX4DqizuxYN8xlV4qbJfstoSeRjG+8+ORjdEeCHAnEAWI//38I5HEE0yce+cPawwd51OiZV1C5KVGwZxJPN2YaN82MNPy5QPZ6aWFACyrt7Y+dV/OaVABwSi+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789514472; c=relaxed/simple;
-	bh=7oZgtQx3NJj8qinbOXAnUujdKeKQZolww67wAyv93qw=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=RmoSnZl1oRNJ1uONKj1Z8Vu0Okwtlc5IdHEMrKczvKqYjnKSE7x72Woxak6tnUsa+KNgb7kB4/56yWWMFR7gYOZnYQju1eMinyi/N2vVPH+2WtpUC0lZb0iVPHKAlS8pjP8vP8a/wQHr43/PSNUb6zi2pqv2oG+ZBEg9j/oEpUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9Bro8ww; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789514479; c=relaxed/simple;
+	bh=xmpAHbc0WkXgKRZPrvgHxoTAgIyKCkZGiPIgQRMRYVs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Uew2zVQNNyhMpOsNk4WumG/ISaIz3QgFPYX+lfYQQszOrELjnt53s87qKq9UhWYbYfCS5e7zeV6+zADE1UD4Urc4oALuOKN/m5UCrVintd9IkW555+qWAwjxAe4u+lR0DCJ1Ma1VHnw5AFlFWhBrzSaON9nL5pt8X7JT5nUMliQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jVpHuJyz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MiB4s9tp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9Bro8ww"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706201F000FF;
-	Tue, 15 Sep 2026 23:21:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789514470;
-	bh=v3pWVLhXI4/1ldBwBVlPWNppvl5GBq2ld1so1WrXcP8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=W9Bro8wwpXMlgze73e4/dk9wMSM1kmo75Jm/co+kgicd59TzACf/WBw9wJWb5U2s8
-	 z2wFXPxSfvp0BIZKCf5uev4VsrEgHqYCFRXsGroM2MKpQeNTgwIyhmjNW3MdSUZs/9
-	 m9mkjXcIKeAZUtWv0Qs8MvXREYB143o9cZw186SksryTeJcZ9I/J6t7j8AYzK3yLNp
-	 A9KkbhOD6qr2r1MhVmh3n1lV6o7zNYJVY7VWJkpH5jptKx7rvjg/NoKcjycSZbXhmy
-	 qohR2CGBUk8PgIajZuhu6vrNpw5qkzyvyn6ouUgSCobta8t2wihK5+/KRIsw8+ZHOZ
-	 sQV1BNjIlxUuA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198A63927069;
-	Tue, 15 Sep 2026 23:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jVpHuJyz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MiB4s9tp"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLYuqI079854
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:21:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lyKoyOjIfv9w+YYrFTayF9TTz7lNx0qSbUIbPxqiGT4=; b=jVpHuJyz5nF9Pyx9
+	Tj708RnGg7QJ+1opQNvo1W8ygwGxR6NC70o3BUHhcVherBpE514SfP+NY5+NPq16
+	j2TH2PItWV2fIywzy3mtzfHg0lgKAaUrviCR+aXtDtivg3iBqMua5QrklRE+spVg
+	2znFZG+ETjCzNKIu4wtcwYHzGNlkT9Z6FvloXPl37G8gW3rufmyQD6ps4SgC2FCx
+	2n2U9z98pkQIsC2Mek1rhQ1m8e4153RORiqLYddRQY+OigO6AqFwi4xjmyChuRCL
+	J04NkXLsAVm1dTJy1Lf83wzFU2uSUttWpWfyAaVdOGbIWMnTtlPh1IDJ00MFXoDn
+	ESxApQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqagehbu5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:21:16 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so6947220a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789514471; x=1790119271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lyKoyOjIfv9w+YYrFTayF9TTz7lNx0qSbUIbPxqiGT4=;
+        b=MiB4s9tpR53As5M4uME/YhkV45CRLV0wEYqOdZnwnsZg057Gp5U5W+3WFR5wbGbG5l
+         4bgxsRVKC3Ix9KUmhJ3gfl87aHt0qIkpAnebhwdegrh6QKhsJuVY45yuUFVIU3R8SK+o
+         lhPSQ8rvqjQUVnowHdjLRve/dk3gCaftybyVi4zqY3Qmr6/0ZQc/zDPcgc9mCAFDfay8
+         SKHrPD4HrIix+nqh1DxlMN5LBLICB6h5LzYL0B/wdOTIHXkZ+mukmXEgFSlhkFctWhUj
+         Mdj7pwLh5EVESg7WbbnvCJMjDAELxv9OXf8KfqOGW3ljBbsNhK4SEMoHziHcq/EkmmqD
+         s7aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789514471; x=1790119271;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lyKoyOjIfv9w+YYrFTayF9TTz7lNx0qSbUIbPxqiGT4=;
+        b=qa4P+HUtbsotGN41nTmWwzXVlEDXbhHloXT7lRT4KkjlSA8WMrdgGEzxGrLxXE2ISB
+         OKCIdGJuk5DqgwggMPhMI/BeCPLf4OVp/wPXKcGQWZwoJjwnma07I4WPj5VByEWqvTFd
+         X3Z6CoxkRn/CrkA8GIj5kJkxXvPeKGS/rQ3PH6DJGQzJ2J/Bqf26PFCvmGfGWFoIebdm
+         W1wj3Fn9CkuZwo5hqHxB0eBspcravRJwPkK6QI7l8Rm4cyll32pSa29XxgjwdHsVTS7O
+         daHJI48W+0GsOYbWf9GMoY/FR1VjFgFFNjpVAQd9M6WJ+glXGxqWxywMCsM8Ec9Rbr+O
+         GhbA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+QGgY/XQOf+dsIp/8g0I+R3c0yY6nfBigLLhs0tknb1dWhUBH+NqlNWBmqOhTEPWbYj5V5Y/AVzNogUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lW5HJncdXfKSUAG98ZDJuzYYbAG59+dOoH1fQG9O/eAuCon0fO
+	HUu6fTt36JkGa2d48h9I+SSR6IXpbtOmD4WidL6gU2tAhoK7fywzmYQFLUJV5GLLi9+X5lp6TCj
+	tQV3LJKeXuots63UpEPKdjJx+SjociYyPa7yUn1M5p3bqWDodnq42vtRJd3WvpRONPnU=
+X-Gm-Gg: AYBFou1ljmPoQuKiF8LjFXHlcoeqlc3r2+9PxwgcsgnLbI4ZMkGTb2kPZdKEqELYWUP
+	yySVkIny+SgXP4QgpuAc4F7fHFLde2rZNFVAUwprWrdQw+25QKrYAKa0StumtBAzSYx+8v67QMG
+	PfYApdtuHSkMeDNbK5sluKJrtG3KX1QbR6iUZnqUStVOb3W0rxJxoE1hctjsEUb7YQ/6bYsST5v
+	ntx+0QAXeJZno+3Vpe8fal7PsifJNtyeZ/C/frn+rmdslRjLxVlCAF7HVoEU2+n2juvUkP4PbAa
+	JC5+HHEj0TxqG+PkpwKXMNx3Y7y5ZgFhCmWaC0H+bXZaYVZp5DqIXm1QXUN+lyO9fVSRvcfof0n
+	m5MuXxj8fyv5FeV8mGNSc7yEf6oc=
+X-Received: by 2002:a17:90b:560d:b0:39b:3109:10ce with SMTP id 98e67ed59e1d1-39e1e45cbaemr914881a91.16.1789514470781;
+        Tue, 15 Sep 2026 16:21:10 -0700 (PDT)
+X-Received: by 2002:a17:90b:560d:b0:39b:3109:10ce with SMTP id 98e67ed59e1d1-39e1e45cbaemr914831a91.16.1789514470342;
+        Tue, 15 Sep 2026 16:21:10 -0700 (PDT)
+Received: from localhost ([50.35.44.179])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d11cb3sm1432321c88.6.2026.09.15.16.21.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 16:21:10 -0700 (PDT)
+Date: Tue, 15 Sep 2026 16:21:06 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: <will@kernel.org>, <robin.murphy@arm.com>, <jgg@nvidia.com>,
+        <joro@8bytes.org>, <bhelgaas@google.com>, <praan@google.com>,
+        <kevin.tian@intel.com>, <kees@kernel.org>, <smostafa@google.com>,
+        <baolu.lu@linux.intel.com>, Jean-Philippe Brucker <jpb@kernel.org>,
+        "Eric
+ Auger" <eric.auger@redhat.com>,
+        <linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+        <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+        <skaestle@nvidia.com>, <mmarrid@nvidia.com>, <skolothumtho@nvidia.com>,
+        <bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
+Subject: Re: [PATCH v5 08/15] iommu/arm-smmu-v3: Disable the queue IRQs
+ before disabling the SMMU
+Message-ID: <20260915162106.0000145b@oss.qualcomm.com>
+In-Reply-To: <0ca69e93a9370e4e172e4335104859648b8755c2.1789446520.git.nicolinc@nvidia.com>
+References: <cover.1789446520.git.nicolinc@nvidia.com>
+	<0ca69e93a9370e4e172e4335104859648b8755c2.1789446520.git.nicolinc@nvidia.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] page_pool: Fix page_pool_alloc_va() reference in
- kernel-doc
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178951440488.2314577.13886516225826420511.git-patchwork-notify@kernel.org>
-Date: Tue, 15 Sep 2026 23:20:04 +0000
-References: <20260912060019.39902-1-kmehltretter@gmail.com>
-In-Reply-To: <20260912060019.39902-1-kmehltretter@gmail.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: hawk@kernel.org, ilias.apalodimas@linaro.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linyunsheng@huawei.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDM0MSBTYWx0ZWRfX4q0Z3ULC33/b
+ qeSvkTdQ4ZJGOTm9zQA3lAnJWg27KSp0s80WNc50AqBsjYSJCiT/BJGTKx99Zu6xHxDQlccz/7K
+ f70QeoE+fwp8DDFR3q4/tozTEvZhDn0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDM0MSBTYWx0ZWRfX8GnHpIYrBg52
+ 21lJZwndDVsikAvDM5hSQMKgraTT3GzrHnZo7+R8VS+VIj/PZfp8NCNK/5d9SZVmP4/8pjvcfUN
+ R726o8E5xjh/uuuy259vZj4WgLp4jEFB7IYWF3CBaFUdscF6FiW1Z+ZcL01f0rmWavxeiHi3yyJ
+ 1BAC8n36Ad2sGL2GANs93WKvU16ipWHdcBf6opyMSogTWNc/SZoCNmXx5ZVtat0EVYft1kFf3sU
+ PPKh6LeHs+cEdrv2daMO/NkbC8CDSImRUXSz6BNiZFW5nJEUdmsSgtTsBkxbIDlhvvi3Z+ehiI+
+ wETcO9WzGx//7ayqnbKMe3NkxKSWgIS3fQgfRrj3t8kIrPlV9Mze/3vR3lKJJzhW6GSXPnAzkz7
+ X9Q5WWrxgIbSERHeFRpg321Kbg/oZElXCeU2Pzk5EmgfdNDoF6ledaaAcpY56YEj8zuPSe6nAZp
+ z6YOzODOCY2LxYCFDvg==
+X-Proofpoint-GUID: c5PyQooAylJSLu13hYSZmeuKJWcSYbl_
+X-Proofpoint-ORIG-GUID: c5PyQooAylJSLu13hYSZmeuKJWcSYbl_
+X-Authority-Analysis: v=2.4 cv=PcZqFShd c=1 sm=1 tr=0 ts=6aa9d2ec cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=Ikd4Dj_1AAAA:8 a=EUspDBNiAAAA:8 a=qr_CdHuHKQtOmQRTACQA:9 a=CjuIK1q_8ugA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150341
 
-Hello:
+On Tue, 15 Sep 2026 09:38:20 -0700
+Nicolin Chen <nicolinc@nvidia.com> wrote:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Sat, 12 Sep 2026 08:00:19 +0200 you wrote:
-> The kernel-doc comment of page_pool_free_va() refers to
-> page_pool_allo_va, which does not exist. The name is page_pool_alloc_va.
-> Say page_pool_alloc_va.
+> The EVTQ, PRIQ and combined IRQ handlers are threaded and issue commands of
+> their own, e.g. a CMDQ_OP_PRI_RESP for a page request. Disabling the SMMU
+> while one is in flight hands that command to a queue consuming nothing, so
+> its poll waits out a full timeout.
 > 
-> The wrong name came in with commit 8ab32fa1c794 ("page_pool: update
-> document about fragment API").
+> Two paths disable the SMMU while those IRQs are still requested: a failing
+> arm_smmu_device_reset() returns to a probe that disables the device itself,
+> and arm_smmu_disable_action() covers an unbind or any later probe failure.
+> Both can run after arm_smmu_setup_irqs() requested the IRQs.
 > 
-> [...]
+> Disable those IRQs first in both paths, so that no handler is left running
+> once the SMMU goes down. arm_smmu_device_shutdown() needs no change of its
+> own here, since it already just calls arm_smmu_disable_action().
+> 
+> Also clear an IRQ number when its request fails or is skipped for a missing
+> ARM_SMMU_FEAT_PRI, keeping disable_irq() to the IRQs that this driver truly
+> owns.
+> 
+> Note that the IOPF queue needs no such care of its own, as devres frees the
+> IRQs before running the release action of that queue, which came earlier in
+> arm_smmu_init_queues().
+> 
+> Assisted-by: LLM
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+I'm still not loving the disable_irq() in here just because to me it
+feels like it may end up masking stuff we ought to handle more carefully but
+I don't mind that much
 
-Here is the summary with links:
-  - [net-next] page_pool: Fix page_pool_alloc_va() reference in kernel-doc
-    https://git.kernel.org/netdev/net-next/c/47dbcfdf942a
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
 
