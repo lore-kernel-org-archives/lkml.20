@@ -1,157 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF98A3A1683;
-	Tue, 15 Sep 2026 08:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07700346ACE;
+	Tue, 15 Sep 2026 08:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460031; cv=none; b=RwAvY0RndouUh1Ny1fETIYVBwUVg5eNJYNrqsaT7eXggUGDGxGdZNiTqguIU9FS6GpXtCnQ56w85FTgCcialf/+rAsJ7pPp9ZFo+U7lzr4qtKtWcDZ/oveAAsIvh0x/+wjZLlMWWelLXBRu49Y5WX8+FoTsB4bHJT7oPIRCrq7E=
+	t=1789460082; cv=none; b=WohSE2ApgIq8U1sNaKPhpjs5o2cmVC0CbBvNED/eAPKl9AjNKnxXrMA1BYtpdC+JSjW6iCzv3dJFak20iSHBm6e1mWIs9UxUG8i3yJJ/WH2hwWKLg+r1sIfsxjD0vk5PxGOFQlWdCN51AEN0LUEfHMKmH0ASZxKeLS8B/H5/eQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460031; c=relaxed/simple;
-	bh=CQd5havz4xxgycr++VxXFcEsCtdQlKxCbdFKfwHX0ww=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=If7azE63YzevUe5RJMZwrEywgEQArY0wjJAC/NF9pU7KsmZ41Zfj1jzgxueme6XV4CY/TcmjoaZbRrhBtarW7cwOAMl4+XWFPhiGXGH/myDmOb8nyEaI3a+h9GFspq9MlhZxMxe7iUYNCtYHz84/ong+eWxqp2GOn5pgox+fM9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VcDfKGKg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789460082; c=relaxed/simple;
+	bh=peFcxrEiF5RSqGPX56LYLlt2B39hIHlN8E9Jg0EGoOA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FgN+twL1kBbT3xYcZzDOhSFpt2uDVPHbiQKTHP+sQIcsIWwFKeZKznS86q5zv2j/nhB4bByWCWVRQUN5lidBmXGVPOEaioVrCZgPnzO01dC66NyJRgzv0IewdKbGT3+NrBQFn12SAOzAe7Vy5oCGoOAzaMRxJUZY4FKK1kaMJog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pcXNkLpu; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VcDfKGKg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0581F000FF;
-	Tue, 15 Sep 2026 08:13:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789460029;
-	bh=ahHVIQUKCj3UqsamTwkNl7ydXLXTp+2VEfV/2bZTM+w=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=VcDfKGKgszCsvqVQiNtS6t4Jr3wJLK1aovcQLTgjzjYw/N4/ZaZbQoDBxf5oy6C0U
-	 rHlIlc4OopLYai6IlOCSQxU/yL7wo48Rt31Hi4Q+iyFQUzMpgWaheutxjfPiuM3Y7U
-	 kn6qDEglR+Rq6VSQCk1laEb3xg8D4xuiqzSjTsKN/gw7qWIdqcBgaT7R7sxqCgYakP
-	 B72KawQtbOLpTlCuOAWPrbvtmMvJZe94vNzdawZ+sWg2S4XjlW6dKl3jYv5p6TQpkc
-	 T2XO/BK1C3W0jBc6Z5mjMDGQ7kp0dxYSPAt69Ano1ndd+Nzev4E4jcsggi2P0aIfOf
-	 qsZKLKIIQlfOw==
-Content-Type: multipart/mixed; boundary="===============0798735520997638461=="
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pcXNkLpu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789460079;
+	bh=peFcxrEiF5RSqGPX56LYLlt2B39hIHlN8E9Jg0EGoOA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pcXNkLpug/JktcHH/E9hIzstybTXMoZ5q/oqPEZ2WtjVj9VaCdDfgWj7RIQurGubj
+	 iUcKL69G4IKdUtEuwSXlNkc4xQ8GOniGHFBJO7xQNzMwE6Bti9cdsxKEYd+yNUeB32
+	 UP+ovB6twZs8X3OA2iVCGr7f/MPa2InXlBZOfqN2OPixBKFDabh19dHkbHI3srHrnE
+	 5RRglVS75Fayvh63aOlMeu5O2hpRDT8U9CbTUYXq7sO5o3Q7Fk58OV4PjKE1OzVX2S
+	 lu2zJ3pgng8sJ9A5f+a5AJoBlAg5fAy5kbRNTnyA/2tJr2k/Ut+jzZTgJyKAsfQJH9
+	 bXhPwY9p0Gd3w==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3209017E0A27;
+	Tue, 15 Sep 2026 10:14:35 +0200 (CEST)
+Message-ID: <27dc00f9-ac45-4f96-81d4-2ce724b296a1@collabora.com>
+Date: Tue, 15 Sep 2026 10:14:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <dc4bd7fb4d98a0066958a4e1582b6a7a407079fd9a284318848909f9594a9295@mail.kernel.org>
-In-Reply-To: <20260915071743.29394-1-zhaogongyi@bytedance.com>
-References: <20260915071743.29394-1-zhaogongyi@bytedance.com>
-Subject: Re: [PATCH bpf] bpf, sockmap: reject max_entries > INT_MAX in sock_map_alloc
-From: bot+bpf-ci@kernel.org
-To: zhaogongyi@bytedance.com,bpf@vger.kernel.org
-Cc: netdev@vger.kernel.org,linux-kernel@vger.kernel.org,john.fastabend@gmail.com,jakub@cloudflare.com,jiayuan.chen@linux.dev,edumazet@google.com,kuniyu@google.com,pabeni@redhat.com,willemb@google.com,davem@davemloft.net,kuba@kernel.org,horms@kernel.org,zhaogongyi@BYTEDANCE.COM,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 15 Sep 2026 08:13:48 +0000 (UTC)
-
---===============0798735520997638461==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ASoC: dt-bindings: Use consistent indentation in the
+ example
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Binbin Zhou <zhoubinbin@loongson.cn>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Khanh Le <khanh.le.xr@renesas.com>,
+ Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
+ patches@opensource.cirrus.com,
+ David Rau <David.Rau.opensource@dm.renesas.com>,
+ Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ Yingkun Meng <mengyingkun@loongson.cn>, Trevor Wu <trevor.wu@mediatek.com>,
+ Julien Massot <jmassot@collabora.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Shane Chien <shane.chien@mediatek.com>,
+ Daniel Beer <daniel.beer@igorinstitute.com>,
+ Sebastian Reichel <sre@kernel.org>, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
+References: <20260915063317.28971-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260915063317.28971-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-> sock_map_alloc() only rejects max_entries == 0 and never caps the upper
-> bound.  sock_map_free() then walks the sks[] array with a signed int
-> iterator:
->
-> 	int i;
-> 	for (i = 0; i < stab->map.max_entries; i++)
-> 		struct sock **psk = &stab->sks[i];
->
-> When a SOCKMAP is created with max_entries = 0xffffffff (UINT_MAX), the
-> allocation of 32 GiB can succeed on large-memory hosts.  During free the
-> counter reaches 0x80000000, wraps to INT_MIN, is sign-extended by movslq
-> and turned into a ~16 GiB negative offset from stab->sks, pointing far
-> below the allocation.  On a KASAN kernel the shadow check for that
-> address hits an unmapped shadow page and oopses:
+On 9/15/26 08:33, Krzysztof Kozlowski wrote:
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
+> 
+> While changing the lines, correct also node name to be generic in
+> cirrus,cs35l45.yaml, cirrus,cs42l42.yaml and dialog,da7219.yaml.
+> 
+> Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
 
-This description is technically accurate but narrower than the real bug.
-Is the KASAN-unmapped-shadow scenario the primary failure mode?
+For MediaTek:
 
-The faulting access is an xchg() write in sock_map_free(), so on a
-non-KASAN kernel the same iteration either faults on an unmapped vmalloc
-page or, if that vmalloc address happens to be populated by an unrelated
-allocation, silently writes NULL into someone else's memory. The
-unmapped shadow page also requires CONFIG_KASAN_VMALLOC=y - with
-KASAN_VMALLOC=n, x86 kasan_init() populates the whole vmalloc shadow
-with the mapped kasan_early_shadow_page, so kasan_check_range() would
-not fault.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Could the description mention it is an out-of-bounds write reachable
-without KASAN, not just a KASAN-only oops?
+Cheers,
+Angelo
 
->   BUG: unable to handle page fault for address: fffff521b59c5a00
->   RIP: 0010:kasan_check_range+0x107/0x190
->   Call Trace:
->    sock_map_free+0x93/0x190
->    map_create+0x68d/0xb30
->    __sys_bpf+0x21e/0x2e70
->
-> Vmcore confirmed stab->map.max_entries == 0xffffffff, stab->sks ==
-> 0xffffc911ace2d000, and the faulting address sks + (s64)INT_MIN * 8
-> exactly at 0xffffc90dace2d000.  The same Oops triggers on the normal
-> close()/bpf_map_free_deferred() path whenever such a map is destroyed.
->
-> sock_hash_alloc() already bounds its allocation (buckets_num >
-> U32_MAX / sizeof(bucket)).  Reject max_entries > INT_MAX at creation
-> time so the signed iterator in sock_map_free() never sees a value that
-> would overflow.
->
-> Triggered by syzkaller and reproduced on both a 6.6-based KASAN kernel
-> and the upstream v7.3-rc2 kernel.
->
-> Fixes: 604326b41a6f ("bpf, sockmap: convert to generic sk_msg interface")
-
-Is 604326b41a6f the commit that introduced this bug?
-
-Looking at that commit, the version of sock_map_alloc() it created did
-cap max_entries:
-
-    /* Make sure page count doesn't overflow. */
-    cost = (u64) stab->map.max_entries * sizeof(struct sock *);
-    if (cost >= U32_MAX - PAGE_SIZE) {
-            err = -EINVAL;
-            goto free_stab;
-    }
-
-This bound limits max_entries to below (U32_MAX - PAGE_SIZE) / 8, about
-536,870,400 entries, which is far under INT_MAX. With that bound the
-signed iterator in sock_map_free() could not overflow.
-
-The check later moved into bpf_map_charge_init() with the same limit.
-The upper bound was actually removed by 0d2c4f964050 ("bpf: Eliminate
-rlimit-based memory accounting for sockmap and sockhash maps", v5.11),
-which deleted the bpf_map_charge_init() call without replacing the size
-check.
-
-Should the Fixes tag be:
-
-    Fixes: 0d2c4f964050 ("bpf: Eliminate rlimit-based memory accounting for sockmap and sockhash maps")
-
-With the current tag, automated stable backport tooling will target
-kernels from v4.20 onward, but 5.4.y and 5.10.y are not affected since
-sock_map_alloc() still had the bound there. The wrong tag also hides
-that the regression came from the rlimit-to-memcg accounting
-conversion.
-
-> diff --git a/net/core/sock_map.c b/net/core/sock_map.c
-> index ca49bc7f8687c..38df842843289 100644
-> --- a/net/core/sock_map.c
-> +++ b/net/core/sock_map.c
-> @@ -41,6 +41,7 @@ static struct bpf_map *sock_map_alloc(union bpf_attr *attr)
->  	struct bpf_stab *stab;
->
->  	if (attr->max_entries == 0 ||
-> +	    attr->max_entries > INT_MAX ||
->  	    attr->key_size    != 4 ||
->  	    (attr->value_size != sizeof(u32) &&
->  	     attr->value_size != sizeof(u64)) ||
-
-The code change itself looks correct. With max_entries bounded to
-INT_MAX, the signed iterator reaches at most i = INT_MAX at the final
-test, which is representable in int, so no signed overflow remains.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34941876090
---===============0798735520997638461==--
