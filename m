@@ -1,82 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CF7345CBF;
-	Tue, 15 Sep 2026 14:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F8A3B42FA
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482465; cv=none; b=R8dyaIFirmaDtV8tsGgbyAyDkzndkAU6jDCY1qDN2MqLCTeT7a7s4FbFA9p5lZarprXgNO5v6N9c0Ct8mOkWIo4xSQeYE9NulNTo5X7XsbQzywAwS8wd3iKUW4qAjhWmTNTls1u+icTyqs564OU2Lpi4Ggk7DmDTpEjbfBBc6gQ=
+	t=1789482589; cv=none; b=OAbox+aGaFoI2BaNlMtuhqK8gnd60QAx8IP19fSW/zU23N+U35wQiByH3N+xRo/qRZzQiQGW4jq3Myfg4VzngmDtB52uxJf1Dqot4QwxhI7GRh3CTk2QObB46WBVTbTiINF3yDBMaTr7hbT46SGlky71dxYZlehrOymnNjGHh/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482465; c=relaxed/simple;
-	bh=cUtPjh0zldewIxNp9mhCQymnBNd/6pG9ZV4jNWg6FW0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DA7HkiARX+tzaPSzuYVnm9SWZgVGeH7Zlv5PNeEwNF4zRT8tdiNCbH61okIP/BoliQhWG+fFzn0bwKmqIw0tkcmvNIinUE19A3d/I+JwOJ6sVZB9nU+4ms4ycR/ckpIbq0F+1VVblTVomG0ESRtjJkA9KZVzRFddo+MPTfSyWEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SG8RCldo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789482589; c=relaxed/simple;
+	bh=w6FJwout0DsKD6TkfCqvOKdMewok/Mrvz1ESpCSLO4c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MdvzTf6Ucr/1W6jrqBQIFA/o+KMCSIpqMYWtJHh9494/GYP6Z6YXXNWoCDbMWSLDt8VW77YnhgtnPwSLitHxOY6wLB08BZ8d3HziTIR3mKid8VFos2ttVXWYrw05oPsbuiRzwMP26SMtYHJrrlRijx0n6GiscXnDSV/EQ52jYX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KU2CQBU9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SG8RCldo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE321F000FF;
-	Tue, 15 Sep 2026 14:27:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KU2CQBU9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD891F0089A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:29:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789482464;
-	bh=XeXrCF7kKHtOohfiibEbYIClpgW98Ub/K0LExgNJn5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SG8RCldowYERNVsQcORu4F/jbaCJPvGuy4+KvfldUJYvNI+EPVc8DCTKwT3TamTB1
-	 bWyLYe2cwlqwyqDpkSxiDinMFp5DPrZvExRCTaXuX672o1XJBbm1aRuxaF/43CSrCk
-	 fNNq7TVtZFd1oaQJ/ZOcfEY6kfRa1ah8x2I4McvXycU2XopABsH+Dznec7kaIrptqd
-	 9XwsELKkqygxDbvf1RUrlhYkK3InOG/Pb3kme6e6SoE/uLOyBbiiZ9mJ88XAAdwAR3
-	 k2JN3YATWJEeN2lHjk3tiJiCv/QHCGphifhPCPhNr5AqpsqddPKYRv+En46Ez/VBXG
-	 dgpV23u6g8ZqQ==
-Date: Tue, 15 Sep 2026 09:27:42 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/7] dtc: dt-check-style: Improvements for handling
- continued lines
-Message-ID: <20260915142742.GA1926857-robh@kernel.org>
-References: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
+	s=k20260515; t=1789482587;
+	bh=PI8ofUAwsEfrd1/dz6YRefCreukSx2VFFqza5udhf/Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KU2CQBU9y0+TQaIBPK+jvMld4LX56q/S7idFSjQJuqwX8ps0pNkK1F7gZUv+SZp4P
+	 BT/FElI0pyCl42+/LIT07IxfZXQlZRo1GIamKvj8aQ5sNpIp64T0wihaFOMmNH0bMR
+	 twAaFg16QPukKhvzh3ncxW2pA+3cpEsjv64CeDLvuQSVXlqSnZ/O3h+Cw3zqt5RiYb
+	 KvrM7GCDZyWKymXvtJ+dOEDGbz0Xc+m8MAv9CAcJFSRoJeZV0wkPT82UbxU78dlwxF
+	 h2+67HDe9CXtGIrCGAYWzq7y/rOvMG5k4KMGKBlUFzOA0sjM/3yYMytVbjT6uhr1mH
+	 K/bduZXn+7TTg==
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-86162c086f8so7178557b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:29:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwAM3oE0bYY1nrFhBPd+oS7+cYwJordp20/UHFLVyrP98vYwIxPd/cPLkr5eSah8QfsHpzLkDhqBah+in8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCdEA3FNmek8KY3CvBA+AjNkodeLgO4+DmPhxn2qhLfTh1Y9eP
+	Fu0pXNj3K3ehQRaL8PGGibzPPBV6mnYnPviX+mHpRACd/CMRZcXMPh0KY6I5UXSNMy+McAR0brb
+	k+Wt9aHloWX+nfbU2ErZJ22KhZkux5j4=
+X-Received: by 2002:a05:690c:2702:b0:88f:3bb:8715 with SMTP id
+ 00721157ae682-88f1b6cd7dfmr9384457b3.33.1789482586874; Tue, 15 Sep 2026
+ 07:29:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
+References: <20260913142314.1400062-1-anmuxixixi@gmail.com> <20260913142314.1400062-3-anmuxixixi@gmail.com>
+In-Reply-To: <20260913142314.1400062-3-anmuxixixi@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 15 Sep 2026 23:29:32 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9pPRi21V_t_h0FSQyU7mN6u3o8wUc8=pusU8fDSMA5JA@mail.gmail.com>
+X-Gm-Features: AcwNN1V-l9dr6tskmgf35OLBinpE_thNmKVTcxf2PEbVUtkbrZUXqH0vNiUS9R8
+Message-ID: <CAKYAXd9pPRi21V_t_h0FSQyU7mN6u3o8wUc8=pusU8fDSMA5JA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/3] exfat: retain the next empty directory entry hint
+To: Yang Wen <anmuxixixi@gmail.com>
+Cc: sj1557.seo@samsung.com, chizhiling@163.com, yuezhang.mo@sony.com, 
+	exfat@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 03:10:34PM +0200, Krzysztof Kozlowski wrote:
-> Changes in v3:
-> - New commit:
->   "dtc: dt-check-style: Relax property ordering rules (drop alphabetical)"
-> - Improve commit msg of "Unduplicate checks in
->   check_mixed_indent_chars()" patch.
-> - Link to v2: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com
-> 
-> Changes in v2:
-> 1. Four new commits 1-4
-> 2. Drop last commit
-> v1: https://lore.kernel.org/all/20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> Best regards,
-> Krzysztof
-> 
-> ---
-> Krzysztof Kozlowski (7):
->       dtc: dt-check-style: Handle continued lines in check_hex_case()
->       dtc: dt-check-style: Handle continued lines in check_line_length()
->       dtc: dt-check-style: Handle continued lines in check_trailing_whitespace()
->       dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
->       dtc: dt-check-style: Right strip whitespaces, leftovers before comments
->       dtc: dt-check-style: Properly detect comments in multi-line properties
->       dtc: dt-check-style: Relax property ordering rules (drop alphabetical)
+> @@ -1489,7 +1491,10 @@ int exfat_write_volume_label(struct super_block *sb,
+>                         goto unlock;
+>                 }
+>
+> -               ret = exfat_find_empty_entry(root_inode, &clu, 1, &es);
+> +               ret = exfat_find_empty_entry(root_inode, &clu, 1, &es,
+> +                                            &next_hint);
+> +               if (!ret)
+It should be if (ret >= 0) ?
 
-Patch 7 doesn't apply.
+> +                       entry_allocated = true;
+>         }
+>
+> +static void exfat_set_next_empty_hint(struct inode *inode,
+> +                                     struct exfat_chain *p_dir, int dentry,
+> +                                     int num_entries,
+> +                                     struct exfat_entry_set_cache *es,
+> +                                     struct exfat_hint_femp *hint_femp)
+> +{
+Please check whether smaller holes can be skipped. For example, if
+there is a 3 entry hole near the beginning and a 4 entry name is
+appended, a subsequent 3entry name may skip the existing hole because
+the Bloom filter miss bypasses the name scan and allocation starts
+from the saved hint. Unless another deletion occurs, could this state
+persist and cause the directory to grow unnecessarily?
 
-> base-commit: 694b801ceb1bea205878f2136e8b25c888e51be7
-
-And I don't have this commit in my tree to resolve the conflicts.
-
-Rob
+And please create the patches against #dev branch.
+Thanks.
