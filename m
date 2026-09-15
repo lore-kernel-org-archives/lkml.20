@@ -1,79 +1,73 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2DF43F8DE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D4A248881;
+	Tue, 15 Sep 2026 07:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457697; cv=none; b=b+oxZnXH5ZZFNaXQmQjUbUBWFNGp0xHiIRsj18kBGhsRxcGA3Cde4IRRzgp0ilaedVJ+6CglnzK49hdv3i2Hz7Th4X2lkE27rMXa3Pcx+LOrSJKR9pI2A7sKIGD0xBYrvlhOdM3oVIKMKmASAl9WmwlypkxMpjEoNt4J8fEPzxs=
+	t=1789457723; cv=none; b=okD9G9XHGDgJXau8PVbpObR2yE5HbWg5rZ0KFjuO0hF3XERFtswR50/h2jy1kwOHPD7DkMUyRhx4nZ9pCaSAeY2gE5W6B/M4rxYR6ttiGyhcQNPVdqSOuArdBI7wtikXf38/5h580z2jGfVlSByDYDB6cah56SuRaUjEAO/1AgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457697; c=relaxed/simple;
-	bh=1Rx3K6NjcaYr7X9/zKmWEltz4krh7XzXKYH9gyxPsjU=;
+	s=arc-20240116; t=1789457723; c=relaxed/simple;
+	bh=HKRtLYYt8Toe4P03Ofg4HMYivWkaKC32Te+XVYJYQYY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ohVjxKVfZwGgKYw0oWDnCDVh/ZWDLgJyOjdUD3AzsgAvvGnIV9aueGI1IZZGnwfE1wVcanQgXcl7NGtxI4cc2eNYPuTCcOZ+I7foX8U85ntv6ioZZJMK7n+XYjghhthLc9IGfH67ySMbh4HTsn+YIzONmzJ14nSVNiGPYBToKJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PQl+X5k2; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=fNbq4R9448911LH4uaJSS6OOxheQu/oqtEoGpyrMa0sChNDmguLt3/W5/914TwCsmtVI4VBw5pVRWkpB0Fanmm6Xbrrd0qUSL18U4AlO4aiKaJ5yOtD/ZJHk6W7zIO/csOpZVYDZbmE3sxIY2HsDdtTgcz+QIEu3iJgDjSu+Jrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MSN6bD0T; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PQl+X5k2"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7355e411so21382335e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:34:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789457693; x=1790062493; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=62UkEF2WigrS8Qx3ZV8XeKxYeA/oVOGI4GnA4AVT89E=;
-        b=PQl+X5k2+zkmmshxYSrhrCAaG+WeC7TQT9n0jw156yKL/HREhcXG77EkuThnlZGwkG
-         BQ0SLu4ruhHHOxx+4qoAy2ppSCPCjW5J4d+NtmH8x2MAnjA0L78lL187W59BcDVlfwHY
-         DkBnGd06Om82yqM4vUn/Bmky/AEHRQqa5/Ky0JyZ3GfHmZdOTId0udG/rRcdq4ejE6DT
-         KZAVh/kOdbJ2uqaVliL8gbx2sb0XYdVDX4DVsWm4T/RQZFJ3DV+f8VeKpUGLi+U46FvQ
-         6yviBzPQgZeK4xR+8M6p97aWFnUs0MI4IMU/V1VRuCr+TRnA5KA6mo9A/TjkqDPXbLjH
-         d20g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789457693; x=1790062493;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=62UkEF2WigrS8Qx3ZV8XeKxYeA/oVOGI4GnA4AVT89E=;
-        b=qmp8herwxflC9/J8IL/qiTFL4mPXGyp7IiCty/5VtMPrMv2W5euEmLvGwnrMhUsnuM
-         C6/4WwwjzxlD6ipfk7LM5gt9rBWeHtQ5c+2DK4/lr71lZO8lvfKdYW1fRAJF3IbvX5GS
-         LgP+xB3NU1KB3V5e1fHVRdtX6bX6iP8xD293jqEglMHG0qan3elzaRAg16YDtFV6ZWUt
-         z5sud0JfLkzsgxhWu8gQk9tEmVVZ0L5zhNIj/Hg9VelifndKqmyq1mfLFr7PsmDAJzIX
-         o0UTLGUJi/foYEVgynk2oAdo2ue1mjgLJlsQC9rfl77jhQIrEbX2o9qTTLQc93Y2wu/H
-         Mw1g==
-X-Forwarded-Encrypted: i=1; AKwUvBy0hGRq4yoI1Pbdbcv4TsbPuGJtijOzRdIqwiOuzjTh5tv5A20OBbKdHofKFKffYzi+MVBaskPtNevF01Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZI/spuDtp5aDzRyK2vYk3FBQhpICJkbk+jBJWqI6Z0z/+0GLp
-	dUrUS4ABpH6symi7DXXdMW0U17vrMcSTtD42Z6PFu+z/tSGOh4QJc+yFtyUsmnwGUQ==
-X-Gm-Gg: AYBFou1vkG2SkPd01cepMLIWaT2jLVk9EnoTVleMrpfJRzqSXDvOpgp/bjy57zIBuq8
-	CbSMVSVM/zXmINCBynse6lgUysyiWrmZGmoyBBWfVG+J5HWDlENeoTSZ6L0izU91r8Hs+FIrIFA
-	/7567lVjgVULeYUDgBIAwdrFirwYaGYJhXkNC9e0E1O1OFo5u989RZ/UdR51hwaCQaHL5E3Qtuz
-	wZPpp9Am26fgx7VKAEzLdFLNeXpjOQwzWwzRc+Z8U4nxaqk734kmf0SONmnkWTAJSGua8aVbUGh
-	mG7dF+tane60OrhcoYbY2Ct2Gp5xhLCBgKTBycVjJiFH9XxyfkrgWS1/ZKoJIFrk3k0lkdUmvo/
-	o1T03YgwPUn18HT7Q6qlHx/C01H6RP+M6CUUvVApbiTdEFMJTFNNZreVCIHecmz0gBiQ+kDdZU4
-	VXaa2CK93CvZP4G7tKGRrEruQMk96bNbTjqvVQtG0yQnewYk468cOa0bl5l6aniTpLSilBOu1pu
-	vkimjjelfECEIYbIzkVNxcMoNzRQdzZZ0a91xF33Ms=
-X-Received: by 2002:a05:600c:a00d:b0:49e:663c:c69f with SMTP id 5b1f17b1804b1-49e7a686db5mr168895005e9.15.1789457692234;
-        Tue, 15 Sep 2026 00:34:52 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d66ab6esm51074165e9.2.2026.09.15.00.34.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:34:51 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:34:48 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
-	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com,
-	tabba@google.com
-Subject: Re: [PATCH v2 1/2] KVM: arm64: Validate the host vCPU's VM before
- reading it under pKVM
-Message-ID: <aqj1GKamuBraiub0@google.com>
-References: <20260915070418.3209779-1-fuad.tabba@linux.dev>
- <20260915070418.3209779-2-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MSN6bD0T"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F71qss4192863;
+	Tue, 15 Sep 2026 07:34:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=PWgvjmXGp2Zm7s53A3DZQaedkDL7MS
+	jIBZBtGkdgJOg=; b=MSN6bD0TeHYr9Zb80Zs23fo7S3EgpRzjhgVS87iWaT5PLC
+	FrOGZ1NV+gldILCi2r6kaJxXG0m5iFZQQLnSHs2v0pz/+cQRJ2e7ps4wYSFwCgUa
+	6XyV10niZBy/7QnMxs7cp0HBH7AuUu41/3lt7v3m/Ug0syEUf9bMkcdgrurtH+2A
+	mYBIcYTsBwP0e1wtNMX0sNT/lh1gMWYfX6JlJw2V+vROa8Z0sWVT9DlukWOeWVjv
+	BlNiqZ0pgpA/0uI0pN0vL1WvBexE6Ags5mqZ+fJmtHjz0Be6i0P3jc43T2Vo8Vz8
+	WNbUVvle6lrrjGD78rMnlae6VEqYyX8n39x9tIsw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5hnwtr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 07:34:57 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZIek3523888;
+	Tue, 15 Sep 2026 07:34:57 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gpyxs8c0c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 07:34:57 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68F7YtWq44761590
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 15 Sep 2026 07:34:55 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F03EF2004B;
+	Tue, 15 Sep 2026 07:34:54 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8C0FA20043;
+	Tue, 15 Sep 2026 07:34:50 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.20.92])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 15 Sep 2026 07:34:50 +0000 (GMT)
+Date: Tue, 15 Sep 2026 13:04:47 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Jan Kara <jack@suse.cz>, "Theodore Ts'o" <tytso@mit.edu>,
+        Andreas Dilger <adilger.kernel@dilger.ca>,
+        Baokun Li <libaokun@linux.alibaba.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Zhang Yi <yi.zhang@huawei.com>, Christoph Hellwig <hch@lst.de>,
+        John Garry <john.g.garry@oracle.com>, linux-block@vger.kernel.org,
+        linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] ext4: never fall back to buffered I/O for atomic
+ direct writes
+Message-ID: <aqj1F2drbqLEVmSm@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002@columbia.edu>
+ <vgxva24firqq6eqt2wyovm6uqh356nvrsb35exzxtnxftspy3w@gb7uiv4gwets>
+ <03907742-fc59-4d31-b12d-760a67e163a6@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,167 +76,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915070418.3209779-2-fuad.tabba@linux.dev>
+In-Reply-To: <03907742-fc59-4d31-b12d-760a67e163a6@columbia.edu>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNyBTYWx0ZWRfX0G1yeIMmher3
+ jvPnybfjQOmrDpsyuEquUHn5fjGkozsuJfHbisP2wBF7mgFvm17R+cGsQ9fmA1GNjaBf1tMdct6
+ J8WZLxZULR/aQAolvZ61B/8DSkoXxph4WeuAXJ4zjMowGvn9pm+u5sbma6r4sXB4RR6r3Pn21SX
+ ce7CwPdqZhh9f8zTolEUFdpnJHZ53+IpzAU4TrW8h9H3yMo+B5KlgSOPKid6X52UbFle9PzavVF
+ 7DHDvHwyZBsHwtIk4U/ESi/SE7ERrl+HeKQTqehietp8HX1ajGSBaFhtygiF7jQUFnJhhY27aCl
+ fVKFbfxUy28A6DLH4f68NSoLbYKpv95ovmAiGPOg97vRYKM35YsKEDodpdVhe/qGtOnfJeI1U/2
+ 1u/E3RhTdPltXj3kJiIPxCnn4HgTbIg7nOIGsMsskuz4+ZrGfSLB1ZElOry13VSpnXe8gHuuog3
+ w+Y1F9mKVxI1okzv4vQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNyBTYWx0ZWRfX1HkQq7qg7Thi
+ ErKfONHwuiTQ14oorDmqplJi4r0V+6f6T6ZzuyRC/5GQBAOZzsaQ2yjj6G61GCzOOkUiRlWAuuJ
+ Hwmb7fhw4kvVCp2G/Yc17OBVyKaQVqY=
+X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aa8f522 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=c92rfblmAAAA:8
+ a=5l271pzm8Fzoa8UtYScA:9 a=CjuIK1q_8ugA:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: NB7Z35pS9rB9-1mJTKFnv-8zwlU-8umW
+X-Proofpoint-GUID: VPZJfKRNAEsVdKqDOfb8IRICzyjqB3j_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1011 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150107
 
-On Tue, Sep 15, 2026 at 08:04:17AM +0100, Fuad Tabba wrote:
-> On an MTE-capable host under pKVM, enter_exception64() reads the VM's
-> MTE flag through vcpu->kvm, which for a host vCPU is a host-writable
-> pointer nothing validates. The host can point it at any address in the
-> hyp linear map and read back bit 1 of that word through PSR_TCO in the
-> vCPU's CPSR, or panic the hypervisor with an unmapped one.
+On Sun, Sep 13, 2026 at 07:18:37PM -0400, Tal Zussman wrote:
+> On 9/10/26 6:58 AM, Jan Kara wrote:
+> > I agree your patch makes things better but I have a question: are short
+> > writes (even 0) allowed for atomic writes? I don't think so as far as my
+> > understanding of atomic writes goes (and based on what I could find in the
+> > code). But after your change we'd just return short write (including ret ==
+> > 0) now which doesn't look ideal and also doesn't match your "so any future
+> > bug yields an error rather than a torn write with a WARN()" description. So
+> > as a futureproofing I'd maybe suggest just:
+> > 
+> > 	if (WARN_ON_ONCE(iocb->ki_flags & IOCB_ATOMIC && ret >= 0 &&
+> > 			 iov_iter_count(from)))
+> > 		ret = -EIO; /* or maybe -ENOPROTOOPT??? */
+> > 
+> > before the fallback to buffered IO as a more robust solution.
+> > 
 > 
-> Get the VM through a get/put pair around the read: a loaded vCPU's is
-> the hyp VM, an unloaded host vCPU's is read once and pinned, and a
-> pointer the host never shared leaves TCO clear.
+> Short writes shouldn't be allowed, so this is definitely better in terms of
+> future-proofing. I'll do this with EIO but with the if (WARN_ON_ONCE())
+> inside the existing ret and iov_iter_count() check to avoid duplicating the
+> checks.
+
+Hi Tal, Jan,
+
+AFAICR the WARN_ON was mostly precautionary as we ensure in the dio path
+that a during submission we ensure a write will not tear else we return
+an error. Sure we can go with Jan's suggestion but  I think either ways,
+if we hit that WARN_ON at that point we have already torn the write so
+it is actually a BUG in the sense that we have not honored the
+RWF_ATOMIC contract, but hopefully that will not happen.
+
 > 
-> Fixes: ea7fc1bb1cd1b ("KVM: arm64: Introduce MTE VM feature")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260914070536.877D91F000FF@smtp.kernel.org/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/hyp/exception.c             |  5 ++-
->  arch/arm64/kvm/hyp/include/hyp/adjust_pc.h | 18 ++++++++++
->  arch/arm64/kvm/hyp/nvhe/pkvm.c             | 39 ++++++++++++++++++++++
->  3 files changed, 61 insertions(+), 1 deletion(-)
+> It looks like Sashiko also found a pre-existing issue where an atomic request
+> can be done non-atomically [1]. I'll see if I can reproduce it and add a fix
+> as a second patch in v2.
+
+Looking at Sashiko's comment, it does seem like a valid issue. A simple
+test would be to create an inode with inline data after mounting with -o
+inline_data which should force ext4_should_use_dio() to return false.
+
+Return,
+ojaswin
+
 > 
-> diff --git a/arch/arm64/kvm/hyp/exception.c b/arch/arm64/kvm/hyp/exception.c
-> index 754e2dc1df54a..6e60d890afa4a 100644
-> --- a/arch/arm64/kvm/hyp/exception.c
-> +++ b/arch/arm64/kvm/hyp/exception.c
-> @@ -70,6 +70,7 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
->  			      enum exception_type type)
->  {
->  	unsigned long sctlr, vbar, old, new, mode;
-> +	struct kvm *kvm;
->  	u64 exc_offset;
->  
->  	mode = *vcpu_cpsr(vcpu) & (PSR_MODE_MASK | PSR_MODE32_BIT);
-> @@ -109,8 +110,10 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
->  	new |= (old & PSR_C_BIT);
->  	new |= (old & PSR_V_BIT);
->  
-> -	if (kvm_has_mte(kern_hyp_va(vcpu->kvm)))
-> +	kvm = vcpu_get_kvm(vcpu);
-> +	if (kvm && kvm_has_mte(kvm))
->  		new |= PSR_TCO_BIT;
-> +	vcpu_put_kvm(vcpu, kvm);
->  
->  	new |= (old & PSR_DIT_BIT);
->  
-> diff --git a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-> index 4fdfeabefeb43..a4fb04faa7d09 100644
-> --- a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-> +++ b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-> @@ -13,6 +13,24 @@
->  #include <asm/kvm_emulate.h>
->  #include <asm/kvm_host.h>
->  
-> +/*
-> + * Under pKVM a host vCPU's ->kvm is host-writable: the nVHE pair
-> + * validates it.
-> + */
-> +#ifdef __KVM_NVHE_HYPERVISOR__
-> +struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu);
-> +void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm);
-> +#else
-> +static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-> +{
-> +	return vcpu->kvm;
-> +}
-> +
-> +static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-> +{
-> +}
-> +#endif
-> +
->  static inline void kvm_skip_instr(struct kvm_vcpu *vcpu)
->  {
->  	if (vcpu_mode_is_32bit(vcpu)) {
-> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> index 459bd9eb7e4bc..9bdc7a9b84b8c 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> @@ -11,6 +11,8 @@
->  
->  #include <asm/kvm_emulate.h>
->  
-> +#include <hyp/adjust_pc.h>
-> +
->  #include <nvhe/mem_protect.h>
->  #include <nvhe/memory.h>
->  #include <nvhe/pkvm.h>
-> @@ -304,6 +306,43 @@ struct pkvm_hyp_vcpu *pkvm_get_loaded_hyp_vcpu(void)
->  
->  }
->  
-> +static struct pkvm_hyp_vm *loaded_hyp_vm_of(struct kvm_vcpu *vcpu)
+> Thanks,
+> Tal
 
-pkvm_get_loaded_hyp_vm()? to align with the other.
 
-> +{
-> +	struct pkvm_hyp_vcpu *hyp_vcpu = pkvm_get_loaded_hyp_vcpu();
-> +
-> +	if (hyp_vcpu &&
-> +	    (vcpu == &hyp_vcpu->vcpu || vcpu == hyp_vcpu->host_vcpu))
-> +		return pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
-> +
-> +	return NULL;
-> +}
-> +
-> +/* An unloaded host vCPU's VM is mapped at EL2 only while pinned. */
-
-Could we get the last paragraph of the commit here? As this describes quite well
-what this is doing.
-
-> +struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-> +{
-> +	struct pkvm_hyp_vm *hyp_vm;
-> +	struct kvm *kvm;
-> +
-> +	if (!is_protected_kvm_enabled())
-> +		return kern_hyp_va(vcpu->kvm);
-> +
-> +	hyp_vm = loaded_hyp_vm_of(vcpu);
-> +	if (hyp_vm)
-> +		return &hyp_vm->kvm;
-> +
-> +	kvm = kern_hyp_va(READ_ONCE(vcpu->kvm));
-> +	if (hyp_pin_shared_mem(kvm, kvm + 1))
-> +		return NULL;
-> +
-> +	return kvm;
-> +}
-> +
-> +void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-> +{
-> +	if (kvm && is_protected_kvm_enabled() && !loaded_hyp_vm_of(vcpu))
-> +		hyp_unpin_shared_mem(kvm, kvm + 1);
-> +}
-> +
-
-It seems strange for pkvm.c to provides function that aren't prefixed with pkvm_
-and declared into adjust_pc.h and not pkvm.h. I wonder if adjust_pc.h should't
-just
-
-struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-{
-	if (is_protected_kvm_enabled())
-		return pkvm_vcpu_get_kvm()
-	else
-		kern_hyp_va(vcpu->kvm);
-}
-
->  struct pkvm_hyp_vm *get_pkvm_hyp_vm(pkvm_handle_t handle)
->  {
->  	struct pkvm_hyp_vm *hyp_vm;
-> -- 
-> 2.39.5
 > 
-
-Beside those nits:
-
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-
--- 
-Vincent
+> [1] https://sashiko.dev/#/patchset/20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002%40columbia.edu?part=1
+> 
+> 
