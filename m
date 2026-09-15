@@ -1,503 +1,253 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011030.outbound.protection.outlook.com [52.103.33.30])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012002.outbound.protection.outlook.com [52.101.53.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258284B203D;
-	Tue, 15 Sep 2026 15:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AB04B2CC5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.2
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487984; cv=fail; b=pAoLu/VNvWJZaA3Qp2ZD3KNptEeaJrKIXxWiQB6YdnvNIqlUPj4Bblgvl7esAJm7de23gHLO5XuVtjY+J32dfBhuDwS5cnbNcwM+MVUWemD6WoA7CoPxA5CETLqZjXtzYI0NEI61Mu9+cOdmsDt3DhYwqFJ+t/Ex9EzJrHXhrvo=
+	t=1789487987; cv=fail; b=FPmNa2ZyZV7nPpE0hvKf2ig0mxDkvu6ocWYE7ccAY6zQvvysfDy0dxCrBTSzUfiTC/1LGVq1TIMBNUVaHKKuUvvRmTVF9Vkl7oxOkAiT32oJWw6akwfZFhoQUuKoZjhwXYsLV2KUWTuLsfL5eYAkafEJWMJ3FROCIHvelI6ybUk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487984; c=relaxed/simple;
-	bh=HKWINajdQwRN8p9zXR6D9p9eWErnx/MzGwjXpFgg934=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QQzuU+0BsPGdXZY5BkNE9OKIcJ6wPkIAsp7LQ3z1tgW/ayqr4iY092EV/W7K2BOgvH0nHnhCMJTvdSaPOoVZtzBC39WR3Op3GrZQJRfdhmtD9eVam/+wiW4aMMvOGHgcAafyHA2ILh8GZj9715VK41huGUO/vzSeGnwxY9U4m3Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de; spf=pass smtp.mailfrom=outlook.de; dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b=ec9A4LXm; arc=fail smtp.client-ip=52.103.33.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.de
+	s=arc-20240116; t=1789487987; c=relaxed/simple;
+	bh=Fgog1h9AB8Rt+FMVRs+2RzcFGzAujkoSTKCUQaDn9ko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VtkO4Bgg+1IwvZVwMrFbdBq/y2vukX7YD+WnIX9mT/bumO3TzSB0yqtMutV/RcDYKiSux6mf4/f2oAG1pV/nAUX3juKjZiTpDufAPXd/rvZzqAPb0e+2AoEBCpH8oEOLZU1vm1X2f2VmRit+FMEZjStZXBQU6lYKYGNaiaVeNjc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NGxVkjK2; arc=fail smtp.client-ip=52.101.53.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b="ec9A4LXm"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NGxVkjK2"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oJo1S3HJ8K+zcsicR2JTLzy8hY6xM7V2Vwew65BLg6HEzYjdRVqnQU0s7C7VSkbdzqw+1xMde3ppFZX+JwyHqPGx39u6VDp2acuj/Zi0IQMGbEZZrqVm0JqKo9o6iBl4e4zNycLUWdEIjb3Xv+YdwmXN3IxSrXKpJdR9MrJd1HTSN2b9SrLRblm/IXnzCO6N9h+OtCyNBSZB4uc3KG9k5HcAoggVrlaBpalgqDbrKpOuVOLaNHrvHe4eOaL7lekSWnxW9yFgSacXgnOIykl37UejBmcJNID3A8uszHl3Kzd+zVWm34WnJ/K+7W0IN/xPkcAQNXZ2LpgVCxRK7nupIQ==
+ b=kYUcI7kafI2Ar4w63HjVrHPkWXNl4zyUlNravSwZRLt9kIVwReEjg4GZFv8IxwM3BeclwKIBB5gQpf9moqu6Vij/Hp+YqgH9bhI6F7SDqbYZSg3X4Mdjc4L5XCggSyIS2nNO+QSwtm4wXOgm2mMCcE4nl+sk0wK5+DVSZ4jLXxhmJ4eMymkHYxEeB7v4gDzj0qniRekpDkQY5xeoQCy2J7XYlyUVqdjGp0pWs1GyyEt2g+2FF7Shi6ivwYOhqTSjNog6Fydg12WIs+BmK8bZ+47gZWAbWb/gSrHyH7AaKmyBk1W5KUFskXllbr0soMKiKxBCBTMrd5TjSxxY/+jSaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7EA2HQ9XgNMTywE/BiYPUz1JgTu5WbedsXSa3MwUSBQ=;
- b=qdA1jRuLi7fN8+1uzjhOu37EBj33iWRwXtGktglEBJIJS+RlkhqjOAGuRjLs8bMje1v0TTkf06N6Mczxt9DrsuasEwUQtN48MCXLfBxdLeUuuBPs1tKFN22Kxc6Aw+cvIcOxLndLkVMFAAjQHbkhXV+8jMIH+X/ZEtRzBQSzW0auDG+zSsLU785XacdwslEWA6Aj2bquK9UdrTzgjdL57JWO2o+OXw0sGUIs3la4DTdAzrx8P0cqY29M/QwdMgApBhJ86R/ph5kdWX8QveRrT1ZwX1HZYf174NKH/v5E4EvHkEmlbxuvBcDH+ignksTuJ0E/SmKCxgOxJHyUTU+CRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.DE;
- s=selector1;
+ bh=FFMBXA0kp/e1izXeE8wASJRp/gI//zYrGwMU1foS8mE=;
+ b=SP2DdaHgMxUYoFXrOqyYJy1/gvvLfCfaScgcwFAoQVh4Sod6mj0ZqY/qlbcE6Iw9iARJSs7Mt2Fy1uHPL+9kHFzr+ktDe+7iRj2SpCAVyAlb4og2IUOwJvfa2fjo9IY+7q3aB1rV6MI/rPNPYnJ7MyC0hSaqCqPu3pe8lOQe3J+sSmlwjqjViKewIPvaQMVb7Pmct9VnHlttocelFJ+WcML19Srak54ZxO/FyAJpTaQtE/yfiD6cdXuj37hvzS3gv+VNz+rkn1SlmEAtEwAgZjnEVVOK+G9s0r7jnCs5A/LjmjzJpLM2CuGKQjMrWhmyZ0bWI2Mu8x6hOGaKQc5RrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7EA2HQ9XgNMTywE/BiYPUz1JgTu5WbedsXSa3MwUSBQ=;
- b=ec9A4LXmCSwq03GQT6y9hWV8yYCvV/xENrP6gImGneXvm/vRK4D01S3JYE79GyLGNjMlB+C78vf3Mfj2iA7yy3H0UM8nJIjot1t8Z5iFABgeZh5KxReuz15ay1ydJh+B29DJbIZMbPgtVKPIx/RopVKrnJHS4cKQWn0qJbOM63qFM7kuMg5OJ7HKxJpWZtx/YJU6ugGRzwccgSuYPLUJVES9nONJpH6XimKr7opKHz6vG1FNIi7R3vxiPeLn/EYKxx9qywrYjp6jewV8JLer3yeeuHniwPBjuwtMU8VmawZbsRqKgVd53f7gHZhwNNhtQ64uHxIVFryIgeVucYLOBA==
-Received: from AMBP191MB2886.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:6b0::11)
- by GV2P191MB2334.EURP191.PROD.OUTLOOK.COM (2603:10a6:150:d5::12) with
+ bh=FFMBXA0kp/e1izXeE8wASJRp/gI//zYrGwMU1foS8mE=;
+ b=NGxVkjK26GgtyLVH0a9BaAcGIAUKEkmJpVex1sdqBoyhpaRokNYk0pMUi47oU3wz8D0GyWd+MPbN/Vu3bDiqtm1t6NKzXy1E4u/Q9rB13ltMyxzRFnYaj9x5Mr2a/qK2ae725ZN1sqQ2aSz5X/wjdJOR6Z8r6511S+q5ZovrzSsDQMTyQKZ4CdyWwf+HmpYOkuJZKS7MHf1XqiTWIkWp1VZo6CMtOavosuqSXU0UUSzdTZNNN1k92bftmihtVtp8cs7vJHqact0Y8zs/sfMkw7XUc0t9FTngFdSl7w5V4ZC+ZXAFfGqzhYT9B/SYQB20WbbYuJJ69v6yqMV1iox+IQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by BL4PR12MB9479.namprd12.prod.outlook.com (2603:10b6:208:58e::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 15:59:25 +0000
-Received: from AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
- ([fe80::f9f:9408:b010:9883]) by AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
- ([fe80::f9f:9408:b010:9883%4]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 15:59:25 +0000
-From: =?UTF-8?q?Luca=20Rodenh=C3=A4user?= <otzelot2021@outlook.de>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Luca=20Rodenh=C3=A4user?= <otzelot2021@outlook.de>
-Subject: [RFC PATCH 6/8] ALSA: core: add KUnit coverage for the card names
-Date: Tue, 15 Sep 2026 17:59:06 +0200
-Message-ID:
- <AMBP191MB28869A2386171A55DC8AEAACCEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <AMBP191MB2886193B1F896974A7CE23E1CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
-References: <AMBP191MB2886193B1F896974A7CE23E1CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0190.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::8) To AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:20b:6b0::11)
-X-Microsoft-Original-Message-ID:
- <20260915155913.421839-7-otzelot2021@outlook.de>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 15:59:38 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 15:59:37 +0000
+Date: Tue, 15 Sep 2026 17:59:27 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/18] sched: Make NOHZ CFS bandwidth checks follow proxy
+ donor
+Message-ID: <aqlrX1bur4ue3856@gpd4>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-4-arighi@nvidia.com>
+ <20260910095448.GE4120091@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910095448.GE4120091@noisy.programming.kicks-ass.net>
+X-ClientProxiedBy: MI3PEPF00007535.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::4c7) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBP191MB2886:EE_|GV2P191MB2334:EE_
-X-MS-Office365-Filtering-Correlation-Id: e74d8f39-3692-4407-8096-08df13425012
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|BL4PR12MB9479:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9fb0653-d251-4553-74ca-08df134257e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|51005399006|24021099003|55001999006|41001999006|15080799012|19110799012|5072599009|8060799015|23021999003|6090799003|25031999004|22091999003|24121999003|40105399003|26121999007|2607281247196008|3412199025|440099028|1710799026;
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|11063799006|4143699003|56012099006|3023799007|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MmFHd1lCS05FNGkycXVpNmVnZTkwQUJJNlBORWNUMktPOURKb281VkxsenR3?=
- =?utf-8?B?RlpYQk5RenlGdWxSc3V3Z012OTBEVmJ1SkdMTGtmYU81Yjh3VDBKNUlpOVF4?=
- =?utf-8?B?L1JSV1ZpYk1uRVNZY1JXVThralFpYTl2NHk0S3NpOEt1TSs0NW4xOTVDd2x5?=
- =?utf-8?B?ZTB2TTBTdTUzV2xDeUROMFM3VUhLbVBVSHdXNEdyWnJwZXpUc244WEpObmJW?=
- =?utf-8?B?Y2pBOENlTmU4Um1PbkdKUXZ2UThzdFpjbVlwZkMzRVhPbThuTDFJSWEyNmFo?=
- =?utf-8?B?ZmtSUjJ6QWM0OEpybVFBZWQxREJuOFYxSzhwWjl1YWxabmtNSTVTUml2VS9S?=
- =?utf-8?B?NGMvSWtOSEVKNUhHMUI1eUN0MHVZd1hwVGxXQ1VFZWNJTWR3c1plcjRERGtM?=
- =?utf-8?B?VHlyNkpSbjFkMUNLdUtXZDlTRlNZeXFiSUNQMEhDTTVNc1M1VzM5MEJWajk3?=
- =?utf-8?B?SmtTdkZpQ2p0bmdFK212MWxBZ2tteWVXaXdIWFJhUGZ3MmRyRnE1RW4xa2tn?=
- =?utf-8?B?N2RSN096aDJQK2pNdnI4bU04VlNlNEkxRXpUdUs0RFZEREZuZTFMUWRYRVkr?=
- =?utf-8?B?MkVHQ1U2dFJKYmNuTTIxNmhZSlNta3JLeDk0NDVSZEdsWjlLTkcwdWJEWW9N?=
- =?utf-8?B?UWxKUEZQUTBhMEdvdTgxdGUrRWNtbDZCeVQxV0dkdWhSVmdodm9zeUtqY1JE?=
- =?utf-8?B?bGFLalpDa0MyM25FNjRObUZQU3dTVlRWYnl0ZGhaRDN4bWZYenZOSUhqSzhP?=
- =?utf-8?B?dVVrRzQ0MmFZaFJQT1pidjN1WnQ0RjBBNzAveGt5VkRqSnlXaDNYNWIvSFE0?=
- =?utf-8?B?ZG9sQTQwOTh3Y3hsa1laL0U0NnIvd2FZWW5aT0ZWQTlFUkFzcEpucy81SmJB?=
- =?utf-8?B?Yk1Fd000UXM1RUxja2h2UzdUVXJWeW9EZVZ0VnlGR05kM0NKeVpmNkVzVWN4?=
- =?utf-8?B?QldBcloxeEJ5Ry8rdWlmUXVQM3FlcWd2ODVESS95cVlRZ2EvNVViMVhUSlNB?=
- =?utf-8?B?VFZrM0ZUR0hWWXk3MnRNZHNlWDhhd2QrWEJYUWVpODlKVmZab1hqOVdvUDlF?=
- =?utf-8?B?Q0VJR04xYyt0b1NjYlo3R05pV3FJUlFhNzYvNTd0R284VDZzWW82UEN6T09w?=
- =?utf-8?B?SHVWODVjZjFobzg2MElVdVh3cllaSGdWRksxVEYxK1Urc1o0NE5vSkU1NDg5?=
- =?utf-8?B?K25ZSGJjTzRHajFNZTIyMHRoclZUZldLakhtVUErOXhLR0g3NlVqVW5YSE5l?=
- =?utf-8?B?YXN5Q0Q5UERGbWpYNElWVERQMi9sSW9Ja0NJc3Y4dllKQk1Cbm12Z0w1MG9O?=
- =?utf-8?B?N3AyeGUrSHpXV1l5SmVNZWVqRFJUWHVDZVJYYXdVR0RUdk1ndm9odVVjKzA0?=
- =?utf-8?B?UlF1ZG5UTmU4ZFpFNWp4MXFlR3RhanFKVzFJVzRMd2UrK3dINS9sU2JaSWdY?=
- =?utf-8?B?R3M3MVo4Ui84c1dRLzVBOW5HR0txQjNOWjcvSEdSNHZqcnlXWVN6dm9VZEFi?=
- =?utf-8?B?bTB5Yzc2Um42SzZ0anZ2TnFzWk92YS80QjAvMjhDNkVYcXp3QlB1WFI1RnJn?=
- =?utf-8?Q?P/n9AKj4i1YCYFD6lLGznmVl5iWgrQNZV7ao+gShrvb44Q?=
+	k9bmETtGTmf43Z6+mNMaea5Dlqr4Fw8H4hlmM2Igl8TcZMfBxYo/IdxKwQzhrXEwKxdxDzQVlEh88PILboa9X4bNlcZjaNHDaBJQvNI4VQuM2IQPf3Q1y60JsNKnXxw5id/Y+ZwoiCTBo1ZhoBfLu/ufaJhNn8GIPfnyZ6Zk5DKctZWPG22Jgnlf6IlCkBmRE5Ag5BUelWj4hkJ3WDelps7JNB47w/yHNUo3PrKMJuy//rHO7LYJmbgXotp6hXH6slrY8YAfVdUKmPHFHjXEEEQOClxTglUkzwp9ZYBud2HLrBZwpZPPPF1SLaNoW1Vw7icNBQKWZc3sonb99s2VmNqVbfH4iNYsSUnYeMVGpGUgszFYoexuvNVaenDk23cKSoJ9ncgdj3yWsbaF1RkWK2xnsZekdGywVDv4T+jV4L2p3VEgEpRxR4fd7jjkuMMfSHHnGcXB5/4vyK3ukbnNgJ5kji/wQdPuTRup7CDrUye6E1FOyaO1B24OJQJ3USCoxgD/8EZwsYLt/wXxROd92Pom9WMCFrNRpw2euaBwSJfek1nF3L2kuQBvJsTrC39laaK37l/CuUWak4LvyPb9LPInJUnr262waHl8SuDLo1YBH5AgXy2x7qZHfsKeS7LJbz/IgXufgHJcE1oFpzYg11cly5uRftcMksO+p89Pxmw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YndVb3RIanJTYWl3SHc5WTlKN3AxeTYvSFFHMG9uUy9rd1h4RTN5d29ZSFdj?=
- =?utf-8?B?ZE9MRWw5MWY2Y1pCSFZWblZkNldZM1kyYVBmdEI4SG9IUHR6alNTdmpaMm1C?=
- =?utf-8?B?ekJmVVdOVGFKYzYyWHBDbFdhSGhNMDdtMmU4NlFma2JtclFMdUdLSjFwYngv?=
- =?utf-8?B?STRRdVFKWHR2NHhPRVlidFJheS9OVlVvbTlMdE5nd3EvaWlPUTlvUXpOQzZ0?=
- =?utf-8?B?Y0RlK1lvZ0p1cDJrbjhwSGE3c3BSVnJUaXRSSE5yZlBRd0gvdU5kT2g0aWwz?=
- =?utf-8?B?MlZPbElpeVFRKzlrQUVOcXQ2SUxuQTlkMXlrYXdVbk92NFdvTXFqS1FYVGVK?=
- =?utf-8?B?OEx5UDAweWhibVI0a0xkOFdqVldQZVQwRnFkdFVLMWVuUVpFVmR2YU0wN09N?=
- =?utf-8?B?UTRQeUZXZ1Rwby9mV09aTjlGTEhVUVB6NkkwUE0xcnV6ZWp4K1BXWEw3bFZv?=
- =?utf-8?B?VW00aUZpODJaOEFjaUVSYXprUkdScTEzMDEyY3QwYWxMRnh1dEVPblkxU2lS?=
- =?utf-8?B?TFh5U1BWaktVNmRhMFdEN2NUU3oxZzZWa0tlY0crdDg2QmxEMG4rQWJwdmZW?=
- =?utf-8?B?ZGNUdTNXbVVQaktGdmUvcDR5b2hnaG9ydXdmZlpod0w2TklVSS96S0NHWkVQ?=
- =?utf-8?B?ZzA4RFVEMUFVOTdjZ0JDMlRWVnk4WXJaTHlJMzVyQ2hFQVI0M1NyNFl2Z1lO?=
- =?utf-8?B?RVFJc2oxVEFIWGZva0lMRm00QzhzSlhKODlmL0oza01LZUJsNnIzL2dhVFQ3?=
- =?utf-8?B?UjFnZXdkTlJUVlVwNWJwbVFMUGhqZ3Q1bjNQWnplN09BK0Zja2VNTmpKUFEy?=
- =?utf-8?B?bWovOHlCNnVXL3BISGIwM3FqL2NOY2pkMlVaNlRqcWpUWFBqK01taURiRHVV?=
- =?utf-8?B?bE5XaUhtaVVtUlRXN2lMak0yMUpoT0hQbFNmZm0xWjFGNnE3am5yZzhXTlNC?=
- =?utf-8?B?MFBEZzcvNVJpclhIUDQ3RGhMRVlKY0RGZS94ODNHMWtaNXNxUmV1Si96aGov?=
- =?utf-8?B?Wi8vZUtsMzdiaFdGVHB4VzhmVGg5Y1JTRDFlbGpQZVlWQWxrTEtiVEdGN21G?=
- =?utf-8?B?dDNYcEVRTnJ2R2Noclp1NC9ETi94N3FCOG0wd0krMmQzTnI3TVFpQjZuUUJn?=
- =?utf-8?B?NHZsdkNNMUd4dlY2T3FTellpSWltZnMvb25rbnpVVVNidUo4OHVIcGdsQ1Y1?=
- =?utf-8?B?V1FxNklkVEFCd2xxcGczMXRzRHdmc1dCcDBsNS9kL0tMdTBBOTl0SXlnZkk1?=
- =?utf-8?B?Nll2M0xQam9uNFg3ZlhoNk1mTUkrUFJQME12OWZwMWl4U0kyWm1sOUljWFc2?=
- =?utf-8?B?M2t0M05mTjN5VVN6Y2VEMmJ2SVdGSWdIZHEzVG1DRFl4WjNQNWJKTHpEeTlF?=
- =?utf-8?B?TUErT3BEcE1mV1laVDVOUDc5eVJPZU5IdkxTL1dLaXJWRXcveHFLVFBoK0Zu?=
- =?utf-8?B?NStsSjFXTXlDUGFjbjRwR1lHbENTWVJpNDBNenlxd2ticW5GbHVnMFlLR1dG?=
- =?utf-8?B?dFBNQzlNcnFJbFlTY0RsWlo5NDUyWmgxZTUxa0FLMzErMWdPN0I2aTUvbU1a?=
- =?utf-8?B?OGNNQS9HdlNuMjF4YmM0K0VoOUJvSmJTK1VYejFHM1JIWDN6MUJzM2czSzVk?=
- =?utf-8?B?dkk4dXFDVUFnZG54OGlhZlZWYk1iNjdSRDAweGFJaXNVbFYyN2F1NGtYSnpl?=
- =?utf-8?B?eDczdG04UHpnWkdqU2FvYlRBWXlFTW5JdW0vbENIaDVMcjN6ZDBTQklEVzVn?=
- =?utf-8?B?eUtjSnlMNFVUN0JmUkZvVlFEbkpPOVF6cGhpUE9TaVZpRjBTNnJNa3JCanhG?=
- =?utf-8?B?bmd4NE5VY2xBMzduRktud1NuM2IrY1BaZzRua2hxU0ZJOHZ0Y1lrQ2c3VzNK?=
- =?utf-8?B?azZoRmJidGJ0NUppOFcvSnJ6WlRIOXczUC9OSUFaNWowcTh4SS9kaGNOa2dK?=
- =?utf-8?Q?2YEHSLWfZMcoqST7s3XnpQrDMkJMJrO6?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-061ba.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: e74d8f39-3692-4407-8096-08df13425012
-X-MS-Exchange-CrossTenant-AuthSource: AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
+	=?us-ascii?Q?UCC/ehkDTvJ/JkIycTMLJMB9CftZdVDjD4UqBt+hm+VlGVi5I1Ou0fdmun3S?=
+ =?us-ascii?Q?NuiZkQFeFnzLy/g+fGZaFHER9QfxWsvsN+9oykXUYtVMO3OkVqHKYgyWD5ox?=
+ =?us-ascii?Q?KjlxgWyfA9MjxwxRyYmpiEsXU6OIpjVi8hc1S4pnUdKLtEkmiLpOTsqEAqyO?=
+ =?us-ascii?Q?trcp1nGcpcllXovU0R01xTA6ApdUoh6Od9iw4ZtYL5fWPjlZMJzkNE7axlUf?=
+ =?us-ascii?Q?bkpejI2r6rXyMZv/6AUqNSwG/TP9c1iFkSGYt1mu7uH7gXQ7u2ASRs9T6YEi?=
+ =?us-ascii?Q?GUNTsZZns40p42QaF7xKDbKJHt3/lg+i3a35EUgOgr+DrM0oedVyqGKS8F3n?=
+ =?us-ascii?Q?YVvztusDxUimkeBM3d7iX7meALY0TU+ZvGPxAZEa7rk/WtrBJAoZtrlWjlwD?=
+ =?us-ascii?Q?IiYMHNl+mSv5r3DiBl1rxjJ37ldklj+ExOpJbvUZDqiKPiC23U6kR83LL5Co?=
+ =?us-ascii?Q?ZZz4P4+sTpr6vKVKoUe2R4J2mS1sdeDyIHX4WrdWcm9H5P2hpYOTOHZudB3s?=
+ =?us-ascii?Q?8nLbHbwJWBhHLUND9JCPEkDAsGIcAx9MZHutB+jbyaChlez+WvFgMqp/bhSE?=
+ =?us-ascii?Q?Nwt1srOOxXLQaXGPgb/4u7mhhjWvFtxLVjf88NI49IzRn4PucSOitUw102Xn?=
+ =?us-ascii?Q?HCKzBLaepYTHcrl2e11ZrCB+cYVZZ5K0azmcyyPi3qRnJmQdUe6kwgwMRZl0?=
+ =?us-ascii?Q?n60bvtpSUZbDDwQnDKQkt6aeA2GJbRv6EzJBTyUCnqypDJXa8M+sIuK47bi3?=
+ =?us-ascii?Q?+RnWOWHO6p/qehZLXUGj9N/3TRVrbfpOhRC/TQ4Bst8VLZMMuj+qe3di5tFa?=
+ =?us-ascii?Q?Z0CjYuG0EN79TkUO3SEO5aX3d0g4no6GWxqr5QBXZ33Axvfdq7ERIPj41jPh?=
+ =?us-ascii?Q?dkKx2Zfqq+Jv85mjd19BV2fUoLHHta5DguL3ocQZsIiwG+Io+OHciRYYnZyt?=
+ =?us-ascii?Q?VVLfB/4TjVT3c5teOxc5YDUOqaeofftWqaSWYBdf4gI0v8DDAixGQIv1s4EY?=
+ =?us-ascii?Q?ywBwi+j9SfgXs1ZC2tI/Kj5KJ+hwTZdr53soDBkT/bbzsYqnVWWT1CV0YE7M?=
+ =?us-ascii?Q?ABmdgoem9BpWP08x1Mf2sWAa17EbBYVtZLoMELuvOLUDlI6uTbJr9Zbje83N?=
+ =?us-ascii?Q?yea0lxng8aZX4Tlie0rIgwi8HZMX/GqmXmB6WBMSBa+LrB/50RTrNT112/MT?=
+ =?us-ascii?Q?EpWtn+AS6BZcvZfT0ZFS37ipBcC7dcoefU8rS4Xch3RdyohZIwuFepOXst1G?=
+ =?us-ascii?Q?0/LAzlvIfFhR1mweM7L/RcMQ39BhX1+gtyNSkVmifs3xlJPVDSPqWLWhcg4c?=
+ =?us-ascii?Q?zUb6umoAE3/W85ozhkk5iMtSsZVCyuUvJI3MUEzYP3JiMjTl0qUfeEnK02la?=
+ =?us-ascii?Q?7hlmEf5eJd8iT+60gdRZnFkBvS59mcdvIxlCebVmzIOvOzUcNdrWKBrzkWoQ?=
+ =?us-ascii?Q?gRHqW8xyiv8MUhWM0y57S6Lzr50OxxU/h7N+jej1FVKL0kTPFF1GCirVkpiU?=
+ =?us-ascii?Q?tI4UbWyrbjdOP/ltGwVVObflTxa6neKLnBwE6bRbpJzPiUaIdkv5pOlQuKs/?=
+ =?us-ascii?Q?pLqj8wlc6mezFVpNX6tDfztNaS4MDb4N+Oac6SE+QLIk3RuHJqJUcxgHVoPT?=
+ =?us-ascii?Q?9ECCEz80/zkNbywle27JpcZrNmVqhdiIyLhLjC20AhYNoYSuwQGbMCIEHODI?=
+ =?us-ascii?Q?chC6hM2Um/wbQAlxbt4D7QUJ5J4Vd/VvcaYayxReHAiVk9QQAoNI0htn2dw2?=
+ =?us-ascii?Q?ISpEFq5vyw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9fb0653-d251-4553-74ca-08df134257e5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:59:24.3506
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:59:37.8315
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2P191MB2334
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XST4vjF7GHEcJPJHuqZPvfgr08SD9FbBom2mz6E8WWjN/jYfL+WRXewFBtSmy1AmKq+BGub6/XW9g3iyPPotEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9479
 
-Cover what the setters promise: plain ASCII and multi-byte names survive
-byte for byte, a field starts out and can be cleared back to NULL,
-whitespace is stripped, a whitespace-only name counts as unset, and a name
-that fits into the fixed field next to it is not stored at all.
+Hi Peter,
 
-The sanitising cases carry the weight, since they are what keeps malformed
-input from reaching user space: truncated sequences, stray continuation
-bytes, overlong encodings, surrogate halves, code points past U+10FFFF, C0
-and C1 controls and an ANSI escape, each with the exact output expected.
+thanks for looking at this and sorry for my late response!
+Comments below.
 
-test_card_full_names_passthrough pins the opposite: bidi overrides,
-zero-width and tag characters and a non-character come back unchanged.
-That is deliberate, and a test is the only way to keep it from looking like
-an oversight later.
+On Thu, Sep 10, 2026 at 11:54:48AM +0200, Peter Zijlstra wrote:
+> On Mon, Aug 31, 2026 at 03:42:13PM +0200, Andrea Righi wrote:
+> > Proxy execution separates the scheduling context in rq->donor from the
+> > physical execution context in rq->curr. sched_can_stop_tick() checks the
+> > latter for CFS bandwidth constraints and only does so when nr_running is
+> > one.
+> > 
+> > A retained proxy donor keeps both the donor and mutex owner queued. The
+> > check therefore misses a constrained FAIR donor and may stop the tick
+> > while its runtime still needs to be enforced.
+> > 
+> > Check the selected donor instead and remove the nr_running restriction.
+> > The donor being a queued FAIR task is sufficient to require bandwidth
+> > accounting regardless of other runnable tasks.
+> > 
+> > Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Link: https://lore.kernel.org/r/20260713164807.E5ED21F00A3A@smtp.kernel.org
+> > Acked-by: John Stultz <jstultz@google.com>
+> > Signed-off-by: Andrea Righi <arighi@nvidia.com>
+> > ---
+> >  kernel/sched/core.c | 35 ++++++++++++++++++-----------------
+> >  kernel/sched/fair.c | 12 +++++++-----
+> >  2 files changed, 25 insertions(+), 22 deletions(-)
+> > 
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index 237d216382f46..14d0d5c884393 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -1419,11 +1419,8 @@ static void nohz_csd_func(void *info)
+> >  #endif /* CONFIG_NO_HZ_COMMON */
+> >  
+> >  #ifdef CONFIG_NO_HZ_FULL
+> > -static inline bool __need_bw_check(struct rq *rq, struct task_struct *p)
+> > +static inline bool __need_bw_check(struct task_struct *p)
+> >  {
+> > -	if (rq->nr_running != 1)
+> > -		return false;
+> > -
+> >  	if (p->sched_class != &fair_sched_class)
+> >  		return false;
+> >  
+> > @@ -1441,6 +1438,14 @@ bool sched_can_stop_tick(struct rq *rq)
+> >  	if (rq->dl.dl_nr_running)
+> >  		return false;
+> >  
+> > +	/*
+> > +	 * The selected scheduling context can be a constrained FAIR donor even
+> > +	 * when rq->curr is an RT task. Check it before the RT fast paths below,
+> > +	 * which may report that the tick can stop for a throttled RT context.
+> > +	 */
+> 
+> I am most confused... how can we ever have rq->donor be FAIR and
+> rq->curr be RT? That makes no sense. If an RT task is runnable, pick
+> should just straight up pick that.
 
-Truncation is checked with a 2-byte and a 3-byte character, so the case
-where the limit does not divide evenly is covered, and with input that is
-all bad bytes, where each one grows from one byte to three and the limit
-has to hold on the output rather than the input.
+Yeah, the RT example is bogus.
 
-test_card_id_stays_ascii is a regression test for the card id fix earlier
-in this series; without it, card->id[0] comes out as 0xc3.
+The relevant case is a FAIR donor belonging to a quota-controlled cgroup which
+still has runtime available, proxy-executing a lower-class mutex owner
+(specifically an EXT owner with the other patches in the series).
 
-Assisted-by: LLM
-Signed-off-by: Luca Rodenhäuser <otzelot2021@outlook.de>
----
- sound/core/sound_kunit.c | 284 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 280 insertions(+), 4 deletions(-)
+The owner's execution is charged to the donor's scheduling context. The retained
+donor and runnable owner make rq->nr_running greater than one, while rq->curr
+identifies the EXT owner rather than the quota-controlled FAIR context. There is
+also only one queued FAIR task, so the normal CFS multiplicity check does not
+retain the tick.
 
-diff --git a/sound/core/sound_kunit.c b/sound/core/sound_kunit.c
-index d462462543..26554da484 100644
---- a/sound/core/sound_kunit.c
-+++ b/sound/core/sound_kunit.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <kunit/test.h>
-+#include <linux/ctype.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
- 
-@@ -300,8 +301,7 @@ static void test_card_add_component(struct kunit *test)
- }
- 
- /* snd_utf8_strscpy() has to behave exactly like strscpy() for ASCII and only
-- * differ where a multi-byte sequence would be cut.  The escapes keep this file
-- * plain ASCII; \x escapes are greedy, hence the split literals.
-+ * differ where a multi-byte sequence would be cut.
-  */
- #define STRSCPY_UMLAUT		"\xc3\xa4"	/* 2 bytes */
- #define STRSCPY_HIRAGANA	"\xe3\x81\x82"	/* 3 bytes */
-@@ -327,8 +327,8 @@ static void test_utf8_strscpy(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, len, sizeof(dst) - 1);
- 	KUNIT_EXPECT_STREQ(test, dst, ref);
- 
--	/* 2-byte characters: 7 bytes of room hold three of them plus one ASCII
--	 * byte, so the fourth has to be dropped whole rather than halved
-+	/* 2-byte characters: three fit in seven bytes, the fourth has to be
-+	 * dropped whole rather than halved
- 	 */
- 	len = snd_utf8_strscpy(dst, STRSCPY_UMLAUT STRSCPY_UMLAUT
- 				    STRSCPY_UMLAUT STRSCPY_UMLAUT,
-@@ -356,6 +356,275 @@ static void test_utf8_strscpy(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, snd_utf8_strscpy(dst, "abc", 0), 0);
- }
- 
-+/* The UTF-8 test names are spelled out as escapes on purpose: the bytes are
-+ * what is under test, and the file itself stays plain ASCII.  Literals are
-+ * split where a hex escape is followed by a hex digit, since \x escapes are
-+ * greedy: "\xe2\x80\xaedef" would parse as \xe2 \x80 \xaed.
-+ */
-+#define UTF8_LATIN_NAME		"M\xc3\xbcller Audio"		/* Mueller with umlaut */
-+#define UTF8_CJK_NAME		"\xe3\x81\x82\xe9\x9f\xb3"	/* hiragana a + kanji */
-+#define UTF8_ASTRAL_NAME	"\xf0\x9f\x8e\xb5 Audio"	/* musical note + text */
-+#define UTF8_UNTRIMMED_NAME	" \t" UTF8_LATIN_NAME " \n"
-+#define UTF8_ONLY_SPACES	"  \t\r\n "
-+#define UTF8_REPLACEMENT	"\xef\xbf\xbd"			/* U+FFFD */
-+
-+#define UTF8_UMLAUT		"\xc3\xa4"			/* 2 bytes */
-+#define UTF8_HIRAGANA		"\xe3\x81\x82"			/* 3 bytes */
-+
-+/* Malformed input.  None of it is rejected any more; each bad byte becomes one
-+ * U+FFFD, so that a caller is never pushed back to the unfiltered ASCII field.
-+ */
-+static const struct {
-+	const char *in;
-+	const char *out;
-+} sanitised_names[] = {
-+	/* truncated 2-byte start */
-+	{ "abc\xc3",			"abc" UTF8_REPLACEMENT },
-+	/* stray continuation byte */
-+	{ "abc\x80",			"abc" UTF8_REPLACEMENT },
-+	/* overlong encoding of '/': both bytes are bad */
-+	{ "abc\xc0\xaf",		"abc" UTF8_REPLACEMENT UTF8_REPLACEMENT },
-+	/* U+D800, a surrogate half: three bad bytes */
-+	{ "abc\xed\xa0\x80",		"abc" UTF8_REPLACEMENT UTF8_REPLACEMENT
-+					UTF8_REPLACEMENT },
-+	/* beyond U+10FFFF */
-+	{ "abc\xf5\x80\x80\x80",	"abc" UTF8_REPLACEMENT UTF8_REPLACEMENT
-+					UTF8_REPLACEMENT UTF8_REPLACEMENT },
-+	/* broken continuation: the 'A' after it is valid and survives */
-+	{ "abc\xe3\x81" "A",		"abc" UTF8_REPLACEMENT UTF8_REPLACEMENT "A" },
-+	/* C0 control in the middle becomes a space */
-+	{ "abc\ndef",			"abc def" },
-+	/* U+0085 NEL, a C1 control */
-+	{ "abc\xc2\x85" "def",		"abc def" },
-+	/* ANSI escape: the ESC is what makes it dangerous */
-+	{ "abc\x1b[31mdef",		"abc [31mdef" },
-+	/* U+2028 LINE SEPARATOR */
-+	{ "abc\xe2\x80\xa8" "def",	"abc def" },
-+};
-+
-+/* Code points the kernel deliberately does NOT touch.  They are a real
-+ * spoofing vector, but catching them needs the Unicode character properties,
-+ * which live in user space.  This test pins the documented behaviour so that
-+ * nobody mistakes it for an oversight.
-+ */
-+static const char * const passthrough_names[] = {
-+	"Audio\xd8\x9c" "Device",	/* U+061C ARABIC LETTER MARK */
-+	"Audio\xe2\x80\xae" "Device",	/* U+202E RIGHT-TO-LEFT OVERRIDE */
-+	"Audio\xe2\x81\xaa" "Device",	/* U+206A INHIBIT SYMMETRIC SWAPPING */
-+	"Au\xc2\xad" "dio",		/* U+00AD SOFT HYPHEN */
-+	"Audio\xef\xb8\x8f",		/* U+FE0F VARIATION SELECTOR-16 */
-+	"Audio\xf3\xa0\x80\x81",	/* U+E0001 LANGUAGE TAG */
-+	"Audio\xef\xbf\xbf",		/* U+FFFF non-character */
-+};
-+
-+/* Build @repeat copies of @seq, NUL terminated. */
-+static char *utf8_repeat(struct kunit *test, const char *seq, size_t repeat)
-+{
-+	size_t seq_len = strlen(seq);
-+	char *buf;
-+	size_t i;
-+
-+	buf = kunit_kzalloc(test, seq_len * repeat + 1, GFP_KERNEL);
-+	if (!buf)
-+		return NULL;
-+	for (i = 0; i < repeat; i++)
-+		memcpy(buf + i * seq_len, seq, seq_len);
-+	return buf;
-+}
-+
-+static void test_card_full_names(struct kunit *test)
-+{
-+	struct snd_card *card = kunit_kzalloc(test, sizeof(*card), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, card);
-+
-+	/* an unset field stays NULL, which means "fall back to ASCII" */
-+	KUNIT_EXPECT_NULL(test, card->full_shortname);
-+	KUNIT_EXPECT_NULL(test, card->full_longname);
-+	KUNIT_EXPECT_NULL(test, card->full_mixername);
-+
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, UTF8_LATIN_NAME));
-+	KUNIT_EXPECT_STREQ(test, card->full_shortname, UTF8_LATIN_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_longname(card, UTF8_CJK_NAME));
-+	KUNIT_EXPECT_STREQ(test, card->full_longname, UTF8_CJK_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_mixername(card, UTF8_ASTRAL_NAME));
-+	KUNIT_EXPECT_STREQ(test, card->full_mixername, UTF8_ASTRAL_NAME);
-+
-+	/* setting it again replaces the previous value */
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, UTF8_CJK_NAME));
-+	KUNIT_EXPECT_STREQ(test, card->full_shortname, UTF8_CJK_NAME);
-+
-+	/* NULL clears the field back to "unset" */
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, NULL));
-+	KUNIT_EXPECT_NULL(test, card->full_shortname);
-+
-+	snd_card_set_full_longname(card, NULL);
-+	snd_card_set_full_mixername(card, NULL);
-+}
-+
-+/* A UTF-8 field is only worth an allocation when it carries more than the
-+ * ASCII field next to it; otherwise the documented fallback says the same.
-+ */
-+static void test_card_utf8_names_same_as_ascii(struct kunit *test)
-+{
-+	struct snd_card *card = kunit_kzalloc(test, sizeof(*card), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, card);
-+
-+	strscpy(card->shortname, VALID_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, VALID_NAME));
-+	KUNIT_EXPECT_NULL(test, card->full_shortname);
-+
-+	/* the same name with padding sanitises to the ASCII one, so still unset */
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, " " VALID_NAME "\t"));
-+	KUNIT_EXPECT_NULL(test, card->full_shortname);
-+
-+	/* one that differs is kept */
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, UTF8_LATIN_NAME));
-+	KUNIT_EXPECT_STREQ(test, card->full_shortname, UTF8_LATIN_NAME);
-+
-+	snd_card_set_full_shortname(card, NULL);
-+}
-+
-+static void test_card_utf8_names_sanitised(struct kunit *test)
-+{
-+	struct snd_card *card = kunit_kzalloc(test, sizeof(*card), GFP_KERNEL);
-+	size_t i;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, card);
-+
-+	for (i = 0; i < ARRAY_SIZE(sanitised_names); i++) {
-+		KUNIT_EXPECT_EQ_MSG(test, 0,
-+				    snd_card_set_full_shortname(card, sanitised_names[i].in),
-+				    "name %zu was rejected", i);
-+		KUNIT_EXPECT_STREQ_MSG(test, card->full_shortname,
-+				       sanitised_names[i].out,
-+				       "name %zu came out wrong", i);
-+	}
-+
-+	snd_card_set_full_shortname(card, NULL);
-+}
-+
-+static void test_card_utf8_names_passthrough(struct kunit *test)
-+{
-+	struct snd_card *card = kunit_kzalloc(test, sizeof(*card), GFP_KERNEL);
-+	size_t i;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, card);
-+
-+	for (i = 0; i < ARRAY_SIZE(passthrough_names); i++) {
-+		KUNIT_EXPECT_EQ(test, 0,
-+				snd_card_set_full_shortname(card, passthrough_names[i]));
-+		KUNIT_EXPECT_STREQ_MSG(test, card->full_shortname,
-+				       passthrough_names[i],
-+				       "name %zu was altered; the kernel does not filter these",
-+				       i);
-+	}
-+
-+	snd_card_set_full_shortname(card, NULL);
-+}
-+
-+static void test_card_utf8_names_trimmed(struct kunit *test)
-+{
-+	struct snd_card *card = kunit_kzalloc(test, sizeof(*card), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, card);
-+
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, UTF8_UNTRIMMED_NAME));
-+	KUNIT_EXPECT_STREQ(test, card->full_shortname, UTF8_LATIN_NAME);
-+
-+	/* a name that is only whitespace carries no information: treat it as
-+	 * unset rather than storing an empty string
-+	 */
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, UTF8_ONLY_SPACES));
-+	KUNIT_EXPECT_NULL(test, card->full_shortname);
-+
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, ""));
-+	KUNIT_EXPECT_NULL(test, card->full_shortname);
-+
-+	/* control characters at the ends become spaces and are then trimmed */
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, "\x01" VALID_NAME "\x7f"));
-+	KUNIT_EXPECT_STREQ(test, card->full_shortname, VALID_NAME);
-+
-+	snd_card_set_full_shortname(card, NULL);
-+}
-+
-+static void test_card_utf8_names_truncated(struct kunit *test)
-+{
-+	struct snd_card *card = kunit_kzalloc(test, sizeof(*card), GFP_KERNEL);
-+	size_t len;
-+	char *name;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, card);
-+
-+	/* 2-byte characters divide the limit evenly */
-+	name = utf8_repeat(test, UTF8_UMLAUT, SNDRV_CARD_FULL_SHORTNAME_MAX);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, name);
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, name));
-+	KUNIT_ASSERT_NOT_NULL(test, card->full_shortname);
-+	KUNIT_EXPECT_EQ(test, strlen(card->full_shortname),
-+			SNDRV_CARD_FULL_SHORTNAME_MAX);
-+
-+	/* 3-byte characters do not: the last whole character has to win, so the
-+	 * result stays below the limit instead of ending inside a sequence
-+	 */
-+	name = utf8_repeat(test, UTF8_HIRAGANA, SNDRV_CARD_FULL_SHORTNAME_MAX);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, name);
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, name));
-+	KUNIT_ASSERT_NOT_NULL(test, card->full_shortname);
-+	len = strlen(card->full_shortname);
-+	KUNIT_EXPECT_LE(test, len, (size_t)SNDRV_CARD_FULL_SHORTNAME_MAX);
-+	KUNIT_EXPECT_EQ(test, len % strlen(UTF8_HIRAGANA), 0);
-+
-+	/* replacing a bad byte grows it from one byte to three, so the limit
-+	 * has to be enforced on the output, not on the input
-+	 */
-+	name = utf8_repeat(test, "\x80", SNDRV_CARD_FULL_SHORTNAME_MAX);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, name);
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_shortname(card, name));
-+	KUNIT_ASSERT_NOT_NULL(test, card->full_shortname);
-+	len = strlen(card->full_shortname);
-+	KUNIT_EXPECT_LE(test, len, (size_t)SNDRV_CARD_FULL_SHORTNAME_MAX);
-+	KUNIT_EXPECT_EQ(test, len % strlen(UTF8_REPLACEMENT), 0);
-+
-+	/* the longname field has its own, larger limit */
-+	name = utf8_repeat(test, UTF8_UMLAUT, SNDRV_CARD_FULL_LONGNAME_MAX);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, name);
-+	KUNIT_EXPECT_EQ(test, 0, snd_card_set_full_longname(card, name));
-+	KUNIT_ASSERT_NOT_NULL(test, card->full_longname);
-+	KUNIT_EXPECT_EQ(test, strlen(card->full_longname),
-+			SNDRV_CARD_FULL_LONGNAME_MAX);
-+
-+	snd_card_set_full_shortname(card, NULL);
-+	snd_card_set_full_longname(card, NULL);
-+}
-+
-+/* card->id is an identifier, not a display name: it has to stay alphanumeric
-+ * ASCII even when the name it is derived from is not.  isalpha() alone does
-+ * not ensure that, since the ctype table treats the Latin-1 high bytes as
-+ * letters.
-+ */
-+static void test_card_id_stays_ascii(struct kunit *test)
-+{
-+	struct snd_card *card = kunit_kzalloc(test, sizeof(*card), GFP_KERNEL);
-+	size_t i;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, card);
-+
-+	/* the digit has to be the first ASCII-safe byte to reach the path that
-+	 * copies the source byte unfiltered
-+	 */
-+	snd_card_set_id(card, "\xc3\x84" "3000");
-+
-+	for (i = 0; card->id[i]; i++)
-+		KUNIT_EXPECT_TRUE_MSG(test, isascii(card->id[i]),
-+				      "card->id[%zu] = 0x%02x is not ASCII",
-+				      i, (unsigned char)card->id[i]);
-+}
-+
- static struct kunit_case sound_utils_cases[] = {
- 	KUNIT_CASE(test_phys_format_size),
- 	KUNIT_CASE(test_format_width),
-@@ -368,6 +637,13 @@ static struct kunit_case sound_utils_cases[] = {
- 	KUNIT_CASE(test_pcm_format_name),
- 	KUNIT_CASE(test_card_add_component),
- 	KUNIT_CASE(test_utf8_strscpy),
-+	KUNIT_CASE(test_card_full_names),
-+	KUNIT_CASE(test_card_utf8_names_same_as_ascii),
-+	KUNIT_CASE(test_card_utf8_names_sanitised),
-+	KUNIT_CASE(test_card_utf8_names_passthrough),
-+	KUNIT_CASE(test_card_utf8_names_trimmed),
-+	KUNIT_CASE(test_card_utf8_names_truncated),
-+	KUNIT_CASE(test_card_id_stays_ascii),
- 	{},
- };
- 
--- 
-2.43.0
+The bandwidth check must therefore follow rq->donor so that the donor's
+remaining CFS quota is enforced.
 
+> 
+> > +	if (__need_bw_check(rq->donor) && cfs_task_bw_constrained(rq->donor))
+> > +		return false;
+> > +
+> 
+> 
+> > @@ -7114,7 +7107,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+> >   */
+> >  static void __sched notrace __schedule(int sched_mode)
+> >  {
+> > -	struct task_struct *prev, *next;
+> > +	struct task_struct *prev, *next, *tick_donor;
+> >  	/*
+> >  	 * On PREEMPT_RT kernel, SM_RTLOCK_WAIT is noted
+> >  	 * as a preemption by schedule_debug() and RCU.
+> > @@ -7168,6 +7161,7 @@ static void __sched notrace __schedule(int sched_mode)
+> >  	rq->clock_update_flags <<= 1;
+> >  	update_rq_clock(rq);
+> >  	rq->clock_update_flags = RQCF_UPDATED;
+> > +	tick_donor = rq->donor;
+> >  
+> >  	switch_count = &prev->nivcsw;
+> >  
+> > @@ -7243,6 +7237,13 @@ static void __sched notrace __schedule(int sched_mode)
+> >  	clear_tsk_need_resched(prev);
+> >  	clear_preempt_need_resched();
+> >  keep_resched:
+> > +	/*
+> > +	 * Enqueue and dequeue updates can evaluate the outgoing donor. Refresh
+> > +	 * the dependency after selecting a different scheduling context.
+> > +	 */
+> > +	if (rq->donor != tick_donor)
+> > +		sched_update_tick_dependency(rq);
+> 
+> Please keep all the proxy specific bits inside the one
+> sched_proxy_exec() branch above.
+
+Sure, I'll move the donor-change tracking and tick dependency update into the
+sched_proxy_exec() branch.
+
+Thanks,
+-Andrea
