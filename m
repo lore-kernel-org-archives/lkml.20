@@ -1,104 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278674B5123;
-	Tue, 15 Sep 2026 17:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5C041E6D9;
+	Tue, 15 Sep 2026 17:36:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493783; cv=none; b=hAf3X0FZwPMqppq7ARQN4bwJ1sO00VKWFyYs0JZ6A8pNukHtih8mngznk9VnKC2x8cTsBTrghh7QC1xyJuobPalIzaAH+nH86LFY5E5u1AZWo3inm4wbmTGatUwqpt5GPsJTObKcqev5898Gv1ah+M40AaW0DhrmT1dE3B+fI6E=
+	t=1789493785; cv=none; b=BAG0FidBSM0glaoGRBjyLQJLcWfIf2/OFDBpByZexqmheL7Qa2Lyrhrpq8IHz5cIbuiuqvTnYvALzDHrzjEy5nT0GozGKp0nwoXP6GQYLKhD8jfbrPEIQkgQZrOWmNlynDIEWEviqUYDZvLqWoS/dUhEYhbrznQAQt4mNdFTy74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493783; c=relaxed/simple;
-	bh=kOgdNJ3koZYykRt9HdMlU2I5LO0w6KpIWNWHFTo6/KE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HIEAktc9/iwGYbI6SuJc2j4uMtJf0CRgUxMfFINYWeXfkOlIYkMEM5C918Tm8PZBzR84jYWAPKSoMu/AMeKyyu/veGbOO0nqPA4nGCi11eINlVjmP0zm+1VoeGKSPVdK7Bsw+Yfi++A1YYjr21x71jhKHrl6Pff2Jn2t1INwIhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqL0uFcA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789493785; c=relaxed/simple;
+	bh=urqgFBe3Wi6DGd08ZgfJUDRP1MbBh8rdERHwKGNysNw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TNcetHATwjcJJ3S/aNnZZdzlX7f/6ZphBB4zpMoMijfz69g0Cs5dnHh5IMlwLo8AUUnNUAUJwCcEVfyH27cgf0zqgO6KxHi2Wv5S19i0a9icusmpeAkW/eByG4td6MniVyqECcnXUj4HkurXSBgIWTMm80AKobGUWXBLpGU48y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ShkluQmz; arc=none smtp.client-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqL0uFcA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1471F000FF;
-	Tue, 15 Sep 2026 17:36:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789493781;
-	bh=eTLQWI728P1f1TgVNc2IjXvlKruVQpSAnHbGOlFGSMA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=IqL0uFcAz2W5DkjxGwOnkWfM8TYT1N01QbSqNK3HTHMrWJ43bARjd9DgtrhAA+Rxu
-	 AXl3bxb6/jx9HNVXvT16HSsGtKRh3NyLYICoIxx0z3RP2s0fUb/g/5Urzt+JBSVeUZ
-	 V9aLg7r6c7LM7/xKVxGQTneRMd50O3P9qKIPkNJGggGC6cmjXP9FhKqVuey76ETL0c
-	 w4GUPZdtt0LiDIUsPy2XaBzSC3HsohqRmZu+6gVqgnGE8I6K+1EiVnTs+OgCsxwbAI
-	 eFq37WxaO9GpIGKpb/KOnS946OLkckZszqkpaQHjg4CdbsCLEW70ryH7yPR0PTv7JQ
-	 y0opBllzEbU8Q==
-From: Vinod Koul <vkoul@kernel.org>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Frank Li <Frank.Li@kernel.org>, Paul Cercueil <paul@crapouillou.net>, 
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- =?utf-8?q?Am=C3=A9lie_Delaunay?= <amelie.delaunay@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Ludovic Desroches <ludovic.desroches@microchip.com>, 
- Viresh Kumar <vireshk@kernel.org>, Keguang Zhang <keguang.zhang@gmail.com>, 
- =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
- Manivannan Sadhasivam <mani@kernel.org>, Daniel Mack <daniel@zonque.org>, 
- Haojian Zhuang <haojian.zhuang@gmail.com>, 
- Robert Jarzmik <robert.jarzmik@free.fr>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Kelvin Cao <kelvin.cao@microchip.com>, 
- Logan Gunthorpe <logang@deltatee.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Frank.Li@oss.nxp.com
-Cc: linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-trace-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-actions@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-In-Reply-To: <20260909-dma-chan_dev-rename-v4-0-d8fb6892a70f@nxp.com>
-References: <20260909-dma-chan_dev-rename-v4-0-d8fb6892a70f@nxp.com>
-Subject: Re: [PATCH v4 0/4] dmaengine: rename dma_chan::dev to
- dma_chan::chan_dev for clarity
-Message-Id: <178949376928.248239.6347762847462574995.b4-ty@kernel.org>
-Date: Tue, 15 Sep 2026 23:06:09 +0530
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ShkluQmz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789493774; x=1789752974;
+	bh=bYkDKi/DEjIinF9dQE8tfaHzj59gkkksxWlOZrdaq2I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ShkluQmzs1YcjqN489jKeZLwo5KMqYQhDaxwAuCLSfR1BS01Z9XOH2cYubbBU9n2a
+	 rP/CrubG9QvxBWXIdy76OjNvRm45DbPZkLC3ogAuwort03NY2rAyNL9ZpTnmatsd0c
+	 1+hnieEs42sWflLDwMeJEqq945y2SRaNVeJ4uF7wNo/M6iwU7nLzGS/p6I168dnRzC
+	 jn3c/V3Et3V1S9Lge/P79joEBIqx6kFgfNepH8S6z7mauEAuGWcbiuLznTLx57FU5v
+	 MGMV5P1VXi87lcnjPcoqYEaE07DAuHLrqLoUubnWB1+AQcnHpyGt98RRR97VraKZP/
+	 Vq9ZLT5ueGQtQ==
+Date: Tue, 15 Sep 2026 17:36:09 +0000
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Peter Marshall <pm@petermarshall.ca>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
+Message-ID: <20260915173604.65023-1-lsa.uz@pm.me>
+In-Reply-To: <1e798c12-2272-471a-9e71-82188439de82@foss.st.com>
+References: <20260910213308.53429-1-lsa.uz@pm.me> <1070f707-8a23-419e-a0a2-a6f295ceb5a0@foss.st.com> <20260915100722.38504-1-lsa.uz@pm.me> <1e798c12-2272-471a-9e71-82188439de82@foss.st.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 368db0238073872b7b836241303c98d2931dc873
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Benjamin,
 
-On Wed, 09 Sep 2026 12:22:27 -0400, Frank.Li@oss.nxp.com wrote:
-> The current dma_chan structure contains both "device" and "dev". So
-> 
->     chan->device->dev refers to the DMA engine device.
->     chan->dev->device refers to the per-channel device instance.
-> 
-> Their similar naming makes the distinction unclear and increases reader
-> confusion.
-> 
-> [...]
+Thank you - for the explanation, for the link, and for saying where you
+stand. All three are worth more than an ack would have been.
 
-Applied, thanks!
+Sorry for the slow reply. I spent the hours reading rather than writing: th=
+e
+repository you pointed at, the two drivers side by side, and the in-tree
+binding. The checking changed what I have to say, so it seemed better than
+answering quickly. Three things below, separated so you can take whichever =
+is
+worth your time.
 
-[1/4] dmaengine: vchan: add vchan_chan_name() to get channel device name
-      commit: 75d8640d7f5f89d1a1c39ccb72166ada95fb38d2
-[2/4] dmaengine: use dma_chan_name() helper to get per-channel device name
-      commit: 76574306c1ac38137683c69407f0e7810f407e4d
-[3/4] dmaengine: add (dmaengine|vchan)_chan_dev() helper
-      commit: 3b97a3ec420542591c10db8600cf481f1038a011
-[4/4] dmaengine: add union chan_dev for dma_chan::dev for clarity
-      commit: 6ad1b49cc30dc9bc7c06dd44241e61fe6f82c0b8
+1. The licence question, and my mistake
+---------------------------------------
 
-Best regards,
--- 
-~Vinod
+Settled, by your link. vd55g0_patches.h carries
+"SPDX-License-Identifier: GPL-2.0" and "Copyright (C) 2024 STMicroelectroni=
+cs
+SA", with cut1 and cut2 arrays. ST published the firmware itself, two years
+ago, under a licence that answers the question I was asking.
 
+There is nothing for anyone to grant, and the right source to take those
+bytes from is yours rather than any third-party copy of them.
+
+I should have found that before raising the point twice. Your standalone
+driver was named to me in this thread and I did not open it. The blocker I
+reported on 7 September is not a blocker and never was.
+
+2. What the work would actually be
+----------------------------------
+
+I measured it rather than guessed, so that we are talking about the same
+thing:
+
+  - twenty-five LINUX_VERSION_CODE guards, all of the form
+    "#if KERNEL_VERSION(x,y,z) > LINUX_VERSION_CODE", about 180 lines to dr=
+op
+  - s_stream to enable_streams and disable_streams, with vd55g1 in-tree as =
+a
+    line-by-line reference written by you
+  - st,vd55g0.yaml, adapted from the 3.3 KB st,vd55g1.yaml
+  - Kconfig, Makefile, MAINTAINERS
+  - checkpatch, sparse, builds across configurations, and testing here
+
+That should not take as long as I expected.
+
+3. The question I cannot answer on your behalf
+----------------------------------------------
+
+A 2100-line driver arriving beside a 2100-line sibling by the same author
+invites "why is this not an extension of vd55g1". If I answer that badly,
+the third version is a rewrite in the direction you have already rejected.
+
+Reading the two files I can see arguments for your position. vd55g0 is
+monochrome-first, Y8_1X8 and Y10_1X10, where vd55g1 carries the Bayer codes=
+.
+vd55g0 has real strobe and flash handling that vd55g1 barely touches. The
+register namespaces are essentially disjoint.
+
+But those are my inferences from one reading. What I would be repeating to =
+a
+maintainer is your engineering judgement, and I would rather have it from
+you.
+
+So: you offered to elaborate. Please do, if you have the time. Not to
+convince me - I have no stake in either shape. It is so that when Sakari or
+Hans asks why VD55G0 is not folded into vd55g1, the answer comes from the
+person who wrote both parts.
+
+If a separate driver is right, I will start and send you something to look
+at. If the two really should converge, that is worth knowing now too, and
+Peter's series already points that way.
+
+Sergey
 
