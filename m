@@ -1,169 +1,211 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EE139792B;
-	Tue, 15 Sep 2026 10:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468176; cv=none; b=Vbe6AlF9VvrgmUAmty5Aji0Th4NVPt0jxr37yy+Qwkhbn43wMcPM3UmMsTdd7XvnxMtZ1vzBGDmGiAz9IoE8GUv9g2QPHgidGaQJ4JLcrBVdlipYV6MiznXVt1y8AneyUxa+XN80auuNj8geM4f9tm5WqEUsMv9qJBqT6vuH7Ko=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468176; c=relaxed/simple;
-	bh=1RpgCj+ADbWhNGzxmxEcDvDGJqQhnR2IAlDrVo7Jvnw=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=nr2GhZADYdv93EYwM0czd9paajC+PUWEtBRBGw199xTN6zjlnM5Jj0aJY6r6rVPMRPkMg9suT2JrN8NZ/VSbwWkfln5pbyMcu+IGh6KiTN+kGIaX67F3fQ5QSq0Y3ydX35QP/fFADDzH8vGp2fW7iCraL6cKmlCCfUXYqWkpiyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=VkQLfQ9P; arc=none smtp.client-ip=43.163.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92FD39792B;
+	Tue, 15 Sep 2026 10:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789468184; cv=fail; b=kFe6sMU/EiAOcT4L06qgcRYVIWM4438Z7OnEoVe3QUxnjwpgupwOCOfoFVq8AOV5bsBH+Nq5pYTzqaoKP2Jk4FJOLkwveBvbtFCHt7sZpSi7B9UDy1VssKqBKvOaLMxrcVvVBApYjDIox1nzJL9YJLiQRLY3N+uSiGc5GGB9IEI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789468184; c=relaxed/simple;
+	bh=64nZ1+HlIXeFFkMbbW+5irJ6FsYRzH6cOZWgwH/aLxc=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LnUw937VqD0WXyvAiJYQzDlzctCLoOYnJR7+hhc5sbsutBi16U9Z22Nx8a6u/6C9JEKaaZK1DsQg/qkHX+hOPiKIAZ9WRMFXUGsUVAoxtqL3QLe57vtBUapoO7TcfG1M9AtgtKB7FscY5TAhzHrkPkxOA6vdZvNqJVr6Fv1kqIE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eFO5+sLe; arc=fail smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="VkQLfQ9P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1789468165; bh=nUAK22Y2G0ATU+KXVlzCp23EoDjRCW50/SpE6pjhmR0=;
-	h=From:To:Cc:Subject:Date;
-	b=VkQLfQ9PHHhUjgPthEI6EMpcFbbFTOAyYdcm3wCS4DX5YyNamxk92Z6IQQZaLEXtf
-	 Vn6g13LlWc5OJlVVUYFw7oAZJR4BseBSdj6xTCcqoVY2utmoUBfJzS+YTjcx8btDef
-	 4sZMCN408Bs9Yod7ZOIrA9OBh70e3USidW5uFLXo=
-Received: from fs.localdomain ([221.176.157.243])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 756296FE; Tue, 15 Sep 2026 18:29:22 +0800
-X-QQ-mid: xmsmtpt1789468162tysjk5fs1
-Message-ID: <tencent_B320F7091730E06C02BAB57D87B0CE363107@qq.com>
-X-QQ-XMAILINFO: MStTOrhA1CLVOyTk0nv5vP5WRTFbP1bCN9gLuhaJmPexIRBPraR8CzbUryQvZr
-	 ED1RmO/sdspVYKkxwr05WXVFEhdb+hQAHN2D7wo4IKDY1XJMcOcvGhBTBpSVSUiTfzALwKFbTice
-	 qsg7hRnDyJNrIPahCdwmC/YNVbot8Od2YLXvpYgH0i41X0y97yHuHXswjNq8E+Xpgb2xZbAIV0gN
-	 XcunAz/NgtPDoe3YU/KaoT/9VoignVJByT54Yts+/MVG7H4hxYYKGArkf8gr7CXrjc59TZHbVOyc
-	 px6vwA7J/vW3MuQjP4eMcFFwoT8H3yLtIXuvK9+St/1joZGisGX5vl8LJdULKZW40kRk6Q4A8UrG
-	 HzEPjq43ZB+/zLL+HC+kB9uHf11JLs3NxY7KnwMpaQbv1wCKItORBSiox4hQflaErAkmB55k58aW
-	 7dwfRFyWimxFjyxe49Cc4R5ooZt9bhyg9ZYia5iKaC7M2yMMGjIYoafKQAW92JwxwZvOlV404z8J
-	 MLCOV3kjBo7ovNOkAiApMTYuf/4jxrG9jMHW7/6vNHUX86iKBbb9xllxJX8HjVkoD1CXLiNcjuPS
-	 /JV9FVN1MjkK7ab1+KsqQiiiQP8gujLnhpEG5cGPfrVYW3JrS62/sGFwiX0ygMzqCDOuhtL8wQHG
-	 TP7Uf+IqFsWgtP1DbtZTfFjdGD93b7PpCV3KDwQoaEQ7I0wfMDSKTadaoPQ0dtomRi3d5rG2d+st
-	 4v4gNgCSgJ0CVAgm7heo9YEiItnFqdiOiLf3/Ypo6w8iten2qWf8JDi++8M1Kfi5zQWRp4BLIWRd
-	 6Iznw+SCj2yw4XoNLAqy19Huns8LWG9g1jfOyDwoYWUhguq+5NNawUSBzSKDb2Woe07lgv63Jwt+
-	 EHU0IEzhDAXjD6CDZS2GJK/5TCiXYOsVOrpdp/wjuynY509upcX+ZOr+evHcaaVmcMG1yQRH2T+U
-	 DUMqhETGH7IIWQpqZhZD+DKuEF1YsoO2S5DelHkQqaEa5Ze0Iq5Z5Z4HWaSwu5RkYvncNJhgGMMX
-	 4WUTMKI2cjJz92TtZGzpmZv3QdlUx/gE76AyNJgw==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: lty <781735889@qq.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lty <781735889@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: propagate errors from fast commit bitmap rebuild
-Date: Tue, 15 Sep 2026 18:29:22 +0800
-X-OQ-MSGID: <20260915102922.1911010-1-781735889@qq.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eFO5+sLe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789468182; x=1821004182;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=64nZ1+HlIXeFFkMbbW+5irJ6FsYRzH6cOZWgwH/aLxc=;
+  b=eFO5+sLeoSIRZ0fxh10vXZIpS0k0iC5yJ+ah0G3Lb+J3MdLym+V0yHNe
+   t5Wqttkc9YPBH2ierw2qMNQNEsMsAuyMkhC4e2otWWxWDh2T4Wa1HakKK
+   zDLHlt8eWkOEO2OvrKGGnocXfMQ4MsMhEV7XBA39yltHWiW3b/IUpBdqH
+   BazzzFyPkpbEI5I++2TMvPs0ckizYBSqkJ5dJoNivYNDso54NX7iFXy/B
+   zKgyCXuoy2K74BsMzHQ19KkoCMhge9mtUbgeIjYlwwquH2aj67mLcyaUr
+   KOOiUtaa8/+c9Lo33hF1EbqWO2VY5rGRKRDh/nv2yQttXno85llDyEiXF
+   w==;
+X-CSE-ConnectionGUID: c206KE4JS6+LzlE/rOUkNA==
+X-CSE-MsgGUID: iNh6Q+C8T+mPU4rYBc/uZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100981551"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100981551"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:29:41 -0700
+X-CSE-ConnectionGUID: Pjy/bVjkTm2LcY6d/OtRbg==
+X-CSE-MsgGUID: nLS3XDCSRqaTQ2l9JBVLIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="272938851"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:29:41 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 03:29:40 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 03:29:40 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.69) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 03:29:40 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Guvq9no+un3fuCfZmfgzuPR6KXqkEZNTgWOpY34Okbg69dQyiihwBAv4motoRD1vDsDtgZ4MNeciZCjHKNgxhCVafBrHvIFqu65It7/o4uUZfvr9ckOzxtoGhW05jcnHsLXb7sGanX7YMVgE8HG3U/AOUf1jDtIE/MJVEMOxxNnArw0a+2jTV6k619L5/yIR9Kh20+nMXfvtmXmmOWFDGWhmPQS7POwBIlmMOR7cwKthdFjiI7QuNL6UDDZFP5XCB0gJU247Wl4LUr86dw7yNGdhAJ6oSyNdoK3jmhOTKFB5h/Y2TZQyktvmFxmiaHDQZgeI4oVoFSjQ6Tau43AZ3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BqgxGmkY6sOT5TesV6DcFgEKTt30y3rJmUWvzgQRqYw=;
+ b=rBvU+KB4WMNOwtffHpGXMaUfdqO11cj3lo/EW80rfpPHvhVGKDYUt1RadX6QUjccBVPGBqDJzZeTNTrQnob+aR+v/QCpmCpTb9SDKFajX8QSwK+NxTHFsX0bknVfREvjSkd+joNdSD/60n9I7uls2zo66bmYJXhueLcuVGURMq5osM41u49g49Y9HPby3v/EV5ZjbDFVpYA6fS4Mo2WS0Rd3/sz4dbNs0xNcE31UyeMo3zY28MNlfnG1VTv6P1ytaGy4wVCo6MzqTTArvSIxNXAebuODq7MYa3UaKphb0ccqJz7p6t7ES+X6kbANWb6aGuwf8ab4OfcBTkX9/eTmsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
+ by CH3PR11MB080898.namprd11.prod.outlook.com (2603:10b6:610:34a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Tue, 15 Sep
+ 2026 10:29:37 +0000
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 10:29:37 +0000
+Message-ID: <91b1902c-0cb4-4775-9f82-25bceff8301a@intel.com>
+Date: Tue, 15 Sep 2026 12:29:27 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/7] ASoC: soc-generic-dmaengine-pcm: Replace
+ dma_request_slave_channel() by dma_request_chan()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+CC: Dave Penkler <dpenkler@gmail.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>, Frank Li
+	<Frank.Li@kernel.org>, Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li
+	<Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, Nicolin Chen
+	<nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, "Jaroslav
+ Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Daniel Mack
+	<daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, "Robert
+ Jarzmik" <robert.jarzmik@free.fr>, Lars-Peter Clausen <lars@metafoo.de>,
+	"Orson Zhai" <orsonzhai@gmail.com>, Baolin Wang
+	<baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen
+	<arnaud.pouliquen@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Frank Li <Frank.Li@nxp.com>,
+	Mark Brown <broonie@kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>, "bui
+ duc phuc" <phucduc.bui@gmail.com>, Tianchu Chen <flynnnchen@tencent.com>,
+	<linux-kernel@vger.kernel.org>, <dmaengine@vger.kernel.org>,
+	<linux-sound@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>
+References: <20260915100931.3593242-1-andriy.shevchenko@linux.intel.com>
+ <20260915100931.3593242-4-andriy.shevchenko@linux.intel.com>
+Content-Language: en-US
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20260915100931.3593242-4-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS8PR07CA0036.eurprd07.prod.outlook.com
+ (2603:10a6:20b:459::14) To PH7PR11MB6006.namprd11.prod.outlook.com
+ (2603:10b6:510:1e1::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|CH3PR11MB080898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e8972ac-3e51-487f-25cb-08df13143dd4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|56012099006|11063799006|4143699003|18002099003|22082099003|10067099003|41080700001;
+X-Microsoft-Antispam-Message-Info: 3pxF0NNZJQE6CrJkTMiHj4QRQM1rJiWrqCL6UU+xcglctZAcHXf3H8HQ/b4lwOU4GS0IOQCxPOh9HD7hH309P6WF7aYjdd0X6kPT75wU96Rd2VrZ4nobgYvO0XC+qZSp+1DSBpJ7duMQIETjV0qHz0sPhy+xPmscfzHAmPJScqQcpJPCN6cy4T2Za5AHs0F2ZsRUDq6E2A5GKKOTuWxvD/7pk8HQf0WnUhjDZa8ffUBG/ag9gC4f9ysH/idxdNYg4YngU8kVax62K+eUCfWvQA6+uVfpioseD5qL2aIWNsmQFM6mGwte4rGmy1UlrwKXxOTJZQKx73z2QWN64Z9XJnvyYsBlhTxyIbsgS5Ak9CANOPu4RNQRBwH31vxEHaNoO80EDZ6RbBlb/FOm9SvUYO+kQ8jXLa7pbAcwj4eZUwDn/DJO7Q8QpNLVflCCHte2wViXCdlnXOgyJWxxrbTng8st/yxkGiYtGnXxmtJUej2GC/bre6Bvjq2nAw4cgrJQFvRtS5g01qtgRxi5vq66Wy8UArAhW5Jt7c+GKvvyn1BFRhyvIBILUrjNXYUah137KK/Br7NUu/o1LhWtJlHaZSfYP2icSq2uRi87M4sCgYedymEYwzwM2YaLA/lQtWKXXmSogV5hYSVZ2SuvugbBzYv9UNZhRen/dCG+aY6KuWSV1JRNJO2EnKaxUahsgM+/b6Tp2j6ykaqBI0XDB2lQ9k7soD1Yt6srUqMc8CKfkbs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(10067099003)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MllJT0dQc3ZqbGsxSDlwQnB2dXk0OVJnRjI5R3FFbDVBcVJ0QlIzWVhLVm5W?=
+ =?utf-8?B?WVVMYlZEY0orMEtLVjhVencvZmI4WmNiR1k4UmgzWjRUVU0yYTVLNXJWOW5q?=
+ =?utf-8?B?WTVIRndmbmJ5am1KNDNiWWdSNWpXbmxLRWUrVlp3ZFJOd3JGdkhFNHNrTnlG?=
+ =?utf-8?B?cFBNMEVhaE1uSVJHQUFRYko1MFNoSXI1QkNzWFpUeVdVZS9XZzlFQ2ROam9B?=
+ =?utf-8?B?VzllT2FhREFVbWk1ZUtVeTJNL3c0ZWNxbUhaM1E0NUxBZUNLRTI2KzA2T1V6?=
+ =?utf-8?B?UnZiUkVlT2NZWXpCY01LdkhoUWQ2MHcrYng0L2RFQkxlYXdxOUtWYVlSWk5G?=
+ =?utf-8?B?ZEhPOTQ1RWV1Y3BEazV1ajMvdjhadjFpQUs0dU4rT2drcm03TEZXZHl4Yk9h?=
+ =?utf-8?B?TGhqWTdZbFQ3Y1BHNUtDVWU5Y0FUWGJNcGpBTW1ENFVoUjlBZ04xNDkvaXhq?=
+ =?utf-8?B?ay9EeDhWSDAyS0hKQnR5RldkYUl2b2xmSHM4czl4bWk2dVdhWGhLcVN3RmZv?=
+ =?utf-8?B?ZE9aRTFqM2NCQ01oaFVRVXNLY1FYaVdTeEhkWjQ1OTJVcVhrd1JGKzZQdjJx?=
+ =?utf-8?B?VVExbVVPbTRVRnZCcnhRdnllMVhpa3hIZVovU2pING03WUZWclY4djNnZzRT?=
+ =?utf-8?B?Z2x6ZHdFejA3eHJHTEVKdDBxNEdHNzYwSmlvNFpnNld4a0N4cDd0bHZodUlS?=
+ =?utf-8?B?bHFIK2hRK0hEdkhWcU0zQTJvM2V2WEViTE1FMFZMSTdkVXVwM1FLWkhhTjVJ?=
+ =?utf-8?B?UjJ2dWVaeHZsNzcrR3Nicy9RZzZKeU9MLzlHOWVSdjdrWkZxMXRQaUlGR2ZX?=
+ =?utf-8?B?eXYzVGlnMEQrcG5pbnNMUHJTb1ArSko1U1M5bzAvWUZaUFVYQnRKUCt5WHZP?=
+ =?utf-8?B?Zk9nbzZXcHY3TXI0N0p6bmxqZWp0V3RwK2VhVVBOTGdvZVVSNG5RbjF1TE5V?=
+ =?utf-8?B?VURreEVDc0kyOGdyVXZkMFRjRmc2RmVOall1NnZOd3c0ZWVDd0xpclk3elBw?=
+ =?utf-8?B?ZU9BMkxRZ3B1a0VhVDg1d0VuQmtaRkE5RUkwY3NCS1RxQWphcVFZOXpIUHZU?=
+ =?utf-8?B?bjdaekJxajExVGJPVVphSVIzK1NGelowSGl4THJBKzVDcnE1eUNzd0tiWk5Q?=
+ =?utf-8?B?cEtXSXU3SlpzMllrdUhWUmV2eG5LUUlXMjFLZ012R1R6dTlKR2JHVXoyaVcy?=
+ =?utf-8?B?OVUrQUNEUElCUFY1Q3VFQmdzaFNkWHZyRHpvUEp5dEp2Y0haaldWNGhFcjh6?=
+ =?utf-8?B?blhkc3l2akVrbHBIalFQUWMydElicTdjcEpCZ0VqaERHOEFMTkY0by9hN1Jz?=
+ =?utf-8?B?cFlUd252bWJsY21iL1BCTFZybG82Zm1jaFMvU1hYUG4rNjZqMzZQTVRRSm5F?=
+ =?utf-8?B?dDJONVhmOXZsYU1JTnVpU1N5TEVSMjFla2FOVUZJTWNPTVRJUTlhMWV0V1Bu?=
+ =?utf-8?B?ZW5xSDZYMFZDN1BIUWxUVHFBN3V1c3h0aU9tNTVJdmhlYjRpTy9jRkZTNVZ2?=
+ =?utf-8?B?R0N2ZUFJemp5RHR1N04xWmdqNzZPL3FFN1puZS9ESVd1T0VEWmFDVEZmYTlo?=
+ =?utf-8?B?U0djVXlJWXc2UU0rUmlETVR2K2tHRTNJUjkrdFRMZzZzbWw1SzNkU3BZWFBI?=
+ =?utf-8?B?TmlZTEVlL2JObTV5OXZmbEJlTzhqRVpkREdLRnB6TUxpWUUyRi9GQVM3eXBs?=
+ =?utf-8?B?WlRkQ0JuQnNubmJQemtPd05QVUg3NjloazI3RnRtWkxhUnhCc2h1L3pMNzhS?=
+ =?utf-8?B?enIyVVFMbzI0NzRrb0hsdUt6a0diZHV2S281UDlGV3R1UGNKbVhpMUV6ZGJu?=
+ =?utf-8?B?SjFDcmt4L3dsWjRnVDRuR1VDM0NTQnpoMFplVit1Y0gwcGN3a0RaTjRTbm5J?=
+ =?utf-8?B?VVh2cnFNN1FieSs1R3ZaTm1MT0R4cEFGTXRWZE80dWR0QzBFb1J6c3RadFRy?=
+ =?utf-8?B?d1NiSW5tRTZlQk9rUVVMU2xwOWlHOWE1WWVrNmY3cGhKTUJ1WDNYa1N1bjRk?=
+ =?utf-8?B?VFF2NTh2a1ZlNCs0QUtDRUpoa0NvSE8rYXIzWXZqRU81Z2lKcGN3SUZMTUxR?=
+ =?utf-8?B?VDk3TmgxYWluUXJieUNqNXNIU2wvcDZoamhzTUdrd1phMDFjM2haWHowZkho?=
+ =?utf-8?B?ems0b1dHb0hwQkZBZlNHUzR1NEFPYWFBWEZ3QmpSQllyT0JuVnFLamE2d1Vo?=
+ =?utf-8?B?OG0rd25Zc0NXZ1daL2dsTTZhN3ArQzZLVXFoNlhwYWRRQ2MvQlpRbGdPK1FS?=
+ =?utf-8?B?VHRBcUhtd2JpM2Z4OXo1QjFzcUwvMlRTb2U2b2ZLSytqV2U4TE1Bek9hcnRG?=
+ =?utf-8?B?SHF0MkZLTGtHWXQ2OC9CamF0NEJMZXZXT0NwQ0Y3REpKNkdOY2lKbnl2Y2Y4?=
+ =?utf-8?Q?NuLsCOFTmr/hmQAs=3D?=
+X-Exchange-RoutingPolicyChecked: Mb0Dnj1OZkOk1zhyTzZ+SJsNugkH88lBWI4d7kM0lM9khahPEMi2jzCeT2zSz536nvidOjLb96CC5Uo437ZXSxwIOuEVZXuzz1fFFyIBxFELt0/QzopH1s7ONSOy9Jkn8l74oNih2jOeaYWecj69dOTw2Kap9Vqbuq6PFMgWvcoZSTwqHP60JawfesdbIm5ztGoVJD1hiMDXW2OI61eLmkb+KGpPdnDxFhxv3jYvexSwWXRlLCjueRzFCduiQTI+jGffvgAre+tr0+N2nrtgspD0BRdI97RVtpznGzIEVB3MzVQhRfojkTsh4EkjvRwrqpzDcRP1QOl8MmRTis7JCA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e8972ac-3e51-487f-25cb-08df13143dd4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 10:29:36.9680
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EPJg5ncelvAhC+8JPbUDhGjCACYGijPclgJlD9PDDx5lPX9YnUbzGbm4DsRmMYDrAbmxO4RzIcsHrbKRXTyQ3aTDeCrlrdAbROSGnRUMgHQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB080898
+X-OriginatorOrg: intel.com
 
-ext4_fc_set_bitmaps_and_counters() rebuilds block bitmaps for modified
-inodes during fast-commit replay. When ext4_map_blocks() fails, the helper
-stops scanning but previously returned success. Errors from
-ext4_find_extent() were also discarded, so replay continued after an
-incomplete bitmap rebuild.
+On 9/15/2026 12:04 PM, Andy Shevchenko wrote:
+> Replace dma_request_slave_channel() by dma_request_chan() as suggested
+> since the former is deprecated.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  sound/soc/soc-generic-dmaengine-pcm.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+> index 65b7ec52a054..6d1dbee8f6c1 100644
+> --- a/sound/soc/soc-generic-dmaengine-pcm.c
+> +++ b/sound/soc/soc-generic-dmaengine-pcm.c
+> @@ -242,9 +242,11 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+>  		if (!substream)
+>  			continue;
+>  
+> -		if (!pcm->chan[i] && config->chan_names[i])
+> -			pcm->chan[i] = dma_request_slave_channel(dev,
+> -				config->chan_names[i]);
+> +		if (!pcm->chan[i] && config->chan_names[i]) {
+> +			pcm->chan[i] = dma_request_chan(dev, config->chan_names[i]);
+> +			if (IS_ERR(pcm->chan[i]))
+> +				pcm->chan[i] = NULL;
+> +		}
+>  
+>  		if (!pcm->chan[i] && (pcm->flags & SND_DMAENGINE_PCM_FLAG_COMPAT)) {
+>  			pcm->chan[i] = dmaengine_pcm_compat_request_channel(
 
-Return errors from the helper and propagate them through both replay call
-sites so journal recovery aborts when bitmap reconstruction fails.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Cc: stable@vger.kernel.org
-
-Testing: With CONFIG_EXT4_DEBUG, QEMU fast-commit replay was run using a
-temporary fault injection that forced -EIO in the bitmap rebuild mapping
-call. The unmodified kernel reported recovery complete and mounted the
-filesystem; the patched kernel reported journal recovery failure and mount
-returned EIO. Built fs/ext4/fast_commit.o and a complete x86 bzImage.
-
-Signed-off-by: lty <781735889@qq.com>
----
- fs/ext4/fast_commit.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
-
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index 0cac890cf370..274d4b95ed17 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2314,13 +2314,13 @@ ext4_fc_replay_del_range(struct super_block *sb, u8 *val)
- 	return ret;
- }
- 
--static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
-+static int ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
- {
- 	struct ext4_fc_replay_state *state;
- 	struct inode *inode;
- 	struct ext4_ext_path *path = NULL;
- 	struct ext4_map_blocks map;
--	int i, ret, j;
-+	int i, ret = 0, j;
- 	ext4_lblk_t cur, end;
- 
- 	state = &EXT4_SB(sb)->s_fc_replay_state;
-@@ -2348,13 +2348,14 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
- 
- 			if (ret > 0) {
- 				path = ext4_find_extent(inode, map.m_lblk, path, 0);
--				if (!IS_ERR(path)) {
--					for (j = 0; j < path->p_depth; j++)
--						ext4_mb_mark_bb(inode->i_sb,
--							path[j].p_block, 1, true);
--				} else {
-+				if (IS_ERR(path)) {
-+					ret = PTR_ERR(path);
- 					path = NULL;
-+					break;
- 				}
-+				for (j = 0; j < path->p_depth; j++)
-+					ext4_mb_mark_bb(inode->i_sb,
-+							path[j].p_block, 1, true);
- 				cur += ret;
- 				ext4_mb_mark_bb(inode->i_sb, map.m_pblk,
- 							map.m_len, true);
-@@ -2363,9 +2364,14 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
- 			}
- 		}
- 		iput(inode);
-+		if (ret < 0)
-+			goto out;
- 	}
- 
-+	ret = 0;
-+out:
- 	ext4_free_ext_path(path);
-+	return ret;
- }
- 
- /*
-@@ -2589,8 +2595,7 @@ static int ext4_fc_replay(journal_t *journal, struct buffer_head *bh,
- 	}
- 	if (!sbi->s_fc_replay_state.fc_replay_num_tags) {
- 		ext4_debug("Replay stops\n");
--		ext4_fc_set_bitmaps_and_counters(sb);
--		return 0;
-+		return ext4_fc_set_bitmaps_and_counters(sb);
- 	}
- 
- #ifdef CONFIG_EXT4_DEBUG
-@@ -2609,8 +2614,7 @@ static int ext4_fc_replay(journal_t *journal, struct buffer_head *bh,
- 		val = cur + EXT4_FC_TAG_BASE_LEN;
- 
- 		if (state->fc_replay_num_tags == 0) {
--			ret = JBD2_FC_REPLAY_STOP;
--			ext4_fc_set_bitmaps_and_counters(sb);
-+			ret = ext4_fc_set_bitmaps_and_counters(sb);
- 			break;
- 		}
- 
--- 
-2.34.1
-
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
