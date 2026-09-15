@@ -1,121 +1,179 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A1F3C2B95
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF523C870E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479670; cv=none; b=dhCf05K9JAKngmqRW0By/Py5x7QGtJfsOfeoGybl02mmBqW2yI9+v1d24xZz9X2yXib/cBvSICGGZNDhuwIM3b0peczo+KQV8A61zVn5WGoX1qlqjj24KteiDjhJaJQ/ftkvFtlCVRj4qtSNpAHH5U+0ueci6QR5g9TEISSKa+s=
+	t=1789479685; cv=none; b=NyxmqvV/wnfnDNGdEud64OhYInyTPJf7xURYq8P6xn14erVMjZLtdTLf4C4QIVZw5Zd5ETmzSoCAlgtTSo3MFeBkTnuVpIa9sN5tuo1V7mXlYmdtnpV/YsIwq4NHTI6lEvW//k9TyLyMgn4g6NCpcHUlgUOT1X7ZzG63/S9CGKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479670; c=relaxed/simple;
-	bh=B5rz/HvywjwIe0LUBJ1IJyXaj9n79ASijN34ANZfpEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PRezKH27TKud+N1+x/+kqpN4PDngY7ABh4btNgbKRG+qNInHtb7k+y9lFyploLDvZQ7GtnSdh08OAJJBAJvK12gjIqcTCmPTmTgBALXGDRH9uZTTLgjagvZIS75iYC38tNZDble5DkWpSZbc/CZMK2ZQTW/4Wf04Jvu4UQRA2/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rPIdmwnb; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789479685; c=relaxed/simple;
+	bh=anLvhaP8qxf0U+DKfnxqiPwSUSauJqWFgMwcq/4F6jo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=to8KdH5ax9ttuOCX8o+30wZ0rBC3Ht/IoPjUoc0QqeqJSmxZ1TRwoJTHM/8Vh46G1QjRgbsy7yrbVVBSwppVMDGM6Wn+1ac7sTsPNxv3NR8YId7EwTBLJZrCW7xuQomXI6kdyUFVbXXcfbixw79XEw7j/idNPjoD3H+y0+1brOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YC/yFeUW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VfiatNEE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rPIdmwnb"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff2b84fdso2935975ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:41:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YC/yFeUW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VfiatNEE"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FD0Vu22528305
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:41:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	a9Ma2vHXggOVE6yEStb2WHtpUhRSkVE4YG7P0qkunmU=; b=YC/yFeUWbUk/TQZU
+	/oZYDsbQHFGbZhbRXb0F6pRvynNxaCk1uZOlStF7LF1WlfqBewv9giMR/oA5YL8X
+	utnLaOERlRjEwIaOLTOwceQVbZL/2B204PB7r0lMqm3SsnyIPgGhCTbFpBjHDaYb
+	V7RPMgdmQnksh92eWK0CL+YPIdgRzMorgf43/9J2EXQalXRT462lRrVWMV+XRmDU
+	TGw9uVD7lm4GKnBpyIUuWrLGndS68OQBjsD9CirRCy7e3hXt7l4+S7jH4/VV/CEy
+	Hu5rqcRJ4c1/E5vm7s2UrW2bNl7aeTHMZIHSSdPToVR1L/eTF74vLO8Q4eYm0c0H
+	G2DlLQ==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq1qp9vp4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:41:22 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c8573c977dso3834934e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:41:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789479667; x=1790084467; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s2vjAIuglDzNtvLvUN1SnWxls+9kNR302LnOw/HxEJQ=;
-        b=rPIdmwnbS/JISWDC99dOEGKcKTbgboHy8Nop+C2aqxiH4N0PQXyJkpIq173379jvFj
-         8zDXsglYUIb93lcYgM+GpK7RbQl1nneLQiz1rGeEtJJRbsYCExVCRK8aLoYy1peKxzHb
-         sCybGoYw6AYQXjPbLPl/HUrWYdVRmH2hYhkD2Y4ldqI6IbSLW/FdenD8N1I5yshrMkmp
-         ZgIemKMXJYqE8+uTlqJMlqyOncAJsBRA2JProfPLyYn5MHgYM5BaJvBAKNcctfTmYgM3
-         HQaqhsgWYiNvxohlc9dToBtyOtRccziAvdR2U4Glo6WNCbmjwBe3XfBeNwR9kl6NQsIX
-         hgLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789479667; x=1790084467;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1789479682; x=1790084482; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=s2vjAIuglDzNtvLvUN1SnWxls+9kNR302LnOw/HxEJQ=;
-        b=PmU/An0eFaXYOiNebOde1RPiRoTtU18FfCkoTWv/rnuBAAG23wrIK54rP7dYQL+wa5
-         xzQ/E/5FnIQUHW8kfk6QC1h6JUyJBl8yQLf9P5uu7QAk9h3KVkh52GZnGsd/Tn0tuKax
-         TKKMRfZirV7gsvwh2aP4sO6Ix4ylz0SXSbDEqqQKAt7PEYHNufgio4i+i/KKsT0yKk+9
-         V3q0yVb/nCEqjOhVk13t7NfVkTeKSfXQTjSzsNGsd+33ixV17N0T/rk+M7Hu2Za7j+N6
-         CqR4JlKBchAfOVfzIIbidaOzrkRy1BUsi7D0aSTK7gEVEQbm0V4dz5iQSziryXZiqoui
-         GwUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzytMUKiV16YAsBOaqDk5VNlqpUutzFvXd+XX4JFpay74YsgaIfm5XL0ascvbmqYMlEvYRw30O58aw0Sxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncPu/otg70DEpSV7SyE+yCTMIlqcEmBMJJ+8vW78novABEmZwz
-	oIEf6QIXagvMOk707xHy7X5CwV5i8j8fgQ+x8gjVZCDJuBqjVitLxbUA
-X-Gm-Gg: AYBFou2ijo+vUXQdz8Ao86ZMYN6bRvQNcQcZRJ7Wn7ff0werPRAPpZ9uXe2NjW5FkT5
-	kCVRIZh/1HsyjYPh80tyQ2zs9U++BieN9m8OhLeZrraLjkrWto8onKYzyWlnO2Mq8B7Fh5SdyN5
-	hjHhwo9zzsMlgLpBiwYLvZFShMBOacggp4FvWh18ckgs5gEVJcvd7pY3sA+TTyDwEvgZqe7Uyrz
-	xpAGpkZ99eoqBa97bSSmG99khPpEQQVscYK23JNOCN5jNdSyGBEYbtY7rxtFslAHbF8Kfl5LbsJ
-	Rto6+tmpmrX3lcWHGwgdkLXwGzcPA7H8dT0HZzqSgJWVzJm0XgyWu311luuHrl6ZayAoZIGfgEx
-	vorpilcekuRZKAB8dy3y4RT+9lLXg//OLc/bpbcD44Gw+KLTzXUjBlTuukbaINAL+VVoW9NNZyA
-	7eK017gs+IE2jREHLQF4qmlmnIZWsCaRSps7EEICe7LlzlJWztlrpGs1s5ygGB6HKru4MX3A==
-X-Received: by 2002:a17:902:8642:b0:2dd:7671:3101 with SMTP id d9443c01a7336-2dd76713155mr39390835ad.3.1789479667073;
-        Tue, 15 Sep 2026 06:41:07 -0700 (PDT)
-Received: from elitemini ([2400:4050:d860:9700:75bf:9e2e:8ac9:3001])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfce707sm68398605ad.55.2026.09.15.06.41.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:41:06 -0700 (PDT)
-Date: Tue, 15 Sep 2026 22:41:01 +0900
-From: Masaharu Noguchi <nogunix@gmail.com>
-To: Akira Yokosawa <akiyks@gmail.com>
-Cc: Chen Miao <chenmiao.ku@gmail.com>, 
-	Bagas Sanjaya <bagasdotme@gmail.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v2] docs: sphinx-pre-install: warn about unsupported
- Docutils versions
-Message-ID: <aqlKnXHFVqO6baEW@elitemini>
-References: <20260914-docs-sphinx-pre-install-docutils-v2-1-6a2a6deedd19@gmail.com>
- <b5df5eee-661e-4f46-9abf-1bd9cec8069d@gmail.com>
+        bh=a9Ma2vHXggOVE6yEStb2WHtpUhRSkVE4YG7P0qkunmU=;
+        b=VfiatNEEkccTyu9K9C/2ws2svXtShdvMEvLtFKBXfJmVe/k8Uq/0YBhXwSlH4ICUSM
+         TedlXo0iTQhaayayxyDDKFTqlm+ZGwPytUYUUmFE4tieln6wK/0tXD5aI1g7Cwei6wN8
+         oREzbaFzwG53ikczsJmaxVufhJYdlqNpoqXhRZ1cT+lGasWuFiwH6HxYjcONqdbhiPwN
+         ImaWy2NriF0rSA/zp+MOG3cdWxuWZXL5NLpi7oFdl4AVGjd1soCst5Av0uDSA4qg4Yp0
+         oMYvebhphoDFBey6cAjwD0Xr3YbUq6CvZD/1x81B3Xw2Wrt6xfKm/GbElgLezosoqG7D
+         8uqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789479682; x=1790084482;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a9Ma2vHXggOVE6yEStb2WHtpUhRSkVE4YG7P0qkunmU=;
+        b=nrUt6uvpdWO8iQwe0CdXbAy1XmNfX7gTpsB/SCQMGYmu7K8RXvhX6z6hvOootkYkZY
+         2myUtC+5v0LN3QTIq/RZKPnLiehL3SK9Fht47JC2jWhwNTLLzegAziSj3XsQt/0bW3qL
+         i4i591rXRNS409AwvtIa0SNrGcc/ivNi6oBO4GqDwuvzTILZ6ctHd/VyZkyCi/x2WrPU
+         Ql7YvHsiQLQeCXDptXcG7RXnCOSZ5457vAEIE/JnCYjte0xO8VOlP0fDzwMB7DdLnhq4
+         qfFf/ZOOlEuQmjENhr4DEf2MmECsR+2RR2o3Ao59t8256GmYY9ok3uvKmabv2remfVgx
+         euPw==
+X-Forwarded-Encrypted: i=1; AKwUvBy84IJ/oXKAXlEcbLQPI9bWhQvnPoq3voU03JqHMc63rUrDakHtCnAX/1LwL/yHwRRzO6L7oTQEOMO62pw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFA56f/Q7tvcIgjX9OxjnCB0JyPNcor2fCKwAd5MnpEHZHUKsB
+	xEXIj3kpXma47McIJ1dFt75Z7kutNsQGUoWsRRZavflpz5LaUCtykJXbzs27vWyN3hYHIGuVWxT
+	KzM837DUvtQ2o86agjF9Pa1eE47hP066YxqFE8GCw1xlF2/jvYulf+gCxFI3MUGSvyVk=
+X-Gm-Gg: AYBFou18klm56kOmZfbVafEYktcooAIGYaDau1x1Xpt0ESd1JbPIvaIeRvneyOu2RwJ
+	m8Nfi6MPiF/4EpOao8ttZf5S/bK76zX8i3Sz7vchAAxlIUrSut9QEfTw6RTFMZhyY04kMFhSf4Y
+	lydqo7gFuD5DqfCm3oEGBVoEnMknz29XgW58oEph4vylDKf6Ll0ZV/qABQWOM8JJvwThnypw8rO
+	QRGvFhl42IvqR2okHO2zMnvgUgfJkUbB9lZFB4S9mg79O47fnAFUEJucdLDs3yeszWeAkCLHxuj
+	40NAdNfEyZOduICUJfRfGjyt/FGc5lr6Lyw6OODjXOed9NmmvNOgtKcuOSxWla2kRwZCt+ENOFK
+	Q0079f+eyGb3Yp7VfNEualW+ALCI=
+X-Received: by 2002:a05:6122:da2:b0:5c9:7a56:10ed with SMTP id 71dfb90a1353d-5c993b59a15mr1424251e0c.8.1789479681804;
+        Tue, 15 Sep 2026 06:41:21 -0700 (PDT)
+X-Received: by 2002:a05:6122:da2:b0:5c9:7a56:10ed with SMTP id 71dfb90a1353d-5c993b59a15mr1424146e0c.8.1789479681335;
+        Tue, 15 Sep 2026 06:41:21 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-486eb32e81asm36821121f8f.7.2026.09.15.06.41.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 06:41:20 -0700 (PDT)
+Message-ID: <9c09c1f5-cffc-421a-96df-753b294d63cd@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 14:41:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b5df5eee-661e-4f46-9abf-1bd9cec8069d@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: arm: qcom: add Lenovo ThinkPad T14s Gen
+ 7 (Mahua)
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        mpearson-lenovo@squebb.ca, abel.vesa@oss.qualcomm.com,
+        sibi.sankar@oss.qualcomm.com
+References: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260913201835.250085-2-srinivas.kandagatla@oss.qualcomm.com>
+ <20260915-nimble-wakeful-stingray-5beaed@quoll>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260915-nimble-wakeful-stingray-5beaed@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE5OCBTYWx0ZWRfXyPAfuqQ75W/e
+ vNX91XkiTbZGc2Kj/iWO5kp8SlvFBmZU6p1hnJ+KOGtf8GhVDugp4jRtOyMC+TmyXf+U5WwIGoa
+ 5I1zr6I2C65aUKW83ZZqH/7OgIHSdwE=
+X-Authority-Analysis: v=2.4 cv=I4Xw19gg c=1 sm=1 tr=0 ts=6aa94b02 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=YQ8b7Xp_7Ef0BCHzhWkA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: -RuxU103wQJn03iAO54oyQQCuH6ncmRp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE5OCBTYWx0ZWRfX7xK8W4levbO7
+ CzHay3kn2Zc33I21BhoDJUxbDWsErJEpWi1qfuq9OV901vh5wU2GKuQ1OBrMXQ0s1nEB3/OQwGI
+ WOUDYvEkpG6Di7iPTT8iftUpgXQwxTwGTiOVK+FWh2ZY7Ust54TNYiPuD02ZpRbGd3TozGv9ErD
+ YQqmpipY6Y4T1Q498pM4HCxP8XcAD1QQbQRZkII7Qh+KzW28apEswsR04pOd9g93/MH45y/BVKy
+ 7Yumg/6WrzDo93tExxU8C3bv2MeLVxeO0wQWmkrMTexhGyolIgpYTwGQMV5vCKWhEUwXde73t4L
+ KaVGQym7bNlEMGHuQ4OI4upiyidauKdHO5CfqeltD/URU4tOho+A12hEJFdsHUOYpDSlrTBrv8X
+ hOTckfVyEUz7iYepu8fNP5XTAkhsmITtyT+8mRhSmCaDy6SRnOXFuVls7c5ojGDuGisGudr6Jvi
+ Ct3jUCHuhjQyaYZeRKg==
+X-Proofpoint-GUID: -RuxU103wQJn03iAO54oyQQCuH6ncmRp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150198
 
-Hi Akira,
+On 9/15/26 11:47 AM, Krzysztof Kozlowski wrote:
+> On Sun, Sep 13, 2026 at 09:18:32PM +0100, Srinivas Kandagatla wrote:
+>> Add lenovo,thinkpad-t14s-gen7 as a board compatible under qcom,mahua.
+>> The T14s Gen 7 uses the Mahua SoC (a 12-core variant of Glymur with
+>> cluster2 / cpu12-cpu17 fused off) rather than Glymur proper, matching
+>> what the platform's ACPI MADT dump reports (12 enabled + 6 disabled
+>> processors).
+> 
+> There is variant with X2E and X2P processors, and on top of that touch
+> and non-touch display. The first will be differentiated by SoC
+> compatible but don't you need compatibles for the last part - display?
 
-On Tue, 15 Sep 2026 16:52:03 +0900, Akira Yokosawa wrote:
-> I think this can annoy people who only care HTML docs.
->
-> Why not do this check after the PDF doc builds have actually failed.
->
-> That is what sphinx-build-wrapper is doing with LatexFontChecker().check()
-> (see line 557 of tools/docs/sphinx-build-wrapper)
+I only have the LCD variant in front of me
+We could follow the Gen 6 T14s pattern (which already has the LCD/OLED
+split upstream) and two variant SoCs for v2:
+how about something like this?
 
-You are right, and that is a better place for it.  v3 follows it: the
-check moves into tools/lib/python/kdoc/docutils_version.py, shaped like
-latex_fonts.py, and sphinx-build-wrapper calls it from the same two
-build_failed branches, next to LatexFontChecker.  sphinx-pre-install is
-left untouched.
+  - items:
+      - enum:
+          - lenovo,thinkpad-t14s-gen7-lcd
+          - lenovo,thinkpad-t14s-gen7-oled
+      - const: lenovo,thinkpad-t14s-gen7
+      - const: qcom,mahua
+      - const: qcom,<X2P SOCNAME>
 
-Measured on a broken pair: htmldocs now prints nothing new and still
-exits 0, and the message appears only when pdfdocs has actually failed,
-just above the error.  A working pair stays quiet in both.
 
-Thank you for pointing at Ubuntu 26.04 LTS; that turned out to be the
-strongest case for having this at all, so I checked it.  It has Sphinx
-8.2.3 with Docutils 0.22.4, and its python3-sphinx depends on
-"python3-docutils (>= 0.20)" with no upper bound at all, where Fedora 44
-arrives at the same pair by patching the "<0.22" that Sphinx declares.
-Both fail the same way here:
+--srini
 
-	              core-api            admin-guide
-	---------------------------------------------------------
-	Ubuntu 26.04  FAILS 26x Dim       FAILS capacity, 13 p
-	Fedora 44     FAILS 26x Dim       FAILS capacity, 13 p
+> 
+> Best regards,
+> Krzysztof
+> 
 
-An LTS makes this a good deal less transient than Fedora 44 alone.
-
-v3 follows shortly.
-
-Thanks,
-Masaharu
