@@ -1,57 +1,91 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE08E1AA1F4;
-	Tue, 15 Sep 2026 02:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF902339872
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:50:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789440635; cv=none; b=pHEVoTGNnQeO+wwcyuYm1zS1P4nuvrsN7uh4QWqPoTmp9Ba7hMh1IoE8ROPknWK22OD4/CisXt35VeiZOa2r820jkk34SwZHGmjPH96p5+hz1plULEQDTQD90E6nve/iWyI9rz3cVvtp91RoLur0CSxXH9xX1R6eDqX2eBTnR9k=
+	t=1789440644; cv=none; b=Yhn9xPmjspaG4jiwXqz8F21Sgv4SaAeNAO2ynxfAWcpR2xO0cVsoKMJPDGmkHrSIxsxEGwrjdL4/zvOMGTsE+gKzZKVbeu2cSMDM5IajFZsm1TKIjxB84RhQXM5oIEAWD9YNaYjbZ6r4pORFz6NTkdbDdt1wk6C/bcp5Qr6jKIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789440635; c=relaxed/simple;
-	bh=frh3ObrhjTVqNa6Jys6D7rvWIIWu8Y8eyUThhzNnUsk=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mGQjveYf/QfBfJJ2cbQHJUDV0n5K/NlAl273mGchrLNw86qOuOtAYG/qFoIpr08mdfPjCbmV0fg1IucFwhanCrdXuNogx8MHU8Db6XzntJtnJ4/Jlgbfoml24XLBn4G/YUYKwzZX7IGzXOEdUeu3I7FTXk54YkC7TNRYplZXRFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=KbuzGd9I; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1789440644; c=relaxed/simple;
+	bh=HOg8zb5hEQNGB2Y2L+KYpsavjAxBVy/llWk4dWXYFJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rcw1txJfCsavahOolQRZ9CkuXZl3NyPNCq03o0gIZHetG9Zg+A8U3ozhjIQ/wUM5v/hwdf61/Uq3mgEM8gBWbqwldLAQQJRA8dRnxhXqE6nvNvMIeqwDbMR4ZgP+7zB9VdEf+VFu87DIF0D+DUoDEXKb+pI7O40BUPDzS4ylWMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nMc6xZxX; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="KbuzGd9I"
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F2nRHf2218664;
-	Mon, 14 Sep 2026 19:50:26 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=fYczLW83hvbHqsKEdPQPC2z
-	sHwxX6g6KY7iIOGACx6A=; b=KbuzGd9I565l5dZOsds5ShlyyjG1Fy7hpaorPEe
-	gfr52AfD0+8NLwokBcILHuj2WcCqKWpRM8bixQyOSjUNnSYBwxOYQW3UyHU3ILh+
-	izRnCplUUVhVCB1MNM5E3Zvv1cIkL2RCpIQWBINVBVF9wJjK6UJuYb+nbjEdE3un
-	6oYA3EcDLuaaU75ywH5YY3a3daJN5xkSYE0ssaxdO3NZsvDW98LhYpdnD72yveY/
-	0l7yxlahPOoi2n+RdpAW20qFTWge9cfmTSMtYZ+JHeb6A30/G5Bjh4K9t3Q/1Bvy
-	DPjJ2UFVPDhrh5i97crQwbuIv/bJuBKWNh0mL4PT7/yaDNQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gpm9fjv3m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 19:50:25 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 14 Sep 2026 19:50:24 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 14 Sep 2026 19:50:24 -0700
-Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with ESMTP id 5E2253F709B;
-	Mon, 14 Sep 2026 19:50:21 -0700 (PDT)
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>,
-        Suman Ghosh
-	<sumang@marvell.com>,
-        Ratheesh Kannoth <rkannoth@marvell.com>
-Subject: [PATCH net-next] octeontx2-af: Add tracepoints for NPC MCAM entry programming
-Date: Tue, 15 Sep 2026 08:20:14 +0530
-Message-ID: <20260915025014.928685-1-rkannoth@marvell.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nMc6xZxX"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8692be1cda4so3366328b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:50:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789440642; x=1790045442; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=opmE15Ezj7D6sPRc2lGbWMcP8W6cvhTlzz53Mdzz0Gc=;
+        b=nMc6xZxXVIHsQcPU2XUc7OxzWXRvozDSYstQr6eEnPrSHqWbDyW8HfRnrLd24sRK/+
+         3NO9Z9gBHJfR10NH49lUgfFn9/8ttlvGClxpGhtv/oWPk1HcJm1vwpzpoAw/gRfkXRcx
+         7fNJHx6t48sIwQVSah5UkIOPl6rEiw6+r6aud9z73foae659yExiJMUlS0aAuMVZDoBY
+         sjHSpHI9bYEgM0lFYfzzeTpKO9V1qldvAvMSvuRQY0bzGRfDgDpWiN2z/TfnVFa11g12
+         6TEVKjXUwaLuWYU/Vlw7+gIiP9hPJakfGNqqhyqN1ywsOsyhp8w2gdKRHHMjy/RvSNSo
+         YFaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789440642; x=1790045442;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=opmE15Ezj7D6sPRc2lGbWMcP8W6cvhTlzz53Mdzz0Gc=;
+        b=zElE3pqLJMpoubxOsXc3Xyn8pvzEHEtKEWWcQf7caDhS0pan8HiXaR73RvFw+p9bQ9
+         P+M2FGFexD5t4Tc9Nxasop7jBG9LeA+onuZTnr8AMLso83UD1c0T/Ftza4lBuLqvvTp6
+         Nbi3G5JrsqAJRWqyeHDDPPfYNXp2rCljsTiQlLROjqfqNRSv9QXyDssF5CjsSc8QIyhz
+         Zpp5QxBACqnj86BlX7W+FQcPZQJC4QVuUqpkMyUuKPvgjImoE9p7Vhpt0pzJ2gkLINRu
+         6ebxwYLjtZYc6GuZK8PadHns7Pl9OaOEOR7XOz+ozwQMJS3NfNojb6q2H2prj+4TLXbM
+         V5Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwq2GUWKCofLN3MRgHj/cPLqcPUH6RZ+LIlxk/iT+2G6U46mWntWFw71dlBjq1+UkOQtqqA+vZIVwwqmpo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmTV6qa5L1FUlz3ZoBeTgL7OUk9rGmQef3xqiB+SMN/oi/pPEN
+	T/IMwafcs+QbWpOfmkB5a6lpOyMQhPw/jNxpGRnfU0cMwCdClkzpIpv1
+X-Gm-Gg: AYBFou1BGZkUrVy5laQirSbldXF8IHAs1hivcQocP4Gzm2ji8ByU8mV4gd/DwGFBPHe
+	1927RHH5/nKXhUqD/jgokt6s7s897WAVfTBHph2ANfxbmoIc6yMmEbvAYHBQWv6QROqJmrYRk25
+	z35+IkrcgAq/MEESNl4FvI8l9d9xkFHXdrdPo+GpjXZ8HaK2MRTBhnkKtleEMHt1djKaMpMoxSl
+	EGRaldkoc6hy32wfnd/0tL0uEZGLNL6fTHALdzNrgmOIsM1gWMz/Z+y/vYci6lBk3/0Q2nc9upT
+	EUvrZjlt8fJMkgl/MYjFpL5CqwYzLsPZbEEzjZgOvrr/bsQSV/QLse720kD4omUyVxiYE1/uljm
+	byEfEzI2JSRV7VY253bBk0VQPJTac9V+POi00qZpNsbVhgOXb+qeH9Ew0YpJscrlr9E2kQ9K5bb
+	/c3KSlaO85aquyKtTLM/OxSorWmSX/g0z3rOzNqJhEgx7b21R72HfqgyrarPDQZ0FZMrgbvmYLU
+	ihSombOxKSMFZv1uCOcnw4BtzgLli93UmmDYeOy
+X-Received: by 2002:a05:6a00:e8e:b0:848:2e3c:9955 with SMTP id d2e1a72fcca58-86f833446f1mr10734859b3a.4.1789440641733;
+        Mon, 14 Sep 2026 19:50:41 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317699.contaboserver.net. [85.239.239.237])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a2c1542sm5484353b3a.55.2026.09.14.19.50.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 19:50:41 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	"Barry Song (Xiaomi)" <baohua@kernel.org>,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Wang Lian <wanglian@kylinos.cn>,
+	Kunwu Chan <chentao@kylinos.cn>,
+	liz2nku@gmail.com,
+	xueyuan.chen21@gmail.com
+Subject: Re: [RFC PATCH v2] mm: Improve pgdat_balanced() to avoid over-reclamation for higher-order allocation
+Date: Tue, 15 Sep 2026 10:50:12 +0800
+Message-ID: <20260915025022.2061-1-lianux.mm@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <1abcc4cf-fc84-4dcc-947f-8733df44e625@linux.alibaba.com>
+References: <20260422021842.78495-1-baohua@kernel.org> <aejtfpBUu7gNV6Tk@cmpxchg.org> <20260914113353.94964-1-lianux.mm@gmail.com> <1abcc4cf-fc84-4dcc-947f-8733df44e625@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,296 +93,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=VtS2kO2n c=1 sm=1 tr=0 ts=6aa8b271 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8 a=aXzhG4ZTir5nOSg0BBgA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDAzNiBTYWx0ZWRfXz0NSa2ewg2yQ
- w880oV3tubTtE1e2EhU8vQYXbKoUcLrRCJKzcPZ7TQvjLFKiIdVEp85sLl8rQDLnJqIrPUsS8DC
- 1INbqXuxkNWxEWO+lcFt9i6pVkAJYFu0zOIBNPMGRKHAhTaYXWH0cNnzgLloXw+FStb2f5xdW08
- uWxTcu7g0wWJhhUt+U+Qq98t7HvdBPOUq6J95mdaCWON4Xp9ebsIyG9uu5j4lGeZ4GL/rxDNw0G
- ZDK6O7ossIR3CaweAROH1F+YejyRLiVszVuQ50wYLpgfd9jR+RTcVrG5RsUwYZql+wz4tYE1WJM
- LHIjcDFbqehXD1+jmZRcuiMd+GVkttfZgeUXnilYFMh/Pk41HD4X4oQeHB1iXWFgRwAUKfgaffo
- qaxTb9CV5PofjGX1v65BDRK2pVNrgqWBPuIjEyZiFUIMO+M0k1gtCQaT89n3wKWMj4+RYzzfdb/
- ibcAyUT1/Zew2I4yJLw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDAzNiBTYWx0ZWRfX+UobVg8ijqWC
- lgk37O/hyIdwg6Poz9Pw3q4lb+cflgxeigD8ViAGJcQUNQMVTOIvXWZChYwwu3szvP68YtwqfLk
- SaLNA2O7XeP6slgF3zktacu1Hd0F4i8=
-X-Proofpoint-ORIG-GUID: wmD8qyzUxhLRIflomvoDA_YodIX69rkS
-X-Proofpoint-GUID: wmD8qyzUxhLRIflomvoDA_YodIX69rkS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_01,2026-09-14_02,2025-10-01_01
 
-From: Suman Ghosh <sumang@marvell.com>
+From: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
 
-Add ftrace events to observe NPC MCAM allocation, CAM keyword
-programming, action/VLAN tag writes, and entry enable/disable in the
-AF driver. Emit traces from npc_mcam_alloc_entries(),
-npc_config_mcam_entry(), npc_read_mcam_entry(), and
-npc_enable_mcam_entry() so live systems can correlate mailbox-driven
-rule changes with the underlying MCAM state.
+Hi Baolin,
 
-Signed-off-by: Suman Ghosh <sumang@marvell.com>
-Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
----
- .../ethernet/marvell/octeontx2/af/rvu_npc.c   | 46 +++++----
- .../ethernet/marvell/octeontx2/af/rvu_trace.c |  4 +
- .../ethernet/marvell/octeontx2/af/rvu_trace.h | 99 +++++++++++++++++++
- 3 files changed, 131 insertions(+), 18 deletions(-)
+Thanks, this gives us a concrete server-side reproducer. We can set up the
+fragmented-memory test with one workload requesting THP and another periodically
+accessing file folios through fio. We will keep free memory sufficient for
+order-0 allocations so that the test isolates fragmentation-driven reclaim,
+then measure fio latency and throughput together with kswapd reclaim, kcompactd
+activity, direct reclaim/compaction, and THP allocation success.
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c
-index c34f8d86cc8a..ae373558975e 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c
-@@ -20,6 +20,7 @@
- #include "rvu_npc.h"
- #include "cn20k/reg.h"
- #include "lmac_common.h"
-+#include <rvu_trace.h>
- 
- #define RSVD_MCAM_ENTRIES_PER_PF	3 /* Broadcast, Promisc and AllMulticast */
- #define RSVD_MCAM_ENTRIES_PER_NIXLF	1 /* Ucast for LFs */
-@@ -259,6 +260,7 @@ void npc_enable_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
- 	int bank = npc_get_bank(mcam, index);
- 	int actbank = bank;
- 
-+	trace_otx2_npc_enable_mcam_entry(index, (u8)enable);
- 	if (is_cn20k(rvu->pdev)) {
- 		if (npc_cn20k_enable_mcam_entry(rvu, blkaddr, index, enable))
- 			dev_err(rvu->dev, "Error to %s mcam %u entry\n",
-@@ -521,10 +523,10 @@ static void npc_config_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
- 				  struct mcam_entry *entry, bool enable)
- {
- 	int bank = npc_get_bank(mcam, index);
-+	u64 w0_cam0, w0_cam1, w1_cam0, w1_cam1;
- 	int kw = 0, actbank, actindex;
- 	u8 tx_intf_mask = ~intf & 0x3;
- 	u8 tx_intf = intf;
--	u64 cam0, cam1;
- 
- 	actbank = bank; /* Save bank id, to set action later on */
- 	actindex = index;
-@@ -561,17 +563,18 @@ static void npc_config_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
- 			    tx_intf_mask);
- 
- 		/* Set the match key */
--		npc_get_keyword(entry, kw, &cam0, &cam1);
-+		npc_get_keyword(entry, kw, &w0_cam0, &w0_cam1);
- 		rvu_write64(rvu, blkaddr,
--			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 1), cam1);
-+			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 1), w0_cam1);
- 		rvu_write64(rvu, blkaddr,
--			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 0), cam0);
-+			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 0), w0_cam0);
- 
--		npc_get_keyword(entry, kw + 1, &cam0, &cam1);
-+		npc_get_keyword(entry, kw + 1, &w1_cam0, &w1_cam1);
- 		rvu_write64(rvu, blkaddr,
--			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 1), cam1);
-+			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 1), w1_cam1);
- 		rvu_write64(rvu, blkaddr,
--			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 0), cam0);
-+			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 0), w1_cam0);
-+		trace_otx2_npc_cam(index, bank, w0_cam0, w0_cam1, w1_cam0, w1_cam1);
- 	}
- 
- 	/* PF installing VF rule */
-@@ -586,6 +589,8 @@ static void npc_config_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
- 	rvu_write64(rvu, blkaddr, NPC_AF_MCAMEX_BANKX_TAG_ACT(index, actbank),
- 		    entry->vtag_action);
- 
-+	trace_otx2_npc_action(index, actbank, tx_intf, (u8)enable,
-+			      entry->action, entry->vtag_action);
- 	/* Enable the entry */
- 	if (enable)
- 		npc_enable_mcam_entry(rvu, mcam, blkaddr, actindex, true);
-@@ -596,24 +601,25 @@ void npc_read_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
- 			 struct mcam_entry *entry, u8 *intf, u8 *ena)
- {
- 	int sbank = npc_get_bank(mcam, src);
-+	u64 w0_cam0, w0_cam1, w1_cam0, w1_cam1;
- 	int bank, kw = 0;
--	u64 cam0, cam1;
- 
- 	src &= (mcam->banksize - 1);
- 	bank = sbank;
- 
- 	for (; bank < (sbank + mcam->banks_per_entry); bank++, kw = kw + 2) {
--		cam1 = rvu_read64(rvu, blkaddr,
--				  NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 1));
--		cam0 = rvu_read64(rvu, blkaddr,
--				  NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 0));
--		npc_fill_entryword(entry, kw, cam0, cam1);
-+		w0_cam1 = rvu_read64(rvu, blkaddr,
-+				     NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 1));
-+		w0_cam0 = rvu_read64(rvu, blkaddr,
-+				     NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 0));
-+		npc_fill_entryword(entry, kw, w0_cam0, w0_cam1);
- 
--		cam1 = rvu_read64(rvu, blkaddr,
--				  NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 1));
--		cam0 = rvu_read64(rvu, blkaddr,
--				  NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 0));
--		npc_fill_entryword(entry, kw + 1, cam0, cam1);
-+		w1_cam1 = rvu_read64(rvu, blkaddr,
-+				     NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 1));
-+		w1_cam0 = rvu_read64(rvu, blkaddr,
-+				     NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 0));
-+		npc_fill_entryword(entry, kw + 1, w1_cam0, w1_cam1);
-+		trace_otx2_npc_cam(src, bank, w0_cam0, w0_cam1, w1_cam0, w1_cam1);
- 	}
- 
- 	entry->action = rvu_read64(rvu, blkaddr,
-@@ -625,6 +631,8 @@ void npc_read_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
- 			   NPC_AF_MCAMEX_BANKX_CAMX_INTF(src, sbank, 1)) & 3;
- 	*ena = rvu_read64(rvu, blkaddr,
- 			  NPC_AF_MCAMEX_BANKX_CFG(src, sbank)) & 1;
-+	trace_otx2_npc_action(src, sbank, *intf, *ena,
-+			      entry->action, entry->vtag_action);
- }
- 
- static int npc_copy_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
-@@ -3197,6 +3205,7 @@ static int npc_mcam_alloc_entries(struct npc_mcam *mcam, u16 pcifunc,
- 	rsp->free_count = -1;
- 	mutex_unlock(&mcam->lock);
- 
-+	trace_otx2_npc_mcam_alloc_entries(pcifunc, req, rsp);
- 	return 0;
- 
- not_cn20k:
-@@ -3383,6 +3392,7 @@ static int npc_mcam_alloc_entries(struct npc_mcam *mcam, u16 pcifunc,
- 	rsp->free_count = mcam->bmap_fcnt;
- 
- 	mutex_unlock(&mcam->lock);
-+	trace_otx2_npc_mcam_alloc_entries(pcifunc, req, rsp);
- 	return 0;
- }
- 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c
-index 19e0d16b12f6..0919c4398dc4 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c
-@@ -13,3 +13,7 @@ EXPORT_TRACEPOINT_SYMBOL(otx2_msg_interrupt);
- EXPORT_TRACEPOINT_SYMBOL(otx2_msg_process);
- EXPORT_TRACEPOINT_SYMBOL(otx2_msg_status);
- EXPORT_TRACEPOINT_SYMBOL(otx2_parse_dump);
-+EXPORT_TRACEPOINT_SYMBOL(otx2_npc_mcam_alloc_entries);
-+EXPORT_TRACEPOINT_SYMBOL(otx2_npc_enable_mcam_entry);
-+EXPORT_TRACEPOINT_SYMBOL(otx2_npc_cam);
-+EXPORT_TRACEPOINT_SYMBOL(otx2_npc_action);
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
-index 4cd0fc4b0d20..77dc1b4a4c64 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
-@@ -159,6 +159,105 @@ TRACE_EVENT(otx2_parse_dump,
- 		      __entry->w3, __entry->w4, __entry->w5)
- );
- 
-+TRACE_EVENT(otx2_npc_mcam_alloc_entries,
-+	    TP_PROTO(u16 pcifunc,
-+		     struct npc_mcam_alloc_entry_req *req,
-+		     struct npc_mcam_alloc_entry_rsp *rsp),
-+	    TP_ARGS(pcifunc, req, rsp),
-+	    TP_STRUCT__entry(__field(u16, pcifunc)
-+			     __field(u8, contig)
-+			     __field(u8, ref_prio)
-+			     __field(u16, ref_entry)
-+			     __field(u16, req_count)
-+			     __field(u8, kw_type)
-+			     __field(u8, virt)
-+			     __field(u16, start_mcam_idx)
-+			     __field(u16, rsp_count)
-+			     __field(u16, free_count)
-+	    ),
-+	    TP_fast_assign(__entry->contig = req->contig;
-+			   __entry->ref_prio = req->ref_prio;
-+			   __entry->ref_entry = req->ref_entry;
-+			   __entry->req_count = req->count;
-+			   __entry->kw_type = req->kw_type;
-+			   __entry->virt = req->virt;
-+			   __entry->start_mcam_idx = rsp->entry;
-+			   __entry->rsp_count = rsp->count;
-+			   __entry->free_count = rsp->free_count;
-+	    ),
-+	    TP_printk("pcifunc:%d req_contig:%d req_ref_prio:%d req->ref_entry:%d req->req_count:%d req->kw_type:%d req->virt:%d rsp_start_mcam_idx:%d rsp_count:%d rsp_free_count:%d\n",
-+		      __entry->pcifunc, __entry->contig, __entry->ref_prio,
-+		      __entry->ref_entry, __entry->req_count, __entry->kw_type,
-+		      __entry->virt, __entry->start_mcam_idx, __entry->rsp_count,
-+		      __entry->free_count)
-+);
-+
-+TRACE_EVENT(otx2_npc_enable_mcam_entry,
-+	    TP_PROTO(u16 index, u8 enable),
-+	    TP_ARGS(index, enable),
-+	    TP_STRUCT__entry(__field(u16, mcam_index)
-+			     __field(u8, ena)
-+	    ),
-+	    TP_fast_assign(__entry->mcam_index = index;
-+			   __entry->ena = enable;
-+	    ),
-+	    TP_printk("mcam_index:%d enable:%d\n", __entry->mcam_index, __entry->ena)
-+);
-+
-+TRACE_EVENT(otx2_npc_cam,
-+	    TP_PROTO(u16 index, u8 bank,
-+		     u64 w0_cam0,
-+		     u64 w0_cam1,
-+		     u64 w1_cam0,
-+		     u64 w1_cam1),
-+	    TP_ARGS(index, bank,
-+		    w0_cam0, w0_cam1,
-+		    w1_cam0, w1_cam1),
-+	    TP_STRUCT__entry(__field(u16, mcam_index)
-+			     __field(u8, bank)
-+			     __field(u64, w0_cam0)
-+			     __field(u64, w0_cam1)
-+			     __field(u64, w1_cam0)
-+			     __field(u64, w1_cam1)
-+	    ),
-+	    TP_fast_assign(__entry->mcam_index = index;
-+			   __entry->bank = bank;
-+			   __entry->w0_cam0 = w0_cam0;
-+			   __entry->w0_cam1 = w0_cam1;
-+			   __entry->w1_cam0 = w1_cam0;
-+			   __entry->w1_cam1 = w1_cam1;
-+	    ),
-+	    TP_printk("mcam_index:%d bank:%d w0_cam0:0x%llx w0_cam1:0x%llx, w1_cam0:0x%llx, w1_cam1:0x%llx\n",
-+		      __entry->mcam_index, __entry->bank, __entry->w0_cam0, __entry->w0_cam1,
-+		      __entry->w1_cam0, __entry->w1_cam1)
-+);
-+
-+TRACE_EVENT(otx2_npc_action,
-+	    TP_PROTO(u16 index, u8 bank,
-+		     u8 tx_intf, u8 enable,
-+		     u64 act, u64 vtag_act),
-+	    TP_ARGS(index, bank,
-+		    tx_intf, enable,
-+		    act, vtag_act),
-+	    TP_STRUCT__entry(__field(u16, mcam_index)
-+			     __field(u8, bank)
-+			     __field(u8, tx_intf)
-+			     __field(u8, enable)
-+			     __field(u64, act)
-+			     __field(u64, vtag_act)
-+	    ),
-+	    TP_fast_assign(__entry->mcam_index = index;
-+			   __entry->bank = bank;
-+			   __entry->tx_intf = tx_intf;
-+			   __entry->enable = enable;
-+			   __entry->act = act;
-+			   __entry->vtag_act = vtag_act;
-+	    ),
-+	    TP_printk("mcam_index:%d bank:%d tx_intf:%d enable:%d action:0x%llx vtag_action:0x%llx\n",
-+		      __entry->mcam_index, __entry->bank, __entry->tx_intf,
-+		      __entry->enable, __entry->act, __entry->vtag_act)
-+);
-+
- #endif /* __RVU_TRACE_H */
- 
- #undef TRACE_INCLUDE_PATH
--- 
-2.43.0
+We previously reproduced the kswapd CPU and reclaim behavior that motivated
+Barry's proposal, but we have not yet measured the benefit or possible
+regressions of the patch itself. As Johannes pointed out earlier, limiting
+high-order reclaim too aggressively can regress sustained or concurrent huge
+page requests by moving more work into direct reclaim and compaction. Therefore,
+when testing Barry's patch, we would like to cover both the fio interference
+case you described and concurrent higher-order allocation pressure.
 
+Let's also wait for Johannes's thoughts, especially on whether bounding
+`sc->nr_to_reclaim` should be combined with better accounting of outstanding
+higher-order demand. In parallel, we can align the test matrix around:
+
+  - best-effort order-3 network allocations with immediate order-0 fallback
+    on phones;
+  - order-3 scarcity with sufficient free memory and repeated kswapd wakeups
+    on PCs and VMs;
+  - fragmented THP allocations competing with file-folio I/O on servers.
+
+We can run the baseline and Barry's patch with the same reclaim, compaction,
+allocation-success, CPU, and workload-latency measurements. This should help us
+unify the design discussion and avoid optimizing the phone, PC, or server case
+at the expense of the others.
+
+Thanks,
+Lian
+
+On Tue, 15 Sep 2026 10:30:50 +0800 Baolin Wang <baolin.wang@linux.alibaba.com> wrote:
+
+> In such fragmentation scenarios, I don't think we should reclaim a large
+> number of file folios, instead we should wake up kcompactd to perform
+> defragmentation. So in theory, I prefer Barry's earlier proposal to
+> adjust 'sc->nr_to_reclaim' [2]. But let's see what Johannes thinks.
+>
+> Based on our problem, I think we can setup a simple test scenario: one
+> workload tries to allocate THP under fragmentation (and free memory was
+> sufficient now), while another fio workload accesses file folios
+> periodically. In this scenario, kswapd's reclaim should not affect the
+> fio workload's performance.
+>
+> [2]
+> https://lore.kernel.org/all/CAGsJ_4x9vkv2G7d-gANf8kqUJVxQh_P9=AJxr98LFUgQeOTqow@mail.gmail.com/
