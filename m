@@ -1,152 +1,243 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3723CF02D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4FD3921DD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789438812; cv=none; b=Cuath7NdaWJ6QBD2vYRYbWMcyggI0yjLcn+8IaVd+N6KnXZihV/iE4+QgAkMf5rqEMpPVStsytTdhsl4ksoa6rPgr/CJbfBHGp/paFNizZnZ/c3LZI+qzqOgo2cKoQ2Mv5GnilIwdoX2Q9O6m14ddPnts5nicemzXbRLYMxLA4k=
+	t=1789438826; cv=none; b=UZRSubiZjxlt1OL3NSw9ghYkXtC/0EfPwuhIlHnP4Vv5t5nNzuORaCx9xEc6cVTGky7VNzyCKm9zt1tnDWlVObLvrfhVjxuP9JePB1GXRk69jQty+qWqLtA9t4EVej0IzW+c2IzSva8DKeVYLVsSMg03p/1eKXbOiUxtydI8FqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789438812; c=relaxed/simple;
-	bh=gX4hQSouN8s+CbczY594VMsd3DRCg/8bnFAtJzDsdNE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o0sONhVbQobwGNaHb46YJUFtD0lWUicD+kEkez3PtRUsdlOt8Oqzd1Cl5xnjkDu/CN8Ed9HaCj6FRzapswrIXl/wKUTlwELHQjgdL/FJquyErhg8gklPM8KSJbRIxHjctcnnBmWkHK240Qa0B+sjdlzTMS+vge+ilKfdw7TQOeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nSR+WsUz; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789438826; c=relaxed/simple;
+	bh=qWp66S3kHwxJV3ZdNfijEC/wIK0pztD7BiP025YtaqI=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=NITtHJbYGh6l/e0uMpmSGwaN40rV95kg5IoB1mkupr9PySUtCy8OiVpLn5z8kZHq/+J0suTJ6b8cXE8mm3uJpPQA6GfaQWh0j2UmV+OYnfXwmiBMMrEm0dYp0f6nNdTFJUJGUOUR4ud5g5gzdrvK9jcFltw4E1s3+Zn2D5x/sCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k78FD3S3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nSR+WsUz"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd53691be5so24491825ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:20:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789438809; x=1790043609; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P2LCKAIdrSOn2UAx95wNV3vc+hcH1jPg+F2kzPFyeMw=;
-        b=nSR+WsUzwX6sPl5jq9HT2x3PqbqmfH27Yk+s8Kwg+YMDf+r0fb1RCsNi1w7uMUwLrO
-         i8hZgOyLhhSeBe4LusPzm2nVg8ch7JxAbGO/BM2tsTgFWqoGJrE6cALIdHX47KAqBtW8
-         eo2p8kwe60DQnza9njXz1vy43Mwd0CoQJWAiYxkt8U17c9yfA0CYlgaHuEMZy4w8dssO
-         fYIdvJxkHuUsxLTYX3dMs81y1o8ovobTyLVLzJtUXK+zJlcMzxm57VqUBo/UnRmqv1f/
-         k0kKcCsCWlSHF5fxs76klVRFRTEThNCtbLAMTLaA5zuMSu9S4+RnGuTrAFLn8iEWyoQJ
-         rCxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789438809; x=1790043609;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P2LCKAIdrSOn2UAx95wNV3vc+hcH1jPg+F2kzPFyeMw=;
-        b=DseUdwLHJckXXU9wUy0+jNc76+7bBc8yoe/NWBeWSyRSfsMRPia4XKloXfL4+pP0cn
-         LIpEGmboQhek21NNmzy8gvRZdY/NO8YrZUwNvsdeEfagK31ylxNL/mhqKDCnTCnmbjj/
-         ku6NLcWiDTT8Ir8umcZgbvJC8t3BD/V+mDD7B91zktxUfrYIgA6UsqTehxrT3yqY98Nt
-         ojb6PHCQCSRtMSRDazV/A/UQ6+pt+c4ud4+Hroc1V10iTkJI/g1AjYaLPPhNYSuuMiKK
-         lFCMAt1LosP589SyKooXoaMaD8jit65ikfcwXgQJBhdvnjGZVzJIP5eM1ZRLzli2Sorf
-         pHOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvfnBvLvhhMc6poRzItjv5oC6pAvdvrxx0xEJ9+c/n8nWJRE3aHvdU6lQ+4YES4XgYhOJUYm1Y6VqrNtU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBPfU+ryKIkbIgSUiOCjqf8mbn5lZUhw+rYq/3ge82Qp3HRbH/
-	SIdBJhMao4QsoYuaiqgKkyKoR9vhZ6wwUolw45QOnTdXdNpYN4OS2UL/
-X-Gm-Gg: AYBFou0AYw7J6qSob5Acw8ioSjAnpkHP7T5tHneEyIgVwAlOsVKpdcks84gxePLbtvo
-	+6TikaXXp2nEQ0AHtWwz5Bf4NIQ827jUFCRr5/5quBf09BdKdAe31P0C4AhKkW6+bRebaJ1zZS4
-	wDPD3pFyMhkju3rYRpyztDB/m52Txi/2VL8mx6OZo4xgbhAw60C7M9ChGdy48uXXsrCb8CtrR+O
-	u0CJPFJab+RR8QK+cEP9ysZYAe/PtXqOSSZwy2H5RnrTZu+HOls4M+AhplEjbp4YHdAb2P6as/l
-	TkKAV68nPVXjtykDQ7whkt1E77K76+YKb8U/rdXi9Q6j4ol0Z2kTKoeyWGinWaxtZmu93WenajT
-	NQ8yXv0pUHdloQpYuww/4q2fVtt0pfOf/NoEotZ0mJmTU9VSO+ADh33Arj/OGM1AtV1swOl6Wr4
-	MDwbo9Nr0ameSBtn1ptbQ4DoCnTp3lrNQ96n2FVAXj+khe1vmsLYDphWfW8OdrRXmKvYF2X7wfi
-	YNjBAzGvxwo/MtLIf4nqw==
-X-Received: by 2002:a17:903:f86:b0:2d1:134:b86e with SMTP id d9443c01a7336-2dd6c5cc385mr103906155ad.2.1789438808551;
-        Mon, 14 Sep 2026 19:20:08 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ce9ce0asm59236715ad.27.2026.09.14.19.20.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 19:20:07 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] nvme-multipath: fix underflow in ANA log bounds checks
-Date: Tue, 15 Sep 2026 11:19:56 +0900
-Message-ID: <20260915021956.3142320-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k78FD3S3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8546A1F000FF;
+	Tue, 15 Sep 2026 02:20:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789438824;
+	bh=BtKIzx2WWKvcOYtAmGPY5M6AXlLYrxPNUnVdVrUmmFI=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=k78FD3S3HLckxiCJs/jPLvztJ4XdBdtNlc7eITI/I8UI/3Leg6IZOCa+SpgxXbdxw
+	 KAJPuBWzXz6vOLG3QmY6uugID5pYp6BsGso4/Mcpv+4d6y59J7MO8dSfIfTwO/eSwR
+	 STvfXYaXVIXhLfUktVhoK2vvYyFNfULuDvRC3sfenBk4lFbIp0GZHgr6p3EfINrjAp
+	 kVhKy7I8aa4129Efnt9uj3LaigsNmM/01qTA4wcckZ3XnH8TFUGWyXIf3eG54MoSzL
+	 TuscHaws78mm9RDIMwvJeW0aYPHvXOzPhn/AbSbW8gKQeBUdoCwpiYZJXom8NRDkgp
+	 C4YfkzcX5vgLA==
+Message-ID: <0ed7f94f-d4c6-4589-814c-77357451b021@kernel.org>
+Date: Tue, 15 Sep 2026 10:20:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [f2fs-dev] [PATCH v7 11/12] f2fs: cache: introduce tracepoints
+To: Zhiguo Niu <niuzhiguo84@gmail.com>
+References: <20260911232405.1815804-1-chao@kernel.org>
+ <20260911232405.1815804-12-chao@kernel.org>
+ <CAHJ8P3J0azH2EgsDQXOYgtfZLqjkwh15o+crG3SxOYLQGPd4Ww@mail.gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <CAHJ8P3J0azH2EgsDQXOYgtfZLqjkwh15o+crG3SxOYLQGPd4Ww@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The number of ANA groups advertised through Identify Controller sizes the
-ANA log buffer. The ANA log header and group descriptors independently
-supply the number of groups and namespace IDs to parse.
+On 9/14/26 17:41, Zhiguo Niu wrote:
+> Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+> 于2026年9月12日周六 07:28写道：
+>>
+>> From: Chao Yu <chao@kernel.org>
+>>
+>> This patch introduces ftrace tracepoints to observe and profile metadata
+>> cache operations:
+>> - trace_f2fs_cache_set_dirty to trace marking a cached block dirty
+>> - trace_f2fs_write_cache to trace single block writeback submission
+>> - trace_f2fs_write_caches to tracesbatch writeback and sync sessions
+>>
+>> Signed-off-by: Chao Yu <chao@kernel.org>
+>> ---
+>>   fs/f2fs/cache.c             |  3 ++
+>>   fs/f2fs/checkpoint.c        |  6 ++++
+>>   fs/f2fs/segment.c           |  3 ++
+>>   include/trace/events/f2fs.h | 71 +++++++++++++++++++++++++++++++++++++
+>>   4 files changed, 83 insertions(+)
+>>
+>> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+>> index dcab0f321730..33da3f243783 100644
+>> --- a/fs/f2fs/cache.c
+>> +++ b/fs/f2fs/cache.c
+>> @@ -15,6 +15,7 @@
+>>   #include "f2fs.h"
+>>   #include "cache.h"
+>>   #include "node.h"
+>> +#include <trace/events/f2fs.h>
+>>   #include "segment.h"
+>>
+>>   void f2fs_cache_wait_writeback_cond(struct f2fs_cached_block *entry,
+>> @@ -73,6 +74,8 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
+>>                  enum count_type type = IS_META_CACHE(cache) ?
+>>                                  F2FS_DIRTY_META : F2FS_DIRTY_NODES;
+>>
+>> +               trace_f2fs_cache_set_dirty(entry,
+>> +                               IS_META_CACHE(cache) ? META : NODE);
+>>                  f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
+>>                                                  F2FS_CACHE_TAG_DIRTY);
+>>                  inc_page_count(cache->sbi, type);
+>> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+>> index 40a96eb9179c..2542b1a29989 100644
+>> --- a/fs/f2fs/checkpoint.c
+>> +++ b/fs/f2fs/checkpoint.c
+>> @@ -550,6 +550,8 @@ static bool __f2fs_write_meta_cache(struct f2fs_cached_block *entry,
+>>   {
+>>          struct f2fs_sb_info *sbi = entry->cache->sbi;
+>>
+>> +       trace_f2fs_write_cache(entry, META);
+>> +
+>>          if (unlikely(f2fs_cp_error(sbi))) {
+>>                  if (is_sbi_flag_set(sbi, SBI_IS_CLOSE)) {
+>>                          f2fs_cache_clear_uptodate(entry);
+>> @@ -611,6 +613,8 @@ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+>>          struct blk_plug plug;
+>>          bool background = nr_to_write != LONG_MAX;
+>>
+>> +       trace_f2fs_write_caches(sbi, nr_to_write, 0, META);
+>> +
+>>          blk_start_plug(&plug);
+>>
+>>          while ((nr = f2fs_cache_gang_lookup_tag(META_CACHE(sbi), entries,
+>> @@ -666,6 +670,8 @@ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+>>
+>>          blk_finish_plug(&plug);
+>>
+>> +       trace_f2fs_write_caches(sbi, nr_to_write, nwritten, META);
+>> +
+>>          return nwritten;
+>>   }
+>>
+>> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+>> index 87e24d0306e8..15cffbb5b407 100644
+>> --- a/fs/f2fs/segment.c
+>> +++ b/fs/f2fs/segment.c
+>> @@ -4226,6 +4226,9 @@ void f2fs_do_write_node_cache(unsigned int nid, struct f2fs_io_info *fio)
+> Hi Chao,
+> Do we also need to add tracepoints in f2fs_writeback_node_caches??
 
-Both bounds checks subtract an untrusted object size from ana_log_size
-before comparing the current offset. If the object is larger than the
-buffer, the size_t subtraction underflows and lets the parser read beyond
-ana_log_buf.
+You're right, will fix.
 
-Check the current offset before the first subtraction and compare each
-object size with the remaining buffer instead. This rejects inconsistent
-ANA data before dereferencing a truncated group descriptor or walking an
-oversized namespace ID array.
+Thanks,
 
-Fixes: 0d0b660f214d ("nvme: add ANA support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
-Affected versions: v4.19-rc1 through current mainline 587858367581.
+> thanks!
+>>   {
+>>          struct f2fs_summary sum;
+>>
+>> +       if (fio->is_cache)
+>> +               trace_f2fs_write_cache(fio->cache_entry, NODE);
+>> +
+>>          set_summary(&sum, nid, 0, 0);
+>>          do_write_block(&sum, fio);
+>>
+>> diff --git a/include/trace/events/f2fs.h b/include/trace/events/f2fs.h
+>> index d53be932df01..df4cd346ae72 100644
+>> --- a/include/trace/events/f2fs.h
+>> +++ b/include/trace/events/f2fs.h
+>> @@ -1430,6 +1430,50 @@ DEFINE_EVENT(f2fs__folio, f2fs_set_page_dirty,
+>>          TP_ARGS(folio, type)
+>>   );
+>>
+>> +DECLARE_EVENT_CLASS(f2fs__cached_block,
+>> +
+>> +       TP_PROTO(struct f2fs_cached_block *block, int type),
+>> +
+>> +       TP_ARGS(block, type),
+>> +
+>> +       TP_STRUCT__entry(
+>> +               __field(dev_t,  dev)
+>> +               __field(pgoff_t, index)
+>> +               __field(int,    type)
+>> +               __field(int,    dirty)
+>> +               __field(int,    uptodate)
+>> +       ),
+>> +
+>> +       TP_fast_assign(
+>> +               __entry->dev    = block->cache->sbi->sb->s_dev;
+>> +               __entry->index  = block->index;
+>> +               __entry->type   = type;
+>> +               __entry->dirty  = f2fs_cache_test_dirty(block);
+>> +               __entry->uptodate = f2fs_cache_test_uptodate(block);
+>> +       ),
+>> +
+>> +       TP_printk("dev = (%d,%d), %s, index = %lu, dirty = %d, uptodate = %d",
+>> +               show_dev(__entry->dev),
+>> +               show_block_type(__entry->type),
+>> +               (unsigned long)__entry->index,
+>> +               __entry->dirty,
+>> +               __entry->uptodate)
+>> +);
+>> +
+>> +DEFINE_EVENT(f2fs__cached_block, f2fs_write_cache,
+>> +
+>> +       TP_PROTO(struct f2fs_cached_block *block, int type),
+>> +
+>> +       TP_ARGS(block, type)
+>> +);
+>> +
+>> +DEFINE_EVENT(f2fs__cached_block, f2fs_cache_set_dirty,
+>> +
+>> +       TP_PROTO(struct f2fs_cached_block *block, int type),
+>> +
+>> +       TP_ARGS(block, type)
+>> +);
+>> +
+>>   TRACE_EVENT(f2fs_replace_atomic_write_block,
+>>
+>>          TP_PROTO(struct inode *inode, struct inode *cow_inode, pgoff_t index,
+>> @@ -1574,6 +1618,33 @@ TRACE_EVENT(f2fs_writepages,
+>>                  __entry->for_sync)
+>>   );
+>>
+>> +TRACE_EVENT(f2fs_write_caches,
+>> +
+>> +       TP_PROTO(struct f2fs_sb_info *sbi, long nr_to_write, long nwritten, int type),
+>> +
+>> +       TP_ARGS(sbi, nr_to_write, nwritten, type),
+>> +
+>> +       TP_STRUCT__entry(
+>> +               __field(dev_t,  dev)
+>> +               __field(long,   nr_to_write)
+>> +               __field(long,   nwritten)
+>> +               __field(int,    type)
+>> +       ),
+>> +
+>> +       TP_fast_assign(
+>> +               __entry->dev            = sbi->sb->s_dev;
+>> +               __entry->nr_to_write    = nr_to_write;
+>> +               __entry->nwritten       = nwritten;
+>> +               __entry->type           = type;
+>> +       ),
+>> +
+>> +       TP_printk("dev = (%d,%d), %s, nr_to_write = %ld, nwritten = %ld",
+>> +               show_dev(__entry->dev),
+>> +               show_block_type(__entry->type),
+>> +               __entry->nr_to_write,
+>> +               __entry->nwritten)
+>> +);
+>> +
+>>   TRACE_EVENT(f2fs_readpages,
+>>
+>>          TP_PROTO(struct inode *inode, pgoff_t start, unsigned int nrpage),
+>> --
+>> 2.49.0
+>>
+>>
+>>
+>> _______________________________________________
+>> Linux-f2fs-devel mailing list
+>> Linux-f2fs-devel@lists.sourceforge.net
+>> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
 
-Triggering conditions:
-- CONFIG_NVME_MULTIPATH=y and the controller advertises ANA support.
-- Identify Controller sizes a 52-byte ANA log with MNAN=1 and
-  NANAGRPID=1.
-- The returned ANA log has NGRPS=1 and NNSIDS=16.
-
-An nvme-loop target returning the values above reproduced the host-side
-KASAN read on 3/3 fresh v7.2 boots.  The first report was:
-
-  BUG: KASAN: slab-out-of-bounds in nvme_update_ana_state+0x2eb/0x360
-  Read of size 4
-  Workqueue: nvme-wq nvme_ana_work
-  nvme_update_ana_state
-  nvme_parse_ana_log
-  nvme_read_ana_log
-  nvme_ana_work
-
-KASAN identified the access as zero bytes beyond the allocated 52-byte
-region and traced the allocation to nvme_mpath_init_identify().  With this
-fix, the same target response produced no KASAN report on 3/3 fresh boots
-and was rejected with -EINVAL at the corrected check.  The changed object
-also builds warning-free with W=1 and an x86_64 allmodconfig.  Reproducer
-source is available privately on request and is intentionally not included
-in this public mail.
-
- drivers/nvme/host/multipath.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index 75dbb58286a3..29d447a5d0de 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -845,7 +845,8 @@ static int nvme_parse_ana_log(struct nvme_ctrl *ctrl, void *data,
- 		u32 nr_nsids;
- 		size_t nsid_buf_size;
- 
--		if (WARN_ON_ONCE(offset > ctrl->ana_log_size - sizeof(*desc)))
-+		if (WARN_ON_ONCE(offset > ctrl->ana_log_size ||
-+				 sizeof(*desc) > ctrl->ana_log_size - offset))
- 			return -EINVAL;
- 
- 		nr_nsids = le32_to_cpu(desc->nnsids);
-@@ -861,7 +862,7 @@ static int nvme_parse_ana_log(struct nvme_ctrl *ctrl, void *data,
- 			return -EINVAL;
- 
- 		offset += sizeof(*desc);
--		if (WARN_ON_ONCE(offset > ctrl->ana_log_size - nsid_buf_size))
-+		if (WARN_ON_ONCE(nsid_buf_size > ctrl->ana_log_size - offset))
- 			return -EINVAL;
- 
- 		error = cb(ctrl, desc, data);
-
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
