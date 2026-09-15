@@ -1,79 +1,67 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09DE6FC5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CDB6FC5;
+	Tue, 15 Sep 2026 06:37:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454215; cv=none; b=o8mlknIEatPpyKWoT7mxjU/RO7cTgRFk8DHkiqosdHKGUwFA9WwIaNr0Bu6Wi3/I1A6vsRjlRsueAXZIukOW7COzBI25/etwAGnZzrzF/XzvlNoaYgEQxTD+wKKohzbXygu4BfzPjfB3ozPgJ6NjfMwEt1CwwAu3kwjWihdyrNA=
+	t=1789454226; cv=none; b=QVnplK/omUTpEHSwBH0IbKP1CABGC2qUbLYFwu+XdxNoohoH1BlXJRRIH1fnGKXLYRtFz5lq/b+mzaO+RLnHMScyj/CUorFNo9sjeXkdybJmsZ7cAXAy4EL8Xfp0sdVL1ejgr2Y+StkSz1Y9l/FyaQ5ExL7Cx4ipQA3Lax5hW2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454215; c=relaxed/simple;
-	bh=bjwpWAiphqxpbr7Jg3Ug4FNbKb7vOKPhKHgO/HrGxWo=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=ZhM3XMJ4Ocn/DeXLM1bXsRT51MK+MSuXqKI61aewzmLAWjPTlovh+YAAl7Cn3k9x8bot08QqO/+XXNYcqNRfWTx+N1lCirL4W+G1+cyPUku6LmiekKWP//l5Ovha3zFSAI3yLQcskdo+PuU7nx7XKcm6jjQerLK382mbPBUiSoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kWqL3las; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789454226; c=relaxed/simple;
+	bh=9dpLU790yr6BvWPN4uN9Ofxtt0ngh6LpS8kTFga2aVE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F26m19DH/Sbs/Q+MJlu+qJqLFvl96DfQf7rA+vr89v8eN9IWtzhNIA+6lO+96AMEa53qST/0+9nxXGi7lgGHGkpfzK0oVuz0gnzGnhXngmaxTp0jNfE+HoKsQnpOaTG3PiGln/spR1PIv+o/olLVuzDjWPblbzbtDkgUhIXYXjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=B1VKq6sY; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kWqL3las"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=bjwpWAiphqxpbr7Jg3Ug4FNbKb7vOKPhKHgO/HrGxWo=; b=k
-	WqL3lasUJslTJ/rtcAjuG5aB5Ftpo4b4BTpcD9FdFakBr7U8NwFBuleeXoG79vPk
-	cHMOcwJUjxO3TwV41TlBTvIiRlSQMoyYQ3FapJh2oDdUG35Sg1m3IHXXMLEZ/LQo
-	O6KeFgx1qXEUCTGBM3M8xXNZxgzQXs+lC4NRii7VKI=
-Date: Tue, 15 Sep 2026 14:35:54 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: shaggy@kernel.org, yun.zhou@windriver.com, mjguzik@gmail.com,
-	brauner@kernel.org, ssrane_b23@ee.vjti.ac.in
-Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: [BUG] jfs: kernel BUG in txEnd at fs/jfs/jfs_txnmgr.c
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/ieu0ku4iGabOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/+dSwiiU+syDjEGxTnyIuZw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="B1VKq6sY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=UgfSs7l2UiblMitONWa2ILOf/vc42d67TCvKj8Opi+0=; b=B1VKq6sYIMAiFy3/TvYqSFG9L8
+	AWGm6nIfa3erQctRivx47A47sdE3aGUa0pe5VzaF9sOB95mCur2QF/hoqWao3tKkfVACR92606cQ4
+	IBoJiOh7g2KL/tUgW1IExwonAmtrKjtHMYQTn73gNkDJy4PgVjyMRT7Wa/xTGDM5FakgypBDYreXD
+	ptCiPWxcZ+fQTY9cMGpJHqyzP1qp3hK0mTpseAjan4KVmtaGA226bIWEQuA+Qdn8zAyXAruPwmZaD
+	wLMt+Of5b+lSAIlLy2CKPwW5PRl1J3D/Gyxx3xRlLDGez00yhwnjGb4Gq3UjVehQJO+/YEo5RRXcl
+	MnB8Cy3A==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6MXT-00000005L9v-1caa;
+	Tue, 15 Sep 2026 06:21:08 +0000
+Date: Mon, 14 Sep 2026 23:21:07 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: "Zhou, Yun" <yun.zhou@windriver.com>, cem@kernel.org,
+	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrey Albershteyn <aalbersh@redhat.com>
+Subject: Re: [PATCH v3] xfs: don't hold buffer locks across sync transaction
+ commit in xfs_sync_sb_buf
+Message-ID: <aqjj04f66MqUXgdV@infradead.org>
+References: <20260731031010.2627884-1-yun.zhou@windriver.com>
+ <20260911174247.GK6265@frogsfrogsfrogs>
+ <4ff8e91e-a5b2-4754-ac9a-20f64f169af0@windriver.com>
+ <20260915043105.GB2705364@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <443ec676.55de.1a0a3c7799d.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3H7VK56hq3+wPAA--.20930W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+QrQgmqo50pEKwAA3h
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915043105.GB2705364@frogsfrogsfrogs>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEga2VybmVsIEJVRyBpbiB0aGUgSkZTIHRyYW5zYWN0aW9u
-IG1hbmFnZXIsIHRyaWdnZXJlZCBieSBhCnN5emthbGxlciByZXByb2R1Y2VyIHRoYXQgbW91bnRz
-IGEgY3JhZnRlZCBKRlMgaW1hZ2UuICBUaGUgaXNzdWUgaXMgcmVwcm9kdWNpYmxlCndpdGggSEVB
-RCBjb21taXQgY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNSAodjcuMy1y
-YzEsIExpbnV4CjcuMy4wLXJjMSkuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgY3JhZnRlZCBK
-RlMgZmlsZXN5c3RlbSBpbWFnZSBvbiBhIGxvb3AgZGV2aWNlIGFuZCB0aGVuCnRydW5jYXRlcyBh
-IGZpbGUsIHdoaWNoIG1ha2VzIEpGUyB3YWxrIGEgY29ycnVwdCBleHRlbnQgdHJlZS4KCgpUaGUg
-Y29uc29sZSBzaG93cyB0aGUgdHJ1bmNhdGUgcGF0aCByZXBvcnRpbmcgYSBjb3JydXB0IHh0cmVl
-IHBhZ2UgYW5kIHJlbW91bnRpbmcKdGhlIGZpbGVzeXN0ZW0gcmVhZC1vbmx5LCBhbmQgdGhlbiAi
-a2VybmVsIEJVRyBhdCBmcy9qZnMvamZzX3R4bm1nci5jOjUzMCEiIHdpdGgKYW4gaW52YWxpZC1v
-cGNvZGUgT29wcyBhbmQgUklQIGluIHR4RW5kLiAgVGhlIGFzc2VydGlvbiBhdCB0aGF0IHNpdGUg
-aXMKYXNzZXJ0KHRibGstPm5leHQgPT0gMCksIHNvIHRoZSB0cmFuc2FjdGlvbiBibG9jayBiZWlu
-ZyBlbmRlZCBpcyBzdGlsbCBsaW5rZWQuCgoKT25lIHBvc3NpYmxlIGNhdXNlIGlzIHRoYXQgdGhl
-IGVycm9yIHBhdGggdGFrZW4gYWZ0ZXIgdGhlIGNvcnJ1cHQgeHRyZWUgcGFnZSBpcwpkZXRlY3Rl
-ZCBlbmRzIHRoZSB0cmFuc2FjdGlvbiB0d2ljZSwgb3IgbGVhdmVzIGEgdHJhbnNhY3Rpb24gYmxv
-Y2sgbGlua2VkIHdoZW4KdHhFbmQgZXhwZWN0cyBpdCB0byBiZSBkZXRhY2hlZCwgc28gdGhlIGxp
-bmtlZC1saXN0IGludmFyaWFudCB0aGUgYXNzZXJ0aW9uCmNoZWNrcyBpcyB2aW9sYXRlZC4gIFRo
-aXMgbG9va3MgbGlrZSBzdGF0ZSBtYW5hZ2VtZW50IG9mIHRoZSB0cmFuc2FjdGlvbiBibG9jawps
-aXN0IG9uIGFuIGVycm9yIHBhdGggcmF0aGVyIHRoYW4gYSBib3VuZHMgcHJvYmxlbS4gIEkgYW0g
-cmVwb3J0aW5nIHRoZQphc3NlcnRpb24gYW5kIHRoZSBwYXRoIGFzIG9ic2VydmVkLgoKClRoaXMg
-YXBwZWFycyB0byBiZSBhIHJlY3VycmVuY2Ugb2YgdGhlIHN5emJvdCBpc3N1ZSB3aG9zZSBleHRl
-cm5hbCBpZCBpcwo5MTRjM2NiNzVlZjIxOTcyOWEyZS4gIEl0IHJlbWFpbnMgcmVwcm9kdWNpYmxl
-IG9uIHY3LjMtcmMxLgoKClJlcHJvZHVjZXI6CgoKc3l6IHJlcHJvZHVjZXI6IGh0dHBzOi8vcGFz
-dGViaW4uY29tL3Jhdy9WNE1jMHZycAoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGViaW4u
-Y29tL3Jhdy84SzNyMHhwcgoKa2VybmVsIGNvbmZpZzrCoGh0dHBzOi8vcGFzdGViaW4uY29tL3Jh
-dy96UnoycDBCRQoKCktlcm5lbDoKCgpIRUFEIGNvbW1pdDogY2VlOTM5NWFjZDgwNDNiZTA2NDRi
-MjVjMzRiZmE4NjYyM2YyYjkzNQpnaXQgdHJlZTogdXBzdHJlYW0gKGxpbnV4LmdpdCksIHRlc3Rl
-ZCB0aHJvdWdoIHRoZSB2Ny4zLXJjMSBhbm5vdGF0ZWQgdGFnIG9iamVjdArCoCDCoCDCoCDCoCDC
-oCDCoGU1ZTA0NzI2Y2RkMDQzZTMwOTY3NzA3MWFiMWI2NWE0YjE4ZjQyMmIKa2VybmVsIHZlcnNp
-b246IDcuMy4wLXJjMSAjMSBQUkVFTVBUKGZ1bGwpCnRlc3RlZCB0YWc6IHY3LjMtcmMxIChMaW51
-eCA3LjMtcmMxLCAyMDI2LTA4LTMwKQoKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0
-YWlscyBvciB0ZXN0aW5nLgoKCkJlc3QgcmVnYXJkcywKQ2hhbmdqaWFuCgo=
+On Mon, Sep 14, 2026 at 09:31:05PM -0700, Darrick J. Wong wrote:
+> > 
+> > Alternatively, since xfs_ioc_setlabel() is currently the only caller
+> > and it's kernel-only, we could just move xfs_sync_sb_buf() out of
+> > libxfs into xfs_ioctl.c.
+> 
+> Probably safer to do that, since there's no other user of that function,
+> and none in userspace.
+
+Yeah, I was going to suggest to move it out of libxfs as well.
+Either xfs_ioctl.c or something like xfs_mount.c if we think it will
+be reused elsewhere in the near future.
