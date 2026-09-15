@@ -1,197 +1,126 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783DA3469EE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0177438423A;
+	Tue, 15 Sep 2026 07:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456547; cv=none; b=vGicR/g586JVOVy7EkpB2hc8t/yaejYgrd3Bw9VTJxCovBg5qJu4HGPf6MJJvnuKUDUCOS+gn4bnnI76gF245xSVYeTYOWBC8zA+epz9/maPh3U8TdSNC7lSKXG54R1PqANDLkTH1acZykcv80K+RAHKEoei7HF7r7ZCqQkr608=
+	t=1789456549; cv=none; b=RZP52a40PDmZ7KyKyiF9wdwzn+yDkp49+xGUzosZHgp4otAG1VNKhe+0mPERA+XmWJP/14yUVdxE7A1lk/UXowePD9u6DWUII30pOIPY4XbTdDTZfWxUFm+5savBDG8YAXZ9dlOhuFdJIfFbiyIGi0MtAjqPCrfDyH6nRcZavRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456547; c=relaxed/simple;
-	bh=XUdHHqHkpBDhjFo9exdJCuBeB0efNh+zdzWSlsOayRU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tu58GwrnC4n3DCe9pUep5puLQ3sXWHBE0dS8guAvHWHg24RXu2aHeE1MEFNiwf+xqLlxacXKGFsPeOn/aBJNoC0H9sGqxkE0wZEqmBoeV7j7GClSMbO6yv47rDApenTYmy6abymOuCk2d6t7drW+yN7LVmYf1BSLEXlh1KCjAFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iimwb2lv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y6w5KjRS; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789456549; c=relaxed/simple;
+	bh=dbDofAJzOD7kRcaOMCUP8xSI/nvZSHZ3HdUg41Vv+GQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gjXzaKzypHlVZxsZY7XPLSpA80NLga8fNXkO13oAWZlDpkDYMlwhFtOuQfg9S1W/nafWwLmMkopXU2HhWNyHmopi8FtxuMnMgcST315cXkQS6jsC77wFHR5SDFtRUEeFkrHvMh2cNFTunyKXHRuMzwHMS4GFXqZcRSSXHYnacMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=jbZUfewF; arc=none smtp.client-ip=220.197.31.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iimwb2lv";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y6w5KjRS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789456544;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XUdHHqHkpBDhjFo9exdJCuBeB0efNh+zdzWSlsOayRU=;
-	b=iimwb2lvzANVgVPG7d53OtAAcQelkF4m8748nUraVOdem9Aul1TVrV6e64ignur6sMwYga
-	Ui8ymaLeGPQg5fhkg8ZUt1SXjYLmbb/nh3YO8upSWltIDG/MdF5vep4cDwphjYE1rXurxm
-	QieJqO2OKZz1VX+0KxWq+Qg6/V1GlQ8=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-531-8l-uRn3NM1mx-mquimOzvQ-1; Tue, 15 Sep 2026 03:15:43 -0400
-X-MC-Unique: 8l-uRn3NM1mx-mquimOzvQ-1
-X-Mimecast-MFC-AGG-ID: 8l-uRn3NM1mx-mquimOzvQ_1789456542
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4843e59c32dso2701078f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:15:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789456542; x=1790061342; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XUdHHqHkpBDhjFo9exdJCuBeB0efNh+zdzWSlsOayRU=;
-        b=Y6w5KjRS1R4udpXS4aStPIPF6U8eu+HhTOhdTYIJKiwAi3R+RSDd1Ti2OjN2n1pgkC
-         7yftWqJ2ilNYGuSBeEQ+ogFUHaCUcQTx2pIw+y2q0FZej95JeXv5rMVqoxM2D1o8dcG1
-         s7y/EwjnRsgIT+AYC1haFJEq3laIc0fy9+ivo2als0NwQPg0SytcwC4oYL0peGKstpNn
-         eIYbUjGocKOCCUbU6PCFIoSASfLGvLLIexPJ1iUaEWZ6hFYz5Zu1sk8ylStwBCprWMBP
-         YlCtjkhBNCzzSxOMj+S66Bq9bdnWWdG4lr56NuNax6oHdTrTetkhNGXg324PAqGUZnoU
-         U8Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789456542; x=1790061342;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XUdHHqHkpBDhjFo9exdJCuBeB0efNh+zdzWSlsOayRU=;
-        b=cLzlh6Og+DC1dvEMjHsgzc5BO2Yf9lMqfmzYeczd/Lp6Au+foiyH+RQX1FkTQa0q27
-         ldDiKOjHZa+G0tx5s2aG9pcRxgIGkXKQCYhtBYqmPwxb733FgcvniwNK+G9i3tQ9wIp2
-         q4jYjdxeM/Ssn/RCSsgpR+iYQ8HUm1QSDYAwQIA8PU5H1Py3Wvg5eWnmKTqdzXCaOPOM
-         PKcALK97MJUBcK1UWtmp1+f+G1/0FR57s0pPDfmtnxTCaj+WKNWaP286lPZgy6lP04XZ
-         7iinC4ZPBHPdZg4mo9Qz/51bGAW5IW5afnf6M3O8chjniKLOMM+ThHHC0SBOuGYE9S81
-         IaGg==
-X-Forwarded-Encrypted: i=1; AKwUvBz3fbZHi8xSzU5UwXq42CWukbqOJ5GeASosknwZB+aJNMxj2ZTRTZkgYp/7prTS3+L/gt/woIO/8a+VnKA=@vger.kernel.org
-X-Gm-Message-State: AFuF++krgn+pxs1pkP7VhbB4xWO4Uh3ZpKKdMlWZdzEBRhzm73Um38d8
-	6Bn3aJWenMfPvYEGymWit3L7ZUI+LM/LWm/NGn3ePx0v3wyCs619kR9VCXhtKZ41wiCuovNIoWO
-	XNiAsnFcsevvbA7kYbT83hEAuAYazHZmSJNpIkArgen6RMalH2/0QR1V+iQQ8VKtmb56ei2T6lq
-	FG+6k=
-X-Gm-Gg: AYBFou0wFhZrOlSCjbkhlUmPznQSI1o8Dee7sps4HR/Pl7wUufWPHqN+H7uO+5yfbmQ
-	q/RmjU7+xRyrvY3bxvJd6MdzuGz0P3AJrL6X8nPaErCCEwKMklBWnEvW+CHqUCWO9ZeegXUhdiJ
-	+tvYv23FxONvXKyo4lUcMj3uo3Z6vj4SDFGaFmC1zWHyo1Tk9Rt6mwLOobyhl6Jt7JJlriy1l5N
-	g/ysGeuwEnfP4yYywa0q3vvrR1znEp34h3oSunsxYxi0AOyHwfqB4XIbsbWbF3JKHnVGxGXuxNK
-	4Cw8eaC4WUHeiFmCGjqBEeX6rijPV96TPiy7oK630N2Nzu7zmD1yhFCzkIwtW5lwKi27YHQAcwI
-	A0RVgEVtqOf2o3qvIzKT5RJvBXUP8TA==
-X-Received: by 2002:a05:6000:2685:b0:484:4880:449d with SMTP id ffacd0b85a97d-48702aceed7mr9043996f8f.3.1789456541886;
-        Tue, 15 Sep 2026 00:15:41 -0700 (PDT)
-X-Received: by 2002:a05:6000:2685:b0:484:4880:449d with SMTP id ffacd0b85a97d-48702aceed7mr9043948f8f.3.1789456541483;
-        Tue, 15 Sep 2026 00:15:41 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48707e00133sm2607417f8f.11.2026.09.15.00.15.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:15:41 -0700 (PDT)
-Message-ID: <1f8caa71b79e70f554245bccaa29b66268452dbe.camel@redhat.com>
-Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Nam Cao <namcao@linutronix.de>, LKML <linux-kernel@vger.kernel.org>, 
- linux-trace-kernel <linux-trace-kernel@vger.kernel.org>, bpf
- <bpf@vger.kernel.org>, Wen Yang <wen.yang@linux.dev>,  Tobias Schaffner
- <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>, Linus
- Torvalds	 <torvalds@linux-foundation.org>
-Date: Tue, 15 Sep 2026 09:15:39 +0200
-In-Reply-To: <DLDSQDSVXFHF.18X2UQUL5Y42D@gmail.com>
-References: <20260831090524.106845-1-gmonaco@redhat.com>
-	 <87se3sakgi.fsf@yellow.woof>
-	 <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
-	 <DL5B40CU17WD.3KD75URQZ6RRR@gmail.com>
-	 <eb3dd8158942d663ec8ad4c529eacd666c5f96d9.camel@redhat.com>
-	 <20260903090211.50d15220@gandalf.local.home>
-	 <CAADnVQK8e1Qp9rf1zThZxb3vr4Gc_bpo0nqpEO2LdnEwHdKokA@mail.gmail.com>
-	 <20260904074317.01b2c0e1@robin> <DL6O0KLPXLTA.2HJJUXQUVCP5@gmail.com>
-	 <20260904123108.1fa1d815@gandalf.local.home>
-	 <20260904132421.111c0279@gandalf.local.home>
-	 <DL6XBKITK7ZT.3RXK9YGGUYZZE@gmail.com>
-	 <20260904194620.0c7a8363@gandalf.local.home>
-	 <CAADnVQJH1SYR_GN6gewF3w_z_Sex9HFE1T1oXkQe6+v18bDTWA@mail.gmail.com>
-	 <20260904201741.2986efca@gandalf.local.home>
-	 <CAADnVQ+x4iRNXOg69nUmuJ53pB3-JtroePcyoReATy9+V1aRPg@mail.gmail.com>
-	 <228FE969-EBFF-4B60-B0E7-C1E4FD82FB8B@redhat.com>
-	 <DLDSQDSVXFHF.18X2UQUL5Y42D@gmail.com>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="jbZUfewF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Mz
+	w8wjlNPlBuD8FWvB+1DdecCrMSj+FthQONbcurIVE=; b=jbZUfewFMGt+X733RM
+	eo1SelXIZ4scom2ERX0LqtplBAgOEV8z1+jcvCXKoR4MhobcUj5+P7jofsSgBJ/d
+	NTznWVzEqJXkEpnXZnQFtSeQvWMA8nhz56l503IJf0qm7mkjOK3nF8l01eJSCedH
+	/DBJCth+dSNPKBNk8JWZkCSzM=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDXF8J58KhqsRw2BQ--.17892S2;
+	Tue, 15 Sep 2026 15:15:07 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: [PATCH net v2] ipv4: fib: fix data-race and stale genid check around nh->nh_saddr
+Date: Tue, 15 Sep 2026 15:15:03 +0800
+Message-Id: <20260915071503.465875-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXF8J58KhqsRw2BQ--.17892S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr4kCF45Kr1ftrykur48WFg_yoW5Xr1fpF
+	W8AasFq347Xay3AFs2qF47A3W8uw4Fya4F9ryIk390vwn8X343XFySg3sY9as8ZF4kXw43
+	AF4kWr1UArWq9aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UpVb9UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRsf9Wqo8Hun6wAA3d
 
-On Sat, 2026-09-12 at 18:26 -0700, Alexei Starovoitov wrote:
-> On Fri Sep 4, 2026 at 9:53 PM PDT, Gabriele Monaco wrote:
->=20
-> > Alexei, what I read from your opinion is: if you really want to do this=
- RV
-> > thing, then you should just implement it all in BPF.
->=20
-> yes.
->=20
-> > like the panic() one. Something BPF just shouldn't do, as I get it.
->=20
-> There is a disconnect here.
-> we have one KF_DESTRUCTIVE kfunc already. bpf_panic() can be another one.
-> It will require CAP_SYS_BOOT.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Great, I have also been pointed to crash_kexec() [1] which seems to be doin=
-g
-already the same thing.
-Anyway this doesn't seem a blocker.
+fib_select_multipath() compares nexthop_nh->nh_saddr against the flow
+source address with no lock held, while fib_info_update_nhc_saddr()
+stores a new value from another CPU as soon as the preferred source
+address of the egress device changes.
 
-> > I'd rather discuss on what is the best approach /today/. And that's
-> > precisely why I submitted the talk for LPC.
->=20
-> Excellent. We can start this discussion over email and continue at LPC.
-> My understanding of RV is primitive, but from reading kernel/trace/rv/*.c
-> it seems to me that it's a thin glue between tracepoints and monitors,
-> a bit of boiler plate code via tracefs to enable monitors and seq file fo=
-r
-> visibility.
-> What you're proposing is "yet another monitor" that is reusing this glue =
-code,
-> and that's my main objection. I don't see the value in kernel/trace/rv/*.=
-c.
-> (kernel/trace/rv/monitors/* are useful, of course)
+Commit 195374d89368 ("ipv4: fib: annotate races around nh->nh_saddr_genid
+and nh->nh_saddr") added WRITE_ONCE() on the store side and READ_ONCE()
+in fib_result_prefsrc() after syzbot reported
 
-I get it, essentially the point of contention here is that, besides loading
-tracing BPF programs (the event handlers), I'm /also/ loading a BPF struct_=
-ops
-program to register the monitor to the existing in-kernel infrastructure.
+	BUG: KCSAN: data-race in fib_select_path / fib_select_path
 
-It is indeed not fully necessary to have BPF monitors share the same sysfs =
-API,
-as they still need the userspace component to do useful monitoring.
+but it only covered that reader. fib_select_multipath(), reached from
+fib_select_path(), is a second lockless reader of nh->nh_saddr and was
+left bare.
 
-> What stops you from attaching tracing bpf progs to all tracepoints that y=
-ou
-> need, pinning few "bpf iterator" progs in bpffs that will provide text or
-> binary output via seq files, run a state machine inside the prog,
-> and do whatever "verification" logic inside them ?
-> You don't need the rv/*.c glue. I see no need to introduce new bpf struct=
--ops
-> api just to look-like-a-monitor from RV glue perspective.
-> "runtime verification" as a concept makes sense, so focus on that.
+Moreover, nh_saddr is only meaningful when nh_saddr_genid matches
+dev_addr_genid, as established by 195374d89368. fib_select_multipath()
+skips that validation, so it can score a nexthop using a stale source
+address and skew the ECMP selection.
 
-I actually started my POC without struct_ops, activation happened by just
-triggering a dummy BPF program from userspace, but I'll look into these bpf
-iterators.
+Annotate both reads with READ_ONCE() and add the missing genid check,
+mirroring fib_result_prefsrc().
 
-Essentially sharing the API simplified how the userspace component handles =
-some
-things and allowed to share reactors.
-But again, that's not necessarily the way.
+Fixes: 32607a332cfe ("ipv4: prefer multipath nexthop that matches source address")
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+V1: https://lore.kernel.org/all/CANn89iJhFL2LNQCXTANQAx8B1GVdGTJgrDwPTZOjbH8k1ygtsg@mail.gmail.com/
 
-Thanks,
-Gabriele
+V2:
+- point Fixes: at 32607a332cfe, which introduced the bare reader
+- add the missing genid check as suggested by Eric Dumazet
 
-[1] - https://docs.ebpf.io/linux/kfuncs/crash_kexec
+ net/ipv4/fib_semantics.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index 7a362f2e2c2b..e2bfc11aea09 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -2184,6 +2184,7 @@ void fib_select_multipath(struct fib_result *res, int hash,
+ 	bool use_neigh;
+ 	int score = -1;
+ 	__be32 saddr;
++	int genid;
+ 
+ 	if (unlikely(res->fi->nh)) {
+ 		nexthop_path_fib_result(res, hash);
+@@ -2192,6 +2193,7 @@ void fib_select_multipath(struct fib_result *res, int hash,
+ 
+ 	use_neigh = READ_ONCE(net->ipv4.sysctl_fib_multipath_use_neigh);
+ 	saddr = fl4 ? fl4->saddr : 0;
++	genid = saddr ? atomic_read(&net->ipv4.dev_addr_genid) : 0;
+ 
+ 	change_nexthops(fi) {
+ 		int nh_upper_bound, nh_score = 0;
+@@ -2204,7 +2206,9 @@ void fib_select_multipath(struct fib_result *res, int hash,
+ 		    (use_neigh && !fib_good_nh(nexthop_nh)))
+ 			continue;
+ 
+-		if (saddr && nexthop_nh->nh_saddr == saddr)
++		if (saddr &&
++		    READ_ONCE(nexthop_nh->nh_saddr_genid) == genid &&
++		    READ_ONCE(nexthop_nh->nh_saddr) == saddr)
+ 			nh_score += 2;
+ 		if (hash <= nh_upper_bound)
+ 			nh_score++;
+-- 
+2.25.1
 
