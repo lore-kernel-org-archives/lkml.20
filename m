@@ -1,199 +1,133 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazolkn19012014.outbound.protection.outlook.com [52.103.32.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471E1480979;
-	Tue, 15 Sep 2026 12:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476382; cv=fail; b=WqbR+0KW8A648AR81BB/yg5o1s/FlRaeMd+5O9q0qdbEfRxgnjV+aUo5bNoiAQNEo0ed3PODAOAKR4SnJRHQDPKUNimGY1JRFl0Eo8lOUqEtUmhvOP5+2GTLbIUou0frPA0tKKvpkTpsLZs3lGXyPPytI1rodVCxwOkoY/M26OE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476382; c=relaxed/simple;
-	bh=ifezDF7I16bfDJNOI9jPCW5Bv2PkFzf6yRcMhn1GdcU=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hSbLRUJoqDLVGMiNjtKCdpt0tpZHZGXw45hEBMER8fZRq3lZbDBf2OO9tqoHDaqOqjKAsC1mYAAoVUIZXgeSXeo6xRFu7AJiFZ1NkEC+ztVQoAyYSSBwbGqWKyx489Bt56hxcNT2MJVjTGMddAQ25iWCKNb6d68I4NnPh2/fx2I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=NpAMbinK; arc=fail smtp.client-ip=52.103.32.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="NpAMbinK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UgHAzfOqZVQpqGLkva1il+5O9V2VUMEqL/xwBkZI/T2h5Zxor/mYh4zytg/xPhQJ5yinZI4mlJ5HuRYkkMTuD2gIDVppeIYaAVc7Jnxg5T5u3XwVrhV655cnb7PEBPrKeTGwmYaOishhWiKMBqX/44Q+4kUQbAiiNy2mPvQSMeONBvosJnt7HxBgkShBN1I7sFGgvdkwY+nSil+EZH20FTwimJ/8zTw1UpWEXQioazI6v/2Rmar+knZgbp7r4ZOab1xmM5LXKHzKpRrDt+xISlkqpSY3bw4nGtdnq0eL+x7CmvOUODsM3vy80D5uaZKLlqHYFwj7vUzUpaErNhp53w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tbz9K4YFtnm18UumhXA79e6o9bXJjq/ME6X5j0dUt0A=;
- b=PD+wqSOoyt6zlNy2E+lmie3Q25wICUbae1jG6YA15oyp6xLWke8bbA6eMDi/pP/dnCkHNsErbPCLtUIKFKP8zb+Ba7fzzOEa3r988WM9zIinofi3SWyrR0K1NpnS7EJcmFe5Oi3tXoYmLUn1XiR5ScuYdXTVeGGXEZHgIOvAqL6aYSkPEuT4/Ih0DXODvGc3aSSHjdk8+3eI7keODSW857FbHAfOEJV/frorFj37t6VdhnaKfi0xhhgRcGf+ApIv8YwhgBFvu2YY1krXaxg55P8cBWa8ycz+jlY6CAZFx4ilikZINKjScQuCNHGEifIrakJeHgwvQtC3bv//QIbwNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tbz9K4YFtnm18UumhXA79e6o9bXJjq/ME6X5j0dUt0A=;
- b=NpAMbinKANjAQGt0ayXkm7l7b6PzB6m23cnCKv+WmMIXTAyGMkUgF4hyZPJNfYxDrMnMlqeRdrr53ku434gvI+AgVhCZsAYMyYV52fmJW6kQ8DHIeP15GptXozzC+Ez+zea4ErOycB1OUdle/N9iL1Wv47xjLuldOnEaBWhUwEHIqiKbu+v9JQKnW6+OvAZusPUNksqD8hYmaAi9H8u/r21dRX3QIrRAkBHQLI45CM+6q0ujQ+kFbK3lNKMEl9ZfBpq11EIWvRMzX//MEiMz9Kjwu0XTTYaFP7ky0KGfAJy+NTQXmPNTxu4Mq6+qEgcID8FyoEzfgnlPHFKgD2g7jg==
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
- by DU2PR08MB10106.eurprd08.prod.outlook.com (2603:10a6:10:46d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.8; Tue, 15 Sep
- 2026 12:46:17 +0000
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Tue, 15 Sep 2026
- 12:46:17 +0000
-From: Manuel Fombuena <fombuena@outlook.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	vicentiu.galanopulo@remote-tech.co.uk,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 08/13] leds: st1202: Take a reference on the LED firmware node
-Date: Tue, 15 Sep 2026 13:46:05 +0100
-Message-ID:
- <GV1PR08MB849710C564F23C21BDA3EA41C5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <GV1PR08MB8497668D389D43F680D2CE3CC5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-References: <GV1PR08MB8497668D389D43F680D2CE3CC5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-Reply-To: fombuena@outlook.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0156.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:188::17) To GV1PR08MB8497.eurprd08.prod.outlook.com
- (2603:10a6:150:81::22)
-X-Microsoft-Original-Message-ID:
- <20260915124605.3387134-1-fombuena@outlook.com>
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7692D46D562;
+	Tue, 15 Sep 2026 12:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789476398; cv=none; b=AlqOdKcl1fVs7SgQ2hxKBPD4xShwwcCsO3fSUX+Zorkn89T7IvXUQfrKUkPD0+IYfuQCe/doyu8nrRQMsLqMUGVvSevSeEFnk26NuugvP9PxHQVuULZaDqVODpLrEyuWEY4FfkcwiM12b+ix2S3osbb1NKZXIhrJKsc5dNMUQyc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789476398; c=relaxed/simple;
+	bh=L8YPSGCyaFFudq4A/4tOCJdVH8P+Tw0P8u4pGmVjPLU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=t8CQTJ6wYdu+T94d06GpHGv2wJKFxFTZqKFZEuRtquyKAaapS8BlUwt8DhomBjl1mx61OeaVLyyIa8l8XQBmvhyAuHJlniB3FeOwElTowT1Ukj7rZm18nSotFOGSho9hyKsE+bLdEUDjUEaspqYE9idVeu5iOLldv62ODRD+2N8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hkhbC4DzKz2CZrN;
+	Tue, 15 Sep 2026 20:46:15 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hkhb95jgcz1mw7S;
+	Tue, 15 Sep 2026 20:46:13 +0800 (CST)
+Received: from cncheex06.Hygon.cn (unknown [172.23.18.116])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id 4C4F51641;
+	Tue, 15 Sep 2026 20:46:09 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex06.Hygon.cn
+ (172.23.18.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 15 Sep
+ 2026 20:46:14 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Tue, 15 Sep 2026 20:46:14 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Hongyan Xia <hongyan.xia@transsion.com>
+CC: "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"ray.huang@amd.com" <ray.huang@amd.com>, "mario.limonciello@amd.com"
+	<mario.limonciello@amd.com>, "perry.yuan@amd.com" <perry.yuan@amd.com>,
+	"zhanjie9@hisilicon.com" <zhanjie9@hisilicon.com>, "zhenglifeng1@huawei.com"
+	<zhenglifeng1@huawei.com>, "pierre.gondois@arm.com" <pierre.gondois@arm.com>,
+	"sumitg@nvidia.com" <sumitg@nvidia.com>,
+	"srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
+	"lenb@kernel.org" <lenb@kernel.org>, "zhongqiu.han@oss.qualcomm.com"
+	<zhongqiu.han@oss.qualcomm.com>, "jianyong.wu@outlook.com"
+	<jianyong.wu@outlook.com>, Fengyu Wang <wangfengyu@hygon.cn>, Yuan Zhong
+	<zhongyuan@hygon.cn>, Huangsj <huangsj@hygon.cn>, "rafael@kernel.org"
+	<rafael@kernel.org>, "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
+	"kprateek.nayak@amd.com" <kprateek.nayak@amd.com>,
+	"vincent.guittot@linaro.org" <vincent.guittot@linaro.org>
+Subject: RE: [PATCH] cpufreq: Use a non-boost reference frequency for pressure
+ calculation
+Thread-Topic: [PATCH] cpufreq: Use a non-boost reference frequency for
+ pressure calculation
+Thread-Index: AQHdROA84sx4SsqcvEWfPOLMo4juUrbO2oeAgAC6S/A=
+Date: Tue, 15 Sep 2026 12:46:14 +0000
+Message-ID: <0f30cfed358847e88f36f3833924dd25@hygon.cn>
+References: <20260915065747.1671965-1-wujianyong@hygon.cn>
+ <b10f5ad9-c91d-446d-a382-e6b2ce0ff7fb@transsion.com>
+In-Reply-To: <b10f5ad9-c91d-446d-a382-e6b2ce0ff7fb@transsion.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|DU2PR08MB10106:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98ff04dd-a0b0-43b2-4925-08df132755a2
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|5072599009|24021099003|16051099003|41001999006|15080799012|25010399006|23021999003|37011999003|19110799012|51005399006|8060799015|440099028|3412199025|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?zOehhekHooPvWYIaDNiELTq7Vq+YobIHH9YdmjdoR315tBVI3TjHIQjqhojN?=
- =?us-ascii?Q?dABVT5pQEE85yvCbcAftk+mqttBaBVw0Pyr4EprDj5qifDtYbor0FHxvAOhF?=
- =?us-ascii?Q?a5SsmK+aaa56ltv1hPQPCrPa6U9AzoOQFFB3kkB2hqtOpUXD769DGmulkdmE?=
- =?us-ascii?Q?T7rDkVI7IDu84kK+9jPr9HS1elE0wiuKKghSSXolHY5W6YFInxv64UWXIsPq?=
- =?us-ascii?Q?b07wnzmB8BrJAbgY8ByusSkdIubzb1gwNvIMjxCLwOFVBHBW/8+SA2LqfWUr?=
- =?us-ascii?Q?VI5+1Lw+GHPZwNhiFojrFwNB+Qmc8v3qU+cHex5cr7DP86lAkx/VN9ZhH6kg?=
- =?us-ascii?Q?SUBRrbnZCDFBd/YwbNhrhfZlt7LNuFyyiqZUHCgKL6YM7xTIzU5XDW4myYeK?=
- =?us-ascii?Q?14PfrI8lIF5F4viY1e7wAxWf+Bgk/V5gqIDS8ZBwVOttCAOMp32PL26z1No2?=
- =?us-ascii?Q?IlUqwpt3+YI40dE59fo2abEiQTHau3m9JnjOd0D99pG6HiqGyqN6G6NXH8yy?=
- =?us-ascii?Q?xEpCRLhnapDdlU18z4BX59q372Vo9byr2theuYbnTtejNhCwwsiHR/kNNLuU?=
- =?us-ascii?Q?famfSPfzdb36iH4RVVyGWcO89kt2YgYwjlCVUrfFbaFWsqP8hB3XedLYRvVC?=
- =?us-ascii?Q?iVBbQWqgjL0CHcvUVqwZ+ElXTfibsD9wAL9cWKQ845W7LlyJqyMncDkIPGAn?=
- =?us-ascii?Q?k20eedq89sQaeBmcV85/Kox9sch6Bcb/o96u7d5Iyi9Uv/4dMWKPUB3nLVgc?=
- =?us-ascii?Q?3JIbT9WAf06vnU/arUjfYWxZtkfSuQoekaL0WVSZnzkaZBsrVIKXFl0JyBPO?=
- =?us-ascii?Q?AmuB5kFK532/fjdnHYtCQoxu0Ix0bXF2O4+IiO9A4xjkmeabxu3fBvTHMPzJ?=
- =?us-ascii?Q?grrLtJYvRQLKuv0CWYY7gDGelU/MDPrv1Mv7dA0SkV0m6jusNUIEzuVTk8rW?=
- =?us-ascii?Q?EjJG+jENE6d49jvxszUsoY3FENCLqnfT/0MVa8MvbhwHLgkc7CSg9a/r5oLi?=
- =?us-ascii?Q?cxH7M9B0mtCod5Z7RqTDTwUujQ=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bPqLoEpCE72eTw8fabbyshe2n/bZ7N0PFO/4JzYWJstyE/baXOzd3w8qPb6e?=
- =?us-ascii?Q?Yt/DhyreRyvdD4/muj4kKcjv4xqJLrcY9DY2OlLeead3lC3mBgGc4d//luBa?=
- =?us-ascii?Q?6wMVCN7iV0ct2fBgtg21yIfyd1HulDeFSe1wgcqg2wqV6QekxgyatAcxj51h?=
- =?us-ascii?Q?HVSbVr7iw34wTXH9Sdx77VGsjn11Dd7Ha3M8XmRRL0CRYvb3rTu5WwdQpCDP?=
- =?us-ascii?Q?y2sp4J5k7caSOZlFR2OZ8ksslB+TBofrAvCtMeQyLGoVQt6x94eOpxEfCJ0u?=
- =?us-ascii?Q?GRkR84UVnEs6xiBUMPqCMT3lP/50LAbIukR3WoRy1UM8SKSCsQTXW7nL5gp/?=
- =?us-ascii?Q?pIVr6BWJlguKedRdNFK/YrTEgNJ5azTe6/B3XnvYik52uzxuEVqocT771r9D?=
- =?us-ascii?Q?elMtg4uN1GcSXuD6F7bwJIv7ur+IYNQ1FgN0F9xNHHWhRIWrBZ55TVtPdoT+?=
- =?us-ascii?Q?27w27VOdSjzGPej7JfhDGMjjBIV+Yg6mrnTMoUTvrLw+RxPFF2SGPkM72ix3?=
- =?us-ascii?Q?86orFM1xPlkrm5p+f5aOFJFCq2ZbApA0GUWG3bGTYxIS/Eyq6ZEwFhmLQXUl?=
- =?us-ascii?Q?tyVd+kuIGSvXQNOXmMoAL7TCOvLva66hHE1/WWTWkgKb3C1XuJS2h8RLwYFd?=
- =?us-ascii?Q?xh/vDUAiKHfa0wQ/OLx28xOdaXgk1THAhcZmRWyLNFpJ4hwCA98JTlTY2toi?=
- =?us-ascii?Q?X01/0nirIJ3ycJZhxtgPYEqDeLr0kIBaK/QfDTHHBqvbQQT702y5kmgu5xBz?=
- =?us-ascii?Q?mcbUEsYNDl1v1lS58hE20LBQEWLdFHPXwBOzlkjFb5C6v+9Lc0MmC+rMM4OP?=
- =?us-ascii?Q?KXlzHisY0n1ik8Kzy2wgylKISeAIElI5ccrzxQbym0vYejAwvINUdYvBGctE?=
- =?us-ascii?Q?QqcPCNSSshNyvhFojHkmClzuT5JyXTMrmOPPEQ4pDw3xrW8zpGAfbU4t+g0J?=
- =?us-ascii?Q?6U8xuwlX+yqG0R1S/5kLg0tWBIhLr3HbM1WRlO0/XHOg5D0X/K4dHhpj1L4+?=
- =?us-ascii?Q?DAxjDVu9OULdWRp1R/JORAKrhllifuedVMheBLu3qezy3fDg6UvtW3Ru4K8J?=
- =?us-ascii?Q?EJSRfSyyAgSLtU/iCYwLOB50OcXeFv/gdfA26g4BcS4jVHFRfTo46HfK8ECs?=
- =?us-ascii?Q?xzDYVcjRpdMRfcy+a6EKcXVD5GRU4afRmbkuhrXaIQ3Cvm+Mc05Bv9MVUbsP?=
- =?us-ascii?Q?6IGlIT0+BT6W1nw7evOiWIOFzx9YeFFUhy/rsYn0u6Rt3pjbmcJnR/NcUbli?=
- =?us-ascii?Q?MqJZkvDToTMS3xVbkRW7xdT1PVnnshLGWj5uQ5OxIJ9UnUFqZRWKkCd6aeRG?=
- =?us-ascii?Q?phnySeznKhmZsO45zhbf9LMSdozGH0tUjy+4Wpc2MqjYWOAzvkTHDnRpEefn?=
- =?us-ascii?Q?XGFEbx4tHZ/lkqOMbyB/NPA2WegzOinweDj2xqIdKKMzDx/m+zksXpWNKaTG?=
- =?us-ascii?Q?dscvY+o+BAw1okpIa4d0dwX018hD4WWQ?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98ff04dd-a0b0-43b2-4925-08df132755a2
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 12:46:17.4828
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR08MB10106
 
-st1202_dt_init() stores each LED's firmware node while walking the
-device tree with for_each_available_child_of_node_scoped(), which drops
-its reference to the node at the end of every iteration. The LED class
-stores the pointer with device_set_node() and does not take a reference
-of its own, so nothing keeps the node alive for as long as the LED
-device uses it. That has been the case since the driver was added, when
-the LED class devices were registered inside that same loop.
-
-Commit c72e455b89f2 ("leds: leds-st1202: Fix NULL pointer access on race
-condition") moved the registration into a separate loop in
-st1202_probe(), which also leaves the stored pointer unreferenced
-between the two loops.
-
-With CONFIG_OF_DYNAMIC the node can be freed while it is still in use,
-leaving led->fwnode and the LED device's firmware node dangling.
-
-Take a reference when the node is stored and release it through a devm
-action. The action is registered before the LED class devices are, so it
-runs after they have been unregistered.
-
-Fixes: 259230378c65 ("leds: Add LED1202 I2C driver")
-Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
-Assisted-by: LLM
----
- drivers/leds/leds-st1202.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
-index 41eac6195659..ead7a3669312 100644
---- a/drivers/leds/leds-st1202.c
-+++ b/drivers/leds/leds-st1202.c
-@@ -12,6 +12,7 @@
- #include <linux/i2c.h>
- #include <linux/leds.h>
- #include <linux/module.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/string.h>
- 
-@@ -399,6 +400,11 @@ static int st1202_blink_set(struct led_classdev *led_cdev,
- 	return 0;
- }
- 
-+static void st1202_fwnode_put(void *data)
-+{
-+	fwnode_handle_put(data);
-+}
-+
- static int st1202_dt_init(struct st1202_chip *chip)
- {
- 	struct device *dev = &chip->client->dev;
-@@ -418,7 +424,11 @@ static int st1202_dt_init(struct st1202_chip *chip)
- 
- 		led = &chip->leds[reg];
- 		led->is_active = true;
--		led->fwnode = of_fwnode_handle(child);
-+		led->fwnode = fwnode_handle_get(of_fwnode_handle(child));
-+
-+		err = devm_add_action_or_reset(dev, st1202_fwnode_put, led->fwnode);
-+		if (err)
-+			return err;
- 
- 		led->led_cdev.max_brightness = U8_MAX;
- 		led->led_cdev.brightness_set_blocking = st1202_led_set;
--- 
-2.55.0
+SGkgSG9uZ3lhbiwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBIb25n
+eWFuIFhpYSA8aG9uZ3lhbi54aWFAdHJhbnNzaW9uLmNvbT4NCj4gU2VudDogVHVlc2RheSwgU2Vw
+dGVtYmVyIDE1LCAyMDI2IDU6MzMgUE0NCj4gVG86IEppYW55b25nIFd1IDx3dWppYW55b25nQGh5
+Z29uLmNuPjsgcmFmYWVsQGtlcm5lbC5vcmc7DQo+IHZpcmVzaC5rdW1hckBsaW5hcm8ub3JnOyBr
+cHJhdGVlay5uYXlha0BhbWQuY29tOw0KPiB2aW5jZW50Lmd1aXR0b3RAbGluYXJvLm9yZw0KPiBD
+YzogbGludXgtcG1Admdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3Jn
+Ow0KPiByYXkuaHVhbmdAYW1kLmNvbTsgbWFyaW8ubGltb25jaWVsbG9AYW1kLmNvbTsgcGVycnku
+eXVhbkBhbWQuY29tOw0KPiB6aGFuamllOUBoaXNpbGljb24uY29tOyB6aGVuZ2xpZmVuZzFAaHVh
+d2VpLmNvbTsNCj4gcGllcnJlLmdvbmRvaXNAYXJtLmNvbTsgc3VtaXRnQG52aWRpYS5jb207DQo+
+IHNyaW5pdmFzLnBhbmRydXZhZGFAbGludXguaW50ZWwuY29tOyBsZW5iQGtlcm5lbC5vcmc7DQo+
+IHpob25ncWl1LmhhbkBvc3MucXVhbGNvbW0uY29tOyBqaWFueW9uZy53dUBvdXRsb29rLmNvbTsg
+RmVuZ3l1DQo+IFdhbmcgPHdhbmdmZW5neXVAaHlnb24uY24+OyBZdWFuIFpob25nIDx6aG9uZ3l1
+YW5AaHlnb24uY24+Ow0KPiBIdWFuZ3NqIDxodWFuZ3NqQGh5Z29uLmNuPg0KPiBTdWJqZWN0OiBS
+ZTogW1BBVENIXSBjcHVmcmVxOiBVc2UgYSBub24tYm9vc3QgcmVmZXJlbmNlIGZyZXF1ZW5jeSBm
+b3INCj4gcHJlc3N1cmUgY2FsY3VsYXRpb24NCj4gDQo+IE9uIDkvMTUvMjAyNiAyOjU3IFBNLCBK
+aWFueW9uZyBXdSB3cm90ZToNCj4gPiBDb21taXQgZDJkNWMxMjlkMDdlICgiY3B1ZnJlcTogTWFr
+ZSBjcHVmcmVxX3VwZGF0ZV9wcmVzc3VyZSgpIGZhbGwNCj4gPiBiYWNrIHRvIGNwdWluZm8ubWF4
+X2ZyZXEiKSBpbnRyb2R1Y2VkIGNwdWluZm8ubWF4X2ZyZXEgYXMgdGhlIHJlZmVyZW5jZQ0KPiA+
+IGZyZXF1ZW5jeSBmb3IgY3B1ZnJlcSBwcmVzc3VyZSB3aGVuIGFyY2hfc2NhbGVfZnJlcV9yZWYo
+KSByZXR1cm5zIHplcm8uDQo+ID4NCj4gPiBIb3dldmVyLCBjcHVpbmZvLm1heF9mcmVxIG1heSBp
+bmNsdWRlIGJvb3N0IGZyZXF1ZW5jaWVzIGFuZCB0aGVyZWZvcmUNCj4gPiBkb2VzIG5vdCBuZWNl
+c3NhcmlseSByZXByZXNlbnQgdGhlIG1heGltdW0gc3VzdGFpbmFibGUgZnJlcXVlbmN5LiBPbg0K
+PiA+IHNvbWUgc3lzdGVtcyB1c2luZyBhY3BpLWNwdWZyZXEsIGNwdWluZm8ubWF4X2ZyZXEgaW5j
+bHVkZXMgYm9vc3Qgd2hpbGUNCj4gPiB0aGUgZnJlcXVlbmN5IHRhYmxlIG9ubHkgY29udGFpbnMg
+bm9uLWJvb3N0IGZyZXF1ZW5jaWVzLiBDb25zZXF1ZW50bHksDQo+ID4gY3B1ZnJlcSBwcmVzc3Vy
+ZSByZW1haW5zIG5vbnplcm8gZXZlbiB3aXRob3V0IGFuIGFkZGl0aW9uYWwgZnJlcXVlbmN5DQo+
+ID4gbGltaXQuDQo+ID4NCj4gPiBGdXJ0aGVybW9yZSwgZHJpdmVycyBtYXkgdXBkYXRlIGNwdWlu
+Zm8ubWF4X2ZyZXEgd2hlbiBib29zdCBpcw0KPiBlbmFibGVkDQo+ID4gb3IgZGlzYWJsZWQuIFdp
+dGggYSBmaXhlZCBwb2xpY3kgbGltaXQgYmVsb3cgdGhlIG1heGltdW0gbm9uLWJvb3N0DQo+ID4g
+ZnJlcXVlbmN5LCB0aGlzIGNoYW5nZXMgdGhlIHByZXNzdXJlIHJlZmVyZW5jZSBhbmQgaGVuY2Ug
+dGhlIHJlcG9ydGVkDQo+ID4gcHJlc3N1cmUsIGFsdGhvdWdoIHRoZSBub24tYm9vc3QgZnJlcXVl
+bmN5IGxpbWl0IHJlbWFpbnMgdW5jaGFuZ2VkLg0KPiA+DQo+ID4gQWRkIG1heF9zdXN0YWluYWJs
+ZV9mcmVxIHRvIHN0cnVjdCBjcHVmcmVxX2NwdWluZm8gdG8gcHJvdmlkZSBhDQo+IHJlZmVyZW5j
+ZQ0KPiA+IGZyZXF1ZW5jeSBleGNsdWRpbmcgYm9vc3QuIFBvcHVsYXRlIGl0IGZyb20gdGhlIG5v
+bWluYWwgZnJlcXVlbmN5IGluDQo+ID4gYW1kLXBzdGF0ZSBhbmQgY3BwY19jcHVmcmVxLCB0aGUg
+bWF4aW11bSBub24tdHVyYm8gZnJlcXVlbmN5IGluDQo+ID4gaW50ZWxfcHN0YXRlLCBhbmQgdGhl
+IGhpZ2hlc3QgZnJlcXVlbmN5LXRhYmxlIGVudHJ5IGluIGFjcGktY3B1ZnJlcS4NCj4gPg0KPiA+
+IFVzZSB0aGlzIHZhbHVlIHdoZW4gYXJjaF9zY2FsZV9mcmVxX3JlZigpIHJldHVybnMgemVyby4g
+UHJlc2VydmUgdGhlDQo+ID4gZXhpc3RpbmcgY3B1aW5mby5tYXhfZnJlcSBmYWxsYmFjayBmb3Ig
+ZHJpdmVycyB0aGF0IGxlYXZlIHRoZSBuZXcgZmllbGQNCj4gPiBhdCB6ZXJvLg0KPiANCj4gQWN0
+dWFsbHksIHdoYXQgcmVtYWluaW5nIHBsYXRmb3JtcyBhcmUgb3V0IHRoZXJlIHRoYXQgY2FuIGhp
+dCB0aGlzIHBhdGg/DQo+ICBGcm9tIGEgcXVpY2sgbG9vayBJIHRoaW5rIG5vIHg4NiBvciBBcm0g
+cGxhdGZvcm1zIGNhbiBoaXQgdGhlIGZhbGxiYWNrLg0KPiANClRoYW5rcyBmb3IgcmV2aWV3IQ0K
+DQpUaGVyZSBhcmUgbWFueSBjcHVmcmVxIGRyaXZlcnMsIGFuZCBJIGRvbid0IGhhdmUgYWNjZXNz
+IHRvIGhhcmR3YXJlIGNvdmVyaW5nDQphbGwgb2YgdGhlbS4gVGhpcyBwYXRjaCB0aGVyZWZvcmUg
+bGltaXRzIHRoZSBjaGFuZ2VzIHRvIGRyaXZlcnMgcmVsZXZhbnQgdG8NCnRoZSByZXBvcnRlZCBp
+c3N1ZS4NCg0KU29tZSBsZWdhY3kgeDg2IGRyaXZlcnMsIHN1Y2ggYXMgcHQtY2xvY2ttb2QsIGRv
+IG5vdCBwb3B1bGF0ZSB0aGUgbmV3IGZpZWxkDQphbmQgc3RpbGwgdXNlIHRoZSBmYWxsYmFjay4g
+VGhlIGZhbGxiYWNrIHByZXNlcnZlcyB0aGVpciBleGlzdGluZyBiZWhhdmlvci4NCg0KU3VwcG9y
+dCBmb3IgdGhlIG5ldyBmaWVsZCBpbiBvdGhlciBkcml2ZXJzIGNhbiBiZSBhZGRlZCBzZXBhcmF0
+ZWx5LCBhZnRlcg0KdmVyaWZ5aW5nIGVhY2ggZHJpdmVyJ3MgZnJlcXVlbmN5IHNlbWFudGljcyBh
+bmQgdmFsaWRhdGluZyB0aGUgY2hhbmdlcyBvbg0KdGhlIHJlbGV2YW50IGhhcmR3YXJlLg0KDQpU
+aGFua3MNCkppYW55b25nDQo+ID4gVGVzdGVkIHdpdGggYWNwaS1jcHVmcmVxLCBpbnRlbF9wc3Rh
+dGUsIGFuZCBhbWQtcHN0YXRlIGluIGFjdGl2ZSBhbmQNCj4gPiBwYXNzaXZlIG1vZGVzLiBXaXRo
+IG5vIGFkZGl0aW9uYWwgZnJlcXVlbmN5IGxpbWl0LCBwcmVzc3VyZSBpcyB6ZXJvLg0KPiA+IFdp
+dGggYSBmaXhlZCBsaW1pdCBiZWxvdyB0aGUgbm9uLWJvb3N0IHJlZmVyZW5jZSBmcmVxdWVuY3ks
+IHByZXNzdXJlDQo+ID4gcmVtYWlucyB1bmNoYW5nZWQgYWNyb3NzIGJvb3N0IHRyYW5zaXRpb25z
+Lg0KPiA+DQo+ID4gRml4ZXM6IGQyZDVjMTI5ZDA3ZSAoImNwdWZyZXE6IE1ha2UgY3B1ZnJlcV91
+cGRhdGVfcHJlc3N1cmUoKSBmYWxsDQo+IGJhY2sgdG8gY3B1aW5mby5tYXhfZnJlcSIpDQo+ID4g
+U2lnbmVkLW9mZi1ieTogSmlhbnlvbmcgV3UgPHd1amlhbnlvbmdAaHlnb24uY24+DQo+IA0KPiBM
+b29rcyBva2F5IHRvIG1lLg0KPiANCj4gUmV2aWV3ZWQtYnk6IEhvbmd5YW4gWGlhIDxob25neWFu
+LnhpYUB0cmFuc3Npb24uY29tPg0KPiANCj4gPiAtLS0NCj4gPiBbLi4uXQ0K
 
