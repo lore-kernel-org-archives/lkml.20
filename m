@@ -1,169 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9E73BFE26;
-	Tue, 15 Sep 2026 13:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3684A3B8BA4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479393; cv=none; b=AQ8p/Lq0M/d+ntkR0l2QPJu5yaN938SRFDP7DCfYwUzwM/qN4zPbUhMvP2gsqcgFUeB/47OYorNxwtvVNy63L9ogoudmysAy8XMZo/yP7iGeML8LvwF2ZNtsCOUlDipAqpRjEJJd84ucZyKeQIOlNyxiMtxzdnPPbANHsElDAeE=
+	t=1789479416; cv=none; b=MbmR7Ae24NhLqjv2pERvBu/OFagss+lwUMvewwpxSXH3t5YDE83WJOGU8HO7NU2/aS5gSyIm/7aZ3F8tO3U1X0FY4qDKlBi0diau03OHf6Rt+TwO57eM4EmTqg4KdRhm+QCx2fNr/uRSdTC10MeeR23ZobO61D6Cqkz1iCM6WLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479393; c=relaxed/simple;
-	bh=fceRXAS5DJ94Xglhquqc/B3ja8WlJU+2h7SNAE6v364=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lmYb6QMKYGRTFibK8uju8ZUXmJnSOSpnHr4GnE1FURdF0NdMvKid7J6vh3PBBsYP/7Vk+kSYrm6b5+56aK/lEOTe/sQ06kMvotDeFyX7MO4OzTAdJHuUNIR1gG4hLKUf2EQPkphJvi3XOtcXJ7KxO0M0URCoPfQY4FJungogLvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZqVJGAm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789479416; c=relaxed/simple;
+	bh=BnBs6v+SnWmcSFsMdor+R9mxm4jTxF4rgmv5gJ31rBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WKRpRZRbM9nWqcESptBLZiRg/adflWFveh30dCP59AdBCKS8kcLvSUXoIqvTMNx4HlRIw36AYjO+9JFH46AtX1YTZtprOE0hd11WihDhZ1L4noXtqPHzh0KJyj9zekzmoh1r/RbI010xXsfFIfdHZJv0iG+Lw6PdsrgRxVyWYDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WqJ64hh4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=T+uKnfpa; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZqVJGAm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 700EE1F000FF;
-	Tue, 15 Sep 2026 13:36:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789479391;
-	bh=UD1C1sFiLo886bWFCF4yCVjFbhAC5ORHunqhsih89BI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SZqVJGAm8yvcnbN40xI+hqlsdqMDLkdt+phXQtPX68AzkVtujfWWbbiGfXbUa2Uym
-	 GVn/Nt/2dfvQsCKfCKY5JX4TDRFYeUywiiZtEQoSyMDnNFAB58WVP3gyPlYfr2gLzW
-	 46i7sA6/3GwFqCAkXxGegqIiREYKDnXnFYbG1IWUedOQs3dlPwWKAIFvt88csCqqJB
-	 JhrYK8GNSnhKAnI3Vd7VcyfPulYz/1mfzI61CW6idvYDRk1L0h0bM3cgCGE/lu9XqC
-	 I0p1GADYpzRWQgYCXbBM6PXsUZCYGyyJPl+mIfv7Aztx0DqxKRTslvqj0jpq9mMRRc
-	 5Y/PrfNGoeEZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/9] mm/memory-failure: efi: record hardware-poisoned
- frames into the poisoned-memory table
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Hildenbrand" <david@kernel.org>, "Naoya Horiguchi" <nao.horiguchi@gmail.com>, kas@kernel.org, "Zi
- Yan" <ziy@nvidia.com>, "Breno Leitao" <leitao@debian.org>, hannes@cmpxchg.or, shakeel.butt@linux.dev, "Liam
- R. Howlett" <liam@infradead.org>, "Miaohe Lin" <linmiaohe@huawei.com>, "Brendan
- Jackman" <brendan.jackman@linux.dev>, "Andrew Morton" <akpm@linux-foundation.org>, "Thomas
- Gleixner" <tglx@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, x86@kernel.org, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>, "Ilias
- Apalodimas" <ilias.apalodimas@linaro.org>, "H. Peter Anvin" <hpa@zytor.com>, "Ard
- Biesheuvel" <ardb@kernel.org>, "Borislav Petkov" <bp@alien8.de>, "Johannes
- Weiner" <hannes@cmpxchg.org>, "Danilo Krummrich" <dakr@kernel.org>, "Michal
- Hocko" <mhocko@suse.com>, "Vlastimil Babka" <vbabka@kernel.org>, "Ingo
- Molnar" <mingo@redhat.com>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Oscar
- Salvador" <osalvador@suse.de>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Mike
- Rapoport" <rppt@kernel.org>
-Cc: kernel-team@meta.com, kexec@lists.infradead.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, driver-core@lists.linux.dev, riel@surriel.com, harry@kernel.org
-In-Reply-To: <20260915-hwpoison-kho-v5-5-3bc7a57bd503@debian.org>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <20260915-hwpoison-kho-v5-5-3bc7a57bd503@debian.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 13:36:29 +0000
-Message-Id: <20260915133629.700EE1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WqJ64hh4";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="T+uKnfpa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789479414;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o7NY/1C4E5sXjTjMfgvwiOAvJ9n5lroYv/zvI5y40+U=;
+	b=WqJ64hh4iRS0hIilV+KOIhu/EQpa2b4IPK5SdqB58Ce4sYB3yPApD+28zaF0jGVSpVD/8l
+	Kz1VTYDXBtWGBKRFF6oab731Fh4/wBzAf1tg/36Sx3iVp/s7q/CmZUtDdaDF/7wZWb/dTX
+	VluIjXwOefJbO3VWNp0s7Wq0ruYH63g=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-550-mItTaN6TOluIIGmkZlCfPQ-1; Tue, 15 Sep 2026 09:36:52 -0400
+X-MC-Unique: mItTaN6TOluIIGmkZlCfPQ-1
+X-Mimecast-MFC-AGG-ID: mItTaN6TOluIIGmkZlCfPQ_1789479412
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a082c014aso241983785a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:36:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789479412; x=1790084212; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o7NY/1C4E5sXjTjMfgvwiOAvJ9n5lroYv/zvI5y40+U=;
+        b=T+uKnfpamV0GORVexlx+aXwrZuB3YVRRDy1eDNScl6/Lj/3D5aQsY3LkfSo0iBp5Dh
+         mMfZTlwn8KYOOWjfTkv6jvWUMgjdNIsBypgiKl83YslxlBg6nAN1XXgjmEl2XTbgBRAv
+         RcnyoYBFIkBD5wBSq+YsZOKEPmKdMwxg7k2Yv28nlDSNSFAtT4nXM9QLOQ41+srSJmap
+         QHwdAKVbGbWfdImm9alyNtDJJKcOCyROvcWeWvcSb1pMaqKEbOBjIrfHHKCOYnYAmlw9
+         vXZgGXPlS0WKhQS5W3e1UBNYmWjvyrUXGVLBlcmQt5vWxFCnCqHiDTgHs3dcFAi5HZHO
+         u0eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789479412; x=1790084212;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o7NY/1C4E5sXjTjMfgvwiOAvJ9n5lroYv/zvI5y40+U=;
+        b=Pwimo60i0LJr+cZ/sVNli5yNdPIHo7k3boeR3IArVKfimed7SabUfsVVBFkuBL9OG0
+         v3443SR5a6nwEI6jBRtuHrervGY/RzzbnjGMyJrWivcpUwqn8GwSi702+arTI/9dqSmq
+         zz/R2GjX3rrT/d+/ScrDJTR2rcsgUjWNWBS6NEbFT6sk61+2KxYiBWsMBP/aVmXqO8QQ
+         Vu9JMqbnRXORk4EcCT2x60p4q/wWge+CDNsDhNFPtd6PmdexFVTsrT5EZ0dsmYHYV1y0
+         FgUhmIsTBu8y/DomPKAW+XvJDlcEI1v4Hdpcjb743QpK4W9NL6cO2/1lpEenWNnpi6cW
+         jYpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1H7mSaccAitSjq4r9Jn02V9Vz763vLFwcZpmD3Tv5KyA8NTYsG5AVWi+63bfXHv9Szg64x1IzOBgFofs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw5itZ4bVS/r8VUslY+WLya+Inoe14h4WzxndXy8ZL1DMXw//+
+	Ti2bs7GwR3VRVqSJM5Np0ZTfrY0qgCU35PSycSwX1mETxIqXvT7k928g9O3+IZgSbkCh+6VPUsT
+	+4GbLIe5WqvFx5kSDpTloUuEbIJN/NxjeLfS5nDi9MEx2B9JpazwaZMwL4KOqL4DQFw==
+X-Gm-Gg: AYBFou3DNeyvEEbOaLU5gqnviAp1s60jiqkumCmxmTymnWQGfGAUPU3Y8UBxGFs4Jbd
+	2CJbsUUCGLdzwSP6D92YNHxesZmPgmniEGNekZPgD1tA3r5pVv0ClSuSJuzNMiGBbFPGSek50Qt
+	oVnMo7CJ34GoLUmGDge+UMkdcdrEJssNcWEr0AHCctXSyOL8BgQg9+3T9LU0C7hGCyeBok+TJWG
+	lb9dajbg5msY3PhR9r2eoforDvToGdeFUv8lOixGohWJSflfnk7ChfHWkIeqNwdCNB6nYGTK9ZZ
+	0U+3eq/tyRj3YOjUZuQwoK4tM/3eZ5WVjzCNN7MHEPreXRttqHx4h5iNH5+nzeWVm7y1avgn2io
+	pH/c5EbJn8d5xX6Ov9y8nTzKMEeaa466i5n/HFMrxmmpiCZPZYY23HIDaM4gFMCofI5JQRJ+U9Q
+	==
+X-Received: by 2002:a05:620a:414c:b0:939:72cb:baed with SMTP id af79cd13be357-93a34728f09mr497059485a.36.1789479412061;
+        Tue, 15 Sep 2026 06:36:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:414c:b0:939:72cb:baed with SMTP id af79cd13be357-93a34728f09mr497053485a.36.1789479411468;
+        Tue, 15 Sep 2026 06:36:51 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7f18628sm1258848285a.13.2026.09.15.06.36.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 06:36:50 -0700 (PDT)
+Message-ID: <229fb007-8f00-455f-ab92-4d15d6b90d0f@redhat.com>
+Date: Tue, 15 Sep 2026 15:36:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v10 01/14] rxrpc: Fix lack of short-send handling in
+ rxrpc_kernel_send_data()
+To: David Howells <dhowells@redhat.com>, netdev@vger.kernel.org
+Cc: Marc Dionne <marc.dionne@auristor.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org, David Laight <david.laight.linux@gmail.com>,
+ stable@vger.kernel.org
+References: <20260914151340.3227501-1-dhowells@redhat.com>
+ <20260914151340.3227501-2-dhowells@redhat.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260914151340.3227501-2-dhowells@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] efi: memblock_add() with PAGE_ALIGN_DOWN forces adjacent MMIO =
-into system RAM
-- [High] efi: ABI breakage in linux_efi_poisoned_memory due to native word =
-size
-- [Medium] mm: hard memory failures on soft-offlined pages are omitted from=
- EFI table
---
+On 9/14/26 5:13 PM, David Howells wrote:
+> @@ -816,15 +814,29 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+>  	ASSERTCMP(msg->msg_name, ==, NULL);
+>  	ASSERTCMP(msg->msg_control, ==, NULL);
+>  
+> -	mutex_lock(&call->user_mutex);
+> +	for (;;) {
+> +		mutex_lock(&call->user_mutex);
 
-commit e69689c81050c18119d69206dc9a7cb1e2fa4eeb
-Author: Breno Leitao <leitao@debian.org>
+FTR coccinelle can't digest the lock inside the loop:
 
-mm/memory-failure: efi: record hardware-poisoned frames into the poisoned-m=
-emory table
+https://netdev-ctrl.bots.linux.dev/build/cocci/results/823484/stderr
 
-This commit hooks memory_failure() hard offline reports into the EFI
-poisoned memory table so that they persist across kexec. Soft-offlined
-pages are deliberately excluded to prevent predictive offlining from
-becoming a permanent loss.
+but AFAICS the report is a false positive, and I can't think of an easy
+way to avoid it.
 
-> diff --git a/drivers/firmware/efi/poison.c b/drivers/firmware/efi/poison.c
-> index 3f12db3dc9b84..847592862f01d 100644
-> --- a/drivers/firmware/efi/poison.c
-> +++ b/drivers/firmware/efi/poison.c
-> @@ -91,3 +91,30 @@ void __init efi_poisoned_memory_reserve(void)
->  	memblock_add(start, end - start);
->  	memblock_reserve(start, end - start);
+/P
 
-[Severity: Critical]
-Does this forcefully override the firmware's memory map for adjacent 4KB
-chunks on larger page architectures?=20
-
-On architectures like ARM64 where the kernel page size can be 16KB or
-64KB, EFI memory descriptors remain 4KB. If the EFI poisoned memory table
-occupies a 4KB region within a 64KB page, rounding down to the kernel
-page boundary expands the range.
-
-This could force adjacent 4KB EFI regions containing firmware MMIO or
-reserved non-RAM regions into system RAM via memblock_add(). If the
-kernel later maps these regions with Write-Back caching attributes in the
-direct map, could this cause fatal Machine Check Exceptions or SError
-panics during speculative CPU accesses?
-
-[ ... ]
-
-> diff --git a/include/linux/efi.h b/include/linux/efi.h
-> index dd3263456dd4a..56402fdccd114 100644
-> --- a/include/linux/efi.h
-> +++ b/include/linux/efi.h
-> @@ -1288,8 +1288,10 @@ struct linux_efi_poisoned_memory {
-
-[Severity: High]
-Does the linux_efi_poisoned_memory ABI structure break on architectures
-where the native word size differs from the firmware?=20
-
-The struct uses an unsigned long flexible array for the bitmap, which
-alters the element size depending on the kernel bitness (4 bytes on 32-bit
-and 8 bytes on 64-bit). efi_poison_geometry_valid() rejects tables where
-the size is not a multiple of sizeof(unsigned long).=20
-
-If a 32-bit EFI firmware generates this table, it will use 4-byte alignment
-and a 32-bit word array. Because CONFIG_EFI_POISONED_MEMORY is 64-bit only,
-the 64-bit kernel will evaluate sizeof(unsigned long) as 8 and reject
-perfectly valid 32-bit firmware tables as malformed.=20
-
-Since bit array layouts also differ across word sizes on big-endian
-architectures, should this firmware-to-kernel ABI boundary use fixed-size
-types like u32 or u64 instead?
-
-> =20
->  #ifdef CONFIG_EFI_POISONED_MEMORY
->  void __init efi_poisoned_memory_reserve(void);
-> +void efi_hwpoison_record_pfn(unsigned long pfn);
-
-[ ... ]
-
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index a2ca8df501cae..d9b8be696aac3 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-[ ... ]
-> @@ -1326,6 +1327,8 @@ static int action_result(unsigned long pfn, enum mf=
-_action_page_type type,
->  	if (type !=3D MF_MSG_ALREADY_POISONED && type !=3D MF_MSG_PFN_MAP) {
->  		num_poisoned_pages_inc(pfn);
->  		update_per_node_mf_stats(pfn, result);
-> +		/* Only hard offlines are carried over to the next kernel. */
-> +		efi_hwpoison_record_pfn(pfn);
->  	}
-
-[Severity: Medium]
-Does placing efi_hwpoison_record_pfn() inside this conditional block
-unintentionally skip recording hard errors on previously soft-offlined
-pages?=20
-
-Soft-offline marks a page with PageHWPoison but intentionally does not
-record it in the EFI table to avoid permanent loss for predictive errors.=20
-
-If a genuine hard, uncorrectable error later occurs on that same page,
-memory_failure() will see the existing PageHWPoison flag and pass
-MF_MSG_ALREADY_POISONED to action_result().=20
-
-By coupling the EFI recording to the meminfo stat increments, genuine
-hard errors on soft-offlined pages are omitted from the EFI table. Could
-this allow the next kernel to map and crash on physically broken RAM?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-hwpoison-k=
-ho-v5-0-3bc7a57bd503@debian.org?part=3D5
