@@ -1,101 +1,146 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE4C3939CE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFC1396D28;
+	Tue, 15 Sep 2026 11:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473594; cv=none; b=A2OjZGr01I9xXVhZ/qhKaa4hs8Q/leFoV7n8S8COZbD1UUFYDeCBWkOIIW7oJx1VGPO/0XsYt68kJgrJ9MdTaIvSujgmKrfIfS6InEPK8X8Ykcq8V2VP+inOlHX+DATpcEU77DPFgsg0VBpfmAkxuCyYIOW8t8IzZrQr0GUpj1M=
+	t=1789473595; cv=none; b=DVojsNALbSUhz/CScTNfwS6K1DH0f60c7VfhBohPqDQ6cFv6A2ZFOKpWSn/0x0SVsWmADa45Myn3lSWyAxjxMZ5d5NA9rS8dzRZPfrZ97lpYA1IWOkjPhUxv1utLpGM+CdCwsYHm1tDtoJtXYJR5OKKs4c90UgfyN+wj400bRhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473594; c=relaxed/simple;
-	bh=TwEBITxsjqDNfr67b1FnkWbtZJvna7apEgcotdHSFX0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ShTCUclgaet+aVobw3LcJGwf2nSV683GjA5jjptMlYWcr3oZ3/TBBDB0Mj8EaSLVx7liITbVxMiFZnRprKNweM+fAkSuFrbYt39Upr1q+fjo04Z5g+CMJKSzz76zPYWVaN7c7R4cR2pB3kbuXJhSBerRkvnN3C9kCmiNM8Nvdf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cunRV0HC; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789473595; c=relaxed/simple;
+	bh=L7mDOIObVI5akAY7oDYDoeEOuqWJ2hST0g6maRIMw2E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LzI13UqWJFm4QYPlTjzGkcbwWogkytw87rmopNGYhrEbLtSF3NL51mY7+CedyaC5ZZiv4yXVVRo/7M+wqOok/A026YTSyWuDELuOL0yCRddgokbLBiAVy3arwMB/1wrXpdcjRpXm721BTZx4u0dUm96LahNxctw8Fzfit+JJO8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNkc1SOO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cunRV0HC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789473592;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=owXpxkdaiz3FjoIP3af9pZnf5S2SeMbdOA3eIgSOhpI=;
-	b=cunRV0HCTc87IpSu+p18GD8H2kscgWkkI0D9bRWFZSehEJgr12aHWDhuzVCwLJjV44nVqT
-	L17r5A4YeVjdqxRiDATUJmzMWxfoI4J63Ij0TUfFxlpEkX7foX2B8/Q8BRWFpfdrznbms7
-	UnRe3ohUMBcQfcipnyPSJx7ULyR69cQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-588-w7d3T18TPyOItpXF1_D_bA-1; Tue,
- 15 Sep 2026 07:59:48 -0400
-X-MC-Unique: w7d3T18TPyOItpXF1_D_bA-1
-X-Mimecast-MFC-AGG-ID: w7d3T18TPyOItpXF1_D_bA_1789473586
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 586601944B32;
-	Tue, 15 Sep 2026 11:59:46 +0000 (UTC)
-Received: from fballuch-thinkpadx1carbongen13.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6B59D1956045;
-	Tue, 15 Sep 2026 11:59:43 +0000 (UTC)
-From: Filip Balluch <fballuch@redhat.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Filip Balluch <fballuch@redhat.com>
-Subject: [PATCH] i40e: fix freeing of TX rings on RX allocation failure
-Date: Tue, 15 Sep 2026 13:59:39 +0200
-Message-ID: <20260915115939.56716-1-fballuch@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNkc1SOO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1604F1F000FF;
+	Tue, 15 Sep 2026 11:59:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789473593;
+	bh=DQgIYhua5CTViS1X9ZXXGfaSPT/5dqgeOOlUNrKnxWw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PNkc1SOOx+a0MtActP/scxfu+EOEc0okpYmMq9u2IvQ6wdxXtOCmaRwTaDfxAYQfu
+	 KNpmxdQzkwQyaCWqsjPY6fMZbe5ub33vKaPoYJ07B7Q1LWFwdlgiCUvB0QQ8c2qsi1
+	 FMsSTqEgiIP1sEOamGDSgZSCZ6TfAMEjISixK2R8eaJA2XnzylLgQ4fdlCaNZFxShP
+	 J8hVTu3MQPl0lwmGSaxF9w8s3KltrNP5jpWzkNN2BlxuRXTG4UWjQZqj2E6RzHxSaN
+	 2Rs03FwwuFJXXN68mTYzdZ8pV7LyInc7Ptt8ORor8BsaOlsL4d3xo27nPcBZv3oI95
+	 0hW/vFstsi8gw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 14/50] parisc: commit fds on syscall exit
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
+Cc: "Peter Zijlstra" <peterz@infradead.org>, linux-sh@vger.kernel.org, virtualization@lists.linux.dev, "Eugenio
+ Perez" <eperezma@redhat.com>, "Alexander Viro" <viro@zeniv.linux.org.uk>, "Oleg
+ Nesterov" <oleg@redhat.com>, linux-csky@vger.kernel.org, linux-m68k@lists.linux-m68k.org, dri-devel@lists.freedesktop.org, io-uring@vger.kernel.org, kexec@lists.infradead.org, "David
+ Airlie" <airlied@redhat.com>, linux-um@lists.infradead.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-alpha@vger.kernel.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Jan Kara" <jack@suse.cz>, "Jens Axboe" <axboe@kernel.dk>, linux-arm-msm@vger.kernel.org, linux-parisc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, bpf@vger.kernel.org, "Ingo
+ Molnar" <mingo@redhat.com>, linux-gpio@vger.kernel.org, linux-mips@vger.kernel.org, linux-hexagon@vger.kernel.org, linux-snps-arc@lists.infradead.org, linux-openrisc@vger.kernel.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, "Jann
+ Horn" <jannh@google.com>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-14-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-14-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 11:59:51 +0000
+Message-Id: <20260915115952.1604F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-When ethtool -G is used to change ring buffer sizes while the interface is up, i40e_set_ringparam()
-allocates temporary TX and RX rings. If the RX ring allocation fails, the error path at the
-free_tx label incorrectly calls i40e_free_tx_resources(vsi->tx_rings[i]), freeing the live TX rings
-instead of the temporary tx_rings[i].
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] parisc: syscall fast path exposes uninitialized pt_regs to ptrace
+--
 
-Since the interface is still up, the next TX completion interrupt causes i40e_clean_tx_irq() to dereference
-the freed ring descriptors, resulting in a NULL pointer dereference in IRQ context and a kernel panic.
+commit 38a139df8c7c61e11fc9314b5f43e371c71a8356
+Author: Christian Brauner <brauner@kernel.org>
 
-This can be reproduced on systems with Intel X710 NICs under memory pressure, where
-the second port's DMA allocation fails after the first port succeeds.
+parisc: commit fds on syscall exit
 
-Fix by freeing the temporary tx_rings[i] in the error path instead of
-the live vsi->tx_rings[i].
+This commit adds TIF_FD_SLOTS and tests it in syscall_exit once the return
+value has been saved. A task that reserved descriptors calls
+do_syscall_trace_exit() to commit descriptors and then continues with the
+usual checks.
 
-Signed-off-by: Filip Balluch <fballuch@redhat.com>
----
- drivers/net/ethernet/intel/i40e/i40e_ethtool.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/arch/parisc/kernel/entry.S b/arch/parisc/kernel/entry.S
+> index e04c5d806c105..c5807cf6fbd8d 100644
+> --- a/arch/parisc/kernel/entry.S
+> +++ b/arch/parisc/kernel/entry.S
 
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
-index 3da9ec49cc74..6d2b076049f7 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
-@@ -2249,7 +2249,7 @@ static int i40e_set_ringparam(struct net_device *netdev,
- 	if (tx_rings) {
- 		for (i = 0; i < tx_alloc_queue_pairs; i++) {
- 			if (i40e_active_tx_ring_index(vsi, i))
--				i40e_free_tx_resources(vsi->tx_rings[i]);
-+				i40e_free_tx_resources(&tx_rings[i]);
- 		}
- 		kfree(tx_rings);
- 		tx_rings = NULL;
--- 
-2.55.0
+[ ... ]
 
+> @@ -1765,6 +1767,16 @@ syscall_do_signal:
+> =20
+>  	b,n     syscall_check_sig
+> =20
+> +syscall_do_fd_slots:
+> +	mfctl	%cr30,%r1
+> +#ifdef CONFIG_64BIT
+> +	ldo	-16(%r30),%r29			/* Reference param save area */
+> +#endif
+> +	ldo	TASK_REGS(%r1),%r26		/* struct pt_regs *regs */
+> +	BL	do_syscall_trace_exit,%r2
+
+[Severity: High]
+Does this expose uninitialized kernel stack memory to a tracer?
+
+When a process executes a system call that reserves a file descriptor slot,
+it enters via the fast path which only saves a minimal set of registers to
+TASK_REGS. If TIF_FD_SLOTS is set, the fast path directly invokes
+do_syscall_trace_exit() here before all registers (like %r3-%r18) are saved.
+
+> +	nop
+> +	b,n	syscall_check_resched
+> +
+>  syscall_restore:
+>  	mfctl	%cr30,%r1
+> =20
+
+[ ... ]
+
+> diff --git a/arch/parisc/kernel/ptrace.c b/arch/parisc/kernel/ptrace.c
+> index 1d9e210702e1f..f142766792afa 100644
+> --- a/arch/parisc/kernel/ptrace.c
+> +++ b/arch/parisc/kernel/ptrace.c
+
+[ ... ]
+
+> @@ -381,6 +382,9 @@ void do_syscall_trace_exit(struct pt_regs *regs)
+>  	int stepping =3D test_thread_flag(TIF_SINGLESTEP) ||
+>  		test_thread_flag(TIF_BLOCKSTEP);
+> =20
+> +	if (test_thread_flag(TIF_FD_SLOTS))
+> +		fd_slots_commit(regs);
+> +
+>  	audit_syscall_exit(regs);
+> =20
+>  #ifdef CONFIG_HAVE_SYSCALL_TRACEPOINTS
+
+[ ... ]
+
+>  	if (stepping || test_thread_flag(TIF_SYSCALL_TRACE))
+>  		ptrace_report_syscall_exit(regs, stepping);
+>  }
+
+[Severity: High]
+If a tracer attaches concurrently while the process is blocked in a file
+descriptor allocation syscall, setting TIF_SYSCALL_TRACE, won't this call p=
+ass
+the incompletely initialized pt_regs from the fast path to the tracing
+subsystem?
+
+This could allow an unprivileged user attaching a tracer to their own proce=
+ss
+to read uninitialized kernel memory via PTRACE_GETREGS. Also, tracer
+modifications via PTRACE_SETREGS to these uninitialized registers would be
+ignored because the fast path does not properly restore them before returni=
+ng
+to userspace.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D14
