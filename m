@@ -1,109 +1,224 @@
-Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBCB37B41F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056BE370D61
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459773; cv=none; b=TbW/O0Rn6coJ/lFeOLDZ1LS2IAhtAjdPiBzqyHB7eCqvT0G56w4klBMv7jU2TSr8s+VKCBtX9J+jNJ6NTtnIYHC9RMbV44PEgwm1jpAH+Ct6xepOxF8CJT/zx8rmgGctziteDRnSMfaf1oe5eLqzbj+Ht3LfCMHXGy2/Bq9ZCs4=
+	t=1789459836; cv=none; b=DznL4wOSuAenLqte55lY9jNYEdnxJm+A/DVa39vJb1z3jR1+GCcd/2dNxNvjpquFeHHjLCg0cyhCY9TO4EZNILRQL5Q7QJYQW8dLsWEuTPrfR6PUumCwZ7ARWzlSSLmJR/Pmru7JzhgWtyqsEHsRYx98JXR/3kFHxjJiJfG/lWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459773; c=relaxed/simple;
-	bh=BkVd9U0H4Y6EudAIncziUfkCyRdScrX9nZaOR99Nz6k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JZG4RKyyFEUP/mShFV9vGwvt831wwNses2wi6Im0H0UrtRn23ErqyZWRV/GUB/NgffYiDVleZf6AZsMdM7KzalLb/B+ec67AwH0tF7Mhb4u4bY9Y4+OnTmFLPg6SMncItKluvQie0/Ts8RCVOmzOT/uh1wpJ30Ubt01rA/CcKs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DfjZHrj6; arc=none smtp.client-ip=91.218.175.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789459836; c=relaxed/simple;
+	bh=Fg/UOYCqOAErurKdRS1w3bl8OU8Z0eji77SSiyx26Zw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=VNHGVb6qfNNnk6Nkt8ozx3JIJEN6jpoghbk3sdal+6RWUE0bG25bRNa7bligc+qOgMZHlxzuY7Jk6EK1N/JmhbdCrX0XWLEnc7lH97i3iZZWi0SgnW6k/Li2F6du1suiIqZpAhP0dVy4jkWtKCpEltxlMuUTwReZ7phQ3Nc2UEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUKpu7hO; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DfjZHrj6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BkVd9U0H4Y6EudAIncziUfkCyRdScrX9nZaOR99Nz6k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789459768; v=1; x=1790064568;
- b=DfjZHrj6G1MyB2GA9MrphguV2Gfsts1XdFRNq7jjG2eg876c61r0OsxKdl5S4F3zZOuTIiHx
- BOAXgc/UY9WqGwgV1KcqduieSq611kIl3/N1bUxGGVo+tv3DzQZUgQzmVgihp/XYgPDj3dHj40m
- v8AzEWkseUq+Vb7ly85rjcL0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 84fb79607566e710;
-	Tue, 15 Sep 2026 08:09:28 +0000
-X-Mizu-Trace-ID: 84fb79607566e710
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ce56891d-8302-411b-a396-66f40760b3be@linux.dev>
-Date: Tue, 15 Sep 2026 16:09:14 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUKpu7hO"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so28793555ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:10:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789459834; x=1790064634; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AwbPDrXYNDMt3RqOHL+ae9V5b1oGuxYSFTMBTjsuwrM=;
+        b=WUKpu7hOmIEVJ+uFO3AYSh461WZPfAe7qjEHv9n5xF/zevDjq9dLcp4ahYtaPGBKGb
+         B1iJj0WJIY01uKtcEYerdRjFm0QFk8hGc7I+mTfeqkjwXrM/RppOFj8yQi12I6kJbgHS
+         FS+TpylIM0Aih0+QxFVcfjimNWGHH+QXrzwejuBQ3oDMJ942oBRJ+cW9C4QL7W0/IUXI
+         WSVyqcGlO32m1amHPbZbRehbfTb8H60YXFrrC2/NUVhfzr37l/+64z/VnEUJM2fjvoPu
+         0SL6cFerO5V5i8p2DzUbMwZFyRGRmRI/DmDVYSf71URVOWJMwEMZ7BN2YfVTgNFSXFdo
+         StAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789459834; x=1790064634;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AwbPDrXYNDMt3RqOHL+ae9V5b1oGuxYSFTMBTjsuwrM=;
+        b=PTYZHdQ/uAnLlu7xcBn2A5QWFkUMGhviWRfYBDAnQqVSLtkKbKldplRpfCEeiVyHL1
+         c/N0RK03mejizEI5q89V77LtsmYsaN7VfX+zTwhEVNtmRHYJQaEq+p66RVxbhiYu3r72
+         abDKyO15dN3Hcnr2g4g+Lufh/7iR7suOMrwGEjU4JwmpEaj0Um9EKk64+0+XrdIiZRT1
+         Yt9cR9LqfEa1MhSQ1GdKPTBRybBthbOqjmU+UFef8mHxWczW/qr8kFbsRd5jdGqwloyl
+         3kzPGdudH3/usSIf1kD7Ii4r9bBgspn7drLoBnTTUHaOXcQA0BvwsHJebKp56XOs2gAJ
+         o4og==
+X-Forwarded-Encrypted: i=1; AKwUvBw5kC99Rd5MEAKJDw3spQ7ziqtsCwgjyYQVCCDpa0XPc7Y0Fpk5pg6FJQ28Y2vmxnMut2qAH/SPuA9SjaE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkuNDKBu+K6loG6psKc9CUOMPZ10vpgGtoGorIBBfu0W4fnebR
+	l4nvfpG8agG6I1ulhjVlMU4zuXZDn1qqgWr6DYaojYv+q7i5rvT1ASg5
+X-Gm-Gg: AYBFou2LvwSK2LU9qpKrnJvov4nkmv+eO9uakmDsqQw1z7Tevs4KlZgQrN03hvEKiPR
+	OoUpbDDevo4BKFZOp/hxe/CJsIpb/3hJb6VlwNG2Ok3UDVN+c/80gNCVlTn30WsQdWc38PE2mYV
+	hW7Q/csXMWtb0rz2CcVmavvfgdDH6ah+D2CkQJ0r+zGqvJBjX8eFrr6sHY7MZYzRYcBxHcC3xSp
+	FMQodiXYCaIerpBtSBIDEoKUvJEZ3Gag3Eb68T7/AvCaA0YnEKBL1xO+oM8Ox+yuKdlfhE7npM0
+	ocKzm13FFaAB7JSsnpvynXlbavpjuYSRRxYPdZeq2HaUN8QIQQOW6h5BYSdogZ8vozUDhUroEAn
+	RAZ1i15AlCRpFhKOkab9cK7wl6rLOR7t30Vw0G+dn4Udn6oqSPHGCvnS4KSKgGuJA5ew+s/Kcm9
+	O7X85HsURmCC8QfbT02dKCGcwtZ2q7+pZuhCxGbbbY0tsVERcJUS4EQWrc9DJW+Gu/iPzY2C1YX
+	NquK0Z2iN6nkfxYljHhvVoQOcXCcg==
+X-Received: by 2002:a17:903:198d:b0:2db:2427:97d5 with SMTP id d9443c01a7336-2dd6c5bbbbamr132010185ad.4.1789459834271;
+        Tue, 15 Sep 2026 01:10:34 -0700 (PDT)
+Received: from localhost.localdomain ([103.120.31.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f5833fsm38624583eec.23.2026.09.15.01.10.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 15 Sep 2026 01:10:33 -0700 (PDT)
+From: Khawar Ahemad <ahemadkhawar123@gmail.com>
+To: bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	magnus.karlsson@intel.com,
+	maciej.fijalkowski@intel.com,
+	sdf@fomichev.me,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	horms@kernel.org,
+	syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
+Subject: [PATCH bpf-next v6] xsk: Fix circular locking dependency between &net->xdp.lock, &xs->mutex, and netdev_lock_ops
+Date: Tue, 15 Sep 2026 13:40:23 +0530
+Message-ID: <20260915081023.7433-1-ahemadkhawar123@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: Remove unused exact_nid parameter from memmap_alloc()
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-References: <20260914055130.44543-1-kaitao.cheng@linux.dev>
- <20260914212200.75878c86ab806c7e09b6c69e@linux-foundation.org>
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <20260914212200.75878c86ab806c7e09b6c69e@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+syzbot reported a circular locking dependency involving &net->xdp.lock,
+&port->pnodes_lock, netdev_lock_ops(), and &xs->mutex:
 
+-> #3 (&net->xdp.lock):
+       xsk_notifier+0x3d/0x2c0 net/xdp/xsk.c:2106
+       ipvlan_device_event+0x310/0x4e0 drivers/net/ipvlan/ipvlan_main.c:834
+       unregister_netdevice_many_notify+0x808/0x18b0 net/core/dev.c:12518
 
-在 2026/9/15 12:22, Andrew Morton 写道:
-> On Mon, 14 Sep 2026 13:51:30 +0800 Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
-> 
->> From: Kaitao Cheng <chengkaitao@kylinos.cn>
->>
->> Commit ffe55393137c ("mm/sparse: remove sparse buffer pre-allocation
->> mechanism") removed sparse_buffer_init(), which was the only caller of
->> memmap_alloc() that passed true for exact_nid.
->>
->> All remaining callers pass false, leaving the exact-node allocation
->> branch unreachable. Remove the exact_nid parameter and unconditionally
->> use memblock_alloc_try_nid_raw().
->>
->> This has no functional impact.
->>
-> 
-> Latest development code has changed quite lot, but this was an easy reject
-> to fix:
+-> #2 (&port->pnodes_lock):
+       ipvlan_device_event+0x85/0x4e0 drivers/net/ipvlan/ipvlan_main.c:795
+       notifier_call_chain+0xb5/0x410 kernel/notifier.c:85
 
-Thank you very much for helping me fix this issue!
+-> #1 (&dev_instance_lock_key / netdev_lock_ops):
+       netdev_lock_ops include/net/netdev_lock.h:42 [inline]
+       xsk_bind+0x331/0x11d0 net/xdp/xsk.c:1627
 
-> 
->> --- a/mm/sparse-vmemmap.c
->> +++ b/mm/sparse-vmemmap.c
->> @@ -53,7 +53,7 @@ static void * __ref __earlyonly_bootmem_alloc(int node,
->>  				unsigned long align,
->>  				unsigned long goal)
->>  {
->> -	return memmap_alloc(size, align, goal, node, false);
->> +	return memmap_alloc(size, align, goal, node);
->>  }
->>  
->>  void * __meminit vmemmap_alloc_block(unsigned long size, int node)
-> 
-> 
-> --- a/mm/sparse.c~mm-remove-unused-exact_nid-parameter-from-memmap_alloc
-> +++ a/mm/sparse.c
-> @@ -215,7 +215,7 @@ struct page __init *__populate_section_m
->  {
->  	const unsigned long size = PAGE_ALIGN(sizeof(struct page) * PAGES_PER_SECTION);
->  
-> -	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid, false);
-> +	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid);
->  }
->  #endif /* !CONFIG_SPARSEMEM_VMEMMAP */
->  
-> 
+-> #0 (&xs->mutex):
+       xsk_diag_fill net/xdp/xsk_diag.c:113 [inline]
+       xsk_diag_dump+0x2e0/0x4e0 net/xdp/xsk_diag.c:166
 
+The cycle exists through the following dependency chain:
+1. xsk_bind() acquired netdev_lock_ops() while holding &xs->mutex (#1).
+2. Device unregistration in ipvlan_device_event() acquired
+   &port->pnodes_lock (#2) and called xsk_notifier(), which acquired
+   &net->xdp.lock (#3).
+3. Both xsk_diag_dump() and xsk_notifier() acquire &xs->mutex while
+   holding &net->xdp.lock (#0).
+
+Break the circular dependency at its source in xsk_bind() by acquiring
+netdev_lock_ops() before &xs->mutex. To preserve the exact errno precedence
+(-EBUSY vs -ENODEV) without requiring the mutex to read sxdp_ifindex, we
+look up the net_device first. If the device exists, we lock netdev_lock_ops()
+and then &xs->mutex, evaluating the socket state safely. The cleanup path
+is adjusted to unlock in reverse order, ensuring device references are
+correctly maintained or dropped.
+
+This single lock reordering fully eliminates the &xs->mutex ->
+netdev_lock_ops() edge, resolving the 4-lock cycle without introducing
+concurrency regressions in the diagnostic dump or notifier paths.
+
+Fixes: 975b11ae9077 ("xsk: add socket allocate, create and bind")
+Reported-by: syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=aa48b5fe7bfda62d1682
+Signed-off-by: Khawar Ahemad <ahemadkhawar123@gmail.com>
+---
+v5 -> v6:
+- Abandon the two-phase xsk_notifier() and xsk_diag_dump() decoupling from
+  v3-v5, which introduced a Use-After-Free during concurrent xsk_release(),
+  and an O(N^2) list traversal complexity in xsk_diag_dump().
+- Break the cycle at its root in xsk_bind() by acquiring netdev_lock_ops()
+  before &xs->mutex, fully removing the &xs->mutex -> netdev_lock_ops edge.
+- Look up the net_device before locking &xs->mutex to preserve the original
+  -EBUSY vs -ENODEV errno precedence without any behavioural change.
+- Link to v5: https://lore.kernel.org/bpf/20260902041257.58374-1-ahemadkhawar123@gmail.com/
+
+v4 -> v5:
+- Rebase cleanly on latest bpf-next master.
+- Link to v4: https://lore.kernel.org/bpf/20260826174744.3394-1-ahemadkhawar123@gmail.com/
+
+v3 -> v4:
+- Rebase cleanly on latest bpf-next master to resolve merge conflict.
+- Update commit message to accurately describe the full 4-lock dependency
+  chain (&net->xdp.lock, &port->pnodes_lock, netdev_lock_ops, &xs->mutex).
+- Link to v3: https://lore.kernel.org/bpf/20260826173019.2917-1-ahemadkhawar123@gmail.com/
+
+v2 -> v3:
+- Fix direct AB-BA lock inversion in xsk_notifier() by performing device
+  queue sweeps via xsk_get_pool_from_qid() outside &net->xdp.lock.
+- Eliminate &net->xdp.lock -> &xs->mutex in xsk_diag_dump() by taking a
+  temporary socket reference and releasing the lock before xsk_diag_fill().
+- Link to v2: https://lore.kernel.org/bpf/20260826162110.99879-1-ahemadkhawar123@gmail.com/
+
+v1 -> v2:
+- Avoid reordering locks in xsk_bind() to preserve errno precedence.
+- Link to v1: https://lore.kernel.org/bpf/20260825152152.86092-1-ahemadkhawar123@gmail.com/
+
+ net/xdp/xsk.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 7855ee09c4..0a4106e98b 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -1612,20 +1612,22 @@ static int xsk_bind(struct socket *sock, struct sockaddr_unsized *addr, int addr
+ 		return -EINVAL;
+ 
+ 	rtnl_lock();
++
++	dev = dev_get_by_index(sock_net(sk), sxdp->sxdp_ifindex);
++	if (dev)
++		netdev_lock_ops(dev);
++
+ 	mutex_lock(&xs->mutex);
+ 	if (xs->state != XSK_READY) {
+ 		err = -EBUSY;
+ 		goto out_release;
+ 	}
+ 
+-	dev = dev_get_by_index(sock_net(sk), sxdp->sxdp_ifindex);
+ 	if (!dev) {
+ 		err = -ENODEV;
+ 		goto out_release;
+ 	}
+ 
+-	netdev_lock_ops(dev);
+-
+ 	if (!xs->rx && !xs->tx) {
+ 		err = -EINVAL;
+ 		goto out_unlock;
+@@ -1762,18 +1764,20 @@ static int xsk_bind(struct socket *sock, struct sockaddr_unsized *addr, int addr
+ 	}
+ 
+ out_unlock:
+-	if (err) {
+-		dev_put(dev);
+-	} else {
++	if (!err) {
+ 		/* Matches smp_rmb() in bind() for shared umem
+ 		 * sockets, and xsk_is_bound().
+ 		 */
+ 		smp_wmb();
+ 		WRITE_ONCE(xs->state, XSK_BOUND);
+ 	}
+-	netdev_unlock_ops(dev);
+ out_release:
+ 	mutex_unlock(&xs->mutex);
++	if (dev) {
++		netdev_unlock_ops(dev);
++		if (err)
++			dev_put(dev);
++	}
+ 	rtnl_unlock();
+ 	return err;
+ }
 -- 
-Thanks
-Kaitao Cheng
+2.54.0 (Apple Git-157)
 
