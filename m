@@ -1,136 +1,131 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C426D4A3D44;
-	Tue, 15 Sep 2026 14:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09BE3BED38;
+	Tue, 15 Sep 2026 14:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483710; cv=none; b=GNncd4mrbDhcUmmDGePo+gL0HazGvfUmH1wUMQXinzXYqccTLaOcki9gMrs1IDKXqS/gZT/N9DeV8OC8J1RvEwFwiOeeE0DYB03Jbg1PTFAcHBIlB4ZyolQO2eE397Sp3LNBNd5w0ffflg90HAiP6WeDQXy4Lb+VKPkHCpUaqO4=
+	t=1789483740; cv=none; b=J0Zp28gLMnftUdT3068MUvcEpF203pFh0bAhGW9hXnPydqNiMR2ru8gPk6qXtZ2piHqNhzUVIY9zxhXyJiVhwhZZx1VFwfN5NPjyBYFZ3OxZoaG2h6Hb1/MJUezmC/AWdf8ISiKXyZh16rnHrcVQx1btITM+K+NiGhpqccYzrLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483710; c=relaxed/simple;
-	bh=U4V+Mnx5yBT8muMDdf8O89ESb1sfYJqsFhQw2mJn+B8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uhEYIoOmpiKDd5Tqjzh2WiINXaHJq6KnMbGN+lGGPSSMesjMT/0hKid2ihq7DrAuYvkSmKkUk4IKfkr3WiBbceM8EjbhyexiSZdG+OPtXeNhG+qPvRguss1suclCSe8OTLzxQ0IE2WGjvnQn6qoTrzPnNmzW7gM8lgJHBQj3uT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip4t1789483661t5fd737bd
-X-QQ-Originating-IP: WsbpIfDhMJsGXWn3oz+rP65P3m3zbFHSIzYe+z2lHOw=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 15 Sep 2026 22:47:35 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10969957875995836888
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Tue, 15 Sep 2026 22:47:32 +0800
-Subject: [PATCH v2] media: iris: Support HFI Gen2 on VPU2 4-pipe platforms
+	s=arc-20240116; t=1789483740; c=relaxed/simple;
+	bh=qdD5Yzrojd0vl1wSe/x6p+b7r4cvyp5/SYtWtzNE0QU=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=Vix/xEAHLdSDV9thmOipPh2C2HRvv1HeIY48oLo+bJfM4eMZZW9ZIH7r0fx8BkB5waNPVfyN518sJmBGYoROEk8mkdezhbGdOugv2qxBFx4kR1h8a20sOX0/kA3E58n73j+hW64+vfd81LyfWqdsHggEVFgOKiOFEJYEfSKHxHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ETy7SMUn; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ETy7SMUn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789483732; bh=Lht73hi11bNHXUTXUYh5klEWOvOUp//sPRrm6eyzczo=;
+	h=From:To:Cc:Subject:Date;
+	b=ETy7SMUn0J4z0qxITuaBxxoSgT6z+/F8i3CadaaCNuDrV5MucoMtdA5sdLU4OGcOm
+	 edwb4loLzObSlTz3F5ITDY59mrp2dizYgNeavyYcPM7yG09viWANNBRXqGRYPs7+Gb
+	 l4SNew+vqCoHGA5x/IiwjTDrrQQrFYrw0oAKDqpM=
+Received: from ubuntu.. ([123.52.25.101])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id C321125E; Tue, 15 Sep 2026 22:48:50 +0800
+X-QQ-mid: xmsmtpt1789483730tkbuoj93k
+Message-ID: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
+X-QQ-XMAILINFO: NT7dO8ok7FP2Wc42yilBvEL+1zBLeqkV0FXws0y5EWjJLdhaJ1zm7wUI+M1mTh
+	 kKF569Mxy55jZBm7EDnuu8L1aQPht/ZnwgK/awyvTPquTxFtBG74slbBtAyTddHpSms+9Evi0R70
+	 n5zBBbQ6p/Pi+UEIyp5GoPIym4+OdkABn25DF0wsX89VX8RekZcNVBXdsGPQJdqFuL2vUrpVRYhr
+	 Ld3umQmLDNHxGQNpQbQbstnJVFz5DTPaWMRFbrRMjjjhvwWzj/T7wnv2UNddkX6pfhePQ4FkErZv
+	 odysIaglT7wMt2hHppEcx/GFfli0tj1+TObieB05TdLNbkU9a44+JNt3qy2BCUPnLsfEdg0/kNRm
+	 qZNACp2lUaFUvyIo28ZreKTkdJG+i/SmrN43qilYB5ES7EeCxQmKxvbBJqUm2aSMafyFhISkF9JM
+	 6O0ktwhG5Sq1CjJOg9LvtodxYOHLnOPgvBN02XzS32hAzUWu1NfxAdNAr9qeZaQ3Hi543OwN7gR0
+	 3hWdQU4VbI8l6StLH9tGun7lPyJ5+xxYuNO8be26BsPoyhdyIx6KYAv7etdTmEHuZeocR5P+so2J
+	 3bV74XpdVP2EkzeLMc5SxXKybCBLZPpoOHQ5REzZUNtnVqAPMo+j93ki4u2aSLHdYmPNlmo4C1E6
+	 SXT0fSd01WknarDbj9/MG551hs3izu0Vc2NtnlfiEaYxCtyihCoDlHkvIpQ2YYE1Upu7S/kN3H/U
+	 jTGCrS64KQIW9f1WAOCWk9UpqLUADuxtIt2WX2xVDfY1jP98MeOpkWesoD18zYUnN8t2cY24jELX
+	 OKgXYc1yWAQIusoshLJO+3Sq1ffSHiSH6ymVefb2s6bWSRTApIxkVThI6E9jultzqKlllpGD4NJ0
+	 mPx38Hq7hQ5bq1Lfj58Q9cS5TQOh6O45EqZsQ6PhtN9STQ8wYvoje9p0dlszW4qgitROLXabV9Vz
+	 zLIhIAw9wbUu9nNxq/tDJv8/U5c1lB7zIlqrlqhf1R/p/zhdzfK+yXgYp5nimaFDwns6LFUp7oV4
+	 /8LtvsfeMx1czVAASz9rl62aPC3M7Mdg2FHN49rl496TN11IC7
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Guanghui Yang <3497809730@qq.com>
+To: linux-btrfs@vger.kernel.org
+Cc: dsterba@suse.com,
+	mason@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Guanghui Yang <3497809730@qq.com>
+Subject: [PATCH] btrfs: clear free space tree state on rebuild failure
+Date: Tue, 15 Sep 2026 14:48:45 +0000
+X-OQ-MSGID: <20260915144845.60288-1-3497809730@qq.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-sc8280xp-hfi-gen2-v2-1-c52075bc284a@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4Xs2TVthaZ48j8Mh9puYU0E0iLBE
- P7dgnePbzLzZoVEkSnBtVgh0syJhz6DOhXgOtu3hOwzgxJKi1oKTM4oI5YRu8DYUq+w1pXTZZl
- TU0PejZECL4fz3vw4vR9PctMu2hsdp2mIn+N0lnvvn3+WKJFsJb24GB18uEXrF3t2wwuabdu+T
- zh+y8QAAAA=
-X-Change-ID: 20260910-sc8280xp-hfi-gen2-965c64428089
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2215; i=sophon@radxa.com;
- h=from:subject:message-id; bh=U4V+Mnx5yBT8muMDdf8O89ESb1sfYJqsFhQw2mJn+B8=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkrozp2hk0/sj8m0rx4geI5F/83HsZpZSdjBDxXL2Iqn
- PaC1a2go5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwETSjjP84Zxlo/duQ+PL2G1N
- Et8s9p3t7XIsXbJ91j/zOslnWr7JwYwM+7Kal1lL/L+sGxy60cqreP2zM54iGlFN7516s6d98ZX
- iAQA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NQSdGtztsEMuzM6+TTxRk06hwThoGJXs3SC6Pfv8k63GdbkUu07xrbCi
-	/fi2SlvBR5G27V0HRZMzC6kkQPKgBTb6FcSGqHcdpJsWTc8a3gQNrYIhMNgv5XevsoyUc44
-	ajMQaNL5dOD/gUMxgQWhenfDKUaq7nZEh1D+3Jc9jzFC3wuXYMZIxmHshQEnuUTMtlS6InL
-	jxqxBMc3MJZF1n2vRNg2WjfHrwjX92NsTFXKSwfAqWqT+5zHqeGi42LQaF5vf8o3zqiG6H5
-	vVmPtEwuGTMlhEB3HlzWlYhrWoJvcE2tEvQYjVYHobMDd4mABSRQWpYwB6D7ZVv0uuTQKfH
-	xhntIQmRc9At93948IQb9dNlHHA4Cj8DkHzqnLhD8ByOkhVwS5xSqEn8gxR9h5gTyQlvPv4
-	WXm8GGsKqTArXKvd2SEbukukG3eUGapFfNVv3JwIQUDjNYsxgAwplMQwJNW/zREeu3B1m29
-	MDjU3XfRoLQPUrZ4zbU/sWIoOaoiausJljOx5SWA5s9edqBK0/zLAig4B/ps1yMNA73h32O
-	2LlxaeYvukp+epXAZ0zov1DVt1KItesNQCE4zPu8Eb88f0K5r4N9qBYLR/UprzKqIKOQXhZ
-	Rb8JWGAydPX8286HZnmS4wVIwTPejdWtcC48uUm05mOwoFqmCBeLdpIkXwny2b1Raes9Qtx
-	DoTVWjvc+Fe1TkLwS1R/5fpAZw9EP7pVxaRSa0zsFLxh22ar4IK8ktGMbTakBwLkSClt7+v
-	wn+EPQFTfQ6jPXxRX0mlk2QSsU0efdAD1cVs10yhJs8UYmQzUgE1ySSC+t6qmf4zxm9mS6H
-	sdyUrQmBSS2eCXi41nKq0PCi03oIpniPrLUlTlBSFsAxWNyRlDIUMte1+8yeI6H5pMHG1fX
-	6MjN1B9Wm9Q6Z+VA+UCkeYLwn1QxeYXlND7YEGJw9Ra0NRlZENoUhrc4KM74lhILzGhWttZ
-	Cql2OUxoF91SfU0CW5gHQxFQuGDywilSrlsT0auUECh8n78s2PEA1daJNg0A1Eqw5Iy2xqy
-	8oOnuUkNLWzlYssNTAkBVcUGWDqU5NB3iGFB8PA0BjwiIS9ct/PyK1IuGwveA=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-Some VPU2 platforms with four VPP pipes, such as SC8280XP, can use
-HFI Gen2 firmware.
+btrfs_rebuild_free_space_tree() sets
+BTRFS_FS_CREATING_FREE_SPACE_TREE and
+BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED before rebuilding the free space
+tree. Several error paths return without clearing these flags.
 
-Add the Gen2 firmware descriptor to the existing sm8250 platform data.
-This lets every platform sharing the VPU2 4-pipe entry select either
-firmware generation at runtime.
+This leaves the flags set on the live filesystem and affects delayed
+reference processing and free-space caching. Clear both flags on all
+free space tree rebuild failure paths.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
+Fixes: 1d6a4fc85717 ("btrfs: make clear_cache mount option to rebuild FST without disabling it")
+Cc: stable@vger.kernel.org # 6.4+
+Assisted-by: Codex:gpt-5
+Tested: make -j$(nproc) fs/btrfs/free-space-tree.o
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
 ---
-Changes in v2:
-- Extend the sm8250 entry instead of adding a new one. (Dmitry)
-- Link to v1: https://patch.msgid.link/20260910-sc8280xp-hfi-gen2-v1-1-ea51d0386fdf@radxa.com
+ fs/btrfs/free-space-tree.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-To: Abhinav Kumar <abhinav.kumar@linux.dev>
-To: Bryan O'Donoghue <bod@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/media/platform/qcom/iris/iris_platform_vpu2.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-index bbdbf21961d7..0bc559b7a072 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-@@ -41,6 +41,12 @@ static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
- 	.fwname = "qcom/vpu/vpu20_p4.mbn",
- };
+diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
+index 1b3d82ae3de8..1410da2766a9 100644
+--- a/fs/btrfs/free-space-tree.c
++++ b/fs/btrfs/free-space-tree.c
+@@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+ 	if (unlikely(ret)) {
+ 		btrfs_abort_transaction(trans, ret);
+ 		btrfs_end_transaction(trans);
+-		return ret;
++		goto out_clear;
+ 	}
  
-+static const struct iris_firmware_desc iris_vpu20_p4_gen2_s6_desc = {
-+	.firmware_data = &iris_hfi_gen2_data,
-+	.get_vpu_buffer_size = iris_vpu33_buf_size,
-+	.fwname = "qcom/vpu/vpu20_p4_gen2_s6.mbn",
-+};
+ 	node = rb_first_cached(&fs_info->block_group_cache_tree);
+@@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+ 		if (unlikely(ret)) {
+ 			btrfs_abort_transaction(trans, ret);
+ 			btrfs_end_transaction(trans);
+-			return ret;
++			goto out_clear;
+ 		}
+ next:
+ 		if (btrfs_should_end_transaction(trans)) {
+ 			btrfs_end_transaction(trans);
+ 			trans = btrfs_start_transaction(free_space_root, 1);
+-			if (IS_ERR(trans))
+-				return PTR_ERR(trans);
++			if (IS_ERR(trans)) {
++				ret = PTR_ERR(trans);
++				goto out_clear;
++			}
+ 		}
+ 		node = rb_next(node);
+ 	}
+@@ -1390,6 +1392,11 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+ 	ret = btrfs_commit_transaction(trans);
+ 	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
+ 	return ret;
 +
- static const u32 iris_fmts_vpu2_dec[] = {
- 	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
- 	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
-@@ -137,6 +143,7 @@ const struct iris_platform_data sc7280_data = {
++out_clear:
++	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
++	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
++	return ret;
+ }
  
- const struct iris_platform_data sm8250_data = {
- 	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
-+	.firmware_desc_gen2 = &iris_vpu20_p4_gen2_s6_desc,
- 	.vpu_ops = &iris_vpu2_ops,
- 	.icc_tbl = iris_icc_info_vpu2,
- 	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+ static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260910-sc8280xp-hfi-gen2-965c64428089
-
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+-- 
+2.34.1
 
