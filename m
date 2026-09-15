@@ -1,156 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805EA3D411D;
-	Tue, 15 Sep 2026 18:21:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2FE4BA1D3;
+	Tue, 15 Sep 2026 18:21:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789496483; cv=none; b=GCXDYc0bOhkiuvlpbDkqL8UiZooJyOcjFZJSxIApva/cxGJRJzNMr6AYy6/5IstQYMyXqY7EfFZ3e5+fbKp3HdK5owJiE21gcqJXwhL15lQ4DU36vV8lwv23XlZGl/WK/v5YMm9kQ+nB5ddKSHVSxtiMSQ0ZyyKJEOd5Vc6k9UQ=
+	t=1789496485; cv=none; b=I/neRJkC7Ykna54ytJLuV21bn+WJs5WRdQ1pEj4vWD1AjUHfTUVC7ZB8Bm/3/4wZ4srq4HkhpT76OVMhAeuMZJ/UyobpC/PNQIjaz/IhxSA098JRMDIesUtO6GFeN+K6+sbgrP+Kl0NuLr+LdvDrzj2sddMs/VQHwz0ZuGiMWYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789496483; c=relaxed/simple;
-	bh=VEPKiJaR6yfaiZyD7Fq5ykuC9ZtROuv8ISrp/eFw3Yk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fKz1FJ1iZZhMX8dw7ZQ/YNLyLerqsj2cvZ4XeMUT6If7Ovb0Hf94RukIlEtUzucMsPqmzF7Bk91lW8gaTvFGkzqu3AeowlyPeCti1mh1x2kk49UWALJOEd0l+Cv2yqRazaPoOO0H7wo0u7T0jtLoSqjj4sx3QC7vX+BAq0P7SRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6gEsnf2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789496485; c=relaxed/simple;
+	bh=MSEBe353yddrun0sk2dfUzDn2ONeQxR9Qa4YEDZodWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TAe5hWEgAjdhPJlLRUEKEyeDOzYTjSG2/P+o4C7OGWFgDsj36oVzoDHabcRz8lyTExwcU7NfVlVFlDokpAKbP7mAjzjv2RFd83VqrQH7QY+C1tW0Qc2Y47y8n72Bp+pvGhTj5f9acndii4MSDyywCfeylvTgmQ4Hzh2N+6F07TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YRUM0upy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6gEsnf2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFEA01F000FF;
-	Tue, 15 Sep 2026 18:21:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YRUM0upy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6731F00898;
+	Tue, 15 Sep 2026 18:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789496481;
-	bh=KIdGYMcq+dBeGCbsrx5rPMqcCMjSKW7LVZY+ETyow5E=;
-	h=From:To:Cc:Subject:Date;
-	b=L6gEsnf2QYLY9c+87eGsl9SPz1nxzikE10FVdyIC6b2zvorUTkDZCU4Vss94P9USF
-	 XHw2Y7mDsd//WkIOsBkQsEtWVe/t8eIoQS2u1lMx0ElMqXWBuhbJQILoLrOKsUwHb8
-	 1HJ0EpRnc0dGSxNDC9DBhJURzJ7brLBi13rckAh9AniasujBuEy+E3Oi32fEzqXpXP
-	 g7gULYko1Y41RaW8RMrnmIYobGzwACLIuUsf7hQoG3MfBavCfh2tR8zDaHAxOh3vvJ
-	 SPAqdrJY1mGJU2kX4ohQGcJcU1qA2na3FvWISelxED0bAD5IWv0IMjDx3MBJ0bFTad
-	 uxRWSXbvs/ayg==
-From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
-To: Alexander Duyck <alexanderduyck@fb.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Daniel Borkmann <daniel@iogearbox.net>
-Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	Dimitri Daskalakis <daskald@meta.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Tao Cui <cuitao@kylinos.cn>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	David Wei <dw@davidwei.uk>
-Subject: [PATCH net-next v3 0/5] fbnic: Support larger RX pages
-Date: Tue, 15 Sep 2026 20:20:58 +0200
-Message-ID: <20260915182105.4162425-1-bjorn@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1789496483;
+	bh=5il9R4JOsn7FaDJyBMY4GcTMOrQeZX8j32v8URz75co=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YRUM0upyVeTDLrIxIfb+zSspTsacf7tMtXta7MXM71z1Lz5coPIx3hHLwYmKRiGpO
+	 tFgBQTS9tRulkQCqpbGRdOiYWdeqQOP9neuzDc4QvzBlR0tFptm5wZf3pTTyvr1toL
+	 6ayUdRR4fS52WCfPv5J0iq5jdOmsRozAg91/kqT/hZTiMTrfNWXcPV9BSItlbwJfI8
+	 wQFrJ3LZfq76w7x8S4UsI6KQrEGMuc3PhGEo4J4xeNoVPk2aQxEtoVu4kSYQhacb6M
+	 M76+EaVlYwqNajlxQ6NUTX3Fj2+PR7QAoiXhgUaPou+WjG2xmhhryvGrkUX5elgLvn
+	 tXw9/h8rqfeQQ==
+Date: Tue, 15 Sep 2026 19:21:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Felix Gu <ustc.gu@gmail.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Bin Liu <b-liu@ti.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: musb: mpfs: tidy up error handling in probe()
+Message-ID: <20260915-grouped-raffle-16b1fea4ad5f@spud>
+References: <20260915-mpfs-1-v1-1-a12c2fd7e0d9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eq25msHQ+7NivrH0"
+Content-Disposition: inline
+In-Reply-To: <20260915-mpfs-1-v1-1-a12c2fd7e0d9@gmail.com>
 
-Hi!
+--eq25msHQ+7NivrH0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This series adds support for large io_uring zero-copy RX buffers to
-fbnic.
+On Tue, Sep 15, 2026 at 01:14:08AM +0800, Felix Gu wrote:
+> Restructure the probe error labels so each failure only tears down
+> what was already acquired, and stop calling
+> usb_phy_generic_unregister() with NULL or an ERR_PTR() on paths
+> where the phy was never registered.
+>=20
+> The old error paths only worked because platform_device_del() and
+> platform_device_put() ignore NULL and ERR_PTR() arguments.
+>=20
+> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+> ---
+>  drivers/usb/musb/mpfs.c | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/usb/musb/mpfs.c b/drivers/usb/musb/mpfs.c
+> index 587127abd30a..59625ed95656 100644
+> --- a/drivers/usb/musb/mpfs.c
+> +++ b/drivers/usb/musb/mpfs.c
+> @@ -276,13 +276,13 @@ static int mpfs_probe(struct platform_device *pdev)
+>  	if (IS_ERR(clk)) {
+>  		dev_err(&pdev->dev, "failed to get clock\n");
 
-fbnic hardware consumes receive memory in 4 KiB device pages, while
-io_uring may expose a larger software buffer, such as 256 KiB. Track
-the device-page geometry per BDQ, represent each large buffer with
-consecutive descriptors, and decode completions to the corresponding
-offset within the buffer. HPQ keeps its existing PAGE_SIZE geometry.
+Could go a step further if you want, and use devm_clk_get_enabled().
 
-Larger buffers also reduce pressure on the memory provider. One
-provider allocation supplies multiple 4 KiB device pages, so the same
-amount of receive memory needs fewer net_iov objects and fewer
-allocation, refill, and recycle operations. Hardware descriptor use
-remains unchanged.
+This is clearly the wrong order, so this patch is fine as-is.
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
-Ring depth and buffer size must be validated together. An ethtool ring
-change can otherwise make an active memory-provider configuration
-invalid. Store accepted ring depths in netdev_config, stage proposed
-values in cfg_pending, and validate the default and each RX queue
-before committing the change. Both netlink and ioctl use the same
-transaction helpers.
+Thanks,
+Conor.
 
-The selftest requests a power-of-two buffer larger than twice the MTU,
-checks the reported buffer length, and verifies received data. It does
-not assume how packets are placed within the buffer.
+>  		ret =3D PTR_ERR(clk);
+> -		goto err_phy_release;
+> +		goto err_pdev_put;
+>  	}
+> =20
+>  	ret =3D clk_prepare_enable(clk);
+>  	if (ret) {
+>  		dev_err(&pdev->dev, "failed to enable clock\n");
+> -		goto err_phy_release;
+> +		goto err_pdev_put;
+>  	}
+> =20
+>  	musb_pdev->dev.parent =3D dev;
+> @@ -324,29 +324,29 @@ static int mpfs_probe(struct platform_device *pdev)
+>  	ret =3D platform_device_add_resources(musb_pdev, pdev->resource, pdev->=
+num_resources);
+>  	if (ret) {
+>  		dev_err(dev, "failed to add resources\n");
+> -		goto err_clk_disable;
+> +		goto err_phy_release;
+>  	}
+> =20
+>  	ret =3D platform_device_add_data(musb_pdev, pdata, sizeof(*pdata));
+>  	if (ret) {
+>  		dev_err(dev, "failed to add platform_data\n");
+> -		goto err_clk_disable;
+> +		goto err_phy_release;
+>  	}
+> =20
+>  	ret =3D platform_device_add(musb_pdev);
+>  	if (ret) {
+>  		dev_err(dev, "failed to register musb device\n");
+> -		goto err_clk_disable;
+> +		goto err_phy_release;
+>  	}
+> =20
+>  	dev_info(&pdev->dev, "Registered MPFS MUSB driver\n");
+>  	return 0;
+> =20
+> -err_clk_disable:
+> -	clk_disable_unprepare(clk);
+> -
+>  err_phy_release:
+>  	usb_phy_generic_unregister(glue->phy);
+> +err_clk_disable:
+> +	clk_disable_unprepare(clk);
+> +err_pdev_put:
+>  	platform_device_put(musb_pdev);
+>  	return ret;
+>  }
+>=20
+> ---
+> base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+> change-id: 20260914-mpfs-1-2e062f29128e
+>=20
+> Best regards,
+> -- =20
+> Felix Gu <ustc.gu@gmail.com>
+>=20
 
-Sashiko found, as usual, a number of bugs. I've sent the relevant ones
-to net.
+--eq25msHQ+7NivrH0
+Content-Type: application/pgp-signature; name=signature.asc
 
-Changes in v3
-=============
+-----BEGIN PGP SIGNATURE-----
 
-- Carry Breno's Reviewed-by on the netdev_config helper patch.
-- Clarify that the fbnic ring-depth consumer follows the core patch.
-- Document initialization, override, normalization, and stored ring
-  depth semantics.
-- Drop the CQE placement assertion from the large-buffer test.
-- Reject a zero RX-jumbo depth before validating large RX pages.
-- Rebase on net-next.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqmMnwAKCRB4tDGHoIJi
+0hFLAQDsHxRSrMWqsLKY7Yw4lxGvSpGV0B6wTWolwZ0oSNcc+gEApRCuuj3hbymQ
+p3OwJNqvrDupTGRG2Z6eG1EPVuKq6A0=
+=lte0
+-----END PGP SIGNATURE-----
 
-Changes in v2
-=============
-
-- Add generic netdev_config lifecycle helpers for the netlink and ioctl
-  paths.
-- Store ring parameters in netdev_config and revalidate RX queues before
-  committing a ring change.
-- Preserve the distinction between accepted and applied HDS state.
-- Track fbnic device-page geometry per BDQ.
-- Validate the fbnic RX page size, fragment count, and PPQ depth.
-- Add automated large-buffer test coverage.
-
-
-v2: https://lore.kernel.org/netdev/20260910180908.1506533-1-bjorn@kernel.org/
-v1: https://lore.kernel.org/netdev/20260522113225.241337-1-bjorn@kernel.org/
-
-Björn Töpel (4):
-  fbnic: Track BDQ device-page geometry per ring
-  net: Revalidate queue config for ringparam changes
-  fbnic: Support larger memory-provider RX pages
-  selftests: drv-net: Request larger zcrx buffers
-
-Jakub Kicinski (1):
-  net: Add netdev_config helpers
-
- drivers/net/ethernet/meta/fbnic/fbnic_csr.h   |  34 +---
- .../net/ethernet/meta/fbnic/fbnic_debugfs.c   |   5 +-
- .../net/ethernet/meta/fbnic/fbnic_netdev.c    |   5 +
- drivers/net/ethernet/meta/fbnic/fbnic_txrx.c  | 173 ++++++++++++++----
- drivers/net/ethernet/meta/fbnic/fbnic_txrx.h  |   7 +
- include/net/netdev_queues.h                   |  49 ++++-
- net/core/dev.c                                |   7 +-
- net/core/dev.h                                |   7 +
- net/core/netdev_config.c                      |  75 +++++++-
- net/ethtool/common.c                          |   9 +
- net/ethtool/common.h                          |   2 +
- net/ethtool/ioctl.c                           |  24 ++-
- net/ethtool/netlink.c                         |  15 +-
- net/ethtool/rings.c                           |  13 +-
- .../selftests/drivers/net/hw/iou-zcrx.py      |   6 +-
- 15 files changed, 345 insertions(+), 86 deletions(-)
-
-
-base-commit: b8e9e7d82e7eefd5d2d528469d94ec20e96b38c3
--- 
-2.55.0
-
+--eq25msHQ+7NivrH0--
