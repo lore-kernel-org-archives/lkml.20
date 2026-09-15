@@ -1,152 +1,158 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAED94D0A09;
-	Tue, 15 Sep 2026 20:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789504538; cv=none; b=ciJoHKQwgnfAdCKBjvJhlsDYMpFs4FMAiLNIY4XzoEvcRO3ErEKpdN75j86Lk9gcnV5OrW98A7S9kGnUzfFnzI9q+MftdZCStpJ19WpeWFLSq/HcM1kLK1jQlWxcjL0wHKvyjXcH8Xs3fk35EBRA2HfSfOwbEIy2EdwHWptDEec=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789504538; c=relaxed/simple;
-	bh=bzGQhd4IF9lUwwy4ITEv2bTUw84ftLOuO4uh0h7XQ7s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D3pyjcsd2lnTEj7b3gXSJ8gQZZEPzyWovOP7gUTJbw3wMxk0AZGbXclamhLQUXHB68/mGLQcymhfqCQg+hBaL8/nOEf0bN9PB9SauQinXUdlbOpva0EyKjXQj79pdvJYHWDoKH5BE1fc0zm4M0g6IClDlUOYxSVgO079K6n0K30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rvZWc1g0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fKeac2XD; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=C9Lw6+oT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WIl8ZjsJ; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0894D0A19
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789504612; cv=pass; b=irQCdEmDQ0kKq22yOcevKZuzcHfaG9wXS7d48+QoWfeyNzWQ4lce9SBdzFSLxfOO2KyWYrg+bb82o01JlSlgF612mlECFxqkgNmWNBp/awZz1P6HeVqk+TWkBb6FJeBmFBs8a+nn/JnRGNEU2C5xpAeedYxAX+IBAgainQ8ItOI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789504612; c=relaxed/simple;
+	bh=9WcvYvFtOqMYK7EIn1YIdYN71/uEzIgCfxjX9fpWMcg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eb7AMyDAZDaTcseNnvJGJgB682bx5AHqgz9gNZcybHU0zxZ11YwFHOn1wpqdFFk3RDpKuoRmZynyPUwcJSXCCNkDW7ue6kNbKyr/MXmIRNB61Btl56p30ynG3d4d6QZ/TVJoqQrGCR4HdpWXegmz9SLwjg/utc0ggaOeN2KVVsQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=KkdQ/Ire; arc=pass smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rvZWc1g0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fKeac2XD";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="C9Lw6+oT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WIl8ZjsJ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4CE1F1FFB7;
-	Tue, 15 Sep 2026 20:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789504530; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Sc4RV53s//LUHgPB5/jPDXKngLl/CQzbD3CUJlOams8=;
-	b=rvZWc1g0KYyTl3dASkxzO5GVtK2wCSgmxzXi9oG4vI8X6XUUcrNwg/d3n5DnzsOMoVXB+G
-	Epi7VzuYxECbDCpPJqpnCCtMdWGWpgSbBStFY6aQwen7O8TAVVUU+6HxMfZgJLi7eE0tnk
-	DWmbUrFKrTGJobncNk2hOMzQY+ewqEQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789504530;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Sc4RV53s//LUHgPB5/jPDXKngLl/CQzbD3CUJlOams8=;
-	b=fKeac2XDIgg+zHuCn+Qeq4zRvd5eA0EITwIobB4NxTgkfBQdofoBc7jgGLXQ8UotM/lomG
-	65D1XzsnqQ9T/XBQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789504526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Sc4RV53s//LUHgPB5/jPDXKngLl/CQzbD3CUJlOams8=;
-	b=C9Lw6+oTWgvb/mWvML22k8oYCI1vXyDwLC2+OkpwDiSogQhub7DI/aBvLU9G6WKSK0+OyV
-	9XVbj+nINwONNwPDUZNo/UO2LRlUXHGEzzkZ02xDGM5o/kVsmGdVFhqii1BNSrTuuUihFH
-	ms+fW+xl8k6HpB30wLUo4PQXy6X4ouc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789504526;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Sc4RV53s//LUHgPB5/jPDXKngLl/CQzbD3CUJlOams8=;
-	b=WIl8ZjsJsq/DBClEY6a5aj5Ny2ujd9KJvCDYXxNPBCajQftVVYg7+Dc/gyfRRiiFg/Txt8
-	LVSA78bgYRdJBDBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B80513432;
-	Tue, 15 Sep 2026 20:35:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id E4z2Dg2sqWo3NQAAD6G6ig
-	(envelope-from <clopez@suse.de>); Tue, 15 Sep 2026 20:35:25 +0000
-From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
-To: kvm@vger.kernel.org,
-	seanjc@google.com,
-	pbonzini@redhat.com
-Cc: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Vipin Sharma <vipinsh@google.com>,
-	James Houghton <jthoughton@google.com>,
-	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT))
-Subject: [PATCH] KVM: x86/mmu: Fix NX page unaccounting for TDP MMU pages
-Date: Tue, 15 Sep 2026 22:35:11 +0200
-Message-ID: <20260915203511.1808028-1-clopez@suse.de>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="KkdQ/Ire"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6185so1732255ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:36:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789504608; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JL/mVxAkNzjJnK/NKvYsfLJB66eJtgLGPPLtPijgBzvfjoAiqgtxUa2O5hxy1BSMaV
+         blOM4Oewq1v1k6Vo+OTRSA8NedyIjcEg3uk0W4ulPQAzVNdDrSCNvGm7+IG8GD0Dm5+7
+         Ha9t9FcE3RKs3jpvD6bV681+p+SJMS0tyhQHgKqbrUMtQr4vEqPWEh/xZs+KCL7MSvT1
+         GitImpJP+Zz4u+zOw0+de6NOa6Umfm2PvUl4QQ9r69b+0ZUKY8RAguU9ibqB8t1bhcJs
+         wpwaBTsG+aHPVM1T4v8bnJYabS7Gwuxaafwn9EIowqIKUFO+cLROQ5sPi2jJ2oKPR2I3
+         VC7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bUOmM8p23AWvA9rdklSg6OWCkYp4tYqVvEdtNkochK4=;
+        fh=3c6GFfzDt9YmJrsuIow6dSwAcL3hPOhFKr8nEopEFIk=;
+        b=I302vwGgm9nTl/Vb82lIl38c1xBiPTo9wflLDyiH9xBF3iMo+pBRrOSwdLdqDvzx4t
+         VdZ3ARPjKU3/4Lc+3JevEeBSaEUGrxe2hM8l+KsVgNXpgiEckpWTW7LfEGXa+cpcaOWe
+         dDfl4Zuxn8DaPpv1/J2lp+0jsi0YuiehiXMaWtbuKgLkZJCjmD2jLtFcCa9+FkVKtoch
+         biWUDomlQiTTlZFVl4FVL8hQJAh7JuF7kQEz6CAa9up4PDpAV94CN0hsvHpZJjJLv6NF
+         J7q/Qa07J+5KCIChhw2SW0+cdxWdpsdRoBAss+RQZ3ROwPewUKvqP+rQr42LuPNohswg
+         ga5Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1789504608; x=1790109408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bUOmM8p23AWvA9rdklSg6OWCkYp4tYqVvEdtNkochK4=;
+        b=KkdQ/IretfrePX9PBVLRTMwQXzn2WX/3IRZxF6FcQ+fga7lynTB/dgppCVztU5Speu
+         ir4hFnBUKAU4e33IVDJvwi8GyanD58F47I9Nphesb1udV6tMfWBQnMJ3ExLfihhZ5W63
+         I538t+mK7dmkWXUgBWFXn92dKESqRhAfXGZTH1xfm+3sT27psWqLvPgz2317CRG508gZ
+         THYbJSoPvU1MRFrHj47D0JmFRXNU9Ml+l3PrHcBQMHgvcFSEAjeEqz0upF75xVz6ze6t
+         KOaVXQKnsT4x4t0bq6J5Qb/qtJAQV0bduRO1bSQiXDKoiDLMt65I4ac56a9YvXpSl3ZC
+         s9Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789504608; x=1790109408;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bUOmM8p23AWvA9rdklSg6OWCkYp4tYqVvEdtNkochK4=;
+        b=Q2UBluWhdlTLVnBKFWRRW6/bNnsKhEkIXQaokOOW15nmqf+KN3mBsolH3/Zt74i+eR
+         6ljB8Wp2drgq7MTEd5+0ujOPhOXhmM2XYyYNujIU4oB9p4eCgA5/JIBfwahhvvfndgwK
+         yiqFsTla1yjwl4oRVM12WPs7PoTdu/4aP4ZXcyv5UFgsfFdFKilj7IWYZA6qEAZdV4ZU
+         39Vro9y33DukEFSx09FAhjG9o6+pHTa7PrcfYmLL0xzlPu9Ud+g2yQHdWn6pgQGv8td6
+         PsJTW0thKWy9zhaidkugq9cVUofzav4r1T6EuamG6zZdDyoO+c6sqoaRUDrLk9ltPJmK
+         Ml1g==
+X-Forwarded-Encrypted: i=1; AKwUvBwZMbO4RUyaBFad2yM+xKzL2ugWqcuHasljn7VNg5inYbPz1taIeoxBiMgazAbBuSrCipChe7KKnIyy1Ms=@vger.kernel.org
+X-Gm-Message-State: AFuF++kj2r1foBG6MG3STb9xo/RvzUL+UBePJuklNm8m/YJj5eljzr9E
+	thG61EPwXZDBR/coq/qjfs3E4o/z8AWwc1GC2nSRsADFI2sI182z5Mij4m/gOHkNjAguzcL9a5A
+	YjX84INm++FOtBMgt8jzqHJHuQXCT8g5mGO8DmbUUIbgL2Y2/MZyMylDyRm4=
+X-Gm-Gg: AYBFou2OI5psWX0KixbfR+ppDT3iUx8Q5xmGY5PMXidgTAW10RiCLeH0zlAM/s7V4bf
+	hSsKlMoP5nCk6x+d2LkRQi2bUHzTLjeZa4BfI4VwOqz8+PJj5uPtqloEv2yMdb8HJYvm7rpQ4t8
+	X3yatRxfizOJtjbk5C6mK1keBLX19xZUiRGUBXrXmhZJNpXGpCn0Y5Qz99KH9TmX4Fs9MhTk0Ur
+	89DL9dnmtMIf7lgSWKg/zKRve0Jh1e1xslg3mxma9XikgWVFKhssSoxwwL67Qt0hkBJQsHeVpoP
+	fe+QlqR6+CwtI53Drw/xg3I2cW/EulZ6kN9sO+HBHgAsSSTRa5Jf21ojyBKZwdCkTGmMM8fy7Cy
+	O96l6F2gvhMU=
+X-Received: by 2002:a17:903:2984:b0:2cf:afa5:b19a with SMTP id
+ d9443c01a7336-2dd8384cf05mr46727925ad.11.1789504607574; Tue, 15 Sep 2026
+ 13:36:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email]
-X-Spam-Flag: NO
+References: <20260915195728.3519469-1-arnd@kernel.org>
+In-Reply-To: <20260915195728.3519469-1-arnd@kernel.org>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 15 Sep 2026 16:36:36 -0400
+X-Gm-Features: AcwNN1V6m8jOnx9-xPyfQgHGwm7Z__xUNz7kqqwu2ohNObqJy8jRS_eFOlsi664
+Message-ID: <CAHC9VhQwkwrEgnuyP-u_NJxmjgy3Zp9XN4cAqCMqH3ugV+jrsA@mail.gmail.com>
+Subject: Re: [PATCH] selinux: use explicit 64-bit division
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Stephen Smalley <stephen.smalley.work@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	selinux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-unaccount_nx_huge_page() unconditionally passes KVM_SHADOW_MMU to
-untrack_possible_nx_huge_page(), which is incorrect, particularly on
-the path from kvm_recover_nx_huge_pages(), which handles pages from
-both MMUs. Fix this by retrieving the MMU type via is_tdp_mmu_page()
-and passing it down.
+On Tue, Sep 15, 2026 at 3:57=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
+te:
+>
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> On 32-bit targets, the division of a 64-bit integer by 33 causes a
+> function call:
+>
+> arm-linux-gnueabi-ld: security/selinux/selinuxfs.o: in function `sel_read=
+_class':
+> selinuxfs.c:(.text+0xdcc): undefined reference to `__aeabi_uldivmod'
+> arm-linux-gnueabi-ld: security/selinux/selinuxfs.o: in function `sel_read=
+_perm':
+> selinuxfs.c:(.text+0xed0): undefined reference to `__aeabi_uldivmod'
+>
+> Replace this with an explicit call to div_u64() and div_u64_rem() to
+> annotate that these are potentially very slow.
+>
+> Fixes: fc68b6a45f16 ("selinux: convert selinuxfs inode numbers from unsig=
+ned long to u64")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  security/selinux/selinuxfs.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 
-Fixes: 6777885605e1 ("KVM: x86/mmu: Track possible NX huge pages separately for TDP vs. Shadow MMU")
-Signed-off-by: Carlos López <clopez@suse.de>
----
- arch/x86/kvm/mmu/mmu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Thanks Arnd.
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 9788ff180374..61996669b6f6 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -866,9 +866,11 @@ void untrack_possible_nx_huge_page(struct kvm *kvm, struct kvm_mmu_page *sp,
- 
- static void unaccount_nx_huge_page(struct kvm *kvm, struct kvm_mmu_page *sp)
+As sashiko pointed out[1], since we don't really use the full 64-bit
+inode space, what do you think about the following fix instead?
+
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index 292302eb60f3..d864c314c873 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -1574,7 +1574,8 @@ static inline u64 sel_class_to_ino(u16 class)
+
+ static inline u16 sel_ino_to_class(u64 ino)
  {
-+	enum kvm_mmu_type mmu_type = is_tdp_mmu_page(sp) ? KVM_TDP_MMU : KVM_SHADOW_MMU;
-+
- 	sp->nx_huge_page_disallowed = false;
- 
--	untrack_possible_nx_huge_page(kvm, sp, KVM_SHADOW_MMU);
-+	untrack_possible_nx_huge_page(kvm, sp, mmu_type);
+-       return (ino & SEL_INO_MASK) / (SEL_VEC_MAX + 1);
++       u32 ino_masked =3D ino & SEL_INO_MASK;
++       return ino_masked / (SEL_VEC_MAX + 1);
  }
- 
- static struct kvm_memory_slot *gfn_to_memslot_dirty_bitmap(struct kvm_vcpu *vcpu,
 
-base-commit: 70c944caf570fda2d79baa71435589a8db39f048
--- 
-2.51.0
+ static inline u64 sel_perm_to_ino(u16 class, u32 perm)
+@@ -1584,7 +1585,8 @@ static inline u64 sel_perm_to_ino(u16 class, u32 perm=
+)
 
+ static inline u32 sel_ino_to_perm(u64 ino)
+ {
+-       return (ino & SEL_INO_MASK) % (SEL_VEC_MAX + 1);
++       u32 ino_masked =3D ino & SEL_INO_MASK;
++       return ino_masked % (SEL_VEC_MAX + 1);
+ }
+
+[1] https://lore.kernel.org/selinux/20260915200522.BBC8A1F000FF@smtp.kernel=
+.org/
+
+--=20
+paul-moore.com
