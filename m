@@ -1,81 +1,79 @@
-Received: from achilles.noc.ntua.gr (achilles.noc.ntua.gr [147.102.222.210])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82D1231ED7C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=147.102.222.210
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEC639021A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503801; cv=none; b=FAZLHkAa1mZ6D/8rl+O0IsPV/vGIHr8pQ43lattAsPAFey4xCfa/IIobkNZlmk0tFK4qf7nyVo807uxDoU24a71bR0yrbZRvkbbINMufgu70lEOXcR2oR/f+m8oDmHI81RHoKmnYBi5vC9nBV6sB1hRoXlIug+MuSORB02PJ0jo=
+	t=1789503851; cv=none; b=lQr+B6TzoEQnv2ydTrcNeKgWVtlW07zv55cbPSeD9MgU3nkNvAXjxlNGwxuni/7DkBc5cDbojMw3YoP90rFpLlDccdumrqXgemtbXX3KaULNpMjCY4vURyrTTlBkFsBV3Kmk3gmVCRlsq25Z5KIuJQneAW/1v98C/ecbpzoZjNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503801; c=relaxed/simple;
-	bh=p4DJxDGX45CwjWp9sjKGzlhS/O821CmkQBl1CQw054M=;
-	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID; b=YbURUOMVWX7ZlK7h42DXo5kdOJopP13y6YCDj1JNcGWEG05O0ndJm3C8CpG6nYJad/edJOHxwpA+WIi8rNi8VC1k3gPlpVQcnihulS4AUTbwxgk4hNZMdofzSL0RwcDk4Ivzwh0rmvRFhWhhoQZ6Nuzyu2rvi4ZcKrjoWZq8fP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr; spf=pass smtp.mailfrom=cslab.ece.ntua.gr; dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b=HeyPr/np; arc=none smtp.client-ip=147.102.222.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cslab.ece.ntua.gr
+	s=arc-20240116; t=1789503851; c=relaxed/simple;
+	bh=d607VzXe8dE1CE3S5EfLD7UBK43V4xlrtzI6mmpAsco=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Npr5FXs+tUJRwcMUM5xa6TIO+alTFCH40nIRotwL3I647p+biRIzgJ0KiJE+2bFIjzEu37khDurLPGSbA0dLwA4maDntkSG3bK4v8TtKAmzbwxMeLn5q6/ZP4B1FkVXdjkC3O4DTNObTirtnrnjVYPsBmE+VVg36uFWZzNKJTeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f77Drhjh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b="HeyPr/np"
-Received: from webmail.mail.ntua.gr (webmail.mail.ntua.gr [147.102.222.247])
-	by achilles.noc.ntua.gr (8.15.2/8.15.2) with ESMTP id 68FIFmiV017180;
-	Tue, 15 Sep 2026 21:15:49 +0300 (EEST)
-	(envelope-from dchar@cslab.ece.ntua.gr)
-Received: from webmail.ntua.gr ([IPv6:2001:648:2000:de:0:0:0:247])
-	by webmail.mail.ntua.gr (8.15.2/8.15.2) with ESMTP id 68FIFiE2012309;
-	Tue, 15 Sep 2026 21:15:45 +0300 (EEST)
-	(envelope-from dchar@cslab.ece.ntua.gr)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cslab.ece.ntua.gr;
-	s=ntuawebmail; t=1789496148;
-	bh=NIw3TqKdf6r1lTBpjlNLZFk1uLtc0Ed3f1SchXTgv0o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HeyPr/npOSvdsVDUib5gkZ9sbZRPRn38Pk84aEkWYXtArv9KQ2bNzholvNvWF6/n7
-	 7rWqD5OG4M1AmOrub3JdnpYMPBj+knA/OuJ4wl6S+FQeuLSwLKBwajqjQ2FouEGdk+
-	 CYz39R6W3IvirqX0fEnHYflOaHSum6of5anveH2s=
-X-Authentication-Warning: webmail.mail.ntua.gr: Host [IPv6:2001:648:2000:de:0:0:0:247] claimed to be webmail.ntua.gr
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f77Drhjh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648E21F000FF;
+	Tue, 15 Sep 2026 20:24:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789503850;
+	bh=tbK5dBu9nRTU3QvieHc3/0LbLcHA07gVdSlPwNAJ1Wc=;
+	h=From:To:Cc:Subject:Date;
+	b=f77DrhjhRDPVvupB4apEZa6an41Br5nbzOwCCzspB3gl5aQHM9gDvvUBTtGrLO5z0
+	 Ed/7m3uT6RpomTpwemThYmRwXwF4Se6z8ROwYgwaFuq4IiCzuu2BTWKthtLM0eseQu
+	 nx1NIh+Lo2+OuPCrKjKNLaDOit5ZTcwAkfxjWytZI6Z4s/c1EQ0Wd3zUrinFLrAHc0
+	 y8ay1nUarPTC1JI6UzySBU38fuV63tq93e2WF7CIMEGS8cVKMy7zVumaNiA+GGc8V/
+	 NawrWEjZousSrqOvNih8IHBPOfUA3PMEPNGx2wEwuEEQ/IxGMR30fTfXhMLb9z/WlW
+	 /w4d0sbwP24iQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Ge <hao.ge@linux.dev>,
+	Abhishek Bapat <abhishekbapat@google.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] alloc_tag: avoid implicit padding in uapi
+Date: Tue, 15 Sep 2026 22:23:47 +0200
+Message-ID: <20260915202404.3568029-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-Date: Tue, 15 Sep 2026 21:15:44 +0300
-From: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-To: "Liam R. Howlett" <liam@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Alice Ryhl
- <aliceryhl@google.com>,
-        Andrew Ballance <andrewjballance@gmail.com>,
-        Suren
- Baghdasaryan <surenb@google.com>,
-        "Matthew Wilcox (Oracle)"
- <willy@infradead.org>,
-        maple-tree@lists.infradead.org, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] maple_tree: fix maple_range_64 crashes in RCU mode
-In-Reply-To: <npw6xqsjzsdmtezkca4osoncnle62wvde7ycaladk3xzlmzguf@d7smzgbzsmpj>
-References: <20260913-fix-maple-tree-range64-rcu-v1-0-31a130bb8cbf@cslab.ece.ntua.gr>
- <3aqxp6zcomm3wzfc6jt4nhltutnvoatqqsjxlxpxlo3j72eeva@nkqwz43zxsug>
- <npw6xqsjzsdmtezkca4osoncnle62wvde7ycaladk3xzlmzguf@d7smzgbzsmpj>
-Message-ID: <b2bfcd9b99d52bdc9d210250216bf1c0@cslab.ece.ntua.gr>
-X-Sender: dchar@cslab.ece.ntua.gr
-User-Agent: Roundcube Webmail/1.3.10
-X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.6.2 (achilles.noc.ntua.gr [147.102.222.210]); Tue, 15 Sep 2026 21:15:50 +0300 (EEST)
 
-Στις 15/09/2026 20:13, Liam R. Howlett έγραψε:
-> 
-> Please respin with a few changes:
-> 1. The message in this email will be preserved by Andrew including it 
-> as
-> part of the first patch change log so "I was running a patched 
-> kernel.."
-> should probably be removed and made more into a change log statement.
-> 
-> 2. Add the testing to the userspace testing patch to enhance the test
-> suite please.
-> 
-> Thanks,
-> Liam
+From: Arnd Bergmann <arnd@arndb.de>
 
-Thanks! I will, as soon as I work out the way to properly add the tests
-to the suite.
+The impliied padding causes a harmless warning when testing the uapi
+headers with -Wpadded that could in theory indicate incompatibilies or
+data leaks:
+
+./usr/include/linux/alloc_tag.h:41:1: error: padding struct size to alignment boundary with 7 bytes [-Werror=padded]
+
+The code here is fine, but it's better to make the padding explicit
+and avoid the warning here.
+
+Fixes: 1d581ab2348c ("alloc_tag: add ioctl to /proc/allocinfo")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ include/uapi/linux/alloc_tag.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_tag.h
+index e3ad94444864..7d4618bea043 100644
+--- a/include/uapi/linux/alloc_tag.h
++++ b/include/uapi/linux/alloc_tag.h
+@@ -38,6 +38,7 @@ struct allocinfo_counter {
+ 	__u64 bytes;
+ 	__u64 calls;
+ 	__u8 accurate;
++	__u8 pad[7];
+ } __attribute__((aligned(8)));
+ 
+ struct allocinfo_tag_data {
+-- 
+2.53.0
+
