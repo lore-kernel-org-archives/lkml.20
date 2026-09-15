@@ -1,35 +1,72 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42333D0900;
-	Tue, 15 Sep 2026 04:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A592C282F1C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:09:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789445325; cv=none; b=FyFdqEIrJ9RM5cZMwXhoqt37IvSWgyAj+YvBcafm6DZrmAxlO7YwV06/4TCIHNB8GXJg4UArd75mMkl5WpTmE6tllX5jgV33qUb9Xgm1PW3MrcndwFIevo3Ijyiz4RSJQRLt5yHHZuN9jyaOdEPJEJVCsAziY1my36AtzOjajOI=
+	t=1789445402; cv=none; b=kPwPKnolqtRTFwUsPr7odiLXhhDbk423oe6BsTOChrW+u2LMPdg2KelNUobQYIcmxvNGAq8GcdlYWkuV/GrSSMkczbZfYLrJSK96jcohmKKSjT0ntOZMjrpTwbJvr4tqKDd3WsSlvFQcyw8tU7so4qyi2173Qm0/xyzYFcVn+C8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789445325; c=relaxed/simple;
-	bh=RA1bTM7mXeLI4gDcroHUteQG5DGlkm2hWIvDoYTss5U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AdO+zk2e+hyZqP7NyqS2Re26irkHXmZaUJudrGyI0ACAYut8DzYx/MXKczUMTBlw/RihKXe0gb40TJAFh3G267Nhq8vZSi4gZqL0kZVqWGrNGwfBZiNKvZZ5Ot9HyIxcNdLUm6MZ5cqzakwERPTseGd5tmT91j/93V0/alwaqtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowAB3TvLExKhqehYICA--.49463S2;
-	Tue, 15 Sep 2026 12:08:37 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: dri-devel@lists.freedesktop.org
-Cc: farah.kassabri@intel.com,
-	koby.elbaz@intel.com,
-	konstantin.sinyuk@intel.com,
+	s=arc-20240116; t=1789445402; c=relaxed/simple;
+	bh=eycpq7ZGf9c0AnYvssHjHkaOZs7yH+Qf2uYDXQ+Yv/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nzocsYj+35MpU5eFwIDpDQuivpLvIStfAMEj5i5ao8ygIXLVCUwkS71TyV+O2pWMSGvAjiPthCfMbt12Y7/LO4ILZ3OYxUQ7QqUNm+22NflXdZchLHsPxCzgEFZE6P8Fb7q658I9MAkaU1eecX1an5RD4djk5bsy7+537JeDYgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o6asINI6; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o6asINI6"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5059f9so1243151e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:09:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789445398; x=1790050198; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I7ZpgQuMw74S9FkdqF0b5yylYR5td4Wwe0O790DHV/I=;
+        b=o6asINI6dORUyTMRKlhm6vqKyfmDxFqSlU/KmhnOzqD+NaQUYArY8RP53ykFJzshYK
+         GZMK7fiA4prHKTxpus7o4tltbF5lu9FNPObqQmd4IGvowrk8il06c+mJ0JRSfWfPC4Yk
+         v5tRH4UN+9McYIht61nQ7diIUJd2ieIn9SjQ9L25byN3yud4K0GYw9HS2VmVVud3WtGv
+         GRsUDxlqt49PCmAlOKEUMLgXSuvO2t48MCFDzHPb3Ko7V8pWuVzgpiZkthFFw59va67d
+         5w9TiaEVo3TZ1dzqt+VTG4sFPN+XAfO/fkvKY/a6npKcmZ4D9QeurkRrgs+8c0LFGYUJ
+         E/SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789445398; x=1790050198;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I7ZpgQuMw74S9FkdqF0b5yylYR5td4Wwe0O790DHV/I=;
+        b=MbV7H2cNHnoCXJNvRcWle/wFgpcvI+5V/7w2gK8Bq0p9kNj8ZPN+X4Hlmigvd75pEW
+         NJyfN8htSFdYlOCRLUqt07Np2O+nX08Y0QgewvJ8NMgaKMF1cdn/1WUgHIlx32I83ghZ
+         QkHB+iWuNB/O/8g9qsKHU8Bh8hvav2y7afxoxskd+AWOvjSCTV5fdEF2mMRbI+CLEZxF
+         1jMbTAsizOLbURyJDHwrE0TAGYtTWDpbUwA+pdQMOF9/rjFKFfn/ChlA3aGpuTTy1yob
+         xu4mhRQomxz3QH+pthbVJ574Y4j7aM5fw3c69uxPzbfxAhRpcfpfJgUVR5JrdLv3cfvx
+         jxqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzbLwdm7oL8AOPB7ZpzCdJnNU6OoPraK/g4Cam2G3NSDuNy/Ni3AJ8hdVnW9RQs6a5iEWtFuZmLOgHi3Xw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpPi6+E9zjX1xOhM2EAWEpXRXChFv/sNvcm34GQkTrY3ytDipW
+	8XTkUDA1uBzyoi1BIgYE9tI7EyDcWdKBE0aDAhMosReCtTAQdYTZ6inbMOpNgUlcSfNkSw==
+X-Gm-Gg: AYBFou1IeV/mNF+brZpqfFT9448I97QaaxFD0I4odrsz7TsZE2zX78bVFJGXXUvgyjJ
+	wn8DYwojKHnGai3Q5dTHEoM5ZoxT8ILtQ0vsqhX9mVm1UETJc+DNhXQDE60s7FMcQMnvNyU0hn7
+	swlDtHntKyBnRTR24c797Odj21OkbaQprALJtp+qF0B3KuI4vGN+Vvu9N7Bf5Y7qmCjrisZd4CA
+	XR888+tJ0T0rWTgltaJvT0Dhdh703Z4qsYBNg8rT/6HxprK0MX6L5UoZ+LVpjG6cFuvGVcJF09H
+	EGmdLSafoWOdVyB+xr9WVOFX/iBNSm4FR/VkpOmCNTqRHv3u5U5jmgSlhcoPFnH6EzLMi7tOnfv
+	WFBuyHC7/94tdHeQuMIAOMJXfIFGQNo/KeH/wJINlY2Ke7KpQjzu2tpQoEJWawzOXgO0D7b86XF
+	9jBhOXKQ0XAYnYNduPzVj4LSReJLVlvgiFHpd/9BNP1KE9+NxGWksp+apvwXKEfJz2
+X-Received: by 2002:a05:6122:616b:b0:5c6:5daf:52ea with SMTP id 71dfb90a1353d-5c9820dac02mr7036787e0c.6.1789445398559;
+        Mon, 14 Sep 2026 21:09:58 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470e7ef4sm14496006e0c.9.2026.09.14.21.09.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 21:09:58 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	ogabbay@kernel.org,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] accel/habanalabs: fix ctx refcount leak in hl_direct_io() on vzalloc failure
-Date: Tue, 15 Sep 2026 04:08:08 +0000
-Message-Id: <20260915040808.1724806-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Chris Mason <clm@meta.com>
+Subject: [PATCH] usb: gadget: composite: pass the validated interface index
+Date: Tue, 15 Sep 2026 01:09:47 -0300
+Message-ID: <20260915040947.2426239-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,59 +74,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAB3TvLExKhqehYICA--.49463S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw4DWFyfAry3Zw18Jw4DXFb_yoW8Gw4DpF
-	WDKFySyr9xG342ga4jvF1kuFyFkanxKry3GF129w45ur1rX34xZFy5u3Wqqrn8CrZ5C3Wq
-	vF1kGryru3WUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1go2U
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwELA2qowpAKpgAAsy
 
-hl_direct_io() takes a reference on the context through
-hl_dio_get_iopath() before allocating the bio vector.  If vzalloc()
-fails, the function returns -ENOMEM directly instead of going through
-the cleanup label, so the context reference taken by
-hl_dio_get_iopath() is never released by hl_dio_put_iopath() (and the
-inflight IO counter is left incremented).
+composite_setup() validates the low byte of wIndex as an interface
+number, but passes the full 16-bit wIndex to the function's get_alt and
+set_alt callbacks.  FunctionFS reverse-maps the low byte and then uses
+the original callback argument to index its fixed-size cur_alt array.
 
-Jump to the cleanup label so the iopath reference is dropped and the
-counter balanced on the failure path too.
+Pass the decoded and validated interface number to the callbacks.  This
+matches the callback contract and prevents an out-of-bounds cur_alt
+access when the high byte of wIndex is nonzero.
 
-Fixes: 8cbacc9a2703 ("accel/habanalabs: add NVMe Direct I/O (HLDIO) infrastructure")
+Fixes: 2f550553e23c ("usb: gadget: f_fs: Add the missing get_alt callback")
+Reported-by: Chris Mason <clm@meta.com>
+Link: https://lore.kernel.org/r/3984c9bd-2ac8-424e-9390-7170fdab3c03@meta.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- drivers/accel/habanalabs/common/hldio.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/usb/gadget/composite.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/accel/habanalabs/common/hldio.c b/drivers/accel/habanalabs/common/hldio.c
-index c33c817a962a..0577dd8ec59d 100644
---- a/drivers/accel/habanalabs/common/hldio.c
-+++ b/drivers/accel/habanalabs/common/hldio.c
-@@ -248,8 +248,10 @@ static ssize_t hl_direct_io(struct hl_device *hdev, struct hl_direct_io *io)
- 	 * closest one.
- 	 */
- 	io->bv = vzalloc(npages * sizeof(struct bio_vec));
--	if (!io->bv)
--		return -ENOMEM;
-+	if (!io->bv) {
-+		rc = -ENOMEM;
-+		goto cleanup;
-+	}
+diff --git a/drivers/usb/gadget/composite.c b/drivers/usb/gadget/composite.c
+index df39e3487..2aa07eafc 100644
+--- a/drivers/usb/gadget/composite.c
++++ b/drivers/usb/gadget/composite.c
+@@ -1930,7 +1930,7 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 			break;
  
- 	for (i = 0, device_va = io->device_va; i < npages ; ++i, device_va += PAGE_SIZE) {
- 		io->bv[i].bv_page = hl_dio_va2page(hdev, io->f.ctx, device_va);
+ 		spin_lock(&cdev->lock);
+-		value = f->set_alt(f, w_index, w_value);
++		value = f->set_alt(f, intf, w_value);
+ 		if (value == USB_GADGET_DELAYED_STATUS) {
+ 			DBG(cdev,
+ 			 "%s: interface %d (%s) requested delayed status\n",
+@@ -1950,7 +1950,7 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 		if (!f)
+ 			break;
+ 		/* lots of interfaces only need altsetting zero... */
+-		value = f->get_alt ? f->get_alt(f, w_index) : 0;
++		value = f->get_alt ? f->get_alt(f, intf) : 0;
+ 		if (value < 0)
+ 			break;
+ 		*((u8 *)req->buf) = value;
 -- 
-2.34.1
+2.43.0
 
