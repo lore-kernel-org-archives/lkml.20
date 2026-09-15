@@ -1,214 +1,136 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E459F217723
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465707; cv=none; b=FwWH8fbwZgHSMgMlpr5yF3IroJJbNihg/0vD8URxoSE1BpVT5pMnds0yXikCa5XLBoy3w0E9Gza7Cqvyecg2scZJQi8OsHug3IpWI/T9+BCL+/7TWtcB6Wb1+qDCTihP6fKYRderoaCtkrQJnuDhroDEVLQlL5k+ne8SY7R8fZI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465707; c=relaxed/simple;
-	bh=nNUZwWZTjfC4pbKSyfiSUBNW2K4fvTlpDNJxgeBCviU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=StakPdx2k7ia1C8rJRTBhx2/mHadjSXMcv843y+ZNCKsrXlETg56n6N/XqMBvSuWU1Hp33O89c+jvGdvPKgTTp6vMvvgxKTs5owBV3AfAe3uujXngv71S55gd6r0DStVqkOTJ9Ti1zDKFVSZzeI807F7S1KCry/rc+21wKYOL1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KlbAETCK; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A094217723
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789465728; cv=pass; b=iolL3znLLT+GZe4+R23TlmVm2nij1GIbYnSWhVm09zqSFKfXD29QHOquiS/SUaPvnKG3N2DzlFdYNbBvRljQ2/XuQ/LTA32IXakoyRMeap6zd57yPUq6MYS9H6ltKwmqkzhTa/xdb5V/VLJO7klNymqm8UBe+NtoEGbPD9OZn7U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789465728; c=relaxed/simple;
+	bh=kqN7v6OkOyHJgxbwrpC5Eacfx8YjrcZBxxUXMIP2YC4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EID8/mK2pXaWpauN1n5FMeO+y9RT2U4iRKSgKqWYTas8bqHE/A2jNB+aDuyL8KVN4ElJbTLLZ6VJuEiSGLmIWQfF+QAiBY04DB3xhwwMvVw5VMxHDvodwIJgc9Vi+9lfNt6Ua9M85YARh4lsQag0bWg1EGd0s6kkPM+p2tFjdzY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FP1ayT+w; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KlbAETCK"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A8FE7169C;
-	Tue, 15 Sep 2026 02:48:20 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8035F3F86F;
-	Tue, 15 Sep 2026 02:48:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789465704; bh=nNUZwWZTjfC4pbKSyfiSUBNW2K4fvTlpDNJxgeBCviU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KlbAETCK49u7Uhsvu27653ZiA2SYi5l4cJPJuBjC4qkCOOosquhl6jn+/kb33OIFr
-	 8h7iTLUVyOr3nZ1BlcWvULVeO8Ks7Es/nM69kexTRXbkOgVj/RFaz+7F+8/c50eaZX
-	 QZrUsvnt4cn4zOu7P5GyfX2PE4rPLrWFSk8XPBgU=
-Message-ID: <1cba4015-cd0f-4f35-8feb-65bf6b027039@arm.com>
-Date: Tue, 15 Sep 2026 10:48:22 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FP1ayT+w"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac8d1fso19099717b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:48:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789465725; cv=none;
+        d=google.com; s=arc-20260327;
+        b=it4I8wFfLcJUxXaasAYHoOeXiNksT5IalUm2CJmpIyTJl3m+JSYsmIELhCktkjzyGm
+         Fp2tG/Jek+m+OeOCjUv/zZOaWJeE9Iox8iVVk7vvpfOOSKqnnKld6AhSiC+sNW1N+0lc
+         DeMNR1YV64vrNRzHne1dbFMBNDc19qmniKou7+V98oOtZeEXGkGgc2XEHMHphD0FEBhe
+         2HvnRbonLcd3O/KunCt/1z62nOqbEhUy5b8nPMWVwnKt8zZ07VDg9LcAU4q/s9y2RELL
+         2tK3WouJCoTsSR2BoNcqmT8twcvh1ZbbBdBlGszJBJ/bjL2IxzOicDWNm8pu38MvfBSS
+         6Rgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Xt/N1c2QTUTpESd5vWZaOt8vFR/C1nSv7TXwJ+U64JY=;
+        fh=7Y9hSQ4UEJ6ki1SpZhMjYbekbm7XbKroCG84EQb3e+c=;
+        b=fp537lAo9eGT0lQcocf3RK1PP0SVsLZi1E99SlmHG+hW3AccihPjGyUkgGtgLmxXrk
+         CayYfD3uSpknolBSYe+jT/dUqEaE7U5s1GKlX+EHW7+/IKULrHdpyIJIhTEN/eV4MQBk
+         mHLlmDYoHsZ0vAXd2MXYQO79i3ybq9yV6Y6OLKTP2Lf2p4HO0FqW+JQRZ6Q7V4p7mJH4
+         Sx+esiRYX/CRAu1Khq0tsAKj18/HhI5I0/l1CAUKPKYw5hBkNehwEGYBodEood2TG7++
+         GDczU1rS28ZQM43/OMdxhFy/3O/9bLJPE9Y7itRDIMaQmrDIDg20bBkEuYgaflJXCv1p
+         zgtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789465725; x=1790070525; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xt/N1c2QTUTpESd5vWZaOt8vFR/C1nSv7TXwJ+U64JY=;
+        b=FP1ayT+wSNVGfq0qzEdIfLUDQ4EfryMIXuD3nRX4TOJUzphwV99dqE3p7XBYA0fQ3s
+         RuBpaTMyg2wbPjxKnlNkOrSkTwYbcm0/u/UmDotjQoOJhqA8wuOr/wCeWExDVJrEr/T2
+         msBszEVwdS/VsnoLFQI3ABwbyGsv5161f4qQ8fInG1BiFy7aSiUnUiAReT0fQ1stKlZT
+         Vr1+oIbnjLV7la0Jv0qd+pch8VU/UIJPDISn9OM5E3KJSocmXHinYq6/0To6LiZvE4eS
+         GTu7FsI/aALM50+W25FPo6Dq5yNGdQV+ZRdz9MMG2LgBmEMLZZnGd48dDAdwf+rlGns7
+         MvYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789465725; x=1790070525;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xt/N1c2QTUTpESd5vWZaOt8vFR/C1nSv7TXwJ+U64JY=;
+        b=coaKch1R02cioPWO0Jg+Wca5sFSzcG5pp+icPCBM2NQjedvEHEs6Sly0HWtgSaFAjZ
+         ep3yCO5E0MR4o0dDMEG0TLQ24bjCMSj3rk0mW5MCHjxeleyaCMDC4VZGnC0NKhRzTym4
+         0uxY2BfMyIhmsc+RTph6lbtUDs8Df7RHVssaA1lbwzs6TWMGC2sdQhL1g3p3MArMyIC4
+         JnOrKxWPedmPg5810EIF4E7l1ijo3S1KNJz9+SxGcmgvXWIPG0ROftG4dZ4TEqObbMMT
+         wFld5y5PB7GBx8Inn/aiJOK2uACHgSHGtfMd68v7WTQrfCwnDS29B3ssuPVqNWNCuq3y
+         W2XA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTq3UorWmELTygNkmcfDPEUiAE7mtx4CtxaXTeXkXhkk8+0QsLDGJnyFYY0lI2dwFxQNk76m8omU0rn4Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZlVk/rSivgB7ZG/ZQdJO855meSRYf96tSl+JltJYx+aLqg8oU
+	SVUI0w44361CoAG293anVJix/RWxQLjTToN2/2mlVCc/XPY4/bp1Ktq7hz3EZ8/L0d3Boa2sSUO
+	5ftouch8yqv9zNaFguBTAaL+sFe5REHyIlCWQ
+X-Gm-Gg: AYBFou1nYJwVrSZaCJKwba4fmBAnmLOCNeb/7h7Er+N1f0XyQfepsGtBvT33grVSm7s
+	6cOxdd3qIPpZSSn4afGuQqe4h07C/xBUTGqjt3T7LY0Uq0tJd8MOb7HKdxgVfsChlqkaMzdPC1o
+	eSrdxpPksvKoa3gvan0kBQlpHib10TNmdlBO9p8AwWQL9+wO4NOavEOOFb9hutrpNEK96ATA+Ys
+	xm1tvRfPXykD0YRICCsbOTTw/PMVs+eNg9KBCHTLdiV2aPZ8LRiFIQRKXdol2X2kRxoZKGSoP+l
+	VdvOev/zuHn0xDxfKcr2tVbQvPCGWuEd85f3G72usW2lXB//f7WEM1wu5w==
+X-Received: by 2002:a05:690c:9990:b0:884:b55c:1bf with SMTP id
+ 00721157ae682-88d19927a33mr17511267b3.0.1789465725204; Tue, 15 Sep 2026
+ 02:48:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm_mpam: Use an atomic counter to schedule
- mpam_enable_once()
-To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org, reinette.chatre@intel.com,
- fenghuay@nvidia.com
-References: <20260908024846.2063161-1-ping.li@horizon.auto>
- <20260915031809.4073512-1-leeonion.muyu@gmail.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260915031809.4073512-1-leeonion.muyu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260902-07-k3-sdhci-fix-v1-6-b15c5d0f64fd@kernel.org> <20260907155300.1411173-1-alan.tseng.cs@gmail.com>
+In-Reply-To: <20260907155300.1411173-1-alan.tseng.cs@gmail.com>
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Date: Tue, 15 Sep 2026 11:48:34 +0200
+X-Gm-Features: AcwNN1UPWo8A8KL1cUnWKRSOKo7pDITqyT1rjkjcajM5WYeVYYuEMRIWcJfeozY
+Message-ID: <CABdCQ=Mi3M8vGCYjURicNWy-Bh22qN199jOdHA5rEfTzui2b_A@mail.gmail.com>
+Subject: Re: [PATCH 6/7] mmc: sdhci-of-k1: Improve RX tuning window
+To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Cc: dlan@kernel.org, adrian.hunter@intel.com, ulfh@kernel.org, 
+	long.wan@linux.spacemit.com, linux-mmc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ping,
+El lun, 7 sept 2026 a las 18:00, Hung-Chun Tseng
+(<alan.tseng.cs@gmail.com>) escribi=C3=B3:
+> So a threshold of 50 is comfortable here. It also supports your
+> rationale directly: boot -2 produced a 5-code window and boot -1
+> produced a 1-code window on mmc1, so the narrow-window case this
+> patch guards against does occur in practice.
 
-On 15/09/2026 04:18, Ping Li wrote:
-> mpam_discovery_cpu_online() scheduled mpam_enable() after each MSC
-> probe, and mpam_enable() walked the whole MSC list taking each probe
-> lock in turn to check if all the MSCs had been probed.
-> 
-> Count the MSCs that have had their hardware probed with
-> mpam_num_msc_probed, and schedule mpam_enable_once() directly when the
-> count reaches mpam_num_msc, the number of MSCs the driver discovered.
-> MSCs that were already probed no longer cause work to be scheduled.
-> 
-> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+A jump from a minimum window size of 3 to 50 delay codes is quite dramatic.
+Could you clarify how 50 was chosen? Is there a specific hardware specifica=
+tion,
+phy datasheet recommendation, or test dataset across multiple boards that
+justifies this exact number?
 
-Thanks for implementing the suggestion :)
+> My question is about the form rather than the value. The vendor
+> driver takes this same limit from DT, per host:
+>
+>   sdh@d4280000: spacemit,rx_tuning_limit =3D <0x32>;  /* 50 */
+>   sdh@d4280800: spacemit,rx_tuning_limit =3D <0x32>;  /* 50 */
+>
+> So 50 matches what SpacemiT already ships -- but there it is a
+> per-controller DT property, and this patch turns it into a global
+> compile-time constant. Was that deliberate? The vendor design implies
+> the value is expected to need per-board adjustment, and with a Fixes:
+> tag this will land in stable, where a board with a narrower window
+> would go from "adjust the DT" to "patch and rebuild the kernel".
+>
+> Two options, if you think the concern is real: keep it as a DT
+> property (matching the existing binding), or keep the constant as a
+> default that DT can override.
 
-> Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
-> ---
-> Changes in v3:
-> - Rework per review feedback: instead of scheduling mpam_enable() after
->   each probe and walking the MSC list to check whether all MSCs have
->   been probed, count the probed MSCs and schedule mpam_enable_once()
->   directly when the last one is probed.
-> 
->  drivers/resctrl/mpam_devices.c  | 47 +++++++++------------------------
->  drivers/resctrl/mpam_internal.h |  1 -
->  2 files changed, 12 insertions(+), 36 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 2f09f4b78bd3..c6000bc2157a 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -55,6 +55,11 @@ struct srcu_struct mpam_srcu;
->   */
->  static atomic_t mpam_num_msc;
->  
-> +/* Number of MSCs that have had their hardware probed */
-> +static atomic_t mpam_num_msc_probed;
-> +
-> +static void mpam_enable_once(struct work_struct *work);
-> +
->  static int mpam_cpuhp_state;
->  static DEFINE_MUTEX(mpam_cpuhp_state_lock);
->  
-> @@ -72,7 +77,7 @@ static DEFINE_SPINLOCK(partid_max_lock);
->   * scheduled via this work_struct. If access to an MSC depends on a CPU that
->   * was not brought online at boot, this can happen surprisingly late.
->   */
-> -static DECLARE_WORK(mpam_enable_work, &mpam_enable);
-> +static DECLARE_WORK(mpam_enable_work, &mpam_enable_once);
->  
->  /*
->   * All mpam error interrupts indicate a software bug. On receipt, disable the
-> @@ -1854,7 +1859,6 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
->  {
->  	int err = 0;
->  	struct mpam_msc *msc;
-> -	bool new_device_probed = false;
->  
->  	if (mpam_is_enabled())
->  		return 0;
-> @@ -1866,17 +1870,18 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
->  			continue;
->  
->  		mutex_lock(&msc->probe_lock);
-
-If we switch to use guard(mutex)(&msc->probe_lock) then we can get rid of the nested ifs.
-This allows us to...
-
-> -		if (!msc->probed)
-... 'continue' if already probed
-
-> +		if (!msc->probed) {
->  			err = mpam_msc_hw_probe(msc);
-... return early on error
-
-> +			if (!err && atomic_add_return(1, &mpam_num_msc_probed) ==
-> +			    atomic_read(&mpam_num_msc))
-
-... and remove the !err from this check.
-
-Instead of mpam_num_msc check against fw_num_msc so that we don't need to take into account extra
-calls to mpam_msc_drv_probe() due to unbind/bind potentially incrementing mpam_num_msc past
-fw_num_msc. As we disable bind/unbind by setting 'suppress_bind_attrs' this can't actually occur but
-I think using fw_num_msc is more robust.
-
-> +				schedule_work(&mpam_enable_work);
-> +		}
->  		mutex_unlock(&msc->probe_lock);
->  
->  		if (err)
->  			break;
-> -		new_device_probed = true;
->  	}
->  
-> -	if (new_device_probed && !err)
-> -		schedule_work(&mpam_enable_work);
->  	if (err) {
->  		mpam_disable_reason = "error during probing";
->  		schedule_work(&mpam_broken_work);
-> @@ -2713,7 +2718,7 @@ static int mpam_allocate_config(void)
->  	return 0;
->  }
->  
-> -static void mpam_enable_once(void)
-> +static void mpam_enable_once(struct work_struct *work)
->  {
->  	int err;
->  
-> @@ -2867,34 +2872,6 @@ void mpam_disable(struct work_struct *ignored)
->  	pr_err_once("MPAM disabled due to %s\n", mpam_disable_reason);
->  }
->  
-> -/*
-> - * Enable mpam once all devices have been probed.
-> - * Scheduled by mpam_discovery_cpu_online() once all devices have been created.
-> - * Also scheduled when new devices are probed when new CPUs come online.
-> - */
-> -void mpam_enable(struct work_struct *work)
-> -{
-> -	static atomic_t once;
-> -	struct mpam_msc *msc;
-> -	bool all_devices_probed = true;
-> -
-> -	/* Have we probed all the hw devices? */
-> -	guard(srcu)(&mpam_srcu);
-> -	list_for_each_entry_srcu(msc, &mpam_all_msc, all_msc_list,
-> -				 srcu_read_lock_held(&mpam_srcu)) {
-> -		mutex_lock(&msc->probe_lock);
-> -		if (!msc->probed)
-> -			all_devices_probed = false;
-> -		mutex_unlock(&msc->probe_lock);
-> -
-> -		if (!all_devices_probed)
-> -			break;
-> -	}
-> -
-> -	if (all_devices_probed && !atomic_fetch_inc(&once))
-> -		mpam_enable_once();
-> -}
-> -
->  #define maybe_update_config(cfg, feature, newcfg, member, changes) do { \
->  	if (mpam_has_feature(feature, newcfg) &&			\
->  	    (newcfg)->member != (cfg)->member) {			\
-> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-> index 04d1a59f02af..72bf296c846e 100644
-> --- a/drivers/resctrl/mpam_internal.h
-> +++ b/drivers/resctrl/mpam_internal.h
-> @@ -453,7 +453,6 @@ extern u16 mpam_partid_max;
->  extern u8 mpam_pmg_max;
->  
->  /* Scheduled work callback to enable mpam once all MSC have been probed */
-
-This comment should be removed along with the declaration.
-
-Thanks,
-
-Ben
-
-> -void mpam_enable(struct work_struct *work);
->  void mpam_disable(struct work_struct *work);
->  
->  /* Reset all the RIS in a class under cpus_read_lock() */
-
+I agree with Hung-Chun's point regarding configuration. Hardcoding 50 as a
+global driver constant assumes all boards and trace layouts will behave
+identically under thermal/power variations. Defining this limit in the Devi=
+ce
+Tree (or allowing DT to override a sensible fallback default) would prevent
+boards with slightly tighter tolerances from breaking or requiring kernel
+rebuilds to boot.
