@@ -1,115 +1,161 @@
-Received: from mail-pz2-f20.google.com (mail-pz2-f20.google.com [74.125.228.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF483D79FD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CCC3D9DA1;
+	Tue, 15 Sep 2026 15:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484612; cv=none; b=VM8O3ggeFJmQnhK0zWurGgv4k0IgDA+g5dy8oY5fMQjaTIYphpXnzD7NetPT0PRgUHNF/cTTGYFSMWnytgZJkqTsYU22+kJyxw70GPiZ7EVmo1RPtkTd8zchfxjctbf1q1pFLKjSNvaDnlJARsV6vMGvX4meBqEoTM+ZAoFzfwE=
+	t=1789484655; cv=none; b=ejYAVnRuZvV3VX3j/nTTIUFN5Axl56rdGYZkeUsOZSe6a/tGlHLSy2hYGZHO7tVdneiHxw8yObUme8LvtMJHoeMNuJ13xvf05GbwUiRkvh318v9R7dCgR08zfbSOXPBW3IM7YJkOKcKr3yffXmdpm3Y/eS0hIoL/ErQLC5v+Tzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484612; c=relaxed/simple;
-	bh=ZxcOEZm2h5gq0oopxQGQnrU+9rOuzRx+cCXYve5p7C8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n/ZA52zYwWdq81ANRO7diJJbphSAE0ZaT7R5KUriJl+Vyu5lFwxAmtxE8fKMkzOyCgIfgLnBr7uNUIeXqc9QxcI/3ga+ngAHY/eXuf3bJdY6oI2hfyJreIxNyCJ7Llxg9klbF47xXNTMglbE1i1mVMQAU/vszoOmQxkgGv2lZWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bYhj57al; arc=none smtp.client-ip=74.125.228.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789484655; c=relaxed/simple;
+	bh=IZYowYo0tr99LV5bF5s2Q786jBuUYkEw4pS9QMyuqbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VHNp+NlDRMt/80ZGWAjRtlSbBcLMYoA74cEeUlx7ACrxZp7qVH9Dzfg5zm+ftYJd6fWMPI1YYCSAY/TfGCbGuKkv3BVIU7JGQKEj2xCT+uEBwyOuaEasO8XsDmy6QM/hA87bPNHJcq/salGMPkjoJKlpenKD1Ibu5Kssm2fsZZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfUJfxGo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bYhj57al"
-Received: by mail-pz2-f20.google.com with SMTP id 41be03b00d2f7-cc4ae61629fso2464820a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484610; x=1790089410; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RnoFATftpooOx4JQEkcutKyMZ8fnscChHfdP4CjfQ0g=;
-        b=bYhj57almlknnku1zHJDxN6L0ktJqknCYE2luWkbj0WtkZKfchZHnaWCFYtjSVjo84
-         15mCIodT7vPcKb2OzRh/z/qAGUdGMwAUFMexLSiKQtDfatMjCO60qZQ1a0ntlVLGyoP9
-         C5kw1icnocUtPun0vvZrv3wO3KoOMFc4ZpGhegm5/utFnqwqUohHZJXlt5q6XZRlVTHt
-         wdI/hHfN/bKucntbbMtd5z9DOsJBUrB2Qidg1Bei/VIA5XP28npgMzKvN3T+Lxr/YvCM
-         Sw4RxJW3yThVYVJvMuqjyybVWE0w6WjMz+hcki/HfDCTfBYsk1Jml9jl4jx4dgf9eM1O
-         znog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484610; x=1790089410;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RnoFATftpooOx4JQEkcutKyMZ8fnscChHfdP4CjfQ0g=;
-        b=Fkx5Ky5pAjoT680E4btm2Fs88bsTSWTV+tg31Y8k60R7H9M8jy8xQbkqfgaXE6dLIm
-         4iuuTkyQdilxsxEZ2OjAWIhDeHFGBNPIxXH+ryOAq1jTvlaResHosCN/aLhaX88l5rqU
-         SKb7SdzIcZ6sCroahWxwjSKjNTKvzz0kVm5JK7C6OuRJGnRsWYHGx1wYZRP8eRrM5o7T
-         RSIKFnM9BJRyMstRFkUPNfV0yzc8Hp9KSlQwgro7bZt/KLN+4gTMNAaSGsU7cShWt3pV
-         LNao8nr5G1zIuQFtIqtFTTGJc9z2y2QdeAQCfw+2UoyP8/W8kFkAZpQ/ZUHs5ZOEH2Rv
-         XjVg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6t/fUtgCwi2VLFj/2nudK989G2mM5F5EDCfkqX5Uodd0DlaMwciD1pSaNLDx+LBYMAVP47TlMpWq5XBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEeeecxP5lf2aRBagq0pOoGm075/SpLH2WNGAzPjp3sbEoDwWz
-	BJ9WcuW+QxLC28DKC9BCtCMOa0XuWpzrewGsJT+OlFWmGWj2gviTk7qg
-X-Gm-Gg: AYBFou3FL0tol0rEIfE8ySpcLBKaKT5QB8d6BSMW95PuYrklC3rH8Zah8H+Q1LC2sKR
-	wpmUxAZiG8SBoaNS5KyoZXxeZ9Wp0kZNcp1CAy1nMNdQWNyvETaxhOfIK8KsL7u4Hi2bOdp/FMq
-	cx/5D9oAFLK2AREqoTmH7lYd+iQ30wqmmCNNqc6ddfVF82EqhEO2ldGacgBg8ddE5UANOdAbFse
-	7ebyKnJkPnxNEwmfN71Y61GRi0d/tzrxYxYQv/3dMKkbRkOw95zuRx7QXTHK3CO+G9Eld2ZfonK
-	JPbzsN5krnMZZ2e2PEdgbUVqAoWm6cgiq0KaW4pTqHxLgMD9qOZaDOFuR+7FXMpcxUzVT6rowd/
-	RSZK6GT12X5E1Kb+a7wwdCDBkC4sT7ZOKxWBtdS2eaO+RFJ9Kz+ZoJD3cq8hiNaQ012vat5Rjmx
-	aVCBoDHIftGhR1uCaC47VBYKcxdCYwdia7WuLYyi/zytCAWepgGsK0M0nI5gqtzMUZbA==
-X-Received: by 2002:a17:90b:2789:b0:39d:f2a1:2a with SMTP id 98e67ed59e1d1-39df2a103d6mr15547653a91.19.1789484610100;
-        Tue, 15 Sep 2026 08:03:30 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda8bdf4sm6105716a91.12.2026.09.15.08.03.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 08:03:29 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Maxim Levitsky <maximlevitsky@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] memstick: ms_block: destroy io_queue workqueue on removal
-Date: Tue, 15 Sep 2026 23:03:17 +0800
-Message-ID: <20260915150317.2444609-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfUJfxGo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 445A51F000FF;
+	Tue, 15 Sep 2026 15:04:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789484651;
+	bh=6WCAfz85+ZGgRMN8wAwQXLQh8ReFwgRJPZyO/JsNeYI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CfUJfxGo8VPDYjL6tBgfl6L002bEGl1ULF2dCRDxLcUo+ron9vtXHUBT/L1UTJo8L
+	 U0iLglw63rY+yRq09BUmnCcoTd/5o8qIRnxuo2JlsFOAqKr9geNfwGfR1AickYadR1
+	 eZ+UJH8NBVkcyKnuFPyAHxFthRRJgRf2DHU7c2yHI6ZgtsWCDAM9+Dp/WgT7KnklKF
+	 xxwMgPPtPplf0k17pupUP4U4BTD5IWphakn+2wgwPt4Ob7KYYh4Fiufotq7wXJZle1
+	 XndOOWOAK6nwCgJYzumwG2wlhaFBpVgHKhfhm0X9wnZqdojf8v+Yk3NqQjtqoeQ/bI
+	 RWTqH0Scqd2sg==
+Date: Tue, 15 Sep 2026 16:04:00 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Kees Cook <kees@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 17/21] objtool: decode instructions and resolve branch
+ targets in parallel
+Message-ID: <aqlau0-opF8yG-JU@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-17-39817ec5db23@kernel.org>
+ <202609141112.F8983EE9C@keescook>
+ <aqkR9Xqu-0Tem1zm@gremlin>
+ <20260915122959.2348bf90@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915122959.2348bf90@pumpkin>
 
-msb_init_disk() allocates msb->io_queue with alloc_ordered_workqueue(),
-while msb_remove() does not destroy the workqueue.
+On Tue, Sep 15, 2026 at 12:29:59PM +0100, David Laight wrote:
+> On Tue, 15 Sep 2026 11:09:25 +0100
+> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>
+> > > > +static unsigned int decode_threads(unsigned long text_size)
+> > > > +{
+> > > > +	const long nr_cpus = sysconf(_SC_NPROCESSORS_ONLN);
+> > > > +
+> > > > +	if (text_size < DECODE_THREADED_MIN_TEXT || nr_cpus < 2)
+> > > > +		return 1;
+>
+> The text_size check ought to be before the sysconf() call.
 
-The probe failure path releases the workqueue with destroy_workqueue(),
-but the normal removal path only flushes it through msb_stop(). Flushing
-a workqueue does not release the workqueue itself, so each card
-insert/remove cycle leaks the workqueue and its worker.
+This is bordering on a silly level of micro-optimisation :)
 
-Destroy io_queue during removal after the outstanding work has been
-drained.
+This is ~us runtime, run once. We can live with it.
 
-Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/memstick/core/ms_block.c | 2 ++
- 1 file changed, 2 insertions(+)
+>
+> > > > +
+> > > > +	return min_t(unsigned int, nr_cpus, DECODE_MAX_THREADS);
+>
+> Why min_t() -  you might as well make nr_cpus 'unsigned int'.
 
-diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
-index ce33907bfc24..65154e569a9e 100644
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -2204,6 +2204,8 @@ static void msb_remove(struct memstick_dev *card)
- 	msb_data_clear(msb);
- 	mutex_unlock(&msb_disk_lock);
- 
-+	destroy_workqueue(msb->io_queue);
-+
- 	put_disk(msb->disk);
- 	memstick_set_drvdata(card, NULL);
- }
--- 
-2.43.0
+Except... sysconf() returns a long and -1 on error. Isn't min_t()
+explicitly for cases like this?
 
+>
+> > > > +}
+> > >
+> > > No, anything using _SC_NPROCESSORS_ONLN internally is wrong, whether its
+> > > pigz or objtool.
+> >
+> > Why? We shouldn't cap a 4 CPU box to 4 CPUs?
+>
+> You almost certainly don't want to use more...
+> (Unless they end up waiting for disk)
+
+Yup on the former.
+
+>
+> >
+> > The idea is that the empirically obtained 16 core limit should naturally be
+> > capped to the number of CPUs.
+>
+> The 'empirical' limit is very likely to be system dependant.
+
+This same objection could be made against literally anything I do or do not
+do, it's a little silly.
+
+Every single cap like this is heuristic and limited. In any case - for
+smaller machines, the cap will be CPU count, on larger machines 16 CPUs is
+where there stops being an noticeable benefit.
+
+Other solutions are strictly worse, this is a sensible, practical
+engineering solution.
+
+> There might also be situations where you don't want the build to run as fast
+> as possible because the system is performing other workloads.
+
+Umm what? It's 2026, schedulers are pretty good now :)
+
+In any case with the changes here objtool doesn't dominate the runtime, so
+it'll have little impact. So run make j=1 to your heart's content :)
+
+> (Not to mention if you have had to add tracing to find a bug.)
+
+This is almost an argument against parallelism in general.
+
+>
+> >
+> > I guess in a world where make hands jobs off this could be dropped, though,
+> > if the complexity there seems worthwhile.
+>
+> You need to pull tokens out of the make pipe :-)
+
+Thanks, I understand what's required, as I said to Kees there's simply no
+benefit for the added complexity.
+
+Series like this can die by 1,000 cuts with all the nitpicks and what if's,
+let's focus on the _significant_ improvements introduced here and keep
+things in perspective please!
+
+>
+> David
+>
+
+--
+Cheers, Lorenzo
