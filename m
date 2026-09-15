@@ -1,292 +1,279 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011067.outbound.protection.outlook.com [40.107.208.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1025485CCB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460795; cv=fail; b=goGmBTQrFApS2P/D6YXvZVBE4j/CcyF1j1yzS4sG+iANzaKnHnXiymFE5wt5HZGO4/vbHAWrGiWm5Tx8CB77PE70Fcuxz1fBHpmi40uwrAEA8CC6HS70Xkz2Xi1pdxyobq+/9GQ2d3rY+aSJcRMOk25cibnQxEFZCtHnhvP/7tY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460795; c=relaxed/simple;
-	bh=VbNmCW+ABXBKrCIGI3IRlLOJUgaTk1owRYE7StJqlqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=E68a0ZDY846QwnJmHu5Zz55r4aKM0gDkEMr46Ip+ClzVYKVB7qQVKPwixgP9QAUNifk0SLaeV4GpnQon6necQ8ToHkPbm4AGSudofcUHGy+hqOv2NROhIF9kn/BwaNIkJqoPcgb//uGeJb2fmT3torlJCQ/t+qJqF/9jiDhpouM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Noin2mPp; arc=fail smtp.client-ip=40.107.208.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9273E486BB5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789460799; cv=none; b=SgXvsD3S1eHEiBi1LsDqsLl5pgbd+5bYzqbzkxqa78mVqVLuAzWfFlwhlGq3HzXdxPGp+hVpDhToIkIeOUVawGoH1qjCmu8ceksHjUuLiCidiFQzE3WdfrDL0983KTcULqtPezH0ETLF6Tj/3Uv84Irl1svW/S8mLasQEUfU2+g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789460799; c=relaxed/simple;
+	bh=Hbrp06lq3B7opj8tzjJVqcfrxhhZTvzJ1WqUPePmYuc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=EvfcamWMPdrksKqfrELpaWjmrJ0aa0RjxukO4MX/F82JkYSgdnkzowgUtF3GbElpQHDHZq/OoeIULc5HLxobvOAUVWFz2YZ0jMGw8zEcPsHL2aDhf4CNF4VeV6VKQ0gLsQhS645/9xCK+52+GDRQq7nUi6OgpAjNfyFtR19D9ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=plZ1yrqk; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Noin2mPp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cmuNnvkql3YD6PWexbdk1Rx4k/OhLd5Fu8BRHfS916SidbZ68q+d3JNKBWUzdIjXa6KU+h0BxPjY+GwAxVi+jZo+BSW04n0FLkRs7039jRrNZcLVP+6lRzuUsEd4BHP+wE3TSiJNfKn/hV0Kpx9/pme8AvheGLqytoiH+xhuok+HBX9bu9l0oJS2X38rq/IXlGib9wg7ETJCIRNlXYWAgI/8yZ9Jm/QaF0DuTgMprBxu6pjXPm13Jc7VJdAmb6S6nSjI1zmEJl/GzZUI6mXhG+npyvMbZlboIi9e80U9SNGK4eles+AWh2bMagNmPtVFKKc53KWjAqaqyYFHi+AIrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EY8Q7RViD703Cpb/zEBQB/kdMIFkxcDUfbaqASEcpbY=;
- b=bFRuBDEZYnioW6bgpjGk3L0dJYj3WL9b0qMUINAamgdJCa5C3cvQSGlbPuJzbilg3jdU8mt8SGPTukevF9aXNBLEzSov5ajvt7ZDPx4JZesATVjehUJRPclH793jdT8f4plEdM/JwzmHe4S4Uvmta95637yd877AzcLkCA25kmVqkA3x8+gr8hKagR2zV48rHvYca2+ht0dLmlZxq5lWrmeUEUFTpkICa22mQwPaX5kYLeoMWSYSZF4xD2fyeCpLBPd0nL4wShQ8g8SYXBOuoCEzPUILgIGQ1N9c4Ja28HOQVOYf3g0c3RuRzMKmShc5TPkUAb/ktwb7hlE0k3MSvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EY8Q7RViD703Cpb/zEBQB/kdMIFkxcDUfbaqASEcpbY=;
- b=Noin2mPp3tpGsrvPYmbfw5+Sga0gUP5d9ik7tqW9Zjyeb65e5JagsSsJDodRwrmdaJlvWWqmpvQBZ22/ddM3n+Pwp9Q93mTrcjiNQiVgrZ/Ftcv5220chMLYUeqE8sCqHvCueNyxqqJUWUMJJIufn6hw9CYtKbQB3RF1mzZr3gt5koanTVzHC014vmi90uU10Z3BaJp5D0B/w8DVPkVTg5pr39Rf4Yh7odnCOQdVvV6fvaY2LHkMPLF+XZdIxWe11k3nAfWPnxyvyUwa9KzJdkwGvIcjHPwmBYKLH8d5Kcm8zKYAxlELB6xAvqZdctG0qZzYF8d+QcccGsr7BkIEdw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from MW4PR03MB6555.namprd03.prod.outlook.com (2603:10b6:303:126::12)
- by IA1PR03MB8047.namprd03.prod.outlook.com (2603:10b6:208:596::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 08:26:29 +0000
-Received: from MW4PR03MB6555.namprd03.prod.outlook.com
- ([fe80::c8e9:5e5d:afad:5eaa]) by MW4PR03MB6555.namprd03.prod.outlook.com
- ([fe80::c8e9:5e5d:afad:5eaa%5]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 08:26:29 +0000
-From: hang.suan.wang@altera.com
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Chen-Yu Tsai <wenst@chromium.org>
-Cc: muhammad.nazim.amirul.nazle.asmade@altera.com,
-	tze.yee.ng@altera.com,
-	chee.nouk.phoon@altera.com,
-	genevieve.chan@altera.com,
-	adrian.ho.yin.ng@altera.com
-Subject: [PATCH v5 0/3] Add Altera SoCFPGA Crypto Service (FCS) driver
-Date: Tue, 15 Sep 2026 01:25:42 -0700
-Message-ID: <cover.1789448406.git.hang.suan.wang@altera.com>
-X-Mailer: git-send-email 2.43.7
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0210.namprd13.prod.outlook.com
- (2603:10b6:a03:2c3::35) To MW4PR03MB6555.namprd03.prod.outlook.com
- (2603:10b6:303:126::12)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="plZ1yrqk"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-869b8d63e28so5217452b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:26:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789460796; x=1790065596; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tzVl62qjzRm92BALDDypl3TnCOJSNAaLaOJ/zmWRh10=;
+        b=plZ1yrqkCcoXlNXcPpA56jCZNYCLAVtsggNA7VUzG/aU3Mm7f3sEZWt2jitR61GLXF
+         LbCMJ+L/Q7bzPc4pk8PcLV2BBbSV7Hf1NYLbMl7dTJ8Vu/96sonv8UGi1tWTD91nXSyn
+         X36Ay6drtQSb1tfkDwodsoMqa1Np3P/pNZR9jPvu0hB/nB/HE4/DouZP4ePY93iQ63vG
+         MXVgMfQN1DbmJJvf9kV5f3Jw/26LEQ4dwvD62e0+/GjqyEeOwyZ6HzXlTdBXyZLBGML4
+         +jA7pvE71hXlr3RWPsCHy0mCLKPgsxD+erBR/jiWStWlhWqpJ90g+tkz51XJFOWO+CgD
+         OF8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789460796; x=1790065596;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tzVl62qjzRm92BALDDypl3TnCOJSNAaLaOJ/zmWRh10=;
+        b=QJb4u9fdED4U3XgmE1E3Wpx8GAKmd2cDynKqKIpCAbp2df5dd3mRZf/6VG14wF12q3
+         9pF8CJIjc1phnFmXrrVF4RPSLJxROxEq22bX29csZZclwDEbKObKzHMwPxjrcPvmK988
+         hZfc7BelmWVwNItuu7yqlFJsGOo21sUcLLoWRuAo4+Lvsb0Qhgk8KQWdXmeIw1OP1xUZ
+         yEK06+jrszHaeOJ+Ti91LM/Rfw/AB/6veUa4yvjHU8QibdFFvIpTXUZFy516xTmzRnXb
+         gbL+5yqHCPJvQ43NEbfUQfROBfiCoDUIL1HvH2bUbkcIUdDp5yLTtuzexilKiF8GF8zd
+         cP2w==
+X-Gm-Message-State: AFuF++nEYtaDEyWJdrBvBk9+e1du4WBaPMUbfLe4QkXpjDSJ5pE1fQHn
+	0LEWHgWITG4S5l4UALlH66uBiO7UKpxF0BpURtu95nABi8ANGfqcETe6SPtY/bvC5MMokNDJGhc
+	fgk9LSCpFJ0MOgwHTKDYkh3prseLR9s19qSvQIlW0adDblRhmvwCVB3zudokfbOjiPkZFe/UzCU
+	LyOhuP2Ctqz8v3jRCpfwRGZq42EaPyfSqxdFGvaQ==
+X-Received: from plbjx4.prod.google.com ([2002:a17:903:1384:b0:2dd:1457:fac8])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:190d:b0:2dd:4168:7bd3
+ with SMTP id d9443c01a7336-2dd6c6c0cb1mr140747065ad.12.1789460411041; Tue, 15
+ Sep 2026 01:20:11 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:36 +0000
+In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR03MB6555:EE_|IA1PR03MB8047:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3edbe24-ec18-4880-9d12-08df13030a60
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|10067099003|7136999003|3023799007|6133799003|18002099003|55112099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ldhoCUSZuuPzVXhHWYDwrulfAZGY5nj3TmmA0MMkq14+vrsMyesD5vGFtKWjjoL+a8AYG/3wD6ac0otsmZpEHeFfBNfWcUmx7E4EXQPVFRTRtNVqATLXlcCUCHELg55aeBUV6o9P4vOhcNmGtjNQTOQQKGoZrtbRyt4DGZSvD4k2YNqWPeQYeMGFdVlPcbGf7F/Airmb/Q7AYlzSL6EQ/q9dSo5jDVBCMNVA+KWk9cfVopt5af1iXM9SBBE4sp/hGMMQwp/j/3KRGK30gB7C8QUT11wwddyHhhh9ool8SnYmkz4HeQLl6gtGAMug/Qh/fk6kI4mFAHiM0rJGW2cvx58Imshh2KxI7uT0dBNUUuMvAt+ihIBN/2vSuXSyrs9YcIn2JGOAn1wsfavI7UELFhXiWLbsuc8M8njRJrVuAO8vK3RMpLs7x13STeIFucnZ+pPmN/TTzEEjHdKlg8/P2OX/NE66SIEay1P9cSNE3CHW+Kgi/LVFR24IYbhypyfX0Z6hQcST0Vz1K6BDHEGxKJ+NyS/UaMoXYvFQXyTFZEZRQB5WZKJfsMF27CL0mMU76voPRjoKH0S7jaTFocveQqzS7knBdf9aWOCV+bYPeKgY07LqknYfEqjcSq2h+55CZKGslMG2BSuUf/rbO4t10N75wpkaFym+jAhKf+VYIBw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6555.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10067099003)(7136999003)(3023799007)(6133799003)(18002099003)(55112099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ghIno50WZxLi96hTglq9yBZspzm3RawnVMjslCcAWHqoiq2d/EfRdAq3uDj4?=
- =?us-ascii?Q?9sDCIbjF6JMflrL0JUfTp8hDMh5ARdhuSXIX31Iw9omSw1yBBc615Ff0WfOF?=
- =?us-ascii?Q?wqgPDlfNagqLkuimIvin77j71USNNJGICM1t1c4ZeJ7xOpEkYRpPKjLOJmAm?=
- =?us-ascii?Q?NLiTB7dZDjVuhcapMdwDBOZdF/P2r+OG24rd4VjI9AM1nT7oSZnmVuM+Del2?=
- =?us-ascii?Q?4EcnIBFuajVtBNZTJZEXecYi0PPXSWHj1rjKuEFNujKEVxX8ZziUqVx+1+CO?=
- =?us-ascii?Q?oBQ3v3MwuLvBsEQEK49IEqXkfBlhIbw0BfK16fuI/WIlINy4kgjzI06t/keQ?=
- =?us-ascii?Q?1FUK1XQCgZuPtB8QTKAEnP+masniGmXdU865i0qHIMARbeJDmOf+r8a8SYcb?=
- =?us-ascii?Q?NLM+ErrsLh0CtJ6ALoPq95III8fv3G74ZFDQm8bGfOBaywEEUB487VCRD9QU?=
- =?us-ascii?Q?M8xeIe+/JNunFhHDnFGIMkb1FY6xasfu3U1IH9JrRYcxMcve+UhzKoxl5YwE?=
- =?us-ascii?Q?QEKC+W2XfEA0r3emXiE/nQmvdXeYgaM7LWWftJKGFFcX6/u9Pc/hZm4wTJbY?=
- =?us-ascii?Q?vYep9DKYAEGViowaxjPaMtecnBpnZADRW9Pud8na2IKYK3ViqxpzGKdYD47v?=
- =?us-ascii?Q?QPsJCi17IuLmfsw25AP8q6YrFugDB19sdGOnIcA5xU98JMAzQeAojLhNj/5Z?=
- =?us-ascii?Q?+jKxlaZohfwUSSsERkWttmkxCb5DUqeW3fPKvUSlC8bJ2uDs/jw/A4xw2KT1?=
- =?us-ascii?Q?ktdHbIarwuNrEpnfH9k9kJpPhW+2WVxjCpQOgbxFtb3eTdoAtLAyd9z5e8O4?=
- =?us-ascii?Q?TkPBW19LeIcrZssEFuScuL+Op2Wbf9J7rt5IT0qcLt12s19D9Uzr9kzeKFfZ?=
- =?us-ascii?Q?I0Sf0wBizXdejWyqW2jfpy698l4AUo2WGwzFiJoaa5ZmYrYAJ2+LzrHz3han?=
- =?us-ascii?Q?R3xJjQD54+X0A2tUEc7H7ix7BhizluL3yY5LiRSU5eA45HQvEEgI2oF+wFEm?=
- =?us-ascii?Q?ZAqRviTkbGm15L+bsS9v3AffDavXhiFSXGf1HkuHqd4Vl59UOa9FQ36X2KJ+?=
- =?us-ascii?Q?yh55R/V+y1h1/EvhFCsNzexRUiaolNbcKt6BXtyPmsmnCJefo1/yIOdn9jFa?=
- =?us-ascii?Q?KutbxUZTR4bGWdVtaDZ4lUF77/VmIS/+imS9nzYzgY4RjRgrYz0J+bJMXFg5?=
- =?us-ascii?Q?pEoRwnAgCbByuQIv6DcicZyK/Ykv/u+bx4jUOuVNQ7dg0VzxKj3vWjTu3E/m?=
- =?us-ascii?Q?jHFkH65x9Gewirzr/UjF9vjZA0cot5nVJ+ANW8Q9yTh9vO5vBV5sM07cWHX3?=
- =?us-ascii?Q?qC/ht3GNgjxOMQaXJV9IpX1Dti/FsRjxm8qgePrxry/n/hiCEZ47BmySyYFi?=
- =?us-ascii?Q?7fuXsbzMu4q8Z86dVqcu0hMCbzNOU6OAYKVQbHR5yQdmmTsv8lLCY6zOgKMV?=
- =?us-ascii?Q?2ThtqnToC+W8UXfrxpJni/FQEW94qHtdk10EKVv9bKDY6ObrNhBAp58EOUVo?=
- =?us-ascii?Q?YKAwo4U0xqeoiu+CHzv+UZQ5ULJlhNkMQQg0bDKWEkNsrb00n44AJRQku6Be?=
- =?us-ascii?Q?Ohs5+Ig4Z/FCFvPAQ9BfsnK6yNGQnEygWcfzM578VbmZMw9cVkqNWUGNil/7?=
- =?us-ascii?Q?xMBQq6NecuTamQ8m5ErXRzOBVmtFzEZt7iXMKdvWeXKPWKjq84HMwq6R9C09?=
- =?us-ascii?Q?Pi0dvUblgyldAqdn+pnWhcwBZisnR3DewUQm/SEa4EXqWB8zjEsPAKIOxzpV?=
- =?us-ascii?Q?Gt318ZRAEXyGPYbsX2UXSeLQqbBdL8Q=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3edbe24-ec18-4880-9d12-08df13030a60
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6555.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 08:26:29.1194
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cUkHkSs5kpXhVb+QOg06PUUcnMQVx6yfgC6zwS2x2btAsAOgA8rssNOydGkON0OnlOUa3RFVQTEX7ba7cQ/NKAr8Lvzw4JwWh3VxJHrcph4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR03MB8047
+Mime-Version: 1.0
+References: <20260915081910.4142719-1-morbo@google.com>
+X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+Message-ID: <20260915081910.4142719-20-morbo@google.com>
+Subject: [PATCH 19/28] x86/setup: Use snprintf() to concatenate builtin and
+ boot command lines
+From: Bill Wendling <morbo@google.com>
+To: linux-kernel@vger.kernel.org
+Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
+	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Matthew Brost <matthew.brost@intel.com>, 
+	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
+	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
+	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
+	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
+	Johannes Berg <johannes.berg@intel.com>, 
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
+	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
+	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
+	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
+	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
+	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
+	linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Hang Suan Wang <hang.suan.wang@altera.com>
+When CONFIG_CMDLINE_BOOL is enabled without CONFIG_CMDLINE_OVERRIDE,
+setup_arch() appends boot_command_line to builtin_cmdline using two
+strlcat() calls before copying the result back to boot_command_line.
 
-This series adds Linux support for one of the Altera SoCFPGA Crypto Service
-(FCS): Secure Data Object Service (SDOS). FCS is a runtime cryptographic
-interface provided by the Secure Device Manager (SDM).
+In preparation for removing the deprecated strlcat() API[1], format the
+combined command line into a temporary buffer using a single snprintf()
+call and copy the result to both builtin_cmdline and boot_command_line.
+Using a temporary buffer avoids undefined behavior from passing overlapping
+source and destination buffers to snprintf().
 
-The SDM is the hardware security controller in Altera SoCFPGA devices. Host
-software reaches it through the existing stratix10-svc mailbox, which uses
-Arm Trusted Firmware SIP SMC calls. In this series does not expose the rest
-of FCS (RNG, AES, SHA, key management, and so on).
-
-SDOS protects data at rest. The SDM encrypts and decrypts using a key
-derived from a device-unique SDOS root key that never leaves the secure
-boundary. The host supplies plaintext (or an authenticated object) and
-never handles raw key material. A primary use case is black-key
-provisioning.
-
-SDOS requests use the stratix10-svc asynchronous SIP SMC path. Source and
-destination buffers are allocated from the service-layer memory pool, and
-their physical addresses are passed to the SDM. Each request opens an SDM
-crypto session, runs under a lock (one in-flight transaction), and closes
-the session afterwards.
-
-The series is organized as follows:
- - Patch 1 (prerequisite) enlarges the stratix10-svc SMC argument array so
-   the asynchronous FCS SDOS command can pass its full set of parameters.
-
- - Patch 2 (prerequisite) extends the stratix10-svc service layer with the 
-   FCS command codes and matching SIP SMC function IDs, adds the Agilex 5
-   (intel,agilex5-svc) match, and registers a "stratix10-fcs" platform
-   device that an FCS client driver binds to.
-
- - Patch 3 adds the FCS driver implementing SDOS encrypt/decrypt. It is 
-   exposed as a misc device (/dev/socfpga-fcs) via ioctl FCS_IOC_SDOS. The
-   crypto session is opened and closed in the kernel and is not part of the
-   user ABI.
-
-Testing:
- - Built for arm64 (defconfig + CONFIG_ALTERA_SOCFPGA_FCS=m).
- - Tested on an Agilex 5 SoC FPGA board (SDOS root key provisioned).
-   SDOS encrypt/decrypt round-trip; the decrypted output matches the
-   original 32-byte plaintext:
-
-   root@agilex5e:~# hexdump -v -e '/1 "%02x "' secret.bin
-   61 37 36 61 64 62 66 63 32 31 32 65 63 64 30 35
-   35 35 33 66 38 34 62 33 34 63 65 39 36 65 63 35
-   65 62 64 31 31 31 32 37 30 38 39 37 64 35 32 64
-   64 66 39 35 65 63 34 66 61 38 30 38 64 63 32 35
-
-   root@agilex5e:~# ./fcs_client -E -i secret.bin -o enc.bin -d 0x1234 -r
-                    0xabcd
-   root@agilex5e:~# ./fcs_client -D -i enc.bin -o sdos_decrypt.bin
-
-   root@agilex5e:~# hexdump -v -e '/1 "%02x "' sdos_decrypt.bin
-   61 37 36 61 64 62 66 63 32 31 32 65 63 64 30 35
-   35 35 33 66 38 34 62 33 34 63 65 39 36 65 63 35
-   65 62 64 31 31 31 32 37 30 38 39 37 64 35 32 64
-   64 66 39 35 65 63 34 66 61 38 30 38 64 63 32 35
-
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Cc: codemender-patching+linux@google.com
+Assisted-by: Developer:Gemini_2.5_Pro [editor_update_file, make_kernel_buil=
+d_single_file, checkpatch_run]
+Signed-off-by: Bill Wendling <morbo@google.com>
 ---
-Changes since v4:
- - Read ATF version words with lower_32_bits() so a 32-bit value in an
-   arm_smccc unsigned long is correct on 64-bit big-endian.
- - Keep the SDOS payload size when SDM returns 0x102/0x103 (decrypt OK,
-   outdated key). Those are success-with-warning; still return the
-   plaintext.
- - Release the svc channel in driver remove, not on last close, so unbind
-   cannot free parent channel memory while an fd is still open.
- - Guard fcs_alloc_buf()/fcs_free_buf() with the lock and a NULL channel
-   check so they do not use the channel after unbind.
- - Always call stratix10_svc_done() after the ATF version query, including
-   send failure, so the sync svc kthread is stopped safely.
-
-Changes since v3:
- - Rebase onto current linux-upstream; register stratix10-fcs beside the
-   existing socfpga-hwmon child device.
- - Drop context_id from the ioctl UAPI; the kernel owns session and context
- - Make FCS state per-device and kref-counted so an open fd can outlive
-   driver remove (-ENODEV after unbind).
- - Copy user buffers in the front-end; the core uses kernel pointers only.
- - Use kzalloc_obj() and shorten comments.
-
-Changes since v2:
-socfpga-fcs (front-end):
- - Replace the sysfs store interface with an ioctl character device
-   (/dev/socfpga_fcs) using a fixed-width UAPI struct and
-   compat_ptr_ioctl(), fixing the KASAN out-of-bounds read and the
-   32-bit incompatibility of casting the sysfs buffer as a pointer.
- - Add include/uapi/misc/socfpga-fcs-crypto.h and register the ioctl
-   magic in Documentation/userspace-api/ioctl/ioctl-number.rst.
- - Add a .release handler so a session is torn down if the owning fd
-   is closed (including on crash).
-socfpga-fcs (core):
- - Manage the crypto session internally: SDOS opens and closes its own
-   session; reject a concurrent open with -EBUSY. Removes the
-   user-visible open/close-session interface and session UUID, fixing
-   the session-exhaustion/DoS concern.
- - Harden the async poll loop: keep polling until the deadline and
-   always call stratix10_svc_async_done(), fixing the teardown
-   use-after-free from the previous -EINPROGRESS early-return and the
-   needless full-timeout block.
- - Clear receive_cb only on the synchronous send-error path so a late
-   firmware response cannot deref a NULL callback.
- - Set priv = NULL on all fcs_init() error paths so a later probe is
-   not permanently rejected with -EBUSY.
- - Read the SDOS owner ID with get_unaligned_le64() for correct
-   little-endian handling on big-endian hosts.
-stratix10-svc:
- - Enlarge the SMC arguments array so the async SDOS command can
-   pass its full parameter set (through a11).
- - In remove(), unregister the child devices before
-   stratix10_svc_async_exit() so async_poll() cannot race a freed
-   handle.
-
-Changes since v1:
-stratix10-svc:
- - Forward result registers (kaddr1) for OPEN_SESSION and SDOS_DATA_EXT
-   so session ID / output length reach the client.
-socfpga-fcs (front-end):
- - Publish sysfs via driver.dev_groups on the platform device instead of
-   a raw kobject under /sys/kernel; callbacks now get a struct device.
-socfpga-fcs (core):
- - Convert completion timeouts with msecs_to_jiffies(); drop TIMEOUT.
- - On SDM-busy timeout (-EAGAIN), abort without async_done() (no id
-   reuse) and return -EINPROGRESS.
- - SDOS: on in-flight abort, leak s_buf/d_buf instead of freeing to
-   avoid corruption from late firmware DMA.
- - Validate the caller UUID early in fcs_sdos_crypt().
- - Enforce single instance: -EBUSY in fcs_init() and priv NULL-guard in
-   fcs_acquire_cmd_ctx().
- - Drop the always-zero platform attribute and fcs_get_platform().
- - Set/clear receive_cb only around the synchronous send.
- - Use device-lifetime priv->completion for the async path (was on-stack).
- - Use the local ctx snapshot consistently in fcs_sdos_crypt() and
-   fcs_session_close().
- - Point sdos.dst_size at priv->sdos_output_size, not a stack variable.
-socfpga-fcs.h:
- - Drop platform/AGILEX5_PLAT; add sdos_output_size.
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ian Abbott <abbotti@mev.co.uk>
+Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Matthias Schwarzott <zzam@gentoo.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
+Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
+Cc: "Martin K. Petersen" <mkp@kernel.org>
+Cc: Trond Myklebust <trondmy@kernel.org>
+Cc: Anna Schumaker <anna@kernel.org>
+Cc: Mike Marshall <hubcap@omnibond.com>
+Cc: Martin Brandenburg <martin@omnibond.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Jiri Pirko <jiri@resnulli.us>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Chuck Lever <cel@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>
+Cc: Olga Kornievskaia <okorniev@redhat.com>
+Cc: Dai Ngo <Dai.Ngo@oracle.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Bill Wendling <morbo@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Kanglong Wang <wangkanglong@loongson.cn>
+Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Qiang Ma <maqianga@uniontech.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Thorsten Blum <blum@kernel.org>
+Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Johannes Berg <johannes.berg@intel.com>
+Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
+Cc: Jiaming Zhang <r772577952@gmail.com>
+Cc: Will Porter <mrwillporter@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
+Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
+Cc: Rong Zhang <i@rong.moe>
+Cc: Arun Raghavan <arunr@valvesoftware.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: loongarch@lists.linux.dev
+Cc: linux-mips@vger.kernel.org
+Cc: linux-parisc@vger.kernel.org
+Cc: linux-edac@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: intel-wired-lan@lists.osuosl.org
+Cc: netdev@vger.kernel.org
+Cc: linux-wireless@vger.kernel.org
+Cc: brcm80211@lists.linux.dev
+Cc: brcm80211-dev-list.pdl@broadcom.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org
+Cc: devel@lists.orangefs.org
+Cc: linux-hardening@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
 ---
+ arch/x86/kernel/setup.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Hang Suan Wang (3):
-  firmware: stratix10-svc: increase args array
-  firmware: stratix10-svc: add FCS crypto-service commands for Agilex 5
-  firmware: socfpga-fcs: add Altera SoCFPGA FCS driver with SDOS
-
- .../userspace-api/ioctl/ioctl-number.rst      |   1 +
- MAINTAINERS                                   |   9 +
- drivers/firmware/Kconfig                      |  17 +
- drivers/firmware/Makefile                     |   2 +
- drivers/firmware/socfpga-fcs-core.c           | 715 ++++++++++++++++++
- drivers/firmware/socfpga-fcs.c                | 294 +++++++
- drivers/firmware/stratix10-svc.c              |  65 +-
- include/linux/firmware/intel/socfpga-fcs.h    | 130 ++++
- include/linux/firmware/intel/stratix10-smc.h  |  64 ++
- .../firmware/intel/stratix10-svc-client.h     |  18 +-
- include/uapi/misc/socfpga-fcs-crypto.h        |  28 +
- 11 files changed, 1335 insertions(+), 8 deletions(-)
- create mode 100644 drivers/firmware/socfpga-fcs-core.c
- create mode 100644 drivers/firmware/socfpga-fcs.c
- create mode 100644 include/linux/firmware/intel/socfpga-fcs.h
- create mode 100644 include/uapi/misc/socfpga-fcs-crypto.h
-
--- 
-2.43.7
+diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
+index cda6adb9f69c..c40e0edd7c13 100644
+--- a/arch/x86/kernel/setup.c
++++ b/arch/x86/kernel/setup.c
+@@ -916,9 +916,11 @@ void __init setup_arch(char **cmdline_p)
+ #else
+ 	if (builtin_cmdline[0]) {
+ 		/* append boot loader cmdline to builtin */
+-		strlcat(builtin_cmdline, " ", COMMAND_LINE_SIZE);
+-		strlcat(builtin_cmdline, boot_command_line, COMMAND_LINE_SIZE);
+-		strscpy(boot_command_line, builtin_cmdline, COMMAND_LINE_SIZE);
++		char tmp[COMMAND_LINE_SIZE];
++
++		snprintf(tmp, COMMAND_LINE_SIZE, "%s %s", builtin_cmdline, boot_command_=
+line);
++		strscpy(builtin_cmdline, tmp, COMMAND_LINE_SIZE);
++		strscpy(boot_command_line, tmp, COMMAND_LINE_SIZE);
+ 	}
+ #endif
+ 	builtin_cmdline_added =3D true;
+--=20
+2.55.0.1032.g73a4cd73de-goog
 
