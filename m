@@ -1,171 +1,92 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CF9336883
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FF4207A20
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789446039; cv=none; b=qibYyKy2kSD5drCeFDm2JPVEwSTLfZxzNiSVyE/jOzFwY26ztMF6qc7LN8O/reZ/M6h8j6ofDH08HID3KMZR+nHBbv7OzGct3HGmWwFlbFLRc1TEBLn1Pb9r5dtFvLyUURnMD8Fed82032hcOP00/dMRSvld/QlDKe1lmAB8yyg=
+	t=1789446131; cv=none; b=cgBlnxOsl4m/C/Eia6r9lV5RMV2qoK4x+77atIUwkLB+ykBeRvxdEYLVHbCiuWnLF2VMV+vYgx63BcSXtqNmxN0CdU5Wx86dTpchz1j9X7ECCM7zSKqZjjYeZ4nyVBJXXOZa+FMFpOzF6gBYPcS3I+ZSNKaG+kuI/YsHgmeZ5Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789446039; c=relaxed/simple;
-	bh=Z9DN6YJ/BsepswIpAuuiNFz21ILM9xadLwZgJpGmrs8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L9gGLHumHzffiYPT+9MD973i/7nOtCOa17JxJ3u3Od/eHBXOaEDaDYMWi0uKFD0lnPSPeBJBzFlLJaSjx/2h3W5MsXvFuGu60AtYfoD92HrdNIU7IaqZcN9I7U/gY4w+In1CwcGdGityTGlelOgzSOmzbM7trtIMmvqrU68dJQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=cv+Vlzm+; arc=none smtp.client-ip=117.135.210.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789446131; c=relaxed/simple;
+	bh=EgLmNwknFRSvaTUZKsKACV02Xuqlig9xHcS9B7vnmbU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=p3RtpIBStr5B8aaUrTtaa6XLzL9oEVksznXHI7WlXokTRegGd598D/ZG657OQWi/hvsZtZ5k7qV9JykxOK+jT4aPr6tofkSmNag3ZI+EDAB3+SpktsE4hu6Zt46h0zgCI18Kuj828YNrrNzbt0MBXgjFu9nsbP64R+8YTuRfXcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HjMkU9d+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="cv+Vlzm+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=x9
-	ZlzP7KpSO+gqVQvXv2VHlI3hj+Jnhl/T+yZmtX9aA=; b=cv+Vlzm+6vFH8TIKpU
-	+jCaq6/IFUgwG6Tbq7jIdyH98NikcwLI7CkLITFjHHWvXJ7qydLpLNo/ide14Hfp
-	nXxG+XDRVBCEBXo8oVTJ8psGGryxtLk6cH+KVj2/ZuLUBaf5KploI9IstmBi0pEr
-	h+z/lZ0nqtQjqKQcqPtplD4Tk=
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgDXreo9x6hq3jBvHw--.36918S12;
-	Tue, 15 Sep 2026 12:19:19 +0800 (CST)
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Subject: [PATCH v2 10/14] f2fs: handle partial truncate of large folio dirty subpages
-Date: Tue, 15 Sep 2026 12:19:05 +0800
-Message-ID: <20260915041909.2903887-11-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
-References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HjMkU9d+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A04171F00893;
+	Tue, 15 Sep 2026 04:22:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789446129;
+	bh=ift+8DOHb+25wOaqafeC4wcfvzXMnHSS8K6du3vmu8k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HjMkU9d+BgVEFK7w9OEsa07Hxd+IEX0/9SPIjTm8q/qBwGp/Hib20MhNeAn2yF4qT
+	 izlwmKZd2Y9HCX5CglHOMNjP1J6FtHorkkg/QuTp8qlaVXmsewQy9z/BbEEmOCT6ml
+	 GmYcxgiFtalrqIO8ne4uIbK9LqgFyskfY28Dy+mk=
+Date: Mon, 14 Sep 2026 21:22:00 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Muchun Song
+ <muchun.song@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH] mm: Remove unused exact_nid parameter from
+ memmap_alloc()
+Message-Id: <20260914212200.75878c86ab806c7e09b6c69e@linux-foundation.org>
+In-Reply-To: <20260914055130.44543-1-kaitao.cheng@linux.dev>
+References: <20260914055130.44543-1-kaitao.cheng@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgDXreo9x6hq3jBvHw--.36918S12
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4fuFyUXr4Utw15Xw4Dtwb_yoW5KF1fpF
-	WDCr98JFs8J3Zruw1fXFn8Xr1fK3s7Wr4xCa97Gwn3J3WYq3sxKF1kt34FgFs8Jry8AF1f
-	Xr1UtFW5WFyUKF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjbyZUUUUU=
-Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsQfHl2qox0cWjwAA39
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-A large folio can be partial truncated and stays in folio mapping, we
-need to clear the subrange dirty bits and uptodate bits that the partial
-truncate covers. If this partial truncate happens to clear the last
-subrange dirty bits, then cancel the whole folio dirty state.
+On Mon, 14 Sep 2026 13:51:30 +0800 Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
 
-Also add a guard in f2fs_write_single_data_folio() so a large folio
-subpage whose disk block was already truncated (NULL_ADDR) is skipped
+> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+> 
+> Commit ffe55393137c ("mm/sparse: remove sparse buffer pre-allocation
+> mechanism") removed sparse_buffer_init(), which was the only caller of
+> memmap_alloc() that passed true for exact_nid.
+> 
+> All remaining callers pass false, leaving the exact-node allocation
+> branch unreachable. Remove the exact_nid parameter and unconditionally
+> use memblock_alloc_try_nid_raw().
+> 
+> This has no functional impact.
+> 
 
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
----
- fs/f2fs/data.c | 66 +++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 65 insertions(+), 1 deletion(-)
+Latest development code has changed quite lot, but this was an easy reject
+to fix:
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index d9e3a5c370d7..bf9b9c9b722f 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2679,6 +2679,34 @@ static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
- 		folio_mark_uptodate(folio);
- }
- 
-+static void ffs_clear_subrange_uptodate(struct folio *folio,
-+					size_t offset, size_t len)
-+{
-+	struct f2fs_folio_state *ffs;
-+	unsigned int nr_subpages, start, end;
-+	unsigned long flags;
-+
-+	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-+
-+	if (!f2fs_folio_has_ffs(folio)) {
-+		if (folio_test_uptodate(folio))
-+			folio_clear_uptodate(folio);
-+		return;
-+	}
-+
-+	ffs = (struct f2fs_folio_state *)folio->private;
-+	nr_subpages = folio_nr_pages(folio);
-+	start = offset >> PAGE_SHIFT;
-+	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-+	end = min(end, nr_subpages);
-+
-+	spin_lock_irqsave(&ffs->state_lock, flags);
-+	bitmap_clear(ffs->state, start, end - start);
-+	spin_unlock_irqrestore(&ffs->state_lock, flags);
-+	if (folio_test_uptodate(folio))
-+		folio_clear_uptodate(folio);
-+}
-+
- bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
+> --- a/mm/sparse-vmemmap.c
+> +++ b/mm/sparse-vmemmap.c
+> @@ -53,7 +53,7 @@ static void * __ref __earlyonly_bootmem_alloc(int node,
+>  				unsigned long align,
+>  				unsigned long goal)
+>  {
+> -	return memmap_alloc(size, align, goal, node, false);
+> +	return memmap_alloc(size, align, goal, node);
+>  }
+>  
+>  void * __meminit vmemmap_alloc_block(unsigned long size, int node)
+
+
+--- a/mm/sparse.c~mm-remove-unused-exact_nid-parameter-from-memmap_alloc
++++ a/mm/sparse.c
+@@ -215,7 +215,7 @@ struct page __init *__populate_section_m
  {
- 	struct f2fs_folio_state *ffs;
-@@ -3545,6 +3573,14 @@ static int f2fs_write_single_data_folio(struct folio *folio, int *submitted,
+ 	const unsigned long size = PAGE_ALIGN(sizeof(struct page) * PAGES_PER_SECTION);
  
- 		fio.old_blkaddr = dn.data_blkaddr;
+-	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid, false);
++	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid);
+ }
+ #endif /* !CONFIG_SPARSEMEM_VMEMMAP */
  
-+		/* This page is already truncated */
-+		if (fio.old_blkaddr == NULL_ADDR) {
-+			ffs_clear_subrange_uptodate(folio,
-+					i << PAGE_SHIFT, PAGE_SIZE);
-+			folio_clear_f2fs_gcing(folio);
-+			goto block_done;
-+		}
-+
- got_it:
- 		if (__is_valid_data_blkaddr(fio.old_blkaddr) &&
- 		    !f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
-@@ -4987,8 +5023,36 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 
- 	if (inode->i_ino >= F2FS_ROOT_INO(sbi) &&
--				(offset || length != folio_size(folio)))
-+				(offset || length != folio_size(folio))) {
-+		size_t clear_start = round_up(offset, PAGE_SIZE);
-+		size_t clear_end = round_down(offset + length, PAGE_SIZE);
-+		size_t clear_length;
-+		bool dirty;
-+
-+		/*
-+		 * If the truncated range falls within a single subpage, no
-+		 * subpage state needs to be cleared.
-+		 */
-+		if (clear_start >= clear_end || !f2fs_folio_has_ffs(folio))
-+			return;
-+
-+		clear_length = clear_end - clear_start;
-+		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio,
-+						clear_start, clear_length);
-+		ffs_clear_subrange_uptodate(folio, clear_start, clear_length);
-+
-+		/*
-+		 * If the truncated subrange happens to clear the remaining
-+		 * dirty bitmap of the whole folio, cancel the folio-level
-+		 * dirty state.
-+		 */
-+		if (!dirty && folio_test_dirty(folio)) {
-+			inode_dec_dirty_pages(inode);
-+			f2fs_remove_dirty_inode(inode);
-+			folio_cancel_dirty(folio);
-+		}
- 		return;
-+	}
- 
- 	if (folio_test_dirty(folio)) {
- 		if (inode->i_ino == F2FS_META_INO(sbi)) {
--- 
-2.43.0
 
