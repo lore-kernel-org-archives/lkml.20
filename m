@@ -1,169 +1,214 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625D044780F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789500940; cv=pass; b=MGxBI8dvS6CpwrFziw/cldMCjShGYT15g8gIjFGM6RoBGJAO+XGYHhmEB2vNviH0oRha2CWBPaIOcaD1pErNEGb6pAalIktHBUmtjwy2R7GFVRwMslNNfoNBlaIfaBwPpWJ+M+agYil7UWgSch0T8yHrVVWx1uacWX0SISLOkJE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789500940; c=relaxed/simple;
-	bh=EegVME3jJbuQHyWc1V01y8Y0UN52nI5cYIfZ+hwBI+o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=d8l5o8GkZSWgBqmh41MlgGxeGUKuQVeOralSMo2NQwEKiksvNxkp9bZJ4blrdTZkmvNz8+g6ntNvEEy8ViZ4fnYgi893YSdq6h4ZxCcZ+xF5IeRBlo5AzYWfA1jiVii6fDB1w8e5AHYIlIUT3sdoCveq7Nsit6xVcz0RvuxISvM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g+7aE1q9; arc=pass smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7F3445ACD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789501006; cv=none; b=sbHdoKxpH421tRTm1GVAsO58JKlDWs8zt2EjP/Xo0oGJIHpakKDzYwQ/sIvIKAtV/Ni8qmvyo4sqSL0NK4rwXdS/0Je6J7FYgVvse6oJZpk16fHhW8XUws5QR22rhNdESdDyEtXfA7peqlL6AFqkPzdYQyFlatRFFFsgcKYT5+Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789501006; c=relaxed/simple;
+	bh=NZxyuYd8MBX4INnHpLnZWaZcXYmbCWHu3By/SP04rlE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kqLji1YPB+j1qLW2mmygiLsEM0gRSAFaEJYcAJ+NT0dlCkMNMfuVH9pnwohmDwIdqMZP80C1gRAq1lUpkIqCtOTNT+c6N32/7oezzLIS8k+OD4qw43eccL4IrZY5lHgCiw+IgqRTzu5q3nq30f5xvBMViMlLJaRRAF2m4Uqzxso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eZq/uiYk; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g+7aE1q9"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d5fc2cd8so59791cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:35:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789500936; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j6ooyrMJR2oMsNerUt5kB0BeY7euGPnCIYzZalfK+CEYVuzVs2n/RO3REWD2tz1hyb
-         /h6kbX1l6llvLauT2/Qiswqa1hPV/3cKYLYE6dndguc8WJbL92M03Td2kjsG/ttlKp9R
-         zYweyhXwcu01E7pxoIBszenD7g2Xkd2Y75e1TvBbpXhFejqL00e66mzuJrfzSoCtoh1Y
-         D2Zl2b/tsUvn6afGpg9cOY5Uy+porXSn/w2KlwSQJBB4UlOSy/niIxWzq9E30ziyYr2M
-         uRVwMNCPgukTBrcswykRaGAlr3zMdC1Ja9QwKi/2cqUdOPmLxoFqoPUahzAHvt34KrrB
-         Mqtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9cJfPpkkLfvSAtU67yJNBlNgv9fTffV7M0TlsnD4pBA=;
-        fh=AH1ctH8nKHLuvrCZzQszk1eCAqxjzxWNqNChey0eQZE=;
-        b=ajGnQaBToIpPwpJW9X3CnfDQqTi8Rlk+/0BviCSVH2fSfI5hp3j9Vw635GmAtWunG0
-         H1//JxPfxTm1Un84qttZqwefTXb34vwXdEoWxT8bbxWgbXKNZWGfjZ+RVy02sipIIhMc
-         Mf6EEyepyrHFT47bKkhNbFu/mknMxYiP7cMt5UzLxZ+FpGKx6UlMppyDMPJ+rSsE4OtO
-         YEsPzNhOnGmkW/RHHiNj/Hi+a2cW0c9TfyfJ5l6zjJZDfMeeq7yAxLTmdLGhXt1fWs0M
-         7none4yOJY/oVrirzrbz6oaWtS1VDH4HPPC5w3eBeObh+5becKaBcTG+/HA5WTcU6/DT
-         eswg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eZq/uiYk"
+Received: by mail-vs2-f42.google.com with SMTP id ada2fe7eead31-7954fbd0ffaso38192137.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:36:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789500936; x=1790105736; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9cJfPpkkLfvSAtU67yJNBlNgv9fTffV7M0TlsnD4pBA=;
-        b=g+7aE1q93WEcJeL7jXczqMbepWTshjMfmYF0jseGQNCVyNSJSYm0cKlfsc6ak7f0N+
-         v8WQrhlqnd7msDh+3GmCEguRbKlfhSp6rozAmwJSL1N8r6vrU5E0seFS/fGt5iu41TXV
-         xPL3yDhJzBkaq4mZkoixPK97BOdNPJ2wx5iFy4gk2gHxyr4imFF5x1FK4xkXxRlKDdya
-         iN7MB0HXD0y6yTAFBce91ZRUXSGInibF0k3HJIRHUxqTrpTZb2jZ6Q9EQjShEZcNwIEE
-         LFcx+C5yvuZgBJ2wuigcNFhBD6fSNyu/xbShpbcAZ6g5S2bNzzFTVNU3r8gVPU5XwkBk
-         sA2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789500936; x=1790105736;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789501003; x=1790105803; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9cJfPpkkLfvSAtU67yJNBlNgv9fTffV7M0TlsnD4pBA=;
-        b=rugyHRM6a4156LoSRM6+ns1M8YPAMjDLKTHd8GUguh1+wu9YAoTDKSHHSoiPP3cS+6
-         QXUEUSFlLyMVo29qHiQ8jbrRiPATXY9UtiEWNOFVkOde5Ltfjv/aJrpswwVs1oEdf5eb
-         D72XKqFbgPyB0vY7C8Xrah3fsMw+SzaKXtiO4oNXmcBq25wL36loiylew4nijTEXvMvq
-         WFay7kRuLTbg90aOvyUpjdQ3eryCVWjO8rvDEbMwZ6BDkDZfA0oRnijt+yYrT2O4QYvX
-         UyrrHDyJsZWMse69VKNB75gy9UgOLwKwnPrP8aZhVWHs+nhpUgJklSKw+3GgkftQ3DC5
-         w4iw==
-X-Forwarded-Encrypted: i=1; AKwUvBy0ZOxapJOXP5wJ6ZRlXq+/9iZnw1PLsorWJhevYQPudSiDlrP26KlBkyGKiyPtj4kSkYWvJGOuoACaw0A=@vger.kernel.org
-X-Gm-Message-State: AFuF++ll4zwW2+R4IJxsasEPsK5KQK+P7p3vN3uu8bq+mItl9zDE9r5y
-	Pure1W2OzNVWjUqV91rHrklapPKQ84lhqdVxMrMxaAFm2POV7ZVwBxHbyUSR1pcVmEl7BXfsAds
-	yEBebKHmRaC/W9UV6+nHctmHVGvkZwPfCpn6ALRAE
-X-Gm-Gg: AYBFou3zGOl/YwrpPbZpoJrm9J+6XBD4zZS1xRI/bCmcfzArlpIoPS+2yA5KDkji5GN
-	g40wsK/txxQ+u+/LVfsvNzruT3jufrEmgWiXLHU2XtNv8UXJSztlW5Rtc5JL015bXFDZ4bicLMo
-	ew+2/uTjqUxlh1HEUHYONJMyPIYXoEY3kd+08t89Wy0JG7O8OyZbnK04n4bo/7c7/3IHK/jVBSQ
-	n9Aq0uYRmaMSxDhBLR8A6uB30ebWSBqe72rPRB7AJ2FfP0pr+HSJwGKPV8Ob0uF958rnPUY6gJi
-	iMP2ry4VY/MErLurxeE/+XlfTWIMqkPU03D+3gxZ4A6vZZbd2Ts/1/Qd8TQ9XYZ5uCe0u8GrrUZ
-	DMVEd5F6jGw==
-X-Received: by 2002:a05:622a:1a93:b0:52f:9ed4:8d76 with SMTP id
- d75a77b69052e-532583a627amr3002591cf.14.1789500935305; Tue, 15 Sep 2026
- 12:35:35 -0700 (PDT)
+        bh=c+JWI+F2CNEMS8Pu8FOZHWNS+sSqTKhiXS9hsbDKr4o=;
+        b=eZq/uiYkHR71kkcAH4NT/0XzUHTinyM50HByJjHRtb0bE9AKkj6otMvlkTDx1Tl9ts
+         wjki0yvRGZgYHsMO0nFL/vbtPQn6fIP8kTLUx3QwDAK7vBOmSzT6KA7DVLY7By63r+bk
+         x7vQOerb8YWEKGX/7K4RcdCCSOTpX8eQTR/b7+w7Z02dEJnGQTvVRZj6266uquF54tYY
+         GBnDrpgq6MOcDch/2hcCX8113LJ0T1CGjPvrWU3uCfymg7h0yHHfoaZfWpUvItUAKhj6
+         qLJMypp6L+232poGxgVbMkACiSO/WQ7BR5supKoJdcMS6vkjcV4YloIOwFGDGSaHQzE1
+         jSwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789501003; x=1790105803;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c+JWI+F2CNEMS8Pu8FOZHWNS+sSqTKhiXS9hsbDKr4o=;
+        b=P1KOrqlf9+upue9105oJodoL3yvssZ/CVXCELAkZn6/0CnnQplPBOUY675vHi8T4Go
+         q0Cyxs8IIpvLB+I9ghi4yIoRNaAycpoBWnvd3Vkk3j2yJTY6IAQE3VyL68YCsitH8Xfi
+         dk2BzeWBr0NvgvLJbfwvaPz8Nwz6QXOt5yhQrrCSXdMBJR7B6f2TGXz/xOWDpZpNZVIU
+         ZTlAddstkuHx1jrTd4g9C1SVMARQusaSUp6N03LhOIJGh0l868640y67SmX1MHq12oSl
+         HIdrPq7eMdtH7RlIWyaJWb1in1RYCPyzUhJBryLqr4WHmYVsN3pfZVymphM1giax6Gkh
+         4BHA==
+X-Forwarded-Encrypted: i=1; AKwUvBygW4pK27B7pBpMgE5N2oYM2Q2faDVSR/DGYqiOt0iPLu2zxbKFT8W8wkVWGalEtB066/Lcwg6CoQdkVpo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyCZ8VbmyxJD5+ZjL1RyvPlkZpfhYMOPFV9bv6OLmwqiAaYrou
+	imHGqcgCfaZCyREoN5tu7CWpmflmgssfIJ4eQx275JJtjtYTzN/MjDU=
+X-Gm-Gg: AYBFou0qSFlcnWFkJjELBPtfLaiTYqoNMUksCRWNNexgJaXTHB6oPSY2yeInoo5apeJ
+	XrW945Oe8P0sA8YDnEq9Q/oYvzlrsY5l9Jdk26NsPqyrAAbxLFOQC7vEX8OM/iHONFbXb8ZC7Gj
+	wkO4dspKq8z529B4VaA+Ybb4PJ0CUHdZocp+6SZApTVyitsUcFhakwgjsqw//3Fsr9+KdM0txLu
+	ukHcxjLOrvRXKHtWKrE4UgcU70acHgngwJmH2e+eq1vqxBLC34DNADiesiC1Dh80PfOhemLimuP
+	eaNUWldWPsnr2PFGYpT33KkX1bSuTdL2t/5Xp6YZLrA+5OlRCsNHCsH1J3L1fBI4CIflOi8RV++
+	EXWp50u24nypJyviwm+QmEZWA4IAYAuDk2VpIRb34z6TJQolWrE9ysAcVQfTTv6C0ewInuO/S3F
+	UYM74VUKNZ5ezovA2BlFQ9VSF35IUdRfqFzW1aNgu0Rn6Wxi7Rxh88MSWLbM1QtPTFy95lPZuDs
+	+TgXHFI+Qlfj/I8kRQq/k92GdYCn2YRTYkgWUygzfdt0KIuiA==
+X-Received: by 2002:a05:6102:510b:b0:778:5369:763d with SMTP id ada2fe7eead31-79b56aec243mr10445153137.1.1789501003323;
+        Tue, 15 Sep 2026 12:36:43 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79fb1148f57sm691450137.4.2026.09.15.12.36.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 12:36:42 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Alice Ryhl <aliceryhl@google.com>,
+	Burak Emir <burak.emir@gmail.com>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>,
+	Miguel Ojeda <ojeda@kernel.org>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Benno Lossin <lossin@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Rae Moar <raemoar63@gmail.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Yury Norov <yury.norov@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev
+Subject: [PATCH RFC 0/3] rust: kunit: #[should_panic] and same test name with different #[cfg(...)] support
+Date: Tue, 15 Sep 2026 16:33:51 -0300
+Message-ID: <cover.1789500084.git.nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914121903.1212-1-cp0613@linux.alibaba.com>
-In-Reply-To: <20260914121903.1212-1-cp0613@linux.alibaba.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 15 Sep 2026 12:35:23 -0700
-X-Gm-Features: AcwNN1VYoT5oxIlcFTffUxjtkWkLWpHOZQGEahUpqwEycg875lihiCow5XKgF3M
-Message-ID: <CAP-5=fVW6nJXoh8qf4e_jkLXGUzCGCTCg9YivHkN9kkVJmMa-A@mail.gmail.com>
-Subject: Re: [PATCH] perf test: Fix a leaked map reference in the arch dwarf
- unwind tests
-To: Chen Pei <cp0613@linux.alibaba.com>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
-	john.g.garry@oracle.com, will@kernel.org, mike.leach@arm.com, 
-	leo.yan@linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 5:19=E2=80=AFAM Chen Pei <cp0613@linux.alibaba.com>=
- wrote:
->
-> maps__find() has returned a reference to the map it finds since
-> commit 42fd623b58db ("perf maps: Get map before returning in
-> maps__find"), which updated arch/x86/tests/dwarf-unwind.c but missed
-> the arm, arm64 and powerpc copies. Release the map after reading its
-> end, as x86 does. All other callers of maps__find() already release
-> what they get.
->
-> Fixes: 42fd623b58db ("perf maps: Get map before returning in maps__find")
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+This patch series intends to implement two features for KUnit tests
+written in Rust. The work is based on a TODO comment made in the
+`bitmap.rs` module [1].
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+1. Supporting `#[should_panic]` [2]:
 
-Thanks,
-Ian
+KUnit tests in Rust follow the user-space syntax, but at the moment
+`#[should_panic]` is not supported. The first patch of this series adds
+support for the attribute (only in its basic form, `#[should_panic =
+"message"]` is not supported, and I don't know if it makes sense to
+support it)
 
-> ---
->  tools/perf/arch/arm/tests/dwarf-unwind.c     | 1 +
->  tools/perf/arch/arm64/tests/dwarf-unwind.c   | 1 +
->  tools/perf/arch/powerpc/tests/dwarf-unwind.c | 1 +
->  3 files changed, 3 insertions(+)
->
-> diff --git a/tools/perf/arch/arm/tests/dwarf-unwind.c b/tools/perf/arch/a=
-rm/tests/dwarf-unwind.c
-> index f421910e0709..d4707e9ffd2a 100644
-> --- a/tools/perf/arch/arm/tests/dwarf-unwind.c
-> +++ b/tools/perf/arch/arm/tests/dwarf-unwind.c
-> @@ -34,6 +34,7 @@ static int sample_ustack(struct perf_sample *sample,
->         }
->
->         stack_size =3D map__end(map) - sp;
-> +       map__put(map);
->         stack_size =3D stack_size > STACK_SIZE ? STACK_SIZE : stack_size;
->
->         memcpy(buf, (void *) sp, stack_size);
-> diff --git a/tools/perf/arch/arm64/tests/dwarf-unwind.c b/tools/perf/arch=
-/arm64/tests/dwarf-unwind.c
-> index 440d00f0de14..fbc161a49369 100644
-> --- a/tools/perf/arch/arm64/tests/dwarf-unwind.c
-> +++ b/tools/perf/arch/arm64/tests/dwarf-unwind.c
-> @@ -34,6 +34,7 @@ static int sample_ustack(struct perf_sample *sample,
->         }
->
->         stack_size =3D map__end(map) - sp;
-> +       map__put(map);
->         stack_size =3D stack_size > STACK_SIZE ? STACK_SIZE : stack_size;
->
->         memcpy(buf, (void *) sp, stack_size);
-> diff --git a/tools/perf/arch/powerpc/tests/dwarf-unwind.c b/tools/perf/ar=
-ch/powerpc/tests/dwarf-unwind.c
-> index 66af884baa66..b4bade5d59e2 100644
-> --- a/tools/perf/arch/powerpc/tests/dwarf-unwind.c
-> +++ b/tools/perf/arch/powerpc/tests/dwarf-unwind.c
-> @@ -34,6 +34,7 @@ static int sample_ustack(struct perf_sample *sample,
->         }
->
->         stack_size =3D map__end(map) - sp;
-> +       map__put(map);
->         stack_size =3D stack_size > STACK_SIZE ? STACK_SIZE : stack_size;
->
->         memcpy(buf, (void *) sp, stack_size);
-> --
-> 2.50.1
->
+The way it is supported is by having a separate `#[panic_handler]` when
+`CONFIG_KUNIT` is enabled. When a test is marked with `#[should_panic]`,
+a static value (KUNIT_SHOULD_PANIC = 0xDEAD7357) is assigned to the
+kunit's `priv` field, since it is meant for saving arbitrary user data
+[3]. At the moment, I did not find any place where Rust tests use that
+field, so it should be safe to write it.
+
+When the test panics, the `#[panic_handler]` function is called, obtains
+the kunit current test and checks if the `priv` field is not null and
+contains the value `KUNIT_SHOULD_PANIC`.
+
+If those conditions are true, it marks the test as successful (since it
+panicked as expected) and calls `__kunit_abort_expecting_error`, a new
+function that exits the testing thread but fills `try_catch->try_result`
+with a 0 so the test runner does not mistake it as a failed test.
+
+If those conditions are not true:
+ - If `priv` is null, the test panics as it would have before having
+   this feature, priv = null means that the test was not expected to
+   panic.
+ - If `priv` is not null but its value is not `KUNIT_SHOULD_PANIC`, the
+   test panics with an error message informing that the code found in
+   `priv` was invalid.
+
+If the test does not panic, the `#[panic_handler]` is not triggered. The
+test is marked as failed (since it was expected to panic).
+
+Regarding this feature:
+ - Do this approach make sense?
+ - Is it ok to mark the `#[should_panic]` tests with a static constant?
+   Is another mechanism better to check in the `#[panic_handler]` that
+   the test was supposed to panic?
+
+2. Allow same test name with different #[cfg(...)]:
+
+When testing `#[should_panic]` in `bitmap.rs` (check the last patch of
+the series) I found that the test that was supposed to panic had the
+same name as another one, but they were run on different configurations.
+This caused the following compilation error:
+
+ERROR:root:error[E0428]: the name `kunit_rust_wrapper_owned_bitmap_out_of_bounds` is defined multiple times
+   --> ../rust/kernel/bitmap.rs:503:1
+    |
+503 | #[macros::kunit_tests(rust_kernel_bitmap)]
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `kunit_rust_wrapper_owned_bitmap_out_of_bounds` redefined here
+    |
+    = note: `kunit_rust_wrapper_owned_bitmap_out_of_bounds` must be defined only once in the value namespace of this module
+    = note: this error originates in the attribute macro `macros::kunit_tests` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+
+To fix this problem, I appended to the `kunit_rust_wrapper_*`
+identifiers an 'stringified' version of the test's #[cfg(...)]
+arguments. The purpose of this is that, if we have a test with the same
+name and configuration, it would fail.
+
+The configuration string was also appended to the tests names. This was
+done to have a better test run report:
+
+...
+[SKIPPED] owned_bitmap_out_of_bounds_cfg_not_config_rust_bitmap_hardened
+[PASSED] owned_bitmap_out_of_bounds_cfg_config_rust_bitmap_hardened
+...
+
+Otherwise we would have something like the following:
+...
+[SKIPPED] owned_bitmap_out_of_bounds
+[PASSED] owned_bitmap_out_of_bounds
+...
+
+Regarding this:
+- Does it makes sense to allow same test names with different cfgs?
+- Is it ok to 'stringify' the configuration so it can be distinguished
+  in the report? Would you prefer something like `_case_1` `_case_2` ..
+  instead?
+
+This is the first RFC patch I send to the LKML, if there's something not
+right with it please let me know.
+
+Kind Regards,
+Nicolás
+
+[1] https://github.com/Rust-for-Linux/linux/blob/fd73f4a6659897191fa0d40695fe370925dd3780/rust/kernel/bitmap.rs#L592-L600
+[2] https://doc.rust-lang.org/rust-by-example/testing/unit_testing.html#testing-panics
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/kunit/test.h?id=f6e7b42bf05b2427fb8a7a1d1c387a86638bb413#n314
+
+Nicolás Antinori (3):
+  rust: kunit: add #[should_panic] support
+  rust: kunit: allow same test name with different #[cfg(...)]
+  rust: bitmap: kunit: uncomment owned_bitmap_out_of_bounds panic case
+
+ include/kunit/test.h      |  1 +
+ include/kunit/try-catch.h |  1 +
+ lib/kunit/test.c          | 14 +++++++
+ lib/kunit/try-catch.c     |  7 ++++
+ rust/kernel/bitmap.rs     | 40 +++++++++-----------
+ rust/kernel/kunit.rs      | 24 ++++++++++++
+ rust/kernel/lib.rs        | 46 +++++++++++++++++++++--
+ rust/macros/kunit.rs      | 78 ++++++++++++++++++++++++++++++++++++---
+ 8 files changed, 181 insertions(+), 30 deletions(-)
+
+--
+2.47.3
+
