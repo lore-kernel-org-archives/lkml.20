@@ -1,197 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1EA431A3E;
-	Tue, 15 Sep 2026 11:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472843; cv=none; b=vBoKc5yR3jg5zKSvWw366bshkHwrWCi25lvezC59p5WV/tTsMLbZaoQ42p7rlccbFsL7vI8EJTgdUsLco6f1M6Av3SZCNb+2Z+hDs/s5zuFjrWZ5BzvEehxeF9g6l9O7nPhxZaKOVlL5wmPNlnSek8uDN4pgwEAT/r6LosoHCeU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472843; c=relaxed/simple;
-	bh=deAw/7TDEohbf1HV3Iyjt4R4cZRwIuWCKoEuiGhjWkQ=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=iFsQ1A07ueIm654wps1j1cQNCKI8n1OUSL/YTtsvFylzLNTYJvB90QJ74Y0y6jSDbJaFKecXg928h5hX8T9l5l4rbVm3H8r8A9KsWpk87H62seicBxUKuhoKZZU5afqxC/pmRO0IdFUyQYowJAIxvVl5DJJnh5ou30oJ9vA1FYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D4a+k1mr; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4361F4A4EF7
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789472873; cv=pass; b=kMUvGOqIy4ktUr9drrtM9mO1dodgxhygQYmLE54wX0P8kxugtpt2SPb5lmnzuNY6ZTOMlvzeeuptk+4dUoJrDYrSrQiWIyfE89Ax+uU2v7y5b1zZXpLTxvOpXQNLQ6lfWWPPji8FF8t68p7gUi4NdMQa7sDfEquJGX7QMgxjg+E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789472873; c=relaxed/simple;
+	bh=s2Lj4pHsdIrh0iNl/yLPyohADV37fflTexKvvaB+Cp0=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DgNmfQHf/iumGmr6+HLN+55A7Abnx1TKAv1JD0H/Mz1g3pGtPKUgLkm3qPROuJVHgc2333nCWRRmkyHWhMCG+JJfH4Ni6gruP9c9x6TD5DGXRb3dOCllPe27A8wsxhA3L82ymQ1oLBpQL9gkMqbaHOrpBWTSuSk52SrZpDYtC/4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=DizrHBiN; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D4a+k1mr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789472842; x=1821008842;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=deAw/7TDEohbf1HV3Iyjt4R4cZRwIuWCKoEuiGhjWkQ=;
-  b=D4a+k1mrnJqwP5UriUKJC/Qt9VT2LHtQN4GdkQC+1bOskFFcXNB4n4ju
-   2xdE2BAO5CVnqcxUxL8S1jHBSSXF9CDsGuxm07AmItc4VpcJpaC8LYD03
-   ebJFlcGz1r0xcTE6Ii9Jo7+WKKXQb73QaAB6pOgo7FbI9O832TZV227e6
-   obYW+4qCN3vMXHY2VqVLAZ7vJywgCGfAI4iYdmPAxcdafsR4W2uVj/ZRt
-   SGnp7NnsuYZ2nuBWBEs9J3MqB6xNS7zPJqYhPtqutCp2f1emY8xFGLkPP
-   PIfHLdWnDjTwuOqXElqmHvO3FX1c1xQVI+8aqh2gCEJO14a56B7uPC0uZ
-   g==;
-X-CSE-ConnectionGUID: neXevzuFQsydzvL9nHCVjg==
-X-CSE-MsgGUID: kJYf5XdWSyi86gsP62WSqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88967167"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="88967167"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 04:47:21 -0700
-X-CSE-ConnectionGUID: G6cPanw3St+oo08ir6C0kQ==
-X-CSE-MsgGUID: Z+tNzAXeQFy/qftCJFxY9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="311254377"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 04:47:12 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 14:47:07 +0300 (EEST)
-To: Long Zhao <longzhao@ambarella.com>
-cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-    linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, 
-    Michael Turquette <mturquette@baylibre.com>, 
-    Stephen Boyd <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
-    Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-    Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>, 
-    mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-    linux-gpio@vger.kernel.org, linux-serial <linux-serial@vger.kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 13/15] serial: 8250_dw: add Ambarella CV75 quirks
-In-Reply-To: <20260915-cv75-v5-v7-13-3297d3fbc9c0@ambarella.com>
-Message-ID: <4eca948b-ebf7-ee86-78e8-af886f19ed0c@linux.intel.com>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com> <20260915-cv75-v5-v7-13-3297d3fbc9c0@ambarella.com>
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="DizrHBiN"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b845so164392e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:47:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789472867; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MneJib6ZsA6wfGpHT1H7iGXzvJOzFdZB2NYdedO2Q6hyS35YoFOECYWlMRjrbSg6mg
+         uhASi/Z8ox8Wh+8aYkDjhNj6wiDpqlaspz9Ry6/+LlhyFGU9Mm6kt/20yPdAYIHekQHp
+         zm37rRuU3f8KZm5On29SQmUx8dIm8QD+1twHCiyN34DUSTAeaVaGUVOUeWtRuVGS07zP
+         +XUCz1yrU7hsjJyaITo0NrMbJNSp2lUrIIXMtZR9rdftDWlG0cy5xv/sUzR9yzIW/mh+
+         dKM69FQ/iLVynPJF4/rCtZwO/YKOnd9gqW0VYf21L5Q7aBiIwchq2kt+U2OonK8br7dy
+         VM3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=s2Lj4pHsdIrh0iNl/yLPyohADV37fflTexKvvaB+Cp0=;
+        fh=g834v/2d5N7yki6SSTpqPm81yDGIrh0aOx4nMM0DZxs=;
+        b=eYtU8kk77nPre2LpOTFMwXcFiNRRI7cfzF7AlCSc/Dt/KTdQ7g3Q+PVstdyuziaupt
+         eNc65ucpvcmboAiFHJ4w/6F7Zfq22m9CXdYK2URn14DZU68SXhncaayztCtAwrAMGuOV
+         pfvrkG6ST7w662EqD/ZEicZKtp/2qAwdLjxni2xZAUBtf+B2+PU75sjc0wTqBtIHlu4k
+         wXchUHQm0HGK90V8Sb+vr5AU45x9Dv9o6Jp9Yh6Cyzx79dvcBY+kRv7hNL5TE+KwUtQ2
+         82W4qsVhWzCkhixK8dIRB5DXknogRI1cKwRB1vJJBBO8f5M5l/pezrpn+fbcu8Mm1nhR
+         O/Bg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=khu.ac.kr; s=google; t=1789472867; x=1790077667; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s2Lj4pHsdIrh0iNl/yLPyohADV37fflTexKvvaB+Cp0=;
+        b=DizrHBiNpy5Odi7pSYpRXre9pL8mOY1erNG1Q4C1IEckdpz8jxv3T8LMawhBVAqrd1
+         q6aohvMhMde5+glFDYLuC+pG7rbGcQQJ/E6evA0MgJw4fUkRdd83xly/IKcjmlkjLQ/E
+         XYu5EQ2xr4uTBeygVQKFxKhZReuIqMnA+60pI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789472867; x=1790077667;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s2Lj4pHsdIrh0iNl/yLPyohADV37fflTexKvvaB+Cp0=;
+        b=a4W2sr8f/QQGUejZGemDgWqBQCZH4jMc9bk/NtKOCf6koEr/EPzrvJmBHK3e/OLDll
+         ucgSmsW6hcbWi+VUup6maFvGolI4DNP+PZdPKckhMXS1NpLmJIgSPqjB172byEKxMnZa
+         k9BPR0kwzQClqdq8gK7TiM6X6mwKBHrSOZGRVXXfXBelMUVpJZG27foYsyMvWjX3PMB1
+         Bg2GpGMl/2nW7HOxCAIbsowmvoTzuYwD3lq6FWiN20qQ1qyaObmebWOKAlcxImik5o12
+         TgWTXkd8Io31hc7fcwsoO1uPtxUoD7iedhify8fgGxJ8qAh02ZnIG0jcDlHd72ktw5He
+         xxCg==
+X-Forwarded-Encrypted: i=1; AKwUvBywMvaWzOXUXK3Ai+TQQqrc/h2rIwYy4ywyCHxbhwQ55GhaWiR+GKELj3AyPyQgtZugazOsiFl6Ggh9hOg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkbJcl7fNVXWn7GP9fmBJO7d/bJL7RdvjfGxmBoSJa4KjbAR6v
+	jsQhthBQtA6h2ekq2DYsqbDd0g7grXpO6qNyo4oyBU6g9fYc6zIfhRuwBENBo1e4PRJ0E3zEamf
+	9bXIhbQ9d+DPQdExE8FO9kTlK7ceTAUiK7xvyiHcpeg==
+X-Gm-Gg: AYBFou2y99TIcsQOm7AzZVHWqg5CBvDfnwzqOdldfZ0SH3CxpgzHXGjeSXHnrUYzXtl
+	2Eez1ESseJ1FxlvbPbpC7MOD4FbVDeFFr5VhCVkLMi4TlITOHrRYvzfVXyN+vb9EsW+sFR3E7fF
+	7OE/pw1jlhunqzxcAMOIDec12lec7HHqbzrGByOgGiT/p+Kvc01WH307fIZPFGlXdauO+juLRIH
+	ZAaoehktc+ltqxPvFQuHs5zFh6aVrws/UOM/G4ZDYaOXgw1aeal9xQsbXEnkTQw1FzROERnrCKl
+	XOwFYdNNhBHPKvaso4c16NAqnsVyJNQsn4XfimGbQ8f9XnuAhQlr
+X-Received: by 2002:a05:6512:2210:b0:5b6:1a7c:aa1f with SMTP id
+ 2adb3069b0e04-5b8b4ffc4d4mr179859e87.55.1789472866941; Tue, 15 Sep 2026
+ 04:47:46 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 15 Sep 2026 04:47:46 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 15 Sep 2026 04:46:31 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-710529132-1789472827=:1365"
+From: kimwooseok <5mghybrid@khu.ac.kr>
+In-Reply-To: <20260915083839.71546-1-pabeni@redhat.com>
+References: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr> <20260915083839.71546-1-pabeni@redhat.com>
+Date: Tue, 15 Sep 2026 04:47:46 -0700
+X-Gm-Features: AcwNN1XcLqf7mtvLMWC_6Wsu1EscKIC8wJaYw3QKchmlCeJvSymI27SGWfnMzAA
+Message-ID: <CAH1Bc_yQYJ6cWyYVvfWK0pAgrXW1TMkpzmNxZvAXAKZJdiOqWQ@mail.gmail.com>
+Subject: Re: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on
+ rejected timestamp requests
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, theo.lebrun@bootlin.com, 
+	conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, richardcochran@gmail.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Paolo,
 
---8323328-710529132-1789472827=:1365
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Thanks for forwarding the review. Taking the items in turn:
 
-On Tue, 15 Sep 2026, Long Zhao via B4 Relay wrote:
+TX_OFF / OSSMODE: this is pre-existing and independent of what this
+patch fixes. The original code also left OSSMODE untouched on
+HWTSTAMP_TX_OFF; this patch only addresses rejected (-ERANGE)
+requests changing hardware state, while TX_OFF is an accepted request.
 
-> From: Long Zhao <longzhao@ambarella.com>
->=20
-> The Ambarella CV75 UART is Ambarella IP, not a Synopsys DesignWare
-> licensed block. At the register level it is close enough to DW APB UART
-> that a full custom UART driver is unnecessary: reuse 8250_dw with a
-> small platform quirk.
->=20
-> Quirks:
-> - keep IER ETOI (bit 5) set for RX timeout behaviour
-> - skip set_rate; baud clock is managed outside the UART block
->=20
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> ---
->  drivers/tty/serial/8250/8250_dw.c | 32 ++++++++++++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
->=20
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/=
-8250_dw.c
-> index 5fba913f3301..19431c476c55 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -43,6 +43,9 @@
->  #define RZN1_UART_xDMACR_8_WORD_BURST=09(2 << 1)
->  #define RZN1_UART_xDMACR_BLK_SZ(x)=09((x) << 3)
-> =20
-> +/* Ambarella IER: receive timeout interrupt enable */
-> +#define AMBARELLA_UART_IER_ETOI=09=09BIT(5)
-> +
->  /* Quirks */
->  #define DW_UART_QUIRK_OCTEON=09=09BIT(0)
->  #define DW_UART_QUIRK_ARMADA_38X=09BIT(1)
-> @@ -60,6 +63,7 @@
-> =20
->  struct dw8250_platform_data {
->  =09u8 usr_reg;
-> +=09u8 ier_mask;
->  =09u32 cpr_value;
->  =09unsigned int quirks;
->  };
-> @@ -572,6 +576,25 @@ static void dw8250_prepare_rx_dma(struct uart_8250_p=
-ort *p)
->  =09dw8250_writel_ext(up, RZN1_UART_RDMACR, val);
->  }
-> =20
-> +static int dw8250_ier_mask_startup(struct uart_port *p)
-> +{
-> +=09struct dw8250_data *d =3D to_dw8250_data(p->private_data);
-> +=09struct uart_8250_port *up =3D up_to_u8250p(p);
-> +=09int ret;
-> +
-> +=09ret =3D serial8250_do_startup(p);
-> +=09if (ret)
-> +=09=09return ret;
-> +
-> +=09/*
-> +=09 * Ambarella keeps variant IER bits (e.g. ETOI) set for correct RX
-> +=09 * timeout behaviour.
-> +=09 */
-> +=09up->ier |=3D d->pdata->ier_mask;
-> +
-> +=09return 0;
-> +}
-> +
->  static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
->  {
->  =09unsigned int quirks =3D data->pdata->quirks;
-> @@ -606,6 +629,8 @@ static void dw8250_quirks(struct uart_port *p, struct=
- dw8250_data *data)
->  =09=09p->serial_in =3D dw8250_serial_in32;
->  =09=09data->uart_16550_compatible =3D true;
->  =09}
-> +=09if (data->pdata->ier_mask)
-> +=09=09p->startup =3D dw8250_ier_mask_startup;
->  }
-> =20
->  static void dw8250_reset_control_assert(void *data)
-> @@ -879,6 +904,12 @@ static const struct dw8250_platform_data dw8250_intc=
-10ee =3D {
->  =09.quirks =3D DW_UART_QUIRK_IER_KICK,
->  };
-> =20
-> +static const struct dw8250_platform_data dw8250_ambarella_cv75_data =3D =
-{
-> +=09.usr_reg =3D DW_UART_USR,
-> +=09.ier_mask =3D AMBARELLA_UART_IER_ETOI,
-> +=09.quirks =3D DW_UART_QUIRK_SKIP_SET_RATE,
-> +};
-> +
->  static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data =
-=3D {
->  =09.usr_reg =3D DW_UART_USR,
->  =09.cpr_value =3D FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
-> @@ -889,6 +920,7 @@ static const struct dw8250_platform_data dw8250_ultra=
-risc_dp1000_data =3D {
->  };
-> =20
->  static const struct of_device_id dw8250_of_match[] =3D {
-> +=09{ .compatible =3D "ambarella,cv75-uart", .data =3D &dw8250_ambarella_=
-cv75_data },
->  =09{ .compatible =3D "snps,dw-apb-uart", .data =3D &dw8250_dw_apb },
->  =09{ .compatible =3D "cavium,octeon-3860-uart", .data =3D &dw8250_octeon=
-_3860_data },
->  =09{ .compatible =3D "marvell,armada-38x-uart", .data =3D &dw8250_armada=
-_38x_data },
+I propose handling TX_OFF in a separate follow-up patch, keeping this
+series focused on the two reported bugs. It is a distinct defect and
+should have its own changelog and Fixes: tag for stable backporting.
+I will verify the TX_OFF fix on the Pi 5 and post it as a follow-up
+once this series lands, since it touches the same lines.
 
-Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+NCR read-modify-write locking, the gem_get_ts_info() rx_filters bitmap,
+and re-applying tstamp_config on resume: as the review itself notes,
+these predate the series and are not made worse by it. I'd handle
+them separately (net-next) rather than widen these Fixes patches.
 
---=20
- i.
+SRTSM: NCR.SRTSM only makes the MAC replace the received FCS with the RX
+timestamp nanoseconds in memory; with DRFCS set it has no effect on the
+descriptor-based timestamps this driver uses, so leaving it set does not
+affect timestamping. It is also unrelated to the two PTPv1 filters
+remapped in patch 2.
 
---8323328-710529132-1789472827=:1365--
+Thanks,
+Wooseok
