@@ -1,92 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FF4207A20
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E54826FD9B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789446131; cv=none; b=cgBlnxOsl4m/C/Eia6r9lV5RMV2qoK4x+77atIUwkLB+ykBeRvxdEYLVHbCiuWnLF2VMV+vYgx63BcSXtqNmxN0CdU5Wx86dTpchz1j9X7ECCM7zSKqZjjYeZ4nyVBJXXOZa+FMFpOzF6gBYPcS3I+ZSNKaG+kuI/YsHgmeZ5Zg=
+	t=1789446194; cv=none; b=ZsVJZf939WjVbead9IyKehFPkG5JvC+dQCkUU1dJ42uz4AFrFogMR1uG1EzzXsuecEKYak89Hk9RZ9lnnbr01D5xKRafpr/Zwy/6xm6b2JU2WVp1dj+HElejYVfTb7Qgl7h8LVoQl5U18Iw3Nx6wddHthpL/XOcIHotxue59xhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789446131; c=relaxed/simple;
-	bh=EgLmNwknFRSvaTUZKsKACV02Xuqlig9xHcS9B7vnmbU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=p3RtpIBStr5B8aaUrTtaa6XLzL9oEVksznXHI7WlXokTRegGd598D/ZG657OQWi/hvsZtZ5k7qV9JykxOK+jT4aPr6tofkSmNag3ZI+EDAB3+SpktsE4hu6Zt46h0zgCI18Kuj828YNrrNzbt0MBXgjFu9nsbP64R+8YTuRfXcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HjMkU9d+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789446194; c=relaxed/simple;
+	bh=QTihovuoYTHtrWdsiydIKBnDHHDBkjzHaEXKFHeEaf8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tAhIbzTuqhnmgU4FVE/9mwJG3DMOY6AHxBI0ZTjRj9ZztajORnL3jiKNkl5MN26fxTxAaw3yi0ULozmEIb548hE0TenzmIs6yOZfvGIiblp1KiHzyoALmOR816Xf6XnpSpRaCP0nXQ/2LngCdpRY7ZjIfiHnIOPgcFsR9TWVJiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=laRA6TOX; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HjMkU9d+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A04171F00893;
-	Tue, 15 Sep 2026 04:22:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789446129;
-	bh=ift+8DOHb+25wOaqafeC4wcfvzXMnHSS8K6du3vmu8k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HjMkU9d+BgVEFK7w9OEsa07Hxd+IEX0/9SPIjTm8q/qBwGp/Hib20MhNeAn2yF4qT
-	 izlwmKZd2Y9HCX5CglHOMNjP1J6FtHorkkg/QuTp8qlaVXmsewQy9z/BbEEmOCT6ml
-	 GmYcxgiFtalrqIO8ne4uIbK9LqgFyskfY28Dy+mk=
-Date: Mon, 14 Sep 2026 21:22:00 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Muchun Song
- <muchun.song@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH] mm: Remove unused exact_nid parameter from
- memmap_alloc()
-Message-Id: <20260914212200.75878c86ab806c7e09b6c69e@linux-foundation.org>
-In-Reply-To: <20260914055130.44543-1-kaitao.cheng@linux.dev>
-References: <20260914055130.44543-1-kaitao.cheng@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="laRA6TOX"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA1CA16F3;
+	Mon, 14 Sep 2026 21:23:08 -0700 (PDT)
+Received: from [10.164.19.33] (unknown [10.164.19.33])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D6D5B3F86F;
+	Mon, 14 Sep 2026 21:23:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789446192; bh=QTihovuoYTHtrWdsiydIKBnDHHDBkjzHaEXKFHeEaf8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=laRA6TOX+7Wq16OysZ3VgBnqWdJeIUrsYRlPTMhc8ZVylWTgY9bJxhHO/h/SK5BeB
+	 w1m3+S4367IkbYhXwa+NVuU2U4zrRi24asaFI7jDgbNmlEKUdewsGao+5wnaBeERcJ
+	 RWrAY5YmLx2eqY3yqBKii1rLzKGaEWD/keZ9+9/s=
+Message-ID: <5f1f4e7d-909e-4622-95d2-c4ab26c567c8@arm.com>
+Date: Tue, 15 Sep 2026 09:53:08 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] mm/vmalloc: extract show_busy_info from
+ vmalloc_info_show
+To: Ye Liu <ye.liu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Ye Liu <liuye@kylinos.cn>
+References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
+ <20260914-vmalloc_study-v1-3-526f68559706@linux.dev>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20260914-vmalloc_study-v1-3-526f68559706@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Sep 2026 13:51:30 +0800 Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
 
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> Commit ffe55393137c ("mm/sparse: remove sparse buffer pre-allocation
-> mechanism") removed sparse_buffer_init(), which was the only caller of
-> memmap_alloc() that passed true for exact_nid.
-> 
-> All remaining callers pass false, leaving the exact-node allocation
-> branch unreachable. Remove the exact_nid parameter and unconditionally
-> use memblock_alloc_try_nid_raw().
-> 
-> This has no functional impact.
-> 
 
-Latest development code has changed quite lot, but this was an easy reject
-to fix:
-
-> --- a/mm/sparse-vmemmap.c
-> +++ b/mm/sparse-vmemmap.c
-> @@ -53,7 +53,7 @@ static void * __ref __earlyonly_bootmem_alloc(int node,
->  				unsigned long align,
->  				unsigned long goal)
->  {
-> -	return memmap_alloc(size, align, goal, node, false);
-> +	return memmap_alloc(size, align, goal, node);
+On 14/09/26 9:04 am, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> Extract the busy vmap area iteration into show_busy_info, mirroring
+> the existing show_purge_info pattern.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> ---
+>  mm/vmalloc.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 797933ba9451..7638845377f5 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -5345,12 +5345,12 @@ static void show_purge_info(struct seq_file *m)
+>  	}
 >  }
 >  
->  void * __meminit vmemmap_alloc_block(unsigned long size, int node)
+> -static int vmalloc_info_show(struct seq_file *m, void *p)
+> +static void show_busy_info(struct seq_file *m)
+>  {
+>  	struct vmap_node *vn;
+>  	struct vmap_area *va;
+>  	struct vm_struct *v;
+> -	unsigned int *counters;
+> +	unsigned int *counters = NULL;
+
+As pointed out by Uladzislau, setting to NULL is redundant.
+
+Apart from that LGTM
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 
 
---- a/mm/sparse.c~mm-remove-unused-exact_nid-parameter-from-memmap_alloc
-+++ a/mm/sparse.c
-@@ -215,7 +215,7 @@ struct page __init *__populate_section_m
- {
- 	const unsigned long size = PAGE_ALIGN(sizeof(struct page) * PAGES_PER_SECTION);
- 
--	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid, false);
-+	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid);
- }
- #endif /* !CONFIG_SPARSEMEM_VMEMMAP */
- 
+>  
+>  	if (IS_ENABLED(CONFIG_NUMA))
+>  		counters = kmalloc_array(nr_node_ids, sizeof(unsigned int), GFP_KERNEL);
+> @@ -5415,12 +5415,18 @@ static int vmalloc_info_show(struct seq_file *m, void *p)
+>  		spin_unlock(&vn->busy.lock);
+>  	}
+>  
+> +	if (IS_ENABLED(CONFIG_NUMA))
+> +		kfree(counters);
+> +}
+> +
+> +static int vmalloc_info_show(struct seq_file *m, void *p)
+> +{
+> +	show_busy_info(m);
+> +
+>  	/*
+>  	 * As a final step, dump "unpurged" areas.
+>  	 */
+>  	show_purge_info(m);
+> -	if (IS_ENABLED(CONFIG_NUMA))
+> -		kfree(counters);
+>  	return 0;
+>  }
+>  
+> 
 
