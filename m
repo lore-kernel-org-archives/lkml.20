@@ -1,75 +1,74 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4B83090C6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA71D2F1FED
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434096; cv=none; b=RQirzO4SD+DPug6Qg0nrtBZq06V5KUQSccjSOzVKIoy3AI4hh4w81ohW3TNc4dQgx9pc7xw8wppHhYAwjQ19kbxnXw4BUKPgCGY2CbFRfvl/bJQ1g6cn4fFSDFpLsQMTmxsr3c9JWhP7tvswUw+hcRrHfwDheBXLissZcPF3vf4=
+	t=1789434138; cv=none; b=EF9PJXzoGYGpiAsRVfxE0HagsOnuaUxS6lI5VNkHRxpzYHN5V/6/L/kD7/K4Z49ltOluSnHfzcR/JYUudFU8vUPifHUiaaRA2IHhAHiucV4XO+A5G59bI7+at2kefh2EEP8i2QgH3qd6Yev/d9tS57tOotk9wLkx/7YJoPHlc7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434096; c=relaxed/simple;
-	bh=a2CvPDWK8OINt/Yx73WFbopm3aGUJjkMAmtmX/0I7hs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V4/MD6YAQY5/3m5Ig2ypSgMHTxpLmJY5ym2aPzYr5FzJWZ3waivKzOtZZTL/QV3/qOO4NV2MGP9mLxqSIa59+2Mo3ZlEx5QHcYKYDxNLKhW8tKNh5S7H2V6r8iPXG+otsaPWTMVBiGXZ8sWEJBaCce7h+AjYBJTkooOaiq8aIz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yb/lczxz; arc=none smtp.client-ip=209.85.222.172
+	s=arc-20240116; t=1789434138; c=relaxed/simple;
+	bh=cEPjvYmUpZzkbb1qaVYv5rKfnVTnkZ4bUmEcd21UiGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XddJkdN48XwhN0HZKOlm9wJzGGOxXiMPQ4jsacyBSr1est/X/AMNBO9RgJ17T9WOD3+a2U4kshkKFELrB6V1+u1ykt3PL5q7OjH6HW3iI8y2aqtq6FiJHA2jNL/KEjR57y7XkY6dgrHBllLPlvazyXnWy3Hz8otVXw6G1Zttw7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZFe0V41; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yb/lczxz"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-939fa4f2b81so227191885a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:01:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZFe0V41"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcbe20aso33400156d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:02:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789434094; x=1790038894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JJid9mVb8+u4dBU/DUaqBCMQDqXmAvzr8S+H2u9/oJc=;
-        b=Yb/lczxzVoVQ05eyjgvfZgg9XtQygMMGTYHxO8JxAOH34EncYaTPq3u7sGew1qo7gy
-         BR/+xKBrKT+Rgrnf5PoKbD0FWWMBWxCTZmOdl9NJXFNnd2YuB5jiTB45QjtBuwptx8sC
-         BFqBZUaxZcTw96NVKWmlWET00tYHmx/QXVPmMswvCfWGMdt7XOsS1iQmmCpNzfqmzNhe
-         aXqUahp9VvNPsVU4Sn/dEhI8ruFUj/H5HA7vi9VxihNNZ+bMwBeTV+20/10roc48BqWr
-         +phPeu6GanX5oAa33nLpxq7/uhYNiK9uUknnbk794MdOayVGfIf5qMjtdhHAxX0sftfN
-         6ybg==
+        d=gmail.com; s=20251104; t=1789434136; x=1790038936; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t1LNCA2rVzMsb3MvU5q313bU41WDHWDxRU5eL4UYHU0=;
+        b=kZFe0V41S6X1LEVc4McSBjHP3wpzUjXEL07O9l27zbrDk69kwc0yOEctUmgN44ZvE3
+         Pqolor1qG5f6crA15wZ6vlNcYYIxnMEate1T54ab1Z2k2XMZoINdD7z2uKqMMDh0q1EC
+         qDep3QGhUvOniuJgvW4i1HgFm5r9z8dqXHTq+Jv5MznXHhWVq3jj8nX4noP3rYBY1QOe
+         ttl80keYxgRhFGK652oIdPcbe3yBsSaWsUR1GuI1+vMcXGygEH1zBEMdn67u8DqJMRFR
+         wI06g7XnPjwS3fgrn6rHzNoy4TsIDfS4BbrbKi9uU2zdNcUx6Q2XQDuvC5sw5Pn81Xv8
+         Q6ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789434094; x=1790038894;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JJid9mVb8+u4dBU/DUaqBCMQDqXmAvzr8S+H2u9/oJc=;
-        b=nuiYJ4gK4bjVjvnytruwTsW37ee2rgHX2UAojCV6FHJxDgG87JZHqRQmd60CCy1GVD
-         f2H610eJVVu4WhxQKAGgazKFk+IPkUjXDoV6socXYFkth0JFPG1/tit2uTiU5B8BVjPO
-         EIrFsEKYV/Eync+xuM0qoTzrVCUJCROvuanyIXT+VwD7myZfhZavhy6qZ4YyqdAXrXoF
-         MFxt9r12UjHXJcTr23PjPUC58rhxcoUS60je/M06+LqeRDB26Bh+fwM2tRScSo2sfXJJ
-         p6kABemqLKmaeyh/Y+gM+X/uAoJj/9a4K1zKEdd/sWv2dEOiuB90LYVDFYup8zTTwnPn
-         Hpng==
-X-Forwarded-Encrypted: i=1; AKwUvBzRswUAfpsCz9RkkUexQWryVLeFTFXQXv7qMxXguWc1ujkuDwVYmguGwM7D66qgUAQE8LsLCrBSctqklgo=@vger.kernel.org
-X-Gm-Message-State: AFuF++msaThu1OdZgiSHtlwr0iBwdLV0ZQDnfxd9ECWt07RqBM78z0s2
-	CFHf7l1m1g4u6AYyz8xO+kTCn79ESRVQAot7UcnCnN+Tz/UgYxE2M1tA
-X-Gm-Gg: AYBFou1nXWKdWwlcqzZZmMYAD9V8jLZIBClXI5XZksuAof+NqB0Iz530Z2Eh3/Dg18l
-	0F678qSROV6ulX93iDj1O3hVQauln2UIhRBn/9def9HBEvvKPP2sy6jrZQZFX9nBA7WdjaHWw+t
-	mag/Qdk+gSqpUCdEhiJUbeBB+/bfWQT0FGWXA8BMwRhpUHePxfawxxfpiCHzoJgtwDQq4gMWMui
-	SEAfgBG5g7WE004pmRF/qbdMhLErWl3JfbWKyguwt0IV2hppDFM6MMDElXHaAB23bVlNpp4oxAp
-	5ANwGl2khhR2NoH3+3IZndtHXqDt1bzUAbQTzqiYTylsBDdFlyP8nVZgP3DcGD/F+HEMdSgvG9b
-	S0CMfTBfvBbpW/l4xy9lb/wPdnHFAVoKJt0j5aa2OrZghApHoSY9dBSOz0AaGDgnUVCiMVAlcKM
-	ptvj1Tf9gJ6K7EZ4F0FJPG1sF0sjp3N/eTEtoYljHlktclkuIhDEABKCCHYVy2gZ2sVNlYKBfNZ
-	E6W1nLO2tJG8G95YCtSh6Ad6WMYi1xvS3ryfuLr0weq/14D
-X-Received: by 2002:a05:620a:2955:b0:939:6df9:6547 with SMTP id af79cd13be357-93a29bf983cmr753040985a.51.1789434076622;
-        Mon, 14 Sep 2026 18:01:16 -0700 (PDT)
-Received: from father (76-224-4-192.lightspeed.clmboh.sbcglobal.net. [76.224.4.192])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7f18467sm1147705885a.11.2026.09.14.18.01.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 18:01:16 -0700 (PDT)
-From: Ben Hoff <hoff.benjamin.k@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: mchehab@kernel.org,
-	hverkuil@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] media: hws: serialize video quiesce with queue state
-Date: Mon, 14 Sep 2026 21:01:11 -0400
-Message-ID: <20260915010111.101551-4-hoff.benjamin.k@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915010111.101551-1-hoff.benjamin.k@gmail.com>
-References: <20260915010111.101551-1-hoff.benjamin.k@gmail.com>
+        d=1e100.net; s=20260707; t=1789434136; x=1790038936;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t1LNCA2rVzMsb3MvU5q313bU41WDHWDxRU5eL4UYHU0=;
+        b=M2+a79W329FfZ4oloOse6EPODDlVDWlk9bajG1S2WVS9UD+3QVPkvKrXHqJQZnwMDj
+         O3qdNWDoQuIIgmI6CjLilQl2ende7qG3WG4x0FsW9LCuZlpw1ALmyz6V50wE6OUDNXJA
+         5eoOp5ZccdSs0io2de6FkTO4s43f7s37IaPhj5z0KTGnmnLuSEyDHc66H3TzNC1WErQ+
+         RFjRhxHMZmJHaz0H/zh+1LHU6KR+Sfrb4PdG9iP5HdEVI91jooIQ22r4JZluqZpMPTWA
+         OtyDKseBwR3IpIo7PlE5o63Mqxeai6uek/5X6y7zh9vThLiO34fEm7O7/0mjNZsoreSb
+         QY6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwqrnZpdGrwGaUP9TgzkiekcPApA9ZFsWIHgKAv+j92NiPy3FBb4BSRJkMJ0iw+3iAIyb1Jwk0VzD4BOM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqq2fMbBF76VVwTA36OT6KaKvkpyUHYHRGj5TJXxFjfIcMj6X6
+	vHRQsNvJR56Peh8N+9/X7ilfLqb42PwKz+5KPkVpBStPZJ//Y5HnwqM=
+X-Gm-Gg: AYBFou3JinappziB986bUElSAHZgIxWUjiW4e5knXoGZ32+TO/ghXj0jo3u8bhkdylt
+	Yq6qPAonZEAFMl5iyCgNqOcdTZYKrm4t1NsUd40gOv2qmZbEyLOlN4v0mOoYlvLFvZXbL8YgJts
+	1t3tojSkgczT8q4DduT8DvyunbqIU1lrdxBMrY0j0Rvut08tPLBRnmAA0WmGZ1V9zOG6DVJnZI4
+	mIHh1dCCjOVVTeBTukg0vz8+5vVhU2oZiTG5lfkt2tY0+Z8uC69XNoSOTSlE+CpGY4iPPPnxoNR
+	XrzfzqT5tlMs7w3OE/wApBqclLEF0mLmZq18ODBR5XCEyUoHrQYGx9FGzoYWz7EIpD7lAmjdCPQ
+	lUZBpgojP3S6HInX4hf2ydYZmXEeqlQt2AEyfqdsBIbIcnLWeiHfaYYocjcps//AGhlBGHQwy5s
+	bUTTgLBWFeo6x/FFEux/qxAl5csLEG1pY2EqUjGAmvQcqkqsoAPdEyliz2eqB77B1wSf8t/IXk8
+	rE3w+tTEQ+uIgSPxjushQ1pFYF1x446et38L5EvfXHpDRRrc/9CUJzNff+cC+/yVasfhlYz9dM/
+	wXVlSnC6uUgsbMY/zUUz6uc2+mc1ZFn9jl2mIT2NaAZPCZSDGnnUc39ICi+14Vk995mxyw==
+X-Received: by 2002:a05:6214:1942:b0:910:48eb:605c with SMTP id 6a1803df08f44-9122e676001mr87569056d6.28.1789434135881;
+        Mon, 14 Sep 2026 18:02:15 -0700 (PDT)
+Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d51ffsm110574986d6.45.2026.09.14.18.02.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 18:02:15 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Hannes Reinecke <hare@suse.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] scsi: aic79xx: Disable the PCI device on removal
+Date: Mon, 14 Sep 2026 21:02:08 -0400
+Message-ID: <20260915010209.53250-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,125 +77,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Suspend and shutdown call vb2_streamoff() without taking the state mutex
-used by the video device and its vb2 queue. This can race userspace queue
-operations and violates the locking requirement in hws_stop_streaming().
+ahd_linux_pci_dev_probe() enables the PCI device, but removal leaves
+its enable reference outstanding. Disable it after ahd_free() has
+finished shutting down the controller and releasing its resources.
 
-Hold the channel state mutex around the streaming check and streamoff.
-Serialize monitor passes with lifecycle quiescence, and recheck suspended
-state after acquiring the monitor mutex so a delayed pass cannot enter
-hardware access after teardown has drained it.
+The imbalance is already present in the initial Git import.
 
-Reject readiness checks once suspension begins. If the core is not ready,
-return an error instead of resetting shared hardware while another
-channel may still own capture buffers.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-Fixes: ba07fd2f5742 ("media: pci: add AVMatrix HWS capture driver")
-Assisted-by: Codex:GPT-6
-Signed-off-by: Ben Hoff <hoff.benjamin.k@gmail.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/pci/hws/hws.h       |  2 ++
- drivers/media/pci/hws/hws_pci.c   | 11 +++++++++--
- drivers/media/pci/hws/hws_video.c | 11 +++++++++--
- 3 files changed, 20 insertions(+), 4 deletions(-)
+ drivers/scsi/aic7xxx/aic79xx_osm_pci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/pci/hws/hws.h b/drivers/media/pci/hws/hws.h
-index d87d52674b69..01a6b00dcca6 100644
---- a/drivers/media/pci/hws/hws.h
-+++ b/drivers/media/pci/hws/hws.h
-@@ -8,6 +8,7 @@
- #include <linux/kthread.h>
- #include <linux/pci.h>
- #include <linux/list.h>
-+#include <linux/mutex.h>
- #include <linux/spinlock.h>
- #include <linux/sizes.h>
- #include <linux/atomic.h>
-@@ -161,6 +162,7 @@ struct hws_pcie_dev {
- 
- 	/* Kernel thread */
- 	struct task_struct *main_task;
-+	struct mutex monitor_lock; /* serializes monitor and lifecycle changes */
- 	struct hws_scratch_dma scratch_vid[MAX_VID_CHANNELS];
- 
- 	bool suspended;
-diff --git a/drivers/media/pci/hws/hws_pci.c b/drivers/media/pci/hws/hws_pci.c
-index c9397b13392a..7fdb1087d247 100644
---- a/drivers/media/pci/hws/hws_pci.c
-+++ b/drivers/media/pci/hws/hws_pci.c
-@@ -177,8 +177,10 @@ static int main_ks_thread_handle(void *data)
- 			continue;
- 		}
- 
--		/* avoid MMIO when suspended (guarded above) */
--		check_video_format(pdx);
-+		mutex_lock(&pdx->monitor_lock);
-+		if (!READ_ONCE(pdx->suspended))
-+			check_video_format(pdx);
-+		mutex_unlock(&pdx->monitor_lock);
- 
- 		try_to_freeze(); /* cooperate with freezer each loop */
- 
-@@ -338,6 +340,10 @@ static void hws_block_hotpaths(struct hws_pcie_dev *hws)
- 	if (hws->irq >= 0)
- 		synchronize_irq(hws->irq);
- 
-+	/* Wait for a monitor pass that started before suspended was set. */
-+	mutex_lock(&hws->monitor_lock);
-+	mutex_unlock(&hws->monitor_lock);
-+
- 	if (hws->bar0_base)
- 		hws_irq_clear_pending(hws);
+diff --git a/drivers/scsi/aic7xxx/aic79xx_osm_pci.c b/drivers/scsi/aic7xxx/aic79xx_osm_pci.c
+--- a/drivers/scsi/aic7xxx/aic79xx_osm_pci.c
++++ b/drivers/scsi/aic7xxx/aic79xx_osm_pci.c
+@@ -113,6 +113,7 @@ ahd_linux_pci_dev_remove(struct pci_dev *pdev)
+ 	ahd_intr_enable(ahd, FALSE);
+ 	ahd_unlock(ahd, &s);
+ 	ahd_free(ahd);
++	pci_disable_device(pdev);
  }
-@@ -357,6 +363,7 @@ static int hws_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
- 	hws->pdev = pdev;
- 	hws->irq = -1;
- 	hws->suspended = false;
-+	mutex_init(&hws->monitor_lock);
- 	pci_set_drvdata(pdev, hws);
  
- 	/* 1) Enable device + bus mastering (managed) */
-diff --git a/drivers/media/pci/hws/hws_video.c b/drivers/media/pci/hws/hws_video.c
-index bdbce09ec3e6..8e029b71b5b5 100644
---- a/drivers/media/pci/hws/hws_video.c
-+++ b/drivers/media/pci/hws/hws_video.c
-@@ -611,6 +611,8 @@ int hws_check_card_status(struct hws_pcie_dev *hws)
- 
- 	if (!hws || !hws->bar0_base)
- 		return -ENODEV;
-+	if (READ_ONCE(hws->suspended))
-+		return -EBUSY;
- 
- 	status = readl(hws->bar0_base + HWS_REG_SYS_STATUS);
- 
-@@ -621,9 +623,12 @@ int hws_check_card_status(struct hws_pcie_dev *hws)
- 		return -ENODEV;
- 	}
- 
--	/* If RUN/READY bit (bit0) is not set, reinitialize the video core. */
-+	/* Runtime reset would invalidate every active channel's DMA ownership. */
- 	if (!(status & BIT(0))) {
--		hws_init_video_sys(hws, true);
-+		dev_warn_ratelimited(&hws->pdev->dev,
-+				     "SYS_STATUS not ready (0x%08x); runtime core reset refused\n",
-+				     status);
-+		return -EIO;
- 	}
- 
- 	return 0;
-@@ -1349,6 +1354,7 @@ int hws_video_quiesce(struct hws_pcie_dev *hws, const char *reason)
- 			continue;
- 		}
- 
-+		mutex_lock(&vid->state_lock);
- 		streaming = vb2_is_streaming(q);
- 		if (streaming) {
- 			/* Stop via vb2, which runs .stop_streaming. */
-@@ -1357,6 +1363,7 @@ int hws_video_quiesce(struct hws_pcie_dev *hws, const char *reason)
- 			if (r && !ret)
- 				ret = r;
- 		}
-+		mutex_unlock(&vid->state_lock);
- 	}
- 	return ret;
- }
+ static void
