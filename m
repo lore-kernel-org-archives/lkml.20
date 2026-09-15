@@ -1,124 +1,111 @@
-Received: from mta0.migadu.com (out-167.mta0.migadu.com [91.218.175.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615184BFE93
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8944189C3;
+	Tue, 15 Sep 2026 18:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789497594; cv=none; b=jYKKzqNCLRl6DxoJRJXJWzeH9V/jocGz0IOqJioTaAF3PFLmPxukOBMQlG929KtKFb6lqiNIw0iMRyNYT8me0ZcwCnhgi//ivkiHWwhnhO4rHEYn/Ohm152+ElN5h388jth71Wclo9cFWDBe+lmVpRjb9ohgUh7AbAcdbLluv9A=
+	t=1789497617; cv=none; b=HnLjEi+/p0HJhfdXH39nsZnOVGNf8SgmKvPn9ngp1BPJZf9vuj7RlQi5ZH6dOfsP0SQYx16hx9yAZUIxLMAFDYJFOnmM6z0O5grYtvN0cLnv3rzKzbVR1BoqX+od4fQ2Mi0+0pDqQ8D7+1rWApfd5jM40gFzti3QXKT8tR5986o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789497594; c=relaxed/simple;
-	bh=r7pT69vfL8KLaY3d/Q2bjsDbJ9zI0lbKl6VgdFFxXrI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=Szr9tU9CCdwsQ8zgbvXzyen8WombbuM4as4EvXeoF2SCi0QvhxozS/9dFdhIOtXPLNguW4MxNkOXGkPWFS7dfcsD0b5qNgli1f1RFbOLNbrUcPJ00/qOD3/ojI3ipm/qBzm3jzAFptYTqREIIemyytVlbICwVsujVoRVzFpAZNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=f7oEgX7M; arc=none smtp.client-ip=91.218.175.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789497617; c=relaxed/simple;
+	bh=c6mfU+sOuiO5rL2mGLrsnIWQBc4pM+qhMVV13HCgHOU=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=VycBO2ZsFBMK5tVtN4QpXb/aJJ8VSkVQNqsCzV1gc7EhjZT6AVtiE837lxMU7UpyRak2kqzHJhYoKE6lBKIpcusjFSYiF94lzXL8NIzbeS6KNTxkovMwAEafOxrktdmwUx35tAxrdSQhd4/vM0VnvzhQr6ldn5xD28UdinJZqew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8juqj3q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="f7oEgX7M"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r7pT69vfL8KLaY3d/Q2bjsDbJ9zI0lbKl6VgdFFxXrI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789497589; v=1; x=1790102389;
- b=f7oEgX7MXk+DeSMq9wevk5JkhQa0iHRF4pSVPMyTqi3Fr7FFDXD5fG0vsRwB4uoY7e13SZmK
- zeUNhwKyCEceeLanKDsV/R1vRbKJfDLw729LS0aXQq9Now8ge6XfnRwelX8rr1yaffFyW0WD1RF
- llrV5LeICH3ri8QR+BlgniLY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 429d9ecf31e9208d;
-	Tue, 15 Sep 2026 18:39:39 +0000
-X-Mizu-Trace-ID: 429d9ecf31e9208d
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8juqj3q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 217DF1F00893;
+	Tue, 15 Sep 2026 18:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789497616;
+	bh=bAZJlaWUaIC9ATqe/uzoAUFcM0qeIxwjJqAiIphRJkw=;
+	h=Date:From:To:Cc:Subject;
+	b=I8juqj3q3istWJHE2gshfIIcR62DVFV+pVozPW+qGfGqxD78izbGAiGSSuyXtlxJ/
+	 8KNQJo282icE6u9UjVbTS420k/Xb5QJLhq84xePohyJfrE3MFvL/pXb/FbhfdzLRgL
+	 5a+Q3Qvlj926iJqHouRjeocobc7g2kHJ2cTkiF7L2d28hG/Bxo8whc/wcSxXchvc0g
+	 YkaTbnC4UAzqfeHdMH10kO58FoJ8/ZqICxGDXXAL6XfyWBIjEIGS/qAixXAkhECpaz
+	 MzyxR4VA+WdjBjZO0L4M/LAi2qUKornskw+ee9T4bx3na9n0Tpr6wSzhV/6hYNX9Mb
+	 Jdo/80HSg9P+w==
+Date: Tue, 15 Sep 2026 08:40:15 -1000
+Message-ID: <77a248741e07bbe690582f3c31442b7f@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] sched_ext: Fixes for v7.3-rc3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 15 Sep 2026 18:39:30 +0000
-Message-Id: <DLG3Y32QQ9JU.3LNSYXLJIGH17@linux.dev>
-From: "Florent Revest" <florent.revest@linux.dev>
-To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>,
- <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>
-Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Song
- Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
- Olsa" <jolsa@kernel.org>, "KP Singh" <kpsingh@kernel.org>, "John Fastabend"
- <john.fastabend@gmail.com>, "Leon Hwang" <leon.hwang@linux.dev>, "Junseo
- Lim" <zirajs7@gmail.com>, "Sechang Lim" <rhkrqnwk98@gmail.com>, "Puranjay
- Mohan" <puranjay@kernel.org>, "Xu Kuohai" <xukuohai@huaweicloud.com>, "Ilya
- Leoshkevich" <iii@linux.ibm.com>, "Hari Bathini" <hbathini@linux.ibm.com>,
- "Christophe Leroy" <chleroy@kernel.org>, "Naveen N Rao"
- <naveen@kernel.org>, =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>,
- "Pu Lehui" <pulehui@huawei.com>, "Tiezhu Yang" <yangtiezhu@loongson.cn>,
- "Hengqi Chen" <hengqi.chen@gmail.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf v2 1/2] bpf: Skip detached progs in trampoline
- images that are still in use
-X-Mailer: aerc 0.17.0
-References: <20260912095924.866254-1-florent.revest@linux.dev>
- <20260912095924.866254-2-florent.revest@linux.dev>
- <DLDHKKLCOAVR.3PHQ832S121Q2@gmail.com>
-In-Reply-To: <DLDHKKLCOAVR.3PHQ832S121Q2@gmail.com>
 
-On Sat Sep 12, 2026 at 4:42 PM UTC, Alexei Starovoitov wrote:
-> On Sat Sep 12, 2026 at 2:59 AM PDT, Florent Revest (Anthropic) wrote:
-> > +struct bpf_tramp_skip {
-> > +	struct bpf_prog *prog;
->
-> prog pointer shouldn't be necessary.
+Hello,
 
-[...]
+The following changes since commit 068e5a0bc57e57d24cbf38def29cc5fb4db9a0df:
 
-> > +	void *nop;
-> > +	void *target;
-> > +};
-> > +
-> >  struct bpf_tramp_image {
-> >  	void *image;
-> >  	int size;
-> > @@ -1374,8 +1389,27 @@ struct bpf_tramp_image {
-> >  		struct rcu_head rcu;
-> >  		struct work_struct work;
-> >  	};
-> > +	/* entry in tr->images, the image holds a reference on tr */
-> > +	struct bpf_trampoline *tr;
-> > +	struct list_head list;
-> > +	struct bpf_tramp_skip *skips;
-> > +	int nr_skips;
->
-> I don't follow why you need link list and 'tr' pointer here.
-> Also why keep ip_after_call ?
->
-> Replace ip_after_call with array of bpf_tramp_skip { void *nop, *target; =
-}
-> and then in bpf_tramp_image_put() instead of ip_after_call do:
-> for (i =3D 0; i < im->nr_skips; i++) {
-> 	struct bpf_tramp_skip *skip =3D &im->skips[i];
->
-> 	err =3D bpf_arch_text_poke(skip->nop, BPF_MOD_NOP, BPF_MOD_JUMP,
-> 				 NULL, skip->target);
-> }
->
-> what am I missing?
+  sched_ext: Fix missing @slice and @vtime descriptions in finish_dispatch() kernel-doc (2026-08-31 07:28:04 -1000)
 
-Ah yeah, I tried to address that in the cover letter. Basically, if we patc=
-h
-all the nops, tasks running in the old image could skip some progs that are
-still attached. For fexit, that's already what happens with ip_after_call b=
-ut
-for fmod_ret it would be new and this would cause for example an LSM prog's
-verdict to get skipped when another prog gets attached to the same hook. Th=
-at's
-why I thought that patching only the detached prog's nop would be better an=
-d
-needed these extra pointers. But it's a bit of an edge case and I don't hav=
-e a
-strong opinion on it.
+are available in the Git repository at:
 
-If you'd prefer the simpler version, I can do what you suggested here in v3=
-. If
-you'd rather only skip the detached progs, then yeah, I think ip_after_call
-wasn't needed anymore and I should have dropped it too.
+  https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc3-fixes
+
+for you to fetch changes up to a9e3760b0838299649c0d57cca44daaf40ba3c33:
+
+  sched_ext: Maintain an online cid mask in the scheduler arena (2026-09-15 06:57:20 -1000)
+
+----------------------------------------------------------------
+sched_ext: Fixes for v7.3-rc3
+
+- An error raised by a BPF program before the scheduler finished enabling
+  was consumed by the disable path's pre-enable shortcut, leaving a
+  running scheduler that couldn't be disabled and was later freed while
+  in use.
+
+- Two compat kfuncs dereferenced a NULL scheduler when handed an exited
+  or idle task, oopsing the kernel.
+
+- Keep-running decisions in the dispatch path used the root scheduler's
+  flags for tasks belonging to a sub-scheduler, causing warnings and
+  stalls.
+
+- Schedulers with their own CPU ID mapping had no way to learn which IDs
+  are online. Add a kernel-maintained online mask to plug the hole.
+
+- Cgroup idle state: the initial cpu.idle state wasn't passed on cgroup
+  init and same-value rewrites delivered spurious callbacks.
+
+- Example scheduler fixes for a reenqueue loop on attach, placements on
+  CPUs without effective grants, stalled partition work and stale idle
+  tracking.
+
+----------------------------------------------------------------
+Tao Cui (2):
+      sched_ext: Pass the initial cpu.idle state in scx_cgroup_init_args
+      sched_ext: Don't deliver duplicate ops.cgroup_set_idle() for same value
+
+Tejun Heo (7):
+      sched_ext: Rename sch to root_sch in dispatch_one()
+      sched_ext: Use @prev's scheduler for the keep decisions in dispatch_one()
+      sched_ext: scx_qmap: Do not add IMMED to rescue inserts
+      sched_ext: scx_qmap: Place only on cids whose caps are in effect
+      sched_ext: scx_qmap: Fix pending partition work handoff
+      sched_ext: scx_qmap: Restore unused idle claims from ops.dispatch()
+      sched_ext: Maintain an online cid mask in the scheduler arena
+
+Wanwu Li (1):
+      sched_ext: Fix NULL sched deref in kfunc sub-sched error paths
+
+fangqiurong (1):
+      sched_ext: Close the pre-enable ops error claim window
+
+ kernel/sched/ext/ext.c                   | 142 +++++++++++++++++++++------
+ kernel/sched/ext/idle.c                  |  11 ++-
+ kernel/sched/ext/internal.h              |  12 ++-
+ kernel/sched/ext/sub.c                   |  12 ++-
+ tools/sched_ext/include/scx/common.bpf.h |   1 +
+ tools/sched_ext/scx_qmap.bpf.c           | 162 +++++++++++++++++++++----------
+ tools/sched_ext/scx_qmap.h               |   3 +
+ 7 files changed, 254 insertions(+), 89 deletions(-)
+
+--
+tejun
