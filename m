@@ -1,115 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0092390212;
-	Tue, 15 Sep 2026 07:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E8C390212;
+	Tue, 15 Sep 2026 07:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457436; cv=none; b=j5P06gQF0dUlCg4lsKDxz+85mj7qBMMjBSpraitcXsZa8+vxmnI6GBZSE2qWlN2g5BTsyGmNWao1D7p3b3nL6FZOZHQX5uc8z2jXo/JlSSiaalf6tCr8RRRwdiNy2OMstrkV0z1e+F9bJ3WvY2fSsx/p0TM7Snejf75Y0EwtOCQ=
+	t=1789457479; cv=none; b=tUnVmaeSlMTBZWpzqduPluYSQU8ZSCWsoVIz4z8/baTetIgQ/kObGIHEdY3WqKEOVpWpi+8PljJ47SEU3JaVWP1WbzWkpNWN8TBuNhhHEkpNNBt4/pPt6G2t+vzvv6CdiV5TX2y6VweH9tcnAvcMazJn+cX102uAQznIewfC2gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457436; c=relaxed/simple;
-	bh=mR9/lwyEnnhes5Rs53Qbjz9K+oUJyi/GqF3aEAiZkFE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lapFVdCY4Ri94lwM79tWgT3ShUOk/ijo+z76ttVdT5g3g3NuNjBCTyj1qS8rc9LFLgB0U4E/XgIMpNWiEp86sc3sFh2YYpA0pKXlX0SNYCCvqwTMnC62DvGVlES7tJbFt26Ckg/CbvAh4bXMYL9KPO0y+EbQXbbwgdxKB8ct80c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ian72JLd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789457479; c=relaxed/simple;
+	bh=6K/w16UBrqCcu3p1jgGqeQlDh/Z28EnKCgMs3mDtaFM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nkNd2OZ+FW2Usasy6F/aFa7MDnA36vh2WivhC16bztyluMhuG7h0PtlaVRZ9y3XUTFtzo1WMv7pKVlv5o9AInA8uES2OQvK5MMpO9XIDf7oLkqQyevi1lTjKsc9cN0BP6ZTWqi7W+9wHJaPUc3OyKlxyuunucuQg4cvPVq2nnhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=k3+DfJv8; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ian72JLd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269261F000FF;
-	Tue, 15 Sep 2026 07:30:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789457434;
-	bh=lKRIjL8U68hpYB4JrL02iKgw2lAfaABiPkDTv+XGsr8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ian72JLd0nsExFvCUXUX5ap90mqaVMjO+AQVR9GH3tiDjqjc3KOXZcKpqMTd+R5OV
-	 Faan1Qz/WR6RrfVSbI9ArEukF9DTn3VBfHJ1Edijm4K56UD0kbK3qo0nfKdqXiJTzm
-	 36Zyx9VENt+kU6ssvtKWZo8nkuXPgOt5xErQQlMXx7BeAdvClST0k42e3EXZHp+/GP
-	 OeXKnLIxmW6WaTQAqMHcO6RP5iKJo52No+4cAtf6Bghosh+Z505Fvrw4Vd02o6Bpqq
-	 wjSG1tCcyGvJWmvWbLy/eGbk94LT19q1UtkmOa1rQvQ+lOO6SFxB8RItW6NPREVreh
-	 tFT0Rw6wKJJBA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256
- bytes on an 8-bit bus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Orgad Shaneh" <orgads@gmail.com>, vigneshr@ti.com, miquel.raynal@bootlin.com, richard@nod.at
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260915071339.15172-1-orgads@gmail.com>
-References: <20260915071339.15172-1-orgads@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 07:30:33 +0000
-Message-Id: <20260915073034.269261F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="k3+DfJv8"
+Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Z4pk1047656;
+	Tue, 15 Sep 2026 00:31:09 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=guM89mY3EQyfrFLdaLOEtqe
+	e7dC2nqL/3xc61klpagY=; b=k3+DfJv89PzWlQFvvFaOvq6rsanOvPeQrfW6KMa
+	AYX4kxS8hiS4V01uyEl7TNPRxOx4lhSkNGoW3ZvV1cnp5x+1egQTTXTv7VPd10BO
+	+0+fJcXhLaOVswLCdhhMEoT0FWhx9L1IHUA7AWASnLNGPORyBmgXUPKGHDaGmvKd
+	qatptApbyDTf3QbcSuP2aSfRzYaEz4QlP6uVH3zZPlk8yw1mBOSvP8slSDTVeEUm
+	lRMjias01gDcGJHsWcPzy8XWccNRPfV/WwIwqXkr7N/GrY9vj8F9+ndAMAmernZH
+	4QGVwWy/W1KrE50OCxUTLoB/Ud49dFEBGtEdI10mNLAfvBw==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gnqg6yn34-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 00:31:09 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Tue, 15 Sep 2026 00:31:08 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Tue, 15 Sep 2026 00:31:08 -0700
+Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id 57F233F7063;
+	Tue, 15 Sep 2026 00:31:05 -0700 (PDT)
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <kuba@kernel.org>, <linux-kernel@vger.kernel.org>, <naveenm@marvell.com>,
+        <netdev@vger.kernel.org>, <sgoutham@marvell.com>,
+        <vattunuru@marvell.com>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+        <pabeni@redhat.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
+        "Ratheesh
+ Kannoth" <rkannoth@marvell.com>
+Subject: [PATCH net] octeontx2-af: nix: Fix TX vtag upper bits programming
+Date: Tue, 15 Sep 2026 13:00:58 +0530
+Message-ID: <20260915073058.992915-1-rkannoth@marvell.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Authority-Analysis: v=2.4 cv=A9/5rKWG c=1 sm=1 tr=0 ts=6aa8f43d cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=aHCFOCUg1xN91pC27xIA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-ORIG-GUID: 55i1oOeJTRIN6Yh1eFj5a8RTDRtkvcx3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfX7+opjlQSjT3t
+ /8kb9+OvWEedN7CD679sheundxe+8eMkx9MIOHjriRc3v4+olFFXVqwkJnHYR+bdAGuejha3ov1
+ HXyiZblEN2aNGU3V1OV0oFB4wnPuCPw=
+X-Proofpoint-GUID: 55i1oOeJTRIN6Yh1eFj5a8RTDRtkvcx3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfX9tsRVrYJowjQ
+ 4InZCXNpu4+tAOk9bv8yVLIAx/J4Mg3xmvaxGQ6F94SAZ3MFRdR0nnSb8rr89qIOS29oNXpf9RI
+ noDcKouDbDCAPN9YI7Xss4PYxHNRUcegyl2aIbBntxpuUFCtqhmfuqxTQYpLp1Qbb8J+hqol/aY
+ Fn4QLvwI7DGOQ769p3wQEGdBsO1K4YGroq5224cN1H2XspEMpqBF55c0Ac8Dcppf3P6F0GMHF9A
+ jrg205u7EsizWOdXCnJ3RZXbCf5tDOAxLr9ZqvNni/C24nWlXRPwsJ51PB4JwNOA7mVZXx8KS6H
+ yzEU9i6nWLyoX1zl1805VPIvOYURmI8Vn+RvBf+04FABh5r5+Yv4EUP4adsGoVmlrxNk2qrICvn
+ 2KrEvNgfGrWVThEK1rpw3SwapB9NGe8Eup3XiitjJ4vkhaCpsK83mKrnUiKKic2UFkn+lsP0FNp
+ yW8YFFYgT+u0QP1RRYQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mtd: incomplete write-buffer size clamp for interleaved 8-bit chips
---
+From: Subbaraya Sundeep <sbhatta@marvell.com>
 
-commit efef65c6e8de323e4294fd157f7f865d12e35292
-Author: Orgad Shaneh <orgads@gmail.com>
+The upper bits of the vtag value above bit 47 were not written to
+NIX_AF_TX_VTAG_DEFX_DATA, causing incorrect TX VLAN tag insertion
+when extended vtag fields are used.
 
-mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an 8-bit b=
-us
+Fixes: 9a946def264d ("octeontx2-af: Modify nix_vtag_cfg mailbox to support TX VTAG entries")
+Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
+Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+---
+ drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This commit limits the write buffer chunk size to 256 bytes when the bank
-width is exactly one byte. It prevents program aborts on 8-bit buses where
-the chip advertises a larger write buffer than the single bus word can hold.
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+index 153eb57bad06..091ef8dac7c9 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+@@ -3107,6 +3107,7 @@ static int nix_tx_vtag_alloc(struct rvu *rvu, int blkaddr,
+ 	mutex_unlock(&vlan->rsrc_lock);
+ 
+ 	regval = size ? vtag : vtag << 32;
++	regval |= (vtag & ~GENMASK_ULL(47, 0)) << 48;
+ 
+ 	rvu_write64(rvu, blkaddr,
+ 		    NIX_AF_TX_VTAG_DEFX_DATA(index), regval);
+-- 
+2.43.0
 
-> diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_=
-cmdset_0002.c
-> index 517db2f2707f4..64fde81191d15 100644
-> --- a/drivers/mtd/chips/cfi_cmdset_0002.c
-> +++ b/drivers/mtd/chips/cfi_cmdset_0002.c
-> @@ -283,6 +283,17 @@ static void fixup_use_write_buffers(struct mtd_info =
-*mtd)
-[ ... ]
-> +	/*
-> +	 * The word count of the Write to Buffer command is a single bus
-> +	 * word, so on an 8-bit bus a chunk holds at most 256 bytes no
-> +	 * matter how large a buffer the chip advertises.
-> +	 */
-> +	if (map_bankwidth_is_1(map) && cfi->cfiq->MaxBufWriteSize > 8) {
-[Severity: High]
-Does this condition properly handle interleaved configurations where multip=
-le
-8-bit chips are used on a wider bus?
-
-The map_bankwidth_is_1() macro checks if the total aggregate system bus wid=
-th
-is 1 byte. If two 8-bit chips are interleaved on a 16-bit bus, the aggregate
-bus width is 2 bytes, causing map_bankwidth_is_1() to evaluate to false and
-bypass the clamp.
-
-When writing a large buffer in an interleaved setup (e.g., MaxBufWriteSize =
-=3D 9
-and interleave =3D 2), cfi_amdstd_write_buffers() will pass up to 1024 byte=
-s to
-do_write_buffer(). The loop divides this by map_bankwidth to compute 512 wo=
-rds.
-
-It writes a command of 511 (0x1FF) to the bus, which cfi_build_cmd()
-duplicates to 0x1FFFF. This gets truncated to 0xFFFF on the 16-bit bus, so
-each 8-bit chip receives 0xFF (255) as the word count. They will expect exa=
-ctly
-256 words (bytes).
-
-However, the subsequent data loop in do_write_buffer() would write 512 words
-to each chip, causing them to abort the program on the 257th byte.
-
-Should this condition check the per-chip data width instead of the aggregate
-system bus width? For example, checking if
-map_bankwidth(map) / cfi_interleave(cfi) =3D=3D 1?
-
-> +		cfi->cfiq->MaxBufWriteSize =3D 8;
-> +		mtd->writebufsize =3D cfi_interleave(cfi) <<
-> +				    cfi->cfiq->MaxBufWriteSize;
-> +	}
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915071339.1517=
-2-1-orgads@gmail.com?part=3D1
