@@ -1,152 +1,81 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A0C3C09E7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F2A3B8BA4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479439; cv=none; b=IX5Ukd6IBWd54Qfk4jud57GRxcmwzfnS+R04mN1UEB6p/YzphqDYNC+C3d1c6zKVJb+LmysIDZf7e3uTWyEKT1qfwlBQ6lm5HF6J1iVZuYPTX6ej0WFRWI6OLx7iZ0dsfr5CZc42J/PSzL6+U5amWJ0OMTr4AhK4N9vnopk8U1A=
+	t=1789479450; cv=none; b=P4yUYMgWjSNGOAhtKmWS6ZrlPm6yNUIJLH92x1n3wQx0GNKhFjMFuVjtIwRXotn+VtJtzXb9tCNOAn/+3QsmEMN8oT0W6T4RFZhS3kzjHlUGDCkxS/ucNIkzLkHTW+wN1u5X6X0xJTO5BSV4lWt73Aus/Xn4lmtvPlGenxtHIK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479439; c=relaxed/simple;
-	bh=09JMPUmRLDAazyiDuFBa/pP+61awWdH8GykDnqSq/Gc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OP+U0dTTHyrEuAcM4fOcOkYWWR1D2kCp1ZwbGkYheZ1Uvy+WEz833/Uhhr2v2autQgqO3ST0Wyh1/P1pxt9Zb3vJhYc0fa7s5oLBUmV1O1akLJ34fsZMAnWDHRg6Of+fwZgPdYA2CQ4jtkZnaGRoO2MOAEhQZzzZxgz0QACTGLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ifzJbiZ4; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1789479450; c=relaxed/simple;
+	bh=7AnuNVhxyhuQj4OIhzM09mxSGHTJ01Pa2juVDuoGhK8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=K/frjnpJZZWzLfq4LkuFPWnn+WQ3CzYIIcCLDv+TfPgxG8Hdu1VFwd10SPqbGOW/5rNaKg44fk8hBUMlawzwWdWgFtBsBOgSMwJfujZ3m3sEFhkTHlf6XlgMCdkf9/eJc4UqWQPova6eeCP6+p8leI0UGVQ8nfEIHTQ44/J3knY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rJYS+GGO; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ifzJbiZ4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=ldeR0B4GHt3b5GmwgKmYffkbyfoBxCcoI2N1ceTEtE0=; b=ifzJbiZ4sUYioCzujeRclD++2W
-	raXXLxleGWSeduKUqRUmGxuy3tTqcS8Qniii5CeOs1hL0kjzRBxp6kMarv4OfAnmmhkeOZeBUKAW3
-	MPQ+9Ptv/l4M5gFB2z6TPoAmk90ppF9gkMmh3m/Ixtpll1VP9lZKlJhc+HBpFCgDwi7RRseAvQAGa
-	gmOPUlCwwuS7EQfDLMepixFqlRy/8bfcda/AKSF9gAMXDWHdEnJ4ctDEHADVPXIMBYAv6GPizIX1d
-	ycdqxxV0hVVvWHrRquQQVhnny32EqSoOo3IEet5eNFvLFZnokuGEgRM+mPSO0vCkNgIiw5jqAhOed
-	vHNXrz1g==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chaoyi Chen <kernel@airkyi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Quentin Schulz <quentin.schulz@cherry.de>
-Subject: Re: [PATCH v5 0/3] DSI Controller improvements for Rockchip platforms
-Date: Tue, 15 Sep 2026 15:36:47 +0200
-Message-ID: <3800544.yaVYbkx8dN@diego>
-In-Reply-To: <20260914013331.108-1-kernel@airkyi.com>
-References: <20260914013331.108-1-kernel@airkyi.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rJYS+GGO"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id CF11D4E40639;
+	Tue, 15 Sep 2026 13:37:25 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9AD3560498;
+	Tue, 15 Sep 2026 13:37:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E4A6411C7AFEF;
+	Tue, 15 Sep 2026 15:37:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789479444; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=RKb5raYH5jjg44l7lX7tk09hl1TxxM+EOthKDMqnefw=;
+	b=rJYS+GGOGKJDnkFEYwc5rjJq7ei4z5rkLCbLTzhsk8d087j7LjBZnO/99LP/hq5fEXQI46
+	aEsuCC9tT35rvp476F9GJZO9KTowL/EuCqr764OoQkL2k5jQTrEJVeTLUCWhs95SsW1SQK
+	/sjidzNIBpCQt3TfBTRV8Od2FBDMEgQVT8LgXgx6jShnJHRIlY7BTN72mwgmv27U8BDRrA
+	ZJ4IGE9A3WakazyW5nH1u9vrfPHiH3TqgcSUTmK1vWDw9z65PlOh7uePo18kJRnCbOmSpt
+	Ggmhe9eKq9eYQ03SZGNqmsF/8FxgBtHaWTTNWPQ3TNOgb02RLRpD50z05YcfVQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: <Takahiro.Kuwano@infineon.com>
+Cc: <mwalle@kernel.org>,  <pratyush@kernel.org>,  <richard@nod.at>,
+  <vigneshr@ti.com>,  <tudor.ambarus@linaro.org>,  <alex@sverdlin.org>,
+  <linux-mtd@lists.infradead.org>,  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] mtd: spi-nor: spansion: Assign .fixups to s25fs256s1
+In-Reply-To: <e15daee278f346cd8dae030e2409445e@infineon.com> (Takahiro
+	Kuwano's message of "Tue, 15 Sep 2026 06:13:57 +0000")
+References: <20260914-s25fs256s-fixup-v1-0-e94019455c1e@infineon.com>
+	<20260914-s25fs256s-fixup-v1-2-e94019455c1e@infineon.com>
+	<DLETVUMUX3AN.3SSH7NN2CKAIU@kernel.org>
+	<fb4398e88939472eaa86cdc098a3d265@infineon.com>
+	<DLEXS5VCYB1P.1NJI7ZU6HYUHF@kernel.org>
+	<e15daee278f346cd8dae030e2409445e@infineon.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 15 Sep 2026 15:37:21 +0200
+Message-ID: <874ifqoctq.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Hello,
 
-Am Montag, 14. September 2026, 03:33:28 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Chaoyi Chen:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->=20
-> This series is dedicated to enhancing the DSI controller and PHY timing
-> interaction, refining the lane rate calculation, and addressing the
-> associated hardware limitations.
+> This didn't help as SFDP cache size is truncated to PAGE_SIZE in sfdp.c:
+>
+> 	/*
+> 	 * Limit the total size to a reasonable value to avoid allocating too
+> 	 * much memory just of because the flash returned some insane values.
+> 	 */
+> 	if (sfdp_size > PAGE_SIZE) {
+> 		dev_dbg(dev, "SFDP data (%zu) too big, truncating\n",
+> 			 sfdp_size);
+> 		sfdp_size =3D PAGE_SIZE;
+> 	}
 
+That size just being a sanity check, if it no longer fits our needs it
+must be increased.
 
-Took me a bit to finally test all the different variants for a display
-that shows strange behaviour. Sorry this gets a bit longer.
-
-
-The display in question is the ltk050h3148w [0], display in portrait
-orientation.
-
-Ever since commit ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use
-pixel clock rate to calculate lbcc") [1] and the subsequent fix in commit
-93e82bb4de01 ("drm/bridge: synopsys: dw-mipi-dsi: Fix hcomponent lbcc for
-burst mode") [2], that display has its output shifted about 20 pixels to
-the right, with the line then continuing on the next display line.
-
-We have this display running on all the Theobroma-System modules, so there
-is a lot of variant data :-) .
-
-Your series actually fixed the PX30 part of that shifted output, but for
-the RK3399 the results are sort of mixed:
-
-
-What was confusing me was that in the Rockchip vendor kernel, _all_ DSI
-variants use the standard px30 phy settings? The whole original lookup
-table seems to be gone? And that replicating that setting actually fixes
-the shifted output on RK3399 too?
-
-
-RK3399:
-	original:
-		shifted
-		mode-clock 59400, target_mbps 450
-
-	patches 1+2:
-		shifted
-		mode-clock 59400, target_mbps 450
-
-	patch 3:
-		blank disiplay
-		mode-clock 59400, target_mbps 400
-
-	use static px30 phy with patch3:
-		image is compressed in height and displayed two times one below the other
-		image is _not_ shifted anymore (so left+right alignment are correct)
-		mode-clock 59400, target_mbps 400
-=09
-	use static px30 phy without patch3:
-		image is _not_ shifted anymore
-		output is correct
-		mode-clock 59400, target_mbps 450
-
-
-PX30:
-	original
-		shifted
-		mode-clock 59556, target_mbps 450
-
-	patches 1+2:
-		output is correct
-		image is _not_ shifted anymore (so left+right alignment are correct)
-		mode-clock 59556, target_mbps 450
-
-	patch 3:
-		output is still correct
-		mode-clock 59556, target_mbps 400
-
-RK3588 (DSI2) for reference:
-	output is correct
-	mode-clock 59756, lane_mbps 398
-
-
-Do you have any insight, what could go wrong here?
-
-I'll apply patches 1+2 as they're correct, but will keep patch3 out
-for now.
-
-Also Sashiko seems to still be unhappy with patch3.
-
-
-Thanks a lot
-Heiko
-
-
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c#n299
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3Dac87d23694f44af44a98d21dd77016f2756b6b1b
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3D93e82bb4de0196c4caeca1d8a6eef67863981d8f
-
-
-
+Thanks,
+Miqu=C3=A8l
