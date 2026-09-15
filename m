@@ -1,89 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D62C3D5C0C;
-	Tue, 15 Sep 2026 04:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F1B3D0900
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789446791; cv=none; b=ZQUlxGYxn5wtSgyLzRgZDLA1ntEkOkrxetBqYTV0Q2ZEfoKhhmVein9dXr2sECtZ9XhWStZ9aONdMpma5OBh4bKRFH//ZchTT+9aQcnu/yELbJ00A5ij7wDcVUmuaj+vMWa9EYFvSvCy960Bm87bkiR+q7KZvDlnJVvSIOFxQKY=
+	t=1789446809; cv=none; b=b0ZV8BivBTjM/XR7b73oe2YMihhUEexs268U3/MW33nqDzLqPmqLzf1pMITPCkBQHXwwfXpHflmXNL3TMfXyK9tauKDfoqo5TDiRHnNEOkcoB28nlcoyfm13346L4QEcFE9TIfhIGa7QQHh7KMvoa4Wgvfwl0vgjcf7zRK+geuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789446791; c=relaxed/simple;
-	bh=F1EZz1gvYL2yeAGTnSSdkFhbs1XU9gNCm7qgfr7UKiI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=WQSemXgWsb5krcqLNhU0y5YsWa4j/IRrqRENXto9Uxq44fq+yuq22MGdLejR2qWXVV+KUSQM28z2BriTr0+jq3vBetnXhojUUsuwSttqjTrbsBuQTiKJKgcyJI2dVRhdoqZUZ7+ApMaHVc8TZP1R7FcTADE0BAbmOY90WCb4DLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=h07fm6tJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="h07fm6tJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 775951F000FF;
-	Tue, 15 Sep 2026 04:33:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789446789;
-	bh=AA0z69BlegLX4MyUvkz8G6syjEXB6PXFlXmYSSb0GhU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=h07fm6tJXrCqhq4PwvmHRpvDl+sUxOxl6I6ZrPCJWuiBiA643R48Jp1WiUlccMvs3
-	 Auo/ZmAHF7j4dAzffmHVyj+cPG3dFspg4gpG+Z8UbvFqkmLp6l89vphOxgr8BysQN7
-	 kLXyiir1xpVduYvt/uRV1xcgR6LSjMq8a0k9RQkQ=
-Date: Mon, 14 Sep 2026 21:33:09 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: James Kim <james010kim@gmail.com>
-Cc: Matt Porter <mporter@kernel.crashing.org>, Alexandre Bounine
- <alex.bou9@gmail.com>, Dan Carpenter <dan.carpenter@linaro.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] rapidio: mport_cdev: fix use-after-free in
- mport_mm_close()
-Message-Id: <20260914213309.4caf81cbb1794b774e1ad7b6@linux-foundation.org>
-In-Reply-To: <20260914042327.49798-1-james010kim@gmail.com>
-References: <20260914042327.49798-1-james010kim@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1789446809; c=relaxed/simple;
+	bh=zInjC4kg0P/cqTHM8U1urBAO/U5PYrZeSP1f+oHqMMU=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=kAdJSpB7Sp+RIOuCf9m8EsQq6+AlQMswfC/+IXd4Crx2WgwW3wJXFuInPvwfgqavps9KgO1WOiKbREH0cU/LQ7OlfuEnME8Fh6Xoazp2EkoaE00vpdWKJIk1rzEf5e3EkniAAOtMVYQ76o3CYQSiZAEhL7pnRf0X2NxzkyTzDK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-48296f34f1dso1137579fac.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:33:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789446806; x=1790051606;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kLO/IjQiB0f5Xdimriq4y9hQ5MQFsJJx6R3N+ei4KlY=;
+        b=PRi6ebGI3oovzD9XiYh9FblIdW1CRxdqOxh3px8b6xGdQqaj9TrK+1FV8J55G3ASl7
+         1NUoXJZ7D2RcNFTuV5zYQFnaJCYjUkLADwL0fbgQ0kFI9SbeJY/TmX41/EIXV8zE5MZs
+         KorushmsoUSiNG8oI9dv7X7tbfXJyxjElpktKUKf0ImqJefNDQAnpumiQXrsdxCNPBCq
+         3Wq+p9TVAf3B68/VFAwsTbEZC7+zBFjuIurZkHMy03bNEC5mUuBhsz+YLAaF1zdD8NJR
+         iWasGyI0/i1pMFoQyceRDqTz3+WcV3J93NRbdz5SDvrVg1B1F0Vrk5811GHJ5h+8yRZN
+         NrbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxx43w0QUC3rC7AkgN6iS1mMXymHTvnNg1QqVBbp+BzEtBFQVceKEfBmTwPqQHHfLeYCtj82t9KCx4RF20=@vger.kernel.org
+X-Gm-Message-State: AFuF++nV+1Sglkyko0pmCocpC6wmd9zLK5ArhtEtGJqQr9bM5msl8t5Z
+	Yb8PAsXlxMiprvcF7nRfQicxMNusDOBreyteD+zHQY62V1c0HbXXEEj8Pq+xWLFBmGmipgzT4aV
+	YixozdyqZu2BpvqWNV8bB+SR1m+sLKWDQTt2cjWr8wjzF4AqY1gTHQy3dRuQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:200e:b0:6c3:a421:5adc with SMTP id
+ 006d021491bc7-6c54008a613mr3208941eaf.22.1789446806610; Mon, 14 Sep 2026
+ 21:33:26 -0700 (PDT)
+Date: Mon, 14 Sep 2026 21:33:26 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa8ca96.a211d2ce.1a5198.02a5.GAE@google.com>
+Subject: [syzbot] Monthly jffs2 report (Sep 2026)
+From: syzbot <syzbot+list7c9a6d38f715693c2465@syzkaller.appspotmail.com>
+To: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mtd@lists.infradead.org, richard@nod.at, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 14 Sep 2026 13:23:27 +0900 James Kim <james010kim@gmail.com> wrote:
+Hello jffs2 maintainers/developers,
 
-> A use-after-free vulnerability was identified in mport_mm_close() in
-> drivers/rapidio/devices/rio_mport_cdev.c, identical to the pattern
-> previously addressed in dma_req_free().
-> 
-> This is observable from userspace when an application creates an mmap
-> mapping via the RapidIO character device and subsequently unmaps it
-> (or terminates, triggering exit_mmap()). During munmap, mport_mm_close()
-> is invoked and drops the mapping reference via kref_put().
-> 
-> If kref_put() drops the last reference, mport_release_mapping() is called,
-> which frees the underlying rio_mport_mapping structure. The subsequent
-> mutex_unlock() then dereferences map->md to unlock buf_mutex, leading to
-> a use-after-free:
-> 
->    mport_mm_close()
->      -> mutex_lock(&map->md->buf_mutex);
->      ...
->      -> kref_put(&map->ref, mport_release_mapping); /* map is freed */
->      -> mutex_unlock(&map->md->buf_mutex);          /* UAF: map used */
-> 
-> Fix this by caching map->md before kref_put() and using the cached
-> pointer for mutex unlocking, ensuring that freed memory is not accessed.
-> 
+This is a 31-day syzbot report for the jffs2 subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/jffs2
 
-Thanks.
+During the period, 4 new issues were detected and 0 were fixed.
+In total, 10 issues are still open and 1 has already been fixed.
+There is also 1 low-priority issue.
 
-> Note for Andrew:
-> Following up on the Sashiko review results you shared in the dma_req_free()
-> thread (https://sashiko.dev/#/patchset/20260615070530.371640-1-james010kim@gmail.com),
-> I audited the reported pre-existing flaws and verified that this UAF in
-> mport_mm_close() is a genuine bug with the identical locking pattern.
-> 
+Some of the still happening issues:
 
-Thanks again.
+Ref Crashes Repro Title
+<1> 3       No    kernel BUG in jffs2_sum_write_sumnode (2)
+                  https://syzkaller.appspot.com/bug?extid=0727f46a0571de01bf93
+<2> 6973    Yes   kernel BUG in jffs2_del_ino_cache
+                  https://syzkaller.appspot.com/bug?extid=44664704c1494ad5f7a0
+<3> 6       No    possible deadlock in jffs2_xattr_delete_inode
+                  https://syzkaller.appspot.com/bug?extid=fdfd8fdf716c90baef0f
 
-Sashiko blew another fuse over the rapidio driver:
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-	https://sashiko.dev/#/patchset/20260914042327.49798-1-james010kim@gmail.com
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
+You may send multiple commands in a single email message.
