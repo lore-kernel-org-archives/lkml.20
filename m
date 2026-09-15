@@ -1,256 +1,431 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BFE36195E;
-	Tue, 15 Sep 2026 23:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789515932; cv=fail; b=uH9rEQ9f0gdxg36z7Fm2uCrQWRxwPOIB3vdvKPgRCGYmk3j+1EH2feLJ/BmUiLewhNh+qps2I30Xmnyf0x7mIfoAfnajccymAldX5qwDaGjaYYy09VZwdYCCuekuH1OwVekqUWrhc5+CIRxG5IyO/SdV1ceg623GL3NfkK0QGdY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789515932; c=relaxed/simple;
-	bh=JLWKzKXfTE8Y7UQ0DCiQDspQY2r2fS3lAGXHEDpR3WQ=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=uTTGfrTrWOoUaYZ/3EF69rZX9GA6e3RfyHWlYm7p7FKFnoGmGwpi/ZyQH3rps4RncxsYSYi0dBIxrLTBiBewfafvDTpcLxTCYii50NN8bHAS3etW6vubCZrRySn7f/UfhUcj3NhDHOJMDZqzomPecduZdud7BIrIOTFIw4F8wOg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BLeb7KyB; arc=fail smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01948353A74
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789516108; cv=none; b=rZt6VhjOwY0ybQzpsW9jYj1Na790ZhtbaUynyxIaAMzy1XxqT+96sB2SwtDakvnnoUO3Ymw+2VHjYVMQDxsf4OgkMWnmgctvjZH6aFgywPNm5Hd+nQq8ExGk/IHgAwStpFxljPL/x8V32CpAyf0MxLHTgJodMsOeaKgg9lxn3bQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789516108; c=relaxed/simple;
+	bh=s+OIyXRdgwnZR1ziP4GjQx8+xS5Ni5jQlk4FMULFipA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PyeegAfnSWTaMBoaPR5+V4LIEmb+og1wySKHA4E1uIfHoJTG/azzZEo9swm6MDf98+S8se7A+lTxjN+zeETbDC+q5V/NhdFgRl1+J7exJpTGpUNBIKE+8MbaBrz5pgXljjO3IZ1TDVBDcG9XFEUvneowrvDqpKzYvrvSpC4HxYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=hhBDw/CU; arc=none smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BLeb7KyB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789515929; x=1821051929;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=JLWKzKXfTE8Y7UQ0DCiQDspQY2r2fS3lAGXHEDpR3WQ=;
-  b=BLeb7KyBDj9WN2FRZdABPduGgssgllvGbgZWiR4614J6AqYfE9C2H+tP
-   bzrHVdAGAFY0MRnNaomcdB7y46f1v6NMmHamZgPxrWUYOnxkLSfyFW5EU
-   a0wZK5BsVBzRY6IMJ3HH/eZjZ0JOm8wZoU0/ljIIE1MMZgcQrgtxmeexi
-   cb0ySjg17ek+Y8BoEesvYB2DPVHmsuwiuqn1IErI4AizUYTnsF0jiY4In
-   AEk5xEgFnWKVtYcidK8Zrbu+TGsDw4y+91uTbE5zGxJkENWoJO0enQ2Yy
-   INLOX0Kov3/G2tcreUwlLV26k0tepLecipSNQz8kP2PaxecHjB55/Kvot
-   g==;
-X-CSE-ConnectionGUID: uxO+YmRSQ1yfEvEf96MEfA==
-X-CSE-MsgGUID: unIXJc/GTgiKuQ9oSfJTxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88829005"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="88829005"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 16:45:28 -0700
-X-CSE-ConnectionGUID: wFwwECXMTeyiDzriXAU26w==
-X-CSE-MsgGUID: cQXgEfReQEqVQBUoBvQzQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269474081"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 16:45:27 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 15 Sep 2026 16:45:27 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 16:45:27 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.61) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 15 Sep 2026 16:45:26 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nQEvYT65S7LDiJju8xjP0u1NiMs1x21D+FsYYGPfAj7oYpdftIAaYoAf5bGecbgM6xb8lhzOUDAYujy49a3j+mGF924EMZEZPDmekTO8RKZ5DBbc2ArPb0+hjujB/wPvqoE5qUmbFOXKkTRyujNSC0RqCB5bxznXv6+hGsW4vDY6rwnOW1K3YmK4phWq+uHerlvBINT/1/UScPKByQGy5ZLQu0WaWDaSvSYg1U+Og4EhWx4yZnWJI+/2vq2AOhNEpSOyAm1PnjYbNnByplVkwR+OfGTvzS/6wOZb8SYtkYyhLOaYk5E0vLS6nWAI56G8HrmrwLZvfY5myXdlFic6xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eOIG7s+9HWW5oHewHKM1Da4N83u7g4BwqHz5p1CuZRo=;
- b=OMJGV+gSNhaq2ZCH4S8oh+4lUcX7Ywz5rigId6LWLaxwa/G+PDJ9Sm6vzs7MlETz9p+CnZm8IX1h3NcID1xPfIYx16jmL/u0qYUlpKqYb8HM9IIlmmVfcj79NGtCPmPZy3MrsxkE2sCgzBRaFR/Yx10XDeu0ddma7f/4gBywviojJIW1Qxj8Dq6Yo0yCE7gWALJ7l3V29+5U+XPTZDhziY6BvvAbjjiEKVMXGj4XkBSFwB9BrK1ts+V0bEbY4C7+bF9cGDxQw44fl+Jz+nrEvwmCR98aZXwkG3ck5tOUeX4ZPStb7152pOhxzyE1LiTyZ0Gt7cphrNvM53ZpwniVfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7381.namprd11.prod.outlook.com (2603:10b6:8:134::14)
- by CY8PR11MB7195.namprd11.prod.outlook.com (2603:10b6:930:93::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 23:45:24 +0000
-Received: from DS0PR11MB7381.namprd11.prod.outlook.com
- ([fe80::4c39:dfe6:d6dc:6f58]) by DS0PR11MB7381.namprd11.prod.outlook.com
- ([fe80::4c39:dfe6:d6dc:6f58%6]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 23:45:24 +0000
-Message-ID: <706e0153-f2a9-4103-8529-2f706f9e998c@intel.com>
-Date: Tue, 15 Sep 2026 16:45:22 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3] net: 8390: pcnet_cs: release PCMCIA window on
- setup_shmem_window() error
-To: Myeonghun Pak <mhun512@gmail.com>, Dominik Brodowski
-	<linux@dominikbrodowski.net>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Simon Horman <horms@kernel.org>, Ijae Kim
-	<ae878000@gmail.com>
-References: <20260913204104.53408-1-mhun512@gmail.com>
-From: Jacob Keller <jacob.e.keller@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260913204104.53408-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="hhBDw/CU"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85e68bdbcc1so2174907b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789516106; x=1790120906; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YBIxDF51BixzYXSIw3R/3iVxilVITCxMF4/ZGDvxozE=;
+        b=hhBDw/CUlN3PJ1dtH74/berlt+rDn7HUHxsWAgxNFwkS5KTKR43ALRTlfp9Ag8oK7D
+         HzqxuOkpuM94T1fhP11ASfF2DWYrXEA1QZmb0GbXzFrx7N+nAb4/qmTRRX4CDbHb6TbP
+         2Smv/p0isIpdwo+sP1SLAcyrARk3tKIwSAvxvsKiGOgLmtJ5d9++3+IMmQdyqJAuJnGz
+         tiqZKE/SshTJIB7uciegIbBDsilFGxfvLqeiitX1vj8/s/eU07xmy+0em7cqftrLhVYz
+         YecYekR7Sm+jQla0KEJHgH9EjPqUseBVlBsAxuOcN93zKR8ttZD3OBr0mawaXP9rR8jl
+         82Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789516106; x=1790120906;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YBIxDF51BixzYXSIw3R/3iVxilVITCxMF4/ZGDvxozE=;
+        b=Jy2HvA9uJMo5BqfmkQn4CDJZ+Jq9V+kfhzVLghP/W3lgNzWYBJgQEIn4hIkbyqRWxn
+         fe3i18E1WKhxamRygETIuRvRr9j6vVlxTnnVTqaBEqtzsUOv/greIcdrWEwlKJ8q7ltl
+         uhOOjtJMOoNGcOOsu00RuOxp7c5nUuzQlSRqHnbpHvJ7gHjeuxYUDzM9zbW/zMiLOwyM
+         diZgMtCBSmydS+ukVtAoaGkLmU3lnTx7MKyhtS4vDMILG4vsVhM6pb1b+66LZIKiaaCE
+         P+jf8avtolKqPkEXyERWy0oyJDDRPMNfOUNhfPzDF5CYqw8Uh7FdZNaG8ASgLgERYc62
+         yhWw==
+X-Forwarded-Encrypted: i=1; AKwUvByGC41LmYlvxWGr43OvptJs2ClorZH1jCKTsyub0u7+cAj0n8IgAyNGT3eOxN3f5WE8NFFti49EThOID/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmyqGdOFMLrUBIXIMn9i3BwL/i+Q4qAZknW3p0JFb1/0RMv/MT
+	vkaBHBN7oXEOd8i/+yjZLSZwhTKSxjhasUJLQ5C5TqS/M/I36RC72K02crV3M/HrnWc=
+X-Gm-Gg: AYBFou3J+1KHUucQiwRBD1+YMapiOOnZPrW0uwSC6Jk6hL4ClvZ3k7RYbkfNK8bxNmT
+	I/9pKJ2YHz1nUmo4LhdwmwXTwL81AQNlr6OJKpQnHfAhnatgSNhyNrI852bnaDo26wXecQ6vok/
+	PxsjsyrQ61JIyJP2nq/DTI+qpQsiU4WtxFajn0st3qo8G4b5TAckrYWEYL49BGR18OgsSW7R9Ms
+	TWSyrtW/KJBICKygKK4om32arei2b1o3qj+v2F18KuRuFedI0yxmx8WEasBi2T37LEQbqf2SQTk
+	PJpCGcOycNSGdDlhVirPqHxojPPE5ocrDGHiUfJsalZLjR+Z4r95lm/koobJHfP3ePl7jINkYq1
+	rr0N09mWWPL4U66XlEhcuBx8JTK2uDZ+W5MWEQtG+bSD1N6U7Kd1NQd2Q6jdcZyigZQTdUpVuPe
+	+uhSMouOxV48ddttqD5prQdF5KXQwGwEdvqzrDDt7mNmNMSHznYiqkUORqkFxdHWgtO5d/B82Ny
+	NBNrDZcYegKKmL9fTzK7WYt5JhlPm0lnkrGAInekE5aupVEaYr4a+OGNUyadqH1nZ/ah1aln0vp
+	EvBRA6aUY2PnuQzYdse6NkTVFpimXkV1Oo26ZCBFKA7rOkysZFGQSF9oOMRfwCvsYeY5OFb63kA
+	=
+X-Received: by 2002:a05:690c:113:b0:871:bc3:9844 with SMTP id 00721157ae682-89223ce4cd5mr2521057b3.7.1789516105783;
+        Tue, 15 Sep 2026 16:48:25 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:e9c6:4a77:70a9:9f1d? ([2600:1700:6476:1430:e9c6:4a77:70a9:9f1d])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-891ee4a951asm2593447b3.9.2026.09.15.16.48.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 16:48:24 -0700 (PDT)
+Message-ID: <7d1b09519cddf5124def5fdda42a5a3c8ba4ef11.camel@dubeyko.com>
+Subject: Re: [PATCH v4 2/2] hfsplus: validate b-tree fork extents at mount
+ time
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
+	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Date: Tue, 15 Sep 2026 16:48:23 -0700
+In-Reply-To: <20260915141543.24335-1-ngocthang2710.1999@gmail.com>
+References: <cbc98010b9f6657e162cfcc6ac5ba6032e7b729d.camel@dubeyko.com>
+	 <20260915141543.24335-1-ngocthang2710.1999@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0009.namprd03.prod.outlook.com
- (2603:10b6:303:8f::14) To DS0PR11MB7381.namprd11.prod.outlook.com
- (2603:10b6:8:134::14)
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7381:EE_|CY8PR11MB7195:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad7d63f8-5f21-4d4c-2aaf-08df1383695b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: eCTBRCQJWdMusvOBLv10yoFhhfGsP1skdx60CKYevw9h69M7DFmcucG+8sW/aDmbEQqRDXUz8is0fSwJqMIMpKeF/lImx178Zllh2RsoyE89wIEogC1ZcWUZGOFnljm3Qh05hAfbEvTtBhyUysLnrcyxgKYLcvidFJQR+cGwPqsS13MiRx0JsvF3oAhec3/fshqT1GBumDIuHHuihzxN/jSLVesZiU6G6s+5/xgBEYnX/2zhTI9E6lZoHVrJWpYKRc5d7EwkX8KXkw37EzV7SPY6dSKlBABRcrtCMAml2a/GRYIuzMgCWnq2ymbqJimTjCY7Jd5qIg6g1cDluR8HR892tr3mMdn6pHn/FbNSUisUXOHUfntMSnjXpWtlegewZaApaaolhmU979VBP3M9IqhMX0bR1WFVkfCdvaYIFRRmojRXptKwb+cMR8en5muWrh/hzlrjAOLRPYN5WdTbGuaUwYBQ/F9zAFkAWBhwt/u/ss84LqxbAyZ4GUtY1HZ6KXSnNABZjOqInZtGIOJlKufYmG80IRuJisz1eBP6jTqEJzEsEORTBJ6juV4I+FULZDzy70seyntjZ1+vGtwT0HgQXZsRxtRkX4vjBpB0y4BwjLjlTZLYPbzQOQ2bVgdq0yXoXQERf1izj5IjYYjJLNONzfdMvFooOPat2w6z9MQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7381.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGZvMEd1aTNRQXVDQmRYVlVnV2t2MWdqR2o2Z0prSS9SS09EUTFRSk9TeGxi?=
- =?utf-8?B?TmdSdjF0MXJyeDdUdDk4ZFY2bnJOdCtRb0ZzMTZYQ2p0ZkhrM2VUc01zMWIy?=
- =?utf-8?B?eTlZYlppL1NTa2kvbldNbjlpN0drSWhlek1Pbml1TUpZUU8wdkxSMjlJdWFS?=
- =?utf-8?B?WE1XWTZhMWRVSU5DaTMrRm45OVlEb2lVSU16RmIvM2ZDVXFnWFlUTDdmUUUy?=
- =?utf-8?B?SlpKTjAva2QvN2g4MzJPTzdCUE5uMHFQdWxpRlIxc2hRcWxkR25pUjZBSVhx?=
- =?utf-8?B?ZE55WjhGU2tiK0RZYWN0dzJzOThSZmZrWGxaVXJxMlVKYnl4azJlNk9XQ0dq?=
- =?utf-8?B?ODZwZytHeW5PbTlPK1VleExCVENxSi9mUE8rSzE1SmtBdkZmODZDRXN6NnFj?=
- =?utf-8?B?RmRQNzl1L2VkdjBPNThpSnEvd0NQZFpmcXVpM2RGckFNYnJOTmxVU0lqOXo4?=
- =?utf-8?B?dHNqVFJwMEVCc0dtUEdKdmJHRm5DanlCU3JTc0RIbUpwZ1ZkOEtNTk14dTlp?=
- =?utf-8?B?aUtSR25lbDZUVnVkSUZJUVlLNlIxODFna1VJbDJQY1dwUXpnL0wxWFRMRW5m?=
- =?utf-8?B?OHJHdTYrWHRsM294cWVYcUcvaStSeVFuWmc4eXAxbTk1dUZYVkJKQzl6ZHg4?=
- =?utf-8?B?YzZyWUVvbFR6Unk1blp1cjQ3a1l6V0lZc1lkQzBFTGVEQk1UZzI5cHZkSDJN?=
- =?utf-8?B?SDlaM3huS01tYkZYSnlTZ1I5ODJtbmcwYk5PcGViUG12Z09aNE5mM29HL2M0?=
- =?utf-8?B?V0R1N3hiaEp4QXRwbDA1OGhQSUJwbllSUmZYMXpFWkNla3RRNmdWbnlONHFw?=
- =?utf-8?B?Qno4cDZNajFGRCtyc3Y0M0hPQUF4SmZyK1NwT0dYYjJMb1pzQXJGMlJKZzNO?=
- =?utf-8?B?U1AvdlcvbXlrVXdLTElzWVR1SmtpWHN1NUQwZnkyRVgvZWc4MmJ5aW1nUlBN?=
- =?utf-8?B?RTVUdGVMR0ZIejJQY0MwaTZId3VPeUZvbWx3UndyTXhuQXJtNXhUaHR4V1l2?=
- =?utf-8?B?alpuejZhcWZuVFVod2NXY1J4SlJTQkh6UDRpeUsvK0llZU1IN1JDUUVaVCsy?=
- =?utf-8?B?K1dwNjdrS1FkQUREZFZ6Qi9WVElFM2FTbDZ2QW5TbGJSczR3RHp4Wk1PQjVN?=
- =?utf-8?B?TGdsQlJhUU13SFNYNHU1a05kdzhKWXV0RVpXUXpoNm05UGh4SHB5VWgxUUV6?=
- =?utf-8?B?RzNwK2wzTUtnL1BITExuOFN4MkNKUU41V3ZPU1hVRjdUeDhQNk1ua1BUQ1hW?=
- =?utf-8?B?V0lBc2tXOHdHMmZJU1E1QnBWYVVoWkxtcEx0QkxIcDEzRzZNajZOLzE2eGt2?=
- =?utf-8?B?WGVQY1ZkNlAxeGV5aGZWTnc5Q0NRUXh2WTM4NklKaTlIZThJdFc5SkpoZnJ3?=
- =?utf-8?B?S3BHU01LKzRKcy9rcVo0UFI2ZEJzNFFSOVFYQVNsZyt4YjBBRk5pSHZJMWw5?=
- =?utf-8?B?bWpIV1RqQ3c1bVdVUjBWb01YVVk1U2dKTW9ZWkdjckltUGNXZy96NlZidlBu?=
- =?utf-8?B?S3dhQ0Vmc3VhV1pRTGVnRmNJQXpqVWlMY2s0dHpqMm1Nbmx5YTQ4eUMyUmYv?=
- =?utf-8?B?ZXl5blNyNVd0Wk9PQTYyWjNuYVYrY3NucWNPWUY2eHBOeGd5c1o4M2ZHeSsw?=
- =?utf-8?B?aDVYQmJFYWlIRHA5OURCU2RWWEZGUWxVNmVJTzYzaHBhRUwrU1JoV3R4RTlT?=
- =?utf-8?B?MDVycnR3REtGelRwOTcrZ2srNnV6NlVQQ295MWVrYVhFUE9tZE80b0xOYnBC?=
- =?utf-8?B?T2hSQ0d5ditSVmc5M250RkZLeXFjNWVpSVJCVmZPWFZzT1RWMDVuYjdnbHFo?=
- =?utf-8?B?b0tVOWNHM1I5M2hMMDNoMnFEWTFRd0J3YU10ejJBT2p4M2lKdHpVWkRPSDBw?=
- =?utf-8?B?MmtWQ1E0VlBGU3J2OTdYaU5pVExzM3JxKzJqZjRtdDNkNldYSmFDQjVuZisr?=
- =?utf-8?B?S3dpc2JUaUVRYitzSlRmbnVDcm8zRm1QT3RTTTJYQkZ6ZjU4eHZ6ZDBrbUQ1?=
- =?utf-8?B?WnZpaWNnbytuVTY1aytQQWlFWHd5UFpMRi9IcGZDWGdqWk1vK0J1TWhRZjBG?=
- =?utf-8?B?TGk1SlBGTDY4Rm1RbW1HdnBuR1IyUUhBaUJTZzlIay9SNzMvN0J4dTBYQkVU?=
- =?utf-8?B?RExRVlM2V1I1VDBWMDI0Wkh4akVCcERWL0lRQ2ptMjRtRnVaV1ozSExRaWZs?=
- =?utf-8?B?Vi9Pdmd3R2R0ZEZDS1NVTkNNVVVYRStPU0xVL3A0emxSZVpFL1F5NitrUHZ3?=
- =?utf-8?B?MHI2d09QQ3JnSXduYWExbWY4b0pXS2JtUnpwWTBJTGdqQjhGK0htZmRlbngz?=
- =?utf-8?B?ZlBYZzRGaHlRK09DSEZWMEU0eTF3V0pMNFBMZWd4c25vcmEzV0xGdz09?=
-X-Exchange-RoutingPolicyChecked: dhSjXpur2yoMxm0XWYn8JSxIdTBpqKVvBKozgFq66ZJ83z4jqjdA6FXYu402Xi5kNS9ptFHzdocP3jtnAFBWxAo/F/GFBLDWRAwYTh6k+oVWyUvN8H6mRP8XuCGowFDvU2CHcR6jjtIdH8I6giJKM1Sy0K4BUJKgqxaG/GHdBiHv9tHE2okHP1DcEjALq5D0FTtbQLtt+BCfHsE+sECOGlWB4gF9ww+h2f+wZvcdO6DuQFSZw3mIjaNZVWlBHn69WzarOi7d4m1T4gDLFceTVMMh4HfqolDlIHXysQdL0pafRa6cuJtA8JK0P/AbSnNVDUQpjfCdMvK1aKVTHwq5og==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad7d63f8-5f21-4d4c-2aaf-08df1383695b
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7381.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 23:45:24.1525
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ITl4GG3ruACuz8LCBpdWwOR5R/hjqRDdKx33yrJ+VzQwDoh00I1r+FF1DhkZj9hVFIV1Y8zGEdKI4aC6vs6776/WWzzzwRiaeLIeVpolecE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7195
-X-OriginatorOrg: intel.com
 
-On 9/13/2026 1:41 PM, Myeonghun Pak wrote:
-> setup_shmem_window() acquires a PCMCIA memory window using
-> pcmcia_request_window(). If pcmcia_map_mem_page() or the subsequent
-> ioremap() fails, the function returns without releasing the requested
-> window.
-> 
-> pcnet_config() treats shared-memory setup failure as non-fatal and falls
-> back to setup_dma_config(). Probe can therefore continue while socket
-> window 3 and its reserved iomem range remain unnecessarily held for the
-> rest of the bound lifetime of the device. pcmcia_disable_device()
-> eventually releases the window during teardown.
-> 
-> Route error paths after a successful request through a new release label
-> that calls pcmcia_release_window(). Fold the existing buffer-verification
-> cleanup into the same path, keeping iounmap() before the window release
-> when a mapping exists. Leave the request failure path unchanged.
-> 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
-> 
-> Assisted-by: OpenAI:GPT-5.6
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> Reviewed-by: Simon Horman <horms@kernel.org>
+Hi Nguyen Ngoc,
+
+Please, don't move your answers from the code where I left my
+questions. I really cannot follow to your answers and the whole
+discussion is broken. I cannot follow to your answers. I am simply
+rejecting the whole email.
+
+Thanks,
+Slava.
+
+
+On Tue, 2026-09-15 at 21:15 +0700, Nguyen Ngoc Thang wrote:
+> Hi Slava,
+>=20
+> Thanks again for the review, replies inline, v5 diff (applies on top
+> of the v5 1/2 I just sent) at the bottom.
+>=20
+> > If we return error code for corrupted fork (that makes more sense),
+> > then we don't need in switch here.
+> >=20
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0 case -EIO:
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 pr_err("%s (cnid 0x%x) fork's first extent is
+> > > corrupt\n",
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_btree_name(id), =
+id);
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 goto free_inode;
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0 case 1:
+> >=20
+> > I don't see the point returning 1 from the function. It should be
+> > error
+> > code.
+>=20
+> Agreed, done. hfsplus_check_fork() now returns 0 (consistent),
+> -EUCLEAN (corrupt past the first extent, tree still locatable, mount
+> read-only), or -EIO (first extent corrupt, or no used extent at all -
+> -
+> see below). hfs_btree_open() now just checks the return value with
+> if/else instead of switching on it.
+>=20
+> > Why not struct hfsplus_fork_raw here for check?
+>=20
+> I looked into this, but the b-tree's inode only keeps the decoded
+> first_extents/first_blocks fields (see hfsplus_iget()), not the raw
+> hfsplus_fork_raw (total_size/clump_size/total_blocks as a struct) --
+> that only exists transiently while reading the volume header. Passing
+> the raw fork through would mean plumbing it from hfsplus_fill_super()
+> into hfs_btree_open() as an extra argument, which felt like a bigger
+> restructuring than this patch should take on. I'd rather scope that
+> as
+> a follow-up than guess at it here -- let me know if you disagree and
+> I'll take a pass at it.
+>=20
+> > Ditto. Related to hardcoded value.
+> >=20
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < 8; i++, ext++) {
+>=20
+> Uses HFSPLUS_EXTENT_COUNT now too (same constant added in patch 1/2).
+>=20
+> > I think that current logic of check looks complicated. [...] For
+> > example, fork cannot be completely empty. Could we rework the logic
+> > to be more clear? Maybe, we need to introduce the function for
+> > extent
+> > check, function for checking the extents are logically contiguous?
+>=20
+> Fixed the empty-fork case: hfsplus_check_fork() now tracks seen_used
+> and returns -EIO if no extent was ever in use. Note hs_btree_open()
+> already guarded against this indirectly via its existing
+> `!first_blocks` check right before calling hfsplus_check_fork(), so
+> this makes the function correct on its own instead of relying on that
+> caller-side check.
+>=20
+> I held off on splitting per-extent-check and contiguity-check into
+> separate functions -- the loop is short and the two conditions
+> (garbage in an unused slot vs. a used extent overflowing/following a
+> hole) share the same start/count/seen_hole state per iteration, so
+> splitting it looked like it'd add indirection without really
+> clarifying anything. Happy to revisit if you still think it's worth
+> it.
+>=20
+> > Ditto. Related to 1. I prefer to have error code instead.
+>=20
+> Same fix as above (-EUCLEAN).
+>=20
+> > I don't want to say that this direction is wrong. However, we have
+> > flags: [...] Potentially, we can introduce the
+> > HFSPLUS_I_CORRUPT_TREE.
+>=20
+> Done -- dropped struct hfs_btree.corrupt, added
+> HFSPLUS_I_CORRUPT_TREE
+> next to the existing HFSPLUS_I_*_DIRTY flags, tested via a new
+> HFSPLUS_TREE_IS_CORRUPT(tree) helper macro on the tree's own inode.
+>=20
+> > Currently, only hfsplus_fill_super() can detect the b-tree
+> > corruption. Why do we have the check here? Do you mean that xattr
+> > b-tree can be created and to be corrupted?
+>=20
+> No -- corruption is only ever detected once, in hfs_btree_open() at
+> initial mount. The hfsplus_reconfigure() check isn't detecting
+> anything new; it's re-reading the flag hfs_btree_open() already set,
+> so that a remount to rw can't silently clear SB_RDONLY on a volume
+> that was already known to be corrupt at mount time. Added a short
+> comment there to make that explicit.
+>=20
+> > If we fail to check any b-tree, then logic should stop. Why haven't
+> > we checked the error code of hfs_btree_open()?
+>=20
+> I checked -- hfsplus_fill_super() already does check every
+> hfs_btree_open() call (out_close_ext_tree / out_close_cat_tree /
+> out_close_attr_tree gotos) before it ever looks at
+> HFSPLUS_TREE_IS_CORRUPT(), so no change was needed there.
+>=20
+> One more from the previous mail I noticed while redoing this: there
+> was also a checkpatch --strict alignment nit on the pr_err()
+> continuation line in hfs_btree_open() itself (not one you'd flagged,
+> but same category), fixed that too while I was in there.
+>=20
+> Thanks again for the thorough review -- v5 below.
+>=20
 > ---
-> Changes in v3:
-> - Drop Fixes and stable Cc as suggested by Simon Horman.
-> - Add Simon Horman's Reviewed-by tag.
-> 
-> Link: https://lore.kernel.org/netdev/20260910231400.31919-1-mhun512@gmail.com/
-> 
-> Changes in v2:
-> - Clarify that the window remains reserved only until device teardown.
-> - Make the DMA fallback and continued probe description conditional.
-> - Avoid claiming that every request failure leaves no resource held.
-> - Restore the surrounding indentation for the new goto statements.
-> 
-> Link: https://lore.kernel.org/netdev/20260731161740.44955-1-mhun512@gmail.com/
-> ---
-
-Seems reasonable to me. No reason to hold that memory indefinitely.
-
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-
->  drivers/net/ethernet/8390/pcnet_cs.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/8390/pcnet_cs.c b/drivers/net/ethernet/8390/pcnet_cs.c
-> index 19f9c5db3..0cf3c0f3c 100644
-> --- a/drivers/net/ethernet/8390/pcnet_cs.c
-> +++ b/drivers/net/ethernet/8390/pcnet_cs.c
-> @@ -1434,14 +1434,14 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
->      offset -= offset % window_size;
->      ret = pcmcia_map_mem_page(link, link->resource[3], offset);
->      if (ret)
-> -	    goto failed;
-> +	    goto release;
->  
->      /* Try scribbling on the buffer */
->      info->base = ioremap(link->resource[3]->start,
->  			resource_size(link->resource[3]));
->      if (unlikely(!info->base)) {
->  	    ret = -ENOMEM;
-> -	    goto failed;
-> +	    goto release;
->      }
->  
->      for (i = 0; i < (TX_PAGES<<8); i += 2)
-> @@ -1452,9 +1452,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
->      pcnet_reset_8390(dev);
->      if (i != (TX_PAGES<<8)) {
->  	iounmap(info->base);
-> -	pcmcia_release_window(link, link->resource[3]);
->  	info->base = NULL;
-> -	goto failed;
-> +	goto release;
->      }
->  
->      ei_status.mem = info->base + offset;
-> @@ -1475,6 +1474,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
->      info->flags |= USE_SHMEM;
->      return 0;
->  
-> +release:
-> +	pcmcia_release_window(link, link->resource[3]);
->  failed:
->      return 1;
->  }
-
+> Changes since v4:
+> =C2=A0- hfsplus_check_fork() returns real error codes (0/-EUCLEAN/-EIO)
+> =C2=A0=C2=A0 instead of 0/1/-EIO; hfs_btree_open() uses if/else instead o=
+f a
+> =C2=A0=C2=A0 switch.
+> =C2=A0- A fork with no used extent at all is now treated as corrupt.
+> =C2=A0- Use HFSPLUS_EXTENT_COUNT instead of hardcoding 8.
+> =C2=A0- Track per-tree corruption as an HFSPLUS_I_CORRUPT_TREE inode flag
+> =C2=A0=C2=A0 instead of a bool on struct hfs_btree.
+> =C2=A0- Comment explaining the corrupt-tree check in
+> hfsplus_reconfigure().
+> =C2=A0- Fixed a checkpatch --strict alignment nit in hfs_btree_open().
+> (all per Slava's review)
+>=20
+> diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
+> index 2ea8cd5658e1..2dbbb8096575 100644
+> --- a/fs/hfsplus/btree.c
+> +++ b/fs/hfsplus/btree.c
+> @@ -274,6 +274,7 @@ struct hfs_btree *hfs_btree_open(struct
+> super_block *sb, u32 id)
+> =C2=A0	struct inode *inode;
+> =C2=A0	struct page *page;
+> =C2=A0	unsigned int size;
+> +	int res;
+>=20
+> =C2=A0	tree =3D kzalloc_obj(*tree);
+> =C2=A0	if (!tree)
+> @@ -293,6 +294,17 @@ struct hfs_btree *hfs_btree_open(struct
+> super_block *sb, u32 id)
+> =C2=A0		goto free_inode;
+> =C2=A0	}
+>=20
+> +	res =3D hfsplus_check_fork(sb, HFSPLUS_I(tree->inode)-
+> >first_extents);
+> +	if (res =3D=3D -EIO) {
+> +		pr_err("%s (cnid 0x%x) fork's first extent is
+> corrupt\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_btree_name(id), id);
+> +		goto free_inode;
+> +	} else if (res) {
+> +		pr_warn("%s (cnid 0x%x) fork has corrupt extents,
+> forcing read-only.\n",
+> +			hfs_btree_name(id), id);
+> +		set_bit(HFSPLUS_I_CORRUPT_TREE, &HFSPLUS_I(tree-
+> >inode)->flags);
+> +	}
+> +
+> =C2=A0	mapping =3D tree->inode->i_mapping;
+> =C2=A0	page =3D read_mapping_page(mapping, 0, NULL);
+> =C2=A0	if (IS_ERR(page))
+> diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
+> index f3a4b8fd567f..d98261c01b13 100644
+> --- a/fs/hfsplus/extents.c
+> +++ b/fs/hfsplus/extents.c
+> @@ -101,6 +101,39 @@ static bool hfsplus_ext_fork_full(struct
+> hfsplus_extent *ext)
+> =C2=A0	return true;
+> =C2=A0}
+>=20
+> +/*
+> + * Validate a fork's extents. Returns 0 if consistent, -EUCLEAN if
+> only
+> + * extents past the first are corrupt (safe to mount read-only), or
+> + * -EIO if the first extent is corrupt or the fork has no used
+> extent.
+> + */
+> +int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent
+> *ext)
+> +{
+> +	struct hfsplus_sb_info *sbi =3D HFSPLUS_SB(sb);
+> +	bool seen_hole =3D false;
+> +	bool seen_used =3D false;
+> +	int i;
+> +
+> +	for (i =3D 0; i < HFSPLUS_EXTENT_COUNT; i++, ext++) {
+> +		u32 start =3D be32_to_cpu(ext->start_block);
+> +		u32 count =3D be32_to_cpu(ext->block_count);
+> +		bool bad;
+> +
+> +		if (!count) {
+> +			bad =3D start !=3D 0;
+> +			seen_hole =3D true;
+> +		} else {
+> +			bad =3D seen_hole || start + count < start ||
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 start + count > sbi->total_blocks;
+> +			seen_used =3D true;
+> +		}
+> +
+> +		if (bad)
+> +			return i ? -EUCLEAN : -EIO;
+> +	}
+> +
+> +	return seen_used ? 0 : -EIO;
+> +}
+> +
+> =C2=A0static int __hfsplus_ext_write_extent(struct inode *inode,
+> =C2=A0		struct hfs_find_data *fd)
+> =C2=A0{
+> diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+> index 7c53832f2784..3290812c0fea 100644
+> --- a/fs/hfsplus/hfsplus_fs.h
+> +++ b/fs/hfsplus/hfsplus_fs.h
+> @@ -230,10 +230,15 @@ struct hfsplus_inode_info {
+> =C2=A0#define HFSPLUS_I_EXT_DIRTY	2	/* has changes in the extent
+> tree */
+> =C2=A0#define HFSPLUS_I_ALLOC_DIRTY	3	/* has changes in the
+> allocation file */
+> =C2=A0#define HFSPLUS_I_ATTR_DIRTY	4	/* has changes in the
+> attributes tree */
+> +#define HFSPLUS_I_CORRUPT_TREE	5	/* tree's fork had corrupt
+> extents at open time */
+>=20
+> =C2=A0#define HFSPLUS_IS_RSRC(inode) \
+> =C2=A0	test_bit(HFSPLUS_I_RSRC, &HFSPLUS_I(inode)->flags)
+>=20
+> +/* Test HFSPLUS_I_CORRUPT_TREE on the tree's own inode */
+> +#define HFSPLUS_TREE_IS_CORRUPT(tree) \
+> +	test_bit(HFSPLUS_I_CORRUPT_TREE, &HFSPLUS_I((tree)->inode)-
+> >flags)
+> +
+> =C2=A0static inline struct hfsplus_inode_info *HFSPLUS_I(struct inode
+> *inode)
+> =C2=A0{
+> =C2=A0	return container_of(inode, struct hfsplus_inode_info,
+> vfs_inode);
+> @@ -443,6 +448,7 @@ int hfsplus_free_fork(struct super_block *sb, u32
+> cnid,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct hfsplus_fork_raw *fork, int=
+ type);
+> =C2=A0int hfsplus_file_extend(struct inode *inode, bool zeroout);
+> =C2=A0void hfsplus_file_truncate(struct inode *inode);
+> +int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent
+> *ext);
+>=20
+> =C2=A0/* inode.c */
+> =C2=A0extern const struct address_space_operations hfsplus_aops;
+> diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
+> index ff7d6b3336a6..a1669bd45701 100644
+> --- a/fs/hfsplus/super.c
+> +++ b/fs/hfsplus/super.c
+> @@ -400,6 +400,14 @@ static int hfsplus_reconfigure(struct fs_context
+> *fc)
+> =C2=A0			pr_warn("filesystem is marked journaled,
+> leaving read-only.\n");
+> =C2=A0			sb->s_flags |=3D SB_RDONLY;
+> =C2=A0			fc->sb_flags |=3D SB_RDONLY;
+> +		} else if (HFSPLUS_TREE_IS_CORRUPT(sbi->ext_tree) ||
+> +				HFSPLUS_TREE_IS_CORRUPT(sbi-
+> >cat_tree) ||
+> +				(sbi->attr_tree &&
+> +				 HFSPLUS_TREE_IS_CORRUPT(sbi-
+> >attr_tree))) {
+> +			/* Re-checks the flag hfs_btree_open() set
+> at mount */
+> +			pr_warn("a b-tree fork was corrupt at mount
+> time, leaving read-only.\n");
+> +			sb->s_flags |=3D SB_RDONLY;
+> +			fc->sb_flags |=3D SB_RDONLY;
+> =C2=A0		}
+> =C2=A0	}
+> =C2=A0	return 0;
+> @@ -564,6 +572,11 @@ static int hfsplus_fill_super(struct super_block
+> *sb, struct fs_context *fc)
+> =C2=A0	}
+> =C2=A0	sb->s_xattr =3D hfsplus_xattr_handlers;
+>=20
+> +	if (HFSPLUS_TREE_IS_CORRUPT(sbi->ext_tree) ||
+> +	=C2=A0=C2=A0=C2=A0 HFSPLUS_TREE_IS_CORRUPT(sbi->cat_tree) ||
+> +	=C2=A0=C2=A0=C2=A0 (sbi->attr_tree && HFSPLUS_TREE_IS_CORRUPT(sbi-
+> >attr_tree)))
+> +		sb->s_flags |=3D SB_RDONLY;
+> +
+> =C2=A0	inode =3D hfsplus_iget(sb, HFSPLUS_ALLOC_CNID);
+> =C2=A0	if (IS_ERR(inode)) {
+> =C2=A0		pr_err("failed to load allocation file\n");
+> --
+> Thanks,
+> Nguyen Ngoc Thang
