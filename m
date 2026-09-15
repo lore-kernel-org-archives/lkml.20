@@ -1,87 +1,36 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A573C13E5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE4B3F926F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789440576; cv=none; b=se4BLlZ462IWhxBGxAb3EXv+N8Z/cc1eGVAxmBe1qvPKObo4R9RninJM0fBSwV2GQMY0F3R6f0CzSkCV5ZXoXlLw2cfMVxLqdrMCjxxuUewbcIaiZyhCS/kF6AmUPgj5miuEUHyRDSayICFx96VWpzYhmUOXJE5tB7Qu72sdHZc=
+	t=1789440581; cv=none; b=imMBn8ViMk9yBGI+UotbZyrcRndbwgemQXRjwvKE7J6QEBfHfvTeSA5k4HRdSzISMhPif1WNim9MHTX3S906PuDBAQpe495yXZ9WLE3c8DBXCuJOage0h+djlKzijn3HN6SOtaSTUNgl4gmWKD/za6yNLXMb+7YWUJeHkBRT7/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789440576; c=relaxed/simple;
-	bh=EqMM7tTheAmiO2pL0AejZmpC4UNuhUpme9BMfGc+edc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L0p+HNbaQcp8JJFkDU0OwwhWPOS0vsVlWUdfhZ+0/xgW+yg7nNeg8/hX/W/5ux6iFWSnAiz5EY/SDASP6lbOzqLwrqBo0rYAvpPck1UYgr75/lYmizh0AZAG/Lqb1EOh9qRMZHGD7T11TJOGmTkGbRFC4Xa1pQLkrBEFDYwb9hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Fl7YelN8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UC/9EXzB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789440581; c=relaxed/simple;
+	bh=TPiaJesIqJ7PplIki0xusz3BjPaCRWubAMyDMo7M0qc=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=OH22rG/XTitL3sa/UTT8jREOE/7Rc9CNCZ4bxdkTckOa0qz+ngPXz7x2aC1unqDdi2X8JeUOvxOdDQkbDfIlFEFFUYBfbI0Gv9HxK4cMLjDvdOJto4ogUfmhxS26mjhsVlKSMy8twQzFOXKWyCEZez7klLA3yReqKYs9jE+3wvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kDF34Nw8; arc=none smtp.client-ip=91.218.175.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fl7YelN8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UC/9EXzB"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F2nXb82298498
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:49:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	N5L/sut4FAKbjGdymDCKaX2hkXlq96ynrY1kfZ9pBAY=; b=Fl7YelN818eUZTu1
-	0Kzflq90g7OCnKCWBJgKVz0EOsFkpXAHATYPPJoWI0f7W8CmKsdS6gTpcz9DneIg
-	H5zVO+yu/8JQmTB5p/6nzQrXcv5DvdTTl8tw9+QDpWvIsCzXKVrNHWwCrn/8n7h6
-	eMUyFXWcU76o/b0O901lhOAqp3q7HdV6UYg0Ep8hRicHAyG9X84o9JV/zV7ejPYq
-	Q/pYa13wA5453I2eMTN8Q/zL19Ma0jiriEc4REQk1P7H6EwZvPNbbTuCS1QfBH+v
-	QP5jZ3UVK7yPcf2WxRPk+Nl/WYlVEFHBO5RvFq3hVhXC+t4QBuU3MNj3xiH+uko1
-	ZVFF/Q==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpgvtk44p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:49:33 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4a68f7cso2677543a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:49:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789440572; x=1790045372; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N5L/sut4FAKbjGdymDCKaX2hkXlq96ynrY1kfZ9pBAY=;
-        b=UC/9EXzB7OQurkGx41vfxjzyG1iMbYtTedI65UbEBpWI92AFNte6ofPIO+ZF0cE5Wk
-         7uPwOUpjgjN6kPhn8hX2S9IYSqQ4zE/xI+uAVCj3XPwXnXD2sMJT8MLf9ryDzbBI6k5W
-         LhR1/iBzyuyOi6JYJnDYaeO7SYNAziw8EVnD97/qqL+MOpWr85OI6PGmw4PwnNUgvooF
-         7L8kT6WrnkkZPwWYHPBbf2BAxw0f8yo4n7qSeC58h4zY0kYHlUEM4bjBJ/o0LJaanldH
-         Z1SYx3FszRrIZtF59lJYgjKjhOjI8HN8n5B2wgbbAloXrYoAgC6bFRYPky00azbkmzO7
-         0m/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789440572; x=1790045372;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N5L/sut4FAKbjGdymDCKaX2hkXlq96ynrY1kfZ9pBAY=;
-        b=sHaHcdgqgg2l7YW6CdZDchLWxkk+kEJ0DLp8fGzlrd2MCe3OlAtgpNmExPdEV7AUQV
-         lPWcoeRDyKXreCAlpP2q4Hj8vPJTYh3Zg32IzLzsXYv5ueRIUAKd9H664FvOc7rpGYao
-         jGZ44rPe/tdarpAeub3eycPJmtVc9RJeIJdume/YBc2RfR9W+vqG8AHNUyxD/531tiJd
-         QmwpulPqy2jXGd58mKe2XHH1YCNwcah3bqAC0brr9h/Zy00c97ssDsuP06EcIxyNi1br
-         zFGFoeuTLR7odDPp4o658kXvdxQ/u1WRZYPJtyqQ6yefKnWyHFPzBr4iW1uG+/0ZtPVu
-         7slA==
-X-Forwarded-Encrypted: i=1; AKwUvBwG6hy0OCapvqjxrxiEEPwcNHvO8pRN+XnvLZ4AwOjRaipnCYRz/8nWL0V7llR7tNLQ927YVs0Qr66mY0s=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXHxeYAwXH6+8ljmPJxbPsQzh1huIbWzgNyGDPTB+HqWnis0kM
-	oebCJQkEcfTG6BI8s8SeTjzxiL35eioERfpZSvFrK3uaYzFioy3cqq2HOXNPw7jPMFKXw+ZGSOY
-	9vq0557sCpgoWpIEfFJ1aJ7Wo1A6LJrPBo1qaPiv/4A4prNa/t7KwUITXne9sAQ9sQ6E=
-X-Gm-Gg: AYBFou3inxeIrq1PtVUwtLTeVoOnEzYHqCRuxwtarfj5YHRUkjDIlboTkKQzGuXcOjU
-	1nAoa9IGcx/UfgJ2TfUCKf1ydyLmMx0Y+S450VDV+iI2U2KJ/sSHJiqf7o7jewnmQah1hi3L0oQ
-	AWRBS5LhTJZF/JV07osresltZyb1Z9mqUZXAsIy/eWb8WPS8mvZ3ihPjZBAyoHPWduxgddDpPV/
-	UqWQR/035TN+rflNEO/twu7btAzls40AmBXMrPSs3oXmMrP+yUZAbs/sfsKQHKePebJbpqy9LtE
-	Iz0Sx7iplOV9R3eeqKiksQOU7RjXeARYY4LulgU75HBgdKsVKjG3H0qgI6qdymVqfEfP+q05DfO
-	ohcYjT5XPgu36FvhPBoTeVblnQiNhiFMF8SS9StGO+ATGR/8O/SB/d2a3KTXiSQ4=
-X-Received: by 2002:a17:90b:1c83:b0:39e:27e:21b3 with SMTP id 98e67ed59e1d1-39e027e229fmr2340011a91.9.1789440572263;
-        Mon, 14 Sep 2026 19:49:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:1c83:b0:39e:27e:21b3 with SMTP id 98e67ed59e1d1-39e027e229fmr2339934a91.9.1789440571725;
-        Mon, 14 Sep 2026 19:49:31 -0700 (PDT)
-Received: from [10.133.33.86] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda39eb4sm2127854a91.8.2026.09.14.19.49.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 19:49:31 -0700 (PDT)
-Message-ID: <38215e79-34b6-4731-9853-d7f529861162@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 10:49:22 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kDF34Nw8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TPiaJesIqJ7PplIki0xusz3BjPaCRWubAMyDMo7M0qc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789440578; v=1; x=1790045378;
+ b=kDF34Nw8gQf1kDIs7+rmXJ+V3Sh/evMeGoxvhaqFrdIJROatbIoFXvIn1Uj5VMEF70+avUvk
+ 4PYE90JDZBKmIpTf+rfvxemh9p42qmsIJaSUMuVkB2WVK+uV6t8pn/8DEODso2U2GkPgYcrMfeG
+ 3InQCZrSKFISU394+esk94Z4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 658701ff1c90a0b0;
+	Tue, 15 Sep 2026 02:49:38 +0000
+X-Mizu-Trace-ID: 658701ff1c90a0b0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <af33dfe1-04ef-4bfd-8c79-0593b24c6bdb@linux.dev>
+Date: Tue, 15 Sep 2026 10:50:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,176 +38,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 03/10] dt-bindings: arm: Add MPAM MSC binding
-To: Andre Przywara <andre.przywara@arm.com>,
-        James Morse
- <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Ben Horgan
- <ben.horgan@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Catalin Marinas
- <catalin.marinas@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Fenghua Yu
- <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: Drew Fustini <fustini@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        ganapatrao.kulkarni@oss.qualcomm.com,
-        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        devicetree@vger.kernel.org
-References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
- <20260914-mpam-resctrl-dt-knp-support-v2-3-bf6645bb2f65@oss.qualcomm.com>
- <f71cfbcc-2e53-4e37-bb98-693996542396@arm.com>
- <07d32b4c-1f00-45e5-b318-0f28bbb46f33@arm.com>
+Subject: Re: [PATCH v2 0/2] alloc_tag: fix a leak and a deadlock around
+ shutdown_mem_profiling()
+From: Hao Ge <hao.ge@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>
+Cc: Kent Overstreet <kent.overstreet@linux.dev>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260817062726.106511-1-hao.ge@linux.dev>
+ <20260826203914.347c42aa00081ee9e0eb858a@linux-foundation.org>
+ <afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev>
 Content-Language: en-US
-From: Yin Li <yin.li@oss.qualcomm.com>
-In-Reply-To: <07d32b4c-1f00-45e5-b318-0f28bbb46f33@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=c/0+0h9l c=1 sm=1 tr=0 ts=6aa8b23d cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=gEfo2CItAAAA:8 a=7CQSdrXTAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=uI_jzqnufFvfmlbxwmcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDAzNiBTYWx0ZWRfX7IyGNwkgM9yk
- pRYOmkEkota3mk3AFk40BS5bpKI9F66KSMn0/1thkQPjqIZjMREbBhaRsMuRxSU1zX0L8hWWjN2
- D5vbJi7qu/C1c0pQ+ayAFT336xAFrjPcGnfA3JnHu5IVUfg1ejgSVCmOUOsz401FPl8ojpJ0eIb
- 8E96/wyQ0zaDf3dbbXxoqM57XwPZbYkOTmppSCl+k5chsUlYQ5rU0FSfSavO9kjeZZTw4Lk22z7
- kZ4zZurpebmQJiK04ygkpzAZTHpmPXyquGU9901DYkuuCJ7FsmHvv2SEAALpE8Kny0Sf7+5Q61W
- uoAEYnF/d5vzWp6jD97ntqB9B1CbMK0Uo5CWeGsttyh8OgWxmjZ0EMlDsPrfo+zDmQR0TZLdM63
- dVsWFXLsGq/8DJZBT/fxcr/feGLxXPs3aGy1MSmdfD8nQCI7MRp2NGrBWD5oqwWeicyUE+m9UW/
- 0vUi3cjRUgJ8e+zeXCA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDAzNiBTYWx0ZWRfX2UppgnYbAfhH
- GPedUsd/d5AkRVzfRCKq6E4zCDG+/NO7Ysf7DCniDd8eISH2lQV/g8yE2Ez5E2fllx4PazHEdh9
- Dmv5M2imO5Td/MkcyMIzLN5w9Jcffu4=
-X-Proofpoint-ORIG-GUID: q5c-ORCZqlo8K-dSjG98GeLhZPxglmlP
-X-Proofpoint-GUID: q5c-ORCZqlo8K-dSjG98GeLhZPxglmlP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_01,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0 clxscore=1015
- adultscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150036
+
+Hi Suren and Andrew
 
 
+Update the status of this issue surfaced by Sashiko.
 
-On 9/14/2026 10:50 PM, Andre Przywara wrote:
-> Hi,
+
+On 2026/8/28 11:11, Hao Ge wrote:
+> Hi Andrew
 > 
-> On 9/14/26 16:41, Andre Przywara wrote:
->> Hi,
+> On 2026/8/27 11:39, Andrew Morton wrote:
+>> On Mon, 17 Aug 2026 14:27:24 +0800 Hao Ge <hao.ge@linux.dev> wrote:
 >>
->> On 9/14/26 11:37, Yin Li wrote:
->>> From: Rob Herring <robh@kernel.org>
+>>> Two fixes for issues reported by sashiko:
 >>>
->>> The binding is designed around the assumption that an MSC will be a
->>> sub-block of something else such as a memory controller, cache 
->>> controller,
->>> or IOMMU. However, it's certainly possible a design does not have that
->>> association or has a mixture of both, so the binding illustrates how 
->>> we can
->>> support that with RIS child nodes.
+>>>   1. percpu counter leak on modules loaded after profiling is disabled.
+>>>   2. AB-BA deadlock between module load and /proc/allocinfo readers.
 >>>
->>> A key part of MPAM is we need to know about all of the MSCs in the 
->>> system
->>> before it can be enabled. This drives the need for the genericish
->>> 'arm,mpam-msc' compatible. Though we can't assume an MSC is accessible
->>> until a h/w specific driver potentially enables the h/w.
->>>
->>> Cc: James Morse <james.morse@arm.com>
->>> Signed-off-by: Rob Herring <robh@kernel.org>
->>> Signed-off-by: James Morse <james.morse@arm.com>
->>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
->>> ---
->>>   .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 199 ++++++++++ 
->>> + ++++++++++
->>>   1 file changed, 199 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml 
->>> b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
->>> new file mode 100644
->>> index 000000000000..53a6fdbbf05f
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
->>> @@ -0,0 +1,199 @@
->>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/arm/arm,mpam-msc.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Arm Memory System Resource Partitioning and Monitoring (MPAM)
->>> +
->>> +description: |
->>> +  The Arm MPAM specification can be found here:
->>> +
->>> +  https://developer.arm.com/documentation/ddi0598/latest
->>> +
->>> +maintainers:
->>> +  - Rob Herring <robh@kernel.org>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    items:
->>> +      - const: arm,mpam-msc                   # Further details are 
->>> discoverable
->>> +      - const: arm,mpam-memory-controller-msc
 >>
->> But that doesn't match the examples below, does it? Don't we want to 
->> allow just "arm,mpam-msc", but also the memory controller string, with 
->> "arm,mpam-msc" as a fallback?
->> I guess the pattern should then look similar to interrupt-names below?
+>> Thanks.  AI review asked two questions.  One pertinent to your
+>> alterations and one pertinent to Suren ;)
+>>
+>> 	https://sashiko.dev/#/patchset/20260817062726.106511-1-hao.ge@linux.dev
+>>
+>> I'll queue the patchset for 7.3-rc1, with a note-to-self.
 > 
-> Just seeing that you fix this and other things up in patch 08/10 later.
-> I think it's confusing to have this split now for a v2 still. I wouldn't 
-> be aware of previous review of this original patch, so it doesn't really 
-> matter. Please squash them.
+> Thanks for the heads up on the sashiko review questions.
 > 
-> So I think you should merge 07/10 and 08/10 into their original patches, 
-> otherwise reviewers might just get confused.
+> The question on patch 1 (codetag_load_module() error handling)
+> has two parts.
 > 
-> But you might wait for a bit with a repost, to see if there are more 
-> generic comments on DT support.
+> The lost error code issue is already fixed; I sent the patch and
+> you queued it. (Thanks).
 > 
-
-Hi Andre,
-
-Good catch on the compatible issue in 03/10: you're right, "items" 
-requires both strings to be present, whereas we want to allow standalone 
-"arm,mpam-msc" or the two-item combination. This is fixed in 08/10 using 
-"oneOf"; the iommu example with the TODO is also fixed there.
-
-On squashing: sorry for the confusion and agreed on both points. Since 
-this is still an RFC and the original authors haven't commented yet, 
-I've kept the fixes as separate patches to make it easier for them to 
-review. I'll squash them in the next version.
-
-Thanks for your quick review!
-
-Yin
-
-> Cheers,
-> Andre
+> For the rollback part:
 > 
+> I've also seen Sashiko flag this same issue on another of my patches.
+> At the moment this case can't actually happen, alloc_tag is our only
+> registered codetag type, and codetag_module_init() cleans up its cmod
+> from the idr on every failure path, so nothing gets left behind.
+> 
+> That said, if we ever add a second codetag type down the line, the problem
+> Sashiko spotted will become real. I will follow up later to refine this
+> logic and make it more robust.
 > 
 
--- 
-Thx and BRs,
-Yin
+Daniel also raised this issue
+https://lore.kernel.org/all/675259f9-c093-439c-a411-1937b23ddaa2@linux.dev/
 
+I do have the relevant fix ready locally. I plan to hold off on the next batch
+until we close out this recent chain of fixes. I'll bother you all again when the
+time comes.
+
+> The question on patch 2 (async /proc/allocinfo removal racing with
+> alloc_tag_init() failure):
+> 
+> When I first read it, I think the window is unreachable. It requires
+> alloc_tag_init() to fail after proc_create() succeeded, and a process
+> to open and read /proc/allocinfo in the gap between schedule_work()
+> and the work running on system_wq.
+> 
+> But CONFIG_MEM_ALLOC_PROFILING is a bool, so when enabled alloc_tag is
+> always built in and it cannot be a loadable module. Its module_init(alloc_tag_init)
+> runs inside do_initcalls(), before /init is exec'd. Failures inside
+> alloc_tag_init() are already very unlikely to happen. When the failure
+> happens, no normal userspace exists yet.
+> 
+> That said, I realised the fix would actually be quite simple, we could just
+> move proc_create() to the end of alloc_tag_init().
+> I am not entirely sure whether we should do this though.
+> 
+> Suren, what is your opinion?
+>
+
+I've been thinking about this quite a bit lately. Defensive programming
+is always welcome — there might be edge cases I haven't considered,
+or scenarios that could trigger this down the line.
+Furthermore, if alloc_tag initialization fails, the corresponding sysctl
+entry serves little purpose.
+
+Besides, I've decided to fold these two patches into this series:
+https://lore.kernel.org/all/20260908092412.115953-1-hao.ge@linux.dev/
+
+This is because Sashiko keeps flagging this percpu leak.
+https://lore.kernel.org/all/20260908094736.2B1A61F00A3A@smtp.kernel.org/
+And patch 1 addresses exactly this issue.
+
+We'll fold these two patches into that series and let Sashiko run another
+round of review.
+
+Please kindly help review the folded V10 version.
+
+Thanks
+Best Regards
+Hao
+
+> Thanks
+> Best Regards
+> Hao
+> 
