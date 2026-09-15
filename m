@@ -1,132 +1,82 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430833ACF10
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CF7345CBF;
+	Tue, 15 Sep 2026 14:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482450; cv=none; b=bJoDFSyoB6SCALdYz9QDfwChhwNlIwy5yvkDN8Oyy78sL3GiBWia3J0we+M28EsUD3atrfcveE9RXcd+ChiPLeBG1LAuaJti4xG6LWUO6SaLsDB4Z4SXs5Ni0lDMxvS/blOnHNX9s59Q4/etjNOTw+YYxnFgOn/O4G49NY2Gwss=
+	t=1789482465; cv=none; b=R8dyaIFirmaDtV8tsGgbyAyDkzndkAU6jDCY1qDN2MqLCTeT7a7s4FbFA9p5lZarprXgNO5v6N9c0Ct8mOkWIo4xSQeYE9NulNTo5X7XsbQzywAwS8wd3iKUW4qAjhWmTNTls1u+icTyqs564OU2Lpi4Ggk7DmDTpEjbfBBc6gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482450; c=relaxed/simple;
-	bh=WM00Wy2p0EbS1nPKWZz5VOFKBICv3IZa8bLp0tHtWhU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=O0Lh8jmPoCQQcfk/mdRL6OylKmfRZbRaGlNwN4yMkS8QRV0Rkcn1DfTAl3unwub7qQm5k/EyGzov+b7Bkio5ufNQn1XCCbwG4pWylpWprXqa10pYIoZPuMd6hrQdnm4Om8zwa6N7fR2uok1wukdt7K5+jzmlQIng5lSHQVmkCvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tGNsNpI8; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789482465; c=relaxed/simple;
+	bh=cUtPjh0zldewIxNp9mhCQymnBNd/6pG9ZV4jNWg6FW0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DA7HkiARX+tzaPSzuYVnm9SWZgVGeH7Zlv5PNeEwNF4zRT8tdiNCbH61okIP/BoliQhWG+fFzn0bwKmqIw0tkcmvNIinUE19A3d/I+JwOJ6sVZB9nU+4ms4ycR/ckpIbq0F+1VVblTVomG0ESRtjJkA9KZVzRFddo+MPTfSyWEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SG8RCldo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tGNsNpI8"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 8E0B24E4064C;
-	Tue, 15 Sep 2026 14:27:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 52C33602B0;
-	Tue, 15 Sep 2026 14:27:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 92B2011C7B00F;
-	Tue, 15 Sep 2026 16:27:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789482440; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=fpYiE3MCziPLVm6eillPix1fONvq0kj6Q1nctc06kJc=;
-	b=tGNsNpI84la7s8hk2HZ3+i5IaMB/kBb1xPXkFwiWu5emET+xyZAuePthvdRCkUdJzD3JjC
-	c2FRvFofyiWU/JOMYnoh2BaKUD9zpcYc2CKw9G/dwfZetUQEwFDpSmyfCE3WU/BYX4WFS6
-	esaGPTKQs+rjrHXh89qpE+4RGCV4kl3orXajoS41VFQaykb8GZJC+CNlxG+R7w0lx45WmI
-	xdlxMnoJF/yI3h9YKsg56nQ9+75raRy+HAKVYyDCCS5t9rV5AwOoHI5QUZuKJbOLXgOB+q
-	oaRXKEh3wHVsoObnOVjXAki7PIPRk4NsJsRWHk/Y/y0qwajUT4T571KTwICqww==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 15 Sep 2026 16:27:02 +0200
-Subject: [PATCH 5.10.y] macvlan: inherit needed_headroom and
- needed_tailroom from lowerdev
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SG8RCldo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE321F000FF;
+	Tue, 15 Sep 2026 14:27:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789482464;
+	bh=XeXrCF7kKHtOohfiibEbYIClpgW98Ub/K0LExgNJn5g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SG8RCldowYERNVsQcORu4F/jbaCJPvGuy4+KvfldUJYvNI+EPVc8DCTKwT3TamTB1
+	 bWyLYe2cwlqwyqDpkSxiDinMFp5DPrZvExRCTaXuX672o1XJBbm1aRuxaF/43CSrCk
+	 fNNq7TVtZFd1oaQJ/ZOcfEY6kfRa1ah8x2I4McvXycU2XopABsH+Dznec7kaIrptqd
+	 9XwsELKkqygxDbvf1RUrlhYkK3InOG/Pb3kme6e6SoE/uLOyBbiiZ9mJ88XAAdwAR3
+	 k2JN3YATWJEeN2lHjk3tiJiCv/QHCGphifhPCPhNr5AqpsqddPKYRv+En46Ez/VBXG
+	 dgpV23u6g8ZqQ==
+Date: Tue, 15 Sep 2026 09:27:42 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/7] dtc: dt-check-style: Improvements for handling
+ continued lines
+Message-ID: <20260915142742.GA1926857-robh@kernel.org>
+References: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-cve-2026-74743-5-10-v1-1-4496e177660d@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJS1uLvArxUOqi6wFNqwRDe
- HeLHr9J5l+ROQlndNWKxLNkeUwF+lAh3sJ0ZZJLMRrVHNVJO4oz0w7y1ltDjrSi4DkMprVjaA3
- K85l4lOVX7eFqreoPzv89v4c7x9eexLZ9AcgOpwl/AAAA
-X-Change-ID: 20260915-cve-2026-74743-5-10-a7eab384fa83
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, Patrick McHardy <kaber@trash.net>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
- Tangxin Xie <xietangxin@h-partners.com>, 
- Hangbin Liu <liuhangbin@kylinos.cn>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789482434; l=2806;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=SQu1DIEUUaPlPywRPYBn0pzzNUXz+/4U5NSSTZXDy70=;
- b=1l2CxuxdliDZjta7gmGrj61Jamga5nbbfIhWwpwlNWyxWieTvsl/PHy1Ik+oAsS7tmLtTkPwO
- 6a9dsXsljKZCWDMKi91V1jtafbhMXPc1OInT+vFtx46Q28UL8qOvvHy
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
 
-From: Eric Dumazet <edumazet@google.com>
+On Wed, Sep 09, 2026 at 03:10:34PM +0200, Krzysztof Kozlowski wrote:
+> Changes in v3:
+> - New commit:
+>   "dtc: dt-check-style: Relax property ordering rules (drop alphabetical)"
+> - Improve commit msg of "Unduplicate checks in
+>   check_mixed_indent_chars()" patch.
+> - Link to v2: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com
+> 
+> Changes in v2:
+> 1. Four new commits 1-4
+> 2. Drop last commit
+> v1: https://lore.kernel.org/all/20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com/
+> 
+> Best regards,
+> Krzysztof
+> 
+> ---
+> Krzysztof Kozlowski (7):
+>       dtc: dt-check-style: Handle continued lines in check_hex_case()
+>       dtc: dt-check-style: Handle continued lines in check_line_length()
+>       dtc: dt-check-style: Handle continued lines in check_trailing_whitespace()
+>       dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
+>       dtc: dt-check-style: Right strip whitespaces, leftovers before comments
+>       dtc: dt-check-style: Properly detect comments in multi-line properties
+>       dtc: dt-check-style: Relax property ordering rules (drop alphabetical)
 
-[ Upstream commit cef51860becd9700217c81732ca1eb1ea6ed6fe1 ]
+Patch 7 doesn't apply.
 
-macvlan devices inherit hard_header_len from lowerdev during macvlan_init(),
-but leave needed_headroom and needed_tailroom set to 0.
+> base-commit: 694b801ceb1bea205878f2136e8b25c888e51be7
 
-When the underlying lowerdev requires extra headroom or tailroom for
-headers/trailers (e.g. macsec, ipsec, wireguard, tunnels, or veth with rx
-headroom), upper layers calculating packet headroom and tailroom fail to
-reserve sufficient space.
+And I don't have this commit in my tree to resolve the conflicts.
 
-This can result in reallocation overhead, skb headroom underflows, or KASAN
-slab-use-after-free crashes when dev_hard_header() / macvlan_hard_header()
-prepends header data or when lower devices append tailroom.
-
-Fix this by:
-1. Inheriting needed_headroom and needed_tailroom from lowerdev in macvlan_init().
-2. Propagating needed_headroom and needed_tailroom updates to attached macvlans
-   in macvlan_device_event() when receiving NETDEV_FEAT_CHANGE events.
-
-Fixes: b863ceb7ddce ("[NET]: Add macvlan driver")
-Reported-by: Tangxin Xie <xietangxin@h-partners.com>
-Closes: https://lore.kernel.org/netdev/CANn89i+1EW-sFNK8xoq98gMbPCeLS7e=+rs9gHfLg5Wj+4x0sw@mail.gmail.com/T/#m16adf0ff972cbfd8066c3a8e656e75eaeb12d021
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Link: https://patch.msgid.link/20260806141938.287660-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- drivers/net/macvlan.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-index 95ae47a7a69d..f6ad599252d3 100644
---- a/drivers/net/macvlan.c
-+++ b/drivers/net/macvlan.c
-@@ -910,6 +910,8 @@ static int macvlan_init(struct net_device *dev)
- 	dev->gso_max_size	= lowerdev->gso_max_size;
- 	dev->gso_max_segs	= lowerdev->gso_max_segs;
- 	dev->hard_header_len	= lowerdev->hard_header_len;
-+	dev->needed_headroom	= lowerdev->needed_headroom;
-+	dev->needed_tailroom	= lowerdev->needed_tailroom;
- 	macvlan_set_lockdep_class(dev);
- 
- 	vlan->pcpu_stats = netdev_alloc_pcpu_stats(struct vlan_pcpu_stats);
-@@ -1731,6 +1733,8 @@ static int macvlan_device_event(struct notifier_block *unused,
- 		list_for_each_entry(vlan, &port->vlans, list) {
- 			vlan->dev->gso_max_size = dev->gso_max_size;
- 			vlan->dev->gso_max_segs = dev->gso_max_segs;
-+			vlan->dev->needed_headroom = dev->needed_headroom;
-+			vlan->dev->needed_tailroom = dev->needed_tailroom;
- 			netdev_update_features(vlan->dev);
- 		}
- 		break;
-
----
-base-commit: 1797d8bf8d0c2e74defad605d14e3553d43a3caf
-change-id: 20260915-cve-2026-74743-5-10-a7eab384fa83
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
-
+Rob
