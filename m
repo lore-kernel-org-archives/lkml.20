@@ -1,155 +1,95 @@
-Received: from mta0.migadu.com (out-176.mta0.migadu.com [91.218.175.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A81123645D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:25:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89C41FCF41;
+	Tue, 15 Sep 2026 02:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789439141; cv=none; b=tj+k3I7oDl+kHafS3BO+VGvGv18ohWjtWgotK4kQxRXKeYpmDLl6m9bEiyhHIpGOLt7TEfjsvNWntFh7s+lXkyiq6CDXEstk7sxNjy+TfGy7NaBi12z87+huIF9xXI+VcJTLqseCFHfPUKMVhbqUy4aHH1kvpLDw+vfryZdxZSM=
+	t=1789439204; cv=none; b=J/4iTvQShDLBOg/U+cZYcAgu/8Lc+ZDScMYbOowH8Oda5B4eqE/AGk0KHsnoKf6iXKmPluT3CQa2Q2wus0Ulj2JQEVv/reIzecampaONxLcK1UbeuS4ynxLxORa8BoNIFMmGdBRcYo59AOVipLbCyj+mjm7WxccJpVP6Y4pHw9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789439141; c=relaxed/simple;
-	bh=G7jAV2yOVUgDl7MjUvMbstEXrE2pwtF5/atE+hJu/P4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FTdkZHQA3C5swqPDUIQn9idDOVV3nLqimt2hvvGrxDafBc5cGczGpkKu5dLN8Yi4H4xV38py0FccrZX6HB+Et49bhtdu6So4VOIpsPU+UwthuSTRPn6k2LuHuFu1FrTtEc6OIvVzRLwEH0gPZ8lbV7JVUlDxieYhprDxg6x4ZwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t7ciUKFq; arc=none smtp.client-ip=91.218.175.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789439204; c=relaxed/simple;
+	bh=Uoy/2lm94lDcRPww1wKFu6Ac8t3BeOpOj7v6Z2BflHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mT6zsxiH13ICMhInhZCxhTsiG9KUt98D+j9yL3PPCSdv7tZ7aJ1bMhO5Jtw5b8R2mdUzk4hGkrfft2n5s6239EgDjw16GUs49WCHqanMypl/2jZPJfOh3G+j9rNO6qM/wzYUic1o18LmJKVBIZMULpXX/SuP9PAX5aXwnprNzTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPLksAgY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t7ciUKFq"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=G7jAV2yOVUgDl7MjUvMbstEXrE2pwtF5/atE+hJu/P4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789439137; v=1; x=1790043937;
- b=t7ciUKFqPBEZwQMEJDKqx5K9iHlF57FcZMf5oYVFVQrPSyYyE7SIeyE5jA8UTi5ahazNbr8L
- /zLrNa5riwjmx0omISWKiWkmHx7rLe6rtFoaPnDB2GhU+anIzfGrPyABR7hUNqbyaQVwOay6e0z
- I/ndzDlxlLWuR6fPL6OJXO80=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8ebffbc4bc65cf5d;
-	Tue, 15 Sep 2026 02:25:36 +0000
-X-Mizu-Trace-ID: 8ebffbc4bc65cf5d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fc999f45-fcbc-4d6c-a0b6-2bea4da98013@linux.dev>
-Date: Tue, 15 Sep 2026 10:25:28 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPLksAgY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49D561F000FF;
+	Tue, 15 Sep 2026 02:26:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789439202;
+	bh=FF/hMzJEEBjVHj8tu5+0x29Q3pa1mk5zwrpdsL2Gbqg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XPLksAgYffr0yle6lKJ6XByLq/4bc3FRUCodqnf4SrClABYzHbAlOrsZjitB0eoFM
+	 rFkVa/PJlHlAg2Ran+D/zwQBrPw9NSVmsdQ+90da47gwcAt9fnNMHf/lqveBv1ydk7
+	 W2Coiaw+m17khA9iK1rsB6UZp7xpk8hrVgSUreA6NQnsSf0woOVy5FhFt8NYn0X4AZ
+	 xiQyesN0WbmdeGF5iOnybS/2YvZux6O/LOm9qDKkCtrGxH6kh5mSnYXOxfm8A9Q4Tr
+	 wayNzZCNfrYd0BvA6va5cTa+uUq7QT7ObBguny0eiGOnr7f5zEKCGuBHN/XIi9Hk+8
+	 A9QDivFwMiVnA==
+From: SJ Park <sj@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	lianux.mm@gmail.com
+Subject: Re: [RFC PATCH 4/9] mm/damon/core: use damos_quota_is_set() in damos_adjust_quota()
+Date: Mon, 14 Sep 2026 19:26:33 -0700
+Message-ID: <20260915022635.103818-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAN_Opa8qSHcDNU8k=EWMywUADizJEhHPpuia3jMcZ13i5iYXgg@mail.gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] mm/vmalloc: extract vmap_insert_free_area helper
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Ye Liu <liuye@kylinos.cn>
-References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
- <20260914-vmalloc_study-v1-2-526f68559706@linux.dev> <aqgow3u0GSlj0P1Y@milan>
-Content-Language: en-US
-From: Ye Liu <ye.liu@linux.dev>
-In-Reply-To: <aqgow3u0GSlj0P1Y@milan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+On Tue, 15 Sep 2026 10:19:43 +0800 KunWu Chan <kunwu.chan@gmail.com> wrote:
+
+> On Mon, Sep 14, 2026 at 11:16 PM SJ Park <sj@kernel.org> wrote:
+> >
+> > On Mon, 14 Sep 2026 23:01:48 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
+> >
+> > > On Sat, 12 Sep 2026 13:08:05 -0700 SJ Park <sj@kernel.org> wrote:
+[...]
+> > So, if user sets only time quota, and then commits the quota to zero while the
+> > esz is non-zero, esz is never reset to zero.  As a result, DAMOS keeps applying
+> > the action with the esz forever.  Correct?
+> 
+> Yes, the stale esz path is confirmed.
+> 
+> One clarification, though: it does not keep applying the action
+> forever. While charged_sz < stale_esz, damos_adjust_quota() still
+> returns early, but damos_apply_target() continues to apply the
+> scheme and damos_charge_quota() keeps increasing charged_sz.
+> 
+> Once charged_sz >= stale_esz, damos_quota_is_full() returns true,
+> so damon_do_apply_schemes() skips the scheme. Since the early return
+> also prevents the charge-window handling from running,
+> charged_sz is never reset, and the scheme remains permanently
+> inactive.
+> 
+> So clearing the quota can result in the scheme applying up to the
+> stale esz, and then stopping permanently.
+
+Thank you for detailed clarification, Kunwu!
+
+> 
+> >
+> > If so, this may deserve Cc-ing stable@.  Kunwu, what do you think?
+> 
+> I think this is a functional bug in the existing code, and Cc'ing
+> stable makes sense.
+
+Agreed.  I will post this as a hotfix soon.
 
 
-在 2026/9/15 01:02, Uladzislau Rezki 写道:
-> On Mon, Sep 14, 2026 at 11:34:01AM +0800, Ye Liu wrote:
->> From: Ye Liu <liuye@kylinos.cn>
->>
->> The allocation and insertion of a free vmap_area is duplicated
->> between the loop body and the tail of vmap_init_free_space.  Factor
->> it into a small helper so the main function only deals with computing
->> the free gaps between busy regions.
->>
->> Signed-off-by: Ye Liu <liuye@kylinos.cn>
->> ---
->>  mm/vmalloc.c | 41 ++++++++++++++++++-----------------------
->>  1 file changed, 18 insertions(+), 23 deletions(-)
->>
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index 117483dd048c..797933ba9451 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -5433,11 +5433,23 @@ module_init(proc_vmalloc_init);
->>  
->>  #endif
->>  
->> +static void __init vmap_insert_free_area(unsigned long start, unsigned long end)
->> +{
->> +	struct vmap_area *free = kmem_cache_zalloc(vmap_area_cachep, GFP_NOWAIT);
->> +
->> +	if (!WARN_ON_ONCE(!free)) {
->> +		free->va_start = start;
->> +		free->va_end = end;
->> +		insert_vmap_area_augment(free, NULL,
->> +					 &free_vmap_area_root,
->> +					 &free_vmap_area_list);
->> +	}
->> +}
->> +
->>  static void __init vmap_init_free_space(void)
->>  {
->>  	unsigned long vmap_start = 1;
->>  	const unsigned long vmap_end = ULONG_MAX;
->> -	struct vmap_area *free;
->>  	struct vm_struct *busy;
->>  
->>  	/*
->> @@ -5447,32 +5459,15 @@ static void __init vmap_init_free_space(void)
->>  	 *  |<--------------------------------->|
->>  	 */
->>  	for (busy = vmlist; busy; busy = busy->next) {
->> -		if ((unsigned long) busy->addr - vmap_start > 0) {
->>
-> This line gets removed and then re-added below because of removing space
-> after (unsigned long). Maybe it is better to keep that space.
-However, the '{' is still there, but I'll add a space anyway.
-> 
->> -			free = kmem_cache_zalloc(vmap_area_cachep, GFP_NOWAIT);
->> -			if (!WARN_ON_ONCE(!free)) {
->> -				free->va_start = vmap_start;
->> -				free->va_end = (unsigned long) busy->addr;
->> -
->> -				insert_vmap_area_augment(free, NULL,
->> -					&free_vmap_area_root,
->> -						&free_vmap_area_list);
->> -			}
->> -		}
->> +		if ((unsigned long)busy->addr - vmap_start > 0)
->> +			vmap_insert_free_area(vmap_start,
->> +					      (unsigned long)busy->addr);
->>  
->>  		vmap_start = (unsigned long) busy->addr + busy->size;
->>  	}
->>  
->> -	if (vmap_end - vmap_start > 0) {
->> -		free = kmem_cache_zalloc(vmap_area_cachep, GFP_NOWAIT);
->> -		if (!WARN_ON_ONCE(!free)) {
->> -			free->va_start = vmap_start;
->> -			free->va_end = vmap_end;
->> -
->> -			insert_vmap_area_augment(free, NULL,
->> -				&free_vmap_area_root,
->> -					&free_vmap_area_list);
->> -		}
->> -	}
->> +	if (vmap_end - vmap_start > 0)
->> +		vmap_insert_free_area(vmap_start, vmap_end);
->>  }
->>  
->>  static void vmap_init_nodes(void)
->>
->> -- 
->> 2.25.1
->>
-> LGTM:
-> 
-> Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-> 
-> --
-> Uladzislau Rezki
-
--- 
 Thanks,
-Ye Liu
+SJ
 
+[...]
