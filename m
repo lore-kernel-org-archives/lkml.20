@@ -1,176 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C923C9EF3;
-	Tue, 15 Sep 2026 13:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CBD3C9EF3;
+	Tue, 15 Sep 2026 13:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478855; cv=none; b=EIyC9R7LQ7BJnWNJg3mg7CZHebmiOKPvMjSjFy4ZSZpQilIOmr7pND8BtXjgzX2q5alSrvV3+uYOpmdkXWc/vFG5iJB1KNlM5t0po0ZuuhTKbalYbyGufgm3E4ibwbPV/dRlZJSAViMuwDVfFSas6uqqnH1ZcrB5ezWeuU78xLI=
+	t=1789478877; cv=none; b=VQJ1qq9HAe/pHwlIfn38w5Xxj0ueJUm2bqhBOJ2Oiqr0xzUX4FPVHe9lu+a8nDvDct31vTlMZ6zDWc0OGUyxOmKCM6xOldENYMz/BRUSCq2WyhpuYgzrxQlf1G4mXFn0/U/5sH1MIzX+UBWN8gRX2V1H5s0u5xOYHz2Jaka0tOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478855; c=relaxed/simple;
-	bh=LvQZ0lj3BE7qSBpR37PGrtquuI5nJqHwIN8zYY7oDdM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mClTwhKDduYgQBpvY2Ny7ojPKPBBpOvvKjnvUtG7C0RjtzAZLmvAWpCmCJtCy7sLyKWuzb6q9zoPUYvnXmmv+ZVXZ/DX6t4fVnRgVWzg4NMnJt01GB1IMmVyLl6HHi5FrRo+beUs9L7R7t+Eyr3KIOkOgzsAgCy9KYFXbvKAhdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M3XZFW4Y; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789478877; c=relaxed/simple;
+	bh=lohGgxfltMTEidmM0lOlsFdBrhEdgnJZYESmU16vlmQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PHfJWMFct5uxulTjIElYsCZ4SkC9eXuVzhX486O8kk9raR+KDjkEVCzy2Fh2UCplmRlk+WsF6raKf153ZgJaM4JTBUI0iPxlj21UEV4ZobZ1KeDhMk2PzyjfHYg3OJKt1zYGx4nBolBQ8Ef4iEeawCzMapiBfHJK6MyYi6txX4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TWPA9Rt4; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M3XZFW4Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789478853; x=1821014853;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LvQZ0lj3BE7qSBpR37PGrtquuI5nJqHwIN8zYY7oDdM=;
-  b=M3XZFW4Y8Ot96Tp8FZ2rM2KmE9djZYK4pogsqrzgLb5s8nsL+6GON9tI
-   UMSJpFE5ZhZHu5KkxjqGICbP1JYjJAq7iCo3PgJHQFR5cBHg5B/jQfj25
-   w8kC/MRY0ins8AQ4CRA7IEtlj/jT5v00xbXjgZlWH2h1662q078CWdhzU
-   /92SS2jctWOoCaji49AnK6CLIM6n5ncN67kn7VSAqOZZj0AzHClNczqpU
-   USDfyIWDEC6uQJuLG+9s38T97QGfLX8gbZOn8z6wgMUL9K5Tq2bqttERj
-   q6c2L/k8lB0ypfaAWRhlru0L/+/pO+4UneM2c+YsSN+3iLE1U5Xns/RvF
-   Q==;
-X-CSE-ConnectionGUID: YpaGc43yTW+/pplXs6ujSg==
-X-CSE-MsgGUID: lfE6j+XaQ/SwNdzH3AJ9qQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107353189"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="107353189"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:27:32 -0700
-X-CSE-ConnectionGUID: ZNMsbKv1RnuiE3ZxRK2M1Q==
-X-CSE-MsgGUID: B+6W7utzQDKDtDV+XQ1KUw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="296513770"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.57])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:27:26 -0700
-Date: Tue, 15 Sep 2026 16:27:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 07/15] clk: ambarella: add CV75 RCT clock controller
-Message-ID: <aqlHvB2FkpBdlEBT@ashevche-desk.local>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <20260915-cv75-v5-v7-7-3297d3fbc9c0@ambarella.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TWPA9Rt4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789478873;
+	bh=lohGgxfltMTEidmM0lOlsFdBrhEdgnJZYESmU16vlmQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TWPA9Rt4P0ApNG8s1YVbxCYTY5s61WEx7UKrZaXAR7c4TsiqDLmjSAg/YM3x9/v8o
+	 0xYKW2eshg4cNIBhUilWWQ1GxzkzOcbhKYh1UAXoz8OS+2vj4cnkErjHyD37FiRd0R
+	 0Z7al0tPohX2G08Pnijxkrb5wIP0I4oepwnx+Fff8cobci6V4UuWQvhHHQ85aGUJDZ
+	 7kkVDmVgT6/vaWcArKv2Du/KGbSg4GmE1T4eZlM4CoqwDVWtBsHxkfiX1T6bukXZLP
+	 VRXY3KSOJj2Bv5f6bOj7D229WMZ8043D+BhLZM642ZK+3r1EkJfPl3tDf2icaIVm2N
+	 f28gFzgSQV+Vg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 621B317E0082;
+	Tue, 15 Sep 2026 15:27:53 +0200 (CEST)
+Message-ID: <a463a9fd-dddd-4b78-8408-2be683f80f13@collabora.com>
+Date: Tue, 15 Sep 2026 15:27:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915-cv75-v5-v7-7-3297d3fbc9c0@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add
+ ramoops region
+To: Martino Dell'Ambrogio <tillo@tillo.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kees@kernel.org,
+ tony.luck@intel.com, gpiccoli@igalia.com
+References: <20260915141226.600486-1-tillo@tillo.ch>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260915141226.600486-1-tillo@tillo.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 07:15:37PM +0800, Long Zhao via B4 Relay wrote:
+On 9/15/26 14:12, Martino Dell'Ambrogio wrote:
+> Reserve 64 KiB of RAM just below the ARM Trusted Firmware secmon region
+> (0x42ff0000-0x43000000) for persistent kernel log storage via pstore/ramoops,
+> allowing post-panic console output and oops dumps to be recovered after a
+> warm reset. Without it, kernel crash logs on this board are lost when the
+> SoC reboots.
+> 
+> The zone sizes (record-size=8 KiB, console-size=32 KiB, ftrace-size=8 KiB,
+> pmsg-size=8 KiB) consume the full 64 KiB carve-out. The requested ecc-size=16
+> reserves a small Reed-Solomon parity block from each zone's own allocation
+> in persistent_ram_new(), which lets pstore recover dumps even when the panic
+> path truncates writes mid-record.
+> 
+> The no-map property is required so the reserved region is kept out of the
+> kernel linear map. ramoops remaps the carve-out write-combine via
+> ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
+> the linear map at the same time is an attribute-mismatch and risks losing
+> panic data to dirty cache evictions from the linear alias.
+> 
+> The region sits immediately below the ATF block already declared at
+> 0x43000000 in mt7986a.dtsi, so no other reserved-memory child is moved or
+> resized. BPI-R3 ships with 2 GiB of DRAM starting at 0x40000000, well above
+> 0x43000000, so the region is always within installed memory.
+> 
+> For the carve-out to actually preserve content across a reset, the boot
+> loader must avoid touching this region on warm reset; on standard BPI-R3
+> boards with the stock OpenWrt U-Boot fork this already holds.
+> 
+> Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
+> ---
+> Changes in v5:
+>   - Restore this board's own carve-out. v4 carried the BPI-R4 values by
+>     mistake - 1 MiB at 0x42f00000 with 128/256/64/64 KiB zones - while the
+>     commit message still described the BPI-R3 layout. That would have reserved
+>     1 MiB instead of 64 KiB on a 2 GiB board and contradicted its own message.
+>     Back to 64 KiB at 0x42ff0000 with 8/32/8/8 KiB, as in v3. Thanks to the
+>     Sashiko review for catching it; entirely my error in regenerating the patch.
+>   - No other change: the plain reserved-memory node from v4 is kept.
+> 
+> The BPI-R4 patch is unaffected - its values were correct in v4 and it needs no
+> resend:
+> https://lore.kernel.org/all/20260915135722.566918-1-tillo@tillo.ch/
 
-> Add a table-driven CCF driver for the CV75 root clock tree. Register
-> the core PLL, AHB/APB fixed factors and UART0 composite clock, with
-> osc supplied via clk_parent_data.
+You forgot to send the 7988a bpi-r4 patch :-)
 
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/container_of.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/math64.h>
-
-> +#include <linux/mod_devicetable.h>
-
-No new driver should use this, ID tables are provided by...
-
-> +#include <linux/module.h>
-> +#include <linux/overflow.h>
-> +#include <linux/platform_device.h>
-
-^^^...this one.
-
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/types.h>
-
-...
-
-> +struct cv75_fixed_factor {
-> +	const char *name;
-> +	u32 id;
-
-> +	u16 mult;
-> +	u16 div;
-
-There is struct u16_fract in math.h. Can you use it instead of these two?
-
-> +};
-
-...
-
-> +static int cv75_rct_probe(struct platform_device *pdev)
-> +{
-> +	struct clk_hw_onecell_data *data;
-> +	struct device *dev = &pdev->dev;
-> +	int ret;
-> +
-> +	spin_lock_init(&cv75_ccu.lock);
-> +
-> +	cv75_ccu.base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(cv75_ccu.base))
-> +		return PTR_ERR(cv75_ccu.base);
-
-> +	data = devm_kzalloc(dev, struct_size(data, hws, CV75_NUM_CLKS),
-> +			    GFP_KERNEL);
-
-I think it's okay to have this on a single line.
-
-> +	if (!data)
-> +		return -ENOMEM;
-> +	data->num = CV75_NUM_CLKS;
-> +
-> +	ret = cv75_register_plls(dev, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register plls\n");
-> +
-> +	ret = cv75_register_fixed_factors(dev, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register fixed factors\n");
-> +
-> +	ret = cv75_register_composites(dev, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register composites\n");
-> +
-> +	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to add clock provider\n");
-> +
-> +	return 0;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Cheers,
+Angelo
