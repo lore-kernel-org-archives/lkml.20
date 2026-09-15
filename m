@@ -1,47 +1,51 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4A523AF647;
-	Tue, 15 Sep 2026 08:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53830483BE5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462185; cv=none; b=thqFYEU5J2cIZQJkWBXL1zE80kXB5v0rVgaaXTt+ZN7RVxStOsC2IqnoBr5oyPxcwjw4KIcXrMGkMhOST7y0DFQhVCLbIOr4/1PYM/mp03dbtTqQbBMY8hItZABajAfMbivCy24EEHixismaiDRsxuR7hcVsvUgH6+cnyG/BQ1A=
+	t=1789462221; cv=none; b=PitrKItRMag7H+7XxYqF1T7HOfI3e8+DX1K0iFPAx+aNVi3Tt8QjwS4XKWDb43cefPtfNgs/64ab4THZkZ+olcpDBLEs+0ZMSKBXwCcqQamlkX9oQj8MaXSUUz7ERBd/jeWx5rGnLMW3SHm0MFLxSY1Ycr+IH8DIYBVHyyAzq3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462185; c=relaxed/simple;
-	bh=oyNHMyZYqpDoIcovpuHq/8xHd5nxJXQeaDtXcCz49N0=;
+	s=arc-20240116; t=1789462221; c=relaxed/simple;
+	bh=pQDFPAA7CErrLBTkf6/TfHLgWPyKA9QFMI0nUOpHBkQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HNsfm+GZpgkT1r/5MbBdMIwta/4w/ucYhGp1m2Dtt1ZAkaDeUo0ymOybcz1qjqU2zG+AcZg+IkXB7oPXSZWiiEdULlLuiDDKS449dHUSCj9Jehez21hHXPdaH8J6JY189rMgZQdTiRaWrEKLrfxl6X9j/XIEt4cT9xOhuDLYzhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=H5C5ag1n; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=iWQ545zrKzy9bfk9HrCvnuTEQu88Mws/qk1yDiFAn0JEXkGw0tvdvHWV0uJyweXLZIaha80vgpQC7D687jwoF0JtYncFqmwudTbqKuppv7oZh4sQRJWuuhF5meJcBvEKJvPEoSC0dbdF9OkylQBbZ2B2o2s6wasIjzhPkJhdxmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=TaKSnQBy; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="H5C5ag1n"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 725DA169C;
-	Tue, 15 Sep 2026 01:49:38 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1C1A53F7B4;
-	Tue, 15 Sep 2026 01:49:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789462182; bh=oyNHMyZYqpDoIcovpuHq/8xHd5nxJXQeaDtXcCz49N0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=H5C5ag1nVPLPhe55qsjBPQBbtGvhwI+EZy4hOGcyjOPWYcUe0GpC4S0V9JgcZN0nb
-	 obKGCOQNx/hPY4kiy/lcgwTHy3lNzQowHJtLPL4gljGbLWzPav4p4nS+1oGuQbStlp
-	 QVdzo86jLuagwOj0unB4MjzirpKKKS0SsTW4ZI4s=
-Date: Tue, 15 Sep 2026 09:49:38 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-efi@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="TaKSnQBy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=641Crc8nLk8TZVaCD2qMjUbwklDFLaeiYHl3S71WH14=; b=TaKSnQByTJWixfGKTHAgQDbojg
+	henUuv+Bqeqflh00+/vxD+2lfOWRUMfvNNMVlal5U29bkEy7JRpOoCzL49v5vvBLyeD9waM/rk2U3
+	dMyA3Y15Sqitq/+rk3lVyle+URX6uHQJYVvVZ8Laq9rCpj0oIz8PO6EIJdrtbDPLOmXwDwodVPhVl
+	JH1bhxLC96W7nEpoNEiP351rdWVRx0xxCRho7qzkXg3xw7Cc3IMDxAXlPc8BqBTkRiIAKkXxj5CP4
+	sZ+NHtoDbBPS6UvO6uyB9p8BtRrum0SaICIy8ZoTSqWjBePuMcZXDXEna9LJtJDKh3ekfcPHbcSFh
+	bkAIoqlQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x6Orm-00000006SOP-2wjI;
+	Tue, 15 Sep 2026 08:50:14 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F14603012C6; Tue, 15 Sep 2026 10:50:13 +0200 (CEST)
+Date: Tue, 15 Sep 2026 10:50:13 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Breno Leitao <leitao@debian.org>,
-	"sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
-Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
-Message-ID: <aqkGohQYChzkBPZ7@e129823.arm.com>
-References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
- <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
- <apl_29t7Jxr2mv9C@e129823.arm.com>
- <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
- <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
- <apmFpUvkRBgMdOH2@e129823.arm.com>
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
+ locked=1
+Message-ID: <20260915085013.GA4121339@noisy.programming.kicks-ass.net>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+ <20260907084133.3696-4-david.laight.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,67 +54,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <apmFpUvkRBgMdOH2@e129823.arm.com>
+In-Reply-To: <20260907084133.3696-4-david.laight.linux@gmail.com>
 
-> > On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
-> > > On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
-> > >> Hi Ard,
-> > >>
-> > >>> Hello Yeoreum Yun,
-> > >>> 
-> > >>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
-> > >>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
-> > >>> > may immediately write a firmware image to persistent storage.
-> > >>> > This operation can take longer than EFI_RTS_TIMEOUT.
-> > >>> >
-> > >>> > Use a separate timeout for the UpdateCapsule() runtime service. By
-> > >>> > default, wait indefinitely to avoid interrupting an ongoing firmware
-> > >>> > update. Administrators may configure an appropriate timeout, in seconds,
-> > >>> > through /sys/firmware/efi/capsule_update_timeout.
-> > >>> >
-> > >>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > >>> > ---
-> > >>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
-> > >>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
-> > >>> >  include/linux/efi.h                     | 10 ++++++
-> > >>> >  3 files changed, 55 insertions(+), 10 deletions(-)
-> > >>> >
-> > >>> 
-> > >>> Given that UpdateCapsule() is rarely used these days at runtime, I
-> > >>> wonder if we should just call it synchronously instead of via the
-> > >>> EFI workqueue.
-> > >>> 
-> > >>> I assume that would also solve the timeout issue?
-> > >>
-> > >> Might be. But it would make *non-preemptible* for UpdateCapsule().
-> > >> AFAIK the purpose of running runtime service with efi_queue to
-> > >> run it in indepdent context and to be preemtible in case of arm64.
-> > >>
-> > >
-> > > No.
-> > >
-> > >> Since most of UpdateCapsule() will be called via capsule-loader's misc
-> > >> device, if UpdateCaspule() is called synchronously, It would be
-> > >> non-preemtible in arm64 platform.
-> > >>
-> > >> But, some platform could be preemptible while updating firmware so
-> > >> I think it would be better that it would be called via EFI workqueue.
-> > >>
-> > >
-> > > EFI runtime service invocations are preemptible on arm64, so this is
-> > > not a problem.
-> > 
-> > Ah wait - you're right, they are only preemptible when invoked from the
-> > work queue.
+On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
+> There is no need for separate prev_cpu and locked members of
+> struct optimistic_spin_node.
+> Using a single field simplifies the code slightly.
+> It also removes any possibility of the two values being out of sync.
 > 
-> Yes. That's why I think it would be better to call via EFI workqueue
-> when I see arch_efi_call_virt_setup().
+> When cancelling a lock request explicitly set prev_cpu to zero.
+> Nothing actually looks at the field, but it means that it will be zero
+> after a subsequent 'fast path' osq_lock() call making things consistent.
+> The cache line is likely to be dirty (or be dirtied) so there shouldn't
+> be a performance hit.
+> 
+> Signed-off-by: David Laight <david.laight.linux@gmail.com>
+> ---
 
-Hi Ard,
 
-Could there be any issues with doing it this way, or would there be
-a better approach?
-
--- 
-Sincerely,
-Yeoreum Yun
+--- a/kernel/locking/osq_lock.c
++++ b/kernel/locking/osq_lock.c
+@@ -170,10 +170,11 @@ bool osq_lock(struct optimistic_spin_que
+ 	 * is per-cpu data the memory can always be read.
+ 	 */
+ 
+-	for (;; prev = READ_ONCE(node->prev)) {
+-		if (!prev)
+-			/* Lock acquired */
++	for (;;) {
++		if (!prev) {
++			smp_acquire__after_ctrl_dep();
+ 			return true;
++		}
+ 
+ 		prev_ptr = decode_cpu(prev);
+ 
+@@ -185,8 +186,8 @@ bool osq_lock(struct optimistic_spin_que
+ 		 * 'prev' must have unlinked (or be in the process of unlinking)
+ 		 * itself from the list.
+ 		 */
+-
+ 		cpu_relax();
++		prev = READ_ONCE(node->prev);
+ 	}
+ 
+ 	/*
