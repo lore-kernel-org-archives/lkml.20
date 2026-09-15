@@ -1,142 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3A723BF9F;
-	Tue, 15 Sep 2026 00:18:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825242750F2;
+	Tue, 15 Sep 2026 00:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789431512; cv=none; b=IiJVkECDCnZN+GYi931cLeCLtUt5gb3CCXhpcmf/4Y7CKX7I7Dd6iJiwIJ4mqCZkPMU8zmHoMxbOPSbqNdcyAVWjzS/z7VjlUCwPfxB45fZXRD+9ge+bGJc86kzCNDHxfo2YjQSz7PidSNcH3qGuFzWTVGWDDzQVmCvl9v/68N4=
+	t=1789431551; cv=none; b=oxHQ/yyYG3AP6n14aIHZN9FK0/o8nRkU5coYS8Qgq7t4HH7y9uJwv4Wt8SMbeXsYFgUL0pv7rgincPDnh2d58BWk5PIA9h480SW3KEo/5b+ziw9jpFe+zK+23ODQkxu2NNBxi5i6uW3KK/grsJl/VhRf1Iew74llU67yDIJVmms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789431512; c=relaxed/simple;
-	bh=1iWLtX2o2HTdm6iWk8GEDWCbNPYYwZF3hhc7/8WFZG4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oBLpPu3nUk7JsJN+2JUMddhdg12bR6VEXRbNVgY1T1Ro2Te5//0kxYQRoBbb6wWlmlHcBLV/SYSOCy/vRGs/tc01AWyNfuTrZ0Lzsz8VFV3HOQC2JglWAs+n7fFnu/Vu7VZlFSBjYO3sswfae0pZwTHGoAZ10U7ce2HUy+S9TJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAK46F4n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789431551; c=relaxed/simple;
+	bh=hjmboASB7gfoy6fk7Sh/jntGPFpYeGIyDg8Omc6V9AY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AgmAzQ8ROI6TERHudVYjFg22CHL7kCSwfZjTZMgXmw2d5ti62K6KLIvJMiuesAN6n3TkBbIDY868556OcRs90GIeQZqIMkJIZdrLpNyUvwGkAkelPY3gfb0M4cUtP4fUbiTxakcxciFrgniPE2upqRhGs2xzryEbNyaHB9itK7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T9WI4Nu6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAK46F4n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6FB91F000FF;
-	Tue, 15 Sep 2026 00:18:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T9WI4Nu6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB19E1F00893;
+	Tue, 15 Sep 2026 00:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789431510;
-	bh=8OrhICSN8u/RhjpK6xkumMZX+poXmfJW0hRinboZnoY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EAK46F4nt6bTyLy7tR9VugeUfayb/ObL/wGuJOegFUGF7UWPa6B/vSzVepsai0Pde
-	 5vb+fDyUSFzgl6yNF0mFufupUfIHMUhq4QPeJkwEF/X35mjwWfPY7/FN65o6ErQ2Ka
-	 lMztQGFBa05j/tCGrQnGW4BZhKZy0Nx6QggkGe5kAWidt77OFvnzYtd/zUtaEsxVPx
-	 illCq9AN92R+uxmj1fDIe53EM8EcEKOwvUW5HBCY4tbiCf2M2LnjIKdj+Fl1Y8Ayq8
-	 lU86Ka6hH2Svw/ZfHxgyRcY3gPaLF7O2o8SfRcOFt3WsTQSoszitm2uoI4gw+DZx6D
-	 3zu/JsBsSOU/Q==
-From: SJ Park <sj@kernel.org>
-To: "Harry Yoo (Meta)" <harry@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/cgroup: ignore memory.reclaim -EAGAIN for zswap writeback test
-Date: Mon, 14 Sep 2026 17:18:17 -0700
-Message-ID: <20260915001817.101713-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260914-test-zswap-wb-ignore-eagain-v1-1-6fb715c22cd8@kernel.org>
-References: 
+	s=k20260515; t=1789431550;
+	bh=CtmjpGBsYzPeRXUbTravZfHooFXvO8YHWNaLYFRJmJI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T9WI4Nu6kOROkuqZe3p2P7HD+n7YlpYyH2rQ70GNgv6SiOgjX20horwM17TlDGSPz
+	 Osaq860haVDRzFkQPdiaBQIyxBRUlcM25evfFKj5ZKR2QfiaYnicmi/k6pkOyDZN7h
+	 05nxCg13F11fPc0JRtN0Wk+vYLWY27JO0gJ5cBrzdV31HUVnFHHUIjM1vr0NCsmnUi
+	 sDzSUecZt7Wn6xRae4Vy3RLsrzn+LcOYOMZAb2S6D037lwQBnDqOSKjJuZ0qZc3lPG
+	 T1kXI4+ozpdkhbSkq3hzplOVzQsk8NWSPWnSZ/DHxQfZdFSLUa/8tzKcs7r7EAMzfo
+	 +8PQp0lKrVbLw==
+Date: Mon, 14 Sep 2026 21:19:06 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 2/8] perf debuginfo: Fetch debuginfo keyed by build ID
+ using debuginfod
+Message-ID: <aqiO-i5WTJbNxQtu@x2>
+References: <20260913222821.3353-1-acme@kernel.org>
+ <20260913222821.3353-3-acme@kernel.org>
+ <aqdPNG6szS6YJjOi@google.com>
+ <aqdTC_3In8ymE-RS@x2>
+ <aqhYUQgaf-UHDnLK@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqhYUQgaf-UHDnLK@google.com>
 
-Hi Harry,
+On Mon, Sep 14, 2026 at 01:25:53PM -0700, Namhyung Kim wrote:
+> On Sun, Sep 13, 2026 at 10:51:07PM -0300, Arnaldo Carvalho de Melo wrote:
+> > On Sun, Sep 13, 2026 at 06:34:44PM -0700, Namhyung Kim wrote:
+> > > On Sun, Sep 13, 2026 at 07:28:14PM -0300, Arnaldo Carvalho de Melo wrote:
+> > > > +++ b/tools/perf/builtin-annotate.c
+> > > > @@ -733,6 +733,8 @@ int cmd_annotate(int argc, const char **argv)
+> > > >  	OPT_BOOLEAN(0, "stdio2", &annotate.use_stdio2, "Use the stdio interface"),
+> > > >  	OPT_BOOLEAN(0, "ignore-vmlinux", &symbol_conf.ignore_vmlinux,
+> > > >                      "don't load vmlinux even if found"),
+> > > > +	OPT_BOOLEAN(0, "debuginfod", &symbol_conf.debuginfod,
+> > > > +                    "fetch debuginfo keyed by build ID from the debuginfod servers, on by default, use --no-debuginfod to turn off"),
 
-On Mon, 14 Sep 2026 21:36:39 +0100 "Harry Yoo (Meta)" <harry@kernel.org> wrote:
+> > > I'm not sure what would be the good default.  But with this, it can slow
+> > > down the process especially when the binary is not in the debuginfod.
 
-> The zswap_writeback_enabled test fails when a write to memory.reclaim
-> returns -EAGAIN, which means less than the requested amount was
-> reclaimed. attempt_writeback() propagates the -EAGAIN to the caller,
-> and the test case is marked as failed even when zswap writeback did
-> happen.
-> 
-> This heavily depends on the performance of the backing swap device.
-> Reclaim does not wait for writeback (on cgroup v2), does not count pages
-> that are under writeback as reclaimed, and memory.reclaim gives up after
-> MAX_RECLAIM_RETRIES passes without making progress. On a slow device
-> where reclaim does not make any progress before writeback completes,
-> a write to memory.reclaim fails.
-> 
-> On a VM with zswap enabled, where IO delay was injected via dm-delay,
-> the success rate of the zswap writeback test drops dramatically once
-> the delay reaches 11 ms: 7% failures at 10 ms and 79% failures at 11 ms,
-> n = 100.
-> 
-> When zswap writeback is enabled, ignore -EAGAIN from memory.reclaim and
-> determine pass/fail based on the zswpwb counter because that is what
-> zswap_writeback_enabled actually wants to test.
-> 
-> With this change, the test reliably passes even on a slow swap device
-> (tested up to 1000 ms delay). This makes the test resilient against
-> the performance of the swap device.
+> > That is why it allows the user to press 's' to skip it or 'd' to do a
+> > one-time only disablement of this feature.
 
-Makes sense to me.
+> > This is similar to gdb, that at session start asks if the debuginfo
+> > files for the binary and its libraries should be downloaded, well, a bit
+> > better because it allows the user to completely disable this at first
+> > sight by pressing 'd'.
 
-[...]
-> --- a/tools/testing/selftests/cgroup/test_zswap.c
-> +++ b/tools/testing/selftests/cgroup/test_zswap.c
-> @@ -346,7 +346,16 @@ static int attempt_writeback(const char *cgroup, void *arg)
->  	 * it can't writeback to swap.
->  	 */
->  	ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
-> -	if (!wb_enabled)
-> +
-> +	/*
-> +	 * When writeback is enabled, memory.reclaim may still fail to reclaim
-> +	 * the requested amount of memory due to a slow swap device.
-> +	 * Ignore -EAGAIN here. The caller determines pass/fail based on the
-> +	 * zswap writeback counter.
-> +	 */
-> +	if (wb_enabled && ret == -EAGAIN)
-> +		ret = 0;
-> +	else if (!wb_enabled)
->  		ret = (ret == -EAGAIN) ? 0 : -1;
+> > It also already honours configs that disable the ~/.debug cache.
 
-My humble eyes were unable to easily understand the change.  Is the change
-effectively same to below, and if so, would this be easier to read?
+> Oh.. I overlooked the details.  But then it'd be nice to separate the
+> logic for the user interaction from the debuginfo fetching.
 
-'''
-@@ -344,10 +344,11 @@ static int attempt_writeback(const char *cgroup, void *arg)
-         * writeback as zswap.max is 1/4 of what was needed when reclaim ran the first time.
-         * If writeback is disabled, memory reclaim will fail as zswap is limited and
-         * it can't writeback to swap.
-+        * Even if writeback is enabled, it could return -EAGAIN due to a slow
-+        * swap device.
-         */
-        ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
--       if (!wb_enabled)
--               ret = (ret == -EAGAIN) ? 0 : -1;
-+       ret = (ret == -EAGAIN) ? 0 : -1;
+I will do that tomorrow, as well as have it not just in --stdio, but
+also in the TUI.
 
- out:
-        free(mem);
-'''
+I need to be more concise and granular, sorry about that.
 
-Someone might hate the second 'ret' assignment.  But I was unable to make it
-look cleaner without introducing a >80 column line.  The file already has
-multiple >80 column lines and I don't really mind having a new long line,
-though.
-
-
-Thanks,
-SJ
-
-[...]
+- Arnaldo
