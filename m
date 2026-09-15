@@ -1,138 +1,185 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF773A9D99
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844713002AB
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506054; cv=none; b=BgmtQT8RXJem7KtQ3Ke6hFVHVZynOP/VFbyTgLTbME24DjO88cVE2W1CQXJvERI8YwS/lTfrvHHC0VNXrjoxwgUq9nRRHGG36wm0QF/F+t7dI6++du75lZTeQu7SE0wS369qSWG0hih0+84ciAR/EfctTRzMlimL8+YlYONkiZc=
+	t=1789506198; cv=none; b=YI3VKH121faVGasYr4S0iBbO7/OSQzcmi5FpJAgpt3CexZcJzkuPFf3yFfnrBHuzDctDlo/nEmkfcdroe+BABYOR7UmzuuRGnIUGbXfh4bnOTPozZDYsgJk53bcKampFcqNyP1Zma5cSnS397nAs0AFohGFx92qczcdWJTC83wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506054; c=relaxed/simple;
-	bh=rfMWPtcSIAIJGdrg7gkea6Scilcnn7TJdjakZa4mvTI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=poP6e4Kr9LhtKi4SS4qMYI40PbAjTHcxGiYVkKc1LoGzsnR/xsn5KRwaAAgJo4/qLPnc/9HrUG6mWs2speH+bL1J46aZjQ4SlnIzS09lVbw9U24EJrI/a97BNjcp/NsbdSSa9QtURZMvup2rSB2JYcr8lA0wYlegf5FLDhsvs6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hJGf+s9T; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789506198; c=relaxed/simple;
+	bh=Vy6I5cBNKJ50HSTKgnQcAK5rhc7OnSMlif/I9EMSlhg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IAKe57aDGJFDfo3qCVgf9RRdgOT7c1yrTeMlz4AHVALETmhLezELeT7OyjmMf+RIuO8AhfvGonB2PV5FLQDQypu5lKsEJx4mtJ+NqFt7G3RWhLUHLJc0ZVm2HL52MWxbMdZXDiiThzybjLx8/KoC9xGI5hiRMNgtcBlT8Rxiy2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GrAa0yw+; arc=none smtp.client-ip=91.218.175.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hJGf+s9T"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ab18b3e6so25579a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:00:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789506052; x=1790110852; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7laVkgHRi16E4ELzl2jg8fUQVb6gDweW/ylOjj6oIsc=;
-        b=hJGf+s9T7QRZJLQL3qORFaGVY6G+AwlaTvpLP2jX8Ouxs8JD+seYoldw5xNR0/F8BW
-         9WWYnTKI2cwDrZwfRNpdziy0bAX4e1mAxx+Fd2nZyh7uxDP0xA5pVIwhVDD+VccEESaR
-         cxk2ewc2bzB/ai4zmy2cicbGm0rQi5+wV6uf4PxLWvn+oC7nTQs1o4NadBp9TTfHkOil
-         zT7awGsCNVs/urRkD7c7yrYfHGBaSfbz0Kk6iA+H2YVm9N/tokF6cUDMe8pA8ruRz9e4
-         R6ddQeKN0bWOFPW+I8aU3uq6vDrma4cYtEApbBT+A2HbThD3xut6tOJ5c+k2nVZkvUpz
-         BGkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789506052; x=1790110852;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7laVkgHRi16E4ELzl2jg8fUQVb6gDweW/ylOjj6oIsc=;
-        b=Zv+HwAp/Hm0an0hjgYM++/CGjr9Qdr+6iizAi0tvOdsSI/hA75KtEPPOuRwRFsQUkT
-         i4IFVB6ITDjNJ4PCaIBQb17subnXKQn2tXh+1ISLZhYUq/5TuWTbMzHciX4qBBe5IiZ0
-         mPCa43e3srDWfrAYXczsmEHL2QACPMCIQOFqI3bjkXolYl/V0e/553n1Zix+6vtmH0Vd
-         E1RUlOuX16x0L4nxJusQ9jSgufCoUXLprPc+ftNkrIP5lTQvfyb4JoGHnsAqS6oP/wX5
-         rgxrMMMVUjYmET+v7147KJ1QhGuUahaTNSZg/EBpaDgEBLHrSrCzeN0Wzix55yxEGSYX
-         q33w==
-X-Forwarded-Encrypted: i=1; AKwUvBxskPy3hnbcSOBqSJc4O437+Z09xExySB4viFoMh+IjHG3aYk7jTHWgDrJaRllNtkboWBZWO7Xgc4B23y4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTE4iONEmMJZNyhqX5ItzX2EKoGuyCE4zII3SGAt52A0sZWtp2
-	Vii6UQyIWVUPMTeyTp1cuw35DfclI4oS0IQ4pRQscL4sdrj1auy7vn35
-X-Gm-Gg: AYBFou3Qhyf5zWT4I1cuLfgGpYFm+damWoGolttK4OaOLp56sTOkHu14/8qszUC8JWz
-	Fnt9fa+AuprwQPYOfi9PDEa/pCt1MUdUaE4vZXlmPixsbfBwxsfHiyj51OLticzkBeV/LnXddBG
-	3XrI67wNZxTPF0GgQReD3ONBIfVEoBV4yMfuRqe3yCmw1vGPJkG8t9TbnDl5Gxq9lDl+y5syJKZ
-	SaNRbpaW7/bw2YyTXqEBg87CQR1SxCIPsiS6m2ErEJkwPCEi5KbCWt7wyi/kjcAbhfI6TYq7z11
-	o2JGaRqMOoEV2zRabfuHURtINHQPGvJQ9iMqV/XOa+8XQ9/NqZ//6AA8QG0uHBQFAAv1RJKOcUC
-	eLijuNZ3skcSubNanyShO3H4ZdYk9mDJ5Gxuy2eR/83Duz6XiDRr40YZeGtk61tY3nDkgBapiIJ
-	veZbD8UGz56Ixtu7VnAxfMFIO3mOO8RoX0PjwXtwNWEUS03MmI0AmErtCz6W0K13+V5mMxQ3LWH
-	if5ja14j58H
-X-Received: by 2002:a05:6a20:549d:b0:3c3:7f50:fc39 with SMTP id adf61e73a8af0-3dd5f0808abmr276964637.0.1789506051685;
-        Tue, 15 Sep 2026 14:00:51 -0700 (PDT)
-Received: from [10.107.92.252] ([2409:40c2:5413:87f7:9fa7:eb18:a8e7:30a7])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50abb1483sm465432a12.26.2026.09.15.14.00.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 14:00:51 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 16 Sep 2026 02:29:41 +0530
-Subject: [PATCH v2 4/4] dt-bindings: crypto: ti,omap: Fix missing
- subdirectory in $id path
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GrAa0yw+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Vy6I5cBNKJ50HSTKgnQcAK5rhc7OnSMlif/I9EMSlhg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789506194; v=1; x=1790110994;
+ b=GrAa0yw+TTxr2DuSxcZ8l4JrrE9g0ioFc+Do8TibLJxgIegDBsAHiQuoRKZCWDwSR/yXbMF+
+ ebB4anY2Yl7FZvFRInhx2mV/AcQFCRvFf5SFSLKQ9pQefScBN5vZCZsBrrXMIuV6xneC+EQAtPZ
+ gw18d/BI1rQpojFH9sTNM1tQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1d45e5f2678cd130;
+	Tue, 15 Sep 2026 21:03:13 +0000
+X-Mizu-Trace-ID: 1d45e5f2678cd130
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <246a7bf2-a51b-442f-97aa-c767f8c02f8c@linux.dev>
+Date: Tue, 15 Sep 2026 23:03:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-ti-dra7-omap-sham-fix-v2-4-4eadb60081e5@gmail.com>
-References: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
-In-Reply-To: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, 
- Animesh Agarwal <animeshagarwal28@gmail.com>
-Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
- j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789505986; l=1640;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=rfMWPtcSIAIJGdrg7gkea6Scilcnn7TJdjakZa4mvTI=;
- b=lEoeEdchCi0ox9ZpRBIC2oxd/dKgaGOWHkFsUI27sQyb+Kv9Sr0jv/s7FcF39KlU8Pk6k5j1o
- z0mndXDNZNWDcqZkBce+bjL6WLUsSHFT4MU/JdlrDSh1CJ1t8Kbi9Eq
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: asus-armoury: add dGPU disable fallback
+ DEVID for ProArt H7606 series
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: busybox11 <busybox11th@gmail.com>,
+ Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+References: <20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com>
+ <40f1840a-e3e4-29d3-66b5-a13737224f99@linux.intel.com>
+ <b647e0a5-4122-4772-b317-d2d7a8cb4d31@linux.dev>
+ <c2d620e4-25ba-c31b-0143-4a53ff3edd8b@linux.intel.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <c2d620e4-25ba-c31b-0143-4a53ff3edd8b@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The $id fields in the omap2-aes and omap4-des schemas are missing the
-crypto/ subdirectory in their paths.
 
-Add the missing crypto/ to $id.
-
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- Documentation/devicetree/bindings/crypto/ti,omap2-aes.yaml | 2 +-
- Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/crypto/ti,omap2-aes.yaml b/Documentation/devicetree/bindings/crypto/ti,omap2-aes.yaml
-index 90e92050ad2e..54e1d6c9bfdf 100644
---- a/Documentation/devicetree/bindings/crypto/ti,omap2-aes.yaml
-+++ b/Documentation/devicetree/bindings/crypto/ti,omap2-aes.yaml
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
- %YAML 1.2
- ---
--$id: http://devicetree.org/schemas/ti,omap2-aes.yaml#
-+$id: http://devicetree.org/schemas/crypto/ti,omap2-aes.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
- title: OMAP SoC AES crypto Module
-diff --git a/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml b/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml
-index 2ed6f77583d4..3e7eed297c81 100644
---- a/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml
-+++ b/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
- %YAML 1.2
- ---
--$id: http://devicetree.org/schemas/ti,omap4-des.yaml#
-+$id: http://devicetree.org/schemas/crypto/ti,omap4-des.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
- title: OMAP4 DES crypto Module
-
--- 
-2.55.0
-
+On 9/15/26 22:56, Ilpo Järvinen wrote:
+> On Tue, 15 Sep 2026, Denis Benato wrote:
+>
+>> On 9/15/26 22:38, Ilpo Järvinen wrote:
+>>> On Mon, 10 Aug 2026, busybox11 via B4 Relay wrote:
+>>>
+>>>> From: busybox11 <busybox11th@gmail.com>
+>>>>
+>>>> Newer ASUS ProArt laptops (e.g. H7606 series) implement dGPU power
+>>>> control on WMI DEVID 0x00090120 instead of the usual 0x00090020.
+>>>> The default DEVID returns 0xFFFFFFFE on these models, so the
+>>>> dgpu_disable firmware attribute is never created and the dGPU cannot
+>>>> be re-enabled from Linux at all.
+>>>>
+>>>> Add a fallback probe for device ID 0x00090120 following the same
+>>>> approach as the gpu_mux_dev_id probe.
+>>>>
+>>>> Details for 0x00090120 (confirmed on H7606W using direct WMNB calls
+>>>> and inspecting the DSDT DEVS handler):
+>>>>   - Reading DSTS returns 0x00010001 when the dGPU is off (CUMA=1),
+>>>> 	or 0x00010000 when it's on.
+>>>>   - Writing DEVS: 0 enables the dGPU (calls PG00._ON() + Notifies
+>>>> 	PEGP, Device Check), and 1 disables or ejects it.
+>>>>
+>>>> This behavior matches the dgpu_disable attribute (1 = disabled).
+>>>>
+>>>> Signed-off-by: busybox11 <busybox11th@gmail.com>
+>>> Unfortunately, we cannot accept anonymous or pseudonym signed 
+>>> contributions so please sign off with your real name. For more 
+>>> information about signing of patches, please see:
+>>>
+>>> Documentation/process/submitting-patches.rst
+>>>
+>>>> ---
+>>>>  drivers/platform/x86/asus-armoury.c        | 32 +++++++++++++++++++++++++-----
+>>>>  include/linux/platform_data/x86/asus-wmi.h |  3 +++
+>>>>  2 files changed, 30 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+>>>> index 495dc1e31..f39b52451 100644
+>>>> --- a/drivers/platform/x86/asus-armoury.c
+>>>> +++ b/drivers/platform/x86/asus-armoury.c
+>>>> @@ -93,6 +93,7 @@ struct asus_armoury_priv {
+>>>>  
+>>>>  	u32 mini_led_dev_id;
+>>>>  	u32 gpu_mux_dev_id;
+>>>> +	u32 dgpu_disable_dev_id;
+>>>>  };
+>>>>  
+>>>>  static struct asus_armoury_priv asus_armoury = {
+>>>> @@ -452,8 +453,8 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
+>>>>  	if (err)
+>>>>  		return err;
+>>>>  
+>>>> -	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
+>>>> -		err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU);
+>>>> +	if (asus_armoury.dgpu_disable_dev_id) {
+>>>> +		err = armoury_get_devstate(NULL, &result, asus_armoury.dgpu_disable_dev_id);
+>>>>  		if (err)
+>>>>  			return err;
+>>>>  		if (result && !optimus) {
+>>>> @@ -507,7 +508,8 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+>>>>  	}
+>>>>  
+>>>>  	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
+>>>> -		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_WMI_DEVID_DGPU);
+>>>> +		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL,
+>>>> +					   asus_armoury.dgpu_disable_dev_id);
+>>>>  		if (err)
+>>>>  			return err;
+>>>>  	}
+>>>> @@ -516,7 +518,7 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+>>>>  
+>>>>  	return count;
+>>>>  }
+>>>> -ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
+>>>> +ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disable_dev_id);
+>>>>  ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
+>>>>  
+>>>>  /* Values map for eGPU activation requests. */
+>>>> @@ -790,7 +792,6 @@ ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATTR_NV_BASE_TGP, ASUS_WMI_DEVID_
+>>>>  static const struct asus_attr_group armoury_attr_groups[] = {
+>>>>  	{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
+>>>>  	{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
+>>>> -	{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
+>>>>  	{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
+>>>>  
+>>>>  	{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
+>>>> @@ -934,6 +935,21 @@ static int asus_fw_attr_add(void)
+>>>>  		}
+>>>>  	}
+>>>>  
+>>>> +	asus_armoury.dgpu_disable_dev_id = 0;
+>>>> +	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
+>>>> +		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_DGPU;
+>>>> +	else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MODE))
+>>>> +		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_GPU_MODE;
+>>>> +
+>>>> +	if (asus_armoury.dgpu_disable_dev_id) {
+>>> Now I started to wonder why are we doing it like this and not using 
+>>> .is_visible?
+>>>
+>>> This question applies to the similar, existing cases as well.
+>>>
+>>> Denis?
+>>>
+>>>
+>> I don't understand the question. There are a bunch of .is_visible in the kernel and
+>> I'm not sure if I am looking the right one and therefore if I understood the question correctly.
+>>
+>> It is written as this to memorize what the correct id is and therefore what
+>> to do.... but I doubt this answers you.
+> No, it doesn't.
+>
+> With sysfs, .is_visible callbacks are normally used to hide attributes 
+> when feature is not supported or for other reasons, which simplifies the
+> setup code. This one checks manually asus_armoury.dgpu_disable_dev_id != 0 
+> in the setup code.
+>
+> (In addition, sysfs could even be asked to change the visibility 
+> on-the-fly so it would re-execute the .is_visible callbacks to determine 
+> which of the attributes to show.)
+>
+>
+This is a very good idea. I am not aware of any particular reason not to use
+it as long as fwupd likes it I'm fine with it and I am also available to change
+these to use in_visible.
