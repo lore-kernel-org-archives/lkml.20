@@ -1,105 +1,233 @@
-Received: from mta0.migadu.com (out-112.mta0.migadu.com [91.218.175.112])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDED318ED2
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6DC32B118
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434706; cv=none; b=d8MIdGJKCUsmB2Au9XLyrp1TAWidpZ258/qHrBc3BPAQxvEB0/Lgg6wedNTvcfFEZtH8CnPtihL3k9nfHI1UxDpjjnyG260fkoZ7Au3rPWs6sWhLaEFEonoffJWhiwBdyULKQ/LpEzl9Jr1BTSy8cnbgAm1L7SkDdaTwAbOWhGI=
+	t=1789434816; cv=none; b=fdVeGJyH5z3wzrijpaoukOCvERPA/PaIsRaKW2occ+2ejIIcT3PE1xIHCtjDcPpAO5eyrgkHz6sYMGd5Y3NMi73cRHrvD7xfQA3y84Jl80nBILbkrc2784OEXYrY6a3rGs/C+w8w31Xr4aqrXxpaRZuOElmkY5GEXyV3kdu6Nm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434706; c=relaxed/simple;
-	bh=LxUS3t19mBa39JuY24c5F4sFKay/V6WJQxPVSj+OE9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UAfHf8aOGOuvOE9cVWUMuuPUUfOtQPLF7gge8eVxb2nIRemfEK5+y2id7+Vi/UffZajL/Wd6YOA0uBIT8wmhIggT4Ni+MZr4OZ61FuljTssOjeuh/aAZeYGrsCMD+T5ouM7HMM374lDJMWrtEDY94ZoYph0lbW1rfTzmFmyCF8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SAF5vEf1; arc=none smtp.client-ip=91.218.175.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789434816; c=relaxed/simple;
+	bh=fcHrDu5TcVGUbQYtMsbTooLgiV/C5TNdEOFz87jsXsY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dcM9hu4w/KIbnZfjHxb0383oXi3PKXGWQm2WxmHAqvVMe2tMvdm5ihv59XhgG0IBblWkkXww30lMNPOq2g9j3rWhkBsEWuu74Hl+TTPEh/wmvZnvoimB3ABL4Aj/DWAdR+u32FSETZaNwsMcPaHU1mnylNaHPFI6JiCwY+ppEfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8kHrcMN; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SAF5vEf1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LxUS3t19mBa39JuY24c5F4sFKay/V6WJQxPVSj+OE9A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789434700; v=1; x=1790039500;
- b=SAF5vEf1vhTc0DBWY3OnxQBygmIYilvMurkcHFBNIjChKD1AtudtAcfk+9/cuWFQuerFKyeK
- y6V462fjIUh+ZPhmxi+A7Vfk4c9M2t6Jn1IjlsIcvlj9Uq3SNZz3Q+rOHbiJipxd6HqR6yLRMFz
- UZUoN70fWySuYTXimwKIjMRw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2bee87929205f1ee;
-	Tue, 15 Sep 2026 01:11:40 +0000
-X-Mizu-Trace-ID: 2bee87929205f1ee
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f7337efd-c721-4d32-bcda-c8473e1fffc2@linux.dev>
-Date: Mon, 14 Sep 2026 18:11:32 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8kHrcMN"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d46e4cdcdso23082237b3.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:13:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789434811; x=1790039611; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0xpo2tKv173wOqrl8/LJ1AsOUmZl+6vDFMoc100h0gE=;
+        b=Z8kHrcMNTDo9KEF3lRFHt4VqugCsn6YTPpcbNyClxA26Z+RRoGMstK5bMnILhZqxW5
+         i5dRlfSHKcWMmrkYpzMuwhuor7QR+evFx03c5CqFSeVs7BUpu25A2dsYEpJeKESdtR5X
+         No9mwsO9Pe03/tCRPiGx+rLwo3Kq5V8JxdyamaGEaoFi2JaE6hry8rhqgIL0i0kqPHjD
+         BEzpKeWEeIBpOIITWIggJrRiVjzu4wMnFoyZDv0lrxtrtUP0mes/zLSfhz9Tcdg7iccS
+         u2LS0VITtqgGOfR5SrkqeAKbuDHk6t9yjRcbVMBk7nikzQciHGa5Uemsk7EtL3rh6Vn+
+         8ZUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789434811; x=1790039611;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0xpo2tKv173wOqrl8/LJ1AsOUmZl+6vDFMoc100h0gE=;
+        b=Evxl2utmrHlFJG6K5boBHP5RjR60WFEfKbVSPQTlWJzvuM3Gym6fuGb9qKCIJsxZu4
+         qY0+Pe9c5SY7tgYfWiGn/vhx5cZMigEOQW3Bg8Bq6rsb0n7+YCLuGb3dom9w9GN99L42
+         VcqP5GKYf2YaZ1utarvQMZrgXqMJjjzLkSWqoyh4h0goru3+Q3Q/KkykHVeqmUmiNIGZ
+         OrSDyyCsPmX6lozSI6s2UEQwFGYzQH4MfXrdUoInH7frit0qM/+9MtkxIglh5IdVaDqV
+         0KvHwZnl8vvTTTXkmrUJ1DRAzwAZZNdB117zgBfNaPrZ3loa8nyHugo80TqCH66k8YCh
+         /X1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwAYIYCbbQj08ynPQpkcvKiJXkQ0wcVOHmFkMasNwesy5CML9P/dtfBUIWABuKqayhrMWsBPrr9snxEiBQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAGweY3CulxQ6BiM0+tIqRRZ0xdn50eQtzVIiW6I8HFZSQskA2
+	ZOOCu4XFT+yjzl/Lhv/yaN9XRbvPMqFbw0an+yHhf1kpHVKkUvRgzdSb
+X-Gm-Gg: AYBFou36OKOx7WWksX5ZRrSHRoGR+v4idOEEIHMzx9Xd01kyUq3Xgwa3DbnwvvSzoF6
+	krVTfsATQN83fmS0Xrmoh/YOpi3DMPSZir9ZLMM1msM+USt9qwHc1Ooc11kVpRZjAT1YqVd2mEt
+	cQ9sNFPbQEDBfCICguHsHuh1H5PI1TmLCSJg4Ght/99MtjO4ZsZsvY5o8NlRATkdZ7VYTpp3iKG
+	HjJXzIVgp98Yf6c3ZQTBz5SYSGmXnWQ/KICnAgqEgMP2UCTaanxhLkmjtshCg+gUO+AC+3rDvwS
+	S+JS+51n7TophLZMD1MSAE8/jao5rKDVvAFiqgxMKoM/VsLKdV31O6ceSQ4WgweK82xP9gD+/g/
+	rDY9MRfnXTVRL83BKI2FRgier0eGd2x6qqRqHAP9xkKKyG1/gUOZsd7gZDF73L8j0oOe2VNIdHB
+	9pCupqRSWmzPiBBgPxdHcx0NXwcto2QzkHr+QfLn2UI1raB4KLdNGrhbOj9j1raBnWZrn5n6VEL
+	ljUEjgjuSD7Y/Tv3V8zoIemaf3ieQs7Xg==
+X-Received: by 2002:a05:690c:e208:10b0:87f:a9c6:470b with SMTP id 00721157ae682-88d1f2138d8mr17209207b3.2.1789434811483;
+        Mon, 14 Sep 2026 18:13:31 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:fe9e:c133:77e5:be16])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88487ea6026sm42364337b3.32.2026.09.14.18.13.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 18:13:30 -0700 (PDT)
+Date: Mon, 14 Sep 2026 21:13:29 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Paul Moore <paul@paul-moore.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	KP Singh <kpsingh@kernel.org>, Matt Bobrowski <matt@bobrowski.net>, 
+	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Casey Schaufler <casey@schaufler-ca.com>, =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
+	Jan Kara <jack@suse.cz>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Eduard <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Tingmao Wang <m@maowtm.org>, bpf <bpf@vger.kernel.org>, 
+	LSM List <linux-security-module@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+Message-ID: <aqiJrkNyGM6hYu9A@zenbox>
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
+ <20260909193719.518517-5-utilityemal77@gmail.com>
+ <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox>
+ <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+ <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
+ <aqTZdCz6JaoK16Fp@zenbox>
+ <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
+ <aqcb2eXw61LaFaqY@zenbox>
+ <CAADnVQ+v9_a8Q_YOvS9fmXG+-Ga0ADKrjGDDUCiFaipo2vUDmg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 02/13] bpf: compare linked-scalar kinds in
- regs_exact()
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-3-vineet.gupta@linux.dev>
- <DLDKBR3Q9Z7A.23CDO8IOAPZYX@gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <DLDKBR3Q9Z7A.23CDO8IOAPZYX@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAADnVQ+v9_a8Q_YOvS9fmXG+-Ga0ADKrjGDDUCiFaipo2vUDmg@mail.gmail.com>
+
+On Sun, Sep 13, 2026 at 07:31:44PM -0700, Alexei Starovoitov wrote:
+> On Sun, Sep 13, 2026 at 5:20 PM Justin Suess <utilityemal77@gmail.com> wrote:
+> >
+> > Sure, in some perfect world in the future where every verifier
+> > challenge is solved and BPF has feature parity with in-tree c on
+> > a 1:1 basis, you could implement something like SELinux, or Landlock
+> > in pure eBPF.
+> 
+> Try.. give it a shot? What is missing in the verifier?
+>
+Howdy Alexei,
+
+I'll stick to Landlock as the concrete case, as it's what I'm most familiar with.
+
+From security/landlock/fs.c: hook_sb_delete() holds the superblock's
+s_inode_list_lock, takes a nested lock of the inode's i_lock inside it, takes the RCU
+read lock inside that to dereference the per-inode Landlock object, and
+then the object's own lock, which is four levels of lock nesting, and even with
+all of that it still has to handle a race by re-checking
+inode_state_read() for specific flags to maintain VFS invariants.  BPF
+cannot take any of these kernel locks, and the current BPF locking model
+deliberately excludes any nesting (bpf_spin_lock) or resolves contention by
+bailing out (trylock style); the opposite of what maintaining VFS invariants
+requires.  To do effective inode-based access control without TOCTOU or
+bailing out of a long path walk, you'd need to solve nested locking with colored
+locks: inode spinlocks, superblock locks, unix_state_lock, etc, and
+solve nested locking along the way.
+
+You'd also need to convince the verifier that an upward VFS walk
+(dget_parent) is bounded, and find a way to cross mount boundaries;
+getting from a vfsmount to its struct mount is container_of(). (Pointer
+is arithmetic rejected even on trusted pointers).  Pointers walked
+via d_parent become untrusted, so they can't be passed to any kfunc
+(bpf_path_d_path(), bpf_inode_storage_get()): inode local storage,
+which is otherwise an idiomatic inode security blob replacement, is only
+usable for the object at hand, but not its ancestors required for VFS
+walk.
+
+Making it string/pathname based instead doesn't help either: any string-based method
+fails because the same file can be linked from multiple places, the same
+path string means different things in different mount namespaces, and
+strings aren't TOCTOU safe (the path can change during the walk).  And you can't
+currently take references or locks on inodes, dentries or mounts from
+BPF, so any hierarchy walk is a lockless, unreferenced snapshot racing
+against rename, whereas Landlock's walk holds path_get()/dget_parent() 
+holds the references at every step.
+
+You'd also need credential-attached storage. BPF task storage has a
+different lifecycle, and is no substitute. It does not define how policy
+is shared by threads using the same credentials, copied or replaced
+during credential transitions, propogated through file->f_cred,
+or synchronized across a thread group. Recreating those semantics in
+BPF would require explicit BPF APIs for credential storage to be
+consistent.
+
+> > Why force every eBPF program that needs to make security
+> > decisions to reeinvent the wheel?
+> 
+> What specific reinvention are you talking about?
+>
+Path based access control, done to the same correctness 
+level as in Landlock, (TOCTOU free).
+> > BPF already calls into LSM through security hooks. This is no
+> > different than bpf_map_create hooks.
+> 
+> what? It doesn't. bpf progs avoid lsm hooks as a plague.
+> Not a single kfuncs calls into lsm directly.
+> It may call into security_*() by accident because
+> it calls some kernel mechanisms.
+>
+
+I was referring to the security_bpf_map_create()
+call in kernel/bpf/syscall.c, where BPF calls into LSM via an LSM hook
+just to show that kernel/bpf already calls security hooks directly
+(and now that I look, there are other security_bpf_*() calls in
+kernel/bpf/ too).  Those hooks exist so LSM can mediate what BPF is
+allowed to do.
+
+(These in this patch hooks are contrary; they are giving BPF control over
+LSM policy. And, indeed, no hook is called from kfuncs, as you stated).
+
+The proposal is intended to add a narrow generic bridge, not to expose
+Landlock-specific kfuncs or make BPF depend on Landlock internals:
 
 
+  /* setup (BPF_PROG_TYPE_SYSCALL context) */
+  obj = bpf_lsm_policy_from_fd(fd, 0);
+  old = bpf_kptr_xchg(&map_val->policy, obj);
+  
+  /* enforcement (sleepable BPF_PROG_TYPE_LSM on a bprm hook) */
+  bpf_rcu_read_lock();
+  obj = bpf_lsm_policy_acquire(map_val->policy);
+  bpf_rcu_read_unlock();
+  if (obj) {
+         bpf_lsm_policy_apply_bprm(obj, bprm, 0);
+         bpf_lsm_policy_release(obj);
+  }
 
-On 9/12/26 11:51 AM, Alexei Starovoitov wrote:
-> On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
->> regs_exact() memcmp()s up to offsetof(id), so it does not see ->add_const,
->> which sits past ->frameno. Compare it explicitly.
->>
->> Two cases go from accepted to rejected:
->>
->>    old {r1.id=A, r2.id=A+delta}  vs cur {r1.id=B, r2.id=B}
->>    old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
->>
->> The first was rejected before this series -- the kind lived in ->id, so
->> A+delta was a distinct idmap key -- and the previous patch lost that. The
->> second was accepted before the series too, which is wrong: alu32 and alu64
->> deltas differ in sync_linked_regs(), so the states are not
->> interchangeable.
->>
->> ->delta is inside the memcmp() window and is cleared together with the
->> kind, so either case needs a kind with delta 0, e.g. "r6 = r5; r6 += 0".
->>
->> Only states_equal(..., EXACT) and env->explore_alu_limits reach
->> regs_exact() for a scalar; regsafe() compares kinds itself on the ordinary
->> path. Neither is easy to drive from a test program, so no selftest.
->>
->> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
->> ---
->> v2: new. Splits out the comparison RFC 3/6 lost when the kind left
->> ->id, which was raised on that patch.
->>
->>   kernel/bpf/states.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
->> index d974baad37ee..5505d7aaeed0 100644
->> --- a/kernel/bpf/states.c
->> +++ b/kernel/bpf/states.c
->> @@ -475,6 +475,7 @@ static bool regs_exact(const struct bpf_reg_state *rold,
->>   		       struct bpf_idmap *idmap)
->>   {
->>   	return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) == 0 &&
->> +	       rold->add_const == rcur->add_const &&
-> This change should be in the patch 1 otherwise patch 1 is not correct?
+BPF never sees a Landlock kptr or any Landlock-specific type.  It holds
+an opaque policy reference and invokes a generic operation. The LSM
+can evolve its internal representation and its hook-specific
+implementation without exporting breakage into the BPF ABI: the signature
+of the data the LSM sees can change independently of the kfunc (that's
+what the body-less hooks in patches 1-2 are for), avoiding breakage and
+easing refactoring.
 
-Will do - it was one of the open questions in v2.
+> > Nothing about the way BPF works changes with this patchset.
+> > There's no verifier internal changes.
+> 
+> If the verifier is in the way of what you want to accomplish
+> then please improve it.
 
-Thx,
--Vineet
+There are also verifier improvements I'd like to make, (I can also work
+on these if you desire prerequisites or seperate fixes).
+
+For instance, my silly bpf_lsm_policy_apply_bprm allowlist exists
+because there's no way to distinguish a linux_binprm seen from a
+tracepoint from one seen in an LSM hook (both are KF_TRUSTED) and
+it matters because there are tracepoints where it's no longer safe to
+modify the linux_binprm.
+
+I'd rather have the verifier do that legwork through its type system
+than through BTF_ID sets, and I think you feel the same way.
+
+....
+
+The goal here is to keep LSM firmly *out of the way* of BPF business
+and let each subsystem focus on its core technology. It's my belief
+BPF and LSM  subsystems can benefit from something like this given a chance,
+with a well-defined structured interface / guardrails.
+
+All in good faith, 
+Justin
