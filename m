@@ -1,32 +1,33 @@
-Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
+Received: from mta0.migadu.com (out-128.mta0.migadu.com [91.218.175.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685AC34751B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:04:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37D444BCB5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:04:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455865; cv=none; b=GTsggDIbPtEY7+8hnBs3vqZijwk61ijYxsLx32fsXYQMLxVfN3+DtBUqEK9fXyYypNRgwBZ83lixsIHvpTY4TyBKi1+/xCRsSZKkIToDDrJ4+wJs5Z+FyjPx3uZguvIs6bE+gclm5WyKjdQjB+9cpnM1K78SILuBM1CUDZbXSAY=
+	t=1789455868; cv=none; b=XKcjyXB7ALqtc3ME5pF5Q1k5D9RsPwu/dfSKKNRwiHpwUjwI1shl0pI5HXKjb7smNGGvpXpwq2GSAm+kKxJDCGkQJG+rLB2a/+zxB+RheTEDda9IyKItjpHmkJVZKu81XzMH7WsdpGDHfcOiUHIxWITNuXKufwvBHMYV7jdkqF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455865; c=relaxed/simple;
-	bh=1dBVgqiX9CYqykZIpW6hii98L+GZiNAYn8/L36aDd8E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ceEShNgodFrwPtgGNkj6yNc39uaz/0QA2BDO0VZZZq8QVsDnoKVl7L89E40hMBdOowH7tCiBwiUwyPs+inOPQzPZzs92qoHtUFwn9SbuFwn1d93UN0iYA2AbjnucYzTp99/X4+cHa3aA01ACyXs/5Ad3mEB4C3R0bvgmNeOsoZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lE5u71m4; arc=none smtp.client-ip=91.218.175.108
+	s=arc-20240116; t=1789455868; c=relaxed/simple;
+	bh=TxjB2nuw/omS0r1HuiWJ8ceXglPNuUd+88Xw3+fRY0o=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=cbJmdM/OM6P92/IVlI00G2SRhPInazwCxGY4dNPkj+bQDVrI/TpdyEAV6C4eeDRU1EutzXGY2vE0y2rKdEWnlQkcSGZHGzfoWhCdg1XobECozrTbb5APYTC03eQ6C8mpf0x9z1RURWJVX38f6+bQRD1obiO2QRPAYM4Tt+toeO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RfYBmcS7; arc=none smtp.client-ip=91.218.175.128
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lE5u71m4"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RfYBmcS7"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1dBVgqiX9CYqykZIpW6hii98L+GZiNAYn8/L36aDd8E=;
+DKIM-Signature: a=rsa-sha256; bh=TxjB2nuw/omS0r1HuiWJ8ceXglPNuUd+88Xw3+fRY0o=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789455861; v=1; x=1790060661;
- b=lE5u71m4qBpqsm7gKiCJGpT7ewzRfTZ/ym3fsjDEM0Se3gqXjC24eAmgsbCEpYuV1sqC8/nd
- 1EyTUB9Iw9jx3m82eqsv79UIwQsVYnmvOEs7Q7LjVgGPkr76fJwr1/D3PYbWHo11g6MBkCsp+N4
- LR8YlUXm4vDYr5/5lNgL1ZsM=
+ t=1789455864; v=1; x=1790060664;
+ b=RfYBmcS79BbKA5YbpkzRHGNMsCdzXRD1HEpL6hdNfl/pGiDHfUrufUgaKXXUPH/IHYRiBT23
+ Iwz3Kn12AcPNbXgE1yV2U/XRabVttCjM3d7gNYu+FqlFKxra+ZQ9ca17ZnyJup/oUvuH3mDdPBQ
+ Ode+nbxhx5VGh0EOwRXLWuoA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 22be79310fb6ffaa;
-	Tue, 15 Sep 2026 07:04:21 +0000
-X-Mizu-Trace-ID: 22be79310fb6ffaa
+Received: by smtp.migadu.com with ESMTPS id d9900a21abb41ef0;
+	Tue, 15 Sep 2026 07:04:24 +0000
+X-Mizu-Trace-ID: d9900a21abb41ef0
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: maz@kernel.org,
@@ -45,10 +46,12 @@ Cc: catalin.marinas@arm.com,
 	vdonnefort@google.com,
 	qperret@google.com,
 	tabba@google.com
-Subject: [PATCH v2 0/2] KVM: arm64: Validate host pointers in __kvm_adjust_pc() under pKVM
-Date: Tue, 15 Sep 2026 08:04:16 +0100
-Message-Id: <20260915070418.3209779-1-fuad.tabba@linux.dev>
+Subject: [PATCH v2 2/2] KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM
+Date: Tue, 15 Sep 2026 08:04:18 +0100
+Message-Id: <20260915070418.3209779-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260915070418.3209779-1-fuad.tabba@linux.dev>
+References: <20260915070418.3209779-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,49 +60,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+Under pKVM, a page the host shares with EL2 is mapped at EL2 only while
+it's pinned, and the host vCPU is pinned at its first KVM_RUN.
+KVM_SET_VCPU_EVENTS with ext_dabt_pending reaches __kvm_adjust_pc() at
+EL2 before that, and dereferencing the unmapped host vCPU panics the
+hypervisor. Any process holding /dev/kvm on a pKVM host can trigger it.
 
-Changes since v1 [1]:
-  - New patch 1: enter_exception64() reads the VM's MTE flag through a
-    host-writable vcpu->kvm that nothing validates. It goes first,
-    since pinning the vCPU alone leaves that read on an unmapped VM.
-    (sashiko)
-  - Dropped the VM pin the fix carried in v1, patch 1 validating that
-    read at its site.
+Pin the host vCPU around the adjustment when no hyp vCPU is loaded for
+it. A loaded hyp vCPU implies it's pinned. A pin fails only for memory
+the host never shared, and the request is then dropped like any other
+bad host pointer.
 
-Two host pointers reach EL2 unvalidated on the __kvm_adjust_pc() path
-under pKVM, and this series fixes both. The host vCPU isn't mapped at
-EL2 until its first KVM_RUN pins it, and KVM_SET_VCPU_EVENTS with
-ext_dabt_pending reaches the hypercall before that. The vcpu->kvm the
-exception entry reads the MTE flag from is host-writable, and nothing
-checks it. Either one panics the hypervisor, and on MTE-capable
-hardware the flag read leaks one bit of hyp memory the host chose,
-through PSR_TCO.
+Fixes: efa1368ba9f4b ("KVM: arm64: Commit exceptions from KVM_SET_VCPU_EVENTS immediately")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-These are patches 2 and 3 of the pKVM core series [2], which carries
-them so that it applies as is. They're respun here so they can be
-applied on their own.
-
-Based on v7.3-rc3 (fd73f4a665989).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260914065136.3418404-1-fuad.tabba@linux.dev/
-[2] https://lore.kernel.org/all/20260914113338.159227-1-fuad.tabba@linux.dev/
-
-Fuad Tabba (2):
-  KVM: arm64: Validate the host vCPU's VM before reading it under pKVM
-  KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM
-
- arch/arm64/kvm/hyp/exception.c             |  5 ++-
- arch/arm64/kvm/hyp/include/hyp/adjust_pc.h | 18 ++++++++++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c         | 19 ++++++++++-
- arch/arm64/kvm/hyp/nvhe/pkvm.c             | 39 ++++++++++++++++++++++
- 4 files changed, 79 insertions(+), 2 deletions(-)
-
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index 9a3b92e626adb..4cb7347db2514 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -542,8 +542,25 @@ static void handle___pkvm_host_mkyoung_guest(struct kvm_cpu_context *host_ctxt)
+ static void handle___kvm_adjust_pc(struct kvm_cpu_context *host_ctxt)
+ {
+ 	DECLARE_REG(struct kvm_vcpu *, vcpu, host_ctxt, 1);
++	struct pkvm_hyp_vcpu *hyp_vcpu;
++	struct kvm_vcpu *host_vcpu;
+ 
+-	__kvm_adjust_pc(kern_hyp_va(vcpu));
++	host_vcpu = __get_host_hyp_vcpus(vcpu, &hyp_vcpu);
++	if (host_vcpu) {
++		__kvm_adjust_pc(host_vcpu);
++		return;
++	}
++
++	/*
++	 * With no hyp vCPU loaded for it, the host vCPU may be unpinned,
++	 * and so unmapped at EL2: its first run pins it.
++	 */
++	host_vcpu = kern_hyp_va(vcpu);
++	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
++		return;
++
++	__kvm_adjust_pc(host_vcpu);
++	hyp_unpin_shared_mem(host_vcpu, host_vcpu + 1);
+ }
+ 
+ static void handle___kvm_flush_vm_context(struct kvm_cpu_context *host_ctxt)
 -- 
 2.39.5
 
