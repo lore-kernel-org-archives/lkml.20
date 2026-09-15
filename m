@@ -1,64 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB8A4A4980
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2086E4A4996
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461917; cv=none; b=nNnOiWPUArX5aAqswjGjlUAWGdgbG71GlF/r5+AYggl01UErazZLO4zNSVfkQ8qcug/NZKQ+Nrc2XJbWXzZQ1XAcbuvtp+Z0VAm77T2drZz1jLdQnWDyCGidAeWfS8KN7Q9lhj/8kh945rVFEy9yul3spS7DAfAL5Ebx8Wy/vl0=
+	t=1789461919; cv=none; b=El1nyKArP07m764Vz2la/seHv0uRNdO8lxuLNN0GZMN7a13XwDbHFxj8KNtcnvTA1GTvknMS7b9HKFR4j3jImhap4Esz2Y5mXh5BPC20UIyW3ExbtwzxJ4Ph5hJAQvDrk6SzGo4YAvZ/O/JTRi87xcnjuJ8NEysoCbjWTI0NtVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461917; c=relaxed/simple;
-	bh=voXUBxTQFlhO/ruRKWE/wANERiCFiYTPDr8M0VRsiyU=;
+	s=arc-20240116; t=1789461919; c=relaxed/simple;
+	bh=PEaLbwzOb+goHFxNAABOoR1EIpCElqjGmfdmvML+pNA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nY4ScoUmsCKG+D22ukJ9AUDsZJd5xJGHauQJ06hIhkjiI09bMJSH8MrL+Pdgy4pLS+nhySOuvOfwf5+cpLwybJIcYa3epB5qb/5SYsGMC6JYYaxuNSgnpwCMmMsZJCkxHk8FHEVuMOfIBg9nwlXOLnvCAPR60tSr5x0JgjIF9gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XgIBQw7N; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=H/yAZtxu8VZ1Z5ReeuyLL9r8UpfZlOo0zytd25UYE39xnvAS2J1XTOAWsdB4gbxQbSb4tNwWM5CZmD71rtG1daEgGE1tqCF+1a7a6fU5AMUqf3+YvSTrsTcfIVZojcXcBTnN2UZfxSj8RHXNRe/UV5UneBZ67iWjkzVw6+65nNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QYo+GaH0; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XgIBQw7N"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304784so2610607a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QYo+GaH0"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d249c4so2979623b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789461915; x=1790066715; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789461917; x=1790066717; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=//NjZ5Gv6gZcU0sp0wzzMfVpLXREGk7SX2zQqubPTP4=;
-        b=XgIBQw7NrQdfdiNqgLQyZ6t0FblRM20k5icslBJifLr1P1d9G2JcQKURHIvu4AHmt1
-         1m1XdltiK3clBbP/7QkwlLduV3LwmqMTdaVWXOjVNKjTWpQfmhtBWtqo8ZtsIws+abPn
-         g5Xe86Z5QyqYBEOidBUpixP1+Cn31xBieIRt48IKuErZRThHM4D2wcQ0zmrIi3pJPKY5
-         ymJCU7itIPvUxJCcsfyyQVBcQahFF6doMn8BjMd/XInYazGlt00ROl46E+wAL3ULScGX
-         3jPChS/D+h3zxJC56FVPdXRRYx+rBV9za6hkBOgkiQKTpbw0WIoBGPfGuqSuZeO/LSH/
-         q8Ag==
+        bh=J/ckj+sOUQ60JwxbsOeTuwnrHwCCAW2BGcG7Qvw4jxg=;
+        b=QYo+GaH0TNkXinamNHfXifdyeiKvHjS88dn9R6zyyVtlARsWjdBjm1ADWlcsCW8+9p
+         LPk3efg8iTK11g97oiPk/TailQJ2wqIP5hehbl33Dz76ITHHB9CCKY4tGhjyoABnl7O+
+         kWOQdaad8RtTpUd1qDw+9AWO8IORMrPZLmT0PbP5y6Mh4p4O08ZWUJ6/eXZlB5nfuX1K
+         gqS2pNieCPY7S3BvWx3DS7AIXY/q7Aqn6k8dkYp77ceKJPw7OScMvpq6c+qA/ZBUpXtj
+         vOXebjV18X2xpYsLNKFMewuTeWthXMWr6sHcxIXjqpIhaDeRn1wZVL3uJOXaV1IQxBRg
+         644Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789461915; x=1790066715;
+        d=1e100.net; s=20260707; t=1789461917; x=1790066717;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=//NjZ5Gv6gZcU0sp0wzzMfVpLXREGk7SX2zQqubPTP4=;
-        b=XsvrDbbhA3AL4/Rbp8vRokreYtCotMiRLwUFHYPA1wK+nsLBVDMKPxzvgfVBcydNwx
-         2N+1qreN+p5cWnspTE60/pBR3ndkkxzK8PPVeAHa5Eq8/PcppjmljcgXlwboXDCidJDa
-         ZqdtlEyf+/IIlsJNrrvlFxTc/ETdQbvI7uQTXoM/ILjJ/irsh9o+RcnUVIKcQMiDLWOF
-         DUkZDxZUc6HvkHB6REe1A6h5rdsoC9IxIS6/NOlnZzmLErQS6iFFFd9khwalAEWBtTEq
-         KnaoiPd55iRLWjUIbUhNh5wjhMeBq8WmmUQmDlIgee1dqDsqL0Blu+vFZ2mnhtnlVgG2
-         VMYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxF4O84Wo2F0w5TP6QwS1oTkxQ/1Oat/i36GeXKj/A+gMg8Up4ztC8FF4wJOTIVMg0KsJqMyfTOlwN7eq4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz3TkULgHPZFJ7i/He0chSuNec+OlyxGkGU7BB8AN/WmB6yVAT
-	uJdJQ0YxmFPU3baSLiZPKIZj/LeLT0hTejE1IYrpwVnaMyFbLgrmsUdB
-X-Gm-Gg: AYBFou1e0GOgM7dYTcJWRm1JUytXhM569qMCpeeuwKc6hOsvZqwUezxVDgzvWxgcZSe
-	CXCXgA2TwwvcvKJN3k5Z5n3pk105i1B+qXzy96JnHS7NUup2JrO8/YxSTMweZDB7Wj8PCYUaKyU
-	nX/UJmJpyRKqtE+bN7Rj6ypxXe0dsxrbuHj0/bYWdGmtCqx1Y0oEWG22OBQNzBsEfyNCl7uaxm2
-	7L3N76fZceum+6EnWz4tyGy6NNkI9ujJ/eowmCASADRmq4s/YiaVKrsqSt8sRvkhzv86iwKJAyx
-	8wSn4sbGwvOc7RT7hUHdAh/xFzwhxsMvK/dyZQSK7MsLyZU/eY1juNVEaewbJ1PPQhpMbmFoBnf
-	z88zbH4gJsntNblikob8uvvxb1qdfQflMqxZ0Y9MFghqXlaDP2EnDsbK9E7gNf42Ksk86E7mxhH
-	uDHP+vNnpvqI/nY/PEZuQmm+doifiXr0EJ9UKv5gUt1bFW+7/ncoayK7VBQLTFCBQOvKFu7k5pv
-	ZKb1NXuy1RhLcsyp10+OrgD
-X-Received: by 2002:a17:90a:d610:b0:39d:f06f:79be with SMTP id 98e67ed59e1d1-39df06f80c8mr13101038a91.15.1789461914624;
-        Tue, 15 Sep 2026 01:45:14 -0700 (PDT)
+        bh=J/ckj+sOUQ60JwxbsOeTuwnrHwCCAW2BGcG7Qvw4jxg=;
+        b=q/lrCYccx3P0NGcqUsptIh+uW2RohPqwIB3jaCbGkTJNBYFtV3p+Hrxd6+g/L3+yYS
+         i+2wLzxbWoc3z6uniFvGVUuItlSkUZSMpnee6j6Fe6QeIdR2uyTaGfgXlesqE5X4w4n2
+         yoPYF9wS3vTlLCs9/4jL/HPEEasRLEqdaNmZu0feFeiCyN4l6u0T6FFeNSW2nhFjbyX4
+         cUrnngblu1RAQH/7URkajMGObVl86QwG/OEJA0lDM3aQo+R/sjTaSuTMLyhYe4h6kpHw
+         U5vH3QnsCy4sMWA2PUZZYiKwgBgC3B2RhLxyC4VhZCiZuOK30O4+lq6V+ppq2Ajxyw8p
+         ArRA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqpe4z75tFUpENikPLMa0GUCDn7lh7LW4clwEvsjhGMA63+CleTudgPwtX4vKILNmY9eer8jwhZzVPyI0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDCgi0jVblbGhvKwScrn6ShXX9WS2BzSsOMc3RyK00F/XGvsn7
+	HLftIV7FgExMLsfQR2SZRRYsXOaylRMad7wbeGOhpHJyp1bi08n2ZPcA
+X-Gm-Gg: AYBFou1GX404gHB1usuI5bk/+FNPlZ8KlqJW3xxiUixG5KO4AA6idAzazrBRNK67TJZ
+	xJjkSVcr2nFwlrid7wx1a9oZPVaVNMJ+Zg6xvXG2niIRtBrxL5gU2DryAtYrTaIaLy6RZh5rUvj
+	jfcl6VqNK0K09joVEJabAFKze4Rmb9x8Mm9G7YbKxd8PwX70Q1iQtnBbVWQf5zRxVtYScadetv6
+	LB7KCyPS3ex6Ad+rJH0cYgmKm8BraliPfvgmPQEmFaop+gZm2Hrihc6Hfp6BzqtZJVfePBXyG1m
+	9hpliZdnNVquyAWM/FM3KatgB03lz3pGzTki8cnDd+hDM5eYgtlMvfSPwGp5tHdHrMOeCZvonMU
+	sNrFl+z8BwN5/zsXKpnP9KR+BMBBVzup0dBl38nkl9g+oZUSCHBcpHTHIIDeYKmf0RDxsuQH5DQ
+	NreLxzZLht5Zp6JKJSl+xIn4rbY2C00/4wlU9Tc8ygooCxZFtZokGGrMFMNQ7yMkklhJqwFycOw
+	OQr929cWybx/B7crIyFnM+G3A==
+X-Received: by 2002:a05:6a21:1518:b0:3d0:88f5:f806 with SMTP id adf61e73a8af0-3db40521dc6mr13468678637.15.1789461917459;
+        Tue, 15 Sep 2026 01:45:17 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm34718935eec.3.2026.09.15.01.45.12
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm34718935eec.3.2026.09.15.01.45.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:45:14 -0700 (PDT)
+        Tue, 15 Sep 2026 01:45:17 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Takashi Iwai <tiwai@suse.com>,
 	Jaroslav Kysela <perex@perex.cz>
@@ -66,9 +66,9 @@ Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
 	Clemens Ladisch <clemens@ladisch.de>
-Subject: [PATCH v2 16/23] ALSA: echoaudio: fix typos in comments
-Date: Tue, 15 Sep 2026 14:14:17 +0530
-Message-ID: <20260915084424.1007757-17-hemanth.selam@gmail.com>
+Subject: [PATCH v2 17/23] ALSA: lx6464es: fix typos in comments
+Date: Tue, 15 Sep 2026 14:14:18 +0530
+Message-ID: <20260915084424.1007757-18-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260915084424.1007757-1-hemanth.selam@gmail.com>
 References: <20260915084424.1007757-1-hemanth.selam@gmail.com>
@@ -84,47 +84,36 @@ Correct spelling mistakes in comments. No functional change.
 
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- sound/pci/echoaudio/echoaudio.c | 4 ++--
- sound/pci/echoaudio/echoaudio.h | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ sound/pci/lx6464es/lx_core.c | 2 +-
+ sound/pci/lx6464es/lx_defs.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
-index 214d68657707..8b4637231deb 100644
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -270,7 +270,7 @@ static int pcm_open(struct snd_pcm_substream *substream,
- 		return -ENOMEM;
- 	pipe->index = -1;		/* Not configured yet */
+diff --git a/sound/pci/lx6464es/lx_core.c b/sound/pci/lx6464es/lx_core.c
+index 9909f1067871..ae265dd19333 100644
+--- a/sound/pci/lx6464es/lx_core.c
++++ b/sound/pci/lx6464es/lx_core.c
+@@ -364,7 +364,7 @@ int lx_dsp_get_mac(struct lx6464es *chip)
+ 	macmsb = lx_dsp_reg_read(chip, eReg_ADMACESMSB) & 0x00FFFFFF;
+ 	maclsb = lx_dsp_reg_read(chip, eReg_ADMACESLSB) & 0x00FFFFFF;
  
--	/* Set up hw capabilities and contraints */
-+	/* Set up hw capabilities and constraints */
- 	memcpy(&pipe->hw, &pcm_hardware_skel, sizeof(struct snd_pcm_hardware));
- 	dev_dbg(chip->card->dev, "max_channels=%d\n", max_channels);
- 	pipe->constr.list = channels_list;
-@@ -1720,7 +1720,7 @@ static const struct snd_kcontrol_new snd_echo_vumeters = {
+-	/* todo: endianess handling */
++	/* todo: endianness handling */
+ 	chip->mac_address[5] = ((u8 *)(&maclsb))[0];
+ 	chip->mac_address[4] = ((u8 *)(&maclsb))[1];
+ 	chip->mac_address[3] = ((u8 *)(&maclsb))[2];
+diff --git a/sound/pci/lx6464es/lx_defs.h b/sound/pci/lx6464es/lx_defs.h
+index eca5367ba561..89e433d3f7a2 100644
+--- a/sound/pci/lx6464es/lx_defs.h
++++ b/sound/pci/lx6464es/lx_defs.h
+@@ -315,7 +315,7 @@ enum stream_flags {
+ #define ED_XILINX_ERROR                 (ED_RT | 0x07)
+ #define ED_COBRANET_ITF_NOT_RESPONDING  (ED_RT | 0x08)
  
- 
- 
--/*** Channels info - it exports informations about the number of channels ***/
-+/*** Channels info - it exports information about the number of channels ***/
- static int snd_echo_channels_info_info(struct snd_kcontrol *kcontrol,
- 				       struct snd_ctl_elem_info *uinfo)
- {
-diff --git a/sound/pci/echoaudio/echoaudio.h b/sound/pci/echoaudio/echoaudio.h
-index 7a5744bf3155..ac4507b7cc78 100644
---- a/sound/pci/echoaudio/echoaudio.h
-+++ b/sound/pci/echoaudio/echoaudio.h
-@@ -394,8 +394,8 @@ struct echoaudio {
- 
- 	u16 digital_modes;		/* Bitmask of supported modes
- 					 * (see ECHOCAPS_HAS_DIGITAL_MODE_*) */
--	u16 input_clock_types;		/* Suppoted input clock types */
--	u16 output_clock_types;		/* Suppoted output clock types -
-+	u16 input_clock_types;		/* Supported input clock types */
-+	u16 output_clock_types;		/* Supported output clock types -
- 					 * Layla20 only */
- 	u16 device_id, subdevice_id;
- 	u16 *dsp_code;			/* Current DSP code loaded,
+-/* Complete BOARD error code for the invaid standard object class */
++/* Complete BOARD error code for the invalid standard object class */
+ #define EB_ISO          (ERROR_VALUE | E_SOURCE_BOARD | \
+ 			 E_CLASS_INVALID_STD_OBJECT)
+ #define EB_INVALID_EFFECT               (EB_ISO | 0x00)
 -- 
 2.48.1
 
