@@ -1,186 +1,164 @@
-Received: from mta0.migadu.com (out-167.mta0.migadu.com [91.218.175.167])
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BAFF43E9F9
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.167
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451297; cv=none; b=H85GlBXf3TC/AHHTDkZktbk+qy3Tubbi/aBzXBEDlv510ovvGch6Vmah4GLVNsaUAIP0w339TLoHQxPh4yPzaujEgSuTJECnJ9+tn3djvwiHRf+UNrWWXtpspMnynN0a0681xq8vS56heMcLbIhcD7k7h+u8JV169DWDrCLgPsE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451297; c=relaxed/simple;
-	bh=1SMCEB2g0ru+dqQbzOuDzgyYF3rYputEIdw/bgUlvZg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OOTWJ8VwaiBtTBiu2F5g3MOUa8/ECH2ZLmGSNjqNpy6l8wLx3CMQrBTLObZQPhrhrx1DD9nDXelkB8KGP9Jstv929XKOR6KEvludQLpAkb2HjJv2jBz6RZxLYFIffnrA+udqx/EtClTtwHtuVnsvb/ujEftBJjGjTRd4Ie1EtWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P0N2JM8j; arc=none smtp.client-ip=91.218.175.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D4C43F8AE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789451303; cv=pass; b=TSgT7bJMcCdkXnlbNK1hBAXKf80A25eXBE+Il+Kpb/yAi8/eXR/YajTKwfJ8VMdIGCg17uHGoDgHCT2f6iMuSNTZThMhmnnvfX15u5eQ+0PlNDf9AykkwfaBUQOZTxRrxhG+KLKkIDE3Jj5TWMUudeqPUd3l1oRgBdlxWEHZsV0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789451303; c=relaxed/simple;
+	bh=+P5PG32j/Of8TX5DMyOrie2c8vQ4azM+ufsi5mmU/uA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=I7srDq9G0XhHpUijFvUxu4JSGLx6HNEG+gJpofiBjnyMbhKxGwYA2AcPk1rZYuiV7tzE1fGTLehJm9VSjw3aVNVQx1uUUk4SGItHUd/7pVjNcn7mFq6Z2RvVha66o5WpgeARkbAvmIGvzw0izy5JOo7XDSuF40hsWyJ0ng1D4C0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TKiNYQh5; arc=pass smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P0N2JM8j"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1SMCEB2g0ru+dqQbzOuDzgyYF3rYputEIdw/bgUlvZg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789451292; v=1; x=1790056092;
- b=P0N2JM8jBAMAw6rEN9c03+yVfqQ0gHCf9zJCW4aiHnxNmCBMZkivhfBHad5/qSSnJgaYU5EO
- Pf6qio/eXiBcPLnZUuBtSf91txLIS28C+SKkOePm5xfspolIkq0vY8RXmF6fVxVBAOVTD7Qhz82
- iLnRyJjETaAs+CYesPH4trHs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 789024df115dfd94;
-	Tue, 15 Sep 2026 05:48:11 +0000
-X-Mizu-Trace-ID: 789024df115dfd94
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 15 Sep 2026 13:48:05 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>,
-	Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <ryncsn@gmail.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <aqjcFb6MFNiA6n4V@fedora>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora>
- <aqLZ5TVDAqEbIeMN@linux.dev>
- <aqP81aqNbwAbs2P0@fedora>
- <aqQrPLPXHXiuKup0@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TKiNYQh5"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b8b3c8c4bbso137379e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:48:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789451298; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ICqodY/t+pRJYwD3DyZAjbYcJJpFMvCt1bzlNxA8arD3afv4fLpZfgkPJPf87t/gn6
+         amcutRw3DDHuQYGZuRLRbdyn7xAZc32IDPrz2Ko2DHUdFrMIwUeUJi6rTebyR3k3+49D
+         S0aENg0V2EBCyl8jzI+ZEAsiMEmscFwgQcoK07cc0/pSVRpSgPxqWqxd1tbT84d+zu1D
+         VbDARjzldlJ1ESODnRSwF5mbv/ly8Wle1mAjQiMu5EUEDHrbNEZprOyjWS+UtuXNjcgt
+         SPnlwNkSOipfacTzpsrCkUl7tXvEZAIVGcOqDU5Y2KMj/3fIrRHkxhrqy3n2npCYNIJK
+         XAPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AR6GwgJ16RrWX9JH4eaeCDVCKlN9ZYf1vr6arYzModk=;
+        fh=GhG6wZaGzuZhZ5YdwqfV19jXHFZIFO5yAmhcPlYP5pE=;
+        b=WKKIdS7fGxuUOmDYOU71B4zxIigU3hhiB0B/1kNnJgf38X/f24VxVML9xJ36/iN1uO
+         jl6ES3We72WJS4N5FNPORLUUyl+zTKZQAK25E3yBBxgiRMhCo8BAxmXSnP5Wxs6h1KZC
+         nMjtZFS448onNIvRMS+m19cflryXmhk8qZImjviBXPHZAxFgJkI5dfOyzDZggs/6nVQ7
+         WSWZdBX9pGu1gaNCqMXf0oxRi3wDNWDEvQF0ylHVFtFNqKyvrWL0J88tJ3hugz9Mg472
+         0bzVBFv8kw7kYpJ01XsifQjGL/B6OA4grYH7Gu6AUvJkVIPeouTNxfKL8OVdRG09S/Hh
+         vTbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789451298; x=1790056098; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AR6GwgJ16RrWX9JH4eaeCDVCKlN9ZYf1vr6arYzModk=;
+        b=TKiNYQh5EERCGnymn9kbwvRsRSVVSIFDzl5qgqExmJ7nBdrR0geBZoVa3WAJBDZP/M
+         79EW36akUssHKkxZPvnWY25iQetV5ObqWEMK7DCEzv9ysDbfUCP9QIB6vp0RAGNqRdqb
+         mPpQXv/JPWWRgjqRGIAai6Cx9cqRrh8eMEDLCxSjM7vg824tOGxQ7Ep6W0YsuXYiGJfO
+         wpF1F5f38mJo/5PTzRVxNWOjifweD6Rm/4dyBeC5Aps6LiPrWJePIZXpbZcFd9B0MPyi
+         WCZq3hHIsZ4zTCAXuiVGb0UCVdCq3U8xqRxXobG5mFgfVEVisDvutpTVS9as5aYW6fry
+         kynw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789451298; x=1790056098;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AR6GwgJ16RrWX9JH4eaeCDVCKlN9ZYf1vr6arYzModk=;
+        b=tscfH4xJwu7kdFGFnfydGhnuck47N67zbxP1ryhcr1MWl2Qs+i1LbNu4UC/NJeRoz4
+         73+JpoU1nzuhvbLwQjtlc4Oi3qTWgoi6UxxLu6xxASfMVK1wY7aZ6m4w3vMUcNgph1wE
+         yB0h0ciNoOfoEXXXN70Cf3kTejkaZad8oiQVfLhL6T1PNIWKW6HvIRnuMKaFieXn4S0X
+         DZdmKU8jqbp5YH5sckxZkdAmrMYnMLuTLvFn5kyAwefnKyidd7b/qB08ngW68oYqvojq
+         WFuqXfdJd6CPN5btvZXZ4ij605E1ayDls86fQ9UNIMfsHLeTCCPyu6HfVjY72O+354gh
+         nekA==
+X-Forwarded-Encrypted: i=1; AKwUvBzlSoS/5SNn62oK0jh04BgB3ogFrm+WP6dyXqNVhToCeyUeJUyS/7GtPhQFJQCC2DhVyp23wq088kBwRWE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAM+ukbVAGPLheOi0PnsvPx4kq3gTvPwlxwGJdIQpNDZgask+A
+	KdB+kQ+ym/SjJZSPdyKzsp23siQzv7VjzVSnTcjmUv+PUY/S1aySjjzYnwzquGh7GHG14s3CEsx
+	flMMdzRQnMD9VEmo7spHM6FkIUfcv/xc=
+X-Gm-Gg: AYBFou3tm4NjPS/M8MUNq1iRnmMgmIsVRczuAiLp61QS6KCzmIFLUhF7slrfp5X8Eyf
+	zjgfMH557H/sM6VBnpgttKT0AKqr1U4js0x3mcbyXtYFoKPtQrP55DSoCZYi2fps3IA0z2tNxJU
+	0N9B4xk+zjuKFdL+brmOnePuzwu/ucojgc0vZo09A+juKl/BHqc8Vx6OJflIuibmTlKhskspyNj
+	J8NgMZn2M0gbSzuVXsbaUhDBI/HYT9Cd2Z48lqjBvQExd9HPpGNx073oDWXW0O0Uh9NZ7xIlgDf
+	2hYXFaSS79ciUtQudhMoXjd3IfMoo+tp6MS7ZRVwzBMgjSCST6iAUAY2sruRdKPpIqZVCiNpFMA
+	nAY7GOk1sk5+M
+X-Received: by 2002:a05:6512:2343:b0:5b6:199d:c1c6 with SMTP id
+ 2adb3069b0e04-5b8b2ab7ac5mr522710e87.37.1789451298220; Mon, 14 Sep 2026
+ 22:48:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqQrPLPXHXiuKup0@linux.dev>
+References: <20260914054926.78808-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260914054926.78808-1-zenghongling@kylinos.cn>
+From: Hyunchul Lee <hyc.lee@gmail.com>
+Date: Tue, 15 Sep 2026 14:48:05 +0900
+X-Gm-Features: AcwNN1VcPq2i5E7Xg8O4s4W6KObdRjVNIhTfdG84OREbQW1Cb8as5dB4qcgIcec
+Message-ID: <CANFS6bZi+Nsrieh1M1sxwc7SPyjy8xx9KJcfUQdctsUrYrQedQ@mail.gmail.com>
+Subject: Re: [PATCH v11 0/6] ntfs: fix volume flag races and persist the
+ recorded error state
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 09/11/26 at 09:45am, Shakeel Butt wrote:
-> On Fri, Sep 11, 2026 at 09:06:29PM +0800, Baoquan He wrote:
-> > On 09/10/26 at 09:39am, Shakeel Butt wrote:
-> > > On Thu, Sep 10, 2026 at 03:09:59PM +0800, Baoquan He wrote:
-> > > > Hi Nhat,
-> > > > 
-> > > > On 09/04/26 at 02:14pm, Nhat Pham wrote:
-> > > > .....snip...
-> > > 
-> > > [...]
-> > > 
-> > > > With VM_SPARSE, xswap's cluster access is exactly the plain-array line the
-> > > > rest of swap already uses:
-> > > > 
-> > > >     return &si->cluster_info[offset / SWAPFILE_CLUSTER];
-> > > > 
-> > > > no branch, no RCU discipline, no tear-down state machine, and no NULL
-> > > > return. So VM_SPARSE doesn't add complexity to close a gap; it lets the
-> > > > cluster layer stay as simple as it already is, which is precisely the
-> > > > part later work (writeback, rmap lookup, memcg charging, THP) has to sit
-> > > > on.
-> > > > 
-> > > > I'm not going to claim xswap wins on throughput. I measured it:
-> > > > on a 64G/64-thread swapout, xswap, vswap and plain swap+zswap are all
-> > > > within ~2-3% of each other, effectively identical. 
-> > > 
-> > > So the claim is VM_SPARSE is simpler than xarray based approach. I feel like
-> > > we are discussing implementation details before deciding the design and
-> > > architecture. So, instead of VM_SPARSE vs xarray, let's discuss and decide the
-> > > need for dynamic growth. Why we want dynamic growth upfront or can it be added
-> > > later? Once we decide that then it will be very easy to pick an implementation
-> > > that would take us there.
-> > 
-> > Hi Shakeel,
-> > 
-> > Thank you for joining the discussion and for taking the time to comment.
-> 
-> Hi Baoquan,
-> 
-> I am mainly trying to facilitate the discussion but your use of LLM is causing
-> more confusion. LLM use is fine but please at least re-read before sending that
-> the sentences flow and makes sense.
+Hi Hongling,
 
-Sorry, my bad. I used LLM to find Nhat's words. But I did check it by
-myself. I wrote most of them by myself. While at it ath the moment, my
-logic could be unclear.
+Thank you, and this patch set looks good to me.
 
-As said, how swap_cluster_info[] is built is the foundation. Whatever
-you do, you have to make swap_cluster_info[] ready, then you can do
-writeback, rmap lookup, thp support, etc, on top of it.
-swap_cluster_info[] is the basement, then you continue building 2nd
-floor, 3rd floor, till a high building is done with things added. Nobody
-wants to claim he just need the high building, while no basement.
+As a follow up, it would be useful to discuss making volume dirty
+when an RW mount is established and clearing it only after a clean
+unmount.
 
-Now, the foundation has been built with the lazy vmalloc, it can grow on
-demand. It keeps swap_cluster_info accessing as swap_cluster_info[],
-a basic array semantics. And since we our target is to support a very
-large swap device with an extendable logical space, grow on demand and
-shrink becomes important. Now it is there.
+The current implementation still has a window where metadata
+changes may be written while the on-disk volume flag is still
+clean, and also does not clear the dirty volume for sync(2).
 
-That's my understanding, not sure if there's anything I can't get so
-that writeback need be made first.
+2026=EB=85=84 9=EC=9B=94 14=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 2:49, H=
+ongling Zeng <zenghongling@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
+:
+>
+> The fs/ntfs runtime metadata-corruption paths only record the in-memory
+> NVolErrors() flag, and the caller-side dirty-bit marking races with
+> ntfs_sync_fs(): a volume can end up with a clean on-disk dirty flag
+> despite modification or recorded corruption, so chkdsk never runs on
+> the next mount.  Based on ntfs/ntfs-next (9a05b5715cfa).
+>
+>  1/4 makes the volume flag read-modify-write atomic under the
+>     $Volume mrec_lock;
+>  2/4 marks the volume dirty unconditionally on metadata changes,
+>     dropping the racy caller-side checks in file.c and namei.c;
+>  3/4 derives the on-disk dirty bit from the recorded error state at
+>     the persistence points (sync_fs, remount-ro, put_super) and never
+>     writes a hibernated volume;
+>  4/4 persists the dirty state after the final put_super() commits so
+>     late errors cannot unmount clean.
+>
+> Changes in v11:
+>
+> - Add 5/6: Stop clearing VOLUME_IS_DIRTY during sync. The bit is now
+>   cleared only on remount to read-only or clean unmount, preventing a
+>   crash during metadata updates from bypassing chkdsk. Verified in QEMU.
+>
+> - Add 6/6: Check commit and flush errors during remount and unmount.
+>   Re-check NInoDirty() after __ntfs_write_inode(). A failed remount is
+>   rejected so unmount can retry; unmount failures are reported as warning=
+s.
+>
+>
+> Hongling Zeng (4):
+>   ntfs: fix volume flag update races
+>   ntfs: set the volume dirty bit unconditionally on metadata changes
+>   ntfs: sync the volume dirty bit with the recorded error state
+>   ntfs: persist the dirty state after the final put_super() commits
+>
+>  fs/ntfs/file.c   |  20 ++---
+>  fs/ntfs/namei.c  |  24 ++----
+>  fs/ntfs/ntfs.h   |   1 -
+>  fs/ntfs/super.c  | 191 ++++++++++++++++++++++++++++++++++++-----------
+>  fs/ntfs/volume.h |   4 +
+>  5 files changed, 171 insertions(+), 69 deletions(-)
+>
+> --
+> 2.25.1
+>
 
-[I type each of above by hand.]
-> 
-> > 
-> > Agreed on requirement first - but this one was already decided, and not by me. In
-> > the July ghost swapfile thread Nhat rejected exactly the shape of "grow only, can
-> > be added later":
-> > 
-> >     "Except for my virtual swap design, which does support dynamic growth AND
-> >      shrinking of capacity on demand ;) If it cannot grow (and furthermore, if it
-> >      requires userspace operation to trigger swapfile growth), why do we need this
-> >      at all? Might as well create a new swapfile with swapon?"
-> > 
-> > To me what it converged on was "dynamic growth and shrink, no writeback yet".
-> 
-> I am not getting how out of context above paragraph shows the conclusion about
-> dynamic growth/shrink and *no writeback*.
-> 
-> > So automatic growth *and* shrink is the requirement, and the simpler alternative
-> > was already on the table.
-> > 
-> > And I keep mentioning it in the cover-letter of each version of my posting. I
-> > only did the foundtation via lazy vmalloc. And Nhat will do the core
-> > part including writabck, rmap lookup, memcg accounting, zero page fill,
-> > etc.
-> 
-> I don't see any evidense of this decision. Actually this whole email thread
-> shows that there is no such decision.
-> 
-> > 
-> > What is still genuinely open, and I would like us to settle, is how large the
-> > device's address space should be, because the metadata scales with it:
-> 
-> With dynamic growth/shrink, is this really a blocker?
-> 
-> Anyways, I will let Nhat and others discuss the technical details (unless I am
-> asked for it). My main reason to join the conversation is to converge the
-> discussion to a decision and resolution.
+
+--=20
+Thanks,
+Hyunchul
