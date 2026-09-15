@@ -1,91 +1,173 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DD24A4F17;
-	Tue, 15 Sep 2026 11:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16494A5EC5;
+	Tue, 15 Sep 2026 11:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472877; cv=none; b=R0yhiHwT5Kz9MYk5iGKoefNFDgdb1U8htdyV0isHsPdbMPdxuzcdhtoLDM77tfKPDQP/0Kk6XSjfBfrOXkJRH34+LlUMHuVhWlDVV6NsolBF8ttc/6MkAGxkGK/UbZE7+sNFKSSq6DgzJ2cGM2rPZDehMsF0HEvlHAhBvvQjREE=
+	t=1789472879; cv=none; b=es5UM8rIvXWSTPsqlFwskTnJO8POaFzE4GMwMZtu8B8rvYq0ROgqPWm/W0KaP8aH5ZX1gNO6ae0QycMUM0oRRKyIA9vMz28qTtNuXfT1zkM1req9URoenCd8X0eXibz74nzGkw3s+9d8RGu6zkGzlQW7Lc0MzNs7AjhCBsFXwSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472877; c=relaxed/simple;
-	bh=31EFcyYjcOudZU20mM+t3o/xEbo5l4Z7/cG7UbcK0H0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FkB0DMgZVD5BR2gD1QZcZ72QIL8njPTINPxXG1LbTXyrvXoT+lc61Lz2N5dHV3w+YxKCkTtTd7/7oKzIcCIzM45NeCNs71bEcC4M6sZbOPffwcSWifQgZqeNttF4LBHJo+3EbE5xtqlHIaprz/h2U2/b5IVEEk9fus9Y3+JAG4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1x6Rdd-000000007qj-3QQb;
-	Tue, 15 Sep 2026 11:47:49 +0000
-Date: Tue, 15 Sep 2026 12:47:45 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, dqfext@gmail.com, SkyLake.Huang@mediatek.com,
-	andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: Re: [PATCH v5 net-next] net: phy: mediatek: support MT7530 PHYs on
- EN71221 MCM
-Message-ID: <aqkwYd5dTmHDCIW9@makrotopia.org>
-References: <20260915113427.113296-1-cjd@cjdns.fr>
+	s=arc-20240116; t=1789472879; c=relaxed/simple;
+	bh=wUF9aZWKc7qyKfa/9mVie/183gjEweGPJy5lLYTRj8A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fbDe5PMUbM7wYn2i5XhUi86XgdzNZjKzEqwxrZd9ZhtvOlDT+/V6gyWTw4bJAy1RlgymZOeLARLFXItdiXSTxdXcdXiu2+okRVZwJBKUXOuahtlH4gIFNGFUL6+KElU0J3RLu75I5NkFBSn84xZ17RwKWEhvTY/0dRZkEx31GJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XRVqwqAo; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRVqwqAo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8743B1F00893;
+	Tue, 15 Sep 2026 11:47:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789472877;
+	bh=aEhGxiVI9MqkY+MpF6UTuDKy8oADsqwRC2p2IOUycbg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XRVqwqAoiJBynbec+bD/X/FLAt0hppO7CEScrwXgLI3qs+4wWuXs2BSudTgF4jP1A
+	 Xw273si+5NNLR4obu+n/E5erlQjPlEa+zodG3uMwCWvPCMApoYBlD/lK3sgWcMtizj
+	 TFNyeOlMq864Cle+Bxku8L2CFqgYMrG9SXfJD7OFt9ihNRLnG3zVIInVenxpU5K+i+
+	 RxnXaD7Phbrjb/17Y2UUmU4Tnoon4eB5WfZGay0XttpzQr0hdrKmU7Kjwb7OKJ+vbt
+	 0Eyc+Wf7PAZllSHaKvI2Oy3y4BO2hB30lxzqmGT6ObRoBvbF/vpy9kwmY0fNlsXmXA
+	 F6vUyyUFTANBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 4/9] coresight: etm3x: fix inconsistencies with
+ sysfs configuration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yeoreum Yun" <yeoreum.yun@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+In-Reply-To: <20260915-separate_etm_cfg_v2-v11-4-d2b258d51747@arm.com>
+References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
+ <20260915-separate_etm_cfg_v2-v11-4-d2b258d51747@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 11:47:57 +0000
+Message-Id: <20260915114757.8743B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915113427.113296-1-cjd@cjdns.fr>
 
-On Tue, Sep 15, 2026 at 11:34:27AM +0000, Caleb James DeLisle wrote:
-> [...]
-> +/*
-> + * MTK_GPHY_ID_MT7530 ID is also used for an EcoNet SoC FE phy, but that PHY
-> + * does not advertise ESTATUS_1000_TFULL.
-> + */
-> +static bool mt7530_is_gphy(struct phy_device *phydev)
-> +{
-> +	return phydev->phy_id == MTK_GPHY_ID_MT7530 &&
-> +	       (phy_read(phydev, MII_ESTATUS) & ESTATUS_1000_TFULL) != 0;
-> +}
-> +
-> +static int mt7530_phy_match(struct phy_device *phydev,
-> +			    const struct phy_driver *phydrv)
-> +{
-> +	return mt7530_is_gphy(phydev) && !en751221_is_mcm_phy(phydev);
-> +}
-> +
-> +static int en751221_phy_match(struct phy_device *phydev,
-> +			      const struct phy_driver *phydrv)
-> +{
-> +	return mt7530_is_gphy(phydev) && en751221_is_mcm_phy(phydev);
-> +}
-> +
->  static int mt7531_phy_config_init(struct phy_device *phydev)
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] coresight: TOCTOU race in sysfs read paths exposes powered-down =
+hardware
+- [Low] coresight: benign data race on config->cntr_idx in cntr_val_show
+--
+
+commit 7fbfa36b293dee9eea85d0d29da9faaa208abb46
+Author: Yeoreum Yun <yeoreum.yun@arm.com>
+
+coresight: etm3x: fix inconsistencies with sysfs configuration
+
+This commit splits the sysfs configuration into active and mode
+configurations to fix inconsistencies during active perf sessions. It also
+avoids locking around some sysfs paths and uses IPIs to read registers
+directly on the appropriate CPUs to reduce lock scopes.
+
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers=
+/hwtracing/coresight/coresight-etm3x-core.c
+> index 862ad0786699c..fd76a57e5f861 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+[ ... ]
+> @@ -630,8 +632,9 @@ static void etm_disable_perf(struct coresight_device =
+*csdev)
+>  static void etm_disable_sysfs(struct coresight_device *csdev)
 >  {
->  	mtk_gephy_config_init(phydev);
-> @@ -135,6 +199,23 @@ static struct phy_driver mtk_gephy_driver[] = {
->  		 */
->  		.config_intr	= genphy_no_config_intr,
->  		.handle_interrupt = genphy_handle_interrupt_no_ack,
-> +		.match_phy_device = mt7530_phy_match,
-> +		.suspend	= genphy_suspend,
-> +		.resume		= genphy_resume,
-> +		.read_page	= mtk_phy_read_page,
-> +		.write_page	= mtk_phy_write_page,
-> +	},
-> +	{
-> +		PHY_ID_MATCH_EXACT(MTK_GPHY_ID_MT7530),
+>  	struct etm_drvdata *drvdata =3D dev_get_drvdata(csdev->dev.parent);
+> -
+> -	spin_lock(&drvdata->spinlock);
+> +	struct etm_config *config =3D &drvdata->config;
+> +	const struct etm_config *active_config =3D &drvdata->active_config;
+> +	int i;
+> =20
+>  	/*
+>  	 * Executing etm_disable_hw on the cpu whose ETM is being disabled
+> @@ -640,7 +643,14 @@ static void etm_disable_sysfs(struct coresight_devic=
+e *csdev)
+>  	smp_call_function_single(drvdata->cpu, etm_disable_sysfs_smp_call,
+>  				 drvdata, 1);
+> =20
 
-I'd suggest to actually use phy_id and phy_id_mask assigned by the
-PHY_ID_MATCH_EXACT macro by calling genphy_match_phy_device() in your
-match functions above instead of open-coding the ID match.
-Or drop PHY_ID_MATCH_EXACT from *both* drivers.
+[Severity: Medium]
+When thread A disables tracing via etm_disable_sysfs(), it sends an IPI to
+power down the hardware here. Could a concurrent reader (like Thread B in
+cntr_val_show()) see the mode still set to CS_MODE_SYSFS, and issue its own
+IPI to read the hardware? Since the hardware is already powered down by
+Thread A's IPI, Thread B might read a stale or garbage value instead of the
+correctly saved trace state, breaking post-trace analysis.
+
+> -	spin_unlock(&drvdata->spinlock);
+> +	/*
+> +	 * Userspace may read seq_curr_state and cntr_val through sysfs
+> +	 * after the sysfs-session has been disabled.
+> +	 */
+> +	for (i =3D 0; i < drvdata->nr_cntr; i++)
+> +		config->cntr_val[i] =3D active_config->cntr_val[i];
+> +
+> +	config->seq_curr_state =3D active_config->seq_curr_state;
+> =20
+>  	/*
+>  	 * we only release trace IDs when resetting sysfs.
+> @@ -649,6 +659,8 @@ static void etm_disable_sysfs(struct coresight_device=
+ *csdev)
+>  	 * prior trace id allocation method
+>  	 */
+> =20
+> +	coresight_set_mode(drvdata->csdev, CS_MODE_DISABLED);
+
+[Severity: Medium]
+The software state is updated here, creating a race window between the
+hardware disable above and the mode update here where the hardware is off b=
+ut
+the mode is still CS_MODE_SYSFS. A similar window exists during
+etm_enable_sysfs().
+
+> +
+>  	dev_dbg(&csdev->dev, "ETM tracing disabled\n");
+>  }
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/driver=
+s/hwtracing/coresight/coresight-etm3x-sysfs.c
+> index d4846d6364945..2c8c129228589 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+[ ... ]
+> @@ -719,7 +752,9 @@ static DEVICE_ATTR_RW(cntr_rld_event);
+>  static ssize_t cntr_val_show(struct device *dev,
+>  			     struct device_attribute *attr, char *buf)
+>  {
+> +	int ret;
+>  	u32 val;
+> +	unsigned long val2;
+>  	struct etm_drvdata *drvdata =3D dev_get_drvdata(dev->parent);
+>  	struct etm_config *config =3D &drvdata->config;
+> =20
+> @@ -728,7 +763,10 @@ static ssize_t cntr_val_show(struct device *dev,
+>  		val =3D config->cntr_val[config->cntr_idx];
+>  		spin_unlock(&drvdata->spinlock);
+>  	} else {
+> -		val =3D etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
+> +		ret =3D etm_readl_cslocked(drvdata, ETMCNTVRn(config->cntr_idx), &val2=
+);
+
+[Severity: Low]
+Does reading config->cntr_idx without locking here create a data race? It
+appears it can race with concurrent updates in cntr_idx_store(). While this
+is likely benign since it is an 8-bit integer and bounded by
+cntr_idx_store(), preventing out-of-bounds access, could it still trigger
+sanitizer warnings when accessed by authorized users?
+
+[Severity: Medium]
+This reader accesses the hardware assuming it is active, based on a lockless
+mode check in the if condition. If this races with etm_disable_sysfs()
+powering down the hardware before the mode is updated to CS_MODE_DISABLED,
+could this read return garbage values?
+
+> +		if (ret)
+> +			return ret;
+> +		val =3D val2;
+>  	}
+> =20
+>  	return sysfs_emit(buf, "%#x\n", val);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-separate_e=
+tm_cfg_v2-v11-0-d2b258d51747@arm.com?part=3D4
