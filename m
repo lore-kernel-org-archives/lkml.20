@@ -1,125 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B86367B6F;
-	Tue, 15 Sep 2026 14:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1771366542;
+	Tue, 15 Sep 2026 14:11:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481458; cv=none; b=Dt2m3xPwWrs43/V+a0Kbf1gAY2spKZR43UyUnAAgpHZ15wZ7TNzXHAAcKUSLeic3fG/JKRYUiK66AJ384mHGcV91nuoeSQPZ8KDoHkPxqshauajsSnjR6oYYLWoqIUhJJdjOFY74Wy3o06WeIbxPRfM3PI/mFpHlNL49T9neD+Q=
+	t=1789481484; cv=none; b=sYNBIMrm/NqC0DLvLGbhdl6BJp+OcPHKpM60AmfX4+tkGjSRD0zNYxm2sq8yg0GKGK8abPQLPHte/FiyEwXhy6JTn9l8mk6XcxWsaDFzagOfdhrfs2/GqvKO6RId9fCpCvGVm3f7topcI1kDm3VTouXeupkgbhCCfzgUGfD0mZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481458; c=relaxed/simple;
-	bh=WgbaSjwYxvFVTQ4/3kyH9BX4CGx7OxX5Tfp0LUYeq+c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lmhb3Uc1jGk6+Hvr9RLRBuJSinnkR6wCR4ls7DOc+ZSaCPS2mTLGHzXm63d4eMAe/1oy/bCwbB45S0WUYXNSV2M5m+fJbdNXUTemp5Omqv1ZN1mlzGBrYx073x91VOU+B/cksLV5ify9csgFUut8IiXNJl4UsQMHGT2jiG66xxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtH4RCPA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789481484; c=relaxed/simple;
+	bh=zTmABsZ2slNTNTqR5g2nelZscwg4Mg0EJTyMFrNzVrM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Yh9alABjawkqnEl4VE1gFC9YcAYB90GDlmtgMqBpQHsNA8OkZCDIaXZi8oBtpJ6CS6VVjLIanEXQJbTlaYhh0w1FVP6By831a0Kn9XyTqpX2Wi+epy8hL9ygVZlHV3QtyxzoRrsFq3bz+luH61Ywc1XQBU+89nNp2dno3EI0AyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=baDlUtFw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtH4RCPA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33D071F000FF;
-	Tue, 15 Sep 2026 14:10:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="baDlUtFw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A209A1F000FF;
+	Tue, 15 Sep 2026 14:11:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481456;
-	bh=aHSbmDD3j9xRZ2iJWMGKJ3aguz1fvqB4sLYlzipxP8I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EtH4RCPAGt8eG3YAeogfbeH4uqJlSWBkDjNf+0ldGQu2sW+ZDSssoW4DVtN8vXsci
-	 0TuCYsbHtG0qtsbUZ5LwHtsJ18k/2dBxrJ9MdBXSZHMMZkYpQ5GJJdxc02a+OPMnse
-	 e/X2awvw8y6cF12of+7uXMUcE5LsKFhd93XayEtx7fbHboYqBBffGlhkiHf046JwaR
-	 n4hz1yqShHSRqdhqsYMKRjR3m2e2SNsNwdsoZumtQu5sXdEWz1ctbIzkqMbfI5iGRf
-	 N/FPnYieXVGG58iZ66mMQ3krFQbnFHevuJZ3ZNdGXQ+2eG4X4PU472jaMx8leAFmjl
-	 I9mblwyJgh4SA==
-From: SJ Park <sj@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/cgroup: ignore memory.reclaim -EAGAIN for zswap writeback test
-Date: Tue, 15 Sep 2026 07:10:48 -0700
-Message-ID: <20260915141049.70696-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <aqkavo7OfQdMOpLf@thinkstation>
-References: 
+	s=k20260515; t=1789481482;
+	bh=U0YAPSCzjIvx9j5UuO3la71ldkiY663ti2cQ1z7Zo34=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=baDlUtFwZ7KCV4ufgTF//oU9YijykM7UmGP8RPQrD+I8pBO+jchLE29xCD1JteFFG
+	 uJ0SOqHSmDC+KQ4IZxr7tzq7M6U2SU8TAl5BBntbdoZ5zj1na3pmN7vXwcO9Wpx5SC
+	 rY25b6BGE0yPe+0Mswb8tlBkv5+sXjFsGykikSy1u4unUQZWAkHACiourVm8X4+O/E
+	 HDneJHgr8sfHh5bwIaTnsDcvU/1uJxa2dZ/oPSwy0lhieD/NUrLxIJRS5tFAt/jW1D
+	 l3m84KwUcryVRdWgYhgaA0nOxBWmOhcjT4OkTN+OlDGJuUQa+LciWoQcxHs7mQDkuq
+	 cZRjH/f/KpnBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 8/9] mm/memory-failure: add hwpoison_boot_page() to
+ flag an inherited frame
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oscar Salvador" <osalvador@suse.de>, "Suren Baghdasaryan" <surenb@google.com>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Liam
+ R. Howlett" <liam@infradead.org>, "Michal Hocko" <mhocko@suse.com>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, "Ilias
+ Apalodimas" <ilias.apalodimas@linaro.org>, "Zi Yan" <ziy@nvidia.com>, "Miaohe
+ Lin" <linmiaohe@huawei.com>, "Borislav Petkov" <bp@alien8.de>, "Thomas
+ Gleixner" <tglx@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Johannes
+ Weiner" <hannes@cmpxchg.org>, "Mike Rapoport" <rppt@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, x86@kernel.org, "David
+ Hildenbrand" <david@kernel.org>, "Naoya Horiguchi" <nao.horiguchi@gmail.com>, shakeel.butt@linux.dev, "Brendan
+ Jackman" <brendan.jackman@linux.dev>, hannes@cmpxchg.or, "Ard Biesheuvel" <ardb@kernel.org>, kas@kernel.org, "Ingo
+ Molnar" <mingo@redhat.com>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Breno
+ Leitao" <leitao@debian.org>
+Cc: linux-cxl@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, linux-kernel@vger.kernel.org, kernel-team@meta.com, linux-efi@vger.kernel.org, harry@kernel.org, driver-core@lists.linux.dev, kexec@lists.infradead.org, riel@surriel.com
+In-Reply-To: <20260915-hwpoison-kho-v5-8-3bc7a57bd503@debian.org>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <20260915-hwpoison-kho-v5-8-3bc7a57bd503@debian.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 14:11:20 +0000
+Message-Id: <20260915141120.A209A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 11:21:53 +0100 Harry Yoo <harry@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] mm: memory_failure_stats data race in hwpoison_boot_page()
+--
 
-> On Mon, Sep 14, 2026 at 05:18:17PM -0700, SJ Park wrote:
-> > Hi Harry,
-> 
-> Hi SJ, thanks for looking into it!
-> 
-> > On Mon, 14 Sep 2026 21:36:39 +0100 "Harry Yoo (Meta)" <harry@kernel.org> wrote:
-> > Makes sense to me.
-> 
-> Thanks!
-> 
-> > [...]
-> > > --- a/tools/testing/selftests/cgroup/test_zswap.c
-> > > +++ b/tools/testing/selftests/cgroup/test_zswap.c
-> > > @@ -346,7 +346,16 @@ static int attempt_writeback(const char *cgroup, void *arg)
-> > >  	 * it can't writeback to swap.
-> > >  	 */
-> > >  	ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
-> > > -	if (!wb_enabled)
-> > > +
-> > > +	/*
-> > > +	 * When writeback is enabled, memory.reclaim may still fail to reclaim
-> > > +	 * the requested amount of memory due to a slow swap device.
-> > > +	 * Ignore -EAGAIN here. The caller determines pass/fail based on the
-> > > +	 * zswap writeback counter.
-> > > +	 */
-> > > +	if (wb_enabled && ret == -EAGAIN)
-> > > +		ret = 0;
-> > > +	else if (!wb_enabled)
-> > >  		ret = (ret == -EAGAIN) ? 0 : -1;
-> > 
-> > My humble eyes were unable to easily understand the change.  Is the change
-> > effectively same to below, and if so, would this be easier to read?
-> > 
-> > '''
-> > @@ -344,10 +344,11 @@ static int attempt_writeback(const char *cgroup, void *arg)
-> >          * writeback as zswap.max is 1/4 of what was needed when reclaim ran the first time.
-> >          * If writeback is disabled, memory reclaim will fail as zswap is limited and
-> >          * it can't writeback to swap.
-> > +        * Even if writeback is enabled, it could return -EAGAIN due to a slow
-> > +        * swap device.
-> >          */
-> >         ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
-> > -       if (!wb_enabled)
-> > -               ret = (ret == -EAGAIN) ? 0 : -1;
-> > +       ret = (ret == -EAGAIN) ? 0 : -1;
-> 
-> Hmm, no. This will mark the test as failed when a write to
-> memory.reclaim returns zero even when wb_enabled is true.
-> 
-> It's not the same because when wb_enabled == true we consider
-> ret == 0 or ret == -EAGAIN as success, while with wb_enabled == false
-> we consider ret == -EAGAIN as success.
+commit 95ab593413859ad843df67ede9095a08529eb0cd
+Author: Breno Leitao <leitao@debian.org>
 
-Ah, got it.  You are right.  Sorry for making noise and thank you for kindly
-correcting me.
+mm/memory-failure: add hwpoison_boot_page() to flag an inherited frame
 
-Reviewed-by: SJ Park <sj@kernel.org>
+This commit adds a helper, hwpoison_boot_page(), to flag inherited frames
+recorded as poisoned by the previous kernel before they reach the allocator.
+It leaves the frame in the state expected for poisoned frames, allowing
+existing PG_hwpoison logic to cover it appropriately.
 
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index d9b8be696aac3..60e9682434700 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+[ ... ]
+> @@ -137,6 +137,32 @@ phys_addr_t range_last_hwpoison(phys_addr_t start, u=
+nsigned long size)
+>  	return range_hwpoison(start, size, false);
+>  }
+> =20
+> +static void update_per_node_mf_stats(unsigned long pfn, enum mf_result r=
+esult);
+> +
+> +void __meminit hwpoison_boot_page(struct page *page,
+> +				  enum meminit_context context)
+> +{
+> +	unsigned long pfn =3D page_to_pfn(page);
+> +
+> +	if (PageHWPoison(page))
+> +		return;
+> +
+> +	SetPageHWPoison(page);
+> +	set_page_count(page, 1);
+> +	/* The page has been completely isolated =3D=3D MF_RECOVERED */
+> +	update_per_node_mf_stats(pfn, MF_RECOVERED);
 
-Thanks,
-SJ
+[Severity: Medium]
+Is it safe to call update_per_node_mf_stats() here without acquiring mf_mut=
+ex?
 
-[...]
+During memory hotplug (when context =3D=3D MEMINIT_HOTPLUG), if
+hwpoison_boot_page() is called for inherited poisoned frames, it appears th=
+is
+could race with runtime hardware error processing on other CPUs.
+
+Other paths like memory_failure() update these same per-node statistics whi=
+le
+holding mf_mutex. Because update_per_node_mf_stats() performs non-atomic
+increments:
+
+mm/memory-failure.c:update_per_node_mf_stats() {
+        ...
+        case MF_RECOVERED:
+                ++mf_stats->recovered;
+                break;
+        ...
+        ++mf_stats->total;
+}
+
+Could calling it here circumvent the mutex and corrupt the memory failure
+sysfs statistics by losing counter updates?
+
+> +
+> +	/*
+> +	 * The per memory block half of num_poisoned_pages_inc() has no block to
+> +	 * find at boot, and divides by zero looking for one. A hotplugged block
+> +	 * is already there.
+> +	 */
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-hwpoison-k=
+ho-v5-0-3bc7a57bd503@debian.org?part=3D8
