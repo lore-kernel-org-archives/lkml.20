@@ -1,297 +1,427 @@
-Received: from mout-b-110.mailbox.org (mout-b-110.mailbox.org [195.10.208.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f2.google.com (mail-ej2-f2.google.com [74.125.228.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5704F4A0F00;
-	Tue, 15 Sep 2026 11:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472472; cv=none; b=oPKYi9zN88o1cuEp7IM8ytMccI6z7eO0dnqnDxLKIgXj5EjHnHGokHYt0+4xrWnrOx0YoJ1FJP1lRbR7ThN9oHqHXWSDxHLShCgIKagE+FzRptjce/zyXF74I76yT7V/MKwiyj8P6Rbwc5v0VvVZcTJ9peiygWf4qHy/6k9RtoU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472472; c=relaxed/simple;
-	bh=Bpvd6uLkwQt0bg8JMOOK6CDGUxiAzVEi0ZvIeC5pHUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B2t4n+MvqNLNqVLqkguVctUU3YNj8BsQ6kmibFR54t/WBqJjKV0RQSoR4OjJDRkIEnSdC3oLHlrchRP77CImJ2zOb49jcgMW7OQegDmLOfGyZ9TmECafg24Zshmt2yDtoVxwR2KLHvtFcugIz43potG07N22nZLgblBMnIFsNsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=v0cj60Xn; arc=none smtp.client-ip=195.10.208.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97AB3AE1BC
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.130
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789472579; cv=pass; b=sWBY1t6jpUKfjHlLhoqSHtu7phvZHcDt3ms8vCVWoy6niNcGYj3ZlS0zL5mjCoeK3r+y07qv1uiPnxrwvyhxESooI5xPZD/dmqZqmBzzeKUYTbeeJZ4Eer52fnJ7RRByJHBHOH+5klpXsv855OUX5PZ3zRovT7JwTppFQbmSM/E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789472579; c=relaxed/simple;
+	bh=77e1MGS6kCVnU1RufO4elxUOHjBahuFZ5h+/Df65DfI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pnykL9nya0dGyX0DvwygZ0/N+3dWzPsnApqpdCZOZZLbyQ5m4PxKd2Bhw/PNTxJfd5BdEIY1l8I2/aoZPv/vx87Rg6qVkWME3eejSoqd5inC1oSnd0f6OeNkQfBt9IQbqSJG2+h/2BzRIu5Uvpa/pNr2WBcEgFpn/De5EmxWQQs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flw/goM4; arc=pass smtp.client-ip=74.125.228.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="v0cj60Xn"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-110.mailbox.org (Postfix) with ESMTPS id 4hkfy107MTzNlkW;
-	Tue, 15 Sep 2026 13:32:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1789471945;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uWnkgdjy99kFHMs6Cwom6LtVrygjipYl+5iKxQcvIiQ=;
-	b=v0cj60XnR/Cbe5mWN+4uWVQPPqb0b4j2hmLJQMwPyRlm6ObEyqyxHpGZnmAc7929ug1D0N
-	ddfC2AypHRFfmXp4lj6DW7KnSe8ez4BnsndUQQuaqXhh3IeorlpeuD+Y7zVHHSK7K/C2I8
-	yKg29Mzj9PZa86GUXEoodpis4ZmEDxSg7euzUguDhLLKXxztOBK+AOxlLSJLWZvADrIb2q
-	yX2nryur0GVZj/zA17B7e4U/R1NTNgtv6r3AciuvGzZ9jZulWpPbbVi2xrZHlaiTE7Tux0
-	SrNn1KV44YlLk/zCC5pDe5/SODiU0M8qa0m/v9jM616ZSO29UWDoP5q0+5vRKQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
-From: Ralf Lici <ralf@mandelbit.com>
-To: linux-crypto@vger.kernel.org
-Cc: Antoine Tenart <atenart@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with accurate DMA directions
-Date: Tue, 15 Sep 2026 13:32:12 +0200
-Message-ID: <7bd0c89dd32e9712d7d08393842498698148064b.1789469436.git.ralf@mandelbit.com>
-In-Reply-To: <cover.1789469436.git.ralf@mandelbit.com>
-References: <cover.1789469436.git.ralf@mandelbit.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flw/goM4"
+Received: by mail-ej2-f2.google.com with SMTP id a640c23a62f3a-c294938a983so233088066b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:42:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789472575; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OvQA0OPEBcQSgakI6chFxViwXxk79h17qB8BAFiH57yTVVNYJORE5qzmlGQW7Gr5Qz
+         xxRKH9T/G84GLbGscdmv3/hllUJCnz0Y8az7o5r/rmGKHUuco16xs+9ySwiNStqaAwwU
+         fgPHX3oV3+eVjDHYq+HcIhvc9K/w5d1mh0jPt/rf9icQDhRfCR99VTqosX7V0BXKlLzN
+         CsmwE++u06c4OD95IV1OLThq22Jn915/2b1s+bR7Fcpr4q3VYhYBB11fOawZovH5h33N
+         0SwoPlpL4CWn6Z4YNGeXyJSfLNxCere/RynCkkjxGKJUgCox4DDBARndCo/I9eB09bUb
+         vfQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sISzfPmgoaQUIHyBbaL9mtqCySms90Uh3lkhXDJB000=;
+        fh=maPJILByocws7a3aemUNvfyRiDfSCXhK8fRDF3rlgoU=;
+        b=nD1IzOFCRCOmCmSGPz0EmcqS//abmvvme8/LHUeFjBVMyHKsLZFpEajLbaTfBrycgu
+         uRIoXSCVc7jo/G2dJacHtCemCXakk3YbqsMY4bS+9VRQSz3F3qKEvZaBVQYuF6EoQuYg
+         EJj+I/es0/gB9+qpRI77k5UXJx0b9ou27QcGq9qtF/NIb+mYJaJ87et/kDQ/s0OLNP7+
+         UqSF6oI6Pcg9wjowQhNOYXrxbsBEkvqN3WtU4XLIDuMp5ovXKQqIkUsi4qc6JVCNEg55
+         /3YbVOazkZiJhItpwWxpdsNn86pP3u+ePYM/Jd6YBxO3RH1uvUDYKgMDC1AY+pkLDRLw
+         7lOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789472575; x=1790077375; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sISzfPmgoaQUIHyBbaL9mtqCySms90Uh3lkhXDJB000=;
+        b=flw/goM4CH254An4AqOe5VAybccWqXCz9qcK115/iQf2ZGNoyTQyvqGFYqW9GCvVD2
+         hEpCnk07JZ5RxXaAJWh9WMtR2l8bXv1YMxtEawbelzrUYC/ALYUBy6FQY9L0CfZMAeuu
+         12zpGNgsARfdE2D1xARA3y05K/cekPxzDNggByfeKFT20n72pjtz8KWkL046vaGjJABd
+         EfM5EfqrlgXSMQW+5LQPoia34DEQNlJqyFGZwAsNCboU6p57cQ7VjkKplIgrhyKv3wxg
+         +A4ZJ6y+TmWol0l2ULy8zr9yLBgl3DxQwFI8D0IOpcRyVuNbETjtFhCADzwWEXLiDloE
+         gwIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789472575; x=1790077375;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sISzfPmgoaQUIHyBbaL9mtqCySms90Uh3lkhXDJB000=;
+        b=h9pzPi9rmuoej0mHtXtL0U3ishY+NiRv+jvGz+u3uXGUrAMJ0UFNQ6eKGX3WoJ9oKk
+         GwPnEjy2I+Xic3RSbYFUhD4oArSG/lhlkZEGbAPC54udl871uNZ+f2KFvv0O8HkJRynM
+         2zL/5JkIRxzSpB9UCqr65YQATz7jaed83QMKL34Wo1Par7/95wlid2B5i0rLUX0MEBMW
+         BrcQR1UAevhm9FpOyXBDbnn3UnO8fch+nFyqetQjGAHlYDL7gmw3fKwYH4VpHxFKMjwa
+         zdwx4Jk2fhP3Qzv0AyWs60d5peGx9JHNLfWPxtXBBTiAevPhRiUYFn7S836RtrvYyJk3
+         cnVg==
+X-Forwarded-Encrypted: i=1; AKwUvByn/H0Hzs3kjCvFfOJAux35UGrxqJkpc/xdNUqEXDWL5tPsJasKqrAcH78FTqoP4JhK5tM1xw4WP8oGh3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTK001e5ADB48oKPLO2TkKfhZYHsOlZtblu6Z0P+72MkKPiOZR
+	W554YfAWh5GZrFAalXvSpfXeaBT0rIu9ouVC0J7djHT5GXuY0bIWd2UPgalCbgkZegWwka4hKxC
+	4Ofxx71uDSWjHGHB9WyH6oEzocENrdY4=
+X-Gm-Gg: AYBFou1hVbpiSnCjGwqkeDcWisGMk7W/mZxpi0lf1qA86GZvl95ir9LJDuivGxOlaED
+	NondCVs4RpdFht6C1sUytezSMaxuESEw9VEAik3dCxALUQ2owUGXxs2JRXJ4Dswo5qw2KAf8zTe
+	eXuezGW8a4ZFctYNpbVVXjwEpPYqlLPPYqe47IuSaqR8gj+DWRn/GLihLpDnDj/OyDp9cKscSin
+	DHHyBmO1xgYDHwYysN9uafqjdx0QGlewPH+pYLctWG462RdxGy8hzHnpToPD7we73uEwMzAkY4E
+	vunjsC4f4C1Nhc58MyxjeHQ9MYoyf8D/2vOXmz/2dtrHlj2N+1wOffTEDw==
+X-Received: by 2002:a17:906:7954:b0:c24:b11a:470f with SMTP id
+ a640c23a62f3a-c29b7ff89aemr908365266b.0.1789472574755; Tue, 15 Sep 2026
+ 04:42:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4hkfy107MTzNlkW
+References: <20260913185849.907479-10-coiaprant@gmail.com> <178941749179.22033.3182687831989800376@kernel.org>
+In-Reply-To: <178941749179.22033.3182687831989800376@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 15 Sep 2026 19:42:42 +0800
+X-Gm-Features: AcwNN1XJ2v3mnflu7VzToAP_PI-o155G_VpQm1Am3WUv52DDebpEcVrTsTiWOeY
+Message-ID: <CALj3r0giNFp6CLWW0dAXu=iSkNm2rYZb4=KUfnAbPaFDeYSUPw@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 09/11] net: stmmac: dwmac-rk: add SGMII
+ support for RK3568
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org, 
+	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org, 
+	linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz, 
+	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Safexcel maps every entry of an in-place AEAD request with
-DMA_BIDIRECTIONAL and every entry of an out-of-place destination with
-DMA_FROM_DEVICE. These directions are too broad: associated data is never
-written, and an authentication tag is input-only during decryption.
+<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8815=E6=97=A5=
+=E5=91=A8=E4=BA=8C 04:24=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider:
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 (1) =C2=B7 Low: 3
+>
+> - [Medium] DWMAC_ROCKCHIP gains an unconditional `select
+>   PCS_XPCS_ROCKCHIP` without inheriting the selected symbol's=E2=80=A6
+> - [Medium] For SGMII the driver removes every speed-dependent clock
+>   programming path (rk_gmac_probe() sets plat_dat->set_clk_tx_rate =3D=E2=
+=80=A6
+> - [Low] rk_get_interfaces() (dwmac-rk.c:1570-1571) now sets
+>   PHY_INTERFACE_MODE_SGMII in phylink's supported_interfaces for every=E2=
+=80=A6
+> - [Low] The RK3568 XPCS SoC node added by the series ('arm64: dts:
+>   rockchip: rk3568: add XPCS and fixed-clock nodes') omits properties=E2=
+=80=A6
+> - [Low] rk_select_pcs() (dwmac-rk.c:1268-1275) ignores its `interface`
+>   argument and returns the SGMII XPCS for every interface mode,=E2=80=A6
+>
+> Pre-existing issues:
+> - [Medium] DISCARDED (valid but pre-existing and below the reporting
+>   threshold for pre-existing defects).
+>
+> --
+>
+> net: stmmac: dwmac-rk: add SGMII support for RK3568
+>
+> Adds a set_to_sgmii()/set_to_rmii() pair for rk3568 to program GRF bit 7,
+> wires up pcs_init/pcs_exit/select_pcs so the Rockchip XPCS is used as the
+> PCS, and reorders rk_gmac_powerup() so the clocks are enabled before the
+> interface-specific configuration.
+>
+> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TR=
+M%20Part1%20V1.1-20210301.pdf (Page 386)
+>
+> A few questions below.
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/=
+ethernet/stmicro/stmmac/Kconfig
+> > index ab3c4cf964239..c6559e749c0ce 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> > @@ -170,6 +170,7 @@ config DWMAC_ROCKCHIP
+> >       default ARCH_ROCKCHIP
+> >       depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+> >       select MFD_SYSCON
+> > +     select PCS_XPCS_ROCKCHIP
+>
+> [Severity: Medium]
+> Does this select produce unmet dependency warnings?  PCS_XPCS_ROCKCHIP in
+> drivers/net/pcs/Kconfig carries three dependency lines:
+>
+>   config PCS_XPCS_ROCKCHIP
+>         tristate "Rockchip XPCS controller support"
+>         default ARCH_ROCKCHIP
+>         depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+>         depends on GENERIC_PHY || COMPILE_TEST
+>         depends on PM_GENERIC_DOMAINS || COMPILE_TEST
+>
+> while DWMAC_ROCKCHIP only has "depends on OF && (ARCH_ROCKCHIP ||
+> COMPILE_TEST)".  ARCH_ROCKCHIP in arch/arm64/Kconfig.platforms selects PM
+> but neither GENERIC_PHY nor PM_GENERIC_DOMAINS, so a config with
+> ARCH_ROCKCHIP=3Dy, COMPILE_TEST=3Dn and GENERIC_PHY=3Dn (or PM_GENERIC_DO=
+MAINS=3Dn)
+> force-enables PCS_XPCS_ROCKCHIP with its own depends unsatisfied:
+>
+>   WARNING: unmet direct dependencies detected for PCS_XPCS_ROCKCHIP
+>
+> pcs-xpcs-rk.o is then built against the phy stubs where devm_phy_get()
+> returns ERR_PTR(-ENOSYS), so the probe cannot succeed.
+>
+> The select is also unconditional, so every Rockchip dwmac build
+> (RK3288/RK3328/RK3399/RK3588 ...) force-enables the RK356x-only XPCS
+> driver.  Would inheriting the constraints, or making the selection
+> conditional, be preferable here?  Note that simply adding the two depends
+> lines to DWMAC_ROCKCHIP would turn off Ethernet on existing RK3288/RK3399
+> configurations, so the choice probably needs to be explicit.
+>
+> The Kconfig change is also not mentioned anywhere in the commit message.
 
-On a non-coherent system, unmapping a small input-only entry as device
-output can copy stale data back over valid accelerator output in a
-neighboring part of the same cache line. The request still completes
-successfully but its plaintext or ciphertext is corrupted afterwards.
+You're right. I'll move the dependencies into PCS_XPCS_ROCKCHIP as
+selects instead of depends on:
 
-Map AEAD entries separately according to their overlap with the logical
-output range. Use DMA_TO_DEVICE for input-only entries, DMA_FROM_DEVICE for
-pure out-of-place output entries, and DMA_BIDIRECTIONAL where an entry
-contains both kinds of data or is updated in place.
+    config PCS_XPCS_ROCKCHIP
+        tristate "Rockchip XPCS controller support"
+        default ARCH_ROCKCHIP
+        depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+        select GENERIC_PHY
+        select PM_GENERIC_DOMAINS
 
-This was validated on an MT7986 EIP97 with in-place and fragmented
-out-of-place AES-GCM requests, for encryption and decryption, at queue
-depths up to 400.
+This way the symbol pulls in its own dependencies when it is selected
+by DWMAC_ROCKCHIP, so the unconditional select in dwmac-rk does not
+produce an unmet-dependency warning.
 
-Fixes: f6beaea30487 ("crypto: inside-secure - authenc(hmac(sha256), cbc(aes)) support")
-Signed-off-by: Ralf Lici <ralf@mandelbit.com>
----
- .../crypto/inside-secure/safexcel_cipher.c    | 149 ++++++++++++++++--
- 1 file changed, 133 insertions(+), 16 deletions(-)
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/n=
+et/ethernet/stmicro/stmmac/dwmac-rk.c
+> > index 8d7042e689261..5d501ed8d1429 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+>
+> [ ... ]
+>
+> > @@ -1208,6 +1237,43 @@ static void rk_phy_powerdown(struct rk_priv_data=
+ *bsp_priv)
+> > +static struct phylink_pcs *rk_select_pcs(struct stmmac_priv *priv,
+> > +                                      phy_interface_t interface)
+> > +{
+> > +     if (!priv->hw->xpcs)
+> > +             return NULL;
+> > +
+> > +     return xpcs_to_phylink_pcs(priv->hw->xpcs);
+> > +}
+>
+> [Severity: Low]
+> Should rk_select_pcs() look at its interface argument?  The mac_select_pc=
+s
+> contract in include/linux/phylink.h is to return the PCS for the specifie=
+d
+> interface, or NULL when none is required, but this returns the SGMII XPCS
+> for any mode.
+>
+> On an RK3568 port probed as SGMII, rk_get_interfaces() also advertises th=
+e
+> RGMII variants and RMII, and xpcs->pcs.supported_interfaces is non-empty
+> (filled in by xpcs_get_interfaces()).  When phylink validates one of thos=
+e
+> non-SGMII interfaces, phylink_validate_mac_and_pcs() hits:
+>
+>         if (!phy_interface_empty(pcs->supported_interfaces) &&
+>             !test_bit(state->interface, pcs->supported_interfaces)) {
+>                 phylink_err(pl, "MAC returned PCS which does not support =
+%s\n",
+>                             phy_modes(state->interface));
+>                 return -EINVAL;
+>         }
+>
+> Would returning the XPCS only for PHY_INTERFACE_MODE_SGMII and NULL
+> otherwise avoid that error path?
 
-diff --git a/drivers/crypto/inside-secure/safexcel_cipher.c b/drivers/crypto/inside-secure/safexcel_cipher.c
-index 4982c64bf236..491fcd97ebdb 100644
---- a/drivers/crypto/inside-secure/safexcel_cipher.c
-+++ b/drivers/crypto/inside-secure/safexcel_cipher.c
-@@ -73,6 +73,8 @@ struct safexcel_cipher_req {
- 	unsigned int rdescs;
- 	bool needs_inv;
- 	int  nr_src, nr_dst;
-+	unsigned int output_offset;
-+	unsigned int output_len;
- };
- 
- static int safexcel_skcipher_iv(struct safexcel_cipher_ctx *ctx, u8 *iv,
-@@ -608,6 +610,71 @@ static int safexcel_context_control(struct safexcel_cipher_ctx *ctx,
- 	return 0;
- }
- 
-+/* classify each scatterlist entry by its overlap with the logical output */
-+static enum dma_data_direction safexcel_aead_dma_dir(unsigned int offset,
-+						     unsigned int len,
-+						     unsigned int output_offset,
-+						     unsigned int output_len,
-+						     bool inplace)
-+{
-+	unsigned int end = offset + len;
-+	unsigned int output_end = output_offset + output_len;
-+
-+	if (!output_len || offset >= output_end || output_offset >= end)
-+		return DMA_TO_DEVICE;
-+
-+	if (inplace || offset < output_offset || end > output_end)
-+		return DMA_BIDIRECTIONAL;
-+
-+	return DMA_FROM_DEVICE;
-+}
-+
-+static void safexcel_unmap_aead(struct device *dev, struct scatterlist *sgl,
-+				int nents, unsigned int output_offset,
-+				unsigned int output_len, bool inplace)
-+{
-+	struct scatterlist *sg;
-+	unsigned int offset = 0;
-+	int i;
-+
-+	for_each_sg(sgl, sg, nents, i) {
-+		enum dma_data_direction dir;
-+
-+		dir = safexcel_aead_dma_dir(offset, sg->length, output_offset,
-+					    output_len, inplace);
-+		dma_unmap_page(dev, sg_dma_address(sg), sg_dma_len(sg), dir);
-+		offset += sg->length;
-+	}
-+}
-+
-+static int safexcel_map_aead(struct device *dev, struct scatterlist *sgl,
-+			     int nents, unsigned int output_offset,
-+			     unsigned int output_len, bool inplace)
-+{
-+	struct scatterlist *sg;
-+	unsigned int offset = 0;
-+	int i;
-+
-+	for_each_sg(sgl, sg, nents, i) {
-+		enum dma_data_direction dir;
-+
-+		dir = safexcel_aead_dma_dir(offset, sg->length, output_offset,
-+					    output_len, inplace);
-+		sg_dma_address(sg) = dma_map_page(dev, sg_page(sg), sg->offset,
-+						  sg->length, dir);
-+		if (dma_mapping_error(dev, sg_dma_address(sg)))
-+			goto err_unmap;
-+		sg_dma_len(sg) = sg->length;
-+		offset += sg->length;
-+	}
-+
-+	return nents;
-+
-+err_unmap:
-+	safexcel_unmap_aead(dev, sgl, i, output_offset, output_len, inplace);
-+	return 0;
-+}
-+
- static int safexcel_handle_req_result(struct safexcel_crypto_priv *priv, int ring,
- 				      struct crypto_async_request *async,
- 				      struct scatterlist *src,
-@@ -645,16 +712,30 @@ static int safexcel_handle_req_result(struct safexcel_crypto_priv *priv, int rin
- 	safexcel_complete(priv, ring);
- 
- 	if (src == dst) {
--		if (sreq->nr_src > 0)
--			dma_unmap_sg(priv->dev, src, sreq->nr_src,
--				     DMA_BIDIRECTIONAL);
-+		if (sreq->nr_src > 0) {
-+			if (ctx->aead)
-+				safexcel_unmap_aead(priv->dev, src,
-+						    sreq->nr_src,
-+						    sreq->output_offset,
-+						    sreq->output_len, true);
-+			else
-+				dma_unmap_sg(priv->dev, src, sreq->nr_src,
-+					     DMA_BIDIRECTIONAL);
-+		}
- 	} else {
- 		if (sreq->nr_src > 0)
- 			dma_unmap_sg(priv->dev, src, sreq->nr_src,
- 				     DMA_TO_DEVICE);
--		if (sreq->nr_dst > 0)
--			dma_unmap_sg(priv->dev, dst, sreq->nr_dst,
--				     DMA_FROM_DEVICE);
-+		if (sreq->nr_dst > 0) {
-+			if (ctx->aead)
-+				safexcel_unmap_aead(priv->dev, dst,
-+						    sreq->nr_dst,
-+						    sreq->output_offset,
-+						    sreq->output_len, false);
-+			else
-+				dma_unmap_sg(priv->dev, dst, sreq->nr_dst,
-+					     DMA_FROM_DEVICE);
-+		}
- 	}
- 
- 	/*
-@@ -737,6 +818,10 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
- 	 */
- 	totlen = totlen_src;
- 	queued = totlen_src;
-+	if (ctx->aead) {
-+		sreq->output_offset = assoclen;
-+		sreq->output_len = totlen_dst - assoclen;
-+	}
- 
- 	if (src == dst) {
- 		sreq->nr_src = max(sreq->nr_src, sreq->nr_dst);
-@@ -748,8 +833,17 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
- 			return -EINVAL;
- 		}
- 		if (sreq->nr_src > 0) {
--			src_mapped = dma_map_sg(priv->dev, src, sreq->nr_src,
--						DMA_BIDIRECTIONAL);
-+			if (ctx->aead)
-+				src_mapped =
-+					safexcel_map_aead(priv->dev, src,
-+							  sreq->nr_src,
-+							  sreq->output_offset,
-+							  sreq->output_len,
-+							  true);
-+			else
-+				src_mapped = dma_map_sg(priv->dev, src,
-+							sreq->nr_src,
-+							DMA_BIDIRECTIONAL);
- 			if (!src_mapped)
- 				return -EIO;
- 		}
-@@ -775,8 +869,17 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
- 		}
- 
- 		if (sreq->nr_dst > 0) {
--			dst_mapped = dma_map_sg(priv->dev, dst, sreq->nr_dst,
--						DMA_FROM_DEVICE);
-+			if (ctx->aead)
-+				dst_mapped =
-+					safexcel_map_aead(priv->dev, dst,
-+							  sreq->nr_dst,
-+							  sreq->output_offset,
-+							  sreq->output_len,
-+							  false);
-+			else
-+				dst_mapped = dma_map_sg(priv->dev, dst,
-+							sreq->nr_dst,
-+							DMA_FROM_DEVICE);
- 			if (!dst_mapped) {
- 				ret = -EIO;
- 				goto unmap;
-@@ -913,16 +1016,30 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
- 		safexcel_ring_rollback_wptr(priv, &priv->ring[ring].cdr);
- unmap:
- 	if (src == dst) {
--		if (src_mapped)
--			dma_unmap_sg(priv->dev, src, sreq->nr_src,
--				     DMA_BIDIRECTIONAL);
-+		if (src_mapped) {
-+			if (ctx->aead)
-+				safexcel_unmap_aead(priv->dev, src,
-+						    sreq->nr_src,
-+						    sreq->output_offset,
-+						    sreq->output_len, true);
-+			else
-+				dma_unmap_sg(priv->dev, src, sreq->nr_src,
-+					     DMA_BIDIRECTIONAL);
-+		}
- 	} else {
- 		if (src_mapped)
- 			dma_unmap_sg(priv->dev, src, sreq->nr_src,
- 				     DMA_TO_DEVICE);
--		if (dst_mapped)
--			dma_unmap_sg(priv->dev, dst, sreq->nr_dst,
--				     DMA_FROM_DEVICE);
-+		if (dst_mapped) {
-+			if (ctx->aead)
-+				safexcel_unmap_aead(priv->dev, dst,
-+						    sreq->nr_dst,
-+						    sreq->output_offset,
-+						    sreq->output_len, false);
-+			else
-+				dma_unmap_sg(priv->dev, dst, sreq->nr_dst,
-+					     DMA_FROM_DEVICE);
-+		}
- 	}
- 
- 	return ret;
--- 
-2.55.0
+plat_dat->select_pcs is only assigned inside the
+if (phy_interface =3D=3D PHY_INTERFACE_MODE_SGMII) branch of
+rk_gmac_probe(). For RGMII/RMII ports the callback is NULL, so
+stmmac_mac_select_pcs() returns NULL before reaching rk_select_pcs().
 
+On an SGMII port, phylink_validate() is called with
+state->interface =3D PHY_INTERFACE_MODE_SGMII, so only SGMII is
+validated against the PCS. The RGMII/RMII bits in supported_interfaces
+are not iterated in this path.
+
+> > @@ -1379,16 +1450,19 @@ static int rk_gmac_powerup(struct rk_priv_data =
+*bsp_priv)
+> >       if (ret)
+> >               return ret;
+> >
+> > +     ret =3D gmac_clk_enable(bsp_priv, true);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but now that gmac_clk_enable()
+> is the first resource acquisition in rk_gmac_powerup(), its partial-failu=
+re
+> path becomes more visible.  Do the bulk clocks leak when the clk_phy enab=
+le
+> fails?
+>
+> drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:gmac_clk_enable() {
+>         ...
+>                 ret =3D clk_bulk_prepare_enable(bsp_priv->num_clks,
+>                                               bsp_priv->clks);
+>                 if (ret)
+>                         return ret;
+>
+>                 ret =3D clk_prepare_enable(bsp_priv->clk_phy);
+>                 if (ret)
+>                         return ret;
+>         ...
+> }
+>
+> The second failure returns without calling clk_bulk_disable_unprepare() a=
+nd
+> without setting bsp_priv->clk_enabled, so the later gmac_clk_enable(bsp_p=
+riv,
+> false) in rk_gmac_powerdown() and at the new clk_disable label is a no-op
+> because it is gated on clk_enabled.  This only triggers for integrated-PH=
+Y
+> setups where clk_phy is non-NULL.
+
+This is pre-existing and unrelated to SGMII.
+
+> > +     if (bsp_priv->phy_iface =3D=3D PHY_INTERFACE_MODE_SGMII)
+> > +             goto set_mode;
+> > +
+> >       ret =3D rk_get_phy_intf_sel(bsp_priv->phy_iface);
+> >       if (ret < 0)
+> > -             return ret;
+> > +             goto clk_disable;
+>
+> [ ... ]
+>
+> > @@ -1486,6 +1566,9 @@ static void rk_get_interfaces(struct stmmac_priv =
+*priv, void *bsp_priv,
+> >
+> >       if (rk->supports_rmii)
+> >               __set_bit(PHY_INTERFACE_MODE_RMII, interfaces);
+> > +
+> > +     if (rk->supports_sgmii)
+> > +             __set_bit(PHY_INTERFACE_MODE_SGMII, interfaces);
+> >  }
+> [Severity: Low]
+> Is SGMII safe to advertise on a port that was not probed as SGMII?
+> rk3568_ops populates set_to_sgmii unconditionally, and rk_gmac_setup()
+> derives supports_sgmii from it, so every RK3568 port now advertises SGMII
+> in phylink's supported_interfaces (stmmac_phy_setup() copies the
+> get_interfaces() output verbatim into config->supported_interfaces).
+>
+> All the SGMII setup, though, is keyed off the probe-time DT phy-mode:
+>
+>   - rk_gmac_powerup() writes RK3568_GMAC_MODE_SGMII_QSGMII only in the
+>     "case PHY_INTERFACE_MODE_SGMII:" branch, which runs once at init
+>   - rk_gmac_probe() installs pcs_init/pcs_exit/select_pcs,
+>     default_an_inband and clears set_clk_tx_rate only under
+>     "if (plat_dat->phy_interface =3D=3D PHY_INTERFACE_MODE_SGMII)"
+>
+> So on a port probed as rgmii*/rmii, if phylink later selects SGMII (SFP
+> cage, or a PHY reporting SGMII as its host interface), GRF bit 7 stays
+> cleared by rk3568_set_to_rgmii()/rk3568_set_to_rmii(), plat->select_pcs i=
+s
+> NULL so stmmac_mac_select_pcs() returns NULL and there is no PCS to run
+> autonegotiation.  Before this patch SGMII was not in supported_interfaces
+> and such a configuration was rejected during validation.  Would gating th=
+e
+> __set_bit() on the probe-time interface be closer to what the hardware ca=
+n
+> actually do?
+
+phylink_create() receives the DT phy-mode as iface, and
+phylink_validate() validates that fixed interface, not every bit in
+supported_interfaces. The GRF is programmed from bsp_priv->phy_iface
+in rk_gmac_powerup(), which is also the DT phy-mode. Advertising SGMII
+in supported_interfaces does not change the interface mode at runtime.
+
+> > @@ -1602,6 +1685,17 @@ static int rk_gmac_probe(struct platform_device =
+*pdev)
+> >       plat_dat->suspend =3D rk_gmac_suspend;
+> >       plat_dat->resume =3D rk_gmac_resume;
+> >
+> > +     if (plat_dat->phy_interface =3D=3D PHY_INTERFACE_MODE_SGMII) {
+> > +             /* SGMII clock always runs at 125 MHz */
+> > +             plat_dat->set_clk_tx_rate =3D NULL;
+> > +
+> > +             /* SGMII requires a PCS */
+> > +             plat_dat->default_an_inband =3D true;
+> [Severity: Medium]
+> The commit message says:
+>
+>   "Enable default_an_inband for SGMII and disable the generic stmmac
+>    set_clk_tx_rate callback.  This forces phylink to use in-band mode,
+>    where the PCS is responsible for speed/duplex negotiation."
+>
+> Is "forces" accurate?  default_an_inband is only a default, and the next
+> paragraph of the message says so itself.  In phylink_parse_mode():
+>
+>         if (pl->config->default_an_inband)
+>                 pl->cfg_link_an_mode =3D MLO_AN_INBAND;
+>
+>         dn =3D fwnode_get_named_child_node(fwnode, "fixed-link");
+>         if (dn || fwnode_property_present(fwnode, "fixed-link"))
+>                 pl->cfg_link_an_mode =3D MLO_AN_FIXED;
+>
+> and xpcs_inband_caps() advertises out-of-band as acceptable:
+>
+>         case DW_AN_C37_SGMII:
+>         case DW_AN_C37_1000BASEX:
+>                 return LINK_INBAND_DISABLE | LINK_INBAND_ENABLE;
+>
+> so phylink_pcs_neg_mode() can settle on PHYLINK_PCS_NEG_OUTBAND for a
+> fixed-link node or a PHY without in-band support.  With set_clk_tx_rate s=
+et
+> to NULL, rk3568_ops.set_speed =3D rk_set_clk_mac_speed also becomes
+> unreachable, so a 10/100 Mbps link is brought up with the clocking left a=
+t
+> the 1 Gbps setting and nothing warns or fails.  Would rejecting a
+> non-inband neg_mode (for example in mac_config or pcs_validate), or faili=
+ng
+> probe when a fixed-link node is present for SGMII, match what the message
+> describes?
+
+The v5 commit message already notes that default_an_inband can be
+overridden by a fixed-link node, and that out-of-band SGMII is not
+supported by this driver.
+
+> One more observation on the series rather than on this patch: the new
+> binding Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.ya=
+ml
+> lists phys and phy-names in its unconditional required list, but the
+> ethernet-pcs@fda00000 node added to arch/arm64/boot/dts/rockchip/rk3568.d=
+tsi
+> supplies only reg, clocks, clock-names and power-domains.  Only
+> rk3568-photonicat.dts adds them:
+>
+>   &xpcs {
+>         phys =3D <&combphy2 PHY_TYPE_SGMII>;
+>         phy-names =3D "serdes";
+>         status =3D "okay";
+>   };
+>
+> [Severity: Low]
+> Does dtbs_check report "phys is a required property" for the other RK3568
+> board DTBs?  dtschema validates nodes regardless of status =3D "disabled"=
+.
+> The neighbouring sata0 node in the same dtsi does carry phys/phy-names at
+> SoC level, so would moving them into rk3568.dtsi be an option?
+
+As replied earlier, the SerDes connection is board-specific and cannot
+move into the SoC dtsi. dtbs_check skips required-property validation
+for status =3D "disabled" nodes.
