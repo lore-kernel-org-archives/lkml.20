@@ -1,119 +1,148 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5ACBF372B57
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981893905E6;
+	Tue, 15 Sep 2026 10:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467936; cv=none; b=Ppvp41nPs9ZTEw0+wr/pF3VCQAAPBGK2RXQzdnTp5myAZ8EYQp5ZcOzJTnhrl5TKI4GZHCwoMIL6b2kNcl4PyxpW/Yb3ulfYNAjaMM/AsZ5qgYBXJRLGUXYGDkR110CjKM4b2mW0C13PdiHTD3aZaFZsFnxZC3jRJdCAw9TqIcA=
+	t=1789467962; cv=none; b=BVQoIfKd2AUiDUJQL8q91ZrrBc424s9c9UJXaLpoSrM1hLo27QqVQNyEJCLdDa1QhUzykLxJ3qV4umRga6OTqQorzdU6d879FXpdUfndYZmT+2d7XsOnlAaD7UL3MKFdIXRj5097GRkwGm7W61ardWpYnmI52UKopYsDKhWP+KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467936; c=relaxed/simple;
-	bh=QSQQNG/X9SZNNSgdUIC3WO0lkTHMqEVH+D2pHmZmnDI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=elfOe/qrzN7qHHtTOFYNk+ii9klIE2ljaku8LdMT8tnGuW27yr5yikRVqVVL+AcD3X4nxyziYKJVf0h7ZmchW6qhagrSlmQYLf6zVINT/nE1EZVnsoxInHp9NdDSu5eZ2onLBeKfYgKXLumcuJzEJs4pAZITnHyOj6dgRiqCVWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iTQIOELw; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789467962; c=relaxed/simple;
+	bh=NucUngAYc2cV45RFHzFf4AH61JUn2DVo7aG9EjjWCf4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=g848hkbnvU3lZYHBBCGJt5jPVprSOId+JJ+ZtXUndEU/NzBzaZwI5vHozKT3UE9c+u3q0+p70t9E0klemmjcicLWU+wXgephn0w5Azvvmcks/5bEDC7X/nnfAAzP7+ascNlsUgQAonZXfI+S9ZOIUe6cBEc/srTN72zJJ2gKvp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fadUO1Eu; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iTQIOELw"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E1F0152B;
-	Tue, 15 Sep 2026 03:25:30 -0700 (PDT)
-Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1C7623F7B4;
-	Tue, 15 Sep 2026 03:25:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789467933; bh=QSQQNG/X9SZNNSgdUIC3WO0lkTHMqEVH+D2pHmZmnDI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=iTQIOELwGV42ckI3KJMQwpU/U4rjCE7qHqaU0eXVCt3gRXAWrxbN2fdVgvNiy7feW
-	 uU/vkp0t1sGoW3zggyUWi19gbQGESdYH9j1LGbvL8dT62qLC4k2XmDNqWu5BZpMDjq
-	 bfaQE2FuMbYXSNDMnEsNwmFS7nKIvB4Xb+EySXek=
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH v5] mm/gup_test: safely calculate GUP batch size
-Date: Tue, 15 Sep 2026 15:55:24 +0530
-Message-ID: <20260915102524.125758-1-sarthak.sharma@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fadUO1Eu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789467959; x=1821003959;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=NucUngAYc2cV45RFHzFf4AH61JUn2DVo7aG9EjjWCf4=;
+  b=fadUO1Euf7+1aNvTF3Sw2M7rebLUd9/GiCgb45MpgysE/b8s3AsZHfsM
+   mIBls/zR2VvTu5mOp7xnXY6XYtW02HSode09JJAxH3VWFZn81vrnX2zL0
+   jYSicLSnqBVgS7sRrnTn/Fp7aCdXMZtGuSxkU+dMNvvaguB13CfA/3UQ0
+   DVD/nPhhVPst8a44MnCfgG5Xx10sSqIBJ8nFrczKTh5HiDzGH9BqgEcP2
+   AwuhzFm/H3Hoi8HkJ1FmDT4hYbXnMBizDbq6EUVrxLn8Ag6F6V3uGGQEx
+   /jlVCsclCfA1W9Qy/z07xt7bZGHZCZMtZ1xUWva4nrP5VMGIpd91TZWoV
+   w==;
+X-CSE-ConnectionGUID: b+tutgheRlieXKkRvVFQEQ==
+X-CSE-MsgGUID: Qe8fQY/GTJSwbPkFgev4EQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101343248"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101343248"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:25:59 -0700
+X-CSE-ConnectionGUID: bJQaPSO0Q2mBAs0lZ2Pzlg==
+X-CSE-MsgGUID: HS5Txu3USeSGsIJjIFHd9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1181940"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:25:55 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 15 Sep 2026 13:25:51 +0300 (EEST)
+To: Mario Limonciello <mario.limonciello@amd.com>
+cc: Ma Ke <make_ruc2021@163.com>, Shyam-sundar.S-k@amd.com, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, akpm@linux-foundation.org, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] platform/x86/amd/pmc: Fix RTC reference leak in
+ amd_pmc_verify_czn_rtc()
+In-Reply-To: <96aea084-ed8c-49dc-8a79-e05f8412c904@amd.com>
+Message-ID: <a4ffd941-952d-e63a-4454-47623e1403db@linux.intel.com>
+References: <20260914122002.1701233-1-make_ruc2021@163.com> <96aea084-ed8c-49dc-8a79-e05f8412c904@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-__gup_test_ioctl() calculates the end of a GUP batch using:
+On Mon, 14 Sep 2026, Mario Limonciello wrote:
+> On 9/14/26 07:20, Ma Ke wrote:
+> > amd_pmc_verify_czn_rtc() opens the RTC with rtc_class_open(), which
+> > takes both a device reference and a module reference on the RTC
+> > driver. rtc_class_close() is the matching release, but it is not
+> > called.
+> > 
+> > Use a single exit path and close the RTC there, in the same way
+> > ntp.c:sync_hw_clock() does with its out_close: label.
+> > 
+> > Found by code review.
+> > 
+> > Fixes: 59348401ebed ("platform/x86: amd-pmc: Add special handling for timer
+> > based S0i3 wakeup")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Ma Ke <make_ruc2021@163.com>
+> 
+> Rather than adding all the gotos, can this be done with a __free() cleanup
+> call on the declaration?
 
-next = addr + nr * PAGE_SIZE;
+Yes, that's what I too want to see.
 
-If nr is too large, it can cause next to overflow and wrap around.
-If it wraps, the next > end check is bypassed and a large value
-of nr is passed to the GUP call, even though the pages array was
-allocated according to gup->size. This can lead to out of bounds writes.
+I think adding a local DEFINE_FREE() is necessary besides just using 
+__free().
 
-Also, when fewer than PAGE_SIZE bytes remain, the calculated batch
-contains zero pages. The code still calls GUP functions with pages + i,
-which can point past the allocated array.
-
-Calculate nr by taking the minimum of the number of pages per call and
-the pages remaining in the address range. Reject zero sized and non
-page aligned gup->size values and zero nr_pages_per_call value.
-
-Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
----
-Changes in v5:
-- Make the batch clamping logic easy to read
-- Reject zero sized and non page aligned gup->size and zero
-  gup->nr_pages_per_call
-
-Changes in v4:
-- Simplify batch clamping logic as suggested by Kiryl
-- Don't call GUP functions for an empty batch
-- Drop the pinned byte reporting patch since it has been applied to mm-new
-
-v4: https://lore.kernel.org/all/20260903115033.162218-1-sarthak.sharma@arm.com/
-v3: https://lore.kernel.org/all/20260901083452.115365-1-sarthak.sharma@arm.com/
-
- mm/gup_test.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/mm/gup_test.c b/mm/gup_test.c
-index 185ba3bb8ed1..ba74bf3f4104 100644
---- a/mm/gup_test.c
-+++ b/mm/gup_test.c
-@@ -116,7 +116,8 @@ static int __gup_test_ioctl(unsigned int cmd,
- 	bool needs_mmap_lock =
- 		cmd != GUP_FAST_BENCHMARK && cmd != PIN_FAST_BENCHMARK;
- 
--	if (gup->addr > ULONG_MAX || gup->size > ULONG_MAX)
-+	if (gup->addr > ULONG_MAX || gup->size > ULONG_MAX || !gup->size ||
-+	    !gup->nr_pages_per_call || !PAGE_ALIGNED(gup->size))
- 		return -EINVAL;
- 	if (check_add_overflow((unsigned long)gup->addr,
- 			       (unsigned long)gup->size, &end))
-@@ -139,11 +140,9 @@ static int __gup_test_ioctl(unsigned int cmd,
- 		if (nr != gup->nr_pages_per_call)
- 			break;
- 
-+		nr = min_t(unsigned long, nr, (end - addr) / PAGE_SIZE);
-+
- 		next = addr + nr * PAGE_SIZE;
--		if (next > end) {
--			next = end;
--			nr = (next - addr) / PAGE_SIZE;
--		}
- 
- 		switch (cmd) {
- 		case GUP_FAST_BENCHMARK:
-
-base-commit: b08a65b93426d86e3f354d655d6225397b591877
 -- 
-2.53.0
+ i.
 
+> > ---
+> >   drivers/platform/x86/amd/pmc/pmc.c | 22 +++++++++++++++-------
+> >   1 file changed, 15 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/platform/x86/amd/pmc/pmc.c
+> > b/drivers/platform/x86/amd/pmc/pmc.c
+> > index 6792aa2c6187..543bd95e4766 100644
+> > --- a/drivers/platform/x86/amd/pmc/pmc.c
+> > +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> > @@ -671,33 +671,41 @@ static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev
+> > *pdev, u32 *arg)
+> >   	if (rc) {
+> >   		if (rc == -ENOENT)
+> >   			dev_dbg(pdev->dev, "no alarm pending\n");
+> > -		return rc == -ENOENT ? 0 : rc;
+> > +		rc = rc == -ENOENT ? 0 : rc;
+> > +		goto out_close;
+> >   	}
+> >   	if (!alarm.enabled) {
+> >   		dev_dbg(pdev->dev, "alarm not enabled\n");
+> > -		return 0;
+> > +		rc = 0;
+> > +		goto out_close;
+> >   	}
+> >   	rc = rtc_read_time(rtc_device, &tm);
+> >   	if (rc)
+> > -		return rc;
+> > +		goto out_close;
+> >   	then = rtc_tm_to_time64(&alarm.time);
+> >   	now = rtc_tm_to_time64(&tm);
+> >   	duration = then-now;
+> >     	/* in the past */
+> > -	if (then < now)
+> > -		return 0;
+> > +	if (then < now) {
+> > +		rc = 0;
+> > +		goto out_close;
+> > +	}
+> >     	/* will be stored in upper 16 bits of s0i3 hint argument,
+> >   	 * so timer wakeup from s0i3 is limited to ~18 hours or less
+> >   	 */
+> > -	if (duration <= 4 || duration > U16_MAX)
+> > -		return -EINVAL;
+> > +	if (duration <= 4 || duration > U16_MAX) {
+> > +		rc = -EINVAL;
+> > +		goto out_close;
+> > +	}
+> >     	*arg |= (duration << 16);
+> >   	rc = rtc_alarm_irq_enable(rtc_device, 0);
+> >   	pm_pr_dbg("wakeup timer programmed for %lld seconds\n", duration);
+> >   +out_close:
+> > +	rtc_class_close(rtc_device);
+> >   	return rc;
+> >   }
+> >   
