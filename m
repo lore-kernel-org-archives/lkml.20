@@ -1,115 +1,96 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6472936AB6B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326F44BD7BF;
+	Tue, 15 Sep 2026 18:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789496754; cv=none; b=Ef6SkE0SFRpxaOm7EwPqG9whPDZXrdJhHesfrHEsqWgub1KgWUed9Fxcz0Gt8oOFHmHDv9wtPYOdHtzOtWaivFt2s41GS38ZwF6JISL7qSJCTysJ8lvOBGnp5TlpQeBbmfr5r73LKPX6zFY6pUz2rhSiaR7XC7yLwa63/uFCE8s=
+	t=1789496922; cv=none; b=S6V3CJdVmWJzIQslXYPCqbNORpI/IdVOscIOWDmTclgjJrbDUElSxNnsIww6v6+ALL5kWQ3BWpC2FBfSk3ab3wTRI6nRSONZsuVakPITGuo6AkjbbDON4fFtcZg/CrN0VMkypLQ7GXsnFEXDIlKs+KWTSvFCfvIMYse5UD0YPLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789496754; c=relaxed/simple;
-	bh=kKyWYIcgxcf6kiNW3ZoFFM/fwXUnaHyPcNMr7gqpDPw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=uI1QDozGJnppO3hBKJlPyFNlpVrSvUw8B+rhCHALtk7SGamN+gQrss/xTUxEZvtwiWpoxX6HVG+jRvUekQEdjWAJ+S61d7yqThgpc7dkG3JjERomdp8FwnajVZRw2AezpDUkGsOYcslElf6velQ9Wl3wxUJ2POXAiGsXHnHqS58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=cE6zLHlL; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=sIm3aACv; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789496922; c=relaxed/simple;
+	bh=K2v9iBFaTmblF7LLjs8V4fvJN8g8M/6pF/Is0FsH75c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aY+tdG+l4x/YgrRCHGwiqCNhd4kWMjV1IDsduOtoM+31wyUuFSL0PVsAjHIpUjBDBzL8vzSGjqaoicrsUIT5a/yc6ar+t7MnYQ9i6+MQFLWIx18zapZmvol9GfTvScCqeboWZsVZKFErpK6cWy3dwqqsCfcf/LHYVSHjB0kCjAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kneD8A0B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="cE6zLHlL";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="sIm3aACv"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789496735; bh=bo9N4ceUt7SzcpTRkiZbLmg
-	s1rzhY+NEfFp3p7TdIBw=; b=cE6zLHlLjbftFVrCzSLiMZLtgOgjrh41yIoEZL0E9DsvhtG0MV
-	2Dc0fU66UxIPMvtczwZA4NZ7C3XOhiYgLKhCAQDS6sYmtgs4iUPzmms/qsZiWNpmAP26GsTxU1n
-	VcKqMiuMHDY+Ir5LNpazlF/iDoED7ZGAZQyTT4D6gJ22/27q2cnDG2QRF+zONSwea2rriJLXrOY
-	tYZVQqm04ZhBTwiBYm2ScQPntcX7oB+ecUZu0dI7PUOEcSkOrh07oPorVjhqfrQiW/ZOiPyLNME
-	HpjJmkIICogJ8k/EX8diJnb1WfJR0AAdqIwMhwIuVQ2wfGKDtauGU4dXUg+CJb+Kz1w==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789496735; bh=bo9N4ceUt7SzcpTRkiZbLmg
-	s1rzhY+NEfFp3p7TdIBw=; b=sIm3aACvqwXrEwbWxLU3PD1JytosPmxiA4a2oKX4SAoFvX5USp
-	v3a7c4h/6ys218IHPJqz8+E/iiDLMpDI29Ag==;
-Date: Tue, 15 Sep 2026 19:25:33 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: andriy.shevchenko@linux.intel.com
-CC: akpm@linux-foundation.org, andy@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] resource: Replace open coded resource_overlaps()
-In-Reply-To: <20260915085353.3518153-1-andriy.shevchenko@linux.intel.com>
-Message-ID: <0D81679D-B746-405C-8333-CF0FF69E094E@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kneD8A0B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C1E1F000FF;
+	Tue, 15 Sep 2026 18:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789496920;
+	bh=JpN2DFnZLoqwI3jIrp8G2HAMxfqFA3eArz39p/f4vNw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kneD8A0BuhrBzx2bopOC4yG8tjBLARE0WxLIOQS86mc11s9U2Y9ZqIQuEjjzssqcF
+	 HiMRpmdHbSmc3qGwJhjdU4mVPuRmz3R97cbIQ8V7qfS+HbST0iWOF+AywlaZ0pPJsJ
+	 iBRL/Uyyv6BeH6oL9ncVpPjAnRK+esNjmBe8PmzNBrhVhASMuWV5vl58hP4BFVifB0
+	 tgdrZeZYjhs/iGKNfsRSVZknKxztBvY6VRzEYzjujSW3ZIglqLIe4dL7HkKOcosV5Y
+	 lKZWtYqaQ2ec63lVptMFh9pBT/Va3ESIAPawLDfSkCrdr/sIIG3I2tHRZF6/EMJ8UJ
+	 JdDgADRsysFKQ==
+Message-ID: <4744f837-538b-4b3c-b95c-1c5e0b8547b4@kernel.org>
+Date: Tue, 15 Sep 2026 20:28:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/10] efi/libstub: Avoid UTF-16 conversion busywork
+To: Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
+ x86@kernel.org
+References: <20260909115530.1924665-12-ardb+git@google.com>
+From: Vincent Mailhol <mailhol@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 15 September 2026 09:53:53 BST, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->In iomem_map_sanity_check() a piece of code resembles the content of
->the resource_overlaps(). Replace open coded piece with the call to
->the existing helper.
->
->Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->---
-> kernel/resource.c | 14 ++++++--------
-> 1 file changed, 6 insertions(+), 8 deletions(-)
->
->diff --git a/kernel/resource.c b/kernel/resource.c
->index 54d7199695fb..cfc1a00e86aa 100644
->--- a/kernel/resource.c
->+++ b/kernel/resource.c
->@@ -1833,7 +1833,7 @@ __setup("reserve=", reserve_setup);
->  */
-> int iomem_map_sanity_check(resource_size_t addr, unsigned long size)
-> {
->-	resource_size_t end = addr + size - 1;
->+	struct resource mem = DEFINE_RES_MEM(addr, size);
-> 	struct resource *p;
-> 	int err = 0;
+On 09/09/2026 at 13:55, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
 > 
->@@ -1843,12 +1843,10 @@ int iomem_map_sanity_check(resource_size_t addr, unsigned long size)
-> 		 * We can probably skip the resources without
-> 		 * IORESOURCE_IO attribute?
-> 		 */
->-		if (p->start > end)
->+		if (!resource_overlaps(p, &mem))
-> 			continue;
->-		if (p->end < addr)
->-			continue;
->-		if (PFN_DOWN(p->start) <= PFN_DOWN(addr) &&
->-		    PFN_DOWN(p->end) >= PFN_DOWN(end))
->+		if (PFN_DOWN(p->start) <= PFN_DOWN(mem.start) &&
->+		    PFN_DOWN(p->end) >= PFN_DOWN(mem.end))
-> 			continue;
-> 		/*
-> 		 * if a resource is "BUSY", it's not a hardware resource
->@@ -1859,8 +1857,8 @@ int iomem_map_sanity_check(resource_size_t addr, unsigned long size)
-> 		if (p->flags & IORESOURCE_BUSY)
-> 			continue;
+> The EFI libstub performs some redundant conversions between UTF-16 and
+> UTF-8 and back again, which includes dealing with surrogate pairs, which
+> UEFI implementations themselves simply ignore.
 > 
->-		pr_debug("resource sanity check: requesting [mem %pa-%pa], which spans more than %s %pR\n",
->-			&addr, &end, p->name, p);
->+		pr_debug("resource sanity check: requesting %pR, which spans more than %s %pR\n",
->+			 &mem, p->name, p);
+> So drop all the homegrown code, and use the existing UCS-2 (== UTF-16
+> without surrogate pairs) library code where conversion to UTF-8 is
+> actually needed (the kernel command line).
+> 
+> The remaining handling involves the EFI console, which supports wide
+> characters natively, so just use those directly.
+> 
+> Changes since v1 [0]:
+> - drop size limit from ucs2_strscpy() instead of just the WARN()
+> - suppress modinfo sections from ucs2_string when __DISABLE_EXPORTS is
+>   defined
+> - allow the input limit and max output size to be passed separately to
+>   ucs2_to_utf8()
+> - reimplement efi_convert_cmdline() to optimize the common case, and
+>   only process the input character by character if its size exceeds
+>   COMMAND_LINE_SIZE
+> - use memcpy() to avoid strscpy() semantics in handling of %ls
+> - incorporate Vincent's patch (which inspired this work) for
+>   completeness
+> 	
+> Cc: Vincent Mailhol <mailhol@kernel.org>
+
+Sorry for the late feedback. I just finished my review. Aside from the
+few comments I left, the runtime tests were all OK. My BLI patch works
+fine on top of your changes.
+
+Thanks again for the time spent to accommodate for my patch!
 
 
-This swap is not mentioned in the changelog and it does change the
-output a bit: %pa prints 0x1000, %pR pads the numbers to 10 hex digits,
-so the debug line gains a bunch of zeros. Debug only, so I don't care
-much, but a line in the changelog saying the print changed with it
-would be good?
+Yours sincerely,
+Vincent Mailhol
 
-Other than that, LGTM
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
-> 		err = -1;
-> 		break;
-> 	}
->
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
