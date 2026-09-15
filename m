@@ -1,34 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127E04A0153;
-	Tue, 15 Sep 2026 11:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDD549E15A;
+	Tue, 15 Sep 2026 11:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471959; cv=none; b=GlUEh99yXA6SGKLfasYG7ftg1bLd5mCkawvwC/hGlDKmLLF3SJA8B3uNhx3AqeVE2YYpcc7AiCdW4SgtKzRDEFlUQB1oO/+ghexCEpJBSeIoRySw5WGthn6Jym7rJZmd8x82dqTyBybOZ2Cw+EXGgVGT1ZWjrFURvDWxmzeEX7A=
+	t=1789471965; cv=none; b=BYQygz4OUumX/7af+oPLjqKYy8y7azB6RncVIHLak02todA855wK6RMeWYgxPcr3e+QX11Yj54whQv/7zR7fdjfy5+hUp2/xAMvN77JvhtwkEINlTUUS8UvFv5Mmb+Migqk5bvjoHxQ3EqUIaw/+8RYk0S2egca4L7DkAbX6FP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471959; c=relaxed/simple;
-	bh=nXh3DWWigUzaDKpK2QrpbR3RoNJlzLOS8WiJE98yT14=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ROyqGw/uVxW3dA6QJ6JSrWgILSvLkYIw21XXv0XdJeHtZPPPSbz/K9Oi2WX73kbKkSDeIXmzVyDNLyExKMtJM0u4Fwm7rZVqMwJj02fcIZW/bU7Pd5LSR/gaoPnQ5f5L/XEqyoq8Y87j21PO+p4ftllrblfbPops7W5G3jOgyZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SOdqCs6F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789471965; c=relaxed/simple;
+	bh=46PSGLsFjyq6P8TWD1JF9OTZGgANQydgBgpk3rYB11Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Dpj97mpt06HvacebF33csvm+3JM55rCd+jtYYivydsHezedu7Hi+td1OGVlutMg/3p0MEl4ONQ3Wlu4XhfpF4zdDBs4bNx6q3Bv9PLtluhd92pP3mZ4R0dQJXV93cQ5N9NWvSLKf168L1AXFw3Xa/OsVOol5S+dfrkrLHFmzScI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VCxsldHs; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SOdqCs6F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726AF1F00898;
-	Tue, 15 Sep 2026 11:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789471957;
-	bh=tg5h99+rXwPUOCpAK+cpKxSGhPsqw2qIAApb6RMTrZY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SOdqCs6FFc+m85zKG65RFoiI3OX0TKhMSKuOGs5mjQ4eozA6DlIsvYCrD/FPZMCya
-	 K5qpA/W9zCpRVyaXCWr3ds/VJdxhjZpyZLD3Mkij4zr7pNA3EzYnKrukqu7tQxRSqi
-	 awcZPh3/KgPK/8y13mc/r6QIcT0xahYOLE6UWC72R99aPngllw7ccPTc2jgUwYcOi7
-	 U74GTjJbNoQ41gpF7hzYmntvuz0kqC5olR/d01x9OdjbXM1vPyPMxQK1LCxZgEa3FG
-	 WTQ0xmcaX8BwZ3dvqAm6+xxz2psYUrOreD8islOMqgvBbrNJc0rwt/o9saf69osrsb
-	 1/GNM2HBy3hbw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 15 Sep 2026 13:30:56 +0200
-Subject: [PATCH RFC POC 10/50] microblaze: commit fds on syscall exit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VCxsldHs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789471964; x=1821007964;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=46PSGLsFjyq6P8TWD1JF9OTZGgANQydgBgpk3rYB11Y=;
+  b=VCxsldHs6NXbqgFFHpVJDIiXpRMSiv6DOSy5/z5tlWJ0V+dqXmKTQWTF
+   GfRvAIPogpA6Zfy0arFd4Vu6wtu1lICpl1e59vg4mt9/Fu3v2YI5ywC+5
+   +W7njs7R60kmsMSEWlVHudxH2K7NXAntpK2KrXuDD48/aTeEFkvD3/Jvs
+   zNGdSL5ZNbSsvXCUU/VB+FtiqT6zA0/figlm2ZWMk2F1f5axOMhZibEbd
+   mrSW2gpjXUem4AYob0NWmlgiMcK0sOVHxXd/K4WiaHc/dqiUhTVBGwKLJ
+   xlP3vU7biHsoptKbSUyXjuejl9CDkX+TXE8usLBHM1hX028eQUx0e+oDk
+   g==;
+X-CSE-ConnectionGUID: ZaYDsfU9TWyxwLTYlcsfzg==
+X-CSE-MsgGUID: CmZ1MkQuR/WtMXU7pM+Ilg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100428329"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100428329"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 04:32:42 -0700
+X-CSE-ConnectionGUID: ef7rdoBuRSqG2Vv3P6VFAA==
+X-CSE-MsgGUID: XwGAZ87XSZ6GcpE5eCtmeQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1380348"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 04:32:39 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Henrique de Moraes Holschuh <hmh@hmh.eng.br>, 
+ Hans de Goede <hansg@kernel.org>, Nitin Joshi <nitjoshi@gmail.com>, 
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
+ platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <anK1j7hbMyFHGBUS@google.com>
+References: <anK1j7hbMyFHGBUS@google.com>
+Subject: Re: [PATCH] platform/x86: thinkpad_acpi: Use
+ input_device_enabled()
+Message-Id: <178947195441.31094.9793704324340226838.b4-ty@b4>
+Date: Tue, 15 Sep 2026 14:32:34 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,98 +66,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-work-fd-reserve-unify-folded-v1-10-4d5217d6b246@kernel.org>
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
- Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, 
- io-uring@vger.kernel.org, netdev@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
- virtualization@lists.linux.dev, kvm@vger.kernel.org, 
- kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2340; i=brauner@kernel.org;
- h=from:subject:message-id; bh=nXh3DWWigUzaDKpK2QrpbR3RoNJlzLOS8WiJE98yT14=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1KnZ7yrddCzxyY2/Tpa2vz6x/Nq//Y/DVseZ581KJ
- U5sMTtwtaOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiZXcYGfaG5Cl1dp6Z4vGN
- heGfRKcz571g7fAA9V1NlYVnC00jGBkZbjv+T3n9aZpP9I+Lez8pxBz2mPT/3UPhvvRP08XYkut
- MuAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-Mailer: b4 0.15.2
 
-Add TIF_FD_SLOTS to the syscall work mask. The return path rereads
-the flags after the system call and calls do_syscall_trace_leave()
-for any of them which commits the reservations before audit and the
-ptrace exit stop.
+On Tue, 04 Aug 2026 21:03:36 -0700, Dmitry Torokhov wrote:
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- arch/microblaze/include/asm/thread_info.h | 5 ++++-
- arch/microblaze/kernel/ptrace.c           | 4 ++++
- 2 files changed, 8 insertions(+), 1 deletion(-)
+> Use the new helper. Inspecting input device's 'users' member needs to be
+> done under device's mutex, so add appropriate invocations.
 
-diff --git a/arch/microblaze/include/asm/thread_info.h b/arch/microblaze/include/asm/thread_info.h
-index 0153f7c2717c..ee2f76589696 100644
---- a/arch/microblaze/include/asm/thread_info.h
-+++ b/arch/microblaze/include/asm/thread_info.h
-@@ -103,6 +103,7 @@ static inline struct thread_info *current_thread_info(void)
- #define TIF_SINGLESTEP		4
- #define TIF_NOTIFY_SIGNAL	5	/* signal notifications exist */
- #define TIF_MEMDIE		6	/* is terminating due to OOM killer */
-+#define TIF_FD_SLOTS		7	/* syscall prepared descriptors */
- #define TIF_SYSCALL_AUDIT	9       /* syscall auditing active */
- #define TIF_SECCOMP		10      /* secure computing */
- 
-@@ -118,10 +119,12 @@ static inline struct thread_info *current_thread_info(void)
- #define _TIF_POLLING_NRFLAG	(1 << TIF_POLLING_NRFLAG)
- #define _TIF_SYSCALL_AUDIT	(1 << TIF_SYSCALL_AUDIT)
- #define _TIF_SECCOMP		(1 << TIF_SECCOMP)
-+#define _TIF_FD_SLOTS		(1 << TIF_FD_SLOTS)
- 
- /* work to do in syscall trace */
- #define _TIF_WORK_SYSCALL_MASK  (_TIF_SYSCALL_TRACE | _TIF_SINGLESTEP | \
--				 _TIF_SYSCALL_AUDIT | _TIF_SECCOMP)
-+				 _TIF_SYSCALL_AUDIT | _TIF_SECCOMP | \
-+				 _TIF_FD_SLOTS)
- 
- /* work to do on interrupt/exception return */
- #define _TIF_WORK_MASK		0x0000FFFE
-diff --git a/arch/microblaze/kernel/ptrace.c b/arch/microblaze/kernel/ptrace.c
-index 236264e932d6..e6951fea8593 100644
---- a/arch/microblaze/kernel/ptrace.c
-+++ b/arch/microblaze/kernel/ptrace.c
-@@ -25,6 +25,7 @@
-  */
- 
- #include <linux/kernel.h>
-+#include <linux/file.h>
- #include <linux/mm.h>
- #include <linux/sched.h>
- #include <linux/sched/task_stack.h>
-@@ -156,6 +157,9 @@ asmlinkage void do_syscall_trace_leave(struct pt_regs *regs)
- {
- 	int step;
- 
-+	if (test_thread_flag(TIF_FD_SLOTS))
-+		fd_slots_commit(regs);
-+
- 	audit_syscall_exit(regs);
- 
- 	step = test_thread_flag(TIF_SINGLESTEP);
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
--- 
-2.53.0
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[1/1] platform/x86: thinkpad_acpi: Use input_device_enabled()
+      commit: be0048786d53375fa4eace15cfdf65593956a1a2
+
+--
+ i.
 
