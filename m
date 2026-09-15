@@ -1,211 +1,100 @@
-Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA7F40A927
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:12:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8815B4AA3F9;
+	Tue, 15 Sep 2026 18:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495946; cv=none; b=XGQpnskMdVEsMiTsO85srh8qK2GeiNSCDBgII9daNmwodC4mQCFlLBCE8c7To7iR3nOGZl3g0pZSbJUDgVm/7LJk3Cey6RPcEab1xcrh58g9JWsQshRAYd/36PQ7lJgp7+14bF65pjGAqCatlO+UAmaYOkHOzd+9eb8d5PvK784=
+	t=1789495956; cv=none; b=k2ZNh64Huw+ojz1NBi5kRDCiB/GgOIlz2xlTzZ6Tk2+EMBIldGyYf3vctc/S+7agcsxcKw1vWD+q4SnEHbNfO1AnbNbbxg6UCevVptLQ6N0+L2tD1+6VyHAYgl/Gy6tGtrtWyNsA/tGKHrthocbdzOPKDm0aQRXkhoSiJR/70nI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495946; c=relaxed/simple;
-	bh=mWSonoI8Rf6kLGtR+hZdBol7nOHVUi5oG8LK3DaGXl4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j62t+FcY6CenWECfP/nwrg77pWyp3viXLgWU5Balrim0EwjqCeKIz+CTulZosRtA5WjQVItLn7XhIuH2P2YQwrrD/aj7q+e4yAMcPdSLRFLPaF2oBAu0+6M0dvMoY+za+1IIh743nqwRH/C5nqo1/ivhtNiVus7QNEeEzuXmnws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NyFVnitE; arc=none smtp.client-ip=91.218.175.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789495956; c=relaxed/simple;
+	bh=RnCXiFbM1SzdFNCgrQuTjcDJhm67a4cNz7MJMWzIUgE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=g3gAWCtA9mSVcfe+N7aXA7ldWbd2BlAr0PO8CEGBjUedPFyzBeamOuUXIRNmwcHI27wipVpIKgH/E8ryGMNM1zMybv8ot8RQyAjwfDNSl5/5sA+x/quTZ6NEypGdVZvJiht+rX8N9GZAGs+Y7G6vF5K9rLkLSw2LkThYd7OJKYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIGdbwmP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NyFVnitE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mWSonoI8Rf6kLGtR+hZdBol7nOHVUi5oG8LK3DaGXl4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789495940; v=1; x=1790100740;
- b=NyFVnitEIgFYzpY04Pn3i2mvuDpaW3qXFJ/vdi4uymMhvCND7dA9BozLKVw2wdnMyNOhD2qW
- kW4L2F6Fl1rhT8vLd4bNiYCcu4io1xWwVM8POquHqmlLhcxB7m0KDR7DXLiiiw2Gfq3d1oX2WwX
- Ue5Jx422uvxv3RoDcOUj7bDw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 58d4f4e72a68db37;
-	Tue, 15 Sep 2026 18:12:20 +0000
-X-Mizu-Trace-ID: 58d4f4e72a68db37
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: linux-input@vger.kernel.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schyboll" <dragonn@op.pl>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	Denis Benato <denis.benato@linux.dev>,
-	Antheas Kapenekakis <lkml@antheas.dev>
-Subject: [PATCH 3/3] HID: asus: add support for xgm led
-Date: Tue, 15 Sep 2026 18:12:00 +0000
-Message-ID: <20260915181200.18086-4-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915181200.18086-1-denis.benato@linux.dev>
-References: <20260915181200.18086-1-denis.benato@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIGdbwmP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8951F000FF;
+	Tue, 15 Sep 2026 18:12:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789495955;
+	bh=a7qVEHbdpDwDEc6vbWRx6TlbgYFck6ZMDFAc44J1FgI=;
+	h=From:To:Cc:Subject:Date;
+	b=aIGdbwmPoXxDzXMHFjsBlYMzGiKvMePyCVlFZNCCIV2u1VoZqRgrJeaHEQiFNb1dK
+	 PVv4mb5l3UOjFk0X8pFHLvOL2LrVWBxcHC1DNbCRwVGpv1C/bSC9lp03dm55L3kGEc
+	 INyFaul+at8pYMY434kfNzS6waFckedM2ppvIv2NeVOwdO+mf4fyCfug7QM5t2g2B0
+	 hMGQjOzBe6rJgP8naEM9ArPsCQ1N9cumpsIugFQiKhO6Hx6NsBtNogXpEU59pJf9T+
+	 YUsmu3UpujbOKnTGM600wiRRGLd8uUGtLdByXYDoPzyJRKFCHiFA06hwI/yvc/HknU
+	 ITifVwzm/1cFQ==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Joe Damato <joe@dama.to>
+Subject: [PATCH net] eth: fbnic: Avoid rounding zero ring sizes
+Date: Tue, 15 Sep 2026 20:12:27 +0200
+Message-ID: <20260915181229.4159158-1-bjorn@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-XG mobile stations have very bright leds behind the fan that can be
-turned either ON or OFF: add a cled interface to allow controlling the
-brightness of those red leds.
+roundup_pow_of_two() is undefined for zero. ethtool permits a zero ring
+size to reach the driver, where the minimum-size check should reject it.
 
-Let the led core manage the power transitions: the classdev is flagged
-with LED_CORE_SUSPENDRESUME, so it is switched off at suspend and its
-last brightness is restored at resume. The EC drives its own blinking
-pattern during s2idle anyway, so the led state while the machine is
-asleep is not meaningful.
+Validate the requested sizes before rounding them so zero is rejected
+deterministically.
 
-Cc: Antheas Kapenekakis <lkml@antheas.dev>
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Fixes: 6cbf18a05c06 ("eth: fbnic: support ring size configuration")
+Suggested-by: Alexander Duyck <alexanderduyck@fb.com>
+Signed-off-by: Björn Töpel <bjorn@kernel.org>
 ---
- drivers/hid/hid-asus.c | 84 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 84 insertions(+)
+ drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index 03150d29eec5..a427e272563d 100644
---- a/drivers/hid/hid-asus.c
-+++ b/drivers/hid/hid-asus.c
-@@ -51,6 +51,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
- #define FEATURE_KBD_LED_REPORT_ID1 0x5d
- #define FEATURE_KBD_LED_REPORT_ID2 0x5e
+diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c b/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
+index 0e47088ec44b..8954fcd08cb3 100644
+--- a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
++++ b/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
+@@ -334,11 +334,6 @@ fbnic_set_ringparam(struct net_device *netdev, struct ethtool_ringparam *ring,
+ 	struct fbnic_net *clone;
+ 	int err;
  
-+#define ROG_XGM_REPORT_SIZE 300
-+
- #define ROG_ALLY_REPORT_SIZE 64
- #define ROG_ALLY_X_MIN_MCU 313
- #define ROG_ALLY_MIN_MCU 319
-@@ -144,6 +146,11 @@ struct asus_worker {
- 	bool removed;
- };
- 
-+struct asus_xgm_led {
-+	struct led_classdev cdev;
-+	struct hid_device *hdev;
-+};
-+
- struct asus_touchpad_info {
- 	int max_x;
- 	int max_y;
-@@ -170,6 +177,7 @@ struct asus_drvdata {
- 	unsigned long battery_next_query;
- 	struct asus_hid_listener listener;
- 	bool fn_lock;
-+	struct asus_xgm_led *xgm_led;
- };
- 
- static int asus_report_battery(struct asus_drvdata *, u8 *, int);
-@@ -1161,6 +1169,26 @@ static int asus_battery_probe(struct hid_device *hdev)
- 	return ret;
- }
- 
-+static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
-+{
-+	const u8 buf[ROG_XGM_REPORT_SIZE] = {
-+		FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
-+	};
-+	struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
-+	int ret;
-+
-+	ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
-+	if (ret < 0) {
-+		hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
-+		return ret;
-+	} else if (ret != ROG_XGM_REPORT_SIZE) {
-+		hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
- static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
- {
- 	struct input_dev *input = hi->input;
-@@ -1406,6 +1434,49 @@ static void asus_initialize_reports(struct hid_device *hdev)
+-	ring->rx_pending	= roundup_pow_of_two(ring->rx_pending);
+-	ring->rx_mini_pending	= roundup_pow_of_two(ring->rx_mini_pending);
+-	ring->rx_jumbo_pending	= roundup_pow_of_two(ring->rx_jumbo_pending);
+-	ring->tx_pending	= roundup_pow_of_two(ring->tx_pending);
+-
+ 	/* These are absolute minimums allowing the device and driver to operate
+ 	 * but not necessarily guarantee reasonable performance. Settings below
+ 	 * Rx queue size of 128 and BDQs smaller than 64 are likely suboptimal
+@@ -368,6 +363,11 @@ fbnic_set_ringparam(struct net_device *netdev, struct ethtool_ringparam *ring,
+ 		return -EINVAL;
  	}
- }
  
-+static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
-+{
-+	const char *name;
-+	int ret;
++	ring->rx_pending	= roundup_pow_of_two(ring->rx_pending);
++	ring->rx_mini_pending	= roundup_pow_of_two(ring->rx_mini_pending);
++	ring->rx_jumbo_pending	= roundup_pow_of_two(ring->rx_jumbo_pending);
++	ring->tx_pending	= roundup_pow_of_two(ring->tx_pending);
 +
-+	drvdata->xgm_led = devm_kzalloc(&hdev->dev, sizeof(*drvdata->xgm_led), GFP_KERNEL);
-+	if (drvdata->xgm_led == NULL)
-+		return -ENOMEM;
-+
-+	name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "asus:xgm-%s:led",
-+			      strlen(hdev->uniq) ? hdev->uniq : dev_name(&hdev->dev));
-+
-+	if (name == NULL) {
-+		ret = -ENOMEM;
-+		goto asus_xgm_init_err;
-+	}
-+
-+	drvdata->xgm_led->hdev = hdev;
-+	drvdata->xgm_led->cdev.name = name;
-+	drvdata->xgm_led->cdev.brightness = 1;
-+	drvdata->xgm_led->cdev.max_brightness = 1;
-+	drvdata->xgm_led->cdev.brightness_set_blocking = asus_xgm_led_set;
-+	drvdata->xgm_led->cdev.flags = LED_CORE_SUSPENDRESUME;
-+
-+	/* LED state is arbitrary on boot, set a default */
-+	ret = asus_xgm_led_set(&drvdata->xgm_led->cdev, drvdata->xgm_led->cdev.brightness);
-+	if (ret) {
-+		hid_err(hdev, "Asus failed to set xgm led: %d\n", ret);
-+		goto asus_xgm_init_err;
-+	}
-+
-+	ret = devm_led_classdev_register(&hdev->dev, &drvdata->xgm_led->cdev);
-+	if (ret) {
-+		hid_err(hdev, "Asus failed to register xgm led: %d\n", ret);
-+		goto asus_xgm_init_err;
-+	}
-+
-+	return 0;
-+asus_xgm_init_err:
-+	drvdata->xgm_led = NULL;
-+	return ret;
-+}
-+
- static int __maybe_unused asus_resume(struct hid_device *hdev)
- {
- 	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-@@ -1545,6 +1616,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	if (!drvdata->tp)
- 		asus_initialize_reports(hdev);
- 
-+	if (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID) &&
-+	    ((hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2022) ||
-+	     (hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2023))) {
-+		ret = asus_xgm_init(hdev, drvdata);
-+		if (ret) {
-+			hid_err(hdev, "Failed to initialize xg mobile: %d\n", ret);
-+			goto err_stop_hw;
-+		}
-+	}
-+
- 	/* Laptops keyboard backlight is always at 0x5a */
- 	if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
- 	    (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
-@@ -1594,6 +1675,9 @@ static void asus_remove(struct hid_device *hdev)
- 	if (drvdata->listener.brightness_set)
- 		asus_hid_unregister_listener(&drvdata->listener);
- 
-+	if (drvdata->xgm_led)
-+		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
-+
- 	asus_worker_stop(drvdata->worker);
- 	hid_hw_stop(hdev);
- }
+ 	if (!netif_running(netdev)) {
+ 		fbnic_set_rings(fbn, ring, kernel_ring);
+ 		return 0;
+
+base-commit: 18a6fe05fb6e18de29fa90d388bb34044114b3d8
 -- 
-2.47.3
+2.55.0
 
