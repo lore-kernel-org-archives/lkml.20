@@ -1,195 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f67.google.com (mail-oa1-f67.google.com [209.85.160.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD5A4A5C33;
-	Tue, 15 Sep 2026 14:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A860374E42
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483869; cv=none; b=DpgqEIPpKzqZ7cDovdlO2wx4y0taRnZPORaMUbUbietddv+OPEp4egJnOonrpstv0Exr1f6HR15zdyNL9xfBMzpb0LWYZiW7jtjBNIndwofDZqzs6L4rkpRfguiRZy59BHNXj0r+sO4vVMovbxyWArGVOMhv4Fr4m3buGDdXtNc=
+	t=1789483956; cv=none; b=YvvjJc44Fqo1FcrF405rOC4U5HOMs8mFBSDg9ThSzN7KSG3ltRfdBEjmosSFSbj+m5736N9fWF8eoEx6mqFUtmIZwTjp4V1EY9ZqiQkGhR4nNmuqdA+e6Dbxv52K80r6bT1/tiad/Enx3NrEmXimbqIrVqhE8WbZosrFugN1WYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483869; c=relaxed/simple;
-	bh=P5iYy/QSYWpIBpgNKRP7nBK+8mbBN5jaovZEL295pX4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tcDTKq5C+SElw+y117NQAMCCxOkhlmBkBZ6vHXC+uabRJ94ttiXLNgZ8jpWV/27xtqMlboT3HB7Bpb8hRmcUxlKsQB5K9GSgtJua/gIZes7eO1WMkzXElMbCyPf+zmbxMg5+l03CKElgNwCvhvWYG9iFTSL09x3EpoVJTwwMLqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NKG4ADbx; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789483956; c=relaxed/simple;
+	bh=Urw5a8upeNm1SOsQTtN4iahTE9tcKv302lbLJeGlBvU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HR9sl/U2h5x0WroUuQVxqTB95Xm4B1/ba16wZSuwTSLP5AETujKOtEqJh37hUmr0mEGpOuyryxTdvNuYCb6h79aVoWgAxCfcdhkz6mTuSX9zuCROo7HYObFMl0jj+Rof75YoQ0srjtKsa0UbLKckn+BVWNsMA6qTy8hUSRKpoOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQ8X5Qhh; arc=none smtp.client-ip=209.85.160.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NKG4ADbx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789483867; x=1821019867;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=P5iYy/QSYWpIBpgNKRP7nBK+8mbBN5jaovZEL295pX4=;
-  b=NKG4ADbxya7fF+3RfHk4VPEfYgWX/pUpuTei1Hy7txdRNgw2/iPFsYav
-   9EYSA0vCB/8OWxKWp8d1BrbaUCWyHOFS5EgVXAJo9SguigIpdXRfizein
-   PintOYQILj4MkzkfFJtoAspoY1P0VJN1jhMfRVrYvsOUn/A9qk05haUTO
-   xS3ns3rwJQWqdB2fvRPch9FWcYpU9jf7qIdAE9rjwkgXs6+1vTO5lMv1W
-   o63z5cZsrfBDFYk1Nx2EfyZNt6EZ7oOymeev3WH3qg7v6i7NDbS9F/oki
-   q+C5bb1TlYe9pdCHIf2KFc+9ZUghm6hO3pY6TenCMfITRCKOY4nOcif8A
-   Q==;
-X-CSE-ConnectionGUID: RZPmtIYbQJeJT5VDdVQQ7g==
-X-CSE-MsgGUID: wmGuwELvRPS4bdQQxLnCOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88983364"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="88983364"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:51:06 -0700
-X-CSE-ConnectionGUID: Ol/cDn8bTau4gdkva6ZjQQ==
-X-CSE-MsgGUID: Vlsrmi9NRxeS/5OiZL/mRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269352551"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.57])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:51:02 -0700
-Date: Tue, 15 Sep 2026 17:51:00 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: manivannan.sadhasivam@oss.qualcomm.com
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Amitkumar Karwar <amitkumar.karwar@nxp.com>,
-	Neeraj Kale <neeraj.sanjaykale@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Rahul Samana <rahul.samana@oss.qualcomm.com>,
-	Wei Deng <wei.deng@oss.qualcomm.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>
-Subject: Re: [PATCH 2/5] Bluetooth: btnxpuart: Add auxiliary driver for PCIe
- M.2 modules
-Message-ID: <aqlbVNjTUHXlObgy@ashevche-desk.local>
-References: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
- <20260915-pci-m2-bt-rework-v1-2-3c7d9cf9c010@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQ8X5Qhh"
+Received: by mail-oa1-f67.google.com with SMTP id 586e51a60fabf-4678d3e490bso796985fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:52:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789483954; x=1790088754; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+ahwYgxWMEileOU99DTxmNSErnxm7zxJkhpgn6sFwtI=;
+        b=eQ8X5QhhOM46iyUktsSUkhYSgljZiZCM2zspXqspnS+CCfuC2Xp93tqnwObr/Tj/Qu
+         33lJ90qcHWx1YV+13fJuaUl7RIT4kprfqG/oztRMm9NdTiHUysIb9EqFOMACBvbAGKqU
+         Rcn5SzF1i/nWbM4H4WQoqijxG0NxGY6l3/mxyx0iEmE0kGBVeQF6Do6T6VC57BZVf2d+
+         +tpq0+sbOqMQHOmqUG4ClfJ2PKaee4TmHATFdMnSzhsV70xiSnDle3egwwQTwpSTVL/V
+         w2uYm2pjC3L/Oe2GdixRCCwDiL40nH3UHcQo8hNpaR0e/1Y74KYujCFix0xgRRE9o3Ho
+         GcgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789483954; x=1790088754;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ahwYgxWMEileOU99DTxmNSErnxm7zxJkhpgn6sFwtI=;
+        b=kVfsSD3NGWFKo5InIzhp1eglqiEo0BeXWNoBlAAp2/42JX1c+Z9XQRS5uqJHE9jvEd
+         +l7wCgd1sH+pUz0FvaHTMa1/9wO9RZe8qc5q5uziNsipFlmLeFQ9Wf0t9cPCtU+Tyd+L
+         fQBAFdznDaL4M8hqd80l94cglyhRF1VvPXDVu0BT7y+NSzA3VH3KRb2RHU+FhxIUAuTF
+         sBrX3tCHO3EcQtavLkctgkBkydMwQ2HUI6TeAa0cnLTPdzkIEbzyLFJCwbPBoFcG9gGW
+         e2hU8aFwfuoeQtgUkapfSlf/F/eXpkaHPf6/NAXr8zJ89rnEJlJd4IS0P7Eb9nqe0l8g
+         j/ng==
+X-Forwarded-Encrypted: i=1; AKwUvBxHAgeSZAt1PWwYVRtOjksNlEYae8qDaxXmFuIzjvHypgwn/X+0NKsnWbADGhWwFoNoJv250rxgwptiuwc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkJPehkSkS6uc1yf6ENThNwa2HdjOe7kcEkIQ/bAhFqPpQxnYX
+	5BHtWHj1DSkDCRvIazyfeDDaPXnCbP5LJFSZ5xllz+UHdFkzOXrMAp6A
+X-Gm-Gg: AYBFou1qIITwzew6rA7UlKmLz1/MGW4t1zrBo1HxBYYIKbfV6LAlyxIoYVGwJ5gGldA
+	XQCSgJf1PV6QKtS1EfpuvEF2qvdkM3BbJAcWYNF+WS1E7TV9py9nIipYMXzM52rsy2Br77w3a/1
+	ccY1JVdoDnFxSVR9aAfCVP0D2mK+GregTtdRj3fj0vLanWObs855oQbmSdC5sJ7HaWmtN/JS4jm
+	PTUZR3qCAwJj5fcCdog0X/hGe3e/Ca7D6enxYjSLRzTH32F+enRFctf5yY8ak21Ztp4AF2UPEKv
+	cmwCH7afAWfL67gLMzHTR9IbeJPS9LQOZM4x091n3ThArtpREg/35g9fuUUE8sMsjSCoW8hN4OQ
+	9QgyxdHPsRjB+KwcqLCDymduTkZ9WPPF7VYr8X070t006g5A8mDDbY6aIx3cAq5kJu7mmeEVSo2
+	TyOP/FMSqEBxThbsNVM/uEt/fGtabAFxw5Ok4tRDQfYUnG08DbfS/2KvI3SPAvmp52NOCUCX9wh
+	h5sYFHcYijv8Y29
+X-Received: by 2002:a05:6870:459b:b0:462:e12e:c561 with SMTP id 586e51a60fabf-482e39ea87amr2549366fac.4.1789483953749;
+        Tue, 15 Sep 2026 07:52:33 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df86995d6sm12588398fac.6.2026.09.15.07.52.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 07:52:33 -0700 (PDT)
+Message-ID: <2791fd80-627a-4353-be41-213240e207ed@gmail.com>
+Date: Tue, 15 Sep 2026 09:52:31 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915-pci-m2-bt-rework-v1-2-3c7d9cf9c010@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] Novatek NT51021 DSI panel IC driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
+ <2ac704f5-40e5-4212-8b16-6b23912ef4b8@gmail.com>
+ <20260915-funky-hot-lobster-2eeee8@quoll>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260915-funky-hot-lobster-2eeee8@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 04:24:03PM +0200, Manivannan Sadhasivam via B4 Relay wrote:
+On 9/15/26 5:39 AM, Krzysztof Kozlowski wrote:
 
-> The 88W8987 combo module exposes Bluetooth over UART. Since this module is
-> attached over PCIe, it is not described in firmware like devicetree. So it
-> is discovered at runtime over PCIe by the power sequencing driver, which
-> allocates the UART serdev and creates an auxiliary device carrying that
-> transport and the power sequencing target to power up the Bluetooth
-> function.
-> 
-> Add an auxiliary driver that binds to this device. It reuses the serdev
-> provided by the producer, brings up the controller through the existing
-> UART transport with nxp_register_dev() and drives power through the
-> sequencer obtained with pwrseq_get().
-> 
-> Factor the HCI device setup and teardown shared with the serdev probe into
-> helpers so both paths register the same controller.
+> On Sun, Sep 13, 2026 at 12:23:46PM -0500, Ryan Brue wrote:
+>> Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 (2017),
+>> boe,tv101wum-nm0
+> This tag is applicable only to one patch out of tree, so just respond
+> there instead of causing scripts to get this tag to all patches.
+>
+> Best regards,
+> Krzysztof
+My apologies, I'm new to kernel development, and didn't realize, but in 
+hindsight it makes sense. Thanks for being kind about it, it won't 
+happen again.
 
-...
-
-> -static int nxp_serdev_probe(struct serdev_device *serdev)
-> +static int nxp_register_dev(struct btnxpuart_dev *nxpdev)
->  {
-> +	struct serdev_device *serdev = nxpdev->serdev;
-
-Why not also
-
-	struct device *dev = &serdev->dev;
-
-and use it to make lines even shorter?
-
-...
-
-> -	device_property_read_u32(&nxpdev->serdev->dev, "max-speed",
-> +	device_property_read_u32(&serdev->dev, "max-speed",
->  				 &nxpdev->secondary_baudrate);
-
-	device_property_read_u32(dev, "max-speed", &nxpdev->secondary_baudrate);
-
-Now exactly a single line (out of 80 characters).
-
-...
-
-> -	device_property_read_u8_array(&nxpdev->serdev->dev,
-> +	device_property_read_u8_array(&serdev->dev,
->  				      "local-bd-address",
->  				      (u8 *)&ba, sizeof(ba));
-
-	device_property_read_u8_array(dev, "local-bd-address",
-				      (u8 *)&ba, sizeof(ba));
-
-Now two lines instead of three. But ideally this casting should gone and
-instead something like ether_addr_copy() to be used. (The latter is out
-of scope here, of course.)
-
-...
-
-> +static int nxp_serdev_probe(struct serdev_device *serdev)
-> +{
-> +	struct btnxpuart_dev *nxpdev;
-> +	int err;
-> +
-> +	nxpdev = devm_kzalloc(&serdev->dev, sizeof(*nxpdev), GFP_KERNEL);
-> +	if (!nxpdev)
-> +		return -ENOMEM;
-
-> +	nxpdev->nxp_data = (struct btnxpuart_data *)device_get_match_data(&serdev->dev);
-
-This is bad. The const qualifier is for a reason. Make sure it's kept.
-On top the same suggestion as per above, use local 'dev' pointer.
-
-Also Sashiko found a nice issue with the driver data, id est driver_override
-mechanism that in some cases may lead to NULL dereferencing. Please, double
-check if it's not the case, otherwise check for NULL and return -ENODATA.
-
-> +	nxpdev->serdev = serdev;
-> +
-> +	nxpdev->pdn = devm_reset_control_get_optional_shared(&serdev->dev, NULL);
-> +	if (IS_ERR(nxpdev->pdn))
-> +		return PTR_ERR(nxpdev->pdn);
-> +
-> +	err = devm_regulator_get_enable(&serdev->dev, "vcc");
-> +	if (err) {
-> +		dev_err(&serdev->dev, "Failed to enable vcc regulator\n");
-> +		return err;
-> +	}
-> +
-> +	if (nxp_m2_connector_is_available(&serdev->ctrl->dev)) {
-> +		struct pwrseq_desc *pwrseq;
-> +
-> +		pwrseq = pwrseq_get(&serdev->ctrl->dev, "uart");
-> +		if (IS_ERR(pwrseq))
-> +			return dev_err_probe(&serdev->dev, PTR_ERR(pwrseq),
-> +					     "failed to get pwrseq\n");
-> +
-> +		nxpdev->pwrseq = pwrseq;
-> +		err = pwrseq_enable(pwrseq);
-> +		if (err)
-> +			goto err_pwrseq_put;
-> +	}
-> +
-> +	err = nxp_register_dev(nxpdev);
-> +	if (err)
-> +		goto err_pwrseq_put;
-> +
-> +	return 0;
-> +
->  err_pwrseq_put:
->  	if (nxpdev->pwrseq)
->  		pwrseq_put(nxpdev->pwrseq);
->  	return err;
->  }
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Ryan
