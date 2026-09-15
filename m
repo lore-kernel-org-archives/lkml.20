@@ -1,188 +1,139 @@
-Received: from mail-ej2-f36.google.com (mail-ej2-f36.google.com [74.125.228.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011002.outbound.protection.outlook.com [40.93.194.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF0B32A3C8
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.164
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789510589; cv=none; b=H99S1lte4VxHRcKc93Y5uDI3L79yyb/7PtbP2BcmYMqFBdUAh3GIC/SYZAVCiIgQ762lRceORXNdWshi3QCBFj0jCkUECwHiHMmX0EiWYMbzoQ1/mkPzTtCyRQwcmeFE4V0/iKfAVBv+u5L8eyrHsG/w+UGLscTUp9OfG0gwM58=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789510589; c=relaxed/simple;
-	bh=BscXMGV65r6C0wAvido3gq8cHiLKzPO2AoHVF6iNN/U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ELLrsL2cWoivzyiMW5o8ODzNhuT3J9n9ZF/4DlazSrhHhXmb6E5VpZBREGb4UJqU8mEu3J1464h3ogffFoU7p4a7DRMMzPQQ+bOYtYwHmPCBo3L4stC0iR6CuWFP7BDnhWcRGhqUwlz3ISA/pU1Ud2p0aznG/aXtzhW2rDjhq7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cRnmxZfI; arc=none smtp.client-ip=74.125.228.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846A730C15B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789510822; cv=fail; b=RcIAlcTHgw0zsjI9Hwor81IHgI+FbaKFZQbfasZUvI1+1Ur+ANkyGuLD0TJCGj1+8BIKv2PpxqlEKZDTKiuY6f8v1gy2ITt6MouCaun80R0qbuSIiRl755IlPhRoy5y0g0QBXoMx4HR5QdousGe4rzufIBLVzl3IuKYQpVkLpcQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789510822; c=relaxed/simple;
+	bh=RDlQfBUMe5itvkGd9vdIr7i0A61D5UG3HDWayjuOviA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=K2zFGPkckh3ojbjBu+fyAU1sVH+d9XtxnbfNEPJHqwKnkdctRYQkXyXqtmCL6wgqkYJpVAedyMUvhH8iGV++tqoswMZyllDimyA4ycaW/e8QBmPC9PrbVZhjYqctzAq3RP4Wcw8aUxW7oRyvMtgaqRWG/KUguc1DYDnG2L6bvqU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uB4iuqqt; arc=fail smtp.client-ip=40.93.194.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cRnmxZfI"
-Received: by mail-ej2-f36.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso57171066b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:16:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789510584; x=1790115384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B9iru7KgswTEjr/v16lnpjqFs9qEkV6VbmccCC179Ho=;
-        b=cRnmxZfI8S1fMpUk2vN/Gjl6ie3f33e/3rwOwNsnQdUEM4IsV0u8kODS5JFKq0adXX
-         kCT5dnJhT8Vb4saTjwMoM6/POIHLVV+eX3i2bkiD7mGxpwenTdhUiAVRThEFoaWh1YLR
-         Jnm8tGmC0JIQM2nWaxDzDIS+Xta2/D7byhlBxYCgnhZwjz4f9Lz2QGp30mEPNMUGgjnP
-         MiGL0v8lO08f8bvzu/kmdvAWvjTi3XbdOuCyF+on+cgelfWAN6gDo7m2wi1TL0+XCAnX
-         s5s6gzZN8jztekLOEfzkXG3XBKzieor5v6tzZTOvrSYfq9NQfAEFrKtsHheDHREOd+oY
-         ypCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789510584; x=1790115384;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B9iru7KgswTEjr/v16lnpjqFs9qEkV6VbmccCC179Ho=;
-        b=fG2qUCScLqeEPMm4zVWDFYrtL4CUmdBF3vONYS4ITPleJEr8jx+Cw++Syr22JA6Zso
-         sbvN3T0reBYqZeI0+Phl/lFX0GkR7L886S0jRNWOw88S/lgRorKCPvoy67lCZXM2JM3F
-         r5Ht8cq25Wp16K0F38mPFsri2P5t1QjRQ1W1WOm2qxCthVdw7LUZc3c29/ycHzU2MNU9
-         KqwMYkbkooYIQictE0JnWqKe18nqZ3fJCtdOVsVqpuLpGsazwx2+n8UYT0sOtrDMVAE7
-         Ou1ACKgzU1+wDiKk7+ssahyhUBKSboi5BZGTDXFzvgw9LWqQ+eWJdDIa1a+7vfa7PtC/
-         a9vg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQF4Ul8Y0qrUEe9pfCHse85oGggSfRs9aZCyw9eipmHTiw2MVTPnDgqmNrKpSsRJzymIUjTE9lGnVxYuc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nenzyqYTzk34/59Cdi9XDSCnQ+aPl0IkzSihkEoSYbHPedpIGx
-	jVXwGCMPGfoGVelLI3Y9HB+67Ik1l0ZpxSn2Un+19P5A90M0644n/QPDyz0hnkxIldg=
-X-Gm-Gg: AYBFou0qLQwO6zlbmKfz16BZs32t1lXTl9Z71+Su7M+OJ3n4ts5M53M9rn8sOXKhIVJ
-	m3CdL4O5BfRXuP6XewmuSGvMWjW54d+dLInV0TeG2qI1PfOgWYLUMZA6sOXGs2BRTrv16BQTlkE
-	IZDYRlNIXZJDrzHztrq6DyOkwKpOHLvcCPNWfug1n19MXBLGpU1I61xqXE9xvb9g+jzdJwanqce
-	pG5E8LPA/FYUbvts5DHpp5DYT1j4FUXDpZnhY1X0BzrGD49ZtygozB6DcJZk9h7f5J1SzC3Pl2r
-	l1ITQtNMQL0jc8OrC9dEhRS8jO4FEQ+9eDdgdFIacuaBm2kw4xcKJ8bhNlji1VYD85kzyrF4iHK
-	LR4bZ0V+gGYq012pnVUVvcHvkOo6GhnlWoC+k4ZdsXuksb4+HH1dftqR0zP4s6oS1a3vijcOOk/
-	zbvbvUn0ttzTsL1uJS1fG9FnWzIzk8R4Wj5WME/2QHf2tGSNI6YBycm97Rq3Yjk8o=
-X-Received: by 2002:a17:907:9491:b0:c25:504a:1e25 with SMTP id a640c23a62f3a-c29e5275ee3mr7132966b.13.1789510584048;
-        Tue, 15 Sep 2026 15:16:24 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89e94383sm1809675ad.18.2026.09.15.15.16.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 15:16:22 -0700 (PDT)
-Message-ID: <17a03645-fce6-48ff-b95c-5fff0466b9d3@suse.com>
-Date: Wed, 16 Sep 2026 07:46:17 +0930
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uB4iuqqt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XctqHMY4lXHRCyKHo9If9+ViuZCh+KuCqRWXlOEG6yq8oq4cRYW0tYSgFQTZ754LgbqjEy0xqnmaIlKlfUONBHVMdf4uooIeD9JWuy16QKa7DvC+rOlo0Upkww9O6pghZwYoHetkMtQf8ASK7ABpGg4OuIp6vq/gwkhymgHanM/+PpQ1uG7FlxKr9ihPf2TOe5UbqCBHNyaB9H+JaQ0B2mreLfd67mW0tTkX1c8Ec0T3uC9AzcDc8q5asPbXDjcFNDCPWXT1HyTJdcTWC5O8DwWU7NL9w7/e5ui/yexaPKn8OxmWWdo/ZaHIm/D8qcz5ext6pfP2+OutnpvxQZBQ0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UprQMhuI47h86AZoil/ozJx5g6+byGbchCNE9qhj874=;
+ b=rCVyc/du6iFaNRlilYAd4B3njREh0XgW19dw/706Ia1l+aRH6uzJpn1NUS377fwrxi6RqQ3CadnzeQKS7QWw0RYZf6nf1I+wVD/JZWZD3DmpXl7Zrw+c+nt52IsYxwhXQi25wgMaPmuL2qqKl96+hufb7wSnZiHWw31MHSjKOllXWrLvgU22yAKSb+raZr9yeHb1i92QKdaty4fAUUrY5bq3LvBvOlewx2BUcZdt0VVM6GMaM4/SnsZag7MP+Fn0f4zrq1DuN1oRTFYOwA6FIVhtDhmVXkfRhRINIPvpshm2GCSvhygZg27U5fI7xt2vRySJ3+sc4syR1U6wtZPi5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UprQMhuI47h86AZoil/ozJx5g6+byGbchCNE9qhj874=;
+ b=uB4iuqqtV7RcFEHO6Zinh7TQIk69gUvH/GVUkJXABs9qyqCV5+8iAKveSnBRYaa8+riKJIWoNbhMrxyXEnqr8glVpFJe7ncyvmnbmcfWB++h5qybfoxKnV+QOwARavwxwrTpa9ViHEFiRZRAYKeXXMTNhhjJBnVwfzSeaoZWNv0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ CY5PR12MB6153.namprd12.prod.outlook.com (2603:10b6:930:27::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Tue, 15 Sep 2026 22:20:18 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 22:20:18 +0000
+Date: Tue, 15 Sep 2026 18:20:10 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: yolezz <yolezz.secret@gmail.com>
+Cc: mario.limonciello@amd.com, x86@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] x86/amd/node: Release reserved config regions on init
+ error
+Message-ID: <20260915222010.GA3101@yaz-khff2.amd.com>
+References: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
+ <20260915180543.112708-1-yolezz.secret@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915180543.112708-1-yolezz.secret@gmail.com>
+X-ClientProxiedBy: MN2PR22CA0011.namprd22.prod.outlook.com
+ (2603:10b6:208:238::16) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: clear free space tree state on rebuild failure
-To: Guanghui Yang <3497809730@qq.com>, linux-btrfs@vger.kernel.org
-Cc: dsterba@suse.com, mason@kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|CY5PR12MB6153:EE_
+X-MS-Office365-Filtering-Correlation-Id: d92f82fd-caa5-45ce-d9a5-08df137785d9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PG6OXSCPockbli2Wo3jjKjdgQ3TUKIOscqUR8fiR/Y6ZzzfUo8qNvfSy9aNx0xF8n3Pwh/n7RpJloCKTLOf7Zw8VGNPvP0cahVKz2FzwlnNwEEEaWKgR6wAQewAyRfg99huU7VZEVj2YfiRMMiCaKYGpOkcQL/mPo2e1sVm9/aAtDqCXmliCKspBEqKhBZO9R8Cubywp3rhD7W8e7EIUallk07dYgMcUDzppwa0cS1BA+mDvLj84unCrXvfwEkynYLU+ckMdcxtgOlqY968trlMA8wiPep7lM78BhWsJ93YOaphY6VPNYUvnO6Z3TufkqlqUBIlhae6QH80YmHk1Wmqki64+xdLctE1FWPxhwLgr/JL5IfzmvMrS+axpljb7xdLTe5VI8GVRVscfAnsNLmq2s/GfIUd/8uBtNqWzJihO9zNsqyVLT9RA2ye1dg8ZJ2bq+eac6cnDvgSBrq3JvEblVFONY3FPnNcQJE1Xr+VSdkmdeta6IL/ytBHjWG+JP48u2kxF3CrKUyLiqgpgABheFxx3ktecKp92OSALVNFQZ6bh1Fl1f+zff91rG0sIR5CJytafGUm7NvNpDM5PpsA6fyAyatGRn5AkaSa9Rczukpaj1gScKSfG3x+Fj+8B7diOy9bvsGLpACOfFkC+ZJXrdxYR2OKNH3QmujvuIHY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?//GMXcVUWzhmP/Dcufcbg5Um28tsPikfQgFj5sHzk3WECsCewhBuPvMvgliP?=
+ =?us-ascii?Q?nXMinEDZ/8Yl87zYyM3wId6ZiZdWW3fpZxcXrLq0FOn5YRWK5fZiYamKJr1f?=
+ =?us-ascii?Q?I74bltt83tVNXjBeObk9XSOEvUoHmL2l+r5QuA5K6xkrUsflX9A+RhkMGD/y?=
+ =?us-ascii?Q?rgkuAK6dUehEJAUYubgtyKKlp9FFWIJmIJuMbHakxr7npaXCU4YO6rvO2tXb?=
+ =?us-ascii?Q?5syNtFNz3zedk/h6F6uzBrS9/mK0dSxTa/Wf0xSurWQz8BnTbwCM/cZsF+Wl?=
+ =?us-ascii?Q?uKJA5zwwO4KSAZDwWzorMnBrKPOjqX+Z+UroKh7p654vSLZ841zP2T02YO4t?=
+ =?us-ascii?Q?msjb23vBm0ENufEfTylNLINx4ZEiuNI2nJYqLuEc19n39Jlt04eJDHSQGiiX?=
+ =?us-ascii?Q?2cnw6n4jM56ZI8sI/GWzOlxk1CerGEI+LN6/tHKz4XfrmMPHpsbMfVpeHNfU?=
+ =?us-ascii?Q?Vxxv3VCaXe+pQO4iWtQq7J0hJpRplv4KDbhmFWKU3E5QS6UYOZtxk4xbyqvO?=
+ =?us-ascii?Q?tiqBIg7sZvdaz0mKEfQmjSb3Zb/uC5ximqv25e/FsFyUdAlB4C5griIjxbdz?=
+ =?us-ascii?Q?Te2B+lnulzCnWdoF2FADiS4kcVFuBHF4Anpe8Ri64PpxpDEpGUvGiqVsO90a?=
+ =?us-ascii?Q?Qq3QuMX+4xz5wPWim5EF4aEhs8+G2uexou4JrAPDI3xAXG65HVhL7YWZFXAP?=
+ =?us-ascii?Q?+EdvoMB5McUr6ydktDlIIAvQ0Zvehrqv8XNBVKD//dVYOIKiimJcV6CWhT9i?=
+ =?us-ascii?Q?ZRNYJelODGjDh1KTbLJekihjdb2/92y7StUycOa0fu9HY/8wy+R52QVTRw4L?=
+ =?us-ascii?Q?dpoFsq73eVtWW27Gx7PsB6MX1gUIAVhpqNIp2nM4r38GkAjLMfDniJJ074Rq?=
+ =?us-ascii?Q?uEhHjQ2evDTnZHszef+qgrHVhCIbHHi0FMhPQUSeCIqmU/8d20fgzcChAZba?=
+ =?us-ascii?Q?R63vnB1fd8ekTbfK+VbvWcOoQJyxgPHDQVyj1cdPZsRHWgWueJxPMDoT+EOI?=
+ =?us-ascii?Q?BcxoYJ2S1MsfQT08Yw7trv6+gYQLeeH09Wk0ofB0bfAEKD+UWcWrJMMJhVZ/?=
+ =?us-ascii?Q?KfRkqsFeeWhD15aKivgtVNSVeRjzGLbSXz9rQnSUtHwUrKu3sZXIsNCuKD0S?=
+ =?us-ascii?Q?ETE5+WhHa50lmmTNQWEw+8EKj7BzCAiOd4/1h258SVo5DL17erEfjvzXYfRF?=
+ =?us-ascii?Q?GJTr2o6bZCuGfwBvrbRxgasa+KvP03PtxPcEcKGy5j3/vY+xX3vZsQIPQdIg?=
+ =?us-ascii?Q?u5FD1Thft/lazvxBlhacg3GYRjMDSN8dekfX+t3m+7yRz0AXt3e2xbQLnP1y?=
+ =?us-ascii?Q?j1Dtt9AvfhRA0Td2y2Bd0DRflwkd2IgSoODpOsuAHMHiwunEuQkGnG/cXj5N?=
+ =?us-ascii?Q?+5nZWiYziufFqcXj/3rys9+5+e4BalPHjvqVZ5JWWPi+qdB79j9N6L4A5J+a?=
+ =?us-ascii?Q?BsYX0ABDZqt84ga9TuD/DbGDBv7EGbI7QwjYTbRcdxPlmi+1rDbwXZMScpK8?=
+ =?us-ascii?Q?XZ+C9IFMmAjhfkF4mG6fwwzYyl80f/n01OsifThqTYUVAWQ7bcz1lZCmIZCw?=
+ =?us-ascii?Q?wnbCXbW7j49oEi7Bn2Mi4djYh4eg3pgfB5MYHbyBzCyIXXe2/mDmL1TG9VRt?=
+ =?us-ascii?Q?FRzKi7AwPQc1Dx/hQBgsDjlRjcp6eMUU16VrOS5s6SEzWxfoqSeA3ggipLMT?=
+ =?us-ascii?Q?44+ZHKpH4FxIyQDIAf3qC/TUCvMRKgbgPnYT/tx1HMXlm003?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d92f82fd-caa5-45ce-d9a5-08df137785d9
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 22:20:17.9356
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iQqj/OKZ0qcOQTGXd4oE9jaQdarIye5lfDCGZj4/1Is3FwED10n4472h7jGCp6993iUCwxxmcTtmEdCYy7CHCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6153
 
-
-
-在 2026/9/16 00:18, Guanghui Yang 写道:
-> btrfs_rebuild_free_space_tree() sets
-> BTRFS_FS_CREATING_FREE_SPACE_TREE and
-> BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED before rebuilding the free space
-> tree. Several error paths return without clearing these flags.
+On Tue, Sep 15, 2026 at 08:05:43PM +0200, yolezz wrote:
+> In amd_smn_init(), if pci_request_config_region_exclusive() fails or
+> if kzalloc_objs() fails to allocate memory for amd_roots, the already
+> reserved PCI config regions are left allocated.
 > 
-> This leaves the flags set on the live filesystem and affects delayed
-> reference processing and free-space caching.
-
-What kind of effect?
-
-> Clear both flags on all
-> free space tree rebuild failure paths.
+> Use a __free() cleanup helper to automatically release all reserved PCI
+> config space regions on error exit paths.
 > 
-> Fixes: 1d6a4fc85717 ("btrfs: make clear_cache mount option to rebuild FST without disabling it")
-> Cc: stable@vger.kernel.org # 6.4+
-> Assisted-by: Codex:gpt-5
-> Tested: make -j$(nproc) fs/btrfs/free-space-tree.o
 
-That's not helpful, you should run the full fstests instead.
+What's wrong with leaving these reserved?
 
-> Signed-off-by: Guanghui Yang <3497809730@qq.com>
+> Fixes: 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
+> Signed-off-by: yolezz <yolezz.secret@gmail.com>
 > ---
->   fs/btrfs/free-space-tree.c | 15 +++++++++++----
->   1 file changed, 11 insertions(+), 4 deletions(-)
+> v4:
+>  - Remove unnecessary braces around the kzalloc_objs() error check (as suggested by Yazen Ghannam).
 > 
-> diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
-> index 1b3d82ae3de8..1410da2766a9 100644
-> --- a/fs/btrfs/free-space-tree.c
-> +++ b/fs/btrfs/free-space-tree.c
-> @@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
->   	if (unlikely(ret)) {
->   		btrfs_abort_transaction(trans, ret);
->   		btrfs_end_transaction(trans);
-> -		return ret;
-> +		goto out_clear;
->   	}
->   
->   	node = rb_first_cached(&fs_info->block_group_cache_tree);
-> @@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
->   		if (unlikely(ret)) {
->   			btrfs_abort_transaction(trans, ret);
->   			btrfs_end_transaction(trans);
-> -			return ret;
-> +			goto out_clear;
->   		}
->   next:
->   		if (btrfs_should_end_transaction(trans)) {
->   			btrfs_end_transaction(trans);
->   			trans = btrfs_start_transaction(free_space_root, 1);
-> -			if (IS_ERR(trans))
-> -				return PTR_ERR(trans);
-> +			if (IS_ERR(trans)) {
-> +				ret = PTR_ERR(trans);
-> +				goto out_clear;
-> +			}
->   		}
->   		node = rb_next(node);
->   	}
-> @@ -1390,6 +1392,11 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
->   	ret = btrfs_commit_transaction(trans);
->   	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
->   	return ret;
-> +
-> +out_clear:
-> +	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
-> +	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
 
-The free space tree is not properly rebuilt, thus we can not trust it 
-anymore.
+I didn't suggest this.
 
-Why you want to clear the UNTRUSTED flag?
-
-> +	return ret;
->   }
->   
->   static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
-> 
-> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-
+Thanks,
+Yazen
