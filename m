@@ -1,160 +1,55 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6B24766BF;
-	Tue, 15 Sep 2026 08:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D27395AD5;
+	Tue, 15 Sep 2026 08:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461284; cv=none; b=asYgtvxQFEKgqwV7KnTH3iYX0FN+c+ToOh1QqwEXzpQmesuEvddUZHyhulF20LRjbk2m+PtRCbgZt8RE0UDxK5PjjW+2QYtpE/cLmOfCc9ms7NxILzdKwFmqnuHr2lr4InP6IbVTT+DamH4eLGKEWzqBrkzavK+XNmwE7SCn7/M=
+	t=1789461314; cv=none; b=VH2ngpgT1lRTWV1Z0TNvynNAxAfPcyMZeBVMZpvUu2NuLEKhiKAofOQfYE2+1fdCu45+pBk6ZWF29nLcecaN9OP5HZj6GGI7IYLrR88Eum5+q5Zirvy+Du4ZDqBZJJW3mRHyzj+HI7mM4eeZd6FIYAcmIhp54jn7KixAo3U6Qkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461284; c=relaxed/simple;
-	bh=6DLNcmtvRsehOtnn2S88NWmL6N3IMM5srCTOmr+cYhQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ObJtWebnBxJyVsyXLoaqz5nHqrBLZUoU3tcRwfRVoSOhAySaHXIsbjxhQubv03ZUv2OaNCbL371pV2LOlOGY1lkl4hbbIS9lN99t4BaAKgBe7JsnJJzH5CscF6uCnMgh8gOY/gBfPR0r+qkZmsq8vEUCYizVTrXUH/2kyupV4Ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=peQmBNAP; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789461314; c=relaxed/simple;
+	bh=zzH2S5BlnGSOM+izbNuo1WGDo4uV7wWtFJPDQdoB9h8=;
+	h=Date:From:To:Cc:Message-ID:Subject:MIME-Version:References:
+	 In-Reply-To:Content-Type; b=ED+uLLC9lZWPdbGzcvIibNzeSIRX5ZhiwsRVNaxqf+ncQzGpk8lodAr3mIhkagA2X2yhn9QOv+yX16KaiXKbwpgkHD4L6TGYIt/9GnYA6L6QEm9Ebyq9qPi9QxuoCKP66X3j2RFtMdaP+m/YvGXj1JYlKo0/G71M5BcZ53gX6y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=h4iVunvt; arc=none smtp.client-ip=115.124.28.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="peQmBNAP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=UU
-	eT3fPjaKoDpC/6zpcrC4PUg2GLPa4VJpN10SVSjj0=; b=peQmBNAP/LBWc03Sx8
-	doKnRsK69tihp8LHlLZAMrgjCVtvaGvBvHwJUELnUjxRGM9w1K7YYV/kffAoIXVh
-	vmT8GRGfh53nHu0m4qZ6tEW3UefIe+YG+ky1Ifx+zykrDOLRbqEYTKmUKhXmmKlg
-	lly+kRMiWzRyZgTOyX+jNvPmc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wA3RXrzAqlqno1LAw--.39237S2;
-	Tue, 15 Sep 2026 16:33:56 +0800 (CST)
-From: "Li Youhong" <dayou5941@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io
-Cc: magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Youhong <liyouhong@kylinos.cn>,
-	syzbot+68e1f51046d68329940f@syzkaller.appspotmail.com
-Subject: [PATCH] md: don't flush md_misc_wq from md_alloc()
-Date: Tue, 15 Sep 2026 16:33:54 +0800
-Message-Id: <20260915083354.1603416-1-dayou5941@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="h4iVunvt"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789461303; h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
+	bh=zzH2S5BlnGSOM+izbNuo1WGDo4uV7wWtFJPDQdoB9h8=;
+	b=h4iVunvtQIdrpUzpD3YWl9larbJmS8YjtstEm9oUsZpb+77jRH+oAQTEXuhZAS6J+24pjI0SYz0KbTD/fOrLMCmB2e+rlv5NdF59X9aTSK812NK3hdvCHNhnt/CNQV9dgAKOzZCNRoGCU+DGGVTVPWuYjiQLva4bF2iRcsamuEo=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2357507|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_social|0.0723163-0.00488047-0.922803;FP=9654510142605670331|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033068016216;MF=fangxy@xiaopeng.com;NM=1;PH=DW;RN=6;RT=6;SR=0;TI=W4_0.2.3_v5ForWebDing_21251644_1789461189392_o7001c776;
+Received: from WS-web (fangxy@xiaopeng.com[W4_0.2.3_v5ForWebDing_21251644_1789461189392_o7001c776] cluster:ay29) at Tue, 15 Sep 2026 16:34:58 +0800
+Date: Tue, 15 Sep 2026 16:34:58 +0800
+From: "=?UTF-8?B?WGlleWFu77yITWF0aW7vvIkgRmFuZyBGYW5nIFhpZXlhbg==?=" <fangxy@xiaopeng.com>
+To: "Doug Anderson" <dianders@chromium.org>
+Cc: "jason.wessel" <jason.wessel@windriver.com>,
+  "danielt" <danielt@kernel.org>,
+  "kgdb-bugreport" <kgdb-bugreport@lists.sourceforge.net>,
+  "linux-kernel" <linux-kernel@vger.kernel.org>,
+  "stable" <stable@vger.kernel.org>
+Reply-To: "=?UTF-8?B?WGlleWFu77yITWF0aW7vvIkgRmFuZyBGYW5nIFhpZXlhbg==?=" <fangxy@xiaopeng.com>
+Message-ID: <403793dd-d7cf-45f8-99c7-dc6b3aadfac1.fangxy@xiaopeng.com>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSF0ga2dkYjogRml4IGJ1ZmZlciBvdmVyZmxvdyBpbiB0aGUgJ20nIHBhY2tl?=
+  =?UTF-8?B?dCBoYW5kbGVy?=
+X-Mailer: [Alimail-Mailagent revision 3][W4_0.2.3][v5ForWebDing][Chrome]
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3RXrzAqlqno1LAw--.39237S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy5ArW7Kr47JF1fArykGrg_yoWrXw18pr
-	W5tF15trW8tr4jqayUKa1UWa45Kw1kKr9rXryIgw1SyFn5Xry8Wws7Ka48XFW5JFZ8XF45
-	AFWrXFZxua4UtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlNt3UUUUU=
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+RXCcWqpAvXjOAAA3w
+x-aliyun-im-through: {"version":"v1.0"}
+References: <20260914180344.15485-1-fangxy@xiaopeng.com>,<CAD=FV=V1-gNZ8yTsC+D8inePWv=A+9H09hWJojQf5NRpcNvK+Q@mail.gmail.com>
+x-aliyun-mail-creator: W4_0.2.3_v5ForWebDing_QvNTW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE1Mi4wLjAuMCBTYWZhcmkvNTM3LjM2La
+In-Reply-To: <CAD=FV=V1-gNZ8yTsC+D8inePWv=A+9H09hWJojQf5NRpcNvK+Q@mail.gmail.com>
+x-aliyun-mailtrack: {"foreign-track":"0"}
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-From: Li Youhong <liyouhong@kylinos.cn>
-
-md_alloc() is called from md_probe(), while blk_probe_dev() still holds
-major_names_lock. The flush of md_misc_wq in md_alloc() is only meant to
-wait for the previous mddev_delayed_delete() to finish.
-
-md_misc_wq also runs sync_work (md_start_sync), and md_start_sync takes
-reconfig_mutex. On the other path, md_ioctl() already holds
-reconfig_mutex when md_import_device() opens a bdev and takes
-major_names_lock.
-
-Flushing md_misc_wq under major_names_lock therefore creates a lockdep
-cycle:
-
-  major_names_lock -> md_misc_wq -> reconfig_mutex -> major_names_lock
-
-Move del_work to a dedicated workqueue and flush only that queue from
-md_alloc(). Leave sync_work on md_misc_wq.
-
-Reported-by: syzbot+68e1f51046d68329940f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=68e1f51046d68329940f
-Fixes: e804ac780e2f ("md: fix and update workqueue usage")
-Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
----
- drivers/md/md.c | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..87a851466892 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -86,13 +86,16 @@ static const struct kobj_type md_ktype;
- static DECLARE_WAIT_QUEUE_HEAD(resync_wait);
- 
- /*
-- * This workqueue is used for sync_work to register new sync_thread, and for
-- * del_work to remove rdev, and for event_work that is only set by dm-raid.
-+ * md_misc_wq runs sync_work (new sync_thread) and event_work (dm-raid).
-+ * sync_work grabs reconfig_mutex, so this queue must not be flushed while
-+ * holding reconfig_mutex, nor while holding major_names_lock (md_probe /
-+ * md_alloc is called from blk_probe_dev with that lock held).
-  *
-- * Noted that sync_work will grab reconfig_mutex, hence never flush this
-- * workqueue whith reconfig_mutex grabbed.
-+ * md_del_wq runs only del_work (mddev_delayed_delete). md_alloc() flushes
-+ * this queue to wait for a previous instance of the same device to go away.
-  */
- static struct workqueue_struct *md_misc_wq;
-+static struct workqueue_struct *md_del_wq;
- 
- static int remove_and_add_spares(struct mddev *mddev,
- 				 struct md_rdev *this);
-@@ -651,7 +654,7 @@ static void __mddev_put(struct mddev *mddev)
- 	 * Call queue_work inside the spinlock so that flush_workqueue() after
- 	 * mddev_find will succeed in waiting for the work to be done.
- 	 */
--	queue_work(md_misc_wq, &mddev->del_work);
-+	queue_work(md_del_wq, &mddev->del_work);
- }
- 
- static void mddev_put_locked(struct mddev *mddev)
-@@ -6329,9 +6332,12 @@ struct mddev *md_alloc(dev_t dev, char *name)
- 
- 	/*
- 	 * Wait for any previous instance of this device to be completely
--	 * removed (mddev_delayed_delete).
-+	 * removed (mddev_delayed_delete). Do not flush md_misc_wq: it also
-+	 * runs sync_work, which takes reconfig_mutex and can take
-+	 * major_names_lock via md_import_device(). md_alloc() is called from
-+	 * md_probe() while blk_probe_dev() already holds major_names_lock.
- 	 */
--	flush_workqueue(md_misc_wq);
-+	flush_workqueue(md_del_wq);
- 
- 	mutex_lock(&disks_mutex);
- 	mddev = mddev_alloc(dev);
-@@ -10765,6 +10771,10 @@ static int __init md_init(void)
- 	if (!md_misc_wq)
- 		goto err_misc_wq;
- 
-+	md_del_wq = alloc_workqueue("md_del", WQ_PERCPU, 0);
-+	if (!md_del_wq)
-+		goto err_del_wq;
-+
- 	ret = __register_blkdev(MD_MAJOR, "md", md_probe);
- 	if (ret < 0)
- 		goto err_md;
-@@ -10783,6 +10793,8 @@ static int __init md_init(void)
- err_mdp:
- 	unregister_blkdev(MD_MAJOR, "md");
- err_md:
-+	destroy_workqueue(md_del_wq);
-+err_del_wq:
- 	destroy_workqueue(md_misc_wq);
- err_misc_wq:
- 	md_llbitmap_exit();
-@@ -11093,6 +11105,7 @@ static __exit void md_exit(void)
- 	spin_unlock(&all_mddevs_lock);
- 
- 	destroy_workqueue(md_misc_wq);
-+	destroy_workqueue(md_del_wq);
- 	md_bitmap_exit();
- }
- 
--- 
-2.43.0
-
+SGkgRG91ZywKClRoYW5rcyBmb3IgdGhlIHJldmlldyBhbmQgdGhlIFJldmlld2VkLWJ5LiBJJ2xs
+IHNlbmQgdGhlIHBhdGNoZXMKc2VwYXJhdGVseS4gSSdsbCB0YWtlIGEgbG9vayBhdCBxUmNtZCBh
+cyB3ZWxsLgoKVGhhbmtzLApGYW5nIFhpZXlhbgoKCg==
