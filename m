@@ -1,158 +1,220 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2FE4BA1D3;
-	Tue, 15 Sep 2026 18:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A76A47F762;
+	Tue, 15 Sep 2026 18:21:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789496485; cv=none; b=I/neRJkC7Ykna54ytJLuV21bn+WJs5WRdQ1pEj4vWD1AjUHfTUVC7ZB8Bm/3/4wZ4srq4HkhpT76OVMhAeuMZJ/UyobpC/PNQIjaz/IhxSA098JRMDIesUtO6GFeN+K6+sbgrP+Kl0NuLr+LdvDrzj2sddMs/VQHwz0ZuGiMWYc=
+	t=1789496489; cv=none; b=c+qFI2C5YZrHH0VDbiHQ9DPJaHiZzG/yYI3iIEUHd46R+fb+4jsSuIeo1mkwgVKbLErUojh/s23Q4PULowVBVdu12DDTEGVslxJXewA94lmWU/XGcu8x8NYs+xJREpDuSzfawgVw8469j0lFHD2FaQz/Oltu0iq/3wluqUtllFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789496485; c=relaxed/simple;
-	bh=MSEBe353yddrun0sk2dfUzDn2ONeQxR9Qa4YEDZodWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TAe5hWEgAjdhPJlLRUEKEyeDOzYTjSG2/P+o4C7OGWFgDsj36oVzoDHabcRz8lyTExwcU7NfVlVFlDokpAKbP7mAjzjv2RFd83VqrQH7QY+C1tW0Qc2Y47y8n72Bp+pvGhTj5f9acndii4MSDyywCfeylvTgmQ4Hzh2N+6F07TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YRUM0upy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789496489; c=relaxed/simple;
+	bh=7kr0Abdf9UQwniI2HJKdHmXHZfxsGOwHkgIqN6ln1I0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qDLQ6sEZ8u3bemeiYFpKFlfxJQNuVEbxYGYtLsCILYlygoBRpP2G1LpkuMIrVDYqrfnkgYYo9WiZfOrHEbHcemMgTvf3d+wU9SQd596iFSlRjO+8SDvQvJ+PJboYz+IvcNjU6wyIQoKPo7LlQK7tE3agG3wjwEvhZdaoAOkJVvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pn2ALZbt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YRUM0upy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6731F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pn2ALZbt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CEA11F00893;
 	Tue, 15 Sep 2026 18:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789496483;
-	bh=5il9R4JOsn7FaDJyBMY4GcTMOrQeZX8j32v8URz75co=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YRUM0upyVeTDLrIxIfb+zSspTsacf7tMtXta7MXM71z1Lz5coPIx3hHLwYmKRiGpO
-	 tFgBQTS9tRulkQCqpbGRdOiYWdeqQOP9neuzDc4QvzBlR0tFptm5wZf3pTTyvr1toL
-	 6ayUdRR4fS52WCfPv5J0iq5jdOmsRozAg91/kqT/hZTiMTrfNWXcPV9BSItlbwJfI8
-	 wQFrJ3LZfq76w7x8S4UsI6KQrEGMuc3PhGEo4J4xeNoVPk2aQxEtoVu4kSYQhacb6M
-	 M76+EaVlYwqNajlxQ6NUTX3Fj2+PR7QAoiXhgUaPou+WjG2xmhhryvGrkUX5elgLvn
-	 tXw9/h8rqfeQQ==
-Date: Tue, 15 Sep 2026 19:21:19 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Felix Gu <ustc.gu@gmail.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: musb: mpfs: tidy up error handling in probe()
-Message-ID: <20260915-grouped-raffle-16b1fea4ad5f@spud>
-References: <20260915-mpfs-1-v1-1-a12c2fd7e0d9@gmail.com>
+	s=k20260515; t=1789496487;
+	bh=XRfOCE19sPiadPAjSZCa+Bu2R0Lh1cOwK64g37Am6HI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Pn2ALZbtUUUBjYNEWHSB2WoBRUgNxEHLdIyWEFI6aSQsnxE7hsHn4PizFFliyd5Gn
+	 Ig6exOxqdbQiR+m7rD4Ns5fONJLVg54b/DaI3fqk4xfwZ+J13aJH7wfVNaj6QNzqX6
+	 vcizsU364SnbaoPazGqsdFi66iDVcCxkt2tVz49hjh3cZkg3wGcDIyBT5gr3sZpCqm
+	 GcUG+379y6jhW5qSVq5bO6SPQuiYf4wJ8JdZtqtwuVw5Y/fXOUwKi3N88R2Vy6z8Ya
+	 MZWogmEkdQIPYjkjeycvmRI6DC3eE/ZALl1FPSP1CGz2JivS6Q6bkhPD4oqf1JjayJ
+	 +7G7u7Fld557g==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>
+Cc: "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Tao Cui <cuitao@kylinos.cn>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	David Wei <dw@davidwei.uk>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+Subject: [PATCH net-next v3 1/5] net: Add netdev_config helpers
+Date: Tue, 15 Sep 2026 20:20:59 +0200
+Message-ID: <20260915182105.4162425-2-bjorn@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915182105.4162425-1-bjorn@kernel.org>
+References: <20260915182105.4162425-1-bjorn@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eq25msHQ+7NivrH0"
-Content-Disposition: inline
-In-Reply-To: <20260915-mpfs-1-v1-1-a12c2fd7e0d9@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---eq25msHQ+7NivrH0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Jakub Kicinski <kuba@kernel.org>
 
-On Tue, Sep 15, 2026 at 01:14:08AM +0800, Felix Gu wrote:
-> Restructure the probe error labels so each failure only tears down
-> what was already acquired, and stop calling
-> usb_phy_generic_unregister() with NULL or an ERR_PTR() on paths
-> where the phy was never registered.
->=20
-> The old error paths only worked because platform_device_del() and
-> platform_device_put() ignore NULL and ERR_PTR() arguments.
->=20
-> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
-> ---
->  drivers/usb/musb/mpfs.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/usb/musb/mpfs.c b/drivers/usb/musb/mpfs.c
-> index 587127abd30a..59625ed95656 100644
-> --- a/drivers/usb/musb/mpfs.c
-> +++ b/drivers/usb/musb/mpfs.c
-> @@ -276,13 +276,13 @@ static int mpfs_probe(struct platform_device *pdev)
->  	if (IS_ERR(clk)) {
->  		dev_err(&pdev->dev, "failed to get clock\n");
+netdev_config manipulation will become slightly more complicated
+soon and will be used by both ethtool and the queue API.
+Encapsulate the logic in helper functions.
 
-Could go a step further if you want, and use devm_clk_get_enabled().
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+---
+ net/core/dev.c           |  7 ++-----
+ net/core/dev.h           |  5 +++++
+ net/core/netdev_config.c | 37 +++++++++++++++++++++++++++++++++++++
+ net/ethtool/netlink.c    | 15 +++++++--------
+ 4 files changed, 51 insertions(+), 13 deletions(-)
 
-This is clearly the wrong order, so this patch is fine as-is.
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+diff --git a/net/core/dev.c b/net/core/dev.c
+index ecfbd72d5d1a..b113f412bbf1 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -12195,10 +12195,8 @@ struct net_device *alloc_netdev_mqs(int sizeof_priv, const char *name,
+ 	if (!dev->ethtool)
+ 		goto free_all;
+ 
+-	dev->cfg = kzalloc_obj(*dev->cfg, GFP_KERNEL_ACCOUNT);
+-	if (!dev->cfg)
++	if (netdev_alloc_config(dev))
+ 		goto free_all;
+-	dev->cfg_pending = dev->cfg;
+ 
+ 	dev->num_napi_configs = maxqs;
+ 	napi_config_sz = array_size(maxqs, sizeof(*dev->napi_config));
+@@ -12270,8 +12268,7 @@ void free_netdev(struct net_device *dev)
+ 		return;
+ 	}
+ 
+-	WARN_ON(dev->cfg != dev->cfg_pending);
+-	kfree(dev->cfg);
++	netdev_free_config(dev);
+ 	kfree(dev->ethtool);
+ 	netif_free_tx_queues(dev);
+ 	netif_free_rx_queues(dev);
+diff --git a/net/core/dev.h b/net/core/dev.h
+index b757faead4d1..4b52ff779cba 100644
+--- a/net/core/dev.h
++++ b/net/core/dev.h
+@@ -102,6 +102,11 @@ extern struct rw_semaphore dev_addr_sem;
+ extern struct list_head net_todo_list;
+ void netdev_run_todo(void);
+ 
++int netdev_alloc_config(struct net_device *dev);
++void __netdev_free_config(struct netdev_config *cfg);
++void netdev_free_config(struct net_device *dev);
++int netdev_reconfig_start(struct net_device *dev);
++
+ int netdev_queue_config_validate(struct net_device *dev, int rxq_idx,
+ 				 struct netdev_queue_config *qcfg,
+ 				 struct netlink_ext_ack *extack);
+diff --git a/net/core/netdev_config.c b/net/core/netdev_config.c
+index f14af365d5cd..b101341e3251 100644
+--- a/net/core/netdev_config.c
++++ b/net/core/netdev_config.c
+@@ -6,6 +6,43 @@
+ 
+ #include "dev.h"
+ 
++int netdev_alloc_config(struct net_device *dev)
++{
++	struct netdev_config *cfg;
++
++	cfg = kzalloc_obj(*dev->cfg, GFP_KERNEL_ACCOUNT);
++	if (!cfg)
++		return -ENOMEM;
++
++	dev->cfg = cfg;
++	dev->cfg_pending = cfg;
++	return 0;
++}
++
++void __netdev_free_config(struct netdev_config *cfg)
++{
++	kfree(cfg);
++}
++
++void netdev_free_config(struct net_device *dev)
++{
++	WARN_ON(dev->cfg != dev->cfg_pending);
++	__netdev_free_config(dev->cfg);
++}
++
++int netdev_reconfig_start(struct net_device *dev)
++{
++	struct netdev_config *cfg;
++
++	WARN_ON(dev->cfg != dev->cfg_pending);
++	cfg = kmemdup(dev->cfg, sizeof(*dev->cfg), GFP_KERNEL_ACCOUNT);
++	if (!cfg)
++		return -ENOMEM;
++
++	dev->cfg_pending = cfg;
++	return 0;
++}
++
+ static int netdev_nop_validate_qcfg(struct net_device *dev,
+ 				    struct netdev_queue_config *qcfg,
+ 				    struct netlink_ext_ack *extack)
+diff --git a/net/ethtool/netlink.c b/net/ethtool/netlink.c
+index 1af395b54330..383e911f50f7 100644
+--- a/net/ethtool/netlink.c
++++ b/net/ethtool/netlink.c
+@@ -11,6 +11,8 @@
+ #include "module_fw.h"
+ #include "netlink.h"
+ 
++#include "../core/dev.h"
++
+ static struct genl_family ethtool_genl_family;
+ 
+ static bool ethnl_ok __read_mostly;
+@@ -934,12 +936,9 @@ static int ethnl_default_set_doit(struct sk_buff *skb, struct genl_info *info)
+ 	if (need_rtnl)
+ 		rtnl_lock();
+ 	netdev_lock_ops(dev);
+-	dev->cfg_pending = kmemdup(dev->cfg, sizeof(*dev->cfg),
+-				   GFP_KERNEL_ACCOUNT);
+-	if (!dev->cfg_pending) {
+-		ret = -ENOMEM;
+-		goto out_tie_cfg;
+-	}
++	ret = netdev_reconfig_start(dev);
++	if (ret)
++		goto out_unlock;
+ 
+ 	ret = ethnl_ops_begin(dev);
+ 	if (ret < 0)
+@@ -958,9 +957,9 @@ static int ethnl_default_set_doit(struct sk_buff *skb, struct genl_info *info)
+ out_ops:
+ 	ethnl_ops_complete(dev);
+ out_free_cfg:
+-	kfree(dev->cfg_pending);
+-out_tie_cfg:
++	__netdev_free_config(dev->cfg_pending);
+ 	dev->cfg_pending = dev->cfg;
++out_unlock:
+ 	netdev_unlock_ops(dev);
+ 	if (need_rtnl)
+ 		rtnl_unlock();
+-- 
+2.55.0
 
-Thanks,
-Conor.
-
->  		ret =3D PTR_ERR(clk);
-> -		goto err_phy_release;
-> +		goto err_pdev_put;
->  	}
-> =20
->  	ret =3D clk_prepare_enable(clk);
->  	if (ret) {
->  		dev_err(&pdev->dev, "failed to enable clock\n");
-> -		goto err_phy_release;
-> +		goto err_pdev_put;
->  	}
-> =20
->  	musb_pdev->dev.parent =3D dev;
-> @@ -324,29 +324,29 @@ static int mpfs_probe(struct platform_device *pdev)
->  	ret =3D platform_device_add_resources(musb_pdev, pdev->resource, pdev->=
-num_resources);
->  	if (ret) {
->  		dev_err(dev, "failed to add resources\n");
-> -		goto err_clk_disable;
-> +		goto err_phy_release;
->  	}
-> =20
->  	ret =3D platform_device_add_data(musb_pdev, pdata, sizeof(*pdata));
->  	if (ret) {
->  		dev_err(dev, "failed to add platform_data\n");
-> -		goto err_clk_disable;
-> +		goto err_phy_release;
->  	}
-> =20
->  	ret =3D platform_device_add(musb_pdev);
->  	if (ret) {
->  		dev_err(dev, "failed to register musb device\n");
-> -		goto err_clk_disable;
-> +		goto err_phy_release;
->  	}
-> =20
->  	dev_info(&pdev->dev, "Registered MPFS MUSB driver\n");
->  	return 0;
-> =20
-> -err_clk_disable:
-> -	clk_disable_unprepare(clk);
-> -
->  err_phy_release:
->  	usb_phy_generic_unregister(glue->phy);
-> +err_clk_disable:
-> +	clk_disable_unprepare(clk);
-> +err_pdev_put:
->  	platform_device_put(musb_pdev);
->  	return ret;
->  }
->=20
-> ---
-> base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-> change-id: 20260914-mpfs-1-2e062f29128e
->=20
-> Best regards,
-> -- =20
-> Felix Gu <ustc.gu@gmail.com>
->=20
-
---eq25msHQ+7NivrH0
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqmMnwAKCRB4tDGHoIJi
-0hFLAQDsHxRSrMWqsLKY7Yw4lxGvSpGV0B6wTWolwZ0oSNcc+gEApRCuuj3hbymQ
-p3OwJNqvrDupTGRG2Z6eG1EPVuKq6A0=
-=lte0
------END PGP SIGNATURE-----
-
---eq25msHQ+7NivrH0--
