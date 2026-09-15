@@ -1,64 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C161149AA55;
-	Tue, 15 Sep 2026 12:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1508747ECD3;
+	Tue, 15 Sep 2026 12:19:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474717; cv=none; b=WMpmhLN/ydOYz9gCxdOkNZrKLdGMaj3L58M0LCqXm5MNlkKA0NMcoJJZN4AQGsk7O//o6BPfUp1rp1Mw/pB5nvGJLITHphAB/IYvVbmoLNZE69lVMBLplD6o+vFBW0azsPh2sof/hcc0E8F8cyvKTtR1b2N3T/YFzcf3hyfC8cI=
+	t=1789474748; cv=none; b=iy8d0sJa0K5rSuLKqW9SVZvDr9PQP+ICXklD5p3fhhdKR4mVeuQwBZVTkuSuUroN5cRkcB8OAsY6FT5QgFm8C+OjlsJ7ozGU+EM4NV7g6FHrdljwm3k4A8WAMXpeHFHXoJ3zX4ohaiutRmSlDywxIZPtD8/yFlswTaopeKR+YEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474717; c=relaxed/simple;
-	bh=vrVAobJMjM7S9OZZMwIDwvr8ty2bA0kqwagLpHQp40w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SnY2bEJpDEBYXEUAY0RJJ4jUaqi5gyH1ZPJoHfdIliFSZ3KEJJG23l6H18pYqJ4q+l2v6P6wUJ6r8gfglBW8H5i/fr1mp4vFvde0YklqXRCusAomyEjvYe8jrlSPB/QOzbDh+ZG0i7rBKArKaUhMosV+4eG8PayzBysYV5Zk9NU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ea1sJwsB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789474748; c=relaxed/simple;
+	bh=D0xLRVt71fkEBU1S4cvbdgpgfNOl+OJ47ahB27ySe6I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=In4VvR0eY5gwhjgtnaRPRh83TWtpkldh3moMGbKawbhezL6ThmH7ys5oXTjAauGjdJ4HJQU+sIKcxzId4frdLzbCMi0EYS/DzNiLVsg05lT7eajaehGVBKpd98uyR1OBeOfHKycI2qPlaEUxFBJywgN+68H5u+Zg3y+Y9yJMH6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bxTAoxqo; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ea1sJwsB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6111F00898;
-	Tue, 15 Sep 2026 12:18:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789474716;
-	bh=vrVAobJMjM7S9OZZMwIDwvr8ty2bA0kqwagLpHQp40w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ea1sJwsBr/Nvel740b29/2lnm8kv13L85FditgVsIEu95cKYPQZU0Zm86Po1jnZNR
-	 WHN070goKjNpVo1FRyPViEa8NGr0QNUX2ucQBNO5lGEpXDGQD7U7BclSRhluMnxtKP
-	 ATnOY9YQY/9J5OJE6jroQgQS5sfBOnMZtK6e3d1b5IYszHnQqLJX4JE1tZ1dgWaKGz
-	 MVf3djXQJIyElXt0yrKwDYp8btcu88OnDKD8ru7wqrjSAcI7zj25kTBGPYQCXOGFwa
-	 RfYXn1Lwzeg0QAuqyZ/UnU7T5x+37hRI9c8kwg/0XtOV9Mo2i3dXkFawFgls2HqTB0
-	 kguWCX48YbslQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC POC 45/50] accel/habanalabs: stop putting the
- dma-buf descriptor back on failure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, linux-snps-arc@lists.infradead.org, "Oleg
- Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>, "Ingo
- Molnar" <mingo@redhat.com>, linux-alpha@vger.kernel.org, "Alexander Viro" <viro@zeniv.linux.org.uk>, virtualization@lists.linux.dev, linux-mips@vger.kernel.org, kexec@lists.infradead.org, bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, "Jan
- Kara" <jack@suse.cz>, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, "David
- Airlie" <airlied@redhat.com>, linux-um@lists.infradead.org, linux-csky@vger.kernel.org, linux-parisc@vger.kernel.org, "Jens
- Axboe" <axboe@kernel.dk>, =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxl?=
- =?utf-8?b?KQ==?= <brauner@kernel.org>, linux-arm-kernel@lists.infradead.org, kvm@vger.kernel.org, linux-hexagon@vger.kernel.org, io-uring@vger.kernel.org, linux-m68k@lists.linux-m68k.org, "Eugenio
- Perez" <eperezma@redhat.com>, "Jann Horn" <jannh@google.com>
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-45-4d5217d6b246@kernel.org>
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
- <20260915-work-fd-reserve-unify-folded-v1-45-4d5217d6b246@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 12:18:34 +0000
-Message-Id: <20260915121834.8E6111F00898@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bxTAoxqo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=xUMIRyRgF+J1QkbwTu1z8LNA2IpOUkXjHPIEqoAgFeM=; b=bxTAoxqoBFNCEnhGNIMaYKHCw0
+	noO2zUY2QffyLscG8qDO+GuhX1sRI/vHvqK0LMoMP44bwO+f79nqkwPmFUubJ7Oyae0O++vWZ9tcm
+	0QQpHQ60tBhyZY87PiAKCpdU1NcZy7RE2rZhUgpMlZfjhYuL3lcYU9wSE73l+Itsqxwg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6S7l-005Gnn-8k; Tue, 15 Sep 2026 14:18:57 +0200
+Date: Tue, 15 Sep 2026 14:18:57 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: Frank.Sae@motor-comm.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+	jie.han@motor-comm.com
+Subject: Re: [PATCH net-next v18 2/3] net: phy: Add support for Template
+ Control register for PMA
+Message-ID: <14de4b19-254b-4d45-9239-5a3badbbb73d@lunn.ch>
+References: <20260915082152.3104633-1-kyle.switch@motor-comm.com>
+ <20260915082152.3104633-3-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915082152.3104633-3-kyle.switch@motor-comm.com>
 
-> Rely on the fd exit path machinery.
->=20
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> +/**
+> + * genphy_c45_template_testmode - configure template testmode registers
+> + * @phydev: target phy_device struct
+> + * @test_mode: testmode includes Normal to Test mode 7
+> + *
+> + * Description: Set template testmode include Normal to Test mode 7
+> + *
+> + * Return: 0 on success, or a negative error code on failure (e.g. register
+> + * read/write error).
+> + */
+> +int genphy_c45_template_testmode(struct phy_device *phydev, int test_mode)
+> +{
+> +	int ctrl;
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+I would suggest test_mode is a u16, or at least an unsigned type. ctrl
+should be a u16, since phy_modify_mmd() and phy_write() etc take a
+u16.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
-serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D45
+> +
+> +	if (test_mode < MDIO_PMA_10GBT_TESTMODE_NORMAL ||
+> +	    test_mode > MDIO_PMA_10GBT_TESTMODE_7)
+> +		return -EOPNOTSUPP;
 
+And once test_mode is unsigned, you don't need to test if its is less
+than 0.
+
+    Andrew
+
+---
+pw-bot: cr
+	
