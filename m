@@ -1,232 +1,294 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013060.outbound.protection.outlook.com [40.107.201.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A144CE679
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:30:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6686394792
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789504259; cv=fail; b=okZOrDVDHoAfe2DqiFH0rT7PxJbFuGvpAGajV4r7YDuAa0ms7lm+KWNQxv6l9qOMAXXlpSioBLJz2cd46SLLLGLfQMLbD2VAlJ6D6PwJhp3xYZj0/5TjNuBn8XlnDU6KFWTiwWiDcXES1KsjnUVxHhY3JKY9BcYlFcUjw3hKIYo=
+	t=1789504291; cv=pass; b=c32IVB5G7tk2z3nt0PxagJUwl96GKJGUEVdaLg903OYlHqgFt56MMz1EyBomLXJsbdDxxTXV61mHMaYQhoe1JARgaKLOmYGevoaykoLcKMxYIr+bsgGTg5bVapF5Tcr+zqD0GepnTU5zZfs6xnHbsdPoGPR6FMQa1LeiQ8bYt5g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789504259; c=relaxed/simple;
-	bh=rsCb9TBPCO10Da23mZrQAya7rDgg8dvQTNT6bs16diM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=te92AM/194ZpLfb5P8T+eXq9J/m+2xzCdfzLRhQraWbM0tC5bYRM/n9aevs9FRlEOWFqBLasNSObtrZ9VeDgT69uujZd/2z3Kz5tsTEZPn5PC8kYco6tYf/gNfkLycQonGRln/o7xGUuU3ZwtoVrw//IYqDjEPdpBddMXyaVAbk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F24j/xbz; arc=fail smtp.client-ip=40.107.201.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789504291; c=relaxed/simple;
+	bh=VWSkvrM/F5SNSEPVG6vo0Sb/tbQKJ6iyjD/Yl9tv4RQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mqym0aUn/7QMMCrZomphIKqzR1nOOLl16FIunkAmHni0p/fpLHiRqkrv4f0dpQy2C3MfSnRHLdW77fUVQVxwHZnBkDsaHiVkJ95A/J65/FtoOt93vIAHqm2LNZFQSWxXIaEMHFKgZLp1wkuc4EzGoNMtZWzF10kmXHYUrEzNxLQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MwfWtak1; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F24j/xbz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pKIejyMVvT1BxpLB8Nym+KvjiqEoOyBXWjGDOJTFYiytYpzI5gPMxS3s+SBBsWecY21JpReUNRPTw/crUANYy6OL1azhnLUcd3aczZTLfSDW7pAOh9H7JRyyW8YsbAZdERddomHj7MYmzB2AfOiQ1/uP4ZfWdcPBmsGsPijbOVPHb/rkJF+3RZ0IhWC+0+oa1AjgIPx7hH/b5Bk3zg6BwJcxdw52gBnz6Ol/7W4P2n5+ECX1FUW8JhE/Zt3FK7keM6D4hZo/Mf0NUhTBmG1qaJ0SyuI2DZqqvSkTb4MPQX7c/MOYwigB4kTkk5xO7XFVYv0jn1q/IEXfkq5vzG4jOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GKjQY06pTPvXzHLW8KOi0ZNU053d+WoBeEFhDusesVc=;
- b=ZtQ7A8gzl5sEC6fjHDA+8UECJm4yi/Ws+jOTWJnDi/UvrCgrwaohF3EVQIE3hPUxbsLvc9AIIJqoFovMDhFdww7URpHRk4NSdNrU6Gyi4a0MWnxURGqjkSLPWf7FzmS4RSmNfMx1qTw3fDDVXNcB/ONUqHMSbnorvZ0GlihTJy6ZVqwzRAmDNALHIpp58hgm301JXTpzbH5fGFXNDnbm3pvsjTwVWbbuI+PkwAP/hDcgF8YT5RngtOJp24a4cJ3rz3ZAUWXrs039wQTipvetmsprYfi4qOabv9/Kh6id2kqzrN3SQubM02wbKVddNkkvWlXGN24OHVg/oBNb6Qojrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GKjQY06pTPvXzHLW8KOi0ZNU053d+WoBeEFhDusesVc=;
- b=F24j/xbzybEdPyR/bwhajqR35rgPAAY+8lAQwJK0GOK694OkHznUhMPI2u420RgXiBTxNv6gT2RFfPGZysmEbT1cuKP4sj5ao1gRg4E76MrIqcqD9FHoSjzbMmYPIwkMafthXwq0BtyuHWN2ccJtAEG2d4Y4+SumdtWRA66hNAlLEgnhUGOkj6YERDZunLZXVKaSCwkrZPvJcHsemMmBm3LGIAFqyhgcMu/H7pDTnTP6fOhr6m3Ocf3icU/6KDSvNvusYeIxHS3AArIkJMVQg64o4mmeBgNgVSqXX/0aQv3DfnVkQnf6vX/FuMKGpIJIy4FFEtfgORGkOgc7QPuyuA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by DS0PR12MB8416.namprd12.prod.outlook.com (2603:10b6:8:ff::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 20:30:47 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 20:30:47 +0000
-Date: Tue, 15 Sep 2026 22:30:38 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 07/18] sched: Add sched_ext hooks for proxy execution
-Message-ID: <aqmq7iahwiBR34zU@gpd4>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-8-arighi@nvidia.com>
- <20260910103818.GH4120091@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910103818.GH4120091@noisy.programming.kicks-ass.net>
-X-ClientProxiedBy: MI0P293CA0013.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:44::18) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MwfWtak1"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so14721cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:31:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789504288; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QTMNkJCeHydqdLugPXPEdNEt81Za6g45GdN4uapYoNUQbiO6jhIw4MW2VBIBSDBwLl
+         FDpPxiAQdIzFQ0LeId50TkiMy1ZKz1w9W62vDQzB10TNam7CTcDTpe0SNQHMtoHNMcEN
+         0tJoOgw1Gd7KwIEF4nF5hRzDsR1k2NajY+p8Qf1BrI0LfCDcQnxNAzRcBjOYDqSY2bhM
+         +WYbmtN6CWC3bTTu3jpti5dN9Btj0msJ2wIkig705n0czCFfTlDgVkEWoAnnlE/5ETTZ
+         47K27bKwSpG1ofUCwHwA/8schqbjDPTiZ05KH7objCYzCeNqgxaJHvdaa6zw3mezMfYI
+         dGNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G4qQtA38WyUCrnABIjsSOxjkbhli0tBAUE05eGg44IQ=;
+        fh=qtSdnY7uQq6x9jmLMhdWVlUopKXS6aBr6+avoYRpZCY=;
+        b=eaOmKNoL8xkureHKQ2nIrZ5Ro5co9xfQYEBP7B53Paw8AItOgndR0ocPVaETKFGZSv
+         FWpAJZNFXtwQgsjIo8cZJW57jCo1sCrof+ybCm+vGbqbz5/DQz6U9DeOxWTJQU0gjUy2
+         LAnM4haJ0kI2zdncNIp26pdJYo7G0LURSYjj83CuRxFUSfWtp7IgPOCYBnyAngdYws/O
+         H8WIPM6eyxihmuxBG6sYnmZaBoDNU/sHF6Ylr7Urf22P2sZT0wZtLJ2S8ICr96ektGpL
+         VlsM15VR4Zs/7L+ZXLpgh3EcFD8x0WiXnH6ICHRWi4IDSdONkPUKAYYeYZ9aN6Cuixv7
+         Z34A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789504288; x=1790109088; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G4qQtA38WyUCrnABIjsSOxjkbhli0tBAUE05eGg44IQ=;
+        b=MwfWtak1OsRhpnTq4kBAL5onp4RzA8AoMdxxj7TZhFppYGzlnihZi8cLpqaD/6OG7l
+         EFFOv51p0STYVbuv3dSMCB59tMsk9ZOHYmqdchquFp+2meGYZ+O06h8NpYnPqVBgN6pK
+         TA1BoF2KgjGDXeGtH9VV0WG4PMrC9gEYRyJvbREn2vj1VyxyO+xA/C1XFI9Gk5JmKmbm
+         QPreCJxtxEAR2OVvaWNMOfmCPW3eA8qzd+628p0IQoQ2GGR4XczMgHBj9omXtJ8maSqJ
+         leORDL4LVjDK0wZKl1GWWIvVZxivJV1X4aFSodMoa3j5VcduF/zyIERQcY/2vIW3tcj7
+         HgXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789504288; x=1790109088;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G4qQtA38WyUCrnABIjsSOxjkbhli0tBAUE05eGg44IQ=;
+        b=dxhxzk9jwiG9RLayqI1u2DhsxoEOUpe7Ki3plv2FxuFntZ3Vk1Y54b9J23lw7Wx57M
+         P1xLqlZA0Zsq85Vkt8vJc3LuaZ7DswXXkUR0jQVrqyT3Skvmq1kAmdGdtPSEZSVwUUmW
+         8SgGZMwpn3PKV1FESZO325QNOJiKHk1k8TjDAgPJr/7dqRBr4JgOeadda+xYzIK1fL1R
+         KSVOGsJEVkmB4CZD8jI53ilI1PWtjV45sZ6ncdmKZwqo0jQOlimX2Q9TcFg1dN8aoqki
+         8TjTT5enIAdil8sN2kYrhO+lYqgpwoM1wmJCJghunUNOcGA9OLRQilUeKehmQjKY2zmu
+         MY5w==
+X-Forwarded-Encrypted: i=1; AKwUvByYoRj3H8go+GM9FsTL2SQRnhh+5FoA+kb4pm6kXTx1gL9+4sndHKRfeYqA4QnYC0sI0DkDlB1q43tQyu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++leX2eMEAZ05Cq38f07yvfOUBTO0I/lMEqaP5srdKgSODJZhkmh
+	N1EZRCFWZk7OaBPfG87HTdtjMEsDFbwd8qSWMnFUhhU7oSbgxznp8+o6DdQiABuGUze8MSTdXnV
+	qpZc3OlugdFK5TNAHsN/b29/qXYMb0DON0TVS9t0X
+X-Gm-Gg: AYBFou0KwGzT5xmYS250YHRaK1BoQ4TZlURNbPahehdd7qmfhAjsClrSB+tJ/v5gpGE
+	XrHQZmZEMXFP/2YdPFyEONQ76WlJ+/fI1qPcyjx32H4lgbniJYBxDp0/DhwZ3Nkw4CGCLeFYmGm
+	SqJp3MdgHNm8vuHvWL6TaN/KNXY9gY+ILJptB5VEosbkpWrGLSho7G9uUGP4xkAnvPo/Dz6MDba
+	rWvx2Y2i6aUY916wXHsUJ8N4aBygkaPFcWj91H4ZfYIOD4M0jMmwKgCpXniL5kyHKkrDMo7FR9O
+	AYGFgq04XTOXp8oP5tiTi4n/Z65BesDbyk6biumQcriJaKrJ33N67UGp8mFrOKgKWpd5vTlwwlj
+	t0tbwXTQy/LN3XlUBrcG0
+X-Received: by 2002:a05:622a:410e:b0:530:d9fc:253d with SMTP id
+ d75a77b69052e-5325083c187mr3760411cf.6.1789504287753; Tue, 15 Sep 2026
+ 13:31:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|DS0PR12MB8416:EE_
-X-MS-Office365-Filtering-Correlation-Id: d96f2cf4-fb23-4205-9233-08df13683926
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|4143699003|56012099006|6133799003|11063799006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	CtBCnJUZ3F0x9LDThy6Aan+CuHtKyD/2rLDWdF9gZmYsi7WCmlNPxMGEVivKYDEnEp/ICa9qwtkSalEA4TagehseKHsyz/O/gLvXF+S8Ea9729FMNjYTMhGt6vGpbZy306fWHz5aCQtO0xjRA+R3ZnRUHRqmd32YZdUDURMG7hKJfd0fn1V7qDKaU5Ljm/3PR9gWI3jDQ6D8+dHQNczTlr9WDyTOIxWCOfq57Wxd3zWhHNZF2322WRJx2Mr+vBx01EhDe6IDwNkj296hQQF/vDMnLNXsxayzaO3IhGbcKpqR23/X2Dk0HtXC4PK30R72SiJ571I9C3TVTaOXrv/zLgRC+Mmp7VYkZRG1n/jzyDXxBZcK/qoU/B9aSPm+Yghl1UmXGmnPuvoiS8YDCaT+MAoL6EAVEXpp033y+mOQAhmrqssDQkEI5H1eh+909qjcVmF9SToFnHzrBUW3LZmJnCnMWNnEOR9/XYD3gM49m/uhyk7ACyXZKQMNzOfiJ5ao+vS+H6WUSEwVdB85VK87oEEYr52b7C0WjitMUqG/Du+esvF4t+91ZjqXf0jKxk6jPrHFl/j0RGmykM2hvxu8OLO62XU51/Me15Q8UrcfPI9EozzpjyjFWv0hKQVRlc005nE4pnd2Nv4b3UuixtL7u6FiewHp73kfcstVCZmSl9U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(4143699003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BWDNHLxAmDcwxD8MvO/0s0fsj2HDlcT5El44mHt+We99raPh/9FsGFhzbmrx?=
- =?us-ascii?Q?ijMNaOG5HQjMsxAC8qc63wiNKwnkl1F/9w3KdaOTiDDHPvBfYJeNjb6+Mhda?=
- =?us-ascii?Q?w6jfXEaY/YqNiQoVB2/s2qfXdQTSBwVsG6yaiIN+Vd8NvxO+U1JxXn670bDz?=
- =?us-ascii?Q?yavWGcWeBLdSZ4VKk9CYCM2K5vuhTeGvIFaDE/HqoZ7KmyL/0clY2wBEVzOG?=
- =?us-ascii?Q?CGaewkL7TrN4VHjdE8iYF/pgLmsyMRJxnddPSLcTFhwVfiMDL27D3aSS83t8?=
- =?us-ascii?Q?whjVDh/ao5I+0Fh4t6JILJUxaTq+tQUKgmF+m2RooyID/Xk4DT4LaDAYgA7X?=
- =?us-ascii?Q?MafS0szgM2Mj0fXAXWhIK9AqyhGvGzjYYJUR9rm9EDfqtBueK/zOb7RmJ0nD?=
- =?us-ascii?Q?3E3xZ8P+I0Uoce/GmfPbe0Vak1EdnX88mbOFf1vDfSQZltAs4E6BwBpUkBTG?=
- =?us-ascii?Q?pnjKAJEU7RP2+a9uSEaRtmPqdKu1CpSYzOJdS7BsrcXlznBS6fWXmAntHNfx?=
- =?us-ascii?Q?vvaRMrMIb12DqGxA5g2d03YsTI+GKuFEzvp2fAEMpDJhuAMWvzasUV+7UZ5S?=
- =?us-ascii?Q?VbpntFVvAjOMpZJwjupNtqGXpdGHVcijuz5eLeuQep+w6PO8S1YsoeG36o6Q?=
- =?us-ascii?Q?T+kvwh4wX08hLmrUkx3QxXql6brzcE53Wt+Tf65pOYzp6FG4oBI2Tw4FIYzD?=
- =?us-ascii?Q?sLPnyivZqXsCgkncVi7oXgHmPQwTxqYL3kgLqGHN5fbFF76v3E8wAWQeDu9j?=
- =?us-ascii?Q?rmCF/O21PGhA87ivzgcUCP/5PldPY9qzrYHLSDan6bIN2aE7NOG28kt29vX5?=
- =?us-ascii?Q?VjOtbIVnhPDjQ0oXTyia54barF6m2U0RDCCVH2aIt7txD8drMSW3auqBVk9f?=
- =?us-ascii?Q?AR7W/3nmq/xBbmVdZkyJc+fJcQnxYWCosPH9MYZul40LvJWlSVYdWeRksHdb?=
- =?us-ascii?Q?Z5ePohjn/RHnr8pPKPahVEND/WJQEfjdO5gSvSHkvyaQ9q0BtPnLdnsNyend?=
- =?us-ascii?Q?Bp+P84KiX0pT0Ey3Ly3kWCVb0+IcdmF050/rGd0+xLwGXnSTHHP+2jOUXil+?=
- =?us-ascii?Q?knpNrkV+CpBcPorRgsj9AVnqh6XNmML/ESUhTaHPZ0LsBeKo4OEo/tmmbkxN?=
- =?us-ascii?Q?H4wp7wtn7KVgsRzZOzCnYfOlR1uCg4kjYQ9/5QcKM8auPDWLouvmuY9tDkzz?=
- =?us-ascii?Q?5/Y35arIJJPBfWrZRovI+f0qJLwRSTBpTSZP28BtZe0a5IJOEyxD2V+STrP6?=
- =?us-ascii?Q?+hzZqYSW2f+t0l1mnldONxgVKKOX7U2z/J79vaB3RvWC/6A7CNP0yet7wlNq?=
- =?us-ascii?Q?sqLh/vMmDIpTqAsfFBZz3rvkdA7E1hNOe7e7GhxXnI3cukk5S7wsiXjWnuS3?=
- =?us-ascii?Q?WqQHp4L3pio1ma7ULZrcNp8lYCZbaaGqzzIxYui9zs9X+dSCoD3vayYEpTNf?=
- =?us-ascii?Q?b1nAVDq15Xk469QQPNdSVpUxkMdGIe03HKazJzVUxMiaRVJg3y3JkLvxyE/C?=
- =?us-ascii?Q?n2tZVV5rnFQ+s2OfRrn/5R+6YHcfxB3zk9UEfSu50//c+wW1u3iCkXGOINcg?=
- =?us-ascii?Q?Vg3Ug2YVtHVfjWikyZ55OBxyAHYEQNXt8SrkVf7UafxrpqgqlnLPkG5z0TKD?=
- =?us-ascii?Q?qKQBXFqn2J/Mc5PrYXqssvdcaOL3Hr3yhAbffPld2AKJENq69RrOvWz4hEK3?=
- =?us-ascii?Q?htxf/hTsGaRPPsdMdyLfUx2RSZNoBEkGKUgKk/+gVVL00xDfddGk5+vJq59Y?=
- =?us-ascii?Q?I2iWtE2iAw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d96f2cf4-fb23-4205-9233-08df13683926
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 20:30:46.9565
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MUs0k4Q3mW5/UHa99uGQptkr3M6z0oZ+HQrHqyp69T2VLXyrtyf9+q+8oIgoOdijytYkHoCC3wFrfwyLcr857A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8416
+References: <20260819094621.844115-1-zhanxusheng@xiaomi.com>
+In-Reply-To: <20260819094621.844115-1-zhanxusheng@xiaomi.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 15 Sep 2026 13:31:16 -0700
+X-Gm-Features: AcwNN1WFgS8br-gqCljlqnmsNAXf4O51y-fEe9NYb3rK422UoVElclllWgWd0cg
+Message-ID: <CAP-5=fVXYFvWOEiH5R+Gc29nfKBGA6y6ULsT68Gudw7ErMVFsg@mail.gmail.com>
+Subject: Re: [PATCH v2] perf symbols: Don't apply the symfs layout to
+ synthesised paths
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Changbin Du <changbin.du@huawei.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, zhanxusheng@xiaomi.com, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 12:38:18PM +0200, Peter Zijlstra wrote:
-> On Mon, Aug 31, 2026 at 03:42:17PM +0200, Andrea Righi wrote:
-> > Proxy execution splits the scheduling context (the donor) from the
-> > execution context (the lock owner). sched_ext needs to observe that
-> > split at three points in __schedule():
-> > 
-> >  - whether a blocked EXT task can be retained on the runqueue as a
-> >    donor,
-> >  - when a donor's scheduling context starts driving a lock owner,
-> >  - once proxy resolution has settled for the current pick.
-> > 
-> > Introduce scx_allow_proxy_exec(), scx_proxy_donor_start() and
-> > scx_proxy_resolved(), and add their call sites in __schedule(). The
-> > implementations are empty here and are filled in by the sched_ext
-> > changes that follow, so that all the sched core changes needed by proxy
-> > execution stay together in the preparatory patches.
-> > 
-> > SCHED_PROXY_EXEC still depends on !SCHED_CLASS_EXT, so the new hooks are
-> > inert: they are compiled out with CONFIG_SCHED_CLASS_EXT=n and
-> > unreachable otherwise.
-> > 
-> > This is a preparatory change to support proxy execution with sched_ext.
-> > No functional change.
-> > 
-> > Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> > ---
-> >  kernel/sched/core.c    | 12 +++++++-----
-> >  kernel/sched/ext/ext.c | 13 +++++++++++++
-> >  kernel/sched/ext/ext.h |  6 ++++++
-> >  3 files changed, 26 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index bb79fcfa21cd2..d578dd635f2eb 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -7217,13 +7217,12 @@ static void __sched notrace __schedule(int sched_mode)
-> >  		}
-> >  	} else if (!preempt && prev_state) {
-> >  		/*
-> > -		 * We pass task_is_blocked() as the should_block arg
-> > -		 * in order to keep mutex-blocked tasks on the runqueue
-> > -		 * for slection with proxy-exec (without proxy-exec
-> > -		 * task_is_blocked() will always be false).
-> > +		 * Keep mutex-blocked tasks on the runqueue for proxy execution
-> > +		 * only when their scheduling class allows it. Without proxy
-> > +		 * execution, task_is_blocked() always returns false.
-> >  		 */
-> >  		try_to_block_task(rq, prev, &prev_state,
-> > -				  !task_is_blocked(prev));
-> > +				  !task_is_blocked(prev) || !scx_allow_proxy_exec(prev));
-> >  		switch_count = &prev->nvcsw;
-> >  	}
-> >  
-> > @@ -7244,6 +7243,7 @@ static void __sched notrace __schedule(int sched_mode)
-> >  			}
-> >  			if (next == rq->idle) {
-> >  				zap_balance_callbacks(rq);
-> > +				scx_proxy_resolved(rq);
-> >  				goto keep_resched;
-> >  			}
-> >  		}
-> > @@ -7264,6 +7264,8 @@ static void __sched notrace __schedule(int sched_mode)
-> >  			donor->sched_class->put_prev_task(rq, donor, donor);
-> >  			donor->sched_class->set_next_task(rq, donor, true);
-> >  		}
-> > +		scx_proxy_donor_start(rq);
-> > +		scx_proxy_resolved(rq);
-> >  	} else {
-> >  		rq_set_donor(rq, next);
-> >  	}
-> 
-> Can you expand on the need for scx_proxy_resolved() ? I understand the
-> other two, but this one I'm struggling with a bit.
+On Wed, Aug 19, 2026 at 2:46=E2=80=AFAM Zhan Xusheng <zhanxusheng1024@gmail=
+.com> wrote:
+>
+> From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+>
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+>
+> The flat symfs layout was implemented inside __symbol__join_symfs() alone=
+,
+> which went from
+>
+>         return path__join(bf, size, symbol_conf.symfs, path);
+>
+> to taking perf_basename(path) first.  No caller was changed, so all of th=
+em
+> got it.  Most pass dso__long_name(), which is what the option is about, b=
+ut
+> some pass a path perf built itself:
+>
+>   dso.c        "/usr/lib/debug"             -> "debug"
+>   dso.c        "/usr/lib/debug/.build-id/"  -> ""
+>   build-id.c   "/usr/lib/debug/.build-id/"  -> ""
+>   disasm.c     <file under buildid_dir>     -> last component
+>
+> perf_basename() yields "" for a path ending in '/'.
+>
+> Tracing the lookups against an empty symfs,
+>
+>   perf record -o pd.data -- sleep 0.3
+>   strace -f -e trace=3Dopenat,newfstatat \
+>       perf report -i pd.data --symfs <symfs>,flat --stdio
+>
+> 15 paths get tried.  Four of them differ, in every case only in the
+> prefix, which the patch restores:
+>
+>   FEDORA, UBUNTU, MIXEDUP_UBUNTU
+>     <symfs>/debug/  ->  <symfs>//usr/lib/debug/
+>   BUILDID_DEBUGINFO
+>     <symfs>/        ->  <symfs>//usr/lib/debug/.build-id/
+>
+> The tail is dso__long_name() for the first three and the build-id file fo=
+r
+> the fourth, the same either way, so the build-id file was being looked fo=
+r
+> in the symfs root and the distro debuginfo under <symfs>/debug/.  Those
+> prefixes follow neither layout: perf's own prefix is flattened while
+> dso__long_name() is still appended whole.
 
-Yeah and the name is a poor choice, it should renamed
-scx_proxy_reenqueue_retry() or something similar.
+Hi Zhan,
 
-It's the retry point for a task that sched_ext couldn't move while processing a
-dispatch from a remote DSQ (used later in the series).
-
-When sched_ext consumes a task dispatched to a CPU other than the one whose rq
-currently owns it, it may find (after locking the task's source rq) that proxy
-exec has made the task either the physical current task or the active donor. It
-can't migrate the task in that state, so it parks the task on the source rq's
-reject DSQ.
-
-If the deferred reject-DSQ drain runs while the task is still current or
-donating, the task must remain parked. Retrying immediately could spin until the
-proxy relationship changes. The hook provides the notification that proxy
-selection has run again, allowing sched_ext to schedule another deferred drain
-after the current context switch.
-
-I couldn't find an existing event that covers this transition without
-periodically retrying the reject-DSQ drain. Is there a better place to trigger
-this retry?
+I'm having a hard time understanding the commit message and what this
+patch changes. Thanks for providing the before and after in v1. In
+those before and after examples, the 'before' case seems to better
+match what the user is requesting on the command line, so I think I'm
+misunderstanding something. Could you help clarify the details.
 
 Thanks,
--Andrea
+Ian
+
+> Among the 11 paths that do not change are the basename lookups the option
+> is for, <symfs>/sleep and <symfs>/vmlinux.  The same trace with
+> ,hierarchy is identical between the two builds.
+>
+> Use path__join() at those sites, which is what the helper did for them
+> before.  A hierarchy layout is unaffected, being that same call.  The
+> OPENEMBEDDED site passes "", where perf_basename() is already a no-op;
+> it is converted for uniformity.  Every remaining __symbol__join_symfs()
+> caller passes a path from the profiled system.
+>
+> Fixes: f182573e06ab ("perf tools: Add layout support for --symfs option")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+> v1->v2:
+> - Added the traced before/after to the changelog, as asked by Ian Rogers.
+>   No code change.
+>
+> v1: https://lore.kernel.org/r/20260811050046.4019578-1-zhanxusheng@xiaomi=
+.com
+>
+>  tools/perf/util/build-id.c |  2 +-
+>  tools/perf/util/disasm.c   |  4 +++-
+>  tools/perf/util/dso.c      | 11 ++++++-----
+>  3 files changed, 10 insertions(+), 7 deletions(-)
+>
+> diff --git a/tools/perf/util/build-id.c b/tools/perf/util/build-id.c
+> index eb95ab90f974..0c89fe75a650 100644
+> --- a/tools/perf/util/build-id.c
+> +++ b/tools/perf/util/build-id.c
+> @@ -599,7 +599,7 @@ static char *build_id_cache__find_debug(const char *s=
+build_id,
+>                 dirname =3D dirbuf;
+>         }
+>
+> -       len =3D __symbol__join_symfs(debugfile, PATH_MAX, dirname);
+> +       len =3D path__join(debugfile, PATH_MAX, symbol_conf.symfs, dirnam=
+e);
+>         snprintf(debugfile + len, PATH_MAX - len, "%.2s/%s.debug", sbuild=
+_id,
+>                  sbuild_id + 2);
+>
+> diff --git a/tools/perf/util/disasm.c b/tools/perf/util/disasm.c
+> index 0a1a7e9cf3ef..decf9348d735 100644
+> --- a/tools/perf/util/disasm.c
+> +++ b/tools/perf/util/disasm.c
+> @@ -31,6 +31,7 @@
+>  #include "map.h"
+>  #include "maps.h"
+>  #include "namespaces.h"
+> +#include "path.h"
+>  #include "srcline.h"
+>  #include "symbol.h"
+>  #include "thread.h"
+> @@ -1173,7 +1174,8 @@ static int dso__disassemble_filename(struct dso *ds=
+o, char *filename, size_t fil
+>
+>         build_id_filename =3D dso__build_id_filename(dso, NULL, 0, false)=
+;
+>         if (build_id_filename) {
+> -               __symbol__join_symfs(filename, filename_size, build_id_fi=
+lename);
+> +               path__join(filename, filename_size, symbol_conf.symfs,
+> +                          build_id_filename);
+>                 free(build_id_filename);
+>         } else {
+>                 if (dso__has_build_id(dso))
+> diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+> index 2309196d8df3..314c9a0edf28 100644
+> --- a/tools/perf/util/dso.c
+> +++ b/tools/perf/util/dso.c
+> @@ -167,12 +167,12 @@ int dso__read_binary_type_filename(const struct dso=
+ *dso,
+>                 break;
+>
+>         case DSO_BINARY_TYPE__FEDORA_DEBUGINFO:
+> -               len =3D __symbol__join_symfs(filename, size, "/usr/lib/de=
+bug");
+> +               len =3D path__join(filename, size, symbol_conf.symfs, "/u=
+sr/lib/debug");
+>                 snprintf(filename + len, size - len, "%s.debug", dso__lon=
+g_name(dso));
+>                 break;
+>
+>         case DSO_BINARY_TYPE__UBUNTU_DEBUGINFO:
+> -               len =3D __symbol__join_symfs(filename, size, "/usr/lib/de=
+bug");
+> +               len =3D path__join(filename, size, symbol_conf.symfs, "/u=
+sr/lib/debug");
+>                 snprintf(filename + len, size - len, "%s", dso__long_name=
+(dso));
+>                 break;
+>
+> @@ -187,7 +187,7 @@ int dso__read_binary_type_filename(const struct dso *=
+dso,
+>                         ret =3D -1;
+>                         break;
+>                 }
+> -               len =3D __symbol__join_symfs(filename, size, "/usr/lib/de=
+bug");
+> +               len =3D path__join(filename, size, symbol_conf.symfs, "/u=
+sr/lib/debug");
+>                 snprintf(filename + len, size - len, "%s", dso__long_name=
+(dso) + 4);
+>                 break;
+>
+> @@ -200,7 +200,7 @@ int dso__read_binary_type_filename(const struct dso *=
+dso,
+>                 while (last_slash !=3D dso__long_name(dso) && *last_slash=
+ !=3D '/')
+>                         last_slash--;
+>
+> -               len =3D __symbol__join_symfs(filename, size, "");
+> +               len =3D path__join(filename, size, symbol_conf.symfs, "")=
+;
+>                 dir_size =3D last_slash - dso__long_name(dso) + 2;
+>                 if (dir_size > (size - len)) {
+>                         ret =3D -1;
+> @@ -219,7 +219,8 @@ int dso__read_binary_type_filename(const struct dso *=
+dso,
+>                 }
+>
+>                 build_id__snprintf(dso__bid(dso), build_id_hex, sizeof(bu=
+ild_id_hex));
+> -               len =3D __symbol__join_symfs(filename, size, "/usr/lib/de=
+bug/.build-id/");
+> +               len =3D path__join(filename, size, symbol_conf.symfs,
+> +                                "/usr/lib/debug/.build-id/");
+>                 snprintf(filename + len, size - len, "%.2s/%s.debug",
+>                          build_id_hex, build_id_hex + 2);
+>                 break;
+> --
+> 2.43.0
+>
