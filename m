@@ -1,474 +1,123 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1473B6BFD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270CA374E40;
+	Tue, 15 Sep 2026 08:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461776; cv=none; b=TO+YuXphfbrq49k8NerPnrbzf+KPFGwULz4rKKjPNmHSubVtGTBHGvpThKChpKbcgJbaOZV6Bgk0GC45/T5A5zYSusm49RdfP8B6WWTzz1XeSsWJEZhBY49YjK/XKXhWZjmfYtyT+xgxRlOblnevkb32kaKnB43BXYgiRpEgedM=
+	t=1789461804; cv=none; b=UDmIXQwNfQCvZo9UdnvzVYLcKYgVFVrC29xDeU47ruHrCN3dUy7ULkDO65wC+GKiipulVCshJsYgNM1H+QLG+ec7Qex0FiifgV4cVsuBSteFbViim1U3tBg5YCz9SkEhh6widJy5LL0FeNar/PauOWv08bCmjDa/C/eQAHUuGhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461776; c=relaxed/simple;
-	bh=yr+40TrBkOYI+OGlZk1IPLFD1X+xgHQnRX8pS4vHJhw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qtuTGyR/uCjelqnVXhmsJg0K5WAT34ZvFG4SY+ApC0/+qHga5EnB5y/5A4Oz+yJlM/qV6jSSAupq+8J5zvm0+V4MxsdL+HJ8xMLz0R1X8Cy52ixAkD19w2o4qpg9TEnl5u5c4qtyJR9wIzAk0/gX+D5P/sZ5tYwq1lxKtiL/YKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QFZkYl4p; arc=none smtp.client-ip=192.198.163.16
+	s=arc-20240116; t=1789461804; c=relaxed/simple;
+	bh=cyRG1T2PDPHf7Ppda6R4nWqA/AhxSLime81k93QDI4o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EascnJf2jUsQ1+e5RI3p4ayF5yZY+/Z6UKtB2aijh8cv8YsbviPiDjAeANeNvH+1esKJZSKUOXB4d3jbDVVM02aAye/gvER4vbzKME34X/XHuBTb3C7zAzf+g5819vSDJmDqBpwIwO8sV99TA1O7PYXaiDujHBxQrYTi/7+dzvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VlvIT/GE; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QFZkYl4p"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VlvIT/GE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789461774; x=1820997774;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=yr+40TrBkOYI+OGlZk1IPLFD1X+xgHQnRX8pS4vHJhw=;
-  b=QFZkYl4pPK+n/DvMIJqJOcn2CiGdj7BFJNohXs+PN3gyYC8EQq+ELSDm
-   wWs4oC6gySB88/pGMrd8HlTpZjy+QuPm+suMW3uigPNUx5b8aek5iB0rz
-   aEYx0nq+r6Y0o8TK2z0dBQ5Ys1DaBJE94t2BRNeQGj0K+JzMDxu6+zktT
-   gUI5se339ikpNmkPJNsChIzIdL/upICi9hxRo1v2XiQ8ot5xkZzrjNHtm
-   f1mWzBgwNuaayjvmdwpS2er1Xo0R7OhuWzq0gF6CEGMPS8jp6Be6Yij0Q
-   DA4VGessbVPH7S36DWeaYkZWRlL0/14CiSHGe9CSFixt12I+NMszxZ6jS
-   A==;
-X-CSE-ConnectionGUID: g+2NU0hvS/Sk04zcJy2jrQ==
-X-CSE-MsgGUID: Uq0Iv+TyRN+bILoo2vGhtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77379502"
+  t=1789461802; x=1820997802;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=cyRG1T2PDPHf7Ppda6R4nWqA/AhxSLime81k93QDI4o=;
+  b=VlvIT/GEVxOWZ2tnkpIWo6Q5+aVFSGuc6FIaKuTQy0JOHTVO+M+vTuFV
+   nSSGqRo2+0wwurWOLcic/+//2NZ7gwBUa90wsjB5VKo9eVnvHLa/Pnnq/
+   MapUZrMNOHDOWDMUGcpv+CmQBHQK81Nmra62/opqUO8rBq+IChx/hnKT/
+   Rg3dTy+MM0gj2QRRD+sTaSraLPFV5sBwJ9EVyarpQlwincB0Jlh+erqRE
+   UflDdv5OjHwlj0l2nIQRYQLIQmUPFnFuL8Z6jmBn+fxEmVKoafJ8xVVOv
+   IiTX1E0Z78nugpBUkBE5761dcMe+99jm6hUeWUqlhglM3POqC88KHRWKC
+   g==;
+X-CSE-ConnectionGUID: Kf9x3PViSeOVEIl2WTPf3g==
+X-CSE-MsgGUID: BTCX2F/RSle0Rb/mOvFIOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90024768"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="77379502"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:42:53 -0700
-X-CSE-ConnectionGUID: 6UvzAamHSXuYckmVewVLWg==
-X-CSE-MsgGUID: EAE2XpSQS6yBwcA0JFS2+A==
+   d="scan'208";a="90024768"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:43:22 -0700
+X-CSE-ConnectionGUID: OyZntYNITX+nXcX5R7EO1w==
+X-CSE-MsgGUID: 2wD6B4vlSpSOQa7VbCzv3Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271469413"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa010.jf.intel.com with ESMTP; 15 Sep 2026 01:42:50 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id B3CBF99; Tue, 15 Sep 2026 10:42:49 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v1 1/1] CREDITS: Fix the ordering and other issues.
-Date: Tue, 15 Sep 2026 10:42:45 +0200
-Message-ID: <20260915084248.3460260-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+   d="scan'208";a="273410897"
+Received: from unknown (HELO [10.238.2.139]) ([10.238.2.139])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:43:11 -0700
+Message-ID: <93667a03-f7ae-46eb-82f5-8167f74f16c2@linux.intel.com>
+Date: Tue, 15 Sep 2026 16:43:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 09/28] KVM: VMX: Save/restore guest FRED RSP0
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "Mehta, Sohil" <sohil.mehta@intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "x86@kernel.org"
+ <x86@kernel.org>
+Cc: "corbet@lwn.net" <corbet@lwn.net>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
+ "dmatlack@google.com" <dmatlack@google.com>,
+ "seanjc@google.com" <seanjc@google.com>, "xin@zytor.com" <xin@zytor.com>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "shivansh.dhiman@amd.com" <shivansh.dhiman@amd.com>,
+ "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "nikunj@amd.com" <nikunj@amd.com>, "hpa@zytor.com" <hpa@zytor.com>,
+ "tglx@kernel.org" <tglx@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
+ "Liu, Zhao1" <zhao1.liu@intel.com>, "dwmw@amazon.co.uk" <dwmw@amazon.co.uk>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "yosry@kernel.org" <yosry@kernel.org>
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-10-sohil.mehta@intel.com>
+ <dd7b17e4-8d84-426a-9962-3ae693dcf401@linux.intel.com>
+ <22c2c3f67198185a8e3a6bda43e4f12b78305cbf.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <22c2c3f67198185a8e3a6bda43e4f12b78305cbf.camel@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-I assume that the ordering should be done in default (C) locale
-as other gives more lines shuffled. Fix the ordering accordingly.
-With that being said, clearly make at the top header how it should
-be sorted.
+On 9/15/2026 12:14 AM, Edgecombe, Rick P wrote:
+> On Mon, 2026-09-14 at 15:04 +0800, Binbin Wu wrote:
+>>> Note, an equivalent TDX side implementation is missing. No TDX module
+>>> with FRED support exists yet so this would be an issue for future
+>>> platforms. A generic discussion regarding this is ongoing at:
+>>> https://lore.kernel.org/kvm/20260827031837.2863609-1-binbin.wu@linux.intel.com/
+>>
+>> For old KVM versions, we want to defer the opt-in design or backport decision.
+>> (
+>> https://lore.kernel.org/kvm/c6b240bd-3c45-4abe-b17c-72a1a7da582f@linux.intel.co
+>> m/)
+>>
+>> We may finally choose to backport the TDX CPUID filtering patch series to
+>> stable kernels. If this patch series lands first, should we add FRED in the
+>> deny list for TDX as a temporary solution to avoid having some version(s) that
+>> allow FRED for TDX without FRED support in KVM?
+> 
+> The specific FRED problem starts with FRED host usage + TDX, so I don't think
+> there is a reason to tie and temporary fixups to VMX FRED support, in any case.
+> Or were you thinking to blame userspace for not respecting
+> KVM_GET_SUPPORTED_CPUID, which would change after this series? 
 
-Note, I took some empirical assumptions that people usually put
-their names in accordance with the First name(s) Last Name(s) split
-based on the records around (before and after the move). I hope
-I made no or little amount of mistakes. In any case it's just a dozen
-of names to update.
+My concern is if there is a release x with this patch set, but the release is not
+a LTS/stable kernel branch. Then backporting of TDX CPUID filtering patch series
+will skip this release. When the TDX module with FRED support released and work
+with the kernel release, it will have problem.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- CREDITS | 181 ++++++++++++++++++++++++++++----------------------------
- 1 file changed, 91 insertions(+), 90 deletions(-)
 
-diff --git a/CREDITS b/CREDITS
-index 8bdfde15e2ac..91494c88d262 100644
---- a/CREDITS
-+++ b/CREDITS
-@@ -1,6 +1,7 @@
- 	This is at least a partial credits-file of people that have
--	contributed to the Linux project.  It is sorted by name and
--	formatted to allow easy grepping and beautification by
-+	contributed to the Linux project.  It is sorted by family name,
-+	assuming the used locale is default, e.g. by setting LC_ALL=C,
-+	and formatted to allow easy grepping and beautification by
- 	scripts.  The fields are: name (N), email (E), web-address
- 	(W), PGP key ID and fingerprint (P), description (D), and
- 	snail-mail address (S).
-@@ -344,6 +345,14 @@ D: Hardware spinlock (hwspinlock) subsystem
- D: OMAP hwspinlock driver
- D: OMAP remoteproc driver
- 
-+N: Muli Ben-Yehuda
-+E: mulix@mulix.org
-+E: muli@il.ibm.com
-+W: http://www.mulix.org
-+D: trident OSS sound driver, x86-64 dma-ops and Calgary IOMMU,
-+D: KVM and Xen bits and other misc. hackery.
-+S: Haifa, Israel
-+
- N: Krzysztof Benedyczak
- E: golbi@mat.uni.torun.pl
- W: http://www.mat.uni.torun.pl/~golbi
-@@ -362,14 +371,6 @@ S: 2322 37th Ave SW
- S: Seattle, Washington 98126-2010
- S: USA
- 
--N: Muli Ben-Yehuda
--E: mulix@mulix.org
--E: muli@il.ibm.com
--W: http://www.mulix.org
--D: trident OSS sound driver, x86-64 dma-ops and Calgary IOMMU,
--D: KVM and Xen bits and other misc. hackery.
--S: Haifa, Israel
--
- N: Johannes Berg
- E: johannes@sipsolutions.net
- W: https://johannes.sipsolutions.net/
-@@ -393,14 +394,14 @@ S: 1549 Hiironen Rd.
- S: Brimson, MN  55602
- S: USA
- 
--N: Arnd Bergmann
--D: Maintainer of Cell Broadband Engine Architecture
--
- N: Hennus Bergman
- P: 1024/77D50909 76 99 FD 31 91 E1 96 1C  90 BB 22 80 62 F6 BD 63
- D: Author and maintainer of the QIC-02 tape driver
- S: The Netherlands
- 
-+N: Arnd Bergmann
-+D: Maintainer of Cell Broadband Engine Architecture
-+
- N: Tomas Berndtsson
- E: tomas@nocrew.org
- W: http://tomas.nocrew.org/
-@@ -492,10 +493,6 @@ D: Various fixes (mostly networking)
- S: Montreal, Quebec
- S: Canada
- 
--N: Zoltán Böszörményi
--E: zboszor@mail.externet.hu
--D: MTRR emulation with Cyrix style ARR registers, Athlon MTRR support
--
- N: John Boyd
- E: boyd@cis.ohio-state.edu
- D: Co-author of wd7000 SCSI driver
-@@ -589,9 +586,6 @@ N: Zach Brown
- E: zab@zabbo.net
- D: maestro pci sound
- 
--N: Zefan Li
--D: Contribution to control group stuff
--
- N: David Brownell
- D: Kernel engineer, mentor, and friend.  Maintained USB EHCI and
- D: gadget layers, SPI subsystem, GPIO subsystem, and more than a few
-@@ -632,6 +626,10 @@ S: Ravenhorst 58
- S: 2317 AK Leiden
- S: The Netherlands
- 
-+N: Zoltán Böszörményi
-+E: zboszor@mail.externet.hu
-+D: MTRR emulation with Cyrix style ARR registers, Athlon MTRR support
-+
- N: Michael Callahan
- E: callahan@maths.ox.ac.uk
- D: PPP for Linux
-@@ -703,6 +701,10 @@ S: Tamsui town, Taipei county,
- S: Taiwan 251
- S: Republic of China
- 
-+N: Landen Chao
-+E: Landen.Chao@mediatek.com
-+D: MT7531 Ethernet switch support
-+
- N: Michael Elizabeth Chastain
- E: mec@shout.net
- D: Configure, Menuconfig, xconfig
-@@ -715,10 +717,6 @@ D: Media subsystem (V4L/DVB) drivers and core
- D: EDAC drivers and EDAC 3.0 core rework
- S: Brazil
- 
--N: Landen Chao
--E: Landen.Chao@mediatek.com
--D: MT7531 Ethernet switch support
--
- N: Raymond Chen
- E: raymondc@microsoft.com
- D: Author of Configure script
-@@ -1447,6 +1445,10 @@ D: Made support for modules, ramdisk, generic-serial, etc. optional.
- D: Transformed old user space bdflush into 1st kernel thread - kflushd.
- D: Many other patches, documentation files, mini kernels, utilities, ...
- 
-+N: Andy Gospodarek
-+E: andy@greyhouse.net
-+D: Maintenance and contributions to the network interface bonding driver.
-+
- N: Masanori GOTO
- E: gotom@debian.or.jp
- D: Workbit NinjaSCSI-32Bi/UDE driver
-@@ -1459,10 +1461,6 @@ S: 8124 Constitution Apt. 7
- S: Sterling Heights, Michigan 48313
- S: USA
- 
--N: Andy Gospodarek
--E: andy@greyhouse.net
--D: Maintenance and contributions to the network interface bonding driver.
--
- N: Vivek Goyal
- E: vgoyal@redhat.com
- D: KDUMP, KEXEC, and VIRTIO FILE SYSTEM
-@@ -1535,6 +1533,14 @@ S: 44 St. Joseph Street, Suite 506
- S: Toronto, Ontario, M4Y 2W4
- S: Canada
- 
-+N: Nitin Gupta
-+E: ngupta@vflare.org
-+D: zsmalloc memory allocator and zram block device driver
-+
-+N: Justin Guyett
-+E: jguyett@andrew.cmu.edu
-+D: via-rhine net driver hacking
-+
- N: Richard Günther
- E: rguenth@tat.physik.uni-tuebingen.de
- W: http://www.tat.physik.uni-tuebingen.de/~rguenth
-@@ -1543,14 +1549,6 @@ D: binfmt_misc
- S: 72074 Tübingen
- S: Germany
- 
--N: Justin Guyett
--E: jguyett@andrew.cmu.edu
--D: via-rhine net driver hacking
--
--N: Nitin Gupta
--E: ngupta@vflare.org
--D: zsmalloc memory allocator and zram block device driver
--
- N: Danny ter Haar
- E: dth@cistron.nl
- D: /proc/cpuinfo, reboot on panic , kernel pre-patch tester ;)
-@@ -1945,16 +1943,6 @@ E: sjenning@redhat.com
- D: Creation and maintenance of zswap
- D: Creation and maintenace of the zbud allocator
- 
--N: Jeremy Kerr
--D: Maintainer of SPU File System
--
--N: Michael Kerrisk
--E: mtk.manpages@gmail.com
--W: https://man7.org/
--P: 4096R/3A35CE5E E522 595B 52ED A4E6 BFCC  CB5E 8561 9911 3A35 CE5E
--D: Maintainer of the Linux man-pages project
--D: Linux man pages online, at <https://man7.org/linux/man-pages/>
--
- N: Niels Kristian Bech Jensen
- E: nkbj1970@hotmail.com
- D: Miscellaneous kernel updates and fixes.
-@@ -2099,6 +2087,16 @@ S: Keplerstr. 6
- S: 4050 Traun
- S: Austria
- 
-+N: Jeremy Kerr
-+D: Maintainer of SPU File System
-+
-+N: Michael Kerrisk
-+E: mtk.manpages@gmail.com
-+W: https://man7.org/
-+P: 4096R/3A35CE5E E522 595B 52ED A4E6 BFCC  CB5E 8561 9911 3A35 CE5E
-+D: Maintainer of the Linux man-pages project
-+D: Linux man pages online, at <https://man7.org/linux/man-pages/>
-+
- N: Karl Keyte
- E: karl@koft.com
- D: Disk usage statistics and modifications to line printer driver
-@@ -2483,6 +2481,9 @@ D: and much more. He was the maintainer of MD from 2016 to 2018. Shaohua
- D: passed away late 2018, he will be greatly missed.
- W: https://www.spinics.net/lists/raid/msg61993.html
- 
-+N: Zefan Li
-+D: Contribution to control group stuff
-+
- N: Stephan Linz
- E: linz@mazet.de
- E: Stephan.Linz@gmx.de
-@@ -2542,11 +2543,6 @@ D: misc. kernel hacking and debugging
- S: Cambridge, MA 02139
- S: USA
- 
--N: Martin von Löwis
--E: loewis@informatik.hu-berlin.de
--D: script binary format
--D: NTFS driver
--
- N: H.J. Lu
- E: hjl@gnu.ai.mit.edu
- D: GCC + libraries hacker
-@@ -2575,6 +2571,11 @@ S: Puistokaari 1 E 18
- S: 00200 Helsinki
- S: Finland
- 
-+N: Martin von Löwis
-+E: loewis@informatik.hu-berlin.de
-+D: script binary format
-+D: NTFS driver
-+
- N: Daniel J. Maas
- E: dmaas@dcine.com
- W: https://www.maasdigital.com
-@@ -2625,10 +2626,6 @@ S: PO BOX 220, HFX. CENTRAL
- S: Halifax, Nova Scotia
- S: Canada B3J 3C8
- 
--N: Kai Mäkisara
--E: Kai.Makisara@kolumbus.fi
--D: SCSI Tape Driver
--
- N: Asit Mallick
- E: asit.k.mallick@intel.com
- D: Linux/IA-64
-@@ -2912,13 +2909,6 @@ S: 12725 SW Millikan Way, Suite 400
- S: Beaverton, Oregon 97005
- S: USA
- 
--N: Eberhard Mönkeberg
--E: emoenke@gwdg.de
--D: CDROM driver "sbpcd" (Matsushita/Panasonic/Soundblaster)
--S: Ruhstrathöhe 2 b.
--S: D-37085 Göttingen
--S: Germany
--
- N: Thomas Molina
- E: tmolina@cablespeed.com
- D: bug fixes, documentation, minor hackery
-@@ -3005,6 +2995,17 @@ S: Dragonvagen 1 A 13
- S: FIN-00330 Helsingfors
- S: Finland
- 
-+N: Kai Mäkisara
-+E: Kai.Makisara@kolumbus.fi
-+D: SCSI Tape Driver
-+
-+N: Eberhard Mönkeberg
-+E: emoenke@gwdg.de
-+D: CDROM driver "sbpcd" (Matsushita/Panasonic/Soundblaster)
-+S: Ruhstrathöhe 2 b.
-+S: D-37085 Göttingen
-+S: Germany
-+
- N: Matija Nalis
- E: mnalis@jagor.srce.hr
- E: mnalis@voyager.hr
-@@ -3200,13 +3201,6 @@ S: RR #5, 497 Pole Line Road
- S: Thunder Bay, Ontario
- S: CANADA P7C 5M9
- 
--N: Inaky Perez-Gonzalez
--E: inaky.perez-gonzalez@intel.com
--E: linux-wimax@intel.com
--E: inakypg@yahoo.com
--D: WiMAX stack
--D: Intel Wireless WiMAX Connection 2400 driver
--
- N: Yuri Per
- E: yuri@pts.mipt.ru
- D: Some smbfs fixes
-@@ -3214,6 +3208,13 @@ S: Demonstratsii 8-382
- S: Tula 300000
- S: Russia
- 
-+N: Inaky Perez-Gonzalez
-+E: inaky.perez-gonzalez@intel.com
-+E: linux-wimax@intel.com
-+E: inakypg@yahoo.com
-+D: WiMAX stack
-+D: Intel Wireless WiMAX Connection 2400 driver
-+
- N: Thomas Petazzoni
- E: thomas.petazzoni@bootlin.com
- D: Driver for the Marvell Armada 370/XP network unit.
-@@ -3328,14 +3329,14 @@ N: Frederic Potter
- E: fpotter@cirpack.com
- D: Some PCI kernel support
- 
--N: Rui Prior
--E: rprior@inescn.pt
--D: ATM device driver for NICStAR based cards
--
- N: Roopa Prabhu
- E: roopa@nvidia.com
- D: Bridge co-maintainer, vxlan and networking contributor
- 
-+N: Rui Prior
-+E: rprior@inescn.pt
-+D: ATM device driver for NICStAR based cards
-+
- N: Stefan Probst
- E: sp@caldera.de
- D: The Linux Support Team Erlangen, 1993-97
-@@ -4023,12 +4024,6 @@ S: C/ Federico Garcia Lorca 1 10-A
- S: Sevilla 41005
- S: Spain
- 
--N: Björn Töpel
--E: bjorn@kernel.org
--D: AF_XDP
--S: Gothenburg
--S: Sweden
--
- N: Linus Torvalds
- E: torvalds@linux-foundation.org
- D: Original kernel hacker
-@@ -4082,17 +4077,6 @@ D: Linux-Workshop Köln (aka LUG Cologne, Germany), Installfests
- S: Tacitusstr. 6
- S: D-50968 Köln
- 
--N: Tsu-Sheng Tsao
--E: tsusheng@scf.usc.edu
--D: IGMP (Internet Group Management Protocol) version 2
--S: 2F 14 ALY 31 LN 166 SEC 1 SHIH-PEI RD
--S: Taipei
--S: Taiwan 112
--S: Republic of China
--S: 24335 Delta Drive
--S: Diamond Bar, California 91765
--S: USA
--
- N: Theodore Ts'o
- E: tytso@mit.edu
- D: Random Linux hacker
-@@ -4109,6 +4093,17 @@ S: 1 Amherst Street
- S: Cambridge, Massachusetts 02139
- S: USA
- 
-+N: Tsu-Sheng Tsao
-+E: tsusheng@scf.usc.edu
-+D: IGMP (Internet Group Management Protocol) version 2
-+S: 2F 14 ALY 31 LN 166 SEC 1 SHIH-PEI RD
-+S: Taipei
-+S: Taiwan 112
-+S: Republic of China
-+S: 24335 Delta Drive
-+S: Diamond Bar, California 91765
-+S: USA
-+
- N: Luben Tuikov
- E: Luben Tuikov <ltuikov89@gmail.com>
- D: Maintainer of the DRM GPU Scheduler
-@@ -4135,6 +4130,12 @@ S: 44 Campbell Park Crescent
- S: Edinburgh EH13 0HT
- S: United Kingdom
- 
-+N: Björn Töpel
-+E: bjorn@kernel.org
-+D: AF_XDP
-+S: Gothenburg
-+S: Sweden
-+
- N: Thomas Uhl
- E: uhl@sun1.rz.fh-heilbronn.de
- D: Application programmer
--- 
-2.50.1
+> 
+> Since there are plenty of released kernels with FRED host support already, I'd
+> think to wait until we settle the opt-in question. Which doesn't seem like it
+> should be too much longer. It will be less thrash.
 
+OK
