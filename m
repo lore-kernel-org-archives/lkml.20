@@ -1,110 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610244921B5;
-	Tue, 15 Sep 2026 11:20:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B55496D40;
+	Tue, 15 Sep 2026 11:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471254; cv=none; b=RqZZaUb/O7Ltv1BYSXnzHTwE3+tPeqoAmbqlT/EKc45MA00onZ6+Xx0A9VSfD6kjJQNunimMDl294Ccv6qWDRsOoaNbWFoikknZ+DfaQKDB00P8JhZo5ssuNVeGZKjhzFAvyiFve2eW4w60twAwfgoQ8RaOv/+8IRvTnUAJXMAA=
+	t=1789471263; cv=none; b=u1HTioQniOhhK6Cq6qU7jq6fEeo3GOJ5QzcDA2xaCDHDh3Psm1ORf4m3XdJjwiuncWUiw1oDP6Jkg1rp4LJKBzM0gmuB/qlQyzMkrlk8ANvm3xNbkA4e90yX0ycSF93P+1OJ9lomOt96CpnPFOKO7MVnPwdnciartI4FXLWjZxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471254; c=relaxed/simple;
-	bh=siLcs2ByTAF0pFCikkBYhH71z48AUdtdjGzM5szdd94=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EOeDQ8gHWotwV6iWexuXRBFQn0eUDFgGF8q46vn1MtcZnHRZmzWKQxi1x9okgxxSdhQVjNvk2YooH1pHiJRd1wZ3ENFvC/WEcRnCU6D6oRlo8nzRDUEAHER3SsHFKs4iLWXQ/hua8/UgMIO6XgYyWaHdiHnddRMBQ5jLPh796fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ghkbHlFq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789471263; c=relaxed/simple;
+	bh=uqIgqIxz2MYxpYQY//sxZKjBZmFrVGjSYU/hzUgktt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Kn0jYsxcmBx8J6Vd/rRrvKCmmyfRI03Ld+gH4tNOmB0PpgcLVTS7uwWI/eUEN7bpij8ner5NslXXPWM75OQoP2wP3MBo0bh38JPnxkiTfm4B6Unt4UlDBboDp30jNRglKpuSHDhSeBp3kBNBwYVAcZx/CFnq3LBK2icK4ZEevks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=yme4vGVo; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ghkbHlFq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1FEA1F000FF;
-	Tue, 15 Sep 2026 11:20:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789471253;
-	bh=0Zur3awtpZNFBjj1RLFq6fg6GwhV7kj9X9hb3EuvsPs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ghkbHlFq/Ea3fdGX7S6AZLmmMfkNDpQSYNtzktm+QTBPIaxJ/cnjN2Cftbpb5yMje
-	 UT29lJA5gCNxKD2G8To7rxQ9N9LORJogXVgkERy3dJQrLV3SZnAvX69SrOlgmwcKvg
-	 F6aaJ4D0vbzXkWT+nFvDgAMLfXeaNgZMryO7HLUjqBLG62ehVUzm/yiAoyIDDDDYge
-	 MSr1+hVEVEqKHX5cXSCyCIlVy5O4ECEM+40Bitn1v5rDjEYNPWYUR+AdiR8LX0OB7b
-	 IgGfioa12zxCJQY1dtBj+u4MGebgX3OuzjURs0n/ALBznU7pYY3gZo4VOIaHfLgzZD
-	 +oKhhtMIhl+yQ==
-Date: Tue, 15 Sep 2026 12:20:46 +0100
-From: Lee Jones <lee@kernel.org>
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org
-Subject: Re: [PATCH v3 00/10] Support ROHM BD73800
-Message-ID: <20260915112046.GG11487@google.com>
-References: <cover.1788346553.git.mazziesaccount@gmail.com>
- <20260910160321.GJ1051768@google.com>
- <eb18485c-50db-4823-9e06-362b968699cc@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="yme4vGVo"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789471257; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=pJ9Rr9CykAOIDKHJD/CzvfpeB8yYEsova679wlOFG74=;
+	b=yme4vGVoBl2QGh6JGypvXCT/Iw9Ib3fYE/4s01F1tDF6W/hVHqtSVG375BSZ/go8Dx4q4SdZcf44P7yYiEhOjmKs0w8NekmrxnXTbUldjGCFarrXd94kpvqaDl0f+97sK7G1ehLKsU4RqKkHTvMt2xxOjLAhOHyhKmuUBfCMMkk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XB1X-IG_1789471237;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XB1X-IG_1789471237 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 15 Sep 2026 19:20:56 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: Kiryl Shutsemau <kas@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Nicolin Chen <nicolinc@nvidia.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Breno Leitao <leitao@debian.org>,
+	Kyle McMartin <jkkm@meta.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	kernel-team@meta.com,
+	linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] iommu/arm-smmu-v3: Default queue depths to one page in a kdump kernel
+Date: Tue, 15 Sep 2026 19:20:36 +0800
+Message-ID: <20260915112037.1495272-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260909095228.2174031-3-kas@kernel.org>
+References: <20260909095228.2174031-1-kas@kernel.org> <20260909095228.2174031-3-kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eb18485c-50db-4823-9e06-362b968699cc@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026, Matti Vaittinen wrote:
+Tested-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
 
-> On 10/09/2026 19:03, Lee Jones wrote:
-> > On Wed, 02 Sep 2026, Matti Vaittinen wrote:
-> > 
-> > > Add support for the ROHM BD73800 PMIC and compatibles.
-> > > 
-> > > The ROHM BD73800 is a power management IC which integrates 8 BUCKs and 4
-> > > LDOs. There is also an ADC and operation amplifier intended for current
-> > > / temperature measurement and accumulation. RTC and 32.768 kHz clock
-> > > gate are also included. The PMIC can be customized via OTP and it has
-> > > options for operating as a main PMIC in multi-PMIC installation. Some
-> > > of the pins can also be used for GPO or GPI (including interrupt support).
-> > > 
-> > > There are also ROHM BD71851 and BD71885 PMICs out there. These are, from
-> > > the SW-perspective, similar to the BD73800. There is only some different
-> > > default values and OTP settings. The driver should be able to handle them
-> > > just fine.
-> > > 
-> > > Revision history:
-> > > 
-> > > v2 => v3:
-> > >   - Rebased on v7.3-rc1.
-> > >   - gpio: Use gpio-regmap as was suggested by Linus W.
-> > >   More accurate change-log in individual patches.
-> > > 
-> > > v1 => v2:
-> > >   - Rebased on regulator/for-7.3 as it carries dependency:
-> > >     f29a8bf6fde1 ("regulator: dt-bindings: ROHM PMIC state-machine voltages")
-> > >   - dt-bindings: Various fixes, split generic stuff to own files.
-> > >   - gpio: Styling, return -ENODEV if no GPIOs found
-> > >   - MFD: Styling
-> > >   - regulator: Simplify dt-reading
-> > >   More accurate change-log in individual patches.
-> > 
-> > I assume there will be one more revision?
-> > 
-> 
-> Hi Lee,
-> 
-> I thought everything was acked and good to go?
+We hit the same problem on our arm64 platform: the kdump capture kernel
+runs out of memory because the SMMUv3 queues are still allocated at full
+hardware size. We had started looking into it ourselves, then came across
+this series, so we tested it on the affected hardware rather than prepare
+a duplicate fix.
 
-I just saw the nits and commented before the blessing.
+It resolves the problem for us - details below.
 
-However, you may as well fix them and submit.  I'll apply the set when you do.
+Test platform: an arm64 server, 128 cores, 2 NUMA nodes, 512 GiB RAM,
+exposing 6 SMMUv3 instances. 64K-page kernel (PAGE_SHIFT=16) based on
+Linux 7.0.14 with the series applied on top; crashkernel reservation is
+512 MiB.
 
--- 
-Lee Jones
+On this platform kdump FAILS without the patch, and the series fixes it.
+
+Before - capture kernel WITHOUT the series:
+  All 6 SMMUv3 instances still allocate the hardware-maximum queues:
+    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 524288 entries for cmdq
+    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 524288 entries for evtq
+    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 524288 entries for priq
+    (... same for all 6 instances)
+  That is 8 + 16 + 8 = 32 MiB per instance, 192 MiB total - 37.5% of the
+  512 MiB reservation. The capture kernel OOMs before makedumpfile runs:
+    swapper/0 invoked oom-killer: gfp_mask=0x2040cc0(GFP_KERNEL|...), order=0
+    Out of memory and no killable processes...
+    Rebooting in 10 seconds..
+  => no vmcore is saved.
+
+After - capture kernel WITH the series:
+  All three queues are floored to one page per instance:
+    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 4096 entries for cmdq
+    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 2048 entries for evtq
+    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 4096 entries for priq
+    (... same for all 6 instances)
+  => ~1.1 MiB total (~191 MiB freed). All 6 instances re-probe cleanly
+  (no -ENXIO, no allocation failure) and a 608 MB vmcore is saved.
+
+Same machine, same 512 MiB reservation; the only difference is the v6
+series, so this is a controlled before/after.
+
+Thanks,
+Yuanhe
