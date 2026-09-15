@@ -1,197 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747423AAF7A;
-	Tue, 15 Sep 2026 08:16:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72B53A05C2;
+	Tue, 15 Sep 2026 08:16:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460199; cv=none; b=b5uJH6XwI6jIArYD4iibjr0FS0ih2bMzrfHTrJwrnlXY0N9fOraRaHk+/7cd9Qil1SPjw0Rx0DnffCNX2mtTqYELT3UGn6UPPPj7GKu+w8rl5S2RlUFErgvec7eiAqtOgWzeLzfJcEf82O5a2FYr5ffhEPYi8qvTZNw4M3Nw5SA=
+	t=1789460205; cv=none; b=j/o4JCW50MBtS/ntei2P6KdLPSWf41JPp1ygSIFK8xF4NXiQ5fYSDE3HfEuzrtTgyhMbQPdRm9QuOtaIEGNEWSh6o4bWQ24IdtfOUz7MCAsIE0y8iReEdcGyCc+OygFti92RUuPvYe1Heg+VIvD0u4zIE3SBsWQNJ8JW92S6wEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460199; c=relaxed/simple;
-	bh=4WcOkJHjRLjC4AKu9UPFI0KGx7DCrb78C8PL9fLCOR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U9NbIhV7ItwEDHdT3unBUhALF78z2tHWurVABER/UIPwa0mX/96ZcoUULL3ZGR1QIp0zReQgVSmiIoQjVEFlEOuqlAtcrjd4/Tw5d6w3Fu5DMqlhK76RIsL8VhZv0nEwPD6l8sA1xHeO0z3E7k6UiZG5GzFLQO8i/RYh22xSWRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U9uRY8/9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789460205; c=relaxed/simple;
+	bh=9xjdJ0u1xXc+pWzjtzJtKGqjupmdYC9PUu/BOFNXSHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JQWhQB41GaMxPnvK1EwKd8iRdMc7YMGG6vISnSPoLFFOxlUH44HCa0mXCd59p1En5MxtmPjUouzeuO7RgS4qUCOPHgaVt5xpin1UvtoPaoe3mptP8LMIneMX6A7kuxuidxI79PxRpifigWVFpayYKG7rryGxUDvJhEQZZ6+zSnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzAH5Zdg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U9uRY8/9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241121F000FF;
-	Tue, 15 Sep 2026 08:16:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzAH5Zdg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515351F000FF;
+	Tue, 15 Sep 2026 08:16:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789460198;
-	bh=Hpy4v10/0kkxj2Bv1k7hazVd+W80HeuVCRsBuC8+OC8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U9uRY8/9SsQIseoFqwlz3GWOZVunC1nJvdw31xULiSIGnzLdcBIQWxghV81fa1wE3
-	 BHQb7xrIfuV+NxB/mpSx5xHFy81Y0e3zycvAEkG/NZLaBWFuNYBJ9nQSqiJzsS8hS4
-	 l/DSnjVQuwJ7q/jVM050M04BwcnMTAa9nMX9oLtHaxS2jbQ10dxAhsykBHQnTiYkIl
-	 XDz7uZ7etW9LHnUI7Zl/wH81PUxEmFecYVRX4K/ttFihZZ5woW9Ef40uLI6j2SSI6z
-	 6dctUyz1O4i7P7v+XgaVCGBuHDfolawCwaRO7qIC4KFOjLIpCdlu2pinnE4Xb9v8IS
-	 H99ncHuubejMA==
-Date: Tue, 15 Sep 2026 11:16:33 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: davem@davemloft.net, gakula@marvell.com, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Subject: Re: [PATCH v9 net] octeontx2-af: switch qmem from coherent DMA alloc
- to streaming DMA mapping
-Message-ID: <20260915081633.GH13683@unreal>
-References: <20260911022649.573300-1-rkannoth@marvell.com>
+	s=k20260515; t=1789460203;
+	bh=e1W+tBesNj6gf4uFrJ6qnnCVVNK7s1ZvqhyZl1SMGdA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mzAH5ZdgM9NRXjsdWvesc6RhbUiFjak5BDh/35mvBdY9jLOispSL4DEnkbazJGeuW
+	 Wht4Z5FApE1V0QjzmeRGC4TQUxJlNN0h4hE1xU4IlKCrpyW5crwK92Ei+9sp/tgAI2
+	 oP+3BLpupt9ASZyO9qNVO056lsL8tn4VVbsxCWqn/6qJQnJkPu45JW9r6uKetlniyT
+	 x8gT19Nq1RLj7oBpodZ6t6E2UaxaBsd5hxujoJa7SHqhYzI1Ywiko4Ohsl8spbnZcb
+	 oRVA4j+PuF+2cJ1dpYLPHLxSusSz+DqdwqTJ2IindcPavrFEgLdKBn6WMLPYbUbolx
+	 rKXCwq20U+bBw==
+Date: Tue, 15 Sep 2026 10:16:38 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Akira Yokosawa <akiyks@gmail.com>
+Cc: Masaharu Noguchi <nogunix@gmail.com>, Chen Miao <chenmiao.ku@gmail.com>,
+ Bagas Sanjaya <bagasdotme@gmail.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH v2] docs: sphinx-pre-install: warn about unsupported
+ Docutils versions
+Message-ID: <20260915101638.76e3bf1c@foz.lan>
+In-Reply-To: <b5df5eee-661e-4f46-9abf-1bd9cec8069d@gmail.com>
+References: <20260914-docs-sphinx-pre-install-docutils-v2-1-6a2a6deedd19@gmail.com>
+	<b5df5eee-661e-4f46-9abf-1bd9cec8069d@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911022649.573300-1-rkannoth@marvell.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 07:56:49AM +0530, Ratheesh Kannoth wrote:
-> qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
-> allocates CPU-cache-coherent DMA memory and, with CMA enabled, draws from
-> the CMA pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST
-> regions (including CN10K LMTST areas that span page boundaries), so
-> consumption grows with enabled interfaces and is hard to provision in CMA.
-> 
-> Switch qmem to a streaming-DMA-style path: allocate memory with kmalloc(),
-> then map it for device access with dma_map_single(). Add
-> otx2_dma_alloc_coherent() and otx2_dma_free_coherent() helpers and wire
-> qmem_alloc()/qmem_free() through them instead of dma_alloc_attrs()/
-> dma_free_attrs().
-> 
-> This works on Octeon because the octeontx2 driver is written for
-> DMA-coherent devices: Octeon platforms provide IO coherency (via SMMU), so
-> the driver already uses streaming DMA APIs for packet data while
-> deliberately skipping explicit CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC).
-> The same IO coherency lets qmem use a streaming map of kmalloc-backed
-> memory instead of a dedicated coherent allocator or CMA reservation. That
-> is valid because the platform is DMA-coherent, not because omitting
-> dma_sync_* magically makes memory coherent.
-> 
-> cc: Leon Romanovsky <leon@kernel.org>
-> Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
+On Tue, 15 Sep 2026 16:52:03 +0900
+Akira Yokosawa <akiyks@gmail.com> wrote:
 
-The code itself looks fine now, but the commit message does not explain
-why this patch is needed. It only describes what the patch does, which is
-unnecessary here since the change itself is straightforward.
+> Hi,
+> 
+> On Mon, 14 Sep 2026 19:35:40 +0900, Masaharu Noguchi wrote:
+> > Sphinx declares the range of Docutils versions it supports, but that range
+> > does not always describe what its LaTeX builder can take: a distribution
+> > may relax the upper bound to ship a newer Docutils, and Sphinx 9.0.x
+> > declares support for a Docutils its LaTeX builder cannot cope with. Either
+> > way the pair installs happily and htmldocs builds without a complaint, so
+> > nothing looks wrong until pdfdocs is run, where four of the books fail:
+> > 
+> >   ! Dimension too large.
+> >   \fb@put@frame ...p \ifdim \dimen@ >\ht \@tempboxa
+> >   l.86321 \end{sphinxVerbatim}
+> > 
+> > That is arch, core-api and translations; admin-guide runs out of TeX
+> > memory first and stops 13 pages in, and fails on the same boxes once given
+> > more.  Each of the four includes a large literal file whole; the one in
+> > core-api, memory-barriers.txt, is 3016 lines.  Docutils 0.22 is what puts
+> > those blocks into sphinxVerbatim rather than sphinxalltt, and
+> > sphinxVerbatim is framed, so they hit the size limit of
+> > sphinx-doc/sphinx#3099 [1] -- open since 2016 and fixed only in Sphinx
+> > 9.1.0.  None of the three is at fault on its own: it takes the Docutils
+> > version, the Sphinx version and blocks this large.
+> > 
+> > Keeping everything else fixed -- one Debian 13 container, one TeX Live, an
+> > unmodified texmf.cnf, one kernel tree -- and varying only the two Python
+> > packages:
+> > 
+> >   sphinx   docutils   core-api   admin-guide
+> >   ------------------------------------------
+> >   8.2.3    0.21.2     ok         ok
+> >   8.2.3    0.22.4     FAILS      FAILS
+> >   9.0.4    0.22.4     FAILS      FAILS
+> >   9.1.0    0.22.4     ok         ok
+> > 
+> > The 9.0.4 row needs no help from a distribution: 9.0.0 through 9.0.4
+> > declare "docutils>=0.20,<0.23" themselves, so a plain "pip install
+> > sphinx==9.0.4" resolves Docutils to 0.22.4.  Fedora 44 reaches the same
+> > state from the other direction, shipping Sphinx 8.2.3 -- which declares  
+> > "docutils>=0.20,<0.22" -- patched to accept "<0.23".  Upstream ships this  
+> > sort of work in a new minor rather than backporting it -- the Docutils
+> > 0.22 support went out as 9.0.0 after a backport to 8.2.x was asked for and
+> > declined [2] -- so neither 8.2.x nor 9.0.x will grow the #3099 fix in a
+> > point release.
+> > 
+> > Check for it, since sphinx-pre-install exists precisely to catch a
+> > documentation build environment that will not work.  Ask the interpreter
+> > behind sphinx-build for its Docutils version -- a venv and the system
+> > install can differ -- and warn when Sphinx is older than 9.1.0 while
+> > Docutils is 0.22 or newer, naming both ways out -- a newer Sphinx or an
+> > older Docutils.  Only warn: the build is left to proceed, and htmldocs is
+> > unaffected.  The bound Sphinx declares is no use here: it is either what
+> > the distribution changed, or, for 9.0.x, wider than what the LaTeX builder
+> > delivers.
+> >   
+> 
+> As this is expected to be resolved in Fedora 45, I didn't see much
+> point in adding this warning.  I now see Ubuntu 24.04 LTS has the
+> problematic pair of Sphinx and docutils ...  So it might be worth
+> to have. 
 
-Also, no bug is described, so neither the Fixes tag nor the "net" target
-is appropriate for this patch.
+Fedora 44 EOL is still in at least 7 months from now (e.g. when Fedora
+46 will be launched), so, it could still be worth.
 
-Thanks
+> That said, with your approach, under a build env with a problematic
+> pair, this is what you'd see in "make htmldocs":
+> 
+> $ make htmldocs
+> Warning: Sphinx 8.2.3 with Docutils 0.22.4 produces
+>    broken LaTeX for the large literal blocks in this
+>    documentation: pdfdocs will fail. Building them needs
+>    Sphinx 9.1.0 or later, or Docutils below 0.22.
+>    HTML builds are unaffected.
+> [...]
+> 
+> I think this can annoy people who only care HTML docs.
+> 
+> Why not do this check after the PDF doc builds have actually failed.
 
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+Indeed it sounds a better approach on my eyes.
+
+---
+
+On a separate but related issue, has anyone tried to use rst2pdf
+lately (https://github.com/rst2pdf/rst2pdf)?
+
+It could be helpful to use an approach that won't require writing
+first a LaTeX file. I remember I implemented some support for it
+a long time ago. The patch back them is still on an old branch
+here:
+
+	https://git.linuxtv.org/mchehab/experimental.git/log/?h=rst2pdf-v3
+
+If someone has the time, it could be worth trying to port it for
+it to work with sphinx-build-wrapper and do some tests to check
+if it is worth the efforts to fix existing bugs at the tool, if
+any.
+
 > 
-> ---
-> v8 -> v9: Addressed Leon comment.
-> - Used kzalloc instead of kmalloc.
+> That is what sphinx-build-wrapper is doing with LatexFontChecker().check()
+> (see line 557 of tools/docs/sphinx-build-wrapper), which is to
+> show the way to work around PDF build errors caused by "variable font"
+> flavor of Noto CJK fonts [3].  (Fedora and openSUSE have started to
+> deploy such fonts in 2024.)
 > 
-> v7 -> v8: Addressed Leon comments.
-> - Replace __get_free_pages() and __GFP_COMP with kmalloc()
-> - Drop GFP_DMA32 retry loop and dma_capable()/phys_to_dma() mask probing
-> - Use dma_map_single()/dma_unmap_single() instead of dma_map_page_attrs()
->   with DMA_ATTR_REQUIRE_COHERENT
-> - Remove defensive parameter checks and dma_max_mapping_size() from the
->   allocator helper
-> - Move MAX_PAGE_ORDER validation to qmem_alloc()
+> [3]: https://bugzilla.redhat.com/show_bug.cgi?id=2271559
 > 
-> v6 -> v7: Addressed Sashiko comments.
-> 	https://lore.kernel.org/netdev/178863855246.219967.10510865726694393307@kernel.org/
+> Regards, Akira
 > 
-> v5 -> v6: Addressed review comments.
-> 	https://lore.kernel.org/netdev/20260901015621.2708182-1-rkannoth@marvell.com/
+> > [1]: https://github.com/sphinx-doc/sphinx/issues/3099
+> > [2]: https://github.com/orgs/sphinx-doc/discussions/14055
+> > 
+> > Signed-off-by: Masaharu Noguchi <nogunix@gmail.com>
+> > ---  
 > 
-> v4 -> v5: Fixed compilation issues.
-> 	https://lore.kernel.org/netdev/20260831024210.208447-1-rkannoth@marvell.com/
-> 
-> v3 -> v4: Fixed compilation issues.
-> 	https://lore.kernel.org/netdev/apTpKcN_S1xIwRbZ@rkannoth-OptiPlex-7090/
-> 
-> v2 -> v3: Addressed sashiko comments.
-> 	https://sashiko.dev/#/patchset/20260825045616.3723078-1-rkannoth%40marvell.com
-> 
-> v1 -> v2: Rewrote patch as per sashiko comment.
-> ---
->  .../ethernet/marvell/octeontx2/af/common.h    | 45 ++++++++++++++++---
->  1 file changed, 39 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/common.h b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> index 779413a383b7..78e42549d990 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> @@ -7,6 +7,10 @@
->  #ifndef COMMON_H
->  #define COMMON_H
->  
-> +#include <linux/dma-mapping.h>
-> +#include <linux/gfp.h>
-> +#include <linux/mm.h>
-> +
->  #include "rvu_struct.h"
->  
->  #define OTX2_ALIGN			128  /* Align to cacheline */
-> @@ -44,6 +48,33 @@ struct qmem {
->  	u32		qsize;
->  };
->  
-> +static inline void *otx2_dma_alloc_coherent(struct device *dev, size_t size,
-> +					    dma_addr_t *dma_handle)
-> +{
-> +	dma_addr_t dma_addr;
-> +	void *vaddr;
-> +
-> +	vaddr = kzalloc(size, GFP_KERNEL);
-> +	if (!vaddr)
-> +		return NULL;
-> +
-> +	dma_addr = dma_map_single(dev, vaddr, size, DMA_BIDIRECTIONAL);
-> +	if (dma_mapping_error(dev, dma_addr)) {
-> +		kfree(vaddr);
-> +		return NULL;
-> +	}
-> +
-> +	*dma_handle = dma_addr;
-> +	return vaddr;
-> +}
-> +
-> +static inline void otx2_dma_free_coherent(struct device *dev, size_t size,
-> +					  void *vaddr, dma_addr_t dma_handle)
-> +{
-> +	dma_unmap_single(dev, dma_handle, size, DMA_BIDIRECTIONAL);
-> +	kfree(vaddr);
-> +}
-> +
->  static inline int qmem_alloc(struct device *dev, struct qmem **q,
->  			     int qsize, int entry_sz)
->  {
-> @@ -60,8 +91,11 @@ static inline int qmem_alloc(struct device *dev, struct qmem **q,
->  
->  	qmem->entry_sz = entry_sz;
->  	qmem->alloc_sz = (qsize * entry_sz) + OTX2_ALIGN;
-> -	qmem->base = dma_alloc_attrs(dev, qmem->alloc_sz, &qmem->iova,
-> -				     GFP_KERNEL, DMA_ATTR_FORCE_CONTIGUOUS);
-> +
-> +	if (get_order(PAGE_ALIGN(qmem->alloc_sz)) > MAX_PAGE_ORDER)
-> +		return -ENOMEM;
-> +
-> +	qmem->base = otx2_dma_alloc_coherent(dev, qmem->alloc_sz, &qmem->iova);
->  	if (!qmem->base)
->  		return -ENOMEM;
->  
-> @@ -80,10 +114,9 @@ static inline void qmem_free(struct device *dev, struct qmem *qmem)
->  		return;
->  
->  	if (qmem->base)
-> -		dma_free_attrs(dev, qmem->alloc_sz,
-> -			       qmem->base - qmem->align,
-> -			       qmem->iova - qmem->align,
-> -			       DMA_ATTR_FORCE_CONTIGUOUS);
-> +		otx2_dma_free_coherent(dev, qmem->alloc_sz,
-> +				       qmem->base - qmem->align,
-> +				       qmem->iova - qmem->align);
->  	devm_kfree(dev, qmem);
->  }
->  
-> -- 
-> 2.43.0
-> 
+> [...]
+
+
+
+Thanks,
+Mauro
