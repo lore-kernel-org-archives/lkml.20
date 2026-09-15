@@ -1,129 +1,159 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CD23DB96F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:08:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484906; cv=none; b=Qk3JUovy4aU8E0ghwwEcPk90LULB2fU+Ozs1xEVyVY55KTDy98msLhQBO1gtRDvxardNhrCGpp+cMbH2htSkw/EXILtdZzIt7YtIGG67uz3RqmoeoFPk1K9q2JXRwDkoKD1oFF2UGt6FkH4m1YSuhbbdMYH8dswQIZBM/Wzvlzg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484906; c=relaxed/simple;
-	bh=BIXCQwePZmq9pzeBXw6sT067TW2VLRk/luFJ48fOjZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ktrf5IHaMgSJtvj2fTVARSDluakYCzVx5z7GS1qfdV4uoxxO4Bncyf3WBRTeJK1kZoUEaqBLPFoTVP9N0vsoGwzOS9B+9BADkS92+bB0TscWYk2aKjQpzJdTNBb3AsKisFNsp6/VXCGO25+55+uJgleN9s8hrPSPRVpyK1Cuysg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j5JgSP2B; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B913DEAD8
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789484980; cv=pass; b=Klka0AyCPhfTPh2GrYEt+v20+Mn59XEU/gftvABjDdDA5DYOwUQ9MLMBK/lEQDDe23WHSh36kR05IoIlNNTCsJSc5sOdnW6R/5MHT7ZDZfEdSfHQhyjfh5Nq4lMkFRojHEcGH4tmvCl7UHPlESe4mNomir0pS9pFgt4qoHXlfuQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789484980; c=relaxed/simple;
+	bh=wrwfiuuxQ7VMyrq8n37+qtZAtTX3QP8R+sDtYZcuGZU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bt0sIMmkCX9nIVhr6usaA/5yzham6UgUQS71Wng6gRxHj4WnBlxvnwhp67Hp+4KOQrI8AuJ5b2W6bS/UDwkLsWTRKGNW3tkrEf6HbQYIfuQPv8M6SdIThj/L2XTfHYYqJlHokVwk2KJnxmyBbsfHoOwDXRk0VU5BvqLKmn9VyOI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=WWlcIjrp; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j5JgSP2B"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d9004a1ac0so3118475ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:08:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="WWlcIjrp"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43db0c29so25550627b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:09:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789484970; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZLljjz8G4XZ5PwSUOPtpWlIgdnobgYspSgxe3rYI26bUzA0rSzMiChMmSyPe1KKcDO
+         JOLb3FNJuDCo0+EEobpeh76xjtyW+8njl9gwcGUBDOrA4P32PxfzhwW+uzpHfaB6XwN/
+         z7NJIKm8vsvF0zCbqer3YHFOxLXNwy/m0B4m5MXy7hT0KAt0tV2L1tYNvBHLdg7jm1Gd
+         dqdnA282Fj8HkEMvFkAkrO9RTVjuppDNSyZ37WZ8GnyemSajsCKVfN13pNKMYN6hUoQA
+         Bz1YW+NBZNVlzI5zHEzhf1yzEiPorbsxG1ugkEtnG94R5xzCAjSKGOohXDTKp7R4EDbC
+         VpUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
+        fh=cqJW4HZp/MP+/9pS6Q0BOgdD1vgQljsvGqdCNJ4GinI=;
+        b=LVv6Q6QWTW62tjkP+uKs+lz7YtoLlFWCzy8sKGClQ71jJKxYgcMDLfZmS0zQ0wPTkj
+         Ym1QKS+Yv5kHgk7GRka2oXowBdYyT0nYjBM5XpoOjaziYu3JuNeex8MDNv0Fvsm6VjxL
+         geJCzn91xOx/wxZ2udnStXZFaNCTOJy13APfTeoJgc4Wu1aqZoKTQkOb49ZyMoSY8c6J
+         5yGrZB0RFhkBrusbSc1/7zgOCUOPopN+FoDLpxcIzAW+1+wSmbE16kmHHuRGNySKVdB0
+         u2JEurFdoZS+8jXD0He5GNtE4S/m+UYuN/ZzdUbp3ZxXh/wD2WCH3YLVHCfdunvfPitv
+         wyWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484904; x=1790089704; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NTMF0M7Jt2pGNQ6d+nnjaz6wV/dDyvlPby7Z56dRO+k=;
-        b=j5JgSP2BfullCfqPlIOb8nSng1zKZGpXi2yWxVyxNtz+cx7ag7bWaWp+7uyndbYDY8
-         /1wSk5WNtdsJArjWnJB7SHTLBnZUMHtAS9mPhlw3eiThOGWRHlPi+OKL/kBq1Xqug+wV
-         WJ2XtxGsNSMulYWCgggZIuNI/PDWJWv+gfRFagspQa+Rw7Rb0dRs5/vZwNlFH7puJQCY
-         h/sDGwlFrnp+eTCO6flyT+venzB0rkvsm4kLjZVqCii+jEWE9a/T0NeCRFCn2yAE9rgP
-         /3Jyhrb5J/c9OP7EbBSGxmoGW8NLbo8dgCQVm/UKezrKi3GsmWTAAnS6yGPcRfpwUVjq
-         zBEg==
+        d=raspberrypi.com; s=google; t=1789484970; x=1790089770; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
+        b=WWlcIjrpgpKxi0Pj3Uq7k81ACijVq6rbjQXcCQCUXPRb1z8a5GCrOG1P/8hG9eHbwQ
+         Lh1+Lj/h6FbWonXWLsBZWOs0k1keQZyYCbdc9lbsYtgGtK2sOiOzqfb58qqrSBgmGByv
+         mF04X2D7OrzCxSxZSqGHNdUpiiXCADIHBEez6IDTbwgxiLmzb2tgnBVr4Q3RRxSCyy2Z
+         n/210xbEZ6ewmOFzvxf1Hou7wGRzyrzLwUdLuvQdbxAuUC87CmcfriYX802FIhn2dOh3
+         KochDNJU4+yzIpS+9faJDEULJiI0qVFMFwZIVFsffrGFE6k2J3miVkVNARrgpXq9pcV8
+         MoqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484904; x=1790089704;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NTMF0M7Jt2pGNQ6d+nnjaz6wV/dDyvlPby7Z56dRO+k=;
-        b=ZDgds3y0jAaIGX/MrHelj47QcDVkAw+udz5CS2iIMKWW01EiDb1qQEaRaDi7IiPAea
-         z+c5QxClO39SUtfd2Hc7N3wsK/t3gdtcCEuhnjLF3k5UD9KlwYpuzkF+J/EYCWQIqnXT
-         xJCnr4C/2ppjfITdQ1D5XuJDsr+oJEDqYwIdyyCobsNwB50PvLsiIr8wsbGb8Q+UZUkC
-         GN28jiFGsBIg8/mb31AQswoASfd5dHNKHGMqVkTSsacsonxBltyPCCeuztpmeCqwkm4J
-         pWHqhJGA2Mp9Rp63K5Kianqy4kC1gtzhvCdUjavmZh9l7oLXAxsq6US4co+AkQkQlax/
-         s2sA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrDf3wAGCuInDrlBMdGHRIfTfLRufgZzm/AKuUzJZHIZmLaeIhYrAIQTQ3nMZ837Vq7EJGEJQL3sFp6Dg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbKUXjodTNne/aNU16C1QxnyJ9eK0DJWHII0zjSE8Fku/woWjY
-	U7PzRqq5ANxZzBw5t72ZILb6UMD03KzIlSfjCTcklFLo6zfAqZTqCpIB
-X-Gm-Gg: AYBFou1aJacon53h8L1M0NgYSVKpMN8gfBnrS+GFkiaoijPZnsTLP7DU5DN/4lxbypK
-	q39OuJa7bmQjA5a3s/iG9LCsjOYaf7g0vquUoP+W1EfFyb11lhB4oojv2Q1ic7IZ+4ksis7tKgS
-	OsPUKSbik6mF+T2yxM1f68VLLBrsoQ6tAdnN95Ash4m+uRUodpb4yH9Zte3ISB2ehhHJPXHw8+g
-	hrCVlQ4cVIKgTp7OPcBR2t7KAvGYZjN1qpMnHME6zcg9DYDjwsU11yfHUIuF08dPheWmo/JB/Ca
-	ovEFF8YOJrTrSc/siTL5EHPyQNccyln3Wb2UDA4qLg7M/3zkZYLxUHC7UJ2an4nb284czVIeKvu
-	MgdrZmkErAgKf6BMVkbR4ohqzMIpDm5oKBKyMWO03z9B1YSWidfD126XS1Esk3+0l0y6zIyWy0q
-	PCtwrBWwrSx/RAL52b3duAriIUaO+uhwJfYOBqTqIWZ26Ny11KncRh+t0INXvQxKfmB0GJeng3I
-	e7Hr8tjukjuEb0Juw==
-X-Received: by 2002:a17:903:37c6:b0:2dd:76b1:3509 with SMTP id d9443c01a7336-2dd838537c4mr27005015ad.14.1789484903625;
-        Tue, 15 Sep 2026 08:08:23 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2bac:b2b4:e60b:1459])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd760a7f13sm18984065ad.13.2026.09.15.08.08.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 08:08:22 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Paul Blakey <paulb@mellanox.com>,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+6cc37aba98dac721c415@syzkaller.appspotmail.com
-Subject: [PATCH net] net/sched: act_ct: don't WARN on benign flow_offload_alloc() failure
-Date: Tue, 15 Sep 2026 22:08:16 +0700
-Message-ID: <20260915150816.36487-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789484970; x=1790089770;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
+        b=0OXv4+XmoQ5YSjbhlSFrE/cpMug3wicsBiBNzdOm6OQAvlfc/SlDCDg88oi50ooZ9H
+         t15UfXeaiawD2u7mXDlHF3gpGdSRT/3Mc/ziPkl4rGaUDneOG+rz9qysoHPb1lPEMF9N
+         q9IDg0D3JIJlPGXrnJQxV3OsDjWm7SntJv0X+fX7o7kjcsDBrRDbJFpGvcGMhjeth2XR
+         0Q9X10VvIUhG24385LCFXf2Adp+cY/fP3KxYvElNGW6K8bzTNmBIK54jSqVzExFIWmco
+         c+7qdSSxdxeutJenNb2sCjB8BhLHZ9d+80QZCmFwM7k6uyL0qJRdmHeHBmOlcjH/qWLv
+         QnZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAfqQIdl1pSnNMuGJ/Zv6wMuBSvB4lmRH1ohVVo0Z8zlTYVPgtmpI3XRXZkdxYZoJBRh/kzJ4gC79hFXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcvvjr2tbscmlMB31dHubrXQxkCwZjTnUYo4Tf8FEsmOwRu6+a
+	Q5KNeCP54Tn1w4RO6g6AeQrlmh1rpihWqTs5OzPApiUoae0B9IvcsvrFpsy1o4zk/qtrCjoHj4+
+	yCMtdeQdoCEFr5WlF1BcMzc4Ln4tLA/zT0ywjlDrIew==
+X-Gm-Gg: AYBFou3NsmAqEGkbIvR1+nMWLdve3S/JWfd4E0OKu9KnzR9Tlz3WtcUTIaIEljJxF+Q
+	vC2QZErcvu2ZZu3wqByqVjJ33w4IQ2c6mZ8LKF7VlaysCCIBIGAz/3yB3wLChmUiMzPXARHWbqv
+	jITjzbqVwcp9iN2/MD6XBPjeEZlU3GeOAxpb6Pn068Nn8oBdafVQvV3e0RfTJqoK9cIQNT8wJN+
+	PLyHCVGeQrI+J1pVnWLFZr+uuc/T1YN9QPpaX0LwN5YFq8T9RueZ0ECLiPUb8hvnTSrVW8zevC0
+	a+fcWbBesjLM8IfxeaNoB6LgnQfrjQ5o1D7Y0DK//k2TP1qHKT0zfivZKXfobiR4P4AbmW/5/9O
+	A7n2DORTlpDwMm3VwUbrLwXRMWVFJ5GQtBH6tzRUTNfjZ1oJqGLgDfHKPknXB4v+xecmnvG+5
+X-Received: by 2002:a05:690c:9990:b0:864:6f4d:ef7f with SMTP id
+ 00721157ae682-88d1e93ffc1mr24683597b3.7.1789484969777; Tue, 15 Sep 2026
+ 08:09:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
+In-Reply-To: <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 15 Sep 2026 16:09:13 +0100
+X-Gm-Features: AcwNN1W7-TtmTIyUjllHDLNIKHhLg8r83BUrDSRNpnCFbQDI5w7N_3zM_OKztmM
+Message-ID: <CAPY8ntDWF53Zv1yspiYH29TWEUODW1PPU4dcBig-ssa-e15jPw@mail.gmail.com>
+Subject: Re: [PATCH 10/10] media: i2c: ov9282: clamp flash_duration default to
+ its maximum
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-flow_offload_alloc() returns NULL when the conntrack entry is dying
-(e.g. raced with a conntrack flush) or when the GFP_ATOMIC allocation
-fails; both are expected under load and neither is a kernel bug. This
-path runs from softirq on every committed packet, so with
-panic_on_warn=1 an unprivileged user can panic the box just by racing
-a conntrack flush against a `tc ... action ct commit` classifier.
+"media: i2c: ov9282: clamp flash_duration default to its maximum"
+took me a moment to parse as to be the control maximum, not the default maximum.
+"clamp flash_duration default to valid range"?
 
-Reproduced with a custom repro under QEMU: a small, fixed set of UDP
-flows through `tc filter ... action ct commit` on lo, raced against
-threads flooding bare ctnetlink CT_DELETE (flush) requests. Hits
-WARNING: net/sched/act_ct.c:437 (tcf_ct_flow_table_add(), inlined
-into tcf_ct_act() in this build) within ~15s on the unpatched kernel;
-same setup is clean on the patched kernel. The fix itself is
-behavior-preserving: both branches already did `goto err_alloc`
-before and after, only the WARN is removed.
+On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+<richard.leitner@linux.dev> wrote:
+>
+> Currently the OV9282_STROBE_FRAME_SPAN_DEFAULT is always passed as default
+> to the flash_duration v4l2 control, where the maximum is dynamically
+> changed. This may lead to situations where the default is above the
+> maximum.
+>
+> Fix this by setting the maximum value as default when
+> OV9282_STROBE_FRAME_SPAN_DEFAULT is above the maximum value.
+>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 
-Fixes: 64ff70b80fd4 ("net/sched: act_ct: Offload established connections to flow table")
-Reported-by: syzbot+6cc37aba98dac721c415@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6cc37aba98dac721c415
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- net/sched/act_ct.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+With or without that changed:
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index 9080cb386c16..55f3521edb4c 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -432,11 +432,10 @@ static void tcf_ct_flow_table_add(struct tcf_ct_flow_table *ct_ft,
- 	if (test_and_set_bit(IPS_OFFLOAD_BIT, &ct->status))
- 		return;
- 
-+	/* NULL if ct is dying (raced flush) or the atomic alloc failed. */
- 	entry = flow_offload_alloc(ct);
--	if (!entry) {
--		WARN_ON_ONCE(1);
-+	if (!entry)
- 		goto err_alloc;
--	}
- 
- 	if (tcp) {
- 		ct->proto.tcp.seen[0].flags |= IP_CT_TCP_FLAG_BE_LIBERAL;
--- 
-2.43.0
-
+> ---
+>  drivers/media/i2c/ov9282.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index be38ecfad8c82..1c5bed85781ce 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/i2c.h>
+>  #include <linux/math.h>
+>  #include <linux/math64.h>
+> +#include <linux/minmax.h>
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+> @@ -556,12 +557,15 @@ static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+>         u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+>         u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+>         u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
+> +       u32 fd_default;
+>
+>         if (fd_max_us < exposure_us)
+>                 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+>
+> +       fd_default = min_t(u32, OV9282_STROBE_FRAME_SPAN_DEFAULT, fd_max_us);
+> +
+>         return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
+> -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +                                       1, fd_default);
+>  }
+>
+>  /**
+>
+> --
+> 2.53.0
+>
+>
