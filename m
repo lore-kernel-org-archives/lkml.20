@@ -1,130 +1,381 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DB030E827;
-	Tue, 15 Sep 2026 10:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6F035F16C;
+	Tue, 15 Sep 2026 10:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467396; cv=none; b=lHV2Xqo75YOS3xnyLH2Yo2L9YADKyJtG5635CtvWNN8XlYuZB6YYGVYJUSnO0D0sq2SPwstXHP9Ax1zOPP2hYRRfcsME242yKgpxb7MtS6LOvb2yZLvEwODvA4cFuiXgCS2Lh4ap/LnToz3eTqon49AYVMYRzU4gi9dTHPo3bBo=
+	t=1789467410; cv=none; b=Pkza/kocUzzwBmsdS0XE9Zn0gfyjbiABZR0t9zb7C+bHiAk1Z18R8eCqwg7NMKemDCMi5fqBM5FXQzZG/X4sXphyl3Ljk1sJBO42NbAlPYD1q8PobWTthEVMNHVZKRIFihRP+HtUJcO5BoVdy2q4NfjCjAujOj19lmPNlwCt970=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467396; c=relaxed/simple;
-	bh=v6GGwy2rW5un5J8acLPoG4nPN7/UiZiytzz+251GgXI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b/V21UXUrVA/t+MM5zjzBQGSEE+LUK7fHcNbRtaSo1+1meNJ6GLKtpzLNmuBUqo1P10m82KrCW5NQxVchtVdjJi/USobVIB0XYRp5wsw7uDAyZRFNfOMY0yBX2kpvUh6ynjTYEUqpUV1hJtMgcun2m9BboSvJoDghjggO2krPX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jm6ytuVW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789467410; c=relaxed/simple;
+	bh=1FwB5tZyJGGSqyLOywsTzAnOzt9t56hWh3ovdCCq/wk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SWSriis2Fxr5rqCpUuHHLpHG/m5KCkFlk/eu0X70fLJJbgKo909Ewsfw6qhLiJIs9KZ7dmNqumaopF03sjbKsORI69b2qTIeHkBW5QvBtzRPG/TR1XugGwtFVT7dU74p9Fn/wjbeJa8NOj+olH1VVEyvEdgXzkb6IKezYjt/RSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A8PwoYfp; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jm6ytuVW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738D71F000FF;
-	Tue, 15 Sep 2026 10:16:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789467395;
-	bh=0vGnUSwSwk8tqaqQz+b/wufF1p5rOKuxlJVLX9HrZ4g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Jm6ytuVWpCGip4myYSRB2tt57hvJsnA5EkzT2ENj3yolg/2ov3/aCvxziJjC0bhIR
-	 JZHm+fzoDo3B8C5t5KrVRbdEg0+hej4IahG6B1qqUD2IT2egFmtSLxaVG3xxjZLZ5R
-	 Dfe7iOVSsvUkjBfdq68xw4IpJsnf1TDSeV8EtCfG6DCySbqTFu+W2Lh8Vr0k4b6Zmy
-	 SdfiG2PmEK2D13Y4sHyvThewQFqc53N0oB44ovIdzL/4btAB/HsehzrWMz2tPvqu5o
-	 g1baexV5acJFo4ynPkpO9GrIX5qAdGdKkqOw6vDoZP0kRiwbBbu3yu+KrMqzfWcBhq
-	 G3tkPvS79Ktfg==
-Message-ID: <2752c824-60e0-494f-a669-81bbd061a3fc@kernel.org>
-Date: Tue, 15 Sep 2026 12:16:28 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A8PwoYfp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 4BDC4C5CD57;
+	Tue, 15 Sep 2026 10:17:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CA9C560498;
+	Tue, 15 Sep 2026 10:16:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C375711C7AFBF;
+	Tue, 15 Sep 2026 12:16:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789467402; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=q+B7JEeKkQWiEjxyfdsB3wNauDhWg+dKJy1irQa7BAo=;
+	b=A8PwoYfp9TVmTnUNYpjdFy4ymlll6my+ZazF8Dt8j/gPwB5kFTXkTDkC68aU4e8FnrC6nm
+	XsiFYISohqxcK+mS6QE5vV/lBmRsLdxF2kiXybbVc9Go2UuM0fxQPWcChQiybMS+NoGwaF
+	zhyFTJtxiCUfqhNQrgJL11dRlN/ULRxsGslpT+zsW0h7yBmETEx5RtLqX8c56QyeERj0i5
+	JYQCaYCAhGk/dzm6JiuY5j07X1GX7WUqt98F2YBaXONrLo5+inSdSBs0CB+lqQ7rjSzovi
+	adcu6gglN1nNhNo03Pe08hj1NkMNufHYPwl0PiOMPfFMie8XjadgPl0taaB1DQ==
+Date: Tue, 15 Sep 2026 12:16:35 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
+Message-ID: <20260915121635.39f13d34@bootlin.com>
+In-Reply-To: <aqevEJ_VlBxYUp81@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-9-herve.codina@bootlin.com>
+	<aqevEJ_VlBxYUp81@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 8/9] thermal/drivers/exynos: Add missing drvdata
- assignment in Exynos TMU probe
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- "open list:SAMSUNG THERMAL DRIVER" <linux-samsung-soc@vger.kernel.org>,
- "open list:THERMAL" <linux-pm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES"
- <linux-arm-kernel@lists.infradead.org>
-References: <20260913145905.9404-1-linux.amoon@gmail.com>
- <20260913145905.9404-9-linux.amoon@gmail.com>
- <8d547f65-a260-4b8b-80e4-4695d4422497@kernel.org>
- <CANAwSgTEJf0gYQZKPQm+=90S5i2dRpJzOLv0gkyt+4ZmUTWZ=g@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CANAwSgTEJf0gYQZKPQm+=90S5i2dRpJzOLv0gkyt+4ZmUTWZ=g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 15/09/2026 06:44, Anand Moon wrote:
-> Hi Krzysztof,
+Hi David,
+
+On Mon, 14 Sep 2026 18:23:49 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Wed, Aug 26, 2026 at 10:31:39AM +0200, Herve Codina wrote:
+> > The structured tag value definition introduced recently gives the
+> > ability to ignore unknown tags without any error when they are read.
+> > 
+> > Handle those structured tag.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> > ---
+> >  flattree.c                                 | 65 ++++++++++++++++++++--
+> >  tests/run_tests.sh                         |  5 ++
+> >  tests/unknown_tags_can_skip.dtb.dts.expect | 19 +++++++
+> >  3 files changed, 84 insertions(+), 5 deletions(-)
+> >  create mode 100644 tests/unknown_tags_can_skip.dtb.dts.expect
+> > 
+> > diff --git a/flattree.c b/flattree.c
+> > index f3b698c1..88dbfa7e 100644
+> > --- a/flattree.c
+> > +++ b/flattree.c
+> > @@ -579,7 +579,8 @@ static void flat_read_chunk(struct inbuf *inb, void *p, int len)
+> >  	if ((inb->ptr + len) > inb->limit)
+> >  		die("Premature end of data parsing flat device tree\n");
+> >  
+> > -	memcpy(p, inb->ptr, len);
+> > +	if (p)
+> > +		memcpy(p, inb->ptr, len);
+> >  
+> >  	inb->ptr += len;
+> >  }
+> > @@ -604,6 +605,61 @@ static void flat_realign(struct inbuf *inb, int align)
+> >  		die("Premature end of data parsing flat device tree\n");
+> >  }
+> >  
+> > +static bool flat_skip_unknown_tag(struct inbuf *inb, uint32_t tag)
+> > +{
+> > +	uint32_t lng;
+> > +
+> > +	if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
+> > +		return false;
+> > +
+> > +	switch (tag & FDT_TAG_DATA_MASK) {
+> > +	case FDT_TAG_DATA_NONE:
+> > +		break;
+> > +
+> > +	case FDT_TAG_DATA_1CELL:
+> > +		flat_read_word(inb);
+> > +		break;
+> > +
+> > +	case FDT_TAG_DATA_2CELLS:
+> > +		flat_read_word(inb);
+> > +		flat_read_word(inb);
+> > +		break;
+> > +
+> > +	case FDT_TAG_DATA_VARLEN:
+> > +		/* Get the length */
+> > +		lng = flat_read_word(inb);  
 > 
-> Thanks for your review comments.
-> On Mon, 14 Sept 2026 at 12:31, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 13/09/2026 16:58, Anand Moon wrote:
->>> Add dev_set_drvdata(&pdev->dev, data) early in the probe function,
->>> ensuring that the driver data is properly registered and accessible
->>> throughout the lifecycle of the device.
->>>
->>> Signed-off-by: Anand Moon <linux.amoon@gmail.com>
->>
->> This is somehow confusing or completely incorrect code.
->>
->> Either this was needed by the driver or not. If it was, then why no bug
->> is being described? If this was not needed, then you are doing no-op
->> changes.
->>
-> I was looking into other SoCs that use this while debugging the
-> device-tree mapping issue,
-> so I initially tried adding it. If it is not required, I will drop this change.
+> I think it would be more natural to get the length as a single value,
+> then have a common flat_read_chunk() and flat_realign() to consume it.
+> That's for two reasons:
+>  * Assuming we keep this length encoding, getting the final tag size
+>    seems like it would make a useful helper function anyway.
+>  * Using flat_read_word() is misleading - it implies it's integer data
+>    where endianness matters.  In this case it's not - it's just some
+>    bytes we're skipping over, we don't know the internal structure.
 
-You just don't even try to understand this code, right?
+Well, without the length for all tags (I mean keeping some size encoding
+in the tag value), we can avoid the flat_read_word().
+--- 8< ---
+	switch (tag & FDT_TAG_DATA_MASK) {
+	case FDT_TAG_DATA_NONE:
+		lng = 0;
+		break;
+
+	case FDT_TAG_DATA_1CELL:
+		lng = sizeof(uint32_t);
+		break;
+
+	case FDT_TAG_DATA_2CELLS:
+		lng = 2 * sizeof(uint32_t);
+		break;
+
+	case FDT_TAG_DATA_VARLEN:
+		/* Get the length */
+		lng = flat_read_word(inb)
+		break;
+        }
+
+        if (lng) {
+		flat_read_chunk(inb, NULL, lng);
+		flat_realign(inb, sizeof(uint32_t));
+        }
+---- 8< ----
+
+Related to a helper, I have introduced one in the addon series where new tags
+are present and these new tags are no more "unknown" tags and flat_read_subbuf()
+has been introduced to parse them. You can see that in the patch 11/74 [0] or
+directly in the final code [1]
+
+[0] https://lore.kernel.org/devicetree-compiler/20260826094950.1088288-12-herve.codina@bootlin.com/
+[1] https://github.com/bootlin/dtc/blob/c68038e0ff4cde5de37a21419df8a082032ef994/flattree.c#L1169
+
+I can see to avoid some more code duplication between functions skipping "unknown" tags
+and function parsing new "known" tags.
+
+> 
+> > +
+> > +		/* Skip the following length bytes */
+> > +		flat_read_chunk(inb, NULL, lng);
+> > +
+> > +		flat_realign(inb, sizeof(uint32_t));
+> > +		break;
+> > +	}
+> > +
+> > +	return true;
+> > +}
+> > +
+> > +static uint32_t flat_read_tag(struct inbuf *inb)
+> > +{
+> > +	uint32_t tag;
+> > +
+> > +	do {
+> > +		tag = flat_read_word(inb);
+> > +		switch (tag) {
+> > +		case FDT_BEGIN_NODE:
+> > +		case FDT_END_NODE:
+> > +		case FDT_PROP:
+> > +		case FDT_NOP:
+> > +		case FDT_END:
+> > +			return tag;
+> > +		default:
+> > +			break;
+> > +		}
+> > +	} while (flat_skip_unknown_tag(inb, tag));  
+> 
+> Having this as a separate function seems odd to me...
+
+Well, this clearly decouples "known" tags from "unknown" tags and keeps the
+function small.
+
+> 
+> > +	die("Cannot skip unknown tag 0x%08x\n", tag);
+> > +}
+> > +
+> >  static const char *flat_read_string(struct inbuf *inb)
+> >  {
+> >  	int len = 0;
+> > @@ -750,7 +806,7 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
+> >  		struct property *prop;
+> >  		struct node *child;
+> >  
+> > -		val = flat_read_word(dtbuf);
+> > +		val = flat_read_tag(dtbuf);
+> >  		switch (val) {  
+> 
+> 
+> .. rather than having handling unknown tags as part of the default:
+> case here.
+
+Here and probably on some other part if we go in that direction.
+
+Here you have already parsed a FDT_BEGIN_NODE to call unflatten_tree().
+
+Unknown tags should be handle and skipped if possible at lower level to handle
+them everywhere and without code duplication.
+
+flat_read_tag() is this lower level.
+
+> 
+> >  		case FDT_PROP:
+> >  			if (node->children)
+> > @@ -905,14 +961,13 @@ struct dt_info *dt_from_blob(const char *fname)
+> >  
+> >  	reservelist = flat_read_mem_reserve(&memresvbuf);
+> >  
+> > -	val = flat_read_word(&dtbuf);
+> > -
+> > +	val = flat_read_tag(&dtbuf);
+> >  	if (val != FDT_BEGIN_NODE)
+> >  		die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0x%08x)\n", val);  
+> 
+> Hmm.. doesn't this already need to be fixed to handle NOP tags before
+> the root node?  Logically that change would go before this one.
+
+Oh yes, good catch. I missed that one.
+
+Will be update in next iteration (in offset 0 vs real root node offset part)
+with 2 points:
+  - handle the case here with something like
+    --- 8< ---
+       /* Skip possible FDT_NOP available before the root node */
+       do {
+	  val = flat_read_tag(&dtbuf);
+       } while (tag == FDT_NOP);
+
+       if (val != FDT_BEGIN_NODE)
+	  die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0x%08x)\n", val);
+       ...
+    --- 8< ---
+
+  - Add a test calling dtc with a "nopulated" dtb
+    This test is really missing. Only functions from libfdt are tested with
+    a nopulated dtb. DTC has to be tested too.
+
+> 
+> >  
+> >  	tree = unflatten_tree(&dtbuf, &strbuf, "", flags);
+> >  
+> > -	val = flat_read_word(&dtbuf);
+> > +	val = flat_read_tag(&dtbuf);
+> >  	if (val != FDT_END)
+> >  		die("Device tree blob doesn't end with FDT_END\n");  
+> 
+> Likewise here for that matter, a NOP should be valid between the last
+> FDT_END_NODE and the FDT_END.
+
+Yes, exactly and this will be taken into account in the next iteration.
+
+> 
+> > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+> > index f3647e63..8fc23cb7 100755
+> > --- a/tests/run_tests.sh
+> > +++ b/tests/run_tests.sh
+> > @@ -882,6 +882,11 @@ dtc_tests () {
+> >  
+> >      # Tests for overlay/plugin generation
+> >      dtc_overlay_tests
+> > +
+> > +    # Tests with "unknown tags"
+> > +    run_dtc_test -I dtb -O dts -o unknown_tags_can_skip.dtb.dts unknown_tags_can_skip.dtb
+> > +    base_run_test check_diff unknown_tags_can_skip.dtb.dts "$SRCDIR/unknown_tags_can_skip.dtb.dts.expect"  
+> 
+> It's best to avoid tests based on -O dts output unless we're
+> explicitly checking -O dts behaviour: because there are multiple ways
+> to format property values, the exact output isn't really guaranteed.
+
+But at a give version dtc and a given dtb file, there is only one way
+to generate a dts.
+
+If it change because of some modification in dtc, having some changes in
+tests expected value should not be a big deal.
+
+> 
+> What I'd suggest instead is to adjust treegen to generate two dtbs
+> that are identical _except_ for the skippable tag.  Then you can use
+> dtc -I dtb -O dtb, and compare the dtc output (which should strip the
+> tag) against the dtb which was constructed without it in the first
+> place.
+> 
+> Or, rather than explicitly creating two new trees, you could make your
+> skippable tag example identical to test_tree1, except for the
+> additional tag, and re-use one of the other instances of test_tree1 as
+> the "tagless" version.
+
+Why not just one dtb generated to treegen with unknown tags (already available
+unknown_tags_can_skip.dtb)
+
+dtc -I dtb -O dtb -o unknown_tags_can_skip.dtb.dtb unknown_tags_can_skip.dtb
+
+And then
+	base_run_test wrap_fdtdump unknown_tags_can_skip.dtb.dtb unknown_tags_can_skip.dtb.dtb.out
+    	# Remove unneeded comments
+	sed -i '/^\/\/ [^U]/d' unknown_tags_can_skip.dtb.out
+    	base_run_test check_diff unknown_tags_can_skip.dtb.dtb.out "$SRCDIR/unknown_tags_can_skip.dtb.expect"
+
+
+This avoid the need for 2 dtbs generated by treegen and also avoid to compare
+binary files which are difficult to analyze when the comparison detects a problem
+due to something broken by some modifications.
+
+> 
+> 
+> > +    run_wrap_error_test $DTC -I dtb -O dts -o unknown_tags_no_skip.dtb.dts unknown_tags_no_skip.dtb
+> >  }
+> >  
+> >  cmp_tests () {
+> > diff --git a/tests/unknown_tags_can_skip.dtb.dts.expect b/tests/unknown_tags_can_skip.dtb.dts.expect
+> > new file mode 100644
+> > index 00000000..2194025b
+> > --- /dev/null
+> > +++ b/tests/unknown_tags_can_skip.dtb.dts.expect
+> > @@ -0,0 +1,19 @@
+> > +/dts-v1/;
+> > +
+> > +/ {
+> > +	prop-int = <0x3201>;
+> > +	prop-str = "abcd";
+> > +
+> > +	subnode1 {
+> > +		prop-int = <0x6401 0x6402>;
+> > +	};
+> > +
+> > +	subnode2 {
+> > +		prop-int1 = <0x64020 0x64021>;
+> > +		prop-int2 = <0x32022>;
+> > +
+> > +		subsubnode {
+> > +			prop-bool;
+> > +		};
+> > +	};
+> > +};
+> > -- 
+> > 2.55.0
+> > 
+> >   
+> 
 
 Best regards,
-Krzysztof
+Hervé
