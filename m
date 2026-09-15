@@ -1,124 +1,117 @@
-Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A453D8115;
-	Tue, 15 Sep 2026 04:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA363AA9E2;
+	Tue, 15 Sep 2026 04:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789447883; cv=none; b=i1uigE3TfBbK26ChpGNr/bPE+y+0gHu3fEnnZp+ewraC2Zavy9mMSm0vTa/8ZbsCtbtzyQ0du1RIlSaJg3AN9yY65qnnt3fRRIz7Z4clPSksXZTrZtnTXzlHJ3BMZ/LutL6BhBQO0SMXkcnKajIUkVZwIlpxL1Dk90sAHrv8b4o=
+	t=1789447934; cv=none; b=dz9aG53IRIMdauo2hFOyTeUb6hFtEf7gb6HzTNMi+NVGiNz9pjgi1HWA9UDdpyzrJVLkDWJGavZ8wtnXcK/yR3gs/rtw4a1jZuwdt+dWzp0aFtE20OfySenMXNSxZoi5f46JvyzK1H151Vp28/F1ojkgsCRpCU81IQq9WOjwGG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789447883; c=relaxed/simple;
-	bh=fxOKKCUsK9zZzemJd9lkf1QVkybwyZu93u70HP087HA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Hk4lkr2WedA9JfA/0c6xopfQ+qTvd3gn12IQO70upcaAVRIjIAmIHdt3D0Soam2sAEu5snuNG917o9RT51K0l/K/uM34WK+sN+zUQzD5dY+a/XM3uJ+KnYwclXQDYIQIok4pp15XQmFXBXwoeubqt8ratZNH95OMxNesIETHoFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=PPSoj7Pg; arc=none smtp.client-ip=31.3.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="PPSoj7Pg"
-From: Martino Dell'Ambrogio <tillo@tillo.ch>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
-	t=1789447378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=iDBR88Kq1bFU8YSncqnOxECCzfjGRrt18SSlVQzNBnc=;
-	b=PPSoj7PgCTlMLla4350sZgDJzIx+8rTgGOjNPZe/8yjpHw/erLp7sBJIKRyL4Q0DGFFEES
-	EOHypxEvIX9IQLMiyt4D1pNU4m5sUDJm9S4W/mviqw44fezn5wsj/atoTua336GyBgO+Sx
-	3Ke3NU5c08uPO9p0GmAXn1OCT9x+OEVGupg0kPo7RDXGEtsV26T65sB4R5u/n8sJoZM9Dq
-	L4QTolYeMLexySoXGEkLqUzBoI6PZsVqhxG2u7Z3nSwnHU4AApJVk/72Jdj5KPvYm/M7wy
-	Y58qs1XXSkMlQ3h1FetjarEwgC45NJLH870d8KGTSMJtgWLgYL+dWQ0Deh/Kmg==
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-mediatek@lists.infradead.org,
+	s=arc-20240116; t=1789447934; c=relaxed/simple;
+	bh=ruTOlUWRjC+XHH5P8xlcScCD8eqQ3g3XNdzFW2uRuKY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mqsyNWCUF4ZAgTctPPqcEYExuZBfG7rK7IQi/XV3pNW3xpDOGsaL8sA0G387iWOWSxjM29FRYy8Gl8mpsnGaeFN8bPPgOizSlRNpS9e6rJ8ykh2/UviiXPvcgN0FP5SgvBfntOm5EzpPZBdArkM+ppyD/5fBuKSsU4Nuoj9Q0g8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowADnvPDxzqhqoRoJCA--.51839S2;
+	Tue, 15 Sep 2026 12:52:01 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexandre.belloni@bootlin.com
+Cc: claudiu.beznea@tuxon.dev,
+	daniel.lezcano@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com
-Subject: [PATCH v3] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
-Date: Tue, 15 Sep 2026 06:42:54 +0200
-Message-ID: <20260915064254.1594808-1-tillo@tillo.ch>
+	nicolas.ferre@microchip.com,
+	tglx@kernel.org,
+	lkml@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] clocksource/drivers/atmel-st: Fix sclk reference leak in error paths
+Date: Tue, 15 Sep 2026 04:51:32 +0000
+Message-Id: <20260915045132.1726602-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADnvPDxzqhqoRoJCA--.51839S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFWktF1kAFW8Jr43AF1xAFb_yoW8Zw1xp3
+	yxK3yayr1kWayIgrsFvFWDJF9Yya9FkFyUGFWrKas7ZrsxJryUtFWfJr9FqFWUAF97Zw47
+	try8tFn8uF18ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VU19Xo7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAILA2qowzMrUAABsO
 
-Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
-(0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
-allowing post-panic console output and oops dumps to be recovered after a
-reboot. Without it, kernel crash logs on this board are lost when the SoC
-warm-resets and the on-chip console buffer is reinitialised.
+atmel_st_timer_init() obtains the slow clock with of_clk_get() but never
+releases the reference on error. If clk_prepare_enable() fails the
+reference is leaked directly, and if the clock rate is invalid or
+clocksource_register_hz() fails the error paths return without disabling
+or putting the already enabled clock.
 
-With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
-pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
-(640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
-reserving a small Reed-Solomon parity block from each zone's own
-allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
-even when the panic path truncates writes mid-record.
+Add the missing cleanup to the three error paths: clk_put() when
+prepare+enable fails, and clk_disable_unprepare() followed by clk_put()
+when aborting after the clock has been enabled. The success path keeps
+the slow clock enabled for the lifetime of the system timer and is left
+untouched.
 
-The no-map property is required so the reserved region is kept out of the
-kernel linear map. ramoops remaps the carve-out write-combine via
-ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
-the linear map at the same time is an attribute-mismatch and risks losing
-panic data to dirty cache evictions from the linear alias.
-
-The carve-out sits immediately below the ATF region already declared at
-0x43000000 in mt7988a.dtsi, so no other reserved-memory child is moved or
-resized. BPI-R4 ships with at least 4 GiB of DRAM starting at 0x40000000,
-so the region is well within installed memory on every variant.
-
-For the carve-out to actually preserve content across a reset, the boot
-loader must also avoid touching this region on warm reset; on standard
-BPI-R4 boards with the stock OpenWrt U-Boot fork this already holds.
-
-Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
+Fixes: adbaf5254152 ("clocksource/drivers/atmel-st: Convert init function to return error")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Changes in v3:
- - Resend; no functional change. Rebased on v7.3-rc3, where the v2 diff
-   still applies unmodified.
- - v2 drew no review comments. It was also sent, in error, as a reply to
-   the BPI-R3 patch's thread rather than its own, so it is likely to have
-   been read as a duplicate of that board's patch. This version starts a
-   fresh thread to avoid repeating that.
+ drivers/clocksource/timer-atmel-st.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-The matching BPI-R3 (mt7986a) patch is being resent as v3 at the same time.
-
-v2: https://lore.kernel.org/all/20260528123645.2650085-1-tillo@tillo.ch/
-v1: https://lore.kernel.org/all/20260528092807.1936177-1-tillo@tillo.ch/
-
- .../boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi  | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-index 0ff69da..6a8dc89 100644
---- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-@@ -80,6 +80,19 @@
- 	};
- };
+diff --git a/drivers/clocksource/timer-atmel-st.c b/drivers/clocksource/timer-atmel-st.c
+index 73e8aee445da..e333916f8236 100644
+--- a/drivers/clocksource/timer-atmel-st.c
++++ b/drivers/clocksource/timer-atmel-st.c
+@@ -222,12 +222,15 @@ static int __init atmel_st_timer_init(struct device_node *node)
+ 	ret = clk_prepare_enable(sclk);
+ 	if (ret) {
+ 		pr_err("Could not enable slow clock\n");
++		clk_put(sclk);
+ 		return ret;
+ 	}
  
-+&{/reserved-memory} {
-+	ramoops@42f00000 {
-+		compatible = "ramoops";
-+		reg = <0 0x42f00000 0 0x100000>;
-+		no-map;
-+		record-size = <0x20000>;
-+		console-size = <0x40000>;
-+		ftrace-size = <0x10000>;
-+		pmsg-size = <0x10000>;
-+		ecc-size = <16>;
-+	};
-+};
+ 	sclk_rate = clk_get_rate(sclk);
+ 	if (!sclk_rate) {
+ 		pr_err("Invalid slow clock rate\n");
++		clk_disable_unprepare(sclk);
++		clk_put(sclk);
+ 		return -EINVAL;
+ 	}
+ 	timer_latch = (sclk_rate + HZ / 2) / HZ;
+@@ -244,7 +247,14 @@ static int __init atmel_st_timer_init(struct device_node *node)
+ 					2, AT91_ST_ALMV);
+ 
+ 	/* register clocksource */
+-	return clocksource_register_hz(&clk32k, sclk_rate);
++	ret = clocksource_register_hz(&clk32k, sclk_rate);
++	if (ret) {
++		clk_disable_unprepare(sclk);
++		clk_put(sclk);
++		return ret;
++	}
 +
- &cci {
- 	proc-supply = <&rt5190_buck3>;
- };
++	return 0;
+ }
+ TIMER_OF_DECLARE(atmel_st_timer, "atmel,at91rm9200-st",
+ 		       atmel_st_timer_init);
 -- 
-2.47.3
-
+2.34.1
 
