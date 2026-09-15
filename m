@@ -1,88 +1,199 @@
-Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E64374A19;
-	Tue, 15 Sep 2026 06:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65BD43E9C4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454701; cv=none; b=E/KOtSGBLbO6RVF6UXztMC7pfHnwqSOphOKOuaU3sCG7mu0jIBqC5QcelBjTOXtZT7/Sex6dSTOWxNOv81f22oAcDJypeN4LAlRsVzuR3A8qenPEBwEGQ8fVVfPuPK65ZUUWsGC3Nr6XYpzhXZW8Jy1vtmd7gxtlI0w2luttp40=
+	t=1789454707; cv=none; b=ZE8r52B0l2NIrLnR1wj5fyt7IIjcFQ5SjxX4UMC/n3i1z9HnwVVtUpdAUL2M6dT8gGDt3rQzJNFfXpD5wzdvgbL9tr3XDdc/3K4X9iHOW6Vkv14uZ9xygjixuIF+il/snPh57h2rGQkb7oxtnP6YT/2JuprtFYWsEGI8qMEuCy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454701; c=relaxed/simple;
-	bh=gR8ykoNNGOuqw7M2sfr0VVZc2JkCEwrcqwbqvJ638xY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=In0VwELBZL2NN+Lb4RqDKKVmLwUWzOBG/G39cPfhIQuSchdQQQY7+as9eMXIonQNg0DNnevvEsIEOZFvSdLy1NGIY21rYARBMbKuPxgpF/fGWa6E/Goa2xT6QUKBmHma7ijgNBhVJa5LerosaMp3LSfFVjMdlLDlUWzUqCSMEDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=noC9yu0/; arc=none smtp.client-ip=115.124.28.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789454707; c=relaxed/simple;
+	bh=VMJgWKEeLbEF+5uGy7m1N0gpmXanMrHiGWE7G/bgYUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UVTkQoB3/h64lvhwtBvPWJ3KypMB9XapFzrJjIu1BqyCPo6XwvBTeJdU6ri/vStiYBTqgFCT5L+gdDKyQWigFBEYoPHkd9X8LR/PEtGys4AETz50kFp2mZ7ZrqCeFaojqatk8X90Pd4O9f07/alZGSN4nNVMBURJk+NF8V5olTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T/Xdn2g2; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="noC9yu0/"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789454694; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=eTr0M3JncHKsHc1wHe64uqrYo25gtOIvU5HOPeRozyw=;
-	b=noC9yu0/b/iH+NyuS7l5VTZQe9hVYpMI7PCd2XGEO7mhNjNiVy7giN1oSgGPvbCFvXMqa5jv0IBnOwbYZNcbNUwhuAa7TF18njCed8EFOQIYCw3mM1cPiE3RtFqsvrFIWzaSm04dfZsxaysO0RRgHIiFjChFqttw8Zr/fHWvtkQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07701874|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.123133-0.0033672-0.873499;FP=9645340444432270914|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.jDy7Am8_1789454693;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jDy7Am8_1789454693 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 14:44:54 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: Jan Kara <jack@suse.com>
-Cc: linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ext2: reject xattr value overlapping the entry area
-Date: Tue, 15 Sep 2026 14:44:53 +0800
-Message-ID: <20260915064453.249419-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T/Xdn2g2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VMJgWKEeLbEF+5uGy7m1N0gpmXanMrHiGWE7G/bgYUw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789454702; v=1; x=1790059502;
+ b=T/Xdn2g2FUWeWKEVMnmA2X9N+5Wj8X5145Ho2+/kn5q16FacMLgJhDnHlupzglpeCZ2/Nbyh
+ l1VmCndUDhsK7G8/j9WWJ+9oKzLzgCiDa1OtT8YTSmfje9hclk42/RU8I00bhSHQYn2bZkct+9b
+ jb/PfoeO6b+O679kV6gEOe1U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 79b6f2ba6867b9a0;
+	Tue, 15 Sep 2026 06:45:00 +0000
+X-Mizu-Trace-ID: 79b6f2ba6867b9a0
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 15 Sep 2026 14:44:48 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>,
+	Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <ryncsn@gmail.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <aqjpYHbZ14A8xRtK@fedora>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <aqJXx2vtbKaRLt3x@fedora>
+ <aqLZ5TVDAqEbIeMN@linux.dev>
+ <aqP81aqNbwAbs2P0@fedora>
+ <aqQrPLPXHXiuKup0@linux.dev>
+ <aqjcFb6MFNiA6n4V@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqjcFb6MFNiA6n4V@fedora>
 
-ext2_xattr_entry_valid() checks that a value ends within the block but
-not that it starts after the entry area, so a corrupted block can place
-a value inside the entries.  ext2_xattr_set() then underflows the free
-space calculation:
+On 09/15/26 at 01:48pm, Baoquan He wrote:
+> On 09/11/26 at 09:45am, Shakeel Butt wrote:
+> > On Fri, Sep 11, 2026 at 09:06:29PM +0800, Baoquan He wrote:
+> > > On 09/10/26 at 09:39am, Shakeel Butt wrote:
+> > > > On Thu, Sep 10, 2026 at 03:09:59PM +0800, Baoquan He wrote:
+> > > > > Hi Nhat,
+> > > > > 
+> > > > > On 09/04/26 at 02:14pm, Nhat Pham wrote:
+> > > > > .....snip...
+> > > > 
+> > > > [...]
+> > > > 
+> > > > > With VM_SPARSE, xswap's cluster access is exactly the plain-array line the
+> > > > > rest of swap already uses:
+> > > > > 
+> > > > >     return &si->cluster_info[offset / SWAPFILE_CLUSTER];
+> > > > > 
+> > > > > no branch, no RCU discipline, no tear-down state machine, and no NULL
+> > > > > return. So VM_SPARSE doesn't add complexity to close a gap; it lets the
+> > > > > cluster layer stay as simple as it already is, which is precisely the
+> > > > > part later work (writeback, rmap lookup, memcg charging, THP) has to sit
+> > > > > on.
+> > > > > 
+> > > > > I'm not going to claim xswap wins on throughput. I measured it:
+> > > > > on a 64G/64-thread swapout, xswap, vswap and plain swap+zswap are all
+> > > > > within ~2-3% of each other, effectively identical. 
+> > > > 
+> > > > So the claim is VM_SPARSE is simpler than xarray based approach. I feel like
+> > > > we are discussing implementation details before deciding the design and
+> > > > architecture. So, instead of VM_SPARSE vs xarray, let's discuss and decide the
+> > > > need for dynamic growth. Why we want dynamic growth upfront or can it be added
+> > > > later? Once we decide that then it will be very easy to pick an implementation
+> > > > that would take us there.
+> > > 
+> > > Hi Shakeel,
+> > > 
+> > > Thank you for joining the discussion and for taking the time to comment.
+> > 
+> > Hi Baoquan,
+> > 
+> > I am mainly trying to facilitate the discussion but your use of LLM is causing
+> > more confusion. LLM use is fine but please at least re-read before sending that
+> > the sentences flow and makes sense.
+> 
+> Sorry, my bad. I used LLM to find Nhat's words. But I did check it by
+> myself. I wrote most of them by myself. While at it ath the moment, my
+> logic could be unclear.
+> 
+> As said, how swap_cluster_info[] is built is the foundation. Whatever
+> you do, you have to make swap_cluster_info[] ready, then you can do
+> writeback, rmap lookup, thp support, etc, on top of it.
+> swap_cluster_info[] is the basement, then you continue building 2nd
+> floor, 3rd floor, till a high building is done with things added. Nobody
+> wants to claim he just need the high building, while no basement.
+> 
+> Now, the foundation has been built with the lazy vmalloc, it can grow on
+> demand. It keeps swap_cluster_info accessing as swap_cluster_info[],
+> a basic array semantics. And since we our target is to support a very
+> large swap device with an extendable logical space, grow on demand and
+> shrink becomes important. Now it is there.
 
-	free = min_offs - ((char*)last - (char*)header) - sizeof(__u32);
+By the way, with my understanding, only grow is enough for xswap. You
+can reserve a huge space for it, while in fact you could only really use
+it within a small space. Then it's fine, grow the swap_cluster_info[] to
+the place it ever used, and it mostly will be used again. E.g on a small
+system with 10G RAM, we set si->max as 2x10=20G. In fact it could only
+reach 2G swap space. That's fine. 2G is the place we need, keep it. The
+left 18G is untouched and surely no swap_cluster_info[] built for it.
+Anyway, Nhat strongly suggested shrink is necessary. I am wondering if
+there's really use case.
 
-and writes the new value before the start of the block:
-
-	val = (char *)header + min_offs - size;
-
-Check that the value area does not overlap the entry area and refuse
-such a block instead.
-
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-A crafted ext2 image with an xattr entry whose e_value_offs lies inside
-the entry area triggers, on a KASAN build, a use-after-free report in
-ext2_xattr_set().  With this patch, setxattr() on such an image returns
--EIO instead.
-
- fs/ext2/xattr.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/ext2/xattr.c b/fs/ext2/xattr.c
-index 9b68c490a..2b89b758e 100644
---- a/fs/ext2/xattr.c
-+++ b/fs/ext2/xattr.c
-@@ -485,6 +485,14 @@ ext2_xattr_set(struct inode *inode, int name_index, const char *name,
- 		if (not_found > 0)
- 			here = last;
- 
-+		/*
-+		 * The value area must not overlap the entry area, otherwise
-+		 * the space calculation below underflows and the new value
-+		 * would be written before the start of the block.
-+		 */
-+		if (min_offs < (size_t)((char *)last - (char *)header) + sizeof(__u32))
-+			goto bad_block;
-+
- 		/* Check whether we have enough space left. */
- 		free = min_offs - ((char*)last - (char*)header) - sizeof(__u32);
- 	} else {
--- 
-2.43.0
-
+> 
+> That's my understanding, not sure if there's anything I can't get so
+> that writeback need be made first.
+> 
+> [I type each of above by hand.]
+> > 
+> > > 
+> > > Agreed on requirement first - but this one was already decided, and not by me. In
+> > > the July ghost swapfile thread Nhat rejected exactly the shape of "grow only, can
+> > > be added later":
+> > > 
+> > >     "Except for my virtual swap design, which does support dynamic growth AND
+> > >      shrinking of capacity on demand ;) If it cannot grow (and furthermore, if it
+> > >      requires userspace operation to trigger swapfile growth), why do we need this
+> > >      at all? Might as well create a new swapfile with swapon?"
+> > > 
+> > > To me what it converged on was "dynamic growth and shrink, no writeback yet".
+> > 
+> > I am not getting how out of context above paragraph shows the conclusion about
+> > dynamic growth/shrink and *no writeback*.
+> > 
+> > > So automatic growth *and* shrink is the requirement, and the simpler alternative
+> > > was already on the table.
+> > > 
+> > > And I keep mentioning it in the cover-letter of each version of my posting. I
+> > > only did the foundtation via lazy vmalloc. And Nhat will do the core
+> > > part including writabck, rmap lookup, memcg accounting, zero page fill,
+> > > etc.
+> > 
+> > I don't see any evidense of this decision. Actually this whole email thread
+> > shows that there is no such decision.
+> > 
+> > > 
+> > > What is still genuinely open, and I would like us to settle, is how large the
+> > > device's address space should be, because the metadata scales with it:
+> > 
+> > With dynamic growth/shrink, is this really a blocker?
+> > 
+> > Anyways, I will let Nhat and others discuss the technical details (unless I am
+> > asked for it). My main reason to join the conversation is to converge the
+> > discussion to a decision and resolution.
