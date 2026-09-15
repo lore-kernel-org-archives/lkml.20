@@ -1,241 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3553B47DF
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20443B2FD4;
+	Tue, 15 Sep 2026 13:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477701; cv=none; b=tN9fVwfT/Nibks1P2E49S1GdLLX0FYgz9u1Tvfm0OnIUHJ+/MQ8wp1PTgJFKgF58D6zuteXYjzPLLXdD4uKT4tb81D6Rw17bC2qKp7Cu30SUtrvzDNU1AJhpRUruOozrupik/88fKs93maqQM4DBjZc27ZD+Dypk/w6SHGJrOtU=
+	t=1789477715; cv=none; b=qYFBsJce71nPq2AOwoiacJ91cBMJJhN0FxqCgx4uz3vQrJ71oJsEtLblBsMcdz92vLT32LCu1a44TTSdx2tjvS99XV35IIcxJsEzKABZU6AlcnT0gtqAdixJrh40w1oPaJT2EmP3kLtZk9zbJ0X1pl1afbnA5IlaZF3DYmOSp9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477701; c=relaxed/simple;
-	bh=XU+2dnON3tB/nnqmlBy7PP4DEKnLSGjRoJgv0p+i0e8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ngJrn9d8wwiwWHdsKcXnMiKBgIE5BEF8gwXh5ApsKs7TkvDJGtVlqyqYL5uuy2CxGbg73tKn2yj2tBW2SVXKoRDNiUJ+U/39BaoRreTzs6+hbGYHLYULCnF3D4elMyhwD7JxpFeyxMtlrnMHdqKJpPWlTSCAyHtR6EKNyEEGTfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lAGtosHP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789477715; c=relaxed/simple;
+	bh=udOijt4W50cvdO67B9RsymYIiIYjteZ+EcvCsayEw7U=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=af0/V0E4UosRErL7nGFIgyIcBXtox1Equf/TAeymRMqAYHvj6nUaeFtYuP33nUq4LaTTKt8ifo2bj34AJ7JlLXw8/JCoAfehwM9FWam3b88u0GDWwP07XTodt89OPSY0WtK8T30BNtCBayAc22Ks3hYt1MG9ufx007N/r08ubI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hJqfi2Pv; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lAGtosHP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D3B1F00898;
-	Tue, 15 Sep 2026 13:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789477700;
-	bh=tjgLUop72ZMvf0h92huxyx+PE6o+OUOeA3B67aAkAJE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lAGtosHPT8bQQHdHedEA82sBRcvEs3tM49nVDjy5CxbMGop9XwEdcCFmAHewy8xhV
-	 lqHD9QgMJBJOLy9oduSs5wDkeZpMoeT7EIjwx8dqetXoXZoRD4qM0a6nTeisgAh/7a
-	 WdTzRDf2r28CVnki9XxnCTOwZtG8LLs5gXKofrjfKIcTUOANxwfM+wdSRr4gnFl3YF
-	 aOJGlp4IxJ8QzGFKjExM1LsD2tXaWO7XUKVLHDzL59aPewyIoVR9WZBisBBgJjFR2O
-	 oC+FxcHlcIUXuhLLA28EIG7QAI1Vd+JB66hLEaiz7QGm9xpKgNKLLn+vgKroUvjgvf
-	 d4EI3K3ex5MfA==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A9902198003A;
-	Tue, 15 Sep 2026 09:08:09 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 15 Sep 2026 09:08:16 -0400
-X-ME-Sender: <xms:OUOpaoohDrvyZdMAv3BPSTqKZ3EwSFK1v6xeT7Fhr2cOPnwI3EaXDw>
-    <xme:OUOpatVAjgiVezhqwjrruUmqPHwzpXybZ8aBoNe6d0UDW2E1u1WP4HMNS74KzkTBo
-    VpKdcBI_BdlNUGUp1c886jmRowZ3Sajf0h_qn_ccoZHG14sa-mU4w9c>
-X-ME-Received: <xmr:OUOpagIOMzypL5NqY7x1Isf-AbgluKlNv1fFYR052KcVUr5cPKdSdsvWVrI>
-X-ME-Proxy-Cause: dmFkZTGBwKK+2xwAnE7Nssghb1/SceAcmQ+4ywIAoFrTlislToHtIv8OmG+4NsbsKAXvcf
-    UX6cRBjc80nWIknxGObjdDxbScPZQabPCAe3OX00a7onnc54qK4hOE8AR/EWB4wi/Nye97
-    OvMk7+uHW6ShYCAo0+Ba7DJ7JC4XBBW4+UFWxhrsQbs9OTmsUcfqOGJZj2WMC2dVv6zq0s
-    J6y7i24qWBikceH5CMyBGbLKiFXaff8mNpAp9X4rOSZM6nNOGc7G4i2DST4cL9UnmXg22A
-    cZl+hrpQH8Uao3fk9/rsQQ4MR8GopSdsyVdAlO4o00a8fAIgChTEjjeAF43IoApGnFvCjc
-    NmPXJJKhd9vSE/abZ8epf9nO345U38qzMWorDQY75NAOI/pCRfxGb/0kw/Ed4sTjhwqk7j
-    7eUGmH9xej+bNAkAJbCp/3BqMox7rHVFOaxBHh6o15OTTQZPRzCHIdbgVTwbpffP2953Su
-    X4peartElqpBPur1xD6G+uCr2JFQuvqa390Z8csCX3cJbf8Ak8sYGcv5lCRbxWONdVMNKl
-    NqtP8tih8iA3fhvMBNUpOoDOVUEx/C6o/NNjJN0qIEnrmrQ0KUq401HM56Hss9U4JbXwSn
-    qMUv76AlYpWq9JIeqKXGd83ecti/2bF/6ZtkFn7+bkZCMPOwRHr4d5VK+IgA
-X-ME-Proxy: <xmx:OUOpagiKiXANC8dYaGhAfZLjTQ4zfKJ3v5KjBZNHA7h-wUgVEvbadg>
-    <xmx:OUOpaom746o2T__gb-FYFjQ56UeeBfnHp3-sDK9BMv2soZ-0JeRypg>
-    <xmx:OUOparHPrELkf3NiInnlkfUl51_6S-QUsZKTMTEnRGPkmI663w8ltA>
-    <xmx:OUOpatRqm-PJBL36gxjY6GjwgsjdVCOuJoeY4MtKlJq6gA9rUpyodw>
-    <xmx:OUOpan43kOMGLJ9R5slFZzX9DAK82GGV_4MhasX0GL5dyiIx4BZoqRmV>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 09:08:07 -0400 (EDT)
-Date: Tue, 15 Sep 2026 14:08:06 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Hugh Dickins <hughd@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- 	Ackerley Tng <ackerleytng@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- 	Alexandre Ghiti <alex@ghiti.fr>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- 	Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>,
- 	Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
- 	Christoph Lameter <cl@gentwo.org>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- 	David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>,
- Jan Kara <jack@suse.cz>, 	Jens Axboe <axboe@kernel.dk>,
- Johannes Weiner <hannes@cmpxchg.org>, 	Kairui Song <ryncsn@gmail.com>,
- Lance Yang <lance.yang@linux.dev>, 	Leonardo Bras <leobras.c@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, 	Marcelo Tosatti <mtosatti@redhat.com>,
- Matthew Wilcox <willy@infradead.org>,
- 	Mel Gorman <mgorman@techsingularity.net>,
- Miaohe Lin <linmiaohe@huawei.com>, 	Michal Hocko <mhocko@suse.com>,
- Minchan Kim <minchan@kernel.org>, 	Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- 	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- 	Suren Baghdasaryan <surenb@google.com>,
- Vlastimil Babka <vbabka@kernel.org>,
- 	Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
- Zach O'Keefe <zokeefe@google.com>, 	Zi Yan <ziy@nvidia.com>,
- linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- 	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 07/26] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
- folio_activate()
-Message-ID: <aqk7PbBfhO1GV2sa@thinkstation>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
- <c44a34f8-ea3c-48cd-27d5-02df129be685@google.com>
- <aqLaa4QvXMbQaIWG@thinkstation>
- <84fecd13-f1e4-7d40-94c9-963f5c2f7aee@google.com>
- <5bd863e9-30a3-c01a-dc8c-c3802b864a6c@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hJqfi2Pv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789477714; x=1821013714;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=udOijt4W50cvdO67B9RsymYIiIYjteZ+EcvCsayEw7U=;
+  b=hJqfi2Pv9JoveHApHunTAIvPbpoxHF88/F9VYQqEKjsRzE1Fir7U2Rpc
+   mqZGxKjuAA1Ey/X9qfC+rnxns18gb+cjhxhxpnbRQ0sknHtLYbB8KLpmp
+   dspoKK5zrYXINB0PoR61uSZRU/cnMuv5Iq9G6UgzON6RtuJrobVBVoJ9a
+   FMqS0CvblUUYGhTHb9GMVd8jaKCe+You9urU06Qxp2uFrHyuBAxLFPJ26
+   Kp0J1pL0LkQ5dSPQ1lnT80zJXCBzz7jAbYM/iiKTFVZ/Wal4gRInHZ7r1
+   8DCnhicVbyyBWBykIKpAkZrAV/PJYHePAOndrVZJ43ekR4i4b7J1UfbKq
+   w==;
+X-CSE-ConnectionGUID: o20FbW5/SG+RSch5QQg08A==
+X-CSE-MsgGUID: iLuaAm42TDKlLxazNspG+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100163698"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100163698"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:08:34 -0700
+X-CSE-ConnectionGUID: xQWfTz3rSTKdMVgDrijTyQ==
+X-CSE-MsgGUID: PAaxcB0FRUeR2+uWlu35PA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269732343"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:08:31 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 15 Sep 2026 16:08:26 +0300 (EEST)
+To: Aaron Erhardt <aer@tuxedocomputers.com>
+cc: wse@tuxedocomputers.com, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v3 5/6] platform/x86/tuxedo: Update and extend
+ documentation
+In-Reply-To: <20260826081149.235487-6-aer@tuxedocomputers.com>
+Message-ID: <7533530b-1d13-e977-df13-f7ebf4e92a29@linux.intel.com>
+References: <20260826081149.235487-1-aer@tuxedocomputers.com> <20260826081149.235487-6-aer@tuxedocomputers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5bd863e9-30a3-c01a-dc8c-c3802b864a6c@google.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Sep 14, 2026 at 01:19:37PM -0700, Hugh Dickins wrote:
-> On Sat, 12 Sep 2026, Hugh Dickins wrote:
-> > On Thu, 10 Sep 2026, Kiryl Shutsemau wrote:
-> > > On Wed, Sep 09, 2026 at 02:55:41AM -0700, Hugh Dickins wrote:
-> ...
-> > > > diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> > > > index 8420b1276535..8f5efadf9c7c 100644
-> > > > --- a/include/linux/mm_inline.h
-> > > > +++ b/include/linux/mm_inline.h
-> > > > @@ -346,6 +346,7 @@ static inline void folio_migrate_refs(struct folio *new, const struct folio *old
-> > > >  enum {
-> > > >  	LRU_NEXT_NEVER_TAIL = 0,	/* Used by a tail's compound_head */
-> > > >  	LRU_NEXT_BATCHED = 1,		/* Not used by any aligned pointer */
-> > > > +	LRU_NEXT_ACTIVATE,
-> > > >  	NR_LRU_NEXT_FLAGS
-> > > >  };
-> > > >  
-> > > > @@ -358,6 +359,9 @@ bool lru_add_del_folio(struct folio *folio)
-> > > >  	if (!(lru_next & BIT(LRU_NEXT_BATCHED)))
-> > > >  		return false;
-> > > >  
-> > > > +	if (lru_next & BIT(LRU_NEXT_ACTIVATE))
-> > > > +		folio_set_active(folio);
-> > > > +
-> > > >  	WRITE_ONCE(folio->lru.next, LIST_POISON1);
-> > > >  	/* BUG_ON(folio->lru_next & BIT(LRU_NEXT_BATCHED)); */
-> > > >  
-> > > > diff --git a/mm/folio.c b/mm/folio.c
-> > > > index a18d8ef6afd5..0b75c3b69d5a 100644
-> > > > --- a/mm/folio.c
-> > > > +++ b/mm/folio.c
-> > > > @@ -256,15 +256,32 @@ static void lru_activate(struct lruvec *lruvec, struct folio *folio)
-> > > >  
-> > > >  void folio_activate(struct folio *folio)
-> > > >  {
-> > > > +	unsigned long lru_next;
-> > > > +
-> > > >  	if (folio_test_active(folio) || folio_test_unevictable(folio) ||
-> > > >  	    !folio_test_lru(folio))
-> > > >  		return;
-> > > >  
-> > > >  	/*
-> > > > -	 * XXX: It is curiously difficult to recreate safely the old
-> > > > -	 * __lru_cache_activate_folio() optimization (folio_set_active()
-> > > > -	 * directly if it's on the local lru_add fbatch): revisit later.
-> > > > +	 * This optimization is intended for the common case of folio
-> > > > +	 * having been recently added to this CPU's lru_add fbatch.
-> > > > +	 * But since other CPUs can now take it at any instant (after
-> > > > +	 * a folio_test_clear_lru()), and we may be migrated to another
-> > > > +	 * CPU, it is simplest just to extend the optimization to all CPUs.
-> > > > +	 *
-> > > > +	 * folio_set_active() would be unsafe without the lruvec lock, and
-> > > > +	 * a folio_test_clear_lru() here might cause a racing drain of the
-> > > > +	 * lru_add fbatch to skip its lru_add(): so use try_cmpxchg().
-> > > >  	 */
-> > > > +	lru_next = READ_ONCE(folio->lru_next);
-> > > > +	while (lru_next & BIT(LRU_NEXT_BATCHED)) {
-> > > > +		if (lru_next & BIT(LRU_NEXT_ACTIVATE))
-> > > > +			return;
-> > > > +		if (try_cmpxchg(&folio->lru_next, &lru_next,
-> > > > +				lru_next | BIT(LRU_NEXT_ACTIVATE)))
-> > > > +			return;
-> > > 
-> > > Hm. What prevents the folio from becoming unevictable under us here?
-> > > I don't see anything.
-> > > 
-> > > __folio_add_lru() wouldn't like it:
-> > > 
-> > > 	VM_BUG_ON_FOLIO(folio_test_active(folio) &&
-> > > 			folio_test_unevictable(folio), folio);
-> > > 
-> > > folio_lru_list() has the VM_BUG() too.
-> > 
-> > You're right, thank you. I thought I had deleted all such VM_BUG_ONs:
-> > and indeed I had, but only in a patch I later decided was too much for
-> > this series (removing PG_unevictable, using !folio_evictable() in some
-> > places, or folio_test_unevictable() testing another POISON in lru_next).
-> > 
-> > That excuse is not enough for this series! Yes, I must send a fixup,
-> > but not today.
-> > 
-> > > 
-> > > I am not sure what the right fix is.
-> > > 
-> > > Maybe lru_add_del_folio() should only call folio_set_active() on
-> > > !folio_test_unevictable() folios?
-> 
-> I was writing the commit message to a 7.1/26 fixup patch,
-> when I found I just could not describe any possible race here.
-> 
-> (And I was using your first suggestion, above: in the longer term I
-> prefer what I chose below, but decided it was better not to get into
-> that now: deleting various VM_BUG_ON_FOLIOs is better argued elsewhere.
-> There's another of them in folio_migrate_flags().)
-> 
-> folio_activate() has just checked !folio_test_unevictable(), so
-> it would have to be a race with something which sets the unevictable
-> flag on this folio at the same time as we find it's LRU_NEXT_BATCHED.
-> 
-> !folio_evictable() might become true at any instant,
-> but folio_test_unevictable()?
-> 
-> I cannot see what the racer could be: can you? I can see lru_add()
-> making it unevictable afterwards; and I can see folio migration
-> (successful or not) carrying unevictable forwards (or setting it
-> on a freshly allocated folio). But I cannot see any risky race
-> for folio_activate() or folio_mark_accessed() here.
+On Wed, 26 Aug 2026, Aaron Erhardt wrote:
 
-I was thinking of race with mlock() plus a failed compaction (assuming
-compact_unevictable_allowed is 1):
+> Remove an incorrect comment about the Microsoft MacroPad reference
+> implementation allegedly deviating from the spec and add more
+> information about the module and some other minor improvements.
 
-	CPU0						CPU1
-folio_activate()
-  folio_test_unevictable() == false
-  folio_test_lru() == true
-						__mlock_folio()
-						  folio_set_unevictable()
-						  <moves to LRU_UNEVICTABLE>
-						...
-						compact_zone()
-						  isolate_migratepages()
-						    isolate_migratepages_block()
-						      folio_test_clear_lru()
-						      lruvec_del_folio()
-						  <migration fails>
-						  putback_movable_pages()
-						    folio_putback_lru()
-						      __folio_add_lru() // !active, unevictable
-						        lru_next |= BIT(LRU_NEXT_BATCHED);
-						        folio_set_lru()
-  lru_next = READ_ONCE(lru_next)
-  // lru_next has LRU_NEXT_BATCHED
-  try_cmpxchg(lru_next | LRU_NEXT_ACTIVATE) == true
+Was it "incorrect" or was the spec clarified in a later version? If the 
+latter, that would be worth to mention instead of claiming the original 
+comment was "incorrect".
+
+This is a honest question, I don't know the answer but I'm kind trying to 
+read in between lines here how we ended up in this situation so my 
+impression could be entirely wrong. ...Thus, please don't assume I know 
+much about the content of these specs (despite me briefly looking into 
+what I could find around this feature was introduced).
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+ i.
+
+> Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+> ---
+>  drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 51 ++++++++++++-----------
+>  1 file changed, 27 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> index 2b985b030197..3e5ba524fe58 100644
+> --- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> +++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> @@ -1,9 +1,15 @@
+>  // SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+>   * This driver implements the WMI AB device found on TUXEDO notebooks with board
+> - * vendor NB04.
+> + * vendor NB04. This enables keyboard backlight control via a virtual HID
+> + * LampArray device.
+> + *
+> + * The device will be available through the regular HID interfaces, such as
+> + * hidraw and can be used by any userspace program that implements the HID
+> + * LampArray standard.
+>   *
+>   * Copyright (C) 2024-2025 Werner Sembach <wse@tuxedocomputers.com>
+> + * Copyright (C) 2026 Aaron Erhardt <aer@tuxedocomputers.com>
+>   */
+>  
+>  #include <linux/dmi.h>
+> @@ -488,12 +494,14 @@ static int handle_lamp_array_attributes_report(struct hid_device *hdev,
+>  	struct tux_hdev_driver_data_t *driver_data = hdev->driver_data;
+>  
+>  	rep->lamp_count = driver_data->lamp_count;
+> +
+> +	// Physical dimensions of the Sirius 16 keyboard
+>  	rep->bounding_box_width_in_micrometers = 368000;
+>  	rep->bounding_box_height_in_micrometers = 266000;
+>  	rep->bounding_box_depth_in_micrometers = 30000;
+>  	/*
+>  	 * LampArrayKindKeyboard, see "26.2.1 LampArrayKind Values" of
+> -	 * "HID Usage Tables v1.5"
+> +	 * "HID Usage Tables v1.7"
+>  	 */
+>  	rep->lamp_array_kind = 1;
+>  	// Some guessed value for interval microseconds
+> @@ -547,7 +555,7 @@ static int handle_lamp_attributes_response_report(struct hid_device *hdev,
+>  	rep->update_latency_in_microseconds = 100;
+>  	/*
+>  	 * LampPurposeControl, see "26.3.1 LampPurposes Flags" of
+> -	 * "HID Usage Tables v1.5"
+> +	 * "HID Usage Tables v1.7"
+>  	 */
+>  	rep->lamp_purpose = 1;
+>  	rep->red_level_count = 0xff;
+> @@ -560,8 +568,8 @@ static int handle_lamp_attributes_response_report(struct hid_device *hdev,
+>  		rep->input_binding = driver_data->kbl_map[lamp_id].code;
+>  	} else {
+>  		/*
+> -		 * Everything bigger is reserved/undefined, see
+> -		 * "10 Keyboard/Keypad Page (0x07)" of "HID Usage Tables v1.5"
+> +		 * Everything bigger than 0xe8 is reserved/undefined, see
+> +		 * "10 Keyboard/Keypad Page (0x07)" of "HID Usage Tables v1.7"
+>  		 * and should return 0, see "26.8.3 Lamp Attributes" of the same
+>  		 * document.
+>  		 */
+> @@ -606,10 +614,7 @@ static int handle_lamp_multi_update_report(struct hid_device *hdev,
+>  	u8 key_id, key_id_j, intensity_i, red_i, green_i, blue_i;
+>  	int ret;
+>  
+> -	/*
+> -	 * Catching misformatted lamp_multi_update_report and fail silently
+> -	 * according to "HID Usage Tables v1.5"
+> -	 */
+> +	// Catch bad reports and fail silently according to "HID Usage Tables v1.7"
+>  	for (unsigned int i = 0; i < rep->lamp_count; ++i) {
+>  		if (rep->lamp_id[i] > driver_data->lamp_count) {
+>  			hid_dbg(hdev, "Out of bounds lamp_id in lamp_multi_update_report. Skipping whole report!\n");
+> @@ -624,6 +629,7 @@ static int handle_lamp_multi_update_report(struct hid_device *hdev,
+>  		}
+>  	}
+>  
+> +	// Fill kbl_set_multiple_keys_in update buffer
+>  	for (unsigned int i = 0; i < rep->lamp_count; ++i) {
+>  		key_id = driver_data->kbl_map[rep->lamp_id[i]].code;
+>  
+> @@ -632,6 +638,8 @@ static int handle_lamp_multi_update_report(struct hid_device *hdev,
+>  		     ++j) {
+>  			rgb_configs_j = &next->kbl_set_multiple_keys_in.rgb_configs[j];
+>  			key_id_j = rgb_configs_j->key_id;
+> +
+> +			// Search for existing or empty entry
+>  			if (key_id_j != 0x00 && key_id_j != key_id)
+>  				continue;
+>  
+> @@ -691,10 +699,7 @@ static int handle_lamp_range_update_report(struct hid_device *hdev,
+>  	struct lamp_rgbi_tuple_t *update_channels_j;
+>  	int ret;
+>  
+> -	/*
+> -	 * Catching misformatted lamp_range_update_report and fail silently
+> -	 * according to "HID Usage Tables v1.5"
+> -	 */
+> +	// Catch bad reports and fail silently according to "HID Usage Tables v1.7"
+>  	if (rep->lamp_id_start > rep->lamp_id_end) {
+>  		hid_dbg(hdev, "lamp_id_start > lamp_id_end in lamp_range_update_report. Skipping whole report!\n");
+>  		return sizeof(*rep);
+> @@ -706,8 +711,8 @@ static int handle_lamp_range_update_report(struct hid_device *hdev,
+>  	}
+>  
+>  	/*
+> -	 * Break handle_lamp_range_update_report call down to multiple
+> -	 * handle_lamp_multi_update_report calls to easily ensure that mixing
+> +	 * Break handle_lamp_range_update_report call down into multiple
+> +	 * handle_lamp_multi_update_report calls to ensure that mixing
+>  	 * handle_lamp_range_update_report and handle_lamp_multi_update_report
+>  	 * does not break things.
+>  	 */
+> @@ -750,15 +755,12 @@ static int handle_lamp_array_control_report(struct hid_device *hdev __always_unu
+>  					    struct lamp_array_control_report_t *rep)
+>  {
+>  	/*
+> -	 * The keyboards firmware doesn't have any built in controls and the
+> -	 * built in effects are not implemented so this is a NOOP.
+> -	 * According to the HID Documentation (HID Usage Tables v1.5) this
+> +	 * The keyboard's firmware doesn't have any built-in controls and the
+> +	 * built-in effects are not implemented so this is a NOOP.
+> +	 * According to the HID Documentation (HID Usage Tables v1.7) this
+>  	 * function is optional and can be removed from the HID Report
+>  	 * Descriptor, but it should first be confirmed that userspace respects
+> -	 * this possibility too. The Microsoft MacroPad reference implementation
+> -	 * (https://github.com/microsoft/RP2040MacropadHidSample 1d6c3ad)
+> -	 * already deviates from the spec at another point, see
+> -	 * handle_lamp_*_update_report.
+> +	 * this possibility too.
+>  	 */
+>  
+>  	return sizeof(*rep);
+> @@ -894,8 +896,8 @@ static struct wmi_driver tuxedo_nb04_wmi_tux_driver = {
+>  };
+>  
+>  /*
+> - * We don't know if the WMI API is stable and how unique the GUID is for this
+> - * ODM. To be on the safe side we therefore only run this driver on tested
+> + * We don't know whether the WMI API is stable and how unique the GUID is for
+> + * this ODM. To be on the safe side we therefore only run this driver on tested
+>   * devices defined by this list.
+>   */
+>  static const struct dmi_system_id tested_devices_dmi_table[] __initconst = {
+> @@ -933,4 +935,5 @@ module_exit(tuxedo_nb04_wmi_tux_exit);
+>  
+>  MODULE_DESCRIPTION("Virtual HID LampArray interface for TUXEDO NB04 devices");
+>  MODULE_AUTHOR("Werner Sembach <wse@tuxedocomputers.com>");
+> +MODULE_AUTHOR("Aaron Erhardt <aer@tuxedocomputers.com>");
+>  MODULE_LICENSE("GPL");
+> 
