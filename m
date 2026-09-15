@@ -1,200 +1,155 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B547F222599;
-	Tue, 15 Sep 2026 00:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947B22E737F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789430514; cv=none; b=QW9Lnc0KhQH0JrHyaxxW1uR7d8ljdEg6jlZlnmT6ex9GdfXApsCsLehh4tpzn+MT+UE5uHztjmvRshboMOe+EHiYz867JQ5UYcQw5npKsVdfYD0HCmOlamMHlPCWhpR6TO8TpSyKKuShe1F57zIra9P6XAIPynCSTDHlUw83dzg=
+	t=1789430520; cv=none; b=cNTqj5VmJS8xSK0riFOyD9mWEkOCnLEhlQv766LUEWo9Hj4GmWE/8tdgOGjzkbDy9p3jEq54rtBK4P2rZBZbS+VYvAaUEg2v/tovhfnKbbGW4Z1Y+lLhd2IR0BiTKr+mamgmOX23LPCO5Uv/VxgyT76Bs+D/kYHXg8+/AzKnlB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789430514; c=relaxed/simple;
-	bh=DzjwrZ8Y9dyLlcnqv/R/WNI8vufkQK9CVzzRc4UyBTc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z/Rv70qNy9S4geqWdlL9rRgImostxeoWks5IPbhTYLBMWFlKYZfh7DvmTJEqK9rhUuEzOymE4dwo9PpOnDgExqm2tjQqGm+cIVABiVWmh5NXkUr0wp3GzG3/zTMBbo6Ib37+FWd4utm1vaw8YXGyf51xnoCCaDY3syrbjk+D1iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZWcf1LHI; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789430520; c=relaxed/simple;
+	bh=cCK5QtljhNwwltZ3gjweK3kol/149Oy3L0Nfhf3Vk4Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eMlpYl5ec88pqpGu2TNMdI/9LScDTxSTmNTumXnSCKwK+geJArJy14jmvyWOdLa0PhdF7h4FjHzcLT54WmY62vZyx+OH7RW/k41LpAsvpUTxC6FvwI5A/KkosY3hX4Ps2bd1o0FrXILPZy1Hj/yhT5nG01TJM7pmYJOEA+ssGsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qNk5wgjI; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZWcf1LHI"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 29F9D1741;
-	Tue, 15 Sep 2026 02:00:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789430410;
-	bh=DzjwrZ8Y9dyLlcnqv/R/WNI8vufkQK9CVzzRc4UyBTc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZWcf1LHIfdA9FFvZwb43y2WBf10oGppSLA7fg/MiniXKtxyDne1ZCtOT8ObbgbXSh
-	 0qnkcp59seWUhxwFj4YMw8ANrkoPEWd55t21scLKd6IiwaD/eyb8PQhYva5BsZ2vfv
-	 o7n2/snFedXFGUcIUBoeELKtNLE2+pn6yar23BQc=
-Date: Tue, 15 Sep 2026 03:01:49 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] media: imx8-isi: Use per-platform format_mask for
- output format field
-Message-ID: <20260915000149.GC2796257@killaraus.ideasonboard.com>
-References: <20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com>
- <20260831-isi_imx952-v2-2-fafdb4b446d4@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qNk5wgjI"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso21228755e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:01:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789430517; x=1790035317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=45XCm1gWXVXPQxvqd7V6pmmwz0pMn952uodMWyHXxOg=;
+        b=qNk5wgjI3pUMSnpjyaOCOvW5O+ezNYZK9t13OHg5LRsb0B6fxGQkbzjyUJhMWdzT0k
+         /RVRtHCL3jAeF0M3HNAhVGSNhR/LerPIN+yTTRkJzeJEW5Pq9V481N3vLqshD/gQ4Uwk
+         0TgOdUIHBbEWIXJSp+ToFXToDGVmglY2wsCKOsiKn0YBrCfo+720KGt/l1m6yMxKl00E
+         L6hpZe88qwDXu1B/ZYbhXvPNZEMFPtlRRdB7UgBvAwd3BCATaiG86UByQukv4R/2MlwK
+         4xnOze4rAn8zvJbSICr1bGcBjT1LomZq2T4LJxQkbEJxVzkTnu1ojGgrVaeR99IfgtPN
+         GrEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789430517; x=1790035317;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=45XCm1gWXVXPQxvqd7V6pmmwz0pMn952uodMWyHXxOg=;
+        b=u6JYwHCFeEsF6oFKBdL7x1xHvbDXA2eWG6w8Dqg982bgrT1soDG4wkGhdlhHpt1A/w
+         tChN2ANwFJZqjk5aIIMmuSbEfRbEbnMNll5HUJIC0jXTPzOeWbPxMIuSejt9T33ObqQG
+         gWs4bUQjbYEEsT9cl1HwrFOHjBZiRoF8xFrMUFHmQAMDjJ0/uI5+YYK9TbPB6yMbNMxQ
+         zG0+Ljd+7EPiB8BPvkxfhpQYZ2lyWBc+kbwbLu8F9ZX2kE6kY0qtQe7VPIWU3INecH3b
+         itxA/d2coA0xF/7w6OKp0Us/+OL+Y/Tec3KUA4xR6zkEMmB1vKcTK4UUZogev7/upnpn
+         Udvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwWcCrfS1kY/UbB6Nt5y0k7yigWstARb0WqvpnNX+fxQUu4+De59ThxchowqDa85D5mexBWHiWeSmWVvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzlEx5X8AdbCxVVgxywrSyTiOTOayAbT37VJpSUsziZzAvReF2
+	YT8mEBBQp+pQRSFvqKvY5KWk8S5C2eV3+tniL/l++SZtfqtd4XigYo36
+X-Gm-Gg: AYBFou2lm6ToNmH4DUAySM9JBrLZ6ZGocJ4K920w8pV0qLb0CuG5B82JXvRuDS82ipy
+	MC0GcR0xh6e7kgHKMtNXHj+FDOCgFHfp/bDnh1pufrYtuWizqTO+3ul31Ns5i4pmKaKE1ZXzi9P
+	1ElDmskQ3LZZAMUtp8a2SiWM94L04f+Bvzo5cDDmccTrz4YFvo+rXissOutUrJ0GcJLoE/T3a25
+	H9avOUAOMIyKe9EvvssxYeNWtXXvG24aq1KGpVQoGAGHm36skqtRf8TVy9ybVzOW5w0hWc5e6O3
+	8Gv9N89lSosirlkxKf5F38w13Kw6p7ezjzFD4Iv2GHOFuvEQ2Vi6uNG+sC1kixr6PKg8v2T77m9
+	sA6duNwIGiwlhB7fjBBwgIVWQqICJ7dAdIQYdwfqp5HziBkrR2sEwZmYFKgKEo0HbfnZD94NcJs
+	Jm4IuLp9bxbgq8S8p4wvWrziGi82M8WXKiuBN4xv6KYQfXBtygqL/BqmJmJ+8z0XCbzLS9yBpfH
+	TNKR5C2dgkTzzVR98YzsocjHf40r6QD
+X-Received: by 2002:a5d:64ce:0:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-48702b3ce87mr11660766f8f.28.1789430516532;
+        Mon, 14 Sep 2026 17:01:56 -0700 (PDT)
+Received: from raviolimobile.tail5f26fd.ts.net ([84.65.89.105])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm29896602f8f.2.2026.09.14.17.01.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 17:01:56 -0700 (PDT)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	lsa.uz@pm.me,
+	linux-kernel@vger.kernel.org,
+	Fernando Rimoli <fernandorimoli11@gmail.com>
+Subject: [PATCH] media: ipu-bridge: Add upside-down sensor quirks for the Surface Pro 9
+Date: Tue, 15 Sep 2026 01:01:40 +0100
+Message-ID: <20260915000140.47125-1-fernandorimoli11@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-isi_imx952-v2-2-fafdb4b446d4@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 11:36:57AM +0800, Guoniu Zhou wrote:
-> The ISI output format field width differs across SoC generations:
-> i.MX8 series (MN/MP/QM/QXP) use a 6-bit field (bits 29:24), while
-> from i.MX8ULP onwards (including i.MX91/93/95/952) the field is
-> extended to 7 bits (bits 30:24) to support RAW32 and RAW14 formats.
-> 
-> Replace the static CHNL_IMG_CTRL_FORMAT_MASK with a per-platform
-> format_mask in mxc_isi_plat_data to correctly match the hardware
-> format field width for each SoC.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> ---
-> Changes in v2:
-> - Add Reviewed-by tag from Frank Li
-> ---
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 8 ++++++++
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h | 1 +
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c   | 3 ++-
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h | 1 -
->  4 files changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> index f2a8eb82fbfd..c1c16dbc1539 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> @@ -297,6 +297,7 @@ static const struct mxc_isi_plat_data mxc_imx8mn_data = {
->  	.reg_offset		= 0,
->  	.ier_reg		= &mxc_imx8_isi_ier_v1,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(29, 24),
->  	.buf_active_reverse	= false,
->  	.gasket_ops		= &mxc_imx8_gasket_ops,
->  	.has_36bit_dma		= false,
-> @@ -309,6 +310,7 @@ static const struct mxc_isi_plat_data mxc_imx8mp_data = {
->  	.reg_offset		= 0x2000,
->  	.ier_reg		= &mxc_imx8_isi_ier_v2,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(29, 24),
->  	.buf_active_reverse	= true,
->  	.gasket_ops		= &mxc_imx8_gasket_ops,
->  	.has_36bit_dma		= true,
-> @@ -322,6 +324,7 @@ static const struct mxc_isi_plat_data mxc_imx8qm_data = {
->  	.reg_offset		= 0x10000,
->  	.ier_reg		= &mxc_imx8_isi_ier_qm,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(29, 24),
->  	.buf_active_reverse	= true,
->  	.has_36bit_dma		= false,
->  };
-> @@ -334,6 +337,7 @@ static const struct mxc_isi_plat_data mxc_imx8qxp_data = {
->  	.reg_offset		= 0x10000,
->  	.ier_reg		= &mxc_imx8_isi_ier_v2,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(29, 24),
->  	.buf_active_reverse	= true,
->  	.has_36bit_dma		= false,
->  };
-> @@ -345,6 +349,7 @@ static const struct mxc_isi_plat_data mxc_imx8ulp_data = {
->  	.reg_offset		= 0x0,
->  	.ier_reg		= &mxc_imx8_isi_ier_v2,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(30, 24),
->  	.buf_active_reverse	= true,
->  	.has_36bit_dma		= false,
->  };
-> @@ -356,6 +361,7 @@ static const struct mxc_isi_plat_data mxc_imx91_data = {
->  	.reg_offset		= 0,
->  	.ier_reg		= &mxc_imx8_isi_ier_v2,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(30, 24),
->  	.buf_active_reverse	= true,
->  	.has_36bit_dma		= false,
->  };
-> @@ -367,6 +373,7 @@ static const struct mxc_isi_plat_data mxc_imx93_data = {
->  	.reg_offset		= 0,
->  	.ier_reg		= &mxc_imx8_isi_ier_v2,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(30, 24),
->  	.buf_active_reverse	= true,
->  	.gasket_ops		= &mxc_imx93_gasket_ops,
->  	.has_36bit_dma		= false,
-> @@ -380,6 +387,7 @@ static const struct mxc_isi_plat_data mxc_imx95_data = {
->  	.reg_offset		= 0x10000,
->  	.ier_reg		= &mxc_imx8_isi_ier_v2,
->  	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(30, 24),
->  	.buf_active_reverse	= true,
->  	.has_36bit_dma		= true,
->  };
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> index 58b47335afc7..05c21c448b93 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> @@ -175,6 +175,7 @@ struct mxc_isi_plat_data {
->  	const struct mxc_isi_ier_reg  *ier_reg;
->  	const struct mxc_isi_set_thd *set_thd;
->  	const struct mxc_gasket_ops *gasket_ops;
-> +	u32 format_mask;
->  	bool buf_active_reverse;
->  	bool has_36bit_dma;
->  };
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-> index 6aa760ce3605..2405f7d33d0a 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-> @@ -410,13 +410,14 @@ void mxc_isi_channel_set_output_format(struct mxc_isi_pipe *pipe,
->  				       const struct mxc_isi_format_info *info,
->  				       struct v4l2_pix_format_mplane *format)
->  {
-> +	const struct mxc_isi_plat_data *pdata = pipe->isi->pdata;
->  	u32 val;
->  
->  	/* set outbuf format */
->  	dev_dbg(pipe->isi->dev, "output format %p4cc", &format->pixelformat);
->  
->  	val = mxc_isi_read(pipe, CHNL_IMG_CTRL);
-> -	val &= ~CHNL_IMG_CTRL_FORMAT_MASK;
-> +	val &= ~pdata->format_mask;
->  	val |= CHNL_IMG_CTRL_FORMAT(info->isi_out_format);
->  	mxc_isi_write(pipe, CHNL_IMG_CTRL, val);
->  
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-> index e795f4daf3ff..7c4e736f4651 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-> @@ -39,7 +39,6 @@
->  /* Channel Image Control Register */
->  #define CHNL_IMG_CTRL						0x0004
->  #define CHNL_IMG_CTRL_FORMAT(n)					((n) << 24)
-> -#define CHNL_IMG_CTRL_FORMAT_MASK				GENMASK(29, 24)
+The Microsoft Surface Pro 9 mounts both its front sensor (OVTI5693) and
+its rear one (OVTID858) rotated 180 degrees, and its SSDB reports 0 for
+each, so frames from either arrive inverted with nothing to say so.
 
-Wouldn't it be simpler to extend this mask to 7 bits unconditionally ?
-If bit 30 isn't used on older platforms, clearing it shouldn't cause
-issues.
+Add both to upside_down_sensor_dmi_ids. The two entries carry identical
+DMI matches and differ only in the ACPI HID they gate on, which works
+because ipu_bridge_parse_rotation() walks every matching DMI entry rather
+than stopping at the first one.
 
->  #define CHNL_IMG_CTRL_FORMAT_RGBA8888				0x00
->  #define CHNL_IMG_CTRL_FORMAT_ABGR8888				0x01
->  #define CHNL_IMG_CTRL_FORMAT_ARGB8888				0x02
+Measured on a Surface Pro 9, DMI product SKU Surface_Pro_9_2038, IPU6
+Alder Lake-P 8086:465d, where the inversion of both sensors was confirmed
+visually. Matched on DMI_PRODUCT_NAME as the rest of the table is, rather
+than on the narrower SKU: the entries only take effect when the ACPI HID
+matches too, so a variant of the same model that shipped different
+sensors is left alone.
 
--- 
-Regards,
+This makes the kernel report the mounting truthfully and does no more
+than that. Nothing in the bridge rotates pixels, so an application that
+reads the property can turn the image the right way up while one that
+ignores it still shows it inverted.
 
-Laurent Pinchart
+Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+---
+Applies to media/next as it stands today.
+
+Two notes for whoever sequences this against Sergey Lebedev's Surface Pro 11
+entry, which is in flight for the same table:
+
+  https://lore.kernel.org/linux-media/20260913153526.80287-1-lsa.uz@pm.me/
+
+Both his entry and mine go in immediately before the terminating entry, so
+whichever is applied second needs a one-line context fix. Nothing else in the
+two overlaps: different machines, different HIDs.
+
+Separately, and only because it would be a shame for it to be dropped
+silently: his version as posted does not apply to the current tip. Its hunk
+context ends at the Samsung Galaxy Book5 Pro 360 entry (OVTI02E1), while the
+table now ends with the Book3 Ultra (960XFH, OVTI02C1), so his base predates
+that entry. A rebase is all it needs.
+
+I have not touched the Surface Pro 9 rear sensor's own bridge entry here.
+That is Sergey's patch, which I tested separately:
+
+  https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
+
+ drivers/media/pci/intel/ipu-bridge.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 952868a..f286881 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -226,6 +226,22 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
+ 		},
+ 		.driver_data = "OVTI02C1",
+ 	},
++	{
++		/* Microsoft Surface Pro 9, front sensor */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
++		},
++		.driver_data = "OVTI5693",
++	},
++	{
++		/* Microsoft Surface Pro 9, rear sensor */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
++		},
++		.driver_data = "OVTID858",
++	},
+ 	{} /* Terminating entry */
+ };
+ 
