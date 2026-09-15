@@ -1,177 +1,113 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE33A446060
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501284; cv=pass; b=PXgfqYKxznrwBoQsdBBf87C3gVW9imcXNAjp3UIQexuyXzDKVhdQ0k8WesA4fq9G82lvlhc3WlRrhckI6hq4Awz6i4xRC0SfBqp3U0TA5dJFQ7ddJ/7VFmjpNFDUZ16eMVPsHwy3sFIJbH1YDV1T0zuqtxqZLhbxZiOfiI6vA/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501284; c=relaxed/simple;
-	bh=Ej8KoSGeQxcULu7TQzQUynSHUdtMBfWtTqc1vw1YL5s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F9p+p6pqggVDyYCSaW18PceSRkwRtzpjL1c9u1gyU6SnzgxNjeAUCmX3WnJe1pJPvs937gzj8Kntxn6G9eIZNlj8S3OHi/Xk0tP1Urb0nlDf+vN/1bc/vb0DFHm+djQjKq7jgC9fOpkzNG6ZrogfVUVIQRPzNe9n0tpWqdFuzhg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hF8qjw1u; arc=pass smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967C2449B1C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789501335; cv=none; b=ccW0ursn8l4m6+XShdSF0EsGhS4mTriXMmNiV8ax8OMQmz0z8qoiqpxfq1ngRdq/1BCVdhZ6BBddSSQxOF5YYLC5d8f0bPleLhSLl7e5s5nmzWCCZlt/X5lm39rnMWAu11CAWp7KQ9BultgjCc44o9sAdDZtoKSGdYE6bgNmews=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789501335; c=relaxed/simple;
+	bh=w/pHJ5c8QmhzPeq/ip8dRuB1hNjFGP9nAGhciLQqwqE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zwqx1PD9MxaQeeo07xSFPhWeg6axhcswDwhfvjktqaVzKi1mEfyvwRwZ+sYsRlu6TDfpz1qMxx4JjgNYHoIALXPua/yqZgZbFy838LDB5DeUikensO5T5ZoavxdvM7bx7wa9HAWfhfFv4kax4ioJz846VAgT1W9hxiHsB3bFaDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMpAiatR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hF8qjw1u"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d5fc2cd8so61251cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:41:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789501282; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gHthc6FhcKzLh7n9zZmSnoqaxEl5/y6BLCCCsS8H1am1U17jY7Kblnk29ldKL3CZtc
-         jdVSEUBHpCKCVxm3ynToi1E+u4yRT6p0VJ9AxRvYv2eRkcsaJcPsbfpW4B6iXOTQyqmL
-         n8XskXnlVRil4s/wbqCnuS7SybN8vLolmJdLz1cORhxpzjiAPRgCzd8+R6skF/szSRz6
-         E6CiM8HqTAMtGNYGCUolO/uEhqA5gZSQoYuSh+sfFMh9euRqHXq5YvJvnAcPpn7LCZFk
-         5BzYF+IiHEJTIXICjnu2jYyNOln5hUWu3aTYetRld6oXmE06mBuYhuIVwvbO3IZfpIKJ
-         KOdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SC/BXcHW8jtefC9sLazfapcUVxrIRpfnR3KQcEsZeeg=;
-        fh=8m5gQu2RSB8hYWmYoCiFEtyUaSP4kFml0iDut8yBDA8=;
-        b=MxAcKMkK3FHz+/9TjCevXTyi95hg+xwpci31rXO2VVYpQdOmE7fINQ4hUhXF15YfYp
-         9RK+mTrpF1qfiHQldRKcpO7sZkAjUS+boSu9KCN7yuUjGtfo92WS6mG0YF8Kssbb4Yg7
-         cvMLwcgaEloy3spxIdZpc1JYqiAufMQqhR9GxT6ausj+mqb9sTVCGILIoY/mfgcqDbWz
-         UvDHN9YQz/nl9KqxScNRywhVqlt8lrIz2DSV1e070Fqgg6RY0c5SxwKCWYHlo1ybgxbD
-         PYLGZG4Mq+X/uGzR+qtaAAlrx2j0RmV+D5FOWrmocfwuGRrLuSArwYcF56NPlsk5uGFi
-         aV+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789501282; x=1790106082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SC/BXcHW8jtefC9sLazfapcUVxrIRpfnR3KQcEsZeeg=;
-        b=hF8qjw1u2vCM7UclK2xScfzFUaFcZOdz/J5ymhd+PAWAwsUUFX54Vyd/5MQCHT4izq
-         RgZGcD1AVK0FJhVKy61okXkkZw5zs0CzDwIqZobtghxI9mVIseaCHpH3lzARZMhwSFn1
-         aT+IIcie6yew0SxURpKNsy3k7LWKQC0qIBPOc9aqRedKVaKUp59ff+g4XIQTleoeHAid
-         Por9tEhEmIbAnwdPrzmQZV9iS99NNMBgG55MiMeZMp9NDDY5WxNgaJcDG1pP9zEGXx8f
-         zq7pp/7VsYQ9HiE2577m8glm8PuZYcnfqFhuxfudrostIUv0epZHUfoJhVoVjsJOiAVl
-         Qg0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789501282; x=1790106082;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SC/BXcHW8jtefC9sLazfapcUVxrIRpfnR3KQcEsZeeg=;
-        b=p6ct1MygHqNPCKDf/Psz+AvqF1znU2HS3glDKWmojy1MInCSbDM1D5bDfsEBFoTaPI
-         TqLBMbtPvHA1nUQjLAZZzzvn5fPLmOmU94Rp7jBooibpKvBU8hNhBmj2dNJaag8I8ANl
-         RAfb7Nbpv9AxgvgMgvcuxwjYhsP+kHXdloFAlIL0/O7eQC2BJCtHoDwSClP7s+8j/ISQ
-         nS90VdaEAB6EyIVT5PbDZxqI7WnA5eyaZxGFAGwxfb+Lz5QKvY/+mRgzXRCZ2zs4Fz+s
-         IvZAUQgVpbf4Aq5pbEUuxleN1f/JPl+91CVJvdLEexoXU0djs4LAp9gJjqdQVKEzlMav
-         kP3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByY9o51hUtFI4MP6vBOSXPXZ9UdetqSQ+Mw/4trVeLnxFeE6rDuBuAEHqlVCiKHOCigHIIfFI6aQiK2SI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqtjk7epkxdtMBBzJFdFgvQ3lX8KPLETlQNj2DeVWDtHQoVGx2
-	8CwtFPIzzBCWhG2sUzkX7e2AP+EYCvM8Z6B6ejEyk+OazmsWf4zGJlbsrhzhKDznRXLerxktdHP
-	3LVMlRtVn0DkwA0/r6B+lCWJ+eERfYT8gO79U9Ja8
-X-Gm-Gg: AYBFou0qDa/I0/yxhLqIT8J24b7WVNpP5tYkWudZHjxTtuYpqo/E9+ef2IBVK9XCt/x
-	vUsduC8qVaWpqF++iic0zmoLGRgPM4rz9ebPy1OJmXstJkEopEu1UW8PjKTAZdBm1dN2CxcK1gC
-	LvR9WMg6q3BmykHvCVLsFPE3dv6G1+Z91p1FqgLPsyjsQLyjPMvRNgAZJ9PiDR1I/QJSNJhUNqL
-	AYh5V5KxBrfTQ8/XEvfAFCjyeJqh8W9lKrptrj7L4sZMKwYh94gii5xwcpNbnJZRRsLIkpt4NiA
-	lJf3HcI5GDRwxp36YEhnu3c4FiWqjVpritlr8i3ZpeIlT7GcMBL+CGT+OOlq/GB4g8bBqZob9zi
-	zT+QjfjcBQw==
-X-Received: by 2002:a05:622a:1b14:b0:531:a85:69c1 with SMTP id
- d75a77b69052e-53259a90915mr2530131cf.5.1789501276092; Tue, 15 Sep 2026
- 12:41:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMpAiatR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEEB41F000FF;
+	Tue, 15 Sep 2026 19:42:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789501334;
+	bh=lRO8Hk7d0Iglr71vivK2TJOxKQ4BfQZPY0f0uOCf70A=;
+	h=From:To:Cc:Subject:Date;
+	b=OMpAiatROL25mc3V5Oa3jASlu12n9NRTmK8khclYKmw7Q/qhhd3StaLKttvbOsUjL
+	 ON9rV35hqshOLynoAmZ7P+w0hH3mWng57BYZ/RNQVrWFnZDVbFJrRLc+N/UCJ1b/R/
+	 sI7JJMcR0dvKx1V8/x6dBB70O0Atr5AINdUCh+oMGdrWlgNr3EujPnv63OQduhE066
+	 rKniqi4N3bGXOtFESjWV0iGrfyLS7OMK5ENKdZ4vvv0jL1I68lnJtiMXJlfoYlOyNi
+	 3i8SqCR9HhZdFTJQsPVT5AI1gB7Im7ifgF0qlPGjtgeohc4UqCc1bDmLodSJRnnu6V
+	 j1UZ8nkzLqMEA==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mtd: spi-nor: reduce stack usage in spi_nor_parse_sfdp()
+Date: Tue, 15 Sep 2026 21:40:31 +0200
+Message-ID: <20260915194203.3511147-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912055619.2284443-1-sh_def@163.com>
-In-Reply-To: <20260912055619.2284443-1-sh_def@163.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 15 Sep 2026 12:41:03 -0700
-X-Gm-Features: AcwNN1VHVa5QCumRu92Zeyc87_NMbjXv1GcU2uE0TNV-q1jJtI9u_WX-kNBr56E
-Message-ID: <CAP-5=fUCDeC+mAi_cVpNr+WoUXvpMG8948GVnb8OQV95PhVQ6A@mail.gmail.com>
-Subject: Re: [PATCH] perf synthetic-events: Fix schedstat event lifetime handling
-To: Hui Su <sh_def@163.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 10:56=E2=80=AFPM Hui Su <sh_def@163.com> wrote:
->
-> perf_event__synthesize_schedstat() has two event lifetime issues.
->
-> After a successful iteration, event is freed but retains its value. If
-> the next iteration starts with an unrecognized schedstat record type,
-> neither synthesizer assigns a new value. The stale pointer then passes
-> the NULL check, may be passed to process(), and is freed again.
->
-> In addition, when user_requested_cpus filters out a synthesized event,
-> the continue path skips free(event), leaking the event.
->
-> Make event local to each loop iteration so it always starts as NULL.
-> Also avoid the filter continue and unconditionally free each synthesized
-> event at the end of the iteration.
->
-> Fixes: c3030995f23b ("perf sched stats: Add record and rawdump support")
-> Signed-off-by: Hui Su <sh_def@163.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+Two large spi_nor_flash_parameter structures on a function stack
+is really too much, and this can exceed an otherwise reasonable
+frame limit:
 
-Thanks!
-Ian
+drivers/mtd/spi-nor/sfdp.c: In function 'spi_nor_parse_sfdp':
+drivers/mtd/spi-nor/sfdp.c:1717:1: error: the frame size of 1600 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
 
-> ---
->  tools/perf/util/synthetic-events.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
->
-> diff --git a/tools/perf/util/synthetic-events.c b/tools/perf/util/synthet=
-ic-events.c
-> index 0c150193cca8..2eac2310a01d 100644
-> --- a/tools/perf/util/synthetic-events.c
-> +++ b/tools/perf/util/synthetic-events.c
-> @@ -2817,7 +2817,6 @@ int perf_event__synthesize_schedstat(const struct p=
-erf_tool *tool,
->                                      struct perf_cpu_map *user_requested_=
-cpus)
->  {
->         char *line =3D NULL, path[PATH_MAX];
-> -       union perf_event *event =3D NULL;
->         size_t line_len =3D 0;
->         char bf[BUFSIZ];
->         __u64 timestamp;
-> @@ -2858,6 +2857,7 @@ int perf_event__synthesize_schedstat(const struct p=
-erf_tool *tool,
->          * for filtered out cpus.
->          */
->         for (ch =3D io__get_char(&io); !io.eof; ch =3D io__get_char(&io))=
+Change one of them to a dynamic allocation to make this more reasonable.
+
+Fixes: d20029474a76 ("mtd: spi-nor: push the rollback mechanism into the sfdp module")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/mtd/spi-nor/sfdp.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+index c21a6953db96..5d0901074f50 100644
+--- a/drivers/mtd/spi-nor/sfdp.c
++++ b/drivers/mtd/spi-nor/sfdp.c
+@@ -1520,7 +1520,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
  {
-> +               union perf_event *event =3D NULL;
->                 struct perf_cpu this_cpu;
->
->                 if (ch =3D=3D 'c') {
-> @@ -2872,12 +2872,12 @@ int perf_event__synthesize_schedstat(const struct=
- perf_tool *tool,
->
->                 this_cpu.cpu =3D cpu;
->
-> -               if (user_requested_cpus && !perf_cpu_map__has(user_reques=
-ted_cpus, this_cpu))
-> -                       continue;
-> -
-> -               if (process(tool, event, NULL, NULL) < 0) {
-> -                       free(event);
-> -                       goto out_free_line;
-> +               if (!user_requested_cpus ||
-> +                   perf_cpu_map__has(user_requested_cpus, this_cpu)) {
-> +                       if (process(tool, event, NULL, NULL) < 0) {
-> +                               free(event);
-> +                               goto out_free_line;
-> +                       }
->                 }
->
->                 free(event);
-> --
-> 2.55.0
->
+ 	const struct sfdp_parameter_header *param_header, *bfpt_header;
+ 	struct sfdp_parameter_header *param_headers = NULL;
+-	struct spi_nor_flash_parameter params, params2;
++	struct spi_nor_flash_parameter __free(kfree) *params = NULL;
+ 	struct sfdp_header header;
+ 	struct device *dev = nor->dev;
+ 	struct sfdp *sfdp;
+@@ -1532,7 +1532,9 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+ 	 * Get a backup of all the parameter to roll back to in case of an
+ 	 * error.
+ 	 */
+-	memcpy(&params, nor->params, sizeof(params));
++	params = kmemdup(nor->params, sizeof(*params), GFP_KERNEL);
++	if (!params)
++		return -ENOMEM;
+ 
+ 	/* Get the SFDP header. */
+ 	err = spi_nor_read_sfdp_dma_unsafe(nor, 0, sizeof(header), &header);
+@@ -1652,6 +1654,8 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+ 
+ 	/* Parse optional parameter tables. */
+ 	for (i = 0; i < header.nph; i++) {
++		struct spi_nor_flash_parameter params2;
++
+ 		memcpy(&params2, nor->params, sizeof(params2));
+ 		param_header = &param_headers[i];
+ 
+@@ -1711,7 +1715,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+ free_param_headers:
+ 	kfree(param_headers);
+ 	if (err)
+-		memcpy(nor->params, &params, sizeof(*nor->params));
++		memcpy(nor->params, params, sizeof(*nor->params));
+ 
+ 	return err;
+ }
+-- 
+2.53.0
+
