@@ -1,52 +1,52 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5632038B149
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2665C392C2C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436327; cv=none; b=tHh8jXu73Q9OE4rkJNYon8mFngYMrUmdHUUfvmDaRqwzwtJI2Dq1rOnDcUyJUpCZDIBkostjhHvnx86XesJvUKaiItGTC73QM8NF9M5OrdGbVEif1EmprLIBLbzBOUGCSP3kcH5a8qLYtWeZNfbEhOvGzKOYbVmJ+q959FLQPL8=
+	t=1789436330; cv=none; b=lakrTA882E2RRt1/3XpJ9Wk8Gj4pt/SlqlLnXSzS7l53+Znb0F9afods4FxvCFV2c10CvgVpSAj09SFsa/xBEYPE6Xa0VX5DN8pvFKoAQc8/dv8TTg2PuqhslRYwtVBsFXorVCx77Un9MkhJ4c2WsZsebq/TNllUew5Qh2gh1kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436327; c=relaxed/simple;
-	bh=/TKrTZgd0YfyEjb54nAEPi+Q7v30e2+bVMpdLEFoDlw=;
+	s=arc-20240116; t=1789436330; c=relaxed/simple;
+	bh=MPkdKKU/7GUG2aXSqsI6wgbkgwkvax2NhB9XOBGUO7Y=;
 	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=U085zKlEoARC+uq8s0cHoCXURqVWiIX7zO5JTs27Mpw+/hicaoh2YhOXnqgEqA22aymUhwvECuSra99aRwou+DAtJJrEYdrb+b/79znkZx90DyceZEfuAN//40Jrd4y92aojLtYgwdY4Asr109NoXLz2uCLp8RSR6bGbsdgSAxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+	 Content-Type; b=GvipgoUanhdalZv9yvIbkSF0AXXM2Y/XDkDtICe1PRLQQJLqVbGdbdgh6t5zutKs8lCZEFIUMpzyZHCj8CfP52Q3cCgQQWUef7jlnfByg6EvCbJJSYGOJW9cYmjKqHDhdrBf4KLdVT3/Iqpg4zHJUZCZBMd3q3VNhgYE0on7ywg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c2bb8200b0so3511659eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:41 -0700 (PDT)
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-48e5de5a23cso5578197b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436321; x=1790041121;
+        d=1e100.net; s=20260707; t=1789436328; x=1790041128;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=hgg7l0OlgFO6mh/Pim1q7cd/wJ4O30YZyz+wzdxOAHc=;
-        b=XkNDs6+0uy+0Hsw7Ia5GNq3F9k8USnkjrMdWlNDx9Vk6QFyJZfdsH4wcK8WuCDS/UU
-         8TPlOm1cqr5Z/RSDQXTbVLIBDC8F00YrOMEcUbhYQo61S04IDpr+ekTgqB1dqYlc3tuj
-         HzNot8ujNqR67mZstETHLX2AWuuVHrm41D2d9FflGvtwINGQRf4Fd8qB5Qjs2H+txgs3
-         PQixm5v9oSgCwAKryfNQ00C9jVwdxUldN67FcsiIyj7TuJlbgfwXkJkLNTUwFHAjQG4d
-         hx0Vn8DR8Ccxu7V2yQmsvxceuMPo1TxfyVaVaUwBpkuy5F9g3DkAoUm2tDDcWXFXoq2Q
-         YYMQ==
-X-Gm-Message-State: AFuF++nyZCoG0pbFipvqwmUc0fvD4leUrJ9Xo/kqVE3Uf3VwD/swzpen
-	/4GZ/NMMrZdotc/LRLcFwTLKul43FsbSbT7FE8Ep4YkZt65jG9wW16HjMqL4flXfWVJdEbh9HBL
-	0LJb7zlcGFiY3gqI2ZkxJll6QIUh1CoA9RWf2BmTd/8qKHOVHE8+k53Vt89M=
+        bh=SK8Up1k6e9dMSamna4ssit4ZSwewHiMfuuR+D6fsW7o=;
+        b=OiL+dV5KX1A4fb8ATxTMKYE+IRFoRGEgCuvFuiCUG+OSVt56dgJ3zVIIt3TrOHxHXJ
+         /Emxz1LLdANduECtVwCNi84o5uO4Ari+0VT9/BW/ZVywj4DMKwVSCrJlWGzq9O/8QYcw
+         ddQSTXAoKhpM/+ZH8cJaRYZudGibfCxqAMhO4PjhNZyp3+dX7XMDlFAlAEW0O+FM3mPu
+         hfZjNQuepYXxy/u6zZck8P7b/es06GGQ1ElzZA7E8hNoND1tE4FhesAwCRpi6+rXZ1NA
+         CZAa0ugG/lHL2nejnp37M6y7I55t4wCdmgFN1MEZ5PSVn+x4d541SK5qHGI0OZeA/9L1
+         l88w==
+X-Gm-Message-State: AFuF++nrk/+3KbHkhLy9+QS0bg8S2NaZsIotusXMvpubY07MLGIpwTZJ
+	rBDSk0lwLLoC9TMbcMSiH8wou5x3TfUZ6gSnrhzoqcP5zeHWBqBlFgZIuAdqKmgCU8125rPaVO6
+	sq4XKwqMVHW0xNKXHGn8SRisDzv9Vi1QP5cb/xg+YLE3nEZ7Gqj53Z0pakvQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:16a3:b0:6b1:8780:70fe with SMTP id
- 006d021491bc7-6c54214a0bbmr2931611eaf.2.1789436320949; Mon, 14 Sep 2026
- 18:38:40 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:38:40 -0700
-In-Reply-To: <6aa4a377.f81106d8.2ab401.0024.GAE@google.com>
+X-Received: by 2002:a4a:ec49:0:b0:6c1:f832:9b45 with SMTP id
+ 006d021491bc7-6c54214a0e7mr4977457eaf.25.1789436327830; Mon, 14 Sep 2026
+ 18:38:47 -0700 (PDT)
+Date: Mon, 14 Sep 2026 18:38:47 -0700
+In-Reply-To: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa8a1a0.a211d2ce.1a5198.02a0.GAE@google.com>
-Subject: Forwarded: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
-From: syzbot <syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com>
+Message-ID: <6aa8a1a7.4c28b7d0.c1bba.002a.GAE@google.com>
+Subject: Forwarded: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
+From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -55,29 +55,30 @@ linux-kernel@vger.kernel.org.
 
 ***
 
-Subject: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
+Subject: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
 Author: jchuang26@m.fudan.edu.cn
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git master
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Reported-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
+Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
 
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 9b4e29557..2449df2e9 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -3390,7 +3390,13 @@ static bool expect_iter_name(struct nf_conntrack_expect *exp, void *data)
- 	struct nf_conntrack_helper *helper;
- 	const char *name = data;
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index 53fbdbbe8..24ea350cd 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -1410,9 +1410,13 @@ batadv_iv_ogm_update_seqnos(const struct ethhdr *ethhdr,
+ 		return BATADV_NO_DUP;
  
--	helper = rcu_dereference(exp->helper);
-+	/* This iterator runs under nf_conntrack_expect_lock (see
-+	 * nf_ct_expect_iterate_net()), which serializes changes to exp->helper.
-+	 * Use the protected accessor to document that lock-based protection and
-+	 * avoid a bogus RCU lockdep splat.
-+	 */
-+	helper = rcu_dereference_protected(exp->helper,
-+					   lockdep_is_held(&nf_conntrack_expect_lock));
- 	if (!helper)
- 		return false;
+ 	orig_ifinfo = batadv_orig_ifinfo_new(orig_node, if_outgoing);
+-	if (WARN_ON(!orig_ifinfo)) {
++	if (!orig_ifinfo) {
++		/* The GFP_ATOMIC allocation inside batadv_orig_ifinfo_new()
++		 * may fail under memory pressure. That is not a kernel bug,
++		 * so don't WARN; just skip duplicate detection.
++		 */
+ 		batadv_orig_node_put(orig_node);
+-		return 0;
++		return BATADV_NO_DUP;
+ 	}
  
+ 	spin_lock_bh(&orig_node->bat_iv.ogm_cnt_lock);
