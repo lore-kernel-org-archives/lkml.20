@@ -1,125 +1,200 @@
-Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD68233958
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B547F222599;
+	Tue, 15 Sep 2026 00:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789430492; cv=none; b=N7SXAlMk5MsItdywfwZxNxnSqVGD1W4efd5k3XJPF1/BaL1c9tJMcwoBuauCuOVyZbJOPVRS6dXsUj7rXDqsd6bB3iyJjX6UhZpDzIZ8nVdQ41jKLNqXxk1vUF5ynfvBWLb0DIEyu6iZiOr4vEKs5FVFgg7+ph2TakCT5hzSRzc=
+	t=1789430514; cv=none; b=QW9Lnc0KhQH0JrHyaxxW1uR7d8ljdEg6jlZlnmT6ex9GdfXApsCsLehh4tpzn+MT+UE5uHztjmvRshboMOe+EHiYz867JQ5UYcQw5npKsVdfYD0HCmOlamMHlPCWhpR6TO8TpSyKKuShe1F57zIra9P6XAIPynCSTDHlUw83dzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789430492; c=relaxed/simple;
-	bh=ndPHPcuNAgnFgwMbNlk2cpQ1dQPCvu0Zv4bqAH2RVuQ=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=avlBZNukD6Kv7v0vFZCHKd5n5A61wIlUyMpdlpHbUPuTdqrkEFWAqfUUBOR6h27zckUbjp5kSBFqIMUg9qRyfKSOiPhWY9OKQiE+TFKKHPEa/Gvm9Ygj77cFalatOpBGNGR2ZMUgYOxloeQ9wnAkiBOLUk8Y7q7VOtmYuZi24tM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-4b3759b7ff0so2290358b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:01:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789430490; x=1790035290;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=42pyn03/Is9WXS70Xy6ArOrkBnr87wlyvpkJlNs0NYA=;
-        b=AOYzFvV+T4ryBcBHCU2FPYo6doWWqhhYVUDB6ej5rlhd8FUvBfO0ZZM8err0ZWE92G
-         5Y2NJhi1MV0SDQiik+qesfXv7BiE3PC04/H0AkQElWGtEmuZPjoFYBfz2hXnOT7W3OSP
-         zXaCZd2I1qRzED6wCkBTU3ercG3+Ke31xCybamG/iwJlxRBl68lBQOrP2bNvX1PHD5he
-         xjSPy3kLJBpmXoAZsSF1JJZa+agiEe6964jCf84xM0mJ5D9GStNA71aCxjs0MYYdlE1M
-         mmPrnIBMC9d+RcokbUdoRHSCollc7/KRQiz647dj1qR8gvjU91k26zq5UvT1DIVtUWg1
-         U6sA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFh88co9Tgn3HhS6nIPuEiJlbF3pC4bgLKIqS4Us4MthgaxgpDBu7dotd1+o+5BbIReAk7N3uoQhDX40M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX2wa5dELr1hy2qkeAmCIXWquN+Wp+0z64/EA4N9SN514K+w3e
-	D7h4edvbke3pKHLi0H79pBHbBGKZlNYAlX/38yY/jN11QWKacBf9g06+J5kWCn2av6EI7+fzaBe
-	iIIFDuZPBdZH25mJcZca8zFmw4WXRSEsQxIPn0Zx/xRo6sXZTJw76zJXnh/0=
+	s=arc-20240116; t=1789430514; c=relaxed/simple;
+	bh=DzjwrZ8Y9dyLlcnqv/R/WNI8vufkQK9CVzzRc4UyBTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z/Rv70qNy9S4geqWdlL9rRgImostxeoWks5IPbhTYLBMWFlKYZfh7DvmTJEqK9rhUuEzOymE4dwo9PpOnDgExqm2tjQqGm+cIVABiVWmh5NXkUr0wp3GzG3/zTMBbo6Ib37+FWd4utm1vaw8YXGyf51xnoCCaDY3syrbjk+D1iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZWcf1LHI; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZWcf1LHI"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 29F9D1741;
+	Tue, 15 Sep 2026 02:00:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789430410;
+	bh=DzjwrZ8Y9dyLlcnqv/R/WNI8vufkQK9CVzzRc4UyBTc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZWcf1LHIfdA9FFvZwb43y2WBf10oGppSLA7fg/MiniXKtxyDne1ZCtOT8ObbgbXSh
+	 0qnkcp59seWUhxwFj4YMw8ANrkoPEWd55t21scLKd6IiwaD/eyb8PQhYva5BsZ2vfv
+	 o7n2/snFedXFGUcIUBoeELKtNLE2+pn6yar23BQc=
+Date: Tue, 15 Sep 2026 03:01:49 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] media: imx8-isi: Use per-platform format_mask for
+ output format field
+Message-ID: <20260915000149.GC2796257@killaraus.ideasonboard.com>
+References: <20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com>
+ <20260831-isi_imx952-v2-2-fafdb4b446d4@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f6a:b0:4c2:c244:72f9 with SMTP id
- 5614622812f47-4c7b52a80dfmr3904791b6e.24.1789430489924; Mon, 14 Sep 2026
- 17:01:29 -0700 (PDT)
-Date: Mon, 14 Sep 2026 17:01:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa88ad9.4c28b7d0.c1bba.0024.GAE@google.com>
-Subject: [syzbot] [kernel?] upstream test error: WARNING in rcu_tasks_verify_work_fn
-From: syzbot <syzbot+9d7ab3bc11055d9740f5@syzkaller.appspotmail.com>
-To: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	linux-kernel@vger.kernel.org, mingo@redhat.com, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260831-isi_imx952-v2-2-fafdb4b446d4@oss.nxp.com>
 
-Hello,
+On Mon, Aug 31, 2026 at 11:36:57AM +0800, Guoniu Zhou wrote:
+> The ISI output format field width differs across SoC generations:
+> i.MX8 series (MN/MP/QM/QXP) use a 6-bit field (bits 29:24), while
+> from i.MX8ULP onwards (including i.MX91/93/95/952) the field is
+> extended to 7 bits (bits 30:24) to support RAW32 and RAW14 formats.
+> 
+> Replace the static CHNL_IMG_CTRL_FORMAT_MASK with a per-platform
+> format_mask in mxc_isi_plat_data to correctly match the hardware
+> format field width for each SoC.
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+> Changes in v2:
+> - Add Reviewed-by tag from Frank Li
+> ---
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 8 ++++++++
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h | 1 +
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c   | 3 ++-
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h | 1 -
+>  4 files changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> index f2a8eb82fbfd..c1c16dbc1539 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> @@ -297,6 +297,7 @@ static const struct mxc_isi_plat_data mxc_imx8mn_data = {
+>  	.reg_offset		= 0,
+>  	.ier_reg		= &mxc_imx8_isi_ier_v1,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(29, 24),
+>  	.buf_active_reverse	= false,
+>  	.gasket_ops		= &mxc_imx8_gasket_ops,
+>  	.has_36bit_dma		= false,
+> @@ -309,6 +310,7 @@ static const struct mxc_isi_plat_data mxc_imx8mp_data = {
+>  	.reg_offset		= 0x2000,
+>  	.ier_reg		= &mxc_imx8_isi_ier_v2,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(29, 24),
+>  	.buf_active_reverse	= true,
+>  	.gasket_ops		= &mxc_imx8_gasket_ops,
+>  	.has_36bit_dma		= true,
+> @@ -322,6 +324,7 @@ static const struct mxc_isi_plat_data mxc_imx8qm_data = {
+>  	.reg_offset		= 0x10000,
+>  	.ier_reg		= &mxc_imx8_isi_ier_qm,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(29, 24),
+>  	.buf_active_reverse	= true,
+>  	.has_36bit_dma		= false,
+>  };
+> @@ -334,6 +337,7 @@ static const struct mxc_isi_plat_data mxc_imx8qxp_data = {
+>  	.reg_offset		= 0x10000,
+>  	.ier_reg		= &mxc_imx8_isi_ier_v2,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(29, 24),
+>  	.buf_active_reverse	= true,
+>  	.has_36bit_dma		= false,
+>  };
+> @@ -345,6 +349,7 @@ static const struct mxc_isi_plat_data mxc_imx8ulp_data = {
+>  	.reg_offset		= 0x0,
+>  	.ier_reg		= &mxc_imx8_isi_ier_v2,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(30, 24),
+>  	.buf_active_reverse	= true,
+>  	.has_36bit_dma		= false,
+>  };
+> @@ -356,6 +361,7 @@ static const struct mxc_isi_plat_data mxc_imx91_data = {
+>  	.reg_offset		= 0,
+>  	.ier_reg		= &mxc_imx8_isi_ier_v2,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(30, 24),
+>  	.buf_active_reverse	= true,
+>  	.has_36bit_dma		= false,
+>  };
+> @@ -367,6 +373,7 @@ static const struct mxc_isi_plat_data mxc_imx93_data = {
+>  	.reg_offset		= 0,
+>  	.ier_reg		= &mxc_imx8_isi_ier_v2,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(30, 24),
+>  	.buf_active_reverse	= true,
+>  	.gasket_ops		= &mxc_imx93_gasket_ops,
+>  	.has_36bit_dma		= false,
+> @@ -380,6 +387,7 @@ static const struct mxc_isi_plat_data mxc_imx95_data = {
+>  	.reg_offset		= 0x10000,
+>  	.ier_reg		= &mxc_imx8_isi_ier_v2,
+>  	.set_thd		= &mxc_imx8_isi_thd_v1,
+> +	.format_mask		= GENMASK(30, 24),
+>  	.buf_active_reverse	= true,
+>  	.has_36bit_dma		= true,
+>  };
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> index 58b47335afc7..05c21c448b93 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> @@ -175,6 +175,7 @@ struct mxc_isi_plat_data {
+>  	const struct mxc_isi_ier_reg  *ier_reg;
+>  	const struct mxc_isi_set_thd *set_thd;
+>  	const struct mxc_gasket_ops *gasket_ops;
+> +	u32 format_mask;
+>  	bool buf_active_reverse;
+>  	bool has_36bit_dma;
+>  };
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> index 6aa760ce3605..2405f7d33d0a 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> @@ -410,13 +410,14 @@ void mxc_isi_channel_set_output_format(struct mxc_isi_pipe *pipe,
+>  				       const struct mxc_isi_format_info *info,
+>  				       struct v4l2_pix_format_mplane *format)
+>  {
+> +	const struct mxc_isi_plat_data *pdata = pipe->isi->pdata;
+>  	u32 val;
+>  
+>  	/* set outbuf format */
+>  	dev_dbg(pipe->isi->dev, "output format %p4cc", &format->pixelformat);
+>  
+>  	val = mxc_isi_read(pipe, CHNL_IMG_CTRL);
+> -	val &= ~CHNL_IMG_CTRL_FORMAT_MASK;
+> +	val &= ~pdata->format_mask;
+>  	val |= CHNL_IMG_CTRL_FORMAT(info->isi_out_format);
+>  	mxc_isi_write(pipe, CHNL_IMG_CTRL, val);
+>  
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> index e795f4daf3ff..7c4e736f4651 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> @@ -39,7 +39,6 @@
+>  /* Channel Image Control Register */
+>  #define CHNL_IMG_CTRL						0x0004
+>  #define CHNL_IMG_CTRL_FORMAT(n)					((n) << 24)
+> -#define CHNL_IMG_CTRL_FORMAT_MASK				GENMASK(29, 24)
 
-syzbot found the following issue on:
+Wouldn't it be simpler to extend this mask to 7 bits unconditionally ?
+If bit 30 isn't used on older platforms, clearing it shouldn't cause
+issues.
 
-HEAD commit:    08df884136f1 Merge tag 'thermal-7.3-rc3' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15d8679e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=9d7ab3bc11055d9740f5
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+>  #define CHNL_IMG_CTRL_FORMAT_RGBA8888				0x00
+>  #define CHNL_IMG_CTRL_FORMAT_ABGR8888				0x01
+>  #define CHNL_IMG_CTRL_FORMAT_ARGB8888				0x02
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/08145c70959e/disk-08df8841.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5db70c770722/vmlinux-08df8841.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ec39950e39cb/bzImage-08df8841.xz
+-- 
+Regards,
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9d7ab3bc11055d9740f5@syzkaller.appspotmail.com
-
-call_rcu_tasks() has failed boot-time tests.
-rcu_tasks: RTGS_WAIT_SCAN_HOLDOUTS(6) since 24 g:5 i:0 kCuUP l:25 
-------------[ cut here ]------------
-ret < 0
-WARNING: kernel/rcu/tasks.h:1541 at rcu_tasks_verify_self_tests kernel/rcu/tasks.h:1541 [inline], CPU#1: kworker/1:2/56
-WARNING: kernel/rcu/tasks.h:1541 at rcu_tasks_verify_work_fn+0x1b6/0x270 kernel/rcu/tasks.h:1553, CPU#1: kworker/1:2/56
-Modules linked in:
-CPU: 1 UID: 0 PID: 56 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: events rcu_tasks_verify_work_fn
-RIP: 0010:rcu_tasks_verify_self_tests kernel/rcu/tasks.h:1541 [inline]
-RIP: 0010:rcu_tasks_verify_work_fn+0x1b6/0x270 kernel/rcu/tasks.h:1553
-Code: 80 3c 10 00 0f 85 b5 00 00 00 48 8b 35 9b 91 7d 0c b9 64 00 00 00 bf 08 00 00 00 48 c7 c2 a0 8a 99 9b e8 ad 6c e2 ff eb 97 90 <0f> 0b 90 eb 91 48 89 df e8 7d 82 8f 00 e9 69 ff ff ff 48 89 df e8
-RSP: 0000:ffffc9000110fbb0 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffffffff8edeb8a8 RCX: 0000000000000000
-RDX: 1ffffffff1dbd715 RSI: ffffffff81e97409 RDI: fffff52000221f49
-RBP: 1ffff92000221f76 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000000 R11: 0000000000000001 R12: 0000000000000bb8
-R13: 00000000ffffffff R14: 0000000000000001 R15: ffffffff8edeb8a8
-FS:  0000000000000000(0000) GS:ffff888123c60000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 000000000eb96000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Laurent Pinchart
