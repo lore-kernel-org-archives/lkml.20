@@ -1,74 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5AB47D462;
-	Tue, 15 Sep 2026 13:45:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502AA43A80B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479940; cv=none; b=Hp/GpAB9xhqAoznkM4bsImnRu9XcAACB6i0geah8MEtwoCsxnmVQLoxZJBI36XRa4I2tFBrOqVonUZ4Uw0IWZqVy9IwKYXP+QOIbVDlkReeP6vW/4EmYLYtBHWmxE+w9h/GMsJjWBYEXZuyF81EVZcu08mfjM96U4dh2sSa4ql0=
+	t=1789479966; cv=none; b=qobqh/GuNYhAT2zB/ni1SMhhbQ4EPqckdfzeEBcXdOPn5/dVVCxwXlcp4rZTxHoXIR2j2mht96HE3W4ko8m39mxfJLPN8qouVs7KcYt0+YsD80lm6SfSPN7w1t0pRdQyMjOOkYht3yki3vXoFz5gpHbLcmxKj1NprqUTPlNHPXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479940; c=relaxed/simple;
-	bh=OiVbNpqvcTpST0O0QqLXW+ZXyZ4rqHD9AsZUlFhTaN8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sJhgQbLLhf07wFAFV2bVB06SCCnXZS16PSAa6LQcXCQGFvwhTUVoWqMgzbDQ9ede2uwDIwvUCOAIibwyeTLc9Kac/JYkznD/u3TnpOMzuvum4o7guGK50VjBo93VyeYpZt2SoY4LpuywRrDgcaYlVwqxqxU0/g1RO8RyJwRIvRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hi5BOtIE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789479966; c=relaxed/simple;
+	bh=QO90EkEZRvnBz7dVuzqcKDDMvyzKnWUr+tcb19kHKyQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=sYckYV9DnM1buUdJzd/SHi2CYp33QFra5gejy5l0TBPgyMYdVAqF7fnAFrBFxd+wzARgyA1Pa8nnwlHWvUT9wofaZTWz+atfKI7RwktDsQvXtvvwhJmFXs0iLXRTMokCGXZDCJli6Q4a+PIF3UWmWxlh0iUxSIRQLMHnccjdwB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=BjXW3qpB; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hi5BOtIE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FC91F00899;
-	Tue, 15 Sep 2026 13:45:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789479937;
-	bh=OiVbNpqvcTpST0O0QqLXW+ZXyZ4rqHD9AsZUlFhTaN8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Hi5BOtIEVU4s+3yGSkPz0/SAa3xuZHvLVpvUfNAH5splg6V68ueCIPFYP3/mpMulN
-	 u8P69p91iUJ0DvXufSdZIKn2jcj8/nL90UaX8qWkXmwhffYxBPcX8v6xabJdCHM9uS
-	 z0APFIvOBx9ALorAcSTdPK39S6JJt/J+ryBC6YOeWFlhtPrN383awNLaA4SMyFizpA
-	 wG92L0Er3GzqiyFFLxmr4DbvFLuVKocAtwi+g/N7XmJ66fdv9ER3gV7xBJROmIeGXh
-	 yELnMJVm02pPNLmgfAN6ykp/nJhDspGneThMYtTcbY6FFghJT0/8X1s3mAGVJErlu4
-	 R0Rnq9hJzvg2Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/9] mm/memory-failure: efi: answer whether a range
- is poisoned
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrew Morton" <akpm@linux-foundation.org>, hannes@cmpxchg.or, "Borislav
- Petkov" <bp@alien8.de>, "Danilo Krummrich" <dakr@kernel.org>, "Brendan
- Jackman" <brendan.jackman@linux.dev>, x86@kernel.org, kas@kernel.org, "Suren
- Baghdasaryan" <surenb@google.com>, "Zi Yan" <ziy@nvidia.com>, "Liam R.
- Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Thomas
- Gleixner" <tglx@kernel.org>, "Oscar Salvador" <osalvador@suse.de>, "Rafael
- J. Wysocki" <rafael@kernel.org>, shakeel.butt@linux.dev, "Johannes Weiner" <hannes@cmpxchg.org>, "David
- Hildenbrand" <david@kernel.org>, "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, "Miaohe
- Lin" <linmiaohe@huawei.com>, "Ard Biesheuvel" <ardb@kernel.org>, "Breno
- Leitao" <leitao@debian.org>, "Michal Hocko" <mhocko@suse.com>, "Naoya
- Horiguchi" <nao.horiguchi@gmail.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Mike
- Rapoport" <rppt@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Ingo
- Molnar" <mingo@redhat.com>
-Cc: linux-mm@kvack.org, kexec@lists.infradead.org, linux-cxl@vger.kernel.org, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, harry@kernel.org, rmikey@meta.com, kernel-team@meta.com, driver-core@lists.linux.dev, riel@surriel.com
-In-Reply-To: <20260915-hwpoison-kho-v5-6-3bc7a57bd503@debian.org>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <20260915-hwpoison-kho-v5-6-3bc7a57bd503@debian.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 13:45:35 +0000
-Message-Id: <20260915134535.C3FC91F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="BjXW3qpB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789479961; x=1789739161;
+	bh=QO90EkEZRvnBz7dVuzqcKDDMvyzKnWUr+tcb19kHKyQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=BjXW3qpBCnXLqdcFkMGXOiWuKZiOIyZ/MyOqaf/4xyMtztY5BbwPRdwb3JD/JIcYT
+	 0JBQuWadPxpNtVgKbnd5BItL9ylO2WwShWi/7yJ+C4mJk5t9SEjOcMjGImslF73Fd9
+	 dVkCK8/tHBqWoJGCB9Ofq8vwooKVOZOAS1CKDuHvWfkoEFa6vhm3UHD+2+ejWRrEuf
+	 kmPEnDjTqnsWpDu03SzlvrN8nt5sVO89LrWXmf8bLvW61d4EXtuKa2Njm2R8LS/BsT
+	 /lC446ofc1Y1Vhb+apKDIt4Z1sm9Gk7aJvMyqVhSR8+8IH+WJ3u5Eel/rOQJULMSrp
+	 GkRqqBC9+ux+w==
+Date: Tue, 15 Sep 2026 13:45:56 +0000
+To: mkl@pengutronix.de, mailhol@kernel.org
+From: =?utf-8?Q?Stefan_G=C3=BCnther?= <stefangun@pm.me>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, =?utf-8?Q?Stefan_G=C3=BCnther?= <stefangun@pm.me>
+Subject: [PATCH] can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
+Message-ID: <20260915134551.54038-1-stefangun@pm.me>
+Feedback-ID: 137007910:user:proton
+X-Pm-Message-ID: 692de8251a8c8e06c8f98b81a18b8fa2c1b5fa30
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> The bitmap an earlier kernel filled in gets in this one through EFI,
-> but nothing reads it back yet.
->=20
-> Introduce range_contains_poisoned_memory(), which the page allocator
-> will use to ask about a block before handing it out.
->=20
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+When the device reports error counters, the driver incorrectly uses an
+assignment (=3D) instead of a bitwise OR (|=3D) for CAN_ERR_CNT. This wipes
+out the CAN_ERR_FLAG and CAN_ERR_CRTL flags, causing the error frame to
+be sent to userspace as a regular CAN frame with ID 0x200.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Fix this by using a bitwise OR to preserve the flags.
 
+Signed-off-by: Stefan G=C3=BCnther <stefangun@pm.me>
+---
+ drivers/net/can/usb/peak_usb/pcan_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/=
+peak_usb/pcan_usb.c
+index 9278a1522..235cf34d4 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+@@ -526,7 +526,7 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_co=
+ntext *mc, u8 n,
+ =09=09=09/* Supply TX/RX error counters in case of
+ =09=09=09 * controller error.
+ =09=09=09 */
+-=09=09=09cf->can_id =3D CAN_ERR_CNT;
++=09=09=09cf->can_id |=3D CAN_ERR_CNT;
+ =09=09=09cf->data[6] =3D mc->pdev->bec.txerr;
+ =09=09=09cf->data[7] =3D mc->pdev->bec.rxerr;
+ =09=09}
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-hwpoison-k=
-ho-v5-0-3bc7a57bd503@debian.org?part=3D6
+2.43.0
+
 
