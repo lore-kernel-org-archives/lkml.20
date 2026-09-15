@@ -1,146 +1,206 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC523911D5;
-	Tue, 15 Sep 2026 05:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC823B3895
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789449887; cv=none; b=N2X9xAd62/+evUC7bNJhiVK3ZZKj0Bp/Cim5zF43MbWIlLzIKBZJL7zngnOXLn9KhjofJd1yiHW43tjd+7cXoiwbGRJCSdIeAiwJwquNJ2+2IkousmnWgpLQm+ZmsfoIHJmQNnBpv5TJjf327KgOOs7m0NsSCVnZEi/EVj8brwE=
+	t=1789449936; cv=none; b=WZM+BgzY7RMougVaKiZi0RDv/Z+gHyOzSyr3zP2eduC7KT7VQMW9y/3FounRpy35NUeZoCyMDmbMUFsj1lbDOwCyCRxMNrc/8y0Ct/Gzp5bVoShmYOGhbIcnsueNzNz9TwGfflDAtpLAeuYbozF8yenb4zFq1lpLLHm6n6WAdbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789449887; c=relaxed/simple;
-	bh=giTRg5eqA8WY0f9RYZoUFP/OVlQXn8c5ArDoHAP4x9Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TLCoycSNF/gPyFdlipFCumJ6y/Ud+zxd1ffzBvBQOe/qr4tThZO2Qcj297Mb9FTDNyVdIAMiddbmYq6OIy4S23i8J85nGyHwAWhg80FPiAIGCu81d+uL6Ov/BHzcy8hSoNOfxJljiasRH8GIgJSjdkC/BYGxsBJNTfHwS1bAH+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowADnu++X1qhqYrYJCA--.40195S2;
-	Tue, 15 Sep 2026 13:24:39 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: daniel.lezcano@kernel.org
-Cc: ezequiel.garcia@imgtec.com,
-	govindraj.raja@imgtec.com,
+	s=arc-20240116; t=1789449936; c=relaxed/simple;
+	bh=ihhu/GEm+uqCbuT3u186bfu9O3Hq8yZsgSx6Y24WwhA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DOimkzRUQbZ5O75fa5SNY5lVvpghbw9CKmDmIDgaqazh6fjSHpOemhnG5r2DmMvso7OlvXAw5ID5avjtUsDX6YO5Wn8+VONLVYxkgKHFnIIeveDCjSCMoKgsS3OdQD/AsDrCXRZjGOKpeY7HnNrQBFvVFbfE/XNLdrm137Htasc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdW8HILo; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdW8HILo"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so38150835ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:25:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789449931; x=1790054731; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yQubKTox3I80hScamzBIXxVmWMWZlyR15SjYB1u9qiM=;
+        b=hdW8HILomqXU4LWH/c2oE5xgswDPGpDcQHPEhiWWXd59Zth9M8Sgm8XBH/a4Fc1Fau
+         C27+UbuVKtuPUyaaOidrChvZRDub6vDK3/t0CuArpUtEYyuj3Mi1eL928QIFxrvnoqer
+         1gBTw5IFs+0xJP0Fquk2UdDyVKOn/Tl7s6wgJWeB1R1mzVIYdVPI6sOzINh8jxjojcdR
+         0hUxWkT9MJoYwTFkPIvmEsHJor46ssNqxVgGjb/JnqOAVNbuw5UiiRDnGJj+8xzI3qPc
+         7APmJpmX4J2ZGs9jM56JgKTkJCLeQXj25FplfghchZsoNBHzbogQRHVSmrE0syax7NE6
+         tSpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789449931; x=1790054731;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yQubKTox3I80hScamzBIXxVmWMWZlyR15SjYB1u9qiM=;
+        b=A0tqt93XwH9TBtECP8SKVjgIvcEl4B3krr80jcgWHGoWASbARUEoZrWHZdeyRwQb+G
+         gXvAfgtQevXXgDgsiwtvq9wTD/k5pXEv6Ptw9jGuEKLelh7Ja+PaAseWxUeihWo/KfwB
+         NgXaHROMe0xhdIjQXISq+g9EeDrFLAxgumy3w4FHDZ7hP/aD9M3Zs7WWHRfQylEJtuTv
+         C5RCw6wtRaUI6SaI/ocDSkm4ekbaORT55f7B+uBJ1aI7ooPqljy+InQuZV0uqP68eGNG
+         MUTO13tTHNti+susOZPPOlDLPvu6HHiWdmzDCHXbLyTn1xb23rsuiQIGZHaq1Rq9qM3K
+         17EQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBlElUlg2+VFHw8ZBAHU5gy1X4g+LYXilpm4gHWDu09ZQIP0EKKDmTvhLZ0LCsb9+nhv4kxEXf72GMbfQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQ3LHQX4dbvaetMZfYp4Iys8KIwK7YA7cqdqMVjlUkp7lte/3a
+	K+Az990VHLMPS/Efo3GgsIYHuhvbPTjWbMwf9o1yvpHl/yspGmtTP+aO
+X-Gm-Gg: AYBFou0GRqhdsEK5PITIopxYebWI+Vouti607FNpIy1AKKG9LR9qIeB/05vL6c01Q2e
+	vf/3EzAd6gnNlFdIkUIP+/+0kMGI079a0SZ+5pZrFMODEVlwnHapA1uvOUiFK/1eumgsQIPbEC8
+	g3506lcCOnpjopwDSc6OR47CuYqSXAh8v2RjrPGcBh7w0xx5NfMPYTcQ4GpU5SMJo4Zvyj2TT3L
+	A50/lkLFOK/+htg/UaBr94vbTGEBlCavNvvOM03UifwxbWkplTo2OKtrjgsHwF3xBVP9VkscLOH
+	CM99xsr2QF4tGKgs5IFqyy4dg685tI8H+enpMXFBgL0qoxb2qBCs+sJ6drslSumKQ5aBtE258Bn
+	KS/I5A1kZv1oOPKkX21lfdeZcFipZJLPstnn8SB5YBmrixzNem2yBMg8uiA6S/UhaNa+aRt//Ec
+	bk3kpYFFiN9ZkP+RHADV6MxMxMHWtBdF61lMq+xi9NUa2j8xGY87gcX51DATc1g7B0KeKk7GfK4
+	apVkRKpCA==
+X-Received: by 2002:a17:903:8d0:b0:2d7:107c:917b with SMTP id d9443c01a7336-2dd6c46714bmr123949285ad.0.1789449930877;
+        Mon, 14 Sep 2026 22:25:30 -0700 (PDT)
+Received: from kdev.. ([108.180.130.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff67aasm59718445ad.79.2026.09.14.22.25.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 22:25:30 -0700 (PDT)
+From: Babanpreet Singh <bbnpreetsingh@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
+	Purism Kernel Team <kernel@puri.sm>,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	tglx@kernel.org,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 6/6] clocksource/drivers/pistachio: Fix clock reference leaks in pistachio_clksrc_of_init
-Date: Tue, 15 Sep 2026 05:24:10 +0000
-Message-Id: <20260915052410.1728134-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	Babanpreet Singh <bbnpreetsingh@gmail.com>,
+	kernel test robot <lkp@intel.com>,
+	Dan Carpenter <error27@gmail.com>
+Subject: [PATCH] power: supply: max17042_battery: Make the fractional LSB macros safe
+Date: Tue, 15 Sep 2026 05:25:29 +0000
+Message-ID: <20260915052529.7-1-bbnpreetsingh@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADnu++X1qhqYrYJCA--.40195S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxurW7ur45Ww4rJFy7Xr4xJFb_yoW5Cr47pr
-	Z3Jw4Fvr4IqrWI9Fsxtr4kAr9Yyw4vyFy3WrWfG3WkurnxAry8AFW0vFyUZF4Ykrs3Cwsr
-	Z3WrGFykCF45uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	LiSJUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgLA2qowpBHGgAAsK
 
-pistachio_clksrc_of_init() looks up the sys and fast clocks with
-of_clk_get_by_name(), which takes a reference on each clock, but no
-clk_put() exists anywhere in the driver. Both references are leaked on
-several paths:
+The fractional LSB macros expand to a plain division, so they only work
+when multiplied first and evaluate to 0 anywhere else. Take the value as
+a macro argument and apply it with mult_frac(). No functional change.
 
-- if the "fast" clock lookup fails, the reference on the already
-  obtained "sys" clock is leaked;
-- if clk_prepare_enable() fails for the "sys" clock, its reference is
-  leaked;
-- if clk_prepare_enable() fails for the "fast" clock, the "sys" clock is
-  disabled and unprepared but neither reference is dropped;
-- if clocksource_register_hz() fails, both clocks stay prepared and
-  enabled and both references are leaked;
-- on success both clocks stay enabled but the local pointers are lost
-  and both references are leaked.
-
-Add proper error unwinding with clk_disable_unprepare() plus clk_put()
-where the clocks were enabled, clk_put() where they were not, and on
-success drop both references while keeping the clocks enabled for the
-clocksource.
-
-Fixes: 84583983c319 ("CLOCKSOURCE: Add Pistachio clocksource-only driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/r/202606062322.TyvCPB3l-lkp@intel.com/
+Assisted-by: Claude:claude-opus-5
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
 ---
- drivers/clocksource/timer-pistachio.c | 28 ++++++++++++++++++++++++---
- 1 file changed, 25 insertions(+), 3 deletions(-)
+ drivers/power/supply/max17042_battery.c | 30 +++++++++++++++----------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/clocksource/timer-pistachio.c b/drivers/clocksource/timer-pistachio.c
-index 57b2197a0b67..8749230453f8 100644
---- a/drivers/clocksource/timer-pistachio.c
-+++ b/drivers/clocksource/timer-pistachio.c
-@@ -181,20 +181,22 @@ static int __init pistachio_clksrc_of_init(struct device_node *node)
- 	fast_clk = of_clk_get_by_name(node, "fast");
- 	if (IS_ERR(fast_clk)) {
- 		pr_err("clock get failed (%lu)\n", PTR_ERR(fast_clk));
-+		clk_put(sys_clk);
- 		return PTR_ERR(fast_clk);
- 	}
+diff --git a/drivers/power/supply/max17042_battery.c b/drivers/power/supply/max17042_battery.c
+index a53970af56cbb..861b5dbc11c1e 100644
+--- a/drivers/power/supply/max17042_battery.c
++++ b/drivers/power/supply/max17042_battery.c
+@@ -16,6 +16,7 @@
+ #include <linux/i2c.h>
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
++#include <linux/math.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm.h>
+ #include <linux/power_supply.h>
+@@ -57,10 +58,15 @@
  
- 	ret = clk_prepare_enable(sys_clk);
- 	if (ret < 0) {
- 		pr_err("failed to enable clock (%d)\n", ret);
-+		clk_put(sys_clk);
- 		return ret;
- 	}
+ #define MAX17042_CURRENT_LSB		1562500ll /* 1.5625µV/Rsense */
+ #define MAX17042_CAPACITY_LSB		5000000ll /* 5.0µVH/Rsense */
+-#define MAX17042_TIME_LSB		5625 / 1000 /* s */
+-#define MAX17042_VOLTAGE_LSB		625 / 8 /* µV */
+-#define MAX17042_RESISTANCE_LSB		1 / 4096 /* Ω */
+-#define MAX17042_TEMPERATURE_LSB	1 / 256 /* °C */
++/*
++ * These LSBs are fractions, so they take their argument rather than
++ * expanding to a bare "n / d" token sequence, which is only correct in a
++ * "value * LSB" context.
++ */
++#define MAX17042_TIME_LSB(val)		mult_frac(val, 5625, 1000) /* s */
++#define MAX17042_VOLTAGE_LSB(val)	mult_frac(val, 625, 8) /* µV */
++#define MAX17042_RESISTANCE_LSB(val)	mult_frac(val, 1, 4096) /* Ω */
++#define MAX17042_TEMPERATURE_LSB(val)	mult_frac(val, 1, 256) /* °C */
  
- 	ret = clk_prepare_enable(fast_clk);
- 	if (ret < 0) {
- 		pr_err("failed to enable clock (%d)\n", ret);
--		clk_disable_unprepare(sys_clk);
--		return ret;
-+		clk_put(fast_clk);
-+		goto disable_sys_clk;
- 	}
+ #define MAX17055_DQACC_DIV		32
+ #define MAX17055_DPACC_FACTOR		44138
+@@ -138,7 +144,7 @@ static int max17042_get_temperature(struct max17042_chip *chip, int *temp)
  
- 	rate = clk_get_rate(fast_clk);
-@@ -210,7 +212,27 @@ static int __init pistachio_clksrc_of_init(struct device_node *node)
- 
- 	raw_spin_lock_init(&pcs_gpt.lock);
- 	sched_clock_register(pistachio_read_sched_clock, 32, rate);
--	return clocksource_register_hz(&pcs_gpt.cs, rate);
-+	ret = clocksource_register_hz(&pcs_gpt.cs, rate);
-+	if (ret)
-+		goto disable_clks;
-+
-+	/*
-+	 * Both clocks are intentionally left enabled for the clocksource;
-+	 * only drop the consumer references taken by of_clk_get_by_name().
-+	 */
-+	clk_put(fast_clk);
-+	clk_put(sys_clk);
-+
-+	return 0;
-+
-+disable_clks:
-+	clk_disable_unprepare(fast_clk);
-+	clk_put(fast_clk);
-+disable_sys_clk:
-+	clk_disable_unprepare(sys_clk);
-+	clk_put(sys_clk);
-+
-+	return ret;
+ 	*temp = sign_extend32(data, 15);
+ 	/* The value is converted into deci-centigrade scale */
+-	*temp = *temp * 10 * MAX17042_TEMPERATURE_LSB;
++	*temp = MAX17042_TEMPERATURE_LSB(*temp * 10);
+ 	return 0;
  }
- TIMER_OF_DECLARE(pistachio_gptimer, "img,pistachio-gptimer",
- 		       pistachio_clksrc_of_init);
+ 
+@@ -214,7 +220,7 @@ static int max17042_get_battery_health(struct max17042_chip *chip, int *health)
+ 		goto health_error;
+ 
+ 	/* bits [0-3] unused */
+-	vavg = val * MAX17042_VOLTAGE_LSB;
++	vavg = MAX17042_VOLTAGE_LSB(val);
+ 	/* Convert to millivolts */
+ 	vavg /= 1000;
+ 
+@@ -223,7 +229,7 @@ static int max17042_get_battery_health(struct max17042_chip *chip, int *health)
+ 		goto health_error;
+ 
+ 	/* bits [0-3] unused */
+-	vbatt = val * MAX17042_VOLTAGE_LSB;
++	vbatt = MAX17042_VOLTAGE_LSB(val);
+ 	/* Convert to millivolts */
+ 	vbatt /= 1000;
+ 
+@@ -330,21 +336,21 @@ static int max17042_get_property(struct power_supply *psy,
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		val->intval = data * MAX17042_VOLTAGE_LSB;
++		val->intval = MAX17042_VOLTAGE_LSB(data);
+ 		break;
+ 	case POWER_SUPPLY_PROP_VOLTAGE_AVG:
+ 		ret = regmap_read(map, MAX17042_AvgVCELL, &data);
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		val->intval = data * MAX17042_VOLTAGE_LSB;
++		val->intval = MAX17042_VOLTAGE_LSB(data);
+ 		break;
+ 	case POWER_SUPPLY_PROP_VOLTAGE_OCV:
+ 		ret = regmap_read(map, MAX17042_OCVInternal, &data);
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		val->intval = data * MAX17042_VOLTAGE_LSB;
++		val->intval = MAX17042_VOLTAGE_LSB(data);
+ 		break;
+ 	case POWER_SUPPLY_PROP_CAPACITY:
+ 		if (chip->enable_current_sense)
+@@ -473,7 +479,7 @@ static int max17042_get_property(struct power_supply *psy,
+ 		if (data == U16_MAX)
+ 			return -ENODATA;
+ 
+-		val->intval = data * MAX17042_TIME_LSB;
++		val->intval = MAX17042_TIME_LSB(data);
+ 		break;
+ 	case POWER_SUPPLY_PROP_TIME_TO_FULL_NOW:
+ 		if (chip->chip_type != MAXIM_DEVICE_TYPE_MAX17055 &&
+@@ -488,7 +494,7 @@ static int max17042_get_property(struct power_supply *psy,
+ 		if (data == U16_MAX)
+ 			return -ENODATA;
+ 
+-		val->intval = data * MAX17042_TIME_LSB;
++		val->intval = MAX17042_TIME_LSB(data);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+
+base-commit: 4fc88ba435dadbc05990951e3f3fbd8ccd2df140
 -- 
-2.34.1
+2.43.0
 
