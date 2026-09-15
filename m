@@ -1,275 +1,232 @@
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A186B46D558;
-	Tue, 15 Sep 2026 09:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A02B39792B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:21:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464095; cv=none; b=Ql2MTLF7s+fUiWuM+8Sv3o8A46vkO8OMf2nWM7hg4aZZfg2u2+XmDAeaQ+Myc8b2OI7PiekQIxNkqgX4/PLiNw+0fP5dq7LKG9NQEIqfzgFJrd7+RDkzQa4XDz505gbzon8eaXxSPvgmoMAfBqoMZV+IFgtbwVVePiqVNrlJtVo=
+	t=1789464096; cv=none; b=dvGWfkXLYqZosgdAJH97xu3AApdkZd9RqNBYjOJIG+eWF8eBBKFhLDVoRpEOP/kV9cihCjoBLHATCQbSFS+skswvaw8CO/4BVWN+yIUoRpP0b8xjWk81T2Co2/Z5mUOc/7+flSDp3+HMiA2R6xvCsVTPSQHbMxpg3QdQ7LhdtKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464095; c=relaxed/simple;
-	bh=K74GwX0w/2kAalypJtCC/LD5vN+8zjQPpcMpYp6MyUA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CyQ2XMLFkAV924FsmG75XKa2eYcPqTkB264xmTDUIXPmpsl8lJ45lQav15ytpYT5lbkICh0c5zi4bEKlpU6ZE1lFThzDL/eCwHdm/wETWi7j/sZXs16i+9IVkb8QUJcpBk7SVdrUXv38kOvhBGqHie759gsgadqlVya778e9ENM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de; spf=pass smtp.mailfrom=free.fr; arc=none smtp.client-ip=212.27.42.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
-Received: from albans-vm.. (unknown [213.61.137.106])
-	(Authenticated sender: albeu@free.fr)
-	by smtp3-g21.free.fr (Postfix) with ESMTPSA id BDC7913F899;
-	Tue, 15 Sep 2026 11:21:21 +0200 (CEST)
-From: Alban Bedel <alban.bedel@lht.dlh.de>
-To: linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alban Bedel <alban.bedel@lht.dlh.de>
-Subject: [PATCH 2/2] gpio: Support ON Semi CAT9532
-Date: Tue, 15 Sep 2026 11:20:46 +0200
-Message-Id: <20260915092046.931449-3-alban.bedel@lht.dlh.de>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
-References: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
+	s=arc-20240116; t=1789464096; c=relaxed/simple;
+	bh=fwdFE1969iN1ZvdyOQw0+U3D6iJfphIW7S1LAwNPE80=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gi0QXxddeiJqzC/3oEgCmd/6xAk5gs7TMfEpwyzwqhRfPyT+2enmDwXesuxD4yFRrfq8Rux8nR17Wu3U6W7JcbswI7jlq+oh4FD+9KGteP5uwxeSBHWl4mjlJGDFaJtyAwqochHcts5NA6OI1MdZNFHoi83O7Dsdf1VKw1CLXEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DeGpKAFF; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DeGpKAFF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789464095; x=1821000095;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=fwdFE1969iN1ZvdyOQw0+U3D6iJfphIW7S1LAwNPE80=;
+  b=DeGpKAFF8J1YmT3BH1kTZY7w/LByp9rJbXrr/evy5b3zu0a2LuPMgNqh
+   DMVEALYeHDdcg7/V6tDvHHcmM7MS+nJYKgl993BvGLIgAlFiJE9zAk4tD
+   zMUmpI8kvEXyJBrLMEKdxLzJ0kyXsCnDj+iHoGIHmVgnHdF9wf/XZRcMY
+   2Je1a+WMLtp2o3JmSLwmuYJWgX5vCW27bPz3VO1As8tT7uAlN5PX72wXt
+   Cp/T50sWH3EKsa/+mALbkMOAX/CwxktjA0xirU3i8ZmBHqx7Fxu2n4Ucm
+   SjadgnycAw/bifWe9br1pWXYuZX8o52e5w7sxgrecoC3ax8hZFuiXo0nZ
+   A==;
+X-CSE-ConnectionGUID: xcw7IWveQiyGIz0e+ROQOQ==
+X-CSE-MsgGUID: BseZBNTTSTyGvJoGABdIFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107332882"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="107332882"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:21:34 -0700
+X-CSE-ConnectionGUID: qpw1+IKcQbezaltb9Kl4IQ==
+X-CSE-MsgGUID: O8/YqQL+TXGHBQERJlwyAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="278189297"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.243])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:21:31 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Theo Andersen Carton <andersen.theo@gmail.com>, rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ airlied@gmail.com, simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Theo Andersen Carton
+ <andersen.theo@gmail.com>
+Subject: Re: [PATCH] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
+ MacBookPro11,5
+In-Reply-To: <c7215b173c533cd697d8eb37b56c2a1890ea7c41@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260912091805.531666-1-andersen.theo@gmail.com>
+ <c7215b173c533cd697d8eb37b56c2a1890ea7c41@intel.com>
+Date: Tue, 15 Sep 2026 12:21:28 +0300
+Message-ID: <bc66d74d20eb3c4a284922a4fab2662eb85b0ef7@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Add support for the CAT9532 LED dimmer from On Semiconductor. Altought
-marketed as an LED dimmer it is a bit limited in this regard as it
-only has 2 PWM for 16 pins. As explained in the datasheet it can also
-be used as an open-drain GPIO controller, and that's how it is used on
-the hardware I have at hand. This chip doesn't really map to what the
-gpio-regmap driver expect so it is implemented as it own driver. This
-approch also allow to later add support for the LED dimmer if desired.
+On Mon, 14 Sep 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> On Sat, 12 Sep 2026, Theo Andersen Carton <andersen.theo@gmail.com> wrote:
+>> On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
+>> GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+>> As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+>> back a source maximum of two lanes for port A.
+>>
+>> intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+>> sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+>> bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+>> every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+>> with no usable modes at all -- the panel stays dark whenever i915 is
+>> made to drive it, which looks like a hardware limitation but is not.
+>>
+>> The lanes are physically there. Reading the panel's DPCD from the AMD
+>> side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+>> i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+>> at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+>> native resolution, so all four lanes are routed through the gmux to
+>> DDI A. Only the register bit is unset.
+>>
+>> intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+>> its neighbouring comment notes that "Some BIOS might fail to set this
+>> bit on port A if eDP wasn't lit up at boot" -- but it only covers
+>> Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+>> the correct lane count too.
+>>
+>> The DMI match is deliberately narrow. Other dual-GPU models in the same
+>> family are very likely affected identically, but they are untested, so
+>> widen the match only as reports come in.
+>>
+>> Tested on a MacBookPro11,5 (Broadwell, Iris Pro + Radeon R9 M370X):
+>> with the quirk, DDI A comes up as 4 lanes, link training passes at
+>> link rate 270000 / lane count 4, and i915 drives the internal panel at
+>> its native 2880x1800.
+>>
+>> Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+>
+> I'm guessing this is v2 of [1], but I shouldn't have to guess.
+>
+> For future reference, please indicate patch revision, and log the
+> differences between the revisions. See Documentation/process, other
+> messages on the mailing list and git log for plenty of examples.
+>
+> Is there a bug report about this? Would be nice to see the logs in the
+> failing case. See [2].
 
-Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
----
- drivers/gpio/Kconfig        |  10 +++
- drivers/gpio/Makefile       |   1 +
- drivers/gpio/gpio-cat9532.c | 173 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 184 insertions(+)
- create mode 100644 drivers/gpio/gpio-cat9532.c
+i915_vbt from debugfs would also be interesting.
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index a48586bb8edba..05b7af675677b 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -1180,6 +1180,16 @@ config GPIO_ADNP
- 	  enough to represent all pins, but the driver will assume a
- 	  register layout for 64 pins (8 registers).
- 
-+config GPIO_CAT9532
-+	tristate "CAT9532 GPIO support"
-+	select REGMAP_I2C
-+	help
-+	  GPIO driver for ON Semiconductor CAT9532 LED dimmer.
-+	  Say yes here to enable the GPIO driver for the CAT9532 chip.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called gpio-cat9532.
-+
- config GPIO_FXL6408
- 	tristate "FXL6408 I2C GPIO expander"
- 	select GPIO_REGMAP
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index dc9e6d643b5bc..e94d2f57a1f93 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -51,6 +51,7 @@ obj-$(CONFIG_GPIO_BRCMSTB)		+= gpio-brcmstb.o
- obj-$(CONFIG_GPIO_BT8XX)		+= gpio-bt8xx.o
- obj-$(CONFIG_GPIO_BY_PINCTRL)		+= gpio-by-pinctrl.o
- obj-$(CONFIG_GPIO_CADENCE)		+= gpio-cadence.o
-+obj-$(CONFIG_GPIO_CAT9532)		+= gpio-cat9532.o
- obj-$(CONFIG_GPIO_CGBC)			+= gpio-cgbc.o
- obj-$(CONFIG_GPIO_CLPS711X)		+= gpio-clps711x.o
- obj-$(CONFIG_GPIO_SNPS_CREG)		+= gpio-creg-snps.o
-diff --git a/drivers/gpio/gpio-cat9532.c b/drivers/gpio/gpio-cat9532.c
-new file mode 100644
-index 0000000000000..973ff74a15b89
---- /dev/null
-+++ b/drivers/gpio/gpio-cat9532.c
-@@ -0,0 +1,173 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+#include <linux/gpio/driver.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/spinlock.h>
-+
-+struct cat9532 {
-+	struct regmap *regmap;
-+	struct gpio_chip gpio;
-+
-+	spinlock_t lock;
-+	unsigned int direction;
-+};
-+
-+#define CAT9532_REG_INPUT0	0
-+#define CAT9532_REG_LS0		6
-+
-+/* Set output to Hi-Z, LED is OFF */
-+#define CAT9532_LED_OUT_HIZ	0
-+/* Set output low  */
-+#define CAT9532_LED_OUT_LOW	1
-+#define CAT9532_LED_OUT_MASK	3
-+
-+static const struct regmap_config cat9532_regmap_cfg = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 9,
-+	/*
-+	 * Auto increment can be enabled by setting bit 4 in the
-+	 * register address, but we don't really need bulk access.
-+	 */
-+	.use_single_read = true,
-+	.use_single_write = true,
-+	.can_sleep = true,
-+};
-+
-+static int cat9532_gpio_get_direction(struct gpio_chip *chip,
-+					unsigned int offset)
-+{
-+	struct cat9532 *cat9532 = container_of(chip, struct cat9532, gpio);
-+
-+	scoped_guard(spinlock, &cat9532->lock)
-+		if (cat9532->direction & BIT(offset))
-+			return GPIO_LINE_DIRECTION_OUT;
-+		else
-+			return GPIO_LINE_DIRECTION_IN;
-+}
-+
-+static int cat9532_gpio_direction_input(struct gpio_chip *chip,
-+					unsigned int offset)
-+{
-+	struct cat9532 *cat9532 = container_of(chip, struct cat9532, gpio);
-+	unsigned int reg = CAT9532_REG_LS0 + (offset >> 2);
-+	unsigned int shift = (offset & 3) << 1;
-+	int err;
-+
-+	err = regmap_update_bits(cat9532->regmap, reg,
-+				 CAT9532_LED_OUT_MASK << shift,
-+				 CAT9532_LED_OUT_HIZ << shift);
-+	if (err < 0)
-+		return err;
-+
-+	scoped_guard(spinlock, &cat9532->lock)
-+		cat9532->direction &= ~BIT(offset);
-+
-+	return 0;
-+}
-+
-+static int cat9532_gpio_get(struct gpio_chip *chip,
-+			    unsigned int offset)
-+{
-+	struct cat9532 *cat9532 = container_of(chip, struct cat9532, gpio);
-+	unsigned int reg = CAT9532_REG_INPUT0 + (offset >> 3);
-+	unsigned int mask = BIT(offset & 7);
-+	unsigned int val;
-+	int err;
-+
-+	err = regmap_read(cat9532->regmap, reg, &val);
-+	if (err < 0)
-+		return err;
-+
-+	return !!(val & mask);
-+}
-+
-+static int cat9532_gpio_set(struct gpio_chip *chip,
-+			    unsigned int offset, int value)
-+{
-+	struct cat9532 *cat9532 = container_of(chip, struct cat9532, gpio);
-+	unsigned int reg = CAT9532_REG_LS0 + (offset >> 2);
-+	unsigned int shift = (offset & 3) << 1;
-+	unsigned int val;
-+
-+	val = value ? CAT9532_LED_OUT_HIZ : CAT9532_LED_OUT_LOW;
-+	return regmap_update_bits(cat9532->regmap, reg,
-+				  CAT9532_LED_OUT_MASK << shift,
-+				  val << shift);
-+}
-+
-+static int cat9532_gpio_direction_output(struct gpio_chip *chip,
-+					 unsigned int offset, int value)
-+{
-+	struct cat9532 *cat9532 = container_of(chip, struct cat9532, gpio);
-+	int err;
-+
-+	err = cat9532_gpio_set(chip, offset, value);
-+	if (err < 0)
-+		return err;
-+
-+	scoped_guard(spinlock, &cat9532->lock)
-+		cat9532->direction |= BIT(offset);
-+
-+	return 0;
-+}
-+
-+static int cat9532_i2c_probe(struct i2c_client *client)
-+{
-+	struct cat9532 *cat9532;
-+	struct gpio_chip *chip;
-+
-+	cat9532 = devm_kzalloc(&client->dev, sizeof(*cat9532), GFP_KERNEL);
-+	if (!cat9532)
-+		return -ENOMEM;
-+
-+	spin_lock_init(&cat9532->lock);
-+
-+	cat9532->regmap = devm_regmap_init_i2c(client, &cat9532_regmap_cfg);
-+	if (IS_ERR(cat9532->regmap))
-+		return dev_err_probe(&client->dev, PTR_ERR(cat9532->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	chip = &cat9532->gpio;
-+	chip->label = "cat9532";
-+	chip->parent = &client->dev;
-+	chip->owner = THIS_MODULE;
-+	chip->can_sleep = true;
-+	chip->base = -1;
-+	chip->ngpio = 16;
-+
-+	chip->get_direction = cat9532_gpio_get_direction;
-+	chip->direction_input = cat9532_gpio_direction_input;
-+	chip->direction_output = cat9532_gpio_direction_output;
-+	chip->get = cat9532_gpio_get;
-+	chip->set = cat9532_gpio_set;
-+
-+	return devm_gpiochip_add_data(&client->dev, chip, cat9532);
-+}
-+
-+static const struct i2c_device_id cat9532_i2c_id[] = {
-+	{ "cat9532" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(i2c, cat9532_i2c_id);
-+
-+static const struct of_device_id cat9532_of_match[] = {
-+	{ .compatible = "onnn,cat9532" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, cat9532_of_match);
-+
-+static struct i2c_driver cat9532_i2c_driver = {
-+	.driver = {
-+		.name = "gpio-cat9532",
-+		.of_match_table = cat9532_of_match,
-+	},
-+	.probe = cat9532_i2c_probe,
-+	.id_table = cat9532_i2c_id,
-+};
-+module_i2c_driver(cat9532_i2c_driver);
-+
-+MODULE_DESCRIPTION("On Semiconductor CAT9532 GPIO driver");
-+MODULE_AUTHOR("Alban Bedel <alban.bedel@lht.dlh.de>");
-+MODULE_LICENSE("GPL");
+The patch itself looks sane.
+
+BR,
+Jani.
+
+
+>
+>
+> BR,
+> Jani.
+>
+>
+> [1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
+> [2] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+>
+>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+>>  drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+>>  drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+>>  3 files changed, 42 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+>> index 02a53c9848e1..f746287830b3 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+>> @@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
+>>  	if (display->platform.geminilake || display->platform.broxton)
+>>  		return true;
+>>  
+>> +	/*
+>> +	 * Machines whose firmware leaves eDP dark on the Intel side never set
+>> +	 * the bit, so trust the quirk rather than the register.
+>> +	 */
+>> +	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
+>> +		return true;
+>> +
+>>  	return false;
+>>  }
+>>  
+>> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+>> index 33245f44c0d5..feb28956a013 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+>> @@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
+>>  	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+>>  }
+>>  
+>> +/*
+>> + * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
+>> + * the firmware never lights up eDP on the Intel side and consequently never
+>> + * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
+>> + * to DDI A. Without the bit, port A is capped at two lanes, which is not
+>> + * enough bandwidth for the panel's native mode, leaving the connector with no
+>> + * usable modes at all.
+>> + */
+>> +static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
+>> +{
+>> +	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
+>> +	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
+>> +}
+>> +
+>>  struct intel_quirk {
+>>  	int device;
+>>  	int subsystem_vendor;
+>> @@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
+>>  	return 1;
+>>  }
+>>  
+>> +static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
+>> +{
+>> +	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
+>> +
+>> +	return 1;
+>> +}
+>> +
+>>  static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>>  	{
+>>  		.dmi_id_list = &(const struct dmi_system_id[]) {
+>> @@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>>  		},
+>>  		.hook = quirk_no_pps_backlight_power_hook,
+>>  	},
+>> +	{
+>> +		.dmi_id_list = &(const struct dmi_system_id[]) {
+>> +			{
+>> +				.callback = intel_dmi_ddi_a_force_4_lanes,
+>> +				.ident = "Apple MacBookPro11,5",
+>> +				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+>> +					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
+>> +				},
+>> +			},
+>> +			{ }
+>> +		},
+>> +		.hook = quirk_ddi_a_force_4_lanes,
+>> +	},
+>>  };
+>>  
+>>  static struct intel_quirk intel_quirks[] = {
+>> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+>> index 970a4fe52faf..d2b8e9183c62 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+>> @@ -23,6 +23,7 @@ enum intel_quirk_id {
+>>  	QUIRK_EDP_LIMIT_RATE_HBR2,
+>>  	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+>>  	QUIRK_DISABLE_PSR2,
+>> +	QUIRK_DDI_A_FORCE_4_LANES,
+>>  };
+>>  
+>>  void intel_init_quirks(struct intel_display *display);
+
 -- 
-2.39.5
-
+Jani Nikula, Intel
