@@ -1,160 +1,234 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91B54BA1D3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494471; cv=pass; b=SbS4O5bepVc8pn74iUE05lSFwR1AhLFoMLkDbwgFUeEgtMcfSwUc3hnSY4TtorZVKzDE5hQEjfdxEPkrulZQciMUzmBAhUfs/+F0MKwPyQBfuY/kDWog9nbAXbA5i4pwJLfmKl6VPTWpY3N8BVjMZBT4CfjT88k3MRtuX2PUmyI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494471; c=relaxed/simple;
-	bh=u6Gw0oEc8G0Na/fDm4B5c157a2l4J+0QxPZsDNbgEew=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tPg0kU9J7/1n9C52HOlQeAt7+X+D8yQzeg6EtdezMq2VmqVYyFJErHhfS+l9g6LVzfNGqwCx0HPSzMfQjPveiFOrtluWJN3vy0YYKptrkXOJCH1RGVxoe3dURB9eBLgGw7HGWpdqzXrElgkjCqy6Yjl7KtKo+tRZXWFC+hZHDa4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SC4kCaqf; arc=pass smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9E663EEAF8;
+	Tue, 15 Sep 2026 17:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789494546; cv=none; b=oS606BiELOybExMsvg5OPOpm1kLZ9u2Fq+6MAx9WYMBdCx3mgARw0oZSU+hpEDrd/b27WE2IhijZfEQMwbtt9xqxCoK71tRHp1E97YBh+wi2PcjqJAdbCzJvgHIlCC68BT+QYRJGr4dTmVHvBSvXNWN1exs/rarnWLP3stYgS/k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789494546; c=relaxed/simple;
+	bh=tIOnU1MTP6xV2VV7knVj8q85l9UIZ6omydtjOabHinE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Lm1qUwAeOGpd56FeSyFm4xAGtfRHC55BQcEdcFWyaA4chbqUB24WRHvuwkc0aOp4lpBYbsN7GbN2CoTOA5Wzx006ZESOYXVRBw8Y8LfcZnGPJ16y61jT21KzE6eGAPIYPIdtQch8FVOICanzCrjIswXF7tNsnBT1Z6hU3ni1yX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SyvaDvlC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SC4kCaqf"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso5417475e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:47:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789494466; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Cx/1YmaK1nRWuf6fX0kHZRQ3ZZKljD3S3jhyEdkEQnQ34xGVoB2+VcClV4mK3oi8qQ
-         R4Eb90XeGQ4d90q2I8kwyScar7yFapW5ULydZCNIPlu4kJ0vBm6NIYcZbRsiD93WR5j9
-         MzCRNOQb/zs3U8f59sHgfT8XrroHZFaI0ZhgCIkwXK3c0gX5gqUDHFvOqPEpJxLKdLA5
-         5rif20y6+Kj0YaLvIzy5oh1FUHyT+hmSqrrjGGq1kkc7nJaIgCj+NsWR9cCVnA2FGHWk
-         PjcMKzTrfb4IEScJZvQ6r0b26M4xRHuA0FF6+l9OvGXVRnmV7Te9Xe4npOJ0uWyRxZzB
-         HO7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u6Gw0oEc8G0Na/fDm4B5c157a2l4J+0QxPZsDNbgEew=;
-        fh=x20gpJcmO4s3Dk/AkfDLbHMRjvpffdztY2MbsvOZC/w=;
-        b=knz4cYr1eCH1q2ix1Md5PqVdcwcLDJBuTU1yZP/Mtj8Q66+DI6EEeHQEIPSbIFoG8V
-         8A8CBybmMYLqOMUuQAi1/YwCm5r5HpOnWLekGpyehI1BAYyHbUTDiKOQnJbfefiX72mP
-         ITj6FxjwWjkcxbEx9h/uQmaWme9reSNJFGRKCortEidNYhEc0d9t2zskBcQjku1rNol6
-         34NNBW0hLOv34ut7IuSLWDFGmOTrvlZmZzX1sc54GrurTEV23gToyynM5pyyYTaYXAbP
-         AX8ZfJY5r3FTNXjD629NBqsJGFzR/0qhQ6rOXzJAn5d5oyOYXuM7RzJnF7jmApQ+iwcZ
-         gXGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789494466; x=1790099266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u6Gw0oEc8G0Na/fDm4B5c157a2l4J+0QxPZsDNbgEew=;
-        b=SC4kCaqfVVRGG5CrPQH/SMlPkiIKeXl83D4UvgxjX69ghdnUrnuUqyHeshbHL7v3XU
-         MciOzn7JIO9Y1K03tB70Y1eRi39OTU0IszyivUgKVlYAdjxNulv95mjqsR7bnCS8ldRX
-         YSkgn4Qvd+FzLDnfI6RWmHgFd8RnJXjiw60CDK6CC3yZbf/T8tyHxKswzKVlpOU1Ifet
-         cSas4HSNTNnIrGPq963ZUw9VRnXemCoxAdUi0BmmOeCPgGp1gPpG/dMliWtjlfDpuzkU
-         U0Cp5g/97Q5+jtIPfWjlZAOjJDWvnugaRoFqaKUBCzD/GTkVXI9Yfcz6X/9gSZBRg0Ir
-         vneA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789494466; x=1790099266;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u6Gw0oEc8G0Na/fDm4B5c157a2l4J+0QxPZsDNbgEew=;
-        b=02tZ63jgjAWau4HzaNcOuBLpqDdpZ4p5y5a1af6yC9IE57WQ7VVd0cRHrB42OeTvH7
-         bNm8KKwcwmy0fW9Y6TXYbXR9HzXBblmzFQA2S641BVy+0G2p7K0AaxXw8lcIrRjJ7rNE
-         otdm4qFRiDnvFKr+EGlBXBowsjq1OFbyxUgGhjNQf+uCMZ5uUu9KiqaDPDibOKMdqI9q
-         lGz1UN5cH1eBcKrovmHOaZfG6vzzU7ctQUfLGk/pe/kUssnpHKI3dUBC1ATsjqcMRKMn
-         3xUDNg88mV+dMqi2d+32ZkhejmnRDyqtdob9qFZoY7W5lKSHveiXVUnYGowdo+jHqLot
-         RpJw==
-X-Forwarded-Encrypted: i=1; AKwUvBze2nsS7Uavd68bHwLSTchK+iY866AKikmoVjv8vtQIIV/NjRfUJsQG0zwd4g/cBYLekFDlDfiTYaPccgQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzRTWXSKpwXmAGthgb+u+8BrO0jUec2noTbvkZGtWCKy1mEmkF
-	RsRhMrieP/Ko1OCCqZUfEvXtaDX/mLETUQlDxTsdnwrsNX/dpXYnvOYS8F3l3KKmV4WTAmiT19c
-	gwPj+STINdF1FTgl75EtFdJcPD8UTuApyGF4gUkEN
-X-Gm-Gg: AYBFou0TQNgOKNFE59wgNznwDsZXrMUewhAmxusYYAGpe/rbeMYgt72TRRPBfRCVC2e
-	lkC18m6sBIW+urSTaI5Sb2ofTF/m5YlZE1hTLiA7KJyTutvCP4aUftpx0BV9TVhv+HFrHe+sxzR
-	0QnZBnje0MG1NMgx98Pj0GGtd9KsxsDHDWf19HOjcETK7kTJu3nQ1bMU0QS1c+gsw7E9YMdo75k
-	D/52IZhwdPEWMH6Z0zSpBxsaX1GVn6ExTvOytn4J3khV9pU8QKRVmb8vi4JgpTfIpnZBZKNd6WC
-	wawgvy/SMYbr8rtZCMObg+2BFsS1DErAuVOSEtEpJVt/d+fIBYZs9MkiLpmKbG8CQcjqYnv3Pj6
-	XCAvnY4KbaM/4k9yWJf+OP/rodo9obcjPUpCWxmJB8dyvS5QDZ4so0OqwhQWnkh+78/8=
-X-Received: by 2002:a05:600d:84ca:10b0:49c:ff66:7d88 with SMTP id
- 5b1f17b1804b1-49e7d725e6fmr51370615e9.7.1789494465544; Tue, 15 Sep 2026
- 10:47:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SyvaDvlC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A110153B;
+	Tue, 15 Sep 2026 10:49:00 -0700 (PDT)
+Received: from [192.168.1.148] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 670C93F7B4;
+	Tue, 15 Sep 2026 10:49:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789494544; bh=tIOnU1MTP6xV2VV7knVj8q85l9UIZ6omydtjOabHinE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SyvaDvlCTGucSv4noTWyrNiGQg0jG1bM+Y2Y7PhfKXtEkzoXn90D3+laJXePekIDT
+	 80C+vbRqd6Q+vXRTqBb1FBtZuus221dG620E7nvSnz71bPOZlSgLh6+klMZj03Lule
+	 0pOBtHK0ECS4SdvNQMgx0sGW+rVyXmEcpW0IGJqE=
+Message-ID: <7c26c860-0543-459e-974b-72c59af261f9@arm.com>
+Date: Tue, 15 Sep 2026 18:48:59 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-21-39817ec5db23@kernel.org> <202609140844.FA7E848A@keescook>
- <aqk9gakQhxToLnDI@gremlin> <202609150955.A51C9F7A20@keescook>
-In-Reply-To: <202609150955.A51C9F7A20@keescook>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Tue, 15 Sep 2026 10:47:34 -0700
-X-Gm-Features: AcwNN1U4CY7rpoxX3OGd9mqCs-kE5osRcDbnjG2lLmWDcf89pyFwGTPPrVzl7qI
-Message-ID: <CAKwvOdmgeyqivO4pVa=30XDWpXvdRzBR8f13rfuPzDx=LJ1Tsw@mail.gmail.com>
-Subject: Re: [PATCH v2 21/21] kbuild: use pigz for gzip compression if available
-To: Kees Cook <kees@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 01/23] KVM: arm64: protected VM: Handle set_one_reg
+ CNTVCT_EL0/CNTPCT_EL0
+Content-Language: en-GB
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
+ catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ Marc Zyngier <maz@krenel.org>
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+ <20260915160141.3543048-2-suzuki.poulose@arm.com>
+ <86o6dy5uob.wl-maz@kernel.org>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <86o6dy5uob.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 10:31=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
->
-> On Tue, Sep 15, 2026 at 03:30:43PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Mon, Sep 14, 2026 at 09:39:07AM -0700, Kees Cook wrote:
-> > > However, parallelism needs to be set. We can't let it eat all CPUs: i=
-t
-> > > needs to respect the -j make option (and make its CPU reservation kno=
-wn
-> > > to "make"), which we already have a solution for in
-> > > scripts/jobserver-exec.
-> >
-> > The only place where it's invoked is vmlinux.bin at the end of the seri=
-al
-> > tail, where all the tokens would be free anyway.
-> >
-> > So I don't think it really buys anything at all?
->
-> There are 2 things I'm thinking about:
->
-> a)
-> My main concern is the lack of respecting the -j make argument. In my
-> mind, this is a blocker, because it means a build will now _always_ spin
-> up max CPUs (not what -j has limited it to), and for CIs, shared compute
-> systems, or whatever, this violates the requested parallelism level. For
-> example, if I'm doing a long-running Coccinelle replacement in one tree
-> (which uses half the CPUs), any builds I launch I'm asking for the other
-> half of my CPUs to be used so they don't thrash my cache.
->
-> This is the kind of "why are all the CPUs spinning up?" question I
-> helped track down with commit 51e46c7a4007 ("docs, parallelism: Rearrange
-> how jobserver reservations are made") forever ago.
+On 15/09/2026 17:46, Marc Zyngier wrote:
+> On Tue, 15 Sep 2026 17:01:19 +0100,
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>>
+>> Protected VMs doesn't allow setting offsets for virtual and phyiscal
+>> counters, as the offset is always fixed to 0. The VM ioclt is filtered
+>> out based on the cap. However we don't prevent the userspace from trying
+>> to write to the CNTVCT/CNTPCT registers. This would lead to KVM triggering
+>> a WARN() in timer_set_offset() as the vm_offset pointer is set to NULL.
+>>
+>> Fix this by always "fixing" the timer offsets to 0 and marking that the
+>> timer offset is set in the kvm->arch.flags at pKVM init time. The
+>> userspace cannot use the KVM_ARM_SET_COUNTER_OFFSET, as it is blocked for a
+>> protected VM.
+>>
+>> A userspace writing to the SYS_CNT*CT would observe success, without
+>> any real effect. This was chosen over preventing the writes to these
+>> registers and returning -EPERM.
+>>
+>> With that, we always have a valid vm_offset pointer, remove the checks for
+>> vm_offset == NULL.
+>>
+>> Reported by Sashiko here
+>> https://lore.kernel.org/all/20260908164641.416911F00A3A@smtp.kernel.org
+>>
+>> Fixes: f7d05ee84a6a ("KVM: arm64: Prevent host from managing timer offsets for protected VMs")
+>> Suggested-by: Marc Zyngier <maz@krenel.org>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>>   arch/arm64/kvm/arch_timer.c    | 15 +++++----------
+>>   arch/arm64/kvm/arm.c           | 15 +++++++++++++++
+>>   arch/arm64/kvm/hyp/nvhe/pkvm.c | 26 +++++++++++++-------------
+>>   include/kvm/arm_arch_timer.h   |  3 +--
+>>   4 files changed, 34 insertions(+), 25 deletions(-)
+>>
+>> diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
+>> index 6ac3321f4c575..dda020da4c9c7 100644
+>> --- a/arch/arm64/kvm/arch_timer.c
+>> +++ b/arch/arm64/kvm/arch_timer.c
+>> @@ -1079,14 +1079,10 @@ static void timer_context_init(struct kvm_vcpu *vcpu, int timerid)
+>>   
+>>   	ctxt->timer_id = timerid;
+>>   
+>> -	if (!kvm_vm_is_protected(vcpu->kvm)) {
+>> -		if (timerid == TIMER_VTIMER)
+>> -			ctxt->offset.vm_offset = &kvm->arch.timer_data.voffset;
+>> -		else
+>> -			ctxt->offset.vm_offset = &kvm->arch.timer_data.poffset;
+>> -	} else {
+>> -		ctxt->offset.vm_offset = NULL;
+>> -	}
+>> +	if (timerid == TIMER_VTIMER)
+>> +		ctxt->offset.vm_offset = &kvm->arch.timer_data.voffset;
+>> +	else
+>> +		ctxt->offset.vm_offset = &kvm->arch.timer_data.poffset;
+>>   
+>>   	hrtimer_setup(&ctxt->hrtimer, kvm_hrtimer_expire, CLOCK_MONOTONIC, HRTIMER_MODE_ABS_HARD);
+>>   
+>> @@ -1110,8 +1106,7 @@ void kvm_timer_vcpu_init(struct kvm_vcpu *vcpu)
+>>   		timer_context_init(vcpu, i);
+>>   
+>>   	/* Synchronize offsets across timers of a VM if not already provided */
+>> -	if (!vcpu_is_protected(vcpu) &&
+>> -	    !test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+>> +	if (!test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+>>   		timer_set_offset(vcpu_vtimer(vcpu), kvm_phys_timer_read());
+>>   		timer_set_offset(vcpu_ptimer(vcpu), 0);
+>>   	}
+>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+>> index 8b080804bc90b..7c88508cac8a1 100644
+>> --- a/arch/arm64/kvm/arm.c
+>> +++ b/arch/arm64/kvm/arm.c
+>> @@ -214,6 +214,20 @@ static int kvm_arm_default_max_vcpus(void)
+>>   	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
+>>   }
+>>   
+>> +/*
+>> + * Fix the counter offset to 0 for Protected VMs and mark the
+>> + * offset flag. The user can't set the offset via KVM_ARM_SET_COUNTER_OFFSET.
+>> + */
+>> +static void kvm_arch_fix_timer_offsets(struct kvm *kvm)
+>> +{
+>> +	if (!kvm_vm_is_protected(kvm))
+>> +		return;
+>> +
+>> +	/* Fix the counter offset to 0 and mark the offset initialised */
+>> +	kvm->arch.timer_data.poffset = kvm->arch.timer_data.voffset = 0;
+>> +	set_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &kvm->arch.flags);
+>> +}
+>> +
+>>   /**
+>>    * kvm_arch_init_vm - initializes a VM data structure
+>>    * @kvm:	pointer to the KVM struct
+>> @@ -267,6 +281,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+>>   
+>>   	kvm_vgic_early_init(kvm);
+>>   
+>> +	kvm_arch_fix_timer_offsets(kvm);
+>>   	kvm_timer_init_vm(kvm);
+> 
+> This should all be moved to the timer code.
+> 
+>>   
+>>   	/* The maximum number of VCPUs is limited by the host's GIC model */
+>> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+>> index 459bd9eb7e4bc..e7b38eff63bd1 100644
+>> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+>> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+>> @@ -528,19 +528,19 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+>>   	hyp_vcpu->vcpu.arch.cflags = READ_ONCE(host_vcpu->arch.cflags);
+>>   	hyp_vcpu->vcpu.arch.mp_state.mp_state = KVM_MP_STATE_STOPPED;
+>>   
+>> -	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+>> -		/*
+>> -		 * Timer offsets are pointing to the untrusted KVM copy,
+>> -		 * which is pinned in __pkvm_init_vm() for the VM life time.
+>> -		 * It is worth noting that hyp_vm->host_kvm points to an EL2
+>> -		 * linear map address and timer_get_offset() will use
+>> -		 * kern_hyp_va() which is safe as it is idempotent.
+>> -		 */
+>> -		vcpu_vtimer(&hyp_vcpu->vcpu)->offset.vm_offset =
+>> -			&hyp_vm->host_kvm->arch.timer_data.voffset;
+>> -		vcpu_ptimer(&hyp_vcpu->vcpu)->offset.vm_offset =
+>> -			&hyp_vm->host_kvm->arch.timer_data.poffset;
+>> -	}
+>> +	/*
+>> +	 * Timer offsets are pointing to the untrusted KVM copy,
+>> +	 * which is pinned in __pkvm_init_vm() for the VM life time.
+>> +	 * It is worth noting that hyp_vm->host_kvm points to an EL2
+>> +	 * linear map address and timer_get_offset() will use
+>> +	 * kern_hyp_va() which is safe as it is idempotent.
+>> +	 * Also for protected VMs the offset is fixed to 0 and is prevented
+>> +	 * from changing.
+>> +	 */
+>> +	vcpu_vtimer(&hyp_vcpu->vcpu)->offset.vm_offset =
+>> +		&hyp_vm->host_kvm->arch.timer_data.voffset;
+>> +	vcpu_ptimer(&hyp_vcpu->vcpu)->offset.vm_offset =
+>> +		&hyp_vm->host_kvm->arch.timer_data.poffset;
+> 
+> I don't think this is right. Protected guests have no offset, and this
+> needs to be ensured by the hypervisor. Here, the host can change the
+> offset any time it wants, and that's not acceptable.
 
-Parse -j from MAKEFLAGS (https://stackoverflow.com/a/76517886),
-forward it to pigz?
+Ah, you're right. :facepalm:
 
---=20
-Thanks,
-~Nick Desaulniers
+> 
+>>   
+>>   	ret = pkvm_vcpu_init_sysregs(hyp_vcpu);
+>>   	if (ret)
+>> diff --git a/include/kvm/arm_arch_timer.h b/include/kvm/arm_arch_timer.h
+>> index bc6f2fdd7ad33..4f0aa3bb69f45 100644
+>> --- a/include/kvm/arm_arch_timer.h
+>> +++ b/include/kvm/arm_arch_timer.h
+>> @@ -176,8 +176,7 @@ static inline bool has_cntpoff(void)
+>>   		if (__ctxt) {						\
+>>   			struct arch_timer_offset *ato = &__ctxt->offset;\
+>>   									\
+>> -			if (ato->vm_offset)				\
+>> -				off += *KERN_HYP_VA(ato->vm_offset);	\
+>> +			off += *KERN_HYP_VA(ato->vm_offset);		\
+>>   			if (ato->vcpu_offset)				\
+>>   				off += *KERN_HYP_VA(ato->vcpu_offset);	\
+>>   		}							\
+> 
+> And as you drop the previous hunk, this also needs to be restored to
+> its original state.
+
+Ack.
+
+Suzuki
+
+
+> 
+> 	M.
+> 
+
