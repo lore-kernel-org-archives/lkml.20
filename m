@@ -1,132 +1,152 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2D8C4C4F56;
-	Tue, 15 Sep 2026 16:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F064C752A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488172; cv=none; b=EEVAPO4puQqxAiwJZterg8Vpee62lwJdVtXZYjU1gR8jytD+g/ubh/jvls4wor/oiE2sa+c/K7qUrPQtBRDlpL0sqQ8mE3BBSwhQ418ZL2RYb29fIFKq+O2JDuPMUqVouWhI9123AuoMLcXalyGkeWKgY0yvZQl607XDQNH2dS0=
+	t=1789488173; cv=none; b=haJ6Bub/FiSw/iTr91LLqatekKLGUohoki38R9XGe/TMTOsEMrzoZtnyfyOHFgAmgtcyeVYUjsW6LTZqCdjqHneL3Q5fJLVJcq393ZefX/d5QpFeZJb156tSQh5GYhQ5/mRgd2jC6nnBDFABKcgvUviiflG1YPU9+5YqWbomcWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488172; c=relaxed/simple;
-	bh=KNGyqBTTUJTWOTVKLgAvuyYtc0wespVw2YOMovUz8Jg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KK0s6x9oKb3otr6qj42/wEs94AztK0XuG1S+sEf8xVmVtSA3uFxixIoX6u0fRXHQ99t8Bup72MmOY0VE8XicQDJpUtHqxw2/5cOxoZKU28C2cw9jz/r0BLxjxHlRHbSZpEhPkHQ0Gwnqa35vAvnPLcqKVtab4M+FR2t8FLcT7zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=M9v6rzUZ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789488173; c=relaxed/simple;
+	bh=TaD3IKHcoZf0PQ+wUUh3mHvOgYZf6uXYuUZRFHNcE+Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IQ8TgDXGal2I/32dEWR4T4Nua0yI1MhcYsqUelFSQuBo63IVDRp6rXZ182yuDwXs1r9ZAV1PNTHTwr+PtnckffOctOXUKwIirV/TNq83v5m1VQTYA4W5ycKtqx4zh4ajcMr6emjSDUW5JjrhvWleZXM5R86zteoSxsIbS0u9LXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=BFXUvnb1; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="M9v6rzUZ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78D8C1D70;
-	Tue, 15 Sep 2026 09:02:46 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 637F63F882;
-	Tue, 15 Sep 2026 09:02:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789488170; bh=KNGyqBTTUJTWOTVKLgAvuyYtc0wespVw2YOMovUz8Jg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=M9v6rzUZFHfz43wxKkRx3e2xakx1kna3LEd7bJX+wrLxtfmO6WJmoxsNI1XfDZkn+
-	 qU6Re6idPVttaiaoWNuc3tRaFFgNXBmgVAFecgXl6jNMX3opYre6JnfKMBvjOaQzhM
-	 p4Ji0zuj//M+hKQvMrlJxscR9jiJ9H57ilvizYIA=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v18 19/23] KVM: arm64: CCA: Support timers in realm RECs
-Date: Tue, 15 Sep 2026 17:01:37 +0100
-Message-ID: <20260915160141.3543048-20-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915160141.3543048-1-suzuki.poulose@arm.com>
-References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BFXUvnb1"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so502089466b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:02:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1789488168; x=1790092968; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cj8iWYGkmy9fr6Sp+MjBMi0cvssqzarl8Tgut8FUMEc=;
+        b=BFXUvnb1JnJx+yuqE+j5wfSl2ZM8MiW4xh1e5xG66mN4x4NUif6uaoe3Ufy/2FTMhP
+         08Snb5/KOn2uSnVgBzlCVZuYFyrrS5hk3U5SooA8DWoGumB2s8a20cGbW4GErVK8aVmh
+         vQH4rhSbo67FBZvj0mY4M1GfjAlLgVbCm92cM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789488168; x=1790092968;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cj8iWYGkmy9fr6Sp+MjBMi0cvssqzarl8Tgut8FUMEc=;
+        b=BP8+JbQ+wp3qmguUHwBiYW2Cx/fa7W5HcWrmcCODaQqbrgB6cOgMudBi1MvkzLmkTp
+         rRA1kkWq8vytqZhyif8ZPSSJ+4xvvrN2e+gChwQ8wAKiEdIWS9nQWhr/89f7CLHas+5G
+         pXY4+xLENYP6MO0PCoAyUYi5Bl5ObgvvfT0gXheVLh11FnfHmghTFU6ogBzHEmMk7vVm
+         orE8VFGKACd6zlm2NJAADKT2th3gVz0QfPRuRLzKIk3FwZ1txnLq2lOhlvx2pWtZTC0C
+         jkRSyRYkChbehRKMUTyUY9YPkeLYKYCwEXM6AY7rtsnz7l4n/iHtLsLAtHLQMTK4+yuT
+         ikhg==
+X-Forwarded-Encrypted: i=1; AKwUvBxW4V3Jt4S2oKIc4k/VmCLXgI2efd+armmBZP5s8GA7Mdmc6DiKNKEgcM/bgJunrd0+QTo9twRfFuPrl5o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbSn2tSfwGbVrzcTCxRLxWTd6QfnYRJp3kj5RWwnnYk4A0KWJH
+	siRJhtKUUyZJFWTzjgkf1vcn3P8WJu3DjDDyIOFmkG+e8CfCufC7yv8tCm6gCQNGb3okweQKRkj
+	F2KPLBD0=
+X-Gm-Gg: AYBFou1jIPT/hf+P01Fdtf3PwqV0EcIQkc6chie4NxEbS4FcKyqq+8z3c2pzYF3VtgA
+	QvG5tltlHBBpsGOoWVGEk+NDSOnH/+uH96lLtaQZ4obfvNq345ML5ak9gwaF0602Xst6UdsdOWb
+	JAokxUyhXI4JwhTd2BNgCWcNmMn5nLi1pmlQ8wEjfZOgA06nioazAETqoLRsCm+sdKDSJmTTtlO
+	GjqnKdfCM4Qgolpl9fKA91Zz3q0ZIo5+2NyCv7oGCSr9PFUWPR+dJZY9qwOklRgToY7vmpVPaIi
+	9REoD2ZCTsGQZ1BMsJUMD/FcnTLFOTYABddKD7z8FOhLw/oNYieq7mhJb4m5UUlvkSNmR65amB8
+	2DhUUYKUPjulD4gTq2aBDbc93pSyvTCRWQlLHTSo1S3meIWOm1zKTfiLfjQbXg9I/VbV64kNGT3
+	M8Yw2bxijMzX4n5dzkjNzS4XgGHJiQTdpX1xrwVHkPHi8OW+QLckLlUZelR7rkBLjj0KZxTeFVa
+	AIsF7qFhB2+UWyIEvqwqN8rrQ41qbOt3fuLeBRrlH6JPJh/
+X-Received: by 2002:a17:907:cd0d:b0:c29:439b:d5c1 with SMTP id a640c23a62f3a-c29b86141b9mr553593966b.16.1789488168354;
+        Tue, 15 Sep 2026 09:02:48 -0700 (PDT)
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29c6816618sm172445566b.63.2026.09.15.09.02.48
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 09:02:48 -0700 (PDT)
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98604f6b4so5106352a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:02:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxONQTPIuCxtWKeM1vMYr5c+DJbtO5M+86y1eGmE2zW5fXg66gCvXenhE2xrvbZ4uah6TtCNloxZu9+jPo=@vger.kernel.org
+X-Received: by 2002:a17:907:cd0d:b0:c29:439b:d5c1 with SMTP id
+ a640c23a62f3a-c29b86141b9mr553591866b.16.1789488168046; Tue, 15 Sep 2026
+ 09:02:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 15 Sep 2026 09:02:31 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjeamU=_RYT9cR3dZJ2N-Teo-N1+aYh7jwhrB=iWXD0cg@mail.gmail.com>
+X-Gm-Features: AcwNN1WK06t9f9BcKFBIanysXcyUXK4eRICuH4x14s60AdlpF6ijCATIYaYAAvQ
+Message-ID: <CAHk-=wjeamU=_RYT9cR3dZJ2N-Teo-N1+aYh7jwhrB=iWXD0cg@mail.gmail.com>
+Subject: Re: [PATCH RFC POC 00/50] file: handle files on syscall exit
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, Jan Kara <jack@suse.cz>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
+	linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
+	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, 
+	netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, bpf@vger.kernel.org, 
+	David Airlie <airlied@redhat.com>, virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+	kexec@lists.infradead.org, linux-hyperv@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Steven Price <steven.price@arm.com>
+On Tue, 15 Sept 2026 at 04:31, Christian Brauner <brauner@kernel.org> wrote:
+>
+> TL;DR, this lets arch code handle fd install and cleanup. fd_prepare()
+> allocates a descriptor like get_unused_fd_flags() does and records it in
+> a slot on the task. fd_stage() attaches the file to that slot and
+> returns the number.
 
-The RMM keeps track of the timer while the realm REC is running, but on
-exit to the normal world KVM is responsible for handling the timers.
+Honestly, I am *not* a fan. At all.
 
-A later patch adds the support for propagating the timer values from the
-exit data structure and makeing sure the values are in sync for KVM.
+I think this adds complexity rather than removing it.
 
-Also, RMM doesn't support injecting virtual interrupts backed by Physical
-interrupts. So, use the existing software resampling mechanims for Realm
-timer interrupts.
+The diffstat tells a story:
 
-Signed-off-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
----
- arch/arm64/kvm/arch_timer.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+>  106 files changed, 962 insertions(+), 861 deletions(-)
 
-diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
-index dda020da4c9c7..ef5690956ee64 100644
---- a/arch/arm64/kvm/arch_timer.c
-+++ b/arch/arm64/kvm/arch_timer.c
-@@ -56,11 +56,25 @@ static unsigned long kvm_arch_timer_get_irq_flags(void)
- 	return kvm_vgic_global_state.no_hw_deactivation ? VGIC_IRQ_SW_RESAMPLE : 0;
- }
- 
-+static unsigned long kvm_realm_timer_get_irq_flags(void)
-+{
-+	/*
-+	 * RMI_REC_ENTER rejects LRs with the HW bit set, so use the existing
-+	 * software resampling mechanism for Realm timer interrupts.
-+	 */
-+	return VGIC_IRQ_SW_RESAMPLE;
-+}
-+
- static const struct irq_ops arch_timer_irq_ops = {
- 	.get_flags	 = kvm_arch_timer_get_irq_flags,
- 	.get_input_level = kvm_arch_timer_get_input_level,
- };
- 
-+static const struct irq_ops realm_timer_irq_ops = {
-+	.get_flags	 = kvm_realm_timer_get_irq_flags,
-+	.get_input_level = kvm_arch_timer_get_input_level,
-+};
-+
- static const struct irq_ops arch_timer_irq_ops_vgic_v5 = {
- 	.get_input_level = kvm_arch_timer_get_input_level,
- 	.queue_irq_unlock = vgic_v5_ppi_queue_irq_unlock,
-@@ -1604,8 +1618,12 @@ int kvm_timer_enable(struct kvm_vcpu *vcpu)
- 
- 	get_timer_map(vcpu, &map);
- 
--	ops = vgic_is_v5(vcpu->kvm) ? &arch_timer_irq_ops_vgic_v5 :
--				      &arch_timer_irq_ops;
-+	if (vcpu_is_rec(vcpu))
-+		ops = &realm_timer_irq_ops;
-+	else if (vgic_is_v5(vcpu->kvm))
-+		ops = &arch_timer_irq_ops_vgic_v5;
-+	else
-+		ops = &arch_timer_irq_ops;
- 
- 	for (int i = 0; i < nr_timers(vcpu); i++)
- 		kvm_vgic_set_irq_ops(vcpu, timer_irq(vcpu_get_timer(vcpu, i)), ops);
--- 
-2.43.0
+in how this adds a hundred lines more than it deletes.
 
+But to make things worse, it adds them in bad places: low-level
+architecture assembly code.
+
+Those extra lines are *not* making complicated code simpler. Quite the
+reverse. They are taking fairly straightforward "just deal with errors
+with normal cleanup in the place where it makes sense" and makes the
+*straightforward* case simpler, while making the big picture more
+complicated and subtle, and adding new code to places that are not
+simple and just blindly do somethign that makes no sense in that
+context.
+
+IOW: it's more code, and it's more abstraction, and it DOES NOT HELP.
+
+And yes, most of the well-maintained modern platforms (read: x86 and
+arm64) use the generic infrastructure and they don't show that
+low-level asm effect. So for those cases, it's mainly just  that added
+conceptual complexity and a new odd rule - and makes a *successful*
+system call go through that "extra work" and indirection phase that it
+didn't use to go through.
+
+So it just spreads out the work, and moves it to a less obvious place.
+
+All for the very questionable advantage that you can now randomly add
+a file descriptor without the few lines of fairly straightforward
+rollback.
+
+IOW, I do not see a single real upside to this, and I see immediate
+downsides to it, and a more abstract complicated machinery.
+
+I do *not* see why we woudl want to make this be a "every system call
+exit" kind of thing. If there are places that think it's complicated
+to do, they could have *their* local little stack of fd's pending. Why
+force it onto the low-level system call entry for every system call
+when there are only a small handful of actual real cases (the vfs
+itself, and random ioctl's by odd driver subsystems).
+
+              Linus
