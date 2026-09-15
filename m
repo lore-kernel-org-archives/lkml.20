@@ -1,109 +1,98 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC02E54B;
-	Tue, 15 Sep 2026 00:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4313D13777E;
+	Tue, 15 Sep 2026 00:02:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789430532; cv=none; b=hrJn+XnvePWwWS9FYjWtVny61gFpd0bjX//A0QjsQaYzFu6CSZFLLKfX/xdzrCF2aubELc2d1FWgrNp6yCgtmhWNlEH0/OgSkHh36DUVlBZ7rVtIKS1dajr3U/vzCj27F6Wp+CWUTyGP+/cQFpr9HdDIE09ZAnRTqzjB5Yo+97o=
+	t=1789430544; cv=none; b=faZnA88vvThGThquxcgaPmomY5+h9SpHOahzzxVSVuyHOq0+c63fHu0DH2atLdyJDgO23iG7ByyAqeTOdHIfxz+UuJ6N4v+I+xnjZsw40dgdPwEVF8LScTNlgbpBP7ifoKPBIFzSnf9fd5+tFR1PmotDWPExhrFYicakHF2YoPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789430532; c=relaxed/simple;
-	bh=Z00tgr0iJfPA6eCMkmvMyUoY2ciT53//89in3zibU0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kwtSefZogT2YspE4XPE0IddKq520l8GeJELjtTsccNcNLwyGAKQhTBfOr3Y4v4Us3CDfGWtov6X/gAaRvSG29e1Pyxp/46ZYhv2+AogcTt5wCoPANIiI/cxNGaQkFQSq4aQP4MAE4ITmev4N8tSzLmc5epnSQDrgnovQ4e2dV/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=X28921eC; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Mf+uPeuh; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	s=arc-20240116; t=1789430544; c=relaxed/simple;
+	bh=NJfHtM03swQF0uZl+7QEnzYxlJxfAuSvzCRdiP7XaSc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O4lvUS8I/SZaHo5jQE7SKv7kDXDRQHTvQbJCVMU0/4a0CJgsI2F+NIQtczQLF/f+GQ4PP9vMu5rIu4OxQabzVkzvRgsD2Cjrnj2A9ST60FGhp4IosSkI3xaQakgaftyLPbwqhoJSieDftFs5y73STBW+RUIra4U+zszo49J0n/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=e+UJx1oQ; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="X28921eC";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Mf+uPeuh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1789430528;
-	bh=Z00tgr0iJfPA6eCMkmvMyUoY2ciT53//89in3zibU0g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=X28921eCEaYJ38BHyYq5iW09sw+p6KrB7T4UR90EKnghPx1UAmkquq7r+QEgNNVz+
-	 BvPZvIRxdJhdyQ4rpc9AraxFeu3Fp/7fZSjJA92HN5gibxf+jlOgYQFpnYXaoVWi94
-	 uBcMYGTrBA4nsLLnyANmZtvkfxjViLP0jTDC1Fo7oBWLTWehT2NwLARBtdaKEu1Y0N
-	 ksGclHcz/emnfGSWisk88fbD3l/6mfbdKvdXtjza0e8g2CGYal/Ncz30mjlbJLnKHX
-	 lat9NZJKmJDyuvs/QjBuamXCXGJ3fpsjRlWtkvYcK2pAyiksJKEg4XsMiLg/ABzOVg
-	 mGlhImR95794g==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id E48D93F844; Tue, 15 Sep 2026 00:02:08 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1789430527;
-	bh=Z00tgr0iJfPA6eCMkmvMyUoY2ciT53//89in3zibU0g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Mf+uPeuhMlfwrAs6neqDmLOoZcIxSAWlgwUUooq6+brTbhntqKzrew6O9hK6fVjCl
-	 3apW/67Y6PCkLN8BNM2g1zY5y5+BlgEbvKnPpgP6PPcGBt077mNmMJRq+f+2V9LBZT
-	 62XiFLXLsAepuX/6Iv2pJvHqMVFKG6l4m75WY290PN8otWXRNipUtvm7NmoCxzmHl0
-	 RElJYmojO+zo34/BWj2xKIjX/bPX9erTMzxwqiTZV4V/9TjWWxYYxOz/7QsMNCE9pp
-	 pjpChq0yvD7WRS/zSHajtwFwD8AvB9uLFKezCXF5hoh3xDGWN7VbMVKGzFr+hBIc6R
-	 ATypADhDnua8Q==
-Received: from [IPV6:2409:8a62:2532:dca0:14f4:3e22:1e7c:23c2] (unknown [IPv6:2409:8a62:2532:dca0:14f4:3e22:1e7c:23c2])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 9852B3EBCA;
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="e+UJx1oQ"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3799D40E015D;
+	Tue, 15 Sep 2026 00:02:21 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id toROeyS8Wv_3; Tue, 15 Sep 2026 00:02:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789430531; bh=iRmgXTUv9HXiuTgQu0nzskb1YRU+ZqE9qUW7qnXMjNA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=e+UJx1oQ/N8olu9TZYeiAv0SsIwFyPbJTGwlQxhoAsEj623EQfSt1myEQZHbFdLit
+	 OLCKP9s+clTs6VrQrF//2wljNCdGR75YxdOOrrbtcYVxM6Vk6TcTpVCdvBg+fZJPrr
+	 ORWHn4Dm0mYh84rIUZTEhS8+3ZDnix9CMbKm+RDTLmvLpJezihdaPWaZPU7Wk3DxOn
+	 9o8iajrppssIl39CHehF7vMCRLxS+fO7oarfyEuHto467QgQgiYATZcV653rHJ+KwZ
+	 bOB/ECgdOO/7bjsh6u1ZaYxG3kdmUwOm0+MO9s4eNUHcUnrUbd6b/FagYNL7UN1wNK
+	 mk2X673+gxZeaQtXRHFC3OvASCf7QsoPZrEJgUM8yQLbhVImOoVj9qZPifn7aJorkB
+	 BfAUhGkEjaSc/IR9G0IJxANWpa/ziqNxM0xRXKe8S2kUTsKNbzLQ818qnauV4tZ1FZ
+	 Z99BtGzcCTIfzvAW+koARQRpuyoKpkge1V8r1/1AzOQc5rsRDUAOLSv0vn3UrIix6E
+	 VyDclMlh49ry0UkIW5sGF3iPMscJxABLyvtmr/TMygVaWSVPV1heZUa2kO2iwrLOxB
+	 fIO7gvjoxoKOcOhDr9dpF1fLb6YwJf3AKdFN3bg21M0H7yVKqoGa+udpSRdCferZ/a
+	 mwEC/odlocb3NitLirsWvgiw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9AA1F40E00B9;
 	Tue, 15 Sep 2026 00:02:03 +0000 (UTC)
-Message-ID: <9a4ad1ba-0d98-4a5d-b18d-742f82337641@birger-koblitz.de>
-Date: Tue, 15 Sep 2026 02:01:48 +0200
+Date: Mon, 14 Sep 2026 17:02:00 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, x86@kernel.org,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Rick P Edgecombe <rick.p.edgecombe@intel.com>,
+	CoCo ML <linux-coco@lists.linux.dev>
+Subject: Re: [PATCH 1/3] x86/tdx: Share tdx_panic() with the EFI stub
+Message-ID: <20260915000200.GCaqiK-LBCI63KE9F7@fat_crate.local>
+References: <20260914183745.37538-5-ardb@kernel.org>
+ <20260914183745.37538-6-ardb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v11 06/15] ax88179_178a: Add HW support for
- AX179A-based chips
-To: Andrew Lunn <andrew@lunn.ch>, Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
-References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
- <20260914-ax88179a-v11-6-5ea7a925ba6d@birger-koblitz.de>
- <18c931ca985a82a044c9269743fb4fb7@tipi-net.de>
- <3103b046-fa19-4b59-af4a-f326783eda4f@lunn.ch>
-Content-Language: en-US
-From: Birger Koblitz <mail@birger-koblitz.de>
-In-Reply-To: <3103b046-fa19-4b59-af4a-f326783eda4f@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914183745.37538-6-ardb@kernel.org>
 
-On 9/14/26 18:53, Andrew Lunn wrote:
->>> +static const struct net_device_ops ax88179a_netdev_ops = {
->>> +	.ndo_open		= usbnet_open,
->>> +	.ndo_stop		= usbnet_stop,
->>> +	.ndo_start_xmit		= usbnet_start_xmit,
->>> +	.ndo_tx_timeout		= usbnet_tx_timeout,
->>> +	.ndo_get_stats64	= dev_get_tstats64,
->>> +	.ndo_change_mtu		= ax88179_change_mtu,
->>> +	.ndo_set_mac_address	= ax88179_set_mac_addr,
->>> +	.ndo_validate_addr	= eth_validate_addr,
->>> +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
->>
->> dev->mii.mdio_read is never initialized for ax88179a, so
->> dev->mii.mdio_read()
->> through usbnet_mii_ioctl() is a NULL function pointer.
->>
->> Something like:
->>
->>    static int ax88179a_mii_ioctl(...)
->>    {
->>    	struct ax88179_data *data = netdev2data(net);
->>    	return phylink_mii_ioctl(data->phylink, ifr, cmd);
->>    }
-> 
-> Is this transitory? Does a later patch fix this up?
-> The aim is to remove all dev->mii accesses.
-> 
+On Mon, Sep 14, 2026 at 08:37:47PM +0200, Ard Biesheuvel wrote:
+> +void __noreturn tdx_panic(const char *msg)
+> +{
+> +	struct tdx_module_args args = {
+> +		.r10 = TDX_HYPERCALL_STANDARD,
+> +		.r11 = TDVMCALL_REPORT_FATAL_ERROR,
+> +		.r12 = 0, /* Error code: 0 is Panic */
+> +	};
+> +	union {
+> +		/* Define register order according to the GHCI */
+> +		struct { u64 r14, r15, rbx, rdi, rsi, r8, r9, rdx; };
+> +
+> +		char bytes[64] __nonstring;
+> +	} message = {};
+> +
+> +	/* VMM assumes '\0' in byte 65, if the message took all 64 bytes */
+> +	memcpy(message.bytes, msg, strnlen(msg, sizeof(message)));
 
-No, unfortunately, this is an mii-leftover. I thought that
-usbnet was emulating the mii ioctl somehow, not that it was expecting
-to be able to use a mii_mdio_read. I will remove the
- >>> +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
-line, entirely.
+I'd probably do here:
 
-Birger
+#define MSG_SZ	64
 
+right above them in the function and use that everywhere, esp. instead of
+sizeof(message).
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
