@@ -1,143 +1,135 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC244078F5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0DC36F8FD;
+	Tue, 15 Sep 2026 17:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494394; cv=none; b=p7hIDgyTrXMFtuFs2UQCrRGUsava0pCpv6cQe6gxTOMcT0KLKRb92yfkbT9Ti4SQUtTDW/q78XRgjzrVa8yEuNUdGZqjAnxAlFCz6fq9aRcMQGvAK83fNc9Fyi8uhpC/z/rnSBlDU9fiZvg/4kYP+L3i+Wk3pz8QOMvOjX2+R/8=
+	t=1789494425; cv=none; b=M8y48ElzCbahlDWkcSVXIbMMK7Wgs79Rma5U3zkL+cQ6ElNRyCVo3pIfKwyzClfISTDljygPT+P0qiG4RmCgNptcXuRlwKM5mWtzT2RweEh0tcbdDmnUY7B9kIil7C45dwz+Lwc4bj5I/xpi8WITjJp7rLVt4q+o91d/HNnpN2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494394; c=relaxed/simple;
-	bh=WlQBNU+LBHOTy12vRSd1ePrcpVEBbXkmEd6JKJ3g0u0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mFGbj3TGXMakytebpkn0xix0zG0a+YulpKwvh7vcHl8PkQ+V9snjCyMukYa4DIWHAHHn7SqgSC0skI2s7MD8DlNlP0ys7t20xBInzp+0ZZjUJj67V4rNl+FWna4hbEoEPDtNj3+poRhruiTkO0RUjZ8eUMAMp3TfdHJLMLdaq0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NCDBC/8O; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789494425; c=relaxed/simple;
+	bh=CCmZIqzrfwFytRG6L0cbeORjISrBssAVbSF98DeNhtQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dfaMUGSmUX2Hd4hx0KDocfFXvpnHEko1Xxy35obZFJGbj8pmp+nq6dBDu4kLYcngGn/X18qTvn/5yzzt3ngj4meLjWeAthRFi/A24wcDoiFUNbAHpPEOmC2hqFUjKcOBiIRQ0iq9B9QuKDoj10SRjMe5apTRkpaVj2sgc+d3Sz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=VsT5V0S/; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NCDBC/8O"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b965f447cso740405e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:46:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789494389; x=1790099189; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4kHhQGy3vIUJSO4i7ji0MZ5Fg5auge9rgj23eZwGEys=;
-        b=NCDBC/8OzeEsXDsKqGiYKWY0M67SdVEOP+jHaM+EbBm4wpV5Uh0p31rg3UE/NJMnpJ
-         pRIETjBmOdgrRnE4YwBvc2JcenbXic6PPLBF9HWhg5x8eIlRYxEFXUyj/3CBvQ/Jr0n4
-         cMPWrrFBfHFDOCDLh2b+fx1E1FmcEh15YzTLuTwFitosgm5dspjAm9wD4dM9pbt2hRBq
-         f2bZ4yeRK/ZQZf5re6AJX3+pcU4btcfnLf6Rt0zxy5jVWfMoiwOR07fwPhtScDxdnA4r
-         eDITvnakX74wbLOcoT3AEqGJzsA5GHqMqkzltG7meBoE7DWdE66Gsjf1wCDN+YUiOMjM
-         hdyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789494389; x=1790099189;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4kHhQGy3vIUJSO4i7ji0MZ5Fg5auge9rgj23eZwGEys=;
-        b=epD7L9RbB+BE1AUBWiP2qkqgMXl5TKEfTB4P72rFIDOPk9B86RqyZRirSjR3jNsjcZ
-         +trmvRgDLD3rXE4nprJrhg+mlXRrKZEd0xFaqcwDb5E7gW8b5+kNbSkqNSxqTD1AEq6l
-         9GoZuKqBP1lde0lAptIHRuqpjaTw5rNqBCeMHDoTn3V+gHQHUL8I/R4TLyGKlCct5fKc
-         PJwbic2lVRrzRObVFxPuexSrGiuayMX6vHQ/7GqqjsGu34doSnUvxFkF5JO0ipj30fsU
-         dTidLQaXMewEPDj785B8q0r0BLx/icJxsUXqvdcRAlKOq20r7E0SYB9DwpPw/s+B0fhR
-         AykA==
-X-Forwarded-Encrypted: i=1; AKwUvBxctzVVQMJ64NF9Ry+DmzJBMau6zzhB8mG864Uvwd/wvG6bHaucdn99O7bWK3KM0755DMfCdhGHgr7Nd+M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kF2oGe1NZVEE1VPyqXniGw/cdMgZTc28nWJhZXrjt7LNQEez4f
-	thbK/lF6EBJf2VllVYSzBpw3K+AULgKz0fzH8stTuYpNqarYDy+EWEUY
-X-Gm-Gg: AYBFou1ymK9AulwlvK8gfaKQx7f0mG/eQvM49jqgT0oDDeToqN03hNjyu+AUyyMmv1U
-	ZOOkHeo6r+tBkhC+bqPHEdUVt3XLVP0OjUVEMSrWo3JXhpjtZIAYOY9j4NGWr206bS0y4HQIqUd
-	e788p26zLpQsK0QvDgy+9VjzxczbSL3WZiN+GK3Tz29+LysjAM/YwEXI07H3x+VXpBkWQa3MzbI
-	O2/fUEizWi4QkYxysY6o/RBQ3R/S2v6K9G0eg5NF9oyBcHTxN/2c6z7LjVmbY4/2iDYqMBQf+wp
-	4vnjupuNK2p6EPeZQijkCxMcskPNNzi2iw56Hr4EX/LB0ouuNXtlySmkWTVlqPdy0CPGbSX4lJd
-	EjSWjL3AILauvBIpU8vDnoSBrRJ56hOF/knCTkr2b6AzI8byUqRqzwqlK2aH8sr1ey9vDZ8thNW
-	hfQpGdul1llqIKup0tu2Pb/VYTnK9N+qio9rfXWUW3K0cPcbK5wNsZpiRd/frAEkYxWM553OFr7
-	n2smsGvF0FfzEPWm/SwSGfDmaw4qmXJGQHs0KtqXt8nLesU6C++
-X-Received: by 2002:a05:600c:860b:b0:49c:fea1:f792 with SMTP id 5b1f17b1804b1-49e7a64889amr101393015e9.12.1789494389380;
-        Tue, 15 Sep 2026 10:46:29 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83fc3da0sm3415955e9.1.2026.09.15.10.46.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:46:28 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="VsT5V0S/"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 806E848F43B;
+	Tue, 15 Sep 2026 19:46:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789494419; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=80mtWLE6jZ2+9O6Z6Io20KcPF/T+lsToZLYgR/f9/Vs=;
+	b=VsT5V0S/YUshGGGxyIcT8aFxRgIf+DyMDNsS0nnZgoUquHANyyIGR6/En7f1FT7m/RsBZl
+	smcfiLxIbO+JC18H0IlJmSGzp/eXo/ox2ZzymCZj2J50sLp/KNQUB7gR0MtJUAByFD24Rg
+	JAbcX4PLptxHHg5eNzKJavX4zf72WbXmBGezuowO7RSTcS4JcQLoYZO8LFApYIomCkBe2n
+	9QMBfJA85xfZu+WXH/ybSKEjZN/ktGVc4QyabuPhaoWbstVbDSl3SSXPI1o73rd2HAaQWB
+	3sv5r0aHjvBUM5SaEhfO4A+AhHekkxuIjuVGaPLx4yrXHGyqXXOVz1MCEHPRvQ==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	linux@armlinux.org.uk,
+	arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com,
+	dqfext@gmail.com,
+	sean.wang@mediatek.com,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] platform/x86: hp-bioscfg: fix slab-out-of-bounds write in hp_convert_hexstr_to_str
-Date: Tue, 15 Sep 2026 22:46:15 +0500
-Message-ID: <20260915174615.63924-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	naseefkm@gmail.com,
+	b.larsson@gmx.com,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v2 net-next 0/7] net: dsa: mt7530: support EcoNet EN751221
+Date: Tue, 15 Sep 2026 17:46:36 +0000
+Message-Id: <20260915174643.253660-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-hp_convert_hexstr_to_str() decodes an ACPI string made up of
-space-separated ASCII hex-byte tokens of the form "0xHH". For
-example, the four-byte input "0x41" decodes to the single
-character 'A', and the nine-byte input "0x09 0x41" decodes to
-"\tA": each token is read in a five-byte step (four characters for
-the token, one for the trailing delimiter), and produces one output
-byte, or two if that byte is '\\', '\r', '\n', or '\t', which are
-written back out as a backslash followed by the matching letter.
+The EcoNet EN751221 has a unique switch configuration. Every chip made
+with an EN751221 die has at least one on-die MT7530 that is MMIO based.
+This switch has 3x 10/100 ports and 1x gigabit port.
 
-The output buffer is sized with kmalloc(input_len, GFP_KERNEL), the
-raw encoded length of the input, not the decoded length. For
-well-formed input this is generous, since five input bytes never
-decode to more than two output bytes. But input_len comes directly
-from the ACPI string length reported by firmware and isn't
-guaranteed to respect the five-byte encoding, so a short input_len
-can undersize the allocation. With input_len == 1, only one byte is
-allocated, yet decoding still produces at least one output byte
-plus the NUL terminator written unconditionally afterwards, so two
-bytes are needed. That terminator write then lands one byte past
-the end of the allocation.
+Some popular chip packages such as the EN7513G and EN7526G have another
+MT7530 implemented as a multi-chip-module that connects to port 5 of
+the on-die switch and is controlled via the MDIO controller integrated
+in the on-die MT7530.
 
-KASAN caught exactly this during BIOS attribute enumeration on
-boot, triggered by a one-byte encoded input value:
+In this configurations, the upstream switch is put into a "passthrough"
+mode in which all traffic is forwarded between port 5 and port 6
+without altering its DSA tags.
 
-BUG: KASAN: slab-out-of-bounds in hp_convert_hexstr_to_str+0x6d8/0x710 [hp_bioscfg]
-Write of size 1 at addr ffff8881032e5d81 by task (udev-worker)/520
-The buggy address is located 0 bytes to the right of
-allocated 1-byte region [ffff8881032e5d80, ffff8881032e5d81)
+Furthermore, since the DSA core does not call mt753x_setup until all
+switches are present, and the downstream switch only becomes available
+when the upstream switch has configured its MDIO controller, the MDIO
+controller setup on MMIO implementations must be done before
+mt753x_setup, or else it will never complete.
 
-Size the allocation to the worst-case decoded length instead of the
-raw input length: two output bytes for every five-byte input chunk
-(DIV_ROUND_UP(input_len, 5)), plus one byte for the terminator.
+Finally, the on-die switch and the MCM switch connect via a TRGMII link
+which requires calibration. In order to calibrate this, PLL adjustment
+must be possible on the on-die switch, necessitating changes to the
+core_(set|clear|write|rmw) functions to support MMIO implementations.
 
-Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-v2: Expand the commit message to spell out the hex-token input
-    format and decoded output with a worked example, and explain
-    exactly how a short input_len undersizes the allocation, per
-    Ilpo Järvinen's review. No code change from v1.
+Solve all of these issues, add the TRGMII calibration, and add support
+for both switches.
 
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Since this patchset will probably be subject to some discussion, please
+consider accepting any patches that are non-controversial since it will
+make future re-submissions easier.
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 22c198680903..42331cf90581 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -442,7 +442,7 @@ int hp_convert_hexstr_to_str(const char *input, u32 input_len, char **str, int *
- 	*len = 0;
- 	*str = NULL;
- 
--	new_str = kmalloc(input_len, GFP_KERNEL);
-+	new_str = kmalloc(2 * DIV_ROUND_UP(input_len, 5) + 1, GFP_KERNEL);
- 	if (!new_str)
- 		return -ENOMEM;
- 
+Thanks!
+
+Changes since v1:
+* Move mt7530_setup_mdio_irq out of mt7530_setup_mdio because
+mt7530_setup_mdio may be called before mt753x_setup
+
+* Do not return error in mt7988_probe if mt7530_setup_mdio fails because
+doing so leaks the DSA switch registration, and in any case
+mt7530_setup_mdio will be called again.
+
+* default_taps_ondie not being used en751221_trgmii_cal_ok unused args
+
+* Use clk_drvp / clk_drvp instead of drvp / drvn (typo)
+
+* en751221_set_tx_drive ext values too large for fields - values taken
+from reference implementation, reduced from 16 to 15.
+
+v1: https://lore.kernel.org/netdev/20260909140346.2861572-1-cjd@cjdns.fr/
+
+Caleb James DeLisle (7):
+  net: dsa: mt7530: get ctrl phy addr using a function
+  dt-bindings: net: dsa: mediatek,mt7530: add passthrough mode
+  net: dsa: mediatek: add support for passthrough mode
+  net: dsa: mediatek: support PLL setup on MMIO MT7530
+  net: dsa: mediatek: support MDIO switch downstream of MMIO switch
+  dt-bindings: net: dsa: mediatek,mt7530: add econet,en751221
+  net: dsa: mediatek: support EN751221 switch
+
+ .../bindings/net/dsa/mediatek,mt7530.yaml     |  50 +-
+ drivers/net/dsa/mt7530-mdio.c                 |   1 +
+ drivers/net/dsa/mt7530-mmio.c                 |  10 +-
+ drivers/net/dsa/mt7530.c                      | 579 ++++++++++++++++--
+ drivers/net/dsa/mt7530.h                      |  46 +-
+ 5 files changed, 632 insertions(+), 54 deletions(-)
+
 -- 
-2.55.0
+2.39.5
 
