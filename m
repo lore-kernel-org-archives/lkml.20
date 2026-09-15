@@ -1,70 +1,69 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A40386C0D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D919747F793
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:43:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469014; cv=none; b=gl4alL8EHrG6tHSwrSL5NMTukbs4NMYubtI69bKicq8KAs6lQoOh6cZOb6HPsKXQqcVx8/7BzAaHs5EIWvPpyODgaj0ZO5Uo53FZxjdSns6Le+DzVGEtCzcVfXc8JmSGsD2v8AYoXfNMC703WjZ41H/WfOzP6slSTw5uK80U9DU=
+	t=1789469014; cv=none; b=iYtEfqXy21uEeYPr4Y+WggYq3w5dH4hLM+MHImuMSaeVLBBvojp3RMMRhuBzJwn9E5iNXbZPBxia2jdtg2WUy0Sc7KNMJt+ND39U3y92twzNfEUskoK/10UoYe1fPpOBH/goc0NisDgUp/estq+eCFcTBLuLU+nCyVvDtOzCn3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789469014; c=relaxed/simple;
-	bh=T7svtQCEZR4NbRSxQOr575LmZrX+L5qTFSBrf8JfOqc=;
+	bh=iI/cZyNcu0lJPo6qa1Mf+1HxYhdTetig193HzvnkFFo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GK7THUxq9rNMX4WLMv04l54+73qYWTpK0cI746itCFF8/oil7/3EtdLszNa6Mj6G4vVQnoxkArq+IpbdPxkd6ToY6uvfCz4egaeHuMZm5O/PzwMAI9bLt2idW+S3CxGWgHjQivVCkYJfHQtnsVSGdh640rFQht6SWSMs++xmLW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hEqcvPH6; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=SQFYTYRRm40/DeWxf9yOjfSntzD7SLwtFFpVwObmuvhPeZhPkZ/8gQun+jCOqwVTpF1UlygBNqJXRx6LdsQ8kqDL5zeBGXMtv0MS/vcHgNZ/X6zCXtz+R+qzCSvNrILhumgj82YK4a0hTSWkQwOEXtq/sN10Mq/FgIZwlnfjidw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FX/Om4cc; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hEqcvPH6"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so868865e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:43:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FX/Om4cc"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so643605e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:43:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789469011; x=1790073811; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789469010; x=1790073810; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+CV6Egn+bDTw43XKQWvuzHo2bqHGWcQG7Sgy8YDAY5U=;
-        b=hEqcvPH657nPit5JpSf6aeSK1VzhHI6/z4DvU7Jx68BhE8mFNi1BaBxHTmTg7umw7g
-         e6UG4jykuI8171FDngJ+5BVXcEHxOamop7TQ2lR9SsK1S3imgkvL86a/F6fBmoOklYxz
-         enW5LvJe+yaOV1n8njhYkPazT/3K40HZuP+q6/C/mru+rR2hnmUo2M76UJ+Z2yES3DWP
-         Q4SzYijZo1XV3ve/MC3ViOglGC92NwnRP6wfU+gCqHT/8+QIWvwSKU8itQ+ixebyd4kT
-         kE6T0wJyzC6VHuJxskHi/mNoq+820cMKdR2W+D9FvU9TQvDrKnr2+RdAAWdfNn54GRW0
-         Hyfw==
+        bh=P6/E0n0oXj35RKNOrfB7WlcbfXYrFEXx2o5InJpzTZE=;
+        b=FX/Om4ccasHUKdq3CE7+HkdtNmuXh00AykEPt27gubR9k/i2aiNycm1Wj8qeu32Eqo
+         +u9nkOu8IWZDglmWJWx0QX6xssDHhmtd6bqFQUuo96HRgs++MnrSALjif7g+p8Km04QT
+         PLNd43g5ibrcthmckbSfTN+iRc7UaOWUEM9iB5KBZJvDBzikyVcCZ8qkS2gCcEAh3N/f
+         1PtRWubbTIE+WW1m1PeoysDY+qEtcVYmmjKvgKK7zPjcO24tUhgMHRrKd9bv8MBLegnj
+         FvWeCd9wGKT5TN2R4hsDvNFSrgS28QfywE5+UStvpN6u2c/mmNZMq+VJm6o2yNh52cc8
+         ROwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789469011; x=1790073811;
+        d=1e100.net; s=20260707; t=1789469010; x=1790073810;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+CV6Egn+bDTw43XKQWvuzHo2bqHGWcQG7Sgy8YDAY5U=;
-        b=zWNnW1cm4z1u/vaqu1nK+sclrtck/1MhfozUQv0hDcuLHe4I/AaNPgkQ7uD59kZ0iZ
-         VR6hjqfqEgX1tp26TbrvVPuJKiYDJN71m3ovePr+B/zZHC8Rm/VqxBwdKnv6/8GOcGpo
-         Y2z5p8x5MRSvlNocBCuimX7jWc8j3SDLBSgSHvJukPo5OI29cTkdHRVkJAn1ud1oRJgc
-         UIPffnzs2mIBUMQQU4T88/DeJQnGxZMMATJ7y9U25lAXE/hhrspqab1Ru5BFsQZTigpk
-         MbUufKaPFNM8W/+MIcLczuDlii8Jo24W6EbkLZuD4tXQkN2UCm1GnYtEEHYmnb5naXw2
-         F0Mw==
-X-Forwarded-Encrypted: i=1; AKwUvByLXKnSAyUo9ziv1mUXTw1nr4hl89cVUOZaed24yiZpmNPf6X/HA0WIahGh8xae53Bn3p64DvfZUIgrARM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kg3AZi4OTH7DTowh4nTK7b6cLlKEsmlsz//F6YR1bIt2glL+9+
-	c+iu3m2pYf6U1+FKltm6nyFHexRCrekuE0C2e7zyjH1WLVi4P3FIlVZ+
-X-Gm-Gg: AYBFou1wgZ8B+joYEnXXKRwQ5V0tauZTZ44I/WQpflFlf7ozbabrnmPOi1SXO1V81Bj
-	eofwV24WyN/OiA/dhfUopSUsvUCJbp/1on0mKcMaT7Dddr6VhKp8cGuoErjNrh3vulmgDgmbuAj
-	FPbmGtCRdWsfr0pDgao36ZWRE+vkzRy5yAKj5KRTe3hgwkAs6Re5HWRQiRvzR1OihHsEbSXOLQv
-	l4lNJful9iRQN+P9oU2La5sqL9PwdSVsKkHnF9XSmrMvITnrP0ftt0vvOYXR3VjSqu8yPbCnV0l
-	TjhJItTmdqmFoAYz8Cyd8+i1hDkn3K4bXEAuArBcKTPXm54f3tR2ebJ/p35YR/bW3zu/1Q1mrXp
-	fePrpkn5UOoQb5OwNOgxGKQsjE/fGjttUitseK9rlmi/79G4NpCOMWohLHmlci25bI1nvaFfyAi
-	R45wPaTdKMb2RfjQLFCMCN/AAjgIk6sC7568YFNFsMNVKaT4uZiYVrmN45DNK7P+M4ViNMYQD64
-	3FXilcwK36z3i/EuJ8fOKsgCZeXpr7/oBSyMHAluW+xyU5wFD4mdMWWwnpC/F0fqxRE5PjVjF0z
-	XA==
-X-Received: by 2002:a05:600c:3516:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49e82210b64mr9351345e9.8.1789469010714;
-        Tue, 15 Sep 2026 03:43:30 -0700 (PDT)
+        bh=P6/E0n0oXj35RKNOrfB7WlcbfXYrFEXx2o5InJpzTZE=;
+        b=NzXSW3PnGCYZcmy5u6/w0yAX+b/YqiggjRagWAxx5Kic3qAxtV4oNBlDsmFBhMI+Tt
+         Nuviv5LsgK/PJrnj7ilWynZANEiOnZCfy27tbm8tBAyc8jRQp+JnZ5FcHUPYDBWp9XIu
+         3rOcbziK/0BwG/wtThTVez86SancVNAWev5jawkqYUMAn5Kxj9Wy8bvgVFuMaoswTS9I
+         asmJEF+Vc/b+05uevBQM1PCnTsKgRQoMvx98nUJmfcfodm41BYBEOUUtroi3NnFh4Yhl
+         N3SfcdaCETsyeINg1XzrWB1nzAIxJTGLgU7RAm/1Af/uGXnb3D0Ft1HWW76rAIEk4iya
+         ncTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGEcGMHSUDFgNsi5mNJs9afxvSWoTNEztQZr0seBbGjw97gZyMFg65LDaKgwXfCZjBYoah4vKXNmFqUoQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++keOy/W9G3GqwzbVEhtuRgwTLmh0dNeS5ZyPSsc9sb/xY0ve/Oc
+	MtPtBkgQm4vETHxCC8T0jDWt5HD7RduqJ0kgIleRojPpGDOPZ8yqHE5f
+X-Gm-Gg: AYBFou2XYV1U83MRgsjRQRdy4ezd8/3RwY7c8uhAf7IOaRXpRoL7ztm0pvsj54HMKb2
+	+1EcYI8mMLLdgepq6eBbRbO6IFa3Y5mu10A221Z6NG0BJLI+QcZSJ/14i6cnYcQe19O6SHIKSOT
+	Snm+s5/qZVUtre3DIQLgN8z6diP7NdRLH5X5KzgcWxaO8nq/ihUb4gXR3pNFLXIqwkgZtGkdGNE
+	M02ZG/PRiih+rY5QtY5b3bESJI0+y69+fZ3iejSo7jF8EU/iGzOOzXl32X8Bl9nsDN3LHNFq0bz
+	UyRzKqjUuUsjGfDhcnbWP19oTfsCJzYsw45PwjipuuqR4eHOyGAT6/k7+TOi8B4cLKk8ozHmFya
+	WvC3f8z3gjf2evfjbTpS0u5NTSkOMleaAFjZ5hI7KuT/UjaMFSrQE9MF2bgIH5E4g8ct8OAR5KX
+	ppd20kk+go6/YjoaYgHm1hHe9s3RJaBZWnXfB4Lwf7+b3PZSPL0Ak5puZdJj/kWOYDfV7/BzvGr
+	1H4x08AroWABnZEkmxxAWPSfXj6iUgjdu9939/lTg8qrlnLGv67u7mKEJGC1mm7o9AW
+X-Received: by 2002:a05:600c:8b54:b0:49e:7a00:b9a5 with SMTP id 5b1f17b1804b1-49e8222d27dmr8972995e9.4.1789469009914;
+        Tue, 15 Sep 2026 03:43:29 -0700 (PDT)
 Received: from [127.0.1.1] (2a01cb0007c59900d73f8285c1e647ab.ipv6.abo.wanadoo.fr. [2a01:cb00:7c5:9900:d73f:8285:c1e6:47ab])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d2a94b9sm58001325e9.3.2026.09.15.03.43.30
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d2a94b9sm58001325e9.3.2026.09.15.03.43.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:43:30 -0700 (PDT)
+        Tue, 15 Sep 2026 03:43:29 -0700 (PDT)
 From: Amin Gattout <amin.gattout@gmail.com>
-Date: Tue, 15 Sep 2026 12:42:48 +0200
-Subject: [PATCH v2 3/4] phy: rockchip: phy-rockchip-inno-csidphy: add
- support for rk3576 variant
+Date: Tue, 15 Sep 2026 12:42:47 +0200
+Subject: [PATCH v2 2/4] dt-bindings: phy: rockchip-inno-csi-dphy: add
+ rk3576 variant
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rk3576-dphy-v2-3-b56e68b54b8c@gmail.com>
+Message-Id: <20260915-rk3576-dphy-v2-2-b56e68b54b8c@gmail.com>
 References: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
 In-Reply-To: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -82,60 +81,57 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: Michael Riesch <michael.riesch@collabora.com>, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, Amin Gattout <amin.gattout@gmail.com>
+ linux-phy@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Amin Gattout <amin.gattout@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789469006; l=1842;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789469006; l=1762;
  i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
- bh=T7svtQCEZR4NbRSxQOr575LmZrX+L5qTFSBrf8JfOqc=;
- b=eQvDxheF72tsvAJS32ZkaFvXX6NNWm28Bsw7F/w1Zy5QmGsgwEi4egtVnZZRjBKNhf4WjFbAW
- h0O3gsraYFIAa6PT+HoD2V4W8Tz+gYMZVjRPi9SOtZsJl8Lzfm0kax8
+ bh=iI/cZyNcu0lJPo6qa1Mf+1HxYhdTetig193HzvnkFFo=;
+ b=zvkAUWKH6xsfLa5omHi8dFMZ76+DIzxdxeGwkj/eZhqT0s0dXZoIPjUvdeXPdhzqLFeXe0dAw
+ Nxt/00tRo0xBDfkMfHqcmLZPm1clsJ5PnYNVdOmNhuGDzExnxy8Wr5M
 X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
  pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
-The two RK3576 MIPI CSI-2 DPHYs can be supported using the existing
-phy-rockchip-inno-csidphy driver, but they need their own driver data:
-as on RK3588 the GRF control bits live in a dedicated CSI-DPHY GRF at
-offset 0x0, while each PHY instance only has an APB reset line, as on
-RK3568.
+The Rockchip RK3576 features two MIPI CSI-2 DPHYs compatible with this
+binding. Unlike the RK3588 variant, each PHY instance only has an APB
+reset line, so add the new compatible to the single-reset group as
+well.
 
+No fallback compatible is used because the RK3576 DPHYs match neither
+existing variant: their control bits sit in a dedicated CSI-DPHY GRF as
+on RK3588 (rather than in the shared VI GRF used on RK3568), while only
+a single APB reset is wired up, as on RK3568. Falling back to
+"rockchip,rk3588-csi-dphy" would make the driver request a second,
+non-existent reset, and falling back to "rockchip,rk3568-csi-dphy"
+would make it write to the wrong GRF offsets, so dedicated match data
+is required.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 ---
- drivers/phy/rockchip/phy-rockchip-inno-csidphy.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-index c79fb53d8ee5..177beb685f70 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-@@ -403,6 +403,17 @@ static const struct dphy_drv_data rk3568_mipidphy_drv_data = {
- 	.resets_num = ARRAY_SIZE(rk3368_reset_names),
- };
+diff --git a/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml b/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
+index 03950b3cad08..92d0c961f4c4 100644
+--- a/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
++++ b/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
+@@ -21,6 +21,7 @@ properties:
+       - rockchip,rk3326-csi-dphy
+       - rockchip,rk3368-csi-dphy
+       - rockchip,rk3568-csi-dphy
++      - rockchip,rk3576-csi-dphy
+       - rockchip,rk3588-csi-dphy
  
-+static const struct dphy_drv_data rk3576_mipidphy_drv_data = {
-+	.pwrctl_offset = -1,
-+	.ths_settle_offset = RK3568_CSIDPHY_CLK_WR_THS_SETTLE,
-+	.calib_offset = RK3568_CSIDPHY_CLK_CALIB_EN,
-+	.hsfreq_ranges = rk1808_mipidphy_hsfreq_ranges,
-+	.num_hsfreq_ranges = ARRAY_SIZE(rk1808_mipidphy_hsfreq_ranges),
-+	.grf_regs = rk3588_grf_dphy_regs,
-+	.resets = rk3368_reset_names,
-+	.resets_num = ARRAY_SIZE(rk3368_reset_names),
-+};
-+
- static const struct dphy_drv_data rk3588_mipidphy_drv_data = {
- 	.pwrctl_offset = -1,
- 	.ths_settle_offset = RK3568_CSIDPHY_CLK_WR_THS_SETTLE,
-@@ -435,6 +446,10 @@ static const struct of_device_id rockchip_inno_csidphy_match_id[] = {
- 		.compatible = "rockchip,rk3568-csi-dphy",
- 		.data = &rk3568_mipidphy_drv_data,
- 	},
-+	{
-+		.compatible = "rockchip,rk3576-csi-dphy",
-+		.data = &rk3576_mipidphy_drv_data,
-+	},
- 	{
- 		.compatible = "rockchip,rk3588-csi-dphy",
- 		.data = &rk3588_mipidphy_drv_data,
+   reg:
+@@ -89,6 +90,7 @@ allOf:
+               - rockchip,rk3326-csi-dphy
+               - rockchip,rk3368-csi-dphy
+               - rockchip,rk3568-csi-dphy
++              - rockchip,rk3576-csi-dphy
+     then:
+       properties:
+         resets:
 
 -- 
 2.43.0
