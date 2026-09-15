@@ -1,115 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A4230146C;
-	Tue, 15 Sep 2026 10:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E59747D444
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467716; cv=none; b=rtaPdou+fL74Fvk7gJTTV4uCpSOzzF651yN1wUfiO3bFkeaym6eIYGFPcA/TTcjAsl8HSz10/RVgEMSet+v/Fyv8BYYcjMSBrMDZfaIboOaV/ueIBIwVN6MzFQT3ZM/QL9jVmdvmuvCbgHW1rM6Wc566z82tMY+0duTWnpl7EJI=
+	t=1789467774; cv=none; b=TMdQP/s9WhipeIw+CqingcUwXUPPVYSXGZaStPWOh4bEtR9tC10Q+LWewtKmcvWaNBBG4Ru7ZrmE1qZfnKeuJItjyOZp+P4Wg/zJ0zLiLY9Ibz/zhdAJVw9uBtjMM9hIoV9m1WHn1VYi8+hITjbbiaLSDurHWQ2fcl+pLBsYtKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467716; c=relaxed/simple;
-	bh=hf8crpYjeJnwwOsNEbF0Mekxrkj2tylRQn9EriVaRfM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fXLngXEzE+xjcOzybvuVsgLqIyvRl6br1PPyJldEuI93sk1lUfEDqT5GpcC+x//AvYOl/+pF3oDwsmSpUwr/hnIYYTlJHDRG4uJurlxRL9rzdw6c3f4TEkUJK3pbWgxhF7aHbv1Z64/Jyi8fUQ05tXMPM39xLjCR8SRhO/nqf3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQuaEnvy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789467774; c=relaxed/simple;
+	bh=QbAqr1i8wGfwpG93RfEhC6hvvYA++56HMkSO3WogBC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K+8d2XS9/V4RWU7uWiVn/BVBaORjQdKiqW0YQ5yv2Zpo9fXoRq7ZaVgViqjy91Bl/bLN8zGpym8xkghPzNVN1fuja3K4ZR0xSU78pfFjPvru2Zs/ye2pE9LYbFUlmkJlSzHqdkmgWMbuuRRePorjD0e4YxQsgwC9VWw7p6CWTu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d4dfcPKZ; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQuaEnvy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2E3A1F000FF;
-	Tue, 15 Sep 2026 10:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789467715;
-	bh=fkiyvcxknqqa2FD78gZjvgffhDSvTiUS9a23EkmipXA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cQuaEnvyIVzF1iyxdJAkXqhmxDCZYMNY9j2eYZJ07Mb6eI4uuD6iCsTsS+XpIax5b
-	 wX76OJsUvCoHl44rzpGGKNbDUnkQZdxlMma60wLmSTyYPzGIgHgsFm1eUQU//wGMlD
-	 XkLaNUmR9cJYUhhJcYebFLcWjw6QOfQ2MYSbJYY0ycp+xgVXdunHq6/e+yfNYiUdxE
-	 E6pJrCmbnIC1vM+8lUjIKIleVNO8CY3bc05B66ou/M/Pr3PYwIiSk/KWDfEyynFjl4
-	 Cymr2wIIm3yXem2ANvwX2ZqgPbMUlLxxmycHSORHJHSC2b7YT6yQ8S03CF/Yj4r8FR
-	 9HL8UnSyELE5A==
-Date: Tue, 15 Sep 2026 11:21:53 +0100
-From: Harry Yoo <harry@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Usama Arif <usamaarif642@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/cgroup: ignore memory.reclaim -EAGAIN for
- zswap writeback test
-Message-ID: <aqkavo7OfQdMOpLf@thinkstation>
-References: <20260914-test-zswap-wb-ignore-eagain-v1-1-6fb715c22cd8@kernel.org>
- <20260915001817.101713-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d4dfcPKZ"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a1676000so70084a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:22:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789467771; x=1790072571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wc2tYgFRuQ1d5FQeVHhp84yw7j2VmRwEE2Rf/RiEYBs=;
+        b=d4dfcPKZ34BFcM9IYBZRPRyFAGaRokuEcvbc3o8TXXaYx8p/C3kVNHMgAZdyA76X5u
+         ihjsmFOAPF0mnP06N9vEmO7KFHxM+j8KJLnU3OkHbpjf+XX/4AEVxN+3yNeOthwXEkFt
+         YSJ8GkFuuMWXCVAT47Lu2E2v85AO01R3ealWBDf7JD44yq/0hq3aDPOSmKD38Km/hKZj
+         380kD8zU4ns55BSccQLRJoo5nx8lca6MNg04YgGVBD/K5LKBhu89AyPzdsntzshV8+S9
+         142o2e5MTaniZHJ9AvAoZAbYgRJoR8I95mPxPUyT+af53QjhSCN5paRCFSduC3BQT5Tl
+         AH3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789467771; x=1790072571;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wc2tYgFRuQ1d5FQeVHhp84yw7j2VmRwEE2Rf/RiEYBs=;
+        b=IMcDB7AQmKuE4EAIHzAqv7G7EnfcF5X4uivLwY9ytslBhnh99ndKUtm6CO3cDATgYv
+         pqQymXGfhYEbpI6RJM1AeApj0xCPcWelCBOsmG2EZxshg5r2tKPrxhkD6s8oWvMHHfhv
+         l1I3GaZiGm5wRTEW9tdXN86KP2qp8xNoGoutd1HYRCu8foLjcjt4YsUIutfyNO+Q6muC
+         n48SgURmBHVSNDKOwLBys8LuUWiEng7pEJmtrKeKDOMbrTREn9GCgmZ/hgNB6XMmk7v7
+         wy68f17rrkydmKaIkxQsbR/HeBKc3CxM96/THJsvz7+h/IzDkZ8u8LMkq3e5QaGtO8Hl
+         pxzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzY2sxVLO9UGJcb3n1XLAqv++Pws4ZNGTw3ufiyND7+LQz02KI977Ix4EkQ1dQIZGqouCqKwkYacSzQt+c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkUqQ0dGOjq/oYT4bTejSmZHFaN2MvyaEeG4ihvoDsYkpVsPGw
+	btlX16afkn80AEOoFdmt76KAP8ZyjOmNWkEutqAAweRZCB5hHWoMBgwN
+X-Gm-Gg: AYBFou1Lsz9fPqqA7nxvsUnkqFTIdDCFZHHno5gUZzXPle4qNEJiKQrx6dCwtuLpkDZ
+	asoYtZBKU3g559S2prAmVfZqGO0LTLN4vn7k6oEAmvhnoubz+frDHDPFo+Q/UcjS9L0gXrKR63o
+	Hmisp0LgCWmovqO/Ii1pPXZp2EzE/jg3ddi6rhLJ1/NupqKB/OKXF2+9xCbkhHqJnSgfw/boLyJ
+	gFJOklVwxYImNG3SXn+pEwv21zkNBPObZLEziE1IYvhpfPSzrVf5Uc4n9NPcLtq4XsfGZmQaOsQ
+	tavK3QQUYihTjgd6TpdHEJDTOw6vpTTj9chU2vaZjoIQ9twOrpkQrMin7zsXHhkAW5A98dvzLFW
+	I1IUxtz5chihKOKkDlIYkZavT5eDTeu0J3+n5EK3AxF7bKVEZeiUUTb13JrSQ0LLtZSkfoCdxan
+	Xk+5Ljr97wSGKNNpbqvhxztxOZDmnP0UAzGTIlcbnfFnBfX9egu5B9rctQXRJKMZ1kF+t1UK3vE
+	LveWb+7LzraPoBKpTzlZW/JH1oBh37G4/kOod3d6yCI9jP8pzK0
+X-Received: by 2002:a17:90b:17c8:b0:39d:fced:6fb2 with SMTP id 98e67ed59e1d1-39e10c425c9mr475072a91.5.1789467770864;
+        Tue, 15 Sep 2026 03:22:50 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.bl1-in.ibm.com ([129.41.58.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdacba6bsm4448413a91.14.2026.09.15.03.22.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 03:22:50 -0700 (PDT)
+From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+To: paulmck@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	josh@joshtriplett.org,
+	boqun@kernel.org,
+	urezki@gmail.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+Subject: [PATCH] rcu: Guard deferred QS on kernel exit behind need_deferred_qs() check
+Date: Tue, 15 Sep 2026 15:52:41 +0530
+Message-ID: <20260915102241.1344738-1-mkchauras@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915001817.101713-1-sj@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 05:18:17PM -0700, SJ Park wrote:
-> Hi Harry,
+ct_kernel_exit() unconditionally calls rcu_preempt_deferred_qs(current)
+on every return to userspace.  On the common fast path nothing is
+actually deferred, so this is a needless write to
+current->rcu_read_unlock_special -- a word that lives on the task_struct
+and is therefore subject to cross-CPU cache-line traffic.
 
-Hi SJ, thanks for looking into it!
+On weakly-ordered architectures such as ppc64le, rcu_read_lock() and
+rcu_read_unlock() already issue lwsync/isync barriers and touch that
+same cache line in the syscall body.  Bouncing it again at syscall exit
+adds measurable overhead, particularly on workloads with a high syscall
+rate (e.g. SELinux-heavy workloads where every AVC check issues a
+system call).
 
-> On Mon, 14 Sep 2026 21:36:39 +0100 "Harry Yoo (Meta)" <harry@kernel.org> wrote:
-> Makes sense to me.
+Introduce rcu_ct_kernel_exit_qs() which wraps the deferred-QS call with
+a rcu_preempt_need_deferred_qs() guard, matching the pattern already
+used in rcu_flavor_sched_clock_irq():
 
-Thanks!
+  notrace void rcu_ct_kernel_exit_qs(void)
+  {
+          if (rcu_preempt_need_deferred_qs(current))
+                  rcu_preempt_deferred_qs(current);
+  }
 
-> [...]
-> > --- a/tools/testing/selftests/cgroup/test_zswap.c
-> > +++ b/tools/testing/selftests/cgroup/test_zswap.c
-> > @@ -346,7 +346,16 @@ static int attempt_writeback(const char *cgroup, void *arg)
-> >  	 * it can't writeback to swap.
-> >  	 */
-> >  	ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
-> > -	if (!wb_enabled)
-> > +
-> > +	/*
-> > +	 * When writeback is enabled, memory.reclaim may still fail to reclaim
-> > +	 * the requested amount of memory due to a slow swap device.
-> > +	 * Ignore -EAGAIN here. The caller determines pass/fail based on the
-> > +	 * zswap writeback counter.
-> > +	 */
-> > +	if (wb_enabled && ret == -EAGAIN)
-> > +		ret = 0;
-> > +	else if (!wb_enabled)
-> >  		ret = (ret == -EAGAIN) ? 0 : -1;
-> 
-> My humble eyes were unable to easily understand the change.  Is the change
-> effectively same to below, and if so, would this be easier to read?
-> 
-> '''
-> @@ -344,10 +344,11 @@ static int attempt_writeback(const char *cgroup, void *arg)
->          * writeback as zswap.max is 1/4 of what was needed when reclaim ran the first time.
->          * If writeback is disabled, memory reclaim will fail as zswap is limited and
->          * it can't writeback to swap.
-> +        * Even if writeback is enabled, it could return -EAGAIN due to a slow
-> +        * swap device.
->          */
->         ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
-> -       if (!wb_enabled)
-> -               ret = (ret == -EAGAIN) ? 0 : -1;
-> +       ret = (ret == -EAGAIN) ? 0 : -1;
+The declaration is added to <linux/rcutree.h> and a stub no-op is added
+to <linux/rcutiny.h> so that TINY_RCU builds are unaffected.
 
-Hmm, no. This will mark the test as failed when a write to
-memory.reclaim returns zero even when wb_enabled is true.
+ct_kernel_exit() is updated to call rcu_ct_kernel_exit_qs() in place of
+the direct rcu_preempt_deferred_qs() call.  Semantics are identical when
+a deferred QS is actually pending; only the unnecessary write on the
+fast path is eliminated.
 
-It's not the same because when wb_enabled == true we consider
-ret == 0 or ret == -EAGAIN as success, while with wb_enabled == false
-we consider ret == -EAGAIN as success.
+Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+---
+ include/linux/rcutiny.h   |  1 +
+ include/linux/rcutree.h   |  1 +
+ kernel/context_tracking.c |  2 +-
+ kernel/rcu/tree.c         | 19 +++++++++++++++++++
+ 4 files changed, 22 insertions(+), 1 deletion(-)
 
-Not sure we can reduce that to one line of code.
-
->  out:
->         free(mem);
-> '''
-
+diff --git a/include/linux/rcutiny.h b/include/linux/rcutiny.h
+index e56ded733b1b..dcad641eb2c2 100644
+--- a/include/linux/rcutiny.h
++++ b/include/linux/rcutiny.h
+@@ -120,6 +120,7 @@ static inline bool rcu_preempt_need_deferred_qs(struct task_struct *t)
+ 	return false;
+ }
+ static inline void rcu_preempt_deferred_qs(struct task_struct *t) { }
++static inline void rcu_ct_kernel_exit_qs(void) { }
+ void rcu_scheduler_starting(void);
+ static inline void rcu_end_inkernel_boot(void) { }
+ static inline bool rcu_inkernel_boot_has_ended(void) { return true; }
+diff --git a/include/linux/rcutree.h b/include/linux/rcutree.h
+index 16a04202888b..d623f2a7d3fc 100644
+--- a/include/linux/rcutree.h
++++ b/include/linux/rcutree.h
+@@ -87,6 +87,7 @@ static inline void rcu_irq_exit_check_preempt(void) { }
+ 
+ struct task_struct;
+ void rcu_preempt_deferred_qs(struct task_struct *t);
++void rcu_ct_kernel_exit_qs(void);
+ 
+ void exit_rcu(void);
+ 
+diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
+index a743e7ffa6c0..011018214c6d 100644
+--- a/kernel/context_tracking.c
++++ b/kernel/context_tracking.c
+@@ -118,7 +118,7 @@ static void noinstr ct_kernel_exit(bool user, int offset)
+ 	lockdep_assert_irqs_disabled();
+ 	trace_rcu_watching(TPS("End"), ct_nesting(), 0, ct_rcu_watching());
+ 	WARN_ON_ONCE(IS_ENABLED(CONFIG_RCU_EQS_DEBUG) && !user && !is_idle_task(current));
+-	rcu_preempt_deferred_qs(current);
++	rcu_ct_kernel_exit_qs();
+ 
+ 	// instrumentation for the noinstr ct_kernel_exit_state()
+ 	instrument_atomic_write(&ct->state, sizeof(ct->state));
+diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+index 96848fc1f02b..c23478f70c17 100644
+--- a/kernel/rcu/tree.c
++++ b/kernel/rcu/tree.c
+@@ -368,6 +368,25 @@ notrace void rcu_momentary_eqs(void)
+ }
+ EXPORT_SYMBOL_GPL(rcu_momentary_eqs);
+ 
++/**
++ * rcu_ct_kernel_exit_qs - report deferred QS on syscall/exception exit if needed
++ *
++ * Called from ct_kernel_exit() on every return to userspace.  Guards the
++ * rcu_preempt_deferred_qs() call with rcu_preempt_need_deferred_qs() so that
++ * on the common fast path -- where nothing is deferred -- we avoid the
++ * cache-line traffic on current->rcu_read_unlock_special that the unconditional
++ * call causes.  This is particularly significant on weakly-ordered architectures
++ * (e.g. ppc64le) where rcu_read_lock/unlock issue lwsync/isync barriers and
++ * already touch that cache line in the syscall body.
++ *
++ * Follows the same pattern used by rcu_flavor_sched_clock_irq().
++ */
++notrace void rcu_ct_kernel_exit_qs(void)
++{
++	if (rcu_preempt_need_deferred_qs(current))
++		rcu_preempt_deferred_qs(current);
++}
++
+ /**
+  * rcu_is_cpu_rrupt_from_idle - see if 'interrupted' from idle
+  *
 -- 
-Cheers,
-Harry / Hyeonggon
+2.55.0
+
