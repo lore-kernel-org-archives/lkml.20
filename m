@@ -1,140 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C292A414DF6;
-	Tue, 15 Sep 2026 11:02:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB0447F3DC;
+	Tue, 15 Sep 2026 11:02:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470151; cv=none; b=B/lN9pCChXwHjip+8VgDkh/8SEjWMqXUY9pP/2fCneTcu8RBgAVMAKCqvuRTP86CPXTQPkHQgHtISQAayVr/50M1B/dgqWoKG2Xue199ZTJqGZ2DADIRVYLE8OKeGVmL/sYyo2zMmHc0iDCyI4BqdaRVjKyCV6GmmQ3u31F5DWg=
+	t=1789470180; cv=none; b=a0u7yDewwVzm1yq735e27VFaQV0DH41883kl6d9G39c1lv5Ag4QfkUL/1SSt7Pd08f8DwfeViG5w4/PQbWKsPzAeEzRiyGBB6V0hz3SCSFN5swrRzNF5bq+yKLwXQVmMAFkUZ+j3ungjHodgA0hqKNilLcgKwdEU08ghnHeRkeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470151; c=relaxed/simple;
-	bh=92MIKnp/TTHQa8Xs2dfOtgIzcqG9n9MJs0G5Q6ZbTKo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ishg5qAdpJfFL5myszUp8f4upQFN7Rwa6DGo7GsYJGqahNKnuyXq2zCPThi/QjH5iz/LYFBC/8HQaorQSSF06GpOI85fK8GxYt4wS6frZ1PXBxaBJn/Qh+4mB0YPNocDDk7ktuT//IIK9itvKl2jrOcaZGWHAdR9tiykhBqOvoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMBXFtxP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789470180; c=relaxed/simple;
+	bh=ihg7jXz8JSSKR1IUw9CybInLjQ7vIlhBHejjJVrcWwA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ll9fL9bjVfmPC4XeBD3gf77BQ0SJBR0uYz6B2RS5lr8QP+gD7SAMIr6U/bWB6CVOQqHYJkQoE7Hn1+QgGecHAnxzr1cyEYw9KF/FH0ZKQbKnSUyrGFShT7KYRDqK7wYZythLpstmHo7XoZyoanq0Y4D+ES612IUfhbfDlQvHpus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6y0JxsY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMBXFtxP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A7A1F000FF;
-	Tue, 15 Sep 2026 11:02:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6y0JxsY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B711F000FF;
+	Tue, 15 Sep 2026 11:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789470147;
-	bh=roVqnx458yekmIsFUUpm6pjVlxQu/iijthO0iU8Tzq0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UMBXFtxPcBmeAGQ8M5BDp+MVSi36ZVfTorzrMI6vAKMq8DRkWmgjL81X56i/k/cD5
-	 WPizUAEDEHn6T/p2KaZ1JcsAbPsbPWFYVSwnx/MyOKwOOeIZtt9JGhFAPykZtXbNyG
-	 2Z4q7gQWiY+vnssyyEs3O7exaSHY5LCX4+hX8KLTTnbPHV1yh+sj3tXMACHScktTGk
-	 +4T1U+gx8cpYfDTK9C9XQcisx34vaH1HvgvLGvOAeS1PkgqytbCULXUhjJz+VsfP3o
-	 GeYij8oeqvL/YJ3WdEdjhmuYMFFUtZTQoAraI3oLlBp9RXStV/tc5/wgHKvDMBMtDn
-	 98WyMpb4a6fbw==
-Date: Tue, 15 Sep 2026 12:02:22 +0100
-From: Lee Jones <lee@kernel.org>
-To: sekoohaka.sarisan@gmail.com
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mfd: intel-lpss: Fix DebugFS initialization
-Message-ID: <20260915110222.GA11487@google.com>
-References: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
+	s=k20260515; t=1789470176;
+	bh=HdvUk8Q3ueSrhOfWqCZhgkyYE00QElNPTkeeBBLbXe0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=O6y0JxsYEz1iIUZ3Eofq2WE6MBYxnhCfUBQ42MgdTXBF7nHE7NPtAu0HxZXG33fcR
+	 i3FdxvJ2DRCWUYlMVdI/WXZvBjVBRn20gsAIaAs4MpWQhzrzTNxeByalrVofFOOfWQ
+	 +CiUDuPoIP10o9zJcikd1hPObVHHdCSiIA6eGGhwN9a1kX2LMERAejhSvFSTUhTLIt
+	 qaj57i5Q2Nt9M6RKL4pX72P/4GIIjtnB3f6sIpyCYMdmi8qv3FGPN5xqCh69irbxbs
+	 ZAByN3x1xSeJ2pwYwfQtw0Kg3pvjNVhjDRKEbnEoZ+wlV1ING2iMXQuVoodSW58OUN
+	 vHc2zGMzuWk5Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6Qw9-000000094IN-3MOM;
+	Tue, 15 Sep 2026 11:02:53 +0000
+Date: Tue, 15 Sep 2026 12:02:53 +0100
+Message-ID: <86y0d26ale.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	mark.rutland@arm.com,
+	steven.price@arm.com,
+	vdonnefort@google.com,
+	qperret@google.com
+Subject: Re: [PATCH v3 12/18] KVM: arm64: Prevent host PC adjustments for protected vCPUs
+In-Reply-To: <CA+EHjTy6F9tG=eRLMuykc12P-Oc2pjMoQqAz34iGR+Q5GzV2jQ@mail.gmail.com>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+	<20260914113338.159227-13-fuad.tabba@linux.dev>
+	<8633vc6jag.wl-maz@kernel.org>
+	<CA+EHjTy6F9tG=eRLMuykc12P-Oc2pjMoQqAz34iGR+Q5GzV2jQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sun, 13 Sep 2026, Maria Lisina via B4 Relay wrote:
+On Mon, 14 Sep 2026 15:43:16 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> > > +   hyp_vcpu = pkvm_get_loaded_hyp_vcpu();
+> > > +   if (!hyp_vcpu || hyp_vcpu->host_vcpu != vcpu)
+> >
+> > Under which circumstances do we get hyp_vcpu->host_vcpu != vcpu?
+> 
+> When EL2 calls __kvm_adjust_pc() on the hyp vCPU itself:
+> __kvm_vcpu_run() at guest entry and inject_sync64() in nvhe/sys_regs.c
+> both pass &hyp_vcpu->vcpu. There the vCPU passed is the one to adjust,
+> so it's returned as is.
 
-> From: Maria Lisina <sekoohaka.sarisan@gmail.com>
-> 
-> The original code defers DebugFS check with unnecessary warning message
-> which also appears when DebugFS is simply disabled.
-> 
-> Therefore it spams dmesg with these messages:
-> 
->   intel-lpss 0000:00:15.0: Failed to create debugfs entries
->   intel-lpss 0000:00:15.3: Failed to create debugfs entries
->   intel-lpss 0000:00:1e.0: Failed to create debugfs entries
->   intel-lpss 0000:00:1e.2: Failed to create debugfs entries
-> 
-> This patch adds proper checks to intel_lpss_init() and
-> intel_lpss_debugfs_add() functions and removes warning message.
-> 
-> Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
-> ---
-> Changes in v3:
-> - Fixed commit name and description.
-> - Link to v2: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v2-1-a1a4faf5cc63@gmail.com
-> 
-> Changes in v2:
-> - Fixed function name in comment section.
-> - Link to v1: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v1-1-833cbb6fffc9@gmail.com
-> ---
->  drivers/mfd/intel-lpss.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-> index 63d6694f71457b2e09d238af0a9bfb897a169a64..c2cb58c0f98a996d5a2718956092e74139f2a286 100644
-> --- a/drivers/mfd/intel-lpss.c
-> +++ b/drivers/mfd/intel-lpss.c
-> @@ -146,9 +146,12 @@ static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
->  {
->  	struct dentry *dir;
->  
-> +	if (!intel_lpss_debugfs) {
-> +		lpss->debugfs = NULL;
-> +		return 0;
-> +	}
-> +
->  	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
-> -	if (IS_ERR(dir))
-> -		return PTR_ERR(dir);
->  
->  	/* Cache the values into lpss structure */
->  	intel_lpss_cache_ltr(lpss);
-> @@ -432,10 +435,7 @@ int intel_lpss_probe(struct device *dev,
->  		goto err_clk_register;
->  
->  	intel_lpss_ltr_expose(lpss);
-> -
-> -	ret = intel_lpss_debugfs_add(lpss);
-> -	if (ret)
-> -		dev_warn(dev, "Failed to create debugfs entries\n");
-> +	intel_lpss_debugfs_add(lpss);
->  
->  	if (intel_lpss_has_idma(lpss)) {
->  		ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
-> @@ -539,6 +539,13 @@ EXPORT_NS_GPL_DEV_PM_OPS(intel_lpss_pm_ops, INTEL_LPSS) = {
->  static int __init intel_lpss_init(void)
->  {
->  	intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
+If this is the sole case, why not check for '&hyp_cpu->vcpu == vcpu'
+instead of this odd inequality?
 
-Why not move this and everything else debugfs related to
-intel_lpss_debugfs_add()?  Then we can get rid of the awful global
-variable, have everything nicely compartmentalised and ensure that we
-handle each fault gracefully?
+Thanks,
 
-> +
-> +	/* Ensure intel_lpss_debugfs stays NULL on error,
-> +	 * so intel_lpss_debugfs_add() exits properly.
-> +	 */
-> +	if (IS_ERR(intel_lpss_debugfs))
-> +		intel_lpss_debugfs = NULL;
-> +
->  	return 0;
->  }
->  module_init(intel_lpss_init);
-> 
-> ---
-> base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
-> change-id: 20260913-intel-lpss-debugfs-eff3580d1295
-> 
-> Best regards,
-> -- 
-> Maria Lisina <sekoohaka.sarisan@gmail.com>
-> 
-> 
+	M.
 
 -- 
-Lee Jones
+Without deviation from the norm, progress is not possible.
