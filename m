@@ -1,130 +1,106 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CC7394EB7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458938; cv=pass; b=WX8GA/Y9U4TBFnz6oEckNkNUcGYC56X0WjVqVEE/B47Cv9OrxTXdFegiYQN40IuQzhmeGdH5cdAlB37lSP+CLuSgzMDQBtIU309WVtD6aXgNrFUR/IeoEvk8jv0vTskd5xXTn9jRRhxBxpmmpbSp9rToxaPqgMKfyEVgyANmrVg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458938; c=relaxed/simple;
-	bh=MCmnREfTZM3eEhy1qIdIvvOYJ/hTWjGqL24nR5iVWes=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WefrrjVz576xAlSystRvPlAxOioeWCU4zP90WsMoOP53LhZlZnCg544aiIBEtGf+/KEuSiAmEJenp3DHNvPt34DGADtH53cphaQ9je9NV9uwQjHYfH/IKkhYPCjq4gl0s6f2sWiRBURJoWHYHZEWfBSmbnYQ0Hci0hU1y+RpELg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KiXFELF3; arc=pass smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB4B2857FA
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789458998; cv=none; b=fooG7XKD5IW+57OQjTfXfoU6RVTIwJ+YaF0KiZwepKYzk6t3NaV4PkpW/O67Xl+h1pJ/8sbciwYLgPaRech/wfTsYqox0y4ulnSmh+rEEDMfRBNNAd7RtWVrI7qB9Q+8Qvti5BcT257EmN8A8YkgIz+yKpviLw5vsijgaL+29w8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789458998; c=relaxed/simple;
+	bh=g+EasKO2bi7mxkYRHU6ebTWU9VqhTRqT05/QyINn3W0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NxVDbyvL+h4i5oI3T65rjlIRVkPW8QD9o7axPDwGKNB5gxB8IaiIh9l+CZ1R8lZhEaZU+140xy0QkqfhtZv8YuAnmBDzyYK1R8DT4a1KaY0KY9rIuZA5rf6cNkg/SDj5Lh99PgwglipAr6+1BOJ8Qy8T87vKlGGwBxg72a9o87M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=eSNe5Oay; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KiXFELF3"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2946aa0d5aso68872866b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:55:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789458935; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dfY2RPtMHvO/xw9leMpLOcOBzFugUwBhuRyrfFulOWCiH8jdOP/vZdtKB3u6ngSo/b
-         wKqepSVeHrLcMlNrnWi7L6FRXrvkfKjqsZfV57fNiYdHTAMCKoWG8cLw1T8cL+l36VoK
-         wvC4mX5yUGv0bUe426MyhpPDxybI3TnuHesADA9w2vQAVajg5TYGyURzr6L4zvb8zWlT
-         xX5RyJ1pWkYsueGAtL/h42Pam/qONg13KPehRa5Rmw06UoJ1wj+Dfx30QhwiLGEvxgOx
-         KNIEDKAEsWQlx84tfBQqxvvpnqOECERm4Lnr1BNfzV5qQt1IYiDLXFZz3XwWpPhMeEZ1
-         2Sqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=goS4E7honEFOUt4mgD9dkwBiL9FCUu+3QHZSOMHuZ5E=;
-        fh=tO4XnPo4uo92NiyAOrQpBi5v9R9/rmAy8HHgR8UFaNw=;
-        b=MfGVkxvEQlP9wuWXivI6tRnfWLoW5JPvcU8mlmJW2XQ22RCZeaAItYWQ4ntyrTp6UE
-         H8/l9eeJD8HJRX7rTpPc4yJ6+3T19yXn7s6zIa8BQcp7qbyG+AmaqNmcVerlvGcwvAM0
-         LqvdOD8RfpjkABfukkBxr3qP9pnRF2IJIgCXb8Rr7vjy4SGN1hZ2VDGzjOmh4Q6Xwju6
-         aC+PIfn/BJKSlWTz7E+Wg7RaKbg3JxzC/CjoIYU/x9xQIDlclxNni63o+awvvm7k/Lk3
-         dmt/uUq4j/7v4+YfsBbQ6dxGXMvZbtetlNiDMKF8qYIocsKtr4RRtKYxNojynnBnRnDb
-         hAZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789458935; x=1790063735; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=goS4E7honEFOUt4mgD9dkwBiL9FCUu+3QHZSOMHuZ5E=;
-        b=KiXFELF3EeVlIOaxeLxbMAHBZPRirg4qdOzBTXxtQ8yj8zU8hf+/oilZZOSv++OXW6
-         dnRNgOkFwZOW8CbpkDPsj8bgfXk8OJeuZD20Mo9ZaHWYYvGUCKEz9mCOWLoNsNv23aIg
-         rBlZPsmcedlb8SzOJ8MsA8ncwWn+DGoCzRjH+F/AveBu/lRUbKAcVcIODBtKK2UFHEfL
-         McO+24I/C7yVW1KfkJlhZK7NAgokUaczqJlo7MsIJkq59tFoXQ22uQw4uqUKHf2VccmG
-         m0VyRGhunnm2ioVNcumWQIwnTuEBDcV1mFdFuGOlY8/ApNI2bfY1wTyAgOTn+OPVlAC9
-         Qmlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789458935; x=1790063735;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=goS4E7honEFOUt4mgD9dkwBiL9FCUu+3QHZSOMHuZ5E=;
-        b=z1fWA0XhprRsRqoqDuoyjhOgBiYQChNoDEWTmEiYY7REpw9oBkGBg3VsACCEcDGHqT
-         U/OAaL/GRsXV1Tj0m0lGzW1+6QXrBOqExdLZmVbQReq+PT6UuOO+VDect2MRNXFDGm1J
-         vfM9o3GvOTcrMHBwsfmNs6CJxk4K/SF7EKIhgr+7f1B4oFyGg5ZddeA76KFb4bvBUPWA
-         J7Wpb0/Hac0gS6RuPusBKX9EcoMub8pPfOdlLndW7JL8G8ydkVpriOWk+TEp5/hmsZAf
-         mZSIudENeONWSMizBTEWxMJPVUkUymgsvH1OTPBo/TPohSRjbtbXIRN5aNTayL6MBat+
-         hhhg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSU0KeAggOy9IVxN3cUNzua6d9P97xNRcT3EA7drMLVnuOqoviEjw+MDQ9ybpn1EUx8jhZPWkH7ZcW92U=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2YFtMaDFJqm7ASETvpT+cBKKTL2UiPga0k3hvFM8gyComvQEN
-	KmOI3IllTVz/4NnlsHpBJ0BqUrL1WZDcpA+O3pTbBLzbALwiWjDhKYFWJtbdgTrRutnLqyD8sMi
-	fbjWHwlsSmMxQSgjaLR7OYxXMfBndBxY=
-X-Gm-Gg: AYBFou17Nkzl5htquJ+sBa1X3IjAu5ynvzHxfHQqTvLBUvodo6LAYb4oeg7d168io9a
-	SGV8419VTdP1/Qbo9L96+TmdAJ4kisRtoXFYiox47gpUdImkiZogKF/pDQX7oLuHNeuIj877+Fg
-	sb8WggaBLflY95f/OoE045FaYIyJEIx93PSWLDzMQEb3PMkcDlKx+5Fd4x/fHDYdK4q4tye0H/E
-	RtpHxtqyLN5oDeyjZy83Bmx1sT9IbJOGw57opt193/9TlReh92QFrvhagtUrf7f+eBhtKdHamn6
-	hX09wvlVlj2hr8gr7Hby6dZRtpzmbYzcoJUc1YC1wBRhVy82YzEG0t/bhQQVNzf6Ihg+XMfeUKt
-	QY3zej9VQrfP+cEf/++3Lj4ctRmdEZiSddNNIaE8OVexKQ4j/t2Jnk7TN9w1DorSWHvI=
-X-Received: by 2002:a17:906:6a06:b0:c26:1f8f:ed53 with SMTP id
- a640c23a62f3a-c29c896c418mr191111266b.12.1789458935020; Tue, 15 Sep 2026
- 00:55:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="eSNe5Oay"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789458989; x=1789718189;
+	bh=ImAhYoPtxPkBaBIuifb9Gdy1uqlzRhoT/JFuafRJqjg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=eSNe5OaybYgLITbUYhA9G9W4Nwfjg1O1ZwYiHxj5HRT5JgDvs4/WKfqxuOFRz7hAV
+	 wBvgwD9cRmWX0AIqdqqB6NDc+MBnV/DygJ5eOjcC5QToiSi6wrpvm+xsWNllggcWAA
+	 GURFlDIS2sMYwNgPjtTrlJsPmkpb0Wm0AKaGKkUFtgEuT09yHLJIEaUph1kQx7Up2X
+	 ai9cdQJjEn/8Y8cW4bvvlfLE7mbKN4fKHknQ4PSw4XVwbB60UjDGWCTBZaAMtOODZ/
+	 V1XmrSXefL1g3C4v1XqMXyQ34bbyiSBpRcb/Pc+gmu43y0Lg+vpQt58cY/C3jjE7IQ
+	 wslZffBbZ9eJA==
+Date: Tue, 15 Sep 2026 07:56:24 +0000
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: ipu-bridge: Add upside-down sensor quirks for the Surface Pro 9
+Message-ID: <20260915075619.96025-1-lsa.uz@pm.me>
+In-Reply-To: <20260915000140.47125-1-fernandorimoli11@gmail.com>
+References: <20260915000140.47125-1-fernandorimoli11@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: dbac799915a13a26dd2d8ae6fb4347d87e51e3b8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914072842.24420-1-phucduc.bui@gmail.com> <20260914072842.24420-8-phucduc.bui@gmail.com>
- <693fea96-1905-49c9-b1c5-3fa1ceb4874a@collabora.com>
-In-Reply-To: <693fea96-1905-49c9-b1c5-3fa1ceb4874a@collabora.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 15 Sep 2026 14:55:20 +0700
-X-Gm-Features: AcwNN1XHHQHyucAHdm0EW7r7ZxJRYduxWbuLcSKyAsTdoDPrrcNWVh8BQ68F-UQ
-Message-ID: <CAABR9nH5e=kKRsHQYx7u3HtWgA3C897d9dH4h+wQTpZNGaTRHQ@mail.gmail.com>
-Subject: Re: [PATCH v2 07/13] ASoC: mediatek: mt8189: Propagate runtime resume errors
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Dan Carpenter <error27@gmail.com>, 
-	cassiogabrielcontato@gmail.com, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Angelo,
+Two things your commit message says are ones I have checked on the Surface
+Pro 11, so for what it is worth from another submitter rather than a
+reviewer.
 
-Thank you for your reviews.
+That nothing in the bridge turns pixels - measured. One static scene captur=
+ed
+through libcamera with the property at 0 and at 180, vertical brightness
+profiles correlated: +0.995 the same way up against -0.781 flipped. Asking
+explicitly for rot0 with the entry in place makes libcamera answer "Camera
+configuration adjusted" and hand back the same frame - it tells the
+application it cannot, rather than doing it. That was on a 7.3.0-rc1 built
+from media/next with libcamera 0.5.0, on a Surface Pro 11 for Business
+(Intel), firmware 17.105.143.
 
+What happens above the bridge, which your last paragraph leaves open, has a=
+n
+answer now too. German Pablo Lindo tested the SP11 entry on a second
+machine. The image is correct in Gnome Snapshot and in Firefox, and still
+inverted in qcam. His reading is that the first two take the frame through
+pipewire while qcam talks to libcamera directly. So an application that rea=
+ds
+the property does turn the image the right way up; the one that ignores it =
+is
+qcam.
 
-> >       if (!afe->regmap) {
-> >               dev_warn(afe->dev, "skip regmap\n");
->
-> In the probe function, there's a call to devm_regmap_init_mmio(), and that's being
-> correctly checked for error as in, if any, probe will fail.
->
-> So... during suspend or resume or anywhere else in this driver really, the regmap
-> pointer can't be NULL.
-> The right thing to do here would be to just remove the useless check.
->
-> Mind you, this comment applies to some other commits in this series as well.
->
+That the entry only fires when the HID matches - read rather than measured.
+ipu_bridge_parse_rotation() walks every DMI match rather than stopping at t=
+he
+first, and returns 180 only where acpi_dev_hid_match() also succeeds. That =
+is
+what makes DMI_PRODUCT_NAME safe for a model that might have shipped
+different sensors, and it is the same reasoning behind the SP11 entry.
 
-You are right. devm_regmap_init_mmio() returns an ERR_PTR() on error
-or a valid pointer to a struct regmap on success,
-so checking for NULL here is not correct.
+On your note that mine no longer applies
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-Also, if devm_regmap_init_mmio() fails, the probe will already fail.
-Therefore, I will remove the if (!afe->regmap) check here.
+You are right, and I would rather be exact about where, because the tree
+decides it. Checked today:
 
+  media/next, 27953c0449        table ends 960QHA / OVTI02E1    mine applie=
+s
+  mainline master               no 960XFH                       mine applie=
+s
+  linux-next                    has 960XFH                      conflict
 
-Best regards,
-Phuc
+The 960XFH entry is Felipe Calliari's Samsung Book3 Ultra patch of
+2026-09-05, which has reached linux-next but not media/next. So as posted m=
+ine
+still applies to the tree it is aimed at. It stops doing so when that entry
+arrives there, and then it wants exactly the one-line fix you describe - as
+does yours, for the same reason.
+
+Thank you for raising it rather than letting it be found later.
+
+Sergey
+
