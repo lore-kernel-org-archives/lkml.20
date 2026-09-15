@@ -1,301 +1,206 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011066.outbound.protection.outlook.com [40.93.194.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7BF3DAAD6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FB23D9674
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.66
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789440136; cv=pass; b=pJ807bAQeRE4lET6JWsN3YH9oMmhGJNnBMiZ5HMohXCuDuLtXsasrWEYAHeXCzbaCaG3u2dmrolb5PSkN0/DMyqAFBHewNFkP6im2x5P/nT5r9TvDCwJ4RvbFuwuUIcFPg+kgt1GY/BgzUQEf7soPp8regD4kpwZxFftmXe9WCg=
+	t=1789440143; cv=fail; b=q2pdAgCIcgUw+i77OhqBnlisUY+1WMrGAEEyrK6RbcDTql4Sm8ShXi/bO4t9d8Uqf0VOpmwaZ7QK0MHB2D84BIRGbfhvm67cNkmC/5f2hWR0okPHmlniATgoqY1EeobUfnJi1Mps4H5OLxyjyfLrsgZBPsdDQpzUnHjC2HNFDC4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789440136; c=relaxed/simple;
-	bh=+DDdbGLSJfvQbZkbGm7bBoB2KElgfTdMwS/XgJyKo2Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rWkN5inug0fAcsB/kLAm7jQbyDoDqB+0xG66t6A/xcxTV6WwYvbTpTrvudtc+166y/pCPUePe47Lf/Xrp6pj/Oyu5wE/x/MYzCHOcEhKopWsFChjUquCMp7BJmPUvrzIlPeY3UGMgA0ee01EWGCYOpJE5eUfo0WgufvWsT/jlbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5Bl9yTF; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789440143; c=relaxed/simple;
+	bh=Eu6oVTYLpIeepsULdDrSZ/puyyiPucVtXC8yRIoObdo=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=URa5s5Tawk0gTquhauATrrQMKHDIpNsSQ/EKqMmzGuhYqYZKMrC+c/M1z/2c6C3s2roM1AIY/6WYg9MsHLG3Ry74H/cPXfEDTes0EHyJTn+GN48gftmqCA0u0Xl13gJF2UTR2fdMPYqvFCfwJte88q4iMAzzReLkEuS1dn8uQY4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=no1YtQJg; arc=fail smtp.client-ip=40.93.194.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5Bl9yTF"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac8990caso367008f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:42:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789440133; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PwzEhRXUmRpoTFWHOCCgA+OR4WPJTyvanROHff/BapbdtVxOo5UjmFZS9oCt2RGVpU
-         p6KQjSWei8ezWIP9SuDpFmEj2o464ieNfvSnlnrKClwjqH4HAB3NM4ILp7LEw7iKdlsG
-         udYLTly8+k1ed9f4cxvxdTO/QmNOkuoWPeJ8vF7w885mDPk7pFbmo4QS/kT6YvBGRMhp
-         uxToIe2fhM9NNxWMAW5wm3sNkLBAgpsHp418NBTwVyvx6eneHdHtvbchbTBqkYPhsj+L
-         /qQmHrhSPCJjnjM7sCKQUcvwxB6LixiNUYnm1J0AUc6pOe3TkDJSE2PDmI14v2cOyLMN
-         9ZpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=U6R6y4nzdJbQk6LyzNosubAtaa0HaBHr8xGj66Oybpg=;
-        fh=QBzoNd9iHTvQWVHR9+JIM7nzZv9CpOG5dLGDh6no6ZA=;
-        b=HN3GHIr7wmeQvtREjmB1+fXrsAaygmKLouM/ID1tNnNQWJn43qcYT5fRDghfScyM8M
-         cZSazAAvt1mlpAdk0RZ+/ZRkoOToUADmIrEiuSpWF5GRuyfRR4zGgi/Y008eO6kjV8Gf
-         0Wi8dQVt2ZqVpBPCeKbYIPfMy14hUxgez4G+7GTVicXfGodrcsDq288I0ScjrUn7tbYC
-         yKyEpKumNBkhA7UbYkCXf/bZUR3TVbJHzhKEjyeHn0QfzDyFg5Ng1AzXTnaf+m7SFZZL
-         qQb6kTFkQzngAzqifLLK299eL17rmsxwcOZxcPre6RmTXNBGn7AWMyyc5lpcHGH1bKv6
-         qiwQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789440133; x=1790044933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U6R6y4nzdJbQk6LyzNosubAtaa0HaBHr8xGj66Oybpg=;
-        b=F5Bl9yTFHxsrgKGlRhVtjKN3HtIr/mxWCSI/B2sxNni4rN6Pea2yyZiyP03GlKR3pc
-         RlL3OXEOhFEnOfLHrpNMohTZiStlZwh3p/btco5wS7i0zU4rJQmQrefBC4szZgUiHW8b
-         IgmGpTqFUqFoxfB50peF/qOz1hX3fV2bfl/q/9JO1RK/KKjkBB6uYDYc9bI5QrW9pbre
-         br2rE6C5M53MlSWgXTq4GHfCYttAuVQiulYzKOfFNcPg83G6veAbayGVaPrZfCmLAlFL
-         qBO/sBet/Hn5buZbEEgQX5c67Yh1ijgybF5+/gaJpmFHu2GcO85BkTAi90ecBN6HcVlX
-         SRTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789440133; x=1790044933;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U6R6y4nzdJbQk6LyzNosubAtaa0HaBHr8xGj66Oybpg=;
-        b=0JsRg4mimVG8CHZfPkEAublP2pxHF6oc0dauvrsNdlOLTH0igLDBCEJRceeNp4uV0W
-         loDH6/Rp3Q5PdGfnCsHH7M2xRZypn23SNJk4K4EkqUzsIk0lhpKEO++GpbY5NHGq+XMq
-         YBT7WheYCfjlzPNOdX93aViN+7qiHTSdL6WtE1uudQN8MGi2CpoFX6x7E1d9xmfMJt9W
-         72284oCQp1f2WHR/aJQGy2+pGqNBZB58qKYivYogEabA4PQMGi+EcuBGh6epGPw2lu9M
-         Ou11FRX2WFHUJFw3iZSeB5doM1MXCxogGgjik1Hk8NV12Tedzdsg6u2SGS5BE9Ssc1Bj
-         MDBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAzQ3mE9qmpbCmgZWf9BmFpd6OOP5nnu8rlyxnPzqoibGtI06XqLH47/tRzSaAQ5nGYgctTRQePnmM0bs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsyGI6R1esnV088B4grhCVbeIdKRKUwI2AeIfAaZsKqptpwbUT
-	kEebpdnPF7nKnqsTw9cFE8TsxQlBQxSlOLCDcVw3h6+B1pGMS3iTaPuLsFimEYAFAUp1XXa+72J
-	p+SUTl62+a2Q8I9NUxSejmKYDJ3wrW1bej9r2
-X-Gm-Gg: AYBFou3PzLUaBEuzsJe4b2E74Sf9pRXmj5fuDvpGNJXdjWN+8chzCUp+3Pxs2KADNi7
-	Y5vNRtBFUJsim+P/RCaduEnvTlcqG9mK9EM8B2Hc6DCEIcb2qHpVXUu7/h0AGzqiBzazvM/4Fdh
-	saq2KdieisedhkdyTZXcGGMEoodpBiUOZ/gS93N4rVaSmw07DR0BGoRTr01LWaUE8Jtz+jTeagO
-	eUOIkdj1VoVx80n2npQmuvzRWWojsSP5YjJEqfJR0h4aa1b2efNHNrh8YTDe1e+kPQuipZXqr51
-	ZS612ZPsRtXufv7qbnhCTLxDcT+TtVLxGMGX6Z/YG8dgjIpVXEM97wZC5o/d9YL+DNE=
-X-Received: by 2002:a05:6000:2f84:b0:485:b0bb:38a3 with SMTP id
- ffacd0b85a97d-48702bd61f1mr5645821f8f.6.1789440132621; Mon, 14 Sep 2026
- 19:42:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="no1YtQJg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KqdKY0oPzgYE9rqiu47BDknfrQfo0Gk4IAtK5eNEq+es+gvIQKQttI9492StqNPiH2lfxyWh78Bp2RAQULnmQT5ObUpPeEoukALqY7TjyN61uwFHJv9e6QunrfVIJ9OTIIGr3gz+MZKa1VeQEn07bbXO2NyvlLNCSYwKyAQGb4ThclTwrCrEhFzYei+R8MSsuDhChSMFvGpHOESkE2MMS+lJ4sYHswmkh6Fla9DZSgpkWPbuN4o+EdWJBBJSUv1in/VGffFHYLrt3nPl2+Os+b8OfcxdZ7OXhG4ACBP4jElr4UfZpj1qWpKWfVJGKk1FiPpAVTZhOHZSCyq21ThhbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I6GHwrCgt+227TMaavusyWRAWFB/3w63V2xefeeTdpE=;
+ b=xqfQNE4v6fJmSvv/9EK2KCB2un5lKsb2jUnXNADQQI2wDxPwwhO9CqBech91vf5JIclaRYS3tZCzbE9AaWDANAX3jzICwfmeOcwvPF09ife4KuL3UzfmuLqXtH8BhX+nMr6+oREDihl3VYVVs3T3XgOVjBMkVd/zTsPHXFbG3vS/o7VfSuYnrD0DxPi7f34ASUvCn+QOxFNOLZzfL+7YDAQ+AcVJHTxxZossasWkfo1s01QGoLXnsW0SYuJ69v+g4mw6sUmrTOy41DMIh8D/RCBSC9TXCqIihZEusWZgMHwsLaW4VLUece535ZwlWhFehmePITgsBy9CUDJhBzbNKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I6GHwrCgt+227TMaavusyWRAWFB/3w63V2xefeeTdpE=;
+ b=no1YtQJgws2yarQCMDS2hZc3uSNO7Vp8BZf+VnxydiqkGt9em9nKpobmQK4xd7zV4KuD6k10xl80m+uIsYH+umkBcn9haGzk4pN7B4dM1irQ348puzGn950mU4c5UTPYGiI8HoLPJzVPQBpzsCxvuHJ2z/XiSFgY6HOn++U0JpfNFW2XDdAo4d2vxo/85lv7v7D9xe2DcoaN5qKxDLNNYK53wfsZR48fMuMSr9y7nb4+OUghWXnl6Jusk1glyxNK4EzQsmv6zkW+GJmowrf8TfHZ0qtWaX7KOFXcG5UwCZ2xh0F06798rgBn9w5UDKRSMbFGWcnptm469XtmB1KmCQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by IA1PR12MB9531.namprd12.prod.outlook.com (2603:10b6:208:596::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 02:42:18 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 02:42:18 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 22:42:15 -0400
+Message-Id: <DLFJL5U9DI6F.3QJP9YP0KX636@nvidia.com>
+Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via
+ dedicated bit
+Cc: <akpm@linux-foundation.org>, <andrew+netdev@lunn.ch>,
+ <apopple@nvidia.com>, <artem.kuzin@huawei.com>,
+ <baolin.wang@linux.alibaba.com>, <david@kernel.org>,
+ <Liam.Howlett@oracle.com>, <edumazet@google.com>, <harry.yoo@oracle.com>,
+ <hramamurthy@google.com>, <ivgorbunov@me.com>, <joshwash@google.com>,
+ <kirill@shutemov.name>, <linux-kernel@vger.kernel.org>,
+ <linux-mm@kvack.org>, <lorenzo.stoakes@oracle.com>, <mhocko@suse.com>,
+ <muchun.song@linux.dev>, <pfalcato@suse.de>, <rppt@kernel.org>,
+ <surenb@google.com>, <torvalds@linuxfoundation.org>, <vbabka@suse.cz>,
+ <willy@infradead.org>, <yuzhao@google.com>
+To: "Ilya Gladyshev" <ilya.gladyshev@linux.dev>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+ <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
+In-Reply-To: <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
+X-ClientProxiedBy: YQZPR01CA0156.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::28) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911232405.1815804-1-chao@kernel.org> <20260911232405.1815804-4-chao@kernel.org>
- <CAHJ8P3J2kOBFhy5zTDw1c_67Z9Mmbw-nzZqQui9-W8ajh4b07A@mail.gmail.com>
-In-Reply-To: <CAHJ8P3J2kOBFhy5zTDw1c_67Z9Mmbw-nzZqQui9-W8ajh4b07A@mail.gmail.com>
-From: Zhiguo Niu <niuzhiguo84@gmail.com>
-Date: Tue, 15 Sep 2026 10:42:01 +0800
-X-Gm-Features: AcwNN1Wvz2cwRHmiHhFaLGuOJHDOu2bz5EZJMzg53Lu2M-lRG5aVMq08PsI4TBI
-Message-ID: <CAHJ8P3Jc5FxkeK6yNAUfw3kt3ZX27G_vwdk0w1PCuCYkt=HkAw@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v7 03/12] f2fs: cache: introduce shrinker
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA1PR12MB9531:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee5a342b-9240-4665-43a6-08df12d2f56d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|6133799003|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	Hludg4tJjrkRvI7nH6pppw/B03ug5q60j3HDYDZ2fuyP+DkNhZQiNQvMAoK764GVznvr8knchBj7mdXdfek6mlMj/3L9beWKvOb4B1rgU3Uq4ApiSGSgZKr32OZK4ca7td7u8oXZRE4pT7ktcbYyPRDzjcMrWkG6fGTM4aIyo9F7rfRxiqJ10pIWFU0axmNySU5T770Oph1FoGOUdPu1gBWr9WpPoV/wuL8CPRISivXNeXQTxFqr9tFMe6jtdSfWwZVqz9TrgdB5yoXPKwGbOKIp5q+72IPaebPge2dn8BS+4jpbFJ2QQb/HCs5FmzisBtbnI27eX1DkeX4flsWvUIzmtf3mPzduBCVPymjonTl6rO7RymsxX6Q4fa4qQ6mxhTq5O7o7kxrmaz/Q2TG/TEjCx6YqunqMtZ0JOotPalwUXZQlXp46MzDpx/ZE/nOAGXc1qsOoSvrx3PNgmk22g1KKfRKPSkMd5blqZXs+5SbnEKzyVEzBC1XB61cGcHoLAg1wI74dYgmoSrhOiGtIZkCwEpcrxvw2XzeHGEjddwLAEbe1qqTfMI+8Fv4z+xZzVy3MOZvXvQOgOEzIk42LiWjTmjNLDe4RM/1LULxJmpqK25ijsyr6Eecy1k7U1OpqAQD+Rx/44SmXFdm6cAiWgioSGQgBqZOsoLi4hc8CKzM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z1I1Um5sbUwxaW9NcG9ycE9lQnZHdlRVMjRvaGcrMnFoVm1mL1JjNFJGUnFw?=
+ =?utf-8?B?eVhnY3NESlhPcnd3WXVKb0JlZ2U4eTdtalhGZ0M2NnFZK1VmNmZ2M3NHejFp?=
+ =?utf-8?B?THdWRGo2azZ1UHorUWZXb2pGdmloRjZNYTZ1SVB5eGV4YllBVGNLZlptZFN1?=
+ =?utf-8?B?UFF2ckNqY3RWRzJXQzZObENjWmI0NmpaeFZVZ0E0dEFvZUlCa0JkeTBSOTlQ?=
+ =?utf-8?B?RTVYSm0xYjdEY3lBMVVyNGVENjNMRmNaTjdEVUFZSkZETW9qTUtJaGFab3Rs?=
+ =?utf-8?B?Q0paT1VHYkxmN3ArcWdMbDJFZ09kbHFBbUlXeHFVeHM4VHpwVlhFZm1jd0Vp?=
+ =?utf-8?B?NE5SVUMybnJ6U1Y1Ni9qa3N3K1dpdi9YeXFvLzdjT3B0RTB1MFNqL3BiemNW?=
+ =?utf-8?B?WEFpS3hQbjFxaVhiY0t2LzQvdHpNK3UvR2o5U0xYZkNGaldwakVnSFk4K01h?=
+ =?utf-8?B?Z2MrSHBQWHR3UjRYQmRiQk82UlBGeWhCQUVMcjRzaHNPUTNzZyt0a2k5dEhV?=
+ =?utf-8?B?SjJWOUxZTjZVWTFHd1BtZXhjbmFBUnN4a21jSmlEVy8yekU1bFJJWG8vUWJV?=
+ =?utf-8?B?alJINDFtTjdwSzNtWHNzNlVVTkhUUENiVFRSaFV5NjB0V0xyQU52WVUzYXBT?=
+ =?utf-8?B?alVwYzRIb2hzMkVCZnRrNndSN05OVUhIcXVTdWxYa0wyblFPME5pZkwwQVNG?=
+ =?utf-8?B?MjJuL0xNTXZucUdHTVVSeHcyY0RVczRqcjlGWkVvTkxVV1RDaVBRL3ZSaWFV?=
+ =?utf-8?B?aW5vNE8rQjUyOHpQOHJ6aGh0eisxOFBnTkU1a3Nxa0hKeWlFbTFGOFN0LzN3?=
+ =?utf-8?B?d3NxMk1QZmRwb2swdjliOXdTNDBvemNta1dKSEtWS1dDUDNXblNFd2I5TXl2?=
+ =?utf-8?B?aTVjWUxxSk5HNlNvUFhuZ25Pa3FIVWNmc3pZSmhHaEk2QlgxYlpCTENPK2pn?=
+ =?utf-8?B?ei9pVXYvd3llTGZ2Ykk4MjA3VzcwOUNWajJ6UEh5WmJCQXl2MDgyZHpvUlBR?=
+ =?utf-8?B?SnJ3VHk2R0NzQmV2OTFMdnhQMkxIblRHWEw1MlhlcDNVZTR3M0diU0c2cy9i?=
+ =?utf-8?B?TWtqQ09hVmdtL0F3U0N2TXd6NTJOV3ZtdVhWRXNDeCtNZXNGbHpUOEVIS2JQ?=
+ =?utf-8?B?MWlzaVJNRjlKdndYRWRqakZ0MEd3d0NBQXlkVzI0bmJveFZjWjl2YTFUOWg4?=
+ =?utf-8?B?aWFQY2lvUzJjT25teTVxUHpINEQ0TXVWSkFtYVcrdFRyeFVseGNEUk9oSEtO?=
+ =?utf-8?B?RDhpSFBYZ1NPMGhNUTFTRUxnSkVpS1pzNnJybzJCTmZFSjRObDFKcGV0T0pj?=
+ =?utf-8?B?aE9lVXIwU05veXhkRlNSN2k0UUdYR0VRSCtXSE15RWFYZUlBYllDZzM1RGZ4?=
+ =?utf-8?B?K0NSOVJuNnpMRnhCQkxxSzRHZFFnV2pUeUY5bUJtNTZTbnFTV0hCR2J4Kyth?=
+ =?utf-8?B?MzBvbGtzUmdkODlSOGNpSHp0RTNlMG1lWGU0Um9QZy90eGFEaGsreEs1U29M?=
+ =?utf-8?B?MWtyYTlFZ0FzanlrdnVUT0RONGpITm9MMUJWUXBkRDNrR0VtdG9iSzVjajRK?=
+ =?utf-8?B?bzBTZTFLdGRiVkVrSm4yWU01WXB3cTJFMW1xUDZFNGw0OWg1NU45Qnp2Yy8z?=
+ =?utf-8?B?ZWpLTkloVW5yZ2hXMms2NHdJSDBUZ21MVlk0MXYzck94ZVFSYnhTNUZPTXp3?=
+ =?utf-8?B?bWRYV2U1cG5VWGZkTVpLWWNWNFFmc2FCOS91MDl3UHVqZ0xrUWo0d0g3c3NM?=
+ =?utf-8?B?MVFWMG1wc3Jsc29tTGRmcVBSS0NiV0gzcEh3YWIvRmZDdHYxMzZQNDhWOTFE?=
+ =?utf-8?B?YlBqWndiWTY2YUhkYkgwOUxkQnpjeGp5ZEtzR3o1MVpZVm1wN2lZNlJPanlG?=
+ =?utf-8?B?RDVVVXFaQ2tLbVJjb3pEb29HNWRBRnl6eG0rRFBGV1M2UlFaV0c4ajFTUGtW?=
+ =?utf-8?B?Q3E2TFNIRFJHWGRmRzhrWHB4N2VzUUpPT3paUE83WWVSNnZaRzJoWWxDZ1hw?=
+ =?utf-8?B?bTIrVFI3dDhYT0pCWkdSOVFMUzM0bUZETzJVQzJ5ZGNvam1GeitSd1hUc2FS?=
+ =?utf-8?B?Z2F5VGRXQ2d4NjFHazhNQ25yNithSURIUnI1Mk8xdVFkRmIyUEVXU09vSjVW?=
+ =?utf-8?B?UlRzVWpJaFdWSnQ1OGpVOWw4RWI3OVN5c25ZTUk0aGI5WmRxR2xlUnNxNnQ0?=
+ =?utf-8?B?WG56SWdxNEIxeHBoa0N3VG4rQ2lnZGlidE1uamxQK0VYWGJ3Wm9nbk9pMVRh?=
+ =?utf-8?B?WmsvemtvaVVtajhwUkJ5Q0wrU0ttdzZ6WjNqU3Z3ZFVEbmo3QlE4b2RoYVpn?=
+ =?utf-8?Q?1jN8b6XApeGvV5lBuS?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee5a342b-9240-4665-43a6-08df12d2f56d
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 02:42:18.2015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UhxqhVdIcZpNqK20JdpVSbMsmDk6ozRG2eJQMa/W4gGgm3gdJNwHDSwPNnbw7+PA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9531
 
-Zhiguo Niu <niuzhiguo84@gmail.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=8815=E6=97=
-=A5=E5=91=A8=E4=BA=8C 10:34=E5=86=99=E9=81=93=EF=BC=9A
+On Sat Sep 12, 2026 at 3:50 PM EDT, Ilya Gladyshev wrote:
+> The current page refcount implementation uses a single counter value
+> (zero) as dead. So, to prevent incrementing a dead refcount in
+> folio_try_get(), it fundamentally requires a CAS loop.
 >
-> Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
-> =E4=BA=8E2026=E5=B9=B49=E6=9C=8812=E6=97=A5=E5=91=A8=E5=85=AD 07:28=E5=86=
-=99=E9=81=93=EF=BC=9A
-> >
-> > From: Chao Yu <chao@kernel.org>
-> >
-> > This patch integrates the metadata cache into the F2FS memory shrinker
-> > subsystem to reclaim clean, unreferenced cached blocks under memory
-> > pressure.
-> >
-> > It implements f2fs_shrink_cache() using a 3-phase cache reclamin method=
-:
-> > 1. isolate clean entries from lru list
-> > 2. truncate from radix tree under lock
-> > 3. splice un-reclaimed entries back
-> >
-> > And hooks the new interface into f2fs_shrink_count() and f2fs_shrink_sc=
-an().
-> >
-> > Signed-off-by: Chao Yu <chao@kernel.org>
-> Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-Hi Chao,
-sorry, pls ignore the attachment in the last email. its Operational
-error by myself.
-thanks!
-> thanks!
-> > ---
-> >  fs/f2fs/cache.c    | 89 ++++++++++++++++++++++++++++++++++++++++++++++
-> >  fs/f2fs/cache.h    |  3 ++
-> >  fs/f2fs/shrinker.c | 12 +++++++
-> >  3 files changed, 104 insertions(+)
-> >
-> > diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-> > index fb0ab77d3b49..563615761d11 100644
-> > --- a/fs/f2fs/cache.c
-> > +++ b/fs/f2fs/cache.c
-> > @@ -537,3 +537,92 @@ void f2fs_destroy_cache(struct f2fs_cached_block_l=
-ist *cache)
-> >         f2fs_put_cache(entry, true);
-> >         goto next;
-> >  }
-> > +
-> > +static unsigned long f2fs_do_shrink_cache(struct f2fs_cached_block_lis=
-t *cache,
-> > +                                               unsigned long nr_to_sca=
-n)
-> > +{
-> > +       struct f2fs_cached_block *entry, *next;
-> > +       LIST_HEAD(dispose_list);
-> > +       LIST_HEAD(keep_list);
-> > +       unsigned long freed =3D 0;
-> > +       unsigned long scanned =3D 0;
-> > +
-> > +       /* Phase 1: Isolate candidate entries from LRU list into dispos=
-e_list */
-> > +       spin_lock(&cache->list_lock);
-> > +       list_for_each_entry_safe(entry, next, &cache->lru_list, list) {
-> > +               if (scanned >=3D cache->num_entries)
-> > +                       break;
-> > +               if (scanned++ >=3D nr_to_scan)
-> > +                       break;
-> > +
-> > +               /* If accessed, give it a second chance to rotate to ta=
-il */
-> > +               if (f2fs_cache_test_and_clear_referenced(entry)) {
-> > +                       list_move_tail(&entry->list, &cache->lru_list);
-> > +                       continue;
-> > +               }
-> > +
-> > +               if (f2fs_cache_test_dirty(entry) ||
-> > +                   f2fs_cache_test_writeback(entry) ||
-> > +                   f2fs_cache_test_locked(entry))
-> > +                       continue;
-> > +
-> > +               if (f2fs_cache_refcount(entry) !=3D 1)
-> > +                       continue;
-> > +
-> > +               list_move_tail(&entry->list, &dispose_list);
-> > +       }
-> > +       spin_unlock(&cache->list_lock);
-> > +
-> > +       /* Phase 2: Process isolated candidates one by one */
-> > +       while (1) {
-> > +               spin_lock(&cache->list_lock);
-> > +               entry =3D list_first_entry_or_null(&dispose_list,
-> > +                                               struct f2fs_cached_bloc=
-k, list);
-> > +               if (!entry) {
-> > +                       spin_unlock(&cache->list_lock);
-> > +                       break;
-> > +               }
-> > +               f2fs_cache_get(entry);
-> > +               list_move_tail(&entry->list, &keep_list);
-> > +               spin_unlock(&cache->list_lock);
-> > +
-> > +               if (!f2fs_trylock_cache(entry)) {
-> > +                       f2fs_put_cache(entry, false);
-> > +                       continue;
-> > +               }
-> > +
-> > +               /* the entry has been truncated */
-> > +               if (!entry->cache) {
-> > +                       f2fs_put_cache(entry, true);
-> > +                       continue;
-> > +               }
-> > +               /*
-> > +                * at least there are shrinker, radix tree and another =
-user
-> > +                * has referenced the entry.
-> > +                */
-> > +               if (f2fs_cache_refcount(entry) >=3D 3) {
-> > +                       f2fs_put_cache(entry, true);
-> > +                       continue;
-> > +               }
-> > +
-> > +               f2fs_do_truncate_cache(entry, false);
-> > +
-> > +               if (f2fs_put_cache(entry, true))
-> > +                       freed++;
-> > +       }
-> > +
-> > +       /* Phase 3: Splice un-reclaimed entries back onto cache->lru_li=
-st */
-> > +       if (!list_empty(&keep_list)) {
-> > +               spin_lock(&cache->list_lock);
-> > +               list_splice_tail(&keep_list, &cache->lru_list);
-> > +               spin_unlock(&cache->list_lock);
-> > +       }
-> > +
-> > +       return freed;
-> > +}
-> > +
-> > +unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
-> > +                                       unsigned long nr_to_scan)
-> > +{
-> > +       return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
-> > +}
-> > diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> > index d5ee51691fac..5728e2225465 100644
-> > --- a/fs/f2fs/cache.h
-> > +++ b/fs/f2fs/cache.h
-> > @@ -206,4 +206,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info =
-*sbi);
-> >  #define f2fs_truncate_meta_caches(sbi, start, len)     \
-> >         f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
-> >
-> > +unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
-> > +                               unsigned long nr_to_scan);
-> > +
-> >  #endif /* _LINUX_F2FS_CACHE_H */
-> > diff --git a/fs/f2fs/shrinker.c b/fs/f2fs/shrinker.c
-> > index e3e0a7e89406..baa09bc63585 100644
-> > --- a/fs/f2fs/shrinker.c
-> > +++ b/fs/f2fs/shrinker.c
-> > @@ -37,6 +37,11 @@ static unsigned long __count_extent_cache(struct f2f=
-s_sb_info *sbi,
-> >                                 atomic_read(&eti->total_ext_node);
-> >  }
-> >
-> > +static unsigned long __count_cache(struct f2fs_sb_info *sbi)
-> > +{
-> > +       return META_CACHE(sbi)->num_entries;
-> > +}
-> > +
-> >  unsigned long f2fs_shrink_count(struct shrinker *shrink,
-> >                                 struct shrink_control *sc)
-> >  {
-> > @@ -68,6 +73,9 @@ unsigned long f2fs_shrink_count(struct shrinker *shri=
-nk,
-> >                 /* count free nids cache entries */
-> >                 count +=3D __count_free_nids(sbi);
-> >
-> > +               /* count generic cache entries */
-> > +               count +=3D __count_cache(sbi);
-> > +
-> >                 spin_lock(&f2fs_list_lock);
-> >                 p =3D p->next;
-> >                 mutex_unlock(&sbi->umount_mutex);
-> > @@ -120,6 +128,10 @@ unsigned long f2fs_shrink_scan(struct shrinker *sh=
-rink,
-> >                 if (freed < nr)
-> >                         freed +=3D f2fs_try_to_free_nids(sbi, nr - free=
-d);
-> >
-> > +               /* shrink generic cache entries */
-> > +               if (freed < nr)
-> > +                       freed +=3D f2fs_shrink_cache(sbi, nr - freed);
-> > +
-> >                 spin_lock(&f2fs_list_lock);
-> >                 p =3D p->next;
-> >                 list_move_tail(&sbi->s_list, &f2fs_list);
-> > --
-> > 2.49.0
-> >
-> >
-> >
-> > _______________________________________________
-> > Linux-f2fs-devel mailing list
-> > Linux-f2fs-devel@lists.sourceforge.net
-> > https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+> This CAS loop can act as a serialization point and can become a
+> significant bottleneck during high-frequency file read operations
+> [1][2].
+>
+> This patch reallocates the refcount value range:
+>
+> (1) refcount < 0 means dead refcount (uninit / frozen)
+> (2) refcount =3D 0 allowed only as a temporary state (see below)
+> (3) refcount > 0 is a regular reference count
+>
+> In other words, refcount is now split into "dead bit" and a 31-bit
+> counter.
+>
+> Refcount decrement now works as follows:
+> 1. Counter decrement
+> 2. If it is now zero, try to put it deep inside the dead zone
+>    (CAS to INT_MIN). Or you can view it as "set up frozen bit and reset
+>    counter".
+> 3. This CAS can fail only if someone grabbed a reference in-between --
+>    that's okay, this page is their problem now.
+
+I am not sure this works. David raised a concern on V4[1], where if a
+folio lands to page_frag_free()'s free_frozen_pages(), it will not be
+properly handled. "this page is their problem" only works if every
+folio/page free functions call a generic folio/page free function that
+checks the page type and does the proper handling.
+
+Before your patches, only a speculative page getter can see any page and
+folio_put() handles the last reference drop. So it is safe today.
+
+Let me know if I miss anything.
+
+
+[1] https://lore.kernel.org/linux-mm/086b119c-b777-46ae-b087-798ca3e44ecd@k=
+ernel.org/
+>
+> The size of the dead zone allows performing an optimistic increment
+> inside page_ref_add_unless_frozen(), replacing the previous read + CAS
+> loop with a single RMW operation. This reduces cache line bouncing and
+> improves scalability, especially in NUMA scenarios.
+>
+> [1]: https://lore.kernel.org/all/20251017141536.577466-1-kirill@shutemov.=
+name/
+> [2]: https://lore.kernel.org/all/CAHk-=3Dwj00-nGmXEkxY=3D-=3DZ_qP6kiGUziS=
+FvxHJ9N-cLWry5zpA@mail.gmail.com/
+>
+> Reviewed-by: Artem Kuzin <artem.kuzin@huawei.com>
+> Co-developed-by: Ivan Gorbunov <ivgorbunov@me.com>
+> Signed-off-by: Ivan Gorbunov <ivgorbunov@me.com>
+> Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+> Acked-by: Linus Torvalds <torvalds@linuxfoundation.org>
+> ---
+>  include/linux/page-flags.h | 13 +++++++++++++
+>  include/linux/page_ref.h   | 30 +++++++++++++++++++++++++-----
+>  2 files changed, 38 insertions(+), 5 deletions(-)
+>
+
+
+--=20
+Best Regards,
+Yan, Zi
+
