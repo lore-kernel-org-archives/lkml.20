@@ -1,70 +1,51 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D074A2A60
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B456447ACC3;
+	Tue, 15 Sep 2026 11:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472615; cv=none; b=Np4CQKwpyKdvIz2zDMoL1Jhf5tSu/PPH8BePzixRvoOQZfpNN5jzMN5vYD5dHIy02QEhNlIIXl4no5/LPLqpgB7G37KyqESWp2Oo4ki0EkwcnhF3enlikr0uiALLk5GGwPwHmf7trVtx6/mb+6rj8aQvaFxhdCQbM8sM4ie2HtI=
+	t=1789472650; cv=none; b=Nl9NbKOiOLn9YDz2hreKqis9zc3qH9HgggPpEFO5I4x9YPShdxxZeGP7UiWaodOTiBcqDxbovuRntFe5HSjFS4aZHZ1NnyIZ4VLlukfHJSdQYsBuPWMaX0fs3P5UlrpC/L7sUwQ53RqhrPZjILYIH7n8g1MFZe812ZAVOLgRKhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472615; c=relaxed/simple;
-	bh=d+l9UVQI3i5rHbtsDNkrGOpDndS/w35Wcb1tA6n8BlY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LUnnlTzxrWShW9eRa9IGHP7Lzwo5EPv6+QnHeHtlnrTN/U1T11wpGbH6EQ34woBYUOsEBSxqmIFfIPp2AaGQMkMx8XdtN4Mv2gHuKqBy1Qb/HVV8XQJbNw8NuglCu7mW5BjSOqaKs8qFPtJ7Q2JskO+DSojd8IVcukXn2udhR9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V1U8M0uh; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789472650; c=relaxed/simple;
+	bh=RWNB4M3mtfE/OBaoNeevmZcNdaSwpa9yXiW/qjVzEFA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kaOBaQHBFwvA/1iX+/fAeZrqUE5MRNRP4g7i9rmd8TTZYngefBdpUokdgEs0nhjxOCerZ56aFDQ3YRhr0n2/adhYvxxNLuUXvhrTG6nehzq6G+j0mPFqeugb/swgCXGePVrJnPFyr7PSzgt7rWCP/xTlFRv0jimMrKxKBmPHijc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=aSwirprV; arc=none smtp.client-ip=188.68.63.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V1U8M0uh"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f8694aeso212130066b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:43:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789472612; x=1790077412; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CuI5nT9rHviKP5lpNiMgIdO01jVs2umzh0m7BqRu3zA=;
-        b=V1U8M0uhSmD+JGP/OdGGi1q75AoaDQmXcIMeeLhq5sMs5U02Ug1HkgQexKCHBK53V/
-         0fMmyY0HP5pvQUQUnU0ZgDuL3h6zgV6m2GWlYnMGhjLROKw6/p7w66FT96uu1Nx12LGy
-         8AgBasSoPhb9kOvdBI5EjcMAxJlECr4PA+wtF+y99s6o5jyJER/lEorsJVK03zI3AXnW
-         UZa0OSbaNgh4dhlrsZvXxCTc3Y0QO6SRCPGZ9ezHKampagawfD1k5XFTtvyGtnmK9RRQ
-         OT/c+fqeFNZjoK/7LSBGYfv3WR+Hbc834iPs7na2PVPh9QS5XCCSRNTL5IozgACjaiNW
-         j3ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789472612; x=1790077412;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CuI5nT9rHviKP5lpNiMgIdO01jVs2umzh0m7BqRu3zA=;
-        b=Ju18Lj4pBWdmOavdoRnT/n21VqB9D2PjnYfTY63XpRvp7DPoMVEO+JHetpIoXmLM48
-         vVh00dSeT4GEOa5HjlRlHXUK9FWqUJQnAp3rwBtdrWdFRkM5DY6ZsIpyMY4glbsXbkUn
-         UuGC+6Vlac88uoafTfKhIzT87ij3QorwFhp1Z3L3M1JQOhR3OeLNg+xMx7gquA/xmTt+
-         M1eyfbdV2MkdFyZ1qj7yG9cWDfoBTzUHVALrIywP1JG+R2vT5ruDbAKO6TkZOhVrAM9L
-         HE7MUJDsgV46YQFFivNLmv1y6J/K8bse+7vpcYNnOnIdQdzqldYCZ4nGhrB6RwR6cRm2
-         Fk6g==
-X-Forwarded-Encrypted: i=1; AKwUvBzq2CAI0N9htL7Dj2rUGlyAYhSrKI5aoinNVcRHVY0t5PfF1g0RZhqQ8j4Ws1ecRgdQ4jhRYhGiZ+kOWA8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGuKLuBoRtlOmhsGtSgueMjgyWqk0n0FvRo5a1x9uAgPCfXIgn
-	vuwVicpgrngvXmGLQTV1A6UIwhNJacS6bmcorZAUwOb07AvPWnTGoiejXMYIZQ==
-X-Gm-Gg: AYBFou3Odk+XgLxhEgAPO15lfW38Wg0ZfFEJ+hZf/f/UneCxhlNpGsso2V57NFNUJsi
-	1rvGngKe3Fd33Mb5nnuDoDh1njWyWInHZ7fFXJO+t37Xw4+5tNqrgWGVQa2RSnA4r3eaMMRXcpO
-	s0juIvkCUVOT1GXtcYwPWdh5uSnBbGwPlGIcZvVPujsCDft6elO+L7X7qOIY+ySmAYH4oyMePb1
-	6v01IcC/z5nRZ1RUH+Ol5O8mwLHgrwi9o974u8vzxI/+bj0yTZZc/+QfOlMwZm7G+We4oRmBUxK
-	4PfKG67yc1vY9vOnFUiUBfU55MAjdDiB5AkIEYcfvyhW5GmwtcghR8bG8hwdciPdEEdniNCeVZn
-	i2ALYEK1X4zXM76H/u2D0AiN0aFMOSHMMi38TT4SwSEbGQcsWiKkBXfZEBEZu14RExiY13RzC/s
-	pUhf0Xa6lUE5MmI8B7Myv+myqCrkftatm/DoTW4knZ/gjA7Xq1XPO1SzdSzSbkaAHXoCe+H6fpI
-	g29XOiNc454Imk01c89MLglvpYpU5pBYMY/xflpl/wTioqVs6uEFvO++uqy2sAK7fi3DzR0kgNn
-	pJo=
-X-Received: by 2002:a17:907:3e02:b0:c24:d6f0:aa0 with SMTP id a640c23a62f3a-c29c89d1344mr292904166b.11.1789472611631;
-        Tue, 15 Sep 2026 04:43:31 -0700 (PDT)
-Received: from ?IPV6:2001:8a0:e962:d100:4d53:b3b:9260:9351? ([2001:8a0:e962:d100:4d53:b3b:9260:9351])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296608480esm599053166b.36.2026.09.15.04.43.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 04:43:31 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <0122859e-028d-4860-b2ea-dcd709e4c505@gmail.com>
-Date: Tue, 15 Sep 2026 12:43:29 +0100
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="aSwirprV"
+Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hkg9b4Kd9z5x9Y;
+	Tue, 15 Sep 2026 13:42:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789472547;
+	bh=RWNB4M3mtfE/OBaoNeevmZcNdaSwpa9yXiW/qjVzEFA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=aSwirprVK3ltpuaeTwYXl93fVeFC1Nc+yQetUFyjjNcLWmGtT/5Y5r+ye/UQVSSgM
+	 075NTjwlseQ+FeLJ0X1apFH6i7XbzRdssAoPKwIXyFhocQCL37MEYAYNOLpA4ene3M
+	 xJ3VrmDx6/LeFrhYGy5GwZzNFtkUmvyING6tLGyAf9VxD+SShfiZa21aZn3hWnVN69
+	 mWJwjjOQN/ew6dD3ZG1Aq7Qai4Xlr1ZU05+2+KgMO6Ly1wPH0LtEe+dRd3inI2vVVK
+	 hPHAqqNoVR4yhPL+n9QEa2UQUDYp0KdLJTyS+9az6KqMyZwwN/Re91fvo5P+0EtZA2
+	 Zs0/m0gULf0mw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hkg9b3byDz4yj9;
+	Tue, 15 Sep 2026 13:42:27 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hkg9Z3xY6z8sbH;
+	Tue, 15 Sep 2026 13:42:26 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 8FDA95F9F3;
+	Tue, 15 Sep 2026 13:42:21 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <1ca948c6-522a-4aee-88fc-b7febe2a6369@leemhuis.info>
+Date: Tue, 15 Sep 2026 13:42:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,54 +53,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v2] checkkconfigsymbols: resolve revisions before
- resetting the tree
-To: Erkan Erdem <hexvalid@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ariel Marcovitch <arielmarcovitch@gmail.com>,
- Valentin Rothberg <valentinrothberg@gmail.com>,
- Masahiro Yamada <masahiroy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20260907103739.23212-3-hexvalid@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260907103739.23212-3-hexvalid@gmail.com>
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_mss: Don't require PAS for memory
+ protection
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Paul Hollinsky <phollinsky@holtechnik.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Konrad Dybcio
+ <konradybcio@gmail.com>, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+References: <20260821081540.89137-1-phollinsky@holtechnik.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260821081540.89137-1-phollinsky@holtechnik.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178947254210.1455081.5673122499047825926@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 8FDA95F9F3
+X-NC-CID: qqLS45NP+SSf4O9OUGQeHr3DnUpW8sXo7Nk5Q4XiFKQgpKqs45w=
 
-On 9/7/26 11:37, Erkan Erdem wrote:
-> The commit comparison resets the current branch to commit_a before
-> resolving commit_b. If the second revision is HEAD or the current branch
-> name, it then resolves to the first revision. For example, --diff
-> HEAD^..HEAD compares the parent with itself and silently misses newly
-> undefined symbols. The same problem affects --commit with the current
-> branch name.
+On 8/21/26 10:15, Paul Hollinsky wrote:
+> Commit f3b1357673dd ("remoteproc: qcom_q6v5_mss: Switch to generic PAS
+> TZ APIs") changed the probe-time gate for need_mem_protection platforms
+> from qcom_scm_is_available() to qcom_pas_is_available(). Memory
+> protection in this driver is implemented with qcom_scm_assign_mem(),
+> which is a TZ service distinct from PAS. The only PAS call in the driver
+> is qcom_pas_mem_setup(), and it is already guarded by need_pas_mem_setup.
+
+Bjorn, will you send this fix for a 7.3 regression to Linus any time
+soon? It's in -next for two weeks now as b853857293584d ("remoteproc:
+qcom_q6v5_mss: Don't require PAS for memory protection") afaics, but
+from the branch name it sounds like it might be queued for merging in
+the next merge window.
+
+Ciao, Thorsten
+> No descriptor sets both flags: sc7180, sc7280, sdm660, sdm845, msm8996
+> and msm8998 set need_mem_protection only, while msm8937, msm8940 and
+> msm8953 set need_pas_mem_setup only. On TrustZone firmware that does not
+> implement PAS - for example SC7180 Chromebooks, where call-availability
+> queries report every QCOM_SCM_SVC_PIL command as unavailable - the modem
+> consequently never probes:
 > 
-> Resolve and verify both revisions as commits before the first reset.
-> This keeps their meaning stable throughout the comparison and rejects
-> invalid endpoints before changing the working tree.
+>   platform 4080000.remoteproc: deferred probe pending: (reason unknown)
 > 
-> Keep lookup diagnostics separate from the resolved hashes. Use the
-> resolved range for --find too, since resetting also updates ORIG_HEAD.
+> On those machines the modem is also what loads the WLAN firmware, so
+> ath10k never receives QMI and wifi does not come up either.
 > 
-> Fixes: b1a3f243485f ("checkkconfigsymbols.py: make it Git aware")
+> Gate memory protection on SCM availability as it was before, and require
+> PAS only where a PAS call is actually issued. Keeping the SCM check
+> matters: qcom_scm_assign_mem() passes __scm->mempool to
+> qcom_tzmem_alloc() without testing __scm, so dropping the gate entirely
+> would allow a NULL dereference when qcom_scm has not yet probed.
+> 
+> Fixes: f3b1357673dd ("remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs")
+> Link: https://lore.kernel.org/r/20260808034716.58888-1-phollinsky@holtechnik.com
+> Signed-off-by: Paul Hollinsky <phollinsky@holtechnik.com>
+> ---
+> Reported and analysed in:
+> https://lore.kernel.org/linux-arm-msm/20260808034716.58888-1-phollinsky@holtechnik.com/
+> Konrad agreed with this shape in
+> https://lore.kernel.org/linux-arm-msm/b63e93e4-2f4c-4cad-b726-e1b0565379d7@gmail.com/
+> 
+> f3b1357673dd is not in mainline yet, so this is based on
+> remoteproc/rproc-next; it would be good to get it in before that branch
+> is sent on.
+> 
+> Tested on a Lenovo IdeaPad Duet 3 (sc7180-trogdor-wormdingler) on
+> next-20260805, which carries the same code: with this applied the modem
+> probes, mba/mpss load, and ath10k_snoc gets its QMI handshake so wifi
+> comes up.
+> 
+>  drivers/remoteproc/qcom_q6v5_mss.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
+> index bef198b9ee63..2f71ed2feff6 100644
+> --- a/drivers/remoteproc/qcom_q6v5_mss.c
+> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
+> @@ -2079,7 +2079,16 @@ static int q6v5_probe(struct platform_device *pdev)
+>  	if (!desc)
+>  		return -EINVAL;
+>  
+> -	if (desc->need_mem_protection && !qcom_pas_is_available())
+> +	/*
+> +	 * Memory protection is done through qcom_scm_assign_mem(), which needs
+> +	 * SCM but not PAS. Only the memory setup path issues PAS calls, so
+> +	 * requiring PAS for every need_mem_protection platform prevents the
+> +	 * modem from probing at all on TZ firmware that offers no PAS.
+> +	 */
+> +	if (desc->need_mem_protection && !qcom_scm_is_available())
+> +		return -EPROBE_DEFER;
+> +
+> +	if (desc->need_pas_mem_setup && !qcom_pas_is_available())
+>  		return -EPROBE_DEFER;
+>  
+>  	mba_image = desc->hexagon_mba_image;
+> 
+> base-commit: bb840ea69347aff7bde5a208e7b5b180669a7656
 
-While it's good to support this, I don't think the Fixes tag is
-appropriate here, because this wasn't really a bug... it was just
-unsupported functionality.
-
-> Link: https://lore.kernel.org/20210901145212.478066-1-arielmarcovitch@gmail.com/
-
-This commit added a check that will cause the script to exit if
-'HEAD...' is passed to --commit. So it seems like this patch should also
-remove those lines now.
-
-Note that doing so would also effectively revert that commit, so in v3
-it would be good to add:
-
-'This reverts commit ...'
-
-to your commit message.
-
-- Julian Braha
