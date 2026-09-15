@@ -1,201 +1,206 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F39FF46AA8B;
-	Tue, 15 Sep 2026 08:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF96A46D2CF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:39:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461571; cv=none; b=Z6YFP0rTAlrlJA1aOUAm8fBKdpiVXRwwII3o+44Z9dZq1/RVK3FII3ECTVAFVyZr5ce269pEU9LplErsfWv6Rami0GmMhy5SNWFPYOjJu8Sjrqytfq5RU5ruNCU7uAtxxSkkGM0VrwdZtXQFz7uWkftQEfshe5boM96EOwwEckM=
+	t=1789461574; cv=none; b=fMo1j2aR6o/NNuTpPTotmU5KH3psSskpW+THcEhipbdFMh04GmsRMJRA6PqLTteLwFC1Ors6MYdb7CmstcbDYhI6HwhxabvsjNTi5sELPMUTkkt5ULaZcjQ9dTP25KsHZoQubDZO1OdyrqMHtGNrGAdTyuu7D3KVsmAhTHXzgKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461571; c=relaxed/simple;
-	bh=yHlIrOdPfLjj9Gu8t0QO/KBvaVLhX4WuZRnvoHBDFI8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q+0LSZVnLW9NUBY+6NRN/dy6wanm1b+tnd44qhKJRruqv22moim9CF36LHlDkyuMcXsh0Lpmw353ssewfpB315wwzgm9NrPJcmhHva/p92HXGXqOB1loHM8dqcpr9oFKO2znZBD+zUTA6ycap3LE6yNHI4XYCS5FBUWnln5nXuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZQ+8sTEO; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1789461574; c=relaxed/simple;
+	bh=Xr4NlfVfDBMf1PNK1/DPRZfygwbBq5jJ2h46yDiTJL0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KsiE4BgvlIbdEnR82PyEFzdDjMcMHcuN5x2D2Ejz8mPw1yCXiSSlExTzrSuQtVHROlnnVe9YkHBxOKjBDnJPKkh7W7bRU/aahWN/ydmMZMrCEXYExcSN17zzkbjwyFHuOv/8I47q+rTCk9P07ybrUb59/7d6t8ZdGR+BwadKBiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q2tji9rU; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZQ+8sTEO"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q2tji9rU"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 963E0169C;
-	Tue, 15 Sep 2026 01:39:24 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C1D203F7B4;
-	Tue, 15 Sep 2026 01:39:20 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 953AC169E;
+	Tue, 15 Sep 2026 01:39:27 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 261253F7B4;
+	Tue, 15 Sep 2026 01:39:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789461568; bh=yHlIrOdPfLjj9Gu8t0QO/KBvaVLhX4WuZRnvoHBDFI8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZQ+8sTEOSXh+kPQv2ubox6sTg5+iNgLqJuOkCnT+cygDDQ9XBo7U6XJaXymP1pGJ+
-	 Y0DmwYp1Zo0S2RIxo6AMwXMKi0Cw0M1zWx99eH1J1EXwt/XnrQjnJAF3bhvS8fMaz7
-	 9qNmLrgH0LmpVPxUIkfIWBGKVDlRCIz9VcfSw9kU=
-Message-ID: <e6caa3e6-084c-442b-8d0e-e851ba75914c@arm.com>
-Date: Tue, 15 Sep 2026 14:09:18 +0530
+	t=1789461571; bh=Xr4NlfVfDBMf1PNK1/DPRZfygwbBq5jJ2h46yDiTJL0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Q2tji9rUzvv2R+S029mUW0ex3XRx2AFpQcTDYiY+Yhbr5RxERR3qDtebbTyPN3FNx
+	 MXg8Z/tBJO6otuc6PiJ3avrCfkibwYyaD+Q3EgjUVKYBctesaNTO9oZo+1+EwYIo5a
+	 BLyLKjjBU5asuZu37iORnEMbrsFfHQcakdV1ZjBM=
+Date: Tue, 15 Sep 2026 09:39:24 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] arm64/sve: Don't zero the SVE state buffer when the SVE
+ state is live
+Message-ID: <aqkEPCrWXxaU-mNs@J2N7QTR9R3>
+References: <20260914-b4-arm64-sve-acc-memset-v1-1-67866e442393@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 6/6] selftests/mm: add a GUP selftest
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rik van Riel <riel@surriel.com>
-References: <20260911110950.200240-1-sarthak.sharma@arm.com>
- <20260911110950.200240-7-sarthak.sharma@arm.com>
- <891915e3-3333-45f3-81a8-1ad38fa7ee37@kernel.org>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <891915e3-3333-45f3-81a8-1ad38fa7ee37@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-b4-arm64-sve-acc-memset-v1-1-67866e442393@debian.org>
 
+Hi Breno,
 
+I think the change looks reasonable, but the commit message and comments
+aren't quite right. More on that below.
 
-On 9/11/26 9:18 PM, David Hildenbrand (Arm) wrote:
-
-[...]
-
->> +
->> +/* Just the flags we need, copied from the kernel internals. */
->> +#define FOLL_WRITE	0x01	/* check pte is writable */
+On Mon, Sep 14, 2026 at 05:53:34AM -0700, Breno Leitao wrote:
+> do_sve_acc() calls sve_alloc(current, true), which memsets the whole
+> task->thread.sve_state buffer whenever it is already allocated.
 > 
-> BTW, it's odd that we support passing GUP-flags ... we should probably switch at
-> some point simpler attributes (bool write) or custom flags (but we don't seem to
-> need many ...).
+> Reviwing this code was not trivial giving the ABI here, and the
+> exceptions (syscall vs context switch), but, I think this it makes
+> sense.
+> 
+> On the common path the buffer is then never read: when
+> TIF_FOREIGN_FPSTATE is clear the state stays in the registers,
+> sve_flush_live() zeroes the non-FPSIMD part of them, and
+> fpsimd_bind_task_to_cpu() re-binds the task. Only the
+> TIF_FOREIGN_FPSTATE path builds the state in memory via fpsimd_to_sve(),
+> which writes just the low 128 bits of each Z register and so needs the
+> rest pre-zeroed. do_sme_acc() already allocates the same buffer with
+> sve_alloc(current, false), so this also makes the two trap handlers
+> consistent.
+> 
+> Skipping the zeroing on the live path is safe:
 
-Agreed
+I think the above three paragraphs can be simplified and clarified as:
 
-> 
->> +
->> +/* Page counts exercising single, THP-batch, partial, and full-mapping GUP. */
->> +static const int nr_pages_list[] = { 1, 512, 123, -1 };
-> 
-> 
-> Would we want to calculate 512 dynamically at runtime using the PMD pagesize?
-> Could be something for a follow-up patch.
+| Currently do_sve_acc() always zeroes current->thread.sve_state. This
+| is not necessary in the common case, and avoiding the zeroing has a
+| measureable impact on some benchmarks.
+|
+| In the common case where the task is is not preempted and its state is
+| altered by a tracer, do_sve_acc() will observe that
+| TIF_FOREIGN_FPSTATE is clear. In such cases, only the live register
+| values matter, and the in-memory copy is stale regardless of whether
+| it is saved in FP_STATE_FPSIMD format or FP_STATE_SVE format.
 
-Yeah this can be done.
+I don't think we should mention do_sme_acc(). It doesn't zero the
+sve_state in any case, and the reasoning for that is different.
 
-> 
->> +
->> +#define GUP_TEST_FILE "/sys/kernel/debug/gup_test"
->> +#define NR_HUGE_PAGES 2
-> 
-> I'd call this "NR_HUGETLB_PAGES".
+> 1) On entry to do_sve_acc() thread.fp_type is FP_STATE_FPSIMD. That is
+>    how TIF_SVE came to be clear in the first place: task_fpsimd_load()
+>    only clears it in the FP_STATE_FPSIMD case, and an SVE trap cannot
+>    be taken from streaming mode.
 
-Okay.
+This is almost right. The task cannot be in streaming mode when the
+trap is taken, but the task could previously have been in streaming
+mode, and consequently at entry to do_sve_acc() it's possible
+thread.fp_type == FP_STATE_SVE from the last time state was saved.
 
-[...]
+The key thing is that when the state is live in registers, the in-memory
+copy is stale, and it's not legitimate to consume the stale in-memory
+copy. The format of the in memory copy (which is what thread.fp_type
+describes) is immaterial.
 
->> +static void run_gup_cmd(struct __test_metadata *_metadata,
->> +			 FIXTURE_DATA(gup_test) *self,
->> +			 const FIXTURE_VARIANT(gup_test) *variant,
->> +			 unsigned long command)
+> 2) While fp_type is FP_STATE_FPSIMD, thread.sve_state is by definition
+>    stale. The state machine comment above task_fpsimd_load() says it
+>    "must not be dereferenced and any data stored there should be
+>    considered stale and not referenced".
 > 
-> We prefer two tab indents.
+> 3) Every reader honours that. task_fpsimd_load() loads the buffer only
+>    in the FP_STATE_SVE case; fpsimd_sync_from_effective_state() and
+>    fpsimd_sync_to_effective_state_zeropad() test fp_type first;
+>    ptrace's sve_get_common() reaches it only when
+>    sve_init_header_from_task() chose SVE_PT_REGS_SVE, which requires
+>    fp_type == FP_STATE_SVE; and preserve_sve_context() copies it out
+>    only for a non-zero vq, which needs fp_type == FP_STATE_SVE or
+>    streaming mode.
+> 
+> 4) fp_type becomes FP_STATE_SVE in exactly four places, and each has
+>    written or zeroed the whole buffer by that point:
+>    fpsimd_save_user_state() immediately after sve_save_state(); the
+>    TIF_FOREIGN_FPSTATE branch below, after its memset and
+>    fpsimd_to_sve(); and ptrace sve_set_common() and signal
+>    restore_sve_fpsimd_context(), both after their own
+>    sve_alloc(target, true).
+> 
+> 5) So nothing can observe the bytes left stale here. The buffer only
+>    becomes readable at the moment something has just written all of it.
 
-Okay.
+Thanks for digging through this; I very much appreciate that you spent
+the time and effort to confirm these points. That said, I think we
+should delete them from the commit message, as all of those point are
+secondary to whether the in-memory copy is stale.
 
+> This is worth doing because the SVE state is discarded on syscall entry,
+> so userspace that mixes SVE and syscalls re-traps constantly. A fleet
+> profile of arm64 hosts running services whose memset() is SVE shows the
+> memset under do_sve_acc() accounting for 29% of the trap handling cost.
 > 
->> +{
->> +	int i;
->> +
->> +	for (i = 0; i < (int)ARRAY_SIZE(nr_pages_list); i++) {
->> +		struct gup_test gup = {
->> +			.addr = (unsigned long)self->addr,
->> +			.size = self->size,
->> +			.nr_pages_per_call = nr_pages_list[i] < 0 ?
->> +				self->size / psize() : nr_pages_list[i],
->> +			.gup_flags = variant->write ? FOLL_WRITE : 0,
->> +		};
->> +
->> +		TH_LOG("nr_pages_per_call=%u", gup.nr_pages_per_call);
->> +		ASSERT_EQ(ioctl(self->gup_fd, command, &gup), 0);
->> +		ASSERT_EQ(gup.size, self->size);
->> +	}
->> +}
->> +
->> +TEST_F(gup_test, get_user_pages)
->> +{
->> +	run_gup_cmd(_metadata, self, variant, GUP_BASIC_TEST);
->> +}
->> +
->> +TEST_F(gup_test, pin_user_pages)
->> +{
->> +	run_gup_cmd(_metadata, self, variant, PIN_BASIC_TEST);
->> +}
->> +
->> +TEST_F(gup_test, get_user_pages_fast)
->> +{
->> +	run_gup_cmd(_metadata, self, variant, GUP_FAST_BENCHMARK);
->> +}
->> +
->> +TEST_F(gup_test, pin_user_pages_fast)
->> +{
->> +	run_gup_cmd(_metadata, self, variant, PIN_FAST_BENCHMARK);
->> +}
->> +
->> +TEST_F(gup_test, pin_user_pages_longterm)
->> +{
->> +	run_gup_cmd(_metadata, self, variant, PIN_LONGTERM_BENCHMARK);
->> +}
+> Measured on a 72-core Neoverse V2 (SVE VL 128, sve_state_size 546,
+> performance governor) with perf bench sched pipe pinned to one CPU, and
+> SVE operation on write, so that each loop also takes an SVE access trap.
 > 
-> Heh, is there actually a reason why these kernel things are called _BENCHMARK?
+> 	* -0.99% kernel instructions
+> 	* -1.38% kernel cycles
+> 	* -1.12% wall clock
 > 
-> I think they are really just tests that can be used for benchmarking ... the
-> measurement logic is entirely in user space.
+> The arm64 fp and signal kselftests produce identical results on the two
+> kernels.
 > 
-> We could consider cleaning that up as a follow-up.
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  arch/arm64/kernel/fpsimd.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kernel/fpsimd.c b/arch/arm64/kernel/fpsimd.c
+> index e7f1682a3059b..41e91186ee30b 100644
+> --- a/arch/arm64/kernel/fpsimd.c
+> +++ b/arch/arm64/kernel/fpsimd.c
+> @@ -1316,7 +1316,7 @@ void do_sve_acc(unsigned long esr, struct pt_regs *regs)
+>  		return;
+>  	}
+>  
+> -	sve_alloc(current, true);
+> +	sve_alloc(current, false);
+>  	if (!current->thread.sve_state) {
+>  		force_sig(SIGKILL);
+>  		return;
+> @@ -1332,6 +1332,11 @@ void do_sve_acc(unsigned long esr, struct pt_regs *regs)
+>  	 * registers or memory, so we must zero all state that is not shared
+>  	 * with FPSIMD.
+>  	 *
+> +	 * When the state is live it stays in the registers, which
+> +	 * sve_flush_live() zeroes. sve_state is only read when fp_type is
+> +	 * FP_STATE_SVE, which is only set after sve_save_state() has written
+> +	 * the whole buffer, so zero it only on the path that builds it here.
+> +	 *
 
-Yeah this can be worked on as well.
+As above, I dont think fp_type is relevant here.
 
-> 
->> +
->> +int main(int argc, char **argv)
->> +{
->> +	int fd;
->> +
->> +	fd = open(GUP_TEST_FILE, O_RDWR);
-> 
-> Could do
-> 
-> const int fd = open(GUP_TEST_FILE, O_RDWR);
+I don't think we need to extent the comment, and can leave it as it was.
 
-Okay.
+Other than my comments above, this looks good to me. I'd be happy to ack
+a version with the fixups suggested above.
 
-> 
-> 
-> Thanks for doing that!
-> 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Mark.
 
-Thank you David!
-
+>  	 * SVE traps cannot be taken from streaming mode, so there cannot be
+>  	 * any effective streaming mode SVE state.
+>  	 */
+> @@ -1341,6 +1346,7 @@ void do_sve_acc(unsigned long esr, struct pt_regs *regs)
+>  		sve_flush_live();
+>  		fpsimd_bind_task_to_cpu();
+>  	} else {
+> +		memset(current->thread.sve_state, 0, sve_state_size(current));
+>  		fpsimd_to_sve(current);
+>  		current->thread.fp_type = FP_STATE_SVE;
+>  		fpsimd_flush_task_state(current);
 > 
+> ---
+> base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
+> change-id: 20260911-b4-arm64-sve-acc-memset-3425ad567857
 > 
-> I think reasonable extensions will be to execute tests on all available mTHP
-> sizes and all available hugetlb sizes, similar to what cow.c already does.
+> Best regards,
+> --  
+> Breno Leitao <leitao@debian.org>
 > 
-> Can you look into that as part of some follow-up work? mTHP support will be
-> interesting for testing some of the patches Rik has been working on.
-
-Yup, I'll take that up.
-
-Apart from the indentation, const int fd and the NR_HUGE_PAGES rename,
-is there anything else I should incorporate in a respin? I think other
-changes would require a separate series. If you want me to fold any
-other change in a respin, please let me know.
-
