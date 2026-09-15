@@ -1,78 +1,115 @@
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D33941D22B;
-	Tue, 15 Sep 2026 10:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0176F41BA77;
+	Tue, 15 Sep 2026 10:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469692; cv=none; b=Ir988FxfzqvOdZ4RbXfs+0OedxZYdAM9VL+duYE7GVDvlBSp3CfSpd5XIiPsFuPmjT/uYvghyaVukLMqq0tx7IUN5hXXV0UT8UbQWvD7avAh+yVgz7Yc9dsIJk+g0RA3lGjtolK+FKgH6VjIZbNdJFBZ889RdUtBG8NBwx9+ZjU=
+	t=1789469759; cv=none; b=BYOPIedbNIqsjFTYFowk1jLU/pAq22BLgLuXa4ykF1t/7bSxAeNBW28ZTqw34cemSNe+dlZkanf6B54O0a8pKp8p3sDEEvzL74MaGeUC7MZqIVXDaoLNWM7V1uFyMe+6/GpJiOQgXqzF2EKv1tdl81IMyVr8Dp4OR6bLKtZUi9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789469692; c=relaxed/simple;
-	bh=v5Jo0MPZVCelv+Z4UsEgSEUj4zV9YuPQ2fGaKsZiBsI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nOZU/pNN/wQeLhinneB30FxFv+7PJLPuBed7y5EZ2uan7XSJxoRp3tR7Z1LwfxRQVvwQWY+jpmqaBSBCviq+r5+5Gu0WBUXpCLzaMqvuhSGbB2281ex1s7K1v20cUOya34pUkipMCjJWh6HITRNxW6Fj7kVoAy8xIdCiftwUM58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kHy1/37s; arc=none smtp.client-ip=115.124.30.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789469759; c=relaxed/simple;
+	bh=uEO06yrjerNAJXbVchPGb5EM1DzK66gD+su9qTzJ5dE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R9iHPf+uF3t0pq7ZHGsHE2IPmE7fkWKCe7aV7Y4lRGEyGfWZ0Eg3YXZYS2HhQTicGFJSUL1leiIH8L6gLGIfONz3Wea7D7lLdzDvahRWrqcCYszxyouifbJYeiiLjWFNrDHFy7Lan1/G8YVTxS8THrcoKTitHrbaqbAcN+BFKYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=i3jBU6pZ; arc=none smtp.client-ip=117.135.210.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kHy1/37s"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789469681; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=3NcK+2D6AazFJjSTKxR7cSuvqpA99SwORYNVJbXxAeM=;
-	b=kHy1/37sXJUJJN5yCjuUQgQVdWyXFJJyRc1jIgSd22HOtkYAXjxbcV+uqcIDxzgIaMOQR9XIGWzZTx9y6cqj9PB5WBF46bF0RjJyp1flBKZYXRWi2yy3OfyplQXWCt+3gYNvVpKrsqLekPglBvMFpN+SxFaSQ9ShrX4shfZXu3w=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R221e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=33;SR=0;TI=SMTPD_---0XB1P4.X_1789469678;
-Received: from 30.74.144.126(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XB1P4.X_1789469678 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 18:54:39 +0800
-Message-ID: <ccd08979-d702-4dc7-90cd-f82c08c5182c@linux.alibaba.com>
-Date: Tue, 15 Sep 2026 18:54:37 +0800
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="i3jBU6pZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=It
+	Mo0Ijf+IBEa3gflKGxVBmdGZlVr9v/TYueIOJl/yc=; b=i3jBU6pZgpO2vQjxmk
+	1nOMSTpfimMjHXndxqrYWomVbTQt9ex8HnRQjS65wKQmxpOxCDLMabA25eUkA08E
+	oY/uwyRO26/xJRHd2QET7VpU6bnPomKqkOmc/06wazG6gRPrJmIX+8BUNTXdPVTh
+	S0SQnn0+aFZr5+IRJOC6i0lq0=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3X275I6lqXI5EBQ--.27399S2;
+	Tue, 15 Sep 2026 18:54:50 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: [Intel-wired-lan] [PATCH] i40e: fix NULL pointer dereference in i40e_lan_del_device()
+Date: Tue, 15 Sep 2026 18:54:47 +0800
+Message-Id: <20260915105447.574951-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/7] ASoC: sprd: Replace dma_request_slave_channel() by
- dma_request_chan()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Frank Li <Frank.Li@nxp.com>, Mark Brown <broonie@kernel.org>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, bui duc phuc <phucduc.bui@gmail.com>,
- Tianchu Chen <flynnnchen@tencent.com>, linux-kernel@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-sound@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Cc: Dave Penkler <dpenkler@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Daniel Mack <daniel@zonque.org>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Lars-Peter Clausen
- <lars@metafoo.de>, Orson Zhai <orsonzhai@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20260915100931.3593242-1-andriy.shevchenko@linux.intel.com>
- <20260915100931.3593242-3-andriy.shevchenko@linux.intel.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260915100931.3593242-3-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X275I6lqXI5EBQ--.27399S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4fCFW3XFW8GFWUtrWkJFb_yoW8KrW3pr
+	W7Ja45CrW5Jw43WayjqFW8uFyrJw40k345Kr13Crs09Fn8tF92yFWYyryrAas3ArWktFnx
+	tF9Fya48Ar4DGr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UniSLUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBoM4mqpI-o+jwAA33
 
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
+i40e_lan_del_device() dereferences pf->cinst unconditionally. pf->cinst
+is only assigned by i40e_client_add_instance(), which resets it to NULL
+whenever the i40e_client_instance allocation, i40e_client_get_params()
+or i40e_register_auxiliary_dev() fails, and it returns void so
+i40e_lan_add_device() cannot report any of that to its caller.
 
-On 9/15/26 6:04 PM, Andy Shevchenko wrote:
-> Replace dma_request_slave_channel() by dma_request_chan() as suggested
-> since the former is deprecated.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
+i40e_lan_add_device() can also fail before it ever gets there, for
+example when the i40e_device allocation fails, and i40e_probe() only
+prints a message instead of clearing I40E_FLAG_IWARP_ENA. i40e_remove()
+therefore still calls i40e_lan_del_device() and dereferences a NULL
+pf->cinst.
 
-LGTM. Thanks.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Only tear the auxiliary device down when an instance was actually
+created. Removing the PF from the i40e_devices list below does not
+depend on it.
+
+Fixes: f4370a85d62e ("i40e: Register auxiliary devices to provide RDMA")
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+ drivers/net/ethernet/intel/i40e/i40e_client.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/i40e/i40e_client.c b/drivers/net/ethernet/intel/i40e/i40e_client.c
+index 84a97ca8a6d8..9a4f50af5347 100644
+--- a/drivers/net/ethernet/intel/i40e/i40e_client.c
++++ b/drivers/net/ethernet/intel/i40e/i40e_client.c
+@@ -496,15 +496,22 @@ int i40e_lan_add_device(struct i40e_pf *pf)
+  **/
+ int i40e_lan_del_device(struct i40e_pf *pf)
+ {
+-	struct auxiliary_device *aux_dev = pf->cinst->lan_info.aux_dev;
++	struct auxiliary_device *aux_dev;
+ 	struct i40e_device *ldev, *tmp;
+ 	int ret = -ENODEV;
+ 
+-	auxiliary_device_delete(aux_dev);
+-	auxiliary_device_uninit(aux_dev);
++	/* i40e_client_add_instance() leaves pf->cinst NULL when it fails,
++	 * so there may be no auxiliary device to tear down here.
++	 */
++	if (pf->cinst) {
++		aux_dev = pf->cinst->lan_info.aux_dev;
+ 
+-	/* First, remove any client instance. */
+-	i40e_client_del_instance(pf);
++		auxiliary_device_delete(aux_dev);
++		auxiliary_device_uninit(aux_dev);
++
++		/* First, remove any client instance. */
++		i40e_client_del_instance(pf);
++	}
+ 
+ 	mutex_lock(&i40e_device_mutex);
+ 	list_for_each_entry_safe(ldev, tmp, &i40e_devices, list) {
+-- 
+2.25.1
+
