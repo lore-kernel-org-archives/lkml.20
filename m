@@ -1,71 +1,73 @@
-Received: from mail-vs2-f27.google.com (mail-vs2-f27.google.com [74.125.227.27])
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCCE3CE0BB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CA52DECA3
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789445557; cv=none; b=ootJCs1bh+Mvwim8sSSYY9+FgLqVZaj11i8caaIfukqxzJoq1Ug8FrFHdgO8cpAZHiySvX8iKiqLU2q2nGiAp2s6/oLjJUY/bRJ1ddZUdsx9vUtC058PE2x9MMUqLfmfiueV0B4lOhShyHcHYeGB4/3zxu9x4QaoPmbuw/UmMsk=
+	t=1789445581; cv=none; b=YL+hKYcuHmv4Tq1B1QEmLtExcfX2lG9TaYvwppf+rzh6ExLfwwrIvQXSQWyJTQL+LUirBn4JoXF0i62W1ipm0zm1nIaCFIaxiz3HbCbZeWL3GeV5fJz9bsOU+oA/WOS/2JnRQwRjvzIIroygzPQdUy0It2lgPF1nJGegel9ApAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789445557; c=relaxed/simple;
-	bh=UJLZbdkDEENRPUTN2VBlVmTpQ2jl+rP/oP1ip20tE4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rCLq07LC7UUiRXLTIZdDbAubWbWL7LuSvzDfgz++2y3sHDna3QMHo/a0+TEaq7EupSo1gOpoqoNIN5yF1ul1dPDYt/Y3hn3lawfSeZSWHuWiuiC+7SaVYoY1hmg4XaTBgnFubKT4PJJa0ar5+iY8wftFcp5T8GSfRVH/N8mwLdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RPCZyfwf; arc=none smtp.client-ip=74.125.227.27
+	s=arc-20240116; t=1789445581; c=relaxed/simple;
+	bh=loIPSrIcsCq4I57+VmLSgBbXGoXXojb4HxS7NRgVz8g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dUxnxfIUFo2QBw3KajI/LpolrMH7m36SN0yXGKnqHJf4mVEWXg9Rbubhc59KmNRlXdm6j0oqYqZwH8nehIwIpIp2idvvQsrp3sQApnc5/RlzxJmfHE3IP8Fj2UtaFLSfymlIaiUQUtAi05Z78DwCeO0FhvfHZvsu447rEPv/46E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=STHYAuwU; arc=none smtp.client-ip=74.125.227.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RPCZyfwf"
-Received: by mail-vs2-f27.google.com with SMTP id 71dfb90a1353d-5c963d7503fso906872e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:12:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STHYAuwU"
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so1101616e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:12:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789445555; x=1790050355; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789445578; x=1790050378; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uO17j0M9UiUVcJWCWfq8oZAdxWyBugYlDi2x4A2dG3E=;
-        b=RPCZyfwfIpn80Z2t1NsdZ0m9zjL7POFIhtM+av4b8WYf5CUMesBWOMpI6jAuEr+ZDz
-         qEbscx8A7ja56sciAdp35SPpMOIZoeV5VzZCovBWM1ziqUBY56Y0Mo3FmAI/sEh677EO
-         /6mQgRip6oRllqfyMU9ZUwZp2gErxLubR5R6L9bC3qZSsk898gVJPMFglK6mmNdpAoBU
-         Jl3fAeyVRYZA0DHVgvQTDTuQcO4ls9aY6/ghudVZ7z1QHZDrYrGYbm7ep6Xj3B4W04nv
-         Kq2uSAC2yZc6kWFaDKi+d0IREdWFlZ2llcTvSfqYxgpztt+DmFBYOYYYDuGabJ5W1yIa
-         3fUQ==
+        bh=IjLBesoU4POHMf+R0ywOnRIASBPE1EpsLahpSC+o4kk=;
+        b=STHYAuwUevdugWyet+MvnKb6qryaoqEE+H2F2YzU3OJvXig65C60DBXuvwMAtHf1ET
+         cIv3LHa/VqrdR28ys545SPZqAHtX2OsFefU6bZt+sZX4wrfXz7jmiLDhyRAGm8s2eWmE
+         xW13WAUluenAeXdXwYdxlc8CT4Y+2JpF10b+KvAsjyxZroqnferKSbgHwo4Cb4Slr6hU
+         dhunei+vLjklOMUlylTYuKUVieJqaKTpu2q0A8T40MVSS9FNFoW9tU/JwpDOVWLj3n8w
+         wNjmJ4rzn4dagu8swOTwS39RcOKOGgxqZTZhIosbz+ZCVllMDwfujWNcFZ4MeEd4BBvf
+         eTQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789445555; x=1790050355;
+        d=1e100.net; s=20260707; t=1789445578; x=1790050378;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uO17j0M9UiUVcJWCWfq8oZAdxWyBugYlDi2x4A2dG3E=;
-        b=GQcpj0tr31b68uxeTAnKsESvDdOYNcF1GpTkZOsCALUInGnl/fKOVTV7mk3LAUWnGF
-         n6bfoLRsprUnmJ5s+hexauO6qSYlwpLJpjF9WMl0aRb0GsPeL3Th2otz4Jtndtu80UnS
-         WtVHKZ1o65Z5NBc1Qciu+2OjEDUWjF5WBJfvKyIo+MTtf3aZevnzikx1tAjRMEcg736a
-         7f09ubZ6aKJzMuSZ5LEnOk5QF4Cpppr7dFsDGKexCjikIv0N7rgJ8dTL0mBg0TopCn8N
-         r3jD/XP9CjQ/8YuDzB1/QGYpGAx3CjvB79i4n7FomKXuzWC3Rxg27UR/8qvojRtIPisF
-         0KQw==
-X-Forwarded-Encrypted: i=1; AKwUvByGC4q8xL+wf0vCOV+iUbTiUnnyy0jpFAJy1zL9z8zSuWH0Ko3UrOsqAwKkj/MTKyVcc8JAYfOz+hV65UU=@vger.kernel.org
-X-Gm-Message-State: AFuF++muJJaEWRMvMXTl/JPS3wL0pj5Xu65qDf2qOMr2b6+kDDE9dfBB
-	ELeQtgHyyaqpMwWWIYBDqJ2Oj5/aciDK6bJHu5hd0LZn0FsLzvWbk3YiQINU1E0gl5YEsA==
-X-Gm-Gg: AYBFou1zxUITSgEclSlpLypMGIsF2wHQgJKCjR1FUeEipkE4Y+sQeN+cu9n0Wc3alB1
-	Hqn7+wt45DJ3HVg5jPdIAjGlPoRNQXnnNYF5+12YDvqL0I31Cg+XKORy+X3W+HcMB6eAh94v6rC
-	1RXma7hokC1Bt1ZATsmyObc/e6nsJGPFVZ7wxanP60hon5aCi96m6yrRKSloqBfo4K8n9Vatcxh
-	inBaqOfRTErpwtuBI885OJvbUQ/lEo0n2T3tpJkDsJdGgo0LlEgCLi5/KgyE7nIFbEZ+rnd80cQ
-	7JI0ZyYp5dB6U2NNV91cs8wHdv1zauF6yqYJEVubtTqYU8upfivEeQPj929wSncq77Ku3jFLqwu
-	lH9dUb6elfdQnPfMQmx4W+SAOWp0hdXAYiEzouR9gKIB9m3eDgPBra2RJtGm0YXze9f56uQE25I
-	pzfd7LKPm/Bxh3npvEE1xyAtMIpp+SrUIyeGlk8EjCuZA/HxOiey4m2jk8xyrz0Dtl
-X-Received: by 2002:a05:6122:f8c:b0:5c6:81c2:5496 with SMTP id 71dfb90a1353d-5c981d65e57mr3390303e0c.4.1789445555369;
-        Mon, 14 Sep 2026 21:12:35 -0700 (PDT)
+        bh=IjLBesoU4POHMf+R0ywOnRIASBPE1EpsLahpSC+o4kk=;
+        b=oSsI9/M9i2RES5QSfyY/P8N06cFs0uaTgYN4SsmYYh3H6ciHj4daK6b887q48g4GiN
+         WQ+LaFhFFvozr3rWya+Whsr5iox0vr3vmC/u5zm1uKSaUTIhfjfFnZSXfxpAUtDjEYSm
+         3JwlaYFLr6kZIZcBeEshzwMsiAr/aNQleQETIVciiyLep3wxRFWpy1+/yoXX46ZJr6pb
+         g3bcntqXu9OjeqGki1WO7ioJEyyp6dU0oRMXYONQ6CIxosl6xiH/x2zOPaZnUxfVSVzt
+         nUL3Vh9yQTTq5uPj/xoBuln0nVsOq6GTOQOGqptxmdt2fVBdHK4ZVLBaXVk4eeLolAdK
+         IjIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUhgQ9TErIIvIHmO9U/G59zMjlLuGilU1eQw7XTJqf0Df7rSa5Pmf7+3AiI7ymg8ZFuWIwKDlZHJZoeBQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKOrK0BKTj7grAPyjj+84NoO+Pr7/NI52sj+XPSaY54dKRRrsv
+	Qjb+hkbp+Mq+94D6ru40kQbeKraMBZXwYATT62epLCa++6NEKcbU7/h5uG1dNjBhaPDGew==
+X-Gm-Gg: AYBFou0tXO34OsfW/HQJhKkGSIP0qPn/1lxooOZfW/luarjZeZ8PROi7q0wmLB/Sly8
+	Ycfq9a6IQFXxu8/Bjywt9UO3BmtgEL+gfdpci39w2YDz1LRZLzPDBqHTVZDTSj1vBkyv6iYxhdt
+	6BaqUKlAmRJkmpHgh9643WdMHKtKiSkREPg24JImZEDpWUIrhjWGKiPJ9GFsvtcLB1ZcKDrMrY1
+	+OWeV2iqtXx7JiBMGNXDrGenLG8SOMGVqBCD80wE7Cglqmjrse6bhnqauEElTVzgMV5smqZcFv+
+	Fr02hIctJTYtKB9UnHvaKluVjunabklqeoIZrsw7deF2j6jHQWV1J7UNebujF/Hues5JXAoEzqP
+	aahb98lDH1X8qUXiBSz3abqrMgoPTEQdM/DSxJAQI+yLyoKAGPUqQt8ApdtZJJgT+pnH6hobz7B
+	GzYVpD7w21DM6qibjCn/sW+3WYnnzxIPSKE1luEitgRU8pWIMXIKdA/gJmK6Xmah1V
+X-Received: by 2002:a05:6122:4f91:b0:5c6:58df:5826 with SMTP id 71dfb90a1353d-5c981d5fca1mr7577057e0c.5.1789445578612;
+        Mon, 14 Sep 2026 21:12:58 -0700 (PDT)
 Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c847122e2dsm14601423e0c.14.2026.09.14.21.12.33
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c847100f4asm14219340e0c.11.2026.09.14.21.12.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 21:12:34 -0700 (PDT)
+        Mon, 14 Sep 2026 21:12:58 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
+Cc: Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] HID: core: avoid signed overflow in multiplier calculation
-Date: Tue, 15 Sep 2026 01:12:26 -0300
-Message-ID: <20260915041226.2431890-1-qwe.aldo@gmail.com>
+Subject: [PATCH] HID: wacom: validate battery range before scaling
+Date: Tue, 15 Sep 2026 01:12:48 -0300
+Message-ID: <20260915041248.2432629-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,86 +77,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A HID descriptor can make both logical range subtractions overflow
-signed 32-bit arithmetic.  On x86, the resulting INT_MIN / -1
-operation can raise a divide exception and crash the kernel.
+Battery events divide by the difference between the logical maximum
+and minimum without validating the range.  A malformed HID descriptor
+with equal limits can therefore trigger a divide-by-zero exception.
 
-Promote the operands before subtraction, use the signed 64-bit
-division helper, and check the remaining multiply and add operations
-for overflow.  Fall back to the default multiplier when the descriptor
-cannot be represented safely.
+Move percentage conversion to a helper that widens the arithmetic,
+rejects non-positive ranges and out-of-range results, and accounts for
+a nonzero logical minimum.
 
-Fixes: 5a4abb36f312 ("HID: core: process the Resolution Multiplier")
+Fixes: 37d160193834 ("HID: wacom: generic: Scale battery capacity measurements to percentages")
 Cc: stable@vger.kernel.org
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- drivers/hid/hid-core.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+ drivers/hid/wacom_wac.c | 25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index cf123347a..92d76b789 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -18,6 +18,7 @@
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/list.h>
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index da1f0ea85..b93aac8e3 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -7,6 +7,7 @@
+ #include "wacom.h"
+ #include <linux/input/mt.h>
+ #include <linux/jiffies.h>
 +#include <linux/math64.h>
- #include <linux/mm.h>
- #include <linux/spinlock.h>
- #include <linux/unaligned.h>
-@@ -1083,7 +1084,11 @@ EXPORT_SYMBOL_GPL(hid_validate_values);
- static int hid_calculate_multiplier(struct hid_device *hid,
- 				     struct hid_field *multiplier)
- {
--	int m;
-+	s64 logical_range;
-+	s64 physical_range;
-+	s64 quotient;
-+	s64 scaled;
-+	s64 m;
- 	__s32 v = *multiplier->value;
- 	__s32 lmin = multiplier->logical_minimum;
- 	__s32 lmax = multiplier->logical_maximum;
-@@ -1097,13 +1102,21 @@ static int hid_calculate_multiplier(struct hid_device *hid,
- 	 * Resolution Multiplier of zero."
- 	 * HID Usage Table, v1.12, Section 4.3.1, p31
- 	 */
--	if (lmax - lmin == 0)
-+	logical_range = (s64)lmax - lmin;
-+	if (!logical_range)
- 		return 1;
-+
-+	physical_range = (s64)pmax - pmin;
-+	quotient = div64_s64((s64)v - lmin, logical_range);
- 	/*
- 	 * Handling the unit exponent is left as an exercise to whoever
- 	 * finds a device where that exponent is not 0.
- 	 */
--	m = ((v - lmin)/(lmax - lmin) * (pmax - pmin) + pmin);
-+	if (check_mul_overflow(quotient, physical_range, &scaled) ||
-+	    check_add_overflow(scaled, (s64)pmin, &m)) {
-+		hid_warn(hid, "Resolution Multiplier calculation overflow\n");
-+		return 1;
-+	}
- 	if (unlikely(multiplier->unit_exponent != 0)) {
- 		hid_warn(hid,
- 			 "unsupported Resolution Multiplier unit exponent %d\n",
-@@ -1112,11 +1125,12 @@ static int hid_calculate_multiplier(struct hid_device *hid,
  
- 	/* There are no devices with an effective multiplier > 255 */
- 	if (unlikely(m == 0 || m > 255 || m < -255)) {
--		hid_warn(hid, "unsupported Resolution Multiplier %d\n", m);
-+		hid_warn(hid, "unsupported Resolution Multiplier %lld\n",
-+			 (long long)m);
- 		m = 1;
- 	}
- 
--	return m;
-+	return (int)m;
+ /* resolution for penabled devices */
+ #define WACOM_PL_RES		20
+@@ -1937,6 +1938,24 @@ static void wacom_wac_battery_usage_mapping(struct hid_device *hdev,
+ 	return;
  }
  
- static void hid_apply_multiplier_to_field(struct hid_device *hid,
++static bool wacom_wac_battery_percentage(struct hid_field *field, __s32 value,
++					 __s32 *percentage)
++{
++	s64 range = (s64)field->logical_maximum - field->logical_minimum;
++	s64 result;
++
++	if (range <= 0)
++		return false;
++
++	result = div64_s64(((s64)value - field->logical_minimum) * 100,
++			   range);
++	if (result < 0 || result > 100)
++		return false;
++
++	*percentage = result;
++	return true;
++}
++
+ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *field,
+ 		struct hid_usage *usage, __s32 value)
+ {
+@@ -1950,7 +1969,8 @@ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *f
+ 			wacom_wac->hid_data.bat_status = POWER_SUPPLY_STATUS_UNKNOWN;
+ 		}
+ 		else {
+-			value = value * 100 / (field->logical_maximum - field->logical_minimum);
++			if (!wacom_wac_battery_percentage(field, value, &value))
++				return;
+ 			wacom_wac->hid_data.battery_capacity = value;
+ 			wacom_wac->hid_data.bat_connected = 1;
+ 			wacom_wac->hid_data.bat_status = WACOM_POWER_SUPPLY_STATUS_AUTO;
+@@ -1958,7 +1978,8 @@ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *f
+ 		wacom_wac->features.quirks |= WACOM_QUIRK_BATTERY;
+ 		break;
+ 	case WACOM_HID_WD_BATTERY_LEVEL:
+-		value = value * 100 / (field->logical_maximum - field->logical_minimum);
++		if (!wacom_wac_battery_percentage(field, value, &value))
++			return;
+ 		wacom_wac->hid_data.battery_capacity = value;
+ 		wacom_wac->hid_data.bat_connected = 1;
+ 		wacom_wac->hid_data.bat_status = WACOM_POWER_SUPPLY_STATUS_AUTO;
 -- 
 2.43.0
 
