@@ -1,165 +1,3837 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13ABF318EC7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565DF33939D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789435473; cv=pass; b=PfJFPrV+UqHcFQ5M6/rn0IdUzpHTM2YTc/Hlc/GDdu4Yrk9+JYTURU54RAJYTMZ+Syp+YsCA6+E9t5rSkyvd46Y9uXhHc1P30GCLWBUm8Xvui2td8YDiwdJ5blnFFJWuTMqKKBrA2oRk2YAT8TZeAb05Fx+/DOrXzbkhaaYnPMg=
+	t=1789435525; cv=pass; b=NYQrBve1vCFlN4s8W2lAN9FFiW82mg5b7plzfuEOj8R28d7M3h1XntlGsjFzif7mZH1fW4JSN7RQg0ew4U+fhgzs8xwSGu7Khgxbu569sTGDO9go3L390M0WbgIANBjZPQzxv5ahthfJw4DCXbWcLdp0ZzsA3EdUM74pMCSmW0I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789435473; c=relaxed/simple;
-	bh=dEdzdraQ8e1FJjlgNNKbv0UpkqZqqFvCuPQNVi2/Eds=;
+	s=arc-20240116; t=1789435525; c=relaxed/simple;
+	bh=jPC/0rPyf2RjkOjoomE8rUIfDBCoIwo0cmXOuO+Numg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eXJBkxNpZAVT96BBjB3jh8JbrCCr5rXdrXnFTuHXvC/ktBNxnUut2NtKX1xPGpp8kxaK0DFA8vYxgqWNFCeBj1rOwdDV54Ts3mo/adf93Dt8iXydE3aw+5SMxUx6zT1D3KrRL87h+UrKUbzcKSuzQ31EiBlV5OmaNDtfNjr33z0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H+ZaIgDX; arc=pass smtp.client-ip=209.85.215.170
+	 To:Cc:Content-Type; b=mzXaEJr+HwoHbNqukW3uliqdU17MJAhGxa8a1nuyNWBA9rkdsd52BRc5zb+IeXUvTbD+FTAP/i1wUGL3RuxZ9FV2WCb1Y1w9TE9wQxkOdXsQiCbBGdrMNE3XGCAXXD296wN2tsrt49RrMtR80tyVwNt4uYy8jHRFspBvJNHUl+I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XtYEK73+; arc=pass smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+ZaIgDX"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4d64bcea5so2496307a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:24:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789435471; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XtYEK73+"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843af75de5so419979f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:25:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789435515; cv=none;
         d=google.com; s=arc-20260327;
-        b=hxxwGoZc62z4Rg6uYR6pBDVcWpeVEjael2JFk776E/0esAfhgcxqsrPlbwSHjnz5Il
-         T49NzdrQxRkR/aCXV6/xYh543ihTwQd3NVIx8AWp/p/u1Mbh67tx+SUHXDbHKETptMJ9
-         rXmjwc9axSkQx8EZSTZaJbD1/AVuYxGmNbFDUA0Xt/+oxGl53f4zILX37Ulu4kNsTvIN
-         sdMcMYFMwzoGvjRC1f1PkbHIta0Q3tEmmH6u5Vxh5Vl/ss58vwIh5JwFjhaExUOt6Y92
-         Qh7C7f5CTHxt9ZG4XiRcR+6PrJYLrba+pGEO/PVUW/As60WKLiy+nYxJj1NLma/1Td/r
-         Zq+g==
+        b=ptLTrvB+9N81yxC7pPmQmm1ljaca6DY3PzExIFgfSzGX30pL8BQF7Jh1t1UZMFaH3x
+         SQ4h2eMVM7b/C3Qiw7Y5wYPHaXazmFsjt0hJqDRIbEnd5x0A3fvM1JM6Q+vKvbu061/S
+         /KqkJHgIt+miWC/hLVbnFSeuY4QUWVrqq1aPxujQTMtckgmihg9g1PUE8ywwYDV23PWJ
+         3qaFmZ9B6G8YwJbGJKz0bdYoqwHBCCxNSHzP9n6wf9y48QDTFuXwza0MFFWKFmMF/Ycd
+         SNq/OT1tFTczTyPtWJWUEFMQrN+eQz4TwCMpOpcd3UxPG347BBGWh4bCDODK36ibptQT
+         UZtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=nj9AuGJ3R4rBf2c5qZk9ZmLjhMDoMpxuJOp7rXF1jN0=;
-        fh=ZlGNUwdQWARaOB9xViaK1ueF3RBzsl3m6PTzwAw7qpw=;
-        b=Is7D41OmQV6lxJNlxDvz2v7uNCXmcCGAa24coUcfYnJ1X1wggLWp4nnASWjnKpNI3I
-         DEJFutUPErEKtlizrVwMTD9PFNgp8B8oXWRLm9A2ctxhA1yIrvW4FhX2RgBwc7rRAAoO
-         OZxZC2Wwo0XzuuHxVX0MJQzuVK/aPb1nKTguMZYtfy2XnDyVfeniFAMwhkD5vDWWcKkJ
-         YUwYqFzv/MIVjBDpoCfAG7G1mNynYnO0zEZWttZ+l4mkpUhZSgg5QmQkT6lnskXvq5r6
-         NTZAPPMgE8oEAkF+qtwUak3gMjgYFXN1NRdo/38woXtWlfPAy5UfGK4V38HgdljcPX2L
-         mSxw==;
+        bh=/BCu6mOmhlhjkHyErL9I71aYytAtSN5kRdaSTX2rBMM=;
+        fh=bbxf6ql4UFqdEhq7ce5wftq1jNmh2Xsn9ffbnXybvE4=;
+        b=QowCwVNSCNg2L/pVke/4yd/imcrH6HQYCAJMyo9YnSrLCpuFEux7557IEUVw3Y23YS
+         KQhq2Dp4yxhbNrLvzPTyXb8JAih84NAoDLOp5Ky5FykU7PDw3M+jRwfqOgjOTfTtLQpY
+         5MnPE59koAhWEA7nsfkGmh0b6GE/vvdAHIy+BAmoyIM5ETncBz3MoDem9udBpBgPJWNb
+         jaNOoYi4gL0neq1DN7r6YCdkY7WKK74kTO+TmCkDsrF9YHHbSGpTMalf9j+Nr8XnkLcO
+         sUtSV/SsXDhu/FDkrDNgCNhgr+be3vnucQrnukDUWIaWTilmK/q4Jl+Rf2qYigvawjQe
+         vT2w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789435471; x=1790040271; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789435515; x=1790040315; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nj9AuGJ3R4rBf2c5qZk9ZmLjhMDoMpxuJOp7rXF1jN0=;
-        b=H+ZaIgDXR1OOh9z9s7gtWQMr+4hsfPs/nWxz6zdZo9NzeJ1qKzAj5/MNvFqdo97axS
-         ALap//yKjSjZ2zVD0bqczCGUBlqFTD11RlME6vWd8YR47dTVVZvbCe/7L8VPg9g/CJ/t
-         +JdNbTyl58QN4NPGUVWlJ+IBKwZZHoCVQL9jPogegNIVNK1gk3PD07bHXWVfOK4xBW8R
-         YyA4AQvOnGQqV2lvVO+iZM3nXDo9x7diQPGqAGAsYcGrucyANK7+47VQ+K5q33v9Uin7
-         iaxkBKhaRW2wVnMMnTBzuTvQgg7Fn0Zj57atv1X9cb0y/y7SE7qVZxEbNUZyXIEmRe5l
-         Ajsw==
+        bh=/BCu6mOmhlhjkHyErL9I71aYytAtSN5kRdaSTX2rBMM=;
+        b=XtYEK73+yqOK3kpQDjAOZYnIIQXlSJYtznMcrQp96O8qwx+24wq8quyp7ouxJY3f9F
+         PbieStFH+zxdNNIAIx899BXNOsctz9/DkFhEakDGtqACO+jE6oq/Iq5JJAhiH19lucbl
+         fTttiqkBB93kPNzhRzn9M4f4uVcPrzApVjRtMimKyCfbqkh1VAhK9apYcKgq9zBHpBOD
+         8jakL8nPKamFaJo7Ze7LDiOxM2IYISPyQza+zkBZfCdAGNK2nuTyB6xlQFa5sXoJClWz
+         uPzY8sSLXAaG+7fpk/6NPIbpqJx2PhUHYLgYOI0t/dKt2SFMI4ejeqHMrnszB+L0PRRE
+         peSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789435471; x=1790040271;
+        d=1e100.net; s=20260707; t=1789435515; x=1790040315;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nj9AuGJ3R4rBf2c5qZk9ZmLjhMDoMpxuJOp7rXF1jN0=;
-        b=hY7eFiMv0dGDGmhvaxMCK233SroJanmSfBJPleDC0zf08+haGRUrddai/9nApUfe6E
-         x9N5AKdqroIB+5cUvOL5IfNDwdxAHJtgfPy8EQhIWOagU+nSwCmQSBY46aJ+UBWJUCw7
-         OUEXy8Teio5vNy8EPvoOQO7rH60JU5orj7ApFji9d8zMU188skEMEA4I2bg4TtvmTmmD
-         /5f1foyPeCB4ve23czrk+7pZO385HLHF4+A6qoWGq/WnRGF6dP+200++kiAmkTffauOU
-         P0k4tHjmIvmoxl76Y88tnsiv6dJjqy9lM6Fg9RqaG8i/s3LziP1rolmI2CpxOGUh+cXm
-         oLFg==
-X-Forwarded-Encrypted: i=1; AKwUvByyihjmSIclfAtMVHSedMcPlG/zcFvHYJsFDVouWVpj6oiyepRc/NAxOhSN8KkTKcx/HbXhD8YX8YwAYvg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+KkHXHLSrXTnnpP3dYaB/yNxKXtOTYJ6j10vzvRYrqU6MG/Td
-	7S01wiC3r/g34tSQOqZCsak6JXRGAkxja5DaCZPr1S9RGHFp1bj1eJTvG5qx/LUVBzTOXBIQjlH
-	4Xr/O0EPYk/9v0InFRKLNzl+FGX9pkg==
-X-Gm-Gg: AYBFou0yP0tZL0sVRawi+fd0Z554gK2h36WE6CkqtA3p3TiBVxi3pB6BtI8nY62f21N
-	4YP1ulRPBZpe3JC3oTaxb87lmm9XqCAWYhfYugFyU0YF7qR3pV5TTrMpkSQZp6tS3Gexpljt67O
-	2VXuiVCnaY8a1TGtGeiWIEij3PANmluDcCjxTKCHCtdePAY9+z9cysEAWMAb9m/WlaMHP8RmLYA
-	AYI24mn7VoEY2umVKNG19nYTeJMv7NxqeZnwN5K2KhF4D3itdvwnA3bsTLGRAoZVZ+/tylYBJxH
-	nBIrujEA0YUMq6XuXYZq/hPb05miiVqz4qMO5Ifmt4dguJyctofTRHA/OMr4aH/Q8PqlQZDE0lv
-	QVbCBMdd7oz4iO3n/ToWi/SBfqC8x0+84oj5xeP69LASeGi0fVpvR1t38XAXATVBU0x6x
-X-Received: by 2002:a05:6a20:ce4a:b0:3cc:92d9:80cb with SMTP id
- adf61e73a8af0-3db4046c09bmr11645431637.12.1789435471071; Mon, 14 Sep 2026
- 18:24:31 -0700 (PDT)
+        bh=/BCu6mOmhlhjkHyErL9I71aYytAtSN5kRdaSTX2rBMM=;
+        b=IjgPWWTzer6Ayo5fBH6PHO0J0ABw75qRbA9RKxnmbCELKlXBvU+EVBoVv0ISDNtAUy
+         Tg3WLFY3IisUTGo5U6I2GtfLAIWcsNz7VSEpi0IG7Ruv9eN9HcM7XuJgwXZh7hxJsHK3
+         6tCPzjCEPIqZunA0sDnTscXIRbvA880EANUFjiUA0SwlvdLkmD9dMNdTyYpP5X9Zc+EC
+         FiV8cbMeSbqqgmTala6Tdx1i4RvabvacXvJ92d10mBR551kYUqzTUaqvQIFPZnDYrVbU
+         rnq8LJ+g3aheL9LaSTOD78SrxplvELK6VaY7VtICtKlS8rLMZYWqe3aQU9eu447xpN5O
+         YDlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztyFeMty4nQsG6rf47RrKr+CJ/UNyLw0APCKMmDB5hXTyRAv+jnx16tZlF9L89QJ9/iDlxMpFlD4mwzlI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lApLw9KYmU0HWfllkDH18MdF91prVs7jhShuJax1UnH1C88p2K
+	oemWoMJ4X7jVwXsK/Ei+qCalunSd8eya47YWs7x2yMjHXLd7XnGVU85ESB5QygQpqlO6Ro7Gz3d
+	pV8G6syGNM/WYIMW1LLmXMswZcG+y4FIFCsyW
+X-Gm-Gg: AYBFou2k7Dcp2R2kembZCzkeTMRnKqD1aBSENyWmPV1Y+xYxPFk6q797gdWzv7EaLIJ
+	NWamBTYO+tcA4xEXjH3FxaypXNvtg5Zb9Ftc3dxQpGM+a0L34SXbekKeYt0tC0qDhvi9Uv2Y/Sr
+	YRJie/LtIzqcnX5h7g3MXZ71OdQUZ9XgTOeoJUu03yHTLyS7Sr1LeJ257Je7bC/v00i5MFfEj2V
+	UQvooAus6MSu5/cR0TksS3LLwRj+/EQI0+ZCbZJ9+SCujkiduYg1jl4UTjQk2CS0+T6CW7E/bZt
+	ocLbIKh+eBtI+pBqVKfx9g77HHvZ/NCxTmFi8j76/P1F1rP+9qRwXVu5
+X-Received: by 2002:a05:6000:1acb:b0:487:34c:273a with SMTP id
+ ffacd0b85a97d-487034c2764mr5466799f8f.4.1789435513774; Mon, 14 Sep 2026
+ 18:25:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260524155735.13865-1-mhun512@gmail.com> <CAMeQTsYVf_YRyuXx2XpBG822N=nMhnRbKnUNRu8OrsSthzrMrg@mail.gmail.com>
-In-Reply-To: <CAMeQTsYVf_YRyuXx2XpBG822N=nMhnRbKnUNRu8OrsSthzrMrg@mail.gmail.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 14 Sep 2026 21:24:14 -0400
-X-Gm-Features: AcwNN1XGN3vWYnZMelCtuY0mzPxTvaG2W81_3N9COhlxDNULIMfbhXD5Z_s9EoM
-Message-ID: <CAGEsz8E6oZRuLS2kXTw6bnYBCAmg_OvLDrhqXBDUC--qV-5x8Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/gma500: clean up modeset on backlight init failure
-To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+References: <20260911232405.1815804-1-chao@kernel.org> <20260911232405.1815804-6-chao@kernel.org>
+In-Reply-To: <20260911232405.1815804-6-chao@kernel.org>
+From: Zhiguo Niu <niuzhiguo84@gmail.com>
+Date: Tue, 15 Sep 2026 09:25:00 +0800
+X-Gm-Features: AcwNN1X0l9zSl9jABKL_9b0jynH4F-OuPoqpG2PeTAfKqG7OJrNgmbrSCfUCBUU
+Message-ID: <CAHJ8P3Ly0K=1aO+is=0C+MN+jfFn=xv7nMNnjAh=WD0rKu_99w@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH v7 05/12] f2fs: cache: use meta cache
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Patrik,
+Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+=E4=BA=8E2026=E5=B9=B49=E6=9C=8812=E6=97=A5=E5=91=A8=E5=85=AD 07:28=E5=86=
+=99=E9=81=93=EF=BC=9A
+>
+> From: Chao Yu <chao@kernel.org>
+>
+> This patch migrates F2FS meta block caching from the fake VFS inode
+> page cache (sbi->meta_inode) to meta cache (sbi->meta_blocks).
+>
+> It converts CP, SIT, NAT, SSA, recovery, and GC metadata I/O paths to
+> operate on struct f2fs_cached_block instead of folio, and removes
+> sbi->meta_inode.
+>
+> Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Thanks!
+> ---
+>  fs/f2fs/cache.c         |   2 +
+>  fs/f2fs/cache.h         |   2 +-
+>  fs/f2fs/checkpoint.c    | 417 ++++++++++++++++++----------------------
+>  fs/f2fs/compress.c      |   4 +-
+>  fs/f2fs/data.c          |  14 +-
+>  fs/f2fs/debug.c         |  12 +-
+>  fs/f2fs/f2fs.h          |  90 +++------
+>  fs/f2fs/file.c          |   4 +-
+>  fs/f2fs/gc.c            | 135 +++++++------
+>  fs/f2fs/inline.c        |   9 +-
+>  fs/f2fs/inode.c         |   9 +-
+>  fs/f2fs/node.c          | 157 ++++++++-------
+>  fs/f2fs/node.h          |   8 +-
+>  fs/f2fs/recovery.c      | 196 +++++++++----------
+>  fs/f2fs/segment.c       | 243 +++++++++++------------
+>  fs/f2fs/segment.h       |  29 ++-
+>  fs/f2fs/super.c         |  33 +---
+>  fs/f2fs/sysfs.c         |   2 +-
+>  include/linux/f2fs_fs.h |   1 -
+>  19 files changed, 652 insertions(+), 715 deletions(-)
+>
+> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+> index 404ceac9e6bf..e99165e1c785 100644
+> --- a/fs/f2fs/cache.c
+> +++ b/fs/f2fs/cache.c
+> @@ -645,6 +645,8 @@ static int f2fs_cache_writeback_kthread(void *data)
+>                         break;
+>                 if (f2fs_cp_error(sbi))
+>                         continue;
+> +
+> +               f2fs_write_meta_caches(sbi);
+>         }
+>         return 0;
+>  }
+> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
+> index ea0cf9adf194..a0218c235c39 100644
+> --- a/fs/f2fs/cache.h
+> +++ b/fs/f2fs/cache.h
+> @@ -200,7 +200,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *s=
+bi);
+>  #define META_CACHE(sbi)                (&(sbi)->meta_blocks)
+>
+>  #define f2fs_find_meta_cache(sbi, blkaddr)             \
+> -       f2fs_find_cache(META_CACHE(sbi), blkaddr)
+> +       f2fs_find_cache(META_CACHE(sbi), blkaddr, 0)
+>  #define f2fs_invalidate_meta_caches(sbi, start, len)   \
+>         f2fs_drop_cache_range(META_CACHE(sbi), start, len, false)
+>  #define f2fs_truncate_meta_caches(sbi, start, len)     \
+> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+> index e95cd2118750..e3d14a6c136c 100644
+> --- a/fs/f2fs/checkpoint.c
+> +++ b/fs/f2fs/checkpoint.c
+> @@ -7,7 +7,6 @@
+>   */
+>  #include <linux/fs.h>
+>  #include <linux/bio.h>
+> -#include <linux/mpage.h>
+>  #include <linux/writeback.h>
+>  #include <linux/blkdev.h>
+>  #include <linux/f2fs_fs.h>
+> @@ -17,6 +16,7 @@
+>  #include <linux/delayacct.h>
+>  #include <linux/ioprio.h>
+>  #include <linux/math64.h>
+> +#include <linux/freezer.h>
+>
+>  #include "f2fs.h"
+>  #include "node.h"
+> @@ -234,29 +234,29 @@ static struct kmem_cache *ino_entry_slab;
+>  struct kmem_cache *f2fs_inode_entry_slab;
+>
+>  /*
+> - * We guarantee no failure on the returned page.
+> + * We guarantee no failure on the returned cache.
+>   */
+> -struct folio *f2fs_grab_meta_folio(struct f2fs_sb_info *sbi, pgoff_t ind=
+ex)
+> +struct f2fs_cached_block *f2fs_grab_meta_cache(struct f2fs_sb_info *sbi,
+> +                                                       pgoff_t index)
+>  {
+> -       struct address_space *mapping =3D META_MAPPING(sbi);
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>  repeat:
+> -       folio =3D f2fs_grab_cache_folio(mapping, index, false);
+> -       if (IS_ERR(folio)) {
+> +       entry =3D f2fs_grab_cache(META_CACHE(sbi), index,
+> +                                       F2FS_CACHE_LOCK_CREATE);
+> +       if (IS_ERR(entry)) {
+>                 cond_resched();
+>                 goto repeat;
+>         }
+> -       f2fs_folio_wait_writeback(folio, META, true, true);
+> -       if (!folio_test_uptodate(folio))
+> -               folio_mark_uptodate(folio);
+> -       return folio;
+> +       f2fs_cache_wait_writeback(entry);
+> +       if (!f2fs_cache_test_uptodate(entry))
+> +               f2fs_cache_set_uptodate(entry);
+> +       return entry;
+>  }
+>
+> -static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t =
+index,
+> -                                                       bool is_meta)
+> +static struct f2fs_cached_block *__get_meta_cache(struct f2fs_sb_info *s=
+bi,
+> +                                       pgoff_t index, bool is_meta)
+>  {
+> -       struct address_space *mapping =3D META_MAPPING(sbi);
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>         struct f2fs_io_info fio =3D {
+>                 .sbi =3D sbi,
+>                 .type =3D META,
+> @@ -266,70 +266,75 @@ static struct folio *__get_meta_folio(struct f2fs_s=
+b_info *sbi, pgoff_t index,
+>                 .new_blkaddr =3D index,
+>                 .encrypted_page =3D NULL,
+>                 .is_por =3D !is_meta ? 1 : 0,
+> +               .is_cache =3D 1,
+>         };
+>         int err;
+>
+>         if (unlikely(!is_meta))
+>                 fio.op_flags &=3D ~REQ_META;
+>  repeat:
+> -       folio =3D f2fs_grab_cache_folio(mapping, index, false);
+> -       if (IS_ERR(folio)) {
+> +       entry =3D f2fs_grab_cache(META_CACHE(sbi), index,
+> +                                       F2FS_CACHE_LOCK_CREATE);
+> +       if (IS_ERR(entry)) {
+>                 cond_resched();
+>                 goto repeat;
+>         }
+> -       if (folio_test_uptodate(folio))
+> +       if (f2fs_cache_test_uptodate(entry))
+>                 goto out;
+>
+> -       fio.folio =3D folio;
+> +       fio.cache_entry =3D entry;
+>
+> -       err =3D f2fs_submit_page_bio(&fio);
+> +       err =3D f2fs_submit_cache_read(&fio);
+>         if (err) {
+> -               f2fs_folio_put(folio, true);
+> +               f2fs_put_cache(entry, true);
+>                 return ERR_PTR(err);
+>         }
+>
+>         f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE(sbi))=
+;
+>
+> -       folio_lock(folio);
+> -       if (unlikely(!is_meta_folio(sbi, folio))) {
+> -               f2fs_folio_put(folio, true);
+> +       f2fs_lock_cache(entry);
+> +       if (unlikely(!f2fs_is_meta_cache(entry))) {
+> +               f2fs_put_cache(entry, true);
+>                 goto repeat;
+>         }
+>
+> -       if (unlikely(!folio_test_uptodate(folio))) {
+> -               f2fs_handle_page_eio(sbi, folio, META);
+> -               f2fs_folio_put(folio, true);
+> +       if (unlikely(!f2fs_cache_test_uptodate(entry))) {
+> +               f2fs_handle_page_eio(sbi, entry->index, META);
+> +               f2fs_put_cache(entry, true);
+>                 return ERR_PTR(-EIO);
+>         }
+>  out:
+> -       return folio;
+> +       return entry;
+>  }
+>
+> -struct folio *f2fs_get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t inde=
+x)
+> +struct f2fs_cached_block *f2fs_get_meta_cache(struct f2fs_sb_info *sbi,
+> +                                                       pgoff_t index)
+>  {
+> -       return __get_meta_folio(sbi, index, true);
+> +       return __get_meta_cache(sbi, index, true);
+>  }
+>
+> -struct folio *f2fs_get_meta_folio_retry(struct f2fs_sb_info *sbi, pgoff_=
+t index)
+> +struct f2fs_cached_block *f2fs_get_meta_cache_retry(struct f2fs_sb_info =
+*sbi,
+> +                                                       pgoff_t index)
+>  {
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>         int count =3D 0;
+>
+>  retry:
+> -       folio =3D __get_meta_folio(sbi, index, true);
+> -       if (IS_ERR(folio)) {
+> -               if (PTR_ERR(folio) =3D=3D -EIO &&
+> +       entry =3D __get_meta_cache(sbi, index, true);
+> +       if (IS_ERR(entry)) {
+> +               if (PTR_ERR(entry) =3D=3D -EIO &&
+>                                 ++count <=3D DEFAULT_RETRY_IO_COUNT)
+>                         goto retry;
+>                 f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_META_PAGE=
+);
+>         }
+> -       return folio;
+> +       return entry;
+>  }
+>
+>  /* for POR only */
+> -struct folio *f2fs_get_tmp_folio(struct f2fs_sb_info *sbi, pgoff_t index=
+)
+> +struct f2fs_cached_block *f2fs_get_tmp_cache(struct f2fs_sb_info *sbi,
+> +                                                       pgoff_t index)
+>  {
+> -       return __get_meta_folio(sbi, index, false);
+> +       return __get_meta_cache(sbi, index, false);
+>  }
+>
+>  static bool __is_bitmap_valid(struct f2fs_sb_info *sbi, block_t blkaddr,
+> @@ -445,11 +450,12 @@ bool f2fs_is_valid_blkaddr_raw(struct f2fs_sb_info =
+*sbi,
+>  }
+>
+>  /*
+> - * Readahead CP/NAT/SIT/SSA/POR pages
+> + * Readahead CP/NAT/SIT/SSA/POR blocks
+>   */
+> -int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, block_t start, int nrpa=
+ges,
+> -                                                       int type, bool sy=
+nc)
+> +int f2fs_ra_meta_caches(struct f2fs_sb_info *sbi, block_t start,
+> +                               int nrblocks, int type, bool sync)
+>  {
+> +       struct f2fs_cached_block_list *cache =3D META_CACHE(sbi);
+>         block_t blkno =3D start;
+>         struct f2fs_io_info fio =3D {
+>                 .sbi =3D sbi,
+> @@ -459,6 +465,7 @@ int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, bloc=
+k_t start, int nrpages,
+>                 .encrypted_page =3D NULL,
+>                 .in_list =3D 0,
+>                 .is_por =3D (type =3D=3D META_POR) ? 1 : 0,
+> +               .is_cache =3D 1,
+>         };
+>         struct blk_plug plug;
+>         int err;
+> @@ -467,8 +474,8 @@ int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, bloc=
+k_t start, int nrpages,
+>                 fio.op_flags &=3D ~REQ_META;
+>
+>         blk_start_plug(&plug);
+> -       for (; nrpages-- > 0; blkno++) {
+> -               struct folio *folio;
+> +       for (; nrblocks-- > 0; blkno++) {
+> +               struct f2fs_cached_block *entry;
+>
+>                 if (!f2fs_is_valid_blkaddr(sbi, blkno, type))
+>                         goto out;
+> @@ -495,21 +502,21 @@ int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, bl=
+ock_t start, int nrpages,
+>                         fio.new_blkaddr =3D blkno;
+>                         break;
+>                 default:
+> -                       BUG();
+> +                       f2fs_bug_on(sbi, 1);
+>                 }
+>
+> -               folio =3D f2fs_grab_cache_folio(META_MAPPING(sbi),
+> -                                               fio.new_blkaddr, false);
+> -               if (IS_ERR(folio))
+> +               entry =3D f2fs_grab_cache(cache, fio.new_blkaddr,
+> +                                               F2FS_CACHE_LOCK_CREATE);
+> +               if (IS_ERR(entry))
+>                         continue;
+> -               if (folio_test_uptodate(folio)) {
+> -                       f2fs_folio_put(folio, true);
+> +               if (f2fs_cache_test_uptodate(entry)) {
+> +                       f2fs_put_cache(entry, true);
+>                         continue;
+>                 }
+>
+> -               fio.folio =3D folio;
+> -               err =3D f2fs_submit_page_bio(&fio);
+> -               f2fs_folio_put(folio, err ? true : false);
+> +               fio.cache_entry =3D entry;
+> +               err =3D f2fs_submit_cache_read(&fio);
+> +               f2fs_put_cache(entry, err ? true : false);
+>
+>                 if (!err)
+>                         f2fs_update_iostat(sbi, NULL, FS_META_READ_IO,
+> @@ -520,37 +527,36 @@ int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, bl=
+ock_t start, int nrpages,
+>         return blkno - start;
+>  }
+>
+> -void f2fs_ra_meta_pages_cond(struct f2fs_sb_info *sbi, pgoff_t index,
+> -                                                       unsigned int ra_b=
+locks)
+> +void f2fs_ra_meta_caches_cond(struct f2fs_sb_info *sbi, pgoff_t index,
+> +                                               unsigned int ra_blocks)
+>  {
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>         bool readahead =3D false;
+>
+>         if (ra_blocks =3D=3D RECOVERY_MIN_RA_BLOCKS)
+>                 return;
+>
+> -       folio =3D filemap_get_folio(META_MAPPING(sbi), index);
+> -       if (IS_ERR(folio) || !folio_test_uptodate(folio))
+> +       entry =3D f2fs_find_cache(META_CACHE(sbi), index, 0);
+> +       if (IS_ERR(entry) || !f2fs_cache_test_uptodate(entry))
+>                 readahead =3D true;
+> -       f2fs_folio_put(folio, false);
+> +       f2fs_put_cache(entry, false);
+>
+>         if (readahead)
+> -               f2fs_ra_meta_pages(sbi, index, ra_blocks, META_POR, true)=
+;
+> +               f2fs_ra_meta_caches(sbi, index, ra_blocks, META_POR, true=
+);
+>  }
+>
+> -static bool __f2fs_write_meta_folio(struct folio *folio,
+> -                               struct writeback_control *wbc,
+> +static bool __f2fs_write_meta_cache(struct f2fs_cached_block *entry,
+>                                 enum iostat_type io_type)
+>  {
+> -       struct f2fs_sb_info *sbi =3D F2FS_F_SB(folio);
+> -
+> -       trace_f2fs_writepage(folio, META);
+> +       struct f2fs_sb_info *sbi =3D entry->cache->sbi;
+>
+>         if (unlikely(f2fs_cp_error(sbi))) {
+>                 if (is_sbi_flag_set(sbi, SBI_IS_CLOSE)) {
+> -                       folio_clear_uptodate(folio);
+> +                       f2fs_cache_clear_uptodate(entry);
+>                         dec_page_count(sbi, F2FS_DIRTY_META);
+> -                       folio_unlock(folio);
+> +                       f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_DIRTY=
+,
+> +                                               F2FS_CACHE_TAG_NONE);
+> +                       f2fs_unlock_cache(entry);
+>                         return true;
+>                 }
+>                 goto redirty_out;
+> @@ -558,10 +564,10 @@ static bool __f2fs_write_meta_folio(struct folio *f=
+olio,
+>         if (unlikely(is_sbi_flag_set(sbi, SBI_POR_DOING)))
+>                 goto redirty_out;
+>
+> -       f2fs_do_write_meta_page(sbi, folio, io_type);
+> +       f2fs_do_write_meta_cache(sbi, entry, io_type);
+>         dec_page_count(sbi, F2FS_DIRTY_META);
+>
+> -       folio_unlock(folio);
+> +       f2fs_unlock_cache(entry);
+>
+>         if (unlikely(f2fs_cp_error(sbi)))
+>                 f2fs_submit_merged_write(sbi, META);
+> @@ -569,101 +575,89 @@ static bool __f2fs_write_meta_folio(struct folio *=
+folio,
+>         return true;
+>
+>  redirty_out:
+> -       folio_redirty_for_writepage(wbc, folio);
+> +       f2fs_cache_set_dirty(entry);
+>         return false;
+>  }
+>
+> -static int f2fs_write_meta_pages(struct address_space *mapping,
+> -                               struct writeback_control *wbc)
+> +void f2fs_write_meta_caches(struct f2fs_sb_info *sbi)
+>  {
+> -       struct f2fs_sb_info *sbi =3D F2FS_M_SB(mapping);
+>         struct f2fs_lock_context lc;
+> -       long diff, written;
+> +       long nr_to_write =3D LONG_MAX;
+>
+>         if (unlikely(is_sbi_flag_set(sbi, SBI_POR_DOING)))
+> -               goto skip_write;
+> +               return;
+>
+> -       /* collect a number of dirty meta pages and write together */
+> -       if (wbc->sync_mode !=3D WB_SYNC_ALL &&
+> -                       get_pages(sbi, F2FS_DIRTY_META) <
+> -                                       nr_pages_to_skip(sbi, META))
+> -               goto skip_write;
+> +       /* collect a number of dirty meta caches and write together */
+> +       if (get_pages(sbi, F2FS_DIRTY_META) <
+> +                       nr_pages_to_skip(sbi, META))
+> +               return;
+>
+> -       /* if locked failed, cp will flush dirty pages instead */
+> +       /* if locked failed, cp will flush dirty caches instead */
+>         if (!f2fs_down_write_trylock_trace(&sbi->cp_global_sem, &lc))
+> -               goto skip_write;
+> +               return;
+>
+> -       trace_f2fs_writepages(mapping->host, wbc, META);
+> -       diff =3D nr_pages_to_write(sbi, META, wbc);
+> -       written =3D f2fs_sync_meta_pages(sbi, wbc->nr_to_write, FS_META_I=
+O);
+> +       nr_to_write =3D adjust_flush_cache_number(sbi, META);
+> +       f2fs_sync_meta_caches(sbi, nr_to_write, false, FS_META_IO);
+>         f2fs_up_write_trace(&sbi->cp_global_sem, &lc);
+> -       wbc->nr_to_write =3D max((long)0, wbc->nr_to_write - written - di=
+ff);
+> -       return 0;
+> -
+> -skip_write:
+> -       wbc->pages_skipped +=3D get_pages(sbi, F2FS_DIRTY_META);
+> -       trace_f2fs_writepages(mapping->host, wbc, META);
+> -       return 0;
+>  }
+>
+> -long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+> -                               enum iostat_type io_type)
+> +long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+> +                               bool sync, enum iostat_type io_type)
+>  {
+> -       struct address_space *mapping =3D META_MAPPING(sbi);
+>         pgoff_t index =3D 0, prev =3D ULONG_MAX;
+> -       struct folio_batch fbatch;
+> +       struct f2fs_cached_block *entries[F2FS_ONSTACK_CACHES];
+>         long nwritten =3D 0;
+> -       int nr_folios;
+> -       struct writeback_control wbc =3D {};
+> +       int nr;
+>         struct blk_plug plug;
+> -
+> -       folio_batch_init(&fbatch);
+> +       bool background =3D nr_to_write !=3D LONG_MAX;
+>
+>         blk_start_plug(&plug);
+>
+> -       while ((nr_folios =3D filemap_get_folios_tag(mapping, &index,
+> -                                       (pgoff_t)-1,
+> -                                       PAGECACHE_TAG_DIRTY, &fbatch))) {
+> +       while ((nr =3D f2fs_cache_gang_lookup_tag(META_CACHE(sbi), entrie=
+s,
+> +                       &index, F2FS_ONSTACK_CACHES, F2FS_CACHE_TAG_DIRTY=
+))) {
+>                 int i;
+>
+> -               for (i =3D 0; i < nr_folios; i++) {
+> -                       struct folio *folio =3D fbatch.folios[i];
+> +               for (i =3D 0; i < nr; i++) {
+> +                       struct f2fs_cached_block *entry =3D entries[i];
+> +
+> +                       if (background && unlikely(freezing(current))) {
+> +                               f2fs_cache_gang_release(entries, nr);
+> +                               goto stop;
+> +                       }
+>
+> -                       if (nr_to_write !=3D LONG_MAX && i !=3D 0 &&
+> -                                       folio->index !=3D prev +
+> -                                       folio_nr_pages(fbatch.folios[i-1]=
+)) {
+> -                               folio_batch_release(&fbatch);
+> +                       if (background && i !=3D 0 &&
+> +                                       entry->index !=3D prev + 1) {
+> +                               f2fs_cache_gang_release(entries, nr);
+>                                 goto stop;
+>                         }
+>
+> -                       folio_lock(folio);
+> +                       f2fs_lock_cache(entry);
+>
+> -                       if (unlikely(!is_meta_folio(sbi, folio))) {
+> +                       if (unlikely(!f2fs_is_meta_cache(entry))) {
+>  continue_unlock:
+> -                               folio_unlock(folio);
+> +                               f2fs_unlock_cache(entry);
+>                                 continue;
+>                         }
+> -                       if (!folio_test_dirty(folio)) {
+> +                       if (!f2fs_cache_test_dirty(entry)) {
+>                                 /* someone wrote it for us */
+>                                 goto continue_unlock;
+>                         }
+>
+> -                       f2fs_folio_wait_writeback(folio, META, true, true=
+);
+> +                       f2fs_cache_wait_writeback(entry);
+>
+> -                       if (!folio_clear_dirty_for_io(folio))
+> +                       if (!f2fs_cache_test_and_clear_dirty(entry))
+>                                 goto continue_unlock;
+>
+> -                       if (!__f2fs_write_meta_folio(folio, &wbc,
+> -                                               io_type)) {
+> -                               folio_unlock(folio);
+> +                       if (!__f2fs_write_meta_cache(entry, io_type)) {
+> +                               f2fs_unlock_cache(entry);
+>                                 break;
+>                         }
+> -                       nwritten +=3D folio_nr_pages(folio);
+> -                       prev =3D folio->index;
+> +                       nwritten++;
+> +                       prev =3D entry->index;
+>                         if (unlikely(nwritten >=3D nr_to_write))
+>                                 break;
+>                 }
+> -               folio_batch_release(&fbatch);
+> +               f2fs_cache_gang_release(entries, nr);
+>                 cond_resched();
+>         }
+>  stop:
+> @@ -675,29 +669,6 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, =
+long nr_to_write,
+>         return nwritten;
+>  }
+>
+> -static bool f2fs_dirty_meta_folio(struct address_space *mapping,
+> -               struct folio *folio)
+> -{
+> -       trace_f2fs_set_page_dirty(folio, META);
+> -
+> -       if (!folio_test_uptodate(folio))
+> -               folio_mark_uptodate(folio);
+> -       if (filemap_dirty_folio(mapping, folio)) {
+> -               inc_page_count(F2FS_M_SB(mapping), F2FS_DIRTY_META);
+> -               folio_set_f2fs_reference(folio);
+> -               return true;
+> -       }
+> -       return false;
+> -}
+> -
+> -const struct address_space_operations f2fs_meta_aops =3D {
+> -       .writepages     =3D f2fs_write_meta_pages,
+> -       .dirty_folio    =3D f2fs_dirty_meta_folio,
+> -       .invalidate_folio =3D f2fs_invalidate_folio,
+> -       .release_folio  =3D f2fs_release_folio,
+> -       .migrate_folio  =3D filemap_migrate_folio,
+> -};
+> -
+>  static void __add_ino_entry(struct f2fs_sb_info *sbi, nid_t ino,
+>                                                 unsigned int devidx, int =
+type)
+>  {
+> @@ -1029,21 +1000,21 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_inf=
+o *sbi)
+>         start_blk =3D __start_cp_addr(sbi) + 1 + __cp_payload(sbi);
+>         orphan_blocks =3D __start_sum_addr(sbi) - 1 - __cp_payload(sbi);
+>
+> -       f2fs_ra_meta_pages(sbi, start_blk, orphan_blocks, META_CP, true);
+> +       f2fs_ra_meta_caches(sbi, start_blk, orphan_blocks, META_CP, true)=
+;
+>
+>         for (i =3D 0; i < orphan_blocks; i++) {
+> -               struct folio *folio;
+> +               struct f2fs_cached_block *entry;
+>                 struct f2fs_orphan_block *orphan_blk;
+>                 struct f2fs_orphan_footer *footer;
+>                 unsigned int entry_count;
+>
+> -               folio =3D f2fs_get_meta_folio(sbi, start_blk + i);
+> -               if (IS_ERR(folio)) {
+> -                       err =3D PTR_ERR(folio);
+> +               entry =3D f2fs_get_meta_cache(sbi, start_blk + i);
+> +               if (IS_ERR(entry)) {
+> +                       err =3D PTR_ERR(entry);
+>                         goto out;
+>                 }
+>
+> -               orphan_blk =3D folio_address(folio);
+> +               orphan_blk =3D cache_address(entry);
+>                 footer =3D f2fs_orphan_footer(orphan_blk, sbi);
+>                 entry_count =3D le32_to_cpu(footer->entry_count);
+>                 if (entry_count > F2FS_ORPHANS_PER_BLOCK(sbi)) {
+> @@ -1052,7 +1023,7 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info =
+*sbi)
+>                         set_sbi_flag(sbi, SBI_NEED_FSCK);
+>                         f2fs_handle_error(sbi, ERROR_INCONSISTENT_ORPHAN)=
+;
+>                         err =3D -EFSCORRUPTED;
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_put_cache(entry, true);
+>                         goto out;
+>                 }
+>
+> @@ -1061,11 +1032,11 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_inf=
+o *sbi)
+>
+>                         err =3D recover_orphan_inode(sbi, ino);
+>                         if (err) {
+> -                               f2fs_folio_put(folio, true);
+> +                               f2fs_put_cache(entry, true);
+>                                 goto out;
+>                         }
+>                 }
+> -               f2fs_folio_put(folio, true);
+> +               f2fs_put_cache(entry, true);
+>         }
+>         /* clear Orphan Flag */
+>         clear_ckpt_flags(sbi, CP_ORPHAN_PRESENT_FLAG);
+> @@ -1083,24 +1054,24 @@ static void write_orphan_inodes(struct f2fs_sb_in=
+fo *sbi, block_t start_blk)
+>         unsigned int nentries =3D 0;
+>         unsigned short index =3D 1;
+>         unsigned short orphan_blocks;
+> -       struct folio *folio =3D NULL;
+>         struct ino_entry *orphan =3D NULL;
+>         struct inode_management *im =3D &sbi->im[ORPHAN_INO];
+> +       struct f2fs_cached_block *entry =3D NULL;
+>
+>         orphan_blocks =3D GET_ORPHAN_BLOCKS(sbi, im->ino_num);
+>
+>         /*
+>          * we don't need to do spin_lock(&im->ino_lock) here, since all t=
+he
+>          * orphan inode operations are covered under f2fs_lock_op().
+> -        * And, spin_lock should be avoided due to page operations below.
+> +        * And, spin_lock should be avoided due to cache operations below=
+.
+>          */
+>         head =3D &im->ino_list;
+>
+>         /* loop for each orphan inode entry and write them in journal blo=
+ck */
+>         list_for_each_entry(orphan, head, list) {
+> -               if (!folio) {
+> -                       folio =3D f2fs_grab_meta_folio(sbi, start_blk++);
+> -                       orphan_blk =3D folio_address(folio);
+> +               if (!entry) {
+> +                       entry =3D f2fs_grab_meta_cache(sbi, start_blk++);
+> +                       orphan_blk =3D cache_address(entry);
+>                         footer =3D f2fs_orphan_footer(orphan_blk, sbi);
+>                         memset(orphan_blk, 0, sbi->blocksize);
+>                 }
+> @@ -1116,20 +1087,20 @@ static void write_orphan_inodes(struct f2fs_sb_in=
+fo *sbi, block_t start_blk)
+>                         footer->blk_addr =3D cpu_to_le16(index);
+>                         footer->blk_count =3D cpu_to_le16(orphan_blocks);
+>                         footer->entry_count =3D cpu_to_le32(nentries);
+> -                       folio_mark_dirty(folio);
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_mark_cache_dirty(entry);
+> +                       f2fs_put_cache(entry, true);
+>                         index++;
+>                         nentries =3D 0;
+> -                       folio =3D NULL;
+> +                       entry =3D NULL;
+>                 }
+>         }
+>
+> -       if (folio) {
+> +       if (entry) {
+>                 footer->blk_addr =3D cpu_to_le16(index);
+>                 footer->blk_count =3D cpu_to_le16(orphan_blocks);
+>                 footer->entry_count =3D cpu_to_le32(nentries);
+> -               folio_mark_dirty(folio);
+> -               f2fs_folio_put(folio, true);
+> +               f2fs_mark_cache_dirty(entry);
+> +               f2fs_put_cache(entry, true);
+>         }
+>  }
+>
+> @@ -1149,29 +1120,29 @@ static __u32 f2fs_checkpoint_chksum(struct f2fs_s=
+b_info *sbi,
+>  }
+>
+>  static int get_checkpoint_version(struct f2fs_sb_info *sbi, block_t cp_a=
+ddr,
+> -               struct f2fs_checkpoint **cp_block, struct folio **cp_foli=
+o,
+> +               struct f2fs_checkpoint **cp_block, struct f2fs_cached_blo=
+ck **cp_entry,
+>                 unsigned long long *version)
+>  {
+>         size_t crc_offset =3D 0;
+>         __u32 crc;
+>
+> -       *cp_folio =3D f2fs_get_meta_folio(sbi, cp_addr);
+> -       if (IS_ERR(*cp_folio))
+> -               return PTR_ERR(*cp_folio);
+> +       *cp_entry =3D f2fs_get_meta_cache(sbi, cp_addr);
+> +       if (IS_ERR(*cp_entry))
+> +               return PTR_ERR(*cp_entry);
+>
+> -       *cp_block =3D folio_address(*cp_folio);
+> +       *cp_block =3D cache_address(*cp_entry);
+>
+>         crc_offset =3D le32_to_cpu((*cp_block)->checksum_offset);
+>         if (crc_offset < CP_MIN_CHKSUM_OFFSET ||
+>                         crc_offset > CP_CHKSUM_OFFSET(sbi)) {
+> -               f2fs_folio_put(*cp_folio, true);
+> +               f2fs_put_cache(*cp_entry, true);
+>                 f2fs_warn(sbi, "invalid crc_offset: %zu", crc_offset);
+>                 return -EINVAL;
+>         }
+>
+>         crc =3D f2fs_checkpoint_chksum(sbi, *cp_block);
+>         if (crc !=3D cur_cp_crc(*cp_block)) {
+> -               f2fs_folio_put(*cp_folio, true);
+> +               f2fs_put_cache(*cp_entry, true);
+>                 f2fs_warn(sbi, "invalid crc value");
+>                 return -EINVAL;
+>         }
+> @@ -1180,17 +1151,17 @@ static int get_checkpoint_version(struct f2fs_sb_=
+info *sbi, block_t cp_addr,
+>         return 0;
+>  }
+>
+> -static struct folio *validate_checkpoint(struct f2fs_sb_info *sbi,
+> +static struct f2fs_cached_block *validate_checkpoint(struct f2fs_sb_info=
+ *sbi,
+>                                 block_t cp_addr, unsigned long long *vers=
+ion)
+>  {
+> -       struct folio *cp_folio_1 =3D NULL, *cp_folio_2 =3D NULL;
+> +       struct f2fs_cached_block *cp_entry_1 =3D NULL, *cp_entry_2 =3D NU=
+LL;
+>         struct f2fs_checkpoint *cp_block =3D NULL;
+>         unsigned long long cur_version =3D 0, pre_version =3D 0;
+>         unsigned int cp_blocks;
+>         int err;
+>
+>         err =3D get_checkpoint_version(sbi, cp_addr, &cp_block,
+> -                                       &cp_folio_1, version);
+> +                                       &cp_entry_1, version);
+>         if (err)
+>                 return NULL;
+>
+> @@ -1205,19 +1176,19 @@ static struct folio *validate_checkpoint(struct f=
+2fs_sb_info *sbi,
+>
+>         cp_addr +=3D cp_blocks - 1;
+>         err =3D get_checkpoint_version(sbi, cp_addr, &cp_block,
+> -                                       &cp_folio_2, version);
+> +                                       &cp_entry_2, version);
+>         if (err)
+>                 goto invalid_cp;
+>         cur_version =3D *version;
+>
+>         if (cur_version =3D=3D pre_version) {
+>                 *version =3D cur_version;
+> -               f2fs_folio_put(cp_folio_2, true);
+> -               return cp_folio_1;
+> +               f2fs_put_cache(cp_entry_2, true);
+> +               return cp_entry_1;
+>         }
+> -       f2fs_folio_put(cp_folio_2, true);
+> +       f2fs_put_cache(cp_entry_2, true);
+>  invalid_cp:
+> -       f2fs_folio_put(cp_folio_1, true);
+> +       f2fs_put_cache(cp_entry_1, true);
+>         return NULL;
+>  }
+>
+> @@ -1225,7 +1196,7 @@ int f2fs_get_valid_checkpoint(struct f2fs_sb_info *=
+sbi)
+>  {
+>         struct f2fs_checkpoint *cp_block;
+>         struct f2fs_super_block *fsb =3D sbi->raw_super;
+> -       struct folio *cp1, *cp2, *cur_folio;
+> +       struct f2fs_cached_block *cp1 =3D NULL, *cp2 =3D NULL, *cur_entry=
+;
+>         unsigned long blk_size =3D sbi->blocksize;
+>         unsigned long long cp1_version =3D 0, cp2_version =3D 0;
+>         unsigned long long cp_start_blk_no;
+> @@ -1252,22 +1223,22 @@ int f2fs_get_valid_checkpoint(struct f2fs_sb_info=
+ *sbi)
+>
+>         if (cp1 && cp2) {
+>                 if (ver_after(cp2_version, cp1_version))
+> -                       cur_folio =3D cp2;
+> +                       cur_entry =3D cp2;
+>                 else
+> -                       cur_folio =3D cp1;
+> +                       cur_entry =3D cp1;
+>         } else if (cp1) {
+> -               cur_folio =3D cp1;
+> +               cur_entry =3D cp1;
+>         } else if (cp2) {
+> -               cur_folio =3D cp2;
+> +               cur_entry =3D cp2;
+>         } else {
+>                 err =3D -EFSCORRUPTED;
+>                 goto fail_no_cp;
+>         }
+>
+> -       cp_block =3D folio_address(cur_folio);
+> +       cp_block =3D cache_address(cur_entry);
+>         memcpy(sbi->ckpt, cp_block, blk_size);
+>
+> -       if (cur_folio =3D=3D cp1)
+> +       if (cur_entry =3D=3D cp1)
+>                 sbi->cur_cp_pack =3D 1;
+>         else
+>                 sbi->cur_cp_pack =3D 2;
+> @@ -1282,30 +1253,31 @@ int f2fs_get_valid_checkpoint(struct f2fs_sb_info=
+ *sbi)
+>                 goto done;
+>
+>         cp_blk_no =3D le32_to_cpu(fsb->cp_blkaddr);
+> -       if (cur_folio =3D=3D cp2)
+> +       if (cur_entry =3D=3D cp2)
+>                 cp_blk_no +=3D BIT(le32_to_cpu(fsb->log_blocks_per_seg));
+>
+>         for (i =3D 1; i < cp_blks; i++) {
+> +               struct f2fs_cached_block *cur_entry_payload;
+>                 void *sit_bitmap_ptr;
+>                 unsigned char *ckpt =3D (unsigned char *)sbi->ckpt;
+>
+> -               cur_folio =3D f2fs_get_meta_folio(sbi, cp_blk_no + i);
+> -               if (IS_ERR(cur_folio)) {
+> -                       err =3D PTR_ERR(cur_folio);
+> +               cur_entry_payload =3D f2fs_get_meta_cache(sbi, cp_blk_no =
++ i);
+> +               if (IS_ERR(cur_entry_payload)) {
+> +                       err =3D PTR_ERR(cur_entry_payload);
+>                         goto free_fail_no_cp;
+>                 }
+> -               sit_bitmap_ptr =3D folio_address(cur_folio);
+> +               sit_bitmap_ptr =3D cache_address(cur_entry_payload);
+>                 memcpy(ckpt + i * blk_size, sit_bitmap_ptr, blk_size);
+> -               f2fs_folio_put(cur_folio, true);
+> +               f2fs_put_cache(cur_entry_payload, true);
+>         }
+>  done:
+> -       f2fs_folio_put(cp1, true);
+> -       f2fs_folio_put(cp2, true);
+> +       f2fs_put_cache(cp1, true);
+> +       f2fs_put_cache(cp2, true);
+>         return 0;
+>
+>  free_fail_no_cp:
+> -       f2fs_folio_put(cp1, true);
+> -       f2fs_folio_put(cp2, true);
+> +       f2fs_put_cache(cp1, true);
+> +       f2fs_put_cache(cp2, true);
+>  fail_no_cp:
+>         kvfree(sbi->ckpt);
+>         return err;
+> @@ -1604,7 +1576,7 @@ static void unblock_operations(struct f2fs_sb_info =
+*sbi)
+>         f2fs_unlock_all(sbi);
+>  }
+>
+> -void f2fs_wait_on_all_pages(struct f2fs_sb_info *sbi, int type)
+> +void f2fs_sync_dirty_data(struct f2fs_sb_info *sbi, int type)
+>  {
+>         DEFINE_WAIT(wait);
+>
+> @@ -1617,7 +1589,7 @@ void f2fs_wait_on_all_pages(struct f2fs_sb_info *sb=
+i, int type)
+>                         break;
+>
+>                 if (type =3D=3D F2FS_DIRTY_META)
+> -                       f2fs_sync_meta_pages(sbi, LONG_MAX, FS_CP_META_IO=
+);
+> +                       f2fs_sync_meta_caches(sbi, LONG_MAX, true, FS_MET=
+A_IO);
+>                 else if (type =3D=3D F2FS_WB_CP_DATA)
+>                         f2fs_submit_merged_write(sbi, DATA);
+>
+> @@ -1696,31 +1668,24 @@ static void update_ckpt_flags(struct f2fs_sb_info=
+ *sbi, struct cp_control *cpc)
+>  static void commit_checkpoint(struct f2fs_sb_info *sbi,
+>         void *src, block_t blk_addr)
+>  {
+> -       struct writeback_control wbc =3D {};
+> -
+> -       /*
+> -        * filemap_get_folios_tag and folio_lock again will take
+> -        * some extra time. Therefore, f2fs_update_meta_pages and
+> -        * f2fs_sync_meta_pages are combined in this function.
+> -        */
+> -       struct folio *folio =3D f2fs_grab_meta_folio(sbi, blk_addr);
+> +       struct f2fs_cached_block *entry =3D f2fs_grab_meta_cache(sbi, blk=
+_addr);
+>
+> -       memcpy(folio_address(folio), src, F2FS_BLKSIZE(sbi));
+> +       memcpy(cache_address(entry), src, F2FS_BLKSIZE(sbi));
+>
+> -       folio_mark_dirty(folio);
+> -       if (unlikely(!folio_clear_dirty_for_io(folio)))
+> +       f2fs_mark_cache_dirty(entry);
+> +       if (unlikely(!f2fs_cache_test_and_clear_dirty(entry)))
+>                 f2fs_bug_on(sbi, 1);
+>
+> -       /* writeout cp pack 2 page */
+> -       if (unlikely(!__f2fs_write_meta_folio(folio, &wbc, FS_CP_META_IO)=
+)) {
+> +       /* writeout cp pack 2 cache */
+> +       if (unlikely(!__f2fs_write_meta_cache(entry, FS_CP_META_IO))) {
+>                 if (f2fs_cp_error(sbi)) {
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_put_cache(entry, true);
+>                         return;
+>                 }
+>                 f2fs_bug_on(sbi, true);
+>         }
+>
+> -       f2fs_folio_put(folio, false);
+> +       f2fs_put_cache(entry, false);
+>
+>         /* submit checkpoint (with barrier if NOBARRIER is not set) */
+>         f2fs_submit_merged_write(sbi, META_FLUSH);
+> @@ -1788,8 +1753,8 @@ static int do_checkpoint(struct f2fs_sb_info *sbi, =
+struct cp_control *cpc)
+>         u64 kbytes_written;
+>         int err;
+>
+> -       /* Flush all the NAT/SIT pages */
+> -       f2fs_sync_meta_pages(sbi, LONG_MAX, FS_CP_META_IO);
+> +       /* Flush all the NAT/SIT caches */
+> +       f2fs_sync_meta_caches(sbi, LONG_MAX, true, FS_CP_META_IO);
+>
+>         stat_cp_time(cpc, CP_TIME_SYNC_META);
+>
+> @@ -1812,7 +1777,7 @@ static int do_checkpoint(struct f2fs_sb_info *sbi, =
+struct cp_control *cpc)
+>         }
+>
+>         /* 2 cp + n data seg summary + orphan inode blocks */
+> -       data_sum_blocks =3D f2fs_npages_for_summary_flush(sbi, false);
+> +       data_sum_blocks =3D f2fs_nblocks_for_summary_flush(sbi, false);
+>         spin_lock_irqsave(&sbi->cp_lock, flags);
+>         if (data_sum_blocks < NR_CURSEG_DATA_TYPE)
+>                 __set_ckpt_flags(ckpt, CP_COMPACT_SUM_FLAG);
+> @@ -1857,15 +1822,15 @@ static int do_checkpoint(struct f2fs_sb_info *sbi=
+, struct cp_control *cpc)
+>
+>                 blk =3D start_blk + BLKS_PER_SEG(sbi) - nm_i->nat_bits_bl=
+ocks;
+>                 for (i =3D 0; i < nm_i->nat_bits_blocks; i++)
+> -                       f2fs_update_meta_page(sbi, nm_i->nat_bits +
+> +                       f2fs_update_meta_block(sbi, nm_i->nat_bits +
+>                                         F2FS_BLK_TO_BYTES(sbi, i), blk + =
+i);
+>         }
+>
+>         /* write out checkpoint buffer at block 0 */
+> -       f2fs_update_meta_page(sbi, ckpt, start_blk++);
+> +       f2fs_update_meta_block(sbi, ckpt, start_blk++);
+>
+>         for (i =3D 1; i < 1 + cp_payload_blks; i++)
+> -               f2fs_update_meta_page(sbi, (char *)ckpt +
+> +               f2fs_update_meta_block(sbi, (char *)ckpt +
+>                                 i * F2FS_BLKSIZE(sbi), start_blk++);
+>
+>         if (orphan_num) {
+> @@ -1888,15 +1853,15 @@ static int do_checkpoint(struct f2fs_sb_info *sbi=
+, struct cp_control *cpc)
+>         }
+>
+>         /* Here, we have one bio having CP pack except cp pack 2 page */
+> -       f2fs_sync_meta_pages(sbi, LONG_MAX, FS_CP_META_IO);
+> +       f2fs_sync_meta_caches(sbi, LONG_MAX, true, FS_CP_META_IO);
+>         stat_cp_time(cpc, CP_TIME_SYNC_CP_META);
+>
+>         /* Wait for all dirty meta pages to be submitted for IO */
+> -       f2fs_wait_on_all_pages(sbi, F2FS_DIRTY_META);
+> +       f2fs_sync_dirty_data(sbi, F2FS_DIRTY_META);
+>         stat_cp_time(cpc, CP_TIME_WAIT_DIRTY_META);
+>
+>         /* wait for previous submitted meta pages writeback */
+> -       f2fs_wait_on_all_pages(sbi, F2FS_WB_CP_DATA);
+> +       f2fs_sync_dirty_data(sbi, F2FS_WB_CP_DATA);
+>         stat_cp_time(cpc, CP_TIME_WAIT_CP_DATA);
+>
+>         /* flush all device cache */
+> @@ -1907,7 +1872,7 @@ static int do_checkpoint(struct f2fs_sb_info *sbi, =
+struct cp_control *cpc)
+>
+>         /* barrier and flush checkpoint cp pack 2 page if it can */
+>         commit_checkpoint(sbi, ckpt, start_blk);
+> -       f2fs_wait_on_all_pages(sbi, F2FS_WB_CP_DATA);
+> +       f2fs_sync_dirty_data(sbi, F2FS_WB_CP_DATA);
+>         stat_cp_time(cpc, CP_TIME_WAIT_LAST_CP);
+>
+>         /*
+> @@ -1915,10 +1880,10 @@ static int do_checkpoint(struct f2fs_sb_info *sbi=
+, struct cp_control *cpc)
+>          * used for migration of encrypted, verity or compressed inode's =
+blocks.
+>          */
+>         if (f2fs_sb_has_encrypt(sbi) || f2fs_sb_has_verity(sbi) ||
+> -               f2fs_sb_has_compression(sbi))
+> -               f2fs_bug_on(sbi,
+> -                       invalidate_inode_pages2_range(META_MAPPING(sbi),
+> -                               MAIN_BLKADDR(sbi), MAX_BLKADDR(sbi) - 1))=
+;
+> +               f2fs_sb_has_compression(sbi)) {
+> +               f2fs_truncate_meta_caches(sbi, MAIN_BLKADDR(sbi),
+> +                               MAX_BLKADDR(sbi) - MAIN_BLKADDR(sbi));
+> +       }
+>
+>         f2fs_release_ino_entry(sbi, false);
+>
+> diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+> index ce88092d9ce2..991b7738c645 100644
+> --- a/fs/f2fs/compress.c
+> +++ b/fs/f2fs/compress.c
+> @@ -1150,7 +1150,7 @@ static int prepare_compress_overwrite(struct compre=
+ss_ctx *cc,
+>                 f2fs_compress_ctx_add_page(cc, folio);
+>
+>                 if (!folio_test_uptodate(folio)) {
+> -                       f2fs_handle_page_eio(sbi, folio, DATA);
+> +                       f2fs_handle_page_eio(sbi, folio->index, DATA);
+>  release_and_retry:
+>                         f2fs_put_rpages(cc);
+>                         f2fs_unlock_rpages(cc, i + 1);
+> @@ -1357,7 +1357,7 @@ static int f2fs_write_compressed_pages(struct compr=
+ess_ctx *cc,
+>                 fio.old_blkaddr =3D data_blkaddr(dn.inode, dn.node_folio,
+>                                                 dn.ofs_in_node + i + 1);
+>
+> -               /* wait for GCed page writeback via META_MAPPING */
+> +               /* wait for GCed page writeback via generic cache */
+>                 f2fs_wait_on_block_writeback(inode, fio.old_blkaddr);
+>         }
+>
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 59fef2132177..674d1b8e33d8 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -63,8 +63,7 @@ bool f2fs_is_cp_guaranteed(const struct folio *folio)
+>         inode =3D mapping->host;
+>         sbi =3D F2FS_I_SB(inode);
+>
+> -       if (inode->i_ino =3D=3D F2FS_META_INO(sbi) ||
+> -                       inode->i_ino =3D=3D F2FS_NODE_INO(sbi) ||
+> +       if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi) ||
+>                         S_ISDIR(inode->i_mode))
+>                 return true;
+>
+> @@ -82,9 +81,6 @@ static enum count_type __read_io_type(struct folio *fol=
+io)
+>                 struct inode *inode =3D mapping->host;
+>                 struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
+>
+> -               if (inode->i_ino =3D=3D F2FS_META_INO(sbi))
+> -                       return F2FS_RD_META;
+> -
+>                 if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi))
+>                         return F2FS_RD_NODE;
+>         }
+> @@ -1418,7 +1414,7 @@ static void f2fs_submit_page_read(struct inode *ino=
+de, struct fsverity_info *vi,
+>         bio =3D f2fs_grab_read_bio(inode, vi, blkaddr, 1, op_flags, folio=
+->index,
+>                                  for_write);
+>
+> -       /* wait for GCed page writeback via META_MAPPING */
+> +       /* wait for GCed page writeback via generic cache */
+>         f2fs_wait_on_block_writeback(inode, blkaddr);
+>
+>         if (!bio_add_folio(bio, folio, PAGE_SIZE, 0))
+> @@ -3241,7 +3237,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fi=
+o)
+>                 goto out_writepage;
+>         }
+>
+> -       /* wait for GCed page writeback via META_MAPPING */
+> +       /* wait for GCed page writeback via generic cache */
+>         if (fio->meta_gc)
+>                 f2fs_wait_on_block_writeback(inode, fio->old_blkaddr);
+>
+> @@ -4314,9 +4310,7 @@ void f2fs_invalidate_folio(struct folio *folio, siz=
+e_t offset, size_t length)
+>                 return;
+>
+>         if (folio_test_dirty(folio)) {
+> -               if (inode->i_ino =3D=3D F2FS_META_INO(sbi)) {
+> -                       dec_page_count(sbi, F2FS_DIRTY_META);
+> -               } else if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi)) {
+> +               if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi)) {
+>                         dec_page_count(sbi, F2FS_DIRTY_NODES);
+>                 } else {
+>                         inode_dec_dirty_pages(inode);
+> diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
+> index a6cfceafe2fe..24819d4c0d55 100644
+> --- a/fs/f2fs/debug.c
+> +++ b/fs/f2fs/debug.c
+> @@ -224,8 +224,7 @@ static void update_general_status(struct f2fs_sb_info=
+ *sbi)
+>         si->dirty_count =3D dirty_segments(sbi);
+>         if (sbi->node_inode)
+>                 si->node_pages =3D NODE_MAPPING(sbi)->nrpages;
+> -       if (sbi->meta_inode)
+> -               si->meta_pages =3D META_MAPPING(sbi)->nrpages;
+> +       si->meta_caches =3D META_CACHE(sbi)->num_entries;
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+>         if (sbi->compress_inode) {
+>                 si->compress_pages =3D COMPRESS_MAPPING(sbi)->nrpages;
+> @@ -388,11 +387,8 @@ static void update_mem_info(struct f2fs_sb_info *sbi=
+)
+>
+>                 si->page_mem +=3D (unsigned long long)npages << PAGE_SHIF=
+T;
+>         }
+> -       if (sbi->meta_inode) {
+> -               unsigned long npages =3D META_MAPPING(sbi)->nrpages;
+> -
+> -               si->page_mem +=3D (unsigned long long)npages << PAGE_SHIF=
+T;
+> -       }
+> +       si->page_mem +=3D (unsigned long long)META_CACHE(sbi)->num_entrie=
+s << PAGE_SHIFT;
+> +       si->cache_mem +=3D META_CACHE(sbi)->num_entries * sizeof(struct f=
+2fs_cached_block);
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+>         if (sbi->compress_inode) {
+>                 unsigned long npages =3D COMPRESS_MAPPING(sbi)->nrpages;
+> @@ -708,7 +704,7 @@ static int stat_show(struct seq_file *s, void *v)
+>                 seq_printf(s, "  - quota data: %4d in quota files:%4d\n",
+>                            si->ndirty_qdata, si->nquota_files);
+>                 seq_printf(s, "  - meta: %4d in %4d\n",
+> -                          si->ndirty_meta, si->meta_pages);
+> +                          si->ndirty_meta, si->meta_caches);
+>                 seq_printf(s, "  - imeta: %4d\n",
+>                            si->ndirty_imeta);
+>                 seq_printf(s, "  - fsync mark: %4lld\n",
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index c0f82b63d732..e2b29067eb0a 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -1074,7 +1074,7 @@ struct f2fs_nm_info {
+>         nid_t next_scan_nid;            /* the next nid to be scanned */
+>         nid_t max_rf_node_blocks;       /* max # of nodes for recovery */
+>         unsigned int ram_thresh;        /* control the memory footprint *=
+/
+> -       unsigned int ra_nid_pages;      /* # of nid pages to be readahead=
+ed */
+> +       unsigned int ra_nid_blocks;     /* # of nid blocks to be readahea=
+ded */
+>         unsigned int dirty_nats_ratio;  /* control dirty nats ratio thres=
+hold */
+>
+>         /* NAT cache management */
+> @@ -1820,7 +1820,6 @@ struct f2fs_sb_info {
+>         struct f2fs_checkpoint *ckpt;           /* raw checkpoint pointer=
+ */
+>         int cur_cp_pack;                        /* remain current cp pack=
+ */
+>         spinlock_t cp_lock;                     /* for flag in ckpt */
+> -       struct inode *meta_inode;               /* cache meta blocks */
+>         struct f2fs_rwsem cp_global_sem;        /* checkpoint procedure l=
+ock */
+>         struct f2fs_rwsem cp_rwsem;             /* blocking FS operations=
+ */
+>         struct f2fs_rwsem node_write;           /* locking node writes */
+> @@ -1874,7 +1873,6 @@ struct f2fs_sb_info {
+>         unsigned int dentry_reserved_size;      /* dentry reserved bytes =
+*/
+>         unsigned int root_ino_num;              /* root inode number*/
+>         unsigned int node_ino_num;              /* node inode number*/
+> -       unsigned int meta_ino_num;              /* meta inode number*/
+>         unsigned int log_blocks_per_seg;        /* log2 blocks per segmen=
+t */
+>         unsigned int blocks_per_seg;            /* blocks per segment */
+>         unsigned int segs_per_sec;              /* segments per section *=
+/
+> @@ -2377,9 +2375,9 @@ static inline struct dirty_seglist_info *DIRTY_I(st=
+ruct f2fs_sb_info *sbi)
+>         return (struct dirty_seglist_info *)(SM_I(sbi)->dirty_info);
+>  }
+>
+> -static inline struct address_space *META_MAPPING(struct f2fs_sb_info *sb=
+i)
+> +static inline bool f2fs_is_meta_cache(struct f2fs_cached_block *entry)
+>  {
+> -       return sbi->meta_inode->i_mapping;
+> +       return entry->cache && entry->cache =3D=3D META_CACHE(entry->cach=
+e->sbi);
+>  }
+>
+>  static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sb=
+i)
+> @@ -2387,11 +2385,6 @@ static inline struct address_space *NODE_MAPPING(s=
+truct f2fs_sb_info *sbi)
+>         return sbi->node_inode->i_mapping;
+>  }
+>
+> -static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio =
+*folio)
+> -{
+> -       return folio->mapping =3D=3D META_MAPPING(sbi);
+> -}
+> -
+>  static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio =
+*folio)
+>  {
+>         return folio->mapping =3D=3D NODE_MAPPING(sbi);
+> @@ -4130,9 +4123,9 @@ bool f2fs_alloc_nid(struct f2fs_sb_info *sbi, nid_t=
+ *nid);
+>  void f2fs_alloc_nid_done(struct f2fs_sb_info *sbi, nid_t nid);
+>  void f2fs_alloc_nid_failed(struct f2fs_sb_info *sbi, nid_t nid);
+>  int f2fs_try_to_free_nids(struct f2fs_sb_info *sbi, int nr_shrink);
+> -int f2fs_recover_inline_xattr(struct inode *inode, struct folio *folio);
+> -int f2fs_recover_xattr_data(struct inode *inode, struct folio *folio);
+> -int f2fs_recover_inode_page(struct f2fs_sb_info *sbi, struct folio *foli=
+o);
+> +int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_bl=
+ock *entry);
+> +int f2fs_recover_xattr_data(struct inode *inode, struct f2fs_cached_bloc=
+k *entry);
+> +int f2fs_recover_inode_page(struct f2fs_sb_info *sbi, struct f2fs_cached=
+_block *entry);
+>  int f2fs_restore_node_summary(struct f2fs_sb_info *sbi,
+>                         unsigned int segno, struct f2fs_summary_block *su=
+m);
+>  int f2fs_flush_nat_entries(struct f2fs_sb_info *sbi, struct cp_control *=
+cpc);
+> @@ -4170,7 +4163,7 @@ void f2fs_dirty_to_prefree(struct f2fs_sb_info *sbi=
+);
+>  block_t f2fs_get_unusable_blocks(struct f2fs_sb_info *sbi);
+>  int f2fs_disable_cp_again(struct f2fs_sb_info *sbi, block_t unusable);
+>  void f2fs_release_discard_addrs(struct f2fs_sb_info *sbi);
+> -int f2fs_npages_for_summary_flush(struct f2fs_sb_info *sbi, bool for_ra)=
+;
+> +int f2fs_nblocks_for_summary_flush(struct f2fs_sb_info *sbi, bool for_ra=
+);
+>  bool f2fs_segment_has_free_slot(struct f2fs_sb_info *sbi, int segno);
+>  int f2fs_init_inmem_curseg(struct f2fs_sb_info *sbi);
+>  int f2fs_reinit_atgc_curseg(struct f2fs_sb_info *sbi);
+> @@ -4184,11 +4177,13 @@ int f2fs_allocate_new_segments(struct f2fs_sb_inf=
+o *sbi);
+>  int f2fs_trim_fs(struct f2fs_sb_info *sbi, struct fstrim_range *range);
+>  bool f2fs_exist_trim_candidates(struct f2fs_sb_info *sbi,
+>                                         struct cp_control *cpc);
+> -struct folio *f2fs_get_sum_folio(struct f2fs_sb_info *sbi, unsigned int =
+segno);
+> -void f2fs_update_meta_page(struct f2fs_sb_info *sbi, void *src,
+> +struct f2fs_cached_block *f2fs_get_sum_cache(struct f2fs_sb_info *sbi,
+> +               unsigned int segno);
+> +void f2fs_update_meta_block(struct f2fs_sb_info *sbi, void *src,
+>                                         block_t blk_addr);
+> -void f2fs_do_write_meta_page(struct f2fs_sb_info *sbi, struct folio *fol=
+io,
+> -                                               enum iostat_type io_type)=
+;
+> +void f2fs_do_write_meta_cache(struct f2fs_sb_info *sbi,
+> +                       struct f2fs_cached_block *entry,
+> +                       enum iostat_type io_type);
+>  void f2fs_do_write_node_page(unsigned int nid, struct f2fs_io_info *fio)=
+;
+>  void f2fs_outplace_write_data(struct dnode_of_data *dn,
+>                         struct f2fs_io_info *fio);
+> @@ -4211,8 +4206,6 @@ void f2fs_update_device_state(struct f2fs_sb_info *=
+sbi, nid_t ino,
+>                                         block_t blkaddr, unsigned int blk=
+cnt);
+>  void f2fs_folio_wait_writeback(struct folio *folio, enum page_type type,
+>                 bool ordered, bool locked);
+> -#define f2fs_wait_on_page_writeback(page, type, ordered, locked)       \
+> -               f2fs_folio_wait_writeback(page_folio(page), type, ordered=
+, locked)
+>  void f2fs_wait_on_block_writeback(struct inode *inode, block_t blkaddr);
+>  void f2fs_wait_on_block_writeback_range(struct inode *inode, block_t blk=
+addr,
+>                                                                 block_t l=
+en);
+> @@ -4278,20 +4271,21 @@ void f2fs_unlock_op(struct f2fs_sb_info *sbi, str=
+uct f2fs_lock_context *lc);
+>  void f2fs_stop_checkpoint(struct f2fs_sb_info *sbi, bool end_io,
+>                                                         unsigned char rea=
+son);
+>  void f2fs_flush_ckpt_thread(struct f2fs_sb_info *sbi);
+> -struct folio *f2fs_grab_meta_folio(struct f2fs_sb_info *sbi, pgoff_t ind=
+ex);
+> -struct folio *f2fs_get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t inde=
+x);
+> -struct folio *f2fs_get_meta_folio_retry(struct f2fs_sb_info *sbi, pgoff_=
+t index);
+> -struct folio *f2fs_get_tmp_folio(struct f2fs_sb_info *sbi, pgoff_t index=
+);
+> +struct f2fs_cached_block *f2fs_grab_meta_cache(struct f2fs_sb_info *sbi,=
+ pgoff_t index);
+> +struct f2fs_cached_block *f2fs_get_meta_cache(struct f2fs_sb_info *sbi, =
+pgoff_t index);
+> +struct f2fs_cached_block *f2fs_get_meta_cache_retry(struct f2fs_sb_info =
+*sbi, pgoff_t index);
+> +struct f2fs_cached_block *f2fs_get_tmp_cache(struct f2fs_sb_info *sbi, p=
+goff_t index);
+>  bool f2fs_is_valid_blkaddr(struct f2fs_sb_info *sbi,
+>                                         block_t blkaddr, int type);
+>  bool f2fs_is_valid_blkaddr_raw(struct f2fs_sb_info *sbi,
+>                                         block_t blkaddr, int type);
+> -int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, block_t start, int nrpa=
+ges,
+> +int f2fs_ra_meta_caches(struct f2fs_sb_info *sbi, block_t start, int nrp=
+ages,
+>                         int type, bool sync);
+> -void f2fs_ra_meta_pages_cond(struct f2fs_sb_info *sbi, pgoff_t index,
+> +void f2fs_ra_meta_caches_cond(struct f2fs_sb_info *sbi, pgoff_t index,
+>                                                         unsigned int ra_b=
+locks);
+> -long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+> -                       enum iostat_type io_type);
+> +void f2fs_write_meta_caches(struct f2fs_sb_info *sbi);
+> +long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+> +                               bool sync, enum iostat_type io_type);
+>  void f2fs_add_ino_entry(struct f2fs_sb_info *sbi, nid_t ino, int type);
+>  void f2fs_remove_ino_entry(struct f2fs_sb_info *sbi, nid_t ino, int type=
+);
+>  void f2fs_release_ino_entry(struct f2fs_sb_info *sbi, bool all);
+> @@ -4310,7 +4304,7 @@ void f2fs_update_dirty_folio(struct inode *inode, s=
+truct folio *folio);
+>  void f2fs_remove_dirty_inode(struct inode *inode);
+>  int f2fs_sync_dirty_inodes(struct f2fs_sb_info *sbi, enum inode_type typ=
+e,
+>                                                                 bool from=
+_cp);
+> -void f2fs_wait_on_all_pages(struct f2fs_sb_info *sbi, int type);
+> +void f2fs_sync_dirty_data(struct f2fs_sb_info *sbi, int type);
+>  u64 f2fs_get_sectors_written(struct f2fs_sb_info *sbi);
+>  int f2fs_write_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *c=
+pc);
+>  void f2fs_init_ino_entry_info(struct f2fs_sb_info *sbi);
+> @@ -4477,7 +4471,7 @@ struct f2fs_stat_info {
+>         unsigned int bimodal, avg_vblocks;
+>         int util_free, util_valid, util_invalid;
+>         int rsvd_segs, overp_segs;
+> -       int dirty_count, node_pages, meta_pages, compress_pages;
+> +       int dirty_count, node_pages, meta_caches, compress_pages;
+>         int compress_page_hit;
+>         int prefree_count, free_segs, free_secs;
+>         int cp_call_count[MAX_CALL_TYPE], cp_count;
+> @@ -4679,7 +4673,6 @@ extern const struct file_operations f2fs_file_opera=
+tions;
+>  extern const struct inode_operations f2fs_file_inode_operations;
+>  extern const struct address_space_operations f2fs_dblock_aops;
+>  extern const struct address_space_operations f2fs_node_aops;
+> -extern const struct address_space_operations f2fs_meta_aops;
+>  extern const struct inode_operations f2fs_dir_inode_operations;
+>  extern const struct inode_operations f2fs_symlink_inode_operations;
+>  extern const struct inode_operations f2fs_encrypted_symlink_inode_operat=
+ions;
+> @@ -4700,7 +4693,7 @@ int f2fs_convert_inline_folio(struct dnode_of_data =
+*dn, struct folio *folio);
+>  int f2fs_convert_inline_inode(struct inode *inode);
+>  int f2fs_try_convert_inline_dir(struct inode *dir, struct dentry *dentry=
+);
+>  int f2fs_write_inline_data(struct inode *inode, struct folio *folio);
+> -int f2fs_recover_inline_data(struct inode *inode, struct folio *nfolio);
+> +int f2fs_recover_inline_data(struct inode *inode, struct f2fs_cached_blo=
+ck *entry);
+>  struct f2fs_dir_entry *f2fs_find_in_inline_dir(struct inode *dir,
+>                 const struct f2fs_filename *fname, struct folio **res_fol=
+io,
+>                 bool use_hash);
+> @@ -5260,10 +5253,8 @@ static inline void f2fs_schedule_timeout_killable(=
+long timeout, bool io)
+>  }
+>
+>  static inline void f2fs_handle_page_eio(struct f2fs_sb_info *sbi,
+> -                               struct folio *folio, enum page_type type)
+> +                               pgoff_t ofs, enum page_type type)
+>  {
+> -       pgoff_t ofs =3D folio->index;
+> -
+>         if (unlikely(f2fs_cp_error(sbi)))
+>                 return;
+>
+> @@ -5298,37 +5289,10 @@ static inline bool f2fs_is_readonly(struct f2fs_s=
+b_info *sbi)
+>         return f2fs_sb_has_readonly(sbi) || f2fs_readonly(sbi->sb);
+>  }
+>
+> -static inline void f2fs_truncate_meta_inode_pages(struct f2fs_sb_info *s=
+bi,
+> -                                       block_t blkaddr, unsigned int cnt=
+)
+> -{
+> -       bool need_submit =3D false;
+> -       int i =3D 0;
+> -
+> -       do {
+> -               struct folio *folio;
+> -
+> -               folio =3D filemap_get_folio(META_MAPPING(sbi), blkaddr + =
+i);
+> -               if (!IS_ERR(folio)) {
+> -                       if (folio_test_writeback(folio))
+> -                               need_submit =3D true;
+> -                       f2fs_folio_put(folio, false);
+> -               }
+> -       } while (++i < cnt && !need_submit);
+> -
+> -       if (need_submit)
+> -               f2fs_submit_merged_write_cond(sbi, sbi->meta_inode,
+> -                                                       NULL, 0, DATA);
+> -
+> -       truncate_inode_pages_range(META_MAPPING(sbi),
+> -                       F2FS_BLK_TO_BYTES(sbi, (loff_t)blkaddr),
+> -                       F2FS_BLK_END_BYTES(sbi,
+> -                                           (loff_t)(blkaddr + cnt - 1)))=
+;
+> -}
+> -
+>  static inline void f2fs_invalidate_internal_cache(struct f2fs_sb_info *s=
+bi,
+>                                                 block_t blkaddr, unsigned=
+ int len)
+>  {
+> -       f2fs_truncate_meta_inode_pages(sbi, blkaddr, len);
+> +       f2fs_truncate_meta_caches(sbi, blkaddr, len);
+>         f2fs_invalidate_compress_pages_range(sbi, blkaddr, len);
+>  }
+>
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index b0bdc7a977b9..7c2bfa0e63d2 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -215,7 +215,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_faul=
+t *vmf)
+>
+>         f2fs_folio_wait_writeback(folio, DATA, false, true);
+>
+> -       /* wait for GCed page writeback via META_MAPPING */
+> +       /* wait for GCed page writeback via generic cache */
+>         f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+>
+>         /*
+> @@ -2567,7 +2567,7 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsi=
+gned int flag,
+>                 f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_SHUTDOWN)=
+;
+>                 break;
+>         case F2FS_GOING_DOWN_METAFLUSH:
+> -               f2fs_sync_meta_pages(sbi, LONG_MAX, FS_META_IO);
+> +               f2fs_sync_meta_caches(sbi, LONG_MAX, true, FS_META_IO);
+>                 f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_SHUTDOWN)=
+;
+>                 break;
+>         case F2FS_GOING_DOWN_NEED_FSCK:
+> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+> index c70deac9f1a3..bed9056d6b6e 100644
+> --- a/fs/f2fs/gc.c
+> +++ b/fs/f2fs/gc.c
+> @@ -1066,7 +1066,7 @@ static int gc_node_segment(struct f2fs_sb_info *sbi=
+,
+>                         continue;
+>
+>                 if (phase =3D=3D 0) {
+> -                       f2fs_ra_meta_pages(sbi, NAT_BLOCK_OFFSET(sbi, nid=
+), 1,
+> +                       f2fs_ra_meta_caches(sbi, NAT_BLOCK_OFFSET(sbi, ni=
+d), 1,
+>                                                         META_NAT, true);
+>                         continue;
+>                 }
+> @@ -1219,7 +1219,8 @@ static int ra_data_block(struct inode *inode, pgoff=
+_t index)
+>         struct address_space *mapping =3D inode->i_mapping;
+>         struct inode *atomic_inode =3D NULL;
+>         struct dnode_of_data dn;
+> -       struct folio *folio, *efolio;
+> +       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>         struct f2fs_io_info fio =3D {
+>                 .sbi =3D sbi,
+>                 .ino =3D inode->i_ino,
+> @@ -1229,6 +1230,7 @@ static int ra_data_block(struct inode *inode, pgoff=
+_t index)
+>                 .op_flags =3D 0,
+>                 .encrypted_page =3D NULL,
+>                 .in_list =3D 0,
+> +               .is_cache =3D 1,
+>         };
+>         int err =3D 0;
+>
+> @@ -1287,22 +1289,21 @@ static int ra_data_block(struct inode *inode, pgo=
+ff_t index)
+>
+>         f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+>
+> -       efolio =3D f2fs_filemap_get_folio(META_MAPPING(sbi), dn.data_blka=
+ddr,
+> -                                       FGP_LOCK | FGP_CREAT, GFP_NOFS);
+> -       if (IS_ERR(efolio)) {
+> -               err =3D PTR_ERR(efolio);
+> +       entry =3D f2fs_grab_cache(META_CACHE(sbi), dn.data_blkaddr,
+> +                                               F2FS_CACHE_LOCK_CREATE);
+> +       if (IS_ERR(entry)) {
+> +               err =3D PTR_ERR(entry);
+>                 goto put_folio;
+>         }
+>
+> -       fio.encrypted_page =3D &efolio->page;
+> -
+> -       if (folio_test_uptodate(efolio))
+> -               goto put_encrypted_page;
+> +       if (f2fs_cache_test_uptodate(entry))
+> +               goto put_cache;
+>
+> -       err =3D f2fs_submit_page_bio(&fio);
+> +       fio.cache_entry =3D entry;
+> +       err =3D f2fs_submit_cache_read(&fio);
+>         if (err)
+> -               goto put_encrypted_page;
+> -       f2fs_put_page(fio.encrypted_page, false);
+> +               goto put_cache;
+> +       f2fs_put_cache(entry, false);
+>         f2fs_folio_put(folio, true);
+>
+>         f2fs_update_iostat(sbi, inode, FS_DATA_READ_IO, F2FS_BLKSIZE(sbi)=
+);
+> @@ -1311,8 +1312,8 @@ static int ra_data_block(struct inode *inode, pgoff=
+_t index)
+>         if (atomic_inode)
+>                 iput(atomic_inode);
+>         return 0;
+> -put_encrypted_page:
+> -       f2fs_put_page(fio.encrypted_page, true);
+> +put_cache:
+> +       f2fs_put_cache(entry, true);
+>  put_folio:
+>         f2fs_folio_put(folio, true);
+>  out_iput:
+> @@ -1322,7 +1323,7 @@ static int ra_data_block(struct inode *inode, pgoff=
+_t index)
+>  }
+>
+>  /*
+> - * Move data block via META_MAPPING while keeping locked data page.
+> + * Move data block via meta cache while keeping locked data page.
+>   * This can be used to move blocks, aka LBAs, directly on disk.
+>   */
+>  static int move_data_block(struct inode *inode, block_t bidx,
+> @@ -1339,11 +1340,13 @@ static int move_data_block(struct inode *inode, b=
+lock_t bidx,
+>                 .op_flags =3D 0,
+>                 .encrypted_page =3D NULL,
+>                 .in_list =3D 0,
+> +               .is_cache =3D 1,
+>         };
+>         struct dnode_of_data dn;
+>         struct f2fs_summary sum;
+>         struct node_info ni;
+> -       struct folio *folio, *mfolio, *efolio;
+> +       struct folio *folio;
+> +       struct f2fs_cached_block *sentry, *tentry;
+>         block_t newaddr;
+>         int err =3D 0;
+>         bool lfs_mode =3D f2fs_lfs_mode(fio.sbi);
+> @@ -1408,20 +1411,20 @@ static int move_data_block(struct inode *inode, b=
+lock_t bidx,
+>         if (lfs_mode)
+>                 f2fs_down_write(&fio.sbi->io_order_lock);
+>
+> -       mfolio =3D f2fs_grab_cache_folio(META_MAPPING(fio.sbi),
+> -                                       fio.old_blkaddr, false);
+> -       if (IS_ERR(mfolio)) {
+> -               err =3D PTR_ERR(mfolio);
+> +       sentry =3D f2fs_grab_cache(META_CACHE(fio.sbi), fio.old_blkaddr,
+> +                                               F2FS_CACHE_LOCK_CREATE);
+> +       if (IS_ERR(sentry)) {
+> +               err =3D PTR_ERR(sentry);
+>                 goto up_out;
+>         }
+>
+> -       fio.encrypted_page =3D folio_file_page(mfolio, fio.old_blkaddr);
+> +       fio.cache_entry =3D sentry;
+>
+> -       /* read source block in mfolio */
+> -       if (!folio_test_uptodate(mfolio)) {
+> -               err =3D f2fs_submit_page_bio(&fio);
+> +       /* read source block in cache */
+> +       if (!f2fs_cache_test_uptodate(sentry)) {
+> +               err =3D f2fs_submit_cache_read(&fio);
+>                 if (err) {
+> -                       f2fs_folio_put(mfolio, true);
+> +                       f2fs_put_cache(sentry, true);
+>                         goto up_out;
+>                 }
+>
+> @@ -1430,11 +1433,11 @@ static int move_data_block(struct inode *inode, b=
+lock_t bidx,
+>                 f2fs_update_iostat(fio.sbi, NULL, FS_GDATA_READ_IO,
+>                                                 F2FS_BLKSIZE(fio.sbi));
+>
+> -               folio_lock(mfolio);
+> -               if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
+> -                            !folio_test_uptodate(mfolio))) {
+> +               f2fs_lock_cache(sentry);
+> +               if (unlikely(!f2fs_is_meta_cache(sentry) ||
+> +                               !f2fs_cache_test_uptodate(sentry))) {
+>                         err =3D -EIO;
+> -                       f2fs_folio_put(mfolio, true);
+> +                       f2fs_put_cache(sentry, true);
+>                         goto up_out;
+>                 }
+>         }
+> @@ -1445,39 +1448,39 @@ static int move_data_block(struct inode *inode, b=
+lock_t bidx,
+>         err =3D f2fs_allocate_data_block(fio.sbi, NULL, fio.old_blkaddr, =
+&newaddr,
+>                                 &sum, type, NULL);
+>         if (err) {
+> -               f2fs_folio_put(mfolio, true);
+> +               f2fs_put_cache(sentry, true);
+>                 /* filesystem should shutdown, no need to recovery block =
+*/
+>                 goto up_out;
+>         }
+>
+> -       efolio =3D f2fs_filemap_get_folio(META_MAPPING(fio.sbi), newaddr,
+> -                                       FGP_LOCK | FGP_CREAT, GFP_NOFS);
+> -       if (IS_ERR(efolio)) {
+> -               err =3D PTR_ERR(efolio);
+> -               f2fs_folio_put(mfolio, true);
+> +       tentry =3D f2fs_grab_cache(META_CACHE(fio.sbi), newaddr,
+> +                                       F2FS_CACHE_LOCK_CREATE);
+> +       if (IS_ERR(tentry)) {
+> +               err =3D PTR_ERR(tentry);
+> +               f2fs_put_cache(sentry, true);
+>                 goto recover_block;
+>         }
+>
+> -       fio.encrypted_page =3D &efolio->page;
+> +       fio.cache_entry =3D tentry;
+>
+>         /* write target block */
+> -       f2fs_wait_on_page_writeback(fio.encrypted_page, DATA, true, true)=
+;
+> -       memcpy(page_address(fio.encrypted_page),
+> -                               folio_address(mfolio), PAGE_SIZE);
+> -       f2fs_folio_put(mfolio, true);
+> +       f2fs_cache_wait_writeback_cond(tentry, DATA);
+> +       memcpy(cache_address(tentry), cache_address(sentry),
+> +                                                       fio.sbi->blocksiz=
+e);
+> +       f2fs_put_cache(sentry, true);
+>
+>         f2fs_invalidate_internal_cache(fio.sbi, fio.old_blkaddr, 1);
+>
+> -       set_page_dirty(fio.encrypted_page);
+> -       if (clear_page_dirty_for_io(fio.encrypted_page))
+> +       f2fs_mark_cache_dirty(tentry);
+> +       if (f2fs_cache_test_and_clear_dirty(tentry))
+>                 dec_page_count(fio.sbi, F2FS_DIRTY_META);
+>
+> -       set_page_writeback(fio.encrypted_page);
+> +       f2fs_start_cache_writeback(tentry);
+>
+>         fio.op =3D REQ_OP_WRITE;
+>         fio.op_flags =3D REQ_SYNC;
+>         fio.new_blkaddr =3D newaddr;
+> -       f2fs_submit_page_write(&fio);
+> +       f2fs_submit_cache_write(&fio);
+>
+>         f2fs_update_iostat(fio.sbi, NULL, FS_GC_DATA_IO,
+>                                         F2FS_BLKSIZE(fio.sbi));
+> @@ -1485,7 +1488,7 @@ static int move_data_block(struct inode *inode, blo=
+ck_t bidx,
+>         f2fs_update_data_blkaddr(&dn, newaddr);
+>         set_inode_flag(inode, FI_APPEND_WRITE);
+>
+> -       f2fs_put_page(fio.encrypted_page, true);
+> +       f2fs_put_cache(tentry, true);
+>  recover_block:
+>         if (err)
+>                 f2fs_do_replace_block(fio.sbi, &sum, newaddr, fio.old_blk=
+addr,
+> @@ -1617,7 +1620,7 @@ static int gc_data_segment(struct f2fs_sb_info *sbi=
+, struct f2fs_summary *sum,
+>                         continue;
+>
+>                 if (phase =3D=3D 0) {
+> -                       f2fs_ra_meta_pages(sbi, NAT_BLOCK_OFFSET(sbi, nid=
+), 1,
+> +                       f2fs_ra_meta_caches(sbi, NAT_BLOCK_OFFSET(sbi, ni=
+d), 1,
+>                                                         META_NAT, true);
+>                         continue;
+>                 }
+> @@ -1821,28 +1824,31 @@ static int do_garbage_collect(struct f2fs_sb_info=
+ *sbi,
+>         sum_blk_cnt =3D DIV_ROUND_UP(end_segno - segno, sbi->sums_per_blo=
+ck);
+>         /* readahead multi ssa blocks those have contiguous address */
+>         if (__is_large_section(sbi))
+> -               f2fs_ra_meta_pages(sbi, GET_SUM_BLOCK(sbi, segno),
+> +               f2fs_ra_meta_caches(sbi, GET_SUM_BLOCK(sbi, segno),
+>                                         sum_blk_cnt, META_SSA, true);
+>
+>         /* reference all summary page */
+>         while (segno < end_segno) {
+> -               struct folio *sum_folio =3D f2fs_get_sum_folio(sbi, segno=
+);
+> +               struct f2fs_cached_block *sum_entry =3D
+> +                               f2fs_get_sum_cache(sbi, segno);
+>
+>                 segno +=3D sbi->sums_per_block;
+> -               if (IS_ERR(sum_folio)) {
+> -                       int err =3D PTR_ERR(sum_folio);
+> +               if (IS_ERR(sum_entry)) {
+> +                       int err =3D PTR_ERR(sum_entry);
+>
+>                         end_segno =3D segno - sbi->sums_per_block;
+>                         segno =3D rounddown(start_segno, sbi->sums_per_bl=
+ock);
+>                         while (segno < end_segno) {
+> -                               sum_folio =3D filemap_get_folio(META_MAPP=
+ING(sbi),
+> +                               sum_entry =3D f2fs_find_meta_cache(sbi,
+>                                                 GET_SUM_BLOCK(sbi, segno)=
+);
+> -                               folio_put_refs(sum_folio, 2);
+> +                               f2fs_put_cache(sum_entry, false);
+> +                               f2fs_put_cache(sum_entry, false);
+>                                 segno +=3D sbi->sums_per_block;
+>                         }
+>                         return err;
+>                 }
+> -               folio_unlock(sum_folio);
+> +               f2fs_unlock_cache(sum_entry);
+> +
+>         }
+>
+>         blk_start_plug(&plug);
+> @@ -1850,11 +1856,16 @@ static int do_garbage_collect(struct f2fs_sb_info=
+ *sbi,
+>         segno =3D start_segno;
+>         while (segno < end_segno) {
+>                 unsigned int cur_segno;
+> +               unsigned int block_end_segno;
+>
+>                 /* find segment summary of victim */
+> -               struct folio *sum_folio =3D filemap_get_folio(META_MAPPIN=
+G(sbi),
+> +               struct f2fs_cached_block *sum_entry =3D
+> +                               f2fs_find_meta_cache(sbi,
+>                                         GET_SUM_BLOCK(sbi, segno));
+> -               unsigned int block_end_segno =3D rounddown(segno, sbi->su=
+ms_per_block)
+> +
+> +               f2fs_bug_on(sbi, IS_ERR(sum_entry));
+> +
+> +               block_end_segno =3D rounddown(segno, sbi->sums_per_block)
+>                                         + sbi->sums_per_block;
+>
+>                 if (block_end_segno > end_segno)
+> @@ -1867,8 +1878,8 @@ static int do_garbage_collect(struct f2fs_sb_info *=
+sbi,
+>                         goto next_block;
+>                 }
+>
+> -               if (!folio_test_uptodate(sum_folio) ||
+> -                   unlikely(f2fs_cp_error(sbi)))
+> +               if (!f2fs_cache_test_uptodate(sum_entry) ||
+> +                       unlikely(f2fs_cp_error(sbi)))
+>                         goto next_block;
+>
+>                 for (cur_segno =3D segno; cur_segno < block_end_segno;
+> @@ -1887,7 +1898,7 @@ static int do_garbage_collect(struct f2fs_sb_info *=
+sbi,
+>                                 data_type =3D (type =3D=3D SUM_TYPE_DATA)=
+ ? DATA : NODE;
+>                         }
+>
+> -                       sum =3D SUM_BLK_PAGE_ADDR(sbi, sum_folio, cur_seg=
+no);
+> +                       sum =3D SUM_BLK_ENTRY_ADDR(sbi, sum_entry, cur_se=
+gno);
+>                         if (type !=3D GET_SUM_TYPE(sum_footer(sbi, sum)))=
+ {
+>                                 f2fs_err(sbi, "Inconsistent segment (%u) =
+type "
+>                                                 "[%d, %d] in SIT and SSA"=
+,
+> @@ -1929,12 +1940,14 @@ static int do_garbage_collect(struct f2fs_sb_info=
+ *sbi,
+>                                         cur_segno + 1 : NULL_SEGNO;
+>
+>                         if (unlikely(freezing(current))) {
+> -                               folio_put_refs(sum_folio, 2);
+> +                               f2fs_put_cache(sum_entry, false);
+> +                               f2fs_put_cache(sum_entry, false);
+>                                 goto stop;
+>                         }
+>                 }
+>  next_block:
+> -               folio_put_refs(sum_folio, 2);
+> +               f2fs_put_cache(sum_entry, false);
+> +               f2fs_put_cache(sum_entry, false);
+>                 segno =3D block_end_segno;
+>         }
+>
+> diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+> index 925bdaad013c..d10acb5042e3 100644
+> --- a/fs/f2fs/inline.c
+> +++ b/fs/f2fs/inline.c
+> @@ -293,7 +293,7 @@ int f2fs_write_inline_data(struct inode *inode, struc=
+t folio *folio)
+>         return 0;
+>  }
+>
+> -int f2fs_recover_inline_data(struct inode *inode, struct folio *nfolio)
+> +int f2fs_recover_inline_data(struct inode *inode, struct f2fs_cached_blo=
+ck *entry)
+>  {
+>         struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
+>         struct f2fs_inode *ri =3D NULL;
+> @@ -307,12 +307,13 @@ int f2fs_recover_inline_data(struct inode *inode, s=
+truct folio *nfolio)
+>          *    x       o  -> remove data blocks, and then recover inline_d=
+ata
+>          *    x       x  -> recover data blocks
+>          */
+> -       if (IS_INODE(F2FS_I_SB(inode), nfolio))
+> -               ri =3D F2FS_INODE(nfolio);
+> +       if (IS_INODE(sbi, cache_folio(entry)))
+> +               ri =3D &CACHED_NODE(entry)->i;
+>
+>         if (f2fs_has_inline_data(inode) &&
+>                         ri && (ri->i_inline & F2FS_INLINE_DATA)) {
+>                 struct folio *ifolio;
+> +
+>  process_inline:
+>                 ifolio =3D f2fs_get_inode_folio(sbi, inode->i_ino);
+>                 if (IS_ERR(ifolio))
+> @@ -320,7 +321,7 @@ int f2fs_recover_inline_data(struct inode *inode, str=
+uct folio *nfolio)
+>
+>                 f2fs_folio_wait_writeback(ifolio, NODE, true, true);
+>
+> -               src_addr =3D inline_data_addr(inode, nfolio);
+> +               src_addr =3D inline_data_addr(inode, cache_folio(entry));
+>                 dst_addr =3D inline_data_addr(inode, ifolio);
+>                 memcpy(dst_addr, src_addr, MAX_INLINE_DATA(inode));
+>
+> diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
+> index 24205a35be04..f2e1d8b50f8c 100644
+> --- a/fs/f2fs/inode.c
+> +++ b/fs/f2fs/inode.c
+> @@ -578,7 +578,7 @@ static int do_read_inode(struct inode *inode)
+>
+>  static bool is_meta_ino(struct f2fs_sb_info *sbi, unsigned int ino)
+>  {
+> -       if (ino =3D=3D F2FS_NODE_INO(sbi) || ino =3D=3D F2FS_META_INO(sbi=
+))
+> +       if (ino =3D=3D F2FS_NODE_INO(sbi))
+>                 return true;
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+>         if (test_opt(sbi, COMPRESS_CACHE) && ino =3D=3D F2FS_COMPRESS_INO=
+(sbi))
+> @@ -625,9 +625,6 @@ struct inode *f2fs_iget(struct super_block *sb, unsig=
+ned long ino)
+>         if (ino =3D=3D F2FS_NODE_INO(sbi)) {
+>                 inode->i_mapping->a_ops =3D &f2fs_node_aops;
+>                 mapping_set_gfp_mask(inode->i_mapping, GFP_NOFS);
+> -       } else if (ino =3D=3D F2FS_META_INO(sbi)) {
+> -               inode->i_mapping->a_ops =3D &f2fs_meta_aops;
+> -               mapping_set_gfp_mask(inode->i_mapping, GFP_NOFS);
+>         } else if (ino =3D=3D F2FS_COMPRESS_INO(sbi)) {
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+>                 inode->i_mapping->a_ops =3D &f2fs_compress_aops;
+> @@ -827,8 +824,7 @@ int f2fs_write_inode(struct inode *inode, struct writ=
+eback_control *wbc)
+>  {
+>         struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
+>
+> -       if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi) ||
+> -                       inode->i_ino =3D=3D F2FS_META_INO(sbi))
+> +       if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi))
+>                 return 0;
+>
+>         /*
+> @@ -922,7 +918,6 @@ static bool f2fs_pre_evict_inode(struct inode *inode)
+>                 f2fs_invalidate_compress_pages(sbi, inode->i_ino);
+>
+>         if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi) ||
+> -           inode->i_ino =3D=3D F2FS_META_INO(sbi) ||
+>             inode->i_ino =3D=3D F2FS_COMPRESS_INO(sbi))
+>                 return true;
+>
+> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+> index f16144b75d11..197ce2f5149a 100644
+> --- a/fs/f2fs/node.c
+> +++ b/fs/f2fs/node.c
+> @@ -140,38 +140,36 @@ static void clear_node_folio_dirty(struct folio *fo=
+lio)
+>         folio_clear_uptodate(folio);
+>  }
+>
+> -static struct folio *get_current_nat_folio(struct f2fs_sb_info *sbi, nid=
+_t nid)
+> +static struct f2fs_cached_block *get_current_nat_cache(struct f2fs_sb_in=
+fo *sbi,
+> +               nid_t nid)
+>  {
+> -       return f2fs_get_meta_folio_retry(sbi, current_nat_addr(sbi, nid))=
+;
+> +       return f2fs_get_meta_cache_retry(sbi, current_nat_addr(sbi, nid))=
+;
+>  }
+>
+> -static struct folio *get_next_nat_folio(struct f2fs_sb_info *sbi, nid_t =
+nid)
+> +static struct f2fs_cached_block *get_next_nat_cache(struct f2fs_sb_info =
+*sbi,
+> +               nid_t nid)
+>  {
+> -       struct folio *src_folio;
+> -       struct folio *dst_folio;
+> +       struct f2fs_cached_block *src_entry;
+> +       struct f2fs_cached_block *dst_entry;
+>         pgoff_t dst_off;
+> -       void *src_addr;
+> -       void *dst_addr;
+>         struct f2fs_nm_info *nm_i =3D NM_I(sbi);
+>
+>         dst_off =3D next_nat_addr(sbi, current_nat_addr(sbi, nid));
+>
+> -       /* get current nat block page with lock */
+> -       src_folio =3D get_current_nat_folio(sbi, nid);
+> -       if (IS_ERR(src_folio))
+> -               return src_folio;
+> -       dst_folio =3D f2fs_grab_meta_folio(sbi, dst_off);
+> -       f2fs_bug_on(sbi, folio_test_dirty(src_folio));
+> +       /* get current nat cached block with lock */
+> +       src_entry =3D get_current_nat_cache(sbi, nid);
+> +       if (IS_ERR(src_entry))
+> +               return src_entry;
+> +       dst_entry =3D f2fs_grab_meta_cache(sbi, dst_off);
+> +       f2fs_bug_on(sbi, f2fs_cache_test_dirty(src_entry));
+>
+> -       src_addr =3D folio_address(src_folio);
+> -       dst_addr =3D folio_address(dst_folio);
+> -       memcpy(dst_addr, src_addr, F2FS_BLKSIZE(sbi));
+> -       folio_mark_dirty(dst_folio);
+> -       f2fs_folio_put(src_folio, true);
+> +       memcpy(cache_address(dst_entry), cache_address(src_entry), F2FS_B=
+LKSIZE(sbi));
+> +       f2fs_mark_cache_dirty(dst_entry);
+> +       f2fs_put_cache(src_entry, true);
+>
+>         set_to_next_nat(sbi, nm_i, nid);
+>
+> -       return dst_folio;
+> +       return dst_entry;
+>  }
+>
+>  static struct nat_entry *__alloc_nat_entry(struct f2fs_sb_info *sbi,
+> @@ -583,7 +581,7 @@ int f2fs_get_node_info(struct f2fs_sb_info *sbi, nid_=
+t nid,
+>         struct f2fs_journal *journal =3D curseg->journal;
+>         nid_t start_nid =3D f2fs_start_nid(sbi, nid);
+>         struct f2fs_nat_block *nat_blk;
+> -       struct folio *folio =3D NULL;
+> +       struct f2fs_cached_block *entry =3D NULL;
+>         struct f2fs_nat_entry ne;
+>         struct nat_entry *e;
+>         pgoff_t index;
+> @@ -634,18 +632,18 @@ int f2fs_get_node_info(struct f2fs_sb_info *sbi, ni=
+d_t nid,
+>                 goto sanity_check;
+>         }
+>
+> -       /* Fill node_info from nat page */
+> +       /* Fill node_info from nat block */
+>         index =3D current_nat_addr(sbi, nid);
+>         f2fs_up_read_trace(&nm_i->nat_tree_lock, &lc);
+>
+> -       folio =3D f2fs_get_meta_folio(sbi, index);
+> -       if (IS_ERR(folio))
+> -               return PTR_ERR(folio);
+> +       entry =3D f2fs_get_meta_cache(sbi, index);
+> +       if (IS_ERR(entry))
+> +               return PTR_ERR(entry);
+>
+> -       nat_blk =3D folio_address(folio);
+> +       nat_blk =3D cache_address(entry);
+>         ne =3D nat_blk->entries[nid - start_nid];
+>         node_info_from_raw_nat(ni, &ne);
+> -       f2fs_folio_put(folio, true);
+> +       f2fs_put_cache(entry, true);
+>  sanity_check:
+>         if (__is_valid_data_blkaddr(ni->blk_addr) &&
+>                 !f2fs_is_valid_blkaddr(sbi, ni->blk_addr,
+> @@ -1635,7 +1633,7 @@ static struct folio *__get_node_folio(struct f2fs_s=
+b_info *sbi, pgoff_t nid,
+>  out_put_err:
+>         /* ENOENT comes from read_node_folio which is not an error. */
+>         if (err !=3D -ENOENT)
+> -               f2fs_handle_page_eio(sbi, folio, NODE);
+> +               f2fs_handle_page_eio(sbi, folio->index, NODE);
+>         f2fs_folio_put(folio, true);
+>         return ERR_PTR(err);
+>  }
+> @@ -2468,7 +2466,7 @@ static bool add_free_nid(struct f2fs_sb_info *sbi,
+>                  *                     - f2fs_balance_fs_bg
+>                  *                      - f2fs_build_free_nids
+>                  *                       - __f2fs_build_free_nids
+> -                *                        - scan_nat_page
+> +                *                        - scan_nat_blocks
+>                  *                         - add_free_nid
+>                  *                          - __lookup_nat_cache
+>                  *  - f2fs_add_link
+> @@ -2526,7 +2524,7 @@ static void remove_free_nid(struct f2fs_sb_info *sb=
+i, nid_t nid)
+>                 kmem_cache_free(free_nid_slab, i);
+>  }
+>
+> -static int scan_nat_page(struct f2fs_sb_info *sbi,
+> +static int scan_nat_block(struct f2fs_sb_info *sbi,
+>                         struct f2fs_nat_block *nat_blk, nid_t start_nid)
+>  {
+>         struct f2fs_nm_info *nm_i =3D NM_I(sbi);
+> @@ -2617,6 +2615,7 @@ static int __f2fs_build_free_nids(struct f2fs_sb_in=
+fo *sbi,
+>                                                 bool sync, bool mount)
+>  {
+>         struct f2fs_nm_info *nm_i =3D NM_I(sbi);
+> +       struct f2fs_cached_block *entry =3D NULL;
+>         int i =3D 0, ret;
+>         nid_t nid =3D nm_i->next_scan_nid;
+>         struct f2fs_lock_context lc;
+> @@ -2642,8 +2641,8 @@ static int __f2fs_build_free_nids(struct f2fs_sb_in=
+fo *sbi,
+>                         return 0;
+>         }
+>
+> -       /* readahead nat pages to be scanned */
+> -       f2fs_ra_meta_pages(sbi, NAT_BLOCK_OFFSET(sbi, nid), FREE_NID_PAGE=
+S,
+> +       /* readahead nat blocks to be scanned */
+> +       f2fs_ra_meta_caches(sbi, NAT_BLOCK_OFFSET(sbi, nid), FREE_NID_BLO=
+CKS,
+>                                                         META_NAT, true);
+>
+>         f2fs_down_read_trace(&nm_i->nat_tree_lock, &lc);
+> @@ -2651,14 +2650,14 @@ static int __f2fs_build_free_nids(struct f2fs_sb_=
+info *sbi,
+>         while (1) {
+>                 if (!test_bit_le(NAT_BLOCK_OFFSET(sbi, nid),
+>                                                 nm_i->nat_block_bitmap)) =
+{
+> -                       struct folio *folio =3D get_current_nat_folio(sbi=
+, nid);
+> +                       entry =3D get_current_nat_cache(sbi, nid);
+>
+> -                       if (IS_ERR(folio)) {
+> -                               ret =3D PTR_ERR(folio);
+> +                       if (IS_ERR(entry)) {
+> +                               ret =3D PTR_ERR(entry);
+>                         } else {
+> -                               ret =3D scan_nat_page(sbi, folio_address(=
+folio),
+> +                               ret =3D scan_nat_block(sbi, cache_address=
+(entry),
+>                                                 nid);
+> -                               f2fs_folio_put(folio, true);
+> +                               f2fs_put_cache(entry, true);
+>                         }
+>
+>                         if (ret) {
+> @@ -2680,20 +2679,20 @@ static int __f2fs_build_free_nids(struct f2fs_sb_=
+info *sbi,
+>                 if (unlikely(nid >=3D nm_i->max_nid))
+>                         nid =3D 0;
+>
+> -               if (++i >=3D FREE_NID_PAGES)
+> +               if (++i >=3D FREE_NID_BLOCKS)
+>                         break;
+>         }
+>
+> -       /* go to the next free nat pages to find free nids abundantly */
+> +       /* go to the next free nat blocks to find free nids abundantly */
+>         nm_i->next_scan_nid =3D nid;
+>
+> -       /* find free nids from current sum_pages */
+> +       /* find free nids from current sum_blocks */
+>         scan_curseg_cache(sbi);
+>
+>         f2fs_up_read_trace(&nm_i->nat_tree_lock, &lc);
+>
+> -       f2fs_ra_meta_pages(sbi, NAT_BLOCK_OFFSET(sbi, nm_i->next_scan_nid=
+),
+> -                                       nm_i->ra_nid_pages, META_NAT, fal=
+se);
+> +       f2fs_ra_meta_caches(sbi, NAT_BLOCK_OFFSET(sbi, nm_i->next_scan_ni=
+d),
+> +                                       nm_i->ra_nid_blocks, META_NAT, fa=
+lse);
+>
+>         return 0;
+>  }
+> @@ -2758,7 +2757,7 @@ bool f2fs_alloc_nid(struct f2fs_sb_info *sbi, nid_t=
+ *nid)
+>         }
+>         spin_unlock(&nm_i->nid_list_lock);
+>
+> -       /* Let's scan nat pages and its caches to get free nids */
+> +       /* Let's scan nat blocks and its caches to get free nids */
+>         if (!f2fs_build_free_nids(sbi, true, false))
+>                 goto retry;
+>         return false;
+> @@ -2847,7 +2846,7 @@ int f2fs_try_to_free_nids(struct f2fs_sb_info *sbi,=
+ int nr_shrink)
+>         return nr - nr_shrink;
+>  }
+>
+> -int f2fs_recover_inline_xattr(struct inode *inode, struct folio *folio)
+> +int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_bl=
+ock *entry)
+>  {
+>         void *src_addr, *dst_addr;
+>         size_t inline_size;
+> @@ -2858,7 +2857,7 @@ int f2fs_recover_inline_xattr(struct inode *inode, =
+struct folio *folio)
+>         if (IS_ERR(ifolio))
+>                 return PTR_ERR(ifolio);
+>
+> -       ri =3D F2FS_INODE(folio);
+> +       ri =3D &CACHED_NODE(entry)->i;
+>         if (ri->i_inline & F2FS_INLINE_XATTR) {
+>                 if (!f2fs_has_inline_xattr(inode)) {
+>                         set_inode_flag(inode, FI_INLINE_XATTR);
+> @@ -2873,7 +2872,7 @@ int f2fs_recover_inline_xattr(struct inode *inode, =
+struct folio *folio)
+>         }
+>
+>         dst_addr =3D inline_xattr_addr(inode, ifolio);
+> -       src_addr =3D inline_xattr_addr(inode, folio);
+> +       src_addr =3D inline_xattr_addr(inode, cache_folio(entry));
+>         inline_size =3D inline_xattr_size(inode);
+>
+>         f2fs_folio_wait_writeback(ifolio, NODE, true, true);
+> @@ -2884,7 +2883,7 @@ int f2fs_recover_inline_xattr(struct inode *inode, =
+struct folio *folio)
+>         return 0;
+>  }
+>
+> -int f2fs_recover_xattr_data(struct inode *inode, struct folio *folio)
+> +int f2fs_recover_xattr_data(struct inode *inode, struct f2fs_cached_bloc=
+k *entry)
+>  {
+>         struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
+>         nid_t prev_xnid =3D F2FS_I(inode)->i_xattr_nid;
+> @@ -2922,8 +2921,8 @@ int f2fs_recover_xattr_data(struct inode *inode, st=
+ruct folio *folio)
+>         f2fs_update_inode_page(inode);
+>
+>         /* 3: update and set xattr node page dirty */
+> -       if (folio) {
+> -               memcpy(F2FS_NODE(xfolio), F2FS_NODE(folio),
+> +       if (entry) {
+> +               memcpy(F2FS_NODE(xfolio), CACHED_NODE(entry),
+>                                 VALID_XATTR_BLOCK_SIZE(inode));
+>                 folio_mark_dirty(xfolio);
+>         }
+> @@ -2932,10 +2931,10 @@ int f2fs_recover_xattr_data(struct inode *inode, =
+struct folio *folio)
+>         return 0;
+>  }
+>
+> -int f2fs_recover_inode_page(struct f2fs_sb_info *sbi, struct folio *foli=
+o)
+> +int f2fs_recover_inode_page(struct f2fs_sb_info *sbi, struct f2fs_cached=
+_block *entry)
+>  {
+>         struct f2fs_inode *src, *dst;
+> -       nid_t ino =3D ino_of_node(sbi, folio);
+> +       nid_t ino =3D ino_of_node(sbi, cache_folio(entry));
+>         struct node_info old_ni, new_ni;
+>         struct folio *ifolio;
+>         int err;
+> @@ -2961,7 +2960,7 @@ int f2fs_recover_inode_page(struct f2fs_sb_info *sb=
+i, struct folio *folio)
+>         fill_node_footer(sbi, ifolio, ino, ino, 0, true);
+>         set_cold_node(sbi, ifolio, false);
+>
+> -       src =3D F2FS_INODE(folio);
+> +       src =3D &CACHED_NODE(entry)->i;
+>         dst =3D F2FS_INODE(ifolio);
+>
+>         memcpy(dst, src, offsetof(struct f2fs_inode, i_ext));
+> @@ -3008,34 +3007,34 @@ int f2fs_restore_node_summary(struct f2fs_sb_info=
+ *sbi,
+>  {
+>         struct f2fs_summary *sum_entry;
+>         block_t addr;
+> -       int i, idx, last_offset, nrpages;
+> +       int i, idx, last_offset, nrblocks;
+>
+>         /* scan the node segment */
+>         last_offset =3D BLKS_PER_SEG(sbi);
+>         addr =3D START_BLOCK(sbi, segno);
+>         sum_entry =3D sum_entries(sum);
+>
+> -       for (i =3D 0; i < last_offset; i +=3D nrpages, addr +=3D nrpages)=
+ {
+> -               nrpages =3D bio_max_segs(last_offset - i);
+> +       for (i =3D 0; i < last_offset; i +=3D nrblocks, addr +=3D nrblock=
+s) {
+> +               nrblocks =3D bio_max_segs(last_offset - i);
+>
+> -               /* readahead node pages */
+> -               f2fs_ra_meta_pages(sbi, addr, nrpages, META_POR, true);
+> +               /* readahead node blocks */
+> +               f2fs_ra_meta_caches(sbi, addr, nrblocks, META_POR, true);
+>
+> -               for (idx =3D addr; idx < addr + nrpages; idx++) {
+> -                       struct folio *folio =3D f2fs_get_tmp_folio(sbi, i=
+dx);
+> +               for (idx =3D addr; idx < addr + nrblocks; idx++) {
+> +                       struct f2fs_cached_block *entry =3D
+> +                               f2fs_get_tmp_cache(sbi, idx);
+>
+> -                       if (IS_ERR(folio))
+> -                               return PTR_ERR(folio);
+> +                       if (IS_ERR(entry))
+> +                               return PTR_ERR(entry);
+>
+> -                       sum_entry->nid =3D F2FS_NODE_FOOTER(sbi, folio)->=
+nid;
+> +                       sum_entry->nid =3D F2FS_NODE_FOOTER(sbi, cache_fo=
+lio(entry))->nid;
+>                         sum_entry->version =3D 0;
+>                         sum_entry->ofs_in_node =3D 0;
+>                         sum_entry++;
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_put_cache(entry, true);
+>                 }
+>
+> -               invalidate_mapping_pages(META_MAPPING(sbi), addr,
+> -                                                       addr + nrpages);
+> +               f2fs_truncate_meta_caches(sbi, addr, nrblocks);
+>         }
+>         return 0;
+>  }
+> @@ -3145,12 +3144,12 @@ static int __flush_nat_entry_set(struct f2fs_sb_i=
+nfo *sbi,
+>         bool to_journal =3D true;
+>         struct f2fs_nat_block *nat_blk;
+>         struct nat_entry *ne, *cur;
+> -       struct folio *folio =3D NULL;
+> +       struct f2fs_cached_block *entry =3D NULL;
+>
+>         /*
+>          * there are two steps to flush nat entries:
+>          * #1, flush nat entries to journal in current hot data summary b=
+lock.
+> -        * #2, flush nat entries to nat page.
+> +        * #2, flush nat entries to nat block.
+>          */
+>         if (enabled_nat_bits(sbi, cpc) ||
+>                 !__has_cursum_space(sbi, journal, set->entry_cnt, NAT_JOU=
+RNAL))
+> @@ -3159,11 +3158,11 @@ static int __flush_nat_entry_set(struct f2fs_sb_i=
+nfo *sbi,
+>         if (to_journal) {
+>                 down_write(&curseg->journal_rwsem);
+>         } else {
+> -               folio =3D get_next_nat_folio(sbi, start_nid);
+> -               if (IS_ERR(folio))
+> -                       return PTR_ERR(folio);
+> +               entry =3D get_next_nat_cache(sbi, start_nid);
+> +               if (IS_ERR(entry))
+> +                       return PTR_ERR(entry);
+>
+> -               nat_blk =3D folio_address(folio);
+> +               nat_blk =3D cache_address(entry);
+>                 f2fs_bug_on(sbi, !nat_blk);
+>         }
+>
+> @@ -3200,7 +3199,7 @@ static int __flush_nat_entry_set(struct f2fs_sb_inf=
+o *sbi,
+>                 up_write(&curseg->journal_rwsem);
+>         } else {
+>                 __update_nat_bits(sbi, start_nid, nat_blk);
+> -               f2fs_folio_put(folio, true);
+> +               f2fs_put_cache(entry, true);
+>         }
+>
+>         /* Allow dirty nats by node block allocation in write_begin */
+> @@ -3272,7 +3271,7 @@ int f2fs_flush_nat_entries(struct f2fs_sb_info *sbi=
+, struct cp_control *cpc)
+>                         __has_cursum_space(sbi, journal,
+>                                         entry_count, NAT_JOURNAL))
+>                         continue;
+> -               f2fs_ra_meta_pages(sbi, set->set, 1, META_NAT, true);
+> +               f2fs_ra_meta_caches(sbi, set->set, 1, META_NAT, true);
+>         }
+>         /* flush dirty nats in nat entry set */
+>         list_for_each_entry_safe(set, tmp, &sets, set_list) {
+> @@ -3309,15 +3308,15 @@ static int __get_nat_bitmaps(struct f2fs_sb_info =
+*sbi)
+>         nat_bits_addr =3D __start_cp_addr(sbi) + BLKS_PER_SEG(sbi) -
+>                                                 nm_i->nat_bits_blocks;
+>         for (i =3D 0; i < nm_i->nat_bits_blocks; i++) {
+> -               struct folio *folio;
+> +               struct f2fs_cached_block *entry;
+>
+> -               folio =3D f2fs_get_meta_folio(sbi, nat_bits_addr++);
+> -               if (IS_ERR(folio))
+> -                       return PTR_ERR(folio);
+> +               entry =3D f2fs_get_meta_cache(sbi, nat_bits_addr++);
+> +               if (IS_ERR(entry))
+> +                       return PTR_ERR(entry);
+>
+>                 memcpy(nm_i->nat_bits + F2FS_BLK_TO_BYTES(sbi, i),
+> -                                       folio_address(folio), F2FS_BLKSIZ=
+E(sbi));
+> -               f2fs_folio_put(folio, true);
+> +                                       cache_address(entry), F2FS_BLKSIZ=
+E(sbi));
+> +               f2fs_put_cache(entry, true);
+>         }
+>
+>         cp_ver |=3D (cur_cp_crc(ckpt) << 32);
+> @@ -3388,7 +3387,7 @@ static int init_node_manager(struct f2fs_sb_info *s=
+bi)
+>         nm_i->nid_cnt[FREE_NID] =3D 0;
+>         nm_i->nid_cnt[PREALLOC_NID] =3D 0;
+>         nm_i->ram_thresh =3D DEF_RAM_THRESHOLD;
+> -       nm_i->ra_nid_pages =3D DEF_RA_NID_PAGES;
+> +       nm_i->ra_nid_blocks =3D DEF_RA_NID_BLOCKS;
+>         nm_i->dirty_nats_ratio =3D DEF_DIRTY_NAT_RATIO_THRESHOLD;
+>         nm_i->max_rf_node_blocks =3D DEF_RF_NODE_BLOCKS;
+>
+> diff --git a/fs/f2fs/node.h b/fs/f2fs/node.h
+> index 901b9e60fed5..e37fb0d63120 100644
+> --- a/fs/f2fs/node.h
+> +++ b/fs/f2fs/node.h
+> @@ -17,15 +17,15 @@ static inline nid_t f2fs_start_nid(struct f2fs_sb_inf=
+o *sbi, nid_t nid)
+>  #define        NAT_BLOCK_OFFSET(sbi, start_nid) \
+>         ((start_nid) / NAT_ENTRY_PER_BLOCK(sbi))
+>
+> -/* # of pages to perform synchronous readahead before building free nids=
+ */
+> -#define FREE_NID_PAGES 8
+> +/* # of blocks to perform synchronous readahead before building free nid=
+s */
+> +#define FREE_NID_BLOCKS        8
+>  #define MAX_FREE_NIDS(sbi)     ((unsigned long)NAT_ENTRY_PER_BLOCK(sbi) =
+* \
+> -                                FREE_NID_PAGES)
+> +                                FREE_NID_BLOCKS)
+>
+>  /* size of free nid batch when shrinking */
+>  #define SHRINK_NID_BATCH_SIZE  8
+>
+> -#define DEF_RA_NID_PAGES       0       /* # of nid pages to be readahead=
+ed */
+> +#define DEF_RA_NID_BLOCKS      0       /* # of nid blocks to be readahea=
+ded */
+>
+>  /* maximum readahead size for node during getting data blocks */
+>  #define MAX_RA_NODE            128
+> diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
+> index ba3649e6190e..93564e532f2f 100644
+> --- a/fs/f2fs/recovery.c
+> +++ b/fs/f2fs/recovery.c
+> @@ -182,33 +182,33 @@ static const char *recover_printable_name(struct in=
+ode *inode,
+>         return raw->i_name;
+>  }
+>
+> -static int recover_dentry(struct inode *inode, struct folio *ifolio,
+> +static int recover_dentry(struct inode *inode, struct f2fs_cached_block =
+*entry,
+>                                                 struct list_head *dir_lis=
+t)
+>  {
+> -       struct f2fs_inode *raw_inode =3D F2FS_INODE(ifolio);
+> +       struct f2fs_inode *raw_inode =3D &CACHED_NODE(entry)->i;
+>         nid_t pino =3D le32_to_cpu(raw_inode->i_pino);
+>         struct f2fs_dir_entry *de;
+>         struct f2fs_filename fname;
+>         struct qstr usr_fname;
+>         struct folio *folio;
+>         struct inode *dir, *einode;
+> -       struct fsync_inode_entry *entry;
+> +       struct fsync_inode_entry *fsync_entry;
+>         int err =3D 0;
+>         const char *name;
+>         int name_len;
+>
+> -       entry =3D get_fsync_inode(dir_list, pino);
+> -       if (!entry) {
+> -               entry =3D add_fsync_inode(F2FS_I_SB(inode), dir_list,
+> +       fsync_entry =3D get_fsync_inode(dir_list, pino);
+> +       if (!fsync_entry) {
+> +               fsync_entry =3D add_fsync_inode(F2FS_I_SB(inode), dir_lis=
+t,
+>                                                         pino, false);
+> -               if (IS_ERR(entry)) {
+> -                       dir =3D ERR_CAST(entry);
+> -                       err =3D PTR_ERR(entry);
+> +               if (IS_ERR(fsync_entry)) {
+> +                       dir =3D ERR_CAST(fsync_entry);
+> +                       err =3D PTR_ERR(fsync_entry);
+>                         goto out;
+>                 }
+>         }
+>
+> -       dir =3D entry->inode;
+> +       dir =3D fsync_entry->inode;
+>         err =3D init_recovered_filename(dir, inode, raw_inode, &fname, &u=
+sr_fname);
+>         if (err)
+>                 goto out;
+> @@ -256,14 +256,14 @@ static int recover_dentry(struct inode *inode, stru=
+ct folio *ifolio,
+>  out:
+>         name =3D recover_printable_name(inode, raw_inode, &name_len);
+>         f2fs_notice(F2FS_I_SB(inode), "%s: ino =3D %x, name =3D %.*s, dir=
+ =3D %llu, err =3D %d",
+> -                   __func__, ino_of_node(F2FS_I_SB(inode), ifolio), name=
+_len, name,
+> +                   __func__, ino_of_node(F2FS_I_SB(inode), cache_folio(e=
+ntry)), name_len, name,
+>                     IS_ERR(dir) ? 0 : dir->i_ino, err);
+>         return err;
+>  }
+>
+> -static int recover_quota_data(struct inode *inode, struct folio *folio)
+> +static int recover_quota_data(struct inode *inode, struct f2fs_cached_bl=
+ock *entry)
+>  {
+> -       struct f2fs_inode *raw =3D F2FS_INODE(folio);
+> +       struct f2fs_inode *raw =3D &CACHED_NODE(entry)->i;
+>         struct iattr attr;
+>         uid_t i_uid =3D le32_to_cpu(raw->i_uid);
+>         gid_t i_gid =3D le32_to_cpu(raw->i_gid);
+> @@ -300,9 +300,9 @@ static void recover_inline_flags(struct inode *inode,=
+ struct f2fs_inode *ri)
+>                 clear_inode_flag(inode, FI_DATA_EXIST);
+>  }
+>
+> -static int recover_inode(struct inode *inode, struct folio *folio)
+> +static int recover_inode(struct inode *inode, struct f2fs_cached_block *=
+entry)
+>  {
+> -       struct f2fs_inode *raw =3D F2FS_INODE(folio);
+> +       struct f2fs_inode *raw =3D &CACHED_NODE(entry)->i;
+>         struct f2fs_inode_info *fi =3D F2FS_I(inode);
+>         const char *name;
+>         int name_len;
+> @@ -310,7 +310,7 @@ static int recover_inode(struct inode *inode, struct =
+folio *folio)
+>
+>         inode->i_mode =3D le16_to_cpu(raw->i_mode);
+>
+> -       err =3D recover_quota_data(inode, folio);
+> +       err =3D recover_quota_data(inode, entry);
+>         if (err)
+>                 return err;
+>
+> @@ -357,7 +357,7 @@ static int recover_inode(struct inode *inode, struct =
+folio *folio)
+>         name =3D recover_printable_name(inode, raw, &name_len);
+>
+>         f2fs_notice(F2FS_I_SB(inode), "%s: ino =3D %x, name =3D %.*s, inl=
+ine =3D %x",
+> -                   __func__, ino_of_node(F2FS_I_SB(inode), folio), name_=
+len, name,
+> +                   __func__, ino_of_node(F2FS_I_SB(inode), cache_folio(e=
+ntry)), name_len, name,
+>                     raw->i_inline);
+>         return 0;
+>  }
+> @@ -386,30 +386,30 @@ static int sanity_check_node_chain(struct f2fs_sb_i=
+nfo *sbi, block_t blkaddr,
+>                 return 0;
+>
+>         for (i =3D 0; i < 2; i++) {
+> -               struct folio *folio;
+> +               struct f2fs_cached_block *entry;
+>
+>                 if (!f2fs_is_valid_blkaddr(sbi, *blkaddr_fast, META_POR))=
+ {
+>                         *is_detecting =3D false;
+>                         return 0;
+>                 }
+>
+> -               folio =3D f2fs_get_tmp_folio(sbi, *blkaddr_fast);
+> -               if (IS_ERR(folio))
+> -                       return PTR_ERR(folio);
+> +               entry =3D f2fs_get_tmp_cache(sbi, *blkaddr_fast);
+> +               if (IS_ERR(entry))
+> +                       return PTR_ERR(entry);
+>
+> -               if (!is_recoverable_dnode(sbi, folio)) {
+> -                       f2fs_folio_put(folio, true);
+> +               if (!is_recoverable_dnode(sbi, cache_folio(entry))) {
+> +                       f2fs_put_cache(entry, true);
+>                         *is_detecting =3D false;
+>                         return 0;
+>                 }
+>
+>                 ra_blocks =3D adjust_por_ra_blocks(sbi, ra_blocks, *blkad=
+dr_fast,
+> -                                       next_blkaddr_of_node(sbi, folio))=
+;
+> +                                       next_blkaddr_of_node(sbi, cache_f=
+olio(entry)));
+>
+> -               *blkaddr_fast =3D next_blkaddr_of_node(sbi, folio);
+> -               f2fs_folio_put(folio, true);
+> +               *blkaddr_fast =3D next_blkaddr_of_node(sbi, cache_folio(e=
+ntry));
+> +               f2fs_put_cache(entry, true);
+>
+> -               f2fs_ra_meta_pages_cond(sbi, *blkaddr_fast, ra_blocks);
+> +               f2fs_ra_meta_caches_cond(sbi, *blkaddr_fast, ra_blocks);
+>         }
+>
+>         if (*blkaddr_fast =3D=3D blkaddr) {
+> @@ -434,45 +434,45 @@ static int find_fsync_dnodes(struct f2fs_sb_info *s=
+bi, struct list_head *head,
+>         blkaddr_fast =3D blkaddr;
+>
+>         while (1) {
+> -               struct fsync_inode_entry *entry;
+> -               struct folio *folio;
+> +               struct fsync_inode_entry *fsync_entry;
+> +               struct f2fs_cached_block *entry;
+>
+>                 if (!f2fs_is_valid_blkaddr(sbi, blkaddr, META_POR))
+>                         return 0;
+>
+> -               folio =3D f2fs_get_tmp_folio(sbi, blkaddr);
+> -               if (IS_ERR(folio)) {
+> -                       err =3D PTR_ERR(folio);
+> +               entry =3D f2fs_get_tmp_cache(sbi, blkaddr);
+> +               if (IS_ERR(entry)) {
+> +                       err =3D PTR_ERR(entry);
+>                         break;
+>                 }
+>
+> -               if (!is_recoverable_dnode(sbi, folio)) {
+> -                       f2fs_folio_put(folio, true);
+> +               if (!is_recoverable_dnode(sbi, cache_folio(entry))) {
+> +                       f2fs_put_cache(entry, true);
+>                         break;
+>                 }
+>
+> -               if (!is_fsync_dnode(sbi, folio))
+> +               if (!is_fsync_dnode(sbi, cache_folio(entry)))
+>                         goto next;
+>
+> -               entry =3D get_fsync_inode(head, ino_of_node(sbi, folio));
+> -               if (!entry) {
+> +               fsync_entry =3D get_fsync_inode(head, ino_of_node(sbi, ca=
+che_folio(entry)));
+> +               if (!fsync_entry) {
+>                         bool quota_inode =3D false;
+>
+>                         if (!check_only &&
+> -                                       IS_INODE(sbi, folio) &&
+> -                                       is_dent_dnode(sbi, folio)) {
+> -                               err =3D f2fs_recover_inode_page(sbi, foli=
+o);
+> +                                       IS_INODE(sbi, cache_folio(entry))=
+ &&
+> +                                       is_dent_dnode(sbi, cache_folio(en=
+try))) {
+> +                               err =3D f2fs_recover_inode_page(sbi, entr=
+y);
+>                                 if (err) {
+> -                                       f2fs_folio_put(folio, true);
+> +                                       f2fs_put_cache(entry, true);
+>                                         break;
+>                                 }
+>                                 quota_inode =3D true;
+>                         }
+>
+> -                       entry =3D add_fsync_inode(sbi, head, ino_of_node(=
+sbi, folio),
+> +                       fsync_entry =3D add_fsync_inode(sbi, head, ino_of=
+_node(sbi, cache_folio(entry)),
+>                                                                 quota_ino=
+de);
+> -                       if (IS_ERR(entry)) {
+> -                               err =3D PTR_ERR(entry);
+> +                       if (IS_ERR(fsync_entry)) {
+> +                               err =3D PTR_ERR(fsync_entry);
+>                                 /*
+>                                  * CP | dnode(F) | inode(DF)
+>                                  * For this case, we should not give up n=
+ow.
+> @@ -482,18 +482,18 @@ static int find_fsync_dnodes(struct f2fs_sb_info *s=
+bi, struct list_head *head,
+>                                                 *new_inode =3D true;
+>                                         goto next;
+>                                 }
+> -                               f2fs_folio_put(folio, true);
+> +                               f2fs_put_cache(entry, true);
+>                                 break;
+>                         }
+>                 }
+> -               entry->blkaddr =3D blkaddr;
+> +               fsync_entry->blkaddr =3D blkaddr;
+>
+> -               if (IS_INODE(sbi, folio) && is_dent_dnode(sbi, folio))
+> -                       entry->last_dentry =3D blkaddr;
+> +               if (IS_INODE(sbi, cache_folio(entry)) && is_dent_dnode(sb=
+i, cache_folio(entry)))
+> +                       fsync_entry->last_dentry =3D blkaddr;
+>  next:
+>                 /* check next segment */
+> -               blkaddr =3D next_blkaddr_of_node(sbi, folio);
+> -               f2fs_folio_put(folio, true);
+> +               blkaddr =3D next_blkaddr_of_node(sbi, cache_folio(entry))=
+;
+> +               f2fs_put_cache(entry, true);
+>
+>                 err =3D sanity_check_node_chain(sbi, blkaddr, &blkaddr_fa=
+st,
+>                                 &is_detecting);
+> @@ -519,7 +519,8 @@ static int check_index_in_prev_nodes(struct f2fs_sb_i=
+nfo *sbi,
+>         unsigned short blkoff =3D GET_BLKOFF_FROM_SEG0(sbi, blkaddr);
+>         struct f2fs_summary_block *sum_node;
+>         struct f2fs_summary sum;
+> -       struct folio *sum_folio, *node_folio;
+> +       struct f2fs_cached_block *entry =3D NULL;
+> +       struct folio *node_folio;
+>         struct dnode_of_data tdn =3D *dn;
+>         nid_t ino, nid;
+>         struct inode *inode;
+> @@ -541,12 +542,12 @@ static int check_index_in_prev_nodes(struct f2fs_sb=
+_info *sbi,
+>                 }
+>         }
+>
+> -       sum_folio =3D f2fs_get_sum_folio(sbi, segno);
+> -       if (IS_ERR(sum_folio))
+> -               return PTR_ERR(sum_folio);
+> -       sum_node =3D SUM_BLK_PAGE_ADDR(sbi, sum_folio, segno);
+> +       entry =3D f2fs_get_sum_cache(sbi, segno);
+> +       if (IS_ERR(entry))
+> +               return PTR_ERR(entry);
+> +       sum_node =3D SUM_BLK_ENTRY_ADDR(sbi, entry, segno);
+>         sum =3D sum_entries(sum_node)[blkoff];
+> -       f2fs_folio_put(sum_folio, true);
+> +       f2fs_put_cache(entry, true);
+>  got_it:
+>         /* Use the locked dnode page and inode */
+>         nid =3D le32_to_cpu(sum.nid);
+> @@ -645,7 +646,7 @@ static int f2fs_reserve_new_block_retry(struct dnode_=
+of_data *dn)
+>  }
+>
+>  static int do_recover_data(struct f2fs_sb_info *sbi, struct inode *inode=
+,
+> -                                       struct folio *folio)
+> +                                       struct f2fs_cached_block *entry)
+>  {
+>         struct dnode_of_data dn;
+>         struct node_info ni;
+> @@ -653,19 +654,19 @@ static int do_recover_data(struct f2fs_sb_info *sbi=
+, struct inode *inode,
+>         int err =3D 0, recovered =3D 0;
+>
+>         /* step 1: recover xattr */
+> -       if (IS_INODE(sbi, folio)) {
+> -               err =3D f2fs_recover_inline_xattr(inode, folio);
+> +       if (IS_INODE(sbi, cache_folio(entry))) {
+> +               err =3D f2fs_recover_inline_xattr(inode, entry);
+>                 if (err)
+>                         goto out;
+> -       } else if (f2fs_has_xattr_block(ofs_of_node(sbi, folio))) {
+> -               err =3D f2fs_recover_xattr_data(inode, folio);
+> +       } else if (f2fs_has_xattr_block(ofs_of_node(sbi, cache_folio(entr=
+y)))) {
+> +               err =3D f2fs_recover_xattr_data(inode, entry);
+>                 if (!err)
+>                         recovered++;
+>                 goto out;
+>         }
+>
+>         /* step 2: recover inline data */
+> -       err =3D f2fs_recover_inline_data(inode, folio);
+> +       err =3D f2fs_recover_inline_data(inode, entry);
+>         if (err) {
+>                 if (err =3D=3D 1)
+>                         err =3D 0;
+> @@ -673,8 +674,8 @@ static int do_recover_data(struct f2fs_sb_info *sbi, =
+struct inode *inode,
+>         }
+>
+>         /* step 3: recover data indices */
+> -       start =3D f2fs_start_bidx_of_node(ofs_of_node(sbi, folio), inode)=
+;
+> -       end =3D start + ADDRS_PER_PAGE(folio, inode);
+> +       start =3D f2fs_start_bidx_of_node(ofs_of_node(sbi, cache_folio(en=
+try)), inode);
+> +       end =3D start + addrs_per_page(inode, IS_INODE(sbi, cache_folio(e=
+ntry)));
+>
+>         set_new_dnode(&dn, inode, NULL, NULL, 0);
+>  retry_dn:
+> @@ -693,12 +694,12 @@ static int do_recover_data(struct f2fs_sb_info *sbi=
+, struct inode *inode,
+>         if (err)
+>                 goto err;
+>
+> -       f2fs_bug_on(sbi, ni.ino !=3D ino_of_node(sbi, folio));
+> +       f2fs_bug_on(sbi, ni.ino !=3D ino_of_node(sbi, cache_folio(entry))=
+);
+>
+> -       if (ofs_of_node(sbi, dn.node_folio) !=3D ofs_of_node(sbi, folio))=
+ {
+> +       if (ofs_of_node(sbi, dn.node_folio) !=3D ofs_of_node(sbi, cache_f=
+olio(entry))) {
+>                 f2fs_warn(sbi, "Inconsistent ofs_of_node, ino:%llu, ofs:%=
+u, %u",
+>                           inode->i_ino, ofs_of_node(sbi, dn.node_folio),
+> -                         ofs_of_node(sbi, folio));
+> +                         ofs_of_node(sbi, cache_folio(entry)));
+>                 err =3D -EFSCORRUPTED;
+>                 f2fs_handle_error(sbi, ERROR_INCONSISTENT_FOOTER);
+>                 fserror_report_file_metadata(dn.inode, err, GFP_NOFS);
+> @@ -709,7 +710,7 @@ static int do_recover_data(struct f2fs_sb_info *sbi, =
+struct inode *inode,
+>                 block_t src, dest;
+>
+>                 src =3D f2fs_data_blkaddr(&dn);
+> -               dest =3D data_blkaddr(dn.inode, folio, dn.ofs_in_node);
+> +               dest =3D data_blkaddr(dn.inode, cache_folio(entry), dn.of=
+s_in_node);
+>
+>                 if (__is_valid_data_blkaddr(src) &&
+>                         !f2fs_is_valid_blkaddr(sbi, src, META_POR)) {
+> @@ -784,16 +785,16 @@ static int do_recover_data(struct f2fs_sb_info *sbi=
+, struct inode *inode,
+>                 }
+>         }
+>
+> -       copy_node_footer(sbi, dn.node_folio, folio);
+> +       copy_node_footer(sbi, dn.node_folio, cache_folio(entry));
+>         fill_node_footer(sbi, dn.node_folio, dn.nid, ni.ino,
+> -                                       ofs_of_node(sbi, folio), false);
+> +                                       ofs_of_node(sbi, cache_folio(entr=
+y)), false);
+>         folio_mark_dirty(dn.node_folio);
+>  err:
+>         f2fs_put_dnode(&dn);
+>  out:
+>         f2fs_notice(sbi, "recover_data: ino =3D %llx, nid =3D %x (i_size:=
+ %s), "
+>                     "range (%u, %u), recovered =3D %d, err =3D %d",
+> -                   inode->i_ino, nid_of_node(sbi, folio),
+> +                   inode->i_ino, nid_of_node(sbi, cache_folio(entry)),
+>                     file_keep_isize(inode) ? "keep" : "recover",
+>                     start, end, recovered, err);
+>         return err;
+> @@ -820,26 +821,26 @@ static int recover_data(struct f2fs_sb_info *sbi, s=
+truct list_head *inode_list,
+>         blkaddr =3D NEXT_FREE_BLKADDR(sbi, curseg);
+>
+>         while (1) {
+> -               struct fsync_inode_entry *entry;
+> -               struct folio *folio;
+> +               struct fsync_inode_entry *fsync_entry;
+> +               struct f2fs_cached_block *entry;
+>
+>                 if (!f2fs_is_valid_blkaddr(sbi, blkaddr, META_POR))
+>                         break;
+>
+> -               folio =3D f2fs_get_tmp_folio(sbi, blkaddr);
+> -               if (IS_ERR(folio)) {
+> -                       err =3D PTR_ERR(folio);
+> +               entry =3D f2fs_get_tmp_cache(sbi, blkaddr);
+> +               if (IS_ERR(entry)) {
+> +                       err =3D PTR_ERR(entry);
+>                         break;
+>                 }
+>
+> -               if (!is_recoverable_dnode(sbi, folio)) {
+> -                       f2fs_folio_put(folio, true);
+> +               if (!is_recoverable_dnode(sbi, cache_folio(entry))) {
+> +                       f2fs_put_cache(entry, true);
+>                         break;
+>                 }
+>                 recoverable_dnode++;
+>
+> -               entry =3D get_fsync_inode(inode_list, ino_of_node(sbi, fo=
+lio));
+> -               if (!entry)
+> +               fsync_entry =3D get_fsync_inode(inode_list, ino_of_node(s=
+bi, cache_folio(entry)));
+> +               if (!fsync_entry)
+>                         goto next;
+>                 fsynced_dnode++;
+>                 /*
+> @@ -847,40 +848,40 @@ static int recover_data(struct f2fs_sb_info *sbi, s=
+truct list_head *inode_list,
+>                  * In this case, we can lose the latest inode(x).
+>                  * So, call recover_inode for the inode update.
+>                  */
+> -               if (IS_INODE(sbi, folio)) {
+> -                       err =3D recover_inode(entry->inode, folio);
+> +               if (IS_INODE(sbi, cache_folio(entry))) {
+> +                       err =3D recover_inode(fsync_entry->inode, entry);
+>                         if (err) {
+> -                               f2fs_folio_put(folio, true);
+> +                               f2fs_put_cache(entry, true);
+>                                 break;
+>                         }
+>                         recovered_inode++;
+>                 }
+> -               if (entry->last_dentry =3D=3D blkaddr) {
+> -                       err =3D recover_dentry(entry->inode, folio, dir_l=
+ist);
+> +               if (fsync_entry->last_dentry =3D=3D blkaddr) {
+> +                       err =3D recover_dentry(fsync_entry->inode, entry,=
+ dir_list);
+>                         if (err) {
+> -                               f2fs_folio_put(folio, true);
+> +                               f2fs_put_cache(entry, true);
+>                                 break;
+>                         }
+>                         recovered_dentry++;
+>                 }
+> -               err =3D do_recover_data(sbi, entry->inode, folio);
+> +               err =3D do_recover_data(sbi, fsync_entry->inode, entry);
+>                 if (err) {
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_put_cache(entry, true);
+>                         break;
+>                 }
+>                 recovered_dnode++;
+>
+> -               if (entry->blkaddr =3D=3D blkaddr)
+> -                       list_move_tail(&entry->list, tmp_inode_list);
+> +               if (fsync_entry->blkaddr =3D=3D blkaddr)
+> +                       list_move_tail(&fsync_entry->list, tmp_inode_list=
+);
+>  next:
+>                 ra_blocks =3D adjust_por_ra_blocks(sbi, ra_blocks, blkadd=
+r,
+> -                                       next_blkaddr_of_node(sbi, folio))=
+;
+> +                                       next_blkaddr_of_node(sbi, cache_f=
+olio(entry)));
+>
+>                 /* check next segment */
+> -               blkaddr =3D next_blkaddr_of_node(sbi, folio);
+> -               f2fs_folio_put(folio, true);
+> +               blkaddr =3D next_blkaddr_of_node(sbi, cache_folio(entry))=
+;
+> +               f2fs_put_cache(entry, true);
+>
+> -               f2fs_ra_meta_pages_cond(sbi, blkaddr, ra_blocks);
+> +               f2fs_ra_meta_caches_cond(sbi, blkaddr, ra_blocks);
+>                 total_dnode++;
+>         }
+>         if (!err)
+> @@ -937,12 +938,11 @@ int f2fs_recover_fsync_data(struct f2fs_sb_info *sb=
+i, bool check_only)
+>         destroy_fsync_dnodes(&tmp_inode_list, err);
+>
+>         /* truncate meta pages to be used by the recovery */
+> -       truncate_inode_pages_range(META_MAPPING(sbi),
+> -                       (loff_t)MAIN_BLKADDR(sbi) << PAGE_SHIFT, -1);
+> -
+> +       f2fs_truncate_meta_caches(sbi, MAIN_BLKADDR(sbi),
+> +                               MAX_BLKADDR(sbi) - MAIN_BLKADDR(sbi));
+>         if (err) {
+>                 truncate_inode_pages_final(NODE_MAPPING(sbi));
+> -               truncate_inode_pages_final(META_MAPPING(sbi));
+> +               f2fs_truncate_meta_caches(sbi, 0, ULONG_MAX);
+>         }
+>
+>         /*
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index ffdd2c510b3c..9d08e762b131 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -2805,12 +2805,12 @@ static unsigned short f2fs_curseg_valid_blocks(st=
+ruct f2fs_sb_info *sbi, int typ
+>  }
+>
+>  /*
+> - * Calculate the number of current summary pages for writing
+> + * Calculate the number of current summary blocks for writing
+>   */
+> -int f2fs_npages_for_summary_flush(struct f2fs_sb_info *sbi, bool for_ra)
+> +int f2fs_nblocks_for_summary_flush(struct f2fs_sb_info *sbi, bool for_ra=
+)
+>  {
+>         int valid_sum_count =3D 0;
+> -       int i, sum_in_page;
+> +       int i, sum_in_block;
+>
+>         for (i =3D CURSEG_HOT_DATA; i <=3D CURSEG_COLD_DATA; i++) {
+>                 if (sbi->ckpt->alloc_type[i] !=3D SSR && for_ra)
+> @@ -2820,73 +2820,72 @@ int f2fs_npages_for_summary_flush(struct f2fs_sb_=
+info *sbi, bool for_ra)
+>                         valid_sum_count +=3D f2fs_curseg_valid_blocks(sbi=
+, i);
+>         }
+>
+> -       sum_in_page =3D (sbi->blocksize - 2 * sbi->sum_journal_size -
+> +       sum_in_block =3D (sbi->blocksize - 2 * sbi->sum_journal_size -
+>                         SUM_FOOTER_SIZE) / SUMMARY_SIZE;
+> -       if (valid_sum_count <=3D sum_in_page)
+> +       if (valid_sum_count <=3D sum_in_block)
+>                 return 1;
+> -       else if ((valid_sum_count - sum_in_page) <=3D
+> +       else if ((valid_sum_count - sum_in_block) <=3D
+>                 (sbi->blocksize - SUM_FOOTER_SIZE) / SUMMARY_SIZE)
+>                 return 2;
+>         return 3;
+>  }
+>
+> -/*
+> - * Caller should put this summary folio
+> - */
+> -struct folio *f2fs_get_sum_folio(struct f2fs_sb_info *sbi, unsigned int =
+segno)
+> +
+> +struct f2fs_cached_block *f2fs_get_sum_cache(struct f2fs_sb_info *sbi,
+> +               unsigned int segno)
+>  {
+>         if (unlikely(f2fs_cp_error(sbi)))
+>                 return ERR_PTR(-EIO);
+> -       return f2fs_get_meta_folio_retry(sbi, GET_SUM_BLOCK(sbi, segno));
+> +       return f2fs_get_meta_cache_retry(sbi, GET_SUM_BLOCK(sbi, segno));
+>  }
+>
+> -void f2fs_update_meta_page(struct f2fs_sb_info *sbi,
+> +void f2fs_update_meta_block(struct f2fs_sb_info *sbi,
+>                                         void *src, block_t blk_addr)
+>  {
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>
+>         if (!f2fs_sb_has_packed_ssa(sbi))
+> -               folio =3D f2fs_grab_meta_folio(sbi, blk_addr);
+> +               entry =3D f2fs_grab_meta_cache(sbi, blk_addr);
+>         else
+> -               folio =3D f2fs_get_meta_folio_retry(sbi, blk_addr);
+> +               entry =3D f2fs_get_meta_cache_retry(sbi, blk_addr);
+>
+> -       if (IS_ERR(folio))
+> +       if (IS_ERR(entry))
+>                 return;
+>
+> -       memcpy(folio_address(folio), src, F2FS_BLKSIZE(sbi));
+> -       folio_mark_dirty(folio);
+> -       f2fs_folio_put(folio, true);
+> +       memcpy(cache_address(entry), src, F2FS_BLKSIZE(sbi));
+> +       f2fs_mark_cache_dirty(entry);
+> +       f2fs_put_cache(entry, true);
+>  }
+>
+> -static void write_sum_page(struct f2fs_sb_info *sbi,
+> +static void write_sum_block(struct f2fs_sb_info *sbi,
+>                 struct f2fs_summary_block *sum_blk, unsigned int segno)
+>  {
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>
+>         if (!f2fs_sb_has_packed_ssa(sbi))
+> -               return f2fs_update_meta_page(sbi, (void *)sum_blk,
+> +               return f2fs_update_meta_block(sbi, (void *)sum_blk,
+>                                 GET_SUM_BLOCK(sbi, segno));
+>
+> -       folio =3D f2fs_get_sum_folio(sbi, segno);
+> -       if (IS_ERR(folio))
+> +       entry =3D f2fs_get_sum_cache(sbi, segno);
+> +       if (IS_ERR(entry))
+>                 return;
+>
+> -       memcpy(SUM_BLK_PAGE_ADDR(sbi, folio, segno), sum_blk,
+> +       memcpy(SUM_BLK_ENTRY_ADDR(sbi, entry, segno), sum_blk,
+>                         sbi->sum_blocksize);
+> -       folio_mark_dirty(folio);
+> -       f2fs_folio_put(folio, true);
+> +       f2fs_mark_cache_dirty(entry);
+> +       f2fs_put_cache(entry, true);
+>  }
+>
+> -static void write_current_sum_page(struct f2fs_sb_info *sbi,
+> +static void write_current_sum_block(struct f2fs_sb_info *sbi,
+>                                                 int type, block_t blk_add=
+r)
+>  {
+>         struct curseg_info *curseg =3D CURSEG_I(sbi, type);
+> -       struct folio *folio =3D f2fs_grab_meta_folio(sbi, blk_addr);
+> +       struct f2fs_cached_block *entry =3D f2fs_grab_meta_cache(sbi, blk=
+_addr);
+>         struct f2fs_summary_block *src =3D curseg->sum_blk;
+>         struct f2fs_summary_block *dst;
+>
+> -       dst =3D folio_address(folio);
+> -       memset(dst, 0, PAGE_SIZE);
+> +       dst =3D cache_address(entry);
+> +       memset(dst, 0, sbi->blocksize);
+>
+>         mutex_lock(&curseg->curseg_mutex);
+>
+> @@ -2899,8 +2898,8 @@ static void write_current_sum_page(struct f2fs_sb_i=
+nfo *sbi,
+>
+>         mutex_unlock(&curseg->curseg_mutex);
+>
+> -       folio_mark_dirty(folio);
+> -       f2fs_folio_put(folio, true);
+> +       f2fs_mark_cache_dirty(entry);
+> +       f2fs_put_cache(entry, true);
+>  }
+>
+>  static int is_next_segment_free(struct f2fs_sb_info *sbi,
+> @@ -3160,7 +3159,7 @@ static int new_curseg(struct f2fs_sb_info *sbi, int=
+ type, bool new_sec)
+>         int ret;
+>
+>         if (curseg->inited)
+> -               write_sum_page(sbi, curseg->sum_blk, segno);
+> +               write_sum_block(sbi, curseg->sum_blk, segno);
+>
+>         segno =3D __get_next_segno(sbi, type);
+>         ret =3D get_new_segment(sbi, &segno, new_sec, pinning);
+> @@ -3216,10 +3215,10 @@ static int change_curseg(struct f2fs_sb_info *sbi=
+, int type)
+>         struct curseg_info *curseg =3D CURSEG_I(sbi, type);
+>         unsigned int new_segno =3D curseg->next_segno;
+>         struct f2fs_summary_block *sum_node;
+> -       struct folio *sum_folio;
+> +       struct f2fs_cached_block *entry =3D NULL;
+>
+>         if (curseg->inited)
+> -               write_sum_page(sbi, curseg->sum_blk, curseg->segno);
+> +               write_sum_block(sbi, curseg->sum_blk, curseg->segno);
+>
+>         __set_test_and_inuse(sbi, new_segno);
+>
+> @@ -3232,15 +3231,15 @@ static int change_curseg(struct f2fs_sb_info *sbi=
+, int type)
+>         curseg->alloc_type =3D SSR;
+>         curseg->next_blkoff =3D __next_free_blkoff(sbi, curseg->segno, 0)=
+;
+>
+> -       sum_folio =3D f2fs_get_sum_folio(sbi, new_segno);
+> -       if (IS_ERR(sum_folio)) {
+> -               /* GC won't be able to use stale summary pages by cp_erro=
+r */
+> +       entry =3D f2fs_get_sum_cache(sbi, new_segno);
+> +       if (IS_ERR(entry)) {
+> +               /* GC won't be able to use stale summary blocks by cp_err=
+or */
+>                 memset(curseg->sum_blk, 0, sbi->sum_entry_size);
+> -               return PTR_ERR(sum_folio);
+> +               return PTR_ERR(entry);
+>         }
+> -       sum_node =3D SUM_BLK_PAGE_ADDR(sbi, sum_folio, new_segno);
+> +       sum_node =3D SUM_BLK_ENTRY_ADDR(sbi, entry, new_segno);
+>         memcpy(curseg->sum_blk, sum_node, sbi->sum_entry_size);
+> -       f2fs_folio_put(sum_folio, true);
+> +       f2fs_put_cache(entry, true);
+>         return 0;
+>  }
+>
+> @@ -3327,7 +3326,7 @@ static void __f2fs_save_inmem_curseg(struct f2fs_sb=
+_info *sbi, int type)
+>                 goto out;
+>
+>         if (get_valid_blocks(sbi, curseg->segno, false)) {
+> -               write_sum_page(sbi, curseg->sum_blk, curseg->segno);
+> +               write_sum_block(sbi, curseg->sum_blk, curseg->segno);
+>         } else {
+>                 mutex_lock(&DIRTY_I(sbi)->seglist_lock);
+>                 __set_test_and_free(sbi, curseg->segno, true);
+> @@ -4023,7 +4022,7 @@ int f2fs_allocate_data_block(struct f2fs_sb_info *s=
+bi, struct folio *folio,
+>         if (segment_full) {
+>                 if (type =3D=3D CURSEG_COLD_DATA_PINNED &&
+>                     !((curseg->segno + 1) % sbi->segs_per_sec)) {
+> -                       write_sum_page(sbi, curseg->sum_blk, curseg->segn=
+o);
+> +                       write_sum_block(sbi, curseg->sum_blk, curseg->seg=
+no);
+>                         reset_curseg_fields(curseg);
+>                         goto skip_new_segment;
+>                 }
+> @@ -4141,7 +4140,7 @@ static int log_type_to_seg_type(enum log_type type)
+>         return seg_type;
+>  }
+>
+> -static void do_write_page(struct f2fs_summary *sum, struct f2fs_io_info =
+*fio)
+> +static void do_write_block(struct f2fs_summary *sum, struct f2fs_io_info=
+ *fio)
+>  {
+>         struct folio *folio =3D fio->folio;
+>         enum log_type type =3D __get_segment_type(fio);
+> @@ -4183,8 +4182,9 @@ static void do_write_page(struct f2fs_summary *sum,=
+ struct f2fs_io_info *fio)
+>                 f2fs_up_read(&fio->sbi->io_order_lock);
+>  }
+>
+> -void f2fs_do_write_meta_page(struct f2fs_sb_info *sbi, struct folio *fol=
+io,
+> -                                       enum iostat_type io_type)
+> +void f2fs_do_write_meta_cache(struct f2fs_sb_info *sbi,
+> +                       struct f2fs_cached_block *entry,
+> +                       enum iostat_type io_type)
+>  {
+>         struct f2fs_io_info fio =3D {
+>                 .sbi =3D sbi,
+> @@ -4192,20 +4192,21 @@ void f2fs_do_write_meta_page(struct f2fs_sb_info =
+*sbi, struct folio *folio,
+>                 .temp =3D HOT,
+>                 .op =3D REQ_OP_WRITE,
+>                 .op_flags =3D REQ_SYNC | REQ_META | REQ_PRIO,
+> -               .old_blkaddr =3D folio->index,
+> -               .new_blkaddr =3D folio->index,
+> -               .folio =3D folio,
+> +               .old_blkaddr =3D entry->index,
+> +               .new_blkaddr =3D entry->index,
+>                 .encrypted_page =3D NULL,
+>                 .in_list =3D 0,
+> +               .cache_entry =3D entry,
+> +               .is_cache =3D 1,
+>         };
+>
+> -       if (unlikely(folio->index >=3D MAIN_BLKADDR(sbi)))
+> +       if (unlikely(entry->index >=3D MAIN_BLKADDR(sbi)))
+>                 fio.op_flags &=3D ~REQ_META;
+>
+> -       folio_start_writeback(folio);
+> -       f2fs_submit_page_write(&fio);
+> +       f2fs_start_cache_writeback(entry);
+> +       f2fs_submit_cache_write(&fio);
+>
+> -       stat_inc_meta_count(sbi, folio->index);
+> +       stat_inc_meta_count(sbi, entry->index);
+>         f2fs_update_iostat(sbi, NULL, io_type, F2FS_BLKSIZE(sbi));
+>  }
+>
+> @@ -4214,7 +4215,7 @@ void f2fs_do_write_node_page(unsigned int nid, stru=
+ct f2fs_io_info *fio)
+>         struct f2fs_summary sum;
+>
+>         set_summary(&sum, nid, 0, 0);
+> -       do_write_page(&sum, fio);
+> +       do_write_block(&sum, fio);
+>
+>         f2fs_update_iostat(fio->sbi, NULL, fio->io_type,
+>                                         F2FS_BLKSIZE(fio->sbi));
+> @@ -4230,7 +4231,7 @@ void f2fs_outplace_write_data(struct dnode_of_data =
+*dn,
+>         if (fio->io_type =3D=3D FS_DATA_IO || fio->io_type =3D=3D FS_CP_D=
+ATA_IO)
+>                 f2fs_update_age_extent_cache(dn);
+>         set_summary(&sum, dn->nid, dn->ofs_in_node, fio->version);
+> -       do_write_page(&sum, fio);
+> +       do_write_block(&sum, fio);
+>         f2fs_update_data_blkaddr(dn, fio->new_blkaddr);
+>
+>         f2fs_update_iostat(sbi, dn->inode, fio->io_type,
+> @@ -4264,7 +4265,7 @@ int f2fs_inplace_write_data(struct f2fs_io_info *fi=
+o)
+>         }
+>
+>         if (fio->meta_gc)
+> -               f2fs_truncate_meta_inode_pages(sbi, fio->new_blkaddr, 1);
+> +               f2fs_truncate_meta_caches(sbi, fio->new_blkaddr, 1);
+>
+>         stat_inc_inplace_blocks(fio->sbi);
+>
+> @@ -4430,7 +4431,7 @@ void f2fs_folio_wait_writeback(struct folio *folio,=
+ enum page_type type,
+>  void f2fs_wait_on_block_writeback(struct inode *inode, block_t blkaddr)
+>  {
+>         struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
+> -       struct folio *cfolio;
+> +       struct f2fs_cached_block *entry;
+>
+>         if (!f2fs_meta_inode_gc_required(inode))
+>                 return;
+> @@ -4438,11 +4439,12 @@ void f2fs_wait_on_block_writeback(struct inode *i=
+node, block_t blkaddr)
+>         if (!__is_valid_data_blkaddr(blkaddr))
+>                 return;
+>
+> -       cfolio =3D filemap_lock_folio(META_MAPPING(sbi), blkaddr);
+> -       if (!IS_ERR(cfolio)) {
+> -               f2fs_folio_wait_writeback(cfolio, DATA, true, true);
+> -               f2fs_folio_put(cfolio, true);
+> -       }
+> +       entry =3D f2fs_find_cache(META_CACHE(sbi), blkaddr, 0);
+> +       if (IS_ERR(entry))
+> +               return;
+> +       f2fs_lock_cache(entry);
+> +       f2fs_cache_wait_writeback_cond(entry, DATA);
+> +       f2fs_put_cache(entry, true);
+>  }
+>
+>  void f2fs_wait_on_block_writeback_range(struct inode *inode, block_t blk=
+addr,
+> @@ -4457,7 +4459,7 @@ void f2fs_wait_on_block_writeback_range(struct inod=
+e *inode, block_t blkaddr,
+>         for (i =3D 0; i < len; i++)
+>                 f2fs_wait_on_block_writeback(inode, blkaddr + i);
+>
+> -       f2fs_truncate_meta_inode_pages(sbi, blkaddr, len);
+> +       f2fs_truncate_meta_caches(sbi, blkaddr, len);
+>  }
+>
+>  static int read_compacted_summaries(struct f2fs_sb_info *sbi)
+> @@ -4465,16 +4467,16 @@ static int read_compacted_summaries(struct f2fs_s=
+b_info *sbi)
+>         struct f2fs_checkpoint *ckpt =3D F2FS_CKPT(sbi);
+>         struct curseg_info *seg_i;
+>         unsigned char *kaddr;
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>         block_t start;
+>         int i, j, offset;
+>
+>         start =3D start_sum_block(sbi);
+>
+> -       folio =3D f2fs_get_meta_folio(sbi, start++);
+> -       if (IS_ERR(folio))
+> -               return PTR_ERR(folio);
+> -       kaddr =3D folio_address(folio);
+> +       entry =3D f2fs_get_meta_cache(sbi, start++);
+> +       if (IS_ERR(entry))
+> +               return PTR_ERR(entry);
+> +       kaddr =3D cache_address(entry);
+>
+>         /* Step 1: restore nat cache */
+>         seg_i =3D CURSEG_I(sbi, CURSEG_HOT_DATA);
+> @@ -4511,16 +4513,16 @@ static int read_compacted_summaries(struct f2fs_s=
+b_info *sbi)
+>                                                 SUM_FOOTER_SIZE)
+>                                 continue;
+>
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_put_cache(entry, true);
+>
+> -                       folio =3D f2fs_get_meta_folio(sbi, start++);
+> -                       if (IS_ERR(folio))
+> -                               return PTR_ERR(folio);
+> -                       kaddr =3D folio_address(folio);
+> +                       entry =3D f2fs_get_meta_cache(sbi, start++);
+> +                       if (IS_ERR(entry))
+> +                               return PTR_ERR(entry);
+> +                       kaddr =3D cache_address(entry);
+>                         offset =3D 0;
+>                 }
+>         }
+> -       f2fs_folio_put(folio, true);
+> +       f2fs_put_cache(entry, true);
+>         return 0;
+>  }
+>
+> @@ -4529,7 +4531,7 @@ static int read_normal_summaries(struct f2fs_sb_inf=
+o *sbi, int type)
+>         struct f2fs_checkpoint *ckpt =3D F2FS_CKPT(sbi);
+>         struct f2fs_summary_block *sum;
+>         struct curseg_info *curseg;
+> -       struct folio *new;
+> +       struct f2fs_cached_block *entry;
+>         unsigned short blk_off;
+>         unsigned int segno =3D 0;
+>         block_t blk_addr =3D 0;
+> @@ -4556,10 +4558,10 @@ static int read_normal_summaries(struct f2fs_sb_i=
+nfo *sbi, int type)
+>                         blk_addr =3D GET_SUM_BLOCK(sbi, segno);
+>         }
+>
+> -       new =3D f2fs_get_meta_folio(sbi, blk_addr);
+> -       if (IS_ERR(new))
+> -               return PTR_ERR(new);
+> -       sum =3D folio_address(new);
+> +       entry =3D f2fs_get_meta_cache(sbi, blk_addr);
+> +       if (IS_ERR(entry))
+> +               return PTR_ERR(entry);
+> +       sum =3D cache_address(entry);
+>
+>         if (IS_NODESEG(type)) {
+>                 if (__exist_node_summaries(sbi)) {
+> @@ -4596,7 +4598,7 @@ static int read_normal_summaries(struct f2fs_sb_inf=
+o *sbi, int type)
+>         curseg->next_blkoff =3D blk_off;
+>         mutex_unlock(&curseg->curseg_mutex);
+>  out:
+> -       f2fs_folio_put(new, true);
+> +       f2fs_put_cache(entry, true);
+>         return err;
+>  }
+>
+> @@ -4608,11 +4610,11 @@ static int restore_curseg_summaries(struct f2fs_s=
+b_info *sbi)
+>         int err;
+>
+>         if (is_set_ckpt_flags(sbi, CP_COMPACT_SUM_FLAG)) {
+> -               int npages =3D f2fs_npages_for_summary_flush(sbi, true);
+> +               int nblocks =3D f2fs_nblocks_for_summary_flush(sbi, true)=
+;
+>
+> -               if (npages >=3D 2)
+> -                       f2fs_ra_meta_pages(sbi, start_sum_block(sbi), npa=
+ges,
+> -                                                       META_CP, true);
+> +               if (nblocks >=3D 2)
+> +                       f2fs_ra_meta_caches(sbi, start_sum_block(sbi),
+> +                                       nblocks, META_CP, true);
+>
+>                 /* restore for compacted data summary */
+>                 err =3D read_compacted_summaries(sbi);
+> @@ -4622,7 +4624,7 @@ static int restore_curseg_summaries(struct f2fs_sb_=
+info *sbi)
+>         }
+>
+>         if (__exist_node_summaries(sbi))
+> -               f2fs_ra_meta_pages(sbi,
+> +               f2fs_ra_meta_caches(sbi,
+>                                 sum_blk_addr(sbi, NR_CURSEG_PERSIST_TYPE,=
+ type),
+>                                 NR_CURSEG_PERSIST_TYPE - type, META_CP, t=
+rue);
+>
+> @@ -4645,16 +4647,16 @@ static int restore_curseg_summaries(struct f2fs_s=
+b_info *sbi)
+>
+>  static void write_compacted_summaries(struct f2fs_sb_info *sbi, block_t =
+blkaddr)
+>  {
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry =3D NULL;
+>         unsigned char *kaddr;
+>         struct f2fs_summary *summary;
+>         struct curseg_info *seg_i;
+>         int written_size =3D 0;
+>         int i, j;
+>
+> -       folio =3D f2fs_grab_meta_folio(sbi, blkaddr++);
+> -       kaddr =3D folio_address(folio);
+> -       memset(kaddr, 0, PAGE_SIZE);
+> +       entry =3D f2fs_grab_meta_cache(sbi, blkaddr++);
+> +       kaddr =3D cache_address(entry);
+> +       memset(kaddr, 0, sbi->blocksize);
+>
+>         /* Step 1: write nat cache */
+>         seg_i =3D CURSEG_I(sbi, CURSEG_HOT_DATA);
+> @@ -4670,10 +4672,10 @@ static void write_compacted_summaries(struct f2fs=
+_sb_info *sbi, block_t blkaddr)
+>         for (i =3D CURSEG_HOT_DATA; i <=3D CURSEG_COLD_DATA; i++) {
+>                 seg_i =3D CURSEG_I(sbi, i);
+>                 for (j =3D 0; j < f2fs_curseg_valid_blocks(sbi, i); j++) =
+{
+> -                       if (!folio) {
+> -                               folio =3D f2fs_grab_meta_folio(sbi, blkad=
+dr++);
+> -                               kaddr =3D folio_address(folio);
+> -                               memset(kaddr, 0, PAGE_SIZE);
+> +                       if (!entry) {
+> +                               entry =3D f2fs_grab_meta_cache(sbi, blkad=
+dr++);
+> +                               kaddr =3D cache_address(entry);
+> +                               memset(kaddr, 0, sbi->blocksize);
+>                                 written_size =3D 0;
+>                         }
+>                         summary =3D (struct f2fs_summary *)(kaddr + writt=
+en_size);
+> @@ -4684,14 +4686,14 @@ static void write_compacted_summaries(struct f2fs=
+_sb_info *sbi, block_t blkaddr)
+>                                                         SUM_FOOTER_SIZE)
+>                                 continue;
+>
+> -                       folio_mark_dirty(folio);
+> -                       f2fs_folio_put(folio, true);
+> -                       folio =3D NULL;
+> +                       f2fs_mark_cache_dirty(entry);
+> +                       f2fs_put_cache(entry, true);
+> +                       entry =3D NULL;
+>                 }
+>         }
+> -       if (folio) {
+> -               folio_mark_dirty(folio);
+> -               f2fs_folio_put(folio, true);
+> +       if (entry) {
+> +               f2fs_mark_cache_dirty(entry);
+> +               f2fs_put_cache(entry, true);
+>         }
+>  }
+>
+> @@ -4706,7 +4708,7 @@ static void write_normal_summaries(struct f2fs_sb_i=
+nfo *sbi,
+>                 end =3D type + NR_CURSEG_NODE_TYPE;
+>
+>         for (i =3D type; i < end; i++)
+> -               write_current_sum_page(sbi, i, blkaddr + (i - type));
+> +               write_current_sum_block(sbi, i, blkaddr + (i - type));
+>  }
+>
+>  void f2fs_write_data_summaries(struct f2fs_sb_info *sbi, block_t start_b=
+lk)
+> @@ -4745,29 +4747,29 @@ int f2fs_lookup_journal_in_cursum(struct f2fs_sb_=
+info *sbi,
+>         return -1;
+>  }
+>
+> -static struct folio *get_current_sit_folio(struct f2fs_sb_info *sbi,
+> +static struct f2fs_cached_block *get_current_sit_cache(struct f2fs_sb_in=
+fo *sbi,
+>                                         unsigned int segno)
+>  {
+> -       return f2fs_get_meta_folio(sbi, current_sit_addr(sbi, segno));
+> +       return f2fs_get_meta_cache(sbi, current_sit_addr(sbi, segno));
+>  }
+>
+> -static struct folio *get_next_sit_folio(struct f2fs_sb_info *sbi,
+> +static struct f2fs_cached_block *get_next_sit_cache(struct f2fs_sb_info =
+*sbi,
+>                                         unsigned int start)
+>  {
+>         struct sit_info *sit_i =3D SIT_I(sbi);
+> -       struct folio *folio;
+> +       struct f2fs_cached_block *entry;
+>         pgoff_t src_off, dst_off;
+>
+>         src_off =3D current_sit_addr(sbi, start);
+>         dst_off =3D next_sit_addr(sbi, src_off);
+>
+> -       folio =3D f2fs_grab_meta_folio(sbi, dst_off);
+> -       seg_info_to_sit_folio(sbi, folio, start);
+> +       entry =3D f2fs_grab_meta_cache(sbi, dst_off);
+> +       seg_info_to_sit_block(sbi, entry, start);
+>
+> -       folio_mark_dirty(folio);
+> +       f2fs_mark_cache_dirty(entry);
+>         set_to_next_sit(sbi, sit_i, start);
+>
+> -       return folio;
+> +       return entry;
+>  }
+>
+>  static struct sit_entry_set *grab_sit_entry_set(void)
+> @@ -4898,8 +4900,9 @@ void f2fs_flush_sit_entries(struct f2fs_sb_info *sb=
+i, struct cp_control *cpc)
+>          * #2, flush sit entries to sit page.
+>          */
+>         list_for_each_entry_safe(ses, tmp, head, set_list) {
+> -               struct folio *folio =3D NULL;
+> +               struct f2fs_cached_block *entry =3D NULL;
+>                 struct f2fs_sit_block *raw_sit =3D NULL;
+> +
+>                 unsigned int start_segno =3D ses->start_segno;
+>                 unsigned int end =3D min(start_segno + SIT_ENTRY_PER_BLOC=
+K(sbi),
+>                                                 (unsigned long)MAIN_SEGS(=
+sbi));
+> @@ -4913,8 +4916,8 @@ void f2fs_flush_sit_entries(struct f2fs_sb_info *sb=
+i, struct cp_control *cpc)
+>                 if (to_journal) {
+>                         down_write(&curseg->journal_rwsem);
+>                 } else {
+> -                       folio =3D get_next_sit_folio(sbi, start_segno);
+> -                       raw_sit =3D folio_address(folio);
+> +                       entry =3D get_next_sit_cache(sbi, start_segno);
+> +                       raw_sit =3D cache_address(entry);
+>                 }
+>
+>                 /* flush dirty sit entries in region of current sit set *=
+/
+> @@ -4959,7 +4962,7 @@ void f2fs_flush_sit_entries(struct f2fs_sb_info *sb=
+i, struct cp_control *cpc)
+>                 if (to_journal)
+>                         up_write(&curseg->journal_rwsem);
+>                 else
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_put_cache(entry, true);
+>
+>                 f2fs_bug_on(sbi, ses->entry_cnt);
+>                 release_sit_entry_set(ses);
+> @@ -5150,7 +5153,7 @@ static int build_sit_entries(struct f2fs_sb_info *s=
+bi)
+>         block_t sit_valid_blocks[2] =3D {0, 0};
+>
+>         do {
+> -               readed =3D f2fs_ra_meta_pages(sbi, start_blk, BIO_MAX_VEC=
+S,
+> +               readed =3D f2fs_ra_meta_caches(sbi, start_blk, BIO_MAX_VE=
+CS,
+>                                                         META_SIT, true);
+>
+>                 start =3D start_blk * sit_i->sents_per_block;
+> @@ -5158,15 +5161,15 @@ static int build_sit_entries(struct f2fs_sb_info =
+*sbi)
+>
+>                 for (; start < end && start < MAIN_SEGS(sbi); start++) {
+>                         struct f2fs_sit_block *sit_blk;
+> -                       struct folio *folio;
+> +                       struct f2fs_cached_block *entry;
+>
+>                         se =3D &sit_i->sentries[start];
+> -                       folio =3D get_current_sit_folio(sbi, start);
+> -                       if (IS_ERR(folio))
+> -                               return PTR_ERR(folio);
+> -                       sit_blk =3D folio_address(folio);
+> +                       entry =3D get_current_sit_cache(sbi, start);
+> +                       if (IS_ERR(entry))
+> +                               return PTR_ERR(entry);
+> +                       sit_blk =3D cache_address(entry);
+>                         sit =3D sit_blk->entries[SIT_ENTRY_OFFSET(sit_i, =
+start)];
+> -                       f2fs_folio_put(folio, true);
+> +                       f2fs_put_cache(entry, true);
+>
+>                         err =3D check_block_count(sbi, start, &sit);
+>                         if (err)
+> diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
+> index cc0428b614da..3083069c9092 100644
+> --- a/fs/f2fs/segment.h
+> +++ b/fs/f2fs/segment.h
+> @@ -96,6 +96,8 @@ static inline void sanity_check_seg_type(struct f2fs_sb=
+_info *sbi,
+>  #define GET_SUM_BLKOFF(sbi, segno) (segno % (sbi)->sums_per_block)
+>  #define SUM_BLK_PAGE_ADDR(sbi, folio, segno)   \
+>         (folio_address(folio) + GET_SUM_BLKOFF(sbi, segno) * (sbi)->sum_b=
+locksize)
+> +#define SUM_BLK_ENTRY_ADDR(sbi, entry, segno)  \
+> +       (cache_address(entry) + GET_SUM_BLKOFF(sbi, segno) * (sbi)->sum_b=
+locksize)
+>
+>  #define GET_SUM_TYPE(footer) ((footer)->entry_type)
+>  #define SET_SUM_TYPE(footer, type) ((footer)->entry_type =3D (type))
+> @@ -421,8 +423,8 @@ static inline void __seg_info_to_raw_sit(struct seg_e=
+ntry *se,
+>         rs->mtime =3D cpu_to_le64(se->mtime);
+>  }
+>
+> -static inline void seg_info_to_sit_folio(struct f2fs_sb_info *sbi,
+> -                               struct folio *folio, unsigned int start)
+> +static inline void seg_info_to_sit_block(struct f2fs_sb_info *sbi,
+> +                       struct f2fs_cached_block *entry, unsigned int sta=
+rt)
+>  {
+>         struct f2fs_sit_block *raw_sit;
+>         struct seg_entry *se;
+> @@ -431,7 +433,7 @@ static inline void seg_info_to_sit_folio(struct f2fs_=
+sb_info *sbi,
+>                                         (unsigned long)MAIN_SEGS(sbi));
+>         int i;
+>
+> -       raw_sit =3D folio_address(folio);
+> +       raw_sit =3D cache_address(entry);
+>         memset(raw_sit, 0, F2FS_BLKSIZE(sbi));
+>         for (i =3D 0; i < end - start; i++) {
+>                 rs =3D &raw_sit->entries[i];
+> @@ -996,6 +998,27 @@ static inline int nr_pages_to_skip(struct f2fs_sb_in=
+fo *sbi, int type)
+>                 return 0;
+>  }
+>
+> +/*
+> + * When writing cache asynchronously, align nr_to_write to BIO_MAX_VECS.
+> + */
+> +static inline long adjust_flush_cache_number(struct f2fs_sb_info *sbi, i=
+nt type)
+> +{
+> +       long nr_to_write;
+> +
+> +       switch (type) {
+> +       case META:
+> +               nr_to_write =3D BIO_MAX_VECS;
+> +               break;
+> +       case NODE:
+> +               nr_to_write =3D BIO_MAX_VECS << 1;
+> +               break;
+> +       default:
+> +               f2fs_bug_on(sbi, 1);
+> +               return 0;
+> +       }
+> +       return nr_to_write;
+> +}
+> +
+>  /*
+>   * When writing pages, it'd better align nr_to_write for segment size.
+>   */
+> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> index 516b4ee12564..0361e4cc0e0a 100644
+> --- a/fs/f2fs/super.c
+> +++ b/fs/f2fs/super.c
+> @@ -1880,8 +1880,7 @@ static int f2fs_drop_inode(struct inode *inode)
+>          * drop useless meta/node dirty pages.
+>          */
+>         if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+> -               if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi) ||
+> -                       inode->i_ino =3D=3D F2FS_META_INO(sbi)) {
+> +               if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi)) {
+>                         trace_f2fs_drop_inode(inode, 1);
+>                         return 1;
+>                 }
+> @@ -1983,8 +1982,7 @@ static void f2fs_dirty_inode(struct inode *inode, i=
+nt flags)
+>  {
+>         struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
+>
+> -       if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi) ||
+> -                       inode->i_ino =3D=3D F2FS_META_INO(sbi))
+> +       if (inode->i_ino =3D=3D F2FS_NODE_INO(sbi))
+>                 return;
+>
+>         if (is_inode_flag_set(inode, FI_AUTO_RECOVER))
+> @@ -2078,11 +2076,12 @@ static void f2fs_put_super(struct super_block *sb=
+)
+>         /* our cp_error case, we can wait for any writeback page */
+>         f2fs_flush_merged_writes(sbi);
+>
+> -       f2fs_wait_on_all_pages(sbi, F2FS_WB_CP_DATA);
+> +       f2fs_sync_dirty_data(sbi, F2FS_WB_CP_DATA);
+>
+> -       if (err || f2fs_cp_error(sbi)) {
+> +       if (err || f2fs_cp_error(sbi) ||
+> +               unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+>                 truncate_inode_pages_final(NODE_MAPPING(sbi));
+> -               truncate_inode_pages_final(META_MAPPING(sbi));
+> +               f2fs_truncate_meta_caches(sbi, 0, ULONG_MAX);
+>         }
+>
+>         f2fs_bug_on(sbi, sbi->fsync_node_num);
+> @@ -2092,9 +2091,6 @@ static void f2fs_put_super(struct super_block *sb)
+>         iput(sbi->node_inode);
+>         sbi->node_inode =3D NULL;
+>
+> -       iput(sbi->meta_inode);
+> -       sbi->meta_inode =3D NULL;
+> -
+>         f2fs_destroy_cache(META_CACHE(sbi));
+>
+>         /* Should check the page counts after dropping all node/meta page=
+s */
+> @@ -4449,7 +4445,6 @@ static void init_sb_info(struct f2fs_sb_info *sbi)
+>         sbi->allocate_section_policy =3D ALLOCATE_FORWARD_NOHINT;
+>         F2FS_ROOT_INO(sbi) =3D le32_to_cpu(raw_super->root_ino);
+>         F2FS_NODE_INO(sbi) =3D le32_to_cpu(raw_super->node_ino);
+> -       F2FS_META_INO(sbi) =3D le32_to_cpu(raw_super->meta_ino);
+>         sbi->cur_victim_sec =3D NULL_SECNO;
+>         sbi->gc_mode =3D GC_NORMAL;
+>         sbi->next_victim_seg[BG_GC] =3D NULL_SEGNO;
+> @@ -5290,18 +5285,10 @@ static int f2fs_fill_super(struct super_block *sb=
+, struct fs_context *fc)
+>         if (err)
+>                 goto free_page_array_cache;
+>
+> -       /* get an inode for meta space */
+> -       sbi->meta_inode =3D f2fs_iget(sb, F2FS_META_INO(sbi));
+> -       if (IS_ERR(sbi->meta_inode)) {
+> -               f2fs_err(sbi, "Failed to read F2FS meta data inode");
+> -               err =3D PTR_ERR(sbi->meta_inode);
+> -               goto free_meta_cache;
+> -       }
+> -
+>         err =3D f2fs_get_valid_checkpoint(sbi);
+>         if (err) {
+>                 f2fs_err(sbi, "Failed to get valid F2FS checkpoint");
+> -               goto free_meta_inode;
+> +               goto free_meta_cache;
+>         }
+>
+>         if (__is_set_ckpt_flags(F2FS_CKPT(sbi), CP_QUOTA_NEED_FSCK_FLAG))
+> @@ -5597,7 +5584,7 @@ static int f2fs_fill_super(struct super_block *sb, =
+struct fs_context *fc)
+>          * followed by f2fs_write_checkpoint() through f2fs_write_node_pa=
+ges(), which
+>          * falls into an infinite loop in f2fs_sync_meta_pages().
+>          */
+> -       truncate_inode_pages_final(META_MAPPING(sbi));
+> +       f2fs_truncate_meta_caches(sbi, 0, ULONG_MAX);
+>         /* evict some inodes being cached by GC */
+>         evict_inodes(sb);
+>         f2fs_unregister_sysfs(sbi);
+> @@ -5627,10 +5614,6 @@ static int f2fs_fill_super(struct super_block *sb,=
+ struct fs_context *fc)
+>  free_devices:
+>         destroy_device_list(sbi);
+>         kvfree(sbi->ckpt);
+> -free_meta_inode:
+> -       make_bad_inode(sbi->meta_inode);
+> -       iput(sbi->meta_inode);
+> -       sbi->meta_inode =3D NULL;
+>  free_meta_cache:
+>         f2fs_destroy_cache(META_CACHE(sbi));
+>  free_page_array_cache:
+> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+> index ad25733e32c0..cd7ed210cad5 100644
+> --- a/fs/f2fs/sysfs.c
+> +++ b/fs/f2fs/sysfs.c
+> @@ -1261,7 +1261,7 @@ DCC_INFO_GENERAL_RW_ATTR(discard_io_aware);
+>  /* NM_INFO ATTR */
+>  NM_INFO_RW_ATTR(max_roll_forward_node_blocks, max_rf_node_blocks);
+>  NM_INFO_GENERAL_RW_ATTR(ram_thresh);
+> -NM_INFO_GENERAL_RW_ATTR(ra_nid_pages);
+> +NM_INFO_RW_ATTR(ra_nid_pages, ra_nid_blocks);
+>  NM_INFO_GENERAL_RW_ATTR(dirty_nats_ratio);
+>
+>  /* F2FS_SBI ATTR */
+> diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
+> index f38558279e86..c325904f461e 100644
+> --- a/include/linux/f2fs_fs.h
+> +++ b/include/linux/f2fs_fs.h
+> @@ -44,7 +44,6 @@
+>
+>  #define F2FS_ROOT_INO(sbi)     ((sbi)->root_ino_num)
+>  #define F2FS_NODE_INO(sbi)     ((sbi)->node_ino_num)
+> -#define F2FS_META_INO(sbi)     ((sbi)->meta_ino_num)
+>  #define F2FS_COMPRESS_INO(sbi) (NM_I(sbi)->max_nid)
+>
+>  #define F2FS_MAX_QUOTAS                3
 
-Thanks for the feedback. I'll address this and submit v2.
-
-Thanks,
-Myeonghun
-
-2026=EB=85=84 6=EC=9B=94 1=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 5:50, Pa=
-trik Jakobsson <patrik.r.jakobsson@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=
-=EC=84=B1:
+> --
+> 2.49.0
 >
-> On Sun, May 24, 2026 at 5:57=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com>=
- wrote:
-> >
-> > psb_driver_load() initializes KMS polling before it attempts to
-> > initialize backlight support. If gma_backlight_init() fails, the
-> > function returns directly and skips psb_driver_unload(), leaving
-> > drm_kms_helper_poll_fini() uncalled.
-> >
-> > Use the existing error path so the partially initialized modeset state
-> > is unwound before probe fails.
 >
-> Hi,
-> Yes the existing code is faulty but calling psb_driver_unload() to
-> unwind the init could call backlight_device_unregister() on an ERR_PTR
-> backlight_device which is guaranteed to fail.
 >
-> The correct fix would be to convert psb_driver_load() to use devm
-> and/or goto unwind pattern.
->
-> -Patrik
->
-> >
-> > This issue was identified during our ongoing static-analysis research w=
-hile
-> > reviewing kernel code.
-> >
-> > Fixes: 1f90b1232773 ("drm/gma500: Refactor backlight support (v2)")
-> > Cc: stable@vger.kernel.org
-> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> > ---
-> >  drivers/gpu/drm/gma500/psb_drv.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/=
-psb_drv.c
-> > index 005ab7f535..7218026fe2 100644
-> > --- a/drivers/gpu/drm/gma500/psb_drv.c
-> > +++ b/drivers/gpu/drm/gma500/psb_drv.c
-> > @@ -406,7 +406,7 @@ static int psb_driver_load(struct drm_device *dev, =
-unsigned long flags)
-> >         drm_connector_list_iter_end(&conn_iter);
-> >
-> >         if (ret)
-> > -               return ret;
-> > +               goto out_err;
-> >         psb_intel_opregion_enable_asle(dev);
-> >
-> >         return devm_add_action_or_reset(dev->dev, psb_device_release, d=
-ev);
-> > --
-> > 2.47.1
-> >
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
