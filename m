@@ -1,66 +1,66 @@
 Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D182C15B0
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:20:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247D0318ED2
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:20:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789435229; cv=none; b=R4c+lXYlD+aBKPNkFBxbHN32Hsg7oBrmLbP+wrp+SfTfTo5Tr6lk2POcMxXCEVGEPRKtHUSbUT1QZ8yaxbGmLfjfMApBu0x051RB1cjVmVPKmVixLJZzCf9QrbYuIxKaievxsy0Ir9u6q1MbP7AiJ5dVxCVRZmovfRMyCpB5vOs=
+	t=1789435230; cv=none; b=PZdTcbqVHMRa8ALsh8G9oWAavbop2yJlQxYM3yDr0RD2+eEsJnTO6ENUDM5zKdu6Lu6gm9z4OpSIekWEhgq6PHGE3v/73g8sC3R/HGKS6JhSKpF380hqjlmJv/Ys5n3oT67ssxxmY+H9QvwBWXIn7zOKZJQjTaI2zFDiSVppWLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789435229; c=relaxed/simple;
-	bh=WGU7/JMb3Apf6nVCL6jDk8mWhlmHbK7srTQ8Ag0GJPI=;
+	s=arc-20240116; t=1789435230; c=relaxed/simple;
+	bh=CKKoXinNIPjaJ7mWM3TvEUEq1iXPeisQkm64XntF2Zg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qz4/j/2y2SloyHb+tebkDrwHePOa7wEibpPSJnE3u6MdkfnAjSuL+2pV0xyzNg7s00gTIIhUk3iDhgvQPNZErUlk3b1PcsrzCu4bm2gu68iTg4yEA0E+MVpKl2pVptYxe27RNGsij2ru6rnrVZcmvwNlKz6WFIlWg6RVn7q+Npk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q70+f9D3; arc=none smtp.client-ip=74.125.230.140
+	 MIME-Version; b=d1sEz7f+ky1Nb9aArf0R+T47OsLt6D5DrDClY638gCb07NmvXBcmfELDKlLVAzqM2BCFAAPD6arAzhZaWZDLT68N0jPaekemeCmXFTQxYguByQ0Djb+Mwu9kVwRRz6cm2XUIALTv0GtMPu+tkx5Tna8vPlZlpjXtNfJt4zijIEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bKDH2hy8; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q70+f9D3"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9105d241693so28934186d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:20:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bKDH2hy8"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd148aso30609466d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:20:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789435224; x=1790040024; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789435227; x=1790040027; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8bAgcAeT8h1GjhtSyhK4NU9n9kJiBEpb3mWf8LmEtbk=;
-        b=q70+f9D378mv0oplvqwtYnLQOz8q+f+4PZRI8RtM9qSddiKKJ4NtBp57We2lrDKeT6
-         uylKOERaUVqc6HXJ1gdW5p4M40gwNIdyVOxpHh1g/8ypWETO5NL07Vis6ln4c7knVlnp
-         4JuOlRmTul13brTbmegxC6TgOb/lpnchrjvSE06CZ+zvtO2Q+r1uH9kCOHiIm1+bBx6r
-         wBCJVXmg0l9DmPzCCeX724F0A8qk0Dam7HHYAKk+CXTl9Sq5rDco6UT/dXfbhVBAUFBP
-         3AEjpgtYp/FBx/4HUty+DRaI8Lvuv4RWvfcYUdliOzzQkZWxua6Yy9Gas0i+GO9eCiav
-         AOkw==
+        bh=wCRBWGGFnF1Ry6hzDyS1vYmZsFfXfi71bfZ207Oj8vA=;
+        b=bKDH2hy88roSbWAbthQ36jUz4Y0jCVs7cNPSiqCFShYtQL8PzkxO57EEh8OwbrsGKE
+         PI7upf2d0tAOHKSJ+BdD9TyT+3WcRz0WbvMwU//wMxAio4P8Xu8BHgcygCDIleLUb7qZ
+         1knmaDQgS6L7eyyrVVtREKUkjE86DxvfVSkaoWXj7qU3lOICKNWCdzPxgcMqbaDXjdY2
+         Cr99vKTnZzDoBgsK6bKramFb0uWCejvg2jzgmcu7GFtJHfMyeBc7xDbF7nZcDyF/s8UX
+         N2UEly39mJdi2C51kkSW3ra9lb3QzvYV5BLjXKt/2hcNhEuayC/GA5MyhyiRtrFTEaUZ
+         J4PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789435224; x=1790040024;
+        d=1e100.net; s=20260707; t=1789435227; x=1790040027;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8bAgcAeT8h1GjhtSyhK4NU9n9kJiBEpb3mWf8LmEtbk=;
-        b=W8qHKtjcPQsRDT+1aOSDf2tk/J/e4Tvnf0Cw6sWrO5JpKpVPnN91ceP5FJDlmsS6Tk
-         bT6PxIcHdGdzUZpvgXfun1fY7D0ICPr4PsC1BHUF+d9kE0FborgPBryPPH+UsMIR5BdH
-         EDbC8lVBR3QrtYVYGjoV5FrGMos36U87y5Anoal75OF5B81wfqmnyYeEJYsWrC8xZZeQ
-         e7W0QSV+9jCXMQ3mtwcCBW33m71eiS2hGm7PtRUb6ytx7da/hCJJuPC3s4u60uEsJF40
-         CCxL2h6Kvp4Tv1GVesyqIOUXcTF7lF9SEmRss6eb5Aux+Oe5D0SIPJTtpJusxKVrAFYi
-         2X6g==
-X-Forwarded-Encrypted: i=1; AKwUvBwA6sJDK259EG7+X87J81Jy0Cm/l6+rffQyR1NkID75mKBV3dh5jNwzXgUt23U75BdeneWUlHsVJw3TtNU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzxMdf5p4d1I9PC5SYzcUFUz/CEzEgB4L4W9lIV23TkqlTNfxa
-	X84thg/3P0d38ECMEm3vtc6BYivPpJ7NBNdFAvC+8fUlcTy+X9cJET4=
-X-Gm-Gg: AYBFou3xFcpWobxPTxjK0kXT3GXcfw6sywlKcC7ggybq4G4dyPqaUU+A4G1JSxyq9oV
-	Za+DnEL+g6XRoUepfAjrZur8mOR9s8rztBHI6rkIJi7HwpPBWlOb0QflqRA9Cjm8+O/0Xa28umS
-	vbKWFbroRXlbChfRF0hzAD9DbUolT/nqo+wRJ2rw/XALgwWUJZp2aBSC7RX5TwnHJOT5OnzXa5u
-	k4U0cx/AKdac7tnZjYWDwwh1wB74uBUkGhbWdOhAXSIaxkBlGVg5d83q7XDPGr3pphkT6FqJAeu
-	25NRP4j8/p9AOz7i7EGFrIGsvREGqmH8ha535qkCF3MrKdm+k+Q4s6FRrfhvKzb7eHwuV1nan61
-	OvkdzfnHxkxNqNV9HvkJLlkLBhBRxc2K7Z7a6BK6EI3lH/6bT/9JM+3MGEixElAdhRZxwJT9EPQ
-	ZKXNjZ4DJ2bF4j3JVyqffhlq6K0Xequp+o2+XZyFhgC0zrTB5ksDI0svf2Lzlatnl59fx91NvDT
-	0FVFBxvkiTE2pXCZZ33VuPrmde2zimgNJT9SUbGkg3vXwMCajYk1PZo2LsegnZU/lSYuxVe6luo
-	AaNobVeydloy3Ntd3leFa2dKwW8ZsA8MbbwUHVUblle4QoJyiT2qt9+CLlWHW+ertx4NKNoUl9V
-	/qhEGlQ==
-X-Received: by 2002:a05:6214:2f0a:b0:910:3453:9011 with SMTP id 6a1803df08f44-9122e66e23bmr95006006d6.35.1789435224176;
-        Mon, 14 Sep 2026 18:20:24 -0700 (PDT)
+        bh=wCRBWGGFnF1Ry6hzDyS1vYmZsFfXfi71bfZ207Oj8vA=;
+        b=s9tu5SC9luPXrG3tXk29hFHyVtwOffzaCxEN6MaCSyS3ReKKoaFRc1F+MJp8ZetsQQ
+         DSgfe4q6lRch0I3Txu129Q+SSayJymJdP9+GmorGllz1PHz9BHqOJjf1ZnF7HrKSWwET
+         Kd+/uZ264ElXgA14qxno9hPXOP0V00RDfJTvl+uov51IsUaiWzbsR9F1KEP5uqAO+Mw+
+         zOJ+MtHk8CRoWDGBSNR80kJcSjgK18V3cyQ+n14EWwMZi5aDS4Ut2rxln3YggfRQ8mPS
+         4bee2cmXVDS77MdkDu1yHrLu+vj0DuY/BhO1JTUmJ9wOv1St5xuZbNXnkf8U9zeQxekV
+         m/Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBycQt+fypkIbbDMMhntwvRq1dxsAS3uuZ9tN9vBG/Q8RFIWKiXyjc7zf6U4fFDZo8tHQEgpIIAztl+/mXw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1LMEBd8ybA5cTCK+pcK0c5IhDffDFP7qTZK9Wca2ftdSU4Rrh
+	2D6ZOgSu+AHPVyHJg+vNqszV5LD87VlrOR23LYt1e8tjJJDuMy/pgo0=
+X-Gm-Gg: AYBFou3L9n5Pv2DKEOkQKyb/OnEhBFS4kY9JC2VaoR2woDNWmqo4XPAH/prS44YiJcP
+	Z0CU4Xmnfhbal7S1rqOaACVB125A82H6buoV6GxztxMUFiBXayZOy80q3kwnPBG8p1MIwHlIdha
+	jFnfMauJUPiiOiS9c4lBvYL5qqX4MxgdMhxSpSIlbrX9oZ7sQDcebkEtzoxsDwEakOeBkQcDYKp
+	78y3DyyfN0ispoxLQlZYMy2dyj46lxjTh75DIAJKNXBuZyUi4sPqILoJBZq9I+Q1tHUUGxXCILE
+	zOCbT9lrtvnMhXK7LDeMgmL7lV2LQiEOnHTrki23WnnhtxlY3DgSvurfb/t6bM1WYrcYx3oNKHY
+	Kn69akKxzON2MGbL3YgqEpu8OatoFKqNClNnu52P2Z41Al832QtaLFZUrQLSAvIDmjLm+L2LNlE
+	51pBOTYfVNM/UNoKVJb7FHXxA+qn9S6zAfNVDOu5vCQqe60PBwEwm8o0seYMZfMArDyPUgJ5iUw
+	lI2cMSzfOGZZ/3Mng01bCIzkLFEUOJvHGyIGA3giGiNRt1SXfYR9sTdcuuudRUe6JTOfEpbfVoY
+	tARgQU5bwqPxyX4zmH3SRoPXl+I6/PEIcFVuVrXGkM34dasQduV5ADx9KeyXo9Gflsrn+K7SNaC
+	DlzSzFg==
+X-Received: by 2002:a05:6214:590c:b0:8f0:3b98:d6af with SMTP id 6a1803df08f44-9122e660530mr96067806d6.26.1789435222335;
+        Mon, 14 Sep 2026 18:20:22 -0700 (PDT)
 Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9121a62b783sm91141946d6.23.2026.09.14.18.20.22
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9121a62b783sm91141946d6.23.2026.09.14.18.20.20
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 18:20:23 -0700 (PDT)
+        Mon, 14 Sep 2026 18:20:20 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Alan Stern <stern@rowland.harvard.edu>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -73,9 +73,9 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-samsung-soc@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/4] usb: ohci-s3c2410: disable controller wakeup on removal
-Date: Mon, 14 Sep 2026 21:20:09 -0400
-Message-ID: <20260915012011.61874-3-mhun512@gmail.com>
+Subject: [PATCH 1/4] usb: ohci-da8xx: disable controller wakeup on cleanup
+Date: Mon, 14 Sep 2026 21:20:08 -0400
+Message-ID: <20260915012011.61874-2-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20260915012011.61874-1-mhun512@gmail.com>
 References: <20260915012011.61874-1-mhun512@gmail.com>
@@ -87,11 +87,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Probe enables controller wakeup after the OHCI core marks controllers with
-RemoteWakeupConnected as wakeup-capable. Removal does not undo this, so the
-wakeup source can remain attached after driver unbind.
+The OHCI core marks controllers with RemoteWakeupConnected as
+wakeup-capable. Probe enables wakeup, but neither removal nor a later
+notifier registration failure disables it, leaving the wakeup source
+attached.
 
-Disable controller wakeup after removing the HCD.
+Disable controller wakeup after removing the HCD on both paths.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
@@ -103,17 +104,24 @@ Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/usb/host/ohci-s3c2410.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/usb/host/ohci-da8xx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/usb/host/ohci-s3c2410.c b/drivers/usb/host/ohci-s3c2410.c
---- a/drivers/usb/host/ohci-s3c2410.c
-+++ b/drivers/usb/host/ohci-s3c2410.c
-@@ -335,6 +335,7 @@
- 	struct usb_hcd *hcd = platform_get_drvdata(dev);
+diff --git a/drivers/usb/host/ohci-da8xx.c b/drivers/usb/host/ohci-da8xx.c
+--- a/drivers/usb/host/ohci-da8xx.c
++++ b/drivers/usb/host/ohci-da8xx.c
+@@ -447,6 +447,7 @@
+ 
+ err_remove_hcd:
+ 	usb_remove_hcd(hcd);
++	device_wakeup_disable(hcd->self.controller);
+ err:
+ 	usb_put_hcd(hcd);
+ 	return error;
+@@ -457,5 +458,6 @@
+ 	struct usb_hcd	*hcd = platform_get_drvdata(pdev);
  
  	usb_remove_hcd(hcd);
 +	device_wakeup_disable(hcd->self.controller);
- 	s3c2410_stop_hc(dev);
  	usb_put_hcd(hcd);
  }
