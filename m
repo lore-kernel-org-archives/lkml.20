@@ -1,108 +1,109 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E13318EC7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:09:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6E931E852
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434591; cv=none; b=r/r1ElFDdxzLknxhu9FfGPkqNqiBGdFX6wlpQxCM5lEdtujVTOoPFoiVOLqEM1hEfjVXxKj3VGgRFAXIayKu1Tulspq3T2kCHIpHY3XXq5/pGkDYG/WQDvd1hKid1QPU7kEJ0OpotYd3Zei7NFtQDVDqbOHfLzVel29AzNtYNkE=
+	t=1789434674; cv=none; b=awz1PesMLNNFwxcH4utf54y9QsqfFBkIssbqXRP73aFGjAqkrXAkNj2nbYCR0P3uyAnarHrEIuiALv1vj6hzikYeqX5CGtG191KmsoHahaeSCbPsUKH80m2ZXsArp2mk05zNfFNpsK+PqTYDlgKRud6cuRg2JiNC2Uzdu/yG5JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434591; c=relaxed/simple;
-	bh=jHv1JBDVC02Dyew7SPRcCMNgLUIfMrIV6wV6B6Lb+lo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B1pWjWtEsTAur0FTlYgUrH6VYQzKyVzvt5GQgOyrgZEGkKs9oA3gVMpR7eIwIEevwlekHzE/W6wKnsHh4XokMNkvvYUkwFxUNW9Cf+VHmnc69Hkm/XFpWeQ2u2BbpaixgYx25/bN/jWG4fOAdj3vRLZBFRhGA3CRW3BgreY8B5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AxP33zKl; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789434674; c=relaxed/simple;
+	bh=RthSqZf0DDbfE7GqRv1mD8ZLsDt8tj3LzD0j2X4Sgvo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nnuRwD46+di1mh9dmLflEAV6iimckXC5OWYDemEuXSPx16dDM1yB/9aI5uEaqclwUkUsuWiDMrOcwHfGpM9rOsgBB3dAgyNTdlYbTtvXziz7cGE2eoKk24Xm+QI7jtvkHRotSPlIXV3Sb5ObbJO6hLzxXv/0B6BARZ5aO/wVATs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LysJkkJN; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AxP33zKl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789434589;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jHv1JBDVC02Dyew7SPRcCMNgLUIfMrIV6wV6B6Lb+lo=;
-	b=AxP33zKlzwD4UTc0dSE1Oo1IU3R6eA0uBsDwU8aFwIZSGSniSldCYmqY/9MhQoPgv8vif1
-	LMT8T3FQEm/ccYEfZAzJlYImIEIhX3M03AlOczM9xCQNyXLvXXG/APGN7JQONwqy7tvZKy
-	5y/GS0GKBd4Dxn49O8bEPYe2bIh+gW4=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-173-sGg0vRr7Mp2C4S2rVlOJ_Q-1; Mon,
- 14 Sep 2026 21:09:45 -0400
-X-MC-Unique: sGg0vRr7Mp2C4S2rVlOJ_Q-1
-X-Mimecast-MFC-AGG-ID: sGg0vRr7Mp2C4S2rVlOJ_Q_1789434584
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3AB8C18345B9;
-	Tue, 15 Sep 2026 01:09:43 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A92781956045;
-	Tue, 15 Sep 2026 01:09:40 +0000 (UTC)
-Message-ID: <8acd1e8f-a8f8-47f0-9ede-27f164c0687f@redhat.com>
-Date: Mon, 14 Sep 2026 21:09:39 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LysJkkJN"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-939fc329d35so235497685a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:11:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789434672; x=1790039472; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AAKtLNOJWbVnxDBkVZ/0uqO6Tw1qnmXMwpf6IStwoh8=;
+        b=LysJkkJNlkYwqiziNwoslfoDXK/moa35vApFMWIqPdqVi7IiIkkutg5OcdbvSY0JQZ
+         2bNAvnesA0ERR+wGRAsExxXfTxge2Uk1DaFEdk7zLuKKTs8rvVNhJ1ES2rep1gTMRYWq
+         RpDLRxmPlF11WbAkJ4iti39CI0VO1R6zabulvlNfkln72XdQWiiFuDn3pGXo9NUTxfQR
+         BtV1kdVb8tIYa2LAmw/PFQNtrpNag94RjBh+DQDUXSfI+839fwnWV/8slcrYXgG7umuo
+         KHPlmSnEBt7S1X3P4EXkSdV9Hg54I/WiddIUqHvKTWe/dbCq9BdIB481cr/jv8Tuuswb
+         RaMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789434672; x=1790039472;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AAKtLNOJWbVnxDBkVZ/0uqO6Tw1qnmXMwpf6IStwoh8=;
+        b=s0I9KR4Koy1mY2t6wdhrQr7OWiulllHc2qeWWSW4z3KslNutOIihXbBsAvT8lq+5EP
+         4mygX5CN+bDhX1lyOcHJbd+tN4b3h20dC+9b+r+6zcq/DQ8nWzBodN6B5pH+kddxEKLT
+         120DU///15Ex05CGdYwaoRqrDDA/5j+s6LUIgYxWZKPXRwa+oAr8cWGVOb+BmdEkHerH
+         WHxE+pnXEjvmkIusnbwVVU56l4pcbBvVnrFEcqK5BZxAFqLn5JG21ahLb1eXYOm6nkRq
+         BnDCASoJo7i0oA97YxWnZB+kirGoEHpnbzZSaCDcPAoh+iiE6try860ccxRAwOu0u1Jo
+         UdBA==
+X-Forwarded-Encrypted: i=1; AKwUvBxe69LgVo7ldEIp3+2xVnLVbSTZeI1Gf16B2VgyOYi0hje55TWhj9gxywggRtaGmMHDtdrb4ZWHFAb712k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nS0bqC0OjgshX8Wi38DseucJzt9gq0gF83AcPKafzfeVyi6r65
+	+J1Pp+QigZ3ZTTRafK8BbiOV0o3Hela28excnsjiv/Wf4eXy8DxJ5vA=
+X-Gm-Gg: AYBFou3qNQHVydv3JrM5xAcIXx/XZGbApFsFG+EDNiN7NHalCY0yHnB9sGtSo0v3NgU
+	BdhhPI2x74KB2aLYdHbUOvU4RQAr9R1f0jv37I7d4+UPQqLGh+Wjvq3xJ7rZRVqq1+pjqp2b9ft
+	EexBDrFhXjJdLecz+rpeOv+H+Un/mMc5nlKVR154Um0ze4hXKGlrLI/6147Np1JIVCOWs4+Qaec
+	J+aw31OHctw+zo6LmDfS6rnOkgMWicOqv47a/nGyMVFtV3lIp/b+au9HQoXGvInj0Zm58wEXdwQ
+	7nN/kJ3U8VXc/K+tXLE7gNkT2WZwyRpcPSFWq/uhnLqo625VKnllUyWhiuhjeIfkcmj5KgKDmeR
+	uMWSOEH2fplgcaRuNUv4U0dM69OCOxa8+/uBYbd4wgUySItMnht0gin7Nge3k4MMlkNXEsCWABR
+	9sD4xmiPfDt9zHq4CUA+fwKKBNalj7fQcj1N4GX5mS+3BcnnkXJLRtv4AQIKJY2EjYvQpVpN1QH
+	Xa2BIGE/vhIwBr5J2aFLZuIXtFTZTAz5L6aBXkQshQaQwj4LG9Z5PkIa3bGhzbiEVds3BLsuCCT
+	58xt/5aZg6/V3BHiqeaNhgyf9FjYou6Lld9SMvJVcA40YsUp/WlAwI/aqqWtk15WA1WgKe8=
+X-Received: by 2002:a05:620a:4555:b0:93a:2e8:5afa with SMTP id af79cd13be357-93a29939a68mr737739085a.30.1789434672383;
+        Mon, 14 Sep 2026 18:11:12 -0700 (PDT)
+Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e809fd0bsm1118996885a.33.2026.09.14.18.11.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 18:11:11 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: tw68: balance PCI enable on cleanup
+Date: Mon, 14 Sep 2026 21:11:05 -0400
+Message-ID: <20260915011105.56149-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] locking/osq_lock: Ensure proper locking semantics for
- osq_lock/osq_unlock()
-To: Haakon Bugge <haakon.bugge@oracle.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Davidlohr Bueso <dave@stgolabs.net>,
- David Laight <david.laight.linux@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Yafang Shao <laoar.shao@gmail.com>, Steven Rostedt <rostedt@goodmis.org>
-References: <20260910141908.592414-1-longman@redhat.com>
- <B7EAC6BE-D491-428E-8943-CE2F6DF390C6@oracle.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <B7EAC6BE-D491-428E-8943-CE2F6DF390C6@oracle.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Transfer-Encoding: 8bit
 
-On 9/14/26 6:30 AM, Haakon Bugge wrote:
-> [$Subject fixed]
->
->> On 10 Sep 2026, at 16:19, Waiman Long <longman@redhat.com> wrote:
->>
->> The osq_lock is special in the sense that lock transfer from one CPU to
->> the next can happen either over the common optimistic_spin_queue.tail
->> value with uncontended lock or over a lock waiter's own percpu
->> optimistic_spin_node.locked flag when the lock is contended.
->>
->> To ensure proper lock synchronization, we need to provide
->> the acquire/release semantics for the osq_lock/osq_unlock()
->> functions in both cases. This is currently the case for the
->> common optimistic_spin_queue.tail value, but not for the percpu
->> optimistic_spin_node.locked flag as the proper barriers are missing in
->> some places. Fix that by adding the needed barriers in those places.
->>
->> Note that the two percpu optimistic_spin_node.locked setting in
->> osq_unlock() are proceeded by a full barrier xchg() call, but the
->
-> s/proceeded/preceded/
->
->> contended cachelines are different. This should probably work in most
->> cases except in some exotic architectures where the barrier semantics
->> may be cacheline specific.
->
-> As of today, doesn't atomic_xchg() provide full memory barrier?
-> From the doc: "RMW operations that have a return value are fully
-> ordered". I assume this applies to both the intra- and inter-
-> cacheline cases.
+tw68_initdev() leaves the PCI device enabled after a later probe failure
+or tw68_finidev(). Use pcim_enable_device() to balance the enable reference
+when the driver is detached or probe fails.
 
-Yes, you are right. That is why I decide to keep the WRITE_ONCE() in v2/v3.
+The managed disable runs after the managed IRQ has been released.
 
-Cheers,
-Longman
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
+Fixes: e15d1c12c587 ("[media] tw68: refactor and cleanup the tw68 driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/media/pci/tw68/tw68-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/pci/tw68/tw68-core.c b/drivers/media/pci/tw68/tw68-core.c
+--- a/drivers/media/pci/tw68/tw68-core.c
++++ b/drivers/media/pci/tw68/tw68-core.c
+@@ -228,7 +228,7 @@
+ 
+ 	/* pci init */
+ 	dev->pci = pci_dev;
+-	if (pci_enable_device(pci_dev)) {
++	if (pcim_enable_device(pci_dev)) {
+ 		err = -EIO;
+ 		goto fail1;
+ 	}
