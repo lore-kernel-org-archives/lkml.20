@@ -1,83 +1,123 @@
-Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A9A2EAD1B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D41C4A2600;
+	Tue, 15 Sep 2026 17:35:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493647; cv=none; b=gkEnMRnvTTW3oTKR5frmqzjGDzv30QwQF+4RPGThNOdg646kpxEiGh2s3uBfaJhNEbCjbUE186tw2Hjuet0tNBAiGnhxmugVudkpCJx6vCWT76JU7G65CHzyiZA/GHvjxpReA/wv01e+UCz9B9MCHmUDDd7edW7cPkVNmX2Nil8=
+	t=1789493749; cv=none; b=VG1KqTmHmYDMhHDmN/011RlnOMJl6mhA3tMY1D85JpLYxxbVKHU7Qe7n0i6sZuJ2EO8sdeHnF/8PGyMwqyexxNNpY38C9lKB76lneYKl5aBaGSHt6ln8C+bt+q6unmp/6h8Nj10qfEJ03KpMD6dSQILuiQBdjOvUlEYWhNeYCp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493647; c=relaxed/simple;
-	bh=Ny8gsx/+aib1LL/z4GtATlgXdDqmpbtNu+AdXrRe4y8=;
+	s=arc-20240116; t=1789493749; c=relaxed/simple;
+	bh=9FRkHww2ti28VKaHWgA/wFWWs7kgq0/5c9Bhsrzirik=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s9rZeGfvg+nmj2C6tIHFz9iahcBSb7mvwiRBiV32hAcsClF42FsuKXIZjqRohfEfgzwJJ6mHgSzBdMSCGfxacXyFDGa7MNap7vZ8hjvCDwppfn6L4ImqjBw2lV3WHTr8pQUTTFFUAeskOVuZ5aWtx2NRhIoedR2fcvs1WUnRDsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ATUjGByI; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=O5rkdPnBNg31+aA/986gyNcMwSASBtfuGqFF3HXYZoQqUij6vcdRONMQUu2Kc3ZW47o5Wz6pzH4hk9vcP+gTVnwnXOh9O/FS7vk6IGnGnMUTiyjpb3Of62CGVDFnEk+hkNZW2j+VGfncSQ+5mKR9I0SS6PdgpFbAuAfs6YL9lxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pgaj2bP5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ATUjGByI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ny8gsx/+aib1LL/z4GtATlgXdDqmpbtNu+AdXrRe4y8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789493643; v=1; x=1790098443;
- b=ATUjGByI2+VF6GY0inbQrN6K5+Re57pPgbh40dV8JE6eHV1NPYFk4hyADTE4ETZcqxsekadY
- vPtvp6V9zqDbDZbTrmWqpn7gdXX+6M1TR51lBni2pisNwKO4PrU2k1MADZTBcEpsGq7d8oEoHf1
- SOm/5Wh+6MhDjYEaH3i+h5lo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 70d28aa2d60e653d;
-	Tue, 15 Sep 2026 17:33:53 +0000
-X-Mizu-Trace-ID: 70d28aa2d60e653d
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 15 Sep 2026 10:33:47 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>, 
-	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, Barry Song <baohua@kernel.org>, 
-	Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-Subject: Re: [PATCH bpf-next v11 2/2] selftests/bpf: Add memcg async reclaim
- test
-Message-ID: <aqmBRjy07jIYdl-7@linux.dev>
-References: <cover.1789475073.git.zhuhui@kylinos.cn>
- <93289af4317b57caa4e393d73fe6c786b24a4c2a.1789475073.git.zhuhui@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pgaj2bP5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3EB11F000FF;
+	Tue, 15 Sep 2026 17:35:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789493746;
+	bh=39FDW1iBleAYEn7xhDFenbNL76Y5Vr3j48V/WMdQHms=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pgaj2bP5DrqGvx/3WqSGLRb/PQIcCCAc7m4hinrbcCyI2uUaLsCYHyY20o0qiWe9E
+	 3RHqreO0iOHfl4AZoje9x9PeFfbrmV0KeHC5JKTvLEwtj4Lg5me7bz+rBmF6BtRhSy
+	 AY9N7DIXo+XAZrcm7WgGeeLwC6EshU9/ROmHHy7QnE1Z7Gj9LyqSY5ptG89X1ynQpO
+	 wjnAtxFFUXRLjFNTRcc5KFPCFDZFUFM8xN9GsK9CTgoi6PIwPgyjRS3SvqKAnoilEZ
+	 YTY18zhIQwLsgIFNwpHPj3dWyNhJDY9/BroRpgJEmcXu9n2SAUZkZJ/3P8j1Zk14rh
+	 lOg+hT20tfAkw==
+Date: Tue, 15 Sep 2026 18:35:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	Tianchu Chen <flynnnchen@tencent.com>, linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Dave Penkler <dpenkler@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Subject: Re: [PATCH v1 2/7] ASoC: sprd: Replace dma_request_slave_channel()
+ by dma_request_chan()
+Message-ID: <444f1340-f690-440d-85e7-4fa7d66644d5@sirena.org.uk>
+References: <20260915100931.3593242-1-andriy.shevchenko@linux.intel.com>
+ <20260915100931.3593242-3-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Eev+jrxCI2X+PyJ/"
+Content-Disposition: inline
+In-Reply-To: <20260915100931.3593242-3-andriy.shevchenko@linux.intel.com>
+X-Cookie: Void where prohibited by law.
+
+
+--Eev+jrxCI2X+PyJ/
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <93289af4317b57caa4e393d73fe6c786b24a4c2a.1789475073.git.zhuhui@kylinos.cn>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 08:29:36PM +0800, Hui Zhu wrote:
-> From: Hui Zhu <zhuhui@kylinos.cn>
-> 
-> Add a test for BPF-driven async proactive reclaim: a BPF program
-> watches the refault stats of a memory-pressured cgroup and, once they
-> grow, reclaims another cgroup from a bpf_wq callback through
-> bpf_proactive_reclaim(). Reclaim is verified through the reclaim_calls
-> and reclaimed_bytes counters; the workload timings are only logged, as
-> they are a benchmark rather than a pass/fail criterion. Setting
-> TEST_MEMCG_ASYNC_RECLAIM_BENCH=1 adds a baseline run without the BPF
-> program.
-> 
-> A second test covers a dying target: bpf_cgroup_from_id() keeps
-> returning a cgroup until its last reference is dropped, so the program
-> checks the css flags and skips reclaim once the target is offlined or
-> dying, and the test removes the target while reclaim is in flight and
-> verifies that reclaim stops. Each attempt reports its outcome through
-> a ringbuf, so the test waits for events rather than polling counters.
-> 
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+On Tue, Sep 15, 2026 at 12:04:23PM +0200, Andy Shevchenko wrote:
+> Replace dma_request_slave_channel() by dma_request_chan() as suggested
+> since the former is deprecated.
 
-Comments from bpf-bots seems serious. Let's address those and then I think we
-are good with this series.
+> @@ -171,13 +171,12 @@ static int sprd_pcm_request_dma_channel(struct snd_=
+soc_component *component,
+>  	for (i =3D 0; i < channels; i++) {
+>  		struct sprd_pcm_dma_data *data =3D &dma_private->data[i];
+> =20
+> -		data->chan =3D dma_request_slave_channel(dev,
+> -						       dma_params->chan_name[i]);
+> -		if (!data->chan) {
+> +		data->chan =3D dma_request_chan(dev, dma_params->chan_name[i]);
+> +		if (IS_ERR(data->chan)) {
+>  			dev_err(dev, "failed to request dma channel:%s\n",
+>  				dma_params->chan_name[i]);
+>  			sprd_pcm_release_dma_channel(substream);
+> -			return -ENODEV;
+> +			return PTR_ERR(data->chan);
 
+sprd_pcm_release_dma_channel() does:
+
+                if (data->chan) {
+                        dma_release_channel(data->chan);
+                        data->chan =3D NULL;
+
+so this won't DTRT with propagating the return code.
+
+--Eev+jrxCI2X+PyJ/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqpgekACgkQJNaLcl1U
+h9Dv6wf8DIt782FfFomog7Ok5wncm/S0jGMUale3g0wtB7TmjZWZulho4w/W+9Op
+NQdoSarIoFdY4G5RQQaXN9YY/+b3euC8guuyXq2oU9Qzl25W2xTey7eh/bLshP0D
+RC7HQG5RWrDTvJYpyglVFP7TWTTVXtoP7c+2ZMjTps1+Ou6UvJvt/XYuFtS74beB
+ol+eLO6z606nI9p3R2rCyMrZhDQUUzAe90WEtBgyAaN/obA4Wi6K0/itsLBIn0xu
+9AFytXi9/IsoSIZ+BmgOkN29ZdtHW9dTM6Lo0w2d4YC718HywHRkqRPDcLagd8qc
+Wgz7Rz3kFsOpWXRBzsrpPBjNQUUafg==
+=1aFq
+-----END PGP SIGNATURE-----
+
+--Eev+jrxCI2X+PyJ/--
