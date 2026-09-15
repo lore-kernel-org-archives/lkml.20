@@ -1,41 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f43.google.com (mail-wr2-f43.google.com [74.125.225.107])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A4A2FD7B1;
-	Tue, 15 Sep 2026 22:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C40401A25
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511797; cv=none; b=mz2HV2vg2aQLokLkM/BiAbVFjNYa2sr/qai2bbmKoa1ICyfVmabTCYBWiWjP4RbvrHB7D7BfEHoXyARGWKCxM03deAAn1xsd42WIkxsOcO74SUqzqNj5MyLGwGB6CWS/MdaaqMj/AUL0Pg6KBo+5aewS5LvEDt14wbHI2aaTowI=
+	t=1789511837; cv=none; b=pEtg8glS/MeNy7qHczZTUEGzZ2BXYiBjlZI/k+E3L+uEQE/ofm9WaTIyi8brAeuFAwl7SgtPRg/spUJBblazdghXT9GL1gjAf48m/qC+9jDKvs4jOxP/YPzWcjTjifO74Yezt1ctLOA1mKoC6m9QLZu/d+FqxDRxtiUesEuxG8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511797; c=relaxed/simple;
-	bh=7EMxWfIlmrKyo2RNoD8ajkhvnDxN+xpuClNjuc42JfI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=Fqg/pnxcTiwG3CZKKF3uojJ7f7RGA91erbaOYWF/jtilzgVDAgRY1OGO5bOFFI98eaSQWFl7ILHa3GWxJsmTxDD1gIHPtZlQtv/J6/iCHMh8YnJ4hRExUVuFugDRhmFwOaBTdqUvA22h1TgviepAxNxFz500kkdxaGdI6wwK9EM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mRuXfIMc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789511837; c=relaxed/simple;
+	bh=gaEjP8lANHottkp7mN9BpF/gUEZLrlF01hyG/+im0Cs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TyXsD8nzmBoMg0/maHsM36iFoK4HBHsjvRO9xTJkKUvD5s2Ux1NZknSzcutFYjljf0mjCr9zn4DBnBRMyd3x8In5OgYeJAD0NKPdwopUv6IWC24c8SUTFuWZuYie2+3gpgoXcfuP78eClW1Pn8EKSDANx53WH8fN4NNsW2uuAqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GoFal3w2; arc=none smtp.client-ip=74.125.225.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mRuXfIMc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60271F000FF;
-	Tue, 15 Sep 2026 22:36:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789511796;
-	bh=tJB/ynB1O6KFhhQUE3+H7FzZgaFEBZ+R06nzHlwMLRU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=mRuXfIMcpol2kF15SSXYqqHbP3nEguGhNBHCQlSGidP8Vu0MwfV6uRZFAtKjEZEYP
-	 TF5zzhSytWTBkeMNPzDdtvmrhhSs2BYLICHsNF1FJC+tm1YYqNmIfxQA4aQPFnsKEM
-	 pLxiKfsOyB3ZRiZiAWr2z1y6qlfBlz2Ui1wr9W6ydGjgtN0uxOCjPtayYu07TM68TQ
-	 lAp07odWWNmPSLkSc5G+CznsforeETweVDvvMMkaXeF1siiVdqcqWLpCXTPh0Opx6A
-	 xJzA8QB5gsEMB1CqYzthziEcNzXPvCdNtoy2Xq/knpihK26z/F9UwMdEjC4PCBQ6h1
-	 cnR0dcefKSY/g==
-Date: Tue, 15 Sep 2026 17:36:34 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Cc: bhelgaas@google.com, alex@shazbot.org, mani@kernel.org,
-	jjohnson@kernel.org, linux-pci@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org, mhi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13] PCI: Add device-specific reset for Qualcomm devices
-Message-ID: <20260915223634.GA878346@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GoFal3w2"
+Received: by mail-wr2-f43.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so62781f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:37:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789511833; x=1790116633; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FgAcOtlwO45Px2JUhKgFwvhZKw6f6DN8V5/9E1c2LNk=;
+        b=GoFal3w2cd3zElUGwxsoi0cpRUIFaXCy5VWobIx49wc11ub0EgJKCkvbdrcYx9plzS
+         iJ/cj/6EGIR05jH6JxAEUK8agEJCj9lESa6JUp88Ozert+h472RHwx8o+TemUewVOOg/
+         dwYYC/pxABFjMK85V/vl7Y1LbJ5K27Jfc3Zj9Cv/uxzOIZ/Cm5p4XVo9GbCxU3Ai64hE
+         MpkoPvJ8hdUbRDpgIY+YuC41qoC/olk+NVYPk8BzEkv0UqA9XBu5bMC5cwBTWeZNDNCe
+         ONt+XededF+3yVhoT+mgo+CH/y8+0v0XA6nrBRG89TYTDizpmvwftj015T/BjGucit1Z
+         /uIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789511833; x=1790116633;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FgAcOtlwO45Px2JUhKgFwvhZKw6f6DN8V5/9E1c2LNk=;
+        b=eUhTo2jg+SHlr+I8suQaQoQIQkH2EeiasvFUCHkzqBmkR4vyBTCE/6i3/eD2KPHw0n
+         +3qyZMp9JSvcfXHVgynqFqvK9ely/ne/rBYcDalEKUK6yYy75kFaI9ygDVLo9oEwt4rW
+         NoayACX7S4UvVNSTYlAg4nd2QsPrk97iQ/oftrY6CFOl3zplVAi2hHDwyXtPdn0E07Q+
+         SmFzmPB1AM9mAa2cT3b0jk/TsMAnaunK5vsnt7vBjAKsTDGJiBx8VZmpMQYUbMbByeJ0
+         O5pDq41hK/b5ZzWJJ8e8P4CQIM9u61FXohrVayKPNadhlK9n5+XhpJPadFx8DzWCIx9Y
+         ITww==
+X-Forwarded-Encrypted: i=1; AKwUvBySQ8ElcxhnasXycTWT6IKgpMPweAQW2jXXfrMHM+1gFJqlPYu9WlphsSDQEoCkA+SWV6V72YtCh1h6bvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrucFsG17YOeeJ7FEGYiSiKCg+s3loualq+StxG0uXRIhhM8dc
+	3L8iuvoBynAdef4zt7wP281APg+gtvT6HyIN5T/9O3qLJX+FL+Z0X12kwRUZgA==
+X-Gm-Gg: AYBFou0GCjCDNWIGj9HGG1FHfslDC3sZMfxBKTDd03A6iLNmM/2RoMSXfTYeDQJlkNG
+	AonXmrljnC7eOqHAsiLbRHLbdZF6RsWkIE2TcOFWR5ltdPEpIzf9NyXGnndw63FXkY/gw5ZCx3U
+	IGaEj4Bi4bf6iVLFPz+l9+dW8VKWv3d2DjsQNWPuqQAzO6+0x4QRBAlMsaIHqCCv6D+akzJtEWG
+	W4SzMjcCLqQ/CT1W9SbmaPLH2+E+8cSQLCO0WTUdYUZ/FZvNuNGrNzQAlnOHkGlbmp88qdDJuf1
+	90YTQ3t6Vtx7IO2I5INEv3o5tlBkggnSPci7NwM8Vi7MJEb2lzFFXXbyDOUWMjJk28p5k3x6lEC
+	RsIjtPTt4TEE14srTGwn4nUtoLUzX2pRUv0Ln7QX8eNPxzUKoevWBCMOAn7QW/ChdArwUUnKQIf
+	pj8xhRghoWMlWJ+7H+p7ejw4Oq/SckcHR42xTgCYycUETQhjgYF2OAJsGxuo1MmAg+i/CYP1jX6
+	U3ki2CVAqQ3NvlQUy62vlGUy6pp7eqwNFPzfLOKbQdiq1D2jhmbZburUnPzlOsKi3s0yaod+bj0
+	6j00rGSkbfIOD/GkCcD6k+9Rj//KxKezDffteGAO1SgAjwsxVKR6hAKJ6ae+KZoIuw==
+X-Received: by 2002:adf:e194:0:b0:484:3311:257a with SMTP id ffacd0b85a97d-4870d6f9d9emr198485f8f.14.1789511833278;
+        Tue, 15 Sep 2026 15:37:13 -0700 (PDT)
+Received: from MBP-von-Karl (dynamic-2a02-3100-afd5-c801-ec9e-1a2a-2fc8-3f88.310.pool.telefonica.de. [2a02:3100:afd5:c801:ec9e:1a2a:2fc8:3f88])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf33e01sm2389338f8f.23.2026.09.15.15.37.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 15:37:12 -0700 (PDT)
+Date: Wed, 16 Sep 2026 00:37:11 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
+Message-ID: <aqnHDxRIBncNH6qr@gmail.com>
+References: <20260914212537.1452-1-kmehltretter@gmail.com>
+ <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,234 +78,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260721081301.205374-1-jtornosm@redhat.com>
+In-Reply-To: <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
 
-On Tue, Jul 21, 2026 at 10:13:01AM +0200, Jose Ignacio Tornos Martinez wrote:
-> Some Qualcomm PCIe devices (WCN6855/WCN7850 WLAN cards, SDX62/SDX65 modems)
-> lack working reset methods for VFIO passthrough scenarios. These devices
-> have no FLR capability, advertise NoSoftRst+ (blocking PM reset), and have
-> broken bus reset.
+On Tue, Sep 15, 2026 at 07:48:12AM +0100, Arnd Bergmann wrote:
+> On Mon, Sep 14, 2026, at 23:25, Karl Mehltretter wrote:
+> > On 32-bit systems with RTC_HCTOSYS enabled, rtc_hctosys() rejects
+> > RTC dates whose seconds value exceeds INT_MAX, even when userspace
+> > uses a 64-bit time_t. This leaves system time uninitialized by the RTC.
+> >
+> > Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
+> > time_t") introduced this limit to protect time32 userspace from future
+> > RTC dates that can break boot. The same limit prevents systems with
+> > time64 userspace from initializing the clock from valid post-2038 dates.
 > 
-> The problem manifests in VFIO passthrough scenarios:
+> Hi Karl,
 > 
-> - WCN6855 (17cb:1103) and WCN7850 (17cb:1107) WLAN devices:
->   Normal VM operation works fine, including clean shutdown/reboot.
->   However, when the VM terminates uncleanly (crash, force-off), VFIO
->   attempts to reset the device before it can be assigned to another VM.
->   Without a working reset method, the device remains in an undefined state,
->   preventing reuse.
+> What about the reverse: if COMPAT_32BIT_TIME is disabled, I don't
+> see why we'd want to allow turning this on, so maybe
+> 
 
-Just to clarify the commit log, I asked earlier about why this says
-"when the VM terminates *uncleanly*", since VFIO resets the device on
-every reassignment regardless of whether the VM termination was clean
-or unclean.
+I tried this and found a case where the limit may still be useful
+with COMPAT_32BIT_TIME=n. Glibc can use time64 kernel interfaces
+for applications with a 32-bit time_t. Conversion to time32 fails
+with EOVERFLOW when the date is out of range.
 
-But I didn't understand the answer (here's the question/answer from
-https://lore.kernel.org/all/20260612142638.1243895-1-jtornosm@redhat.com/t/#m853c96910f7c842dca597f5c0a0f2fcc90d98be1):
+I tested a small clock_gettime() program using Debian glibc 2.41
+on 32-bit ARM in QEMU, with identical kernel configurations and
+initramfs. With RTC_HCTOSYS=y, COMPAT_32BIT_TIME=n and RTC in 2040:
 
->>> I don't know enough about VFIO, but I sort of expected that VFIO
->>> would reset devices between reassignment regardless of how a VM
->>> terminates.  I guess that's not true?
+  Kernel                 System year  time32 clock_gettime()
+  ---------------------  -----------  ---------------------
+  Baseline               1970         success
+  Patch with dependency  2040         -1, errno=EOVERFLOW
 
-> VFIO does attempt reset on every reassignment. Without a working
-> reset method, the attempt fails and the device remains in undefined
-> state. With this quirk, D3hot successfully resets the device
-> allowing reassignment.
+The legacy clock_gettime syscall returned ENOSYS in both cases.
+The same program built with a 64-bit time_t succeeded on both
+kernels. Both builds also succeeded with the RTC in 2026. Both
+kernels booted with time64 init.
 
-I guess you are saying that some kind of reset *does* work fine in
-normal, clean VM termination?  If reset works fine for normal VM
-termination but not for VM crash, do we have any idea why they are
-different?
+Disabling legacy syscalls therefore does not establish that all
+applications use a 64-bit time_t. The dependency would remove the
+existing safeguard automatically and prevent restoring it without
+re-enabling the legacy ABI.
 
-> - SDX62/SDX65 (17cb:0308) 5G modems: Never successfully initialize even
->   on first VM assignment without proper reset capability.
-> 
-> Add device-specific reset methods using BAR-space hardware reset registers
-> that exist in these devices:
-> 
-> - WCN6855/WCN7850 WLAN devices use SoC global reset via BAR0 (sequence from
->   ath11k/ath12k driver: ath11k_pci_soc_global_reset(), ath11k_pci_sw_reset(),
->   ath11k_mhi_set_mhictrl_reset()):
->   - Write/clear reset bit at offset 0x3008
->   - Wait for PCIe link recovery (up to 5 seconds)
->   - Clear MHI controller SYSERR status at offset 0x38
-> 
-> - SDX62/SDX65 modem devices use MHI SoC reset via BAR0 (sequence from MHI
->   driver: mhi_soc_reset(), mhi_pci_reset_prepare()):
->   - Write reset request to offset 0xb0
->   - Wait 2 seconds for reset completion
+I would prefer to preserve existing RTC date acceptance by default
+and let integrators opt into later dates once their userspace is
+ready. Keeping the posted settings would do that:
 
-Since these basically copy code from other drivers, is there an
-opportunity to remove it from those drivers and use this instead?
-I see that the maintainers for drivers/net/wireless/ath/ath11k/pci.c
-and drivers/bus/mhi/host/main.c are already cc'd, so this is something
-that could be done later (if it's possible); doesn't need to be done
-before merging this patch.
+    depends on RTC_HCTOSYS && !64BIT
+    default y
 
-This looks like two patches squashed together.  If there's any other
-reason to touch this patch, I would split them apart.
+With RTC_HCTOSYS=y, for RTC dates beyond the cutoff:
 
-> These are true hardware reset mechanisms (not power management or firmware
-> error recovery), providing proper device reset for VFIO scenarios.
-> 
-> Testing was performed on desktop platforms with M.2 WLAN and modem cards
-> using M.2-to-PCIe adapters, including extensive force-reset cycling to
-> verify stability.
-> 
-> Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-> ---
-> v13: Address Alex Williamson feedback:
->   - Validate initial ioread32() with PCI_POSSIBLE_ERROR() before
->     read-modify-write to avoid writing error response back to device
->     on platforms with APEI/GHES error escalation
->   - Replace time_before()/msleep() polling loop with read_poll_timeout()
->     for robustness against scheduling delays and code simplification
-> v12: https://lore.kernel.org/all/20260630065815.199693-1-jtornosm@redhat.com/
-> 
->  drivers/pci/quirks.c | 116 +++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 116 insertions(+)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index 431c021d7414..bd1e0742052e 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -22,6 +22,7 @@
->  #include <linux/isa-dma.h> /* isa_dma_bridge_buggy */
->  #include <linux/init.h>
->  #include <linux/iommu.h>
-> +#include <linux/iopoll.h>
->  #include <linux/delay.h>
->  #include <linux/acpi.h>
->  #include <linux/dmi.h>
-> @@ -4240,6 +4241,118 @@ static int reset_hinic_vf_dev(struct pci_dev *pdev, bool probe)
->  	return 0;
->  }
->  
-> +#define QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET	0x3008
-> +#define QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET_V	BIT(0)
-> +#define QUALCOMM_WLAN_MHICTRL			0x38
-> +#define QUALCOMM_WLAN_MHICTRL_RESET_MASK	0x2
-> +
-> +/*
-> + * Qualcomm WLAN device-specific reset using SoC global reset via BAR0
-> + * registers.
-> + */
-> +static int reset_qualcomm_wlan(struct pci_dev *pdev, bool probe)
-> +{
-> +	void __iomem *bar;
-> +	u32 val;
-> +	u16 cmd;
-> +	int ret;
-> +
-> +	if (probe)
-> +		return 0;
-> +
-> +	if (pdev->current_state != PCI_D0)
-> +		return -EINVAL;
-> +
-> +	pci_read_config_word(pdev, PCI_COMMAND, &cmd);
-> +	pci_write_config_word(pdev, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-> +
-> +	bar = pci_iomap(pdev, 0, 0);
-> +	if (!bar) {
-> +		pci_write_config_word(pdev, PCI_COMMAND, cmd);
-> +		return -ENODEV;
-> +	}
-> +
-> +	val = ioread32(bar + QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET);
-> +	if (PCI_POSSIBLE_ERROR(val)) {
-> +		ret = -ENODEV;
-> +		goto out_restore;
-> +	}
-> +	val |= QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET_V;
-> +	iowrite32(val, bar + QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET);
-> +	ioread32(bar + QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET);
-> +
-> +	msleep(10);
-> +
-> +	val &= ~QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET_V;
-> +	iowrite32(val, bar + QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET);
-> +	ioread32(bar + QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET);
-> +
-> +	msleep(10);
-> +
-> +	ret = read_poll_timeout(ioread32, val,
-> +				!PCI_POSSIBLE_ERROR(val),
-> +				20 * USEC_PER_MSEC,
-> +				5 * USEC_PER_SEC, false,
-> +				bar + QUALCOMM_WLAN_PCIE_SOC_GLOBAL_RESET);
-> +	if (ret) {
-> +		pci_err(pdev, "PCIe link failed to recover after reset\n");
-> +		goto out_restore;
-> +	}
-> +
-> +	/* After SOC_GLOBAL_RESET, MHISTATUS may still have SYSERR bit set
-> +	 * and thus need to set MHICTRL_RESET to clear SYSERR.
-> +	 */
-> +	iowrite32(QUALCOMM_WLAN_MHICTRL_RESET_MASK, bar + QUALCOMM_WLAN_MHICTRL);
-> +	ioread32(bar + QUALCOMM_WLAN_MHICTRL);
-> +
-> +	msleep(10);
-> +
-> +out_restore:
-> +	pci_iounmap(pdev, bar);
-> +	pci_write_config_word(pdev, PCI_COMMAND, cmd);
-> +
-> +	return ret;
-> +}
-> +
-> +#define MHI_SOC_RESET_REQ_OFFSET		0xb0
-> +#define MHI_SOC_RESET_REQ			BIT(0)
-> +
-> +/*
-> + * Qualcomm modem device-specific reset using MHI SoC reset via BAR0
-> + * register.
-> + */
-> +static int reset_qualcomm_modem(struct pci_dev *pdev, bool probe)
-> +{
-> +	void __iomem *bar;
-> +	u16 cmd;
-> +
-> +	if (probe)
-> +		return 0;
-> +
-> +	if (pdev->current_state != PCI_D0)
-> +		return -EINVAL;
-> +
-> +	pci_read_config_word(pdev, PCI_COMMAND, &cmd);
-> +	pci_write_config_word(pdev, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-> +
-> +	bar = pci_iomap(pdev, 0, 0);
-> +	if (!bar) {
-> +		pci_write_config_word(pdev, PCI_COMMAND, cmd);
-> +		return -ENODEV;
-> +	}
-> +
-> +	iowrite32(MHI_SOC_RESET_REQ, bar + MHI_SOC_RESET_REQ_OFFSET);
-> +	ioread32(bar + MHI_SOC_RESET_REQ_OFFSET);
-> +
-> +	/* Be sure device reset has been executed */
-> +	msleep(2000);
-> +
-> +	pci_iounmap(pdev, bar);
-> +	pci_write_config_word(pdev, PCI_COMMAND, cmd);
-> +
-> +	return 0;
-> +}
-> +
->  static const struct pci_dev_reset_methods pci_dev_reset_methods[] = {
->  	{ PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_82599_SFP_VF,
->  		 reset_intel_82599_sfp_virtfn },
-> @@ -4255,6 +4368,9 @@ static const struct pci_dev_reset_methods pci_dev_reset_methods[] = {
->  		reset_chelsio_generic_dev },
->  	{ PCI_VENDOR_ID_HUAWEI, PCI_DEVICE_ID_HINIC_VF,
->  		reset_hinic_vf_dev },
-> +	{ PCI_VENDOR_ID_QCOM, 0x0308, reset_qualcomm_modem }, /* SDX62/SDX65 modems */
-> +	{ PCI_VENDOR_ID_QCOM, 0x1103, reset_qualcomm_wlan },  /* WCN6855 WLAN */
-> +	{ PCI_VENDOR_ID_QCOM, 0x1107, reset_qualcomm_wlan },  /* WCN7850 WLAN */
->  	{ 0 }
->  };
->  
-> -- 
-> 2.54.0
-> 
+D = don't care (y or n gives the same result).
+Kernel denotes kernel bitness, regardless of userspace bitness.
+
+With the patch as posted:
+
+  Kernel  COMPAT_32BIT_TIME  RTC_HCTOSYS_TIME32_LIMIT  Allow past cutoff
+  ------  -----------------  ------------------------  -----------------
+  32-bit  D                  y (default)               n
+  32-bit  D                  n                         y
+  64-bit  D                  n (unavailable)           y
+
+For reference, the baseline behaves as follows:
+
+  Kernel  COMPAT_32BIT_TIME  Allow past cutoff
+  ------  -----------------  -----------------
+  32-bit  D                  n
+  64-bit  D                  y
+
+Karl
