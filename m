@@ -1,99 +1,72 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6ACD217723
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78A83CDBA5;
+	Tue, 15 Sep 2026 06:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454590; cv=none; b=atmi7+RwZjAPfTooCwXussByaWWp869u4O3C3VVyDeLlsFFKgLRFVldqOp/LK/xtMClaDjZNT8emNpD6Mfdb/pHlWNvsdgCLec9sLYHtW7qGC1JYPNdA/hPuv309qVZ0cZ0+SMa+9jzA3ArBq5s/IGvoH0Ablf7mwSsi4Q6W87A=
+	t=1789454637; cv=none; b=EeTZT0i8mI5Dc+l6R1FEn1WMZamaG4mDhgyRVYzYJXT5/p0xdR58/NYpuB1epuSIAFzEp2Po8u+WGDWS19YSCSdPujGC6Xk+jKR6KJ6/hyJQn78vP+vUpAdMmSl2q6SIEibN1AwMjygy8PlIQOreN4uXukITkG3eTJCmDhMvNac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454590; c=relaxed/simple;
-	bh=rPlJgrTAgivnnz6mVejTKVt9RYcI9yQwD/+TIy1M6Zw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=M8erXetOqqHhAWIJFpGfmJT8cD7owBCPmoo59PzJ5BWASD9ZRbS19fAEN7RK3JrwVkGidm3cUvDeGpXKTLicG+V9bCMV/6wYI2r6fExpVFUyhZ7QNItQ+jLxeBDXoNLXZUq9C4Yezev/c0PVy5P8Am/+V76fV3KF+HKCg1vjBNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=St+j1/nh; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789454637; c=relaxed/simple;
+	bh=Nc8vEsGYa+LoClpVrtKU0ctY95f4Lq144BNAOinqUFk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hxv+fZ20NTIq/jySxpDjZ+uEKLGS4NTI0EchpvRApQHoQggBqA+VHK362i72U027LqeVe7k729CnvLggKvW9GCn9ENZP0xiaIWEmUjFRk+ax2fJuJXJ5sPt0eyMykoeOyNkWFyWbXuQIESy/tE4uP0Ec3bzA7Zk+D7uk5xZwkBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Zdthx9WK; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TkJG47b9; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="St+j1/nh"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e2254dso388243b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:43:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789454588; x=1790059388; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tKUg9BLWff5kiPeotNdE9F6L4UtNLkRCJ8RzVJJbCgI=;
-        b=St+j1/nhhgxDKJequLN0w5F0iwwl/0yS+rMYNyknlHXeX6ZbW3wi/WLSuKULzURb+K
-         bTK1QUC6sOpnbPKEBUqgk3yOEVXeWitUsydGGJ/n7kbegWEtb7k8RbIwp7xIAFnXGngi
-         bLDKGogPda2Kih/F+Vt6Zw1EqMpuIq1jJvlyI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789454588; x=1790059388;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tKUg9BLWff5kiPeotNdE9F6L4UtNLkRCJ8RzVJJbCgI=;
-        b=cwIrDe5wU0k01KYpakRcINnyRqPySixiTDvriv3e3+Nr+lkk5p+cNThkt0wcQ3yM9h
-         Omd0fqpy6dSI1zy7ieFgnuGYVM2yXFVghriJ1u6tpnOADYXyUdKlq6toODQVYxG5VTHr
-         pRgeCUg1N2yNpiyPt/EHrl8ZhOuuh+8ME0QGTE740LJQYLBFkHRWYuQa/Ct6ddkU0MWn
-         mdTvCFE+68dIjStj1ylIN9nOIdssAmj0RZgSsR4yWDy5nHtIV+PxFUIVdl0e49Fx2rFf
-         j0tV8MU+WpcL6KkC9EdA7ous8ZjJxRhmz1MrPxogsqFIRHmB8LkgW1UWl/FlucYV5R1o
-         M1aw==
-X-Gm-Message-State: AFuF++lwnFdubhGOna2PymzIJzyrln8ZQtgZ8ifVf3LwHH8S1X/oYrdk
-	8rWpaUmsgN6IVCYVikHUHtHg4qmUFIEJKT5N/wtJF8CWhAn0ZWMi07EKFeRdJJAZqgeebk5CXQ5
-	gNNI=
-X-Gm-Gg: AYBFou3q2bi4cXRKoxeGzw+LXN2RIk6vyzKxkQnQLl1XfQI/ZkgdgTYfa0xv7TDGtAs
-	G25x3kLZEl63v+qRozg+fqR8Wx/oyRh187EU8/+EISJt3Oa3ASYRu91nPT/SmKl14qu9bkIVtp3
-	n4DFzNPhGOEcsldkSSLs3MmQT6G8rigLfdSkoTNrbOzO5JbUV35a6z8kPYJM51/rC8bn+wcHuH/
-	j55ZOIPEtNPaFastqZKAAm9a3iFhYG+4RYBhBmqVoWokHXqyN5OhkxbF86Vl2Xz6lqdK4qzHvmU
-	ZZOtE810uk2X7L2Ly/ERFUle/5REM1PB28vuO8UypH6i1t0C4/uFqvjVZ+EPnecP4QKA4ogGZp/
-	elDG732dAxomwvK6lNYx13u4NKDspEkAtTQhl28m77REUXHVa20wBOSOOLInTI0VCgFZscc/FwM
-	2S+vk8RupXfc6NL154h75XliLfi581q6xe5h25jb2CxV+xt5UVWq2TubzlOexfKPp8vcEic7ff4
-	WL+Q1lMGd5LOkAU3ftJhDbmB/suLX/IyiJRVGoVdVdN0vUKWezFpZ6IaA==
-X-Received: by 2002:a05:6a00:3996:b0:867:bb96:52b2 with SMTP id d2e1a72fcca58-8708abcaaa7mr3435307b3a.5.1789454587912;
-        Mon, 14 Sep 2026 23:43:07 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:fb1f:30c0:2c68:79bd])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb760sm5618262b3a.46.2026.09.14.23.43.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 23:43:07 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260903084823.4156065-1-wenst@chromium.org>
-References: <20260903084823.4156065-1-wenst@chromium.org>
-Subject: Re: [PATCH v2] drm/sysfb: Use iosys_map_memset() to clear buffer
-Message-Id: <178945458608.1777136.8682538603402448473.b4-ty@chromium.org>
-Date: Tue, 15 Sep 2026 14:43:06 +0800
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Zdthx9WK";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TkJG47b9"
+Date: Tue, 15 Sep 2026 08:43:52 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789454633;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n8npRe+Ba2NJYgzLW1W2s8uAuAt8W67MqQDs/DmOXgg=;
+	b=Zdthx9WKDdWAtub0fJPsq4ybHfZ4ztm5qziXY4BS+91J6gNnPDqb0x3MjsmeJx/rH84bco
+	c2iRGnoz75HM8vcmjGOZoH/UKIGTbc9pyvzP+OElYsC/GyuEqtkccgBLH21e1NwCHhrx6k
+	gQ36azHNyEHXI4yBjZimagqMP99KFI/CuRlCmWNskC6EtwmRje1XD5AUtSg0TLhOHmvFvf
+	8zBrDNshEy52ce6VgKbDDiALitZoF4KldfzoOFch1rWRrWTby7eguGYHaO6LhYzzXotenO
+	KKamQ7Oi7McOwyRgzgaadT44a6KQL1ZHreLc8xTxP1VTUK6TfFbAuVEqe5R40w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789454633;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n8npRe+Ba2NJYgzLW1W2s8uAuAt8W67MqQDs/DmOXgg=;
+	b=TkJG47b91aO4UL/TX0i5aFN2dg64ywHaFv1uzvHxjEEWIBaRZH1/3lQjFUAUxLgIkoYPzO
+	fjll67g6FjmYb8BQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:Real-time Linux (PREEMPT_RT):Keyword:PREEMPT_RT" <linux-rt-devel@lists.linux.dev>
+Subject: Re: [PATCHv2] gpio: mvebu: keep resume masks within the irqchip cache
+Message-ID: <20260915064352.T4HiPnt_@linutronix.de>
+References: <20260915004406.115230-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915004406.115230-1-rosenp@gmail.com>
 
-On Thu, 03 Sep 2026 16:48:22 +0800, Chen-Yu Tsai wrote:
-> The atomic disable in drm/sysfb currently clears the buffer using
-> memset_io(). Since the mapping is provided in a |struct iosys_map|,
-> it is better to use the related API instead of extracting the vaddr.
-> This is mentioned as a TODO item.
-> 
-> Switch to iosys_map_memset(), which takes the mapping as well as an
-> offset into the mapping.
-> 
-> [...]
+On 2026-09-14 17:44:06 [-0700], Rosen Penev wrote:
+> mvebu_gpio_resume() writes the edge/level mask registers saved at
+> suspend time straight back to hardware, bypassing the irqchip's
+> mask_cache_priv.  genirq skips mask_irq() for a line it already
+> considers masked, so restoring a bit in hardware that genirq thinks
+> is still masked leaves that line unmasked behind genirq's back.  An
+> asserted level line then has nobody to ack it, and the moment
+> interrupts are re-enabled the chained handler storms, hanging resume.
 
-Applied to drm-misc-next in drm-misc, thanks!
+Why is the mask value changed after suspend?
 
-[1/1] drm/sysfb: Use iosys_map_memset() to clear buffer
-      commit: b57c9b345d18d67902625355c45caf322e2ab794
-
-Best regards,
--- 
-Chen-Yu Tsai <wenst@chromium.org>
-
+Sebastian
