@@ -1,139 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CDA23909C;
-	Tue, 15 Sep 2026 01:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59313168E6
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434498; cv=none; b=eAeXtVci/shNTXsJXqUOSi2SH8Re4gVFXeQd7Rmm3Gc7A1/m/QMbzE46bcO28hcVA2Ye/BZZpv/Wz7zVqjU63MMHs7ArCobcKQ4YgjEsl1dvDTHbZ9bkY3pa498g7+UvAc3tRB2xET9UNh0/VGlyDPgVc/0mmOsvtJy4npGKorA=
+	t=1789434539; cv=none; b=unMSMSZbMDNHTmkdQNDLNszMyQlkLfzyOzwjb16kKt8K1RRKXlMTI/fOJTO0cnXEmVeMRoFjxZjjwI3WepWruzA8XysWaMrFbmhLlVLCnVNdJGa/u4oeQNAr0YV4IH7spuQDnX3qZA1wOIOFd4DCaCeg9bgm87NS6gNUy0jdLVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434498; c=relaxed/simple;
-	bh=mUsymsCuQS3SvFkPbdMe4P0yrNvNhFRlUiTaViL3wpk=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=B+Hb5mZVOoyryXHDedn9vFejF6KS/VIgSsh5bFueoD3v3vHA0BWkO0DfTUdusxYSterbKN4JMClimR8dVXE8vM1fVZIvKomCfGyUaTFYscoYGQkDKraZCm3BNSwFN+55joc3xBQI8Upi0lX/SCDYjw+zKb2HU7qIFjgaO6DQVpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=JlZVB02S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789434539; c=relaxed/simple;
+	bh=VN+1E7Ggrmb9r3vg1FtqgtE5D0dYCleTF5eIdAx6oLY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jbrz3b9K+74Gw0enYUmQ96OoGMVwMPBYoCIu2rgiacujGKu34qebogKvLBDYv99b59ultWQzry9K87mTqqRM+kWvz6FW7rBkI2mW/NH2GSgznTnCGiBCdG0pANG3DeqT4IDjkq5VQTNoj3Wo/6JRmK4rB+MG+bNzALGuodkS7s4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CSbbV6ki; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="JlZVB02S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648761F000FF;
-	Tue, 15 Sep 2026 01:08:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CSbbV6ki"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cc46c4so205595285a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:08:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789434496;
-	bh=1++7fS8iWKOMzhlKxfG6KZTpRByEnFekp/pb13YE7fg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JlZVB02SRB8SlrjnhgKRH7erLp6/lF0bjE2LaEmvv4g/ygzNEN9Df4GzyzKOq1GRm
-	 MXZBeGQXDG+eEGW474o2elhJDXFweuH5LsbgShtKZ8tWHgw7BwYQ9PSDiWCSrWxS8a
-	 XDSL8c0/AB3jDnSpmNCqPc3psNggeGWzB7Ii5XXU=
-Date: Mon, 14 Sep 2026 18:08:11 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
- <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Dennis Dalessandro
- <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
- Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
- <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert
- <dgilbert@interlog.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, Simona Vetter
- <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel
- <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov
- <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner
- <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Rik van Riel
- <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann
- <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
- <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
- Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, Oliver Upton
- <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Madhavan
- Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda
- <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, Alexander
- Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
- <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park
- <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, Chris
- Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, Johannes
- Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Chengming
- Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, Miklos
- Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
- selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit,
- eliminate VM_SPECIAL
-Message-Id: <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1789434536; x=1790039336; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zuhD7bbPqMz9xYO8EZgChXwB2VgczRrhByJD+Et4u1o=;
+        b=CSbbV6kiU6lS63kK6QigSaHOMtkDIj/zYQtfZlSALNXoNbj8NeX7U9UAmNnfPcXcf/
+         m723BqXl96RiSWyJEisflxXoq/Lu+iJdi4tLtU3W/veuHOZmcspBtFoK26xFnYHB5RoR
+         q5I6L0ZVOWFVID3zpF+7174l1/fku9P4PtPztwUSU3c2QfQGj1DXz9tWSnEvDnI0sTtE
+         itzAyVjPyO3GvfdYKEIlyMVjtXPmIGtZUPmtVn+m+XNdoUCMOdjyisCL93Uwn38JAjXM
+         iHuIYo/FanK1exeqEXrm6mIKoh2ki8sx/ivXD1T8igNdlQ8dcjtgcmhSTNI31uefc5Vt
+         UhlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789434536; x=1790039336;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zuhD7bbPqMz9xYO8EZgChXwB2VgczRrhByJD+Et4u1o=;
+        b=kYxW044+ixD/wH8905D8hqm1OAdmK9izRQC3hA5n2aUjYNPlp5E94FsGXcb5vWdGGF
+         dlP9/pAogiREuiyPs2kY5xVlU8K3fddZ7eFDoP6pGP0zCzPwqoPytMv/0CnvLlz7r7cS
+         O3XaGAoVP8hiREt7jWhhcG7r0f9lFJ6b4/fCjAPWtA78qSPPjZsYzAy8NgmQbJuj57Bt
+         41l3hhueipJXyEO1DFsvcuX+PInc+qrRfgdwHXKtXsEOzhd5MsgqLXzaxusSm0VW9DZz
+         du40d3uNhzgu9xhyO/MAmG+xcLAK3wEQ1LljnRtwZ2+ydvhwEJGpCJ8+GvuCcmXfNjM/
+         Zd+g==
+X-Forwarded-Encrypted: i=1; AKwUvByakfxm09cFWeZUX56bS5savzEbS3pWGD/4nv4SqCfvQNDAilBek3NxR1fslzjx5Sq8d81kLMngOnkGCdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8bWvCzLqMhuPCi1TZUyvnfJQwwRre9HrVc5+wdqLT21V2qMMw
+	eUs4PkHH9jLxsfMIGgffpNDvrvr/t13PiRaFKuiQ/Z1ukYKes93aFg0=
+X-Gm-Gg: AYBFou0AAvwluL4un5fAw8Ldg4jHb/FLoIeVOWg3slxv2QmEfGLJokJHO5sn7RD/EM2
+	i63ZbMvjp+2d+TEwQtwE7TlDXqJhOh1KMPyO4piVbV8WYtN/KWEfoSs6uw0zCAM2y7f53YT0Lwr
+	PpH1R+kaWFTvcF3Tj9iTnYEdkbLHfbi2vCFWqOWuJLtCgZ/2V+4+vWcecvUGtYul5brCMpaY8lU
+	QlUTDKs439CC6d8VZi2NB+b1L7aJ7Jeldxk4FuRG4VqdFp9xtTvX58PX6fV8oxiQtrPoMJjNTIX
+	j5lhRUzfglb7ntt0xIH49z5Pl4ch/iivM8KDyBCNo+xV959P1fXNNH+tRQrY+miOKE0GLmPULWF
+	tQL53FsyRbSiyUNuddd4lOav4fCfheoG9Y+Loo/fNHHOTFlo2YGe8U6iB/J+VVzpPEGWoiYC23T
+	RhBW4Cc6wFON6ntjuoL4FWVuZBGHeGGc7wklfvI6W4rNmJeQP+yQL0m7uH4sKXfB5+UVY6atE93
+	lcEn4b7/AxjzTVjxmsH1+g0B4EDuP3SDuOS/D/qikgw6TTeH7Ccod0lBuDyrlaBFGE8Y97lBEEf
+	+PG9j1GHis/CyeDSRCQD8uV065tV0u1ft+4cB6RTJFrW8oMP1mEynUe7IlQ9jTw14/gsYA==
+X-Received: by 2002:a05:620a:470e:b0:939:b43f:341e with SMTP id af79cd13be357-93a2987f902mr754452485a.22.1789434536496;
+        Mon, 14 Sep 2026 18:08:56 -0700 (PDT)
+Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-912321108a5sm18935796d6.46.2026.09.14.18.08.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 18:08:55 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Denis Kirjanov <kirjanov@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: sundance: balance PCI enable on cleanup
+Date: Mon, 14 Sep 2026 21:08:49 -0400
+Message-ID: <20260915010849.54718-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+sundance_probe1() enables the PCI device, but subsequent failure paths
+and sundance_remove1() never release the enable reference.
 
-> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
-> properties:
-> 
-> ...
-> 
-> It's all rather a mess.
-> 
-> This series brings some order to things by both limiting what drivers can
-> do with VMA flags and switching to using predicates that describe
-> behaviour, not arbitrary flags.
+Use pcim_enable_device() to disable the device after existing network,
+DMA, mapping and region cleanup on probe failure or driver detach.
 
-That's a lot of patches.
+The imbalance is already present in the initial Git import.
 
-Review is thin and I expect this won't improve a lot.  Lots of "no
-functional changes" changes.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-Perhaps it would be helpful if you were to identify those patches which
-you'd like to see reviewers focus on?
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/net/ethernet/dlink/sundance.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->  1153 insertions(+), 582 deletions(-)
-
-It's funny how often cleanup patches do this.
-
-All queued up, thanks.
+diff --git a/drivers/net/ethernet/dlink/sundance.c b/drivers/net/ethernet/dlink/sundance.c
+--- a/drivers/net/ethernet/dlink/sundance.c
++++ b/drivers/net/ethernet/dlink/sundance.c
+@@ -510,7 +510,7 @@
+ 	int phy, phy_end, phy_idx = 0;
+ 	__le16 addr[ETH_ALEN / 2];
+ 
+-	if (pci_enable_device(pdev))
++	if (pcim_enable_device(pdev))
+ 		return -EIO;
+ 	pci_set_master(pdev);
+ 
