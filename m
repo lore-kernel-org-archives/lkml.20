@@ -1,173 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011025.outbound.protection.outlook.com [52.101.52.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7450C3BCD29;
-	Tue, 15 Sep 2026 06:23:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789453433; cv=none; b=aA+XyN8zs11FeeRPgmcVSLZQphjcBqvBwa5HsSvJ5EPtyfOa8rHMgEWwNzyS0JqPaaGfWTnmo5v5UmS3uWsVsfqg7fnf7HF3airw6LvUaKdqMe8mVppYWazFwmaYf96qpzpnpnfQFtlPlMYdefW31f8j7MOd5Kn/w/bWhat+vUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789453433; c=relaxed/simple;
-	bh=XeX+dvp7tsF7D8D0PVBjBSRr+LI+y8EIC2pK+2exL7o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PxdSft4p3ZRCEh6+uQOyCOWePSc++hAQqu6AFjTzT0WR0IEYHOI8+/3D9lEz02hHgPXzHetnMhvSJnxCBbnkYEe8cemHJQEBDqyqQQ2iy7RiLaP5P0qOyo8EaSxiGmPmFSWbyqE3tlW9RivzAFTUWhugFziV4J1znBVLcHqASlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jfuZbgmG; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFED3DB327
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789453444; cv=fail; b=Zs71aYTXRyZbkHSWnuouI1C9jUfcJgrK7u6f3/bCEFgTDxueioX0V8VB0a9IvwppTBCuxG6QDhyjNG0VfY3xqOYGsjqKIjwWvSdw/iBKSHspgtFepsFBcSGASRhbbjVMBy96RGzcMR3Hge8JxrjX1MizT0KMZc9gUU9MoerAfKQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789453444; c=relaxed/simple;
+	bh=bR+rZDjVv28Y+j+Vkjktr7efHhtm687FASJ9d4AZ18E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=uB2ECqDI8cbx7/WIkJji8Wed0ZgQiuqp+06AZz1PZ4qA9esq0nZ9vj91hN3JUkIB/YDL0KaMAQa+jHGiBT583m5qXSu9kdpLKWZ7aKoBEkiP6y3vpmmlfsI47V0TMsZ88Ipxtwz8iwEafRASYVBM2AlFRla4Vmmimkb6I31Uc+0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qSHtVQzE; arc=fail smtp.client-ip=52.101.52.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jfuZbgmG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A03D1F000FF;
-	Tue, 15 Sep 2026 06:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789453431;
-	bh=yFrOVJsHwITVaC+EbmE+b+kEEDebikU4bCK/widGiTE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jfuZbgmGmL829y0T2VYwsjo2R5rUeGwtRAHpEXCcba95Xh4sZNi38OO0ai3fF9iCe
-	 bA0nk+ujyWAKurkAr7Aq3pYcTD1SBL8IzcGQrhMudUPLK0X4AVl0M9YNyEObBuz8Lt
-	 qv+lKfu/acLdq0xX58C/Vvo95T9cnHjnDFe3LYzqVMd//60+SAONDMh1AnRY4F8CVp
-	 Smqa2Wx6OQ+XDRvGexhN4vMl8GWtXK/Lg4jkebMnqNjLso4nGZgmfjn6w3HKKgf263
-	 SyOijns18PybdKDZ4pqqKNBiJyVzeYIBe7ebVvhNFZ4qYT071or95G7gwBhMOBztnM
-	 gdMowTS8N94fg==
-Date: Tue, 15 Sep 2026 09:23:47 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH v6 17/18] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-Message-ID: <20260915062347.GB13683@unreal>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-17-5ef07ec9ef06@nvidia.com>
- <d3fb7ea0-019f-4311-bf0f-00d25bdebda0@amd.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qSHtVQzE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tAWx6tznIykHox0vKuy9C3RIAW7L+tL80rM6SMKyQQEeGePJiTxII3RJ6R/dO2lKq6whATaJMBrWPWqGGnWM465qhpCA39gQvgsimzxNj2tR/nBkNpWiXLPRCo/Yxa10xkQn0C7MmAVUsQHZleyerjPp1TZfVUXC81KFodl/spPAQjcLqEXhjq4pEHHjTP9NIFWiClEcOmzN1gOL98ZVsNHTz4+xA11ydsZhKA8paq9YwjsZfGSysxjjPMOSAgT2Ax0IBl4hw0EsgGeDA6oKH7RVeR5L05SlUZJYPdyye5aAlUk2QKXU4Jlx1eFIFa/F2PgDQE1zdagVHP55Rfd+Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ezyNSGZJ1uNskqrA2USdGnMLAKh8AiQzpuoH0vu4js0=;
+ b=n4WMFmYOTPURLmDGecgwYtBx9q7vN/bCBi+CtdeuGY5yxo/Ckn+PE9cMj4oJv2A1AKAKiVlieR5sbs3/ziRz66NpTLBPReNaCg/iKgxuiBeQCpee4J7b0OTgVgr6A76UiAQ9I00Woq5s4lYRSrBTjD7wb5KCIsSaebmOfEVoOJ8IQIox7T8FPxqmtTduohSimo99CQ35kxSmNkjxWv4AvbU6UrG/aLJHieQdVpNS+7YhwpJpOwS2eAnPsBETW8ooPCip4AXTUfTWmZawgpJkHV5puOwe6E6J13FjahemfQuSpXH9ksWH78ES4wnsW+udc711BpsyPls7xF7pUedOsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ezyNSGZJ1uNskqrA2USdGnMLAKh8AiQzpuoH0vu4js0=;
+ b=qSHtVQzEelKh6addPNfUNZ/1vReV+jL0idWYoK+a4br8mD14ba8fA/KYRw18AUv60spqPHDvu6m+YR8RLh3Tgxy7nkIxgw2Pw8yWFyNewJnfNk+nnIX7mxBbhLzQb6G87rappCUg4gVDRtg8i1511YfRD4ZEKKWYtWL1L7wsA2uhTbMdFHCne7ji0+jnQQ/mhtynjYNQT1U/J9tJbRtK5jlRjt9aLNyDy/sTHvegsXv+Pna/LTKan6oo8QZAt4jW1vLdu7ap2CukgeyTFFQSKGheQMtTpSh6OFKB5D8/AwN7os+y2N2GosMYqs6Y+wp3XNhnEbxJHObauPhfK4NoLQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by DS0PR12MB6437.namprd12.prod.outlook.com (2603:10b6:8:cb::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Tue, 15 Sep
+ 2026 06:23:59 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 06:23:59 +0000
+Date: Tue, 15 Sep 2026 08:23:51 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] sched_ext: Fix idle state tracking across idle
+ repicks
+Message-ID: <aqjkdw_Ds_O8W4eR@gpd4>
+References: <20260914234259.3585373-1-tj@kernel.org>
+ <20260914234259.3585373-2-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914234259.3585373-2-tj@kernel.org>
+X-ClientProxiedBy: ZR1PEPF000077FA.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:918::44f) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d3fb7ea0-019f-4311-bf0f-00d25bdebda0@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|DS0PR12MB6437:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94d67fba-ace8-408b-eda3-08df12f1ed78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|56012099006|11063799006|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ZwQgUGKOMgQwvfexPbZEXSlSFEXw5CRcB2dTiRn65aO2y3QcGgGm6LWYhLY80ANOgF4g/+WkQ1bT7TfaNQ7EVaLaABlSq8KhsoH5y+UKr53XJXvxztMTXrPMwKhLDD3gPhD03eQQRut48wUxHyOJSITKjy7Sc50goYVOQ9wNX+e3DJavoyuOYjpvNk8vfLjENnLt6USelkTFgr+KqCpt0Yghs+SC2AGkn3eX/v0RoFikyLlmEaaxuVEfntcU5NEsNzn1EStCjmei+CMxRVIWLiM3KpB+In04+8g6o40daNrFq19/p0RTZXkPZN2r9zeIb4bZZ2SmG03KfpQgZ70D39BIRBLbRpun1b5/YvIYi3sEJKlwF7ez06dynuCrjUQer3ExjO9qiXuNqMnaqbM5/amxmAtu0fV6QkA0tGqUvU55utzZucU7BgQA0Ol9f3rOIMqKsEUfPxCv7g7J3121RIhKV05alO2lo5rjJxVrbGeUdc/HtiwuuhmgTZkQX0v3SXCGEfITKyhdfWntdwJ+j13u1gRJsYmlfwAprLgqEA3k//y7qGnxFhGzHD7iOMsoNH4BdSJa1cUPL7yCJ71FRuLTeqdXpTe/Gc3J8m7Ky5DmlNAxvKgzxv9Ij37cRHjE2zLX8/Lg/bFWK8vOqMv01rJ825GPDVHEJ8WcokjE/Ps=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+5MUrWg3/GkMUQYZVKyF8X2ekwbfvsENXw6wrc/tCZCB7ar4W0Yf6k2aGzmU?=
+ =?us-ascii?Q?T3BWgUgErChm6Zyl4P6YA3uO8V/H++WRX3Vadlryo76z/T/W9GxRMDMLdO1E?=
+ =?us-ascii?Q?uryiEDnM3H+5zhYOlNmHBpB3S8MHqncorMuztTgy8jhyMIxRDXvmqXcIQ4WZ?=
+ =?us-ascii?Q?S8cBlJHFYV4RvuIB//NJHvufdLIxi6Jr3U1PGs7FCDFqdf6jN8sf1193uq/l?=
+ =?us-ascii?Q?vyuNRgPIInqCQYOSuNXV3H9MYFELASp9HAwhZz/EOaKxOjqlfdxymuzUVtgh?=
+ =?us-ascii?Q?H+j3cbMoL+/Yi+0/yYACKW7xahqwGCrznTsvKIVZJ40iq+Vqz1ejCqRdQy/m?=
+ =?us-ascii?Q?sC0TimDvdNk7X1UYA3mhMaIoGfHZuareWQyDSC5d3QJgxnZzOCdZTTbvZL+5?=
+ =?us-ascii?Q?ZG9H2KXC7bXZ17DBQrK5cyRgSipxfX3PkqqUqAyShsGjLE8haGWLop5hTALb?=
+ =?us-ascii?Q?sfAqTY293hytSPReoMQpoYdZeZ9/5bvbFnL70LcMAiRLsBvrEvmPv+CfhiBx?=
+ =?us-ascii?Q?U5gLkZPLr9XXX82h6gCJbxGinzgHeDlNyovzBC5YP6nrlbppOkFEAybpz0o6?=
+ =?us-ascii?Q?NbzMZTQqskVr4SSOFVi4p/Qv8LwNMh+59yojKE6DAqzUC8F2dj/rnKddVYpo?=
+ =?us-ascii?Q?fJEei8KTYI2PhflQcywH20XbNuWVgqX7leDBPVVx0UvAqFyWqjQG3xBsvA6t?=
+ =?us-ascii?Q?paohFX3iStNULWptpwhjJ7jRJBPfcwEiB27y7T+DwAGbnVQRNVWyXHzQ4CUF?=
+ =?us-ascii?Q?Ynlo7gLkb5t83piIwhb3epfy/5E1l2LB46h8sUH3ORd4iUSzIGOWMjDwGm2j?=
+ =?us-ascii?Q?vCp5QUQMWMuqndrYhWKfQbbyhx1jtUkKseGKYnLZS8SaWM6dSoSjABpAJRLW?=
+ =?us-ascii?Q?mBwOcm/RxeH8XnE74qsa58XIIw1Y5FR86odIZoQV86OdFd4WdAGHCbzQRHJ6?=
+ =?us-ascii?Q?Fe5G+ZS/1vQ2KGlYNCme9q6k9Q02yIGqjP4TMuAc0CfqL+Iyh3xmXjU3ni44?=
+ =?us-ascii?Q?0h5dzV7u3LiS9TAk+x//aeHA/++qCvEUFVgQr7DBBXBGd3GHPlUmGmxnKB5H?=
+ =?us-ascii?Q?iXKhbCOJawp8PUwlU9Bnzz6DXaS2I++p1taS2EcMmoK9/J5DlQp0cuH1T8Yv?=
+ =?us-ascii?Q?6wudpcWgCcgjxu/+ZcgalRctP9d79aAPUj/sa1qVWzupib/K7aBpL5viKyFz?=
+ =?us-ascii?Q?OnnT3vApdojlcsm4RuPToqWIoyW43C2veyDZwLVws9DM2w5X2Nz0Nj7uylj6?=
+ =?us-ascii?Q?cH+d24qDlJB79Fow0vLuIQKJux614kTg0Kgqe65owAGW7YZdzz5N8A6xw+Vu?=
+ =?us-ascii?Q?eDr9pwxudKMacH4Q9hS0dl2D4hJ/qWE1hKhmg/VD8A30El/cwoH7XGoQnYFJ?=
+ =?us-ascii?Q?9dVmFWvpK/C7pqfsnQfXRuPQvjQaDpZbx+kkWYNkbjxttGiOgnCJAndtD/QI?=
+ =?us-ascii?Q?TD3vo4Jmi4oC6tpFZKNUIjr32LRWyBg6STOzy5NoAi9GRrvfzwdRew1dkA5n?=
+ =?us-ascii?Q?iTyqcwZ64Mg138jrzI5dWu1sF4tFUjxrj1FlpRtJef3zHnfHG+02l1j8ivOj?=
+ =?us-ascii?Q?tY8h3cwhxV8vjZlKVdJFruQv/6XqSjscbOJQBtIN9E4DDw0fvS2OcAlFu2iI?=
+ =?us-ascii?Q?6ChGtDbnMK9bJFPO6/C4t1AIcPR1asAq3+NDlAVmQa9OPzxjvwqjdRQK5n/C?=
+ =?us-ascii?Q?Q1WiZqSb/M4SSzHplIcEDJ1JDIUkwbzf4lskTHmi2mmfJwdV436WlTxORoml?=
+ =?us-ascii?Q?mQ/97oPTyQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94d67fba-ace8-408b-eda3-08df12f1ed78
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 06:23:59.3291
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v95CIdysPHLqvc/UvlP2bwwn5PlH5UzSwVRuMsPwBHoT40mkR0QZudOBuF5KA/gWdhgbai3XQo2udLAAfC44JA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6437
 
-On Mon, Sep 14, 2026 at 04:27:00PM +0200, Christian König wrote:
-> On 9/14/26 13:22, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Exporters keep the &struct p2pdma_provider backing a buffer in their own
-> > private data. An importer cannot reach it, so it has no way to learn how
-> > its own peer-to-peer traffic would be routed before it programs its
-> > hardware.
-> > 
-> > Add an optional @p2pdma_provider callback for an exporter to hand that
-> > provider out, and dma_buf_p2pdma_map_type() for an importer to ask by TLP
-> > class. Exporters keep the provider where it already lives, so this adds an
-> > operation rather than changing any existing signature or structure.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/dma-buf/dma-buf-mapping.c                 | 32 +++++++++++++++++++++++
-> >  drivers/infiniband/core/uverbs_std_types_dmabuf.c | 12 +++++++++
-> >  drivers/vfio/pci/vfio_pci_dmabuf.c                | 12 +++++++++
-> >  include/linux/dma-buf-mapping.h                   |  3 +++
-> >  include/linux/dma-buf.h                           | 17 ++++++++++++
-> >  5 files changed, 76 insertions(+)
-> > 
-> > diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> > index 794acff2546a..fb03a698b381 100644
-> > --- a/drivers/dma-buf/dma-buf-mapping.c
-> > +++ b/drivers/dma-buf/dma-buf-mapping.c
-> > @@ -6,6 +6,38 @@
-> >  #include <linux/dma-buf-mapping.h>
-> >  #include <linux/dma-resv.h>
-> >  
-> > +/**
-> > + * dma_buf_p2pdma_map_type - How peer-to-peer traffic to a buffer is routed
-> > + * @attach:	attachment of the importer that will issue the traffic
-> > + * @tlp_flags:	&enum pci_p2pdma_tlp_flags describing the TLPs it will issue
-> > + *
-> > + * Reports how the PCIe fabric routes @tlp_flags traffic between the buffer
-> > + * behind @attach and the importer attached to it, so that an importer can
-> > + * choose the TLP attributes that earn it a direct route before it programs
-> > + * its hardware.
-> > + *
-> > + * Return: the mapping type for @tlp_flags traffic, or PCI_P2PDMA_MAP_NONE
-> > + * when the exporter names no &struct p2pdma_provider and nothing is known
-> > + * about the route.
-> > + */
-> > +enum pci_p2pdma_map_type
-> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-> > +			unsigned int tlp_flags)
-> > +{
-> > +	struct dma_buf *dmabuf = attach->dmabuf;
-> > +	struct p2pdma_provider *provider;
-> > +
-> > +	if (!dmabuf->ops->p2pdma_provider)
-> > +		return PCI_P2PDMA_MAP_NONE;
-> > +
-> > +	provider = dmabuf->ops->p2pdma_provider(dmabuf);
-> > +	if (!provider)
-> > +		return PCI_P2PDMA_MAP_NONE;
-> > +
-> > +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+Hi Tejun,
+
+On Mon, Sep 14, 2026 at 01:42:58PM -1000, Tejun Heo wrote:
+> An idle CPU can be reserved and kicked without receiving a task. When it
+> picks idle again, the builtin idle masks recover the reservation, but
+> ops.update_idle() is not called. The BPF scheduler's own idle tracking can
+> leave the CPU unavailable until another real idle transition. This is a hole
+> in the notification interface: BPF schedulers cannot reliably recover unused
+> idle reservations, which is required for cid-form schedulers to maintain
+> their own idle tracking.
 > 
-> Calling PCI subsystem functions from dma-buf is a hard NO-GO.
+> Fix this by notifying on idle-to-idle picks and making these notifications
+> automatic for cid-form schedulers. Keep CPU-form schedulers opt-in because
+> existing callbacks may restart idle accounting or repeat actions intended
+> only for idle entry. The known cid-form users, scx_qmap in tools/sched_ext
 
-There are two main reasons for this design:
+But this would change the semantics of ops.update_idle() for cid-form
+schedulers. A scheduler that maintains balanced busy/idle accounting may now
+receive multiple idle=true notifications without an intervening idle=false
+notification.
 
-1. DMA-buf's broken use of scatter-gather lists.
-2. Hellwig's NAK on exporting low-level PCI P2P functions. These should be
-   used by core code, while in-kernel exporters and importers may be built
-   as modules and therefore need EXPORT_SYMBOL() to access PCI P2P
-   functionality.
+We discussed essentially the same behavior here:
+https://lore.kernel.org/r/Zw5_FlXfbLXDLCPG@slm.duckdns.org
 
+> and scx_nitosis in the scx repository, have idempotent update_idle() bodies.
+> All sub-schedulers use the cid form, so this is a root property and can use
+> a static key.
 > 
-> Then wrappers for DMA-buf backend functions should be in dma-buf.c and not here.
+> scx_root_enable_workfn() must initialize idle tracking from sch->ops, where
+> the automatic cid flag has been set. The local ops pointer still refers to
+> the caller-provided table. Using it would leave the static key disabled for
+> cid-form schedulers that omit the flag.
 > 
-> I shouldn't have allowed the mapping functions to be added to DMA-buf in the first place, all of this belongs either into the DMA layer or the exporter.
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-Due to item #2, they cannot be in the exporters. Ideally, the DMA layer
-should not have PCI-specific paths.
+...
 
+> ---
+>  kernel/sched/ext/ext.c                        |  3 +-
+>  kernel/sched/ext/idle.c                       | 60 +++++++++++--------
+>  kernel/sched/ext/internal.h                   | 21 ++++++-
+>  tools/sched_ext/include/scx/compat.h          |  2 +
+>  .../sched_ext/include/scx/enum_defs.autogen.h |  1 +
+>  .../sched_ext/include/scx/enums_abi.autogen.h |  3 +-
+>  6 files changed, 60 insertions(+), 30 deletions(-)
 > 
-> We should probably have a single callback the exporter provides to fill in a structure with PCI specific information for a mapping.
+> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+> index 83999203a63a..934605dfd950 100644
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -7251,6 +7251,7 @@ struct scx_sched *scx_alloc_and_add_sched(struct scx_enable_cmd *cmd,
+>  	 */
+>  	if (cmd->is_cid_type) {
+>  		sch->ops_cid = *cmd->ops_cid;
+> +		sch->ops_cid.flags |= SCX_OPS_UPDATE_IDLE_TO_IDLE;
+>  		sch->is_cid_type = true;
+>  	} else {
+>  		sch->ops = *cmd->ops;
 
-If you have an idea how to do this without adding EXPORT_SYMBOL to p2p,
-let me know and I will implement it.
+The unused-reservation case can already be handled by restoring the cid's idle
+state at the end of ops.dispatch() when no task was selected for dispatch. For
+example, scx_cidland does this:
+https://github.com/sched-ext/scx/blob/6c54f4f664bb8e9cc445c8333128b4ba17b93608/scheds/experimental/scx_cidland/src/bpf/main.bpf.c#L2960
 
-DMA-buf is the de facto mechanism for setting up and using p2p between
-devices. There is no other mechanism (except NVMe which is unique)
-in the kernel to achieve this. IMHO, the dmabuf code should try to implement
-as much of the common functionality as possible, so that dmabuf consumers
-do not have to reinvent their own p2p implementations.
+That said, idle-to-idle notifications would simplify scx_cidland and allow the
+special handling in ops.dispatch() to be removed. However, other schedulers may
+rely on ops.update_idle() being called only for actual idle state transitions.
 
-> 
+Would it make sense to leave SCX_OPS_UPDATE_IDLE_TO_IDLE opt-in for cid-form
+schedulers too?
 
-<...>
-
-> > +
-> >  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
-> >  	.attach = vfio_pci_dma_buf_attach,
-> >  	.map_dma_buf = vfio_pci_dma_buf_map,
-> >  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
-> >  	.release = vfio_pci_dma_buf_release,
-> > +	.p2pdma_provider = vfio_pci_dma_buf_provider,
-> 
-> Please split up the patch into the actual DMA-buf changes, exporter changes and importer changes.
-
-Sure, will do.
-
-Thanks
+Thanks,
+-Andrea
