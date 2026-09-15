@@ -1,126 +1,152 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F8D459AD9
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C662F46F481;
+	Tue, 15 Sep 2026 10:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467486; cv=none; b=NQ83ECIh2M2x/Of+u+I2cHSAv4rmFyZbHSpeitUv97XsF0Jp7NAQl0Ewi8eIwuNViscDedGxoPp1AbcDXC9kTDzovv3IKbM9Snk5BKWKw8jIZrAgSKNPtVOylZAnr0ei+EgQY6efcFs3ur6BB0ydVRm9FzQXi8uYbr9nXKXv7WE=
+	t=1789467546; cv=none; b=tcDC70qEUSdKgusj9C5DoKHOgDI4LQDwS8wsLMMuq7NszW+O6VHcFYqxH6P57vQGKaSSNZnOk8njxmv1PFmWLs3O4k1hHhQCkZdeECEZUQnkL1A/LXABzgk8NB/QthV6sd1sCLl+ribFJWzCeA5qR9rxPzH6TJy+wAWDo8uS02w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467486; c=relaxed/simple;
-	bh=PU0+/z0noS4XEBYFsQsHfYbK4ZLCfrbXdbuDxbnay4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OO8bbu8oTz6Jxi1B2PJs6UboBh9khQZK3uGOaG1KkJUVdCm2HHYqPW9wRhjB7FpMAkpYXEhj37HYR3/Es29yNvsRJAUneAP/EIBemZPbNQ9MSf4mcJDlP+ggOmrEvz/pbqppDcwynhUCJE2wFRFBa4fMzaYHwjbPFhe9nxF89II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QnXEkvFJ; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789467546; c=relaxed/simple;
+	bh=H+UU6RmSjfs6vcnTcPyoWnLsHDy672EIQkHk0RU5PXA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AHSJOVpfBPEoILwBjUDJeB0VQtBBIvB2zZvoHe4mbm2SnEwew3jmf9xuCoSZBLNMy0fIFrWbpKFFBqZPX0UXWonqnOiPX47ptY7i4aKsI4fq475VI8xFnMwGP7yd3rwHgq/X4ie4rDSxS06ltvNCbxTUpexT570DabBYLviCGbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GayLoha+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QnXEkvFJ"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334e72so29916885ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:18:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789467484; x=1790072284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZlgVVcfg+Lh0mL+x/J2QZQKzTvoTZ7CiYthVXrC/8n4=;
-        b=QnXEkvFJbvESuvcvqpdQCbm6qcG5rLvn8f82RpyQ7bmr6jLlwjT91/yMDSLhXnAHsW
-         aj+AEdebMowTXyj+eiaAZcTg5XcHX0UxePBPV74Fnck1fYbA13kimg4daieD6r7NlTSd
-         BgpFZqJ32I39MXgTpvgu+TtG1wOiNNN3EdOwJD11e+C5j3APSjXonyWJSyTKYWb9AZ+S
-         3QLGODJyPrvcDS+Vc9qdLTzZ0FnAxkX4owLhYrzL7Y0MfaR2MPpq+1ULC5AlvcHsseR4
-         yJg0mfZNLQpbztRdi29uWoMC8Ms6xbtZmCoq6d0woExj1P+K+AHmYQq0ComFwM/9GcM5
-         nBjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789467484; x=1790072284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZlgVVcfg+Lh0mL+x/J2QZQKzTvoTZ7CiYthVXrC/8n4=;
-        b=RNRjWl/sMtOHHxmXvoHxqQmlyY3kDoHvj3AXT/weYolp8uSl3F9i31Ax67ZB+FGESV
-         esRYCPWGbmMeKjmRyKCDPfJ2upiDxHtPUHjCXUt6OSfHyDqRn+cA5aGbT5NTnTDVov9k
-         O8ClnFysUrhO3adMxgCyVXP6w996QDORTrMjXbm/xjz6R0ThU4tDT/1HWPkV+me3gTRU
-         M8CIcMF4Hq55dGuaXrj0KfAaL3iLnQjGMxS3ZWSV9t1x8LPARY3RVItOKfzFnn9qwcrX
-         2Sr8Krupl8KfkSiB5F+xWgewi2D734O2ld1sqA4IH5STFVf2FbsoI01X2h0+urEIbiWX
-         wRaw==
-X-Forwarded-Encrypted: i=1; AKwUvByAVzMGPBmn7nzs7N3x1t0pUsBiC18GJFx7LUja4qUZDbmF1M0pTzx6RzLH19rHLOvn5hlldxus+mJxOXA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5QNVyWhnBHuts4aQVvPpXSQyp48kaiRFqODpIeXQtzsta1XPr
-	TUDvkSHVuApkBHHzLZULUjaLHzPCwzQkTplIQYP7qJFD5DokgRHMPiXg
-X-Gm-Gg: AYBFou1rPji3RohaJr21LjMfuCswbiBpujX0v5fWR1TaWLjARm5ZEELkVnHZDo4+W4T
-	55NpynA1R6emAtxXBhWxQQyLEpWKH4+M2XJzabJmJ5p7g48GzBnkIbX/WqhUMCZKHnb8y+Po9sW
-	B0yiPCF2TDKtdlVeBn0PBDFJAVhflj12OoSAyTDIJVaZ6lo7H1a+xNj/HYllyouWVMTaHgLz0fZ
-	cxnc+7VVaHEmRHmg3Sknne+NmtgeDISr9OhnAEAethOQvlhafGKCZMMmNHqWeIX9YMK/Psk0a7h
-	nOVVvhkAZmgxpOF7jYDRFdN2AGooF9vIoGMr6UY5bk32YI1CH6lu+Gs7T2g0mDRvAuVm3tsGcIy
-	4d5UlxS5FBhcw3ArQ6i71J6t7kJw68p9osvlDeWLewtns4Q67XW4wA3MWE32Vf/uXL+TWRFg+Nv
-	AKzbGOxQfsggbw/w3oXYZbmrYl4F44IGIpHrlM2a+sM62DkGwmU74LhMg=
-X-Received: by 2002:a17:902:e88c:b0:2d8:d4cc:be62 with SMTP id d9443c01a7336-2dd6c7129dbmr131186545ad.15.1789467483499;
-        Tue, 15 Sep 2026 03:18:03 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd44ad5d5bsm53441335ad.75.2026.09.15.03.18.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:18:03 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: vd55g1: fix runtime PM cleanup on probe failure
-Date: Tue, 15 Sep 2026 18:17:53 +0800
-Message-ID: <20260915101753.2356900-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GayLoha+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CB01F000FF;
+	Tue, 15 Sep 2026 10:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789467544;
+	bh=ogQk0irryVIGMoG/5it4dSDWnYZ4Cubd0FORdMgNoSU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GayLoha+9yVUM46UNIvWmJp4Nxs/1Ypb/luWO+vGku8wmALNsq01S8D56bETcOFDJ
+	 yM0wqERPyvQHtLNwatkkIMHZn4cBOqYe43IYXF5Es0Y5PYCfKTjnWHAPyihVPgqQQJ
+	 SKKjrOjid7+5e3j7RMq4yxlGM6zrZsX8LhwMMSW8lJc8KNKj/sTzl7g2jFQsWAkwcx
+	 97vSfvWWDuJZDUOzDxKXmOOU6Yh8uRit/J6IG8nG4NdySWxYyUeLrSeb1T3TYbF1eF
+	 w5fbMvxvqpdktVVnMDGYVyGZy418mO1cO6rNjS5CpHdeJXhKfLOxYKFoB9pta1Dd5q
+	 dfP2VjmgCD3ZQ==
+Message-ID: <743c90fe-f51e-4c73-8d97-5507fa414916@kernel.org>
+Date: Tue, 15 Sep 2026 12:18:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 9/9] thermal/drivers/exynos: Select thermal emulation
+ support
+To: Anand Moon <linux.amoon@gmail.com>
+Cc: Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ "open list:SAMSUNG THERMAL DRIVER" <linux-samsung-soc@vger.kernel.org>,
+ "open list:THERMAL" <linux-pm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES"
+ <linux-arm-kernel@lists.infradead.org>
+References: <20260913145905.9404-1-linux.amoon@gmail.com>
+ <20260913145905.9404-10-linux.amoon@gmail.com>
+ <d4174f6c-2ced-4827-b579-c54b37619023@kernel.org>
+ <CANAwSgQ1Uno50rGMW3Mrtrmm_DW22fgOzbLZH7uHu=StQ8_t8g@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CANAwSgQ1Uno50rGMW3Mrtrmm_DW22fgOzbLZH7uHu=StQ8_t8g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-vd55g1_probe() takes a runtime PM reference with
-pm_runtime_get_noresume() and drops it with pm_runtime_put_autosuspend()
-before initializing and registering the V4L2 subdevice.
+On 15/09/2026 06:45, Anand Moon wrote:
+> Hi Krzysztof,
+> 
+> Thanks for your review comments.
+> On Mon, 14 Sept 2026 at 12:30, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 13/09/2026 16:58, Anand Moon wrote:
+>>> Select THERMAL_EMULATION when EXYNOS_THERMAL is enabled, as the Exynos
+>>> TMU driver provides thermal emulation support.
+>>>
+>>> This ensures the thermal emulation framework is enabled whenever the
+>>> Exynos TMU driver is built.
+>>>
+>>> Signed-off-by: Anand Moon <linux.amoon@gmail.com>
+>>> ---
+>>>  drivers/thermal/samsung/Kconfig | 1 +
+>>>  1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/drivers/thermal/samsung/Kconfig b/drivers/thermal/samsung/Kconfig
+>>> index e1e8035d24fb..7d5590f78185 100644
+>>> --- a/drivers/thermal/samsung/Kconfig
+>>> +++ b/drivers/thermal/samsung/Kconfig
+>>> @@ -4,6 +4,7 @@ config EXYNOS_THERMAL
+>>>       depends on THERMAL_OF
+>>>       depends on HAS_IOMEM
+>>>       default ARCH_EXYNOS
+>>> +     select THERMAL_EMULATION
+>>
+>> No, drivers should not select user visible symbols and also this has
+>> absolutely nothing to do with Exynos.
+>>
+>> NAK
+>>
+> Many distros do not enable it, so I wanted this selected by default.
 
-If either of those later operations fails, the error path calls
-pm_runtime_put_noidle() again even though the runtime PM reference has
-already been released. The extra put has no matching get operation.
+As usually in the past you do not respond to actual comments. You did
+not address none of the two issues I raised, but instead brought
+irrelevant comment about distros. It does not matter what the distros
+are doing here. They can disable it on purpose and it will not change my
+two points.
 
-The autosuspend request may also have suspended the device before the
-probe failure path is reached. In that case, unconditionally calling
-vd55g1_power_off() can disable the clock and regulators a second time.
+This reminds me how in the past reviewing of your code leads to quite
+abstract discussions, focusing not on the points reviewer made but some
+other irrelevant stuff.
 
-Drop the unmatched pm_runtime_put_noidle(), only power off the sensor
-when it is not already runtime suspended, and set the runtime PM state
-to suspended afterwards. This also makes the probe failure cleanup
-consistent with the driver remove path.
+I am done with this patchset, also future versions except maybe NAK.
 
-This issue was found by manual code inspection.
-
-Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/i2c/vd55g1.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index 6f458f611f63..eb5a601cb22e 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -2055,9 +2055,10 @@ static int vd55g1_probe(struct i2c_client *client)
- 	vd55g1_subdev_cleanup(sensor);
- err_power_off:
- 	pm_runtime_disable(dev);
--	pm_runtime_put_noidle(dev);
-+	if (!pm_runtime_status_suspended(dev))
-+		vd55g1_power_off(dev);
-+	pm_runtime_set_suspended(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
--	vd55g1_power_off(dev);
- 
- 	return ret;
- }
--- 
-2.43.0
-
+Best regards,
+Krzysztof
