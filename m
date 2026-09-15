@@ -1,138 +1,301 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BFC3B3BF2;
-	Tue, 15 Sep 2026 17:02:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3392E402BAB
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789491726; cv=none; b=n2rvXgLCHpEkihMB3lvOtswjZcidWjI9yqRYYpNJKvOInLW4rYwzbq4DtAo0Y7KcEHyY5KPV+bHqVutsN2BCLMxTcrylUm419D2H6bZEZgzz8KARUHQRuvcImU3d7IdKmWNX9yZJQE9ZQo+Znqa49T3FJup/N5eFJ500cH43u/k=
+	t=1789491733; cv=none; b=qwbsgU+OuFFjfFLtcmfF2pQkAiiBaestJBCP6jjmIbRPgK/oPd8xP6eYzwmm6BNO7lsYqzA2JEo8bZ5iCU8l8imf1LeVZotvGJNbuvFZndyhkvtmb4thZ0lqLoEbbofVsUjFppD+vKv1ixMX2+z1WLR5w7WNt7q0x9KbqvHYoAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789491726; c=relaxed/simple;
-	bh=EZ8QZY4WFtOWacS3IV8sfkIWxSIImghyBBlj+Jc7VJg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=nNatNmWi3V4PYPzWfCZYjYzUkC/aODy3ew5610Y76oyoVrcq79U/fBRKxGhPUwg74V2BfbUlYJLjO9nZy7gC3jyDAgdGEB+R54NbiHdTErcD2oGhJhPMo4L+m03iLhxcB7UO50Uh4t0pFxeXvB4T/B/v1kE5WWidi6wvukg9CPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kFDGvZeq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789491733; c=relaxed/simple;
+	bh=u4UFiko82A9oo6jDjjqR7lvD3n1v6npulk8uWYC3A9o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=htBrD8AXKiD7mC6dGxdm9/riWQPFX1LcouHHcGJ5zO5EimJljbYzNwj59ZhUsBVLV0JgsQYIcY4/klbt192YWxrSJweKzYFaJp3XHgp+E+0KgqRxBG+MHzdiDxJOUrHl8KOsrl+Q43q4hrvequHTTHNudiucOXL5Al2edBLpveM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FL6BZ37p; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kFDGvZeq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331221F000FF;
-	Tue, 15 Sep 2026 17:02:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789491725;
-	bh=9nRrmNKX6ng4xtc2loecHJuojea7l76z2B0Z5et/GKo=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=kFDGvZeq1yXZxRcOXEuPQh6O/TW8FY41vZYP231nsynYl6DtL2al3/J4uNk/yzc8s
-	 iV06mS9gTw3Befz9uyPljGwMO3d8rwhCY33aDTFclKgC9j3fYc/mi4oC2QVgVMJb85
-	 GE4NDcFt8gXE6ZRIL78TvvIaiIoEMxftto0sFdOJj+YoMp2Eigg73gO1rMPBr7Ekhr
-	 og7kG5CvTRPTU1x0M/IUKjfyK4zFcxb2Cs14J0l060glAqYdWztNLLfsBARn/RjZyN
-	 MJR16RsY3v7lU1ME8Uj7X8dXLFBf7/oV1ItqXUtPewSExN5TFIzhAt6IH1vCZuRghi
-	 1dhX1lKSsBL7g==
-Message-ID: <b1ad29b8-c0a4-43db-beff-63348eab99d5@kernel.org>
-Date: Tue, 15 Sep 2026 19:02:02 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FL6BZ37p"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so4098115ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:02:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789491730; x=1790096530; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TCDRZ9weVwG1Wz3S9zGQh/wTKxjjL9VQFaV4nXxX7Mw=;
+        b=FL6BZ37popkupd+qSWbFcW0Y2TIWXGpD56kVYAxD1wYOxUJJPL8NyzQM4aPyKRK0Dt
+         ddxUWztMOWgY8bQvPfJWjza/EVFhfXI2sb1LRLoxq4gpdfg3ylarMKzcv5/1zxKZcgo6
+         xoA7L9pSsl00v2ILn7tdKpcFaQRZIXX6DnqUmxyjpSQJpyhd0wup/S20GA/9IeGYmuc0
+         Xa8HJ3nKGMpgpeVYEfJxLp/VuJqSyijKU6qXHhrVrviP/SDEmB8RQD/JHNs34xv2VhYO
+         vx6w98fO4jexhN0wcQOl9pFjaLZOAQNXOI1wIccSgi7rAhhys9o5/VKLTwClWQVZ9cit
+         6t5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789491730; x=1790096530;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TCDRZ9weVwG1Wz3S9zGQh/wTKxjjL9VQFaV4nXxX7Mw=;
+        b=H/2igDMfzi2NdjpoI0yv6ZSYy+aHxcJCEknCR4R8AJUQgE9JHYACbw6KOTcv7UunsM
+         c7L0PT6krkKEfYjSaOVLeiV0Kksreng7T3hkNILm+axPxgsaL1pB12hELfonhFqwzx3+
+         erFRvgcr0IjwEqWpWGqkxZ8du1IXri2wAITzlXRdHmMLTAs4qN45YaqhTCrtOKqyIMA7
+         sOdAe351sGAYEBq8BA/oGFuqXbEwhCBrYuQTy48qwHDQw/dtYhZvUX0XUDcJ7RYCOmjg
+         aR4y7O57Nfk5GASVlMA+skCX2Ey4FAB2S33paj/dfHrqyUHP1ekz+fRL3AvufN7W4/ag
+         2VCw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDb9+DFQtmu0DawiOb5+F5xyQqjFKIeIoZNxvFgDd0SB8janDXv6fOC78TtJRbopJOM6R/Oj8fmqWdxSQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhovsG2ZO8p+8epVQRiAkVuwLp7Ly+MHHtUnaE3QydmIpCxEQC
+	OVvNqlkQtEqHiENu3TM3ob1Il4sYYRZzsxCMhymngX8qV1fPzq6dtGsh
+X-Gm-Gg: AYBFou2YOo81VxxpwnVnbDGAYzOK5jG4vMEQVKDNioMr7O1bSWDIChayBF/3T3lcw8A
+	RISTQgwIn1Vy6KJUj9WnFGgGkrlP/+ygWiKr0ALjnH23eMPU6HhJmiyIjIiTk3K1/lY3CtWS91U
+	8rISp4s3/en/jZ/p3SDR+wd5M/3/n1K9J5b1s80ZPK3cWZIsgas/M9ktUBiX2wtuB1kWWyCl5L8
+	WQDTm2GZnEo/obSFocmzfO59t7OW+jg2Zc2cHj7z57A1X0+DFCUnT70otkoKXcsSDPpWzkwQzbi
+	paTgiF0BOSTNlXGFz/SN2HNBsn/0D1/igvArmJyTCeVwj5R370Kd7SpUzcPT8sRHyHmko7diJq+
+	CG1lYtyOI4E6QnguRYIdXTpQ58ogM9uzXZAK6AXSC+TN3CyRYyhaGamZPwZF2o9KmCI3PA47Cnc
+	U1Q43IdcqtqkKS8SsQi2/PPrC6Id9VtOwNlasHWj4aZ3P4PCwNFzXXqu82GMvnEw+9ES3u3Vmmf
+	L7sKYMtxMiuGQVoXbj4sV/r+ecHnn39
+X-Received: by 2002:a17:902:c942:b0:2d8:df44:a5c2 with SMTP id d9443c01a7336-2dd8387cbdbmr33512745ad.20.1789491730384;
+        Tue, 15 Sep 2026 10:02:10 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd34c7f976sm68439925ad.81.2026.09.15.10.01.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:02:09 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Peter Oskolkov <posk@google.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>
+Subject: [PATCH] bpf: clear stale IPv4 options after LWT encapsulation
+Date: Wed, 16 Sep 2026 01:01:48 +0800
+Message-ID: <20260915170147.3943392-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Vincent Mailhol <mailhol@kernel.org>
-Subject: Re: [PATCH v2 09/10] efi/libstub: Add efi_snprintf() to construct
- wide strings
-To: Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
- x86@kernel.org
-References: <20260909115530.1924665-12-ardb+git@google.com>
- <20260909115530.1924665-21-ardb+git@google.com>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20260909115530.1924665-21-ardb+git@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/9/26 13:55, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
-> 
-> The native EFI character set is UTF-16 (or in practice, UCS-2).
-> Implement efi_snprintf() to construct UTF-16 strings using printf style
-> templates. This will be used in a subsequent patch to set the
-> LoaderDevicePartUUID EFI variable.
-> 
-> Link: https://lore.kernel.org/all/20260903-efi_stub_bli-v2-1-dbf7ba915117@kernel.org/
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> ---
->  drivers/firmware/efi/libstub/efistub.h  |  1 +
->  drivers/firmware/efi/libstub/vsprintf.c | 11 +++++++++++
->  2 files changed, 12 insertions(+)
-> 
-> diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
-> index 36056c624782..880c1d0c464b 100644
-> --- a/drivers/firmware/efi/libstub/efistub.h
-> +++ b/drivers/firmware/efi/libstub/efistub.h
-> @@ -1084,6 +1084,7 @@ int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
->  		  bool crlf);
->  
->  __printf(1, 2) int efi_printk(char const *fmt, ...);
-> +__printf(3, 4) int efi_snprintf(efi_char16_t *buf, size_t size, const char *fmt, ...);
->  
->  void efi_free(unsigned long size, unsigned long addr);
->  DEFINE_FREE(efi_pool, void *, if (_T) efi_bs_call(free_pool, _T));
-> diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
-> index 7f6b891a338a..34a19495dace 100644
-> --- a/drivers/firmware/efi/libstub/vsprintf.c
-> +++ b/drivers/firmware/efi/libstub/vsprintf.c
-> @@ -509,3 +509,14 @@ int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
->  
->  	return pos;
->  }
-> +
-> +int efi_snprintf(efi_char16_t *buf, size_t size, const char *fmt, ...)
-> +{
-> +       va_list args;
-> +       int i;
-> +
-> +       va_start(args, fmt);
-> +       i = efi_vsnprintf(buf, size, fmt, args, false);
-> +       va_end(args);
-> +       return i;
+From: Xiang Mei <xmei5@asu.edu>
 
+bpf_lwt_push_ip_encap() rebases the network header after prepending an IP
+header, but leaves IPCB(skb)->opt describing the inner IPv4 header.  An
+ingress LWT route can consequently make an ICMP error interpret an
+inner-header byte as an option length and copy 255 bytes into 40 bytes of
+stack storage.  The trace decoded with scripts/decode_stacktrace.sh is:
 
-checkpatch.pl is complaining about the use of spaces instead of tabulations:
+  BUG: KASAN: stack-out-of-bounds in __ip_options_echo
+  Write of size 255
+  Call Trace:
+   <IRQ>
+   __asan_memcpy (mm/kasan/shadow.c:106)
+   __ip_options_echo (net/ipv4/ip_options.c:96)
+   __icmp_send (net/ipv4/icmp.c:949)
+   ip_forward (net/ipv4/ip_forward.c:176)
+   lwtunnel_input (net/core/lwtunnel.c:465)
+   ip_rcv (net/ipv4/ip_input.c:612)
+   __netif_receive_skb_one_core (net/core/dev.c:6264)
+   process_backlog (net/core/dev.c:6728)
+   __napi_poll (net/core/dev.c:7787)
+   net_rx_action (net/core/dev.c:8007)
+   handle_softirqs (kernel/softirq.c:645)
+   do_softirq.part.0 (kernel/softirq.c:546)
+   </IRQ>
+   <TASK>
+   __local_bh_enable_ip (kernel/softirq.c:473)
+   __dev_queue_xmit (net/core/dev.c:4961)
+   packet_sendmsg (net/packet/af_packet.c:3143)
+   __sys_sendto (net/socket.c:2281)
+   __x64_sys_sendto (net/socket.c:2288)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+   </TASK>
 
-  WARNING: please, no spaces at the start of a line
-  #41: FILE: drivers/firmware/efi/libstub/vsprintf.c:515:
-  +       va_list args;$
+A helper-only reset can be restored by bpf_prog_run_save_cb(), while a
+program without ctx->cb[] access can clone-redirect the skb before a
+return-only reset.  Track active LWT runs and their control-block family
+in the BPF network context.  Reset it immediately when the control block
+is not BPF scratch space, and after bpf_prog_run_save_cb() restores it.
+Preserve the state across nested runs and retain the ingress interface and
+L3-slave state when the protocol family changes.
 
-  WARNING: please, no spaces at the start of a line
-  #42: FILE: drivers/firmware/efi/libstub/vsprintf.c:516:
-  +       int i;$
+Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_push_encap")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ include/linux/filter.h | 10 ++++++
+ net/core/lwt_bpf.c     | 81 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 91 insertions(+)
 
-  WARNING: please, no spaces at the start of a line
-  #44: FILE: drivers/firmware/efi/libstub/vsprintf.c:518:
-  +       va_start(args, fmt);$
-
-  WARNING: please, no spaces at the start of a line
-  #45: FILE: drivers/firmware/efi/libstub/vsprintf.c:519:
-  +       i = efi_vsnprintf(buf, size, fmt, args, false);$
-
-  WARNING: please, no spaces at the start of a line
-  #46: FILE: drivers/firmware/efi/libstub/vsprintf.c:520:
-  +       va_end(args);$
-
-  WARNING: please, no spaces at the start of a line
-  #47: FILE: drivers/firmware/efi/libstub/vsprintf.c:521:
-  +       return i;$
-
-
-> +}
-
-
-Yours sincerely,
-Vincent Mailhol
+diff --git a/include/linux/filter.h b/include/linux/filter.h
+index 39decde7fc730..0edd3e6ce563f 100644
+--- a/include/linux/filter.h
++++ b/include/linux/filter.h
+@@ -848,6 +848,15 @@ struct bpf_nh_params {
+ #define BPF_RI_F_CPU_MAP_INIT	BIT(2)
+ #define BPF_RI_F_DEV_MAP_INIT	BIT(3)
+ #define BPF_RI_F_XSK_MAP_INIT	BIT(4)
++#define BPF_RI_F_LWT_IP_ENCAP	BIT(5)
++#define BPF_RI_F_LWT_RUN	BIT(6)
++
++struct bpf_lwt_ip_encap_state {
++	int iif;
++	__be16 cb_proto;
++	bool l3slave;
++	bool cb_access;
++};
+ 
+ struct bpf_redirect_info {
+ 	u64 tgt_index;
+@@ -858,6 +867,7 @@ struct bpf_redirect_info {
+ 	enum bpf_map_type map_type;
+ 	struct bpf_nh_params nh;
+ 	u32 kern_flags;
++	struct bpf_lwt_ip_encap_state lwt_ip_encap;
+ };
+ 
+ struct bpf_net_context {
+diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
+index da49364ec63de..762d62c959f9f 100644
+--- a/net/core/lwt_bpf.c
++++ b/net/core/lwt_bpf.c
+@@ -36,19 +36,88 @@ static inline struct bpf_lwt *bpf_lwt_lwtunnel(struct lwtunnel_state *lwt)
+ #define NO_REDIRECT false
+ #define CAN_REDIRECT true
+ 
++static void bpf_lwt_reset_ip_cb(struct sk_buff *skb, __be16 orig_proto,
++				int iif, bool l3slave, bool use_new_proto)
++{
++	__be16 cb_proto = orig_proto;
++
++	if (use_new_proto)
++		cb_proto = skb->protocol;
++
++	if (cb_proto == htons(ETH_P_IP)) {
++		if (orig_proto == htons(ETH_P_IP)) {
++			memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
++		} else {
++			memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
++			IPCB(skb)->iif = iif;
++			if (l3slave)
++				IPCB(skb)->flags |= IPSKB_L3SLAVE;
++		}
++	} else if (cb_proto == htons(ETH_P_IPV6)) {
++		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
++		IP6CB(skb)->iif = iif;
++		IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
++		if (l3slave)
++			IP6CB(skb)->flags |= IP6SKB_L3SLAVE;
++	} else if (orig_proto == htons(ETH_P_IP)) {
++		memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
++	}
++}
++
+ static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
+ 		       struct dst_entry *dst, bool can_redirect)
+ {
+ 	struct bpf_net_context __bpf_net_ctx, *bpf_net_ctx;
++	struct bpf_lwt_ip_encap_state nested_lwt_ip_encap_state;
++	struct bpf_redirect_info *ri;
++	bool lwt_ip_encap, nested_lwt_ip_encap, nested_lwt_run;
++	__be16 orig_proto = skb->protocol;
++	bool l3slave = false;
++	int iif = 0;
+ 	int ret;
+ 
++	if (orig_proto == htons(ETH_P_IP)) {
++		iif = IPCB(skb)->iif;
++		l3slave = ipv4_l3mdev_skb(IPCB(skb)->flags);
++	} else if (orig_proto == htons(ETH_P_IPV6)) {
++		iif = IP6CB(skb)->iif;
++		l3slave = ipv6_l3mdev_skb(IP6CB(skb)->flags);
++	}
++
+ 	/* Disabling BH is needed to protect per-CPU bpf_redirect_info between
+ 	 * BPF prog and skb_do_redirect().
+ 	 */
+ 	local_bh_disable();
+ 	bpf_net_ctx = bpf_net_ctx_set(&__bpf_net_ctx);
++	ri = bpf_net_ctx_get_ri();
++	nested_lwt_run = ri->kern_flags & BPF_RI_F_LWT_RUN;
++	nested_lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
++	if (nested_lwt_run)
++		nested_lwt_ip_encap_state = ri->lwt_ip_encap;
++	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
++	ri->kern_flags |= BPF_RI_F_LWT_RUN;
++	ri->lwt_ip_encap.iif = iif;
++	ri->lwt_ip_encap.cb_proto = orig_proto;
++	ri->lwt_ip_encap.l3slave = l3slave;
++	ri->lwt_ip_encap.cb_access = lwt->prog->cb_access;
+ 	bpf_compute_data_pointers(skb);
+ 	ret = bpf_prog_run_save_cb(lwt->prog, skb);
++	lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
++	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
++
++	if (lwt_ip_encap && ri->lwt_ip_encap.cb_access)
++		bpf_lwt_reset_ip_cb(skb, ri->lwt_ip_encap.cb_proto,
++				    ri->lwt_ip_encap.iif,
++				    ri->lwt_ip_encap.l3slave,
++				    (ret == BPF_LWT_REROUTE &&
++				     lwt->prog->type != BPF_PROG_TYPE_LWT_OUT) ||
++				    (ret == BPF_REDIRECT && can_redirect));
++	if (nested_lwt_run)
++		ri->lwt_ip_encap = nested_lwt_ip_encap_state;
++	else
++		ri->kern_flags &= ~BPF_RI_F_LWT_RUN;
++	if (nested_lwt_ip_encap)
++		ri->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
+ 
+ 	switch (ret) {
+ 	case BPF_OK:
+@@ -604,6 +673,7 @@ static int handle_gso_encap(struct sk_buff *skb, bool ipv4, int encap_len)
+ 
+ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
+ {
++	struct bpf_redirect_info *ri;
+ 	bool is_udp_tunnel;
+ 	struct iphdr *iph;
+ 	bool ipv4;
+@@ -657,6 +727,7 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
+ 	memcpy(skb_network_header(skb), hdr, len);
+ 	bpf_compute_data_pointers(skb);
+ 	skb_clear_hash(skb);
++	ri = bpf_net_ctx_get_ri();
+ 
+ 	if (ipv4) {
+ 		skb->protocol = htons(ETH_P_IP);
+@@ -669,6 +740,16 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
+ 		skb->protocol = htons(ETH_P_IPV6);
+ 	}
+ 
++	if (ri->kern_flags & BPF_RI_F_LWT_RUN) {
++		ri->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
++		if (!ri->lwt_ip_encap.cb_access) {
++			bpf_lwt_reset_ip_cb(skb, ri->lwt_ip_encap.cb_proto,
++					    ri->lwt_ip_encap.iif,
++					    ri->lwt_ip_encap.l3slave, true);
++			ri->lwt_ip_encap.cb_proto = skb->protocol;
++		}
++	}
++
+ 	if (skb_is_gso(skb))
+ 		return handle_gso_encap(skb, ipv4, len);
+ 
