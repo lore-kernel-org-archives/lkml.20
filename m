@@ -1,65 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E85B366055
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:14:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B570936B067;
+	Tue, 15 Sep 2026 14:14:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481661; cv=none; b=hF7mJ2Q5sHrXAceTEVBfBZzrYJcKoQ1MjMtbMLeUz12+F3zJSrhClT/fkrdGXtZeRaWjUsw1dbjK8Q4fQiaVBpHvQe7pL5rEQZETYs2HJABRs0+Hnq0Yb7V0v7abhjKaTWvx0/xRdgohPXyF2hgEF9a9q8LuDmV/E41iWSAtPt0=
+	t=1789481677; cv=none; b=ddnJt1oVTu51YM4jVXDKe60mAQkAt5YP+Y0M0QbH+aF5h5gu/3Sf3qk74gza8/sgURQdkHR+OjIZpJPyANt8+GBkA4LmMe7kIdqvuCbKZIX+i3HxY6XcJdF09l/1qBM28EETIs6j5dkOTYmIeyqKlEO+erIAfMMqDRTU4aZTqWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481661; c=relaxed/simple;
-	bh=iNWIDSvHpFNxGexdLSJpqdQuUlKHbAxotg8LVmPw9Pw=;
+	s=arc-20240116; t=1789481677; c=relaxed/simple;
+	bh=zAw3VPAncfYUqgD/ih+a3+gXQAkKgmEW7+e+hZrzTKI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WhukdwevZ8iPDcNr/eDs1akWa/EXiRWJw2ZpK9bduqn4QVa9xUawp6TocJDvHJUGjGy0l90ePOKQOwbVSs1KLkwoFHSATMGnu2+YWKk7HTiCLgYOsaetMHf/1roMbn4KLMeBzeG8T6jZQbDuE560+BHhoxTBimiqdvQ0sgazCjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dUcMzsy7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rqaAX2z45UQ1dzaYFldfY7yVf4ljS6KDle3mrPBrk5QIsudDcKYUajGLlxbYsIKT/zvIHPl3FPXGDL/dRVWDdx4UPYSnmH3OS+3yqgLkDYJ/fCAAFmvRY2D0i4ZZnUGBIFEn37/OyFomChuf6rkGORiHP6W0Ew+m7QEcWkHn+Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1XacIHg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dUcMzsy7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1908C1F00893;
-	Tue, 15 Sep 2026 14:14:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1XacIHg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066991F000FF;
+	Tue, 15 Sep 2026 14:14:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481658;
-	bh=jNENJb5/uy9j+GjflFgbEMSVLzG3vVpVhOOfx8QtyxM=;
+	s=k20260515; t=1789481675;
+	bh=sR5TpNLMyVHA+F15o9ghX8CSp2I4Iqafe8l+VrXMdfs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dUcMzsy7aw7q8AZK9gfKy9qsDrAg8ZOAtNeaPer4/3gYD+KNEY+xZu56acWZyy7G/
-	 W02ST8yO1Q22p535M0v7ZYguGT/u4GM9kMnRniOvZ0Mg6Pn4gA7/jmuXdRCDVkn+L6
-	 WhC16INupxTUlCpLPQOz2/i7SJc1HuZK8RxDiVHPA/qdfOHbEnc41RwTLgr5SQv6Sj
-	 4Ym8UbxmnWaUeY5GJQpU6zZus02YlcCL8IeSc9HSylzw+6k1eAbql2ca99Z89lyfKr
-	 qQIgZH7xoqC2oiEpo4O8M97FkTYlszFRMbO3eeoE3jN+gzozHRYhM3820iGEyqPi0n
-	 /njpbusHQWLyA==
-From: Maxime Ripard <mripard@kernel.org>
-To: dri-devel@lists.freedesktop.org,
-	mpenttil@redhat.com
-Cc: Maxime Ripard <mripard@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/tests: hdmi: fix infoframes tests
-Date: Tue, 15 Sep 2026 16:14:00 +0200
-Message-ID: <178948162528.1987579.17248782054753924983.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914040723.2593700-1-mpenttil@redhat.com>
-References: <20260914040723.2593700-1-mpenttil@redhat.com>
+	b=b1XacIHgY4nUO4ZXqpEqIsG3oqFId0LiJ5rDdajHox/d32oNulnuUxuP3hC20covY
+	 TxwGs+MfaZwZBIbsbCMWuV4256nQO217F/xGTPcK83F3Gc7n7wFb9YJ2vk4Qo6jxwq
+	 xeHWkayxtyqgLJf7wN28M70PUKpJGhPIroCCSvcdqZV7bL1aCTsD4T+fWESkZr452P
+	 VQIF0gITf1//tIHrDDjxOvIcwtnYOZgxIJi8pzOvakf7yl2ZadTj/6u/Z23k95Jl7i
+	 N/D/D36xBPRFLOT2c1wremPaJKcfMDA7qmUV/tS3JK+AL3aXuRzfk+X+Vf1C/bf7VY
+	 yPK/fzMVWMcbQ==
+From: SJ Park <sj@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v2 3/8] mm/damon/core: return an error from damos_commit_filter_arg()
+Date: Tue, 15 Sep 2026 07:14:27 -0700
+Message-ID: <20260915141428.90098-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915033050.1579457-1-kunwu.chan@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Mon, 14 Sep 2026 07:07:23 +0300, mpenttil@redhat.com wrote:
-> drm_atomic_commit() calls drm_atomic_check_only() internally. Calling
-> drm_atomic_check_only() explicitly before the commit leaves the state
-> marked as checked and triggers drm_WARN_ON(state->checked) when the
-> commit checks the state again.
+Hi Kunwu,
+
+On Tue, 15 Sep 2026 11:30:49 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
+
+> On Sun, 13 Sep 2026 10:17:00 -0700 SJ Park <sj@kernel.org> wrote:
+[...]
+> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+
+Thank you!
+
 > 
-> Remove the redundant explicit checks.
-> 
-> [...]
+> I'll take another look at the remaining patches.
 
-Applied to misc/kernel.git (drm-misc-next)
+A new version of this series is available at
+https://lore.kernel.org/all/20260914142327.92510-1-sj@kernel.org/
 
-[1/1] drm/tests: hdmi: fix infoframes tests
-      commit: d5c34a384305e05a2d463dd2094e0ec449643bd4
+It has no real difference to this version, but it would be better to review on
+the latest version in my humble opinion.
 
-Thanks!
-Maxime
+
+Thanks,
+SJ
+
+[...]
