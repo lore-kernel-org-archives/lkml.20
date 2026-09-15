@@ -1,33 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276623D6CB6;
-	Tue, 15 Sep 2026 17:07:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE1A3F7AAB
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492047; cv=none; b=mhh+6wRRgMnPMNviZmYGUowvfX28lFj+rARv/SP9Q2SpsQ3hPQLMTSV8ybcG+A86bQPfHTEIkRQVJAGC8fk454R9AHOELacaLRFds1t494q39EyOxXr4eJtw+PfYuJ3qt7bcpSH8YPAu5QWsHgw8KsUm2CNHPXNfIaZYQQtGbU8=
+	t=1789492176; cv=none; b=A+WQRY0cIo7+weWu39d+b1y4ggwg7qaurJM2s0FW7nALkt/q3K46qXl353Ftq4lG60ygtPnBVyjEvMMUxjc1jYxJhau082IclZJNaYrijTeIIrUZvdtLDV+7pLARsqNJ1V9/mjNprEugPqC8FKj5b4+MbsLRf4uoJLQyasLy5pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492047; c=relaxed/simple;
-	bh=z/8Aa8bTI5T67F7VSf6+BDcdxIZ8knhH+S4xDAjmn4I=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=TDmLZB0qoJ8f5d8kDRbIon7TnZhtgf3HB/cFML00oeSDPK+GB5fuQJWuFQj7UNk1Q87xPfnKJWmi7PKrlmgo9TG9CmJD6Qll/Iqob8XwPHkBKQJl9KHmejPLi77oFkg1oxCdO1kMBVa6T7VLbCEXNVInfflsv/rXrFVPG1IhtGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpAyGLEL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789492176; c=relaxed/simple;
+	bh=C3zoy/9VsAfZabk3hbv9KlBEnMZNR9UmRIwAl2VpG2o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GHDsWi8ZFEvFQn2LgBlZro0KAumY2c259jqYHdA1xveuw6EfZvVxxgAqA8l9BkZsTHbPmirEb9+lmoYrVpY6tmtusQ6BAAdoSPlZ1OdHY5/7QcOHIWwPJ9nqXDLy8ShWfYmYfUZom+i0etLDhteD9R1432mMRboh0ZmHQwT/nOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AwxGMjyO; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpAyGLEL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9355B1F000FF;
-	Tue, 15 Sep 2026 17:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789492045;
-	bh=Ja7OExic+iW00cYL1OWcB5GajzhdemBcLKOTafgkFhs=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=cpAyGLELXiWqPqa9NcLjibtHCWEYmy1DMBt+LqtkU9UtG2MdpwKtkCIixoXCJF95i
-	 dMD4+Qw1jtobh0+pzjOb75tt5Kfwe0H3lV/ODd7LLXg+3VprtvBtfrb6spU/lDJC53
-	 9wCYYcRhCD5xR7GkjkrMQr2Rc2vHAFjDNlH267Jph/KpIoX06eT8noKQ5NlB7UhoEi
-	 dL6BUwy7eYfcrDoaFYVkp+RGPrtxJiuVKB6C7+oVTtqbCKkl0OLS2HHhl29jq2oZFp
-	 M5FV02+swk5i+wzqu32lj2J2q/RE8ty5cP938l7Ggeb/NY0qWwOdeDzbjLJh6aolrl
-	 s2qGHiSuaLuxA==
-Message-ID: <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
-Date: Tue, 15 Sep 2026 19:07:18 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AwxGMjyO"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so3233242a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:09:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789492170; x=1790096970; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i7mmyqxL4Ir0d/CfwYClhfzZRHAjxnBiwBulaRxIKo8=;
+        b=AwxGMjyO3w0ZFJysg9WSkLH+6ScUYJLSO1aqzkesrvGqdRERTAOvxMEVSrfYGrnXuj
+         zjT1DITrCJ3WHAmiEXzPEhJuCAjRcCPAxHDYhbNr+u1tgDMPPuZh0k7SYk8hVPiF1waK
+         FBrMYG8wwmZ5T9guURYeM6x4tlrGn/zbr/EKeenrD9y+4M3ZKczwRjfLKX+Rq6JfD3SN
+         9DJnmNrdPMXoMq66qyMywYz/J6rDZVcDZTMfNSBW8LGiZRJreXiDg3ip+nS1KzO2YSeC
+         INMr5rc+06I6bStcphKGh+oa0Qds0E/a+VVj5wvaxcEQrT37aht2kuAiAcmoYCXTuMEj
+         oBeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789492170; x=1790096970;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=i7mmyqxL4Ir0d/CfwYClhfzZRHAjxnBiwBulaRxIKo8=;
+        b=P0b36tzk0sq1tILmAqHPGUjHnL1qexKiQ76JJRt9EjxCBAUmKV8vygq3EgSv9EN7PH
+         FrXnLuJUmH1g1Q/Wv4GxZES5mb0scjCajcnZi75wjUHb7MpWxFWCP/jhIuex6guKGHuX
+         JWWa34cGzBD+rg/2IWz3fSCKsPPIiORaIUbSQoMGyL2L1HdbkvtZQ0wHwDU1bwJiKp2q
+         ClRqrkwSTrfcd8AY0eBdryD5oShSXUjqVsSlP30RliKzztkx9iMYeXMaOZDmbduiDt6+
+         IR11P5P7puHWzpte1hw7OBWzmrFjaO7kISK29AEzJG9DQ2EAgtiBa7sUVYScdiPvyS2B
+         hBIg==
+X-Forwarded-Encrypted: i=1; AKwUvBzK19KHD7C6144ZDSmjubu4rvC89FUlGHNiLWKjB9tT2P1XfDdYy7FOfWquydUi+Zq+UQE79/Y7v3pQxPI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPnmalnyjii8Dbv8ODKgQzzCXo71WNrRKjO0V7Fs6rLHOECEct
+	D+LTzBj8U1pH8BfOkRyNHN08eaRvgTB/LMU8mC2l1XeGl0y9/aM5BoXi
+X-Gm-Gg: AYBFou3y2znAk+NzOZ9JSyfJyrCRBHFifOFU2jLk5IBcjqQ4Ly4wZawXlSTwMQ3LivT
+	Dg9XEA/4FAyzdZ5PWn6xcZY0qsi/Zx6Re5ppLmc6ejlw/Hlw0TO2NDgQZxyQA17E1lJEItrVEbr
+	EIt5vxZCm541IoBwVo65qODkIysXmeQi1cBYwlWk74J5c63iyJXJ4+Weg6Uyk4BAKhqNS1pJLxj
+	d+VhpNR0snrxt/c8fmqapIalRuz529QUBLzPed0sNq1/fq9lhBWmXCGcO8pPTFiDi+b6Z3m0B/G
+	g25BtlOh2Es/dRRpCRoKZKc7V82B/rXSGKDNDjfm/sV2R0/XGdzdheDTYxwPeMdUKk3YsHGEJPw
+	3vlPfnSUQVRIf1eISNzQOPIdUwtgvsx3Vcsx0CAfWOAIhmzif7N50ot03zdnYqLGlVKbMN0kXU9
+	/6UVyWSn6rz5itXz1c2uyPKpaXngjhvtna7igmhiDM87Rk5ZWQHm1RMdrv94S2VBit5Ys2/YyfR
+	J5310KlXafgddoGWfXI/RZya2dqS7O03Kw/Wnsxn+x2e87d
+X-Received: by 2002:a17:90a:e7d2:b0:39b:92bb:9ef0 with SMTP id 98e67ed59e1d1-39dec0bdc60mr15161562a91.20.1789492169910;
+        Tue, 15 Sep 2026 10:09:29 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1a033df0sm58769a91.4.2026.09.15.10.09.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 10:09:29 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <d45d4de8-6925-40ad-a5b7-b8cef6356175@roeck-us.net>
+Date: Tue, 15 Sep 2026 10:09:28 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,134 +71,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kendall Willis <k-willis@ti.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, msp@baylibre.com, s-kochidanadu@ti.com,
- a-kaur@ti.com, s-tripathi1@ti.com, vishalm@ti.com,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
- <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
- <20260914-unbreakable-competent-beluga-efb5ad@quoll>
- <20260915164819.nlgpuvf37rhzgc66@uda0506412>
- <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
+Subject: Re: [PATCH v3 4/4] hwmon: (aquacomputer_d5next) Add AMPINEL support
+To: Vas Zayarskiy <contact@vasily.cc>
+Cc: Aleksa Savic <savicaleksa83@gmail.com>, Jack Doan <me@jackdoan.com>,
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+References: <20260914233728.22725-1-contact@vasily.cc>
+ <20260914233728.22725-5-contact@vasily.cc>
+ <a968a02f-c513-42f0-993f-ede4f785025c@roeck-us.net>
+ <ICzeTYsqVwKewqbj_Gv2WM93k1Kr6uygPhcTJ3M8PBtvmoV3AlfEnRWAspP-fQgdmRW4IR1OPPpDLhmQiIqEAh5OuCKvwRzxAHSO-7rnYAQ=@vasily.cc>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <ICzeTYsqVwKewqbj_Gv2WM93k1Kr6uygPhcTJ3M8PBtvmoV3AlfEnRWAspP-fQgdmRW4IR1OPPpDLhmQiIqEAh5OuCKvwRzxAHSO-7rnYAQ=@vasily.cc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
-> On 15/09/2026 18:48, Kendall Willis wrote:
->> On 12:13-20260914, Krzysztof Kozlowski wrote:
->>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
->>>> Document pinctrl properties on the gpio-keys device node. By using the
->>>> wakeup pinctrl state, the pins are able to wakeup the system from a
->>>> low-power state. The default pinctrl state describes the default pin
->>>> configuration.
->>>>
->>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
->>>> ---
->>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++++++++++++++
->>>>  1 file changed, 16 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.yaml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6c2ec401dc1e1eeff57d4190 100644
->>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
->>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->>>> @@ -22,6 +22,22 @@ properties:
->>>>  
->>>>    poll-interval: true
->>>>  
->>>> +  pinctrl-0:
->>>> +    description: Default pinctrl state
->>>> +
->>>> +  pinctrl-1:
->>>> +    description: Wakeup pinctrl state
->>>> +
->>>> +  pinctrl-names:
->>>> +    description:
->>>> +      When present should contain at least "default" describing the default pin
->>>> +      states. The second state called "wakeup" describes the pins in their
->>>> +      wakeup configuration required to exit sleep states.
->>>> +    minItems: 1
->>>> +    items:
->>>> +      - const: default
->>>> +      - const: wakeup
->>>
->>> This will introduce new warnings, which should be being fixed in this
->>> patchset (e.g. at91-kizbox3-hs.dts).
->>>
->>
->> Will fix the binding to work with current device trees.
->>
->>> But nevertheless, isn't second state the sleep state? How can you
->>> configure pins for the wakeup state - like being in the wakeup? You
->>> configure the pins for given state, which will be a system suspend, so
->>> sleep?
->>>
->>
->> The sleep state usually refers to putting the pins in a state to save
->> power. The wakeup pinctrl state is for putting the pins in a state to
->> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup'
->> are for system suspend, but they fill different functions. The CAN
->> subsystem also uses the 'wakeup' state in addition to the 'sleep' state
->> [1].
+On 9/14/26 22:29, Vas Zayarskiy wrote:
+> Hi Guenter,
 > 
-> So you mean sleep would be a separate state? But then aren't both
-> exactly the same states? IOW, if device is wakeup-source, it will have
-> for "sleep" state pin configuration allowing to wakeup.
+> Thanks for the review. I will add the trailing comma and separate the shared report validation and handling of an unknown firmware-version offset from the AMPINEL addition. I also noted the -ENODATA and conversion/scaling wording corrections on patch 2.
+> 
+>> If the match function _is_ needed, the reason needs to be explained, even
+>> more so since this may impact USB_PRODUCT_ID_AQUAERO.
+> 
+> The requirement is to keep AMPINEL's keyboard interface bound to hid-generic while the hwmon driver handles telemetry. Both interfaces share the same VID/PID and match aqc_table. With the existing __check_hid_generic(), that ID match is enough for hid-generic to decline the keyboard. Returning -ENODEV from aqc_probe(), or rejecting it in aqc_match() alone, does not make it eligible for hid-generic.
+> 
+> The Aquaero collection check rejects its non-telemetry interfaces during probe, but that check alone does not establish keyboard fallback to hid-generic. V3 leaves Aquaero's collection filtering in probe: aqc_match() accepts it subject to the same generic-driver override checks the core already applies when there is no match callback. I do not have Aquaero hardware and have not validated its keyboard behavior.
+> 
+> The matcher test demonstrates the AMPINEL rejection with the original hid-generic logic and passes with patch 1. This is a userspace harness, not a live kernel fallback test. With both revised modules loaded on the physical AMPINEL, the keyboard registration/capabilities survived hwmon reload and suspend/resume, and its capabilities were preserved on reboot. I will make the matching rationale explicit in the next revision.
+> 
+>> FWIW, the raw even can happen prior to this, which will result
+>> in bad data. This also affetcs other devices supported by this
+>> driver (and those with fans can crash when it happens).
+> 
+> Could you clarify the path that permits raw_event during probe here? I checked the series base, 46fde107b4e881f179bf02bca69d8a0020561b3c. include/linux/hid.h documents that callbacks are blocked during probe unless the driver calls hid_device_io_start(). In hid-core.c, hid_device_probe() holds driver_input_lock around the driver's probe, and __hid_input_report() returns -EBUSY when it cannot acquire that lock.
+> 
+> aqc_probe() does not call hid_device_io_start(), and neither hid_hw_start() nor hid_hw_open() releases that lock. My reading is that normal USB reports cannot reach aqc_raw_event() until initialization has completed. Is there another path that bypasses this protection? I have not reproduced the race, and would like to understand it before adding a shared initialization fix.
+> 
 
-And about CAN, I see no use of both sleep and wakeup:
-git grep pinctrl-names | grep wakeup
+You are correct. Sorry, I missed the part about callbacks being blocked during probe
+unless hid_device_io_start() is called.
 
-So if you use existing code as reason for this change, then existing
-code tells they are the same.
+Thanks,
+Guenter
 
-Best regards,
-Krzysztof
