@@ -1,102 +1,121 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687301DE4EF
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:08:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683511DE4EF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506492; cv=none; b=rxScBtdOzSPs68Zu+hU3y/jCci+F+dQZYdxg4tk89WRDu6zAMyWnnPlo3p/3r6c78ot9PqD9RkHW2Gj3Gjev5nciXPYd+QJebFY4L+V/gSZUfsq6enf41+czhfh/pp0BzF6TIGuT/X1f2WuAlfMlHAoQ9/Jrni84ej25Z/lXQvk=
+	t=1789506511; cv=none; b=kckS4mdHRxsE+A5j/ZW/rJGl9lCbvImN0Pz4fyebZZlyv8aqBlzXHegWkAaR+Jo9wNMEoK2uL7l+BhqO4AuSpQMZHI31pg1ZmxGUWCbuw+LU4w0kXVrQuZi26AePcTqoN0GfNeXgKPYZSXhKz335T3OfN77u3hx8LzC3dNIl83E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506492; c=relaxed/simple;
-	bh=gbb3dXkIQ2xoOszBsTpFOOS/uDjTWzZPHHq2HMZ0kzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FUttyNkBtdtgkKZBLs0rAUobf/xfqtg7ai4cbGORP6zLkIApXleZpGAHRTy9+gOfNEbNxxdB0JatpJzWkzJ2bbdaDpSoVLR87zgshQRq1L0wZ4pqKG6Lm+0eP+tPwPOMe+K0YFC3WA2N9ywkFoo/dk+hDl5CzdeKN5nSd/KNlt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=N61AfM9y; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789506511; c=relaxed/simple;
+	bh=OVt7rF2uYXd5FqrcxZJpOUDanDLfPylOQanuOssiHlQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qNrdAaj4ca584yzyl6L5mCQP9+GWbTDY/BKVK0k933MM9vhsR2OpjvSJII7jFV62aRbZ6EAgr2fPxx6qF9nW3CnQCUEV1Dibdh6RvoGKFGyYVwhm1xOsWtpzvEm0jyPdqylKuoSDa/06vCixRV1dYJFdJQ9aevEgf29gGoIjNTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=T+O0YTZv; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N61AfM9y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789506490;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2ATpn8ez/0YuEtC0S+/A/Cw0hfbbKsjXiceZVuc6lSs=;
-	b=N61AfM9y9k7BUzHYtievVbxPLKVPUXnvywpeui6B/A6Xuhmt9CiwjBB3HMcOgFcqMpSaV4
-	khc27GFU8kpglbI09yv/+g5aXm0vAslN8KywW7y3lh+JRblXa/xZjtojbV2QhjV/UTMNj9
-	67fmdc5aPHnW7ha62VYKdR5hyoSn9Rc=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-397-0J5yZtvJMDi8q541Fju1Uw-1; Tue,
- 15 Sep 2026 17:08:04 -0400
-X-MC-Unique: 0J5yZtvJMDi8q541Fju1Uw-1
-X-Mimecast-MFC-AGG-ID: 0J5yZtvJMDi8q541Fju1Uw_1789506483
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BA9E11869BB8;
-	Tue, 15 Sep 2026 21:08:02 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.80.179])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 53CD61800446;
-	Tue, 15 Sep 2026 21:08:00 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: "Timur Tabi" <ttabi@nvidia.com>,
-	"Dave Airlie" <airlied@redhat.com>,
-	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Hongling Zeng" <zenghongling@kylinos.cn>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2 5/5] drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
-Date: Tue, 15 Sep 2026 14:51:52 -0400
-Message-ID: <20260915210647.695187-6-lyude@redhat.com>
-In-Reply-To: <20260915210647.695187-1-lyude@redhat.com>
-References: <20260915210647.695187-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="T+O0YTZv"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9b2f02so65093fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:08:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1789506508; x=1790111308; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0ZAGGN3eayfShEQqBKliqu7mRVw6xYFjSDe0eN2CZjA=;
+        b=T+O0YTZv/scLmh99eR7Qpp2zdQv83w8txdifPfjRGkSBLYbD+P7eDNE6aOMuYDkLtL
+         ZOjzOWftGiF7Aiu4zdADCezcUGPKD3sxfD0BoFhPGqSB2y51h8PJL/xj0Ry77lisCZVH
+         XEHR2J1nt0dslheQPFK1q2A79VnxXvl/pGesnFpPlimkj3cPpcxHaVY/wrmT+8AifDBP
+         DQXb4TnZ9nLWnRxfgFjWPYCFBPd/uBvMUUaSD7/aTW8JkGtD8+mZz+4vjTB6E7TCy85i
+         ychwv7G2lLL4Af1ivG0zt4PlKKrheiMi66NY4TLSFeiF1OtlZ5nW9cJsaJYaTlvQ0U3v
+         LduA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789506508; x=1790111308;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ZAGGN3eayfShEQqBKliqu7mRVw6xYFjSDe0eN2CZjA=;
+        b=Ul7O6kW8bNIVGu71nN84DJTxsWPJ/umAT5JoMvwQgjX67VRy754RJueN53RalufVZy
+         gEfPdUR+JziKtJzSXSTtL5rEqyztkHVYxajTJ/bZ1p745wCLA+MEZECa6fm3EU8i4P8t
+         XX4ds8NINVEBZs19bLRxxchofJAVv34OHgv4cWK8elyJQF4xHaiNNTzV1BLDqEw4tt/n
+         g/PgkvwgC2YD0sZEhSPbz/GuaSOup9rX0mOUwEZV/DMT7jlG2pUsvYzhbE5Da79ZI3ec
+         v7twfeHNMQtkmyIN3ZGOI1HwBtUonpSjWdcYgmraBT3EY5CEfpqTkLJqwlVF6WJiiAus
+         mnzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcc5O2d95WnafU7aWQFD0TRnCUVl4136s7OHOqM+ugMgDVPoVIpeSYWzSItZHw5VeTpugoj5gHqPPw+Ec=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMijUKCsjeigQ9c2Jfk1hO2pO0jfJwmtHlZ3TPCBo3g5sX0RV5
+	FOqlqeup+s65XytKwgo5lom+oSzO0ofsWsOpTXqVqr8oogF0UeAz5IikbEdITKZFDfU=
+X-Gm-Gg: AYBFou3y8pY6mXjZFyj0f+Ft8Ct4ymmcvX046cpzVb3BLLju7+azOy7Q0N1tGxsg0mT
+	31nVoaIyySagezAO6iKf72MCaD+k0EOD+rA1atVArFaMRIlNSj/KNwcoF6QyqlXySZfvmLEKeFX
+	g8MXcDdNMkYH+kZn1iYRS6M+YaoRN02Fx5RovFb28mitbhSXVdabQVDxiyMhP/v89BQB982PKHZ
+	q1B9Y9QTWQu4fRxlx946pwaWpew47m/gjxQV/LNuD54HcPvKdGpcOgOGh0rl/+yGE/7DjBtbrXX
+	FW++oTaD/w46ctclzw/jQvle3+utGSDVdfluWzhluEuN+4D/eIg9HxE9eB7YdAH3CmvoKvPmjal
+	+hpBKkDxyMwGGpI/nXVfr+N0LwRtih+LcJUGPGKZ3uoMCxMlKGOCIwwPzTFwxP9phBzm1nw9bEp
+	M+dyeudiXwvDZF94CiRdE5Ib0QCiy1MJec9a3h2FGfE9rmIpuZZ/wx
+X-Received: by 2002:a05:6870:e0c7:b0:470:e96b:43e3 with SMTP id 586e51a60fabf-482e56fb3d1mr3685772fac.15.1789506508396;
+        Tue, 15 Sep 2026 14:08:28 -0700 (PDT)
+Received: from CMGLRV3 ([2a09:bac6:947f:1800::264:ac])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-48429a91b9asm997942fac.6.2026.09.15.14.08.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 14:08:27 -0700 (PDT)
+Date: Tue, 15 Sep 2026 16:08:23 -0500
+From: Frederick Lawler <fred@cloudflare.com>
+To: Mimi Zohar <zohar@linux.ibm.com>
+Cc: Roberto Sassu <roberto.sassu@huawei.com>, 
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, linux-integrity@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
+Subject: Re: [PATCH v2 1/3] integrity: Replace all uses of
+ integrity_audit_msg() with integrity_audit_message()
+Message-ID: <ykq6awewbz2f4ckgwrwnubcprlta2trm24by6bw3z2q6u6mr43@gn6ajl46tc6r>
+References: <20260727-report-hash-error-v2-0-30e394f524fc@cloudflare.com>
+ <20260727-report-hash-error-v2-1-30e394f524fc@cloudflare.com>
+ <1214eed319ccb441ba0cd26ce168a0383a3e41c6.camel@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1214eed319ccb441ba0cd26ce168a0383a3e41c6.camel@linux.ibm.com>
 
-Now that we're properly saving the compbit backing stores on fbsr init, we
-can start setting bEnteringGcOff = 1 again without things breaking, which
-brings us closer to following the exact same code-paths OpenRM does for
-fbsr.
+Hi Mimi,
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Tue, Sep 15, 2026 at 04:00:34PM -0400, Mimi Zohar wrote:
+> On Mon, 2026-07-27 at 17:21 -0500, Frederick Lawler wrote:
+> > integrity_audit_msg() wraps integrity_audit_message() such that
+> > error codes are hidden by passing an additional parameter to
+> > integrity_audit_message(). Since this is a wrapper, we can replace
+> > this function with integrity_audit_message() introduced in commit
+> > 2f845882ecd2 ("integrity: Add errno field in audit message")
+> > 
+> > No functional change intended.
+> 
+> There's an unintentional change in ima_write_policy(), which replaces the
+> existing '1' with result.
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index feef5104a6241..11f18b3eb6b16 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -135,7 +135,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = 0;
-+	ctrl->bEnteringGcoffState = 1;
- 
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- 	if (ret)
--- 
-2.55.0
+Oof. Good catch. That was intended for the later patch.
 
+> 
+> > 
+> > Signed-off-by: Frederick Lawler <fred@cloudflare.com>
+> 
+> Is renaming integrity_audit_msg() to integrity_audit_message() actually the
+> right approach here?  integrity_audit_message() currently has only 2 callers vs.
+> ~20+ for integrity_audit_msg(), and the rename forces re-wrapping of every
+> multi-line call site since integrity_audit_message is 4 chars longer, bloating
+> the first patch.
+> 
+> Why not simply add errno to the integrity_audit_msg() definition and callers.  
+> 
+
+I can switch that around. I assumed we'd want to keep _message() since
+that was wrapped by _msg(). And not dealing with the line-wrapping is
+better.
+
+Best,
+Fred
