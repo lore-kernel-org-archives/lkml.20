@@ -1,261 +1,184 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8EA7E4AF158
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7924AEBDF;
+	Tue, 15 Sep 2026 15:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487025; cv=none; b=eMch2WeLO6yezhaqXKImdzaFzkQYU/tfmNZmc0IbU7ygpAtzV8xCedMHyTQ2eQK62pAfkBHvxUljcJ9AmxXNnl2pOkuX48gu3lTAIrqcmhjwUC1jPc8dFALMGPbn71eDO1X41Io8EzIzHNAdr63YqmaS2s0jQ+KFxGuVUvz+Sb0=
+	t=1789487031; cv=none; b=RayBT2R5uM7LcFLOZnxBauj3VN9Yb5+eVwQP6Lxs2/3iHA+6nz90mPw1WPIE+pwD6lo+espIaFLFBD6bXaJtoKsKhA4tvRqm3Pn+T/7xhH5f6FcP3WN7MjSYSby1ulbCyWFM+6pFM42h7uVicjPmsAgaKqXQAiVYU3HKELbZXPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487025; c=relaxed/simple;
-	bh=BxubJhJnwe6/0bJ2MGHy009TjXa9UajkeWAN2/J4vkI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IYc0+9nAZsfbWk7NXMfFUYanSp4ssxzFPLhkNazNeHkcIv1NV3bHFf9ulCq25UxvwxImPswch67BjO4mHk+m35OmZTSKJmUTtzcs12uGzZewPzbBSKq1FxNKQu7LyKIzT1lGGz8aL2O/Gzp7zDyt03g8Lw0az6hRc5m47T4f76A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LQUq6r98; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789487031; c=relaxed/simple;
+	bh=du2XYEijBqSXIMmKSaSxD0l4/kRS+Jv8A+3wvT3Xsxg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lwIhPJMMICYV/kanc+dIIpARg/BqRqBXKOAEv1AQpVWx6F4VtYBxnTjfdZSQT3h8a7xsXqPdgCOs1KzkF6rqtdyIngyFvDGI3B1cWLc2Bo+tjYfkM6UtEkE0Dfs6r5obFz+Q+fAinH8KdIbgLMpXFb0i0AfqfCwjEks8LyglOLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=tssPH1kX; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LQUq6r98"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8DBCC15A1;
-	Tue, 15 Sep 2026 08:43:36 -0700 (PDT)
-Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F0083F882;
-	Tue, 15 Sep 2026 08:43:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789487020; bh=BxubJhJnwe6/0bJ2MGHy009TjXa9UajkeWAN2/J4vkI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LQUq6r98ixMf6dnQmOincG/BdRjm+KsxyMA2DkfvrVw5uLeyLHr6+81sZJFx/TUgv
-	 sJ3P9BcBXG+ZvS4UI1RRdrxP6gF9hNxmLtOOyDBXg7OoxL0aqMKlosbO0+jgaEYosv
-	 k6uCESPCOgMRKBReS5d6dWHnmKQJQrMyEkK9QlXI=
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-	Wang Han <wanghan@linux.alibaba.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>
-Subject: [PATCH v6 6/7] KVM: arm64: nv: Drop kvm_s2_mmu pointer from kvm_guest_s2_mapping
-Date: Tue, 15 Sep 2026 16:43:04 +0100
-Message-ID: <20260915154305.3852871-7-weilin.chang@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915154305.3852871-1-weilin.chang@arm.com>
-References: <20260915154305.3852871-1-weilin.chang@arm.com>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="tssPH1kX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789487026; bh=du2XYEijBqSXIMmKSaSxD0l4/kRS+Jv8A+3wvT3Xsxg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tssPH1kX18xCIJFOZ6rEuQcjRa8qLd3v9uGM8jZj94gmfGQO2LaxBIhKHjyq0T5Ww
+	 iWKJN/bt290+r18cDkmlHKI128KUaOw5d8lidlTKq9w459ZZttWNYO4B3M0guGGM52
+	 mHLwzutBF6DgTJ2Gx3bEk/JStQLJZGl1Zgra1GW9X4eWuylF2xnpY3POCJ7VZqAiH7
+	 kbyTBVLMIp33qiSd9nLXMUIOW6hECe2WEVhPrh4Z12KIiQxTcU2uotgf/df1ihH6Ot
+	 5tmK4zOVblM+lIeSqCZZazxeX8yS5i2ovL4SviptlQ3txEUpLim4tFbOYnoH1EOyQA
+	 3/KvFWEALMs9A==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 6950940B71; Tue, 15 Sep 2026 16:43:46 +0100 (BST)
+Date: Tue, 15 Sep 2026 16:43:46 +0100
+From: Sean Young <sean@mess.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
+ keymap
+Message-ID: <aqlnsiUas27yhKHi@extorris.mess.org>
+References: <cover.1789460680.git.sean@mess.org>
+ <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
+ <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
+ <aqlcj9xXNRURA5iJ@extorris.mess.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqlcj9xXNRURA5iJ@extorris.mess.org>
 
-From: Marc Zyngier <maz@kernel.org>
+On Tue, Sep 15, 2026 at 03:56:15PM +0100, Sean Young wrote:
+> On Tue, Sep 15, 2026 at 03:07:32PM +0200, Hans Verkuil wrote:
+> > On 9/15/26 10:32, Sean Young wrote:
+> > > Replace some ugly code with open coded krealloc() and remove
+> > > superfluous member of struct rc_map.
+> > > 
+> > > Signed-off-by: Sean Young <sean@mess.org>
+> > > ---
+> > >  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
+> > >  include/media/rc-map.h     |  2 --
+> > >  2 files changed, 22 insertions(+), 25 deletions(-)
+> > > 
+> > > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+> > > index d4baaae3a834..53e39b7a489a 100644
+> > > --- a/drivers/media/rc/rc-main.c
+> > > +++ b/drivers/media/rc/rc-main.c
+> > > @@ -17,9 +17,8 @@
+> > >  #include <linux/module.h>
+> > >  #include "rc-core-priv.h"
+> > >  
+> > > -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
+> > > -#define IR_TAB_MIN_SIZE	256
+> > > -#define IR_TAB_MAX_SIZE	8192
+> > > +#define IR_TAB_MIN_ENTRIES	32
+> > > +#define IR_TAB_MAX_ENTRIES	1024
+> > 
+> > This is better...
+> > 
+> > >  
+> > >  static const struct {
+> > >  	const char *name;
+> > > @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+> > >  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+> > >  			   const char *name, u64 rc_proto, size_t size)
+> > >  {
+> > > +	unsigned int alloc;
+> > >  	rc_map->name = kstrdup(name, GFP_KERNEL);
+> > >  	if (!rc_map->name)
+> > >  		return -ENOMEM;
+> > > +	alloc = roundup_pow_of_two(size);
+> > >  	rc_map->rc_proto = rc_proto;
+> > > -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
+> > > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
+> > > -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
+> > > +	rc_map->len = 0;
+> > > +	rc_map->size = alloc;
+> > 
+> > ...but this still says 'size'...
+> 
+> struct rc_map_table has a len and size member. I agree that size is not
+> a good name. How about capacity or cap]? I am not sure that entries is much
+> clearer that entries tbh, because what's the difference between len and
+> entries?
 
-As it appears that the kvm_guest_s2_mapping structure is quite large,
-and results in a 128 byte slab allocation, there is some incentive
-to shrink a bit.
+Turns out this is a bit of a mess. All the keymaps in
+drivers/media/rc/keymaps/ set the size member for the number of entries they
+have - which really should be len. So, renaming this member of struct
+rc_map_table will mean patching all the keymap entries. Nothing too complex
+but maybe this is something for the next patch series.
 
-For this, replace the S2 MMU back-pointer with an index tucked into
-the low bits of the nested.start field. This allows us to shrink
-the structure by 8 bytes, and therefore to fit in a 96 byte slab.
+It would be useful to hear what you think of I'm proposing though:
 
-The index is also stored in the S2 MMU structure itself, which
-comes for free as it fits in an existing hole. The structure is
-also repacked to avoid other disgracious holes.
+1. Rename size to cap in struct rc_map_table (so it will have a len and cap)
+2. Rename newsize to newcap in ir_resize_table() and related functions
+3. In every keymap, replace:
+	.size     = ARRAY_SIZE(empty),
+   With
+	.len      = ARRAY_SIZE(empty),
 
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
----
- arch/arm64/include/asm/kvm_host.h | 19 ++++++-----
- arch/arm64/kvm/nested.c           | 54 ++++++++++++++++++++++++-------
- 2 files changed, 54 insertions(+), 19 deletions(-)
+This will be part of next series for rc-core, probably for the next release
+ cycle.
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index f12883a42081..8dfaa33c6cd5 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -153,12 +153,12 @@ struct kvm_vmid {
- 
- /*
-  * Record of a guest stage-2 mapping, storing canonical and nested IPA
-- * ranges. Both ranges have the same size.
-+ * ranges. Both ranges have the same size. The lower bits of nested.start
-+ * store the index of the nested mmu this mapping belongs to.
-  */
- struct kvm_guest_s2_mapping {
- 	struct interval_tree_node canonical;
- 	struct interval_tree_node nested;
--	struct kvm_s2_mmu *nested_mmu;
- };
- 
- struct kvm_s2_mmu {
-@@ -222,30 +222,33 @@ struct kvm_s2_mmu {
- 	u64	tlb_vttbr;
- 	u64	tlb_vtcr;
- 
-+	/* Guest s2 mapping records indexed in this MMU's IPA space. */
-+	struct rb_root_cached guest_s2_mappings;
-+
- 	/*
- 	 * true when this represents a nested context where virtual
- 	 * HCR_EL2.VM == 1
- 	 */
- 	bool	nested_stage2_enabled;
- 
--#ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
--	struct dentry *shadow_pt_debugfs_dentry;
--#endif
--
- 	/*
- 	 * true when this MMU needs to be unmapped before being used for a new
- 	 * purpose.
- 	 */
- 	bool	pending_unmap;
- 
--	/* Guest s2 mapping records indexed in this MMU's IPA space. */
--	struct rb_root_cached guest_s2_mappings;
-+	/* Index in the S2 MMU array, only valid for a shadow S2 */
-+	u16	s2_mmu_idx;
- 
- 	/*
- 	 *  0: Nobody is currently using this, check vttbr for validity
- 	 * >0: Somebody is actively using this.
- 	 */
- 	atomic_t refcnt;
-+
-+#ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
-+	struct dentry *shadow_pt_debugfs_dentry;
-+#endif
- };
- 
- struct kvm_arch_memory_slot {
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 4cbb4f1b8b35..61d4dae6be6a 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -45,11 +45,12 @@ struct vncr_tlb {
-  * will invalidate them more often).
-  */
- #define S2_MMU_PER_VCPU		2
-+#define S2_MMU_PER_VM		(KVM_MAX_VCPUS * S2_MMU_PER_VCPU)
- 
- int kvm_init_nested(struct kvm *kvm)
- {
- 	kvm->arch.nested_mmus = kvmalloc_objs(struct kvm_s2_mmu *,
--					      KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-+					      S2_MMU_PER_VM,
- 					      GFP_KERNEL_ACCOUNT);
- 	kvm->arch.nested_mmus_size = 0;
- 	atomic_set(&kvm->arch.vncr_tlb_count, 0);
-@@ -128,8 +129,10 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- 
- 		guard(write_lock)(&kvm->mmu_lock);
- 
--		for (i = 0; i < S2_MMU_PER_VCPU; i++)
-+		for (i = 0; i < S2_MMU_PER_VCPU; i++) {
-+			tmp[i].s2_mmu_idx = i + kvm->arch.nested_mmus_size;
- 			kvm->arch.nested_mmus[i + kvm->arch.nested_mmus_size] = &tmp[i];
-+		}
- 
- 		kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
- 	}
-@@ -873,6 +876,27 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
- 	return s2_mmu;
- }
- 
-+#define S2_MMU_IDX_MASK	GENMASK_ULL(11, 0)
-+
-+static void tag_s2_mapping_mmu(struct kvm_guest_s2_mapping *mapping,
-+			       struct kvm_s2_mmu *mmu)
-+{
-+	BUILD_BUG_ON(S2_MMU_PER_VM > SZ_4K);
-+	mapping->nested.start &= ~S2_MMU_IDX_MASK;
-+	mapping->nested.start |= mmu->s2_mmu_idx;
-+}
-+
-+static struct kvm_s2_mmu *s2_mapping_to_mmu(struct kvm *kvm,
-+					    struct kvm_guest_s2_mapping *mapping)
-+{
-+	return kvm->arch.nested_mmus[mapping->nested.start & S2_MMU_IDX_MASK];
-+}
-+
-+static unsigned long s2_mapping_to_nested_start(struct kvm_guest_s2_mapping *mapping)
-+{
-+	return mapping->nested.start & ~S2_MMU_IDX_MASK;
-+}
-+
- void kvm_record_guest_s2_mapping(struct kvm_s2_mmu *mmu, gpa_t canonical_ipa,
- 				 gpa_t nested_ipa, size_t map_size,
- 				 struct kvm_guest_s2_mapping *mapping)
-@@ -890,7 +914,7 @@ void kvm_record_guest_s2_mapping(struct kvm_s2_mmu *mmu, gpa_t canonical_ipa,
- 	mapping->nested.start    = nested_ipa;
- 	mapping->nested.last     = nested_ipa + map_size - 1;
- 
--	mapping->nested_mmu      = mmu;
-+	tag_s2_mapping_mmu(mapping, mmu);
- 
- 	guard(spinlock)(&kvm->arch.guest_s2_tracking_lock);
- 	interval_tree_insert(&mapping->nested, &mmu->guest_s2_mappings);
-@@ -913,6 +937,8 @@ void kvm_remove_guest_s2_mappings(struct kvm_s2_mmu *mmu, gpa_t nipa,
- 
- 	node = interval_tree_iter_first(&mmu->guest_s2_mappings, nipa, nipa_end);
- 	while (node) {
-+		unsigned long nested_start;
-+
- 		next = interval_tree_iter_next(node, nipa, nipa_end);
- 		mapping = container_of(node, struct kvm_guest_s2_mapping,
- 				       nested);
-@@ -920,7 +946,8 @@ void kvm_remove_guest_s2_mappings(struct kvm_s2_mmu *mmu, gpa_t nipa,
- 		 * Tracking must be conservative on removal, only remove
- 		 * mappings that are within the unmap range.
- 		 */
--		if (nipa <= mapping->nested.start && nipa_end >= mapping->nested.last) {
-+		nested_start = s2_mapping_to_nested_start(mapping);
-+		if (nipa <= nested_start && nipa_end >= mapping->nested.last) {
- 			interval_tree_remove(&mapping->nested, &mmu->guest_s2_mappings);
- 			interval_tree_remove(&mapping->canonical,
- 					     &kvm->arch.mmu.guest_s2_mappings);
-@@ -1363,18 +1390,23 @@ void kvm_nested_unmap_cipa_range(struct kvm *kvm, gpa_t cipa, size_t unmap_size,
- 
- 	while ((node = interval_tree_iter_first(&kvm->arch.mmu.guest_s2_mappings,
- 						cipa, cipa_end))) {
--		mapping = container_of(node, struct kvm_guest_s2_mapping, canonical);
--		mapping_size = mapping->nested.last - mapping->nested.start + 1;
-+		unsigned long nested_start;
-+		struct kvm_s2_mmu *mmu;
-+
-+		mapping = container_of(node, struct kvm_guest_s2_mapping,
-+				       canonical);
-+		nested_start = s2_mapping_to_nested_start(mapping);
-+		mmu = s2_mapping_to_mmu(kvm, mapping);
- 
- 		/* We could race against MMU teardown, which frees mmu->pgt. */
--		if (mapping->nested_mmu->pgt) {
--			if (WARN_ON_ONCE(kvm_pgtable_stage2_unmap(mapping->nested_mmu->pgt,
--								  mapping->nested.start,
-+		if (mmu->pgt) {
-+			mapping_size = mapping->nested.last - nested_start + 1;
-+
-+			if (WARN_ON_ONCE(kvm_pgtable_stage2_unmap(mmu->pgt, nested_start,
- 								  mapping_size)))
- 				return;
- 
--			interval_tree_remove(&mapping->nested,
--					     &mapping->nested_mmu->guest_s2_mappings);
-+			interval_tree_remove(&mapping->nested, &mmu->guest_s2_mappings);
- 		}
- 		interval_tree_remove(node, &kvm->arch.mmu.guest_s2_mappings);
- 		kfree(mapping);
--- 
-2.43.0
 
+Thanks,
+Sean
+
+> 
+> > > +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
+> > >  	if (!rc_map->scan) {
+> > >  		kfree(rc_map->name);
+> > >  		rc_map->name = NULL;
+> > >  		return -ENOMEM;
+> > >  	}
+> > >  
+> > > -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
+> > > -		rc_map->size, rc_map->alloc);
+> > > +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
+> > > +		alloc, alloc * sizeof(struct rc_map_table));
+> > >  	return 0;
+> > >  }
+> > >  
+> > > @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
+> > >  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+> > >  			   gfp_t gfp_flags)
+> > >  {
+> > > -	unsigned int oldalloc = rc_map->alloc;
+> > > -	unsigned int newalloc = oldalloc;
+> > > -	struct rc_map_table *oldscan = rc_map->scan;
+> > > +	unsigned int newsize = rc_map->size;
+> > >  	struct rc_map_table *newscan;
+> > >  
+> > >  	if (rc_map->size == rc_map->len) {
+> > >  		/* All entries in use -> grow keytable */
+> > > -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
+> > > +		if (newsize >= IR_TAB_MAX_ENTRIES)
+> > >  			return -ENOMEM;
+> > >  
+> > > -		newalloc *= 2;
+> > > -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
+> > > +		newsize *= 2;
+> > > +
+> > > +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
+> > >  	}
+> > >  
+> > > -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
+> > > +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
+> > 
+> > ...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
+> > are mixed.
+> > 
+> > This is not important for this series, so you can go ahead with it.
+> > 
+> > But personally I would prefer to rename rc_map->size to rc_map->entries and
+> > ditto for newsize to newentries. That way it is clear that these variables
+> > deal with the number of entries and not the size in bytes.
+> 
+> How about newcapicity or newcap? 
+> 
+> > I mention it only because when I reviewed v4 it confused me.
+> 
+> Thanks,
+> 
+> Sean
