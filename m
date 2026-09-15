@@ -1,149 +1,152 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A84A3CEB99;
-	Tue, 15 Sep 2026 15:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D873502A5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487789; cv=none; b=Q705y/HZ6XDmIMXPnOuyx9PwFJ4WSM0q0d9FipQfOJTAuebjgWXpYex9pS5A26rpYZFKqkFn6uDclBSqRe+VHxArOjF9PyY6l3FE999Iy9TLydHFeGRcSOPzOkwu9+cQkB4Vj5mqQRSUuVaiEa+s4mffNALBFOEx/iJktfX2VrI=
+	t=1789487804; cv=none; b=aOEFaYTcXilassu0FUz9lslvPDJbYGq0CtZD9kc5H4gVe9znIQQT0JdjAPYO16DrOkhub7D7IPWqMdP8Uo55vTHi57vIQYgpVy93FyECfdQvioUs2Jq5MUE1PBdNs7bglIzl48tA+cY6SxHM6XsrnK/OVn1lDfEK/SHBdrYsbM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487789; c=relaxed/simple;
-	bh=hhnl9J25vhWtjndIDpRn+fChbPLcG8O6KBl9AaJuEss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lFcPPer++6Wp7ggBsDpMSEPsiCMrHHhthcp1Zw2Pq5vysUMyEx8Vs65pDN9Twdo3b6tFui8c20kA8g/bFNUQbgTZ3PBWI7JG+Ykvj4VewRgTO6FECKCL6z4v+OcxGSJdEQ4EL6tTCrZyrURi4/nFv2rglNq1Ebd4672IKSsZad4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=E9kjYKDL; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="E9kjYKDL"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFVVU91231597;
-	Tue, 15 Sep 2026 15:55:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=BxPHWNTD4L6hnARkU6EXSH4kWdMAVf
-	IaMl336Sudec4=; b=E9kjYKDLqa8Q+ZrT0cPcL1qYV/gnwiw+sxKC49wqewEvhH
-	tIADKnBC+dls2N51zMbDqePuAYDevMoXKHla6vFDD8JoWOv96RL1jj6HJPXY9odG
-	JycOY+BiKY/H7iElmqDltBiOUlasXOq8PQLA0kq5OKgttSeCwFYsATOXT5fmWSNk
-	3UtsJSJYHtaZYUUI1qAAJ4doLYIRSy1Iv6OBvnBRvtKV5q82PaUbMZ3bWUxo8INZ
-	qFbmqcEH6ml3syFE7jWxl8OSJiea34IxLnNV2O+fvzHqipjjTZKYNhQVmslJOv+m
-	unhB2F/cUhFrMg5fRMiEbuwvStjIdz8Kayh7V29g==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcuyn9w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 15:55:57 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAb9O4140789;
-	Tue, 15 Sep 2026 15:55:57 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gq03bt272-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 15:55:57 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68FFtrIB49742122
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 15 Sep 2026 15:55:53 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 075C420040;
-	Tue, 15 Sep 2026 15:55:53 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8FF5720049;
-	Tue, 15 Sep 2026 15:55:49 +0000 (GMT)
-Received: from fedora (unknown [9.5.7.39])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue, 15 Sep 2026 15:55:49 +0000 (GMT)
-Date: Tue, 15 Sep 2026 21:33:35 +0530
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Marc Zyngier <maz@kernel.org>,
-        Oliver Upton <oupton@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Joey Gouly <joey.gouly@arm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>, Will Deacon <will@kernel.org>,
-        Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org,
-        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] KVM: PPC: Book3S HV: Fix comment naming a
- non-existent KVM_VCPU_RUN ioctl
-Message-ID: <20260915213132.36dc8e16-c4-amachhiw@linux.ibm.com>
-Mail-Followup-To: Fuad Tabba <fuad.tabba@linux.dev>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>, 
-	kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-References: <20260915084441.3846947-1-fuad.tabba@linux.dev>
- <20260915084441.3846947-4-fuad.tabba@linux.dev>
+	s=arc-20240116; t=1789487804; c=relaxed/simple;
+	bh=hKbfXdVOs4XvRozhAta7uu/JJurNzhfi55csK8P+3LI=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=OJGCjbmJBZNakxDjTNjsaHZ9D+8+3TIXne3tVkJCWevKyM4AAp9jAUjbrWOvreXFlicQNpTjlyeIw1UjdwaMqglb0SkElTqVPTm2ulNEoc5yU66p6/AzerBNx2a405a4jghLIbMH81O3WarzteUeSTy85NaTTWZ3ErDuFMCw6s0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-4511f6a63edso619385fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:56:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789487800; x=1790092600;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HoA9W0frTHaeQ396iZMJnY+gg68nN0Xuq0EiTpcHfg8=;
+        b=KJQ0GG16MY05TRRpDA5Tumtrd6WzwM46p2Y9qBmVGW6VyKjz+wnDUYa5QyhZFMtlk+
+         GN0DnTBdxBrhw+/k5SdBkjqLlRpQAVql3nHlUqW6ZPINVItm0lXFlTM6SJNUDeZeS8nd
+         JWX3tTU6rnBPUywQcV3jvz4GKCRDXz+bWXqWfphtx9/3m1L5X3kh4uCMYf9DYEb0wYzr
+         gUWhahfUQMuNP/tgKH2f9SoGzR6RR8gSW24qF5niuzd7U57mPLOwhDwIqTKpBG/Qdb2w
+         NsSD0e4MVNBo1GmC+uJJ1ac0JAruvc3N7F19Lax+hnjYnh6Sn4qAW8TIxepzhMXjnpbs
+         4fpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzc+34SbDAE118y1/eeNQrOhfVhTwKCbFkVNJr0BPudNy4fj4e5ZBGyi++esvSzAl/CPOfaotOzjrQ2sWY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXxkDWaN6lBclgtEOc9srCzJ4JrOk6qTQnsgE9+0IT35mrhtN/
+	qkOFSpeZ5h//Il7X1f3Vv28l7MIhhFsIxif4ADCLo7Pw5jnc1ny4eih3M6CRukZsHy0vicDwYpD
+	ivN0CnV90WBig8UAY1F9zM0h+syTDoofdoYa9YIFhW9VruMIK43p1uZKyrmk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915084441.3846947-4-fuad.tabba@linux.dev>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIyNyBTYWx0ZWRfXzIn1dK9Rs4+u
- 1ZEQ/kXTnyAJedfW8z4wkUc+E/d/fluIN3zAK/YxHn7TBgfGnVk8JCl1Vo4xL/psXanz4tD0KHN
- Qk8+rU03trQthHv6QNcjQwVMiXf22AE=
-X-Proofpoint-ORIG-GUID: 91WZ0m3lDBs7CXxyV9apPpYw-pvyJRYH
-X-Proofpoint-GUID: gJPvzoGNYexcjx6bjMrZBuLr-2VMHt02
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIyNyBTYWx0ZWRfX2lI7grsp7nJ1
- cuAIeOKMuz8GpYcvBYKxSINyr/44QJ0DukUXFCTX9jVSMoNPc8e2hL04yKEFu6QZkdb+59nh0Jd
- ccDYNy+6xXy7HYfPOCdM84EIZwhQZrY9ZZQ02ekC92bGNvoUW2mhzmoGZOjXO5Ei3Hl061hrfbu
- 0NJ9HKjIEBmau5r4ovHptHj2vsuFpFnFVRAWe4fscsP3kI5RMn/X9VVRMv8yEumnqvg2Vf+Qo3z
- wT5KDwRX02eFMCZzPVbh0PJlqdntI1LRqViiypazFF5+zw4LbY+pn0mW8soX6sVr3xuQKrdhn3B
- nDc/Wus556R+i80gYYiOpRWubLPVyZsIAsWVgUpEqnQ7+sXqX4wTIv55rmUsRV8XdEp/1LbjVgH
- wOZVpU/TMkhz0n63NDtHhGFIu1TZDWH1VLvk13Qk7+yktxo9jecZGj/frjCTs4QdRN68mKHxqoU
- UfMVdIj4nAQR3WNm6+w==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aa96a8e cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=e7Yo3nX338CflZNYmVUA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150227
+X-Received: by 2002:a05:6820:160e:b0:6b3:f762:4d95 with SMTP id
+ 006d021491bc7-6c53f252e87mr5122804eaf.7.1789487799965; Tue, 15 Sep 2026
+ 08:56:39 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:56:39 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa96ab7.4c28b7d0.c1bba.003d.GAE@google.com>
+Subject: [syzbot] [can?] WARNING in __netif_receive_skb_core
+From: syzbot <syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com>
+To: dario.binacchi@amarulasolutions.com, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mailhol@kernel.org, mkl@pengutronix.de, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026/09/15 09:44 AM, Fuad Tabba wrote:
-> There is no KVM_VCPU_RUN ioctl. The one that enters the guest is
-> KVM_RUN, so refer to it by that name.
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/powerpc/kvm/book3s_hv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-> index dbac3573b2c89..db090f4c5e95b 100644
-> --- a/arch/powerpc/kvm/book3s_hv.c
-> +++ b/arch/powerpc/kvm/book3s_hv.c
-> @@ -269,7 +269,7 @@ static void kvmppc_fast_vcpu_kick_hv(struct kvm_vcpu *vcpu)
->   * stolen time for a vcore when it is inactive, or for a vcpu
->   * when it is in state RUNNING or NOTREADY.  NOTREADY is a bit of
->   * a misnomer; it means that the vcpu task is not executing in
-> - * the KVM_VCPU_RUN ioctl, i.e. it is in userspace or elsewhere in
-> + * the KVM_RUN ioctl, i.e. it is in userspace or elsewhere in
+Hello,
 
-The erroneous name was introduced by commit c7b676709c16 ("KVM: PPC: Book3S HV:
-Fix accounting of stolen time") and has sat untouched since.  KVM_VCPU_RUN was
-never a real ioctl; KVM_RUN is correct.
+syzbot found the following issue on:
 
-Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=15a62471580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=1aae11dc8d42ec1a87ec
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1580bc8e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=169f9905580000
 
-Thanks,
-Amit
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/192c594c6096/disk-704340f1.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/79d1488deb4b/vmlinux-704340f1.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/fd108c2b8ca0/bzImage-704340f1.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+1
+WARNING: ./include/linux/skbuff.h:3003 at skb_reset_mac_len include/linux/skbuff.h:3003 [inline], CPU#0: kworker/u8:1/13
+WARNING: ./include/linux/skbuff.h:3003 at __netif_receive_skb_core.constprop.0+0x1706/0x3530 net/core/dev.c:6061, CPU#0: kworker/u8:1/13
+Modules linked in:
+CPU: 0 UID: 0 PID: 13 Comm: kworker/u8:1 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: events_unbound flush_to_ldisc
+RIP: 0010:skb_reset_mac_len include/linux/skbuff.h:3003 [inline]
+RIP: 0010:__netif_receive_skb_core.constprop.0+0x1706/0x3530 net/core/dev.c:6061
+Code: de 4c 8b bc 24 e8 00 00 00 e8 86 f7 6b f8 85 db 0f 88 11 f2 ff ff 31 db 4d 8d af 81 00 00 00 e9 01 ed ff ff e8 fb fc 6b f8 90 <0f> 0b 90 31 db e9 43 eb ff ff e8 eb fc 6b f8 e8 66 af 4f f8 31 ff
+RSP: 0018:ffffc90000007990 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: 0000000000000040 RCX: 0000000000000101
+RDX: ffff88801f2a0000 RSI: ffffffff89a02015 RDI: ffff88801f2a0000
+RBP: 000000000000ffff R08: 0000000000000003 R09: 000000000000ffff
+R10: 000000000000ffff R11: 0000000000000001 R12: ffff888075f88140
+R13: ffffc90000007c10 R14: ffff888075f88140 R15: ffff888075f88140
+FS:  0000000000000000(0000) GS:ffff888123b59000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd21e26870 CR3: 00000000729f5000 CR4: 00000000003526f0
+Call Trace:
+ <IRQ>
+ __netif_receive_skb_one_core+0xb0/0x1e0 net/core/dev.c:6262
+ __netif_receive_skb+0x1f/0x120 net/core/dev.c:6377
+ process_backlog+0x487/0x1600 net/core/dev.c:6728
+ __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7787
+ napi_poll net/core/dev.c:7850 [inline]
+ net_rx_action+0xa40/0xf20 net/core/dev.c:8007
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ do_softirq kernel/softirq.c:546 [inline]
+ do_softirq+0xaf/0xf0 kernel/softirq.c:533
+ </IRQ>
+ <TASK>
+ __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ netif_rx net/core/dev.c:5837 [inline]
+ netif_rx+0x93/0xb0 net/core/dev.c:5826
+ slcan_bump_err drivers/net/can/slcan/slcan-core.c:448 [inline]
+ slcan_bump drivers/net/can/slcan/slcan-core.c:463 [inline]
+ slcan_unesc drivers/net/can/slcan/slcan-core.c:476 [inline]
+ slcan_receive_buf+0x1a66/0x1f30 drivers/net/can/slcan/slcan-core.c:807
+ tty_ldisc_receive_buf+0x15a/0x1a0 drivers/tty/tty_buffer.c:398
+ tty_port_default_receive_buf+0x70/0xb0 drivers/tty/tty_port.c:37
+ receive_buf drivers/tty/tty_buffer.c:452 [inline]
+ flush_to_ldisc+0x26b/0x730 drivers/tty/tty_buffer.c:502
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
