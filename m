@@ -1,73 +1,87 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376783CF049
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7AE33CF217
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789438433; cv=none; b=AqoXocDXdNZa5mt1HhbDcKbuqmuFeHrjg6o1+PRK0VTrUVm9Dz5crxgG0pThLo5Y3jV5/GW8uA0ruDGcEYQwRQDZWb8qBpPI/S0+w71hfqA4RHJ5CqDhDCWVVEAQlOBfdRHqbDT+Ifq5vCQFLdF/U0WkiZ14MUcNkNT0ZPA4NPU=
+	t=1789438437; cv=none; b=EBkMp7UecooU4OSIwYmHLe1VCL15fkmqSyimgdRhlzOjkxkKLaPMatwRdkrNlWfYrFcJD91kjtZOF04YVJCQ9eTHMMzQbk3wotEOcWp0Ka4C/sPIx5S1nTgnkpeI6PfEWjebctY0M/0tUerRZZZRzc0NCS+dy82pICXa/z7YGuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789438433; c=relaxed/simple;
-	bh=XQuSQ137DUmjJs4vhjNv/rFoQoHzrImIZp2orhXaMrM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bniY7Q2+V2B/xx2uUkQnlrAifUzD91pcq8V3Xop9NApsb09ILZitvY58hipZlto3plfoKUietuIaBsWrNuAEfL9qR5jDhdxE/YJD1RY50hzQEGWn7jgtaeS1beFVMDX7jdLp+acmC0aGOVWNMRoOtRDOh87GoIz1MAVK6XSptLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ArpeM/M8; arc=none smtp.client-ip=209.85.219.41
+	s=arc-20240116; t=1789438437; c=relaxed/simple;
+	bh=y+uYInbziz7BukzjjZRe+/5QWjiVg8yit5JpoFjSCf8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TG7uzXfNBnpvdtk4M7FVArfXp9k2WxaMFSl10sXcVQQhRyF8yvwn8iHEv97DbkF9mRIDSgSA+SEF9B4RWiPatH+Mpxr94gQBr1L9Pdwnyw/ZsXMm7FvwJN4EN+dpBaCazaOMsugQj+hYrOCXogrAdegd6BNlbZWpnPoHDVHEEHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lfMcWnZ5; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ArpeM/M8"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90cd4631090so4997456d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:13:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lfMcWnZ5"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91064d2d54fso34018346d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789438428; x=1790043228; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789438435; x=1790043235; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sW7+JeYuhnmm8ntFAHs80fMLHHnC3GGrA2lFtY4r8iw=;
-        b=ArpeM/M85b8EZF6euTPV6Rxx4QF4QCU6Dtggcr3tLBTgOhody2jmtYEoF7hi+fOWXJ
-         u1eusydnC/22oU21g9N/EcnkxR5ySZHVyMfuDMpBx66cYJECE4aRO1YNjVVl1osDBNSd
-         QEBo1EnO0mY6db/OOnn8wRGgX5je24CKPARNn2jDLp6zcg1GrKcMqdQh/sEQJXTtyzum
-         taoFIqWDsy7UI4HdeacGNxZgzJS3P2guvSE/iV4jKUvcEfARurTHd/ShaN3paXvK3eqQ
-         8Q3yoXBNWS3I1naaEGVmY5480qCjgG/V660zPB/qQ6RqJbIyd1RdnNweQAny/sjTEV0k
-         JRUg==
+        bh=IIgk7U4YCHq9tSu9Ree/QyVtg93sX+pO1NS1iMLEj6w=;
+        b=lfMcWnZ5wQktvLcrjstMyDSDIJF3+9bVPoRdQsjGKmtISq8ZgzwhCcS/dD9DsFMGNk
+         mULLhWnBC5bLPV1j5jm/edGQ4Frdk6T4AIXJ2qmK0yEJRSBSlTVtGXqUW44S302g2l7J
+         qO+X0dtOzk66idQ6TVz6jfRENd6+sV8Cyxt6aUtHBcn8aVjDmMpTJcJNYcIIGauM5Vev
+         zZdvcD8axuNa0MzoKDnoKuYaC3/vy9qXXIEU+Wjk1gzfxIVYDlPiOVVSKiYtsvOZm5St
+         c10UMOUcTXiXHOcGViVsegSqjnOpIA4OiH7KEfz42HQdYrGBStOTRlFIcLuywdbeP/bA
+         9JNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789438428; x=1790043228;
+        d=1e100.net; s=20260707; t=1789438435; x=1790043235;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sW7+JeYuhnmm8ntFAHs80fMLHHnC3GGrA2lFtY4r8iw=;
-        b=JKhWwqWx+NnfKvZXvKcumdajzApNE8u/hJItnVabgM4+wmpuvxrJJP405HbJbrwktB
-         I+7BJsmMv/XmeO3cZzUTNnvR3TL2DBljDF+FDg6VqIihqvddGV/pBGNkndWLxaJ+AEIO
-         B/au3/liaKvJ4UXLmhm3E7GEYrZgxzfBljcgSpyDDVSSNpT2FJy+Rq0OHG63TrEjuP7T
-         XhQO4X6qCsmBe3ge7zE3W/+gqv1TGS6NvExozY6ffG2dgqQXDvufjCuu1gXx8Nv5ptCV
-         ZkCS7F8OxW0hnO71+/ZxQs+9BQStVIVaVETDAZ+gTjmZP5dPS8CRcviQMJOnYMUPzERY
-         kKqA==
-X-Forwarded-Encrypted: i=1; AKwUvBx99f73WX3L5qqS1gtVwR+ZyU6EyIozvaoyPUAtmAxMJ3deCF0fI2uJz6ivtzUC7fom6qZjOnIDsKVwI2Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhs8+EcGA3MlQufZqA6C8VlnaH/o3N6J4jD3KbO5G2nJPNogqW
-	M9N27EGRkYVSLzlxn7JYANh8C9f+Pnb03O1PeNyY6zsk0D4lERjOf6bWk2N3Ab8lFQ==
-X-Gm-Gg: AYBFou3206gHTwsx5OCM7EM4GKq0q/PtotkKGxedstMbkAYffdETlwGWIrxA3mu9dJh
-	CE7G9QLu8QHpWbzZeXuJRk/A0r5iKOBVZEbDL9wvCskVwx2qeV8hbZA2cCQPyMTUPLTGqipcSVT
-	phrpHgsTg03tVne8UUS5HCggiG15PFbiUMRJqYHL7cPn+qDG4uWYlXNcZETmsEuhI0ig5RVU9pv
-	y1Qv9MmLj+fNlvTk2tIx4spkQSxDF+T8EwX9fRN4VUoKOrSTC41cQcRsoqJhuF3gN1xdhAmc2MA
-	MXfbo8RpVy6jG+v9B3Vr9C6UHnlL0eH5ysvRcHG9vIM1ZexxCwcxuJIZYwGDAxJCWyhE7vlMoYW
-	QmV464wN0YQHp8XkMZz3+n0BG3dGnysIn3OKg7bnNCWB+7xmc2fthLc7GeSE4JBtZ8AmS1OHc8P
-	BwfYrukwQ3dkRmslmKT4NMxJIxfq+KM/nXFHWhY1GCJQbITu9wJdv4olUSpeUJTYnl5+WhazuDI
-	B47xpYtVWB7qa6wh7Ukfv7PJy9R00t+y/tkflrrJnHYWNRbFbLCY182SSIEBCl1LgXGtErGFtvB
-	RsiMjQozCp94HYuockPLz+IUTViW84xSaOu1sdQ2Cd93ZhNWh4Fd+1GXGEllyCpQ
-X-Received: by 2002:a05:6214:311c:b0:910:3923:cc6c with SMTP id 6a1803df08f44-912343f288dmr28143126d6.21.1789438428254;
-        Mon, 14 Sep 2026 19:13:48 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9122cf9ba03sm34230136d6.32.2026.09.14.19.13.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 19:13:47 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+        bh=IIgk7U4YCHq9tSu9Ree/QyVtg93sX+pO1NS1iMLEj6w=;
+        b=BAjTFX732J1+92tKSfxidKm2H2OeGylWVPhcIaVVHTIyew6HS+lJz7oVMdMVXa83DD
+         wLc/tzF/M10/HQLLwmjuWefTtu5F0y78WT+c+rmsliNRmpal6iFZun+BVYS7yOL5lQ/8
+         PRTsjOpi9J4heL8GVjVEzKDdOgrV0gJVDMvTE7UopeGPRXccPfxPlTQn2GP3wm2Oh1iN
+         WErgy9o0PzQYedQOmuB2CxmqN2NQadKAytcktg1YUUN0b3U8wgC4HZGlEkVF/wpL5/dV
+         rNtPJQIOlovbgxZQBninz63oFQVMeEryoz0joYui5nYDCirsqQdDGu9ksrBw9B7pyHRH
+         j3ew==
+X-Forwarded-Encrypted: i=1; AKwUvBzHbxCaJs5UtGaIr7BAl6QoG6okvpSey5nTmt1mrQ7pBBC7SKEI1YD/QBr0eeHiSge99mZwoANq9B2i+uU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+5zG4Fg3o6fWn9tDnLknpENBnTzRKon51NfXcaSPt0iU9s78M
+	J7ZzXbqgNO9sN2WxZjZntsFWjK/3Jco2mjfl6XQ6GnjrnXGjDipJUjPt
+X-Gm-Gg: AYBFou3bCAc9jlrIDf5WQ1N9ZQtCfNoXvMfzcfA5er7vqIKRkIq4bk8n6WHwAHiv+cu
+	mShvw2kDvjKsB19uzEtdnHQrvGwaZhrUenxj1/+s+XLSvXOQNPjBstynbnfWlrQc+UUr7ZqHPuH
+	wGvqOHMW7JH6QcGkiBJ7D6WDOgWfuk7jwlUUt+5E9tzl7Ki3H6c//h6fxXhZZPCuXUq63Z4NLtY
+	iGaZu2lew+hfgYor7R4v+OorsGaVQliSAcjnQmTEh3WN0BeSWTViob0ihgX1lKsHgCecWjO9SN1
+	cqtK6TJ+wznZsa71YrnouMnhzS8yz95LvmEZO7tcPHibLWVr4U9ryaPqaFJLJ6Sy+qC739122U4
+	qpr0qwfSWNS3KfYxw+lHUmzMoR/gwiCk8EFLGmNldCx0sex6OkXs5wL8glYNgfkdaspRYqPWk93
+	eG/4QscUCSe6utqdedutgEuZONokEO/kEVXZoPzXXFPCEJ0fQ0uIQ33LQmV3T1Zpu6
+X-Received: by 2002:a05:6214:2689:b0:90e:8a5c:fb6c with SMTP id 6a1803df08f44-9122e4cc937mr85906536d6.4.1789438434614;
+        Mon, 14 Sep 2026 19:13:54 -0700 (PDT)
+Received: from Turin ([187.15.143.6])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47e800sm113147306d6.27.2026.09.14.19.13.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 19:13:54 -0700 (PDT)
+From: Nicholas Dudar <main.kalliope@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	udknight@gmail.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org
+Cc: martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	hpa@zytor.com,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: radio-maxiradio: balance PCI device enable on cleanup
-Date: Mon, 14 Sep 2026 22:13:39 -0400
-Message-ID: <20260915021339.94468-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	visitorckw@gmail.com
+Subject: [PATCH bpf-next 0/5] bpf, x86: Extend CPUv4 instruction support in the i386 JIT
+Date: Mon, 14 Sep 2026 22:13:33 -0400
+Message-ID: <20260915021338.1520964-1-main.kalliope@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,41 +90,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tuner initialization failure and remove paths omit the matching
-pci_disable_device() after a successful pci_enable_device(). Disable
-the device on both paths, after the final hardware access on removal.
+Add MOVSX, MEMSX, 32-bit-offset unconditional jumps and unconditional
+byte swaps to the i386 JIT. MOVSX currently produces ordinary moves;
+the other instructions are rejected by the backend.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+The load-emitter extraction is separate from MEMSX so the code movement
+and signed-load handling can be reviewed independently. MOVSX comes first
+because context-access conversion can lower signed loads into ordinary
+loads followed by MOVSX.
 
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-diff --git a/drivers/media/radio/radio-maxiradio.c b/drivers/media/radio/radio-maxiradio.c
---- a/drivers/media/radio/radio-maxiradio.c
-+++ b/drivers/media/radio/radio-maxiradio.c
-@@ -159,10 +159,12 @@
- 	dev->io = pci_resource_start(pdev, 0);
- 	if (snd_tea575x_init(&dev->tea, THIS_MODULE)) {
- 		printk(KERN_ERR "radio-maxiradio: Unable to detect TEA575x tuner\n");
--		goto err_out_free_region;
-+		goto err_disable_device;
- 	}
- 	return 0;
- 
-+err_disable_device:
-+	pci_disable_device(pdev);
- err_out_free_region:
- 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
- err_hdl:
-@@ -180,6 +182,7 @@
- 	snd_tea575x_exit(&dev->tea);
- 	/* Turn off power */
- 	outb(0, dev->io);
-+	pci_disable_device(pdev);
- 	v4l2_device_unregister(v4l2_dev);
- 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
- 	kfree(dev);
+The separately posted i386 SDIV/SMOD work is independent of this series:
+https://lore.kernel.org/bpf/20260731002950.179573-1-main.kalliope@gmail.com/
+
+Tested on QEMU i386 with CONFIG_BPF_JIT_ALWAYS_ON=y. The full test_bpf
+suite improves from 845/216 to 862/199 pass/fail: the 17 newly passing
+cases cover these instructions, with no other result changes. Additional
+verifier-loaded programs check full-width results and ordinary controls.
+
+Of the remaining 199 failures, 8 are ALU32 SDIV/SMOD result mismatches.
+The other 191 fail during program creation or runtime selection: 149
+atomic cases, 37 ALU64 division/modulo cases (including a mixed ALU test),
+4 long conditional jumps and 1 jump/gap stress case.
+
+All five intermediate JIT objects build. A standalone emission harness
+checks ordinary-load byte equivalence across the extraction and compares
+MOVSX staging with the earlier emitter, accounting for the removed
+self-moves. No physical hardware was tested.
+
+Nicholas Dudar (5):
+  bpf, x86: Add support for BPF_MOVSX in the i386 JIT
+  bpf, x86: Extract the i386 JIT load emitter
+  bpf, x86: Add BPF_MEMSX support to the i386 JIT
+  bpf, x86: Add BPF_JMP32 | BPF_JA support to the i386 JIT
+  bpf, x86: Add unconditional byte swap to the i386 JIT
+
+ arch/x86/net/bpf_jit_comp32.c | 227 ++++++++++++++++++++++++----------
+ 1 file changed, 161 insertions(+), 66 deletions(-)
+
+
+base-commit: 29fcf9ce4bbdf4cc339def776860e1c0095bca98
