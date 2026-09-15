@@ -1,59 +1,42 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3B86FC5;
-	Tue, 15 Sep 2026 06:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED464217723;
+	Tue, 15 Sep 2026 06:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455050; cv=none; b=cwMSGdr9ssqDkvQxR1qQQ5imSQKBnIDEG0SWLhJ3JgTqDmQh/JjolQh0A5+77XWyhDMmUDffuOeSOd28WRZeJpmH+8r2bcLeV8d26Gti0h/dJxsgPGSg5GrHpSMC/7NKecLQ5v1KniPIr2IR5kWOXNgNY2AMKcIKr+Alt4o/WqI=
+	t=1789455085; cv=none; b=IBOLy/mFZlpoH1au2F/GZ6cBuiEvHhLiTyiE8uXYl+oVMkSnF7VL02eeqhljBNryY2nebarYAwjNxQIa1b3Y9+TeLGC1HnRZZZw7sc/eoR8Bo2vuG9FEZDOrHUdrdj3yNFrk+zlEqDI8mLyko4CyvSXso7TImccySUo31Wgfmjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455050; c=relaxed/simple;
-	bh=/ZCmi4r14tZwDHCeMmDXzyYacNyDfq438K9Zf9rDAIs=;
+	s=arc-20240116; t=1789455085; c=relaxed/simple;
+	bh=Rzu/DvTlLzOxPncOC7q4NGfOAA8xj0FMiwwkPCvSeZc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jsz7pKn8aZJjYYy3pAkvVL/BQCRsJrgmOffASr0qJId8rkOCVY737XwytlNo7k346WcBnuuuHp06iBH3q7OLOj5u7nCtU6oFSy+DTmgxNnYIwVXOXFeUkBDYK/Yc6hxG4PnlyA1QEZJr75/yeJ5I69tH0n8vBbyZFzyAGSjeoYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id BA6DC68C4E; Tue, 15 Sep 2026 08:50:44 +0200 (CEST)
-Date: Tue, 15 Sep 2026 08:50:44 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Nilay Shroff <nilay@linux.ibm.com>
-Cc: Yu Kuai <yukuai@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Josef Bacik <josef@toxicpanda.com>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Coly Li <colyli@fygo.io>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Song Liu <song@kernel.org>, Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
-	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, Yu Kuai <yukuai@fygo.io>,
-	Christoph Hellwig <hch@lst.de>, Tao Cui <cuitao@kylinos.cn>,
-	linux-block@vger.kernel.org, cgroups@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-bcache@vger.kernel.org, dm-devel@lists.linux.dev,
-	linux-raid@vger.kernel.org, gfs2@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v2 3/3] blk-cgroup: move async bio punt state to blkcg
-Message-ID: <20260915065044.GB13417@lst.de>
-References: <cover.1789237876.git.yukuai@fygo.io> <326e4904402440323532168095f2eb0c6f697836.1789237877.git.yukuai@fygo.io> <f27ee89f-5a52-4cfc-a14a-e5019ae61d89@linux.ibm.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qqu+a460CoTRJLVMnCFroQ2f/lLQZJdyyjcbrCuoaIT2gMqiZIl5kTMIEwuA4Nvcuv0yAGTlSGn7/XQAbirDgcvvrsxGglczViy8Rj17qaPlnQzpNhSKDLg8I30GKRsWvbSv3awvknY5BTLjr0YGhc2QEV/LmHHTjwN+gVMyDLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W4ons60v; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W4ons60v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0594E1F000FF;
+	Tue, 15 Sep 2026 06:51:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789455083;
+	bh=GxZNt8/Z5BCAZDMiJFFdwsLVIH457rLHjlpMQ6ZHvm8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W4ons60vNAiNv2bAcSKM2RAEg8/l+u0DQ7FK3ylWaywYhRVCJG0ZWA9TTdaQ3hkXZ
+	 s5/5YtBCly6bTlePClqbkfQ4wTRT7hCzS3ykgak0Uo5isWjwPu7sKhXeyl8cWOwYC3
+	 8bqc0KhZNcyQMbGF+5yNw9ZVlnfxUaW0C3x+etqKXBxEqFUFsLjZB3YimsTHFT6qms
+	 JAfhyJ5SkufHHO4R8QTdvUMmfiAzf9C0kSdo6qkyG+E0b5O9pfiCoA14AmJDjjlElv
+	 GS42UEwP3r6okZ0Hjt0cI6qJR+quvjzBF9gS2KU0X1A6mZ6ymycObrCAVijV3KvFW2
+	 2Rjl1MWtlpIOQ==
+Date: Tue, 15 Sep 2026 08:51:18 +0200
+From: Michael Grzeschik <mgr@kernel.org>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>, 
+	Latchesar Ionkov <lucho@ionkov.net>, Dominique Martinet <asmadeus@codewreck.org>, 
+	Christian Schoenebeck <linux_oss@crudebyte.com>, linux-kernel@vger.kernel.org, 
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>, Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>, 
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
+Subject: Re: [PATCH] net/9p/usbg: Fix use-after-free on usb9pfs_clear_tx
+Message-ID: <aqjqwG_6zXJYC7nW@line.checkpat.ch>
+References: <20260529081026.77732-1-zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,22 +45,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f27ee89f-5a52-4cfc-a14a-e5019ae61d89@linux.ibm.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20260529081026.77732-1-zhaoyz24@mails.tsinghua.edu.cn>
 
-On Sun, Sep 13, 2026 at 06:59:25PM +0530, Nilay Shroff wrote:
->> +	/* as long as there are pending bios, @blkcg can't go away */
->> +	{
->> +		guard(spinlock)(&blkcg->async_bio_lock);
->> +		bio_list_merge_init(&bios, &blkcg->async_bios);
->> +	}
->>
-> Instead of using guard(spinlock)(...) here, I think we could use the
-> simpler spin_lock()/spin_unlock() helpers. IMO, they are easier
-> to read and reason about for these short critical sections.
+On Fri, May 29, 2026 at 04:10:25PM +0800, Yizhou Zhao wrote:
+> When p9_usbg_close() is called, it invokes usb9pfs_clear_tx() but does
+> not clear usb9pfs->client nor usb9pfs->in_req->context afterwards.
+> The 9p client core (p9_client_destroy) calls close() and then
+> kfree(clnt), so after p9_usbg_close returns the client struct is freed.
+> 
+> If the USB gadget is later disabled (e.g., host disconnect),
+> usb9pfs_disable calls usb9pfs_clear_tx again, which passes the dangling
+> usb9pfs->client pointer to p9_client_cb. Inside p9_client_cb,
+> p9_req_put(c, req) dereferences the freed client to access its reqs IDR,
+> causing a use-after-free.
+> 
+> Additionally, usb9pfs_clear_tx does not clear usb9pfs->in_req->context
+> after calling p9_client_cb, so a second invocation finds a stale request
+> pointer and attempts double-completion, further compounding the UAF risk.
+> 
+> Fix by:
+> 1. Clearing usb9pfs->in_req->context to NULL in usb9pfs_clear_tx()
+>    before checking usb9pfs->client, so that even if the client is gone
+>    the stale request pointer is consumed and cannot cause
+>    double-completion.
+> 2. Adding a NULL check on usb9pfs->client in usb9pfs_clear_tx() to skip
+>    p9_client_cb() when the client has already been destroyed.
+> 3. Setting usb9pfs->client = NULL in p9_usbg_close() after calling
+>    usb9pfs_clear_tx(), to prevent any subsequent call from dereferencing
+>    the freed client pointer.
+> 
+> Fixes: a3be076dc174 ("net/9p/usbg: Add new usb gadget function transport")
+> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+> Reported-by: Ao Wang <wangao@seu.edu.cn>
+> Reported-by: Xuewei Feng <fengxw06@126.com>
+> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+> Assisted-by: GLM:GLM-5.1
+> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-Yes, guard() is a complete mess that makes code unreadable, please
-don't use it.  scope_guard is a bit better, but given that it doesn't
-mix with goto based unwdinding it still is too dangerous to actually
-use.
+Acked-by: Michael Grzeschik <mgr@kernel.org>
 
+> ---
+> diff --git a/net/9p/trans_usbg.c b/net/9p/trans_usbg.c
+> index 1ce7033..c75de5c 100644
+> --- a/net/9p/trans_usbg.c
+> +++ b/net/9p/trans_usbg.c
+> @@ -435,6 +435,11 @@ static void usb9pfs_clear_tx(struct f_usb9pfs *usb9pfs)
+>  	if (!req)
+>  		return;
+>  
+> +	usb9pfs->in_req->context = NULL;
+> +
+> +	if (!usb9pfs->client)
+> +		return;
+> +
+>  	if (!req->t_err)
+>  		req->t_err = -ECONNRESET;
+>  
+> @@ -457,6 +462,7 @@ static void p9_usbg_close(struct p9_client *client)
+>  	client->status = Disconnected;
+>  
+>  	usb9pfs_clear_tx(usb9pfs);
+> +	usb9pfs->client = NULL;
+>  
+>  	opts = container_of(usb9pfs->function.fi,
+>  			    struct f_usb9pfs_opts, func_inst);
+> 
+> --
+> 2.43.0
+> 
