@@ -1,75 +1,87 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1105A2C11E6;
-	Tue, 15 Sep 2026 01:38:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D8A34676F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436291; cv=none; b=EwyxKHEjrie5Xkg8aLl2lDMs2cphiN8l/FQeAWCJdBxF6AabpQqcJh6GGG6THWTFU0XsJXQeeJjhYey3wBTfCZcnag6pbOGFrq/8mKrjazEjTOlgM75emN+S2mNNoaJkxUW0DyVe+WeHuQ+guZrkN3MKdPrHwn8Iup03jYl5Bwo=
+	t=1789436315; cv=none; b=q2TQRPLWV0/E11qIX82QEvCDaKyDjxgXD84z3NffUtuNzbo2P+rUw+RvuAjVJHFvb9NSlFgP3oToRWtUgwtU9tKGHTUxqzdE0CXh1pYezJ3JuFmQ0dVFwHVCb7wfN3T3IE9UkYbsI5geGQNJmuQfgZpkNdxp6jpJP2idO93CcaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436291; c=relaxed/simple;
-	bh=LJISAw53/XS4cKLmLRcjDrvFI55o5b2VRiFl0cC42d0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XvLxsDRF+2R7hXni2oew55l+pv0kEtte9biiFyZCrTTNK9ib6fD5eHFkeET01dwDkyGU4Pb1Uz8wZ8uV9Syk+u1n2UlZDvCwT3FVvX+/uaBOPqepoKRsohmUyUaPfT2fcaLt0TeR+6xKRyyXkMdOg/ihtuNo+aj3HsBxzJsEyeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=M3sK/gPu; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="M3sK/gPu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ZwlFUKDyv7/oDnq9W07CoOYhsxtE/VuWYanh9L0PklM=; b=M3sK/gPuvLfdeyVqZxifxuisTI
-	8wwFHhT4CuekEjHy2tcgc+5bu0o7AVL/KWkMcVwFeyN38YUt3Gza4inEvzZqCL2jkCIX0e+A65IXr
-	nMB8f87l1VMKbIbkScKot8rhwRSDPyJHwH0TQ80/Q5lIAQvvT1UWLIuN1AZ+TfXcTQW0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6I7X-005AKP-FL; Tue, 15 Sep 2026 03:38:03 +0200
-Date: Tue, 15 Sep 2026 03:38:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: davem@davemloft.net, Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	=?iso-8859-1?Q?K=F6ry?= Maincent <kory.maincent@bootlin.com>,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	=?iso-8859-1?Q?Nicol=F2?= Veronese <nicveronese@gmail.com>,
-	Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
-	Frank Wunderlich <frank.wunderlich@linux.dev>,
-	Pietro Ameruoso <p.ameruoso@live.it>
-Subject: Re: [PATCH RESEND net-next v17 10/10] Documentation: networking:
- Update the phy_port infrastructure description
-Message-ID: <43813c88-e9cd-4333-b7ec-9f7f280cffd8@lunn.ch>
-References: <20260910170103.1029108-1-maxime.chevallier@bootlin.com>
- <20260910170103.1029108-11-maxime.chevallier@bootlin.com>
+	s=arc-20240116; t=1789436315; c=relaxed/simple;
+	bh=OYPwEzIwiGt/ZTffibNRUfnNb5BHgXyZfKhBGJTD4lE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=QjjxGDva9EswAHdKu8pXjzpeFxmBKiNc4Qr9gzsFJUnXZYNIHXHvLqqB9jQlHF5X9q4uKkYVxcCEqIVBlmC+JUF0djMKcJW3F51QghhMS9bz4PhAH3L1UPhkqqnUZ+0blafJ8QOMODbo1AnYCRUHp74XO+QbhaCkGlxO92kGdlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1b27d7ab2so4679431eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789436313; x=1790041113;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7MpkYnDZncdX42AkUQsCi+nS/mOeknbxn1IPtAp3x0M=;
+        b=zYethn2wpCSZohsLuXwuKXs8Rom5NrKc+zuTTT6H6TxGb6vb/T4ivbHMeNImzR6oyg
+         5h3Q9v4aYNm3zNqElE4uZkeafMYRZJu8wP+x2PEU1vSCETdlI3izJ6CVg1MLObBQVKFx
+         ejeWF/zINJABPiHYsDmo3zIYiVTZgkqRuebaXWlkCm6qtBCYn4qnAiZ3z8NEnNAQDVZ3
+         Yb6FGSCrZPC4bU4GDjr9WMwFUb3e25nuULNZfKRbV079MgttS1Gm8hZR1OJvXkDPv+Vj
+         L03tMw99AkOuy75KLj9xTMWFtga64/Ja/Fb80NcWMfEWCeX+Sgiz0tjZdFlllRsbi7F0
+         i64w==
+X-Gm-Message-State: AFuF++lRQKaUQUZmGpwwtt3/etMkf7HRbsafmcoBG5u4L4P0tTslgHsv
+	WSkSj3ARGtHQqt9WaXFHUiHSsEa/+av1Xmeny1wEK5rJKJBkF7J55oJMqhA5w68T0oAGvqwyjXF
+	MUN5Ix7qkLQdrVDeWMzqFt8xYsoZjLa6CKsy8vUfN35jpfQ9kjvTxgHoNe4k=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910170103.1029108-11-maxime.chevallier@bootlin.com>
+X-Received: by 2002:a05:6820:4d09:b0:6b1:858:28a9 with SMTP id
+ 006d021491bc7-6c53f44bbd4mr2876597eaf.9.1789436312816; Mon, 14 Sep 2026
+ 18:38:32 -0700 (PDT)
+Date: Mon, 14 Sep 2026 18:38:32 -0700
+In-Reply-To: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa8a198.a211d2ce.1a5198.029f.GAE@google.com>
+Subject: Forwarded: [PATCH] BUG: sleeping function called from invalid context
+ in null_insert_page
+From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 10, 2026 at 07:01:02PM +0200, Maxime Chevallier wrote:
-> With SFP now properly supported with phy_port, add some details in the
-> documentation. Fix a typo along the way (driver -> driven).
-> 
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+***
 
-    Andrew
+Subject: [PATCH] BUG: sleeping function called from invalid context in null_insert_page
+Author: jchuang26@m.fudan.edu.cn
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+
+Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
+
+diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+index 6beb1f5b7..e22e79b02 100644
+--- a/drivers/block/null_blk/main.c
++++ b/drivers/block/null_blk/main.c
+@@ -1861,8 +1861,15 @@ static int null_init_global_tag_set(void)
+ 		tag_set.flags |= BLK_MQ_F_NO_SCHED_BY_DEFAULT;
+ 	if (g_shared_tag_bitmap)
+ 		tag_set.flags |= BLK_MQ_F_TAG_HCTX_SHARED;
+-	if (g_blocking)
+-		tag_set.flags |= BLK_MQ_F_BLOCKING;
++	/*
++	 * Shared tag sets can be used by memory-backed devices, which may
++	 * sleep in ->queue_rq() while allocating a page.  The flag cannot be
++	 * changed after the tag set is allocated, so always mark shared tag
++	 * sets as blocking.  blk-mq will then use an SRCU read lock instead
++	 * of an RCU read lock around dispatch and the allocation is allowed
++	 * to sleep.
++	 */
++	tag_set.flags |= BLK_MQ_F_BLOCKING;
+ 
+ 	error = null_init_tag_set(&tag_set, g_poll_queues);
+ 	if (error)
