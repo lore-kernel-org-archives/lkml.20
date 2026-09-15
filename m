@@ -1,118 +1,78 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D84346E54
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511079; cv=pass; b=tuke5eNWwloVCmBnvrHEl+p50jyi/ZTayw1kS5zWHW0ziPhC1VNU/Cob/s4W8ifBPOJdMHoJn0RaFDcLE+U5Qw6ZGnk8WAMOaIwq5/Hf+LFXhIjxW0PTXVRN1DjnJhF0CqYnuFy5kwab+NwTt8w48Ju/Uck2MmB62W8XZaeT+NA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511079; c=relaxed/simple;
-	bh=glk4hLZeB8BNV8FJN1ZJEgfUHPNFsCJRMeqWRnKIk5w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lXTHQk60jgDnEC0BIhUXRDlPNfASpAX6TSuI6qIuMMnrCnY7K3g+vRoLr9m9rpLuaUCUYXV4WYDpMgNJdCK5utvnqT/8k9MZvw1qQJ8Yo0j70QRcB4F0l+Ojj690QIqMW5sB3yjzqat9y8ouXTRdpBX5gZ0MgjtRq3V7HjYHAZg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WmS+vzDh; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F6417BCA;
+	Tue, 15 Sep 2026 22:25:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789511146; cv=none; b=gu5Pzs/U6OWSWiJoAnaTt2S5s4EE5TWWfOAq0V3gCQZdSIrKKwjnr1nd8Zp6G994hls0+SqW/v9R9gprBV2+xz1yBewMrTdT5Fl04E/+MJBQD/i86lepHAMGb6YDK4dr8dllv3JAKLyHiViCKjHT+GQnUHHry1vRS6dyfq+PxBs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789511146; c=relaxed/simple;
+	bh=WmWs9jPf1QhIbh0wratZlEyglAqvOhfdXBCOK1ktGew=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lCCAJtC3Kvxo+okshAbGQjefA1C5eUhjCEosP1ryELOAgujvJdZcXsWV5udW6bhdY6IdqB5tni1AgtKW1h8RZtJ3Q5+xhcWCanaoeqqYbuM8brhhubwj8bSrvFXzCtSyMlO8jONoaRMMIfaCoAt0aDhNw/4WnT+uzlB7k+LGm6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5IXNL+f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WmS+vzDh"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a56so53580666b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:24:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789511076; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L87yrLJmGEimJe8LQdLCH4aV95KSco5vm3IDrIDf3K0XX1SemKQifJzkBevGTnH45v
-         qSz9y4Rej5aiR3bJDWNHuqhbYAsL4ygRpDu5kniMXeL2y5TK8M54bubJ+MWhEMb8B5YM
-         iWDeUcchV77748ChLCtngO8IXGXDkEQOAqR0xlFQRyEhyIjywi4tGmO1QpvpTLAr6xOo
-         MOj7R8UuVkNiS38vlZzxFrwyTiOhNqeqgJ3ccoUo4pTotlcW0WQPRLXaXPTX9GIME3w8
-         dOLAVNvNYaWvbADwkHKzZX7cefmz2UNdw23/UpsQbFCnG0yzpnog2xLX+4+aKKf6gzzd
-         Pz2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fLnNBMG5QZIWbGY+kDvGdV9CDFonw3WRgIqwznl2sBU=;
-        fh=sMDze8zaFcP4niAbrpciDLfyLkunwNlRm/dLedN2eg4=;
-        b=oA2Zesk+B+61vKQWz8Yzd8HBRWeZMH6ZMyt2Xiw4ZH+ADnwBh5hFSuVzMuRZhCyx/j
-         BTbeVhyHFzSl8jFZmZU6tzR9BmoQPK9eekOJatwgHuePMEjL049ppA1TGqiF7WAfz49H
-         zINOLlcRv6xzeqwoL0q/U40PjSeT7jTIlJpL04jlBs0Kq8vHjf+GJSw9lUDHLRPIL7Mv
-         4Bf5iEAKQ267+Eb9pQ1lQUp/pWkQQO8bQEDfivEFT4l3oVtjiQFpRlshwb+ATt/qoRNF
-         2B9B4BdNqtbmxqRLohfNJsqOvPTmNpKH6iSOxovUNiC8RXUR3TyWMlpWuAUTmyiLu7IH
-         sXWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789511076; x=1790115876; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fLnNBMG5QZIWbGY+kDvGdV9CDFonw3WRgIqwznl2sBU=;
-        b=WmS+vzDhtKSAP1T3o2albshqftmO4o34Wgl03JMuAY41BGbogAxhIp6Cm36PUjS5Ou
-         e9t4JqZC92WqM+jGcIlEMR/eGDSh/1arQhwcjUiZXMHzz0QYoI4BYp3rKBHzLvNnMiqO
-         jSarpH1uE9vr/ZJKZnAnbe2T0bv6qpQ7+sLreL7tqlTzA/XGnhOt4LlMNG64xVuz9z2/
-         OWJL1ssYBgtMUlPUpYMdbh1V/zdJHRGk8woav+nD8v8j2EBkBzGUHyb6lobGLbjNGE27
-         iN9zP86GzVKQ+U1pPK8Q90V+WQb+oRNdJaB6PLhgUzZEJ+3If8Uj0Y8pvNj+5euwFeO+
-         C37w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789511076; x=1790115876;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fLnNBMG5QZIWbGY+kDvGdV9CDFonw3WRgIqwznl2sBU=;
-        b=ODn+6CUkMyPI0LxcyWIVVmIqlJNx2cLq1nScaicDdZ3FD2R/B7sgKxQI9xEArwJpXF
-         /c9DSlIQWGkME2kUOvqEa7zn3/cFTQhxi0exyE4b68n7RrCHVsd042nB1RN0INB4/K5f
-         GsQzUyr3bw89SN1Ewsu9eReZFbz0XEQtDYHh52fSae70EbGfa1OEd+X4ZLCGW/h6JDvT
-         GUyRVExw2OcYO5DrVaoeQu9M6K0o0DMmZs2DJShBtTsRkiefye8jAw22OLzvTgfSNSjR
-         FEhuExaPXq7OmKytwvmeMKW3HWDo0fqmBPDWHajEhbD6y/DBIFN7dLcjHzvtBJ/UqwS1
-         8amA==
-X-Forwarded-Encrypted: i=1; AKwUvByOu6Aeh1N0RahFgrnM1L3MSHL38eqJckEg7t0ey/46IMAtZ9uvDuax2k1in3Gjy4JfAtVSC8Wrk3GmV+A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcEKGaNpvuUW4pGixAGGkY70DJdhFtCKjSQmlAu+kCEjmrtwie
-	6B4vYjpCQ1Y3F0Wts6vtlZgLhmnxbZ+JQxPXalzxNl3iNP6L2L7QbNa1gyFkJpVdieErjAXCWEI
-	TBYrWmMsI26LVXa0g+FiP3z+rhpAx85c=
-X-Gm-Gg: AYBFou1kLFw5AYJ65rICXcfFjyM7IvsKTjQOczyQ9NQBlhxvKlMbHgUjdT9xotCu2yI
-	2XNlg0XwCBYZIC3oFPWudxk1NgNTNHFdnTKtghddQMiguMA/0+fPBZkPNlEStet/USHNirBAvTn
-	MZsl7q3wAdc0K4E3/7xwwfLAHcnFQixOikOBWfmUkiAeYcIs0bBhz+Z9jh8lBoBv2vnuo3BlA+O
-	wz1fVwiAFXNlyx3FT0q+ksN5piF4+6m/Dbk8BPXROPs+IKrc4LuUXln+52ajY6zAuu19T/Nd30O
-	J3Aq8T5XyNAXupO2AzNdp4s/dklk+tJO5JbyZ5AWHkvngNMQ8CVJK+9Xfci6MAc4n/3yBzZU3PY
-	2iX5yxMLRZUJlKNkE0XNyRVlw0MrCi8bJSDTOmV7smnq0LYSdFbRXGqEG88NMWmc0xQZGRh1Zta
-	Wg/OmnH0rtEdfJsg+s4ik09i2UPW8iVLy8nO/ZdP2+pfJyZLw8zumZOwFRYqSY7acmIoM3KACK3
-	eBf
-X-Received: by 2002:a17:907:d26:b0:c29:c356:6984 with SMTP id
- a640c23a62f3a-c29e51dbfdamr6340166b.8.1789511076181; Tue, 15 Sep 2026
- 15:24:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5IXNL+f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC881F000FF;
+	Tue, 15 Sep 2026 22:25:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789511145;
+	bh=2kecQaR0F7g0/H9mop9k/ZA1PCRux2SHgqjXnuf3tgU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=i5IXNL+fVFTtOFiiRyVTkNuytpziNyfhPeJrdEo9rSE5W+iLdKiE3IJQYf+PtFR2x
+	 wTtpo6KRfyPuBDuWwyIB7v1BQAfmCl05JRLSWdlBCiZaDhMw3UucXQudZ3qG3tvEHW
+	 rbPFfmhXJf2YcVEeeN/pggWtlHx9N64OBke0aa+ueA0xGpd5MP/L8Z8VME3U24tApq
+	 TmPswHCzQD0LWELmWVs6W+hyy9+dKlpg08xPNt8/a4EorHlXr4r1aTMKNKrhKWVuPr
+	 2+BB4KwfZNPp+HgbCIq/92kvRyWg/hMn3yeb7u0Ck3LVPGzLWjmyjUSggfDR4Eu3k2
+	 z6n1C3Y21E0pQ==
+From: Oliver Upton <oupton@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Mark Brown <broonie@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v20 02/14] KVM: arm64: Fix FGT mapping for HFGITR_EL2.nGCSEPP
+Date: Tue, 15 Sep 2026 15:25:32 -0700
+Message-ID: <178951103683.10790.7238421458148276106.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901-arm64-gcs-v20-2-f31750bdfadb@kernel.org>
+References: <20260901-arm64-gcs-v20-2-f31750bdfadb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915004406.115230-1-rosenp@gmail.com> <20260915064352.T4HiPnt_@linutronix.de>
-In-Reply-To: <20260915064352.T4HiPnt_@linutronix.de>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 15 Sep 2026 15:24:24 -0700
-X-Gm-Features: AcwNN1UmrBuelDzySu3Or0uOP888_AzAr6sVGxMbhPLw-5AZIgjqW0vcNetLvrU
-Message-ID: <CAKxU2N_+H50zy7V0FR-_4KiyAG8+_x4kg2QZBsumHEXgdwmqKQ@mail.gmail.com>
-Subject: Re: [PATCHv2] gpio: mvebu: keep resume masks within the irqchip cache
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, open list <linux-kernel@vger.kernel.org>, 
-	"open list:Real-time Linux (PREEMPT_RT):Keyword:PREEMPT_RT" <linux-rt-devel@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 11:43=E2=80=AFPM Sebastian Andrzej Siewior
-<bigeasy@linutronix.de> wrote:
->
-> On 2026-09-14 17:44:06 [-0700], Rosen Penev wrote:
-> > mvebu_gpio_resume() writes the edge/level mask registers saved at
-> > suspend time straight back to hardware, bypassing the irqchip's
-> > mask_cache_priv.  genirq skips mask_irq() for a line it already
-> > considers masked, so restoring a bit in hardware that genirq thinks
-> > is still masked leaves that line unmasked behind genirq's back.  An
-> > asserted level line then has nobody to ack it, and the moment
-> > interrupts are re-enabled the chained handler storms, hanging resume.
->
-> Why is the mask value changed after suspend?
-In order to keep genirq and the hardware in sync.
->
-> Sebastian
+On Tue, 01 Sep 2026 22:47:00 +0100, Mark Brown wrote:
+> The encoding to trap mapping currently maps a FGT on OP_GCSPOPX to
+> HFGITR_EL2.nGCSEPP but as per DDI0601 2026-06 this FGT controls trapping
+> of GCSPUSHX and GCSPOPCX, and not the separate GCSPOPX instruction.
+> Update the mapping to reflect the architecture.
+> 
+> 
+
+Applied to fixes, thanks!
+
+[02/14] KVM: arm64: Fix FGT mapping for HFGITR_EL2.nGCSEPP
+        https://git.kernel.org/kvmarm/kvmarm/c/089e4f3c4862
+
+--
+Best,
+Oliver
