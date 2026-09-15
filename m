@@ -1,171 +1,321 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB13D381E84;
-	Tue, 15 Sep 2026 08:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2FA3CDBA5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460333; cv=none; b=VZ3l3GtzjkIgBrYIPRHkL/Tl93bqkMsxaYQmgf5kvqZl/+xh5qMLCKEg6g0MomVQJDuLlmG0ezg+BpVYab6KjrCR2Zz4WAJV0xFC904si4VBfgReNpjGAOgm62aYL8gAAu1c/OWwFXqsU/b2iQNcgGEnBj4Ie4YhGypOsZTwP8E=
+	t=1789460399; cv=none; b=pasAUrYe4wAkmuWJ4Bbjs9YDEosuQZ4FzgQz4aC+vkH6iLh6B3ov5SjJK5tOgMFy0qF/4ETVpJPQEdLYCRxvfx4mqwyRtM/FdejHnhBqK+/GhM0oll3tor/Jx9IQwd9QVb/cHnQzpGutmYxB2w6cjHRuK0NR/zr8NP9Mdy4CgWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460333; c=relaxed/simple;
-	bh=PIQgQghBsdueE4dgI9dfM2FWfe/BnEQPM83C2rqyNVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WsznBv+1fqrA52g1Q83nbomDrhHdoNaFe3NnG2W5LB+9oCVRMJUvifWkvj+gHm7WNrcespnrhJ3GGiJhXbLXpQOclyfj761SE5FEQsBUyW1dTgmBK17chzMXZYze3JjsoK48q0DqgUUIMzsfDZZ3Dp2qyKRze6ivap5JhoXW/Tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=WS4K5MdW; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789460399; c=relaxed/simple;
+	bh=hwfRqXyDJjrWnLmHCCnSyQ5c6I5VKxxwWvdwR4gczDI=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Co6rkadS9D/BbHgcL2pSclgLm0fkXvgKMQ7O5imKBPeWZlEFrD+d3pq/+E0Lm8TVhnXZTwMEBTJsqpCHphkYybv5SyZc/1/7E12hD4HnAkB5ZqTBtOQ1xbwnj2sHorfgHikxZuf9ye7zeKo1EyL2D36vfIHTOcm38rKSXbrJGr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kFStyNsf; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="WS4K5MdW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=YHezNuYRWZyHUSt4x8zAvLSNvRUq401od9PQb2feT/s=; b=WS4K5MdWs0E9Z8kIFU8fAegauX
-	59XxyMclv+z+kSRbsHuwY8aMZkgK2kOrbvHWxHuk5FqaCnTnI7SYJfxs0+A2vM/xoBA9uMN38idg6
-	BlTgzm0fmC98cNpfij+VBfPOzsNvXt8xWH5aRPmFQNz0iBjMFkMDFlnegDrmyAjBDXFaZtreOpBcF
-	zQ8s4utRgMsNcEgGpa50G6kiwnLwcDGJsg7YmBbDt2qHsV57lkeEgQtVHcOZd5cJq10GRDN5NJQWC
-	h4IsEPIQQpSPNO3BgVi7m1UdHcVoDQOlH9rwz1xRTS3cSwU4R24VixBOzygy2Dfil+lh/bgx+DSlY
-	A5ZqnZww==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x6ON1-002JiF-2E; Tue, 15 Sep 2026 10:18:26 +0200
-Message-ID: <ce2dfef7-9e8a-4ea0-9a21-3498ac66b73a@igalia.com>
-Date: Tue, 15 Sep 2026 09:18:25 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kFStyNsf"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc489e7a701so6024077a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:19:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789460390; x=1790065190; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cTJ+iDaVRz+oQczzBBEu9x7Pp5Lm2h3B0iGAZglcmy4=;
+        b=kFStyNsf6no/miZzS9f9e0bO+LbLlx0nALsKxyWWFxRsfeWL4uq54zP/54wKmdnETs
+         JN6+GIzvVSSoy0wHCDekSB2YCv/Q4L3cDh7T/w4TP9GVWYWDoLdns/B+Un0epV6L8yRw
+         xCHA+NayFImP2wwXOZrL7HyXmPEyzDrV0R2ZwHZ1jOpUfNkSEjbgXDcOs13Ty3xfcI/z
+         jNWMggNlw/e20k1m4NQfDF7+hjJAPr3+U1awQi+C1Rajk+IrxjV6vzYuAlBs+HPzOGu7
+         Df1YM916Vv17Ue4q+ylkCKnNZIt1wsePHKdGVoP8bsJhgUOMlEKy6MReKjTz7SCij8mt
+         cpyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789460390; x=1790065190;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cTJ+iDaVRz+oQczzBBEu9x7Pp5Lm2h3B0iGAZglcmy4=;
+        b=By35KS1Pu7KajVat+sR/PxhmJujthL9xT/UZgmxCbmJhriyA7OShq65AMJpvGyaXVM
+         i5mSKJ/kRItkz8wMdYBOwRr0x/k6txVx0EKhZIkclxhrv7AvOI+1wnJAxUmvwyL1WUzm
+         ObDMZZtv4gx6rMx9P4Vub46QFEl6h0nGA694wIBk+8XbW4EJD+NykInnWaf6j8ynTE2w
+         ub2KkOkAs4ekJSoW8PqC6EmsP1xuvCh9rbnlDghB/4oJ4e0SDamQzNVBV5/3CvpMFdvz
+         UJsw9F+vARSFsLChE0udXT01rUT0v+Z44aKoW0ML7FZMeaYXCSHuOSXNBC4hs3dnNrGu
+         jhPA==
+X-Gm-Message-State: AFuF++mvYzMCx/GuqcHh0hpYABWi7WLSgXIjEqb397dbuIYh9W3T1+AO
+	zgCeg3EkyH9LRTRiSfD/JezAwlmNBnPNcZHVAX3ewXJgMDaHDTpYRWl7wncMO1qLZzpGeagKq9v
+	c4IqIr5mbc+A8NRkBcBLM5YWxEW0kjL8ybefB6MOuv7k7j/J/y973qap2iF2UIwCBTLtEsSW/Qx
+	wap8FeS9Rc4DYUhGY7eGbCDoM6aWok023LJTCRRw==
+X-Received: from pgbo14.prod.google.com ([2002:a63:5a0e:0:b0:cc4:337f:e10f])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7d9f:b0:3b4:61f:1fec
+ with SMTP id adf61e73a8af0-3db4038ec7cmr15429477637.2.1789460388838; Tue, 15
+ Sep 2026 01:19:48 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:17 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-To: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Sean Paul <seanpaul@chromium.org>,
- Gustavo Padovan <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
- kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>,
- stable@vger.kernel.org
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
- <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+Message-ID: <20260915081910.4142719-1-morbo@google.com>
+Subject: [PATCH 00/28] Replace remaining strlcat() call sites with snprintf()/seq_buf()
+From: Bill Wendling <morbo@google.com>
+To: linux-kernel@vger.kernel.org
+Cc: Bill Wendling <morbo@google.com>, Russell King <linux@armlinux.org.uk>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Matthew Brost <matthew.brost@intel.com>, 
+	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
+	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
+	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
+	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
+	Johannes Berg <johannes.berg@intel.com>, 
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
+	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
+	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
+	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
+	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
+	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
+	linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+strlcat() is deprecated: like strcat(), it requires re-scanning the
+destination string from the beginning on every call, which is O(n^2)
+when used to build up a string incrementally, and its truncation
+behavior is easy to get wrong. See:
 
-On 21/07/2026 09:21, André Draszik wrote:
-> In [1], sashiko reported the following issue:
-> 
-> === snip ===
-> Looking at how these fences are managed, drm_crtc_create_fence()
-> creates a dma_fence without taking a reference to the drm_device or
-> drm_crtc. Because the sync_file framework exposes this fence to
-> userspace, the fence can outlive the CRTC.
-> 
-> The dma_fence contract requires that data accessed by dma_fence_ops
-> (like get_driver_name) must remain valid for an RCU grace period after
-> the fence is signaled. However, drm_crtc_cleanup() and the subsequent
-> freeing of the device do not wait for an RCU grace period via
-> synchronize_rcu().
-> 
-> If userspace calls ioctl(SYNC_IOC_FILE_INFO) concurrently with a device
-> hot-unplug:
-> 
-> CPU1 (Userspace)
-> sync_file_get_name()
->    ops = rcu_dereference(fence->ops);
->    if (!dma_fence_test_signaled_flag())
->      // Preempted or delayed here
-> 
-> CPU2 (Driver Teardown)
-> Signals the fence (setting fence->ops = NULL)
-> Destroys and frees the CRTC without waiting for an RCU grace period
-> 
-> CPU1 (Resumes)
->    ops->get_driver_name(fence) -> drm_crtc_fence_get_driver_name()
->    crtc = fence_to_crtc(fence); // Casts to the freed CRTC
->    return crtc->dev->driver->name; // Use-after-free
-> 
-> ...
-> 
-> Does the CRTC or DRM device need to be kept alive for the RCU grace
-> period, or should the fence hold a proper reference to prevent the
-> use-after-free when get_driver_name() and get_timeline_name() access
-> the freed CRTC structure?
-> === snap ===
-> 
-> I believe this to be a correct observation and this patch implements
-> the suggestion of waiting for an RCU grace period before proceeding
-> with destruction of the drm_crtc, so that get_driver_name() and
-> get_timeline_name() can still work.
+  https://github.com/KSPP/linux/issues/370
 
-Presumably these fence are exportable via syncobj and/or sync file? If 
-so, your analysis seems correct to me. Fix as well looks it works to 
-close the vulnerability, but the part I cannot help with, and which will 
-need someone more familiar with the CRTC code and the associated object 
-lifetimes, is to comment on whether a RCU delay in drm_crtc_cleanup() is 
-acceptable or it must be made async one way or the other.
+This series removes the remaining strlcat() call sites in the tree
+(plus the one inside fortify-string.h's strcat() implementation
+itself), replacing each with snprintf(), scnprintf(), or the seq_buf()
+API, whichever best fits the surrounding code.
 
-Regards,
+One unrelated fix is included. While auditing drivers/edac/thunderx_edac.c
+for its strlcat() conversion, "EDAC/thunderx: Fix stale error context in
+thunderx_l2c_threaded_isr()" addresses a pre-existing bug, present since
+the driver's original 2017 commit: thunderx_l2c_threaded_isr() computes
+its ring "tail"/"ctx" once before its drain loop and never recomputes
+them per iteration, unlike the analogous OCX handlers in the same file,
+so it re-reports the same ring entry for every queued error instead of
+draining the ring. It's split out as its own patch, ahead of the
+strlcat() conversion for that file, so it can be reviewed and
+backported independently of the rest of this series.
 
-Tvrtko
+Bill Wendling (28):
+  ALSA: ac97: Refactor snd_ac97_get_name() to use snprintf()
+  sunrpc: Refactor rpc_sockaddr2uaddr() to use snprintf() instead of
+    strlcat()
+  ARM: atags: Replace strlcat() with snprintf() for cmdline extend
+  scsi: bfa: Use snprintf() in bfa_fcs_fabric_nsymb_init()
+  ALSA: usb-audio: Refactor usb_audio_make_longname() to use seq_buf
+  comedi: comedi_bond: Refactor strlcat() to seq_buf in do_dev_config()
+  scsi: bfa: Use snprintf() in bfa_fcs_fabric_psymb_init()
+  devlink: Refactor strlcat() to seq_buf in
+    __devlink_compat_running_version()
+  drm/dp_mst: Refactor build_mst_prop_path() to use seq_buf
+  of/fdt: Replace strlcat() with snprintf() in
+    early_init_dt_scan_chosen()
+  wifi: brcmfmac: Replace strlcat() with snprintf() in
+    brcmf_fw_alloc_request()
+  fortify: Convert strlcat() to snprintf() in strcat()
+  i40e: Replace strlcat() with snprintf() in i40e_nvm_version_str()
+  ALSA: usb-audio: Refactor append_ctl_name() to use snprintf()
+  orangefs: Use seq_buf for debug help string generation
+  pinctrl: samsung: Use snprintf() to construct pin bank names
+  MIPS: cmdline: Refactor bootcmdline_append() to use snprintf()
+  LoongArch: Refactor bootcmdline_init() to use seq_buf instead of
+    strlcat()
+  x86/setup: Use snprintf() to concatenate builtin and boot command
+    lines
+  parisc: Refactor strlcat() to seq_buf in setup_cmdline()
+  NFS: nfsroot: Refactor root_nfs_cat() to use snprintf()
+  media: si2165: Use snprintf() to format frontend name
+  Input: synaptics_usb - use seq_buf and snprintf() for name and phys
+  EDAC/thunderx: Fix stale error context in thunderx_l2c_threaded_isr()
+  EDAC/thunderx: Replace strlcat() with seq_buf
+  wifi: wil6210: Refactor resume_triggers2string() to use seq_buf
+  drm/xe/pf: Convert strlcat() to seq_buf in control_read()
+  drm/xe/pf: Refactor strlcat() to seq_buf in sched_group_engines_read()
 
-> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org?part=1
-> Fixes: 6d6003c4b613 ("drm/fence: add fence timeline to drm_crtc")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: André Draszik <andre.draszik@linaro.org>
-> 
-> ---
-> v3:
-> - Philipp: update kerneldoc, add Fixes:
-> 
-> v2: new patch
-> ---
->   drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
->   1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> index 63ead8ba6756..e8e80c936852 100644
-> --- a/drivers/gpu/drm/drm_crtc.c
-> +++ b/drivers/gpu/drm/drm_crtc.c
-> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
->    * drm_crtc_cleanup - Clean up the core crtc usage
->    * @crtc: CRTC to cleanup
->    *
-> - * This function cleans up @crtc and removes it from the DRM mode setting
-> - * core. Note that the function does *not* free the crtc structure itself,
-> - * this is the responsibility of the caller.
-> + * This function cleans up @crtc and removes it from the DRM mode setting core,
-> + * after first waiting an RCU grace period to ensure @crtc->dev can safely be
-> + * dereferenced by our dma_fence_ops.
-> + *
-> + * Note that the function does *not* free the crtc structure itself, this is the
-> + * responsibility of the caller.
->    */
->   void drm_crtc_cleanup(struct drm_crtc *crtc)
->   {
->   	struct drm_device *dev = crtc->dev;
->   
-> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
-> +	 * the fence is signaled. This is necessary because our dma_fence_ops
-> +	 * dereference crtc->dev.
-> +	 */
-> +	synchronize_rcu();
-> +
->   	/* Note that the crtc_list is considered to be static; should we
->   	 * remove the drm_crtc at runtime we would have to decrement all
->   	 * the indices on the drm_crtc after us in the crtc_list.
-> 
+ arch/arm/kernel/atags_parse.c                 |  7 +-
+ arch/loongarch/kernel/setup.c                 | 22 +++--
+ arch/mips/kernel/setup.c                      | 21 ++++-
+ arch/parisc/kernel/setup.c                    | 16 ++--
+ arch/x86/kernel/setup.c                       |  8 +-
+ drivers/comedi/drivers/comedi_bond.c          | 16 ++--
+ drivers/edac/thunderx_edac.c                  | 67 ++++++++++------
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 15 ++--
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c   | 24 +++---
+ drivers/input/mouse/synaptics_usb.c           | 29 ++++---
+ drivers/media/dvb-frontends/si2165.c          | 17 ++--
+ drivers/net/ethernet/intel/i40e/i40e.h        | 15 +++-
+ drivers/net/wireless/ath/wil6210/wmi.c        | 38 +++++----
+ .../broadcom/brcm80211/brcmfmac/firmware.c    | 21 ++---
+ drivers/of/fdt.c                              | 11 ++-
+ drivers/pinctrl/samsung/pinctrl-samsung.c     |  3 +-
+ drivers/scsi/bfa/bfa_fcs.c                    | 80 +++++--------------
+ fs/nfs/nfsroot.c                              | 11 ++-
+ fs/orangefs/orangefs-debugfs.c                | 36 ++++-----
+ include/linux/fortify-string.h                |  7 +-
+ net/devlink/dev.c                             |  8 +-
+ net/sunrpc/addr.c                             | 16 ++--
+ sound/pci/ac97/ac97_codec.c                   |  9 ++-
+ sound/usb/card.c                              | 58 +++++++++-----
+ sound/usb/mixer.c                             |  8 +-
+ 25 files changed, 309 insertions(+), 254 deletions(-)
+---
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ian Abbott <abbotti@mev.co.uk>
+Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Matthias Schwarzott <zzam@gentoo.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
+Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
+Cc: "Martin K. Petersen" <mkp@kernel.org>
+Cc: Trond Myklebust <trondmy@kernel.org>
+Cc: Anna Schumaker <anna@kernel.org>
+Cc: Mike Marshall <hubcap@omnibond.com>
+Cc: Martin Brandenburg <martin@omnibond.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Jiri Pirko <jiri@resnulli.us>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Chuck Lever <cel@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>
+Cc: Olga Kornievskaia <okorniev@redhat.com>
+Cc: Dai Ngo <Dai.Ngo@oracle.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Bill Wendling <morbo@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Kanglong Wang <wangkanglong@loongson.cn>
+Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Qiang Ma <maqianga@uniontech.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Thorsten Blum <blum@kernel.org>
+Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Johannes Berg <johannes.berg@intel.com>
+Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
+Cc: Jiaming Zhang <r772577952@gmail.com>
+Cc: Will Porter <mrwillporter@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
+Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
+Cc: Rong Zhang <i@rong.moe>
+Cc: Arun Raghavan <arunr@valvesoftware.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: loongarch@lists.linux.dev
+Cc: linux-mips@vger.kernel.org
+Cc: linux-parisc@vger.kernel.org
+Cc: linux-edac@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: intel-wired-lan@lists.osuosl.org
+Cc: netdev@vger.kernel.org
+Cc: linux-wireless@vger.kernel.org
+Cc: brcm80211@lists.linux.dev
+Cc: brcm80211-dev-list.pdl@broadcom.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org
+Cc: devel@lists.orangefs.org
+Cc: linux-hardening@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
+
+--=20
+2.47.3
 
