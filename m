@@ -1,86 +1,109 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF76345EDA
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CEA33F8B4;
+	Tue, 15 Sep 2026 14:02:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480924; cv=none; b=AnUtPuUN0Fd7YmZaKsO0qUf2NNoWFpQVP2jlJtIhzo5vVHpFLB4hn5G4ypVy+4EeUN8UfjS8g/9usZwgAplURhhALD/AMsOHB7O/s86CNobTipwsWyENULwGvL61/hF+lNQXRPhRDfvfILDoARPZtCOMXendWcmsz5wmH9paeYo=
+	t=1789480949; cv=none; b=nNpOluDHhK5R3+nwA2/YTXf182nDT9nmQyOWt46i2hY0homJBORc6a+sT2CoSKH2sYERPdLWoNV1VE51v0kaY3HeVMit03TyM1+AjZUUloeIkKEIEckZZ2bBBntZXh5WxCjuJmSQWmhng0UkYwbhprYTLQVzGuU9kfd8Zu6qvag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480924; c=relaxed/simple;
-	bh=atqLn9YTZzHIsSCLFCAMch6kfGgyfpPvW5CXpOJeEHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZN50jcTd0GxDyEepEJ1Hxpr91iQkkEm0/4cEKbsFhT8iCwKDh7VWuZGtAH1VtIK/2YIzUUThtSwGvJMVC/7Sw2Kdr6AO4D9Ysldzccwj5A75J0IHA2c7katfhW00BFOlRBZF7TaqvBFSnvRxVqBtyufh9qZ1TechWptc6f8Plss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EhDOoL0c; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789480949; c=relaxed/simple;
+	bh=2qblHiRoIo+hFrinE4U2+cmvOsgbDeofL/9V5DGaaOY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=O2lrTxqPIDDwy0BWz/chkzPQ+/Aq1NCcqI1nShruzyoriZjk2IdtbooQ7u5+s3D6LgKqRoVAp2HfbgBmilmbvHWhHnWsFCrS2x4kEkhzHfDPkWl6S8KdTlbbKpqckZ7OO6VMiFckn/ay4qSt6heNiffSy9H14jdbDuTmkVHh3xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ElzCFfaA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EhDOoL0c"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=dMBRG/YE17xeIr6m/05W2wOiH8cDV6qURT3JG4pWQSQ=; b=EhDOoL0cqmbhj6NW3Ur14l7iF8
-	45/VkFHyO8ldrChizjz5HC/ALAs/HpBd0chV+LLIHCVTLd4cUuZ9xqifZawrPTW9WPZ6TG+fKrRII
-	5IERH8uG2exWiF2M6a7j5vGwoXFIniJiNLDa1kiV3GDZ01wuh1TH4/L9JtCvi4z1SpfU4dL5HAAm3
-	cMXy4Q7i0Nsd7rYlHYXutPtHbPnuBvWL09wdf6Sphy2lgi1osfnn1W0jY+2nrCW6aSAQLEe4wYYgW
-	zaNFCs2K0GKmDM4XfVV+/V/c0XWbbdg2HFDl0PLTBykXKJDbLj5dGB/k5AOGsWO1RDMQiT1PLe1uq
-	ynRDv/dQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x6TjN-00000006rGx-29hR;
-	Tue, 15 Sep 2026 14:01:53 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 376383005AA; Tue, 15 Sep 2026 16:01:52 +0200 (CEST)
-Date: Tue, 15 Sep 2026 16:01:52 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ElzCFfaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C08F1F000FF;
+	Tue, 15 Sep 2026 14:02:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789480948;
+	bh=V2+wp1JbGqyDj/eKk9M2CQpRON+IxnqrnAi1UNJPOvc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ElzCFfaAbq9pkqV5/eUkFLt+jY8vJeCp0DXjjjL2XCBF6SLN4lkZRPCtmrniSz7CL
+	 ll9tjNaTiJXttH9BLCAm/jTrN15LD49IaVakiZBOj0N/Z1J2+87YV1H36eeeKCNC1G
+	 6yLbHCKEb5/6AhH74iuUUrdaRFPhMMf+tFhJTGG06PofoWMz0bxVzyK76EsX1/8VNt
+	 wUO/Gn/DdQogi1sySvfHA19S98GSv53zCKKrcxvPDLwwYRWzkv2IhMehwgbfRECfJJ
+	 08wy9em3anWOdY+xWnRxrplG9PCD6mvTcECMaSVcRcE3Gqm38lsTXRxAbfIcOEdIzg
+	 8OpjB4Ykji/rA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6Tjt-00000009B2D-3OhI;
+	Tue, 15 Sep 2026 14:02:25 +0000
+Date: Tue, 15 Sep 2026 15:02:25 +0100
+Message-ID: <86v78662a6.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
- locked=1
-Message-ID: <20260915140152.GC4121339@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
- <20260907084133.3696-4-david.laight.linux@gmail.com>
- <20260915131314.GB2009045@noisy.programming.kicks-ass.net>
- <20260915131510.GD4121620@noisy.programming.kicks-ass.net>
- <20260915145513.111c4a23@pumpkin>
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	mark.rutland@arm.com,
+	vdonnefort@google.com,
+	qperret@google.com,
+	Sascha.Bischoff@arm.com,
+	steven.price@arm.com,
+	tabba@google.com
+Subject: Re: [PATCH 1/7] KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
+In-Reply-To: <20260915123846.2317931-2-fuad.tabba@linux.dev>
+References: <20260915123846.2317931-1-fuad.tabba@linux.dev>
+	<20260915123846.2317931-2-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915145513.111c4a23@pumpkin>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, vdonnefort@google.com, qperret@google.com, Sascha.Bischoff@arm.com, steven.price@arm.com, tabba@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Sep 15, 2026 at 02:55:13PM +0100, David Laight wrote:
+On Tue, 15 Sep 2026 13:38:40 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+>
 
-> > That comment *should* obviously have been here. Also, I would *much*
-> > rather have this store at the top, next to node->next = NULL; That is
-> > much saner.
-> 
-> 
-> Part of the original reason I started these patches was to remove
-> the writes to the current cpu's 'node' in the fast path acquire.
-> That completely saves reading the cache line.
-> It also means the initial xchg need only have acquire semantics.
+[...]
 
-That makes no sense... you *have* to write node->prev_cpu, and since you
-get to have the line dirty for that, a few more stores to the same line
-are 'free', no?
+> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> index 9a3b92e626adb..7c939baf9c1ba 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> @@ -911,6 +911,8 @@ static const hcall_t host_hcall[] = {
+>  	HANDLE_FUNC(__kvm_enable_ssbs),
+>  	HANDLE_FUNC(__vgic_v3_init_lrs),
+>  	HANDLE_FUNC(__vgic_v3_get_gic_config),
+> +	HANDLE_FUNC(__vgic_v5_save_apr),
+> +	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
+>  	HANDLE_FUNC(__pkvm_prot_finalize),
+>  
+>  	HANDLE_FUNC(__kvm_adjust_pc),
+> @@ -932,8 +934,6 @@ static const hcall_t host_hcall[] = {
+>  	HANDLE_FUNC(__tracing_write_event),
+>  	HANDLE_FUNC(__vgic_v3_save_aprs),
+>  	HANDLE_FUNC(__vgic_v3_restore_vmcr_aprs),
+> -	HANDLE_FUNC(__vgic_v5_save_apr),
+> -	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
+>  
+>  	HANDLE_FUNC(__pkvm_host_share_hyp),
+>  	HANDLE_FUNC(__pkvm_host_unshare_hyp),
 
-Trying to make the code keep invariants like that also makes it
-needlessly convoluted.
+Why moving things in the array? The whole point of HANDLE_FUNC() is to
+abstract the position.
 
-If you need a store -- and you do, then you might as well write the
-whole thing.
+	M.
 
-And if you think it makes a difference, your changelogs completely lack
-any factual data to that effect. That is, there are no numbers. And
-without numbers, we're just not doing this.
+-- 
+Without deviation from the norm, progress is not possible.
